@@ -1,79 +1,38 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out28-97.mail.aliyun.com (out28-97.mail.aliyun.com [115.124.28.97])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED7E63E5A19
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 03:02:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEF7C3E2AD7;
+	Fri, 18 Sep 2026 03:02:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789700528; cv=none; b=YtGR1bj+0ZqB9anmdhh1AKdsSJlCIHzPORXfr95VKFsl6DAPK3CYleiCnQVQvStVCzV7pjQHLWcjBuQeUM6QOvOWN08iHGOwbnHxkigMJWFNex8PjX5SUY32drFyrdLoFNDzbSM+qC2ASSp4s4IRC2Sw6TTVe9qvZCNemaGB7pU=
+	t=1789700562; cv=none; b=f2rsOIabHJG5L1CUt6ZCFhCxfHSRk05/qLZ/4ygNv0O+MNdKpZ/K9Cg9DlrmngYqK8hgTWQu8C8hEd99M4KRS331T/khtOsIyUCaZQ6SudX7SSO2ACXYF+avalQUsfFAqpwzCQrYHwxoNSD3Za0tsjLCMuxgZud7gH2KmuYC4xg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789700528; c=relaxed/simple;
-	bh=5AdYSZFlM9mpA/HI3S7NB0TkV6f4XovkiyBzqzde/oY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=n9xC3OVUYcmBOF8n+1vfJ08OfXVNhgYsWVabN9qIyLMeNZ2A2bUJPipf1ofgfOTjFETk+IxodryhErMIBwHygerAeW46RYVSHQY8IIQ/kdRUEqm+nvW0eBAf/jCM2qnTGpk3BgM4iHo1rTI9WovFVf96rwjTT/jCYvpFwcqhB7A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com; spf=pass smtp.mailfrom=jclark.com; dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b=E/SOupZA; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jclark.com
+	s=arc-20240116; t=1789700562; c=relaxed/simple;
+	bh=bGMM5QcTdrKYS7Zph2fOWchXxLN1RGRWWj/xp/ZsTMU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YmXZrThrByvn0xw2/kc6YvJsmuq/bDKpH5ggLBOUybCobcQ+OQ6bfhI/YbbW8tFvq3EjQYT+v4UCSc/fm8fx6PF1dJMKGf+P+aRvhZ8IX9Ip9FY6Nd21PK/3u+qqY884lIgahU33MRT/B+T1ou4ltJGWpgTx5036ZCfcoVs3WwE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=S8H3Yyl2; arc=none smtp.client-ip=115.124.28.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b="E/SOupZA"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea50dc1so108584a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 20:02:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jclark-com.20251104.gappssmtp.com; s=20251104; t=1789700520; x=1790305320; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=V6X1MKF9iM/+JNuGTPcTXOfmgyWPwSTXzdW5BB/5bwY=;
-        b=E/SOupZAQPei8zbJZP2BcCPFdlKjOj8FI9vbUjsCCnHwSzcfPN3QnEiXM/5Yrhzsaw
-         1iR/ZmjPqzf02BVEQ59+jy25xZK0MoIAkfkgLzlifgEOV/2RVLGsAPRAda53rQ4Ag4xX
-         ZAPzjfgP6yi7Jy3FKsgqTtQnOwd0iMPon0q40SARiIZKOZG1r3jMak/TCdkUvLisGBkN
-         QWbsthF3mqb1MJCqjhd3NPcPa1541ftXsU/XJNQ0k0yLgtMojlWZVWL+lTHlUwWSet6t
-         4P5NTnaOabgK5TciYUfdj9gQsbo1UMme+v4hNeLRnJjhkNHcxzZboIrMMU+eeTPO7W2s
-         RC3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789700520; x=1790305320;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=V6X1MKF9iM/+JNuGTPcTXOfmgyWPwSTXzdW5BB/5bwY=;
-        b=Od0SIb9ma3GKCcpwDNLoeX2oCLu8O1RCTyR+FgYwxPWKHEcidtySxwhnyK9mTgmi2H
-         kkSCEPlwPFVA0fUYvl4vCYTEPHRT9xddX6eQ5OiX4lLk3tboxudzKxNey7oF+wf6Zl8o
-         xDMlViIelZ2O8zQPDWI7yORnMGTFIlkYAb+v1mT1hNLEVzzyficMtJJ8GgdD696VI/IQ
-         KanMsJ1WWmrv5MyrWNBcNrX+dO6JKiMg4AqQN1KCOfPkMmcBDx3etgsGjC217D6McjE7
-         sldMOAi2lhdg6qYFWb+sgbocaPvmZCbBtfQSmLacFDZAGwAu15LNXZenS1bH+8ypwNgN
-         2aoA==
-X-Forwarded-Encrypted: i=1; AKwUvBxkKMDl848PFI4w/U4wYLF5UkBRJ/6RQ03c6O6+eVEljZsq56bWameEeQGgdKEptubvItFZXcnDrDxqB3I=@vger.kernel.org
-X-Gm-Message-State: AFuF++lksFup8U/x7R2XWv1gmhYm64BGyWqsVZueCWqI53Jw73SM5uJd
-	R06ZvhuYK5HkKIzXSfqhnnN1hUk49D9G/P3dblfA5I+QPVLmq1Chkh4gMmyVy7SoNw==
-X-Gm-Gg: AYBFou2nlh5xXnpTMet7jkcjpF31Z5CUYT4SOS/nCe3l0gSOX79aa8b8+3XBPRc9IXV
-	GmyYeSS2Q2lUqQCMIi6IzYIai/+peMaF8oS4vtPTQfMiTEs6c4JEEYdwiIMrduI8mF1lrMUOqMU
-	0Y0PUKR99DitJ3QrYD7Yv54P6JsupgDTYVKAjYpL4yVMtg8tyVGveejFphlM5X8Sycx8Z5tG6PK
-	mwL7TA7ze2ehi0UrCc1GtJ0/f7rFZEztc7cSMkLJz3gofn1imIAgUauRRgr+WVgB6lU49gnhLMQ
-	rgvPuvL0WiXpgI5MHvrHOA90k52m8KG8eWHIEX1IUEuJxhZqdx4JJ1A30dx2GD0egSggxHTICuQ
-	UPHpEo4LSyk8mwsqPbSjDKx1+uFlZ6g5OJl5lyLGakeClnZ5oB0jbN0G1oa+Dpg9kosg1aWVIIh
-	ls2FDZUOBIktZ6uGMxA9gP6HCiBvFDUpEIYtYnXFmtJf0r/O64CSktdqdc8C3fq3fdKjpEx7aNF
-	2vC6yzr
-X-Received: by 2002:a17:90b:3fcc:b0:39d:efa9:cd1a with SMTP id 98e67ed59e1d1-39e54d36eabmr2302207a91.4.1789700519688;
-        Thu, 17 Sep 2026 20:01:59 -0700 (PDT)
-Received: from mimolette.lan ([58.136.228.96])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e5a3e3dbcsm618906a91.5.2026.09.17.20.01.55
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 17 Sep 2026 20:01:59 -0700 (PDT)
-From: James Clark <jjc@jclark.com>
-To: Doug Berger <opendmb@gmail.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	netdev@vger.kernel.org
-Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="S8H3Yyl2"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1789700544; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=ZchKATo4SGalM4NsIgxZx/qZNcebZQH3Xqdfka7zIZo=;
+	b=S8H3Yyl2PCy23qSn1lZBsF083HJvFjVbiOsF8FgNPOpBA1JmvXQv9+E+EkHuUALjeyqhgghQi7sZOvOyYZQ1NzVzSuenOfN9NJOkAHGx9T9JQXLp9oheO2tHcS0wCyUwYQtITop+i88hIte+HX3HCM+eYF+r/Wd8aJP80Eh9fyQ=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.9087309|0.09921987;CH=green;DM=|AD|false|;DS=CONTINUE|ham_system_inform|0.0207302-0.00358289-0.975687;FP=14399330002124975970|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037031241;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.jGNq8K8_1789700543;
+Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jGNq8K8_1789700543 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Fri, 18 Sep 2026 11:02:23 +0800
+From: Guo Zihao <guozh23@xiaopeng.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Kory Maincent <kory.maincent@bootlin.com>
-Subject: [PATCH net] net: bcmgenet: add hwtstamp callbacks to restore PHY timestamping
-Date: Fri, 18 Sep 2026 10:01:44 +0700
-Message-ID: <20260918030149.80398-1-jjc@jclark.com>
+	Fang Xieyan <fangxy@xiaopeng.com>
+Subject: [PATCH] media: dvb_net: reject the pointer field at the cell boundary
+Date: Fri, 18 Sep 2026 11:02:22 +0800
+Message-ID: <20260918030222.638961-1-guozh23@xiaopeng.com>
 X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -83,66 +42,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hardware timestamp configuration fails with EOPNOTSUPP on BCMGENET
-interfaces connected to a timestamp-capable PHY. On a Raspberry Pi
-CM4, "hwstamp_ctl -i eth0 -t 1 -r 12" fails with "SIOCSHWTSTAMP failed:
-Operation not supported", preventing ptp4l from using hardware
-timestamping.
+dvb_net_ule_ts_pusi() checks the ULE payload pointer field before
+skipping to the start of the first SNDU, but the comparison is off by
+one:
 
-Commit 5062245a5a7f ("net: remove legacy way to get/set HW timestamp
-config") removed the legacy ioctl fallback, assuming that all MAC
-drivers supporting hardware timestamping implement ndo_hwtstamp_get()
-and ndo_hwtstamp_set(), even when timestamping is provided only by
-an attached PHY. BCMGENET does not implement these callbacks, so the
-core rejects timestamp configuration requests before they reach
-the PHY.
+        if (h->ts[4] > h->ts_remain) {
+                pr_err("%lu: Invalid ULE packet (pointer field %d)\n",
+                        h->priv->ts_count, h->ts[4]);
+                ...
+        }
+        h->from_where = &h->ts[5] + h->ts[4];
+        h->ts_remain -= 1 + h->ts[4];
 
-Add ndo_hwtstamp_get() and ndo_hwtstamp_set() callbacks so the core
-can dispatch timestamp configuration requests through its phylib
-helpers. Both callbacks return -EOPNOTSUPP because the MAC itself
-does not support hardware timestamping; requests for the PHY are
-handled by the core without invoking these callbacks.
+ts_remain counts the bytes left in the cell after the four byte TS
+header, so it starts at 184 and acts as an offset from &ts[4]. The
+pointer field is an offset from &ts[5], one byte further along, so it
+has to stay strictly below ts_remain. A value of exactly ts_remain
+passes the test, and then
 
-Fixes: 5062245a5a7f ("net: remove legacy way to get/set HW timestamp config")
-Assisted-by: LLM
-Signed-off-by: James Clark <jjc@jclark.com>
+ - from_where points one byte past the end of the 188 byte cell, and
+ - ts_remain -= 1 + ts[4] wraps around to 255, because ts_remain is u8.
+
+The wrapped value is what turns this into more than a one byte overread.
+It defeats the ts_remain < 2 check in dvb_net_ule_new_payload(), which
+is the guard that stops the parser from reading the two byte SNDU length
+out of bounds, and every later use of ts_remain in
+dvb_net_ule_handle() works from the wrapped count.
+
+Reject a pointer field of ts_remain as well. Values below it, including
+the largest one that still leaves the length field readable, behave as
+before.
+
+No Fixes tag. The comparison and the from_where calculation next to it
+were introduced together in 59142330aaea (2005) and have not been
+touched since.
+
+Reviewed-by: Fang Xieyan <fangxy@xiaopeng.com>
+Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
 ---
- drivers/net/ethernet/broadcom/genet/bcmgenet.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+The packet arrives through the demux, so a crafted MPEG2-TS stream
+carrying a ULE SNDU with a pointer field of 184 reaches this code with
+nothing else required to be well formed.
 
-diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-index a2305e642..8ead37ff9 100644
---- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-+++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-@@ -3712,6 +3712,19 @@ static int bcmgenet_change_carrier(struct net_device *dev, bool new_carrier)
- 	return 0;
- }
- 
-+static int bcmgenet_hwtstamp_get(struct net_device *dev,
-+				 struct kernel_hwtstamp_config *cfg)
-+{
-+	return -EOPNOTSUPP;
-+}
-+
-+static int bcmgenet_hwtstamp_set(struct net_device *dev,
-+				 struct kernel_hwtstamp_config *cfg,
-+				 struct netlink_ext_ack *extack)
-+{
-+	return -EOPNOTSUPP;
-+}
-+
- static const struct net_device_ops bcmgenet_netdev_ops = {
- 	.ndo_open		= bcmgenet_open,
- 	.ndo_stop		= bcmgenet_close,
-@@ -3723,6 +3736,8 @@ static const struct net_device_ops bcmgenet_netdev_ops = {
- 	.ndo_set_features	= bcmgenet_set_features,
- 	.ndo_get_stats64	= bcmgenet_get_stats64,
- 	.ndo_change_carrier	= bcmgenet_change_carrier,
-+	.ndo_hwtstamp_get	= bcmgenet_hwtstamp_get,
-+	.ndo_hwtstamp_set	= bcmgenet_hwtstamp_set,
- };
- 
- /* GENET hardware parameters/characteristics */
+Pointer fields of 182 and 183 caused a separate endless loop in this
+same block and were addressed in 29e1fa3565a7 ("dvb-core: Fix DoS bug in
+ULE decapsulation code that can be triggered by an invalid Payload
+Pointer"), which added the resync handling but left the comparison
+operator alone.
+
+handle_one_ule_extension() in this file got a bound of the same shape
+last February (24d87712727a), so the ULE decapsulation path has taken
+this kind of fix before.
+
+ drivers/media/dvb-core/dvb_net.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/media/dvb-core/dvb_net.c b/drivers/media/dvb-core/dvb_net.c
+index a2159b2bc..604c767e1 100644
+--- a/drivers/media/dvb-core/dvb_net.c
++++ b/drivers/media/dvb-core/dvb_net.c
+@@ -371,7 +371,7 @@ static int dvb_net_ule_ts_pusi(struct dvb_net_ule_handle *h)
+ 		/* Synchronize continuity counter. */
+ 		h->priv->tscc = h->ts[3] & 0x0F;
+ 		/* There is a pointer field here. */
+-		if (h->ts[4] > h->ts_remain) {
++		if (h->ts[4] >= h->ts_remain) {
+ 			pr_err("%lu: Invalid ULE packet (pointer field %d)\n",
+ 				h->priv->ts_count, h->ts[4]);
+ 			h->ts += TS_SZ;
 -- 
-2.55.0
+2.50.1
 
