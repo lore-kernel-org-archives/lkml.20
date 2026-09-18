@@ -1,63 +1,64 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 110B74E4C5D;
-	Fri, 18 Sep 2026 10:15:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FD574E73BE;
+	Fri, 18 Sep 2026 10:15:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789726546; cv=none; b=qOE6d4aIiz19tZkwxkkjhu66nc1PeNoLKGrDQORPuIkEN3xInUoVbvZeJeliOcS6W+Pi+nv6EJMrXfaOL3An0aDkCXwhhTmMXKTst1efNvdwF+sH8edXmCpbtyAkjPNPt0LPc3eTMgPHJizo23VxcqmKKmj5jNW9OahP9eCgilE=
+	t=1789726549; cv=none; b=QsOog0xvPUYJD5l73lKa2/EKtKY9z7q0nNKm1FghvBLD4yOItDpTzcJIbBkX9tOUu7cf+1P9p5ADXFdLyzOMLLCr2H1z4lLgZ+PN7CFk7N2UaHkO5vU4290tLVlViLyVPBzusphmakYDwL2oeKu774FktIKITB/QG0GBsgcdyDc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789726546; c=relaxed/simple;
-	bh=mfKOIk6Hx78JUtU+/NOGEF+OdIRiTDILdbMMEJt9WX4=;
+	s=arc-20240116; t=1789726549; c=relaxed/simple;
+	bh=kEH5sfh/xwIZGTsSUa2IJ5zn6oOgcMx1HDT+cGIJnxU=;
 	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=YCRciQblUADBV7nTre+jBva92pGzuaWSyYb3pTjnsYgoIN07X4vtMazPmjB/8+EibwC8RYfu/D22KeOc+9rrNsgDp2Kn0W4IflS8wM8HkH0q1U8M8dIdL4AhLzMjvM6SVsm2/5BoVUKAghhcO4P5rFRNHV2DB2MBni7HdJYfauU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=F/R1L05G; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=yF4N9Fq3; arc=none smtp.client-ip=193.142.43.55
+	 Message-ID:Content-Type; b=gYjcxF2FCi7vS5TMV5yW0Vx6DcQrT8FLoaVS7dBVo8HPI6wj3eR3tjjjZS/Q3qMBmUwFZQoMLTzyv7aDTHCDO4i5KZRjZ0TQmLQmqR2PXgKYIlGfzfwiWxDNod/+eqfpxlWo/EvdmHokwFTQyo+6ukeCsDnEMuC4QeVgu2JcIaY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=dVE5Zi/G; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ZTtqbORQ; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="F/R1L05G";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="yF4N9Fq3"
-Date: Fri, 18 Sep 2026 10:15:39 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="dVE5Zi/G";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ZTtqbORQ"
+Date: Fri, 18 Sep 2026 10:15:44 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1789726541;
+	s=2020; t=1789726545;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=mJTYi5cs6kdaVrTKyJ113f+4OdLT76dgh9x8RuuNC04=;
-	b=F/R1L05GGhzdzKRWOQOGaBwfN1/7dVfzuTOuUdQycLkFphchAPGaGAIjLXh8qB419SBgVo
-	DNuXJRAgyK9keOPsIMaR1IGP16G4cw88xanZEFWn4wZ2irqufC6TLO6Et6onumdujNhFS0
-	4ohfW7gSS3O/p/PaHp5Is4dBHdXCshF8eQ8JiAMlxMwYOt3/iYP89bXJqQF3SKEHgh2ICH
-	Ri7e5bfapApSYhRNJId3iGct57FtikCeXitDRKkEWyZfe18On2eJTI8e8BvGVelOayB/pG
-	ha47m3k3txvo+Rk+wnj/ZJ4VJU16l9WUoPNgodHSOFzLfDjTF+tTvwC/wYnNrA==
+	bh=cj+NgDAmPHTGxMjNeUnLt2GAhJVab04hsQA1FA5cHJM=;
+	b=dVE5Zi/GshBY86UBtSKbXj8JKfOgM3dRkD6lFlLfCpHPLHtcA7mBjNLVwwsmbBdCoilUIm
+	p70lyo1H8Xvu57NUmSz+xTHwfQcghxq741l1cg+EttTNpN6SLa9OgaPaeiqC1stxQSWs7q
+	HB/JvvVvY92SZ7SUTwctXbu15HnU0oaoMILC0QNg6FXKu0TNDZKvYVkPzCbfRBlQnv2g0i
+	rr8rBt+r9UonKJJqgGr2Vv/u/z9+Pd0flnHCVmREmyad5xB9mLXAkzPDxoMYkaCbNQ59tC
+	f62Bq4qEKMkBgV7goMk+PpQdQNWWeojdC66cMLVB48OyVnWXlNJEBvCXFCy6Dg==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1789726541;
+	s=2020e; t=1789726545;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=mJTYi5cs6kdaVrTKyJ113f+4OdLT76dgh9x8RuuNC04=;
-	b=yF4N9Fq3qZT/hZvokM/adnR/HeuFKIt6eLZPKzOyi+E8QYv894B4WepXwysCpcK5naq6y4
-	ZodBV6S0IA1/JyAw==
-From: "tip-bot2 for Song Liu" <tip-bot2@linutronix.de>
+	bh=cj+NgDAmPHTGxMjNeUnLt2GAhJVab04hsQA1FA5cHJM=;
+	b=ZTtqbORQjRpBoBcX/BXe/ZtqCqXw8Cn2ByyukOxGKsclMEALtJYX1CvdDVl8lAGv+HG3wL
+	7ORRR7NLzy9LraCQ==
+From: "tip-bot2 for Puranjay Mohan" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject:
- [tip: objtool/core] objtool/klp: Add klp diff and post-link regression tests
-Cc: Song Liu <song@kernel.org>, Josh Poimboeuf <jpoimboe@kernel.org>,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260916184351.2720310-28-song@kernel.org>
-References: <20260916184351.2720310-28-song@kernel.org>
+Subject: [tip: objtool/core] objtool/klp: Add test for correlation across
+ ThinLTO name mangling
+Cc: Puranjay Mohan <puranjay@kernel.org>, Song Liu <song@kernel.org>,
+ Josh Poimboeuf <jpoimboe@kernel.org>, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260916184351.2720310-25-song@kernel.org>
+References: <20260916184351.2720310-25-song@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178972653969.1720534.7373563935513435125.tip-bot2@tip-bot2>
+Message-ID: <178972654419.1720534.11152259613969583318.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -67,310 +68,157 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the objtool/core branch of tip:
 
-Commit-ID:     42ccbaf4de2e07e56b39cfe432f7b453d3fb599d
-Gitweb:        https://git.kernel.org/tip/42ccbaf4de2e07e56b39cfe432f7b453d3f=
-b599d
-Author:        Song Liu <song@kernel.org>
-AuthorDate:    Wed, 16 Sep 2026 11:43:20 -07:00
+Commit-ID:     c374c48c2d3bf0ee4fb755dab8bcd12097d28cda
+Gitweb:        https://git.kernel.org/tip/c374c48c2d3bf0ee4fb755dab8bcd12097d=
+28cda
+Author:        Puranjay Mohan <puranjay@kernel.org>
+AuthorDate:    Wed, 16 Sep 2026 11:43:17 -07:00
 Committer:     Josh Poimboeuf <jpoimboe@kernel.org>
 CommitterDate: Wed, 16 Sep 2026 17:13:28 -07:00
 
-objtool/klp: Add klp diff and post-link regression tests
+objtool/klp: Add test for correlation across ThinLTO name mangling
 
-Five tests covering behaviour the harness could reach but nothing
-exercised.  Each was verified to fail against the code it guards, by
-reverting the fix or sabotaging the exact line; where a first attempt
-passed against broken code, the fixture was wrong and was rebuilt.
+ThinLTO promotes the file-local symbols an imported function touches,
+renaming them name.llvm.<hash>.  The hash is content derived, so it changes
+whenever the module does:
 
-  post-link                    first coverage of the subcommand at all
-  local-vs-export              local symbols must not match exports
-  symvers-parse-error          Module.symvers parse error line numbers
-  checksum-debug               the --debug-checksum format klp-build reads
-  function-removal             the "no correlation" path
+  original: counter.llvm.13663304415433785070
+  patched:  counter.llvm.10543383937958011340
 
-local-vs-export tests the behavior of commit 86a697572c62 ("objtool/klp:
-Don't match local symbols against exports"), and symvers-parse-error that
-of commit 51c1de134863 ("objtool/klp: Fix line numbers in Module.symvers
-parse errors").
+Correlating the two objects therefore requires demangling the suffix;
+matching raw names would see two unrelated symbols and treat the variable
+as new.
 
+The resulting klp relocation also has to name the original symbol, since
+that is the one in the running kernel's kallsyms.  Naming the patched
+build's symbol produces a relocation which can never be resolved.
+
+ThinLTO is a clang feature, so the test declares itself clang-only.  It
+also needs an lld from the same LLVM release as $CC; a mismatched pair
+fails with "Invalid summary version", which reads like a broken test rather
+than a broken environment, so probe for a working lld and skip if there is
+none.
+
+Signed-off-by: Puranjay Mohan <puranjay@kernel.org>
 Assisted-by: Claude:claude-opus-5
 Signed-off-by: Song Liu <song@kernel.org>
-Link: https://patch.msgid.link/20260916184351.2720310-28-song@kernel.org
+Link: https://patch.msgid.link/20260916184351.2720310-25-song@kernel.org
 Signed-off-by: Josh Poimboeuf <jpoimboe@kernel.org>
 ---
- tools/objtool/tests/generic/fixtures/function_removal.c | 25 ++++-
- tools/objtool/tests/generic/test-checksum-debug.sh      | 49 ++++++++-
- tools/objtool/tests/generic/test-function-removal.sh    | 34 ++++++-
- tools/objtool/tests/generic/test-local-vs-export.sh     | 32 +++++-
- tools/objtool/tests/generic/test-post-link.sh           | 42 +++++++-
- tools/objtool/tests/generic/test-symvers-parse-error.sh | 23 ++++-
- 6 files changed, 205 insertions(+)
- create mode 100644 tools/objtool/tests/generic/fixtures/function_removal.c
- create mode 100755 tools/objtool/tests/generic/test-checksum-debug.sh
- create mode 100755 tools/objtool/tests/generic/test-function-removal.sh
- create mode 100755 tools/objtool/tests/generic/test-local-vs-export.sh
- create mode 100755 tools/objtool/tests/generic/test-post-link.sh
- create mode 100755 tools/objtool/tests/generic/test-symvers-parse-error.sh
+ tools/objtool/tests/generic/fixtures/thinlto_local.c | 39 +++++++++-
+ tools/objtool/tests/generic/test-thinlto-local.sh    | 48 +++++++++++-
+ 2 files changed, 87 insertions(+)
+ create mode 100644 tools/objtool/tests/generic/fixtures/thinlto_local.c
+ create mode 100755 tools/objtool/tests/generic/test-thinlto-local.sh
 
-diff --git a/tools/objtool/tests/generic/fixtures/function_removal.c b/tools/=
-objtool/tests/generic/fixtures/function_removal.c
+diff --git a/tools/objtool/tests/generic/fixtures/thinlto_local.c b/tools/obj=
+tool/tests/generic/fixtures/thinlto_local.c
 new file mode 100644
-index 0000000..d65ff60
+index 0000000..fe9f9e6
 --- /dev/null
-+++ b/tools/objtool/tests/generic/fixtures/function_removal.c
-@@ -0,0 +1,25 @@
++++ b/tools/objtool/tests/generic/fixtures/thinlto_local.c
+@@ -0,0 +1,39 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
-+ * A function the patch deletes, along with its only caller's use of it.  The
-+ * original has a symbol which the patched object simply does not, so there =
-is
-+ * nothing to correlate it against.
++ * Two translation units (TU_B selects the second) linked with ThinLTO.
++ * Importing bump() promotes the file-local counter, renaming it
++ * counter.llvm.<hash>.  The hash is content derived, so it differs between =
+the
++ * original and patched builds.
 + */
++
++#ifdef TU_B
++
++extern int bump(void);
++
++int other_entry(void)
++{
++	return bump() + bump();
++}
++
++#else
 +
 +static const char __modinfo[]
 +	__attribute__((section(".modinfo"), used, aligned(1))) =3D "\0name=3Dvmlinu=
 x";
 +
-+#ifndef PATCHED
-+int going_away(int x)
-+{
-+	return x + 7;
-+}
-+#endif
++static int counter;
 +
-+int caller(int x)
++int bump(void)
++{
++	return ++counter;
++}
++
++int target(void)
 +{
 +#ifdef PATCHED
-+	return x + 1;
++	return counter + 1;
 +#else
-+	return going_away(x);
++	return counter;
 +#endif
 +}
-diff --git a/tools/objtool/tests/generic/test-checksum-debug.sh b/tools/objto=
-ol/tests/generic/test-checksum-debug.sh
++
++#endif
+diff --git a/tools/objtool/tests/generic/test-thinlto-local.sh b/tools/objtoo=
+l/tests/generic/test-thinlto-local.sh
 new file mode 100755
-index 0000000..78856b1
+index 0000000..a266263
 --- /dev/null
-+++ b/tools/objtool/tests/generic/test-checksum-debug.sh
-@@ -0,0 +1,49 @@
++++ b/tools/objtool/tests/generic/test-thinlto-local.sh
+@@ -0,0 +1,48 @@
 +#!/bin/bash
 +# SPDX-License-Identifier: GPL-2.0
 +#
-+# "klp checksum --debug-checksum" prints a per-instruction checksum stream,
-+# and klp-build -f (--show-first-changed) parses it to report where a functi=
-on
-+# first differs between the original and patched builds.
-+#
-+# It is a debugging aid, so nothing fails when it breaks: klp-build greps the
-+# stream, and an unmatched grep just yields no output, which reads as "no
-+# instruction changed".  That is exactly how the format drifted out from und=
-er
-+# it once already.  Pin the shape klp-build depends on:
-+#
-+#   DEBUG: <object>: checksum: <func>(): <sym>+0x<offset> <16 hex digits>
-+#
-+# and that --dry-run leaves the object alone, since klp-build runs this agai=
-nst
-+# objects it is going to checksum again for real.
++# Correlating ThinLTO-promoted locals requires demangling the .llvm.<hash>
++# suffix, and the resulting klp relocation must name the original symbol: th=
+at
++# is the one in the running kernel's kallsyms.
 +
 +. "$(dirname "$0")/../lib.sh"
 +
 +setup
-+build_pair basic.c
++clang_only "ThinLTO requires clang"
 +
-+before=3D"$(md5sum < "$workdir/orig.o")"
++find_thinlto_toolchain ||
++	probe_skip "no matching clang/lld pair for a ThinLTO link; set THIN_LD to o=
+ne"
 +
-+"$OBJTOOL" klp checksum --dry-run --debug-checksum=3Dchanged \
-+	"$workdir/orig.o" > "$workdir/debug.log" 2>&1 ||
-+	fail "klp checksum --debug-checksum failed"
++build_thinlto()		# $1 output object, $2 extra flags
++{
++	$THIN_CC -flto=3Dthin -O2 -ffunction-sections -fdata-sections $2 \
++		-c "$FIXTURES_DIR/thinlto_local.c" -o "$workdir/tu_a.o" 2>/dev/null || ret=
+urn 1
++	$THIN_CC -flto=3Dthin -O2 -ffunction-sections -fdata-sections $2 -DTU_B \
++		-c "$FIXTURES_DIR/thinlto_local.c" -o "$workdir/tu_b.o" 2>/dev/null || ret=
+urn 1
++	"$THIN_LD" -r "$workdir/tu_a.o" "$workdir/tu_b.o" -o "$1" 2>/dev/null || re=
+turn 1
++}
 +
-+# --dry-run has to mean it: klp-build checksums these objects again afterwar=
-ds,
-+# and "already has .discard.sym_checksum, skipping" would lose the real run.
-+[ "$(md5sum < "$workdir/orig.o")" =3D "$before" ] ||
-+	fail "--dry-run modified the object"
-+has_input_section orig.o .discard.sym_checksum &&
-+	fail "--dry-run created .discard.sym_checksum"
++build_thinlto "$workdir/orig.o" "" ||
++	probe_skip "ThinLTO build failed ($THIN_CC, $THIN_LD)"
++build_thinlto "$workdir/patched.o" -DPATCHED ||
++	probe_skip "ThinLTO build failed ($THIN_CC, $THIN_LD)"
 +
-+grep -qE '^DEBUG: .*: checksum: changed\(\): [^ ]+\+0x[0-9a-f]+ [0-9a-f]{16}=
-$' \
-+	"$workdir/debug.log" ||
-+	fail "unexpected --debug-checksum format: $(head -1 "$workdir/debug.log")"
++orig_sym=3D"$(in_symbols orig.o    | grep -o 'counter\.llvm\.[0-9]*' | head =
+-1)"
++new_sym=3D"$( in_symbols patched.o | grep -o 'counter\.llvm\.[0-9]*' | head =
+-1)"
 +
-+# This is the pattern klp-build greps with.  Keep it working verbatim.
-+grep -qE "^DEBUG: .*checksum: changed\(\): " "$workdir/debug.log" ||
-+	fail "klp-build's --show-first-changed pattern no longer matches"
++[ -n "$orig_sym" ] && [ -n "$new_sym" ] ||
++	probe_skip "$THIN_CC did not promote the local symbol"
 +
-+# Only the requested function, or klp-build attributes instructions to the
-+# wrong one.
-+grep -qE 'checksum: untouched\(\)' "$workdir/debug.log" &&
-+	fail "--debug-checksum=3Dchanged also dumped untouched()"
-+
-+pass "--debug-checksum format is the one klp-build -f parses"
-diff --git a/tools/objtool/tests/generic/test-function-removal.sh b/tools/obj=
-tool/tests/generic/test-function-removal.sh
-new file mode 100755
-index 0000000..df76e81
---- /dev/null
-+++ b/tools/objtool/tests/generic/test-function-removal.sh
-@@ -0,0 +1,34 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+#
-+# A patch which deletes a function leaves a symbol in the original with no
-+# counterpart in the patched object.  klp diff cannot correlate it, and must
-+# say so and carry on: livepatching cannot remove code from a running kernel,
-+# so what matters is that the surviving caller is patched and the deleted
-+# function is not dragged into the patch module.
-+#
-+# Cloning it would be worse than useless -- dead code in the patch, plus
-+# whatever it references, resolved against a kernel where it may not exist.
-+
-+. "$(dirname "$0")/../lib.sh"
-+
-+setup
-+build_pair function_removal.c
-+
-+# One-sided by construction: present in the original, gone from the patched.
-+has_input_symbol orig.o going_away ||
-+	fail "fixture has no going_away in the original"
-+has_input_symbol patched.o going_away &&
-+	fail "fixture still has going_away in the patched object"
++# Equal hashes would make plain name matching work, testing nothing.
++[ "$orig_sym" !=3D "$new_sym" ] ||
++	probe_skip "$THIN_CC gave the same ThinLTO hash for both builds"
 +
 +run_diff
++assert_patched target
 +
-+assert_diff_log 'no correlation: going_away'
++out_symbols | grep -q "\.klp\.sym\.vmlinux\.$orig_sym," ||
++	fail "expected a klp relocation naming $orig_sym"
++out_symbols | grep -q "\.klp\.sym\.vmlinux\.$new_sym," &&
++	fail "klp relocation names $new_sym, which the running kernel does not have"
 +
-+# The caller changed, so it is patched ...
-+assert_patched caller
-+# ... and the deleted function comes along in no form at all.
-+assert_not_patched going_away
-+assert_no_symbol going_away
-+
-+pass "deleted function reported as uncorrelated and left out of the patch"
-diff --git a/tools/objtool/tests/generic/test-local-vs-export.sh b/tools/objt=
-ool/tests/generic/test-local-vs-export.sh
-new file mode 100755
-index 0000000..5b91101
---- /dev/null
-+++ b/tools/objtool/tests/generic/test-local-vs-export.sh
-@@ -0,0 +1,32 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+#
-+# find_export() matched on symbol name alone, so a static function or variab=
-le
-+# sharing a name with an export was mistaken for a reference to that export.
-+# For a vmlinux export that means no klp relocation at all: the normal
-+# relocation left behind is resolved by the module loader to the vmlinux
-+# symbol, and the patched code quietly reads and writes the wrong object.
-+#
-+# Exports are always global, so a local symbol is never one.
-+
-+. "$(dirname "$0")/../lib.sh"
-+
-+setup
-+build_pair static_local.c
-+
-+# The static the fixture uses.  Compilers mangle statics variously -- gcc sa=
-ys
-+# counter.0, clang says target.counter -- so find what this one produced rat=
-her
-+# than assuming a shape.
-+local_sym=3D"$(in_symbols orig.o |
-+	awk '$4 =3D=3D "OBJECT" && $5 =3D=3D "LOCAL" && $8 ~ /counter/ { print $8; =
-exit }')"
-+[ -n "$local_sym" ] ||
-+	fail "fixture produced no local 'counter' symbol"
-+
-+# Contrive the collision: something else exports that same name.
-+export_syms "$local_sym" counter
-+run_diff
-+
-+# Still treated as the local it is, not as the export.
-+assert_klp_sym "$local_sym" vmlinux
-+
-+pass "local symbol not mistaken for an export of the same name"
-diff --git a/tools/objtool/tests/generic/test-post-link.sh b/tools/objtool/te=
-sts/generic/test-post-link.sh
-new file mode 100755
-index 0000000..a6d40ae
---- /dev/null
-+++ b/tools/objtool/tests/generic/test-post-link.sh
-@@ -0,0 +1,42 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+#
-+# klp post-link converts the intermediate __klp_relocs.* sections into the
-+# .klp.rela.* form the kernel applies at patch load.  Getting this wrong is
-+# invisible at build time: the module links and loads, and the relocations a=
-re
-+# simply never applied.
-+
-+. "$(dirname "$0")/../lib.sh"
-+
-+setup
-+build_pair static_local.c
-+
-+# An unexported symbol is what produces a klp relocation in the first place.
-+# The static local is renamed by the compiler -- counter.0 with gcc -- so the
-+# fixture's premise is that some local of that shape exists, not that a symb=
-ol
-+# called "counter" does.  Find it first; everything below names it.
-+local_sym=3D"$(in_symbols orig.o |
-+	     awk '$4 =3D=3D "OBJECT" && $5 =3D=3D "LOCAL" && $8 ~ /counter/ { print=
- $8; exit }')"
-+[ -n "$local_sym" ] || fail "fixture produced no local 'counter' symbol"
-+
-+run_diff
-+assert_section __klp_relocs.vmlinux
-+
-+# Nothing has converted them yet.
-+assert_no_section ".klp.rela.vmlinux..text.target"
-+
-+# The original relocation is neutralised by pointing it at a tombstone, which
-+# is what stops the module loader resolving it behind livepatch's back.
-+#
-+# Compilers mangle a static local differently -- gcc says counter.0, clang
-+# target.counter -- so find what this one produced rather than assuming.
-+assert_tombstone "$local_sym"
-+
-+run_post_link
-+
-+# One .klp.rela section per base section, carrying SHF_RELA_LIVEPATCH, again=
-st
-+# a symbol in SHN_LIVEPATCH for the kernel to resolve.
-+assert_klp_rela vmlinux .text.target
-+assert_livepatch_sym "$local_sym"
-+
-+pass "klp relocations converted to .klp.rela with SHN_LIVEPATCH symbols"
-diff --git a/tools/objtool/tests/generic/test-symvers-parse-error.sh b/tools/=
-objtool/tests/generic/test-symvers-parse-error.sh
-new file mode 100755
-index 0000000..d597f28
---- /dev/null
-+++ b/tools/objtool/tests/generic/test-symvers-parse-error.sh
-@@ -0,0 +1,23 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+#
-+# A malformed Module.symvers has to be reported against the line it is on.
-+# Module.symvers has tens of thousands of lines and is generated, so a wrong
-+# line number sends whoever has to fix it to the wrong place, and "line 1" is
-+# wrong in a way that looks plausible.
-+
-+. "$(dirname "$0")/../lib.sh"
-+
-+setup
-+build_pair basic.c
-+
-+# Three well-formed lines, then one with no tabs at all.
-+export_syms a b c
-+echo 'this line has no fields' >> "$workdir/Module.symvers"
-+
-+run_diff 255
-+
-+assert_diff_log 'malformed Module.symvers'
-+assert_diff_log 'at line 4'
-+
-+pass "malformed Module.symvers reported against the offending line"
++pass "ThinLTO-mangled local correlated across differing hashes ($THIN_CC, $T=
+HIN_LD)"
