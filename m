@@ -1,125 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazolkn19010002.outbound.protection.outlook.com [52.103.43.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A0353515F9;
-	Fri, 18 Sep 2026 16:39:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789749549; cv=none; b=fqpg+IN0WbjsntQbWx0tdXlKonUT/c5oIksd6WCxa3iVlnRPs1uj+fRo0t+0y30xXFW+Nzd95piDJPyMamcZrH1lyuXj/FE2Xae8iAEAYu2HekoPLH5JhTgWtZ1Uvt2MiyglH1vPA6iMMZRxmaTOezlz2hb23PcQhco/mAViIvk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789749549; c=relaxed/simple;
-	bh=yKgqDhth18rfq4TSlyCvIyYEuIgAYU4N900hfByc7S0=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:From:Subject:Cc:
-	 References:In-Reply-To; b=MFJZfyyeYURrrVrGFH7LTR0q16blkOw1aSvSxS6u+LQx5EnHaKPDzm4Ys+2B0O4K0jTm6B4boyA4qmdSrVvcswEm+pfthaCs+MhmTMBBrG0t9Doh11jMwZtz5/bYdF/GVTRDIc0cg/6tZtUQgNd7F1vhOgAvn06adwI9Hof+cfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PzvJbrnV; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5EC34F393C;
+	Fri, 18 Sep 2026 16:39:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.43.2
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789749577; cv=fail; b=mwDZYMFTw3Hf3QVIPA9c1kHLSmcpIIvd2pCw7YfXy17sRlDWwhP9wI0lCuIngv1W03guebkGUsXKYl+GoGiruH7gXUBXtia4lsrH4AZoiRJjYwyYVG4orcPGEu5T4sPqJF54JGt/o29qU1XHEX4oQtgcI/aWk3enfHGWUBfLiX0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789749577; c=relaxed/simple;
+	bh=C0Psxn3ERVueUYW5sFqBVKjiN4/dQE3IKwSI70aVK+c=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=UfyUB80XVzoV45uZyT7Eqp6T3x9zoTiCCNYrTB74Ax+i0o5Ca5n15cnlz+4pybgWr/4SYGZ4adLZjSJtK7ee/DMz082ktfDCV1sLXBk0j2e1dWBZmiId7wzSvBSKPOuwp3wA+1CLaTXVmhiHh3MUSuj5hRyd48h5ohdUsN46lh8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=Md2401vA; arc=fail smtp.client-ip=52.103.43.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PzvJbrnV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 052EC1F000FF;
-	Fri, 18 Sep 2026 16:39:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789749548;
-	bh=b5Zrlq13Fo17ThZWJD48N0yBnSkZxyrfKbw9LMfDzNo=;
-	h=Date:To:From:Subject:Cc:References:In-Reply-To;
-	b=PzvJbrnVDw1/FGRQjNdgtxkja4g0UKdhJ6ysQeKqAjw3SPoQdbPUDDDVRezIlzPRn
-	 BizmkSglTWN3z27ESnNWnNJ/BNE/5Pf134Kuopamm2cqa+Vg4m4fskohwsleBAZ2kq
-	 8VeG45ejMxOfvV8B5nlzi3rG7isstYgL+7Zzmi6JW51Bc5581vIt00jI9nQCcL0h5r
-	 TJA42xr+2N1e8Upe7jJRd6iYP4RmP4V22zWBn1trh8Pak11rKzlZgEkDRtY82x6XWn
-	 gOXrlr0hA3dXINFz3CQ2chmBvyX/TG7t9RH5RVc3N8nvBO6tGulEJzrciuRym+vaZ4
-	 UoBQJcmt+Ps+Q==
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="Md2401vA"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ervQvWhnHKqsTiJnC5F+zgJ3ly99hV4ojvo9KDGyAI8WWupzt4sDwjpmOnd8hSRXwVISBrQT8Sc/7cJ3vRtrD8eaJuXHjWU6AhvJ8yXEyIS1xI1fPkx5509B+f1Tbw0kIP+K5i1H3XDDcIVJnHYfQGad61bEd64dfBAN76bwYvFryAsd0a79m9N6YQw1DDybP//QCSht4kwOgFTe+PC16uv1L8BXYPOyTI73zvp1fJelsVRCKUWgXu8pAVTyIsA5/7yfaaiXKO/Zr0Qm1hkyM9MYSjiTeKSUl2OhBtRI39zKEjfiwUrjVYQx6iJDsri/PXZKWbTIbzuhEVGwUDsyRQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/qNz3k/WWYHM4HwgpsZl8txOuh4grJtpZF81jSpSuQk=;
+ b=siPzTyANjWvQibxx2GJWRvq4H5iXw3gOA4BlUTTVzRhLZKo7K5ZqDhhsk3BPJ1AXy9QMs+WXB2up77+a0X4wZTO4bSiM0AreIkztYcO0hsWQyc5Ic4nDrNVqnlV0r0EPEPVJEzs2PykCg6A/0h057SQtfYYYN8o/joHbuJiwwVkjg5KV4aC7rEMqv/yLH6IzAokS1wq1lTM+zm3kCtB1qMsC4MGfa0Q/MyCl5Eakgcc1P1TIC0sGVBSMEK/x4IlEapHDcjAihCfeCZ8KaMU9ZyiPwD8znBnj2ZSkjRVquQ4bsTJOHroHgfl3GBwJPRYIx4PBgKP0U0yuOnXWcu5ruA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/qNz3k/WWYHM4HwgpsZl8txOuh4grJtpZF81jSpSuQk=;
+ b=Md2401vAs2YFPkQazEf8JZbuuyHcWGXbzX0obwAlF+MP08Lstqo/PKJc2PA/HSKqAQw71sDqLu/FbasCM9IoPvV2r3eEEm4x6pBw5EKcEiJ0/k5zio6gBkj/8ioow8hsrtc0d8POa0PdP6yAGLP5b+5jkEwLxXfbxF0KhyYYKaA3whdIyB71L9CEB7ci20NCgRj00YsFEUnBKaOP3OyK5d5lStDnwTNfnrKmjbguA5LCQrf7Ooxi0w9MMbfObDqbV+8/gZW+dqYA1cS4mq/3z/nGV+WwiMEH1nhdusRdv1bSFb3YFba+DTOvBzpL18Vx0KmHyTa17aE0cB7ZFRZUsg==
+Received: from OSZPR01MB8140.jpnprd01.prod.outlook.com (2603:1096:604:1a5::10)
+ by OS3PR01MB6965.jpnprd01.prod.outlook.com (2603:1096:604:12c::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.14; Fri, 18 Sep
+ 2026 16:39:27 +0000
+Received: from OSZPR01MB8140.jpnprd01.prod.outlook.com
+ ([fe80::91ec:49f5:d743:6d5b]) by OSZPR01MB8140.jpnprd01.prod.outlook.com
+ ([fe80::91ec:49f5:d743:6d5b%6]) with mapi id 15.21.0406.014; Fri, 18 Sep 2026
+ 16:39:27 +0000
+From: Shiji Yang <yangshiji66@outlook.com>
+To: netdev@vger.kernel.org
+Cc: Felix Fietkau <nbd@nbd.name>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	stable@vger.kernel.org,
+	Shiji Yang <yangshiji66@outlook.com>
+Subject: [net PATCH] net: ethernet: mediatek: only enable WED for ARM64 architecture
+Date: Sat, 19 Sep 2026 00:38:30 +0800
+Message-ID:
+ <OSZPR01MB8140B889AD227E0B547F5F87BC872@OSZPR01MB8140.jpnprd01.prod.outlook.com>
+X-Mailer: git-send-email 2.53.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SI1PR02CA0049.apcprd02.prod.outlook.com
+ (2603:1096:4:1f5::18) To OSZPR01MB8140.jpnprd01.prod.outlook.com
+ (2603:1096:604:1a5::10)
+X-Microsoft-Original-Message-ID:
+ <20260918163830.297803-1-yangshiji66@outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 18 Sep 2026 18:39:02 +0200
-Message-Id: <DLIL9H50MALI.3JROXYEEUM3KU@kernel.org>
-To: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH v4 0/3] driver core: add TAINT_FORCED_BIND for when
- userspace manually messes with devices and drivers
-Cc: "Luis Chamberlain" <mcgrof@kernel.org>, "Petr Pavlu"
- <petr.pavlu@suse.com>, "Daniel Gomez" <da.gomez@kernel.org>, "Sami
- Tolvanen" <samitolvanen@google.com>, "Aaron Tomlin" <atomlin@atomlin.com>,
- "Jonathan Corbet" <corbet@lwn.net>, "Shuah Khan"
- <skhan@linuxfoundation.org>, "Randy Dunlap" <rdunlap@infradead.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, "Steven Rostedt"
- <rostedt@goodmis.org>, "Masami Hiramatsu" <mhiramat@kernel.org>, "Mathieu
- Desnoyers" <mathieu.desnoyers@efficios.com>, "Bradley Morgan"
- <brads@mainlining.org>, "Aleksandr Nogikh" <nogikh@google.com>,
- <linux-modules@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-doc@vger.kernel.org>, <linux-usb@vger.kernel.org>,
- <driver-core@lists.linux.dev>, <linux-trace-kernel@vger.kernel.org>, "Johan
- Hovold" <johan@kernel.org>
-References: <20260914-bind_taint-v4-0-eadf8a090903@linuxfoundation.org>
-In-Reply-To: <20260914-bind_taint-v4-0-eadf8a090903@linuxfoundation.org>
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OSZPR01MB8140:EE_|OS3PR01MB6965:EE_
+X-MS-Office365-Filtering-Correlation-Id: 950d61ec-0455-4c92-7589-08df15a3674f
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|23021999003|5072599009|5062599005|15080799012|51005399006|25010399006|19110799012|8060799015|4140399003|24021099003|22091999003|24121999003|3412199025|440099028|40105399003|2607281247196008|1710799026;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?Dwbkueh3wqoiDEsDyL5+TQcn88IUhxT5bbkYNv/h3kwF7E7TJ2jmXBkeNO0f?=
+ =?us-ascii?Q?BLMLyG02lAAwffyzztkDwmXCwTNTbrLC2If4LtDGPbvqFWWCRkTDg6mRlcRC?=
+ =?us-ascii?Q?4FiOM530Jl8Fd9wbWrb9V7WgcR626dzYh73ganooBjFcVMs9fWEUT40anJE9?=
+ =?us-ascii?Q?6kV/f4H2XDL2LTo8sC/9MbUJKEQRV2mQ/z9V3KTQjfCQHvBQznk8wFmVg3f+?=
+ =?us-ascii?Q?ocJ8t00CQRChTKl++4xDYijLlIVIH4DxJKj8TDbsgSdH5sAMTtSbwVNFm80O?=
+ =?us-ascii?Q?ikbcvOk1xtWXkw81gASP91UOyb8MP61p3zhvBqWRtoT1VZyouBqyxrBFRDWW?=
+ =?us-ascii?Q?nl5YefBvIKe5oW7+ZTcm6lb78w5BQeyK5ZNYB7ujTHgsyA2ZtXA5nNWJdCh0?=
+ =?us-ascii?Q?T4jlR+80TxHjFTHUXqyOEEfXnpYG+2mrOFmx3hvlRRLFhwCi54aUxslh3euB?=
+ =?us-ascii?Q?0ZnOtIdMgmcOiUJi7PGQRL8WSMKvLpe69U3Yxwu6ghmarKuRIB38HUN5hkwe?=
+ =?us-ascii?Q?e0qnpQiag1i6gJwcf9CKrT/2rJnBRmFkUaw+Thf1y3wSEwfY6zPljfxBrEiE?=
+ =?us-ascii?Q?LFtFBQJckYy2aX+jkUmKZZY84dkstjlXN1vMneTCey6Lse1HuCq4+1X6xrps?=
+ =?us-ascii?Q?ZimyoNdffIZSTS3I1FiUrtB6L+M78fTJ2b0ke7mcj2BeLBzV1Oc0LqPZkrst?=
+ =?us-ascii?Q?BLAlxLXXVy9GnQLx7IispvU03GSYYkkMzcPTZaixOjvv1cmpW7dBJBcY8+V6?=
+ =?us-ascii?Q?vD/mzGAczKL7MJUfxjYOm0mxirOIVH9a2StOF334vnmF8LR5Zkyk8hC9ngNG?=
+ =?us-ascii?Q?zFFJ08rfJFcO84T+7dDZZBPk8SUX5nTQFwNzcEdDjHeASmVELLCJVn7QXJ4J?=
+ =?us-ascii?Q?RpfouYiOGS9mRF2rduC9rn3VwrechluMcpupCR+DquOxxrI0KtnJF+euXKTj?=
+ =?us-ascii?Q?8YYv3wOCnw3yBmBAyJEXD83rW2rh3q5Fyw2v8041LM9nQtTnaIbwp4GLCGuY?=
+ =?us-ascii?Q?L+QE/7B0MaEdu0mvzz5wZBsQjgZnfurDTQ9hWrN5QTJzllAbIbD9+28bocJx?=
+ =?us-ascii?Q?tdAG3WN9?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?sEjT1Xu4x0jMSNgEo2Maf8Xvgaz9J5WsoIZ/rSsQ97/WnPTZK3kL6CsPG03o?=
+ =?us-ascii?Q?5SmTxB2stgg1yOK9gkJliAc2mdWHCckzjVsb9KmKGCNbUb97yZOaCkxwOyIQ?=
+ =?us-ascii?Q?bt5+RLEmqgmIxWLCskzEtk8pjerRpfwq/JahPgaNu3FCsQrLD0hWq/aNpf6f?=
+ =?us-ascii?Q?At8N0pNwc8X8JuIPos66M7zU2w895M8+HbhfHdyhy1nuhDG7U0bV101yAlNd?=
+ =?us-ascii?Q?lUELN9pT9RCA6Fz1hqDXMRWKL5kzjrZybEBi6Ftfhc+HGznm1LDQrZWzprvU?=
+ =?us-ascii?Q?Ea71ImUa195hzfAA0hkot9el8ZGBhHXiRmw5g8HRljZzl1zTkpbkclQ9zRR7?=
+ =?us-ascii?Q?hCpg9xsQdUv7eSJShYH5UNYIIs16str3wkoT3cvczzkviwgf+z4FTWqeY5vE?=
+ =?us-ascii?Q?gbhtQ1pDPnS9NWMjtXYp1p/snW2lsXo9Kav8LZkuUWLQVS5Y+ZDGCUYdwYbQ?=
+ =?us-ascii?Q?6NFsD0SPIUIZfX9tbBD/WfVeqr6OUzbcN+TRJmP1xQqr6DO4StE7Ifsw4XFI?=
+ =?us-ascii?Q?cVQABFXIZZt7MBmINbBLnM+SpjKolPWriZ/FYYJedJ4RkffzuqTdp52tTc0e?=
+ =?us-ascii?Q?oy5qlYArNmv+mLRLsZWqQ9d+Eo50LDXq8jCJkUNLQ/P45O7MKPTMB90Abd0L?=
+ =?us-ascii?Q?EnQPpbUEbQo4xeObbJQthHfKv8+zQyU273t9z57fiy2rNQlUjnhTKJ4QUNc2?=
+ =?us-ascii?Q?R6uIMlzf3rO69Aj/b1wn+3wQ/ZX8753u5jpUoOZbGsIOs8rK+i+mQUz3GqZz?=
+ =?us-ascii?Q?vYJA9Ytg3FZijc+yIPEkxxZHR06AfHeabasZeqfHZ6Mg2KN/zVi/xas8Fn9o?=
+ =?us-ascii?Q?eHXZWZXCrdBVvG2omo2dBx/wBe5QO6m/Vl/u1y4v83kXWQMXFjB/CC0d8osQ?=
+ =?us-ascii?Q?T7SzvwpgmBqiAbRp4ruSxLo2/MqFZALACqKGWgMQGb7c50D0Pr9nkZEg6MsN?=
+ =?us-ascii?Q?kETbT4RArjAh1xXU0Kmn8HSjTYbqmlqqN64THbhlBgCGXMOD7TDCbvBqq/ol?=
+ =?us-ascii?Q?DMvnCe/hHmFqVxFPw0qeWABv6+MLoojz+scwhLHE5bvQAhBkK1dcue3dYBc/?=
+ =?us-ascii?Q?Ud2SOUT//98b7M0YFhSVr1bc6KugrTD9Jvvx5wF/fWy2y6Aox4M7nkcHtOgH?=
+ =?us-ascii?Q?Qq4VZ6PSAAvE2MNJBLuwA6fgs1geOfEcBu1Kd11seqs1yAq0jtGAt/QUh00/?=
+ =?us-ascii?Q?47VIbkKg8NVlxS9uTsE3VSYLgNJh/IMKHmaZ5opetzOQkC2JBg0AZgHUy7uq?=
+ =?us-ascii?Q?xT4ZCYJ7sXBY6RUs8PTpulSS6c9CjTCjsOixFhPRxPeFqZpI1uCcVUKJCiLg?=
+ =?us-ascii?Q?fPz8nDxhELJTkoDn+nXsyHRj7vOneCGzuxh2WuCdIvQAG5qsELrDMvfFVOuc?=
+ =?us-ascii?Q?cq8nGdHGKjOeYKKcH6GjX6pR/FJQ?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 950d61ec-0455-4c92-7589-08df15a3674f
+X-MS-Exchange-CrossTenant-AuthSource: OSZPR01MB8140.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 16:39:26.9476
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB6965
 
-On Mon Sep 14, 2026 at 4:30 PM CEST, Greg Kroah-Hartman wrote:
-> The ability to add and remove devices from a driver through the sysfs
-> "bind" and "unbind" files was created all those decades ago as a way
-> that kernel developers can iterate faster, and provide a debugging way
-> for users to attempt to add a new device to a driver without having to
-> rebuild their kernel.
->
-> This api over the years has been abused and recently come under a major
-> fuzzing "attack" through tools like syzbot which decided that it would
-> attempt to just randomly bind any driver to any type of device, causing
-> loads of unneeded errors and pointless kernel patches to be generated by
-> unsuspecting new developers.
->
-> Handle all of this by adding a new taint flag, TAINT_FORCED_BIND, which
-> will be set on the driver if the bind/unbind sysfs files are ever
-> written to.  This lets kernel developers "know" that a user is
-> attempting to do something that is not normal, and as such, if the
-> kernel breaks they get to keep the shiny pieces laying around on the
-> floor.
->
-> The flag is 'Y' which was unused, and can remembered as the user is
-> "yeeting" the device being operated on here (thrown with force without
-> regard for the thing being thrown).
->
-> Note, the taint flag gets set _BEFORE_ the bind/unbind callback happens,
-> as many times crashes/oops/warnings/failures happen within the callback,
-> and the taint flag needs to be there to show what was being attempted.
-> If it were to be set after the callback happens, the oops report would
-> not properly reflect what foolishness was being attempted.
->
-> Fuzzing tools like syzbot, that doesn't have hand-crafted rules to keep
-> the tool from hitting bind/unbind, should be run with panic_on_taint
-> enabled so that they fall over and don't continue on, thinking that they
-> actually found a real issue.
->
-> Userspace operations that rely on the bind/unbind files
+Currently, only MT7622 and MT798x SoCs support WED features. They
+are all ARM64 platforms. And it is unlikely that MediaTek will
+release a new net chip based on ARM32 architecture in the future.
 
-I agree that this should be avoided.
+Fixes: 804775dfc288 ("net: ethernet: mtk_eth_soc: add support for Wireless Ethernet Dispatch (WED)")
+Signed-off-by: Shiji Yang <yangshiji66@outlook.com>
+---
+ drivers/net/ethernet/mediatek/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-But I also think the biggest offender really is driver_override. Specifical=
-ly,
-on a hot-pluggable bus a driver must be complient with the device driver
-lifecycle rules and hence shouldn't break on bind/unbind. I think it would =
-be
-nice to not taint the kernel for such busses, and only taint on driver_over=
-ride,
-as I think we'd still want the bug reports for such cases.
+diff --git a/drivers/net/ethernet/mediatek/Kconfig b/drivers/net/ethernet/mediatek/Kconfig
+index 2ba361f8ce7d..7737f2f15478 100644
+--- a/drivers/net/ethernet/mediatek/Kconfig
++++ b/drivers/net/ethernet/mediatek/Kconfig
+@@ -8,7 +8,7 @@ config NET_VENDOR_MEDIATEK
+ if NET_VENDOR_MEDIATEK
+ 
+ config NET_MEDIATEK_SOC_WED
+-	depends on ARCH_MEDIATEK || COMPILE_TEST
++	depends on (ARCH_MEDIATEK && ARM64) || COMPILE_TEST
+ 	def_bool NET_MEDIATEK_SOC != n
+ 
+ config NET_MEDIATEK_SOC
+-- 
+2.53.0
 
-But I think this is fine to leave for a follow-up.
-
-Acked-by: Danilo Krummrich <dakr@kernel.org>
-
-> to work around
-> the lack of will to upgrade a kernel image to a newer version with
-> proper support for new devices, or the lack of will to submit valid
-> device ids to driver authors, will still work properly, but now the
-> kernel will be flagged in a way that will show that perhaps those users
-> should reconsider their behavior and work to have the drivers properly
-> support these devices in a "native" manner.
->
-> Finally, the bind/unbind files can find real use-after-free issues with
-> some drivers by forcing the process to happen virtually without having
-> to rely on manual removal processes.  Those real bugs should still be
-> worked on, but by adding this taint flag, developers can more easily
-> determine bug reports that are actually worth looking at.
->
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
