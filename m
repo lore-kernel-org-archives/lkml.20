@@ -1,271 +1,112 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E36C3F825B
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:41:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 687B93B05BA
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:41:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789724471; cv=none; b=QNT/YhQAtAMUnxdBxd6H33/noKzP24k1tiucPuHMMU/qTYl0/iIoY8Z6OE5MXyR3LvzHCPCEV4MdaTFlIIYCchNtVsm4cc8aJUMq76G07HOGeiYXXc3UyWC8wrXFzTtfc4SEGnO7BRYWi9FiPnXsZCtPX8XTdHud8IuUkUlh3II=
+	t=1789724474; cv=none; b=bcwMTAMJnU/0gEGvTyld8hKjfWHLROFIr7XalLuaKjvOeQAmdN70J805cEtKmJ9x+iuvJPNuQ6NXuUM/Kq3zZv6PfP3PIS8dsxI1K+OjiOiotK1NDSF0bfpGZd9wT1dzwlBIga6GezqkYf3OE6VhjrOCulqI2gM9VIViT+D0748=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789724471; c=relaxed/simple;
-	bh=lAmGPjgC9g5IQl8kDhSTdrOoqcbI4yIrTQQgcW6k2Q4=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=QNrMWzasDkWImlw3oCsAQubk3fzcLCqy2Peh4L5EeGp0+KOw3CqSApZUKpS+jMkNVX137VE6HQ7PCst0ysmr2/aHcxA5c5Ae8msPBdL+6CWq7svqEXubf31KpnNgTEEWcMseOimWdyXRsv2GP/IRx2BC45tx7J7NKULX+Ib3iDI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BxiMdXGr; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789724474; c=relaxed/simple;
+	bh=IR4Xs8Dn+IT7ihKZTCedV4W+0dWbX6d3AknpHpe5TcU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iXHVDmFHfl0jrKQiN9QdkpqGN3s9Y3DfhllnJbpIQtclXpOnhnonmQmW//VaPJJcit+dFGMmdpLrSTFrH0io10Yp1pPTpBkReTy2c59+U3Lysgv41BCkgIospELDhUE+uRL6qlEmlWpU9nNW4jlXVgdxdN3hq0rJmhokIF2q+Ow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=LAES7C7q; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BxiMdXGr"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so2614025e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:41:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="LAES7C7q"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f8694aeso30993266b.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:41:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789724467; x=1790329267; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9lyz7KsqbgiRHXCzgXytWiqYCcnNV7OEQjlWDA7ERYo=;
-        b=BxiMdXGr1H7KWp6fnWKThbGft3uwi41etUeJKX4lMWg6RAsKAduRgwvYN6EwuDh+V3
-         pwzXDNORdiry9toi9fdEdY7zTqnrHOShdIFLPmz23YfZQlNMvFqbMDaDpbdmpHYKc4b+
-         vAd0lit5Y648eOwu/7XClGR8AddBE0NbhygjNNON2HgvkhZsjUWEydtaFOTvCOhOzIxH
-         T0TyTq9epMbwLWF9y35BQgkuEGCWFHlSkyT7271/oeJO8qz7m6NlHAYHKZGyyho95keu
-         cs6W9aJmQNWgY6IyQ8VHsFckFeXnjHka7TMMy4ntLF7/XwsENIbW4Ky4yyIMc30O0Vn4
-         EB5Q==
+        d=suse.com; s=google; t=1789724470; x=1790329270; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Bvlc7PQn5Y10Z6hN+pRJdEeRFAR13rFud0pX61FSVmw=;
+        b=LAES7C7qMl5J/amuAMRyjF51wxXmaG/zBTQf4XIhAqB25va7yzZKr6pazVM4V8LdxA
+         E4xWkb1svpk0pEOQngjihkZl5GmiQnEmoXJRiQSRBvYXISLNoUcbDf7ttBpyHEQmDW+/
+         QLUu2LxrV1upj9Uax59SaLVQdt5tJVyzgy0zkiEsxRDcX0QP9WB8lskjPCaQOzRU5OFs
+         ATsnY95P3w1hXlPvIVGCe4myZzzQolOVU2dzayIsLriBcAiv6iNIKfprnzteaNhHqc2T
+         9bKvELb5xTiDpqfWXTHKAD/UHRUSE2/L2Gzi7+MWg75Og1CEf1/6kb0EyaiuN8uZAJF7
+         R85g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789724467; x=1790329267;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1789724470; x=1790329270;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=9lyz7KsqbgiRHXCzgXytWiqYCcnNV7OEQjlWDA7ERYo=;
-        b=hrCTm23WLQEjl3plxp+LkDOsntsrr5X0GxTYmu/v0QSDe94d8DPd3MGhLZxOSFo1YH
-         hmY6PuZyQSwLCmXyB7h32z+7C05Um3BbyBqNo/J8dYKpiFkh3V+osHDUg2yPwgkx3Z0l
-         vbP/gru/05X8h69+p/3jBjupRAZBx9kenkuJ+CBJrlHsJnPA4dU9F5hemCOmvRNnhfyb
-         cZmGxMMDkqB1dfCTXt0bsQPhk76CsFYAQ0KFg+huzLcmIl8+zHL1qZgN/PLpJhfNDklE
-         U2Gto/rBJJEo5oGQSOhCWeksyyCQ6JYkRUGczsOqoL9bCi9/6+ydUpR6DSraPLCYvWXg
-         t58g==
-X-Forwarded-Encrypted: i=1; AKwUvBxZCYVEx1D7wRvQM0+UAcKuAMGk4KQWFSOzXlJYdsX0T2TQiZP0YrZRACVCmRUM744P1cdW9bOEAStOFcs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mn98U1ZdiLr3gTdxl+yPVoRFc0rxRihtD+TdeEBM8KFBpBxstH
-	i3cZPvM87bvXPQ7YIwSWvk8ZRirel8vW+Fn0Df5Xam9Dhs3pP7XyeRM/gLjT0Q==
-X-Gm-Gg: AYBFou1llLGGvyb4D+eSkypgBzzJ63LKh0C+TEM2qQAnKB/8iPwbY8V7TSyP+W+2IRX
-	eaIR81R1zFiIxkTLS3mWYDkcwe//iQlG1NIspBuxiQ9ENPjd1/JyPZdR9Hlv5Dzj6Gofxp8vZyN
-	5WhvfiJO98gXWZBO1xo+L1NgbA8Za1YtWTP6pIEauU8xCRNFxxUkd7boaJTvUoIMg4L0iW5OI5f
-	uQwKFvVLFaCX60tjm2wWbJif+7LhXr83N1QQn1iemGKK/xVe+2MSre04rZjA++V4kQes9aiHaF4
-	9FBoIfcg2eqfneoMn9L+A7wL27MhCrCq2WhtoHzrYGviVhCkod3CW0sC9rayTtSjOaAhDR9epys
-	UMfKpsaZUiS7uxSNO+ljh+AVL23ybnHP3aRNyDZ8RUg9nC+V3OJU5wc6wYG4cnr1imIHLNwajIJ
-	MnDyQJ2WJx3gtKrQt8Co6EKTCusSu2WubDRv6yg3aQ8KV+UgsOt7AsF82NyRWC8HzsPwfbxnMNG
-	CfqxM1PudGjSZ4ma657rzIOUfgTQ/b6vHGooRvuGg==
-X-Received: by 2002:a05:600c:a00f:b0:49e:645e:2616 with SMTP id 5b1f17b1804b1-49fc56692e0mr24091905e9.5.1789724467404;
-        Fri, 18 Sep 2026 02:41:07 -0700 (PDT)
-Received: from Abds-MacBook-Air.local ([2a02:3037:31e:59ba:b091:766d:f5d2:bc1a])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd216028sm141427195e9.7.2026.09.18.02.41.04
+        bh=Bvlc7PQn5Y10Z6hN+pRJdEeRFAR13rFud0pX61FSVmw=;
+        b=M8aTCzFOjFf15XwY1pvb0YFiUwMxt2Bw7NaKy+OAFn09B/LGT4jl4pMihiJBnAHVM3
+         rIx27XYKTWK2dJo3fycHroNIf7FmskpdRXRRhdlfUOUwxrI4fWZwzuCDZs6wtybGZPQb
+         MQQyxFr5gC1ffinqI8Addlo9A4RtqUauwlrJuGRN3i6xcjIdYujVOH98HxoWIt9rTZcC
+         CgPVovbfxu0OmIP83M1wwyOzADpiouG6FCOsAgs5QLEnLXtx5+iLZszKlTH/+GG68Rzr
+         D6trsnQjatbN0V+4VcOj4no/Q+DhM2Ft0f3nXsh5FUSucVi4dHs9O/zkC+AyXWl5ri6k
+         JjAQ==
+X-Forwarded-Encrypted: i=1; AKwUvByaIxwNNMc5bqPb3G1wposfQ93Mc2vrGns7bWBmMLrD2/GOguR9FlaAJYm7QQsnZQfqJZOCQd9aX0I4lqI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kzRa8qjjdVYX1YaK+Dv5iZ7l63XnxT0JSRurZucHQA9HBHbaji
+	rN2NyFvWaUmcvxoF23UPa7hKjp7dXZs4jhr7pEmJkxlrx/onzPnXJ5PMNhecZMYRqOU=
+X-Gm-Gg: AYBFou3AFpRa6D61hIoxzjbake9/D8CJn81PYGA9E/wTrqIMFxCFquJVbx/TFQpGWyd
+	YliQJcrTCzFwE3m5OJC8BIppfT1RRhzDQTOsWETL7rEIi19SzGzCOiiov+hDDO2U9GkzNSnDn5M
+	UEEZ3vCnNR7Ga2uu3XWXzDX9BAgJn71FLcOmFxl3+71AFaCDKEhMcObq18aWDKP75PB8G8TEqdn
+	MMlTr5WoyLpfTeC9B65DYz3aEpkkDYkIyaR5Flo3JjB45lPnq6srvRP0ndQcICoftnihRUq0TDm
+	PZpF+WHMumCHA93Cki5p3cSYMjF8bhhQE7aV1PrUz5idvAFOqg7h7w3GAaEU0AvMZPL2HOdUpJd
+	+zHuNwzp2VVuOS6KTkaWOAuXsSiETsbSY4Zzof0VMYFg3AaGzJZpqo9qjKPPYjnyoAGlVzsfnsl
+	VMjDAMRqxFxuEmNuSIBx5iQcaTF/n8S6LmNdtuJ8sXvtXoZRC8yK9Ed/5L2GY=
+X-Received: by 2002:a17:906:6a13:b0:c29:97e6:284e with SMTP id a640c23a62f3a-c2a165561damr161932166b.13.1789724470414;
+        Fri, 18 Sep 2026 02:41:10 -0700 (PDT)
+Received: from localhost ([2a02:aa7:4656:2314:c23c:9eda:81d:3])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a1bbc683csm37937066b.58.2026.09.18.02.41.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 02:41:05 -0700 (PDT)
-From: Abd-Alrhman Masalkhi <abd.masalkhi@gmail.com>
-To: yu kuai <yukuai@fygo.io>, Zhihao Cheng <chengzhihao1@huawei.com>,
- song@kernel.org, xiao@kernel.org, magiclinan@didiglobal.com,
- eadavis@sina.com, yu kuai <yukuai@fygo.io>
-Cc: linux-raid@vger.kernel.org, linux-kernel@vger.kernel.org,
- yangerkun@huawei.com, yi.zhang@huawei.com
-Subject: Re: [PATCH v3] md: Fix the null-ptr-deref of 'mddev->private' while
- submitting IO
-In-Reply-To: <12b0bc4c-5dfb-4936-8ecd-849137b597d8@fygo.io>
-References: <20260918070900.1945351-1-chengzhihao1@huawei.com>
- <m233v7586k.fsf@gmail.com>
- <249f987d-9d2d-8f5c-91dd-3af6baefe587@huawei.com>
- <m2zexf3r84.fsf@gmail.com>
- <856a065c-38ef-08cd-7701-8f579212a1a3@huawei.com>
- <m2wlsj3poi.fsf@gmail.com> <12b0bc4c-5dfb-4936-8ecd-849137b597d8@fygo.io>
-Date: Fri, 18 Sep 2026 11:41:03 +0200
-Message-ID: <m2tsnm5234.fsf@gmail.com>
+        Fri, 18 Sep 2026 02:41:10 -0700 (PDT)
+Date: Fri, 18 Sep 2026 11:41:09 +0200
+From: Michal Hocko <mhocko@suse.com>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Tao Cui <cui.tao@linux.dev>, hannes@cmpxchg.org,
+	roman.gushchin@linux.dev, muchun.song@linux.dev,
+	cgroups@vger.kernel.org, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, Tao Cui <cuitao@kylinos.cn>
+Subject: Re: [RFC PATCH 0/3] mm, memcg: isolate deprecated v1 state from
+ struct mem_cgroup
+Message-ID: <aq0HNe5s3zvOnM_I@tiehlicka>
+References: <20260916125737.1095414-1-cui.tao@linux.dev>
+ <aqxMk6yaiFHeeAAg@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqxMk6yaiFHeeAAg@linux.dev>
 
+On Thu 17-09-26 13:26:40, Shakeel Butt wrote:
+> On Wed, Sep 16, 2026 at 08:57:34PM +0800, Tao Cui wrote:
+> > From: Tao Cui <cuitao@kylinos.cn>
+> > 
+> > The legacy cgroup v1 memory controller has already been moved out of
+> > the shared implementation at the file level (mm/memcontrol-v1.c) and at
+> > the Kconfig level (CONFIG_MEMCG_V1, default n since 6.11).  Its
+> > per-cgroup state, however, still sits as individual members inside
+> > struct mem_cgroup, guarded by #ifdefs.
+> > 
+> > This series isolates the deprecated implementation from the shared hot
+> > structure: all v1-only members are grouped into a dedicated
+> > struct mem_cgroup_v1, and every access goes through memcg->v1.X.
+> > 
+> > With this in place the v1 implementation is self-contained: its
+> > interface in mm/memcontrol-v1.c, its state in struct mem_cgroup_v1, and
+> > its eventual removal becomes a localized deletion of this struct
+> > together with mm/memcontrol-v1.c, instead of unwinding
+> > ifdef-scattered members across the shared header.
+> 
+> Sorry I don't see any benefit of this code churn. The code is already behind
+> config. What exactly this code churn is giving us?
 
-Hi Kuai,
-
-On Fri, Sep 18, 2026 at 17:30 +0800, yu kuai wrote:
-> Hi,
->
-> =E5=9C=A8 2026/9/18 16:54, Abd-Alrhman Masalkhi =E5=86=99=E9=81=93:
->> Hi Zhihao,
->>
->> On Fri, Sep 18, 2026 at 16:34 +0800, Zhihao Cheng wrote:
->>> =E5=9C=A8 2026/9/18 16:20, Abd-Alrhman Masalkhi =E5=86=99=E9=81=93:
->>>> On Fri, Sep 18, 2026 at 15:38 +0800, Zhihao Cheng wrote:
->>>>> =E5=9C=A8 2026/9/18 15:29, Abd-Alrhman Masalkhi =E5=86=99=E9=81=93:
->>>>>> Hi Zhihao,
->>>>>>
->>>>>> On Fri, Sep 18, 2026 at 15:09 +0800, Zhihao Cheng wrote:
->>>>>>> Concurrent processes md_stop and IO submitting could trigger a
->>>>>>> null-ptr-deref of 'mddev->private':
->>>>>>>
->>>>>>>     BUG: kernel NULL pointer dereference, address: 0000000000000070
->>>>>>>     RIP: 0010:_wait_barrier+0x2f/0x250
->>>>>>>     Call Trace:
->>>>>>>      raid1_make_request+0x150/0xf50
->>>>>>>      md_handle_request+0x104/0x530
->>>>>>>      md_submit_bio+0x76/0x130
->>>>>>>      submit_bio+0xdd/0x250
->>>>>>>      submit_bio_wait+0x1f/0x40
->>>>>>>      __blkdev_direct_IO_simple+0x1f6/0x370
->>>>>>>      blkdev_write_iter+0x3b2/0x520
->>>>>>>      ksys_write+0x7d/0x190
->>>>>>>
->>>>>>>                  P1
->>>>>>>      fd =3D open(/dev/md0, O_RDWR)
->>>>>>> 	                      P2 (forked from P1, fd' <=3D fd)
->>>>>>>      write(fd)
->>>>>>>       submit_bio
->>>>>>>        md_handle_request
->>>>>>>         raid1_make_request
->>>>>>>          raid1_write_request
->>>>>>>                                      ioctl(fd, STOP_ARRAY)
->>>>>>> 		                   mddev_set_closing_and_sync_blockdev
->>>>>>> 				   // check passed, mddev->openers =3D 1,
->>>>>>> 				   // because md_open() is only called
->>>>>>> 				   // once in P1->open
->>>>>>> 				   do_md_stop
->>>>>>> 				    __md_stop
->>>>>>> 				     mddev->private =3D NULL
->>>>>>>
->>>>>>>           conf =3D mddev->private // NULL
->>>>>>>            wait_barrier(conf, sector) // null-ptr-deref !
->>>>>>>
->>>>>>> It is a common problem for raid0/1/10/5, and __md_stop could be tri=
-ggered
->>>>>>> by several paths(eg. ioctl, sysfs, ->dtr). Fix it by replacing
->>>>>>> mddev_lock() with mddev_suspend_and_lock() for all __md_stop() call=
-ers.
->>>>>>> The caller dm_table_destroy() is guaranteed being invoked with devi=
-ce
->>>>>>> suspended, so raid_dtr() could keep using mddev_lock_nointr().
->>>>>>> The caller array_state_store() is guaranteed by the check
->>>>>>> mddev_set_closing_and_sync_blockdev(mddev, 0). For example, someone=
- open
->>>>>>> /dev/mdx, write something and close /dev/mdx, it won't trigger the
->>>>>>> problem, all dirty pages can be flushed before mddev->openers decre=
-ment.
->>>>>>> Besides, fail the submitting IO in md_handle_request() if the
->>>>>>> 'mddev->pers' becomes NULL.
->>>>>>>
->>>>>>> Fetch a reproducer in https://bugzilla.kernel.org/show_bug.cgi?id=
-=3D222020
->>>>>>>
->>>>>>> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
->>>>>>> Reported-by: syzbot+3fe892ea5fc292e1353f@syzkaller.appspotmail.com
->>>>>>> Closes: https://syzkaller.appspot.com/bug?extid=3D3fe892ea5fc292e13=
-53f
->>>>>>> Signed-off-by: Zhihao Cheng <chengzhihao1@huawei.com>
->>>>>>> ---
->>>>>>>     v1->v2:
->>>>>>>      1. Add 'mddev->pers !=3D NULL' check before make_request
->>>>>>>      2. Delete dm-raid caller(->dtr) modifications
->>>>>>>      3. Move memalloc_noio_restore after mddev_unlock_and_resume
->>>>>>>     v2->v3:
->>>>>>>      1. Remove modifications in array_state_store()
->>>>>>>      2. update commit msg
->>>>>>>     drivers/md/md.c | 15 +++++++++++++++
->>>>>>>     1 file changed, 15 insertions(+)
->>>>>>>
->>>>>>> diff --git a/drivers/md/md.c b/drivers/md/md.c
->>>>>>> index 680b34a63cb3..e73338c26d53 100644
->>>>>>> --- a/drivers/md/md.c
->>>>>>> +++ b/drivers/md/md.c
->>>>>>> @@ -414,6 +414,20 @@ bool md_handle_request(struct mddev *mddev, st=
-ruct bio *bio)
->>>>>>>     		if (!percpu_ref_tryget_live(&mddev->active_io))
->>>>>>>     			goto check_suspended;
->>>>>>>     	}
->>>>>>> +	if (!mddev->pers) {
->>>>>> Isn't this case already handled by md_submit_bio(). take a look in
->>>>>> md_submit_bio()
->>>>> Hi,Abd-Alrhman
->>>>> I understand that 'mddev =3D=3D NULL || mddev->pers =3D=3D NULL' in
->>>>> md_submit_bio() is a qiuck check, there still exists a small race win=
-dow:
->>>>>         P1                     P2
->>>>> md_submit_bio
->>>>>     if (mddev =3D=3D NULL || mddev->pers =3D=3D NULL)
->>>>>                            md_ioctl
->>>>>                             mddev_suspend_and_lock
->>>>>                             do_md_stop->__md_stop
->>>>>                             // set mddev->pers/private as NULL
->>>>>                             mddev_unlock_and_resume
->>>>>     md_handle_request
->>>>>      if (is_suspended(mddev, bio))
->>>>>      percpu_ref_tryget_live(&mddev->active_io)
->>>>>      mddev->pers // null-ptr-deref
->>>> It makes sense. It would solve only the null pointer reference, but I
->>>> see another issue. Look at the comment before calling
->>>> mddev_set_closing_and_sync_blockdev() in md_ioctl(). it says "Need to
->>>> flush page cache, and ensure no-one else opens and writes". The
->>>> suspending happens after flushing the page cache, in this case,
->>>> there might be other writes in-flight.
->>> At present, the current implementation does not align with the expected
->>> annotations. Yu Kai privately gave me a feasible suggestion, which is to
->>> have md_ioctl operate on a character device(like /dev/mapper/control)
->>> instead of an md block device. This fix patch will serve as a temporary
->>> solution before the official implementation is merged. By the way, I
->>> don't have much time to implment it, do you have time to deal with the
->>> official solution?
->> Thanks for the summary. I can take on the official implementation.
->> Before I get started, could we align on the interface details and any
->> other relevant considerations?
->
-> I think the following procedures(details should be considered more):
->
-> 1) add a new char device in mdraid to issue ioctl to array;
-> 2) update mdadm to use the new ioctl;
-> 3) a kernel message to warn the old block device ioctl is deprecated, and=
- suggest
-> user to upgrade mdadm;
-> 4) Since the new ioctl will introduce UAPI change, we should wait for a l=
-ong time,
-> perhaps more than 1 year, before the deprecated old ioctl code in kernel =
-can be removed.
->
-
-Thanks, I=E2=80=99ll start working on the implementation.
-
->>
->>>>>>> +		/*
->>>>>>> +		 * The __md_stop() sets 'mddev->private' to NULL during
->>>>>>> +		 * the IO submitting, check 'mddev->pers' before the IO
->>>>>>> +		 * being processed by specific driver to avoid the
->>>>>>> +		 * null-ptr-deref of 'mddev-><member>'. The check is
->>>>>>> +		 * safe because the IO has got the 'mddev->active_io'
->>>>>>> +		 * reference, and all __md_stop() callers will wait for
->>>>>>> +		 * the reference to be zero.
->>>>>>> +		 */
->>>>>>> +		bio_io_error(bio);
->>>>>>> +		percpu_ref_put(&mddev->active_io);
->>>>>>> +		return true;
->>>>>>> +	}
->>>>>>>     	if (!mddev->pers->make_request(mddev, bio)) {
->>>>>>>     		percpu_ref_put(&mddev->active_io);
->>>>>>>     		if (mddev_is_dm(mddev) && mddev->pers->prepare_suspend)
->>>>>>> @@ -8299,6 +8313,7 @@ static bool md_ioctl_need_suspend(unsigned in=
-t cmd)
->>>>>>>     	case HOT_REMOVE_DISK:
->>>>>>>     	case SET_BITMAP_FILE:
->>>>>>>     	case SET_ARRAY_INFO:
->>>>>>> +	case STOP_ARRAY:
->>>>>>>     		return true;
->>>>>>>     	default:
->>>>>>>     		return false;
->>>>>>> --=20
->>>>>>> 2.52.0
->>>>>>>
-> --=20
-> Thanks,
-> Kuai
-
---=20
-Best Regards,
-Abd-Alrhman
+The only arguable upside is that this would make it ever so slightly
+easier to track v1 specific stuff (once that s@v1@memcg1@ or similar).
+I am not convinced this is sufficient to justify the churn either.
+-- 
+Michal Hocko
+SUSE Labs
