@@ -1,57 +1,78 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE6C439EF2A;
-	Fri, 18 Sep 2026 03:27:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1C213D45F4
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 03:27:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789702050; cv=none; b=dWS/KB5HmBz/PGM3sBKHJNoiB2GakE9lv16XSIf3KgCZR6YqxSYi0cTE4DEU403fok0YqbPw5MV2JRbPGmMaRsJp5xjerAs6y/lOsHIfXWjqIVPxURNz2+gbAtCTCoNbFVybMVh8VpqKnWKoN/c9df0R5pqRscT3+dsf/6fydaw=
+	t=1789702076; cv=none; b=OlISiWOfGgHrYKnHKOTnzwj6RI1pvsJ1lPAJzN4eSxdLEcqQDtfNo7i6M0cNBSsQ9N2mtXGEIaAxGHhwgly/3bVt9L5YHi2hHvswC8uPLyCX1+p4VW9TpPvJXBGKiAwhgz4JiE6Et4qbSTSMrGIFb5RfTKs4nckfxYfXf3vi6oQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789702050; c=relaxed/simple;
-	bh=eMvpgOlCYSNO8jNPa52KDuoaDDeYU29ATnASRP1l80A=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=ktdnvnsB/DjMsOmysjq8xlU/E9tpKW7Xkht1nKwBlK6VEMmorGfJIm1Zy1NM/fAF3u0LrMFikoBYdv+X49NBgdS5vJ+T0rovj6912PlEDEHQz32P9UYKEIW7Ns51CGyMLlYmbMgAuzyMA0dhxgy1VceBazqFrKQMpaHlHzq/1XA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=j7VdDuPC; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789702076; c=relaxed/simple;
+	bh=M89qwos8bIa8z8siW+8qSaPS6+PF/il/I2qmdGSZc/Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nzhGSeff6E0LgID7FFxbl35r9KIOtjHR08ea3NbcNXOlvFeihYoi36UsmNXj77f7bLOIn4+4VA7z9n6iX3i+Q0UzdZoY1vREiyaeo2ce9ZXbmc9OCqC2rYWWfAWL6B8fjzanwXhZdqrja5l1mWMHwYqymICgMea7HCRzxQCHlbM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JaAzE86h; arc=none smtp.client-ip=74.125.228.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="j7VdDuPC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789702048; x=1821238048;
-  h=date:from:to:cc:subject:message-id:mime-version;
-  bh=eMvpgOlCYSNO8jNPa52KDuoaDDeYU29ATnASRP1l80A=;
-  b=j7VdDuPCWUsblivqNMLnpw+PSg8TXPilXyPwE/ONgwMt0nGwEjDkVt3H
-   fLs3xPkRufw1hgOY3k6cJwQ1zR4Dj6dHnmYv4QyrydIBuvh3OwsaK0CMY
-   cgwG9sIUfDHjh0ulK30xFM/vAK5gV+3Wt9xMvK8lMfwEWsLGXO7xuczRn
-   r5Ty1fvB7j0Ox7qQx81WD+p0+JPCIDeXzpEWV+UqrFurEBD+47H6ap4Qj
-   8kwNHJ7nr44va+aYo5N2h+pnue9SkwtsNPW1WXkm1lDAgwRmWHj1XaczQ
-   YGS6UAMWxB4KwTJmOS/IxmCPRDz6sypJiBs8b0AMQYGW0gWE4mwWFEdm/
-   A==;
-X-CSE-ConnectionGUID: HjeuyjfoQFy+jQPXnFXAfg==
-X-CSE-MsgGUID: 7stlToB/TCan92GWl46yCw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90045727"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="90045727"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 20:27:27 -0700
-X-CSE-ConnectionGUID: KTFmkf0kRBmeQ7Y94kyWPg==
-X-CSE-MsgGUID: kZ+zaDbXROed+J30DQdACg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="271510655"
-Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 20:27:26 -0700
-Date: Fri, 18 Sep 2026 11:27:22 +0800
-From: kernel test robot <yi1.lai@intel.com>
-To: Ian Rogers <irogers@google.com>
-Cc: oe-lkp@lists.linux.dev, lkp@intel.com,
-	Arnaldo Carvalho de Melo <acme@redhat.com>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
-	yi1.lai@intel.com
-Subject: [linux-next:master] [perf tests]  1572ba36fb:
- perf-sanity-tests.perf.make.fail
-Message-ID: <202609180536.c80fabf6-lkp@intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JaAzE86h"
+Received: by mail-pz2-f40.google.com with SMTP id d2e1a72fcca58-8748f34b1f2so324778b3a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 20:27:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789702074; x=1790306874; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7ewbNB1JGp6SY0tvsl/Ra/3TEW7GOUpyzrYRK1fZD3I=;
+        b=JaAzE86hd4M/t1jdek8fWLU3ScTLv1Q4sL8TAZBJX8zMAYZXInPgf0oNj/hp3Pto+M
+         efRx55AAfHrM5fcDnSA7S9YLYteOouNTTV4oSgVp5fqUjlmsRhtHCMiWM9Wkrr8/ZpaK
+         VG9b375X2wJ2YgqIgLjubkpghHJo6yMgI5bDyIsuD+9FHkezy4Pwmd+ZrbC0nKDvTd7l
+         HcMlPQ6PVmhdnZ1sNUjtRxWCRaEwnzoZxyAcARWB5/47FUqQGVKw5DshctNbNDAUZ+8P
+         ItV1PgzlJ1X3DRQprDQRMGdWBKB1ejgnkTsW2D/WhvmmsnTVBOumSqcnke+b74Z7CIuq
+         ottQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789702074; x=1790306874;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7ewbNB1JGp6SY0tvsl/Ra/3TEW7GOUpyzrYRK1fZD3I=;
+        b=p4SKLt7b0IdBVbwMX/Ksq0QIU5bSZdlXF/XIFeHS/rkkiyfUcw/HX/3eIBy4oQ0wSC
+         nieGJhSgEgr2PC+sbY2xEcYr4cWhjIw0d/s5EfUkksuYaMC4QW7O7DjwMsRE4pUnouV4
+         EW71jk+Zl/02Qq/msC8HSwSFULqy861zXab3wh2rlabRk4jweRk4OzK14Nf4h7XJwmIb
+         ShnTKhj+HNkHAnQmC9ciRftB5NKj1UcnXqgP4hd366BP2lS91HOLA7j4rjSXRaG3Y1as
+         BZgroFKp2jiOcB9qCGsJ3KkEjgrIrQArJqtYlT92QehWJByNP8cyvmO7dEStT0TPCuuM
+         Lz9w==
+X-Forwarded-Encrypted: i=1; AKwUvBwpSq9+i5tZNRde6SO6/vHQ6H60mGlTuIk1f5cx8AV+suVlOd/wRUhLABNdy35LiWBTxTC75Ny7EtLHzCU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lffXW56+MtVL/BeNsDrdCtMcRAOd7iPRlbRgcmO+1EqQLjQcCk
+	w0niFXpdWm0KT/6dy3Pto15Gpm7wGoNBC1rU1WW0q4KpvHGVTriXHIDQ
+X-Gm-Gg: AYBFou2KyhM8h2NFnUHFsBwmihkIA87f4/wzJL4irIu7O5W1Oswo/8+mcTQaLYivfiy
+	KOXGEMJsZvGPlpl5khez3oLE87Pv+DGeRknVXBFjJNitzJWHpeNmSoHqeHhYm2AFMTdHOEm357h
+	l1TfDiLW/mQFc+N1j+j/rBq8e0a2HRCjsEC4t0WgQZLVemeqs3k3Dee99fqUv1FSvok9q7HSCjc
+	BcjyJBuGc1rHrFFaGnethe4rEB04r90IP9mGMogzlJUCuFKdBsnNSv+Hy0A6yBN6CuM8QrytDIB
+	uI2G7OyGfcq4UeNgkkboHeTSKpao0Cx6bySB633QLbyHBtMTKkN0u0COMNPJqq/VnWoWRe/LW5x
+	avKTuBZbfaukb5Sex8nxuRk0xoaKiVUiVC6LfIZpeHBJ2ENSZ4sA0rNxpB074vKExFkyHfhmS9z
+	lepPKpwctwlOp+DEczm7vegyl6T7RaVbxciJUiGhUTtLfkUI+po0NbH0Wr/AYaqDvlPKrxf98yh
+	Oy8LxIJtrUMTPtzog==
+X-Received: by 2002:a05:6a21:596:b0:3d1:deec:9265 with SMTP id adf61e73a8af0-3dd8c3f2321mr2263948637.6.1789702073843;
+        Thu, 17 Sep 2026 20:27:53 -0700 (PDT)
+Received: from rigel (194-223-74-160.tpgi.com.au. [194.223.74.160])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc5c50aa983sm144304a12.12.2026.09.17.20.27.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 20:27:53 -0700 (PDT)
+Date: Fri, 18 Sep 2026 11:27:43 +0800
+From: Kent Gibson <warthog618@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH] gpio: cdev: fix kernel stack leak to user-space in error
+ path
+Message-ID: <20260918032743.GA29370@rigel>
+References: <20260917-gpio-cdev-stack-leak-fixes-v1-1-2bb52879e49c@oss.qualcomm.com>
+ <aqwEeLLuIC1AoLQ1@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -60,69 +81,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <aqwEeLLuIC1AoLQ1@ashevche-desk.local>
 
+On Thu, Sep 17, 2026 at 06:17:12PM +0300, Andy Shevchenko wrote:
+> On Thu, Sep 17, 2026 at 04:39:05PM +0200, Bartosz Golaszewski wrote:
+> > If we fail to acquire the GPIO chip guard in gpio_desc_to_lineinfo(), we
+> > return immediately before zeroing the info struct we'll end up passing
+> > to the user-space later in lineinfo_get_v1(). This may leak the kernel
+> > stack contents. Move the memset() before trying to acquire the SRCU read
+> > lock.
+> 
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> 
+> ...
+> 
+> >  	unsigned long dflags;
+> >  	const char *label;
+> 
+> It might be not obvious for a reader, perhaps a short comment why it's done
+> here?
+> 
 
-Hello,
+So we should always add comments highlighting initialisation of return values?
+No problem with adding one here btw, as we do it elsewhere, just
+wondering if you think this should always be the case.
 
-kernel test robot noticed "perf-sanity-tests.perf.make.fail" on:
+Hmmm, after some sleep and taking another look, what does bother me is that
+when the guard was added the behaviour of gpio_desc_to_lineinfo() changed,
+in that it can now fail, but its signature did not.
+As a consequence, lineinfo_get() and lineinfo_get_v1() now return
+empty/zeroed line info and success when the guard has failed.
+Elsewhere when the guard fails the operations return -ENODEV.
+So, while this patch no longer leaks stack, it would be better to propagate
+the failure.  That could also make the memset ordering mute, or even a
+trivial waste of CPU time, as it could prevent ANY line info being copied
+to user in the failure case.
 
-commit: 1572ba36fbca95835dc17b35a70c4524301205c6 ("perf tests: Improvements to build-test performance") https://git.kernel.org/cgit/linux/kernel/git/next/linux-next.git master
-
-[test failed on linux-next/master 0d9d0dbf2fddcff5859d623e90ca73c4054276e1]
-
-in testcase: perf-sanity-tests
-with following parameters:
-
-	perf_compiler: clang
-	group: group-00
-
-config: x86_64-rhel-9.4-bpf
-compiler: gcc-14
-test machine: 10 threads 1 sockets Intel(R) Core Ultra Series 3 @ 3.20GHz (Panther Lake) with 32G memory
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <yi1.lai@intel.com>
-| Closes: https://lore.kernel.org/oe-lkp/202609180536.c80fabf6-lkp@intel.com
-
-
-make PERF failed:
-Makefile.config:1046: No babeltrace2 found, disables 'perf data' CTF format support, please install libbabeltrace2-dev[el]
-Makefile.config:1136: Rust is not found. Test workloads with rust are disabled.
-  PERF_VERSION = 7.3.0-rc2
-util/demangle-cxx.cpp:5:10: fatal error: linux/compiler.h: No such file or directory
-    5 | #include <linux/compiler.h>
-      |          ^~~~~~~~~~~~~~~~~~
-compilation terminated.
-make[4]: *** [/usr/src/perf_selftests-x86_64-rhel-9.4-bpf-1572ba36fbca95835dc17b35a70c4524301205c6/tools/build/Makefile.build:100: util/demangle-cxx.o] Error 1
-make[4]: *** Waiting for unfinished jobs....
-make[3]: *** [/usr/src/perf_selftests-x86_64-rhel-9.4-bpf-1572ba36fbca95835dc17b35a70c4524301205c6/tools/build/Makefile.build:158: util] Error 2
-make[2]: *** [Makefile.perf:574: perf-util-in.o] Error 2
-make[1]: *** [Makefile.perf:286: sub-make] Error 2
-make: *** [Makefile:82: all] Error 2
-
-Root cause analysis assisted by LLM:
-
-Commit 1572ba36fbca ("perf tests: Improvements to build-test
-performance") made tools/perf/Makefile and tools/perf/tests/make skip
-computing PARALLEL_OPT/-j$(JOBS) entirely whenever MAKEFLAGS contains
-the substrings "-j" or "jobserver", on the assumption that this means
-a live GNU Make jobserver is available and should be trusted.
-
-This assumption doesn't always hold: MAKEFLAGS can be set as a plain
-environment variable by outer packaging tooling (rpmbuild/mock's
-%make_build, %_smp_mflags, etc.) without a live jobserver pipe backing
-it. When that happens, PARALLEL_OPT is silently left unset, and worse,
-the documented 'make JOBS=1' override -- which the comment explicitly
-promises still works -- is ignored too, because the JOBS handling is
-nested *inside* the same detection gate. This can result in mismatched
-parallelism between nested sub-makes and build failures such as:
-
-  util/demangle-cxx.cpp:5:10: fatal error: linux/compiler.h: No such file or directory
-
-The kernel config and materials to reproduce are available at:
-https://download.01.org/0day-ci/archive/20260918/202609180536.c80fabf6-lkp@intel.com
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
-
+Cheers,
+Kent.
