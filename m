@@ -1,160 +1,169 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD76D4F7999;
-	Fri, 18 Sep 2026 13:31:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1895A4F93CE
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:31:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789738303; cv=none; b=EwXLas5LeP5LgosVq7hLRAneGkKSKqRxAq3zE1dMtHwkmn0w/Td9IcZLsAFL2pVIiqOVMqqtK2ticzHO1l4h3yHtz35TQ6DHnxAtCyHI+xn7qO8MYT3WUsvlNO88X9WlH6m2xR/OYOQH7ePEhQMvoeh9pNnXVCrjC8iSmNJTMKo=
+	t=1789738308; cv=none; b=BLb4vlcitkveAdCqon/+AQxqeEeGL9QbOBYFiLDooyWnMEAcCG8DwXbxqFuL+z1KdKtR16/cMqi4Qg+iQZKwo4GgnPcBmuPcA4YfRefhhtGdr6CiSQmEVfMHIFlSfOT/xRA3WYiWsT9ubCs+0N9K4c0FGqtzfJg3jD3rg3ieVyM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789738303; c=relaxed/simple;
-	bh=G4W1Gz9y/omE+2l1vuHu0Bqtn4tce5ZQs8RGWGI79u8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jDHcZWCvcbVdSwJ7sBHRQ6mcWco6QY7+NAeqioG1iPJFSQE3XuOsSgC7YedGNSf/8qZgsvRpPA/2ZzHEPtRo3o45fSyqkR+0YpHeTu3WJNcnFTbiO2IMMFvWsbVOmsvWD5wyxjzJsxkdh4UtO7bY8AsNLW+9pNRR9oLLdwEaGYA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GaPnyJ8L; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789738308; c=relaxed/simple;
+	bh=EcScv/7GHH+PudgDUjdWtnbAFUCvWvP6zT1tLcuF5Jc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=mSYqUZtXfsP61+TBl//iij5AZ/vRrkHWhvMuM0yoqM9/jxIcEpbbz6NSKOGjoZru1A+TUVwzV3bopPQDbRLV81hRjwCJsDk1+u2BMmNt9JGMmSQFoQCBgUuWesgNPJB5W0Y3jHvYOsctfD+I3FENLjGdGEaJ0uU+Zj2P8nZ//vU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BGf1n3f5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RMlf2lql; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GaPnyJ8L"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789738301; x=1821274301;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=G4W1Gz9y/omE+2l1vuHu0Bqtn4tce5ZQs8RGWGI79u8=;
-  b=GaPnyJ8LhqPeZNqwggANzeHv4vOvELMU+cLTHSm3Iso+hIDl0PZZf0eX
-   NYLgHWRKCNpX1NG2fcaPGlrKYowkMFgeyd/1Yu1nhsvYeRCoBTXIUheq8
-   35K1g8gY8A0WoyQ7an8LcRBPjjCq7b2Ro9ENsUVnPqdV9fF1AuiH342Q5
-   83g1yKYox1/5TChT1th/4A/92Pl9Qx+bQKvhl0TFPHoxHCuwkgHkpL9WW
-   4nqIyo6XAZ8vnSsJ/+Zumj/vD9On4P6B4WdrJ/KmhqNqtnvOgcJghJsE4
-   Tc1jLRVM0mcjMWAOsbQ3mySFN/O4OsXXt2XCS/3IsxKz3ONI8T3sscfPV
-   A==;
-X-CSE-ConnectionGUID: wyVzc+cSQOK4HZqElXOKyw==
-X-CSE-MsgGUID: kjjx4lXuQhyaFhy5kqH+vQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11908"; a="115776102"
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="115776102"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 06:31:39 -0700
-X-CSE-ConnectionGUID: iw3MmNclQ3GjhIToxMwrdw==
-X-CSE-MsgGUID: 2AbmezB2TmOQJ18eM4OnEg==
-X-ExtLoop1: 1
-Received: from 984fee019967.jf.intel.com ([10.23.153.244])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 06:31:38 -0700
-From: Chao Gao <chao.gao@intel.com>
-To: linux-kernel@vger.kernel.org,
-	linux-coco@lists.linux.dev,
-	kvm@vger.kernel.org
-Cc: yilun.xu@linux.intel.com,
-	Chao Gao <chao.gao@intel.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>
-Subject: [RFC PATCH v2 01/10] x86/virt/tdx: Add a helper to read a table of metadata fields
-Date: Fri, 18 Sep 2026 06:29:20 -0700
-Message-ID: <20260918132946.76533-2-chao.gao@intel.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260918132946.76533-1-chao.gao@intel.com>
-References: <20260918132946.76533-1-chao.gao@intel.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BGf1n3f5";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RMlf2lql"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68IDOVlP3645860
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:31:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=cxnrXJweREiUJN2MSzvDzr
+	+es212bwopL66r97AycvE=; b=BGf1n3f5pZrKcCM3Mv5PlBs/OBmUAun0M9zlzm
+	FRAjjo/KQi2wGXZ0CIN1k5ZVH2LldE/EBD0HRY7K/vHDBivPXA0Rv0az/apmIgkN
+	jsRV8YS/jamDgXsqWCl9CTJW5NUJjc+V6RoZVhAy6wBYKR3fwUxvh5LNqI8cCeLN
+	NwWm+yLJ+TRXY+Uvd1D58PdPd/iZCbyudpShBxjNHjs5yd0YoGOCMNMTlpLPDrTo
+	WrSPJJZdtDBBtJItGCJprXXNtVeF2FcLvy2Dpigp2rgEwCagLFWgHnzn/uNruI3y
+	8soZFym53vL3xarwTKudb8+ZzAYU0zzj8x4lZ4S/WnLMfXOw==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gs37dgr6k-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:31:43 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8716b158692so504395b3a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:31:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789738302; x=1790343102; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=cxnrXJweREiUJN2MSzvDzr+es212bwopL66r97AycvE=;
+        b=RMlf2lqlGhu8MPIm9i+7eK4emhh32JmtIRmOaWn8787GVB9Eb0JVZ5A53d/vlHlZz7
+         rm9ZMb1bni85aJVPQgik9QaNdcY1AFjohprwKDmtrTq+y0jY1R5WXV8oKLgk5PHyPe6B
+         VuRdpbKbJMehx8PfwkezCCNEkPbsPchM+9mldM/LO8lF3puMwckzPRKPPRsfyUeT60oF
+         wsoaRyADFZvgzMBHPk1iQMTwtJnzNyofZJcjv/F3874e8OmIPywuXWKtczrmvqKCq/LR
+         EdmBe+Dow2+JVmNaJl3uzCBd8FhBB8aaqY26QXWQjDhLN4vfj2RA9RGHjY5xT15dc2JO
+         XQng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789738302; x=1790343102;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=cxnrXJweREiUJN2MSzvDzr+es212bwopL66r97AycvE=;
+        b=mzEw9iDYplMUuSd9zyfGIB4YYx3nAnZIdJjN7/ePgSDgVyGcV4ygBxvsTLVb09p6Ku
+         DdG0F4/PUiC6nLJC8VONdD3DKFdps32/iYR63ClXgD3SIvzy5P/xNC6xeULyrGKywdqw
+         lxbURx2m1GOFrQtTLsPkPSc2BwHJ8aaaJN/M+vq3t1LT/zavlfFYMdrDPClHE1uUdOKy
+         FiRjjrO1S57Y6UqoLAyUTaA5zyWOa8kyOzzxqskCsGDV4MpRdhyF8hjHJOb6QPg5tITx
+         E/5Q//Gk3VbBwRtHDD4hiHV1SAb8rxKNGQbGAem4E24gp6yzE32N5+QYmuwttvtgOiDp
+         XjZw==
+X-Forwarded-Encrypted: i=1; AKwUvBxSl/44rXS+DNUQJJAd0r1sQXjtWqszd4BwAT8I+NQ319goWbC/p1nhXeDc1O9AVpfgjEkcIQtVP5yWGAE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kw1G8Y3j3Gd+yc/vUdFQNbK73jUzASjkN5R7yNT9hD0ujfO7OY
+	nGb5FSfip5+VhBpw6ArJXi/ZtG2Go4cOvoFNjJQBmC5mpRgr9iLqA7eNCkuddVYA0nO5uZwPBhv
+	uaoo7rrMFOipudR4FvBzKVO7NJOR+/so8VieXLj6NRAAogbZw5MKB5eALawl1wyPY1/k=
+X-Gm-Gg: AYBFou0DNud6gpy1N/pxQ2VvVAxIZY1aUYqRrIgv14TyZBhzBBSinloztgte6gXjfUA
+	O689o9gqPG9w2h1mxw3a5i4ataR1G4TPLGyxWB/iSzu0CE+hdlAvcnnoxorQgenwp6zZVenz4Tg
+	9iBRckY3xM7+Mx1MdJCAckHIBVTChLWG5i21OxmQ1tlTUgWdPWzBR6kbMaEQ0dIuOpSbLLS9Yp2
+	pVbbgVq08imFXKROTzcEOBGHIluM3uOnkRjg6sIJPQ2fbr25Zz+ZZex7JvOu8s7zG+E5ZzcZL7S
+	1ebz5TmDVEPd65e4BVHsnqGd8EkxFH2aVTMyz7wWfkwmEUJWwl5viW67e27YJsF0dkd5QW18640
+	W6lxqmTuposm6zkHrTtuDZoDoG6rUeoSlWPc=
+X-Received: by 2002:a05:6a00:a909:b0:874:705d:f644 with SMTP id d2e1a72fcca58-874de706acfmr4341740b3a.38.1789738302206;
+        Fri, 18 Sep 2026 06:31:42 -0700 (PDT)
+X-Received: by 2002:a05:6a00:a909:b0:874:705d:f644 with SMTP id d2e1a72fcca58-874de706acfmr4341664b3a.38.1789738301659;
+        Fri, 18 Sep 2026 06:31:41 -0700 (PDT)
+Received: from hu-mohs-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-875dc8f8b00sm834747b3a.20.2026.09.18.06.31.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 06:31:41 -0700 (PDT)
+From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Subject: [PATCH 0/3] ASoC: qcom: Add QAIF AIF MI2S and TDM DAI support
+Date: Fri, 18 Sep 2026 19:01:11 +0530
+Message-Id: <20260918-qaif_dai_id_support-v1-0-ed863c0e5e45@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACA9rWoC/yWMQQrCMBQFr1Le2kBSg7ZeRUqIyY9+F23Mb4tQe
+ nejLmdgZoNQYRJcmg2FVhaexgrm0CA8/HgnxbEyWt2edG869fKcXPTsODpZcp7KrHTqz8ba0B3
+ Jopa5UOL373rFajD8nSy3J4X5u8O+fwDl4zA4ewAAAA==
+X-Change-ID: 20260918-qaif_dai_id_support-0f97144c83e4
+To: Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
+        Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789738297; l=1242;
+ i=mohammad.rafi.shaik@oss.qualcomm.com; s=20260424;
+ h=from:subject:message-id; bh=EcScv/7GHH+PudgDUjdWtnbAFUCvWvP6zT1tLcuF5Jc=;
+ b=GeTw2uERLVv9847hn+WQvTCMfaMomffeXpMKpbai+/1YAzAVM2lalTBL907PQRu4Pp1K3GcrD
+ wL6c+w0Y2zyDfohlcm1+LMNdCGZybz5qEw1sOTdUGO/T7+dNDAtLaZz
+X-Developer-Key: i=mohammad.rafi.shaik@oss.qualcomm.com; a=ed25519;
+ pk=KZedmYgMGYOzuTpLGv56tdrL+pTLDP8pdmfQ91xemiA=
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDE5MSBTYWx0ZWRfXzCwhndu1Y/vv
+ qG8qPJcNn0V5P3w15N+i2VYPQr4TcY91K1c8PXx21T05ClpMvd7cj5iVqZ3anagrJ8T00z93P5f
+ Du5gET4iAhx0odj73PSaiwy8FJKjgAc=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDE5MSBTYWx0ZWRfX6TaPGUSCvSUG
+ Xw9MprsgZtjFGIciZsjVRoMiuTnjExZuoXRiFYqDzTxI7BpIoLq/vtCA+6ywmX1Kk4fx33NUlkI
+ 7jaexgAX9WJJWUYXiDv/XcMKRe2SjWy2x8LrWZA5OHr1PiCdSepFu0mX9mx3txQfEUIydSSKwS+
+ T3xcDfDTE9IcdWV0AYMWvPkRwFBuQDm/n/UFnsRfVfFK6DH8SWlkbpt7mFx+uQyMNE9leN3WyzK
+ /X09qhfQPf5Qzw1QAHjp31Uiv6E8g+sufqLhSelgVFQ880I0vI/b2qWR+762YZ+6PS6tJ82DfOT
+ IBDryuUnqZ2T+js0AeXudY3c22SNdhHqPt0afrO/f5Nb31XsKjd2gGioJ2siTFIrUVEYF191t8n
+ Gf2U6fQr3x7X/O0TMkwrYj2awG88BH5N4ekbSJka7IajroL74DKoR2Y/96fYJ1z1Ds+bRKaBTds
+ cSkGKqRVlOj8QHbaYUw==
+X-Proofpoint-GUID: BFmcPZoWwemASYH6EaOt3ZdpS3Mwy44u
+X-Proofpoint-ORIG-GUID: BFmcPZoWwemASYH6EaOt3ZdpS3Mwy44u
+X-Authority-Analysis: v=2.4 cv=R+mWitRX c=1 sm=1 tr=0 ts=6aad3d3f cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=lDHNxqq9c2JpMXR4PYYA:9 a=QEXdDO2ut3YA:10
+ a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-18_04,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 bulkscore=0 impostorscore=0 clxscore=1015
+ spamscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180191
 
-The metadata field readers get_tdx_sys_info_<class>() in
-tdx_global_metadata.c were generated by an out-of-tree script. That has
-not worked out: the JSON file they were generated from is neither stable
-nor authoritative enough [1].  The goal now is to maintain the readers by
-hand and to establish one standard way of adding a metadata field.
+Add support for Qualcomm Audio Interface (QAIF) AIF MI2S and TDM DAI
+id's across the Qualcomm audio stack.
 
-Take get_tdx_sys_info_version() as an example:
+The new DAI IDs are required for platforms such as Shikra, Hawi, and Nord,
+where QAIF audio interfaces are used to connect external audio devices.
 
-      if (!ret && !(ret = read_sys_metadata_field(0x0800000100000003, &val)))
-              sysinfo_version->minor_version = val;
-      if (!ret && !(ret = read_sys_metadata_field(0x0800000100000004, &val)))
-              sysinfo_version->major_version = val;
-      if (!ret && !(ret = read_sys_metadata_field(0x0800000100000005, &val)))
-              sysinfo_version->update_version = val;
+Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
 
-Two patterns stand out: the read-check-store sequence repeats once per
-field, and the error of each read is chained into the reads that follow.
-Neither is common in hand-written code.
-
-Eliminate both with a loop that reads each field, stores the value into
-its structure member, and returns on the first error.
-
-Add 'struct field_mapping' to describe one field as its ID plus the
-offset and size of the member that receives its value.  Add
-TDX_SYSINFO_MAP() to build such an entry from a field ID name, a
-structure type and a member name.  Add __read_sys_metadata_table() to
-read every field in a table. Annotate the helper __maybe_unused as there
-is no caller right now.
-
-Following changes will convert the existing readers to use the new helper.
-
-AI was used under supervision to review code and workshop logs.
-
-Signed-off-by: Chao Gao <chao.gao@intel.com>
-Link: https://lore.kernel.org/kvm/1e7bcbad-eb26-44b7-97ca-88ab53467212@intel.com/ # [1]
 ---
- arch/x86/virt/vmx/tdx/tdx.c | 36 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 36 insertions(+)
+Mohammad Rafi Shaik (3):
+      ASoC: dt-bindings: qcom: add QAIF AIF MI2S and TDM dai ids
+      ASoC: qcom: qdsp6: lpass-ports: add support for QAIF AIF MI2S and TDM dais
+      ASoC: qcom: sc8280xp: Handle AIF MI2S and TDM interfaces
 
-diff --git a/arch/x86/virt/vmx/tdx/tdx.c b/arch/x86/virt/vmx/tdx/tdx.c
-index 063574ed8625..5cd9c6eb98c2 100644
---- a/arch/x86/virt/vmx/tdx/tdx.c
-+++ b/arch/x86/virt/vmx/tdx/tdx.c
-@@ -395,6 +395,42 @@ static int read_sys_metadata_field(u64 field_id, u64 *data)
- 	return 0;
- }
- 
-+/*
-+ * Map a TDX global metadata field to a structure member.
-+ * @field_id: The TDX global metadata field ID.
-+ * @size: The size of the structure member.
-+ * @offset: The member's offset within its containing structure.
-+ */
-+struct field_mapping {
-+	u64 field_id;
-+	size_t size;
-+	int offset;
-+};
-+
-+/* Read each metadata field listed in @mappings[] into @data. */
-+static int __maybe_unused __read_sys_metadata_table(const struct field_mapping *mappings,
-+						    int num_mappings, void *data)
-+{
-+	int i, ret;
-+	u64 val;
-+
-+	for (i = 0; i < num_mappings; i++) {
-+		ret = read_sys_metadata_field(mappings[i].field_id, &val);
-+		if (ret)
-+			return ret;
-+		memcpy((char *)data + mappings[i].offset, &val, mappings[i].size);
-+	}
-+
-+	return 0;
-+}
-+
-+#define TDX_SYSINFO_MAP(_field, _type, _member)			\
-+{								\
-+	.field_id	= TDX_MD_FIELD_ID_##_field,		\
-+	.offset		= offsetof(_type, _member),		\
-+	.size		= sizeof_field(_type, _member),		\
-+}
-+
- #include "tdx_global_metadata.c"
- 
- static __init int check_features(struct tdx_sys_info *sysinfo)
--- 
-2.52.0
+ .../bindings/sound/qcom,q6dsp-lpass-ports.yaml     | 16 +++++--
+ include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h | 52 +++++++++++++++++++++
+ sound/soc/qcom/common.h                            |  2 +-
+ sound/soc/qcom/qdsp6/q6apm-lpass-dais.c            |  2 +
+ sound/soc/qcom/qdsp6/q6dsp-lpass-ports.c           | 54 ++++++++++++++++++++++
+ sound/soc/qcom/sc8280xp.c                          |  2 +
+ 6 files changed, 123 insertions(+), 5 deletions(-)
+---
+base-commit: e657a464aba873f5eaf3ca821b6e4016674492d6
+change-id: 20260918-qaif_dai_id_support-0f97144c83e4
+
+Best regards,
+--  
+Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
 
