@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC8044F68D7;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E86C64F7CD5;
 	Fri, 18 Sep 2026 13:28:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789738120; cv=none; b=BMepowVKewGy+0Hvw1vXevtT6PMCjvxh5JRuxz1qNxxF0Z/s7wTlJyldrRO+zt6rMvc1pce8/ShN3p5rHyi0yStT4NsrCkVoCfbIHWidkAHuzFzWIphHquKOKVemcgDcKLzVQQtK7V6gefVc65LxgaeC0R9YxgrHmadlkC2VWHQ=
+	t=1789738121; cv=none; b=DvVdhNPaN5ZP4l5pkoSUDZXP7NStk3I+eUr8+OW4t5E0m4++fgDxQ+dzyPlNE9asb78B5MYMpgZSZhtQzNKL9dCk4I63GvW7LHU2OutkLZQYk31utVqV2Zs/nPk1qm2yXEpixI/kI/ysnpTKO6k9c98L5qrCNR56Cw2mvfnj+g4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789738120; c=relaxed/simple;
-	bh=kshdd0UgoZdMmGyTQdR78b5BxL4LZLWUeh+/eMSqKDQ=;
+	s=arc-20240116; t=1789738121; c=relaxed/simple;
+	bh=qHsL6nJsyo40SQoF4f2zG/1G7Q2hFBVFDBcl86L3XT0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=SUqA2rqC39ckKMcF0W5xWOBzGcejY7aZ0YyaLoxAHzIfIqdkrAz9mf+cKvOFCM/ziiLYm9PXUs+coZcGSmh75s8HYQs3lpS0VLU5glYKJkjRo+nb4h956CDF7tQxiYqyv15//jgj2Sd2+HV8YoKk72LmlcGQlhq51ds2sY5tqT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dgg69dyq; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=R9iGOrbKJWKzBzXSZt5tkxSh9ioX6ZAVBzfGTY+723NwuJndwnyUtd9kHYFx/3C/6LQrPyCoY3vVjQ6vjbfOzklS+ZvxoJoQ/xzc3Ym1zku5KcyfeVWgn0QHhVTFMutHtDjQlpdHHjK2t+0beom3x+hWdiZYKpJbeMcH37YPpq8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=r3nuxftf; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dgg69dyq"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 5168DC4AF15;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="r3nuxftf"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6FF6BC4DDEC;
 	Fri, 18 Sep 2026 13:28:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1789738120;
-	bh=kshdd0UgoZdMmGyTQdR78b5BxL4LZLWUeh+/eMSqKDQ=;
+	bh=qHsL6nJsyo40SQoF4f2zG/1G7Q2hFBVFDBcl86L3XT0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=dgg69dyqPjDbJkCHJy86/caNLZe3SQEm0XwzcNvJhEwUB1xjAQkZU6TSApJVQhzbM
-	 G4TpSZt4nDaIhgSQ0weihgl/k980sm+zCDKubw6Nji5HDWLZVnhYvmwt0zqJ4JpxXr
-	 /8Mpj9RdVzQamQZdFxWWPQ1NWl/iW85zfswOQPujEeBoPMPHHT0r65l/Cd/lIkcUXx
-	 s3p3xICge71MtwyxhQvbRZbm2FJrJCpCscrsAUJfd4yprVYAgZHI2WK+DNROraN+No
-	 4H38MVp3oBMi/6JhwoXjQlfoCYpuJ427Z4rKShiGLAn1uLprka+e8yS9bV3TBDimcK
-	 6vbnL01pvtyVw==
+	b=r3nuxftfhg4iCY+bzGUkpMDj/QcDc7MixdoKCJUubBXz7V9W2cLsV9sQ0Chbkl6j5
+	 RfZucaYShH74XMva8TNKVDF9f9PPddkhUw5QIvcMVw7bIAKKk11lxELI0hwcWds7YD
+	 TS+FPWiY6penytS/8KysyrnnY2zFDPP900QdxWKlF5p6wgoxew8/xhyZWP3AiHumgV
+	 4wHemCgBCbMKLM21e8QGsyvcOEV/9CMhFFmVWWQoYtndEPYb9xZoFQTKLTkEDRhQ+K
+	 U38qubyHmemXang2/YhWIRFtZDGVJjBvxYUcIjUX2tLYIZZsFNriqi7wcQAdi006nt
+	 BOxh3GqiAXFaQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3CDBFC982D8;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5DC26C982DF;
 	Fri, 18 Sep 2026 13:28:40 +0000 (UTC)
 From: Michael Reeves via B4 Relay <devnull+michael.reeves077.gmail.com@kernel.org>
-Date: Fri, 18 Sep 2026 23:28:37 +1000
-Subject: [PATCH v3 07/10] HID: apple: Add support for DockChannel HID
- keyboards
+Date: Fri, 18 Sep 2026 23:28:39 +1000
+Subject: [PATCH v3 09/10] arm64: dts: apple: Add MTP DockChannel HID nodes
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-apple-mtp-keyboard-final-v3-7-e356464e454b@gmail.com>
+Message-Id: <20260918-apple-mtp-keyboard-final-v3-9-e356464e454b@gmail.com>
 References: <20260918-apple-mtp-keyboard-final-v3-0-e356464e454b@gmail.com>
 In-Reply-To: <20260918-apple-mtp-keyboard-final-v3-0-e356464e454b@gmail.com>
 To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
@@ -59,12 +58,12 @@ Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
  Yureka Lilian <yureka@cyberchaos.dev>, Julian Braha <julianbraha@gmail.com>, 
  Sasha Finkelstein <k@chaosmail.tech>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789738118; l=7532;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789738118; l=10900;
  i=michael.reeves077@gmail.com; s=fedora-20260918;
  h=from:subject:message-id;
- bh=Jn8V1WltiVnkawdzC5bVKS+cIf6Ev+2/cLas2bYpiBs=;
- b=CCaAE3SKILaat8IshUCCrbFZQu9WJgizsWYZDIJbVD8PTc6Cc1dh/F3s9FFcyCmmn9/ysQgB+
- CZQe16TorGVCjkpNzvMDacYVQqhti4SCS+kgkcspXLT/MVO4lsLb2uP
+ bh=zxJFH8v87kXfldcYDDUIbUkkqOIeTECoXrgC66NUKAo=;
+ b=+6+MW8GDrjkVjh/SAwayTj8/7EKgZFImA3sw7qmR2S8xJjLscSivctuWHM4Vuu3U6QdjHiqiO
+ Y5a1K5l+DwCBaUYK8kBvslUV0AXT55TMEconNvYXYG1vBM2RRCjZXO7
 X-Developer-Key: i=michael.reeves077@gmail.com; a=ed25519;
  pk=VJ0TvyQ9TvfzYZa908YSE9kpkjFLLD5luv0bERu+boc=
 X-Endpoint-Received: by B4 Relay for
@@ -74,196 +73,306 @@ Reply-To: michael.reeves077@gmail.com
 
 From: Michael Reeves <michael.reeves077@gmail.com>
 
-DockChannel keyboards are registered as host-bus Apple HID devices
-instead of USB or Bluetooth devices.
+Add disabled MTP nodes for the Apple SoCs used by M2 and M3 systems.
 
-Match them in hid-apple and use the modern Magic Keyboard function-key
-table. Honor the per-device special-driver quirk when matching.
+Each instance describes the RTKit ASC mailbox, MTP DART, DockChannel
+mailbox, and DockChannel HID client. Board files can enable them on
+machines that route internal input through MTP.
 
+Co-developed-by: Hector Martin <marcan@marcan.st>
+Signed-off-by: Hector Martin <marcan@marcan.st>
 Signed-off-by: Michael Reeves <michael.reeves077@gmail.com>
 ---
- drivers/hid/hid-apple.c | 118 +++++++++++++++++++++++++++++-------------------
- include/linux/hid.h     |   1 +
- 2 files changed, 73 insertions(+), 46 deletions(-)
+ arch/arm64/boot/dts/apple/t602x-die0.dtsi | 46 ++++++++++++++++++++++++++++++
+ arch/arm64/boot/dts/apple/t6030.dtsi      | 46 ++++++++++++++++++++++++++++++
+ arch/arm64/boot/dts/apple/t6031-die0.dtsi | 46 ++++++++++++++++++++++++++++++
+ arch/arm64/boot/dts/apple/t8112.dtsi      | 46 ++++++++++++++++++++++++++++++
+ arch/arm64/boot/dts/apple/t8122.dtsi      | 47 +++++++++++++++++++++++++++++++
+ 5 files changed, 231 insertions(+)
 
-diff --git a/drivers/hid/hid-apple.c b/drivers/hid/hid-apple.c
-index f6134c582..524ac80cb 100644
---- a/drivers/hid/hid-apple.c
-+++ b/drivers/hid/hid-apple.c
-@@ -395,6 +395,12 @@ static bool apple_is_omoton_kb066(struct hid_device *hdev)
- 		strcmp(hdev->name, "Bluetooth Keyboard") == 0;
- }
+diff --git a/arch/arm64/boot/dts/apple/t602x-die0.dtsi b/arch/arm64/boot/dts/apple/t602x-die0.dtsi
+index c33623f0e..5f62d0a9c 100644
+--- a/arch/arm64/boot/dts/apple/t602x-die0.dtsi
++++ b/arch/arm64/boot/dts/apple/t602x-die0.dtsi
+@@ -161,6 +161,52 @@ pinctrl_smc: pinctrl@2a2820000 {
+ 				<AIC_IRQ 0 857 IRQ_TYPE_LEVEL_HIGH>;
+ 	};
  
-+static bool apple_is_dockchannel_keyboard(struct hid_device *hdev)
-+{
-+	return hdev->bus == BUS_HOST &&
-+	       hdev->group == HID_GROUP_APPLE_DOCKCHANNEL;
-+}
++	mtp_mbox: mbox@2a9408000 {
++		compatible = "apple,t6020-asc-mailbox", "apple,asc-mailbox-v4";
++		reg = <0x2 0xa9408000 0x0 0x4000>;
++		interrupt-parent = <&aic>;
++		interrupts = <AIC_IRQ 0 693 IRQ_TYPE_LEVEL_HIGH>,
++			     <AIC_IRQ 0 694 IRQ_TYPE_LEVEL_HIGH>,
++			     <AIC_IRQ 0 695 IRQ_TYPE_LEVEL_HIGH>,
++			     <AIC_IRQ 0 696 IRQ_TYPE_LEVEL_HIGH>;
++		interrupt-names = "send-empty", "send-not-empty",
++				  "recv-empty", "recv-not-empty";
++		#mbox-cells = <0>;
++		status = "disabled";
++	};
 +
- static inline void apple_setup_key_translation(struct input_dev *input,
- 		const struct apple_key_translation *table)
- {
-@@ -482,53 +488,57 @@ static int hidinput_apple_event(struct hid_device *hid, struct input_dev *input,
- 		asc->fn_on = !!value;
- 
- 	if (real_fnmode) {
--		switch (hid->product) {
--		case USB_DEVICE_ID_APPLE_ALU_WIRELESS_ANSI:
--		case USB_DEVICE_ID_APPLE_ALU_WIRELESS_ISO:
--		case USB_DEVICE_ID_APPLE_ALU_WIRELESS_JIS:
--		case USB_DEVICE_ID_APPLE_ALU_WIRELESS_2009_ANSI:
--		case USB_DEVICE_ID_APPLE_ALU_WIRELESS_2009_ISO:
--		case USB_DEVICE_ID_APPLE_ALU_WIRELESS_2009_JIS:
--		case USB_DEVICE_ID_APPLE_ALU_WIRELESS_2011_ANSI:
--		case USB_DEVICE_ID_APPLE_ALU_WIRELESS_2011_ISO:
--		case USB_DEVICE_ID_APPLE_ALU_WIRELESS_2011_JIS:
--			table = magic_keyboard_alu_fn_keys;
--			break;
--		case USB_DEVICE_ID_APPLE_MAGIC_KEYBOARD_2015:
--		case USB_DEVICE_ID_APPLE_MAGIC_KEYBOARD_NUMPAD_2015:
--			table = magic_keyboard_2015_fn_keys;
--			break;
--		case USB_DEVICE_ID_APPLE_MAGIC_KEYBOARD_2021:
--		case USB_DEVICE_ID_APPLE_MAGIC_KEYBOARD_FINGERPRINT_2021:
--		case USB_DEVICE_ID_APPLE_MAGIC_KEYBOARD_NUMPAD_2021:
--		case USB_DEVICE_ID_APPLE_MAGIC_KEYBOARD_2024:
--		case USB_DEVICE_ID_APPLE_MAGIC_KEYBOARD_FINGERPRINT_2024:
--		case USB_DEVICE_ID_APPLE_MAGIC_KEYBOARD_NUMPAD_2024:
-+		if (apple_is_dockchannel_keyboard(hid)) {
- 			table = magic_keyboard_2021_and_2024_fn_keys;
--			break;
--		case USB_DEVICE_ID_APPLE_WELLSPRINGT2_J132:
--		case USB_DEVICE_ID_APPLE_WELLSPRINGT2_J213:
--		case USB_DEVICE_ID_APPLE_WELLSPRINGT2_J680:
--		case USB_DEVICE_ID_APPLE_WELLSPRINGT2_J680_ALT:
--			table = macbookpro_no_esc_fn_keys;
--			break;
--		case USB_DEVICE_ID_APPLE_WELLSPRINGT2_J152F:
--		case USB_DEVICE_ID_APPLE_WELLSPRINGT2_J214K:
--		case USB_DEVICE_ID_APPLE_WELLSPRINGT2_J223:
--			table = macbookpro_dedicated_esc_fn_keys;
--			break;
--		case USB_DEVICE_ID_APPLE_WELLSPRINGT2_J140K:
--		case USB_DEVICE_ID_APPLE_WELLSPRINGT2_J230K:
--			table = apple_fn_keys;
--			break;
--		default:
--			if (hid->product >= USB_DEVICE_ID_APPLE_WELLSPRING4_ANSI &&
--			    hid->product <= USB_DEVICE_ID_APPLE_WELLSPRING4A_JIS)
--				table = macbookair_fn_keys;
--			else if (hid->product < 0x21d || hid->product >= 0x300)
--				table = powerbook_fn_keys;
--			else
-+		} else {
-+			switch (hid->product) {
-+			case USB_DEVICE_ID_APPLE_ALU_WIRELESS_ANSI:
-+			case USB_DEVICE_ID_APPLE_ALU_WIRELESS_ISO:
-+			case USB_DEVICE_ID_APPLE_ALU_WIRELESS_JIS:
-+			case USB_DEVICE_ID_APPLE_ALU_WIRELESS_2009_ANSI:
-+			case USB_DEVICE_ID_APPLE_ALU_WIRELESS_2009_ISO:
-+			case USB_DEVICE_ID_APPLE_ALU_WIRELESS_2009_JIS:
-+			case USB_DEVICE_ID_APPLE_ALU_WIRELESS_2011_ANSI:
-+			case USB_DEVICE_ID_APPLE_ALU_WIRELESS_2011_ISO:
-+			case USB_DEVICE_ID_APPLE_ALU_WIRELESS_2011_JIS:
-+				table = magic_keyboard_alu_fn_keys;
-+				break;
-+			case USB_DEVICE_ID_APPLE_MAGIC_KEYBOARD_2015:
-+			case USB_DEVICE_ID_APPLE_MAGIC_KEYBOARD_NUMPAD_2015:
-+				table = magic_keyboard_2015_fn_keys;
-+				break;
-+			case USB_DEVICE_ID_APPLE_MAGIC_KEYBOARD_2021:
-+			case USB_DEVICE_ID_APPLE_MAGIC_KEYBOARD_FINGERPRINT_2021:
-+			case USB_DEVICE_ID_APPLE_MAGIC_KEYBOARD_NUMPAD_2021:
-+			case USB_DEVICE_ID_APPLE_MAGIC_KEYBOARD_2024:
-+			case USB_DEVICE_ID_APPLE_MAGIC_KEYBOARD_FINGERPRINT_2024:
-+			case USB_DEVICE_ID_APPLE_MAGIC_KEYBOARD_NUMPAD_2024:
-+				table = magic_keyboard_2021_and_2024_fn_keys;
-+				break;
-+			case USB_DEVICE_ID_APPLE_WELLSPRINGT2_J132:
-+			case USB_DEVICE_ID_APPLE_WELLSPRINGT2_J213:
-+			case USB_DEVICE_ID_APPLE_WELLSPRINGT2_J680:
-+			case USB_DEVICE_ID_APPLE_WELLSPRINGT2_J680_ALT:
-+				table = macbookpro_no_esc_fn_keys;
-+				break;
-+			case USB_DEVICE_ID_APPLE_WELLSPRINGT2_J152F:
-+			case USB_DEVICE_ID_APPLE_WELLSPRINGT2_J214K:
-+			case USB_DEVICE_ID_APPLE_WELLSPRINGT2_J223:
-+				table = macbookpro_dedicated_esc_fn_keys;
-+				break;
-+			case USB_DEVICE_ID_APPLE_WELLSPRINGT2_J140K:
-+			case USB_DEVICE_ID_APPLE_WELLSPRINGT2_J230K:
- 				table = apple_fn_keys;
-+				break;
-+			default:
-+				if (hid->product >= USB_DEVICE_ID_APPLE_WELLSPRING4_ANSI &&
-+				    hid->product <= USB_DEVICE_ID_APPLE_WELLSPRING4A_JIS)
-+					table = macbookair_fn_keys;
-+				else if (hid->product < 0x21d || hid->product >= 0x300)
-+					table = powerbook_fn_keys;
-+				else
-+					table = apple_fn_keys;
-+			}
- 		}
- 
- 		trans = apple_find_translation(table, code);
-@@ -768,7 +778,7 @@ static int apple_input_configured(struct hid_device *hdev,
- 	struct apple_sc *asc = hid_get_drvdata(hdev);
- 
- 	if (((asc->quirks & APPLE_HAS_FN) && !asc->fn_found) || apple_is_omoton_kb066(hdev)) {
--		hid_info(hdev, "Fn key not found (Apple Wireless Keyboard clone?), disabling Fn key handling\n");
-+		hid_info(hdev, "Disabling function quirk for device without function key\n");
- 		asc->quirks &= ~APPLE_HAS_FN;
- 	}
- 
-@@ -1019,6 +1029,18 @@ static void apple_remove(struct hid_device *hdev)
- 	hid_hw_stop(hdev);
- }
- 
-+static bool apple_match(struct hid_device *hdev, bool ignore_special_driver)
-+{
-+	if (ignore_special_driver ||
-+	    (hdev->quirks & HID_QUIRK_IGNORE_SPECIAL_DRIVER))
-+		return false;
++	mtp_dart: iommu@2a9808000 {
++		compatible = "apple,t6020-dart", "apple,t8110-dart";
++		reg = <0x2 0xa9808000 0x0 0x4000>;
++		interrupt-parent = <&aic>;
++		interrupts = <AIC_IRQ 0 676 IRQ_TYPE_LEVEL_HIGH>;
++		#iommu-cells = <1>;
++		status = "disabled";
++	};
 +
-+	if (hdev->group == HID_GROUP_APPLE_DOCKCHANNEL)
-+		return apple_is_dockchannel_keyboard(hdev);
++	mtp_dockchannel: mailbox@2a9b14000 {
++		compatible = "apple,t6020-dockchannel", "apple,t8112-dockchannel";
++		reg = <0x2 0xa9b14000 0x0 0x4000>,
++		      <0x2 0xa9b30000 0x0 0x4000>,
++		      <0x2 0xa9b34000 0x0 0x4000>;
++		reg-names = "irq", "config", "data";
++		interrupt-parent = <&aic>;
++		interrupts = <AIC_IRQ 0 677 IRQ_TYPE_LEVEL_HIGH>;
++		#mbox-cells = <0>;
++		status = "disabled";
++	};
 +
-+	return true;
-+}
++	mtp_hid: hid@2a9400000 {
++		compatible = "apple,t6020-dockchannel-hid", "apple,t8112-dockchannel-hid";
++		reg = <0x2 0xa9400000 0x0 0x4000>,
++		      <0x2 0xa9c00000 0x0 0x100000>;
++		reg-names = "coproc-asc", "coproc-sram";
++		mboxes = <&mtp_mbox>, <&mtp_dockchannel>;
++		mbox-names = "asc", "dockchannel";
++		iommus = <&mtp_dart 1>;
++		status = "disabled";
++	};
 +
- static const struct hid_device_id apple_devices[] = {
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_APPLE, USB_DEVICE_ID_APPLE_MIGHTYMOUSE),
- 		.driver_data = APPLE_MIGHTYMOUSE | APPLE_INVERT_HWHEEL },
-@@ -1240,6 +1262,9 @@ static const struct hid_device_id apple_devices[] = {
- 		.driver_data = APPLE_HAS_FN | APPLE_ISO_TILDE_QUIRK },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_APPLE, USB_DEVICE_ID_APPLE_TOUCHBAR_BACKLIGHT),
- 		.driver_data = APPLE_MAGIC_BACKLIGHT },
-+	{ HID_DEVICE(BUS_HOST, HID_GROUP_APPLE_DOCKCHANNEL,
-+		     HID_ANY_ID, HID_ANY_ID),
-+		.driver_data = APPLE_HAS_FN | APPLE_ISO_TILDE_QUIRK },
+ 	sio_dart: iommu@39b008000 {
+ 		compatible = "apple,t6020-dart", "apple,t8110-dart";
+ 		reg = <0x3 0x9b008000 0x0 0x8000>;
+diff --git a/arch/arm64/boot/dts/apple/t6030.dtsi b/arch/arm64/boot/dts/apple/t6030.dtsi
+index dda9568af..e460e547e 100644
+--- a/arch/arm64/boot/dts/apple/t6030.dtsi
++++ b/arch/arm64/boot/dts/apple/t6030.dtsi
+@@ -474,6 +474,52 @@ wdt: watchdog@3642b0000 {
+ 			interrupts = <AIC_IRQ 480 IRQ_TYPE_LEVEL_HIGH>;
+ 		};
  
- 	{ }
++		mtp_mbox: mbox@37a408000 {
++			compatible = "apple,t6030-asc-mailbox", "apple,asc-mailbox-v4";
++			reg = <0x3 0x7a408000 0x0 0x4000>;
++			interrupt-parent = <&aic>;
++			interrupts = <AIC_IRQ 953 IRQ_TYPE_LEVEL_HIGH>,
++				     <AIC_IRQ 954 IRQ_TYPE_LEVEL_HIGH>,
++				     <AIC_IRQ 955 IRQ_TYPE_LEVEL_HIGH>,
++				     <AIC_IRQ 956 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "send-empty", "send-not-empty",
++					  "recv-empty", "recv-not-empty";
++			#mbox-cells = <0>;
++			status = "disabled";
++		};
++
++		mtp_dart: iommu@37a808000 {
++			compatible = "apple,t6030-dart", "apple,t8110-dart";
++			reg = <0x3 0x7a808000 0x0 0x4000>;
++			interrupt-parent = <&aic>;
++			interrupts = <AIC_IRQ 937 IRQ_TYPE_LEVEL_HIGH>;
++			#iommu-cells = <1>;
++			status = "disabled";
++		};
++
++		mtp_dockchannel: mailbox@37ab14000 {
++			compatible = "apple,t6030-dockchannel", "apple,t8112-dockchannel";
++			reg = <0x3 0x7ab14000 0x0 0x4000>,
++			      <0x3 0x7ab30000 0x0 0x4000>,
++			      <0x3 0x7ab34000 0x0 0x4000>;
++			reg-names = "irq", "config", "data";
++			interrupt-parent = <&aic>;
++			interrupts = <AIC_IRQ 939 IRQ_TYPE_LEVEL_HIGH>;
++			#mbox-cells = <0>;
++			status = "disabled";
++		};
++
++		mtp_hid: hid@37a400000 {
++			compatible = "apple,t6030-dockchannel-hid", "apple,t8112-dockchannel-hid";
++			reg = <0x3 0x7a400000 0x0 0x4000>,
++			      <0x3 0x7ac00000 0x0 0x100000>;
++			reg-names = "coproc-asc", "coproc-sram";
++			mboxes = <&mtp_mbox>, <&mtp_dockchannel>;
++			mbox-names = "asc", "dockchannel";
++			iommus = <&mtp_dart 1>;
++			status = "disabled";
++		};
++
+ 		pinctrl_smc: pinctrl@36c820000 {
+ 			compatible = "apple,t6030-pinctrl", "apple,t8103-pinctrl";
+ 			reg = <0x3 0x6c820000 0x0 0x4000>;
+diff --git a/arch/arm64/boot/dts/apple/t6031-die0.dtsi b/arch/arm64/boot/dts/apple/t6031-die0.dtsi
+index 47d08672a..d7a6d72b3 100644
+--- a/arch/arm64/boot/dts/apple/t6031-die0.dtsi
++++ b/arch/arm64/boot/dts/apple/t6031-die0.dtsi
+@@ -195,3 +195,49 @@ serial0: serial@391200000 {
+ 		power-domains = <&ps_uart0>;
+ 		status = "disabled";
+ 	};
++
++	mtp_mbox: mbox@2ac408000 {
++		compatible = "apple,t6031-asc-mailbox", "apple,asc-mailbox-v4";
++		reg = <0x2 0xac408000 0x0 0x4000>;
++		interrupt-parent = <&aic>;
++		interrupts = <AIC_IRQ 0 692 IRQ_TYPE_LEVEL_HIGH>,
++			     <AIC_IRQ 0 693 IRQ_TYPE_LEVEL_HIGH>,
++			     <AIC_IRQ 0 694 IRQ_TYPE_LEVEL_HIGH>,
++			     <AIC_IRQ 0 695 IRQ_TYPE_LEVEL_HIGH>;
++		interrupt-names = "send-empty", "send-not-empty",
++				  "recv-empty", "recv-not-empty";
++		#mbox-cells = <0>;
++		status = "disabled";
++	};
++
++	mtp_dart: iommu@2ac808000 {
++		compatible = "apple,t6031-dart", "apple,t8110-dart";
++		reg = <0x2 0xac808000 0x0 0x4000>;
++		interrupt-parent = <&aic>;
++		interrupts = <AIC_IRQ 0 675 IRQ_TYPE_LEVEL_HIGH>;
++		#iommu-cells = <1>;
++		status = "disabled";
++	};
++
++	mtp_dockchannel: mailbox@2acb14000 {
++		compatible = "apple,t6031-dockchannel", "apple,t8112-dockchannel";
++		reg = <0x2 0xacb14000 0x0 0x4000>,
++		      <0x2 0xacb30000 0x0 0x4000>,
++		      <0x2 0xacb34000 0x0 0x4000>;
++		reg-names = "irq", "config", "data";
++		interrupt-parent = <&aic>;
++		interrupts = <AIC_IRQ 0 676 IRQ_TYPE_LEVEL_HIGH>;
++		#mbox-cells = <0>;
++		status = "disabled";
++	};
++
++	mtp_hid: hid@2ac400000 {
++		compatible = "apple,t6031-dockchannel-hid", "apple,t8112-dockchannel-hid";
++		reg = <0x2 0xac400000 0x0 0x4000>,
++		      <0x2 0xacc00000 0x0 0x100000>;
++		reg-names = "coproc-asc", "coproc-sram";
++		mboxes = <&mtp_mbox>, <&mtp_dockchannel>;
++		mbox-names = "asc", "dockchannel";
++		iommus = <&mtp_dart 1>;
++		status = "disabled";
++	};
+diff --git a/arch/arm64/boot/dts/apple/t8112.dtsi b/arch/arm64/boot/dts/apple/t8112.dtsi
+index ec248ca05..d5c2f35ef 100644
+--- a/arch/arm64/boot/dts/apple/t8112.dtsi
++++ b/arch/arm64/boot/dts/apple/t8112.dtsi
+@@ -987,6 +987,52 @@ pinctrl_aop: pinctrl@24a820000 {
+ 				     <AIC_IRQ 307 IRQ_TYPE_LEVEL_HIGH>;
+ 		};
+ 
++		mtp_mbox: mbox@24e408000 {
++			compatible = "apple,t8112-asc-mailbox", "apple,asc-mailbox-v4";
++			reg = <0x2 0x4e408000 0x0 0x4000>;
++			interrupt-parent = <&aic>;
++			interrupts = <AIC_IRQ 864 IRQ_TYPE_LEVEL_HIGH>,
++				     <AIC_IRQ 865 IRQ_TYPE_LEVEL_HIGH>,
++				     <AIC_IRQ 866 IRQ_TYPE_LEVEL_HIGH>,
++				     <AIC_IRQ 867 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "send-empty", "send-not-empty",
++					  "recv-empty", "recv-not-empty";
++			#mbox-cells = <0>;
++			status = "disabled";
++		};
++
++		mtp_dart: iommu@24e808000 {
++			compatible = "apple,t8110-dart";
++			reg = <0x2 0x4e808000 0x0 0x4000>;
++			interrupt-parent = <&aic>;
++			interrupts = <AIC_IRQ 848 IRQ_TYPE_LEVEL_HIGH>;
++			#iommu-cells = <1>;
++			status = "disabled";
++		};
++
++		mtp_dockchannel: mailbox@24eb14000 {
++			compatible = "apple,t8112-dockchannel";
++			reg = <0x2 0x4eb14000 0x0 0x4000>,
++			      <0x2 0x4eb30000 0x0 0x4000>,
++			      <0x2 0x4eb34000 0x0 0x4000>;
++			reg-names = "irq", "config", "data";
++			interrupt-parent = <&aic>;
++			interrupts = <AIC_IRQ 850 IRQ_TYPE_LEVEL_HIGH>;
++			#mbox-cells = <0>;
++			status = "disabled";
++		};
++
++		mtp_hid: hid@24e400000 {
++			compatible = "apple,t8112-dockchannel-hid";
++			reg = <0x2 0x4e400000 0x0 0x4000>,
++			      <0x2 0x4ec00000 0x0 0x100000>;
++			reg-names = "coproc-asc", "coproc-sram";
++			mboxes = <&mtp_mbox>, <&mtp_dockchannel>;
++			mbox-names = "asc", "dockchannel";
++			iommus = <&mtp_dart 1>;
++			status = "disabled";
++		};
++
+ 		ans_mbox: mbox@277408000 {
+ 			compatible = "apple,t8112-asc-mailbox", "apple,asc-mailbox-v4";
+ 			reg = <0x2 0x77408000 0x0 0x4000>;
+diff --git a/arch/arm64/boot/dts/apple/t8122.dtsi b/arch/arm64/boot/dts/apple/t8122.dtsi
+index 1ee61c5b3..47102f431 100644
+--- a/arch/arm64/boot/dts/apple/t8122.dtsi
++++ b/arch/arm64/boot/dts/apple/t8122.dtsi
+@@ -438,6 +438,53 @@ pinctrl_aop: pinctrl@2f4824000 {
+ 				     <AIC_IRQ 351 IRQ_TYPE_LEVEL_HIGH>,
+ 				     <AIC_IRQ 352 IRQ_TYPE_LEVEL_HIGH>;
+ 		};
++
++		mtp_mbox: mbox@2fa408000 {
++			compatible = "apple,t8122-asc-mailbox", "apple,asc-mailbox-v4";
++			reg = <0x2 0xfa408000 0x0 0x4000>;
++			interrupt-parent = <&aic>;
++			interrupts = <AIC_IRQ 838 IRQ_TYPE_LEVEL_HIGH>,
++				     <AIC_IRQ 839 IRQ_TYPE_LEVEL_HIGH>,
++				     <AIC_IRQ 840 IRQ_TYPE_LEVEL_HIGH>,
++				     <AIC_IRQ 841 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "send-empty", "send-not-empty",
++					  "recv-empty", "recv-not-empty";
++			#mbox-cells = <0>;
++			status = "disabled";
++		};
++
++		mtp_dart: iommu@2fa808000 {
++			compatible = "apple,t8122-dart", "apple,t8110-dart";
++			reg = <0x2 0xfa808000 0x0 0x4000>;
++			interrupt-parent = <&aic>;
++			interrupts = <AIC_IRQ 822 IRQ_TYPE_LEVEL_HIGH>;
++			#iommu-cells = <1>;
++			status = "disabled";
++		};
++
++		mtp_dockchannel: mailbox@2fab14000 {
++			compatible = "apple,t8122-dockchannel", "apple,t8112-dockchannel";
++			reg = <0x2 0xfab14000 0x0 0x4000>,
++			      <0x2 0xfab30000 0x0 0x4000>,
++			      <0x2 0xfab34000 0x0 0x4000>;
++			reg-names = "irq", "config", "data";
++			interrupt-parent = <&aic>;
++			interrupts = <AIC_IRQ 824 IRQ_TYPE_LEVEL_HIGH>;
++			#mbox-cells = <0>;
++			status = "disabled";
++		};
++
++		mtp_hid: hid@2fa400000 {
++			compatible = "apple,t8122-dockchannel-hid",
++				     "apple,t8112-dockchannel-hid";
++			reg = <0x2 0xfa400000 0x0 0x4000>,
++			      <0x2 0xfac00000 0x0 0x100000>;
++			reg-names = "coproc-asc", "coproc-sram";
++			mboxes = <&mtp_mbox>, <&mtp_dockchannel>;
++			mbox-names = "asc", "dockchannel";
++			iommus = <&mtp_dart 1>;
++			status = "disabled";
++		};
+ 	};
  };
-@@ -1248,6 +1273,7 @@ MODULE_DEVICE_TABLE(hid, apple_devices);
- static struct hid_driver apple_driver = {
- 	.name = "apple",
- 	.id_table = apple_devices,
-+	.match = apple_match,
- 	.report_fixup = apple_report_fixup,
- 	.probe = apple_probe,
- 	.remove = apple_remove,
-diff --git a/include/linux/hid.h b/include/linux/hid.h
-index 8d17b7416..40be5eabf 100644
---- a/include/linux/hid.h
-+++ b/include/linux/hid.h
-@@ -441,6 +441,7 @@ struct hid_item {
- #define HID_GROUP_STEAM				0x0103
- #define HID_GROUP_LOGITECH_27MHZ_DEVICE		0x0104
- #define HID_GROUP_VIVALDI			0x0105
-+#define HID_GROUP_APPLE_DOCKCHANNEL		0x0106
  
- /*
-  * HID protocol status
 
 -- 
 2.55.0
