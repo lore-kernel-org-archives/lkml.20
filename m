@@ -1,146 +1,151 @@
-Received: from ironport.ite.com.tw (219-87-157-213.static.tfn.net.tw [219.87.157.213])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C061F4ABBA4;
-	Fri, 18 Sep 2026 11:19:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=219.87.157.213
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 448374D4899;
+	Fri, 18 Sep 2026 11:19:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789730388; cv=none; b=I2Ajnb8uTvIDshdWqYdXlTLKqwvQDsVY2RzW/5UuT40wG7wj42JmAJ4xfESnTTPzqBEx+3zqy6TRovxlaqVmSdlF/nVC7M7MeWUX5cV+O2b7sBm9ApS7/PPUNgEIc/z80zVJckCmeHKd/GcR93z887gKDIajBxa2tnSC80xv+x0=
+	t=1789730391; cv=none; b=K5MSLpGUGQTZiPVydcECFgEeehoCh1ltzT5/VsizGCX3tlAaAXLCfAJ4KfiS5ohafgs1Ts/bxzaJBWOvA2fKI4r0FrVshpCFmGbLDWEBqxY1vBGPj0kItfPy0w8CVxYUp9CeerHzTQ1cNuXB9PBgI9Lwn/o8rCAZW7x70lmHE/A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789730388; c=relaxed/simple;
-	bh=T8aUStlEhZh8FYeESGDdwzevaSu3/YhAiBDL7EQ84cg=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=E0yQVYlgYe47jrq3vWhoGcXB8fRubrSTxmNYmDYMI0Puo+cTA+LyW9kLZMHMXAB1RIh6iVKUDgebsNGjtSOzO2xFuv2LmhfLpR86Wl2ckZOSfMazzsbWITaHtQO2sSRO16Xyrd5SvfeqD+YgNU+tiAUdkaVdY/E2gHd0zGEAM2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw; spf=pass smtp.mailfrom=ite.com.tw; dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b=InXx+GTY; arc=none smtp.client-ip=219.87.157.213
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
+	s=arc-20240116; t=1789730391; c=relaxed/simple;
+	bh=1CLzcdM9wdo5qhwY4BmmOgSDYvGQTofOdhNF8bgHAQQ=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=HEt03dMnQDofAQ66WQLDWuZ67K0xI3TyCSOk8v6z9ekDsxhO9+EAp80+gNdepdIqqL0fWvs0YEmPuZoa2weEttFHZxzVCz9zMPeGLmMU1QjrWETp7zvNrN2ixWRBveH7KuhkyF3OYVTlRCGEZA4xbbTc3XnXUBfcW+Ai/xBNwe8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CPEx9dgu; arc=none smtp.client-ip=192.198.163.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b="InXx+GTY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=ite.com.tw; s=dkim;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=T8aUStlEhZh8FYeESGDdwzevaSu3/YhAiBDL7EQ84cg=;
-  b=InXx+GTY9nsgvs42wv6aX58nAcZZEkLgFkd6250pLLbAKYRScR0LQuJD
-   Qi0IGBXCBgAgI9cQ7sSLixfdfRDy9g1N9Kye5ZsYzlHeXHo0Q0HM7prXx
-   KbCRIqlPqmocbTabmjmYf5t7IyPIjsUCdpK3jqYLRLGM/u1s+VHik49+J
-   zIEisF3KUdvAODZphx3qKjSNEkKwoNoj4CpAqI+vZ4zgPSVYWg/dCcBTM
-   eZLpby5SQDlihqkVuPSeCQbfoHp7YieuUulxfaeO5cYn/wvkfNN/1wjYl
-   enmFKJexW5pu3W+LRPiNxHJTYXG6UqUrlMa4KTs2CbJEhgLb5YFKAfw+6
-   g==;
-X-CSE-ConnectionGUID: D8BMDDYOSRuQOUtw2FV3iA==
-X-CSE-MsgGUID: HpQARTkrSrOAP3D999ER6A==
-Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
-  by ironport.ite.com.tw with ESMTP; 18 Sep 2026 19:19:42 +0800
-Received: from tpemail1.internal.ite.com.tw (TPEMAIL1.internal.ite.com.tw [192.168.15.58])
-	by mse.ite.com.tw with ESMTP id 68IBJdSM030931;
-	Fri, 18 Sep 2026 19:19:39 +0800 (+08)
-	(envelope-from Hermes.Wu@ite.com.tw)
-Received: from TPEMAIL1.internal.ite.com.tw (192.168.15.58) by
- TPEMAIL1.internal.ite.com.tw (192.168.15.58) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Fri, 18 Sep 2026 19:19:38 +0800
-Received: from TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291]) by
- TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291%3]) with mapi id
- 15.02.2562.046; Fri, 18 Sep 2026 19:19:38 +0800
-From: <Hermes.Wu@ite.com.tw>
-To: <sakari.ailus@linux.intel.com>
-CC: <mchehab@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-        <conor+dt@kernel.org>, <linux-media@vger.kernel.org>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH 20/21] media: i2c: it6625: use centrally managed active
- state
-Thread-Topic: [PATCH 20/21] media: i2c: it6625: use centrally managed active
- state
-Thread-Index: AQHdR1f0JNOGacAb70SRmiTIS7Nox7bUME/g
-Date: Fri, 18 Sep 2026 11:19:38 +0000
-Message-ID: <69a3df11b37f466fbdca8be37a6cc378@ite.com.tw>
-References: <20260918-upstream-it6625-follow-up-patch-v1-0-78d72d7886a5@ite.com.tw>
- <20260918-upstream-it6625-follow-up-patch-v1-20-78d72d7886a5@ite.com.tw>
- <aq0RaLPX5o0HU_yC@kekkonen.localdomain>
-In-Reply-To: <aq0RaLPX5o0HU_yC@kekkonen.localdomain>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-tm-snts-smtp: A6A5CD832C23351B08FBA5097B3C255EFD05E60C73A7A85E8E4B88BA57082D192002:8
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CPEx9dgu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789730388; x=1821266388;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=1CLzcdM9wdo5qhwY4BmmOgSDYvGQTofOdhNF8bgHAQQ=;
+  b=CPEx9dguFyPMGaFpkLJw/04L4+3DP1XBqhM7Q6Eo8/sihTrtILK9B7mK
+   ahm883Tne1rHUBUJ2AGiOWmH1oZur/Feo17vg2lWLgWY8WXf17O3TOAaD
+   H9MlnizvrNmJPlLiarLMHv+jjaSOeHSeSLLM0FuXQ0gqPyiLT0qvi60+U
+   E0Q5YAc0k/7R4dfFLym4aXbJpZBy0eQOVaZg5PkxMAnFoCfZag/lLQhI0
+   yAJBSpQJ/5xw1P3JLw9E4S/VqM62DH0Ne6VLhtTnY7dItbyoqVac3jXo8
+   /svW8dsUecoML9UdRxUes6oDr5UjO7t9qwzJ5Q80K7PqTuCKE0IAFRQTc
+   A==;
+X-CSE-ConnectionGUID: WgHpH4DLSOGppkn34o7p/w==
+X-CSE-MsgGUID: b/GkmWGdTmqqX0gpC2/KJQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11908"; a="735988"
+X-IronPort-AV: E=Sophos;i="6.27,108,1787036400"; 
+   d="scan'208";a="735988"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa114.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 04:19:47 -0700
+X-CSE-ConnectionGUID: sUQuAkMLQGqedZGGNjHwyw==
+X-CSE-MsgGUID: sNEaTey+T7267W+EUWkVZQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,108,1787036400"; 
+   d="scan'208";a="2544437"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.223])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 04:19:45 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Fri, 18 Sep 2026 14:19:38 +0300 (EEST)
+To: Justin Vargas <justinyvar@gmail.com>, W_Armin@gmx.de
+cc: jlee@suse.com, Hans de Goede <hansg@kernel.org>, 
+    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3] platform/x86: acer-wmi: Add support for Acer Nitro
+ ANV15-51
+In-Reply-To: <20260819041740.9645-1-justinyvar@gmail.com>
+Message-ID: <a00b2a01-8629-d242-584d-08a5e983e970@linux.intel.com>
+References: <20260729222920.6490-1-justinyvar@gmail.com> <20260819041740.9645-1-justinyvar@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MAIL:mse.ite.com.tw 68IBJdSM030931
+Content-Type: text/plain; charset=US-ASCII
 
-SGkgU2FrYXJpLA0KDQpUaGFuayB5b3UgZm9yIHRoZSByZXZpZXcuIA0KDQo+IEkgZG9uJ3QgdGhp
-bmsgYWxsIHRoZSBhYm92ZSBpcyByZWxldmFudCBpbiB0aGUgY29tbWl0IG1lc3NhZ2UuDQoNCkFn
-cmVlZCwgdHJpbW1lZC4NCg0KPiBUaGlzIHBhcmFncmFwaCBjb3VsZCBnbyB0byB0aGUgY292ZXIg
-bGV0dGVyLg0KDQpBZ3JlZWQsIG1vdmVkIHRoZSBsb2NrLWF1ZGl0LXRyYWNlIHBhcmFncmFwaCB0
-aGVyZS4NCg0KPiArCS8qDQo+ICsJICogUHJvdGVjdHMgY29uY3VycmVudCBhY2Nlc3MgdG8gdGhl
-IGNoaXAncyByZWdpc3RlcnMgYW5kIHN0YXRlLg0KPiArCSAqIEFsc28gc2hhcmVkIGFzIHNkLnN0
-YXRlX2xvY2sgYW5kIGhkbC5sb2NrIChzZWUNCj4gWy4uLl0NCj4NCj4gVGhpcyBkb2Vzbid0IGhv
-bGQgYW55bW9yZSwgZG9lcyBpdD8gVHlwaWNhbGx5IGRyaXZlcnMgZG8gd2l0aG91dCBzdWNoDQo+
-IGxvY2tzIGFzIHRoZSBzdWJkZXYgc3RhdGUgbG9jayBpcyB1c2VkIGluc3RlYWQgLS0gYXNzaWdu
-aW5nIHlvdXIgb3duIGxvY2sNCj4gYWxzbyBoYXMgdGhlIGVmZmVjdCB0aGUgc2FtZSBsb2NrIGlz
-IHVzZWQgZm9yIHRyeSBzdGF0ZXMsIHRvby4NCg0KWW91J3JlIHJpZ2h0LCBhbmQgb24gcmVmbGVj
-dGlvbiBzaGFyaW5nIGl0IHdhcyB0aGUgd3JvbmcgY2FsbCwgbm90IGp1c3QNCmFuIHVuZGVyLWV4
-cGxhaW5lZCBvbmUuIGl0NjYyNV9sb2NrIGlzIGFuIE1DVS9yZWdpc3RlciBsb2NrOiB0aGUNCmNo
-aXAncyBpbnRlcm5hbCBNQ1UgZmlybXdhcmUgcHJvY2Vzc2VzIG9uZSByZWdpc3Rlci1kcml2ZW4g
-Y29tbWFuZCBhdA0KYSB0aW1lLCBhbmQgc29tZSBjb21tYW5kcyBhcmUgbXVsdGktc3RlcCBJMkMg
-dHJhbnNhY3Rpb25zICh3cml0ZSBhDQpjb25maWcgcmVnaXN0ZXIsIHRoZW4gcG9sbCBSRUdfSE9T
-VF9DVFJMX0lOVC9CX0NPTkZJR19VUERBVEUgdmlhDQppdDY2MjVfd2FpdF9mb3Jfc3RhdHVzKCkp
-IHRoYXQgbXVzdCBub3QgYmUgaW50ZXJsZWF2ZWQgd2l0aCBhbm90aGVyDQpzdWNoIGNvbW1hbmQu
-IFRoYXQncyBhIHJlYWwsIHNlcGFyYXRlIGNvbnN0cmFpbnQsIGJ1dCBpdCBpc24ndCBhDQpyZWFz
-b24gdG8gYWxzbyBtYWtlIGl0IHRoZSBzdWJkZXYgc3RhdGUgbG9jayBvciB0aGUgY29udHJvbCBo
-YW5kbGVyJ3MNCmxvY2sgLS0gbmVpdGhlciB0aGUgcGFkIGZvcm1hdCBub3IgdGhlIGNvbnRyb2wg
-aGFuZGxlciBpcyBjaGlwIHN0YXRlLg0KDQpEcm9wcGVkIGJvdGggYWxpYXNpbmcgYXNzaWdubWVu
-dHMgKHNkLT5zdGF0ZV9sb2NrLCBoZGwtPmxvY2spIGFuZCBsZXQNCnRoZSBjb3JlIGdpdmUgdGhl
-IHN1YmRldiBzdGF0ZSBhbmQgdGhlIGNvbnRyb2wgaGFuZGxlciB0aGVpciBvd24NCmluZGVwZW5k
-ZW50IGxvY2tzLCBsaWtlIG1vc3QgZHJpdmVycyBkby4gaXQ2NjI1X2xvY2sgc3RheXMgZXhhY3Rs
-eQ0Kd2hhdCBpdCBhbHdheXMgd2FzOiBhIHByaXZhdGUgbXV0ZXggdGFrZW4gZXhwbGljaXRseSBh
-cm91bmQgTUNVLw0KcmVnaXN0ZXIgYWNjZXNzLiBUaGF0IGRpZCBtZWFuIHJlLWF1ZGl0aW5nIGV2
-ZXJ5IGNhbGxlciB0aGF0IHVzZWQgdG8NCnJlYWNoIHRoZSBhY3RpdmUgcGFkIGZvcm1hdCB1bmRl
-ciB0aGUgaW1wbGljaXQNCnN0YXRlX2xvY2sgPT0gaXQ2NjI1X2xvY2sgYXNzdW1wdGlvbiAtLSBp
-dDY2MjVfaW5pdGlhbF9zZXR1cCgpLA0KaXQ2NjI1X2NsZWFyX3RpbWluZ3MoKSwgaXQ2NjI1X2xv
-Z19zdGF0dXMoKSwgYW5kDQppdDY2MjVfdXBkYXRlX3RpbWluZ3NfaWZfY2hhbmdlZCgpIG5vdyB0
-YWtlIHRoZSBhY3RpdmUgc3RhdGUncyBsb2NrDQpleHBsaWNpdGx5ICh0aGUgbGFzdCB0d28gYXJl
-bid0IGNvcmUtbG9ja2VkIHRvIGJlZ2luIHdpdGg6DQpWSURJT0NfTE9HX1NUQVRVUyBhbmQgVklE
-SU9DX1NVQkRFVl9TX0RWX1RJTUlOR1MgYXJlbid0IGluDQpzdWJkZXZfaW9jdGxfZ2V0X3N0YXRl
-KCkncyBzd2l0Y2ggaW4gdjRsMi1zdWJkZXYuYyksIG5lc3RpbmcNCml0NjYyNV9sb2NrIGluc2lk
-ZSB3aGVyZSB0aGV5IGFsc28gdG91Y2ggaXQ2NjI1LT50aW1pbmdzLiBUaGUgcnVsZQ0KZ29pbmcg
-Zm9yd2FyZDogYSBzdWJkZXYgc3RhdGUgbG9jaywgd2hlbiBoZWxkLCBpcyBhbHdheXMgdGhlIG91
-dGVyDQpsb2NrOyBpdDY2MjVfbG9jayBuZXN0cyBpbnNpZGUgaXQsIG5ldmVyIHRoZSByZXZlcnNl
-Lg0KDQo+IENvdWxkIHlvdSByZXdvcmsgdGhlIGNvZGUgdG8ga2VlcCB0aGlzIGZvciBhY3RpdmUg
-YW5kIHRyeSBwYXRocz8NCg0KQWdyZWVkLiBNb3ZlZCB0aGUgQUNUSVZFLW9ubHkgaGFyZHdhcmUg
-cHJvZ3JhbW1pbmcgaW50byBpdHMgb3duIGd1YXJkZWQNCmJsb2NrIGFuZCBsZXQgYm90aCBUUlkg
-YW5kIEFDVElWRSBmYWxsIHRocm91Z2ggdG8gb25lIHNoYXJlZCBjb21taXQgdGFpbA0KaW5zdGVh
-ZCBvZiBkdXBsaWNhdGluZyBpdC4NCg0KPiBUaGVyZSBhcmUgYSBmZXcgbGluZXMgbG9uZ2VyIHRo
-YW4gODA7IHBsZWFzZSBzcGxpdCB1bmxlc3MgdGhlcmUncyBhDQo+IHRhbmdpYmxlIHJlYXNvbiB0
-byBkbyBvdGhlcndpc2UuDQoNCkFncmVlZC4gSG9pc3RlZCB0aGUgcmVwZWF0ZWQgaXQ2NjI1X2Zv
-cm1hdHNbaWR4XS5jc2lfZm9ybWF0IGxvb2t1cCBpbnRvDQphIGxvY2FsIHZhcmlhYmxlLCB3aGlj
-aCBnZXRzIHRoZSBpdDY2MjVfc2V0X21pcGlfY29uZmlnX2xvY2tlZCgpIGNhbGwNCihhbmQgdGhl
-IG5laWdoYm9yaW5nIGNvbW1lbnQpIHVuZGVyIDgwIGNvbHVtbnMgd2l0aG91dCBhbiBhd2t3YXJk
-IHdyYXAuDQoNCj4gKwlpZiAoYWN0aXZlKSB7DQo+ICsJCSpmbXQgPSAqdjRsMl9zdWJkZXZfc3Rh
-dGVfZ2V0X2Zvcm1hdChhY3RpdmUsIDApOw0KPiArCQlyZXR1cm4gMDsNCj4gKwl9DQo+DQo+IFRo
-aXMgZnVuY3Rpb24gc2hvdWxkIHdvcmsgdGhlIHNhbWUgd2F5IGluZGVwZW5kZW50bHkgb2Ygd2hl
-dGhlciB0aGUNCj4gc3RhdGUgaXMgYWN0aXZlIG9yIG5vdC4NCg0KQWdyZWVkLiBJIHdhcyBzcGVj
-aWFsLWNhc2luZyBvbiB3aGV0aGVyIHNkLT5hY3RpdmVfc3RhdGUgZXhpc3RlZCB5ZXQsIHRvDQpz
-ZWVkIGEgbmV3IFRSWSBzdGF0ZSBmcm9tIHRoZSBjdXJyZW50IGFjdGl2ZSBmb3JtYXQgaW5zdGVh
-ZCBvZiByZXZlcnRpbmcNCnRvIGJvb3QgZGVmYXVsdHMuIFJld29ya2VkIGl0IHRvIGFsd2F5cyBz
-ZXQgdGhlIHNhbWUgZGVmYXVsdHMgcmVnYXJkbGVzcw0Kb2Ygd2hpY2ggc3RhdGUgaXQncyBpbml0
-aWFsaXppbmcgLS0gaXQ2NjI1LT50aW1pbmdzIGFuZCB0aGUgZGVmYXVsdA0KZm9ybWF0IGluZGV4
-IC0tIGZvbGxvd2luZyB0aGUgc2FtZSB1bmNvbmRpdGlvbmFsLWRlZmF1bHRzIHBhdHRlcm4NCmht
-MTI0Nl9pbml0X3N0YXRlKCkgdXNlcyBmb3IgdGhlIHNhbWUgYWN0aXZlL1RSWSBkaXN0aW5jdGlv
-bi4gVGhlDQpjb3JlIGFscmVhZHkgaG9sZHMgd2hpY2hldmVyIHN0YXRlIGluaXRfc3RhdGUoKSBp
-cyBpbml0aWFsaXppbmcgYmVmb3JlDQpjYWxsaW5nIGluLCBzbyByZWFkaW5nIGl0NjYyNS0+dGlt
-aW5ncyB1bmRlciBhIG5lc3RlZCBpdDY2MjVfbG9jayAoc2VlDQp0aGUgbG9ja2luZyByZXBseSBh
-Ym92ZSkgaXMgc2FmZSB0aGVyZSB0b287IGEgVFJZIHN0YXRlIG9wZW5lZCBhZnRlcg0Kc2lnbmFs
-IGRldGVjdGlvbiBzdGlsbCByZWZsZWN0cyB0aGUgbGl2ZSBkZXRlY3RlZCB3aWR0aC9oZWlnaHQv
-ZmllbGQsDQphbmQgdGhlIGNvZGUgYWx3YXlzIHN0YXJ0cyBmcm9tIHRoZSBkZWZhdWx0IGZvcm1h
-dCBpbmRleCwgc2FtZSBhcw0KaXQ2NjI1X2luaXRfZGF0YSgpIHNlZWRzIGl0IGF0IHByb2JlLg0K
-DQo+IFRoaXMgY29tbWVudCBpcyBoYXJkbHkgdXNlZnVsOyB0aGUgc2FtZSBhcHBsaWVzIHRvIHBy
-ZXR0eSBtdWNoIGFsbA0KPiBkcml2ZXJzIHVzaW5nIHN1Yi1kZXZpY2Ugc3RhdGUgYW5kIFY0TDIg
-Y29udHJvbHMuDQoNCkFncmVlZCwgZHJvcHBlZCBpdC4NCg0KS2luZCByZWdhcmRzLA0KDQpIZXJt
-ZXMNCg==
+On Wed, 19 Aug 2026, Justin Vargas wrote:
+
+> The Acer Nitro ANV15-51 uses the Predator V4 WMI interface for thermal
+> profile handling, hardware monitoring and fan control, but has no quirk
+> entry, so none of these features are available.
+> 
+> Add a quirk entry for this model.
+> 
+> Note that this machine does not support the turbo thermal profile: its
+> supported profiles bitmap (misc setting 0x0A) reads 0x53, and writing
+
+Armin removed support for trusting the "supported bitmap" in b0908e03fdd4 
+("platform/x86: acer-wmi: Stop using ACPI bitmap for platform profile 
+choices") as it was unclear if we'd interpreted their meaning correctly.
+
+> PLATFORM_PROFILE_PERFORMANCE is rejected by the firmware. The four
+> remaining profiles work as expected.
+> 
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: Justin Vargas <justinyvar@gmail.com>
+> Tested-by: Justin Vargas <justinyvar@gmail.com>
+> ---
+> v3: Use a model-specific quirk_entry with cpu_fans, gpu_fans and pwm
+>     set, as suggested by Armin Wolf, instead of reusing
+>     quirk_acer_predator_v4. Fan control is now tested (see below).
+> v2: Add Assisted-by trailer per
+>     Documentation/process/coding-assistants.rst.
+> 
+> Tested on an Acer Nitro ANV15-51, BIOS V1.60 (04/08/2026), by building
+> this patch as an out-of-tree acer-wmi module against kernel
+> 7.1.8-1-cachyos and loading it on the machine.
+> 
+> Thermal profiles:
+> 
+>   $ cat /sys/firmware/acpi/platform_profile_choices
+>   low-power quiet balanced balanced-performance performance
+> 
+>   low-power, quiet, balanced and balanced-performance all apply
+>   successfully and audibly change fan behaviour. Writing performance
+>   fails with -EIO, consistent with the supported profiles bitmap
+>   (misc setting 0x0A) reading 0x53, i.e. bit 5 (turbo) clear.
+> 
+> hwmon and fan control, via the acer hwmon device:
+> 
+>   pwm_enable  pwm    fan1 (CPU)  fan2 (GPU)
+>   2 (auto)    229    2311 RPM    2057 RPM
+>   1 (manual)  255    8167 RPM    2077 RPM
+>   1 (manual)  128    4482 RPM    2065 RPM
+> 
+>   Setting pwm2 to 255 raised fan2 to 7284 RPM while fan1 was unaffected,
+>   so the two fans are independently controllable. Restoring
+>   pwm1_enable/pwm2_enable to 2 returned both fans to automatic control
+>   (2267 / 2000 RPM at idle).
+> 
+>   temp1_input, temp2_input and temp3_input are also exposed.
+> 
+> The WMI mechanism was cross-checked on Windows, where NitroSense switches
+> profiles via SetGamingMiscSetting with index 0x0B and the same profile
+> values used by this driver.
+> 
+> The analysis and patch were produced with AI assistance (see the
+> Assisted-by trailer); all testing was performed by me on the physical
+> machine, and I take responsibility for the patch as signed off above.
+> 
+>  drivers/platform/x86/acer-wmi.c | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
+> 
+> diff --git a/drivers/platform/x86/acer-wmi.c b/drivers/platform/x86/acer-wmi.c
+> index e0eaaefb13d..86c212df49f 100644
+> --- a/drivers/platform/x86/acer-wmi.c
+> +++ b/drivers/platform/x86/acer-wmi.c
+> @@ -466,6 +466,13 @@ static struct quirk_entry quirk_acer_predator_ph315_53 = {
+>  	.gpu_fans = 1,
+>  };
+>  
+> +static struct quirk_entry quirk_acer_nitro_anv15_51 = {
+> +	.cpu_fans = 1,
+> +	.gpu_fans = 1,
+> +	.predator_v4 = 1,
+
+Can you respin this on top of the commits in the review-ilpo-next branch 
+which contains the commit 2502b3d92132 ("platform/x86: acer-wmi: split 
+hwmon from platform profile quirk"). Note that the commit id may change 
+if I need to do a force push due to some issue.
+
+-- 
+ i.
+
