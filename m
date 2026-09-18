@@ -1,171 +1,110 @@
-Received: from mta0.migadu.com (out-155.mta0.migadu.com [91.218.175.155])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B029E48B385
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:42:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.155
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFAAB632;
+	Fri, 18 Sep 2026 08:42:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789720947; cv=none; b=VWdQ+D+8PwIkeYCDG29vmmTJCJMpUo+b17ti4ijMDGXBqI/0zaRntr4pK6wYIs9prixW8lpKwuSOmYRFgN/+g2VdzIU7ERzCmvkxxm33PW2yV5xL+8Eao2rppqm9lGGf2gk2uHlmo12gG2imTCBPywqlRiOnrhIQqQ2CPuDiGVw=
+	t=1789720964; cv=none; b=IVMbY1N9dzmkU1K3JMHpmNlfJBkTKCwFxHlDgAtU4lLDEpGlOrbudao8cyBxXy4zm0J2FCvLtCNt7twc/j4zpLc98/HzEBPQGjsZ+nS0fvjQLG9F7D6sEm9EFLRju7nGJF9VRAqYRY9oh7V0NX3sbm0BI1EW3KtlE0Bb0Uk57U4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789720947; c=relaxed/simple;
-	bh=4ZMgtbSq1fLEo9A153G8EUdhTbvG1BhTa+Q06muy2Bc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=f4QbtXPLCGXtKpSltaiggnRdwYn9wyyuDp+QRl10GML3UY5eVyRPMOGcKyq3tG+hoMuWnwv7Ax5wmZgUcMZF8ljDk8PGbfZl3olPbWZSPljfoCso0JgjVhYWSmepedd+gSjIyn5MwTVaotR4p/I5E5/BTlTB2rc92EU8IKrwhTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=O8U6Qrrs; arc=none smtp.client-ip=91.218.175.155
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789720964; c=relaxed/simple;
+	bh=PzldztNMS5Cjgu3kblAv99hJJzzoSjGJ8ayBAiYY3I8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sm2ud4BIFPOdBENbwPd+ana+rqAYymL535Wwp87nx46a0bE84P6QwbIi3TzKxLYZZgqlMI2xISh1UL616EjJzKavlNGav3Y82t0qb1qmt0YDYWVZ54rXiT4yHmC+86KdrnrcLXVAAvibtLSYckFFUmtPMQvsAb9/+onhD++RcfU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=WJXSZjZQ; arc=none smtp.client-ip=220.197.31.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="O8U6Qrrs"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=4ZMgtbSq1fLEo9A153G8EUdhTbvG1BhTa+Q06muy2Bc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789720943; v=1; x=1790325743;
- b=O8U6Qrrs6H1FKwqrnosTBet68oPZ/X9pLpqDy8MJOSkzShLu9QJuimrPnpbG1Y7OXFIaTbp2
- snCJ4RX38Fi8xxPzmtYUhFobmkuO+sb5UvolKhyojIiMrDrCAkzVbu1YwOhS6Y5dPzaqYizxPdL
- EzcCRxkrdFWSgCQkpAC9NHoI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 89df3aa9709f030b;
-	Fri, 18 Sep 2026 08:42:23 +0000
-X-Mizu-Trace-ID: 89df3aa9709f030b
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: bpf@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH bpf-next v8 2/3] selftests/bpf: Add read_cgroup_file() to cgroup_helpers
-Date: Fri, 18 Sep 2026 16:40:26 +0800
-Message-ID: <20260918084123.39477-3-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260918084123.39477-1-jiayuan.chen@linux.dev>
-References: <20260918084123.39477-1-jiayuan.chen@linux.dev>
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="WJXSZjZQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=7+g8+UxJXbBTwX2N40/dzce93+bWOJpHxoj4kNEwGWQ=;
+	b=WJXSZjZQzxzO2WgIdscOrxkCYknvi3aF6qRYuiZt4MsL+/VuWUnKEWD/O5Q7z5
+	mUuj6ATRg+1lk/hBMV5EuKHBa11aQQuBwpd2i+slidDkf/Wmzu5oL5Visd85IEaO
+	e4Rj5Q8NqWMzJvmdAb0EW2wBOzrH7eYQx2XoywR3yuG3M=
+Message-ID: <514b0d85-c6b6-4e31-af41-5df45319e770@126.com>
+Date: Fri, 18 Sep 2026 16:41:16 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net: stmmac: request the MDIO reset GPIO only once
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Linkui Xiao <xiaolinkui@kylinos.cn>, stable@vger.kernel.org
+References: <20260917125457.1353718-1-xiaolinkui@126.com>
+ <ff811e9f-4d4b-4b26-a0b5-84cb2eb52618@bootlin.com>
+Content-Language: en-US
+From: Linkui Xiao <xiaolinkui@126.com>
+In-Reply-To: <ff811e9f-4d4b-4b26-a0b5-84cb2eb52618@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:_____wD3V80s+axqJuOTBg--.3829S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ury5WF45tr48GFy7tr4fKrg_yoW8AryUpr
+	4rXF45JF98A3yxtrWDXw4kuF9YyrnIyF4DGr1I9w4Ikwn8Xr4ftrWxtr15Xay2kryqk3ya
+	gr4xua4DuFyvyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UcBMNUUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlA5PJmqs+S6tCQAA3G
 
-cgroup_helpers has write_cgroup_file()/write_cgroup_file_parent() but no
-read counterpart. Add read_cgroup_file() and read_cgroup_file_parent() so
-a forked child can read a cgroup file (e.g. memory.current) from the work
-dir owned by the parent that set the environment up, without hand-building
-the /mnt/... path.
+Hi Maxime,
 
-Reviewed-by: Emil Tsalapatis <emil@etsalapatis.com>
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
----
- tools/testing/selftests/bpf/cgroup_helpers.c | 67 ++++++++++++++++++++
- tools/testing/selftests/bpf/cgroup_helpers.h |  4 ++
- 2 files changed, 71 insertions(+)
+Thanks for the review.
 
-diff --git a/tools/testing/selftests/bpf/cgroup_helpers.c b/tools/testing/selftests/bpf/cgroup_helpers.c
-index 45cd0b479fe35..4183ff6150c28 100644
---- a/tools/testing/selftests/bpf/cgroup_helpers.c
-+++ b/tools/testing/selftests/bpf/cgroup_helpers.c
-@@ -188,6 +188,73 @@ int write_cgroup_file_parent(const char *relative_path, const char *file,
- 	return __write_cgroup_file(cgroup_path, file, buf);
- }
- 
-+static int __read_cgroup_file(const char *cgroup_path, const char *file,
-+			      char *buf, size_t len)
-+{
-+	char file_path[PATH_MAX + 1];
-+	ssize_t got;
-+	int fd;
-+
-+	snprintf(file_path, sizeof(file_path), "%s/%s", cgroup_path, file);
-+	fd = open(file_path, O_RDONLY);
-+	if (fd < 0) {
-+		log_err("Opening %s", file_path);
-+		return 1;
-+	}
-+
-+	got = read(fd, buf, len - 1);
-+	if (got < 0) {
-+		log_err("Reading %s", file_path);
-+		close(fd);
-+		return 1;
-+	}
-+	buf[got] = '\0';
-+	close(fd);
-+	return 0;
-+}
-+
-+/**
-+ * read_cgroup_file() - Read from a cgroup file
-+ * @relative_path: The cgroup path, relative to the workdir
-+ * @file: The name of the file in cgroupfs to read from
-+ * @buf: Buffer to read into, NUL-terminated on success
-+ * @len: Size of @buf
-+ *
-+ * Read from a file in the given cgroup's directory.
-+ *
-+ * If successful, 0 is returned.
-+ */
-+int read_cgroup_file(const char *relative_path, const char *file,
-+		     char *buf, size_t len)
-+{
-+	char cgroup_path[PATH_MAX - 24];
-+
-+	format_cgroup_path(cgroup_path, relative_path);
-+	return __read_cgroup_file(cgroup_path, file, buf, len);
-+}
-+
-+/**
-+ * read_cgroup_file_parent() - Read from a cgroup file in the parent process
-+ *                             workdir
-+ * @relative_path: The cgroup path, relative to the parent process workdir
-+ * @file: The name of the file in cgroupfs to read from
-+ * @buf: Buffer to read into, NUL-terminated on success
-+ * @len: Size of @buf
-+ *
-+ * Read from a file in the given cgroup's directory under the parent process
-+ * workdir.
-+ *
-+ * If successful, 0 is returned.
-+ */
-+int read_cgroup_file_parent(const char *relative_path, const char *file,
-+			    char *buf, size_t len)
-+{
-+	char cgroup_path[PATH_MAX - 24];
-+
-+	format_parent_cgroup_path(cgroup_path, relative_path);
-+	return __read_cgroup_file(cgroup_path, file, buf, len);
-+}
-+
- /**
-  * setup_cgroup_environment() - Setup the cgroup environment
-  *
-diff --git a/tools/testing/selftests/bpf/cgroup_helpers.h b/tools/testing/selftests/bpf/cgroup_helpers.h
-index 3857304be8741..d42d2e13044e5 100644
---- a/tools/testing/selftests/bpf/cgroup_helpers.h
-+++ b/tools/testing/selftests/bpf/cgroup_helpers.h
-@@ -15,6 +15,10 @@ int write_cgroup_file(const char *relative_path, const char *file,
- 		      const char *buf);
- int write_cgroup_file_parent(const char *relative_path, const char *file,
- 			     const char *buf);
-+int read_cgroup_file(const char *relative_path, const char *file,
-+		     char *buf, size_t len);
-+int read_cgroup_file_parent(const char *relative_path, const char *file,
-+			    char *buf, size_t len);
- int cgroup_setup_and_join(const char *relative_path);
- int get_root_cgroup(void);
- int create_and_get_cgroup(const char *relative_path);
--- 
-2.43.0
+On 2026/9/18 00:10, Maxime Chevallier wrote:
+> Hello,
+> 
+>> @@ -389,11 +389,21 @@ int stmmac_mdio_reset(struct mii_bus *bus)
+>>   		struct gpio_desc *reset_gpio;
+>>   		u32 delays[3] = { 0, 0, 0 };
+>>   
+>> -		reset_gpio = devm_gpiod_get_optional(priv->device,
+>> -						     "snps,reset",
+>> -						     GPIOD_OUT_LOW);
+>> -		if (IS_ERR(reset_gpio))
+>> -			return PTR_ERR(reset_gpio);
+>> +		/* Request the reset line only once and reuse the descriptor
+>> +		 * afterwards. A second request of the very same line makes
+>> +		 * gpiolib fail with -EBUSY, which devm_gpiod_get_optional()
+>> +		 * passes through because it only filters out -ENOENT. The
+>> +		 * reset would then abort early and leave the PHY un-reset.
+>> +		 */
+>> +		if (!priv->mdio_reset_gpio) {
+>> +			priv->mdio_reset_gpio =
+>> +				devm_gpiod_get_optional(priv->device,
+>> +							"snps,reset",
+>> +							GPIOD_OUT_LOW);
+>> +			if (IS_ERR(priv->mdio_reset_gpio))
+>> +				return PTR_ERR(priv->mdio_reset_gpio);
+>> +		}
+>> +		reset_gpio = priv->mdio_reset_gpio;
+> 
+> The problem is real, but this isn't the correct approach to solve that.
+> 
+> Instead of requesting the reset gpio on-the-fly at reset time (good example
+> of when not to use devm_xxx) , let's request the gpio at probe time.
+> 
+> I suggest you move the devm_gpiod_get_optional() in stmmac_mdio_register(),
+> which is called at probe time. Here, it makes sense to use devm_xxx.
+> 
+
+You're right, requesting the GPIO in the reset callback is the wrong
+place for devm_xxx.
+
+I'll send a v2 that moves the devm_gpiod_get_optional() call to
+stmmac_mdio_register(), which runs at probe time. stmmac_mdio_reset()
+will then just use the descriptor stored in stmmac_priv.
+
+Thanks,
+Linkui
+
+> Thanks :)
+> 
+> Maxime
+> 
 
