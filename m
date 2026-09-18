@@ -1,209 +1,123 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2901048593E
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 05:52:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5C6F3D75A1
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 05:54:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789710775; cv=none; b=BSl7x45OQ4+chkLJ/1ybnHyMh8lQhjnoy6oLXg6PmvUQ9+I8M/Ks58UoGexr8OkFUWJMx9MSuUC+KB0fVuOXzFJ5x6r0Ch3GDNBN/wnfUD9rmXXRCzdx7An0Q89lPeZq6al+EJ0VSjF/hQ+hkEd5v38/eQdUlVL6wDIXKZ9txsw=
+	t=1789710852; cv=none; b=MFQamKCSwz/c1NdbimDpydtdte72p6SSNKbw7hzFm/hFH7Oz/zeXLe6vjVCk81GZS/BKZ/hCdA9BDUVV64Z3PrQGad25UQbT50Zegl6G5uOQxlfmDOV8HYNUXWSSLkKKzlNZ1q/PRV+beWzgrtICPlFZ81n993c9UeHSKMQLNsg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789710775; c=relaxed/simple;
-	bh=V99jLj2gEYsH462fTqhUwsqP0GqMQkk41b67V5dynz0=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=JCL5NiezHYDu6hSKPbSqEaY+hRQfKm+lYEhTdEBAMCeqMdib1/IdKXMNZwbb1ntJoZw8FwJK97WAOeiofHajtMTC6GpxB2SCdnm/yuoNofkR7rpcJ9CbYfaP6IomU1DC7HdqsP2RapBm2uLD25CbBTlM8D7dphVD8vNa1Po+r58=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LH1/Yndx; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789710852; c=relaxed/simple;
+	bh=lmlV7xFHRVTdsb3n+oqHHiehmNTVMleq48/Xf23jFaU=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=GZhhnoHBxPlpJTXT9nBJPCa8zV/p0iJ9JL7tc+ovbHKwBPsLuBPGPNrmkV5bu3TPdpEYgyCXrVP9twxwaFqwBSPzzT1cUyl2VFXP/5Zo4DUzjQ2yNKzBLF2pLP4jiB/n6nXoE5OL6C/zFUAzY3p2ip4eb8/HRUwdx2H8BpUFyas=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Z+FfgJmW; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LH1/Yndx"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea4bfd1so185247a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 22:52:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789710773; x=1790315573; darn=vger.kernel.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=RoqQBX0V764x0A/v/amZwGuN9suY1fEbdmSCiYW1k5w=;
-        b=LH1/YndxdKdTqJTRoOSlt0kiCmgEVtwTVWQ2dNzfDSEY9XCp7y4XkQQsRQsO5sGLdv
-         u4MsRZUs9PrK9+cdV4t88JtvJCAHyKi7lNtx55zWSiC5jvb5+vGABqO1ZZumgYbJtFfJ
-         hY4c6wdKEssCOyGYKh06SJaa/wuFCT8ZXM07tBmeEZ8bfCdXgVdRoxZk4hnY9hIbiwDQ
-         KzveBiurcVwDtjShw5SNupSOCA/2HmuyCAD/Gc8sxGi23g7IZ1kBi4MTd8At3tM73xaK
-         AAeJV9jgE6XlxjBVIofS387c2mof0UM1QiHLKWeCk3NUhc00RRKMxAcZyHpxohn3BaN7
-         XU9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789710773; x=1790315573;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RoqQBX0V764x0A/v/amZwGuN9suY1fEbdmSCiYW1k5w=;
-        b=ZAYJowmmvwu5F1VKG/5gkaS9pNMpjBaqkoaNMQWPd/6MWxkXjT4On45Kr1sw6WukQJ
-         fGQs+xPsdq+a+/zDVmwviUMVcMCxgPF23DZRZWPaDTSyMEIy9bwBqpqS5BouPfviVgQp
-         BIH+ba/KcGRs/3aQADXNotVsrt37PFV1mT2KqwBZl1H8xYtnbL9P91fdvYkd+YLz4Oam
-         g3CRcG+2Ci3A5v3UUvv4c/63IWnWxA/cvzLGpuspSd8VWQhJDANjzSo6Wn5j3iRKciGX
-         dhUfzGZeM1OuNGqsh2k/oAdoZE1LNiy1h4Fz3pszzwI7CqwPvra345AhMVFHTTVlfPXe
-         EWJA==
-X-Forwarded-Encrypted: i=1; AKwUvBz8AKVME3H/Di0BoAm99qAnDGcWSt5tPZuog+mexo/DcGoiRfcpYLM7BkTHX4r9YqZr9GzqUPiDF/vS7s4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mx0nNsXJcz2SaNAGOy8gfpxjF+ZRXkae76EsYyikPGkQbYVL5y
-	dpOpzmdMbK3lW7Pq+LYIvqTPeFT4g50KqIGIhD0xsTTLetnKGwgcF2Hq
-X-Gm-Gg: AYBFou2QPzj7Vh8Fcmhc8QvVG+KDJEGaoSXOntRFOvLXe4M1b/R4dhPZo0XJEC+y8Th
-	73pp8jVjnZwSn1d2/fqAmbsEaVPmIyzybioRozavJPw0fUeTmT/8pkD4V/EXeXsv95ikGhsNjK3
-	ytWthFncVvPQvSWTSqe2Eo8BY6RVUf/4s6EVp7PbF2rL4LPuclUXKKdnOTdEvMN7amS5guuxFik
-	R646jekb6zoaRhUuQCPaChDqLm7ot8ryE6AHo62uh/eQ6kVZC58xMFXYtSFIdvVQrR5D3Q9C8LN
-	ajyoXeRXy6KnoXwjQ3siFFBOackoD410m16iJE6gR6rHlPQyLw8sAplZGDhqdPLYIqqe+fHb6Fz
-	wcte4ZUSY0m++fIT+Lz2pm//CM4/3Q1loFpbUNmqnvowG0Va3eEhSUX6UEnXWR6e+aN88vj1p60
-	FleXSH/3mTwxYBaHxyzrYk78v+C3g4rvKYJR0FpGYM8EE7BUVqjiLAkNOBgWh+Rz44U92b034Cc
-	pcL5/DYr8iNDPpoUBvyn4vt8g==
-X-Received: by 2002:a05:6a21:9e0f:b0:3dd:85a8:caca with SMTP id adf61e73a8af0-3dd8c47d1c6mr2792351637.33.1789710773192;
-        Thu, 17 Sep 2026 22:52:53 -0700 (PDT)
-Received: from localhost ([13.93.150.60])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c28721895sm1518873eec.13.2026.09.17.22.52.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 17 Sep 2026 22:52:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Z+FfgJmW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789710851; x=1821246851;
+  h=message-id:date:mime-version:cc:subject:to:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=lmlV7xFHRVTdsb3n+oqHHiehmNTVMleq48/Xf23jFaU=;
+  b=Z+FfgJmWVX6RtGyFUJtUeeq7kckzlwrPI2+rHGt+l5PuhqauHqEcHnkG
+   tUzf7EK2ttIqwcseloRbyljNUMQJmH/Mra898O3p1a/C0dHrUOJ13jzDy
+   23ikrb04EHTdCtT94xO9ZbJMNnfQ1clukEvAnzaLJtUbZcLA8xFMqL4TA
+   6e0nQlA446SrtHZ0hH3voh2a0DC3pwwtwSjWojwEF1LYWfgv+mYdOC32C
+   8ILoaAyNfS3aPHtYDDIPl5m5bB0e5/urfEt1Inqfvb+GtRlhPjK6tdtk9
+   Im9ZJ4evNLob7teeLioLxX3zE7BOAc/v9c9PTjzkdYYMqUU8soDsL2F/F
+   Q==;
+X-CSE-ConnectionGUID: PhwzGtxNSSy67vv8N8kcPQ==
+X-CSE-MsgGUID: Ds+oMMU2TRmShaICeYjXsA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90326545"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="90326545"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 22:54:10 -0700
+X-CSE-ConnectionGUID: KgABx0ZsR3iY4fYq/tVq2Q==
+X-CSE-MsgGUID: GZcbDF/7SxSIjyTZ91er0w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="2628589"
+Received: from unknown (HELO [10.238.1.188]) ([10.238.1.188])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 22:54:05 -0700
+Message-ID: <2ba47d98-21b5-40de-9df0-be6676ade064@linux.intel.com>
+Date: Fri, 18 Sep 2026 13:54:02 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 18 Sep 2026 05:52:50 +0000
-Message-Id: <DLI7IPF4DIYX.3BAFFWR52DHUY@gmail.com>
-Subject: Re: [PATCH net-next v2 2/2] selftests: net: test untracked NA
- recovery of FAILED neighbors
-From: "Lawrence Lee" <lfqlee314@gmail.com>
-To: <netdev-bot+sashiko@kernel.org>
-Cc: <dsahern@kernel.org>, <idosch@nvidia.com>, <davem@davemloft.net>,
- <edumazet@google.com>, <kuba@kernel.org>, <pabeni@redhat.com>,
- <horms@kernel.org>, <rdunlap@infradead.org>, <netdev@vger.kernel.org>,
- <aajith@arista.com>, <roopa@nvidia.com>, <jhpark1013@gmail.com>,
- <corbet@lwn.net>, <skhan@linuxfoundation.org>, <shuah@kernel.org>,
- <linux-doc@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <alex.aring@gmail.com>,
- <linux-wpan@vger.kernel.org>, <linux-bluetooth@vger.kernel.org>
-X-Mailer: aerc 0.17.0
-References: <3f33052571409614b953a3dc7778114c51c43669.1789448374.git.lfqlee314@gmail.com> <178966456270.22033.8952247046783062389@kernel.org>
-In-Reply-To: <178966456270.22033.8952247046783062389@kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: baolu.lu@linux.intel.com, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nicolin Chen <nicolinc@nvidia.com>,
+ "linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+ "kvmarm@lists.linux.dev" <kvmarm@lists.linux.dev>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Alexey Kardashevskiy <aik@amd.com>, Catalin Marinas
+ <catalin.marinas@arm.com>, Dan Williams <dan.j.williams@intel.com>,
+ Joerg Roedel <joro@8bytes.org>, Jonathan Cameron <jic23@kernel.org>,
+ Marc Zyngier <maz@kernel.org>, Pranjal Shrivastava <praan@google.com>,
+ Robin Murphy <robin.murphy@arm.com>, Samuel Ortiz <sameo@rivosinc.com>,
+ Steven Price <steven.price@arm.com>,
+ Suzuki K Poulose <Suzuki.Poulose@arm.com>, Will Deacon <will@kernel.org>,
+ Xu Yilun <yilun.xu@linux.intel.com>,
+ Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
+Subject: Re: [RFC PATCH v4 03/16] iommu/arm-smmu-v3: Add initial pSMMU realm
+ viommu plumbing
+To: Jason Gunthorpe <jgg@ziepe.ca>, "Tian, Kevin" <kevin.tian@intel.com>
+References: <20260903171704.GK2890729@ziepe.ca> <yq5acxupjsy2.fsf@kernel.org>
+ <20260907125228.GB667892@ziepe.ca> <yq5atsnyag84.fsf@kernel.org>
+ <20260909124628.GH2543240@ziepe.ca>
+ <CO1PR11MB4835512E374074A5F4AD0A6C8CBF2@CO1PR11MB4835.namprd11.prod.outlook.com>
+ <20260910124632.GB4083318@ziepe.ca>
+ <CO1PR11MB4835FF972283C09D7D683DAE8CBA2@CO1PR11MB4835.namprd11.prod.outlook.com>
+ <20260915134318.GB3196566@ziepe.ca>
+ <CO1PR11MB4835562E7714F368E669D3B48CB92@CO1PR11MB4835.namprd11.prod.outlook.com>
+ <20260916123954.GC3196566@ziepe.ca>
+Content-Language: en-US
+From: Baolu Lu <baolu.lu@linux.intel.com>
+In-Reply-To: <20260916123954.GC3196566@ziepe.ca>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-> [Severity: Low]
-> Should verify_ndisc() also check the link-layer address that the
-> advertisement carried?
->
-> The seed in test_unsolicited_na_common() deliberately creates the entry
-> without one:
->
-> 	${IP_ROUTER} neigh replace "${HOST_ADDR}" dev "${ROUTER_INTF}" \
-> 		nud failed extern_learn
->
-> while the recovery path in net/ipv6/ndisc.c:ndisc_recv_na() pulls the tar=
-get
-> link-layer address out of the options and passes it down:
->
-> 	lladdr =3D ndisc_opt_addr_data(ndopts.nd_opts_tgt_lladdr, dev);
-> 	...
-> 	__ndisc_update(dev, neigh, lladdr,
-> 		       new_state, update_flags, neigh_failed,
-> 		       NDISC_NEIGHBOUR_ADVERTISEMENT, &ndopts);
->
-> Since the only assertions here are the state substring and extern_learn,
-> would a change that moves FAILED -> STALE but installs no lladdr, or an
-> incorrect one, still report OK?  Comparing the resulting lladdr against t=
-he
-> host veth MAC would close that gap.
->
-I will update the tests to verify the lladdr
+On 9/16/2026 8:39 PM, Jason Gunthorpe wrote:
+> On Wed, Sep 16, 2026 at 05:54:57AM +0000, Tian, Kevin wrote:
+>>> At least for ARM there is effectively no entanglement with the actual
+>>> host iommu driver. The viommu is entirely provided by software in the
+>>> RMM world, so it can have its own dedicated driver. In ARM T=1
+>>> transactions are alwayus routed to the RMM's iommu and there is no
+>>> relation to the host.
+>>>
+>>> I am interested how Intel works here, but I thought it was similar.
+>> Largely yes. Main difference at Intel side is that TDX still relies on the
+>> host to initiate iotlb invalidation (upon notification from KVM on S-EPT
+>> change). Currently we put this logic in intel-iommu driver but it's more
+>> about wrapping invalidation info and passing it to the firmware. Moving
+>> it into the tsm driver should be straightforward.
+>>
+>> Maybe there'll be other subtle connections to host iommu driver but
+>> it doesn't sound a hard problem to solve.
+> Okay, so I saw the driver posting for basic iommu support, can we try
+> to rework that to be split out like Aneesh is doing so everything
+> about TDX calls lives in tsm and intel iommu only provides a small API
+> surface to exchange whatever details are needed to bootstrap TDX
+> module?
 
+Are you referring to this series?
 
-> [Severity: Low]
-> Can this switch actually isolate the mode 2 in-prefix gate?
->
-> Moving HOST_ADDR from 2000:20::2 to 2000:21::2 changes the source address=
- of
-> the advertisement, its target address, and the key of the seeded neighbou=
-r
-> entry all at once, while the router keeps 2000:20::1/64.
->
-> The advertisement under test comes from addrconf_dad_completed(), and
-> ndisc_send_na() uses the same address for both fields when it is local:
->
-> net/ipv6/ndisc.c:ndisc_send_na() {
-> 	ifp =3D ipv6_get_ifaddr(dev_net(dev), solicited_addr, dev, 1);
-> 	if (ifp) {
-> 		src_addr =3D solicited_addr;
-> 	...
-> 		.target =3D *solicited_addr,
-> }
->
-> so saddr =3D=3D target for every packet this test generates.  The kernel =
-gate is
-> source based:
->
-> net/ipv6/ndisc.c:accept_untracked_na() {
-> 	case 2:
-> 		return !!ipv6_chk_prefix(saddr, idev->dev);
-> }
->
-> and Documentation/networking/ip-sysctl.rst describes mode 2 in terms of "=
-the
-> source IP address".  Would a change that tested msg->target instead of sa=
-ddr
-> leave both new mode 2 rows green?  Keeping HOST_ADDR fixed and instead
-> varying the prefix configured on the router side would exercise the gate
-> without also moving the target and the entry key.
->
-Will update the tests to cover one source address outside the prefix and=20
-one inside.
+https://lore.kernel.org/linux-iommu/20260915074235.1219183-1-baolu.lu@linux.intel.com/
 
-> [Severity: Medium]
-> The comment says "add a delay to ensure neighbour processing is done", bu=
-t
-> link_up, start_tcpdump and verify_ndisc run back to back with no sleep an=
-d no
-> retry.  Where is the delay?
->
-> start_tcpdump() blocks on:
->
-> 	${IP_ROUTER_EXEC} timeout 15s \
-> 		tcpdump --immediate-mode -tpni ${ROUTER_INTF} -c 1 \
-> 		"icmp6 && icmp6[0] =3D=3D 136 && src ${HOST_ADDR}"
->
-> but the AF_PACKET tap that satisfies -c 1 is fed from ptype_all delivery =
-in
-> __netif_receive_skb_core(), which runs ahead of the state change the test
-> looks at:
->
-> ipv6_rcv() -> icmpv6_rcv() -> ndisc_recv_na() -> __ndisc_update() ->
-> neigh_update()
->
-> Does tcpdump exiting really order against that update, given verify_ndisc=
-()
-> takes a single un-retried snapshot of ip neigh show?
->
-> There is a second effect for the new rows.  In the four expect-FAILED=20
-> cases:
->
-> 	test_unsolicited_na_combination 0 0 1 failed
-> 	test_unsolicited_na_combination 0 1 0 failed
-> 	test_unsolicited_na_combination 1 1 1 failed
-> 	test_unsolicited_na_combination 0 2 1 failed 0
->
-> the expected value FAILED is exactly the state the entry was seeded with,=
- so
-> "still FAILED" and "the advertisement was never processed" look identical=
-.
-> Would a bounded poll for the expected state, or an explicit settle, make
-> these rows able to distinguish the two?
->
-> Related question on ordering of the capture: tcpdump is started after
-> link_up, so can the single unsolicited advertisement emitted at DAD
-> completion be missed if the fork and exec are slow?  In that case timeout
-> exits 124 while set -e is in effect inside start_tcpdump, which aborts th=
-e
-> whole script rather than failing one row.  Would arming the capture befor=
-e
-> link_up avoid that?
->
-Will change the tests to start the capture prior to bringing up the host=20
-side
+It initializes the iommu managed by the secure world (the TDX module).
 
+I’m happy to rework it as you suggested by moving most of the TDX-
+related code into the tsm driver and leaving the host iommu driver to
+provide only the necessary assistance.
+
+Thanks,
+baolu
