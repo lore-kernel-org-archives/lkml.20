@@ -1,134 +1,106 @@
-Received: from outbound.mr.icloud.com (mr-2006k-snip4-11.eps.apple.com [57.103.70.113])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 846E043FD3F
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 17:50:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.70.113
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D94FB445AFC
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 17:51:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789753863; cv=none; b=lonotnS4qRVKO5REJyhHlJiN7aP/Bd0aBOSAg7r7i4gq4jqq+QMVYKBMb4xo8K5S2K6MJYU5swhjsEwyP8Ae13lx35kMJSi7nuKWnSHSxmycM3S2ItZgYymLMhSIahYJVfqUtWAxNYTKnAFJcS7+LO/5hSbYsK4+Na5r0sNNWrU=
+	t=1789753871; cv=none; b=eTKHpQZB3TedGpWJyVpKTyFEqY4E6Iw94J6DTJ7y0mqBB9qyM06NsQu349HrzNdms9CBB4VTLT+FuLYV5uWCFN0P9D/ceQsIUye8nMHpdv+jWfhFNgzzTBdSdpPvFzFnaVFXT81qM9fe+zHxVR1dLeFKnDl44J/xwvZHtfldvgo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789753863; c=relaxed/simple;
-	bh=A93bCpZEXHWwqVdlXoq9rx/HLy+Km47fXSQCnjgX3Hw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=i4jP6iGFF4wsyszRXo1Hw4FkqYW3YuPVs3f70elD5u/uiRdQ6oPBxurt/2vv+CwGMx7yW/XEvMs1JjrMk0rWomZjJ5nsIyDHJEejcAcxW2vz0gykpjTT7cu+M0B8Q5k+SxB9SDztMZMS20gC4QcJ8zB0mnY06Q3iaCZ24ZiAKFM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brough.org; spf=pass smtp.mailfrom=brough.org; dkim=pass (2048-bit key) header.d=brough.org header.i=@brough.org header.b=fZ87l67w; arc=none smtp.client-ip=57.103.70.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brough.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=brough.org
+	s=arc-20240116; t=1789753871; c=relaxed/simple;
+	bh=AGC23GphtnXjMJTjuZKvIzgHBrkaAvob99EdJZgn52k=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
+	 References:MIME-Version; b=t3iPkeRV0k9+FY91MJd7HHKPWXoAEa8pfrHffgCB7YP/qigvTao5bRH2JL46W/ARw82FdGxK5RPGxE8Zo1fBs+ZDhnDfOAIhlYguQ15f22C2Cl5kL7o5d3+MTBQCFD7r/XzQSk7PwMmWMlQ9B+qijkgKsTPnsQhKzgbYdYvtbvo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i3KUVXPY; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=brough.org header.i=@brough.org header.b="fZ87l67w"
-Received: from outbound.mr.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-2a-10-percent-0 (Postfix) with ESMTPS id 6402A18000B4;
-	Fri, 18 Sep 2026 17:50:54 +0000 (UTC)
-X-ICL-RepId: 01a0b5a4-8969-7398-8984-51306ad7d757
-X-ICL-Out-Info: HUtFAUMHWwJACUgATUQeDx5WFlZNRAJCTQhLBUMEXRxIDlYCWwdLVxQEElwfUwpcMFsKXBhQAxwfSx8TC1NWUAJWDVQFGQRAFxkKUFAOS1oVVRcOAkIfUB9MFldDWhkcGVoUXBhTRVEfVFhDGUVWaUELTx1dGVscQmRYVwkKCUAfTB9bQ1gZVVBUEVdQC1kCQg9IClwPWgVFCU0BQw9eBkYIVQJAXQRAFFgWcw9FBEcXUVZcH1BVEgRACFZQVB5BBFYVbAlYBlMZVw==
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=brough.org; s=sig1; t=1789753856; x=1792345856; bh=Q53xC3A/SzIHxMkADXMrb47M9Wcqy5c7S5T6BoqbM3U=; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type:x-icloud-hme; b=fZ87l67wl4MQLY7tB/MmsawPy8wUv5RbIXqkVj1UxdGLF4Jwg2N6F5cbS+/7YcIdv7L7TN6cyE6Ee2MjcS/wTbmI+XoEHgHuhEqnkHEFNeObUYJ5Sat/7AYJTTjVsPoiDeAzKdXXZ8JOS0d9l8Jger2YHx1GlSnqzxvgbDJvX41vcCx0bVIs9LIT65b4ULwIou7mQsdh2HzwF35Ig6XaPv3SrBFU9X3439ieST+1M1hlgb5d4AyUD5rXtyiIFMX9+ELqGLu3jo/U+X0uGrVX7lXwCWwEHzw6grjNLwKfOrGpSCjAhk9CtkIU3Mzr1H3bxhy80OfkXxm9AUrUVd8Ryg==
-mail-alias-created-date: 1646594351620
-Received: from jb-desktop (unknown [17.156.200.36])
-	by p00-icloudmta-asmtp-us-west-2a-10-percent-0 (Postfix) with ESMTPSA id 61A45180012C;
-	Fri, 18 Sep 2026 17:50:53 +0000 (UTC)
-From: Jordan Brough <jordan@brough.org>
-To: Jean Delvare <jdelvare@suse.com>,
-	Guenter Roeck <linux@roeck-us.net>,
-	"Rafael J . Wysocki" <rafael@kernel.org>
-Cc: =?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
-	Henrik Rydberg <rydberg@bitmath.se>,
-	linux-hwmon@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jordan Brough <jordan@brough.org>
-Subject: [PATCH v2 0/2] hwmon: (applesmc) add charge_control_end_threshold support
-Date: Fri, 18 Sep 2026 11:50:50 -0600
-Message-ID: <20260918175052.85461-1-jordan@brough.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i3KUVXPY"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747eb79f6so7506415ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:51:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789753862; x=1790358662; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=AGC23GphtnXjMJTjuZKvIzgHBrkaAvob99EdJZgn52k=;
+        b=i3KUVXPYLIZpzT+21K9/Hq6wcnP49yNOkGgWwXXwIl0JkdDPRDudjBXqR/jvmZPalG
+         oKXnZRsxGwH6kztgjV4qGANk8YALBTta3ZWTJ0/mI/6izHp24mBNlEGTpqmH+AlIGdUh
+         U+1UMeE6GAbHC60YPU5nwK/XPl6wctyTHXml7lZLKd71dmrJsqE7rk56RKxKL+VyHUy3
+         APDAXBwr8VxxUNXAgiJ8jtzvETC+ud8Bj4pF+l6T8PWPzdq4PXQTsPCA/R//e6lyNOcM
+         DnGMRHIYnCQOQGvZlyuQfUh1fMXfHNmfdhIvgLUTJpkeddntSkXZ/qrpv0SIDGLXzsGW
+         nNWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789753862; x=1790358662;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AGC23GphtnXjMJTjuZKvIzgHBrkaAvob99EdJZgn52k=;
+        b=tPEzxD61zQF5Pp17GYXzGybt8Fe4zh1V37XUXi8bwz7ppy9je2atvkStsmU7aTRtsF
+         EHA3T5tQtKBIe+FZf12k/mvLyySLsmj2eOckOC5bxXaRSwq4VCm5AVak7nXaNx1Heeus
+         xGsQrpKlZT2eqYPUU317dL6jkZDqaGIrCiUeee38qBll3SbSV7W6NTjd3/j3Ud1KJ9Pe
+         SoV5CqsPlmBntrB0p+XHiai/UwpGrd21wrYMMTxIbCNQVKATqcNVEgjMkAGcsR7Wm1gT
+         WWxFEwqpd5WycuFwTEHSTV7C5Eq2gS7NbyHqoAtQQwpzjMUJRDdXVYVPtUQ9g4GdtI+J
+         Trlw==
+X-Forwarded-Encrypted: i=1; AKwUvBwS1NavzoJU3lmbDdjHAZGQ7198o7B5Y27xafpfCQWWlZWZDsHlSf4jEJ87qrkHAh9F1a5YV0IENxA55MY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nF6v3sqPznBJjVBtH18gGMMDAPiED/Qath3bZRDF1HCQ4WcMrV
+	7DzlFc2WXPgaKybiCmZ/iX1SMaR1kWBTKg5lRz4qaWZInqmsEekIl3kx
+X-Gm-Gg: AYBFou30WrlUtaM2FBec/KDSeYAww9IznjC/ZCfEmOHfnjWPiLOD1FM0XgfJfZp/fu/
+	BI32fInPnmKNQKqzIMSBmnQmUgmAa9jNEH+QJ2jYqOrJfFATa2sg3L40K6ISIxYK0qbxJyR/asm
+	wlW5wGIDxLSrVrwrhh2jJg0tt/wAUCtaJzvIiO6zx9syhxrsFMc3XRW5xTK49jJCGJqRwnqO/OD
+	JFzSzlSbP2hD7qZHLcs47bimV7cgx2M9fYSnx6iVi96u2nHJBIVfV0noug+7m62aTvNVCa+hzWH
+	WxIDE84wleymANgC+TB8bngwf87movGw6EM7pJ7UsAnEDvGR1g5GWIJaZ0H9918ZXlutVT0qOuP
+	ybtLQCDGCTnGFQ0xuXbW745llslokhXGhFC/UUqf+AIMhD5q4YwqrDtW9GQnPERcGvKtD29V3Vf
+	D5E0NOF3sfjbMjGeMjPoDqMpd7u9cPT1l0SQ1enxFCe6GZhOoNfFIMCUZwzgKMpW2SUtWa0z+Vw
+	YEiU8GdofW/aspvRCI2b+aojaxOzLA9w5gSO6OznidnCynY29nL1Y8aNDQkcYg6VKe9ad4NTBHv
+	G379
+X-Received: by 2002:a17:903:2990:b0:2dd:c053:82f5 with SMTP id d9443c01a7336-2ddc0538431mr8558415ad.44.1789753862316;
+        Fri, 18 Sep 2026 10:51:02 -0700 (PDT)
+Received: from localhost ([153.61.198.240])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17ba719sm421205ad.56.2026.09.18.10.51.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 18 Sep 2026 10:51:01 -0700 (PDT)
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 18 Sep 2026 17:51:01 +0000
+Message-Id: <DLIMSLBJKPTP.30HFFHKGPF2R@gmail.com>
+Cc: "Yonghong Song" <yonghong.song@linux.dev>, "Quentin Monnet"
+ <qmo@kernel.org>, "Martin KaFai Lau" <martin.lau@linux.dev>, "Song Liu"
+ <song@kernel.org>, "Jiri Olsa" <jolsa@kernel.org>, "Emil Tsalapatis"
+ <emil@etsalapatis.com>, "Ihor Solodrai" <ihor.solodrai@linux.dev>, "Shuah
+ Khan" <shuah@kernel.org>, <linux-kselftest@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH bpf 1/3] bpf: Report BPF_F_PREORDER in cgroup program
+ queries
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Hui Su" <sh_def@163.com>, <bpf@vger.kernel.org>, "Daniel Borkmann"
+ <daniel@iogearbox.net>, "Andrii Nakryiko" <andrii@kernel.org>, "Eduard
+ Zingerman" <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi"
+ <memxor@gmail.com>
+In-Reply-To: <20260918172407.3459188-2-sh_def@163.com>
+References: <20260918172407.3459188-1-sh_def@163.com> <20260918172407.3459188-2-sh_def@163.com>
+X-Mailer: mkdraft (claude review draft; edit before sending)
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Authority-Info-Out: v=2.4 cv=JcaxbEKV c=1 sm=1 tr=0 ts=6aad79ff
- cx=c_apl:c_pps:t_out a=9mRn2PO/+PIrVdEbaIuMPg==:117
- a=9mRn2PO/+PIrVdEbaIuMPg==:17 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=gFGppuTrAAAA:8
- a=KkmlWvqn9QTkv74mO74A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=_Y0xhhAoguY4gwfEQMhp:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDI1NiBTYWx0ZWRfX48U7TXftgdJY
- x8TNAsXrnDJlGiw3LBUDr9X/t7Opg1J67RBa9NRLVZwH8A3CBskm4FBOgqyvSRwhxet8wkmdFWd
- PAVuEyPkuOgguimQJCTezGr97bSC4vWRw6gRsDzVu9AlQpas4ZBKN/2zd5P0Es5iQQDGlp+2gAf
- 9TvOqSFnf6s8wGl2dMgDVcmYMO5Yxv9diqX0raZPO7qxcLWDCLJq9A4Xc30hRZPQ0WlbeD3UK4m
- kbxG6p9RW5Ozolsu77vkd0VK60xK1rsMese7LcdQWJdLJJH4lmgTJxlf3gUtOUcRXYIALz2glHt
- cw88oT8uKl8v3j3+lV7V14V5yDnRcc5Ouf0BYpE8ABC/xVHDAlJsT16Ba0M7Go=
-X-Proofpoint-ORIG-GUID: YAe7-runcocFiPAgCfxOoHJZDiiZnojF
-X-Proofpoint-GUID: YAe7-runcocFiPAgCfxOoHJZDiiZnojF
-X-JNJ: AAAAAAABlqB8QIcVnpNAWCxnkzpOqdlvbS0vDyUxj28VgthQYptqGCQrg65icP62ei59L/lL2unulkpcA1gvs/HBZWW37IDmBPwlUyod7p6aWhCvqE1qlygKgRQgkU4kgzocZy6GR1+EtMe8TmXlyNJETwyJwc6hVNvvEV+oOxCfm56zkNFrxy1/Vi8t+FOkgDfN2MOH5I1LUlCWb+0UAqYk6JfPBcIfyLhwj9+X0veVOuTgwCz1HVyR9wFUzMaHn+pPh6WR5Fb6cku35mDoZJVfQ4rmWO+SuWvPazhGuCOtMIOSY1vwf/jzCNShgOCe1rWtbJcHoPUAXdOXCQCjqo8bGXx9R61SeNTwBJrqYfk4m48lSIdJQN1O9uQa+W7XuhYtF+gsfMTgwOSoeX2/lMqPWvqnSKQYqVtpI6pILx/IvoY8T39EBwGiTCTSrU5lMyMk4gOPJT2I0E9Wh6GNiC6+5NYdt0iGvvOOOLsjH0l2JZWITuJuT0zTYGNGXiNZDkB6vviAYqSjFZCtjRvmEQSuU9nStF6FttyUlQHELwPQ4FXcyEwTnxcvlBjBoKX3NGVrXJOKu7mGm/KmGW0o8pXxs8zWiWuZ9L/YFrVbWxDxcwPXMAPjczrkbokBkDvS37CkeV5o17UM0PxPhOa5/c8w1OU3qPSacDjlTwa4OfFBfixaEg5YmnvcWw4kddd9j7iJ1LGuAvFFDJ6NU/+4DWHPlhIlh1ZWV+Wv74ItZ7mc25+gty30vdwTseNp0v4YkNOSMdMkA+fU5LyZxKMHbbH+r6IfNZ1FkyHfsuMZYKuPSITNv7LQcHBlX5LWgy0QArNDiKrMsHQpsvZ+j2cc6dOhYqJhQJGnyLvyyXWzhNJQHmWfvZJImmLBlT6KRHbzhMjxVWgDTNV6SnoF/fXsc51gziXHyUwkkr6zHOtJ0arXOyaWnf8KiNl1opvM2wuk/TwNpUd7gYUIUisO0Ny5FPl5oLhOlbP
- t2ljbYHnAupAOUf1nB2zXBvb59DcCT6Ra1JkZs3J/TolL9kGSQUoBb6TVwORlYPRKjRqQ2U3A/4JvaULd/DRL2WPcWQlp4gY7krZNrlM9AeCs+idjMcyMGRJZWiVpEykOkbOhUMo0py+Bg4PZnBcdUUt9rUMVL061BdChHUa0Ys+rnX+DnQYaSOGccHwBP3WeNm0XsXbiTBihwhefiXq7ZR35g+HAhywxG7S/FgHypeCCYV+tLomMIq6hodYIpgZn5d/oCQ1njqT+vbs2vFvdbKzdy08lzN+s0zHWmfNAVRFO/B4IzegiL5HzveF/JWd7lIbCjRFrydCzlfjYtsFkRHXRMbFgQvBSE8SPY1Jox1yrS6m+lTtcojwtCU0S/nw=
 
-This patch series adds battery charge threshold control support to the
-applesmc driver for Intel-based MacBooks, exposing the standard
-charge_control_end_threshold sysfs attribute on the battery power supply.
+On Sat, Sep 19, 2026 at 02:24 AM Hui Su <sh_def@163.com> wrote:
+> As a result, user space tools and query callers cannot distinguish
+> pre-ordered programs from standard multi-prog attachments via
+> BPF_PROG_QUERY.
 
-In v1, separate SBS battery hooking functions were introduced in sbs.c.
-Following reviewer feedback from Thomas Weißschuh, this version unifies
-the ACPI battery hooking mechanism across both ACPI Control Method
-batteries (drivers/acpi/battery.c) and ACPI Smart Battery Systems
-(drivers/acpi/sbs.c) into a shared helper in drivers/acpi/battery_hook.c
-built directly into the ACPI core (acpi.o).
+[...]
 
-The public consumer API signatures (battery_hook_register(),
-battery_hook_unregister(), devm_battery_hook_register()) remain unchanged,
-so existing drivers require no modifications while gaining the ability
-to hook SBS batteries where present.
+> Fixes: 4b82b181a26c ("bpf: Allow pre-ordering for bpf cgroup progs")
 
-Patch 1 extracts the shared hook mechanism into
-drivers/acpi/battery_hook.c and integrates both drivers/acpi/battery.c
-and drivers/acpi/sbs.c.
-Patch 2 adds charge_control_end_threshold support to
-drivers/hwmon/applesmc.c with mutex synchronization around SMC register
-writes (BCLM and BFCL) and error rollback on extension registration
-failure.
+That's not a fix. Nothing is broken.
+The patch changes what BPF_PROG_QUERY returns to user space and
+existing bpftool will start printing "unknown(42)" for such progs.
+That shouldn't go to stable.
+Drop the Fixes tag and resend the series for bpf-next.
 
-Testing:
-- Validated on Intel MacBook Air (MacBookAir6,2) with ACPI SBS battery
-  (BAT0): verified sysfs threshold read/write, KDE Powerdevil UI
-  detection, bounds checking, and hardware MagSafe LED transition between
-  amber and green.
-- Validated on Lenovo IdeaPad with ACPI Control Method battery (BAT1)
-  to check that existing in-tree hook consumers (such as ideapad_laptop
-  conservation mode) continue operating as expected.
-
-Changes in v2:
-- Unified battery hook infrastructure into drivers/acpi/battery_hook.c
-  built into acpi.o, eliminating duplicate hook logic in sbs.c
-  (Thomas Weißschuh).
-- Kept public consumer API signatures unchanged
-  (battery_hook_register/unregister, devm_battery_hook_register).
-- Added applesmc_bat_lock mutex to serialize BCLM and BFCL SMC key writes,
-  preventing concurrent write desynchronization.
-- Added mutex protection and error rollback in applesmc_battery_add()
-  to ensure applesmc_hooked_battery is safely handled if extension
-  registration fails.
-- Added mutex protection for applesmc_bat_get_property() / set_property().
-- Note: v1 was acked by Rafael J. Wysocki; the Acked-by tag was dropped
-  from Patch 1 in v2 due to the architectural refactoring into
-  battery_hook.c.
-
-Link: https://lore.kernel.org/r/20260913231410.416922-1-jordan@brough.org [v1]
-
-Jordan Brough (2):
-  ACPI: battery: add unified battery hook mechanism for ACPI and SBS
-    batteries
-  hwmon: (applesmc) add charge_control_end_threshold support
-
- drivers/acpi/Makefile       |   1 +
- drivers/acpi/battery.c      | 165 +-----------------------------------
- drivers/acpi/battery_hook.c | 112 ++++++++++++++++++++++++
- drivers/acpi/sbs.c          |   8 +-
- drivers/hwmon/applesmc.c    | 157 ++++++++++++++++++++++++++++++++--
- include/acpi/battery.h      |  10 +++
- 6 files changed, 285 insertions(+), 168 deletions(-)
- create mode 100644 drivers/acpi/battery_hook.c
-
--- 
-2.55.0
-
+pw-bot: cr
