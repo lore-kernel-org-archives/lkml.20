@@ -1,715 +1,458 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D6D651FCA1;
-	Fri, 18 Sep 2026 18:25:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB325524B06
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:25:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789755937; cv=none; b=MraNb7TpYZM+KWko//cHU33cWT00pnJHZO1i1YWZTNK/9S2N0kI/5/U8QlZSdq3y4jGgFG/SCJt3JFmG6qM1/gJL9SFo/hjr35KJseXu2A7n9LVb2bfu9Bgcm69Qpzgg0er9hEyM5I9KR+BQTvquEL87+87Dw/ZoSYwEDrDGLFw=
+	t=1789755941; cv=none; b=dXkSuowGqf0gh9Oe6WEtl5RloHL5AL8K8IGi2aSnDWWmw8tieJ8mjnbQXRlsNZrOprVheLqgfOoDJaOIG/JODUAEDaAnSYRDKkHD07rDBFhybkrR9pUmG/dNE9nrW+Fd7730CLZr97owNXqFMD9rcaMu1R9Tpvc2v+o7mR8r5xU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789755937; c=relaxed/simple;
-	bh=4PP/ihN1xwSiEPSDW1srwU5VM/fHIbs/RQDXYWDHOmA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=HSmoYaChb3nM2gOaRqB6lX5W6GQyGALdqZCOjjoWwakBieQa8wctei9KJJOxSnio9bLacySl5d1q+PA6VmBmEp6UawjCSxvTb7EJNFnqFv99siAjtOfezp2Tt1VAFiLlcBUh3muVcZJLmR3jOiyuJOyB6ZkqoyHFgIGdvJ2xeB0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=l7LLx40k; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789755941; c=relaxed/simple;
+	bh=lFG/OXnzFUC57DA5/v8yjvyQ/fznoUiq0nIpvGhk8iE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=mcgBwiUNjmIOaDTWBnGy+pAYc2oqKK0QixqjIdW+3CppeOv8/2eT+otjh9S4se7QS42EDUYiRWDsc4AHrvfKdagJcgEROV77qypuN6vgXES3oAYB8yw2c/XP7UlxWNDVAhN2zqiy5MJegDSz2TqZLEnaornl5cTlhTwWDAPHWY0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QhRT1JYc; arc=none smtp.client-ip=74.125.227.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="l7LLx40k"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 7898E4E407BD;
-	Fri, 18 Sep 2026 18:25:31 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 469C060649;
-	Fri, 18 Sep 2026 18:25:31 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3C00510328E70;
-	Fri, 18 Sep 2026 20:25:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789755930; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=N60O7awveG74am11xhmaN5FDFaX+BPa2hQwt2gJN64o=;
-	b=l7LLx40kltatLQaiKsS6VcfRz1VLWVIjUz2zi/Deo5Vnzrv6Ib/+trP60BTQJodyHLK1/5
-	KHFs+7eXKVwHvgagFDnRp/4oHTpSYlk2F7DcjDMn007UunMX+Hf8bNCbTWSIfkggqpWUT9
-	4pwi4tdxV7K+Lo+tk0DDgUe+kHXB18WnC5VsX4aFqW4oxGnSi5K2qhTyRxZvLqjNd5M45L
-	Sm5Vayg6mCNYuqnLULcRu4gxAMaOByexLc8jVrxV98ISyW2ecG2ISjYR8Rk6sZsEAGJiNv
-	txCpcoG70bis+9MWGAq9I02k8JrRJRzWmaK+3RWeaS8rcdSiL7yBddeLUHelwg==
-From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Date: Fri, 18 Sep 2026 20:24:55 +0200
-Subject: [PATCH 6.1.y 3/3] netfilter: nf_conntrack_expect: use conntrack GC
- to reap expectations
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QhRT1JYc"
+Received: by mail-pj2-f42.google.com with SMTP id d9443c01a7336-2ddb44ad1c1so11307595ad.3
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:25:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789755939; x=1790360739; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PemEyMvIlx9kZWRfwL95Q7dPAbGIySrWEWl9bpGslDg=;
+        b=QhRT1JYcnRrxJ10ulWIL3wGzIwR6CzOHkdTsgwIbmbaqbsx2kV/G5Osd5FugM8/Hp7
+         mg3DgvboI4xBQ6t7PxT+0czC2Ig0lLAA1IoZJsa/E/8EqtyvnPvFLpr5WjbwprnUJGl5
+         CUeU/u8LpXtYfO1+y/c1LaF0LXEywOw+CVaiTUPH94W8/z0kiONIPB62F1rVYwfmVSu+
+         OX2slVa+ttCajVVvzQRPOML6u7gPHyY29T4InyANBsByWnPVCuvgpl106JDdDXOztXlv
+         x6Nv8IXMCCqdMXV1C+Hv0HcSb1oM/o7rXY6OTMtkHpvqVilHUj21WhZi/Asuj8CEnfcj
+         KU9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789755939; x=1790360739;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PemEyMvIlx9kZWRfwL95Q7dPAbGIySrWEWl9bpGslDg=;
+        b=L4sNFQwilZYQ2HQ+5grsM1VUzbbcMaJhzGNpeooVy2rddHsTw6m96oW+NYCRnymPRT
+         BVfAhbBPwqs4C46i5yx8gZNOgSJTtR2Dk+WuvlYbwpLN4PnRaiaQSCaKLySSqXm342n4
+         Mv3lNAZcf7B85y7dZkxhHaiG77xTfZdMhscUv8GQJ3iKydW95+ZbB/r5XtmWLgSIWxnJ
+         cXUJFCI5klR0+VFj35GUUjw/Pq0bbw/M7FodO+EFm8vOZH5kJ2QgXiXWDvRXyI50gK4s
+         6Mil8srmBaWKUp0rCjU6QSNVBszRP/8mt3n09yvgYRTNs5k26gK6xsYZx4WOSNNd6qD7
+         i2wA==
+X-Forwarded-Encrypted: i=1; AKwUvBw9xHMKcdbrwSgc1Y+e0xMij9rauuPpSreTs8nFqMVnxRyyRETPKbE0wnPJR2vI8eJp2JKvkFqZBxFAfpw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mOCS3lZYSwIhsmmsLW0wlJvOh662Nf0oX9Ebe8jp45qmSJ/xRK
+	28H/GUeRDD8bniUWxk6PDe8y49W2WN1ojsz+8XmF7CELxXLs6OQEMz4v
+X-Gm-Gg: AYBFou2HvUzw7K0iKue3c6cawkzxBoV4TnG8hOAMn9Yi+4RIz/GqoXvjjAYrFjmxTbh
+	3X64iDAfFESl5puirk61potX9MO0om2pB+f9bpwc1QiDzCSRNaD+UqRL4IRksAJkxXCzqpNg6GF
+	7lvAe7EpoP6RCGelCEp560K51R1CvlqSyb7PU5VtGzhaqDwz8gk0DGDHOYCC1WlNOXOY9D1n6O5
+	UwA6ESi9z9PL42m4YeIwxW5F4AkYOGJHknIHJ8z7Pdq2iV8kL62UJ4tjZHDQE44FeBDk5JdRyW6
+	vuCghTu31TLCQfi5CAJsggSyZ3ItJEL7C/xKswW6V9s6i+nCS7AXOmO8m3XXwqjKaHwQytrdg4Q
+	tehroA272J/oCY5nAdE4AFBO4uWja0sz6JM0YHGpaU14A2D1+4lE+P7hCU5WsmgGMCcGUNEj09w
+	wP1bOCcBVkPBRwr73I2Diic+qxMVvX9iDmshmAstJGF03aldiUrjEk3p7MSHXkzM7oECWGsOaej
+	cv6r7y3OXeIj9syX7glIiCAWpYgPSDA69+Zmqq93M9Yz1XzD9pWxPI906gPe6Pdk3lPkxZ7LjRD
+	DqMri4k1
+X-Received: by 2002:a17:902:b48b:b0:2dd:c0ff:e735 with SMTP id d9443c01a7336-2ddc0ffea0amr4123635ad.71.1789755938827;
+        Fri, 18 Sep 2026 11:25:38 -0700 (PDT)
+Received: from DESKTOP-G3E0OSP.localdomain ([58.224.60.243])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc16b49casm871895ad.7.2026.09.18.11.25.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 11:25:38 -0700 (PDT)
+From: Jinseob Kim <kimjinseob88@gmail.com>
+To: jic23@kernel.org,
+	linux-iio@vger.kernel.org
+Cc: dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andriy.shevchenko@intel.com,
+	linux-kernel@vger.kernel.org,
+	rdunlap@infradead.org,
+	joshua.crofts1@gmail.com,
+	u.kleine-koenig@baylibre.com,
+	julianbraha@gmail.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	linux-doc@vger.kernel.org
+Subject: [PATCH v10 3/8] iio: osf: add protocol decoding
+Date: Sat, 19 Sep 2026 03:24:41 +0900
+Message-ID: <a00b004a7ac283e1d6e307421292757004f09e62.1789753020.git.kimjinseob88@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1789753020.git.kimjinseob88@gmail.com>
+References: <cover.1789753020.git.kimjinseob88@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-cve-2026-80668-6-1-v1-3-7a8667286d67@bootlin.com>
-References: <20260918-cve-2026-80668-6-1-v1-0-7a8667286d67@bootlin.com>
-In-Reply-To: <20260918-cve-2026-80668-6-1-v1-0-7a8667286d67@bootlin.com>
-To: stable@vger.kernel.org, Pablo Neira Ayuso <pablo@netfilter.org>, 
- Jozsef Kadlecsik <kadlec@netfilter.org>, Florian Westphal <fw@strlen.de>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Hideaki YOSHIFUJI <yoshfuji@linux-ipv6.org>, 
- David Ahern <dsahern@kernel.org>
-Cc: Benjamin Robin <benjamin.robin@bootlin.com>, 
- netfilter-devel@vger.kernel.org, coreteam@netfilter.org, 
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789755899; l=22826;
- i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
- bh=oHb38BtlA5AHDbVHwAgkk5FvVJTbqSmjPbSkWYWyyW4=;
- b=6xFgx/egat01cGMJVPVZQrRIWUj1Hsz0mMl224fWysVrupX+415EFvfLLprhbN3Ur/9K94Rjn
- yd/t7fReQNBB8u5xcos9/H4P48L27xOmvEjyAwNz8Rs5oXg0yIS5GvK
-X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
- pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-From: Pablo Neira Ayuso <pablo@netfilter.org>
+Add helpers for decoding Open Sensor Fusion frame headers and supported
+message payloads.
 
-This patch replaces the timer API by GC worker approach for
-expectations, as it already happened in many other subsystems.
+Validate the fixed OSF0 envelope, payload bounds and CRC before exposing
+decoded frame contents. Require exact known payload lengths and decode
+capability entries structurally so the core can apply support policy.
+Tolerate reserved padding as required by the fixed protocol contract.
 
-Use the existing conntrack GC worker to iterate over the local list of
-expectations in the master conntrack to reap expired expectations.
-Check IPS_HELPER_BIT to run GC for expectations, set it on for nft_ct
-expectation which nevers sets it. Hold the expectation spinlock while
-iterating over the master conntrack expectation list to synchronize with
-nf_ct_remove_expectations(). This also performs runtime packet path
-garbage collection through the expectation insertion and lookup
-functions while walking over one of the chains of the global expectation
-hashtables. Unconfirmed conntrack entries are skipped since ct->ext can
-be reallocated and dying are skipped since those will be gone soon.
-Set on IPS_HELPER_BIT if the helper ct extension is added, then the new
-GC worker does not need to bump the ct refcount to check if the ct->ext
-helper is available.
+Use explicit little-endian wire storage sizes and designated
+initializers for decoded output structures.
 
-This removes the extra bump on the refcount for expectation timers, this
-allows to remove several nf_ct_expect_put() calls after the unlink,
-after this update only refcount remains at 1 while on the expectation
-hashes.
-
-This patch implicitly addresses a race with the existing timer API
-allowing an expectation to access a stale exp->master pointer which has
-been already released when expectation removal loses races with an
-expiring timer, ie. timer_del() reporting false.
-
-Add a new NF_CT_EXPECT_DEAD flag to reap this expectation via GC. This
-is needed by nf_conntrack_unexpect_related() which is called in error
-paths to invalidate newly created expectations that has been added into
-the hashes. These expectactions cannot be inmediately released as GC or
-nf_ct_remove_expectations() could race to make it. On expectation
-insert, the runtime GC reaps stale expectations before checking the
-expectation limit set by policy.
-
-Set current timestamp in nf_ct_expect_alloc(), then add the expectation
-policy timeout (or custom timeout specified added on top of this) to
-specify the expectation lifetime.
-
-Fixes: bffcaad9afdf ("netfilter: ctnetlink: ensure safe access to master conntrack")
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+Assisted-by: LLM
+Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
 ---
- include/net/netfilter/nf_conntrack_expect.h        |  16 ++-
- include/uapi/linux/netfilter/nf_conntrack_common.h |   1 +
- net/netfilter/nf_conntrack_core.c                  |  33 ++++-
- net/netfilter/nf_conntrack_expect.c                | 145 ++++++++++-----------
- net/netfilter/nf_conntrack_h323_main.c             |   4 +-
- net/netfilter/nf_conntrack_helper.c                |  10 +-
- net/netfilter/nf_conntrack_netlink.c               |  22 ++--
- net/netfilter/nf_conntrack_sip.c                   |  13 +-
- net/netfilter/nft_ct.c                             |   3 +-
- 9 files changed, 139 insertions(+), 108 deletions(-)
+ MAINTAINERS                                 |   1 +
+ drivers/iio/opensensorfusion/osf_protocol.c | 215 ++++++++++++++++++++
+ drivers/iio/opensensorfusion/osf_protocol.h | 101 +++++++++
+ 3 files changed, 317 insertions(+)
+ create mode 100644 drivers/iio/opensensorfusion/osf_protocol.c
+ create mode 100644 drivers/iio/opensensorfusion/osf_protocol.h
 
-diff --git a/include/net/netfilter/nf_conntrack_expect.h b/include/net/netfilter/nf_conntrack_expect.h
-index 80f50fd0f7ad..be4a120d549e 100644
---- a/include/net/netfilter/nf_conntrack_expect.h
-+++ b/include/net/netfilter/nf_conntrack_expect.h
-@@ -54,8 +54,8 @@ struct nf_conntrack_expect {
- 	/* The conntrack of the master connection */
- 	struct nf_conn *master;
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 26b9b2862724..bf56918efc00 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -20516,6 +20516,7 @@ M:	Jinseob Kim <kimjinseob88@gmail.com>
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/iio/opensensorfusion,osf.yaml
+ F:	Documentation/iio/open-sensor-fusion.rst
++F:	drivers/iio/opensensorfusion/osf_protocol.*
+ K:	opensensorfusion
  
--	/* Timer function; deletes the expectation. */
--	struct timer_list timeout;
-+	/* jiffies32 when this expectation expires */
-+	u32 timeout;
- 
- #if IS_ENABLED(CONFIG_NF_NAT)
- 	union nf_inet_addr saved_addr;
-@@ -69,6 +69,14 @@ struct nf_conntrack_expect {
- 	struct rcu_head rcu;
- };
- 
-+static inline bool nf_ct_exp_is_expired(const struct nf_conntrack_expect *exp)
-+{
-+	if (READ_ONCE(exp->flags) & NF_CT_EXPECT_DEAD)
-+		return true;
+ OPENCOMPUTE PTP CLOCK DRIVER
+diff --git a/drivers/iio/opensensorfusion/osf_protocol.c b/drivers/iio/opensensorfusion/osf_protocol.c
+new file mode 100644
+index 000000000000..e0d7c7a9ebd7
+--- /dev/null
++++ b/drivers/iio/opensensorfusion/osf_protocol.c
+@@ -0,0 +1,215 @@
++// SPDX-License-Identifier: GPL-2.0-only
 +
-+	return (__s32)(READ_ONCE(exp->timeout) - nfct_time_stamp) <= 0;
++#include <linux/bits.h>
++#include <linux/crc32.h>
++#include <linux/errno.h>
++#include <linux/types.h>
++#include <linux/unaligned.h>
++
++#include "osf_protocol.h"
++
++#define OSF_CRC32_INIT		GENMASK(31, 0)
++#define OSF_CRC32_XOROUT	GENMASK(31, 0)
++
++static bool osf_sensor_type_valid(u16 sensor_type)
++{
++	return sensor_type >= OSF_SENSOR_ACCELEROMETER &&
++	       sensor_type <= OSF_SENSOR_PROXIMITY;
 +}
 +
- static inline struct net *nf_ct_exp_net(struct nf_conntrack_expect *exp)
- {
- 	return read_pnet(&exp->net);
-@@ -130,7 +138,6 @@ static inline void nf_ct_unlink_expect(struct nf_conntrack_expect *exp)
- 
- void nf_ct_remove_expectations(struct nf_conn *ct);
- void nf_ct_unexpect_related(struct nf_conntrack_expect *exp);
--bool nf_ct_remove_expect(struct nf_conntrack_expect *exp);
- 
- void nf_ct_expect_iterate_destroy(bool (*iter)(struct nf_conntrack_expect *e, void *data), void *data);
- void nf_ct_expect_iterate_net(struct net *net,
-@@ -153,5 +160,8 @@ static inline int nf_ct_expect_related(struct nf_conntrack_expect *expect,
- 	return nf_ct_expect_related_report(expect, 0, 0, flags);
- }
- 
-+struct nf_conn_help;
-+void nf_ct_expectation_gc(struct nf_conn_help *master_help);
-+
- #endif /*_NF_CONNTRACK_EXPECT_H*/
- 
-diff --git a/include/uapi/linux/netfilter/nf_conntrack_common.h b/include/uapi/linux/netfilter/nf_conntrack_common.h
-index 56b6b60a814f..ee51045ae1d6 100644
---- a/include/uapi/linux/netfilter/nf_conntrack_common.h
-+++ b/include/uapi/linux/netfilter/nf_conntrack_common.h
-@@ -160,6 +160,7 @@ enum ip_conntrack_expect_events {
- #define NF_CT_EXPECT_USERSPACE		0x4
- 
- #ifdef __KERNEL__
-+#define NF_CT_EXPECT_DEAD		0x8
- #define NF_CT_EXPECT_MASK	(NF_CT_EXPECT_PERMANENT | NF_CT_EXPECT_INACTIVE | \
- 				 NF_CT_EXPECT_USERSPACE)
- #endif
-diff --git a/net/netfilter/nf_conntrack_core.c b/net/netfilter/nf_conntrack_core.c
-index 342627b0d32b..a782836c79ba 100644
---- a/net/netfilter/nf_conntrack_core.c
-+++ b/net/netfilter/nf_conntrack_core.c
-@@ -1493,6 +1493,31 @@ static bool gc_worker_can_early_drop(const struct nf_conn *ct)
- 	return false;
- }
- 
-+static void nf_ct_help_gc(struct nf_conn *ct)
++static u32 osf_crc32_ieee(const u8 *buf, size_t len)
 +{
-+	struct nf_conn_help *help;
-+
-+	if (!refcount_inc_not_zero(&ct->ct_general.use))
-+		return;
-+
-+	/* load ->status after refcount increase */
-+	smp_acquire__after_ctrl_dep();
-+
-+	if (!nf_ct_is_confirmed(ct) || nf_ct_is_dying(ct)) {
-+		nf_ct_put(ct);
-+		return;
-+	}
-+
-+	/* re-check helper due to SLAB_TYPESAFE_BY_RCU */
-+	if (test_bit(IPS_HELPER_BIT, &ct->status)) {
-+		help = nfct_help(ct);
-+		if (help)
-+			nf_ct_expectation_gc(help);
-+	}
-+
-+	nf_ct_put(ct);
++	return crc32_le(OSF_CRC32_INIT, buf, len) ^ OSF_CRC32_XOROUT;
 +}
 +
- static void gc_worker(struct work_struct *work)
- {
- 	unsigned int i, hashsz, nf_conntrack_max95 = 0;
-@@ -1570,7 +1595,13 @@ static void gc_worker(struct work_struct *work)
- 			expires = (expires - (long)next_run) / ++count;
- 			next_run += expires;
- 
--			if (nf_conntrack_max95 == 0 || gc_worker_skip_ct(tmp))
-+			if (gc_worker_skip_ct(tmp))
-+				continue;
-+
-+			if (test_bit(IPS_HELPER_BIT, &tmp->status))
-+				nf_ct_help_gc(tmp);
-+
-+			if (nf_conntrack_max95 == 0)
- 				continue;
- 
- 			net = nf_ct_net(tmp);
-diff --git a/net/netfilter/nf_conntrack_expect.c b/net/netfilter/nf_conntrack_expect.c
-index e0b99cffe1ee..acf6e3490f8c 100644
---- a/net/netfilter/nf_conntrack_expect.c
-+++ b/net/netfilter/nf_conntrack_expect.c
-@@ -43,6 +43,24 @@ unsigned int nf_ct_expect_max __read_mostly;
- static struct kmem_cache *nf_ct_expect_cachep __read_mostly;
- static siphash_aligned_key_t nf_ct_expect_hashrnd;
- 
-+void nf_ct_expectation_gc(struct nf_conn_help *master_help)
++int osf_protocol_decode_frame(const u8 *buf, size_t len,
++			      struct osf_frame *frame, size_t *frame_len)
 +{
-+	struct nf_conntrack_expect *exp;
-+	struct hlist_node *next;
++	u32 expected_crc;
++	u32 actual_crc;
++	u32 payload_len;
++	size_t total_len;
 +
-+	if (hlist_empty(&master_help->expectations))
-+		return;
++	if (!buf || !frame || !frame_len)
++		return -EINVAL;
 +
-+	spin_lock_bh(&nf_conntrack_expect_lock);
-+	hlist_for_each_entry_safe(exp, next, &master_help->expectations, lnode) {
-+		if (!nf_ct_exp_is_expired(exp))
-+			continue;
++	if (len < OSF_FRAME_MIN_LEN)
++		return -EMSGSIZE;
 +
-+		nf_ct_unlink_expect(exp);
-+	}
-+	spin_unlock_bh(&nf_conntrack_expect_lock);
++	if (get_unaligned_le32(buf) != OSF_FRAME_MAGIC)
++		return -EPROTO;
++
++	if (get_unaligned_le16(buf + 6) != OSF_FRAME_HEADER_LEN)
++		return -EPROTO;
++
++	payload_len = get_unaligned_le32(buf + 10);
++	if (payload_len > len - OSF_FRAME_MIN_LEN)
++		return -EMSGSIZE;
++
++	total_len = OSF_FRAME_HEADER_LEN + payload_len + OSF_FRAME_CRC_LEN;
++	expected_crc = osf_crc32_ieee(buf, OSF_FRAME_HEADER_LEN + payload_len);
++	actual_crc = get_unaligned_le32(buf + OSF_FRAME_HEADER_LEN + payload_len);
++
++	if (actual_crc != expected_crc)
++		return -EBADMSG;
++
++	frame->protocol_major = buf[4];
++	frame->protocol_minor = buf[5];
++	frame->message_type = get_unaligned_le16(buf + 8);
++	frame->payload_len = payload_len;
++	frame->sequence = get_unaligned_le64(buf + 14);
++	frame->timestamp_us = get_unaligned_le64(buf + 22);
++	frame->flags = get_unaligned_le32(buf + 30);
++	frame->reserved = get_unaligned_le32(buf + 34);
++	frame->payload = buf + OSF_FRAME_HEADER_LEN;
++	frame->crc = actual_crc;
++	*frame_len = total_len;
++
++	return 0;
 +}
 +
- /* nf_conntrack_expect helper functions */
- void nf_ct_unlink_expect_report(struct nf_conntrack_expect *exp,
- 				u32 portid, int report)
-@@ -52,7 +70,6 @@ void nf_ct_unlink_expect_report(struct nf_conntrack_expect *exp,
- 	struct nf_conntrack_net *cnet;
- 
- 	lockdep_nfct_expect_lock_held();
--	WARN_ON_ONCE(timer_pending(&exp->timeout));
- 
- 	hlist_del_rcu(&exp->hnode);
- 
-@@ -70,16 +87,6 @@ void nf_ct_unlink_expect_report(struct nf_conntrack_expect *exp,
- }
- EXPORT_SYMBOL_GPL(nf_ct_unlink_expect_report);
- 
--static void nf_ct_expectation_timed_out(struct timer_list *t)
--{
--	struct nf_conntrack_expect *exp = from_timer(exp, t, timeout);
--
--	spin_lock_bh(&nf_conntrack_expect_lock);
--	nf_ct_unlink_expect(exp);
--	spin_unlock_bh(&nf_conntrack_expect_lock);
--	nf_ct_expect_put(exp);
--}
--
- static unsigned int nf_ct_expect_dst_hash(const struct net *n, const struct nf_conntrack_tuple *tuple)
- {
- 	struct {
-@@ -117,19 +124,6 @@ nf_ct_exp_equal(const struct nf_conntrack_tuple *tuple,
- 	       nf_ct_exp_zone_equal_any(i, zone);
- }
- 
--bool nf_ct_remove_expect(struct nf_conntrack_expect *exp)
--{
--	lockdep_nfct_expect_lock_held();
--
--	if (del_timer(&exp->timeout)) {
--		nf_ct_unlink_expect(exp);
--		nf_ct_expect_put(exp);
--		return true;
--	}
--	return false;
--}
--EXPORT_SYMBOL_GPL(nf_ct_remove_expect);
--
- struct nf_conntrack_expect *
- __nf_ct_expect_find(struct net *net,
- 		    const struct nf_conntrack_zone *zone,
-@@ -144,6 +138,8 @@ __nf_ct_expect_find(struct net *net,
- 
- 	h = nf_ct_expect_dst_hash(net, tuple);
- 	hlist_for_each_entry_rcu(i, &nf_ct_expect_hash[h], hnode) {
-+		if (nf_ct_exp_is_expired(i))
-+			continue;
- 		if (nf_ct_exp_equal(tuple, i, zone, net))
- 			return i;
- 	}
-@@ -178,6 +174,7 @@ nf_ct_find_expectation(struct net *net,
- {
- 	struct nf_conntrack_net *cnet = nf_ct_pernet(net);
- 	struct nf_conntrack_expect *i, *exp = NULL;
-+	struct hlist_node *next;
- 	unsigned int h;
- 
- 	lockdep_nfct_expect_lock_held();
-@@ -186,7 +183,11 @@ nf_ct_find_expectation(struct net *net,
- 		return NULL;
- 
- 	h = nf_ct_expect_dst_hash(net, tuple);
--	hlist_for_each_entry(i, &nf_ct_expect_hash[h], hnode) {
-+	hlist_for_each_entry_safe(i, next, &nf_ct_expect_hash[h], hnode) {
-+		if (nf_ct_exp_is_expired(i)) {
-+			nf_ct_unlink_expect(i);
-+			continue;
-+		}
- 		if (!(i->flags & NF_CT_EXPECT_INACTIVE) &&
- 		    nf_ct_exp_equal(tuple, i, zone, net)) {
- 			exp = i;
-@@ -196,13 +197,16 @@ nf_ct_find_expectation(struct net *net,
- 	if (!exp)
- 		return NULL;
- 
-+	if (!refcount_inc_not_zero(&exp->use))
-+		return NULL;
++int osf_protocol_decode_sensor_sample(const struct osf_frame *frame,
++				      struct osf_sensor_sample *sample)
++{
++	u16 channel_count;
++	u16 sample_format;
++	u16 sensor_type;
++	size_t expected_len;
++	const u8 *payload;
 +
- 	/* If master is not in hash table yet (ie. packet hasn't left
- 	   this machine yet), how can other end know about expected?
- 	   Hence these are not the droids you are looking for (if
- 	   master ct never got confirmed, we'd hold a reference to it
- 	   and weird things would happen to future packets). */
- 	if (!nf_ct_is_confirmed(exp->master))
--		return NULL;
-+		goto err_release_exp;
- 
- 	/* Avoid race with other CPUs, that for exp->master ct, is
- 	 * about to invoke ->destroy(), or nf_ct_delete() via timeout
-@@ -214,18 +218,17 @@ nf_ct_find_expectation(struct net *net,
- 	 */
- 	if (unlikely(nf_ct_is_dying(exp->master) ||
- 		     !refcount_inc_not_zero(&exp->master->ct_general.use)))
--		return NULL;
-+		goto err_release_exp;
- 
--	if (exp->flags & NF_CT_EXPECT_PERMANENT || !unlink) {
--		refcount_inc(&exp->use);
--		return exp;
--	} else if (del_timer(&exp->timeout)) {
--		nf_ct_unlink_expect(exp);
-+	if (exp->flags & NF_CT_EXPECT_PERMANENT || !unlink)
- 		return exp;
--	}
--	/* Undo exp->master refcnt increase, if del_timer() failed */
--	nf_ct_put(exp->master);
- 
-+	nf_ct_unlink_expect(exp);
++	if (!frame || !sample || !frame->payload)
++		return -EINVAL;
 +
-+	return exp;
++	if (frame->message_type != OSF_MSG_SENSOR_SAMPLE)
++		return -EPROTO;
 +
-+err_release_exp:
-+	nf_ct_expect_put(exp);
- 	return NULL;
- }
- 
-@@ -241,9 +244,8 @@ void nf_ct_remove_expectations(struct nf_conn *ct)
- 		return;
- 
- 	spin_lock_bh(&nf_conntrack_expect_lock);
--	hlist_for_each_entry_safe(exp, next, &help->expectations, lnode) {
--		nf_ct_remove_expect(exp);
--	}
-+	hlist_for_each_entry_safe(exp, next, &help->expectations, lnode)
-+		nf_ct_unlink_expect(exp);
- 	spin_unlock_bh(&nf_conntrack_expect_lock);
- }
- EXPORT_SYMBOL_GPL(nf_ct_remove_expectations);
-@@ -292,7 +294,7 @@ static bool master_matches(const struct nf_conntrack_expect *a,
- void nf_ct_unexpect_related(struct nf_conntrack_expect *exp)
- {
- 	spin_lock_bh(&nf_conntrack_expect_lock);
--	nf_ct_remove_expect(exp);
-+	WRITE_ONCE(exp->flags, exp->flags | NF_CT_EXPECT_DEAD);
- 	spin_unlock_bh(&nf_conntrack_expect_lock);
- }
- EXPORT_SYMBOL_GPL(nf_ct_unexpect_related);
-@@ -308,6 +310,7 @@ struct nf_conntrack_expect *nf_ct_expect_alloc(struct nf_conn *me)
- 	if (!new)
- 		return NULL;
- 
-+	new->timeout = nfct_time_stamp;
- 	new->master = me;
- 	refcount_set(&new->use, 1);
- 	return new;
-@@ -413,17 +416,12 @@ static void nf_ct_expect_insert(struct nf_conntrack_expect *exp,
- 	struct net *net = nf_ct_exp_net(exp);
- 	unsigned int h = nf_ct_expect_dst_hash(net, &exp->tuple);
- 
--	/* two references : one for hash insert, one for the timer */
--	refcount_add(2, &exp->use);
-+	refcount_inc(&exp->use);
- 
--	timer_setup(&exp->timeout, nf_ct_expectation_timed_out, 0);
- 	helper = rcu_dereference_protected(master_help->helper,
- 					   lockdep_is_held(&nf_conntrack_expect_lock));
--	if (helper) {
--		exp->timeout.expires = jiffies +
--			helper->expect_policy[exp->class].timeout * HZ;
--	}
--	add_timer(&exp->timeout);
-+	if (helper)
-+		exp->timeout += helper->expect_policy[exp->class].timeout * HZ;
- 
- 	hlist_add_head_rcu(&exp->lnode, &master_help->expectations);
- 	master_help->expecting[exp->class]++;
-@@ -435,19 +433,26 @@ static void nf_ct_expect_insert(struct nf_conntrack_expect *exp,
- 	NF_CT_STAT_INC(net, expect_create);
- }
- 
--/* Race with expectations being used means we could have none to find; OK. */
- static void evict_oldest_expect(struct nf_conn_help *master_help,
--				struct nf_conntrack_expect *new)
-+				struct nf_conntrack_expect *new,
-+				const struct nf_conntrack_expect_policy *p)
- {
- 	struct nf_conntrack_expect *exp, *last = NULL;
-+	struct hlist_node *next;
- 
--	hlist_for_each_entry(exp, &master_help->expectations, lnode) {
-+	hlist_for_each_entry_safe(exp, next, &master_help->expectations, lnode) {
-+		if (nf_ct_exp_is_expired(exp)) {
-+			nf_ct_unlink_expect(exp);
-+			continue;
-+		}
- 		if (exp->class == new->class)
- 			last = exp;
- 	}
- 
--	if (last)
--		nf_ct_remove_expect(last);
-+	/* Still worth to evict oldest expectation after garbage collection? */
-+	if (last &&
-+	    master_help->expecting[last->class] >= p->max_expected)
-+		nf_ct_unlink_expect(last);
- }
- 
- static inline int __nf_ct_expect_check(struct nf_conntrack_expect *expect,
-@@ -467,14 +472,18 @@ static inline int __nf_ct_expect_check(struct nf_conntrack_expect *expect,
- 
- 	h = nf_ct_expect_dst_hash(net, &expect->tuple);
- 	hlist_for_each_entry_safe(i, next, &nf_ct_expect_hash[h], hnode) {
-+		if (nf_ct_exp_is_expired(i)) {
-+			nf_ct_unlink_expect(i);
-+			continue;
-+		}
- 		if (master_matches(i, expect, flags) &&
- 		    expect_matches(i, expect)) {
- 			if (i->class != expect->class ||
- 			    i->master != expect->master)
- 				return -EALREADY;
- 
--			if (nf_ct_remove_expect(i))
--				break;
-+			nf_ct_unlink_expect(i);
-+			break;
- 		} else if (expect_clash(i, expect)) {
- 			ret = -EBUSY;
- 			goto out;
-@@ -486,14 +495,8 @@ static inline int __nf_ct_expect_check(struct nf_conntrack_expect *expect,
- 	if (helper) {
- 		p = &helper->expect_policy[expect->class];
- 		if (p->max_expected &&
--		    master_help->expecting[expect->class] >= p->max_expected) {
--			evict_oldest_expect(master_help, expect);
--			if (master_help->expecting[expect->class]
--						>= p->max_expected) {
--				ret = -EMFILE;
--				goto out;
--			}
--		}
-+		    master_help->expecting[expect->class] >= p->max_expected)
-+			evict_oldest_expect(master_help, expect, p);
- 	}
- 
- 	cnet = nf_ct_pernet(net);
-@@ -547,10 +550,8 @@ void nf_ct_expect_iterate_destroy(bool (*iter)(struct nf_conntrack_expect *e, vo
- 		hlist_for_each_entry_safe(exp, next,
- 					  &nf_ct_expect_hash[i],
- 					  hnode) {
--			if (iter(exp, data) && del_timer(&exp->timeout)) {
-+			if (iter(exp, data))
- 				nf_ct_unlink_expect(exp);
--				nf_ct_expect_put(exp);
--			}
- 		}
- 	}
- 
-@@ -577,10 +578,8 @@ void nf_ct_expect_iterate_net(struct net *net,
- 			if (!net_eq(nf_ct_exp_net(exp), net))
- 				continue;
- 
--			if (iter(exp, data) && del_timer(&exp->timeout)) {
-+			if (iter(exp, data))
- 				nf_ct_unlink_expect_report(exp, portid, report);
--				nf_ct_expect_put(exp);
--			}
- 		}
- 	}
- 
-@@ -657,17 +656,17 @@ static int exp_seq_show(struct seq_file *s, void *v)
- 	struct net *net = seq_file_net(s);
- 	struct hlist_node *n = v;
- 	char *delim = "";
-+	__s32 timeout;
- 
- 	expect = hlist_entry(n, struct nf_conntrack_expect, hnode);
- 
- 	if (!net_eq(nf_ct_exp_net(expect), net))
- 		return 0;
-+	if (nf_ct_exp_is_expired(expect))
-+		return 0;
- 
--	if (expect->timeout.function)
--		seq_printf(s, "%ld ", timer_pending(&expect->timeout)
--			   ? (long)(expect->timeout.expires - jiffies)/HZ : 0);
--	else
--		seq_puts(s, "- ");
-+	timeout = (__s32)(READ_ONCE(expect->timeout) - nfct_time_stamp) / HZ;
-+	seq_printf(s, "%d ", timeout > 0 ? timeout : 0);
- 	seq_printf(s, "l3proto = %u proto=%u ",
- 		   expect->tuple.src.l3num,
- 		   expect->tuple.dst.protonum);
-diff --git a/net/netfilter/nf_conntrack_h323_main.c b/net/netfilter/nf_conntrack_h323_main.c
-index 2e8595f2adcd..1f979268057f 100644
---- a/net/netfilter/nf_conntrack_h323_main.c
-+++ b/net/netfilter/nf_conntrack_h323_main.c
-@@ -1408,8 +1408,8 @@ static int process_rcf(struct sk_buff *skb, struct nf_conn *ct,
- 				 "timeout to %u seconds for",
- 				 info->timeout);
- 			nf_ct_dump_tuple(&exp->tuple);
--			mod_timer_pending(&exp->timeout,
--					  jiffies + info->timeout * HZ);
-+			WRITE_ONCE(exp->timeout,
-+				   nfct_time_stamp + (info->timeout * HZ));
- 		}
- 		spin_unlock_bh(&nf_conntrack_expect_lock);
- 	}
-diff --git a/net/netfilter/nf_conntrack_helper.c b/net/netfilter/nf_conntrack_helper.c
-index efa080cb1709..b16a45856bdc 100644
---- a/net/netfilter/nf_conntrack_helper.c
-+++ b/net/netfilter/nf_conntrack_helper.c
-@@ -178,10 +178,10 @@ nf_ct_helper_ext_add(struct nf_conn *ct, gfp_t gfp)
- 	struct nf_conn_help *help;
- 
- 	help = nf_ct_ext_add(ct, NF_CT_EXT_HELPER, gfp);
--	if (help)
-+	if (help) {
-+		__set_bit(IPS_HELPER_BIT, &ct->status);
- 		INIT_HLIST_HEAD(&help->expectations);
--	else
--		pr_debug("failed to add helper extension area");
-+	}
- 	return help;
- }
- EXPORT_SYMBOL_GPL(nf_ct_helper_ext_add);
-@@ -205,10 +205,8 @@ int __nf_ct_try_assign_helper(struct nf_conn *ct, struct nf_conn *tmpl,
- 		return 0;
- 
- 	help = nfct_help(tmpl);
--	if (help != NULL) {
-+	if (help)
- 		helper = rcu_dereference(help->helper);
--		set_bit(IPS_HELPER_BIT, &ct->status);
--	}
- 
- 	help = nfct_help(ct);
- 
-diff --git a/net/netfilter/nf_conntrack_netlink.c b/net/netfilter/nf_conntrack_netlink.c
-index 55bc5626b967..e66e8a32a619 100644
---- a/net/netfilter/nf_conntrack_netlink.c
-+++ b/net/netfilter/nf_conntrack_netlink.c
-@@ -2997,8 +2997,8 @@ static int
- ctnetlink_exp_dump_expect(struct sk_buff *skb,
- 			  const struct nf_conntrack_expect *exp)
- {
-+	__s32 timeout = (__s32)(READ_ONCE(exp->timeout) - nfct_time_stamp) / HZ;
- 	struct nf_conn *master = exp->master;
--	long timeout = ((long)exp->timeout.expires - (long)jiffies) / HZ;
- 	struct nf_conntrack_helper *helper;
- #if IS_ENABLED(CONFIG_NF_NAT)
- 	struct nlattr *nest_parms;
-@@ -3161,6 +3161,9 @@ ctnetlink_exp_dump_table(struct sk_buff *skb, struct netlink_callback *cb)
- restart:
- 		hlist_for_each_entry_rcu(exp, &nf_ct_expect_hash[cb->args[0]],
- 					 hnode) {
-+			if (nf_ct_exp_is_expired(exp))
-+				continue;
++	if (frame->payload_len < OSF_SENSOR_SAMPLE_BASE_LEN)
++		return -EMSGSIZE;
 +
- 			if (l3proto && exp->tuple.src.l3num != l3proto)
- 				continue;
- 
-@@ -3439,11 +3442,8 @@ static int ctnetlink_del_expect(struct sk_buff *skb,
- 		}
- 
- 		/* after list removal, usage count == 1 */
--		if (del_timer(&exp->timeout)) {
--			nf_ct_unlink_expect_report(exp, NETLINK_CB(skb).portid,
--						   nlmsg_report(info->nlh));
--			nf_ct_expect_put(exp);
--		}
-+		nf_ct_unlink_expect_report(exp, NETLINK_CB(skb).portid,
-+					   nlmsg_report(info->nlh));
- 		spin_unlock_bh(&nf_conntrack_expect_lock);
- 		/* have to put what we 'get' above.
- 		 * after this line usage count == 0 */
-@@ -3467,14 +3467,10 @@ static int
- ctnetlink_change_expect(struct nf_conntrack_expect *x,
- 			const struct nlattr * const cda[])
- {
--	if (cda[CTA_EXPECT_TIMEOUT]) {
--		if (!del_timer(&x->timeout))
--			return -ETIME;
-+	if (cda[CTA_EXPECT_TIMEOUT])
-+		WRITE_ONCE(x->timeout, nfct_time_stamp +
-+			   ntohl(nla_get_be32(cda[CTA_EXPECT_TIMEOUT])) * HZ);
- 
--		x->timeout.expires = jiffies +
--			ntohl(nla_get_be32(cda[CTA_EXPECT_TIMEOUT])) * HZ;
--		add_timer(&x->timeout);
--	}
- 	return 0;
- }
- 
-diff --git a/net/netfilter/nf_conntrack_sip.c b/net/netfilter/nf_conntrack_sip.c
-index 366f6c062801..51ea8a32139a 100644
---- a/net/netfilter/nf_conntrack_sip.c
-+++ b/net/netfilter/nf_conntrack_sip.c
-@@ -897,11 +897,10 @@ static int refresh_signalling_expectation(struct nf_conn *ct,
- 		    exp->tuple.dst.protonum != proto ||
- 		    exp->tuple.dst.u.udp.port != port)
- 			continue;
--		if (mod_timer_pending(&exp->timeout, jiffies + expires * HZ)) {
--			exp->flags &= ~NF_CT_EXPECT_INACTIVE;
--			found = 1;
--			break;
--		}
-+		WRITE_ONCE(exp->timeout, nfct_time_stamp + (expires * HZ));
-+		WRITE_ONCE(exp->flags, exp->flags & ~NF_CT_EXPECT_INACTIVE);
-+		found = 1;
-+		break;
- 	}
- 	spin_unlock_bh(&nf_conntrack_expect_lock);
- 	return found;
-@@ -920,8 +919,7 @@ static void flush_expectations(struct nf_conn *ct, bool media)
- 	hlist_for_each_entry_safe(exp, next, &help->expectations, lnode) {
- 		if ((exp->class != SIP_EXPECT_SIGNALLING) ^ media)
- 			continue;
--		if (!nf_ct_remove_expect(exp))
--			continue;
-+		nf_ct_unlink_expect(exp);
- 		if (!media)
- 			break;
- 	}
-@@ -1416,7 +1414,6 @@ static int process_register_request(struct sk_buff *skb, unsigned int protoff,
- 
- 	nf_ct_expect_init(exp, SIP_EXPECT_SIGNALLING, nf_ct_l3num(ct),
- 			  saddr, &daddr, proto, NULL, &port);
--	exp->timeout.expires = sip_timeout * HZ;
- 	rcu_assign_pointer(exp->assign_helper, helper);
- 	exp->flags = NF_CT_EXPECT_PERMANENT | NF_CT_EXPECT_INACTIVE;
- 
-diff --git a/net/netfilter/nft_ct.c b/net/netfilter/nft_ct.c
-index e2ef510ab048..3cce87d8d442 100644
---- a/net/netfilter/nft_ct.c
-+++ b/net/netfilter/nft_ct.c
-@@ -1160,7 +1160,6 @@ static void nft_ct_helper_obj_eval(struct nft_object *obj,
- 	help = nf_ct_helper_ext_add(ct, GFP_ATOMIC);
- 	if (help) {
- 		rcu_assign_pointer(help->helper, to_assign);
--		set_bit(IPS_HELPER_BIT, &ct->status);
- 
- 		if ((ct->status & IPS_NAT_MASK) && !nfct_seqadj(ct))
- 			if (!nfct_seqadj_ext_add(ct))
-@@ -1342,7 +1341,7 @@ static void nft_ct_expect_obj_eval(struct nft_object *obj,
- 		          &ct->tuplehash[!dir].tuple.src.u3,
- 		          &ct->tuplehash[!dir].tuple.dst.u3,
- 		          priv->l4proto, NULL, &priv->dport);
--	exp->timeout.expires = jiffies + priv->timeout * HZ;
-+	exp->timeout += priv->timeout * HZ;
- 
- 	if (nf_ct_expect_related(exp, 0) != 0)
- 		regs->verdict.code = NF_DROP;
-
++	payload = frame->payload;
++	sensor_type = get_unaligned_le16(payload);
++	channel_count = get_unaligned_le16(payload + 4);
++	sample_format = get_unaligned_le16(payload + 6);
++
++	if (!osf_sensor_type_valid(sensor_type))
++		return -EPROTO;
++
++	if (!channel_count)
++		return -EPROTO;
++
++	if (sample_format != OSF_SAMPLE_FORMAT_S32)
++		return -EPROTO;
++
++	expected_len = OSF_SENSOR_SAMPLE_BASE_LEN + channel_count * sizeof(__le32);
++	if (frame->payload_len != expected_len)
++		return -EMSGSIZE;
++
++	*sample = (struct osf_sensor_sample) {
++		.sensor_type = sensor_type,
++		.sensor_index = get_unaligned_le16(payload + 2),
++		.channel_count = channel_count,
++		.sample_format = sample_format,
++		.scale_nano = get_unaligned_le32(payload + 8),
++		.samples = payload + OSF_SENSOR_SAMPLE_BASE_LEN,
++	};
++
++	return 0;
++}
++
++int osf_protocol_sensor_sample_value(const struct osf_sensor_sample *sample,
++				     u16 index, s32 *value)
++{
++	if (!sample || !sample->samples || !value)
++		return -EINVAL;
++
++	if (index >= sample->channel_count)
++		return -ERANGE;
++
++	/* Samples are little-endian two's-complement signed values. */
++	*value = get_unaligned_le32(sample->samples + index * sizeof(__le32));
++
++	return 0;
++}
++
++int osf_protocol_decode_device_status(const struct osf_frame *frame,
++				      struct osf_device_status *status)
++{
++	const u8 *payload;
++
++	if (!frame || !status || !frame->payload)
++		return -EINVAL;
++
++	if (frame->message_type != OSF_MSG_DEVICE_STATUS)
++		return -EPROTO;
++
++	if (frame->payload_len != OSF_DEVICE_STATUS_LEN)
++		return -EMSGSIZE;
++
++	payload = frame->payload;
++	*status = (struct osf_device_status) {
++		.uptime_s = get_unaligned_le32(payload),
++		.status_flags = get_unaligned_le32(payload + 4),
++		.error_flags = get_unaligned_le32(payload + 8),
++		.dropped_frames = get_unaligned_le32(payload + 12),
++	};
++
++	return 0;
++}
++
++int osf_protocol_decode_capability_report(const struct osf_frame *frame,
++					  struct osf_capability_report *report)
++{
++	u16 capability_count;
++	size_t expected_len;
++	const u8 *payload;
++
++	if (!frame || !report || !frame->payload)
++		return -EINVAL;
++
++	if (frame->message_type != OSF_MSG_CAPABILITY_REPORT)
++		return -EPROTO;
++
++	if (frame->payload_len < OSF_CAP_REPORT_BASE_LEN)
++		return -EMSGSIZE;
++
++	payload = frame->payload;
++	capability_count = get_unaligned_le16(payload);
++
++	expected_len = OSF_CAP_REPORT_BASE_LEN +
++		       capability_count * OSF_CAP_SENSOR_ENTRY_LEN;
++	if (frame->payload_len != expected_len)
++		return -EMSGSIZE;
++
++	*report = (struct osf_capability_report) {
++		.capability_count = capability_count,
++		.entries = payload + OSF_CAP_REPORT_BASE_LEN,
++	};
++
++	return 0;
++}
++
++int osf_protocol_decode_capability_entry(const struct osf_capability_report
++					 *report, u16 index,
++					 struct osf_capability_entry *entry)
++{
++	const u8 *payload;
++
++	if (!report || !report->entries || !entry)
++		return -EINVAL;
++
++	if (index >= report->capability_count)
++		return -ERANGE;
++
++	payload = report->entries + index * OSF_CAP_SENSOR_ENTRY_LEN;
++	*entry = (struct osf_capability_entry) {
++		.sensor_type = get_unaligned_le16(payload),
++		.sensor_index = get_unaligned_le16(payload + 2),
++		.channel_count = get_unaligned_le16(payload + 4),
++		.sample_format = get_unaligned_le16(payload + 6),
++		.scale_nano = get_unaligned_le32(payload + 8),
++		.flags = get_unaligned_le32(payload + 12),
++		.reserved = get_unaligned_le32(payload + 16),
++	};
++
++	return 0;
++}
+diff --git a/drivers/iio/opensensorfusion/osf_protocol.h b/drivers/iio/opensensorfusion/osf_protocol.h
+new file mode 100644
+index 000000000000..2b616f2d5197
+--- /dev/null
++++ b/drivers/iio/opensensorfusion/osf_protocol.h
+@@ -0,0 +1,101 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#ifndef _OSF_PROTOCOL_H
++#define _OSF_PROTOCOL_H
++
++#include <linux/bits.h>
++#include <linux/types.h>
++
++#define OSF_PROTOCOL_MAJOR		0
++#define OSF_PROTOCOL_MINOR		0
++#define OSF_FRAME_HEADER_LEN		38
++#define OSF_FRAME_CRC_LEN		4
++#define OSF_FRAME_MIN_LEN		(OSF_FRAME_HEADER_LEN + OSF_FRAME_CRC_LEN)
++#define OSF_FRAME_MAGIC			0x3046534f /* "OSF0", little-endian */
++
++#define OSF_SENSOR_SAMPLE_BASE_LEN	16
++#define OSF_DEVICE_STATUS_LEN		20
++#define OSF_CAP_REPORT_BASE_LEN		4
++#define OSF_CAP_SENSOR_ENTRY_LEN		20
++#define OSF_CAPABILITY_FLAGS_MASK	GENMASK(1, 0)
++
++enum osf_message_type {
++	OSF_MSG_SENSOR_SAMPLE		= 0x0001,
++	OSF_MSG_DEVICE_STATUS		= 0x0002,
++	OSF_MSG_CAPABILITY_REPORT	= 0x0003,
++};
++
++enum osf_sensor_type {
++	OSF_SENSOR_ACCELEROMETER		= 0x0001,
++	OSF_SENSOR_GYROSCOPE		= 0x0002,
++	OSF_SENSOR_MAGNETOMETER		= 0x0003,
++	OSF_SENSOR_BAROMETER		= 0x0004,
++	OSF_SENSOR_TEMPERATURE		= 0x0005,
++	OSF_SENSOR_HUMIDITY		= 0x0006,
++	OSF_SENSOR_AMBIENT_LIGHT		= 0x0007,
++	OSF_SENSOR_PROXIMITY		= 0x0008,
++};
++
++enum osf_sample_format {
++	OSF_SAMPLE_FORMAT_S32		= 0x0001,
++};
++
++struct osf_frame {
++	u8 protocol_major;
++	u8 protocol_minor;
++	u16 message_type;
++	u32 payload_len;
++	u64 sequence;
++	u64 timestamp_us;
++	u32 flags;
++	u32 reserved;
++	/* payload points into the caller-owned frame buffer. */
++	const u8 *payload;
++	u32 crc;
++};
++
++struct osf_sensor_sample {
++	u16 sensor_type;
++	u16 sensor_index;
++	u16 channel_count;
++	u16 sample_format;
++	u32 scale_nano;
++	const u8 *samples;
++};
++
++struct osf_device_status {
++	u32 uptime_s;
++	u32 status_flags;
++	u32 error_flags;
++	u32 dropped_frames;
++};
++
++struct osf_capability_report {
++	u16 capability_count;
++	const u8 *entries;
++};
++
++struct osf_capability_entry {
++	u16 sensor_type;
++	u16 sensor_index;
++	u16 channel_count;
++	u16 sample_format;
++	u32 scale_nano;
++	u32 flags;
++	u32 reserved;
++};
++
++int osf_protocol_decode_frame(const u8 *buf, size_t len,
++			      struct osf_frame *frame, size_t *frame_len);
++int osf_protocol_decode_sensor_sample(const struct osf_frame *frame,
++				      struct osf_sensor_sample *sample);
++int osf_protocol_decode_device_status(const struct osf_frame *frame,
++				      struct osf_device_status *status);
++int osf_protocol_decode_capability_report(const struct osf_frame *frame,
++					  struct osf_capability_report *report);
++int osf_protocol_decode_capability_entry(const struct osf_capability_report
++					 *report, u16 index,
++					 struct osf_capability_entry *entry);
++int osf_protocol_sensor_sample_value(const struct osf_sensor_sample *sample,
++				     u16 index, s32 *value);
++
++#endif
 -- 
-2.55.0
+2.43.0
 
