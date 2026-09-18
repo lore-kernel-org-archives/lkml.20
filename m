@@ -1,228 +1,99 @@
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D1E73019A9
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:05:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 493C34E50DA;
+	Fri, 18 Sep 2026 16:06:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789747522; cv=none; b=OeTbdD6WKEIOalgc5LwxMOhkQdHvp+Y/NOpmKTQu3l+BIP8TT5xO6+yZ0yXvS35B0iIrsU30yk7GXK5YlLgq6UseJH1XC9CbOjFkhBrFV1o7NY9jPuDmAQI4Jc9buurWFjxt6gy/Pp7pkLgBAOwJ9VvIKvRo/IkQ/yXDR9CTAXo=
+	t=1789747578; cv=none; b=dz5FNSSu4tKrJRpJpukOIIPb71ENcrgYsg20fQV/UmaEdEo9lYm//9GfBGeTXY8RZFzSJAoqP55ZsmqEEjNJDzVBbcnOS6LC2Rk6DtrF598v8C+NPlTuVdiGXBmAtIjvLKvipG8S9jq1xPyMTn/HK/+pfhpIAWDZnZ2zZm70isA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789747522; c=relaxed/simple;
-	bh=cOI0RAoQy97P9npu9EIGH+tMQjJx1JRj7SjKcDInChM=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=JRr0/u6x1mWspR6T8eQEzs0WuLBcrrXR5NsdEuz4TN/TI68ciR+qE6IFJuyvoUeYmi5pWrSlGpY/E06KXvYNeiPm5mU8PFryjXiJdA4XfXQTRTC74eRi6wx+2BX2MX/MPHhjwDgLXdMW9NV0zKJYfJwBVnzH6rIizXoODq9ped0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=QfmZiCY7; arc=none smtp.client-ip=209.85.210.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1789747578; c=relaxed/simple;
+	bh=DtRxiNCsFLQWcS+gNBg0UEsVy/nFi9uPGmGGpQ3qQG0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dEQmToZrqFq9U0JGAypfMkTRJg5maWG0wQKzQYMxzgHJXyoXOv0dFye6eg6KNejhpQmi6JO3l4wbpwT2MpVjcFsSwaKWMCQ/lt8aZ1ucV3Gy7G8xvNDNFuQHrNWSrJRbUvdkx3g0wqEhwOi70CC2OMNWtYzqwDqDfOi+nFZogpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=V3U/6ml5; arc=none smtp.client-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="QfmZiCY7"
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-855f662439aso1941461b3a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:05:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789747519; x=1790352319; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=unXnQHfl7O6IYkwSNLEzXDjPIDBkaOiWJaYXq+gOmlg=;
-        b=QfmZiCY7wXf/qMX9UWDVvR8M3tu06JXOIlJfGRVPQSu9Le02rWdNEryETXFf4MCiag
-         NBDAChqT6xWUT5qI+2Gd0GjwstpFClmNFr+XCqakqzo+10JcWds/PukZs5l07OMdG3J4
-         T4TGbX/QlxCui1xj4s0mmw6tjoH0onI5/lbgvx640/F4ks8Q1zNbC5rEgl8CPl9yLMNq
-         EVVycmUG11oUV4HTApx3jt5DAuPONbRwv/mtfxbHYaVIt8zILKnOkNJo5x4xrMnnHYli
-         2Rb2yhQ0qyMqkFPc65B5ZSiMkbjJUUxKsKTkDK/s+WEGntw4edHrhYN6Ck86HQ3IJh6K
-         Q0CA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789747519; x=1790352319;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=unXnQHfl7O6IYkwSNLEzXDjPIDBkaOiWJaYXq+gOmlg=;
-        b=qB5k21pP1GmIw82/LOOd4D+CHyhSFTS6C6urrG63pDZ5KdpE4bCMNElUo0YrmZga5e
-         uf3YPdhGpSNxW3TXjkJqHE9Swk9fI7q2xZvMQwZmkzJ5s3uGobEn0mi2rJDY5xZLcFiX
-         NzdvsdqOfKIvsIPti5Gr0wuZS2p7jJM3zj01BzRKdrENJT45pO2FURT2pq/SYmBWtSZl
-         W3og/qkqyuloQnAJBMkyPQqTfQVq2oBgoGy+RNtKD5Yhbd5r/UTOc8FcpoZAOUE5XDpk
-         TgVZ+o+5JzH/xPNstxpnbiDEsXu25fDtuP+QanFZWVCdhUXPx/SzY8yDJMuIPEAj3VY/
-         nWUw==
-X-Forwarded-Encrypted: i=1; AKwUvByOBbQ2fCdZ/z36Pgt215ZQpI3cqyYzH/EJKFvLhWUl66rZRdKkgX208Ekdhi1PSAQp17jsvSLCe1r7n/E=@vger.kernel.org
-X-Gm-Message-State: AFuF++nDwyrenJZWrXJmRyllCjJW4gyBnozV5bPb9ZOjRBlH+uhZMzKO
-	tgTaN9wmSEgfxuiFcGDXuhx7dC0YslpzJ05SyuL2JoK/LNIitkk1YkMNWxdvj10lmX036L8dXF+
-	BVPOTOA==
-X-Received: from pfnn7.prod.google.com ([2002:a05:6a00:2b87:b0:871:1f86:b3d4])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:94fb:b0:86a:59ca:6cb6
- with SMTP id d2e1a72fcca58-874ddff72a7mr6173681b3a.20.1789747519214; Fri, 18
- Sep 2026 09:05:19 -0700 (PDT)
-Date: Fri, 18 Sep 2026 09:05:18 -0700
-In-Reply-To: <20260918113631.634233-4-gokul02k@gmail.com>
+	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="V3U/6ml5"
+Received: from localhost (localhost [127.0.0.1])
+	by 013.lax.mailroute.net (Postfix) with ESMTP id 4hmctc42hCzlfvpd;
+	Fri, 18 Sep 2026 16:06:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1789747570; x=1792339571; bh=g22YdFd18HrAra8XnJnITid7
+	9Lyg8I2qKQy/Um1nggU=; b=V3U/6ml5ilNiVaNfdTA97xlJ7kHSduz35SzsAL4g
+	EAe2gr6UbkBwyFZOGxEa0wUTIck7gpcsIQb9TO6bfoIg1ui66tvGzj72R3bjwpOb
+	BM8UVIL8PrZ9pl2qJqbqBEZm3s5nxNOqiyakhP/IlUD1OMDvbzUFhr8NPKDHKho0
+	29DvMsMM6AyvEW6s7EmVQFskaQI4NFMdWRhKCPgFavWPcq+Rq70fg4pIrC5vzVKO
+	j+wTEd3fVyvqiZqPaq+sBPd00xlBkl3xEEeoA1H/Wd6cpGvympKW25sWkuX9h8b6
+	4RgJpY6BGhlWYAkZiIwSxET3xGi7vbN/qDER/noxkIFF9g==
+X-Virus-Scanned: by MailRoute
+Received: from 013.lax.mailroute.net ([127.0.0.1])
+ by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id mOBrM7M96SoE; Fri, 18 Sep 2026 16:06:10 +0000 (UTC)
+Received: from [100.80.231.125] (unknown [104.135.182.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4hmctP70DJzlfvpc;
+	Fri, 18 Sep 2026 16:06:05 +0000 (UTC)
+Message-ID: <1ddc5181-f547-465c-bfbe-dbf14a91493e@acm.org>
+Date: Fri, 18 Sep 2026 09:06:04 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260918113631.634233-1-gokul02k@gmail.com> <20260918113631.634233-4-gokul02k@gmail.com>
-Message-ID: <aq1hPuxq2yIeflyH@google.com>
-Subject: Re: [PATCH 3/3] KVM: selftests: Delete the unused guest_snprintf()
-From: Sean Christopherson <seanjc@google.com>
-To: Gokul K <gokul02k@gmail.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, Shuah Khan <shuah@kernel.org>, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] scsi: ufs: core: Decouple CQ sweep from request
+ iterator in MCQ
+To: Stanley Jhu <stanleyjhu@google.com>,
+ "Martin K . Petersen" <martin.petersen@oracle.com>,
+ Bean Huo <beanhuo@micron.com>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@wdc.com>,
+ "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Manivannan Sadhasivam <mani@kernel.org>, Peter Wang
+ <peter.wang@mediatek.com>, linux-scsi@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <CAE14pdek6ynze+muDZrK+yNX-3ioe3vprxOA4W22qokg352tJQ@mail.gmail.com>
+ <20260918143809.3034592-1-stanleyjhu@google.com>
+ <20260918143809.3034592-3-stanleyjhu@google.com>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20260918143809.3034592-3-stanleyjhu@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 18, 2026, Gokul K wrote:
-> guest_snprintf() is a varargs wrapper around guest_vsnprintf() that nothing
-> calls. Its declaration in test_util.h and its definition in
-> lib/guest_sprintf.c are the only two mentions anywhere under
-> tools/testing/selftests.
+On 9/18/26 7:38 AM, Stanley Jhu wrote:
+> In MCQ mode, ufshcd_mcq_compl_pending_transfer() uses
+> blk_mq_tagset_busy_iter() to iterate over busy requests during error
+> recovery and host reset. However, both iterator callbacks perform
+> whole-queue operations redundantly for each visited request:
 > 
-> The rest of the family is alive: guest_vsnprintf() does the work and
-> ucall_common.c calls it, so this deletes the wrapper and nothing else.
+> - force_compl == true: ufshcd_mcq_force_compl_one() calls
+>    ufshcd_mcq_compl_all_cqes_lock() on every busy request, sweeping the
+>    entire completion ring (hwq->max_entries slots) once per active
+>    request under spin_lock_irqsave even though the first sweep already
+>    cleared all completion entries.
+> - force_compl == false: ufshcd_mcq_compl_one() acquires cq_lock and
+>    polls CQTPy over MMIO via ufshcd_mcq_poll_cqe_lock() for every busy
+>    request without doing any per-request work.
 > 
-> No functional change intended.
-> 
-> Signed-off-by: Gokul K <gokul02k@gmail.com>
-> ---
->  tools/testing/selftests/kvm/include/test_util.h |  1 -
->  tools/testing/selftests/kvm/lib/guest_sprintf.c | 12 ------------
->  2 files changed, 13 deletions(-)
-> 
-> diff --git a/tools/testing/selftests/kvm/include/test_util.h b/tools/testing/selftests/kvm/include/test_util.h
-> index a6a3e1657895..fbdf0e0c15d1 100644
-> --- a/tools/testing/selftests/kvm/include/test_util.h
-> +++ b/tools/testing/selftests/kvm/include/test_util.h
-> @@ -238,7 +238,6 @@ static inline u32 atoi_non_negative(const char *name, const char *num_str)
->  }
->  
->  int guest_vsnprintf(char *buf, int n, const char *fmt, va_list args);
-> -__printf(3, 4) int guest_snprintf(char *buf, int n, const char *fmt, ...);
->  
->  char *strdup_printf(const char *fmt, ...) __attribute__((format(printf, 1, 2), nonnull(1)));
->  
-> diff --git a/tools/testing/selftests/kvm/lib/guest_sprintf.c b/tools/testing/selftests/kvm/lib/guest_sprintf.c
-> index 7a33965349a7..6caebb456f3d 100644
-> --- a/tools/testing/selftests/kvm/lib/guest_sprintf.c
-> +++ b/tools/testing/selftests/kvm/lib/guest_sprintf.c
-> @@ -300,15 +300,3 @@ int guest_vsnprintf(char *buf, int n, const char *fmt, va_list args)
->  	*str = '\0';
->  	return str - buf;
->  }
-> -
-> -int guest_snprintf(char *buf, int n, const char *fmt, ...)
-> -{
-> -	va_list va;
-> -	int len;
-> -
-> -	va_start(va, fmt);
-> -	len = guest_vsnprintf(buf, n, fmt, va);
-> -	va_end(va);
-> -
-> -	return len;
-> -}
+> Sweep or poll each hardware queue (hba->uhq[i]) once at the start of
+> ufshcd_mcq_compl_pending_transfer(). When force_compl is true, run
+> blk_mq_tagset_busy_iter() afterward to complete residual in-flight
+> requests with DID_REQUEUE, and remove the now-unused
+> ufshcd_mcq_compl_one() callback.
 
-Hmm, I would rather turn guest_snprintf() into a macro so that it can be used in
-variadic functions.  I can't think of any reason why this wouldn't work (and
-emperically, guest printing works as expected).
+Forcibly completing SCSI commands from inside the UFS SCSI host reset
+error handling callback is incompatible with the SCSI core error
+handler. The "force_compl" behavior should be removed instead of
+reworking it. If you take a look at the SDB (single doorbell) code you
+will see that forcibly completing requests doesn't happen for SDB mode.
 
----
-
-From: Sean Christopherson <seanjc@google.com>
-Date: Fri, 18 Sep 2026 08:57:37 -0700
-Subject: [PATCH] KVM: selftests: Make guest_snprintf() a macro and use it as
- appropriate
-
-Turn guest_snprintf() into a macro so that it can be used by variadic
-functions, and use it in the ucall APIs instead of open coding the VA goo.
-
-Reported-by: Gokul K <gokul02k@gmail.com>
-Closes: https://lore.kernel.org/all/20260918113631.634233-4-gokul02k@gmail.com
-Signed-off-by: Sean Christopherson <seanjc@google.com>
----
- tools/testing/selftests/kvm/include/test_util.h | 12 +++++++++++-
- tools/testing/selftests/kvm/lib/guest_sprintf.c | 12 ------------
- tools/testing/selftests/kvm/lib/ucall_common.c  | 10 ++--------
- 3 files changed, 13 insertions(+), 21 deletions(-)
-
-diff --git a/tools/testing/selftests/kvm/include/test_util.h b/tools/testing/selftests/kvm/include/test_util.h
-index a6a3e1657895..817d4d5ca7cc 100644
---- a/tools/testing/selftests/kvm/include/test_util.h
-+++ b/tools/testing/selftests/kvm/include/test_util.h
-@@ -238,7 +238,17 @@ static inline u32 atoi_non_negative(const char *name, const char *num_str)
- }
- 
- int guest_vsnprintf(char *buf, int n, const char *fmt, va_list args);
--__printf(3, 4) int guest_snprintf(char *buf, int n, const char *fmt, ...);
-+
-+#define guest_snprintf(__buf, __n, __fmt)		\
-+({							\
-+	va_list va;					\
-+	int len;					\
-+							\
-+	va_start(va, __fmt);				\
-+	len = guest_vsnprintf(__buf, __n, __fmt, va);	\
-+	va_end(va);					\
-+	len;						\
-+})
- 
- char *strdup_printf(const char *fmt, ...) __attribute__((format(printf, 1, 2), nonnull(1)));
- 
-diff --git a/tools/testing/selftests/kvm/lib/guest_sprintf.c b/tools/testing/selftests/kvm/lib/guest_sprintf.c
-index 7a33965349a7..6caebb456f3d 100644
---- a/tools/testing/selftests/kvm/lib/guest_sprintf.c
-+++ b/tools/testing/selftests/kvm/lib/guest_sprintf.c
-@@ -300,15 +300,3 @@ int guest_vsnprintf(char *buf, int n, const char *fmt, va_list args)
- 	*str = '\0';
- 	return str - buf;
- }
--
--int guest_snprintf(char *buf, int n, const char *fmt, ...)
--{
--	va_list va;
--	int len;
--
--	va_start(va, fmt);
--	len = guest_vsnprintf(buf, n, fmt, va);
--	va_end(va);
--
--	return len;
--}
-diff --git a/tools/testing/selftests/kvm/lib/ucall_common.c b/tools/testing/selftests/kvm/lib/ucall_common.c
-index 029ce21f9f2f..e9df71197367 100644
---- a/tools/testing/selftests/kvm/lib/ucall_common.c
-+++ b/tools/testing/selftests/kvm/lib/ucall_common.c
-@@ -83,7 +83,6 @@ void ucall_assert(u64 cmd, const char *exp, const char *file,
- 		  unsigned int line, const char *fmt, ...)
- {
- 	struct ucall *uc;
--	va_list va;
- 
- 	uc = ucall_alloc();
- 	uc->cmd = cmd;
-@@ -92,9 +91,7 @@ void ucall_assert(u64 cmd, const char *exp, const char *file,
- 	WRITE_ONCE(uc->args[GUEST_FILE], (u64)(file));
- 	WRITE_ONCE(uc->args[GUEST_LINE], line);
- 
--	va_start(va, fmt);
--	guest_vsnprintf(uc->buffer, UCALL_BUFFER_LEN, fmt, va);
--	va_end(va);
-+	guest_snprintf(uc->buffer, UCALL_BUFFER_LEN, fmt);
- 
- 	ucall_arch_do_ucall((gva_t)uc->hva);
- 
-@@ -104,14 +101,11 @@ void ucall_assert(u64 cmd, const char *exp, const char *file,
- void ucall_fmt(u64 cmd, const char *fmt, ...)
- {
- 	struct ucall *uc;
--	va_list va;
- 
- 	uc = ucall_alloc();
- 	uc->cmd = cmd;
- 
--	va_start(va, fmt);
--	guest_vsnprintf(uc->buffer, UCALL_BUFFER_LEN, fmt, va);
--	va_end(va);
-+	guest_snprintf(uc->buffer, UCALL_BUFFER_LEN, fmt);
- 
- 	ucall_arch_do_ucall((gva_t)uc->hva);
- 
-
-base-commit: 70c944caf570fda2d79baa71435589a8db39f048
--- 
-
+Bart.
