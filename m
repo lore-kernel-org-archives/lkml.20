@@ -1,157 +1,110 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB927356751;
-	Fri, 18 Sep 2026 05:59:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C220E3290C5
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:03:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789711182; cv=none; b=E8nK8YI0ItlzKIikBwEMCIBU+RtG28cTWnlxMXEyUwc/d4TXqhZ3WrdJOryqQ20HFMeyUoNXCPm7z22229Tv2EjWO1ygT/7sPUDlvMV7r9UN3VuQzR7WJ3lATyFnvES88s2dDEbb6JYgYa8htvTMr0xzFw5FHVBcSedsnsRByPg=
+	t=1789711417; cv=none; b=mZIuGpsxh+0APfdP7+SdiHwQW3/y3BBEJnxdapq2yJ7KcV11PPQJwlxU0q+XIWTniE3cOWAMZ299o5YX1+g+N+T4Qca2XOCL/qamXVnVdnydMyo4AE1Naj0q3dqM2byLxKTv5rDrbGivq1bczW75238TJVwyU7mKnd6k0G4BAB0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789711182; c=relaxed/simple;
-	bh=mJTN91ugFwjKMz4I9/XHV1un1QzWKvooR+gPxPOhWZo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=K88BHYwJsBxBqL2P+pAC/hmriW+B4KsKEVSuS2qgVugQZE1jzGkibJVF/AzX9Srrvsgada32Kw1lpe3TX0ZYPjGWvWf6KhV8AyuDDF84GCUBimygIY42SxixTwFY7eCasgym69ZWe+2abae7jzMFrJzzlALcire+8fymnyithDw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Ncb7ucBQ; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1789711417; c=relaxed/simple;
+	bh=ZL8Jx3BIoBtLus5oyuP9FbIKPH1b0o3RPwrbGhT9xVw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=A+z3kN/giioeFZkSF4JOn2M3zs+9DxWMxsnqOmQ5S99G8b7a9Og76es4xw1F7D2vHUupomFj0ZHdDJwg6DE/qpcVYoOMQ4CG3smpEKNcFqLZ28p3G58638a7HFsYELFVe0YnFYhGSKMvEFEiq2Ak3ncCfm3h++TJiiAxCO2EELA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZsE85wCy; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Ncb7ucBQ"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I2VjZx043142;
-	Fri, 18 Sep 2026 05:52:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=OkKG5e
-	Hj/nYQoAmDG+rhMWoq3O/eAaBCq9IsR6KTnK0=; b=Ncb7ucBQiJs7MT8jp9Hogw
-	KABJEWlOfG/dfbLL7sZXrcFtqQHDCdSSDXBhPAMUuhs5npkTH7xSnz/q0jSWnr5c
-	ZCC+Z9ZhJ2KpZ454Fn/KC2n0Cp1UhVDSe8NFhDep6X9wG98D2tZxBsJtHEJV+45S
-	EjULYJaU5L4OoJZA/qL9KCw7HIyFbmDcr8Gxlufr7nBlme16tZiYsBgiSeN/5+3e
-	Nn0Z96JqJXvZkkqBRVQed78H4ZgW5hfnssCzeXUxadsAKb1Eb+ftmmjqeYG8wl3A
-	9m5u+yGoAqzpnXlfik8qPHri7xqtulz88Ch6zS0Mn2/FCTO1TiNWTPWug9fanXnA
-	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmx846f5r-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 18 Sep 2026 05:52:57 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68I2ZKuK918969;
-	Fri, 18 Sep 2026 05:52:56 GMT
-Received: from smtprelay03.wdc07v.mail.ibm.com ([172.16.1.70])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gr7genjra-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 18 Sep 2026 05:52:56 +0000 (GMT)
-Received: from smtpav06.wdc07v.mail.ibm.com (smtpav06.wdc07v.mail.ibm.com [10.39.53.233])
-	by smtprelay03.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68I5qCZX3015250
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 18 Sep 2026 05:52:12 GMT
-Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id B0A5E5804E;
-	Fri, 18 Sep 2026 05:52:55 +0000 (GMT)
-Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 876455803F;
-	Fri, 18 Sep 2026 05:52:41 +0000 (GMT)
-Received: from [9.61.58.220] (unknown [9.61.58.220])
-	by smtpav06.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 18 Sep 2026 05:52:41 +0000 (GMT)
-Message-ID: <1742b0d0-fbdb-433b-b2c9-b47b5cfd7666@linux.ibm.com>
-Date: Fri, 18 Sep 2026 11:22:39 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZsE85wCy"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469a33c9cso582759b3a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 23:03:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789711415; x=1790316215; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dperup7ufDLu8IbcgcpGCPqoa93XHCi1Cmm1IIuNUA8=;
+        b=ZsE85wCyrqV7kvtpsBQmj4o6VfNSyE7HI5abLOO0RFSOF0PizeisosqSIqVVaMG9EJ
+         5jT76wRIPogDHJdcQXquXXMG+WoP59YBngewF7BmEtCZF98Q74nhm/nLNWvKOY9Bmm84
+         hY8riWnK+ddtohDEAOj41+BoEfZ5oAYa/U8ya4iVjdeLZmEf3UFLDjA6hVSkdVBjSO1y
+         m7eljYYUQB+PClklSzGBvZ4yR4Kn2SrBP8an4WOp2mX/eoonrqIVrC3T1cGkPfqkHQs5
+         MUVhEKliFNsteKhEopSUu/Mf0MR3eVgTxxLeKdrQbT95aORYyhb6S7dxQ7OUxPVjcuFh
+         VYmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789711415; x=1790316215;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dperup7ufDLu8IbcgcpGCPqoa93XHCi1Cmm1IIuNUA8=;
+        b=l/kGpgz8AXBEqZYmCc+MUbtBoLPhpbvFGzWJcqELCLWGLuJ9lpCytkbjqIJ3r+ODJv
+         0v8O3zo5xBQTwGUjsCWvGZuhOAXZrtN9/vCzQzYoYMMNhBS3lZXJRFPexF9/SYnwnG2A
+         fWF5lROj63UKCqR+6jjaTNtvl7A8REcz1rw32urjT+nkrNqXJpSWVDXNOCpRxiGtNdVL
+         mYKvOBatY3gxHteBB0UMKAo2PJFZglt/hjlsqHC82Dm7k8o/Wu3c2IHAn5JaL7iv+ki3
+         I2z7WKVYGO5OKQ8wErpRV1yQxNwmMfqkrw6JOlnibAgakIfiihyf9kJ+YKOZJLm25aST
+         LDlQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzFqj/hDyWWFvwPDGLPqohdMy/VZf0/w/lRdWMsZpdO7UuErxucbdJM0QHsRh8RHYRNUfPI5S63G9mRa3I=@vger.kernel.org
+X-Gm-Message-State: AFuF++kYT2Ir6HwweZ6bj6l+r9nVgdu1VpFdWMnOcRnwKmLLzvdq5eAv
+	f1lrzwSQgaJyIkqCN5m3MtV5h1S63PYSXzEQh98sDTzYsc8+UUOl9OKN
+X-Gm-Gg: AYBFou0cum6TS8TrZQ14KFRpFLu07LcIYPcaIVmeKJxnD9RQQ6IPH8Pnh/Ijy0JJ1fL
+	dLzRZ6f6BmrlCz56LbupY+kcO4pZ0KX3REdpBw9no7MVdm9IS6T5tkWU6sHp3Y4q0usmsRFCV06
+	JpYsuWtQ0m93qoydwSMcCnS/SincYUBLnpbEdr0UZ17LbASxMF3VMzTXJPvE6LQw+iHFeHwOog3
+	zbL5kgIp0NtmRd18mAFc+jKoIgUoow+ao4LDTtJIxq++lUGs+65WYgD2XBYVDxLft4OKf8W5XO1
+	IvJbrj4VtaryXOfRx5zaBec/+oavkYGSYSjLH5rdYdf7LLZOUYBLQE9P0MpMOkb/hGaO+e1iFbJ
+	WCs5h6t+N2uxa+lP/gv9RZNj+GfeIioCY6TRLcUs3/TrFja00vUCuGDXJNI2ikJyCSn4+KoSxUq
+	P7tX7NIILo5svccxWC6rs/M5tj+DDPTgAbJchkPzMuUpv+BveCadM+Du0W3SQKhhkktaT1lln4D
+	4Ck9jR9RopZhhNVe4kS8IC9qutToNb6EwZ5oNt/uJAII5WlaZ5WWDxIScbmBBIbPS1RyICB
+X-Received: by 2002:a05:6a20:9e4a:b0:3da:e1b5:2baa with SMTP id adf61e73a8af0-3dd8c3f80bcmr3323009637.2.1789711415101;
+        Thu, 17 Sep 2026 23:03:35 -0700 (PDT)
+Received: from localhost.localdomain ([2405:201:301c:f8cd:c192:a1de:25bb:2e0e])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc5bfbb4db4sm348985a12.8.2026.09.17.23.03.29
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 17 Sep 2026 23:03:34 -0700 (PDT)
+From: Aryan Sinha <sinha.aryan03@gmail.com>
+To: Sunil Goutham <sgoutham@marvell.com>,
+	Ratheesh Kannoth <rkannoth@marvell.com>,
+	Geetha sowjanya <gakula@marvell.com>,
+	Subbaraya Sundeep <sbhatta@marvell.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Aryan Sinha <sinha.aryan03@gmail.com>
+Subject: [PATCH] octeontx2-af: remove duplicate SCTP port flags
+Date: Fri, 18 Sep 2026 11:33:19 +0530
+Message-ID: <20260918060323.53860-1-sinha.aryan03@gmail.com>
+X-Mailer: git-send-email 2.46.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] blk-cgroup: move async bio punt state to blkcg
-To: Yu Kuai <yukuai@kernel.org>, Jens Axboe <axboe@kernel.dk>,
-        Josef Bacik <josef@toxicpanda.com>, Tejun Heo <tj@kernel.org>,
-        Johannes Weiner <hannes@cmpxchg.org>,
-        =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>,
-        Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Randy Dunlap
- <rdunlap@infradead.org>, Coly Li <colyli@fygo.io>,
-        Kent Overstreet <kent.overstreet@linux.dev>,
-        Alasdair Kergon
- <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
-        Mikulas Patocka <mpatocka@redhat.com>,
-        Benjamin Marzinski <bmarzins@redhat.com>, Song Liu <song@kernel.org>,
-        Li Nan <magiclinan@didiglobal.com>, Xiao Ni <xiao@kernel.org>,
-        Andreas Gruenbacher <agruenba@redhat.com>,
-        Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
-        Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
-        Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
-        Youngjun Park <youngjun.park@lge.com>,
-        Nathan Chancellor <nathan@kernel.org>,
-        Nick Desaulniers <ndesaulniers@google.com>,
-        Bill Wendling
- <morbo@google.com>,
-        Justin Stitt <justinstitt@google.com>
-Cc: Yu Kuai <yukuai@fygo.io>, Christoph Hellwig <hch@lst.de>,
-        Tao Cui <cuitao@kylinos.cn>, linux-block@vger.kernel.org,
-        cgroups@vger.kernel.org, linux-doc@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-bcache@vger.kernel.org,
-        dm-devel@lists.linux.dev, linux-raid@vger.kernel.org,
-        gfs2@lists.linux.dev, linux-fsdevel@vger.kernel.org,
-        linux-mm@kvack.org, llvm@lists.linux.dev
-References: <20260918041744.1526924-1-yukuai@kernel.org>
- <20260918041744.1526924-4-yukuai@kernel.org>
-Content-Language: en-US
-From: Nilay Shroff <nilay@linux.ibm.com>
-In-Reply-To: <20260918041744.1526924-4-yukuai@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDA3MiBTYWx0ZWRfX/teiT0wiHNSW
- JEvRLv8jYQnWWkxliGMH7Y5gxw8A38G2pBCriGrXSm3DN6Pr3l9Oia/Cs3vbs5x2dSUFWw1cfFz
- f6YEK9tOomOpksip3Jp/NjjN7rrYdt/gOI5v+6Y8AX7cViJK8cnyaAE3PjMik7w12aaXKvh6tPK
- tFBlkzqye1G3IuT9fAG8wstP9g6OAj+fQK4ugA5oL55w2miRU2d/M5YZzNY15Wjk04uncsH6aDp
- pnj11j8nfR0QxLHiscSmDcegPweYS/JObE2+bA7JB/xXyGgpQjesnbr/WvDVc+wx6dyVbrWXmva
- TRZBv+CiIDmwlROqGoPTmI8+6j49IF5vWsKy4421LSK4L8hh5RZqcbHHtqWWNbP4U/H4xAE0VIg
- qjhdgXfijXio3Cfv4RwZ0wphiapFt2dpjyauojKMPHivJdWmZuJs2lOfIk/cS3ryMpVrfiI0Gg9
- /PO92Nr18Ody/I9Qj1g==
-X-Proofpoint-ORIG-GUID: IQzOuQqhULLvUviFRAhVAHKgtdnFYey7
-X-Proofpoint-GUID: ZGCkVPtmRng54Q_CssYM4zmrTg3B8e93
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDA3MiBTYWx0ZWRfX7hqucrhMwMz+
- TMaoTQdDqBi4VtgFdBweWtZanWLjNVsk/ptq6fmVuMGXmra8Z54mRVbadv0oTv0nx+NSQH+0ts1
- oIkWCJgjmb268QlqzkGvSbLj1oWUnos=
-X-Authority-Analysis: v=2.4 cv=cY9HPXDM c=1 sm=1 tr=0 ts=6aacd1ba cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8
- a=N7Slw706a9Tpp8ivUyUA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-18_01,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 bulkscore=0 clxscore=1015 suspectscore=0
- impostorscore=0 malwarescore=0 phishscore=0 adultscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180072
+Content-Transfer-Encoding: 8bit
 
-On 9/18/26 9:47 AM, Yu Kuai wrote:
-> From: Yu Kuai<yukuai@fygo.io>
-> 
-> blkcg_punt_bio_submit() currently queues punted bios on blkg->async_bios,
-> so it has to call bio_blkg() to find or create a queue-local blkg.  Bios
-> now carry and pin the blkcg css, so punted bio lifetime no longer needs to
-> be anchored by a blkg.
-> 
-> Keeping the punt state in blkg can instantiate a blkg even when no blkcg
-> policy is enabled, just to bounce submission from a shared kthread.  Move
-> async_bio_lock, async_bios and async_bio_work to struct blkcg, and queue
-> punted bios on bio_blkcg() for non-root cgroups.  Root or unassociated bios
-> are submitted directly.
-> 
-> This preserves the priority-inversion avoidance while preventing
-> blkcg_punt_bio_submit() from creating blkgs that are not needed by any
-> policy.
-> 
-> Signed-off-by: Yu Kuai<yukuai@fygo.io>
+proto_flags ORs BIT_ULL(NPC_SPORT_SCTP) and BIT_ULL(NPC_DPORT_SCTP)
+are present twice. Both fields are already covered by the first pair, so the second
+one has no effect.
 
-Looks good to me.
-Reviewed-by: Nilay Shroff <nilay@linux.ibm.com>
+Drop it. No functional change.
+
+Signed-off-by: Aryan Sinha <sinha.aryan03@gmail.com>
+---
+ drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c
+index d422bdd5e..ec004ea51 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c
++++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c
+@@ -698,7 +698,6 @@ static void npc_set_features(struct rvu *rvu, int blkaddr, u8 intf)
+ 	proto_flags = BIT_ULL(NPC_SPORT_TCP) | BIT_ULL(NPC_SPORT_UDP) |
+ 		       BIT_ULL(NPC_DPORT_TCP) | BIT_ULL(NPC_DPORT_UDP) |
+ 		       BIT_ULL(NPC_SPORT_SCTP) | BIT_ULL(NPC_DPORT_SCTP) |
+-		       BIT_ULL(NPC_SPORT_SCTP) | BIT_ULL(NPC_DPORT_SCTP) |
+ 		       BIT_ULL(NPC_TYPE_ICMP) | BIT_ULL(NPC_CODE_ICMP) |
+ 		       BIT_ULL(NPC_TCP_FLAGS);
+ 
+-- 
+2.46.0
+
