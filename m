@@ -1,42 +1,52 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D1BC514774;
-	Fri, 18 Sep 2026 17:27:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4D004FDA76;
+	Fri, 18 Sep 2026 17:27:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789752456; cv=none; b=nGhxIdCRhhR0xKebPFW00f7n1Pr44FgxtjAAxlG3hY3l0VToGTn1HKp3wRC2Hc2l6k1pLsqtrjIg2ULGl0hgQiuU5WmdckRo7ihboeJ/KOw4dUZp3vQwr4px2pSZ8Rkp1xy+QQ+NYchay8Bse4NsYTbHbNaeQWrmv/xnppBBJs4=
+	t=1789752457; cv=none; b=estObZhX8jdZRvdCv1UCc1FBzKaL0lDdqR6axPaVdAEPAMTT4HF1cHUUeAIhxcbKzWP/gxESQ2VCxT2HjX3kb+U6yQcPpWlZuBhGe1+u65FuMwXY4eTn4xbnEsFyRAHkx51mAVGQXc2bDPw8uIXHOLO1EukL7nG5jVz0ACucVWs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789752456; c=relaxed/simple;
-	bh=8QVKSK5kX5l6skryQvsHbwY0LV2dCZNgST+fN6OjcbI=;
+	s=arc-20240116; t=1789752457; c=relaxed/simple;
+	bh=ZgMfgnNMTTAB7ij0Uen4FKMNSu6zr7dq79w3r1uj5DQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gd8mr/Xbr2qvhMeTHGvp5C20jrNM5HNzeZyHZlhDVqsN1RaPTPGWBw5tFwFgZbYub+tfm0E3GMrPUr4cpjcUhXUq2J7WWuzsl+PIj6A8M0w7XYj+xT8HPIWnV/igt2vCd0mwUb+wX/qMfXKWya3DlmKLnVVzcjHtAFLLCwhDPUw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GhyzUNrr; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=dairw/HrSB18BaBrDOK7TMnioRbro0jmu1tETDsbfxLvMorLfhlCHuHrqEN1XKwef/3iyCD/JMIXNcwO2yRh0rRdK9ivgU+ws2sAHjdlowRVu+G0acJtoqVNd1GPouIDzk8IyNZpoJQZLAzYfzvLrm7oaSAbt4FUURst5lJnW50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=nZmMHzoC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GhyzUNrr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0ED91F000FF;
-	Fri, 18 Sep 2026 17:27:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789752450;
-	bh=1SUJ6V2P1vGxa0gyL38KN9E1W/4qt3E6TTNzmNpYQKs=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nZmMHzoC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3AB21F00898;
+	Fri, 18 Sep 2026 17:27:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789752454;
+	bh=5sOwLbsuSvuF6ePII3dRbbexDhRaUiT2qlW2RUmkzBk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GhyzUNrr8hwPset88fxTZCoa5Nl7jOSNCwglQzDkZU/hsSvYPpckZ/7wYScxHHkah
-	 PmQCqO30m8LCyNl6t8WvGM6OgFo3mfaJrznSKiJ+iTHrQt/ZLPXhrqzBz8GtdiZbWC
-	 RGKUfZVNmd/981N2XdL6qAJylcTE/RMitkAQywqUlKPBdfgBz1EkbUvkWZ3/JPOsGh
-	 vSCWpk5tMg6m4DIHfhxv4D0bgboWkccsAAkLXVjwWudhGcA/tyBLJ91OPp3Iajv+N+
-	 5Atxct8ZNAZVXjdzP2w7PhYV9RUL6oG0lMdFUGk0dwQ6I/qzwQ/zu1sX7bgMb5QAgc
-	 nDYsNiDEXozyA==
-Date: Fri, 18 Sep 2026 12:27:28 -0500
-From: Rob Herring <robh@kernel.org>
-To: Karl Asseily <karl@asseily.com>
-Cc: broonie@kernel.org, lgirdwood@gmail.com, krzk+dt@kernel.org,
-	conor+dt@kernel.org, perex@perex.cz, tiwai@suse.com,
-	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/4] dt-bindings: vendor-prefixes: add ESS Technology
-Message-ID: <20260918172728.GA701105-robh@kernel.org>
-References: <20260918031326.68542-1-karl@asseily.com>
- <20260918031326.68542-2-karl@asseily.com>
+	b=nZmMHzoCublLE0IEK9aHlvlhqE2xLByUWguh+3EqUuN7nBMN6wefu5bJW7NsVI8oo
+	 8cuRfa+t9Y3H9nyGcurlDLAY4ePQ6iB4sPUHg9xbYuB6d5/K8xq5on5u9J9FaPJn9Q
+	 febXPuvZSHNtnT99lN8PelpDzpS5m6r2HuKfDEeA=
+Date: Fri, 18 Sep 2026 18:25:38 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Bradley Morgan <brads@mainlining.org>,
+	Aleksandr Nogikh <nogikh@google.com>, linux-modules@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-usb@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-trace-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>
+Subject: Re: [PATCH v4 0/3] driver core: add TAINT_FORCED_BIND for when
+ userspace manually messes with devices and drivers
+Message-ID: <2026091850-geriatric-overfull-3370@gregkh>
+References: <20260914-bind_taint-v4-0-eadf8a090903@linuxfoundation.org>
+ <DLIL9H50MALI.3JROXYEEUM3KU@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,13 +55,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260918031326.68542-2-karl@asseily.com>
+In-Reply-To: <DLIL9H50MALI.3JROXYEEUM3KU@kernel.org>
 
-On Fri, Sep 18, 2026 at 06:13:23AM +0300, Karl Asseily wrote:
-> Add the vendor prefix for ESS Technology, Inc., maker of the SABRE family
-> of audio DACs. The prefix follows the company's domain, esstech.com.
+On Fri, Sep 18, 2026 at 06:39:02PM +0200, Danilo Krummrich wrote:
+> On Mon Sep 14, 2026 at 4:30 PM CEST, Greg Kroah-Hartman wrote:
+> > The ability to add and remove devices from a driver through the sysfs
+> > "bind" and "unbind" files was created all those decades ago as a way
+> > that kernel developers can iterate faster, and provide a debugging way
+> > for users to attempt to add a new device to a driver without having to
+> > rebuild their kernel.
+> >
+> > This api over the years has been abused and recently come under a major
+> > fuzzing "attack" through tools like syzbot which decided that it would
+> > attempt to just randomly bind any driver to any type of device, causing
+> > loads of unneeded errors and pointless kernel patches to be generated by
+> > unsuspecting new developers.
+> >
+> > Handle all of this by adding a new taint flag, TAINT_FORCED_BIND, which
+> > will be set on the driver if the bind/unbind sysfs files are ever
+> > written to.  This lets kernel developers "know" that a user is
+> > attempting to do something that is not normal, and as such, if the
+> > kernel breaks they get to keep the shiny pieces laying around on the
+> > floor.
+> >
+> > The flag is 'Y' which was unused, and can remembered as the user is
+> > "yeeting" the device being operated on here (thrown with force without
+> > regard for the thing being thrown).
+> >
+> > Note, the taint flag gets set _BEFORE_ the bind/unbind callback happens,
+> > as many times crashes/oops/warnings/failures happen within the callback,
+> > and the taint flag needs to be there to show what was being attempted.
+> > If it were to be set after the callback happens, the oops report would
+> > not properly reflect what foolishness was being attempted.
+> >
+> > Fuzzing tools like syzbot, that doesn't have hand-crafted rules to keep
+> > the tool from hitting bind/unbind, should be run with panic_on_taint
+> > enabled so that they fall over and don't continue on, thinking that they
+> > actually found a real issue.
+> >
+> > Userspace operations that rely on the bind/unbind files
 > 
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Karl Asseily <karl@asseily.com>
+> I agree that this should be avoided.
+> 
+> But I also think the biggest offender really is driver_override. Specifically,
+> on a hot-pluggable bus a driver must be complient with the device driver
+> lifecycle rules and hence shouldn't break on bind/unbind. I think it would be
+> nice to not taint the kernel for such busses, and only taint on driver_override,
+> as I think we'd still want the bug reports for such cases.
+> 
+> But I think this is fine to leave for a follow-up.
 
-Missing Krzysztof's ack...
+Yeah, let's see how this goes, thanks for the review!
+
+greg k-h
