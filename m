@@ -1,162 +1,105 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3A0D52842F;
-	Fri, 18 Sep 2026 21:12:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DBC352CCC9;
+	Fri, 18 Sep 2026 21:12:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789765938; cv=none; b=Gg4sUXyo5cBxs90TWujLPBpGsbDl7oaxtaVjQMIrmMPo8wLolHDnh1oYICuc7HPc9LS7mFxZJSFOUR8Y5WhQiLviKoP6PUiOVJIKVQ8HZZqynN8OGfTY/BW1OrAADh+62G1I0eIA7SXKNKzAYqcu0W7sru/yNUQUVc2x5YdZqeU=
+	t=1789765980; cv=none; b=W6KpUxhJmSojXQhX+5jqu0ZLKoQcns//Q6EdU3V1EM0ghy70qW2ZjYMcQFKmm3nLjyfs7zNAlNcSjuAYKwk9PiNKeCFFpOf7JYIWR0GS8EwvId/rwTuGvgeNXHQOWP1Xsi1gvIgVMIPBlHrHjH5r58V+gT5kDwgq27jqobT+cpI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789765938; c=relaxed/simple;
-	bh=cIfSR1CMii8h1MA9LWF4cboCuUSevhIysbC5246uSiU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bWyn7wS6+P+P2MpDyErOZN77kIapzfApk6xMBHWq3uTBzeNI91r5jlU8Oo7r3fasPCIfLHFSrSGHgAJn6nVuMRr31MDB3snnplgZh2JhZhi3LgLPuMRa8W4U8puoR6thCnBg8dLYKKh3BaT6LCkAcrx640OSCD6q8IszehC7mb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=tF3vRl3D; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1789765980; c=relaxed/simple;
+	bh=XUcoR4k25seLQt7yXrs3cnd4bgp4UVAXOg74+TQ6XTg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=cq5JZ8UnfHrTgPdKSPp2+xExPJo73QuDTGCyWNveveseFHLG286Ze+BVEroujAtucPXUGIVcQmMsclhkRYasxgWtwV5GePNGgFpJJS5W6jxc9HNaL/zLHck+uXpU0/DjjF+6qbio5BxR8yIOMaEkuHUgYkXkGBQ8PowyyPD7uhU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y3iVVvtR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="tF3vRl3D"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68IKVPRX2272748;
-	Fri, 18 Sep 2026 21:12:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=Y7faeOI1LJz6yQ1ktdAskhdUjRuOohiVpln3WNI1J
-	Us=; b=tF3vRl3DwaJcrkyn0CS01tZgJVreriJgnKjbJjbQ4AQ5y5RHFUl7Hr+pe
-	SyjsvFqbtELXDToFlf18VMBdmkFLzQhx/sTfVgnQUvA4vRr69aO54bpjvOdlvhcr
-	pyc1bSDmU/uWy9MJ+oeV/HZ8UUAPaFn8s8a6usFeuSqm/UR3Hcnim78WaXwq5xfV
-	eXTtm4CWt2YySRrMld5bq8Xd/LdCRweYEIfGhTFJcpmqCF3x7vkH6i9nTO2PTqpd
-	fwy/sXyq4fv+Lm5EiFic5Qngsdxrvq6a3Lqi60ANsNv+zN2Kc272jDAQ8pYeqoJf
-	SX23Y2Ag/aYMRNqmSexDjgmIcZZGg==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmxf5jc05-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 18 Sep 2026 21:12:00 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68IKK3pn2177907;
-	Fri, 18 Sep 2026 21:12:00 GMT
-Received: from smtprelay01.wdc07v.mail.ibm.com ([172.16.1.68])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gs4tva22k-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 18 Sep 2026 21:12:00 +0000 (GMT)
-Received: from smtpav06.dal12v.mail.ibm.com (smtpav06.dal12v.mail.ibm.com [10.241.53.105])
-	by smtprelay01.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68ILBwSJ61931910
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 18 Sep 2026 21:11:58 GMT
-Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 3EBC758060;
-	Fri, 18 Sep 2026 21:11:58 +0000 (GMT)
-Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 10DD35805E;
-	Fri, 18 Sep 2026 21:11:58 +0000 (GMT)
-Received: from li-4c4c4544-004d-3310-8032-b2c04f503334.atx-us.ibm.com (unknown [9.16.51.119])
-	by smtpav06.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 18 Sep 2026 21:11:58 +0000 (GMT)
-From: David Dai <zdai@linux.ibm.com>
-To: jv@jvosburgh.net, andrew+netdev@lunn.ch, davem@davemloft.net,
-        edumazet@google.com, kuba@kernel.org, pabeni@redhat.com
-Cc: jarod@redhat.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-        hangbin.liu@linux.dev, pradeeps@linux.ibm.com, zdai@linux.ibm.com
-Subject: [PATCH net v2 1/1] bonding: crypto offload enabled, non-offload slave failover, rekey failed
-Date: Fri, 18 Sep 2026 16:11:55 -0500
-Message-ID: <20260918211155.1664493-1-zdai@linux.ibm.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y3iVVvtR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C810B1F00898;
+	Fri, 18 Sep 2026 21:12:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789765978;
+	bh=y0SzIkkSBKfu/AxHDR83Lgh1/qGoUsppxH+ZJjLMZNc=;
+	h=Date:Subject:To:References:From:In-Reply-To;
+	b=Y3iVVvtRPvtkHKUcFB+YOvt3WWnI5ExAUHksCFjRykPYrqJgJgJ8uvDKDGwSRgerY
+	 AEORAydSUlVvfh54jXzbO2SpFApUeTFDdpwFtM5sGtwjkD21sP/ZQWNnSHDM2BdeM3
+	 dxBA6lUlsILstz81senwCuL2ULNwP6/XARl7vahZtHBiwbmXG7neC2JtoTXwZd0AzU
+	 G5m1l+4+uJb0PtBqeV2IMp7ql9/ikQHPbhNpum2rfCgwbTGsQRsBWzS+yFTwUASE2L
+	 bkt6+yicW6LwWSTt/h3Iw58CPVMiglc5DsNQWgfvQsMc5UfMYcdTUdV5ToxK4wdk7l
+	 DJmUAT5tovvPA==
+Message-ID: <602a9221-1939-420d-8305-53454269d398@kernel.org>
+Date: Fri, 18 Sep 2026 22:12:51 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: YVVw5WEEXYrbP-_QDp9CoBijfzORgWO3
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDMwNCBTYWx0ZWRfX00fH7VcyUusq
- BsSaCaJd7JhgleaMvEjslwfiBn9Hlm4osC+X5MXRaF7Ec3VMTczmt27naDcLTeoiFutJqEMuo7M
- Tr7gdNSjtU2r9Tu09oHRRGvcm6mAteI=
-X-Authority-Analysis: v=2.4 cv=cvgOAF4i c=1 sm=1 tr=0 ts=6aada921 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=90oEQoJImY1yxsAiUqMA:9
-X-Proofpoint-ORIG-GUID: _PFMqiUmwdFaMYAwCXkGy1oO-30Rg3k9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDMwNCBTYWx0ZWRfX0Wh1AnbeYHiC
- WADClSc295joDbfpKM7Rpkpoy47l0aLAuD+rLn5+RjmA2vS/hDkr7b5+EhvqWs+JG2QPuWa6An7
- BnT0skmep8Q2yDK+RLfXPiaRGoMtZb8jtjcW424iCyjr/RpEy8JOW2zrzEXnHILZHI9KBCViNEt
- cSVS6mTsi6IV0qkbJWX6iB8JAG/kIEgvR9JQrOjQfeAkawr/v+VlPk75B0Ukh8A0hyN4RCeYTAD
- uY7SJItujTQILnRluYrEj5LB4DGyzaJvO28XK8Q9O1aPQOBWbZyenurcQurlGVyYKdD8KrNuFeJ
- al/2ps16Ot14SXYVNeCX4w2NmeM00LxTxZjCJA3wuvMNnqz/TW5G9SwDwy2NGKGXuGYhdfLwaey
- MMqc5kpQgNxrAduFDkBsI2Je+RuEWxRaCXtiqJ5yc+rSKxY5SrZb+9cRY5zhFELkIDX3F7sfKyV
- rd87JV5PcDIeYiG489Q==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-18_06,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 clxscore=1011 priorityscore=1501
- suspectscore=0 bulkscore=0 impostorscore=0 phishscore=0 spamscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609180304
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 02/17] nvmem: add DEFINE_FREE for nvmem_cell_put
+ cleanup
+To: Varshini Rajendran <varshini.rajendran@microchip.com>,
+ ehristev@kernel.org, jic23@kernel.org, dlechner@baylibre.com,
+ nuno.sa@analog.com, andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, nicolas.ferre@microchip.com,
+ alexandre.belloni@bootlin.com, claudiu.beznea@tuxon.dev, srini@kernel.org,
+ marcelo.schmitt@analog.com, radu.sabau@analog.com, joshua.crofts1@gmail.com,
+ jorge.marques@analog.com, Jonathan.Santos@analog.com,
+ jishnu.prakash@oss.qualcomm.com, antoniu.miclaus@analog.com,
+ duje@dujemihanovic.xyz, mazziesaccount@gmail.com, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260806074024.531259-1-varshini.rajendran@microchip.com>
+ <20260806074024.531259-3-varshini.rajendran@microchip.com>
+Content-Language: en-US
+From: Srinivas Kandagatla <srini@kernel.org>
+In-Reply-To: <20260806074024.531259-3-varshini.rajendran@microchip.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Create a bonding device (i.e. bond0) in active-backup mode, 2 slaves.
-Active slave: offload capable interface (i.e. eth1), primary interface.
-Backup slave: non-offload capable interface(i.e. eth2).
-Configure strongswan service swantl.conf child SA "hw_offload = crypto"
-Start strongswan service
-IPSec Crytpo Offload is enabled on top of bond0. i.e. 
-ip xfrm state |grep offload
-        crypto offload parameters: dev bond0 dir out mode crypto
-	crypto offload parameters: dev bond0 dir in mode crypto
 
-Active slave eth1 takes adavantage of IPSec Crypto Offload capability. 
 
-If active slave eth1 is down for any reason (i.e. eth1 link down):
-ip link set down dev eth1
-non-offload capable interface eth2 failover to becomes active slave. 
-The existing SAs can continue use software IPsec after failover.
-Traffic still keeps going properly.
+On 8/6/26 8:40 AM, Varshini Rajendran wrote:
+> Add cleanup.h helper for nvmem_cell_put() to enable automatic resource
+> cleanup using __free(nvmem_cell_put) annotation.
+> 
+> Use IS_ERR_OR_NULL() since nvmem_cell_get() can return error pointers,
+> and passing an ERR_PTR to nvmem_cell_put() would cause issues.
+> 
+> Signed-off-by: Varshini Rajendran <varshini.rajendran@microchip.com>
+> ---
 
-However if eth1 link had not recovered yet, strongswan service does
-new child SA rekey, or uses swanctl command to do new child SA rekey, 
-it will fail because active slave eth2 doesn't support crypto offload.
-In bond_ipsec_add_sa routine, it returns -EINVAL now, which is 
-treated as fatal error by xfrm_dev_state_add routine in kernel xfrm.
+lgtm,
 
-To make the non-offload active slave survive the child SA rekey, need 
-to make bond_ipsec_add_sa routine returns -EOPNOTSUPP instead when 
-active slave doesn't support IPsec Crypto offload, the xfrm will 
-gracefully fallback to create new SA using Software IPsec. 
-Network traffic can keep going.
+Acked-by: Srinivas Kandagatla <srini@kernel.org>
 
-After offload capable interface eth1 link is up, becomes active slave,
-next time strongswan child SA rekey will create a new SA which enables
-crypto offload again.
 
-Fixes: 18cb261afd7b ("bonding: support hardware encryption offload to slaves")
-Signed-off-by: David Dai <zdai@linux.ibm.com>
----
-Changes in v2:
-- Add "Fixes: 18cb261afd7b ("bonding: support hardware encryption
-  offload to slaves")" in v2 patch comment.
-- Remove last line in v1 patch comment "This way, network traffic 
-  is never interrupted, always keeps going." to avoid confusion.
-- Link to v1: https://lore.kernel.org/lkml/20260903220123.475685-1-zdai@linux.ibm.com/
----
- drivers/net/bonding/bond_main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This series has multiple sub-system patches, who do you want to proceed
+with this?
 
-diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
-index a9bff7663eec..de2489c3d9bf 100644
---- a/drivers/net/bonding/bond_main.c
-+++ b/drivers/net/bonding/bond_main.c
-@@ -490,7 +490,7 @@ static int bond_ipsec_add_sa(struct net_device *bond_dev,
- 	    !real_dev->xfrmdev_ops->xdo_dev_state_add ||
- 	    netif_is_bond_master(real_dev)) {
- 		NL_SET_ERR_MSG_MOD(extack, "Slave does not support ipsec offload");
--		err = -EINVAL;
-+		err = -EOPNOTSUPP;
- 		goto out;
- 	}
- 
--- 
-2.55.0
+--srini
+
+>  include/linux/nvmem-consumer.h | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/include/linux/nvmem-consumer.h b/include/linux/nvmem-consumer.h
+> index 34c0e58dfa26..5315bd862f5f 100644
+> --- a/include/linux/nvmem-consumer.h
+> +++ b/include/linux/nvmem-consumer.h
+> @@ -9,6 +9,7 @@
+>  #ifndef _LINUX_NVMEM_CONSUMER_H
+>  #define _LINUX_NVMEM_CONSUMER_H
+>  
+> +#include <linux/cleanup.h>
+>  #include <linux/err.h>
+>  #include <linux/errno.h>
+>  #include <linux/notifier.h>
+> @@ -243,6 +244,8 @@ static inline struct nvmem_device *nvmem_device_find(void *data,
+>  
+>  #endif /* CONFIG_NVMEM */
+>  
+> +DEFINE_FREE(nvmem_cell_put, struct nvmem_cell *, if (!IS_ERR_OR_NULL(_T)) nvmem_cell_put(_T))
+> +
+>  #if IS_ENABLED(CONFIG_NVMEM) && IS_ENABLED(CONFIG_OF)
+>  struct nvmem_cell *of_nvmem_cell_get(struct device_node *np,
+>  				     const char *id);
 
