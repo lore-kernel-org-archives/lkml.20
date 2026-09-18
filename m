@@ -1,205 +1,249 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76F0B3AC0FA;
-	Fri, 18 Sep 2026 14:37:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AE062E040D
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:38:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789742266; cv=none; b=aeELm9liMa808CDVdecmsV+I3/3QdkM+5hndg4vfy2VK1ZC++QoFtPhX+ReVfaiSQc7O8qd7rv8tGMXbtYf03wmdovWfkqFLrR5bGFtKr2JWlBBv669e1ljaqO19IS4chnPZfcb3DVUbsDWdTb5TBpN1a3xnie9FbxGjof7vu4Q=
+	t=1789742282; cv=none; b=Xdtas5jSI/LZOjxvfPOhrH0eq9Ga0tVwTaxj8xJCsNVSJMYoVkd8s6o2qNhoZwrgNgfqlLSWtd3nPzJpa8suABvr31lmn3UdiMJ7C3HcLX+eHNmL/VdNgcJbXjYV4cYK3Q9w30X+BngKfRCV8HKLluapACvJ+/ciGwOVz8j8B2Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789742266; c=relaxed/simple;
-	bh=cT9MZUefqqkKw7WHWzzp8+aaN83F67m383N8MtMYnbw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=c0Z3DoV5m5wVPBfQaCLzEux06EsF74rZdvnozzRo+GuBsEXX2L+20Z9MPjRqSzVro8p4BlmD2QqEnPoOiCfEDEfXNHAqufsQyK4OYUYbMorJIrfA+PN0/bduH1QidZga0SsLGj2WSuX/h5jBW3sQWrf6hcW7s1RFdHYOSC44IEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AjY9bkoJ; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789742282; c=relaxed/simple;
+	bh=4ZilZJNHHY87uCtwLNAsqLEpobd2WFMMgoU4Rj3aqPI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZVu+zD0YPDC9LVhQ0vVDkaNP1T/GS0Qk4H/Du2lm0zN9GVq6Ol9ZZABcMlsJ5jugMVeWqjWDUXiPz1EW76yvHB8fK74RKxNT5dR/ClTd8iNClweEj6vn4ar7siaFUriY2/IBwmH3rBk6QNZ5iOvEJaDoqh0ACokKD7UeUzC74go=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m2dv6BPy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AjY9bkoJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789742264; x=1821278264;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=cT9MZUefqqkKw7WHWzzp8+aaN83F67m383N8MtMYnbw=;
-  b=AjY9bkoJsIT/R8BJrlxzdq3A859Y/hT9d2kH2QPA7kSbsfPGgJDzFzx0
-   WAvZgRM7RI1W6VRsgyb29tVqOO87jta8+s4ia6aD2iGAbma3K/CtzUbgD
-   botg4oAGkZ0l0zsbAXHqjW6HqGEic+BGonVH2oXRfdLpvSUR9AzX7jtC8
-   qzPlz+qRoOw1di2j4C+sTMyWF0X530ZuApia2CzrCxTQUr1FcWk6Pce4R
-   JrnXPfSsqZ0lLvzxpLJPGGyXzCBPVFq5eudjovXK3XWbgopwqw/cpV4UI
-   Hstg5d15VDqRANumhNuprDoxcypcpdgta+pekzPnplrVw4LXGtPrwA3wU
-   w==;
-X-CSE-ConnectionGUID: HBi372p2QFa5vnlkj+1r2w==
-X-CSE-MsgGUID: 5eb8b8FaQSuj0aRtDzTndQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11909"; a="100850520"
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="100850520"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 07:37:43 -0700
-X-CSE-ConnectionGUID: 3Vkr41R3Tu+QsrJlbrlgVg==
-X-CSE-MsgGUID: a9tY0WWmS7ioSf8PSh08gg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="270737077"
-Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.109.117]) ([10.125.109.117])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 07:37:42 -0700
-Message-ID: <8616f55f-9703-42d3-8d3e-7fdfb6a8a5ff@intel.com>
-Date: Fri, 18 Sep 2026 07:37:41 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m2dv6BPy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 727431F0089B
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:38:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789742280;
+	bh=KBw1bExSXtsJEi/GDDkJ47SHkVdg0QHT3EHGaCOfe8o=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=m2dv6BPyx3Zy0FMn6TPuVg7/QX11VEhW37M9oxxdKp0jNtCn17z/OrIpFaV/c10vJ
+	 Wb8255I3NUyDZSP0NtNYbHkOgKimMPPu9LGMjgs1XaFefwD5l11n58XV94KQoFi0FY
+	 OdoEUzjtdG3sOL5VhWAjcV7u6opNo3CXZh5pWdJLny8dJ2wqQgBEjxt6d8tdncdY0X
+	 r2yUAJOFHG7mpFrxJcr9xDqYaz/OteVE3u9Ybb1TIZOdtVDokQ6svAY8y4tG5byVI0
+	 mH/b1Tlk+H/xlq0fv9GEPDU/QL7VR9podspu67YlGNX46TjUsu6ZzgK+uMw0+iwh49
+	 JQ0nzmAcAd+0Q==
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a5d4688decso8098671fa.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:38:00 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzPbkkt/MiHswwgbywEuRqyhm29raN6aOT+XextaHa6P4QKIqLLqG9N0YEUPxmZFgCbeWAXMuNi0ySdzuE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mfvNZrxA9fsL2nuYyoPr0kpXJXPGAENuyDE0W4g9ZPO/jwL7o/
+	1VsRUgT74aQmYNuMXOrmfQzx/Zxcvif3aGKK5lr47UIU/2fxyiyxy2rEGTyj3JFs4JHMKFXpQd9
+	nTBYzof8XsUn9RkJ/YHUrdWrxwvtmZ5Y=
+X-Received: by 2002:a2e:be1b:0:b0:39a:da70:2c77 with SMTP id
+ 38308e7fff4ca-3a5fbf05d53mr6133881fa.3.1789742278585; Fri, 18 Sep 2026
+ 07:37:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dmaengine: use assign_bit() where applicable
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>,
- Vinicius Costa Gomes <vinicius.gomes@intel.com>,
- Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>,
- Kees Cook <kees@kernel.org>
-Cc: linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-References: <20260918141622.3022876-1-peng.fan@oss.nxp.com>
-From: Dave Jiang <dave.jiang@intel.com>
-Content-Language: en-US
-In-Reply-To: <20260918141622.3022876-1-peng.fan@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260819085528.575-2-baorliu@amd.com> <20260917143116.445-1-baorliu@amd.com>
+In-Reply-To: <20260917143116.445-1-baorliu@amd.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Fri, 18 Sep 2026 16:36:31 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0jb7QNF32To0AoOBxXHObUAS7QCrFAGObFJU1=VtOqm+w@mail.gmail.com>
+X-Gm-Features: AcwNN1V21dznaWjpABNHjALTzsqliOCTgu4KiEbEf1Vn8RT6Yw4NYIp6-UdFsSY
+Message-ID: <CAJZ5v0jb7QNF32To0AoOBxXHObUAS7QCrFAGObFJU1=VtOqm+w@mail.gmail.com>
+Subject: Re: [PATCH v3] ACPI: button: Report wakeup key only for power button wakeups
+To: "Baorui.Liu" <baorliu@amd.com>
+Cc: rafael@kernel.org, lenb@kernel.org, robert.moore@intel.com, 
+	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	acpica-devel@lists.linuxfoundation.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Thu, Sep 17, 2026 at 4:31=E2=80=AFPM Baorui.Liu <baorliu@amd.com> wrote:
+>
+> The ACPI button driver reports KEY_WAKEUP from the Power Button input
+> device to let userspace know that the system was resumed by a power
+> button wakeup.
+>
+> However, reporting KEY_WAKEUP from generic system resume paths can make
+> userspace observe a Power Button wakeup even when the system was resumed
+> by a different wake source.
+>
+> This is reproducible on an AMD Android 15 Xen guest. With a kernel
+> without this fix, a non-power-button S3 resume:
+>
+>   echo mem > /sys/power/state
+>   xl trigger android s3resume
+>
+> makes the Power Button input device report KEY_WAKEUP. The same test on
+> a kernel with this fix no longer reports KEY_WAKEUP from the Power Button
+> input device.
+>
+> Track whether a power button event/notify is observed while the ACPI
+> button device is suspended, and report KEY_WAKEUP on resume only in that
+> case. Do not synthesize a Power Button input event from generic ACPI
+> sleep resume code.
+>
+> Signed-off-by: Baorui.Liu <baorliu@amd.com>
 
+Please see
 
-On 9/18/26 7:16 AM, Peng Fan (OSS) wrote:
-> From: Peng Fan <peng.fan@nxp.com>
-> 
-> Convert open-coded if/else with set_bit/clear_bit and their
-> non-atomic __set_bit/__clear_bit variants to the assign_bit/__assign_bit
-> API.
-> 
-> Done with Coccinelle semantic patch.
-> 
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+https://sashiko.dev/#/patchset/20260917143116.445-1-baorliu%40amd.com
 
-Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+and tell me what you think.
+
+Thanks!
 
 > ---
->  drivers/dma/idxd/sysfs.c  |  5 +----
->  drivers/dma/imx-sdma.c    | 15 +++------------
->  drivers/dma/ppc4xx/adma.c | 29 +++++++++--------------------
->  3 files changed, 13 insertions(+), 36 deletions(-)
-> 
-> diff --git a/drivers/dma/idxd/sysfs.c b/drivers/dma/idxd/sysfs.c
-> index 6d251095c350..2b0524324089 100644
-> --- a/drivers/dma/idxd/sysfs.c
-> +++ b/drivers/dma/idxd/sysfs.c
-> @@ -1095,10 +1095,7 @@ static ssize_t wq_ats_disable_store(struct device *dev, struct device_attribute
->  	if (rc < 0)
->  		return rc;
->  
-> -	if (ats_dis)
-> -		set_bit(WQ_FLAG_ATS_DISABLE, &wq->flags);
-> -	else
-> -		clear_bit(WQ_FLAG_ATS_DISABLE, &wq->flags);
-> +	assign_bit(WQ_FLAG_ATS_DISABLE, &wq->flags, ats_dis);
->  
->  	return count;
+>  drivers/acpi/button.c | 13 ++++++++++++-
+>  drivers/acpi/sleep.c  | 41 -----------------------------------------
+>  2 files changed, 12 insertions(+), 42 deletions(-)
+>
+> diff --git a/drivers/acpi/button.c b/drivers/acpi/button.c
+> index cdbb1023a8ee..7a708fe351fb 100644
+> --- a/drivers/acpi/button.c
+> +++ b/drivers/acpi/button.c
+> @@ -191,6 +191,7 @@ struct acpi_button {
+>         bool last_state;
+>         ktime_t last_time;
+>         bool suspended;
+> +       bool wakeup_pending;
+>         bool lid_state_initialized;
+>         bool gpe_enabled;
+>  };
+> @@ -476,6 +477,9 @@ static void acpi_button_notify(acpi_handle handle, u3=
+2 event, void *data)
+>
+>         acpi_pm_wakeup_event(button->dev);
+>
+> +       if (button->type =3D=3D ACPI_BUTTON_TYPE_POWER && button->suspend=
+ed)
+> +               button->wakeup_pending =3D true;
+> +
+>         if (button->suspended || event =3D=3D ACPI_BUTTON_NOTIFY_WAKE)
+>                 return;
+>
+> @@ -498,6 +502,11 @@ static void acpi_button_notify_run(void *data)
+>
+>  static u32 acpi_button_event(void *data)
+>  {
+> +       struct acpi_button *button =3D data;
+> +
+> +       if (button->type =3D=3D ACPI_BUTTON_TYPE_POWER && button->suspend=
+ed)
+> +               button->wakeup_pending =3D true;
+> +
+>         acpi_os_execute(OSL_NOTIFY_HANDLER, acpi_button_notify_run, data)=
+;
+>         return ACPI_INTERRUPT_HANDLED;
 >  }
-> diff --git a/drivers/dma/imx-sdma.c b/drivers/dma/imx-sdma.c
-> index 36368835a845..b8a91a0343b5 100644
-> --- a/drivers/dma/imx-sdma.c
-> +++ b/drivers/dma/imx-sdma.c
-> @@ -710,20 +710,11 @@ static int sdma_config_ownership(struct sdma_channel *sdmac,
->  	mcu = readl_relaxed(sdma->regs + SDMA_H_HOSTOVR);
->  	dsp = readl_relaxed(sdma->regs + SDMA_H_DSPOVR);
->  
-> -	if (dsp_override)
-> -		__clear_bit(channel, &dsp);
-> -	else
-> -		__set_bit(channel, &dsp);
-> +	__assign_bit(channel, &dsp, !dsp_override);
->  
-> -	if (event_override)
-> -		__clear_bit(channel, &evt);
-> -	else
-> -		__set_bit(channel, &evt);
-> +	__assign_bit(channel, &evt, !event_override);
->  
-> -	if (mcu_override)
-> -		__clear_bit(channel, &mcu);
-> -	else
-> -		__set_bit(channel, &mcu);
-> +	__assign_bit(channel, &mcu, !mcu_override);
->  
->  	writel_relaxed(evt, sdma->regs + SDMA_H_EVTOVR);
->  	writel_relaxed(mcu, sdma->regs + SDMA_H_HOSTOVR);
-> diff --git a/drivers/dma/ppc4xx/adma.c b/drivers/dma/ppc4xx/adma.c
-> index 279a431ccae3..39b1c4fd9ca5 100644
-> --- a/drivers/dma/ppc4xx/adma.c
-> +++ b/drivers/dma/ppc4xx/adma.c
-> @@ -350,10 +350,8 @@ static void ppc440spe_desc_init_dma01pq(struct ppc440spe_adma_desc_slot *desc,
->  			 * of the transaction (src, dst, ...)
->  			 */
->  			iter->hw_next = NULL;
-> -			if (flags & DMA_PREP_INTERRUPT)
-> -				set_bit(PPC440SPE_DESC_INT, &iter->flags);
-> -			else
-> -				clear_bit(PPC440SPE_DESC_INT, &iter->flags);
-> +			assign_bit(PPC440SPE_DESC_INT, &iter->flags,
-> +				   flags & DMA_PREP_INTERRUPT);
->  		}
->  	}
->  
-> @@ -508,10 +506,7 @@ static void ppc440spe_desc_init_memcpy(struct ppc440spe_adma_desc_slot *desc,
->  	desc->src_cnt = 1;
->  	desc->dst_cnt = 1;
->  
-> -	if (flags & DMA_PREP_INTERRUPT)
-> -		set_bit(PPC440SPE_DESC_INT, &desc->flags);
-> -	else
-> -		clear_bit(PPC440SPE_DESC_INT, &desc->flags);
-> +	assign_bit(PPC440SPE_DESC_INT, &desc->flags, flags & DMA_PREP_INTERRUPT);
->  
->  	hw_desc->opc = DMA_CDB_OPC_MV_SG1_SG2;
+> @@ -508,6 +517,7 @@ static int acpi_button_suspend(struct device *dev)
+>         struct acpi_button *button =3D dev_get_drvdata(dev);
+>
+>         button->suspended =3D true;
+> +       button->wakeup_pending =3D false;
+>         return 0;
 >  }
-> @@ -2136,10 +2131,8 @@ static struct ppc440spe_adma_desc_slot *ppc440spe_dma01_prep_mult(
->  					chain_node);
->  		memset(iter->hw_desc, 0, sizeof(struct dma_cdb));
->  		iter->hw_next = NULL;
-> -		if (flags & DMA_PREP_INTERRUPT)
-> -			set_bit(PPC440SPE_DESC_INT, &iter->flags);
-> -		else
-> -			clear_bit(PPC440SPE_DESC_INT, &iter->flags);
-> +		assign_bit(PPC440SPE_DESC_INT, &iter->flags,
-> +			   flags & DMA_PREP_INTERRUPT);
->  
->  		hw_desc = iter->hw_desc;
->  		hw_desc->opc = DMA_CDB_OPC_MV_SG1_SG2;
-> @@ -2221,10 +2214,8 @@ static struct ppc440spe_adma_desc_slot *ppc440spe_dma01_prep_sum_product(
->  		iter->hw_next = list_entry(iter->chain_node.next,
->  					   struct ppc440spe_adma_desc_slot,
->  					   chain_node);
-> -		if (flags & DMA_PREP_INTERRUPT)
-> -			set_bit(PPC440SPE_DESC_INT, &iter->flags);
-> -		else
-> -			clear_bit(PPC440SPE_DESC_INT, &iter->flags);
-> +		assign_bit(PPC440SPE_DESC_INT, &iter->flags,
-> +			   flags & DMA_PREP_INTERRUPT);
->  
->  		hw_desc = iter->hw_desc;
->  		hw_desc->opc = DMA_CDB_OPC_MV_SG1_SG2;
-> @@ -2246,10 +2237,8 @@ static struct ppc440spe_adma_desc_slot *ppc440spe_dma01_prep_sum_product(
->  					chain_node);
->  		memset(iter->hw_desc, 0, sizeof(struct dma_cdb));
->  		iter->hw_next = NULL;
-> -		if (flags & DMA_PREP_INTERRUPT)
-> -			set_bit(PPC440SPE_DESC_INT, &iter->flags);
-> -		else
-> -			clear_bit(PPC440SPE_DESC_INT, &iter->flags);
-> +		assign_bit(PPC440SPE_DESC_INT, &iter->flags,
-> +			   flags & DMA_PREP_INTERRUPT);
->  
->  		hw_desc = iter->hw_desc;
->  		hw_desc->opc = DMA_CDB_OPC_MV_SG1_SG2;
-
+>
+> @@ -523,12 +533,13 @@ static int acpi_button_resume(struct device *dev)
+>                 acpi_lid_initialize_state(button);
+>         }
+>
+> -       if (button->type =3D=3D ACPI_BUTTON_TYPE_POWER) {
+> +       if (button->type =3D=3D ACPI_BUTTON_TYPE_POWER && button->wakeup_=
+pending) {
+>                 input =3D button->input;
+>                 input_report_key(input, KEY_WAKEUP, 1);
+>                 input_sync(input);
+>                 input_report_key(input, KEY_WAKEUP, 0);
+>                 input_sync(input);
+> +               button->wakeup_pending =3D false;
+>         }
+>         return 0;
+>  }
+> diff --git a/drivers/acpi/sleep.c b/drivers/acpi/sleep.c
+> index 132a9df98471..7296e4bb0e4d 100644
+> --- a/drivers/acpi/sleep.c
+> +++ b/drivers/acpi/sleep.c
+> @@ -104,8 +104,6 @@ u32 acpi_target_system_state(void)
+>  }
+>  EXPORT_SYMBOL_GPL(acpi_target_system_state);
+>
+> -static bool pwr_btn_event_pending;
+> -
+>  /*
+>   * The ACPI specification wants us to save NVS memory regions during hib=
+ernation
+>   * and to restore them during the subsequent resume.  Windows does that =
+also for
+> @@ -484,7 +482,6 @@ static int acpi_pm_prepare(void)
+>   */
+>  static void acpi_pm_finish(void)
+>  {
+> -       struct acpi_device *pwr_btn_adev;
+>         u32 acpi_state =3D acpi_target_sleep_state;
+>
+>         acpi_ec_unblock_transactions();
+> @@ -503,23 +500,6 @@ static void acpi_pm_finish(void)
+>         acpi_target_sleep_state =3D ACPI_STATE_S0;
+>
+>         acpi_resume_power_resources();
+> -
+> -       /* If we were woken with the fixed power button, provide a small
+> -        * hint to userspace in the form of a wakeup event on the fixed p=
+ower
+> -        * button device (if it can be found).
+> -        *
+> -        * We delay the event generation til now, as the PM layer require=
+s
+> -        * timekeeping to be running before we generate events. */
+> -       if (!pwr_btn_event_pending)
+> -               return;
+> -
+> -       pwr_btn_event_pending =3D false;
+> -       pwr_btn_adev =3D acpi_dev_get_first_match_dev(ACPI_BUTTON_HID_POW=
+ERF,
+> -                                                   NULL, -1);
+> -       if (pwr_btn_adev) {
+> -               pm_wakeup_event(&pwr_btn_adev->dev, 0);
+> -               acpi_dev_put(pwr_btn_adev);
+> -       }
+>  }
+>
+>  /**
+> @@ -626,27 +606,6 @@ static int acpi_suspend_enter(suspend_state_t pm_sta=
+te)
+>         /* Reprogram control registers */
+>         acpi_leave_sleep_state_prep(acpi_state);
+>
+> -       /* ACPI 3.0 specs (P62) says that it's the responsibility
+> -        * of the OSPM to clear the status bit [ implying that the
+> -        * POWER_BUTTON event should not reach userspace ]
+> -        *
+> -        * However, we do generate a small hint for userspace in the form=
+ of
+> -        * a wakeup event. We flag this condition for now and generate th=
+e
+> -        * event later, as we're currently too early in resume to be able=
+ to
+> -        * generate wakeup events.
+> -        */
+> -       if (ACPI_SUCCESS(status) && (acpi_state =3D=3D ACPI_STATE_S3)) {
+> -               acpi_event_status pwr_btn_status =3D ACPI_EVENT_FLAG_DISA=
+BLED;
+> -
+> -               acpi_get_event_status(ACPI_EVENT_POWER_BUTTON, &pwr_btn_s=
+tatus);
+> -
+> -               if (pwr_btn_status & ACPI_EVENT_FLAG_STATUS_SET) {
+> -                       acpi_clear_event(ACPI_EVENT_POWER_BUTTON);
+> -                       /* Flag for later */
+> -                       pwr_btn_event_pending =3D true;
+> -               }
+> -       }
+> -
+>         /*
+>          * Disable all GPE and clear their status bits before interrupts =
+are
+>          * enabled. Some GPEs (like wakeup GPEs) have no handlers and thi=
+s can
+> --
+> 2.34.1
+>
