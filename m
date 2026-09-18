@@ -1,92 +1,106 @@
-Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net [217.70.183.193])
+Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94077246788;
-	Fri, 18 Sep 2026 07:18:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.193
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D8DF4A3F04;
+	Fri, 18 Sep 2026 07:18:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.22.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789715891; cv=none; b=ruRyKl3ARYsKMC4k5Nh+FDbWWKVWOT6nE+rD2nzjsp7EmVTCLgOHTRgJ7uutlWnzuSiK+/TZu213EoQjjvIB0oNJgBL3Jn1nPpxHvbmUVMWDoJa1C7iAtsO9ik8V02sRjLWGdzkNFIGMjwO41nE1Pn2qd8niAg1NQ9QYhIBs+sY=
+	t=1789715905; cv=none; b=Lf0n/Xzw++p8AWg48vkGEe7iywKZav0d71JxGOFZZN7u8XKZ1uF3Ji5bXjP9gDlXbJEJ0fbJ/AuauGZK7Mbz5LhWlfcVFqGQTXu6GJRik2Pn4wRYt3wV532zEZnhKm7pXgqrN2RbFlLUzrivCPcssu5OZ+uhhIJhrn9ILWIJMyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789715891; c=relaxed/simple;
-	bh=vcExdwYskntjQZFH0CJIvqJvt3cF0ureSfkjMoJf2jY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZzCV8p6Ftt2zp4gyu7gZkTcVvFueb2+A3sE++7FoTukgTL65qjj5AXfV2PlB6yaldEkILOWG8mwLi2GH1yzY5juBBMtksKBemF89uKwK6SvryF0KYzJgs9KnPZcTEquUV+As11+H71rx5t/40eSqmCsTIEDNigD/QNoUUM+Yxtc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=DrDMPcu6; arc=none smtp.client-ip=217.70.183.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
+	s=arc-20240116; t=1789715905; c=relaxed/simple;
+	bh=2AbXGEropJ1FK9sttlez8I6vO8EmC62kKsePA/4GnuM=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=D3na2U5P3U4zUYJWE59N2Hfhw47GoBbv8cWtJh95SsamFYfYpX2W81viUuBwAYhC2+H+cR8oGB13FwtMXSPF5qOn6k0igkHapTdknrzWnNEFceHv56yU7ZPTAdxizrdGil/hvV1IMiqZiR2PApXW/7zInFkc9UUri/gUv8UsTdQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=BbXNN0L9; arc=none smtp.client-ip=54.207.22.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="DrDMPcu6"
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 667903F09D;
-	Fri, 18 Sep 2026 07:17:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
-	s=gm1; t=1789715878; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:  references:references;
-	bh=9qUr1LV8CWjtdoDUyhqFtHVCDXB6fURXnL18iR4Q5iE=;
-	b=DrDMPcu6+VrSPkbnRj5PUfmgF9qWcYf39pVrau4IM/HPnsX/q5M4sfStQEZWagT+OYjv4+
-	cEpEvAEJdDtMxKCMRiyTknxchoU4/6evSAHBuUD1+BILs9y+ZwCxbzQ57pgidhWMPLpuay
-	5490lE4zBdziRSq/Ben6rYdmq/ue6w9Wo81leoeQ0wY2wqL5Vnc6h/ajEaNYMgzHtg0bl9
-	FSXbFRsgiTl63veRmLHsqiagQj0bQmbXaeeLb+sUIfDqqt3hlZLwFVfPv3+utCY9f6Nk3J
-	nNywIkUKCxUeSPru9N6FgDxQq9PORMokUMuwDePmSIS51Tc9W9cNm4RgXmkWXg==
-Date: Fri, 18 Sep 2026 09:17:54 +0200
-From: Arthur Crepin Leblond <arthur@marmottus.net>
-To: netdev-bot+sashiko@kernel.org
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, arnd@arndb.de,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v8 2/3] dt-bindings: net: wiznet,w5100: add link
- status interrupt
-Message-ID: <20260918071754.GA30413@marmottus.net>
-Reply-To: arthur@marmottus.net
-References: <20260915-wiznet-link-gpio-v8-2-d173622474cc@marmottus.net>
- <178967573088.22033.12415855189978378014@kernel.org>
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="BbXNN0L9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1789715830;
+	bh=2AbXGEropJ1FK9sttlez8I6vO8EmC62kKsePA/4GnuM=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=BbXNN0L9+ReoIIZG8T5PVdCa45F8pH0kcjh8u5Id8/OEPV5ozeS1blXQ+zRQDSZ93
+	 ZCjYfr6vSCdJM0LnUgEyBaSlIHoaCKH1GSzjD6hllYMgAw15jwtDFLqoTQC/Sakz0+
+	 1FELmU4CF2U4+wsEuFTwCEb/J4rLqByOD0uF9maI=
+X-QQ-mid: zesmtpsz7t1789715824t3852a7dc
+X-QQ-Originating-IP: EFvozvUxYboS5Cyg/5DIkor+h1w8leEM04n1VxFF5A0=
+Received: from localhost.localdomain ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 18 Sep 2026 15:17:01 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 10064841184218593118
+EX-QQ-RecipientCnt: 21
+From: Wentao Guan <guanwentao@uniontech.com>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
+	stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org,
+	Wentao Guan <guanwentao@uniontech.com>
+Subject: Re: [PATCH 6.18 0000/1250] 6.18.53-rc1 review
+Date: Fri, 18 Sep 2026 15:16:57 +0800
+Message-Id: <20260918071656.60841-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20260917151539.408551884@linuxfoundation.org>
+References: <20260917151539.408551884@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <178967573088.22033.12415855189978378014@kernel.org>
-X-GND-Sasl: arthur@marmottus.net
-X-GND-State: clean
-X-GND-Score: 0
-X-GND-Cause: dmFkZTGMeemy83JBcSmIIQa0nTbEB9WWvLbOiWJ1uNkZWW3E6pqDUT8rvnRUTg7tyjD0NtGnxgHfqdUlQNBxHo+Ym6+fbMHaEbIheP2FQ1MxV7H5UdFEFhdvsvWWLrT8QgtvLkOnBmLdCu6q3gxVETUhDVI/3GCMl8Zvapm8viYHdUjSj9La3U14THUCaVAfK2CI2pAPef4FMAD1ZfuTaj5rXR0AuDWkM1RkhjWvy4nmvMpmQfmVGmzqo9ORwHzN+vRViM9IU1eDEmXHPQPVeqIbsWKji8Yi+645IdkNIaEawtUQgqJZB5ugIc90th7LXlsSE+suk/psQuCAgEh/OUmTC6a2Y7mIhjNU/cxWBrpS5xmkUmscjR6NQl+2E7+CF8aLrcJV6JBMjdMJBkd5MU4ccGWV24IIaHoSogAETPs2g2XArM+bwZV5XYb35V4LOtuWtrnyG3OmRcH0Nl5B1Ua7ap6/l0yVmJ1dDqrPRIru2C+GxfD2Rcyhd/vGfJNtLxWZ3j1YBN84F0VO0nEhFYkAKtBhq47oAOTmedQD1zQ6zuMJPtrmcyuWPNLzML7B1tQ9QgXBdY0P2sUcaaQ3yQ6+CVnO7qYAA2PZKi9xUtvTb2gB2TI3jtvzNz0I+VXDPUsZCsvyn7B7ICvVWBtBL406gexCEWBd+IIhh5EcHT61wOS78Q
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: NjZvhLDkUWIWkQMuETxr0jSIxI9F7jingtXSRCZr9u8NyAti4mgNghSq
+	BSCirneek1bHN3K1e0mF5qh+32ePNnvNrD3WVoGxx2A8g35igAQ8A6qLqIurZiGyHO/XHx0
+	NG5vkIjBwMaY/WqnG5IGHh3spQw/1NHtXKBm5DU6WzYl6KLnj7W3inFHULJl30I4oWJS/9Y
+	dfCCzBbuQuimoDk0iaRYeCvxbqS60DcGBCLq1X/y7nCSkYxQSbI1rA88TOQJtOZiiqqcQfK
+	1rFgaBZmFzaD5hkUIzpG1jRkLtzj8Vz64rvpYMUfn0wRhuQ79O3qsz4IpyPpTF9RK03MA5b
+	kS5sdRgKTAFCjVwwxKunUADkoLTjPkET5/MFQPY/BR3sSYWhFwHVwkcXlkR3hlJu/SRzg0c
+	WXZCCogrkcsuy+PdkENVWpkZ1ABbvc1zkmgcgHqehmqB0+FcEVpwVrjBV1Q4l7LYwtU7Rey
+	hVTX67SmQfbys/RHyGvbbu1TbfQS2j+lMq1DHbYJ0+EtrB9QY67j0gqOfqhWgt0nq5zbT/5
+	qOybGA8GCGX34CuKUMTzDzTABVJSWI6MfdAkH0T7aF5wv/BM+tCDzucqjwc28LV/KpcUZVJ
+	4Cy4dMp2rIKH5P/8UahGkQF8QNu+YYL7KKC43Sh8QOU3NzoJfGw7OlB/o5fwv9pI9+txNgL
+	W8Nig2Ks6/djPd0DcSAvxdKB21j042c9G7jooL1yvKfCjCJ4ExnQi71lti6Oe/5XbzLZZgY
+	pbe3/m1Hosd+ZqKnlkiEBw03GZSmICIvQW7MB8DdKBAOxqlel5xn5AQWoeet6GiGrPf0uJd
+	nuw+MaoLcfnZftblIXbWJ1PhjUuNowYp41nWeiHKYFMccpv5F4mOVLvh0D7+TT/kLVICY6u
+	7GkWIsAOfDXZ5ytVphJcovfDIzaq24sYIMFj0y/H1Cmy+Kky7Rk5Dj6Ikq/cYwyDl67CxQA
+	xlUxtsN1mETrEkHAVUmw/HsE+vPIoRMaBKPUGQ3i1dbydvZ5ZaYdOhi9Z2qpUB8DrKx8lkI
+	sJIBNOt/QZgMhi6C8bu4SA7lRwbUpB++FRZkYvS+nBzqHwitjS/zYOmCzB5Qt2wU/Xw25zV
+	bCwwBxG5nQqeXoW9Xr7q4mGmK3aCRMhdkylsI63f41IumlaHHVrkH82w9dZCB8Uy7RMgLtp
+	Hywq8STV93isXcEiRHZGYrObZy3TAh9fN1pm
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-RECHKSPAM: 0
 
-On Thu, Sep 17, 2026 at 08:08:50PM +0000, netdev-bot+sashiko@kernel.org wrote:
->[Severity: Low]
->Is this else branch describing the hardware, or the current Linux driver?
->
->The LINKLED output exists on the w5100 and w5200 packages as well, so a
->board that routes w5100/w5200 LINKLED to a host GPIO cannot be described
->here:
->
->  compatible = "wiznet,w5200";
->  interrupts = <25 IRQ_TYPE_LEVEL_LOW>, <24 IRQ_TYPE_EDGE_BOTH>;
->
->The second entry is rejected by maxItems: 1 during dt_binding_check.
->
->The only in-tree justification found for the w5500 restriction is the
->driver gate added later in this series, in w5100_probe():
->
->  priv->link_irq = ops->chip_id == W5500 ?
->                   fwnode_irq_get(dev_fwnode(dev), 1) : -EINVAL;
->
->which is a software limitation (register readback of link state via w5500
->PHYCFGR) rather than absence of the pin.  Would it be preferable to allow
->two interrupts for all three compatibles and note in the interrupts
->description which parts can actually report link state, so this constraint
->does not have to be relaxed later?
+Build tested in our x86,arm64,loongarch,riscv config successfully without error.
 
-The LINKLED pin exists on w5100/w5200 but cannot be reliably used as a
-trigger to check the carrier state as it also blinks on RX/TX activity.
+Tested-by: Wentao Guan <guanwentao@uniontech.com>
 
-   Link LED
-     Low: Link (10/100M)
-     High: Un-Link
-     link: TX or RX state on Link
+Best Regards
+Wentao Guan
 
-Arthur
+Log:
+Linux version 6.18.53-rc1-g644a9858f3fc (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #2 SMP PREEMPT_DYNAMIC Fri Sep 18 05:42:43 CST 2026
+Linux version 6.18.53-rc1-g644a9858f3fc (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #3 SMP PREEMPT_DYNAMIC Fri Sep 18 06:00:26 CST 2026
+Linux version 6.18.53-rc1+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #4 SMP PREEMPT Fri Sep 18 06:17:35 CST 2026
+Linux version 6.18.53-rc1-g644a9858f3fc (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin18) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #1 SMP PREEMPT_DYNAMIC Fri Sep 18 05:18:12 CST 2026
+
+
