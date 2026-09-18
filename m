@@ -1,218 +1,187 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43B613368BD;
-	Fri, 18 Sep 2026 08:07:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAFAA3368BD
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:07:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789718840; cv=none; b=EBm6Eyos8CxWsVrn1M859wBQJeLugZrkbpvOCxfZc6Ow4QUDosDn+uCuANb8sydHd3WquHwvyW6uVVedDOkK03fm1lL3q1xzh78cmK7xdrwQFgK0rIN/7XuZd86fRASd8JeL7DGCKaBS/sT4PR6ndId1WNb885MFZiaSp+25P5w=
+	t=1789718849; cv=none; b=er1aR96xHyjWZHmV4UqRlpz47nMXNTAsN/bYwCxBnYuzYe8aNmjqhGr2WYN5EkT0wlMOQunKu06q61ONGyO5YyfFh9J++vbNMzQGJ8a3maz3prZZbhA9P86JumAfJmCWAv2dArEPtMTq/J5xm4qKR8V0wQZbEzPvzS/KWPMGb4M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789718840; c=relaxed/simple;
-	bh=o7tPmMLnWOySzuuH11+7UgSh8Zn51tGFq5NyRcH52AA=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=FsUUvEL45DBkksb5SQ/ndy5wJZeOHySC1/+2qKe9bomBrrkfBt16Uz8Lzmj7RFq+LdqhqeDTpszQfCCOP96b2Gn9tLLlnchz+Wkt8jBFKPZcNtiVE/topmOItnFEN/JBjeAUstph9OO+2t6TS6SyIUf604/rmZlp6LFIWQ5pVno=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EzLAjqFr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789718849; c=relaxed/simple;
+	bh=zkCVM8vtfz9mwZhx1cFKKSSSnqLv9yu5+oUbCaj5ejc=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=iyPCvxzCB9g2egA3cRM6k+6E5Aw+QaMaNff2X95nFjFXthwHvRZfs+BBhslxE0QeTwimb8YcoWhiycrOP9tqg8leiPU9COXnKpGDHXEuO5YfRO4f1dKH3mXP8+a6abuNiB6sRvTFOZoR/1cX08FWZTvIUjDP3KQQkT0J7CGR93s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EWz6X/fC; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EzLAjqFr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88C4A1F000FF;
-	Fri, 18 Sep 2026 08:07:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789718838;
-	bh=CN62GKBYW4Gh6bEa4wTsqXz2IMYSV3OeaKs617jAh5o=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=EzLAjqFrG/HO3b+fLf1D9Lt53vKdK0OdUUVjk5YI3Lwzhadh+82qXHwYpuhwmQUCg
-	 eOXEM2M6FedgnfOSuonmYdMRy/5J7ClJ9gSZ2Lp+u74Me/uicrhxCgdBsWv9BwPwxu
-	 +YUYFNW3gjP3X5DMztp0Vuw3IIcTjj+viPvQKZz/HI1g2XQffgnEtZ08EbcVYBroRM
-	 uTDk0CsvRTpR+4zqn1AayHLHNSCjYPp3t9HH0kLoFBC578e7ZNcTnxZ/O8qqJxv3wT
-	 dTW1t1os0gil5fq9pnx5Q7gHqKbtNbp1WhYcclPslLeedj6HMicDWAf2A2p7UXOG57
-	 PMonpcJTaZ/Uw==
-Content-Type: multipart/mixed; boundary="===============2924590592151832210=="
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EWz6X/fC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789718848; x=1821254848;
+  h=from:to:cc:subject:in-reply-to:references:date:
+   message-id:mime-version:content-transfer-encoding;
+  bh=zkCVM8vtfz9mwZhx1cFKKSSSnqLv9yu5+oUbCaj5ejc=;
+  b=EWz6X/fC76sV5QrQn5UZaolpi2p4M8czLSGfRDih+PvMepU21iz3sA+6
+   cr45MLPs247jkSTQjPk3M83AR/wyPYxBDqXZhwfOMA5GbJ6FogcnZYcBJ
+   mj3u0Q3slgfVLoQe2Ac4KWQmXvm1FggJ3he1RkaNvx0xKUSMEPKC0zOge
+   GjOv31hqiljjh9dRZRDKldZdrqT3YH0wQjbyNOmvwFaBHZ0+2Hr+7rPLe
+   WUKVJ1SJ1xFBwX4q2mi6Hi+nwGLJIYhXMaUdYsBpzMDw2bx4GpKHaznku
+   eu6nOUfW30oDHKMCYxKGqpGQyshrpAmPZQTjTdXi5TediE+SGczd5Mj5v
+   A==;
+X-CSE-ConnectionGUID: GYaALlgsR36MpoXBglO3Sw==
+X-CSE-MsgGUID: pKvXZj9oQA+OEsdMYECJsA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="100805399"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="100805399"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 01:07:27 -0700
+X-CSE-ConnectionGUID: 6VOz6MEcROaJ6nxBvGvFIg==
+X-CSE-MsgGUID: NjIiFybCR7mbJujaf/1hcA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="2506439"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.216])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 01:07:24 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Zhenyu
+ Wang <zhenyuw.linux@gmail.com>, Zhi Wang <zhi.wang.linux@gmail.com>, "open
+ list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-gfx@lists.freedesktop.org>, "open list:INTEL DRM DISPLAY FOR XE AND
+ I915 DRIVERS" <intel-xe@lists.freedesktop.org>, "open list:DRM DRIVERS"
+ <dri-devel@lists.freedesktop.org>, open list
+ <linux-kernel@vger.kernel.org>
+Cc: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
+Subject: Re: [PATCH] drm/i915: use string choice helpers
+In-Reply-To: <20260918042325.17700-1-lalitshankarch@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260918042325.17700-1-lalitshankarch@gmail.com>
+Date: Fri, 18 Sep 2026 11:07:21 +0300
+Message-ID: <b5576d0e503315036500145888d712e75df42f7e@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <a96829b3ce33af67ccab9e1307714102daf95118dea89d95796ed440562acd12@mail.kernel.org>
-In-Reply-To: <44f7fcfafd5f33072dd2b9abc31aa9bf5eacd9bb.1789714023.git.zhuhui@kylinos.cn>
-References: <44f7fcfafd5f33072dd2b9abc31aa9bf5eacd9bb.1789714023.git.zhuhui@kylinos.cn>
-Subject: Re: [PATCH bpf-next v12 2/2] selftests/bpf: Add memcg async reclaim test
-From: bot+bpf-ci@kernel.org
-To: hui.zhu@linux.dev,roman.gushchin@linux.dev,inwardvessel@gmail.com,shakeel.butt@linux.dev,akpm@linux-foundation.org,andrii@kernel.org,eddyz87@gmail.com,ihor.solodrai@linux.dev,ast@kernel.org,daniel@iogearbox.net,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,shuah@kernel.org,david@kernel.org,baohua@kernel.org,geliang@kernel.org,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,linux-mm@kvack.org,linux-kselftest@vger.kernel.org
-Cc: zhuhui@kylinos.cn,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Fri, 18 Sep 2026 08:07:17 +0000 (UTC)
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
---===============2924590592151832210==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Fri, 18 Sep 2026, Lalit Shankar Chowdhury <lalitshankarch@gmail.com> wro=
+te:
+> Prefer the str_high_low() and str_read_write() helper functions
+> over ternary operators with hardcoded strings.
+>
+> No functional changes.
+>
+> Signed-off-by: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
 
-> diff --git a/tools/testing/selftests/bpf/prog_tests/memcg_async_reclaim.c b/tools/testing/selftests/bpf/prog_tests/memcg_async_reclaim.c
-> new file mode 100644
-> index 0000000000000..179b64fb6de84
-> --- /dev/null
-> +++ b/tools/testing/selftests/bpf/prog_tests/memcg_async_reclaim.c
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
-[ ... ]
-
-> +	/*
-> +	 * Optional baseline for the benchmark numbers below: run the
-> +	 * same workload once without the BPF program, so the log can
-> +	 * report how much async reclaim improved the pressured cgroup.
-> +	 */
-> +	if (bench) {
-> +		err = run_high_low_workload(dir, &base_high_time,
-> +					    &base_low_time, READ_TIMES);
-> +		if (!ASSERT_OK(err, "run_high_low_workload baseline"))
-> +			goto out;
+> ---
+>  drivers/gpu/drm/i915/display/intel_cx0_phy.c | 5 +++--
+>  drivers/gpu/drm/i915/gvt/aperture_gm.c       | 4 +++-
+>  drivers/gpu/drm/i915/vlv_iosf_sb.c           | 6 ++++--
+>  3 files changed, 10 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/d=
+rm/i915/display/intel_cx0_phy.c
+> index dbebd7210848..b83f0afaa9b5 100644
+> --- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+> +++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+> @@ -5,6 +5,7 @@
+>=20=20
+>  #include <linux/log2.h>
+>  #include <linux/math64.h>
+> +#include <linux/string_choices.h>
+>=20=20
+>  #include <drm/drm_print.h>
+>=20=20
+> @@ -189,7 +190,7 @@ int intel_cx0_wait_for_ack(struct intel_encoder *enco=
+der,
+>  		drm_dbg_kms(display->drm,
+>  			    "PHY %c Error occurred during %s command. Status: 0x%x\n",
+>  			    phy_name(phy),
+> -			    command =3D=3D XELPDP_PORT_P2M_COMMAND_READ_ACK ? "read" : "write=
+", *val);
+> +			    str_read_write(command =3D=3D XELPDP_PORT_P2M_COMMAND_READ_ACK), =
+*val);
+>  		intel_cx0_bus_reset(encoder, lane);
+>  		return -EINVAL;
+>  	}
+> @@ -198,7 +199,7 @@ int intel_cx0_wait_for_ack(struct intel_encoder *enco=
+der,
+>  		drm_dbg_kms(display->drm,
+>  			    "PHY %c Not a %s response. MSGBUS Status: 0x%x.\n",
+>  			    phy_name(phy),
+> -			    command =3D=3D XELPDP_PORT_P2M_COMMAND_READ_ACK ? "read" : "write=
+", *val);
+> +			    str_read_write(command =3D=3D XELPDP_PORT_P2M_COMMAND_READ_ACK), =
+*val);
+>  		intel_cx0_bus_reset(encoder, lane);
+>  		return -EINVAL;
+>  	}
+> diff --git a/drivers/gpu/drm/i915/gvt/aperture_gm.c b/drivers/gpu/drm/i91=
+5/gvt/aperture_gm.c
+> index 253b41789be9..794fb50e48dd 100644
+> --- a/drivers/gpu/drm/i915/gvt/aperture_gm.c
+> +++ b/drivers/gpu/drm/i915/gvt/aperture_gm.c
+> @@ -34,6 +34,8 @@
+>   *
+>   */
+>=20=20
+> +#include <linux/string_choices.h>
 > +
-> +		/*
-> +		 * The baseline left up to CG_LIMIT of page cache charged to the
-> +		 * high and low cgroups, and memcg charges outlive the workload
-> +		 * processes. Recreate the cgroups so that the instrumented run
-> +		 * below starts from the same cold state the baseline did;
-> +		 * otherwise the reported speedup compares a cold run against a
-> +		 * warm one.
-> +		 */
-> +		cleanup_cgroup_environment();
-
-Does this comment accurately describe why the cgroups are recreated?
-
-Looking at run_high_low_workload(), its cleanup block closes all four file
-descriptors and then unlinks all four temp files after both children have
-been reaped. With link count zero and no remaining open descriptors or
-mappings, the inodes are evicted, their page cache is truncated, and the
-memcg charges are released - so memory.current for the high and low
-cgroups is already back to near zero when control returns here.
-
-What actually survives the baseline is memory.stat, particularly the
-WORKINGSET_REFAULT_FILE counter that the BPF program samples via
-should_reclaim_cgroup(). Without recreating the cgroups, wq_prog_init()
-would start elem->prev_event at 0 while the counter is already large from
-the baseline, so the very first timer tick would see a huge delta and kick
-off a reclaim round unconditionally. Recreating the cgroups zeroes those
-counters.
-
-Could the comment be updated to describe that the recreation clears the
-WORKINGSET_REFAULT_FILE counters in memory.stat rather than page cache
-charges, which are already released when the files are unlinked?
-
-[ ... ]
-
-> +	reader_pid = spawn_keepalive_reader(data_fd);
-> +	if (!ASSERT_GT(reader_pid, 0, "fork keepalive reader"))
-> +		goto out;
+>  #include <drm/drm_print.h>
+>=20=20
+>  #include "gt/intel_ggtt_fencing.h"
+> @@ -76,7 +78,7 @@ static int alloc_gm(struct intel_vgpu *vgpu, bool high_=
+gm)
+>  	mutex_unlock(&gt->ggtt->vm.mutex);
+>  	if (ret)
+>  		gvt_err("fail to alloc %s gm space from host\n",
+> -			high_gm ? "high" : "low");
+> +			str_high_low(high_gm));
+>=20=20
+>  	return ret;
+>  }
+> diff --git a/drivers/gpu/drm/i915/vlv_iosf_sb.c b/drivers/gpu/drm/i915/vl=
+v_iosf_sb.c
+> index 1f0332b4ad0d..fede1735bc08 100644
+> --- a/drivers/gpu/drm/i915/vlv_iosf_sb.c
+> +++ b/drivers/gpu/drm/i915/vlv_iosf_sb.c
+> @@ -3,6 +3,8 @@
+>   * Copyright =C2=A9 2013-2021 Intel Corporation
+>   */
+>=20=20
+> +#include <linux/string_choices.h>
 > +
-> +	/* Wait for reclaim rounds to reach the live target cgroup. */
-> +	for (i = 0; i < EVENT_POLL_ROUNDS && !seen.called; i++) {
-> +		n = ring_buffer__poll(rb, EVENT_POLL_TIMEOUT_MS);
-> +		if (!ASSERT_GE(n, 0, "ring_buffer__poll"))
-> +			goto out;
-> +
-> +		/*
-> +		 * The reader loops until killed, so finding it already gone
-> +		 * means the refaults the BPF program waits for never started.
-> +		 * Report its exit code rather than letting the assert below
-> +		 * blame the kernel for the full poll window.
-> +		 */
-> +		if (waitpid(reader_pid, &status, WNOHANG) == reader_pid) {
-> +			/* Reaped, so cleanup must not signal a reused PID. */
-> +			reader_pid = -1;
-> +			if (WIFEXITED(status))
-> +				PRINT_FAIL("keepalive reader exited early: %s",
-> +					   child_exit_str(WEXITSTATUS(status)));
-> +			else
-> +				PRINT_FAIL("keepalive reader died, status 0x%x",
-> +					   status);
-> +			goto out;
-> +		}
-> +	}
-> +	if (!ASSERT_GT(seen.called, 0, "reclaim events")) {
-> +		report_timer_failures(skel);
-> +		goto out;
-> +	}
-> +
-> +	remove_cgroup(CG_DYING_TARGET_DIR);
-> +
-> +	/* Let reclaim passes that were already in flight drain. */
-> +	usleep(DYING_SETTLE_US);
-> +
-> +	calls_before = skel->bss->reclaim_calls;
-> +
-> +	/*
-> +	 * Wait for a reclaim round to hit the removed cgroup. Only TARGET_GONE
-> +	 * ends the wait: an attempt that lands inside the rmdir window reports
-> +	 * SKIPPED_DYING first, and stopping there would miss the events that
-> +	 * follow it.
-> +	 */
-> +	for (i = 0; i < EVENT_POLL_ROUNDS && !seen.target_gone; i++) {
-> +		n = ring_buffer__poll(rb, EVENT_POLL_TIMEOUT_MS);
-> +		if (!ASSERT_GE(n, 0, "ring_buffer__poll"))
-> +			goto out;
-> +	}
+>  #include <drm/drm_print.h>
+>  #include <drm/intel/display_parent_interface.h>
+>=20=20
+> @@ -101,7 +103,7 @@ static int vlv_sideband_rw(struct drm_i915_private *i=
+915,
+>  				    VLV_IOSF_DOORBELL_REQ, IOSF_SB_BUSY, 0,
+>  				    5)) {
+>  		drm_dbg(&i915->drm, "IOSF sideband idle wait (%s) timed out\n",
+> -			is_read ? "read" : "write");
+> +			str_read_write(is_read));
+>  		return -EAGAIN;
+>  	}
+>=20=20
+> @@ -125,7 +127,7 @@ static int vlv_sideband_rw(struct drm_i915_private *i=
+915,
+>  		err =3D 0;
+>  	} else {
+>  		drm_dbg(&i915->drm, "IOSF sideband finish wait (%s) timed out\n",
+> -			is_read ? "read" : "write");
+> +			str_read_write(is_read));
+>  		err =3D -ETIMEDOUT;
+>  	}
 
-The second poll loop here drops the keepalive-reader liveness check that
-the first loop performs, although both loops depend on the reader equally.
-
-TARGET_GONE is only emitted when a reclaim round actually starts, and a
-round only starts when should_reclaim_cgroup() sees a fresh
-WORKINGSET_REFAULT_FILE delta - which only happens while the reader keeps
-refaulting. If the reader dies during this second window, refaults stop, no
-TARGET_GONE ever arrives, and the test reports "no reclaim round hit the
-removed cgroup (gone=0, dying=0)", blaming the kernel for a dead child.
-
-That is exactly the misattribution the first loop added a waitpid(WNOHANG)
-check to avoid. The reader's exit code is still available here, since a
-reader that dies during the second loop is left unreaped until the out:
-label. Should the second loop include the same liveness check to avoid
-misattributing a dead reader as a kernel issue?
-
-> +	/*
-> +	 * TARGET_GONE is what the test can rely on: by the time rmdir has
-> +	 * returned, bpf_cgroup_from_id() has stopped resolving the target.
-> +	 * SKIPPED_DYING only happens if an attempt lands inside the rmdir
-> +	 * window, so it is reported here rather than asserted.
-> +	 */
-> +	if (!seen.target_gone) {
-> +		report_timer_failures(skel);
-> +		PRINT_FAIL("no reclaim round hit the removed cgroup (gone=%d, dying=%d)",
-> +			   seen.target_gone, seen.skipped_dying);
-> +		goto out;
-> +	}
-> +
-> +	/*
-> +	 * Reclaim must have stopped with the target. Both counters stay put for
-> +	 * the same reason: once rmdir has returned, bpf_cgroup_from_id() fails,
-> +	 * so every attempt takes the TARGET_GONE path before it can reach
-> +	 * reclaim_calls++. This therefore checks that reclaim really stops, not
-> +	 * that cgroup_is_dying() works -- see that function in the BPF program
-> +	 * for why the dying window cannot be hit reliably from userspace.
-> +	 *
-> +	 * reclaimed_bytes is compared against 0 rather than against its
-> +	 * pre-removal value: the target is empty for the whole test, so
-> +	 * bpf_proactive_reclaim() has nothing to reclaim and must have returned
-> +	 * 0 on every call, before and after the removal alike. An "unchanged"
-> +	 * comparison would be 0 == 0 and could never fail.
-> +	 */
-
-Does the reclaimed_bytes explanation make sense? The comment argues that
-comparing reclaimed_bytes against a pre-removal snapshot "would be 0 == 0
-and could never fail", but by its own premise that snapshot is 0, so the
-snapshot comparison is literally the assertion that was written:
-ASSERT_EQ(skel->bss->reclaimed_bytes, 0ULL). Both forms read
-reclaimed_bytes after the removal window and both fail exactly when a
-post-removal reclaim adds bytes; neither is vacuous and neither is stronger
-than the other.
-
-As written the comment tells a reader that one of two identical checks
-cannot fail, which is misleading. Could it just state that
-bpf_proactive_reclaim() returns 0 on the empty target throughout the test,
-without the comparison that makes them sound different?
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/35318390791
---===============2924590592151832210==--
+--=20
+Jani Nikula, Intel
