@@ -1,175 +1,82 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03A7A4CE693;
-	Fri, 18 Sep 2026 10:09:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 733604D0CD1;
+	Fri, 18 Sep 2026 10:09:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789726186; cv=none; b=LOE/XkWyIWPDJ4F5ZZWE/XJLwE9qrTxLJZk2rDuZMtkGjAlNI3cVmSxgwTgt8RHFim5UimGa9nOru1StkuT3n19Y67AH1agOgm4yZ36A733u/TqKUJ28LlgnxHWZPnBkhoQRiTxu2QPkhl6IjuPjQ6or6XyI4zwNDlnKVFy7DE8=
+	t=1789726190; cv=none; b=BJ+fLNG+3jHwI13u+xL/4E9eL9dIpYPqOQb39nBFtuL/b1r9sOZMO2dCrYDqq2QpXYSlTHAigAHFkP1yLcmydu5QWkGhyPuCgQQgpn4Datol+gpP9l1h3dhOswxl8elTSM/X0hkQrVXzt8FPBqoWcp0MWYGAD0iaNm43bv7NmhY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789726186; c=relaxed/simple;
-	bh=xnzew9psuZcf5yZ5+8AMSSlsltDwTJFC7fNIWXINm6o=;
+	s=arc-20240116; t=1789726190; c=relaxed/simple;
+	bh=PiGN16huOR7UZBg19IM0Hy1A8JY0pHkClaJQHPzPjpo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YOjEGStActtNHafJXaNMccMtLw/ao7mkBymRAjGHmAzznDo1+dOyPFsW9X6yMDHWUtv6rZxrs+LKrXBq2Wrw0Spo1Jxqf5Nlt2seSVYZMb1icXMCYTV/GRUgEXtKmyeYiOD7V6MCdsfGvcaGjN3hN03F4/K+IXKX8T1wTkgZQL4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XMvpoeLV; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=NMZURNdHEvW4kDyvPMiUlCkxYCG+RLrTJdw4dsMUo/3h89/jdhTHZGZInuo8YIXSX+mL2cBNLjS7hidyNATwKieEFxIp3A2Iri9sIdSTZi8IPfK+KkKpxUWoqGrFhpi0FPvTWxorxhl0vFMbG7tROJZ0+bAJV4Jhk4b9k6Vk168=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bmc3aV1i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XMvpoeLV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789726184; x=1821262184;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=xnzew9psuZcf5yZ5+8AMSSlsltDwTJFC7fNIWXINm6o=;
-  b=XMvpoeLVLPS5uQDTRfGL+YFN+5duH//BCnw7GtrNrSkfDEi+cEhJmQcT
-   KDA+xZV90D8H9E+4dHPG+J9wwtVnXPWbUPwLeDEgV8tClfEQ0AoW30Lre
-   NkyjLq8JX5lOxc7kQHt4T3DkMK41pAYI6eq+4zUKxKqC/XP1NFLdFRs7b
-   E6XC0eVgt4MIKGF3ZhtHNEQ/AQEOdweYFRO/1xlhBYIQwKqvLhiydwEyi
-   qVkHNrlRhZSoAVgsee49/xp7hq/toUUuH6u8VtZSeMntBk2DsrhrDbMdU
-   45j0NteTvRgT1yBRFdCUOx6Q1yO2XnTDDjaLKCxPVsimezJlr0huzdbKF
-   Q==;
-X-CSE-ConnectionGUID: T/l0vS4ETIqC1n6jYTXiHQ==
-X-CSE-MsgGUID: 0bqB/aeYTyOw27s7Lm+jZw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="115754970"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="115754970"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 03:09:43 -0700
-X-CSE-ConnectionGUID: Es40qkYbRMGG2I3cjXjt/Q==
-X-CSE-MsgGUID: ofVW37FJTTuq6aw3Upgfjg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="279557599"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.224])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 03:09:41 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 5C960121BB0;
-	Fri, 18 Sep 2026 13:09:38 +0300 (EEST)
-Date: Fri, 18 Sep 2026 13:09:38 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Hermes.wu@ite.com.tw
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 13/21] media: i2c: it6625: decode detected timings via
- typed register structs
-Message-ID: <aq0N4gsslj5WGVUs@kekkonen.localdomain>
-References: <20260918-upstream-it6625-follow-up-patch-v1-0-78d72d7886a5@ite.com.tw>
- <20260918-upstream-it6625-follow-up-patch-v1-13-78d72d7886a5@ite.com.tw>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bmc3aV1i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 369631F000FF;
+	Fri, 18 Sep 2026 10:09:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789726187;
+	bh=ldnhjGinl4eu4pR9zDJKuKw6fPmbARl0hSMqWh2pYUg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Bmc3aV1i24nMbRO7I0xJf6WGOSllIVEj/a1YQEqKBQkKys2OhpaNyRs54+f0xyeTN
+	 IAr1T9lNAumI7NoxUoGKzOgh+TNth4OWXyQW43AeolvQCDYZjPMCZ4S/aKqTZBGkFQ
+	 pVO+JVXiCAwhya04RBxZe1eijUveuVKl1XYFv2joaZJfUvKHeKKSnJa7v4ijPxOSuI
+	 mFJDNO2ZC1x+lZBTcacF4FKQUI1neRp5CCRaoDiz195DbggbnaaIswmePylaH9l2ra
+	 fuvieu3ySbYp/9nP8qi1XW61EHe+9U2z0wkKtaj4zZdW/zcEARybqQbHUHzJzc8NZz
+	 3ZmbszfbbbwiA==
+Date: Fri, 18 Sep 2026 12:09:43 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
+	Ulf Hansson <ulfh@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	"Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+	Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>, 
+	Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+	Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Robert Marko <robimarko@gmail.com>, 
+	Guru Das Srinagesh <linux@gurudas.dev>, Amit Kucheria <amitk@kernel.org>, 
+	Thara Gopinath <thara.gopinath@gmail.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+	Lukasz Luba <lukasz.luba@arm.com>, Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, 
+	"Guilherme G. Piccoli" <gpiccoli@igalia.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	David Heidelberg <david@ixit.cz>, Dang Huynh <danct12@riseup.net>, phone-devel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org, iommu@lists.linux.dev, 
+	mfd@lists.linux.dev, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+	linux-pm@vger.kernel.org, linux-input@vger.kernel.org
+Subject: Re: [PATCH v2 03/19] dt-bindings: nvmem: Add compatible for MSM8952
+Message-ID: <20260918-tidy-rook-of-respect-deaaef@quoll>
+References: <20260916-msm8952-initial-support-v2-0-798c2602dde1@mainlining.org>
+ <20260916-msm8952-initial-support-v2-3-798c2602dde1@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260918-upstream-it6625-follow-up-patch-v1-13-78d72d7886a5@ite.com.tw>
+In-Reply-To: <20260916-msm8952-initial-support-v2-3-798c2602dde1@mainlining.org>
 
-Hi Hermes,
-
-Thank you for the patches.
-
-On Fri, Sep 18, 2026 at 04:57:28PM +0800, Hermes Wu via B4 Relay wrote:
-> From: Hermes Wu <Hermes.wu@ite.com.tw>
+On Wed, Sep 16, 2026 at 05:22:08PM +0300, Muzaffer Kadir wrote:
+> Document the QFPROM block found on MSM8952.
 > 
-> it6625_get_detected_timings() manually assembled each 16-bit field from
-> raw byte-buffer offsets with a shift-and-add sequence. Define two local
-> structs of __be16 fields matching the contiguous REG_H_ACTIVE_1..
-> REG_V_ACTIVE_0 and REG_H_FP_1..REG_V_BP_0 register layouts, read
-> directly into them, and decode each field with be16_to_cpu(). Guard
-> each struct's size with static_assert() against the expected register
-> range width.
-> 
-> Every member is 2 bytes wide and naturally aligned, so the struct is
-> laid out with no padding -- this is safe because the struct is the I2C
-> read target itself, not a cast over a pre-existing raw buffer.
-> 
-> Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
+> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
 > ---
->  drivers/media/i2c/it6625.c | 41 +++++++++++++++++++++++++----------------
->  1 file changed, 25 insertions(+), 16 deletions(-)
-> 
-> diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
-> index 60c79a2277941621c7aa83189244b706a5505d66..90b87dbf54fcfc7ad2a1245d4594beee24a193ca 100644
-> --- a/drivers/media/i2c/it6625.c
-> +++ b/drivers/media/i2c/it6625.c
-> @@ -769,10 +769,22 @@ static int it6625_get_detected_timings(struct it6625 *it6625,
->  				       struct v4l2_dv_timings *timings)
->  {
->  	struct v4l2_bt_timings *bt = &timings->bt;
-> +	struct {
-> +		__be16 h_active;
-> +		__be16 v_active;
-> +	} active;
-> +	struct {
-> +		__be16 hfrontporch;
-> +		__be16 hsync;
-> +		__be16 hbackporch;
-> +		__be16 vfrontporch;
-> +		__be16 vsync;
-> +		__be16 vbackporch;
-> +	} porch;
+>  Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-The driver accesses many such register areas, I'd define these separate
-from the functions that use them. This isn't the only one case.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Alternatively you could define each register separately, which is what most
-drivers do, albeit the usage pattern in this driver is a bit atypical so I
-think using structs for this indeed could make sense.
+Best regards,
+Krzysztof
 
->  	int val;
-> -	unsigned int width, height;
-> -	u8 buffer[4];
-> -	u8 buffer2[12];
-> +
-> +	static_assert(sizeof(active) == 4);
-> +	static_assert(sizeof(porch) == 12);
->  
->  	if (no_signal(it6625)) {
->  		dev_err(it6625->dev, "no signal detected");
-> @@ -792,24 +804,21 @@ static int it6625_get_detected_timings(struct it6625 *it6625,
->  	bt->interlaced = val & B_INTERLACE ?
->  			 V4L2_DV_INTERLACED : V4L2_DV_PROGRESSIVE;
->  
-> -	if (it6625_read_bytes(it6625, REG_H_ACTIVE_1, buffer, 4) < 0)
-> +	if (it6625_read_bytes(it6625, REG_H_ACTIVE_1, (u8 *)&active, sizeof(active)) < 0)
->  		return -EIO;
->  
-> -	width = ((buffer[0] & 0xff) << 8) + buffer[1];
-> -	height = ((buffer[2] & 0xff) << 8) + buffer[3];
-> -
-> -	bt->width = width;
-> -	bt->height = height;
-> +	bt->width = be16_to_cpu(active.h_active);
-> +	bt->height = be16_to_cpu(active.v_active);
->  
-> -	if (it6625_read_bytes(it6625, REG_H_FP_1, buffer2, 12) < 0)
-> +	if (it6625_read_bytes(it6625, REG_H_FP_1, (u8 *)&porch, sizeof(porch)) < 0)
->  		return -EIO;
->  
-> -	bt->hfrontporch = ((buffer2[0] & 0xff) << 8) + buffer2[1];
-> -	bt->hsync = ((buffer2[2] & 0xff) << 8) + buffer2[3];
-> -	bt->hbackporch = ((buffer2[4] & 0xff) << 8) + buffer2[5];
-> -	bt->vfrontporch = ((buffer2[6] & 0xff) << 8) + buffer2[7];
-> -	bt->vsync = ((buffer2[8] & 0xff) << 8) + buffer2[9];
-> -	bt->vbackporch = ((buffer2[10] & 0xff) << 8) + buffer2[11];
-> +	bt->hfrontporch = be16_to_cpu(porch.hfrontporch);
-> +	bt->hsync = be16_to_cpu(porch.hsync);
-> +	bt->hbackporch = be16_to_cpu(porch.hbackporch);
-> +	bt->vfrontporch = be16_to_cpu(porch.vfrontporch);
-> +	bt->vsync = be16_to_cpu(porch.vsync);
-> +	bt->vbackporch = be16_to_cpu(porch.vbackporch);
->  
->  	bt->pixelclock = it6625_get_pclk(it6625);
->  	if (bt->interlaced == V4L2_DV_INTERLACED) {
-> 
-
--- 
-Kind regards,
-
-Sakari Ailus
