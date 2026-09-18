@@ -1,81 +1,139 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 553194D4889;
-	Fri, 18 Sep 2026 10:50:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58E5F4BB267;
+	Fri, 18 Sep 2026 10:50:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789728618; cv=none; b=XmGY7gXBqVq2TcC5rhNN88JTK0S2n36SK5bLmeVVWx53MEPLEAg3CMY4tPf0K1p7MJ6e9s3zxQunDGhOBJpDjzUVGeFOIFKiZ8segu+/ENwUf0rKNOKWnWDMt+nSy/teqPKo6/5su+Z3a0m6hj5v6zADnGzsO6RxnEsyruTX+KA=
+	t=1789728648; cv=none; b=s483NZReLEVB2E8ov1sRop9B9Cb1Xyiq2LKsWCtQoztzaYP6Rles+bV/olfM5xbZrBs5ijFDvNmZ01uuMj2xlRQEIBxRzwLYNudcXfGeY3OLc7ajFRl3asD4+OmqAGrgFL+pSI034McYW2ZQIRfblXkGN9VpmYZ7ADbDDKcaZEU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789728618; c=relaxed/simple;
-	bh=cRckdiHI77lG8lHTOSmyv7EVZeeZsfDpSfI6uswyhOc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=KDvnerL2NWgbAf2F0yQidC34BPO2/MVjFu0PwDM7Hm1pDuWs4qSpiGha+/tf/BStlGjRrVxtLAkQ/uvGeT9S4UclYCW3x768w4hyqUQcqfwyj5m6ZIXbh3Hb7HTeG9rCtXZKx0BFIinw/lQTxDcxMVLdcm+smb6Or6apybNaQKA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: b54f647eb34e11f19a56ed5b684f684d-20260918
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:23960754-4015-4b72-8278-c0968b68bdad,IP:0,U
-	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:25
-X-CID-META: VersionHash:7db8b62,CLOUDID:8a2ebea01b7fe60aaae35fa65b411575,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:5,IP
-	:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV
-	:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: b54f647eb34e11f19a56ed5b684f684d-20260918
-X-User: zhangheng@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zhangheng@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 904423049; Fri, 18 Sep 2026 18:50:05 +0800
-From: Zhang Heng <zhangheng@kylinos.cn>
-To: broonie@kernel.org
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zhang Heng <zhangheng@kylinos.cn>
-Subject: [PATCH] ASoC: amd: yc: Add DMI quirk for MSI Thin A15 B7UCX
-Date: Fri, 18 Sep 2026 18:49:44 +0800
-Message-Id: <20260918104944.649403-1-zhangheng@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1789728648; c=relaxed/simple;
+	bh=eHH3FzjfKaEPZ3Y0wzN2fvakJlB8D0my9XKTNa0iZ4o=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=YNbA+VmYqm6YMZncPD4h61JFN2K4DBsivdflie2ILC5N80bEaZvnOSU2GN5QIEeKwbl5NwIWQFifvX0n2OFIu1bwNFoymrjbMyiNdgxIhQ9T+xUUSrl1gL/uSC0ak46LR5Ocxd28bQDy+5K3eSjUvv9TVv7bjcwlVN4SJDii56Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.103.44])
+	by APP-03 (Coremail) with SMTP id rQCowACnqjh0F61q0B8JCA--.10784S2;
+	Fri, 18 Sep 2026 18:50:29 +0800 (CST)
+Message-ID: <ea18c92ce2af08a65bfd8834ea7f262d1bcb4bf2.camel@iscas.ac.cn>
+Subject: Re: [PATCH v7 1/7] dt-bindings: display: verisilicon,dc: add
+ support for nuvoton,ma35d1-dcu
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
+	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Conor
+ Dooley	 <conor.dooley@microchip.com>
+Date: Fri, 18 Sep 2026 18:50:28 +0800
+In-Reply-To: <20260918030125.315978-2-a0987203069@gmail.com>
+References: <20260918030125.315978-1-a0987203069@gmail.com>
+	 <20260918030125.315978-2-a0987203069@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowACnqjh0F61q0B8JCA--.10784S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxArWUtFW8ArW7XrW3Gw1UAwb_yoWrZry3pF
+	95trWUJryxJrn5Xr1Utr1jyFyUJw1kJw1DJr18XF1UKr4UJr10qr4Ygr1qgF15Jr48Zr15
+	JF1UWr17Zw12yr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPGb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
+	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
+	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACY4xI67k04243AVAKzVAKj4xxM4xv
+	F2IEb7IF0Fy26I8I3I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wr
+	yl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWU
+	JVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7V
+	AKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42
+	IY6I8E87Iv6xkF7I0E14v26r4UJVWxJr1l6VACY4xI67k04243AbIYCTnIWIevJa73UjIF
+	yTuYvjxU3gyZUUUUU
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-Add a DMI quirk for the MSI Thin A15 B7UCX fixing the issue
-where the internal microphone was not detected.
-
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=220833
-Signed-off-by: Zhang Heng <zhangheng@kylinos.cn>
----
- sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
-index 385fede6d77f..3e6341286358 100644
---- a/sound/soc/amd/yc/acp6x-mach.c
-+++ b/sound/soc/amd/yc/acp6x-mach.c
-@@ -864,6 +864,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
- 			DMI_MATCH(DMI_PRODUCT_NAME, "Thin A15 B7UC"),
- 		}
- 	},
-+	{
-+		.driver_data = &acp6x_card,
-+		.matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "Micro-Star International Co., Ltd."),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "Thin A15 B7UCX"),
-+		}
-+	},
- 	{
- 		.driver_data = &acp6x_card,
- 		.matches = {
--- 
-2.25.1
+5ZyoIDIwMjYtMDktMTjkupTnmoQgMTE6MDEgKzA4MDDvvIxKb2V5IEx15YaZ6YGT77yaCj4gQWRk
+IHRoZSBOdXZvdG9uIE1BMzVEMSBEQ1VsdHJhTGl0ZSAobnV2b3RvbixtYTM1ZDEtZGN1KSB0byB0
+aGUKPiBiaW5kaW5nLgo+IFRoZSBEQ1VsdHJhTGl0ZSB1c2VzIG9ubHkgZm91ciBjbG9ja3MgKGNv
+cmUsIGF4aSwgYWhiLCBwaXgwKSBhbmQgb25lCj4gcmVzZXQgKGNvcmUpLCB3aXRoIGEgc2luZ2xl
+IG91dHB1dCBwb3J0Lgo+IAo+IFRoZSBNQTM1RDEgY2xvY2sgY29udHJvbGxlciBnYXRlcyB0aGUg
+Y29yZSwgQVhJIGFuZCBBSEIgY2xvY2tzIHdpdGggYQo+IHNpbmdsZSBiaXQsIGJ1dCBlYWNoIHJl
+bWFpbnMgYSBkaXN0aW5jdCBjbG9jayBsaW5lIGZlZWRpbmcgdGhlIElQCj4gd2l0aAo+IGl0cyBv
+d24gcmF0ZSBjb25zdHJhaW50cywgc28gYWxsIGZvdXIgbXVzdCBzdGlsbCBiZSBsaXN0ZWQKPiBp
+bmRpdmlkdWFsbHkKPiBpbiB0aGUgZGV2aWNldHJlZTsgY29yZSwgYXhpIGFuZCBhaGIgaGFwcGVu
+IHRvIHNoYXJlIHRoZSBzYW1lIGNsb2NrCj4gcGhhbmRsZS4KPiAKPiBNb3ZlIHRoZSBjbG9ja3Mv
+Y2xvY2stbmFtZXMgbWluSXRlbXMgdG8gNCBhbmQgcmVzZXRzL3Jlc2V0LW5hbWVzCj4gbWluSXRl
+bXMgdG8gMSBhdCB0aGUgdG9wIGxldmVsLCBzaW5jZSB0aGF0IGlzIHRoZSBsb3dlc3QgY291bnQg
+YW55Cj4gc3VwcG9ydGVkIHZhcmlhbnQgbmVlZHMuwqAgQWRkIGFuIGFsbE9mL2lmIGJsb2NrIHRo
+YXQgdGlnaHRlbnMgdGhlCj4gY29uc3RyYWludCBiYWNrIHVwIHRvIHRoZSBmaXhlZCA1LWNsb2Nr
+LzMtcmVzZXQgdG9wb2xvZ3kgcmVxdWlyZWQgYnkKPiB0aGUgZXhpc3RpbmcgdGhlYWQsdGgxNTIw
+LWRjODIwMCBjb21wYXRpYmxlLCBhbmQgYW5vdGhlciBvbmUgdGhhdAo+IGNhcHMKPiB0aGUgbmV3
+IG51dm90b24sbWEzNWQxLWRjdSBjb21wYXRpYmxlIGF0IHRoZSA0LWNsb2NrLzEtcmVzZXQgY291
+bnQgaXQKPiBhY3R1YWxseSB3aXJlcyB1cC4KPiAKPiBSZXN0cmljdCB0aGUgc2FtZSBudXZvdG9u
+LG1hMzVkMS1kY3UgaWYgYmxvY2sgdG8gYSBzaW5nbGUgcG9ydEAwLAo+IHNpbmNlIHRoZSBEQ1Vs
+dHJhTGl0ZSBvbmx5IGhhcyBvbmUgb3V0cHV0IHBvcnQuCgpCeSB0aGUgd2F5LCB3aGVuIHdpbGwg
+dGhlIE1BMzVEMSBkZXZpY2UgdHJlZSBzb3VyY2VzIGJlIHVwZGF0ZWQ/IEkgc2F3CmEgbG90IG9m
+IGRyaXZlcnMgYmVpbmcgbWVyZ2VkIGJ1dCB3L28gY29ycmVzcG9uZGluZyBEVCBub2Rlczogc2Ro
+Y2ktb2YtCm1hMzVkMSwgbnV2b3Rvbi1tYTM1ZDEtbmFuZC1jb250cm9sbGVyLCBwaHktbWEzNWQx
+LXVzYjIsIHJ0Yy1tYTM1ZDEsCnNwaS1tYTM1ZDEtcXNwaSwgbWEzNWQxX3dkdC4KClRoYW5rcywK
+SWNlbm93eQoKPiAKPiBTaWduZWQtb2ZmLWJ5OiBKb2V5IEx1IDxhMDk4NzIwMzA2OUBnbWFpbC5j
+b20+Cj4gQWNrZWQtYnk6IENvbm9yIERvb2xleSA8Y29ub3IuZG9vbGV5QG1pY3JvY2hpcC5jb20+
+Cj4gLS0tCj4gwqAuLi4vYmluZGluZ3MvZGlzcGxheS92ZXJpc2lsaWNvbixkYy55YW1swqDCoMKg
+wqDCoCB8IDUxCj4gKysrKysrKysrKysrKysrKysrKwo+IMKgMSBmaWxlIGNoYW5nZWQsIDUxIGlu
+c2VydGlvbnMoKykKPiAKPiBkaWZmIC0tZ2l0Cj4gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUv
+YmluZGluZ3MvZGlzcGxheS92ZXJpc2lsaWNvbixkYy55YW1sCj4gYi9Eb2N1bWVudGF0aW9uL2Rl
+dmljZXRyZWUvYmluZGluZ3MvZGlzcGxheS92ZXJpc2lsaWNvbixkYy55YW1sCj4gaW5kZXggOTE5
+YTkwMDEyMjAxMi4uZTFlNmEzYTk1MzY0NiAxMDA2NDQKPiAtLS0gYS9Eb2N1bWVudGF0aW9uL2Rl
+dmljZXRyZWUvYmluZGluZ3MvZGlzcGxheS92ZXJpc2lsaWNvbixkYy55YW1sCj4gKysrIGIvRG9j
+dW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvdmVyaXNpbGljb24sZGMueWFt
+bAo+IEBAIC0xNyw2ICsxNyw3IEBAIHByb3BlcnRpZXM6Cj4gwqDCoMKgwqAgaXRlbXM6Cj4gwqDC
+oMKgwqDCoMKgIC0gZW51bToKPiDCoMKgwqDCoMKgwqDCoMKgwqDCoCAtIHRoZWFkLHRoMTUyMC1k
+YzgyMDAKPiArwqDCoMKgwqDCoMKgwqDCoMKgIC0gbnV2b3RvbixtYTM1ZDEtZGN1Cj4gwqDCoMKg
+wqDCoMKgIC0gY29uc3Q6IHZlcmlzaWxpY29uLGRjICMgREMgSVBzIGhhdmUgZGlzY292ZXJhYmxl
+IElEL3JldmlzaW9uCj4gcmVnaXN0ZXJzCj4gwqAKPiDCoMKgIHJlZzoKPiBAQCAtMjYsNiArMjcs
+NyBAQCBwcm9wZXJ0aWVzOgo+IMKgwqDCoMKgIG1heEl0ZW1zOiAxCj4gwqAKPiDCoMKgIGNsb2Nr
+czoKPiArwqDCoMKgIG1pbkl0ZW1zOiA0Cj4gwqDCoMKgwqAgaXRlbXM6Cj4gwqDCoMKgwqDCoMKg
+IC0gZGVzY3JpcHRpb246IERDIENvcmUgY2xvY2sKPiDCoMKgwqDCoMKgwqAgLSBkZXNjcmlwdGlv
+bjogRE1BIEFYSSBidXMgY2xvY2sKPiBAQCAtMzQsNiArMzYsNyBAQCBwcm9wZXJ0aWVzOgo+IMKg
+wqDCoMKgwqDCoCAtIGRlc2NyaXB0aW9uOiBQaXhlbCBjbG9jayBvZiBvdXRwdXQgMQo+IMKgCj4g
+wqDCoCBjbG9jay1uYW1lczoKPiArwqDCoMKgIG1pbkl0ZW1zOiA0Cj4gwqDCoMKgwqAgaXRlbXM6
+Cj4gwqDCoMKgwqDCoMKgIC0gY29uc3Q6IGNvcmUKPiDCoMKgwqDCoMKgwqAgLSBjb25zdDogYXhp
+Cj4gQEAgLTQyLDEyICs0NSwxNCBAQCBwcm9wZXJ0aWVzOgo+IMKgwqDCoMKgwqDCoCAtIGNvbnN0
+OiBwaXgxCj4gwqAKPiDCoMKgIHJlc2V0czoKPiArwqDCoMKgIG1pbkl0ZW1zOiAxCj4gwqDCoMKg
+wqAgaXRlbXM6Cj4gwqDCoMKgwqDCoMKgIC0gZGVzY3JpcHRpb246IERDIENvcmUgcmVzZXQKPiDC
+oMKgwqDCoMKgwqAgLSBkZXNjcmlwdGlvbjogRE1BIEFYSSBidXMgcmVzZXQKPiDCoMKgwqDCoMKg
+wqAgLSBkZXNjcmlwdGlvbjogQ29uZmlndXJhdGlvbiBBSEIgYnVzIHJlc2V0Cj4gwqAKPiDCoMKg
+IHJlc2V0LW5hbWVzOgo+ICvCoMKgwqAgbWluSXRlbXM6IDEKPiDCoMKgwqDCoCBpdGVtczoKPiDC
+oMKgwqDCoMKgwqAgLSBjb25zdDogY29yZQo+IMKgwqDCoMKgwqDCoCAtIGNvbnN0OiBheGkKPiBA
+QCAtNzksNiArODQsNTIgQEAgcmVxdWlyZWQ6Cj4gwqDCoCAtIHJlc2V0LW5hbWVzCj4gwqDCoCAt
+IHBvcnRzCj4gwqAKPiArYWxsT2Y6Cj4gK8KgIC0gaWY6Cj4gK8KgwqDCoMKgwqAgcHJvcGVydGll
+czoKPiArwqDCoMKgwqDCoMKgwqAgY29tcGF0aWJsZToKPiArwqDCoMKgwqDCoMKgwqDCoMKgIGNv
+bnRhaW5zOgo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNvbnN0OiB0aGVhZCx0aDE1MjAtZGM4
+MjAwCj4gK8KgwqDCoCB0aGVuOgo+ICvCoMKgwqDCoMKgIHByb3BlcnRpZXM6Cj4gK8KgwqDCoMKg
+wqDCoMKgIGNsb2NrczoKPiArwqDCoMKgwqDCoMKgwqDCoMKgIG1pbkl0ZW1zOiA1Cj4gKwo+ICvC
+oMKgwqDCoMKgwqDCoCBjbG9jay1uYW1lczoKPiArwqDCoMKgwqDCoMKgwqDCoMKgIG1pbkl0ZW1z
+OiA1Cj4gKwo+ICvCoMKgwqDCoMKgwqDCoCByZXNldHM6Cj4gK8KgwqDCoMKgwqDCoMKgwqDCoCBt
+aW5JdGVtczogMwo+ICsKPiArwqDCoMKgwqDCoMKgwqAgcmVzZXQtbmFtZXM6Cj4gK8KgwqDCoMKg
+wqDCoMKgwqDCoCBtaW5JdGVtczogMwo+ICsKPiArwqAgLSBpZjoKPiArwqDCoMKgwqDCoCBwcm9w
+ZXJ0aWVzOgo+ICvCoMKgwqDCoMKgwqDCoCBjb21wYXRpYmxlOgo+ICvCoMKgwqDCoMKgwqDCoMKg
+wqAgY29udGFpbnM6Cj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgY29uc3Q6IG51dm90b24sbWEz
+NWQxLWRjdQo+ICvCoMKgwqAgdGhlbjoKPiArwqDCoMKgwqDCoCBwcm9wZXJ0aWVzOgo+ICvCoMKg
+wqDCoMKgwqDCoCBjbG9ja3M6Cj4gK8KgwqDCoMKgwqDCoMKgwqDCoCBtYXhJdGVtczogNAo+ICsK
+PiArwqDCoMKgwqDCoMKgwqAgY2xvY2stbmFtZXM6Cj4gK8KgwqDCoMKgwqDCoMKgwqDCoCBtYXhJ
+dGVtczogNAo+ICsKPiArwqDCoMKgwqDCoMKgwqAgcmVzZXRzOgo+ICvCoMKgwqDCoMKgwqDCoMKg
+wqAgbWF4SXRlbXM6IDEKPiArCj4gK8KgwqDCoMKgwqDCoMKgIHJlc2V0LW5hbWVzOgo+ICvCoMKg
+wqDCoMKgwqDCoMKgwqAgbWF4SXRlbXM6IDEKPiArCj4gK8KgwqDCoMKgwqDCoMKgIHBvcnRzOgo+
+ICvCoMKgwqDCoMKgwqDCoMKgwqAgcHJvcGVydGllczoKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oCBwb3J0QDE6IGZhbHNlCj4gKwo+ICvCoMKgwqDCoMKgwqDCoMKgwqAgcmVxdWlyZWQ6Cj4gK8Kg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgLSBwb3J0QDAKPiArCj4gwqBhZGRpdGlvbmFsUHJvcGVydGll
+czogZmFsc2UKPiDCoAo+IMKgZXhhbXBsZXM6Cg==
 
