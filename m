@@ -1,131 +1,143 @@
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from r3-20.sinamail.sina.com.cn (r3-20.sinamail.sina.com.cn [202.108.3.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A15C345EB7
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:35:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.28.215.223
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89949345ED3
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:35:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789691711; cv=none; b=b2lhiH3DotQ7QHoh8xBFghbIfSLcrJtKWy+gkJRd/qp/TkIa/DsUzae9mbEpzHcR42QhPLRR8xFyOraxIfQe0HB8C4CND3zzS6HnyVWdLAFmxbiR27HY9nEFgIspIHxSNuHu9iaBoJQk13cmgaNQcllTuSAC40Xs/lvOiQKolgA=
+	t=1789691723; cv=none; b=qF/MffBzCQA101uyjloctQs3gkf23ItHFG8RX8p0csEZkcl43FD9bEOBEep3CIXwcg3C+u8je8dRTnNZOTv4gGqFXb7hahIiocTaAvRCjt4GZNsbIJeYZb3xckJVa7mD7dnkZgYj5OCINCi8Z2cDPVHCrsq6dBhfinMebTDL77s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789691711; c=relaxed/simple;
-	bh=8QgXkkNdHre4C26c9GV+NpL0QV5WDefYsihE2tDLo6E=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=OE0aluOJKdz9o1+e2DJyRnS2MT0FepEgvwYDldrLroCfvbir01BhwtHLHATHKK2MQ6DRfld9Uv5vmOTMek2RXFunUBXoqZDdcEZEEboaAaHHi0zhbcHGRH43Y+QFJqYRQDNju30xLRunMY2vJGifLj4ZlKfRsNYX17XXZICbjTs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com; dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.b=g5frHq5i; arc=none smtp.client-ip=149.28.215.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com
+	s=arc-20240116; t=1789691723; c=relaxed/simple;
+	bh=pgl4zPu17dNeVSrPTqGsrsI4dsZMbTcOEDJB1qLJ924=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ptwouIbz0W6+offUs8VhKNLjIRasZRrp268fUZAoAF6kjlIBBbOJyXNaO15QDYO4WbSNXV2X8P9IpS0tcWOGDbjpH0V8Nlg+m+D80OQWZCAfz2rQaYjJ2FkFqzIRUPafREtRa5wf4wKHGcOx+PdE52n1bHaDgIkklopwGSMSWrE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=MkKsbD1+; arc=none smtp.client-ip=202.108.3.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.b="g5frHq5i"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ubuntu.com;
- h=In-Reply-To: References: Cc: To: From: Subject: Message-Id: Date:
- Content-Type: Content-Transfer-Encoding: Mime-Version; q=dns/txt;
- s=fe-953a8a3ca9; t=1789691702;
- bh=8QgXkkNdHre4C26c9GV+NpL0QV5WDefYsihE2tDLo6E=;
- b=g5frHq5iolSfhZmMT1S+3FKrIYFMmLUvGiIXBDitA8INAs4gwmSKvWPoJO+WDpb6z8JX4MxqX
- hxcczVcils9C8wzRGU8weDzfrhV/6NOvJKq6TWVV2HP1FlGb7PMONOJIXrTYJyjBRlcy33F2Gcu
- f9fpuJ5IzldaEB+PDjBp383WuIYR8RjED63ma3p02k+xy4BebkbufLlmhuqB00NjuBYLiOA/Gqn
- WaSjR4AbRalGjLvLW88dW2ErzJhCgFGAv00+uf+P/nE8VYe0tOWkpDWw3qtYsA0bqH05odCSCof
- P7q31N3Tu7847u0RIxS1e/RI8btpQZPsBNctW8nUZ95w==
-X-Forward-Email-ID: 6aac871042fb3e762f6d18f9
-X-Forward-Email-Sender: rfc822; jpeisach@ubuntu.com, smtp.forwardemail.net,
- 149.28.215.223
-X-Forward-Email-Version: 2.14.2
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
+	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="MkKsbD1+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1789691718;
+	bh=QdlXiMEiU+ZLTnRv4KzQNOCoSHotN5s5Q2Ca6EdqQjA=;
+	h=From:Subject:Date:Message-ID;
+	b=MkKsbD1+7ba8GswrAXkKPG4EMyS6xiaNZu2r5Zq1z6tYD8eIV6cB5MnY3M89sR4r0
+	 2P0lh/4vLnealT6tCrXrSRxUtss8pBXy1i9wWefRi796M2yxJ+PEx/X9mkLlKaw7x4
+	 8jOSzqcp/hxaiunCxsngWH+vs+ttJ1KV4XvxWOx0=
+X-SMAIL-HELO: lxu-ped-host..
+Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
+	by sina.com (10.54.253.32) with ESMTP
+	id 6AAC874000006840; Fri, 18 Sep 2026 08:35:14 +0800 (CST)
+X-Sender: eadavis@sina.com
+X-Auth-ID: eadavis@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=eadavis@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=eadavis@sina.com
+X-SMAIL-MID: 1668494456756
+X-SMAIL-UIID: 8BE20AB9AA0A4D048630C0A29C1B10CC-20260918-083514-1
+From: Edward Adam Davis <eadavis@sina.com>
+To: syzbot+baa24e4b7e349e388442@syzkaller.appspotmail.com
+Cc: linux-kernel@vger.kernel.org,
+	eadavis@sina.com
+Subject: [PATCH] ecryptfs: reject destroy mount crypt stat if sb's active refer is 1
+Date: Fri, 18 Sep 2026 08:35:12 +0800
+Message-ID: <20260918003512.1027861-1-eadavis@sina.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <6aab8055.71f81b7d.278072.0015.GAE@google.com>
+References: <6aab8055.71f81b7d.278072.0015.GAE@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8; format=Flowed
-Date: Thu, 17 Sep 2026 20:34:18 -0400
-Message-Id: <DLI0QTP0NUHS.DAFYGACKWKWO@ubuntu.com>
-Subject: Re: [PATCH v4 01/20] dt-bindings: phy: Add
- starfive,jh7110-inno-hdmi-phy
-From: "Joshua Peisach" <jpeisach@ubuntu.com>
-To: "Krzysztof Kozlowski" <krzk@kernel.org>, "Michal Wilczynski"
- <m.wilczynski@samsung.com>
-Cc: "Vinod Koul" <vkoul@kernel.org>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Andrzej Hajda" <andrzej.hajda@intel.com>, "Robert Foss"
- <rfoss@kernel.org>, "Laurent Pinchart" <Laurent.pinchart@ideasonboard.com>,
- "Jonas Karlman" <jonas@kwiboo.se>, "Jernej Skrabec"
- <jernej.skrabec@gmail.com>, "Luca Ceresoli" <luca.ceresoli@bootlin.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "Lee
- Jones" <lee@kernel.org>, "Andy Yan" <andy.yan@rock-chips.com>, "Philipp
- Zabel" <p.zabel@pengutronix.de>, "Emil Renner Berthing" <kernel@esmil.dk>,
- "Hal Feng" <hal.feng@starfivetech.com>, "Michael Turquette"
- <mturquette@baylibre.com>, "Stephen Boyd" <sboyd@kernel.org>, "Heiko
- Stuebner" <heiko@sntech.de>, "Paul Walmsley" <pjw@kernel.org>, "Palmer
- Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
- "Alexandre Ghiti" <alex@ghiti.fr>, "Dominique Belhachemi" <db@domibel.de>,
- "Brian Masney" <bmasney+clk@redhat.com>, "Jerome Brunet"
- <jbrunet+clk@baylibre.com>, <linux-phy@lists.infradead.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <mfd@lists.linux.dev>,
- <linux-clk@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-rockchip@lists.infradead.org>, <linux-riscv@lists.infradead.org>,
- "Marek Szyprowski" <m.szyprowski@samsung.com>, "Maud Spierings"
- <maud_spierings@murena.io>, "Graham Markall" <hello@big-grey.co.uk>,
- "Icenowy Zheng" <zhengxingda@iscas.ac.cn>, "Chaoyi Chen"
- <chaoyi.chen@rock-chips.com>, "Joshua Peisach" <jpeisach@ubuntu.com>,
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-X-Mailer: aerc 0.21.0
-References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
- <CGME20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125@eucas1p2.samsung.com> <20260915-jh7110-clean-send-v4-1-f0e4fd6f2cc8@samsung.com> <20260917-mutant-chamois-of-competence-46ca77@quoll>
-In-Reply-To: <20260917-mutant-chamois-of-competence-46ca77@quoll>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu Sep 17, 2026 at 2:51 AM EDT, Krzysztof Kozlowski wrote:
-> On Tue, Sep 15, 2026 at 05:32:09PM +0200, Michal Wilczynski wrote:
->> Add the dt-binding for the StarFive JH7110 Innosilicon HDMI PHY.
->>=20
->> This device is a child of the starfive,jh7110-hdmi-subsystem node. It
->> functions as both a PHY provider for the controller and as a clock
->> provider for the variable pixel clock (hdmi_pclk), which it generates
->> from its refoclk.
->>=20
->> Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
->
-> While I appreciate other people looking at this, I don't think review
-> here applies. It was a blanket tag, given to the entire series, with
-> exception that it is from newbie, thus I want to ask: was this binding
-> REALLY reviewed by Joshua?
->
-> Are the rest of the patches actually reviewed or just "looks good to
-> me"? I see no comments from Joshua on v3, v2 and v1, which is usual sign
-> of doing review.
->
->
-I commented on v3 saying that I would test if I could. I don't just
-throw "Reviewed-by" on everything I look at.
+When sget_fc() is executed within ecryptfs_get_tree(), the active reference
+count of the superblock is not incremented (e.g., via grab_super()).
 
-If anything, I've been trying to be more honest in reviews, and only
-review ones that I actually care about[1].
+A fault injection [0] causes super_setup_bdi() to fail and return -ENOMEM,
+triggering a jump to the out1 label in ecryptfs_get_tree(). At this point,
+the superblock's active reference count remains at its initial value of 1,
+it causing deactivate_locked_super() to free the superblock and the sbi,
+potentially hitting uaf [1].
 
-If reviewing patches isn't a good way for newbies to start getting
-familiar with the kernel code (especially a NEW driver), then I don't
-know what is.
+Destroy mount crypt stat should only be performed when the superblock's
+active reference count is greater than 1.
 
-And to be clear, I'm not using a LLM to review. I am using actual
-intelligence. For the JH7110 PR specifically, I did actually go through
-and review each commit, because I wanted to learn what was happening
-and why. Actually, that's why I asked where the data sheet was[2].
+[0]
+FAULT_INJECTION: forcing a failure.
+name failslab, interval 1, probability 0, space 0, times 0
+Call Trace:
+ security_sb_alloc+0x25/0x240
+ sget_fc+0x3ca/0x1f20
+ ecryptfs_get_tree+0x615/0x15b0
+ vfs_get_tree+0x92/0x320
+ path_mount+0x7d0/0x24c0
 
-So if you really want to, drop the Reviewed-by tag. And if it makes
-you feel better, I'll leave the series alone.
+[1]
+BUG: KASAN: slab-use-after-free in ecryptfs_destroy_mount_crypt_stat+0x28f/0x360 fs/ecryptfs/crypto.c:137
+Read of size 4 at addr ffff88802b378610 by task syz.0.20/5927
+Call Trace:
+ ecryptfs_destroy_mount_crypt_stat+0x28f/0x360 fs/ecryptfs/crypto.c:137
+ ecryptfs_get_tree+0x10b6/0x15b0 fs/ecryptfs/main.c:566
+ vfs_get_tree+0x92/0x320 fs/super.c:1933
+ fc_mount fs/namespace.c:1198 [inline]
+ do_new_mount_fc fs/namespace.c:3772 [inline]
+ do_new_mount fs/namespace.c:3848 [inline]
 
--Josh
+Allocated by task 5927:
+ ecryptfs_init_fs_context+0x6b/0x200 fs/ecryptfs/main.c:617
+ alloc_fs_context+0x60c/0xf40 fs/fs_context.c:295
+ do_new_mount fs/namespace.c:3828 [inline]
 
-[1] I won't be reviewing PRs around devicetree since I'm not confident
-(or frankly, interested) in it at this point. https://lore.kernel.org/all/D=
-L94TU52KBMO.2HAKJMJXV2CPE@ubuntu.com/
+Freed by task 5927:
+ ecryptfs_kill_block_super+0x81/0xa0 fs/ecryptfs/main.c:586
+ deactivate_locked_super+0xbd/0x140 fs/super.c:589
+ ecryptfs_get_tree+0x10e9/0x15b0 fs/ecryptfs/main.c:563
+ vfs_get_tree+0x92/0x320 fs/super.c:1933
+ fc_mount fs/namespace.c:1198 [inline]
+ do_new_mount_fc fs/namespace.c:3772 [inline]
+ do_new_mount fs/namespace.c:3848 [inline]
+ 
+Fixes: 2ccde7c631f9 ("Clean ecryptfs ->get_sb() up")
+Reported-by: syzbot+baa24e4b7e349e388442@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=baa24e4b7e349e388442
+Tested-by: syzbot+baa24e4b7e349e388442@syzkaller.appspotmail.com
+Signed-off-by: Edward Adam Davis <eadavis@sina.com>
+---
+ fs/ecryptfs/main.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-[2] Michal giving me the hardware info:
-https://lore.kernel.org/all/071901ef-57f3-456f-af5b-a8c99a0a7dd3@samsung.co=
-m/
+diff --git a/fs/ecryptfs/main.c b/fs/ecryptfs/main.c
+index 5f37cddb956f..6b82c077c0d6 100644
+--- a/fs/ecryptfs/main.c
++++ b/fs/ecryptfs/main.c
+@@ -441,7 +441,7 @@ static int ecryptfs_get_tree(struct fs_context *fc)
+ 	const char *err = "Getting sb failed";
+ 	struct inode *inode;
+ 	struct path path;
+-	int rc;
++	int rc, active;
+ 
+ 	if (!fc->source) {
+ 		rc = -EINVAL;
+@@ -468,6 +468,7 @@ static int ecryptfs_get_tree(struct fs_context *fc)
+ 		goto out;
+ 	}
+ 
++	active = atomic_read(&s->s_active);
+ 	rc = super_setup_bdi(s);
+ 	if (rc)
+ 		goto out1;
+@@ -562,7 +563,7 @@ static int ecryptfs_get_tree(struct fs_context *fc)
+ out1:
+ 	deactivate_locked_super(s);
+ out:
+-	if (sbi)
++	if (sbi && active > 1)
+ 		ecryptfs_destroy_mount_crypt_stat(&sbi->mount_crypt_stat);
+ 
+ 	printk(KERN_ERR "%s; rc = [%d]\n", err, rc);
+-- 
+2.43.0
+
