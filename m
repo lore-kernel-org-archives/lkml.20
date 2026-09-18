@@ -1,71 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.42.203.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F9B837187E;
-	Fri, 18 Sep 2026 06:31:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05E385C613;
+	Fri, 18 Sep 2026 06:32:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.42.203.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789713067; cv=none; b=YMTS8lszXyp/7yxEJkyGNo8URCBELU1epyhuBW9j8oQCN1IngBStB9epfDGsN0ueGLYoo2Kopws804z8nYXR8zy7rN01gOTtPC4tY5s3dPPblivbuA8qXiogJHoMGnHUn5i8e7k/BL2S8rddf55Vi8Fw/BX+0ow63JVDlkIEMeo=
+	t=1789713145; cv=none; b=iuiiU7DlQBVdBf6XOJQoAsQTdtWX+wyFVOLvXJfdIkm7EKtZG6bnCM9YJrGE8+3udExOYc9soZKpihu2SBG6lPWTE0rXZGo1m5a+ZXVKH6yhOFynoYHaBcgTh9Y9r5BJvDp+xnr8EBqRwyIAhLsJrEfYQ2Qr/l8GQrDeQ7kYY5s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789713067; c=relaxed/simple;
-	bh=s5CEQy+nL6LfMBHyxDfMdNFJ4CsknmnDRVvNTCjhKaI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QAYSP4fPb88BAv1OaXlHYp+TXljtJ2EZDIWM5VlgiQDi/SOuBfwYJeK34jXq13M8VaplECRmuDVLYNF+Id6mW4YlrsRdskVHXYrEl6X+KPqVG+b5X4UTkQER4rfXUOrm1ub28nZqVccdk4XO5clqYVo3U9plkN6WpQh66kBzqjs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gBf5VMFt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789713145; c=relaxed/simple;
+	bh=v1VBUuCGiCGHn6DMhi3GFEqygj/aAsvMykxntaLG+rE=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=IjQ/bMQt8pezcSLlU2ft9ALJxXyEiYqBCqXZ2fhlF+G6i4xGyc2SCmnEFHIos7JRAxPV74wmVNw9+67lYLP5W9lU+fMBouTztmEpODh9kZIv/XsqcP78PG4ajs79cg/dXjxrUyhUCJyUYf8v2eZzNOhLzfuaFWjp8zPZzg4crsI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.it; spf=pass smtp.mailfrom=amazon.it; dkim=pass (2048-bit key) header.d=amazon.it header.i=@amazon.it header.b=e4SeXKS9; arc=none smtp.client-ip=52.42.203.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gBf5VMFt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCD1F1F00893;
-	Fri, 18 Sep 2026 06:31:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789713066;
-	bh=CKU6ET3Uj7fCsqAsOw05GOIlxnGottq5Z+nZx7nRJZQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gBf5VMFtGUiZ8tsSJyL+gcDfInRkd8Em8gNqekitZnmqarX7P7jRseWovJpfKUh24
-	 92cLT8hAZiP43Pd2qbpUzhFyiAr2GKM8NNEgVVwwVjmPIM6HPjQXgDVVTixZDEmP3G
-	 LDq34lj/t78InaFWIJgsJ6zytueRoIowhwOAdP4cLCF5aCewIO4vWTuf+osMqg74V6
-	 0WegR1Yl7D1ueiEdEgGS990k4Gxgo2o6fLJkA0RH0N2yHIq6MByaUZFY6cGJjFPJt3
-	 QARqeOCE4k7JM0cKksr9tRAs6gXpIUVSxJCwrBl7eDxXow7/hfeI/YoZHMFp6s3JeA
-	 rjh+UAct9pcsg==
-Date: Fri, 18 Sep 2026 08:30:53 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Qiang Yu <qiang.yu@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] clk: qcom: gcc: Set
- FORCE_MEM_CORE_ON/FORCE_PERIPH_CORE_ON for PCIe pipe clocks
-Message-ID: <zzzrsuvqc6mmctiefjs732kirrg35ae5kqzlnkzhzjlyjhphtp@n2yekkaqiows>
-References: <20260714-mem_on-v1-1-f5bfb6def0a1@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=amazon.it header.i=@amazon.it header.b="e4SeXKS9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.it; i=@amazon.it; q=dns/txt; s=amazoncorp2;
+  t=1789713144; x=1821249144;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=v1VBUuCGiCGHn6DMhi3GFEqygj/aAsvMykxntaLG+rE=;
+  b=e4SeXKS9RoBo+P9LsLnDPT7XL5EmTXjJZf1NVlo1WtkbWd3GjgVgiHG0
+   g2qD8/nDSo/11utVzYWmWWfoGIQS6CoB8FhC6GkEWmHr8z9HiwbKmLXVx
+   ka6GrZc/xQHFH8yA3L5EZJLfw9B3ZylDy5woWRZWPMtQ7JUAzrfnkD67/
+   jicnp8I/+jHvvj8tidyxdG4ZKBR5KsyT9ruPbeW29A7KVuPtgR992tJj7
+   kMN55VhPh4GEr28PD6nHxeFSEep9l3fHur5M74xn7eZvkU4xRcVyuM0Od
+   WyIphZ3jcD/SqtRbnS2dA6dADcHMIw4UlyGEQV36lq05wo+ek6ik9fFfm
+   g==;
+X-CSE-ConnectionGUID: grg7F6DNQJqEHQap4KfNQg==
+X-CSE-MsgGUID: Zvmx89DtROO9zU5quSqcRw==
+X-IronPort-AV: E=Sophos;i="6.27,103,1787011200"; 
+   d="scan'208";a="29037761"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 06:32:20 +0000
+Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.182:4831]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.35.200:2525] with esmtp (Farcaster)
+ id d6faa5cd-2b7e-433d-abc2-14217cad7632; Fri, 18 Sep 2026 06:32:20 +0000 (UTC)
+X-Farcaster-Flow-ID: d6faa5cd-2b7e-433d-abc2-14217cad7632
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA001.ant.amazon.com (10.250.64.218) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
+ Fri, 18 Sep 2026 06:32:19 +0000
+Received: from dev-dsk-dipiets-1b-77b833da.eu-west-1.amazon.com
+ (10.253.66.177) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46; Fri, 18 Sep 2026
+ 06:32:15 +0000
+From: Salvatore Dipietro <dipiets@amazon.it>
+To: <hannes@cmpxchg.org>, <akpm@linux-foundation.org>
+CC: <abuehaze@amazon.com>, <alisaidi@amazon.com>, <blakgeof@amazon.com>,
+	<brauner@kernel.org>, <brendan.jackman@linux.dev>, <david@redhat.com>,
+	<dgc@kernel.org>, <dipietro.salvatore@gmail.com>, <dipiets@amazon.it>,
+	<djwong@kernel.org>, <hch@infradead.org>, <hch@lst.de>,
+	<jackmanb@google.com>, <linux-fsdevel@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>,
+	<linux-xfs@vger.kernel.org>, <mhocko@suse.com>, <ritesh.list@gmail.com>,
+	<rvvandan@amazon.com>, <stable@vger.kernel.org>, <surenb@google.com>,
+	<vbabka@kernel.org>, <vbabka@suse.cz>, <willy@infradead.org>,
+	<ziy@nvidia.com>
+Subject: Re: [PATCH v5] mm/page_alloc: avoid direct compaction for costly __GFP_NORETRY allocations
+Date: Fri, 18 Sep 2026 06:32:03 +0000
+Message-ID: <20260918063203.2802342-1-dipiets@amazon.it>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <aqlvnm8AKp5f_UhG@cmpxchg.org>
+References: <aqlvnm8AKp5f_UhG@cmpxchg.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260714-mem_on-v1-1-f5bfb6def0a1@oss.qualcomm.com>
+X-ClientProxiedBy: EX19D038UWC002.ant.amazon.com (10.13.139.238) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-On Tue, Jul 14, 2026 at 11:23:13PM -0700, Qiang Yu wrote:
-> Setting FORCE_MEM_CORE_ON and FORCE_PERIPH_CORE_ON for the PCIe PIPE
-> clocks so that the inbound data path works correctly.
-> 
-> Without this, the PCIe link can come up but the endpoint can not access
-> host memory, with the host sometimes seeing a completion timeout
-> reported by the EP, even though the host can still read the EP's config
-> space.
-> 
-> This issue is seen on QDU1000, Kaanapali, Glymur and Nord. Hence, apply
-> FORCE_MEM_CORE_ON/FORCE_PERIPH_CORE_ON to all PCIe pipe clocks on these
-> platforms.
-> 
-> Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
 
-Acked-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+On Tue, Sep 15, 2026 at 04:17:00PM +0000, Johannes Weiner wrote:
+> It would be possible to remove the costly_order gate here and just
+> bail on __GFP_NORETRY. But no strong feelings.
 
-- Mani
+Will do, I'll drop the costly_order gate and bail on __GFP_NORETRY.
 
--- 
-மணிவண்ணன் சதாசிவம்
+Andrew, since you dropped v5 and restored v4 in mm-unstable, I'll send a
+v6 (v4 plus the above change) unless you'd rather have an incremental
+patch on top of v4. Let me know if anything else is needed on my side.
+
+Thanks,
+Salvatore
+
+
+
+
+AMAZON DEVELOPMENT CENTER ITALY SRL, viale Monte Grappa 3/5, 20124 Milano, Italia, Registro delle Imprese di Milano Monza Brianza Lodi REA n. 2504859, Capitale Sociale: 10.000 EUR i.v., Cod. Fisc. e P.IVA 10100050961, Societa con Socio Unico
+
+
+
