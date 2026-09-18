@@ -1,120 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B6E151C041;
-	Fri, 18 Sep 2026 18:03:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D42445ADD;
+	Fri, 18 Sep 2026 18:04:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789754627; cv=none; b=lZ8pGrftZef33Cz3ZhM/KWyNJVewwr/Yk/dFMuVKSd9QznuTg8/yTQ8Nr6AdyZK+59jnwDmOTzOqT1EqOX7BTEhcVaJ2mJbpI7riav8666SALWUya3mc9JZxn3DRvhrxn7TPgGXuvddPgqgrlbo3edglu4M/2cuEHyIswqKT4hg=
+	t=1789754704; cv=none; b=UVOpTLG3bQd4svuXuEwEOWofFp9QNYBPAwO9ocf8uDswSwB626xXx0QlsWbpRd6U5hSUMG8Awb8TyE+dxtIcomFXpPvKzfGIhhUVnf5xJ4IpYwpThzMBZ/QhYvTeJ3feqRmlGRw586/APIg/m/57LG/8TtTgdsUWAUo65EfD1nY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789754627; c=relaxed/simple;
-	bh=xFHqUQTt5nxYYSOShNdstDQeM67a4Joi0srIHqDWAiE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qKQn3Q+mFMP3PKE0IsBJkgO6pq646R5DPbetDEDuQ5r2SYeFMqKJfpDOu5WeTADvtPzn47syaGms+R299V9VTzBkFvPt6c+JD9zn9v5FdIuBtTresldws8XJ+fkT6WOy67dj0mGkAw5L4VGUfWYHMc+4zmMKrXppUcG/2lvhuEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dQLy7Iwm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789754704; c=relaxed/simple;
+	bh=ZJB7lfKekQMzrZYARcNz7jLpPQI5qGEMlYdlrdCbdng=;
+	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Subject; b=CBmfjKPB/EluwTgplqLJz/HibfOTkqWEqU0zVHvnVr3CvaBVEE5fd1tAvDD6JTT26QN0Y6C/buDeBctsAmgN6AmBl524qup/sVoN/iobqEPNkovQfwUm5V0vC4rtHT4uf4Tu4GtpCCfZlOyRnYw1U58GR0gFs97sXrD5FxYUaP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=F95jwPCB; arc=none smtp.client-ip=204.191.154.188
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dQLy7Iwm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E17371F00899;
-	Fri, 18 Sep 2026 18:03:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789754625;
-	bh=evwplLMAwECJHF4vfadONOqwuoBW61zgQ3sC3t0YxQ4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dQLy7IwmxHP4CwtCsFQsvtDqbpQbBbAk0FLYki7k7EbL3aWpZGlnagumVxIM536Vq
-	 RjPF/73Ebw3mUrdYbjrNyix3YbHb2bq/3ChoXdTn7IsanIfYNOaDWpHcreNjakUTQ5
-	 7tckYUtx157FJpGEt4MUEKBsvnpuHrhdurTHYCu8+BujAIWPnCJDh8nRj98y+mjfUf
-	 6oydL4rnRtCqn+bUtqZLkJW5zTQzYech/8ZyKuMWjd+K2ulYM0mgfUr3LP8xF88zzq
-	 nvnYG7g1lITZntkHHw/UdKfiivbOpXFh1IOdwf2iUwtLI0ga++xF2/9bPjV9hfyOTS
-	 sxIu2swoofe/A==
-Date: Fri, 18 Sep 2026 23:33:41 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>
-Cc: Frank Li <Frank.li@oss.nxp.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org,
-	linux-sound@vger.kernel.org, linux-spi@vger.kernel.org,
-	Frank Li <Frank.Li@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
-	=?iso-8859-1?Q?Am=E9lie?= Delaunay <amelie.delaunay@foss.st.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH v4 01/10] dmaengine: Move enum dma_slave_buswidth to a
- new header
-Message-ID: <aq18_TMNs4EJzgZO@parshuram>
-References: <20260911-dmaengine-support-wider-dma-masks-v4-0-72b8fd4cc78e@analog.com>
- <20260911-dmaengine-support-wider-dma-masks-v4-1-72b8fd4cc78e@analog.com>
- <aqgCQvRw9fns__0d@SMW015318>
- <aqjzvxI4ecoFvRLT@ashevche-desk.local>
- <aqlpoBJJXfZgsMxT@parshuram>
- <aqlwRkNcs_UqKjWs@parshuram>
- <aql6u3T0nnSVr-FC@SMW015318>
- <aqws8pN2rfS9-dCC@parshuram>
- <aqz1-OzFobOROuBw@nsa>
+	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="F95jwPCB"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
+	MIME-Version:Date:Message-ID:content-disposition;
+	bh=3RVfamw1qRQMMqMg1u9s++MTOjZNVIjdzhiiMuQvBJE=; b=F95jwPCBtoEHBC4QmG5F2z8GrL
+	3SUWG/MfA3+T8Ko0ufF1MMrjMC08fLSeBeT4LaWbvq8Auo3pnv1pfBenbCCMKdIYtz7FlqXuxszhr
+	WnB6pGNILTUnV2eZC+S0elA5aRcREz5HSjU4gQ1cFSlP3fGF3/mFrc/xQMcTgNDMU5POnwIy/kXF0
+	Xz6NG38sTSUQg6H1DwNrk360hsUMvLug0CqJRcbEQZb29pvvL/VWJEis+/vBGvoR4nYKxiMzYzksN
+	fvLNlPaV+lVTzwCDAVE2IhkVTaigtQE3LJgu4zNiRHaA93qCu5wUNZxiOvBRrxWpJq4/dXCAOZsLa
+	MJ9J10+w==;
+Received: from guinness.priv.deltatee.com ([172.16.1.162])
+	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.98.2)
+	(envelope-from <logang@deltatee.com>)
+	id 1x7cxB-0000000Cr7A-0hmB;
+	Fri, 18 Sep 2026 12:04:53 -0600
+Message-ID: <e369433b-8066-4c6b-9b98-a1106bcf4c43@deltatee.com>
+Date: Fri, 18 Sep 2026 12:04:49 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aqz1-OzFobOROuBw@nsa>
+User-Agent: Mozilla Thunderbird
+To: Koichiro Den <den@valinux.co.jp>, Jon Mason <jdmason@kudzu.us>,
+ Dave Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>
+Cc: Frank Li <Frank.Li@kernel.org>, fuyuanli <fuyuanli0722@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Nicholas Bellinger <nab@linux-iscsi.org>,
+ Joey Zhang <joey.zhang@microchip.com>, ntb@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260910040836.3792333-1-den@valinux.co.jp>
+ <20260910040836.3792333-12-den@valinux.co.jp>
+Content-Language: en-CA
+From: Logan Gunthorpe <logang@deltatee.com>
+In-Reply-To: <20260910040836.3792333-12-den@valinux.co.jp>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 172.16.1.162
+X-SA-Exim-Rcpt-To: den@valinux.co.jp, jdmason@kudzu.us, dave.jiang@intel.com, allenbh@gmail.com, Frank.Li@kernel.org, fuyuanli0722@gmail.com, gregkh@linuxfoundation.org, nab@linux-iscsi.org, joey.zhang@microchip.com, ntb@lists.linux.dev, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: logang@deltatee.com
+X-Spam-Level: 
+Subject: Re: [PATCH v2 11/14] NTB: ntb_transport: Prepare remote RX info
+ accesses for MW teardown
+X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
+X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 
-On 18-09-26, 09:39, Nuno Sá wrote:
-> On Thu, Sep 17, 2026 at 11:39:54PM +0530, Vinod Koul wrote:
-> > On 15-09-26, 12:04, Frank Li wrote:
-> > > On Tue, Sep 15, 2026 at 09:50:22PM +0530, Vinod Koul wrote:
-> > > > On 15-09-26, 21:22, Vinod Koul wrote:
-> > 
-> > > > > > Traditional naming would be
-> > > > > > dma/engine/provider.h
-> > > > > > dma/engine/consumer.h
-> > > > >
-> > > > > consumer and provider and good names.. I would retain the full dmaengine
-> > > > > everywhere please. dma causes confusion already!
-> > > >
-> > > > Thinking about it again, drivers/dma/dmaengine.h should be the provider
-> > > 
-> > > There some dmaengine code outside drivers/dma directory, like
-> > > drivers/crypto/ccp/ccp-dmaengine.c
-> > 
-> > They chose to be outside, their choice... They need to be updated as
-> > well to point to ../../dma/dmaengine.h :-)
-> 
-> I tend to agree with Andy but anyways. I feel this is going a bit out of
-> scope now. So what we have now in the series is:
-> 
-> 
-> - include/linux/dmaengine.h (without enum dma_slave_buswidth)
-> - include/linux/dma/types.h (with enum dma_slave_buswidth and new
->   dma_buswidth_t type) - A future one would be dma_cap_mask_t and we could
->   drop bitmap.h from dmaengine.h
-> - include/linux/dma/widthmask.h - The new bitmap based API for bus_width
-> 
-> I kind like the separation (and the whole point was to avoid bitmap.h in
-> the main dmaengine.h API) but tbh I'm not sure if a consumer driver
-> will ever use dma/widthmask.h without needing the consumer API. But
-> to sum things up, what do you suggest for vÛE?
-> 
-> * include/linux/dmaengine.h as the consumer API and includes the new
-> the widthmask API
-> * provider/private goes to drivers/dma/dmaengine.h and just includes
-> include/linux/dmaengine.h as the starting point?
-> 
-> Let me know how do you want things for v5
 
-Yes lets talk about dma_slave_buswidth, it is client type. This is
-configured by users to set the width of peripheral.
-So this needs to be in the include/linux/dmaengine.h
 
--- 
-~Vinod
+On 2026-09-09 22:08, Koichiro Den wrote:
+> The next patch clears remote_rx_info when freeing its MW.
+> ntb_transport_tx_free_entry() and debugfs stats reads can run during
+> link cleanup, so make them handle a NULL pointer.
+> 
+> The pointer is accessed locklessly. Use READ_ONCE() and WRITE_ONCE()
+> to prevent compiler-induced tearing, and retain the read value so
+> the NULL check and dereference use the same pointer.
+> 
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Koichiro Den <den@valinux.co.jp>
+
+Looks good to me:
+
+Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
