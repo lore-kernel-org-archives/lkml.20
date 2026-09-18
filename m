@@ -1,106 +1,103 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FDEC48E0F6;
-	Fri, 18 Sep 2026 06:50:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 966A63A6EED;
+	Fri, 18 Sep 2026 06:51:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789714249; cv=none; b=ZSdVR9+kIBBVxLklADys9j7u8+DyA+NHhbgFDai+h4U75UALgvditHl6hgVbOLv/rPMenYMpWQ58ufusJmZ4cNn9qCYLJqdyLpyVD/7Ys6eBBmzXQF+7UI0Pr8cBU4MsP/M5jLGgnnoq1+TyQ2htRcjoyPJbR8r+F23hMcQcCAA=
+	t=1789714315; cv=none; b=nP9B1aM+wvocuxC0BP8PxQs3gDk3MvnIVh8pDgenAnFRq4Coh4vhNUFk52OdgChw0Pok559+3EDUcj05rBSvPhBhedZ58OVLkrRqFKsrx+axelLAWfCIskqdLmiLJpRIaAbM+a5cnkKVMycolEdRgPicBMnhWm5lRou1LrWTWPM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789714249; c=relaxed/simple;
-	bh=lzO27TDxIULlI2uv8uwh01ObA3Ym1uCEMM5Rkpb91pQ=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BgAfeQe8JcjbFkusO7MZ7ytdhbyPuKqfLEbFGVVRlZScYNp70Q9uIDxuUOkdkFhqS1CgGx+FFz1BdopLieuFw/e795w2pN3W+ZFj/CAgYGeGOrnEtwFAhQabJQ4G3BN6eE1cefr2Q63mlu6rLsWgav6LpjwsBV+EJO+op9KnAaE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=JIpqf56G; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1789714315; c=relaxed/simple;
+	bh=+Esa1v80bNh9L5AYsUwyoiVWEaonxfxJsZULaMNZqmQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=u5M2roQwRA4yjF5qkIx++dH3LEdj/NdLdFzG6KqnnGn7K4q6OllHwpqK/8d5pyaeXRWkVNPJVC7ZJb2FcihicffL4C8oVU/PigDGboh0VQXhUSn4ke8sNNMslyjox/YuMYqKezY+tMXMEprmD3uAXhcTv8TSX81Vf7fT5lCqJU8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mNarSOq7; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="JIpqf56G"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mNarSOq7"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1789714247; x=1821250247;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789714313; x=1821250313;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=lzO27TDxIULlI2uv8uwh01ObA3Ym1uCEMM5Rkpb91pQ=;
-  b=JIpqf56GGBA++2JNb8W68Q3MCTCvVb9/N8VK1dJZogxg6xtOHgs8cy0X
-   IYIEuuFZRjprXsriFO/KxRE9nJnTnyOoyUCUBIxZnpPOw7DXgxhT1PpeN
-   1AWZAeumufxzK439rUJrpYhXFxvMqPK9nhdIiiMH8Ldpgmj4DyClT57xJ
-   vvH1aBYzWsidWFpt6/xrBXSpzbHDx3LEl9VK3aCg0OIcCRJIjubxPCZut
-   Mcrc0uYH2Qf/Lh4N8bcEDIfjEjq8CAZrDV3Xo+UPDh07+2Wi1Q+hbpC7c
-   6PJuz34oXIuQlawPTXDw4ov9Jtk6gJH7HH+moh6Q3VXTyxmHMJfdaBRDt
-   Q==;
-X-CSE-ConnectionGUID: NjezbUk0SYGudewq8HMiog==
-X-CSE-MsgGUID: 1gxp3NzKSy++vdXcREIq4g==
+  bh=+Esa1v80bNh9L5AYsUwyoiVWEaonxfxJsZULaMNZqmQ=;
+  b=mNarSOq7UzbktLaxcarsr25MmFXC/4Eplw8nH3wUbcbyviLdRf7nIlTy
+   tnaP+VBnI1hbUN1LLMCFDG8B9vSNDxNSIRWCCBZIDONMJxE/7b8Wr/FyY
+   W1Niz1BriEdoKKwxoAI3uh0IyWE3r5PRUSDTOB8cCyKF6EvG3FpCBNd6t
+   bHUJBoABunJ++Gx2lcv8n2WVdIPqlErun6FBaJj2xDjamMb8756Qf1qmL
+   hIJnHup+PbsmTHCxvzVRjlRUCG4fYwjzlR5bO5qLqk0DzexRWJmcUCPwi
+   zyFsN/ehfWwhqpOUFmUHRmGN1GuUiLMUQcZFKG//ymuFTrbvBg//FPTLW
+   w==;
+X-CSE-ConnectionGUID: vMlzmaodSaGGkzUYgF8bYg==
+X-CSE-MsgGUID: WbFDidjvTdmVtX14MuuGMQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90064878"
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="73876652"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 17 Sep 2026 23:50:41 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Thu, 17 Sep 2026 23:50:40 -0700
-Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Thu, 17 Sep 2026 23:50:37 -0700
-Date: Fri, 18 Sep 2026 08:50:37 +0200
-From: Daniel Machon <daniel.machon@microchip.com>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-CC: Steen Hegelund <Steen.Hegelund@microchip.com>,
-	<UNGLinuxDriver@microchip.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David
- S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	<linux-arm-kernel@lists.infradead.org>, <netdev@vger.kernel.org>, "Geert
- Uytterhoeven" <geert@linux-m68k.org>, Brendan Higgins
-	<brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, Rae Moar
-	<raemoar63@gmail.com>, <linux-kselftest@vger.kernel.org>,
-	<kunit-dev@googlegroups.com>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net] net: microchip: vcap: Stop selecting DEBUG_FS for
- KUnit tests
-Message-ID: <20260918065037.bs2mcha2laf5efg7@DEN-DL-M70577.microsemi.net>
-References: <20260917064736.77354-1-kmehltretter@gmail.com>
+   d="scan'208";a="90064878"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 23:51:53 -0700
+X-CSE-ConnectionGUID: truldI64SEW3PRbD4bB37g==
+X-CSE-MsgGUID: 4JggV0bIQ5qZVz9GuGyzZw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="299352053"
+Received: from carterle-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.170])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 23:51:50 -0700
+Date: Fri, 18 Sep 2026 09:51:48 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Kees Cook <kees@kernel.org>
+Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Kees Cook <kees+treewide@kernel.org>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, linux@analog.com,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org
+Subject: Re: [PATCH] iio: adc: ad7173: Remove const from chan_arr allocation
+ type
+Message-ID: <aqzfhNmU3sazdCTQ@ashevche-desk.local>
+References: <20260917211436.i.689-kees@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260917064736.77354-1-kmehltretter@gmail.com>
+In-Reply-To: <20260917211436.i.689-kees@kernel.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-> VCAP_KUNIT_TEST enables DEBUG_FS even when the kernel configuration
-> leaves it disabled. Remove the selection, following the dependency rule
-> in Documentation/dev-tools/kunit/style.rst.
-> 
-> The debugfs implementation and its tests are already built only with
-> DEBUG_FS. The other VCAP tests can run without it.
-> 
-> Fixes: 552b7d131aa0 ("net: microchip: sparx5: Add VCAP debugfs KUNIT test")
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> ---
-> Validation on net c9151088f167: x86_64 LLVM builds and QEMU runs
-> with DEBUG_FS disabled and enabled. The other VCAP suites pass in both
-> configurations. The debugfs suite is present only with DEBUG_FS=y and
-> all four cases pass.
-> 
->  drivers/net/ethernet/microchip/vcap/Kconfig | 1 -
->  1 file changed, 1 deletion(-)
-> 
-> diff --git a/drivers/net/ethernet/microchip/vcap/Kconfig b/drivers/net/ethernet/microchip/vcap/Kconfig
-> index 97f43fd4473f..1af30a358a15 100644
-> --- a/drivers/net/ethernet/microchip/vcap/Kconfig
-> +++ b/drivers/net/ethernet/microchip/vcap/Kconfig
-> @@ -40,7 +40,6 @@ config VCAP_KUNIT_TEST
->         bool "KUnit test for VCAP library" if !KUNIT_ALL_TESTS
->         depends on KUNIT
->         depends on KUNIT=y && VCAP=y && y
-> -       select DEBUG_FS
->         default KUNIT_ALL_TESTS
->         help
->           This builds unit tests for the VCAP library.
-> 
-> base-commit: c9151088f1674fd29ff26a20f5fc687acf53a2f0
+On Thu, Sep 17, 2026 at 02:14:37PM -0700, Kees Cook wrote:
 
-Reviewed-by: Daniel Machon <daniel.machon@microchip.com>
+> In preparation for making the devm_kmalloc family of allocators type
+> aware, we need to make sure that the returned type from the allocation
+> matches the type of the variable being assigned. (Before, the allocator
+> would always return "void *", which can be implicitly cast to any
+> pointer type.)
+> 
+> The assigned type is "struct iio_chan_spec *", but the converted
+> allocation type would be "const struct iio_chan_spec *", as the size was
+> taken from "*indio_dev->channels", and "indio_dev->channels" points to
+> const. As there is no general way to remove const qualifiers, take the
+> size from the assignment target instead. No change in allocation size
+> results.
+
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+
+...
+
+> -	chan_arr = devm_kcalloc(dev, sizeof(*indio_dev->channels),
+> +	chan_arr = devm_kcalloc(dev, sizeof(*chan_arr),
+>  				st->num_channels, GFP_KERNEL);
+
+I would even dare to put it on a single line now (yes, 86 characters long).
+(No need to resend, Jonathan I hope can tweak if he agrees with this.)
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
