@@ -1,109 +1,127 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEB88514766;
-	Fri, 18 Sep 2026 16:15:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A693F3BD64D
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:15:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789748170; cv=none; b=ceBtIaW6+P3Pm9cuIy1BMQbkIJAz5geYapzgiHqQPWIybmx6M5zQCon/MJ/EsjmOJbOGI5WlxvlMdfFMVJTQZR2YD+TJ/fzbhfS/c9mbTQpTO/J1j6EBZzpMTvx7Upl4brDLMBCkx9b/9MPWcyH3Ci1NuG6x2byvfIK3ZVIlcgY=
+	t=1789748175; cv=none; b=nIgC3rnUkBMd8ToeTpQXox3Tk11eccojwIDGQpEiQ0T7ecpNgAq0bAzD6hnDDi19QIyAzkeAhrKSmDQohEOGixtk9wZgfQMpGKvCtpuWdSn9kSgU5xA9cHlETEhMBQU9W1TCN7PgFCwpTBf/h/66yijyTCXfErGW9BdQCBl46Ms=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789748170; c=relaxed/simple;
-	bh=hUet+lPqBSWyE6uiBss5JghEgVVZCCH+BNeFab0Iexg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GnUAZbYx7w84tdG377XMDCITJIL92/OP9U7FXV/9tWoXbueVly/cRQSt9Wgc5Y7+JZVhE71px0vpqoPJs8Slse2vqxN0tePr/MQQXSiV9JnfzXTlFNEgZjw/c6Rps/ohnJHU16QthpaSHl+5iV6y1QgEO5Vq+vBEfqsyeJjRjtY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 3338595eb37c11f19a56ed5b684f684d-20260919
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:1d758eb4-fa93-4983-b230-ce3c6cad9929,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-25
-X-CID-META: VersionHash:7db8b62,CLOUDID:c8fccca46a3b66ceaf7ff19fe48e1d8e,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|102|850|865|898,TC:nil,Content:0|15|50|99,ED
-	M:-3,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,O
-	SA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 3338595eb37c11f19a56ed5b684f684d-20260919
-X-User: huangwei@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <huangwei@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1006514944; Sat, 19 Sep 2026 00:15:44 +0800
-From: Huang Wei <huangwei@kylinos.cn>
-To: hansg@kernel.org
-Cc: ilpo.jarvinen@linux.intel.com,
-	mpearson-lenovo@squebb.ca,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	thisisamirv@gmail.com
-Subject: [PATCH v2] platform/x86: thinkpad_acpi: Add X9-14 Gen 1 to non-standard thermal/fan quirk tables
-Date: Sat, 19 Sep 2026 00:15:39 +0800
-Message-Id: <20260918161539.2676619-1-huangwei@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <c8339940-7bcb-c62c-20a3-63f6db19f3d4@linux.intel.com>
-References: <c8339940-7bcb-c62c-20a3-63f6db19f3d4@linux.intel.com>
+	s=arc-20240116; t=1789748175; c=relaxed/simple;
+	bh=BgZt53WCvRUv+SYL6NxC16PIrmwhlpA/RGPQ9pKg+mg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EPBA2TefpZPHbq5fdL6l5f7QKVl7kp9c3bKxBI0iWaHa0eTEq0XyNTuUfGauHO7cK0ZslvNNAdldryFA7lno3mI9Y4QTGqRtCQIP90kUNybTbOEd5SCjS48bujRdEZtscJ/fHhSjhLaQGA0hOBCljgjS76/XtZsNBAuXzIkk4jA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W6RhnrnQ; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W6RhnrnQ"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e8185e037so5698125e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:15:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789748155; x=1790352955; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6B8E7hz6GF/wCS6O+Kavtr2HQK/zZKBI71HK4pF7l28=;
+        b=W6RhnrnQlYRgpKI8L6tX5vifGm9N/jUjaw+bmCd1h12VFiVZIfbBKVPLLvL4LD5zj8
+         U9W8IdryhSqBLxVyzd3imBwpMHkisPgHz70W1+VXZrXC+hXX5YXkzNw26IbBbVJlLJJE
+         6YVtV1Fjw/ylXwaFDAj1NVKiiUCvfFpdHcouunB4iJ/Qybus7crwxAkoZMxJP27tfVcs
+         44lDAp4T0LL0mWu22PeadWmMjLn/RRaSPKFz/6eoLHO/d/LHzFP24PMNO42ZmN+UfAkM
+         ySPMgPny54Xn7oLoA82lXwoVVaVQ33lLLF+57L44+E0ZpF13faK+zVApJbzhWrC3POp2
+         SEUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789748155; x=1790352955;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6B8E7hz6GF/wCS6O+Kavtr2HQK/zZKBI71HK4pF7l28=;
+        b=WUNPui0FKY1BZLV1g9tTP2Hl0RJna/AXC+Zy+V26QLivj9ES1WQZaxtqQK7EQgGUcj
+         Ekia4hJ60+5XauYxX8F19f8bvjkLdBtJlimvKjSDR1gtAkhMKTz6mIdPlQpndas0aUje
+         7/l0zKEzOsIV9PWT53XU4sd3PQD1ejl0s78kvOGnKIzVuWgCJSYaZYtPsg9APMsFuzMz
+         6kcaQGa2mE7sNMBxtcCLEGiltoCV3H5sh9TZQEaDKM0rCbyx66Alm5TCcvXjbLm09U81
+         YEU35eIdDrWtkmjS7gooNwybhpNMTJ3zaVYFAcg/ydKkIGUi3Kip4p4c/0Jv12w9vzGc
+         N58A==
+X-Forwarded-Encrypted: i=1; AKwUvBwfpode0pYmnzL5BoZxuIt55D02J1Glsada6HW6RLzrnaHIVzrnex54FucoiFMiDwbGrBHfoefpDYEGbMQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mNCt/rhj1hSaJYz4FcyADVtkJH07mkH2tvm5tovm8/wvEZJUPA
+	lvPpuJDaTeEYmqwTSsVXvXNP2leIlU4vpAyXpdOg36Tw7gbHzV2gszj9IqsavQEjOM8f6A==
+X-Gm-Gg: AYBFou193vXPO674p/u+invbeuRjEycypSAHkua2IQu/knxgh0PXq281p5d/DVtlZmW
+	845rCJ/8xn+MxJqqFCdKpo6WAzAvWypMWjfSwy9+8Lumph0Kt0wZv0IBlODkv5oMiJePwyn5oAj
+	TcVPYUtoUbLh9FEXsSD2g455dSz7wCGTdSMzc2/vFnBYuXNpXyNvTZb/C3mwuLTRkwrGuQ6g6iu
+	ylLn33q45QIB5hgz5CT/hq4DlwJAhxI5EZHYq9UgH/b0tEwm/CuCaVFzHpi0vi48GYLOKBJJBFa
+	atS8PUTkMfTcH4T4FjgIvzrFmbwURJZATqPQAewbU7Czffejwta2buVi24nhdML/0sBDPcOTrv9
+	BpjJ5EfkE8jcjkSvWrh8cAmn1r8N/c8u/n0bu/dDUkzlL7Skzj5p9waAHRp4jkXwLHjlSF+msyw
+	ZbLCzPaAXxpq9yutvUybDe72IhufaW9XF6PiqFp+CT3gEz2kWOA3JlQPmHAVE1HDMZmA1ALiLEI
+	9tSRQ==
+X-Received: by 2002:a05:600c:354e:b0:49b:8f18:714a with SMTP id 5b1f17b1804b1-49fc57226c9mr37347285e9.12.1789748154818;
+        Fri, 18 Sep 2026 09:15:54 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc6ec1e63sm44136965e9.0.2026.09.18.09.15.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 09:15:53 -0700 (PDT)
+Date: Fri, 18 Sep 2026 19:15:49 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Ricardo Ribalda <ribalda@chromium.org>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>, Yunke Cao <yunkec@google.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	kernel-janitors@vger.kernel.org
+Subject: Re: [PATCH] media: uvcvideo: Fix buffer overflow in
+ uvc_mapping_get_menu_value()
+Message-ID: <aq1jtSc_7Ad4v4eN@stanley.mountain>
+References: <aq0siVcghDe6x9cs@stanley.mountain>
+ <CANiDSCtiVU1PJh7=Pb56PNGF0s=cxfe1kVjwW+7O9JOT5CrDAw@mail.gmail.com>
+ <aq06Kq-3n2R79YZL@stanley.mountain>
+ <CANiDSCsVgGsbf0P6000Jgw=yCop580w61_BaVE6OxnBNXXDfSQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CANiDSCsVgGsbf0P6000Jgw=yCop580w61_BaVE6OxnBNXXDfSQ@mail.gmail.com>
 
-The Lenovo ThinkPad X9-14 Gen 1 uses a non-standard Embedded Controller
-firmware (ECFW) whose thermal and fan registers are not located at the
-classic addresses. On this model the thermal registers sit at 0xA8-0xAF /
-0xB8-0xBF and the fan registers use the non-standard offsets, instead of
-the legacy 0x78-0x7F / 0xC0-0xC7 (thermal) and 0x2f / 0x84 (fan).
+On Fri, Sep 18, 2026 at 03:46:11PM +0200, Ricardo Ribalda wrote:
+> Hi Dan
+> 
+> On Fri, 18 Sept 2026 at 15:18, Dan Carpenter <error27@gmail.com> wrote:
+> >
+> > On Fri, Sep 18, 2026 at 02:59:29PM +0200, Ricardo Ribalda wrote:
+> > > Hi Dan
+> > >
+> > > I believe that for all the uses of uvc_mapping_get_menu_value we are
+> > > already doing bound checks:
+> > >
+> > > index >= BITS_PER_TYPE(mapping->menu_mask) in uvc_query_v4l2_menu()
+> > > value> fls(mapping->menu_mask) -1 in uvc_ctrl_clamp()
+> > > BIT(i) <= mapping->menu_mask in uvc_menu_to_v4l2_menu()
+> > >
+> >
+> > The problematic caller is uvc_set_le_value().
+> >
+> >         value = *(s32 *)v4l2_in;
+> >
+> > Smatch thinks that is called from uvc_mapping_set_xctrl_compound().
+> 
+> uvc_mapping_set_xctrl_compound() are only called if v4l2_type >=
+> V4L2_CTRL_TYPE_RECT and then v4l2_type != V4L2_CTRL_TYPE_MENU. So I
+> think we are safe.
+> 
 
-Because the model is not covered by the existing quirk tables, the driver
-probes the legacy thermal addresses during init, reads back 0x00 from
-every register, concludes the EC is "misbehaving" and disables all
-thermal sensor access:
+Yeah...  I have reprimanded ChatGPT and it says it has updated the
+warning review skill.
 
-  thinkpad_acpi: ThinkPad ACPI EC access misbehaving, disabling thermal
-  sensors access
+This is difficult to silence.  But I'm going to ask AI to create
+an tool to automatically rebuild a second temporary database which
+only checks the problematic call tree and points any impossible
+constraints.  That would have flagged this warning as a false
+positive.
 
-Fan access is affected the same way, leaving fan1/fan2 reporting 0 RPM.
+regards,
+dan carpenter
 
-The infrastructure for these non-standard ECFW models is already in place
-(commit 301c1904d638 ("platform/x86: thinkpad_acpi: Fix to correct wrong
-temp reporting on some ThinkPads")); the X9-14 Gen 1 simply was not added
-to the model lists yet. Add its BIOS model code N4D to both the thermal
-and fan quirk tables so that:
-  - thermal_read_mode_check() selects TPACPI_THERMAL_TPEC_12 and reads
-    the 0xA8/0xB8 registers, and
-  - fan_init() selects the non-standard fan register addresses.
-
-Reported-by: thisisamirv <thisisamirv@gmail.com>
-Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221228
-Signed-off-by: Huang Wei <huangwei@kylinos.cn>
-
----
-Changes in v2:
-- Rebase onto current mainline: the fan quirk table gained an Edge E330
-  entry since v1, shifting the context. No functional change.
-
---- a/drivers/platform/x86/lenovo/thinkpad_acpi.c
-+++ b/drivers/platform/x86/lenovo/thinkpad_acpi.c
-@@ -6021,6 +6021,7 @@
- 	TPACPI_Q_LNV3('R', '0', 'T', true),	/* 11e Gen5 GL*/
- 	TPACPI_Q_LNV3('R', '1', 'D', true),	/* 11e Gen5 GL-R*/
- 	TPACPI_Q_LNV3('R', '0', 'V', true),	/* 11e Gen5 KL-Y*/
-+	TPACPI_Q_LNV3('N', '4', 'D', true),	/* X9-14 Gen 1 */
- };
- 
- static enum thermal_access_mode thermal_read_mode;
-@@ -8845,6 +8846,7 @@
- 	TPACPI_Q_LNV3('R', '0', 'T', TPACPI_FAN_NS),	/* 11e Gen5 GL */
- 	TPACPI_Q_LNV3('R', '1', 'D', TPACPI_FAN_NS),	/* 11e Gen5 GL-R */
- 	TPACPI_Q_LNV3('R', '0', 'V', TPACPI_FAN_NS),	/* 11e Gen5 KL-Y */
-+	TPACPI_Q_LNV3('N', '4', 'D', TPACPI_FAN_NS),	/* X9-14 Gen 1 */
- 	TPACPI_Q_LNV('H', '3', TPACPI_FAN_NS),		/* Edge E330 */
- 	TPACPI_Q_LNV3('N', '1', 'O', TPACPI_FAN_NOFAN),	/* X1 Tablet (2nd gen) */
- 	TPACPI_Q_LNV3('R', '0', 'Q', TPACPI_FAN_DECRPM),/* L480 */
