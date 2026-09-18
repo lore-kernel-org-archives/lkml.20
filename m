@@ -1,63 +1,339 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05DA73AA9D1;
-	Fri, 18 Sep 2026 22:08:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48BA13B47F3
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 22:10:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789769341; cv=none; b=Vx8MnX2es935Gbevh9MLsv10mYv7cNE3H/V6xs/qCdo64wiqpva+wj///APH4EMzsHRw1nKfeUTY5KKPpjZTd0oFDeU5y9u6de2wKiNcSskUlM7mtLmOjrzDKaTgeWlJ+8FN3irGgwqH9caC7on7h+6zJT8L5xgUrsrG4rSAdDA=
+	t=1789769420; cv=none; b=MnCMkNEMiunP/9ioZgfdrmeJlyKP0KdjeOOK6zQ4OIytlMbZk0Lv9YJOvsvJbhXkNsmhTkzmKo8e7u2ZtXNmKGfMsBDloHPii7eZudoG4lQFq+eDwAkIAydhBusaUpFXOj/u5GZ72LGwXkdK8B8SmKHux/4ZtJh9WTZf/v6NQYw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789769341; c=relaxed/simple;
-	bh=opC7gHel2bPerJub3L3SGdRWmwPASYDgWs36vr/HDM8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AjByfMsMcbvK8OBixyIVYLZgzNw52VHCKGp2D2twwhKDVqKvX/Wt8yaY+7/WowyQuGGYqfr7pRjnC37LQmT5fY1xTE0c2/LvooBL+1Ljbsf0czXSbIfgD9NbTx8UM2Q0Ya/lQfECO/ZuB1AIOltNJWg0gfzs9RYUfx98Ty4mxys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QZ1l24hu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789769420; c=relaxed/simple;
+	bh=qcw1jdffw2ZS3Ky1Ydt+4Hz0KNYSbQXbt7b0vLeaX28=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=e1EPymy15jhByf0Jv6zFwXNTK9Ce4iFJKqgIER5gLMOtBDyrJ09pEb7bgiPnsIde1C4n+tCXOuddtqii/c5qi3Gax8rQr4JzGeZDUAO5cSoTRHOEAkXbzi8T+LY3pHOKkGypGnAwteXAwKD4I5IQn3f/wTfKQbmvKR2suNV6NiQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jE261qTp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QZ1l24hu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EAA31F000FF;
-	Fri, 18 Sep 2026 22:08:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jE261qTp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A91F41F000FF;
+	Fri, 18 Sep 2026 22:10:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789769339;
-	bh=3h3Drri56c/2UgO4cqSAuPj7U2BhzhrEacHDDLzx1FM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=QZ1l24hu/e2+1X0MmT78Kj0kSdQwxy6toQpNIUVmYdf2EGrU9u5Wdh7RpVh1aq+A9
-	 CS2wTgnAyXz3C9CWaWCRsN8Tpx43lhBP1EFJhDC4LJIAv5jBz7qnrxgSbK0zH0Ki64
-	 MT2+N1eNH5MCMRG/LJfmmBWDfYyE1SecT71ox1aYd9ZL7uvR7u2JjhZgUsZOUf6VvJ
-	 jMnntUYGBFcGvOTRoBAnZDKo606EqE6FCkc5Tsg+FruY3HVoaVVfSHMBZ4dNc3DRsa
-	 Fj2uudhU4RUSdZG3/Ken7ngV43dMEDstczMv4JnwfWdKvLI+rzwIFqUqAC7IrLHIuh
-	 ij8XOVt4oFfGw==
-Date: Fri, 18 Sep 2026 15:08:58 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Stanislav Fomichev <sdf.kernel@gmail.com>
-Cc: Yuchao Zhang <ndaugoing@gmail.com>, Donald Hunter
- <donald.hunter@gmail.com>, "David S . Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Simon
- Horman <horms@kernel.org>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/1] net: netdev-genl: add missing uns-admin-perm flag
- to BIND_TX
-Message-ID: <20260918150858.3c98728d@kernel.org>
-In-Reply-To: <aq1Q6095yX0UmKKP@devvm7509.cco0.facebook.com>
-References: <20260918114329.3659849-1-ndaugoing@gmail.com>
-	<aq1Q6095yX0UmKKP@devvm7509.cco0.facebook.com>
+	s=k20260515; t=1789769417;
+	bh=W1TtV+41yhkTzs4bJ6Xi6VeMZvDli7BH7XL9fWmfv8U=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=jE261qTp9wo1hjbhahG2879J1uBhEcvBx47yxsLOlwm6VaOtfYsQ5MV3uY2CoRazE
+	 ojo50Ej/0w+4dlMHzFgOuNTkfXQEmian3zp6SlfsrRnRvpvzqFmMnm1ZSDKwint7H/
+	 azZKJ/20JDiCZaWIzfk3tmLjXfFz4BidDp5uhazO+p+4NGst6W5pnXEp+4s7dma+3M
+	 3NYnQNdoUzlX6hfH9FHL8f35r1NIcJXvifSwlPf5Fx9DbrSkoWSVvNrn86rwtM7tNH
+	 rPYDxUP6gP0duKsHc0Wm77dmJQC36e7YgVa3uC91IawW8fybdXbCBFPz3HAxVvI9Aj
+	 jqUwA4HBOFLCw==
+Message-ID: <35f36d8b-d215-439c-8e77-3a70deed7609@kernel.org>
+Date: Sat, 19 Sep 2026 00:10:06 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RESEND v7 10/29] mm: make PMD migration-entry splitting explicit
+To: Usama Arif <usama.arif@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, chrisl@kernel.org,
+ kasong@tencent.com, ljs@kernel.org, ziy@nvidia.com, linux-mm@kvack.org
+Cc: ying.huang@linux.alibaba.com, Baoquan He <baoquan.he@linux.dev>,
+ willy@infradead.org, youngjun.park@lge.com, hannes@cmpxchg.org,
+ riel@surriel.com, shakeel.butt@linux.dev, alex@ghiti.fr, kas@kernel.org,
+ baohua@kernel.org, dev.jain@arm.com, baolin.wang@linux.alibaba.com,
+ Nico Pache <nico.pache@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
+ ryan.roberts@arm.com, Vlastimil Babka <vbabka@kernel.org>,
+ lance.yang@linux.dev, linux-kernel@vger.kernel.org, nphamcs@gmail.com,
+ shikemeng@huaweicloud.com, yosry@kernel.org, qi.zheng@linux.dev,
+ luizcap@redhat.com, kernel-team@meta.com
+References: <20260914122950.3283997-1-usama.arif@linux.dev>
+ <20260914122950.3283997-11-usama.arif@linux.dev>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260914122950.3283997-11-usama.arif@linux.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Fri, 18 Sep 2026 07:56:19 -0700 Stanislav Fomichev wrote:
-> On 09/18, Yuchao Zhang wrote:
-> > Hi Jakub, Donald, and netdev maintainers,
-> > 
-> > During static inspection of the netdev generic netlink family and devmem
-> > TCP operations, we noticed an inconsistency in permission checks between
-> > the BIND_RX and BIND_TX operations.  
+On 9/14/26 14:28, Usama Arif wrote:
+> __split_huge_pmd() and friends take a "freeze" boolean that every caller
+> has to pass and almost every caller passes as false. The name says nothing
+> about what it selects, and the one thing it does select - PTE migration
+> entries instead of PTE mappings - is only ever wanted by the rmap migration
+> path.
 > 
-> This is by design. Similar patch has been posted many times, please
-> search the list..
+> Rename it to use_migration_entries, keep it private to mm/huge_memory.c,
+> and add split_pmd_to_migration_entries() for try_to_migrate_one(), the only
+> caller that wants it.
+> 
+> migrate_vma_split_unmapped_folio() also passed freeze=true, but only ever
+> runs on a PMD that is already a migration entry, which the generic helper
+> expands into PTE migration entries either way. Its folio_get() only existed
+> to balance the put_page() that freeze=true performs, so both go.
+> 
+> No functional change intended.
+> 
+> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
 
-Time to add a comment, please ?
+[...]
+
+> +void split_pmd_to_migration_entries(struct vm_area_struct *vma,
+> +				    unsigned long address, pmd_t *pmd);
+
+Two tele tabbies please.
+
+>  bool unmap_huge_pmd_locked(struct vm_area_struct *vma, unsigned long addr,
+>  			   pmd_t *pmdp, struct folio *folio);
+>  void map_anon_folio_pmd_nopf(struct folio *folio, pmd_t *pmd,
+> @@ -690,12 +690,14 @@ static inline void deferred_split_folio(struct folio *folio, bool partially_mapp
+>  	do { } while (0)
+>  
+>  static inline void __split_huge_pmd(struct vm_area_struct *vma, pmd_t *pmd,
+> -		unsigned long address, bool freeze) {}
+> +		unsigned long address) {}
+>  static inline void split_huge_pmd_address(struct vm_area_struct *vma,
+> -		unsigned long address, bool freeze) {}
+> +		unsigned long address) {}
+>  static inline void split_huge_pmd_locked(struct vm_area_struct *vma,
+> -					 unsigned long address, pmd_t *pmd,
+> -					 bool freeze) {}
+> +					 unsigned long address, pmd_t *pmd) {}
+> +static inline void
+> +split_pmd_to_migration_entries(struct vm_area_struct *vma,
+> +			       unsigned long address, pmd_t *pmd) {}
+
+Dito.
+
+>  
+>  static inline bool unmap_huge_pmd_locked(struct vm_area_struct *vma,
+>  					 unsigned long addr, pmd_t *pmdp,
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index ee8d46827ffdc..873887aed0bc2 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -2033,7 +2033,7 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+>  		pte_free(dst_mm, pgtable);
+>  		spin_unlock(src_ptl);
+>  		spin_unlock(dst_ptl);
+> -		__split_huge_pmd(src_vma, src_pmd, addr, false);
+> +		__split_huge_pmd(src_vma, src_pmd, addr);
+>  		return -EAGAIN;
+>  	}
+>  	add_mm_counter(dst_mm, MM_ANONPAGES, HPAGE_PMD_NR);
+> @@ -2257,7 +2257,7 @@ vm_fault_t do_huge_pmd_wp_page(struct vm_fault *vmf)
+>  	folio_unlock(folio);
+>  	spin_unlock(vmf->ptl);
+>  fallback:
+> -	__split_huge_pmd(vma, vmf->pmd, vmf->address, false);
+> +	__split_huge_pmd(vma, vmf->pmd, vmf->address);
+>  	return VM_FAULT_FALLBACK;
+>  }
+>  
+> @@ -3190,7 +3190,7 @@ static void __split_huge_zero_page_pmd(struct vm_area_struct *vma,
+>  }
+>  
+>  static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+> -		unsigned long haddr, bool freeze)
+> +		unsigned long haddr, bool use_migration_entries)
+
+
+Just curious: s/use_migration_entries/to_migration_entries/
+
+>  {
+>  	struct mm_struct *mm = vma->vm_mm;
+>  	struct folio *folio;
+> @@ -3291,10 +3291,10 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+>  		 * folios w.r.t anon exclusive handling. See the comments for
+>  		 * folio handling and anon_exclusive below.
+>  		 */
+> -		if (freeze && anon_exclusive &&
+> +		if (use_migration_entries && anon_exclusive &&
+>  		    folio_try_share_anon_rmap_pmd(folio, page))
+> -			freeze = false;
+> -		if (!freeze) {
+> +			use_migration_entries = false;
+> +		if (!use_migration_entries) {
+>  			rmap_t rmap_flags = RMAP_NONE;
+>  
+>  			folio_ref_add(folio, HPAGE_PMD_NR - 1);
+> @@ -3344,11 +3344,11 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+>  		VM_WARN_ON_FOLIO(!folio_test_anon(folio), folio);
+>  
+>  		/*
+> -		 * Without "freeze", we'll simply split the PMD, propagating the
+> -		 * PageAnonExclusive() flag for each PTE by setting it for
+> +		 * Without migration entries, we'll simply split the PMD and
+
+"When not splitting to migration entries .."
+
+> +		 * propagate the PageAnonExclusive() flag for each PTE by setting it for
+>  		 * each subpage -- no need to (temporarily) clear.
+
+While at it: s/subpage/page/
+
+>  		 *
+> -		 * With "freeze" we want to replace mapped pages by
+> +		 * With migration entries we want to replace mapped pages by
+
+"When splitting to migration entries ..."
+
+>  		 * migration entries right away. This is only possible if we
+>  		 * managed to clear PageAnonExclusive() -- see
+>  		 * set_pmd_migration_entry().
+> @@ -3359,10 +3359,10 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+>  		 * See folio_try_share_anon_rmap_pmd(): invalidate PMD first.
+>  		 */
+>  		anon_exclusive = PageAnonExclusive(page);
+> -		if (freeze && anon_exclusive &&
+> +		if (use_migration_entries && anon_exclusive &&
+>  		    folio_try_share_anon_rmap_pmd(folio, page))
+> -			freeze = false;
+> -		if (!freeze) {
+> +			use_migration_entries = false;
+> +		if (!use_migration_entries) {
+>  			rmap_t rmap_flags = RMAP_NONE;
+>  
+
+[...]
+
+>  
+>  	smp_wmb(); /* make pte visible before pmd */
+> @@ -3477,15 +3477,28 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+>  }
+>  
+>  void split_huge_pmd_locked(struct vm_area_struct *vma, unsigned long address,
+> -			   pmd_t *pmd, bool freeze)
+> +			   pmd_t *pmd)
+
+While at it ...
+
+>  {
+>  	VM_WARN_ON_ONCE(!IS_ALIGNED(address, HPAGE_PMD_SIZE));
+>  	if (pmd_trans_huge(*pmd) || pmd_is_valid_softleaf(*pmd))
+> -		__split_huge_pmd_locked(vma, pmd, address, freeze);
+> +		__split_huge_pmd_locked(vma, pmd, address, false);
+> +}
+> +
+> +/*
+> + * Split a present PMD into PTE migration entries, for the rmap migration
+> + * walker.  Like split_huge_pmd_locked(), the caller must hold the PMD lock and
+> + * must already be inside an mmu_notifier invalidate range.
+> + */
+
+I'd prefer kerneldoc but I'll let you decide.
+
+> +void split_pmd_to_migration_entries(struct vm_area_struct *vma,
+> +				    unsigned long address, pmd_t *pmd)
+
+two tabs ...
+
+[...]
+
+> --- a/mm/migrate_device.c
+> +++ b/mm/migrate_device.c
+> @@ -918,12 +918,7 @@ static int migrate_vma_split_unmapped_folio(struct migrate_vma *migrate,
+>  	unsigned long flags;
+>  	int ret = 0;
+>  
+> -	/*
+> -	 * take a reference, since split_huge_pmd_address() with freeze = true
+> -	 * drops a reference at the end.
+> -	 */
+> -	folio_get(folio);
+> -	split_huge_pmd_address(migrate->vma, addr, true);
+> +	split_huge_pmd_address(migrate->vma, addr);
+
+
+Everything up to this point was trivial :)
+
+You say that it already is unmapped (which makes sense looking at the
+function name).
+
+In VM_WARN_ON_ONCE_FOLIO(folio_mapped(folio), folio) we verify.
+
+Did you run the hmm selftests with DEBUG_VM enabled, just to be sure? I remember
+they exercise at least some of the THP logic in here.
+
+
+>  	ret = folio_split_unmapped(folio, 0);
+>  	if (ret)
+>  		return ret;
+> diff --git a/mm/mprotect.c b/mm/mprotect.c
+> index 2888ee638d872..ee33bbb421008 100644
+> --- a/mm/mprotect.c
+> +++ b/mm/mprotect.c
+> @@ -530,7 +530,7 @@ static inline long change_pmd_range(struct mmu_gather *tlb,
+>  		if (pmd_is_huge(_pmd)) {
+>  			if ((next - addr != HPAGE_PMD_SIZE) ||
+>  			    pgtable_split_needed(vma, cp_flags)) {
+> -				__split_huge_pmd(vma, pmd, addr, false);
+> +				__split_huge_pmd(vma, pmd, addr);
+>  				/*
+>  				 * For file-backed, the pmd could have been
+>  				 * cleared; make sure pmd populated if
+> diff --git a/mm/rmap.c b/mm/rmap.c
+> index 5332c52909be1..feb751e29b992 100644
+> --- a/mm/rmap.c
+> +++ b/mm/rmap.c
+> @@ -2290,7 +2290,7 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
+>  				 * restart so we can process the PTE-mapped THP.
+>  				 */
+>  				split_huge_pmd_locked(vma, pvmw.address,
+> -						      pvmw.pmd, false);
+> +						      pvmw.pmd);
+
+You can feel brave and squeeze it into a single line now :)
+
+
+Overall LGTM.
+
+-- 
+Cheers,
+
+David
