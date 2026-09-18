@@ -1,201 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 082913515F0;
-	Fri, 18 Sep 2026 06:41:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73BC5199E89;
+	Fri, 18 Sep 2026 06:42:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789713728; cv=none; b=J6VlmDMUIIZa3Tz4e3xB84s5pKjIHH66sz2SqOTaJJhmrJyBNG2inSBL5kEE5WqjLB+KDlNnj+4qdRoA8ciy39GqUEFVI4a1p2LemN9yr3BHCSxqWPQ2yCSQ9HvXJQBzSkX2oAW46HYOpXPdzj5ImtUDmi4Y7KSkcGkk/66ldIg=
+	t=1789713744; cv=none; b=SZLPSGNNdoydsmajaUB/j6J1L3IFPfSUKZX3Y9Kh3/vxKQ3r3wnAJsVxi5RGggPjoigdDewPTnh4I4ptQpjXswlFAOGXXspDw8embvj7j7Hz28y+bSGnDWgt/2NgrJEmpifJ1jAhe2jvjFGbEZVV3OfcnkU4S9lW56E9LS++7ks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789713728; c=relaxed/simple;
-	bh=RyjwYG+6xyUtnZHla2yzl5xik596f0q8iVyX5puo++Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=icVP24dCPuAMK6NGxSPkvditHmMaMfCZZzqKI8OMAbYHoutRGHg3U4EiDL6qwDfAqxCmdxKl67RVhBNzbel4RrGFfrWfcJeKmWKkFgk/LUi14n0L0LngC5+EHu11AcrJ9COY5/RX3GXXH8oRdvMAR6b2MuV1ZBqC5P8TtdKut/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g4ED0di8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789713744; c=relaxed/simple;
+	bh=Q8qkLWFRIEs3LhO9JJsC9itRXPMawbI1tnHmSNR1qjU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SIm9jKkWTcUhZxGHxDqWO8mM7bEILxaG99+SkOAdiFEBo7pZ5jyms3H7L1iPFRvtu3esXSFaHXETJEhfzEaIE8mCRRuYdsBbhYCyE/TaoELFx9sJfjMFIAo11ZbAvaQ0AIYxzmp/2x4nLXmAb8Y7v12FehvM3PkZWZwwAV2d3zs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FpGqt8CX; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g4ED0di8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7627E1F000FF;
-	Fri, 18 Sep 2026 06:41:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789713716;
-	bh=NQNv62oAZsl1F7csxaJEi7LWQT0O7ByC0WTruZRdyGE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=g4ED0di8eL1AQIkIyrzjWr3kkR/6Lm3VLeU0TIc0vFcokmcJ60P5HXU649k4P9UbV
-	 vdH1IvwyYJcrn2+jUmbfTWTK1OpiLZ/6P5c6LKeRW6d6gW/XmS4SLpXyATQdNQSZg+
-	 BOb+YXv4wnL3ceDRqUUdFnqmNtrGv68H7yAqYSM4TSR0ohN3WRZ85+p9dygq3Qzvzg
-	 NhQFawgMtUtFcC0V+bt4s7sBu1/yHReYMD2FgIA9ve8z4dkvUJDyw86XT10k2k+oqw
-	 AlxuHt/lYeWpydOreU8ctv2+5zxo1v9GWh8SCwRF71wj+HOrK6imIba21LkRp9E81U
-	 zb8Xjx3n/HCvQ==
-Message-ID: <8b4256bf-5ad3-4405-ae7a-17bc664f7ae9@kernel.org>
-Date: Fri, 18 Sep 2026 08:41:37 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FpGqt8CX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789713742; x=1821249742;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Q8qkLWFRIEs3LhO9JJsC9itRXPMawbI1tnHmSNR1qjU=;
+  b=FpGqt8CXtWKlt0YDM6BsZnxMl9dsdxlHtg2RdYqJFkK6oA7O6ZO/xjUS
+   Oef3zJoIARQFFNA+sRMDh6HP4GVzQBibkjQASg+ao9G8OiYS3F2AE0UwY
+   VjJLovinEd0uD2GpLnbK2xpsmg6lLWCulVIp2rWkJoDFgYipyZoq1ZzUX
+   jPikc2pcmrhUf/PSSLmPqbp3JU2Dmv+ZyjsjlVwKATh1uUPOAVv/eT8X9
+   GA+YaIZJyc7sT4E5OJ/I3bzXjP0akVUxlKs0KEBUaL4jBSBBF2rEf79hM
+   LzeNN83EPDlrmhi9b7dq9j0VDxw0Jnl3tGVf0b8JWGY/WS2mZswOb+ccz
+   g==;
+X-CSE-ConnectionGUID: tv7826B0RJeWCPOA+fh9Dw==
+X-CSE-MsgGUID: tKJYMWJvQL+oaqmklPGWQg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90217380"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="90217380"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 23:42:21 -0700
+X-CSE-ConnectionGUID: XqPyq6tVQjmBYMsrb8i6uA==
+X-CSE-MsgGUID: WKZRfvWWQ0ScMHejZX/UkA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="2433853"
+Received: from carterle-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.170])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 23:42:18 -0700
+Date: Fri, 18 Sep 2026 09:42:11 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Ryan Brue <ryanbrue.dev@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Lee Jones <lee@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, mfd@lists.linux.dev,
+	Roman Vivchar <rva333@protonmail.com>,
+	Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Subject: Re: [PATCH 0/3] iio: adc: add mt6397 PMIC AUXADC support
+Message-ID: <aqzdQ64Y_mkEdLZU@ashevche-desk.local>
+References: <20260915-rbrue-suez-upstreaming-mt6397-auxadc-v1-0-d35d2ac3d6f0@gmail.com>
+ <aqpmgliQW7FW53o5@ashevche-desk.local>
+ <2d1b80f2-53f6-4ed6-81bf-e35c0a9efb26@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 01/20] dt-bindings: phy: Add
- starfive,jh7110-inno-hdmi-phy
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Joshua Peisach <jpeisach@ubuntu.com>
-Cc: Michal Wilczynski <m.wilczynski@samsung.com>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Emil Renner Berthing <kernel@esmil.dk>, Hal Feng
- <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Dominique Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Maud Spierings <maud_spierings@murena.io>,
- Graham Markall <hello@big-grey.co.uk>,
- Chaoyi Chen <chaoyi.chen@rock-chips.com>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
- <CGME20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125@eucas1p2.samsung.com>
- <20260915-jh7110-clean-send-v4-1-f0e4fd6f2cc8@samsung.com>
- <20260917-mutant-chamois-of-competence-46ca77@quoll>
- <DLI0QTP0NUHS.DAFYGACKWKWO@ubuntu.com>
- <20260918-futuristic-mindful-waxbill-21fa2d@quoll>
- <b8efa0db854929a353c430f78fffd907bd7ccb65.camel@iscas.ac.cn>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <b8efa0db854929a353c430f78fffd907bd7ccb65.camel@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2d1b80f2-53f6-4ed6-81bf-e35c0a9efb26@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 18/09/2026 08:21, Icenowy Zheng wrote:
-> 在 2026-09-18五的 08:16 +0200，Krzysztof Kozlowski写道：
->> On Thu, Sep 17, 2026 at 08:34:18PM -0400, Joshua Peisach wrote:
->>> On Thu Sep 17, 2026 at 2:51 AM EDT, Krzysztof Kozlowski wrote:
->>>> On Tue, Sep 15, 2026 at 05:32:09PM +0200, Michal Wilczynski
->>>> wrote:
->>>>> Add the dt-binding for the StarFive JH7110 Innosilicon HDMI
->>>>> PHY.
->>>>>
->>>>> This device is a child of the starfive,jh7110-hdmi-subsystem
->>>>> node. It
->>>>> functions as both a PHY provider for the controller and as a
->>>>> clock
->>>>> provider for the variable pixel clock (hdmi_pclk), which it
->>>>> generates
->>>>> from its refoclk.
->>>>>
->>>>> Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
->>>>
->>>> While I appreciate other people looking at this, I don't think
->>>> review
->>>> here applies. It was a blanket tag, given to the entire series,
->>>> with
->>>> exception that it is from newbie, thus I want to ask: was this
->>>> binding
->>>> REALLY reviewed by Joshua?
->>>>
->>>> Are the rest of the patches actually reviewed or just "looks good
->>>> to
->>>> me"? I see no comments from Joshua on v3, v2 and v1, which is
->>>> usual sign
->>>> of doing review.
->>>>
->>>>
->>> I commented on v3 saying that I would test if I could. I don't just
->>
->> Testing has nothing to do with reviewing.
->>
->>> throw "Reviewed-by" on everything I look at.
->>>
->>> If anything, I've been trying to be more honest in reviews, and
->>> only
->>> review ones that I actually care about[1].
->>
->> You gave blanket tag for entire series, so I do not get this
->> argument.
->>
->>>
->>> If reviewing patches isn't a good way for newbies to start getting
->>> familiar with the kernel code (especially a NEW driver), then I
->>> don't
->>> know what is.
->>
->> Writing code and receiving review is something for newbies to start
->> with. If you do not know kernel code or bindings, why do you think
->> your review is applicable? If I try to review design of a post-
->> tension
->> concrete bridge, I would probably learn something. Would my
->> review apply? No.
+On Thu, Sep 17, 2026 at 03:24:05PM -0500, Ryan Brue wrote:
+> On 9/16/26 4:50 AM, Andy Shevchenko wrote:
+> > On Tue, Sep 15, 2026 at 11:15:25PM -0500, Ryan Brue wrote:
+> > > The MediaTek mt6397 PMIC has a 10-bit AUXADC that nothing in-tree can
+> > > reach. On boards built around it that ADC is the only path to the battery:
+> > > the SoC's AUXADC is wired to board thermistors, and the charger ICs these
+> > > boards use have no ADC at all, so without it there is no pack voltage and
+> > > no state of charge.
+> > This doesn't explain why a brand new driver? Perhaps we have existing code that
+> > may be updated to support this device?
+> I considered adding mt6397 support to either mt6323-auxadc or mt6359-auxadc,
+> and both had problems.
 > 
-> My personal thoughts: everyone should be able to send R-b, but the
+> Both mt6323-auxadc and mt6359-auxadc select channels through a request
+> register (1 bit per channel), while mt6397 uses a 4-bit numeric field CHSEL
+> in CON1 (10:7), and then pulses a START bit (CON1 bit 0). That was the
+> biggest reason I made the new driver.
+> 
+> For mt6323-auxadc, which is the closest I could find to the mt6397
+> (CON0..CON27), it has 13 more registers than the mt6397 (CON0..CON14). It
+> uses CON22 for its request register, and reads the result value from the
+> same register as the ready bit. We don't do that - the mt6397 has a factory
+> calibrated value for each channel at 0x16 higher than the raw value. mt6323
+> also has a 1800 mV / 15 bit scale / resolution while we have 1200 mV / 10
+> bits. We also have some per-channel preparation that we have to do before
+> the burst, that the mt6323 doesn't have to do.
+> 
+> For mt6359-auxadc, it has a more generic framework for describing the
+> AUXADC, but it assumes requests are channel-per-bit, and so we would have to
+> basically ignore req_idx, req_mask, rdy_idx, and rdy_mask.
 
-Yes, that is true and this is not questionable. We clearly documented
-that everyone is able.
+> We also have our own software sampling, which the vendor does too (Amazon
+> Fire OS based on Linux 3.18). We'd have to have our own sampling callback to
+> do it.
 
-> effect of the R-b depends on who sent it.
+If it's not an upstream, we do not care.
 
-I question whether is applicable here.
+> I drafted two other versions of these patches adding mt6397 support to both
+> of those drivers, but the differences meant I had to add a lot of extra
+> boilerplate to each driver and to me it didn't make sense.
+> 
+> In v2 I will add the justification to the cover letter and commits for why I
+> chose a new driver.
 
-Blanket reviews without comments leaves just such feeling. And if, like
-here, there is no interest in reviewing DT, which I assume the DT was
-not reviewed and which was my question here, then why giving Rb tag to DT?
+Yes, please. Always do that when submitting a brand new driver that might sound
+like a (partially) compatible with something already existing.
+
+> If you'd like me to instead send the exploratory patches I made adapting
+> mt6323-auxadc or mt6359-auxadc, let me know. I'm fine if it ends up seeming
+> like we should adapt one of the existing drivers, but I think the mechanism
+> for controlling this AUXADC is unique and merits its own driver.
+> 
+> Thanks again for the review, I am going through each one, and sorry for the
+> delay. I'm rather new to kernel development.
+
+No problem, and welcome!
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-Best regards,
-Krzysztof
