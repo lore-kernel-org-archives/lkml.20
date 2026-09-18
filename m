@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36EF54AEBC6;
-	Fri, 18 Sep 2026 08:54:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EBDB3DDDBE;
+	Fri, 18 Sep 2026 08:54:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789721654; cv=none; b=tJEdz8lBxvoExEvEi07XPz+OL8ws5V6OhNQpW5g3ef+QeRcY/uQRKNcbldcDJcydCrivSMSWfe4V6p1iozlGiroF7SsHTbIlM3OhFudZqNlww9F0/CHvYxtbPmOfDpZakjViS6UbkwKie9Pk1VhiRMC7s8J0fA7OKUmIY7QbjAk=
+	t=1789721654; cv=none; b=KsANtZuF3d4K5T8DGxgIxyimQ0qaooezVjO0HCkIfk4FgXzbZUGySN+t2rh55txiJLHnrjI52wI2TGQwuDqp5277//5ToaiUS7GdV+JPQX0ND/D2u4Sq2h63MZ2Pubj2f6uEZOKYLMD/vOzIq5gtaa0At4ZQA7x8vQp/uLFRubU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789721654; c=relaxed/simple;
-	bh=NbEJlSSw4+ImtAzSd++eA8MkzoReelqf5IGki69YEIk=;
+	bh=aU+zGcsd/b4y8gfxOYwXDtxYISGgw2Gxjyv9f8ql9dc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JRpku7YeP5ECcTSROCiDk8J4B0H0sME1WZPRF1gkApkWjsCuaBWbxjXqTWeKKgCBhWABLNTb6wnb6dGME1HSGqbPC7vK+oqJeDCnUhuTCEaVK8+lrroL6YoDl127gcM3ge57HwQu7nfN7qoANXiMKgxsBOw6FeO83YAQOJZd9Kk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=vDON3qJi; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=dNc3WGDXqUno8j7JbOzJvYmpBS169a29AlXXlcjEUj5WOxqR1obM2r+k06bsy+G8pYia2FloLSTc3XXjYXOnr9eHNsBOQ8ppDwYS/kvJeivcd5whU2BU1AQGjLqLEYTS4KQj9BZj6g+AhVbzsYoR9UH+OSEjz8+A3w1gfm0lr9s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o1QL4I5I; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="vDON3qJi"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id AA2CFC4AF0B;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o1QL4I5I"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 90018C2BCF6;
 	Fri, 18 Sep 2026 08:54:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1789721653;
-	bh=NbEJlSSw4+ImtAzSd++eA8MkzoReelqf5IGki69YEIk=;
+	bh=aU+zGcsd/b4y8gfxOYwXDtxYISGgw2Gxjyv9f8ql9dc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=vDON3qJinHKNjnqIm0v9lo6KSMRdQs6weIest7QJhPphFl87KpInLgzeoOib/uZ/B
-	 +GUsLvLBMoCNp6KOLzpBdXRUJBI9FZNobm9GT7eYqr+7k16yHg1L2WAyxkVa3dlk1L
-	 TTAMUR4RCFvpvFc7/97v6Jme2QTkHfxtl1KkRmTdLkHnFQde9/yc2yttClD4+FbBDz
-	 diX+fvGNpbJAX4EyHcImj0Lt6AlO+MpY4j+TpRP74yx790GC+bP0uC1E4bjMG4+TiD
-	 bnNgXulNxvDMui4ueYZLJLOrYh/0ezhFil9GYVvsAQi0jqryMy7m7uxODB7OVbQw9Q
-	 JH/4MUdtgfjUQ==
+	b=o1QL4I5IGfsnNrIicKfPQX/iil/P9M1bH8Pdv4kbigwcX8gWkvg5JF5J+Hg7VlAXN
+	 xYdZ19IHpBeWktRwevW3h/MLgguWInfVuHF68NJtoPqjgDFWHaF/e10ZjCFvmKQC1S
+	 2IEQtcnh5oG+WFvpJ5GQM62W8xCaVJl3GFEn3EQCqdt1NX9JaUK44yz8X+LNXcqmlU
+	 IkwtiV8svxqY5+DtTJylBxmPFG8mNDT24MB1MNJMVFdvhkJN3hiLwnhz5+6qgUPkBl
+	 4I+kloUIKk/7j2TnT/UesqILUmuR+wExzb7Ln9YZpcuWOmQFEijnG1Fllv6YdyCUP5
+	 2AlLcwNYjrE0A==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 93C5FC982DA;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 71A3BC982D7;
 	Fri, 18 Sep 2026 08:54:13 +0000 (UTC)
 From: Jingxiang Zeng via B4 Relay <devnull+linuszeng.tencent.com@kernel.org>
-Date: Fri, 18 Sep 2026 16:53:44 +0800
-Subject: [PATCH 4/6] mm: memcontrol: give swap and memsw their own page
- counters
+Date: Fri, 18 Sep 2026 16:53:42 +0800
+Subject: [PATCH 2/6] mm: page_counter: track protection state in
+ page_counter_protection
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-descriptive-name-v1-4-dfcfdd91b456@tencent.com>
+Message-Id: <20260918-descriptive-name-v1-2-dfcfdd91b456@tencent.com>
 References: <20260918-descriptive-name-v1-0-dfcfdd91b456@tencent.com>
 In-Reply-To: <20260918-descriptive-name-v1-0-dfcfdd91b456@tencent.com>
 To: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
@@ -62,11 +62,11 @@ Cc: Jingxiang Zeng <jingxiangzeng.cas@gmail.com>, cgroups@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
  Jingxiang Zeng <linuszeng@tencent.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789721651; l=9416;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789721651; l=9424;
  i=linuszeng@tencent.com; s=20260909; h=from:subject:message-id;
- bh=3nVozcwT8fvm9kkRHSGOBpv9SiIXCVqsk3cpyNYsL4o=;
- b=T9k2eZse7y/gatzeWXlUZwF/Fn5ZipNDfa7RtRVfizOuLg1R8eN3NEGBgvBiVe98EnIzGGiAj
- jat5Iz4MsxAC2WhrcbCOztMx5JyvInRK1PmzVCHvdfkE+w45u0TfypR
+ bh=CfFjeGPSW+N+Iw1P+GRZXWwVce/M2M1WMHPh1nAZy3E=;
+ b=jHpPy7d+GDh+HUqiPXX7FRb0ibwbrNw7nMVEoGk2aTWH+mJ3cLPntP/bIns5bUIeOcTpATZxL
+ 1OdQfYToxPuBu+9swnmlTRddbMrjgSG3r5RhShXyjuZltZZBazTGJim
 X-Developer-Key: i=linuszeng@tencent.com; a=ed25519;
  pk=6K54xRzYIRWqatrAPy86M4E0MsI92BVJBhXwz5NdC74=
 X-Endpoint-Received: by B4 Relay for linuszeng@tencent.com/20260909 with
@@ -76,232 +76,264 @@ Reply-To: linuszeng@tencent.com
 
 From: Jingxiang Zeng <linuszeng@tencent.com>
 
-struct mem_cgroup keeps the swap and memsw page counters in a union: v1
-only ever charges memsw, the combined memory+swap counter, and v2 only
-ever charges swap, the standalone swap limit, so the two could share
-storage.
+Move the read/write side of hierarchical protection from struct
+page_counter to struct page_counter_protection: propagate_protected_usage()
+updates the protection context of the parent, page_counter_set_min()/low()
+and page_counter_calculate_protection() operate on it, and memcg and dmem
+accessors (including dmem_cgroup_below_min()/below_low()) read
+min/low/emin/elow and children_*_usage from it.
 
-Split them into separate counters and maintain memsw on both
-hierarchies.  do_memsw_account() no longer gates the combined charge in
-try_charge_memcg(), memcg_uncharge(), the force-charge path,
-mem_cgroup_replace_folio() and mem_cgroup_margin(); v2 also hands the
-combined charge over to the swap slot in __mem_cgroup_try_charge_swap()
-and drops it again in __mem_cgroup_uncharge_swap().  The counter is
-initialised for both hierarchies in mem_cgroup_css_alloc() and reset in
-mem_cgroup_css_reset().
+struct page_counter keeps its now-unused protection fields for now; they
+are removed in a follow-up commit.
 
-memsw.max defaults to PAGE_COUNTER_MAX and v2 has no interface to
-change it yet, so the combined charge cannot fail there and behaviour
-on the default hierarchy is unchanged.  The default hierarchy does pay
-for one extra page_counter operation per charge and uncharge, and
-struct mem_cgroup grows by one page counter (128 bytes on x86_64).
-
-Note that v2 briefly counts a page twice against the combined counter
-while it is being swapped out: the folio keeps its memsw charge until
-it leaves memory, and the swap slot takes one as soon as it is
-allocated.  v1 avoids this by clearing folio->memcg_data under the swap
-cluster lock, which the v2 swapout path does not do.  The skew only
-ever makes the combined limit stricter, never looser.
-
-No functional change on either hierarchy.
+No functional change.
 
 Signed-off-by: Jingxiang Zeng <linuszeng@tencent.com>
 ---
- include/linux/memcontrol.h | 12 ++++---
- mm/memcontrol.c            | 78 ++++++++++++++++++++++++++++++----------------
- 2 files changed, 59 insertions(+), 31 deletions(-)
+ include/linux/memcontrol.h |  8 +++----
+ kernel/cgroup/dmem.c       | 12 +++++-----
+ mm/memcontrol.c            |  8 +++----
+ mm/page_counter.c          | 59 +++++++++++++++++++++++++++++-----------------
+ 4 files changed, 52 insertions(+), 35 deletions(-)
 
 diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-index ff69a390a809..bd69caee282c 100644
+index 5936f497aea6..ff69a390a809 100644
 --- a/include/linux/memcontrol.h
 +++ b/include/linux/memcontrol.h
-@@ -206,10 +206,14 @@ struct mem_cgroup {
+@@ -625,8 +625,8 @@ static inline void mem_cgroup_protection(struct mem_cgroup *root,
+ 	if (root == memcg)
+ 		return;
+ 
+-	*min = READ_ONCE(memcg->memory.emin);
+-	*low = READ_ONCE(memcg->memory.elow);
++	*min = READ_ONCE(memcg->memory_prot.emin);
++	*low = READ_ONCE(memcg->memory_prot.elow);
+ }
+ 
+ void mem_cgroup_calculate_protection(struct mem_cgroup *root,
+@@ -650,7 +650,7 @@ static inline bool mem_cgroup_below_low(struct mem_cgroup *target,
+ 	if (mem_cgroup_unprotected(target, memcg))
+ 		return false;
+ 
+-	return READ_ONCE(memcg->memory.elow) >=
++	return READ_ONCE(memcg->memory_prot.elow) >=
+ 		page_counter_read(&memcg->memory);
+ }
+ 
+@@ -660,7 +660,7 @@ static inline bool mem_cgroup_below_min(struct mem_cgroup *target,
+ 	if (mem_cgroup_unprotected(target, memcg))
+ 		return false;
+ 
+-	return READ_ONCE(memcg->memory.emin) >=
++	return READ_ONCE(memcg->memory_prot.emin) >=
+ 		page_counter_read(&memcg->memory);
+ }
+ 
+diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
+index a4bac0d5ac3b..4027d3d309c8 100644
+--- a/kernel/cgroup/dmem.c
++++ b/kernel/cgroup/dmem.c
+@@ -212,12 +212,12 @@ set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val, bool nonblock)
+ 
+ static u64 get_resource_low(struct dmem_cgroup_pool_state *pool)
+ {
+-	return pool ? READ_ONCE(pool->cnt.low) : 0;
++	return pool ? READ_ONCE(pool->cnt.prot->low) : 0;
+ }
+ 
+ static u64 get_resource_min(struct dmem_cgroup_pool_state *pool)
+ {
+-	return pool ? READ_ONCE(pool->cnt.min) : 0;
++	return pool ? READ_ONCE(pool->cnt.prot->min) : 0;
+ }
+ 
+ static u64 get_resource_max(struct dmem_cgroup_pool_state *pool)
+@@ -388,13 +388,13 @@ bool dmem_cgroup_state_evict_valuable(struct dmem_cgroup_pool_state *limit_pool,
+ 	dmem_cgroup_calculate_protection(limit_pool, test_pool);
+ 
+ 	used = page_counter_read(ctest);
+-	min = READ_ONCE(ctest->emin);
++	min = READ_ONCE(ctest->prot->emin);
+ 
+ 	if (used <= min)
+ 		return false;
+ 
+ 	if (!ignore_low) {
+-		low = READ_ONCE(ctest->elow);
++		low = READ_ONCE(ctest->prot->elow);
+ 		if (used > low)
+ 			return true;
+ 
+@@ -787,7 +787,7 @@ bool dmem_cgroup_below_min(struct dmem_cgroup_pool_state *root,
+ 	 * here.
  	 */
- 	struct page_counter_protection memory_prot;
+ 	dmem_cgroup_calculate_protection(root, test);
+-	return page_counter_read(&test->cnt) <= READ_ONCE(test->cnt.emin);
++	return page_counter_read(&test->cnt) <= READ_ONCE(test->cnt.prot->emin);
+ }
+ EXPORT_SYMBOL_GPL(dmem_cgroup_below_min);
  
--	union {
--		struct page_counter swap;	/* v2 only */
--		struct page_counter memsw;	/* v1 only */
--	};
-+	/*
-+	 * Swap accounting.  These used to share storage because v1 only ever
-+	 * used memsw (the combined memory+swap limit) and v2 only ever used
-+	 * swap (a standalone swap limit).  They are separate now so that the
-+	 * combined counter can be maintained on both hierarchies.
-+	 */
-+	struct page_counter swap;	/* Standalone swap limit, v2 only */
-+	struct page_counter memsw;	/* Combined memory+swap, v1 & v2 */
+@@ -818,7 +818,7 @@ bool dmem_cgroup_below_low(struct dmem_cgroup_pool_state *root,
+ 	 * here.
+ 	 */
+ 	dmem_cgroup_calculate_protection(root, test);
+-	return page_counter_read(&test->cnt) <= READ_ONCE(test->cnt.elow);
++	return page_counter_read(&test->cnt) <= READ_ONCE(test->cnt.prot->elow);
+ }
+ EXPORT_SYMBOL_GPL(dmem_cgroup_below_low);
  
- 	/* Written on the charge, reclaim and socket paths. */
- 	__cacheline_group_begin_aligned(memcg_write_hot);
 diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index aaf23e849408..1daa55f2e99d 100644
+index 94c538ea3cb5..aaf23e849408 100644
 --- a/mm/memcontrol.c
 +++ b/mm/memcontrol.c
-@@ -1591,14 +1591,17 @@ static unsigned long mem_cgroup_margin(struct mem_cgroup *memcg)
- 	if (count < limit)
- 		margin = limit - count;
- 
--	if (do_memsw_account()) {
--		count = page_counter_read(&memcg->memsw);
--		limit = READ_ONCE(memcg->memsw.max);
--		if (count < limit)
--			margin = min(margin, limit - count);
--		else
--			margin = 0;
--	}
-+	/*
-+	 * The combined memory+swap limit applies on both hierarchies and
-+	 * caps what can still be charged.  It defaults to "max", so this
-+	 * only narrows the margin once a combined limit is configured.
-+	 */
-+	count = page_counter_read(&memcg->memsw);
-+	limit = READ_ONCE(memcg->memsw.max);
-+	if (count < limit)
-+		margin = min(margin, limit - count);
-+	else
-+		margin = 0;
- 
- 	return margin;
- }
-@@ -2188,8 +2191,7 @@ static bool consume_stock(struct mem_cgroup *memcg, unsigned int nr_pages)
- static void memcg_uncharge(struct mem_cgroup *memcg, unsigned int nr_pages)
+@@ -4860,7 +4860,7 @@ static ssize_t memory_peak_write(struct kernfs_open_file *of, char *buf,
+ static int memory_min_show(struct seq_file *m, void *v)
  {
- 	page_counter_uncharge(&memcg->memory, nr_pages);
--	if (do_memsw_account())
--		page_counter_uncharge(&memcg->memsw, nr_pages);
-+	page_counter_uncharge(&memcg->memsw, nr_pages);
+ 	return seq_puts_memcg_tunable(m,
+-		READ_ONCE(mem_cgroup_from_seq(m)->memory.min));
++		READ_ONCE(mem_cgroup_from_seq(m)->memory_prot.min));
  }
  
- /*
-@@ -2721,12 +2723,19 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
- 		batch = nr_pages;
+ static ssize_t memory_min_write(struct kernfs_open_file *of,
+@@ -4883,7 +4883,7 @@ static ssize_t memory_min_write(struct kernfs_open_file *of,
+ static int memory_low_show(struct seq_file *m, void *v)
+ {
+ 	return seq_puts_memcg_tunable(m,
+-		READ_ONCE(mem_cgroup_from_seq(m)->memory.low));
++		READ_ONCE(mem_cgroup_from_seq(m)->memory_prot.low));
+ }
  
- 	reclaim_options = MEMCG_RECLAIM_MAY_SWAP;
--	if (!do_memsw_account() ||
--	    page_counter_try_charge(&memcg->memsw, batch, &counter)) {
+ static ssize_t memory_low_write(struct kernfs_open_file *of,
+@@ -6457,6 +6457,6 @@ void mem_cgroup_show_protected_memory(struct mem_cgroup *memcg)
+ 		memcg = root_mem_cgroup;
+ 
+ 	pr_warn("Memory cgroup min protection %lukB -- low protection %lukB",
+-		K(atomic_long_read(&memcg->memory.children_min_usage)),
+-		K(atomic_long_read(&memcg->memory.children_low_usage)));
++		K(atomic_long_read(&memcg->memory_prot.children_min_usage)),
++		K(atomic_long_read(&memcg->memory_prot.children_low_usage)));
+ }
+diff --git a/mm/page_counter.c b/mm/page_counter.c
+index aa1f9a9a314f..d33f40ca2c78 100644
+--- a/mm/page_counter.c
++++ b/mm/page_counter.c
+@@ -22,28 +22,29 @@ static bool track_protection(struct page_counter *c)
+ static void propagate_protected_usage(struct page_counter *c,
+ 				      unsigned long usage)
+ {
++	struct page_counter_protection *prot = c->prot;
+ 	unsigned long protected, old_protected;
+ 	long delta;
+ 
+-	if (!c->parent)
++	if (!prot || !prot->parent)
+ 		return;
+ 
+-	protected = min(usage, READ_ONCE(c->min));
+-	old_protected = atomic_long_read(&c->min_usage);
++	protected = min(usage, READ_ONCE(prot->min));
++	old_protected = atomic_long_read(&prot->min_usage);
+ 	if (protected != old_protected) {
+-		old_protected = atomic_long_xchg(&c->min_usage, protected);
++		old_protected = atomic_long_xchg(&prot->min_usage, protected);
+ 		delta = protected - old_protected;
+ 		if (delta)
+-			atomic_long_add(delta, &c->parent->children_min_usage);
++			atomic_long_add(delta, &prot->parent->children_min_usage);
+ 	}
+ 
+-	protected = min(usage, READ_ONCE(c->low));
+-	old_protected = atomic_long_read(&c->low_usage);
++	protected = min(usage, READ_ONCE(prot->low));
++	old_protected = atomic_long_read(&prot->low_usage);
+ 	if (protected != old_protected) {
+-		old_protected = atomic_long_xchg(&c->low_usage, protected);
++		old_protected = atomic_long_xchg(&prot->low_usage, protected);
+ 		delta = protected - old_protected;
+ 		if (delta)
+-			atomic_long_add(delta, &c->parent->children_low_usage);
++			atomic_long_add(delta, &prot->parent->children_low_usage);
+ 	}
+ }
+ 
+@@ -258,7 +259,10 @@ void page_counter_set_min(struct page_counter *counter, unsigned long nr_pages)
+ {
+ 	struct page_counter *c;
+ 
+-	WRITE_ONCE(counter->min, nr_pages);
++	if (!counter->prot)
++		return;
++
++	WRITE_ONCE(counter->prot->min, nr_pages);
+ 
+ 	for (c = counter; c; c = c->parent)
+ 		propagate_protected_usage(c, atomic_long_read(&c->usage));
+@@ -275,7 +279,10 @@ void page_counter_set_low(struct page_counter *counter, unsigned long nr_pages)
+ {
+ 	struct page_counter *c;
+ 
+-	WRITE_ONCE(counter->low, nr_pages);
++	if (!counter->prot)
++		return;
++
++	WRITE_ONCE(counter->prot->low, nr_pages);
+ 
+ 	for (c = counter; c; c = c->parent)
+ 		propagate_protected_usage(c, atomic_long_read(&c->usage));
+@@ -454,9 +461,18 @@ void page_counter_calculate_protection(struct page_counter *root,
+ 				       struct page_counter *counter,
+ 				       bool recursive_protection)
+ {
++	struct page_counter_protection *prot = counter->prot;
++	struct page_counter_protection *parent_prot;
+ 	unsigned long usage, parent_usage;
+ 	struct page_counter *parent = counter->parent;
+ 
 +	/*
-+	 * The combined memory+swap counter is charged on both hierarchies.
-+	 * Its limit is only configurable through v1's memsw.limit_in_bytes
-+	 * for now and defaults to "max", so unless the user configures a
-+	 * combined limit this never fails.
-+	 *
-+	 * Swapping does not reduce the combined charge, so when the combined
-+	 * limit is what we hit, reclaim must not count on swap.
++	 * Only counters with protection support (memory, dmem pools) are
++	 * ever passed here, but guard anyway.
 +	 */
-+	if (page_counter_try_charge(&memcg->memsw, batch, &counter)) {
- 		if (page_counter_try_charge(&memcg->memory, batch, &counter))
- 			goto done_restock;
--		if (do_memsw_account())
--			page_counter_uncharge(&memcg->memsw, batch);
-+		page_counter_uncharge(&memcg->memsw, batch);
- 		mem_over_limit = mem_cgroup_from_counter(counter, memory);
- 	} else {
- 		mem_over_limit = mem_cgroup_from_counter(counter, memsw);
-@@ -2836,8 +2845,7 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
- 	 * temporarily by force charging it.
- 	 */
- 	page_counter_charge(&memcg->memory, nr_pages);
--	if (do_memsw_account())
--		page_counter_charge(&memcg->memsw, nr_pages);
-+	page_counter_charge(&memcg->memsw, nr_pages);
- 
- out:
++	if (!prot)
++		return;
++
  	/*
-@@ -4295,12 +4303,14 @@ mem_cgroup_css_alloc(struct cgroup_subsys_state *parent_css)
- 	WRITE_ONCE(memcg->zswap_writeback, true);
- #endif
- 	page_counter_set_high(&memcg->swap, PAGE_COUNTER_MAX);
-+	page_counter_set_high(&memcg->memsw, PAGE_COUNTER_MAX);
- 	if (parent) {
- 		page_counter_init(&memcg->memory, &parent->memory);
- 		if (memcg_on_dfl)
- 			page_counter_init_protection(&memcg->memory, &memcg->memory_prot,
- 						     &parent->memory_prot);
- 		page_counter_init(&memcg->swap, &parent->swap);
-+		page_counter_init(&memcg->memsw, &parent->memsw);
- #ifdef CONFIG_MEMCG_V1
- 		WRITE_ONCE(memcg->swappiness, mem_cgroup_swappiness(parent));
- 		memcg->memory.track_failcnt = !memcg_on_dfl;
-@@ -4317,6 +4327,7 @@ mem_cgroup_css_alloc(struct cgroup_subsys_state *parent_css)
- 		page_counter_init_protection(&memcg->memory, &memcg->memory_prot,
- 					     NULL);
- 		page_counter_init(&memcg->swap, NULL);
-+		page_counter_init(&memcg->memsw, NULL);
- #ifdef CONFIG_MEMCG_V1
- 		page_counter_init(&memcg->kmem, NULL);
- 		page_counter_init(&memcg->tcpmem, NULL);
-@@ -4490,6 +4501,7 @@ static void mem_cgroup_css_reset(struct cgroup_subsys_state *css)
+ 	 * Effective values of the reclaim targets are ignored so they
+ 	 * can be stale. Have a look at mem_cgroup_protection for more
+@@ -472,23 +488,24 @@ void page_counter_calculate_protection(struct page_counter *root,
+ 		return;
  
- 	page_counter_set_max(&memcg->memory, PAGE_COUNTER_MAX);
- 	page_counter_set_max(&memcg->swap, PAGE_COUNTER_MAX);
-+	page_counter_set_max(&memcg->memsw, PAGE_COUNTER_MAX);
- 	WRITE_ONCE(memcg->oom_group, false);
- #ifdef CONFIG_ZSWAP
- 	WRITE_ONCE(memcg->zswap_max, PAGE_COUNTER_MAX);
-@@ -4503,6 +4515,7 @@ static void mem_cgroup_css_reset(struct cgroup_subsys_state *css)
- 	page_counter_set_low(&memcg->memory, 0);
- 	page_counter_set_high(&memcg->memory, PAGE_COUNTER_MAX);
- 	page_counter_set_high(&memcg->swap, PAGE_COUNTER_MAX);
-+	page_counter_set_high(&memcg->memsw, PAGE_COUNTER_MAX);
- 	memcg_wb_domain_size_changed(memcg);
+ 	if (parent == root) {
+-		counter->emin = READ_ONCE(counter->min);
+-		counter->elow = READ_ONCE(counter->low);
++		prot->emin = READ_ONCE(prot->min);
++		prot->elow = READ_ONCE(prot->low);
+ 		return;
+ 	}
+ 
++	parent_prot = parent->prot;
+ 	parent_usage = page_counter_read(parent);
+ 
+-	WRITE_ONCE(counter->emin, effective_protection(usage, parent_usage,
+-			READ_ONCE(counter->min),
+-			READ_ONCE(parent->emin),
+-			atomic_long_read(&parent->children_min_usage),
++	WRITE_ONCE(prot->emin, effective_protection(usage, parent_usage,
++			READ_ONCE(prot->min),
++			READ_ONCE(parent_prot->emin),
++			atomic_long_read(&parent_prot->children_min_usage),
+ 			recursive_protection));
+ 
+-	WRITE_ONCE(counter->elow, effective_protection(usage, parent_usage,
+-			READ_ONCE(counter->low),
+-			READ_ONCE(parent->elow),
+-			atomic_long_read(&parent->children_low_usage),
++	WRITE_ONCE(prot->elow, effective_protection(usage, parent_usage,
++			READ_ONCE(prot->low),
++			READ_ONCE(parent_prot->elow),
++			atomic_long_read(&parent_prot->children_low_usage),
+ 			recursive_protection));
  }
- 
-@@ -5608,8 +5621,7 @@ void mem_cgroup_replace_folio(struct folio *old, struct folio *new)
- 	 */
- 	if (!obj_cgroup_is_root(objcg)) {
- 		page_counter_charge(&memcg->memory, nr_pages);
--		if (do_memsw_account())
--			page_counter_charge(&memcg->memsw, nr_pages);
-+		page_counter_charge(&memcg->memsw, nr_pages);
- 	}
- 
- 	commit_charge(new, objcg);
-@@ -5980,12 +5992,24 @@ int __mem_cgroup_try_charge_swap(struct folio *folio)
- 	/* memcg is pined by memcg ID. */
- 	rcu_read_unlock();
- 
--	if (!mem_cgroup_is_root(memcg) &&
--	    !page_counter_try_charge(&memcg->swap, nr_pages, &counter)) {
--		memcg_memory_event(memcg, MEMCG_SWAP_MAX);
--		memcg_memory_event(memcg, MEMCG_SWAP_FAIL);
--		mem_cgroup_private_id_put(memcg, nr_pages);
--		return -ENOMEM;
-+	if (!mem_cgroup_is_root(memcg)) {
-+		if (!page_counter_try_charge(&memcg->swap, nr_pages, &counter)) {
-+			memcg_memory_event(memcg, MEMCG_SWAP_MAX);
-+			memcg_memory_event(memcg, MEMCG_SWAP_FAIL);
-+			mem_cgroup_private_id_put(memcg, nr_pages);
-+			return -ENOMEM;
-+		}
-+		/*
-+		 * Hand the combined memory+swap charge over to the swap slot.
-+		 * The folio still holds a memsw charge and drops it when it
-+		 * leaves memory, so the combined charge stays constant across
-+		 * the swapout; it is briefly counted twice in between, which
-+		 * only ever makes the combined limit stricter.
-+		 *
-+		 * Force-charge here: this is a transfer of an existing charge,
-+		 * not a new allocation, so it must not fail.
-+		 */
-+		page_counter_charge(&memcg->memsw, nr_pages);
- 	}
- 	mod_memcg_state(memcg, MEMCG_SWAP, nr_pages);
- 
-@@ -6010,10 +6034,10 @@ void __mem_cgroup_uncharge_swap(unsigned short id, unsigned int nr_pages)
- 	memcg = mem_cgroup_from_private_id(id);
- 	if (memcg) {
- 		if (!mem_cgroup_is_root(memcg)) {
--			if (do_memsw_account())
--				page_counter_uncharge(&memcg->memsw, nr_pages);
--			else
-+			/* v1 tracks swap only through the combined counter */
-+			if (!do_memsw_account())
- 				page_counter_uncharge(&memcg->swap, nr_pages);
-+			page_counter_uncharge(&memcg->memsw, nr_pages);
- 		}
- 		mod_memcg_state(memcg, MEMCG_SWAP, -nr_pages);
- 		mem_cgroup_private_id_put(memcg, nr_pages);
+ #endif /* CONFIG_MEMCG || CONFIG_CGROUP_DMEM */
 
 -- 
 2.43.7
