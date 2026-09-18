@@ -1,64 +1,64 @@
 Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08BA64F3EA8
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:18:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F2C04F404D
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:18:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789737508; cv=none; b=XKAwTZ3ARfKAecr7GPS2L7UyA8Y+Q7m3WA4uc5vQlO9fjQKP43hahhx3XNRduMfmEwHZI5SaVh1k3Vzw3yMaxKnbr/BI5Jj196HeHda9Jn8L/+6Ecfee/a7lVdOPcpk62wN7QFj9ZZ/kr/jV2gGuLRCbvWuZo4MeNibC2RaPn80=
+	t=1789737514; cv=none; b=GlnpQH+GcDq1l+3na/r75wh84wKPYgXtnnQrHt7/P8Y05EHH/wCGPD4ly6GAUVTjKbU4T4/RT4+LtcbrlAcB5NECRXzsS3A+K6iTvyiBtc+Br0q/6dBM8zeMPDS1Kk7la+ViFBA9cfw9r1VgqieW5y9+qSq67T2k/faeqzOTvV0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789737508; c=relaxed/simple;
-	bh=BBkVEhkLLbXu5qOdrjGK2WS6zCi3TkNNq5NU2ke1u48=;
+	s=arc-20240116; t=1789737514; c=relaxed/simple;
+	bh=+IXRF+gxbR99W9XyJ7A4LutWdhORNAD9G05Fo0xKDts=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oLs5HygD0YIQGfY5i8svThvn7HtECygZ9kn61IwA6018EYSUodXuzwmbrbf+IuZut8FL/w1gYbR10DnJzkLKWwngz5NdoRTaMOM4xi+xoqgVnbvigvIGVwlBBZLtO3xYqQ6AQJFp3tCI04EeXBXqnUBgq0sYvR5W5m9YhzMd44M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mS0Zn17p; arc=none smtp.client-ip=74.125.225.76
+	 MIME-Version; b=R6lrdYXnTVdHXFWut9RPGqtuXWMEz3as/+6UpoAtR2c/zPOEJT5JqoOiiOJMzIP5Z0SUNrqGDVSIVebY+xdycuEvV48R9AHTXom/1rkq3AqySemgw2GXJp0bF17x+PidTlmuqalzCTaelwPT0XQx18x33F/9mU/EWpB4Ybq8pM0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qks8P6ny; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mS0Zn17p"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4834977ae75so392769f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:18:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qks8P6ny"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f633cd78so410932f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:18:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789737501; x=1790342301; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789737508; x=1790342308; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=dBI8Vei6mUKThCIHcgGdefIiyo76m+YulL+4eF81XBA=;
-        b=mS0Zn17pFo82XJZ/3cXmc3LQnwznkNaViVpZ8i/Qxca7+X2RUiDRzVYEYJym1Vpm5E
-         xN1FB0JqOZNShKC67aVYIXxSzlnt5d6+DcGIz2dc4Co2/tjCpaxcNXE3sfSGHAoByOzI
-         zsHm33ITd/ByFkytXWEteWLHTXCK5Uyrh1lz/m3AldXlybQkCSER5zMWzR+abTYmcwqP
-         yDWiqdCKsdJg+OU527afEcZpHvwsCEIPw1VQE82ZL1M+MgtG4oJg5VnxoCJ6V5rdrnGS
-         Qcr9Mf+pcXdlmZBN5sPfQfDG2PkBHejO65HjZXJacPDrPl3GZx/N46FVsKd6OwqtiNQh
-         81Mg==
+        bh=YtBPLqwC7VJbXcngjda2oQbwhTixdm4j9JpsXuMGn8M=;
+        b=Qks8P6nyrw2bjISS6Harh4axmDj1JOKUU32YGdG8NqGI9E/e5i/9wYvcHPNE6bTuIz
+         kav2o9CIQqjpGTOkbabYHkRA1v9gwosKj00nuxjOv0GmxKzS0Y+SrzSE1GNlG7THcGJG
+         0VU1PL3M9rGQ8n18hdHdlsd7oSaikusaPR6nuVGgPxzWC0Kidfw2hrB4MWePb2unPVKa
+         vJ9zsBrH8IN/XSkP7SoN0r4IO13jYD/8qmLH5N2iLx4UhievBwQeiE2U9tz3kB6Os0cH
+         YR+o+9ShmJA+fIlLYfsrUUDRcT2+ZqdBGPD7ZxNh8HBEQyZW78/YtaxiPj1+/zC7g+P3
+         Hz3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789737501; x=1790342301;
+        d=1e100.net; s=20260707; t=1789737508; x=1790342308;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dBI8Vei6mUKThCIHcgGdefIiyo76m+YulL+4eF81XBA=;
-        b=1abv2HCucHLqTZ7h4cqwJdovapnz79Be9094vAhOepE55EXRazRWgUdO+R/Jd9o/IG
-         xbhIId1l7n2sLu/j7ext94BvrREZwH/dSx5o7FOzSHtqHTpUF1nUqja8iUJEpybmFCNV
-         we4i90JrO0PmD0Tu5Rk76FuTMK7AY+kbfNGNL6WY1O5+CTdDMsp8sBmqv3NeRjW/3oYy
-         5LYzJSI77W1IYcpMWXs+tQgPYY9padAOizBHr+bQWHnd6Xamlgp7kJf62ERQN7AT5xeU
-         YhJwrI7Ny1FontjpvZN+ZSqAoTmIHR0xkT0hsbolaUY2kdy1fuzVcCP49/NxUBPabp2a
-         Jcow==
-X-Forwarded-Encrypted: i=1; AKwUvBx8KaL6IP+OF53fIN+a8jHcHrzed5a+mB8U4o0Gsg+N8lMh0sBgIOXEtSqWkbTyOTRdRFtK2xPq+lWZENc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kf8y6CafRB0UBrIDMq/m033A58SycWUhcojMtxQgVVSgZzTd+p
-	lz1+1ru+vLme9dOSkv1wniw6RmzkxulwNn/BjvI0bQMIY7XJ4DggAgnA
-X-Gm-Gg: AYBFou02QGihbkfedF0oQzIVryIKbeLAj+u5NrykFqK/yTnx75nYkkQl4cWOKn5/U3U
-	sffhvJqLj3RPjTUKPpk3lSVAkQ+R0NQzFny4eOrhq/gtckaj4TPFt9gCvArs4s0m1+G+Anxsfpc
-	xvzAupSXwgQ/1IfvAvPxvtDGGetSZqoMdbuNt4WshwwK1YCipCzINODj5p5lrqv1x/QZp/Z2EGy
-	HCnJkU9RicO0BkWB5adsoxdqkvTeVCjjbV040isagCkJ43caj2O3m9xKQn910VKgtr0lxZnPWJl
-	fLiSLZ0jAn8H94LtN0otadrZdHPLhdH5195deOj75q1vcO7zTQgVFfgusC5US+pOIZ8quuSgLmK
-	CRakOzmPUga3xRd2eAcTne6ish+AWshaUJ6bG7mQ5NS1iNA8Jql2UGlobukPxbdAJBvlF0umn71
-	jaFEfbfEOWcqNTmYT8pwWR53giGa8f1pls78tLxP1UA4gD2ibjrYrr2LWD1GuNr1OyboCJ6T0bq
-	i4mDLwAVxgIs0U=
-X-Received: by 2002:a05:6000:26d2:b0:487:ae2:4d01 with SMTP id ffacd0b85a97d-4871e36cff7mr7099900f8f.22.1789737501308;
-        Fri, 18 Sep 2026 06:18:21 -0700 (PDT)
+        bh=YtBPLqwC7VJbXcngjda2oQbwhTixdm4j9JpsXuMGn8M=;
+        b=SN+AWRwW+cH4Lcj3XiJENgDyDzGKNUtCjjMTYVWifESefAWAuY+jcild4lYKptt7r+
+         9mFRC56HmgfCnm0q2dGuuy/7JVKS6n02HeOiFLy8cRrowSThvaIuqNCiF0Do88lGCFfJ
+         3ugPI8hbbKAdWUFEhWJUeyZwzzBM0WxL6pcYKAtF3QAce7NRi/7bEE+KktZKbaJn3VVs
+         8xHVA911yIvyzpl1GtRLOT0v8TfNDok0ZB47c/514JhMaQJFaWDGde4qTxoji0+Lh/hR
+         VSQGAtCJVpvg3mcJHg4eT9gk0i//NXy+NDQLUz3ANwx/RdgMu/fVRmHgqJlOoBHYVpVD
+         XSog==
+X-Forwarded-Encrypted: i=1; AKwUvBy9+3NBOqTakBXbMOiR4U/MK6dCF/mdgt82yLzHv8tHN1tdWykjLNWM5MnTSZvXMDHaCXFpjvgp6iPbYSs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lLW875ZDG+5yoN7wbBe4J2tL/alfmGkM6v8FjvHMmW57IBmhhi
+	E5vaws7I2FMToSujBpzjXS80x/Sh2QbnfVbGJhY5ikV5nx4kSRSAyu4ttVrM2VAo
+X-Gm-Gg: AYBFou00mXvxEwWNq6uXuDNRItJlqFHWaNAgXak0NJwLRj4E6eYP0spxlR1JpP5u6Nx
+	e6iIuO7TzkxovdEzaqAbZdM7tWL7vj0NMpwfz+94jQMwjhZcG8hvlQQDwBZCsS3tse5OioNUaTR
+	C75zVLJzE+yS3tEfabu9/nivH0XQSAzM9MUq8dxZpJl/tck/wq2zgXjx0En8pDc4F3lMLivWfRA
+	YLOXQXRDX8nagIcZf/DG7pfkDd8bn6DT46IoGXHvM/Twwr/p4LnKIPQEKJL+A+0XB8mqnF2gkqd
+	jn7FI2Q65rPlLKyyZNP0dM8q6FK7l+SOTGNQQc8nQGvkq+saV+7fAzVbgWgBl4v8G5ims0NrEOs
+	4+pq1wFs1u84gq6yIOXRDs8BxJoQA0+7basHqZlqBnVlYidjB7mnvpo+9ZNeKjeqPshmYFRZkZw
+	FnGgvuEwClL6nk+Ans328kFTrgBePU1D9ivoKKQ6RBS7U4pXjbRaNyIB8QWgOEp2nkpMWmzR6wF
+	6rqqxuXpI7KQ+Q=
+X-Received: by 2002:a05:6000:40e1:b0:482:fd9c:3740 with SMTP id ffacd0b85a97d-4871e227ccfmr3468864f8f.22.1789737507607;
+        Fri, 18 Sep 2026 06:18:27 -0700 (PDT)
 Received: from dell-desktop ([2a02:587:4b4e:8500:290c:210b:1c76:5710])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4871feb5de3sm4424549f8f.1.2026.09.18.06.18.19
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4871feb5de3sm4424549f8f.1.2026.09.18.06.18.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 06:18:20 -0700 (PDT)
+        Fri, 18 Sep 2026 06:18:26 -0700 (PDT)
 From: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
 To: bpf@vger.kernel.org
 Cc: linux-fsdevel@vger.kernel.org,
@@ -80,9 +80,9 @@ Cc: linux-fsdevel@vger.kernel.org,
 	utilityemal77@gmail.com,
 	viro@zeniv.linux.org.uk,
 	tasos.papagiannnis@gmail.com
-Subject: [PATCH bpf-next v9 1/5] mm: Add copy_remote_mm_str()
-Date: Fri, 18 Sep 2026 16:17:53 +0300
-Message-ID: <20260918131757.42802-2-tasos.papagiannnis@gmail.com>
+Subject: [PATCH bpf-next v9 3/5] bpf: Add user memory access kfuncs for mm_struct
+Date: Fri, 18 Sep 2026 16:17:55 +0300
+Message-ID: <20260918131757.42802-4-tasos.papagiannnis@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260918131757.42802-1-tasos.papagiannnis@gmail.com>
 References: <20260918131757.42802-1-tasos.papagiannnis@gmail.com>
@@ -94,263 +94,244 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-copy_remote_vm_str() gets the target address space from a struct
-task_struct. This does not work for an address space that exists but is
-not yet associated with a task_struct, such as the mm held by struct
-linux_binprm during exec.
+On CONFIG_MMU kernels, when security_bprm_check() runs, the argument and
+environment strings for the exec have been copied into bprm->mm. The new
+address space is not associated with a task_struct until exec_mmap(), so
+existing BPF user memory helpers cannot access it.
 
-Add copy_remote_mm_str(), which operates directly on a struct mm_struct.
+Add bpf_copy_from_user_mm() and bpf_copy_from_user_mm_str() kfuncs. Both
+take a struct mm_struct pointer directly, allowing callers to access
+trusted address spaces that are not associated with a task_struct.
 
-Use a common internal interface for the MMU and NOMMU implementations
-and define both public wrappers in mm/util.c. Preserve the existing
-copy_remote_vm_str() behavior, including handling zero-length requests
-before acquiring the task's mm.
+bpf_copy_from_user_mm() has similar semantics to
+bpf_copy_from_user_task(). bpf_copy_from_user_mm_str() copies one
+NUL-terminated string and returns its size including the NUL terminator.
+It accepts BPF_F_PAD_ZEROS to clear unused destination bytes on success.
+
+Refactor the task-based helpers and the new mm-based kfuncs to share
+static internal implementations. The task-based interfaces validate their
+arguments before acquiring and holding a reference to the task's mm for
+the copy. No behavior change is intended for the existing task-based
+interfaces.
+
+Register both new kfuncs and mark them KF_SLEEPABLE because accessing a
+remote address space can fault.
 
 Signed-off-by: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Matt Bobrowski <matt@bobrowski.net>
 ---
- include/linux/mm.h |  8 +++----
- mm/internal.h      |  3 +++
- mm/memory.c        | 43 ++-------------------------------
- mm/nommu.c         | 43 ++-------------------------------
- mm/util.c          | 60 ++++++++++++++++++++++++++++++++++++++++++++++
- 5 files changed, 71 insertions(+), 86 deletions(-)
+ kernel/bpf/helpers.c | 154 +++++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 142 insertions(+), 12 deletions(-)
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index dd09c438fa23..63f40e615754 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -3325,10 +3325,10 @@ extern int access_process_vm(struct task_struct *tsk, unsigned long addr,
- extern int access_remote_vm(struct mm_struct *mm, unsigned long addr,
- 		void *buf, int len, unsigned int gup_flags);
+diff --git a/kernel/bpf/helpers.c b/kernel/bpf/helpers.c
+index 051b6654e57c..82402d97ce67 100644
+--- a/kernel/bpf/helpers.c
++++ b/kernel/bpf/helpers.c
+@@ -679,9 +679,44 @@ const struct bpf_func_proto bpf_copy_from_user_proto = {
+ 	.arg3_type	= ARG_ANYTHING,
+ };
  
--#ifdef CONFIG_BPF_SYSCALL
--extern int copy_remote_vm_str(struct task_struct *tsk, unsigned long addr,
--			      void *buf, int len, unsigned int gup_flags);
--#endif
-+int copy_remote_mm_str(struct mm_struct *mm, unsigned long addr,
-+		void *buf, int len, unsigned int gup_flags);
-+int copy_remote_vm_str(struct task_struct *tsk, unsigned long addr,
-+		void *buf, int len, unsigned int gup_flags);
- 
- long get_user_pages_remote(struct mm_struct *mm,
- 			   unsigned long start, unsigned long nr_pages,
-diff --git a/mm/internal.h b/mm/internal.h
-index 38b1165212c9..7c326965a94f 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -25,6 +25,9 @@
- struct folio_batch;
- struct hstate;
- 
-+int __copy_remote_mm_str(struct mm_struct *mm, unsigned long addr,
-+		void *buf, int len, unsigned int gup_flags);
-+
- struct huge_bootmem_page {
- 	struct list_head list;
- 	struct hstate *hstate;
-diff --git a/mm/memory.c b/mm/memory.c
-index 8b0c2c735d3d..fa819a8a1df6 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -7326,13 +7326,12 @@ int access_process_vm(struct task_struct *tsk, unsigned long addr,
- }
- EXPORT_SYMBOL_GPL(access_process_vm);
- 
--#ifdef CONFIG_BPF_SYSCALL
- /*
-  * Copy a string from another process's address space as given in mm.
-  * If there is any error return -EFAULT.
-  */
--static int __copy_remote_vm_str(struct mm_struct *mm, unsigned long addr,
--				void *buf, int len, unsigned int gup_flags)
-+int __copy_remote_mm_str(struct mm_struct *mm, unsigned long addr,
-+		void *buf, int len, unsigned int gup_flags)
- {
- 	void *old_buf = buf;
- 	int err = 0;
-@@ -7408,44 +7407,6 @@ static int __copy_remote_vm_str(struct mm_struct *mm, unsigned long addr,
- 	return buf - old_buf;
- }
- 
--/**
-- * copy_remote_vm_str - copy a string from another process's address space.
-- * @tsk:	the task of the target address space
-- * @addr:	start address to read from
-- * @buf:	destination buffer
-- * @len:	number of bytes to copy
-- * @gup_flags:	flags modifying lookup behaviour
-- *
-- * The caller must hold a reference on @mm.
-- *
-- * Return: number of bytes copied from @addr (source) to @buf (destination);
-- * not including the trailing NUL. Always guaranteed to leave NUL-terminated
-- * buffer. On any error, return -EFAULT.
-- */
--int copy_remote_vm_str(struct task_struct *tsk, unsigned long addr,
--		       void *buf, int len, unsigned int gup_flags)
--{
--	struct mm_struct *mm;
--	int ret;
--
--	if (unlikely(len == 0))
--		return 0;
--
--	mm = get_task_mm(tsk);
--	if (!mm) {
--		*(char *)buf = '\0';
--		return -EFAULT;
--	}
--
--	ret = __copy_remote_vm_str(mm, addr, buf, len, gup_flags);
--
--	mmput(mm);
--
--	return ret;
--}
--EXPORT_SYMBOL_GPL(copy_remote_vm_str);
--#endif /* CONFIG_BPF_SYSCALL */
--
- /*
-  * Print the name of a VMA.
-  */
-diff --git a/mm/nommu.c b/mm/nommu.c
-index 498e01ee40b0..68b05565e15a 100644
---- a/mm/nommu.c
-+++ b/mm/nommu.c
-@@ -1741,13 +1741,12 @@ int access_process_vm(struct task_struct *tsk, unsigned long addr, void *buf, in
- }
- EXPORT_SYMBOL_GPL(access_process_vm);
- 
--#ifdef CONFIG_BPF_SYSCALL
- /*
-  * Copy a string from another process's address space as given in mm.
-  * If there is any error return -EFAULT.
-  */
--static int __copy_remote_vm_str(struct mm_struct *mm, unsigned long addr,
--				void *buf, int len)
-+int __copy_remote_mm_str(struct mm_struct *mm, unsigned long addr,
-+		void *buf, int len, unsigned int gup_flags)
- {
- 	unsigned long addr_end;
- 	struct vm_area_struct *vma;
-@@ -1782,44 +1781,6 @@ static int __copy_remote_vm_str(struct mm_struct *mm, unsigned long addr,
- 	return ret;
- }
- 
--/**
-- * copy_remote_vm_str - copy a string from another process's address space.
-- * @tsk:	the task of the target address space
-- * @addr:	start address to read from
-- * @buf:	destination buffer
-- * @len:	number of bytes to copy
-- * @gup_flags:	flags modifying lookup behaviour (unused)
-- *
-- * The caller must hold a reference on @mm.
-- *
-- * Return: number of bytes copied from @addr (source) to @buf (destination);
-- * not including the trailing NUL. Always guaranteed to leave NUL-terminated
-- * buffer. On any error, return -EFAULT.
-- */
--int copy_remote_vm_str(struct task_struct *tsk, unsigned long addr,
--		       void *buf, int len, unsigned int gup_flags)
--{
--	struct mm_struct *mm;
--	int ret;
--
--	if (unlikely(len == 0))
--		return 0;
--
--	mm = get_task_mm(tsk);
--	if (!mm) {
--		*(char *)buf = '\0';
--		return -EFAULT;
--	}
--
--	ret = __copy_remote_vm_str(mm, addr, buf, len);
--
--	mmput(mm);
--
--	return ret;
--}
--EXPORT_SYMBOL_GPL(copy_remote_vm_str);
--#endif /* CONFIG_BPF_SYSCALL */
--
- /**
-  * nommu_shrink_inode_mappings - Shrink the shared mappings on an inode
-  * @inode: The inode to check
-diff --git a/mm/util.c b/mm/util.c
-index bf0513d1d3d0..75c0fc2061aa 100644
---- a/mm/util.c
-+++ b/mm/util.c
-@@ -1061,6 +1061,66 @@ int get_cmdline(struct task_struct *task, char *buffer, int buflen)
- 	return res;
- }
- 
-+/**
-+ * copy_remote_mm_str - copy a string from a remote address space.
-+ * @mm:         the remote address space
-+ * @addr:       start address to read from
-+ * @buf:        destination buffer
-+ * @len:        number of bytes to copy
-+ * @gup_flags:  flags modifying lookup behaviour
-+ *
-+ * The caller must hold a reference on @mm.
-+ *
-+ * Return: number of bytes copied from @addr (source) to @buf (destination),
-+ * not including the trailing NUL. If @len is zero, return 0 without accessing
-+ * @buf. Otherwise, @buf is always NUL-terminated. On any error, return
-+ * -EFAULT.
-+ */
-+int copy_remote_mm_str(struct mm_struct *mm, unsigned long addr,
-+		void *buf, int len, unsigned int gup_flags)
++static int __bpf_copy_from_user_mm(void *dst, u32 size,
++				   const void __user *user_ptr,
++				   struct mm_struct *mm)
 +{
-+	if (unlikely(len == 0))
-+		return 0;
-+
-+	return __copy_remote_mm_str(mm, addr, buf, len, gup_flags);
-+}
-+
-+/**
-+ * copy_remote_vm_str - copy a string from another process's address space.
-+ * @tsk:	the task of the target address space
-+ * @addr:	start address to read from
-+ * @buf:	destination buffer
-+ * @len:	number of bytes to copy
-+ * @gup_flags:	flags modifying lookup behaviour
-+ *
-+ * Return: number of bytes copied from @addr (source) to @buf (destination),
-+ * not including the trailing NUL. If @len is zero, return 0 without accessing
-+ * @buf. Otherwise, @buf is always NUL-terminated. On any error, return
-+ * -EFAULT.
-+ */
-+int copy_remote_vm_str(struct task_struct *tsk, unsigned long addr,
-+		void *buf, int len, unsigned int gup_flags)
-+{
-+	struct mm_struct *mm;
 +	int ret;
 +
-+	if (unlikely(len == 0))
++	ret = access_remote_vm(mm, (unsigned long)user_ptr, dst, size, 0);
++	if (ret == size)
 +		return 0;
 +
++	memset(dst, 0, size);
++	/* Return -EFAULT for partial read */
++	return ret < 0 ? ret : -EFAULT;
++}
++
++static int __bpf_copy_from_user_mm_str(void *dst, u32 size,
++				       const void __user *user_ptr,
++				       struct mm_struct *mm, u64 flags)
++{
++	int ret;
++
++	ret = copy_remote_mm_str(mm, (unsigned long)user_ptr, dst, size, 0);
++	if (ret < 0) {
++		if (flags & BPF_F_PAD_ZEROS)
++			memset(dst, 0, size);
++		return ret;
++	}
++
++	if (flags & BPF_F_PAD_ZEROS)
++		memset(dst + ret, 0, size - ret);
++
++	return ret + 1;
++}
++
+ BPF_CALL_5(bpf_copy_from_user_task, void *, dst, u32, size,
+ 	   const void __user *, user_ptr, struct task_struct *, tsk, u64, flags)
+ {
++	struct mm_struct *mm;
+ 	int ret;
+ 
+ 	/* flags is not used yet */
+@@ -691,13 +726,16 @@ BPF_CALL_5(bpf_copy_from_user_task, void *, dst, u32, size,
+ 	if (unlikely(!size))
+ 		return 0;
+ 
+-	ret = access_process_vm(tsk, (unsigned long)user_ptr, dst, size, 0);
+-	if (ret == size)
+-		return 0;
 +	mm = get_task_mm(tsk);
 +	if (!mm) {
-+		*(char *)buf = '\0';
++		memset(dst, 0, size);
++		return -EFAULT;
++	}
+ 
+-	memset(dst, 0, size);
+-	/* Return -EFAULT for partial read */
+-	return ret < 0 ? ret : -EFAULT;
++	ret = __bpf_copy_from_user_mm(dst, size, user_ptr, mm);
++	mmput(mm);
++
++	return ret;
+ }
+ 
+ const struct bpf_func_proto bpf_copy_from_user_task_proto = {
+@@ -3659,6 +3697,92 @@ __bpf_kfunc int bpf_copy_from_user_str(void *dst, u32 dst__sz, const void __user
+ 	return ret + 1;
+ }
+ 
++/**
++ * bpf_copy_from_user_mm() - Copy data from an address space
++ * @dst:             Destination address, in kernel space
++ * @dst__sz:         Number of bytes to copy
++ * @unsafe_ptr__ign: Source address in the address space
++ * @mm:              Address space to copy from
++ * @flags:           Reserved for future use; must be zero
++ *
++ * Copies data from the user address space associated with @mm. The destination
++ * is zeroed if an attempted copy cannot be completed in full. Unsupported
++ * flags return -EINVAL without modifying @dst.
++ *
++ * Return: 0 on success, -EINVAL if @flags is non-zero, or -EFAULT if @mm is no
++ * longer active or the copy fails or is partial.
++ */
++__bpf_kfunc int bpf_copy_from_user_mm(void *dst, u32 dst__sz,
++				      const void __user *unsafe_ptr__ign,
++				      struct mm_struct *mm, u64 flags)
++{
++	int ret;
++
++	if (unlikely(flags))
++		return -EINVAL;
++
++	if (unlikely(!dst__sz))
++		return 0;
++
++	if (unlikely(!mmget_not_zero(mm))) {
++		memset(dst, 0, dst__sz);
 +		return -EFAULT;
 +	}
 +
-+	ret = __copy_remote_mm_str(mm, addr, buf, len, gup_flags);
-+
++	ret = __bpf_copy_from_user_mm(dst, dst__sz, unsafe_ptr__ign, mm);
 +	mmput(mm);
 +
 +	return ret;
 +}
-+EXPORT_SYMBOL_GPL(copy_remote_vm_str);
 +
- int __weak memcmp_pages(struct page *page1, struct page *page2)
++/**
++ * bpf_copy_from_user_mm_str() - Copy a string from an address space
++ * @dst:             Destination address, in kernel space. This buffer must be
++ *                   at least @dst__sz bytes long
++ * @dst__sz:         Maximum number of bytes to copy, including the trailing NUL
++ * @unsafe_ptr__ign: Source address in the address space
++ * @mm:              Address space to copy from
++ * @flags:           The only supported flag is BPF_F_PAD_ZEROS
++ *
++ * Copies a NUL-terminated string from the user address space associated with
++ * @mm. If the string is too long, @dst is still NUL-terminated unless @dst__sz
++ * is zero.
++ *
++ * If the flags are valid and BPF_F_PAD_ZEROS is set, the unused portion of
++ * @dst is cleared on success and all of @dst is cleared on a copy failure.
++ * Unsupported flags return -EINVAL without modifying @dst.
++ *
++ * Return: The number of copied bytes including the NUL terminator on success,
++ * -EINVAL if @flags is invalid, or -EFAULT if @mm is no longer active or the
++ * copy fails.
++ */
++__bpf_kfunc int bpf_copy_from_user_mm_str(void *dst, u32 dst__sz,
++					  const void __user *unsafe_ptr__ign,
++					  struct mm_struct *mm, u64 flags)
++{
++	int ret;
++
++	if (unlikely(flags & ~BPF_F_PAD_ZEROS))
++		return -EINVAL;
++
++	if (unlikely(dst__sz == 0))
++		return 0;
++
++	if (unlikely(!mmget_not_zero(mm))) {
++		if (flags & BPF_F_PAD_ZEROS)
++			memset(dst, 0, dst__sz);
++		else
++			*(char *)dst = '\0';
++		return -EFAULT;
++	}
++
++	ret = __bpf_copy_from_user_mm_str(dst, dst__sz, unsafe_ptr__ign,
++					  mm, flags);
++	mmput(mm);
++
++	return ret;
++}
++
+ /**
+  * bpf_copy_from_user_task_str() - Copy a string from an task's address space
+  * @dst:             Destination address, in kernel space.  This buffer must be
+@@ -3682,6 +3806,7 @@ __bpf_kfunc int bpf_copy_from_user_task_str(void *dst, u32 dst__sz,
+ 					    const void __user *unsafe_ptr__ign,
+ 					    struct task_struct *tsk, u64 flags)
  {
- 	char *addr1, *addr2;
++	struct mm_struct *mm;
+ 	int ret;
+ 
+ 	if (unlikely(flags & ~BPF_F_PAD_ZEROS))
+@@ -3690,17 +3815,20 @@ __bpf_kfunc int bpf_copy_from_user_task_str(void *dst, u32 dst__sz,
+ 	if (unlikely(dst__sz == 0))
+ 		return 0;
+ 
+-	ret = copy_remote_vm_str(tsk, (unsigned long)unsafe_ptr__ign, dst, dst__sz, 0);
+-	if (ret < 0) {
++	mm = get_task_mm(tsk);
++	if (!mm) {
+ 		if (flags & BPF_F_PAD_ZEROS)
+ 			memset(dst, 0, dst__sz);
+-		return ret;
++		else
++			*(char *)dst = '\0';
++		return -EFAULT;
+ 	}
+ 
+-	if (flags & BPF_F_PAD_ZEROS)
+-		memset(dst + ret, 0, dst__sz - ret);
++	ret = __bpf_copy_from_user_mm_str(dst, dst__sz, unsafe_ptr__ign,
++					  mm, flags);
++	mmput(mm);
+ 
+-	return ret + 1;
++	return ret;
+ }
+ 
+ /* Keep unsigned long in prototype so that kfunc is usable when emitted to
+@@ -4925,6 +5053,8 @@ BTF_ID_FLAGS(func, bpf_iter_bits_new, KF_ITER_NEW)
+ BTF_ID_FLAGS(func, bpf_iter_bits_next, KF_ITER_NEXT | KF_RET_NULL)
+ BTF_ID_FLAGS(func, bpf_iter_bits_destroy, KF_ITER_DESTROY)
+ BTF_ID_FLAGS(func, bpf_copy_from_user_str, KF_SLEEPABLE)
++BTF_ID_FLAGS(func, bpf_copy_from_user_mm, KF_SLEEPABLE)
++BTF_ID_FLAGS(func, bpf_copy_from_user_mm_str, KF_SLEEPABLE)
+ BTF_ID_FLAGS(func, bpf_copy_from_user_task_str, KF_SLEEPABLE)
+ BTF_ID_FLAGS(func, bpf_get_kmem_cache)
+ BTF_ID_FLAGS(func, bpf_iter_kmem_cache_new, KF_ITER_NEW | KF_SLEEPABLE)
 -- 
 2.55.0
 
