@@ -1,231 +1,559 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB6123B95EC
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:47:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1992138C2A0;
+	Fri, 18 Sep 2026 01:48:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789696056; cv=none; b=tT/jpQH9OlU23i2OylX+LDtK5XkDLJcqYqYwonOoUUL4JalbvgQIyJyqAgRbqsvnTJHk5js26ugTeD1dam2TRCpyBpAU/ssnnZegBubcc9bBdnPs048lkS83D90iTWDpzaHhBVY2Bl3zefj2MJiv3FWIa+X58Nd1TQe2lpdVSKo=
+	t=1789696135; cv=none; b=VdPb5AMuEFJRxaWc4DlhhHyTrJadO4YoeBBB41BlGFdFlrTrKVQk0dbdPoKsXXD6SzqpG+IJlr8+VCOw+tizMZFTR0ej/TcqOZzFNafgkGWsiOhO4o9Lef3cETvOKqJOnhgpvAtl12fFflKcRxRbKkntr3l0eadnWwAshlNkYf8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789696056; c=relaxed/simple;
-	bh=jH9ShoSZX0rAxFQGNEuxIH4YWfhH0wY9gnTRKR71iP8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FWIFlUI5zvwXyDT9MfP8y/emj2ctnoNcO9jFiMM5xS9stoKzDNvZ3X+10l6V66+sOjzH6Dn/Mn4Oa/ULEE4qk4dQegC0pYF0V5EjnfqIe6JIdjC3Ve7vPpAjgR06mGWsd8aqY8aogQed7E8AQVGb+1cLet+oSXjKWdm3qAWGa4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OnhIaxhJ; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789696135; c=relaxed/simple;
+	bh=gL45ldTBcLHL9w5e3s2AxDDxLvXm6jkViq5ZDr192gM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=d53evu15uXhOhqZoe4VGpTUJ+3QQozpVaC1Lx7xSEYaLB0NIhnYqAdkV6Gx4cGlGiom24ghJd6ULbb3hyWFa07ZYLLp0FJ47S/JPkVo12WGe7ZGJRQWW24NIfNpwJOMHsbFfKKI4t8JufoHMUMbS++9vBXt4AWEPH2NN/vl884M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CeS5hWq9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OnhIaxhJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789696029;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9ovPTbvLEJJOqEFcDDpslczGlymPsHZBK7w/POdlYcQ=;
-	b=OnhIaxhJ98ReFQnAdFW/xNkFIJ1j+IAzxGjORZ+48XZKITH7qZPcZbp7ydUcC+K9ImIePe
-	0YhUrZwwAi3yVrj0ovXyysFtRgX61BIEEUEwfbZNb9CBe/cwMPOL7pHKEixMulMklrU8Hk
-	b6rgrprMt/5kWSY+XxYAxTvVznqoaik=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-458-ngUFKrJONAmcmwzqvcMYeA-1; Thu,
- 17 Sep 2026 21:47:04 -0400
-X-MC-Unique: ngUFKrJONAmcmwzqvcMYeA-1
-X-Mimecast-MFC-AGG-ID: ngUFKrJONAmcmwzqvcMYeA_1789696021
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8A7F61954229;
-	Fri, 18 Sep 2026 01:47:01 +0000 (UTC)
-Received: from lcapitul-thinkpadt14gen3.rmtcaqc.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id E4B9718002A6;
-	Fri, 18 Sep 2026 01:46:57 +0000 (UTC)
-From: Luiz Capitulino <luizcap@redhat.com>
-To: linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	david@kernel.org,
-	baolin.wang@linux.alibaba.com,
-	ziy@nvidia.com,
-	lance.yang@linux.dev
-Cc: corbet@lwn.net,
-	tsbogend@alpha.franken.de,
-	maddy@linux.ibm.com,
-	mpe@ellerman.id.au,
-	agordeev@linux.ibm.com,
-	gerald.schaefer@linux.ibm.com,
-	hca@linux.ibm.com,
-	gor@linux.ibm.com,
-	x86@kernel.org,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	hughd@google.com,
-	dave.hansen@linux.intel.com,
-	djbw@kernel.org,
-	vishal.l.verma@intel.com,
-	dave.jiang@intel.com,
-	akpm@linux-foundation.org,
-	yintirui@huawei.com,
-	dev.jain@arm.com,
-	usama.arif@linux.dev
-Subject: [PATCH v8 14/14] mm: thp: always enable mTHP support
-Date: Thu, 17 Sep 2026 21:45:35 -0400
-Message-ID: <752f528f0fed5cdc9de12b54260b0495d4e5a6cb.1789695931.git.luizcap@redhat.com>
-In-Reply-To: <cover.1789695931.git.luizcap@redhat.com>
-References: <cover.1789695931.git.luizcap@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CeS5hWq9"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 24AEC1F000FF;
+	Fri, 18 Sep 2026 01:48:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789696125;
+	bh=ncmL0BeTb7WPlxOkWf44r6/OdyUkoRphecm1I+zCoJk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CeS5hWq9d6kT2JwMMtJEFkEuGgG5DXMbWnR9scu5uYhcte5hLum6x/98osMq5YP0E
+	 0/Sk4SPBHMh5MfEHlzVlThWscmGJJ3JzTXDW1EyZ7UUJdoP4rBqXt0IKGuEN/YHOl7
+	 EGy4I8M/bvqHNjHBgxI+GySmpLvqt18iV4GydTM3+t+t5CdIZQnI6uWNFeWOWSUfst
+	 KL6lCzwob1hlaBgxhXICAUaMIWcaqvT4r4VwhrZiUcNllvBdyuyy9/w9LLQyLfgO7t
+	 AWhTMaBOB4T871fN5fCh530NvWFDAxfKH5qydeYphpWkLn2lKHT7Jwi+JxzS6Ucbv1
+	 Y7kdTPFyXs0/Q==
+Date: Fri, 18 Sep 2026 04:48:42 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+Cc: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>,
+	Jens Wiklander <jenswi@kernel.org>,
+	Sumit Garg <sumit.garg@kernel.org>, Peter Huewe <peterhuewe@gmx.de>,
+	Jason Gunthorpe <jgg@ziepe.ca>, linux-arm-msm@vger.kernel.org,
+	op-tee@lists.trustedfirmware.org, linux-kernel@vger.kernel.org,
+	linux-integrity@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] tpm: Introduce Qualcomm TPM driver
+Message-ID: <aqyYevJZdk2Ouwzd@kernel.org>
+References: <20260907-tpm_qcom_driver-v2-0-71a6b1752da8@oss.qualcomm.com>
+ <20260907-tpm_qcom_driver-v2-2-71a6b1752da8@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907-tpm_qcom_driver-v2-2-71a6b1752da8@oss.qualcomm.com>
 
-If PMD-sized pages are not supported on an architecture (ie. the
-arch implements arch_has_pmd_leaves() and it returns false) then the
-current code disables all THP, including mTHP.
+On Mon, Sep 07, 2026 at 02:58:42PM +0530, Kuldeep Singh wrote:
+> Add a TPM chip driver for platforms where a TPM 2.0 instance is
+> implemented by a Trusted Application (TA) running in Qualcomm's Trusted
+> Execution Environment (QTEE), reachable over the QCOMTEE object-IPC
+> transport.
+> 
+> The driver discovers the qcom.tz.tpm TEE-bus device, opens a session
+> with the TPM TA, and register with tpm interface. This exposes the TA
+> through the standard /dev/tpm interface and the existing tpm2 command
+> layer. OS need not be aware underlying TPM instance is dTPM or fTPM.
+> 
+> Signed-off-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+> ---
+>  drivers/char/tpm/Kconfig    |   9 ++
+>  drivers/char/tpm/Makefile   |   1 +
+>  drivers/char/tpm/tpm_qcom.c | 354 ++++++++++++++++++++++++++++++++++++++++++++
+>  drivers/char/tpm/tpm_qcom.h |  83 +++++++++++
+>  4 files changed, 447 insertions(+)
+> 
+> diff --git a/drivers/char/tpm/Kconfig b/drivers/char/tpm/Kconfig
+> index 5f672f2c01b0..05d704ed3632 100644
+> --- a/drivers/char/tpm/Kconfig
+> +++ b/drivers/char/tpm/Kconfig
+> @@ -243,6 +243,15 @@ config TCG_FTPM_TEE
+>  	help
+>  	  This driver proxies for firmware TPM running in TEE.
+>  
+> +config TCG_QCOM
+> +	tristate "Qualcomm TEE based TPM Interface"
+> +	depends on QCOMTEE
+> +	help
+> +	  This driver provides interface to run TPM instances with Trustzone
+> +	  having Qualcomm TPM TA running in Qualcomm TEE.
+> +	  The mechanism uses the object-IPC based transport provided by
+> +	  QCOMTEE.
+> +
+>  config TCG_SVSM
+>  	tristate "SNP SVSM vTPM interface"
+>  	depends on AMD_MEM_ENCRYPT
+> diff --git a/drivers/char/tpm/Makefile b/drivers/char/tpm/Makefile
+> index 5b5cdc0d32e4..471cbf49afd2 100644
+> --- a/drivers/char/tpm/Makefile
+> +++ b/drivers/char/tpm/Makefile
+> @@ -45,5 +45,6 @@ obj-$(CONFIG_TCG_CRB) += tpm_crb.o
+>  obj-$(CONFIG_TCG_ARM_CRB_FFA) += tpm_crb_ffa.o
+>  obj-$(CONFIG_TCG_VTPM_PROXY) += tpm_vtpm_proxy.o
+>  obj-$(CONFIG_TCG_FTPM_TEE) += tpm_ftpm_tee.o
+> +obj-$(CONFIG_TCG_QCOM) += tpm_qcom.o
+>  obj-$(CONFIG_TCG_SVSM) += tpm_svsm.o
+>  obj-$(CONFIG_TCG_LOONGSON) += tpm_loongson.o
+> diff --git a/drivers/char/tpm/tpm_qcom.c b/drivers/char/tpm/tpm_qcom.c
+> new file mode 100644
+> index 000000000000..ef29c66f18ae
+> --- /dev/null
+> +++ b/drivers/char/tpm/tpm_qcom.c
+> @@ -0,0 +1,354 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + *
+> + */
+> +
+> +#include <linux/mm.h>
+> +#include <linux/slab.h>
+> +#include <linux/tee.h>
+> +#include <linux/tee_drv.h>
+> +#include <linux/tpm.h>
+> +#include <linux/uuid.h>
+> +
+> +#include "tpm.h"
+> +#include "tpm_qcom.h"
+> +
+> +/* UUID of the QTEE-bus device representing the TPM TA. */
+> +static const uuid_t tpm_qcom_uuid =
+> +	UUID_INIT(0xaabcb593, 0x7083, 0x5536,
+> +		  0xac, 0x27, 0x3d, 0x2d, 0x89, 0x41, 0x9d, 0xdb);
+> +
+> +static void tpm_qcom_release_object(struct tee_context *ctx,
+> +				    struct tee_param_objref object)
+> +{
+> +	struct tee_ioctl_object_invoke_arg inv_arg = {};
+> +
+> +	inv_arg.id = object.id;
+> +	inv_arg.op = QCOMTEE_MSG_OBJECT_OP_RELEASE;
+> +	inv_arg.num_params = 0;
+> +
+> +	tee_client_object_invoke_func(ctx, &inv_arg, NULL);
+> +}
+> +
+> +static int tpm_qcom_get_client_env_obj(struct tee_context *ctx,
+> +				       struct tee_param_objref *client_env_obj)
+> +{
+> +	struct tee_ioctl_object_invoke_arg inv_arg = {};
+> +	struct tee_param param[2] = {};
+> +	int ret;
+> +
+> +	inv_arg.id = TEE_OBJREF_NULL;
+> +	inv_arg.op = QCOMTEE_ROOT_OP_REG_WITH_CREDENTIALS;
+> +	inv_arg.num_params = 2;
+> +
+> +	param[0].attr = TEE_IOCTL_PARAM_ATTR_TYPE_OBJREF_INPUT;
+> +	param[0].u.objref.id = TEE_OBJREF_NULL;
+> +	param[1].attr = TEE_IOCTL_PARAM_ATTR_TYPE_OBJREF_OUTPUT;
+> +
+> +	ret = tee_client_object_invoke_func(ctx, &inv_arg, param);
+> +	if (ret < 0 || inv_arg.ret != 0)
+> +		return ret ?: inv_arg.ret;
+> +
+> +	*client_env_obj = param[1].u.objref;
+> +	return ret;
+> +}
+> +
+> +static int tpm_qcom_get_svc_obj(struct tee_context *ctx,
+> +				struct tee_param_objref client_env_obj,
+> +				struct tee_param_objref *tpm_svc_obj)
+> +{
+> +	struct tee_ioctl_object_invoke_arg inv_arg = {};
+> +	struct tee_param param[2] = {};
+> +	u32 tpm_uid = QCOMTEE_TPM_UID;
+> +	int ret;
+> +
+> +	inv_arg.id = client_env_obj.id;
+> +	inv_arg.op = QCOMTEE_OP_CLIENT_ENV_OPEN;
+> +	inv_arg.num_params = 2;
+> +
+> +	param[0].attr = TEE_IOCTL_PARAM_ATTR_TYPE_UBUF_INPUT;
+> +	param[0].u.ubuf = (struct tee_param_ubuf){ .addr = &tpm_uid,
+> +						    .size = sizeof(tpm_uid) };
+> +	param[1].attr = TEE_IOCTL_PARAM_ATTR_TYPE_OBJREF_OUTPUT;
+> +
+> +	ret = tee_client_object_invoke_func(ctx, &inv_arg, param);
+> +	if (ret < 0 || inv_arg.ret != 0)
+> +		return ret ?: inv_arg.ret;
+> +
+> +	*tpm_svc_obj = param[1].u.objref;
+> +	return ret;
+> +}
+> +
+> +static int tpm_qcom_send_command(struct tpm_qcom_private *pvt_data,
+> +				 u32 locality, void *req, size_t req_len,
+> +				 void *rsp, size_t *rsp_len)
+> +{
+> +	struct tee_ioctl_object_invoke_arg inv_arg = {};
+> +	struct tee_param param[3] = {};
+> +	u8 locality_arg = locality;
+> +	int ret;
+> +
+> +	inv_arg.id = pvt_data->tpm_svc_obj.id;
+> +	inv_arg.op = QCOMTEE_TPM_OP_SEND_COMMAND;
+> +	inv_arg.num_params = 3;
+> +
+> +	param[0].attr = TEE_IOCTL_PARAM_ATTR_TYPE_UBUF_INPUT;
+> +	param[0].u.ubuf = (struct tee_param_ubuf){ .addr = &locality_arg,
+> +						   .size = sizeof(locality_arg) };
+> +	param[1].attr = TEE_IOCTL_PARAM_ATTR_TYPE_UBUF_INPUT;
+> +	param[1].u.ubuf = (struct tee_param_ubuf){ .addr = req, .size = req_len };
+> +	param[2].attr = TEE_IOCTL_PARAM_ATTR_TYPE_UBUF_OUTPUT;
+> +	param[2].u.ubuf = (struct tee_param_ubuf){ .addr = rsp, .size = *rsp_len };
+> +
+> +	ret = tee_client_object_invoke_func(pvt_data->ctx, &inv_arg, param);
+> +	if (ret < 0 || inv_arg.ret != 0) {
+> +		dev_err(pvt_data->dev,
+> +			"send_command invoke ret: %d, err: 0x%x\n",
+> +			ret, inv_arg.ret);
+> +		return ret ?: inv_arg.ret;
+> +	}
+> +
+> +	*rsp_len = param[2].u.ubuf.size;
+> +
+> +	return ret;
+> +}
+> +
+> +static int tpm_qcom_get_ta_details(struct tpm_qcom_private *pvt_data)
+> +{
+> +	struct tpm_qcom_ta_version_req ver_req = {
+> +		.command_id = QCOMTEE_TPM_GET_TA_VERSION_ID,
+> +	};
+> +	struct tpm_qcom_ta_version_rsp ver_rsp;
+> +	size_t ver_rsp_len = sizeof(ver_rsp);
+> +	struct tpm_qcom_type_req type_req = {
+> +		.command_id = QCOMTEE_TPM_TYPE_ID,
+> +	};
+> +	struct tpm_qcom_type_rsp type_rsp;
+> +	size_t type_rsp_len = sizeof(type_rsp);
+> +	int ret;
+> +
+> +	ret = tpm_qcom_send_command(pvt_data, 0, &ver_req, sizeof(ver_req),
+> +				    &ver_rsp, &ver_rsp_len);
+> +	if (ret || ver_rsp_len < sizeof(ver_rsp) || ver_rsp.status != 0) {
+> +		dev_err(pvt_data->dev,
+> +			"failed to query TA version: ret=%d, status=%u\n",
+> +			ret, ret ? 0 : ver_rsp.status);
+> +		return ret ?: -EIO;
+> +	}
+> +
+> +	dev_info(pvt_data->dev, "TPM TA version %lu.%lu\n",
+> +		 FIELD_GET(QCOMTEE_TPM_TA_VERSION_MAJOR, ver_rsp.version_num),
+> +		 FIELD_GET(QCOMTEE_TPM_TA_VERSION_MINOR, ver_rsp.version_num));
+> +
+> +	ret = tpm_qcom_send_command(pvt_data, 0, &type_req, sizeof(type_req),
+> +				    &type_rsp, &type_rsp_len);
+> +	if (ret || type_rsp_len < sizeof(type_rsp) || type_rsp.status != 0) {
+> +		dev_err(pvt_data->dev,
+> +			"failed to query TPM type: ret=%d, status=%u\n",
+> +			ret, ret ? 0 : type_rsp.status);
+> +		return ret ?: -EIO;
+> +	}
+> +
+> +	switch (type_rsp.tpm_type) {
+> +	case QCOMTEE_TPM_TYPE_FTPM:
+> +		dev_info(pvt_data->dev, "TPM type: fTPM\n");
+> +		pvt_data->is_dtpm = false;
+> +		break;
+> +	case QCOMTEE_TPM_TYPE_DTPM:
+> +		dev_info(pvt_data->dev, "TPM type: dTPM\n");
+> +		pvt_data->is_dtpm = true;
+> +		break;
+> +	default:
+> +		dev_err(pvt_data->dev, "unsupported TPM type: 0x%08x\n",
+> +			type_rsp.tpm_type);
+> +		return -EIO;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +/* fTPM does not implement this command and to be invoked via dtpm only. */
+> +static void tpm_qcom_transfer(struct tpm_qcom_private *pvt_data,
+> +			      u32 transfer_state)
+> +{
+> +	struct tpm_qcom_transfer_req req = {
+> +		.command_id = QCOMTEE_TPM_TRANSFER_ID,
+> +		.transfer_state = transfer_state,
+> +	};
+> +	struct tpm_qcom_transfer_rsp rsp;
+> +	size_t rsp_len = sizeof(rsp);
+> +	int ret;
+> +
+> +	ret = tpm_qcom_send_command(pvt_data, 0, &req, sizeof(req), &rsp,
+> +				    &rsp_len);
+> +	if (ret || rsp_len < sizeof(rsp) || rsp.status != 0)
+> +		dev_warn(pvt_data->dev,
+> +			 "transfer state=%u hint failed: ret=%d, status=%u\n",
+> +			 transfer_state, ret, ret ? 0 : rsp.status);
+> +}
+> +
+> +static int tpm_qcom_cmd_ready(struct tpm_chip *chip)
+> +{
+> +	struct tpm_qcom_private *pvt_data = dev_get_drvdata(chip->dev.parent);
+> +
+> +	if (pvt_data->is_dtpm)
+> +		tpm_qcom_transfer(pvt_data, QCOMTEE_TPM_TRANSFER_START);
+> +
+> +	return 0;
+> +}
+> +
+> +static int tpm_qcom_go_idle(struct tpm_chip *chip)
+> +{
+> +	struct tpm_qcom_private *pvt_data = dev_get_drvdata(chip->dev.parent);
+> +
+> +	if (pvt_data->is_dtpm)
+> +		tpm_qcom_transfer(pvt_data, QCOMTEE_TPM_TRANSFER_END);
+> +
+> +	return 0;
+> +}
+> +
+> +/*
+> + * The raw TPM2 command in @buf is sent directly as send_command's UBUF-in
+> + * param and the raw TPM2 response is read back from its UBUF-out param.
+> + */
+> +static int tpm_qcom_send(struct tpm_chip *chip, u8 *buf, size_t bufsiz,
+> +			 size_t cmd_len)
+> +{
+> +	struct tpm_qcom_private *pvt_data = dev_get_drvdata(chip->dev.parent);
+> +	size_t rsp_len = PAGE_ALIGN(MAX_RESPONSE_SIZE);
+> +	size_t copy_len;
+> +	int ret;
+> +
+> +	if (cmd_len > MAX_COMMAND_SIZE) {
+> +		dev_err(&chip->dev, "len=%zd exceeds MAX_COMMAND_SIZE\n", cmd_len);
+> +		return -EIO;
+> +	}
+> +
+> +	u8 *response __free(kfree) = kzalloc(rsp_len, GFP_KERNEL);
+> +	if (!response)
+> +		return -ENOMEM;
+> +
+> +	ret = tpm_qcom_send_command(pvt_data, 0, buf, cmd_len, response,
+> +				    &rsp_len);
+> +	if (ret < 0) {
+> +		dev_err(&chip->dev, "send_command failed: ret=%d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	copy_len = min_t(size_t, bufsiz, rsp_len);
+> +	memcpy(buf, response, copy_len);
+> +
+> +	return copy_len;
+> +}
+> +
+> +static const struct tpm_class_ops tpm_qcom_ops = {
+> +	.flags = TPM_OPS_AUTO_STARTUP,
+> +	.send = tpm_qcom_send,
+> +	.cmd_ready = tpm_qcom_cmd_ready,
+> +	.go_idle = tpm_qcom_go_idle,
+> +};
+> +
+> +static int tpm_qcom_ctx_match(struct tee_ioctl_version_data *ver,
+> +			      const void *data)
+> +{
+> +	return (ver->impl_id == TEE_IMPL_ID_QTEE);
+> +}
+> +
+> +static int tpm_qcom_probe(struct tee_client_device *tee_dev)
+> +{
+> +	struct device *dev = &tee_dev->dev;
+> +	struct tpm_qcom_private *pvt_data;
+> +	struct tee_param_objref client_env_obj;
+> +	struct tee_param_objref tpm_svc_obj;
+> +	struct tpm_chip *chip;
+> +	int rc, err;
+> +
+> +	pvt_data = devm_kzalloc(dev, sizeof(*pvt_data), GFP_KERNEL);
+> +	if (!pvt_data)
+> +		return -ENOMEM;
+> +
+> +	dev_set_drvdata(dev, pvt_data);
+> +
+> +	pvt_data->ctx = tee_client_open_context(NULL, tpm_qcom_ctx_match, NULL, NULL);
+> +	if (IS_ERR(pvt_data->ctx))
+> +		return -ENODEV;
+> +
+> +	rc = tpm_qcom_get_client_env_obj(pvt_data->ctx, &client_env_obj);
+> +	if (rc) {
+> +		err = -EINVAL;
+> +		goto out_ctx;
+> +	}
+> +
+> +	rc = tpm_qcom_get_svc_obj(pvt_data->ctx, client_env_obj, &tpm_svc_obj);
+> +	if (rc) {
+> +		err = -EINVAL;
+> +		goto out_client_env;
+> +	}
+> +	pvt_data->tpm_svc_obj = tpm_svc_obj;
+> +	pvt_data->dev = dev;
+> +
+> +	err = tpm_qcom_get_ta_details(pvt_data);
+> +	if (err)
+> +		goto out_svc_obj;
+> +
+> +	chip = tpm_chip_alloc(dev, &tpm_qcom_ops);
+> +	if (IS_ERR(chip)) {
+> +		dev_err(dev, "tpm_chip_alloc failed\n");
+> +		err = PTR_ERR(chip);
+> +		goto out_svc_obj;
+> +	}
+> +
+> +	pvt_data->chip = chip;
+> +	pvt_data->chip->flags |= TPM_CHIP_FLAG_TPM2 | TPM_CHIP_FLAG_SYNC;
+> +
+> +	err = tpm_chip_register(pvt_data->chip);
+> +	if (err) {
+> +		dev_err(dev, "tpm_chip_register failed with rc=%d\n", err);
+> +		goto out_chip;
+> +	}
+> +
+> +	tpm_qcom_release_object(pvt_data->ctx, client_env_obj);
+> +	return 0;
+> +
+> +out_chip:
+> +	put_device(&pvt_data->chip->dev);
+> +out_svc_obj:
+> +	tpm_qcom_release_object(pvt_data->ctx, tpm_svc_obj);
+> +out_client_env:
+> +	tpm_qcom_release_object(pvt_data->ctx, client_env_obj);
+> +out_ctx:
+> +	tee_client_close_context(pvt_data->ctx);
+> +	return err;
+> +}
+> +
+> +static void tpm_qcom_remove(struct tee_client_device *tee_dev)
+> +{
+> +	struct tpm_qcom_private *pvt_data = dev_get_drvdata(&tee_dev->dev);
+> +
+> +	tpm_chip_unregister(pvt_data->chip);
+> +	put_device(&pvt_data->chip->dev);
+> +	tpm_qcom_release_object(pvt_data->ctx, pvt_data->tpm_svc_obj);
+> +	tee_client_close_context(pvt_data->ctx);
+> +}
+> +
+> +static const struct tee_client_device_id tpm_qcom_id_table[] = {
+> +	{ tpm_qcom_uuid },
+> +	{}
+> +};
+> +MODULE_DEVICE_TABLE(tee, tpm_qcom_id_table);
+> +
+> +static struct tee_client_driver tpm_qcom_driver = {
+> +	.id_table	= tpm_qcom_id_table,
+> +	.probe		= tpm_qcom_probe,
+> +	.remove		= tpm_qcom_remove,
+> +	.driver		= {
+> +		.name	= "tpm_qcom",
+> +	},
+> +};
+> +
+> +module_tee_client_driver(tpm_qcom_driver);
+> +
+> +MODULE_DESCRIPTION("TPM driver for Qualcomm TPM TA");
+> +MODULE_AUTHOR("Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>");
+> +MODULE_LICENSE("GPL");
+> diff --git a/drivers/char/tpm/tpm_qcom.h b/drivers/char/tpm/tpm_qcom.h
+> new file mode 100644
+> index 000000000000..3945b12643b7
+> --- /dev/null
+> +++ b/drivers/char/tpm/tpm_qcom.h
+> @@ -0,0 +1,83 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +#ifndef __TPM_QCOM_H__
+> +#define __TPM_QCOM_H__
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/tee_drv.h>
+> +#include <linux/tpm.h>
+> +#include <linux/uuid.h>
+> +
+> +#define QCOMTEE_ROOT_OP_REG_WITH_CREDENTIALS	5
+> +#define QCOMTEE_OP_CLIENT_ENV_OPEN		0
+> +#define QCOMTEE_MSG_OBJECT_OP_MASK		GENMASK(15, 0)
+> +#define QCOMTEE_MSG_OBJECT_OP_RELEASE		(QCOMTEE_MSG_OBJECT_OP_MASK - 0)
+> +
+> +#define QCOMTEE_TPM_OP_SEND_COMMAND	0
+> +
+> +/* UID of the "qcom.tz.tpm" service */
+> +#define QCOMTEE_TPM_UID			81
+> +
+> +/* Max buffer size supported by TPM TA */
+> +#define MAX_COMMAND_SIZE		SZ_4K
+> +#define MAX_RESPONSE_SIZE		SZ_4K
+> +
+> +#define QCOMTEE_TPM_GET_TA_VERSION_ID	0x0001000
+> +#define QCOMTEE_TPM_TA_VERSION_MAJOR	GENMASK(31, 16)
+> +#define QCOMTEE_TPM_TA_VERSION_MINOR	GENMASK(15, 0)
+> +
+> +struct tpm_qcom_ta_version_req {
+> +	u32 command_id;
+> +} __packed;
+> +
+> +struct tpm_qcom_ta_version_rsp {
+> +	u32 status;
+> +	u32 command_id;
+> +	u32 version_num;
+> +} __packed;
+> +
+> +#define QCOMTEE_TPM_TYPE_ID		0x0080000
+> +#define QCOMTEE_TPM_TYPE_DTPM		0x6454504dU
+> +#define QCOMTEE_TPM_TYPE_FTPM		0x6654504dU
+> +#define QCOMTEE_TPM_TYPE_NONE		0x4e6f6e65U
+> +
+> +struct tpm_qcom_type_req {
+> +	u32 command_id;
+> +} __packed;
+> +
+> +struct tpm_qcom_type_rsp {
+> +	u32 command_id;
+> +	u32 status;
+> +	u32 tpm_type;
+> +} __packed;
+> +
+> +/*
+> + * dTPM SPI transfer optimization:
+> + * TRANSFER_START before a burst of commands, TRANSFER_END once done.
+> + */
+> +#define QCOMTEE_TPM_TRANSFER_ID		0x0000002
+> +#define QCOMTEE_TPM_TRANSFER_END	0
+> +#define QCOMTEE_TPM_TRANSFER_START	1
+> +
+> +struct tpm_qcom_transfer_req {
+> +	u32 command_id;
+> +	u32 transfer_state;
+> +} __packed;
+> +
+> +struct tpm_qcom_transfer_rsp {
+> +	u32 command_id;
+> +	u32 status;
+> +} __packed;
+> +
+> +struct tpm_qcom_private {
+> +	struct tpm_chip *chip;
+> +	struct device *dev;
+> +	struct tee_context *ctx;
+> +	struct tee_param_objref tpm_svc_obj;
+> +	bool is_dtpm;
+> +};
+> +
+> +#endif /* __TPM_QCOM_H__ */
+> 
+> -- 
+> 2.34.1
+> 
 
-This commit fixes this by allowing mTHP to be always enabled for all
-archs. When PMD-sized pages are not supported, its sysfs entry won't be
-created and their mapping will be disallowed at page-fault time.
 
-Similarly, this commit implements the following changes for shmem in
-shmem_allowable_huge_orders():
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
 
- - Drop the pgtable_has_pmd_leaves() check so that mTHP sizes are
-   considered
- - Filter out PMD and PUD orders from allowable orders when
-   PMD-sized pages are not supported by the CPU
-
-Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
----
- mm/huge_memory.c | 25 ++++++++++++++++++++-----
- mm/shmem.c       | 14 +++++++++-----
- 2 files changed, 29 insertions(+), 10 deletions(-)
-
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index a06025b87e7c..a2d6de3ea988 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -189,6 +189,15 @@ unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
- 	else
- 		supported_orders = THP_ORDERS_ALL_FILE_DEFAULT;
- 
-+	if (!pgtable_has_pmd_leaves()) {
-+		/*
-+		 * If the CPU does not support PMD leaves, assume for
-+		 * now that it does not support PUD leaves and disable
-+		 * both folio orders.
-+		 */
-+		supported_orders &= ~(BIT(PMD_ORDER) | BIT(PUD_ORDER));
-+	}
-+
- 	orders &= supported_orders;
- 	if (!orders)
- 		return 0;
-@@ -196,7 +205,7 @@ unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
- 	if (!vma->vm_mm)		/* vdso */
- 		return 0;
- 
--	if (!pgtable_has_pmd_leaves() || vma_thp_disabled(vma, vm_flags, forced_collapse))
-+	if (vma_thp_disabled(vma, vm_flags, forced_collapse))
- 		return 0;
- 
- 	/* khugepaged doesn't collapse DAX vma, but page fault is fine. */
-@@ -979,7 +988,7 @@ static int __init hugepage_init_sysfs(struct kobject **hugepage_kobj)
- 	 * disable all other sizes. powerpc's PMD_ORDER isn't a compile-time
- 	 * constant so we have to do this here.
- 	 */
--	if (!anon_orders_configured)
-+	if (!anon_orders_configured && pgtable_has_pmd_leaves())
- 		huge_anon_orders_inherit = BIT(PMD_ORDER);
- 
- 	*hugepage_kobj = kobject_create_and_add("transparent_hugepage", mm_kobj);
-@@ -1001,6 +1010,15 @@ static int __init hugepage_init_sysfs(struct kobject **hugepage_kobj)
- 	}
- 
- 	orders = THP_ORDERS_ALL_ANON | THP_ORDERS_ALL_FILE_DEFAULT;
-+	if (!pgtable_has_pmd_leaves()) {
-+		/*
-+		 * If the CPU does not support PMD leaves, assume for
-+		 * now that it does not support PUD leaves and disable
-+		 * both folio orders.
-+		 */
-+		orders &= ~(BIT(PMD_ORDER) | BIT(PUD_ORDER));
-+	}
-+
- 	order = highest_order(orders);
- 	while (orders) {
- 		thpsize = thpsize_create(order, *hugepage_kobj);
-@@ -1091,9 +1109,6 @@ static int __init hugepage_init(void)
- 	int err;
- 	struct kobject *hugepage_kobj;
- 
--	if (!pgtable_has_pmd_leaves())
--		return -EINVAL;
--
- 	/*
- 	 * hugepages can't be allocated by the buddy allocator
- 	 */
-diff --git a/mm/shmem.c b/mm/shmem.c
-index bc2de3a7c1ea..8c0f7e3efeeb 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -2046,11 +2046,14 @@ unsigned long shmem_allowable_huge_orders(struct inode *inode,
- 	unsigned long mask = READ_ONCE(huge_shmem_orders_always);
- 	unsigned long within_size_orders = READ_ONCE(huge_shmem_orders_within_size);
- 	vm_flags_t vm_flags = vma ? vma->vm_flags : 0;
--	unsigned int global_orders;
-+	unsigned int global_orders, disabled_orders = 0;
- 
--	if (!pgtable_has_pmd_leaves() || (vma && vma_thp_disabled(vma, vm_flags, shmem_huge_force)))
-+	if (vma && vma_thp_disabled(vma, vm_flags, shmem_huge_force))
- 		return 0;
- 
-+	if (!pgtable_has_pmd_leaves())
-+		disabled_orders = BIT(PMD_ORDER);
-+
- 	global_orders = shmem_huge_global_enabled(inode, index, write_end,
- 						  shmem_huge_force, vma, vm_flags);
- 	/*
-@@ -2058,7 +2061,7 @@ unsigned long shmem_allowable_huge_orders(struct inode *inode,
- 	 * sysfs configs.
- 	 */
- 	if (!vma || !vma_is_anon_shmem(vma) || shmem_huge_force)
--		return global_orders;
-+		return global_orders & ~disabled_orders;
- 
- 	/*
- 	 * Following the 'deny' semantics of the top level, force the huge
-@@ -2072,7 +2075,7 @@ unsigned long shmem_allowable_huge_orders(struct inode *inode,
- 	 * means non-PMD sized THP can not override 'huge' mount option now.
- 	 */
- 	if (shmem_huge == SHMEM_HUGE_FORCE)
--		return READ_ONCE(huge_shmem_orders_inherit);
-+		return READ_ONCE(huge_shmem_orders_inherit) & ~disabled_orders;
- 
- 	/* Allow mTHP that will be fully within i_size. */
- 	mask |= shmem_get_orders_within_size(inode, within_size_orders, index, 0);
-@@ -2083,6 +2086,7 @@ unsigned long shmem_allowable_huge_orders(struct inode *inode,
- 	if (global_orders > 0)
- 		mask |= READ_ONCE(huge_shmem_orders_inherit);
- 
-+	mask &= ~disabled_orders;
- 	return THP_ORDERS_ALL_FILE_DEFAULT & mask;
- }
- 
-@@ -5630,7 +5634,7 @@ void __init shmem_init(void)
- 	 * Default to setting PMD-sized THP to inherit the global setting and
- 	 * disable all other multi-size THPs.
- 	 */
--	if (!shmem_orders_configured)
-+	if (!shmem_orders_configured && pgtable_has_pmd_leaves())
- 		huge_shmem_orders_inherit = BIT(HPAGE_PMD_ORDER);
- #endif
- 	return;
--- 
-2.55.0
-
+BR, Jarkko
