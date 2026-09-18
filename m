@@ -1,34 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4FCF4FDE7F
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:18:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C54D4FE2E1
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:18:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789741125; cv=none; b=Yp8kN1qtux8zt6PuqUd6BInatRS2bu9MGXxAiJ9UIOIY1DfB/s4OFCRzU1jj3Cqli6U+AR58YQMZvWXWfKxPXIuvyrUYyPxLCUMolcveLEAPpz4Y9GO97Q8RLl94FS/HCb1sGxQ7NIZboGLD8cFip+x6yWu+4df3TCL5HLVPDPQ=
+	t=1789741128; cv=none; b=swpzduTsVeZsTc3cSE1xZgf/z2xl3jJZgnJsdStpiENzbe+tdKAp/IR45xXao5FU7jvQDs7lUd0k24eH/sQBazUz7hDFhi3iXDHR70z5q0ot1NIWjy1EzfxvlsWESpi3Sn3VRisdN5j6jULEgTa68j4RP0bRSCfpm9YswqPAMMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789741125; c=relaxed/simple;
-	bh=zzvBXbMjAwZ0/KZw8aDVlC4NQJFPbEgXUUSYv1Y+V+k=;
+	s=arc-20240116; t=1789741128; c=relaxed/simple;
+	bh=T0/yZbif8qvMhUYbKQ5OZSohlQVc+4QmXLfUx6lhP6s=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GhWjm8q2408g9xjUJO2Kp/uTnRsnYmE0fa9CysBavydpr0Ok+GPEscwGhCtTWhOcAlZvaeFR9iGX3xEPZ78wL73Lmg8hvieZ42Sh9F4pocxVxnD1uOmkmiqFTm8xtXJ92Sx9QxO6En1lk71Pit93QP/EEc6YfK45HofefAMcaoQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m0Q/fjcC; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=QBluJnhfwB2YrStpWWesBTKq6hr6VbTFTYUX4tPskE5VqEac7uxkvghBbkeqDYx81f7ZL8nCGPktX+rYRSnAGeAQYxay7SWB9YjcuzrYmiheM6TM46n7EN3pSh/9Lirf4fncLgrSADH2C7pibUUVUE1U0fZaErydWmYb5r2j58Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kg03Xg9/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m0Q/fjcC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBCA51F000FF;
-	Fri, 18 Sep 2026 14:18:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kg03Xg9/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BD931F00898;
+	Fri, 18 Sep 2026 14:18:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789741123;
-	bh=2CPTv1J842nMwHMWJhCqTkdcv33ReicjRMjhrF4Rc1c=;
+	s=k20260515; t=1789741127;
+	bh=WrDnBXEUES0WR7P2lhOYTykVEKJTOaUBbf8pmdHPY8w=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=m0Q/fjcC3lE8AiM/bb756zMQY3UgKr7F8IMecHrcz/ss3pO5vEh8jlJBIiulPpyMv
-	 ZiHXsyKiRmnQAaJVnHmTUIC1C7PDQvPxfWt1p4wJ1sIOGGm5cayvTyYpOCfnG4/IKD
-	 fm/5fchWQ0pYf8zDe6v7/08RLQ2BgQfVh4AuSerff3DODlL5j2jEqNucEa9rzxujor
-	 dEQ6+QgQ5GlbhjadxZZ7cpHV5VXnOnDz7tcgHfJ0t8zND9UPlYchhucOag3vjE7Gs7
-	 5hu+5PN/3pQYJkmWufy/x0vsYcX6JgfMKLQAcX3Yzx0TZEB8kc6/NtQ0rmd00R7OuG
-	 m/SXYZgRFL7HA==
+	b=kg03Xg9/UH09L0FZmK58QNBMKkuOUJYfHkkLDCTA4OVxT5Vmnyz/a+rHtVWzZ7B1q
+	 1xsmCbtbFlJzXI/dMKI9xq1YlLsHnJFnDv+PrmqkmFaWbaQmBxmEQWCIepMgvBcU9J
+	 gw9bU6ys0aM2AX0vzvJgpBJJwUo7O5XJGW/rgo73GMR+DmGkCJeBcYQiWaJEohxytZ
+	 GcRjH67IT0Q1KjEW/JJSyIoi23V1OIR3BEYQ1cRlvZ6Nsdaab1mdcuAUcaR9/kHcSL
+	 tn3JdcIARLUcLA26pQ05bvrGrOxCc0vjVJTA/E1NTbFjFM/iguhmoKhfgEHeQvpB7f
+	 LRMFYY0D5tQkw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 18 Sep 2026 16:18:00 +0200
-Subject: [PATCH v4 11/13] drm/atomic-uapi: Add DRM_MODE_ATOMIC_RESET flag
+Date: Fri, 18 Sep 2026 16:18:01 +0200
+Subject: [PATCH v4 12/13] drm/vkms: Switch container_of helpers to
+ container_of_const
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,7 +38,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-drm-reset-state-flag-v4-11-5ad106370f05@kernel.org>
+Message-Id: <20260918-drm-reset-state-flag-v4-12-5ad106370f05@kernel.org>
 References: <20260918-drm-reset-state-flag-v4-0-5ad106370f05@kernel.org>
 In-Reply-To: <20260918-drm-reset-state-flag-v4-0-5ad106370f05@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -56,189 +57,57 @@ Cc: Daniel Stone <daniels@collabora.com>,
  Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6277; i=mripard@kernel.org;
- h=from:subject:message-id; bh=QxLmGr8FIlnpGqZI5c8vL0af5SOBJ665zMb2Fp0RHS0=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlrPUQ2edwWjJ6laNyR+nX9PaFW5Si7np+Wi9ojZb7cc
- 9J0+pvSMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACaS/5mxms18RfQnVX39b30b
- 19+ri9U11tzddsWrqp57foDLyrT+lnPvc7nlVbfe1rsbvq+y4rEgY5110XYR2VdnXJ1WzH0dJtv
- F2ODUpPF01fsyvoXzfmwpO79E2tUosu6Ch+X8HXf/Gc2f/wMA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1657; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=T0/yZbif8qvMhUYbKQ5OZSohlQVc+4QmXLfUx6lhP6s=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlrPUREFCSXLm76OPOa5hdNsTWLLVYE13YrheR1fb0/1
+ ajBkO1Zx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZhIUzxjQ/eMvRdit14Vvvun
+ k+fIwt7GltOnmvl85ywq6e7P+H1s71+JFyZn2ERPvZu2JjX9yAWjJMY6y6NyX05eWu3yoO3d/yh
+ dMZZqzr9aASZlf0ItzvevXRcXWMf1OHjCH9u1//dNNVvF/aYaAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 
-From: Sebastian Wick <sebastian.wick@redhat.com>
+The vkms container_of helpers use container_of() which discards the
+const qualifier from the input pointer. This prevents passing a const
+state pointer to to_vkms_plane_state() without a cast, for instance
+in atomic_get_property which receives a const drm_plane_state.
 
-Userspace currently has no atomic way to reset all KMS object states
-to their defaults. To bring a display pipeline to a known state, a
-compositor must explicitly set every property on every object, which
-requires tracking which properties exist and what their defaults are.
+Switch all four helpers to container_of_const() so the const qualifier
+is properly propagated to the result type.
 
-Introduce DRM_MODE_ATOMIC_RESET (0x0800) which, when passed to the
-atomic ioctl, fills the commit with default states for all KMS
-objects before applying the properties supplied in the request.
-Properties not explicitly included in the commit remain at their
-defaults (CRTCs inactive, planes disabled, connectors unbound, and
-so on).
-
-The flag cannot be combined with DRM_MODE_PAGE_FLIP_ASYNC, since a
-full state reset is incompatible with an async flip.
-
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-Signed-off-by: Sebastian Wick <sebastian.wick@redhat.com>
-Co-developed-by: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic.c      |  3 +++
- drivers/gpu/drm/drm_atomic_uapi.c | 18 ++++++++++++++++++
- drivers/gpu/drm/drm_ioctl.c       |  3 +++
- include/uapi/drm/drm.h            | 10 ++++++++++
- include/uapi/drm/drm_mode.h       | 14 +++++++++++++-
- 5 files changed, 47 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/vkms/vkms_drv.h | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index b039edaa3271..0c5999695436 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -1611,10 +1611,13 @@ EXPORT_SYMBOL(drm_atomic_get_new_bridge_state);
-  * the current state.
-  *
-  * Color operations are not checked because they always use
-  * drm_atomic_helper_colorop_create_state() and do not have a per-driver hook.
-  *
-+ * This is used to report the %DRM_CAP_ATOMIC_RESET capability to userspace,
-+ * and as a precondition in drm_atomic_commit_fill_with_defaults().
-+ *
-  * Returns:
-  * True if all objects implement atomic_create_state, false otherwise.
+diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
+index 381483aa4fb0..dea6cad3f1b9 100644
+--- a/drivers/gpu/drm/vkms/vkms_drv.h
++++ b/drivers/gpu/drm/vkms/vkms_drv.h
+@@ -248,20 +248,20 @@ struct vkms_device {
+ /*
+  * The following helpers are used to convert a member of a struct into its parent.
   */
- bool drm_atomic_implements_create_state(struct drm_device *dev)
- {
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index 4acfb588c412..1cbd7f81a09b 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -1664,10 +1664,17 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
- 		drm_dbg_atomic(dev,
- 			       "commit failed: page-flip event requested with test-only commit\n");
- 		return -EINVAL;
- 	}
  
-+	if ((arg->flags & DRM_MODE_ATOMIC_RESET) &&
-+			(arg->flags & DRM_MODE_PAGE_FLIP_ASYNC)) {
-+		drm_dbg_atomic(dev,
-+			       "commit failed: reset cannot be combined with async flip\n");
-+		return -EINVAL;
-+	}
-+
- 	state = drm_atomic_commit_alloc(dev);
- 	if (!state)
- 		return -ENOMEM;
+ #define drm_crtc_to_vkms_output(target) \
+-	container_of(target, struct vkms_output, crtc)
++	container_of_const(target, struct vkms_output, crtc)
  
- 	drm_modeset_acquire_init(&ctx, DRM_MODESET_ACQUIRE_INTERRUPTIBLE);
-@@ -1679,10 +1686,21 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
- 	copied_objs = 0;
- 	copied_props = 0;
- 	fence_state = NULL;
- 	num_fences = 0;
+ #define drm_device_to_vkms_device(target) \
+-	container_of(target, struct vkms_device, drm)
++	container_of_const(target, struct vkms_device, drm)
  
-+	if (arg->flags & DRM_MODE_ATOMIC_RESET) {
-+		if (!drm_atomic_implements_create_state(dev)) {
-+			ret = -EOPNOTSUPP;
-+			goto out;
-+		}
-+
-+		ret = drm_atomic_commit_fill_with_defaults(state);
-+		if (ret)
-+			goto out;
-+	}
-+
- 	for (i = 0; i < arg->count_objs; i++) {
- 		uint32_t obj_id, count_props;
- 		struct drm_mode_object *obj;
+ #define to_vkms_crtc_state(target)\
+-	container_of(target, struct vkms_crtc_state, base)
++	container_of_const(target, struct vkms_crtc_state, base)
  
- 		if (get_user(obj_id, objs_ptr + copied_objs)) {
-diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-index 0dbf04d4aa9e..e589d93871e2 100644
---- a/drivers/gpu/drm/drm_ioctl.c
-+++ b/drivers/gpu/drm/drm_ioctl.c
-@@ -303,10 +303,13 @@ static int drm_getcap(struct drm_device *dev, void *data, struct drm_file *file_
- 		break;
- 	case DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP:
- 		req->value = drm_core_check_feature(dev, DRIVER_ATOMIC) &&
- 			     dev->mode_config.async_page_flip;
- 		break;
-+	case DRM_CAP_ATOMIC_RESET:
-+		req->value = drm_atomic_implements_create_state(dev);
-+		break;
- 	default:
- 		return -EINVAL;
- 	}
- 	return 0;
- }
-diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
-index bc7ef7684099..b6e2f2edd122 100644
---- a/include/uapi/drm/drm.h
-+++ b/include/uapi/drm/drm.h
-@@ -793,10 +793,20 @@ struct drm_gem_change_handle {
-  * If set to 1, the driver supports &DRM_MODE_PAGE_FLIP_ASYNC for atomic
-  * commits.
-  */
- #define DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP	0x15
- 
-+/**
-+ * DRM_CAP_ATOMIC_RESET
-+ *
-+ * If set to 1, the driver supports the &DRM_MODE_ATOMIC_RESET flag in
-+ * &DRM_IOCTL_MODE_ATOMIC commits. When supported, userspace can pass that
-+ * flag to reset all KMS object states to their defaults before applying
-+ * property changes.
-+ */
-+#define DRM_CAP_ATOMIC_RESET	0x16
-+
- /* DRM_IOCTL_GET_CAP ioctl argument type */
- struct drm_get_cap {
- 	__u64 capability;
- 	__u64 value;
- };
-diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
-index ed1a660a3dfd..32eb3f650d7a 100644
---- a/include/uapi/drm/drm_mode.h
-+++ b/include/uapi/drm/drm_mode.h
-@@ -1326,10 +1326,21 @@ struct drm_mode_destroy_dumb {
-  * To the best of the driver's knowledge, visual artifacts are guaranteed to
-  * not appear when this flag is not set. Some sinks might display visual
-  * artifacts outside of the driver's control.
-  */
- #define DRM_MODE_ATOMIC_ALLOW_MODESET 0x0400
-+/**
-+ * DRM_MODE_ATOMIC_RESET
-+ *
-+ * Reset all KMS object states (CRTCs, planes, connectors, color operations)
-+ * to their default values before applying the properties in this commit.
-+ * Properties not explicitly included in the commit will remain at their
-+ * defaults (CRTCs inactive, planes disabled, connectors unbound, etc.).
-+ *
-+ * This flag cannot be combined with &DRM_MODE_PAGE_FLIP_ASYNC.
-+ */
-+#define DRM_MODE_ATOMIC_RESET 0x0800
+ #define to_vkms_plane_state(target)\
+-	container_of(target, struct vkms_plane_state, base.base)
++	container_of_const(target, struct vkms_plane_state, base.base)
  
  /**
-  * DRM_MODE_ATOMIC_FLAGS
+  * vkms_create() - Create a device from a configuration
+  * @config: Config used to configure the new device
   *
-  * Bitfield of flags accepted by the &DRM_IOCTL_MODE_ATOMIC IOCTL in
-@@ -1338,11 +1349,12 @@ struct drm_mode_destroy_dumb {
- #define DRM_MODE_ATOMIC_FLAGS (\
- 		DRM_MODE_PAGE_FLIP_EVENT |\
- 		DRM_MODE_PAGE_FLIP_ASYNC |\
- 		DRM_MODE_ATOMIC_TEST_ONLY |\
- 		DRM_MODE_ATOMIC_NONBLOCK |\
--		DRM_MODE_ATOMIC_ALLOW_MODESET)
-+		DRM_MODE_ATOMIC_ALLOW_MODESET |\
-+		DRM_MODE_ATOMIC_RESET)
- 
- struct drm_mode_atomic {
- 	__u32 flags;
- 	__u32 count_objs;
- 	__u64 objs_ptr;
 
 -- 
 2.55.0
