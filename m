@@ -1,56 +1,56 @@
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76BFB528425
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 20:07:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1972527599
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 20:07:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789762027; cv=none; b=CKMVG5i5nFfwIQKWeIJW6oXgJxGdk5ZVwFVTxqcfLLHwTqwwTzNpvrrOR/gpVHfAFw+Rtt2K65/0twXd9Kgb0f1Xr1T2XzTlz6Hc2l97A7nUi7QKgBi5MiY1kP1CCV16Ke6wVymGVHMp+MLv7imylZy1HS7bpGlBsUEezb/lhbo=
+	t=1789762025; cv=none; b=kN6co4sF7eFSdW26ivzP7pAOKFQ4+Doia56UH/uDCdTIfnlpXDIRxke8X9arKNxGGmUW5uR/k7qBZMMu+vJ7mBeKuN/x4L8AW9PW/Eqchonebf0Md9rsS4lfGVZkKC1NKAzWmGlnU7TD4dUzvKnvJ8UCfFdWMn0oONMqeKX3S5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789762027; c=relaxed/simple;
-	bh=71uGNjjTFBcC6CcgDOl0OA0ORlR5yq5Q4UzPCRZXBhs=;
+	s=arc-20240116; t=1789762025; c=relaxed/simple;
+	bh=Bzapy6bcJbixrqPHS2k7cavep+t2AZYH7zuQMqtEwjw=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=ao3phguo2bck5Sbc6q7MAN+HBdHmyA1d5WMtWbsHt8OWOLmEQD6wO6P4RyVHt7sNBJG8Yxgrje9SJp2WV3IGoeSFXLtLXVzRhPjFgz5nrrZs9xbdXzd0bnu/gy4AASn3ap2blPzD6TLl2FHlolCOT9TNvQaMsI774uICe9IRoxo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Czy1qOXv; arc=none smtp.client-ip=209.85.214.197
+	 To:Cc:Content-Type; b=sSJhVavjZlCwnAHBZcoSrJpx65uc45ZXgPgtR9uqRFg+J29seDc0ErT4vWha3j2LRjn6CbiA0tJtdsYAaFomSg9Y5sv9+Ft2/oqvAP9RblzkSJSi/qZabZLS/Tc/yjdNJ+87dbxmdDwvMY+2B1p7KoCB9Kzvr8LHrEv8qffJfgM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=K7s81NnF; arc=none smtp.client-ip=209.85.214.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Czy1qOXv"
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2dd753a52bbso20146065ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:07:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="K7s81NnF"
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2dd753a52bbso20145585ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:07:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789762024; x=1790366824; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789762022; x=1790366822; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=siMAWwJv4yjE1eEtNkD6j1Z4yk/PjEJKUuLYDAAYM4E=;
-        b=Czy1qOXvAm3CD82QgEwLk+tMR8kjVJkkQaLU0s00FSF1NiNooA/xJ2wtOluZRsfTxh
-         IRsoBxGfsEWO4mgOeaFpodEyixmgUQ2eVKpzsuhzHX/FsY5Anr+/o31M1TySataFfbgP
-         QW8+NUFhBAwJjsp3cjtLaSYfsV2kk8MZE6zdjCK1LKoFwaZYjMclPUfrmoJavkObzXKG
-         FmahUZiFUzBmefjKJ7k7l9/u2/zzkqE5QToozpar5Rq3LnALYE7M5Jraipvh0+e9fuTr
-         O/RCsfYKC8b6N/RghD+i/ohdPLQVix1f1yN3OXVCqBpmDYbSKoUAvZ4vTct9btrn3HtS
-         J5Mw==
+        bh=9BR71s6OXVqtI8pG8LyTaxh9Qe5FvWSAHHddp0nR9J8=;
+        b=K7s81NnFcVOaUYwEZ3aobyEyUuH9Z51wNmk8TbQpytO4fLDRlRElvYqn63y3jn1LIj
+         J3Jjsea+48QUP+D536Dm/uUSMtJvfqJYidsG2k248vgj5kWB6oRRmlwHnz1B4yA3f2QD
+         aIfn6fnp625Jul1QRGojHLJv6lLaccPmRSFmCBjodsZsPZoAvo05Ns2YorJJn8YzeX0j
+         1CiYuFvhg3mpzRUlijQMHQ9EXV9zukvmwOKFgV2X64Ju7wRHwsowP4g5B5PAXI72+PmM
+         aFaJl0peBPOxWbi799mcVMVr8e8JAW3nTgLXEe+KjnUscV9NIoHcHaRl/9iWvpRwpva2
+         /NtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789762024; x=1790366824;
+        d=1e100.net; s=20260707; t=1789762022; x=1790366822;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=siMAWwJv4yjE1eEtNkD6j1Z4yk/PjEJKUuLYDAAYM4E=;
-        b=Zbi+LEynhlPmF5Sikv0P7RYczZUq3upolA6fJYld4Xf+e5GHv++k3geCLVMpMoZObt
-         vDktSa8rYJsNRzhwloHosI+05aODG8G42XunXoPLURJBUBVXXRRDopilM8xokJ/qULAJ
-         WT25AKvfr8l6xBWhiNhKauMkMBu82QPp41QDYnDcqoi87rxfG5sFS3xKoznCsB/P+U3t
-         ltTJ8AuIR+Ue7KBuWNX+ft7kFttWH3JV26imxbj8VsKZ/cB98o0c5bUHGoKxHw9imCKE
-         KL/mYVqDCzNnvYewcbytpzjah5Hd+5KYaTaavEuezT75DkKo0EtpLjQs+NHr7zxpIQyE
-         UC6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxqnExTWFIYzfPx3bVaVT5MACwhhO+uoh0tsfcomd37OJfmb1K1M5Y/9xEmHypDdIw6tOVFF7iitf1Nyu4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nMB+Y1qqzhQ53/N17VVaeSJHfOISZ2wAh2N45TzKopnRHntQom
-	63+3bVP2IN/PbeLET1fpakvksL5jPgzjv17v52iXpaHGMyE6hZmATcqvRxSnF/Z5l/bF2ysCo0D
-	Z2yYDh7qvTf3/yQ==
-X-Received: from pgbgf16.prod.google.com ([2002:a05:6a02:2cd0:b0:cc5:1124:470d])
+        bh=9BR71s6OXVqtI8pG8LyTaxh9Qe5FvWSAHHddp0nR9J8=;
+        b=ETNZQ/DMIU4MsIAoAFblpCLdZaD/dnMgCoz8pzbLhf/coHanHGhUNskl8gHqSyzX5b
+         uSRvTBMrMoNjTP/hGxjHuSIGRdG6VJ4QABBIYpzUbPmbK8zMPOGEj+H8tm6wsuSCBYNW
+         V8df878KZnH9OjzZ43+CjeVRRsdpt9rhhTropVcgbjmJwYfsGNpqqRNdfJ1nuSgVjH4S
+         D4nOqv1WkMHWUnfdKTZXe7JVjFM9k2v0RAy+Ci5qmLZVV+0xEO/Vyj09f7lP/ulESkfB
+         bDOMF3d9lF5jqwL7MvqvnjNqyl8GCsWqEL1h6wGBVmnvjytCbzCwYpGtcm0Ac4Erm4JN
+         SRuA==
+X-Forwarded-Encrypted: i=1; AKwUvByscyFlUV/wTKgiM5RZYrzcFd35RBStH4H4ZXUZ01pwAVQ4K80+29H+Unv6NBAUDqMWEPlGeSd7Nwt12AI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mxcTv60/iwbXbmAamHTmBW7rBGKohq/o2KrnUGmglvOH3Q7hqE
+	HOitBRnPcYfIAhV1aqXNU5/eOZXEoy56OocEE8xg9YMN4og6lgtKe1jiNVdSWSzTMnbufwyeawT
+	ceP+xV/GyvkN/jA==
+X-Received: from pldv5.prod.google.com ([2002:a17:902:ca85:b0:2d9:e5f:1d26])
  (user=dmatlack job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:902:7209:b0:2dd:c100:a5dd with SMTP id d9443c01a7336-2ddc100a681mr6689305ad.49.1789762023439;
- Fri, 18 Sep 2026 13:07:03 -0700 (PDT)
-Date: Fri, 18 Sep 2026 20:06:38 +0000
+ 2002:a17:902:ab8f:b0:2dd:c100:a5ea with SMTP id d9443c01a7336-2ddc100a6aemr7241285ad.62.1789762021877;
+ Fri, 18 Sep 2026 13:07:01 -0700 (PDT)
+Date: Fri, 18 Sep 2026 20:06:36 +0000
 In-Reply-To: <20260918200640.887030-1-dmatlack@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,9 +60,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260918200640.887030-1-dmatlack@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260918200640.887030-13-dmatlack@google.com>
-Subject: [PATCH v9 12/13] PCI: liveupdate: Do not disable bus mastering on
- preserved devices during kexec
+Message-ID: <20260918200640.887030-11-dmatlack@google.com>
+Subject: [PATCH v9 10/13] PCI: liveupdate: Adopt ARI Forwarding Enable on
+ preserved bridges
 From: David Matlack <dmatlack@google.com>
 To: kexec@lists.infradead.org, linux-doc@vger.kernel.org, 
 	linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-pci@vger.kernel.org
@@ -79,106 +79,118 @@ Cc: Adithya Jayachandran <ajayachandra@nvidia.com>, Alexander Graf <graf@amazon.
 	William Tu <witu@nvidia.com>, Yi Liu <yi.l.liu@intel.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Do not disable bus mastering on outgoing preserved devices during
-pci_device_shutdown() for kexec.
+Adopt the ARI Forwarding Enable bit on preserved bridges and update
+pci_dev->ari_enabled accordingly during a Live Update. This ensures that
+the preserved devices on the bridge's secondary bus can be identified
+with the same expanded 8-bit function number after a Live Update.
 
-Preserved devices must be allowed to perform memory transactions during
-a Live Update to ensure continuous operation.  Clearing the bus
-mastering bit would prevent these devices from issuing any memory
-requests while the new kernel boots.
-
-Because bridges upstream of preserved endpoint devices are also
-automatically preserved, this change also avoids clearing bus mastering
-on them. This is critical because clearing bus mastering on an upstream
-bridge prevents the bridge from forwarding memory requests upstream (i.e.
-it would prevent the endpoint device from accessing system RAM and doing
-peer-to-peer transactions with devices not downstream of the bridge).
-
-Reviewed-by: Pranjal Shrivastava <praan@google.com>
-Reviewed-by: Pasha Tatashin <pasha.tatashin@soleen.com>
-Reviewed-by: Samiullah Khawaja <skhawaja@google.com>
 Reviewed-by: Bjorn Helgaas <bhelgaas@google.com>
+Reviewed-by: Pranjal Shrivastava <praan@google.com>
 Signed-off-by: David Matlack <dmatlack@google.com>
 ---
- drivers/pci/liveupdate.c | 11 +++++++++++
+ drivers/pci/liveupdate.c | 30 ++++++++++++++++++++++++++++++
  drivers/pci/liveupdate.h |  6 ++++++
- drivers/pci/pci-driver.c |  7 +++++--
- 3 files changed, 22 insertions(+), 2 deletions(-)
+ drivers/pci/pci.c        |  8 +++++++-
+ 3 files changed, 43 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/pci/liveupdate.c b/drivers/pci/liveupdate.c
-index 496ba74c26ce..51695782ed42 100644
+index 0145399b3834..3c9a10a892fc 100644
 --- a/drivers/pci/liveupdate.c
 +++ b/drivers/pci/liveupdate.c
-@@ -193,6 +193,10 @@
-  *  * The PCI core adopts ARI Forwarding Enable on all bridges with downstream
-  *    preserved devices to ensure that all preserved devices on the bridge's
-  *    secondary bus are addressable after the Live Update.
+@@ -189,6 +189,10 @@
+  *    way after Live Update and ensures that IOMMU groups do not change. Note
+  *    that a device will use its adopted ACS controls for the lifetime of its
+  *    struct pci_dev (i.e. even after pci_liveupdate_finish()).
 + *
-+ *  * The PCI core does not disable bus mastering on outgoing preserved devices
-+ *    during kexec. This allows preserved devices to issue memory transactions
-+ *    throughout the Live Update.
++ *  * The PCI core adopts ARI Forwarding Enable on all bridges with downstream
++ *    preserved devices to ensure that all preserved devices on the bridge's
++ *    secondary bus are addressable after the Live Update.
   */
  
  #define pr_fmt(fmt) "PCI: liveupdate: " fmt
-@@ -950,6 +954,13 @@ int pci_liveupdate_adopt_ari(struct pci_dev *dev)
+@@ -904,6 +908,32 @@ int pci_liveupdate_adopt_acs(struct pci_dev *dev)
  	return 0;
  }
  
-+bool pci_liveupdate_is_outgoing(struct pci_dev *dev)
++/**
++ * pci_liveupdate_adopt_ari() - Adopt ARI configuration
++ * @dev: The PCI device to adopt ARI configuration for
++ *
++ * For devices preserved across a Live Update, read the ARI state from
++ * hardware and adopt it. This ensures the device continues to use the ARI
++ * configuration established by the previous kernel.
++ *
++ * Return: 0 on success, or -EINVAL if the device was not preserved.
++ */
++int pci_liveupdate_adopt_ari(struct pci_dev *dev)
 +{
++	u16 val;
++
 +	guard(rwsem_read)(&pci_liveupdate.rwsem);
-+	pci_WARN_ONCE(dev, !dev->liveupdate.frozen, "Preservation status is unstable!\n");
-+	return dev->liveupdate.outgoing;
++
++	if (!dev->liveupdate.incoming)
++		return -EINVAL;
++
++	pcie_capability_read_word(dev, PCI_EXP_DEVCTL2, &val);
++
++	/* Safe to modify dev->ari_enabled bitfield during enumeration. */
++	dev->ari_enabled = !!(val & PCI_EXP_DEVCTL2_ARI);
++	return 0;
 +}
 +
  /**
   * pci_liveupdate_is_incoming() - Check if a device is incoming-preserved
   * @dev: The PCI device to check
 diff --git a/drivers/pci/liveupdate.h b/drivers/pci/liveupdate.h
-index 5aac19f7bee6..333ddd8f36c5 100644
+index d4721ffcecb2..90b2754ecc0c 100644
 --- a/drivers/pci/liveupdate.h
 +++ b/drivers/pci/liveupdate.h
-@@ -18,6 +18,7 @@ bool pci_liveupdate_preserve_bus_numbers(void);
+@@ -16,6 +16,7 @@ void pci_liveupdate_cleanup_device(struct pci_dev *dev);
+ bool pci_liveupdate_preserve_bus_numbers(void);
  bool pci_liveupdate_refuse_bus_numbers(struct pci_bus *bus, struct pci_dev *dev);
  int pci_liveupdate_adopt_acs(struct pci_dev *dev);
- int pci_liveupdate_adopt_ari(struct pci_dev *dev);
-+bool pci_liveupdate_is_outgoing(struct pci_dev *dev);
++int pci_liveupdate_adopt_ari(struct pci_dev *dev);
  #else
  static inline void pci_liveupdate_setup_device(struct pci_dev *dev)
  {
-@@ -51,6 +52,11 @@ static inline int pci_liveupdate_adopt_ari(struct pci_dev *dev)
+@@ -40,6 +41,11 @@ static inline int pci_liveupdate_adopt_acs(struct pci_dev *dev)
  {
  	return -EINVAL;
  }
 +
-+static inline bool pci_liveupdate_is_outgoing(struct pci_dev *dev)
++static inline int pci_liveupdate_adopt_ari(struct pci_dev *dev)
 +{
-+	return false;
++	return -EINVAL;
 +}
  #endif
  
  #endif /* DRIVERS_PCI_LIVEUPDATE_H */
-diff --git a/drivers/pci/pci-driver.c b/drivers/pci/pci-driver.c
-index dff60a03204f..c1ac2ef025e2 100644
---- a/drivers/pci/pci-driver.c
-+++ b/drivers/pci/pci-driver.c
-@@ -569,11 +569,14 @@ static void pci_device_shutdown(struct device *dev)
- 	/*
- 	 * If this is a kexec reboot, turn off Bus Master bit on the
- 	 * device to tell it to not continue to do DMA. Don't touch
--	 * devices in D3cold or unknown states.
-+	 * devices being preserved for Live Update or in D3cold or
-+	 * unknown states.
-+	 *
- 	 * If it is not a kexec reboot, firmware will hit the PCI
- 	 * devices with big hammer and stop their DMA any way.
- 	 */
--	if (kexec_in_progress && (pci_dev->current_state <= PCI_D3hot))
-+	if (kexec_in_progress && !pci_liveupdate_is_outgoing(pci_dev) &&
-+	    pci_dev->current_state <= PCI_D3hot)
- 		pci_clear_master(pci_dev);
- }
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index 47d8229115b8..0ae405b86b2f 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -3625,7 +3625,7 @@ void pci_configure_ari(struct pci_dev *dev)
+ 	u32 cap;
+ 	struct pci_dev *bridge;
  
+-	if (pcie_ari_disabled || !pci_is_pcie(dev) || dev->devfn)
++	if (!pci_is_pcie(dev) || dev->devfn)
+ 		return;
+ 
+ 	bridge = dev->bus->self;
+@@ -3636,6 +3636,12 @@ void pci_configure_ari(struct pci_dev *dev)
+ 	if (!(cap & PCI_EXP_DEVCAP2_ARI))
+ 		return;
+ 
++	if (!pci_liveupdate_adopt_ari(bridge))
++		return;
++
++	if (pcie_ari_disabled)
++		return;
++
+ 	if (pci_find_ext_capability(dev, PCI_EXT_CAP_ID_ARI)) {
+ 		pcie_capability_set_word(bridge, PCI_EXP_DEVCTL2,
+ 					 PCI_EXP_DEVCTL2_ARI);
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
