@@ -1,64 +1,64 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B25A51CF6B
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:17:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9AAE51DDEA
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:17:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789755431; cv=none; b=bctoj8pzoYpHA1NG4e+TrVycNUCVgxAI0+Yrx1BCulMAqb+kVYrxgVnKbr1/iaRmR+DxSPRaSdlDn8GXsomK42+yZt7D3Eo3I2PeW/TASgx661kpKnfOIdLzFCctOpNnAVXCF25Nsis4aURhx27C4TwWY3CW9chmfdDVOxu9iF8=
+	t=1789755432; cv=none; b=IXkF0EWw4Khc/F0CqBJEIlquU0xOe8yZhsB3hhKcX0cAzZFTdN9iVrkgfnRcAqSer5/2mtA/IONAF+JzsfOlg0TAcrKTRxSBBMsXaWC7Tb+H6c+YH0I9JUj3cC/g2D8MPD5/GYMyRxoUW7/n2YgirLmPy/iPX/ztcdWtAv88P/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789755431; c=relaxed/simple;
-	bh=S2jDwvz0aywYqBJc3t2WcBsmk3CulC2TUlkQHjrBu44=;
+	s=arc-20240116; t=1789755432; c=relaxed/simple;
+	bh=2stUjESmFaR5coRGRUUfSmg/ht71Le2TPTcOeb0WB+o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kCl5/DA8ps7M0aRrxrtc/Ou8KXQ7FU/IOK0Hl/ZHygPHFQrBA12ZC45rf7RaC9QYlyTs4kNpxGgEVMPD0IftveTtS9Sg4eZsgZkyseDU3J8M1KOl9/6kutx59caadpmt5vuMxnde+6tEA3XA5ty9W4ILjS7f+SIpIXEl5umD/Ps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=K/w2vW4V; arc=none smtp.client-ip=74.125.227.171
+	 MIME-Version; b=NA2hHjSnchuzQdKwPymRF0TH2ieC5sS2G4MdcaCPjiv11PJfMkZEYC1Rj9k358AmCuowmzG5EwI/4KWIrKVA3aCuhDKypSXRFv1iiiuf/R0tG3iQIz4BOFvHxAqvDYWMMJVQRP5ufHlP8/ugcBdRRcdyHRpt4whEcHZDYWXjgEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=KkncAB1N; arc=none smtp.client-ip=74.125.227.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="K/w2vW4V"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccd5cef0so818519a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:17:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="KkncAB1N"
+Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-396ccafb74fso1193797a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:17:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1789755429; x=1790360229; darn=vger.kernel.org;
+        d=purestorage.com; s=google2022; t=1789755430; x=1790360230; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Pt50IjaPgH08hi1k4e76/CT4Nc9n3avKxSKgQhL0Gzo=;
-        b=K/w2vW4VpEY4vBJlIIYtMitkeC38XJLCFgYdur2JIwIIdLkA9EU1PI2Dwn3cHOwyXs
-         IAl2WMp4JDQMMIdonLR2fvikN5FHGL75lgymfelW2iLUTsVkPF1tuclvqofm76ZTSQzI
-         nP/l6Hbh3GoG2kn8Xkl3XrEgzUWgSjVK1yzPB6wn6MNpytu9Cd+nHVEMPn5lLsmzGraG
-         DQC6tAbCWMlvotl7D9MBiDXjbt4uWvJOsx4KPqBfW1P0XMeo3FMzdb93CISG0glocIAg
-         mYlii2s28rPhNQrbdiGpmsbSYWoKVLZedvQ1+6XP/uZnCMNsuMndFmmMhiaIaVO1FGDH
-         g4ZQ==
+        bh=Oy2h80BFMwGiM7nqEwALNuYmImDNZDmz38YPaRdaUi0=;
+        b=KkncAB1N4mqmEw0gleA6WDsMv1rBWGhnzOAH6WfRbrCS8VXlapCD3YOw6DWWIz40we
+         QMJCfuOBx2ngUd/6so4n7SDSwQvAKGraGL+OMyZ6foSh95Tnp3iySJeW3DStlKhzxAM8
+         qoTNl9wbOP6dcWeruHGULMPH2+FcMRC2os0CWuzQs8+dyIusVMxCo/NME3xhqW2jqhXk
+         0m4y8Gt/8jbEssTPOAQHhcacZ7pcC4UmLDCCdA5QQV8uwH8mRwXCQPiXvKA3jcsYR/o1
+         mSvRJjKgj61Bx7KorBBphZbZlyaKjiFsLSTk/Kc0bP9r2uNJqLOGYPm0lE762nnMgJMW
+         RGAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789755429; x=1790360229;
+        d=1e100.net; s=20260707; t=1789755430; x=1790360230;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Pt50IjaPgH08hi1k4e76/CT4Nc9n3avKxSKgQhL0Gzo=;
-        b=QSf2n0QzIGMe2FWiPFxt7TpoYqEkuz19hKcL5XZjPC6q+r1nBKmVEJZ3uXT49RFJsL
-         gHV+QViMTvE5U7NsOq1YQAwRukB4/Bgh7sJ21o7RCSZgFvGn5dZSee4l82UGZPk732bg
-         H26ZcJac23fsZBOO5D0w3qs2gElox16lNNRpCahjiCSGKxAUizXIZxQRYuy/8xmMfbNu
-         avCVVIq+HKSMfFkZWh5TcolTLYx63UuvuQncJ9OyKY+tOcDPQR8tk5hVYXZe05j+eI3i
-         nEqDYmWIybJ2lxbgbzBOnacjLxTk0IXoyh8lsiF2Z663llaE8flSdhCautX4mPk7/DrG
-         es3g==
-X-Forwarded-Encrypted: i=1; AKwUvBzjl31aO90e77McaQ/dSbO9McrmrCliWL+uezQDa5C5rguKp8qXwQcfYxPLQFKsXx13oXYQqRAGaUfDt6E=@vger.kernel.org
-X-Gm-Message-State: AFuF++nSlWy+pSzQCRTjHFSvBeYa9u9V7o6B16vXX8iP7VnQ88qZqxVs
-	7dlWNNgPOkA1Xwkzpv+VhvMDpq65/6RLo9f337o3r/NZHWZR1E9Xmb5jdM9oKS0DVFU=
-X-Gm-Gg: AYBFou075gJtVWytFt4rX6V8NGKEmf1gWXxidNAb+hP9euvj+ERoNhpYltXM7jpCPtx
-	7H2idSUZPUgg/ftw5cnrwupKdn4nFNTe+BctEldHtKT0dfFgRmFbykPF15LdmdEgzfZdo4wIswy
-	pHwAY9ne/VV5BddL+oOXDoxB3aY0g/OoPlcoEiZHO4TSeaCAe7AgFYAm7G9WWXAXyZhsVeabwCI
-	eXqRq0yX8vTZeODFMq90a1mqYQbNGSTK02Zsoa1GeLfdC9eMpbWkTnAj+UBK/BbW6eCT1ghqAqP
-	qT0BJw16c80Sa5sXas1+h3fKnFec02pH8a9OApgCkzDzEjYDGmzoqhmecxC1LLPzTe5+fdVIhOe
-	vlO54Imel2C2S5wklbeKzziaWfPynH2MhebAR6F339+wdotDh/OobSm9a7FKgUG4R3PicQe13Yt
-	Gsndd3HF6U6WctnIHJfZ381C/nWZ+eYG4a6FBUHcgIahYFUhWhWaZ1fODLCnXwQNslZi8XcFjaI
-	kBrkMBMcj9LCBou7kvbor0BGnakQFNP
-X-Received: by 2002:a17:90a:d2c7:b0:39e:3558:f91c with SMTP id 98e67ed59e1d1-39e54eb1b00mr7254420a91.24.1789755428576;
-        Fri, 18 Sep 2026 11:17:08 -0700 (PDT)
+        bh=Oy2h80BFMwGiM7nqEwALNuYmImDNZDmz38YPaRdaUi0=;
+        b=RoIea/mDu2YPfVMmX+T2iI5MiCCmSdo2NVC7jhaSWYqV9oE6QuT1fMEE+5SVjiNaS5
+         nzaOpRC09+Mchow3rNGM+iAlQGLqubbWKvdzgh0AJumNg6QR0hfzvfmroMBJpGE+7uF2
+         x8y60r8MlyiHAkRHoA7WldWFtw2IXTT6zXPVfbGoo4ERFzScsg5KyOnmM0JQI68suWw4
+         QNFsgVAX5fQuKP84ppaF0vW2Ds0wvRENUIsOOIucpZLL9vSV8BjGfPx0MATmwrJBh9G7
+         2nxux4eYs1HOVuwRKhYm1SQNTcJJWJtdBcQXF2Q1/G+UW54vyc6jD757nERH8s98qMbW
+         qJyQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzk6UQzWgGvfpL4gpgjThtx9XY/+ocJwwDwDvfKDD6iqDLwE5J6FTo57JOR/vdCi5Wxqhng0nKnHyZf7Jo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lOzNDUy7xRTdwJIYDsvTIROiQApvejWDc1Y7koHKVt0nx2tDbR
+	5EcOkUlCbjcjG3cnm5+Rdlp73Q5T/VtRVeuOhO0yq5wpbgpYXjdkWFx8Z3WrulBPvXQ=
+X-Gm-Gg: AYBFou3ogDb5l9ZXGKhJpmKEz5guDEuB4sbQ7nU/MX3f9TZFxAcupVzYLwZaS+RpI+r
+	au32sMXGSqTaYFOpBUhlsRHNQ45wJlxPKte0rxUD9iHe6NGJOdmp4aAnlSYXT6OhWxRZfZeqnHX
+	pbNkOnh9+JWGcWgMaxa7KH6LmlskFP7Fpud4605cuLG7KwkMkQEN4ZWTlVqnO37PwuEb0BvInN7
+	w6Cafg/R9fC7vS9fCXiqp4uvTd+aY6yICk5UGvPc4Th89MpK810+a3b0un3KQqXIIPOz2OtSFrX
+	mieHyXYLlPoi5LcTrdpgObdbmDe22xuQP8ocpUJSSHxKFTV8xeuh/5YACkpy6wXw/w3qxIm2o/d
+	HL4tXrIe4gSMkhD1J1hqFvFQYWK6PozHdb3m4I7Y5ZccVTG1ME5yxkAiiOtqbt0UuXWCEv1K+lM
+	weLNosIzdZlUxdAO82UxbN3fbyhs5Q6FW090B3D3bu6fKsXocBv0t9xzc3MnhqcwC5I2eDiOCOR
+	/lHug0zAPtk57roHCKGtg==
+X-Received: by 2002:a17:90b:57e8:b0:39e:6c69:7774 with SMTP id 98e67ed59e1d1-39e6c697961mr1142954a91.29.1789755429684;
+        Fri, 18 Sep 2026 11:17:09 -0700 (PDT)
 Received: from apollo.purestorage.com ([208.88.152.253])
-        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-33c331aeeddsm335107eec.24.2026.09.18.11.17.07
+        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-33c331aeeddsm335107eec.24.2026.09.18.11.17.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 11:17:08 -0700 (PDT)
+        Fri, 18 Sep 2026 11:17:09 -0700 (PDT)
 From: Mohamed Khalfella <mkhalfella@purestorage.com>
 To: Keith Busch <kbusch@kernel.org>,
 	Jens Axboe <axboe@kernel.dk>,
@@ -74,9 +74,9 @@ Cc: Justin Tee <justin.tee@broadcom.com>,
 	Mohamed Khalfella <mkhalfella@purestorage.com>,
 	linux-nvme@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 08/18] nvme: Implement cross-controller reset recovery
-Date: Fri, 18 Sep 2026 11:14:08 -0700
-Message-ID: <20260918181614.3947933-9-mkhalfella@purestorage.com>
+Subject: [PATCH 09/18] nvme: Implement cross-controller reset completion
+Date: Fri, 18 Sep 2026 11:14:09 -0700
+Message-ID: <20260918181614.3947933-10-mkhalfella@purestorage.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260918181614.3947933-1-mkhalfella@purestorage.com>
 References: <20260918181614.3947933-1-mkhalfella@purestorage.com>
@@ -88,249 +88,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A host that has more than one path connecting to an nvme subsystem
-typically has an nvme controller associated with every path. This is
-mostly applicable to nvmeof. If one path goes down, inflight IOs on that
-path should not be retried immediately on another path because this
-could lead to data corruption as described in TP4129. TP8028 defines
-cross-controller reset mechanism that can be used by host to terminate
-IOs on the failed path using one of the remaining healthy paths. Only
-after IOs are terminated, or long enough time passes as defined by
-TP4129, inflight IOs should be retried on another path. Implement core
-cross-controller reset shared logic to be used by the transports.
+An nvme source controller that issues CCR command expects to receive an
+NVME_AER_NOTICE_CCR_COMPLETED when pending CCR succeeds or fails. Add
+ctrl->ccr_work to read NVME_LOG_CCR logpage and wakeup threads waiting
+on CCR completion.
 
 Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
 Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
 ---
- drivers/nvme/host/constants.c |   1 +
- drivers/nvme/host/core.c      | 152 ++++++++++++++++++++++++++++++++++
- drivers/nvme/host/nvme.h      |  10 +++
- 3 files changed, 163 insertions(+)
+ drivers/nvme/host/core.c | 50 +++++++++++++++++++++++++++++++++++++++-
+ drivers/nvme/host/nvme.h |  1 +
+ 2 files changed, 50 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/nvme/host/constants.c b/drivers/nvme/host/constants.c
-index dc90df9e13a2..f679efd5110e 100644
---- a/drivers/nvme/host/constants.c
-+++ b/drivers/nvme/host/constants.c
-@@ -46,6 +46,7 @@ static const char * const nvme_admin_ops[] = {
- 	[nvme_admin_virtual_mgmt] = "Virtual Management",
- 	[nvme_admin_nvme_mi_send] = "NVMe Send MI",
- 	[nvme_admin_nvme_mi_recv] = "NVMe Receive MI",
-+	[nvme_admin_cross_ctrl_reset] = "Cross Controller Reset",
- 	[nvme_admin_dbbuf] = "Doorbell Buffer Config",
- 	[nvme_admin_format_nvm] = "Format NVM",
- 	[nvme_admin_security_send] = "Security Send",
 diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-index e4e18fb72159..c8e3129d84a8 100644
+index c8e3129d84a8..5509b58b51db 100644
 --- a/drivers/nvme/host/core.c
 +++ b/drivers/nvme/host/core.c
-@@ -576,6 +576,157 @@ void nvme_cancel_admin_tagset(struct nvme_ctrl *ctrl)
- }
- EXPORT_SYMBOL_GPL(nvme_cancel_admin_tagset);
+@@ -1959,7 +1959,8 @@ EXPORT_SYMBOL_GPL(nvme_set_queue_count);
  
-+static struct nvme_ctrl *nvme_find_ctrl_ccr(struct nvme_ctrl *ictrl,
-+					    u32 min_cntlid)
-+{
-+	struct nvme_subsystem *subsys = ictrl->subsys;
-+	struct nvme_ctrl *ctrl, *sctrl = NULL;
-+	unsigned long flags;
-+	int ccr_used;
-+
-+	mutex_lock(&nvme_subsystems_lock);
-+	list_for_each_entry(ctrl, &subsys->ctrls, subsys_entry) {
-+		if (ctrl->cntlid < min_cntlid)
-+			continue;
-+
-+		spin_lock_irqsave(&ctrl->lock, flags);
-+		if (nvme_ctrl_state(ctrl) != NVME_CTRL_LIVE) {
-+			spin_unlock_irqrestore(&ctrl->lock, flags);
-+			continue;
-+		}
-+
-+		ccr_used = atomic_inc_return(&ctrl->ccr_used);
-+		if (ccr_used > ctrl->ccrl) {
-+			atomic_dec(&ctrl->ccr_used);
-+			spin_unlock_irqrestore(&ctrl->lock, flags);
-+			continue;
-+		}
-+
-+		/*
-+		 * We got a good candidate source controller that is locked and
-+		 * LIVE. However, no guarantee ctrl will not be deleted after
-+		 * ctrl->lock is released. Get a ref of both ctrl and admin_q
-+		 * so they do not disappear until we are done with them.
-+		 */
-+		WARN_ON_ONCE(!blk_get_queue(ctrl->admin_q));
-+		nvme_get_ctrl(ctrl);
-+		spin_unlock_irqrestore(&ctrl->lock, flags);
-+		sctrl = ctrl;
-+		break;
-+	}
-+	mutex_unlock(&nvme_subsystems_lock);
-+	return sctrl;
-+}
-+
-+static void nvme_put_ctrl_ccr(struct nvme_ctrl *sctrl)
-+{
-+	atomic_dec(&sctrl->ccr_used);
-+	blk_put_queue(sctrl->admin_q);
-+	nvme_put_ctrl(sctrl);
-+}
-+
-+static int nvme_issue_wait_ccr(struct nvme_ctrl *sctrl, struct nvme_ctrl *ictrl,
-+			       unsigned long deadline)
-+{
-+	struct nvme_ccr_entry ccr = { };
-+	union nvme_result res = { 0 };
-+	struct nvme_command c = { };
-+	unsigned long flags, now, tmo = 0;
-+	bool completed = false;
-+	int ret = 0;
-+	u32 result;
-+
-+	init_completion(&ccr.complete);
-+	ccr.ictrl = ictrl;
-+
-+	spin_lock_irqsave(&sctrl->lock, flags);
-+	list_add_tail(&ccr.list, &sctrl->ccr_list);
-+	spin_unlock_irqrestore(&sctrl->lock, flags);
-+
-+	c.ccr.opcode = nvme_admin_cross_ctrl_reset;
-+	c.ccr.ciu = ictrl->ciu;
-+	c.ccr.icid = cpu_to_le16(ictrl->cntlid);
-+	c.ccr.cirn = cpu_to_le64(ictrl->cirn);
-+	ret = __nvme_submit_sync_cmd(sctrl->admin_q, &c, &res,
-+				     NULL, 0, NVME_QID_ANY, 0);
-+	if (ret) {
-+		ret = -EIO;
-+		goto out;
-+	}
-+
-+	result = le32_to_cpu(res.u32);
-+	if (result & 0x01) /* Immediate Reset Successful */
-+		goto out;
-+
-+	now = jiffies;
-+	if (time_before(now, deadline))
-+		tmo = min_t(unsigned long,
-+			    secs_to_jiffies(ictrl->kato), deadline - now);
-+
-+	if (!wait_for_completion_timeout(&ccr.complete, tmo)) {
-+		ret = -ETIMEDOUT;
-+		goto out;
-+	}
-+
-+	completed = true;
-+
-+out:
-+	spin_lock_irqsave(&sctrl->lock, flags);
-+	list_del(&ccr.list);
-+	spin_unlock_irqrestore(&sctrl->lock, flags);
-+	if (completed) {
-+		if (ccr.ccrs == NVME_CCR_STATUS_SUCCESS)
-+			return 0;
-+		return -EREMOTEIO;
-+	}
-+	return ret;
-+}
-+
-+unsigned long nvme_fence_ctrl(struct nvme_ctrl *ictrl)
-+{
-+	unsigned long now, deadline, timeout;
-+	struct nvme_ctrl *sctrl;
-+	u32 min_cntlid = 0;
-+	int ret;
-+
-+	timeout = nvme_fence_timeout_ms(ictrl);
-+	dev_info(ictrl->device, "attempting CCR, timeout %lums\n", timeout);
-+
-+	now = jiffies;
-+	deadline = jiffies + msecs_to_jiffies(timeout);
-+	while (time_before(now, deadline)) {
-+		sctrl = nvme_find_ctrl_ccr(ictrl, min_cntlid);
-+		if (!sctrl) {
-+			dev_dbg(ictrl->device,
-+				"failed to find source controller\n");
-+			return deadline - now;
-+		}
-+
-+		ret = nvme_issue_wait_ccr(sctrl, ictrl, deadline);
-+		if (!ret) {
-+			dev_info(ictrl->device, "CCR succeeded using %s\n",
-+				 dev_name(sctrl->device));
-+			nvme_put_ctrl_ccr(sctrl);
-+			return 0;
-+		}
-+
-+		/*
-+		 * CCR command or CCR operation failed on this path.
-+		 * Try another path as long as we have time.
-+		 */
-+		dev_err(ictrl->device, "CCR failed using %s, ret = %d\n",
-+			dev_name(sctrl->device), ret);
-+		min_cntlid = sctrl->cntlid + 1;
-+		nvme_put_ctrl_ccr(sctrl);
-+		now = jiffies;
-+	}
-+
-+	/* Fencing timed out call it done */
-+	dev_info(ictrl->device, "fencing timeout\n");
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(nvme_fence_ctrl);
-+
- bool nvme_change_ctrl_state(struct nvme_ctrl *ctrl,
- 		enum nvme_ctrl_state new_state)
+ #define NVME_AEN_SUPPORTED \
+ 	(NVME_AEN_CFG_NS_ATTR | NVME_AEN_CFG_FW_ACT | \
+-	 NVME_AEN_CFG_ANA_CHANGE | NVME_AEN_CFG_DISC_CHANGE)
++	 NVME_AEN_CFG_ANA_CHANGE | NVME_AEN_CFG_CCR_COMPLETE | \
++	 NVME_AEN_CFG_DISC_CHANGE)
+ 
+ static void nvme_enable_aen(struct nvme_ctrl *ctrl)
  {
-@@ -5254,6 +5405,7 @@ int nvme_init_ctrl(struct nvme_ctrl *ctrl, struct device *dev,
+@@ -5023,6 +5024,48 @@ static void nvme_get_fw_slot_info(struct nvme_ctrl *ctrl)
+ 	kfree(log);
+ }
  
- 	mutex_init(&ctrl->scan_lock);
- 	INIT_LIST_HEAD(&ctrl->namespaces);
-+	INIT_LIST_HEAD(&ctrl->ccr_list);
- 	xa_init(&ctrl->cels);
- 	ctrl->dev = dev;
- 	ctrl->ops = ops;
++static void nvme_ccr_work(struct work_struct *work)
++{
++	struct nvme_ctrl *ctrl = container_of(work, struct nvme_ctrl, ccr_work);
++	struct nvme_ccr_entry *ccr;
++	struct nvme_ccr_log_entry *entry;
++	struct nvme_ccr_log *log;
++	int num_entries, ret, i;
++	unsigned long flags;
++
++	log = kmalloc_obj(*log);
++	if (!log)
++		return;
++
++	ret = nvme_get_log(ctrl, 0, NVME_LOG_CCR, 0x01,
++			   0x00, log, sizeof(*log), 0);
++	if (ret)
++		goto out;
++
++	spin_lock_irqsave(&ctrl->lock, flags);
++	num_entries = min(le16_to_cpu(log->ne), NVMF_CCR_PER_PAGE);
++	for (i = 0; i < num_entries; i++) {
++		entry = &log->entries[i];
++		if (entry->ccrs == NVME_CCR_STATUS_IN_PROGRESS)
++			continue;
++
++		list_for_each_entry(ccr, &ctrl->ccr_list, list) {
++			struct nvme_ctrl *ictrl = ccr->ictrl;
++
++			if (ictrl->cntlid != le16_to_cpu(entry->icid) ||
++			    ictrl->ciu != entry->ciu)
++				continue;
++
++			/* Complete matching entry */
++			ccr->ccrs = entry->ccrs;
++			complete(&ccr->complete);
++		}
++	}
++	spin_unlock_irqrestore(&ctrl->lock, flags);
++out:
++	kfree(log);
++}
++
+ static void nvme_fw_act_work(struct work_struct *work)
+ {
+ 	struct nvme_ctrl *ctrl = container_of(work,
+@@ -5099,6 +5142,9 @@ static bool nvme_handle_aen_notice(struct nvme_ctrl *ctrl, u32 result)
+ 	case NVME_AER_NOTICE_DISC_CHANGED:
+ 		ctrl->aen_result = result;
+ 		break;
++	case NVME_AER_NOTICE_CCR_COMPLETED:
++		queue_work(nvme_wq, &ctrl->ccr_work);
++		break;
+ 	default:
+ 		dev_warn(ctrl->device, "async event result %08x\n", result);
+ 	}
+@@ -5287,6 +5333,7 @@ void nvme_stop_ctrl(struct nvme_ctrl *ctrl)
+ 	nvme_stop_failfast_work(ctrl);
+ 	flush_work(&ctrl->async_event_work);
+ 	cancel_work_sync(&ctrl->fw_act_work);
++	cancel_work_sync(&ctrl->ccr_work);
+ 	if (ctrl->ops->stop_ctrl)
+ 		ctrl->ops->stop_ctrl(ctrl);
+ }
+@@ -5412,6 +5459,7 @@ int nvme_init_ctrl(struct nvme_ctrl *ctrl, struct device *dev,
+ 	ctrl->quirks = quirks;
+ 	ctrl->numa_node = NUMA_NO_NODE;
+ 	INIT_WORK(&ctrl->scan_work, nvme_scan_work);
++	INIT_WORK(&ctrl->ccr_work, nvme_ccr_work);
+ 	INIT_WORK(&ctrl->async_event_work, nvme_async_event_work);
+ 	INIT_WORK(&ctrl->fw_act_work, nvme_fw_act_work);
+ 	INIT_WORK(&ctrl->delete_work, nvme_delete_ctrl_work);
 diff --git a/drivers/nvme/host/nvme.h b/drivers/nvme/host/nvme.h
-index 84ea3f2728bd..8da75a15ac04 100644
+index 8da75a15ac04..7096f1e4f84e 100644
 --- a/drivers/nvme/host/nvme.h
 +++ b/drivers/nvme/host/nvme.h
-@@ -341,6 +341,13 @@ enum nvme_ctrl_flags {
- 	NVME_CTRL_FROZEN		= 6,
- };
- 
-+struct nvme_ccr_entry {
-+	struct list_head list;
-+	struct completion complete;
-+	struct nvme_ctrl *ictrl;
-+	u8 ccrs;
-+};
-+
- struct nvme_ctrl {
- 	bool comp_seen;
- 	bool identified;
-@@ -358,6 +365,7 @@ struct nvme_ctrl {
- 	struct blk_mq_tag_set *tagset;
- 	struct blk_mq_tag_set *admin_tagset;
- 	struct list_head namespaces;
-+	struct list_head ccr_list;
- 	struct mutex namespaces_lock;
- 	struct srcu_struct srcu;
- 	struct device ctrl_device;
-@@ -402,6 +410,7 @@ struct nvme_ctrl {
- 	u16 sqsize;
- 	u32 max_namespaces;
- 	atomic_t abort_limit;
-+	atomic_t ccr_used;
- 	u8 ccrl;
- 	u8 vwc;
- 	u32 vs;
-@@ -902,6 +911,7 @@ blk_status_t nvme_host_path_error(struct request *req);
- bool nvme_cancel_request(struct request *req, void *data);
- void nvme_cancel_tagset(struct nvme_ctrl *ctrl);
- void nvme_cancel_admin_tagset(struct nvme_ctrl *ctrl);
-+unsigned long nvme_fence_ctrl(struct nvme_ctrl *ctrl);
- bool nvme_change_ctrl_state(struct nvme_ctrl *ctrl,
- 		enum nvme_ctrl_state new_state);
- int nvme_disable_ctrl(struct nvme_ctrl *ctrl, bool shutdown);
+@@ -431,6 +431,7 @@ struct nvme_ctrl {
+ 	struct nvme_effects_log *effects;
+ 	struct xarray cels;
+ 	struct work_struct scan_work;
++	struct work_struct ccr_work;
+ 	struct work_struct async_event_work;
+ 	struct delayed_work ka_work;
+ 	struct delayed_work failfast_work;
 -- 
 2.55.0
 
