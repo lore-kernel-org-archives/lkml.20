@@ -1,56 +1,56 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A03B74FD28F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A87C95013A9
 	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:50:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789739445; cv=none; b=l5XBXKxnYTzMFgo7B/q+0UT7lmxbG/q2ZW81ekdmaGkIpPbSxc92U79+9ggFepquO+kvKAsXS0aNajuNz35OHIbjJstWIDsD0iI42/yVFEOPPWZM1iZuv+CaBlEsq+Ahpy26ATXUcAlqhkywGZsLq74c5HOlg+daJH/e6evZWE0=
+	t=1789739445; cv=none; b=OmfF3pc+hBbmFSRswPKZZjJRfCMJ9ex6Js3gs3yyL79s7+TB788d6dCKG5h4OcMPj3hBdTdCqHkAL4gzOEK0AI07yPq3Idvsbyt3lYtInM8By/GnfMlGRhnTx36W2QqrTdsw+/mqIwQCRVq+VZyph31T1HG1YmTExMO8jHPqA0I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789739445; c=relaxed/simple;
-	bh=rgk9M4pgE1QviE0CqliLyO+0jWnMkZ/1sJnfXb4SX+s=;
+	bh=mTV3xX4GH7tj1q4A10HKa/9dzjZveMdRRiqNyw0Wi38=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KZNrW8jLMuPJ04lr19l75iJcsiDvXI5EbvgI3YuZWKjOfM5zerSu3WX9VWD8LReiGyawm+Fwn+AuKwoqo758SSSSF+jkKBQC2290FGh4zgg6YZaYgAtjicBG0au25OFI3MiNIJbB0Ov5tgiFRpLChLk8figcMhnuFBCeY3ewn9k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=e5trTLZG; arc=none smtp.client-ip=170.10.129.124
+	 MIME-Version:Content-Type; b=Oi/jvWYp8ph6AMUh076qOQ4HwoMQ+AMaXGd76LpRsYwO4nJ+OjtE1lcdiPXKHIpSJo8xTmZV5jV2y0vUbYpz1h6cbp3jL63tVun8nI/SUobgrp2B/GLjIHvm4sZ7saQO06RjIifcz9GrtI24r+YDW4apWjoHxrKwqYBSEhLjrTY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=AbgdUlnQ; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="e5trTLZG"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="AbgdUlnQ"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1789739441;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ujSswSFjYRCTMYkmmhaCZWF4ecoRPMD1qhDcHmUI9W0=;
-	b=e5trTLZGgyki+0DDY4jUFMOZ8BWPkHtQByL4ApNeJ82oVTQe1oIsZb2IIztNUgBULzuq57
-	aodEDDKNRPykE08AtOg/r6nEuiAyUdZMIY/3FGJ0Pb3+VFhP4MVeIe5aHBwWIe1qidI0L7
-	43E2wOU8uvsY3qwomsk3jD8Cbi8SeYI=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+	bh=0rRcphcq6LZt+l3KFOWlD7eC1zWunLI9ySIRYJJB8xM=;
+	b=AbgdUlnQyVx7do+3c5tDlBokHnLjJ6BOCSsZFtQQUyhHNDwsgaj8y/vw+5UmPq6CJlHlmm
+	bazusJcuEkwzIlg0B9TqUWGE9jEHeYqRxFlAAP4UekqIAkni1lj7WNiPAENFufcZdBBpj3
+	8CTRK5BT2nQpANhxqS4Hvx4AXqoZuLo=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-189-2w4Tn3_2Mgi_8tBFe-taGQ-1; Fri,
- 18 Sep 2026 09:50:39 -0400
-X-MC-Unique: 2w4Tn3_2Mgi_8tBFe-taGQ-1
-X-Mimecast-MFC-AGG-ID: 2w4Tn3_2Mgi_8tBFe-taGQ_1789739439
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-528-N_Rip33cO2yeRIFyeODglg-1; Fri,
+ 18 Sep 2026 09:50:36 -0400
+X-MC-Unique: N_Rip33cO2yeRIFyeODglg-1
+X-Mimecast-MFC-AGG-ID: N_Rip33cO2yeRIFyeODglg_1789739435
 Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D9CD318011D7;
-	Fri, 18 Sep 2026 13:50:38 +0000 (UTC)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A4A35180AE2E;
+	Fri, 18 Sep 2026 13:50:35 +0000 (UTC)
 Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 3B1091956042;
-	Fri, 18 Sep 2026 13:50:38 +0000 (UTC)
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 068561956042;
+	Fri, 18 Sep 2026 13:50:34 +0000 (UTC)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	kvm@vger.kernel.org
 Cc: nsaenz@amazon.com,
 	vkuznets@redhat.com,
 	snambakam@linux.microsoft.com
-Subject: [PATCH 08/31] KVM: x86/mmu: intersect writability from __kvm_faultin_pfn with fault->map_writable
-Date: Fri, 18 Sep 2026 09:50:07 -0400
-Message-ID: <20260918135030.171564-9-pbonzini@redhat.com>
+Subject: [PATCH 04/31] KVM: selftests: Test address translation for Hyper-V direct L2 hypercalls
+Date: Fri, 18 Sep 2026 09:50:03 -0400
+Message-ID: <20260918135030.171564-5-pbonzini@redhat.com>
 In-Reply-To: <20260918135030.171564-1-pbonzini@redhat.com>
 References: <20260918135030.171564-1-pbonzini@redhat.com>
 Precedence: bulk
@@ -63,86 +63,124 @@ Content-Type: text/plain
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-fault->map_writable is currently a pure output of __kvm_faultin_pfn(),
-which is the only thing that restricts it.  This will no longer hold once
-memory protections derived from memory attributes are applied: those
-compute their own access permissions that combine with those from
-__kvm_faultin_pfn().
-
-Applying them *before* faulting in the pfn lets a fault that violates
-the attributes exit to userspace without the cost of gup and/or an
-async #PF; but it means that permissions will then be restricted in two
-independent steps, first by memory attributes and then by __kvm_faultin_pfn().
-Switch fault->map_writable to that model by letting kvm_mmu_faultin_pfn()
-only clear bits rather than assign them.
-
-No functional change intended: nothing writes fault->map_writable between
-the initializer and __kvm_mmu_faultin_pfn() yet, so the AND is equivalent
-to the assignment it replaces.
+Test that the TLB flush hypercalls, when executed by L2, translate their
+input addresses through the guest's EPT or NPT.
 
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- arch/x86/kvm/mmu/mmu.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ tools/testing/selftests/kvm/x86/hyperv_evmcs.c    | 12 +++++++++++-
+ tools/testing/selftests/kvm/x86/hyperv_svm_test.c | 13 ++++++++++++-
+ 2 files changed, 23 insertions(+), 2 deletions(-)
 
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index 064ecc33b926..5996468b7120 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -4634,7 +4634,7 @@ static int kvm_mmu_faultin_pfn_gmem(struct kvm_vcpu *vcpu,
- 		return r;
- 	}
+diff --git a/tools/testing/selftests/kvm/x86/hyperv_evmcs.c b/tools/testing/selftests/kvm/x86/hyperv_evmcs.c
+index 63ea1533e4ea..29baae74ad3a 100644
+--- a/tools/testing/selftests/kvm/x86/hyperv_evmcs.c
++++ b/tools/testing/selftests/kvm/x86/hyperv_evmcs.c
+@@ -18,6 +18,8 @@
+ #include "hyperv.h"
+ #include "vmx.h"
  
--	fault->map_writable = !(fault->slot->flags & KVM_MEM_READONLY);
-+	fault->map_writable &= !(fault->slot->flags & KVM_MEM_READONLY);
- 	fault->max_level = kvm_max_level_for_order(max_order);
++#define L2_HCALL_INPUT_GPA	0x100000000ull
++
+ static int ud_count;
  
- 	return RET_PF_CONTINUE;
-@@ -4644,13 +4644,14 @@ static int __kvm_mmu_faultin_pfn(struct kvm_vcpu *vcpu,
- 				 struct kvm_page_fault *fault)
+ static void guest_ud_handler(struct ex_regs *regs)
+@@ -60,6 +62,8 @@ void l2_guest_code(void)
+ 	rdmsr_from_l2(MSR_GS_BASE); /* intercepted */
+ 
+ 	/* L2 TLB flush tests */
++	hyperv_hypercall(HVCALL_FLUSH_VIRTUAL_ADDRESS_SPACE,
++			 L2_HCALL_INPUT_GPA, 0);
+ 	hyperv_hypercall(HVCALL_FLUSH_VIRTUAL_ADDRESS_SPACE | HV_HYPERCALL_FAST_BIT, 0x0,
+ 			 HV_FLUSH_ALL_VIRTUAL_ADDRESS_SPACES | HV_FLUSH_ALL_PROCESSORS);
+ 	rdmsr_from_l2(MSR_FS_BASE);
+@@ -228,7 +232,7 @@ static struct kvm_vcpu *save_restore_vm(struct kvm_vm *vm,
+ int main(int argc, char *argv[])
  {
- 	unsigned int foll = fault->write ? FOLL_WRITE : 0;
-+	bool writable;
+ 	gva_t vmx_pages_gva = 0, hv_pages_gva = 0;
+-	gva_t hcall_page;
++	gva_t hcall_input_page, hcall_page;
  
- 	if (fault->is_private || kvm_memslot_is_gmem_only(fault->slot))
- 		return kvm_mmu_faultin_pfn_gmem(vcpu, fault);
+ 	struct kvm_vcpu *vcpu;
+ 	struct kvm_vm *vm;
+@@ -239,17 +243,23 @@ int main(int argc, char *argv[])
+ 	TEST_REQUIRE(kvm_has_cap(KVM_CAP_NESTED_STATE));
+ 	TEST_REQUIRE(kvm_has_cap(KVM_CAP_HYPERV_ENLIGHTENED_VMCS));
+ 	TEST_REQUIRE(kvm_hv_cpu_has(HV_X64_NESTED_DIRECT_FLUSH));
++	TEST_REQUIRE(kvm_cpu_has_ept());
  
- 	foll |= FOLL_NOWAIT;
- 	fault->pfn = __kvm_faultin_pfn(fault->slot, fault->gfn, foll,
--				       &fault->map_writable, &fault->refcounted_page);
-+				       &writable, &fault->refcounted_page);
+ 	vm = vm_create_with_one_vcpu(&vcpu, guest_code);
++	vm_enable_ept(vm);
  
- 	/*
- 	 * If resolving the page failed because I/O is needed to fault-in the
-@@ -4659,7 +4660,7 @@ static int __kvm_mmu_faultin_pfn(struct kvm_vcpu *vcpu,
- 	 * other failures are terminal, i.e. retrying won't help.
- 	 */
- 	if (fault->pfn != KVM_PFN_ERR_NEEDS_IO)
--		return RET_PF_CONTINUE;
-+		goto out_pf_continue;
+ 	hcall_page = vm_alloc_pages(vm, 1);
+ 	memset(addr_gva2hva(vm, hcall_page), 0x0,  getpagesize());
++	hcall_input_page = vm_alloc_page(vm);
++	memset(addr_gva2hva(vm, hcall_input_page), 0, getpagesize());
  
- 	if (!fault->prefetch && kvm_can_do_async_pf(vcpu)) {
- 		trace_kvm_try_async_get_page(fault->addr, fault->gfn);
-@@ -4680,8 +4681,10 @@ static int __kvm_mmu_faultin_pfn(struct kvm_vcpu *vcpu,
- 	foll |= FOLL_INTERRUPTIBLE;
- 	foll &= ~FOLL_NOWAIT;
- 	fault->pfn = __kvm_faultin_pfn(fault->slot, fault->gfn, foll,
--				       &fault->map_writable, &fault->refcounted_page);
-+				       &writable, &fault->refcounted_page);
+ 	vcpu_set_hv_cpuid(vcpu);
+ 	vcpu_enable_evmcs(vcpu);
  
-+out_pf_continue:
-+	fault->map_writable &= writable;
- 	return RET_PF_CONTINUE;
- }
+ 	vcpu_alloc_vmx(vm, &vmx_pages_gva);
+ 	vcpu_alloc_hyperv_test_pages(vm, &hv_pages_gva);
++	tdp_identity_map_default_memslots(vm);
++	tdp_map(vm, L2_HCALL_INPUT_GPA, addr_gva2gpa(vm, hcall_input_page), PAGE_SIZE);
+ 	vcpu_args_set(vcpu, 3, vmx_pages_gva, hv_pages_gva, addr_gva2gpa(vm, hcall_page));
+ 	vcpu_set_msr(vcpu, HV_X64_MSR_VP_INDEX, vcpu->id);
  
-@@ -5000,6 +5003,7 @@ static int kvm_mmu_do_page_fault(struct kvm_vcpu *vcpu, gpa_t cr2_or_gpa,
- 		.is_private = err & PFERR_PRIVATE_ACCESS,
+diff --git a/tools/testing/selftests/kvm/x86/hyperv_svm_test.c b/tools/testing/selftests/kvm/x86/hyperv_svm_test.c
+index 1f74b0fa9b83..18f0ad6debd8 100644
+--- a/tools/testing/selftests/kvm/x86/hyperv_svm_test.c
++++ b/tools/testing/selftests/kvm/x86/hyperv_svm_test.c
+@@ -18,6 +18,8 @@
+ #include "svm_util.h"
+ #include "hyperv.h"
  
- 		.pfn = KVM_PFN_ERR_FAULT,
-+		.map_writable = true,
- 	};
- 	int r;
++#define L2_HCALL_INPUT_GPA	0x100000000ull
++
+ /* Exit to L1 from L2 with RDMSR instruction */
+ static inline void rdmsr_from_l2(u32 msr)
+ {
+@@ -45,6 +47,8 @@ void l2_guest_code(void)
+ 	GUEST_SYNC(5);
  
+ 	/* L2 TLB flush tests */
++	hyperv_hypercall(HVCALL_FLUSH_VIRTUAL_ADDRESS_SPACE,
++			 L2_HCALL_INPUT_GPA, 0);
+ 	hyperv_hypercall(HVCALL_FLUSH_VIRTUAL_ADDRESS_SPACE |
+ 			 HV_HYPERCALL_FAST_BIT, 0x0,
+ 			 HV_FLUSH_ALL_VIRTUAL_ADDRESS_SPACES |
+@@ -146,7 +150,7 @@ static void __attribute__((__flatten__)) guest_code(struct svm_test_data *svm,
+ int main(int argc, char *argv[])
+ {
+ 	gva_t nested_gva = 0, hv_pages_gva = 0;
+-	gva_t hcall_page;
++	gva_t hcall_input_page, hcall_page;
+ 	struct kvm_vcpu *vcpu;
+ 	struct kvm_vm *vm;
+ 	struct ucall uc;
+@@ -154,15 +158,22 @@ int main(int argc, char *argv[])
+ 
+ 	TEST_REQUIRE(kvm_cpu_has(X86_FEATURE_SVM));
+ 	TEST_REQUIRE(kvm_hv_cpu_has(HV_X64_NESTED_DIRECT_FLUSH));
++	TEST_REQUIRE(kvm_cpu_has_npt());
+ 
+ 	/* Create VM */
+ 	vm = vm_create_with_one_vcpu(&vcpu, guest_code);
++	vm_enable_npt(vm);
+ 	vcpu_set_hv_cpuid(vcpu);
+ 	vcpu_alloc_svm(vm, &nested_gva);
+ 	vcpu_alloc_hyperv_test_pages(vm, &hv_pages_gva);
+ 
+ 	hcall_page = vm_alloc_pages(vm, 1);
+ 	memset(addr_gva2hva(vm, hcall_page), 0x0,  getpagesize());
++	hcall_input_page = vm_alloc_page(vm);
++	memset(addr_gva2hva(vm, hcall_input_page), 0, getpagesize());
++
++	tdp_identity_map_default_memslots(vm);
++	tdp_map(vm, L2_HCALL_INPUT_GPA, addr_gva2gpa(vm, hcall_input_page), PAGE_SIZE);
+ 
+ 	vcpu_args_set(vcpu, 3, nested_gva, hv_pages_gva, addr_gva2gpa(vm, hcall_page));
+ 	vcpu_set_msr(vcpu, HV_X64_MSR_VP_INDEX, vcpu->id);
 -- 
 2.52.0
 
