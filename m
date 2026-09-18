@@ -1,188 +1,135 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011002.outbound.protection.outlook.com [40.107.208.2])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C8B5503BC7
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:40:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.2
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789746014; cv=fail; b=PwKEPDg231PcB7MlxZA1/qSQjCJcAnIxIcn7ciQ1cX1xMPoHw5pu8+PUR/fwGlBLqpZOW+kgxXum9Np4UtjS88yLvpXjNelPapWCz9/1bTXyQHrKvMsRvYwNI6/bkQOlohTp5uHUkyqRCoQiZezWZlyEC602FGkYLADZvWTNm8U=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789746014; c=relaxed/simple;
-	bh=4ydLx4xsBr5j0lmpJR5zCZVkiSjiB1fshoN7wZTladc=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=HXNgxg5Rwwr0woyS+LscziLSElG/FwpMmFzJFbTPsD6Hc8W2i6UAAJB0DayUlskqlM7AZIL0M2o6gvNovx2h+zfFkBkMXHG3/jVBUtrZP4Ikxfw2+oQuVj7fAfGgwbytXAN3y4jN4k2Pd7uhCdjDZ/IFl6N40butV3l3PuF3LEA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=PxVg7uY7; arc=fail smtp.client-ip=40.107.208.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B39A3BE642;
+	Fri, 18 Sep 2026 15:40:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789746049; cv=none; b=eOB9EpaKLsKqpzzPm2pbwUlMSmAL1Eh7QlbGAaWRPvhewgp0kzW45bSdN2r4oWKX2moZzEAGDb68jJei55cvOWb23spK8UXPo8FwaVrFDIVmKyUeshbJNXR7bnhauN2Xh1q/phI1azeEFOYcYMBXBp6aX9Q+/izjoI1+i+5yiEI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789746049; c=relaxed/simple;
+	bh=lwmdc3He+ffZqOKAhXhWiLf5MPr6XGEuf3Kp76ENcc0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iqd9jr2XyQyCMpKTao9yUEr0VH/rgPvEXh0/Ccz/rQl4PSNCpux8z+8oUmj/zre0JHkwjIBtlVjHCViMAXH/E0pAL75C001O7Irpznjen9UDIGJSzQzRA2dPwgrmcT090CQWbTdFKOk8ZKiDMLVlTvlC4CLwyYFUUq9s3VHs1/A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Qkof8BYV; arc=none smtp.client-ip=192.198.163.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="PxVg7uY7"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hgnyZWzxVCagYI0Whl+pgi66n4GHhRJhBbMqJ5Dz6xM/o1xneS+T+u46RVwLkDL+ryZhs0Os6JzhqakOF9ssZ4afa2DMnIJ3Y25A4e7SesqHjXT05ahyCX9g5lhFkbJFaeObZWAobxDE9FRBNM/C3JJODs8WSXmsShSckk/PFoAtNHlcRq7/lq/YeDaefVcL23y2TiyzTBpvu40KvJVcKDzVSa0aelD3DaQoNpAIUbu2+wh1wca1NjokpBh6+1vAW/o5AqxJAz9fdHCmJr/nrdvyrsu5fUglYkEt1Yh4RibeOHx/dcOi4vhEoCqCigYntsEX9vLyCzau4b4041maSA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rFbBxOaScdg6xEZQzkaCwNVv4e/dbfNEJxqr2f2h0kE=;
- b=c/9K2k7LV1YsVkefWFUVPrDQXWEMfO7SiDKf6AC0IbmFejlld9t73sDZeH/OxumGjGlfCQq56+Ll4fCalCWamTXMTOuihXwfrkJ5YAQkopI9xcI8oromSju2sBvaOdtRdgO5AtsmzQKyXEd9h34Jfd0kJdnhzq+X6nNnAZI2+nH1zPJWlsuAWfzTbIreQSBp2dcpK7v1FCrB+AM1rdGm/2B2mB1GFDnniI7aJNLH7rMy4Tr/hNLfh4RknOJyKGpG6tEC9QQ1JGUaV8Qc28+WWXsRZogV9Xb98PJ4Li3wJU5f0u2z/DW+GmvxlDt9RWwzkZ8WzPO0f5d4VySiqyBXfA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rFbBxOaScdg6xEZQzkaCwNVv4e/dbfNEJxqr2f2h0kE=;
- b=PxVg7uY7SHh9yWNo49lrjDllvG5uiaJTylEagW8xkdmSWDYJeh82bHuyrBXNq9356whlLrYaSWt3XbWdiuVnz+5cqAY+alkjuIJvu+rVf653DfgdPwG89k5XnKHxRo2tcYI1Ad5sTALvRaOaFKqBRLr6lQU/8N92+xRVI0Fczoc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH7PR12MB6954.namprd12.prod.outlook.com (2603:10b6:510:1b7::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
- 2026 15:40:01 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
- 15:40:01 +0000
-Message-ID: <d8123f21-d5ce-415b-a05a-392d97b8b57d@amd.com>
-Date: Fri, 18 Sep 2026 17:39:55 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 7/9] dma-buf: system_heap: Enforce shared-granule
- alignment for cc-shared buffers
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
- "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
- linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- iommu@lists.linux.dev, Marc Zyngier <maz@kernel.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>, Steven Price <steven.price@arm.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, Thomas Gleixner
- <tglx@kernel.org>, Will Deacon <will@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, "T.J. Mercier" <tjmercier@google.com>
-References: <aq1V3oeDdvXobt8J@arm.com>
- <97c30fce-9bda-4c61-b1b9-10297b89c8d9@amd.com>
- <20260918153642.GD11599@ziepe.ca>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260918153642.GD11599@ziepe.ca>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0198.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e5::13) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Qkof8BYV"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789746046; x=1821282046;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=lwmdc3He+ffZqOKAhXhWiLf5MPr6XGEuf3Kp76ENcc0=;
+  b=Qkof8BYV4B+8UYVIqxfZyJ9x0Hyi3nYI3bx24VFHWbPDvjnggc4N1LFT
+   Zzg68j7zFUd/VU9JXM1W7XREPBB7rJB84B9dKW0QcpugdM2wcWFmAAzwC
+   FV6A4ZlJ/xyM9sgN3RHAL7X4OIWnVWodfv4ol5jE/ZeJF7aQR2gFciyhx
+   Avw4GdsaMtW7i9kKOVrNO0CsPG5NyY8rbOORCXbd2BuNBn1IF20+4D824
+   YG2IGkXu3lZsWiA8QctjLValsPny2YaIjnIW3BLaGH0ae+u7mdHsow6fM
+   ETOHYUvdH9Us6JbXvouUSX+8o63jK3STeWTzKkBmCCRiAazDKnvSrhYzn
+   w==;
+X-CSE-ConnectionGUID: ZHCz4+ZPSt288F3V0KmkQQ==
+X-CSE-MsgGUID: AMNuvK8ZQAyBOGW7Ryqomw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11909"; a="759793"
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
+   d="scan'208";a="759793"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 08:40:44 -0700
+X-CSE-ConnectionGUID: qGu3k0KTR0msRFN7zuWMxg==
+X-CSE-MsgGUID: YmzZG0zPTtW0aSmIuE0Apg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
+   d="scan'208";a="297908548"
+Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.109.117]) ([10.125.109.117])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 08:40:43 -0700
+Message-ID: <3554ed26-1659-4126-92ed-48d7df83b0c2@intel.com>
+Date: Fri, 18 Sep 2026 08:40:41 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB6954:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4e5f8145-6547-4ea3-13e7-08df159b19f1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|7416014|18002099003|22082099003|4143699003|10067099003|56012099006|11063799006|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	PrB+xNUTQGRU4uLJug36sX53OJM1AMgcO7g96fYn4i8RevpaiZvv3l3JpfwApQlgujV2hGGWpNBiBboc+qKzIZ+MfCNvv4c32O4LTQ4QcIYHUcBmQUMOZ00KAlIkgY9FMixKqGMjWWJEzWkUCKg6+vvRmYBjVH7LjPHywThTj00+I4wt+NfJuTnnl+ifrgOkL1AwMEqgXxl5L62B7gVLSQI+kzZ7Hl99IvZsxiF63JMu0EjB2oOLDqdGKAMyC8weE2aZewHr2TBGsU/8LfWWgLM7pwE1dPUrVsb8x0Ug/HVLnPPGZLVh2U2VpWUMxFR9XXGjyG/VDwajxbE8VLyK8M7ZIurIWNFpNZahBgaphQ1alMpXzOzfchdEZm1kOQLiCirNo5m6s0FaUEHCiWyCVzSAqAZ1CTo4i6uOK/d9XzVRcy+QAtDXvs1Qy1za+hnaCNh/qjdCZzDdD6eunBU5kWHJ5YZ2ekJH8Ud7NOl+xGSplQYKYM2hobEh7Zyuh9ccQ9YrotQJv89MNzideoQ+8K5zGntvT6cOwYjNufu1DAdlag2NEhpqrEznjtBmOj4HPlTplacesyffGp70NQxQPM1DOXHOk7iX/zKSw6IcsbnoYvMAiuvYP7NeJ8KANNei6Pk8qBmGny2apvHhSTy8HcFTme/wQgwdQScy3rQji7w=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(7416014)(18002099003)(22082099003)(4143699003)(10067099003)(56012099006)(11063799006)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZFkwOVlEaUErUjJKTjVHT1diWm5zNkF3TUU1a1NaWEJrRzVmSUZGZWZHbXBF?=
- =?utf-8?B?Qnd1b1orRUxYYUhET0lUcC91cFRRcnBUZ1pzR1FTSkJHL0pWb2p2b1NBc01n?=
- =?utf-8?B?c3gxSFJiNmNDblBKZ3ViNkdGc0R5NXNFb0NSRTJjd1AzWnRQL2s5VEhUL0lh?=
- =?utf-8?B?anQrT0QyVVdPWlF3bStnb0lrOEZ3VUJidXh5ZTZFMy9PeTdtRHhIWUlhTlh6?=
- =?utf-8?B?Q3ZmS2RJSkdDSVJraXpPU2JzcmV6QThHdzM0NkxJM251QjNROWxLelZRSUVt?=
- =?utf-8?B?ZjZWelA1SEE0eENqVEZva0NUdUhMSEc3R1hiWG5wUUFrb0NTdjRRRjYweDE5?=
- =?utf-8?B?dTFENU9TOFg5djE3THVZZ1FlV29DcUhOaGdvRnFmcUlMR1RGS003aHM0TGxN?=
- =?utf-8?B?eXV6cjFINnJFK1hOMzhOOUtuT0xrT3FtRUZJeGhvbjFqUm1HQ0RxcnM1TXBp?=
- =?utf-8?B?Rm9IOHo1MDI3b09DRytOT3NIZ29scTBuVzhMQVUyS1JkL3NzL2VBMzQ4bzZt?=
- =?utf-8?B?ZEN1N3RxNVM1eDBDQnQxenYxbDVhenEwREx0WmNnUlpjTGthbDVYQVMyZUc3?=
- =?utf-8?B?cE96WDlLYXJ2SkVwWnlSWld2ZEYvd1I5YVpLNnBxeUpmTjlkZGZuV3dEWng3?=
- =?utf-8?B?YTR2ckNXbUF2VjdpNXhHRTI3VG91SnhXYXRqcnAvT0dvQlBZQ0FZdzl4Zmd5?=
- =?utf-8?B?VkNYZXEwbFpqVkdOMEtYWHl0SEhHQUZMbWpicWZRVHk4UGR6SVJCcUpsc2RP?=
- =?utf-8?B?REhCSHhHb3lWL2ZXVEVlSGhvaHZoVVc2WDBoQ2R4NVZKL3p6bUJ4V1EybnhV?=
- =?utf-8?B?L0NVL09tcTk4YVk0c2lYaGJESnFqQUZqbUk1TDBCcS9RTjBUdisrcTRyK2dP?=
- =?utf-8?B?Y3EwTEZ2eTNkSmZQQUQzSUJUbmxMQU91N2dpSUNkdDBQd2JRUGJRV2xySThu?=
- =?utf-8?B?M1dNUWt5NmpxS3JwU252UnBRencvTkxORmNpdUNLQ2o2Z2N4SExCUkhwamov?=
- =?utf-8?B?MVhjUjBpTW5XU0tTOGdsMUFzN044a2RjUk9OZmFSQlluVGdFaGx4aXcyQkw5?=
- =?utf-8?B?cG11L056VVN2aUljK0FDWEREVUUwRjhNenZWUmFrTklqeStLSEdtTDJqb3dE?=
- =?utf-8?B?ZVhveUZTQUNENUlwKzN1d0IzZ2V0enpOL3cxVi81N0JPYmpwZXlON2pTV3Yv?=
- =?utf-8?B?U1JOS3ZyTE5VT1BqZVk1MEtJYWpaTWRUWEZUYnYzaVlCWGdLM3NaTTB5MnZz?=
- =?utf-8?B?eFRDYU43eTBnTXBxajU5SHFmTzIrdCtjL0ZCNlNWVEU4SWorYmU3ZjloUkxr?=
- =?utf-8?B?d2tpblV6MmsrVmJnT0xOamd2dmhBYTFEZEtQeE80SWR4U2QyMkp0dVcrUk41?=
- =?utf-8?B?SEZwSUVxbVZQSjhvdVQxM1pjL1BNZC9JRDRMNXozSVdsVFMwQUprejgwckxn?=
- =?utf-8?B?SEZtUFZXdVg3bi8zREFuMW5pV2xvZmlYbUFNbHBGaFEvVFZlTXhwQjV0Z0Z4?=
- =?utf-8?B?aytDZ2hqRjVaL2xoc0hoTGxzNGZ1bWJPUUFzT2NJRkVZUi9ZWkpJUHVlZjZN?=
- =?utf-8?B?dDJianJ1dUthUkU1aHNFU2lndERvcEt5eUUrVGdTZUViYnZpam91bXZ5eUJE?=
- =?utf-8?B?UUJvSHlrNVdNNUFQempjQ3pETGQ0WnVJQ2lJeVZ0ckFlRnRrOTJPbFVIalEz?=
- =?utf-8?B?M0llNzZWUHNoS00xeC9XM21TYkNJVzNxUEpYNDhNSkM4UkJ4TEZwSXNWdzRB?=
- =?utf-8?B?Y2QrMWErU0lkRHZjVTh0YlVqRkVwd3VVeW5BcExMY2xReTRTVTBTRkdnTkxC?=
- =?utf-8?B?a0NXbjlIQnY1YzNDTFBzTEJzSXJWaEl0R1VBQmR2YmpaTVZFSWVxYnNxWUJ0?=
- =?utf-8?B?U09UT2pENGdJV0dHZU9QbHpFOHRPZ0RCN2dVdlo2bTlla1RKMElCQnhscUYx?=
- =?utf-8?B?VzM0VThBV1dtM1dZUFhEcjBtcHk2bFpzNUFmU3dFY0pWdm9ra0F1SFI3ak9w?=
- =?utf-8?B?TFhYWGZqSXFBQnBkenNiQTRPR3RuOWc5Mmk0OUJxTC8zYXdmTmlRMWV3cDB5?=
- =?utf-8?B?R2NzMUQyTXR2cHNhcDVwOC9DcVY5YjFaYmxQUHkvc2V0MURiRnFvWDRKYjZt?=
- =?utf-8?B?WHFoTTRGYUdlMTVRempyNHRWOFMxNFJuNDRFc21sUjQ5OVBWVVdjQTNQS2xP?=
- =?utf-8?B?V1lIdXVYaXNTSWdxQ3FFYkdqcnlGWTZRZjdSSDcwNUl5cUN1VFJ2UFE5cCt5?=
- =?utf-8?B?ckltM1BIL1FUVW9Wcm1ITjZleCtjd1lKeGxGSTRnYkllOFJtQTJmN2lIVVA0?=
- =?utf-8?Q?bjwNx0n6gInVqG3K4Q?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4e5f8145-6547-4ea3-13e7-08df159b19f1
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 15:40:01.0673
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WUwnyzJHxu5QKshFRMuQ90q34KRYn7MvnIAUVq7wBS3D3IvS6fhtfWGkdQdtqhJD
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6954
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] cxl/events: Return IRQ_NONE when no event is pending
+To: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>,
+ Davidlohr Bueso <dave@stgolabs.net>, Jonathan Cameron <jic23@kernel.org>,
+ Alison Schofield <alison.schofield@intel.com>,
+ Vishal Verma <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>,
+ Ira Weiny <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>
+Cc: anisa.su887@gmail.com, benjamin.cheatham@amd.com,
+ linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260912093815.14455-1-shaikhkamal2012@gmail.com>
+From: Dave Jiang <dave.jiang@intel.com>
+Content-Language: en-US
+In-Reply-To: <20260912093815.14455-1-shaikhkamal2012@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 9/18/26 17:36, Jason Gunthorpe wrote:
-> On Fri, Sep 18, 2026 at 05:23:32PM +0200, Christian König wrote:
->> On 9/18/26 17:16, Catalin Marinas wrote:
->>> First, none of the DMA-BUF maintainers have been cc'ed. It might be fine
->>> for an RFC but this series got to version 6. We need their feedback.
->>
->> Yeah, thanks for doing this.
->>> On Fri, Sep 04, 2026 at 04:04:50PM +0530, Aneesh Kumar K.V (Arm) wrote:
->>>> The system heap can allocate buffers that are decrypted and shared with the
->>>> host. For confidential-computing guests, those shared buffers must cover
->>>> whole shared-buffer granule; otherwise a userspace mmap of the dma-buf may
->>>> expose only part of a host-managed granule and allow unintended access to
->>>> adjacent private memory.
->>>>
->>>> Require cc-shared system-heap allocations to have a size aligned to
->>>> mem_cc_shared_granule_size(), and allocate pages at least as large as the
->>>> required granule. Keep the allocation bounded by the existing heap orders,
->>>> but fall back to an exact minimum-order allocation when the required
->>>> granule is not one of the preferred heap orders.
->>
->> Uff, I don't think we can do that.
->>
->> That is massively platform specific behavior in a non platform
->> specific code.
-> 
-> What we really need is an allocator API that does all this for the caller.
-> 
-> It has been pointed out a few times, Aneesh maybe you need to try to
-> tackle that?
-> 
-> dmabuf heap just wants
-> 
-> 'allocate me an array of shared folios totaling XX bytes'
 
-Yeah, I know at least two other use cases for that as well.
 
-> Arch code can figure out how to do it. If some ARM configs only give
-> order 4 folios or whatever then dmabuf heap doesn't care.
-
-The fundamental problem is that DMA allocations are highly architecture and device specific while Linux memory allocation APIs are generic.
-
-Christian.
-
+On 9/12/26 2:38 AM, Shaikh Kamaluddin wrote:
+> CXL event interrupts may share an MSI/MSI-X vector with other event
+> logs or device features. Consequently, cxl_event_thread() is registered
+> with IRQF_SHARED and must determine whether the event-log facility
+> claimed the interrupt.
 > 
-> And solve the double/triple zeroing problem.
+> The handler masks the Device Event Status register to the event logs
+> supported by the driver. However, when no supported status bit is set,
+> it exits the processing loop and still returns IRQ_HANDLED. This
+> incorrectly reports that the interrupt was claimed and prevents the
+> generic spurious-interrupt detector from accounting it as unhandled.
 > 
-> Jason
+> Track whether the CXL event handler claimed the interrupt and return
+> IRQ_NONE when no supported event is detected. If no handler sharing the
+> vector claims a sustained interrupt storm, the generic spurious-
+> interrupt detector can eventually identify and disable the affected
+> IRQ.
+> 
+> Signed-off-by: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
+
+Applied to cxl/next:
+a8c458611a7d
+
+> ---
+> Changes in V2:
+> - Emphasize that returning IRQ_NONE enables generic spurious-interrupt
+>   detection and drop the Fixes tag. (Jonathan Cameron)
+> - Check whether the event interrupt is already disabled by Anisa Su's
+>   patch; no code changes were needed. (Ben Cheatham)
+> - Rebase onto v7.3-rc2; no code changes.
+> 
+>  drivers/cxl/pci.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/cxl/pci.c b/drivers/cxl/pci.c
+> index c7c91e8dc51d..8b560cae91f2 100644
+> --- a/drivers/cxl/pci.c
+> +++ b/drivers/cxl/pci.c
+> @@ -515,6 +515,7 @@ static irqreturn_t cxl_event_thread(int irq, void *id)
+>  	struct cxl_dev_id *dev_id = id;
+>  	struct cxl_dev_state *cxlds = dev_id->cxlds;
+>  	struct cxl_memdev_state *mds = to_cxl_memdev_state(cxlds);
+> +	bool handled = false;
+>  	u32 status;
+>  
+>  	do {
+> @@ -527,11 +528,13 @@ static irqreturn_t cxl_event_thread(int irq, void *id)
+>  		status &= CXLDEV_EVENT_STATUS_ALL;
+>  		if (!status)
+>  			break;
+> +
+> +		handled = true;
+>  		cxl_mem_get_event_records(mds, status);
+>  		cond_resched();
+>  	} while (status);
+>  
+> -	return IRQ_HANDLED;
+> +	return handled ? IRQ_HANDLED : IRQ_NONE;
+>  }
+>  
+>  static int cxl_event_req_irq(struct cxl_dev_state *cxlds, u8 setting)
+> 
+> base-commit: df2908090cda368b01ff43709f51890076c56157
 
