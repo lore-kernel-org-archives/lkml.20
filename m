@@ -1,132 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E971438024
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:05:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68DED4DD3D7
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:05:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789733118; cv=none; b=gn7x1Le4BL8xT1OH2aelKcdBzNb/oqOChU32jO8iWLAUVSDvLn3wpQBvo4mxhWIV/a/0MwZ3jIsTkl+pK/TtAZNvZnCF1A107oD/zDtZQ2sZkwwEuvgYDFbw3kAm6uGSQNXs8zfAiTvk42S+X0MgE2AftErLZXNDYgvRsqYf7us=
+	t=1789733128; cv=none; b=SRyS2YPrvOL3smoc+V5TlF/vpNgKTBw6CarSoBgJOGFOc1U4HqBql9PFq4CZo6Hn6njRf/P+VUrp11G74HsmoRJUP93melClGRM3SrAJVJr2PkIb11mhTMU/GB+dxAi2a2rK5RK7L+UcsppAQLxnWEpnyUUlcpxcuNpcpo1euY8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789733118; c=relaxed/simple;
-	bh=qxXx5NAZZJyu13LeAPP97eRX9WbR71NsZO56HhFQZXk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=j50A6m8Td4Or2GxF13JjwLn7cyhD3kg9KmTeGrkoR2yc0omyGQes3fYCtkoWSMaTHpuf1A705YNWBowwhQ6I4NdyufhIljbQQKoREpWPHeHWSyu9rLgufvc4j4/QbzkNVEj84cpSJX77vxu2oOARBcON+Sjs7v7SPNR15EUGAdM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=feuOnPyn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789733128; c=relaxed/simple;
+	bh=K0/AdUj3KM/bg4Lw7l6vPYmAnKy+pFldBgXjVVQfZww=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=kd2GwdaT4luTcwGAbLulgXrwOfmX1u5bVq6kbdhdR8trsGu55Rk9GYQ3IllXNwkpWvBNQCN5cPdRZMSEyCakk75uTKMRH9RGCmId+OJO0wJh2MHUdLUpM9HGRBDLpvHgg99qYi1LPjAt3XonmOCjnGkJBUFJbvg3o/WjqOoabJM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nb8dyezW; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="feuOnPyn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 092AD1F000FF;
-	Fri, 18 Sep 2026 12:05:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789733117;
-	bh=cSiQ3QMreWpLjgxso1PqR96WBdVagKdVsODyghsTQXE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=feuOnPynGATQzBm+y5Y0N8iVZf3OcStsF8Lj1jKsGJsLKUfiFJa6BoCVk/JaYVQyk
-	 OxfyjPWu+TfwGnIs4ArII6v83x/jIgYGSa9659+haoeGP6g1uDAwjoIG055ijR47jv
-	 AxEik0AMjOpisiDDEZf3jK9UlykYZnSbRqhqvS6UIob1bQ/BnBH56dNFsNYvM9v5Qz
-	 u85GnqQwFf7PetGzpkpWyy6BMKwFisHo9GUzMbxkcjxPfdyGWktdFd0L1zTJI9c20n
-	 20knn2MbkptmWjYIVD1/fUc0fgmoKzUkxyS6xrsWAYpUPJ2psc6ULCUqpGyj0sVi3g
-	 BCRycWP02kM5g==
-Message-ID: <9d3355f2-2d3d-4767-9972-ea57ac50ff79@kernel.org>
-Date: Fri, 18 Sep 2026 14:05:02 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nb8dyezW"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843f22dcb8so466938f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 05:05:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789733124; x=1790337924; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/+5N3eN7ASbvgkLS4Pu213O3p6rNfiCNZSfRMqAlfbE=;
+        b=Nb8dyezWS94M/5P5YBHS6vLNUrzCMU7Nz/GWVtKnO9/sju0VtmkiGOVyNdI0/1b32b
+         iFVU/kjihthK7NdeGOmYCFiE4GWLGemZWLpdEtWEYO6fgNRGa3ecHb8+DHfD1a7jMCwp
+         hzgIM2JGo2fiJUDwt/AydSCWHaTXor3/Qz7kdgShMcnDdcNLoYaCl4ZiBVP6+sU+ulNL
+         L83nLEXqj8VFyaTW85p1OZ79+KbDcWzMPDiJjzOOIZIhhEBxi/Decm6g0JLSnvwvGnM2
+         8qEO+C4kgrQx0eqckhym99UNNBCrp+dQl8Omov7ukCa0xqtNz7nOhVU7qpnr1iCd50JL
+         qprQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789733124; x=1790337924;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/+5N3eN7ASbvgkLS4Pu213O3p6rNfiCNZSfRMqAlfbE=;
+        b=0WQ7N2/adL2CppBV76LuTp6NzOSkIwrkAOAH70lrkPdyQMVq95yCdO4ontVnE3nAgf
+         DY0BqAVXKEN7cVkGxJ1U4nSQQvMoYrjS/wSP1bMl8QUK4YIjXkmWuoH8vrUDNgoGRd5O
+         t1SxXZ2b/ZJVKEOBdLM1TxCL8VWolLkKxE2xAFAyPFDPGHzNAS+R7fdSzYFJEdSr8U81
+         pzmOngLlgTSTWieWcGy86QbrXNZIS+76QF/paM4vv15z09m3qa8n0JRiM+rILgzIBVJ1
+         8uESlPJqIz53EaTh5Fc9cPbLnAc8poaExxX/F1WEYSvOZ/31eJf8ToU9jQOVnrti8iGL
+         egPg==
+X-Forwarded-Encrypted: i=1; AKwUvByATuMb284P5FxhuiPKeqLJIZyuEz7kVxjJ4ZkZBuAV41ZG1vw8alZc/amXsm/V08K96undmVXRZUQ9iy0=@vger.kernel.org
+X-Gm-Message-State: AFuF++klLbyyHw95e7vmN0D5nAEG0Cj7QDpiZkb5dAzKV1Uj62D7tieB
+	PO0XcRbH08wcSCcmxFU2YIQQuNAxZ0Uz2Y4z5uazyC2YttbTT8cO9gwP
+X-Gm-Gg: AYBFou2ayjBHIKNlWPOKEbHp614VsVDBenHb3TP5RbVhvyEvlhYMsTe7o5wHa/4cSUS
+	lvxK10CoRVnfxGR+Y1hst+aTT9nmfk/AnqkCZrHWbZ37E6CThXFUWqSe4fK632pwPzo3Z3ykVY4
+	P1p/FrhcCHpHO2murBQ4m5GsUM+44YXIr/7VX36NtHEuZOl6ygKk8SBD/47YYcKtWcRWNiWmj9Q
+	JGl+wgE+BQuA1cnX/o3ajDxtmgftVRTZUkmWkTAZyL5vcBXSiwB1jbtFwX9SuUajXi0P7GQUeSB
+	aOd8wTz6SUoqDwKlAj0rv9xFYeMYf3bqOPQfkcIK5hctQ455o9BWyktCFHHshc5CyKZjhGufR+C
+	ZEPjU7GEE2gd9A0IC/stGBtK+sI9ZvyAaLkpbO7xQCqZUokCT+2wm/oZaLxG+K3dIqUtH7KQg8e
+	dwPScW2c5vYYeLQJZ18D9TOgAiXHS9e1B/KAV1d5u+F8RBLZ/VeeL1pZwyiKXsYD6MxZe/HYuuk
+	nfEw36CNsAIaryEguFiOFUm0IkJKnWvmVaP1O/ZQFQR/OiQAA==
+X-Received: by 2002:a05:6000:2c0b:b0:487:342:d143 with SMTP id ffacd0b85a97d-4871e269474mr3130746f8f.33.1789733123502;
+        Fri, 18 Sep 2026 05:05:23 -0700 (PDT)
+Received: from VivoBook-ASUS-X712UA-M712UA.lan (public-gprs688668.centertel.pl. [5.184.233.93])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4871ff3a8easm3703919f8f.9.2026.09.18.05.05.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 05:05:22 -0700 (PDT)
+From: Stanislaw Pal <kuncy7@gmail.com>
+To: Gabor Juhos <j4g8y7@gmail.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Stephen Boyd <sboyd@kernel.org>
+Cc: Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>,
+	Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
+	Gokul Sriram Palanisamy <quic_gokulsri@quicinc.com>,
+	Sricharan Ramabadhran <quic_srichara@quicinc.com>,
+	Mieczyslaw Nalewaj <namiltd@yahoo.com>,
+	Jie Luo <jie.luo@oss.qualcomm.com>,
+	Georg Seema <georgseema@gmail.com>,
+	linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] clk: qcom: gcc-ipq5018: mark 'gpll0_main' clock as critical
+Date: Fri, 18 Sep 2026 14:05:20 +0200
+Message-ID: <20260918120520.140553-1-kuncy7@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260918-ipq5018-mark-gpll0_main-critical-v1-1-fbe8f27a0106@gmail.com>
+References: <20260918-ipq5018-mark-gpll0_main-critical-v1-1-fbe8f27a0106@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] mm/vma: const-ify vma_assert_stabilised() and
- associated functions
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Suren Baghdasaryan <surenb@google.com>, "Liam R. Howlett"
- <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Shakeel Butt <shakeel.butt@linux.dev>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Michal Hocko <mhocko@suse.com>, Xu Xin <xu.xin16@zte.com.cn>,
- Chengming Zhou <chengming.zhou@linux.dev>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, Rik van Riel <riel@surriel.com>,
- Harry Yoo <harry@kernel.org>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
- Youngjun Park <youngjun.park@lge.com>, Peter Xu <peterx@redhat.com>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Alistair Popple <apopple@nvidia.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20260917-vma-is-faulted-v3-0-5c22314a72e7@kernel.org>
- <20260917-vma-is-faulted-v3-1-5c22314a72e7@kernel.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260917-vma-is-faulted-v3-1-5c22314a72e7@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/17/26 21:47, Lorenzo Stoakes (ARM) wrote:
-> The vma pointers are not modified in any of these functions so make it
-> official by const-ify them.
-> 
-> Propagate this throughout the call stack.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
+Tested-by: Stanislaw Pal <kuncy7@gmail.com>
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Tested on the TP-Link Archer AX55 v1, the board named in the commit
+message, on OpenWrt main with kernel 6.18.44 and ipq-cmn-pll built in.
 
--- 
-Cheers,
+The image carries your patch and not the ipq-cmn-pll one, so this is
+your fix on its own: devm_pm_runtime_get_noresume() is absent from
+ipq_cmn_pll_clk_probe() and the CLK_IS_CRITICAL flag is the only change
+against main. The board boots reliably, with no hang and no watchdog
+reset.
 
-David
+/sys/kernel/debug/clk/clk_summary shows the flag doing its work:
+gpll0_main sits at enable count 3 here, against 2 on an image that keeps
+the PLL alive through the ipq-cmn-pll reference instead. The chain you
+describe is visible on the hardware as well:
+
+  gcc_cmn_blk_ahb_clk -> pcnoc_bfdcd_clk_src -> gpll0 -> gpll0_main
+
+Once the board is up, gpll0 has four other enabled consumers (USB, QPIC,
+MDIO, BLSP AHB) while the CPUs have already moved to a53pll. That
+matches the failure being confined to the probe window, when none of
+those exist yet and the CPUs still run off GPLL0.
+
+For what it is worth on the scope question: on this board the hang was
+reproducible with ipq-cmn-pll alone, which is what my patch addresses,
+but I agree the root cause is the one you are fixing here - any driver
+that takes and releases a clock early enough can pull the PLL out from
+under the CPUs. Happy to see it handled in gcc-ipq5018.
