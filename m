@@ -1,63 +1,67 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44F963AEF3A;
-	Fri, 18 Sep 2026 02:22:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D9E53B6C05;
+	Fri, 18 Sep 2026 02:23:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789698162; cv=none; b=QdRXAL1soE6dAT7dkA0E0/mhR5W1+enEh7pFPWOlmmPk6dktv0w2AtkoHJi+Fb+RIvR+3397VyYHjuX8eQ41/m1FuzXWPhtK8NXqqd/6rMr9gEaRSXkLLBmc6DbCV5B+0z4V3ncztkceJQgjIg2ystiiPJPSWoDrnqggLAst+1M=
+	t=1789698246; cv=none; b=r3qObEvMwL34rOFMCrqo/rAIIKrWFqoB0TsoRN1kkDB+DtdLtpReSaExOrdv268heb1q2xSrPqndvqrkwY8oiC6ymR1eG4uBFHl17UEOlpGpNvjS8R6jsGfjtsK4p8qzvStIFTPF+pN7AZhMS+79Lymc9SCwjmMXldKmTzS9/Dg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789698162; c=relaxed/simple;
-	bh=Ep6O95+gdYUjNp8kjamyrzF44y1Pkd+E2Ueag5MVFgk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pUfO8bI3iXrT/O5mP2W6mCes+8yHDCVS94jzXRcsW+puynBHEc8EUdMKinTdi/Ym4HAqJwtOFMvxbVSZqIvzzepxjZ5t9VQQA3+o9fgAri+3ad/5Q9StA46+mykrkjcq2PqQLz7j2dE2DzQwZL/PZ8iWkHl2tHe4bEHsSWOYoeU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MG5NPjMz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789698246; c=relaxed/simple;
+	bh=Y/jjGv/lN/JLwFjEAeAQa0o0UqyK9AVs57LxUccj5VM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CcLb4x6+Z+m5hUg1kkcfjPxGH1IHqgqgQu78U3z9qrFx2v2FjjbjbVSpMp568Zhe0Bax93VUApX6JdRBtdi+JPNI4PTDYm0fdbhFVr7syIss/y3QyiquPL7wO6pjfiZDQ/PGCKSE0dMCE/9OsaOhLj0LJIPOWpAA3zNs8lRVqTw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EaM5uDr2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MG5NPjMz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 703CA1F000FF;
-	Fri, 18 Sep 2026 02:22:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EaM5uDr2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8FE81F000FF;
+	Fri, 18 Sep 2026 02:23:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789698148;
-	bh=mhZqdanDOkFUucjSAGbEqLNZn6/bNs6d3aNen4B8Iwg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MG5NPjMz+V95lo7f/KgQHomjMX8Qc2jSnYLiIR9qRDuJ+Fjs1ofz9PJnt29+PQ77v
-	 pVC4oecWLphqaVZFwEj7wogCU31LTKbK0FPaL/yd9zl5mQ0WRp1n9UC5IpYeuxx+ni
-	 s1XjE3WIOwAUcjFEjdgWflKOhBDc6dOnw/vzdmfkGIYQowBZ+uHutuBQl3DbQl+SPr
-	 egZu5W/MwZ2n2J/+3dpNZcoF5H9AE+8zijlPrEoo6U+IQrnMPI5lNTL05KuMARIiGv
-	 lSBKAgAbPiCOP6gMaB4N/A+rbOEgdRnUJrtfiXVgnBBW/8I7sc0RfluRNJhqBgEkm4
-	 0btL49OChrT+g==
-Date: Thu, 17 Sep 2026 19:22:26 -0700
-From: Eric Biggers <ebiggers@kernel.org>
-To: linux-fscrypt@vger.kernel.org
-Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] fscrypt: Use aes_ecb_encrypt() for v1 key derivation
-Message-ID: <20260918022226.GA1703@sol>
-References: <20260831192411.99035-1-ebiggers@kernel.org>
+	s=k20260515; t=1789698233;
+	bh=ufhh0IRoPGbjH+WNiWiGZNlEAovukATyulBkyAR59HY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=EaM5uDr28q5Jh4vJslw/tNZjQfTNh97KvtR0ocPVw7u3nlgNXdbhCyj3E5usKZAMa
+	 hr9KcSheNF9dtIu8re5Cai4FK9Ou1Ix2bb6j6RGx0O8kLs6qXkdwTJCO6qL1NeDsu3
+	 fOpMRds2Y4BiZFGRUMil2ezpaaCFyT7YTx5G5LvO449BNlZJX2TIcqJYmJxt3XGola
+	 ASxDxdhU5KjlZSGQgtYMsc6srXft2dHbotSwmoRKaeT1k0vVohbbNxfJcj5FonhcxF
+	 WVRYJA1R1R1cVj3ZyQijF8YUZp50JSj9yMNhKwH7jMuN3Br7DsCvScbinLo7/1cEmU
+	 agncfdQNcHptw==
+Message-ID: <e94a6a47-42a7-41f6-8cc6-4b2cf4e13f22@kernel.org>
+Date: Fri, 18 Sep 2026 09:23:47 +0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831192411.99035-1-ebiggers@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/1] ata: pata_arasan_cf: use standard DMA engine API
+To: Frank.Li@oss.nxp.com, Viresh Kumar <vireshk@kernel.org>,
+ Niklas Cassel <cassel@kernel.org>,
+ "open list:LIBATA PATA ARASAN COMPACT FLASH CONTROLLER"
+ <linux-ide@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
+Cc: imx@lists.linux.dev, vkoul@kernel.org, Frank Li <Frank.Li@nxp.com>
+References: <20260917190315.1188379-1-Frank.Li@oss.nxp.com>
+From: Damien Le Moal <dlemoal@kernel.org>
+Content-Language: en-US
+Organization: Western Digital Research
+In-Reply-To: <20260917190315.1188379-1-Frank.Li@oss.nxp.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Aug 31, 2026 at 12:24:11PM -0700, Eric Biggers wrote:
-> Now that there's a library function aes_ecb_encrypt(), use it instead of
-> a loop of aes_encrypt() calls.
+On 2026/09/18 2:03, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
 > 
-> Note that the use of AES-ECB here is purely for the key derivation
-> function used by the deprecated v1 encryption policies.  v2 encryption
-> policies use HKDF-SHA512 instead.  Nevertheless, the original version
-> has to continue to be supported for backwards compatibility.
+> DMA engine consumers must not call the channel's callback function pointers
+> directly. Use the standard dmaengine wrapper APIs instead.
 > 
-> Signed-off-by: Eric Biggers <ebiggers@kernel.org>
-> ---
->  fs/crypto/Kconfig       | 2 +-
->  fs/crypto/keysetup_v1.c | 5 ++---
->  2 files changed, 3 insertions(+), 4 deletions(-)
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
 
-Applied to https://git.kernel.org/pub/scm/fs/fscrypt/linux.git/log/?h=for-next
+Looks good.
 
-- Eric
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
+
+
+-- 
+Damien Le Moal
+Western Digital Research
