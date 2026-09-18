@@ -1,177 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7345396567
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:05:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 549313C9429
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:06:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789711544; cv=none; b=kv97cmnY9dksRvattLVQrGaFhjN+QGmXKgB4mr1+KrUw03/TPJ63J4JJEocHPvuj2d5j8RcWFyiiGM7PVWUAftIpauLS3GB+lshPgQt8Du6i6Vp+rqg3TbEFWvKVcHspVgfpiYD78SfdIz/3GJo0zGIU15Ygjt257YjbN2bQJbk=
+	t=1789711573; cv=none; b=bfTeh+7Mj28EHGx0Yf7pOnqFYJfbC+qFIXch12C9faz6jY02Z3o9SSAhVc1fLWpDnZX+xsRG26Nfow+p00zqMb/Ubzju5nkVchT+RwA6rkECCqNzHvtRquBbNqxIxUmEfQvviTT5pZzSu8xXc84hrxHnsxk9LJL47NPtNMEM2vQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789711544; c=relaxed/simple;
-	bh=1nFJDMrYdn3GbWtOumxhGy3vguq9cbshqr+iX+p9L/I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YplJCbkl+APhgwiKgho4ES6mKeTtaZcgvpcNagwJLlXQFq0VIswrMR2gC33H9pxdepVFC6/Tn+MjJEaQpfMI6cw6wARJFqEbtcJQgTIMwXyyPuvc3pZXtcGbXsGdesImPP/Q9ui12JQIgGpcOrsNDTTdk2R0EYHPkbf2iWzKF6A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HRYJtWuL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789711573; c=relaxed/simple;
+	bh=UEloR02Cs6Sy3DDSPGUGj81ZJcRLjJI+Tqpr0v5reZA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iVSJJuxDu5SK8RALBk9WWlEoeuqVOWuUXadf54IjYi1P1H+OkarqpspWcI/w6Vyab+8ROmJ+uOYgiCdavo8AoUmy5lZhETozlcP4t2p3nWLMH5FCSYwGPR0cXdzwbYSWXkY6nRYoq+ukuwev/yaAYkQRjjBCKe9WPpMR9+tPn4E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=X0vrWfnl; arc=none smtp.client-ip=192.198.163.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HRYJtWuL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DB971F000FF;
-	Fri, 18 Sep 2026 06:05:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789711542;
-	bh=2iSN1j31Sw9qmqTYVp6Ry3mKQfg4lt3sT+FCrOQ8mF4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=HRYJtWuL74SbBnfcEwdWnfbXL/tQ2LS0eZcRDZCBlNLQXBydIBtYqkiENXlDagnbT
-	 C2yEEFg2K7h5z+2opnb1JHsi/x+l+mdBVTLNqkvv/DpshLB82Svt8wnmGViSmp38iu
-	 RqWJqCe9NjqFd7sIoVai7vkuR1L3g/ELqekIScdjqxdSM+2tF1sE2M5vUb+ybXhH2T
-	 qeHd1/7ezHu35c25/Re5wk4kWvG7SMvYr71yv/QjO7HFaVvMkPqGp28tk2Tjav58QQ
-	 8Q3/O3ocmaqrfak5BYTC5KAwevQhgl+fUqMCEBp14MV+FG3sEjD8+8xfzUSXElZXjR
-	 UltrRtZcQGVSg==
-Message-ID: <2462f67c-f7d3-4eb3-a093-6a338ef49f14@kernel.org>
-Date: Fri, 18 Sep 2026 08:05:32 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="X0vrWfnl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789711572; x=1821247572;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=UEloR02Cs6Sy3DDSPGUGj81ZJcRLjJI+Tqpr0v5reZA=;
+  b=X0vrWfnlzkGs2/kVBYo0xK0YKgkiGm8WWt/m2/+ugNZgTtmifqQ9CPdB
+   0h/BuPT/+wX2VgREfCE9B5EowZzbYV0GTu+9RZpf0Okucklr1zOG4vxtp
+   U6EnXLtVODvdmyh9f+GezmVahqK5nsSc9bt0KZi93Z30BVhudowdrrHTX
+   VaLIv3SiLe4zo3u/10cnGfwDyoh3ArOYCsJlCkf2ZNzNq3h3Ol4BUYK8H
+   bL6jFGFqySeDSR0FOQSp65ygaJ/aw6C1Iy4OoRnIxcic/NRKA8Y7gx86I
+   lsgEm3fZsSzlj/GITKa+5HBTXiwB/BcwJYGcMjI4GgwXjaBXMk/O2Tqua
+   Q==;
+X-CSE-ConnectionGUID: +GS5MaQbTKuPlFMxFqhTvQ==
+X-CSE-MsgGUID: IyszdtyyTTqUJMYlEWXCdw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="697656"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="697656"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 23:06:11 -0700
+X-CSE-ConnectionGUID: jh4zobi+T9y+IHUswoFMzQ==
+X-CSE-MsgGUID: Pu0UCSVBQQCzOMuwwb2oOw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="269931900"
+Received: from carterle-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.170])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 23:06:08 -0700
+Date: Fri, 18 Sep 2026 09:06:01 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Ziran Zhang <zhangcoder@yeah.net>
+Cc: "Paul E . McKenney" <paulmck@kernel.org>,
+	David Howells <dhowells@redhat.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Jordan R Abrahams-Whitehead <ajordanr@google.com>,
+	Marco Elver <elver@google.com>, Nilay Shroff <nilay@linux.ibm.com>,
+	Edward Cree <ecree@solarflare.com>,
+	Simona Vetter <simona.vetter@ffwll.ch>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] list: add missing empty list check to
+ list_cut_before()
+Message-ID: <aqzUyZB3wulN_W3f@ashevche-desk.local>
+References: <aqwFiYq_SjheX3T4@ashevche-desk.local>
+ <20260917161456.9181-1-zhangcoder@yeah.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 03/10] mm/vmalloc: use pte_set_huge()/pte_clear_huge()
- for PTE-level block mappings
-To: Barry Song <baohua@kernel.org>, Wen Jiang <jiangwenxiaomi@gmail.com>
-Cc: akpm@linux-foundation.org, catalin.marinas@arm.com, linux-mm@kvack.org,
- urezki@gmail.com, will@kernel.org, Xueyuan.chen21@gmail.com,
- ajd@linux.ibm.com, anshuman.khandual@arm.com, david@kernel.org,
- dev.jain@arm.com, jiangwen6@xiaomi.com, leo.yan@arm.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com, mpe@ellerman.id.au,
- npiggin@gmail.com, rppt@kernel.org, ryan.roberts@arm.com
-References: <20260917052933.188679-1-jiangwenxiaomi@gmail.com>
- <20260917052933.188679-4-jiangwenxiaomi@gmail.com>
- <27072d94-13bf-4bea-948a-d8a67976601e@kernel.org>
- <CAHKocdE_zyUQT459AiTBDzQHk0jh+VpXuSMDdgHjkg-dAkgBNg@mail.gmail.com>
- <CAGsJ_4yJ-KCHbJ9S2GKXfO51KB8g-y2Q_MikqE9-6VesR-RC9Q@mail.gmail.com>
-Content-Language: fr-FR
-From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-In-Reply-To: <CAGsJ_4yJ-KCHbJ9S2GKXfO51KB8g-y2Q_MikqE9-6VesR-RC9Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917161456.9181-1-zhangcoder@yeah.net>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-
-
-Le 17/09/2026 à 23:44, Barry Song a écrit :
-> On Thu, Sep 17, 2026 at 10:41 PM Wen Jiang <jiangwenxiaomi@gmail.com> wrote:
->>
->> On Thu, 17 Sept 2026 at 22:00, Christophe Leroy (CS GROUP)
->> <chleroy@kernel.org> wrote:
->>>
->>>
->>>
->>> Le 17/09/2026 à 07:29, Wen Jiang a écrit :
->>>> From: Wen Jiang <jiangwen6@xiaomi.com>
->>>>
->>>> vmap installs PTE-level block mappings by reusing set_huge_pte_at() and
->>>> huge_ptep_get_and_clear() under #ifdef CONFIG_HUGETLB_PAGE. This makes
->>>> the feature silently unavailable on CONFIG_HUGETLB_PAGE=n kernels and
->>>> couples mm/vmalloc.c to HugeTLB internals it does not otherwise need.
->>>>
->>>> Now that arm64 and powerpc/8xx provide pte_set_huge() and
->>>> pte_clear_huge(), add the generic fallbacks next to the existing
->>>> pmd/pud_set_huge() family and convert vmap_pte_range() and
->>>> vunmap_pte_range() to the new helpers. The CONFIG_HUGETLB_PAGE guards
->>>> around the block-mapping paths are dropped, so PTE-level block mappings
->>>> now also work on CONFIG_HUGETLB_PAGE=n kernels, and mm/vmalloc.c no
->>>> longer includes <linux/hugetlb.h>.
->>>>
->>>> The fallbacks exist only to keep the build working on architectures
->>>> without PTE-level block mapping support. They are unreachable there:
->>>> the callers only run when arch_vmap_pte_range_map_size() or
->>>> arch_vmap_pte_range_unmap_size() return a size other than PAGE_SIZE,
->>>> which requires an arch implementation. WARN_ON_ONCE() makes that
->>>> explicit rather than silently doing nothing.
->>>>
->>>> Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
->>>> ---
->>>>    include/linux/pgtable.h | 29 +++++++++++++++++++++++++++++
->>>>    mm/vmalloc.c            | 19 ++++++-------------
->>>>    2 files changed, 35 insertions(+), 13 deletions(-)
->>>>
->>>> diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
->>>> index cdd68ed3ae1a9..349ced999f959 100644
->>>> --- a/include/linux/pgtable.h
->>>> +++ b/include/linux/pgtable.h
->>>> @@ -2134,6 +2134,35 @@ static inline int pmd_free_pte_page(pmd_t *pmd, unsigned long addr)
->>>>    }
->>>>    #endif      /* CONFIG_HAVE_ARCH_HUGE_VMAP */
->>>>
->>>> +/*
->>>> + * PTE-level block mappings for vmap.
->>>> + *
->>>> + * pte_set_huge() only has to be implemented by architectures whose
->>>> + * arch_vmap_pte_range_map_size() can return a size other than PAGE_SIZE.
->>>> + */
->>>> +#ifndef __HAVE_ARCH_PTE_SET_HUGE
->>>> +static inline void pte_set_huge(pte_t *ptep, unsigned long addr,
->>>> +                             phys_addr_t phys, pgprot_t prot,
->>>> +                             unsigned long size)
->>>> +{
->>>> +     WARN_ON_ONCE(1);
->>>
->>> BUILD_BUG_ON() would be better here.
->>>
->>> It should be possible because fallback arch_vmap_pte_range_map_size()
->>> will constant-fold PAGE_SIZE so pte_set_huge() will never be called.
->>>
->>
->> Agreed. These fallbacks exist only to keep the build working on
->> architectures with PTE-level block mappings and should never actually
->> be reached, so BUILD_BUG_ON() is right. I'll make that change in v9.
->>
+On Fri, Sep 18, 2026 at 12:14:56AM +0800, Ziran Zhang wrote:
+> On Thu, 17 Sep 2026 18:21:45 +0300, Andy Shevchenko <andriy.shevchenko@linux.intel.com> wrote:
+> > The kernel-doc specifically says:
+> > 
+> >   'You should pass in @entry an element you know is on @head.'
+> > 
+> > Do you have a real life example?
 > 
-> I am not quite sure. It won't be called at runtime because
-> `vmap size`/`unmap size` return `PAGE_SIZE`, so the code won't
-> reach this branch. But it will still be built.
-
-The fallbacks are defined as:
-
-#ifndef arch_vmap_pte_range_map_size
-static inline unsigned long arch_vmap_pte_range_map_size(unsigned long 
-addr, unsigned long end,
-							 u64 pfn, unsigned int max_page_shift)
-{
-	return PAGE_SIZE;
-}
-#endif
-
-#ifndef arch_vmap_pte_range_unmap_size
-static inline unsigned long arch_vmap_pte_range_unmap_size(unsigned long 
-addr,
-							   pte_t *ptep)
-{
-	return PAGE_SIZE;
-}
-#endif
-
-Therefore in:
-
-                 size = arch_vmap_pte_range_unmap_size(addr, pte);
-                 if (size != PAGE_SIZE) {
-
-GCC knows 'size' is const and its value is PAGE_SIZE, so it won't emit 
-the branch at all.
-
-It is call constant folding, some explanation here: 
-https://en.wikipedia.org/wiki/Constant_folding
-
+> No, I do not have a real life example.  It was based on code
+> analysis only.
 > 
-> So, would a `BUILD_BUG_ON()` trigger a build failure here?
-
-It shouldn't, if it does it is a compiled bug or this is because someone 
-has redefined arch_vmap_pte_range_map_size() and not pte_set_huge() 
-which we'd better know at build time rather than at runtime.
-
-
+> > The room of the lines for the body of the commit message is ~72
+> > characters and not 56.
 > 
-> Best Regards
-> Barry
+> Noted, I will keep that in mind for future patches.
 > 
+> > What makes it different to the similar cases in list_splice(), for
+> > example?
+> 
+> list_splice() has an empty-list check too, on its source list:
+> 
+> 	if (!list_empty(list))
+> 		__list_splice(list, head, head->next);
+> 
+> list_cut_position() does the same for its source list:
+> 
+> 	if (list_empty(head))
+> 		return;
+> 
+> But list_cut_position() has the same kernel-doc wording:
+> 
+>   'You should pass on @entry an element you know is on @head.'
+> 
+> and still returns early for an empty head.
+> 
+> So list_cut_position() handles an empty head before doing any pointer
+> updates, even though the kernel-doc contract only requires @entry to
+> be on @head.  My patch makes list_cut_before() do the same.
+> 
+> I agree this is a defensive change, not a bug fix.  If the consensus
+> is to rely strictly on the caller contract, I will drop this series.
+> 
+> For list_cut_before() specifically, making it match list_cut_position()
+> seemed reasonable.
+
+Please, summarize the above and elaborate all this in the commit message
+in the next version.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
