@@ -1,142 +1,172 @@
-Received: from mail-vs2-f9.google.com (mail-vs2-f9.google.com [74.125.227.9])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E0B42D5436
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:46:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.9
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789717613; cv=none; b=dhVDdtA4tnz8eEt2IORsy2srXpsEz3FgcLxBJNK/DcacFZzLwDfgHgsvXzdyc7lN4/0fTS1qcoUSdu2QxxCktZnwo8UxsmyjbbyFNbDU5bBWiorwl/GBEc8RJr8smAomFcu6ykLYG7V7Us+m+Y1EAKMIga1fblFKM4RMSjoc1cE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789717613; c=relaxed/simple;
-	bh=wTlung53wgG0U6uz6ynHrcjwVaYOb0YK4Nvyasm8+go=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43E904A4EF7
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:48:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789717711; cv=pass; b=KesfWKVQgkYGM1zHiONLYKXleQyPkKnMLX8fsNTYi06FaXAN8Y7/NOrOJPV4VMmuiK5tQVKE4JGuIpZa39QLbF7idbVuTEd8sei7LnAOwMxjVdLv7MPlNL7yjdSts5nolO30R8lHUp+Guf6vWkG4wfwctFITpCyYir5NZCHco+g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789717711; c=relaxed/simple;
+	bh=DVFuK+9yCAfZ7sQxlxzw7lKhJ/hsXgq7ham+jQ2m08k=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uN3uwGdW6QxN8bWPVD5YF8Q2NRObT94GYHFGEI7E0UqKpJWZmh0/tQ908KafApICHcL2Fdo20d3OUZbvrwSi4xNyWkp7K83jvmgz54Fa82N/Sw7TRW5XmLBI25Qf5UNaJiPhAYg9t+Lb5lGCTzpSG70Rlh+ppwcsm5bvR49hKIM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+	 To:Cc:Content-Type; b=NvXu6lyAERI0W/Y3dwdnEO2uz8CRrKVAN7hjq0m9A21JWbXWhTjOneJUQkg7/Vo4KFog/tw4VmKIJGzrF8/PG3XY8/OYdXOx4gUE/uUdDB2Qm9eNoHYjJOoPIUJvlfcrUCCofHjwS6Jyp+7MIyWmVJy59q3pHbgmiGkUykE9ZOo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ca+Df6gj; arc=pass smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs2-f9.google.com with SMTP id ada2fe7eead31-790a0799373so87263137.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:46:49 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ca+Df6gj"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843f22dcb8so284603f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:48:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789717705; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TKUY/ocqkuymCXa2/vWB943PIoxELGIImpZaP1bIgIWNy8gOahSdtmky04RpI2PayS
+         pQonB3zjI6Xn4bEugvvU/tpy6YZmNycLQO1Ze2vEP76N+jAqJuiBxrt4XD9dw+bTUKk0
+         nEXpHPYwu9yq26CqaehgMBvFD1Qfs4hQMBN+0AxA3he/Gssnha7EiVJ3/EiaXwVRMGqV
+         Kbz+oCvPo5ymOZCc84gPRc6E3aX3vZhrA+yHnaQwLlxiUkuFEk4WXpwyFLmDVdTzO9w3
+         3hKnCift31D6/flmTKu6e7PhA5SKd4wTJWgRgMul+pOPMKatN6gfbn9zdRNOCAXdw/96
+         SV1A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=MXqdDZMk2n2ZA2FZuhNJE90D+Z4Rs/KppQMaR2DzMcs=;
+        fh=AvqmHhBTuKLTlcq5lG5d/i0/ABsdsWePcUjhbrOa0DE=;
+        b=CXwIIs/W6OTNybsmKC68/NRrN4oeFhgEj7L5lhvcJWqbBK+08ZqJPzVkgRCWrjTrFT
+         UbMeOXuGD/gtf2DDom+roQ0Vhn6x3TW+2ognqmo3KDER3S70jYVGk3Fqr1f1zPDPk5J7
+         zblpEFbXI/U1ifCz5e4ShmdsuV5oW7Z/WPUiNaayosCEJRFN+BPscKDlqy4te3KrSnkA
+         lODsEBmz2PoC6BF0OrZ/XbZt0YQ2bd+tiqpUdI1/A58Fay9AatIqFIJ6exfsYq6DdSu/
+         0d6Se+7ewhMiYFy9I+YV2L4Rm12PzcO64IxAniWE0aoF5OBSM4c7iTiZokPCv/MBZnpe
+         npWw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789717705; x=1790322505; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MXqdDZMk2n2ZA2FZuhNJE90D+Z4Rs/KppQMaR2DzMcs=;
+        b=ca+Df6gjz6B6H1OzKiHW7spOKnm/8JTMs2lA8XxPKpvCp84g1z0v+yMoOUjJZgSPwn
+         OtaHMBYmNpJ3Fk+2RitE+M6a4nXBUq+mVf2gWwg60g1ZLUNtflB5IIOp2PBhE7Y+A3yv
+         +Gh7CRYzWGd5OpMS4n1y9EKg8AEh3w+ejMInon3EnYTtm2mxlhDBXG12fjB1hj27lhKH
+         +4jGihMLEDEPsdcrtJUGVxRjdjnxju9npVm981Lzb8HDYD7fIXcCaqAfuGog/HM39jv5
+         UNfpaL5j/nQs7gxD5yQgbA70ZRgHHgZdIWxsJhG/fntsj+EhyigAKMbH5QK8oYbsFTyQ
+         NEOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789717607; x=1790322407;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=y+tYCkkvzZJmFoYOhTQyYw6fM+qA/usgZs/lU8fn+ao=;
-        b=0l0uyi+9BR7PJ4l8c/qsSqOkQR0SAmuDt7aAEkMPnPQbIMte8PK1cJ1TXIj9ETK5iP
-         nA2zVcoXVdLgMxFgp8PvvSbCr9TX5HQuvCj8/jbsSea7Q8ehb5nucn5GmXBIbzhwvVjk
-         zqEgMSKc+K63J5e0sFYn22Ohu656qHryQc6tcukjwccP50Fyr1AJfCh+MYqMjpgOSD/u
-         wmALEFypcuXnpw4mOxMUqnH3mL09Hu1hnr1BXxdb6ZZ4HDTm5JVWLkSXV/6uvgcBspQk
-         TRYKUGegBn60bsDn3DSN1Vqb8Jt821+U/M2JRnYtdVGUV+3ZSCOKa+cd/Z9rh+TFWrGC
-         0tNA==
-X-Forwarded-Encrypted: i=1; AKwUvBzNWDH1TFxUdyRg/hCCe/erNB7o9gORJblPjcleRDNg3N3R28WYcM+MhmOjsF4dZmOJ5Mo/vFu410pog4E=@vger.kernel.org
-X-Gm-Message-State: AFuF++lOcvPhJBz90U9a46Frm/nbfH2wA06Jk9+4tWB9tscSVdzYq+C2
-	AgluAvB555Hzo/GYhUfVuoRGlCVHpktssQB/XNSvlXcHdfyYWpZkftDu4e0UTDEM8yk=
-X-Gm-Gg: AYBFou0rxLg8lgA1Zgmer4sp1qMUBiEZR7DXsiog+eG3qnQ7faKzsNMcI3egFM56Aq7
-	zZ0UMAuh88pe0zUx/8t4H1WdU0H7n/ZK0HxII6PX77C3BB9hTEESkiV5eExxOc5Z8FhIBI8XE7V
-	QVvxSWYDLBLqyeWbVfLLg+A+/4/49DIhQBiFEC0YDYXEA6cQVePJ7lTjT5C4rU2fDw0HPzYlkod
-	yj2wPNklhsYPWWIIqKLLoppV6vmyUT4wO5F849CcsQzvm/yqC0OI+srXJrZlbYy1pEtC5RFGDLc
-	o/rQtHDCchOlSP8z1Wz2rNERV6Dcq6hhWP8I6mTEstTfZlBfFaNMffzB7AGcUbQFjCmhfjtwBDg
-	3ukW6AI3LUZxgj8G5QZVprxPClCGrbSmbYzzrkqgSlGI6fvDsykrkI6qlOYzxH7OtkaEWogPYcu
-	pH8xsYwnYzG1ZQSFINFQyPLj8fn9RCAszuNZ7N4KS8Y23ytHOyDs7n7UzEoYGMNDrQx3yfF3DyK
-	UD+93AfbxDgJme+hloFkwOV5JzxsjVljzov
-X-Received: by 2002:a05:6122:d14:b0:5c8:2dc9:f8d2 with SMTP id 71dfb90a1353d-5c9b872d199mr388471e0c.0.1789717606825;
-        Fri, 18 Sep 2026 00:46:46 -0700 (PDT)
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com. [74.125.227.12])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c9b84c80a8sm830311e0c.18.2026.09.18.00.46.46
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2026 00:46:46 -0700 (PDT)
-Received: by mail-vs2-f12.google.com with SMTP id ada2fe7eead31-78a7003f94fso107590137.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:46:46 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzXNg//Gf4gMQ/n6U7LzsxAItqBrUD4s7O1rUYfhJju4hkeaH213fva6ibxllV/aKrjL+kZJOQqgN6BOZc=@vger.kernel.org
-X-Received: by 2002:a05:6102:358d:b0:79f:e8ce:27f2 with SMTP id
- ada2fe7eead31-7a55af2df71mr547985137.4.1789717606396; Fri, 18 Sep 2026
- 00:46:46 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789717705; x=1790322505;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MXqdDZMk2n2ZA2FZuhNJE90D+Z4Rs/KppQMaR2DzMcs=;
+        b=ya4BquTXJ5oMlEgID0xcBt+CQkaD6VMgAl3P0g5N59m0vxB69CpYixe45tTzv+c2pD
+         pjz3ryMhTTZYeRr6p1m0M5g87Hn+PLN6d/b/bb5sz/ErmS9e9vYGXctL7b4NsVO4M1+J
+         qd9XW5m3KrZq1yufqgvFdxcJ3iwF/yRvtEIDJSUOnI+rE7RQM1nLVzo4yrOaagVgS9gj
+         il6/EBZ6hVnp1wnNftxsVvtBVzeUuAknZejIZCqsp7u+8fx2o6avdB9EMSMBnAeN+nQl
+         9Njhkx2ajK9l7Xm/xC0VtkJTQl09aHuElOkriE2JzctWALT5uK6xe1AMQsENS1pFsbHH
+         NXZA==
+X-Forwarded-Encrypted: i=1; AKwUvByA637k9qqUNSKyQUVLcpFvMmuPsmAZgp5BSSJYYuuY/dt0CcSQWXO6DcWqZQ4tlXUVENHUbEEkQlXKz6Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++kdAISbLhYXSUnDwwoy8g/ZiBttV3SudNpcoWCWUBZ7BacXOc9d
+	DqlCJCA0CTZvOR8wKDT++YbMsUYlS9pmQapUL027BVJPZ1NVsjmoKrk1ZtHtJkatbfok2HMWo9F
+	/pbeP09u+TtWnayfZCzM32n/C+NUbKBo=
+X-Gm-Gg: AYBFou0r4hwNuc1i0TuwQo/vBZx8zls7UXg/7GPGYxMLISu53OFTSZFnxYZ85oyaBBW
+	1i+T0eQxt3fkxhytSaLvzA6yOcIqNEGryd7O8CllkTAEz1qTOr+xmDMNQu3br6NE1VwlZhRDgHS
+	blIDp8Ax8UIik86+FP26uOJr8QZq+X0BzISO2wiuvitlGaHeYEYsdDSJUG/Y8zNRqk5EWXTvBjJ
+	PWORX4loYIyYt1VTu+33nsdKD3Pjdjc3S6TRyssW+pqgLZhTIUfrMxooqmhl/ooszvn50GI0r8N
+	ASULSRAWeSA5bvs5HoIZ/QBOJrOOEYi1hs7Z7dFtz0NJOzyR5p2Y6m1X6y3mrUWIsVY=
+X-Received: by 2002:a05:6000:4b13:b0:487:1687:197d with SMTP id
+ ffacd0b85a97d-4871e212458mr1713724f8f.6.1789717705281; Fri, 18 Sep 2026
+ 00:48:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1788338320.git.geert+renesas@glider.be> <1d5c56c80291e447208ac8777aaf90ad6f0a4f4d.1788338320.git.geert+renesas@glider.be>
- <20260917221647.GA4038349-robh@kernel.org>
-In-Reply-To: <20260917221647.GA4038349-robh@kernel.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 18 Sep 2026 09:46:34 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXCFY7-SEGLjhaO1uCDwsvogc0ocdqSz=1C_gsWX6T_tA@mail.gmail.com>
-X-Gm-Features: AcwNN1XFZho-l6FTtqXfFYSmbjO5DpuymjytNtvp4sOSdCdr5EidSrnlACqjwyk
-Message-ID: <CAMuHMdXCFY7-SEGLjhaO1uCDwsvogc0ocdqSz=1C_gsWX6T_tA@mail.gmail.com>
-Subject: Re: [PATCH v3 04/12] of: property: fw_devlink: Add support for renesas,scmi-firmware
-To: Rob Herring <robh@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Sudeep Holla <sudeep.holla@kernel.org>, 
-	Cristian Marussi <cristian.marussi@arm.com>, Saravana Kannan <saravanak@kernel.org>, 
-	Ulf Hansson <ulfh@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	"Rafael J . Wysocki" <rafael@kernel.org>, Marek Vasut <marek.vasut+renesas@mailbox.org>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Kevin Hilman <khilman@baylibre.com>, 
-	Vinod Koul <vkoul@kernel.org>, Wolfram Sang <wsa+renesas@sang-engineering.com>, 
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
-	=?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clegoffic@baylibre.com>, 
-	devicetree@vger.kernel.org, arm-scmi@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
+References: <20260917052933.188679-1-jiangwenxiaomi@gmail.com>
+ <20260917052933.188679-2-jiangwenxiaomi@gmail.com> <CAGsJ_4xujxpH6OuuUao2=TAjTMKhr77ufW6OoZuk-VB=YPd6fw@mail.gmail.com>
+In-Reply-To: <CAGsJ_4xujxpH6OuuUao2=TAjTMKhr77ufW6OoZuk-VB=YPd6fw@mail.gmail.com>
+From: Wen Jiang <jiangwenxiaomi@gmail.com>
+Date: Fri, 18 Sep 2026 15:48:13 +0800
+X-Gm-Features: AcwNN1U7w_zpIxImLoNROHRiindh6mTvUu1jbd9liF3b4JQySYxKRKgU7ZyE2AY
+Message-ID: <CAHKocdHS-D7Gg_n3razCrp-QT5seT4KWz9r1TSWVVwLFsZmU7Q@mail.gmail.com>
+Subject: Re: [PATCH v8 01/10] arm64/mm: add pte_set_huge() and pte_clear_huge()
+To: Barry Song <baohua@kernel.org>
+Cc: akpm@linux-foundation.org, catalin.marinas@arm.com, linux-mm@kvack.org, 
+	urezki@gmail.com, will@kernel.org, Xueyuan.chen21@gmail.com, 
+	ajd@linux.ibm.com, anshuman.khandual@arm.com, chleroy@kernel.org, 
+	david@kernel.org, dev.jain@arm.com, jiangwen6@xiaomi.com, leo.yan@arm.com, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com, mpe@ellerman.id.au, 
+	npiggin@gmail.com, rppt@kernel.org, ryan.roberts@arm.com
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Rob,
-
-On Fri, 18 Sept 2026 at 00:16, Rob Herring <robh@kernel.org> wrote:
-> On Wed, Sep 02, 2026 at 01:29:20PM +0200, Geert Uytterhoeven wrote:
-> > Let fw_devlink create device links between consumers and suppliers of
-> > SCMI firmware on Renesas platforms, and enforce these dependencies.
-> >
-> > This prevents probing of drivers before the firmware they depend on
-> > becomes available, thus avoiding unneeded probe deferrals.
-> >
-> > Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> > ---
-> > v3:
-> >   - s/firmware/renesas,scmi-firmware/,
-
-> > +++ b/drivers/of/property.c
-> > @@ -1417,6 +1417,7 @@ DEFINE_SIMPLE_PROP(power_supplies, "power-supplies", NULL)
-> >  DEFINE_SIMPLE_PROP(mmc_pwrseq, "mmc-pwrseq", NULL)
-> >  DEFINE_SUFFIX_PROP(regulators, "-supply", NULL)
-> >  DEFINE_SUFFIX_PROP(gpio, "-gpio", "#gpio-cells")
-> > +DEFINE_SIMPLE_PROP(renesas_scmi_firmware, "renesas,scmi-firmware", NULL)
-> >
-> >  static struct device_node *parse_pinctrl_n(struct device_node *np,
-> >                                          const char *prop_name, int index)
-> > @@ -1574,6 +1575,7 @@ static const struct supplier_bindings of_supplier_bindings[] = {
-> >       { .parse_prop = parse_regulators, },
-> >       { .parse_prop = parse_gpio, },
-> >       { .parse_prop = parse_gpios, },
-> > +     { .parse_prop = parse_renesas_scmi_firmware, },
+On Fri, 18 Sept 2026 at 07:22, Barry Song <baohua@kernel.org> wrote:
 >
-> This is going to be a catch-22, we can't have vendor specific properties
-> here. If we need this, we need to come up with a distributed way to
-> declare them. Linker section tricks is one way. Maybe something in the
-> driver struct would work?
+> On Thu, Sep 17, 2026 at 1:29=E2=80=AFPM Wen Jiang <jiangwenxiaomi@gmail.c=
+om> wrote:
+> >
+> > From: Wen Jiang <jiangwen6@xiaomi.com>
+> >
+> > vmap installs PTE-level block mappings (PTE_CONT on arm64) by reusing
+> > set_huge_pte_at() and huge_ptep_get_and_clear(), which are HugeTLB
+> > helpers gated by CONFIG_HUGETLB_PAGE. This makes the feature silently
+> > unavailable on CONFIG_HUGETLB_PAGE=3Dn kernels and couples mm/vmalloc.c=
+ to
+> > HugeTLB internals it does not otherwise need.
+> >
+> > Add pte_set_huge()/pte_clear_huge() to arm64, joining the existing
+> > pmd_set_huge()/pud_set_huge() family in mm/mmu.c. They build on
+> > __set_ptes() and __get_and_clear_full_ptes() directly, so they do not
+> > depend on CONFIG_HUGETLB_PAGE.
+> >
+> > There is no caller yet: mm/vmalloc.c is converted later in this series,
+> > once the generic fallbacks are in place.
+> >
+> > Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
+>
+> I tried to apply the patch to mm-new, but it doesn't apply.
+>
+> % git am raw
+> Applying: arm64/mm: add pte_set_huge() and pte_clear_huge()
+> error: patch failed: arch/arm64/mm/mmu.c:1872
+> error: arch/arm64/mm/mmu.c: patch does not apply
+> Patch failed at 0001 arm64/mm: add pte_set_huge() and pte_clear_huge()
+> hint: Use 'git am --show-current-patch=3Ddiff' to see the failed patch
+> When you have resolved this problem, run "git am --continue".
+> If you prefer to skip this patch, run "git am --skip" instead.
+> To restore the original branch and stop patching, run "git am --abort".
+>
+> % patch -p1 < raw
+> patching file 'arch/arm64/include/asm/pgtable.h'
+> patching file 'arch/arm64/mm/mmu.c'
+> 1 out of 1 hunks failed--saving rejects to 'arch/arm64/mm/mmu.c.rej'
+>
+>
+> [...]
+>
+> > +void pte_set_huge(pte_t *ptep, unsigned long addr, phys_addr_t phys,
+> > +                 pgprot_t prot, unsigned long size)
+> > +{
+> > +       unsigned long pfn =3D __phys_to_pfn(phys);
+> > +       pte_t new_pte =3D pte_mkcont(pfn_pte(pfn, prot));
+>
+> Maybe we can drop the `new_` prefix.
+>
 
-Quoting myself:
-"I still think the vendor prefix should be dropped, or replaced by "arm".
+Will do.
 
-> Can you just avoid a property altogether? Why can't you check for the
-> presence of SCMI at runtime?
+> > +       unsigned int nr =3D size >> PAGE_SHIFT;
+> > +
+> > +       VM_WARN_ON(!IS_ALIGNED(pfn, CONT_PTES));
+> > +       VM_WARN_ON(!IS_ALIGNED(size, CONT_PTE_SIZE));
+>
+> Do we also need to check that `addr` is aligned?
+>
 
-A system can have multiple SCMI providers, so
-of_find_compatible_node(..., "arm,scmi") is not sufficient to find
-the right one.
+Yes. arch_vmap_pte_range_map_size() already guarantees all three,
+since we are already checking two of them here, we should complete the
+set. I'll add it in v9.
 
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Thanks,
+Wen
