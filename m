@@ -1,51 +1,46 @@
-Received: from mta0.migadu.com (out-6.mta0.migadu.com [91.218.175.6])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 164503822AB
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 20:24:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DB9C3822AB;
+	Fri, 18 Sep 2026 20:24:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789763049; cv=none; b=p/BiQRdlMwsf12E+cin7AsNYfV5X9bMOk4Gckxsw7p0hiADmzv4xXAdhsYJCYKVbffGyxjRKmOpjanKA0bDTF8dHbvBq9/GIHDFD5jjEKeAprtfY654g0MPtXq2i2o6PmfQtGe6j7IDpb3Xjhx1Wm4rT7urat8Ht5brBDRcwSsE=
+	t=1789763095; cv=none; b=V6mXgbVC9cg/QXq1rBNSg24236lNxTPGvtjjiMVfv/gKiPb8oUso/ZEkri0NkyCvZ2DTIs5q/itz+SPvPHC6kPkzhfJbU0xGPk3br3B3NI4ie8YQNK0Kez4W1o9SOCdDCfJnt8VS5divTCiEBysN+jAaanMbT4kdaUqRhG3YYdE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789763049; c=relaxed/simple;
-	bh=eT66H6iANzWDoxgeBfogAllHhpEDQptXi80Z7mxNldQ=;
+	s=arc-20240116; t=1789763095; c=relaxed/simple;
+	bh=VuUW+GiEE9nUazia64MA4w6fcXzNGFd8MpY0I77e9Mg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tztAykRyRYKyPhBKicdX9uGcASvG6eO1qvWrwXQQNRDCa43OL5hl2l4cpXxd4nXKmqraXMYVbBQheN05pJA/93B15K2BR0GQxVaGKZbmKm7kFgFJaajEaU2IZWJd2fgHstMl8YTGTp4yxH2wkJ9EnwwD1AkBuNbVInmaf2zxI1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=LKxEZyKC; arc=none smtp.client-ip=91.218.175.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 Content-Type:Content-Disposition:In-Reply-To; b=pOmNztbJ3PdU3zmPkZcKvBY0+3qXGqOfje5vKrBpeNJxyOhsPeGESAoPkWV0KTzanl4CrPWqLrH+7rcFtau00UsIZ+17CmKpiQAwzpSIl2IhotXhnJEMl6OhimZEKlwrd/9uBfY3jJ+NmwTNanWmvL4fsymjt8XoL2LYJKSg4qg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fMj3v6Bs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="LKxEZyKC"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=eT66H6iANzWDoxgeBfogAllHhpEDQptXi80Z7mxNldQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789763044; v=1; x=1790367844;
- b=LKxEZyKCj+P+NQJ3YggNKSwHcQ4kkGKVl0EHrOOnZow5edCGHpAfIXqAVI0s3Y7zD4OC+qbj
- 7zEk7CEe0Rh6cFauNgTgXtdJuf5Lt08oib7ms4cTox6MrFv2X96OwcCuWUF9bab/WPgzcH+fvgY
- +Ts9YSSRsRoiTja/6Zg3GKps=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 5e90c63acb495c08;
-	Fri, 18 Sep 2026 20:24:03 +0000
-X-Mizu-Trace-ID: 5e90c63acb495c08
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 18 Sep 2026 13:24:01 -0700
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Bingfang Guo <bfguo@icloud.com>
-Cc: bingfangguo@tencent.com, Johannes Weiner <hannes@cmpxchg.org>, 
-	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Muchun Song <muchun.song@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>, Kairui Song <kasong@tencent.com>, 
-	Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, cgroups@vger.kernel.org, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/4] memcg: manipulate memcg private ID references by ID
-Message-ID: <aq2dkhBuFktQYvTB@linux.dev>
-References: <20260918-bingfangguo-memcgid-rework-v1-0-5bbf3220d88f@tencent.com>
- <20260918-bingfangguo-memcgid-rework-v1-3-5bbf3220d88f@tencent.com>
- <aq1_Qhid7-62pHcW@linux.dev>
- <aq2BfYdMr_8JeY_Q@BINGFANGGUO-MC0>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fMj3v6Bs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11E6C1F00899;
+	Fri, 18 Sep 2026 20:24:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789763094;
+	bh=babmhG3CX0kOyIk0MhmJt1fcAmod/lU85NqbD6hfzmw=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=fMj3v6BsyPRHwMQyaYa7dqJhrB0LIIXc9+wVmEH9Nyh2d+rxXqXhrA9mWJFHtX2Oa
+	 fjNE7R2G250Vrg2BLDuh9n981t4ThUduqFdXwONzqEdNRakcl6hy8FFGCMUVGBdLXJ
+	 y8hLr1pFhuPBuZIB4YM06xJZbWQH2XRijwG3BfGMgf/OxSh6l8DJlsbkXAmbkim3bM
+	 W9sUuTDt05G1E54xKZ5LsJqv6+1X3Fl/IT7RiKZ2YhrqHH8817hXLauy9NDMRgIQ2K
+	 KTx4DZx/sn6Hd2AiYHR0Z/j6aWJOMOMY6kS1Kv6QdIplQVA0i1AP9gumdvIBNe+Bzv
+	 SAzDROaU0rcjA==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id C4D29CE09DC; Fri, 18 Sep 2026 13:24:53 -0700 (PDT)
+Date: Fri, 18 Sep 2026 13:24:53 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Breno Leitao <leitao@debian.org>, Hugh Dickins <hughd@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, kernel-team@meta.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/shmem: report RCU-tasks quiescent states while
+ undoing a range
+Message-ID: <a67e8b91-ebc2-4d3d-b6ea-d221b297fad0@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20260918-shmem-tasks-rcu-v1-1-79acf91a2569@debian.org>
+ <20260918123239.8f25b984ca280fcc11ef6e6a@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,120 +49,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aq2BfYdMr_8JeY_Q@BINGFANGGUO-MC0>
+In-Reply-To: <20260918123239.8f25b984ca280fcc11ef6e6a@linux-foundation.org>
 
-On Sat, Sep 19, 2026 at 02:46:52AM +0800, Bingfang Guo wrote:
-> On Fri, Sep 18, 2026 at 11:14:03AM +0800, Shakeel Butt wrote:
-> > On Fri, Sep 18, 2026 at 05:18:42PM +0800, Bingfang Guo via B4 Relay wrote:
-> > > From: Bingfang Guo <bingfangguo@tencent.com>
-> > > 
-> > > This is a preparatory work for moving memcgid from memcg to objcg.
-> > > 
-> > > Swap entries retain a private ID rather than a memcg pointer. Once
-> > > private ID references are moved to objcgs, the ID can also outlive the
-> > > memcg to which it was originally assigned.  So it's better to make the
-> > > get and put functions accept the ID itself instead of the memcg.
-> > > 
-> > > Rename mem_cgroup_private_id_get_online() to
-> > > mem_cgroup_private_id_get(), and make it return the ID only.  If the
-> > > memcg is already dying, the dying memcg will still be used for charging
-> > > and stats accounting in v2 swap charging path. But they are hierarchical
-> > > and will be reparented after offlining so it doesn't matter.
-> > > 
-> > > Make mem_cgroup_private_id_put() take the ID and resolve the reference
-> > > holder internally. Convert swap uncharge and charge rollback to release
-> > > the reference using that ID.  This introduces an extra xarray lookup for
-> > > now, which will be removed in the final patch.
-> > > 
-> > > Separate the online-state reference release into
-> > > mem_cgroup_private_id_kill(). The offline path already has the memcg
-> > > pointer and can call the underlying put helper directly.
-> > > 
-> > > Signed-off-by: Bingfang Guo <bingfangguo@tencent.com>
-> > > ---
-> > >  mm/memcontrol-v1.c |  7 +++----
-> > >  mm/memcontrol-v1.h |  3 +--
-> > >  mm/memcontrol.c    | 32 +++++++++++++++++++++++---------
-> > >  3 files changed, 27 insertions(+), 15 deletions(-)
-> > > 
-> > > diff --git a/mm/memcontrol-v1.c b/mm/memcontrol-v1.c
-> > > index ed015fdd95123..b7f2868885071 100644
-> > > --- a/mm/memcontrol-v1.c
-> > > +++ b/mm/memcontrol-v1.c
-> > > @@ -268,7 +268,7 @@ void memcg1_commit_charge(struct folio *folio, struct mem_cgroup *memcg)
-> > >   */
-> > >  void __memcg1_swapout(struct folio *folio, struct swap_cluster_info *ci)
-> > >  {
-> > > -	struct mem_cgroup *memcg, *swap_memcg;
-> > > +	struct mem_cgroup *memcg;
-> > >  	struct obj_cgroup *objcg;
-> > >  	unsigned int nr_entries;
-> > >  	unsigned short private_id;
-> > > @@ -298,9 +298,8 @@ void __memcg1_swapout(struct folio *folio, struct swap_cluster_info *ci)
-> > >  	 * if the ID refers to the root memcg.
-> > >  	 */
-> > >  	nr_entries = folio_nr_pages(folio);
-> > > -	swap_memcg = mem_cgroup_private_id_get_online(memcg, nr_entries);
-> > > -	private_id = mem_cgroup_private_id(swap_memcg);
-> > > -	mod_memcg_state(swap_memcg, MEMCG_SWAP, nr_entries);
-> > > +	private_id = mem_cgroup_private_id_get(memcg, nr_entries);
-> > > +	mod_memcg_state(memcg, MEMCG_SWAP, nr_entries);
-> > >  
-> > >  	__swap_cgroup_set(ci, swp_cluster_offset(folio->swap), nr_entries, private_id);
-> > >  
-> > > diff --git a/mm/memcontrol-v1.h b/mm/memcontrol-v1.h
-> > > index 23be2512702dc..281425273ea97 100644
-> > > --- a/mm/memcontrol-v1.h
-> > > +++ b/mm/memcontrol-v1.h
-> > > @@ -27,8 +27,7 @@ static inline bool mem_cgroup_private_id_is_root(unsigned short id)
-> > >  	return id == mem_cgroup_private_id(root_mem_cgroup);
-> > >  }
-> > >  
-> > > -struct mem_cgroup *mem_cgroup_private_id_get_online(struct mem_cgroup *memcg,
-> > > -						    unsigned int n);
-> > > +unsigned short mem_cgroup_private_id_get(struct mem_cgroup *memcg, unsigned int n);
-> > >  
-> > >  void reparent_memcg_lruvec_state_local(struct mem_cgroup *memcg,
-> > >  				       struct mem_cgroup *parent, int idx);
-> > > diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> > > index bfe53e4392f09..ed44b3e7ac938 100644
-> > > --- a/mm/memcontrol.c
-> > > +++ b/mm/memcontrol.c
-> > > @@ -4082,7 +4082,7 @@ static void mem_cgroup_private_id_remove(struct mem_cgroup *memcg)
-> > >  	}
-> > >  }
-> > >  
-> > > -static inline void mem_cgroup_private_id_put(struct mem_cgroup *memcg, unsigned int n)
-> > > +static void __mem_cgroup_private_id_put(struct mem_cgroup *memcg, unsigned int n)
-> > >  {
-> > >  	if (refcount_sub_and_test(n, &memcg->private_id_ref)) {
-> > >  		mem_cgroup_private_id_remove(memcg);
-> > > @@ -4092,7 +4092,22 @@ static inline void mem_cgroup_private_id_put(struct mem_cgroup *memcg, unsigned
-> > >  	}
-> > >  }
-> > >  
-> > > -struct mem_cgroup *mem_cgroup_private_id_get_online(struct mem_cgroup *memcg, unsigned int n)
-> > > +static inline void mem_cgroup_private_id_put(unsigned short id, unsigned int n)
-> > > +{
-> > > +	struct mem_cgroup *memcg;
-> > > +
-> > > +	rcu_read_lock();
+On Fri, Sep 18, 2026 at 12:32:39PM -0700, Andrew Morton wrote:
+> On Fri, 18 Sep 2026 04:24:37 -0700 Breno Leitao <leitao@debian.org> wrote:
+> 
+> > This shows up in the Meta fleet on ftruncate() of large tmpfs files:
 > > 
-> > Use lockdep_assert_in_rcu_read_lock() here instead of taking rcu as both callers
-> > already taking rcu read lock.
+> >   INFO: rcu_tasks detected stalls on tasks:
+> >   00000000752fd185: .. nvcsw: 59455/59455 holdout: 1 idle_cpu: -1/0
+> >   task:rocksdb:bottom  state:R  running task
+> >     __folio_split
+> >     find_get_entry
+> >     find_get_entries
+> >     truncate_inode_partial_folio
+> >     shmem_undo_range
+> >     shmem_setattr
+> >     notify_change
+> >     do_ftruncate
+> >     __x64_sys_ftruncate
+> >     do_syscall_64
 > > 
+> > shmem_undo_range() walks the whole of the requested range in folio_batch
+> > sized steps, twice, and its two cond_resched() calls are the only
+> > reschedule points in that walk.
+> > 
+> > cond_resched() is not an RCU-tasks quiescent state.  Use
+> > cond_resched_tasks_rcu_qs() at both points so the walk reports an
+> > RCU-tasks quiescent state as it proceeds.
 > 
-> Thanks for pointing out this.
-> 
-> Agreed.  Both two callers are already holding the rcu lock so
-> taking the lock here is unnecessary. So I will drop the
-> rcu_read_lock() and use that in the next version!
-> 
-> My concern is that: mem_cgroup_private_id_put() looks like a
-> universal put function, requiring rcu held (which is true today)
-> is not that obvious to the users.  So I think adding a short kdoc
-> comment to make it clear later might be a good idea.
+> We keep hitting this.  Whyohwhy doesn't cond_resched() imply
+> cond_resched_tasks_rcu_qs().
 
-This function is internal to memcg code, so whoever is going to call it better
-know to call it with rcu held because of lockdep assert. No need to have a
-comment.
+*I* don't have an objection to that.  ;-)
+
+> > Fixes: 8315f42295d2 ("rcu: Add call_rcu_tasks()")
+> > Cc: stable@vger.kernel.org
+> 
+> That's 2014.
+> 
+> > --- a/mm/shmem.c
+> > +++ b/mm/shmem.c
+> > @@ -1367,7 +1367,7 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
+> >  		}
+> >  		folio_batch_remove_exceptionals(&fbatch);
+> >  		folio_batch_release(&fbatch);
+> > -		cond_resched();
+> > +		cond_resched_tasks_rcu_qs();
+> 
+> Won't this change remove the cond_resched() function from old kernels
+> which really want it?
+
+The cond_resched_tasks_rcu_qs() macro implies cond_resched():
+
+	#define cond_resched_tasks_rcu_qs() \
+	do { \
+		rcu_tasks_qs(current, false); \
+		cond_resched(); \
+	} while (0)
+
+							Thanx, Paul
