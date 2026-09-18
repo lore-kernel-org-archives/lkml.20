@@ -1,190 +1,321 @@
-Received: from mail-wm2-f6.google.com (mail-wm2-f6.google.com [74.125.225.134])
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A3045172E3
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 17:23:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.134
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 412893A4F3B
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 17:24:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789752238; cv=none; b=k92CqzwOc42Y8yoZa7IHJ4sD4Huj6Gn9nwdz0y9AaMEzHpxMwBz/fCEzRoQxW21wTcl7eE2PCp45eybCyA2jPAx0EsEMPTTet4pRUt09Nqc7TP5gS9OdWGQWARqAkORhmpcB7Q9CiyvoW30aiVkSrI+yrG8Hu8nRJNtTI6FrNkQ=
+	t=1789752255; cv=none; b=sBnv8xaF46yQ7GY7FgycDFYrT1YgtXAsvq8WjV0Z1/xUpD5iH20jCl24Yncz/htu5f2V6+yy7OF5GDvx/f2lk3sA2R/gqx1CAPnevgj4GdFPYW7VkeLVHxpWt4XqA/ipBNjrFQba/spounepApsRf/ND3Oq7xNxKj8t6vhWCu6s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789752238; c=relaxed/simple;
-	bh=YIjlZKIm+IFO56oHuR2t4YL5KZwQ2kRZEAKcQevolLY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JMj2URASsFRhDopESyHBcc5z+WR+Gn5+pxZCyfymScheoRBdtCuCQTsqT0vSW7LSO6ieyACp5gmHR8VWnqMab9QmiNkZpP4cvpHX/aQQEeLiyBnEomGPeA8PLfw9xEQDmm3fprPqhK+MXgyg9bacTvQNhJP3mVofyZJi86fEsTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.134
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm2-f6.google.com with SMTP id 5b1f17b1804b1-49b0dd21eb8so2010555e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:23:56 -0700 (PDT)
+	s=arc-20240116; t=1789752255; c=relaxed/simple;
+	bh=pMGpEi39BEyUo6zCUXVX6ESUaX/7PwRrk/NnMo1pLNs=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=T93IJjfFNKzs5EvVEQ0X1tMfcQh1aRus8HqWylHzVLiea86yz4MPOfpohkVFlG0VARxp2sM93L2a944hSEugoEoll1Zdyhg6GA1/SwjVepceUYSYNKvNoK9/1nPEjlLg8ip1h8PajPye2PLfOCY+kVQefRCow2IfvQm1Q8hWyWI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=conchuod.ie; spf=pass smtp.mailfrom=conchuod.ie; dkim=pass (2048-bit key) header.d=conchuod.ie header.i=@conchuod.ie header.b=AVPuxZE0; arc=none smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=conchuod.ie
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=conchuod.ie
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=conchuod.ie header.i=@conchuod.ie header.b="AVPuxZE0"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a6063d7daaso1398865a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:24:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=conchuod.ie; s=google; t=1789752251; x=1790357051; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=Dvc/pEW/BAh9vZt3yE6d0wx7vktxXFNO+yS8WEG5HPw=;
+        b=AVPuxZE0Go4ylLpuXCX1B+XCYbodO6AB3mz+9eFeOkDcI+468csgyql7g13BThueD8
+         g3UQZNaKK0Qr51amDnZEiSKy0IHplH2YO36hEl47mL+KmkEfqot5jJDMgrNIuPudpi2J
+         A1AwOjquwvtZiED3jkQDOd517Njk6ymSPK9Kk01leRj9Eoqb+dHX4oiir6l7j5b6BGuR
+         oF8jhxSxCYCRw11ZX/mKPY96euvyYj+wIWVtnORZbRaLxx7dlQKkLssOoUBVIm6sQIZ8
+         UVx69qCJX+8Blq64+jMQxh3JNBhkPu721thAGkC/mwdzeYW9nt1h0eZW9CVaFmwGnvm5
+         yH3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789752234; x=1790357034;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zLyNnBxb3LiRUxaaBPI15vkPRVnqKuYKpEiINQXaj50=;
-        b=op1GlriS0fDR2Y/9EVqFrqPUnvfGLrWIqQNcNXSsYvHI9x9YlU9dDZ5pRJG12Ax3RN
-         XpGt2Kc+zhvtKVgGV08TXaK89pnDteu504JgUvZAwuDxls5bSUeuVgEwBQ4eLCdGJh08
-         3j+y/tKnVQgi658gKDzMGrgvoB0JWUakYZTi+8tz9CKCsyBCx5RfMsUaXASYj+ww0kjJ
-         t0KNC/hsExzEsA5mlBwLnclTJDGksvvj2w8SqROc0QGiNu8S397SeG42kelnLGklNKfK
-         r7Fj2IKIhBFEEdg73Z0gq3wjztdN25rNPR102quVWXftVBNUAkgf9lGcXX2zlg5Xtdv4
-         pRNA==
-X-Forwarded-Encrypted: i=1; AKwUvBxDO87Tu/nsAl+AHKNGhJxcjsvCf88jMGBH40R6Z/Wsdc7IvcKpvQYbxCVCOhhb6paPsna13mdrg76RBJw=@vger.kernel.org
-X-Gm-Message-State: AFuF++l5BzCMFocAu6u26NFFR4jgQ9gGfatlAsrrKmwL0rnK6AfcK+1m
-	mi8nGD8E4N8yeuy8yIE8A51Ngf3qG3C1GlBYnaS7uvdA1PVut+iSbSP5
-X-Gm-Gg: AYBFou3sjkeS4D58dTQgu1oPfotheyywgtV6ohKu3dDgyRSY/e/m64hRGXrsUQlMF2t
-	Z/G4LsohN6FLBHel+vR9qNc5SASu3ZVrx5/s+UrLHoZubbKGkduZc6IhfA3s/Z0OlQn0tZorko5
-	LNbshzwoiJYPN2U5GXg44ZXDNg9zeUzYskLvlLfvwbKHy+pvF/gNtfULjxcsIGyhRPoIQQ5JAg7
-	AFGsxG60tm2onoV65SXsJ/AxAUHAEx1GVynvbiTo/ILUfWJpxdIDYPwOgO6m4A/Kr6U+ky6DeBG
-	mY2sHVT11CrzpohUSehp1mwxjK8oq91ZwGwYDcMlfTFLiN6jRrtDYwwSTyMqmfl++CAE39BP1hQ
-	a0e16ixlquppHbBVvLbwIrTuVJ17F+3C/bQY6tIUwodAXUa+BBpGReoJ15a5htaH+uWzNw/TW2/
-	5KfeJ4z9S7gaY1GmMX6bzK0DMr8jYPbnhsxwZz095WIO7EECO1DniGdCcELQdnZsf+wVBByGcsM
-	CvzM5to6AZARHW2rjTxS/aPBwSWyLWU5ZDewUh7wCn7wYdXq6qU
-X-Received: by 2002:a05:600c:3b29:b0:49c:fc6c:bdfa with SMTP id 5b1f17b1804b1-49fc57469bbmr43372925e9.17.1789752234306;
-        Fri, 18 Sep 2026 10:23:54 -0700 (PDT)
-Received: from [192.168.88.241] (37-48-42-237.nat.epc.tmcz.cz. [37.48.42.237])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd10d21asm8649175e9.12.2026.09.18.10.23.53
+        d=1e100.net; s=20260707; t=1789752251; x=1790357051;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Dvc/pEW/BAh9vZt3yE6d0wx7vktxXFNO+yS8WEG5HPw=;
+        b=yl8EwVKUTtdwwpz6tlnp2mTKU+i5bq4N03mj1tSxU0ogorszGoWDtqyOa7sH4CsraI
+         WI3HR+4AhiuQrlp0zJW4YzFqQkI748sYSd55LRD/A0Aby8/TELxdkNdqzSj/sPXOb9mW
+         b9JFQ+geLenIj4Eu++/9LRTrAsKoyJrUAcYt7KC8ztjm2gmbk5VdsTATdZuo+b3jNPua
+         zoPWmqhrA0Q1jRw/QO8qJlPwhG7aeOpQPDlNLMQjA1+5ykbTNlPpnGu4GuIFZGfnHGyU
+         /2n7W0StPM2HwNVfih/wO173rinlad63tGZGi5BrN/AOLjCAcly7sE9f4iSos/2zKM7E
+         TtqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBydiDka99cjYZFb//rfkzjuo6MWKgs9/MQ91TGRgqL3CFe4APx1hdp0obAt2aYgjRcRkJT8p2OCkDxy2nE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lGr84w2asqmqBzzWSz/g0cGXyUKRorcugbWhd4n4BlmEfOXrqs
+	4PyjgBp3XnNFc8CTPltl/Tvu29iq5QMNoHmBLy2pgtH6+pR1NgToPD/Lz/TRFUX6uYU=
+X-Gm-Gg: AYBFou0g3Ol830l8Yuq0dnaDWeush1bmaA0YB1JAMzrKLAjTWBy6qWX0Jo/Im55Jnnz
+	rWLsu+BXXnCjolfLbiLv0eY9jjkVBBlxLd4rcq+JRSvVZLUAmfZi/wvsg2OUXvq2jxrwLnd+0lR
+	3LIJnMQ/TBADw2v3VEP8oOOkfLJMvxIU3CMmFJMYvzlYjvu8y2fkgLQW2becvbMo8PfpFsHVQas
+	cZ6tPNYCf4ZMd9Dw0QNNJjgopl/BgEXqi2U20tyS/TD3hnidQfzImDkaD/5xrkmCSQdWbhzESIY
+	804wwtpQtEJsRBJmIsg8YfkDsupqzqL7+zV8ugH/62jDUY5yeKj2OQvyz7Eb3nbR513xan0KA9f
+	r+3eyNQpM7MbmSoS3z3y6CWWau4rVHL9uetzJAA2oxEiIUfF78DuPImegt6Q6UjUN6yFzNzeQJi
+	RZmCPm0brVov3l9q9h08N/r5dWacHI5GNTpiDgAe2wOb7V0EIl8MxMejF17JcKwrNljVkvb66Ea
+	GDQD3l6K58gyxAINm6DBCxXv2jpJCsNLZstTMwUBFA+WfsnAGxFh2aysLQU2b0=
+X-Received: by 2002:a17:906:9f87:b0:c24:b11a:470f with SMTP id a640c23a62f3a-c2a152e3212mr337280966b.0.1789752251335;
+        Fri, 18 Sep 2026 10:24:11 -0700 (PDT)
+Received: from ehlo.thunderbird.net (ip-077-020-009-205.vkd66.pools.vodafone-ip.de. [77.20.9.205])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a358868e1sm331666b.47.2026.09.18.10.24.10
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2026 10:23:53 -0700 (PDT)
-Message-ID: <2bd2dd1e-19d7-4f89-b921-f7a07fea9a7a@ovn.org>
-Date: Fri, 18 Sep 2026 19:23:52 +0200
+        Fri, 18 Sep 2026 10:24:10 -0700 (PDT)
+Date: Fri, 18 Sep 2026 19:24:05 +0200
+From: Conor <mail@conchuod.ie>
+To: Guenter Roeck <linux@roeck-us.net>, Colin Huang <u8813345@gmail.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>
+CC: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, colin.huang2@amd.com,
+ linux-doc@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v6_2/2=5D_hwmon=3A_=28pmbus/tda38740=29?=
+ =?US-ASCII?Q?_Add_driver_for_Infineon_TDA38740/TDA38725?=
+User-Agent: K-9 Mail for Android
+In-Reply-To: <dbd0a721-898b-4524-a0cd-c9751fd4bd68@roeck-us.net>
+References: <20260918-add-tda38740-and-tda38725-v6-0-a8b11018d850@gmail.com> <20260918-add-tda38740-and-tda38725-v6-2-a8b11018d850@gmail.com> <dbd0a721-898b-4524-a0cd-c9751fd4bd68@roeck-us.net>
+Message-ID: <2646A11E-8D13-4587-8027-1370E0007F36@conchuod.ie>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] ipv6: do not let ipv6_find_hdr() return an offset
- past the packet end
-To: Norbert Szetei <norbert@doyensec.com>, netdev@vger.kernel.org
-Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Ilya Maximets <i.maximets@ovn.org>,
- Aaron Conole <aconole@redhat.com>, Eelco Chaudron <echaudro@redhat.com>,
- dev@openvswitch.org, linux-kernel@vger.kernel.org
-References: <8F80BA1A-DDFD-432D-9075-242A3435FEB5@doyensec.com>
-Content-Language: en-US
-From: Ilya Maximets <i.maximets@ovn.org>
-Autocrypt: addr=i.maximets@ovn.org; keydata=
- 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
-In-Reply-To: <8F80BA1A-DDFD-432D-9075-242A3435FEB5@doyensec.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 9/16/26 9:57 PM, Norbert Szetei wrote:
-> ipv6_find_hdr() walks the extension header chain, skipping each header by
-> the length that header itself declares.  ipv6_optlen() returns up to 2048,
-> and the skip is never checked against skb->len, so the offset stored in
-> *offset can point past the end of the packet.
-> 
-> openvswitch installs that offset as the transport header, and
-> update_ipv6_checksum() then reads and writes the transport checksum field
-> out of bounds:
-> 
->   BUG: KASAN: slab-use-after-free in inet_proto_csum_replace16+0x445/0x470
->   Read of size 2 at addr ffff88810b754b06 by task ovs_ipv6_oob/629
->   CPU: 4 UID: 1000 PID: 629 Comm: ovs_ipv6_oob Tainted: G N 7.3.0-rc3+ #348
->   Call Trace:
->    inet_proto_csum_replace16+0x445/0x470
->    set_ipv6_addr+0x3dd/0x460
->    do_execute_actions+0x6a3d/0x7c40
->    ovs_execute_actions+0xfd/0x480
->    ovs_packet_cmd_execute+0xc38/0xf20
->    genl_rcv_msg+0x59e/0x870
->    netlink_rcv_skb+0x18b/0x450
->    genl_rcv+0x2d/0x40
->    netlink_unicast+0x6bc/0xa20
-> 
->   The buggy address belongs to the object at ffff88810b754980
->    which belongs to the cache skbuff_small_head of size 704
->   The buggy address is located 390 bytes inside of
->    freed 704-byte region [ffff88810b754980, ffff88810b754c40)
-> 
-> Other callers use that offset too, so bound it here rather than in one
-> caller.
-> 
-> Reject a header whose declared length does not fit in the packet.
-> ipv6_find_hdr() already fails with -EBADMSG on a malformed chain, so this
-> adds no new failure mode.
-> 
-> Fixes: f8f626754ebe ("ipv6: Move ipv6_find_hdr() out of Netfilter code.")
-> Suggested-by: Ilya Maximets <i.maximets@ovn.org>
-> Suggested-by: Eric Dumazet <edumazet@google.com>
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Norbert Szetei <norbert@doyensec.com>
-> ---
-> v2:
->   - fix ipv6_find_hdr() instead of the openvswitch caller, per the review
->     of v1
->   - dropped the openvswitch change
->   - retitled
-> v1: https://lore.kernel.org/netdev/114FAFBD-F7BC-46AE-AF9F-0D15124F130E@doyensec.com/
-> 
-> Reproducer available on request.
-> 
->  net/ipv6/exthdrs_core.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/net/ipv6/exthdrs_core.c b/net/ipv6/exthdrs_core.c
-> index 9d06d487e8b1..4a9748338cf4 100644
-> --- a/net/ipv6/exthdrs_core.c
-> +++ b/net/ipv6/exthdrs_core.c
-> @@ -278,6 +278,9 @@ int ipv6_find_hdr(const struct sk_buff *skb, unsigned int *offset,
->  			hdrlen = ipv6_optlen(hp);
->  
->  		if (!found) {
-> +			if (skb->len - start < hdrlen)
-> +				return -EBADMSG;
-> +
->  			nexthdr = hp->nexthdr;
->  			start += hdrlen;
->  		}
 
-Beside the inaccurate Fixes tag that Ido already flagged, the change
-looks good to me.
 
-Reviewed-by:  Ilya Maximets <i.maximets@ovn.org>
+On 18 September 2026 17:02:38 GMT+02:00, Guenter Roeck <linux@roeck-us=2En=
+et> wrote:
+>On 9/18/26 03:23, Colin Huang wrote:
+>> Add a PMBus driver for Infineon TDA38740 and TDA38725
+>> single-voltage synchronous buck regulators=2E
+>>=20
+>> Signed-off-by: Colin Huang <u8813345@gmail=2Ecom>
+>
+>For my reference (waiting for DT patch approval):
+>
+>Reviewed-by: Guenter Roeck <linux@roeck-us=2Enet>
+
+I'm on holiday and only have my phone, and cannot find the binding patch t=
+o reply to=2E
+I found it on lore and it looks okay=2E
+
+Cheers,
+Conor=20
+
+>
+>> ---
+>>   Documentation/hwmon/index=2Erst    |  1 +
+>>   Documentation/hwmon/tda38740=2Erst | 65 +++++++++++++++++++++++++++++=
++++++++++++
+>>   drivers/hwmon/pmbus/Kconfig      |  9 ++++++
+>>   drivers/hwmon/pmbus/Makefile     |  1 +
+>>   drivers/hwmon/pmbus/tda38740=2Ec   | 64 +++++++++++++++++++++++++++++=
+++++++++++
+>>   5 files changed, 140 insertions(+)
+>>=20
+>> diff --git a/Documentation/hwmon/index=2Erst b/Documentation/hwmon/inde=
+x=2Erst
+>> index f07977a20271=2E=2Eaeff87b3d46d 100644
+>> --- a/Documentation/hwmon/index=2Erst
+>> +++ b/Documentation/hwmon/index=2Erst
+>> @@ -265,6 +265,7 @@ Hardware Monitoring Kernel Drivers
+>>      sy7636a-hwmon
+>>      tc654
+>>      tc74
+>> +   tda38740
+>>      thmc50
+>>      tmp102
+>>      tmp103
+>> diff --git a/Documentation/hwmon/tda38740=2Erst b/Documentation/hwmon/t=
+da38740=2Erst
+>> new file mode 100644
+>> index 000000000000=2E=2E55ce12f14914
+>> --- /dev/null
+>> +++ b/Documentation/hwmon/tda38740=2Erst
+>> @@ -0,0 +1,65 @@
+>> +=2E=2E SPDX-License-Identifier: GPL-2=2E0-only
+>> +
+>> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>> +Kernel driver tda38740
+>> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>> +
+>> +Supported chips:
+>> +  * Infineon TDA38740
+>> +  * Infineon TDA38725
+>> +
+>> +    Prefix: 'tda38740'
+>> +
+>> +    Addresses scanned: -
+>> +
+>> +    Datasheet:
+>> +      https://www=2Einfineon=2Ecom/row/public/documents/24/49/infineon=
+-tda38740-tda38725-datasheet-en=2Epdf
+>> +
+>> +Author: Colin Huang <u8813345@gmail=2Ecom>
+>> +
+>> +Description
+>> +-----------
+>> +
+>> +The TDA38740 and TDA38725 are single-output synchronous buck regulator=
+s with a
+>> +PMBus interface=2E They expose basic voltage, current, power and tempe=
+rature
+>> +telemetry through the standard PMBus hwmon interfaces=2E
+>> +
+>> +Sysfs entries
+>> +-------------
+>> +
+>> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D =
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D
+>> +curr1_alarm		Input current alarm
+>> +curr1_input		Measured input current
+>> +curr1_label		"iin"
+>> +
+>> +curr2_crit		Critical maximum output current
+>> +curr2_crit_alarm	Output current critical high alarm
+>> +curr2_input		Measured output current
+>> +curr2_label		"iout"
+>> +
+>> +in1_crit		Critical maximum input voltage
+>> +in1_crit_alarm		Input voltage critical high alarm
+>> +in1_input		Measured input voltage
+>> +in1_label		"vin"
+>> +
+>> +in2_crit		Critical maximum output voltage
+>> +in2_crit_alarm		Output voltage critical high alarm
+>> +in2_input		Measured output voltage
+>> +in2_label		"vout"
+>> +in2_lcrit		Critical minimum output voltage
+>> +in2_lcrit_alarm		Output voltage critical low alarm
+>> +
+>> +power1_alarm		Input power alarm
+>> +power1_input		Measured input power
+>> +power1_label		"pin"
+>> +
+>> +power2_input		Measured output power
+>> +power2_label		"pout"
+>> +
+>> +temp1_crit		Critical high temperature
+>> +temp1_crit_alarm	Chip temperature critical high alarm
+>> +temp1_input		Measured temperature
+>> +temp1_max		Maximum temperature
+>> +temp1_max_alarm		Chip temperature high alarm
+>> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D =
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D
+>> +
+>> diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
+>> index bcfdc4ce4c10=2E=2Ee4ca80dd0574 100644
+>> --- a/drivers/hwmon/pmbus/Kconfig
+>> +++ b/drivers/hwmon/pmbus/Kconfig
+>> @@ -763,6 +763,15 @@ config SENSORS_TDA38640_REGULATOR
+>>   	  If you say yes here you get regulator support for Infineon
+>>   	  TDA38640 as regulator=2E
+>>   +config SENSORS_TDA38740
+>> +	tristate "Infineon TDA38725/TDA38740"
+>> +	help
+>> +	  If you say yes here you get hardware monitoring support for Infineo=
+n
+>> +	  TDA38725 and TDA38740=2E
+>> +
+>> +	  This driver can also be built as a module=2E If so, the module will
+>> +	  be called tda38740=2E
+>> +
+>>   config SENSORS_TPS25990
+>>   	tristate "TI TPS25990"
+>>   	help
+>> diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefil=
+e
+>> index e288fe72a437=2E=2Eeb06d47816fd 100644
+>> --- a/drivers/hwmon/pmbus/Makefile
+>> +++ b/drivers/hwmon/pmbus/Makefile
+>> @@ -70,6 +70,7 @@ obj-$(CONFIG_SENSORS_STEF48H28)	+=3D stef48h28=2Eo
+>>   obj-$(CONFIG_SENSORS_SQ24860)	+=3D sq24860=2Eo
+>>   obj-$(CONFIG_SENSORS_STPDDC60)	+=3D stpddc60=2Eo
+>>   obj-$(CONFIG_SENSORS_TDA38640)	+=3D tda38640=2Eo
+>> +obj-$(CONFIG_SENSORS_TDA38740)	+=3D tda38740=2Eo
+>>   obj-$(CONFIG_SENSORS_TPS25990)	+=3D tps25990=2Eo
+>>   obj-$(CONFIG_SENSORS_TPS40422)	+=3D tps40422=2Eo
+>>   obj-$(CONFIG_SENSORS_TPS53679)	+=3D tps53679=2Eo
+>> diff --git a/drivers/hwmon/pmbus/tda38740=2Ec b/drivers/hwmon/pmbus/tda=
+38740=2Ec
+>> new file mode 100644
+>> index 000000000000=2E=2E067de07ba9fb
+>> --- /dev/null
+>> +++ b/drivers/hwmon/pmbus/tda38740=2Ec
+>> @@ -0,0 +1,64 @@
+>> +// SPDX-License-Identifier: GPL-2=2E0+
+>> +/*
+>> + * Hardware monitoring driver for Infineon TDA38725/TDA38740
+>> + *
+>> + * Copyright (c) 2023 9elements GmbH
+>> + *
+>> + */
+>> +
+>> +#include <linux/err=2Eh>
+>> +#include <linux/i2c=2Eh>
+>> +#include <linux/init=2Eh>
+>> +#include <linux/kernel=2Eh>
+>> +#include <linux/module=2Eh>
+>> +#include "pmbus=2Eh"
+>> +
+>> +static struct pmbus_driver_info tda38740_info =3D {
+>> +	=2Epages =3D 1,
+>> +	=2Eformat[PSC_VOLTAGE_IN] =3D linear,
+>> +	=2Eformat[PSC_VOLTAGE_OUT] =3D linear,
+>> +	=2Eformat[PSC_CURRENT_OUT] =3D linear,
+>> +	=2Eformat[PSC_CURRENT_IN] =3D linear,
+>> +	=2Eformat[PSC_POWER] =3D linear,
+>> +	=2Eformat[PSC_TEMPERATURE] =3D linear,
+>> +	=2Efunc[0] =3D PMBUS_HAVE_VIN | PMBUS_HAVE_STATUS_INPUT
+>> +	    | PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_TEMP
+>> +	    | PMBUS_HAVE_IIN
+>> +	    | PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT
+>> +	    | PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT
+>> +	    | PMBUS_HAVE_POUT | PMBUS_HAVE_PIN,
+>> +};
+>> +
+>> +static int tda38740_probe(struct i2c_client *client)
+>> +{
+>> +	return pmbus_do_probe(client, &tda38740_info);
+>> +}
+>> +
+>> +static const struct i2c_device_id tda38740_id[] =3D {
+>> +	{ =2Ename =3D "tda38725"},
+>> +	{ =2Ename =3D "tda38740"},
+>> +	{}
+>> +};
+>> +MODULE_DEVICE_TABLE(i2c, tda38740_id);
+>> +
+>> +static const struct of_device_id tda38740_of_match[] =3D {
+>> +	{ =2Ecompatible =3D "infineon,tda38725"},
+>> +	{ =2Ecompatible =3D "infineon,tda38740"},
+>> +	{}
+>> +};
+>> +MODULE_DEVICE_TABLE(of, tda38740_of_match);
+>> +
+>> +static struct i2c_driver tda38740_driver =3D {
+>> +	=2Edriver =3D {
+>> +		=2Ename =3D "tda38740",
+>> +		=2Eof_match_table =3D tda38740_of_match,
+>> +	},
+>> +	=2Eprobe =3D tda38740_probe,
+>> +	=2Eid_table =3D tda38740_id,
+>> +};
+>> +
+>> +module_i2c_driver(tda38740_driver);
+>> +
+>> +MODULE_DESCRIPTION("PMBus driver for Infineon TDA38725/TDA38740");
+>> +MODULE_LICENSE("GPL");
+>> +MODULE_IMPORT_NS("PMBUS");
+>>=20
+>
