@@ -1,89 +1,78 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DD2243499F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC10A436BC8;
 	Fri, 18 Sep 2026 09:58:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789725534; cv=none; b=inVJjgDTUZvM9D6GuXly7XQsZYjRhRmCNYKau5l5DSllVJqlLB+1yKkdonzykt8fa9J5kmc9V/Z5PgM5lJKZRq2O6YQMBUwI0zYXu9E2q7GrxPMuiSHEp6UFTVyhdWK591hqL4aACRtY+bxD0kU6ojuK5K0bnaC5V8jPoDmdA74=
+	t=1789725534; cv=none; b=S+aWyvwYHs3DVaRhNZ2TAFhLcNSjPIGbqri5j4ZkTmBhAV6m6kUpIRAYdczc30d28iOCCxTXzQmQIT0mBjY8uCMRM+VtXjNwlZOPvEz4ykwe5OoaxWW3eUhRSqsCdDkL6FB/ikWQtD/3x/l2PAy1IoBzEYsCHSkxFCy9ZdRud1k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789725534; c=relaxed/simple;
-	bh=JsQggZigR/TcXmnx8/T+7z6r+BTFJnRQcEysKzuQRdc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JXB4D53XFU3V85o+QldPHc0b3Gq1kvVeOMv53pl3n6SS2CuNoTXFzk/ki5n3N6jV8nxffRuq7AT+hpFAgKGoLbw83N7zY1YJh5mmyaNLGdn0QRzQVwfMGs091nrE5ntZ4l3YkjMKbdKJcOKWsVp6bsM3DY4CHvymnc5jp2zAjtw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lzQGaa2w; arc=none smtp.client-ip=100.103.45.18
+	bh=jYd+I40jEaxIomQfyEKZUk9TFt3Otioy7dxEVuOWqRk=;
+	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=Qxr53/Kg1QWc3ajYnQhZsrueItQ/tYlt8Tg6Oi5FpR/4bsQ9IKwJLszc97yWJsQC3U4YPPtxk7uOuI7nsriCJDdJIEE1hA+84Uzg9BXmEEmPeaJUEPztLEcd0ihchb3ujivlKyCLNLP0oXqkAp1aXUcj1RzosGb5+wWuyAoTRrU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=f6ahu+/C; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lzQGaa2w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB91C1F000FF;
-	Fri, 18 Sep 2026 09:58:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789725532;
-	bh=Ln1d4qHa7vdCKllJbzJ0Cgy2Evr00KW99XLnmyu9AZQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lzQGaa2wc7pzdKv4ZpCrAfV29vqmfnYgdzyKRSmxaEI3AfqMIfSFutWS+AZPvkSF2
-	 GdevVH2V8K7hWaHcSqJB0R8WJs5Xz5mW5ttf0/Id00JR1Y+uo2I6kHaw8Y2J7I2y1i
-	 iapc6g9TCJqF+xSdzEicL/Hw13gqjY7TtT7pd5JqiM4rOIW7P0qrlFGm5eiLghqT4b
-	 Ov3UNovPiZ9GJgafv3w0tWTH+TU0jwaLigTapVYn4gGe4Yv23+pqZQFo6ci5xQgJvQ
-	 MUTb1pXh7zwXzsXY9YgTTr/+tqPq8nZBjFh5YelJfm4W9gKq8N5yRl1AF1ZdM5rzgP
-	 rG2Hz2OWtvtxA==
-Date: Fri, 18 Sep 2026 11:58:48 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Selvarasu Ganesan <selvarasu.g@samsung.com>
-Cc: peter.griffin@linaro.org, alim.akhtar@samsung.com, 
-	gregkh@linuxfoundation.org, robh@kernel.org, conor+dt@kernel.org, Thinh.Nguyen@synopsys.com, 
-	mani@kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-samsung-soc@vger.kernel.org, linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, jh0801.jung@samsung.com, h10.kim@samsung.com, 
-	dh10.jung@samsung.com, akash.m5@samsung.com, hongpooh.kim@samsung.com, 
-	eomji.oh@samsung.com, shijie.cai@samsung.com, muhammed.ali@samsung.com, 
-	thiagu.r@samsung.com
-Subject: Re: [PATCH v2 1/3] MAINTAINERS: add Samsung USB DT binding to
- ARM/SAMSUNG entry
-Message-ID: <20260918-eminent-wooden-shark-97b8be@quoll>
-References: <20260916122229.2604003-1-selvarasu.g@samsung.com>
- <CGME20260916122351epcas5p37666f1232d3b2bcc1d02a96ab0df4142@epcas5p3.samsung.com>
- <20260916122229.2604003-2-selvarasu.g@samsung.com>
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="f6ahu+/C"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=Content-Type:MIME-Version:Message-ID:Subject:
+	To:From:Date:cc:to:subject:message-id:date:from:content-type:in-reply-to:
+	references:reply-to; bh=wpXzrCyVMAWXd9Llt5C5QD5boGXqJUlTQCeoAdJR38c=; b=f6ahu
+	+/CYyUPWtKlLNezumKsmCDpJnxOUsDMC8oJerU6j++wUaDDuDNZMnBw7xvnjgv1EK0BM7T+6NydKV
+	9f8A68Do3lj2/j05pMD0j2tdL9f6cGPqQmd+ZMmNYLFTYkEiz/qtQrSedT8HHYUvdk2XCf/jgH3Pw
+	2p/J0wLZwfxwAW+qIZp/CQGTmv+pKMvhExP41bMJ2ZrBqLukFRSGG8XVKu98NaY1pgSZqHXa0Quxg
+	+vQl+i1salm5i/YctbmXcrT++uFW0TPDSt2bHFz4enakI1JojagTGdtDc7RsmpIRMdPYcHu0yi3+K
+	Jp4lyQszCQjcRJMR3w2qNhEiV+X2g==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1x7VMm-0000000FM5v-1XXy;
+	Fri, 18 Sep 2026 17:58:49 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 18 Sep 2026 19:58:48 +1000
+Date: Fri, 18 Sep 2026 19:58:48 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>
+Subject: [GIT PULL] Crypto Fixes for 7.3
+Message-ID: <aq0LWN4cVftl8r5p@gondor.apana.org.au>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260916122229.2604003-2-selvarasu.g@samsung.com>
 
-On Wed, Sep 16, 2026 at 05:52:27PM +0530, Selvarasu Ganesan wrote:
-> Add the Samsung USB devicetree binding file path under the existing
-> ARM/Samsung SoC maintainership.
-> 
-> Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
-> ---
->  MAINTAINERS | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index a53620839407..87a1ab24a375 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -3576,6 +3576,7 @@ F:	Documentation/devicetree/bindings/arm/samsung/
->  F:	Documentation/devicetree/bindings/hwinfo/samsung,*
->  F:	Documentation/devicetree/bindings/power/pd-samsung.yaml
->  F:	Documentation/devicetree/bindings/soc/samsung/
-> +F:	Documentation/devicetree/bindings/usb/samsung,*
+Hi Linus:
 
-I think this is not really needed. First of all, files will be covered
-by N: pattern further in the entry. Second, patches for these should go
-via USB, but listing here the directory could create impression that
-Samsung SoC is responsible.
+The following changes since commit 60892a384aa1e65d0e703e1c513417bdf0c80777:
 
-This one entry is harmless, but if adding this, then next time we got 15
-more updates for each of Documentation/devicetree/bindings/*/samsung*
-files. Is it worth?
+  crypto: x86/aria - add missing vzeroupper in AVX-512 code (2026-09-04 18:45:51 +1000)
 
-Interested people can add themselves to the bindings maintainers entry,
-that's always welcomed.
+are available in the Git repository at:
 
-Best regards,
-Krzysztof
+  git://git.kernel.org/pub/scm/linux/kernel/git/herbert/crypto-2.6 tags/v7.3-p4
 
+for you to fetch changes up to 53cf0f26eece095a3752642151150404bc3351cc:
+
+  crypto: caam - map job ring registers without claiming region (2026-09-16 19:55:13 +1000)
+
+----------------------------------------------------------------
+This push fixes a regression in caam.
+----------------------------------------------------------------
+
+Rosen Penev (1):
+      crypto: caam - map job ring registers without claiming region
+
+ drivers/crypto/caam/jr.c | 23 ++++++++++++++++++++---
+ 1 file changed, 20 insertions(+), 3 deletions(-)
+
+Thanks,
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
