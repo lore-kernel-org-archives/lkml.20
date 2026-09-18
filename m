@@ -1,64 +1,64 @@
 Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 090714F3920
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:16:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 308AB4F7CD9
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:16:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789737391; cv=none; b=mt7RQAEf7iPxDVarOobEm66hJhlHoQmxdBIXcojoQCckl+Km6UR1KTyNM+AR+jDFy6yL3xaUllu3cQTB06h2FZxUswMnFCRamvebCd/+MLwNvPo816ioPjVS5PegeKXCOkxuT6+FDyNMEazY0QDOxB3whYNF1z07Y3fGdy0TMo8=
+	t=1789737392; cv=none; b=t9VneThH4+pfSeXxfIsj0izCTXzN9KxLlUYACP1e0XjKXMD9pbZyDw9Rb9W/22MKRwRhiIbGKIFfwey/9IFDnKJlbNhrFarVIsXyaRpgBbbyrRSkFYThY0hJ6AMgjukKi1PZqWPBasz45WlRzNQyfmqKlIxLwBqJiOIvEiHMEmM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789737391; c=relaxed/simple;
-	bh=AziE3Yj7NTzqiNMtlJscqQncplQWikmCngG3C9eD4oU=;
+	s=arc-20240116; t=1789737392; c=relaxed/simple;
+	bh=DbdKlCa2odn2Uw/XyYQhVOEIt2OFS2NRzxTNkQOWfyo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=N38ZvyjgBumjyEKfrnw1dnvhr6/lw+GOOthxE3MQqkaBITFK+rRyXCSBOgUWwF8o4gw016AY5shVcdFTsmuJNnWrmw/KGdOXO9bYwl7Q3/zLl4NAMhZarqQu/cu4/FARlm4ohp+89PWZtWllRI622NNUKd84sh989iKoNuoCBuE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ku1ruZox; arc=none smtp.client-ip=74.125.225.76
+	 MIME-Version; b=sqBwyIiPlVQUJOkmAvUoFVKUAtTDm3tlFtV7CwTAALyFDi3hGzOG1UXfBfN4YiXSUwPl8GpwuQ6Lsp+Tus4VQKHwEP0p8ZHzaigWGR7POoWG5GMf7oAs0brQSsLxGOjw2smrWtN3RlJG9AsyUqpmqoUP/Dafyh6m0plmngbgLVY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lmDYSvW7; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ku1ruZox"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350faaso411326f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:16:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lmDYSvW7"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f633cd78so409812f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:16:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789737386; x=1790342186; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789737388; x=1790342188; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=MWU/Z4Cv9J6Gjygd5g2E8XPN0BiQe/Sbx9hToRJGZ3A=;
-        b=ku1ruZox+vbqHzEVK3Dw4aYrn8v2mGEmjQDn2D32uHP9qvvnHKH3RtsLza9iCBtYES
-         giUyMzx6lqddELSpbclBFB3iupTd6lIquoc73iUQM2zsX4vVKPwi/pHuLpupPYbNUJps
-         Ro3FrmSfEhdZJ94nlsYdPd212sN5K6XWR/KjnB59ihvOow0VLU5rxY8TZBZHy+yV2hzK
-         YBhmw4oYZa0H0PT1Ssf8xyk9STeMxDnyWL+DEjvcL+Ekya484vq151JxK9iA0RkpkINh
-         D6kNN2sJ4EBA73qLBrh9lKoiIcLuu4Ibw9vQAFG1DJ5H1+oCR1Dge9Tz1sq63VngthxQ
-         EVQw==
+        bh=jQCO1lrXpdk3Cfzx3wIoTrVcbxEHs1oQDclhX0KurhE=;
+        b=lmDYSvW7LItvd+GhnbcwDTm75JaoL3BJzoDBuviZFTAwTExnxTX9sBs5eCutXuuYyn
+         utbiawREmlp8iRGe6pDVltJnlHpz3qXvSR2y7QAD97cX96fMT1cHTxHhSyh/4uK9exg9
+         ebaI44/YQRdAOO16zZojDpWId0wpl+4FzrxlJlFQTgXMoLqw9M1wTskhVIby9ft4g4xg
+         ehtsPuDrfsqi1p/QfRBd6p7iRuPo3x/zd1lVDSUoLBlVyhnzZ7wuWaBwiGes/N6Rsky8
+         BjsSzxYssAsLQM1kVM07PTUu+EsNP+sHUIzRbhw/Mggr2tjuEy19Uo0zH65petgv77iP
+         8Plg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789737386; x=1790342186;
+        d=1e100.net; s=20260707; t=1789737388; x=1790342188;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MWU/Z4Cv9J6Gjygd5g2E8XPN0BiQe/Sbx9hToRJGZ3A=;
-        b=vdczVXFkfyXtewS95wNluOb+GnuhwJe7xX7AK/bIntF4pgweHIOSjmeHIiKiygGaai
-         adjq/FjjXtN1C25L7Lg+Mivqtty14RETiTH3QUhp1xsMV1xx/yblPQ0V7VYgRmj3QeKq
-         COR48UbUw/4WaZmP4TMo0W0r1ff3mQDtsYe0LSGY7VTyr1rxV+KG2lqsiwpJ1BRdTv/3
-         Y21tEoWyrep51113qnGjIWQqmeM5fpKQlcQFN/xaUVwD11/HNKNMnqvYNGirl4UOluZY
-         AwQ2UrVR7qco3fd5Oaze6OHnGCvh/bDQUNdwZx/E7CHEcZXVdxC52wHIKii8NSOXaFqn
-         Wg7g==
-X-Forwarded-Encrypted: i=1; AKwUvBzPVnrdrXF6VWH7YrTnJwBMDvhdfjxHdPm5yGHeSX4iRifIiunaZBqkdJaeu9H80N47c0fbaAmIyWoc97M=@vger.kernel.org
-X-Gm-Message-State: AFuF++ko8oWICizfNZa91BQ1b6bI9/+Xo0Tv88qzzEaxUyenbRX/jfJK
-	BAx6vUueYDklPNwYnXj8OPVuktLclhlnU9YSPgrmiRqQOzKv/3aYcY57
-X-Gm-Gg: AYBFou2K456UBt89EK9Lxgdy77YuaMUpvXZqZXL4StZa1oODURZqsWpIJKTKhnmlGrk
-	H9KFuxm+sY9T9VirAa55QeknDjoa7gEAMiF7ViprVUybKihVGSyqr5wXjLyNxrUWCCl9+eWtoCA
-	JCURTViwbx+P3Jtz0l8VcU04t0g8sSByvm1Bexw9fvHN4gnu5D5sHSvbD5Xn4Mn2syR88kauQgl
-	V1e3SGm/3mK7NYqB/lUxz8gALYvJs1+Ct8bugE4eFJSb+sDESbOGNjpQXKBP3fVWFQU83cq2Xov
-	W14L6huB1CFtn+Ryfdaq6TL9VnxDfEm4M/4J14lUs/rIEryO9lebYj58exM1PsEfZEBtzKKZNM6
-	xJmLtB8gzDEKywBFKZlQF/yhEqNOFB4T57X0r8+3m9FLNNY/BDnb/6eqfgGHctvm0yeiC0h7oS9
-	9NIaSREWustTIiaZTRzXWCJkJ2pRSgNic1yeTXsOU/PmdxdtpINFai5M6yCpJnoAllNGfaf+E9w
-	UHyR6UeceI=
-X-Received: by 2002:adf:e19a:0:b0:487:35d:cb0f with SMTP id ffacd0b85a97d-4871e216fc4mr3566538f8f.14.1789737386045;
-        Fri, 18 Sep 2026 06:16:26 -0700 (PDT)
+        bh=jQCO1lrXpdk3Cfzx3wIoTrVcbxEHs1oQDclhX0KurhE=;
+        b=lxO5pZ6iCKBP+vJriqM9q52sBnXlCYR7ffAdL9tjSDPuLOgy45f164Sk1Htn/w29Xh
+         k9i6y/Ezj0YNeSNztBzgXr5L3qHHdc7RHqrdXaeOb/v+fZre9jes9z6q1EPHS6+Ua76K
+         PVaFtPXAQ5Wj6gfX0Y9GHzJRoCgm+knRH6XUQqwKRixhNEaOROwJWp/jhUEltHRTDKgM
+         4YnUnyW1aAqTHh6Q66zga8M4GXZWntIn8gGeT8n4elOw/BoqOgK7/iUZ0p1w3AP9TMnQ
+         EB1J//UleQg1ZIi+xOLDN45DmiDoq1R1zdQC7OLoeBN8Gw6llMJBd5fPm9qCB+8plEZ7
+         F8EQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzE5OxrgmGdCvrC+8Q0musiJ1EjC+QiECkEiWsPw4kprGlIcG699nYv2GPpNGXOccdf5xzngd/qkOXv8TI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kvnce6xckakfmcC2MECrRCnMGLQ8VFGiFwR9yB6FjtEkicxPcu
+	M1QpyivVRgIc28D6u4bXqoQ7odZFGSMRAcxIyqZGOG/RmG3kmw8VBGhK
+X-Gm-Gg: AYBFou0/VavgRmibjZ4SpyTaxbTQcZ/jlhblKW1sPwL/DDQV25AqpNprRl0KzDzzd1I
+	VqmztKsjv4SQjhVtnH5JtQK+l8hzJ9yEw0KJWPEiVfV5SolAQGxgLJiUPiMA1q+lJhYa5fCA4hK
+	fBn15Kxo8s6V3g9xkQmzow0TGnM1GeTtlUUqaPllBgVW89a62LMBTOGHmyEhRxaX7rohG24mkK3
+	L2VVBf23wE58CXxTM0fCWsWrE9QUJ9hBn8MCo6y4Ldi1yJjB7USyhc8vbJ8BfJF3/MAqSXH3yGX
+	U/IO1Dn0scxQvYsJyURZGJUP04iwz8tngQz9STAkj1gkV/aPaDoJGgryAvWcNoTRYS4JynT6vXo
+	E/GE7c6EMbzs3EvchXSqlWElW0CXMErRDzNP5vWivSxOVTrMm+vTssHnIpT8VETGwpF5VTJyJB3
+	rBuoVm3Cm+ziYZWqVbMtNhuIsgcOcvO7llGdACkGIWlJD3tObdW2KIi33K5sLfwHrdiUqZ/CLmQ
+	mMA2sGd48M=
+X-Received: by 2002:a05:6000:2312:b0:486:f6dc:52c8 with SMTP id ffacd0b85a97d-4871e269e92mr3590006f8f.37.1789737387367;
+        Fri, 18 Sep 2026 06:16:27 -0700 (PDT)
 Received: from fra-x8664.wind3.hub ([151.16.209.67])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-487200829e1sm4487572f8f.34.2026.09.18.06.16.24
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-487200829e1sm4487572f8f.34.2026.09.18.06.16.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 06:16:25 -0700 (PDT)
+        Fri, 18 Sep 2026 06:16:26 -0700 (PDT)
 From: Francesco Magazzu <postadelmaga@gmail.com>
 To: Lyude Paul <lyude@redhat.com>,
 	Danilo Krummrich <dakr@kernel.org>
@@ -67,9 +67,9 @@ Cc: dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
 	Dan Carpenter <error27@gmail.com>,
 	Karol Herbst <kherbst@redhat.com>
-Subject: [PATCH v3 3/4] drm/nouveau/device: don't use the pstate cursor after the loop
-Date: Fri, 18 Sep 2026 15:16:19 +0200
-Message-ID: <20260918131620.405133-4-postadelmaga@gmail.com>
+Subject: [PATCH v3 4/4] drm/nouveau/clk: don't clobber reclock status when restoring volt/fan
+Date: Fri, 18 Sep 2026 15:16:20 +0200
+Message-ID: <20260918131620.405133-5-postadelmaga@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260918131620.405133-1-postadelmaga@gmail.com>
 References: <20260918131620.405133-1-postadelmaga@gmail.com>
@@ -81,56 +81,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-nvkm_control_mthd_pstate_attr() looks up the pstate at the index supplied
-by userspace by walking clk->states, and then keeps using the
-list_for_each_entry cursor after the loop.  This is not triggerable today:
-the function already rejects args->v0.state >= clk->state_nr before the
-loop, and clk->state_nr is kept in sync with the number of entries on
-clk->states, so the lookup always breaks on a real entry.
+nvkm_cstate_prog() reuses 'ret' for the voltage and fan-speed restore
+calls it makes after reprogramming the clocks.  Those calls almost always
+succeed, so the status of the reclock itself is overwritten and the
+function reports success even when clk->func->calc() or clk->func->prog()
+failed.  The converse is also true: a successful reclock is reported as an
+error if the final restore call fails, even though that failure is only
+logged and otherwise ignored.
 
-Should the loop ever run to completion, the cursor would point at the list
-head rather than at a pstate, and the pstate->base.domain[] read and the
-walk of pstate->list that follow would read past it.  Rather than leave
-that trap in place, track whether the entry was found and return -EINVAL if
-it was not, like the other lookup failures in this function.
+The only consumer of the return value is the error message in
+nvkm_pstate_work(), so in practice a failing reclock is simply never
+reported.  Nothing else changes, but a function that returns success on
+failure is a trap for the next caller.
 
-No functional change.
+Keep the calc/prog status in 'ret' and use a separate local for the
+restore calls.
 
+Fixes: 3eca809b3c05 ("drm/nouveau/clk: cosmetic changes")
 Signed-off-by: Francesco Magazzu <postadelmaga@gmail.com>
 Reviewed-by: Lyude Paul <lyude@redhat.com>
 ---
- drivers/gpu/drm/nouveau/nvkm/engine/device/ctrl.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c | 16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/ctrl.c b/drivers/gpu/drm/nouveau/nvkm/engine/device/ctrl.c
-index f2e9a0626..28702741a 100644
---- a/drivers/gpu/drm/nouveau/nvkm/engine/device/ctrl.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/ctrl.c
-@@ -74,6 +74,7 @@ nvkm_control_mthd_pstate_attr(struct nvkm_control *ctrl, void *data, u32 size)
- 	const struct nvkm_domain *domain;
- 	struct nvkm_pstate *pstate;
- 	struct nvkm_cstate *cstate;
-+	bool found = false;
- 	int i = 0, j = -1;
- 	u32 lo, hi;
- 	int ret = -ENOSYS;
-@@ -104,10 +105,15 @@ nvkm_control_mthd_pstate_attr(struct nvkm_control *ctrl, void *data, u32 size)
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c b/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c
+index a43246ae6..1cb83edc7 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/clk/base.c
+@@ -199,16 +199,18 @@ nvkm_cstate_prog(struct nvkm_clk *clk, struct nvkm_pstate *pstate, int cstatei)
+ 	}
  
- 	if (args->v0.state != NVIF_CONTROL_PSTATE_ATTR_V0_STATE_CURRENT) {
- 		list_for_each_entry(pstate, &clk->states, head) {
--			if (i++ == args->v0.state)
-+			if (i++ == args->v0.state) {
-+				found = true;
- 				break;
-+			}
- 		}
- 
-+		if (!found)
-+			return -EINVAL;
+ 	if (volt) {
+-		ret = nvkm_volt_set_id(volt, cstate->voltage,
+-				       pstate->base.voltage, clk->temp, -1);
+-		if (ret && ret != -ENODEV)
+-			nvkm_error(subdev, "failed to lower voltage: %d\n", ret);
++		int err = nvkm_volt_set_id(volt, cstate->voltage,
++					   pstate->base.voltage, clk->temp, -1);
 +
- 		lo = pstate->base.domain[domain->name];
- 		hi = lo;
- 		list_for_each_entry(cstate, &pstate->list, head) {
++		if (err && err != -ENODEV)
++			nvkm_error(subdev, "failed to lower voltage: %d\n", err);
+ 	}
+ 
+ 	if (therm) {
+-		ret = nvkm_therm_cstate(therm, pstate->fanspeed, -1);
+-		if (ret && ret != -ENODEV)
+-			nvkm_error(subdev, "failed to lower fan speed: %d\n", ret);
++		int err = nvkm_therm_cstate(therm, pstate->fanspeed, -1);
++
++		if (err && err != -ENODEV)
++			nvkm_error(subdev, "failed to lower fan speed: %d\n", err);
+ 	}
+ 
+ 	return ret;
 -- 
 2.55.0
 
