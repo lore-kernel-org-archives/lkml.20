@@ -1,349 +1,254 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mta0.migadu.com (out-218.mta0.migadu.com [91.218.175.218])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CADC13C73C1
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 05:49:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9164D4848B4
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 05:50:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.218
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789710594; cv=none; b=jGrb6r03SN0EbSeEyonfdpda1c8aFy8X9zY40l0DBPAA5CCRA0csgJ4rwvBDXuEijrGtieLBZZUvlhgpfLCVZUi2bGIt2u/cJBRB7Je/xFKpkOiitUuCRPNXY2y2OZl+xcMsrRlmCZC34VRjbc0GV603/7H+3URspK3UAZ2sITg=
+	t=1789710631; cv=none; b=S0qGSoJ19ma0TwziL6w+5ImpgR7RQtTGk7Ms6bM1WAnfTqZNHXOCjiypM6ur6uZqBh4zL+ambeLYNKjtalXKANBSzIJBVfv8Jgckq7kHTb2ecBO8gklhg66REzI92df9ddJUsh4DGFEdvI8MxAdnjA4IryF+ure34XcmEuFYH1E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789710594; c=relaxed/simple;
-	bh=V0fVo31wuNmyh+k84lQm2ZKBD2M0OKtxI4N5iEV+OCA=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=emZ4TzynXpOts69B706IrvvhsdWbnHm4aDJW67m96HMdRSQytMG1i427iJVP1JqGVWIvgFKj19bY3eHitXft2pYZWR1dnkTBzDD3BGzqiNrYBDkh++cjnI5jV/ouvHrTtt+WxD5cBK1bnFM3RM2xRL9Qzc+4I4fTQwromtlK0mg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=CtVJpJyE; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	s=arc-20240116; t=1789710631; c=relaxed/simple;
+	bh=Z6p28FiFvwrdbcCcOGzSwcZjLjqiPC8+vsZtlKp8cHQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CU8228eznhJqNHjQaO0oc5TRNCYR3rz1KeYU2slJZcQg1F9FnuwLBSXCHb0H5Q7acRZOz+enWX2rWqDI170eiqsvHitzpUUcmhETnQZGqaP0vNvRiCUbIVB298sfAfds/0UhSRfuxcqRBDUqlGPtfs3Zt27WT/AjlUajMbzSmD4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=nE+exSyK; arc=none smtp.client-ip=91.218.175.218
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="CtVJpJyE"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd4ba9f68so4410595e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 22:49:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20251104; t=1789710591; x=1790315391; darn=vger.kernel.org;
-        h=content-type:in-reply-to:autocrypt:references:cc:to:from
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=V0fVo31wuNmyh+k84lQm2ZKBD2M0OKtxI4N5iEV+OCA=;
-        b=CtVJpJyEG77R4xb7QfBp47Q2eWHLLCh8z4bWmQ4ebIRmjKPIBEoCAOIvXJJnMcAg3g
-         QG4ugVWDQluDsWxM/ilHfgaxA/qtnftHJ+5WSfqQwTP6w4XtJKS5HLgqflVF2j5ahw1I
-         vXEWozAdCPrb20iXETt03HTxnvsb4KJYlCGPi9OSvj5vR+mu3ORGK5qnZY5KMZ5jGPAM
-         5bb90fxZQ6aOID0kRSC+Ei63PW54I83KBdn0nlXxTe+aOqJt+zBWAvLPzNnaJDgVZ7UU
-         hILEZIIbnjlcTSM1kuTk3KKIq4eC/N7FsQ9KUwiNpbl7L3CKfsmWxXLFrdKKkNqmgKaU
-         Vu2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789710591; x=1790315391;
-        h=content-type:in-reply-to:autocrypt:references:cc:to:from
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=V0fVo31wuNmyh+k84lQm2ZKBD2M0OKtxI4N5iEV+OCA=;
-        b=a1KZxsl7pwbkiQAdFf8RojZfJw29nNde9gPseO4GGI1U1A0ET3ZV1Zls9wjqZTyp0q
-         a6wg0Jm3rS6G+7zTvvJBGwvyktU2I+jQjj4uqyXuJddbH/2YMNBc2kbtCZw2G3XTNNpy
-         LhYKqBRYl7fX5lX62GGbOubwV2sZlo1MAon1X/UTMc56pSeaNxRvFekodLy5cSFcxJW9
-         HzVWGHeQ+qh8elb1dOe70hBPuHoMA6f0OsOPVs12YoTRzrY7PvkZqjw/baH9rDweQZuP
-         puTQEeN91qDdl6i5jdqF0kjRrLF+5RlKwJMhC1ZYJ7XSN9y9m1lc9PV8iojCM0qRzR2J
-         DM3A==
-X-Forwarded-Encrypted: i=1; AKwUvBxQ1ir77Pm05dYGqs6u0LRrh3GhSDdCiv+ZP550jLaM8DFK87Y4HzydCzKa6uH3F5USmU842nJgJxQXhQY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nohAs6GEp0A3PngYbbXK1svUTtpqC8w2Edabdk2Zoth9wp+Gx6
-	BjBmUoVrIme9jMTbkMdrybNDMvLr77CeZh0g1znSsP973wdGn9DRD5U=
-X-Gm-Gg: AYBFou0+UMzr3B4p9mjcdWII7ficoqwE3rYb82H9biVnG6xC43VFgE+Z7oylWs7nUS8
-	AHrmtHG0dnFo1H0tb8zmRBxz65d3cU/Fhf8WW/8WICEV06SsRHRZYbmNkYtX9pTcOuvVnHYdb+8
-	FPMtEvL3RlXcbE1ZTD9U8D+fUz6MiTHz1/G8yTV5lx0QM/vhBnvF0AAMBI5tRO4MiYvZNZmrE2a
-	kN4fbrjQ+cGmO07s3h/BCNuv+Qw9dZZ6I7QcWZXm1vrzOTBKwH7n0b6Pdzkvi10VvMKurOVfHaa
-	jOpe2r79f3EdNnnERK6YH0KvAd5PQnxVyrBgeMIyVykJmL83AnDOWU28xGed298nkukgsFRF7v5
-	EXlDp/GnKpHZ5lMjuLA+r/63IoO0b5zv8g6aERUaJDlEeY6cqKu8RgxVUDxVudQ9psa2Kh9vsA6
-	Z4N2Gy1JDUCQcCCZDoegi8ke6JjXCNw3+qfNXja+/ZSdu9ry6BG5Zq9v4Vo2WRHzrT0tai6lU4P
-	TYm7lLe4Bjau98TJ8NaSU3rdKZoaVG2aMVTMbjG8D4si5RUIA==
-X-Received: by 2002:a05:600c:3ba0:b0:49e:73d3:78ab with SMTP id 5b1f17b1804b1-49fc55adc12mr15978125e9.0.1789710590813;
-        Thu, 17 Sep 2026 22:49:50 -0700 (PDT)
-Received: from [192.168.1.3] (p5b2b47fd.dip0.t-ipconnect.de. [91.43.71.253])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc7d4b9ecsm23044735e9.14.2026.09.17.22.49.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 17 Sep 2026 22:49:50 -0700 (PDT)
-Message-ID: <1e80f4b3-3919-4568-aabd-f0172581831d@googlemail.com>
-Date: Fri, 18 Sep 2026 07:49:48 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="nE+exSyK"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Z6p28FiFvwrdbcCcOGzSwcZjLjqiPC8+vsZtlKp8cHQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789710626; v=1; x=1790315426;
+ b=nE+exSyKwCI2SFNVPpe0Bbd7jPWGi5h0qGVyz9ki2SZsyv4we+t9hB5053cNnUTM6/5MaFGl
+ jtJJWm7ILqUyiPhOv+2CZqNOmXWIaq0kqNXLEA0/5WFuSaMatYLZH12X/FI7q5KzOlJ92a4ohA7
+ /sp+bPmToSieCWNzaEDXTRqc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9d3e9250253033c7;
+	Fri, 18 Sep 2026 05:50:18 +0000
+X-Mizu-Trace-ID: 9d3e9250253033c7
+X-Migadu-Flow: FLOW_OUT
+From: Tao Cui <cui.tao@linux.dev>
+To: tj@kernel.org,
+	josef@toxicopanda.com,
+	axboe@kernel.dk,
+	ameryhung@gmail.com
+Cc: cgroups@vger.kernel.org,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	ast@kernel.org,
+	daniel@iogearbox.net,
+	linux-kselftest@vger.kernel.org,
+	cui.tao@linux.dev,
+	cuitao@kylinos.cn
+Subject: [RFC PATCH v6 0/5] blk-iocost: BPF struct_ops cost model
+Date: Fri, 18 Sep 2026 13:49:56 +0800
+Message-ID: <20260918055001.1273840-1-cui.tao@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 6.12 0000/1102] 6.12.111-rc1 review
-Content-Language: de-DE
-From: Peter Schneider <pschneider1968@googlemail.com>
-To: Brett A C Sheffield <bacs@librecast.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
- linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
- akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
- patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com,
- jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com,
- rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260917151539.408551884@linuxfoundation.org>
- <aqxBBu5GXVhHcqTz@auntie.librecast.net>
- <0dc35fd5-ee4c-4140-b154-78a49981ddb7@googlemail.com>
-Autocrypt: addr=pschneider1968@googlemail.com; keydata=
- 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
- IX+NNrIwDpXrzCypeM2L5WtGyw==
-In-Reply-To: <0dc35fd5-ee4c-4140-b154-78a49981ddb7@googlemail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------520sGd7UOHI319C7Qhab8cRx"
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------520sGd7UOHI319C7Qhab8cRx
-Content-Type: multipart/mixed; boundary="------------JStB9dRl2FQEbR0CZRykSojS";
- protected-headers="v1"; hp="clear"
-Message-ID: <1e80f4b3-3919-4568-aabd-f0172581831d@googlemail.com>
-Date: Fri, 18 Sep 2026 07:49:48 +0200
-MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 6.12 0000/1102] 6.12.111-rc1 review
-Content-Language: de-DE
-From: Peter Schneider <pschneider1968@googlemail.com>
-To: Brett A C Sheffield <bacs@librecast.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
- linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
- akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
- patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com,
- jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com,
- rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260917151539.408551884@linuxfoundation.org>
- <aqxBBu5GXVhHcqTz@auntie.librecast.net>
- <0dc35fd5-ee4c-4140-b154-78a49981ddb7@googlemail.com>
-Autocrypt: addr=pschneider1968@googlemail.com; keydata=
- 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
- IX+NNrIwDpXrzCypeM2L5WtGyw==
-In-Reply-To: <0dc35fd5-ee4c-4140-b154-78a49981ddb7@googlemail.com>
+From: Tao Cui <cuitao@kylinos.cn>
 
---------------JStB9dRl2FQEbR0CZRykSojS
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+This is v6 of the RFC.  The changes since v5 are listed in the
+changelog at the bottom.
 
-QW0gMTcuMDkuMjAyNiB1bSAyMjoxOSBzY2hyaWViIFBldGVyIFNjaG5laWRlcjoNCj4gQW0g
-MTcuMDkuMjAyNiB1bSAyMTozNSBzY2hyaWViIEJyZXR0IEEgQyBTaGVmZmllbGQ6DQo+PiAj
-IGZpcnN0ICdiYWQnIGNvbW1pdDogWzIyYWU0MjhiMDA0NTk4MWJkMTlmOGM3NWY3MDBhNjcx
-OTgwNjJmMzJdIG1tL2h1Z2V0bGI6IGluaXRpYWxpemUgZ2lnYW50aWMgYm9vdG1lbSBodWdl
-cGFnZSANCj4+IHN0cnVjdCBwYWdlcyBlYXJsaWVyDQo+IA0KPiBZZXMsIHRoYXQncyB3aGF0
-IEkgZm91bmQsIHRvby4NCj4gDQo+IFdoZW4gSSByZXZlcnQgMjJhZTQyOGIwMDQ1OTgxYmQx
-OWY4Yzc1ZjcwMGE2NzE5ODA2MmYzMiBmcm9tIHJjMSwgdGhlIGJvb3QgY3Jhc2ggZ29lcyBh
-d2F5IGFuZCBteSBtYWNoaW5lIGJvb3RzIA0KPiBzdWNjZXNzZnVsbHkuDQo+IA0KPiBIb3dl
-dmVyLCB0aGVuIEkgaGF2ZSBhbm90aGVyIHdlaXJkbyBpbiB0aGUgZG1lc2cgb3V0cHV0Og0K
-PiANCj4gW8KgwqAgNjUuNTczMzA0XSAtLS0tLS0tLS0tLS1bIGN1dCBoZXJlIF0tLS0tLS0t
-LS0tLS0NCj4gW8KgwqAgNjUuNTczMzA3XSBXQVJOSU5HOiBDUFU6IDE0IFBJRDogMCBhdCBr
-ZXJuZWwvc2NoZWQvZmFpci5jOjUzMDMgcGxhY2VfZW50aXR5KzB4MTNiLzB4MTQwDQo+IFvC
-oMKgIDY1LjU3MzMxNl0gTW9kdWxlcyBsaW5rZWQgaW46IHVhcyB1c2JoaWQgdXNiX3N0b3Jh
-Z2UgaGlkIGlzY2kgcHNtb3VzZSBpZ2IgY3JjMzJfcGNsbXVsIGxpYnNhcyBhYWNyYWlkIHNl
-cmlvX3JhdyANCj4gaTJjX2k4MDEgaW9hdGRtYSBhaGNpIGVoY2lfcGNpIGkyY19tdXggZWhj
-aV9oY2QgaTJjX2FsZ29fYml0IGxpYmFoY2kgaTJjX3NtYnVzIHNjc2lfdHJhbnNwb3J0X3Nh
-cyBscGNfaWNoIGRjYSB3bWkNCj4gW8KgwqAgNjUuNTczMzM2XSBDUFU6IDE0IFVJRDogMCBQ
-SUQ6IDAgQ29tbTogc3dhcHBlci8xNCBOb3QgdGFpbnRlZCA2LjEyLjExMS1yYzErICMxDQo+
-IFvCoMKgIDY1LjU3MzMzOV0gSGFyZHdhcmUgbmFtZTogQVNVU1RlSyBDT01QVVRFUiBJTkMu
-IFo5UEUtRDE2IFNlcmllcy9aOVBFLUQxNiBTZXJpZXMsIEJJT1MgNTYwMSAwNi8xMS8yMDE1
-DQo+IFvCoMKgIDY1LjU3MzM0Ml0gUklQOiAwMDEwOnBsYWNlX2VudGl0eSsweDEzYi8weDE0
-MA0KPiBbwqDCoCA2NS41NzMzNDVdIENvZGU6IDQxIDVkIDQxIDVlIDVkIDMxIGMwIDMxIGQy
-IDMxIGM5IDMxIGY2IDMxIGZmIGMzIGNjIGNjIGNjIGNjIGJlIDAyIDAwIDAwIDAwIDQ4IGMx
-IGU5IDBhIDQ4IDM5IGYxIDQ4IA0KPiAwZiA0MiBjZSA0OCA4ZCAzNCAxMSBlYiBhOSA8MGY+
-IDBiIGViIGI2IDkwIDkwIDkwIDkwIDkwIDkwIDkwIDkwIDkwIDkwIDkwIDkwIDkwIDkwIDkw
-IDkwIDkwIDBmDQo+IFvCoMKgIDY1LjU3MzM0N10gUlNQOiAwMDE4OmZmZmZkMDkxODgyODdj
-ZDggRUZMQUdTOiAwMDAxMDA0Ng0KPiBbwqDCoCA2NS41NzMzNTBdIFJBWDogMDAwMDAwMDAw
-MDAwMDAwMCBSQlg6IGZmZmY4YmMxY2IzMmNlMDAgUkNYOiAwMDAwMDAwMDAwMDAwM2NiDQo+
-IFvCoMKgIDY1LjU3MzM1Ml0gUkRYOiAwMDAwMDAwMDAwMDAwMDAwIFJTSTogMDAwMDAwMDAw
-MDAwMDNjYiBSREk6IDAwMDAwMDAwMDAyZDBlN2YNCj4gW8KgwqAgNjUuNTczMzUzXSBSQlA6
-IGZmZmZkMDkxODgyODdjZjggUjA4OiAwMDAwMDAwMDAwMDAwMDAwIFIwOTogMDAwMDAwMDAw
-MDAwMDAwMA0KPiBbwqDCoCA2NS41NzMzNTVdIFIxMDogMDAwMDAwMDAwMDAwMDAwMCBSMTE6
-IDAwMDAwMDAwMDAwMDAwMDAgUjEyOiAwMDAwMDAwMDM3ZTQ5MmE5DQo+IFvCoMKgIDY1LjU3
-MzM1Nl0gUjEzOiBmZmZmOGJlMTNmMzM3MjgwIFIxNDogMDAwMDAwMDAwMDAwMDAwMCBSMTU6
-IDAwMDAwMDAwMDAwMDAwMDANCj4gW8KgwqAgNjUuNTczMzU3XSBGUzrCoCAwMDAwMDAwMDAw
-MDAwMDAwKDAwMDApIEdTOmZmZmY4YmUxM2YzMDAwMDAoMDAwMCkga25sR1M6MDAwMDAwMDAw
-MDAwMDAwMA0KPiBbwqDCoCA2NS41NzMzNTldIENTOsKgIDAwMTAgRFM6IDAwMDAgRVM6IDAw
-MDAgQ1IwOiAwMDAwMDAwMDgwMDUwMDMzDQo+IFvCoMKgIDY1LjU3MzM2MV0gQ1IyOiAwMDAw
-NjUwZjViN2QyMTE4IENSMzogMDAwMDAwMjA4Y2NjYTAwNiBDUjQ6IDAwMDAwMDAwMDAxNzA2
-ZjANCj4gW8KgwqAgNjUuNTczMzYzXSBDYWxsIFRyYWNlOg0KPiBbwqDCoCA2NS41NzMzNjZd
-wqAgPFRBU0s+DQo+IFvCoMKgIDY1LjU3MzM2OF3CoCByZXdlaWdodF9lbnRpdHkrMHgxZDIv
-MHgyMDANCj4gW8KgwqAgNjUuNTczMzcyXcKgIHVwZGF0ZV9jZnNfZ3JvdXArMHhiNC8weGYw
-DQo+IFvCoMKgIDY1LjU3MzM3NF3CoCBlbnF1ZXVlX3Rhc2tfZmFpcisweDI4NS8weDhmMA0K
-PiBbwqDCoCA2NS41NzMzNzddwqAgZW5xdWV1ZV90YXNrKzB4M2IvMHgyMjANCj4gW8KgwqAg
-NjUuNTczMzgzXcKgIHR0d3VfZG9fYWN0aXZhdGUrMHg3NS8weDI3MA0KPiBbwqDCoCA2NS41
-NzMzODZdwqAgc2NoZWRfdHR3dV9wZW5kaW5nKzB4ZmUvMHgxZTANCj4gW8KgwqAgNjUuNTcz
-Mzg5XcKgIF9fZmx1c2hfc21wX2NhbGxfZnVuY3Rpb25fcXVldWUrMHgxNTUvMHg0NDANCj4g
-W8KgwqAgNjUuNTczMzk0XcKgIGZsdXNoX3NtcF9jYWxsX2Z1bmN0aW9uX3F1ZXVlKzB4Mzcv
-MHg4MA0KPiBbwqDCoCA2NS41NzMzOTddwqAgZG9faWRsZSsweDE1ZC8weDJjMA0KPiBbwqDC
-oCA2NS41NzM0MDFdwqAgPyBjb21wbGV0ZSsweDZkLzB4ODANCj4gW8KgwqAgNjUuNTczNDA2
-XcKgIGNwdV9zdGFydHVwX2VudHJ5KzB4MjkvMHgzMA0KPiBbwqDCoCA2NS41NzM0MDldwqAg
-c3RhcnRfc2Vjb25kYXJ5KzB4MTE5LzB4MTQwDQo+IFvCoMKgIDY1LjU3MzQxNF3CoCBjb21t
-b25fc3RhcnR1cF82NCsweDEzZS8weDE0MQ0KPiBbwqDCoCA2NS41NzM0MjBdwqAgPC9UQVNL
-Pg0KPiBbwqDCoCA2NS41NzM0MjFdIC0tLVsgZW5kIHRyYWNlIDAwMDAwMDAwMDAwMDAwMDAg
-XS0tLQ0KPiANClNvIEkgaGF2ZSBiaXNlY3RlZCB0aGlzIHdhcm5pbmcsIGFuZCB0aGUgZmly
-c3QgYmFkIGNvbW1pdCBpcw0KDQpbYWY1Nzc1MDA0YzljMDJmMzdiZTA2ZDIwMzVhMDU2YjZh
-YmIxY2I2Y10gc2NoZWQvZmFpcjogRml4IEVFVkRGIGVudGl0eSBwbGFjZW1lbnQgYnVnIGNh
-dXNpbmcgc2NoZWR1bGluZyBsYWcNCg0KVHJ5aW5nIHRvIHJldmVydCB0aGlzIGZyb20gNi4x
-Mi4xMTEtcmMxIGhvd2V2ZXIgcmVzdWx0ZWQgaW4gc29tZSBjb25mbGljdHMgSSB3YXMgdW5h
-YmxlIHRvIHJlc29sdmUuIFRoZXJlIGFyZSBvdGhlciANCmRlcGVuZGVuY2llcyBsaWtlOg0K
-DQpTdGFibGUtZGVwLW9mOiA1MWIwZTY4Y2ZhMGEgKCJzY2hlZC9lZXZkZjogRml4IHJiIGF1
-Z21lbnRlZCB3aXRoIG11bHRpIGZpZWxkcyIpLCB3aGljaCBpcyANClswOWNkNDY5YzczMzAz
-NWIwMWI0NDVhNmY5MTZlOGVhNDI1MzMwYzQ1XSBpbiBsaW51eC1uZXh0LXJjKQ0KYW5kIGFs
-c28gWzNiYzcwNjgwYzdhYjMzM2VkMDBhNWUxZmUzM2VkNjY5YzQ0ZDU1NDRdICgic2NoZWQv
-ZmFpcjogRml4IGxhZyBjbGFtcCIpLg0KDQpUaGlzIGlzIG15IGJpc2VjdCBsb2c6DQoNCg0K
-cm9vdEBsaW51czovdXNyL3NyYy9saW51eC1zdGFibGUtcmMjIGNhdCBteV9iaXNlY3QubG9n
-DQpnaXQgYmlzZWN0IHN0YXJ0DQojIFN0YXR1czogd2FydGUgYXVmIGd1dGVuIHVuZCBzY2hs
-ZWNodGVuIENvbW1pdA0KIyBiYWQ6IFthZTUzZjRiN2M3ZjYwZWNhMzIxYWY1NGI0YWRhM2Yy
-NDA4MmMyNDJlXSBSZXZlcnQgIm1tL2h1Z2V0bGI6IGluaXRpYWxpemUgZ2lnYW50aWMgYm9v
-dG1lbSBodWdlcGFnZSBzdHJ1Y3QgcGFnZXMgDQplYXJsaWVyIg0KZ2l0IGJpc2VjdCBiYWQg
-YWU1M2Y0YjdjN2Y2MGVjYTMyMWFmNTRiNGFkYTNmMjQwODJjMjQyZQ0KIyBTdGF0dXM6IHdh
-cnRlIGF1ZiBndXRlKG4pIENvbW1pdChzKSwgc2NobGVjaHRlciBDb21taXQgYmVrYW5udA0K
-IyBnb29kOiBbZmE1YjA2ODY2YjY0M2NjZTcwNzJhNGU3YzZiZTdlZTNmMGYxYjk1Y10gTGlu
-dXggNi4xMi4xMTANCmdpdCBiaXNlY3QgZ29vZCBmYTViMDY4NjZiNjQzY2NlNzA3MmE0ZTdj
-NmJlN2VlM2YwZjFiOTVjDQojIGdvb2Q6IFswYjcwYzRkMzY1NGY4OWI3ZmRmY2FlNjg0ZWE3
-MzcxZmJjN2RlNzJjXSBCbHVldG9vdGg6IGhjaV9jb3JlOiBGaXggcmFjZSBjb25kaXRpb24g
-ZHVyaW5nIGRldmljZSByZWdpc3RyYXRpb24NCmdpdCBiaXNlY3QgZ29vZCAwYjcwYzRkMzY1
-NGY4OWI3ZmRmY2FlNjg0ZWE3MzcxZmJjN2RlNzJjDQojIGJhZDogWzgxOGQ3ZmEwYTUzYjgy
-ZjJlOGRiNTZhYWM2MTVkMDhkM2RhNzI1NDhdIEFTb0M6IHNwcmQ6IHZhbGlkYXRlIGNvbXBy
-ZXNzIGJ1ZmZlciBzaXplcyBhZ2FpbnN0IGZpeGVkIGFsbG9jYXRpb25zDQpnaXQgYmlzZWN0
-IGJhZCA4MThkN2ZhMGE1M2I4MmYyZThkYjU2YWFjNjE1ZDA4ZDNkYTcyNTQ4DQojIGdvb2Q6
-IFs1NmM3Y2E5ZDcwMzdhY2I4ODBjYWQ5ZWFlNjhjNDc5Y2M0ZDZmMjAwXSBuZXQvbWx4NTog
-RS1Td2l0Y2g6IGZpeCB1c2UtYWZ0ZXItZnJlZSBpbiBtbHg1X2Vzd2l0Y2hfdGVybXRibF9w
-dXQNCmdpdCBiaXNlY3QgZ29vZCA1NmM3Y2E5ZDcwMzdhY2I4ODBjYWQ5ZWFlNjhjNDc5Y2M0
-ZDZmMjAwDQojIGdvb2Q6IFswM2Q0YTNiNjYxMGJjOWY4NmQ4ZWM0ZDlhNzVhMmQ1Mzc2YjQ3
-YmI3XSBuZXQ6IGtzODg1MTogRml4IHJlY2VpdmVyIGVycm9yIGluIDEwMEJBU0UtVFggbW9k
-ZSBmb2xsb3dpbmcgc29mdHdhcmUgDQpwb3dlci1kb3duDQpnaXQgYmlzZWN0IGdvb2QgMDNk
-NGEzYjY2MTBiYzlmODZkOGVjNGQ5YTc1YTJkNTM3NmI0N2JiNw0KIyBiYWQ6IFsxZDhlZTRm
-NTYwYmU4YjM0NzE3M2RjN2MwN2ZkNDFlNGJhYTMxOGQ3XSBuZXQ6IHN0bW1hYzogYWRkIHN0
-bW1hY190c29faGVhZGVyX3NpemUoKQ0KZ2l0IGJpc2VjdCBiYWQgMWQ4ZWU0ZjU2MGJlOGIz
-NDcxNzNkYzdjMDdmZDQxZTRiYWEzMThkNw0KIyBiYWQ6IFthZjU3NzUwMDRjOWMwMmYzN2Jl
-MDZkMjAzNWEwNTZiNmFiYjFjYjZjXSBzY2hlZC9mYWlyOiBGaXggRUVWREYgZW50aXR5IHBs
-YWNlbWVudCBidWcgY2F1c2luZyBzY2hlZHVsaW5nIGxhZw0KZ2l0IGJpc2VjdCBiYWQgYWY1
-Nzc1MDA0YzljMDJmMzdiZTA2ZDIwMzVhMDU2YjZhYmIxY2I2Yw0KIyBnb29kOiBbN2I2OTg4
-NzUwZmVlYzBiZDNkYTI1NmU5ZmU4MDI0NGZhMzU4YWI3NF0gbmV0OiBzdG1tYWM6IGluaXRp
-YWxpemUgcHRwX2xvY2sgYXQgcHJvYmUgdGltZQ0KZ2l0IGJpc2VjdCBnb29kIDdiNjk4ODc1
-MGZlZWMwYmQzZGEyNTZlOWZlODAyNDRmYTM1OGFiNzQNCiMgZ29vZDogWzUyMDgwY2VmZWIy
-ZjQ1NGNkYjE0ZmI3YTA1MmQzNTU2NjYwOWMxYWRdIHBlcmYvY29yZTogQ2hlY2sgc2FtcGxl
-X3R5cGUgaW4gcGVyZl9zYW1wbGVfc2F2ZV9jYWxsY2hhaW4NCmdpdCBiaXNlY3QgZ29vZCA1
-MjA4MGNlZmViMmY0NTRjZGIxNGZiN2EwNTJkMzU1NjY2MDljMWFkDQojIGdvb2Q6IFtlZGVj
-YTNmMzIxNjE0NjI1OTZlNmUwM2U2OWEzNDQzZGQ4MGM1NjAzXSBwZXJmL3g4Ni9pbnRlbC9k
-czogUmVtb3ZlIHJlZHVuZGFudCBhc3NpZ25tZW50cyB0byBzYW1wbGUucGVyaW9kDQpnaXQg
-YmlzZWN0IGdvb2QgZWRlY2EzZjMyMTYxNDYyNTk2ZTZlMDNlNjlhMzQ0M2RkODBjNTYwMw0K
-IyBnb29kOiBbZmM2MDJlYjE0NTE0MjJiZjBlNDc5OGFjNjhmOGMxNTkwNGUwYjdhYV0gcGVy
-Zi94ODYvaW50ZWw6IENvcnJlY3QgcHRfcmVncy0+ZmxhZ3MgdXBkYXRlIGZvciBQRUJTIHBh
-dGgNCmdpdCBiaXNlY3QgZ29vZCBmYzYwMmViMTQ1MTQyMmJmMGU0Nzk4YWM2OGY4YzE1OTA0
-ZTBiN2FhDQojIGZpcnN0IGJhZCBjb21taXQ6IFthZjU3NzUwMDRjOWMwMmYzN2JlMDZkMjAz
-NWEwNTZiNmFiYjFjYjZjXSBzY2hlZC9mYWlyOiBGaXggRUVWREYgZW50aXR5IHBsYWNlbWVu
-dCBidWcgY2F1c2luZyANCnNjaGVkdWxpbmcgbGFnDQoNCg0KQmVzdGUgR3LDvMOfZSwNClBl
-dGVyIFNjaG5laWRlcg0KDQotLSANCkNsaW1iIHRoZSBtb3VudGFpbiBub3QgdG8gcGxhbnQg
-eW91ciBmbGFnLCBidXQgdG8gZW1icmFjZSB0aGUgY2hhbGxlbmdlLA0KZW5qb3kgdGhlIGFp
-ciBhbmQgYmVob2xkIHRoZSB2aWV3LiBDbGltYiBpdCBzbyB5b3UgY2FuIHNlZSB0aGUgd29y
-bGQsDQpub3Qgc28gdGhlIHdvcmxkIGNhbiBzZWUgeW91LiAgICAgICAgICAgICAgICAgICAg
-LS0gRGF2aWQgTWNDdWxsb3VnaCBKci4NCg0K
+Why a pluggable model at all
+----------------------------
 
---------------JStB9dRl2FQEbR0CZRykSojS--
+When iocost landed in 2019, its commit message already promised that
+"a later patch will also allow using bpf progs for cost models", and
+the code has carried the split for it ever since: calc_vtime_cost()
+is a dispatcher whose only implementation is calc_vtime_cost_builtin().
+Seven years later the builtin linear model is still the only one.
+This series fills that slot, following the TCP congestion control
+model registration pattern: builtin algorithms remain the default
+while new ones can be prototyped in BPF.
 
---------------520sGd7UOHI319C7Qhab8cRx
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+The measured problems
+---------------------
 
------BEGIN PGP SIGNATURE-----
+The builtin model prices each IO with a binary sequential/random base
+picked by a single per-cgroup cursor and a 16MB seek threshold, plus
+a per-page cost.  On a virtio-blk device with the HDD autop profile,
+a 4k IO costs ~24us when judged sequential and ~2.7ms when judged
+random, a 112x spread, so a wrong judgement becomes a wrong price.
+Three classes of mispricing, all measured:
 
-wsF5BAABCAAjFiEEJlc7Dq7rXmY041HeEaDYA0mmnLQFAmqs0P0FAwAAAAAACgkQEaDYA0mmnLS8
-jA/+KA03kQu6mLBOaTx1Ra39i8r0KhuCZQcQz8ZMD3XqAIS79YZx93FteUvwyXhReUBtiKhrH2eQ
-aj2Bu6b15rNzgqw8k88MwqsdIR2XKYI+s9EEYWTBMY1jU+34saCv0HwX+Yg0zjkMxrlv6zgIgOFN
-VfYIk09PIa0VRn+U6Y3nSJfEcdOuwcenft88XxpbMWkFGOI3WBWa9wIDgfy2jarKeSCjiHkNWHQK
-Rr6DRG5BIK1Ze589p81w9lkH7ZvxsgaLsYmYHKxl57ZpT9WqzNSw4nReXPU8220zIaqUw7V42igy
-drKQbnC2iBRjrovjXbia9tPA+hUBz6K8h8cImy4Z4Rxnp58t5LJaRa22qPu2Z1bNu4qBzpa3jaKn
-DCojx1TX8/J/j2OuhqAsbB9OOrW6a50BD1IJAivSrTbyI8+YojGW8Ip4WQRBxC4voEb4wC1OFvje
-04pXBM3TMoxm7NKrRGU8V8mi0BX7g3dPnOCNFRvdS5cAaUkqsAF6w63ctLgljrpGRvXPwmQwcLWv
-+NtEAOfxt7sjt30iCaPLVqvuR7yYy+EmhC+aEg9vs1TGYJ/tUXEaw+QgLwomRQaNZGLGQH324sSb
-gC5bvoBK8kT9Lt81CzJ1mdziL6ycMXKXRqxeBQswmQYXaASpnK0Mtk4nzfmXajjq7KYGwyY1z5aT
-Ia0=
-=KOOY
------END PGP SIGNATURE-----
+ 1. Heuristic rigidity.  Two legitimate sequential readers in one
+    cgroup (a database with multiple tablespaces, a threaded backup)
+    ping-pong the single cursor and are all priced random: a
+    measured 89x overcharge collapses throughput under the same
+    weight.  Random IO within a hot window smaller than the 16MB
+    threshold is priced sequential: measured 107x undercharge, an
+    accounting escape for hotspot workloads.  No setting of the six
+    builtin parameters seems able to fix this: telling the streams
+    apart requires per-IO state tracking, which looks like logic
+    rather than coefficients.
 
---------------520sGd7UOHI319C7Qhab8cRx--
+ 2. Device nonlinearity.  SLC-cache phases, SMR band placement and
+    shared controllers (multiple NVMe namespaces multiplexing one
+    device) make the real cost of an identical IO vary by an order
+    of magnitude over time or across namespaces.  A static
+    6-parameter linear model has no way to express that.
+
+ 3. Unpriced operations.  Flush and zone append fall through to a
+    cost of zero and bypass throttling entirely, and the same pattern
+    extends to device quirks the builtin model was never taught.
+
+Mispricing feeds directly into the control loop: vtime budgets,
+surplus donation and the vrate feedback all consume the model's
+output, so a wrong model can skew the whole controller.
+
+How
+---
+
+A bound BPF model fully owns pricing for every IO on the device:
+it is called from the bio charging path and prices every operation
+including flushes.  The completion-time request sizing for the
+latency met/missed accounting still uses the builtin coefficients
+(the request's bio, and with it the issuing cgroup, is gone by then);
+extending the model there is left open by this interface.  The builtin
+cursor is not exposed; a model is expected to track its own stream
+state.  Model state keyed by the blkcg alone is shared across every
+device the model is bound to, unlike the builtin cursor which is
+per (cgroup, device).
+
+    u64 calc_cost(u64 opf, u64 nbytes, sector_t sector,
+		  struct blkcg *blkcg, u64 model_flags)
+
+opf is the full bio->bi_opf (the operation must be extracted with a
+mask, and the REQ_* flag bits, including PREFLUSH/FUA, are part of
+it); model_flags carries iocost-specific metadata which is not part
+of the bio operation flags, such as whether the cost calculation
+is for a merged request; the return value is vtime, clamped to 1
+second of device time per IO.  blkcg is passed so the model can key
+per-cgroup state; state stored in BPF_MAP_TYPE_CGRP_STORAGE
+follows the cgroup lifetime, and optional blkcg_online()/
+blkcg_offline() callbacks mirror the css lifecycle for models
+which want eager setup or teardown.
+
+The registration and binding model follows the TCP congestion
+control model registration pattern: registering a struct_ops makes
+the model available by its name, while io.cost.model binds one
+registered model to a device with "model=<name>" and restores the
+builtin model with "model=linear".  Unregistering a model removes
+it from the registry so it can no longer be selected by name;
+devices already using the model keep using it until they are
+switched back to the builtin model, at which point the reference
+is released.  A model which does not implement calc_cost is
+rejected at load.  Sleepable models are rejected at verification,
+since calc_cost() runs under RCU read lock.  Patch overview:
+
+ 1/5: the BPF struct_ops cost model support: Kconfig, ops
+      definition, name registry, registration, io.cost.model
+      binding, unified dispatch and verifier checks
+ 2/5: selftest with the 2x example model (the full builtin linear
+      HDD formula at double cost) plus a runner and the selftest
+      kernel config entries
+ 3/5: add an iocost_ioc_tick tracepoint emitting the per-period
+      controller state, so model quality can be evaluated without
+      drgn (existing events are state-change driven and silent in
+      steady state)
+ 4/5: a second example model which replaces the single-cursor
+      sequentiality heuristic with per-cgroup multi-stream detection
+      keyed by the cgroup, the first consumer of the state interface
+ 5/5: document the model=<name> binding in cgroup-v2.rst
+
+Does it work
+------------
+
+Mechanism, verified functionally (QEMU, virtio-blk with the HDD
+profile, sequential-read workload from a 1%-weight cgroup, builtin
+vs the 2x example model):
+
+ - per-IO charge: 2882us -> 5722us, a factor of 1.985x; the
+   completed IO count halves and total cost.usage is conserved,
+   i.e. the model output drives both charging and budgeting
+ - edge cases: binding an unknown model name fails with ENOENT
+   and nothing is applied; unregistering a bound model leaves the
+   device correctly priced (2x) until it is switched back; the
+   readback shows the bound model name; the selftest runner
+   checks the write error and errno of every step, including the
+   restoration
+
+Workload-shape verification added in this revision (same setup,
+4k IOs at weight 1000, builtin vs the 2x example model):
+
+ - flush-heavy workload (read/write/fsync alternating): priced
+   1.99x the builtin, i.e. flushes no longer reset the cursor
+   and misjudge the following IO as random
+ - non-page-multiple IO (6 KiB): priced ~2x, matching the
+   builtin's truncating page count
+ - first IO from a high LBA (past 16 MiB): priced 2.01x, i.e.
+   a fresh cgroup's zero cursor no longer misjudges the first IO
+   as random
+
+Payoff, demonstrated with the multi-stream example model (4/5) on
+the same setup, 4k IOs at weight 1000, builtin vs the model:
+
+ - two sequential readers in one cgroup: priced 1961us/op by builtin
+   (both judged random by the single cursor) and 23us/op by the
+   model (each stream keeps its own slot); the completed IO count
+   rises by two orders of magnitude
+ - random IO inside an 8M window: priced 24us/op by builtin
+   (undercharge, an accounting escape) and 2607us/op by the model
+ - single-stream sequential and whole-disk random pricing are
+   unchanged, so the model fixes both directions of mispricing
+   without introducing a new one
+
+Non-interference, measured on enterprise NVMe: no measurable
+overhead when the BPF model is not attached.
+
+Changes in v6 (fixes from the v5 review):
+- the extra reference drop added in v5 for racing io.cost.model
+  writes resolving the same model is removed: each resolved
+  reference is either transferred to the device by the commit or
+  dropped by replacing the previous one, so the single
+  iocost_bpf_model_put(old) was already balanced, and the extra drop
+  undercounted a model written by name while bound, freeing it while
+  the device still used it
+
+Link: https://lore.kernel.org/r/20260908100143.47598-1-cui.tao@linux.dev # v1
+Link: https://lore.kernel.org/r/20260910125817.223354-1-cui.tao@linux.dev # v2
+Link: https://lore.kernel.org/r/20260914073356.791518-1-cui.tao@linux.dev # v3
+Link: https://lore.kernel.org/r/20260916072302.1068871-1-cui.tao@linux.dev # v4
+Link: https://lore.kernel.org/r/20260918031751.1255420-1-cui.tao@linux.dev # v5
+Tao Cui (5):
+  blk-iocost: add BPF struct_ops cost model support
+  selftests/bpf: add iocost cost model test
+  blk-iocost: add iocost_ioc_tick tracepoint for per-period device
+    summary
+  selftests/bpf: add multi-stream sequentiality example model
+  docs: cgroup-v2: document io.cost model=<name> binding
+
+ Documentation/admin-guide/cgroup-v2.rst       |  19 +
+ block/Kconfig                                 |   9 +
+ block/Makefile                                |   1 +
+ block/blk-cgroup.c                            |   4 +
+ block/blk-iocost-bpf.c                        | 321 ++++++++++++++++++
+ block/blk-iocost.c                            | 220 +++++++++++++--
+ include/linux/blk-iocost.h                    |  86 +++++
+ include/trace/events/iocost.h                 |  45 +++
+ tools/testing/selftests/bpf/config            |   2 +
+ .../selftests/bpf/prog_tests/iocost_model.c   | 200 ++++++++++++
+ .../selftests/bpf/progs/iocost_model.c        | 135 ++++++++
+ tools/testing/selftests/bpf/progs/iocost_ms.c | 156 +++++++++
+  12 files changed, 1190 insertions(+), 19 deletions(-)
+ create mode 100644 block/blk-iocost-bpf.c
+ create mode 100644 include/linux/blk-iocost.h
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/iocost_model.c
+ create mode 100644 tools/testing/selftests/bpf/progs/iocost_model.c
+ create mode 100644 tools/testing/selftests/bpf/progs/iocost_ms.c
+
+-- 
+2.43.0
+
