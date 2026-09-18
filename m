@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6552B5172F2
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:14:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD287515895
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:14:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789748096; cv=none; b=L3fgP9IW1RrhOTPu1O/gX427IAAf9LeCU+xMZPe0pzx9P/w6jzK0QXEdzNDqbFTgH9POcmkGFSv1kJPbs617+d59uB91VSIOIPti8XAOHgYn/n1y2QiVjxAryiV+2CvKRlUzV/ac0Uo5pQLIXuVAHMGBDd8ZIl0ksMgemg2oDcw=
+	t=1789748099; cv=none; b=CgGtXmnIHd0nOepWr95Csf27HZGwUnBR6Y+uZyeOYjrbCr+i6sIzgLyqP78IG/rOS7IXZu/j0rpUOodXMYg6kqBZlj4HSCunQ6Z/2naPyF1DjyH5qFkrz4IC/u/XKvv44wZB5OITML1cSYTTf89i8EN8Wt9oiUquNjC1s6R09J4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789748096; c=relaxed/simple;
-	bh=0UvJYpoEn/TY4aVO9CwMQRLah5Bz+jNMBvjhtIhu+tc=;
+	s=arc-20240116; t=1789748099; c=relaxed/simple;
+	bh=Vr7db0umz6Dh0P5DWn6iaRKwA4WHAyRAxkpJpgZhULY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QzhOPE9K3s9i3tXoumXSOtn0fzYj7FF+nrqmxlAYmHcwsx+FknVg2ZuZBq7q8SP+MxKNVItCD8Xjm/UiZhwf3EaD4uQthsWzzGarlFmMsGwV/rGLRNitJnw9QsfyoevbLVjyEWdxF4lr1ljxb21osD/qIN7lKyBbnMc7pOLhFq0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U9ViQKP6; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=gwhY2M5E0GBhWlRH30N6f9I+G6D+wLM0e2tSar8GFO3XZV6ksf2SgKBVHKMKItEisNz9LUqZugLHVldeUCzCkxAOl0OAOGsIgy59/ZlzMBYHaH6+q4n3UUxAcKG+/DrG7I4FjhrwsJeGYkjOJpxxZHaYVUESy4fhLXUNnSCbS/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KjrujF6I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U9ViQKP6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57F871F00898;
-	Fri, 18 Sep 2026 16:14:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KjrujF6I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF6371F00899;
+	Fri, 18 Sep 2026 16:14:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789748094;
-	bh=aA8vLI7MAtOEMjRIQWw1T8YssBKmDitylE36RcPCelE=;
+	s=k20260515; t=1789748097;
+	bh=OPmtMvErDChPnAkncAvX9/4lDdnZXVCa66ctdGe0lWk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=U9ViQKP605sp41Kl+OYIXFTMHNkjsPaN2gmL80+h0GHT4bi0XhukSKAuCSKudzw6/
-	 mNbemGeBBrsxCsLMXXsm6OTFprr7uZGpyNidrH8gkohXkQgyfCSw9azU3Owq1X01pZ
-	 alemikg424ug7GwLvdrtHnzWS8vmSx88qc3pvpjedEiXydpPjvY5UZOwvyN1iyIShg
-	 bCoYirL5Dx6eXBb8efux4ufgjE34cX11PprEfTcSMG4+kNSDIDCPJCL2H239Gaho+E
-	 AZbEBytGNJBIo0AnucpJq525EwCsHX07AFmmPOyz2QCzPGYwoB8aMKeRD/Z4cczfkq
-	 mPcYCVUXFieYA==
+	b=KjrujF6I8y3AN56jW7bSdjLKy8uypi9i70m0KIMGyZzzAZOpzq6tSGxK4t1tdRAml
+	 j4isO93RUuPAhEifUXnYxsswhXO4mAj1efZp0KL+1wnE47A1YQcZwkN43GqxvstJ5s
+	 wed0kDmZZwVnlLug6QXUj2vwe/lpG6HT5LU4TtMHOpn3q54KSDwvaCEmB7JzJOvSxY
+	 3D2EWtoM5pjXNy4ZFI91JATLqj+mSK+cKzU5H60uiRzkkhxalzeQ2UEk4w1iAhqPQ1
+	 WSFKUUfUSXJtSP/EtGUdrszLLl+2ce2vYjHztTN2vPLJdGhNQYwwwSMD3pYUwziXg6
+	 PHiiyoYRz7N5g==
 From: Will Deacon <will@kernel.org>
 To: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org,
@@ -42,9 +42,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Oliver Upton <oupton@kernel.org>,
 	Linus Walleij <linusw@kernel.org>,
 	Marc Zyngier <maz@kernel.org>
-Subject: [PATCH v2 11/21] arm64: percpu: Annotate __kern_my_cpu_offset() as '__always_inline'
-Date: Fri, 18 Sep 2026 17:13:55 +0100
-Message-ID: <20260918161407.2300-12-will@kernel.org>
+Subject: [PATCH v2 12/21] KVM: arm64: Preserve handler/thread bit of EL1 mode in __finalise_el2()
+Date: Fri, 18 Sep 2026 17:13:56 +0100
+Message-ID: <20260918161407.2300-13-will@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260918161407.2300-1-will@kernel.org>
 References: <20260918161407.2300-1-will@kernel.org>
@@ -56,27 +56,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Allow the use of per-cpu variables from noinstr functions by marking
-__kern_my_cpu_offset() as '__always_inline'. This will later be relied
-upon to detect stack overflow of the overflow stack from noinstr C code.
+__finalise_el2() unconditionally returns to EL2h when VHE is being used.
+In preparation for handling callers from both EL1h and EL1t, preserve
+the handler/thread bit of the calling mode when rewriting the exception
+level in the SPSR.
 
 Signed-off-by: Will Deacon <will@kernel.org>
 ---
- arch/arm64/include/asm/percpu.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/arm64/include/uapi/asm/ptrace.h | 1 +
+ arch/arm64/kernel/hyp-stub.S         | 7 ++++---
+ 2 files changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm64/include/asm/percpu.h b/arch/arm64/include/asm/percpu.h
-index 3dc7291b16e9..cb9ae8a1ae87 100644
---- a/arch/arm64/include/asm/percpu.h
-+++ b/arch/arm64/include/asm/percpu.h
-@@ -21,7 +21,7 @@ static inline unsigned long __hyp_my_cpu_offset(void)
- 	return read_sysreg(tpidr_el2);
- }
+diff --git a/arch/arm64/include/uapi/asm/ptrace.h b/arch/arm64/include/uapi/asm/ptrace.h
+index 15649a253a57..25d9d9a0a6f7 100644
+--- a/arch/arm64/include/uapi/asm/ptrace.h
++++ b/arch/arm64/include/uapi/asm/ptrace.h
+@@ -37,6 +37,7 @@
+ #define PSR_MODE_EL3t	0x0000000c
+ #define PSR_MODE_EL3h	0x0000000d
+ #define PSR_MODE_MASK	0x0000000f
++#define PSR_MODE_h_BIT	0x00000001
  
--static inline unsigned long __kern_my_cpu_offset(void)
-+static __always_inline unsigned long __kern_my_cpu_offset(void)
- {
- 	unsigned long off;
+ /* AArch32 CPSR bits */
+ #define PSR_MODE32_BIT		0x00000010
+diff --git a/arch/arm64/kernel/hyp-stub.S b/arch/arm64/kernel/hyp-stub.S
+index 37c6976e44a4..f61778cccd3c 100644
+--- a/arch/arm64/kernel/hyp-stub.S
++++ b/arch/arm64/kernel/hyp-stub.S
+@@ -149,10 +149,11 @@ SYM_CODE_START_LOCAL(__finalise_el2)
+ 
+ 	isb
+ 
+-	// Hack the exception return to stay at EL2
++	// Hack the exception return to stay at EL2 ...
+ 	mrs	x0, spsr_el1
+-	and	x0, x0, #~PSR_MODE_MASK
+-	mov	x1, #PSR_MODE_EL2h
++	// ... preserving the 'h' bit so we don't swizzle SP.
++	and	x0, x0, #(~PSR_MODE_MASK | PSR_MODE_h_BIT)
++	mov	x1, #PSR_MODE_EL2t
+ 	orr	x0, x0, x1
+ 	msr	spsr_el1, x0
  
 -- 
 2.55.0.1082.g2b9226bbc0-goog
