@@ -1,105 +1,68 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+Received: from mail-43167.protonmail.ch (mail-43167.protonmail.ch [185.70.43.167])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88BED49D59B;
-	Fri, 18 Sep 2026 10:33:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 869B3488D97
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:33:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789727603; cv=none; b=qv/iso1WJAVeIgTq2NZHCEKAgkw/GVxbw0UQHglSGnWV6dD4TMinhi36b4MQKHorqbyBLaBjNtaRDFbfwvNxCRexuhdj7QHSgZq9VjMWA+Em+HcnZx+VAba9ow+sGny59c42FAQ0D0gBqlMgcMQupqs4GM2avxBS7iwdhDZtgrc=
+	t=1789727597; cv=none; b=UsmYkJ7w+8gF/U4aFAZGyPGbpjMf0q2ngx4kYkbcB/8lH/oooIzRFcmxU4eM1nrgC2Ecu3iLoVSmo9gPqfQ8pSm2VbnufRlng0bZewr1xGc6Bz/ftbVACZw+a4D5ktljbmLFhPDl5ejZ6WCT/PTXhMU63aUci0L/I6HlVAtSGh4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789727603; c=relaxed/simple;
-	bh=Pp8+qYV14aM+8W8YxzWRx95w9FPTwKpIBNo9Up4J1BQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JgJXDdfOX275Zi4O9QHJuiYg8A++iJwYK18wfNvL9kOv/F+Jx8w11UE2SEsQ1YTo2Go4AZHLN27or0vNObAlNjvtVXf+tN/JS7UZP/8J5Cp6N4K/kNBDWiLHCdd/zXQy5uN6Et9FfY3T2xlMO7Hqg8VdEiFlLZqSwwsLC8FzQrI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=UnSOAEVN; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1789727597; c=relaxed/simple;
+	bh=A/tEjZoBN7a9c3qtaNIe7aIzPtvWCHu+qwmJ4L5eBlc=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UoQG6yoT6/JJXu/D5lTWSeq7OMRTur0x5Q69vkYNvegb5Q4C0Kbb28Jc/dL1XikS23pmaOo0bPgT/o9dRfvHLgWtFzKkjLWyQWgdRdlDPVVlDcjDLw5YUoa6wU3HHPxaVLKMx6SOI4uBHQsP/GinRlKclBds89tdAkh8VOX3ILw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=KFU+Blnu; arc=none smtp.client-ip=185.70.43.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="UnSOAEVN"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=Hg7QkNef5zMThE+MRw8udQqkGZAjpML9pXHh4uxv5K8=; b=UnSOAEVNKYj/W3EgeF6N+/mXS/
-	sTndR9zyc6HFJY+aOzLsorEmd/dUtVp4iaVerhqfpAZGewFUgvV8FCOelcRLyw+Ti8HHUYO0RLTTC
-	okWxf1cF972zBGB/x97EtpSA0w7JdHX4omJjiJcsyIDfSneZdPSJ/T7lUQSPauWJ829E/mo3slvh7
-	AVvOf2gGlp4/8L8VXyimdliN3zf++rvpabQJTiBop+lIfaEQ6b9qIWJcThLgfalyCyiMAgKRJzv96
-	Uh7ZkU29r22Efp9HmRKN3orQ+m4Ov1hR85gsH6hSTuXqDUKvKP5TUc/3VeAuil+j6tj42heWdIAGL
-	1wv4mqfQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1x7Vtx-00000009w0D-3SuZ;
-	Fri, 18 Sep 2026 10:33:06 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 377FB30057F; Fri, 18 Sep 2026 12:33:04 +0200 (CEST)
-Date: Fri, 18 Sep 2026 12:33:04 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: "H. Peter Anvin" <hpa@zytor.com>
-Cc: Matthew Schwartz <matthew.schwartz@linux.dev>, Xin Li <xin@zytor.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	Paul Gofman <pgofman@codeweavers.com>,
-	Lionel Landwerlin <lionel.g.landwerlin@intel.com>,
-	Shuah Khan <shuah@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] x86/fred: Reconstruct the #GP context for rejected
- INT instructions
-Message-ID: <20260918103304.GK776954@noisy.programming.kicks-ass.net>
-References: <20260917230907.2080792-1-matthew.schwartz@linux.dev>
- <20260917230907.2080792-2-matthew.schwartz@linux.dev>
- <6141901e-b7a2-4b8e-bf77-eca4a40644e7@zytor.com>
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="KFU+Blnu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1789727590; x=1789986790;
+	bh=A/tEjZoBN7a9c3qtaNIe7aIzPtvWCHu+qwmJ4L5eBlc=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=KFU+BlnuR58y6Hu93ROIMTeGaEOG7lu3H6LMwesd1N3/YyDrfuAUOajEzlYdMVfaX
+	 QwCIDvk6CTxVuy09xJnulIYupYXN6Kuubw3mslDorTyD/G0oSPyjyMc7E2uxrF2+CD
+	 3acsE5BgOhclIOums1zB82CI6f6oV6GIr8VQqw/8skL8/dOiJAfytfsw88Y0R/9CXe
+	 d1taupz5d6veFWlg0BH//9K4kWgUmHkXizQVmtPGX7ZjImMTLx000W71viSu/CfKxt
+	 vWKf1pstUHlMj3g2NRivx/InYo7GmqWd4c+s5jOWMJVMFK6poNOoKvjxD7qK6hoDrq
+	 xfUIqE6QOmyRg==
+Date: Fri, 18 Sep 2026 10:33:04 +0000
+To: David Laight <david.laight.linux@gmail.com>
+From: quanyeyang <quanyeyang@proton.me>
+Cc: Quanye Yang via B4 Relay <devnull+quanyeyang.proton.me@kernel.org>, Eric Dumazet <edumazet@google.com>, Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, Geliang Tang <geliang@kernel.org>, Mat Martineau <martineau@kernel.org>, Jiayuan Chen <jiayuan.chen@linux.dev>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v4 1/2] tcp: annotate lockless access to sk->sk_err
+Message-ID: <zEvCcu9s6PbTRajtbCvCik2zCOJsXozLWWvYsLfl6AV4IJLyXmS63i5nuaCmqk_5DsRajMO3IjRtFpOSpmRY55ByjpBJ8NmtwDk-kSpr9bM=@proton.me>
+In-Reply-To: <20260918105142.3dc675eb@pumpkin>
+References: <20260917-mptcp-sk-err-net-v4-0-1f04f52f2561@proton.me> <20260917-mptcp-sk-err-net-v4-1-1f04f52f2561@proton.me> <20260918105142.3dc675eb@pumpkin>
+Feedback-ID: 206494642:user:proton
+X-Pm-Message-ID: e4aebc8f100fec9c82f878819c0676d89f2b8046
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6141901e-b7a2-4b8e-bf77-eca4a40644e7@zytor.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 17, 2026 at 05:07:45PM -0700, H. Peter Anvin wrote:
-> On 2026-09-17 16:09, Matthew Schwartz wrote:
-> > FRED event delivery does not use the IDT, so the gate DPL check that
-> > rejects a user INT n falls to software (Intel FRED specification [1],
-> > section 8.3). fred_intx() rejects the same vectors as IDT delivery, but
-> > reports a zero error code and the IP after the INT. This breaks the
-> > signal ABI. Wine uses the error code to recognize INT 0x2d, so the
-> > changed context turns a handled breakpoint into an access violation in
-> > Elden Ring.
-> > 
-> > Rewind IP using the instruction length in the augmented SS and
-> > synthesize the IDT selector error code, (vector << 3) | 2. Set RF in the
-> > saved flags, as the CPU does for a #GP fault. Section 5.2.1 defines the
-> > saved vector, instruction length and RF state. The supplied length
-> > handles prefixes without reading user memory. Limit the changes to
-> > already-rejected software interrupts, preserving the accepted INT3, INT4
-> > and enabled INT80 paths and hardware exceptions. With IA32 emulation
-> > disabled, INT 0x80 now reports the same #GP as the DPL 0 gate IDT
-> > installs there. The rewound IP also stops fixup_iopl_exception() from
-> > inspecting the byte after the INT.
-> > 
-> > Also clear the software event flag. Section 6.2.3 specifies that ERETU
-> > with this flag and TF set traps before executing any user instruction. A
-> > tracer that suppresses SIGSEGV and resumes with TF set expects the next
-> > instruction to run first, as after IRET. The sigreturn path clears the
-> > same flag for this reason in prevent_single_step_upon_eretu().
-> > 
-> > [1] Intel Flexible Return and Event Delivery (FRED) Specification,
-> > revision 9.0 (346446-009US), sections 5.2.1, 6.2.3 and 8.3.
-> > 
-> > Fixes: 14619d912b65 ("x86/fred: FRED entry/exit and dispatch code")
-> > Reported-by: Paul Gofman <pgofman@codeweavers.com>
-> > Closes: https://gitlab.freedesktop.org/mesa/mesa/-/work_items/15745
-> > Closes: https://gitlab.freedesktop.org/mesa/mesa/-/work_items/16132
-> > Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
-> > Link: https://cdrdv2.intel.com/v1/dl/getContent/678938 # [1]
-> 
-> Reviewed-by: H. Peter Anvin <hpa@zytor.com>
-> 
-> This really should go into -stable.
+On Friday, September 18th, 2026 at AM 2:51, David Laight <david.laight.linu=
+x@gmail.com> wrote:
 
-It has a Fixes tag, afaik they really good at picking those up. Let me
-go queue them in x86/urgent.
+> Don't they need annotating with data_race() ?
+
+I think READ_ONCE() is the intended marker here.
+
+These loads are part of the I/O control flow (stop send/recv/splice),
+not diagnostic or heuristic reads. data_race() would silence KCSAN
+but would not restrict compiler optimizations, so the load could still
+be torn, fused or reissued. READ_ONCE() is a single-copy atomic load
+and pairs with the existing WRITE_ONCE()/xchg() updates of sk_err,
+same as tcp_poll() after e13ec3da05d1.
+
+sock_error() uses data_race() only on the fast-path "is it zero?"
+check, which is then validated by xchg(). That pattern does not
+apply to these peeks.
+
+Quanye
