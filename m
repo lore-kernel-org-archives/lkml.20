@@ -1,180 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 123BC4A99DC;
-	Fri, 18 Sep 2026 07:57:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 381E73B71AD
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:58:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789718280; cv=none; b=OKgC73H6Kirf4tPBBL9aIlYQCzAp5paEG9cNslLKh+aoDTUIoCPFNygw0gAS8QuLu0Yfz3MG5WxbcRljpwcR1hoGkvNMmocmWOgzFeUi91BRNSx6jWVVVHuIZuuxQHBTdNHOMC4sCwEhqATHG4cx2dkRDcZz9Pm417QG9N0sgfA=
+	t=1789718304; cv=none; b=SbiqWPm0GqYd09dWvk0Gnk96/lcGU3aFs4o+zrD9YtITiMPKlpZdaiKWzVwO1GL/Ydh/LCyErK0mh4u4BNhsSWNqWSQLvobmqWH9d6+E5nFwWmeTfDH2O2xyKJpEeVBxypBvmtk0oln/BVevmh/AnqG5LLTUqDDvmFglgvbsatE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789718280; c=relaxed/simple;
-	bh=MZYhPsKYpV4K0X/ymrBFg4ipu+xwD4qvhRSNcagNgx4=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=CuR0wWXjWVr0DZ6Kq5R0zN46eaQjkxk9HZERnfGDzASaHhJU++XHgJf8pvBi8rCXjzYdCEQ6VMxg13f0GyH9ylo5GV7UkyumzayVR387VO6z5PQ8KkZvZFW6ufNup14HVgp+l//c+gQ/U6b4JpicXhT4c3+ni1a6rfxLXl+lq8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jgyBjHn2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789718304; c=relaxed/simple;
+	bh=DZpCf3W7DYEFEAO5ppw8pHOndackIbF0C4IJ+5w6OPE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=itUD8+vbVfG9eX6StxUvRfrqENl1qaIVUdjexF7RFpisHekqzC3RnoShha39UleBfPDfwVkKV3vRIRWb+E1+hbw6+CJMfzVzbuptngny1OEmGbvr1IvjUJKpVxH2RHd/SeDHgMrp1M9RgIPvYbg5ERj+7tVKIXRlrtlOBsqDwqU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RwZ+z8ii; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kjKOYPsa; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jgyBjHn2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CAF81F0089A;
-	Fri, 18 Sep 2026 07:57:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789718273;
-	bh=YX7RZjOK1uJv49KoaMsDYRHurBp1N1bh4T7i7LsoRj4=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=jgyBjHn2K/3kE2lnbTVG+QMnRoDN0BsCXyVQoQDqsdr2iOMnYf2Imbfu7PvxCCtsB
-	 dRGxOFxsWUPITt2WcUqK68aH3wqVSRuqthn+3TMT3b+7JvDQ24Rm13/0J3Zi2czJDT
-	 opDQHN4OObp+GamPK5XAbBojFPpdXt6RJ+J1CDHnttwCWP6pkPmPAi0xZ/Poshj/8V
-	 SZacsQKPG1r7W5ImgxuH7VT2EkaP6P4ZJ4zzx3aVQrbd53ThRy/Qr4P2POOf0rywqb
-	 bcm78qx++dStxVxOj6VTmQPWgo0omgFVJhs1v+Uvy7LX2mkSGwCX4i2RObMcNmNMp9
-	 IBG8kzUltVdmQ==
-Subject: Re: [PATCH net-next v7 11/12] gve: add ctrl ops for queue operations
-From: netdev-bot+sashiko@kernel.org
-To: hramamurthy@google.com
-Cc: netdev@vger.kernel.org, joshwash@google.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
- john.fastabend@gmail.com, sdf@fomichev.me, jordanrhee@google.com,
- willemb@google.com, nktgrg@google.com, maolson@google.com, thostet@google.com,
- jacob.e.keller@intel.com, debarghyak@google.com, kees@kernel.org,
- bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
- przemyslaw.kitszel@intel.com
-Date: Fri, 18 Sep 2026 07:57:52 +0000
-Message-ID: <178971827222.22033.18083740945510647866@kernel.org>
-In-Reply-To: <20260916165533.2187434-12-hramamurthy@google.com>
-References: <20260916165533.2187434-12-hramamurthy@google.com>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RwZ+z8ii";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kjKOYPsa"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I609nr3945125
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:58:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=1Xl2xxpLKuZ3XVWrJWvIPGXk
+	jz6BT+vuek41WXdoj5c=; b=RwZ+z8iieRwrKdJ6HB2nBaKj2v9QEjr9vegvAOUC
+	BKIYz7PXGgHdLoryAHGMnkNfObtRfSBEdpt/QGDNccFbZw1iubvO0kEnJMHt5mrn
+	p/Rz+Xb31+S+W9+aeXyAdFuBDCJyke3niPa73efuibH+3/ieWxBX0e0ctAaL+0ZJ
+	2ciXl1B7NbLevOOchM19EKQCl9tqBLCwTB7kL6FjQBnoazDRg41FlPjhjN+CMOjl
+	iNWJ4YTqnPtUX0miOwSA2VLvn8HLWKV86iSsCKKoqhTIvWw23n78eU0uy29Ofw1K
+	aGGE9FlxHDEBzYQHWGMPH2AeuaZ8SFZCNpUVJplyQllXsA==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4grjkt3v5c-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:58:19 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-90e98e74535so10400426d6.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:58:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789718298; x=1790323098; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1Xl2xxpLKuZ3XVWrJWvIPGXkjz6BT+vuek41WXdoj5c=;
+        b=kjKOYPsab/7pdABHA7pNwM1dcxibzL5ykC0J4S/wNbtP8PWPH5BPYa6MjFrjNd1sCn
+         qGAgWjLVNbLSXeXi0YguEdxllyi7cklF/z77Pcr7CT9xAJ7BiAIQm0tIgCpwZN8lwHvs
+         AnVPqU5XSb91L7eg3dwySiUpsPHEzlALKrHZGqSp5zbwvHp7MTpOwivsZbediNqWiIIp
+         8VGIblRknek22VbjHsUXXe+3/mkm/tf4a2xjrbeMbyjJF757x9XYIHw9JadwjYykmvHq
+         L+/PGIpDMQi7HCLajSIe4eQkIvsTAbYY5+J/vq9wCjVcmvL4/PCos/GoIeJtU1MPc4MX
+         Cguw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789718298; x=1790323098;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1Xl2xxpLKuZ3XVWrJWvIPGXkjz6BT+vuek41WXdoj5c=;
+        b=sloPXv6fWBi7RgtEJkgNak89mTVIWx80UaHNNc82UOOCL4W8kAcuhDHefb2Bnp8JZX
+         ODJu0McH5+zmMeIC7bSfbOehdRPL0dCWofE9lQH/CASypBmleItZ0W7Hl/9s2h5pgWUO
+         vNgSIEBR+G2hb55oemWb4OY8H97gqsVRSVnIZo8iroKVCQ6cuTWPBi/fsdb+kGu+eTZU
+         F7rMC9RuBlb4ZFmQKVTsXt6TsPmpa0Lhn7mD/06lvQWXnBJiUUzC/o1g+iABls8g/Cfm
+         hvlwMZ2Ri/XIGXihKsVPD+Cdwb4/FlypnTvw+MzC4DSOqpmU85c22z0CCbswwYZvkux9
+         mmGw==
+X-Forwarded-Encrypted: i=1; AKwUvBznWKx2LqC10x7dAlwHaffUIi7hltn+ud7DwEZBTTozJFGu81ntVIGO1P7Hg2uLGIeGS1Uu3ci8R5xMVgI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lDWkkp/UJ77hG7BIppteKZqIYBGY4c4sPRB8ieKFjB76ACXMhE
+	FJouiobm6olp9LL8TZBQFpim1P0sGWMKykd2WYGXxx9RTT7NIHgfVC40sNTGYrC8VKRMVZOZJ7x
+	sJtV1qJeaf/hNZbaJB1cgTu1uW8mJMGcBIVvhOHbBk82O6sMrZ4SpWqcTWVFKYw2hiTo=
+X-Gm-Gg: AYBFou2HSBrtHCGJFUW63Qb8atZdJtStcD9GgiPBYQaXWEGOubxeeanxVcQfz5sC0jS
+	HrzclQgjlG+LnLEHLUJ2KLUW8uBVXSya/xGiu+LY62XDxqgnXhYPVrkqLjbewVnoTtVA2/7RdDg
+	4Ehq/2uBHV6fFEc+jIlLFwSo0vjCPpsELaQw3HbCV8nqpVIYZo1gF0asGabMI6mEGzTbjrF6qMI
+	FaoEqir1Fv3pwM0eCcBERt9U+JBpQKe/YtV+KLufTNCpwErUBtrrOtfpoD1CfZ41tKONv2HTHy9
+	8Prc7b6sNcd/PkSrGdUQzcWnjKzL0BosXRQJ4Po8JvNDAYTLU50B6+yifimKl9CF5qwLSVzl7YI
+	eNU+vWJl9I5X2Zg==
+X-Received: by 2002:a05:620a:44d4:b0:939:a45b:76ee with SMTP id af79cd13be357-93bdc70bf55mr230737185a.23.1789718298608;
+        Fri, 18 Sep 2026 00:58:18 -0700 (PDT)
+X-Received: by 2002:a05:620a:44d4:b0:939:a45b:76ee with SMTP id af79cd13be357-93bdc70bf55mr230734185a.23.1789718298021;
+        Fri, 18 Sep 2026 00:58:18 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.232])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc5755c40sm36534535e9.3.2026.09.18.00.58.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 00:58:16 -0700 (PDT)
+Date: Fri, 18 Sep 2026 10:58:15 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Amit Nischal <quic_anischal@quicinc.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH 1/3] clk: qcom: rcg2: Initialize shared floor clock state
+Message-ID: <4uetjsqcm4ozt62lgj6crwjqxhtbikicccw37mkmxs5xkobvya@u5uhjl5zs4o2>
+References: <20260917-topic-qc_clk_fixes-v1-0-5531cb00514b@oss.qualcomm.com>
+ <20260917-topic-qc_clk_fixes-v1-1-5531cb00514b@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917-topic-qc_clk_fixes-v1-1-5531cb00514b@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDEwNyBTYWx0ZWRfXyVAqech0nWm9
+ S2rpqo62zIxTArm4eC+60MRZMB3kzdDzQkLdli1r/SNK+aG6uCehYIQBYYB4HyRhQtHmE16YdDM
+ 0G75jQNiSWEus5Gt82HFe2UU4oLUv0gNCl3Vl4W88o8807Q02M0icK6fQ+MLHhxPBT5eZLGH/Rj
+ 4YQEC7LhHu1A6lqe4+YrsJddAIn9nx9FH3UONVbLexA2AN8IDFLBXJCfa/pw7GGT1mR84ERanIB
+ VLtFb5KQsdsrSEkuKNaqMUUeOn20bqIKCir0vvSWo3VmcHUC80KYdfScJRheCeyTz2HcvKM/nBL
+ 3xU0dAFVO/dJu8LdcgJ35LT1nRPnGui7r8k/g2neJIPdgx8Cw2iFq6vQ2B787q0mEY/jO0raXS/
+ o0hj5p6bO9Gyppe7pPyBIj4E8zzUlQgyTRTHk0/NxoeqNw6C4wTb4IZAGkbsNQkYZ6+IieE6DdC
+ YuRe/vRBFR9e+wmFilg==
+X-Proofpoint-GUID: OBubCD8qwwkeEB2mDt5Hw2U4XU9o8dc2
+X-Proofpoint-ORIG-GUID: OBubCD8qwwkeEB2mDt5Hw2U4XU9o8dc2
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDEwNyBTYWx0ZWRfX6umaXbpKHU1L
+ mRqnDdkjsn/bwZ3KeTNEgYe3tLsLruECNp2ELpKBPJqVDBvLC/1EcETFV63o3jjirfDT56Jq25o
+ 8sYFv/izkpZ4f+mTMkdZRjkU/6meGEQ=
+X-Authority-Analysis: v=2.4 cv=Y/VtIReN c=1 sm=1 tr=0 ts=6aacef1b cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=HK8F92NRLrjYxt8c1QAA:9 a=CjuIK1q_8ugA:10
+ a=OIgjcC2v60KrkQgK7BGD:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-18_02,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 bulkscore=0 clxscore=1015 priorityscore=1501
+ malwarescore=0 suspectscore=0 spamscore=0 adultscore=0 phishscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609180107
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider:
+On 26-09-17 11:06:53, Konrad Dybcio wrote:
+> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> 
+> Shared floor RCGs use the cached parked_cfg whenever CCF considers the
+> clock disabled. Unlike the other shared RCG variants, their ops do not
+> initialize that cache, leaving it zeroed until the first disable or rate
+> change. This can make registration report an undivided XO configuration
+> instead of the boot-programmed parent and divider.
+> 
+> Initialize parked_cfg from CFG_REG without parking or otherwise changing
+> the hardware. Propagate read failures so a clock with unknown initial
+> state is not registered.
+> 
+> Fixes: aec8c0e28ce4 ("clk: qcom: rcg2: add clk_rcg2_shared_floor_ops")
+> Assisted-by: LLM
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Critical: 0 · High: 0 · Medium: 0 · Low: 1
-
-- [Low] After this patch converts gve_create_rings()/gve_destroy_rings()
-  in drivers/net/ethernet/google/gve/gve_main.c to call…
-
---
-
-gve: add ctrl ops for queue operations
-
-This adds create_queues and destroy_queues to struct gve_ctrl_ops, moves the
-bulk queue create/destroy sequences from gve_create_rings()/gve_destroy_rings()
-in gve_main.c into gve_adminq_create_queues()/gve_adminq_destroy_queues(), and
-wires them up in gve_adminq_ops. Described as code movement with no functional
-change.
-
-> diff --git a/drivers/net/ethernet/google/gve/gve_adminq.c b/drivers/net/ethernet/google/gve/gve_adminq.c
-> index f0218d78bc5d1..450341b70968d 100644
-> --- a/drivers/net/ethernet/google/gve/gve_adminq.c
-> +++ b/drivers/net/ethernet/google/gve/gve_adminq.c
-> @@ -943,6 +943,30 @@ static void gve_set_default_rss_sizes(struct gve_priv *priv)
->  	}
->  }
->  
-> +int gve_adminq_destroy_queues(struct gve_priv *priv)
-> +{
-> +	int num_tx_queues = gve_num_tx_queues(priv);
-> +	int err;
-> +
-> +	err = gve_adminq_destroy_tx_queues(priv, 0, num_tx_queues);
-
-[ ... ]
-
-> +	err = gve_adminq_destroy_rx_queues(priv, priv->rx_cfg.num_queues);
-
-[ ... ]
-
-> @@ -1791,3 +1815,29 @@ void gve_adminq_teardown_mgmt_irq(struct gve_priv *priv)
->  		priv->mgmt_irq_requested = false;
->  	}
->  }
-> +
-> +int gve_adminq_create_queues(struct gve_priv *priv)
-> +{
-> +	int num_tx_queues = gve_num_tx_queues(priv);
-> +	int err;
-> +
-> +	err = gve_adminq_create_tx_queues(priv, 0, num_tx_queues);
-
-[ ... ]
-
-> +	err = gve_adminq_create_rx_queues(priv, priv->rx_cfg.num_queues);
-
-[ ... ]
-
-> diff --git a/drivers/net/ethernet/google/gve/gve_adminq.h b/drivers/net/ethernet/google/gve/gve_adminq.h
-> index 0b48e9f2a82ae..d696e4932a8b9 100644
-> --- a/drivers/net/ethernet/google/gve/gve_adminq.h
-> +++ b/drivers/net/ethernet/google/gve/gve_adminq.h
-> @@ -628,6 +628,8 @@ int gve_adminq_configure_device_resources(struct gve_priv *priv,
->  					  dma_addr_t db_array_bus_addr,
->  					  u32 num_ntfy_blks);
->  int gve_adminq_deconfigure_device_resources(struct gve_priv *priv);
-> +int gve_adminq_create_queues(struct gve_priv *priv);
-> +int gve_adminq_destroy_queues(struct gve_priv *priv);
->  int gve_adminq_create_tx_queues(struct gve_priv *priv, u32 start_id, u32 num_queues);
->  int gve_adminq_destroy_tx_queues(struct gve_priv *priv, u32 start_id, u32 num_queues);
-      ^^^^
-
-[Severity: Low]
-This isn't a bug, but after this patch is it still necessary to export the
-four bulk helpers from gve_adminq.h?
-
-With gve_create_rings() and gve_destroy_rings() converted to
-priv->ctrl_ops->create_queues() / priv->ctrl_ops->destroy_queues(), the only
-remaining references to gve_adminq_create_tx_queues(),
-gve_adminq_create_rx_queues(), gve_adminq_destroy_tx_queues() and
-gve_adminq_destroy_rx_queues() are their definitions in gve_adminq.c and the
-calls from the two new wrappers in the same file:
-
-  gve_adminq_create_queues()
-      gve_adminq_create_tx_queues()
-      gve_adminq_create_rx_queues()
-
-  gve_adminq_destroy_queues()
-      gve_adminq_destroy_tx_queues()
-      gve_adminq_destroy_rx_queues()
-
-All four definitions precede those call sites, so could they be made static
-and their declarations dropped from the header, leaving only the
-ctrl_ops-backed gve_adminq_create_queues()/gve_adminq_destroy_queues() in the
-shared header? Keeping the AdminQ-specific helpers visible module-wide leaves
-an entry point that bypasses the ops indirection this series is introducing.
-
-> diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/ethernet/google/gve/gve_main.c
-> index 44669b2f25d7d..33af1437b3c04 100644
-> --- a/drivers/net/ethernet/google/gve/gve_main.c
-> +++ b/drivers/net/ethernet/google/gve/gve_main.c
-> @@ -886,33 +886,16 @@ static int gve_unregister_qpls(struct gve_priv *priv)
->  
->  static int gve_create_rings(struct gve_priv *priv)
->  {
-> -	int num_tx_queues = gve_num_tx_queues(priv);
->  	int err;
->  	int i;
->  
-> -	err = gve_adminq_create_tx_queues(priv, 0, num_tx_queues);
-> +	err = priv->ctrl_ops->create_queues(priv);
-
-[ ... ]
-
-> @@ -1067,26 +1050,12 @@ static int gve_queues_mem_alloc(struct gve_priv *priv,
->  
->  static int gve_destroy_rings(struct gve_priv *priv)
->  {
-> -	int num_tx_queues = gve_num_tx_queues(priv);
->  	int err;
->  
-> -	err = gve_adminq_destroy_tx_queues(priv, 0, num_tx_queues);
-> +	err = priv->ctrl_ops->destroy_queues(priv);
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260916165533.2187434-1-hramamurthy%40google.com
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
