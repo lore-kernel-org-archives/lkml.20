@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D90C514758
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:15:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 887285187EA
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:15:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789748113; cv=none; b=UdxH85hSHUiaQsCxA00+KJc4QaWpEp+GWoT8CRiQ9bwxDLz4vSzxDidL4NDvfll9mvpshWiI794VSuIWFVEBYvU9yKgGEW2KyI6yXYUPOsYapmPC71bXtzke/nkSHZkqXxmV4kn9wRg0EYVW/6kYxcYm/S+Kb0XR7+adWtj9kY8=
+	t=1789748117; cv=none; b=tUOF6i3iqhL7kFJrORIjxrNc8dunEjUq2RZb8PX44QYf8syrSB6FB9ETv7yFaBY+p3aDZm7Thm5xmfa6rDgMb0zlOe6RK3zgLyH/bASg4nYwyjnZTQJK0Z1/urCWggD2tpLCB1naKZCjz3ErA/Hpa+QF4gG6Rg8lg6p9guR+umA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789748113; c=relaxed/simple;
-	bh=8N+dMro6IY5WMzrJLEVXWe787chZDhO/60ie5X0SGSY=;
+	s=arc-20240116; t=1789748117; c=relaxed/simple;
+	bh=4H8nq6aN5191R1wLSk/mNRCy+uaEBAGMhwj0bVdfAxo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eARocZg8xRWXrHkfxYohClZrgeQ9kr0fcT1Kzg+N2xaFE3zehNzg7c7vVByvWLIG8zSIF5mheVXyL5PHZgSzdH7luM7RWMHSyNWLjdNo129BR6Hmy0FF+bmJYwbPIfHcomAwOOl1Pk3Uv504Tl3Sdiq5HuwkSWyKOYIFoKQVbIQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AW4leaLe; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=VceumLk6PrEXxMgmDfLrLc+LIBcC3sLjQekROECRz/EfW9DtUDSgv0GwOlesMeM9xHrbJFvcEHuWwm7lMrrMaVugRymRs627WlMFGWTrGpA2BEITj/5tPMLatKf/w/NnTOOsHgjzJyZZIdOGp1edxmH0dxvu7yY73giezgzAWUs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jtCEb6pB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AW4leaLe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B7941F00898;
-	Fri, 18 Sep 2026 16:15:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jtCEb6pB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8179F1F000FF;
+	Fri, 18 Sep 2026 16:15:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789748111;
-	bh=PHdOX9xdJ/boaqPZ/GwtRSXh8g+Ri88d8K76J4PQiZA=;
+	s=k20260515; t=1789748115;
+	bh=O4WlNdEIdKBpgRVlNn9eY6c+SeO9ekMqgtGrusaeyd8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AW4leaLe7j4HIbFH2dIJD4sVJv8bNmmtDS2WAAo4HLGUrfMxov+PMkjuIVqHRFL9b
-	 3jTIF/zEjLp6fQwqp3r5PMg+RuxqLVDmnkvctgfNzjflj60eejygFy6fiBGIl+ByvM
-	 v7VkBY2mCW7HjhCo2TjPOhn8P3JeaTUd8TXi89dNH4KKwlHR0GWPjoOCSsD2naCidU
-	 FIUXzPe+EmQGG420NDLeSTXAYovB/SJOeJuYBhWvQzbx0TdD0IvOG2WNGUeBfJM2J/
-	 FcBUNsduS9xkFTa3yjwuaYZgQVEFWhm3ZqUqQDXQHbQNDO8ySpEY/0BG/cFzhE/K/9
-	 77wWm0LhbKWdA==
+	b=jtCEb6pB1QhXR5GjRKnPXcGta5jkaxic0bs+1/lBhmhZpIXV+PNrFy8CjgacFxm++
+	 PUy4J4jF4ok0N/IX52sLgWM8qU3KTAqMOIvOUuxX4Cj1DNs7BC1rcC/k1zjCBv3l5p
+	 NEoCygbAed/r3GOd0v7pGSGDdLezqr8Qtv/hfMU3K0PfWvzyf/I+E1UdM4kS21ntPG
+	 vQPbPQSidbgM7N250L2i9MQ8UQ/Pm8NNGb2MAw2/Mg8Gpl6WYScphFzxIoErZHGlfE
+	 Zv16DarCVy3RLMvEZoTMtLNx5E2m08aUR9kLRmSmT2neYQjf7nNL3jo2/Xa4LYTXmz
+	 X31DJ/ldCeuVA==
 From: Will Deacon <will@kernel.org>
 To: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org,
@@ -42,9 +42,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Oliver Upton <oupton@kernel.org>,
 	Linus Walleij <linusw@kernel.org>,
 	Marc Zyngier <maz@kernel.org>
-Subject: [PATCH v2 16/21] arm64: entry: Implement EL1t exception handlers for overflow stack
-Date: Fri, 18 Sep 2026 17:14:00 +0100
-Message-ID: <20260918161407.2300-17-will@kernel.org>
+Subject: [PATCH v2 17/21] arm64: entry: Use SPSel to switch to overflow stack
+Date: Fri, 18 Sep 2026 17:14:01 +0100
+Message-ID: <20260918161407.2300-18-will@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260918161407.2300-1-will@kernel.org>
 References: <20260918161407.2300-1-will@kernel.org>
@@ -56,71 +56,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In preparation for using EL1t to handle exceptions taken whilst running
-on the overflow stack, implement some simple wrappers around the EL1h
-handlers which perform a best-effort stack overflow check before
-proceeding.
+When detecting a stack overflow on exception entry from EL1, use SPSel
+to switch to the overflow stack without corrupting any GPRs. Not only is
+this simpler than the previous logic, but it also opens the door to
+more complicated overflow checks (for example, based on per-task stack
+sizes or stacks which are not aligned to a specific page order) as well
+as the possibility of returning from a stack fault if we were able to
+resolve it.
 
 Cc: Mark Rutland <mark.rutland@arm.com>
 Signed-off-by: Will Deacon <will@kernel.org>
 ---
- arch/arm64/kernel/entry-common.c | 43 +++++++++++++++++++++++++++++---
- 1 file changed, 39 insertions(+), 4 deletions(-)
+ arch/arm64/kernel/entry.S | 69 ++++++++++++---------------------------
+ 1 file changed, 21 insertions(+), 48 deletions(-)
 
-diff --git a/arch/arm64/kernel/entry-common.c b/arch/arm64/kernel/entry-common.c
-index 72c03ccea59f..9738142780df 100644
---- a/arch/arm64/kernel/entry-common.c
-+++ b/arch/arm64/kernel/entry-common.c
-@@ -327,10 +327,45 @@ static void debug_exception_exit(struct pt_regs *regs)
- }
- NOKPROBE_SYMBOL(debug_exception_exit);
+diff --git a/arch/arm64/kernel/entry.S b/arch/arm64/kernel/entry.S
+index 6958ee238649..b4df2f23ebe7 100644
+--- a/arch/arm64/kernel/entry.S
++++ b/arch/arm64/kernel/entry.S
+@@ -51,11 +51,11 @@
+ 	mov	x30, xzr
+ 	.endif
+ .Lskip_tramp_vectors_cleanup\@:
+-	.endif
+-
++	sub	sp, sp, #PT_REGS_SIZE
++	.else	/* \el == 1 */
++	.ifc	\ht, h
+ 	sub	sp, sp, #PT_REGS_SIZE
  
--UNHANDLED(el1t, 64, sync)
--UNHANDLED(el1t, 64, irq)
--UNHANDLED(el1t, 64, fiq)
--UNHANDLED(el1t, 64, error)
-+static void noinstr el1t_64_check_overflow_stack(struct pt_regs *regs)
-+{
-+	unsigned long sp = kernel_stack_pointer(regs) - sizeof(*regs);
-+	unsigned long ovf_stack = (unsigned long)this_cpu_ptr(overflow_stack);
-+
-+	/*
-+	 * We're in big trouble if we've overflowed the overflow stack
-+	 * so perform a best-effort check before we proceed. If our SP
-+	 * is outside of the overflow stack for this CPU then presumably
-+	 * we're already corrupting memory, so park ourselves here in an
-+	 * attempt to contain the damage.
-+	 */
-+	if (sp < ovf_stack || sp > ovf_stack + OVERFLOW_STACK_SIZE)
-+		cpu_park_loop();
-+}
-+
-+asmlinkage void noinstr el1t_64_sync_handler(struct pt_regs *regs)
-+{
-+	el1t_64_check_overflow_stack(regs);
-+	el1h_64_sync_handler(regs);
-+}
-+
-+asmlinkage void noinstr el1t_64_irq_handler(struct pt_regs *regs)
-+{
-+	el1t_64_check_overflow_stack(regs);
-+	el1h_64_irq_handler(regs);
-+}
-+
-+asmlinkage void noinstr el1t_64_fiq_handler(struct pt_regs *regs)
-+{
-+	el1t_64_check_overflow_stack(regs);
-+	el1h_64_fiq_handler(regs);
-+}
-+
-+asmlinkage void noinstr el1t_64_error_handler(struct pt_regs *regs)
-+{
-+	el1t_64_check_overflow_stack(regs);
-+	el1h_64_error_handler(regs);
-+}
+-	.if	\el == 1
+ 	/*
+ 	 * Test whether the SP has overflowed, without corrupting a GPR.
+ 	 * Task and IRQ stacks are aligned so that SP & (1 << THREAD_SHIFT)
+@@ -63,45 +63,16 @@
+ 	 */
+ 	add	sp, sp, x0			// sp' = sp + x0
+ 	sub	x0, sp, x0			// x0' = sp' - x0 = (sp + x0) - x0 = sp
+-	tbnz	x0, #THREAD_SHIFT, 0f
++	tbnz	x0, #THREAD_SHIFT, __bad_stack
+ 	sub	x0, sp, x0			// x0'' = sp' - x0' = (sp + x0) - sp = x0
+ 	sub	sp, sp, x0			// sp'' = sp' - x0 = (sp + x0) - x0 = sp
++	.else	/* EL1t */
++	msr	spsel, #0			// Stay on the overflow stack
++	sub	sp, sp, #PT_REGS_SIZE
++	.endif
+ 	.endif
  
- static void noinstr el1_abort(struct pt_regs *regs, unsigned long esr)
- {
+ 	b	el\el\ht\()_\regsize\()_\label
+-
+-	.if	\el == 1
+-0:
+-	/*
+-	 * Either we've just detected an overflow, or we've taken an exception
+-	 * while on the overflow stack. Either way, we won't return to
+-	 * userspace, and can clobber EL0 registers to free up GPRs.
+-	 */
+-
+-	/* Stash the original SP (minus PT_REGS_SIZE) in tpidr_el0. */
+-	msr	tpidr_el0, x0
+-
+-	/* Recover the original x0 value and stash it in sp_el0 */
+-	sub	x0, sp, x0
+-	msr	sp_el0, x0
+-
+-	/* Switch to the overflow stack */
+-	adr_this_cpu sp, overflow_stack + OVERFLOW_STACK_SIZE, x0
+-
+-	/*
+-	 * Check whether we were already on the overflow stack. This may happen
+-	 * after panic() re-enables interrupts.
+-	 */
+-	mrs	x0, tpidr_el0			// sp of interrupted context
+-	sub	x0, sp, x0			// delta with top of overflow stack
+-	tst	x0, #~(OVERFLOW_STACK_SIZE - 1)	// within range?
+-	b.ne	__bad_stack			// no? -> bad stack pointer
+-
+-	/* We were already on the overflow stack. Restore sp/x0 and carry on. */
+-	sub	sp, sp, x0
+-	mrs	x0, sp_el0
+-	b	el\el\ht\()_\regsize\()_\label
+-	.endif
+ .org .Lventry_start\@ + 128	// Did we overflow the ventry slot?
+ 	.endm
+ 
+@@ -544,22 +515,24 @@ SYM_CODE_END(vectors)
+ 
+ SYM_CODE_START_LOCAL(__bad_stack)
+ 	/*
+-	 * We detected an overflow in kernel_ventry, which switched to the
+-	 * overflow stack. Stash the exception regs, and head to our overflow
+-	 * handler.
++	 * We detected an overflow in kernel_ventry.
++	 * Restore SP and X0.
+ 	 */
++	sub	x0, sp, x0
++	sub	sp, sp, x0
++	add	sp, sp, #PT_REGS_SIZE
+ 
+-	/* Restore the original x0 value */
+-	mrs	x0, sp_el0
++	/* Switch to the overflow stack */
++	msr	spsel, #0
+ 
+-	/*
+-	 * Store the original GPRs to the new stack. The orginal SP (minus
+-	 * PT_REGS_SIZE) was stashed in tpidr_el0 by kernel_ventry.
+-	 */
++	/* Stash the exception regs */
+ 	sub	sp, sp, #PT_REGS_SIZE
+ 	kernel_entry 1
+-	mrs	x0, tpidr_el0
+-	add	x0, x0, #PT_REGS_SIZE
++
++	/* Fix-up the saved SP */
++	msr	spsel, #1
++	mov	x0, sp
++	msr	spsel, #0
+ 	str	x0, [sp, #S_SP]
+ 
+ 	/* Stash the regs for handle_bad_stack */
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
