@@ -1,149 +1,164 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from fhigh-b2-smtp.messagingengine.com (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62229415F2C;
-	Fri, 18 Sep 2026 10:32:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFB0F494835;
+	Fri, 18 Sep 2026 10:32:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.153
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789727560; cv=none; b=sr1F3or+1V3QZk39lRaeMmoVAsKPmq5LyIvpO0hhL/O+tG0HKfXYFtF29VDb9fV5uecIy5oNDywOTl9JxyPNLj9HcKxsTLAzmCUHMneqUNsLWi+TBJrVUF1YDrwepgabd0D/h9xIhk/XUguRN55QJMZVQFVIpL0WqZ2bFOkcXqs=
+	t=1789727571; cv=none; b=lJo8Y7P2I9QwxfZsZKb+qp35i2MWmUqBkgHH7Rns8tLUwpmLNRUfzJS0rdbuLGnzH1BFNMg+Yjg5gIdG9KUZaCjCVfV1/wEZzS/uDTrIPM/FKwZuIue7kyWoyXdgFRQkHIds80bNkHlQGnmPUyrHu6ixkg4TlBtfgiOm7ql7ejQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789727560; c=relaxed/simple;
-	bh=ow9Vzb2TFVcMYcSLJbocUzWmCZHBM+RGMk1vfKKnAGE=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=CwN24U/o3/05LYSPm3D0FCg3b+EPDF+u7QWaBkZm53vcY5//HRz5iCpEDBIIrbcYFB12675vUC2vkOe5JSynMjh+iGkDcMBxyfoRXvpn11av7ThF7X/mctqKinuD7EABtot+7FA0hf8h0gTGzKOCp44G53VtzWVhKATFSOTX8fY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IlnS3bnw; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789727571; c=relaxed/simple;
+	bh=3r/G3nZbxIlAf90geD9CVrqAzd5pqcJmEMRNdzeR1SM=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=AhjQebU5RwhW8AFa0SKTA5HECj0lprQnJ5q3waxdUb0FrVy3ExvEOOPYo7j33Zms/yw5r/+CDAvOaGA1azEzQ7VZRBJqJNvrrocL1Z5sECPP57ZKLQ+2qdKsnoaSHnu9TKkjyZeR8ff0OGqsCI3lHSkRwBm9dAlHHOSY513iBU8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=dFvURW/J; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=TyBzL8Hm; arc=none smtp.client-ip=202.12.124.153
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IlnS3bnw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789727559; x=1821263559;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=ow9Vzb2TFVcMYcSLJbocUzWmCZHBM+RGMk1vfKKnAGE=;
-  b=IlnS3bnwxzGWj5XH6zYQsnI1/YlWA2v89iml0tZe7t5BOKq0eokS7+BX
-   S8ZIYM1eA4QWMPnpMDZdjKK4vGp5K3ECmFmalwqHAAfhIfQFxmUQsa6tI
-   GU9zJgUUspO6y70YNaQqlLwsgH0wVMkQ5JjFddLobIVb1VL/dm1nyDAsS
-   i6fb/dlvx5FCOpUdngBRyFRYwJWnyFxNfZWFBYE0rA/+aZd9nbJYX6bfD
-   dkxxO9kL6OvxneA6gxvSyJBYRRsI7jEQ9eNEGTpt75jNU4S5Pl8IjlURy
-   DcCgKJZxzlfJgAFg75vVgFcu4/KGMQ0kaCnE88/EuarEfWSOwSArAUHXt
-   A==;
-X-CSE-ConnectionGUID: n1zqBEepS7+dUMOx2D2KLQ==
-X-CSE-MsgGUID: aUuc5KwuTsiqTZVyAiOXcQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90090839"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="90090839"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 03:32:38 -0700
-X-CSE-ConnectionGUID: L1MaPcwgTXOtRsxI1A2SSg==
-X-CSE-MsgGUID: EEjyDNo+QryHsWbHIcY/CA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="271652556"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.223])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 03:32:34 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Fri, 18 Sep 2026 13:32:31 +0300 (EEST)
-To: Muhammad Bilal <meatuni001@gmail.com>
-cc: platform-driver-x86@vger.kernel.org, jorge.lopez2@hp.com, 
-    Hans de Goede <hansg@kernel.org>, linux@weissschuh.net, 
-    LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org, 
-    Josh Snyder <josh@code406.com>
-Subject: Re: [PATCH v3 1/2] platform/x86: hp-bioscfg: fix 16-byte heap overflow
- for empty auth token
-In-Reply-To: <20260818191120.38556-2-meatuni001@gmail.com>
-Message-ID: <9d60ef62-a53c-bb13-ff6a-0a195cf2f6f3@linux.intel.com>
-References: <20260818191120.38556-1-meatuni001@gmail.com> <20260818191120.38556-2-meatuni001@gmail.com>
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="dFvURW/J";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="TyBzL8Hm"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id CBA507A00F2;
+	Fri, 18 Sep 2026 06:32:45 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Fri, 18 Sep 2026 06:32:47 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1789727565;
+	 x=1789813965; bh=cJlPJ6KrwzaPtZRHGm72iMAfPMKAwd2u1wBguAbnglk=; b=
+	dFvURW/J1SQZAu0mUwTYAC8lxjZsdsK3kzB8b4zNOBTxRBKp9yCLCsbJMNSfwLjc
+	QXsV5DtzA4gAVpQWRegAHW2JOoNVnloVGZ7wFX0pm5RWgVEAkX9xlLBPjgTSzMWN
+	f4JWZ8XfWFZXqNdJBun3Y3mF6disUH0g7A86htzKdWhZLXvemCnwX36w7lbvFvD4
+	IqaGq1n2HLz6nbEaDtDgXhF1hGkIKSLyQEGBQPTYS6UPTKfVFg4AoS8GNu/2XgVA
+	ZsZ2u8dPnklpIitb5FlisouG2Rift1/SpoPyXuukCx1xj7SstAX7b68l4PVGmcP6
+	Ocz99nNdHnJkPlay3JB+3Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789727565; x=
+	1789813965; bh=cJlPJ6KrwzaPtZRHGm72iMAfPMKAwd2u1wBguAbnglk=; b=T
+	yBzL8HmNLcB4gacab2fwsDqevHG41Eea7u0dsn+T7Deg5s/eIUODwGy1FTXT3pji
+	X1EStDHwMjbFdtEwBbhGc/KI+WkL10QK59PDR0dGtkdlkpgMD3o3aUdFT13GnZFw
+	oeAJDFkpexXOuvnP9DiNVLhD7+4hH6lyLVvSGBwMo+gY2CVYFdAd4aH6uKCOJD+O
+	kSP3NPNqwRfYphnWwjxDxWvY7MLZLy59QuI/psVZrWppX1dxesJJ0yDm2/GmTKY8
+	fUSgFYl/LGSkM59xeI5ZSWv0WEGGt2Wrhzk7m4/OhUSJ0mTbpo81KC7XH8gDfuxb
+	LhTK1p55s/dRb8LwJsKJw==
+X-ME-Sender: <xms:SBOtamZCGAGaaQSZa4Lu85u4Gc0johHUqPtR1QTS66s2s_KT0aOgJQ>
+    <xme:SBOtakO9kshPefeRgkgOllQ3PmFYrPb4Bz4UQPFyTlHFEy-GfT5b8nhKh-asIOtC9
+    xrxkMwPDvpnCBClWo_qwBICS0jwoVAoO9z0So-j6LtOTtvd2PxuVlg7IA>
+X-ME-Proxy-Cause: dmFkZTF5VEATVaMYyKFJSRUSQdUBNm2t11Xfp3YCiJoB0OBrOzg5c/hUGdi4k2O0WTLDO/
+    mZZQH7joCc/ok/6bLRnUiKydUYRV0MrUpZS317vfpcDk99C5OW8krUIfr5LYaC7moreYJi
+    pqL8zXo3BeiZXDJIWaor8FXuShpbw7Z//hwAuoYM3IYkQ99NJ+7Nludjrsns5Iajr5mH4s
+    GlZGPytp6Xx54QBDrRThFQ/SpnIcX6JvukKQdEVhOaxlvsHD4ePmPTYDyLvsB/6cwD8Csz
+    BvM5xrqdztQPBwpVx2IHKkedVbDvJGaJQQsfLeX7yPlXJdjBCNRDOj0MuOK1sLZshUdUnn
+    l82RJz14zbSswblwf/TrHlD/eCT0JjwIleMqrx4Z6/oD8HlnpePPBDT2i1PCUrW+/mtGGS
+    m5rj12PzD1tIcEKdTZiwoS3yFocHPXClCxfmtN4kFZQC1+uJllgvPLrq0ZU5ESwuPbfROl
+    2YeqGL+IPXem+coSi8F05UaAqbM8wJaN6xcOGxS/8z8weVxRCMKg1fWa30yojLJWP1xBxW
+    /HDTt+VwKuBjEdCXWgdQpCNj4Mv4S8S/Ji9r+qSHBN6EVXR4yfwKRFpvNKOfUMb6zOPH3D
+    Um/j//xJdvXm4zJhztkAWQbyfGlTt8/BuINPQiBHqe9+hJHgCLCFYC5DDu/w
+X-ME-Proxy: <xmx:ShOtau-h_mrJALDN1uhg9S1I4pAiddHedX0NHYvJJt9oyC2V0l3JIA>
+    <xmx:ShOtandIZHuVs4AveSr8Ge1jJupVLYcC8esReVwlOwZ3qTH-oW9ZSg>
+    <xmx:ShOtaivkIO2fX4T9cVotsuhFI97_rlcjL7Wkc2FO_jTZPhAzZuac9g>
+    <xmx:ShOtao1fvoehWFnWlhotg4RTUf-GT2-RE4PqHNAvvmdgngvn-ibG4w>
+    <xmx:TROtavBfFsvnDRdY0B5AyM6DmDmFa3PRTYdunkjNnAeDvXaEKcbH0SzL>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 0F91B32A0085; Fri, 18 Sep 2026 06:32:40 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-414600178-1789727551=:15314"
+X-ThreadId: A1v-knPnKEnN
+Date: Fri, 18 Sep 2026 12:32:12 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Semih Baskan" <strst.gs@gmail.com>
+Cc: "Bjorn Helgaas" <helgaas@kernel.org>,
+ "Lorenzo Pieralisi" <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ "Manivannan Sadhasivam" <mani@kernel.org>, "Rob Herring" <robh@kernel.org>,
+ bhelgaas@google.com, "Ray Jui" <rjui@broadcom.com>,
+ "Scott Branden" <sbranden@broadcom.com>,
+ bcm-kernel-feedback-list@broadcom.com,
+ =?UTF-8?Q?Rafa=C5=82_Mi=C5=82ecki?= <rafal@milecki.pl>,
+ =?UTF-8?Q?Rafa=C5=82_Mi=C5=82ecki?= <zajec5@gmail.com>,
+ "Florian Fainelli" <florian.fainelli@broadcom.com>,
+ linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, "Rosen Penev" <rosenp@gmail.com>,
+ rani.hod@gmail.com
+Message-Id: <dc370463-125e-48d2-af6b-c3b4783f57ea@app.fastmail.com>
+In-Reply-To: 
+ <CAAsRjRnV-RTddO6h2XCUz2N5pB0pS8i_-_2XRcD=WOTA7AAFZQ@mail.gmail.com>
+References: <20260917183602.GA1036092@bhelgaas>
+ <7c2a8582-280e-471a-b4b0-037b2cda6ad8@app.fastmail.com>
+ <CAAsRjRnV-RTddO6h2XCUz2N5pB0pS8i_-_2XRcD=WOTA7AAFZQ@mail.gmail.com>
+Subject: Re: [PATCH] PCI: iproc: Use pci_alloc_host_bridge() on BCMA
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Fri, Sep 18, 2026, at 10:29, Semih Baskan wrote:
+> On Thu, Sep 17, 2026 at 10:27:54PM +0200, Arnd Bergmann wrote:
+>> Would it be help to change the probe order so the bcma driver
+>> always comes before the platform driver?
+>
+> Only where the DT window matches the EROM one, because that is where
+> the platform driver backs out.
 
---8323328-414600178-1789727551=:15314
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+I'm probably missing one of the steps here, sorry I'm not too
+familiar with the platform.
 
-On Wed, 19 Aug 2026, Muhammad Bilal wrote:
+If the DT window doesn't match, how does the bcma driver find
+the device node that corresponds to the EROM entry to populate
+the child nodes?
 
-> hp_calculate_security_buffer() special-cases an empty authentication
-> string and returns a fixed 4 bytes (sizeof(u16) * 2). But
-> hp_populate_security_buffer() does not special-case that same input:
-> for any authentication string that does not start with BEAM_PREFIX,
-> including the empty string, it always builds "UTF_PREFIX +
-> authentication" and converts the result to UTF-16, writing a 2-byte
-> length header plus 2 bytes per character of "<utf-16/>" (9 characters),
-> 20 bytes total, regardless of how long "authentication" itself is.
->=20
-> The caller, hp_set_attribute(), sizes its kmalloc() buffer using
-> hp_calculate_security_buffer()'s return value, so for an empty
-> authentication token it allocates 4 bytes for the security area but
-> hp_populate_security_buffer() then writes 20 bytes into it, causing a
-> 16-byte heap buffer overflow.
->=20
-> The authentication token used here is the current admin/setup
-> password, which is an empty string by default until one is
-> configured. Any write to a writable BIOS attribute while no admin
-> password has been set reaches this path.
->=20
-> Fix by removing the special-case early return for an empty string in
-> hp_calculate_security_buffer(). The generic calculation that follows
-> already accounts for the UTF_PREFIX correctly, which naturally yields
-> the same 20 bytes that hp_populate_security_buffer() writes for an empty
-> string, avoiding duplicate logic for special cases.
->=20
-> Fixes: b2715aa2e135 ("platform/x86: hp-bioscfg: spmobj-attributes")
-> Reported-by: Josh Snyder <josh@code406.com>
-> Closes: https://lore.kernel.org/platform-driver-x86/20260402-hp-bioscfg-o=
-verflow-v1-1-6985f8c9e67c@code406.com/
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
-> ---
-> Changes in v3:
->   - Remove the special-case return entirely instead of adjusting its
->     formula, avoiding code duplication as suggested by Ilpo J=C3=A4rvinen=
-=2E
->   - Credit Josh Snyder who previously noted this approach.
->=20
-> Changes in v2:
->   - None for this patch; resubmitted as part of the v2 series.
->=20
-> Link: https://lore.kernel.org/r/20260803143037.93105-1-meatuni001@gmail.c=
-om [v1]
-> Link: https://lore.kernel.org/r/20260812111829.172273-1-meatuni001@gmail.=
-com [v2]
-> ---
->  drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c | 4 ----
->  1 file changed, 4 deletions(-)
->=20
-> diff --git a/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c b/dri=
-vers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
-> index 4d94e48c1a4c..136585141e6e 100644
-> --- a/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
-> +++ b/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
-> @@ -47,10 +47,6 @@ size_t hp_calculate_security_buffer(const char *authen=
-tication)
->  =09if (!authentication)
->  =09=09return sizeof(u16) * 2;
-> =20
-> -=09authlen =3D strlen(authentication);
-> -=09if (!authlen)
-> -=09=09return sizeof(u16) * 2;
-> -
->  =09authlen =3D strlen(authentication);
->  =09size =3D sizeof(u16) + authlen * sizeof(u16);
+> With of_platform_default_populate() moved after
+> bcma_register_devices() as a test, it boots. pcie-iproc-bcma takes the
+> first controller and enumerates the BCM4360 as before. The platform
+> driver then probes the same node and fails in
+> devm_pci_alloc_host_bridge(), which it reports as -ENOMEM:
+>
+>   iproc-pcie 18012000.pcie: resource collision: [mem
+> 0x08000000-0x0fffffff] conflicts with PCIe MEM space [mem
+> 0x08000000-0x0fffffff]
 
-authlen is not uninitialized, so only the early return should be dropped.
+The driver should probably check earlier if the device is
+already bound to the bcma bus, rather than just trying to
+request the bus windows. If anything, I would have expected
+the conflict on the 18012000 address for the register
+base.
 
-I've dropped this patch from the review-ilpo-next branch.
+I see an ioremap() of bdev->addr in drivers/bcma/scan.c but
+don't see a corresponding request_resource() for it, so maybe
+an easy fix is to add this to the bcma bus scan and
+make sure that always happens before the pci driver probe?
+That way, the platform driver would just not be able to
+probe on a bcma based SoC regardless of the memory window
+settings.
 
---=20
- i.
+> On the second and third controllers the DT window is
+> 0x20000000/0x28000000 and the EROM one 0x40000000/0x48000000, so the
+> platform driver's request goes through and its probe carries on with
+> the DT window until the link check, which fails because nothing is
+> connected to those two on this board. That is as far as this board can
+> show.
 
---8323328-414600178-1789727551=:15314--
+A few more questions, for my understanding:
+
+If a board has nothing connected to one of the host bridges,
+why is the pcie host bridge still marked as status="ok"?
+Do you need a driver to put it into low-power mode, or
+should this just be marked as disabled?
+
+Does the platform driver reprogram the windows to match the DT
+description, or does it rely on the boot loader to ensure they
+ranges/dma-ranges properties match the register contents?
+
+When using the bcma driver, does that update the ranges properties
+in memory to match the EROM contents?
+
+      Arnd
