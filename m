@@ -1,36 +1,43 @@
-Received: from mta0.migadu.com (out-68.mta0.migadu.com [91.218.175.68])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2956248C41F
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:07:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.68
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789744045; cv=none; b=FE59dNh+4p+iqCkA0QBrk3u0jR/7Mf7Xo8t6QZnrLLCtBXjmYzNL9uo/JY3ji00oIijSF8ApRbe3Vob5D9TZYwO3iN7ATjKbGaZMWcQxo4ZoWaj6dyub+digBuY0LQWM1ra4tz6E78uGlTutRcVY74v6PdWagOBm/PvggZsXhrc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789744045; c=relaxed/simple;
-	bh=6ATLnyCaLHvD7n05SCq7fLNOH0LPoLecfJlC0QyV6/8=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=Ol4ZiIBPZiVgBKDnX3C5sQWLqSuxrJjpo4RIRf2QvgjtsAGWsl7Kpkcm0oBFPWuY6o6OizBbUCcH2WnNgI2ngxuowvHtIzwuWGsEmmbfyOpFqODAt9tqe4TUUMOQRx50hN2ayIMA9Ludc73vrTRzNRvKU39HQ1HOo7XLroa8800=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=PLuh6+TZ; arc=none smtp.client-ip=91.218.175.68
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06E334FD7B5;
+	Fri, 18 Sep 2026 15:07:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789744081; cv=pass; b=M45ASsOky2tkyVH3JBZXpjmTLpMvTRoklXd2pgWkUmjNXTukcschhyoyGcjPCJrSJxW8yQypGQ+x1gsklcSxofAWEwdZn5jPLx+1I5gx5sxDFYY4kf9CcpNriyfhuzm9cWEVERhP9pJs7nGpL0MwmuBynzJk8MLUJvX0HXU3uG8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789744081; c=relaxed/simple;
+	bh=jsi3UUXRgbbIy+/aogqfeBFzjsG4NHFYXVtrcEV5mak=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fmmv1D0zNrdnk6rheE3XjRPoDRb9eCKbdMMpjX+OwHCZKRElRjlbllNsuPvOc5UB7MgTzYOdB7j6UA5zcG5/GPdG3WdPeaXwAK88InP84A6pqauyrYFmIn96kyWoa2FK1Sm0IXUQ6++wyZ5SEyQrsVOmQ48p137R0BM8XBTY1XQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=michael.riesch@collabora.com header.b=Iveo383U; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="PLuh6+TZ"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=6ATLnyCaLHvD7n05SCq7fLNOH0LPoLecfJlC0QyV6/8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789744040; v=1; x=1790348840;
- b=PLuh6+TZ8Qi4yRyCaDsuDRiHsj8EbcPytt9FPuOeoAsNKhDTWXBPXXGFPOKzsi9ZtOmrYGaf
- qoDeQUdHJBWVygEqWD8+1ajVXnva8RCDi9rIh3GeZM9XqS5sVb8YWSdZQ4Ll4mqB0/rWZDFFjJz
- qw4avAIpfAEPPjPrM295A8Q0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 729c408859e620f4;
-	Fri, 18 Sep 2026 15:07:10 +0000
-X-Mizu-Trace-ID: 729c408859e620f4
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <11b1a792-f8b1-4fce-8a7a-8352149febcf@linux.dev>
-Date: Fri, 18 Sep 2026 17:07:07 +0200
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=michael.riesch@collabora.com header.b="Iveo383U"
+ARC-Seal: i=1; a=rsa-sha256; t=1789744065; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=I6AW+OWNKfm4s1J1lr3yv1SWdLqkpIuUnes4bAC1oU/tIdhk8iXNdTdmVVRlsViDKJ23EjB160SMgGIV5svRWbnLU7LUqZJhQkaJG/ndOLztCQZtjNC/hVDOrgV0HDTq4srb/WtXy/ZDO9tQ3ez318TfrIqg4jD78kL2YtenAc0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1789744065; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=6DYLdUfKD8lQHyVdszF6+D1lk2bnnMb1mJc/zRkdlrQ=; 
+	b=T700XLKdSf0EGDN75SihmMKYg3lAWCsUqclWVCyT6oN7KvzMiSmi8ugGG8ylbpfBEtqLjHddEh0JBfDj5lIQwQSSGDMZ/zg/U/ZsTBUJitrdGLvIP9saHZVnFQhEPexxtIsQqDm5Eg24LQGLJp8azKalhSJDgNZy3ufDuaZo0r8=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
+	dmarc=pass header.from=<michael.riesch@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789744065;
+	s=zohomail; d=collabora.com; i=michael.riesch@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=6DYLdUfKD8lQHyVdszF6+D1lk2bnnMb1mJc/zRkdlrQ=;
+	b=Iveo383UsiLdY2oMy62uJysUNVHEvUOdK4YiiR0HmfG3LJ82de/K91VgKfFIqFzJ
+	2MuWVDpTt3ko9gQQz6FdUrfvDMCVIYFYOfSPZzXxgmydGBHb1Amt2X77NPqlkoWJgah
+	BfXG4l1kNpj/N4L5Kd3/Haz+kEBfSW3C+IrZ+XG4=
+Received: by smtp.zohomail.com with SMTPS id 1789744062457111.72786165405773;
+	Fri, 18 Sep 2026 08:07:42 -0700 (PDT)
+Message-ID: <eee3fd59-adfc-4f36-b467-e1e7c2ad38de@collabora.com>
+Date: Fri, 18 Sep 2026 17:07:38 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,127 +45,78 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] fpga: region: Add support for FPGA region variants
-From: Marco Pagani <marco.pagani@linux.dev>
-To: Xu Yilun <yilun.xu@linux.intel.com>
-Cc: Moritz Fischer <mdf@kernel.org>, Xu Yilun <yilun.xu@intel.com>,
- Tom Rix <trix@redhat.com>, linux-fpga@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <akPZoGCyQW+6+hDX@yilunxu-OptiPlex-7050>
- <5dbd4ac8-a532-4889-bae1-f0bab9a99267@linux.dev>
- <akyyp1GCecWj2Bk2@yilunxu-OptiPlex-7050>
- <417b510f-0f6d-4695-97f5-3fc19b9377b9@linux.dev>
- <amCn8UYdybT+RRnq@yilunxu-OptiPlex-7050>
- <9d4af487-69a7-4a0d-9335-35c3a057de54@linux.dev>
- <anBfAa4LpjbmYHIc@yilunxu-OptiPlex-7050>
- <db7cfe9e-b2ba-4323-bff9-44598e1f70bb@linux.dev>
- <anl8891cH+bUfsGY@yilunxu-OptiPlex-7050>
- <4dbdb52e-1b28-432e-a3a7-ad9c44f17d27@linux.dev>
- <aoJ6paA/8ndpJ17y@yilunxu-OptiPlex-7050>
- <8848432d-45b0-4efe-adf3-adfb64fe0899@linux.dev>
+Subject: Re: [PATCH v2 0/4] phy: rockchip: add support for the RK3576 MIPI
+ CSI-2 DPHYs
+To: Amin Gattout <amin.gattout@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-phy@lists.infradead.org, Conor Dooley <conor.dooley@microchip.com>
+References: <20260915-rk3576-dphy-v2-0-b56e68b54b8c@gmail.com>
 Content-Language: en-US
-In-Reply-To: <8848432d-45b0-4efe-adf3-adfb64fe0899@linux.dev>
+From: Michael Riesch <michael.riesch@collabora.com>
+In-Reply-To: <20260915-rk3576-dphy-v2-0-b56e68b54b8c@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
+
+Hi Amin,
+
+Thanks for your work, very nice!
+
+On 9/15/26 12:42, Amin Gattout wrote:
+> Hi all,
+> 
+> The Rockchip RK3576 features two MIPI CSI-2 DPHYs. The CSI-2 DPHYs can be
+> supported using the existing phy-rockchip-inno-csidphy driver.
+> 
+> This patch series adds support for this variant.
+> 
+> As you may have guessed, this is part of the efforts to bring the
+> support for the RK3576 camera pipeline (VICAP) mainline.
+> 
+> Looking forward to your comments!
+> 
+> ---
+> Changes in v2:
+> - Patch 3: drop the RK3576 GRF register table, which duplicated the
+>   RK3588 one, and reuse rk3588_grf_dphy_regs instead, so that the reset
+>   names are now the only difference between the two variants (Michael)
+> - Patch 3: reword the commit message accordingly
+> - Patch 2: spell out in the commit message why the RK3576 compatible
+>   cannot use a fallback (Conor)
+> - Collected Acked-by from Conor on patches 1 and 2
+> - Link to v1: https://patch.msgid.link/20260820-rk3576-dphy-v1-0-70e25e8d5e78@gmail.com
+> 
+> ---
+> Amin Gattout (4):
+>       dt-bindings: soc: rockchip: add rk3576 csidphy grf syscon
+>       dt-bindings: phy: rockchip-inno-csi-dphy: add rk3576 variant
+>       phy: rockchip: phy-rockchip-inno-csidphy: add support for rk3576 variant
+>       arm64: dts: rockchip: add csi dphy nodes to rk3576
 
 
+For the complete series:
 
-On 17/08/2026 18:14, Marco Pagani wrote:
-> 
-> 
-> On 17/08/2026 05:06, Xu Yilun wrote:
->>>> But if the no-verification-in-driver is denied, I think the thing we
->>>> need to do is to verify the binding between the DT description & image.
->>>> After we've verified the DTO & the image is a valid pair, they are not
->>>> arbitrary, whatever the DTO does is necessary to the updated hardware.
->>>
->>> I think we agree on this. Ideally, we should validate the complete
->>> {config, image} pair. However, I don't see how using DTO at runtime can
->>> help with this goal.
->>
->> Validation is not the goal. Re-enumeration is the goal. DTO is what FPGA
->> is now using for re-enumeration. Validation helps DTO if you want extra
->> integrity.
-> 
-> I would argue that validation is a requirement for any userspace
-> interface, while I do agree that re-enumeration is the goal. In my RFC,
-> re-enumeration is triggered using the DT infrastructure every time
-> userspace switches from one variant to another. Variants can be thought
-> of as pre-validated DT fragments baked into the base DT, rather than
-> DTOs ingested from userspace at runtime.
-> 
-> To clarify my position, going back to a couple of messages ago:
-> 
-> - As I understand it, the current upstream consensus is that hardware
->   devices must be responsible for verifying their own firmware.
->   So, the kernel is responsible for protecting the integrity of its
->   own configuration (live DT), while the reconfiguration engine is
->   responsible for validating FPGA images;
-> 
-> - If this is not sufficient, and there is a requirement to secure
->   /lib/firmware, it should be done at the filesystem level using
->   the IMA subsystem;
-> 
-> - However, since not all FPGA reconfiguration engines support crypto
->   image verification, and not all SoCs/platforms have a TPM IP or
->   support for a TEE, we might consider having a subsystem-specific and
->   optional check for the {config, image} pair as a *future* extension.
-> 
-> 
->>> On the contrary, it would put us in a situation
->>> where neither element of the pair is guaranteed since it enables the
->>> user to feed arbitrarily forged DTOs.
->>
->> As you referenced, no OS component (even the kernel) could guarantee the
->> functionality of the binary for a device, only the device can. So what's
->> the difference who provides the pair?
->>
->> The only thing matters here is integrity and authentication, which is
->> totally a different thing from kernel-user privilege.
->>
->> I'm also confused you keep on telling that userspace is arbitrary so no
->> userspace interface, which seems to suggest kenrel should never get any
->> input from user.
-> 
-> My concern isn't about accepting user input in general but rather about
-> the type and scope of that input. I think there is a huge difference in
-> terms of the security between:
-> 
-> - matching a string that userspace sent via sysfs and then applying a
->   safe configuration already contained in the base DT (validated from
->   a FIT image).
-> 
-> - having userspace directly pass the kernel DT configuration (as a DTO),
->   which the kernel must then validate (both syntactically and
->   semantically) and apply.
-> 
-> In the first scenario, userspace is like a customer selecting from a
-> menu of pre-approved dishes, and then the kitchen safely prepares it.
-> 
-> In the second scenario, userspace is like a customer stepping into the
-> kitchen to cook their own meal, forcing the chef to constantly supervise
-> them to ensure they don't burn the place down.
-> 
-> 
+Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
 
->>>> It is possible. To be more efficient, I think we should invite
->>>> boarder discussions.
+Best regards,
+Michael
 
-> Following up on what you said two messages ago, I think we should invite
-> the DT people and ask for their input to help move this conversation
-> forward.
-
-Hi Yilun,
-
-Is it okay with you if I CC the DT people to ask for an opinion?
-
-$ scripts/get_maintainer.pl drivers/of
-Rob Herring <robh@kernel.org> (maintainer:OPEN FIRMWARE AND FLATTENED DEVICE TREE)
-Saravana Kannan <saravanak@kernel.org> (maintainer:OPEN FIRMWARE AND FLATTENED DEVICE TREE)
-devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE)
-linux-kernel@vger.kernel.org (open list)
-
-
-Thanks,
-Marco
+> 
+>  .../bindings/phy/rockchip-inno-csi-dphy.yaml       |  2 ++
+>  .../devicetree/bindings/soc/rockchip/grf.yaml      |  1 +
+>  arch/arm64/boot/dts/rockchip/rk3576.dtsi           | 34 ++++++++++++++++++++++
+>  drivers/phy/rockchip/phy-rockchip-inno-csidphy.c   | 15 ++++++++++
+>  4 files changed, 52 insertions(+)
+> ---
+> base-commit: bd5f485f3f026225b86573e559af0b7254ef4184
+> change-id: 20260819-rk3576-dphy-2304f848215b
+> 
+> Best regards,
+> --  
+> Amin Gattout <amin.gattout@gmail.com>
+> 
 
