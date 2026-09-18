@@ -1,150 +1,228 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CECAC4A0921;
-	Fri, 18 Sep 2026 08:40:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A26AF57C9F
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:41:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789720819; cv=none; b=oynzi43jKcNxLWT/4Y91AuftYGuA4L8TXhm99O3app3EKt3xWFrWStBfAZN+pTBvvc8jw57yFo4kt5eoLEYC01bVs/vWa4BfRG2UyXimZyofyMhUtDRMZxmhzGNfdg7WhPDYWJlRXEL2U11VFjgHpR5U7ucnfLDjKIK/+zHpDzE=
+	t=1789720865; cv=none; b=hCmTSO5X7c123J8lqTKfKn0tbRRRxpXi+pY6dw3nYDZDlq2+iWykdfLr15O9tAELr4FzE3zGHRGFF40JorJhpM8MA5LBfFygMcpaxJM4t7vzTmCJ4efhHxrOQ0bK+dXLTUaJY4kmdwSSu8lBZBvAWbkXyzCmHtEaSE3Vo9wIfMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789720819; c=relaxed/simple;
-	bh=/cN8uyQZ9nDnHW8G5wdiabquj0TfX4E7hMc2JFryRE4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WVgMP587gkqA3pgGCfMtlez6P7otSVo0iiyFPfw2EEJzQkhz5v760LrMbTtOFbTQ39unvxpBd90rupgHq1WerfczFr0T9DaZhmPsvz823dZxFAIzW7oOTj3V0zP4ElTX2nIL/ZgsxfzxVCKhY+GOQgWNQ2lDs5iyDl+EfCf7tf8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NbsGideP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789720865; c=relaxed/simple;
+	bh=jJn91aodMj/ywR9F01grlpxLPS/rpmD2XwxYG0rDeLQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Cmu+2cwvM+IS/LaxoFFOZsaac2sDMgKqsBC/jbM3UeSgdDTca2qLAxoiw9a3RlYV/cKpoUzHLP+isSqTndpTMDMlY0cBUE0OOQ7qQKsen/4DgGpwtk6TCvkOuo3RYKHFnsi72rPgIdYO4Uu1XRkqJdRDcICiV5RNmI6+esm2tDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kfrzn4e0; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NbsGideP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A94751F000FF;
-	Fri, 18 Sep 2026 08:40:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789720818;
-	bh=gUKkL/xmF5f394jyQDECLCZfFEXGSwufYWfevSsRYy0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=NbsGidePkrOEfa1hkwsufe7o/scVFbF32GHeCoZVuyKYNLxpCAWwvIB1k+nJWMHTd
-	 FMhRjiJnhSWFTMqF3wJfJty+HC2KTs+bXP9OFKkrbZvoU8InwXGO9LpyR3po/1uVNO
-	 tyy3N2IVQWuuG4z2pjHcWd5pgD4sNO8QZksLlBBGbNqS0dDICDhp4FXKUpcNZHzkfK
-	 DTec91szBuv97WarSiFKeSP0hWkXZcTSRropMi1PTDuiCRbdXppp7O8hLs2Bcniwh+
-	 VK1g772ZrgqwoqXeSqyFMGccuQVb/Owu/iKCe0rI3x2nSFqEq8eDH4kno2EeTYtTd4
-	 hsKaTXtLEOHpQ==
-Message-ID: <0fd3e0a5-33f7-4bc6-9146-dcaf035c3ef5@kernel.org>
-Date: Fri, 18 Sep 2026 10:40:11 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kfrzn4e0"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39dbdfaef3cso441227a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:41:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789720863; x=1790325663; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wsXVXVuJdv5wBUtq2F3KswaK2ghGLUk+j2BrYbmK/Jk=;
+        b=kfrzn4e06o9bj2BbFFWT3BqtoukuhnXY8mo6uO4AbgBZ0MKj8TRkM+RRs4KUoUn4+j
+         X4FyXCKHpXFp7UCuIPmDVSioK9Q0WI/81ehknPSdjG5ticPrItPmJn5rXPMOAoOMh10T
+         PNO6FldisybWW7VKb3PHd5CAktyGwqJs7tj8JYkRppQgrYsBrkRIQyM4uJqrkxnoMZIo
+         aA/T0fdcFnEcIxekz3JNgq6lVL/1OIzAaPS1JRGu3aiu9lQSD3I1FAtLkbiOmjG2jWAS
+         9urckif3GsHiRmzxlIT53k3PcVg3pIAu+tlzJVxLUrZFbXjqjuUCXNVoimTIbE8ekQmz
+         g3yw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789720863; x=1790325663;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wsXVXVuJdv5wBUtq2F3KswaK2ghGLUk+j2BrYbmK/Jk=;
+        b=FrieqB/hg8wqbWg0qUo2ypvkHl5u9yEdMxDeNFoypyEwqU7BLP+1VskvCHHPdHbUOw
+         wI3O07IDxD4WeKusF5fVEUiS2zweDeg/NGTmhW5I0GbU6AgXFmhOqyr5AvHYvDzsLUFj
+         29YSemmUfHAR0C9kmPoDdMSJZoRV98r+02ZZRTsKvy3rhP7npY/wMKRY3ewAUHRDkfN8
+         pkmp44dY4Azlnvo7JK6uIpSi3CLJaJLw7OOjD8LKuTgmyHX7dIq8aBM090ZWCsk5PqRk
+         gc3lDoAeCpaOM28mKtS5VonF8mav2SY675KdF/d6O+OVcaKAkeLHc+D0Py+yDSgixS1A
+         ckrQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwGGlHjvWqjowbAXdFOzajSJB9ccjv6SMwFrWbq7grbys8e+CSR016kcMo6sDLyhkstRxu2BWRFFI2FYrs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nz434E3eIOCLIM1CTPLaiginavyuuY71VTeNL5OAZUv8JQuaq7
+	A2j9QlmEYf8E6NzCKjHRC5Ja+aMwrcg1rnTrXONoL5ysYh8W61Q7BZtH
+X-Gm-Gg: AYBFou2KbyJdY0pqet/66odhO/u8Rt1L0vtWLuOxEhpQUFblB2Ik++vxsWGhUDUnjny
+	+nWmYaz0ZuzU7Q6t1V0Seh40P6uUT3PlGh5WYsd2d2pCh3HeB27IiUaLB70C17/O6vqb2+AJZz6
+	j3mFzxOwjz/tLW1MzBP1CVJtzMG6V6bp9YdXAzbZ6SjCvLIuRyjj0gj+7YA/c8T05BarbpQCDEd
+	3utJUu8s/Zi2tY11VATWHNx/ZyNS7GwQyU3H7oITl0X4xRcBqb4Cqn2TV4Mb0MVA2Z4PdlIxpyl
+	9W7P/TNxGfYBmoB27fKEYjLdwXIJp/9A5Si5ysC3lIGaujTfI1Q802lRZ/yUZ0oeoxeeWlqaPO1
+	QJz1Z+jAk+ej37eXQabtGH3RjPsPvaYW8UAh+lLYHqDicAqsfru/to7rbwSsrAfjmmupd+rxZWl
+	3Mopq+jeyBN6BcmAdI1qqXpAKyVzF0rQ58Dxoi2UC+hTjxkrRugwX/nuPoQEBMJojThI7yGujmi
+	FqVxO16buqE75SZD8Lyqw2WMZQozTcO
+X-Received: by 2002:a17:90b:518c:b0:39e:3554:4d0c with SMTP id 98e67ed59e1d1-39e54d38b01mr8032969a91.2.1789720862877;
+        Fri, 18 Sep 2026 01:41:02 -0700 (PDT)
+Received: from thangnn-Dell.vingroup.local ([202.60.105.126])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e5a3e3fd4sm2125644a91.6.2026.09.18.01.41.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 01:41:02 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Viacheslav Dubeyko <slava@dubeyko.com>
+Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	Yangtao Li <frank.li@vivo.com>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+f8ce6c197125ab9d72ce@syzkaller.appspotmail.com,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Subject: [PATCH v6] hfsplus: validate b-tree fork extents at mount and inode read
+Date: Fri, 18 Sep 2026 15:39:45 +0700
+Message-ID: <20260918083945.918170-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: arm: qcom: Add Xiaomi Mi 8 family
- compatibles
-To: David Heidelberg <david@ixit.cz>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
- Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli"
- <gpiccoli@igalia.com>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- phone-devel@vger.kernel.org
-References: <20260915-dipper-v2-0-cbade54919ee@ixit.cz>
- <20260915-dipper-v2-1-cbade54919ee@ixit.cz>
- <20260917-heavenly-weasel-of-criticism-1add6b@quoll>
- <b324f0b8-0875-457f-936c-89b858d082fa@ixit.cz>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <b324f0b8-0875-457f-936c-89b858d082fa@ixit.cz>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 17/09/2026 12:25, David Heidelberg wrote:
-> On 17/09/2026 12:21, Krzysztof Kozlowski wrote:
->> On Tue, Sep 15, 2026 at 04:32:24PM +0200, David Heidelberg wrote:
->>> +      - description: Xiaomi Mi 8 family
->>> +        items:
->>> +          - enum:
->>> +              - xiaomi,dipper
->>> +              - xiaomi,equuleus
->>> +              - xiaomi,ursa
->>> +          - const: xiaomi,dipper-common
->>
->> We do not make "common" compatibles.
->> git grep common -- Documentation/devicetree/bindings/arm/qcom.yaml
-> 
-> TBH I have mental issue with calling it xiaomi,dipper-dipper
-> 
-> All three devices are branded as own devices, just based on 99.9% same base.
-> 
-> I'm not aware of any internal name which group these devices.
-> 
-> I could call it like xiaomi,common, but there is the polaris and beryllium, 
-> which aren't "that common" with these three.
-> 
-> Do you have idea what to do in this situation?
+Validate fork extents during inode reading and mount time to catch
+on-disk corruptions early, returning appropriate errors and marking
+the tree as corrupted.
 
-Just don't use "common" or "generic" or anything close to it, because it
-confuses future contributors thinking "common" compatible is allowed.
-It's not.
+v6:
+ - Move fork validation logic into inode read fork function.
+ - Refactor extent validation helpers, use volume_blocks, count == 0,
+   and introduce HFSPLUS_EXTENT_LAST_IDX named constant.
+ - Return error from hfsplus_inode_read_fork() to allow hfsplus_iget()
+   to catch on-disk corruption and propagate error correctly.
 
-Except above, the actual names of compatibles are irrelevant, they just
-need to uniquely identify the device. Personally, I would not use
-nicknames at all for devices because they tell me nothing. Maybe they
-tell to you because you read internal source code, but not to me.
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+---
+ fs/hfsplus/extents.c | 41 ++++++++++++++++++++++++++++
+ fs/hfsplus/inode.c   | 65 ++++++++++++++++++++++++++------------------
+ 2 files changed, 79 insertions(+), 27 deletions(-)
 
-And if you google for Xiaomi Dipper, you will find first forks of code,
-so again not source information but derivative. Only fifth result is
-gsmarena website, but weirdly it does not have even "dipper" text
-mentioned. So basically using such names is counter productive to me,
-confusing and bringing downstream - postmarketos or lineageos -
-practices to upstream. Basically downstream forks create some codename
-and you push it to the usptream. You can, but I don't find it useful.
+diff --git a/fs/hfsplus/extents.c b/fs/hfsplus/extents.c
+index eb7c11524d18..737cf113f215 100644
+--- a/fs/hfsplus/extents.c
++++ b/fs/hfsplus/extents.c
+@@ -16,6 +16,47 @@
+ #include "hfsplus_fs.h"
+ #include "hfsplus_raw.h"
+ 
++/* Index of the last extent in the fork */
++#define HFSPLUS_EXTENT_LAST_IDX 7
++
++static inline bool is_extents_btree(struct inode *inode)
++{
++    return inode->i_ino == HFSPLUS_EXT_CNID;
++}
++
++static bool hfsplus_extent_valid(struct hfsplus_extent *ext, u32 volume_blocks)
++{
++    u32 start = be32_to_cpu(ext->start_block);
++    u32 count = be32_to_cpu(ext->block_count);
++
++    if (count == 0)
++        return start == 0;
++
++    return start + count <= volume_blocks;
++}
++
++/*
++ * Returns 0 if fork extents are consistent, -EUCLEAN if extents
++ * past the first are corrupt, or -EIO if the first extent is corrupt.
++ */
++int hfsplus_check_fork(struct super_block *sb, struct hfsplus_extent *ext, u32 volume_blocks)
++{
++    bool non_zero_seen = false;
++    int i;
++
++    for (i = 0; i <= HFSPLUS_EXTENT_LAST_IDX; i++, ext++) {
++        u32 count = be32_to_cpu(ext->block_count);
++
++        if (!hfsplus_extent_valid(ext, volume_blocks) || (non_zero_seen && count == 0))
++            return i ? -EUCLEAN : -EIO;
++
++        if (count > 0)
++            non_zero_seen = true;
++    }
++
++    return 0;
++}
++
+ /* Compare two extents keys, returns 0 on same, pos/neg for difference */
+ int hfsplus_ext_cmp_key(const hfsplus_btree_key *k1,
+ 			const hfsplus_btree_key *k2)
+diff --git a/fs/hfsplus/inode.c b/fs/hfsplus/inode.c
+index 2ce6de574fa6..57fedd0e80fb 100644
+--- a/fs/hfsplus/inode.c
++++ b/fs/hfsplus/inode.c
+@@ -559,34 +559,45 @@ void hfsplus_delete_inode(struct inode *inode)
+ 	hfsplus_mark_mdb_dirty(sb);
+ }
+ 
+-void hfsplus_inode_read_fork(struct inode *inode, struct hfsplus_fork_raw *fork)
++int hfsplus_inode_read_fork(struct inode *inode, struct hfsplus_fork_raw *fork)
+ {
+-	struct super_block *sb = inode->i_sb;
+-	struct hfsplus_sb_info *sbi = HFSPLUS_SB(sb);
+-	struct hfsplus_inode_info *hip = HFSPLUS_I(inode);
+-	u32 count;
+-	int i;
+-
+-	memcpy(&hip->first_extents, &fork->extents, sizeof(hfsplus_extent_rec));
+-	for (count = 0, i = 0; i < 8; i++)
+-		count += be32_to_cpu(fork->extents[i].block_count);
+-	hip->first_blocks = count;
+-	memset(hip->cached_extents, 0, sizeof(hfsplus_extent_rec));
+-	hip->cached_start = 0;
+-	hip->cached_blocks = 0;
+-
+-	hip->alloc_blocks = be32_to_cpu(fork->total_blocks);
+-	hip->phys_size = inode->i_size = be64_to_cpu(fork->total_size);
+-	hip->fs_blocks =
+-		(inode->i_size + sb->s_blocksize - 1) >> sb->s_blocksize_bits;
+-	inode_set_bytes(inode, hip->fs_blocks << sb->s_blocksize_bits);
+-	hip->clump_blocks =
+-		be32_to_cpu(fork->clump_size) >> sbi->alloc_blksz_shift;
+-	if (!hip->clump_blocks) {
+-		hip->clump_blocks = HFSPLUS_IS_RSRC(inode) ?
+-			sbi->rsrc_clump_blocks :
+-			sbi->data_clump_blocks;
+-	}
++    struct super_block *sb = inode->i_sb;
++    struct hfsplus_sb_info *sbi = HFSPLUS_SB(sb);
++    struct hfsplus_inode_info *hip = HFSPLUS_I(inode);
++    u32 count;
++    int i, ret;
++
++    /* Validate fork extents to catch on-disk corruption early */
++    ret = hfsplus_check_fork(sb, fork->extents, sbi->total_blocks);
++    if (ret) {
++        pr_err("hfsplus: fork check failed for inode %lu (err=%d)\n", inode->i_ino, ret);
++        set_bit(HFSPLUS_I_CORRUPT_TREE, &hip->flags);
++        sb->s_flags |= SB_RDONLY;
++        return ret; /* Return error directly to the caller */
++    }
++
++    memcpy(&hip->first_extents, &fork->extents, sizeof(hfsplus_extent_rec));
++    for (count = 0, i = 0; i <= HFSPLUS_EXTENT_LAST_IDX; i++)
++        count += be32_to_cpu(fork->extents[i].block_count);
++    hip->first_blocks = count;
++    memset(hip->cached_extents, 0, sizeof(hfsplus_extent_rec));
++    hip->cached_start = 0;
++    hip->cached_blocks = 0;
++
++    hip->alloc_blocks = be32_to_cpu(fork->total_blocks);
++    hip->phys_size = inode->i_size = be64_to_cpu(fork->total_size);
++    hip->fs_blocks =
++        (inode->i_size + sb->s_blocksize - 1) >> sb->s_blocksize_bits;
++    inode_set_bytes(inode, hip->fs_blocks << sb->s_blocksize_bits);
++    hip->clump_blocks =
++        be32_to_cpu(fork->clump_size) >> sbi->alloc_blksz_shift;
++    if (!hip->clump_blocks) {
++        hip->clump_blocks = HFSPLUS_IS_RSRC(inode) ?
++            sbi->rsrc_clump_blocks :
++            sbi->data_clump_blocks;
++    }
++
++    return 0;
+ }
+ 
+ void hfsplus_inode_write_fork(struct inode *inode,
+-- 
+2.43.0
 
-I would use proper model names, e.g. "xiaomi,mi-8" for final
-compatibles. Codename for family is fine, because simply there is no
-product which we could identify as common base...
-
-
-Best regards,
-Krzysztof
