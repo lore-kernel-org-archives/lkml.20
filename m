@@ -1,73 +1,74 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ADCA2DA75A
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 03:30:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89AE117D6
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 03:30:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789702234; cv=none; b=MoguU6I+5EXpOE3b6+5KbCVelE8CGh7MjcXn1wUsEyqm+6dhGR0TsZg0chSWD3vmgo6rymNQ3B/IMKeO8fh47yqVJqyfS/qrg9D31Xev0unoFG84ZnEXyWO+BKVzRFAvfScVYZaRXlD36KBDJYXVwO1M2QeLWZ1s1ckrXKeYHIo=
+	t=1789702245; cv=none; b=QTWhF63HlZGqt81rpDJf+iMQIkOQ96gfWv/TohjlWIl47T/3S2XoLYrSLXHIBBZYiEGau30WruCHD5DajTJI5IIYIjB5h1ORWclH0tWJq37dj0B9DXhiBTVg4wIogfiDAzbVlPEXY7CupkK30VU4Sp5UzPuQvCkrsENWsG28W1A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789702234; c=relaxed/simple;
-	bh=oL7iBYRGTXGLUYEI615o03nOb0m0bTLF3HdlXZTknbY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rhjze0lDQgMJHShKUxyqyH+jvSTL46XDJXv1iWGokcxuF8uVukrDQB0gN68yGVxCpfe6teS1nObfphdkVsVn6fW9cka0IMAtAcWQd8gEsToF+AUvHepcOvBhxp6GpNfoNv9fRBIbbty/Kt3vorQvaSKAeSuoTdNksFGX0SZYUik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mhkmqi3n; arc=none smtp.client-ip=209.85.216.47
+	s=arc-20240116; t=1789702245; c=relaxed/simple;
+	bh=Xp96osNKNV73rMrH2Cx3GnQRPM4ktS3CCX6WmIYhStg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=o6r3AkpacvzudZWq1Y5B97V3U8oKxVuMP+plWsk6ILmXAUFrIuFsKJAVBsb48yk6129jvnXvGin/943c6c78JJhaALjdJwh4qGNDZ28PfF10vNUeNPPgdVc5CWvzdbauDQ4finFETFjMHbblIscJNEmxo0Nf+QanqFedXY1kAwI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VXeOBp0N; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mhkmqi3n"
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-39647aa9d52so245057a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 20:30:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VXeOBp0N"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469b355ffso170564b3a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 20:30:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789702232; x=1790307032; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NsTXXf0bosmROP35BjT3pvO2TNvWL1hxMB3vfvtmPCY=;
-        b=Mhkmqi3n/qPy4geBhcotXJHzyx2Es70VcFh2hL+VhOw/XMh+f+hDb5mxtWhGN0XO0s
-         bQvMZG6gHxAEMcxBe/kjtedQ680T7cMj/xeYppEoWDZLDFdehcsyoIQeoC5qwll8ac+1
-         716FO/PcB52SwuwUl3+u48UZIQbLJyPJtkjq3xVzFYH34m7q0YGVoXGQ5jN2w/C+qpq9
-         CCAAbmPZos3NCYYd48Qn4AmVS8t5vjT/l1IEoNO1f8lRsd655QyoM0fJkV4soOlxeQkK
-         YF01lYpwfVQA6BZI9oXZOnyqoDphQrBLAWFsMNQXe8Ek0T0Tot1ykXSdZzCl9xoS8yxb
-         CkDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789702232; x=1790307032;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789702244; x=1790307044; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NsTXXf0bosmROP35BjT3pvO2TNvWL1hxMB3vfvtmPCY=;
-        b=JcVijHp8Q1JxiLqdZ1/GAeGcZAs7Zg3DHv195bSmE28lUlv9Lo8izx/KmyHGxHeFGu
-         gShivMtsS906MsUDAYvyeUkSNexVHouY5JxOR/oOJ/6iu8OMOMMpxt+fAkpvZ7Kwa8VK
-         l0Jwr0L0CQbktOkZ78wVUiEnZD4Eyea82rwf0zdtzJ35SXnQE+EY6WyvKlhheRXidcWN
-         /JrE2niyIXP0xtG7ZAjhCwVyzTjhw1Y29GbvlWFa44q6ui71V0z47nBBel6B36C9X1d+
-         86h1JvC1v9bG5Q6ow5gzTao8ThusVWg5QZQcCkmpa6WHw8f5Enchb+HvNVbiX/MbrdjJ
-         6k2g==
-X-Forwarded-Encrypted: i=1; AKwUvBym8FZQT7qbzEp4j6Rk9TvwLBTH/qpGcpUzkEqyWb/geBAmO0YjFKsuMzB42uyGH6xxhTVl/VQqaBYNz7E=@vger.kernel.org
-X-Gm-Message-State: AFuF++kAnj65Ztsq8k3mWu0tu/JbVmB2ISQcBUttF7jCCZ1ABqcunpFj
-	zVVN2Jp/BFtd9OpV5359sgrqpdh5B+DvwedZSkC1gTezs2bTVgLvnKZ6QX7byA==
-X-Gm-Gg: AYBFou0iYPfkl3UnpZp7QxdsDFVt9Etevqi2PayEUSg3spyHouLBsAMLnPhwA2phMrm
-	5Ht+EXmSWq5zYhhtizS+m4QBxsVzeu4t9rDcCW8RUCAXTkMFsmgM+a4wyPulmo5c+JtJpW/1XOu
-	dCJjb8fEjGjgyzGvu3G2pleKnUEQg10oKwM5zC2Zkrz3O0+cH4LqZk0OmqxzmMzKyNXOSa3q1gZ
-	5WB8vQwzmbttvDRp/2FCcac5Fu5UxhAml8AlJFy/yOT0CKMSUPuYBMqoW2M/PrZnllGNS0+rcir
-	EFrF8Ff6BIr9oK0c+X+SoJUqU5yD2vvXwCdRbb9aOsw1fnevNC5x0OA6Ius4Inn8xne/jDBgDyC
-	uL3CHjdMQwdijxHImtxViqORbOPvoZLYa3YRBOOsllkaxp0ovLgVKfonT7euQMW407uxfri3KIb
-	RMqRcdpgFkXwFgUAD9QkSQ9Lfptc+ktomxSCfc9DvqO7yqHIW1tK7sfg==
-X-Received: by 2002:a17:90b:4acc:b0:39e:5ba1:ccee with SMTP id 98e67ed59e1d1-39e5ba1d12amr457366a91.24.1789702231551;
-        Thu, 17 Sep 2026 20:30:31 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c2874bb0csm613271eec.16.2026.09.17.20.30.28
+        bh=Xp96osNKNV73rMrH2Cx3GnQRPM4ktS3CCX6WmIYhStg=;
+        b=VXeOBp0NGLL2JDTUR4QepzxPPIZkwP98ChfKFuUpHlWF4r17izghrAByMDL5p7McTM
+         FxiSELWVP4jrS36Nk/SagEuhRpbXGIQK21kthjfe/WLOGWAWnr2nov1XBfG9j8LjOm1r
+         QmoNiFQ69fIlCWW5z2HWsXG4WIEsZ82w0iLakbnoGVP9KMXdD6r630Ob1jKLVdJWBMEw
+         I1Svpty9JIPLus6vHHxF7K85EJUIqV1uHtM5WaVfYCZ5ZQvdfBDZgEoiN3fTKAmXE4r0
+         1FtxCa/iKqf5ui2SrHB9I4dGl1ZlhiryXS8peMZ/MzIP8cRvYmMJo6nKZQpqJJqWj6H5
+         6L5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789702244; x=1790307044;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Xp96osNKNV73rMrH2Cx3GnQRPM4ktS3CCX6WmIYhStg=;
+        b=FXrgVZxRPqiZy1+1cIVb1gcN8SwbuPAjmxHWWWYvcup1bg6BGT3xlgzU8T5WiQJzZ8
+         vc1z2fEhPjrBdU8HCojSqhLbY4uTrd845XgImj981oeVolQBiRHporjg0DC7hJ51cMrG
+         Gm/C2KJEjDfDxaPgJRpkrVkS0A/LszoElvJTGLxlsi9Jquix4ASXEEo2SnIx8p1QeZBq
+         ttGAe3cajvxMsDs+rxGjb2lQvx2kUZs2lIkwBvyMAhLML0kiSsqDf1yOJr+OAMy2fnM2
+         X86Z7Qub/zqb+CAYhj7AX/Crwjz5C9aX4IH0jiWIFrPG3mQUIa/ySiwtjCrS7pxrlcss
+         aqqA==
+X-Gm-Message-State: AFuF++kyWNDFeq2xk7wQXpaEQDwWrCGfvZVBuT8TGNuqnlTg8+rk8huQ
+	KskCvemEqUmswFESssPC47B/O/dwGHOOs/hpEWf8scC3zFqIrZh6s9KC
+X-Gm-Gg: AYBFou1WulPaT+IAxYg8C8xTTx+cNwqg3Z88C3kIs0dSEnAWVRiVAw3SnvuTrZXmP9C
+	ITvX7kB0K9vOou4zkbHqHElnbB6zGHje2bb8KCMKde0t4NVgZlaZc6eYUszMQ3qrp3vOXTWv1xP
+	b11D3vkk69fD7zLl8CFYyZ0EB2m5LUOfk0porCu/e0Ts3wyqBYYa3EDKocPEuFDr4ukOqmlQQSG
+	fZoAWmji6CXaQ+e5BuhDpj6esrF/Bm6yKKCKL0ex8uk9uV2r2oux8CuB6U4rf590ZsrI6Dk6lVR
+	sX/7zypVwJXZFce2asH1Se0D327ItHIOw1GWbVnEOZGW4qZETuAu2JCuaSWtsuUPDRpq3fPyXBX
+	PDfkx6QZFd2T6xZuN5NC3ctpDGnCN4mwIb/c+TcvsKu9V5wCeTNbIXx/s2MulRfYP6bSP+UPWyE
+	kVWRzdEdk7/SRLrPZaZGhi0YTL+5dpifQjdjqI3iuEmzZpKKTrKVWbYy5ohMtBYnXDk21dKX63G
+	uE=
+X-Received: by 2002:a05:6a21:7105:b0:3c4:3321:4fe9 with SMTP id adf61e73a8af0-3dd8c3d20d1mr2273049637.7.1789702243765;
+        Thu, 17 Sep 2026 20:30:43 -0700 (PDT)
+Received: from bloom.localdomain ([2604:3d09:178e:e100::c570])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc5bfbb4db4sm156353a12.8.2026.09.17.20.30.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 20:30:31 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	Ed Blake <ed.blake@sondrel.com>,
-	linux-pwm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] pwm: img: stop using autosuspend on remove
-Date: Fri, 18 Sep 2026 11:30:17 +0800
-Message-ID: <20260918033017.3441183-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Thu, 17 Sep 2026 20:30:43 -0700 (PDT)
+From: Ivy Lopez <skunkolee@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	Ivy Lopez <skunkolee@gmail.com>
+Subject: Re: [PATCH] USB: phy: remove unused phy-mv-usb.h header
+Date: Thu, 17 Sep 2026 21:30:37 -0600
+Message-ID: <20260918033037.22622-1-skunkolee@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260918024758.359928-1-enelsonmoore@gmail.com>
+References: <20260918024758.359928-1-enelsonmoore@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,38 +77,6 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-img_pwm_probe() enables runtime PM autosuspend with
-pm_runtime_use_autosuspend(). The probe failure path disables
-autosuspend again, but the remove path only disables runtime PM.
+Reviewed-by: Ivy Lopez <skunkolee@gmail.com>
 
-As a result, the runtime PM autosuspend setting is left enabled after
-the driver is unbound.
-
-Call pm_runtime_dont_use_autosuspend() from img_pwm_remove() to undo
-the setting established during probe, matching the probe error path
-and the runtime PM API requirements.
-
-This issue was found by manual code inspection.
-
-Fixes: e690ae526216 ("pwm: img: Add runtime PM")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/pwm/pwm-img.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/pwm/pwm-img.c b/drivers/pwm/pwm-img.c
-index 91e0b19f0c08..c0747f5e0020 100644
---- a/drivers/pwm/pwm-img.c
-+++ b/drivers/pwm/pwm-img.c
-@@ -339,6 +339,7 @@ static void img_pwm_remove(struct platform_device *pdev)
- 	struct pwm_chip *chip = platform_get_drvdata(pdev);
- 
- 	pm_runtime_disable(&pdev->dev);
-+	pm_runtime_dont_use_autosuspend(&pdev->dev);
- 	if (!pm_runtime_status_suspended(&pdev->dev))
- 		img_pwm_runtime_suspend(&pdev->dev);
- 
--- 
-2.43.0
 
