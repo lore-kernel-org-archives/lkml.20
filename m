@@ -1,163 +1,152 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B873925783C;
-	Fri, 18 Sep 2026 06:14:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0B4954706D
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:14:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789712072; cv=none; b=RoDPmmf10q/T6bsFkz2InkC6vozsAOQtGs7DDabN5G3CguH9bdPjG87KEZQ8l/uZU32a2VAuppoCQmwQYj0G6nqm1l6/+jb+ytanU3vfTa5ghKMv2avgO6aqtUAc5deILoAFkkS9xapfjF/cZc4nTA7TpnKHXfYfaCjPQ/PbX6I=
+	t=1789712083; cv=none; b=MzkanFtmUClHJQyqQECotAP+LEymskmD+9r1XwwiQkbx/Tso4srxYv328fTdAP3x2W9d2ntlbZu2zyonaPhWoNP5w1eaWsH859Yo3X2TyNUsOF29dBeJCtqrxXNbHWRxZvDJzRuAVIVO+t8h24hoAfIgHoTT5h4aiWIylAhWjuQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789712072; c=relaxed/simple;
-	bh=EK2AHSZ8BENId800FO3a2AqmLSU1kHK/FpjeFLd2FD8=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=A01bhQuxnjeSfCOqloL0bqzuVyssv19/GqzJDkIy/ydmsD3071cBnaBgC2nD9SZm8EGeO/IHpn53sEv4XgqmJaISnzy4RDSwTc/Q7r08VjJRYvKe1EKKjeSLbZM5knQqVagWmuvoPOc4ZvVVtgAKMkzBFMxQpCQHchaHVfK1A5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oh14vswn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789712083; c=relaxed/simple;
+	bh=MMdfsddj0V90lDqIrzn9cncv5M5TYurfTAjcAXpfwIo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QGYlEUsS2huMN0vIwupj67nxZrOkRZGGKXC9H1NqRnsvSKf2LaGZT58BZDFW/5hCRv+mNuyu/VZWfr9Zvq07UWzeWHaNkfZFEvGHDyDXMExP99JCLKg/Joc8/zFhhOOGjoTX7DazR7CfA/mk+dvGvFQ2tURsylFb38+SWbIWCUc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=otP3upcn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oh14vswn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDE7D1F000FF;
-	Fri, 18 Sep 2026 06:14:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="otP3upcn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBD641F000FF;
+	Fri, 18 Sep 2026 06:14:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789712070;
-	bh=/vQTG5gemaY8/t4xYDs1UjQjmKMD4ZqF1G7e+0JF5fQ=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=oh14vswnzx4u99APsY5e/6yCS1jVF3j1r13yHsnUp+fj0u+UvYi2A/JjZtl/9oDhE
-	 aC/ftwVv6QRzRsB5TlevRC45/h6mWyPp3iYsgJkMZN/ZVLlC//Uo/UeZClhSIv70kE
-	 iUJcRBTnPQ8ERN2XUSS1VyhH+l7KBt60QHcRw7j1wzq5wL0QROaUeUcl6NbAnxk5fM
-	 J291a8oAkCKIAR8KQuF407UeQ+IifTlEgjkAKsL5mLNcViVnp59lfY3Lw2Fa/Bd2hL
-	 FV8EoYM3wZajpNLRSihgOFklNI3wOLVWIiQjxeaUIh3sdcQ8u7oS7liE3VN75OHUlV
-	 D1gM1uOchZiqQ==
-Subject: Re: [PATCH net] eth: fbnic: Avoid rounding zero ring sizes
-From: netdev-bot+sashiko@kernel.org
-To: bjorn@kernel.org
-Cc: alexanderduyck@fb.com, kuba@kernel.org, kernel-team@meta.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- pabeni@redhat.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- mohsin.bashr@gmail.com, mike.marciniszyn@gmail.com, joe@dama.to
-Date: Fri, 18 Sep 2026 06:14:29 +0000
-Message-ID: <178971206933.22033.236948278674126701@kernel.org>
-In-Reply-To: <20260915181229.4159158-1-bjorn@kernel.org>
-References: <20260915181229.4159158-1-bjorn@kernel.org>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1789712081;
+	bh=QW/2OE6ihA5SygTL3ENfiEwrR7oH0H/ao5/23GWCpoA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=otP3upcnF/PdMiljpfNt/pX7FBoUKThHlCjIOr4ocBN6YGLnvSzlu4n4le8nm2m7D
+	 J/1HVEoYxd8AcLxccybfuBhL80HWwXeUPJvd1Z/eehiCpYux1nFjpGhm6yrNQgu8mk
+	 f+m6E0/s7mYEkF49Oszhalv+9kvFP7F/rqUG+K4Y0rdY8Vvn63HPWeF2zBiTD1/Sx5
+	 mMzOWD/fTEin1uB3zArAhRrJKlWnf5LFsp8Z5vr/I89NtAVxUmdYf4kKIpIxXxbgO1
+	 n0EPKP0fHl/M+i3enV0AeM1z4tLsVDuOGqxUknUuhzdO8FlxTF7Yu8Ro735NFVk6hc
+	 QB6YMAcTcHNIQ==
+Message-ID: <58e3b456-7389-4752-8de5-1cc82964c3c7@kernel.org>
+Date: Fri, 18 Sep 2026 08:14:31 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 02/10] powerpc/8xx: add pte_set_huge()
+To: Wen Jiang <jiangwenxiaomi@gmail.com>, akpm@linux-foundation.org,
+ catalin.marinas@arm.com, linux-mm@kvack.org, urezki@gmail.com,
+ will@kernel.org
+Cc: Xueyuan.chen21@gmail.com, ajd@linux.ibm.com, anshuman.khandual@arm.com,
+ baohua@kernel.org, david@kernel.org, dev.jain@arm.com, jiangwen6@xiaomi.com,
+ leo.yan@arm.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, rppt@kernel.org,
+ ryan.roberts@arm.com
+References: <20260917052933.188679-1-jiangwenxiaomi@gmail.com>
+ <20260917052933.188679-3-jiangwenxiaomi@gmail.com>
+Content-Language: fr-FR
+From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+In-Reply-To: <20260917052933.188679-3-jiangwenxiaomi@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider:
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-- [Medium] In fbnic_set_ringparam()
-  (drivers/net/ethernet/meta/fbnic/fbnic_ethtool.c), moving the minimum-…
+Le 17/09/2026 à 07:29, Wen Jiang a écrit :
+> From: Wen Jiang <jiangwen6@xiaomi.com>
+> 
+> vmap installs PTE-level block mappings (SZ_16K/SZ_512K on powerpc/8xx)
+> by reusing set_huge_pte_at(), a HugeTLB helper gated by
+> CONFIG_HUGETLB_PAGE. This makes the feature silently unavailable on
+> CONFIG_HUGETLB_PAGE=n kernels and couples mm/vmalloc.c to HugeTLB
+> internals it does not otherwise need.
+> 
+> Add pte_set_huge() to powerpc/8xx, next to the existing
+> pmd_clear_huge()/pud_clear_huge() in mm/nohash/8xx.c. It builds the huge
+> PTE and writes it into the backing cells directly, without going through
+> set_huge_pte_at(), so it does not depend on CONFIG_HUGETLB_PAGE.
+> 
+> No pte_clear_huge() is needed: 8xx does not implement
+> arch_vmap_pte_range_unmap_size(), so the vmap unmap path never takes the
+> block-mapping branch.
+> 
+> In practice PPC_8xx selects HUGETLBFS unconditionally, so
+> CONFIG_HUGETLB_PAGE=n does not occur there today; this is a decoupling
+> cleanup rather than a new configuration.
 
---
+8xx selects CONFIG_HUGETLB_PAGE because it uses set_huge_pte_at() to map 
+kernel text with large pages. That was added by commit 34536d780683 
+("powerpc/8xx: Add a function to early map kernel via huge pages")
 
-eth: fbnic: Avoid rounding zero ring sizes
+But now pte_set_huge() could be used instead in 
+__early_map_kernel_hugepage() and then CONFIG_HUGETLB_PAGE could be removed.
 
-The patch moves the roundup_pow_of_two() normalization of the requested
-ring sizes in fbnic_set_ringparam() to after the minimum-size checks, so
-that a zero ring size coming from userspace is rejected instead of being
-fed to roundup_pow_of_two().
+> 
+> There is no caller yet: mm/vmalloc.c is converted later in this series,
+> once the generic fallbacks are in place.
+> 
+> Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
 
-> diff --git a/drivers/net/ethernet/meta/fbnic/fbnic_ethtool.c b/drivers/net/ethernet/meta/fbnic/fbnic_ethtool.c
-> index 0e47088ec44ba..8954fcd08cb31 100644
-> --- a/drivers/net/ethernet/meta/fbnic/fbnic_ethtool.c
-> +++ b/drivers/net/ethernet/meta/fbnic/fbnic_ethtool.c
-> @@ -334,11 +334,6 @@ fbnic_set_ringparam(struct net_device *netdev, struct ethtool_ringparam *ring,
->  	struct fbnic_net *clone;
->  	int err;
->  
-> -	ring->rx_pending	= roundup_pow_of_two(ring->rx_pending);
-> -	ring->rx_mini_pending	= roundup_pow_of_two(ring->rx_mini_pending);
-> -	ring->rx_jumbo_pending	= roundup_pow_of_two(ring->rx_jumbo_pending);
-> -	ring->tx_pending	= roundup_pow_of_two(ring->tx_pending);
-> -
->  	/* These are absolute minimums allowing the device and driver to operate
->  	 * but not necessarily guarantee reasonable performance. Settings below
->  	 * Rx queue size of 128 and BDQs smaller than 64 are likely suboptimal
+Reviewed-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
 
-[Severity: Medium]
-With the roundup moved below the checks, the minimum-size test in
-fbnic_set_ringparam() now compares the raw userspace request rather than
-the rounded value.  Does this reject nonzero sizes that used to be
-accepted?
-
-The effective minimums all evaluate to 64:
-
-drivers/net/ethernet/meta/fbnic/fbnic_txrx.h:
-    #define FBNIC_TX_DESC_MIN	roundup_pow_of_two(FBNIC_TX_DESC_WAKEUP)
-    #define FBNIC_RX_DESC_MIN	roundup_pow_of_two(FBNIC_MAX_RX_PKT_DESC * 2)
-    #define FBNIC_QUEUE_SIZE_MIN		64u
-
-FBNIC_RX_DESC_MIN is 16 and FBNIC_TX_DESC_MIN is 64 for the common
-MAX_SKB_FRAGS == 17, so max(FBNIC_QUEUE_SIZE_MIN, ...) is 64 in every
-case.
-
-Previously a request like "ethtool -G ethX tx 40" was rounded to 64 first
-and then passed the check, ending up with a 64-entry ring.  Now the check
-sees 40 and returns -EINVAL with "requested ring size too small".  The
-same applies to any rx, rx-mini or rx-jumbo value in 33..63.
-
-The ethtool core does not enforce a minimum, it only validates the maxima:
-
-net/ethtool/rings.c:ethnl_set_rings() {
-	...
-	/* ensure new ring parameters are within limits */
-	if (ringparam.rx_pending > ringparam.rx_max_pending)
-	...
-}
-
-and ethtool_set_ringparam() in net/ethtool/ioctl.c does the same, so those
-values do reach the driver unchanged.
-
->  	/* These are absolute minimums allowing the device and driver to operate
->  	 * but not necessarily guarantee reasonable performance. Settings below
->  	 * Rx queue size of 128 and BDQs smaller than 64 are likely suboptimal
->  	 * at best.
->  	 */
->  	if (ring->rx_pending < max(FBNIC_QUEUE_SIZE_MIN, FBNIC_RX_DESC_MIN) ||
->  	    ring->rx_mini_pending < FBNIC_QUEUE_SIZE_MIN ||
->  	    ring->rx_jumbo_pending < FBNIC_QUEUE_SIZE_MIN ||
->  	    ring->tx_pending < max(FBNIC_QUEUE_SIZE_MIN, FBNIC_TX_DESC_MIN)) {
->  		NL_SET_ERR_MSG_MOD(extack, "requested ring size too small");
->  		return -EINVAL;
->  	}
-
-> @@ -368,6 +363,11 @@ fbnic_set_ringparam(struct net_device *netdev, struct ethtool_ringparam *ring,
->  		return -EINVAL;
->  	}
->  
-> +	ring->rx_pending	= roundup_pow_of_two(ring->rx_pending);
-> +	ring->rx_mini_pending	= roundup_pow_of_two(ring->rx_mini_pending);
-> +	ring->rx_jumbo_pending	= roundup_pow_of_two(ring->rx_jumbo_pending);
-> +	ring->tx_pending	= roundup_pow_of_two(ring->tx_pending);
+> ---
+>   arch/powerpc/include/asm/nohash/32/pte-8xx.h |  4 +++
+>   arch/powerpc/mm/nohash/8xx.c                 | 29 ++++++++++++++++++++
+>   2 files changed, 33 insertions(+)
+> 
+> diff --git a/arch/powerpc/include/asm/nohash/32/pte-8xx.h b/arch/powerpc/include/asm/nohash/32/pte-8xx.h
+> index e2ea8ba9f8cae..1ee3f8f0de974 100644
+> --- a/arch/powerpc/include/asm/nohash/32/pte-8xx.h
+> +++ b/arch/powerpc/include/asm/nohash/32/pte-8xx.h
+> @@ -235,6 +235,10 @@ static inline pte_t ptep_get(pte_t *ptep)
+>   }
+>   #endif /* CONFIG_PPC_16K_PAGES */
+>   
+> +#define __HAVE_ARCH_PTE_SET_HUGE
+> +void pte_set_huge(pte_t *ptep, unsigned long addr, phys_addr_t phys,
+> +		  pgprot_t prot, unsigned long size);
 > +
+>   #endif
+>   
+>   #endif /* __KERNEL__ */
+> diff --git a/arch/powerpc/mm/nohash/8xx.c b/arch/powerpc/mm/nohash/8xx.c
+> index a9d3f4729eada..2518d2a6bdb41 100644
+> --- a/arch/powerpc/mm/nohash/8xx.c
+> +++ b/arch/powerpc/mm/nohash/8xx.c
+> @@ -220,3 +220,32 @@ int pmd_clear_huge(pmd_t *pmd)
+>   {
+>   	 return 0;
+>   }
+> +
+> +/*
+> + * vmap PTE-level block mapping. Sets a present kernel mapping directly,
+> + * so unlike set_huge_pte_at() it needs neither CONFIG_HUGETLB_PAGE nor
+> + * set_pte_filter() (a no-op for non-exec kernel mappings).
+> + */
+> +void pte_set_huge(pte_t *ptep, unsigned long addr, phys_addr_t phys,
+> +		  pgprot_t prot, unsigned long size)
+> +{
+> +	pmd_t *pmdp = pmd_off(&init_mm, addr);
+> +	pte_t pte = pfn_pte(PHYS_PFN(phys), prot);
+> +	pte_basic_t val;
+> +	pte_basic_t *entry = (pte_basic_t *)ptep;
+> +	int num, i;
+> +
+> +	pte = arch_make_huge_pte(pte, ilog2(size), 0);
+> +	val = pte_val(pte);
+> +
+> +	/*
+> +	 * Make sure hardware valid bit is not set. We don't do
+> +	 * tlb flush for this update.
+> +	 */
+> +	VM_WARN_ON(pte_hw_valid(*ptep) && !pte_protnone(*ptep));
+> +
+> +	num = number_of_cells_per_pte(pmdp, val, 1);
+> +
+> +	for (i = 0; i < num; i++, entry++, val += SZ_4K)
+> +		*entry = val;
+> +}
 
-[Severity: Medium]
-Was the reorder needed to reach the stated goal?  The commit message says
-only:
-
-    Validate the requested sizes before rounding them so zero is rejected
-    deterministically.
-
-It does not mention that previously accepted non-power-of-two sizes below
-the 64-descriptor minimum now start failing with -EINVAL.  Since the patch
-carries a Fixes: tag and is therefore a stable-backport candidate, could
-the changelog spell out that user-visible change?
-
-Would an explicit rejection of zero, or clamping in place with
-max(min, roundup_pow_of_two(...)), address the undefined
-roundup_pow_of_two(0) without altering which nonzero requests are
-accepted?
-
->  	if (!netif_running(netdev)) {
->  		fbnic_set_rings(fbn, ring, kernel_ring);
->  		return 0;
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260915181229.4159158-1-bjorn%40kernel.org
