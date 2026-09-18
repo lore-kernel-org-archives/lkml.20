@@ -1,169 +1,114 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A14AD308F07;
-	Fri, 18 Sep 2026 08:20:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 315994A6CF7
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:20:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789719632; cv=none; b=VobZamXOmcndL1VslmNINep5txmKmcXTaA04qqyJamslGrWFv1q+WI1k5YLnXi7IlVpvdlerBUJt0p7oT1OlriF026BC3YV0y+RVbYADZudWt/7Kh6cby7mejbc3lrTgxg1TIe/5j1ehorP4gDYz5pgmVD24bd1nuBqGmJBkfMM=
+	t=1789719633; cv=none; b=mxQqAt0INVfARrMw4dTsRfZ1wyUZpfqaEsiusZE1etNwwKGA1wMhtEaMtVtfDvm1Vc21FhjI3jiBIw789My2g8WjbPeNWSr86Mjq9a/Cx34h8DIHS3ONTA1tJ44BHwiIT4wxJbUjxcEQnupxCdz4ZG/A7Tn3nS5MOSbTk14yz9A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789719632; c=relaxed/simple;
-	bh=JNIK7u6mInvCMxY6FaQiAgHvzKb1MvHSQiv5hjoikNg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=q+RNPXfJ1jReUBpxe1GNvC9J5t4DM1mNqd7Q7u6xsSolDZ9+dvsizNZTq1mC3uKdFEaGT5v52Xghq6o4k9KMj9U8VQFwbLVLuIoh1Av+aPUEZ3LyFu4UhYwU5SN1MDBy+ph8pJaUVSqrPXz8tuspFS6eopdvY4wc8eXOa3HXmhs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=MnzEimwo; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1789719633; c=relaxed/simple;
+	bh=kLk/qXepwU+Sdk80TMQeIbWMJ2U8WIHPfybN4YV+JME=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jp2bLE5hRngpSG9y4xb4sYAURgtWMW55X/hMFaoXvujHyDxR6QlgqFhfPA3wR40SmPWsYjV+5eNS7OA+gsdkFvrMWjLtn2o++fuKfprXL++Z0G0kfepupe67W1RdlGK4HJqjWQRl12u2N/0osUPQHnawsXfpNZZHCBIpTB/hMlU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=GfZhkueG; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="MnzEimwo"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I61q9u498803;
-	Fri, 18 Sep 2026 08:20:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:sender:subject:to; s=pp1;
-	 bh=9ebaq4jI8BxC90+bE9u0d7hONVv9ZncHpvrVPI4KBVw=; b=MnzEimwodcTv
-	GxqA3OD+pv07TmF2nN67QUy0aWGUtdtSK8CFSJFtf+zVWK/hyEgI1mUvg0jRD2gg
-	PorIbezpFlRZabIXnmbvZ6ikZuEwdgCIRj8IjDmO8PIyvJTG6RHJsjnTxoE1ujiR
-	d9xjWhihjvEgyQHzpWwYMmH7ggw+W13NTxKlr00sHaEeTj19wi0FexGloM/pKvTw
-	3HAPMS0ZZZa3GZNAjCZP2B4MPx9+VssKrHc1yIV4Cog/XVkLeKfUQneV/TuvtBDx
-	tmoJ6RuRJuUoOAnbpeQxujF7xaZDTxT2CcGxbnXIlGBTcBO5n90qkeFLgVThfWeY
-	UorEYIYdDw==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmxcvechn-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 18 Sep 2026 08:20:29 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68I652Zw246075;
-	Fri, 18 Sep 2026 08:20:28 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gr5ffef44-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 18 Sep 2026 08:20:28 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68I8KOve46268778
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 18 Sep 2026 08:20:24 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id BCC5220043;
-	Fri, 18 Sep 2026 08:20:24 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A910F20040;
-	Fri, 18 Sep 2026 08:20:24 +0000 (GMT)
-Received: from p14sgen6-pf6akexs (unknown [9.224.70.27])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Fri, 18 Sep 2026 08:20:24 +0000 (GMT)
-Received: from bblock by p14sgen6-pf6akexs with local (Exim 4.99.5)
-	(envelope-from <bblock@linux.ibm.com>)
-	id 1x7TpY-000000011ut-1noS;
-	Fri, 18 Sep 2026 10:20:24 +0200
-Date: Fri, 18 Sep 2026 10:20:24 +0200
-From: Benjamin Block <bblock@linux.ibm.com>
-To: Niklas Schnelle <schnelle@linux.ibm.com>
-Cc: Gerd Bayer <gbayer@linux.ibm.com>, Matthew Rosato <mjrosato@linux.ibm.com>,
-        Farhan Ali <alifm@linux.ibm.com>, Julian Ruess <julianr@linux.ibm.com>,
-        Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Ramesh Errabolu <ramesh@linux.ibm.com>,
-        Tobias Schumacher <ts@linux.ibm.com>,
-        Halil Pasic <pasic@linux.ibm.com>,
-        Peter Oberparleiter <oberpar@linux.ibm.com>,
-        Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/4] s390/pci: Fix leak of struct pci_dev reference in
- zpci_report_status()
-Message-ID: <20260918082024.GA241998@p14sgen6-pf6akexs>
-References: <20260916-fix_zpci_report_status_pdev_leak-v3-0-61a2f980e71d@linux.ibm.com>
- <20260916-fix_zpci_report_status_pdev_leak-v3-1-61a2f980e71d@linux.ibm.com>
- <20260918081749.GA39182@p14sgen6-pf6akexs.fritz.box>
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="GfZhkueG"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48583cc7ab1so190943f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:20:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=lex.la; s=google; t=1789719629; x=1790324429; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kLk/qXepwU+Sdk80TMQeIbWMJ2U8WIHPfybN4YV+JME=;
+        b=GfZhkueG67ji7CUb0Rfltx208ZVE+73rhV67eFSK58cn0I5oYNQ4nXdy+WeM25JB9X
+         3pIItIIWfGqLRQCJulU9NCd8I/lgoAFp45CVR+5kET/WhYB8SQiuhbJWqzGL9/6TfAxn
+         JM1iSHyIILuMVYKwjDYmRqhyRNJMwhtX4zt6pF51fySAdlcx8BiPK5lxiIzvffiq/m7E
+         4ZZ4lVLBBjAEyZDWEefLquUF8rgAuZ4SPSyeTKpoPwJEJIY+jOujjfJeg9XzPXRJyzLy
+         lFjzK7YrO02G4TuvrQa8jZQaIlJRHkrrNvtUSRSCmpt+NfxU7U1K8pkWFzz42EQstIun
+         F9jQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789719629; x=1790324429;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kLk/qXepwU+Sdk80TMQeIbWMJ2U8WIHPfybN4YV+JME=;
+        b=x2wizKuSepED1v0z0VIaP7b1UcYyOaJmh/NxmNX5Ng+Qin02Bkdc3gYKHkmbc7hrZ1
+         zxd/wCboimBk8gi6LeEqcj0hOofTYKB83LI8xpiQxjoB5MehmX6WCDes7BAWK470Xpr+
+         AqRwSBYP8JqzlGUuiS3agb/tWUB57vSyc4BvXeiKcaBsRqL4HQXopVEYilqCgM6q+0uS
+         ZU72XI2/rVZma50iqbLHqOStRTlfAh6shSwcyG6wy7PpxN0q4HKTVB2dX0yu4NKW4jtt
+         2Rjf8eYv3/PsIvhsfwAmOHwiicWGG7e5uE/e6jXTtBYf0Rf1ASxTLQOy6lzoFL/oPQJI
+         1Jbw==
+X-Forwarded-Encrypted: i=1; AKwUvBwUlY3zeuaqnkj0zULkX6DHs8Ux6pXQDjb4bj3QcHCVkP7w+Pkkc41OqMe+omp1DJxvdQMCWX/kMpW/IaY=@vger.kernel.org
+X-Gm-Message-State: AFuF++m4KyoFC57a5yZYh0DYxAMhqaanAOg57Z6xz9BjMf4QbC1WcOuN
+	j2WccmhdHjfIekXGKEQVsspk54YwexPMJ2kyk+xVMUsH6rgKABrG7GcfCz7r3NfVr/Y=
+X-Gm-Gg: AYBFou2IXlgHOyCAgDe25iWkK85LjrYszApsKtTVMMKe1UEs2B9JtEHif0ncRiIPEm+
+	adVd1f7jxM5mDnzhvb62DVSzgUj8k5oh+KIugKWCWFQADxQ17se4YZB8JFBopL/rgZ6g0ZakmdD
+	nKaOC7cooaxsJz2146p8jAGxulEu5ZAZHiraTj7iAPpR0rhb0orHShmmrzM155YXSWc8CAwieWv
+	8knhWwRH8wiPrAu4bQHzz4Egp/ExN/i1y1bIbj8o3cZLAuhd8H2gRfiqBtIDa8CgIiOuYuDypRt
+	JR8lFtQ3GZa6iXYWd3BUtxyjANmtuke6jgSoPkPeVFTehHkp1UGE/az0HE//2dI6eeUalXPMfd5
+	ZbmfwLuG9Dzze5KSzV3Hrc6UudHQFslnCzoymhJZ/nAixYkcG3IsrdDPQK3MlMWVcXzg8KhRbOG
+	mNedto0f/iRh+zZWVQ5VyJIDE//idc9iN1Q1gopoI5ihZhLYj42A==
+X-Received: by 2002:a05:6000:603:b0:487:41c:515b with SMTP id ffacd0b85a97d-4871e25e2a9mr2371051f8f.30.1789719629172;
+        Fri, 18 Sep 2026 01:20:29 -0700 (PDT)
+Received: from remote-01 ([84.17.55.229])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4871ff56905sm2152472f8f.20.2026.09.18.01.20.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 01:20:28 -0700 (PDT)
+From: Aleksei Sviridkin <f@lex.la>
+To: andrew@lunn.ch
+Cc: netdev@vger.kernel.org,
+	chester.a.unal@arinc9.com,
+	daniel@makrotopia.org,
+	olteanv@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	gerg@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH net v2 1/2] net: dsa: mt7530: fix NULL dereference on unbind of MT7531 and MT7621
+Date: Fri, 18 Sep 2026 11:20:23 +0300
+Message-ID: <20260918082024.2697569-1-f@lex.la>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <857a7395-4741-4d2c-abb0-b806e8f9bd78@lunn.ch>
+References: <20260918015020.2518315-1-f@lex.la> <20260918015020.2518315-2-f@lex.la> <857a7395-4741-4d2c-abb0-b806e8f9bd78@lunn.ch>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260918081749.GA39182@p14sgen6-pf6akexs.fritz.box>
-Sender: Benjamin Block <bblock@linux.ibm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDEwOSBTYWx0ZWRfX+JRTk+8mHucR
- +0TUJ/zIhzHKzWOmsdpDrbuwsTjexLRH33rZ9Uhugk0ymFwJAz3HdkygJAZ4aaksT9v7r5e3xbj
- YRS+KvTW+PmVjQlv7gpjRt1HZxhErJU=
-X-Proofpoint-ORIG-GUID: Nr913FyeI6ekTHtiDhAfOZ2_ko73Z_Ws
-X-Proofpoint-GUID: Nr913FyeI6ekTHtiDhAfOZ2_ko73Z_Ws
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDEwOSBTYWx0ZWRfXz7ocu++5y+k1
- mc2mF8qtEVShht3edzLXM4Axt3C0m4rz8NHbr6+Fye80Z3eDjOJJKeh+vRtUkHaraTtcRkAqt3B
- E23VX3j2cXqULD9JNAFDE2nLFe1PLiaDvfMoIiqvsywM/HVmEqnJo8vyzmwTc9OkJZOymghLT99
- chgUUbsFxSHtHboLpy0UytTVtT1hSMHAFb86oXEcKnGmKCHBQgihQsMDEDSCypS3IOrBB0Jy8oi
- IhS7J2crR5cDv/FHQ1t2PnCPhgQNuT+wD1cMhJJACIg9sGEN55wd0D7zr+buP8fIuUIrXUNd6Qv
- M+3bpu6QdN0ldLBqg0cUS/+R458Uez7APAScElmxDX5a8u8ud6W27yjvGXY6WrrULf/+iWy88ju
- wGUgf2WPWX7t8pVY2Kk/z0BCjI2LRzFuw43GCZgHSJeZRqh64QBs7HwEBx2tIp4sjuXrz3yi2Zp
- U0SwTMs70Sy4GgCdGtw==
-X-Authority-Analysis: v=2.4 cv=F+7C5ahN c=1 sm=1 tr=0 ts=6aacf44d cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=8nJEP1OIZ-IA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8
- a=VwQbUJbxAAAA:8 a=StGZvYVBVS-s6NpHmy0A:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-18_02,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 phishscore=0 clxscore=1015 malwarescore=0
- lowpriorityscore=0 bulkscore=0 spamscore=0 impostorscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180109
 
-On Fri, Sep 18, 2026 at 10:17:49AM +0200, Benjamin Block wrote:
-> On Wed, Sep 16, 2026 at 05:14:10PM +0200, Niklas Schnelle wrote:
-> > In zpci_report_status(), a reference to the pdev associated with the
-> > zdev being reported about is acquired using pci_get_slot(). This
-> > reference needs to be dropped with pci_dev_put(), but this call is
-> > missing, thus leaking the reference. On subsequent hot unplug, this will
-> > cause the struct pci_dev to not be released, leaking memory and
-> > preventing reattach.
-> > 
-> > At the same time, the only existing caller already holds a pdev
-> > reference. So instead of reacquiring and then dropping another reference,
-> > simply pass the existing pdev pointer to zpci_report_status(). This gets
-> > rid of the need for pci_get_slot() as well as the zdev->zbus check.
-> > 
-> > Cc: stable@vger.kernel.org
-> > Fixes: 4ec6054e7321 ("s390/pci: Report PCI error recovery results via SCLP")
-> > Signed-off-by: Niklas Schnelle <schnelle@linux.ibm.com>
-> > ---
-> >  arch/s390/pci/pci_event.c  |  2 +-
-> >  arch/s390/pci/pci_report.c | 11 +++++------
-> >  arch/s390/pci/pci_report.h |  4 +++-
-> >  3 files changed, 9 insertions(+), 8 deletions(-)
-> > 
-> > diff --git a/arch/s390/pci/pci_event.c b/arch/s390/pci/pci_event.c
-> > index f317a1465dad..3b4941b65840 100644
-> > --- a/arch/s390/pci/pci_event.c
-> > +++ b/arch/s390/pci/pci_event.c
-> > @@ -298,7 +298,7 @@ static pci_ers_result_t zpci_event_attempt_error_recovery(struct pci_dev *pdev,
-> >  	pci_uevent_ers(pdev, PCI_ERS_RESULT_RECOVERED);
-> >  out_unlock:
-> >  	device_unlock(&pdev->dev);
-> > -	zpci_report_status(zdev, "recovery", status_str);
-> > +	zpci_report_status(zdev, pdev, "recovery", status_str);
-> 
-> Hmm. Wasn't one of the previous fixes to move the lock below the status
-> report?
-> 
-> Why is that missing here again?
+> Did you consider using devm_regulator_get_enable()?
 
-Ah, nevermind, it's in the next patch. Bit confusing. Anyway, since it doesn't
-make things worse, and it's fixed one patch later this should be fine.
+No. Looking at it now, it is the better shape, but not for this patch.
 
+Two things stop it from being a swap. The driver sets the voltages before
+it enables, 1.0 V on core and 3.3 V on io, and get_enable returns an int,
+so no handle is left for regulator_set_voltage(). On the BPI-R2, which is
+also the example in the binding, both supplies are MT6323 regulators with
+a range, vpa 0.5 to 3.65 V and vemc3v3 3.0 to 3.3 V, so those calls are
+not decoration. The other is placement: the get is in probe and the enable
+is in mt7530_setup(), which DSA calls much later and which resets the chip
+on the next lines, so get_enable would bring the rails up at a different
+point.
 
-Reviewed-by: Benjamin Block <bblock@linux.ibm.com>
+It is still worth doing, for a reason this patch deliberately leaves
+alone. mt7530_remove() disables the supplies before
+mt7530_remove_common() calls dsa_unregister_switch(), which still writes
+switch registers over MDIO, so on a board where those rails really drop
+the teardown is talking to a switch that is already off. A devres disable
+runs after .remove returns and would fix that too.
 
--- 
-Best Regards, Benjamin Block        /        Linux on IBM Z Kernel Development
-IBM Deutschland Research & Development GmbH    /   https://www.ibm.com/privacy
-Vors. Aufs.-R.: Wolfgang Wendt         /        Geschäftsführung: David Faller
-Sitz der Ges.: Ehningen     /     Registergericht: AmtsG Stuttgart, HRB 243294
+So I would keep this one as the NULL check with a Fixes tag, and send the
+conversion to net-next, where the voltage handling and the power-up
+ordering can be argued on their own.
