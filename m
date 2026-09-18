@@ -1,156 +1,137 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010004.outbound.protection.outlook.com [52.101.56.4])
+Received: from mta-65-227.siemens.flowmailer.net (mta-65-227.siemens.flowmailer.net [185.136.65.227])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42AEA326D4A
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 22:48:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.4
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789771733; cv=fail; b=J7A0K7WrTzz1a7dIw3YxSmh63JSslfdgmhLBLylPnk5XodVgR7JuLcBnHRvW6bT1fZb1WfvwPW8WanfNsnLumlGjOVMfcP0THM4mDnwcO3iDlRxXaect4QjqIh2YTCaNo3seKYVOsKSjUo8OT4kzV+maNeYgGQhZOHhBOfUeVdU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789771733; c=relaxed/simple;
-	bh=waUg78Pxdrgk59W30ZnnNp9Isc6c/MuLiHjAYs3eMpo=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=hbXotfMnkJ732sLtrVfDKdGmqbFLSSb9NaztYwSFNJRi6zJ/8IgdbsoI2kUtVgnO9uFsp16sHVprclh55aU0GCSAwkYgA/9hh/DML2GQuNi4jePfIJYzVQiiWRYySNqc/YLze57Ac1EOr/nbXMq56pOWPqhip+56mghlzfj5kLY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=OyXcO/vl; arc=fail smtp.client-ip=52.101.56.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ED193B0AE8
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 22:49:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.65.227
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789771804; cv=none; b=d2xMA5ccsQtv4AjrZ0vgZTJtTWLKhn2tW1uynojrNsfpGTz/BvJuw4X+3d3IxGnSO5PaYB5F4cXsz7ovGyp7a7okVFs+K7y5GsK69zgawv7OffJssZfq655w+JA4kPhBSqALdt3XvXQcaqf3jzk61o+E3/nD9+2BNw93RMlc194=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789771804; c=relaxed/simple;
+	bh=LEyAaVhzvhSsgDRqQgbBUU5XfES+acdxhcOorykFmX0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dV3QwHhDeknbkN0M3XOOuUwpVE1if18+4xwE8CVhCmKoospGgTBOoCbOBvb6G4ZqMmhtqgkazTuwt+FeshLEnMBlroBKFftR3ec/O0k8F8T2H//tmxN/k+U9Mo/tpnqWrexd4XY02Lh+IexXkCB3+g32JH0jKLjQBWxjOPLnVik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alessandro.zini@siemens.com header.b=ZdBVv5Z3; arc=none smtp.client-ip=185.136.65.227
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="OyXcO/vl"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UyGtWXBrxPdH+TqSkaQ2aGSB8J9cv/Joi6ili0RpsuBIgxuANIJ7Cyj0kWeReAa0W1HbYzF6P24tnixYDq6TwB78d01dxsPeHyZ1MHTK08SUVlcvefZfryiP81HRht3pb2QxlaFe3uKUdTyTi0r1bVbyBLUIRGUiYjLj4rJLQmpdr4qaoJqPgGxGWkOBYvRSVQXiWnn732XMweO5/rKGVxZEC66Er6BSmMcdybTPkxXvG2iGZHAeWT3t/LtFeMxab8vi5K2Quvy6aYlHqYejXJP/j9D1ylJanwEaLbMJCHNHL39rSdzNDOOI1X32zSmgxa6paDRRleby3tG05/4z3w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=waUg78Pxdrgk59W30ZnnNp9Isc6c/MuLiHjAYs3eMpo=;
- b=eDSLJ7IBnQzoT7G0Ka7lIl51ooz0D8HuolCgUcacCojdjQjgLUVlGatyYfC294NC7TOSi1fYSQZCG66ISQQBLyAqONZi1zoaxuwX6PG2sScJXuwUgxkiTc5DHFxHU5wUuDIuXz9PGoBRHYE+R7+0Sj1iKfeY7WuIiLNCrSwKQH/LBzMmEZz4mLOAA52M8DfAk4p26Olyf7LUDnzGZiL0CXgjr9fat2jD4Ap5U3q1XgOP3KP14MJZfCuk2LHECdaSj0R89pBWMX6kEwEcLOxkCH4fMafO2qwtW/G1/ANFXJuaus/nxek4/NWvvPYDxMlrCNzgyyCHumFBSU2pPKZuhQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=waUg78Pxdrgk59W30ZnnNp9Isc6c/MuLiHjAYs3eMpo=;
- b=OyXcO/vlB2ErLYIwSQ2RqUgMUZz+K98RQckM8rryq9Idp8cNl4wmYUEb2Q3lsOjawYtA24dpSlLB72wRRSUgY6Vb7+dMEBihXClZTHnKLYt2XVU9uUY52lY7VDymqG1Q+ZYirVOM1hXhP7Tu419Dj94Ps6rB9FIlvI4dzHWFTAcdw8fGj+F8uak4HB/GDCjEGNZPboLEwdJmKAjFj/Z4HcnG/1iVYIYDcQVEv1upGQxgctQRYEXY3Rx+EuK8GehrHkg5d/R1HdIYqKK7YAUDyBzN2eiyWUZIojl72FZVbmh1SGlYIFc+Uu+M2vAXcFPs9vrouYsoqi2WAh7cWm6TYg==
-Received: from MN6PR12MB8568.namprd12.prod.outlook.com (2603:10b6:208:471::19)
- by CH2PR12MB4309.namprd12.prod.outlook.com (2603:10b6:610:a4::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
- 2026 22:48:47 +0000
-Received: from MN6PR12MB8568.namprd12.prod.outlook.com
- ([fe80::f13:fa29:e7b3:4d3a]) by MN6PR12MB8568.namprd12.prod.outlook.com
- ([fe80::f13:fa29:e7b3:4d3a%5]) with mapi id 15.21.0406.007; Fri, 18 Sep 2026
- 22:48:47 +0000
-From: Timur Tabi <ttabi@nvidia.com>
-To: Alexandre Courbot <acourbot@nvidia.com>, "dakr@kernel.org"
-	<dakr@kernel.org>, John Hubbard <jhubbard@nvidia.com>
-CC: "lossin@kernel.org" <lossin@kernel.org>, "a.hindborg@kernel.org"
-	<a.hindborg@kernel.org>, "boqun.feng@gmail.com" <boqun.feng@gmail.com>, Zhi
- Wang <zhiw@nvidia.com>, "simona@ffwll.ch" <simona@ffwll.ch>,
-	"tmgross@umich.edu" <tmgross@umich.edu>, "alex.gaynor@gmail.com"
-	<alex.gaynor@gmail.com>, "nova-gpu@lists.linux.dev"
-	<nova-gpu@lists.linux.dev>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "ojeda@kernel.org" <ojeda@kernel.org>,
-	"bjorn3_gh@protonmail.com" <bjorn3_gh@protonmail.com>, Eliot Courtney
-	<ecourtney@nvidia.com>, "airlied@gmail.com" <airlied@gmail.com>,
-	"aliceryhl@google.com" <aliceryhl@google.com>, "bhelgaas@google.com"
-	<bhelgaas@google.com>, "gary@garyguo.net" <gary@garyguo.net>, Alistair Popple
-	<apopple@nvidia.com>
-Subject: Re: [PATCH v3 27/33] gpu: nova-core: switch to the r000 GSP firmware
-Thread-Topic: [PATCH v3 27/33] gpu: nova-core: switch to the r000 GSP firmware
-Thread-Index: AQHdRwpFpZN1FCVnA06a1Z2w0g4zTrbU8aOA
-Date: Fri, 18 Sep 2026 22:48:47 +0000
-Message-ID: <9dfad8ed0c689a40828a4cdc4562d067ca5bc3bf.camel@nvidia.com>
-References: <20260918010719.1176945-1-jhubbard@nvidia.com>
-	 <20260918010719.1176945-28-jhubbard@nvidia.com>
-In-Reply-To: <20260918010719.1176945-28-jhubbard@nvidia.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Evolution 3.56.2-9 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MN6PR12MB8568:EE_|CH2PR12MB4309:EE_
-x-ms-office365-filtering-correlation-id: 8302ad45-3c4f-4e1f-d9ae-08df15d6fffb
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|10067099003|11063799006|18002099003|22082099003|4143699003|56012099006|38070700021;
-x-microsoft-antispam-message-info:
- XGv4PR2F7segXQxpHa+n8pQjU8ykG5LemlcNQ/D3QUHNJ4qunwXgITimjh4P1dYR953HGwKCqxrq51xzTp5c8oCxPAUyLey/BUmbCN5FJOrMuBkfk2Ogtv5+p2L8RA9E3NyxGBh/JMVGGD+gcuQQcg3/Q6o6E8ylAKRYiRQm2ySjAOp2venadx5wJmo6ly6zZ1W3ptxjlr0sSS4HV/ToUjPPbB85RpndmaHHYE+F/qpCL51BiyH/lFgohpTvkpPgHHiKnAXJpjkzIEEoCHTRlwi7ys/10OA5s/Bp0CmRj8NSHeysAhU54VYUybwUqBW+zZnNdDuawXDvL7yMdbgmUZo1LuZMHOVmMJUhT4DorRual3gUKqVWlo9nkL7yw6QP4oB8QZpp+lBSbeKuDBjxFJgSCmS/8tpR/X8kWL0swsB1D9fz5z39YjTGpsAF4r0luxajv601HIvsd3K03kAhHnhi2kCweV4vmujIC3lFRuyuhppST90/A17kuCsUCAhZ9ezQIg92528lb2oXsh/ZLdNaeznKcVE8Z5/J6DiXbsuFKyh9LLYquikD46UzeQlycPLWEGRUGScNk9qr2sYpz9iG3KAT48Vwhh/NsH0gfdU4D6CSTyKeglYFYwsRIJCK7Bz3WlRTPYmvFEo7ZrGwFYtDNZCgNYu6fmW9bP+Qk9fF4WZubxq6ujP0LBd0dVRZorvYvjMlQUoBlHGjm7j0FA==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN6PR12MB8568.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(10067099003)(11063799006)(18002099003)(22082099003)(4143699003)(56012099006)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?Sk1HUTRLdmZ5cUJlMERpRnpOR2dJK0dITkxNbkh1V25DSVFLcVZSNEpmK3Rn?=
- =?utf-8?B?OVVuQ3hBZVNqUHdyck4vTS93VEVReGxSRmRENi9LSHlrZjAvNWYrV2hCTnVC?=
- =?utf-8?B?TzZmeTJoYUFQOVRKNjBTVXhZZ280VkEwMElhcFZ6VkdYYlBmcjhhUHpNTUtK?=
- =?utf-8?B?UHhDNmZZMGJnR1ZRQUtvdmpLUUs2bGhrVjR1bW15ai9sWVE2d1JvejF3eXAw?=
- =?utf-8?B?TTkyems2VE8yZlVpRHdjb3dpSEVQb3Rka3ljNjROTDNNQWR2RjBuZkZPTzZv?=
- =?utf-8?B?U25KaDFIUnBJQUduOExaQjdFZDQ4bXlDd21pMjUzZGNkVXg2YkcrOHZOSFVi?=
- =?utf-8?B?NUNDSjkwUlNhMTBOL1ExaFRuZE4rbTQwcDg5WkF0ZmkxOWF1OHpXZjAyd1l2?=
- =?utf-8?B?bGN2LzUxU1JOSmRYamw3UlFJbENHdnBRcDFvT0kzdXF1ZzRnekRhMkhqUk05?=
- =?utf-8?B?WWU3VnluZ0RqMFM5OSt5cjRjY0J5bXpGWFhyZjdpaGhWbFZrcWhPK1YwdEEx?=
- =?utf-8?B?aWJOV3RCQk10aGRJTjNLWE0yTlVpSjBSZTN1R3puRUJxMTlhT2tpZ24vRjF6?=
- =?utf-8?B?UHJ0bldkeTR4OGt0Z2RTNHhRanQraStZbGowRHVRbnNuUndWeFdWUW9sa01i?=
- =?utf-8?B?VDBDVEJud2ZuZ25FUXBIaDcySzZyZFJpUXMvcklEUVpWK1JsNFA1Y3pnY29l?=
- =?utf-8?B?citzWVRRUWxOUzhjMjUyMm53eENLa1VpUEhPdFY2NkZFbE4rTVJIcjlzNDRY?=
- =?utf-8?B?bFJiZmR1VUJqNEE4RDFGVlJudGhGcSt3NHltcGhvR3ZxOXZubGVSZ0JkVzk2?=
- =?utf-8?B?NGxBREdIT0h1dVRsdGNqTVJwY21mZWFOWEtzNzdvazgrSzVxQ29XTDJwNEly?=
- =?utf-8?B?bkxNZjFXTVpMQWsvcktvVGFodHpEQkJFYlkzRC9rKy94eE5mbUFveTkybHBy?=
- =?utf-8?B?ckV3WGtYVytvcFNjTWlxdlh2OWxTNDZFaFRzK1dleHRnbWZVUkdJOE5BNEEx?=
- =?utf-8?B?YWNSeDhTdUZTR2Zld0g3T0tsM1UwM1AyQ1YzcDBDZDdIOGU5WHBnWFUxNUJK?=
- =?utf-8?B?MUh1TnIzcFVVSzB4MlVqY0JUZm8zUTBkR0FvdGhvMEwxV0RBY3JtaEVhQXI2?=
- =?utf-8?B?dEd4TFMwWjZZeGJOVjlhMURvZWlXbEJlTHVpRjRTbTZOMFFnV2VCem9sTWhu?=
- =?utf-8?B?dVJIRUJwWmdpUkFoMTNBSGhEclNGY3RyV0pOc1FoV2dPN0RUekFTNW5EdlVO?=
- =?utf-8?B?SWhYUlRESUVKSHlJVU9lcUVEOWpoYXF4ZnJ1eERHOXVIYzZkNVg1d3FWVWJl?=
- =?utf-8?B?K3lIZzVPZ1B3MHpVWWljTUVhcURKdGZkOSszMU5RWjlGZUhVcEJ1ZjNSemxL?=
- =?utf-8?B?VVNhLzlLUXJNeEtrUzM2OGt4WXEwaG9ia3FlTVJzeGozZ0piMHNPc2RuSm43?=
- =?utf-8?B?VkEydktaMjkzQllxU0dOWlVJVU41bGhmVWZZRnVmUFpDNm9wL3lGVTJ3N0xL?=
- =?utf-8?B?Q0dNWVRXdVBkM2w4NEt2bWJ5VUNtZ01Qa1lZS2lwQ1ZubFZ5US96TzNuay9Q?=
- =?utf-8?B?VzJITlpDREduUC9iMU5zVkxiSXFkUmNhZXlCQ2RGRno0VzUyeVMva3ZtNmsz?=
- =?utf-8?B?UklHZG5Ka2Z5aFFjUVhrQkM2NUQrTlN5dnZHbEEvQitmZlJ6NkxWRXM1ZnFB?=
- =?utf-8?B?a2JOTjZLS1hlMXVtaDRSdzFjdkcvcDZ2QXh2UW5FMi9GQXpvS1pYd3diQnZ6?=
- =?utf-8?B?Z3hLd210Ulg2Z1lvckxWUlRjWlZHWEdLYWtZOFArWUhTTVExMW4zNGQwdGJB?=
- =?utf-8?B?UjNLQ1hNWStvQ2EzOXBJRWxYclNHMG8zNU5zSXQ1V3BNckcxYi8yK3dtYnNM?=
- =?utf-8?B?RkRFdG1hck9FRWQwTWlkVG13NlZiOFhsUjY4bGlNSjBzSkFCSEkycklTOThq?=
- =?utf-8?B?NExYQlltd21zWkFDcExvOGs1VzRJR2xYRG9IUWZheE1XMlhXYlpMaDdGNlkr?=
- =?utf-8?B?QUJUa0lwY1FxenNmVlJzdFZ6SFhHdWFCL1hGMXE5ZGRJR3VDV1AycG9nalBT?=
- =?utf-8?B?NWNSd1c3NW5USWt3OFpFbDN5bFMrK3FVZXp6WmsrOCszMjBOTHNZRERIV0Ex?=
- =?utf-8?B?aGNOb05vWGs3ZU8vN1dMRUNXWk14SUdoWWQvNlRWZjVRTVRWSk9jT3J3a1Vy?=
- =?utf-8?B?N0JrMzM1WnR4S2d4UHl6YUhXeG81Z0p4WDFoeFlzazlyTmVPbGp4Y0l5K29M?=
- =?utf-8?B?UGVmQ3JRYUR2ODRQNWY3OGFhQi9HK0lxMjlsOFkyUW1GMGhMYndYcXJUS251?=
- =?utf-8?B?Y3lRSjhJL3RnSVAveGRNVmhSWUx4dXJ1enBOQ0poQmw5RXNoei9Udz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <2A5F7419C6F5B14DB4DD0A8BB2BAE8A1@namprd12.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=siemens.com header.i=alessandro.zini@siemens.com header.b="ZdBVv5Z3"
+Received: by mta-65-227.siemens.flowmailer.net with ESMTPSA id 202609182249477c4aa254f10002077b
+        for <linux-kernel@vger.kernel.org>;
+        Sat, 19 Sep 2026 00:49:48 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
+ d=siemens.com; i=alessandro.zini@siemens.com;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
+ bh=M9GFPJKsaPxZfCgvjZf9vaV2eAIMvLSEw19T5lmjtbI=;
+ b=ZdBVv5Z3TSPLoqniqU7lOqQ1PXIngn/kA+huaCZP4SDicb7Gz0Of58tAUIQwjVzJlSD8Me
+ HMkuroNZCa/ZE2siYkLGKXR7Hwit2tCZQcOI3XySR44zL5o3o9ueUmluClfTPDG3PitoGNEI
+ oAe6tHWZ4qdZty9qsTWaPQZamtNdmaPRjgmPBApHPku4Sru6bjPZk1A7ARHEOfwK9yCMHU88
+ D3enpZ8+jOLJYkF8RmWqyao1o/zILpm7PcGg5R0+7lZV5TLeSt+q9zXMLm07cUxf9nUwcmzP
+ qyDzNTST3dYEl41/RmRUAWuLr/XI5Rgdwtc+YwmFl8T5eO39Bro2DnwQ==;
+From: Alessandro Zini <alessandro.zini@siemens.com>
+To: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Ciprian Regus <ciprian.regus@analog.com>,
+	Qingfang Deng <qingfang.deng@linux.dev>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Alessandro Zini <alessandro.zini@siemens.com>
+Subject: [PATCH net-next v3 4/4] net: ethernet: oa_tc6: add reset-gpios support
+Date: Sat, 19 Sep 2026 00:49:34 +0200
+Message-ID: <20260918224934.51998-5-alessandro.zini@siemens.com>
+In-Reply-To: <20260918224934.51998-1-alessandro.zini@siemens.com>
+References: <20260918224934.51998-1-alessandro.zini@siemens.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN6PR12MB8568.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8302ad45-3c4f-4e1f-d9ae-08df15d6fffb
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Sep 2026 22:48:47.1385
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: h1I88BbHtGBuO46i27z7GYNJYItHDYs4EijU0nQHYhyPpfugWo2wHxYvsSikbywVLsY1LbXOxahiFQ9Cbe+z5g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4309
+Content-Transfer-Encoding: 8bit
+X-Flowmailer-Platform: Siemens
+Feedback-ID: 519:519-1327013:519-21489:flowmailer
 
-T24gVGh1LCAyMDI2LTA5LTE3IGF0IDE4OjA3IC0wNzAwLCBKb2huIEh1YmJhcmQgd3JvdGU6DQo+
-IA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9ub3ZhLWNvcmUvZmIvaGFsL2diMTAwLnJzDQo+ICsrKyBi
-L2RyaXZlcnMvZ3B1L25vdmEtY29yZS9mYi9oYWwvZ2IxMDAucnMNCj4gQEAgLTc5LDEwICs3OSwy
-OCBAQCBmbiB3cml0ZV9zeXNtZW1fZmx1c2hfcGFnZV9nYjEwMChoc2h1YjA6IE1taW88J18sIHJl
-Z3M6OkhzaHViMFJlZ2lzdGVycz4sIGFkZHI6DQo+IMKgwqDCoMKgIGhzaHViMC53cml0ZV9yZWco
-cmVnczo6TlZfUEZCX0hTSFVCX0VHX1BDSUVfRkxVU0hfU1lTTUVNX0FERFJfTE86Onplcm9lZCgp
-LndpdGhfYWRyKGFkZHJfbG8pKTsNCj4gwqB9DQo+IMKgDQo+IC0vLyBUaGlzIFBNVSByZXNlcnZh
-dGlvbiBzaXplIGlzIHI1NzAtc3BlY2lmaWMuDQo+ICsvLy8gUE1VIGJhY2tpbmcgc3RvcmUuDQo+
-ICtjb25zdCBQTVVfQkFDS0lOR19TVE9SRV9TSVpFOiB1c2l6ZSA9IDkgKiBTWl8xTTsNCg0KSSBk
-b24ndCBzZWUgdGhpcyBjb21tZW50IG9yIHZhbHVlIHJlbW92ZWQvY2hhbmdlZCBpbiB0aGlzIHBh
-dGNoc2V0LCBzbyBpcyBpdCByZWFsbHkgNTcwLQ0Kc3BlY2lmaWM/DQo=
+OPEN Alliance 10BASE-T1x MAC-PHY Serial Interface specification
+(v1.1, section 8.2) defines an external RESET pin as an optional reset
+source for the MAC-PHY.
+
+Add support for an optional reset GPIO in oa_tc6_init(). The GPIO is
+requested asserted, kept asserted for 10 us and, once deasserted, 1 ms of
+settle time is allowed for the crystal oscillator startup before the
+initial TC6 control protection check and software reset are performed.
+
+As the reset handling lives in the common library, it is available to both
+users of oa_tc6_init(), the lan865x and the adin1140 driver.
+
+Suggested-by: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>
+Signed-off-by: Alessandro Zini <alessandro.zini@siemens.com>
+---
+Changes in v3:
+- Request the GPIO with GPIOD_OUT_HIGH and drop the now redundant
+  gpiod_set_value_cansleep(..., 1) call, as suggested by Qingfang Deng.
+- Return the error from dev_err_probe() so that -EPROBE_DEFER is
+  propagated to the driver core.
+- Reworded comment to stay within 80 columns.
+- Sorted the new includes into the existing include block.
+
+Changes in v2:
+- Moved reset GPIO handling from lan865x.c to common oa_tc6.c as suggested
+  by Parthiban Veerasooran.
+ drivers/net/ethernet/oa_tc6.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+
+diff --git a/drivers/net/ethernet/oa_tc6.c b/drivers/net/ethernet/oa_tc6.c
+index 8c82bc8354ede..364027c39fa4a 100644
+--- a/drivers/net/ethernet/oa_tc6.c
++++ b/drivers/net/ethernet/oa_tc6.c
+@@ -6,6 +6,8 @@
+  */
+ 
+ #include <linux/bitfield.h>
++#include <linux/delay.h>
++#include <linux/gpio/consumer.h>
+ #include <linux/iopoll.h>
+ #include <linux/interrupt.h>
+ #include <linux/mdio.h>
+@@ -88,6 +90,7 @@ struct oa_tc6 {
+ 	bool disable_traffic;
+ 	bool prot_ctrl;
+ 	enum oa_tc6_quirk_flag quirk_flags;
++	struct gpio_desc *reset_gpio;
+ };
+ 
+ enum oa_tc6_header_type {
+@@ -1504,6 +1507,22 @@ struct oa_tc6 *oa_tc6_init(struct spi_device *spi, struct net_device *netdev,
+ 	if (!tc6->spi_data_rx_buf)
+ 		return ERR_PTR(-ENOMEM);
+ 
++	tc6->reset_gpio = devm_gpiod_get_optional(&spi->dev, "reset",
++						  GPIOD_OUT_HIGH);
++	if (IS_ERR(tc6->reset_gpio))
++		return ERR_PTR(dev_err_probe(&spi->dev,
++					     PTR_ERR(tc6->reset_gpio),
++					     "failed to get reset gpio\n"));
++
++	if (tc6->reset_gpio) {
++		/* Keep the reset asserted for 10 us and then allow 1 ms of
++		 * settle time for the crystal oscillator startup.
++		 */
++		fsleep(10);
++		gpiod_set_value_cansleep(tc6->reset_gpio, 0);
++		fsleep(1000);
++	}
++
+ 	/* Check the PROTE bit status so that we can reset the device */
+ 	ret = oa_tc6_check_ctrl_protection(tc6);
+ 	if (ret) {
+-- 
+2.55.0
+
