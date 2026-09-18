@@ -1,159 +1,313 @@
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011020.outbound.protection.outlook.com [40.107.130.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88844521222;
-	Fri, 18 Sep 2026 20:41:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789764084; cv=none; b=EJmtQn3jn7xNEHH3SysytilzNSeFoF6gbLNOYrTYcBgvh2bIgI23ldD7ooKjnfHjOaTwvrnC9pWrA9E5kW2zaCyeuaaG5a+Basm7XCgdliOztXeCpvBmPij+D/OFZCHSecpUI16AIaXLXPZkSqTAZNu5ZIvmpYc51XjUgQ80Q0w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789764084; c=relaxed/simple;
-	bh=krnEVcPRjsvI/YheRRigqAj60jRYDADgWthzf5WX6yw=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version:Content-Type; b=Wi8boQYN9yz1aZYGMCcBhEDeimwBtoAnDSvY+oYW3BsrklEE4LMZvOZ7aVCLhbBOaFanAqZ+woSrlurvOMMRyBNsTXksBbRSf5EN3Ul9xcUcuibCQptbosrHTYTkSFkDrDI33CB6Z7EtqzLxedxg2JmygI+5v/N0yx0xDsbOPww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=c+zPaT7a; arc=none smtp.client-ip=143.255.12.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AFAE37FF6F
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 20:42:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.20
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789764123; cv=fail; b=X0gOxjgacrWeDJDvnzBLaeUnMjrzNnG3AdrC2fuBh61axB6bbQHwd+cn1Yh8UYaHUX0KgGnGi3B3/BdESU9ExCp6M3svPP3I2ljhrN4Co8EGMgVY9GYqIDJBTdufbC+pEF+ymP4uFvX4+fUV3CF7XZrQr2vZNkQtjjFKmx8Uh0k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789764123; c=relaxed/simple;
+	bh=4/fADVhRuHTZ2KE+oKKrboirjDBxsJq3zoNzZEIxDxo=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=D1lttfQ2THQawK9VVNehsIZU1lDci6WCARWX9xv0SKsvrywi/PrL+Xgx0YHejaKzAV/Nu4m5CUf65A+gBYPtEGcE+/Z94F5uWjQob8enEFCSu+UQiD0D00r4B67rF2XpaPWc3L0SVK1nGZPCmJRM+L5wRtfegGO4cjaJFi7Pj98=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=YiZvxnyJ; arc=fail smtp.client-ip=40.107.130.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="c+zPaT7a"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Date:Subject:Cc:To:From:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:In-Reply-To:References;
-	bh=Sym3cY4YlURqJS9d12+xAmHD4/clM5+K3eTe1dMcLSc=; b=c+zPaT7aJsIT52dwRUVswWyD+8
-	LhO0btr0WcRBADo63tk1Wfa9w/23m7yweE5YUQkgYesgp3iNudWyzXBzAyP36f2mQ8xuph455BFvn
-	yiNcyq4Wy9nCd6Expi+EhQuJeSbhujT5DLQuNxYhC9eU9EHE2Ivgfi1uX+3miSFtSw6x8I73NCpsf
-	PdBhLC3kZNIgn6gMGL2e2BtcUGdsSH795q3yoqv9RNFk4Rs4f2vuIlTbxbfNXyVTV0vAv93BIooGY
-	LCZnXNqx8BMHA+fYrunNMVHFkWXdvXjOYXMDSRtDy90FZfc7pMOa5XQmA8PQ5yoNveMJC5WDiJ87I
-	QSI1338g==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
-	id 1x7fOT-00000001lpK-25Ip;
-	Fri, 18 Sep 2026 17:41:13 -0300
-Message-ID: <e1bfb4b2fa19f5f67b17ed2fcf141c7b@manguebit.org>
-From: Paulo Alcantara <pc@manguebit.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, linux-cifs@vger.kernel.org
-Subject: [GIT PULL] smb client fixes for 7.3-rc4
-Date: Fri, 18 Sep 2026 17:41:13 -0300
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="YiZvxnyJ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ITLOll+7hjdbnAvEo42RnPVr7N98VB5RnsdfDiQ+jFHfgPQL5Z/e4xOeoFO34daBgY/BJGBkxfOXcC0dWCW6gljpr0BAsuwrz5lXqlGeTUvT95cZVB6blmKW4cJK+36FDAqKk7Y7u7mAlz/ibEJPM7zzGbyEgXdQkxcOQOGz1O5rkdIBZrCwf1nq7L4xhm5zYn0jHrqGFXxNVlz6fgEGzp0zlAa64eLfFleOtG7A/7dV4yEacJzPg90rGlqXw1Cz9GXgicPR5sg0826gG4ywu5V8z0ub1tuLDNl7USuOpYUJCKIPozJiYb9BUVU2t2o62kPtmxRYpkFOlq8pJh/dxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PoCLmnvN9/Gv03dJN01jJX9SZp2d/GxsNGSYOfEsSG8=;
+ b=vcNqZEFvGirDrWB+XqulrDJCuzxp1/Znc+KTBxPRNphYGtXhdpgnB2cA15aVctHtPAHhrp1JFv2WF3iY2HD0phPGXtxe+F59UiCl26biwd6gKrtCLmYvKpnFt1w9Onl7fSR2CRW+ibTV5g5p1BgeWqfj/BSxQlX0SOB4cHOLO6yV+xamIQi06jd9OOt/zjE/G0RICuJ7QPlAZhakN/9+Ou9xiUTOZgTT3XKLgV3VAaqG1Y/lAXa7GOgkil+0pxr4W931E9d0/U+LvAnecSK5eXhB8F9rfrvDzai1o9Vic1q5a+fk3g8++7ka269WM0nq5YhQor7YmOp6mD9T6CdGfg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PoCLmnvN9/Gv03dJN01jJX9SZp2d/GxsNGSYOfEsSG8=;
+ b=YiZvxnyJ7yS6TxGmm3xyUQ9rBvsaTFMDq//+qtlDqIwulBhhXZN86giieWnmjZ+ivkzKBTv487P1dz7rWg1YAvfRzt6n8aMYSTX5BQg/wQMZz5YAOt3JEGE+SGWOu+ONacNBoTsp6G8usz6Y0Fv74rkp6exwcPpZoFVR7t8GaprYOl4mcNaI+v+KVoZhNzDfyfhvr+BepZpF0iGuVlbrrg47j/vNq39MvTC1c1prvPjUaOlQAOO3QfH9boyPd3O/EnW7ypiCyQCcEc1ZB1wO4hgCK0hxvtUZFO2PRhiHAB62nLeGr9J9YZpDtnT/8vYYkl+rOjGn0DgTWH5I1Xe/xg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AM8PR04MB7236.eurprd04.prod.outlook.com (2603:10a6:20b:1d9::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
+ 2026 20:41:58 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
+ 20:41:58 +0000
+From: Frank.Li@oss.nxp.com
+To: Jon Mason <jdmason@kudzu.us>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Allen Hubbe <allenbh@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	ntb@lists.linux.dev (open list:NTB DRIVER CORE),
+	linux-kernel@vger.kernel.org (open list)
+Cc: imx@lists.linux.dev,
+	vkoul@kernel.org
+Subject: [PATCH 1/1] ntb: use dmaengine_get_dma_device() instead of chan->device->dev
+Date: Fri, 18 Sep 2026 16:41:48 -0400
+Message-ID: <20260918204152.2364336-1-Frank.Li@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: CYZPR11CA0010.namprd11.prod.outlook.com
+ (2603:10b6:930:8d::26) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM8PR04MB7236:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0952c5da-1de4-4515-9c43-08df15c548b8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|23010399003|366016|376014|1800799024|11063799006|10067099003|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	eJM6rCH2vxzpE+blc6yzr1ypSNYGrUtS/sR2AUgzsfEhQGC112IPnrE0f70D5sYQ81HlElpKOC+sZgG0VYQPb3AwyRDOX0tTcrhLgDpmeVqkHCeg6wen8fCfDhMKJg6+xb+lLiRz0ZkwUhRC8bOnpdYMAcaI5AZfhS0HJDwq2ma29NPWNRESoDKZf81tOneTCfHWeMM3zs4LiwcpYtm6ZWVHxM5L/BdxaJDpa9LcDm2+F/WZCcgoqOnsvQlSkh4jAPqQ9aAtB1fXozHRYOzKmfu6XZbjkXlH2Sk+75VzjJfJAgsbOqT73Zt7eqkBLztHHBsJlLWAh73e7NbPhGVE+mnqZtE4FH0TDQSg4/bQ/vjg0TYNqtRBYCLKF4eaWJS3rW3tGHUWzCaa8V8TWqxovqkByZt1XC2UG0PKyYgvhal9mCICHrJ5P/6UAUn3GWPGubbc9KxJxW+8DgY1rwwUbeoOul4Ka1ORq3plL6p/204YK8O/yIywdooaigkn3EKfDSSgJr0RBE5ADuRtM+MASL0aPwDOO0/Yq06QqqrKzGEVuAF60VgmMJlbplp4NWNHtsdELSH/MNPaFNgdNTsYkr8QqfvOB4NatqK6cIGbd//YYEwaxb5W/qF8xDiK/TVdUU8U7anULu3qYwkwQ+4Pkg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(366016)(376014)(1800799024)(11063799006)(10067099003)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?pQmqg4IKZnhJOmk+tFEweqW5YYzWKYG5m7kz6LZdwzIDy5K5fjRHSBRFqOlb?=
+ =?us-ascii?Q?+Id3K4ZXQVwb/CqbjfPZhH0PDRWOtbwlUy4BSKuFL40LYF8TOkg5cre6XJwz?=
+ =?us-ascii?Q?sSgDLfJEmXok8qPbxcRnD7D1JpHleC3FOqK8va3L438corLPj3B2YBR19p+Y?=
+ =?us-ascii?Q?zsGTEto/PH+3nH/Cdw0sfw8Y5KTLpuFW8+q9kCWHTC+o9oCDQi9rugJtFuAg?=
+ =?us-ascii?Q?6jeushBEkr/F7pWqzffxe2Uf0yz86fIzoBOQoYa5nSs13UpBRo3peNREJ0fJ?=
+ =?us-ascii?Q?PIYKVom8cwS9jMNer7TCGpJGr7eOIzU7x5DyZnmqPrRIarwQRJdtFha2IHZD?=
+ =?us-ascii?Q?VvG4OLVF3GgoY68Ug9jTVLhqmYMNfOlAMu1rECmY0sVvyg59Dw6n72QgWb5o?=
+ =?us-ascii?Q?dDTrVCbjnfliUwfYclgxQ10MjyGSBOcKCxeoOF2vh/VyxJI4CT+dHB5WBQ46?=
+ =?us-ascii?Q?7cZbZDE06hkEIY6MS1aDpzVq4KGBx/CCq+64kb4mrsf6WNjWfIplsFrAJmrM?=
+ =?us-ascii?Q?s3r74q+WiDgp/sx8oAjSN7FmpzHgw8g0nESBbuY6h6WwwXOiT6+FGTjYtTYy?=
+ =?us-ascii?Q?NQD4eLcdVm1U4yDuHPVZ3IduAHmtmoc0RvHXvNuDNOCO5L9bHoRAM6HkmgOm?=
+ =?us-ascii?Q?vSeCyIbJDBq9BTB04SZBw7IVfO57oxvnX7pTgFydWnL5csLC+Nr7dzh+/WLg?=
+ =?us-ascii?Q?FfePO2wCU/NQcGW0YotYpIKv9BK0oKWzn/VLWsRXnUv998s8DPTyGqhiWb1N?=
+ =?us-ascii?Q?OGIvCQTdfGA1M0/xkmosSpoPMu4X0G7DLklEPkJTpNyBT0n2ZbPswxZ4K738?=
+ =?us-ascii?Q?xE6zvmfMu4RQ3XSiLhlAsGvsLS5NHj/zvHJ86QElMDRT58vJaMj2m88jtEi9?=
+ =?us-ascii?Q?wb2Fd9z+Oc3K7OrGhk+RvD5CRupnRWhuvpp5NE/Otv0egrpHDcuSnFhbCFR2?=
+ =?us-ascii?Q?Xd4jfasN2oDxnLRlxUDtnZlrUw1LTL9uUCavQPNRE0ZWXiywpbQ06w7U6iXA?=
+ =?us-ascii?Q?XCNjr7nj9BZKbKZBds0+TqhUL8QPcORT9Il1/IvrZsjCeI4eDZT9bZ0lYl+A?=
+ =?us-ascii?Q?XbII9DYfElHBpRIuhEhFhnVS52tNGXUjwH2xuU8BiPd0Vol20YblYMNoYI0q?=
+ =?us-ascii?Q?9ypVBgScYpUzK+9AUduIJabiw43o4cQgmb90vvkVjU5eK9eaWNHwb+wl3Rzh?=
+ =?us-ascii?Q?SQQZtJf/4t/r6jkFnC0fFi39eeHxhn5b0AGsgrH+mfDlHOVNoynW0q0+CK45?=
+ =?us-ascii?Q?S0vUw36euGuAgXhdFQ2jY7iL2quzkzCdDMR2S/grdvT8a6zOPBMT7fVegOXZ?=
+ =?us-ascii?Q?qEhdwnNTRX5iZJOJvzW8GI/NQ6+lQ1CtVH21aTKwtG2MTXo2RJBnLO+XOOLK?=
+ =?us-ascii?Q?2PRkofXsLLvFuqzWQSbW31fyZkFwgS68XXnHQ5cg7IP8L0M3Z8Xjg5XEykmo?=
+ =?us-ascii?Q?pOSrNnb9PXzm0z4PBLN2UImF37eKWuIWt14U4fQ3VZsKVZpcnzKhJ93+gNfy?=
+ =?us-ascii?Q?P2ukwkB8YuNSavKqJrogyWin3uUCl+ORbbA9Qgn7BUnR4OlAMinT4rZym0I6?=
+ =?us-ascii?Q?a3g/yHNt50Chri9XbfY2AU3eQHX/upC69v1CKNDLAMwpCE91SaXMxvXgA9Ur?=
+ =?us-ascii?Q?/YRRXF2WNqnasocuvrfBKrwZmILQpBRjaN41uCEXiUzz251SnDM0Mna6UKzb?=
+ =?us-ascii?Q?Bih1qrRGsmhyAPbOOrO/3oSr2Y66Ly3jSDQsX9mEB+iVexi2bzrf7bFYUPlR?=
+ =?us-ascii?Q?vHkhXriMzsgMjbsVx7uVQaGPWyUL4s22KFGeAnK5P34W/u0V9OUH?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0952c5da-1de4-4515-9c43-08df15c548b8
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 20:41:58.4820
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: udwiiZV8ub2fo0zBtZAsYH2dHnSRvMw/nIAaTGT0NBY4QIAxx8gFXVPXGkUXfX2pwhXKUfq4dZ/2wSi4v2HZ1L0lMYuUB9QnbVa13iisXfkJNlbaq3qiLw0hPu1bZY+f
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7236
 
-Linus,
+From: Frank Li <Frank.Li@nxp.com>
 
-Please consider pulling these smb client fixes for v7.3-rc4. They
-address out-of-bounds reads and use-after-frees in the SMB2/3 receive
-path reachable from a malicious server, use-after-frees and races in
-multichannel and connection teardown, a heap overflow in the native
-symlink parser, WSL reparse point parsing bugs, wrong-session lease
-break ACKs on multiuser mounts and an RDMA connection leak. Most fixes
-are for stable.
+Replace direct dma_chan::device::dev access with the proper
+dmaengine_get_dma_device() accessor in IIO DMA consumers.
 
-Thanks,
-Paulo
+chan->device->dev is not always the device used for DMA mapping.
+Some DMA engines support per-channel IOMMU mappings, so different
+channels may use different DMA devices.  dmaengine_get_dma_device()
+returns the correct device for each channel.
 
-----------------------------------------------------------------
-The following changes since commit 0a96d0d726cd380423ac38e2c28f538db2940a1d:
+This also prepares for making the DMA engine provider data structures
+private. DMA consumers should not access DMA engine internals directly.
 
-  Merge tag 'cifs-fixes-7.3-rc3' of https://git.manguebit.org/linux (2026-0=
-9-10 14:03:48 -0700)
+Assisted-by: LLM
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+ drivers/ntb/ntb_transport.c | 29 +++++++++++++++++------------
+ drivers/ntb/test/ntb_perf.c | 14 ++++++++------
+ 2 files changed, 25 insertions(+), 18 deletions(-)
 
-are available in the Git repository at:
+diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
+index 45144abfb7aad..895418c243642 100644
+--- a/drivers/ntb/ntb_transport.c
++++ b/drivers/ntb/ntb_transport.c
+@@ -1519,6 +1519,7 @@ static int ntb_async_rx_submit(struct ntb_queue_entry *entry, void *offset)
+ 	struct ntb_transport_qp *qp = entry->qp;
+ 	struct dma_chan *chan = qp->rx_dma_chan;
+ 	struct dma_device *device;
++	struct device *dma_dev;
+ 	size_t pay_off, buff_off, len;
+ 	struct dmaengine_unmap_data *unmap;
+ 	dma_cookie_t cookie;
+@@ -1526,27 +1527,28 @@ static int ntb_async_rx_submit(struct ntb_queue_entry *entry, void *offset)
+ 
+ 	len = entry->len;
+ 	device = chan->device;
++	dma_dev = dmaengine_get_dma_device(chan);
+ 	pay_off = (size_t)offset & ~PAGE_MASK;
+ 	buff_off = (size_t)buf & ~PAGE_MASK;
+ 
+ 	if (!is_dma_copy_aligned(device, pay_off, buff_off, len))
+ 		goto err;
+ 
+-	unmap = dmaengine_get_unmap_data(device->dev, 2, GFP_NOWAIT);
++	unmap = dmaengine_get_unmap_data(dma_dev, 2, GFP_NOWAIT);
+ 	if (!unmap)
+ 		goto err;
+ 
+ 	unmap->len = len;
+-	unmap->addr[0] = dma_map_phys(device->dev, virt_to_phys(offset),
++	unmap->addr[0] = dma_map_phys(dma_dev, virt_to_phys(offset),
+ 				      len, DMA_TO_DEVICE, 0);
+-	if (dma_mapping_error(device->dev, unmap->addr[0]))
++	if (dma_mapping_error(dma_dev, unmap->addr[0]))
+ 		goto err_get_unmap;
+ 
+ 	unmap->to_cnt = 1;
+ 
+-	unmap->addr[1] = dma_map_phys(device->dev, virt_to_phys(buf),
++	unmap->addr[1] = dma_map_phys(dma_dev, virt_to_phys(buf),
+ 				      len, DMA_FROM_DEVICE, 0);
+-	if (dma_mapping_error(device->dev, unmap->addr[1]))
++	if (dma_mapping_error(dma_dev, unmap->addr[1]))
+ 		goto err_get_unmap;
+ 
+ 	unmap->from_cnt = 1;
+@@ -1856,6 +1858,7 @@ static int ntb_async_tx_submit(struct ntb_transport_qp *qp,
+ {
+ 	struct dma_async_tx_descriptor *txd;
+ 	struct dma_chan *chan = qp->tx_dma_chan;
++	struct device *dma_dev = dmaengine_get_dma_device(chan);
+ 	struct dma_device *device;
+ 	size_t len = entry->len;
+ 	void *buf = entry->buf;
+@@ -1872,14 +1875,14 @@ static int ntb_async_tx_submit(struct ntb_transport_qp *qp,
+ 	if (!is_dma_copy_aligned(device, buff_off, dest_off, len))
+ 		goto err;
+ 
+-	unmap = dmaengine_get_unmap_data(device->dev, 1, GFP_NOWAIT);
++	unmap = dmaengine_get_unmap_data(dma_dev, 1, GFP_NOWAIT);
+ 	if (!unmap)
+ 		goto err;
+ 
+ 	unmap->len = len;
+-	unmap->addr[0] = dma_map_phys(device->dev, virt_to_phys(buf),
++	unmap->addr[0] = dma_map_phys(dma_dev, virt_to_phys(buf),
+ 				      len, DMA_TO_DEVICE, 0);
+-	if (dma_mapping_error(device->dev, unmap->addr[0]))
++	if (dma_mapping_error(dma_dev, unmap->addr[0]))
+ 		goto err_get_unmap;
+ 
+ 	unmap->to_cnt = 1;
+@@ -2026,6 +2029,7 @@ ntb_transport_create_queue(void *data, struct device *client_dev,
+ 	struct ntb_transport_qp *qp;
+ 	u64 qp_bit;
+ 	unsigned int free_queue;
++	struct device *tx_dev;
+ 	dma_cap_mask_t dma_mask;
+ 	int node;
+ 	int i;
+@@ -2089,11 +2093,12 @@ ntb_transport_create_queue(void *data, struct device *client_dev,
+ 
+ 	qp->tx_mw_dma_addr = 0;
+ 	if (qp->tx_dma_chan) {
++		tx_dev = dmaengine_get_dma_device(qp->tx_dma_chan);
+ 		qp->tx_mw_dma_addr =
+-			dma_map_resource(qp->tx_dma_chan->device->dev,
++			dma_map_resource(tx_dev,
+ 					 qp->tx_mw_phys, qp->tx_mw_size,
+ 					 DMA_FROM_DEVICE, 0);
+-		if (dma_mapping_error(qp->tx_dma_chan->device->dev,
++		if (dma_mapping_error(tx_dev,
+ 				      qp->tx_mw_dma_addr)) {
+ 			qp->tx_mw_dma_addr = 0;
+ 			goto err1;
+@@ -2142,7 +2147,7 @@ ntb_transport_create_queue(void *data, struct device *client_dev,
+ 	while ((entry = ntb_list_rm(&qp->ntb_rx_q_lock, &qp->rx_free_q)))
+ 		kfree(entry);
+ 	if (qp->tx_mw_dma_addr)
+-		dma_unmap_resource(qp->tx_dma_chan->device->dev,
++		dma_unmap_resource(tx_dev,
+ 				   qp->tx_mw_dma_addr, qp->tx_mw_size,
+ 				   DMA_FROM_DEVICE, 0);
+ 	if (qp->tx_dma_chan)
+@@ -2192,7 +2197,7 @@ void ntb_transport_free_queue(struct ntb_transport_qp *qp)
+ 		dma_sync_wait(chan, qp->last_cookie);
+ 		dmaengine_terminate_all(chan);
+ 
+-		dma_unmap_resource(chan->device->dev,
++		dma_unmap_resource(dmaengine_get_dma_device(chan),
+ 				   qp->tx_mw_dma_addr, qp->tx_mw_size,
+ 				   DMA_FROM_DEVICE, 0);
+ 
+diff --git a/drivers/ntb/test/ntb_perf.c b/drivers/ntb/test/ntb_perf.c
+index dfd175f79e8f0..b936f15079df2 100644
+--- a/drivers/ntb/test/ntb_perf.c
++++ b/drivers/ntb/test/ntb_perf.c
+@@ -799,7 +799,7 @@ static int perf_copy_chunk(struct perf_thread *pthr,
+ 		goto ret_check_tsync;
+ 	}
+ 
+-	dma_dev = pthr->dma_chan->device->dev;
++	dma_dev = dmaengine_get_dma_device(pthr->dma_chan);
+ 
+ 	if (!is_dma_copy_aligned(pthr->dma_chan->device, offset_in_page(src),
+ 				 offset_in_page(dst), len))
+@@ -869,6 +869,7 @@ static bool perf_dma_filter(struct dma_chan *chan, void *data)
+ static int perf_init_test(struct perf_thread *pthr)
+ {
+ 	struct perf_ctx *perf = pthr->perf;
++	struct device *dma_dev;
+ 	dma_cap_mask_t dma_mask;
+ 	struct perf_peer *peer = pthr->perf->test_peer;
+ 
+@@ -890,19 +891,20 @@ static int perf_init_test(struct perf_thread *pthr)
+ 			pthr->tidx);
+ 		goto err_free;
+ 	}
++	dma_dev = dmaengine_get_dma_device(pthr->dma_chan);
+ 	peer->dma_dst_addr =
+-		dma_map_resource(pthr->dma_chan->device->dev,
++		dma_map_resource(dma_dev,
+ 				 peer->out_phys_addr, peer->outbuf_size,
+ 				 DMA_FROM_DEVICE, 0);
+-	if (dma_mapping_error(pthr->dma_chan->device->dev,
++	if (dma_mapping_error(dma_dev,
+ 			      peer->dma_dst_addr)) {
+-		dev_err(pthr->dma_chan->device->dev, "%d: Failed to map DMA addr\n",
++		dev_err(dma_dev, "%d: Failed to map DMA addr\n",
+ 			pthr->tidx);
+ 		peer->dma_dst_addr = 0;
+ 		dma_release_channel(pthr->dma_chan);
+ 		goto err_free;
+ 	}
+-	dev_dbg(pthr->dma_chan->device->dev, "%d: Map MMIO %pa to DMA addr %pad\n",
++	dev_dbg(dma_dev, "%d: Map MMIO %pa to DMA addr %pad\n",
+ 			pthr->tidx,
+ 			&peer->out_phys_addr,
+ 			&peer->dma_dst_addr);
+@@ -1003,7 +1005,7 @@ static void perf_clear_test(struct perf_thread *pthr)
+ 	 */
+ 	(void)dmaengine_terminate_sync(pthr->dma_chan);
+ 	if (pthr->perf->test_peer->dma_dst_addr)
+-		dma_unmap_resource(pthr->dma_chan->device->dev,
++		dma_unmap_resource(dmaengine_get_dma_device(pthr->dma_chan),
+ 				   pthr->perf->test_peer->dma_dst_addr,
+ 				   pthr->perf->test_peer->outbuf_size,
+ 				   DMA_FROM_DEVICE, 0);
+-- 
+2.43.0
 
-  https://git.manguebit.org/linux.git tags/cifs-fixes-7.3-rc4
-
-for you to fetch changes up to 717e0a25036b6c92cecace30913b2d874a4c22b8:
-
-  cifs: Fix server use-after-free in cifs_chan_skip_or_disable() (2026-09-1=
-7 19:29:25 -0300)
-
-----------------------------------------------------------------
-smb client fixes for v7.3-rc4
-
-A batch of bug fixes for the smb client:
-
- - Fix multiple out-of-bounds reads and use-after-frees in the SMB2/3
-   receive path that are reachable from a malicious or compromised
-   server: a stale next_buffer pointer and an integer overflow in
-   compound encrypted frame handling, missing minimum-PDU-size and
-   per-sub-PDU length validation before parsing command-specific
-   response fields, missing bounds checks in DFS referral, server
-   interface list, EA list, POSIX SID, snapshot enumeration and SMB1
-   reparse point parsing
-
- - Fix use-after-frees and races in multichannel and connection
-   teardown, including an interface freed while still in use when
-   adding channels, a server used after its channel reference was
-   dropped, a reconnect work item left queued after the server is
-   freed and an uninitialized reconnect list node
-
- - Fix a heap overflow in the native symlink parser: an absolute
-   target without an NT drive prefix caused out-of-bounds writes and a
-   u16 length underflow leading to a 64K memcpy into a small buffer,
-   triggerable by a user with write access to a mounted share under
-   default settings
-
- - Fix WSL reparse point parsing: use unaligned accessors for the
-   packed extended-attribute payload to avoid alignment faults on some
-   architectures and stop leaving partially mutated fattr fields on
-   parse failure
-
- - Fix lease break ACKs being sent through the wrong session on
-   multiuser mounts, which caused read failures (e.g. on NetApp
-   ONTAP/Azure Files) when copying files
-
- - Fix an smbd_connection leak when cifs_get_tcp_session() fails after
-   an RDMA connection was already established
-
-----------------------------------------------------------------
-April Cardenas (1):
-      smb/client: send lease break ACKs thru correct session for multiuser =
-mounts
-
-Frank Sorenson (9):
-      smb: client: fix next_buffer UAF and NextCommand bounds in compound P=
-DUs
-      smb: client: validate minimum PDU size before smb2_get_data_area_len()
-      smb: client: fix server->total_read for compound encrypted PDUs
-      smb: client: fix missing lower-bound check on DFS referral string off=
-sets
-      smb: client: reject short Next offsets in parse_server_interfaces()
-      smb: client: fix OOB struct field reads in move_smb2_ea_to_cifs()
-      smb: client: fix missing iov bounds check in parse_posix_sids()
-      smb: client: fix potential OOB read in smb3_enum_snapshots()
-      smb: client: fix reparse buffer bounds in cifs_query_reparse_point()
-
-Joseph Qi (1):
-      smb: client: fix use-after-free of iface in cifs_try_adding_channels()
-
-J=C3=A9r=C3=A9my Jean (1):
-      smb: client: validate absolute native symlink targets before NT fixups
-
-Paulo Alcantara (5):
-      smb: client: cancel reconnect work in clean_demultiplex_info()
-      smb: client: fix rlist race and missing initialization
-      smb: client: fix smbd_connection leak on cifs_get_tcp_session() error
-      smb: client: fix unaligned access in WSL reparse point parser
-      smb: client: fix fattr leaking on wsl_to_fattr() failure
-
-Wentao Liang (1):
-      cifs: Fix server use-after-free in cifs_chan_skip_or_disable()
-
- fs/smb/client/cifssmb.c   |   2 +-
- fs/smb/client/connect.c   |   9 ++++
- fs/smb/client/file.c      |   4 +-
- fs/smb/client/misc.c      |  12 +++++-
- fs/smb/client/reparse.c   |  58 ++++++++++++++++----------
- fs/smb/client/reparse.h   |   7 ++--
- fs/smb/client/sess.c      | 104 ++++++++++++++++++++++++++++--------------=
-----
- fs/smb/client/smb2inode.c |  11 +++++
- fs/smb/client/smb2misc.c  |  69 +++++++++++++++++-------------
- fs/smb/client/smb2ops.c   |  51 +++++++++++++++++------
- fs/smb/client/smb2pdu.c   |  13 +++---
- fs/smb/client/trace.h     |   1 +
- 12 files changed, 223 insertions(+), 118 deletions(-)
