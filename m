@@ -1,79 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE5F4FD26B;
-	Fri, 18 Sep 2026 17:06:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BC0C516170;
+	Fri, 18 Sep 2026 17:06:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789751165; cv=none; b=te6qYVCj5BqYaxIsx8s44fgr3B7MDuOAbG5+NCrQaBWNzxS3nCTvhW7j/SbUjXFj9RGHPe4bANbLufbGMvYm6KxdE5z5LXfcjzdi4oLfXQXaPgYn20i2NUQDTcSpyVH2dcR/IBtN5/ChMG7MYDk1wz+DUKYGP/ZHKFhlka8066A=
+	t=1789751185; cv=none; b=hdhfGCC3/iA8wG4tPmR2MU8RZ68exSkOcr5PZvGB66glm62l+f27Df4yuYblgNv0Abop2IIq/w6cmlJGm7mYF8CHxCdyLsOVPQi8LRdlTMupq1dOcVqA6IL8eTEH+HPOsmvN7l6AwjenxHOUJ3mxMqKUBRHy0aHE3NkyyQt+LUs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789751165; c=relaxed/simple;
-	bh=TxT401mbN/X0oQrmivqXL24TjETstKfpLXf1ZASP1uM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LWTRlHoZe6AweU12w+AIHzRxO4oc+5KFIBg3XcUGpimbX+oDZV6rQzucC6yL5UkdsYNoxL4eixTp/gsPz9mbOkCSrhX2Yz+BQU/eR2XDfgyNIY0ZSfCk2udPZKML3/JoepHlLvCtJT3JWbnRz08WGIu07a1tXWKCuGVQjRtz9Ps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eXV77aVe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789751185; c=relaxed/simple;
+	bh=sbRujBPXUwM3OwTqhImU+UTCNJ7QH59vrVpS4p41HQk=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=PvVKekiTA5GGGb80IB4HAoeUEt78+sfGxSm5TyOnICigUFynwotwH6spo/uWtfT9bCHmZYjV9Iw9heUrbC3XLkcSYYkUkVlqA9+7hoACc317MlSUqeBSfnYvSUb2ZJHQGdFRaCuOIMoFu+rf+DWLp6c5LKwqhP8NL8uHAGVIuBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=D4uOk4ko; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eXV77aVe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 718051F000FF;
-	Fri, 18 Sep 2026 17:06:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789751164;
-	bh=gcICjSK5IyD2t7/b90H8nOlZ5YYvxRv6ttDXIKR/d5g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eXV77aVe2J7JfuJG/8WQDEkapbHcXL6YHmVRTiuNf9B5FtlqQS9BIeyYR3T8Sl2LY
-	 C31173QQsl/bhC5hoUd6y8CNfy2Wzcecn7RMnBlBQb43tYrzLkHQuuFSKJgss3HH2x
-	 Hd8LkuLOfJmhlx8CwPJ4/D5FyPaSM+MxKnkgV+dp0W0PoQus5SnU+61Dhyu2Qmg1eO
-	 Nkx9+J7jhpab7yoIz6kk0gLwYsPyx0toSTQNKwGmaA2ir7XowaPq5kgQhYOJyM2yZr
-	 T4tIXWhbWsk/nPIng9za29JQ82BMe/l1aWco+uyX7e9Cna2r3Y6s0PTCRQnDICFN15
-	 ys0/WeCIMf9Ow==
-Date: Fri, 18 Sep 2026 19:05:46 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Daniel J Blueman <daniel@quora.org>, netdev@vger.kernel.org
-Cc: "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Chris Lew <christopher.lew@oss.qualcomm.com>, Pranav Mahesh Phansalkar <pranav.phansalkar@oss.qualcomm.com>, 
-	Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] net: qrtr: resend HELLO on MHI resume
-Message-ID: <nhbc6epjziyb455l6z4xqunfb74bdboycuq52vt6nrr7fqjo3z@ruh4isxdkyom>
-References: <20260909055846.16539-1-daniel@quora.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="D4uOk4ko"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789751183; x=1821287183;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=sbRujBPXUwM3OwTqhImU+UTCNJ7QH59vrVpS4p41HQk=;
+  b=D4uOk4koy1LwRxlp6VuxD0AWP3WE6Ux27vYUjdodxIf+rgUm+9ysPB4d
+   CeeTJbpWjiIBliUs56Pu9N0N5CvCsxNzV4yC2KpMzHurSIeoOG/8cc/hs
+   eWP4Oa/ZGVgxJ6+lgNqYDvvd3fJs86k1qFD49013c43u3lWktFs7yiCJV
+   9ub9K38DGBuUHZd6RsU3TD5GJEBIQZD/pl2dpHsglQofgcBjqQ67TWZbH
+   BkkU+xQtD9YmfeMz0eecS2CyOlc7i2/8uHCnLjqM5csHcidMqNPD7vsd3
+   m7ffX75XdmwmWyO8WhDwlY35Q8ANCimPy0c1AeLg0VNNURt8nfexsQ+2m
+   A==;
+X-CSE-ConnectionGUID: xAyViGNqQN6od0THoXq8uA==
+X-CSE-MsgGUID: lUww9Mz6QWWWhMQXGWzEtw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11909"; a="90404614"
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
+   d="scan'208";a="90404614"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 10:06:22 -0700
+X-CSE-ConnectionGUID: SRzsq25gTA6oTpBrHDWFUw==
+X-CSE-MsgGUID: cdHTaC8yQFeEvCF0uUfYoQ==
+X-ExtLoop1: 1
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.223])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 10:06:19 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Fri, 18 Sep 2026 20:06:12 +0300 (EEST)
+To: Marco Scardovi <scardracs@disroot.org>
+cc: corentin.chary@gmail.com, denis.benato@linux.dev, 
+    Hans de Goede <hansg@kernel.org>, LKML <linux-kernel@vger.kernel.org>, 
+    luke@ljones.dev, platform-driver-x86@vger.kernel.org
+Subject: Re: [PATCH] platform/x86: asus-armoury: add power limits quirk for
+ G614FM
+In-Reply-To: <20260828065904.11355-1-scardracs@disroot.org>
+Message-ID: <2ac49a94-be85-1a2f-a43a-a376d2545a01@linux.intel.com>
+References: <20260828065904.11355-1-scardracs@disroot.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260909055846.16539-1-daniel@quora.org>
+Content-Type: text/plain; charset=US-ASCII
 
-+ netdev
+On Fri, 28 Aug 2026, Marco Scardovi wrote:
 
-On Wed, Sep 09, 2026 at 01:58:44PM +0800, Daniel J Blueman wrote:
-> Since the MHI HELLO exchange was relocated, it is sent only at device
-> registration. During a suspend-resume cycle, the firmware in WiFi
-> cards such as WCN7850 indefinitely waits for another HELLO,
-> triggering:
+> add power limits quirk entry for ASUS G614FM laptop.
+> The limits are extracted from the device's ThrottleGear XML configuration.
 > 
->   ath12k_wifi7_pci 0004:01:00.0: timeout while waiting for restart complete
->   ath12k_wifi7_pci 0004:01:00.0: failed to resume core: -110
+> Signed-off-by: Marco Scardovi <scardracs@disroot.org>
+> ---
+>  drivers/platform/x86/asus-armoury.h | 31 changes(+/-)
+>  1 file changed, 31 insertions(+), 0 deletions(-)
 > 
-> Fix this by triggering the handshake from resume_early in the MHI
-> transport.
+> --- a/drivers/platform/x86/asus-armoury.h
+> +++ b/drivers/platform/x86/asus-armoury.h
+> @@ -1056,6 +1056,37 @@
+>  			.requires_fan_curve = true,
+>  		},
+>  	},
+> +		{
+> +			.matches = {
+> +				DMI_EXACT_MATCH(DMI_BOARD_NAME, "G614FM"),
+
+So far, this file has only used DMI_MATCH() ?
+
+The entry seems to be in wrong place.
+
+And indentation level is inconsistent as well.
+
+> +			},
+> +			.driver_data = &(struct power_data) {
+> +				.ac_data = &(struct power_limits) {
+> +					.nv_dynamic_boost_max = 15,
+> +					.nv_dynamic_boost_min = 5,
+> +					.nv_temp_target_max = 87,
+> +					.nv_temp_target_min = 75,
+> +					.ppt_pl1_spl_max = 120,
+> +					.ppt_pl1_spl_min = 30,
+> +					.ppt_pl2_sppt_def = 140,
+> +					.ppt_pl2_sppt_max = 165,
+> +					.ppt_pl2_sppt_min = 65,
+> +					.ppt_pl3_fppt_def = 140,
+> +					.ppt_pl3_fppt_max = 165,
+> +					.ppt_pl3_fppt_min = 65,
+> +				},
+> +				.dc_data = &(struct power_limits) {
+> +					.nv_temp_target_max = 87,
+> +					.nv_temp_target_min = 75,
+> +					.ppt_pl1_spl_max = 65,
+> +					.ppt_pl1_spl_min = 25,
+> +					.ppt_pl2_sppt_max = 65,
+> +					.ppt_pl2_sppt_min = 25,
+> +					.ppt_pl3_fppt_max = 75,
+> +					.ppt_pl3_fppt_min = 35,
+> +				},
+> +		},
+> +	},
+>  	{
+>  		.matches = {
+>  			DMI_MATCH(DMI_BOARD_NAME, "GA401Q"),
 > 
-> Validated on Qualcomm X1E-801800 on Lenovo Slim 7x across 10
-> suspend-resume cycles.
-> 
-> Fixes: 544d85de4dc2 ("net: qrtr: Send HELLO message on endpoint register")
-> Signed-off-by: Daniel J Blueman <daniel@quora.org>
-
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-
-Since this patch fixes a regression in linux-next, it'd be good to get it merged
-asap.
-
-- Mani
 
 -- 
-மணிவண்ணன் சதாசிவம்
+ i.
+
