@@ -1,201 +1,312 @@
-Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com [91.207.212.86])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013042.outbound.protection.outlook.com [40.93.196.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1AC04D990D;
-	Fri, 18 Sep 2026 10:06:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.207.212.86
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789726018; cv=none; b=GI00JsROWgelWF7n02Ynt2abBwgggwCkffkOsR/C0IlM7YOceeyQzrDnzY7pAqn3JYfF8admOBvEvT1B8AKr+ujJ63YkI6FF+pom+udnnDM9jZTsRHkwZxNpfsBj7+29qDaJw9w/sx234NCaIPshMxvqpWmvKZb/nx0rld768qw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789726018; c=relaxed/simple;
-	bh=rl84C4ONuIM6uvedwccwpsIKbrFWDQorasJcY+NMHR0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=Z3SB+/bCIbL3KGcSBCh7U26XW+TRzkiqti99ydfNhOZKh0pOwtgfEjskNvv3iQAWQ8uigH+yHRnv/f2Czz5WUO7oaKDA3/aGBRkGcvXe8Id8ND0RAEhjsMxHjT2fj/I/uTHqOqpCmxLgwYRXR8MuLCnwFaI1vBs7wGfH1sEmWMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=RPgNjGPc; arc=none smtp.client-ip=91.207.212.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30DFB4B7A3F
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:07:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789726043; cv=fail; b=d9zOgGAU1V1ke4rf89tBmi65hI2TpTaQcBGnuNTB5NeAJ4PXeh9KWaENqshiYEV8PbKrElsfabSuXV1oFDNK3eWaBImfJMmDGE0AtLEAC42hKPSEwyb6/7UwjP/MWkUgT5PFVJHdOChKu5XY9PZaZ80QzggAYoEyz0pXzx6pDmg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789726043; c=relaxed/simple;
+	bh=u6wxWEVhHbLlZMit0+Jx84jns7IkNdCW1J+bdQoyEbI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=NT5w2NPSmeYJo71LF6fOdIKbG8Or7XfvyWIAB3QpE2mxd3Ze/NCDpCgX6HLaM5/5cytEeL/TjMu19a21Ke2Mo56gBFZNxPDMPffeAfO3ii497ItGPRb0UcEboPzgOv9hlketEjpshWuPHfeKHr2Kv+JK9rekMPGBRkA6MzJ+q3Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=I6ItSzmW; arc=fail smtp.client-ip=40.93.196.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="RPgNjGPc"
-Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
-	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I9dWtV2866830;
-	Fri, 18 Sep 2026 11:06:32 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=dk201812; bh=W
-	FZDtpGn0hp1sx5qqrvhGry+sbXQlcx/KuBrsyBaufo=; b=RPgNjGPcLrLQVeDND
-	zfCZctL342JidAs2BQj+frXsAOCusXCZxcSDQSxhIW1LSwiXFTbb2EPQH7rm/LRc
-	llmC831a0KelRaikD0l4flZrnRWqdNFMyk0+8HEegpW7VtsUonIQLeM1x4yUJjzp
-	jBPVWHpMt+9xovT8IltRokTtlSx0XMJLSKRtgJq4Ikblw7oMLV/r+r2EuzP9EOCx
-	WZsOgQhxwWIxL0OsZJZ7JR1gU/gIOsuqDEs5pL+A0wz5udAnwOda/6xmAmwPw9V9
-	7eNLujAbzwt77uCJZqqRfy6kU6aHM9sIAhBgJdZIHvFgzYpAMnYYkehVm3aZ5sgi
-	q47oA==
-Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4gmw0q4y2u-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 18 Sep 2026 11:06:32 +0100 (BST)
-Received: from [127.0.1.1] (172.25.128.225) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 18 Sep
- 2026 11:06:28 +0100
-From: Brajesh Gupta <brajesh.gupta@imgtec.com>
-Date: Fri, 18 Sep 2026 15:35:39 +0530
-Subject: [PATCH v2 1/2] drm/imagination: Propagate map failures correctly
- from pvr_mmu_map_sgl()
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="I6ItSzmW"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=suP/RXmx33fPux+SeZyx4eLb1qXoKmKhRs29Usc23M9s1capbcWi7Nv47EQ1Nl4iDB/V9Eeo40lC1rO9kuqBqac9MiZ/ImSSIaD59nH+38cvFI6O4ch5Isg/y/ER5fZWvVGvnzpoxcsavlR6gH0zhlmGVfre2uAv53kkqt4Oxj1gJS5QEQ9OTv4jQMW/JGE3g5iz7eY+qXqCwIsz7FbnF5GGtWx1196NGKo1Xpa5TzNm9tgcnP3THYuURq3ck0kPSHOuP38ewgPbq+Q7osCu0FvY2+n/EnnBXstPPu5zuHdwOM4w1I/X+95zLdmplOfqN9480gvb2C0vj/44/rbvyg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=t4Z0N2qdLPNPBANZKC757OFxCdHXPtxRbdZHTJJQeW0=;
+ b=BbNdoJATm5xoNnSyaSg2UI2+il/fiG6FM2vog4pxawMn/pZ1Th0zq0VH865G99uqmBArUnqF4W+3nZftDBJ4LhjPUmclToltyh2QmsGafyVLH6hex+v5aiF+J1rFXbr5B7ZETa1/6pd02ejOrStPfVRWnNypAHFfFW3Qj1DH2cLpyN2TSIDHemqscAYhmy69MpzjXcjdT7aEoBcttZq7VucjxuNkviR3qbcBxSNhgi0vk7j0t+N9HnVMf9SVlgfUBtfcn3ltE7wP3q1PiStOxc2pfHpsYT75CCjKa3zDx9FsxMdK5XpMnb0IXrweIHFnzQwWqQii2ngS+YiG3OvElQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=t4Z0N2qdLPNPBANZKC757OFxCdHXPtxRbdZHTJJQeW0=;
+ b=I6ItSzmWCcNjaK8U271WsWJLU/X0ReEmjjQYDCdxXH2rdsLNR2HNtlXSDjW9wvspOpF5n0onlANuOyDT0FYReEKvDLLxJZiGo0T9E23UxiVL8GYyY6msK36eW9L2auwLpfpbw6xOhwxmRH0f0yH6G2XTNGVH8K0+HU12OzV8hzI=
+Received: from BN9PR03CA0589.namprd03.prod.outlook.com (2603:10b6:408:10d::24)
+ by DSVPR12MB382825.namprd12.prod.outlook.com (2603:10b6:8:4fd::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
+ 2026 10:07:18 +0000
+Received: from BN3PEPF00022BC5.namprd05.prod.outlook.com
+ (2603:10b6:408:10d:cafe::2) by BN9PR03CA0589.outlook.office365.com
+ (2603:10b6:408:10d::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.13 via Frontend Transport; Fri,
+ 18 Sep 2026 10:07:18 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN3PEPF00022BC5.mail.protection.outlook.com (10.167.248.217) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Fri, 18 Sep 2026 10:07:18 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 18 Sep
+ 2026 05:07:17 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 18 Sep
+ 2026 05:07:17 -0500
+Received: from [10.136.41.131] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Fri, 18 Sep 2026 05:07:13 -0500
+Message-ID: <644b5845-4a3c-4f49-abfa-edb4fa6ed89c@amd.com>
+Date: Fri, 18 Sep 2026 15:37:07 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260918-mmu_fix-v2-1-f7c004fbe203@imgtec.com>
-References: <20260918-mmu_fix-v2-0-f7c004fbe203@imgtec.com>
-In-Reply-To: <20260918-mmu_fix-v2-0-f7c004fbe203@imgtec.com>
-To: Alessio Belle <alessio.belle@imgtec.com>,
-        Luigi Santivetti
-	<luigi.santivetti@imgtec.com>,
-        Frank Binns <frank.binns@imgtec.com>,
-        Alexandru Dadu <alexandru.dadu@imgtec.com>,
-        Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-        <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>,
-        Brajesh Gupta
-	<brajesh.gupta@imgtec.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4877;
- i=brajesh.gupta@imgtec.com; h=from:subject:message-id;
- bh=rl84C4ONuIM6uvedwccwpsIKbrFWDQorasJcY+NMHR0=;
- b=owEBbQKS/ZANAwAKAdAmd1l+AvFwAcsmYgBqrQ0fOER+EDvEsLJYPVMvIZl50/oPLo0/2/m2U
- yCh/SxmyJeJAjMEAAEKAB0WIQSQIkZAwD1cxcAsz3LQJndZfgLxcAUCaq0NHwAKCRDQJndZfgLx
- cJdNEACjZYEuX0lf/nqQGNSEhQ2nII5frEVv0TaSDDy8eRnQO9K5Jcfea5jTnyJDJSZLR+8ovnQ
- LVt3vsE7lSdh67+6fbO2SoH1A9ATuIArrfTxGnzAepFc3aGIS17AlBWXQGgj8V1jWT6bUenEqc/
- A/Ol82QW37xdtcDxlYntJUYrK1ssghF8/+AQcRnKp31/FCnG0Yqs2kBHIjBLw6FBQoya22uU0Au
- CO0lPF4UZS2r14aVSO5aRLsescjrpNfuY/slAvI2DL6ChJ6wCHMbULv6Bh3IRH226Ate5aTv2nP
- rM0rIdnFERu1NO6JVj/uQGCvT1uNekUvjDu7ze/6QiBU5nCS4ck0pPHEGZ3f+BJ/M7EfsgKDTYL
- sW7zNZuj7+66gvyysm6jim710g1BJmuD6bz/IhJxHTIYnglUBugg/Vt35aew3dmdxZoSy0ajEOt
- gsza1eQW6uYyLPySGJ6QWgQsp7AElW6Wu0AbkC4dPnSzlbIc+OwWvu6+Io2zXjG6Zh+yFuWwhNr
- O3ZUSbIUQ5bYZZkyL/JHnm9H96Ayp5kbmcyZKdhHvzrkESfmX2LtzhIIEVo45uG/fe1S7JKOu+w
- x7zwmbMxU01HodJ0TlkEHv1gemkDazStyP+0j6jwmRFSVOHNIVY0MuoC3QTlQOHQroMT2dhO8qP
- UkCSaLOaBVP4Sbg==
-X-Developer-Key: i=brajesh.gupta@imgtec.com; a=openpgp;
- fpr=05BAA300FD5C580EFD3F8D2F073292BAD0D39671
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDE0MCBTYWx0ZWRfX0J/Oj2383U5R
- S/ENZ5xbIJHb8h4D7dSeu4me/o4W2RMouoMGy2YWD0M8IKSMcheRbd/RdTdrT2hoojpHOxFafKN
- 1NuZDh39PI59EB5RQPc56US7IwWpd+i9DKP/O1udt0hXT+yx7FiNi4j4BFF8JYxrYfSj08KtxR9
- pS91BR1HmusRZMs8m5HH8RicA9nh2p+FFPQ6bdZNokLXwVACE0aEIMXgqhZzBsD21t79/ojQsIm
- tP3XZOwjIKU2WsqjGiQHavXTbeOJoBGTCEBScF053g+0Qwcvx1uP1F8/ze17MsSrKBnX5f2VPY2
- ZaNZRTGZmRhLysriew7QCaNO5+mHDcO32InZRyppqQgbjKgwDx/ROZVwu0mcNu4pAOrfXDilYNS
- M1RDbKHOWXJ+5e1QCQ7gj20tFnCbgdJ8TveXNuMqCe1QOCOzijfEMRgOoVGGmYWYA+BhH8DspMt
- F9rHV03KS2o5on7xyQw==
-X-Authority-Analysis: v=2.4 cv=c8M+0h9l c=1 sm=1 tr=0 ts=6aad0d28 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=HYrZrZQ_E1YA:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
- a=r_1tXGB3AAAA:8 a=MA1SxRKIldkD5NN-sdEA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-ORIG-GUID: Xhn8UgAZYqZrWUWqe7oi5sO-ZTMJlZ0D
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDE0MCBTYWx0ZWRfX7qa7MoXhSNu/
- TwhcsK5pDv/01axN1HqlKykWUw4cpX7BCMwE6CgqdL9iA5/ZSfUM6crnJvYVM+Pao/dQc7W/Ff+
- 3IAvQMj2O01/etPnVpZ/CcLce4vu9e0=
-X-Proofpoint-GUID: Xhn8UgAZYqZrWUWqe7oi5sO-ZTMJlZ0D
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 02/12] futex: Switch PI futex to use p->pi_futex_lock
+ instead of p->pi_lock.
+To: Suleiman Souhlal <suleiman@google.com>, Peter Zijlstra
+	<peterz@infradead.org>
+CC: <linux-kernel@vger.kernel.org>, Thomas Gleixner <tglx@kernel.org>, "Ingo
+ Molnar" <mingo@redhat.com>, Darren Hart <dvhart@infradead.org>, "Davidlohr
+ Bueso" <dave@stgolabs.net>, =?UTF-8?Q?Andr=C3=A9_Almeida?=
+	<andrealmeid@igalia.com>, Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
+	<vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, "Mel
+ Gorman" <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, zhidao
+ su <soolaugust@gmail.com>, John Stultz <jstultz@google.com>, Qais Yousef
+	<qyousef@google.com>, <ssouhlal@freebsd.org>
+References: <20260917043339.2093426-1-suleiman@google.com>
+ <20260917043339.2093426-3-suleiman@google.com>
+ <20260917153831.GL4121339@noisy.programming.kicks-ass.net>
+ <CABCjUKD60kEn0BZo0r3zie6QE8wFh-0V=V6OG3nfa3b1evjVKQ@mail.gmail.com>
+Content-Language: en-US
+From: K Prateek Nayak <kprateek.nayak@amd.com>
+In-Reply-To: <CABCjUKD60kEn0BZo0r3zie6QE8wFh-0V=V6OG3nfa3b1evjVKQ@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC5:EE_|DSVPR12MB382825:EE_
+X-MS-Office365-Filtering-Correlation-Id: 61f22cc1-ea86-4e78-a55a-08df156c9f38
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|82310400026|1800799024|36860700016|23010399003|56012099006|6133799003|5023799004|11063799006|4143699003|22082099003|18002099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	X+/dRVzLg7PAH2/Pq3yIZnY4Iggh/PQHnr4BtjnKnUr+CwbngaWjnlTJsgAZR/eUmyVxulBHW9KaHD1IdII9HOKAnX11r5X9IgvRVdm8Hwl78MepBheUQqJuGwYx+BaIVccF2peBRb9Lv8fDZrQp0kACGXesYM3JSDj/klokouK4pf30aPw8rO+Lz7Am9T106EgWYJdxdJB5CgRBTqV4UKfv9cnrFMNylpKrCrNA/Wh+5DjmlEqlrZ62B1xum5WyXDeCmrKsqf8AO6qtgr/xp/UEwvuu95g9wvVzq3B8os4AlqToVg71tpEDHfHKV6jrzNKYDrTpw8gonW/t6lgGqYmoA5BaMaHXdJB/67hwGdS63woaex4cYnfhTvoImISossUF2KM9U0bSmcKoTxBtAYfoQ4aFs2Z3mZqPamguxfa6KwYm34ntCd2ipiQezUtj3se7/3d4TbK+7gyw2cgbipV6kKIYu+xmcxkjiKd9b90bG7y+wT/5pQc2T8VdxWcYcrvf6YgYMrpTYVDWzbkbHrQ5WEJuN3eKNoVDR1Ofda7nnVxTF7hVbDjlpLH+D0wc5eVdrxRtzwNNuUjFQS6MwhR5dTbn1L25wYitEh751kdQvHT1zLGl9Jr5PvqW4SHFomsJmgP/p7RrzpBqj5Dv52Y8RV0wsuaQNHTgneBA7vOOZqZTkGogU6jT2hJdb5dOnAfusj/AhIEmHnlZbQdXbQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(82310400026)(1800799024)(36860700016)(23010399003)(56012099006)(6133799003)(5023799004)(11063799006)(4143699003)(22082099003)(18002099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	uW1J6MbroVaF4kWE2d1+cWYn3yB/GSWxn+T6NOFETzueSa+/2rAPMIunqG9GOpTmPs+C9bIHgahmAwHvANDasWBNsRtHlcjTe4wx99Qpywx4dBq0xAXA2fmvYuz/ZrzHkQ20yf/pkyj4Bv/vh9HCcStqtSVsAhjsEfhyZHYRGihUJwCgvW+bw0lRHSA6cv0+ayy3V/GQOP2+iEEqIhqWoe/REMAF7sj+rZJqJ0jKnL2Z/Jx+GQW+1781JOUc4rpglXJ2+OJxT/vucwXQx0u0rv8CNGtEICY2SgWPobKetlz4+KeZSGT8N9Ken3XKJROaXysVBhCnOUsT7OJBEhypa17YD+UA2AhDN9vtvVPFcYVC9dSSpt4LE1IhgsPLoqEOj1dTQ1qOj3FRY3dfY2n7SOtYTLI9kA+BDTiKDwPa1nuK3P6FCSezaL53k7GNpzQo
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 10:07:18.1418
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 61f22cc1-ea86-4e78-a55a-08df156c9f38
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF00022BC5.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB382825
 
-Map failure from pvr_mmu_map_sgl() interface was not returned correctly
-to pvr_mmu_map() interface. This resulted in pvr_mmu_map() interface to
-continue instead of returning an error to caller.
-Fix it by returning a proper error code from pvr_mmu_map_sgl() interface.
+Hello Suleiman,
 
-Call stack for crash:
-[ 1179.286237] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000008
-[ 1179.295067] Mem abort info:
-[ 1179.297877]   ESR = 0x0000000096000004
-[ 1179.301656]   EC = 0x25: DABT (current EL), IL = 32 bits
-[ 1179.306987]   SET = 0, FnV = 0
-[ 1179.310048]   EA = 0, S1PTW = 0
-[ 1179.313198]   FSC = 0x04: level 0 translation fault
-[ 1179.318096] Data abort info:
-[ 1179.320993]   ISV = 0, ISS = 0x00000004, ISS2 = 0x00000000
-[ 1179.326483]   CM = 0, WnR = 0, TnD = 0, TagAccess = 0
-[ 1179.331546]   GCS = 0, Overlay = 0, DirtyBit = 0, Xs = 0
-[ 1179.336895] user pgtable: 4k pages, 48-bit VAs, pgdp=000000009822a000
-[ 1179.343402] [0000000000000008] pgd=0000000000000000, p4d=0000000000000000
-[ 1179.350243] Internal error: Oops: 0000000096000004 [#2]  SMP
-[ 1179.355908] Modules linked in: powervr gpu_sched drm_shmem_helper drm_gpuvm drm_exec xhci_plat_hcd xhci_hcd dwc3 usbcore usb_common snd_soc_simple_card snd_soc_simple_card_utils dwc3_am62 at24 sa2ul sha512 libsha512 sha256 authenc sch_fq_codel fuse dm_mod ipv6
-[ 1179.378992] CPU: 1 UID: 1000 PID: 680 Comm: deqp-vk Tainted: G      D             6.17.0 #1 PREEMPT
-[ 1179.388120] Tainted: [D]=DIE
-[ 1179.390994] Hardware name: Texas Instruments AM625 SK (DT)
-[ 1179.396467] pstate: 00000005 (nzcv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-[ 1179.403415] pc : pvr_mmu_op_context_unmap_curr_page+0x6c/0x134 [powervr]
-[ 1179.410140] lr : pvr_mmu_op_context_unmap_curr_page+0x58/0x134 [powervr]
-[ 1179.416848] sp : ffff8000839ab8c0
-[ 1179.420153] x29: ffff8000839ab8c0 x28: 0000000000000001 x27: 000000008f386000
-[ 1179.427283] x26: ffff000016d1df98 x25: 0000000000247000 x24: 00000000000001e6
-[ 1179.434413] x23: 0000000000000002 x22: 000000000000ffff x21: 0000000000000247
-[ 1179.441540] x20: 0000000000000245 x19: ffff000016d1df60 x18: 0000000000000002
-[ 1179.448668] x17: 0000000000000000 x16: 0000000000000000 x15: 0000000000000001
-[ 1179.455793] x14: 0000000000060810 x13: ffff80007fffffff x12: ffff000004190480
-[ 1179.462921] x11: ffff8000853f7000 x10: ffff8000811ae000 x9 : ffff0000041900b8
-[ 1179.470051] x8 : 0000000000000000 x7 : 00000000990c4001 x6 : 0000000000000007
-[ 1179.477177] x5 : ffff000016d1df60 x4 : 0000000000000000 x3 : ffff00000a7d8000
-[ 1179.484306] x2 : 00000000000001ff x1 : 0000000000000000 x0 : 0000000000000000
-[ 1179.491433] Call trace:
-[ 1179.493872]  pvr_mmu_op_context_unmap_curr_page+0x6c/0x134 [powervr] (P)
-[ 1179.500582]  pvr_mmu_map+0x31c/0x388 [powervr]
-[ 1179.505027]  pvr_vm_gpuva_map+0x40/0x88 [powervr]
-[ 1179.509732]  __drm_gpuvm_sm_map+0x250/0x44c [drm_gpuvm]
-[ 1179.514952]  drm_gpuvm_sm_map+0x48/0x5c [drm_gpuvm]
-[ 1179.519822]  pvr_vm_bind_op_exec+0x64/0x70 [powervr]
-[ 1179.524785]  pvr_vm_map+0x1f8/0x2a8 [powervr]
-[ 1179.529142]  pvr_ioctl_vm_map+0x12c/0x188 [powervr]
-[ 1179.534018]  drm_ioctl_kernel+0xb8/0x128
-[ 1179.537941]  drm_ioctl+0x21c/0x4ec
-[ 1179.541337]  __arm64_sys_ioctl+0xac/0x108
-[ 1179.545344]  invoke_syscall+0x44/0x100
-[ 1179.549091]  el0_svc_common.constprop.0+0x40/0xe0
-[ 1179.553790]  do_el0_svc+0x1c/0x28
-[ 1179.557106]  el0_svc+0x34/0xf0
-[ 1179.560159]  el0t_64_sync_handler+0xd0/0xe4
-[ 1179.564334]  el0t_64_sync+0x198/0x19c
-[ 1179.567996] Code: 54000300 35000360 f9402261 79409a62 (f9400421)
-[ 1179.574081] ---[ end trace 0000000000000000 ]---
+On 9/18/2026 12:41 PM, Suleiman Souhlal wrote:
+> On Fri, Sep 18, 2026 at 12:38 AM Peter Zijlstra <peterz@infradead.org> wrote:
+>>
+>> On Thu, Sep 17, 2026 at 04:33:26AM +0000, Suleiman Souhlal wrote:
+>>> Switch PI futexes to use p->pi_futex_lock instead of p->pi_lock.
+>>>
+>>> When augmenting PING futexes with proxy execution, we get lock order
+>>> inversions, due to the lock order being p->pi_lock -> mutex->wait_lock
+>>> in the scheduler, but wait_lock -> p->pi_lock in futex code.
+>>>
+>>> So move the futex code to use a new lock, p->pi_futex_lock, to
+>>> protect p->pi_state_list and pi_state->owner.
+>>
+>> This is of course horrible. Lets not do this.
+> 
+> I suppose the alternatives would be to either figure out how to
+> un-nest pi_lock from wait_lock in futex code or un-nesting the
+> blocked_on lock from pi_lock in the scheduler.
 
-Fixes: ff5f643de0bf ("drm/imagination: Add GEM and VM related code")
-Signed-off-by: Brajesh Gupta <brajesh.gupta@imgtec.com>
+So the only time we try to grab pi_lock + blocked_lock is during
+wakeup so I think doing that should be (theoretically) possible.
 
-Reviewed-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
-Reviewed-by: Alessio Belle <alessio.belle@imgtec.com>
----
- drivers/gpu/drm/imagination/pvr_mmu.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+The ttwu_runnable() handling is extremely painful unless we block
+the delayed task fully. Since we have he new p->is_blocked state,
+we can safely retain the p->blocked_on while running the task -
+it is either cleared during unlock by previosu owner or will be
+same as the lock on which the task blocked on.
 
-diff --git a/drivers/gpu/drm/imagination/pvr_mmu.c b/drivers/gpu/drm/imagination/pvr_mmu.c
-index 3cac482e1034..23261d9ad3fd 100644
---- a/drivers/gpu/drm/imagination/pvr_mmu.c
-+++ b/drivers/gpu/drm/imagination/pvr_mmu.c
-@@ -12,6 +12,7 @@
- #include "pvr_rogue_mmu_defs.h"
+
+Based on John's tree at commit 06ac43db4d8e ("[ANNOTATION] ===
+Needs confirmation of functionality past this point ===") on
+proxy-exec-v31-7.2-rc4 branch:
+
+  (Lightly tested)
+
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index c54e9fedc9cd..a5a9d3655976 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -4008,18 +4008,14 @@ static inline bool proxy_needs_return(struct rq *rq, struct task_struct *p)
+ 	if (task_cpu(p) == p->wake_cpu)
+ 		return false;
  
- #include <drm/drm_drv.h>
-+#include <drm/drm_print.h>
- #include <linux/atomic.h>
- #include <linux/bitops.h>
- #include <linux/dma-mapping.h>
-@@ -2553,7 +2554,9 @@ pvr_mmu_map_sgl(struct pvr_mmu_op_context *op_ctx, struct scatterlist *sgl,
+-	scoped_guard(raw_spinlock, &p->blocked_lock) {
+-		/* Task is waking up; clear any blocked_on relationship */
+-		__clear_task_blocked_on(p, NULL);
++	/* If already current, don't need to return migrate */
++	if (task_current(rq, p))
++		return false;
  
- err_destroy_pages:
- 	memcpy(&op_ctx->curr_page, &ptr_copy, sizeof(op_ctx->curr_page));
--	err = pvr_mmu_op_context_unmap_curr_page(op_ctx, page);
-+	if (pvr_mmu_op_context_unmap_curr_page(op_ctx, page))
-+		drm_err(from_pvr_device(op_ctx->mmu_ctx->pvr_dev),
-+			"%s : Failure in unmapping pages\n", __func__);
+-		/* If already current, don't need to return migrate */
+-		if (task_current(rq, p))
+-			return false;
++	/* If we're return migrating the rq->donor, switch it out for idle */
++	if (task_current_donor(rq, p))
++		proxy_reset_donor(rq);
  
- 	return err;
+-		/* If we're return migrating the rq->donor, switch it out for idle */
+-		if (task_current_donor(rq, p))
+-			proxy_reset_donor(rq);
+-	}
+ 	block_task(rq, p, TASK_WAKING);
+ 	return true;
  }
+@@ -4106,9 +4102,10 @@ static int ttwu_runnable(struct task_struct *p, int wake_flags)
+ 	update_rq_clock(rq);
+ 	if (p->is_blocked) {
+ 		if (p->se.sched_delayed) {
+-			proxy_remove_from_sleeping_owner(p);
+-			enqueue_task(rq, p, ENQUEUE_NOCLOCK | ENQUEUE_DELAYED);
++			dequeue_task(rq, p, DEQUEUE_SLEEP | DEQUEUE_DELAYED);
++			return 0;
+ 		}
++
+ 		if (proxy_needs_return(rq, p))
+ 			return 0;
+ 	}
+@@ -4305,20 +4302,6 @@ static bool ttwu_queue_wakelist(struct task_struct *p, int cpu, int wake_flags)
+ 	return false;
+ }
+ 
+-static void ttwu_queue(struct task_struct *p, int cpu, int wake_flags)
+-{
+-	struct rq *rq = cpu_rq(cpu);
+-	struct rq_flags rf;
+-
+-	if (ttwu_queue_wakelist(p, cpu, wake_flags))
+-		return;
+-
+-	rq_lock(rq, &rf);
+-	update_rq_clock(rq);
+-	ttwu_do_activate(rq, p, wake_flags, &rf);
+-	rq_unlock(rq, &rf);
+-}
+-
+ /*
+  * Invoked from try_to_wake_up() to check whether the task can be woken up.
+  *
+@@ -4493,6 +4476,8 @@ int try_to_wake_up(struct task_struct *p, unsigned int state, int wake_flags)
+ {
+ 	guard(preempt)();
+ 	int cpu, success = 0;
++	unsigned long flags;
++	struct rq *rq;
+ 
+ 	wake_flags |= WF_TTWU;
+ 
+@@ -4524,17 +4509,19 @@ int try_to_wake_up(struct task_struct *p, unsigned int state, int wake_flags)
+ 		goto out;
+ 	}
+ 
++	local_irq_save(flags);
++
+ 	/*
+ 	 * If we are going to wake up a thread waiting for CONDITION we
+ 	 * need to ensure that CONDITION=1 done by the caller can not be
+ 	 * reordered with p->state check below. This pairs with smp_store_mb()
+ 	 * in set_current_state() that the waiting thread does.
+ 	 */
+-	scoped_guard (raw_spinlock_irqsave, &p->pi_lock) {
++	scoped_guard (raw_spinlock, &p->pi_lock) {
+ 		smp_mb__after_spinlock();
+ 
+ 		if (!ttwu_state_match(p, state, &success))
+-			break;
++			goto out_restore;
+ 
+ 		trace_sched_waking(p);
+ 
+@@ -4562,7 +4549,7 @@ int try_to_wake_up(struct task_struct *p, unsigned int state, int wake_flags)
+ 		 */
+ 		smp_rmb();
+ 		if (READ_ONCE(p->on_rq) && ttwu_runnable(p, wake_flags))
+-			break;
++			goto out_restore;
+ 
+ 		/*
+ 		 * Ensure we load p->on_cpu _after_ p->on_rq, otherwise it would be
+@@ -4618,7 +4605,7 @@ int try_to_wake_up(struct task_struct *p, unsigned int state, int wake_flags)
+ 		 */
+ 		if (smp_load_acquire(&p->on_cpu) &&
+ 		    ttwu_queue_wakelist(p, task_cpu(p), wake_flags))
+-			break;
++			goto out_restore;
+ 
+ 		/*
+ 		 * If the owning (remote) CPU is still in the middle of schedule() with
+@@ -4653,8 +4640,25 @@ int try_to_wake_up(struct task_struct *p, unsigned int state, int wake_flags)
+ 			p->wake_cpu = cpu;
+ 		}
+ 
+-		ttwu_queue(p, cpu, wake_flags);
++		if (ttwu_queue_wakelist(p, cpu, wake_flags))
++			goto out_restore;
++
++		/*
++		 * p->__state is set to TASK_WAKING. It is safe to drop
++		 * the p->pi_lock and wake up task outside holding
++		 * rq_lock() similar to the wakelist approach.
++		 */
++	}
++
++	rq = cpu_rq(cpu);
++
++	scoped_guard(rq_lock, rq) {
++		update_rq_clock(rq);
++		ttwu_do_activate(rq, p, wake_flags, &scope.rf);
+ 	}
++
++out_restore:
++	local_irq_restore(flags);
+ out:
+ 	activate_blocked_waiters(cpu_rq(task_cpu(p)), p, wake_flags);
+ 	if (success)
+---
+
+I'm not sure if PREEMPT_RT needs that activate within pi_lock since
+TTWU_QUEUE is disabled but I'll let Peter, John chime in.
+
+
+> Either of them seemed more involved than creating a new lock, but
+> maybe I was wrong.
+> I will take another look.
 
 -- 
-2.43.0
+Thanks and Regards,
+Prateek
 
