@@ -1,173 +1,217 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3DF0293B75;
-	Fri, 18 Sep 2026 20:51:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789764700; cv=none; b=CTeiLv04BP5by5YOuRMcwanZnIjeCKR0hiiMYznZ59BfD+aUvmCV7hxZrCMSgbJd3vW4FnYz5MlXWHEXtjjyYxsUPl/Pnly+5BMgZSHXdi+zO8aEgJ74nu2c4A6qfmoqqDldwAkSDb6acoXz3rrYAZGTK3/HlsUMnRwq45RJTlQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789764700; c=relaxed/simple;
-	bh=QCIJObhinfLLP3u8ve1yUqV6GMr/mmcL9F5ebTD8qqo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ApnyWwzVBTPSskokw9D5R45uoxdIPaV1WUExz90qGVO1QKkinsEveI6MyYmxNwEwe29VRt7A+fyZF8z+hU4wAw+n/jqCjntwqfZlePtojiwgyfbhVU8deFMUx11v7pTXGLAbTFaDuU28DvvrCVDRDAkWaZuY1B3zePqTDULvIJ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fdcp6bEs; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8CC742885A
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 20:53:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789764835; cv=pass; b=gdYkntXOic/QQabTj7OXXFj0tt71XKeCr5qXZQVf/REshHXXgcSq3Q5A5rKraJGcch7BUgt9IGxQenbBdjrDgW3N1ifTEfAaGVzddYgpOMufqvBUKFl5czOxQiyVSKBPxJeQbwh9DE+otTXf9EkIgYPgf1V5rNVA9bgJhlQ8We4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789764835; c=relaxed/simple;
+	bh=luig+1o1M/fsF9vaNIsARo6CqC/xBHmV9/YvD0slYb0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=u4X1P6atVBNCvgwLq23YclEyvW9Xgl3Xcc98UKCoXcYlwBUDeSPt8zC1WwyWtTGOe3ZNZGpdRokIANqyrc0rLnvLVu3KnxHQdxrPkRlN0AO+VisGa/XLFJJMN3XxMxTsn1SlKjIfZEwwqSSw5BwDNyPTDLlvnmPaNhngiWj5plA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PXDO4rBQ; arc=pass smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fdcp6bEs"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 57618C2BCB8;
-	Fri, 18 Sep 2026 20:51:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789764700;
-	bh=QCIJObhinfLLP3u8ve1yUqV6GMr/mmcL9F5ebTD8qqo=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=fdcp6bEs+hbnE3DeTTyKxZf0XWRDOIAYoM8Nv6qphc/EvBFO+jB2U5g9uNCiXdEPL
-	 u4ax7UL0CxKHY8LwJjrpuhB3dqXVEGIWV1WBvTLnzwPL04df53rJObOmeWBqsg08AO
-	 GyA+bWNEN3jevDpW2bT33c5EUZguC5nNNTtD4FGxiZQb9RGnCbEQSmr6kqeQrtFfQb
-	 5/5Y/sVF8WS6kpuPS4/zovcekmi1P01pIkkRXWIYLBVnBUrm/uExTHApFjgz5C+Asb
-	 zQ3IL9ZdWZOZYPZq1sSPdcumWRZ5UZ1ZTdefxluRa3EzgrZErJuFtRVftYVqzl25ko
-	 6x85mtEx/ViAA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 40A8FC982D8;
-	Fri, 18 Sep 2026 20:51:40 +0000 (UTC)
-From: Avalon Vargas via B4 Relay <devnull+avalon.vargas.centeno.est.una.ac.cr@kernel.org>
-Date: Fri, 18 Sep 2026 14:51:36 -0600
-Subject: [PATCH] arm64: dts: qcom: Fix backlight control on Dell Inspiron
- 7441
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PXDO4rBQ"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48435bcf9d9so135994f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:53:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789764832; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YZMnnK7mNPZzdEnBN5Mp7qmt0DaGyAhRXNEcdbvw07zeFGuedAHcE1fmqbXxs7QoEf
+         Jy9xDJPkc+lFZl2XiVeVyKGYQDUANeSXUkVc+kqOZEHR0uCn/X6wxorvahph47Q/lVZh
+         n0Zncc9LoI/3vO963cE26UCry0NuwJUbfSXzBF5/u03gUb6nLiWtc/pgVv3TMJRnVYyA
+         oMYczq8pC+tO4oZUxtv6ZuG2dkMrJR9dP8pizRXWEcCssbKwP4PqbG3pE6wJXgv31BPi
+         mFd3cHhk6zlD5/u0tMtbAjg60E4C0t4kPN9uMMxyJtCUB+fxLigoAaAnaWcR7PVtxTZ3
+         EOiQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=sgTcRorf9vWGoUo+DaV05plknDxMZzVIVIvRR476748=;
+        fh=pGXFNvCr9Rnlw8g4MvNk/8+hcGJ9g7VU/NWqAojJ+W4=;
+        b=e+1P8hbI0hD2aBYNX9A1l8+07WouGZqV6GtX6ncvnoBZTXxHiwYE9/JgGPChwKTBYk
+         aWe26vv1xQGp9ftzF4eb4+Cr2a5gkunecwPCeSXAgZFi/gg/72XZ7Kb5G01TBP0tNXw4
+         Q6Efn/81N8OVaPZxKbCR4yl2NvDFmYIz5X/6fiQgR3Yhdx3yzJlTWDlBP6kUO6EZVZI+
+         HBzlVx4zfcDJWqW7m39qsV9RhI3W6OFSCRiGNVNW+pElwkKte27dInSoNtd+y+htoCeV
+         n8LBrR4/Tv881kGwQn/yk8TmctW8OQKW95mdPDYSlMGUvUf/ucD5sxk6CeovKRH3SS6I
+         oMmA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789764832; x=1790369632; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sgTcRorf9vWGoUo+DaV05plknDxMZzVIVIvRR476748=;
+        b=PXDO4rBQJMr9cbk6hImuvWv/9Bq/nxAly5i0+QGRDqJMYpeAwlAvdZeggOh7lkoorw
+         WLOzWcA74qaGedulevhxtCesVFQfQsITl6cHP+Y+9ZVu8I/R5qz+xAOmHAXWnV0MRuEg
+         cyxHUmrI74CbWUoewOJvs0bA4sK9nAgpBy7kEkk1AVqGBlFYuDh8RXMDeiWD980J7j3R
+         4bp7Xt1gVl/0kbnOEDa581zVADfg77W9vSgSRvWRPujqnNiDIYMQfCq/MAVdgH8YL0mX
+         GBB5VMsW+YSCpjXdRLL0y+HFbVXaXBtxV6AC+tpU5XvyZM235b/x92GLifwxc9W8JYUW
+         Iy0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789764832; x=1790369632;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sgTcRorf9vWGoUo+DaV05plknDxMZzVIVIvRR476748=;
+        b=gW4h9moG9ORRgWkcZHnWeg+UNNNnQbkzQ1xV3ZzubU0WJgMJ6aouu9+ujyZ1JsdtAn
+         wR8aOO2w+YpAZ+5xm6T55pLhdy7smqzx53qC0lVLNGTktbiIZFYzswEOgUnBYvagQbaz
+         +5OPp3iLFA9PhYR2jnIwPcEvY6NQRM0Ee2ePFOs5XVVuWDFTt+L8nmId/S/skBC73uM6
+         f9jlb/kDEeyerx2P/D1qEMYF2yaRSIoDGYc9kw79dk3fPt4PWJrND3erypekIDmV2JK5
+         n8wN2QW2WcfvZFe/63PPAn34PVzjEVc6izWG0ikJrWWwntaTNFdSbW0qmSsKsuhwNYQZ
+         ET8Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxor+jdBquMEuX2xld2WYg3S39i9+yYL4wTN+oWf+va3b8yt+HvIApphVdlINEBub9m0gvhatYqhl6OKQ0=@vger.kernel.org
+X-Gm-Message-State: AFuF++myq8HF3NginFpaRuFxNU3QBXT++k3y33ZBQ/+2sFGAcyPaa5cg
+	JHfTUR3vWnAFhj5O6Lz12RMxgHrtJAtART/16/bfOcLLz/9MkY3bisXy96TtkVhBM4QErX30wZt
+	DyiFq9KKCoumhnQjmvLlH+2LcWN5tUm/PUM6U
+X-Gm-Gg: AYBFou0t+kpUy/zLoatsmDEPVeJhjQ8bDoT7pib5N+xrIQrBTN6KBElKHjF15e7U1MX
+	BoRmwjX3f+hg/bIfZvgNGV89PPEM2xhG0IwfNwsDxv7yeTYNZP8HywDRq1cDn2JnNCBAWDrmavP
+	YbaLvGxr6o1pSUJoORfJeh4P1/m/w/GB5W3onsAfgd80hI3bK228M3Dg+4kspXfCq0lCKl/UgMX
+	UIvkpS86jHzGGslsqgZiqrAntK5MvXdW6dbWTFIL2LLlHW6XxAzPu+m8a5jOKUbt+s5uXVsJYDB
+	q6Pn1RKAJL9lvObjw6iwYuICEEaMFGcsxBuMGd4FzHC2F97Tys+9OLMmuCafXlqR76aLSDbDhRH
+	mY8/GUWinLHitfYx0/jK7S98=
+X-Received: by 2002:a17:907:d02:b0:c25:3ccf:bd9c with SMTP id
+ a640c23a62f3a-c2a1a8e09e8mr331776566b.2.1789764477295; Fri, 18 Sep 2026
+ 13:47:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-dell7441-backlight-v1-1-f7646ae30cae@est.una.ac.cr>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQ7CIBBFr9LMWiKQRqtXMS4GmMIoUgNoTJreX
- dDl+/nvrVAoMxU4DytkenPhJTVQuwFswORJsGsMWuqDPKlJOIrxOI5KGLT3yD5UIaVWGmfpUE3
- QxGemmT+/6OX65/IyN7K1l/rDYCFhMiYb+rRk9pz2DyyVMmzbF4efdZOWAAAA
-X-Change-ID: 20260918-dell7441-backlight-00212af0da18
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Laurentiu Tudor <laurentiu.tudor1@dell.com>
-Cc: Rafael Dettogni Guariento <rafael.guariento@ufms.br>, 
- Val Packett <val@packett.cool>, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, dri-devel@lists.freedesktop.org, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789764699; l=3410;
- i=avalon.vargas.centeno@est.una.ac.cr; s=avalon-una-20260914;
- h=from:subject:message-id;
- bh=u1ZQbSAfwqgtkK6O3ck7wrXaPpGTJgsfRfeZp/Dum9o=;
- b=NSvKR5ItR/Oz/hETmop6P86/UAhimlz7RdxF5dxrGq3/54atF0ntlj1lafEpn/GUPJJTR4ioM
- bovpfN74o6jDNqbjWke+hZ3L72DSQWyc4iXOt/A/6wv9tmLOCaSP5FF
-X-Developer-Key: i=avalon.vargas.centeno@est.una.ac.cr; a=ed25519;
- pk=I7FZ301yhA9Jl2LReBEqv+9LUrd5zi397CIT2gTB6RE=
-X-Endpoint-Received: by B4 Relay for
- avalon.vargas.centeno@est.una.ac.cr/avalon-una-20260914 with auth_id=1032
-X-Original-From: Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
-Reply-To: avalon.vargas.centeno@est.una.ac.cr
+References: <20260916-ti-dra7-omap-sham-fix-v2-0-4eadb60081e5@gmail.com>
+ <20260916-ti-dra7-omap-sham-fix-v2-2-4eadb60081e5@gmail.com> <20260918144224.4dfb8515@kemnade.info>
+In-Reply-To: <20260918144224.4dfb8515@kemnade.info>
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Date: Sat, 19 Sep 2026 02:17:44 +0530
+X-Gm-Features: AcwNN1WKvA-fdN2xNZdCXGZd1cxpuLrv71RZ7MqA3wlpHyScvRfY20wc8pzPN-Q
+Message-ID: <CAOWyW_5GU__FE25POrjKH=CmOHaeBRJPw4xS2cdodePm3LydhA@mail.gmail.com>
+Subject: Re: [PATCH v2 2/4] ARM: dts: ti: omap: dra7: Remove clocks from
+ crypto nodes
+To: Andreas Kemnade <andreas@kemnade.info>
+Cc: Aaro Koskinen <aaro.koskinen@iki.fi>, Kevin Hilman <khilman@baylibre.com>, 
+	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
+	Animesh Agarwal <animeshagarwal28@gmail.com>, linux-omap@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-crypto@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
+On Fri, Sep 18, 2026 at 6:12=E2=80=AFPM Andreas Kemnade <andreas@kemnade.in=
+fo> wrote:
+>
+> On Wed, 16 Sep 2026 02:29:39 +0530
+> Bhargav Joshi <j.bhargav.u@gmail.com> wrote:
+>
+> > The omap-sham, omap4-des and omap2-aes crypto drivers do not use
+> > "clocks" and "clock-names" properties. Clock management is handled by
+> > the ti-sysc interconnect parent wrapper. The dt-bindings for
+> > ti,omap-sham and ti,omap-aes don't define these clock properties. Havin=
+g
+> > them in the child nodes causes dtbs_check warnings.
+> >
+> > Remove the "clocks" and "clock-names" properties from the sham, des and
+> > aes nodes.
+> >
+> > Reviewed-by: Andreas Kemnade <andreas@kemnade.info>
+> > Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+>
+> I was a bit too fast here, clocks here are different from what is
+> used in the ti-sysc block. So some more thought and argumenting is needed=
+.
+Clocking is handled by ti-sysc parent block, furthermore other dtsi
+such as omap5,
+omap4, am4372 which uses the same hardware doesn't define any clock in
+the child node.
+parent block defines a clock with clock-name: fck
+clocks =3D <&l4sec_clkctrl DRA7_L4SEC_AES2_CLKCTRL 0>;
+clock-names =3D "fck";
+and child main part as
+clocks =3D <&l3_iclk_div>;
+clock-names =3D "fck";
+If child node needs this separate clock  in child node then binding
+for aes and sham needs
+to be updated to allow clocks and clock-names leaving des binding as it is.
 
-The AUO B140QAX01.H panel on tested Dell Inspiron 14 Plus 7441 units
-advertises PWM brightness control but not AUX brightness setting.
-Without a backlight described in the device tree, the panel falls back
-to the AUX helper, which registers a backlight with max_brightness=0.
-Brightness adjustment is consequently unavailable.
-
-Enable PMK8550 PWM channel 0, route it through GPIO5, and connect a PWM
-backlight to the panel. Provide an interpolated brightness table with
-101 levels and a default level of 80.
-
-Fixes: e7733b42111c ("arm64: dts: qcom: Add support for Dell Inspiron 7441 / Latitude 7455")
-Reported-by: Rafael Dettogni Guariento <rafael.guariento@ufms.br>
-Tested-by: Rafael Dettogni Guariento <rafael.guariento@ufms.br>
-Signed-off-by: Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
----
-Equivalent configurations have been tested on two Dell Inspiron 7441
-units. Rafael tested this patch's resulting nodes on his stock DTB,
-verified the live interpolated table, and confirmed brightness control,
-Fn keys, no low-brightness flicker, and successful suspend/resume.
-His Tested-by was supplied by direct email.
-
-The 4266537 ns PWM period is borrowed from the upstream ThinkPad T14s
-LCD configuration. It works on both tested units but has not been
-measured from Dell firmware. Feedback on that choice is welcome.
-
-Validation: strict checkpatch has only the missing public report URL
-warning for Reported-by (the report was direct email). GCC/dtc DTB build
-and dt-validate against this tree's bindings pass, with the same dtc
-warnings as the unchanged base. The kernel dtbs_check target was not run.
-
-This is scoped to the 7441. The earlier report of working AUX control
-on a 7445 with the same panel model remains to be compared for platform,
-EDID and DPCD differences.
----
- .../qcom/x1e80100-dell-inspiron-14-plus-7441.dts   | 32 ++++++++++++++++++++++
- 1 file changed, 32 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts b/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts
-index 75e10d97c..98632cccd 100644
---- a/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts
-+++ b/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts
-@@ -10,6 +10,19 @@
- / {
- 	model = "Dell Inspiron 14 Plus 7441";
- 	compatible = "dell,inspiron-14-plus-7441", "qcom,x1e80100";
-+
-+	backlight: backlight {
-+		compatible = "pwm-backlight";
-+		pwms = <&pmk8550_pwm 0 4266537>;
-+		power-supply = <&vreg_edp_3p3>;
-+
-+		brightness-levels = <0 10 20 30 40 50 60 70 80 90 100>;
-+		num-interpolated-steps = <10>;
-+		default-brightness-level = <80>;
-+
-+		pinctrl-0 = <&edp_bl_pwm>;
-+		pinctrl-names = "default";
-+	};
- };
- 
- &sound {
-@@ -42,6 +55,25 @@ &iris {
- 	status = "okay";
- };
- 
-+&mdss_dp3 {
-+	aux-bus {
-+		panel {
-+			backlight = <&backlight>;
-+		};
-+	};
-+};
-+
-+&pmk8550_gpios {
-+	edp_bl_pwm: edp-bl-pwm-state {
-+		pins = "gpio5";
-+		function = "func3";
-+	};
-+};
-+
-+&pmk8550_pwm {
-+	status = "okay";
-+};
-+
- &remoteproc_adsp {
- 	firmware-name = "qcom/x1e80100/dell/inspiron-14-plus-7441/qcadsp8380.mbn",
- 			"qcom/x1e80100/dell/inspiron-14-plus-7441/adsp_dtbs.elf";
-
----
-base-commit: 704340f1cd0dcef829eb62f5b48ae95a2ce17bdf
-change-id: 20260918-dell7441-backlight-00212af0da18
-
-Best regards,
---  
-Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
-
-
+Best Regards,
+Bhargav
+>
+> Regards,
+> Andreas
+>
+> > ---
+> >  arch/arm/boot/dts/ti/omap/dra7-l4.dtsi | 2 --
+> >  arch/arm/boot/dts/ti/omap/dra7.dtsi    | 8 --------
+> >  2 files changed, 10 deletions(-)
+> >
+> > diff --git a/arch/arm/boot/dts/ti/omap/dra7-l4.dtsi b/arch/arm/boot/dts=
+/ti/omap/dra7-l4.dtsi
+> > index a595745afe59..bca035fd7e62 100644
+> > --- a/arch/arm/boot/dts/ti/omap/dra7-l4.dtsi
+> > +++ b/arch/arm/boot/dts/ti/omap/dra7-l4.dtsi
+> > @@ -2086,8 +2086,6 @@ des: des@0 {
+> >                               interrupts =3D <GIC_SPI 77 IRQ_TYPE_LEVEL=
+_HIGH>;
+> >                               dmas =3D <&sdma_xbar 117>, <&sdma_xbar 11=
+6>;
+> >                               dma-names =3D "tx", "rx";
+> > -                             clocks =3D <&l3_iclk_div>;
+> > -                             clock-names =3D "fck";
+> >                       };
+> >               };
+> >
+> > diff --git a/arch/arm/boot/dts/ti/omap/dra7.dtsi b/arch/arm/boot/dts/ti=
+/omap/dra7.dtsi
+> > index 711ce4c31bb1..0784c6d9cbe4 100644
+> > --- a/arch/arm/boot/dts/ti/omap/dra7.dtsi
+> > +++ b/arch/arm/boot/dts/ti/omap/dra7.dtsi
+> > @@ -1012,8 +1012,6 @@ aes1: aes@0 {
+> >                               interrupts =3D <GIC_SPI 80 IRQ_TYPE_LEVEL=
+_HIGH>;
+> >                               dmas =3D <&edma_xbar 111 0>, <&edma_xbar =
+110 0>;
+> >                               dma-names =3D "tx", "rx";
+> > -                             clocks =3D <&l3_iclk_div>;
+> > -                             clock-names =3D "fck";
+> >                       };
+> >               };
+> >
+> > @@ -1043,8 +1041,6 @@ aes2: aes@0 {
+> >                               interrupts =3D <GIC_SPI 59 IRQ_TYPE_LEVEL=
+_HIGH>;
+> >                               dmas =3D <&edma_xbar 114 0>, <&edma_xbar =
+113 0>;
+> >                               dma-names =3D "tx", "rx";
+> > -                             clocks =3D <&l3_iclk_div>;
+> > -                             clock-names =3D "fck";
+> >                       };
+> >               };
+> >
+> > @@ -1073,8 +1069,6 @@ sham1: sham@0 {
+> >                               interrupts =3D <GIC_SPI 46 IRQ_TYPE_LEVEL=
+_HIGH>;
+> >                               dmas =3D <&edma_xbar 119 0>;
+> >                               dma-names =3D "rx";
+> > -                             clocks =3D <&l3_iclk_div>;
+> > -                             clock-names =3D "fck";
+> >                       };
+> >               };
+> >
+> > @@ -1103,8 +1097,6 @@ sham2: sham@0 {
+> >                               interrupts =3D <GIC_SPI 163 IRQ_TYPE_LEVE=
+L_HIGH>;
+> >                               dmas =3D <&edma_xbar 165 0>;
+> >                               dma-names =3D "rx";
+> > -                             clocks =3D <&l3_iclk_div>;
+> > -                             clock-names =3D "fck";
+> >                       };
+> >               };
+> >
+> >
+>
