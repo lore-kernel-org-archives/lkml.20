@@ -1,144 +1,118 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ED30430CEC;
-	Fri, 18 Sep 2026 08:32:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D09B414435
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:33:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789720379; cv=none; b=Q5d6ex7qLAzpRInBFuV9w6vxa+d18s6AT9Pdnp4eDQ+mcUp2oz41VlL4t2wvEHVOxNVUGE7xijRR6zCL6HBAYiBRFLq6mqSv14aUmAoS2zRx29qTLg7gyrDhMRN1SoB8lLDp0KbZoCuPbjGAzYwTwljTE5M6Ft5vApGGPwS8aJE=
+	t=1789720385; cv=none; b=WXHOWc4HsyJYL2X82z7R7zG50Vz17ygwyb+EvEDX3tiUv+7M/oL18up2F1u+CWMG0DAcfwISoGatT7WN7LuLyh51tx2N4t/nP8yo1cjJc4fTS1u5/vujp6CyD8oDip+c0/3Azz/QTyD07JLHeaQHiAymsngbdNOyu4v48QidaCE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789720379; c=relaxed/simple;
-	bh=WUdoM1JhINJUD8bRLI0lYaFGva9cz6iJDvMGT06peoo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UMR8YM3XLfMY1sadyuxH94XLh+vjbsBGG411pa1o67rmvhoJuA9KxvEU39R6ND9nxCP9mXDnBGbVnIB0lX4YFU2khhZrDC/qPmtOG+mk4jvc1qvw2ErLgyXpfS7e/CTdaBs1r5BcGve9yZU0wasa3TTygnHC4PrDB/d3TyPUTbw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=IKCTMd2S; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1789720385; c=relaxed/simple;
+	bh=pKTzsHsh+KOl7XVkDAfUJy4MbfFG1awKeay+vTS1O6M=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=gKYYSTRVMR3ohb1mMllDEkCwniw6U3kks/l5sMK1bG2d7xDY5XN6Em9HTwTLMvjs125IRBkOmqgKCSHe76Pzgu0aHwwd9j80lWgJWbkiL0ZGgSIgJCtDPXc97VuONlICZDXVBYP8XoITSCZjJbKJCuenaygpeE2KX31mnhUEm4o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=nfgSxmbP; arc=none smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="IKCTMd2S"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I61Xvj457232;
-	Fri, 18 Sep 2026 08:32:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:sender:subject:to; s=pp1;
-	 bh=OBqocodU7SSTa0DEX9ob6DspaG78OR9/XusMNcOZa1s=; b=IKCTMd2SHOlQ
-	KvZ66lFV8Uju/RW1tbHA78783zQdLOReq5S64k89es+lkWFYmIEqqAU6+86kcDPH
-	WI6ioG4oYBjmSosti+n473m/RI6JQgZ3pF+UVK/2Vkod0i+SVcRyd4IPHSvnNUt0
-	s/DMEaJWZrjqdUVAK0v2j6yQwN28kePHZyGHoDdjnXcdhKuNMTTgzfjAgirDy6Yn
-	WUIV3xt6CIlhRJQaKchdN8u5dYrvlulrVikWGZgxV/9mMVj2WkNugWbqvlY2L3R1
-	HhADF14LinmnKqp0CCJaYFFcuMqcXZXJFIJwrwwO15mizvIHvnWKoiX9jXrHkFqd
-	yQR+byD4mw==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmx847254-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 18 Sep 2026 08:32:53 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68I654in251890;
-	Fri, 18 Sep 2026 08:32:52 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gra3ywj5p-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 18 Sep 2026 08:32:52 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68I8WmOx46137728
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 18 Sep 2026 08:32:48 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 759A320040;
-	Fri, 18 Sep 2026 08:32:48 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 632342004D;
-	Fri, 18 Sep 2026 08:32:48 +0000 (GMT)
-Received: from p14sgen6-pf6akexs (unknown [9.224.70.27])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Fri, 18 Sep 2026 08:32:48 +0000 (GMT)
-Received: from bblock by p14sgen6-pf6akexs with local (Exim 4.99.5)
-	(envelope-from <bblock@linux.ibm.com>)
-	id 1x7U1Y-000000016jl-0WYL;
-	Fri, 18 Sep 2026 10:32:48 +0200
-Date: Fri, 18 Sep 2026 10:32:48 +0200
-From: Benjamin Block <bblock@linux.ibm.com>
-To: Niklas Schnelle <schnelle@linux.ibm.com>
-Cc: Gerd Bayer <gbayer@linux.ibm.com>, Matthew Rosato <mjrosato@linux.ibm.com>,
-        Farhan Ali <alifm@linux.ibm.com>, Julian Ruess <julianr@linux.ibm.com>,
-        Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Ramesh Errabolu <ramesh@linux.ibm.com>,
-        Tobias Schumacher <ts@linux.ibm.com>,
-        Halil Pasic <pasic@linux.ibm.com>,
-        Peter Oberparleiter <oberpar@linux.ibm.com>,
-        Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/4] s390/pci: Report SCLP status on error events when
- no pdev is associated
-Message-ID: <20260918083248.GC241998@p14sgen6-pf6akexs>
-References: <20260916-fix_zpci_report_status_pdev_leak-v3-0-61a2f980e71d@linux.ibm.com>
- <20260916-fix_zpci_report_status_pdev_leak-v3-3-61a2f980e71d@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="nfgSxmbP"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a6056ac81fso731636a12.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:33:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1789720381; x=1790325181; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=pKTzsHsh+KOl7XVkDAfUJy4MbfFG1awKeay+vTS1O6M=;
+        b=nfgSxmbP5YP6RLt1l/C3o18goqydZY6Jye3F3+ZWnwOWeUSvRQLwsWBwpbUkljNEjl
+         U3Kogfx8Xzx5Xsp3GmlYo+KSbSlLLSSNjNwuJktBSjSGX8BX6woXR+xP6Ev9uaea5CSa
+         2gRzHkTLpP9tI1CHhNUFMqEhN3BG3U52EsZVoN9+pfbH2dfpmMUB8GolvMeBaH3doWh0
+         R+Dzw0FjkOxo5ILY4DA69NzUes/29fE6oHGKmjxqlH6v1xEzCt3kixkYR52BmuXEq2NN
+         bGnSGQa4YlulZr14sVkq1FRjCKroD9N2ZRGPH8EfQIkoaHi31ya+P3HM4/l2K1vMuSSp
+         IsBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789720381; x=1790325181;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pKTzsHsh+KOl7XVkDAfUJy4MbfFG1awKeay+vTS1O6M=;
+        b=1BZ5H3oRf8+DsVF8g+Sz6DiYY8lxjl/IzLFtr3th6Vis8RWOAJq46vbxNhyJoi0cyS
+         WSeRgFsLR99TxKFvxWAqonlQQU+VEcs1TOzZ43hI34ba0wnoJ7725weVHhulfCkDq0lO
+         9tXekYItoD6oiAQj1RZhtktuVxXXnyXJ3Q55/w37gqgtWWCdgy4ay04xkWpwx4eSv5AN
+         X4H/DBKyBtz/iih78hhmHIzwIPvl7KcMvjyvYr3sUIkkN1Xx9qvacc8e7LLfl9HjZ9h7
+         4Y7IhIZKMK4qNUVC9vIe9tUw6x+vy6vP9MEvZBLURDcNyvK/11xvdAhO3y6vvkNML+/A
+         rOGw==
+X-Forwarded-Encrypted: i=1; AKwUvBzmr1FJPh8YJGh8WcwL4RytMVD5WC0ZhsOavAAIzCLF16Go/gSKkglecC8jToDF1NugUc73zTkwY5ND/CA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lUChO4S3wdavNxptaKzgrWAXo8Ju61RjmbXHlzbfBXgrh1d/lZ
+	LXAVtFzF3noLeaRMiSY6NibukqfdqMdDUrZvdwjQPGZZITR8tqa8RwHLKKV5qJNq94Q=
+X-Gm-Gg: AYBFou2CU4HDyzWcmqz5iQW2bfJvvpTJU09D5CGybkJ1homOB0O9kGIJ1NEOgkiZ73G
+	rW8WkcDbz/qcuGuNTmT7w2+viO1kXGDwqlK1erc/NWu2O/R0mXToAWBUKEOu6b8q7bprdGcPUaW
+	buUk5UxlU1XnCmexKWcgnxjfAzjTauMSK8QHVKUCPWF/2yRUTDtCipAkKxPhOK5Z3ikxJSkjy9R
+	hRvB+5svmbnspU76g5kB4gWhXRv9gh6SeSv21ukLkV44ZQgUAj+aJUkKBzfRxzcwA4j4Yy5X3Pr
+	k+ZMNNEAVPyS2DhQINASNonwdlo3KtE9cwnZCWadrDYrvclwKSiC07xHVP8EsNendjlAnW15OdX
+	Lh2OYYBwFSFDDFWrrSsxZLPdce3c5pvYgDT5xaxU0Q+L85syQArzFkDyUsKsd4ruUWeGpRigNJq
+	bFPCroXHmIxvGxS/M+oWjt1OVI2m1BjmrxkIMbweYXV5MznHXkIN9uFBf21zoQNJNtTY3ypLQkB
+	gE=
+X-Received: by 2002:a05:6402:4026:b0:6a8:e223:fee5 with SMTP id 4fb4d7f45d1cf-6aa531ef01fmr709732a12.44.1789720381295;
+        Fri, 18 Sep 2026 01:33:01 -0700 (PDT)
+Received: from draszik.lan ([109.255.181.4])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa59605618sm513138a12.11.2026.09.18.01.33.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 01:33:00 -0700 (PDT)
+Message-ID: <950335110f9d9c22a026fa5174e492c4194299a5.camel@linaro.org>
+Subject: Re: [PATCH] phy: exynos5-usbdrd: Use dynamic phy_cfg size to
+ prevent OOB access
+From: =?ISO-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>
+To: Selvarasu Ganesan <selvarasu.g@samsung.com>, vkoul@kernel.org, 
+	neil.armstrong@linaro.org, krzk@kernel.org, peter.griffin@linaro.org, 
+	alim.akhtar@samsung.com, pritam.sutar@samsung.com, kernel@lvkasz.us, 
+	linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: jh0801.jung@samsung.com, dh10.jung@samsung.com, akash.m5@samsung.com, 
+	muhammed.ali@samsung.com, thiagu.r@samsung.com
+Date: Fri, 18 Sep 2026 09:34:24 +0100
+In-Reply-To: <20260831070309.158069-1-selvarasu.g@samsung.com>
+References: 
+	<CGME20260831070349epcas5p4c62a4e46592dffe95723ddd51a6068e0@epcas5p4.samsung.com>
+	 <20260831070309.158069-1-selvarasu.g@samsung.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-9 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260916-fix_zpci_report_status_pdev_leak-v3-3-61a2f980e71d@linux.ibm.com>
-Sender: Benjamin Block <bblock@linux.ibm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDExNyBTYWx0ZWRfX7Kb3j/+s1XsB
- OcpklXXefJvMG1MDnjLFpMoASbuL1wrc6zwFiqFza/fViWd0E/oyewT5QbqrJB0cqqGgiFrAZ1U
- 3lN7iNB6F4ASI8PLFtTJJ6tbMgRz7fNzNWfp9TQQhhlqKkS3XIy5E3h/35RrW9PRDua1zXCnhUu
- zrCohIxHvMwZOuDv4CUcKow5WgnHXAxXRiOwKZmT1ly7pXnmCHsDQtuUlMcnR0qX8I4Wqa4rNuP
- isf8psg6wSoTem70ADPkTu2SnW69U73/V+2H2PW1UurpiElDozOaDSH/uh4lmzVnCfWTwhfGyEt
- dDtDIHhcSRlGk6qrhqPhfsOb5FuIyJwdpPa1tTDh7meYbmgI2lMmujYWxzOMLcqQOTGB6l1KSdz
- CgiU6GcYOt+VSCyNgbnnuCXDZyJGwaqVzix98t2NmhtwaUVnZReWkjk9F9OJLce3Irvun8M1oAO
- IY0tVrDZ7oFfgb2w+dg==
-X-Proofpoint-ORIG-GUID: u0Q0n8-WhHxsefDmNNz1dpbWLHkIz8tX
-X-Proofpoint-GUID: u0Q0n8-WhHxsefDmNNz1dpbWLHkIz8tX
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDExNyBTYWx0ZWRfX7eynpFZxaIt2
- wOvYeCUBFZG20bHqw90u3vNpORTlJmvlb0X5xlEjUYDQaVYRLvkdOU2BLgyncqhGAcLiDAShwDN
- 50acpDMl3cu9XhFUgkzG1li0gGR67uI=
-X-Authority-Analysis: v=2.4 cv=cY9HPXDM c=1 sm=1 tr=0 ts=6aacf735 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=8nJEP1OIZ-IA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8
- a=VwQbUJbxAAAA:8 a=QYVxXew5hEVD-d0z6osA:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-18_02,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 bulkscore=0 clxscore=1015 suspectscore=0
- impostorscore=0 malwarescore=0 phishscore=0 adultscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180117
 
-On Wed, Sep 16, 2026 at 05:14:12PM +0200, Niklas Schnelle wrote:
-> With commit 4ec6054e7321 ("s390/pci: Report PCI error recovery results
-> via SCLP") SCLP reports are generated when recovery is performed in
-> response to an error event. If such an error event arrives but no pdev
-> is currently associated with the zdev, e.g. because it was removed or
-> not yet probed, no report is generated. Fix this by generating a report
-> specific to an error event for a zdev without an associated pdev.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 4ec6054e7321 ("s390/pci: Report PCI error recovery results via SCLP")
-> Signed-off-by: Niklas Schnelle <schnelle@linux.ibm.com>
+On Mon, 2026-08-31 at 12:33 +0530, Selvarasu Ganesan wrote:
+> The probe loop currently iterates using EXYNOS5_DRDPHYS_NUM (2),
+> creating both UTMI and PIPE3 PHY instances regardless of the SoC
+> capability. Several SoCs (Exynos2200, Exynos7870, Exynos850, Exynos990,
+> and ExynosAutoV920) provide phy_cfg arrays containing only a single
+> element.
+>=20
+> On these SoCs, when the loop reaches index 1, the driver reads past the
+> end of the rodata array, populating the second PHY instance with garbage
+> data. Since the configuration structure contains critical function
+> pointers (phy_isol, phy_init, set_refclk), any subsequent access to this
+> PHY instance via exynos5_usbdrd_phy_xlate could result in a kernel oops.
+>=20
+> Fix this by adding 'n_phy_cfg' to struct exynos5_usbdrd_phy_drvdata to
+> store the actual size of the phy_cfg array for each SoC. Update the
+> probe loop and the xlate function to bound their access against this
+> value instead of the hardcoded EXYNOS5_DRDPHYS_NUM.
+>=20
+> Assisted-by: Claude:claude-sonnet-5
+
+Shouldn't this be 'Assisted-by: LLM'?
+
+> Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
 > ---
->  arch/s390/pci/pci_event.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
+> =C2=A0drivers/phy/samsung/phy-exynos5-usbdrd.c | 17 +++++++++++++++--
+> =C2=A01 file changed, 15 insertions(+), 2 deletions(-)
 
-Looks good to me.
+Other than that:
 
-
-Reviewed-by: Benjamin Block <bblock@linux.ibm.com>
-
--- 
-Best Regards, Benjamin Block        /        Linux on IBM Z Kernel Development
-IBM Deutschland Research & Development GmbH    /   https://www.ibm.com/privacy
-Vors. Aufs.-R.: Wolfgang Wendt         /        Geschäftsführung: David Faller
-Sitz der Ges.: Ehningen     /     Registergericht: AmtsG Stuttgart, HRB 243294
+Reviewed-by: Andr=C3=A9 Draszik <andre.draszik@linaro.org>
