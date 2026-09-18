@@ -1,185 +1,171 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011008.outbound.protection.outlook.com [52.101.52.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-62.mta0.migadu.com [91.218.175.62])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 432B33CA4BB;
-	Fri, 18 Sep 2026 02:35:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.8
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789698944; cv=fail; b=em3N7kfxoyhWtj6jrJTCGYVuGCgC3Tau0KmZu52iG2Ydx2Jr01QiOVmGtAZHCFHeUjX+0jQAe5xUoGkOmTflbBqfdAekLRvMYyKi2Xly2NvyZmBDo1yDKjbRUptqXDB5ChydBr+p5eZ/xDLKLmk7B6H7UnnPwm6urHM5OJq3qsU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789698944; c=relaxed/simple;
-	bh=F6ZoW+oRlLJSsH0kvQEzDadDoeVleLHIpSGK4kV2TKo=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=ujL8tVY7pEU+/1NnsSDvQvWKbwVSwgqLPsENx1AkCY14oePU9CInV9DPsVjQt66HmxWTuu9vlk9rFn1utL71JXypBK7BUt+MM4bxJZyC2/mzgZ/qoJ7Z618avhrI97R4r/tR3BxN0YeU18aUuqK5cnvxZ/5PmLNjtYtXTvmZhBw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=wFxeV2jj; arc=fail smtp.client-ip=52.101.52.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B8B83AAF56
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:36:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.62
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789698995; cv=none; b=s8Q9PbcbT02huxqWpGDYkn4j2760gvqUZj1kygJQ+E4W9S7o9QEhbzzByGjKzmaRtdebRzQmvnb5GAAw6ZMSvixeiBx6m/FJZWRC6NSqFniQtV/HMVAQAkqU3v3YKtall/iaYaEDMNm5ilFLcHEVLLbzIjIVVCqSKnzWsfuP7WE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789698995; c=relaxed/simple;
+	bh=uokSLb5tIWKs9wmoZjlPpYDU82fxVQpNKwqAQMjHX7s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lqW7C1ZhJx6MZ2g9aVVcqNPf8WztV9qMhhUYm8/qM5AEUK9Uahm2B8sGJ+cSDVLnmNjeM8W1EOOkzw6gJqt1NjkpwlR+E7B4foe4pr05yO+owE0gYk6ANMQWs4AzVjxxT/O1QTrPGj8Q2CuQ8x6nC2U++Rdm9lhjunB4nrxdYno=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=QUZwkVhE; arc=none smtp.client-ip=91.218.175.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="wFxeV2jj"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cbVk1hNA8gXmQ+iUen2onFFNl3dw+qqkaO2qjt6kXC4Iu0Tp0zotV/feKxknuOYDGy4edZZsRQWZ9xl2HQ9ZETlI+JJWfj49jgz9qaVdz8uY/9sv9w1c8j4SB0qQw2CVVjQBqq6xZApEUFtZ+tO05qWDeIBi2OZm1A68+KTI3fLtibqgOEmGt2hux35uocLPRF+/BxQyMsT9gaT2ao1Ga98h8lKj/eEL1cilCKIjdU1lSWRv2r9FHqsaspMoolyln1KNi6VfygCJ1TVD2vUrLmkMfj15FB9GZI7uzGmoZ/H3do+kIvmFFE9g2lWUH6k25qpZ8qNP9n2PpNgn/zkS5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OavIwKDMCGo8vxKJQ41/8MC6awa5ZMd4XYf9menDxqw=;
- b=nWSj8vSM33cGEPsGHg9YAr7NqBVnO7DxR973XFNq5OMvRTg8UHuMBEZaki6rFS4gSQ/DOtpIVby1AM0w4muO4lL+UwvpvDVSONJ7IrCByDHuR8Kv73dd2uxirTThVsjZ0/ayqn96kMT/QnjohUgMZrlYvb1vHPPWHtrciANHFKy2JYqKgpYDkW7OSdSWtm8VgL1k79V7IszZdWEz9/BzBRCynQHKo3MJsat/wSicIFn8cdLgV9X+ORlaJ8KHeqPGYpN6vQwJK2vDqUqjTOqYss/nhyrMrwjydhOWCLitGyZl2xXC6XzFkxBigX+Edoo8y/M6rgBUzucHoiFkcY7eNg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OavIwKDMCGo8vxKJQ41/8MC6awa5ZMd4XYf9menDxqw=;
- b=wFxeV2jjMQwlWgpRgUmiuF6SwsWUZuN69qvTEQc8KmNz/YyqCI9n2xOqvwOFLoWDD61fap5ZkrdIaJHrOeG9fum5RTjSpuqJWA9UzFwfGUFE2gPj9czJWjUkuVurL69RLViQCicZrYnohraDlTF3SbCX2cexC1RciULqpiNG4d9FQpUyUgRXP4KPu3x5bj7dsHtdbzTaPb1MeYwaT17Ltg82AN24Wh7sxGMkHZ9K9MNLLTbFkn1PCDXSprafpuGakRTvtaZOJfEwa1DnVFiF3e2sJ2MsrxP5vUcdvt/E7g/kJCEJvihe5VvHngNtPfyhvlJ+jFWX4tYyk9RcCcORvw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from SJ0PR03MB6964.namprd03.prod.outlook.com (2603:10b6:a03:432::18)
- by SA6PR03MB7638.namprd03.prod.outlook.com (2603:10b6:806:43a::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Fri, 18 Sep
- 2026 02:35:32 +0000
-Received: from SJ0PR03MB6964.namprd03.prod.outlook.com
- ([fe80::b965:bfa8:58fb:e775]) by SJ0PR03MB6964.namprd03.prod.outlook.com
- ([fe80::b965:bfa8:58fb:e775%4]) with mapi id 15.21.0406.007; Fri, 18 Sep 2026
- 02:35:32 +0000
-From: muhammad.nazim.amirul.nazle.asmade@altera.com
-To: netdev@vger.kernel.org,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Eric Dumazet <edumazet@google.com>,
-	"David S . Miller" <davem@davemloft.net>
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next] net: stmmac: Setup TBS only if HW supports it
-Date: Thu, 17 Sep 2026 19:35:30 -0700
-Message-ID: <20260918023530.31971-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
-X-Mailer: git-send-email 2.43.7
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR13CA0057.namprd13.prod.outlook.com
- (2603:10b6:a03:2c2::32) To SJ0PR03MB6964.namprd03.prod.outlook.com
- (2603:10b6:a03:432::18)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="QUZwkVhE"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=uokSLb5tIWKs9wmoZjlPpYDU82fxVQpNKwqAQMjHX7s=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789698982; v=1; x=1790303782;
+ b=QUZwkVhEiApuqFBO2Qf3Sr/p7fX6co8bMIR4oUgIrzHtMdkY9hrcU4Xwy6OgO5607RIDk/bB
+ 6qjBSzNIWGstCwnQKGTcu28ei6A/eIE/F631ACwqzzAqf9w6A04RsJQP1gpP6sBqu0PGdX8OIKs
+ YhqyYcHEEz6kqXiD9SONN6ZM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 3b51e68b3c915898;
+	Fri, 18 Sep 2026 02:36:22 +0000
+X-Mizu-Trace-ID: 3b51e68b3c915898
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <f16c55ba-3403-4721-9ff1-061d73e17fa5@linux.dev>
+Date: Fri, 18 Sep 2026 10:37:21 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6964:EE_|SA6PR03MB7638:EE_
-X-MS-Office365-Filtering-Correlation-Id: a9ff2b20-6d43-4120-b247-08df152d82b3
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|55112099003|18002099003|6133799003|11063799006|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	1HyhTeYgSF9rOw48VuVvfFl03jSS+cgl+ILTtdvP2B91nhMUwxD1m4yQyeosHCMWJth06cZMdEA0IQ4Hr2EfwgxN6/hYrmof+TOSzk7UrdHMhRjmBXIiZpTJ9HzNNmZTiZI8raGHVPjEux8oNzOhFc1YjMXVSFUvu48KpqIs/i3yYwNmQN5cBEG70im6Yf42YQawe3LtsEWfQABp/GY1T+6XdVzqPunXwBcHU3Gx+NYij7Fljsw0JxQucNAfTVAXfwfsLzOUTS+L5OSuqE1Ip2ElFV6L7ipaL4huICiVjXhFO4ZiZnH9UqNOyumtbIpcJsmXR16MR7lSxIvzSxURJ/qNpzsfYT1unpq6eXCv8CUFOcrAmMguO2751Zwp45Fvwg/HFHxKlLXmflmmtdlf9Vu6B/DDEpE5TM1ROZCMkAmcDcHwPaP+c7qs5ebtzrpdK/ZsWUfAFZ4i/kFaYzZSqkiq80pRUUCZElihZc04nhQp3WhyI5vDFozb2uBA6X+Q9tt5a1/rfCnVuGtdcy83UXMfQHmsTOqKm8Ub9XEHt2SF8zabtInoLoR/Kcw/Bn9ZzioWDLBo/dWcHpPdpE/z7dfBy54KhZsYRghT8Imcht+h24B5ATQKF6H7V2ZnRD/dVT4WuS9pDYWkKbKs9/VXFZw0poch+mfGSe+AgV4ho2k=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6964.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(55112099003)(18002099003)(6133799003)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?NMoMpTv3MuecbRaq2vSNbm9ISyX1A6B5r2lPR4bGtTybduTlS5KPjAAKCDPv?=
- =?us-ascii?Q?SQxMRoqm6r86wEtJfyXgsUZ8EwM5bBRZMkroIA4woLBE1ihqPkFoI5Asgism?=
- =?us-ascii?Q?al3hizx8nZwo3rRDzcbDdX8YyiQYpFxfvbl8chxIErwvyP1Tgis9PHI7QTUT?=
- =?us-ascii?Q?hbm0KswYS1r9H6IaVwfGu6BcQBjirM3LbKTHEW3C+U5teTsNWW9FfirNw6Y3?=
- =?us-ascii?Q?u6weGJXEGcltBE8mDLB9yyhXiJ6NA592tY2jXmL4pPUqikSqfvQTWsRZqdX4?=
- =?us-ascii?Q?hlAtEkfh+dJ2ajQ6761SAOFv0XPRBYBO5z00xuGFMAii0Lm2WDkcDn4OQXm8?=
- =?us-ascii?Q?7/UUrSU1OK4dE50j1Ajm9TfSpeQZiTf3XR/Lv2ZpPkX2c0exttfg9UuQtqbE?=
- =?us-ascii?Q?MClR7pnoWmFWXZwE2JmmggykpGReHDLpmxVB9jCRZnsdfGivrZ/8SLo6Qn5t?=
- =?us-ascii?Q?+E8Ro4sxJN7tWOl/huEBDr2Y5nhyTEb1LuB22g8qKMioeS7fqxuAC5VyIoMS?=
- =?us-ascii?Q?ZQsfqSeqq8GULwX6YL5xtOn4u73yI/Cov3UCO4s5Y5gsVIkFOMLzdaIFLiBY?=
- =?us-ascii?Q?67qLXbOgG6dxJluaAykoaaP23Vt792pxGrq0wZDhzfj6IpoX51xpuqf0Cu8T?=
- =?us-ascii?Q?kqrgWhgliCpvJsmru4jLLfYmKtBAzLn+2SqqPtDK+Xuag1lnIMAeV6qxH8Yf?=
- =?us-ascii?Q?zQBY9n5MD+N19B+mRGDgpCKIZl7c+xEua37IG1t7cpVGJ/eQbuqfl5X11r8c?=
- =?us-ascii?Q?QY03ohQLcUHrYBi20MfsJkjJWYZIo8I0dnIKKmK8xDBB9fYCaLHc5yOa8PLa?=
- =?us-ascii?Q?s76SOL7WoUKjN94KRCbYJsDIR2xWnVdjZG5Pue7mQS43Jt1UF2hCvFLTap7v?=
- =?us-ascii?Q?tYoIR/8rT25k9iAi1Sfffwae58sfSs7t/zozL3bbzIBcWptC1o9NidLSlrPk?=
- =?us-ascii?Q?YDKiCYsSJ5qN2tPgVFXILsHw9y4Bruhkr2sRink9TEBo1+e9hkoGeWowBxGB?=
- =?us-ascii?Q?JpJgaq1RWs2MkedxIKZfTrnEzRRKxKsnnab+qHJsXy/po+jck73e86K6MTUq?=
- =?us-ascii?Q?71kfYROY04J7vFSLLvyjDtH+lpYQruhtKJcfitqMa3SAmwej8Fqj2aCoA7VZ?=
- =?us-ascii?Q?7ze/7nKn9iIsQ2U54rA0/Ja2Z/RFhgwkA/4P67MdyUA0rIYcsnzAblGoKE6e?=
- =?us-ascii?Q?baMcPwTYsOYyJDep9g2X3gEyndvWDAWSh+Wls5wIQls5FlUddveNV5aLY4Bz?=
- =?us-ascii?Q?sGEzNFMpZMhPh4J3nuQQZPJvlizto65I1WoI4iVIJARE6PatIlarZHWzXc5b?=
- =?us-ascii?Q?2MnR+LtYnbebsQqebdhH4n+SshV90ec7cmZ4YmqS9CIgS3/QvpAoFngBsJsE?=
- =?us-ascii?Q?+ewkyRuKN1i69h4E7Onm07b88VVBFQYxuNfuTDTWVVO4/9C5XP9Mi4pfF4CU?=
- =?us-ascii?Q?qeDF2vVywA+4wseszHBVBfflKS5kfhOzM868Y37eVhzV2x3IdgfVOpSMFoaC?=
- =?us-ascii?Q?Ihq3cQ6b5+lY34YFY51OV6Mbb4GkvJFU+64nTHVBz0Bh8KLosGB8xDJshUVc?=
- =?us-ascii?Q?5S0pknk6qY2QRMwNymRQYc9T7jGWiz+b7Dv33XirxZxjQaj+ms7+4YMHd08e?=
- =?us-ascii?Q?2CLX1okjp+k/ieG/z7lvsQSewuWXfJPiKjq5FDdayAEQtAdleKZdy2V8Rcr/?=
- =?us-ascii?Q?0/vhp+B9mPTNG3Dnp6irut76g6niZ39+xQNdBC+5ZtzYiHEipkV3v8VbErj0?=
- =?us-ascii?Q?oG5ih/H+s2J5EO9gWnBDK6aoQY+AWh+4A/Bs5quvgaMg1l1U4925L707StvI?=
-X-MS-Exchange-AntiSpam-MessageData-1: 113xQe5+e0V7ZA==
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a9ff2b20-6d43-4120-b247-08df152d82b3
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6964.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 02:35:32.2471
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: S5r4SJa71R/dw+uBEiQXMTjWpNWFkCi+bB6cyT/pib5KvroFVp4PuUncx6cQSgUMdwh+gUsR9P2zcrzQEBOxQycK4dCONIMtbQ/YqDT9FN4+ueZL+8BQ3ZYN8xb4k4iRyLO4LsmxglmD6MsV+/JFtg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA6PR03MB7638
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 5/6] alloc_tag: skip percpu counter allocation when
+ profiling is disabled
+To: Suren Baghdasaryan <surenb@google.com>
+Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
+ Aaron Tomlin <atomlin@atomlin.com>,
+ Kent Overstreet <kent.overstreet@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-modules@vger.kernel.org,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+References: <20260915070001.113559-1-hao.ge@linux.dev>
+ <20260915070001.113559-6-hao.ge@linux.dev>
+ <CAJuCfpFKGxOy9W+ZY9KasU5YaDVG4kbGsV6AYb2NNRyW4gT0mw@mail.gmail.com>
+Content-Language: en-US
+From: Hao Ge <hao.ge@linux.dev>
+In-Reply-To: <CAJuCfpFKGxOy9W+ZY9KasU5YaDVG4kbGsV6AYb2NNRyW4gT0mw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
+Hi Suren
 
-stmmac_setup_dma_desc() unconditionally honors the per-queue tbs_en flag
-set by platform glue drivers and marks the queue STMMAC_TBS_AVAIL, which
-selects enhanced Tx descriptors and enables the EDSE bit in the DMA
-channel. However, glue drivers set tbs_en in their setup path, which runs
-before dma_cap is populated by stmmac_hw_init(), so they cannot themselves
-validate against the TBSSEL hardware capability bit.
+On 2026/9/18 08:53, Suren Baghdasaryan wrote:
+> On Mon, Sep 14, 2026 at 11:59 PM Hao Ge <hao.ge@linux.dev> wrote:
+>>
+>> After shutdown_mem_profiling() clears mem_profiling_support,
+>> needs_section_mem() returns false, so later modules have their codetag
+>> section placed as regular data and never enter the alloc_tag maple tree.
+>> codetag_load_module() still called load_module(), which allocated a percpu
+>> counter for every tag; release_module_tags() could not find these modules
+>> on unload, so the counters leaked.
+>>
+>> Return -EOPNOTSUPP from load_module() when profiling is off:
+>> codetag_module_init() drops the module's cmod, no counters are allocated
+>> and the module loads without its tags. codetag_unload_module() now always
+>> calls free_section_mem(), since a module whose module_load() returned
+>> -EOPNOTSUPP is not in the idr but may still hold a reserved section.
+>>
+>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+>> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
+>> Cc: stable@vger.kernel.org
+>> Suggested-by: Suren Baghdasaryan <surenb@google.com>
+>> Acked-by: Suren Baghdasaryan <surenb@google.com>
+> 
+> Yeah, I guess I didn't think about alternatives...
+> 
+> When mem_profiling_support=false, why can't load_module() skip
+> allocating percpu counters, zero out the whole area between start_tag
+> and stop_tag and return 0 as success (mem_profiling_support is not
+> enabled, so we acted accordingly)?
+> Module will be added into maple tree and later codetag_unload_module()
+> will find the module, call release_module_tags() (which is a NOOP
+> because tag->counter==NULL) and finally call free_section_mem(). This
+> seems more natural than special-casing with EOPNOTSUPP. WDYT?
+> 
 
-If tbs_en is set on a controller whose MAC IP was not synthesized with TBS
-(MAC_HW_FEATURE3.TBSSEL == 0), the driver lays out the ring using the
-enhanced descriptor stride while the DMA engine stays in basic-descriptor
-mode, mismatching the descriptor format.
+I see, but the module would then sit in the idr with NULL-counter
+tags that become visible to readers which today never expect that state.
 
-stmmac_enable_tbs() does read back the EDSE bit and return -EIO when it
-does not stick, but that happens after stmmac_setup_dma_desc() has already
-allocated the ring with the enhanced descriptor stride, and its return
-value is discarded by the caller. Gating on dma_cap.tbssel in
-stmmac_setup_dma_desc() prevents the enhanced descriptor allocation at the
-earliest point, which is the only place the mismatch can be avoided
-cleanly.
+alloc_tag_top_users calls codetag_next_ct() to find the next codetag
+and alloc_tag_read() would do per_cpu_ptr(NULL) for each cpu - plain
+pointer arithmetic onto a wild address, an oops straight out of the
+OOM report. 
 
-Only set STMMAC_TBS_AVAIL when the core has read TBSSEL from the HW
-capability register.
+https://elixir.bootlin.com/linux/v7.3-rc3/source/mm/alloc_tag.c#L503
 
-Signed-off-by: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+So if the codetag section within this codetag_type ends up meaningless,
+is there a reason we still return success? We will still maintain cttype->count
+and allocate a slot for this module inside mod_idr.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 07a6fab6460e..f604ac848f77 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -4094,12 +4094,14 @@ stmmac_setup_dma_desc(struct stmmac_priv *priv, unsigned int mtu)
- 		dma_conf->dma_rx_size = DMA_DEFAULT_RX_SIZE;
- 
- 	/* Earlier check for TBS */
--	for (chan = 0; chan < priv->plat->tx_queues_to_use; chan++) {
--		struct stmmac_tx_queue *tx_q = &dma_conf->tx_queue[chan];
--		int tbs_en = priv->plat->tx_queues_cfg[chan].tbs_en;
-+	if (priv->dma_cap.tbssel) {
-+		for (chan = 0; chan < priv->plat->tx_queues_to_use; chan++) {
-+			struct stmmac_tx_queue *tx_q = &dma_conf->tx_queue[chan];
-+			int tbs_en = priv->plat->tx_queues_cfg[chan].tbs_en;
- 
--		/* Setup per-TXQ tbs flag before TX descriptor alloc */
--		tx_q->tbs |= tbs_en ? STMMAC_TBS_AVAIL : 0;
-+			/* Setup per-TXQ tbs flag before TX descriptor alloc */
-+			tx_q->tbs |= tbs_en ? STMMAC_TBS_AVAIL : 0;
-+		}
- 	}
- 
- 	ret = alloc_dma_desc_resources(priv, dma_conf);
--- 
-2.43.7
+I'd rather keep the -EOPNOTSUPP version (your original suggestion),
+also because the comments in load_module() and codetag_module_init()
+already document this scenario.
 
+WDYT?
+
+Thanks
+Best Regards
+Hao
+
+>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+>> ---
+>>  lib/codetag.c  | 10 ++++++++--
+>>  mm/alloc_tag.c |  4 ++++
+>>  2 files changed, 12 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/lib/codetag.c b/lib/codetag.c
+>> index a9cda4c962a3..a0b600720afc 100644
+>> --- a/lib/codetag.c
+>> +++ b/lib/codetag.c
+>> @@ -240,7 +240,9 @@ static int codetag_module_init(struct codetag_type *cttype, struct module *mod)
+>>
+>>         if (err < 0) {
+>>                 kfree(cmod);
+>> -               return err;
+>> +               /* -EOPNOTSUPP means we can load the module without its tag. */
+>> +               if (err != -EOPNOTSUPP)
+>> +                       return err;
+>>         }
+>>
+>>         return 0;
+>> @@ -388,7 +390,11 @@ void codetag_unload_module(struct module *mod)
+>>                         ++cttype->content_id;
+>>                 }
+>>                 up_write(&cttype->mod_lock);
+>> -               if (found && cttype->desc.free_section_mem)
+>> +               /*
+>> +                * A module whose module_load() returned -EOPNOTSUPP is not
+>> +                * in the idr but may still hold reserved section memory.
+>> +                */
+>> +               if (cttype->desc.free_section_mem)
+>>                         cttype->desc.free_section_mem(mod, true);
+>>         }
+>>         mutex_unlock(&codetag_lock);
+>> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
+>> index 5836803898ad..1ca0409b492b 100644
+>> --- a/mm/alloc_tag.c
+>> +++ b/mm/alloc_tag.c
+>> @@ -988,6 +988,10 @@ static int load_module(struct module *mod, struct codetag *start, struct codetag
+>>         struct alloc_tag *stop_tag;
+>>         struct alloc_tag *tag;
+>>
+>> +       /* Profiling disabled: load the module without its tags. */
+>> +       if (!mem_profiling_support)
+>> +               return -EOPNOTSUPP;
+>> +
+>>         /* percpu counters for core allocations are already statically allocated */
+>>         if (!mod)
+>>                 return 0;
+>> --
+>> 2.25.1
+>>
