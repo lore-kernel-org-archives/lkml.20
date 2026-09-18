@@ -1,232 +1,257 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AE544EDCCC
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:07:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84B0335C69D
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:07:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789740424; cv=none; b=oTuqYhAXuEhLnyeRAqD0ztTQWKFMIOWwXCRCVr8Sg+4LhDW9xCYgeyu1uALJ57JSrrVjLF38Olp2xvE/lN7GuIUzwIy8S2f1Sy3osm7/VniRHNgzqYikKoS4AMVoVMfq5DlF8BcyOOnCz2S0o8JKOcHWi17XwWD2+7x9irlMH0g=
+	t=1789740433; cv=none; b=EU33fpnKLwoKEcGbymjvXQ6s9AnkEttxAjLfqcYEiBMmK9ra9rvrivUl/Cj48v6PEkY3htraWtG5nMSxIfEIztwBJQpzmtuJ1yWUvmISs7f+rlVVsWvpv7/0rDK7JM5vdzgNL1+Cl0MG5C1rmCLx1AW0kJZHWB83zIwDt9H0SGs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789740424; c=relaxed/simple;
-	bh=rd7gj1zXN/3rpk3xfVsvYTIz6ugycXx27jtR2oCkAMU=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=h/NoscyxPFxAvvT54OWfKZ+eW7rTtbJkmWDf1RLWp027CHSwnV/DkHr73VcYOopkrZmOUFzxFuwabdxxrfFmKLK5DV3kjQKdyqb9M6CayC/88Vj5Q7/jQwqJRQ/hmw2PKmbuM6Yr96H0ji3Hv+PLq3qa6sSsqrxRp+AVekHWdew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=ZwhAmNZd; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1789740433; c=relaxed/simple;
+	bh=w5cWUGPVMJuQvQ/cGprtxg+JPLGX/F6iebYNWhoCWFQ=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=U7ZyLAdTRItqQ4zYkdBfcF+j0T8x9Sxv+ygcuk8WEx2KJ73qytqIIuxfZtYC4R/IBEe6c6UqXcO6AIPmYorh1NIkUHAOTPOhTDWWb+yWOkplmQQea/lD1LojV2SrO7wzTjTiKfdbROCPdsRVPMNhJlE3IKNTU/mqIjVYFmAHa1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=INYF6CB1; arc=none smtp.client-ip=209.85.216.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="ZwhAmNZd"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a6063d7dc4so967603a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:07:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="INYF6CB1"
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39de4e72b33so1414807a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:07:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1789740419; x=1790345219; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=d+yltdctt5ruCa6iMGQXqYgwXkTVwncfcwBwCdKyoY4=;
-        b=ZwhAmNZdU3JQaD52s3Oe2rKHYClHHOMX1Qsfqa6pEy5GG1PPWQDEsvSRggOnuCztPz
-         Lr1ZdytPUUoJKNGttvUEHltPveZOZHLkozBDba08tQSd221XfwqkCEH7Et89yRfuKuSM
-         3KAALHcLIE1tPSdUXzCRmHTdsY/F8K0k2q84DKF+UOei/D3nQdlzmZd4sF0QETVkeZy/
-         nJMFu9onZviL8CCUu2jkXmveWYpGrOLcNGd7jHqUGHtas8IWltKJn9ka7FFOtSm4eqIV
-         WQslVcZF4xm5ztDzHLze1n240fIHtuAAoET4yWKTE0f4Agr3b4m4VlUrbkaqTeAqzLZx
-         hXuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789740419; x=1790345219;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1789740431; x=1790345231; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=d+yltdctt5ruCa6iMGQXqYgwXkTVwncfcwBwCdKyoY4=;
-        b=VOrDZStukmeFcb5tTEDMvIwKshw2lxsyItS3i5Qui3y+l0szb53BfxwpUaOyXIzgzS
-         Oi3aQL6+lmDVVQ0FXDsbjczTrhHo+MXZzHF0Y96npcrZh/+gaRMDGxXarQk39igf1HC7
-         mKnPB4u67nSRd9dzyHnrauQP60Wa6mhZUQE8Xhet2XdtlAnjbVCT+paSt4txdbVCm8DE
-         uyaDnlZdq4T/3AfLlybumpEHcpeKmTaLj6iFHvOmYFUkOT/9xzQON5BliOjB08kiRiEU
-         fAGUiLJIui9x7X7/e40j/x36zKjJwxu7sGVaCiMRcOAUGIZWXrLxIrC6PpoPg8hm+mDg
-         0v1g==
-X-Forwarded-Encrypted: i=1; AKwUvBwO6hil2yzcFr01tTAqmekq+n1c5skbDu5VfeuSW85DDWmnxhaliNq4uimhVYDeNQNLGkpVSSgLVkBtRfY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kd+s+/sK+zYehAhzjqBWVfv51iQEWckelftWuusaFZUrUGtT31
-	D2LyVGmT8K68KsI7yeiPVk3A5o9+qGSXWCReW9sIdEPsA5aTTJYZwqQhb2cjKPCgTWQQLgiTZtM
-	gFela
-X-Gm-Gg: AYBFou05pROHbii6ETmHNsxA9G3BNAuO5eA1B7UMKghRogW8qxrg1DMZF3IW6Y5ZUfu
-	lAmAiSL51gvYqRVo+6Ox7cAfOT/KlyCMnoMy8q9EG3RVEXw/SUSZN6ktLmkoWFcULFq/Da8wRYP
-	yhJvyn/86mLsukdvHoxGWUeH9v+MxtECXdjrr13zGvTK6G7cm7P87QE5VPR3Y0ZsOwJDg5vkG3I
-	T7BGFQD1hX6mZruq6vRcu3Y/nvEkasfMeu6N8UywDcEqTj3mOSoUU07rgnCMXCLX1BJCc4IdM7K
-	J6NZrKQWBwvrqiILvio21QfkMWT74/iuS32xfWGvLB1virqBtZ90vvlOLYNBMA7tXIKHW7Ojfx6
-	i2hg+QWjrN/L01yNKIXE+DttRgKWPOB29KgI4GGZ1LjhqT815wlB1zTsCKsa+nrkBbaTLkhD+7k
-	L+PcttfjHdn9LutV2WFySqUYn/EwJZBumL9REuUVwASLf7L51r4Godv4WgF98MRmBPn9xQlv9e2
-	0uH23VyhAEBlIaBNG4mi7WBs/XZQgGDTLaGJ/zOOD4ARqPqwl90Zw==
-X-Received: by 2002:a05:6402:4290:b0:6a8:6390:945f with SMTP id 4fb4d7f45d1cf-6aa5798614emr3549288a12.10.1789740419612;
-        Fri, 18 Sep 2026 07:06:59 -0700 (PDT)
-Received: from localhost (144-178-202-138.static.ef-service.nl. [144.178.202.138])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa59753cc1sm944353a12.21.2026.09.18.07.06.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2026 07:06:58 -0700 (PDT)
+        bh=Ir1/YgDnxXsqAYc9f8EvJKyGqMi5T/DFjD9aFKSS1hk=;
+        b=INYF6CB1hNlQt85zqOFtAULU+cbbbpAXweFQfCn0HgCe68/1J4vPWPvHEwUmLvi8yQ
+         avdtDe/WpOYaVELQxVdISVCwaaeQ7nlyPX3/yK6qcub9M9Q25DtexE3B7JqXQT840GpH
+         jjyOIA672nr9No1AzoXmPeF9U/uaj0W8WSE+9pMDQdceQNJcXuEUy4Q/zhSLyBdCR7ck
+         c7hibGxwQQbkWhN/h9x2iBss5KYme5Y1flFPAGvCDwcUhItpbKVlqxdFc5Ba4tWqb+AJ
+         s7rtR4ukSy0dnoCXoAgP8IsOKeotCLsWza4SWS1ueL0sbUViwkCz3LnzuJN27A5r7m18
+         X4wA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789740431; x=1790345231;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ir1/YgDnxXsqAYc9f8EvJKyGqMi5T/DFjD9aFKSS1hk=;
+        b=b7lGwI+enCwbWEO2m4RbuYzYJe8/SQmemxY6FJtoWPEWjSx9zUhRtSTG5YFU37tVa5
+         taJBVT6Cf06pl8DBjjGsVilUde6LHxCjXDv9p4P1x4ppqfKwaHhpfJezpgbu4W0pWonC
+         eiqpZ1fzbsEbu4WL8Fwhxz3N+R3lGvGIvcGH0O6IYE9Su5q7YpvyWfUCd4dMI/DiyjVt
+         7nMABrYX75flutOkmbXHr32ppW8bf1ZBVQbfdrNJa23VOMZA6ykZ19vHwi8jr5p6x68V
+         g1pMEyQ6HMK7uP+Rxotgloo3T8Fyky9hxCj7MFJp7X+l1P2AvOkTmzejp1e0vtuIfDFu
+         iguQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxnJK2dWFyAnKSaIXr48pAY6MPjGDCQNew8Ko3uF1yV40E/GLbkRK8rzqlxRFWRG56eHiFuL+Ivt3fWZRk=@vger.kernel.org
+X-Gm-Message-State: AFuF++m1x0efC6dHPwhUfm1te4uxhRrtWQjmP+1ifATsRmlynkIYdwGk
+	OJDD78yS/FmVcR2LgnzaFIn2/Afa6kZzG2pjaMtjWm+am/7FgORtoqbEMeR+D4RVVzdjSYBg6cm
+	OuZXM7noeaw==
+X-Received: from dlbut1.prod.google.com ([2002:a05:7022:7e01:b0:144:ce33:3556])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:ac1:b0:39e:6a80:b79c
+ with SMTP id 98e67ed59e1d1-39e6a80b8bcmr35842a91.44.1789740430514; Fri, 18
+ Sep 2026 07:07:10 -0700 (PDT)
+Date: Fri, 18 Sep 2026 07:06:43 -0700
+In-Reply-To: <cover.1789662556.git.irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 18 Sep 2026 16:06:57 +0200
-Message-Id: <DLII11BAGLSU.OV8H9AA3AWN2@fairphone.com>
-Cc: "Liam Girdwood" <lgirdwood@gmail.com>, "Mark Brown"
- <broonie@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Konrad Dybcio" <konradybcio@kernel.org>,
- <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
- "Krzysztof Kozlowski" <krzk@kernel.org>, <linux-arm-msm@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>
-Subject: Re: [PATCH 4/4] arm64: dts: qcom: sm7225-fairphone-fp4: Add parent
- supply for regulators
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Bjorn Andersson" <andersson@kernel.org>, "Luca Weiss"
- <luca.weiss@fairphone.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3-dirty
-References: <20260901-fp4-regulator-supply-v1-0-68288ab70aee@fairphone.com>
- <20260901-fp4-regulator-supply-v1-4-68288ab70aee@fairphone.com>
- <apmLYmMgGZVhqU8o@baldur>
-In-Reply-To: <apmLYmMgGZVhqU8o@baldur>
+References: <cover.1789662556.git.irogers@google.com>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+Message-ID: <20260918140659.2501976-1-irogers@google.com>
+Subject: [PATCH v3 00/16] perf trace: Fix BPF filtering and make tracing tests non-exclusive
+From: Ian Rogers <irogers@google.com>
+To: irogers@google.com, acme@kernel.org, namhyung@kernel.org
+Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org, 
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
+	mingo@redhat.com, peterz@infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Bjorn,
+perf trace's BPF augmentation attaches to raw_syscalls:sys_enter and
+raw_syscalls:sys_exit system wide, and used the program return value to
+decide whether a syscall was interesting. Returning 0 from a
+BPF_PROG_TYPE_TRACEPOINT program makes perf_trace_run_bpf_submit() drop
+the event for every listener on that tracepoint, not just for the perf
+trace that installed the program. Any concurrent perf trace, perf record
+or ftrace session watching raw_syscalls therefore lost events, which is
+one of the reasons so many of the perf trace and perf probe shell tests
+had to be marked (exclusive) and run on their own.
 
-On Thu Sep 3, 2026 at 5:01 PM CEST, Bjorn Andersson wrote:
-> On Tue, Sep 01, 2026 at 10:58:59AM +0200, Luca Weiss wrote:
->> Add the vdd-*-supply properties to the rpmh-regulators nodes, so that
->> the parent regulators can be enabled when needed.
->>=20
->
-> https://docs.kernel.org/process/submitting-patches.html#describe-your-cha=
-nges
-> starts with "Describe your problem.". Is there an actual problem observed=
-?
+Patches 1 and 2 are independent fixes to the files the rest of the
+series goes on to rework.
 
-No, this was noticed just in 'code', that other (also rpmh) devices have
-the -supply properties, but not this device.
+Patches 3 to 8 fix perf trace. They stop the return value being used as
+a filter and do the filtering in BPF maps instead, fix argument handling
+for the __data_loc internal tracepoint fields that syscalls:sys_enter_*
+gained in 6.19, stop the sys_exit program array tail calling a sys_enter
+augmenter, and replace the userspace PERF_RECORD_FORK/PERF_RECORD_EXIT
+bookkeeping with BTF-typed raw tracepoint programs on
+sched_process_{fork,exit,exec}. A task is then registered before its
+first syscall and evicted in do_exit(), rather than whenever userspace
+next drains the ring buffer.
 
-> I've been told that rpmh will have your back here, so you should not
-> need to explicitly vote for these resources from Linux.
+Patches 9 to 16 deal with the tests. Several collided with each other
+through global state rather than through perf trace: fixed probe names,
+clear_all_probes() disabling every tracepoint on the system, and perf
+trace's hardcoded "probe:vfs_getname*" wildcard pinning probes belonging
+to other tests. With those scoped to a pid they can drop (exclusive) and
+run in parallel again.
 
-Then, this change still makes
-/sys/kernel/debug/regulator/regulator_summary have a nice hierachy of
-regulators and not all of them parented to regulator-dummy.
+Tested on x86_64. The trace and probe tests pass under 'perf test -r3',
+which runs the repeats concurrently. Every patch builds individually,
+and the series also builds with BUILD_BPF_SKEL=0.
 
-Shall I send a v2 with this justification in the commit message? Or is
-it okay to pick it up as-is?
+Changes since v2:
+- Rebased onto the current perf-tools-next.
+- Patch 1 also includes <assert.h>, for the assert() in
+  augmented_syscalls__create_bpf_output().
+- New patch 2 makes evsel__put_and_free_priv() free the whole
+  evsel_trace. It only zfree()d the struct, leaking the syscall_arg_fmt
+  array hanging off it. No caller can reach that today, but patch 6
+  adds one that discards a fully set up evsel.
+- Patch 6 identifies the evsel to drop from the evlist by comparing
+  against trace.syscalls.events.sys_enter instead of a strstr() for
+  "syscalls:sys_enter". That substring also matches the per syscall
+  syscalls:sys_enter_SYSCALL tracepoints, so a user asking for one of
+  those by name would have had it removed from the evlist, and
+  __augmented_syscalls__ described with its tracefs format rather than
+  the raw tracepoint's.
+- Patch 6 reports a failure to program the pid filters with the error
+  that caused it. trace__run() sent everything trace__set_filter_pids()
+  returned to out_error_mem, which prints "Not enough memory to run!".
+  That was already a guess, and a wrong one now the function writes BPF
+  maps too: the update fails with -E2BIG when the target has more
+  threads than pids_to_trace has room for.
+- Patch 6 reports a failure to program the syscall filters the same way.
+  The pr_err() in trace__set_ev_qualifier_filter() ran before trace__run()
+  printed "%m" at out_errno, and anything called in between could have
+  changed errno by then, so the two did not have to agree. The inner
+  report is now a pr_debug() and the caller prints the error it was
+  given, which leaves out_errno without a user.
+- Patch 7 moves the pid across in sched_process_exec() by deleting the
+  old key before inserting the new one. The move is only a rename, but
+  holding both keys at once needs a spare slot, and on a full map the
+  insert failed with -E2BIG while the delete still succeeded, losing
+  the task instead of moving it.
+- Patch 7 no longer claims that a task forked during the attach window
+  is still traced unaugmented. That was wrong: cmd_trace() removes the
+  sys_enter evsel once the bpf-output event exists, so
+  __augmented_syscalls__ is the only source of enter events and such a
+  task is not reported at all. Describe what is really lost, why the
+  tgid fallback is not kept as a safety net for it, note that only
+  'perf trace -p' is exposed, and that closing it needs the target's
+  descendants re-enumerated from /proc after the attach.
+- Patch 7 drops the parent tgid test from sched_process_fork(), so a
+  child inherits from the pid of the thread that called clone() and
+  from nothing else. The lookups only ever match a task's own pid, and
+  every thread of a -p target is enumerated from /proc/<pid>/task and
+  inserted in its own right, so the tgid added no reach. What it did
+  add was a child inheriting from a thread that is not traced itself,
+  such as a sibling of the thread 'perf trace -t' selected.
+- Patch 7 ends the session with the error that caused it when the BPF
+  programs cannot be attached, rather than printing a bare errno left
+  over from unwinding the attach. There is nothing to fall back to at
+  that point, cmd_trace() has already built the evlist around
+  __augmented_syscalls__ and dropped the sys_enter evsel, and the code
+  being replaced did not fall back either: it ignored the result of
+  augmented_raw_syscalls_bpf__attach() altogether.
+- New patch 8 reads the target out of /proc again once the BPF programs
+  are attached, so a task the target created while perf trace was
+  starting up is traced rather than missed for the whole session. This
+  is the gap patch 7 describes and left for later. It covers the
+  target's new threads and, through task->children, anything it or they
+  forked, to any depth. What is left is a task that made syscalls
+  between sys_enter going live and being added to the map, which is
+  momentary rather than lasting for the session.
+- Patch 9 bails out if mktemp fails rather than carrying on with an
+  empty $tmpdir. cd rejects the null directory, and the rmdir that was
+  meant to undo the mktemp then failed to remove '' instead. Its
+  cleanup() also no longer exits when it cannot cd out of the temporary
+  directory, which would have skipped removing it. The removal takes an
+  absolute path and does not need the cd to have succeeded.
+- Patch 10 now narrows the disable in clear_all_probes() to the probes
+  themselves rather than dropping it. Clearing kprobe_events or
+  uprobe_events is all or nothing: dyn_events_release_all() returns
+  -EBUSY without removing anything if it finds a probe that is still
+  enabled, so simply removing the write could leave stale probes behind
+  to collide with the next run. The set to disable is read from the
+  kprobe_events and uprobe_events listings rather than assumed to be
+  the groups perf uses, since a probe left enabled in another group,
+  such as the default kprobes group used when kprobe_events is written
+  directly, would abort the clear just the same.
+- Patch 11 deletes the probes from an exit trap as well as on the way
+  out. A pid scoped name is never seen again, so a run interrupted
+  before cleanup_probe_vfs_getname() left its probes behind for good,
+  a set per run, where the fixed name was at least found and reused by
+  the next run.
+- Patch 12 retries deleting the uprobe. Deletion writes uprobe_events
+  just as addition does and can lose the same race with a concurrent
+  test, and because the event name is now pid scoped a probe left
+  behind is never overwritten by a later run. It also bails out if
+  mktemp fails and quotes the path in the emptiness check, which
+  unquoted would have tested the string "-s" and reported success.
+- Patch 13 prints the tail of the output rather than the head. The
+  pattern it matches only appears in the summary, which is printed
+  after any trace output, so the head of the file is not the part that
+  failed to match.
 
-Regards
-Luca
+Changes since v1:
+- New patch 1 includes <sys/types.h> and <string.h> for the pid_t and
+  strcmp() uses that were relying on the include chain happening to
+  drag them in, which does not hold on libcs such as musl.
+- Patch 6 no longer returns success when the event qualifier filter
+  string fails to allocate. err now defaults to 0 because either
+  tracepoint may legitimately be absent, so the ENOMEM path has to set
+  the error itself rather than rely on that default. It also includes
+  <stdbool.h> for the bool parameters it adds to trace_augment.h.
+- Patch 9 removes the temporary directory if the cd into it fails.
+  That happens before the cleanup trap is installed, so the directory
+  would otherwise be left behind in /tmp.
 
->
-> Regards,
-> Bjorn
->
->> The regulators s4a and s6a are a bit special. They feed back into
->> PM6350, but are not modelled as regulators (or anything else?), so they
->> also can't be added as vdd-*-supply. It would seem to be possible to add
->> them with their "Default on booting voltage" from the PM6350 Data Sheet
->> in the dts, but I'm not sure this is desired.
->>=20
->> And document what the "missing" regulators are used for.
->>=20
->> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
->> ---
->>  arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts | 46 ++++++++++++++++=
-+++++++
->>  1 file changed, 46 insertions(+)
->>=20
->> diff --git a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts b/arch/ar=
-m64/boot/dts/qcom/sm7225-fairphone-fp4.dts
->> index 5d20ad93b0c5..a1556d802a8b 100644
->> --- a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
->> +++ b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
->> @@ -78,6 +78,17 @@ lcdb_dummy: regulator-lcdb-dummy {
->>  		regulator-max-microvolt =3D <5500000>;
->>  	};
->> =20
->> +	vph_pwr: regulator-vph-pwr {
->> +		compatible =3D "regulator-fixed";
->> +
->> +		regulator-name =3D "vph_pwr";
->> +		regulator-min-microvolt =3D <3700000>;
->> +		regulator-max-microvolt =3D <3700000>;
->> +
->> +		regulator-always-on;
->> +		regulator-boot-on;
->> +	};
->> +
->>  	reserved-memory {
->>  		/*
->>  		 * The rmtfs memory region in downstream is 'dynamically allocated'
->> @@ -296,6 +307,15 @@ &adsp {
->>  &apps_rsc {
->>  	regulators-0 {
->>  		compatible =3D "qcom,pm6350-rpmh-regulators";
->> +
->> +		vdd-l2-l5-l7-supply =3D <&vreg_s2a>;
->> +		vdd-l3-l6-l8-l9-l10-supply =3D <&vreg_bob>;
->> +		vdd-l11-supply =3D <&vreg_s2a>;
->> +		vdd-l12-l14-supply =3D <&vreg_s2a>;
->> +		vdd-l15-l19-l22-supply =3D <&vreg_s8e>;
->> +		vdd-s1-supply =3D <&vph_pwr>;
->> +		vdd-s2-supply =3D <&vph_pwr>;
->> +
->>  		qcom,pmic-id =3D "a";
->> =20
->>  		vreg_s1a: smps1 {
->> @@ -310,6 +330,14 @@ vreg_s2a: smps2 {
->>  			regulator-max-microvolt =3D <2048000>;
->>  		};
->> =20
->> +		/*
->> +		 * s3a (smps3) is gfx.lvl
->> +		 * s4a (smps4) is supply for vdd-l4 & vdd-l13
->> +		 * s5a (smps5) is mx.lvl
->> +		 * s6a (smps6) is supply for vdd-l16 & vdd-l18-l20-l21
->> +		 * l1a (ldo1) is lcx.lvl
->> +		 */
->> +
->>  		vreg_l2a: ldo2 {
->>  			regulator-name =3D "vreg_l2a";
->>  			regulator-min-microvolt =3D <1503000>;
->> @@ -408,6 +436,8 @@ vreg_l16a: ldo16 {
->>  			regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
->>  		};
->> =20
->> +		/* l17a (ldo17) is lmx.lvl */
->> +
->>  		vreg_l18a: ldo18 {
->>  			regulator-name =3D "vreg_l18a";
->>  			regulator-min-microvolt =3D <788000>;
->> @@ -446,8 +476,24 @@ vreg_l22a: ldo22 {
->> =20
->>  	regulators-1 {
->>  		compatible =3D "qcom,pm6150l-rpmh-regulators";
->> +
->> +		vdd-bob-supply =3D <&vph_pwr>;
->> +		vdd-l1-l8-supply =3D <&vreg_s2a>;
->> +		vdd-l2-l3-supply =3D <&vreg_s8e>;
->> +		vdd-l4-l5-l6-supply =3D <&vreg_bob>;
->> +		vdd-l7-l11-supply =3D <&vreg_bob>;
->> +		vdd-l9-l10-supply =3D <&vreg_bob>;
->> +		vdd-s8-supply =3D <&vph_pwr>;
->> +
->>  		qcom,pmic-id =3D "e";
->> =20
->> +		/*
->> +		 * s1e-s2e (smps1-smps2) is cx.lvl
->> +		 * s3e-s4e (smps3-smps4) is VDD_APC1
->> +		 * s5e (smps5) is VDD_APC0
->> +		 * s6e-s7e (smps6-smps7) is mss.lvl
->> +		 */
->> +
->>  		vreg_s8e: smps8 {
->>  			regulator-name =3D "vreg_s8e";
->>  			regulator-min-microvolt =3D <313000>;
->>=20
->> --=20
->> 2.55.0
->>=20
+Ian Rogers (16):
+  perf trace: Include the headers declaring pid_t, strcmp and assert
+  perf trace: Free the whole evsel_trace in evsel__put_and_free_priv
+  perf trace: Start BPF summary before starting workload
+  perf trace: Skip internal tracepoint fields in formatting and beauty
+    map
+  perf trace: Do not set unaugmented BPF program on sys_exit map
+  perf trace: Filter events in BPF and avoid tracepoint vetoes
+  perf trace: Handle fork and exit directly in BPF filter maps
+  perf trace: Enumerate the target again once BPF is attached
+  perf test test_task_analyzer: Isolate in temporary directory and make
+    non-exclusive
+  perf test common: Only disable probes in clear_all_probes
+  perf test probe_vfs_getname: Scope probe name to PID and make
+    non-exclusive
+  perf test record+probe_libc_inet_pton: Scope event to PID, add
+    retries, and make non-exclusive
+  perf test trace_summary: Improve error diagnostics
+  perf test trace_btf_general: Drop --max-events=1 and make
+    non-exclusive
+  perf test trace_summary: Make non-exclusive
+  perf test uprobe_from_different_cu: Scope probe name to PID
 
+ tools/perf/Documentation/perf-trace.txt       |   5 +
+ tools/perf/builtin-trace.c                    | 637 +++++++++++++++---
+ tools/perf/tests/shell/common/init.sh         |  33 +-
+ .../perf/tests/shell/lib/probe_vfs_getname.sh |  51 +-
+ tools/perf/tests/shell/probe_vfs_getname.sh   |   3 +-
+ .../shell/record+probe_libc_inet_pton.sh      | 107 ++-
+ .../shell/record+script_probe_vfs_getname.sh  |  18 +-
+ tools/perf/tests/shell/test_task_analyzer.sh  |  20 +-
+ .../shell/test_uprobe_from_different_cu.sh    |  11 +-
+ .../tests/shell/trace+probe_vfs_getname.sh    |   9 +
+ tools/perf/tests/shell/trace_btf_general.sh   |   8 +-
+ tools/perf/tests/shell/trace_summary.sh       |  16 +-
+ .../bpf_skel/augmented_raw_syscalls.bpf.c     | 312 ++++++++-
+ tools/perf/util/bpf_trace_augment.c           | 175 ++++-
+ tools/perf/util/trace_augment.h               |  27 +-
+ 15 files changed, 1281 insertions(+), 151 deletions(-)
+
+
+base-commit: 86a27811675a415bd351efca1a194a1a94c082dd
+-- 
+2.55.0.1082.g2b9226bbc0-goog
 
