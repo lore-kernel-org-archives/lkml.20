@@ -1,124 +1,128 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F1653D8900;
-	Fri, 18 Sep 2026 07:53:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 767404349A7
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:54:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789718002; cv=none; b=QWgzL62OkkFTQq/JomNmATlMMep3At4jXGkQMRazwlw2jtOZRAN17bEvV+yKRVMdXtPKiE7LUmE8D7vqDmpnPp7bgGEANH2vsBF5eVSGuJ/E4Vp5wfonPIwmTCactaUhsM7BqzKb3z38MQt8T9D3061WgDhtnRT/3OqDdZFHsiI=
+	t=1789718059; cv=none; b=Hju+K51dYwMQtMy3fpCdoYKg8BZCsSNzlqGiXKLgRLZEP2nOB3YMTBxxkGRLws0fM4uAg854Y4OliNsPpt76rE/ZIHqoW+AyztNsf5vWfeBk4Si370QOUq4tO0gq040/Pmibno++ffTcLzq8igfrsWnzLKQg3ZKwxWyAZjVRkN4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789718002; c=relaxed/simple;
-	bh=1kalJkD2AC88fzQVG0vNoQck71hbfcCsC1uiYAkmkE0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iBorHifmZigkxvc03xnejzpjo52ZtqSUxRdEm0jFNfnHbeT7Uuot5zndWZnq21EosulKfSKkPXW/AoGHayfs8BRH7hruEIGj7rzwWCK3RsoefmT/N6fh04+WLnqXPzCNJoqd9pBLIeqGYgBec7zn3N1CKJj2pHgpbirsIwu8Hdk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LV6beOBw; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789718059; c=relaxed/simple;
+	bh=kNjWH5+CMgW1Pl5h6a/fYwVArl9Y83OAw6Pl4E7UYmc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nFZuWXM8CNJQCbC/j7t4AGd3FUvVneVGpCe483onzlqBwUbnIgr5rTRlk8sUHUeSZv5fBe/Vtrw/3l2tPN2ETmDTjsWsqsordW7secKmxV2s0VOfuhVvbpTyLA+rqtm6jWn9mynBKIkcEnQaauAIxGIo9z/G8zuW6DmhA89qcLU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AxIs2gZ6; arc=none smtp.client-ip=209.85.208.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LV6beOBw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789718001; x=1821254001;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=1kalJkD2AC88fzQVG0vNoQck71hbfcCsC1uiYAkmkE0=;
-  b=LV6beOBwiiaV9JZWHkuOJsGX2P8EI3B5Bl2pwrefuOzovYtkNaCK9NGN
-   4xPidkOIFhG4dnEC6C5WQC/5g2Zg8BE94uVrTZQX8d2dhLdhXWYgqEKi0
-   tWcC3cN1kunUvoW7Cl0l9kGDNXp61PKh2EejQVEbFvUTtG+6cCQMpe12X
-   L2AMlJ2LoFP/htfLbxWgjil+ZHW6Rt6vqWW1JdBIzlWG93g8L0dK1asCZ
-   Ya1piXd57HSuyKB8vQmLIzOa4Pl0WwhnWzo7GVcpLaIDZHCpD2ETMGNKA
-   C0k8BlcYaFIPHEAZfq/j/6ZCbdFAroPxf/iBVmcmgHXovoW7vDWkU02f5
-   w==;
-X-CSE-ConnectionGUID: KxCFZBw9R96C7ZNJMNj4DA==
-X-CSE-MsgGUID: m8p1l/bYR7efD5uVdBvVew==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="100803041"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="100803041"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 00:53:20 -0700
-X-CSE-ConnectionGUID: RiNtwVriQZaCxAyHeSuvCg==
-X-CSE-MsgGUID: oJy3azIKS/6kIjzAeA2nzQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="299371428"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa001.fm.intel.com with ESMTP; 18 Sep 2026 00:53:18 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 2178F99; Fri, 18 Sep 2026 09:53:17 +0200 (CEST)
-Date: Fri, 18 Sep 2026 09:53:17 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Xu Yang <xu.yang_2@oss.nxp.com>
-Cc: badhri@google.com, gregkh@linuxfoundation.org,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, jun.li@nxp.com
-Subject: Re: [PATCH] usb: typec: tcpm: advance vdm_discovery_state on
- Discover Identity Not_Supported
-Message-ID: <aqzt7dDNdHd22rY3@black.igk.intel.com>
-References: <20260914093828.1910201-1-xu.yang_2@oss.nxp.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AxIs2gZ6"
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6a5e971c970so2007500a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:54:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789718056; x=1790322856; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=drEHSSlhuZVaxkDlnBGA1Yj/cgZE9sePJP3czUIslhE=;
+        b=AxIs2gZ6VH5UgYIFr9Yw9EV0BCQ1R8qky6GwRmk7r36t663M3YjIgQ45OrUYfvv4XU
+         1xPInICkSV1b1a9Vdi5FMVoRtYq20V65xznc5G72rrvLXaNzISvbtExVX0apWPEvEN9M
+         4z+VqgE5GwR/bi4IuI0rzKmCkRiGDk2oF71M3VWMdbTsFGggVQn6A5qBg616EmD512HA
+         d2F6EczK4Tz+gjzGHGjLJKafFc7qINFjW7QTeRscKoKwLAoUWo3vJx4aVi6CVuzjq/zM
+         BNbeed+DRZDosI+MoHynG6tjI0BQXwrju6r6/VwkAZHbv+rKEmMCww4PmPsAL8TDVRWG
+         jNZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789718056; x=1790322856;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=drEHSSlhuZVaxkDlnBGA1Yj/cgZE9sePJP3czUIslhE=;
+        b=bEus93byUSHQ6hxrT2JCsIO8yRB46lov/v54wryO7J+suL3hXJX3xOCyRKZ+tixkTD
+         C5QyWi82zS+82kscjvf/ABmsuWsNRmod6HoaP29usS8SKeF98WT3EcndxFDu0dWOR5XO
+         RSah6WK7KD+ZWDbrasRtd5+v4+I/iiC4sI/q8gPyEmgZAi+bi55S8m4dbl7bsQgwq0JY
+         12y/XvNg21a7hG9d5Esra4qDo7J5Q9dZAPNLi+u1laxGZg06k0zzmSaAxHvgX8/nqnlp
+         4tCSPrCxsZ1FlJEmzaSJZY8lm1rt6xd4oqUT6F2jrPGM9qPxBBKAWSka9iqtNXl9EkcO
+         8q4w==
+X-Forwarded-Encrypted: i=1; AKwUvBwAWuKY9gNexlc+Os8XTpWVJP13Fq2LZOejopMH0vVykZBM9zF8GqK3Lam6xrrZ6/zGitHF4uE7BuIUuNo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nJIknAq4t2O1yLOuYBQUBh3WJsSGBAax7f1UexJcOMwi95IfRj
+	t37JmgJaB9DDU59rv1OHpjKpll9dM5CS9gvLJbIUT28Gm/H7Mvr+491S
+X-Gm-Gg: AYBFou0tPCCfHszAQ71AUkq95qhjYEOoT/0DRT8TIcVV5nY5yvnL+98XjMS4vi5fi3F
+	RsA+4tJ/U05k/6KHcTxBJ6u7qCGB9CEBCaYCVd7z5ytstzDCyP4Y5Qjl6tb9YAYA73nTbpqFn0C
+	Rk3oqC5sVPIeRENRFxfbTRZeSoc1reYVYOBmovmLtbcuerEwowiklocDLueRr7rc8Mg/MlDZmBL
+	V/O82N43hfAu0qwacnIVMR12CIzsG/9SSrNyzrZF6Xc6t+KjzOD54o/RUrX2neEzyNrf1tErXpb
+	pySdSeNJTEMW8cOi8Ss/mq1HcBnWsAreRyN/BpWvVjf6aaNcsKUBx1fZUtE42AMNH5u7Foy1nj0
+	C02QC7LKdR+2LR73Uz7movsQME9N83cM+n3+a2IXBi0YtYbCFZk3HWaNf3lW58XU35CniFhTgqy
+	NOSiqeh8ED9CrFtdqRby/lAM4Da7Oej8GIjhKiFIX08WvwlUXwjwCkrfG9yHm9PHIr8NibvhQpJ
+	4QIQpZmA4NF+8vDG5uofBmqS9ofyWF6Z0U=
+X-Received: by 2002:aa7:cb1a:0:b0:6aa:1d71:4a7a with SMTP id 4fb4d7f45d1cf-6aa36e04b69mr2998119a12.12.1789718055453;
+        Fri, 18 Sep 2026 00:54:15 -0700 (PDT)
+Received: from [192.168.1.30] (161-53-210-87.ftth.glasoperator.nl. [87.210.53.161])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa59605618sm469752a12.11.2026.09.18.00.54.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 18 Sep 2026 00:54:14 -0700 (PDT)
+Message-ID: <c7fd0dfc-5da7-4bad-bfb0-308e3937b1cc@gmail.com>
+Date: Fri, 18 Sep 2026 09:54:14 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260914093828.1910201-1-xu.yang_2@oss.nxp.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/3] dt-bindings: soc: qcom: add
+ xiaomi,taoyao-pmic-glink compatible
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Sebastian Reichel <sre@kernel.org>,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
+References: <20260915084901.56622-1-zstaseg@gmail.com>
+ <20260915084901.56622-2-zstaseg@gmail.com>
+ <20260917-sticky-sheep-from-pluto-adf65b@quoll>
+Content-Language: en-US
+From: Stanislav Zaikin <zstaseg@gmail.com>
+In-Reply-To: <20260917-sticky-sheep-from-pluto-adf65b@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 14, 2026 at 05:38:28PM +0800, Xu Yang wrote:
-> From: Xu Yang <xu.yang_2@nxp.com>
+On 9/17/26 12:07 PM, Krzysztof Kozlowski wrote:
+> On Tue, Sep 15, 2026 at 10:48:59AM +0200, Stanislav Zaikin wrote:
+>> Add the compatible string used by Xiaomi 12 Lite 5G (taoyao) so its
+>> battery manager can be matched to a device-specific variant in
+>> qcom_battmgr.
 > 
-> Commit fa4d0a7cd036 ("usb: typec: tcpm: fix Discover Identity retry loop
-> on Control Message reject") advances vdm_discovery_state to
-> VDM_DISCOVERY_COMPLETE when a CMDT_RSP_NAK is received, but it does not
-> advance the state when a non-modal port returns PD_CTRL_NOT_SUPP.
+> Previously you were asked if the device is compatible with qcm6490. You
+> responded about something completely else - that you need qcm6490. That
+> was not the question if you need it or not. The question was are they
+> compatible and you have entire commit msg to explain that.
 > 
-> This can re-arm another vdm_discovery_work if the port is going to
-> respond with PD_CTRL_NOT_SUPP to the partner.
+> Instead, describing standard Linux device driver matching in commit msg
+> is redundant.
 > 
->   tcpm_pd_handle_msg(port, PD_MSG_CTRL_NOT_SUPP, NONE_AMS);
->     tcpm_queue_message();
->       mod_tcpm_delayed_work();
->         tcpm_state_machine_work()
->           tcpm_send_queued_message()  -> send PD_MSG_CTRL_NOT_SUPP
->           run_state_machine()
->             case SRC_READY:
->             case SNK_READY:
->               mod_vdm_discovery_delayed_work(port, 0);
+> Best regards,
+> Krzysztof
 > 
-> If both the port and its partner do not support modal operation, they
-> will send DISCOVER_IDENTITY to each other infinitely.
-> 
-> Advance vdm_discovery_state to VDM_DISCOVERY_COMPLETE in this path as
-> well, mirroring the existing handling for the SVDM CMDT_RSP_NAK case.
-> 
-> Fixes: fa4d0a7cd036 ("usb: typec: tcpm: fix Discover Identity retry loop on Control Message reject")
 
-I can't find that commit from anywhere?
+Yes, apart from battmgr, the pmic-glink implementation on this device is 
+compatible with the QCM6490 platform (base communication & UCSI 
+implementation), and therefore should keep qcom,qcm6490-pmic-glink and 
+qcom,pmic-glink in the compatibles.
 
-Thanks,
+I will adjust the commit message in the v5 to:
 
-> Signed-off-by: Xu Yang <xu.yang_2@nxp.com>
-> ---
->  drivers/usb/typec/tcpm/tcpm.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
-> index 2d6b14aa2085..cc9ea5d5e78a 100644
-> --- a/drivers/usb/typec/tcpm/tcpm.c
-> +++ b/drivers/usb/typec/tcpm/tcpm.c
-> @@ -3891,6 +3891,9 @@ static void tcpm_pd_ctrl_request(struct tcpm_port *port,
->  		case SRC_READY:
->  		case SNK_READY:
->  			if (port->vdm_state > VDM_STATE_READY) {
-> +				if (port->ams == DISCOVER_IDENTITY)
-> +					tcpm_update_vdm_discovery_state(port,
-> +									VDM_DISCOVERY_COMPLETE);
->  				port->vdm_state = VDM_STATE_DONE;
->  				if (tcpm_vdm_ams(port))
->  					tcpm_ams_finish(port);
-> -- 
-> 2.34.1
+dt-bindings: soc: qcom: qcom,pmic-glink: Document Xiaomi taoyao compatible
+
+The taoyao is the device compatible with the QCM6490 platform (apart 
+from battmgr). The device also requires both UCSI_NO_PARTNER_PDOS & 
+UCSI_DELAY_DEVICE_PDOS quirks.
+
+Document the PMIC GLINK firmware interface on the taoyao by using the 
+QCM6490 bindings as fallback.
 
 -- 
-heikki
+Best regards,
+Stanislav
+
