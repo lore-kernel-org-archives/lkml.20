@@ -1,150 +1,216 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 156D53ACA48
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:24:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38D88377A9B
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:24:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789723464; cv=none; b=a6AdVqRIriBBdCJwe8hhtkEZkNv8a2DLjYeeb8zpzfQP9YUZzZ22kAWYDV4ZRkudSTo8GM3zp8QlH4i+G1kV8v/NM0n0RYhq3CsbY9pDHjTtrQByC3sXBkX4ehrvdN5PVbYZyV73hHR95Vx1Zh9hbx3xBIBu851JClXjUNwZIVI=
+	t=1789723493; cv=none; b=c9d6zJlf9YcED/gSMVbK/gDoZRtDXY8JDg/7vuFwh8OgZcZS/mVQXEOdHYg1hwzghj9/alkBn1j+V3JBVAoy/9x+5dniOm9zC8sGD6HnuLhA/o8qnRpgXZLQvsPVSpM9s68HRgpAmt7ap1HqR91rF4Tl5XZPL+vNyde+e8VcI0o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789723464; c=relaxed/simple;
-	bh=LpQq1ER0K8tCtE25EdHEw4yx5qLU89BqRvZlO4beaAY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XohsaNxTxYyetHwZIhF3W7i5PVfhngPcGuQlyUuXhfwgyriuc4FC+wOOM87F0RvRbdzFkZpWoS4zT3B58IBoP9tQOBg9GG0iBLFGozTSU1Su5RhN14pwub8rLe4p3sCSijcOL1RBZmJwV+nz1TW/BG2LTF215FbXWKCALkx4lmU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=o21yi6Gz; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZDoV/I2/; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789723493; c=relaxed/simple;
+	bh=a+Q7v0i4oUBDGIVKI9qESILy03zS5iR9AHdSgVZnVBA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=OxdnUDXJEOPAjNYHtZfEZH/xzuUM8VoTKYzL2Lo+/ZywGUX7BcEZWPdP+VRz95jez7GkCiCaWXdYJX0XRlaxT4y4az67B8YwI25ohfqvLIOBBgKFS7WBSSvNpmFqiQxJotaPLNT3xiTRHlBwe2ByZl4KjmTK/2HKi8Cg+nMovyk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=ipjkdrOR; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="o21yi6Gz";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZDoV/I2/"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I8kVAt132160
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:24:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Sb1Vub//2FmjjK1XjawIHRbF0b2ZqywCKbgFVQLXFQs=; b=o21yi6GzpreRZH9j
-	CmG+CyiFVJsMq4+L4Noixv4miLh+lDVAU7L8O6z4cK1lFMx7NHrI6UBU00VemV/H
-	DRLgeD96It1iFOOKDqA7P23bG6KsTgy1Q1aTTEDcJPN0y0W5nZDKET056Ibm2hO5
-	8/4KTfroUtYkdjBw1QDyR9rrdk7yFSzJEBmTXgT3Ck+DKhhudktIhnvJx345WUzK
-	9zA1isFUZ6ZAOvLnQDEiKX83ONc99MdnoY4JSzf/4ZFjLbDxEGmxzl6tu1enSrCg
-	mRFlPTvJEe39eqjPhOodkKKjwc54sMMb7x66816UrC0WJ3KR39xM7a4mSUt5CKGy
-	lHVfSw==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gs23905bd-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:24:21 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93be6ed214eso7447185a.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:24:21 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="ipjkdrOR"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398b3b189e0so455792a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:24:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789723461; x=1790328261; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=chromium.org; s=google; t=1789723491; x=1790328291; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Sb1Vub//2FmjjK1XjawIHRbF0b2ZqywCKbgFVQLXFQs=;
-        b=ZDoV/I2/NYibXTvdHsxXtGUkw+zBVcdq+C68+QxeIuIGX7e63fCVhHw11/Mb4Du6Be
-         QGwpY+X70LSi83nJiQ0NFYf5BWXcAF6OQAzT3mCM9gYYA9jyO6JG6k28Oe1CsG8AAYbm
-         KsRdEt1BCAFLJflLs3XWdXTDwHNbTOfLQF+dMk+GcG8xUPEkpvwjvwECGN7O6dYNntbM
-         wQRiSb1C3zsI26qQeEBQrVdhN8dAPDdXRnE/Mq+bGVTNYMk6mI602Jn9cs8gSJ4gTbHH
-         pkkOLZT/b4pZeD9RIFkNs9RS8bFvUICq0l74HB6bmUrukPiXo3M3vljzgBc+20ftbOuM
-         a1wg==
+        bh=w6vnmAHaEKQvF5gCbmOjaBzceKMsg0XSgaVR/HCDL7Q=;
+        b=ipjkdrORFEJpmLoiURrABbjn/oPkSa/u2Wi41h7Y7Vw/gDz7wCil8O4ljeKFRlE1Yo
+         p0vK6+7m0he3fBm1cVxc9m09wDLQkSFRSaXsObJtPKH6m6ym8O8Gzy+ftgK8tyO/vuOF
+         UtgZTL8hG98b3vN+sJ2w1KcE4ALEPrZ4yqw1E=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789723461; x=1790328261;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Sb1Vub//2FmjjK1XjawIHRbF0b2ZqywCKbgFVQLXFQs=;
-        b=z/dIe/djXKeH3ovcHRJSga257/SqOimdVNFGGIaRLwjd4oBDslRSkFxVrRzqIU5q/y
-         z1SppBPGycGbQOV8nvQjPVFdomQ2pcjYDjcYYTlAqO8h6i6M8t7R1yYAjT3N1thrcky3
-         kKanTpPkupZnVQxxKVbiMV/OI33JmhsF675r8gYqxP787R53O/WxAFpHKdmJprQS4nnC
-         FuUb678lEJUioPXxvpX3vYsYutuh5Zak+/mpV4WbCjWdRFL+fg954kjJxo4B4hiPXWHR
-         YQ3IsyEJpXIwV25kkKtwm5S/lRhgyHULPTkB7kDPJk4mWNnoh9Tb5E3N5dwlyoiWJebR
-         pkow==
-X-Forwarded-Encrypted: i=1; AKwUvBzapdplTJaCTwbKd1H1py6KcF/otZBOcX9ZbRirCqnyvDlCPrXwnapFwJITsl2TkDHWuz/x+9CS/mQXOCA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lZ4y11GbSRRXtoZqOq7yZEOYIDD9tRhFkKb28IGahz1aVuWxYY
-	4EqNdtQsel6qC/pxEOiZz5TKabbelu8shTu7JXd/yRsTEcMXHd1nazd7LWetGUXnVoxY3zzFBDg
-	BctXlu08HNMVGi8OP5G+Ydxlw473z5F+NzZJ8xV8BnbwUNs6NTB7ci4nslM6RuzbMK0E=
-X-Gm-Gg: AYBFou24cqrRTf4kw9o3q548mTO+byJjn3g+ddX1BjuwPyuLF0uHGT/QmddyjEhqXuw
-	tXyey9x8Iwi2iKTKCm5xU1xY6jdhNXiUbp3CwPOyZC8pDimF+QEBehtGWfgsf5rHPqO4Tys0YuE
-	D4ItifRGL74kgXSs+7cUqAxEKTFefO22KVtvYds1Cl8Ccwx4sYKYUoulM99EQV1rrLbvFAqxQch
-	yxg3G4pZTnHZMQBwoStW0pRktc+1aFEZGel182O/6RqjeqjB21B/7BZMEH6T4+vhtrmtrj/oE3u
-	S0RGulgeoRLn9SHwOiIZmBEKE59xkXTtdtJjtgcXuqhJbglzp9WlcVxn0JJqSeFx/euWgI/dQAL
-	D/fwrzMC+iQ9DSclV5z1k900zOx6LmnCaTI6V7ub32y+eqCLIRsJ1N3yTNoQhoS0=
-X-Received: by 2002:a05:620a:4093:b0:93b:d7b5:8aa1 with SMTP id af79cd13be357-93bdca9201fmr235189785a.86.1789723461039;
-        Fri, 18 Sep 2026 02:24:21 -0700 (PDT)
-X-Received: by 2002:a05:620a:4093:b0:93b:d7b5:8aa1 with SMTP id af79cd13be357-93bdca9201fmr235188485a.86.1789723460651;
-        Fri, 18 Sep 2026 02:24:20 -0700 (PDT)
-Received: from ?IPV6:2a05:6e02:1041:c10:82ae:cd75:d970:e66f? ([2a05:6e02:1041:c10:82ae:cd75:d970:e66f])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4872008160csm2986873f8f.32.2026.09.18.02.24.18
+        d=1e100.net; s=20260707; t=1789723491; x=1790328291;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=w6vnmAHaEKQvF5gCbmOjaBzceKMsg0XSgaVR/HCDL7Q=;
+        b=VWOQk4AESayD9jv8ZITakjZrVH/715q344bAOR+JT4KpIczfv02A95//Jg74lbxlUC
+         Y0HPtcOP2C3Te4AxOTM0iYo944wreORcNYwYCE/pkca6odR6l6tDSlp5AhcmB2qyb5ar
+         iN7MZl3J7JL2WW1Pvfy91Ih/TMkVNS45ZJHELdW6H+56dj+YlfdotViqVYbhUpI3Otr0
+         zjEKsLXRjM74p1FQrkJGXjbH6e8G345Lcp8ayC99BQT1G9LdboyFF8KdPU25Pnl6ITG7
+         Kjt1OxV/lvWiHehVh7+VEGBNCJRqnmQ9jNUAS4BVuOTy3ffVrFsomGNZmTjqBTicksch
+         fRqg==
+X-Forwarded-Encrypted: i=1; AKwUvBzcW9ZkR+hWHpPiVYhovfV13+/RLcMhG0CzFQ/XFIx2VHMhC/3fJQJTIDdDx8Br99lozo6Ezx7Od4VMXYQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mBqvqZV4bwGkaX1woChYchqa+62E1TsEEhdexftcEtfMB9EQq5
+	jbdDJm/uakGEFafEWGT8dIFsJc9CAwntFGSqAaqyMeHLsi4IMRJGNP/62SGsh7f6MkRf/meD0pO
+	DfEE=
+X-Gm-Gg: AYBFou3U/QLULpiT96Q1RB2tabokcYC7EMq9jgjcVOgIecwCozgoW66qpIGpRlZ28iX
+	4E+tEPSmvKrjBe7ePkGYbHO+8u8Jc6MCYK0W/wVveV5dWuKr6IXBRHXs1+NOtPAGwRs0BXhy5EP
+	9QcVJQlEzGV+ew3Ul3ng4cDCYZaJ/GuJtS4Hvv0NBCQZ07NrrQtu5lJ6FUjwTjfhhiZbmim16Pk
+	FpTn2Ifapzzfj+ECOhTo1YfE8xo/itQYC1DCWq0jHNAZhrBlyiIOnoXLHERTpGkflIpr4DifKKK
+	FGPoe8IIaN51nNGVtxpLfZ4hh8iv4VXfdrfkDdCmeNW+WsYS0hEROK43GuDbHsfdyfHsfGJVS+W
+	xHl8CzVbsObfpFP9vOZQ+6ypv5GgQKbQKPBT/lHQyGy33iFwJJa2i/cbvg4K4bJjh/vdJvqss8T
+	adGZIpdwTN7o79kOFBmthHmhe8rCBib2GtSJDhfchDyz0e19UnV4GEKUP9PjwPkL1Y7tDkstNMp
+	2JFK8Yowzl4/o1gM9G6cP0kpsrOTAzHKzaR6w==
+X-Received: by 2002:a17:90b:3d92:b0:398:c315:fa6f with SMTP id 98e67ed59e1d1-39e54b78015mr4597042a91.14.1789723491418;
+        Fri, 18 Sep 2026 02:24:51 -0700 (PDT)
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com. [74.125.227.141])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e35b6a350sm10748243a91.0.2026.09.18.02.24.50
+        for <linux-kernel@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2026 02:24:19 -0700 (PDT)
-Message-ID: <a8eb1095-ff2c-4b60-af76-55f3dc137967@oss.qualcomm.com>
-Date: Fri, 18 Sep 2026 11:24:18 +0200
+        Fri, 18 Sep 2026 02:24:50 -0700 (PDT)
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39e03468a5fso490803a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:24:50 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBy6i93WrD7Vx3sjsk9VlRSuTOkY82GAtO+Q0HAbt2YBb5yz/X983icNmWD0OGTt+VZm4j4WHITMClXyZNQ=@vger.kernel.org
+X-Received: by 2002:a17:90b:2243:b0:39d:f770:774 with SMTP id
+ 98e67ed59e1d1-39e54c9c1bamr4114268a91.20.1789723489907; Fri, 18 Sep 2026
+ 02:24:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] thermal/drivers/airoha: Request the EN7581 IRQ after zone
- registration
-To: Vitaliy Sochnev <sochnev.v.74@gmail.com>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        Christian Marangi <ansuelsmth@gmail.com>,
-        Lorenzo Bianconi <lorenzo@kernel.org>, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260915194128.42508-1-sochnev.v.74@gmail.com>
-Content-Language: en-US
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-In-Reply-To: <20260915194128.42508-1-sochnev.v.74@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDEzMCBTYWx0ZWRfXwgr9NDeD4Mlm
- ZEsk8Lj/SecShSr/fZHfcSIbn5ri0hlQkSBuuusNswldBtpQYZCp2WdShtD6so7MkUw/oUNMMah
- AjdxM5OWGiJ9FEkbPz/JEyA02UikiLY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDEzMCBTYWx0ZWRfX2g/AkHn/KZI2
- aJEP1gISQcC7ybECGqdmBFBh9pWcTZFHu/uS5smNQ/wigqXPXb+t5xGqkTj5OeOiXCAgEbGy58N
- 5gIQuGF5IWhiNolmIrcCMdukvyJNIXn7e7rEXj3C9K+MMHGIKaIXadZuKLJqQlvfluFhM15mwMV
- /eVY5apYDMnlhEVWcQ3Zx4XhK5hASGXtdqa/mh1+DMZX9+DDmKGjetXR4lUu3jye3tfC5e45jvz
- BmOMVieGALXGio9+0IVFMGl73Y6ooPqrctKLShZ2jR7BWwGRHyJy8DL7aZJBrSweZ/cHg59whXQ
- YFgswikfty2ZyUtgJFS9Sg6LwSpCaOekTiBWYyQdY0XJLJ56pHoyP1H78ePySfbbDxTDA1OssVf
- 6tJh3/geYTevKzBU61EwVjvANxb5lA2Sm+dTWO32amDM0tnsZE/n/CY72or0jF4nd2pgsA6jhWp
- 2pDYXDCqNB+fuWFt+Zg==
-X-Proofpoint-ORIG-GUID: PCvlhJ-C5E49l_Ifz8bRMxw6WRr1kExP
-X-Authority-Analysis: v=2.4 cv=I7zw19gg c=1 sm=1 tr=0 ts=6aad0345 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=pGLkceISAAAA:8
- a=EzO2BoKCUxNfU9vyq0YA:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-GUID: PCvlhJ-C5E49l_Ifz8bRMxw6WRr1kExP
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-18_02,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 bulkscore=0 clxscore=1015 impostorscore=0
- priorityscore=1501 adultscore=0 phishscore=0 malwarescore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180130
+References: <20260917212951.558283-1-henry.paradiz@gmail.com>
+In-Reply-To: <20260917212951.558283-1-henry.paradiz@gmail.com>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Fri, 18 Sep 2026 11:24:36 +0200
+X-Gmail-Original-Message-ID: <CANiDSCsoLGGewmpV6cL=wgkMh3qx=5dU_mVWUi_NaBdfZp+hPQ@mail.gmail.com>
+X-Gm-Features: AcwNN1VQ-ralS2wlFfVEQO0FI9zCtwWQvGAVmdb-2nyKo8qFJX7tYvzulGq70JA
+Message-ID: <CANiDSCsoLGGewmpV6cL=wgkMh3qx=5dU_mVWUi_NaBdfZp+hPQ@mail.gmail.com>
+Subject: Re: [PATCH] media: uvcvideo: add capture quirks for 1e4e:7102
+To: Henry Paradiz <henry.paradiz@gmail.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/15/26 21:41, Vitaliy Sochnev wrote:
-> The EN7581 IRQ is requested before the thermal zone is registered, and
-> the handler passes priv->tz to thermal_zone_device_update(). Unbind
-> leaves the monitor interrupt enabled, so an interrupt pending on the
-> next bind fires while priv->tz is NULL. On a Nokia XG-040G-MD this
-> oopses in thermal_zone_device_update(). On unbind, devres also frees the
-> zone before the IRQ.
-> 
-> Request the IRQ in post_probe, after zone registration.
-> 
-> Fixes: 42de37f40e1b ("thermal/drivers: Add support for Airoha EN7581 thermal sensor")
-> Signed-off-by: Vitaliy Sochnev <sochnev.v.74@gmail.com>
+Hi Henry
+
+On Fri, 18 Sept 2026 at 02:35, Henry Paradiz <henry.paradiz@gmail.com> wrote:
+>
+> The eEver Live Streaming USB Device HDMI capture card (1e4e:7102,
+> bcdDevice 1.00) exposes two problems when HDMI is connected but the
+> input signal does not lock.
+
+
+Could you please share the output of lsusb -v -d 1e4e:7102
+
+>
+> While idle, the device disconnects shortly after entering USB runtime
+> suspend and repeatedly re-enumerates. Keeping it runtime-active stops
+> this loop. Enable the existing UVC_QUIRK_DISABLE_AUTOSUSPEND for this
+> USB ID to avoid the repeated USB, UVC and USB-audio discovery messages.
+> Normal USB disconnect handling is preserved.
+>
+> On each enumeration, VIDIOC_TRY_FMT takes about 920 ms per call because
+> uvcvideo negotiates with the device through UVC probe control transfers.
+> PipeWire queries nine MJPEG frame sizes for colorimetry on its main loop,
+> blocking unrelated audio mute and volume requests for roughly eight
+> seconds while audio playback continues on a separate thread.
+
+Isn't this a userspace or device issue?
+If VIDIOC_TRY_FMT stalls the device, shouldn't you simply not call
+VIDIOC_TRY_FMT?
+
+This looks more like a hack than a quirk.
+
+>
+> Add UVC_QUIRK_SKIP_TRY_FMT_PROBE to answer this device's TRY_FMT calls
+> using the parsed format and frame descriptors. The advertised frame
+> buffer sizes match the observed probe results for all nine resolutions.
+> S_FMT continues to negotiate with the hardware, and other devices retain
+> their existing TRY_FMT behavior.
+>
+> Both quirks are enabled by one device-specific entry. The card can still
+> provide diagnostic frames without an HDMI signal; HDMI signal recovery
+> and capture configuration continue through the normal driver paths.
+>
+> Signed-off-by: Henry Paradiz <henry.paradiz@gmail.com>
 > ---
+>  drivers/media/usb/uvc/uvc_driver.c |  4 ++++
+>  drivers/media/usb/uvc/uvc_v4l2.c   | 19 ++++++++++++-------
+>  drivers/media/usb/uvc/uvcvideo.h   |  1 +
+>  3 files changed, 17 insertions(+), 7 deletions(-)
+>
+> diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+> --- a/drivers/media/usb/uvc/uvc_driver.c
+> +++ b/drivers/media/usb/uvc/uvc_driver.c
+> @@ -3055,6 +3055,10 @@
+>           .bInterfaceSubClass   = 1,
+>           .bInterfaceProtocol   = 0,
+>           .driver_info          = (kernel_ulong_t)&uvc_quirk_probe_def },
+> +       /* eEver Live Streaming USB Device HDMI capture */
+> +       { USB_DEVICE_AND_INTERFACE_INFO(0x1e4e, 0x7102, USB_CLASS_VIDEO, 1, 0),
 
-Applied, thanks
+Please keep the list sorted by vid:pid
 
+> +         .driver_info = UVC_INFO_QUIRK(UVC_QUIRK_SKIP_TRY_FMT_PROBE
+> +                                     | UVC_QUIRK_DISABLE_AUTOSUSPEND) },
+>         /* The Imaging Source USB CCD cameras */
+>         { .match_flags          = USB_DEVICE_ID_MATCH_DEVICE
+>                                 | USB_DEVICE_ID_MATCH_INT_INFO,
+> diff --git a/drivers/media/usb/uvc/uvc_v4l2.c b/drivers/media/usb/uvc/uvc_v4l2.c
+> --- a/drivers/media/usb/uvc/uvc_v4l2.c
+> +++ b/drivers/media/usb/uvc/uvc_v4l2.c
+> @@ -241,7 +241,7 @@
+>  static int uvc_v4l2_try_format(struct uvc_streaming *stream,
+>         struct v4l2_format *fmt, struct uvc_streaming_control *probe,
+>         const struct uvc_format **uvc_format,
+> -       const struct uvc_frame **uvc_frame)
+> +       const struct uvc_frame **uvc_frame, bool probe_device)
+>  {
+>         const struct uvc_format *format = NULL;
+>         const struct uvc_frame *frame = NULL;
+> @@ -336,10 +336,14 @@
+>                 probe->dwMaxVideoFrameSize =
+>                         stream->ctrl.dwMaxVideoFrameSize;
+>
+> -       /* Probe the device. */
+> -       ret = uvc_probe_video(stream, probe);
+> -       if (ret < 0)
+> -               return ret;
+> +       /* Some devices stall on probes during idle format enumeration. */
+> +       if (probe_device) {
+> +               ret = uvc_probe_video(stream, probe);
+> +               if (ret < 0)
+> +                       return ret;
+> +       } else {
+> +               probe->dwMaxVideoFrameSize = frame->dwMaxVideoFrameBufferSize;
+> +       }
+>
+>         /*
+>          * After the probe, update fmt with the values returned from
+> @@ -432,7 +436,7 @@
+>         if (fmt->type != stream->type)
+>                 return -EINVAL;
+>
+> -       ret = uvc_v4l2_try_format(stream, fmt, &probe, &format, &frame);
+> +       ret = uvc_v4l2_try_format(stream, fmt, &probe, &format, &frame, true);
+>         if (ret < 0)
+>                 return ret;
+>
+> @@ -649,7 +653,8 @@
+>         struct uvc_streaming *stream = handle->stream;
+>         struct uvc_streaming_control probe;
+>
+> -       return uvc_v4l2_try_format(stream, fmt, &probe, NULL, NULL);
+> +       return uvc_v4l2_try_format(stream, fmt, &probe, NULL, NULL,
+> +               !(stream->dev->quirks & UVC_QUIRK_SKIP_TRY_FMT_PROBE));
+>  }
+>
+>  static int uvc_ioctl_enum_input(struct file *file, void *priv,
+> diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
+> --- a/drivers/media/usb/uvc/uvcvideo.h
+> +++ b/drivers/media/usb/uvc/uvcvideo.h
+> @@ -81,6 +81,7 @@
+>  #define UVC_QUIRK_INVALID_DEVICE_SOF   0x00010000
+>  #define UVC_QUIRK_MJPEG_NO_EOF         0x00020000
+>  #define UVC_QUIRK_MSXU_META            0x00040000
+> +#define UVC_QUIRK_SKIP_TRY_FMT_PROBE   0x00080000
+>
+>  /* Format flags */
+>  #define UVC_FMT_FLAG_COMPRESSED                0x00000001
+>
+
+
+-- 
+Ricardo Ribalda
