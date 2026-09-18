@@ -1,56 +1,56 @@
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FFF152BE5F
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 21:19:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2F4552CCE9
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 21:20:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789766399; cv=none; b=mPhj9UBJhDD7asmnwh+nJkrMxLYjagKZ2egGUfEx0i5cvA3IfGU/wWlOq7StiP+et7C3fmNnoN+bScr4m9TTREnrL8SEtXE2uRmZWm3eQZ8jva9lfcSvX6QSiQMdZu07dJZqgXbziVPjzjgUHQuMQTqPZRcvcJKT4srtzvRyDtk=
+	t=1789766406; cv=none; b=GsSWjH3NTRl4R6iszyNGEENlR7A4ovtiWnZpukolNWVDDSXTdNs1lYh2BNP/uH0QHYlxsmGmDWulEPucO98ed+/3uJZnlMq0Me4ADQa+kaeynLcFkiv/FvRaq9m8pGwxY0DQ+zBAzasbPukekwVm62SKbjSGD33WpgxeDAa3S+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789766399; c=relaxed/simple;
-	bh=LJ8nYSQqq28gI2I051DArOUVp3BmzcpKdNOfUaM0siM=;
+	s=arc-20240116; t=1789766406; c=relaxed/simple;
+	bh=YoLjGit6K0MeeDD7LUqu8ZSYIR4l8GnMUpD8HbUxiJk=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=Fcu6bTVDSXlS0PABQMnSAOcElWI+v11h4kMyUIH+LsvA9NE7UZJbUg+Znf3/KBzGTpRgUSfOUS9DQdtk6kvZEMlxVEfvsHQnJqkqbvOoH1f4rq3dryJShXTGu8BTKkXXNTDJaaGWx3TlGUwZE8HFymuz+rnQecmlUiczaTrp4q0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=QXbVXr0E; arc=none smtp.client-ip=209.85.216.69
+	 To:Cc:Content-Type; b=guzwjYrcfgkY/9e+kiDi3jeILDex8TX3SfVQNFHzTa0+k4QDHoB8yv+iVdwhsEZmXAYfjfvbKoU5pNiED5r1BiE7OMUIY0yj27siPm1eN2ZbOd3YBtLgnmZIou+1mZ47/5k2loXIpKG00szPMRtBXU/YcwBIRZFnCKQT1HBNYVg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TpbB8Tt8; arc=none smtp.client-ip=209.85.215.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="QXbVXr0E"
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-38f97b3f853so2001647a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:19:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TpbB8Tt8"
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cbedbd182f5so1076398a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:20:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789766397; x=1790371197; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789766402; x=1790371202; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+5W8G3HjPfwr7Y9dW0STP1ylXOPLDoEE8Bbh/qLvuqY=;
-        b=QXbVXr0ExTiVF3vFpJZQzNK6AZ5lC80ry3OfwLMkIxGpDgAzNBW/6rmmNV7XaBoK0c
-         ugvqBYoRKCShByVh8zeezhKEzin83wLZmoZYOJ9g69Lp43lVtOrTw3IjveYmT2jmE48/
-         iOafp0IkjqBIaWRNZCgzHai1HGPJ+dFiFq/Z+Fh68igdzWIeWVCRKX150zwve5bNWoAo
-         oBKFClj0c9qi0Z487E+Osz5VT+pfAmYb9e4z22/xr45PAqR+MZTWH/PlzoUjPjr519sc
-         kUMXCRViAFeRJGgrMf0TLPKonaSHjC/jNI3jArukN1Hc09fWD53Xjg4vMjYosw3p2Yws
-         QxGw==
+        bh=104X5wo7yQkILIFw+J6eQp79zBLiDOMXd7ygwwepPVY=;
+        b=TpbB8Tt8bA+ehwhUMr4J26OybrVGdgyz3Ci7KUl1w0pS9gTdUU8RGJdHkdOhSjDt1O
+         xDspHqg1jTPWBeGaj8HPp39dLYfGGNCKR5TjJrVxMc7VYMtN+IlCWNPWqMlseFUpNCtj
+         F29NVjKi9vrbRfSBOqhuO1gLLXs9ASvwXwOatJW15GHrrrt5buSEONprCZoi3rGChgrC
+         zTT56m1TMGmEJhTgyNlhSj1m7rR45p3TMWpcbrC32Rt8L5hrg/HcmqCFD2Ql3OPuj/cw
+         Tp6bcCpW1jQbyKngpLlxZ0pCIssjfZHx4stEHhuwuJFR3DulPNLWKycfQPBLxyYlP+gA
+         eufg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789766397; x=1790371197;
+        d=1e100.net; s=20260707; t=1789766402; x=1790371202;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+5W8G3HjPfwr7Y9dW0STP1ylXOPLDoEE8Bbh/qLvuqY=;
-        b=1n/7t0Al6w2HSVItCQOOBfxctBpgFR3f3u3xkANqnkrs4JnSBqVHweJwANqjFiXC5L
-         SDYFDpKCPNkrOaVAI6plzYKPtAjEWHehiB2v/1SoVMLnEsp6YHynW7LD68FIRB85bsVY
-         F1NBQCaUW4tUiJTkHqaEfP6ljACnKj3O++leoucJ+YHt1Epr6S8sRgFGWXza0YyOCtN2
-         3iBEvQdKteNlDsnr3vbo8TQLq84KxD7bTsYbW8lkcJSOhx9cCKxQ5IaunA4SeY6f5Hjn
-         ELhyQQY+JqieDnIat3tEvWS8pPuk4NAIEysE94UUSOje4l34MOWCSTMednz46d11yl84
-         CHtQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxqqXVVfl1yN4QhIJwGPgpnvzc0d3DC1g5kUZ+7muHWybrw1imDhqXWAlHNAddHDBQ7x2AXWyeZ1gDblQ8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lqL4VVaFCWRlGa7jKDGkI0nEdJIRA1+H1GHdXeIHYka4Lw4+C+
-	FoqiJ6lPSsL4tbj5dfvYbUI0v9GhgdSK+FGpdP+ZRIeEPezRX94IPyoha/GFwig+HkDikBPYT65
-	CDN6YXMHT0Q==
-X-Received: from dlbbu27.prod.google.com ([2002:a05:7022:221b:b0:144:c088:eba])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:164c:b0:39e:6a80:b79a
- with SMTP id 98e67ed59e1d1-39e6a80b880mr1753886a91.42.1789766396622; Fri, 18
- Sep 2026 14:19:56 -0700 (PDT)
-Date: Fri, 18 Sep 2026 14:19:19 -0700
+        bh=104X5wo7yQkILIFw+J6eQp79zBLiDOMXd7ygwwepPVY=;
+        b=fEYYJtcdB/kFJbwXA9222/6e1xLn0acUg63nm43eDTsBKsghnYHDctlE10BMnM7mRu
+         vfEnCC8AhDMm8NnOijfiBwXiLD971/wTYMT+YOMcm+k6M5l8/8hvn2wdCNYwJxCmyUS9
+         mi4tKkVJBPlnzrbBvW2lxVccwlHzDUCJ5ixq/FUjRf9ScGApJHw2mfFok51Nj48y/njO
+         2OP8XJfNYybdrqCnnM+m99GwF8tc5d/Txb1L72RXi0MXw5clPh1zOk2EcrjZY0ml+6tx
+         vcOAZA6EMdUX4FZiUM4c9KvKarbwJm95WBCAHDwq+kWMdoQO6v9PUd48EwHROQKrwGt8
+         FdsA==
+X-Forwarded-Encrypted: i=1; AKwUvBzFO7yIAU7yfCI7biPOhk/bQ4SqIasYkWjkktYiDhJ6DfMYIQrtZnpRjQz9oa731JqYKGNFqGvwFyu0F+0=@vger.kernel.org
+X-Gm-Message-State: AFuF++n8EDEUxwkD2F3+bitllEKC4bgCKTBz9IrUXa5RLzqy9migk7n/
+	xDDYQ2bVGxtKJq4e5sfjh1nSe3tPGMvR4NtYmgHpDj54o7EQCsu5smgttmIykyecl7yxum1e+xz
+	cvBoDdhRIRA==
+X-Received: from dyb19.prod.google.com ([2002:a05:693c:6313:b0:33b:beb3:6c8c])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:8887:b0:3b3:3506:cf3f
+ with SMTP id adf61e73a8af0-3dd724bb2c8mr10123349637.1.1789766401631; Fri, 18
+ Sep 2026 14:20:01 -0700 (PDT)
+Date: Fri, 18 Sep 2026 14:19:21 -0700
 In-Reply-To: <20260918211932.2966061-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,9 +60,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260918140659.2501976-1-irogers@google.com> <20260918211932.2966061-1-irogers@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260918211932.2966061-6-irogers@google.com>
-Subject: [PATCH v4 05/18] perf trace: Skip internal tracepoint fields in
- formatting and beauty map
+Message-ID: <20260918211932.2966061-8-irogers@google.com>
+Subject: [PATCH v4 07/18] perf trace: Filter events in BPF and avoid
+ tracepoint vetoes
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, namhyung@kernel.org, 
 	Howard Chu <howardchu95@gmail.com>
@@ -71,426 +71,1017 @@ Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org,
 	mingo@redhat.com, peterz@infradead.org
 Content-Type: text/plain; charset="UTF-8"
 
-Linux 6.19+ added __data_loc char[] internal fields for string
-arguments in syscalls:sys_enter_<name> tracepoints (e.g.,
-__data_loc_oldname in sys_enter_renameat2). While is_internal_field()
-was added to detect them, several places did not properly account for
-them:
+The BPF augmented_raw_syscalls sys_enter and sys_exit programs returned
+0 for syscalls that were not of interest. Returning 0 from a tracepoint
+BPF program vetoes the event for the whole system, so an unrelated
+concurrent perf trace, perf record or ftrace session listening to
+raw_syscalls would silently lose events. This is a cross-session side
+effect and shows up as flaky failures when perf tests run in parallel.
 
-1. In syscall_arg_fmt__init_array(), when an internal field was
-   skipped, the arg pointer was still incremented, causing the
-   subsequent argument formatters to be mismatched.
-2. In syscall__scnprintf_args(), internal fields were not skipped,
-   causing spurious trailing arguments like ", 0, 16" to be formatted
-   and printed.
-3. In trace__bpf_sys_enter_beauty_map(), internal fields were not
-   skipped, offsetting beauty array argument indices and breaking string
-   and buffer augmentation.
-4. In trace__find_usable_bpf_prog_entry(), candidate pointer checks
-   matched on internal pointer fields, breaking signature compatibility
-   matching between syscalls for augmenter sharing. Introduce
-   next_user_arg() and advance both cursors with it, so that the two
-   argument lists are always compared at a real argument and the walk
-   ends when one syscall runs out of arguments rather than when one
-   happens to have trailing internal fields.
-5. syscall__augmented_args() computed the augmented payload as
-   sample->raw_size - sc->args_size for any sys_enter style sample.
-   sc->args_size deliberately stops at the last non-internal field, so
-   on 6.19+ a native syscalls:sys_enter_<name> record leaves the
-   __data_loc words and their string payloads in the remainder. Those
-   bytes are not a struct augmented_arg, so
-   syscall_arg__scnprintf_augmented_string() read a bogus length and
-   walked arg->augmented.args out of bounds. This is reachable from
-   trace__event_handler(), which calls trace__fprintf_sys_enter() for
-   any evsel whose tracepoint name starts with "sys_enter_".
-6. In syscall__read_info(), syscall__alloc_arg_fmts() was called before
-   checking and dropping the leading __syscall_nr (or nr) field, using
-   nr_fields - 1 unconditionally. If a tracepoint format lacks that
-   leading field, the allocated arg_fmt array is one entry too small and
-   syscall_arg_fmt__init_array() writes one entry past the end of the
-   heap buffer. Drop __syscall_nr/nr first and size the allocation from
-   the remaining fields.
+Furthermore, syscall_unaugmented previously returned 1 without writing
+anything to the __augmented_syscalls__ ring buffer. This forced
+userspace perf trace to listen to both raw_syscalls:sys_enter and
+__augmented_syscalls__ in its evlist, requiring userspace event
+deduplication.
 
-Update these functions to check and skip is_internal_field() so that
-arguments are correctly formatted and beauty map entries match the
-expected syscall signatures, restrict syscall__augmented_args() to the
-__augmented_syscalls__ bpf-output evsel, and size arg_fmt after dropping
-the syscall number field.
+Address these issues:
+1. In augmented_raw_syscalls.bpf.c, never return 0 from tracepoint
+   handlers: return 1 so non-traced syscalls pass through without
+   vetoing other concurrent listeners.
+2. Introduce pids_to_trace and syscalls_to_trace BPF hash maps to
+   perform targeted filtering directly in BPF. Unselected syscalls or
+   PIDs return 1 immediately without writing to the buffer.
+3. In syscall_unaugmented, output the unaugmented enter payload into
+   __augmented_syscalls__ and return 1. Change its section from
+   SEC("tp/raw_syscalls/sys_enter") to
+   SEC("tp/syscalls/sys_enter_unaugmented") so libbpf does not attempt
+   to auto-attach it to raw_syscalls:sys_enter.
+4. In bpf_trace_augment.c, add helpers to configure target PIDs and
+   syscalls in the BPF maps, setting the activation flags
+   (has_pids_to_trace, has_syscalls_to_trace) only after the maps are
+   fully populated so already-attached BPF programs do not filter against
+   a half-filled map. Explicitly attach only sys_enter and sys_exit via
+   an attach_prog() helper that saves -errno before calling pr_debug()
+   or bpf_link__destroy().
 
-Publish sc->args only once that allocation has succeeded. sc->name is
-set earlier in syscall__read_info(), and a later call takes a syscall
-with a name to have been read already and returns it as it stands, so
-a syscall left with arguments and no arg_fmt to describe them would be
-printed by walking the arguments and indexing an array that was never
-allocated.
+   Destroy the skeleton on every failure path. Leaving a loaded but
+   unusable skeleton behind is not inert: the setters called later from
+   trace__run() would program its maps, and a partial attach would leave
+   a BPF program live on raw_syscalls for a session that never starts.
+   Since augmented_syscalls__{prepare,create_bpf_output}() failures fall
+   back to unaugmented tracing rather than aborting, those setters have
+   to become no-ops, which they only do once skel is NULL again.
+
+   errno is used directly here, so include <errno.h> rather than relying
+   on it arriving via another header, which it does not under musl.
+5. In builtin-trace.c, hook trace__set_ev_qualifier_filter() and PID
+   filtering into the BPF maps. When __augmented_syscalls__ is active,
+   remove raw_syscalls:sys_enter from trace.evlist since all traced enter
+   events (both augmented and unaugmented) are now emitted by BPF into
+   __augmented_syscalls__. Identify that evsel by comparing against
+   trace.syscalls.events.sys_enter rather than by a strstr() of its
+   name. The substring "syscalls:sys_enter" also matches the per
+   syscall syscalls:sys_enter_SYSCALL tracepoints, which a user can ask
+   for by name, and now that the match decides what is taken out of the
+   evlist, claiming one of those would drop an event that was asked for
+   and would describe __augmented_syscalls__ with its format rather
+   than the raw one's. Restore tracking on the remaining evsel via
+   evlist__set_tracking_event() so PERF_RECORD_COMM and tracking events
+   continue to be recorded. Errors from
+   augmented_syscalls__set_target_syscalls() are reported and
+   propagated, the tracepoint filter string is freed on every exit path,
+   and an allocation failure in trace__set_filter_pids() now returns
+   -ENOMEM instead of being silently ignored.
+
+   Note that in trace__set_filter_pids() the target pids and the filtered
+   pids are two independent axes and both have to be programmed. Naming
+   pids to leave out with --filter-pids does not widen -p/-t or a workload
+   to the whole system, and a BPF tracepoint program is attached system
+   wide rather than to the target's file descriptors, so pids_to_trace is
+   the only thing keeping other tasks out.
+6. Add --syscall-augment option (defaulting to true) to allow users to
+   explicitly use --no-syscall-augment to run perf trace in the classic
+   unaugmented tracepoint mode without BPF. When BPF is unavailable or
+   disabled, ensure the non-augmented tracepoint path cleanly configures
+   sys_enter and sys_exit without duplicate entries.
+
+   In trace__run(), add those tracepoints only when neither of them is
+   in the evlist already. trace__add_syscall_newtp() adds the pair
+   whatever is there, and cmd_trace() may have left either or both
+   behind: both when it prepared augmentation and then gave up on it,
+   the exit one alone when __augmented_syscalls__ took over the enters.
+   Neither is covered by trace.raw_augmented_syscalls, which is only
+   set when the exit evsel is named raw_syscalls:sys_exit, and not on a
+   kernel old enough for perf_evsel__raw_syscall_newtp() to have fallen
+   back to syscalls:sys_exit. Adding the pair again reports the events
+   that were there twice, which the fallback after a bpf-output failure
+   already did before this.
+
+   Act on trace__add_syscall_newtp()'s result in cmd_trace() rather
+   than discarding it. Those tracepoints are what the augmented events
+   are described and paired with, so without them there is nothing to
+   augment: the skeleton is dropped and the session carries on with
+   plain tracepoints, which is what the bpf-output failure beside it
+   already does, and what lets the evlist test above rely on the exit
+   tracepoint being there whenever the bpf-output event is.
+
+A target that does not fit in the map is not a reason to give up on the
+session. bpf_map__update_elem() answers -E2BIG once max_entries keys are
+present, so a target with more threads than pids_to_trace has room for
+would take the whole of perf trace down with it, on exactly the large
+workloads where there is least else to reach for. The tasks that fit are
+added, a warning says how many did not, and the ones left out are in the
+position they would have been in had they been created once the map was
+already full, which sched_process_fork() has to allow for regardless.
+
+Report a failure to program the pid filters with the error that caused
+it. trace__run() sent everything trace__set_filter_pids() returned to
+out_error_mem, which prints "Not enough memory to run!". That was
+already a guess, and becomes a wrong one now that the function also
+writes BPF maps, which fail for reasons of their own that have nothing
+to do with memory and that the message gives the user no way to act on.
+
+Report a failure to program the syscall filters the same way. The
+pr_err() in trace__set_ev_qualifier_filter() ran before trace__run()
+reached out_errno and printed "%m", and anything called in between
+could have changed errno by then, so the two did not have to agree.
+The inner report becomes a pr_debug() and the caller prints the error
+it was given, which leaves out_errno without a user and it is removed.
 
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/builtin-trace.c | 171 ++++++++++++++++++++++++++++---------
- 1 file changed, 129 insertions(+), 42 deletions(-)
+ tools/perf/Documentation/perf-trace.txt       |   5 +
+ tools/perf/builtin-trace.c                    | 222 +++++++++++++++---
+ .../bpf_skel/augmented_raw_syscalls.bpf.c     | 133 +++++++++--
+ tools/perf/util/bpf_trace_augment.c           | 169 ++++++++++++-
+ tools/perf/util/trace_augment.h               |  34 +++
+ 5 files changed, 511 insertions(+), 52 deletions(-)
 
+diff --git a/tools/perf/Documentation/perf-trace.txt b/tools/perf/Documentation/perf-trace.txt
+index d20b43ea3d37..4680c69160d7 100644
+--- a/tools/perf/Documentation/perf-trace.txt
++++ b/tools/perf/Documentation/perf-trace.txt
+@@ -260,6 +260,11 @@ the thread executes on the designated CPUs. Default is to monitor all CPUs.
+ 	Maximum number of lines in the summary mode.  Note that this applies to
+ 	each entry (thread or cgroup).
+ 
++--syscall-augment::
++	Augment syscalls with BPF. Enabled by default when BPF support is available.
++	Use --no-syscall-augment to disable BPF augmentation and fall back to the
++	unaugmented tracepoint approach.
++
+ 
+ PAGEFAULTS
+ ----------
 diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
-index f90c6bb4d8b4..de3108dcef8a 100644
+index f6fb6ffd654a..d403f1a318e3 100644
 --- a/tools/perf/builtin-trace.c
 +++ b/tools/perf/builtin-trace.c
-@@ -2283,15 +2283,20 @@ syscall_arg_fmt__init_array(struct syscall_arg_fmt *arg, struct tep_format_field
- 	struct tep_format_field *last_field = NULL;
- 	int len;
- 
--	for (; field; field = field->next, ++arg) {
--		/* assume it's the last argument */
-+	for (; field; field = field->next) {
-+		/*
-+		 * Skip internal tracepoint fields (e.g., __data_loc strings in
-+		 * Linux 6.19+) so they do not advance the syscall arg array index.
-+		 */
- 		if (is_internal_field(field))
- 			continue;
- 
- 		last_field = field;
- 
--		if (arg->scnprintf)
-+		if (arg->scnprintf) {
-+			++arg;
- 			continue;
+@@ -200,6 +200,7 @@ struct trace {
+ 	int			max_summary;
+ 	int			raw_augmented_syscalls_args_size;
+ 	bool			raw_augmented_syscalls;
++	bool			syscall_augment;
+ 	bool			fd_path_disabled;
+ 	bool			sort_events;
+ 	bool			not_ev_qualifier;
+@@ -2060,6 +2061,23 @@ static int trace__process_event(struct trace *trace, struct machine *machine,
+ 			      "LOST %" PRIu64 " events!\n", (u64)event->lost.lost);
+ 		ret = machine__process_lost_event(machine, event, sample);
+ 		break;
++	case PERF_RECORD_FORK:
++		if (trace->raw_augmented_syscalls &&
++		    (augmented_syscalls__has_target_pid(event->fork.ppid) ||
++		     augmented_syscalls__has_target_pid(event->fork.ptid))) {
++			augmented_syscalls__add_target_pid(event->fork.pid);
 +		}
++		ret = machine__process_fork_event(machine, event, sample);
++		break;
++	case PERF_RECORD_EXIT:
++		if (trace->raw_augmented_syscalls) {
++			if (event->fork.pid == event->fork.tid)
++				augmented_syscalls__del_target_pid(event->fork.pid);
++			else
++				augmented_syscalls__del_target_pid(event->fork.tid);
++		}
++		ret = machine__process_exit_event(machine, event, sample);
++		break;
+ 	default:
+ 		ret = machine__process_event(machine, event, sample);
+ 		break;
+@@ -4059,7 +4077,7 @@ static int trace__add_syscall_newtp(struct trace *trace)
  
- 		len = strlen(field->name);
- 
-@@ -2348,6 +2353,7 @@ syscall_arg_fmt__init_array(struct syscall_arg_fmt *arg, struct tep_format_field
- 				}
- 			}
- 		}
-+		++arg;
- 	}
- 
- 	return last_field;
-@@ -2368,7 +2374,8 @@ static int syscall__read_info(struct syscall *sc, struct trace *trace)
+ static int trace__set_ev_qualifier_tp_filter(struct trace *trace)
  {
- 	char tp_name[128];
- 	const char *name;
--	struct tep_format_field *field;
-+	struct tep_format_field *args, *field;
-+	int nr_args;
- 	int err;
+-	int err = -1;
++	int err = 0;
+ 	struct evsel *sys_exit;
+ 	char *filter = asprintf_expr_inout_ints("id", !trace->not_ev_qualifier,
+ 						trace->ev_qualifier_ids.nr,
+@@ -4068,15 +4086,27 @@ static int trace__set_ev_qualifier_tp_filter(struct trace *trace)
+ 	if (filter == NULL)
+ 		goto out_enomem;
  
- 	if (sc->nonexistent)
-@@ -2407,24 +2414,35 @@ static int syscall__read_info(struct syscall *sc, struct trace *trace)
- 		return err;
- 	}
+-	if (!evsel__append_tp_filter(trace->syscalls.events.sys_enter, filter)) {
+-		sys_exit = trace->syscalls.events.sys_exit;
++	/*
++	 * With BPF augmentation sys_enter is filtered in BPF and removed from
++	 * the evlist, so only apply the tracepoint filter to the events that
++	 * are actually present.
++	 */
++	if (trace->syscalls.events.sys_enter)
++		err = evsel__append_tp_filter(trace->syscalls.events.sys_enter, filter);
++
++	sys_exit = trace->syscalls.events.sys_exit;
++	if (!err && sys_exit)
+ 		err = evsel__append_tp_filter(sys_exit, filter);
+-	}
  
--	/*
--	 * The tracepoint format contains __syscall_nr field, so it's one more
--	 * than the actual number of syscall arguments.
--	 */
--	if (syscall__alloc_arg_fmts(sc, sc->tp_format->format.nr_fields - 1))
--		return -ENOMEM;
--
--	sc->args = sc->tp_format->format.fields;
-+	args = sc->tp_format->format.fields;
-+	nr_args = sc->tp_format->format.nr_fields;
- 	/*
- 	 * We need to check and discard the first variable '__syscall_nr'
- 	 * or 'nr' that mean the syscall number. It is needless here.
- 	 * So drop '__syscall_nr' or 'nr' field but does not exist on older kernels.
+ 	free(filter);
+ out:
+ 	return err;
+ out_enomem:
++	/*
++	 * err defaults to 0 because either tracepoint may legitimately be
++	 * absent, so the error has to be set explicitly here.
++	 */
++	err = -ENOMEM;
+ 	errno = ENOMEM;
+ 	goto out;
+ }
+@@ -4518,7 +4548,27 @@ static int trace__init_syscalls_bpf_prog_array_maps(struct trace *trace __maybe_
+ 
+ static int trace__set_ev_qualifier_filter(struct trace *trace)
+ {
+-	if (trace->syscalls.events.sys_enter)
++	/*
++	 * Synchronize syscall filter with BPF augmenter map:
++	 * Pass trace->not_ev_qualifier to indicate blacklist mode ('!' prefix,
++	 * e.g., -e !open,close) vs whitelist mode (-e open,close).
 +	 *
-+	 * Do this before allocating, and size the array from what is left, so
-+	 * that a format without the field does not leave
-+	 * syscall_arg_fmt__init_array() walking one entry past the end.
- 	 */
--	if (sc->args && (!strcmp(sc->args->name, "__syscall_nr") || !strcmp(sc->args->name, "nr"))) {
--		sc->args = sc->args->next;
--		--sc->nr_args;
-+	if (args && (!strcmp(args->name, "__syscall_nr") || !strcmp(args->name, "nr"))) {
-+		args = args->next;
-+		--nr_args;
- 	}
++	 * A failure here would leave the BPF program filtering on a partially
++	 * populated map, silently dropping or emitting the wrong syscalls, so
++	 * propagate the error rather than continuing.
++	 */
++	if (trace->ev_qualifier_ids.nr > 0) {
++		int err = augmented_syscalls__set_target_syscalls(trace->ev_qualifier_ids.nr,
++								  trace->ev_qualifier_ids.entries,
++								  trace->not_ev_qualifier);
++
++		if (err) {
++			pr_debug("Failed to set the syscalls to trace in the BPF map: %d\n", err);
++			return err;
++		}
++	}
++
++	if (trace->syscalls.events.sys_enter || trace->syscalls.events.sys_exit)
+ 		return trace__set_ev_qualifier_tp_filter(trace);
+ 	return 0;
+ }
+@@ -4559,13 +4609,21 @@ static int trace__set_filter_loop_pids(struct trace *trace)
  
-+	if (syscall__alloc_arg_fmts(sc, nr_args))
-+		return -ENOMEM;
+ static int trace__set_filter_pids(struct trace *trace)
+ {
+-	int err = 0;
++	struct perf_thread_map *threads = evlist__core(trace->evlist)->threads;
+ 	/*
+ 	 * Better not use !target__has_task() here because we need to cover the
+ 	 * case where no threads were specified in the command line, but a
+ 	 * workload was, and in that case we will fill in the thread_map when
+ 	 * we fork the workload in evlist__prepare_workload.
+ 	 */
++	bool has_target = perf_thread_map__pid(threads, 0) != -1;
++	int err = 0;
 +
 +	/*
-+	 * Only now that there is an arg_fmt for each of them are the arguments
-+	 * published. sc->name was set above, so a later syscall__read_info()
-+	 * takes this syscall to be read already and returns it as it stands;
-+	 * were sc->args set with sc->arg_fmt still NULL, the printing of that
-+	 * syscall would walk the arguments and index an array that does not
-+	 * exist.
++	 * The exclusion list: --filter-pids names tasks to never report, and
++	 * with no target at all we instead exclude perf itself so that tracing
++	 * does not feed back into itself.
 +	 */
-+	sc->args = args;
-+
- 	field = sc->args;
- 	while (field) {
- 		if (is_internal_field(field))
-@@ -2642,11 +2660,17 @@ static size_t syscall__scnprintf_args(struct syscall *sc, char *bf, size_t size,
- 	if (sc->args != NULL) {
- 		struct tep_format_field *field;
- 
--		for (field = sc->args; field;
--		     field = field->next, ++arg.idx, bit <<= 1) {
--			if (arg.mask & bit)
-+		for (field = sc->args; field; field = field->next) {
-+			/* Skip internal fields so they are not printed as spurious arguments */
-+			if (is_internal_field(field))
- 				continue;
- 
-+			if (arg.mask & bit) {
-+				++arg.idx;
-+				bit <<= 1;
-+				continue;
-+			}
-+
- 			arg.fmt = &sc->arg_fmt[arg.idx];
- 			val = syscall_arg__val(&arg, arg.idx);
- 			/*
-@@ -2664,8 +2688,11 @@ static size_t syscall__scnprintf_args(struct syscall *sc, char *bf, size_t size,
- 			 */
- 			if (val == 0 && !trace->show_zeros &&
- 			    !(sc->arg_fmt && sc->arg_fmt[arg.idx].show_zero) &&
--			    !(sc->arg_fmt && sc->arg_fmt[arg.idx].strtoul == STUL_BTF_TYPE))
-+			    !(sc->arg_fmt && sc->arg_fmt[arg.idx].strtoul == STUL_BTF_TYPE)) {
-+				++arg.idx;
-+				bit <<= 1;
- 				continue;
-+			}
- 
- 			printed += scnprintf(bf + printed, size - printed, "%s", printed ? ", " : "");
- 
-@@ -2680,12 +2707,16 @@ static size_t syscall__scnprintf_args(struct syscall *sc, char *bf, size_t size,
- 								   size - printed, val, field->type);
- 				if (btf_printed) {
- 					printed += btf_printed;
-+					++arg.idx;
-+					bit <<= 1;
- 					continue;
- 				}
- 			}
- 
- 			printed += syscall_arg_fmt__scnprintf_val(&sc->arg_fmt[arg.idx],
- 								  bf + printed, size - printed, &arg, val);
-+			++arg.idx;
-+			bit <<= 1;
+ 	if (trace->filter_pids.nr > 0) {
+ 		err = evlist__append_tp_filter_pids(trace->evlist, trace->filter_pids.nr,
+ 						    trace->filter_pids.entries);
+@@ -4573,10 +4631,37 @@ static int trace__set_filter_pids(struct trace *trace)
+ 			err = augmented_syscalls__set_filter_pids(trace->filter_pids.nr,
+ 						       trace->filter_pids.entries);
  		}
- 	} else if (IS_ERR(sc->tp_format)) {
- 		/*
-@@ -2946,7 +2977,9 @@ static int trace__fprintf_sample(struct trace *trace, struct perf_sample *sample
- 	return printed;
+-	} else if (perf_thread_map__pid(evlist__core(trace->evlist)->threads, 0) == -1) {
++	} else if (!has_target) {
+ 		err = trace__set_filter_loop_pids(trace);
+ 	}
+ 
++	if (err)
++		return err;
++
++	/*
++	 * The inclusion list, which is a separate axis from the exclusion list
++	 * above and so must be programmed even when --filter-pids was given:
++	 * naming tasks to leave out does not widen -p/-t or a workload to the
++	 * whole system.
++	 *
++	 * This matters more than it does on the tracepoint only path. A BPF
++	 * tracepoint program is attached system wide rather than to the
++	 * target's file descriptors, so pids_to_trace is the only thing
++	 * keeping other tasks out.
++	 */
++	if (has_target) {
++		int nr = perf_thread_map__nr(threads);
++		pid_t *pids = malloc(nr * sizeof(pid_t));
++
++		if (pids == NULL)
++			return -ENOMEM;
++
++		for (int i = 0; i < nr; i++)
++			pids[i] = perf_thread_map__pid(threads, i);
++		err = augmented_syscalls__set_target_pids(nr, pids);
++		free(pids);
++	}
++
+ 	return err;
  }
  
--static void *syscall__augmented_args(struct syscall *sc, struct perf_sample *sample, int *augmented_args_size, int raw_augmented_args_size)
-+static void *syscall__augmented_args(struct trace *trace, struct syscall *sc,
-+				     struct perf_sample *sample,
-+				     int *augmented_args_size, int raw_augmented_args_size)
- {
- 	/*
- 	 * For now with BPF raw_augmented we hook into raw_syscalls:sys_enter
-@@ -2964,6 +2997,24 @@ static void *syscall__augmented_args(struct syscall *sc, struct perf_sample *sam
- 	 */
- 	int args_size = raw_augmented_args_size ?: sc->args_size;
- 
-+	/*
-+	 * Augmented arguments are a perf trace specific payload, they are only
-+	 * ever appended to samples emitted by the BPF __augmented_syscalls__
-+	 * bpf-output event.
-+	 *
-+	 * Native syscalls:sys_enter_NAME tracepoints may also carry trailing
-+	 * data of their own: since Linux 6.19 they append __data_loc char[]
-+	 * fields plus the string payloads they point at. Those bytes are not a
-+	 * struct augmented_arg, so treating them as one would make
-+	 * syscall_arg__scnprintf_augmented_string() read a bogus length and
-+	 * walk arg->augmented.args far out of bounds.
-+	 *
-+	 * So only look for augmented arguments on the event that can actually
-+	 * produce them.
-+	 */
-+	if (sample->evsel != trace->syscalls.events.bpf_output)
-+		return NULL;
-+
- 	*augmented_args_size = sample->raw_size - args_size;
- 	if (*augmented_args_size > 0) {
- 		static uintptr_t argbuf[1024]; /* assuming single-threaded */
-@@ -3022,17 +3073,13 @@ static int trace__sys_enter(struct trace *trace,
- 	if (!(trace->duration_filter || trace->summary_only || trace->min_stack))
- 		trace__printf_interrupted_entry(trace);
- 	/*
--	 * If this is raw_syscalls.sys_enter, then it always comes with the 6 possible
--	 * arguments, even if the syscall being handled, say "openat", uses only 4 arguments
--	 * this breaks syscall__augmented_args() check for augmented args, as we calculate
--	 * syscall->args_size using each syscalls:sys_enter_NAME tracefs format file,
--	 * so when handling, say the openat syscall, we end up getting 6 args for the
--	 * raw_syscalls:sys_enter event, when we expected just 4, we end up mistakenly
--	 * thinking that the extra 2 u64 args are the augmented filename, so just check
--	 * here and avoid using augmented syscalls when the evsel is the raw_syscalls one.
-+	 * syscall__augmented_args() only returns a payload for the BPF
-+	 * __augmented_syscalls__ event, so raw_syscalls:sys_enter (which always
-+	 * carries all 6 possible arguments rather than sc->args_size worth) and
-+	 * the native syscalls:sys_enter_NAME tracepoints are both handled there.
- 	 */
--	if (evsel != trace->syscalls.events.sys_enter)
--		augmented_args = syscall__augmented_args(sc, sample, &augmented_args_size, trace->raw_augmented_syscalls_args_size);
-+	augmented_args = syscall__augmented_args(trace, sc, sample, &augmented_args_size,
-+						 trace->raw_augmented_syscalls_args_size);
- 	ttrace->entry_time = sample->time;
- 	ttrace->entry_cpu = sample->cpu;
- 	msg = ttrace->entry_str;
-@@ -3077,7 +3124,7 @@ static int trace__fprintf_sys_enter(struct trace *trace, struct perf_sample *sam
- 	struct syscall *sc;
- 	char msg[1024];
- 	void *args, *augmented_args = NULL;
--	int augmented_args_size, e_machine;
-+	int augmented_args_size = 0, e_machine;
- 	size_t printed = 0;
- 
- 
-@@ -3095,7 +3142,8 @@ static int trace__fprintf_sys_enter(struct trace *trace, struct perf_sample *sam
- 		goto out_put;
- 
- 	args = perf_evsel__sc_tp_ptr(args, sample);
--	augmented_args = syscall__augmented_args(sc, sample, &augmented_args_size, trace->raw_augmented_syscalls_args_size);
-+	augmented_args = syscall__augmented_args(trace, sc, sample, &augmented_args_size,
-+						 trace->raw_augmented_syscalls_args_size);
- 	printed += syscall__scnprintf_args(sc, msg, sizeof(msg), args, augmented_args, augmented_args_size, trace, thread);
- 	fprintf(trace->output, "%.*s", (int)printed, msg);
- 	err = 0;
-@@ -4127,10 +4175,16 @@ static int trace__bpf_sys_enter_beauty_map(struct trace *trace, int e_machine, i
- 	if (trace->btf == NULL)
- 		return -1;
- 
--	for (i = 0, field = sc->args; field; ++i, field = field->next) {
-+	for (i = 0, field = sc->args; field; field = field->next) {
-+		/* Skip internal fields to keep beauty array index aligned with syscall arguments */
-+		if (is_internal_field(field))
-+			continue;
-+
- 		// XXX We're only collecting pointer payloads _from_ user space
--		if (!sc->arg_fmt[i].from_user)
-+		if (!sc->arg_fmt[i].from_user) {
-+			++i;
- 			continue;
-+		}
- 
- 		struct_offset = strstr(field->type, "struct ");
- 		if (struct_offset == NULL)
-@@ -4149,8 +4203,10 @@ static int trace__bpf_sys_enter_beauty_map(struct trace *trace, int e_machine, i
- 			name[cnt] = '\0';
- 
- 			/* cache struct's btf_type and type_id */
--			if (syscall_arg_fmt__cache_btf_struct(&sc->arg_fmt[i], trace->btf, name))
-+			if (syscall_arg_fmt__cache_btf_struct(&sc->arg_fmt[i], trace->btf, name)) {
-+				++i;
- 				continue;
-+			}
- 
- 			bt = sc->arg_fmt[i].type;
- 			beauty_array[i] = bt->size;
-@@ -4176,7 +4232,9 @@ static int trace__bpf_sys_enter_beauty_map(struct trace *trace, int e_machine, i
- 			struct tep_format_field *field_tmp;
- 
- 			/* find the size of the buffer that appears in pairs with buf */
--			for (j = 0, field_tmp = sc->args; field_tmp; ++j, field_tmp = field_tmp->next) {
-+			for (j = 0, field_tmp = sc->args; field_tmp; field_tmp = field_tmp->next) {
-+				if (is_internal_field(field_tmp))
-+					continue;
- 				if (!(field_tmp->flags & TEP_FIELD_IS_POINTER) && /* only integers */
- 				    (strstr(field_tmp->name, "count") ||
- 				     strstr(field_tmp->name, "siz") ||  /* size, bufsiz */
-@@ -4186,8 +4244,10 @@ static int trace__bpf_sys_enter_beauty_map(struct trace *trace, int e_machine, i
- 					can_augment = true;
- 					break;
- 				}
-+				++j;
- 			}
- 		}
-+		++i;
+@@ -4803,7 +4888,20 @@ static int trace__run(struct trace *trace, int argc, const char **argv)
  	}
  
- 	if (can_augment)
-@@ -4196,6 +4256,19 @@ static int trace__bpf_sys_enter_beauty_map(struct trace *trace, int e_machine, i
- 	return -1;
+ 	if (!trace->raw_augmented_syscalls) {
+-		if (trace->trace_syscalls && trace__add_syscall_newtp(trace))
++		/*
++		 * The syscall tracepoints may be in the evlist already:
++		 * cmd_trace() adds the pair whenever it prepares BPF
++		 * augmentation, and it then either keeps them, gives up on
++		 * augmentation and leaves them behind, or has
++		 * __augmented_syscalls__ take over the enters and removes only
++		 * the enter one. trace__add_syscall_newtp() adds the pair
++		 * whatever is there, so it is called only when neither is, and
++		 * every event it adds is one the evlist does not already have.
++		 */
++		bool have_syscall_tp = trace->syscalls.events.sys_enter != NULL ||
++				       trace->syscalls.events.sys_exit != NULL;
++
++		if (trace->trace_syscalls && !have_syscall_tp && trace__add_syscall_newtp(trace))
+ 			goto out_error_raw_syscalls;
+ 
+ 		if (trace->trace_syscalls)
+@@ -4898,7 +4996,7 @@ static int trace__run(struct trace *trace, int argc, const char **argv)
+ 
+ 	err = trace__set_filter_pids(trace);
+ 	if (err < 0)
+-		goto out_error_mem;
++		goto out_error_filter_pids;
+ 
+ 	/*
+ 	 * TODO: Initialize for all host binary machine types, not just
+@@ -4909,7 +5007,7 @@ static int trace__run(struct trace *trace, int argc, const char **argv)
+ 	if (trace->ev_qualifier_ids.nr > 0) {
+ 		err = trace__set_ev_qualifier_filter(trace);
+ 		if (err < 0)
+-			goto out_errno;
++			goto out_error_ev_qualifier;
+ 
+ 		if (trace->syscalls.events.sys_exit) {
+ 			pr_debug("event qualifier tracepoint filter: %s\n",
+@@ -5089,14 +5187,32 @@ static int trace__run(struct trace *trace, int argc, const char **argv)
+ 		"Failed to set filter \"%s\" on event %s: %m\n",
+ 		evsel->filter, evsel__name(evsel));
+ 	goto out_put_evlist;
++
++out_error_filter_pids:
++	/*
++	 * Report what actually went wrong. Programming the pid filters
++	 * allocates, but it also writes BPF maps, which fails for reasons of
++	 * its own: -E2BIG when the target has more threads than pids_to_trace
++	 * has room for, say.
++	 */
++	fprintf(trace->output, "Failed to set the pid filters: %s\n",
++		str_error_r(-err, errbuf, sizeof(errbuf)));
++	goto out_put_evlist;
++
++out_error_ev_qualifier:
++	/*
++	 * Use the returned error, not errno. Reporting the failure on the way
++	 * out of trace__set_ev_qualifier_filter() goes through the formatted
++	 * output functions, which are free to leave errno describing
++	 * something else by the time it is read here.
++	 */
++	fprintf(trace->output, "Failed to set the syscall filters: %s\n",
++		str_error_r(-err, errbuf, sizeof(errbuf)));
++	goto out_put_evlist;
+ }
+ out_error_mem:
+ 	fprintf(trace->output, "Not enough memory to run!\n");
+ 	goto out_put_evlist;
+-
+-out_errno:
+-	fprintf(trace->output, "%m\n");
+-	goto out_put_evlist;
+ }
+ 
+ static int trace__replay(struct trace *trace)
+@@ -5811,6 +5927,7 @@ int cmd_trace(int argc, const char **argv)
+ 		.show_arg_names = true,
+ 		.args_alignment = 70,
+ 		.trace_syscalls = false,
++		.syscall_augment = true,
+ 		.kernel_syscallchains = false,
+ 		.max_stack = UINT_MAX,
+ 		.max_events = ULONG_MAX,
+@@ -5866,6 +5983,8 @@ int cmd_trace(int argc, const char **argv)
+ 	OPT_CALLBACK_DEFAULT('F', "pf", &trace.trace_pgfaults, "all|maj|min",
+ 		     "Trace pagefaults", parse_pagefaults, "maj"),
+ 	OPT_BOOLEAN(0, "syscalls", &trace.trace_syscalls, "Trace syscalls"),
++	OPT_BOOLEAN(0, "syscall-augment", &trace.syscall_augment,
++		    "Augment syscalls with BPF"),
+ 	OPT_BOOLEAN('f', "force", &trace.force, "don't complain, do it"),
+ 	OPT_CALLBACK(0, "call-graph", &trace.opts,
+ 		     "record_mode[,record_size]", record_callchain_help,
+@@ -5988,7 +6107,7 @@ int cmd_trace(int argc, const char **argv)
+ 				       "cgroup monitoring only available in system-wide mode");
+ 	}
+ 
+-	if (!trace.trace_syscalls)
++	if (!trace.trace_syscalls || !trace.syscall_augment)
+ 		goto skip_augmentation;
+ 
+ 	if ((argc >= 1) && (strcmp(argv[0], "record") == 0)) {
+@@ -6010,11 +6129,34 @@ int cmd_trace(int argc, const char **argv)
+ 	if (err < 0)
+ 		goto skip_augmentation;
+ 
+-	trace__add_syscall_newtp(&trace);
++	/*
++	 * The syscall tracepoints are what the augmented events are described
++	 * and paired with: the enter one supplies the format
++	 * __augmented_syscalls__ is read with, and the exit one reports the
++	 * returns, since BPF only takes over the enters. Without them there is
++	 * nothing to augment, so drop the skeleton and carry on with plain
++	 * tracepoints, as the bpf-output failure below does.
++	 */
++	if (trace__add_syscall_newtp(&trace)) {
++		pr_debug("Failed to set up the syscall tracepoints, disabling augmentation\n");
++		augmented_syscalls__cleanup();
++		goto skip_augmentation;
++	}
+ 
+ 	err = augmented_syscalls__create_bpf_output(trace.evlist);
+-	if (err == 0)
++	if (err == 0) {
+ 		trace.syscalls.events.bpf_output = evlist__last(trace.evlist);
++	} else {
++		/*
++		 * augmented_syscalls__prepare() already attached sys_enter and
++		 * sys_exit, which are system wide. Falling through to
++		 * skip_augmentation without undoing that would run a BPF
++		 * program for every syscall on the machine, for the whole
++		 * session, with nothing consuming the output.
++		 */
++		pr_debug("Failed to create the augmented syscalls bpf-output event, disabling augmentation\n");
++		augmented_syscalls__cleanup();
++	}
+ 
+ skip_augmentation:
+ 	err = -1;
+@@ -6070,7 +6212,9 @@ int cmd_trace(int argc, const char **argv)
+ 	 * syscall.
+ 	 */
+ 	if (trace.syscalls.events.bpf_output) {
+-		evlist__for_each_entry(trace.evlist, evsel) {
++		struct evsel *n;
++
++		evlist__for_each_entry_safe(trace.evlist, n, evsel) {
+ 			bool raw_syscalls_sys_exit = evsel__name_is(evsel, "raw_syscalls:sys_exit");
+ 
+ 			if (raw_syscalls_sys_exit) {
+@@ -6078,28 +6222,44 @@ int cmd_trace(int argc, const char **argv)
+ 				goto init_augmented_syscall_tp;
+ 			}
+ 
+-			if (trace.syscalls.events.bpf_output->priv == NULL &&
+-			    strstr(evsel__name(evsel), "syscalls:sys_enter")) {
++			/*
++			 * Match the evsel trace__add_syscall_newtp() made by
++			 * identity rather than by name. It is called
++			 * raw_syscalls:sys_enter, or syscalls:sys_enter on
++			 * kernels too old to have the raw variant, and a
++			 * substring test for the latter also matches the
++			 * per syscall syscalls:sys_enter_SYSCALL tracepoints
++			 * a user can ask for by name. Claiming one of those
++			 * here would take the event the user asked for out of
++			 * the evlist below and describe __augmented_syscalls__
++			 * with the wrong tracefs format.
++			 */
++			if (evsel == trace.syscalls.events.sys_enter) {
+ 				struct evsel *augmented = trace.syscalls.events.bpf_output;
+ 				if (evsel__init_augmented_syscall_tp(augmented, evsel) ||
+ 				    evsel__init_augmented_syscall_tp_args(augmented))
+ 					goto out;
+ 				/*
+-				 * Augmented is __augmented_syscalls__ BPF_OUTPUT event
++				 * Augmented is __augmented_syscalls__ BPF_OUTPUT event.
+ 				 * Above we made sure we can get from the payload the tp fields
+ 				 * that we get from syscalls:sys_enter tracefs format file.
++				 * Since BPF outputs all enter events (both augmented and
++				 * unaugmented) into __augmented_syscalls__, we remove the raw
++				 * sys_enter evsel from evlist so that perf trace only listens
++				 * to __augmented_syscalls__, avoiding duplicate events and
++				 * avoiding kernel tracepoint vetoes.
++				 *
++				 * Because evlist__remove() removes the first evsel (which had
++				 * tracking=true by default), re-designate the tracking event
++				 * so PERF_RECORD_COMM and fork tracking continue to be enabled.
+ 				 */
+ 				augmented->handler = trace__sys_enter;
+-				/*
+-				 * Now we do the same for the *syscalls:sys_enter event so that
+-				 * if we handle it directly, i.e. if the BPF prog returns 0 so
+-				 * as not to filter it, then we'll handle it just like we would
+-				 * for the BPF_OUTPUT one:
+-				 */
+-				if (evsel__init_augmented_syscall_tp(evsel, evsel) ||
+-				    evsel__init_augmented_syscall_tp_args(evsel))
+-					goto out;
+-				evsel->handler = trace__sys_enter;
++				evlist__remove(trace.evlist, evsel);
++				evsel__put_and_free_priv(evsel);
++				trace.syscalls.events.sys_enter = NULL;
++				evlist__set_tracking_event(trace.evlist,
++					trace.syscalls.events.sys_exit ?: augmented);
++				continue;
+ 			}
+ 
+ 			if (strstarts(evsel__name(evsel), "syscalls:sys_exit_")) {
+diff --git a/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c b/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
+index 3bc9e28a9b8a..6ca9507ecc02 100644
+--- a/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
++++ b/tools/perf/util/bpf_skel/augmented_raw_syscalls.bpf.c
+@@ -114,6 +114,41 @@ struct pids_filtered {
+ 	__uint(max_entries, 64);
+ } pids_filtered SEC(".maps");
+ 
++/*
++ * Optional hash map containing specific PIDs/TGIDs to trace (e.g., when
++ * attached to a process with -p or tracing a specific command workload).
++ *
++ * has_pids_to_trace: Set to true if target PID filtering is active.
++ *                    When false, all processes are eligible for tracing.
++ */
++struct pids_to_trace {
++	__uint(type, BPF_MAP_TYPE_HASH);
++	__type(key, pid_t);
++	__type(value, bool);
++	__uint(max_entries, 1024);
++} pids_to_trace SEC(".maps");
++
++bool has_pids_to_trace;
++
++/*
++ * Hash map storing syscall IDs for filtering (via 'perf trace -e ...').
++ *
++ * has_syscalls_to_trace: Set to true if any syscall filter is active.
++ * not_syscalls_to_trace: Inverts matching when '!' prefix is used in -e
++ *                        (e.g., -e !open,close means trace everything EXCEPT
++ *                        open and close; an exclusion blacklist rather than
++ *                        an inclusion whitelist).
++ */
++struct syscalls_to_trace {
++	__uint(type, BPF_MAP_TYPE_HASH);
++	__type(key, int);
++	__type(value, bool);
++	__uint(max_entries, 1024);
++} syscalls_to_trace SEC(".maps");
++
++bool has_syscalls_to_trace;
++bool not_syscalls_to_trace;
++
+ struct augmented_args_payload {
+ 	struct syscall_enter_args args;
+ 	struct augmented_arg arg, arg2; // We have to reserve space for two arguments (rename, etc)
+@@ -154,8 +189,8 @@ static inline struct augmented_args_payload *augmented_args_payload(void)
+ 
+ static inline int augmented__output(void *ctx, struct augmented_args_payload *args, int len)
+ {
+-	/* If perf_event_output fails, return non-zero so that it gets recorded unaugmented */
+-	return bpf_perf_event_output(ctx, &__augmented_syscalls__, BPF_F_CURRENT_CPU, args, len);
++	bpf_perf_event_output(ctx, &__augmented_syscalls__, BPF_F_CURRENT_CPU, args, len);
++	return 1;
+ }
+ 
+ static inline int augmented__beauty_output(void *ctx, void *data, int len)
+@@ -191,10 +226,21 @@ unsigned int augmented_arg__read_str(struct augmented_arg *augmented_arg, const
+ 	return augmented_len;
+ }
+ 
+-SEC("tp/raw_syscalls/sys_enter")
++/*
++ * Default sys_enter program for syscalls without pointer argument augmentation.
++ * Writes the raw struct syscall_enter_args payload into __augmented_syscalls__
++ * and returns 1 so the tracepoint is never vetoed in the kernel.
++ */
++SEC("tp/syscalls/sys_enter_unaugmented")
+ int syscall_unaugmented(struct syscall_enter_args *args)
+ {
+-	return 1;
++	struct augmented_args_payload *augmented_args = augmented_args_payload();
++
++	if (augmented_args == NULL)
++		return 1;
++
++	bpf_probe_read_kernel(&augmented_args->args, sizeof(augmented_args->args), args);
++	return augmented__output(args, augmented_args, sizeof(augmented_args->args));
+ }
+ 
+ /*
+@@ -424,11 +470,41 @@ static pid_t getpid(void)
+ 	return bpf_get_current_pid_tgid();
  }
  
 +/*
-+ * Advance to the first field that is a real syscall argument, so that callers
-+ * walking two argument lists in step never have to reason about internal
-+ * fields appearing in one list but not the other.
++ * Returns true if a PID is explicitly excluded/filtered out (e.g., via --filter-pids).
 + */
-+static struct tep_format_field *next_user_arg(struct tep_format_field *field)
+ static bool pid_filter__has(struct pids_filtered *pids, pid_t pid)
+ {
+ 	return bpf_map_lookup_elem(pids, &pid) != NULL;
+ }
+ 
++/*
++ * Checks if the current task (thread PID or process TGID) is targeted for tracing.
++ * Checks both PID (thread ID) and TGID (process ID) so that all threads of a
++ * target process match.
++ */
++static inline bool pid_to_trace__has(pid_t pid)
 +{
-+	while (field && is_internal_field(field))
-+		field = field->next;
++	pid_t tgid = bpf_get_current_pid_tgid() >> 32;
 +
-+	return field;
++	return bpf_map_lookup_elem(&pids_to_trace, &pid) != NULL ||
++	       bpf_map_lookup_elem(&pids_to_trace, &tgid) != NULL;
 +}
 +
- static struct bpf_program *trace__find_usable_bpf_prog_entry(struct trace *trace,
- 							     struct syscall *sc)
++/*
++ * Determines if a syscall should be traced based on the filter map:
++ * - When not_syscalls_to_trace is true: blacklist mode (trace if NOT in map).
++ * - When not_syscalls_to_trace is false: whitelist mode (trace ONLY if IN map).
++ */
++static inline bool syscall_to_trace__enabled(int id)
++{
++	bool in_map = bpf_map_lookup_elem(&syscalls_to_trace, &id) != NULL;
++
++	if (not_syscalls_to_trace)
++		return !in_map;
++	return in_map;
++}
++
+ u64 ZERO = 0;
+ 
+ /*
+@@ -562,6 +638,11 @@ static int augment_sys_enter(void *ctx, struct syscall_enter_args *args)
+ 	return augmented__beauty_output(ctx, payload, sizeof(struct syscall_enter_args) + output);
+ }
+ 
++/*
++ * Main raw_syscalls:sys_enter tracepoint handler.
++ * Always returns 1 so the tracepoint is never vetoed in the kernel for
++ * other concurrent listeners. Filtered events simply do not output to the ring buffer.
++ */
+ SEC("tp/raw_syscalls/sys_enter")
+ int sys_enter(struct syscall_enter_args *args)
  {
-@@ -4203,7 +4276,7 @@ static struct bpf_program *trace__find_usable_bpf_prog_entry(struct trace *trace
- 	/*
- 	 * We're only interested in syscalls that have a pointer:
+@@ -576,8 +657,11 @@ int sys_enter(struct syscall_enter_args *args)
+ 	 * initial, non-augmented raw_syscalls:sys_enter payload.
  	 */
--	for (field = sc->args; field; field = field->next) {
-+	for (field = next_user_arg(sc->args); field; field = next_user_arg(field->next)) {
- 		if (field->flags & TEP_FIELD_IS_POINTER)
- 			goto try_to_find_pair;
- 	}
-@@ -4221,21 +4294,31 @@ static struct bpf_program *trace__find_usable_bpf_prog_entry(struct trace *trace
- 		    pair->bpf_prog.sys_enter == unaugmented_prog)
- 			continue;
  
--		for (field = sc->args, candidate_field = pair->args;
--		     field && candidate_field; field = field->next, candidate_field = candidate_field->next) {
++	if (has_pids_to_trace && !pid_to_trace__has(getpid()))
++		return 1;
++
+ 	if (pid_filter__has(&pids_filtered, getpid()))
+-		return 0;
++		return 1;
+ 
+ 	augmented_args = augmented_args_payload();
+ 	if (augmented_args == NULL)
+@@ -585,25 +669,41 @@ int sys_enter(struct syscall_enter_args *args)
+ 
+ 	bpf_probe_read_kernel(&augmented_args->args, sizeof(augmented_args->args), args);
+ 
++	if (has_syscalls_to_trace && !syscall_to_trace__enabled(augmented_args->args.syscall_nr))
++		return 1;
++
+ 	/*
+-	 * Jump to syscall specific augmenter, even if the default one,
+-	 * "!raw_syscalls:unaugmented" that will just return 1 to return the
+-	 * unaugmented tracepoint payload.
++	 * Jump to syscall specific augmenter. If augmented, augment_sys_enter()
++	 * outputs the payload to __augmented_syscalls__ and returns 0.
++	 * Return 1 so we never veto the kernel tracepoint for other listeners.
+ 	 */
+-	if (augment_sys_enter(args, &augmented_args->args))
+-		bpf_tail_call(args, &syscalls_sys_enter, augmented_args->args.syscall_nr);
++	if (augment_sys_enter(args, &augmented_args->args) == 0)
++		return 1;
+ 
+-	// If not found on the PROG_ARRAY syscalls map, then we're filtering it:
+-	return 0;
++	bpf_tail_call(args, &syscalls_sys_enter, augmented_args->args.syscall_nr);
++
++	/*
++	 * If not found on the PROG_ARRAY syscalls map, return 1 so we
++	 * don't veto the tracepoint event system-wide for other concurrent
++	 * listeners.
++	 */
++	return 1;
+ }
+ 
++/*
++ * Main raw_syscalls:sys_exit tracepoint handler.
++ * Always returns 1 so the tracepoint is never vetoed in the kernel.
++ */
+ SEC("tp/raw_syscalls/sys_exit")
+ int sys_exit(struct syscall_exit_args *args)
+ {
+ 	struct syscall_exit_args exit_args;
+ 
++	if (has_pids_to_trace && !pid_to_trace__has(getpid()))
++		return 1;
++
+ 	if (pid_filter__has(&pids_filtered, getpid()))
+-		return 0;
++		return 1;
+ 
+ 	bpf_probe_read_kernel(&exit_args, sizeof(exit_args), args);
+ 	/*
+@@ -613,9 +713,12 @@ int sys_exit(struct syscall_exit_args *args)
+ 	 */
+ 	bpf_tail_call(args, &syscalls_sys_exit, exit_args.syscall_nr);
+ 	/*
+-	 * If not found on the PROG_ARRAY syscalls map, then we're filtering it:
++	 * If not found on the PROG_ARRAY syscalls map, return 1 so we
++	 * don't veto the tracepoint event system-wide for other concurrent
++	 * listeners. perf trace's own evsel filter will discard non-matching
++	 * syscalls.
+ 	 */
+-	return 0;
++	return 1;
+ }
+ 
+ char _license[] SEC("license") = "GPL";
+diff --git a/tools/perf/util/bpf_trace_augment.c b/tools/perf/util/bpf_trace_augment.c
+index ebb26225fb04..5f15b27264e9 100644
+--- a/tools/perf/util/bpf_trace_augment.c
++++ b/tools/perf/util/bpf_trace_augment.c
+@@ -1,5 +1,6 @@
+ #include <assert.h>
+ #include <bpf/libbpf.h>
++#include <errno.h>
+ #include <internal/xyarray.h>
+ #include <string.h>
+ 
+@@ -12,6 +13,23 @@
+ static struct augmented_raw_syscalls_bpf *skel;
+ static struct evsel *bpf_output;
+ 
++/* Set by attach_prog() so the first failure is what gets reported. */
++static int attach_err;
++
++static int attach_prog(struct bpf_link **link, struct bpf_program *prog, const char *name)
++{
++	*link = bpf_program__attach(prog);
++	if (*link)
++		return 0;
++	/*
++	 * Save errno before pr_debug(), which formats and writes output and so
++	 * can overwrite it.
++	 */
++	attach_err = -errno;
++	pr_debug("Failed to attach %s BPF program\n", name);
++	return attach_err;
++}
++
+ int augmented_syscalls__prepare(void)
+ {
+ 	struct bpf_program *prog;
+@@ -37,11 +55,35 @@ int augmented_syscalls__prepare(void)
+ 	if (err < 0) {
+ 		libbpf_strerror(err, buf, sizeof(buf));
+ 		pr_debug("Failed to load augmented syscalls BPF skeleton: %s\n", buf);
 +		/*
-+		 * Both cursors only ever point at real arguments, so the loop
-+		 * ends when one of the two syscalls runs out of them, rather
-+		 * than when one happens to have trailing internal fields.
++		 * Tear the skeleton down rather than leaving a half initialized
++		 * one behind. The caller falls back to unaugmented tracing and
++		 * still calls the setters below, which must then do nothing
++		 * instead of failing against a skeleton with no maps.
 +		 */
-+		field = next_user_arg(sc->args);
-+		candidate_field = next_user_arg(pair->args);
-+		while (field && candidate_field) {
- 			bool is_pointer = field->flags & TEP_FIELD_IS_POINTER,
- 			     candidate_is_pointer = candidate_field->flags & TEP_FIELD_IS_POINTER;
++		augmented_syscalls__cleanup();
+ 		return err;
+ 	}
  
- 			if (is_pointer) {
--			       if (!candidate_is_pointer) {
-+				if (!candidate_is_pointer) {
- 					// The candidate just doesn't copies our pointer arg, might copy other pointers we want.
-+					field = next_user_arg(field->next);
-+					candidate_field = next_user_arg(candidate_field->next);
- 					continue;
--			       }
-+				}
- 			} else {
- 				if (candidate_is_pointer) {
- 					// The candidate might copy a pointer we don't have, skip it.
- 					goto next_candidate;
- 				}
-+				field = next_user_arg(field->next);
-+				candidate_field = next_user_arg(candidate_field->next);
- 				continue;
- 			}
+-	augmented_raw_syscalls_bpf__attach(skel);
++	/*
++	 * Only sys_enter and sys_exit are attached, the remaining programs are
++	 * reached by tail calls. Attach them explicitly and, on failure, undo
++	 * any partial attachment: leaving sys_enter live on
++	 * raw_syscalls:sys_enter would keep running a BPF program for every
++	 * syscall on the system for a perf trace session that never starts.
++	 */
++	if (attach_prog(&skel->links.sys_enter, skel->progs.sys_enter, "sys_enter"))
++		goto out_cleanup;
++	if (attach_prog(&skel->links.sys_exit, skel->progs.sys_exit, "sys_exit"))
++		goto out_cleanup;
++
+ 	return 0;
++
++out_cleanup:
++	err = attach_err;
++	/* Destroys every link attached above along with the skeleton. */
++	augmented_syscalls__cleanup();
++	return err;
+ }
  
-@@ -4256,6 +4339,8 @@ static struct bpf_program *trace__find_usable_bpf_prog_entry(struct trace *trace
- 				goto next_candidate;
+ int augmented_syscalls__create_bpf_output(struct evlist *evlist)
+@@ -82,22 +124,136 @@ void augmented_syscalls__setup_bpf_output(void)
+ 	}
+ }
  
- 			is_candidate = true;
-+			field = next_user_arg(field->next);
-+			candidate_field = next_user_arg(candidate_field->next);
- 		}
++/*
++ * Add every pid to a pid keyed filter map.
++ *
++ * A map with no room left is not treated as a failure. bpf_map__update_elem()
++ * answers -E2BIG once max_entries keys are present, and a task that did not
++ * fit is then one the filter does not know about, which is exactly the
++ * position it would be in had it been created after the map filled up.
++ * Refusing to trace at all instead would make perf trace unusable against the
++ * very large targets that are the only way to reach the limit, so say how many
++ * missed out and carry on with those that did fit.
++ */
++static int add_pids_to_map(struct bpf_map *map, const char *missing_out_on,
++			   unsigned int nr, pid_t *pids)
++{
++	unsigned int nr_no_room = 0;
++	bool value = true;
++
++	for (unsigned int i = 0; i < nr; ++i) {
++		int err = bpf_map__update_elem(map, &pids[i], sizeof(*pids),
++					       &value, sizeof(value), BPF_ANY);
++
++		if (err == -E2BIG) {
++			nr_no_room++;
++			continue;
++		}
++		if (err)
++			return err;
++	}
++
++	if (nr_no_room) {
++		pr_warning("Only %u of %u tasks fit in the %s BPF map, %u will not be %s.\n",
++			   nr - nr_no_room, nr, bpf_map__name(map), nr_no_room,
++			   missing_out_on);
++	}
++
++	return 0;
++}
++
+ int augmented_syscalls__set_filter_pids(unsigned int nr, pid_t *pids)
++{
++	if (skel == NULL)
++		return 0;
++
++	return add_pids_to_map(skel->maps.pids_filtered, "filtered out", nr, pids);
++}
++
++/*
++ * Populate target PIDs in the BPF pids_to_trace map (e.g., for -p <PID> or
++ * when tracing a specified command workload).
++ */
++int augmented_syscalls__set_target_pids(unsigned int nr, pid_t *pids)
++{
++	int err;
++
++	if (skel == NULL || nr == 0)
++		return 0;
++
++	err = add_pids_to_map(skel->maps.pids_to_trace, "traced", nr, pids);
++	if (err)
++		return err;
++
++	/*
++	 * Set the flag only once every target is in the map. The BPF programs
++	 * are attached by this point, so flipping it first would have them
++	 * filter against a partially populated map and drop syscalls made by
++	 * the targets that had not been added yet.
++	 */
++	skel->bss->has_pids_to_trace = true;
++	return 0;
++}
++
++int augmented_syscalls__add_target_pid(pid_t pid)
++{
++	bool value = true;
++
++	if (skel == NULL || !skel->bss->has_pids_to_trace || skel->maps.pids_to_trace == NULL)
++		return 0;
++
++	return bpf_map__update_elem(skel->maps.pids_to_trace, &pid, sizeof(pid),
++				    &value, sizeof(value), BPF_ANY);
++}
++
++int augmented_syscalls__del_target_pid(pid_t pid)
++{
++	if (skel == NULL || !skel->bss->has_pids_to_trace || skel->maps.pids_to_trace == NULL)
++		return 0;
++
++	return bpf_map__delete_elem(skel->maps.pids_to_trace, &pid, sizeof(pid), 0);
++}
++
++bool augmented_syscalls__has_target_pid(pid_t pid)
++{
++	bool value;
++
++	if (skel == NULL || !skel->bss->has_pids_to_trace || skel->maps.pids_to_trace == NULL)
++		return false;
++
++	return bpf_map__lookup_elem(skel->maps.pids_to_trace, &pid, sizeof(pid),
++				    &value, sizeof(value), 0) == 0;
++}
++
++/*
++ * Populate syscalls in the BPF syscalls_to_trace map:
++ * - not_syscalls: true if '!' prefix was specified (blacklist mode: trace
++ *   all syscalls EXCEPT these).
++ *   false if whitelist mode (trace ONLY these syscalls).
++ */
++int augmented_syscalls__set_target_syscalls(unsigned int nr, int *syscall_ids, bool not_syscalls)
+ {
+ 	bool value = true;
+ 	int err = 0;
  
- 		if (!is_candidate)
-@@ -4267,7 +4352,9 @@ static struct bpf_program *trace__find_usable_bpf_prog_entry(struct trace *trace
- 		 * more than what is common to the two syscalls.
- 		 */
- 		if (candidate_field) {
--			for (candidate_field = candidate_field->next; candidate_field; candidate_field = candidate_field->next)
-+			candidate_field = next_user_arg(candidate_field->next);
-+			for (; candidate_field;
-+			     candidate_field = next_user_arg(candidate_field->next))
- 				if (candidate_field->flags & TEP_FIELD_IS_POINTER)
- 					goto next_candidate;
- 		}
+-	if (skel == NULL)
++	if (skel == NULL || nr == 0)
+ 		return 0;
+ 
++	skel->bss->not_syscalls_to_trace = not_syscalls;
+ 	for (size_t i = 0; i < nr; ++i) {
+-		err = bpf_map__update_elem(skel->maps.pids_filtered, &pids[i],
+-					   sizeof(*pids), &value, sizeof(value),
++		err = bpf_map__update_elem(skel->maps.syscalls_to_trace, &syscall_ids[i],
++					   sizeof(int), &value, sizeof(value),
+ 					   BPF_ANY);
+ 		if (err)
+-			break;
++			return err;
+ 	}
+-	return err;
++	/*
++	 * As for the pid maps, publish the filter only once it is complete:
++	 * in whitelist mode a half filled map would drop syscalls that were
++	 * asked for but not added yet.
++	 */
++	skel->bss->has_syscalls_to_trace = true;
++	return 0;
+ }
+ 
+ int augmented_syscalls__get_map_fds(int *enter_fd, int *exit_fd, int *beauty_fd)
+@@ -142,4 +298,5 @@ struct bpf_program *augmented_syscalls__find_by_title(const char *name)
+ void augmented_syscalls__cleanup(void)
+ {
+ 	augmented_raw_syscalls_bpf__destroy(skel);
++	skel = NULL;
+ }
+diff --git a/tools/perf/util/trace_augment.h b/tools/perf/util/trace_augment.h
+index a1cd9a5e0213..5702eda3b469 100644
+--- a/tools/perf/util/trace_augment.h
++++ b/tools/perf/util/trace_augment.h
+@@ -2,6 +2,7 @@
+ #define TRACE_AUGMENT_H
+ 
+ #include <linux/compiler.h>
++#include <stdbool.h>
+ #include <sys/types.h>
+ 
+ struct bpf_program;
+@@ -13,6 +14,11 @@ int augmented_syscalls__prepare(void);
+ int augmented_syscalls__create_bpf_output(struct evlist *evlist);
+ void augmented_syscalls__setup_bpf_output(void);
+ int augmented_syscalls__set_filter_pids(unsigned int nr, pid_t *pids);
++int augmented_syscalls__set_target_pids(unsigned int nr, pid_t *pids);
++int augmented_syscalls__add_target_pid(pid_t pid);
++int augmented_syscalls__del_target_pid(pid_t pid);
++bool augmented_syscalls__has_target_pid(pid_t pid);
++int augmented_syscalls__set_target_syscalls(unsigned int nr, int *syscall_ids, bool not_syscalls);
+ int augmented_syscalls__get_map_fds(int *enter_fd, int *exit_fd, int *beauty_fd);
+ struct bpf_program *augmented_syscalls__find_by_title(const char *name);
+ struct bpf_program *augmented_syscalls__unaugmented(void);
+@@ -40,6 +46,34 @@ static inline int augmented_syscalls__set_filter_pids(unsigned int nr __maybe_un
+ 	return 0;
+ }
+ 
++static inline int augmented_syscalls__set_target_pids(unsigned int nr __maybe_unused,
++						      pid_t *pids __maybe_unused)
++{
++	return 0;
++}
++
++static inline int augmented_syscalls__add_target_pid(pid_t pid __maybe_unused)
++{
++	return 0;
++}
++
++static inline int augmented_syscalls__del_target_pid(pid_t pid __maybe_unused)
++{
++	return 0;
++}
++
++static inline bool augmented_syscalls__has_target_pid(pid_t pid __maybe_unused)
++{
++	return false;
++}
++
++static inline int augmented_syscalls__set_target_syscalls(unsigned int nr __maybe_unused,
++							  int *syscall_ids __maybe_unused,
++							  bool not_syscalls __maybe_unused)
++{
++	return 0;
++}
++
+ static inline int augmented_syscalls__get_map_fds(int *enter_fd __maybe_unused,
+ 						  int *exit_fd __maybe_unused,
+ 						  int *beauty_fd __maybe_unused)
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
