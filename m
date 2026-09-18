@@ -1,224 +1,167 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BABFA39A802
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:43:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A7644E2F1E
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:44:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789742610; cv=none; b=tLchp+BMOOYvXyf5sjZLlcFS2gjoHVg5uu6+0aXZowVoU/ssLXjEVCiSd2OlwuZtAz3sNFwQe0xFDpmTqduLDvGOSPpD/hMq4c/neskFkiCKtu4nVL9xapWIJW8gHx6pGG0/R7tiyXSbeBknw0JZ7odf6t7to5TUJrT5fx+/YRU=
+	t=1789742648; cv=none; b=stQINaz1ZP/0wV7rzLj2TT+lA6ZEVoqmgk4+5sKN5CUSuak2D16UhlSHVQnteYbmWw5K4WDw7CBEZjEuxrf6ps+rUjO8oRN9Z3ljd0AI/xFVMwP7Lv6bCEDZ+39M4A1WU8xRpRKq6qvklWYtVPwc0IHsmv5XOjjOZA0NqtiS5g4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789742610; c=relaxed/simple;
-	bh=qWivAt5AoOtagOLqIxO8pAOyiQ4DAkIBdYhIytKZ80w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TM/JIBwAX1heVedYl2apyIwIZhV2bh33bHlCpclcPbg9CQuYmPCVlS4tpLI1BAakFqq4Vp2toK5nOOtm1wIj+7ZkU5QG+OeAAwNtpr+DH2JXK/U4gKkM4oXsvRnR93JhWIhNwQC96UPdrBxIfJYCimiQ9HvXux1CgJU/glfnppo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lu12+JM1; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789742648; c=relaxed/simple;
+	bh=0XKJE9i8zYMBMANsCjjE5uTtIk9+qkiPDvkZ8ivFoFo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=npmeZswGUGVQV4sN52MGJvUKZNuH6tWjAFs2Y7czAysOZYUwN1QDJE6zUgLn76ZzZZ5LlA9lfD85Yz3NxrKTy/RX9S6i/VlDh0vkb7jRfXRpruo81933zrEKfL2aIAgsDBrcbfgTbQxP8uxBWz5XYUjLWxkkcfILNudiNILI36Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ggE7Ni8C; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=L+ZRgUVV; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lu12+JM1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789742609; x=1821278609;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=qWivAt5AoOtagOLqIxO8pAOyiQ4DAkIBdYhIytKZ80w=;
-  b=lu12+JM1esdic6N+Iu0w/00/oNewY+Hag8z3dgQ4U2gOOW5FqO/O2vun
-   MXRnc1KxNyYFUa0F9y8FHGQAxc1PuKhhdSkLq2p7uJeFZaxtAgDdueEyM
-   wm65TDGl6czS7AU9WmLnPZ5UXT/FNEaLEn8AL4WOIa8iaKw+6m4fvEGJW
-   g1zEU519hxxu1iR6PjtoUDgkNxXSfYGQeauDp7DpiheGneUGm7ajs3udn
-   l2cu6ToxfXibJs2UwupuYZOlW6r2oCHWjfBxPk6qeqR/7A4jWCRAEEMLC
-   6mIBvy8rN/p836YW6lhRzX6caG0BvtH9W3BJk+JmaK9iFBiix9XbQvTyM
-   g==;
-X-CSE-ConnectionGUID: YkDFgZUhTt+LM4hxWYrzgA==
-X-CSE-MsgGUID: Esc0+kX/QyyziYwjrVbI+w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11909"; a="107757524"
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="107757524"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 07:43:28 -0700
-X-CSE-ConnectionGUID: /W++crubRcahKq1GUM5TbQ==
-X-CSE-MsgGUID: 5bCMYtaSTG6dHpyUs/ZAxg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="271110803"
-Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.109.117]) ([10.125.109.117])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 07:43:27 -0700
-Message-ID: <a135b068-e7ee-40f9-8ae7-ca5c44db2dac@intel.com>
-Date: Fri, 18 Sep 2026 07:43:26 -0700
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ggE7Ni8C";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="L+ZRgUVV"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68IDOb4n745872
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:44:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=GgoDsfXnaLRNGr+mmbgHEyI2
+	xXAvLS7EZNrAWbkAX2E=; b=ggE7Ni8CNk3DqLQewYKJLXfBA6gBSgTVPmuk32Vj
+	wmh3lVG0Gal5Em3dnTZFTwFMOOsxdGP+elAqXaBis/9u1W34xfSoaCAjbxMz+Okt
+	yu/3NYfauYjKz0KuE+KCubVJRisjUezoFV879GBqjnDPfhgVZJ4i8wx9hUslcrxB
+	tvLRWj9IbU4Mlwe2VMQGSmqkt3fNPpZ+0MPTLKvAB+Ve5YiYd4XYG8IHNcJAKUw5
+	C63HkGghrXWNDsny66CmGxm07STlQLm/br9u/vmgPwCilrBbVi1Hw7cuqpkGwLnG
+	tg2zFaXGyK2jceOxQzy4gUkAnZI3fKpy0XawSyfVC/2IDw==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gs2391csv-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:44:05 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-86b4048367cso1139493b3a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:44:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789742644; x=1790347444; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GgoDsfXnaLRNGr+mmbgHEyI2xXAvLS7EZNrAWbkAX2E=;
+        b=L+ZRgUVVW626yye4SF8Afi2fgWs8NNhOz4r+X3t9kG9JM8vrQ/a7gJ/sZGduHfMYqh
+         HDxe+AdkSlVAxLh6b3LFpaFMv6Ww5G69gqhBaVltZOpKKajGE01JBedOBZRpwYFdq2Ib
+         hyfTdm2aVctNESOld8YAtjSGokWKVkPZPl16vaLoZSrftid9R9vwqW8DH6/mJZFOLdFO
+         JHf+cMG9xo6vrxK5ths3fZAAldgqgiVaslD87o1OMZJwDwJoLT83Df9fD5BLknljlyJQ
+         qLG72W/s8UaEMBKvbAGApcs/Q7ro4z1lQcMDTL9P7/lyhW3Mri1C8H+QxIDSgWSnYwIP
+         InOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789742644; x=1790347444;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GgoDsfXnaLRNGr+mmbgHEyI2xXAvLS7EZNrAWbkAX2E=;
+        b=Camjhlv3yC4mv8u/tMdxRAeHqpBY0WLA7Xe6hCU7IE92ntLSQx/2/vvfsq5EmCrTVR
+         yQi34LRbXur58nZtMje62zJrx7Lg66xDwUuKHLlTPMd0wVxu9q5LijpyVK3hyBV1Ss31
+         k/Ce7aKY5fNusD9RjYsHWdCVp84BYtOZKVmg97KwUwIVTuZu4jgU45Y66DFC3cAJqcXX
+         5TbteAA+nf0tu+f9LKo0gWAVv4c+fz5scYiaM4nL87qdHVwuh5W/S0UYadVhkyM0qmBU
+         R52Wj/krSDKSm5a5vEQmXAcVrAcW/vk32ZY1tLk+xacXvqbkZOQV+xcsbL4JfDjR2agU
+         STZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxPPs9xOWqAPjCwxFn0DjeE0eLoV1Ua/5fgJQLdXiHxa3YEbDsxTtFBLBcBpXSfvZ3FbXdzCe6J/5dGO4o=@vger.kernel.org
+X-Gm-Message-State: AFuF++lJiAsSuXMWH0ww5LoGRmEIOJIodPTGFUprctiQrJtUSDg9oUCK
+	duX4KZOjoN3XZg/ENWgI6IcgyVoH1dSFOkkrB5D298N6dYp3IJi7kBTJPoaQKHUm5VhIBqN4Mgf
+	feos3P4aGT+/XEVSOUVUFSur6DIaQzpT66X5WVKlEPYkiewyPLtudmZONNiEWfdHYHCM=
+X-Gm-Gg: AYBFou2ZS7n6Z+bq+HTu0Hj9Zw8MWyWF0Zy0k7wikc+15vvqMIPeWqCvSXswUhYZvvi
+	8RjhGGmzWPlt1U44nwY0QQ8e6Ief7FZRb8ATIgaz6JWCtS8HElVha1izXTLJTaOKDa/vH4ysYI8
+	T180CeWWd403xN0r5v/PT0Hk5pmLRtpyJxeMABVxTDLDogpdKhPmrpVo6exF2Wn3+N/WtO79ogm
+	fEc91UQRpkSk7xFk6MBGd5y4efleeu1gvGhwWG8QeaNYwZQ0iWbe6mBxr17Sl/p1KvcvpbIfoGK
+	gtuzzLucyAhH3mz55YNWFxQ9kUlqou7Cr3bOFe8MfXP6DJiMBL1MJUBYG3HUb5SAxPD+4WmUqMr
+	kRRjA11bZnc+cbmEIXe4oS8tjIbjo4nSa+me3VZJg7E4=
+X-Received: by 2002:a05:6a00:98f:b0:845:e9e8:645c with SMTP id d2e1a72fcca58-874db8eb010mr5315270b3a.6.1789742644113;
+        Fri, 18 Sep 2026 07:44:04 -0700 (PDT)
+X-Received: by 2002:a05:6a00:98f:b0:845:e9e8:645c with SMTP id d2e1a72fcca58-874db8eb010mr5315220b3a.6.1789742643568;
+        Fri, 18 Sep 2026 07:44:03 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-875dd3ed263sm995033b3a.39.2026.09.18.07.44.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 07:44:03 -0700 (PDT)
+Date: Fri, 18 Sep 2026 22:43:58 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Yu Zhang <yu.zhang@oss.qualcomm.com>, linux-gpio@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Linus Walleij <linusw@kernel.org>
+Subject: Re: [PATCH 1/2] gpio: shared-proxy: track direction instead of
+ reading it back
+Message-ID: <aq1OLkLiIL58V8aK@QCOM-aGQu4IUr3Y>
+References: <20260915014447.282121-1-shengchao.guo@oss.qualcomm.com>
+ <20260915014447.282121-2-shengchao.guo@oss.qualcomm.com>
+ <CAMRc=McgPQe0x3bWYArqoyprh1ZF9owf3Etop1hqMt67nBXgnA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 05/14] NTB: ntb_transport: Avoid losing QP link-up
- requests
-To: Koichiro Den <den@valinux.co.jp>, Frank Li <Frank.li@oss.nxp.com>
-Cc: Jon Mason <jdmason@kudzu.us>, Allen Hubbe <allenbh@gmail.com>,
- Frank Li <Frank.Li@kernel.org>, Logan Gunthorpe <logang@deltatee.com>,
- fuyuanli <fuyuanli0722@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Nicholas Bellinger <nab@linux-iscsi.org>,
- Joey Zhang <joey.zhang@microchip.com>, ntb@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260910040836.3792333-1-den@valinux.co.jp>
- <20260910040836.3792333-6-den@valinux.co.jp> <aqQyEbLbABhhvFTO@SMW015318>
- <ciucjqvb7qbendlxqdya2wigyivgj4bvqbxtc4cidulr4knq6j@xbwucjdsiayy>
- <l5xf2iuwxgfa4xmtm2l3wn6nce5onfjxxkzfsj627k5xp3snmp@er6fkwlb3sgs>
- <aqTFAi8uo4LwzSj0@SMW015318>
- <i3b4kyeuwyjssav2kne5uhxmltwl2bmug2weyfaujxtrwlkuox@ms6ozb55tmz5>
-From: Dave Jiang <dave.jiang@intel.com>
-Content-Language: en-US
-In-Reply-To: <i3b4kyeuwyjssav2kne5uhxmltwl2bmug2weyfaujxtrwlkuox@ms6ozb55tmz5>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAMRc=McgPQe0x3bWYArqoyprh1ZF9owf3Etop1hqMt67nBXgnA@mail.gmail.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDIxMCBTYWx0ZWRfX1mg/wrTAscZu
+ Z4zJFC7C25LUCkfPydRVCTGD9WJSeKhGeC6v/H+N1tEpfI5BTzITtVVet8ggMmx33lJDNxf3Fnl
+ OiZOv5B0DmUB9YGsE3CrDXNgvjagpbg=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDIxMCBTYWx0ZWRfX877TOXuvEwfx
+ RdSSa0Y5xjjyKilFS7ndgBcvCGOgIIIfjoJ88Tk80El7wYh188mxYaO0rPKcNvQGccKlmyTH/Lv
+ m94//QEV0d4zty37IVOgvuKFL+qhZibShKq3t0QXUzkmJ+ryNJdFCijKLBsKb1AuEoKmczmYwdD
+ Oa0hITexGtOiDvO4yIn6lQSXwdLt2dIsylLddwLBrret8GdaWk/SCyzkT2EdnDTTmDnXDE5ApZy
+ QwqiR9+yj6jorVHIuqudolD33tZcaJLVQfS7D4X7u7AMWfAGnDLaX8xXj3RLADgukjnSGphy9BL
+ mA2TVpsSksAmLMUaVzneoxSgX2PvQNiXFTBldXrkstEM5n9zzSm0g9sryKS4tqJpvYu8W2Q841r
+ 1iMhs3XIwrM5XnFZnvDJJHjRuNZcxZrAFTXB3ndzSJ8qICs1VESX61OsjtWZ9tU5sQW513Vqo6z
+ L9094dd8WVuQ/POXfTg==
+X-Proofpoint-ORIG-GUID: 3WOpMucFhWcvNsyd2W5j36YcFurdtv9v
+X-Authority-Analysis: v=2.4 cv=I7zw19gg c=1 sm=1 tr=0 ts=6aad4e35 cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=FoUT1gWrgmYscfJCTpIA:9 a=CjuIK1q_8ugA:10
+ a=2VI0MkxyNR6bbpdq8BZq:22
+X-Proofpoint-GUID: 3WOpMucFhWcvNsyd2W5j36YcFurdtv9v
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-18_04,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 suspectscore=0 bulkscore=0 clxscore=1015 impostorscore=0
+ priorityscore=1501 adultscore=0 phishscore=0 malwarescore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180210
 
-
-
-On 9/12/26 7:52 AM, Koichiro Den wrote:
-> On Fri, Sep 11, 2026 at 10:20:34PM -0500, Frank Li wrote:
->> On Sat, Sep 12, 2026 at 03:21:08AM +0900, Koichiro Den wrote:
->>> On Sat, Sep 12, 2026 at 03:04:21AM +0900, Koichiro Den wrote:
->>>> On Fri, Sep 11, 2026 at 11:53:37AM -0500, Frank Li wrote:
->>>>> On Thu, Sep 10, 2026 at 01:08:27PM +0900, Koichiro Den wrote:
->>>>>> ntb_netdev_open() can call ntb_transport_link_up() while the transport
->>>>>> worker is completing setup on another CPU. Concurrent transport setup
->>>>>> and a client link-up request can both read the other's flag as false and
->>>>>> leave QP link work unqueued. The QP then stays down until another link
->>>>>> event or client link-up request.
->>>>>>
->>>>>> This is the store-buffering pattern described in
->>>>>> tools/memory-model/Documentation/recipes.txt ("Store buffering").
->>>>>>
->>>>>> Add a full barrier between the store and load on each side, and
->>>>>> mark the client_ready accesses with READ_ONCE()/WRITE_ONCE().
->>>>>>
->>>>>> Fixes: fce8a7bb5b4b ("PCI-Express Non-Transparent Bridge Support")
->>>>>> Cc: stable@vger.kernel.org
->>>>>> Reported-by: Sashiko <sashiko-bot@kernel.org>
->>>>>> Link: https://lore.kernel.org/r/20260907144701.702E41F00A3A@smtp.kernel.org/
->>>>>> Signed-off-by: Koichiro Den <den@valinux.co.jp>
->>>>>> ---
->>>>>> Changes in v2:
->>>>>>   - New patch (Sashiko)
->>>>>>
->>>>>>  drivers/ntb/ntb_transport.c | 13 +++++++++++--
->>>>>>  1 file changed, 11 insertions(+), 2 deletions(-)
->>>>>>
->>>>>> diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
->>>>>> index 75d4a2e021f4..1332d53bcfe7 100644
->>>>>> --- a/drivers/ntb/ntb_transport.c
->>>>>> +++ b/drivers/ntb/ntb_transport.c
->>>>>> @@ -1104,10 +1104,16 @@ static void ntb_transport_link_work(struct work_struct *work)
->>>>>>  	/* Publish the link only after every QP has been set up. */
->>>>>>  	smp_store_release(&nt->link_is_up, true);
->>>>>>
->>>>>> +	/*
->>>>>> +	 * Prevent both sides from missing each other's flag. Pairs with
->>>>>> +	 * the barrier in ntb_transport_link_up().
->>>>>> +	 */
->>>>>> +	smp_mb();
->>>>>> +
->>>>>>  	for (i = 0; i < nt->qp_count; i++) {
->>>>>>  		struct ntb_transport_qp *qp = &nt->qp_vec[i];
->>>>>>
->>>>>> -		if (qp->client_ready)
->>>>>> +		if (READ_ONCE(qp->client_ready))
->>>>>
->>>>> I think it'd better change to use atomic variable for client_ready to avoid
->>>>> manual handle smp sync.
->>>>
->>>> AFAICT converting client_ready to atomic_t and using atomic_set()/atomic_read()
->>>> instead of WRITE_ONCE()/READ_ONCE() would not free us from the smp sync, as
->>>> those operations are unordered.
->>
->> there are acquire version for atomic
->>
->> atomic_set_release()
->>
->> atomic_read_acquire()
->>
->> My key point is use existing higher level sync APIs to avoid consider
->> barrier problem, which need more brain cell to think it.
->>
->> this is just sync state, which don't impact performance.
+On Wed, Sep 16, 2026 at 04:00:01AM -0500, Bartosz Golaszewski wrote:
+> On Tue, 15 Sep 2026 03:44:46 +0200, Shawn Guo
+> <shengchao.guo@oss.qualcomm.com> said:
+> > On boards where more than one consumer shares a Qualcomm SPMI PMIC GPIO,
+> > all but the first consumer fail to configure the line as output:
+> >
+> >   reg-fixed-voltage regulator-wcn-core-vm-1p35: setup of GPIO (default) failed: -1
+> >   reg-fixed-voltage regulator-wcn-core-vm-1p35: error -EPERM: can't get GPIO
+> >
+> > The first consumer takes the usecnt == 1 branch and really does set the
+> > underlying line to output.  Later consumers instead read the direction
+> > back with gpiod_get_direction() and refuse with -EPERM if it reports
+> > input.  pmic_gpio_get_direction() derives the direction from the pad's
+> > input buffer (pad->input_enabled), which pmic_gpio_direction_output()
+> > never clears, so a pad whose input buffer is enabled at power-up reports
+> > input forever and the proxy rejects every consumer after the first.
+> >
+> > The readback is not needed: the proxy is the only entity configuring the
+> > line, so it already knows which direction it asked for.  Record that in
+> > struct gpio_shared_desc and compare against the recorded value.  Keep a
+> > readback in the get_direction() callback for the case where no proxy has
+> > configured the line yet, and reset the recorded direction once the last
+> > user goes away so that the next requester establishes it again.
+> >
+> > Assisted-by: LLM
+> > Fixes: e992d54c6f97 ("gpio: shared-proxy: implement the shared GPIO proxy driver")
+> > Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> > ---
 > 
-> I agree with the idea of changing both flags to atomic_t for cleaner code, but
-> I'm not sure if it frees us from "the smp sync" or the "barrier problem". We'd
-> still need both smp_mb()s and still have to think about *_release/*_acquire when
-> revisiting the code and maybe scratching our heads, right?
-> 
-> BTW, I once wondered whether it might be worth consolidating
-> link_work/link_cleanup into a single state machine worker per transport or QP.
-> That could simplify synchronization between setup and cleanup, which aren't
-> really performance-critical, as you say. However, that would possibly require a
-> larger rework, so for now I've put together this fix series as a small step. I
-> would be interested to hear what NTB maintainers think about the possibility of
-> such a rework.
+> I think sashiko is correct about the GPIOD_ASIS use-case.
 
-I'm fine with it if it doesn't break any existing code and reduces complexity with simpler code.
+I didn't receive any comments from sashiko. Could you point me to it?
 
-DJ
+Shawn
 
-
-> 
-> Best regards,
-> Koichiro
-> 
->>
->> Frank
->>
->>>> So to illustrate this in litmus test like form:
->>>>
->>>>    # L = nt->link_is_up
->>>>    # R = qp->client_ready
->>>>    # Both initially false
->>>>
->>>>    Transport setup                  Client link-up
->>>>    ---------------                  --------------
->>>>     smp_store_release(&L, true);     WRITE_ONCE(R, true);
->>>>     smp_mb(); /* added */            smp_mb(); /* added */
->>>>     r0 = READ_ONCE(R);               r1 = smp_load_acquire(&L);
->>>>
->>>>    Both reads return false?
->>>>     Before: allowed
->>>>     After:  forbidden
->>>>
->>>> I might be misunderstanding your suggestion though. If you have something
->>>> different in mind, please let me know.
->>>
->>> Just for the record, smp_store_release/smp_load_acquire depicted above, instead
->>> of WRITE_ONCE()/READ_ONCE(), is intentional. They are for MP ordering to publish
->>> the QP setup, which is needed by an earlier patch:
->>> https://lore.kernel.org/r/20260910040836.3792333-5-den@valinux.co.jp/
->>>
->>> Best regards,
->>> Koichiro
->>>
->>>>
->>>> Thanks for the review.
->>>> Koichiro
->>>>
->>>>>
->>>>> Frank
->>>>>
->>>>>>  			ntb_transport_schedule_qp_link(qp, 0);
->>>>>>  	}
->>>>>>
->>>>>> @@ -2401,7 +2407,10 @@ void ntb_transport_link_up(struct ntb_transport_qp *qp)
->>>>>>  	if (!qp)
->>>>>>  		return;
->>>>>>
->>>>>> -	qp->client_ready = true;
->>>>>> +	WRITE_ONCE(qp->client_ready, true);
->>>>>> +
->>>>>> +	/* Pairs with the barrier in ntb_transport_link_work(). */
->>>>>> +	smp_mb();
->>>>>>
->>>>>>  	ntb_transport_schedule_qp_link(qp, 0);
->>>>>>  }
->>>>>> --
->>>>>> 2.51.0
->>>>>>
-
+> I think this is why
+> I used an unconditional read-back in the first place actually.
