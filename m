@@ -1,120 +1,211 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2B4242885A
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:13:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F03934F93D2
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:13:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789755218; cv=none; b=pY7SEjWuFzs10qOjTJbpT+EJTeOolklIDlRwF1fOTgl0LY92iw+9XTBhgA0ns9NWDzN/cXmBTAIhykppLLoSgPO7kt7p2ffeOrTnT88W+j5yhw1C7t3S63JnLtt3LR+CNC19aPbDHtrhNmTwb6QhGMO0gLA/b5H8+5fXmJdX2WE=
+	t=1789755229; cv=none; b=tIKMW2nrKNWvhpzE21DPf4eLW7nPzNrVP6/oDPlXHqX1dfxYItiztcpVObAlg46tLk+wxHTKoKNLgvjUaqE1OsWOvYlny0rhLZky+cMeKIZI6ex746zhJwPdqkONLwBAmJDK1OBX1PtKU427FXibTKCW2br5niJ8rc5wtxCMmUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789755218; c=relaxed/simple;
-	bh=jxB51OTaF8ZQDmHlLnMOrVw7Z/Ws4WNrUhbIMMa/FPY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BwwZ0CUlT1rSknCibYfoSzGUMyuPtOMALiUOXIvz5WSl918h3N+aDenFA1iCE5RCduAVZUUXLtuY2BT5nMAjg2DdLKlDn7tB75F+oYrEyuk2JGiNGovw3wSM84ZpDxz4MkKLszfF7VJopcwYpPSfAuKd6Q7BcL042ZU/UWBy2WU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M44kfKPW; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789755229; c=relaxed/simple;
+	bh=Dlx/PfGUh6GfEk2g3gR+hejrW0fiMomk39XMRrdIbOc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ueGhlxZtrKiDP4SMLSdqC4bJBuU2UskR+evb6dBpir6KAw1aC6+Ighxsx1m7RVjZPfeC4tApWny64+AdJ2z9ASde4AkALmg0ju/QjlCU69iMUtLVSWfj/16hv8wswh/vSCB5B0Ci3AK06pIYz+n8GaYk1I7vmX5lq1qEONcxaBo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QnSiSkrB; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Wgexgwh7; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M44kfKPW"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2db1ca06a25so7774595ad.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:13:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QnSiSkrB";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Wgexgwh7"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68IGp38Z1102422
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:13:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	vlrqp6hzEyvS2JuXrzVg/2ASZasMwkiKMUs6oP7YPjU=; b=QnSiSkrBsQffLT2m
+	/WdGxKrll1bdiyVF5lVP37RUWAP1kVlS37YajVydWd+bTWHY6SP/0NFwUhDO3ZtV
+	6MySMjpuVY0RQ2x4J5kye9lloYTC3mXXc6vvo3X0jOSro38GWRDRcsh8RpdMQ7f8
+	wrNG+VRzNNNH5fLuQleWYapmnEAalGWb1GK/KXXOiNBrfQ9hUzLprhbZlNR+IUmN
+	TIO2uA3b5iLJHP+LR8RBcPKra+YAIWPs6LpaXgIOERPuhUUce1tQ5KVY7wvGd/l0
+	lnnY6vzkGGO1jB4EYQShfL3YJvlnTT+FV0fDMJZsaCFrmL7ozjCRRNkiWO532YSX
+	fBGxlQ==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gry2bu5yf-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:13:46 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39de4e72b33so1778186a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:13:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789755216; x=1790360016; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=shS485b8tZfkhk79R4MyxZiHCFajwa7fKOgCDdDkLAw=;
-        b=M44kfKPWKda/HQ54Lt3AI06EuzRL5MzqGj+Ht2X1/cHXTPkh30UTbI6D7FpYB1tsiO
-         244NTerQ1oOA2MYCE8fqDDQ0LPQOCjIxo6a+qEmAsD9HqJSvuY/K1AGPxhOJnFkb9PJk
-         mCmWAe6tARA8Js0hFMIelim+afhECSapODYiiZitQF7XqbebCqvF0uBtpCscJ4rLm/EB
-         J14zTg6cAJqkmhixjA78k7BHWMiguDofXXh7Xzsmhw5I6jLhjmu3CLf8F78b5J6aOXfl
-         feb6JEsF3ZWS7skzm4tpoZTpXqbjr0h/Q5HkeqM2DoqbInHjdPzOI2PjCIsbvTm/sUAT
-         94dw==
+        d=oss.qualcomm.com; s=google; t=1789755226; x=1790360026; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vlrqp6hzEyvS2JuXrzVg/2ASZasMwkiKMUs6oP7YPjU=;
+        b=Wgexgwh7WkKWRuH7D17ZcmhrXNgbiv0LvH0P1w8kYgjSUf9bT1FEbVQ2plmylH5wHk
+         5J/tptQpqwtf2lMi0bF5ZsAvIBRfHxHwgeeRSeoD2zjWGZ0Uya5FCWZDis81xbu6pARk
+         wRWHob4NyBjtitcT4VnG4oVLoiXcd/2rOgG0mD6AjIdwoDeld9yW8PEI/JiBWRt5STH1
+         Fb7aY23J6yO/5VPOBF/ibVHK5x2SFvqNohlVt59UWShqa0fLG1Q2X/oxRC7Nspm5dbrV
+         D2aTy7x7Q4WOk4l9p4/nJtJ900kVP+w7R6ya5rsvp+DBpNdAoseg2BjEwzPCcaT6gWzB
+         MaQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789755216; x=1790360016;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1789755226; x=1790360026;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=shS485b8tZfkhk79R4MyxZiHCFajwa7fKOgCDdDkLAw=;
-        b=jQ+pAtPRaFanYHGpSF5NdPzIkX40a3PEFmNcgawRhdoUGnFFqlSTNekUDsnZpO98Se
-         N7Fo72IjsL2WRHmXdsTi+btFINf5w+nxzxVSKZzUNgRPpPzWfAZt0FopM7MiAM0qeuGH
-         XqhZ8wl+6uTyQxx9fqFC3EwHsJnnBsfoWYOkX9KX1yQwfBMLIpbR4oLmMuNDAZJt3Ieu
-         r00QvdNzEL90gUjQvYRF2e7LXoKFqHDgUPoZnD7ayjd0V6ATYkiq9QoyPcZ+Xh2OrQ+o
-         CCIIykvD4khBntXJqdv++DCSk9pAnU9ea2tSqRfBM9/2YR2E+GukRHbgWqWsYeTDxmpo
-         ugVQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwsxCy7DbsDR5VSUM5ltx+SMeUtfdS+YNyfDWg/ghzlcgQP0hKfnaYoKtPA8h1o/EYMhwjfOLGh2b8kqvg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mmC5qR9sNQpZLPxQSAPHyg2ecGYHvVEGw9s8hdNpDYTfM2wTYj
-	azPwuxzEpZ88zj53dS3cSnraZOWD6oCNgtMn3KhL6Dvus9LwgGbq34FI
-X-Gm-Gg: AYBFou1jBnntrk0i2R17Cub7s0+vAvugLDhxyho1qyiWlcdtj+sFe024gXaOIW1w9xE
-	0dZzIzoN5im5vGTRhpogv33jbyrW+0YkFAOiQQV5tiiLjVkrPvRFcSaJNkwv/8jEN92VtbtSfRn
-	OifejCl8hHrWAjm5nlDQzwWspQKHeYCSrTFQOc1YdnXpf0salYfHJe/rIH6brjvMlB3v0/FHE5u
-	opJSEWVMF3lZFhuwkVOiAe6OERBNKjzG4jpFD1VUXpkDZsBcO9y0MOr1r1rYWUEQlAPO97Ce6nY
-	InagJR8X9kVMQEjabNtATBBywyhO4DvFDbxDvR7qflFvvhEY+aUShlDKvrcIuHvX7x8BsxYHxEr
-	kyIsPGWwbO7NB+tPEbM9SqWS86pOnMRZ0F1VNcbbub3GxYr0xNjv0awot9ojn01ross/S1zevXJ
-	BDeJb6egqYw6pky9BKOvhlxw7+lyGU/PLSKUwSdlOYXY2CsasFEUv9cQJ15kNnKp/4
-X-Received: by 2002:a17:902:e751:b0:2c8:2808:3ec9 with SMTP id d9443c01a7336-2ddb1ae69b7mr68800035ad.12.1789755215937;
-        Fri, 18 Sep 2026 11:13:35 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc1788bcasm662465ad.21.2026.09.18.11.13.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 11:13:35 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Ram Vegesna <ram.vegesna@broadcom.com>,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Daniel Wagner <dwagner@suse.de>,
-	Hannes Reinecke <hare@suse.de>,
-	James Smart <jsmart2021@gmail.com>,
-	linux-scsi@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH] scsi: efct: clear MWI on remove
-Date: Sat, 19 Sep 2026 02:13:26 +0800
-Message-ID: <20260918181326.3633765-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        bh=vlrqp6hzEyvS2JuXrzVg/2ASZasMwkiKMUs6oP7YPjU=;
+        b=PAzbXQDehDB/qR1q+kHzGjgKB5n8aBHT8+Z8AC7QZwRgm73qmL5v27Wpda/tVIF+Iy
+         Y35g/BiNRv0f6PmObFKx6UFF2ZukwbB/orypBYGXhJEKPAWtsDT+y0n3AeUE3Nq2+hh8
+         UPkQASE5Zfke/oHx8IgpTO5xW9a4DlWgn8ZOyfYBivEg0eNr65TQHnR4Cvh4yl10X8HO
+         VrTuEXnxWEfmbEY7h27AuPb/I2TAkKFU6bblBsR+tW7SNVhz2yb2VvvwzLXge38/wkbM
+         NvDJFREGEtLnr7ZCiHFtLhWdumtcQ7Yyku85Qb92nU7rz6Gc1etRmbnHC2PGDt5UAj5X
+         EO3Q==
+X-Forwarded-Encrypted: i=1; AKwUvByYfAOLqpA2Yx3CgJU6JITfxDDPG2JeoKOMEBn5muk/6r5NG0upykbq8ekuaxtjQktgMPpUaw6wiH7C0IA=@vger.kernel.org
+X-Gm-Message-State: AFuF++ldFGbxb9pWRfov4qa8RBJeAgUemhnfy5LdOfyPEsStnhwSeMzT
+	bJvIPG81G+8XC1UmjUJtisFaHTGK5QpnJVZfpSWWIh37N4d2WZfs5GW4OtvdfB3snu85dHPDwML
+	W2xfEED2wiR7RGPLiOtdqv7n8gpihyOasEJuvTWcqi98T/sUrfs1uT7e5JgiEpRep8/4=
+X-Gm-Gg: AYBFou3Wot7Uol+QgsbAhPz9lEF2ptdeef+QujH1hzlgKtMrK1o0G7sqJj+D3E7dxF+
+	QpzFaW4cuLesi5feeCzDlun8AMjyFQLVKbdenxA+4/Vzcnpu/cu+ZztrM7Mn5/3DqzLlXVAuSwx
+	KUeQTTevJdoGqgTjrYjX1FBlr0DQ+EXAcJgF09OOYR31FCMy3SRgtXT1axeSL9s+kM2m8olseKG
+	ARNVTHBHV3xfEA1S0DkTuiG2M3WcuuRaSyoxub1SRI6DJY3tODaeE2ZzVMcI/NmHluqD7e46ZrZ
+	9muh9cNzWAp7YmbtDY0PsrQSYlvxxJ1uJooeaKGaNtE28WZJkacUZVQDgzSbVOrBPUTfDraJOix
+	UGftred9NXpX13wiu1pb2iLWBKVfBCo8pcu62p0KCorIP9rkAvkAy/kA3/w==
+X-Received: by 2002:a17:90b:134f:b0:39d:febe:7460 with SMTP id 98e67ed59e1d1-39e54d3651cmr7028580a91.22.1789755225603;
+        Fri, 18 Sep 2026 11:13:45 -0700 (PDT)
+X-Received: by 2002:a17:90b:134f:b0:39d:febe:7460 with SMTP id 98e67ed59e1d1-39e54d3651cmr7028536a91.22.1789755225051;
+        Fri, 18 Sep 2026 11:13:45 -0700 (PDT)
+Received: from [192.168.1.20] (33.sub-75-218-193.myvzw.com. [75.218.193.33])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c331433besm467963eec.16.2026.09.18.11.13.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 18 Sep 2026 11:13:44 -0700 (PDT)
+Message-ID: <4e0481c1-9288-42d4-94c9-e18da5cf8e5d@oss.qualcomm.com>
+Date: Fri, 18 Sep 2026 11:13:42 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/4] net: qrtr: Add support for using identical MHI
+ endpoint devices
+To: manivannan.sadhasivam@oss.qualcomm.com,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+        Jeff Johnson <jjohnson@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org,
+        ath11k@lists.infradead.org, ath12k@lists.infradead.org,
+        Bjorn Andersson <andersson@kernel.org>,
+        Chris Lew <christopher.lew@oss.qualcomm.com>,
+        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>,
+        Raj Kumar Bhagat <raj.bhagat@oss.qualcomm.com>,
+        Juha-Matti Tilli <juha-matti.tilli@iki.fi>,
+        Jeff Hugo <jeff.hugo@oss.qualcomm.com>
+References: <20260918-qrtr-multi-ep-v1-0-8a06caa368d3@oss.qualcomm.com>
+From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20260918-qrtr-multi-ep-v1-0-8a06caa368d3@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDI2MSBTYWx0ZWRfX4zQ/kFkl8A4i
+ tQ3bWP+VQu8AEeUzzcdb0wSrykJNc/tKva6BoltJJjs2mbJyZg7nfHakDhEmkTOxiFdTxqkBzCt
+ QBjWy/XiNnEPdXUkZpNKxHm8W9eG/yes8DZc6ytMFH7d4iMbPbzkMIKLajdLLlMMxC+NBGRDJD8
+ uVnrgsE6MKRRaPlABSLNix+rvBmXiQLpf4PhWJMpJVsXzv+pTQ4Lip0/8LxMR3vfd2yA2Fr7LIh
+ EsY+NqJrN0U3gW9//Wr5+Hh3v5/G4c8YkqoSBuhfhN4MKWmx0rKDYaJb8YcRKxcwwPPXzTuOBRB
+ 5rKKLKmQ1d9YlSzKNZdPC+R6qikT/KEjmwpJbtuScQ8zfBU8rM7/F0B+foYg6wEZ9ZHruhwTCv4
+ MIaT+fvs/EeDVPG2IutEEbfRVR0Dp7SSYnyGAlyzGDytI+OW45Da2xudGnmpS3npLW53s/6nCkl
+ iA29Y5GQrv2V2do0y4Q==
+X-Proofpoint-GUID: fXlOVv8PfeInpxrZr4uHjTxAXF9Y-51m
+X-Authority-Analysis: v=2.4 cv=bYP+w+PB c=1 sm=1 tr=0 ts=6aad7f5a cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=AnolQpdaNwb4XK4FG+QP+g==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=KAMPhC-K3bquQAzTacoA:9 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDI2MSBTYWx0ZWRfX0gwhFLBjz9aR
+ ASktxSqBfLcMeUmtzK6NCsOIK/V463/Yylf8VGB17NDyGo3kUuk1ZlAlUkpopnPjTQZZOd/TaDZ
+ oGibOBrhIwxbPl9T9sOkaMvqOHoZESA=
+X-Proofpoint-ORIG-GUID: fXlOVv8PfeInpxrZr4uHjTxAXF9Y-51m
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-18_05,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 priorityscore=1501 impostorscore=0 bulkscore=0 clxscore=1015
+ suspectscore=0 spamscore=0 lowpriorityscore=0 phishscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180261
 
-efct_pci_probe() enables PCI Memory-Write-Invalidate with pci_set_mwi().
-The probe failure path clears this state with pci_clear_mwi(), but the
-normal remove path does not perform the corresponding cleanup.
+On 9/18/2026 9:28 AM, Manivannan Sadhasivam via B4 Relay wrote:
+> Hi,
+> 
+> This series reworks the QRTR driver to add support for using identical MHI
+> endpoint devices at the same time. Currently, QRTR driver has a limitation on
+> using more than one identical MHI endpoint devices like QCS6490 or any Qcom
+> Endpoint device making use of QRTR at the same time. Because of the fact that
+> these devices will have the identical QRTR node id, they cannot be used at the
+> same time, on the same host machine.
+> 
+> This limitation is a blocker for running upstream kernel on devices like Qcom
+> based routers as they often have multiple identical WLAN Endpoint devices
+> connected to the Router SoC.
+> 
+> This series supersedes the following 2 series from Juha:
+> https://lore.kernel.org/all/20260915054207.2513877-1-juha-matti.tilli@iki.fi
+> https://lore.kernel.org/all/20260915074135.2567411-1-juha-matti.tilli@iki.fi
+> 
+> Compared to the series from Juha, this series simplifies the multi-endpoint
+> support by computing a unique node id for each MHI endpoint and uses it for the
+> internal QRTR book keeping. This ensures that even if the MHI endpoint devices
+> have same node ids, the host QRTR will always use a unique node id for each one
+> of them.
+> 
+> More details can be found in the individual patches.
+> 
+> Testing
+> =======
+> 
+> Juha tested this series on multi ath11k setup by backporting this series to
+> 6.6.156 kernel. I'd appreciate a formal tested-by tag from Juha and other folks
+> CCed to this series.
+> 
+> Merge Strategy
+> ==============
+> 
+> Since both QRTR and ath drivers are falling under the networking tree, the whole
+> series can be merged through netdev tree.
+> 
+> Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> ---
+> Manivannan Sadhasivam (4):
+>       net: qrtr: Allow the host QRTR to assign a unique node id
+>       net: qrtr: Assign unique node id for MHI endpoints
+>       wifi: ath11k: Connect to the QMI server belonging to the device owned by this driver
+>       wifi: ath12k: Connect to the QMI server belonging to the device owned by this driver
+> 
+>  MAINTAINERS                           |  1 +
+>  drivers/net/wireless/ath/ath11k/hif.h |  9 ++++++
+>  drivers/net/wireless/ath/ath11k/pci.c |  9 ++++++
+>  drivers/net/wireless/ath/ath11k/qmi.c | 10 ++++++
+>  drivers/net/wireless/ath/ath12k/hif.h |  9 ++++++
+>  drivers/net/wireless/ath/ath12k/pci.c |  9 ++++++
+>  drivers/net/wireless/ath/ath12k/qmi.c | 11 +++++++
+>  include/net/qrtr.h                    | 21 ++++++++++++
+>  net/qrtr/af_qrtr.c                    | 61 +++++++++++++++++++++++++++++++----
+>  net/qrtr/mhi.c                        |  4 ++-
+>  10 files changed, 136 insertions(+), 8 deletions(-)
+> ---
+> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
 
-pci_disable_device() only disables PCI bus mastering and does not clear
-the PCI_COMMAND_INVALIDATE bit. As a result, the MWI configuration can
-remain enabled after the driver is removed.
+I see this is based upon v7.3-rc1 (current release tree).
+This series doesn't cleanly apply on the net-next tree.
 
-Call pci_clear_mwi() in efct_pci_remove(), matching the probe error
-path.
+Are you planning on netdev taking this through current or next?
 
-This issue was found by manual code inspection.
-
-Fixes: 4df84e8466242 ("scsi: elx: efct: Driver initialization routines")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/scsi/elx/efct/efct_driver.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/scsi/elx/efct/efct_driver.c b/drivers/scsi/elx/efct/efct_driver.c
-index 07c2f453459e..720bad7b3517 100644
---- a/drivers/scsi/elx/efct/efct_driver.c
-+++ b/drivers/scsi/elx/efct/efct_driver.c
-@@ -613,6 +613,7 @@ efct_pci_remove(struct pci_dev *pdev)
- 
- 	pci_release_regions(pdev);
- 
-+	pci_clear_mwi(pdev);
- 	pci_disable_device(pdev);
- }
- 
--- 
-2.43.0
+And an alternate merge strategy would be for netdev to take the first two
+patches and then after wireless fast-forwards and ath fast-forwards, I could
+take the last two though the ath tree.
 
