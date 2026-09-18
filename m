@@ -1,48 +1,48 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6423C238C1A
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 04:58:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 673673F105D
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 04:59:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789707540; cv=none; b=jszXmXWt7p+NZHy1v0AWAwgNa0Zx6VqwSGi6FLWX8L1jKap7vrPytK+gACLFyuy8k3UmzOZh8v7qmkM+w9JVod9lyLHxiHeGXU1juLvbMDiYm0AzmGYDF/OkVSAv3trFf3LP76jXlPdolS4c6lKp9/OATZLs26Imiss5LWyw5XY=
+	t=1789707588; cv=none; b=UDe8gdEzC4UtfNnVNTIsL4w9SDnbFdSUSjPAvrKOtauTPmQHy/Iwtgl88tZGqJVC0YwFdjBdowMS4spEVBfqTfBCMiTz6R9Vu/F6uhb7hj7JW1NIMYcGzcpnCnZQOH6mhspQ9zluIIpoOcjNTyuHibP18/SVlzO5rP2w28IrPnw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789707540; c=relaxed/simple;
-	bh=6aldtN4ey7HhVuJqveGfwVpcOqrd+UOagCBtbDnPWO8=;
+	s=arc-20240116; t=1789707588; c=relaxed/simple;
+	bh=BcTR5EDFiVeGoYMwZ5vWzexnMIV8T2dcLFpKkfv+Nic=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=T7XfwqbTmqpc+4icjAo637CVV9TFXZqrkfApCHMtW3BEKJbEi3w9guMV5FnxbD6j0IgudGZCVcH7H41mphS0JKGagRFqOvoc53g0Zh1KhlrQsD7E6EdxcR8t19ZipgvlmRMo0oo5SXGajbzIIz4nqiLQbjB1Rv0XCC3Yg9+/4Gw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=i4xnBcgD; arc=none smtp.client-ip=192.198.163.13
+	 MIME-Version; b=Xjeho1wF1IzvWu2imrRxuwPe83NiAJweWFC4cuMqdo7isKYaJymdvE/4QI/hDgPRZ9sJhJXjEuFZYKrql0MNwFco8q1HmHSd5PGplVxBE4i7nn9oGCLz7jSpnfirgsksRecxkqdWXNgYLJqYAit2fSCC1EoOVGLtKjKB7EJxoOo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JbIUrMuB; arc=none smtp.client-ip=192.198.163.6
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="i4xnBcgD"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JbIUrMuB"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789707539; x=1821243539;
+  t=1789707588; x=1821243588;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=6aldtN4ey7HhVuJqveGfwVpcOqrd+UOagCBtbDnPWO8=;
-  b=i4xnBcgDqz1MLcBrHa7PGeFAUSQSoiqW3eB6Hsm4NARDJp/MM3lp7tRR
-   YhjRQMZlbU7CJSlTb266JL9p20kA0AH5Nt/Cav3PTqmBNI624BaYXeJY8
-   CKvuyxFdpr76F1RhFHL02zFqcL9048/xRCKPTYrhbAflvkndNvgmHP8k+
-   LbHXGBXr8mk4j5aMMcNNiPgI38pTrJKW9bfhdZmtCJOQnZOdn25qvSdQh
-   mzklRX7ppr9HMQs6em2424Nqtuj1B+QZ13subZ/sd58OzcEMFF+wzQN8W
-   UxixvmY8iHqhcppoKfAfbgNxs6HFi8PKVJuJN0/aUcaIcXr48I3mCSn77
+  bh=BcTR5EDFiVeGoYMwZ5vWzexnMIV8T2dcLFpKkfv+Nic=;
+  b=JbIUrMuBfQqiVtUTkTq1o82ZzDr387wYWZDhcslqLXFbLE4TPnMIYrb7
+   hkVUshlNnpM/eRRcEYVsao9lVhK856B8lwtkPzYIygQIRbcaOECZXEMYD
+   aHMHmGcgqpVeFhWgHifeR2/JLMQg48KuUiErQ+m8Hfs7mECGR3Bxk8iFk
+   B6M24CD5y/ke0UL+Ss5PREioWdqDJHx8zj9A8sojqWIDZLmzM0NIkms0c
+   6Iu1HQmmnEks9FpERhee/jl+jr/a5sFAZDxqag7cEy9j/ff0TOEdQsXFY
+   /laEtA3r9wRofmbxjLy1Td1SEX0NJbq9Ugjf6j6BYZiVtpC0ZL+4BLUqL
    w==;
-X-CSE-ConnectionGUID: X+ON9zSwSp6Ly1eOPxpH2Q==
-X-CSE-MsgGUID: wj2TlKq2QYiJQyUZ+NV3Sg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="92699395"
+X-CSE-ConnectionGUID: I8qdJh3NSAuk+a7v5PTWog==
+X-CSE-MsgGUID: pes0bjntTjWPyH9ZR2c8Fg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="704598"
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="92699395"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 21:58:58 -0700
-X-CSE-ConnectionGUID: lMZxbsfpTKuVvG7aDTPPkA==
-X-CSE-MsgGUID: gtB1PkZ3QsKyzPVnzx4GXg==
+   d="scan'208";a="704598"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa116.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 21:59:47 -0700
+X-CSE-ConnectionGUID: yI6mFI4lQJSk2X3UOwrigw==
+X-CSE-MsgGUID: ZodesKnUTJmNQ032tHVVbA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="279438447"
+   d="scan'208";a="271541891"
 Received: from chenyu-dev.sh.intel.com ([10.239.62.107])
-  by fmviesa005.fm.intel.com with ESMTP; 17 Sep 2026 21:58:52 -0700
+  by fmviesa008.fm.intel.com with ESMTP; 17 Sep 2026 21:59:44 -0700
 From: Chen Yu <yu.c.chen@intel.com>
 To: tony.luck@intel.com,
 	reinette.chatre@intel.com
@@ -57,11 +57,10 @@ Cc: tglx@kernel.org,
 	chen.yu@linux.dev,
 	x86@kernel.org,
 	linux-kernel@vger.kernel.org,
-	Chen Yu <yu.c.chen@intel.com>,
-	Hongyu Ning <hongyu.ning@linux.intel.com>
-Subject: [PATCH v8 1/9] x86/topology: Export topo_lookup_cpuid() for resctrl use
-Date: Fri, 18 Sep 2026 12:48:21 +0800
-Message-Id: <78066ab48e7c917417b0ac6c94eed5015f445180.1789705667.git.yu.c.chen@intel.com>
+	Chen Yu <yu.c.chen@intel.com>
+Subject: [PATCH v8 2/9] x86/resctrl: Require 64-bit x86 for resctrl support
+Date: Fri, 18 Sep 2026 12:48:38 +0800
+Message-Id: <711a7976e0a33cd6fa2872ff10898b66d34fcd70.1789705667.git.yu.c.chen@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1789705667.git.yu.c.chen@intel.com>
 References: <cover.1789705667.git.yu.c.chen@intel.com>
@@ -73,52 +72,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Enhanced RDT (ERDT) enumerates its monitoring and control resources through
-ACPI tables that identify each CPU by its x2APIC ID. To associate this
-firmware-provided data with the kernel's per-CPU structures, ERDT must
-translate those x2APIC IDs into logical CPU numbers.
+From: Tony Luck <tony.luck@intel.com>
 
-topo_lookup_cpuid() already performs this translation, but it is static to
-topology.c and therefore not reachable from resctrl.
+Intel Application Energy Telemetry (AET) provides event counts in 64-bit
+registers in MMIO space. For accurate results these should be read with a
+single 64-bit load operation from the CPU.
 
-Export topo_lookup_cpuid() and add its declaration to asm/apic.h that already
-exposes the inverse mapping via cpuid_to_apicid[], so that ERDT can resolve
-x2APIC IDs from ACPI tables to logical CPU numbers.
+In preparation for the removal of the separate CONFIG_X86_CPU_RESCTRL_INTEL_AET
+configuration option, move the X86_64 dependency to X86_CPU_RESCTRL.
 
-No functional change intended.
+This in line with Dave Hansen's proposal[1] for an addition to Linux
+documentation that details the state of 32-bit x86 support.
 
+Signed-off-by: Tony Luck <tony.luck@intel.com>
 Signed-off-by: Chen Yu <yu.c.chen@intel.com>
-Tested-by: Hongyu Ning <hongyu.ning@linux.intel.com>
-Reviewed-by: Reinette Chatre <reinette.chatre@intel.com>
+Link: https://lore.kernel.org/all/c6ab0c24-8931-4f0d-9be6-23498ab4c38b@intel.com/ # [1]
 ---
- arch/x86/include/asm/apic.h    | 1 +
- arch/x86/kernel/cpu/topology.c | 2 +-
- 2 files changed, 2 insertions(+), 1 deletion(-)
+ arch/x86/Kconfig | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/arch/x86/include/asm/apic.h b/arch/x86/include/asm/apic.h
-index 9cd493d467d4..bb84651b14bd 100644
---- a/arch/x86/include/asm/apic.h
-+++ b/arch/x86/include/asm/apic.h
-@@ -54,6 +54,7 @@ static inline void x86_32_probe_apic(void) { }
- #endif
+diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
+index 15fd9ec5ecac..06b5d0c4633e 100644
+--- a/arch/x86/Kconfig
++++ b/arch/x86/Kconfig
+@@ -518,7 +518,7 @@ config X86_MPPARSE
  
- extern u32 cpuid_to_apicid[];
-+int topo_lookup_cpuid(u32 apic_id);
+ config X86_CPU_RESCTRL
+ 	bool "x86 CPU resource control support"
+-	depends on X86 && (CPU_SUP_INTEL || CPU_SUP_AMD)
++	depends on X86_64 && (CPU_SUP_INTEL || CPU_SUP_AMD)
+ 	depends on MISC_FILESYSTEMS
+ 	select ARCH_HAS_CPU_RESCTRL
+ 	select RESCTRL_FS
+@@ -541,7 +541,7 @@ config X86_CPU_RESCTRL
  
- #define CPU_ACPIID_INVALID	U32_MAX
- 
-diff --git a/arch/x86/kernel/cpu/topology.c b/arch/x86/kernel/cpu/topology.c
-index 4913b64ec592..bcee70fb9277 100644
---- a/arch/x86/kernel/cpu/topology.c
-+++ b/arch/x86/kernel/cpu/topology.c
-@@ -92,7 +92,7 @@ static inline u32 topo_apicid(u32 apicid, enum x86_topology_domains dom)
- 	return apicid & (UINT_MAX << x86_topo_system.dom_shifts[dom - 1]);
- }
- 
--static int topo_lookup_cpuid(u32 apic_id)
-+int topo_lookup_cpuid(u32 apic_id)
- {
- 	int i;
+ config X86_CPU_RESCTRL_INTEL_AET
+ 	bool "Intel Application Energy Telemetry"
+-	depends on X86_64 && X86_CPU_RESCTRL && CPU_SUP_INTEL && INTEL_PMT_TELEMETRY=y && INTEL_TPMI=y
++	depends on X86_CPU_RESCTRL && CPU_SUP_INTEL && INTEL_PMT_TELEMETRY=y && INTEL_TPMI=y
+ 	help
+ 	  Enable per-RMID telemetry events in resctrl.
  
 -- 
 2.25.1
