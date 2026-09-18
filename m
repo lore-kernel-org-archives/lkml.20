@@ -1,136 +1,144 @@
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
+Received: from sender5-op-o15.zoho.com (sender5-op-o15.zoho.com [165.173.182.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 290AE1DFFD;
-	Fri, 18 Sep 2026 07:09:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789715392; cv=none; b=FEsrJKgaVcH8UZ+vuUiP4LcIs6zxFbr2cbHSwnIVnXmr275NqqnX+F9EUIf2D15GEhoJJkWZdG08A5GBky9X2CfGqtyEyvMxb7tmvRTnB0kD6GwRl73BqKZMXk0GH9Z65YlN2wI68sqTbG5NuvBaRrr0KzxL5/9svu9LE4xR7QU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789715392; c=relaxed/simple;
-	bh=UZs2Rsco60WjYn3xcHhrRfZBIWacFhQyas2Wala4R9I=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=h6XfuICerMDq5/fTV1BnYJgAkAKfVqYK5JIRl6KqRorRR8HbQk8/qHsFzcjYx4XGBfNK+zavITzD82w1IWeG3tn/l06gRe4K0vE02kELwlILCvESj4KDkQZsJCUJ0+ooOWUvEPi5Omsbelvdtt1tqsadPObeVLqO5DvDnM3ZyWY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=aUhuh6Ih; arc=none smtp.client-ip=52.59.177.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B30139183C;
+	Fri, 18 Sep 2026 07:11:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789715465; cv=pass; b=H4wwUSonxlxgAUkvodYEZuxc6WulEAadA8KrgRKxa5ZrPNrr+fsJ1fHlda5KyxJsdws/ssap0G+1dJBwTjW1vCK0gTAwq87VwXY8hE/tFj4MmRys3iRCdtZZBsv+fodmrh2xiU6RVoY5ORFXBcLLi3MMauY6GA8UbY1471o/nQg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789715465; c=relaxed/simple;
+	bh=7U/kCA4miHLz0xj4Cu7jK4fk8l32fkZpHR/AcjmKD4A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=URBW6P+QLmoaPyxA2piE40t8Zq+4BbtTwSRMcjmww/SRC1FVmoTNtVo6BBIAyJnBTwvmHEIaKaupQLWaLuHiSIra16yQqkNcKRsyUyAPcfWmCntRa+X7+FKWxAVujjkh8SvOUeFveduPIe1hF9QEU1GqTa8zoFRgmNZN8ewZpKg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc; spf=pass smtp.mailfrom=ziyao.cc; dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b=WDfK1ije; arc=pass smtp.client-ip=165.173.182.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziyao.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="aUhuh6Ih"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1789715318;
-	bh=VoNPLwrfLGwJ1Joc3IIGCRT3MwFrlW7kjCI7cxYzVRc=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=aUhuh6IhMvP5WuO+FeFw74jCd8/BaoyKo0+vxlE6uOpag84Hfp0pYd4z9VITk8PIZ
-	 kBeueXQjHAcLZcDsL2Kjw0KFFzxu0hved58/huPhhQDOOq/rhvmltbnLCZ1A0kTa9W
-	 2I5OMcDakLTqWDNLBw4ZDyDGlG8O0UJ6Y8ctIhjM=
-X-QQ-mid: esmtpgz10t1789715298t3f12930d
-X-QQ-Originating-IP: F51MbfdSWsMFopoCOaRZlwUeG/ke3KRdncZEcs0zje0=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 18 Sep 2026 15:08:16 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 6459385882852576826
-EX-QQ-RecipientCnt: 9
-From: Wentao Guan <guanwentao@uniontech.com>
-To: kprateek.nayak@amd.com
-Cc: guanwentao@uniontech.com,
-	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	ray.huang@amd.com,
-	ronforever@outlook.com,
-	scardracs@disroot.org,
-	stable@vger.kernel.org,
-	superm1@kernel.org
-Subject: [PATCH v2] cpufreq/amd-pstate: Skip auto_sel write when it already matches the mode
-Date: Fri, 18 Sep 2026 15:08:14 +0800
-Message-Id: <20260918070814.59582-1-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <748cb8d6-174c-4cad-98bc-ebb985e2eced@amd.com>
-References: <748cb8d6-174c-4cad-98bc-ebb985e2eced@amd.com>
+	dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b="WDfK1ije"
+ARC-Seal: i=1; a=rsa-sha256; t=1789715440; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=YVuKyn9COxc51SGwpyuncb2W6iNif1OXFlrIfpjEPLhQoE67LOVmNy7iWmKGmzc/mbgRca3f/LhEsqFNKxUstt9Hb36SjtDxUhGGPfuN4PI1cvFIjGEGwISz9x4QYSrPT8173f3xA573M3R1Spx4GdwSd+2wPoopEF1mR+vK+tc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1789715440; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=7bSGtsz29021YzshFZsgFv4CE1vnziRI1M9Rzcu5F50=; 
+	b=jSlUKChQ9afYK/5Kf1amEHHSmdTIzm+canKvosPpiqbTDbP0UsaeV4BRLQHwLD/g5YWd/3PDcSrFMNTd7RlSHPO9kUaCF2zLZ5mrNirLD8rnpeH+RqUbEQd/swhD5QH8KM8dD9tdFz5IiOZz3q7dPbyhd1ymljTv5Wws/M2V+x8=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=ziyao.cc;
+	spf=pass  smtp.mailfrom=me@ziyao.cc;
+	dmarc=pass header.from=<me@ziyao.cc>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789715440;
+	s=zmail; d=ziyao.cc; i=me@ziyao.cc;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
+	bh=7bSGtsz29021YzshFZsgFv4CE1vnziRI1M9Rzcu5F50=;
+	b=WDfK1ijeGV61VCWAGM0MX3bB//3TCE7xkJQUu10vHKAai6zMd0Jz2W1eLMya+8TI
+	E+VWJoSZCt5WoTG1DUPh/OETSR+GmKhPdsFagcVHFKJiOhAPMhP9dLQIyP5+zborDxK
+	3+xBZCmDMdui3+y7hMaVCMTvci5NXuaO9yqTv1sc=
+Received: by smtp.zohomail.com with SMTPS id 1789715438115870.2652817308559;
+	Fri, 18 Sep 2026 00:10:38 -0700 (PDT)
+Date: Fri, 18 Sep 2026 07:10:32 +0000
+From: Yao Zi <me@ziyao.cc>
+To: Tiezhu Yang <yangtiezhu@loongson.cn>, Andrew Lunn <andrew@lunn.ch>
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Yao Zi <me@ziyao.cc>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v1] net: stmmac: Default DWMAC_MOTORCOMM to m on
+ MACH_LOONGSON64
+Message-ID: <aqzj6CV_xl63JFeT@pie>
+References: <20260915073206.6665-1-yangtiezhu@loongson.cn>
+ <90a666a8-9f6a-4640-a219-731f3d551c66@bootlin.com>
+ <f6b93b98-e0d3-9e28-e366-4df126e6ab5f@loongson.cn>
+ <a10c8361-648e-476b-8b04-8716ad274fc4@lunn.ch>
+ <36a43b65-f94e-4836-b511-715fb136c10d@loongson.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: MZgXmQBAUNskm3j0cVVKLfuWtexoC6bEyCjnJKvRPjysaMXnH/vXTzqK
-	ny8Iauf1PXp3vG1TBIB7oyKO5Nz6+kpa4VyWSzzUNy7btwWTiLdfc7c2jwzkocvxirsQtFA
-	FVhlf4sO3tVX4uBCA72kG0Tik9iC1c98QO2NbhlZtGAPCQTgYQiTu/yhXsRXbVjuexMSCt/
-	kbiif0jjyEgPa/fwrIk3KfjqWUmFDAkL2h1VI9KmP34frVUpWJ5uqQwr4Y8k23f7cBOr1uF
-	foS3PsMG5hCZdXIsD+HB0X+ln2gFLyAFKY/TIJxyh9Dov9GdH0GvRtLbS+UlN1lYUPtyc10
-	wb4mPV6ejJ/WKtkU4SWFA+XrggPTLiXgM6igyOUNcVkvVMQupXfGpbkNRNAK2iEhdugjZFJ
-	27p61Eh7mksbhMl4CmTQzpg2OySAtsM/9wUaxwSg8FkL791LFZnAEu9VrEFFf4TlmEo3UBt
-	y71ef2D+39KeFA3/FKnphlZut4Xf9teQcZXiOiSlvBx6yYv9D4qcMhUwHUWj/f0vZgyUboE
-	icisWdhgFzxEtGyu/no44Xga77ZnEtOWUDjsCZ/1LLDzMscwM2NUre1OAr/7lmZVOtd5IOe
-	39zx1shnQLvatQatAHT2ocJsh7ZFpvywk8eZZ2QKvNsLMyAWjvQvb2eBInsJVIZeNqGpqFS
-	2kv8Jfl18lQ0H3AIw5qR6G0ORVDHMP63+53QLBDslfjr38pW+pYnh9YR1Q05jtc+WUJBY3f
-	JmaOMyKY3RB83hbQ6+3N1G0xiDu9o9PFA/j87AGEDY9xSaOiiVZMJr7s6FniMYGiN/ITk7i
-	9tK2Z2rzxaxrk3LoVVCNRVole+XGyqdHULYCO9bptPZ0ve7YzVDHWCwHDhVQORSHR8LbNoB
-	zIDCf1WWVscHjkk7PQXRssOHs68ksK/UyN1ooLNvj5Kz6GjTOdAin8HuIyzyaNKVhfrofJs
-	5/ygg+XThcVlfrjMD6s/xzi9OlonowAgJsiefv/QnNC6AazooNIo3cMkjZcOWVOCwibaBST
-	ZTxCNRqKfVc4xxRmc3kMyQh1geuPG7yZ6nYGDeI21KCogVK1ZVl4x2HX51FdLXqn0jL4i+n
-	rFTvJojPXzP
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
+In-Reply-To: <36a43b65-f94e-4836-b511-715fb136c10d@loongson.cn>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/289.708.20
+X-ZohoMailClient: External
 
-Since commit 9dfd13f80c85 ("cpufreq/amd-pstate: Toggle auto_sel in active
-mode on shared memory systems"), shmem_init_perf() programs
-AUTONOMOUS_SELECTION_ENABLE unconditionally, including in active mode.
+On Fri, Sep 18, 2026 at 02:48:45PM +0800, Tiezhu Yang wrote:
+> On 2026/9/17 下午10:45, Andrew Lunn wrote:
+> > > Before moving forward, I'd like to share an alternative thought.
+> > > As noted in the earlier review, this network controller could be
+> > > used across multiple architectures. To avoid the redundant churn
+> > > in the defconfigs of every single architecture, I am wondering if
+> > > we could unconditionally set it to default m in the Kconfig instead.
+> > 
+> > ~/linux/drivers/net/ethernet/stmicro/stmmac$ grep default Kconfig
+> > 	default n
+> > 	default y
+> > 	default STMMAC_PLATFORM
+> > 	default ARC
+> > 	default MACH_INGENIC
+> > 	default ARCH_QCOM
+> > 	default ARCH_LPC18XX
+> > 	default ARCH_MESON
+> > 	default ARCH_MA35
+> > 	default ARCH_QCOM
+> > 	default ARCH_RENESAS
+> > 	default ARCH_ROCKCHIP
+> > 	default ARCH_RZN1
+> > 	default ARCH_S32
+> > 	default ARCH_INTEL_SOCFPGA
+> > 	default m if ARCH_SOPHGO
+> > 	default m if ARCH_SPACEMIT
+> > 	default m if ARCH_STARFIVE
+> > 	default ARCH_STI
+> > 	default ARCH_STM32
+> > 	default ARCH_SUNXI
+> > 	default ARCH_SUNXI
+> > 	default ARCH_SUNXI
+> > 	default ARCH_MXC
+> > 	default MACH_LOONGSON32
+> > 	default ARCH_VISCONTI
+> > 	default X86
+> > 	default MACH_LOONGSON64
+> > 
+> > No other glue driver does this. Why is this one special?
+> 
+> If it is not proper to change Kconfig,
+> I am fine to modify the arch-specific defconfig instead.
 
-Platforms that exclusively support autonomous selection report this field
-as an Integer of 1, as required by the ACPI specification, instead of as a
-register descriptor.  cppc_get_reg_val() reads such a field back
-successfully, but cppc_set_reg_val() rejects the write with -EOPNOTSUPP
-because the entry is not an ACPI_TYPE_BUFFER.
+I'm against both of the ideas. From the aspect of a distribution
+maintainer, there are too many stuff missing from architecture
+defconfigs, so only enabling one or two drivers by default doesn't even
+improve the situation much, costs (kernel) maintainers' time.
 
-shmem_init_perf() propagates that error, so every amd_pstate_epp_cpu_init()
-fails, cpufreq_register_driver() ends up with an empty policy list and
-returns -ENODEV, and amd-pstate refuses to load at all:
+From the aspect of a kernel developer, a bloated defconfig/default only
+further lengthen the compilation process, forcing ones that don't have a
+good enough machine to spend more time on turning off one and another
+options their platforms don't need.
 
-  amd_pstate: failed to set auto_sel, ret: -95
-  amd_pstate: Failed to initialize CPU 0: -95
-  ...
-  amd_pstate: failed to register with return -19
+> But by the way, I noticed that there are the following code:
+> 
+> $ grep -rnw "default m" drivers/net/ethernet/
+> drivers/net/ethernet/stmicro/stmmac/Kconfig:221:	default m if ARCH_SOPHGO
+> drivers/net/ethernet/stmicro/stmmac/Kconfig:233:	default m if ARCH_SPACEMIT
+> drivers/net/ethernet/stmicro/stmmac/Kconfig:245:	default m if ARCH_STARFIVE
+> drivers/net/ethernet/spacemit/Kconfig:21:	default m if ARCH_SPACEMIT
+> drivers/net/ethernet/marvell/octeontx2/Kconfig:54:	default m
+> drivers/net/ethernet/hisilicon/Kconfig:106:	default m
+> drivers/net/ethernet/hisilicon/Kconfig:134:	default m
+> drivers/net/ethernet/sun/Kconfig:77:	default m
+> drivers/net/ethernet/sun/Kconfig:81:	default m
+> drivers/net/ethernet/sun/Kconfig:89:	default m
+> drivers/net/ethernet/mellanox/mlxsw/Kconfig:37:	default m
+> drivers/net/ethernet/mellanox/mlxsw/Kconfig:47:	default m
+> drivers/net/ethernet/mellanox/mlxsw/Kconfig:67:	default m
+> drivers/net/ethernet/mellanox/mlxsw/Kconfig:86:	default m
+> 
+> Thanks,
+> Tiezhu
+> 
 
-Skip the write when the register already holds the value the requested mode
-needs.  Active and guided mode are fixed on these platforms, which report
-auto_sel as 1, while passive mode still fails to load on a platform that
-cannot disable autonomous selection, exactly as it did before the
-offending commit.
-
-Fixes: 9dfd13f80c85 ("cpufreq/amd-pstate: Toggle auto_sel in active mode on shared memory systems")
-Cc: stable@vger.kernel.org
-Tested-by: LFRon <ronforever@outlook.com>
-Signed-off-by: K Prateek Nayak <kprateek.nayak@amd.com>
-Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
----
-changelog v2:
-Accecpt and tested the K Prateek Nayak reviews.
-v1 link:
-https://lore.kernel.org/stable/20260918054808.48999-1-guanwentao@uniontech.com/#R
----
----
- drivers/cpufreq/amd-pstate.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
-index 3a6b4b224a66d..91ec44f9fbb96 100644
---- a/drivers/cpufreq/amd-pstate.c
-+++ b/drivers/cpufreq/amd-pstate.c
-@@ -535,6 +535,9 @@ static int shmem_init_perf(struct amd_cpudata *cpudata)
- 		return 0;
- 	}
- 
-+	if ((cppc_state != AMD_PSTATE_PASSIVE) == auto_sel)
-+		return 0;
-+
- 	ret = cppc_set_auto_sel(cpudata->cpu,
- 			(cppc_state == AMD_PSTATE_PASSIVE) ? 0 : 1);
- 
--- 
-2.30.2
-
+Best regards,
+Yao Zi
