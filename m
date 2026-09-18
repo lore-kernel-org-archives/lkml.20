@@ -1,92 +1,208 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from o1.ptr9745.em.honeycomb.io (o1.ptr9745.em.honeycomb.io [149.72.141.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAA2627B340;
-	Fri, 18 Sep 2026 03:53:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C394C36B929
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 03:56:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.72.141.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789703617; cv=none; b=KDo/Lzoqm2cTqzTya7Ii+KTCUS66TyF6uAKEH71jp0igZbbPZW5IJ6unPNbARzR17qhw2DffxYC21SyVfm7gHx90Zdzia5RE2ajl2oV9eXBO4ZGBAoqJ1hd5gF2ZPJiNje7iOjTj3Y9+eJoIFMZ7OHFqXfn+kuoxPd/0mBeAFuU=
+	t=1789703796; cv=none; b=ES+Okf0zOEA8zcTx8nVBTuLa1MILb70eXHfGR1wH6/oV9+sVRYmgKow8P7jSuWpvlDvMzEARlxuuc1WL/sF3wFi8jppHQcOEcz8SS+Wd2Zp4urUr0K6ZurGvqoSLgcCOdzYf5xkMNibxc0kvodF3E3Uq5nra/gjMmiFxPQK2hL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789703617; c=relaxed/simple;
-	bh=MbQDpK3U340+Kg33aXXDXgthI8PtnTnfsxxy+PLvzEs=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=cqO0lep3O3sxyGDjfwFhEXIuE7Iw2u3j2xXYVHmbi8Tcd8e5HsXZateCvhwdgmdum1BHn8NnSuezU04oCfKdRM0uILg+p+dUO8eQEnXwaFaalBWtIyO2eWn+L6T9COQPofx6DSnn9kitwqR6vnH0dLuoHMjj9COCLrT2+SK2PQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=faMWUe+E; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789703796; c=relaxed/simple;
+	bh=FKO8LhQW1CX8/c5mIrCI5Vk14ANaYMcYDCy36i5ZkLA=;
+	h=From:Subject:Date:Message-ID:MIME-Version:To:Cc:Content-Type; b=vGiZNAv3njzkty0L7XF8g3hc+BU8coIUsh8CDqsSb/eXbSZ0tLLIYAtEqATaqAw2sV1XCFDlFimOG1ocgzPu/yNUnHWooh6slR7OE/O4x4JgkRt131pv1nhhmsWv/tXGr49SWMmMDWIzwLeq6IxxUscbA3hscR9VLg9u6VVP/Ow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io; spf=pass smtp.mailfrom=em.honeycomb.io; dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b=r5UHZPWC; arc=none smtp.client-ip=149.72.141.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=em.honeycomb.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="faMWUe+E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54D4C1F000FF;
-	Fri, 18 Sep 2026 03:53:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789703616;
-	bh=NyjeJYQAoIT6JPqi52GByedAXFRsvGfuaaVIMzoH39U=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=faMWUe+E92wqRxtkbgaWMXRYwf6KR2EqEIoqeW2C5x8Tk7PKPPibffuWfOOMaOnRJ
-	 mpr69blAKOn6oTolFU0h1fttVhImQOrJ+9OHLp6NW6w63EYu7M7joHbQ+8dYkv9PAo
-	 J6YjQQJYozXesL/9g+YQJEr51aieL7Rd2UoPU2X8=
-Date: Thu, 17 Sep 2026 20:53:34 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Ackerley Tng <ackerleytng@google.com>
-Cc: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>,
- Alex Shi <alexs@kernel.org>, David Hildenbrand <david@kernel.org>,
- Dongliang Mu <dzm91@hust.edu.cn>, Hongxiang Lou <louhongxiang@huawei.com>,
- Johannes Weiner <hannes@cmpxchg.org>, Jonathan Corbet <corbet@lwn.net>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, "Liam R. Howlett"
- <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, Miaohe Lin
- <linmiaohe@huawei.com>, Michal Hocko <mhocko@kernel.org>, Mike Rapoport
- <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>, Nhat Pham
- <nphamcs@gmail.com>, Oscar Salvador <osalvador@suse.de>, Peter Xu
- <peterx@redhat.com>, Randy Dunlap <rdunlap@infradead.org>, Roman Gushchin
- <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, Shuah
- Khan <skhan@linuxfoundation.org>, Suren Baghdasaryan <surenb@google.com>,
- Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
- Wupeng Ma <mawupeng1@huawei.com>, Yanteng Si <si.yanteng@linux.dev>, Naoya
- Horiguchi <nao.horiguchi@gmail.com>, fvdl@google.com,
- jthoughton@google.com, rientjes@google.com, vannapurve@google.com,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3 0/4] Fix HugeTLB subpool used_hpages tracking
-Message-Id: <20260917205334.9ac84d529c686983ef420567@linux-foundation.org>
-In-Reply-To: <CAEvNRgExZM4ixMfrF_FMw2CTn6JqRX8s=cy0_-x5ypLxvQQuMQ@mail.gmail.com>
-References: <20260916-hugetlb-subpool-always-track-used-v3-0-38aae9b5ccdd@google.com>
-	<20260916201307.5618114cbac4af52d98aecfa@linux-foundation.org>
-	<CAEvNRgExZM4ixMfrF_FMw2CTn6JqRX8s=cy0_-x5ypLxvQQuMQ@mail.gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b="r5UHZPWC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=honeycomb.io;
+	h=from:subject:date:mime-version:to:cc:content-type:
+	content-transfer-encoding:cc:content-type:date:from:subject:to;
+	s=s1; t=1789703793;
+	bh=ByQ3HjxGq3mISarOfpCbkfBfl3mweeLSYVmVj0cAQbw=;
+	b=r5UHZPWC0JWyS61uy4juyR7vcqkgXJMedolCFwx1GIrWUKTaFWKdlj3EjJw/97/2iVpn
+	r9OHmKHhyTK/p6r4pt4L8+76/dLjJpBfO5aDT1ITYhc87eDHWtnuAojcGbrN4JSK70aZqg
+	pPSNpVCz4LYRt+n7th8+e+2zcl7tHbkVoCQ9O2TAmbQFFeESCjyM+DhQ8I3BWUrlWYh4bY
+	CWJW28HV2R9akuMpP6R/geFFTUiSc6K7UwgTYqNXuJkEIUIjxRMwvwXwbzhc23kOTEcuaq
+	JPEuBZIum/TF/trBMkROgQfYG75q87Yot5t4pWSYbNOiuqjejMX1jJEps5RTdxtA==
+Received: by recvd-7d7dd758d8-fn74v with SMTP id recvd-7d7dd758d8-fn74v-1-6AACB671-3C
+	2026-09-18 03:56:33.7941501 +0000 UTC m=+1485602.227445126
+Received: from daisy.dens.ffj.family (unknown)
+	by geopod-ismtpd-19 (SG)
+	with ESMTP
+	id Jvjjs0mySB-kvyIuCIscTA
+	Fri, 18 Sep 2026 03:56:33.721 +0000 (UTC)
+From: Liz Fong-Jones <lizf@honeycomb.io>
+Subject: [PATCH v6] PCI: Fix BAR resize for devices on a root bus
+Date: Fri, 18 Sep 2026 03:56:33 +0000 (UTC)
+Message-ID: <20260918035633.566823-1-lizf@honeycomb.io>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+X-SG-EID: 
+ =?us-ascii?Q?u001=2ECuH7N2XAoeMR1zrzr=2F6NZrhli2vbKPOHff5fJuZuba6ZIE8QPyIf9mn4Y?=
+ =?us-ascii?Q?ezqeFFjUkh=2FeROy4LtnO7KN9jZmeTg5nVuRRDKF?=
+ =?us-ascii?Q?THtSYYaKDWLtyCa2ILtxfj5ijKKKbNpm1Uu=2FWbm?=
+ =?us-ascii?Q?rgic8xPn0fHnVNEpIDrwzROnAWIQTJH8wKVeCnF?=
+ =?us-ascii?Q?UNDrQhv1ooL1dxxwfpwNtyRC5TOMDxwiKctvSmd?=
+ =?us-ascii?Q?=2FQPe=2FO7Gbq3YTcy3q6OeCBiV4gKtCwaLqmGAiw6?=
+ =?us-ascii?Q?GNof?=
+To: lizf@honeycomb.io, Bjorn Helgaas <bhelgaas@google.com>,
+	Ilpo =?iso-8859-1?q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	regressions@lists.linux.dev, amd-gfx@lists.freedesktop.org, Jon Nettleton
+	<jon@solid-run.com>, Jon Nettleton <jon.nettleton@gmail.com>, Jacob Martin
+	<jacob.martin@canonical.com>, Thorsten Leemhuis <regressions@leemhuis.info>,
+	stable@vger.kernel.org
+X-Entity-ID: u001.GRlkmHQ+Ka/CKxmoC/CxTw==
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
 
-On Thu, 17 Sep 2026 20:05:33 -0700 Ackerley Tng <ackerleytng@google.com> wrote:
+pci_do_resource_release_and_resize() releases the device BARs that
+share a bridge window with the BAR being resized, but when the device
+sits directly on a root bus (pdev->bus->self == NULL) it then skips
+resource assignment entirely and returns success, leaving the BARs it
+just released unassigned (IORESOURCE_UNSET).
 
-> > Ho hum, complicated.  Let's at least slap a Fixes: on [4/4].  My
-> > trillion-dollar sidekick suggests a9e443086489 ("hugetlb: disable
-> > region_add file_region coalescing").
-> >
-> 
-> Your trillion-dollar sidekick got the right patch but the wrong hash :)
-> 
-> Fixes: 0db9d74ed884 ("hugetlb: disable region_add file_region coalescing")
+Skipping pbus_reassign_bridge_resources() is correct in that case --
+there is no bridge window to adjust -- but the device BARs still have
+to be reassigned. Before the BAR release was consolidated into the PCI
+core, this case worked for amdgpu because the driver released the BARs
+itself and then called pci_assign_unassigned_bus_resources()
+unconditionally after the resize, which assigns unassigned device BARs
+also on a root bus. Commit db92e3fef53e ("drm/amdgpu: Remove driver
+side BAR release before resize") removed that call, so nothing assigns
+the released BARs anymore.
 
-Well, I only feed it $100/mo.
+This breaks amdgpu completely on the SolidRun HoneyComb LX2K (NXP
+LX2160A, arm64, ACPI), where the GPU endpoint is enumerated directly
+on the root bus of its segment (there is no root port device, so
+pdev->bus->self is NULL):
 
-> I'll also reply to the last patch with the above. If there are no
-> further revisions required, could you please add the above tag in for
-> me?
+  amdgpu 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa40fffffff 64bit pref]: releasing
+  amdgpu 0004:01:00.0: BAR 2 [mem 0xa410000000-0xa4101fffff 64bit pref]: releasing
+  amdgpu 0004:01:00.0: sw_init of IP block <gmc_v8_0> failed -19
+  amdgpu 0004:01:00.0: amdgpu_device_ip_init failed
+  amdgpu 0004:01:00.0: Fatal error during GPU init
 
-Shall try to remember to to that.  Whack me if you see the
-"added-to-mm" email and I forgot.
+No error is logged because the resize path reports success; amdgpu
+then finds BAR0 IORESOURCE_UNSET and bails out with -ENODEV.
 
-> > Our other little friend is talking to us:
-> > 	https://sashiko.dev/#/patchset/20260916-hugetlb-subpool-always-track-used-v3-0-38aae9b5ccdd@google.com
-> >
-> > I'd like to queue this up promptly because it fixes things.  But let's
-> > seek additional review input and argue with Sashiko before taking that
-> > step.
-> 
-> I'll copy Sashiko's comments onto this patch series in replies. :)
+When there is no upstream bridge, call pci_bus_assign_resources() on
+the root bus to place the BARs released above, using the same
+alignment-sorted algorithm as normal enumeration instead of a manual
+per-BAR loop. This also walks the rest of the hierarchy under the
+root bus, as pci_assign_unassigned_bus_resources() used to for amdgpu
+before commit db92e3fef53e ("drm/amdgpu: Remove driver side BAR
+release before resize") removed that call -- the core-side fix that
+commit asked for ("such a problem should be fixed inside
+pci_resize_resource() instead").
 
-Great, thanks.
+pci_bus_assign_resources() returns void, so failure is detected by
+checking whether the released BARs are still assigned afterward; if
+not, roll back as in the bridged case. This is stricter than the
+bridged path -- it fails on any unplaced resource, not just required
+ones -- since a root bus typically has one shared window, and failing
+loudly seemed better than leaving something silently unassigned.
+
+The root bus path also had a locking bug that any fix here necessarily
+touches: the old "goto out" jumped to up_read(&pci_bus_sem) without a
+matching down_read() (as does the "goto restore" taken when
+pci_dev_res_add_to_list() fails in the release loop). Take pci_bus_sem
+before the BAR release loop so every path through the function holds
+it exactly once.
+
+Use pci_upstream_bridge() rather than testing pdev->bus->self
+directly. The two are usually equivalent, but pci_upstream_bridge()
+is the canonical test -- pci_is_root_bus(), which it's built on,
+warns that bus->self == NULL doesn't necessarily mean a root bus
+(SR-IOV virtual buses from virtfn_add_bus() are the same).
+
+Fixes: 337b1b566db0 ("PCI: Fix restoring BARs on BAR resize rollback path")
+Cc: stable@vger.kernel.org
+Link: https://bugs.launchpad.net/ubuntu/+source/linux-hwe-7.0/+bug/2159596
+Suggested-by: Bjorn Helgaas <bhelgaas@google.com>
+Suggested-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Assisted-by: Claude:claude-fable-5 checkpatch
+Assisted-by: Claude:claude-sonnet-5
+Signed-off-by: Liz Fong-Jones <lizf@honeycomb.io>
+---
+
+Confirmed against v7.3-rc3: drivers/pci/setup-bus.c is unpatched
+there, pci_do_resource_release_and_resize() still returns without
+reassigning the released BARs when bus->self is NULL.
+
+Tested on the real root-bus hardware this fixes (SolidRun HoneyComb
+LX2K): both a manual resize via the resource0_resize sysfs attribute
+(shrink to 256M then back to 4G, forcing the release+reassign path
+both directions) and amdgpu's own natural probe-time resize (with the
+amdgpu.rebar=0 workaround removed) succeed cleanly -- VRAM and BAR
+size match, no "Fatal error during GPU init", full IP block init.
+
+Changes in v6:
+- Repost, confirmed still affects v7.3-rc3
+- Added real-hardware test confirmation (both a manual sysfs-triggered
+  resize and amdgpu's own natural probe-time resize)
+- Picked up Reviewed-by from Ilpo
+- Link to v5: https://patch.msgid.link/20260908-pci-rebar-root-bus-v5-1-a210f405ea81@honeycomb.io
+
+ drivers/pci/setup-bus.c | 23 +++++++++++++++++------
+ 1 file changed, 17 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
+index e8c94aa1d3c12..ed16ef7c26fa7 100644
+--- a/drivers/pci/setup-bus.c
++++ b/drivers/pci/setup-bus.c
+@@ -2380,6 +2380,7 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
+ 	struct resource *res = pci_resource_n(pdev, resno);
+ 	struct pci_dev_resource *dev_res;
+ 	struct pci_bus *bus = pdev->bus;
++	struct pci_dev *bridge = pci_upstream_bridge(pdev);
+ 	struct resource *b_win, *r;
+ 	LIST_HEAD(saved);
+ 	unsigned int i;
+@@ -2397,6 +2398,8 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
+ 	if (ret)
+ 		return ret;
+ 
++	down_read(&pci_bus_sem);
++
+ 	pci_dev_for_each_resource(pdev, r, i) {
+ 		if (i >= PCI_BRIDGE_RESOURCES)
+ 			break;
+@@ -2415,13 +2418,21 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
+ 
+ 	pci_resize_resource_set_size(pdev, resno, size);
+ 
+-	if (!bus->self)
+-		goto out;
++	if (bridge) {
++		ret = pbus_reassign_bridge_resources(bus, res, &saved);
++		if (ret)
++			goto restore;
++	} else {
++		/* No bridge window to adjust; let the core reassign the bus. */
++		pci_bus_assign_resources(bus);
+ 
+-	down_read(&pci_bus_sem);
+-	ret = pbus_reassign_bridge_resources(bus, res, &saved);
+-	if (ret)
+-		goto restore;
++		list_for_each_entry(dev_res, &saved, list) {
++			if (!resource_assigned(dev_res->res)) {
++				ret = -ENOSPC;
++				goto restore;
++			}
++		}
++	}
+ 
+ out:
+ 	up_read(&pci_bus_sem);
+-- 
+2.53.0
+
