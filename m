@@ -1,220 +1,129 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE8195275A3;
-	Fri, 18 Sep 2026 21:07:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8022B52CCC4
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 21:08:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789765671; cv=none; b=t43/Go25Gpbi+j+E15iB1NRR1t+XOcwFrW7KY7ZJc4+4artDtEQMNRNxMO5XZE7gd7yWaQTWX6C4gIKv0A70416oCsSniS57LJzpeoLVS5JwSs2FK82TIDL3KnPfchBOwCBlMeMnSe6srsg99+QBERJwbKFKb6Snu7SSB19WChI=
+	t=1789765691; cv=none; b=tOfqQVB9KvMybPAWOre6tT/dvGta0ZBXD8TjJ/zZIm8yjuYoxc38UV//EwlC+pwh2A2V5+cFKtB5DH7rklFjO0KFfv7n/16EwyDIJlUzMv0893HgvXxuC8yl3nsJ9uIwez9ZA7015OiExOexDDYAMFK9/73ag1koOlGcaqma1tE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789765671; c=relaxed/simple;
-	bh=wuKgIkiS2FHxRxJ4IEELHzmMQy5AtbOWto6qESGTv5E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LCllADcBZB+ecVvZaVrRbUCMYcbFXNvzRo92a7soCyXPy8NDGdCvtxSGcSgLOIK2H4e7Mo9YQaWd+p7KRp5/4xkfgPA5/EumqZXHU9g29gJ25vC++YGc9LaH6tQzM3CDvQtE8LCJon9ojAWCbq/9AALEIhQLyFyanQpVvsB2yPc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gNNUYQ80; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789765691; c=relaxed/simple;
+	bh=FVf/d1/EGipJY+qQH+WlnWOMXoVdcpEKLxei2Et9YM8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=P5+4gAWkT8qqnv/6d60QKJaI6ICbMaqISAp8MJGKSamNQjCZ6RDp1oa/xNiBG9LBPMzNEnn5PY1iFSqdXtLHpL1H7rpNqFuhTcHFOsw/18kmKL7eWhPeCNLAImqxJY+uKAyryWB8Ex3gf03hf3w+xurDsQ5e2cMqKpWiHS4KDM0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O/3qZu/0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gNNUYQ80"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B0ED1F000FF;
-	Fri, 18 Sep 2026 21:07:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O/3qZu/0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 369DD1F000FF;
+	Fri, 18 Sep 2026 21:08:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789765669;
-	bh=zMyHIW5JmXrfN6pCRrMHPR90GnGJt4p1gcDtib6I5ek=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gNNUYQ80TMa9xylhzSJAqvCbr81AxV4IcdIDUX6qTECYlv3LT9Bvcn9bmVI/8B/29
-	 lFAaY3L09NlcjNEX+E9TTBdKQDfT5lXxbF4bxh0foXJ5XY4k+Mt5LanZAyMNOsZY5p
-	 FlYj5TcoOyJuE0ww0tbwW/jzUY8Sit4pdzGIsVptJgWhpOsZpYxHK7ReXz7yTGA5NF
-	 L8x05AC/wjRjEWHBGwDcHa8CZS5jRp0lnNEH7k5mN1sqX7iaGsyWxqjlt0wCyJyS8E
-	 9MuMLU2cAerd+4RkRYFcH0f7uvrHD/USH5StwWaEh/X22vGdQKdB23rTiTzy66jntV
-	 T2v4SwaXT+/xw==
-Date: Fri, 18 Sep 2026 14:07:44 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: "Jason A. Donenfeld" <Jason@zx2c4.com>
-Cc: Nick Desaulniers <ndesaulniers@google.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Theodore Ts'o <tytso@mit.edu>,
-	Vincenzo Frascino <vincenzo.frascino@arm.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>, linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev
-Subject: Re: [PATCH] random: vDSO: Avoid call to memset() when zeroing
- reserved in __cvdso_getrandom_data()
-Message-ID: <20260918210744.GA235304@ax162>
-References: <20260916-vdso-getrandom-avoid-memset-llvm-24-v1-1-80a92f2e225a@kernel.org>
- <aquyVkdYceiWdckX@zx2c4.com>
- <20260917173920.GB356152@ax162>
- <CAKwvOdkHsw132XEY2zLxO-V4=_RyqBatavQDvLY-MpZ16ZSAdQ@mail.gmail.com>
- <CAHmME9pcvUdkvYmeUs+Wi+v5Cy5QG=Wo48FmRCdQdL8x1ykDKA@mail.gmail.com>
- <aq01ud_zTYN-3Zby@zx2c4.com>
- <aq2OpBZIMVhMZhWW@zx2c4.com>
+	s=k20260515; t=1789765688;
+	bh=bGY+xfVTy1ZxW1u/Kx3gEVZE7cqsRURvP4ecTB8cxGw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=O/3qZu/0W4vDewluE067eYPwTRoi7/Sue83LvflUTOyDQMCA+GWsYfKAHyuZxVm5n
+	 gaME5/8jSQpLO7Jszatj6FZ2qECj0iri27vHHeJuznl6+bkKDzCWsmQi31baQIAM8F
+	 zte8pfcvKXnuCiCSY1+RFzur125s+5Nxa62u1xrXz4Z+Win4Ksmnb52pSKkLnVqAfh
+	 tS0U4VlGQyQa7fOcAbaTwRSBWgmZtErD2blwue9IpB8w9FtaxWy9c+jqqSxUTMWLj7
+	 0gCzw7c3hPh653dH0CSRJ4Qwpm02hDAHKD12Qfy9UxCz/tkFn3DEW2ewgWLuaxIGjH
+	 H5NfKly/FDhYA==
+Message-ID: <3515abc6-ffcc-4530-ac22-4219e5c9aca0@kernel.org>
+Date: Fri, 18 Sep 2026 23:07:58 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aq2OpBZIMVhMZhWW@zx2c4.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 16/17] mm/huge_memory: count only swap cache refs in
+ anon folio split
+To: kasong@tencent.com, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
+ Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
+ Yeoreum Yun <yeoreum.yun@arm.com>, "Kiryl Shutsemau (Meta)"
+ <kas@kernel.org>, Shivam Kalra <shivamkalra98@zohomail.in>,
+ Kairui Song <ryncsn@gmail.com>
+References: <20260915-swap-thp-cleanup-v5-0-39878b37dfb0@tencent.com>
+ <20260915-swap-thp-cleanup-v5-16-39878b37dfb0@tencent.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260915-swap-thp-cleanup-v5-16-39878b37dfb0@tencent.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 18, 2026 at 09:19:00PM +0200, Jason A. Donenfeld wrote:
-> Untested, but putting this all together I suppose looks like this, if
-> you want to play around and see:
 
-Thanks!
+>  
+>  	zone_device_private_split_cb(folio, NULL);
+> -	folio_ref_unfreeze(folio, folio_cache_ref_count(folio) + 1);
+> +	folio_ref_unfreeze(folio, folio_swapcache_ref_count(folio) + 1);
+>  
+>  	if (do_lru)
+>  		lruvec_unlock(lruvec);
+> @@ -4139,6 +4139,7 @@ static int __folio_freeze_split_file(struct folio *folio,
+>  	struct address_space *mapping = folio->mapping;
+>  	XA_STATE(xas, &mapping->i_pages, folio->index);
+>  	struct folio *end_folio = folio_next(folio);
+> +	long old_nr_pages = folio_nr_pages(folio);
 
-> diff --git a/lib/vdso/getrandom.c b/lib/vdso/getrandom.c
-> index 2851afa9154f..713e95dfdedc 100644
-> --- a/lib/vdso/getrandom.c
-> +++ b/lib/vdso/getrandom.c
-> @@ -29,6 +29,12 @@
->  	}									\
->  } while (0)
-> 
-> +#if __has_builtin(__builtin_memset_inline)
-> +#define memset(dst, value, size) __builtin_memset_inline(dst, value, size)
-> +#else
-> +#define memset(dst, value, size) __builtin_memset(dst, value, size)
-> +#endif
-> +
->  static void memcpy_and_zero_src(void *dst, void *src, size_t len)
->  {
->  	if (IS_ENABLED(CONFIG_HAVE_EFFICIENT_UNALIGNED_ACCESS)) {
-> @@ -83,8 +89,7 @@ __cvdso_getrandom_data(const struct vdso_rng_data *rng_info, void *buffer, size_
->  		params->size_of_opaque_state = sizeof(*state);
->  		params->mmap_prot = PROT_READ | PROT_WRITE;
->  		params->mmap_flags = MAP_DROPPABLE | MAP_ANONYMOUS;
-> -		for (size_t i = 0; i < ARRAY_SIZE(params->reserved); ++i)
-> -			params->reserved[i] = 0;
-> +		memset(params->reserved, 0, sizeof(params->reserved));
->  		return 0;
->  	}
+const ;)
 
-This will regress GCC < 14 because '-finline-stringops=memset' does not
-exist yet, meaning __builtin_memset() may still generated a call to
-memset(). Testing GCC 13 with ARCH=riscv defconfig, I get the same error
-as originally reported up thread. I am not sure we can get rid of the
-loop for that reason. I tested the following diff that keeps
 
-  clang (__builtin_memset_inline)
-  GCC 14+ (-finline-stringops=memset + __builtin_memset)
-  GCC <14 (simple loop)
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-happy (and moves the checks into Kconfig, which is being discussed at a
-wider level [1]) but it is admittedly slightly uglier... That said, it
-certainly seems more robust.
-
-[1]: https://lore.kernel.org/linux-kbuild/20260917-build-speedup-v3-11-9ecf4163ff36@kernel.org
-
-diff --git a/arch/arm64/kernel/vdso/Makefile b/arch/arm64/kernel/vdso/Makefile
-index 7dec05dd33b7..f6619e1cb2ce 100644
---- a/arch/arm64/kernel/vdso/Makefile
-+++ b/arch/arm64/kernel/vdso/Makefile
-@@ -41,7 +41,7 @@ CC_FLAGS_REMOVE_VDSO := $(CC_FLAGS_FTRACE) -Os $(CC_FLAGS_SCS) \
- 			$(CC_FLAGS_LTO) $(CC_FLAGS_CFI) \
- 			-Wmissing-prototypes -Wmissing-declarations
- 
--CC_FLAGS_ADD_VDSO := -O2 -mcmodel=tiny -fasynchronous-unwind-tables
-+CC_FLAGS_ADD_VDSO := -O2 -mcmodel=tiny -fasynchronous-unwind-tables $(CONFIG_CC_OPT_INLINE_MEMSET)
- 
- CFLAGS_REMOVE_vgettimeofday.o = $(CC_FLAGS_REMOVE_VDSO)
- CFLAGS_REMOVE_vgetrandom.o = $(CC_FLAGS_REMOVE_VDSO)
-diff --git a/arch/loongarch/vdso/Makefile b/arch/loongarch/vdso/Makefile
-index 9c9181bb4071..0b84892d084b 100644
---- a/arch/loongarch/vdso/Makefile
-+++ b/arch/loongarch/vdso/Makefile
-@@ -16,6 +16,7 @@ ccflags-vdso := \
- 	$(filter -m64,$(KBUILD_CFLAGS)) \
- 	$(filter -march=%,$(KBUILD_CFLAGS)) \
- 	$(filter -m%-float,$(KBUILD_CFLAGS)) \
-+	$(CONFIG_CC_OPT_INLINE_MEMSET) \
- 	$(CLANG_FLAGS) \
- 	-D__VDSO__
- 
-diff --git a/arch/riscv/kernel/vdso/Makefile b/arch/riscv/kernel/vdso/Makefile
-index 8dbf2532a573..c023046a3fd7 100644
---- a/arch/riscv/kernel/vdso/Makefile
-+++ b/arch/riscv/kernel/vdso/Makefile
-@@ -36,6 +36,7 @@ endif
- ccflags-y := -fno-stack-protector
- ccflags-y += -DDISABLE_BRANCH_PROFILING
- ccflags-y += -fno-builtin
-+ccflags-y += $(CONFIG_CC_OPT_INLINE_MEMSET)
- ccflags-y += $(KBUILD_BASE_ISA)$(CFI_MARCH)
- ccflags-y += $(CFI_FULL)
- asflags-y += $(KBUILD_BASE_ISA)$(CFI_MARCH)
-diff --git a/arch/s390/kernel/vdso/Makefile b/arch/s390/kernel/vdso/Makefile
-index 35c834b895ec..54bcf2984ca1 100644
---- a/arch/s390/kernel/vdso/Makefile
-+++ b/arch/s390/kernel/vdso/Makefile
-@@ -29,6 +29,7 @@ KBUILD_CFLAGS_VDSO := $(filter-out -munaligned-symbols,$(KBUILD_CFLAGS_VDSO))
- KBUILD_CFLAGS_VDSO := $(filter-out -fno-asynchronous-unwind-tables,$(KBUILD_CFLAGS_VDSO))
- KBUILD_CFLAGS_VDSO += -fPIC -fno-common -fno-builtin -fasynchronous-unwind-tables
- KBUILD_CFLAGS_VDSO += -fno-stack-protector $(DISABLE_KSTACK_ERASE)
-+KBUILD_CFLAGS_VDSO += $(CONFIG_CC_OPT_INLINE_MEMSET)
- ldflags-y := -shared -soname=linux-vdso.so.1 \
- 	     --hash-style=both --build-id=sha1 \
- 	     $(call ld-option, --eh-frame-hdr) -T
-diff --git a/arch/x86/entry/vdso/vdso64/Makefile b/arch/x86/entry/vdso/vdso64/Makefile
-index 7c0790065b5e..c2353a065279 100644
---- a/arch/x86/entry/vdso/vdso64/Makefile
-+++ b/arch/x86/entry/vdso/vdso64/Makefile
-@@ -14,7 +14,7 @@ vobjs-$(CONFIG_X86_SGX)			+= vsgx.o
- vobjs-$(CONFIG_FUTEX_ROBUST_UNLOCK)	+= vfutex.o
- 
- # Compilation flags
--flags-y				:= -DBUILD_VDSO64 -m64 -mcmodel=small
-+flags-y				:= -DBUILD_VDSO64 -m64 -mcmodel=small $(CONFIG_CC_OPT_INLINE_MEMSET)
- 
- # The location of this include matters!
- include $(src)/../common/Makefile.include
-diff --git a/init/Kconfig b/init/Kconfig
-index 6e82b4957a5d..09251b5f79d4 100644
---- a/init/Kconfig
-+++ b/init/Kconfig
-@@ -173,6 +173,13 @@ config CC_HAS_ALLOC_TOKEN
- config CC_HAS_MULTIDIMENSIONAL_NONSTRING
- 	def_bool $(success,echo 'char tag[][4] __attribute__((__nonstring__)) = { };' | $(CC) $(CLANG_FLAGS) -x c - -c -o /dev/null -Werror)
- 
-+config CC_HAS_OPT_INLINE_MEMSET
-+	def_bool $(cc-option,-finline-stringops=memset)
-+
-+config CC_OPT_INLINE_MEMSET
-+	string
-+	default "-finline-stringops=memset" if CC_HAS_OPT_INLINE_MEMSET
-+
- config LD_CAN_USE_KEEP_IN_OVERLAY
- 	# ld.lld prior to 21.0.0 did not support KEEP within an overlay description
- 	# https://github.com/llvm/llvm-project/pull/130661
-diff --git a/lib/vdso/getrandom.c b/lib/vdso/getrandom.c
-index 2851afa9154f..83831dab08b2 100644
---- a/lib/vdso/getrandom.c
-+++ b/lib/vdso/getrandom.c
-@@ -29,6 +29,12 @@
- 	}									\
- } while (0)
- 
-+#if __has_builtin(__builtin_memset_inline)
-+#define memset_inline(dst, value, size) __builtin_memset_inline(dst, value, size)
-+#elif IS_ENABLED(CONFIG_CC_HAS_OPT_INLINE_MEMSET)
-+#define memset_inline(dst, value, size) __builtin_memset(dst, value, size)
-+#endif
-+
- static void memcpy_and_zero_src(void *dst, void *src, size_t len)
- {
- 	if (IS_ENABLED(CONFIG_HAVE_EFFICIENT_UNALIGNED_ACCESS)) {
-@@ -83,8 +89,12 @@ __cvdso_getrandom_data(const struct vdso_rng_data *rng_info, void *buffer, size_
- 		params->size_of_opaque_state = sizeof(*state);
- 		params->mmap_prot = PROT_READ | PROT_WRITE;
- 		params->mmap_flags = MAP_DROPPABLE | MAP_ANONYMOUS;
-+#ifdef memset_inline
-+		memset_inline(params->reserved, 0, sizeof(params->reserved));
-+#else
- 		for (size_t i = 0; i < ARRAY_SIZE(params->reserved); ++i)
- 			params->reserved[i] = 0;
-+#endif
- 		return 0;
- 	}
- 
 -- 
 Cheers,
-Nathan
+
+David
