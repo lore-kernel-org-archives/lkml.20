@@ -1,127 +1,170 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A693F3BD64D
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:15:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E233514776
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:16:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789748175; cv=none; b=nIgC3rnUkBMd8ToeTpQXox3Tk11eccojwIDGQpEiQ0T7ecpNgAq0bAzD6hnDDi19QIyAzkeAhrKSmDQohEOGixtk9wZgfQMpGKvCtpuWdSn9kSgU5xA9cHlETEhMBQU9W1TCN7PgFCwpTBf/h/66yijyTCXfErGW9BdQCBl46Ms=
+	t=1789748181; cv=none; b=r01l1pxRshPhLNcpP8ac/57UctG8Do93Vq6QbpQMXn2N9tiCj3OsYZJg8CDj4t90I6/XyML/oLgP279/hQ0CMsVMEYTfbc+Dk6RBji9xPOJ0WDxjt9Swnbru3bb+KnUz3tZrpNKHgcaPbHKfn2PjoquS0X2627gJkvkTAoGx5sE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789748175; c=relaxed/simple;
-	bh=BgZt53WCvRUv+SYL6NxC16PIrmwhlpA/RGPQ9pKg+mg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EPBA2TefpZPHbq5fdL6l5f7QKVl7kp9c3bKxBI0iWaHa0eTEq0XyNTuUfGauHO7cK0ZslvNNAdldryFA7lno3mI9Y4QTGqRtCQIP90kUNybTbOEd5SCjS48bujRdEZtscJ/fHhSjhLaQGA0hOBCljgjS76/XtZsNBAuXzIkk4jA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W6RhnrnQ; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789748181; c=relaxed/simple;
+	bh=RVsUQU/Ro7R2F4xpGYXv0UWITAgZwghcEwzYUcts//o=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=BqxsxK/7ygOa/2/N4hOC3BA4LcpFSHbhjl6GgAQV9yd2pfvMUY76Oqhmg96YsnjTHSuXpTcn8f9t+D5Qhjbbfw67luqJoR6sP+rC8bZpCzpUjMQJZY9Pr3NsLektZRWTeFI78j+vZriEeSQcohcmg7brPmnB7qjV+J9Pt23TMbY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=o0w/Xvls; arc=none smtp.client-ip=209.85.216.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W6RhnrnQ"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e8185e037so5698125e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:15:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="o0w/Xvls"
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38ea32e57e2so1863514a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:16:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789748155; x=1790352955; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6B8E7hz6GF/wCS6O+Kavtr2HQK/zZKBI71HK4pF7l28=;
-        b=W6RhnrnQlYRgpKI8L6tX5vifGm9N/jUjaw+bmCd1h12VFiVZIfbBKVPLLvL4LD5zj8
-         U9W8IdryhSqBLxVyzd3imBwpMHkisPgHz70W1+VXZrXC+hXX5YXkzNw26IbBbVJlLJJE
-         6YVtV1Fjw/ylXwaFDAj1NVKiiUCvfFpdHcouunB4iJ/Qybus7crwxAkoZMxJP27tfVcs
-         44lDAp4T0LL0mWu22PeadWmMjLn/RRaSPKFz/6eoLHO/d/LHzFP24PMNO42ZmN+UfAkM
-         ySPMgPny54Xn7oLoA82lXwoVVaVQ33lLLF+57L44+E0ZpF13faK+zVApJbzhWrC3POp2
-         SEUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789748155; x=1790352955;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1789748179; x=1790352979; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6B8E7hz6GF/wCS6O+Kavtr2HQK/zZKBI71HK4pF7l28=;
-        b=WUNPui0FKY1BZLV1g9tTP2Hl0RJna/AXC+Zy+V26QLivj9ES1WQZaxtqQK7EQgGUcj
-         Ekia4hJ60+5XauYxX8F19f8bvjkLdBtJlimvKjSDR1gtAkhMKTz6mIdPlQpndas0aUje
-         7/l0zKEzOsIV9PWT53XU4sd3PQD1ejl0s78kvOGnKIzVuWgCJSYaZYtPsg9APMsFuzMz
-         6kcaQGa2mE7sNMBxtcCLEGiltoCV3H5sh9TZQEaDKM0rCbyx66Alm5TCcvXjbLm09U81
-         YEU35eIdDrWtkmjS7gooNwybhpNMTJ3zaVYFAcg/ydKkIGUi3Kip4p4c/0Jv12w9vzGc
-         N58A==
-X-Forwarded-Encrypted: i=1; AKwUvBwfpode0pYmnzL5BoZxuIt55D02J1Glsada6HW6RLzrnaHIVzrnex54FucoiFMiDwbGrBHfoefpDYEGbMQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mNCt/rhj1hSaJYz4FcyADVtkJH07mkH2tvm5tovm8/wvEZJUPA
-	lvPpuJDaTeEYmqwTSsVXvXNP2leIlU4vpAyXpdOg36Tw7gbHzV2gszj9IqsavQEjOM8f6A==
-X-Gm-Gg: AYBFou193vXPO674p/u+invbeuRjEycypSAHkua2IQu/knxgh0PXq281p5d/DVtlZmW
-	845rCJ/8xn+MxJqqFCdKpo6WAzAvWypMWjfSwy9+8Lumph0Kt0wZv0IBlODkv5oMiJePwyn5oAj
-	TcVPYUtoUbLh9FEXsSD2g455dSz7wCGTdSMzc2/vFnBYuXNpXyNvTZb/C3mwuLTRkwrGuQ6g6iu
-	ylLn33q45QIB5hgz5CT/hq4DlwJAhxI5EZHYq9UgH/b0tEwm/CuCaVFzHpi0vi48GYLOKBJJBFa
-	atS8PUTkMfTcH4T4FjgIvzrFmbwURJZATqPQAewbU7Czffejwta2buVi24nhdML/0sBDPcOTrv9
-	BpjJ5EfkE8jcjkSvWrh8cAmn1r8N/c8u/n0bu/dDUkzlL7Skzj5p9waAHRp4jkXwLHjlSF+msyw
-	ZbLCzPaAXxpq9yutvUybDe72IhufaW9XF6PiqFp+CT3gEz2kWOA3JlQPmHAVE1HDMZmA1ALiLEI
-	9tSRQ==
-X-Received: by 2002:a05:600c:354e:b0:49b:8f18:714a with SMTP id 5b1f17b1804b1-49fc57226c9mr37347285e9.12.1789748154818;
-        Fri, 18 Sep 2026 09:15:54 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc6ec1e63sm44136965e9.0.2026.09.18.09.15.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 09:15:53 -0700 (PDT)
-Date: Fri, 18 Sep 2026 19:15:49 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Ricardo Ribalda <ribalda@chromium.org>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>, Yunke Cao <yunkec@google.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	kernel-janitors@vger.kernel.org
-Subject: Re: [PATCH] media: uvcvideo: Fix buffer overflow in
- uvc_mapping_get_menu_value()
-Message-ID: <aq1jtSc_7Ad4v4eN@stanley.mountain>
-References: <aq0siVcghDe6x9cs@stanley.mountain>
- <CANiDSCtiVU1PJh7=Pb56PNGF0s=cxfe1kVjwW+7O9JOT5CrDAw@mail.gmail.com>
- <aq06Kq-3n2R79YZL@stanley.mountain>
- <CANiDSCsVgGsbf0P6000Jgw=yCop580w61_BaVE6OxnBNXXDfSQ@mail.gmail.com>
+        bh=GRTs38TMbxGOFAG8NUirRaUDwmENku4BcrpfCubKTX8=;
+        b=o0w/Xvls2Fx6cnvUxr3muRO2BR/rjtrybIlG2kxL71F3AddNHRGD5cdJNR51DSNP10
+         YbQzVgIqQZMt36grV9xGeNDB/1RipWwsT2b0Cp9xkJoeF8mNCrTMSJtMLA4vPq7wPfRE
+         j8I60BIhFP88PKe7uiEvGlCpchCaY0nRMWMZH/4J+K7NZ/r9ipmjdYJxs6+CtRF+TbW0
+         3YUrAouyM6PN9NAjlf9KnPEnhPF+oDNqCxYar/mAMVgzifL/O7PNIsmQ5G+sHjWMjH5z
+         Yp3M99Y0ets7daTuEyhyS77CBJmyr9eq24XMau2Coa964dSYxIBnaJjJWF7+d77S+8WE
+         lk2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789748179; x=1790352979;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GRTs38TMbxGOFAG8NUirRaUDwmENku4BcrpfCubKTX8=;
+        b=E3y634zzXTd12yApNgkUec8Q8bLGiZCjPT9fEbaPF68tijp5+/tq90m1E1L2DbfYD2
+         ugeP1lPM1dgH3op1DQfteluu522yaw7IWq0KiIQEdQ7soNzWTpFeP63oW+BxlXji6vh9
+         RVqPP/FZZwFbOqIq7bAxmxl+npiPLa+F4b/qC126jyy2gKQ101yE0cYHys5EUB2yml4l
+         1VnLLleR31U0b0+xk/9pH/o7QD0MZMASm6RzwBBTvj+YN/QR2ADbFvYGHlTkgOl/JIO4
+         14+JzLbPF7WHeB7EPQlR5/BkHTk/2DddZsra2gR1+qa6WN0HJI1S2XCsM//WpbMZYNvs
+         R6xA==
+X-Forwarded-Encrypted: i=1; AKwUvBwwg8lEijdndrn79sdEbTAgWClP3pcF3m3wD1zAvuRfDj6ezq9KCw/DR6x654yBNU9FgTgM1rV2hpO0W7U=@vger.kernel.org
+X-Gm-Message-State: AFuF++mpAq1+zF8pqavLkKyZTVjUuHrUgBLsiKig6kVO+LCElJ6u2Qxe
+	hCNGHioEsy0C5abSlzZub3YDEcUUD1pg50gDkbhxo5HojFXt3NRiWd2t/Siitcul/xG3tE4CGJt
+	9yb5a3g==
+X-Received: from pjbmg8.prod.google.com ([2002:a17:90b:3708:b0:39d:b566:bcb6])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2243:b0:39d:f770:774
+ with SMTP id 98e67ed59e1d1-39e54c9c1bamr6325374a91.20.1789748178634; Fri, 18
+ Sep 2026 09:16:18 -0700 (PDT)
+Date: Fri, 18 Sep 2026 09:16:17 -0700
+In-Reply-To: <20260918160006.61816-1-absandze@amazon.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CANiDSCsVgGsbf0P6000Jgw=yCop580w61_BaVE6OxnBNXXDfSQ@mail.gmail.com>
+Mime-Version: 1.0
+References: <20260918160006.61816-1-absandze@amazon.de>
+Message-ID: <aq1j0aUKpr15AiqS@google.com>
+Subject: Re: [PATCH] KVM: x86/pmu: Don't retry a counter whose config was rejected
+From: Sean Christopherson <seanjc@google.com>
+To: Luka Absandze <absandze@amazon.de>
+Cc: pbonzini@redhat.com, sandipan.das@amd.com, tglx@kernel.org, 
+	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, 
+	hpa@zytor.com, dwmw2@infradead.org, kvm@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-On Fri, Sep 18, 2026 at 03:46:11PM +0200, Ricardo Ribalda wrote:
-> Hi Dan
+On Fri, Sep 18, 2026, Luka Absandze wrote:
+> kvm_pmu_handle_event() re-arms the reprogram bit for every failed
+> reprogram, on the assumption that the failure is transient and a later
+> refresh will succeed.  That is true for contention, e.g. the -EBUSY from
+> x86_reserve_hardware(), but not for a configuration the host PMU driver
+> rejects outright.  A rejected config can never succeed on retry, so the
+> counter is reprogrammed on every PMU refresh for as long as the guest
+> leaves it enabled, and every attempt fails the same way.
 > 
-> On Fri, 18 Sept 2026 at 15:18, Dan Carpenter <error27@gmail.com> wrote:
-> >
-> > On Fri, Sep 18, 2026 at 02:59:29PM +0200, Ricardo Ribalda wrote:
-> > > Hi Dan
-> > >
-> > > I believe that for all the uses of uvc_mapping_get_menu_value we are
-> > > already doing bound checks:
-> > >
-> > > index >= BITS_PER_TYPE(mapping->menu_mask) in uvc_query_v4l2_menu()
-> > > value> fls(mapping->menu_mask) -1 in uvc_ctrl_clamp()
-> > > BIT(i) <= mapping->menu_mask in uvc_menu_to_v4l2_menu()
-> > >
-> >
-> > The problematic caller is uvc_set_le_value().
-> >
-> >         value = *(s32 *)v4l2_in;
-> >
-> > Smatch thinks that is called from uvc_mapping_set_xctrl_compound().
+> Skip the re-arm for -EINVAL, one of the errnos the x86 PMU drivers use
+> for a config they will never accept.  Note this becomes reachable on AMD
+> only with the patch linked below, which starts rejecting the Merge event
+> (PMCxFFF) a guest programs as part of a Large Increment per Cycle pair;
+> on Intel it is already reachable today via the INTEL_FIXED_VLBR_EVENT
+> check in intel_pmu_hw_config(), where the config is likewise a function
+> of fixed guest state and can never start being accepted.
 > 
-> uvc_mapping_set_xctrl_compound() are only called if v4l2_type >=
-> V4L2_CTRL_TYPE_RECT and then v4l2_type != V4L2_CTRL_TYPE_MENU. So I
-> think we are safe.
+> Link: https://lore.kernel.org/all/20260916123315.89042-1-absandze@amazon.de/
+> Signed-off-by: Luka Absandze <absandze@amazon.de>
+> ---
+>  arch/x86/kvm/pmu.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
 > 
+> diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
+> index a7d60c8785cd..b9945a6256ed 100644
+> --- a/arch/x86/kvm/pmu.c
+> +++ b/arch/x86/kvm/pmu.c
+> @@ -680,8 +680,14 @@ void kvm_pmu_handle_event(struct kvm_vcpu *vcpu)
+>  		 * reprogram bit, i.e. opportunistically try again on the next
+>  		 * PMU refresh.  Don't make a new request as doing so can stall
+>  		 * the guest if reprogramming repeatedly fails.
+> +		 *
+> +		 * -EINVAL means the event's config was rejected outright and
+> +		 * can never succeed on retry, so don't re-arm; the guest can
+> +		 * still do so itself by rewriting the event selector.
+>  		 */
+> -		if (reprogram_counter(pmc))
+> +		int r = reprogram_counter(pmc);
+> +
+> +		if (r && r != -EINVAL)
+>  			set_bit(pmc->idx, pmu->reprogram_pmi);
 
-Yeah...  I have reprimanded ChatGPT and it says it has updated the
-warning review skill.
+Hmm, would it instead make more sense to explicitly check for -EBUSY?  -EINVAL
+isn't the only fatal error code.
 
-This is difficult to silence.  But I'm going to ask AI to create
-an tool to automatically rebuild a second temporary database which
-only checks the problematic call tree and points any impossible
-constraints.  That would have flagged this warning as a false
-positive.
+diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
+index a7d60c8785cd..5296ee8f32af 100644
+--- a/arch/x86/kvm/pmu.c
++++ b/arch/x86/kvm/pmu.c
+@@ -681,7 +681,7 @@ void kvm_pmu_handle_event(struct kvm_vcpu *vcpu)
+ 		 * PMU refresh.  Don't make a new request as doing so can stall
+ 		 * the guest if reprogramming repeatedly fails.
+ 		 */
+-		if (reprogram_counter(pmc))
++		if (reprogram_counter(pmc) == -EBUSY)
+ 			set_bit(pmc->idx, pmu->reprogram_pmi);
+ 	}
+ 
+Though I guess one could argue -ENOMEM is also transient?  I definitely prefer
+an "allow"-list though.  And I find it easier to read if 'r' is declared outside
+the loop (and less of a chance of variable shadowing; the odds of returning a
+stale value are quite low given there is no return value, and probably never will
+be a return value).
 
-regards,
-dan carpenter
+E.g. this? (completely untested)
 
+diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
+index a7d60c8785cd..03a470c49a74 100644
+--- a/arch/x86/kvm/pmu.c
++++ b/arch/x86/kvm/pmu.c
+@@ -662,7 +662,7 @@ void kvm_pmu_handle_event(struct kvm_vcpu *vcpu)
+ 	DECLARE_BITMAP(bitmap, X86_PMC_IDX_MAX);
+ 	struct kvm_pmu *pmu = vcpu_to_pmu(vcpu);
+ 	struct kvm_pmc *pmc;
+-	int bit;
++	int bit, r;
+ 
+ 	bitmap_copy(bitmap, pmu->reprogram_pmi, X86_PMC_IDX_MAX);
+ 
+@@ -676,12 +676,14 @@ void kvm_pmu_handle_event(struct kvm_vcpu *vcpu)
+ 
+ 	kvm_for_each_pmc(pmu, pmc, bit, bitmap) {
+ 		/*
+-		 * If reprogramming fails, e.g. due to contention, re-set the
+-		 * reprogram bit, i.e. opportunistically try again on the next
+-		 * PMU refresh.  Don't make a new request as doing so can stall
+-		 * the guest if reprogramming repeatedly fails.
++		 * If reprogramming fails on a transient condition, e.g. due to
++		 * contention, re-set the reprogram bit, i.e. opportunistically
++		 * try again on the next PMU refresh.  Don't make a new request
++		 * as doing so can stall the guest if reprogramming repeatedly
++		 * fails.
+ 		 */
+-		if (reprogram_counter(pmc))
++		r = reprogram_counter(pmc);
++		if (r == -EBUSY || r == -ENOMEM)
+ 			set_bit(pmc->idx, pmu->reprogram_pmi);
+ 	}
+ 
