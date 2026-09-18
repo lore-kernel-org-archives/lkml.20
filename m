@@ -1,918 +1,619 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010048.outbound.protection.outlook.com [52.101.69.48])
+Received: from relay10.grserver.gr (relay10.grserver.gr [37.27.248.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E71DF4A68BE;
-	Fri, 18 Sep 2026 07:26:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789716411; cv=fail; b=JK8lUQEYLQCwWblFPAFff22+JYjJXb4cPHwZUrg38ddqUKr6bUwZ6o9yYjwDeURMCK7DcbBLYrYJ6twRNo30fdi0n0ow/kTTGq7fxMaA0nZ9IpVcQqjLkQwlR0wVI+6SmoylAmZn/E4Tn92rVOrl/qeosWJN1OItk+ZaRE3em1Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789716411; c=relaxed/simple;
-	bh=T/7PRCNb/c8O5JEJosRg21TGo36HVm3TP1yt/0FcIZA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=SMDiYqf6ai3/yqa2a8UZbzlA5DDITBJq4xA6fdgcpc7ngJ/rj9+zu5fgKFUQ4ztcnCsVBnjiuo++n4UF48oQe9/5gItuK/wfErBoLBY8ZmG8MTVNDkxH26lpCM8KxHiPx631k8RaOp5010JM6eJfJ0n5ryEqMsoVdHalM86TeaU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=N9zeCiig; arc=fail smtp.client-ip=52.101.69.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACBFC3033FD
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:28:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.27.248.198
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789716539; cv=none; b=L0pj8IkMMUsl+gOt1M6/zkBesmXWOusT40T0u88oW/6i48iPIRPJSNPA3l1+CmRAoYAIVOgvHpXi9cjFw0xrFslB9R04XB9i6rTVZmyCIi3IZKyZInd5DpS6zgOl53m1smAAAw56cbKQt4ZnRNX2T7lgBBkvR2rLySRT/7rJZ8c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789716539; c=relaxed/simple;
+	bh=aGgLLC8guvVleZcU9iYUtjO8Dy2yY8ZHRME2mmAR8N8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cBOjLck9W3KIs4ahR0OTyOC0VOdU+P0+k6u0GBDQsCeGaQL7pDch1v0HUHKNm6AKgihYIU458iFxBiqDSLE5ckW37UM8OjcIrQG1eRpddCQ35BGorj5T6Bk4hBrvuNKXX6sezvO0wRP4L/s/bTHpvZSDDs1pQWcfOqKclMER9pY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev; spf=pass smtp.mailfrom=antheas.dev; dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b=JpHPXZ2d; arc=none smtp.client-ip=37.27.248.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="N9zeCiig"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sUTqXjgXlQko1MsLnx6+YG7Y+4BluVfq0s89He5XqFVLYglrymf3Ugo8D020DTttx0M2+hr+lql7cyVtss3+U0SJWQ3YP2PYPvczSby5qZMAoA/IfFPIEfbDSN9OYYbuaOSmzfT3yKIdKyksK/IsZdBQN1iY3KhdAPXTWyP7C69FjGfTB2VxSpaNwH5LEmhHc5BRpZXb0Z6xN4rQ+sPtSuFByZ7WY+wpNhICODel/8UTW5/Anm8mEeRoW6W5+1zNyJbkc3rZCTJtiC4ngZ4rhrCpObD4/Ih4Prmy8Oad70QpjrLs63MPSI+MM4jRXV+hR42v2Z5ZVVsGTRE5jhPImw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=c7Auw7oJIgSbMgfNfY6LxLODD7AhWVcdBjfxjXrmpe4=;
- b=tFr6gBR1EVB7YI7+1U/28ps5uiHLA5HDAXm9EPjotOCJnW6h5cE8AjTjEtub0GPnkDyvSWVYrtkiIqynQXE3qHwjDwOzEnWcYExe72P+bk3sUIAW9vbKfMVi6uA+apYY9RS3DGjJk8V5V8InKJ0qVIlD0bmMsHs/7nPkCI1hRaFHRLgN86qbGypWg3r2tEjvzKwryLhMLTrbPitDtyf/1KbWtwQoT0ehzS3gI6nl0Zf9DWr/HdPNMORkvGiKcVML5kO8WAkdx+68qFpeDMLuOyZd7Mc7H/UmY7PL1qmRkY+OEuf+OdbkLRoTeMLW9V4X0Sabff2bvIy9ufo/I6kNSw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=c7Auw7oJIgSbMgfNfY6LxLODD7AhWVcdBjfxjXrmpe4=;
- b=N9zeCiig8mvYKydGsBbGtGa2+XOorumPOkLMzuJDPe2WAwRPaWjS7+4Ut/cJmUi8BwZiHpmFSao9Wt0aFQZrqGaRe2XNIxYP/6SOMOWDJ4wRMSHxZnxLDsPFbzIjjlZJuoawOSIgP6/CXFwZoHoubzedt/oJ/Tcfdz9ugUeBu8U2vlweScztoMMqNShKyIyKMJouantNWebQ5P7kPOd4Pe2osf7AdCMBB6zy2dINCrMPGtjLGyn3/zIERqyYmPhrs0RH1xwpEZzJ1rESJtSYf6OqFvdSZbqmebMSpQXjk3tU+Tus5P2vCtzoSGlw/DYDaUwWgol9vSc0ifYnC8mwRw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from VE1PR04MB7216.eurprd04.prod.outlook.com (2603:10a6:800:1b0::22)
- by AS8PR04MB7541.eurprd04.prod.outlook.com (2603:10a6:20b:29a::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Fri, 18 Sep
- 2026 07:25:35 +0000
-Received: from VE1PR04MB7216.eurprd04.prod.outlook.com
- ([fe80::a9a5:cf83:dbe8:1f74]) by VE1PR04MB7216.eurprd04.prod.outlook.com
- ([fe80::a9a5:cf83:dbe8:1f74%3]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
- 07:25:34 +0000
-From: wei.fang@oss.nxp.com
-To: xiaoning.wang@nxp.com,
-	andrew@lunn.ch,
-	olteanv@gmail.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	richardcochran@gmail.com,
-	linusw@kernel.org,
-	linux@armlinux.org.uk
-Cc: wei.fang@nxp.com,
-	imx@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v4 net-next 8/8] net: dsa: netc: add PTP one-step timestamping support
-Date: Fri, 18 Sep 2026 15:28:52 +0800
-Message-Id: <20260918072852.501420-9-wei.fang@oss.nxp.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260918072852.501420-1-wei.fang@oss.nxp.com>
-References: <20260918072852.501420-1-wei.fang@oss.nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MA5PR01CA0245.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:223::8) To VE1PR04MB7216.eurprd04.prod.outlook.com
- (2603:10a6:800:1b0::22)
+	dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b="JpHPXZ2d"
+Received: from relay10 (localhost.localdomain [127.0.0.1])
+	by relay10.grserver.gr (Proxmox) with ESMTP id 8B9193ED2D
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:28:43 +0300 (EEST)
+Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by relay10.grserver.gr (Proxmox) with ESMTPS id 75DB73F8B1
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:28:41 +0300 (EEST)
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+	by linux3247.grserver.gr (Postfix) with ESMTPSA id 83A1A20061D
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:28:40 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
+	s=default; t=1789716520;
+	bh=0cOXjeOxt1gHGttN4A4gcYC1MOmUqp2YNMZp8NUZkDo=;
+	h=Received:From:Subject:To;
+	b=JpHPXZ2ddS9YeRhx+MedaitLWu1YSU1uOWJI5byHGqDBNr9tknkc1qAMj9ZF2XjD4
+	 tSOLt8y43drQHSQNy1FpZm+cgnnMp0F8D9wZb67Bvu6L2taitqAvTzrrFqiZdE6JNv
+	 kYqJ6vls08sHWrFPdH7AqVL2JIHNXgjaE3gz4qTfeaq/ge4nWWCuOPXyQ0IQ4RMKpU
+	 RyVhLzQnYjFV8b5887nMs+Kp4u7EYgtOWLXA4nza2CM9GYHGEpFSfmhFAM7f/dgwbv
+	 8HGVqfbm22wgcjV1hWtdxy5i1zXrCwKIUg/hkQqNfhTz2/WMnnx/N3h9uz3e0FfQho
+	 QVsYlhp+lwfVw==
+Authentication-Results: linux3247.grserver.gr;
+        spf=pass (sender IP is 74.125.228.41) smtp.mailfrom=lkml@antheas.dev smtp.helo=mail-pz2-f41.google.com
+Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
+Received: by mail-pz2-f41.google.com with SMTP id
+ d2e1a72fcca58-85469e25187so259942b3a.2
+        for <linux-kernel@vger.kernel.org>;
+ Fri, 18 Sep 2026 00:28:40 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBy2cplKGNg4IizRYh+TkMVVYJDpQ0E/ANcPFUYSI6XEKB5pX2yRAJRWxxm4JIT70W9SaVebaNe8eA49mf8=@vger.kernel.org
+X-Gm-Message-State: AFuF++k0ucXBzP46OEE7QJPu3o+Zn+NC5dbqFhQiiXT+uNdOW9ghMTf4
+	vtaJI1DAPtPfru/bJKfXFCEMhh3mcE7kXgM+Y315/Ob/k0NlTEwcMddDvD+TPMQZHj9T60DcZ24
+	lFsn5cXPQdbPwEFnx+za+HCfQrS+g7xA=
+X-Received: by 2002:a05:6a00:1da2:b0:874:705d:f647 with SMTP id
+ d2e1a72fcca58-874de8fbb53mr3041280b3a.41.1789716518743; Fri, 18 Sep 2026
+ 00:28:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB7216:EE_|AS8PR04MB7541:EE_
-X-MS-Office365-Filtering-Correlation-Id: 04e03512-2188-4503-66a3-08df1556075b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|23010399003|7416014|376014|1800799024|366016|921020|10067099003|56012099006|11063799006|3023799007|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	dlYsqaZKdr04zeuwPpAG/v+UynMqySnbItHxNWPkWqE5qI6ONcgUxvHwF5XZUZS2bX5afbYKG0Gcxhm/k7E2GwpNupAfquCTflYuTedeSjF8+sVFzLJe58SE868ZI1nl/74JVHdtlag7avXfcQPd6Yia9MVmfhNiP7oE1PL72DtjwFiR1TC5VvlYGONiD/erFpwQY/cveiMS8WI4cjbHi0K8/TbIgIreLMOBVZKYgSOv5QtytIWQ8IBwJdnDcWiISfQ6PtYQPnZ9GUe6C/TpHNvBiCPZgq624L4hqqZLWzQJKtDl2t0SOc4fzlncy6L5GHJbykQHDP77G29AXWgsrTwxJeM71C2dikvicdoJqHLQ0YgLnOfxrR33uqN+5l3XrBSew6rtkHLrPCLblXinB+V2fw4qOYOW6LWet5LY1TBPj3JnpdVtMgUHUiUiytzzKjNUZEflXgBjxr2Xu9tIrVl5PmIO8EBezXawfwdG4tcK570kV7oXAULyj95Wl8lsqtoWpm37HHW24ViZaA/qfER/a4gh5ascM+ne2X3xZkpJc6gStgh9XgqT1BGa7r5CMSzuWlTvCANzscRXyivBjRnlo27NZTaJDby8qA4quY1q5hu2qi41oXIem8tvG7CePgveh0XlXBSXRy9wskWBWD3ZI5k+8Rf4OZG0+yaKwQ27shvlM8Zf+mZIZQHmLv6tmkwD6ZntwjNHt1eaEIc1JA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB7216.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(7416014)(376014)(1800799024)(366016)(921020)(10067099003)(56012099006)(11063799006)(3023799007)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?1y+nYddm8GIGRRVGH1/533tO8LfYiEbLC5KN6wVuDfH8rnJgXAw7hN+EtQ0m?=
- =?us-ascii?Q?1j5NhdLRtpSULIJ5fKLHN0wxmqccz6a6vKVozGA+nzRDUI7gt9WGQOSwtWiW?=
- =?us-ascii?Q?5C3Uj6DPCTxVAkQ9GiK3/KMmFTj08DmHZDHsBU8zRh+sDLRcN5bjn1chQgky?=
- =?us-ascii?Q?DP5SVG4hY0XwUcy+rT8X3nlBueHezvfFjCNXDMvf33FoeXeW4ihe51oNHGc4?=
- =?us-ascii?Q?pSbGanbhuypVEzWO1FEXkOi095gQhZwhd2HFHXmCbHnNsViWaAwBv+moR7Zf?=
- =?us-ascii?Q?YvTuHuy7OfUOPpdYAwSQ3ZSdZri+f+T7DtF2GcyDbLIOpjeX8AQIO3xR73hO?=
- =?us-ascii?Q?QV9VFunD7E8usdeZD5VAaMH55qwcptLCwM6pj7k27zZGmotuWLpL7rzg/Dn4?=
- =?us-ascii?Q?n2iiQ8uo22vewPK08EnjZhWqO429TkBRiQIHriJ8uUxk11/REER6aTQz1uyR?=
- =?us-ascii?Q?4ZTi4vxG849mNYw0Svq/7CFVkX5EvxiExJUQuUzFz0gTRkAl9z+9hozoNsMZ?=
- =?us-ascii?Q?atIwtegQ6HDKPCpGd9DQZtkHqKFi+w9JNdXLnDYtrTpdEyPVhsxbxCnrSBqB?=
- =?us-ascii?Q?Fo7fW3MCY+AXZ/6R0ONSGN0cN6Af7tXam8S9txERruyGTUekBzhiM6fhJps9?=
- =?us-ascii?Q?gLrvISsXzl61pVP6rJ48YAgG5wUebL1ZODS8uZVtYgZghJ6g6EYfaFYrrBf6?=
- =?us-ascii?Q?VpT6IoG3LSiSpvFFozSRmEuku/WN6fCb+Gqf3gKxuT/6IaQNvnHd+2aerG49?=
- =?us-ascii?Q?IcR489orPUv/GW62vAC9YYiOP7xaBNTlelWxfRP2wWpJ586KVCAvQzPNMp4e?=
- =?us-ascii?Q?xdrCz/+KrzZ05FCfdVwIG9dkUuseUp2AdArhLLa3kLQI7+fsl5TXIhWAb/ug?=
- =?us-ascii?Q?FXH9bm92SRBzCAWrMzYcssRbO0fXrXXFa8OLV1DcHOK8w+zEYmBRxPPbLGBy?=
- =?us-ascii?Q?A7ro6Ws6/UNIfbZ+Le627nIfL2aZKnhEGMKI89cTNuyfQkiEzHL/HB0XmifL?=
- =?us-ascii?Q?h/weP8AuRVSTCrUCNMCCI/DFhvlHZhrm4RKzt6lrRpB42vVPCPMatJ/Me7eD?=
- =?us-ascii?Q?rgsO0kQ86OxN2j8sdh5x59mCb9kbz8rmAuPUC3Qn20fcALw3OBiqY5hiWOPi?=
- =?us-ascii?Q?5twW0um31mRqJxh8QJhMmnBEGAgKaJ5Ugo7EMFH/a0hA7rHhyu4RhMe7PApB?=
- =?us-ascii?Q?+2XjGdXp+zU6M3IZu+Qvw0fyDJKFyW6mqRgD6QODB6psQ5vYoi4REi83a27k?=
- =?us-ascii?Q?WJDn3nJ+UGRuiNNW9mme7BuJpF0L7qv3nB0laklfXYJsY2BjVK3JFUrJ/Tba?=
- =?us-ascii?Q?xdtJxGdZe+LeB4MQ8SejldOGhfLJBZ2brr9hAHw9Yy8xBj4ilp1OaYPs9LwC?=
- =?us-ascii?Q?JNRkkNO5b/vdR+Me7qY1Vbee8JViMY3c9BlZJYbCKp2BJWqDDVzh3nkuiOXT?=
- =?us-ascii?Q?jEZGZByEFsSygF6B/EE1t1iHc+nqJH/Hr12TWoBdQutqUesVLuyerff3RvpK?=
- =?us-ascii?Q?E5dNU9vZqDOQNM23DNQg2ficLt8ifgWspWd5+Y1yUZr2JYFaFrzzM+jKM6VL?=
- =?us-ascii?Q?Yd2AEGSbAv73lBgWd2o0nq00goD3xCcc+WeWaPk1ZtQrs2VYHrKGrpr23K6V?=
- =?us-ascii?Q?pS36nVxz0uy8D4EJ+7z0fg0TfmgUMl5ikzRzLgMdeaggpB5PKlo2lCweYijm?=
- =?us-ascii?Q?LvA9YNNSnKvvgTiqK1t19S7W3H6iDVkov70963Fao10K6bRdpY6xro6Q6zdS?=
- =?us-ascii?Q?AvV0CHNder1rUsKnoZQUXa1XFcaJ5/7hZAIDhqoNW8WKVkv1LAV3?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 04e03512-2188-4503-66a3-08df1556075b
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB7216.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 07:25:34.8625
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4WHi+wj0wyJ7WyhQyyvnTlTJ5QAU4h6yyG0f6+79wPptq4d+feqpga7o9uz6PKcVmZkQ7h44YrR1/ZTOc28hlYIdkYQCXtAC1bmmHoLN0xmDlUIPYsavs2AgvpOEfFRq
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7541
+References: <20260915181200.18086-1-denis.benato@linux.dev>
+ <20260915181200.18086-4-denis.benato@linux.dev>
+ <CAGwozwHe7dnSi1=NuqeQuXD0FtdPKLJvwyC53ff6LUmRU9Z7SQ@mail.gmail.com>
+ <9fd173d2-08c2-4455-b251-27af53db2028@gmail.com>
+ <CAGwozwHTZVrrC7zB4oGc3safznXKH3zkHv5EDVSyOYdNGZCpXw@mail.gmail.com>
+ <39eaa5c2-c22e-4007-bfce-e31f6bfd6b17@linux.dev>
+ <CAGwozwGiUr-1hZsoUa2xWjrhi+ijM-ps4K5g07aFWaBi4dHhjw@mail.gmail.com>
+ <e351995f-eeb8-498e-870d-c5c2e543f541@gmail.com>
+ <CAGwozwGWoR=httXax6USrrDLzCy+isivTgr2DLx+m7C6RFoxtw@mail.gmail.com>
+ <a65bcba0-72b9-4d22-9073-cf6f825adb70@linux.dev>
+In-Reply-To: <a65bcba0-72b9-4d22-9073-cf6f825adb70@linux.dev>
+From: Antheas Kapenekakis <lkml@antheas.dev>
+Date: Fri, 18 Sep 2026 09:28:26 +0200
+X-Gmail-Original-Message-ID: 
+ <CAGwozwF8zV3RKgjeH9U+nFJKL0ZFWg7LDnDhOJRnS6e=UtUFXA@mail.gmail.com>
+X-Gm-Features: AcwNN1VpYMi-AhhbOxxCDscO3Go8rkajcX1gdu1R39ZF2GizWeDCe9tBu2KWB8A
+Message-ID: 
+ <CAGwozwF8zV3RKgjeH9U+nFJKL0ZFWg7LDnDhOJRnS6e=UtUFXA@mail.gmail.com>
+Subject: Re: [PATCH 3/3] HID: asus: add support for xgm led
+To: Denis Benato <denis.benato@linux.dev>
+Cc: Denis Benato <benato.denis96@gmail.com>, linux-kernel@vger.kernel.org,
+	linux-input@vger.kernel.org, Benjamin Tissoires <bentiss@kernel.org>,
+	Jiri Kosina <jikos@kernel.org>, "Luke D . Jones" <luke@ljones.dev>,
+ Mateusz Schyboll <dragonn@op.pl>
+Content-Type: text/plain; charset="UTF-8"
+X-PPP-Message-ID: 
+ <178971652089.2435767.2793222685035368253@linux3247.grserver.gr>
+X-PPP-Vhost: antheas.dev
+X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
+X-Virus-Status: Clean
 
-From: Wei Fang <wei.fang@nxp.com>
+On Fri, 18 Sept 2026 at 03:51, Denis Benato <denis.benato@linux.dev> wrote:
+>
+>
+> On 9/18/26 00:06, Antheas Kapenekakis wrote:
+> > On Wed, 16 Sept 2026 at 15:05, Denis Benato <benato.denis96@gmail.com> wrote:
+> >>
+> >> On 9/16/26 14:31, Antheas Kapenekakis wrote:
+> >>> On Wed, 16 Sept 2026 at 14:18, Denis Benato <denis.benato@linux.dev> wrote:
+> >>>> On 9/16/26 08:46, Antheas Kapenekakis wrote:
+> >>>>> On Wed, 16 Sept 2026 at 02:54, Denis Benato <benato.denis96@gmail.com> wrote:
+> >>>>>> On 9/15/26 23:52, Antheas Kapenekakis wrote:
+> >>>>>>> On Tue, 15 Sept 2026 at 20:12, Denis Benato <denis.benato@linux.dev> wrote:
+> >>>>>>>> XG mobile stations have very bright leds behind the fan that can be
+> >>>>>>>> turned either ON or OFF: add a cled interface to allow controlling the
+> >>>>>>>> brightness of those red leds.
+> >>>>>>> Hi Denis,
+> >>>>>>> as of last month, I am also the proud owner of a XG Mobile (2025 in my
+> >>>>>>> case). Therefore, I can now comment on this series and give you
+> >>>>>>> feedback.
+> >>>>>> Perhaps. These two devices have nothing in common but the name.
+> >>>>>>
+> >>>>>>> First, I have some interim patches that are not ready yet to post. The
+> >>>>>>> device still has some led behavior that I need to investigate, but I
+> >>>>>>> attach them here for your reference. You may send them on my behalf if
+> >>>>>>> you want to see them sooner though.
+> >>>>>>>
+> >>>>>>> https://github.com/anatase-org/patchwork/commit/af3e5e1755f720a2fffd1b67cb1253e11efbc5bb
+> >>>>>>> https://github.com/anatase-org/patchwork/commit/7718c4b64b03ca9be043e8c56f1833e5c4880fff
+> >>>>>>>
+> >>>>>>> Note that these two patches are essentially a replacement for this
+> >>>>>>> patch essentially, except for the binding, where your device is I2C
+> >>>>>>> where mine is thunderbolt, so that still needs to be added. There are
+> >>>>>>> still leftover issues with the LED I have to investigate before I
+> >>>>>>> submit these patches.
+> >>>>>>>
+> >>>>>>> As you know, USB keyboards in Asus laptops are connected over WMI
+> >>>>>>> through s2idle as well, which is what makes them turn off their
+> >>>>>>> backlight during suspend. However, our devices are external and cannot
+> >>>>>>> use the same path. I suspect that there is a different notifier for
+> >>>>>>> these devices over armoury crate we need to investigate first.
+> >>>>>> Your device is thunderbolt only, but 2022, 2023 and 2024
+> >>>>>> xg mobiles that his patch targets are devices for which the
+> >>>>>> ACPI of laptops supporting this weird connector is full of
+> >>>>>> references to and handling and custom code all over the place.
+> >>>>>>
+> >>>>>> They are nothing alike. They share the name....
+> >>>>>>
+> >>>>>> If I connect mine to my rog ally armoury crate gains a
+> >>>>>> slider that sends the exact same command my patch sends...
+> >>>>>>
+> >>>>>> I couldn't find anything else over USB with wireshark:
+> >>>>>> everything else is ACPI-driven.
+> >>>>>>
+> >>>>>>>> Let the led core manage the power transitions: the classdev is flagged
+> >>>>>>>> with LED_CORE_SUSPENDRESUME, so it is switched off at suspend and its
+> >>>>>>>> last brightness is restored at resume. The EC drives its own blinking
+> >>>>>>>> pattern during s2idle anyway, so the led state while the machine is
+> >>>>>>>> asleep is not meaningful.
+> >>>>>>>>
+> >>>>>>>> Cc: Antheas Kapenekakis <lkml@antheas.dev>
+> >>>>>>>> Signed-off-by: Denis Benato <denis.benato@linux.dev>
+> >>>>>>>> ---
+> >>>>>>>>  drivers/hid/hid-asus.c | 84 ++++++++++++++++++++++++++++++++++++++++++
+> >>>>>>>>  1 file changed, 84 insertions(+)
+> >>>>>>>>
+> >>>>>>>> diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
+> >>>>>>>> index 03150d29eec5..a427e272563d 100644
+> >>>>>>>> --- a/drivers/hid/hid-asus.c
+> >>>>>>>> +++ b/drivers/hid/hid-asus.c
+> >>>>>>>> @@ -51,6 +51,8 @@ MODULE_DESCRIPTION("Asus HID Keyboard and TouchPad");
+> >>>>>>>>  #define FEATURE_KBD_LED_REPORT_ID1 0x5d
+> >>>>>>>>  #define FEATURE_KBD_LED_REPORT_ID2 0x5e
+> >>>>>>>>
+> >>>>>>>> +#define ROG_XGM_REPORT_SIZE 300
+> >>>>>>> Here, you define an additional report size var. This is not necessary,
+> >>>>>>> as ROG_ALLY_REPORT_SIZE is only used for reads currently in the driver
+> >>>>>>> and we defer to hid core to set the write length. Therefore, you might
+> >>>>>>> increase ROG_ALLY_REPORT_SIZE to 300 universally instead, as a
+> >>>>>>> correctness fix. This way, when Aura devices attempt to write 300
+> >>>>>>> bytes, they still work regardless of the quirk. This is what
+> >>>>>>> af3e5e1755f720a2fffd1b67cb1253e11efbc5bb.
+> >>>>>> I answer to this below, but I want to point out something here:
+> >>>>>> you are right in wanting to join these, but wrong on what to join:
+> >>>>>> the right thing to do is not to join the ALLY_REPORT_SIZE and the
+> >>>>>> XGM report size, but instead to join the  KBD report size and the
+> >>>>>> ally one as one NKEY_REPORT_SIZE since this is exactly what they
+> >>>>>> are: N-KEY devices.
+> >>>>> You are right, NKEY_REPORT_SIZE. This is what my patch did. It was
+> >>>>> late yesterday.
+> >>>> Splendid, now it makes sense. Yeah I'll do it, don't worry about it:
+> >>>> it's on my TODO list and has been for a few months.
+> >>>>
+> >>>>>>>> +
+> >>>>>>>>  #define ROG_ALLY_REPORT_SIZE 64
+> >>>>>>>>  #define ROG_ALLY_X_MIN_MCU 313
+> >>>>>>>>  #define ROG_ALLY_MIN_MCU 319
+> >>>>>>>> @@ -144,6 +146,11 @@ struct asus_worker {
+> >>>>>>>>         bool removed;
+> >>>>>>>>  };
+> >>>>>>>>
+> >>>>>>>> +struct asus_xgm_led {
+> >>>>>>>> +       struct led_classdev cdev;
+> >>>>>>>> +       struct hid_device *hdev;
+> >>>>>>>> +};
+> >>>>>>>> +
+> >>>>>>>>  struct asus_touchpad_info {
+> >>>>>>>>         int max_x;
+> >>>>>>>>         int max_y;
+> >>>>>>>> @@ -170,6 +177,7 @@ struct asus_drvdata {
+> >>>>>>>>         unsigned long battery_next_query;
+> >>>>>>>>         struct asus_hid_listener listener;
+> >>>>>>>>         bool fn_lock;
+> >>>>>>>> +       struct asus_xgm_led *xgm_led;
+> >>>>>>>>  };
+> >>>>>>>>
+> >>>>>>>>  static int asus_report_battery(struct asus_drvdata *, u8 *, int);
+> >>>>>>>> @@ -1161,6 +1169,26 @@ static int asus_battery_probe(struct hid_device *hdev)
+> >>>>>>>>         return ret;
+> >>>>>>>>  }
+> >>>>>>>>
+> >>>>>>>> +static int asus_xgm_led_set(struct led_classdev *led_cdev, enum led_brightness value)
+> >>>>>>>> +{
+> >>>>>>>> +       const u8 buf[ROG_XGM_REPORT_SIZE] = {
+> >>>>>>>> +               FEATURE_KBD_LED_REPORT_ID2, 0xC5, (value) ? 0x50 : 0x00
+> >>>>>>>> +       };
+> >>>>>>>> +       struct asus_xgm_led *xgm = container_of(led_cdev, struct asus_xgm_led, cdev);
+> >>>>>>>> +       int ret;
+> >>>>>>>> +
+> >>>>>>>> +       ret = asus_kbd_set_report(xgm->hdev, buf, ROG_XGM_REPORT_SIZE);
+> >>>>>>>> +       if (ret < 0) {
+> >>>>>>>> +               hid_err(xgm->hdev, "Unable to set XG mobile led state: %d\n", ret);
+> >>>>>>>> +               return ret;
+> >>>>>>>> +       } else if (ret != ROG_XGM_REPORT_SIZE) {
+> >>>>>>>> +               hid_err(xgm->hdev, "Unexpected partial transfer to XG mobile: %d\n", ret);
+> >>>>>>>> +               return -EIO;
+> >>>>>>>> +       }
+> >>>>>>>> +
+> >>>>>>>> +       return 0;
+> >>>>>>>> +}
+> >>>>>>>> +
+> >>>>>>> Moreover, as this is an Aura device, and by setting
+> >>>>>>> ROG_XGM_REPORT_SIZE to 300, you can now reuse the initial inits and
+> >>>>>>> brightness handler instead of adding new ones as you did here. This
+> >>>>>>> way, for asus laptops with a wmi handler, the brightness keyboard
+> >>>>>>> shortcut of the device will also control the eGPU, which is preferable
+> >>>>>>> behavior. This is what 7718c4b64b03ca9be043e8c56f1833e5c4880fff does
+> >>>>>>> in part.
+> >>>>>> Absolutely bad idea, trust me: I have recently followed the fix
+> >>>>>> of a regression I introduced sending a 64-bytes command to
+> >>>>>> touchpads that accepts some other length as those stopped
+> >>>>>> working. Doing that is asking for troubles. Listen to who
+> >>>>>> caused the trouble already and make the most out of my
+> >>>>>> mistakes.
+> >>>>>>
+> >>>>>> I also had to make asusctl send exactly 64-bytes commands
+> >>>>>> because of random bugs to zephyrus and strix models.
+> >>>>>> Sending 65 bytes to anime matrix is not a very good idea either.
+> >>>>>>
+> >>>>>> Also Armoury Crate never sends anything different to 64 bytes
+> >>>>>> to N-key devices and I do not want to send anything different
+> >>>>>> than windows does.
+> >>>>>>
+> >>>>>> Do you remember what happens to rainbow on ROG ally if you send
+> >>>>>> commands the MCU doesn't like? I don't want having weird things
+> >>>>>> difficult to debug and nearly impossible to recover from only because
+> >>>>>> the code would look better/be shorter.
+> >>>>>>
+> >>>>>> These devices are fragile in handling, tied to the EC and low lever
+> >>>>>> hardware and I absolutely don't want to diverge from what
+> >>>>>> Armoury Crate does unless there is a very good reason to it.
+> >>>>>>
+> >>>>>> I agree that ASUS devices are somewhat forgiving in accepting
+> >>>>>> different lengths, unlike MSI claws that will not answer to
+> >>>>>> commands until you have sent a number of bytes multiple of
+> >>>>>> the length they want, but this is no reason to toy around this.
+> >>>>>>
+> >>>>>>> I have not tested the common path yet. I have been travelling so I
+> >>>>>>> have not flashed the new kernel on my z13. I have been using the eGPU
+> >>>>>>> with a different device.
+> >>>>>> If with "the new kernel" you mean 7.3 I can tell you it appears
+> >>>>>> d3 is broken and some ASUS laptops stopped entering s2idle...
+> >>>>>>
+> >>>>>>> 7718c4b64b03ca9be043e8c56f1833e5c4880fff also fixes the "blinking
+> >>>>>>> pattern" of the EC, as you note in your subject. With the init,
+> >>>>>>> suspend and resume handlers sending the init of that patch, during
+> >>>>>>> boot the light blinks, it becomes solid once hid-asus binds, then
+> >>>>>>> during the transition to sleep, it starts to blink until it turns red,
+> >>>>>>> and does the reverse during resume. It would be good for you to give
+> >>>>>>> feedback for that. I have not verified the Windows behavior there, and
+> >>>>>>> we should do that for correctness. The init is referenced from
+> >>>>>>> g-helper in Windows, but maybe there is another command that signals
+> >>>>>>> sleep better.
+> >>>>>> 2022, 2023 and 2024 models don't blink outside of s2idle...
+> >>>>>> Because ACPI is all over the place and the device gets informed
+> >>>>>> constantly of what the host is doing.
+> >>>>>>
+> >>>>>> If 2025 models blink until you bind the driver it that means they
+> >>>>>> rely on commands from the windows application... We will need
+> >>>>>> to replicate those as closely as possible.
+> >>>>>>
+> >>>>>> I can ask ASUS if wireshark captures don't shed some lights to it.
+> >>>>> If you can and forward me some info it should be great.
+> >>>> I cannot because that would be covered by my NDA, and
+> >>>> that would take quite a lot of time and depending on the
+> >>>> questions surfacing here I might not even be allowed to
+> >>>> answer so it's hugely better if wireshark is all that is needed.
+> >>>>
+> >>>>>>> I do not have an answer to the sleep leds unfortunately. My XG's RGB
+> >>>>>>> stays on while there is a device plugged in, regardless of whether its
+> >>>>>>> sleeping or shutdown. This makes me think that we are missing a
+> >>>>>>> notifier command, and the brightness patch you propose here just
+> >>>>>>> papers over the issue. So we should investigate that first.
+> >>>>>> What I propose is correct for old models. Newer ones I know nothing
+> >>>>>> about except that there is no custom ACPI handling them.
+> >>>>>>
+> >>>>>>
+> >>>>>>> Let me know how you'd like to proceed.
+> >>>>>> Honestly I think you should name those something like xgb_tb_.....
+> >>>>>> and handle them separately since they have pretty much nothing
+> >>>>>> in common... Except the price maybe. Lol.
+> >>>>>>
+> >>>>>> In general don't go crazy over refactors and trying to make the
+> >>>>>> code looks better at the expense of proven things: the priority
+> >>>>>> is for this driver to work reliably and to reuse as much things
+> >>>>>> proven to work as possible.
+> >>>>> Let me simplify. Please try to stay on topic.
+> >>>>>
+> >>>>> My XG Mobile is an Aura device using FEATURE_KBD_LED_REPORT_ID2 with a
+> >>>>> feature report size of 300. Your XG Mobile is an Aura device that uses
+> >>>>> the same. They both have the same sleep issue that you paper over by
+> >>>>> setting the brightness to 0. The LED stays on during sleep. It also
+> >>>>> stays on / off during boot and the power command works inconsistently
+> >>>>> with it. Which points to the device not knowing boot state and missing
+> >>>>> a command to inform it.
+> >>>> I don't see any sleep issue: the resume sometime return to the
+> >>>> old setting and sometimes it doesn't but it always blink s2idle.
+> >>>>
+> >>>> Setting the brightness to 0 is pretty much a no-op on these
+> >>>> models and that's why I used the proper flag, but if new models
+> >>>> requires something different you can restore the old code
+> >>>> from me for those models.
+> >>>>
+> >>>> Resetting the setting by sending the command is exactly what
+> >>>> Windows does so I'm okay with what I did here.
+> >>>>
+> >>>> Yours may very well need other things: just disable the device
+> >>>> in windows driver manager, start wireshark, re-enable the
+> >>>> device and the command will appear there.
+> >>> It is a noop. But you are introducing a new ABI just for the XG
+> >>> mobile. userspace does not know how to use it and we will need to
+> >>> customize software around it. By keying it to the existing handler
+> >>> userspace will work.
+> >> I am doing it on purpose and I explained the reasoning already.
+> >>
+> >> If userspace doesn't have yet the code to handle it it will
+> >> (asusctl already can btw).
+> >>
+> >>> Moreover, we already have a suspend handler that restores brightness.
+> >>> You are adding a separate led device and using its suspend handling
+> >>> instead. Why not use the existing plumbing and potentially extend it
+> >>> to set to 0 prior to suspend instead via an xdg quirk? As I told you
+> >>> my device needs that as well, so this is not specific to older models.
+> >>> I suspect there is a missing command though and I would prefer that
+> >>> instead.
+> >> We have that for laptop keyboards. XGM is not a keyboard.
+> >>
+> >> It doesn't share a length with keyboard nor commands:
+> >> totally different device gets totally different handling.
+> >>
+> >> If yours need the brightness setting to 0 upon
+> >> sleep entering then the usage of the suspend flag on the
+> >> cled device was the correct move because it's doing exactly
+> >> what you are suggesting here.
+> >>
+> >> If an additional command is required then it's super easy
+> >> since the cled brightness off runs before suspend and the
+> >> on runst after resume any required command can be
+> >> sent in those functions.
+> >>
+> >> But beware: setting the suspendresume flag on the
+> >> kbd_backlight is not correct because the brightness
+> >> needs to stay 1-3 for s2idle effects to play on many
+> >> TUF laptops.
+> >>
+> >> The more I think about little differences that joining
+> >> the path will make the more I am uncomfortable
+> >> with doing so.
+> > I think we are going in circles. I am not sure what to tell you. 2025
+> > is an Aura device. Id rather you use the keyboard inits and if as you
+> > say this device has a binary on off, quirk the existing cdev to use
+> > 0->1 max brightness and this particular led command and still tie it
+> > to the asus-wmi handler so that it links to asus laptops. This way,
+> > you do not introduce a new abi for EOL eGPUs and a new cdev just for
+> > them. It is fine to scale 1-3 in the wmi cdev to 1.
+>
+> I am simply doing what I think it's best for these devices and
+> I have explained my reasoning.
+>
+> The fact that the device is not being built anymore by asus
+> (I am not sure it's EoL) plays little role. No kernel rule
+> prevents that nor I have seen any reference. We support
+> what is in active usage by people and these devices are.
+>
+> > You have not shown this device needs to be written 300 bytes. No other
+> > devices need that, and the 2025 does not either. You also have not
+> > shown that this device does not support the standard brightness
+> > command either.
+>
+> Well I find this phrasing needlessly aggressive and there is
+> absolutely zero reason to behave like this.
+>
+> This is a capture from windows of the 2023 version, mine
+> is identical:
+> https://gitlab.com/asus-linux/reverse-engineering/-/tree/master/xg_mobile?ref_type=heads
+>
+> I obviously already tried setting the kbd backlight quirk
+> and nothing happens, in fact I asked this capture right
+> because aura was a no-go.
 
-Add one-step Sync offload for NETC switch ports and advertise
-HWTSTAMP_TX_ONESTEP_SYNC. Frames that are not one-step Sync still fall
-back to two-step timestamping.
+It is not aggressive. It is two statements I have asked you to verify
+in this email chain and we had to do six back and forths.
 
-Each port has a single PM_SINGLE_STEP register, which holds the offset
-of the correction field in the Sync frame and tells the hardware whether
-the UDP checksum needs to be updated. As the register is shared by all
-frames of the port, one-step Sync frames have to be sent one at a time.
-Therefore, let the tagger hand each one-step Sync over to the switch
-driver, which queues it on a per-port queue and drains the queue from a
-work.
+I reviewed the trace. It does have a different 5e c5 50/00 command as
+you added. Did you try values other than 0x50?
 
-For every frame, the work reads the current PTP time, programs
-PM_SINGLE_STEP, writes the time into the originTimestamp field and lets
-the tagger insert a To_Port subtype 3 tag carrying the lower 30 bits of
-that time together with a timestamp request ID. The hardware captures
-the SFD transmit time, adds the difference between it and the software
-timestamp to the correction field, and sends a response frame echoing
-the request ID once the Sync frame has left the port. Receiving the
-response schedules the work for the next frame.
+Could you trace the init and suspend behavior with winpcap so we can
+see whether the device needs inits and whether it is sent something
+different than 0 brightness before sleep?
 
-A dropped frame produces no response, so reuse tstamp_timeout_work to
-reclaim its request ID after 5 seconds, which is far longer than the
-expected transmit time. Since the tag timestamp is only 30 bits wide
-and the hardware accounts for a single wrap at most, also schedule the
-work when the PTP time has advanced beyond NETC_ONESTEP_VALID_WINDOW
-since the in-flight frame was queued, as its correction field can no
-longer be computed correctly.
+Your patch does not introduce an init. Right now, this device has a
+0x5e and no init. Did you check if it is being sent in Windows? (I
+know the init is not required for ~80% of devices, but it would be
+good to get this correct).
 
-Signed-off-by: Wei Fang <wei.fang@nxp.com>
----
- drivers/net/dsa/netc/Kconfig          |   1 +
- drivers/net/dsa/netc/netc_main.c      |   7 +-
- drivers/net/dsa/netc/netc_ptp.c       | 361 +++++++++++++++++++++++++-
- drivers/net/dsa/netc/netc_switch.h    |  23 ++
- drivers/net/dsa/netc/netc_switch_hw.h |   5 +
- include/linux/dsa/tag_netc.h          |  17 ++
- net/dsa/tag_netc.c                    |  69 ++++-
- 7 files changed, 477 insertions(+), 6 deletions(-)
+Then, also try dropping ROG_XGM_REPORT_SIZE from
+buf[ROG_XGM_REPORT_SIZE] to verify if the buffer needs to be that
+actual size, because it would be the first device in hid-asus to need
+it.
 
-diff --git a/drivers/net/dsa/netc/Kconfig b/drivers/net/dsa/netc/Kconfig
-index 8770b65d0f62..7c930579f1c9 100644
---- a/drivers/net/dsa/netc/Kconfig
-+++ b/drivers/net/dsa/netc/Kconfig
-@@ -5,6 +5,7 @@ config NET_DSA_NETC_SWITCH
- 	depends on NET_DSA && PCI
- 	depends on NET_VENDOR_FREESCALE
- 	depends on PTP_1588_CLOCK_OPTIONAL
-+	depends on PTP_NETC_V4_TIMER || PTP_NETC_V4_TIMER=n
- 	select NET_DSA_TAG_NETC
- 	select FSL_ENETC_MDIO
- 	select NXP_NTMP
-diff --git a/drivers/net/dsa/netc/netc_main.c b/drivers/net/dsa/netc/netc_main.c
-index 03200fc63a09..af39a71aece0 100644
---- a/drivers/net/dsa/netc/netc_main.c
-+++ b/drivers/net/dsa/netc/netc_main.c
-@@ -75,6 +75,7 @@ static int netc_connect_tag_protocol(struct dsa_switch *ds,
- 
- 	tagger_data = ds->tagger_data;
- 	tagger_data->txtstamp_handler = netc_port_txtstamp_handler;
-+	tagger_data->onestep_sync_enqueue = netc_port_onestep_sync_enqueue;
- 
- 	return 0;
- }
-@@ -94,7 +95,7 @@ static void netc_port_rmw(struct netc_port *np, u32 reg,
- 	netc_port_wr(np, reg, new);
- }
- 
--static void netc_mac_port_wr(struct netc_port *np, u32 reg, u32 val)
-+void netc_mac_port_wr(struct netc_port *np, u32 reg, u32 val)
- {
- 	if (is_netc_pseudo_port(np))
- 		return;
-@@ -1571,6 +1572,7 @@ static int netc_port_enable(struct dsa_switch *ds, int port,
- 		return err;
- 	}
- 
-+	netc_port_enable_onestep(np);
- 	np->enable = true;
- 
- 	return 0;
-@@ -1588,6 +1590,7 @@ static void netc_port_disable(struct dsa_switch *ds, int port)
- 	if (!np->enable)
- 		return;
- 
-+	netc_port_disable_onestep(np);
- 	clk_disable_unprepare(np->ref_clk);
- 	np->enable = false;
- }
-@@ -2441,6 +2444,7 @@ static void netc_mac_link_up(struct phylink_config *config,
- 	netc_port_set_rx_pause(np, rx_pause);
- 	netc_port_mac_tx_enable(np);
- 	netc_port_mac_rx_enable(np);
-+	netc_port_enable_onestep(np);
- }
- 
- static void netc_mac_link_down(struct phylink_config *config,
-@@ -2451,6 +2455,7 @@ static void netc_mac_link_down(struct phylink_config *config,
- 	struct netc_port *np;
- 
- 	np = NETC_PORT(dp->ds, dp->index);
-+	netc_port_disable_onestep(np);
- 	netc_port_mac_rx_graceful_stop(np);
- 	netc_port_mac_tx_graceful_stop(np);
- 	netc_port_remove_dynamic_entries(np);
-diff --git a/drivers/net/dsa/netc/netc_ptp.c b/drivers/net/dsa/netc/netc_ptp.c
-index 2e743443ca03..1bc0f0956206 100644
---- a/drivers/net/dsa/netc/netc_ptp.c
-+++ b/drivers/net/dsa/netc/netc_ptp.c
-@@ -11,6 +11,15 @@
- 
- #define NETC_NUM_TS_REQ_ID		16
- #define NETC_TSTAMP_TIMEOUT		(5 * HZ)
-+#define NETC_MAX_STEP_OFFSET		0x1ff
-+#define NETC_ONESTEP_QTH		512
-+/* The 30-bit timestamp of the To_Port subtype 3 tag lets the hardware
-+ * account for a single wrap, so the correction field of a one-step Sync
-+ * frame is only correct if it is sent out within 2^30 ns after the
-+ * software timestamp is read. Past this window the frame is beyond
-+ * repair, and PM_SINGLE_STEP becomes safe to reprogram.
-+ */
-+#define NETC_ONESTEP_VALID_WINDOW	0x40000000 /* ns */
- 
- static void netc_port_tstamp_timeout_work(struct work_struct *work)
- {
-@@ -68,12 +77,276 @@ static int netc_get_ts_req_id(struct netc_port *np)
- 	return ts_req_id;
- }
- 
-+static int netc_get_phc_time(struct netc_switch *priv, u64 *ns)
-+{
-+	if (unlikely(!priv->tmr_dev))
-+		return -ENODEV;
-+
-+	return netc_timer_get_current_time(priv->tmr_dev, ns);
-+}
-+
-+static void netc_port_set_onestep_control(struct netc_port *np,
-+					  bool csum_update, int offset)
-+{
-+	u32 val;
-+
-+	val = PM_SINGLE_STEP_EN | FIELD_PREP(PM_SINGLE_STEP_OFFSET, offset);
-+	if (csum_update)
-+		val |= PM_SINGLE_STEP_CH;
-+	netc_mac_port_wr(np, NETC_PM_SINGLE_STEP(0), val);
-+}
-+
-+static void netc_port_program_onestep(struct netc_port *np,
-+				      struct sk_buff *skb)
-+{
-+	u16 correction_offset = NETC_SKB_CB(skb)->correction_offset;
-+	u16 tstamp_offset = NETC_SKB_CB(skb)->timestamp_offset;
-+	u64 tstamp = NETC_SKB_CB(skb)->tstamp;
-+	u8 *hdr = skb_mac_header(skb);
-+	bool csum_update = false;
-+	__be32 new_sec_l, new_ns;
-+	__be16 new_sec_h;
-+	u64 sec;
-+	u32 ns;
-+
-+	/* Update originTimestamp field of Sync packet
-+	 * - 48 bits seconds field
-+	 * - 32 bits nanoseconds field
-+	 */
-+	sec = div_u64_rem(tstamp, NSEC_PER_SEC, &ns);
-+	new_sec_h = htons((sec >> 32) & 0xffff);
-+	new_sec_l = htonl(sec & 0xffffffff);
-+	new_ns = htonl(ns);
-+
-+	if (NETC_SKB_CB(skb)->is_udp) {
-+		__be32 old_sec_l, old_ns;
-+		struct udphdr *uh;
-+		__be16 old_sec_h;
-+
-+		if (skb->ip_summed == CHECKSUM_PARTIAL) {
-+			csum_update = true;
-+			goto update_timestamp;
-+		}
-+
-+		if (unlikely(!skb_transport_header_was_set(skb)))
-+			uh = (struct udphdr *)(hdr + tstamp_offset -
-+					       sizeof(struct ptp_header) -
-+					       sizeof(struct udphdr));
-+		else
-+			uh = udp_hdr(skb);
-+
-+		/* For IPv4, a UDP checksum of zero on the wire means "no
-+		 * checksum". For IPv6, its UDP checksum is mandatory and
-+		 * never zero.
-+		 */
-+		if (!uh->check)
-+			goto update_timestamp;
-+
-+		old_sec_h = __get_unaligned_t(__be16, hdr + tstamp_offset);
-+		old_sec_l = __get_unaligned_t(__be32, hdr + tstamp_offset + 2);
-+		old_ns = __get_unaligned_t(__be32, hdr + tstamp_offset + 6);
-+		inet_proto_csum_replace2(&uh->check, skb, old_sec_h,
-+					 new_sec_h, false);
-+		inet_proto_csum_replace4(&uh->check, skb, old_sec_l,
-+					 new_sec_l, false);
-+		inet_proto_csum_replace4(&uh->check, skb, old_ns,
-+					 new_ns, false);
-+		csum_update = true;
-+	}
-+
-+update_timestamp:
-+	__put_unaligned_t(__be16, new_sec_h, hdr + tstamp_offset);
-+	__put_unaligned_t(__be32, new_sec_l, hdr + tstamp_offset + 2);
-+	__put_unaligned_t(__be32, new_ns, hdr + tstamp_offset + 6);
-+
-+	netc_port_set_onestep_control(np, csum_update, correction_offset);
-+}
-+
-+void netc_port_disable_onestep(struct netc_port *np)
-+{
-+	struct sk_buff_head free_list;
-+
-+	if (!dsa_port_is_user(np->dp))
-+		return;
-+
-+	__skb_queue_head_init(&free_list);
-+
-+	spin_lock_bh(&np->onestep_lock);
-+	skb_queue_splice_init(&np->onestep_queue, &free_list);
-+	np->onestep_state = NETC_ONESTEP_PORT_INACTIVE;
-+	spin_unlock_bh(&np->onestep_lock);
-+
-+	cancel_work_sync(&np->onestep_work);
-+	__skb_queue_purge(&free_list);
-+}
-+
-+void netc_port_enable_onestep(struct netc_port *np)
-+{
-+	if (!dsa_port_is_user(np->dp))
-+		return;
-+
-+	spin_lock_bh(&np->onestep_lock);
-+	np->onestep_state = NETC_ONESTEP_IDLE;
-+	spin_unlock_bh(&np->onestep_lock);
-+}
-+
-+static void netc_port_purge_onestep_queue(struct netc_port *np)
-+{
-+	struct sk_buff_head free_list;
-+
-+	__skb_queue_head_init(&free_list);
-+
-+	spin_lock_bh(&np->onestep_lock);
-+	skb_queue_splice_init(&np->onestep_queue, &free_list);
-+	spin_unlock_bh(&np->onestep_lock);
-+
-+	__skb_queue_purge(&free_list);
-+}
-+
-+static void netc_port_onestep_work(struct work_struct *work)
-+{
-+	struct netc_port *np = container_of(work, struct netc_port,
-+					    onestep_work);
-+	struct netc_switch *priv = np->switch_priv;
-+	struct netc_tagger_data *tagger_data;
-+	struct sk_buff *clone = NULL;
-+	struct sk_buff *skb = NULL;
-+	int ts_req_id;
-+	u64 tstamp;
-+
-+	spin_lock_bh(&np->onestep_lock);
-+
-+	if (unlikely(np->onestep_state == NETC_ONESTEP_PORT_INACTIVE))
-+		goto purge_onestep_queue;
-+
-+skb_dequeue:
-+	skb = __skb_dequeue(&np->onestep_queue);
-+	if (!skb)
-+		goto set_onestep_state_idle;
-+
-+	/* Clone is a ts_req_id token only; its payload is never read, so
-+	 * sharing the buffer with the mutated original is fine.
-+	 */
-+	clone = skb_clone(skb, GFP_ATOMIC);
-+	if (unlikely(!clone)) {
-+		kfree_skb(skb);
-+		goto skb_dequeue;
-+	}
-+
-+	spin_lock_bh(&np->tstamp_lock);
-+	ts_req_id = netc_get_ts_req_id(np);
-+	if (unlikely(ts_req_id < 0)) {
-+		spin_unlock_bh(&np->tstamp_lock);
-+
-+		/* Re-queuing the frame and immediately rescheduling the work
-+		 * would busy-loop on system_percpu_wq and burn CPU until an
-+		 * ID is freed, so drop this frame and move on to the next one
-+		 * in the queue instead.
-+		 */
-+		np->onestep_state = NETC_ONESTEP_SCHEDULED;
-+		schedule_work(&np->onestep_work);
-+
-+		goto onestep_unlock;
-+	}
-+
-+	/* PHC is unavailable, drop the whole queue */
-+	if (unlikely(netc_get_phc_time(priv, &tstamp))) {
-+		spin_unlock_bh(&np->tstamp_lock);
-+		goto set_onestep_state_idle;
-+	}
-+
-+	NETC_SKB_CB(skb)->tstamp = tstamp;
-+	NETC_SKB_CB(skb)->ts_req_id = ts_req_id;
-+	NETC_SKB_CB(skb)->ptp_flag = NETC_PTP_FLAG_ONESTEP;
-+	NETC_SKB_CB(clone)->ts_req_id = ts_req_id;
-+	NETC_SKB_CB(clone)->ptp_tx_time = jiffies_64;
-+	NETC_SKB_CB(clone)->ptp_flag = NETC_PTP_FLAG_ONESTEP;
-+	np->onestep_tx_time = NETC_SKB_CB(clone)->ptp_tx_time;
-+	np->onestep_ts_req_id = ts_req_id;
-+
-+	__skb_queue_tail(&np->tstamp_queue, clone);
-+	if (!delayed_work_pending(&np->tstamp_timeout_work))
-+		schedule_delayed_work(&np->tstamp_timeout_work,
-+				      NETC_TSTAMP_TIMEOUT);
-+
-+	spin_unlock_bh(&np->tstamp_lock);
-+
-+	np->onestep_state = NETC_ONESTEP_IN_FLIGHT;
-+	spin_unlock_bh(&np->onestep_lock);
-+
-+	netc_port_program_onestep(np, skb);
-+	tagger_data = priv->ds->tagger_data;
-+	tagger_data->onestep_sync_xmit(skb, np->dp->user);
-+
-+	return;
-+
-+set_onestep_state_idle:
-+	np->onestep_state = NETC_ONESTEP_IDLE;
-+purge_onestep_queue:
-+	__skb_queue_purge(&np->onestep_queue);
-+onestep_unlock:
-+	spin_unlock_bh(&np->onestep_lock);
-+	kfree_skb(skb);
-+	kfree_skb(clone);
-+}
-+
-+static bool netc_onestep_timeout(struct netc_port *np)
-+{
-+	u64 expire_time;
-+
-+	/* Use monotonic jiffies_64, as the PHC may be stepped backwards.
-+	 * Add one tick since the ns-to-jiffies conversion rounds down, so
-+	 * the software window is never shorter than the hardware window.
-+	 */
-+	expire_time = np->onestep_tx_time + 1 +
-+		      nsecs_to_jiffies64(NETC_ONESTEP_VALID_WINDOW);
-+	if (np->onestep_state == NETC_ONESTEP_IN_FLIGHT &&
-+	    time_after64(jiffies_64, expire_time))
-+		return true;
-+
-+	return false;
-+}
-+
-+void netc_port_onestep_sync_enqueue(struct dsa_switch *ds, int port,
-+				    struct sk_buff *skb)
-+{
-+	struct netc_port *np = NETC_PORT(ds, port);
-+
-+	spin_lock_bh(&np->onestep_lock);
-+	if (unlikely(np->onestep_state == NETC_ONESTEP_PORT_INACTIVE)) {
-+		kfree_skb(skb);
-+		goto onestep_unlock;
-+	}
-+
-+	if (unlikely(skb_queue_len(&np->onestep_queue) >= NETC_ONESTEP_QTH)) {
-+		dev_dbg_ratelimited(np->switch_priv->dev,
-+				    "The onestep_queue of port %d is full\n",
-+				    port);
-+		kfree_skb(skb);
-+		goto onestep_unlock;
-+	}
-+
-+	__skb_queue_tail(&np->onestep_queue, skb);
-+	if (likely(np->onestep_state == NETC_ONESTEP_IDLE) ||
-+	    netc_onestep_timeout(np)) {
-+		np->onestep_state = NETC_ONESTEP_SCHEDULED;
-+		schedule_work(&np->onestep_work);
-+	}
-+
-+onestep_unlock:
-+	spin_unlock_bh(&np->onestep_lock);
-+}
-+
- int netc_port_ptp_init(struct netc_port *np)
- {
- 	/* Initialize to invalid entry IDs */
- 	for (int i = 0; i < NETC_PTP_MAX; i++)
- 		np->ptp_ipft_eid[i] = NTMP_NULL_ENTRY_ID;
- 
-+	spin_lock_init(&np->onestep_lock);
-+	__skb_queue_head_init(&np->onestep_queue);
-+	INIT_WORK(&np->onestep_work, netc_port_onestep_work);
-+
- 	spin_lock_init(&np->tstamp_lock);
- 	__skb_queue_head_init(&np->tstamp_queue);
- 	INIT_DELAYED_WORK(&np->tstamp_timeout_work,
-@@ -116,7 +389,8 @@ int netc_get_ts_info(struct dsa_switch *ds, int port,
- 				 SOF_TIMESTAMPING_RX_HARDWARE |
- 				 SOF_TIMESTAMPING_RAW_HARDWARE;
- 
--	info->tx_types = BIT(HWTSTAMP_TX_OFF) | BIT(HWTSTAMP_TX_ON);
-+	info->tx_types = BIT(HWTSTAMP_TX_OFF) | BIT(HWTSTAMP_TX_ON) |
-+			 BIT(HWTSTAMP_TX_ONESTEP_SYNC);
- 
- 	info->rx_filters = BIT(HWTSTAMP_FILTER_NONE) |
- 			   BIT(HWTSTAMP_FILTER_PTP_V2_EVENT) |
-@@ -342,6 +616,7 @@ int netc_port_hwtstamp_set(struct dsa_switch *ds, int port,
- 		return -EOPNOTSUPP;
- 
- 	switch (config->tx_type) {
-+	case HWTSTAMP_TX_ONESTEP_SYNC:
- 	case HWTSTAMP_TX_ON:
- 	case HWTSTAMP_TX_OFF:
- 		break;
-@@ -379,6 +654,9 @@ int netc_port_hwtstamp_set(struct dsa_switch *ds, int port,
- 	}
- 
- 	WRITE_ONCE(np->ptp_tx_type, config->tx_type);
-+	if (config->tx_type != HWTSTAMP_TX_ONESTEP_SYNC)
-+		netc_port_purge_onestep_queue(np);
-+
- 	config->rx_filter = rx_filter;
- 
- 	return 0;
-@@ -395,6 +673,66 @@ int netc_port_hwtstamp_get(struct dsa_switch *ds, int port,
- 	return 0;
- }
- 
-+static void netc_port_prepare_onestep_sync(struct netc_port *np,
-+					   struct sk_buff *skb,
-+					   u32 ptp_class, bool *twostep)
-+{
-+	struct netc_switch *priv = np->switch_priv;
-+	u16 correction_offset, tstamp_offset;
-+	struct ptp_header *ptp_hdr;
-+	u8 msg_type, twostep_flag;
-+	bool is_udp = false;
-+	u32 pkt_type;
-+	u8 *pkt_hdr;
-+
-+	if (unlikely(skb_linearize_cow(skb)))
-+		goto set_ptp_flag_drop;
-+
-+	ptp_hdr = ptp_parse_header(skb, ptp_class);
-+	if (unlikely(!ptp_hdr))
-+		goto set_ptp_flag_drop;
-+
-+	msg_type = ptp_get_msgtype(ptp_hdr, ptp_class);
-+	twostep_flag = ptp_hdr->flag_field[0] & 0x2;
-+	if (msg_type != PTP_MSGTYPE_SYNC || twostep_flag != 0) {
-+		*twostep = true;
-+		return;
-+	}
-+
-+	pkt_hdr = skb_mac_header(skb);
-+	correction_offset = (u8 *)&ptp_hdr->correction - pkt_hdr;
-+	tstamp_offset = (u8 *)ptp_hdr + sizeof(*ptp_hdr) - pkt_hdr;
-+
-+	/* Ensure that the entire originTimestamp field is present in the
-+	 * linear buffer of the skb and the correction_offset must be within
-+	 * the hardware capability.
-+	 */
-+	if (unlikely(tstamp_offset + 10 > skb_headlen(skb) ||
-+		     correction_offset > NETC_MAX_STEP_OFFSET))
-+		goto set_ptp_flag_drop;
-+
-+	pkt_type = ptp_class & PTP_CLASS_PMASK;
-+	if (pkt_type == PTP_CLASS_IPV4 || pkt_type == PTP_CLASS_IPV6)
-+		is_udp = true;
-+
-+	NETC_SKB_CB(skb)->correction_offset = correction_offset;
-+	NETC_SKB_CB(skb)->timestamp_offset = tstamp_offset;
-+	NETC_SKB_CB(skb)->is_udp = is_udp;
-+	NETC_SKB_CB(skb)->ptp_flag = NETC_PTP_FLAG_ONESTEP;
-+
-+	return;
-+
-+set_ptp_flag_drop:
-+	/* Drop instead of falling back to two-step: if it is a Sync,
-+	 * one-step offload will not be executed, the timestamp in the
-+	 * frame is inaccurate, which may affect PTP synchronization.
-+	 */
-+	NETC_SKB_CB(skb)->ptp_flag = NETC_PTP_FLAG_DROP;
-+	dev_dbg_ratelimited(priv->dev,
-+			    "Port %d: PTP frame dropped in error\n",
-+			    np->dp->index);
-+}
-+
- static void netc_port_prepare_twostep(struct netc_port *np,
- 				      struct sk_buff *nskb)
- {
-@@ -449,6 +787,21 @@ void netc_port_txtstamp_handler(struct dsa_switch *ds, int port,
- 		dev_dbg_ratelimited(np->switch_priv->dev,
- 				    "Port %d ts_req_id %u which seems lost\n",
- 				    port, ts_req_id);
-+
-+		return;
-+	}
-+
-+	if (NETC_SKB_CB(skb_match)->ptp_flag == NETC_PTP_FLAG_ONESTEP) {
-+		spin_lock_bh(&np->onestep_lock);
-+		if (likely(np->onestep_state == NETC_ONESTEP_IN_FLIGHT &&
-+			   np->onestep_ts_req_id == ts_req_id) ||
-+		    np->onestep_state == NETC_ONESTEP_IDLE) {
-+			np->onestep_state = NETC_ONESTEP_SCHEDULED;
-+			schedule_work(&np->onestep_work);
-+		}
-+		spin_unlock_bh(&np->onestep_lock);
-+		consume_skb(skb_match);
-+
- 		return;
- 	}
- 
-@@ -472,6 +825,7 @@ bool netc_port_rxtstamp(struct dsa_switch *ds, int port, struct sk_buff *skb,
- void netc_port_txtstamp(struct dsa_switch *ds, int port, struct sk_buff *skb)
- {
- 	struct netc_port *np = NETC_PORT(ds, port);
-+	bool twostep = false;
- 	u32 ptp_class;
- 	int tx_type;
- 
-@@ -487,6 +841,9 @@ void netc_port_txtstamp(struct dsa_switch *ds, int port, struct sk_buff *skb)
- 		return;
- 
- 	tx_type = READ_ONCE(np->ptp_tx_type);
--	if (tx_type == HWTSTAMP_TX_ON)
-+	if (tx_type == HWTSTAMP_TX_ONESTEP_SYNC)
-+		netc_port_prepare_onestep_sync(np, skb, ptp_class, &twostep);
-+
-+	if (tx_type == HWTSTAMP_TX_ON || twostep)
- 		netc_port_prepare_twostep(np, skb);
- }
-diff --git a/drivers/net/dsa/netc/netc_switch.h b/drivers/net/dsa/netc/netc_switch.h
-index a1f4b1bc04cb..624cf323c9a6 100644
---- a/drivers/net/dsa/netc/netc_switch.h
-+++ b/drivers/net/dsa/netc/netc_switch.h
-@@ -87,6 +87,13 @@ enum netc_host_reason {
- 	NETC_HR_PTP_TRAP   = 9,
- };
- 
-+enum netc_onestep_state {
-+	NETC_ONESTEP_IDLE	= 0,
-+	NETC_ONESTEP_SCHEDULED,
-+	NETC_ONESTEP_IN_FLIGHT,
-+	NETC_ONESTEP_PORT_INACTIVE,
-+};
-+
- struct netc_port {
- 	void __iomem *iobase;
- 	struct netc_switch *switch_priv;
-@@ -102,6 +109,17 @@ struct netc_port {
- 	u16 pvid;
- 	u32 ipft_hf_eid; /* Must be initialized to NTMP_NULL_ENTRY_ID */
- 
-+	/* Serialize access to onestep_queue, onestep_state and
-+	 * onestep_tx_time
-+	 */
-+	spinlock_t onestep_lock;
-+	u8 onestep_state;
-+	u8 onestep_ts_req_id;
-+	u64 onestep_tx_time;
-+	/* skb queue for one-step Sync frames */
-+	struct sk_buff_head onestep_queue;
-+	struct work_struct onestep_work;
-+
- 	/* Serialize access to tstamp_queue */
- 	spinlock_t tstamp_lock;
- 	/* skb queue for TX timestamp frames */
-@@ -213,6 +231,7 @@ static inline void netc_del_vlan_entry(struct netc_vlan_entry *entry)
- }
- 
- int netc_switch_platform_probe(struct netc_switch *priv);
-+void netc_mac_port_wr(struct netc_port *np, u32 reg, u32 val);
- 
- /* ethtool APIs */
- void netc_port_get_pause_stats(struct dsa_switch *ds, int port,
-@@ -244,5 +263,9 @@ void netc_port_txtstamp_handler(struct dsa_switch *ds, int port,
- bool netc_port_rxtstamp(struct dsa_switch *ds, int port, struct sk_buff *skb,
- 			unsigned int type);
- void netc_port_txtstamp(struct dsa_switch *ds, int port, struct sk_buff *skb);
-+void netc_port_disable_onestep(struct netc_port *np);
-+void netc_port_enable_onestep(struct netc_port *np);
-+void netc_port_onestep_sync_enqueue(struct dsa_switch *ds, int port,
-+				    struct sk_buff *skb);
- 
- #endif
-diff --git a/drivers/net/dsa/netc/netc_switch_hw.h b/drivers/net/dsa/netc/netc_switch_hw.h
-index 1404ae41c7bc..37d1dd7ec2c7 100644
---- a/drivers/net/dsa/netc/netc_switch_hw.h
-+++ b/drivers/net/dsa/netc/netc_switch_hw.h
-@@ -203,6 +203,11 @@ enum netc_stg_stage {
- #define   SSP_10M			1
- #define   SSP_1G			2
- 
-+#define NETC_PM_SINGLE_STEP(a)		(0x10c0 + (a) * 0x400)
-+#define  PM_SINGLE_STEP_CH		BIT(6)
-+#define  PM_SINGLE_STEP_OFFSET		GENMASK(15, 7)
-+#define  PM_SINGLE_STEP_EN		BIT(31)
-+
- /* Port MAC 0/1 Receive Ethernet Octets Counter */
- #define NETC_PM_REOCT(a)		(0x1100 + (a) * 0x400)
- 
-diff --git a/include/linux/dsa/tag_netc.h b/include/linux/dsa/tag_netc.h
-index 5a567af20094..baf0f93bd994 100644
---- a/include/linux/dsa/tag_netc.h
-+++ b/include/linux/dsa/tag_netc.h
-@@ -10,7 +10,9 @@
- #include <net/dsa.h>
- 
- #define NETC_TAG_MAX_LEN			14
-+#define NETC_PTP_FLAG_ONESTEP			BIT(0)
- #define NETC_PTP_FLAG_TWOSTEP			BIT(1)
-+#define NETC_PTP_FLAG_DROP			BIT(2)
- 
- struct netc_skb_cb {
- 	u64 ptp_tx_time;
-@@ -18,6 +20,9 @@ struct netc_skb_cb {
- 	bool rx_tstamp_valid;
- 	u8 ptp_flag;
- 	u8 ts_req_id;
-+	bool is_udp;
-+	u16 correction_offset;
-+	u16 timestamp_offset;
- };
- 
- #define NETC_SKB_CB(skb)	((struct netc_skb_cb *)((skb)->cb))
-@@ -26,10 +31,22 @@ struct netc_skb_cb {
-  * struct netc_tagger_data - NETC tagger/switch-driver shared operations
-  * @txtstamp_handler: Called by the tagger when a two-step transmit timestamp
-  *	response is received, to deliver the timestamp to the switch driver.
-+ * @onestep_sync_enqueue: Called from the tagger xmit path for a one-step Sync
-+ *	frame. The switch driver takes ownership of the skb and queues it for
-+ *	deferred transmission from process context, where the shared
-+ *	PM_SINGLE_STEP register can be programmed and the PTP timer read. The
-+ *	tagger must not touch the skb after this call and returns NULL to
-+ *	dsa_user_xmit().
-+ * @onestep_sync_xmit: Called by the switch driver to transmit a deferred
-+ *	one-step Sync frame directly to the conduit, bypassing dsa_user_xmit().
-  */
- struct netc_tagger_data {
- 	void (*txtstamp_handler)(struct dsa_switch *ds, int port,
- 				 u8 ts_req_id, u64 ts);
-+	void (*onestep_sync_enqueue)(struct dsa_switch *ds, int port,
-+				     struct sk_buff *skb);
-+	netdev_tx_t (*onestep_sync_xmit)(struct sk_buff *skb,
-+					 struct net_device *ndev);
- };
- 
- #endif
-diff --git a/net/dsa/tag_netc.c b/net/dsa/tag_netc.c
-index 6b492451d092..c1c0ffee75c1 100644
---- a/net/dsa/tag_netc.c
-+++ b/net/dsa/tag_netc.c
-@@ -18,6 +18,8 @@
- #define NETC_TAG_TP_SUBTYPE0		0
- /* SubType2: Request to perform two-step timestamping */
- #define NETC_TAG_TP_SUBTYPE2		2
-+/* SubType3: Request to perform both one-step and two-step timestamping */
-+#define NETC_TAG_TP_SUBTYPE3		3
- 
- /* To_Host NXP switch tag */
- #define NETC_TAG_TO_HOST		2
-@@ -32,6 +34,7 @@
- #define NETC_TAG_FORWARD_LEN		6
- #define NETC_TAG_TP_SUBTYPE0_LEN	6
- #define NETC_TAG_TP_SUBTYPE2_LEN	6
-+#define NETC_TAG_TP_SUBTYPE3_LEN	10
- #define NETC_TAG_TH_SUBTYPE0_LEN	6
- #define NETC_TAG_TH_SUBTYPE1_LEN	14
- #define NETC_TAG_TH_SUBTYPE2_LEN	14
-@@ -44,6 +47,7 @@
- #define NETC_TAG_SWITCH			GENMASK(2, 0)
- #define NETC_TAG_PORT			GENMASK(7, 3)
- #define NETC_TAG_TS_REQ_ID		GENMASK(3, 0)
-+#define NETC_TAG_TIMESTAMP		GENMASK(29, 0)
- 
- struct netc_tag_cmn {
- 	__be16 tpid;
-@@ -57,6 +61,12 @@ struct netc_tag_tp_subtype2 {
- 	u8 ts_req_id;
- } __packed;
- 
-+struct netc_tag_tp_subtype3 {
-+	struct netc_tag_cmn cmn;
-+	u8 ts_req_id;
-+	__be32 timestamp;
-+} __packed;
-+
- struct netc_tag_th_subtype1 {
- 	struct netc_tag_cmn cmn;
- 	u8 host_reason;
-@@ -129,17 +139,69 @@ static void netc_fill_tp_tag_subtype2(struct sk_buff *skb,
- 	tag->ts_req_id = FIELD_PREP(NETC_TAG_TS_REQ_ID, ts_req_id);
- }
- 
-+static void netc_fill_tp_tag_subtype3(struct sk_buff *skb,
-+				      struct net_device *ndev)
-+{
-+	u32 ts = FIELD_PREP(NETC_TAG_TIMESTAMP, NETC_SKB_CB(skb)->tstamp);
-+	u8 ts_req_id = NETC_SKB_CB(skb)->ts_req_id;
-+	struct netc_tag_tp_subtype3 *tag;
-+
-+	tag = netc_fill_common_tp_tag(skb, ndev, NETC_TAG_TP_SUBTYPE3,
-+				      NETC_TAG_TP_SUBTYPE3_LEN);
-+	tag->ts_req_id = FIELD_PREP(NETC_TAG_TS_REQ_ID, ts_req_id);
-+	tag->timestamp = htonl(ts);
-+}
-+
-+static void netc_onestep_sync_enqueue(struct sk_buff *skb,
-+				      struct net_device *ndev)
-+{
-+	struct dsa_port *dp = dsa_user_to_port(ndev);
-+	struct netc_tagger_data *tagger_data;
-+
-+	tagger_data = dp->ds->tagger_data;
-+	if (unlikely(!tagger_data->onestep_sync_enqueue)) {
-+		kfree_skb(skb);
-+		return;
-+	}
-+
-+	/* Hand the one-step Sync to the switch driver, which takes ownership
-+	 * and queues it for deferred transmission from its work. The tagger
-+	 * must not touch the skb after this point.
-+	 */
-+	tagger_data->onestep_sync_enqueue(dp->ds, dp->index, skb);
-+}
-+
-+static netdev_tx_t netc_onestep_sync_xmit(struct sk_buff *skb,
-+					  struct net_device *dev)
-+{
-+	netc_fill_tp_tag_subtype3(skb, dev);
-+
-+	return dsa_enqueue_skb(skb, dev);
-+}
-+
- static struct sk_buff *netc_xmit(struct sk_buff *skb,
- 				 struct net_device *ndev)
- {
- 	u8 ptp_flag = NETC_SKB_CB(skb)->ptp_flag;
- 
- 	/* Fast path: the overwhelming majority of frames are not PTP frames */
--	if (likely(!ptp_flag))
-+	if (likely(!ptp_flag)) {
- 		netc_fill_tp_tag_subtype0(skb, ndev);
--	else
--		/* ptp_flag == NETC_PTP_FLAG_TWOSTEP */
-+	} else if (ptp_flag == NETC_PTP_FLAG_TWOSTEP) {
- 		netc_fill_tp_tag_subtype2(skb, ndev);
-+	} else if (ptp_flag == NETC_PTP_FLAG_ONESTEP) {
-+		/* The switch driver takes ownership of the one-step Sync and
-+		 * queues it for deferred TX; the deferred work tags it subtype
-+		 * 3 and transmits it directly to the conduit. Return NULL so
-+		 * dsa_user_xmit() stops processing this skb.
-+		 */
-+		netc_onestep_sync_enqueue(skb, ndev);
-+		skb = NULL;
-+	} else {
-+		/* NETC_PTP_FLAG_DROP */
-+		kfree_skb(skb);
-+		skb = NULL;
-+	}
- 
- 	return skb;
- }
-@@ -326,6 +388,7 @@ static int netc_connect(struct dsa_switch *ds)
- 	if (!tagger_data)
- 		return -ENOMEM;
- 
-+	tagger_data->onestep_sync_xmit = netc_onestep_sync_xmit;
- 	ds->tagger_data = tagger_data;
- 
- 	return 0;
--- 
-2.34.1
+Best,
+Antheas
+
+> The device I have here, the 2022 model and the 2023 are
+> not aura devices. They ignore aura commands as well as
+> everything else previously known.
+>
+> > If you are not going to incorporate feedback, you can remove me from
+> > cc in future versions and do as you wish.
+>
+> Fine by me, thanks anyway.
+>
+> > I will cleanup downstream if undesirable behaviors occur
+>
+> Freedom is important and I encourage you to exercise yours.
+>
+> > Best,
+> > Antheas
+>
+> Best regards,
+> Denis
+>
+> >>>>> The asusctl driver handles aura devices. However, instead of using the
+> >>>>> current aura cdev handler and init handling you introduce a SECOND ONE
+> >>>>> THAT DOES THE SAME THING and is not connected to the central keyboard
+> >>>>> brightness handler.
+> >>>> The current one is rooted in asus-wmi, has 0-3 brightness and
+> >>>> is for keyboards.
+> >>>>
+> >>>>> Why do you do that? Can you justify the new cdev? What's wrong with
+> >>>>> the normal one? Why do we need a new ABI just for the 2022-2024 eGPU
+> >>>>> models?
+> >>>> Yes: new xgm only needs hid-asus, has 0-1 brightness and is for
+> >>>> xg mobile. Code written for kbd_backlight that assumes 0-3
+> >>>> won't work on it.
+> >>>>
+> >>>> Also users may very well to be able to control the light of
+> >>>> the xgm separately from kbd_backlight because xgm led
+> >>>> is very bright and it's uncomfortable to look at unlike the
+> >>>> keyboard backlight.
+> >>>>
+> >>>> Another reason is that even in windows the lighting of
+> >>>> xgm is a totally separated option with just ON/OFF and
+> >>>> it's what users expect (this patch has been written on
+> >>>> input and capture from a 2022 xgm user on Discord).
+> >>>>
+> >>>> As for 2022-2024 eGPU models I don't really mean "do
+> >>>> things in a totally separated manner from 2025": code
+> >>>> can be reused but the code that can be reused might
+> >>>> be a small portion in comparison with what those
+> >>>> may need so I am skeptical in attempting to merge
+> >>>> the two paths entirely without knowing what
+> >>>> new models actually want to receive.
+> >>>>
+> >>>> I was suggesting not to try too hard to share the same
+> >>>> code path until you have figured out all required details.
+> >>>>
+> >>>> Beside these devices even have a different USB vid:pid
+> >>>> so it's not like what this patch does affects them in any
+> >>>> way unless we want to by using the same quirk.
+> >>> I haven't checked armoury crate yet. But the 2025 model is indeed 0-3
+> >>> so it can re-use the keyboard path with full compatibility, so for new
+> >>> xdg mobile devices I will base on NKEY.
+> >> Then I stand on the position of keeping these two separate.
+> >>
+> >>> If you are sure it is 0-1 only and 2-3 don't work correctly and
+> >>> shouldn't be merged, I guess you can go ahead. I would still try to
+> >>> avoid introducing a constant just for the XG mobile and instead
+> >>> increase the existing packet value from 64 to 300 as it is only used
+> >>> for reads.
+> >> AC has a toggle button ON/OFF on these so yeah I am very sure
+> >> it's not 0-3.
+> >>
+> >>> Only add a new constant if you are sure you need to have a 300 sized
+> >>> buffer to do the brightness write, and that hid-core already does not
+> >>> read the expected buffer size for that report and needs the actual
+> >>> buffer to be 300, and that the device does not accept a smaller buffer
+> >>> (since the driver does not do that already for all existing rog
+> >>> devices, it is very unlikely).
+> >>>
+> >>> If you decide to instead change the existing packet size, I would
+> >>> appreciate you re-use my first patch, put yourself as the primary
+> >>> author, and add me as a co-by. You can keep the rest of this patch as
+> >>> is and only change the referenced constant, and I will add my R-by on
+> >>> the next revision.
+> >> As I said I don't want to do things to diverge from what windows
+> >> does unless there is a good reason, so I will try not to do that
+> >> unless it's strictly needed and cannot be solved with a nice
+> >> drvdata->packet_length.
+> >>
+> >>> Best,
+> >>> Antheas
+> >>>
+> >>>>> I am not arguing on which command is correct to send. Keep the flow
+> >>>>> the same if you want
+> >>>>>
+> >>>>> Antheas
+> >>>>>
+> >>>>>>> Best,
+> >>>>>>> Antheas
+> >>>>>>>
+> >>>>>>>
+> >>>>>>>>  static int asus_input_configured(struct hid_device *hdev, struct hid_input *hi)
+> >>>>>>>>  {
+> >>>>>>>>         struct input_dev *input = hi->input;
+> >>>>>>>> @@ -1406,6 +1434,49 @@ static void asus_initialize_reports(struct hid_device *hdev)
+> >>>>>>>>         }
+> >>>>>>>>  }
+> >>>>>>>>
+> >>>>>>>> +static int asus_xgm_init(struct hid_device *hdev, struct asus_drvdata *drvdata)
+> >>>>>>>> +{
+> >>>>>>>> +       const char *name;
+> >>>>>>>> +       int ret;
+> >>>>>>>> +
+> >>>>>>>> +       drvdata->xgm_led = devm_kzalloc(&hdev->dev, sizeof(*drvdata->xgm_led), GFP_KERNEL);
+> >>>>>>>> +       if (drvdata->xgm_led == NULL)
+> >>>>>>>> +               return -ENOMEM;
+> >>>>>>>> +
+> >>>>>>>> +       name = devm_kasprintf(&hdev->dev, GFP_KERNEL, "asus:xgm-%s:led",
+> >>>>>>>> +                             strlen(hdev->uniq) ? hdev->uniq : dev_name(&hdev->dev));
+> >>>>>>>> +
+> >>>>>>>> +       if (name == NULL) {
+> >>>>>>>> +               ret = -ENOMEM;
+> >>>>>>>> +               goto asus_xgm_init_err;
+> >>>>>>>> +       }
+> >>>>>>>> +
+> >>>>>>>> +       drvdata->xgm_led->hdev = hdev;
+> >>>>>>>> +       drvdata->xgm_led->cdev.name = name;
+> >>>>>>>> +       drvdata->xgm_led->cdev.brightness = 1;
+> >>>>>>>> +       drvdata->xgm_led->cdev.max_brightness = 1;
+> >>>>>>>> +       drvdata->xgm_led->cdev.brightness_set_blocking = asus_xgm_led_set;
+> >>>>>>>> +       drvdata->xgm_led->cdev.flags = LED_CORE_SUSPENDRESUME;
+> >>>>>>>> +
+> >>>>>>>> +       /* LED state is arbitrary on boot, set a default */
+> >>>>>>>> +       ret = asus_xgm_led_set(&drvdata->xgm_led->cdev, drvdata->xgm_led->cdev.brightness);
+> >>>>>>>> +       if (ret) {
+> >>>>>>>> +               hid_err(hdev, "Asus failed to set xgm led: %d\n", ret);
+> >>>>>>>> +               goto asus_xgm_init_err;
+> >>>>>>>> +       }
+> >>>>>>>> +
+> >>>>>>>> +       ret = devm_led_classdev_register(&hdev->dev, &drvdata->xgm_led->cdev);
+> >>>>>>>> +       if (ret) {
+> >>>>>>>> +               hid_err(hdev, "Asus failed to register xgm led: %d\n", ret);
+> >>>>>>>> +               goto asus_xgm_init_err;
+> >>>>>>>> +       }
+> >>>>>>>> +
+> >>>>>>>> +       return 0;
+> >>>>>>>> +asus_xgm_init_err:
+> >>>>>>>> +       drvdata->xgm_led = NULL;
+> >>>>>>>> +       return ret;
+> >>>>>>>> +}
+> >>>>>>>> +
+> >>>>>>>>  static int __maybe_unused asus_resume(struct hid_device *hdev)
+> >>>>>>>>  {
+> >>>>>>>>         struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
+> >>>>>>>> @@ -1545,6 +1616,16 @@ static int asus_probe(struct hid_device *hdev, const struct hid_device_id *id)
+> >>>>>>>>         if (!drvdata->tp)
+> >>>>>>>>                 asus_initialize_reports(hdev);
+> >>>>>>>>
+> >>>>>>>> +       if (asus_has_report_id(hdev, FEATURE_KBD_REPORT_ID) &&
+> >>>>>>>> +           ((hdev->product == USB_DEVICE_ID_ASUSTEK_XGM_2022) ||
+> >>>>>>>> +            (hdev->product == USB_DEVICE_ID_ASUSTEK_XGM_2023))) {
+> >>>>>>>> +               ret = asus_xgm_init(hdev, drvdata);
+> >>>>>>>> +               if (ret) {
+> >>>>>>>> +                       hid_err(hdev, "Failed to initialize xg mobile: %d\n", ret);
+> >>>>>>>> +                       goto err_stop_hw;
+> >>>>>>>> +               }
+> >>>>>>>> +       }
+> >>>>>>>> +
+> >>>>>>>>         /* Laptops keyboard backlight is always at 0x5a */
+> >>>>>>>>         if (is_vendor && (drvdata->quirks & QUIRK_USE_KBD_BACKLIGHT) &&
+> >>>>>>>>             (asus_has_report_id(hdev, FEATURE_KBD_REPORT_ID)) &&
+> >>>>>>>> @@ -1594,6 +1675,9 @@ static void asus_remove(struct hid_device *hdev)
+> >>>>>>>>         if (drvdata->listener.brightness_set)
+> >>>>>>>>                 asus_hid_unregister_listener(&drvdata->listener);
+> >>>>>>>>
+> >>>>>>>> +       if (drvdata->xgm_led)
+> >>>>>>>> +               devm_led_classdev_unregister(&hdev->dev, &drvdata->xgm_led->cdev);
+> >>>>>>>> +
+> >>>>>>>>         asus_worker_stop(drvdata->worker);
+> >>>>>>>>         hid_hw_stop(hdev);
+> >>>>>>>>  }
+> >>>>>>>> --
+> >>>>>>>> 2.47.3
+> >>>>>>>>
+> >>>>>>>>
+>
 
