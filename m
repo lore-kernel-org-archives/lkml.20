@@ -1,244 +1,144 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB12B30BB8D;
-	Fri, 18 Sep 2026 04:05:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789704354; cv=fail; b=dChetyk8jmrrJzUlghtQL2MRVyhu9OyQvYCp9Rqa+ZLwARYFzASbsUyG8KCaMAd8YjN9DlQcBepVSAX3uIAMXBxTpKZxhQNOaipKrKm/PSRgWVjuilkLONoqOv3KL/UG1XMjh133H/RxGxcaLi2FBUt1/By7IU3mO/oX6XerM0Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789704354; c=relaxed/simple;
-	bh=2MILFJsiDrqCv2NswIkwxbniXNZRf0yfl6c5mwpQUFs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=LUKYwa3gTO569D7t/tlqcEWUJfdH/AF1JxJNtM1SlF63sTOURQOFolfh6KGQ6bCl+pDsX7D0rz3Jzrxijx/VBke8EB6RF/Pvawdh/H5IFbLtbnJLVM7KyLyusEoa+7vua3UHquWu4Icpy6MAa6Uim7ht+SAZQU3Go0/au5+GDyw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=h/6Zfr2y; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=FgzYCVFy; arc=fail smtp.client-ip=148.163.154.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="h/6Zfr2y";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="FgzYCVFy"
-Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I2VG7Y3382663;
-	Thu, 17 Sep 2026 23:05:46 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=AcALSr7YC0LhHgQ7pKQIMi6r9pkW2IuqFAuRALmUm
-	bM=; b=h/6Zfr2yvCdlwqKa1//LbZ69wxSTCqjLTl7ozUyoilAt6BB0Lun0bs7Lv
-	v9PuiKCChYFU4Xyfg8SuOdWoVXwFZHp78obmBMhbaWm+2JKbNDLq60XvP21SclzN
-	Q72zBmwvv4bMominbs1y838YCDs5ZbOKm7e9Swm4oPqWOVygYtyZOHUqtQS9skSW
-	K/5JXM/CjqvAEiUhVPXJNWn7LalOQIYPPzmk/5xoRo7teKUSaeKKdEVA8YDSF+r6
-	BhizbKPWX7+nlzlCmCSiCAKVSLl9Xo8uvGYDGskr/zMmkxhTmjUW5JCrdH/864Cf
-	XFeegI+gGIEWEEgmJH5Bl71DjY8nA==
-Received: from sa9pr02cu001.outbound.protection.outlook.com (mail-southcentralusazon11013062.outbound.protection.outlook.com [40.93.196.62])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4grqn028ur-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 17 Sep 2026 23:05:46 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iX9XZAvLDR5TAh8eJ5t2vbIDbUka6lYl1zuegZtNDq7o0p5MmsUoUvrzELaWw/zqnPDfdj3UVua9AeLT5ltD5p9DTmIdLc831fSqpIluRsCD023q4WY/KE1FaG4dS0kdmJnqdgMNdG0EW3JlHicyI4mCx2lIhdeW/R15fK80GACdns9waCLIEM2+oSPaWaM/sy9vygNUznVeVo6Icw3Lghp/rf176lYBCXuF+pNkun5iKKa9NdcZJJRbg+uDCwQN9zoCiR297UmanFxPO1jgoj3eIUeAqGOZ8T9YZFDNb9mAvQY9yB9egfOi1NaEDGYJbCMH8rovcmydvZWMUj5kRg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AcALSr7YC0LhHgQ7pKQIMi6r9pkW2IuqFAuRALmUmbM=;
- b=dIDALHZOF+dChV5jiEix2PeKwE0/eWRvPZ9h4bVCWPvJiNMItEuQhuHruEc1+hM+c37S6JVGubnpmXWezzy2Q5jSlIrjDUSh4gEgzZQu6cAmnfBAbsxc4/YSDUjpuo2WzWKBp+eDpmHQQwy4pLyQN22X6uZWRDjiAFXMz2YlcaD92jLLlto4Xe+J1kYaN1n/q310EuYOAkemLmUUQJKkOqzzxLngsnNkTtOQ39XMvLl4Kb1Q8W4WDmLs569jF8BiyqCO2Sz+uO//I5N9KbngqMzRaVSX7qyjCMrUZo6W03TUoI6O1qEBq/Nsit8WUNQYtYadOTT9VNSaxjSXu9GBBg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AcALSr7YC0LhHgQ7pKQIMi6r9pkW2IuqFAuRALmUmbM=;
- b=FgzYCVFyoHAgJINyuRYcgIDl25afMf6l45Zi5m5PjbefEH8dR5q3IOHDc0KYf20bDAPdeGcjDrj6OxYH+y5/2uNHT4ExA8CByfMki9CoR/GeKtpKJXUi2f557NsmA34Knd6basN+7+6ORynlCHsIHg8va9naiLieoddHr7zot4c=
-Received: from CH2PR03CA0003.namprd03.prod.outlook.com (2603:10b6:610:59::13)
- by SA1PR10MB7792.namprd10.prod.outlook.com (2603:10b6:806:3b5::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Fri, 18 Sep
- 2026 04:05:42 +0000
-Received: from CH1PEPF0000AD79.namprd04.prod.outlook.com
- (2603:10b6:610:59:cafe::70) by CH2PR03CA0003.outlook.office365.com
- (2603:10b6:610:59::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.12 via Frontend Transport; Fri,
- 18 Sep 2026 04:05:42 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
-Received: from lewvzet201.ext.ti.com (198.47.23.195) by
- CH1PEPF0000AD79.mail.protection.outlook.com (10.167.244.57) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Fri, 18 Sep 2026 04:05:42 +0000
-Received: from DLEE205.ent.ti.com (157.170.170.85) by lewvzet201.ext.ti.com
- (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 17 Sep
- 2026 23:05:27 -0500
-Received: from DLEE207.ent.ti.com (157.170.170.95) by DLEE205.ent.ti.com
- (157.170.170.85) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 17 Sep
- 2026 23:05:27 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE207.ent.ti.com
- (157.170.170.95) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Thu, 17 Sep 2026 23:05:27 -0500
-Received: from [172.24.28.100] (lt5cg60819vj.dhcp.ti.com [172.24.28.100])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68I45NPH986369;
-	Thu, 17 Sep 2026 23:05:23 -0500
-Message-ID: <dd95a15f-1ba0-4575-a0af-e0cb5ea5ec56@ti.com>
-Date: Fri, 18 Sep 2026 09:35:22 +0530
+Received: from mailgw1.hygon.cn (unknown [101.204.27.37])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CC407140E5F;
+	Fri, 18 Sep 2026 04:08:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.204.27.37
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789704552; cv=none; b=l8GJJ9M7DOaQna44BGy3HV9lz8oVzjH8jLHLoGXfLSIZTG0wx6qQ7nR69HQe9zfp7X7Sw8Qqr2/uEpRct4TWBFEiG8PriBndVzqhv+7LnNl83vDjiaTIZ6iuVSoHzgW2YZKwMBYRIwWP02Wi8tH+pnu1d9cgfNpoacAbaUKVyeo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789704552; c=relaxed/simple;
+	bh=8pzLUd9k5b+qBeH7Wtidx6o3EKNEy6VMXT6cnIaOPlk=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=TSbbcGUDwKFhR5gS8khSBFHLQSEZpSRpzTl3wmIgBHY9nuaEXtpMByyOXwgEsF2D3ynZMMw+I8cltK3ZqzugB0sWCiUdKecHUaE3MTlXjHWKwh1kYPgMQnQXC4VQGIWxLGYhcqQDAqmKXKWJh5alRPClyySeD0zh8iuP81V5mFk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn; spf=pass smtp.mailfrom=hygon.cn; arc=none smtp.client-ip=101.204.27.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
+Received: from maildlp1.hygon.cn (unknown [127.0.0.1])
+	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hmJyp3gVdzvRj9;
+	Fri, 18 Sep 2026 12:08:50 +0800 (CST)
+Received: from maildlp1.hygon.cn (unknown [172.23.18.60])
+	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hmJyn02pPzvRj9;
+	Fri, 18 Sep 2026 12:08:49 +0800 (CST)
+Received: from cncheex03.Hygon.cn (unknown [172.23.18.113])
+	by maildlp1.hygon.cn (Postfix) with ESMTPS id 96B55164E;
+	Fri, 18 Sep 2026 12:08:40 +0800 (CST)
+Received: from cncheex04.Hygon.cn (172.23.18.114) by cncheex03.Hygon.cn
+ (172.23.18.113) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Fri, 18 Sep
+ 2026 12:08:49 +0800
+Received: from cncheex04.Hygon.cn ([fe80::1b6f:6c58:58a4:430d]) by
+ cncheex04.Hygon.cn ([fe80::1b6f:6c58:58a4:430d%10]) with mapi id
+ 15.02.1544.036; Fri, 18 Sep 2026 12:08:49 +0800
+From: Jianyong Wu <wujianyong@hygon.cn>
+To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, Vincent Guittot
+	<vincent.guittot@linaro.org>
+CC: "viresh.kumar@linaro.org" <viresh.kumar@linaro.org>,
+	"kprateek.nayak@amd.com" <kprateek.nayak@amd.com>, "linux-pm@vger.kernel.org"
+	<linux-pm@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "ray.huang@amd.com" <ray.huang@amd.com>,
+	"mario.limonciello@amd.com" <mario.limonciello@amd.com>, "perry.yuan@amd.com"
+	<perry.yuan@amd.com>, "zhanjie9@hisilicon.com" <zhanjie9@hisilicon.com>,
+	"zhenglifeng1@huawei.com" <zhenglifeng1@huawei.com>, "pierre.gondois@arm.com"
+	<pierre.gondois@arm.com>, "sumitg@nvidia.com" <sumitg@nvidia.com>,
+	"srinivas.pandruvada@linux.intel.com" <srinivas.pandruvada@linux.intel.com>,
+	"hongyan.xia@transsion.com" <hongyan.xia@transsion.com>,
+	"zhongqiu.han@oss.qualcomm.com" <zhongqiu.han@oss.qualcomm.com>, Fengyu Wang
+	<wangfengyu@hygon.cn>, Yuan Zhong <zhongyuan@hygon.cn>, Huangsj
+	<huangsj@hygon.cn>, Ricardo Neri <ricardo.neri-calderon@linux.intel.com>
+Subject: Re: [PATCH] cpufreq: Use a non-boost reference frequency for pressure
+ calculation
+Thread-Topic: [PATCH] cpufreq: Use a non-boost reference frequency for
+ pressure calculation
+Thread-Index: AQHdROA84sx4SsqcvEWfPOLMo4juUrbShuMAgACwkgA=
+Date: Fri, 18 Sep 2026 04:08:49 +0000
+Message-ID: <B5C2AA60-4A07-45B6-AF06-3C5810E19F8C@hygon.cn>
+References: <20260915065747.1671965-1-wujianyong@hygon.cn>
+ <CAJZ5v0g2d6fY8hM0FVH8tiOUhXm0PZM+Qn7OxM9YNXm8i0pYmg@mail.gmail.com>
+In-Reply-To: <CAJZ5v0g2d6fY8hM0FVH8tiOUhXm0PZM+Qn7OxM9YNXm8i0pYmg@mail.gmail.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <56198BE12078074BAC1E942D2DA0899F@Hygon.cn>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] serial: 8250_dw: Add capability to skip empty FIFO
- read
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-CC: Moteen Shah <m-shah@ti.com>,
-        Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>, <krzk+dt@kernel.org>,
-        linux-serial
-	<linux-serial@vger.kernel.org>,
-        LKML <linux-kernel@vger.kernel.org>,
-        "Jiri
- Slaby" <jirislaby@kernel.org>, <devicetree@vger.kernel.org>,
-        <gehariprasath@ti.com>, <vigneshr@ti.com>, <nm@ti.com>,
-        <a-limaye@ti.com>, <y-abhilashchandra@ti.com>, <u-kumar1@ti.com>
-References: <20260916085520.2259420-1-m-shah@ti.com>
- <20260916085520.2259420-3-m-shah@ti.com>
- <5fe0efdf-6d61-dba4-9703-269dfd68ae13@linux.intel.com>
- <5801b899-8090-4bff-b4e2-c3e8c97b0eb3@ti.com>
- <d82f9326-6a01-2903-a1b7-b1617ca85db9@linux.intel.com>
-Content-Language: en-US
-From: "Kumar, Udit" <u-kumar1@ti.com>
-In-Reply-To: <d82f9326-6a01-2903-a1b7-b1617ca85db9@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD79:EE_|SA1PR10MB7792:EE_
-X-MS-Office365-Filtering-Correlation-Id: 43db1777-dd49-4c92-85b1-08df153a1b9f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|376014|23010399003|36860700016|56012099006|6133799003|22082099003|18002099003|4143699003|5023799004|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	4cGkCP+lU4KlhFvYtnrC3kdL4fB7Su7an3dz3YH1HgRKffDUeBzGjn7YMJ0M+9bXMvEdO9qzkBMCcg0TyXbGILEUXZVB8z8xxC5EsU+zzTFHFnuz44ZUw/drTY9PWtNdM53luRXdELF+UBCa6kbA+2ejmUTQeM5CunxgGaihrIO+AeeoakX0UebrXooBr3yDAY6LWcpjH1VTh8l6UCY55OpAeA/hxlgPtKtsGQfmf1Rkn2r4+I75XWnkP0ehL44TYGn7+oxMH/RqYOb7zy3K+SLQ0lShz6GNGbpemKjD1VkGlfisM1FWIUwkTWB0euQsFpCJoq0oZSuBpJ/ryi9mkGA/9w3pq62ryiMP2p8qcAYcfYcSaG1NXhrBLPVVtxPkbyKZhu9t3c1vHGE/eTGKvQHn0R0/1p8+6iJnqGtCe/M2SeC0gCIkdSZHX54qJrL5ZSAObS9QWUiFTdXMprQbMEf51OWivvHMN70ztT2OAGpC0HPnWXpcfamq3yBOaCHwM6LS/wz8bicF5urLvY9kxGzegr4xra6AyP9mDT55uZxt8M4zUjxupFKYYWsJuyaIh9hOtTIXoBsVWXXNS/PMlrUX0pRZFbtJAMQukeGQ/cfYvdUcCIA+oYiiJ0o4mYNvX9lLAG3eo1pwQowREXA4tXwdHzEKsFLTRBZP5WiWDsU=
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(23010399003)(36860700016)(56012099006)(6133799003)(22082099003)(18002099003)(4143699003)(5023799004)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	jh8uijmFnFiFoVn7W2YeM4OwFyv0UEQpv3mAJapxg1+zTxM2uTw5L4P18dA4ET7JCDL1oAT+Td8EpSXDSuL4Xsscj5kUxYX6WgS/vFx38XN0um2KAq72QUPsxf1j4TrSp0F8UcG1glZnp6gH6GpFZydVfFQLMc5m7BJX4MXew8S1YAtbQIYHMWFLJqEt1gHKvHOWqRYuyOfOCg51ZFvYbvS+iOfkZVYGlPOplDewfVuAlP/MsUk1h+oH5XNlsewHQik8SFUpyCNtZ+EHBgRZdY2M6yQuE6OJjUpKnAz3POQ086ZJYm4ZBd5ibIpgexFy0NEBxbjG+Zv0IfaG2ATpzEH8JWUxe0QZUkSOsosXhHgXltPZ1uqhKXyh3Ccpaim2IxS6DBkXIrNU9xAwBqdt+dXfD928GCMI9bsxlFqFsOGnyfmG76o8pAIO8wpLnfyo
-X-Exchange-RoutingPolicyChecked:
-	pAQhQxAVIpfj4XmN4XwBuYddSZDYMMJY+g5jyO4xfGAfmzBJgMIypICM+UzMzNRielEOAHx/NDkqaS5lx9NwGIxY4OIRFmsVQwnjEFN6yrE3Wy6wHF9brA+q+VEoN7mbnOuYkAcTnGR3BGS1HIFHAmTalP1veegUMViktBxEL/fmkYPpCitVw3SIoLwmlY6FIsnEvzfG99O3wMPJGtNt0XtkIVbvbIKEVKALLAdPf4H53D6nNpKoBf15LKRC/liGzFJMhhnsHCfd8vInrPE10BlEwghgAnGsfBeHTUGAdoCFgsyXraXgDQJdDzQKZ485uBFQ6cChoZkfJji7swxiqg==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 04:05:42.4574
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 43db1777-dd49-4c92-85b1-08df153a1b9f
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH1PEPF0000AD79.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR10MB7792
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDA0OSBTYWx0ZWRfXzbQeOFzo7/1q
- NtCN3DEUKkL+QsOzqUeHryxxBgOB0l8a5j3UCyvrbcUmG81/IJTwU+xCtqdOuT21KcnCCMx3ixL
- vLJI+d6WZ5k+rb/VspSRYMshBvwlu+PZdLgFML0mMA3uG2OswhBOH2m0Nst/TH3U72rBOd93+R8
- IvIdEXGfEne1f3r0Vh/AWxHZhFk0FkKoSHtLpTEMY1vmo5SZhrk8naqpP3+NOh7gRnKUcUyU6yN
- 1b9YcrluXbYekjellsgnPYUV4O3GLdVyg8QoOECWhB0/e6k/ZDxPZGCkP1uYTR4OCc/VvCo1wia
- Amlt6Mc0RL5AvoWitREpF2vYxr9k8nYcoe1298Yd4Dqi68fMz+kz0rVpb4fbBtsKh00rSdIVg9C
- DfLP0gMe7ySbVwE4QzK2uht0dC2hn2ALhBY3IYmw/7b/cq4YF6vo32BLyIOi09XbHtNwRvhSESK
- RcbTmWqPY4xvOM8zslA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDA0OSBTYWx0ZWRfXwm+vK3JjFUS2
- 8yEjtQ6Xp0Ieh19JhDxXo1jztOzEl37vCBqMt38AyUXyxXGXzaZ1PtgL1WeNxm1HNZLel0O87CT
- kIq0Jeh4ufynPDxf4cYEpGxJU7iiVzw=
-X-Proofpoint-ORIG-GUID: Qcv57si6Xbtl4Edoa0d_ImcNZ_lrc8as
-X-Authority-Analysis: v=2.4 cv=XcccX455 c=1 sm=1 tr=0 ts=6aacb89a cx=c_pps
- a=NNTlVNVDZfSUkWkRvmJkNA==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Z8NIEmU8O1QQgoT56wFK:22 a=fPAWb5peG099m5CrUpKH:22 a=VwQbUJbxAAAA:8
- a=TxhyHGSeAAAA:8 a=sozttTNsAAAA:8 a=y5ittif9tQIw1IVr7QMA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=VRTRSrWG77IPp_BSX07q:22
-X-Proofpoint-GUID: Qcv57si6Xbtl4Edoa0d_ImcNZ_lrc8as
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-18_01,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 clxscore=1015 phishscore=0 impostorscore=0
- bulkscore=0 suspectscore=0 adultscore=0 lowpriorityscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180049
 
-
-
-On 9/17/2026 3:10 PM, Ilpo Järvinen wrote:
-> On Wed, 16 Sep 2026, Kumar, Udit wrote:
->> On 9/16/2026 4:22 PM, Ilpo Järvinen wrote:
->>> On Wed, 16 Sep 2026, Moteen Shah wrote:
->>>
->>>> dw8250_handle_irq() does a bogus RX read on RX_TIMEOUT with no data
->>>> present, to avoid an interrupt storm. The UART core also performs
->>>> unconditional reads on the empty FIFO during startup and shutdown
->>>> of the port. On the IP version used in TDA54, that interrupt storm
->>>> no longer occurs, but reading an empty FIFO instead triggers a data
->>>> abort.
->>>>
->>>> Add a new capability to guard against the empty FIFO reads, avoiding
->>>> the data aborts.
->>>>
->>>> Signed-off-by: Moteen Shah <m-shah@ti.com>
->>>> ---
->>>>  drivers/tty/serial/8250/8250.h      |  1 +
->>>>  drivers/tty/serial/8250/8250_dw.c   | 16 +++++++++++++++-
->>>>  drivers/tty/serial/8250/8250_port.c | 12 +++++++++---
->>>>  3 files changed, 25 insertions(+), 4 deletions(-)
->>>>
->>>> diff --git a/drivers/tty/serial/8250/8250.h b/drivers/tty/serial/8250/8250.h
->>>> index 77fe0588fd6b..45e13c3a8c14 100644
->>>> --- a/drivers/tty/serial/8250/8250.h
->>>> +++ b/drivers/tty/serial/8250/8250.h
->>>> @@ -86,6 +86,7 @@ struct serial8250_config {
->>>>  					 * STOP PARITY EPAR SPAR WLEN5 WLEN6
->>>>  					 */
->>>>  #define UART_CAP_NOTEMT	BIT(18)	/* UART without interrupt on TEMT available */
->>>> +#define UART_CAP_RXFIFO_EMPTY_READ	BIT(19) /* UART needs LSR_DR check before RX read (TDA54) */
->>>
->>> IMO, this define naming contradicts with the comment because you 
->>> effectively say "capable of reading Rx while receive buffer is empty", not 
->>> that it needs DR check before issuing that read on buffer (~ named exactly 
->>> opposite of the actual meaning it is being used in the code).
->>>
->>
->> I echo your comments; the naming should reflect that the IP does not
->> allow reading an empty FIFO.
-> 
-> I now recalled we've also the pending RBR -> SRBR change:
-> 
-> https://lore.kernel.org/linux-serial/20260908141524.20302-1-yang.yicong@picoheart.com/#t
-> 
-> I wonder if a similar thing would help in this case as well?
-> 
-
-Thanks for this patch, we are using similar IP but not same.
-Let's consume above patch and revert.
-
-Thanks
-
-
-> I understand this patch covers more ground than the SRBR patch but can the 
-> IP used in this case read SRBR without aborting?
-> 
-
-
->> At the same time, I am thinking, reading the FIFO based on the
->> UART_LSR_DR bit being set in the serial8250_clear_interrupts and
->> serial8250_do_shutdown functions.
->> Do you see any side effects to this?
-> 
-> 
-> 
+SGkgUmFmYWVsLA0KDQo+IA0KPiBPbiBTZXAgMTgsIDIwMjYsIGF0IDAxOjM4LCBSYWZhZWwgSi4g
+V3lzb2NraSAoSW50ZWwpIDxyYWZhZWxAa2VybmVsLm9yZz4gd3JvdGU6DQo+IE9uIFR1ZSwgU2Vw
+IDE1LCAyMDI2IGF0IDk6MDPigK9BTSBKaWFueW9uZyBXdSA8d3VqaWFueW9uZ0BoeWdvbi5jbj4g
+d3JvdGU6DQo+PiANCj4+IENvbW1pdCBkMmQ1YzEyOWQwN2UgKCJjcHVmcmVxOiBNYWtlIGNwdWZy
+ZXFfdXBkYXRlX3ByZXNzdXJlKCkgZmFsbA0KPj4gYmFjayB0byBjcHVpbmZvLm1heF9mcmVxIikg
+aW50cm9kdWNlZCBjcHVpbmZvLm1heF9mcmVxIGFzIHRoZSByZWZlcmVuY2UNCj4+IGZyZXF1ZW5j
+eSBmb3IgY3B1ZnJlcSBwcmVzc3VyZSB3aGVuIGFyY2hfc2NhbGVfZnJlcV9yZWYoKSByZXR1cm5z
+IHplcm8uDQo+PiANCj4+IEhvd2V2ZXIsIGNwdWluZm8ubWF4X2ZyZXEgbWF5IGluY2x1ZGUgYm9v
+c3QgZnJlcXVlbmNpZXMgYW5kIHRoZXJlZm9yZQ0KPj4gZG9lcyBub3QgbmVjZXNzYXJpbHkgcmVw
+cmVzZW50IHRoZSBtYXhpbXVtIHN1c3RhaW5hYmxlIGZyZXF1ZW5jeS4NCj4gDQo+IEFuZCB0aGVu
+IGl0IHJlYWxseSBtYXR0ZXJzIHdoYXQgaXMgc3VzdGFpbmFibGUgYW5kIGZvciBob3cgbG9uZy4N
+Cg0KSSB0aGluayBpdCdzIGNvbmZ1c2luZyB0byBzYXkgInN1c3RhaW5hYmxlIGZyZXEiIGluIGNw
+dWZyZXEgcGFydC4gSSBtZWFuIHRoZSBtYXhpbXVtDQpjcHUgZnJlcXVlbmN5IGJlbG93IGJvb3N0
+IGhlcmUuIEZvciBhY3BpLWNwdWZyZXEsIGl04oCZcyBQMC4gRm9yIGFtZC1wc3RhdGUsIGl04oCZ
+cw0Kbm9taW5hbCBmcmVxdWVuY3kuIEJ1dCBJIGNhbid0IGZpbmQgYSBiZXR0ZXIgd29yZC4NCg0K
+PiANCj4+IE9uIHNvbWUgc3lzdGVtcyB1c2luZyBhY3BpLWNwdWZyZXEsIGNwdWluZm8ubWF4X2Zy
+ZXEgaW5jbHVkZXMgYm9vc3Qgd2hpbGUNCj4+IHRoZSBmcmVxdWVuY3kgdGFibGUgb25seSBjb250
+YWlucyBub24tYm9vc3QgZnJlcXVlbmNpZXMuDQo+IA0KPiBJbiB3aGljaCBjYXNlIHNlbGVjdGlu
+ZyBmcmVxX3RhYmxlWzBdIG1heSBnaXZlIHRoZSBwcm9jZXNzb3IgYSBsaWNlbnNlDQo+IHRvIGdv
+IHRvIHRoZSB0dXJibyAob3IgYm9vc3QpIGZyZXF1ZW5jeSByYW5nZS4NCg0KWWVhaCwgc2VsZWN0
+aW5nIGZyZXFfdGFibGVbMF0gbWF5IGFsc28gbWVhbiBjcHUgY2FuIGdvIHRvIGJvb3N0IGZyZXF1
+ZW5jeS4gDQpCdXQgdGhlIHZhbHVlIGRvZXNuJ3QgZGVub3RlIHRoYXQuIGZyZXFfdGFibGVbMF0g
+aXMgYXNzaWduZWQgIHRvIHBvbGljeS0+bWF4IHdoaWNoDQppcyBjb21wYXJlZCB3aXRoIHBvbGlj
+eS0+Y3B1aW5mby5tYXhfZnJlcS4gVGhlIGRpZmZlcmVuY2UgYmV0d2VlbiB0aGVtIG1ha2VzDQp0
+aGUgY3B1IHByZXNzdXJlIHdoaWNoIGlzIG5vdCBpbnRlbmRlZC4NCiANCj4gDQo+PiBDb25zZXF1
+ZW50bHksIGNwdWZyZXEgcHJlc3N1cmUgcmVtYWlucyBub256ZXJvIGV2ZW4gd2l0aG91dCBhbiBh
+ZGRpdGlvbmFsDQo+PiBmcmVxdWVuY3kgbGltaXQuDQo+IA0KPiBTbyB3aGVuIGFuZCB3aGVyZSBk
+b2VzIHRoaXMgbWF0dGVyPw0KDQpJIHRlc3QgaXQgb24gYW1kLCBpbnRlbCBhbmQgaHlnb24gYm94
+LiBPbmNlIGFjcGktY3B1ZnJlcSBpcyB1c2VkLCB0aGUgdW5leHBlY3RlZA0KY3B1IHByZXNzdXJl
+IGFwcGVhcnMgd2hlbiB0aGVyZSBpcyBubyBjcHUgZnJlcXVlbmN5IGNhcHBlZCBhbmQgYm9vc3Qg
+aXMgZW5hYmxlZC4NCg0KVGhlIHdyb25nIGNwdSBwcmVzc3VyZSBhZmZlY3RzIGxvYWQgYmFsYW5j
+aW5nLiBGb3IgZXhhbXBsZSwgQ2FjaGUgYXdhcmUNCnNjaGVkdWxpbmcgd2FudHMgdG8gYWdncmVn
+YXRlIHRhc2sgaW4gYSBMTEMgdXNpbmcgNTAlIG9mIHRoZSB3aG9sZSBMTEMgY2FwYWNpdHkuDQpC
+ZWZvcmUgY29tbWl0IGQyZDVjMTI5ZDA3ZSwgZXZlcnl0aGluZyBpcyBPSy4gQnV0IHdpdGggdGhh
+dCBjb21taXQgYW5kIHVzaW5nDQphY3BpLWNwdWZyZXEgYW5kIHdpdGggYm9vc3Qgb24sIGNhY2hl
+IGF3YXJlIHNjaGVkdWxpbmcgY2Fu4oCZdCBhZ2dyZWdhdGUNCnRhc2sgdG8gb2NjdXB5IDUwJSBv
+ZiB0aGUgTExDIGJ5IGRlZmF1bHQgYXMgdGhlIGNwdSBjYXBhY2l0eSBpbiB0aGUgTExDIGlzIHJl
+ZHVjZWQuIA0KPiANCj4+IEZ1cnRoZXJtb3JlLCBkcml2ZXJzIG1heSB1cGRhdGUgY3B1aW5mby5t
+YXhfZnJlcSB3aGVuIGJvb3N0IGlzIGVuYWJsZWQNCj4+IG9yIGRpc2FibGVkLiBXaXRoIGEgZml4
+ZWQgcG9saWN5IGxpbWl0IGJlbG93IHRoZSBtYXhpbXVtIG5vbi1ib29zdA0KPj4gZnJlcXVlbmN5
+LCB0aGlzIGNoYW5nZXMgdGhlIHByZXNzdXJlIHJlZmVyZW5jZSBhbmQgaGVuY2UgdGhlIHJlcG9y
+dGVkDQo+PiBwcmVzc3VyZSwgYWx0aG91Z2ggdGhlIG5vbi1ib29zdCBmcmVxdWVuY3kgbGltaXQg
+cmVtYWlucyB1bmNoYW5nZWQuDQo+IA0KPiBJZiB0aGUgY2FwYWNpdHkgaXMgdXBkYXRlZCB0aG91
+Z2ggYWxvbmcgd2l0aCB0aGUgY3B1aW5mby5tYXhfZnJlcQ0KPiBjaGFuZ2UsIHRoZW4gdGhpcyBp
+cyBhbGwgZmluZSBiZWNhdXNlIHRoZSBwcmVzc3VyZSBpcyB0aGVuIGNvbXB1dGVkDQo+IHJlbGF0
+aXZlIHRvIHRoZSBuZXcgY2FwYWNpdHkuICBpbnRlbF9wc3RhdGUgZG9lcyB0aGF0Lg0KDQpUaGlz
+IGZvbGxvd3MgVmluY2VudC4gUmVmZXJlbmNlIFZpbmNlbnTigJlzIHdvcmRzIFsxXToNCg0KIkFz
+IGxvbmcgYXMgdGhlIHJlZmVyZW5jZSBmcmVxdWVuY3kgdXNlZCBpbiBjcHVmcmVxX3VwZGF0ZV9w
+cmVzc3VyZQ0KcmVtYWlucyBmaXhlZCB3aGV0ZXZlciBib29zdCBpcyBlbmFibGVkIG9yIG5vdCB0
+aGlzIGlzIG9rLiBXZSBkb24ndA0Kd2FudCB0aGUgcHJlc3N1cmUgdG8gY2hhbmdlIHdoZW4gYm9v
+c3QgaXMgZW5hYmxlZCBvciBkaXNhYmxlZCBvbmx5DQp3aGVuIHBvbGljeS0+bWF4IGNoYW5nZXMu
+Ig0KDQpJZiBpbnRlbF9wc3RhdGUgbGV0IHRoZSBjcHUgcHJlc3N1cmUgdmFyeSB3aXRoIHRoZSBi
+b29zdCBvbiBvciBvZmYsIHdoYXQNCmFib3V0IGFjcGktY3B1ZnJlcS4gSXTigJlzIG5vdCBlYXN5
+IHRvIGRvIHRoZSBzYW1lIHRoaW5nIHRoZXJlLiBJIHRoaW5rIGl0DQppcyBiZXR0ZXIgdG8gZ2l2
+ZSBhIHVuaWZvcm0gYmVoYXZpb3IgYWNyb3NzIGRpZmZlcmVudCBjcHVmcmVxIGRyaXZlci4NCg0K
+WzFdIGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC9DQUtmVFB0QmppOGRrcjVpeGh0WmpreXJX
+TEE2OFRGLUtITHJOWVdvZXdQV0x5dVVkNEFAbWFpbC5nbWFpbC5jb20vDQo+IA0KPj4gQWRkIG1h
+eF9zdXN0YWluYWJsZV9mcmVxIHRvIHN0cnVjdCBjcHVmcmVxX2NwdWluZm8gdG8gcHJvdmlkZSBh
+IHJlZmVyZW5jZQ0KPj4gZnJlcXVlbmN5IGV4Y2x1ZGluZyBib29zdC4gUG9wdWxhdGUgaXQgZnJv
+bSB0aGUgbm9taW5hbCBmcmVxdWVuY3kgaW4NCj4+IGFtZC1wc3RhdGUgYW5kIGNwcGNfY3B1ZnJl
+cSwgdGhlIG1heGltdW0gbm9uLXR1cmJvIGZyZXF1ZW5jeSBpbg0KPj4gaW50ZWxfcHN0YXRlLCBh
+bmQgdGhlIGhpZ2hlc3QgZnJlcXVlbmN5LXRhYmxlIGVudHJ5IGluIGFjcGktY3B1ZnJlcS4NCj4+
+IA0KPj4gVXNlIHRoaXMgdmFsdWUgd2hlbiBhcmNoX3NjYWxlX2ZyZXFfcmVmKCkgcmV0dXJucyB6
+ZXJvLiBQcmVzZXJ2ZSB0aGUNCj4+IGV4aXN0aW5nIGNwdWluZm8ubWF4X2ZyZXEgZmFsbGJhY2sg
+Zm9yIGRyaXZlcnMgdGhhdCBsZWF2ZSB0aGUgbmV3IGZpZWxkDQo+PiBhdCB6ZXJvLg0KPj4gDQo+
+PiBUZXN0ZWQgd2l0aCBhY3BpLWNwdWZyZXEsIGludGVsX3BzdGF0ZSwgYW5kIGFtZC1wc3RhdGUg
+aW4gYWN0aXZlIGFuZA0KPj4gcGFzc2l2ZSBtb2Rlcy4gV2l0aCBubyBhZGRpdGlvbmFsIGZyZXF1
+ZW5jeSBsaW1pdCwgcHJlc3N1cmUgaXMgemVyby4NCj4+IFdpdGggYSBmaXhlZCBsaW1pdCBiZWxv
+dyB0aGUgbm9uLWJvb3N0IHJlZmVyZW5jZSBmcmVxdWVuY3ksIHByZXNzdXJlDQo+PiByZW1haW5z
+IHVuY2hhbmdlZCBhY3Jvc3MgYm9vc3QgdHJhbnNpdGlvbnMuDQo+IA0KPiBXaGljaCBtYXkgbm90
+IGJlIHdoYXQgaXMgaW50ZW5kZWQuDQoNClNhbWUgYXMgYWJvdmU6IElNTywgd2l0aCBhIGZpeGVk
+IGNhcCwgdGhlIHByZXNzdXJlIHNob3VsZCBub3QgY2hhbmdlDQpqdXN0IGJlY2F1c2UgYm9vc3Qg
+aXMgdG9nZ2xlZC4NCg0KVGhhbmtzDQpKaWFueW9uZw0KDQo=
 
