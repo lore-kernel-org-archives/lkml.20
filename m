@@ -1,76 +1,64 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from trabant.uid0.hu (trabant.uid0.hu [81.0.124.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A39237FF6F;
-	Fri, 18 Sep 2026 20:43:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B46125C818;
+	Fri, 18 Sep 2026 20:44:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=81.0.124.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789764224; cv=none; b=A5bojw1txVFB7QtZDSFLxm8yrJiTwZXGnKM1iqRMRV4NdhgcERBKzycxZvgIRcaHm0/x1ZDFBf3mgikIKhqNdohqc9iOueZvlzQVmUXjWkRkF6MsfI3pr7SZc6EcsiPHF35jDXV5cSTO7WB0wztcWOWFNj7rP3LP+cRo2WUD8hI=
+	t=1789764270; cv=none; b=q4XzByPo+HIvknSybe4o4RgezsGmEtN4kWAqp48fWUdUoJPfqY/vlIMpiETTC4AFSZzS6rz+hn0LI92x5zLCT+aI9hXVJqotmXzXusarUQx46OWuCRHrrLsWJhgYsQNmJNthsPtzbKM3asCmPchak1QFYGyshGVJrYOjWZtnI54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789764224; c=relaxed/simple;
-	bh=6g2QQvOrXpCndDqSK7FoLnuzLN9kp/hwlqWrR8+JHU8=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=uLnjFRYuSuEimpr5G6sKmXMT0ciMCXU03z5xdTgR7opUVzEBmJuXsQRrjGMFrlSKSqPVqaOIFHCK3++esXmRMXXH0KWmtZbGql8L1EA0wv5LbNvQ3os2Xw0UkNP5npjCgdv0zmb2wKgGQk/3Y5N0dIJDn3GIur3bMd14OOfqKNg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=sRguR3+D; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="sRguR3+D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3BF11F000FF;
-	Fri, 18 Sep 2026 20:43:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789764223;
-	bh=s5ambLtJv/AuCg2Coh5juy9jqmqcd8mcPlwipY+ptBk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=sRguR3+DzyOGGRDDZzh1ApJrkGYDqyORnnvJ88iY2Aw8UWAGYl3NM+ahgzTDYCNI1
-	 43gfg1whBdkDPOtx1iSARXCM0t1z/GQ1LGXdyUdJ149p0YR5KdlJxPDwIk/RlwNx1t
-	 uzb4TdoOIM3UqeyRUCvsdl8NzSYJmN8raMNiQCWs=
-Date: Fri, 18 Sep 2026 13:43:42 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: paulmck@kernel.org
-Cc: Breno Leitao <leitao@debian.org>, Hugh Dickins <hughd@google.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, kernel-team@meta.com, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/shmem: report RCU-tasks quiescent states while
- undoing a range
-Message-Id: <20260918134342.c50423cfe3b2910e899226f2@linux-foundation.org>
-In-Reply-To: <a67e8b91-ebc2-4d3d-b6ea-d221b297fad0@paulmck-laptop>
-References: <20260918-shmem-tasks-rcu-v1-1-79acf91a2569@debian.org>
-	<20260918123239.8f25b984ca280fcc11ef6e6a@linux-foundation.org>
-	<a67e8b91-ebc2-4d3d-b6ea-d221b297fad0@paulmck-laptop>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1789764270; c=relaxed/simple;
+	bh=qcHN1YhfgPNwCPQSAn0AD2zljjK7VKbGA8FJJgZDqGg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=NOVYdS/47MDlrSb8mGlqJcgLhsBGZrKtAfwfMd1s9+4302my97jFwDvMYpHEMETCpKFX8O6iCmuI5Q7fig2BROaJz5fby9tLXIogYQr0FsN0MITeoIxrj4+62i6bFAGEiImOZxpTA6XomOH2dS8B8VrLu41FhBFdQR7TturO5Us=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=uid0.hu; spf=none smtp.mailfrom=trabant.uid0.hu; arc=none smtp.client-ip=81.0.124.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=uid0.hu
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=trabant.uid0.hu
+Received: from wigyori by trabant.uid0.hu with local (Exim 4.94.2 #2 (Debian))
+	id 1x7ehW-0000EC-54
+	from <wigyori@trabant.uid0.hu>; Fri, 18 Sep 2026 21:56:50 +0200
+From: Zoltan HERPAI <wigyori@uid0.hu>
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	Frank.Li@nxp.com,
+	s.hauer@pengutronix.de,
+	festevam@gmail.com,
+	kernel@pengutronix.de
+Cc: wigyori@uid0.hu,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] arm64: add support for Olimex i.MX8MP-SOM-EVB kit
+Date: Fri, 18 Sep 2026 21:55:57 +0200
+Message-Id: <20260918195559.130443-1-wigyori@uid0.hu>
+X-Mailer: git-send-email 2.30.2
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Sender: Zoltan HERPAI <wigyori@trabant.uid0.hu>
 
-On Fri, 18 Sep 2026 13:24:53 -0700 "Paul E. McKenney" <paulmck@kernel.org> wrote:
+This series adds support for the Olimex i.MX8MP-SOM-EVB kit, consisting of a carrier
+board and a SoM.
 
-> > 
-> > > --- a/mm/shmem.c
-> > > +++ b/mm/shmem.c
-> > > @@ -1367,7 +1367,7 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
-> > >  		}
-> > >  		folio_batch_remove_exceptionals(&fbatch);
-> > >  		folio_batch_release(&fbatch);
-> > > -		cond_resched();
-> > > +		cond_resched_tasks_rcu_qs();
-> > 
-> > Won't this change remove the cond_resched() function from old kernels
-> > which really want it?
-> 
-> The cond_resched_tasks_rcu_qs() macro implies cond_resched():
-> 
-> 	#define cond_resched_tasks_rcu_qs() \
-> 	do { \
-> 		rcu_tasks_qs(current, false); \
-> 		cond_resched(); \
-> 	} while (0)
-> 
+Patch 1/2 documents the respective bindings,
+Patch 2/2 adds the SoM dtsi and the carrier board dts.
 
-Oh, should've looked.
+Zoltan HERPAI (2):
+  dt-bindings: arm64: fsl: add Olimex i.MX8MP boards
+  arm64: dts: imx8mp: add Olimex i.MX8MP-SOM-EVB kit
 
-And it appears to have been this way forever, so
-s/cond_resched/cond_resched_tasks_rcu_qs/ won't break old kernels.
+ .../devicetree/bindings/arm/fsl.yaml          |   7 +
+ arch/arm64/boot/dts/freescale/Makefile        |   1 +
+ .../dts/freescale/imx8mp-olimex-som-evb.dts   | 168 +++++
+ .../boot/dts/freescale/imx8mp-olimex-som.dtsi | 578 ++++++++++++++++++
+ 4 files changed, 754 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-olimex-som-evb.dts
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-olimex-som.dtsi
+
+-- 
+2.30.2
+
