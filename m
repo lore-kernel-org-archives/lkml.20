@@ -1,83 +1,72 @@
 Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 741263F39E4
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 03:39:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 299B23C1D72
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 03:40:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789702797; cv=none; b=dfLFkMhMK4SYmqGaOT6SmYxpIoDHDOiLSsWeemanf2yrsm00kYMgIWCetRGha/40ZdbphlYSFR+udukUy/FA/RjUpXcfhWGsjsMXpb47WNpCJZByJgGpiIaBA3o7iyHeaFTHjIJ1Yp2zxWraOrTS2o3QM5MSaQataXNJyIRvYZs=
+	t=1789702813; cv=none; b=MHavKoXOiIezHQNBmQ8R4jUigFFyHczUMPw2Iws8Vq8aScLvTsnFfweABwtQnOJ+CPvkwr3A4NJdG10cAPa3BqAnOvPvNhxf4glTrywuS7SWTBL1YCL0Te1yVEXf9mVWsqKLJZGwKZvZR/Om5INy0/CqeQOsDD0Ngzqk0I2hAKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789702797; c=relaxed/simple;
-	bh=yJiyg92QC6XahndjgkRwHsdfasvgZ8Sl+8BkRmHKw6Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cWKezzXO0aygZsBcx7bgk8IJ+wpw2/lpoNXM8YfZDzcnKoJL5JeKGnszaDj7kMsVVe6gDWpNk1GByakTjDYFtJ9KeSKL9fPlI28hr2Uq9LWTGwcmVdSDi3Mi0G/BvfMsXZM6Ef3H7X269PkVfm9VHDYt7LjuQuD9ndDfoShUtjU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gy16NSMu; arc=none smtp.client-ip=74.125.227.141
+	s=arc-20240116; t=1789702813; c=relaxed/simple;
+	bh=KKItR8FZ9hix+/TL0aQ9eu6vPKiFhpC7kUkQVOqGo7w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lfRkAbbOAsjYQSI28Qjc9d7sCmUdfx41+lCYar2o/RuSdCpG9zf2PddXzf5lIj5Kzin8YCMALsHRZhPcQM7j6RbluH4DZI7/z9k5S10NYWpVeKDdtHXgJHJxiuBpUEXgzJsnL5M9RMUHxUPXom3P7bSiEQExwZbT69Z7eWwuyO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SI0B0ema; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gy16NSMu"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2dd88a115ebso2061075ad.2
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 20:39:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SI0B0ema"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ed9866so2361355ad.2
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 20:40:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789702796; x=1790307596; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Uey7daPDoexPjIHMCdJvQFu1kjO+d7SoV4geDUUnn+k=;
-        b=gy16NSMuob6aZgfR18QnZQADpatcH/w9fbZD2etDem9Kllhxp9MVDmA+0CHkP/7xY3
-         RKrETLo5PKTI7DoAu8MG0xv1IgyfI0KAPqTYzlR0dG6D9pQgll3MUia19StApmMX5HCP
-         8V1Qz0qANcdL043nMUQApNEls4aMupDYPe0w6rmtOZmVCDWmYwqQeXMP4OxF7bC1Au+r
-         /9uzzv4fzwzmtajJoyfT4LimcyiwsJ0jgLtelojrIkgUp/T+8oQXMQFT/j43A9JBMdPA
-         jI3zk7X7y/lvlk676tRiDYwpboMtp3zhntTIDkdD6J1ZD2DGfBe6+Z30GmOU2dGiQ4D5
-         MSdg==
+        d=gmail.com; s=20251104; t=1789702811; x=1790307611; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ubHKRJ5xVQmev0vSOqthTpsahkuZO16pcf4T5Ysx2tg=;
+        b=SI0B0emaz9dnKc2Ypxl8n4Y8s0CJM55tXYONZv1Fs9rMpag7s9CQvZuz9RvJhjojFL
+         VOyk+iVjWv4Ik97Iic7agVfXzh5I1uJ7m0nQ/ygg4xwS7XFOGGttuv59+YirhPszPTdf
+         3ONQnPctVkHEr/sTViBWB4QiEP2gqii2fWyJSHcSIfJIQh+lKTJXoJIBaS8NGTN9jyUe
+         VclpWzG/16tNlmsE9i/KA5ANhQ8mJkGi38ssT+OZP2aNknZPmuROTocgNYKI3xGpq9oA
+         qhD7qXmRetCvKdy85XcbraarEybbUKT3Iw5B8dnZ1q47qaojx8kkmqYqUBs4SNiGi0BU
+         OPJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789702796; x=1790307596;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Uey7daPDoexPjIHMCdJvQFu1kjO+d7SoV4geDUUnn+k=;
-        b=yNrxIjtVspRBmNy3qHjwN5kI49ywqTyLAHwwm1GnZAym/F3HpcnY/TMawkKgJZma4e
-         ++BQtTbSl8x4gZLSAgWcf+LHrQpCX0gNCt67tBV7zDkpfLQ90td1DMD6dyWyb3l6Y/0K
-         uAs4u6KCXzCTcxUQEsWluaqoAwm9NZvMb8TQ3E7J0bGjYOwOtl0qrNqyGAnzmRciuzBi
-         QCUgN+Z8plhRJULKtaNKIT3HbgWnShi7/RQlS2B5kmDl1vAMpg5E9dxYp127sKOlIjy5
-         5raNrK7D12dPyBXvId70h5aThnZLwHDA7JuO6i9arhmrVdq/F8VIhv4yvhWn0OWEQLB6
-         92Hw==
-X-Forwarded-Encrypted: i=1; AKwUvBwXj/GBsBCOSCMv3Sg84/6bUbgL8Nh5nnC2VUDkkiBOAflL+L1ZhtWsBFL0NkrO2A4M1f/JKhETxDVmu8s=@vger.kernel.org
-X-Gm-Message-State: AFuF++mmC5kNXG2n5qDFr5WhV51VC/4eI5RC3JodxbGFe+mngdVkL1B5
-	8qK3B0n2kS9lijnItggNO2UPKOgqxyuk/OeuyE3Q2DMhZYhPYmRJYQ2j
-X-Gm-Gg: AYBFou3s0Gtro6M1x8Y+/LLazhlJYRP90/S/neosfohoQxDOXvmfppbFzkkPrK6JBP4
-	XSPURJQUbCSbyQC3n2NfzVcpQNmOZ4BdrV1CiXFCs5D95oIDF9VOBBeV62thDFtQfc+YAcCiQaI
-	QA0gNMqOeLrrJR6SdgmJg+PvTudLHm9zK5naMQqNSqnaEdLx9Iy9GY2qNLhC7Hamt/5knegyGSm
-	6WhIA2w8u8SdsrrvSCqiZ841v3U+Il/uw3BYPysEpt9AKCAeGSZkCQPTrk3cOpF5uGzcpdWMPjB
-	bs36qHlksgzvmsNvKUhhHteWcytY2A66uaqMUTF9onlZ7rOXVsEInGFM1YolUWyEkfOIOiu7Yp/
-	cjW4RWaGWMQ0ID+TxZElZu5TNx9ENJcdipdpqiDpge+7GZxlrGvV2AVvhsPUcmH5tzXNZNM/LWE
-	884fHJwKnlETzbhwUAe7/3rVkVBfaRAFmQ46QHjzo6hkyrR9ApV4NgShB3p2ChEKYBgtfn6DVnw
-	MAvTehGLnhJeDoo9YEqibY8L2JCpONyUi+MTLKpIF8oTO+u6A==
-X-Received: by 2002:a17:902:c948:b0:2d8:d4de:fa80 with SMTP id d9443c01a7336-2ddb1ab39edmr24350885ad.4.1789702795755;
-        Thu, 17 Sep 2026 20:39:55 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789702811; x=1790307611;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ubHKRJ5xVQmev0vSOqthTpsahkuZO16pcf4T5Ysx2tg=;
+        b=s6UiuEUEzIaBmfiUB9I8ePa1q3F0U6xdCrnSmg7t52mlQoedxPKQ3Ge4RCLALHBkO2
+         5XufeS/Hf4EQIZNBx0nH4aWFwyDsdPKBXhZz6gsJPJ0KXPMwnqzSyUFIFwR92N9dNB6g
+         9kTB7Xom7eSShctj5mHzuaSFKJJj2+fSmcVriZ2RgW4J8k+Nal8e8uVcNA1dw4Pt0QgW
+         Tv8lpB5D1DVhrq+uGvn24TXAkiqfpMWvIfW9kGUUNgV+GBPWWyHXh9WeGWuEPjb1Vo1m
+         NozupCuiZSmcb0391gu/ExS9YDzWGWYBaKQuS8RC+bUHQU1UBZESU5fPUxZxk2peJxwK
+         PmYw==
+X-Forwarded-Encrypted: i=1; AKwUvBx2XdfAByuCID6C0B2gZvq4tT1qIqqvG1qQKubSaEQI5blu38q7b5r4WD/V7ENWsDEQY01DHFlj17tLjJo=@vger.kernel.org
+X-Gm-Message-State: AFuF++knHhjmud1dA9kmHS2A9eB5jRCdHjE8KecoGq6Yjbz3OXh29i/W
+	MJaBsV9evT+pH4VcSl4NX2rmGPI+5f0h90C6AC3xLpYagncqKTexztGc
+X-Gm-Gg: AYBFou3fEfibCz0H5lrQBvdI5klzWC8zKJ4kDnYfnxw4dbyKAsTHOmwcnBKTUV8T+Hn
+	r/Z9Hcoq6SBjMINPfthXTmq6WVBHyUuBVaaUrDPnBcPHV0rwWc8aB19rBBmlYnNOdd6Y27omuoA
+	XbYuOawsButoUELnwZHhJHeqJY0LiQ/eg5J9kud6DSF2iLZ3KfFtEmvL/+7jJMk1PWtLfE4kV2I
+	ZLQO7MCvUFTjoj/uJpSWyGmn/PqqtIqQq5KjHW41FvunJUdmSWDXtq3zmK+ytOTimcY8rDUn1CP
+	BqaQpXJnVIC/F6OSDzyhCsfU3UnzhZWnDHtam1sSc8CFwEUVZx4J7yvYUo0wUbqoXwSZzw//vDg
+	i8dqLpviEV3/WVufTP9JoqJnP6obEXXzaTa47Yc9nLX0/9jtvfZarKeh55omswGY7VZtSG8rLPX
+	M0wD3bmu8DK+VXsIBzOnGDg3H/vt9Y/9sYiW2SPQrtrQIGb0aSWKpuSTAs7go+NF70VpIuUcCJQ
+	9ChjeUZvleEAZ1rraZQyd0qKxFM1fY05hSQsKY=
+X-Received: by 2002:a17:903:2350:b0:2dd:4168:7bd3 with SMTP id d9443c01a7336-2ddb1adec54mr28702315ad.12.1789702811157;
+        Thu, 17 Sep 2026 20:40:11 -0700 (PDT)
 Received: from localhost.localdomain ([2409:8a1e:2e81:7320:79da:8b9b:16b2:8431])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c287aab5fsm608065eec.22.2026.09.17.20.39.51
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c284a8a2asm706032eec.1.2026.09.17.20.40.08
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 17 Sep 2026 20:39:55 -0700 (PDT)
+        Thu, 17 Sep 2026 20:40:10 -0700 (PDT)
 From: Yuchao Zhang <ndaugoing@gmail.com>
-To: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
-	Xin Long <lucien.xin@gmail.com>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-sctp@vger.kernel.org,
+To: Johannes Berg <johannes@sipsolutions.net>
+Cc: linux-wireless@vger.kernel.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Yuchao Zhang <ndaugoing@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/1] sctp: check return value of sctp_get_af_specific in sctp_process_init
-Date: Fri, 18 Sep 2026 11:39:42 +0800
-Message-ID: <20260918033942.85061-2-ndaugoing@gmail.com>
+	Yuchao Zhang <ndaugoing@gmail.com>
+Subject: [PATCH 0/1] wifi: mac80211: drop oversized fragments to avoid extra_len overflow
+Date: Fri, 18 Sep 2026 11:40:03 +0800
+Message-ID: <20260918034004.85078-1-ndaugoing@gmail.com>
 X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260918033942.85061-1-ndaugoing@gmail.com>
-References: <20260918033942.85061-1-ndaugoing@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,56 +75,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In sctp_process_init(), when matching the source address of a COOKIE
-ECHO against the embedded address parameters of the INIT chunk carried
-in the cookie, the address family handler is dereferenced without a
-NULL check:
+Hi Johannes and mac80211 maintainers,
 
-	af = sctp_get_af_specific(param_type2af(param.p->type));
-	if (!af->from_addr_param(&addr, param.addr,
-				 chunk->sctp_hdr->source, 0))
-		continue;
+During static analysis of fragment reassembly in mac80211, we identified
+a potential 16-bit integer overflow in ieee80211_rx_h_defragment() that
+can be triggered by a sequence of oversized fragments, leading to an
+undersized allocation in pskb_expand_head() followed by skb_over_panic()
+in softirq context.
 
-On kernels built without IPv6 (CONFIG_IPV6=n) sctp_af_v6_specific is
-never registered and sctp_get_af_specific(AF_INET6) returns NULL.  A
-remote peer can reach this path by completing a regular INIT/INIT ACK
-exchange over IPv4 with an SCTP_PARAM_IPV6_ADDRESS parameter embedded
-in its INIT (ignored at INIT time by the address family gate in
-sctp_process_param(), but the cookie embeds the whole INIT chunk), and
-then sending the COOKIE ECHO from a different source address, e.g. a
-second interface of a multihomed peer.  sctp_unpack_cookie() does not
-compare the packet source address against the peer address stored in
-the cookie, so src_match is 0 and the walk dereferences the NULL af.
+In commit 69f132236827 ("mac80211: shrink struct
+ieee80211_fragment_entry"), entry->extra_len was narrowed from unsigned
+int to u16. Since up to 16 fragments (frag numbers 0..15) can be received
+in an IEEE 802.11 sequence, a sequence of large incoming fragments can
+cause entry->extra_len to exceed 65535 bytes, wrapping around modulo
+65536. When the final fragment arrives, pskb_expand_head() only allocates
+tailroom for the wrapped-around extra_len, and the subsequent
+skb_put_data() loop overflows the buffer, triggering skb_over_panic().
 
-This crashes the kernel with a NULL pointer dereference in softirq
-context, remotely and without authentication.
+Because valid MSDUs in IEEE 802.11 are far below U16_MAX (standard MSDU
+is <= 2304 bytes, and A-MSDU cannot be fragmented), we prevent this wrap
+by dropping the frame and purging the queued fragments if accumulating
+the incoming fragment length would exceed U16_MAX.
 
-The other from_addr_param call sites of the same family already check
-af (__sctp_rcv_init_lookup() and the ASCONF path in
-sctp_process_param(), fixed by commit e40607cbe270 ("net: sctp: fix
-NULL pointer dereference in af->from_addr_param on malformed packet")),
-which missed this one.
+This approach keeps struct ieee80211_fragment_entry completely untouched,
+preserving the structure memory reduction from the aforementioned commit.
 
-Fixes: 0c5dc070ff3d ("sctp: validate from_addr_param return")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yuchao Zhang <ndaugoing@gmail.com>
----
- net/sctp/sm_make_chunk.c | 2 ++
- 1 file changed, 2 insertions(+)
+Best regards,
+Yuchao Zhang
 
-diff --git a/net/sctp/sm_make_chunk.c b/net/sctp/sm_make_chunk.c
-index 84a4c97d0f75..ff1c013e2575 100644
---- a/net/sctp/sm_make_chunk.c
-+++ b/net/sctp/sm_make_chunk.c
-@@ -2381,6 +2381,8 @@ int sctp_process_init(struct sctp_association *asoc, struct sctp_chunk *chunk,
- 		    (param.p->type == SCTP_PARAM_IPV4_ADDRESS ||
- 		     param.p->type == SCTP_PARAM_IPV6_ADDRESS)) {
- 			af = sctp_get_af_specific(param_type2af(param.p->type));
-+			if (!af)
-+				continue;
- 			if (!af->from_addr_param(&addr, param.addr,
- 						 chunk->sctp_hdr->source, 0))
- 				continue;
+Yuchao Zhang (1):
+  wifi: mac80211: drop oversized fragments to avoid extra_len overflow
+
+ net/mac80211/rx.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
 -- 
 2.53.0
 
