@@ -1,149 +1,112 @@
-Received: from outbound.pv.icloud.com (pv-2006c-snip4-6.eps.apple.com [57.103.67.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19BDF44AB91
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 17:52:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.67.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE6B14503EB
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 17:52:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789753939; cv=none; b=VjYnqiKfckgxY2Taht7bTqgODw40CYqkHiDj6yCMFk8ZYKIddPszFXpwWZk4lW8zcWRPUpqjOlwc+G5wV9SPkxlWycGIzbyKoAP+NCECIa7wn0hrer8/k2vZwksYQAx7ZWKX1dRQrlD+Z95mUuh34NZF86oqYXZ2JMXtM1FRJW8=
+	t=1789753958; cv=none; b=IcV5IIbPIq5BA9tmkh3h/RPyffFMeofVoD7FK0OspfgwmyEcdp+hQ14vJV4qjdEwnxXkAOfTDNb/BydaKNuBUqUvqCHytUyM/eazQmg3Oyk9fPOpH/63dEnlTeQTi7Ozw/xAAXhVdgzHxoLAbAlnDzOXqRWyy8Sqml9EqQvtDV8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789753939; c=relaxed/simple;
-	bh=S9joy9VXuLCBQC/XTvQApnhAB4n3cV8UtRq15XXV/PI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZYjf+DarBEPBRwlJ/qzh6Cy5BmtLZ5eHumCAGUDW8du6aQsf43qezWpk2OhM/k0SogcNbeHHTQ7djBRoD61+jzIeYKa83s4dMgzrvED15u4ul6IWcHrAwIZ9cPAK28MNUAu7yfgOukmAPl/UCfkeVOSKSw4LvD0FQfIxYLlJ0l0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=h+wBuvz5; arc=none smtp.client-ip=57.103.67.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
+	s=arc-20240116; t=1789753958; c=relaxed/simple;
+	bh=FhB3MzXvMRrT8tN3nejFN13vQ0JrcsHthrfuNz+/Pqk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VPuLEJe3qqDuCV6BV7lojQ7VsRn4VQKAdrSi64DKK5UbBdkq1gT5LOZinAdvV6j8Su4G3HiWfQhrK7fKOTohQFz3ApUpTxxOJU0HXe0eP3KJ2Ku2JRFQwV0YkCgnc9wc1CVuXlrsGx1PxJmrTUdof/JxFkvxJhA7y1yBye8b0Nw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D/Bnb0Ap; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="h+wBuvz5"
-Received: from outbound.pv.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-1a-20-percent-1 (Postfix) with ESMTPS id 674CF1800129;
-	Fri, 18 Sep 2026 17:52:00 +0000 (UTC)
-X-ICL-RepId: 01a0b5a5-8b8c-7eb9-9063-5a7d1cf93b47
-X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQhOAEMGWQdeCEwCQwZYClBcHA4PUQxHH3kRUAFYHlZeWhdeTVEPDxlaFFwYU0VRH1RYQQ4KWgtQUR1fAgoERwRbF0YDU0VCBhcRUAFYHlZeWhdeTUcfQE1iSQFaGVscQBdKbk1TDw8ZWhRcGFNFUR9UWF4EU1YOEUhJBSNiEnwkfBV3PFo7SjB7MX0qcSp8N34tfEB6KAJOGQxKHVJWWxNVF0YJ
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1789753921; x=1792345921; bh=7LBbzHTkFaCBQX5XE30CFYaJt4ycrCQUuP75OzRZKK0=; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:x-icloud-hme; b=h+wBuvz5TjM3UJFsobLYuvoJS3YevTdzxuY7iWRm7Fyo1rdauiIdGGsKwmH8dCmpapPw35EsoqkVEEz7hUcTbvlqCZVa2TT8CYoWiVEp7Ca3DMoTOwxAjXsswsoqzYy0JBZuaQVYP/7ae8lpxhqI6EZk9C2lA1M+DfZO/le+Vd36HaK2BkgFc7vSifamE3mHmDsKtNyq6ZDrPLkqqv/g6o0AnsT4rsFC7qWX9x9AW/SDStiEIQSzlKIuYU8dWK+SL4pOkhYeDBpzOVxfOfsHIBHiF451Yb5M4XKOo1XMgLnEUIP89ieg8IjNpiJVip1mHUbeW+Rhwpx1Zy3stlRTVw==
-mail-alias-created-date: 1772519804199
-Received: from BINGFANGGUO-MC0 (unknown [17.156.192.29])
-	by p00-icloudmta-asmtp-us-west-1a-20-percent-1 (Postfix) with ESMTPSA id AE94618000B7;
-	Fri, 18 Sep 2026 17:51:54 +0000 (UTC)
-Date: Sat, 19 Sep 2026 01:51:49 +0800
-From: Bingfang Guo <bfguo@icloud.com>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: bingfangguo@tencent.com, Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>,
-	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, cgroups@vger.kernel.org,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/4] memcg: keep swap charging under RCU protection
-Message-ID: <aq16NUyNTEmDQmPx@BINGFANGGUO-MC0>
-References: <20260918-bingfangguo-memcgid-rework-v1-0-5bbf3220d88f@tencent.com>
- <20260918-bingfangguo-memcgid-rework-v1-1-5bbf3220d88f@tencent.com>
- <aq1qj7Owhuk2BQsv@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D/Bnb0Ap"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccda24a3so895581a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:52:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789753949; x=1790358749; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Kxgu93Rsz/WkmkOGG8BARMKb+vTZl3FHpJlkwcMBl3I=;
+        b=D/Bnb0AptX9F1ivlBh0LoAvDI/xcCRjTSP/53jUFJtiYhAqEjfaASUMKX4pInBO2Ix
+         RtRtLgw4YONzV1QHJEkuCiSLm0nhETLSx1Y3vO/Oj0gxhkcz6W3iEnHXwitxBMWmkE1s
+         c44JLb0xR5oeTnzOyE9xxagB0CPQ3sGMsyhMZVyUhTK1OVYUISRH0Jgpcrnd6q6dGMNV
+         VOpNX+281mXYB3A3KXJg6iPYW93L4oc87JZPqROPoj+EODklrEcweBYsbPKjarQPwYzC
+         94oJqWqopH8JaB5+CRW4T8VzMuWRKrC8nAOC7ypqiWYb2lXL0SvAId7RoSDz1BfLOwAY
+         exow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789753949; x=1790358749;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Kxgu93Rsz/WkmkOGG8BARMKb+vTZl3FHpJlkwcMBl3I=;
+        b=QMAQxn7GQkPzoNvn2pXCBHE934dXgrpxOPBj+BPOFKjRLCswjfyS1fxRyMAJbeR5rD
+         Uo9tMJI6N0d8G12rliB7GfB+EjxhpX8rmEJmh7FFRKUBgBFYTKFfxY0HSJIHsrm1iP+1
+         hVAqcbVwekECUL7PVOcO1OfmXMQpsoYwRfwVdfhy+bz1ed4SyaIL1Hdq+GS31GRoO56K
+         Qq0RNeUQUfJNmJes8NdrSGWpJ1pqgv4vxv50wcCkaIDzJMmmhO4s4/raOsd3VHc89Qyw
+         PorQlvlErbbrq7qFAUZry6BwgdWV2rTDTabrQgG78bgLB9Kuf434qwBc9O789FMx8YxP
+         5OZg==
+X-Forwarded-Encrypted: i=1; AKwUvBzZ0rOTGh5CE+cTfsgssFwGsHiRIr4krlFkENvHEhuYD2b7EwJ232EFuupZO8n4H3ONqiZ9umRkI9BXnX4=@vger.kernel.org
+X-Gm-Message-State: AFuF++ltquW7jNbgwqLM+B8elMTR3Ax2Uy8RDOT7R9p3zdRx+GfLvnNt
+	u8dYxsLVBLcrhlJ408ZwWYayo0eQHRJypL2nLLovGc6Iby9KfPFBF1fw
+X-Gm-Gg: AYBFou3cgpyp0O+odsNwjlHWS6QGSc0l/iVNu5ncSsDCX7pF4+4z/OmrWrVTX0OMYbV
+	TnIlsCjnJn31uW3Pe3pX17h5szAlMRpI4z0G7L0FGejd+9GJ2pYhUN+R2tM2ritND0NdAkyYvGw
+	0RVKgAY/QgNVumZW9bc0SxHLShsnFIWUVHdLB3q6hT/zzW6NXCiDm/GlSu7r6pt3tif0SuC/pxm
+	cyJajdOWb/lJYL9A/NlNEP2eZziIYSR1o0wBYyjI1HoX0lqjqJxwJ4Ypvxket0GZ97AQ750OkWy
+	LWgt99+SteSokmiLfgqeAJpZMwJTDKCwKgYFv50VdzEJ66gCpqtmI21q3uXLp2gl4p6Nh0D3Djw
+	5szqiCuZi3HpPDt6+ML6axDYOymYAP8tQdVC++owh/NcaWEE0aJPVpKUFbZnqTeJPyw9KTUWfeI
+	JMrQUUAtBtngxuPyC72dqIO6uMkAN81BSn0XXi3PFhnesFUk+V4kY/RXg=
+X-Received: by 2002:a17:90b:2b8e:b0:39d:efa9:cd25 with SMTP id 98e67ed59e1d1-39e54c59c74mr12953197a91.2.1789753949341;
+        Fri, 18 Sep 2026 10:52:29 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c3145dasm528803a91.4.2026.09.18.10.52.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 10:52:28 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	James Bottomley <James.Bottomley@SteelEye.com>,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] scsi: sni_53c710: put SCSI host on remove
+Date: Sat, 19 Sep 2026 01:52:18 +0800
+Message-ID: <20260918175218.3616645-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aq1qj7Owhuk2BQsv@linux.dev>
-X-Authority-Info-Out: v=2.4 cv=KOpXzVFo c=1 sm=1 tr=0 ts=6aad7a40
- cx=c_apl:c_pps:t_out a=aW9mcIavGNWWFvFFKOxBSA==:117
- a=aW9mcIavGNWWFvFFKOxBSA==:17 a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10
- a=x7bEGLp0ZPQA:10 a=vu5NlEYW-o8A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=GvQkQWPkAAAA:8 a=pb9MNQf3OW9oSO2XpcAA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-GUID: Rw08J6G-psqXahF495GT95dTwOoiL6V0
-X-Proofpoint-ORIG-GUID: Rw08J6G-psqXahF495GT95dTwOoiL6V0
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDI1NiBTYWx0ZWRfX9vXqa8M6eOE6
- /yM357GhFu8cUzzxGSazpp4GH1bpjI+z3aarcpSirBIAjCL28L1PoPTD0zjuomTYKePPIdUISU3
- yiF++4s24VGSsZrpVDwRBxTjp19hLocUhqJ72rEu+iVkiPYx9LXVwCmWOaCqAPa9bMJuxMpHnCa
- I4mH6/kMPxrLmR8b+IWGzv7YBCYoTUt0FnFXM8ZX/zUFfvl4nNsKE+7+EsFEnywQ2z7KmVud1iZ
- YRi+ChzjEGjkivpA39W7iOY9RgBII7AXdBHpamERn/PjveIJ0BpyqD0B9x6rDTZSHwfhdiemu1Y
- uAd8poqknaIa5QGUigL/Iza9zcyF8uU+MQwE0Kuig++VmjrMlZuWwnGGCnFtTg=
-X-JNJ: AAAAAAABTX1bygvuXCKE1uqtLnv6DoY6RuVkFeGF6oB9mf3GmrUhZQkKSNQyKOP/T7PSUdsS21klhKbJVRg+50yJBLHYpVKryExKrAnzF1rcApNToIJKjLWExg+/YXuuZN2r8Zu6ST49v5bp1FuKTgIBhCbyUGMPI8q5buEuJdXIj1u+4rq9T5nowMKkHkOWFI0wIy7OgGXrM+TU6XygjGxqeQB6OmjAgIVoPrc/hXggzV34W1xBtyDKtWmOLYwplEuVuJ0d2c4wUDSiNmeTX8+1jy5K6uwDCWcUtCJ57UzLhZq3TtHk6H1Bsr4txi/q7h3BKCJ07iyF/d++2tSA1zH2ZONh9obKin2jAivpGJ0lmwuujMfi20DAnnlzJPTF41MTtM3gPwRWsdOGnj0/BrWCrt5oJTyzbqiTOt+2IV1GQpe7VJ7xh/SxmOmxGcdZ9iuY1mBCMdQAVdeRJGGrvPq+0xbBfeb7eM6+PcrIXFUp9EPAU8UqTp9ugVOfw7hYsY8KKNn8IzOrEkw9V0NopvArQcTbWs5LzEICUBpIcNNyzUyHImi2xY3t4QgApYxrBuoEyUcBEcIK8SBNY2Hk30FOHJvwB01bGIw+fhe6SQJVHUUQ90uINAv8ofnT9V0qcMIt0mX7lgVJy6IwsbXSgLu0/pEQL5MUoCy6BXI5BPuv65RALBOwTyYegF2jM/eI80misUtPQwLldKOpc/0q4WQQe1ds+KlKKhe4pkNix3lYexJ4aqX2O1PDRuxKRpIenE2I4SUHYwJR8bsZ3cml2Zr/0IZGjyT85RBGmP9XFDHP4V8Hm17GE9pC1ZZp73d96g7aSnULXU8AOkPw0xl6Mu9p4X1QZ/UsgejPH0ZWn2Y01TWyAeEgKB+BnNEBzN0BsjEWv0gj49ApYWTNtzssuNovKZiNi0HskcbwM7DUzpwueDGEGg5FcAuWelOBr41/1TFO4gxOAFVxqF9ZPCL8Aq4y0Al/H/3
- nOgNPgPnzuDXeIPPIXE3aClmb89ekZZ6oPJcEQ6zZu0c3Fgxr8Ye9EUebfV4gTauJ37SALA1FiWOTkHKQIqD99If6hoetfwSaO1Fh3TaAJ5ikJuTeVyb3Twi/kChYFobtXe8gktS8Lzkj6+Z0p+Wd16apsakxP30Mphey+WDU7raPPYex2MoeSBnEWfim5LSR9Ejlsct/IPepbRoaX6VuuwzHADAnnxmrVyd++WAvS1oF6gLmG7M86FW3QzS3BglSWT2mTza0KjJytv+pnk+NLJ/uGFalUZDuRzeO6dNpv2cmkYOoqLhVIGB3aLDtbA4XFFCx3VbL8OaVXNO0pr3WJHtB6Uw075fOVIH/jhkO4sI0MRMSiJiKQZfQNb4BICFQVrK4uoW4USxsgB/g74Hvm+0WJxkySuJaCsQzLsshggh+13WzVjb8xlFtB1nPMMJIt4cI
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 18, 2026 at 09:46:47AM -0700, Shakeel Butt wrote:
-> On Fri, Sep 18, 2026 at 05:18:40PM +0800, Bingfang Guo via B4 Relay wrote:
-> > From: Bingfang Guo <bingfangguo@tencent.com>
-> > 
-> > This is a preparatory work for unbinding memcgid from memcg. No
-> > functional change.
-> > 
-> > The swap charging path currently drops its RCU read lock after acquiring
-> > a private ID reference. This is safe because the ID reference pins the
-> > memcg's CSS.
-> > 
-> > Moving private ID references to objcgs will remove that lifetime
-> > guarantee. Keep the RCU read lock held while accessing the memcg for
-> > counter charging, statistics and failure handling. (This matches what
-> > __memcg1_swapout() already does.).
-> > 
-> > Save the private ID before dropping the RCU read lock, and use the saved
-> > value when recording the swap entry. The swap cluster locking remains
-> > outside the RCU read-side critical section.
-> > 
-> > Signed-off-by: Bingfang Guo <bingfangguo@tencent.com>
-> > ---
-> >  mm/memcontrol.c | 8 +++++---
-> >  1 file changed, 5 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> > index 791e536efaebe..72522ec827c9a 100644
-> > --- a/mm/memcontrol.c
-> > +++ b/mm/memcontrol.c
-> > @@ -5954,6 +5954,7 @@ int __mem_cgroup_try_charge_swap(struct folio *folio)
-> >  	struct page_counter *counter;
-> >  	struct mem_cgroup *memcg;
-> >  	struct obj_cgroup *objcg;
-> > +	unsigned short private_id;
-> >  
-> >  	if (do_memsw_account())
-> >  		return 0;
-> > @@ -5973,20 +5974,21 @@ int __mem_cgroup_try_charge_swap(struct folio *folio)
-> >  
-> 
-> If there is one more spin of this patch, I think scoped_guard(rcu) would be more
-> readable here, so please use that here.
-> 
+snirm710_probe() obtains a SCSI host through NCR_700_detect(). The
+probe failure path drops the host reference with scsi_host_put(), but
+the normal remove path does not perform the corresponding cleanup.
 
-Hi, Shakeel. Thanks for your review and suggestion!
+As a result, the SCSI host reference remains allocated after the
+device is removed.
 
-It looks like a good idea. I will include that in the next version!
+Call scsi_host_put() after all users of the SCSI host have been torn
+down to release the reference acquired during probe.
 
-> >  	memcg = mem_cgroup_private_id_get_online(memcg, nr_pages);
-> >  	/* memcg is pined by memcg ID. */
-> > -	rcu_read_unlock();
-> > +	private_id = mem_cgroup_private_id(memcg);
-> >  
-> >  	if (!mem_cgroup_is_root(memcg) &&
-> >  	    !page_counter_try_charge(&memcg->swap, nr_pages, &counter)) {
-> >  		memcg_memory_event(memcg, MEMCG_SWAP_MAX);
-> >  		memcg_memory_event(memcg, MEMCG_SWAP_FAIL);
-> >  		mem_cgroup_private_id_put(memcg, nr_pages);
-> > +		rcu_read_unlock();
-> >  		return -ENOMEM;
-> >  	}
-> >  	mod_memcg_state(memcg, MEMCG_SWAP, nr_pages);
-> > +	rcu_read_unlock();
-> >  
-> >  	ci = swap_cluster_get_and_lock(folio);
-> > -	__swap_cgroup_set(ci, swp_cluster_offset(folio->swap), nr_pages,
-> > -			  mem_cgroup_private_id(memcg));
-> > +	__swap_cgroup_set(ci, swp_cluster_offset(folio->swap), nr_pages, private_id);
-> >  	swap_cluster_unlock(ci);
-> >  
-> >  	return 0;
-> > 
-> > -- 
-> > 2.43.7
-> > 
-> > 
+This issue was found by manual code inspection.
+
+Fixes: c27d85f3f3c5 ("[SCSI] SNI RM 53c710 driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/scsi/sni_53c710.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/scsi/sni_53c710.c b/drivers/scsi/sni_53c710.c
+index b504a2cc5041..7c5b1929a6a7 100644
+--- a/drivers/scsi/sni_53c710.c
++++ b/drivers/scsi/sni_53c710.c
+@@ -115,6 +115,7 @@ static void snirm710_driver_remove(struct platform_device *dev)
+ 	free_irq(host->irq, host);
+ 	iounmap(hostdata->base);
+ 	kfree(hostdata);
++	scsi_host_put(host);
+ }
+ 
+ static struct platform_driver snirm710_driver = {
+-- 
+2.43.0
+
