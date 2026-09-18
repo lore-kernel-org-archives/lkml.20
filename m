@@ -1,187 +1,173 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-6.mta0.migadu.com [91.218.175.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAFAA3368BD
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:07:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C5333A5453
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:07:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789718849; cv=none; b=er1aR96xHyjWZHmV4UqRlpz47nMXNTAsN/bYwCxBnYuzYe8aNmjqhGr2WYN5EkT0wlMOQunKu06q61ONGyO5YyfFh9J++vbNMzQGJ8a3maz3prZZbhA9P86JumAfJmCWAv2dArEPtMTq/J5xm4qKR8V0wQZbEzPvzS/KWPMGb4M=
+	t=1789718863; cv=none; b=o5YiLQ87HX2VTY66gWxsmjCQfiYbzgB+wo2xWzCu+qrhiABAM/kST7D/DhQ1hxpECdRVqSMSy5mAJQCNzJgkeEzGRQnOI3WmEZTIL6trztiyLXQ+Moi6B1NL+mkbc/OsJnu6Ma2x/HISu5YRulwrEwLzoFjCXPIvJKbJSN2mR7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789718849; c=relaxed/simple;
-	bh=zkCVM8vtfz9mwZhx1cFKKSSSnqLv9yu5+oUbCaj5ejc=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=iyPCvxzCB9g2egA3cRM6k+6E5Aw+QaMaNff2X95nFjFXthwHvRZfs+BBhslxE0QeTwimb8YcoWhiycrOP9tqg8leiPU9COXnKpGDHXEuO5YfRO4f1dKH3mXP8+a6abuNiB6sRvTFOZoR/1cX08FWZTvIUjDP3KQQkT0J7CGR93s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EWz6X/fC; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789718863; c=relaxed/simple;
+	bh=E0Nmroful7jb3ppWghs4YpOSpLIFZgz+UAPsmrbruq4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oFfP67QKwT6k+VLLg/htWLJ3jKsNQi/nblKzRegVDoXOdyrJB0HJGtG7GPzoD97b3u98/jOj8+tFXKqNNJoKJPF0O44Dxq2016ThJJAQUk/xfHPQcjbq/xOo7cDRL5X3yr/CY0Ulgb/2u+KK6oXYZr6w6hSW7kethKOxSqo4Obs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=fLKMwaM2; arc=none smtp.client-ip=91.218.175.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EWz6X/fC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789718848; x=1821254848;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version:content-transfer-encoding;
-  bh=zkCVM8vtfz9mwZhx1cFKKSSSnqLv9yu5+oUbCaj5ejc=;
-  b=EWz6X/fC76sV5QrQn5UZaolpi2p4M8czLSGfRDih+PvMepU21iz3sA+6
-   cr45MLPs247jkSTQjPk3M83AR/wyPYxBDqXZhwfOMA5GbJ6FogcnZYcBJ
-   mj3u0Q3slgfVLoQe2Ac4KWQmXvm1FggJ3he1RkaNvx0xKUSMEPKC0zOge
-   GjOv31hqiljjh9dRZRDKldZdrqT3YH0wQjbyNOmvwFaBHZ0+2Hr+7rPLe
-   WUKVJ1SJ1xFBwX4q2mi6Hi+nwGLJIYhXMaUdYsBpzMDw2bx4GpKHaznku
-   eu6nOUfW30oDHKMCYxKGqpGQyshrpAmPZQTjTdXi5TediE+SGczd5Mj5v
-   A==;
-X-CSE-ConnectionGUID: GYaALlgsR36MpoXBglO3Sw==
-X-CSE-MsgGUID: pKvXZj9oQA+OEsdMYECJsA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="100805399"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="100805399"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 01:07:27 -0700
-X-CSE-ConnectionGUID: 6VOz6MEcROaJ6nxBvGvFIg==
-X-CSE-MsgGUID: NjIiFybCR7mbJujaf/1hcA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="2506439"
-Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.216])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 01:07:24 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Zhenyu
- Wang <zhenyuw.linux@gmail.com>, Zhi Wang <zhi.wang.linux@gmail.com>, "open
- list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-gfx@lists.freedesktop.org>, "open list:INTEL DRM DISPLAY FOR XE AND
- I915 DRIVERS" <intel-xe@lists.freedesktop.org>, "open list:DRM DRIVERS"
- <dri-devel@lists.freedesktop.org>, open list
- <linux-kernel@vger.kernel.org>
-Cc: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
-Subject: Re: [PATCH] drm/i915: use string choice helpers
-In-Reply-To: <20260918042325.17700-1-lalitshankarch@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260918042325.17700-1-lalitshankarch@gmail.com>
-Date: Fri, 18 Sep 2026 11:07:21 +0300
-Message-ID: <b5576d0e503315036500145888d712e75df42f7e@intel.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="fLKMwaM2"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=E0Nmroful7jb3ppWghs4YpOSpLIFZgz+UAPsmrbruq4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789718859; v=1; x=1790323659;
+ b=fLKMwaM23PNgO1xMELdXzMdDD+TPIEVnTAK4etDczmiEQhaLnBMyFLJhyiXasyDiBVgFYNu/
+ 31XCXaaBREKTLIjB6skmhp++bMkEGOj0IS0gIGNPDrIktXyIC7kGnxTFXsTw94Ucue5hZZ3jbPH
+ xt0t1onecmKE+pUrnHdoJUyA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 950ab51559f25ce3;
+	Fri, 18 Sep 2026 08:07:39 +0000
+X-Mizu-Trace-ID: 950ab51559f25ce3
+X-Migadu-Flow: FLOW_OUT
+From: Hui Zhu <hui.zhu@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Kairui Song <kasong@tencent.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	David Hildenbrand <david@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Cc: Hui Zhu <zhuhui@kylinos.cn>
+Subject: [RFC PATCH RESEND v5 0/2] mm/vmscan: fix NR_ISOLATED accounting and throttle MGLRU eviction
+Date: Fri, 18 Sep 2026 16:07:18 +0800
+Message-ID: <cover.1789718658.git.zhuhui@kylinos.cn>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, 18 Sep 2026, Lalit Shankar Chowdhury <lalitshankarch@gmail.com> wro=
-te:
-> Prefer the str_high_low() and str_read_write() helper functions
-> over ternary operators with hardcoded strings.
->
-> No functional changes.
->
-> Signed-off-by: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
+From: Hui Zhu <zhuhui@kylinos.cn>
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+Previously the patch was based on mm-unstable, which caused issues during
+Sashiko apply.
+So I rebased it onto mm-stable and resend.
+Thanks Andrew for the heads-up.
 
-> ---
->  drivers/gpu/drm/i915/display/intel_cx0_phy.c | 5 +++--
->  drivers/gpu/drm/i915/gvt/aperture_gm.c       | 4 +++-
->  drivers/gpu/drm/i915/vlv_iosf_sb.c           | 6 ++++--
->  3 files changed, 10 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/d=
-rm/i915/display/intel_cx0_phy.c
-> index dbebd7210848..b83f0afaa9b5 100644
-> --- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-> +++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-> @@ -5,6 +5,7 @@
->=20=20
->  #include <linux/log2.h>
->  #include <linux/math64.h>
-> +#include <linux/string_choices.h>
->=20=20
->  #include <drm/drm_print.h>
->=20=20
-> @@ -189,7 +190,7 @@ int intel_cx0_wait_for_ack(struct intel_encoder *enco=
-der,
->  		drm_dbg_kms(display->drm,
->  			    "PHY %c Error occurred during %s command. Status: 0x%x\n",
->  			    phy_name(phy),
-> -			    command =3D=3D XELPDP_PORT_P2M_COMMAND_READ_ACK ? "read" : "write=
-", *val);
-> +			    str_read_write(command =3D=3D XELPDP_PORT_P2M_COMMAND_READ_ACK), =
-*val);
->  		intel_cx0_bus_reset(encoder, lane);
->  		return -EINVAL;
->  	}
-> @@ -198,7 +199,7 @@ int intel_cx0_wait_for_ack(struct intel_encoder *enco=
-der,
->  		drm_dbg_kms(display->drm,
->  			    "PHY %c Not a %s response. MSGBUS Status: 0x%x.\n",
->  			    phy_name(phy),
-> -			    command =3D=3D XELPDP_PORT_P2M_COMMAND_READ_ACK ? "read" : "write=
-", *val);
-> +			    str_read_write(command =3D=3D XELPDP_PORT_P2M_COMMAND_READ_ACK), =
-*val);
->  		intel_cx0_bus_reset(encoder, lane);
->  		return -EINVAL;
->  	}
-> diff --git a/drivers/gpu/drm/i915/gvt/aperture_gm.c b/drivers/gpu/drm/i91=
-5/gvt/aperture_gm.c
-> index 253b41789be9..794fb50e48dd 100644
-> --- a/drivers/gpu/drm/i915/gvt/aperture_gm.c
-> +++ b/drivers/gpu/drm/i915/gvt/aperture_gm.c
-> @@ -34,6 +34,8 @@
->   *
->   */
->=20=20
-> +#include <linux/string_choices.h>
-> +
->  #include <drm/drm_print.h>
->=20=20
->  #include "gt/intel_ggtt_fencing.h"
-> @@ -76,7 +78,7 @@ static int alloc_gm(struct intel_vgpu *vgpu, bool high_=
-gm)
->  	mutex_unlock(&gt->ggtt->vm.mutex);
->  	if (ret)
->  		gvt_err("fail to alloc %s gm space from host\n",
-> -			high_gm ? "high" : "low");
-> +			str_high_low(high_gm));
->=20=20
->  	return ret;
->  }
-> diff --git a/drivers/gpu/drm/i915/vlv_iosf_sb.c b/drivers/gpu/drm/i915/vl=
-v_iosf_sb.c
-> index 1f0332b4ad0d..fede1735bc08 100644
-> --- a/drivers/gpu/drm/i915/vlv_iosf_sb.c
-> +++ b/drivers/gpu/drm/i915/vlv_iosf_sb.c
-> @@ -3,6 +3,8 @@
->   * Copyright =C2=A9 2013-2021 Intel Corporation
->   */
->=20=20
-> +#include <linux/string_choices.h>
-> +
->  #include <drm/drm_print.h>
->  #include <drm/intel/display_parent_interface.h>
->=20=20
-> @@ -101,7 +103,7 @@ static int vlv_sideband_rw(struct drm_i915_private *i=
-915,
->  				    VLV_IOSF_DOORBELL_REQ, IOSF_SB_BUSY, 0,
->  				    5)) {
->  		drm_dbg(&i915->drm, "IOSF sideband idle wait (%s) timed out\n",
-> -			is_read ? "read" : "write");
-> +			str_read_write(is_read));
->  		return -EAGAIN;
->  	}
->=20=20
-> @@ -125,7 +127,7 @@ static int vlv_sideband_rw(struct drm_i915_private *i=
-915,
->  		err =3D 0;
->  	} else {
->  		drm_dbg(&i915->drm, "IOSF sideband finish wait (%s) timed out\n",
-> -			is_read ? "read" : "write");
-> +			str_read_write(is_read));
->  		err =3D -ETIMEDOUT;
->  	}
+The legacy reclaim path has two mechanisms around isolated folios that
+MGLRU lacks:
 
---=20
-Jani Nikula, Intel
+1. NR_ISOLATED_ANON/FILE counters are updated when folios are isolated
+   from the inactive lists. Compaction's too_many_isolated() relies on
+   them to decide when to back off. The MGLRU reclaim path never
+   updates them, so compaction cannot see MGLRU's in-flight isolation.
+
+2. shrink_inactive_list() throttles direct reclaim via
+   too_many_isolated() when isolated folios pile up. MGLRU's
+   evict_folios() isolates folios without any such check, so many
+   concurrent reclaimers can over-isolate the same (oldest) generation,
+   leading to unnecessary swapping, thrashing and premature memcg OOM.
+
+Patch 1 fixes the counter accounting in the MGLRU isolation path.
+Patch 2 adds a per-lruvec throttle, mirroring the legacy behavior but
+adapted to MGLRU's per-lruvec contention and its dynamic type
+selection/fallback.
+
+Testing
+=======
+Two test scripts are provided to reproduce the problem and validate
+the fix. Both are available at:
+https://gist.github.com/teawater/3ef51251f2e91a5a600e3d26bb477e34
+Test environment: 10 CPU / 8GB QEMU guest, MGLRU enabled, a 16MB
+memory cgroup, anonymous working set, swap backed by dm-delay (50ms
+read/write delay) to slow swap-out and lengthen the isolation window.
+
+mglru_iso_repro.sh (64 threads, 48MB working set, 60s):
+Drives concurrent direct reclaim inside the memcg and measures scan
+efficiency, throttle events, in-flight isolation and throughput.
+Neither kernel OOMs at this concurrency; the value of the patch shows
+in reclaim quality:
+                        unpatched       patched
+  OOM kills             0               0
+  mm_vmscan_throttled   0               35645 (all
+                                        VMSCAN_THROTTLE_ISOLATED)
+  nr_isolated peak      0 (invisible)   230
+  total touches         246,499,132,369 301,456,426,692
+  scan efficiency       0.0261          0.0194
+
+The patched kernel completes ~22% more work in the same 60s: the
+throttle keeps concurrent reclaimers from trampling the same
+generation, so less CPU is burned in reclaim. Note nr_isolated is
+always 0 on the unpatched kernel - the over-isolation is invisible
+there, which is exactly what patch 1 fixes.
+
+mglru_iso_repro_v2.sh (192 threads, 48MB working set, 60s):
+Raises concurrency to the point where over-isolation becomes fatal:
+                        unpatched       patched
+  OOM kills             1 (task killed) 0
+  memcg oom events      51              0
+  mm_vmscan_throttled   0               512292 (all
+                                        VMSCAN_THROTTLE_ISOLATED)
+  total touches         0 (killed)      682,300,003,972
+
+With 192 threads the unpatched kernel cannot keep reclaim ahead of
+allocation and the task is OOM-killed; the patched kernel survives the
+full run and keeps reclaim making progress.
+
+Changelog:
+v5:
+According to the comments of Kairun and feedback from the test scripts,
+make the throttle check per lruvec (new nr_isolated counter) and skip
+empty types in the allowed mask.
+v4:
+According to the commens of Baolin and Barry, rework patch 2:
+drop the throttle_is_throttled() helper extracted
+from shrink_inactive_list() and leave the legacy path untouched.
+The new MGLRU-only throttle_evictable_types() only sleeps when all
+evictable types are over-isolated - v3 throttled as soon as any of
+them was, which unnecessarily blocked the reclaim of the other type
+and passes the mask of the remaining types to isolate_folios(),
+which restricts both its initial choice and its fallback, so that
+isolation never lands on a throttled type.  The v3 gate did not
+constrain the type actually isolated, so the fallback could still
+pick the over-isolated one.
+Re-run the tests and update the test log.
+v3:
+According to the commens of Baolin, remove the redundant nr_isolated
+check before restoring the NR_ISOLATED_* counters in evict_folios().
+rename the extracted helper to throttle_is_throttled() to avoid
+confusion with the existing wake_throttle_isolated() naming space.
+Use for_each_evictable_type() in the MGLRU throttle to check each
+evictable type's isolation instead of only the type returned by
+get_type_to_scan(), since isolate_folios() may fall back to the
+other type.
+Re-run the tests and update the test log.
+v2:
+According to the commens of Kairun, Rebased on mm-unstable.
+Split into two patches; patch 2 is new and adds the
+too_many_isolated() throttling to the MGLRU eviction path, which v1
+did not cover.
+Add test infomations.
+
+Hui Zhu (2):
+  mm/vmscan: fix missing NR_ISOLATED counter update in MGLRU reclaim
+    path
+  mm/vmscan: throttle MGLRU eviction when isolated folios pile up
+
+ include/linux/mmzone.h |   2 +
+ mm/vmscan.c            | 173 +++++++++++++++++++++++++++++++++++++----
+ 2 files changed, 162 insertions(+), 13 deletions(-)
+
+-- 
+2.43.0
+
