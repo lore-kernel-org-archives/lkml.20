@@ -1,162 +1,119 @@
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E26211E505
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 04:27:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.132.180.163
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E12E1349B0D
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 04:28:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789705656; cv=none; b=EVJ1M69E9gHkShJFr9nGeRu48ft2B86Efo0BVimQ8KDEYiAlTKKfOJpGlfvf04YQnwmiYelPbymHxIJK/0eHF/GZ8MUvkeJOecLGmRfjkm65JbN6s6HpQzGEzn7ymdoyQ7CnCqTI19cTXY9VRuECSq9RjrhsHv2ANGh1Ot+hVKs=
+	t=1789705706; cv=none; b=NhzaLYHQbpVkJbqxlczggPiazaF2gnRR6Twjl3YvYmacF7I3qhfHeJSQZQrQaV5718ecF+keIMkiGKN2ZHBVlJPy26L6ChqQqvS2sxGbR3AIfPQnx35A3Tdf7zkX8/15mnX5dGBabelyZl8nswlAZV+qN8XrCHQKX2zSAIPGNDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789705656; c=relaxed/simple;
-	bh=Y33ELKfAMzrkjFzF0kEnX1fBpNvqnSDzITTAf/KsW68=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=irNf+sOvC3UX0lVfk9MAGpW7wRWNXiY7Czxq1uZegxp43IKlfWkVzKipT553NV/4zImbbT0vljKIA3PqzAmtsTXa78SAuNvdDtye8w6ANHpQo/iiKKv2EZiacgtRQ/ZvUrlIoPZ8VEv57OciFjJQ1LX0M71PuXoifQYQhKFLMAE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=g42h1p8/; arc=none smtp.client-ip=185.132.180.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
+	s=arc-20240116; t=1789705706; c=relaxed/simple;
+	bh=gGqMfb0mZ00dpgEGGq3pBv+M6NbKCtJNRN37oILdpbs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bKv2rUlP9gmDbVx6rXWA2PKABzw5UkuCN7bSWlN+NsfaXL/7wwKuHoli5b+gl8d1NUOw1ZckVPshwiuqwve7yYCwvgLYAAulPuWDfYK/EgWirVKVqENLqaj3tR3HdPQFUUO1iruxlSaMRYBIOKsPirPL8iwkCEnKrX/3qhHs3Vo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rJ61Aidt; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="g42h1p8/"
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
-	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I4IpSV1111029;
-	Fri, 18 Sep 2026 05:27:01 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=dk201812; bh=wSYRDUhUydbYwdiUUtGqE1p
-	hgMUHv0FTmYqzeTJxOqg=; b=g42h1p8/6IXPxmSZd6bBuYbc6d9M+CwJWgw62TE
-	s6LrxBeOVUvlJdCyrD4QpOgSQs4aANxLvzu0JHVjJUxGpo9rkE6MGrKQ1Ur5E6e3
-	WNmhuWFt4c5fh1Q/COhbUpYnl+pLHuDHy8kVuWYy5peCoIwxgx5wr/nA9i5MH62F
-	i3JRLUoHGSVdtHXXBg+d5pND+HFfNHMVWly3pB17LXTwN5I0EPBW/9vYmNj97bd8
-	guJHx981slsulRp1Il3c8VQdfvuuZCV390wNUSrFN1KJNqy0nT+Rn9Pvur/3GGkJ
-	O2KNQaj1yT6gyGhuqp9fqMt7sVPpFkQiA+Q1HzOaIKQvDAQ==
-Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4gmxtun90t-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 18 Sep 2026 05:27:01 +0100 (BST)
-Received: from [127.0.1.1] (172.25.128.225) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 18 Sep
- 2026 05:26:57 +0100
-From: Brajesh Gupta <brajesh.gupta@imgtec.com>
-Date: Fri, 18 Sep 2026 09:56:34 +0530
-Subject: [PATCH v2] drm/imagination: Add job type info to pvr_job_submit_fw
- trace event
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rJ61Aidt"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396cccbba91so220531a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 21:28:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789705703; x=1790310503; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YTJNZFQzN8h55ADSd3YdqRemM2GmjoMFnZirfF3PNDs=;
+        b=rJ61Aidtg3CD/rJxjVYtToJn73tkPidw5Fevt9+xku+gPusIK+XEy7W77tyk3aoX4Z
+         Ga/Omdz8VAWjtWqPJDd9KbNKMnI7a1LBWU1XmX0WZWdSqVNpybaFZVeohiXQVvXxi4jX
+         WZ+dijLMqNn/32girLMoXvHgwrdZM01NpTr4JwSDwI+7hHFsbe8HeeHZZMzDBKQlkZTE
+         EFppCfYmoO3flcYV9/CVuhQjmlsDm3eRZKaWVzE0y87qHic41eZMsVq7T6ScdkdGIKzX
+         WqbgZ0kmv6COBUGjdmt+DhvEJE9wrDZGaO1ok+v37SFMPsFiK8kUK8V9H1B1wm3k348G
+         Vhkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789705703; x=1790310503;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YTJNZFQzN8h55ADSd3YdqRemM2GmjoMFnZirfF3PNDs=;
+        b=zj/j+nLF/bIExLmgIpkL44VseRr/smawFPM0vflBFqfRU8mPxr21NeDAs9CDmmKiyr
+         CBd9HXGVxDxzQNJE3AkiXjwFRDRQrpWg3i9jjc9rt+lehcI1rdtNjVoSZC4V18MXNYtP
+         9/mZ0q0TCICxCyN2LChZ5X8P8PMsAb7adRVYeNfTXxZZh4vhfMyjctKH2zR32Vy6HRvb
+         EngjuPqOh3GnmdKJ8+u0xdXsx4BGvGxpZ99w6uQ4Rl4a3/b9jCkdkVZ2tZoM186BAMAW
+         IBlPjp7nCtAg+YRGDQvDI+pgKG/459fZAtvddTNqYZvpqGf5kugzsZ9yImYyPOxQ6VjX
+         VgEQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwXdnenh8faiBsWKNAf9B5PSmInr/geXE1Ce/DLjLZ1Wnuiiw5ETsC31+FYTnxdaQ0wI7Gkw5x3AKqc/lI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kZhEOjeL5+alylmCCI5YKVGXK/7R2ZKJPsHtYHTgU1KP9HYnun
+	mgIqWQxxDomeFQkcXjnsT+ILZDv+/6uJT1FqzfGnq5+O/Op/wyDMZK502cPXgg==
+X-Gm-Gg: AYBFou37+Lg4BdHeRH6qA8M4zam8W9ivf71xaLP/535U/5ZVEDbl59KND1as+HDzLol
+	gRtBXP0/X1b/lgwEaiAZ/WTztARseX52DiHv2Pnm6O6kZk3qXEIGiX1KORptFvyb6pyWMTF7cjN
+	Cm4jG1a9XHWPqUo73/9gZYdyXcvyr9vpy6Vsl2QbfBxk60qZZvh6MKgOSG7PryDU/gv+hvABFMy
+	UjreQ+vyAvojGh700lTKegXGn7MMjnCCrj7ETOtnVkUkeZ13+pt8vfRZ/pWMGQVaSTv7Y/atFgP
+	1TcR1/2pA6wesynnQaVaXnFm0N5gS5dQz3307+6/O5ECIGj2AJUh4IGKBatXND+SRpU/cqHSOvZ
+	YeYUasH0mD3nNuvDBusGmUriL19UdzpA2R5C68e7FbE3N8zqlEKgJNs9KoCuqU3ldU9H+yBmX67
+	IwHx1qdkthmyJA2HQ2LUBUW1+LaqtZ0idQaL15pwCBtiwO0ZcqadvAEFE1w/isaPO0Sa4t0QoLL
+	wjzZTbelzxIyFjW0vZ4C661DRRRWOxBMLZVXxIZSF1zfTkm6PrtGILxBUKzywPVcbDBjkPrDbdX
+	+wFd8+GeshLhmZuuIfOADxxZhQ==
+X-Received: by 2002:a17:90b:548d:b0:398:c3ca:1ebc with SMTP id 98e67ed59e1d1-39e54d11d8dmr2910601a91.18.1789705703042;
+        Thu, 17 Sep 2026 21:28:23 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e361b8e1asm8119606a91.12.2026.09.17.21.28.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 21:28:22 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	davem@davemloft.net,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Jacob Keller <jacob.e.keller@intel.com>,
+	David Yang <mmyangfl@gmail.com>,
+	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+	Nishanth Menon <nm@ti.com>,
+	Wingman Kwok <w-kwok2@ti.com>,
+	m-karicheri2@ti.com,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH net] net: ethernet: ti: netcp: fix pm_runtime usage counter leak on error
+Date: Fri, 18 Sep 2026 11:28:04 +0700
+Message-ID: <20260918042804.13101-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260918-b4-submitjob_tracepoint-v2-1-d9b104de07b8@imgtec.com>
-X-B4-Tracking: v=1; b=H4sIAHm9rGoC/4WNWw7CIBBFt9LMtxigT/1yH6YxhQ7tmBQaQKJpu
- nexG/DznOSeu0FATxjgWmzgMVEgZzPIUwF6HuyEjMbMILlseCcuTFUsvNRC8enUI/pB4+rIRja
- WbWV4U5dVjZDXq0dD76N87zPPFKLzn+MoiZ/930yCCWY60SoppTLNcKNliqjP2i3Q7/v+BTrw9
- y2/AAAA
-To: Alessio Belle <alessio.belle@imgtec.com>,
-        Luigi Santivetti
-	<luigi.santivetti@imgtec.com>,
-        Frank Binns <frank.binns@imgtec.com>,
-        Alexandru Dadu <alexandru.dadu@imgtec.com>,
-        Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-        <linux-kernel@vger.kernel.org>,
-        Brajesh Gupta <brajesh.gupta@imgtec.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1970;
- i=brajesh.gupta@imgtec.com; h=from:subject:message-id;
- bh=Y33ELKfAMzrkjFzF0kEnX1fBpNvqnSDzITTAf/KsW68=;
- b=owEBbQKS/ZANAwAKAdAmd1l+AvFwAcsmYgBqrL2QEIO6+0mSLaSw8aD5j4X2aBiMlE1mwbMrq
- RTOwLbsYMSJAjMEAAEKAB0WIQSQIkZAwD1cxcAsz3LQJndZfgLxcAUCaqy9kAAKCRDQJndZfgLx
- cMLDD/4kgDjz1eCw/w3jyNXktdMwvbglIFYaLoBM29MHi35zb/CZxaOh0i5ru0Tuze3FvOGwy2S
- lcqGizzrUk5ajB8mjsAMC1iYt06QslyibRc86mohMNjRP9HHjMDdzH64y+vBcQq/EEc5HIYdvVO
- 9Dcm1ccYeI8JxiDIgnb7ZpUp0eRlK+o1ILZlJoyiaSd2ndhWHbmPhXcB3JvPXekWhcIwcIoW9yV
- +090SA3G2LaHil0L/nXSaEMtdtkFOz0JmWvDVqSY1h/WbkZBkwf9V9FvwGPeoW6GjDaSrFcgUNL
- I7fDliKgukYTAPhWFPpEl+ElXoUsD8CETqP+ci2FgdJTW0EP9/U5MB+zMbwYO9/Nkl+WWRrumBd
- KOd7hcyHXeqOvKoJvCDrDOt7aHq1X3f93mHyJPG5YeIwIo6ohOCvniZ9GOaQ+Y+Vgq8RbBP5z1I
- pmMVz+6j31xk3h8Pg+8qKhu0H/gcxcmW6USMAmT4lVr1Ilja1hNvvSUOdMuu9QkkzIZ7p+ukT1R
- WqzwQwyY99XY7EBII/H9mF1W6fLzmD7nIipp0wo2OUFZZF8M0mzhdcOPWShvYvSICYbjQXH2jb2
- Okqnv8BRJ1EXQJh2/ZSj5zYrV05S1s1yd94wvKBa42jtU55xyM4N6u/pZ1eoxbzj3rEZMqGu0Cp
- aYjEhdaVil6SULw==
-X-Developer-Key: i=brajesh.gupta@imgtec.com; a=openpgp;
- fpr=05BAA300FD5C580EFD3F8D2F073292BAD0D39671
-X-Authority-Analysis: v=2.4 cv=Se9i5fRu c=1 sm=1 tr=0 ts=6aacbd95 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=HYrZrZQ_E1YA:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=VwQbUJbxAAAA:8 a=r_1tXGB3AAAA:8 a=gsgZ4iqZy9nM05cRbg0A:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-ORIG-GUID: vtFybvpemEjxwsQ9jZrZlF0dmvW423Un
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDA1NSBTYWx0ZWRfX8zg/9gU4m6vB
- mGyTD8ck6zmgj7gUqjrfVim8sDpxmug2Hc+I1BuAX1740dFx7m7r1mEGbmEXCJ8jpB7nwaXrBYm
- Uw/lpIgVEbABKxOZiE4B9b2f5uxTSS2kuj67t8WP9gAzWtEfKPXeje8F6iRPRtJOuSNhO1J8Rhw
- 4hE7BfOyIij0xvTj05hIbn3uLGEzvaIxcmPat7VCZIGo1J5rI64cmInl9S82A6RGczymxLWLbiQ
- j+nkYjaBZf4u84QfY0m+LBJyuZu6UzwEvR0GEtRlK02CPJ/hoNXJy/RhQjRrsC9xxWD7RNr5eJh
- bITa+PsrrwsQ+Hrc0O/ncfKiPh0CBfaOqRhher1RCcT+2akpvQV+PNs9dQ1TtNZz6DzsNFUbBlQ
- nLqHqj0kWt9q5fhWQWpl8dIkpCqrDJ7QA6pUNi0BCEd4AblI2ka/3uzbmJ0Teq582sE4Z6YwTn4
- kTjjz4LrKN+J9NDpocQ==
-X-Proofpoint-GUID: vtFybvpemEjxwsQ9jZrZlF0dmvW423Un
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDA1NSBTYWx0ZWRfX7ia6wlGHtwX3
- ZVvr/pcMbbuJMpXYUvQPBsU1KT0OdSHkjsDTm1gWDiLz/6aK1unYkEW2h3VWmtsNwgUhs+KKq3g
- d3iBOf/WIrr9JDfWtF7eSYl+C6CVpOU=
+Content-Transfer-Encoding: 8bit
 
-Update trace event pvr_job_submit_fw to additionally capture and display
-type of the submitted job to easily map events as per type.
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-Signed-off-by: Brajesh Gupta <brajesh.gupta@imgtec.com>
-Reviewed-by: Alessio Belle <alessio.belle@imgtec.com>
+pm_runtime_get_sync() leaves the runtime PM usage counter incremented even
+when it fails, but the error path in netcp_probe() does not call
+pm_runtime_put_noidle() to balance it, leaking a reference each time
+resume fails.
+
+Use pm_runtime_resume_and_get() instead, which automatically drops the
+usage counter on failure, fixing the leak.
+
+Fixes: 84640e27f230 ("net: netcp: Add Keystone NetCP core ethernet driver")
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
 ---
-Changes in v2:
-- Updated to latest drm-misc-next to resolve a conflict as pointed out by Alessio.
-- Link to v1: https://lore.kernel.org/r/20260819-b4-submitjob_tracepoint-v1-1-f817b222bf6a@imgtec.com
----
- drivers/gpu/drm/imagination/pvr_trace.h | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
+ drivers/net/ethernet/ti/netcp_core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/imagination/pvr_trace.h b/drivers/gpu/drm/imagination/pvr_trace.h
-index 943d6b2418cb..4be7d4b8a357 100644
---- a/drivers/gpu/drm/imagination/pvr_trace.h
-+++ b/drivers/gpu/drm/imagination/pvr_trace.h
-@@ -90,21 +90,25 @@ TRACE_EVENT(pvr_job_create,
- 		      __entry->sync_op_count)
- );
+diff --git a/drivers/net/ethernet/ti/netcp_core.c b/drivers/net/ethernet/ti/netcp_core.c
+index eb8fc2ed05f4..4f9e20468bbb 100644
+--- a/drivers/net/ethernet/ti/netcp_core.c
++++ b/drivers/net/ethernet/ti/netcp_core.c
+@@ -2225,7 +2225,7 @@ static int netcp_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
  
--#undef PVR_JOB_TYPE_TO_STR
- #undef PVR_JOB_GET_HWRT_FW_ADDR
- 
- TRACE_EVENT(pvr_job_submit_fw,
- 	    TP_PROTO(struct pvr_job *job),
- 	    TP_ARGS(job),
- 	    TP_STRUCT__entry(__field(struct pvr_job *, job)
--			     __field(u32, done_seqno)),
-+			     __field(u32, done_seqno)
-+			     __field(enum drm_pvr_job_type, job_type)),
- 	    TP_fast_assign(__entry->job = job;
--			   __entry->done_seqno = job->done_fence->seqno;),
--	    TP_printk("job=%p done_seqno=%u",
-+			   __entry->done_seqno = job->done_fence->seqno;
-+			   __entry->job_type = job->type;),
-+	    TP_printk("job=%p done_seqno=%u job_type=%s",
- 		      __entry->job,
--		      __entry->done_seqno)
-+		      __entry->done_seqno,
-+		      PVR_JOB_TYPE_TO_STR(__entry->job_type))
- );
- 
-+#undef PVR_JOB_TYPE_TO_STR
-+
- TRACE_EVENT(pvr_job_done,
- 	    TP_PROTO(struct pvr_job *job),
- 	    TP_ARGS(job),
-
----
-base-commit: a8fe4e162ba8212b7e51fdb024b37800f36b496c
-change-id: 20260819-b4-submitjob_tracepoint-d374f065345e
-
-Best regards,
+ 	pm_runtime_enable(&pdev->dev);
+-	ret = pm_runtime_get_sync(&pdev->dev);
++	ret = pm_runtime_resume_and_get(&pdev->dev);
+ 	if (ret < 0) {
+ 		dev_err(dev, "Failed to enable NETCP power-domain\n");
+ 		pm_runtime_disable(&pdev->dev);
 -- 
-Brajesh Gupta <brajesh.gupta@imgtec.com>
+2.43.0
 
