@@ -1,74 +1,53 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbg150.qq.com (smtpbg150.qq.com [18.132.163.193])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 625C13C73C1
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 05:48:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6250633A70E;
+	Fri, 18 Sep 2026 05:49:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.132.163.193
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789710541; cv=none; b=pBopQTdSgDoL1e6eS4pLTlnjonHvJFiVZ05HBp/bsegFTgTMDplxe+Gp1sPryHDpOw195NUWnZHuyLJi6CChcij/fP0gVo7E/4z8sBVtwF3i9GOQJUECRhBk6HO2uQyL1ZTo4VVxvv4WQG3oELb0MtrovrWFvFxdyb2wKcojqmw=
+	t=1789710550; cv=none; b=Y5ZwNzqFvYjCdUXCxpVV/bL/8nNywMZDWgO2uVYVDLPFjBR2KOFiTCJq+hgIFHbNjbqqTZK7H9SUMRK3uJy3+9HZ6XjbdsfcGrsaxrJdYxpt4kVt5E4Z6MsmPlszgDDxn01kh3yu74Nb910Os8bMxrkXbTunzdUltNAbLcTzMPs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789710541; c=relaxed/simple;
-	bh=nto4tkX2dPIt2ga+eZHkQoGQW5hVv7ulZY2WUPfq8pc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=rZOvlxtHc8dPk7vYnM36O26FTdiGHo2QXKeV4dtGRVzyJX6IxSEdFlFLvv757lCj20ba+e7NmZM23oT26nvj19IkgmMA2POiNCLjGjzU/8b1j6u/iJ4YTEFwDYPdO53+vSVAB0lknkzqvVbz2v6W3zku2lWvQKOYdyfdJNSEkDU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fcJgQp2u; arc=none smtp.client-ip=74.125.228.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789710550; c=relaxed/simple;
+	bh=HSIiBjEF6kVr4lDbSOyfO3M9sXDCs9uqCTKciOy/8K0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=eCRRiR7fKtokxUNdhbzeQSoMVFl2d+RDGeu02I3TXTsQU6E1d9pLMsrzlmJstJi7jgLCtCsF4rcb0gKeCPweerGNAIY8paZq1z2Sst+z6hflClJ18mkSqNphq0O3K2x6r5jRNK4zX5Bx8/GNSXfKuUlt2nOmd1tPFh7Lsh4uzFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=gTDeCzmt; arc=none smtp.client-ip=18.132.163.193
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fcJgQp2u"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469e211a0so446277b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 22:48:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789710539; x=1790315339; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NGpbvCtpovb18NhzNwdD5CAHO3yyTfoxPLrbmEaPtEQ=;
-        b=fcJgQp2uVGy8Rw5QEIRYO9VvIy29/Me+dFnAiJO6hFU2C/earlrUDJpKe3Yb8YfAkO
-         mfZZdIq8S0mXM26JuSMuqfcGtiuauzBUrGhv8t4aWo7+q0i7w1N8yWOvwtnsE96wcNy9
-         8/N8JwfKyr3A1MUSskEGrEuhVdtn59qQEhA10/MPvK5n4UEaQMHmv66GcNjkjRCyjZlR
-         Hu+L1RgxWvEC+YjuhAud/ztCzebgBHgS9/CgEmMArpYsJAfWDEijFG0dklOwZVpf5zfE
-         ez2bkqLf/cBqI9PLwmyHgOd1YA17Wz4fQZuEXCdJF8YUx5HBOwSzF6q6hj3A1qaoefsO
-         MXug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789710539; x=1790315339;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NGpbvCtpovb18NhzNwdD5CAHO3yyTfoxPLrbmEaPtEQ=;
-        b=hlW88dAYJB/luFPALq6SkyA3IL2DJxf1FJEIQKLqeBIh7aYaNUvUvAHvET7we1scN0
-         OZfxr3pOjVqzxD/auh6q6yYNjvSm9q/7YpIUCM13uI6QqKX8+tQTZvr1y8F1gH/MOqIw
-         0h7vO47Ga+KHzv7Q/ph5ECkvJyjJwWm2EFtOeTzTRyf0MN29a6bIY0XyPYrmmuv0z7WF
-         zNf6t6Aymm58z+79AgsvWrhYYkk7v/7zMgufVsvbhuHcrcxVhBTQicpFiTHgRpG8a4WS
-         1JWG87O2Cuqv2wArwxpsGwkU+Tbv1/TXHE7iFyfg29KsQY2M1BPYngQnKvVOhFg74sCf
-         Szsw==
-X-Forwarded-Encrypted: i=1; AKwUvBxY21R81rb/nDrb+SYqLqK3FDFyUe5dILm6l/0eEYaPFOoWUv80VY7g/auoSOjt9QhR3CN+IZb752Ap7bg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lcjq3SOtmp/yeHjESNTo12/+AVloPvIe9uCeC4dlKdSEg1jhwD
-	nZzhtt1RfoXtqoVZhX1JMXihZCLISYgu3seK2py2Rjpht1+cJ98962qq
-X-Gm-Gg: AYBFou0WPRF89084lcvpm7IOxlJa9uWkLEgGCSiEbUHNEChO5J/5+ASvll3yAjy9m7I
-	awupKQzcgqninzGRpKwRkoTYarNzkMtC0bK6jdfTeXnHKHQdA1rq4fAOnVlC4DXko3x3VEdcDPZ
-	iAnigijxc9ReOngtJIvdFqSAFHZroU7ioLT8+eZNSAW/Z9qhS2OF0g4oo1sINyuF/NxIAOOV/Ib
-	HstI+EcHME+qY5L1RrYhDpE6KS3p1fxNDQepPFGS1FKTvM11m8qpluMQsK066LJOdYHs241i40r
-	oy0N+htMqQoeP6rlpuJn5SHClAjiVy09ABxHtEbH68w+xxyf0WTWgMpwAFguNkJdlVfzNJ13svM
-	vOPE6byt0UtJxYfaaqndZwWj4M+8X/QW8i2kLYTp89FX10fc4tXx6SW1fctCeBsWjufl/uEt47K
-	XColT7P6E0gXblpvP7o1H3zRItpFJ32mTxbnphJBg/1GvR/+HoPa7JpMNxdviFVE1+jC4Uxa+U7
-	+meAaMD6PyZ3JvNH5HuMFjX0eXopPrnaGo=
-X-Received: by 2002:a05:6a21:32a2:b0:3cd:a1e2:f238 with SMTP id adf61e73a8af0-3dd8c47dc32mr3306490637.16.1789710539240;
-        Thu, 17 Sep 2026 22:48:59 -0700 (PDT)
-Received: from deepanshu.. ([2405:201:682f:383f:fd1d:e265:6e6f:358b])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc5c50ad2cbsm320020a12.15.2026.09.17.22.48.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 22:48:58 -0700 (PDT)
-From: Deepanshu Kartikey <kartikey406@gmail.com>
-To: sean@mess.org,
-	mchehab@kernel.org
-Cc: jarod@redhat.com,
-	linux-media@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="gTDeCzmt"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1789710509;
+	bh=m4i0jsZ3JLyaXEppMzJNMR1oMWhkh8P+QnRqNLoQkno=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=gTDeCzmtJ2nxYAPBKbKzReHed/WJL1Ckgs6sMvrpk+0i4F0r1ACgagxI1NZskqt1U
+	 6SNx69hh+KqVFsq29nmZb5+K4aRmcW+gUkQXcyinpMMNla/9bvxQ4rwPQuQcnyLu0q
+	 TczLnwVLll3sA0706cxQYkWfUTVug2TTYBv7Os+U=
+X-QQ-mid: zesmtpgz6t1789710491td142aa3a
+X-QQ-Originating-IP: AW4kLNZweyOKyPAkMy6G5POI4gszYncYxz7WTpxrRhU=
+Received: from localhost.localdomain ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 18 Sep 2026 13:48:09 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 12507322500606360400
+EX-QQ-RecipientCnt: 9
+From: Wentao Guan <guanwentao@uniontech.com>
+To: kprateek.nayak@amd.com
+Cc: guanwentao@uniontech.com,
 	linux-kernel@vger.kernel.org,
-	Deepanshu Kartikey <kartikey406@gmail.com>,
-	syzbot+9bfac891bdd42eb708fc@syzkaller.appspotmail.com
-Subject: [PATCH] media: imon: fix use-after-free in display_close via dev_dbg
-Date: Fri, 18 Sep 2026 11:18:51 +0530
-Message-Id: <20260918054851.26083-1-kartikey406@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	linux-pm@vger.kernel.org,
+	ray.huang@amd.com,
+	ronforever@outlook.com,
+	scardracs@disroot.org,
+	stable@vger.kernel.org,
+	superm1@kernel.org
+Subject: Re: [PATCH] cpufreq/amd-pstate: Do not fail init when auto_sel cannot be written
+Date: Fri, 18 Sep 2026 13:48:08 +0800
+Message-Id: <20260918054808.48999-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <748cb8d6-174c-4cad-98bc-ebb985e2eced@amd.com>
+References: <748cb8d6-174c-4cad-98bc-ebb985e2eced@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,54 +55,94 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: MaOFYie8xFshjyzlZsZ1Q1GzyFvXo1rCrQ0ozdiWGslxSdeohdVWe9Iw
+	0VYSCmsTtqBKUaG5SQZIGmDxhPXBxaZdGaYmYrvYarC6aASFykw7QPTkQRbmL0BG4jrGYmm
+	90puGyO1K7E385AvBnNbm0SCF6a8xKWRe0N0HtIMDgfsN8U3vfmOe5UiLqoZ5WFf+s08ccC
+	b3shRvIy1u1y1jQ6cK8ZT1OPXuv1sAGokR0jMl8a1obEnQutXoo598E4nBAzCvqh+Y/tvRh
+	ntWeNtTPn1HkRqDrK0CLOHt3LzYtJk4/FbfgT+naInfSZsE0sXj8ZObTpcaY1Fn8xE+AA0X
+	pUTnXI9v0CM1v224Z1STcOi6ShLYX7TobKCz9Ta7nCnqwqI+Yzb67kXx004RIAnKDbE9fwx
+	nKDWH8uRfNqLkd0BlwqPPC3Wq4FviMtEvY7+KgdvKZcBF6aveJQWUFbs1PkMWKJ/SDmt3Yp
+	thk3Zf0SU6SmsGXnFUXhoFiEr+oYuNvXt/eO6bQ0Hu1Gv0oO1qHnqVn5iRqu8UIk+WwTkZK
+	7ea+tsszk2hiimDPrR9RLL+7M4Q2R+cbimamcZVEBAeaOndl8lR/7ctyG2rXd7ZDiVXIJhO
+	7hH87IzYyHKd23tTbh7z33gIKaPwZZtL/BDUvOYIXdz2U71rw4YaGaGFKLacKvnYcnDwrBm
+	+qsWjM7mHyeiAGaidmri6vjRTofCAXODfs3dl2cvKQbEbcYpgSsoftgkdtby4YerumYFtvy
+	7pnLELn1X1C1/o5hvem/Wp64Qo+jSWIuK9xtXPdL6oLZoI18CMvnNuqBeTwBbvEMVsUfaBr
+	i9D+h+/VHwL6fkDFJipYUt1D92qZKIWYFtrv1/xAkAQqnPqFqHyeLSLSxssuYfTCnedI2i6
+	EPINzNmaXuzQ6RNJimS5kldjUOvoNs8bsx6KhZZ0JyljH8Cnqgbtiw0IPnvtJeBWCMVoAnC
+	dY1tYmiCuqifzNFoYqc3vkn0MPC11VlmMjHS1gUf6+5hvXWkkAArK762RBLdTfJoX0Y7IPU
+	vKJymtV3ffGJBqYIcUqpEE5+hkXNJL896mm/24gntEPGKROk2nu6Jk0sWLjR52c+ER9Z/+b
+	4JrjX0RkOB4pkFx3ZuA+Jyk+46NsYDVWq3sk3e8UoUu
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-RECHKSPAM: 0
 
-ictx->dev is a raw pointer to the usb_interface's embedded device,
-cached in imon_init_intf0() without taking a reference. On
-disconnect, usb_disconnect() can drop the last reference on the
-interface and free it while a userspace fd for /dev/lcd0 is still
-open. When that fd is later closed, display_close() dereferences
-the now-freed ictx->dev via dev_dbg(), causing a use-after-free.
+Hi,
 
-Fix by pinning the device with get_device() when ictx->dev is
-assigned, and releasing it with put_device() when ictx is freed.
+> On 9/18/2026 10:12 AM, Wentao Guan wrote:
+> > Since commit 9dfd13f80c85 ("cpufreq/amd-pstate: Toggle auto_sel in active
+> > mode on shared memory systems"), shmem_init_perf() programs
+> > AUTONOMOUS_SELECTION_ENABLE unconditionally, including in active mode.
+> >
+> > On platforms implementing CPPC v2 and below, _CPC reports Autonomous
+> > Selection Enable as a plain integer rather than as a register descriptor.
+> > Such a field is a read-only capability flag: cppc_get_reg_val() reads it
+> > back successfully (the firmware reports it as enabled), while
+> > cppc_set_reg_val() rejects the write with -EOPNOTSUPP because the entry is
+> > not an ACPI_TYPE_BUFFER.
+> 
+> Ah! So it is one of those platforms that fall into:
+> 
+>     Platforms that exclusively support Autonomous Selection must populate
+>     this field as an Integer with a value of 1.
+> 
+> as per the ACPI spec.
+> 
+> >
+> > shmem_init_perf() propagates that error, so every amd_pstate_epp_cpu_init()
+> > fails, cpufreq_register_driver() ends up with an empty policy list and
+> > returns -ENODEV, and amd-pstate refuses to load at all:
+> >
+> >   amd_pstate: failed to set auto_sel, ret: -95
+> >   amd_pstate: Failed to initialize CPU 0: -95
+> >   ...
+> >   amd_pstate: failed to register with return -19
+> >
+> > Failing to write auto_sel is not fatal: the register is either already
+> > enabled, as reported by the cppc_get_auto_sel() call right above, or not
+> > writable at all, and active mode worked in both cases before the offending
+> > commit.  Downgrade the failure to a warning and let initialization
+> > continue, matching how the cppc_get_auto_sel() failure is handled.
+> 
+> Can't we just skip cppc_set_auto_sel() if the auto_sel is already at
+> the desired value? Something like:
+> 
+>   (Completely untested)
+> 
+> diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
+> index d4ff8b228f86..ed540da818ef 100644
+> --- a/drivers/cpufreq/amd-pstate.c
+> +++ b/drivers/cpufreq/amd-pstate.c
+> @@ -524,6 +524,9 @@ static int shmem_init_perf(struct amd_cpudata *cpudata)
+>  		return 0;
+>  	}
+> 
+> +	if ((cppc_state != AMD_PSTATE_PASSIVE) == auto_sel)
+> +		return 0;
+> +
+>  	ret = cppc_set_auto_sel(cpudata->cpu,
+>  			(cppc_state == AMD_PSTATE_PASSIVE) ? 0 : 1);
+> 
+> ---
+> 
+> That way we fail for passive mode switch which will operate under
+> incorrectly assumptions since these platform only supports autonomous
+> modes.
 
-Fixes: 21677cfc562a ("V4L/DVB: ir-core: add imon driver")
-Reported-by: syzbot+9bfac891bdd42eb708fc@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=9bfac891bdd42eb708fc
-Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
----
- drivers/media/rc/imon.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+> Thoughts?
 
-diff --git a/drivers/media/rc/imon.c b/drivers/media/rc/imon.c
-index 049a73b5f882..9341dbe03b57 100644
---- a/drivers/media/rc/imon.c
-+++ b/drivers/media/rc/imon.c
-@@ -502,6 +502,7 @@ static void free_imon_context(struct imon_context *ictx)
- 	kfree_rcu(ictx, rcu);
- 
- 	dev_dbg(dev, "%s: iMON context freed\n", __func__);
-+	put_device(dev);
- }
- 
- /*
-@@ -2253,7 +2254,7 @@ static struct imon_context *imon_init_intf0(struct usb_interface *intf,
- 
- 	mutex_lock(&ictx->lock);
- 
--	ictx->dev = dev;
-+	ictx->dev = get_device(dev);
- 	ictx->usbdev_intf0 = interface_to_usbdev(intf);
- 	ictx->rx_urb_intf0 = rx_urb;
- 	ictx->tx_urb = tx_urb;
-@@ -2314,6 +2315,7 @@ static struct imon_context *imon_init_intf0(struct usb_interface *intf,
- find_endpoint_failed:
- 	mutex_unlock(&ictx->lock);
- 	usb_free_urb(tx_urb);
-+	put_device(ictx->dev);
- tx_urb_alloc_failed:
- 	usb_free_urb(rx_urb);
- rx_urb_alloc_failed:
--- 
-2.34.1
+Thanks for your review, full agree with your suggested patch.
+I will send v2 after be tested later.
 
+BRs
+Wentao Guan
