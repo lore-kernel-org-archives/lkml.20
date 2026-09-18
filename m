@@ -1,120 +1,128 @@
-Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9F9E3F482C;
-	Fri, 18 Sep 2026 04:43:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EEE0140E5F;
+	Fri, 18 Sep 2026 04:44:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789706610; cv=none; b=gx9y9rjQf5j5xuPl/wcFajThY7aQ8W5OBvsdTyh3Q6pdFqJkqu/NuoxlhfsYH2gu8m+nG7klqmpTIoZxMsDb2p0NITIu72uppbNsww4ZtrFgzEx5pQ3rFxnYT4xhffr8i60eetmMuQW+WPV7BTx0YyfHdGum07tRZOjvQlB0eW8=
+	t=1789706666; cv=none; b=kmWezw9TxTtbELslxAYLZCaetbZypWKjbXIDZbhDWvkJcjBNzm1wZv+JOlOYgkFMRbuF5G2M4JAY1uzkrhTPTAMbGYl3u2P77pgEQpN54H+5suiNZqhAq8gYUEJok+4akwKvhrHzQ158UCzT6YtinNmraiQz7WRqpaI3stbliHI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789706610; c=relaxed/simple;
-	bh=ctT6/vFqCvmzUB4BzaDOakENPF2YtZmtVFw/C+EeL7s=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JzXzjhVrmY/icN8BDymhBnltxSRXyRjtpG0h4Zsv6dy222LN8X3NcqjWJ9KGTP6yVyJ0lGFsKSv5iFJNTngXvHWPQYBSATcysY1hOvithz6IygjFVjNxuJ/n0ht6kHKX/1B1SjUTZkN7lpMBWSbnfwX9WBm2uKSiXXdjY8fG+E4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=bD2OasoY; arc=none smtp.client-ip=54.204.34.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1789706666; c=relaxed/simple;
+	bh=nRntUvG8VfqjqmV6gXAQEPBy9XEX9TT0/57eELrdPC0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=n8h86vK21yBtnR+CjzxHxAMkjUUg69FGNv+o0lA+dQi41Yf2/Asy5PqXa19FP+UlJVcz1V6Dxz2X2HmeZ+F7v9rnLL8ZOaaDsuf+TzuwikzKs2KoxzIFywzA3PUU45RT4qcw/pIla7Px9C43jXGNkVPv9bkZDz3VuGi3lG9+/zc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hRJTfYRa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="bD2OasoY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1789706561;
-	bh=scvXxlF6NEZhARvuoJyXBq5j+D19qfu3CYC0s+82v5k=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=bD2OasoYiW5SZZIfoMhbSE0aa9nr+RdKWOy4wpjMbCyq1jepx6R6BRA1O81LJlhk1
-	 4iTTGXhWveTGtd6pWBAC63ci/ydHuRU8ecdsWasUfr1wg6rM1XX2a4EV+WN+2ryMWL
-	 sTYVwsSuEjBEEPXgpTSzgB7e6sr2nMsd1uRCxQ3M=
-X-QQ-mid: esmtpsz21t1789706542ta9530e46
-X-QQ-Originating-IP: 6Rkv2n1RlcwXAJ9DANlh8itmzSa3wvLc8R3FeYeuZBU=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 18 Sep 2026 12:42:19 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 10535435220871461170
-EX-QQ-RecipientCnt: 9
-From: Wentao Guan <guanwentao@uniontech.com>
-To: kprateek.nayak@amd.com,
-	ray.huang@amd.com
-Cc: scardracs@disroot.org,
-	superm1@kernel.org,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wentao Guan <guanwentao@uniontech.com>,
-	stable@vger.kernel.org,
-	LFRon <ronforever@outlook.com>
-Subject: [PATCH] cpufreq/amd-pstate: Do not fail init when auto_sel cannot be written
-Date: Fri, 18 Sep 2026 12:42:15 +0800
-Message-Id: <20260918044215.41400-1-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.30.2
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hRJTfYRa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7BBD1F000FF;
+	Fri, 18 Sep 2026 04:44:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789706664;
+	bh=bqZx/AptVhZLcudKvv7eqc5S9GWWoF0mLVu5mPMuXVc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hRJTfYRamoTrmtZroOVByfenuYfGDp7MAxXhTqbsJrtj0eHWEbinP0LsZWILEq+XD
+	 OikV6J85b7zSxwh87Jb/ngzwEe6TQTPZxtT9eHmp/66v0Gc75aPTGTthkiqQLOdlYe
+	 qYTEfEURoLvzbT9rOGpjjnSsMmQWWjtMDvS8dZoc5ls+HJcvM9EDRA1tJjv4BNpzKk
+	 j7xKqxF2anKKWQ67STCZVhSh5UZ5d+MNO5B66dAmPxWJgfVu+5+V3BTAONMkZxsyu+
+	 FphLF7BOAaSJ1VxHjt5+8ncx7gpMmCitABngv2FjDsJH7Nyc5mgeR7imudcUYsMgbc
+	 i/8dYQEK1Smgw==
+Date: Thu, 17 Sep 2026 21:44:24 -0700
+From: Kees Cook <kees@kernel.org>
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Masahiro Yamada <masahiroy@kernel.org>,
+	Alexey Gladkov <legion@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
+	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
+	linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v3 11/20] kbuild: avoid re-running compiler and linker
+ probes
+Message-ID: <202609172130.3DF0D66@keescook>
+References: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
+ <20260917-build-speedup-v3-11-9ecf4163ff36@kernel.org>
+ <202609171154.BEA5134F7@keescook>
+ <20260918012119.GC1585590@ax162>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: MPAlP4yRn0xgLBU+73ErcF0cH+m0lKAYqQ8KYm7LsmpgD8duNzS4cYM0
-	meYu9SXtEBFqJMsLII1XI3BKrpg39zkwQ4hmiWZoiEgfdU7vcxHFT/hXiVS/Wnbz1Oi5RWQ
-	y+fuRLLSTZJ0Y1AuwaJWFpv8LChScTkiRhWiKRkM3k8ikGcVBXBN88RvPNN6QMcrtZqwFKT
-	hsWf3E+3CtTD2onNP91IDJkzNq8s3xvGiKqCUNgVSaFK+/OSX3gyGLPMlBCe3y3olhpT/yj
-	191EsT4n6kKlVIfIotcMvzogFCpo4SDvJxqnXmuq4a0xWf3mz2SQKy+TcLA4JKzUoBRt+/m
-	u1x5/QGLKgRJMVl+quaBNdI3Aqm9GlNFGbybO+e2e4ZZ1vwlbTgu2/iGzwvMDt7lf7S1AYi
-	5VgacT4jPU7yC1WSYi0Uzi44dspwUwYFBxfKVYd9oZfPAY9a/Jrg4n1wAxmkx7xis7yOZG5
-	i4Sy+4oDaahQbpdXkNx7tNjTUSsiOKVn5Y6CSDP5oE7xSyGx+0lW6zMhE3hFH3lOhkg5SXC
-	7DO2pTGlCkt7PjcwhVKolrGVY3dC1WSCbot1CA9jywkUlGRTiDVywF7vBkUPsovVabvTwPV
-	aA/N8uA7i87YqgaPISnCdIG1XamGHfDRgaqZ2mgyhoY7NfmjS5e+VXgIfFU8OrOqc/bZ857
-	MDq+iamRjoY1q/eASpBGF6MU22s5RojahuSbA9zwxHS7+C+7iqqsz/bCAEcnqRLsuqxHATK
-	ft/jV588VxKHRZu6p8VDSxeVRIAfEjVuPHw63OSZt9mxB/sUS2nF8x4PVCnYoxP91gInTVE
-	rnVnglRIdpIThT/SfhdFbXfFu7LGQAUOKrV0+KSre+rry+V4xDt8sj3GUbKwpW5KQwapG+P
-	dCj2dsYXMrvrYlpeBF92kpu4IOlQm7FvjOks+Q9FglMywNU3X64JnLg1ij6ZAqty9Y/A9sJ
-	uM8Vz3qNvgyVtNJNLGXsVkn5XPV9nUP52VgMMGpo2EgO2/PetjyT6tGuuejBfBk8EOvRyZm
-	ZoAO4H8vUhPa2qcQgLRHPE0k6nhV35MDWNIonN2GRAbmMPy6wx
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918012119.GC1585590@ax162>
 
-Since commit 9dfd13f80c85 ("cpufreq/amd-pstate: Toggle auto_sel in active
-mode on shared memory systems"), shmem_init_perf() programs
-AUTONOMOUS_SELECTION_ENABLE unconditionally, including in active mode.
+On Thu, Sep 17, 2026 at 06:21:19PM -0700, Nathan Chancellor wrote:
+> While we could certainly try to cook something like this up, we could
+> also avoid the split across two files by just defining the flags in
+> Kconfig directly and using them in the Makefile through their symbol,
+> like we already do for -Wimplicit-fallthrough. For example, instead of
+> 
+>   config CC_HAS_STRICT_FLEX_ARRAYS
+>       def_bool $(cc-option,-fstrict-flex-arrays=3)
+> 
+>   KBUILD_CFLAGS += $(if $(CONFIG_CC_HAS_STRICT_FLEX_ARRAYS),-fstrict-flex-arrays=3)
+> 
+> We would just do
+> 
+>   config CC_STRICT_FLEX_ARRAYS
+>       string
+>       default "-fstrict-flex-arrays=3" if $(cc-option,-fstrict-flex-arrays=3)
+> 
+>   KBUILD_CFLAGS += $(CONFIG_CC_STRICT_FLEX_ARRAYS)
+> 
+> While we still get the duplication (and we could look at getting rid of
+> it with your cc-option-str idea or whatever), it is at least contained
+> to the same location, so out of sync issues should be much rarer. I do
+> diff Kconfigs so this might make certain issues with checks a little bit
+> more obvious if something changes on the compiler side.
 
-On platforms implementing CPPC v2 and below, _CPC reports Autonomous
-Selection Enable as a plain integer rather than as a register descriptor.
-Such a field is a read-only capability flag: cppc_get_reg_val() reads it
-back successfully (the firmware reports it as enabled), while
-cppc_set_reg_val() rejects the write with -EOPNOTSUPP because the entry is
-not an ACPI_TYPE_BUFFER.
+Yeah, and note that cc-option-bit already exists. It's just a weird name
+is all and there isn't an ld-option-bit.
 
-shmem_init_perf() propagates that error, so every amd_pstate_epp_cpu_init()
-fails, cpufreq_register_driver() ends up with an empty policy list and
-returns -ENODEV, and amd-pstate refuses to load at all:
+As for naming conventions, I think "CC_OPT_" would be a good prefix. And
+this works today with no change:
 
-  amd_pstate: failed to set auto_sel, ret: -95
-  amd_pstate: Failed to initialize CPU 0: -95
-  ...
-  amd_pstate: failed to register with return -19
+config CC_OPT_STRICT_FLEX_ARRAYS
+	string
+	default "$(cc-option-bit,-fstrict-flex-arrays=3)"
 
-Failing to write auto_sel is not fatal: the register is either already
-enabled, as reported by the cppc_get_auto_sel() call right above, or not
-writable at all, and active mode worked in both cases before the offending
-commit.  Downgrade the failure to a warning and let initialization
-continue, matching how the cppc_get_auto_sel() failure is handled.
+(do we need "def_string" now?)
 
-Fixes: 9dfd13f80c85 ("cpufreq/amd-pstate: Toggle auto_sel in active mode on shared memory systems")
-Cc: stable@vger.kernel.org
-Tested-by: LFRon <ronforever@outlook.com>
-Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
----
- drivers/cpufreq/amd-pstate.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
-index 80d99ba1902c9..3657c5cccd4d8 100644
---- a/drivers/cpufreq/amd-pstate.c
-+++ b/drivers/cpufreq/amd-pstate.c
-@@ -538,5 +538,5 @@ static int shmem_init_perf(struct amd_cpudata *cpudata)
- 	if (ret)
- 		pr_warn("failed to set auto_sel, ret: %d\n", ret);
- 
--	return ret;
-+	return 0;
- }
+-- 
+Kees Cook
