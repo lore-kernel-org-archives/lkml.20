@@ -1,186 +1,237 @@
-Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazolkn19012058.outbound.protection.outlook.com [52.103.66.58])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAE7954707D
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 04:03:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.66.58
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789704238; cv=fail; b=boUur4g+WCCHcJ9nMBqGhJpFW5L2y3ncVpgBULhfehq85c4nS/t9qPTF4v2I3PRLlQguktWdUPv11PzMJ2lD+hJ62RH8mLIFOY3TBfOD3KgPw3s3ELCamQex6dGm3N/CgNXAWj4i4tRMOBh+ji9g3k3XC/XdZiQGWqSdh4nasDc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789704238; c=relaxed/simple;
-	bh=Ri1mLnhcV9sOmoYFa8k9WVBZ9PKsnPVSNAkv0qNS3KE=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=EV5ox+R2i5fYslGfqUEE5arxu+r8jsusHWK57x5rt+3SJfNsBchncu8MYxxtQf/GWfaqPPhv4QAPgfgfirR0TBVwzq1XjgBGeIds5upazCJMXR03CrBKCXZDBdNKZKNb45T6E/BjQVEe30QtfELWVssvB2HCbPRgUylY8pwlazQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com; spf=pass smtp.mailfrom=hotmail.com; dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b=lgZrztu+; arc=fail smtp.client-ip=52.103.66.58
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CF08395ADA
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 04:05:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789704316; cv=none; b=FwRVeyPCqv7blB1orxmBlK9lt8fcmk2EolGiOQKbD8eHF5pmuw9U8VKZ12xfWvBuxuQgEU7PRTkHcbiDCsSMFa6TiPcK3FlS7E3Xv7RVwGHysBYYVazv8ftVWpkVVP3V0EjNcN5TZSSj1ecYUoaWPgB2wONM3nOtd7ZfgqDogow=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789704316; c=relaxed/simple;
+	bh=DbHpwwZHwcETFHq7bJfxk4QzBcPRR3fpqfQprJCF1z0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=MZ1tbAqCUPzIfstkANxSdV1b5zIHQpNRqCqDCX/PBUyZp+1QYC3nHqC1we821O9/KaO52xdjttkmEpGb32rrax5VS84DYI0erQQfZVnv8nVmO3Y0mTIg+NZrjLjCu7hMpEll31Fdx0TzrAxJ+lJo3xGqXEuwTALpd3JsTI5vRGE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lrobaThB; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b="lgZrztu+"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CVa/8j0EEPO/q7/2R+vkQlo3esnycpSi1Ty9ZyKj3fXT6JZsoSdIhiUjxFrOX3l5nnIpqd2yhVP5x7yspl3kVuaFmliNhyXhP4nNK15grvTiHLL8xja3YC+Nihxt25Vtkmqarb2bU8sS8GxU6tl91/YhZlfS3rYOdAwodt/kpVb/TFtMCx6mV5ua3jjw5+/H1LRCBHisSqZf7yhWKGMyXre5ZHcbFRoJoScRqsVj0SCtwqXtkh1UpFg/DisbOhCdzxVE2iI/zZ1ENMKBTXYhRK+I35VcaquiRUAqo0DelgA6/sllvMZRfMdea9ktIXUFUnDOOj2V6fHQ+DUgkoSINQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4DXfrWy4iLjmaDZ9KqORJ+0QgdOl746ZUauvcDhrhcI=;
- b=k06qECWhgavWQoybKvEWLVOk4SYmxO6IP5+LajE7VYY9c9V7xs4CSvLhQNQsmjEdOvz66F/4lX/A7feh3hjALbQsmS4rzALN+3JYqYC7BbY3A5nly1WeGCHnwSHPgalyT8vsDhhAPhQT5KeWyh9S1NtoNqUMDrf5sdw2ZYXReJt+wbTc3j25p75GR6nNM4/BpqOhL+y+k2Ialp5Yep6ddTxhqE31qesNfUqdlyZliELen1ozLSkJobclgWmwO1K7CdwWrdcXUMLWHQ1Hi8Pe8ZnGX9ZQV7U1eBHh0AdDLfRqRERFKgyRnKYNYPokzsCzgY6Z1+FD8JpXUCdq47KlDA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4DXfrWy4iLjmaDZ9KqORJ+0QgdOl746ZUauvcDhrhcI=;
- b=lgZrztu+JpDDfwZAATzqnRai3/QUN6uNZrbEUIMXJ/Q/hZKBa1bsXKf4O3kkONBelxysTSUKJK4wzIuCBwRr9oc5jTo1PG8S7K1b7QxFDWeAUyOTrLI45cEbl/JsszNVGiXiyecm5zs18kwGxHh8B4WLKTsUp/Que0PXdghuT6+//j1gOaFZ/tgNAuB8ZH4Js9suHt4MrRuOTH8HbkW/oXw/yyqi9FZet2ZrldOJ6HnTHQOZcnXdfbrcxmDjwfVetKpF8OG9lBGR9VO2aaVpLWv23FC/sNT8wCeRoGOIrcYbSSoJs7cbb0p/fDgD+kJKJ6sp+W0NT6akfrKHZP4fdA==
-Received: from SE3PR04MB8922.apcprd04.prod.outlook.com (2603:1096:101:2e9::7)
- by TYSPR04MB7761.apcprd04.prod.outlook.com (2603:1096:405:5f::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
- 2026 04:03:47 +0000
-Received: from SE3PR04MB8922.apcprd04.prod.outlook.com
- ([fe80::3450:f139:5238:8f58]) by SE3PR04MB8922.apcprd04.prod.outlook.com
- ([fe80::3450:f139:5238:8f58%5]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
- 04:03:47 +0000
-Message-ID:
- <SE3PR04MB8922AA13463BBC6E3F8178AEF3872@SE3PR04MB8922.apcprd04.prod.outlook.com>
-Date: Fri, 18 Sep 2026 12:03:41 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v4 06/10] RISC-V: KVM: Enable KVM_VFIO interfaces on
- RISC-V arch
-To: fangyu.yu@linux.alibaba.com, tomasz.jeznach@linux.dev, joro@8bytes.org,
- will@kernel.org, robin.murphy@arm.com, pjw@kernel.org, palmer@dabbelt.com,
- aou@eecs.berkeley.edu, alex@ghiti.fr, baolu.lu@linux.intel.com,
- jroedel@suse.de, zong.li@sifive.com, andrew.jones@oss.qualcomm.com,
- anup@brainfault.org, jgg@nvidia.com, jgg@ziepe.ca, kevin.tian@intel.com,
- atish.patra@linux.dev, skhawaja@google.com, vasant.hegde@amd.com,
- joerg.roedel@amd.com
-Cc: guoren@kernel.org, iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-riscv@lists.infradead.org, kvm-riscv@lists.infradead.org,
- Tomasz Jeznach <tjeznach@rivosinc.com>,
- Andrew Jones <ajones@ventanamicro.com>
-References: <20260915032828.11250-1-fangyu.yu@linux.alibaba.com>
- <20260915032828.11250-7-fangyu.yu@linux.alibaba.com>
-Content-Language: en-US
-From: "Nutty.Liu" <nutty.liu@hotmail.com>
-In-Reply-To: <20260915032828.11250-7-fangyu.yu@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TPYP295CA0019.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:7d0:a::14) To SE3PR04MB8922.apcprd04.prod.outlook.com
- (2603:1096:101:2e9::7)
-X-Microsoft-Original-Message-ID:
- <3ce1d4d8-ebbb-4b6f-8667-4d2c83c19668@hotmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lrobaThB"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccd5cef0so216075a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 21:05:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789704313; x=1790309113; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ugi6RUPBClqMIR7An2++qau8YtbA8aE1nyg7UAqNky4=;
+        b=lrobaThBqmkmmwQD3sN0GGF26ayUVmjraBdBz/k6NBZNnzxTFZ/jm9f94Wwkmeg+wa
+         g/bhy8hI09cnkqQceGTtzL1qaFgCal/wHcQPvGjKTBuDfdTrzWv4g1cRUHzoNHH8epBU
+         C7xi/NeJ3YR5EF5RQhmThb5sWiYZxV7pooNg/GxgWluuowG8NnDKxgxq6//SOM16kmjn
+         jPYH3ebj/gaglbKn3Jy2tpHw6iCmxpuQxgZxO30CV4wvVrqe9yMszTJo4S0D40ts0bsq
+         2h2g9mslLw26JHLRC6Dx9xG5y5OCq/BHs3sB/0eO9ZkaVS0I4hU0wMY7XvJoUQcx3JIu
+         wpBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789704313; x=1790309113;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ugi6RUPBClqMIR7An2++qau8YtbA8aE1nyg7UAqNky4=;
+        b=qD9poRhU4h4ErGm3xHsOpYpNwUv3ZEwvfdprk5rmKZBU6DqTtJQzyaI3W4x8IOyIg5
+         hAZxupEDuCkEYSH9kywTjtltZ2Xl8575o8B535SHBhl9tJV67L7I6h/yMxI6F639jHZ0
+         JQGeFC8YwfVfRdbgWzMSnd5h1OqrlJbkcwzcQPSWaB04U9L5mrx80k8jAVhTp+FRoMth
+         kxjbft5iuD36wdGRF2JbCdq3a3Gw5p0kNYeGR9w/GnlzZTCQXgJSo+BWqasdB8jeaQ5L
+         6WqawLdrfvsrDboRW7XH8Uk1gkSXem1Cj/5pC59EhkO/cgOIuyhoMfmmb8nqw4NS1od0
+         nMhg==
+X-Forwarded-Encrypted: i=1; AKwUvBy/h6R7HGWx7qbx4tS7nIO0FM92xYFqrDY0DnsgN/rbuHIkJslrpkcYue8GsaamlZ1K6U2bpz42ZGqQ2xI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nIamvQ44916TNQL+ALtq2mjkEdEa23CE8FgAX/1e40+VGlSLlK
+	LRc9ipEmLVu8N6ccsVXLtP9W++9AsJfRgEHTtq5OuIWP9CcKVLkDQD96usx5G7vF
+X-Gm-Gg: AYBFou0IRYjFf0iNl4TkofacjGBC6goj+y/3Z0SppNZusCF+7CsrUui1RyeQPbFvcbO
+	UlT3oKE7g25vyyfhJgQ5ZHuTeGT/QdI+bFyH9GWe9VeUcpjL062l5lJy0jKxmW9KXtK20mEz+2t
+	E/GLAuX9Isq7zF/G0uCNMiQwyn43+mMtRJQMJphhmky73utUBkuFVNkG7xBuyYiI0u4qhQD3dQn
+	UulczEcX8IYaF2AmXzqjTgP7+fDCf03YaUg4M5oqCZmd71F4c1ddSqBfntnwh08Def7MgYlr4LL
+	qDg+LSGQlBz09LXIzpnfPh0omDkRoiVziBML9CeDWhi4Q0a/CLtIP5emwdco9XKBUrTDKdGJQB5
+	/H0+2yhfKbmpQcIxXc4R0NTP1edxzb6QEmdmPzOPoRPTugDyzzqHZ/hbnckk5y5KB324bAMmpQe
+	27zcOy07A3Vu2rLuZQJDsvQVVP5WaQQudQgkAmX3/y4s5eM8ld5Y9EpZsRoSuCJIZHk32xnniK5
+	ygePt/Rg3TXLCi5mJzhWYmS68N6Puiyd9YkUC6L04XH1djf16Hj/Hs6tj4cDz4I9EqTk6Pg7z0s
+	6anU949aDxpVcmiB8gCpxMQp8IR/OVS+O55HlYFuKWaiOOg=
+X-Received: by 2002:a17:90b:518c:b0:38e:9ef9:eb97 with SMTP id 98e67ed59e1d1-39e54e3f439mr2781326a91.16.1789704313097;
+        Thu, 17 Sep 2026 21:05:13 -0700 (PDT)
+Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.59])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144ce065314sm1155861c88.14.2026.09.17.21.05.09
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 17 Sep 2026 21:05:12 -0700 (PDT)
+From: Yu Zhang <yuz08559@gmail.com>
+To: mst@redhat.com,
+	jasowangio@gmail.com,
+	eperezma@redhat.com
+Cc: sashiko-reviews@lists.linux.dev,
+	virtualization@lists.linux.dev,
+	kvm@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yu Zhang <yuz08559@gmail.com>
+Subject: [PATCH v2] vhost-vdpa: drop the parent's vq callback before the call fd is released
+Date: Fri, 18 Sep 2026 14:04:36 +1000
+Message-ID: <20260918040436.47982-1-yuz08559@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260907173931-mutt-send-email-mst@kernel.org>
+References: <20260907173931-mutt-send-email-mst@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SE3PR04MB8922:EE_|TYSPR04MB7761:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9b8e8029-6116-400e-a6e7-08df1539d6e4
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|24121999003|22091999003|25010399006|19110799012|4140399003|23021999003|51005399006|16051099003|8060799015|19101099003|55001999006|6090799003|5072599009|15080799012|40105399003|2607281247196008|3412199025|440099028;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?NHpiRmhGalcrRHUwUDAzekZYdzRNSW9sU2pRMFdJSlBLVDdvaDdWeGRRUWNP?=
- =?utf-8?B?dWZ0Rk05anFwK0lFK29MOEZkMVlIQkZKYW1sVXAyS2FtNEc5clBITmg2Uzd4?=
- =?utf-8?B?bEc0UUZMVGV2MVgva3R3L2wwMEQ3VDJpSW84cGt2NktaTnpPMkE1bjd3WlRo?=
- =?utf-8?B?MWxEVGtWZVRYd1gzeXV2aEhtVUJYeXdld3QrMkREM3VXaU1RUUM5M3JBcHdq?=
- =?utf-8?B?akRNUjRoOGtqRXFVcnVDdisrWkJYbitrenMvZ0V1NlhreCtLZ3NlN1ZnZFR3?=
- =?utf-8?B?MlBXRFRlS0hpb01mZXRtLzAvOW1mYWJjd1pKUVdYcCt6cmY1VWpndUZkSmpY?=
- =?utf-8?B?bDVCU013cVhqS3dNL2JWbW9SUEpadTZoN0EreXEwSWdtMktRanRLSE94K2h4?=
- =?utf-8?B?T0VSZmJ2c2FNTnIxUU5BcUZKaU95aFVXRXFrK2V6V0RxSG9veVZJTGNKaHFz?=
- =?utf-8?B?ei9TR1FaTmpFVkdBVk1iMkRBRHNRZTdkQkhHNHBNRGJGNG83ZC9RWnVYZy9v?=
- =?utf-8?B?THVCcThwakdFL2xBS083VVVpRFowREZjeFFTenRvWFZubnZ2eWhrQTFBZk5j?=
- =?utf-8?B?THBlVEdKQjVRbmlqNjQ0MDFLVk1SVkJDMVpCNnIycHh4bWJnUjBCUlJBTG5o?=
- =?utf-8?B?MWJmc2hpZXAzUTlFQjZDNWg3R0h1NnlibUV1VHVjOU9yTW1sWSs1S05CZnZh?=
- =?utf-8?B?R0xFc1l4Y1FkazdEdmkrNlFkQTdyWmtzMUx1QlJiaVlpRkhicDVDS3pZVWMz?=
- =?utf-8?B?ZmM5UVNvZytXOTVNZ1JyWjJ4TjVRc3dtdWV5YTRjTVBVZjVMZFRJUGZxRVlQ?=
- =?utf-8?B?MGJUNlYxZUhWUHpSY3d0SHN3MzZsY1JiMW5HcTZTaUx1SVdUdE9relp1SXlm?=
- =?utf-8?B?dXBYUkN1amtFV05aOFExcXZZblB0TDI4bE1ReExZUldWNDdBT2pFRGo2U1Rz?=
- =?utf-8?B?WEVwV2tFMS9XNzlCRkVEQ0hLUXM0Y3U1bFdtQ1FwMGpWZTN5U056Slg0UGhD?=
- =?utf-8?B?bnZHbVFTZzF0K0tXakp3T016dGpvSnQ2MjFwOWU3RnBhd3NOMDNJdStmWFNa?=
- =?utf-8?B?NVZmclo0eGdWdUZBMVZQSlJDUHpuSzR4R3V6eis2dERmMkRDbllaOVg2dENF?=
- =?utf-8?B?WG5YQUQ3RlQ0VmU1UEh2Y0JncmNPVTN1YVJQcnU2TE1jY2V5akQreWRqV1B3?=
- =?utf-8?B?ZkEyYU5yM1M2azlqdFlwbnc3cTNXMmJkclFKbUpWcnIrZzNWSjY0aUg0SUl2?=
- =?utf-8?B?ek45eGR1dzFPVUFuRUs0RDA4VkNValdSZGM4bmhTekFSZUQxcEttTC9Ddi9s?=
- =?utf-8?B?MVBEaFNFWlNKUlZ0amhKVnpVa01zVmhKUzFZTjJhcC9yUzhpNDd2Ym1MdGUx?=
- =?utf-8?B?VFc2bnI5NDZRUDZGU0hJcCsyS1NCR1JFUDh3dEVjMkxPU3RLMkFSTEt1dDA1?=
- =?utf-8?B?UVF2Tzc4NGhONFQ4TkwwbGdoZ3A4TXg3YVRUZ2ZBPT0=?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NGVhYkpHWHdveGJGZ3pZVUF2ajEwSXYrSUVZRnJnU3IrMWk3WG9hR1JMRjB2?=
- =?utf-8?B?OE9GWmVlSVp3SzFTOGc3UGhDb2tqb2g5TFQzeDR4aWkvN1RjM3B4cUNlZUgv?=
- =?utf-8?B?Qnl0TU41dEhpdm5ZbGRyZWx2SXhScTBxMm52ckp2VUF0aitzbjVEcmViTWQ2?=
- =?utf-8?B?Vi83aWFMUVl2Y1ZzNDAreFVQa29CRThpRFhjc2xVVnF5WUFjMUJFdlJmNFhH?=
- =?utf-8?B?M0UzaWNUbkszZmFQVDljOC8vQ2U1bTdSbFhKbVlNS3Y4SjZoSkZGeXFJeFFQ?=
- =?utf-8?B?bHBOVjZIem9xS0NPc0kvV2NxQkVFaFE1Vlppcy9QcC9GT1hMSCtVbmt4em16?=
- =?utf-8?B?eEd2YW82YW9qVDBPelR6V0tTYUw0aWJKcmxhdFowMW81bzFRbGQxSUpEckE3?=
- =?utf-8?B?eHp6NUxtdFJVeXEyNDRQVmJsS3Z2dkRqa1NMbkM5TTNCcXh5RE5xd0RrOVZB?=
- =?utf-8?B?dDFNUFM1czU1RThoRDRzeWZ5OURwYVlPdVdmVWwvS0JTVTNXRDFHbERqa0l6?=
- =?utf-8?B?c2Z2U0E1MzMyRUd2b2J6ckdtZFRIMkpkNjFZT3V6d09pNjRWWjQrdlZZZ1Bz?=
- =?utf-8?B?dmFmbjB3RGVsQkRwSkZ1bm52bXpJOXJ0T2VWVWpKL0VLakliRnprb1Q3bUx1?=
- =?utf-8?B?bXJQaE1wU0tGbUs0MWIvR0NudVBqUDBETitwd2Z2QlJGMFFpdXpRNmxwUkcx?=
- =?utf-8?B?Ti80UmpTK2RhVFBiS0szbjVIRm1tUEZxdGtCaWpqdGRWQXJML2duL2w3OXdC?=
- =?utf-8?B?c0hXOGhJTUtVOUdZQUxkNjN1Qzdwa0JHRENqWFdad0piUVU0TExTSEYxNzRz?=
- =?utf-8?B?SlhvTlJGTU1mdkIwTnNLVElZZ1k4MVp4ZUdhaW15L1ZIU0JpZTIwMWp0YnI1?=
- =?utf-8?B?WGg5dUxZenFLS0k5YmxlVDliQkRFY1FseVRsSlk4YkhUTFFITWpiYytzMTRj?=
- =?utf-8?B?OFg3bVZKSm9kdGlCU2Q5K01HSklPRUhTaVZ2VjJqcDEya0dRa3NMTXFJZHlR?=
- =?utf-8?B?czZ5OWZnY1QxNUxhbG9UL1puT2d0S0ZPVStxemRlVGR1c1NkQnJ4b2ZjSDU0?=
- =?utf-8?B?bUdpUXZiT2hTT3lxb3BsNERHU0tJVWZNU2lGWjEzeHFNQVlqQytBS00rMG9O?=
- =?utf-8?B?UXpKWHh5VmdyZVNvMTZuTlBERzkwUFZzcjVKUmFHNDh6b21jUnN4Y3VqNEtz?=
- =?utf-8?B?ZkZZWmRkV3RPV1hXdldxUjg4T2gxSGVWcmRpYXNEZ29PNWJMcFdna0pKOVVs?=
- =?utf-8?B?bkFlZnduWHZOSE9DRHQzY2hCQWthSWFyMkthLzhuMUpLcEVjRE1CbDVjcXpa?=
- =?utf-8?B?Sm12dkNOQ0hBUUdDYk9KNFlSUTRUeDhrZSt3NzBZdFBMR3ZDeHovei90d1NO?=
- =?utf-8?B?eUtzcUI1VnpRRXhTZG0zNktQT1dlNzE1ZXluNHYxdmRMZzdxTUFBaHNvMGc5?=
- =?utf-8?B?aHlUeTdPc0tDU0hHcCtyamtpdjB5b2tPQmJZNkZyVnl5bVhWOXdsSnFNTEFk?=
- =?utf-8?B?Uk9ENlVORHBFTHlmNk8zeDFMQ1pPNVJXNXBsRFF5ZXQ5VHd2THJhdzNiOW95?=
- =?utf-8?B?bE9YbEhIaTJ1aFZ6RUpkb0V6dWRqdXQ3TmNNVlh1TDBTWWpTbWExUWYva2hi?=
- =?utf-8?B?TDhEZlNJK1BmT25zREIzQTVuM1dLSEVCV1ZxaFd1cGo0dnlTNG1FcitEMElv?=
- =?utf-8?B?ODBXR0ZGK0RyeDdvVVBqUzlvNFduRGxTTXF6QkpTZkVMa2h1dEdUSXZmUWJV?=
- =?utf-8?B?SmtWU2EwaXpGVTFKLy92RitoQVRhdXk2NkxoRW5SVW43OEdGblFsMDg4WU4r?=
- =?utf-8?B?ZWYvcG5nS1JzODlsMXlyMktHTkZtYUhCdW03RGhITjliUDhtaGtWVmdOdHVW?=
- =?utf-8?Q?+21yHuoGj9KrK?=
-X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-c3e7a.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9b8e8029-6116-400e-a6e7-08df1539d6e4
-X-MS-Exchange-CrossTenant-AuthSource: SE3PR04MB8922.apcprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 04:03:47.7284
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYSPR04MB7761
+Content-Transfer-Encoding: 8bit
 
+VHOST_SET_VRING_CALL releases the previous call eventfd inside
+vhost_vring_ioctl() -- it swaps the new context into vq->call_ctx.ctx
+and then eventfd_ctx_put()s the old one, which is a synchronous
+kfree(). The parent vdpa device is only told about the change
+afterwards, when vhost_vdpa_vring_ioctl() reaches ops->set_vq_cb().
 
-On 9/15/2026 11:28 AM, fangyu.yu@linux.alibaba.com wrote:
-> From: Tomasz Jeznach <tjeznach@rivosinc.com>
->
-> Enable KVM/VFIO support on RISC-V architecture.
->
-> Signed-off-by: Tomasz Jeznach <tjeznach@rivosinc.com>
-> Signed-off-by: Andrew Jones <ajones@ventanamicro.com>
-> Signed-off-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
-Reviewed-by: Nutty Liu <nutty.liu@hotmail.com>
+Parent drivers cache the pointer handed to them in
+vdpa_callback::trigger and do not take a reference on it, so
+throughout that window the parent holds a dangling eventfd_ctx and may
+signal it. The documentation added with the field describes what
+signalling it means but says nothing about how long it stays valid.
 
-Thanks,
-Nutty
-> ---
->   arch/riscv/kvm/Kconfig | 2 ++
->   1 file changed, 2 insertions(+)
->
-> diff --git a/arch/riscv/kvm/Kconfig b/arch/riscv/kvm/Kconfig
-> index ec2cee0a39e0..54ee90f010ef 100644
-> --- a/arch/riscv/kvm/Kconfig
-> +++ b/arch/riscv/kvm/Kconfig
-> @@ -30,8 +30,10 @@ config KVM
->   	select KVM_GENERIC_HARDWARE_ENABLING
->   	select KVM_MMIO
->   	select VIRT_XFER_TO_GUEST_WORK
-> +	select KVM_VFIO
->   	select SCHED_INFO
->   	select GUEST_PERF_EVENTS if PERF_EVENTS
-> +	select SRCU
->   	help
->   	  Support hosting virtualized guest machines.
->   
+This is the same hazard that "vhost_vdpa: assign irq bypass producer
+token correctly" addressed for the irq bypass producer token, by
+moving vhost_vdpa_unsetup_vq_irq() ahead of the vhost_vring_ioctl()
+call. The producer token was only one of the two consumers of that
+pointer; the one the parent keeps via ->set_vq_cb() was left behind
+the free.
+
+With VDUSE the window is directly reachable from userspace, because
+the device emulation daemon can inject an interrupt at any time from a
+different fd, and neither side shares a lock with the other: VDUSE
+takes vq->irq_lock, vhost takes vhost_dev.mutex + vq->mutex.
+
+  BUG: KASAN: slab-use-after-free in _raw_spin_lock_irqsave+0x76/0xe0
+  Write of size 4 at addr ffff8881084e8788 by task vduse_uaf/2987
+
+  _raw_spin_lock_irqsave+0x76/0xe0
+  eventfd_signal_mask+0x69/0x120
+  vduse_dev_ioctl+0x337/0x1a60     <- vduse_vq_signal_irqfd(), inlined
+  __x64_sys_ioctl+0x120/0x170      <- VDUSE_VQ_INJECT_IRQ
+
+  Allocated by task 2986:
+   do_eventfd+0x50/0x200
+   __x64_sys_eventfd2+0x2e/0x40
+
+  kmalloc-64, freed 64-byte region [ffff8881084e8780, ffff8881084e87c0)
+
+One thread loops VHOST_SET_VRING_CALL on /dev/vhost-vdpa-N with a
+fresh eventfd and then unbinds it, while another loops
+VDUSE_VQ_INJECT_IRQ on /dev/vduse/<name>. This reproduces in 5 out of
+5 ten-second runs on v7.1.6 and 3 out of 3 on v7.2-rc6. With the patch
+there are no reports in 3 out of 3 runs on either, while the same
+workload still gets ~30000 interrupts per run delivered into live
+eventfds, so the path is still being exercised.
+
+Tell the parent to drop the callback before vhost_vring_ioctl() can
+free the eventfd, mirroring what is already done for the bypass
+producer, and restore it if the ioctl fails -- on failure the swap
+never happened, the old context is still installed, and leaving the
+parent without a callback would silently drop that vq's interrupts.
+
+Clearing the callback only stops a parent from starting to use the
+context; a handler that already loaded it can still be running. For
+parents with a real interrupt, wait for it with synchronize_irq() on
+the vq's irq. VDUSE does not implement get_vq_irq, so that case stays
+covered by the teardown above.
+
+Fixes: 5e68470f4e80 ("vdpa: Add eventfd for the vdpa callback")
+Signed-off-by: Yu Zhang <yuz08559@gmail.com>
+---
+v2, addressing the review on v1:
+
+ - synchronize_irq(): valid, fixed.  Clearing the callback only stops a
+   parent from starting to use the context; a handler that already
+   loaded it can still be running.  The teardown now ends with a
+   synchronize_irq() on ops->get_vq_irq() where the parent has one.
+   VDUSE does not implement get_vq_irq, so it is a no-op there and that
+   case stays covered by the teardown alone.
+
+ - torn read of the callback struct yielding a NULL cb.private: I do not
+   think it applies here.  cb.trigger has exactly one consumer -- apart
+   from vhost/vdpa.c assigning it, the only reads are in
+   drivers/vdpa/vdpa_user/vduse_dev.c -- and VDUSE serialises both
+   sides: vduse_vdpa_set_vq_cb() takes vq->irq_lock around the stores,
+   and vduse_vq_irq_inject() and vduse_vq_signal_irqfd() take the same
+   lock before using the fields, so VDUSE cannot observe a torn update.
+   For parents that do a bare struct copy (vp_vdpa_set_vq_cb() is
+   vring->cb = *cb) the hazard is real, but it is not introduced here:
+   this function already performs the identical three NULL stores
+   through ops->set_vq_cb() in the existing else branch below, which
+   userspace reaches with VHOST_FILE_UNBIND.  Defining the store order
+   and the matching loads has to happen on the parent side, which this
+   caller cannot do; happy to send that separately if you want it.
+
+ - retested on v7.1.6 with KASAN: no reports in 5 out of 5 runs with the
+   patch, 3 out of 3 runs report the UAF without it, and the workload is
+   not slowed down -- 16k-19k call fd swaps and 1.5M-1.9M injections per
+   30s run, against 10k/0.9M measured for v1, with 48k-89k interrupts
+   still delivered into live eventfds.
+
+ - rebased on the config_ctx fixes now in mainline.
+
+ drivers/vhost/vdpa.c | 35 ++++++++++++++++++++++++++++++++++-
+ 1 file changed, 34 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/vhost/vdpa.c b/drivers/vhost/vdpa.c
+index a317867..e1def23 100644
+--- a/drivers/vhost/vdpa.c
++++ b/drivers/vhost/vdpa.c
+@@ -767,13 +767,46 @@ static long vhost_vdpa_vring_ioctl(struct vhost_vdpa *v, unsigned int cmd,
+ 			if (ops->get_status(vdpa) &
+ 			    VIRTIO_CONFIG_S_DRIVER_OK)
+ 				vhost_vdpa_unsetup_vq_irq(v, idx);
++			/*
++			 * The parent caches call_ctx.ctx in cb.trigger without
++			 * holding a reference, so it has to stop using it
++			 * before vhost_vring_ioctl() drops the last one.
++			 */
++			cb.callback = NULL;
++			cb.private = NULL;
++			cb.trigger = NULL;
++			ops->set_vq_cb(vdpa, idx, &cb);
++
++			/*
++			 * A parent interrupt handler that loaded the callback
++			 * before that store can still be running, so wait for
++			 * it to finish with the context too.
++			 */
++			if (ops->get_vq_irq) {
++				int irq = ops->get_vq_irq(vdpa, idx);
++
++				if (irq >= 0)
++					synchronize_irq(irq);
++			}
+ 		}
+ 		break;
+ 	}
+ 
+ 	r = vhost_vring_ioctl(&v->vdev, cmd, argp);
+-	if (r)
++	if (r) {
++		/*
++		 * A failure here means the swap never happened and the old
++		 * context is still installed, so give the parent back the
++		 * callback that was torn down above.
++		 */
++		if (cmd == VHOST_SET_VRING_CALL && vq->call_ctx.ctx) {
++			cb.callback = vhost_vdpa_virtqueue_cb;
++			cb.private = vq;
++			cb.trigger = vq->call_ctx.ctx;
++			ops->set_vq_cb(vdpa, idx, &cb);
++		}
+ 		return r;
++	}
+ 
+ 	switch (cmd) {
+ 	case VHOST_SET_VRING_ADDR:
+-- 
+2.43.0
+
