@@ -1,154 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from kylie.crudebyte.com (kylie.crudebyte.com [5.189.157.229])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 437BE4E534C
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:08:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 691113F20EC;
+	Fri, 18 Sep 2026 12:08:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.189.157.229
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789733289; cv=none; b=UoZvKuk0LitD39UU7CTn2pW5vueju8mJK3HARttaVDFAt1j99U67WDMtPyrFYQr/+1DY1KARw5BK4PWPss8y12RB+S0OxTlCkSwdy40weh1uTW2P915r3CTdhc9GYvA5e0GU+FH2e0PiqkPDnPASgwP4yzMCrbjMIH1MO2tWM8k=
+	t=1789733291; cv=none; b=XkP7A2DEEq/E5aqv2hea7B+/IrUKyn+KnYCEBvCqvX2QVLmx93iYQxfG0/UFtmx90JNmdv1bf2pNCsm+YutaPQXB0pYwl8QbFXBrxeRLdrh+wRK3e/xacw4Otf01zg7KsRAwPWJNLLJ/OfHamoVJ3y4bNBJncpXNLsL0a3plwiM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789733289; c=relaxed/simple;
-	bh=p8677V3MNviT9RpmlPVL8IWVx2X1Sk5Mo2vNOPX1nS0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=j0iOOSYVhffwxIUWS3InapbYZBCrOOjX9kJGdRQBemDo+FMZ2odFSGUPDpOpgiSuue+nnqV+wxjxf9gwlQTq2RRfSfzNWYqwHaNryt8a/4PAj4icUHVQyb69HNCSuLzL/HSXVdSSZivGRng5tLUBTF3XH/j5MkoBPkhOCtyQyBE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PjVNhA32; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789733291; c=relaxed/simple;
+	bh=CBNdfcanxD/+KYaITnKl3ebz92hnYqbaEBluH3NlCfY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=T/HEA75zwEas5XL0iznS8Gt8SYZ6lG9CnZyzSbKB6V308MBvOk0WHhaLzhz5ZLeoVaWZnk3GazfK1lp3GweqLjbiZTjLA9BfoQbTM0s6MyWUvbiXi3UPRyEaNyeYPbeu/YCv+0xhcjGaCYGxMmZ8X/lLOFNSc/f9qfOI74KEikY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crudebyte.com; spf=pass smtp.mailfrom=crudebyte.com; dkim=pass (4096-bit key) header.d=crudebyte.com header.i=@crudebyte.com header.b=hMPM5cBH; arc=none smtp.client-ip=5.189.157.229
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crudebyte.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crudebyte.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PjVNhA32"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3C051F00898
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:08:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789733286;
-	bh=6bCNP0fuzxBayz3qns/DQBASbYRYkmJcvdx/H3OlAZA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=PjVNhA32tHo2bLdixN3XqeQkmgh8JKL3CEqXcIK79uns1UmDlI3ng27qd2nyjWx2F
-	 f2juVqFDJChfE+Wz1X+IpcEWPULBLMdK3sI6bSKTbbVJByKaR0sJIp8/2ScPwUv2pg
-	 DmORGxCb2suz8BVQX57UuyuGoL6SeCXxEmETOVH9xXThHAnclVTd9Bjl10IdDXxCgP
-	 aDMBpvUN81mt4+LPJ7Bz6NzuFYgi49dEnqUuzV3KjUNFP0l5JT4jzDWz++Q3Wn6mut
-	 A4KcmbWELip3oJ0FdU9zcZmZ3oEos3tjMOgCNv5nc5fc7gqta/uGUGPgzmqJHt6ITK
-	 s2HRXbBrPatIA==
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a302c06eceso5207031fa.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 05:08:06 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxu9tx8NF2SPkU8f7dP41zTlC/Uv41xT8Mcg6CWuyd0NBNzsSz3dSvEbp0M/N0WdUgBK/RGtEZuWj9Q6Vc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nSgv+XIpPGQ2Db4yB2dpeVZoCzD59JrvEaH6scGC7vC3ZAk8oE
-	7qXWhr82gsbBCl//jP5F6ob9nYRJ/ecZntCQRXvDIqAT1qzbi9ByNHYOPhKXPcmWchawMgKUZzc
-	4NVO8DPXFODWQCuvNJlHtUoQXRROUbt8=
-X-Received: by 2002:a05:651c:509:b0:3a5:d0ad:999d with SMTP id
- 38308e7fff4ca-3a5fc0e9b0bmr4267041fa.29.1789733285206; Fri, 18 Sep 2026
- 05:08:05 -0700 (PDT)
+	dkim=pass (4096-bit key) header.d=crudebyte.com header.i=@crudebyte.com header.b="hMPM5cBH"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=crudebyte.com; s=kylie; h=Content-Type:Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
+	Content-ID:Content-Description;
+	bh=quA5j3Pb23IBKCt15zgzAbZkRT7gO4hK1CKPt5Jekk0=; b=hMPM5cBH4h9g9jRrfZfIu7gMub
+	7zhloY0R1IFkA7E3qnQDj/bPPhbac+S5ckq0qdcIPxU1BR7QQlqQBiJODjhyMvCF/qxNZUpAHiJdK
+	JtCviHD9YIL497CgKqfvB2WS8DTuqAK+d9fNH0CII3mjSv9brSPbhjbNDPhN8cISS5sJQ98kL41c3
+	O+DUt80j9zQ3njFJx6VUssW8D1IwceDzbm2pQSIbpXrdNvuF8/6Gl0eLSpxR/nY2oYXtE+LuVivEb
+	YlrM5W/repD3WFcjbkveNHD0hq63vTZRtYnBbmqWbqTAmmNmGWdwBg1g+cyu0nE2eBTe6r0l4PYXf
+	JsnrS8k4h6yX7W5eozw7wnh7y0J529pbdHrjdflId3RaG22bqevtzMdv7DbsDxgwhdPiaNiDf20gy
+	/4TxtispRPNuk7t2gglA84axEA2CuhAMLCBwIhjsD6deuQ6iK3D82pNc/Qpz5cbZhHkLRBQgwUOPc
+	uF2tILEvt4LVyGxfRLmWbb1mQXPhIvvUMTFin87lBz1wz37bv2iIlC0bK6SGUuVHwxNczXOXWfGGK
+	tZ51avsDjpOXYForYUPvVZeTYFKf9pH7Xi8gx5vtFp2XZbUtmEZ+BwsOJSfkvBXERDRiNv5yTmmrq
+	TFcouvqGwRmwmV9znLVZ6kDeEO7+dhgIyvHN8CKeo=;
+From: Christian Schoenebeck <linux_oss@crudebyte.com>
+To: ericvh@kernel.org, lucho@ionkov.net, asmadeus@codewreck.org,
+ v9fs@lists.linux.dev, Haobin Wu <853555@gmail.com>
+Cc: jack@suse.cz, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ aneesh.kumar@linux.vnet.ibm.com, willy@infradead.org, dhowells@redhat.com,
+ viro@zeniv.linux.org.uk, brauner@kernel.org
+Subject:
+ Re: [PATCH v3 3/3] 9p: skip over-long directory entry names for legacy 9p2000
+ too
+Date: Fri, 18 Sep 2026 14:08:00 +0200
+Message-ID: <2050867.PYKUYFuaPT@weasel>
+In-Reply-To: <20260918024851.51229-4-853555@gmail.com>
+References:
+ <20260918024851.51229-1-853555@gmail.com>
+ <20260918024851.51229-4-853555@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260729061549.13419-1-tianyaxiong@kylinos.cn>
- <1789693766158145.347.seg@mailgw.kylinos.cn> <b81b66cc-1761-4653-9cdb-c8a8286718bf@kylinos.cn>
-In-Reply-To: <b81b66cc-1761-4653-9cdb-c8a8286718bf@kylinos.cn>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Fri, 18 Sep 2026 14:06:39 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0jt+V0cLvfU1Z1XKLiuywXGN0=gVzwSWHxqEh7-fY=Kow@mail.gmail.com>
-X-Gm-Features: AcwNN1Xmo6yoYXNqLDquZ9vhUfUADswqFIUmbPmLr5V58dT7Jv5qMVAZX7xSZsM
-Message-ID: <CAJZ5v0jt+V0cLvfU1Z1XKLiuywXGN0=gVzwSWHxqEh7-fY=Kow@mail.gmail.com>
-Subject: Re: [PATCH v2 0/6] cpuidle: speed up do_idle() by caching the
- governor latency QoS constraint
-To: Yaxiong Tian <tianyaxiong@kylinos.cn>
-Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, daniel.lezcano@kernel.org, christian.loehle@arm.com, 
-	lenb@kernel.org, pavel@kernel.org, shuah@kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 
-On Fri, Sep 18, 2026 at 4:09=E2=80=AFAM Yaxiong Tian <tianyaxiong@kylinos.c=
-n> wrote:
->
->
-> On 2026/9/18 03:34, Rafael J. Wysocki (Intel) wrote:
-> > On Wed, Jul 29, 2026 at 8:16=E2=80=AFAM Yaxiong Tian <tianyaxiong@kylin=
-os.cn> wrote:
-> >> cpuidle_governor_latency_req() is evaluated on every idle-state
-> >> selection.  It aggregates the per-CPU resume latency with the global
-> >> CPU latency and wakeup latency QoS limits
-> > True.
-> >
-> >> by repeatedly calling
-> >> get_cpu_device() and pm_qos_read_value() cpu_latency_qos_limit()
-> >> cpu_wakeup_latency_qos_limit().
-> > I would say "every time" rather than "repeatedly", but fair enough.
-> >
-> > However, those functions don't do anything expensive except for
-> > defensive checks that can be omitted.  Have you tried to omit them?
-> I haven't tried that, but I found that function_graph may introduce measu=
-rement errors, especially for very short functions.
-> >
-> >> Use ftrace's function_graph, we can see:
-> >> parent:          do_idle
-> >> parent_total_ns: 36671010505
-> >> parent_count:    5994
-> >>
-> >> SYMBOL                                                      TIME_NS   =
- %ROOT  %PARENT      COUNT
-> >> ----------------------------------------------------------------------=
-----------------------------
-> >> do_idle                                                 36671010505  1=
-00.00%  100.00%       5994
-> >>   cpuidle_idle_call                                     35566528731   =
-96.99%   96.99%       8570
-> >>     call_cpuidle                                        35476606844   =
-96.74%   99.75%       8561
-> >>       cpuidle_enter                                     35472932468   =
-96.73%   99.99%       8526
-> >>     cpuidle_select                                         52097031   =
- 0.14%    0.15%       8580
-> >>       menu_select                                          49555181   =
- 0.14%   95.12%       8580
-> >>         tick_nohz_get_sleep_length                         28843887   =
- 0.08%   58.21%       8570
-> >>         cpuidle_governor_latency_req                        9567488   =
- 0.03%   19.31%       8580
-> >>         tick_nohz_tick_stopped                              2057031   =
- 0.01%    4.15%      15695
-> >>     cpuidle_reflect                                        11427201   =
- 0.03%    0.03%       8561
-> >>       menu_reflect                                          6579506   =
- 0.02%   57.58%       8526
-> >>         tick_nohz_idle_got_tick                             2231559   =
- 0.01%   33.92%       8526
-> >>       __sysvec_apic_timer_interrupt                          105520   =
- 0.00%    0.92%          3
-> >>     tick_nohz_idle_stop_tick                                8279641   =
- 0.02%    0.02%       1475
-> >>     ---- skip
-> >>
-> >> The majority of the time spent in cpuidle_enter for CPUs entering
-> >> idle state has already been charged to the idle path. Among the
-> >> remaining contributors, cpuidle_governor_latency_req() accounts
-> >> for a non-negligible portion of the overall latency.
-> >>
-> >> Under the menu governor this shows up hot: ftrace data shows,
-> >>  cpuidle_governor_latency_req() accounts for about 19.9% of
-> >> menu_select() time (~1.9 us/call).  After caching the aggregated
-> >> value per CPU and invalidating via QoS notifiers, that share drops to
-> >> about 4.2% (~0.3 us/call), roughly a 6x reduction on this path.
-> > Is there any real-world workload in which that difference is actually v=
-isible?
-> Sorry, I only tested it under no load.
->
-> >
-> >> The ftrace data before and after the optimization is shown below:
-> >> 1) original
-> >> parent:          menu_select
-> >> parent_total_ns: 160492937
-> >> parent_count:    16718
-> >>
-> >> SYMBOL                                                      TIME_NS   =
- %ROOT  %PARENT      COUNT
-> >> ----------------------------------------------------------------------=
-----------------------------
-> >> menu_select                                               160492937  1=
-00.00%  100.00%      16718
-> > Where did you lose menu_update()?
-> Because menu_update() was optimized away by the compiler, it can't be see=
-n in /proc/kallsyms, so it won't be traced by ftrace either.
+On Friday, 18 September 2026 04:48:51 CEST Haobin Wu wrote:
+> The legacy 9p2000 and 9p2000.u readdir path, v9fs_dir_readdir(), parses
+> each entry with p9stat_read() and, unlike the 9p2000.L path, never had
+> a 256-byte name limit: a name of any length up to the wire maximum was
+> handed to dir_emit(). getdents64() therefore returned names longer than
+> NAME_MAX that no later syscall can use, and failed with -EIO for names
+> of PATH_MAX bytes or more.
+> 
+> Apply the same NAME_MAX check as the previous patch does for
+> v9fs_dir_readdir_dotl(), so both protocol variants behave the same.
+> 
+> Note that this is a behaviour change for 9p2000 and 9p2000.u: entries
+> with names longer than NAME_MAX used to be listed and are now skipped.
 
-How could it be optimized away?
+That sentence is a bit misleading, isn't it?
+
+Name length 256..4095:
+  - before: listed, but unusable (ENAMETOOLONG)
+  - now: entry skipped, fetch continues
+
+Name length >=4096:
+  - before: aborts the entire fetch (similar to 9p2000.L side)
+  - now: entry skipped, fetch continues
+
+But yes, it would be a user-space change nevertheless, so ...
+ 
+> Suggested-by: Christian Schoenebeck <linux_oss@crudebyte.com>
+> Link: https://lore.kernel.org/all/3910569.MHq7AAxBmi@weasel/
+> Signed-off-by: Haobin Wu <853555@gmail.com>
+> ---
+>  fs/9p/vfs_dir.c | 14 ++++++++++++--
+>  1 file changed, 12 insertions(+), 2 deletions(-)
+> 
+> diff --git a/fs/9p/vfs_dir.c b/fs/9p/vfs_dir.c
+> index 08d1a3429654..31de9ac913f0 100644
+> --- a/fs/9p/vfs_dir.c
+> +++ b/fs/9p/vfs_dir.c
+> @@ -119,6 +119,8 @@ static int v9fs_dir_readdir(struct file *file, struct
+> dir_context *ctx) rdir->tail = n;
+>  		}
+>  		while (rdir->head < rdir->tail) {
+> +			size_t namelen;
+> +
+>  			err = p9stat_read(fid->clnt, rdir->buf + rdir->head,
+>  					  rdir->tail - rdir->head, &st);
+>  			if (err <= 0) {
+> @@ -126,8 +128,16 @@ static int v9fs_dir_readdir(struct file *file, struct
+> dir_context *ctx) return -EIO;
+>  			}
+> 
+> -			over = !dir_emit(ctx, st.name, strlen(st.name),
+> -					QID2INO(&st.qid), dt_type(&st));
+> +			namelen = strlen(st.name);
+> +			if (namelen > NAME_MAX) {
+
+... maybe better if (namelen >= PATH_MAX) here for legacy 9p2000(.u)?
+
+> +				p9_debug(P9_DEBUG_ERROR,
+> +					 "skip dentry: name length %zu > NAME_MAX\n",
+> +					 namelen);
+> +				over = false;
+
+Nit: alternative would be init over = false and dropping explicit assignment 
+inside loop branch here. But that's already personal taste level.
+
+/Christian
+
+> +			} else {
+> +				over = !dir_emit(ctx, st.name, namelen,
+> +						 QID2INO(&st.qid), dt_type(&st));
+> +			}
+>  			p9stat_free(&st);
+>  			if (over)
+>  				return 0;
+
+
