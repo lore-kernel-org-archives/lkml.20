@@ -1,48 +1,48 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E30E0364EB2
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 05:00:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64D9934C98C
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 05:00:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789707625; cv=none; b=cX0TgkbWvr6J6OCRTuYRicUfAw9DiakGP9tY9lUWK+o9XsEiOtXiJ3QN11vl5+e20757sK3fH9lyY/ni/8Vp4QWv4pqCJfswCh3GiWijOTdW6MwXwb9d2drrRAjWTd716wXtf76gOlPC2Vt6cDkWt0cweeBnFb8AfOk+b/c5nwc=
+	t=1789707638; cv=none; b=MIONimPkjbbMQ202BLvjsq9osGIgct7skLf0U1xEu2sKI+wXri3JuxEMGRcF3JvYkN1bXLsdeyhbCfS84C+PSNR5bY39HlA6bL9KB7Ik/VyCHWMbSW80mnFpDY7mKUnJYuPZNjJUeVa2XAwwuk6FJbgAt8jBjw7X1JJRwO0zh38=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789707625; c=relaxed/simple;
-	bh=wCQQ9sK8MfeSQANhBg4GB6Z1MDBl+lE8ukLAzYLr7xw=;
+	s=arc-20240116; t=1789707638; c=relaxed/simple;
+	bh=CJbNOXkL5i5iOuj4FQjb8Zr4pzFe7cKFZHXbVN0RM8E=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Cut67sEExizarfWJRe0yEcilU7Md1Lr5fSYTUU1Lcfp3nZ0ZIpKSrJFBHomfJSLjcfFF9EheH+cM4ruW+LoTN10gdfTB16F1cA79Dk5vqFgsJ+n/KaJ/Wx/C9f110koBCV+UpcecY+fwAT5GjH0uZFIPQ1K9M9iNXdbUkHD7mUA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XxNBF9r7; arc=none smtp.client-ip=192.198.163.14
+	 MIME-Version; b=CFxJ0L8nCiLvQbnji7PToU2V09L9VNyIndB+UdFvxhnRmayhrY44SiCBhBoxW2CXnHrfEDYqkavoepJ/UTSD9q2tBfDxvB/H1APsLsWJHhFaqpO3cHbvVINsB0aBQUYo572UxFmtPL2qZpjY+ZHobE91oTH41Zrr13AHNIyOp70=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UzYkECOJ; arc=none smtp.client-ip=192.198.163.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XxNBF9r7"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UzYkECOJ"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789707624; x=1821243624;
+  t=1789707636; x=1821243636;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=wCQQ9sK8MfeSQANhBg4GB6Z1MDBl+lE8ukLAzYLr7xw=;
-  b=XxNBF9r757axa+onLPiVXVbEPPXVkk/klps8WBdqeT8l0nJbZV/OtwdM
-   L86WTOqtTFMDlsOhCDY2cztvOR0TJW0aY84xNFM6PAP9C0inJjXIsKXR0
-   asK08zEbhkFMCpFSOmmbbwRaULNpc7VOYa6069B7D0VNUEW4fbuSDn3IA
-   KfnhcN6LiL6p1GmU+SdVJl+vMfhUKbWhMkqP2Jve+GMBR+Wqb7myjfrOB
-   j2pqgzBq3L4rDLAynrMpOd6UOsUOYYEA9kqVw8wu3JRPvGcbjic6P3PTS
-   6ZwSuACGI3hfRTa/0HPfOO8Iq6mNou+Ng0QfPveNkSzIZ6K9sVOoi02ZZ
+  bh=CJbNOXkL5i5iOuj4FQjb8Zr4pzFe7cKFZHXbVN0RM8E=;
+  b=UzYkECOJcDoRfKX7L1YnihO8lykYJTBynIqU2GKWqdsO5iZwsvbpLRLB
+   xAfGoIkiODz6z2mgDhlLTQoG1D7vvKuYVTwxSRzMwUKvJMzUZEX0fcfiJ
+   vRugfEqx0rZvGThL4egvgjRiTmoe+hgdF9s1OJ9mSzQ41Zs+yhcl5hjIZ
+   IURBGU4aAPW95+XuPYvYPDnDZC1R38a6L0Dt7UVR/La+Aie31OWVkC5yL
+   rKDJ44RKMOr6QppQtBAF3BJ6ju1ejwBmSS43qmsZEeMpw08zBW61OknqC
+   e8Xq7i3NEXECImqjIk9A2FHdFoW0pZ94YeWgmIfBTnUJueqEABwXN+Omm
    Q==;
-X-CSE-ConnectionGUID: 3uTEmzdCRka5JCcBJjlCoA==
-X-CSE-MsgGUID: /MOLE0q8ShS8ZgvhZDjFQQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90206749"
+X-CSE-ConnectionGUID: O3e9m6UDT6i9NHHeTQ4uwA==
+X-CSE-MsgGUID: 9odPqIwVRwmlurPA/ld4Dw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="115722576"
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="90206749"
+   d="scan'208";a="115722576"
 Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 22:00:23 -0700
-X-CSE-ConnectionGUID: XiiQNUv5RFuFFsrIzBWuTQ==
-X-CSE-MsgGUID: ivTogSmpRAOh6aDxrQOtJA==
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 22:00:33 -0700
+X-CSE-ConnectionGUID: dGJ0nmibSGe2Aj5zIHiG4g==
+X-CSE-MsgGUID: vu5FiOpKQeOgdVSNEbFZ+Q==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="2395279"
+   d="scan'208";a="2395347"
 Received: from chenyu-dev.sh.intel.com ([10.239.62.107])
-  by fmviesa012.fm.intel.com with ESMTP; 17 Sep 2026 22:00:17 -0700
+  by fmviesa012.fm.intel.com with ESMTP; 17 Sep 2026 22:00:30 -0700
 From: Chen Yu <yu.c.chen@intel.com>
 To: tony.luck@intel.com,
 	reinette.chatre@intel.com
@@ -59,9 +59,9 @@ Cc: tglx@kernel.org,
 	linux-kernel@vger.kernel.org,
 	Chen Yu <yu.c.chen@intel.com>,
 	Hongyu Ning <hongyu.ning@linux.intel.com>
-Subject: [PATCH v8 3/9] x86/resctrl: Parse ACPI ERDT table and save CACD cpumask for RMDD domains
-Date: Fri, 18 Sep 2026 12:49:50 +0800
-Message-Id: <16e1ac77eb48c5433f16c3a7cefcd4217a19007b.1789705667.git.yu.c.chen@intel.com>
+Subject: [PATCH v8 4/9] x86/resctrl: Attach ACPI ERDT information to L3 mon domain on CPU online
+Date: Fri, 18 Sep 2026 12:50:03 +0800
+Message-Id: <1299d05391a5095a151d6204a459d6ca0f431462.1789705667.git.yu.c.chen@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1789705667.git.yu.c.chen@intel.com>
 References: <cover.1789705667.git.yu.c.chen@intel.com>
@@ -73,411 +73,218 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-There is one Enhanced RDT (ERDT) ACPI table per platform. Each Resource
-Management Domain Description (RMDD) sub-table within it describes one resource
-management domain (RMD), also known as an L3 domain, and carries MMIO base
-information for monitoring support. The CPU agents within the scope of an RMDD
-are enumerated by their x2APIC IDs in a nested CPU Agent Collection Description
-(CACD) sub-table.
+Reading LLC occupancy counters via MMIO requires the per-domain ERDT
+information, parsed from the ACPI ERDT table, to be reachable from the resctrl
+L3 monitoring domain. Nothing links the two yet, so the monitoring code cannot
+locate the MMIO registers of a domain.
 
-Parse the RMDD sub-tables within the ERDT ACPI table and their nested CACD
-entries to construct per-domain CPU masks.
+ERDT and CPUID enumerate CPU-to-L3-domain membership independently: CPUID leaf 4
+describes the L3 cache topology, while the firmware CACD sub-table lists the
+CPUs of each ERDT domain. Both views must agree on a CPU's L3 domain for that
+CPU to be monitored safely.
 
-For each RMDD, parse the associated CACD, map its x2APIC IDs to logical CPUs,
-and save the resulting CPU mask. Associate every ERDT domain with the CPUs that
-belong to it to prepare for attaching ERDT data to resctrl monitoring domains.
+When a CPU comes online, validate that firmware and CPUID agree on its L3 domain
+before adding it to any resctrl domain. Exclude the CPU from all resctrl domains
+on a mismatch because a topology inconsistency between ERDT and CPUID indicates
+a firmware defect that makes the CPU's domain placement unreliable for any
+resource. Otherwise attach the matching ERDT domain information to the L3
+monitoring domain so that monitoring data can be read via ERDT and its
+sub-tables.
 
-Based on original work from Anil S Keshavamurthy.
-
-Suggested-by: Tony Luck <tony.luck@intel.com>
 Suggested-by: Reinette Chatre <reinette.chatre@intel.com>
 Signed-off-by: Chen Yu <yu.c.chen@intel.com>
 Tested-by: Hongyu Ning <hongyu.ning@linux.intel.com>
 ---
- arch/x86/kernel/cpu/resctrl/Makefile   |   1 +
- arch/x86/kernel/cpu/resctrl/core.c     |  16 +-
- arch/x86/kernel/cpu/resctrl/erdt.c     | 265 +++++++++++++++++++++++++
- arch/x86/kernel/cpu/resctrl/internal.h |  29 +++
- 4 files changed, 309 insertions(+), 2 deletions(-)
- create mode 100644 arch/x86/kernel/cpu/resctrl/erdt.c
+ arch/x86/kernel/cpu/resctrl/core.c     |  16 ++++
+ arch/x86/kernel/cpu/resctrl/erdt.c     | 109 +++++++++++++++++++++++++
+ arch/x86/kernel/cpu/resctrl/internal.h |   5 ++
+ 3 files changed, 130 insertions(+)
 
-diff --git a/arch/x86/kernel/cpu/resctrl/Makefile b/arch/x86/kernel/cpu/resctrl/Makefile
-index 273ddfa30836..2216ee084832 100644
---- a/arch/x86/kernel/cpu/resctrl/Makefile
-+++ b/arch/x86/kernel/cpu/resctrl/Makefile
-@@ -2,6 +2,7 @@
- obj-$(CONFIG_X86_CPU_RESCTRL)		+= core.o rdtgroup.o monitor.o
- obj-$(CONFIG_X86_CPU_RESCTRL)		+= ctrlmondata.o
- obj-$(CONFIG_X86_CPU_RESCTRL_INTEL_AET)	+= intel_aet.o
-+obj-$(CONFIG_X86_CPU_RESCTRL)		+= erdt.o
- obj-$(CONFIG_RESCTRL_FS_PSEUDO_LOCK)	+= pseudo_lock.o
- 
- # To allow define_trace.h's recursive include:
 diff --git a/arch/x86/kernel/cpu/resctrl/core.c b/arch/x86/kernel/cpu/resctrl/core.c
-index 55214d6fdc49..54cfdf12dfbb 100644
+index 54cfdf12dfbb..3514d73a8056 100644
 --- a/arch/x86/kernel/cpu/resctrl/core.c
 +++ b/arch/x86/kernel/cpu/resctrl/core.c
-@@ -1016,10 +1016,17 @@ static __init void check_quirks(void)
+@@ -34,6 +34,9 @@
+  * the domain list must either take cpus_read_lock(), or rely on an RCU
+  * read-side critical section, to avoid observing concurrent modification.
+  * All writers take this mutex:
++ *
++ * This mutex also protects the ERDT domain_info_list, which is modified when a
++ * CPU comes online.
+  */
+ static DEFINE_MUTEX(domain_list_lock);
  
- static __init bool get_rdt_resources(void)
- {
-+	bool succeed;
-+
-+	erdt_init();
- 	rdt_alloc_capable = get_rdt_alloc_resources();
- 	rdt_mon_capable = get_rdt_mon_resources();
- 
--	return (rdt_mon_capable || rdt_alloc_capable);
-+	succeed = (rdt_mon_capable || rdt_alloc_capable);
-+	if (!succeed)
-+		erdt_exit();
-+
-+	return succeed;
- }
- 
- static __init void rdt_init_res_defs_intel(void)
-@@ -1141,12 +1148,15 @@ static int __init resctrl_arch_late_init(void)
- 				  "x86/resctrl/cat:online:",
- 				  resctrl_arch_online_cpu,
- 				  resctrl_arch_offline_cpu);
--	if (state < 0)
-+	if (state < 0) {
-+		erdt_exit();
- 		return state;
-+	}
- 
- 	ret = resctrl_init();
- 	if (ret) {
- 		cpuhp_remove_state(state);
-+		erdt_exit();
- 		return ret;
+@@ -564,6 +567,8 @@ static void l3_mon_domain_setup(int cpu, int id, struct rdt_resource *r, struct
+ 		return;
  	}
- 	rdt_online = state;
-@@ -1169,6 +1179,8 @@ static void __exit resctrl_arch_exit(void)
- 	cpuhp_remove_state(rdt_online);
- 
- 	resctrl_exit();
+ 	list_add_tail_rcu(&d->hdr.list, add_pos);
 +
-+	erdt_exit();
++	erdt_l3_mon_domain_setup(id, &d->hdr);
  }
  
- __exitcall(resctrl_arch_exit);
+ static void domain_add_cpu_mon(int cpu, struct rdt_resource *r)
+@@ -742,6 +747,17 @@ static int resctrl_arch_online_cpu(unsigned int cpu)
+ 	struct rdt_resource *r;
+ 
+ 	mutex_lock(&domain_list_lock);
++	/*
++	 * A CPU whose ERDT and CPUID L3 domain views disagree is not added to
++	 * any domain. resctrl_arch_offline_cpu() still tries to remove it when
++	 * it goes offline and warns that no domain contains it. That warning is
++	 * expected.
++	 */
++	if (!erdt_cpu_valid(cpu)) {
++		mutex_unlock(&domain_list_lock);
++		return 0;
++	}
++
+ 	for_each_capable_rdt_resource(r)
+ 		domain_add_cpu(cpu, r);
+ 	mutex_unlock(&domain_list_lock);
 diff --git a/arch/x86/kernel/cpu/resctrl/erdt.c b/arch/x86/kernel/cpu/resctrl/erdt.c
-new file mode 100644
-index 000000000000..0dfe5eda166c
---- /dev/null
+index 0dfe5eda166c..249ba547d7c8 100644
+--- a/arch/x86/kernel/cpu/resctrl/erdt.c
 +++ b/arch/x86/kernel/cpu/resctrl/erdt.c
-@@ -0,0 +1,265 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Enhanced Resource Director Technology (ERDT)
-+ *
-+ * Copyright (C) 2026 Intel Corporation
-+ *
-+ */
-+
-+#define pr_fmt(fmt)     "resctrl: " fmt
-+
-+#include <linux/acpi.h>
-+#include <linux/overflow.h>
-+#include <linux/resctrl.h>
-+#include <linux/sizes.h>
-+
-+#include <asm/apic.h>
-+
-+#include "internal.h"
-+
-+static LIST_HEAD(domain_info_list);
-+
-+/* True when the ERDT ACPI table describes at least one domain with at least one CPU. */
-+static bool erdt_enabled;
-+
-+#define ERDT_VALID_VERSION		1
-+#define RMDD_FLAG_CPU_L3_DOMAIN		BIT(0)
-+
-+/* Bitmask of valid sub-tables found in the first RMDD, used to ensure all RMDDs match. */
-+static u32 valid_subtbl_mask;
-+
-+/* Domain ID of the first RMDD that established @valid_subtbl_mask, for diagnostics. */
-+static u16 first_rmdd_domain_id;
-+
-+/*
-+ * The minimal max-rmid of different domains. Using minimal is to avoid the domain with
-+ * small rmid accessing an invalid rmid.
-+ */
-+static unsigned int erdt_max_rmid;
-+
-+unsigned int erdt_get_max_rmid(void)
+@@ -209,6 +209,115 @@ static __init bool parse_rmdd_table(struct acpi_subtbl_hdr_16 *rmdd_hdr)
+ 	return false;
+ }
+ 
++bool erdt_cpu_valid(int cpu)
 +{
-+	return erdt_max_rmid;
-+}
++	struct erdt_domain_info *d, *cpu_dom = NULL;
++	int dom_id;
 +
-+static void __iomem *erdt_ioremap(resource_size_t base, u32 num_pages, const char *desc)
-+{
-+	void __iomem *addr;
-+	unsigned long size;
-+
-+	if (check_mul_overflow(num_pages, SZ_4K, &size))
-+		return NULL;
-+
-+	addr = ioremap(base, size);
-+	if (!addr)
-+		pr_warn(FW_BUG "ERDT: Failed to map %s at phys addr %pa (size: %u pages)\n",
-+			desc, &base, num_pages);
-+
-+	return addr;
-+}
-+
-+static void erdt_iounmap_domain(struct erdt_domain_info *domain)
-+{
-+	for (int i = 0; i < ERDT_MMIO_NUM_TYPES; i++) {
-+		if (domain->base[i]) {
-+			iounmap(domain->base[i]);
-+			domain->base[i] = NULL;
-+		}
-+	}
-+}
-+
-+static void cleanup_one_domain(struct erdt_domain_info *d)
-+{
-+	erdt_iounmap_domain(d);
-+	kfree(d);
-+}
-+
-+/*
-+ * Save CACD information for this RMDD:
-+ * convert the X2APIC to CPU and save them in a mask.
-+ */
-+static __init int cacd_init(struct acpi_subtbl_hdr_16 *subtbl,
-+			    struct erdt_domain_info *domain_info)
-+{
-+	struct acpi_erdt_cacd *cacd = (struct acpi_erdt_cacd *)subtbl;
-+	unsigned int num_ids;
-+	int cpu;
-+
-+	if (cacd->header.length < struct_size(cacd, X2APICIDS, 1)) {
-+		pr_warn(FW_BUG "Invalid x2apicid CACD table\n");
-+		return -EIO;
-+	}
-+
-+	num_ids = (cacd->header.length - sizeof(*cacd)) / sizeof(cacd->X2APICIDS[0]);
-+
-+	for (unsigned int i = 0; i < num_ids; i++) {
-+		cpu = topo_lookup_cpuid(cacd->X2APICIDS[i]);
-+		if (cpu < 0) {
-+			pr_warn(FW_BUG "Unknown x2apicid 0x%x\n", cacd->X2APICIDS[i]);
-+			return -EIO;
-+		}
-+
-+		cpumask_set_cpu(cpu, &domain_info->cpu_mask);
-+	}
-+
-+	return 0;
-+}
-+
-+static inline struct acpi_subtbl_hdr_16 *rmdd_subtbl(struct acpi_erdt_rmdd *rmdd)
-+{
-+	return (void *)rmdd + sizeof(*rmdd);
-+}
-+
-+static inline struct acpi_subtbl_hdr_16 *next_subtbl(struct acpi_subtbl_hdr_16 *subtbl)
-+{
-+	return (void *)subtbl + subtbl->length;
-+}
-+
-+static inline bool subtbl_valid(void *end, struct acpi_subtbl_hdr_16 *subtbl)
-+{
-+	/* Ensure the header is within bounds before dereferencing it. */
-+	if ((void *)subtbl + sizeof(*subtbl) > end)
-+		return false;
-+
-+	/* A sub-table must be at least as large as its header. */
-+	if (subtbl->length < sizeof(*subtbl))
-+		return false;
-+
-+	/* The entire sub-table (including body) must fit within the parent. */
-+	if ((void *)subtbl + subtbl->length > end)
-+		return false;
-+
-+	return true;
-+}
-+
-+static __init bool parse_rmdd_table(struct acpi_subtbl_hdr_16 *rmdd_hdr)
-+{
-+	struct acpi_erdt_rmdd *rmdd = (struct acpi_erdt_rmdd *)rmdd_hdr;
-+	struct erdt_domain_info *domain_info;
-+	struct acpi_subtbl_hdr_16 *subtbl;
-+	u32 subtbl_mask = 0;
-+
-+	if (rmdd->header.length < sizeof(*rmdd)) {
-+		pr_warn(FW_BUG "Invalid RMDD length %u bytes\n", rmdd->header.length);
-+		return false;
-+	}
-+
-+	/* Quietly ignore non-CPU-based L3 domains */
-+	if (!(rmdd->flags & RMDD_FLAG_CPU_L3_DOMAIN))
++	/* Without ERDT there is no firmware topology to disagree with. */
++	if (!erdt_enabled)
 +		return true;
 +
-+	domain_info = kzalloc_obj(*domain_info, GFP_KERNEL);
-+	if (!domain_info)
++	dom_id = get_cpu_cacheinfo_id(cpu, RESCTRL_L3_CACHE);
++	if (dom_id < 0) {
++		pr_warn(FW_BUG "Can't find L3 id for CPU:%d\n", cpu);
 +		return false;
++	}
 +
-+	domain_info->dom_id = -1;
-+
-+	domain_info->base[ERDT_MMIO_RMDD_CREG] =
-+		erdt_ioremap(rmdd->creg_base, rmdd->creg_size, "RMDD ctrl base");
-+	if (!domain_info->base[ERDT_MMIO_RMDD_CREG])
-+		goto cleanup;
-+
-+	for (subtbl = rmdd_subtbl(rmdd);
-+	     subtbl_valid((void *)rmdd + rmdd->header.length, subtbl);
-+	     subtbl = next_subtbl(subtbl)) {
-+		switch (subtbl->type) {
-+		/* An RMDD table has one or more CACD sub-table(s) */
-+		case ACPI_ERDT_TYPE_CACD:
-+			if (cacd_init(subtbl, domain_info))
-+				goto cleanup;
-+
-+			subtbl_mask |= BIT(ACPI_ERDT_TYPE_CACD);
-+			break;
-+		default:
++	/*
++	 * Find the erdt_domain_info that contains this CPU, then bind that ERDT
++	 * domain to this CPU's L3 id. A CPU whose L3 id does not match the binding
++	 * of its ERDT domain cannot be covered by resctrl.
++	 *
++	 * For example, the CACD sub-tables report:
++	 * domain0: CPU0, CPU2, domain1: CPU1, CPU3
++	 * while CPUID/cacheinfo reports the L3 cache is shared by:
++	 * id0: CPU0, CPU1, id1: CPU2, CPU3
++	 * With the CPUs coming online in order, CPU0 binds domain0 to L3 id0 and
++	 * CPU3 binds domain1 to L3 id1, so CPU1 and CPU2 are not covered by
++	 * resctrl.
++	 */
++	list_for_each_entry(d, &domain_info_list, entry) {
++		if (cpumask_test_cpu(cpu, &d->cpu_mask)) {
++			cpu_dom = d;
 +			break;
 +		}
 +	}
 +
-+	if (!subtbl_mask)
-+		goto cleanup;
++	if (!cpu_dom) {
++		pr_warn(FW_BUG "Cannot find the ERDT domain which has CPU%d\n", cpu);
++		return false;
++	}
++
++	/* This ERDT domain is already bound to this CPU's L3 domain. */
++	if (cpu_dom->dom_id == dom_id)
++		return true;
 +
 +	/*
-+	 * Require all RMDDs to support same set of sub-tables
++	 * This ERDT domain is already bound to a different L3 domain. Rebinding it
++	 * would leave two L3 domains reading the counters of one ERDT domain, so
++	 * skip this CPU instead:
++	 * When CPU2 is brought online, domain0 is found. But then it found that
++	 * domain0's ID is 0, which is not -1(new domain), so CPU2 is ineligible.
 +	 */
-+	if (!valid_subtbl_mask) {
-+		valid_subtbl_mask = subtbl_mask;
-+		first_rmdd_domain_id = rmdd->domain_id;
-+	} else if (subtbl_mask != valid_subtbl_mask) {
-+		pr_warn(FW_BUG "RMDD %u sub-table set does not match the first RMDD %u\n",
-+			rmdd->domain_id, first_rmdd_domain_id);
-+		goto cleanup;
++	if (cpu_dom->dom_id != -1) {
++		pr_warn(FW_BUG "CPU%d's id=%d not equal to CACD domain(%*pbl) id=%d, skip this CPU\n",
++			cpu, dom_id, cpumask_pr_args(&cpu_dom->cpu_mask), cpu_dom->dom_id);
++
++		return false;
 +	}
 +
-+	if (!rmdd->max_rmid) {
-+		pr_warn(FW_BUG "Unreasonable RMDD max_rmid %u\n", rmdd->max_rmid);
-+		goto cleanup;
++	/*
++	 * A possible new binding. Check if another ERDT domain shares the same
++	 * L3 id. If yes, this is a conflict and this CPU should not be considered
++	 * by resctrl:
++	 * When CPU1 is brought online, a new domain1 is found. But then it found that
++	 * domain0's ID is 0, which is the same as CPU1's dom_id, so CPU1 is ineligible.
++	 */
++	list_for_each_entry(d, &domain_info_list, entry) {
++		if (d == cpu_dom)
++			continue;
++
++		if (d->dom_id == dom_id) {
++			pr_warn(FW_BUG "CPU%d's id=%d is already used by CACD domain(%*pbl), skip this CPU\n",
++				cpu, dom_id, cpumask_pr_args(&d->cpu_mask));
++
++			return false;
++		}
 +	}
 +
-+	if (!erdt_max_rmid)
-+		erdt_max_rmid = rmdd->max_rmid;
-+	else
-+		erdt_max_rmid = min(erdt_max_rmid, rmdd->max_rmid);
-+
-+	list_add(&domain_info->entry, &domain_info_list);
++	/* Eligible new binding, assign the L3 id. */
++	cpu_dom->dom_id = dom_id;
 +
 +	return true;
-+
-+cleanup:
-+	cleanup_one_domain(domain_info);
-+	return false;
 +}
 +
-+void erdt_exit(void)
++/*
++ * Associate ERDT table information with this domain.
++ */
++void erdt_l3_mon_domain_setup(int id, struct rdt_domain_hdr *hdr)
 +{
-+	struct erdt_domain_info *d, *tmp;
++	struct rdt_hw_l3_mon_domain *hw_dom;
++	struct erdt_domain_info *d;
 +
-+	list_for_each_entry_safe(d, tmp, &domain_info_list, entry) {
-+		list_del(&d->entry);
-+		cleanup_one_domain(d);
++	if (!erdt_enabled)
++		return;
++
++	hw_dom = resctrl_to_arch_mon_dom(container_of(hdr, struct rdt_l3_mon_domain, hdr));
++
++	list_for_each_entry(d, &domain_info_list, entry) {
++		if (d->dom_id == id) {
++			/* Assign the ERDT information to hw_dom */
++			if (hw_dom->d_info) {
++				pr_warn(FW_BUG "Duplicated ERDT domains are mapped to an existing L3 domain\n");
++				return;
++			}
++			hw_dom->d_info = d;
++			return;
++		}
 +	}
-+	erdt_enabled = false;
-+	valid_subtbl_mask = 0;
-+	first_rmdd_domain_id = 0;
-+	erdt_max_rmid = 0;
 +}
 +
-+static __init int enumerate_erdt_table(struct acpi_table_header *table_hdr)
-+{
-+	struct acpi_table_erdt *erdt = (struct acpi_table_erdt *)table_hdr;
-+	struct acpi_subtbl_hdr_16 *subtbl;
-+
-+	if (erdt->header.revision != ERDT_VALID_VERSION) {
-+		pr_info("Unsupported ERDT table revision %u (expected %u)\n",
-+			erdt->header.revision, ERDT_VALID_VERSION);
-+		return -EINVAL;
-+	}
-+
-+	if (erdt->header.length < sizeof(*erdt)) {
-+		pr_warn(FW_BUG "ERDT: Invalid table length %u bytes\n", erdt->header.length);
-+		return -EINVAL;
-+	}
-+
-+	for (subtbl = (void *)erdt + sizeof(*erdt);
-+	     subtbl_valid((void *)erdt + erdt->header.length, subtbl);
-+	     subtbl = next_subtbl(subtbl)) {
-+		if (subtbl->type == ACPI_ERDT_TYPE_RMDD &&
-+		    !parse_rmdd_table(subtbl))
-+			goto cleanup;
-+	}
-+
-+	if (list_empty(&domain_info_list))
-+		goto cleanup;
-+
-+	erdt_enabled = true;
-+
-+	return 0;
-+
-+cleanup:
-+	erdt_exit();
-+	return -EINVAL;
-+}
-+
-+int __init erdt_init(void)
-+{
-+	return acpi_table_parse(ACPI_SIG_ERDT, enumerate_erdt_table);
-+}
+ void erdt_exit(void)
+ {
+ 	struct erdt_domain_info *d, *tmp;
 diff --git a/arch/x86/kernel/cpu/resctrl/internal.h b/arch/x86/kernel/cpu/resctrl/internal.h
-index e3cfa0c10e92..156206088372 100644
+index 156206088372..2e8fb36ad804 100644
 --- a/arch/x86/kernel/cpu/resctrl/internal.h
 +++ b/arch/x86/kernel/cpu/resctrl/internal.h
-@@ -21,6 +21,31 @@
+@@ -97,14 +97,19 @@ struct rdt_hw_ctrl_domain {
+  * @arch_mbm_states:	Per-event pointer to the MBM event's saved state.
+  *			An MBM event's state is an array of struct arch_mbm_state
+  *			indexed by RMID on x86.
++ * @d_info:		ERDT table information of this domain
+  *
+  * Members of this structure are accessed via helpers that provide abstraction.
+  */
+ struct rdt_hw_l3_mon_domain {
+ 	struct rdt_l3_mon_domain	d_resctrl;
+ 	struct arch_mbm_state		*arch_mbm_states[QOS_NUM_L3_MBM_EVENTS];
++	const struct erdt_domain_info	*d_info;
+ };
  
- #define RMID_VAL_UNAVAIL		BIT_ULL(62)
- 
-+/*
-+ * Index into erdt_domain_info::base[] for each MMIO region.
-+ * @ERDT_MMIO_RMDD_CREG: RMDD control register base address
-+ */
-+enum erdt_mmio_type {
-+	ERDT_MMIO_RMDD_CREG,
-+	ERDT_MMIO_LAST = ERDT_MMIO_RMDD_CREG
-+};
++bool erdt_cpu_valid(int cpu);
++void erdt_l3_mon_domain_setup(int id, struct rdt_domain_hdr *hdr);
 +
-+#define ERDT_MMIO_NUM_TYPES	(ERDT_MMIO_LAST + 1)
-+
-+/**
-+ * struct erdt_domain_info - Per-domain ERDT information
-+ * @base:	Array of ioremapped MMIO region base addresses, indexed by ERDT_MMIO_*
-+ * @cpu_mask:	CPUs belonging to this resource management domain
-+ * @dom_id:	L3 cache ID shared by all CPUs in this domain (-1 if unset)
-+ * @entry:	Links into the global domain_info_list
-+ */
-+struct erdt_domain_info {
-+	void __iomem		*base[ERDT_MMIO_NUM_TYPES];
-+	struct cpumask		cpu_mask;
-+	int			dom_id;
-+	struct list_head	entry;
-+};
-+
- /*
-  * With the above fields in use 62 bits remain in MSR_IA32_QM_CTR for
-  * data to be returned. The counter width is discovered from the hardware
-@@ -253,4 +278,8 @@ static inline void intel_aet_mon_domain_setup(int cpu, int id, struct rdt_resour
- static inline bool intel_handle_aet_option(bool force_off, char *tok) { return false; }
- #endif
- 
-+unsigned int erdt_get_max_rmid(void);
-+int erdt_init(void);
-+void erdt_exit(void);
-+
- #endif /* _ASM_X86_RESCTRL_INTERNAL_H */
+ static inline struct rdt_hw_ctrl_domain *resctrl_to_arch_ctrl_dom(struct rdt_ctrl_domain *r)
+ {
+ 	return container_of(r, struct rdt_hw_ctrl_domain, d_resctrl);
 -- 
 2.25.1
 
