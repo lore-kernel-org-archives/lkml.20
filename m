@@ -1,666 +1,693 @@
-Received: from sender5-op-o12.zoho.com (sender5-op-o12.zoho.com [165.173.182.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BDD436167B;
-	Fri, 18 Sep 2026 09:01:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789722065; cv=pass; b=e9aCWcYaiXOXradAXT8nstoteltyK0MWJOtjUAJMr3k74af7N1wAWoc1Mgb+DbUZi3DTVI/rmR8U+UxGc0/w+Qb9BWnb5+2I21/MYPuX0eAwKdwTiWUFwRQAr/EYXZbQU8Tv893rvSZxEyRZlULnzEw8pMR1Prlm768bhTSuB0E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789722065; c=relaxed/simple;
-	bh=/d0SKhnC8hr5GRW42c3XVaWi18HMqbdYu72djCO1SXg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=COvdAgsMNxOZEXhyM1f3Io4wOlAMgYvKHiNoxI9r4xBqIOS4k+TInyI1wbhcKpoHQhEhro38yV00H1zLI5ut9qHVV+BtwOSbsdAnj0m0bWeHrGarlmhR38HgJM9tV9S/NR8b4qIgOXcFdJ1ntQL8pXgDBnZI4Ok24nekmMQFisY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me; spf=pass smtp.mailfrom=icenowy.me; dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b=MhdgnxWJ; arc=pass smtp.client-ip=165.173.182.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CEFF4ABBB4
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:01:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789722068; cv=none; b=ch0/jylQWEiJZrWa44FLa4ejpkBE9B81nYwyNSA3PMokKz2IwigVh7I5RMc+oGU9BivfJcaRZbCw6IPCC65y12Jo/rzBnC4TFHhD69oaiQVjR5vHXyBj1O1dgT/tis7D+eXgJ42FPCB+eD54qxZ8SwKtl6NGiykvsczaxE8aFkE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789722068; c=relaxed/simple;
+	bh=bMJFRmdnLPXYtrjEx1nV5nf2l/FTPz1aLAsSpp17h98=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZRG+ntJioxr/J4XtTLGF77ouIEDhbMTBwUoQE8N6OnDSuUp+Dk7Ay+F2X8js9wEdFEZ/1Y6Wz/CxJYSpk4MAz6l4lbYW8eHXEFAezDoJg8l6VAs6hyxr5cnuu6zA7WrCGa+Rc09OkQwLmKN7laIbK+BJEXgDuPSz3Um77W36V5U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s8Ql37JT; arc=none smtp.client-ip=74.125.228.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b="MhdgnxWJ"
-ARC-Seal: i=1; a=rsa-sha256; t=1789722014; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=TSUYg1tsIlaR0q1oqihzK+5VecJZfnQR7o8ty+dhNbm3rCbcGiFUi6r6fk/iFGLrVqB7JXvBhAMNqtdmekfn+5sYVDo+DoY68az6k1+ef61dxBTFu43UaKnQW7eRqWIcsiO0zwIYTMFt2KlLrSi+QpyI8Pts4CIbr3J7I3cDbz0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1789722014; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=tKU5PGY3GjfsKNtM9294AKz3n+ep9Fo8PM/k6/HdFSg=; 
-	b=l+RfpEKASI2aT9JMs1vWAn0oLRtUAKk2B62ROZ4L8EjUKHg+6JW1f1mEq0q9S5/6D6A5z3VSV+dacaFTbHAfQxCO+67iiFjhI+FuC0B2qJyUYCpawpeQ3DCc4/fYwg21P12APhKdg3ZAfe9ZnkE0usg1iiZ7r8UiUVv0lf7CChg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=icenowy.me;
-	spf=pass  smtp.mailfrom=uwu@icenowy.me;
-	dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789722014;
-	s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
-	bh=tKU5PGY3GjfsKNtM9294AKz3n+ep9Fo8PM/k6/HdFSg=;
-	b=MhdgnxWJLLHyAjllDb4hNfNGca5J6WUaxWA5WilLugsrtpnlNwul8oqTSku0SMRD
-	0JOLPwRNKU8cS+afIbIp0Cpw3+eJXRZcsegHd8XrmpsTVXcidrBvajSd1Yj4dUlsx4l
-	D0yj6fsV/QHKAVsqDNfytnorl5T4FHO1tFCVe/H/ucZzSQLOyTiYAySzdo5bHrY2w73
-	4P3LHbLmVnCuDlxZ8dAclsDDEqog3HfQiCMuW+OYiOHHCW524+7v1FYsFM3noe6FDI+
-	LwEP0AhiOe82TkmpbF1MR1t7jpZ3SqjT8OQ+6NE5AieZa+r3FUJKgsZVqEf4wCviOsf
-	DOdXNprZpg==
-Received: by smtp.zohomail.com with SMTPS id 1789722013037290.91804390297057;
-	Fri, 18 Sep 2026 02:00:13 -0700 (PDT)
-Message-ID: <a4359efeee2220903a05a2383a651ec8ec7284b7.camel@icenowy.me>
-Subject: Re: [PATCH 2/3] pmdomain: spacemit: Add power domain driver
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Yixun Lan <dlan@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Ulf
- Hansson <ulfh@kernel.org>,  Paul Walmsley	 <pjw@kernel.org>, Palmer Dabbelt
- <palmer@dabbelt.com>, Albert Ou	 <aou@eecs.berkeley.edu>, Alexandre Ghiti
- <alex@ghiti.fr>
-Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org
-Date: Fri, 18 Sep 2026 17:00:06 +0800
-In-Reply-To: <20260918-04-k3-pm-support-v1-2-0acd2b36b96f@kernel.org>
-References: <20260918-04-k3-pm-support-v1-0-0acd2b36b96f@kernel.org>
-	 <20260918-04-k3-pm-support-v1-2-0acd2b36b96f@kernel.org>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s8Ql37JT"
+Received: by mail-pz2-f42.google.com with SMTP id d2e1a72fcca58-86dd69a1b15so159823b3a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:01:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789722066; x=1790326866; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DKN6mAbBKXAcNUEd6MfrwZbsB8lgRRtFF8qERhqBIgc=;
+        b=s8Ql37JTN9XLmr4jBoodfiRHVdoWWfop/qApka2JBocOng1RGY8qZbrK837ErYDo9I
+         3wuuFF4NCgv4RqXVk93TtA6PaXZ6a3O1ACwdOkb/ECthswx0UDVXLxZIr3a4d+4J74+H
+         W6RK/8ccUq2GBeL1Y+m+hrBEuBJghWk0plfnWPlwjBHLvvf1GcduhSNYTFSVRaqL8POp
+         FESGYcH8E1DqJhAiy049TutvQfBGxtOlRu8cJjJq0aTwmG+x5sq++s5DfqeVoer7ODUJ
+         Aw9/eH0CwqvEwOp2FlGOpztK9EztrZEC7bhX0T1k2JpWlwDSpSpquxGOj/6j0S+P04ho
+         2n7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789722066; x=1790326866;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DKN6mAbBKXAcNUEd6MfrwZbsB8lgRRtFF8qERhqBIgc=;
+        b=yrAJEFICZeD1IBpoNlL+hJwUCIBAGLPVKzty6avOgnJWqeGliKUaBaOraO9TtkSAZ0
+         AiDKY7tohTMGusSkd1S+ecEpuJh6OxkHAcFxdiYYflJuI8+rLx07Xnt3xpLW0Y7auvQI
+         e4Pj/PW/F+TUdPP8FOBdLDwlQyD2SsG7If+WvwKdnZRj5VE1w+uxDjhjBHVIQ2PgDOhd
+         sF7hM/ih9rw4JJ6wVu/NieMxxhFucvLm21ORt/BWiM8soKxxWPVhQB207RtWEVp+3yhO
+         iHysBPmfatLfYVwObEhCvP1F9oepQyyvp66MfD6gqKgsfYa1gIRUSU2PF+UuI7vM32v8
+         DVjg==
+X-Forwarded-Encrypted: i=1; AKwUvBxCN1egkfoTadGKYzvQe5WNjMPyhbNzoqjuELPzTDyGZkdh6e98nHtBeZWqLTNLl9fvzC5GwJJn2owY1MY=@vger.kernel.org
+X-Gm-Message-State: AFuF++m7eUIG6G6I5i4KNo0mQqmjuVAJW+1bM5TSiwRc7o6lAfJOlA0+
+	vnSOvbxbQJ+DvJxtVPON4crllLm6+cFhMAfofdPC71vOyr9tlbGEc0f9
+X-Gm-Gg: AYBFou3LxIKm4dnqRs2WWQOt+kLqYo5lT1LOh3SHrTaFPeFNBIGmj9UKJUDljbCKpT4
+	X2+10XhoB5ZibRIPK4c9WQsBSo5TdGck+HgTpWgXKx8rrohTXOr/ucpGXH94tUsnzMD4HGnTtAY
+	9+IdaCthNw3meuVSHV5RY5+QQYujrapxIXWtdgNt6gSRhwZUAfi8xbvR6zV7lys0XV8JC2q/Jdq
+	zss2Onlrvx5mz2IG8hvinGT17qLwt1Bc9XBeN+aDZGuJRCa3EI52efpXiXHJBP/VIGxU3stD9LS
+	cYDNcKsQG/ruN/Bgx/clBMy5+sJPHjH2JUFKJoGT0Aqba8Fn+HsjN8VAEeeYbEAs095564VpNE+
+	vk0XRI7Jmp/78WavYcgTnEIky/Xx9Ist26Sm7YCqGq4zkcvfOVJSIC5IW5s4/zpJOzEqDIRYQBt
+	MWPwU6onRau+aYC/2bg+h02dIso6wIK1VbGFZWWP1WXRywDnr/0CM7qb4roJ8czdVRxWD5EQX6C
+	Xuci+j/4O8yiyKBDYO2Gsj/Wj3A7huPof3Ny9OqpHgfNkB2WRuALz1vjsO6NjbDrCRSta31PbHs
+	aIL5Phb1k7pjTZBauId1fXZBZImHFkkxMX3INfEGvnBAlK1KxQ6eetAIMS10NsYGsfmbhtJTxx/
+	9pJpRJA==
+X-Received: by 2002:a05:6a00:e1b:b0:872:a4fa:381a with SMTP id d2e1a72fcca58-874d259e679mr2291303b3a.2.1789722065357;
+        Fri, 18 Sep 2026 02:01:05 -0700 (PDT)
+Received: from cs-1047136853211-default.asia-southeast1-a.c.t54fbfa9bf0658dcb-tp.internal (96.177.21.34.bc.googleusercontent.com. [34.21.177.96])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-875dc8fa40fsm504491b3a.15.2026.09.18.02.01.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 02:01:04 -0700 (PDT)
+From: Aditya Prakash Srivastava <aditya.ansh182@gmail.com>
+To: Jens Axboe <axboe@kernel.dk>,
+	Christian Brauner <brauner@kernel.org>,
+	Gabriel Krisman Bertazi <krisman@suse.de>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
+	Jan Kara <jack@suse.cz>,
+	io-uring@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Aditya Prakash Srivastava <aditya.ansh182@gmail.com>
+Subject: [PATCH v4 1/3] tools: sync io_uring.h UAPI header
+Date: Fri, 18 Sep 2026 09:00:08 +0000
+Message-ID: <20260918090010.1688-2-aditya.ansh182@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260918090010.1688-1-aditya.ansh182@gmail.com>
+References: <20260918090010.1688-1-aditya.ansh182@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 
-=E5=9C=A8 2026-09-18=E4=BA=94=E7=9A=84 02:40 +0000=EF=BC=8CYixun Lan=E5=86=
-=99=E9=81=93=EF=BC=9A
-> =C2=A0 SpacemiT's PMU (Power Management Unit) consist of several power
-> domains
-> which can be managed independently, depending on different
-> application
-> scenario, each domain can be powered on/off for saving power.
->=20
-> =C2=A0 The driver is implemented based on Linux Generic PM Domain
-> framework.
-> From a hardware perspective, either of two distinct power-on
-> sequences
-> are supported, in software mode (SW mode), the driver is responsible
-> for
-> controlling the states of bits such as sleep1, sleep2, isolation and
-> pwr_state, while in hardware mode (HW mode), the PMU hardware will
-> complete
-> the sequence automatically without requiring software intervention.
+Sync tools/include/uapi/linux/io_uring.h with the main kernel
+include/uapi/linux/io_uring.h UAPI header to ensure they are
+perfectly aligned.
 
-I think there also exists solutions for K3 that uses RPMI power
-domains, and let their ESOS firmware to access the hardware.
+Additionally, correct a minor space-before-tab checkpatch.pl warning
+in the comments of both headers (no functional change).
 
-What's the relationship of this implementation with the ESOS
-implementation? Should the ESOS part be disabled to use this
-implementation?
+Suggested-by: Gabriel Krisman Bertazi <krisman@suse.de>
+Signed-off-by: Aditya Prakash Srivastava <aditya.ansh182@gmail.com>
+---
+ include/uapi/linux/io_uring.h       |   2 +-
+ tools/include/uapi/linux/io_uring.h | 340 ++++++++++++++++++++++++++--
+ 2 files changed, 325 insertions(+), 17 deletions(-)
 
-Thanks,
-Icenowy
+diff --git a/include/uapi/linux/io_uring.h b/include/uapi/linux/io_uring.h
+index 909fb7aea638..1f300f6b85d7 100644
+--- a/include/uapi/linux/io_uring.h
++++ b/include/uapi/linux/io_uring.h
+@@ -426,7 +426,7 @@ enum io_uring_op {
+  * IORING_RECVSEND_BUNDLE	Used with IOSQE_BUFFER_SELECT. If set, send or
+  *				recv will grab as many buffers from the buffer
+  *				group ID given and send them all. The completion
+- *				result 	will be the number of buffers send, with
++ *				result	will be the number of buffers send, with
+  *				the starting buffer ID in cqe->flags as per
+  *				usual for provided buffer usage. The buffers
+  *				will be	contiguous from the starting buffer ID.
+diff --git a/tools/include/uapi/linux/io_uring.h b/tools/include/uapi/linux/io_uring.h
+index f1c16f817742..1f300f6b85d7 100644
+--- a/tools/include/uapi/linux/io_uring.h
++++ b/tools/include/uapi/linux/io_uring.h
+@@ -10,6 +10,8 @@
+ 
+ #include <linux/fs.h>
+ #include <linux/types.h>
++#include <linux/io_uring/zcrx.h>
++
+ /*
+  * this file is shared with liburing and that has to autodetect
+  * if linux/time_types.h is available or not, it can
+@@ -50,7 +52,7 @@ struct io_uring_sqe {
+ 	};
+ 	__u32	len;		/* buffer size or number of iovecs */
+ 	union {
+-		__kernel_rwf_t	rw_flags;
++		__u32		rw_flags;
+ 		__u32		fsync_flags;
+ 		__u16		poll_events;	/* compatibility */
+ 		__u32		poll32_events;	/* word-reversed for BE */
+@@ -71,6 +73,9 @@ struct io_uring_sqe {
+ 		__u32		uring_cmd_flags;
+ 		__u32		waitid_flags;
+ 		__u32		futex_flags;
++		__u32		install_fd_flags;
++		__u32		nop_flags;
++		__u32		pipe_flags;
+ 	};
+ 	__u64	user_data;	/* data to be passed back at completion time */
+ 	/* pack this to avoid bogus arm OABI complaints */
+@@ -85,17 +90,26 @@ struct io_uring_sqe {
+ 	union {
+ 		__s32	splice_fd_in;
+ 		__u32	file_index;
++		__u32	zcrx_ifq_idx;
+ 		__u32	optlen;
+ 		struct {
+ 			__u16	addr_len;
+ 			__u16	__pad3[1];
+ 		};
++		struct {
++			__u8	write_stream;
++			__u8	__pad4[3];
++		};
+ 	};
+ 	union {
+ 		struct {
+ 			__u64	addr3;
+ 			__u64	__pad2[1];
+ 		};
++		struct {
++			__u64	attr_ptr; /* pointer to attribute information */
++			__u64	attr_type_mask; /* bit mask of attributes */
++		};
+ 		__u64	optval;
+ 		/*
+ 		 * If the ring is initialized with IORING_SETUP_SQE128, then
+@@ -105,6 +119,18 @@ struct io_uring_sqe {
+ 	};
+ };
+ 
++/* sqe->attr_type_mask flags */
++#define IORING_RW_ATTR_FLAG_PI	(1U << 0)
++/* PI attribute information */
++struct io_uring_attr_pi {
++		__u16	flags;
++		__u16	app_tag;
++		__u32	len;
++		__u64	addr;
++		__u64	seed;
++		__u64	rsvd;
++};
++
+ /*
+  * If sqe->file_index is set to this for opcodes that instantiate a new
+  * direct descriptor (like openat/openat2/accept), then io_uring will allocate
+@@ -114,7 +140,7 @@ struct io_uring_sqe {
+  */
+ #define IORING_FILE_INDEX_ALLOC		(~0U)
+ 
+-enum {
++enum io_uring_sqe_flags_bit {
+ 	IOSQE_FIXED_FILE_BIT,
+ 	IOSQE_IO_DRAIN_BIT,
+ 	IOSQE_IO_LINK_BIT,
+@@ -164,7 +190,8 @@ enum {
+ /*
+  * If COOP_TASKRUN is set, get notified if task work is available for
+  * running and a kernel transition would be needed to run it. This sets
+- * IORING_SQ_TASKRUN in the sq ring flags. Not valid with COOP_TASKRUN.
++ * IORING_SQ_TASKRUN in the sq ring flags. Not valid without COOP_TASKRUN
++ * or DEFER_TASKRUN.
+  */
+ #define IORING_SETUP_TASKRUN_FLAG	(1U << 9)
+ #define IORING_SETUP_SQE128		(1U << 10) /* SQEs are 128 byte */
+@@ -198,6 +225,33 @@ enum {
+  */
+ #define IORING_SETUP_NO_SQARRAY		(1U << 16)
+ 
++/* Use hybrid poll in iopoll process */
++#define IORING_SETUP_HYBRID_IOPOLL	(1U << 17)
++
++/*
++ * Allow both 16b and 32b CQEs. If a 32b CQE is posted, it will have
++ * IORING_CQE_F_32 set in cqe->flags.
++ */
++#define IORING_SETUP_CQE_MIXED		(1U << 18)
++
++/*
++ * Allow both 64b and 128b SQEs. If a 128b SQE is posted, it will have
++ * a 128b opcode.
++ */
++#define IORING_SETUP_SQE_MIXED		(1U << 19)
++
++/*
++ * When set, io_uring ignores SQ head and tail and fetches SQEs to submit
++ * starting from index 0 instead from the index stored in the head pointer.
++ * IOW, the user should place all SQE at the beginning of the SQ memory
++ * before issuing a submission syscall.
++ *
++ * It requires IORING_SETUP_NO_SQARRAY and is incompatible with
++ * IORING_SETUP_SQPOLL. The user must also never change the SQ head and tail
++ * values and keep it set to 0. Any other value is undefined behaviour.
++ */
++#define IORING_SETUP_SQ_REWIND		(1U << 20)
++
+ enum io_uring_op {
+ 	IORING_OP_NOP,
+ 	IORING_OP_READV,
+@@ -253,6 +307,17 @@ enum io_uring_op {
+ 	IORING_OP_FUTEX_WAIT,
+ 	IORING_OP_FUTEX_WAKE,
+ 	IORING_OP_FUTEX_WAITV,
++	IORING_OP_FIXED_FD_INSTALL,
++	IORING_OP_FTRUNCATE,
++	IORING_OP_BIND,
++	IORING_OP_LISTEN,
++	IORING_OP_RECV_ZC,
++	IORING_OP_EPOLL_WAIT,
++	IORING_OP_READV_FIXED,
++	IORING_OP_WRITEV_FIXED,
++	IORING_OP_PIPE,
++	IORING_OP_NOP128,
++	IORING_OP_URING_CMD128,
+ 
+ 	/* this goes last, obviously */
+ 	IORING_OP_LAST,
+@@ -262,9 +327,13 @@ enum io_uring_op {
+  * sqe->uring_cmd_flags		top 8bits aren't available for userspace
+  * IORING_URING_CMD_FIXED	use registered buffer; pass this flag
+  *				along with setting sqe->buf_index.
++ * IORING_URING_CMD_MULTISHOT	must be used with buffer select, like other
++ *				multishot commands. Not compatible with
++ *				IORING_URING_CMD_FIXED, for now.
+  */
+ #define IORING_URING_CMD_FIXED	(1U << 0)
+-#define IORING_URING_CMD_MASK	IORING_URING_CMD_FIXED
++#define IORING_URING_CMD_MULTISHOT	(1U << 1)
++#define IORING_URING_CMD_MASK	(IORING_URING_CMD_FIXED | IORING_URING_CMD_MULTISHOT)
+ 
+ 
+ /*
+@@ -274,6 +343,10 @@ enum io_uring_op {
+ 
+ /*
+  * sqe->timeout_flags
++ *
++ * IORING_TIMEOUT_IMMEDIATE_ARG:	If set, sqe->addr stores the timeout
++ *					value in nanoseconds instead of
++ *					pointing to a timespec.
+  */
+ #define IORING_TIMEOUT_ABS		(1U << 0)
+ #define IORING_TIMEOUT_UPDATE		(1U << 1)
+@@ -282,6 +355,7 @@ enum io_uring_op {
+ #define IORING_LINK_TIMEOUT_UPDATE	(1U << 4)
+ #define IORING_TIMEOUT_ETIME_SUCCESS	(1U << 5)
+ #define IORING_TIMEOUT_MULTISHOT	(1U << 6)
++#define IORING_TIMEOUT_IMMEDIATE_ARG	(1U << 7)
+ #define IORING_TIMEOUT_CLOCK_MASK	(IORING_TIMEOUT_BOOTTIME | IORING_TIMEOUT_REALTIME)
+ #define IORING_TIMEOUT_UPDATE_MASK	(IORING_TIMEOUT_UPDATE | IORING_LINK_TIMEOUT_UPDATE)
+ /*
+@@ -348,11 +422,24 @@ enum io_uring_op {
+  *				0 is reported if zerocopy was actually possible.
+  *				IORING_NOTIF_USAGE_ZC_COPIED if data was copied
+  *				(at least partially).
++ *
++ * IORING_RECVSEND_BUNDLE	Used with IOSQE_BUFFER_SELECT. If set, send or
++ *				recv will grab as many buffers from the buffer
++ *				group ID given and send them all. The completion
++ *				result	will be the number of buffers send, with
++ *				the starting buffer ID in cqe->flags as per
++ *				usual for provided buffer usage. The buffers
++ *				will be	contiguous from the starting buffer ID.
++ *
++ * IORING_SEND_VECTORIZED	If set, SEND[_ZC] will take a pointer to a io_vec
++ *				to allow vectorized send operations.
+  */
+ #define IORING_RECVSEND_POLL_FIRST	(1U << 0)
+ #define IORING_RECV_MULTISHOT		(1U << 1)
+ #define IORING_RECVSEND_FIXED_BUF	(1U << 2)
+ #define IORING_SEND_ZC_REPORT_USAGE	(1U << 3)
++#define IORING_RECVSEND_BUNDLE		(1U << 4)
++#define IORING_SEND_VECTORIZED		(1U << 5)
+ 
+ /*
+  * cqe.res for IORING_CQE_F_NOTIF if
+@@ -367,11 +454,13 @@ enum io_uring_op {
+  * accept flags stored in sqe->ioprio
+  */
+ #define IORING_ACCEPT_MULTISHOT	(1U << 0)
++#define IORING_ACCEPT_DONTWAIT	(1U << 1)
++#define IORING_ACCEPT_POLL_FIRST	(1U << 2)
+ 
+ /*
+  * IORING_OP_MSG_RING command types, stored in sqe->addr
+  */
+-enum {
++enum io_uring_msg_ring_flags {
+ 	IORING_MSG_DATA,	/* pass sqe->len as 'res' and off as user_data */
+ 	IORING_MSG_SEND_FD,	/* send a registered fd to another ring */
+ };
+@@ -386,11 +475,30 @@ enum {
+ /* Pass through the flags from sqe->file_index to cqe->flags */
+ #define IORING_MSG_RING_FLAGS_PASS	(1U << 1)
+ 
++/*
++ * IORING_OP_FIXED_FD_INSTALL flags (sqe->install_fd_flags)
++ *
++ * IORING_FIXED_FD_NO_CLOEXEC	Don't mark the fd as O_CLOEXEC
++ */
++#define IORING_FIXED_FD_NO_CLOEXEC	(1U << 0)
++
++/*
++ * IORING_OP_NOP flags (sqe->nop_flags)
++ *
++ * IORING_NOP_INJECT_RESULT	Inject result from sqe->result
++ */
++#define IORING_NOP_INJECT_RESULT	(1U << 0)
++#define IORING_NOP_FILE			(1U << 1)
++#define IORING_NOP_FIXED_FILE		(1U << 2)
++#define IORING_NOP_FIXED_BUFFER		(1U << 3)
++#define IORING_NOP_TW			(1U << 4)
++#define IORING_NOP_CQE32		(1U << 5)
++
+ /*
+  * IO completion data structure (Completion Queue Entry)
+  */
+ struct io_uring_cqe {
+-	__u64	user_data;	/* sqe->data submission passed back */
++	__u64	user_data;	/* sqe->user_data value passed back */
+ 	__s32	res;		/* result code for this event */
+ 	__u32	flags;
+ 
+@@ -409,15 +517,33 @@ struct io_uring_cqe {
+  * IORING_CQE_F_SOCK_NONEMPTY	If set, more data to read after socket recv
+  * IORING_CQE_F_NOTIF	Set for notification CQEs. Can be used to distinct
+  * 			them from sends.
++ * IORING_CQE_F_BUF_MORE If set, the buffer ID set in the completion will get
++ *			more completions. In other words, the buffer is being
++ *			partially consumed, and will be used by the kernel for
++ *			more completions. This is only set for buffers used via
++ *			the incremental buffer consumption, as provided by
++ *			a ring buffer setup with IOU_PBUF_RING_INC. For any
++ *			other provided buffer type, all completions with a
++ *			buffer passed back is automatically returned to the
++ *			application.
++ * IORING_CQE_F_SKIP	If set, then the application/liburing must ignore this
++ *			CQE. It's only purpose is to fill a gap in the ring,
++ *			if a large CQE is attempted posted when the ring has
++ *			just a single small CQE worth of space left before
++ *			wrapping.
++ * IORING_CQE_F_32	If set, this is a 32b/big-cqe posting. Use with rings
++ *			setup in a mixed CQE mode, where both 16b and 32b
++ *			CQEs may be posted to the CQ ring.
+  */
+ #define IORING_CQE_F_BUFFER		(1U << 0)
+ #define IORING_CQE_F_MORE		(1U << 1)
+ #define IORING_CQE_F_SOCK_NONEMPTY	(1U << 2)
+ #define IORING_CQE_F_NOTIF		(1U << 3)
++#define IORING_CQE_F_BUF_MORE		(1U << 4)
++#define IORING_CQE_F_SKIP		(1U << 5)
++#define IORING_CQE_F_32			(1U << 15)
+ 
+-enum {
+-	IORING_CQE_BUFFER_SHIFT		= 16,
+-};
++#define IORING_CQE_BUFFER_SHIFT		16
+ 
+ /*
+  * Magic offsets for the application to mmap the data it needs
+@@ -478,6 +604,9 @@ struct io_cqring_offsets {
+ #define IORING_ENTER_SQ_WAIT		(1U << 2)
+ #define IORING_ENTER_EXT_ARG		(1U << 3)
+ #define IORING_ENTER_REGISTERED_RING	(1U << 4)
++#define IORING_ENTER_ABS_TIMER		(1U << 5)
++#define IORING_ENTER_EXT_ARG_REG	(1U << 6)
++#define IORING_ENTER_NO_IOWAIT		(1U << 7)
+ 
+ /*
+  * Passed in for io_uring_setup(2). Copied back with updated info on success
+@@ -512,11 +641,15 @@ struct io_uring_params {
+ #define IORING_FEAT_CQE_SKIP		(1U << 11)
+ #define IORING_FEAT_LINKED_FILE		(1U << 12)
+ #define IORING_FEAT_REG_REG_RING	(1U << 13)
++#define IORING_FEAT_RECVSEND_BUNDLE	(1U << 14)
++#define IORING_FEAT_MIN_TIMEOUT		(1U << 15)
++#define IORING_FEAT_RW_ATTR		(1U << 16)
++#define IORING_FEAT_NO_IOWAIT		(1U << 17)
+ 
+ /*
+  * io_uring_register(2) opcodes and arguments
+  */
+-enum {
++enum io_uring_register_op {
+ 	IORING_REGISTER_BUFFERS			= 0,
+ 	IORING_UNREGISTER_BUFFERS		= 1,
+ 	IORING_REGISTER_FILES			= 2,
+@@ -558,6 +691,38 @@ enum {
+ 	/* register a range of fixed file slots for automatic slot allocation */
+ 	IORING_REGISTER_FILE_ALLOC_RANGE	= 25,
+ 
++	/* return status information for a buffer group */
++	IORING_REGISTER_PBUF_STATUS		= 26,
++
++	/* set/clear busy poll settings */
++	IORING_REGISTER_NAPI			= 27,
++	IORING_UNREGISTER_NAPI			= 28,
++
++	IORING_REGISTER_CLOCK			= 29,
++
++	/* clone registered buffers from source ring to current ring */
++	IORING_REGISTER_CLONE_BUFFERS		= 30,
++
++	/* send MSG_RING without having a ring */
++	IORING_REGISTER_SEND_MSG_RING		= 31,
++
++	/* register a netdev hw rx queue for zerocopy */
++	IORING_REGISTER_ZCRX_IFQ		= 32,
++
++	/* resize CQ ring */
++	IORING_REGISTER_RESIZE_RINGS		= 33,
++
++	IORING_REGISTER_MEM_REGION		= 34,
++
++	/* query various aspects of io_uring, see linux/io_uring/query.h */
++	IORING_REGISTER_QUERY			= 35,
++
++	/* auxiliary zcrx configuration, see enum zcrx_ctrl_op */
++	IORING_REGISTER_ZCRX_CTRL		= 36,
++
++	/* register bpf filtering programs */
++	IORING_REGISTER_BPF_FILTER		= 37,
++
+ 	/* this goes last */
+ 	IORING_REGISTER_LAST,
+ 
+@@ -566,7 +731,7 @@ enum {
+ };
+ 
+ /* io-wq worker categories */
+-enum {
++enum io_wq_type {
+ 	IO_WQ_BOUND,
+ 	IO_WQ_UNBOUND,
+ };
+@@ -578,6 +743,31 @@ struct io_uring_files_update {
+ 	__aligned_u64 /* __s32 * */ fds;
+ };
+ 
++enum {
++	/* initialise with user provided memory pointed by user_addr */
++	IORING_MEM_REGION_TYPE_USER		= 1,
++};
++
++struct io_uring_region_desc {
++	__u64 user_addr;
++	__u64 size;
++	__u32 flags;
++	__u32 id;
++	__u64 mmap_offset;
++	__u64 __resv[4];
++};
++
++enum {
++	/* expose the region as registered wait arguments */
++	IORING_MEM_REGION_REG_WAIT_ARG		= 1,
++};
++
++struct io_uring_mem_region_reg {
++	__u64 region_uptr; /* struct io_uring_region_desc * */
++	__u64 flags;
++	__u64 __resv[2];
++};
++
+ /*
+  * Register a fully sparse file space, rather than pass in an array of all
+  * -1 file descriptors.
+@@ -638,6 +828,32 @@ struct io_uring_restriction {
+ 	__u32 resv2[3];
+ };
+ 
++struct io_uring_task_restriction {
++	__u16 flags;
++	__u16 nr_res;
++	__u32 resv[3];
++	__DECLARE_FLEX_ARRAY(struct io_uring_restriction, restrictions);
++};
++
++struct io_uring_clock_register {
++	__u32	clockid;
++	__u32	__resv[3];
++};
++
++enum {
++	IORING_REGISTER_SRC_REGISTERED	= (1U << 0),
++	IORING_REGISTER_DST_REPLACE	= (1U << 1),
++};
++
++struct io_uring_clone_buffers {
++	__u32	src_fd;
++	__u32	flags;
++	__u32	src_off;
++	__u32	dst_off;
++	__u32	nr;
++	__u32	pad[3];
++};
++
+ struct io_uring_buf {
+ 	__u64	addr;
+ 	__u32	len;
+@@ -670,9 +886,17 @@ struct io_uring_buf_ring {
+  *			mmap(2) with the offset set as:
+  *			IORING_OFF_PBUF_RING | (bgid << IORING_OFF_PBUF_SHIFT)
+  *			to get a virtual mapping for the ring.
++ * IOU_PBUF_RING_INC:	If set, buffers consumed from this buffer ring can be
++ *			consumed incrementally. Normally one (or more) buffers
++ *			are fully consumed. With incremental consumptions, it's
++ *			feasible to register big ranges of buffers, and each
++ *			use of it will consume only as much as it needs. This
++ *			requires that both the kernel and application keep
++ *			track of where the current read/recv index is at.
+  */
+-enum {
++enum io_uring_register_pbuf_ring_flags {
+ 	IOU_PBUF_RING_MMAP	= 1,
++	IOU_PBUF_RING_INC	= 2,
+ };
+ 
+ /* argument for IORING_(UN)REGISTER_PBUF_RING */
+@@ -681,13 +905,57 @@ struct io_uring_buf_reg {
+ 	__u32	ring_entries;
+ 	__u16	bgid;
+ 	__u16	flags;
+-	__u64	resv[3];
++	__u32	min_left;
++	__u32	resv[5];
++};
++
++/* argument for IORING_REGISTER_PBUF_STATUS */
++struct io_uring_buf_status {
++	__u32	buf_group;	/* input */
++	__u32	head;		/* output */
++	__u32	resv[8];
++};
++
++enum io_uring_napi_op {
++	/* register/ungister backward compatible opcode */
++	IO_URING_NAPI_REGISTER_OP = 0,
++
++	/* opcodes to update napi_list when static tracking is used */
++	IO_URING_NAPI_STATIC_ADD_ID = 1,
++	IO_URING_NAPI_STATIC_DEL_ID = 2
++};
++
++enum io_uring_napi_tracking_strategy {
++	/* value must be 0 for backward compatibility */
++	IO_URING_NAPI_TRACKING_DYNAMIC = 0,
++	IO_URING_NAPI_TRACKING_STATIC = 1,
++	IO_URING_NAPI_TRACKING_INACTIVE = 255
++};
++
++/* argument for IORING_(UN)REGISTER_NAPI */
++struct io_uring_napi {
++	__u32	busy_poll_to;
++	__u8	prefer_busy_poll;
++
++	/* a io_uring_napi_op value */
++	__u8	opcode;
++	__u8	pad[2];
++
++	/*
++	 * for IO_URING_NAPI_REGISTER_OP, it is a
++	 * io_uring_napi_tracking_strategy value.
++	 *
++	 * for IO_URING_NAPI_STATIC_ADD_ID/IO_URING_NAPI_STATIC_DEL_ID
++	 * it is the napi id to add/del from napi_list.
++	 */
++	__u32	op_param;
++	__u32	resv;
+ };
+ 
+ /*
+  * io_uring_restriction->opcode values
+  */
+-enum {
++enum io_uring_register_restriction_op {
+ 	/* Allow an io_uring_register(2) opcode */
+ 	IORING_RESTRICTION_REGISTER_OP		= 0,
+ 
+@@ -703,10 +971,33 @@ enum {
+ 	IORING_RESTRICTION_LAST
+ };
+ 
++enum {
++	IORING_REG_WAIT_TS		= (1U << 0),
++};
++
++/*
++ * Argument for io_uring_enter(2) with
++ * IORING_GETEVENTS | IORING_ENTER_EXT_ARG_REG set, where the actual argument
++ * is an index into a previously registered fixed wait region described by
++ * the below structure.
++ */
++struct io_uring_reg_wait {
++	struct __kernel_timespec	ts;
++	__u32				min_wait_usec;
++	__u32				flags;
++	__u64				sigmask;
++	__u32				sigmask_sz;
++	__u32				pad[3];
++	__u64				pad2[2];
++};
++
++/*
++ * Argument for io_uring_enter(2) with IORING_GETEVENTS | IORING_ENTER_EXT_ARG
++ */
+ struct io_uring_getevents_arg {
+ 	__u64	sigmask;
+ 	__u32	sigmask_sz;
+-	__u32	pad;
++	__u32	min_wait_usec;
+ 	__u64	ts;
+ };
+ 
+@@ -743,11 +1034,28 @@ struct io_uring_recvmsg_out {
+ /*
+  * Argument for IORING_OP_URING_CMD when file is a socket
+  */
+-enum {
++enum io_uring_socket_op {
+ 	SOCKET_URING_OP_SIOCINQ		= 0,
+ 	SOCKET_URING_OP_SIOCOUTQ,
+ 	SOCKET_URING_OP_GETSOCKOPT,
+ 	SOCKET_URING_OP_SETSOCKOPT,
++	SOCKET_URING_OP_TX_TIMESTAMP,
++	SOCKET_URING_OP_GETSOCKNAME,
++};
++
++/*
++ * SOCKET_URING_OP_TX_TIMESTAMP definitions
++ */
++
++#define IORING_TIMESTAMP_HW_SHIFT	16
++/* The cqe->flags bit from which the timestamp type is stored */
++#define IORING_TIMESTAMP_TYPE_SHIFT	(IORING_TIMESTAMP_HW_SHIFT + 1)
++/* The cqe->flags flag signifying whether it's a hardware timestamp */
++#define IORING_CQE_F_TSTAMP_HW		((__u32)1 << IORING_TIMESTAMP_HW_SHIFT)
++
++struct io_timespec {
++	__u64		tv_sec;
++	__u64		tv_nsec;
+ };
+ 
+ #ifdef __cplusplus
+-- 
+2.47.3
 
->=20
-> Signed-off-by: Yixun Lan <dlan@kernel.org>
-> ---
-> =C2=A0drivers/pmdomain/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
-> =C2=A0drivers/pmdomain/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
-> =C2=A0drivers/pmdomain/spacemit/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=
-=C2=A0 15 ++
-> =C2=A0drivers/pmdomain/spacemit/Makefile=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=
-=C2=A0 1 +
-> =C2=A0drivers/pmdomain/spacemit/pm_domains.c | 448
-> +++++++++++++++++++++++++++++++++
-> =C2=A05 files changed, 466 insertions(+)
->=20
-> diff --git a/drivers/pmdomain/Kconfig b/drivers/pmdomain/Kconfig
-> index 23076ae90e66..0610acd030f6 100644
-> --- a/drivers/pmdomain/Kconfig
-> +++ b/drivers/pmdomain/Kconfig
-> @@ -13,6 +13,7 @@ source "drivers/pmdomain/qcom/Kconfig"
-> =C2=A0source "drivers/pmdomain/renesas/Kconfig"
-> =C2=A0source "drivers/pmdomain/rockchip/Kconfig"
-> =C2=A0source "drivers/pmdomain/samsung/Kconfig"
-> +source "drivers/pmdomain/spacemit/Kconfig"
-> =C2=A0source "drivers/pmdomain/st/Kconfig"
-> =C2=A0source "drivers/pmdomain/starfive/Kconfig"
-> =C2=A0source "drivers/pmdomain/sunxi/Kconfig"
-> diff --git a/drivers/pmdomain/Makefile b/drivers/pmdomain/Makefile
-> index ebc802f13eb9..ba25b444e263 100644
-> --- a/drivers/pmdomain/Makefile
-> +++ b/drivers/pmdomain/Makefile
-> @@ -11,6 +11,7 @@ obj-y					+=3D qcom/
-> =C2=A0obj-y					+=3D renesas/
-> =C2=A0obj-y					+=3D rockchip/
-> =C2=A0obj-y					+=3D samsung/
-> +obj-y					+=3D spacemit/
-> =C2=A0obj-y					+=3D st/
-> =C2=A0obj-y					+=3D starfive/
-> =C2=A0obj-y					+=3D sunxi/
-> diff --git a/drivers/pmdomain/spacemit/Kconfig
-> b/drivers/pmdomain/spacemit/Kconfig
-> new file mode 100644
-> index 000000000000..4b927beedc7c
-> --- /dev/null
-> +++ b/drivers/pmdomain/spacemit/Kconfig
-> @@ -0,0 +1,15 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +
-> +menu "SpacemiT PM Domains"
-> +
-> +config SPACEMIT_PM_DOMAINS
-> +	bool "PM Domain driver for SpacemiT SoC"
-> +	depends on PM
-> +	depends on OF
-> +	depends on MFD_SYSCON
-> +	select PM_GENERIC_DOMAINS
-> +	help
-> +	=C2=A0 PM Domain driver for SpacemiT SoC. Say Y if you want to
-> support
-> +	=C2=A0 SpacemiT SoCs.
-> +
-> +endmenu
-> diff --git a/drivers/pmdomain/spacemit/Makefile
-> b/drivers/pmdomain/spacemit/Makefile
-> new file mode 100644
-> index 000000000000..5e8a740ba494
-> --- /dev/null
-> +++ b/drivers/pmdomain/spacemit/Makefile
-> @@ -0,0 +1 @@
-> +obj-$(CONFIG_SPACEMIT_PM_DOMAINS)	+=3D pm_domains.o
-> diff --git a/drivers/pmdomain/spacemit/pm_domains.c
-> b/drivers/pmdomain/spacemit/pm_domains.c
-> new file mode 100644
-> index 000000000000..d563e4e4e232
-> --- /dev/null
-> +++ b/drivers/pmdomain/spacemit/pm_domains.c
-> @@ -0,0 +1,448 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Spacemit Generic power domain support.
-> + *
-> + * Copyright (c) 2026 SpacemiT Technology Co. Ltd
-> + */
-> +
-> +#include <linux/io.h>
-> +#include <linux/err.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/pm_domain.h>
-> +#include <linux/of_platform.h>
-> +#include <linux/regmap.h>
-> +#include <linux/mfd/syscon.h>
-> +#include <dt-bindings/power/spacemit,k1-power.h>
-> +#include <dt-bindings/power/spacemit,k3-power.h>
-> +
-> +#define APMU_POWER_STATUS_REG	0xf0
-> +#define APMU_POWER_TIMEOUT_US	10000
-> +
-> +struct spacemit_pm_domain_param {
-> +	int reg_pwr_ctrl;
-> +	int bit_hw_mode;
-> +	int bit_sleep2;
-> +	int bit_sleep1;
-> +	int bit_isolation;
-> +	int bit_auto_pwr_on;
-> +	int bit_hw_pwr_stat;
-> +	int bit_pwr_stat;
-> +	int use_hw;
-> +	const char *name;
-> +};
-> +
-> +struct spacemit_pm_domain {
-> +	struct generic_pm_domain genpd;
-> +	int pm_index;
-> +	const struct spacemit_pm_domain_param *param;
-> +};
-> +
-> +struct spacemit_pmu {
-> +	struct device *dev;
-> +	struct genpd_onecell_data genpd_data;
-> +	struct regmap *regmap;
-> +	struct spacemit_pm_domain **domains;
-> +	int num_domains;
-> +};
-> +
-> +struct spacemit_pm_of_data {
-> +	int num_domains;
-> +	const struct spacemit_pm_domain_param *param;
-> +};
-> +
-> +static struct spacemit_pmu *gpmu;
-> +
-> +static int spacemit_pd_power_off(struct generic_pm_domain *domain)
-> +{
-> +	struct spacemit_pm_domain *spd =3D container_of(domain, struct
-> spacemit_pm_domain, genpd);
-> +	const struct spacemit_pm_domain_param *p =3D spd->param;
-> +	unsigned int val;
-> +	int ret;
-> +
-> +	if (!spd->param->use_hw) {
-> +		regmap_clear_bits(gpmu->regmap, p->reg_pwr_ctrl,
-> BIT(p->bit_isolation));
-> +		fsleep(15);
-> +
-> +		val =3D BIT(p->bit_sleep1) | BIT(p->bit_sleep2);
-> +		regmap_clear_bits(gpmu->regmap, p->reg_pwr_ctrl,
-> val);
-> +		fsleep(15);
-> +
-> +		ret =3D regmap_read_poll_timeout(gpmu->regmap,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
-> APMU_POWER_STATUS_REG,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 val,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 !(val & BIT(p-
-> >bit_pwr_stat)),
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 5,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
-> APMU_POWER_TIMEOUT_US);
-> +	} else {
-> +		val =3D BIT(p->bit_auto_pwr_on) | BIT(p->bit_hw_mode);
-> +		regmap_clear_bits(gpmu->regmap, p->reg_pwr_ctrl,
-> val);
-> +		fsleep(15);
-> +
-> +		ret =3D regmap_read_poll_timeout(gpmu->regmap,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
-> APMU_POWER_STATUS_REG,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 val,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 !(val & BIT(p-
-> >bit_hw_pwr_stat)),
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 5,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
-> APMU_POWER_TIMEOUT_US);
-> +	}
-> +
-> +	if (ret) {
-> +		dev_err(&domain->dev, "Fail to power-off domain:
-> %d\n",
-> +				spd->pm_index);
-> +		return -EBUSY;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int spacemit_pd_power_on(struct generic_pm_domain *domain)
-> +{
-> +	struct spacemit_pm_domain *spd =3D container_of(domain, struct
-> spacemit_pm_domain, genpd);
-> +	const struct spacemit_pm_domain_param *p =3D spd->param;
-> +	unsigned int val;
-> +	int ret =3D 0;
-> +
-> +	regmap_read(gpmu->regmap, APMU_POWER_STATUS_REG, &val);
-> +
-> +	if (!p->use_hw && (val & BIT(p->bit_pwr_stat))) {
-> +		val =3D BIT(p->bit_isolation);
-> +		regmap_clear_bits(gpmu->regmap, p->reg_pwr_ctrl,
-> val);
-> +		fsleep(15);
-> +
-> +		val =3D BIT(p->bit_sleep1) | BIT(p->bit_sleep2);
-> +		regmap_clear_bits(gpmu->regmap, p->reg_pwr_ctrl,
-> val);
-> +		fsleep(15);
-> +
-> +		ret =3D regmap_read_poll_timeout(gpmu->regmap,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
-> APMU_POWER_STATUS_REG,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 val,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 !(val & BIT(p-
-> >bit_pwr_stat)),
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 5,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
-> APMU_POWER_TIMEOUT_US);
-> +	}
-> +
-> +	if (p->use_hw && (val & BIT(p->bit_hw_pwr_stat))) {
-> +		val =3D BIT(p->bit_auto_pwr_on) | BIT(p->bit_hw_mode);
-> +		regmap_clear_bits(gpmu->regmap, p->reg_pwr_ctrl,
-> val);
-> +		fsleep(30);
-> +
-> +		ret =3D regmap_read_poll_timeout(gpmu->regmap,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
-> APMU_POWER_STATUS_REG,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 val,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 !(val & BIT(p-
-> >bit_hw_pwr_stat)),
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 5,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
-> APMU_POWER_TIMEOUT_US);
-> +	}
-> +
-> +	if (ret < 0) {
-> +		dev_err(&domain->dev, "power-off domain: %d,
-> error\n", spd->pm_index);
-> +		return -EBUSY;
-> +	}
-> +
-> +	if (!p->use_hw) {
-> +		regmap_set_bits(gpmu->regmap, p->reg_pwr_ctrl,
-> BIT(p->bit_sleep1));
-> +		fsleep(20);
-> +
-> +		val =3D BIT(p->bit_sleep2) | BIT(p->bit_sleep1);
-> +		regmap_set_bits(gpmu->regmap, p->reg_pwr_ctrl, val);
-> +		fsleep(20);
-> +
-> +		regmap_set_bits(gpmu->regmap, p->reg_pwr_ctrl,
-> BIT(p->bit_isolation));
-> +		fsleep(15);
-> +
-> +		ret =3D regmap_read_poll_timeout(gpmu->regmap,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
-> APMU_POWER_STATUS_REG,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 val,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (val & BIT(p-
-> >bit_pwr_stat)),
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 5,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
-> APMU_POWER_TIMEOUT_US);
-> +	} else {
-> +		val =3D BIT(p->bit_auto_pwr_on) | BIT(p->bit_hw_mode);
-> +		regmap_set_bits(gpmu->regmap, p->reg_pwr_ctrl, val);
-> +		fsleep(300);
-> +
-> +		ret =3D regmap_read_poll_timeout(gpmu->regmap,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
-> APMU_POWER_STATUS_REG,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 val,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (val & BIT(p-
-> >bit_hw_pwr_stat)),
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 5,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
-> APMU_POWER_TIMEOUT_US);
-> +	}
-> +
-> +	if (ret < 0) {
-> +		dev_err(&domain->dev, "power-on domain: %d,
-> error\n", spd->pm_index);
-> +		return -EBUSY;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static bool spacemit_pm_get_state(struct spacemit_pmu *pmu,
-> +				=C2=A0 struct spacemit_pm_domain *pd)
-> +{
-> +	const struct spacemit_pm_domain_param *p =3D pd->param;
-> +	u32 reg, bit;
-> +
-> +	regmap_read(pmu->regmap, APMU_POWER_STATUS_REG, &reg);
-> +
-> +	bit =3D p->use_hw ? BIT(pd->param->bit_hw_pwr_stat) :
-> +		BIT(pd->param->bit_pwr_stat);
-> +
-> +	return !!(reg & bit);
-> +}
-> +
-> +static int spacemit_pm_add_one_domain(struct spacemit_pmu *pmu, int
-> id,
-> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const struct
-> spacemit_pm_domain_param *param)
-> +{
-> +	struct spacemit_pm_domain *pd;
-> +
-> +	pd =3D devm_kzalloc(pmu->dev, sizeof(*pd), GFP_KERNEL);
-> +	if (!pd)
-> +		return -ENOMEM;
-> +
-> +	pd->pm_index=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =3D id;
-> +	pd->param=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-=3D param;
-> +	pd->genpd.name=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =3D param->name;
-> +	pd->genpd.power_off =3D spacemit_pd_power_off;
-> +	pd->genpd.power_on=C2=A0 =3D spacemit_pd_power_on;
-> +
-> +	pm_genpd_init(&pd->genpd, NULL, !spacemit_pm_get_state(pmu,
-> pd));
-> +
-> +	pmu->domains[id] =3D pd;
-> +
-> +	return 0;
-> +}
-> +
-> +static void spacemit_pm_domain_cleanup(struct spacemit_pmu *pmu)
-> +{
-> +	int i;
-> +
-> +	for (i =3D 0; i < pmu->num_domains; i++) {
-> +		if (pmu->domains[i])
-> +			pm_genpd_remove(&pmu->domains[i]->genpd);
-> +	}
-> +}
-> +
-> +static int spacemit_pm_domain_probe(struct platform_device *pdev)
-> +{
-> +	const struct spacemit_pm_of_data *data;
-> +	struct device *dev =3D &pdev->dev;
-> +	struct spacemit_pmu *pmu;
-> +	int err, i;
-> +
-> +	data =3D device_get_match_data(dev);
-> +
-> +	pmu =3D devm_kzalloc(dev, sizeof(*pmu), GFP_KERNEL);
-> +	if (!pmu)
-> +		return -ENOMEM;
-> +
-> +	pmu->dev =3D dev;
-> +	pmu->num_domains =3D data->num_domains;
-> +
-> +	pmu->regmap =3D syscon_regmap_lookup_by_phandle(dev->of_node,
-> "spacemit,apmu");
-> +	if (IS_ERR(pmu->regmap))
-> +		return dev_err_probe(dev, PTR_ERR(pmu->regmap),
-> "failed to get apmu regmap\n");
-> +
-> +	pmu->domains =3D devm_kcalloc(dev, data->num_domains,
-> +				=C2=A0=C2=A0=C2=A0 sizeof(*pmu->domains),
-> GFP_KERNEL);
-> +	if (!pmu->domains)
-> +		return -ENOMEM;
-> +
-> +	for (i =3D 0; i < data->num_domains; i++) {
-> +		err =3D spacemit_pm_add_one_domain(pmu, i, &data-
-> >param[i]);
-> +		if (err) {
-> +			dev_err(dev, "failed to add domain %d:
-> %d\n", i, err);
-> +			goto err_out;
-> +		}
-> +	}
-> +
-> +	pmu->genpd_data.domains=C2=A0=C2=A0=C2=A0=C2=A0 =3D (struct generic_pm_=
-domain
-> **)pmu->domains;
-> +	pmu->genpd_data.num_domains =3D data->num_domains;
-> +
-> +	err =3D of_genpd_add_provider_onecell(dev->of_node, &pmu-
-> >genpd_data);
-> +	if (err) {
-> +		dev_err(dev, "failed to add provider: %d\n", err);
-> +		goto err_out;
-> +	}
-> +
-> +	gpmu =3D pmu;
-> +
-> +	return 0;
-> +
-> +err_out:
-> +	spacemit_pm_domain_cleanup(pmu);
-> +	return err;
-> +}
-> +
-> +static const struct spacemit_pm_domain_param k1_domain_params[] =3D {
-> +	[K1_PMDOMAIN_VPU] =3D {
-> +		.reg_pwr_ctrl		=3D 0xa8,
-> +		.bit_sleep2		=3D 3,
-> +		.bit_sleep1		=3D 2,
-> +		.bit_isolation		=3D 1,
-> +		.bit_pwr_stat		=3D 1,
-> +		.bit_hw_pwr_stat	=3D 9,
-> +		.name			=3D "vpu",
-> +	},
-> +	[K1_PMDOMAIN_GPU] =3D {
-> +		.reg_pwr_ctrl		=3D 0xd0,
-> +		.bit_sleep2		=3D 3,
-> +		.bit_sleep1		=3D 2,
-> +		.bit_isolation		=3D 1,
-> +		.bit_pwr_stat		=3D 0,
-> +		.name			=3D "gpu",
-> +	},
-> +	[K1_PMDOMAIN_LCD] =3D {
-> +		.reg_pwr_ctrl		=3D 0x380,
-> +		.bit_hw_mode		=3D 4,
-> +		.bit_sleep2		=3D 3,
-> +		.bit_sleep1		=3D 2,
-> +		.bit_isolation		=3D 1,
-> +		.bit_auto_pwr_on	=3D 0,
-> +		.bit_pwr_stat		=3D 4,
-> +		.bit_hw_pwr_stat	=3D 12,
-> +		.use_hw			=3D 1,
-> +		.name			=3D "lcd",
-> +	},
-> +	[K1_PMDOMAIN_ISP] =3D {
-> +		.reg_pwr_ctrl		=3D 0x37c,
-> +		.bit_hw_mode		=3D 4,
-> +		.bit_sleep2		=3D 3,
-> +		.bit_sleep1		=3D 2,
-> +		.bit_isolation		=3D 1,
-> +		.bit_auto_pwr_on	=3D 0,
-> +		.bit_pwr_stat		=3D 2,
-> +		.bit_hw_pwr_stat	=3D 10,
-> +		.name			=3D "isp",
-> +	},
-> +	[K1_PMDOMAIN_AUDIO] =3D {
-> +		.reg_pwr_ctrl		=3D 0x378,
-> +		.bit_hw_mode		=3D 4,
-> +		.bit_sleep2		=3D 3,
-> +		.bit_sleep1		=3D 2,
-> +		.bit_isolation		=3D 1,
-> +		.bit_auto_pwr_on	=3D 0,
-> +		.bit_pwr_stat		=3D 3,
-> +		.bit_hw_pwr_stat	=3D 11,
-> +		.use_hw			=3D 1,
-> +		.name			=3D "audio",
-> +	},
-> +	[K1_PMDOMAIN_GNSS] =3D {
-> +		.reg_pwr_ctrl		=3D 0x13c,
-> +		.bit_hw_mode		=3D 4,
-> +		.bit_sleep2		=3D 3,
-> +		.bit_sleep1		=3D 2,
-> +		.bit_isolation		=3D 1,
-> +		.bit_auto_pwr_on	=3D 0,
-> +		.bit_pwr_stat		=3D 6,
-> +		.bit_hw_pwr_stat	=3D 14,
-> +		.name			=3D "gnss",
-> +	},
-> +	[K1_PMDOMAIN_HDMI] =3D {
-> +		.reg_pwr_ctrl		=3D 0x3f4,
-> +		.bit_hw_mode		=3D 4,
-> +		.bit_sleep2		=3D 3,
-> +		.bit_sleep1		=3D 2,
-> +		.bit_isolation		=3D 1,
-> +		.bit_auto_pwr_on	=3D 0,
-> +		.bit_pwr_stat		=3D 7,
-> +		.bit_hw_pwr_stat	=3D 15,
-> +		.use_hw			=3D 1,
-> +		.name			=3D "hdmi",
-> +	},
-> +};
-> +
-> +static const struct spacemit_pm_domain_param k3_domain_params[] =3D {
-> +	[K3_PMDOMAIN_VPU] =3D {
-> +		.bit_auto_pwr_on	=3D 0,
-> +		.bit_isolation		=3D 1,
-> +		.bit_sleep1		=3D 2,
-> +		.bit_sleep2		=3D 3,
-> +		.bit_hw_mode		=3D 4,
-> +		.bit_pwr_stat		=3D 2,
-> +		.bit_hw_pwr_stat	=3D 9,
-> +		.use_hw			=3D 1,
-> +		.reg_pwr_ctrl		=3D 0xa8,
-> +		.name			=3D "vpu",
-> +	},
-> +	[K3_PMDOMAIN_GPU] =3D {
-> +		.bit_auto_pwr_on	=3D 0,
-> +		.bit_isolation		=3D 1,
-> +		.bit_sleep1		=3D 2,
-> +		.bit_sleep2		=3D 3,
-> +		.bit_hw_mode		=3D 4,
-> +		.bit_pwr_stat		=3D 0,
-> +		.bit_hw_pwr_stat	=3D 8,
-> +		.use_hw			=3D 1,
-> +		.reg_pwr_ctrl		=3D 0xd0,
-> +		.name			=3D "gpu",
-> +	},
-> +	[K3_PMDOMAIN_AUDIO] =3D {
-> +		.bit_auto_pwr_on	=3D 0,
-> +		.bit_isolation		=3D 1,
-> +		.bit_sleep1		=3D 2,
-> +		.bit_sleep2		=3D 3,
-> +		.bit_hw_mode		=3D 4,
-> +		.bit_pwr_stat		=3D 3,
-> +		.reg_pwr_ctrl		=3D 0x378,
-> +		.name			=3D "audio",
-> +	},
-> +	[K3_PMDOMAIN_LCD0] =3D {
-> +		.bit_auto_pwr_on	=3D 0,
-> +		.bit_isolation		=3D 1,
-> +		.bit_sleep1		=3D 2,
-> +		.bit_sleep2		=3D 3,
-> +		.bit_hw_mode		=3D 4,
-> +		.bit_pwr_stat		=3D 4,
-> +		.bit_hw_pwr_stat	=3D 12,
-> +		.use_hw			=3D 1,
-> +		.reg_pwr_ctrl		=3D 0x380,
-> +		.name			=3D "lcd0",
-> +	},
-> +	[K3_PMDOMAIN_LCD1] =3D {
-> +		.bit_auto_pwr_on	=3D 0,
-> +		.bit_isolation		=3D 1,
-> +		.bit_sleep1		=3D 2,
-> +		.bit_sleep2		=3D 3,
-> +		.bit_hw_mode		=3D 4,
-> +		.bit_pwr_stat		=3D 5,
-> +		.bit_hw_pwr_stat	=3D 15,
-> +		.use_hw			=3D 1,
-> +		.reg_pwr_ctrl		=3D 0x3f4,
-> +		.name			=3D "lcd1",
-> +	},
-> +};
-> +
-> +static const struct spacemit_pm_of_data k1_of_data =3D {
-> +	.num_domains	=3D ARRAY_SIZE(k1_domain_params),
-> +	.param		=3D k1_domain_params,
-> +};
-> +
-> +static const struct spacemit_pm_of_data k3_of_data =3D {
-> +	.num_domains	=3D ARRAY_SIZE(k3_domain_params),
-> +	.param		=3D k3_domain_params,
-> +};
-> +
-> +static const struct of_device_id spacemit_pm_domain_dt_match[] =3D {
-> +	{
-> +		.compatible =3D "spacemit,k1-power-controller",
-> +		.data =3D &k1_of_data,
-> +	},
-> +	{
-> +		.compatible =3D "spacemit,k3-power-controller",
-> +		.data =3D &k3_of_data,
-> +	},
-> +	{ /* sentinel */ }
-> +};
-> +
-> +static struct platform_driver spacemit_pm_domain_driver =3D {
-> +	.probe =3D spacemit_pm_domain_probe,
-> +	.driver =3D {
-> +		.name=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =3D =
-"spacemit-pm-domain",
-> +		.of_match_table =3D spacemit_pm_domain_dt_match,
-> +	},
-> +};
-> +
-> +builtin_platform_driver(spacemit_pm_domain_driver);
-> +MODULE_DESCRIPTION("SpacemiT Generic Power Domains driver");
-> +MODULE_LICENSE("GPL");
