@@ -1,222 +1,103 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5363B4EDCDE;
-	Fri, 18 Sep 2026 16:27:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDB8C515970;
+	Fri, 18 Sep 2026 16:27:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789748868; cv=none; b=XZyO6mATih5ozeQUDphtfk/+J67cVpHLx5EDoTmFLIv3phC1hDb9rYO4q4PLff/7GcCxAH+VNHgonme8jqPmC7p2gvVuxxaq9jmq/IdWUQh3rFvkO5UJfhT+FG1yVeoJpGwWfO1sbed7P+STujW06wkyf1B890ZVsdNTX3uCoJI=
+	t=1789748880; cv=none; b=jORRdGQ8PgRGHN6N3w7+upHOSbWZ7nmMTy3U21ZTWrJ3rQ26KRBgBc+3DZAjkxxtPhxSWdjkJgZZjQTOu89FUba9T0Sc3FdXHKhBo98bYPALEYn0wBoRHRHzK+25h32bbbs94802mO7IGcG+h5SOb1B+R7xySyG9dulvtPk0MVw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789748868; c=relaxed/simple;
-	bh=dNJUCQxPilzp6newgbWXraokwGhDSL+qgKd75dUqn34=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=e3AECuSCa3MQpfBJqatg0oSNNRBeIoqfJL8/7Al6q87r8PQjEgpkI44fnt/xd7s0ycgGWOcyk9GClEuA5lyEeBUnUsKwwJdiciSgDfKGXs0PS7qDPsem5oZtfHRvyObe6zLNmNP3wXh9kr7KFI0STqjCJ94V2ZO/YOA0XK8uF5U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=m+nEUDr5; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1789748880; c=relaxed/simple;
+	bh=ENg1B8J2XgujwhJsbFW+JURLUykzaMIaRBR8Q2TvvDo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SrDFhKt/jhEz1VDkcmPz5kFGHApCIwWMLIkdnLddwJiLA3Auku8SgXCMYNsO5JGzElvkyEb1Y/csu15i2dG02/u0s0CAcxgg52YL3JSjjnkG7ip1kQJydahxXQHxFNYzHxnK+MGDgQXFS+R+6LFXCjlyU5O1Iff5jY8koeZ1rus=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oz5E76IC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="m+nEUDr5"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68IDVpWV1421620;
-	Fri, 18 Sep 2026 16:27:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=diSL3g
-	PVIIsLP1y8rBsdiH9e7yVfU/AgUy7G1K9EC5E=; b=m+nEUDr5Ylfr4krcLS5fQD
-	+kNxdjikpfxIa1Sv5ZEvZql9ZAZa6h6P8EfDRyr9IU/dQ3AdnOMKEiVnm1XPj97q
-	7BX0jNHJImIcWZJOybDAVJD7wvUp45SLNC3DGmhXrqTNJhXd53wEoTIxZqPMbFK9
-	N3kozwbnBvjpjzbLDUmjnblaGKzNbitt0lm/MFDHGDq/kqPcibovwL36T66d1h38
-	E7rx9vf554DN6a/YWVTSeG+XADc2YpVtedPyUeOY0XSgwK+Rrh3J9yCxcTl3j8KM
-	6nROp5FHhg67PkGva07Jv1e3AULnzlDa0vZeadLYLUzqS6q5yyoWJFeaTE1RaMtw
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmxcvgh52-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 18 Sep 2026 16:27:05 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68IDO2Gc771897;
-	Fri, 18 Sep 2026 16:27:04 GMT
-Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gr5ffg6c4-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 18 Sep 2026 16:27:04 +0000 (GMT)
-Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
-	by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68IGR3bP14680736
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 18 Sep 2026 16:27:03 GMT
-Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0183858052;
-	Fri, 18 Sep 2026 16:27:03 +0000 (GMT)
-Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1D56358045;
-	Fri, 18 Sep 2026 16:27:00 +0000 (GMT)
-Received: from [9.224.64.252] (unknown [9.224.64.252])
-	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTPS;
-	Fri, 18 Sep 2026 16:26:59 +0000 (GMT)
-Message-ID: <c52c9e8c-260e-49a4-a88e-229e0795d07b@linux.ibm.com>
-Date: Fri, 18 Sep 2026 18:26:56 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oz5E76IC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 067F71F000FF;
+	Fri, 18 Sep 2026 16:27:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789748870;
+	bh=RUrki9PiihwqQhD1He2HPnPY/iXNXQ626jiFsHj9jNE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oz5E76IC1AW958/OUCiLVFPK5O7IA+IxOlkLIFaPL/lstGjxdAu9qkLwneHvOXAm8
+	 /xsMM1GKPycYfyUcVsfLeJ+zz/LmAi+r4ijC6UisTu8rfZKebDQTq3ndKWvKZRW6/L
+	 tvVmTbPn/42oV4pvF3FAVzMs1Fl2HNBs91bqs2Pi5Ni7+OPTKLwyaUz4vgyRcODGLM
+	 aa0zQzqttJ9ShuLZM7S32GyDsYhEUnp8A2mfzjxWzWxZ/QPHswu8KO9/EvikoSGcRI
+	 rMVHRJFoIEsgkxWwKuM3ET9catgXFbWZ2t17QkcjeUfJHfJkB3pmrB7GA56iZdyad7
+	 rSr3njC0LIivw==
+Date: Fri, 18 Sep 2026 17:27:43 +0100
+From: Will Deacon <will@kernel.org>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Samiullah Khawaja <skhawaja@google.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Alexander Graf <graf@amazon.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Kevin Tian <kevin.tian@intel.com>, iommu@lists.linux.dev,
+	kexec@lists.infradead.org, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, David Matlack <dmatlack@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Pranjal Shrivastava <praan@google.com>,
+	Vipin Sharma <vipinsh@google.com>
+Subject: Re: [RFC PATCH v2 00/10] dma-mapping: Add preservation of direct
+ allocations
+Message-ID: <aq1mf_EXzn2hUwy4@willie-the-truck>
+References: <20260708234854.4044652-1-skhawaja@google.com>
+ <20260826183112.GA3703145@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] sched/deadline: Fix DL server divide-by-zero for inactive
- CPUs
-To: Hui Su <sh_def@163.com>, mingo@redhat.com, peterz@infradead.org,
-        juri.lelli@redhat.com, vincent.guittot@linaro.org
-Cc: dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
-        mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        Sashiko <sashiko-bot@kernel.org>, Heiko Carstens <hca@linux.ibm.com>,
-        Ilya Leoshkevich <iii@linux.ibm.com>
-References: <20260812123252.2355986-3-sh_def@163.com>
-Content-Language: en-US
-From: Mikhail Zaslonko <zaslonko@linux.ibm.com>
-In-Reply-To: <20260812123252.2355986-3-sh_def@163.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDIyOSBTYWx0ZWRfXyyyc/bOQ1h/D
- DpnWTDm+ab2s4R2nPwFK6BTp/rCe3qXgH79ytA4uQgrr3PCwM3eDyQPcTHVti6i/c4buo4iJqoE
- cb2TAXiWtorRV5Kt1WZQ2juEqovGFDI=
-X-Proofpoint-ORIG-GUID: 5Iiabi1vrPH-IF5YqTNpXI7xrvh9vISC
-X-Proofpoint-GUID: hf4yfVzoTVulraZKsxkO1eMEkwkU-9jS
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDIyOSBTYWx0ZWRfX3ehA8JH6R3/q
- t9xse6lQBAHD2i6b1hXJ+39aCtxcrfbQrCPftmkwu/w3F6uuHkNpr7wQnpmF3wGXnsQIfEHEvkk
- ZUIcBNmmK7U4+txZaXXY3tvAVEahEtouq2n32nvMncwjXX8cwDv6+gzikGY4x0tAaDI9a8ms7bm
- juwTsov309F3VfuVJclLN/NVIIUD4i0wzDEbMKlEgZEKQ6ZpRmd/mT0f+YDLiTRNiUQYaxxy17w
- OPe94Le/qy1UK9Ssn2dooUhvZsWuzj8WAY99Xxa1oxKmOR6Gb7GDiVBvCmsnSCsHSwGs+NHzMKJ
- o/B8Z8WCvvBfVwcu3CEg9WeJ8BNEnNVK+oCgOfeKQH5emD+IzivvUKUm+Rjv71/6n1PVNjF2ghQ
- 42Z9yrucq1mLH7apGym9gc2GA/tEIl90DhK1k/82fzcDCR0hQFqV9is9qnHjXmEQW8df9ebbDYF
- XlpX5fTo2aZ2A88NcbA==
-X-Authority-Analysis: v=2.4 cv=F+7C5ahN c=1 sm=1 tr=0 ts=6aad6659 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=5hoDY7baIL5RK_9Huj0A:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-18_04,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 phishscore=0 clxscore=1011 malwarescore=0
- lowpriorityscore=0 bulkscore=0 spamscore=0 impostorscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180229
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826183112.GA3703145@nvidia.com>
 
-
-
-On 12-Aug-26 14:32, Hui Su wrote:
-> Commit 4043f5498416 ("sched/deadline: Reject debugfs dl_server writes
-> for offline CPUs") rejects per-CPU DL server parameter updates once the
-> target CPU is offline. However, during CPU hot-unplug, the CPU is cleared
-> from cpu_active_mask before it is marked offline.
+On Wed, Aug 26, 2026 at 03:31:12PM -0300, Jason Gunthorpe wrote:
+> On Wed, Jul 08, 2026 at 11:48:44PM +0000, Samiullah Khawaja wrote:
+> > This is an RFC v2 to discuss the preservation of DMA allocations for
+> > devices that are using direct allocation mode. Note preservation here
+> > means preservation of physical memory using KHO only. IOVAs and IOMMU
+> > mappings are out of scope.
+> > 
+> > The complexity and need of this was discussed in the thread mentioned
+> > below. It was proposed to allow preservation of only a subset of
+> > allocations with minimum support. Offline discussion with Will Deacon
+> > concluded that this series is still needed, because we still want to use
+> > coherent allocations for Arm sMMUv3 ste/cds, so sending this v2.
 > 
-> This leaves a window where cpu_online() is still true while
-> cpu_active() is already false. A debugfs write during this window passes
-> the cpu_online() check in sched_server_write_common() and reaches
-> dl_server_apply_params() with init=false.
+> Was this before or after concluding that ARM was OK with using
+> cachable memory?
+
+That discussion was primarily about the page-tables iirc.
+
+I still think drivers should be able to use the coherent DMA API and not
+have to use an entirely different interface depending on whether or not
+they need to support KHO.
+
+> >  include/linux/dma-direct.h        |  29 +++++
+> >  include/linux/dma-map-ops.h       |  10 ++
+> >  include/linux/dma-mapping.h       | 100 ++++++++++++++
+> >  include/linux/kho/abi/dma_alloc.h |  32 +++++
+> >  kernel/dma/Kconfig                |  12 ++
+> >  kernel/dma/Makefile               |   1 +
+> >  kernel/dma/coherent.c             |  11 ++
+> >  kernel/dma/contiguous.c           |  27 ++++
+> >  kernel/dma/direct.c               | 189 +++++++++++++++++++++++++++
+> >  kernel/dma/direct_test.c          | 208 ++++++++++++++++++++++++++++++
+> >  kernel/dma/mapping.c              | 132 +++++++++++++++++++
+> >  kernel/dma/pool.c                 |  17 +++
+> >  12 files changed, 768 insertions(+)
 > 
-> dl_bw_cpus() counts the active CPUs in the root domain. For an isolated
-> CPU whose root-domain span contains only that CPU, it returns zero once
-> the CPU becomes inactive. If the server bandwidth is attached,
-> dl_server_apply_params() then passes this zero CPU count to __dl_sub()
-> and __dl_add(), both of which divide by the CPU count.
+> Because this seems like quite a big change to swallow compared to just
+> using iommu pages.h
 
-Hello Hui, Juri
+Maybe, but I think it's in the right place rather than scattered across
+a bunch of drivers. A good chunk of it is also test code and empty
+static inline functions.
 
-We hit the same divide-by-zero on s390x, but from the sched_setscheduler()
-syscall path rather than debugfs:
-
-[  836.069103] fixpoint divide exception: 0009 ilc:2 [#1]SMP
-[  836.069114] Modules linked in: algif_hash af_alg ctcm fsm zfcp scsi_transport_fc mlx5_ib ib_uverbs_support ib_core mlx5_vdpa vdpa vringh vhost_iotlb nft_fib_inet nft_fib_ipv4 nft_fib_ipv6 nft_fib nft_reject_inet nf_reject_ipv4 nf_reject_ipv6 nft_reject nft_ct nft_chain_nat nf_nat nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 nf_tables mlx5_core s390_trng ism eadm_sch vfio_ccw mdev vfio_iommu_type1 vfio sch_fq_codel drm i2c_core drm_panel_orientation_quirks diag288_wdt hmac_s390 prng aes_s390 dm_mirror dm_region_hash dm_log pkey_ep11 pkey_cca zcrypt phmac_s390 paes_s390 rng_core pkey_pckmo pkey crypto_engine uvdevice autofs4 ecdsa_generic ecc sha512
-[  836.069173] CPU: 19 UID: 0 PID: 1005719 Comm: stress-ng-cpu-s Kdump: loaded Tainted: G        W           7.3.0-20260917.rc3.git3.a10f6da4ba31.300.fc44.s390x #1 PREEMPTLAZY
-[  836.069178] Tainted: [W]=WARN
-[  836.069180] Hardware name: IBM 9175 ME1 705 (LPAR)
-[  836.069182] Krnl PSW : 0404c00180000000 001925217a23136e (task_non_contending+0x19e/0x370)
-[  836.069191]            R:0 T:1 IO:0 EX:0 Key:0 M:1 W:0 P:0 AS:3 CC:0 PM:0 RI:0 EA:3
-[  836.069194] Krnl GPRS: 0000000000000000 0000000000000000 0000000000000000 00000000ffffffff
-[  836.069197]            ffffffffffffffff 0000000000006666 001925217be2d038 001925217a237950
-[  836.069199]            0000000000000014 0000000000006666 001925217c3785e8 000003f15af10330
-[  836.069201]            0000000000000000 001925217b284f40 001925217a231366 0019249f1e61fbc0
-[  836.069210] Krnl Code: 001925217a231360: c0e5ffffdff8        brasl   %r14,001925217a22d350
-           001925217a231366: b9140059           lgfr    %r5,%r9
-          *001925217a23136a: b90d0042           dsgr    %r4,%r2
-          >001925217a23136e: e330f0a80004       lg      %r3,168(%r15)
-           001925217a231374: c0a000dfe7da       larl    %r10,001925217be2e328
-           001925217a23137a: e32030f80004       lg      %r2,248(%r3)
-           001925217a231380: b9090029           sgr     %r2,%r9
-           001925217a231384: 41903018           la      %r9,24(%r3)
-[  836.069243] Call Trace:
-[  836.069245]  [<001925217a23136e>] task_non_contending+0x19e/0x370
-[  836.069249] ([<001925217a231366>] task_non_contending+0x196/0x370)
-[  836.069252]  [<001925217a231678>] switched_from_dl+0x138/0x190
-[  836.069256]  [<001925217a207f56>] sched_change_begin+0x116/0x330
-[  836.069260]  [<001925217a23b0c6>] __sched_setscheduler+0x1e6/0xad0
-[  836.069263]  [<001925217a23baba>] sched_setscheduler+0x7a/0xb0
-[  836.069266]  [<001925217a23bb66>] do_sched_setscheduler+0x76/0x130
-[  836.069268]  [<001925217a23be7c>] __s390x_sys_sched_setscheduler+0x3c/0x60
-[  836.069271]  [<001925217b125850>] __do_syscall+0x1a0/0x4c0
-[  836.069274]  [<001925217b135b42>] system_call+0x72/0x90
-[  836.069277] Last Breaking-Event-Address:
-[  836.069278]  [<001925217a22d3ac>] dl_bw_cpus+0x5c/0x70
-[  836.069283] Kernel panic - not syncing: Fatal exception: panic_on_oops
-
-In this case dl_bw_cpus(task_cpu(p)) returned 0 and task_non_contending() passed it to
-__dl_sub().
-
-CPU offlining was running concurrently. 11 seconds before the panic:
-
-  [  824.924635] select_fallback_rq: 11 callbacks suppressed
-  [  824.924640] process 1005879 (stress-ng-cpu-s) no longer affine to cpu118
-  [  824.944307] process 1005883 (stress-ng-cpu-s) no longer affine to cpu122
-
-There was also a preceding WARN_ON_ONCE(!cpu_online(new_cpu)) in set_task_cpu(),
-reached from dl_task_timer(). That looks like a separate issue.
-
-I have no exact reproducer at the moment, this is a CI run with several workloads in
-parallel. But we can test a candidate patch in the same environment.
-
-
-As for the patch, the same division is unguarded in several other callers
-in deadline.c:
-
-  task_non_contending()     (this trace)
-  inactive_task_timer()
-  set_cpus_allowed_dl()
-  sched_dl_overflow()
-  dl_bw_manage()
-  
-so rejecting inactive CPUs in dl_server_apply_params() closes only one of
-them.
-
-Would it make sense to guard inside __dl_sub() and __dl_add() instead?
-
-	void __dl_sub(struct dl_bw *dl_b, u64 tsk_bw, int cpus)
-	{
-		dl_b->total_bw -= tsk_bw;
-		if (cpus)
-			__dl_update(dl_b, (s32)tsk_bw / cpus);
-	}
-	
-	void __dl_add(struct dl_bw *dl_b, u64 tsk_bw, int cpus)
-	{
-		dl_b->total_bw += tsk_bw;
-		if (cpus)
-			__dl_update(dl_b, -((s32)tsk_bw / cpus));
-	}
-
-__dl_update() walks for_each_cpu_and(i, rd->span, cpu_active_mask) over the
-same root domain, so when cpus == 0 the loop body never runs anyway.
-Skipping the division changes nothing else. Yes, total_bw is still updated
-on a root domain with no active CPUs, but it turns a kernel panic into an
-accounting inaccuracy that already exists today.
-
-What do you think?
-
-Thanks,
-Mikhail
-
-
+Will
