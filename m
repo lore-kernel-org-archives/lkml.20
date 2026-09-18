@@ -1,152 +1,229 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5F2452CCEC
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 21:25:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C326C52CCE7
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 21:26:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789766704; cv=none; b=pWJ8Igy+Pq32lf9/W+PdFu13a7Cm6q9fY6x5GGP9cL3HuJCosev4Ds0+Ed7HCvvEm3XBZOO89VmnHcZPL8fmFySJ4aoKYwWU7F8yeeZFGTto49kOjI6sbNaGTTIuaI3iksU1Lk7pl+K+nF10PC5pPj3/GVdKOiJLD46+QLU415o=
+	t=1789766793; cv=none; b=IZ+EdtVAeorr86ItmZ8eYoomaBgOl5JRrbbkSEmhve35lc++lm/FmGRjLoWKDbFsZUOyRoEWxPUB+hr/awArmK+uqAN7OqFlgmiHLjvcSUuRQSBIpG/TAfj+ynxn8Q9oqWG1Lk5ipQ7k10FuhTniPC9RyREBYbygnoTMrKhaszk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789766704; c=relaxed/simple;
-	bh=q3nVasQXzTsCnU6vlbLPvXHwu5xqhhzi1QiVA6zjKKs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=W8u5gTopEVeq8ySS8FUOYkUUTlk7iaMV6iN5NdRJPTRSSHS2yzay+23PMMVIpc2DT4hw7HBiaye/T+n2dKgTfNQVH0H6sJm0tfR+/XyiQUTD45r3eugnLqN2y9jZB9+Qh4tEF/TiOWl6WJd+1OYPDL2HAdDCzJuwPWSrR7bbNaA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l+hbnWOb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789766793; c=relaxed/simple;
+	bh=piQ/qmdh5vGrLseCH4oX99pnj7X0x5hoLNKV1iykz48=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
+	 References:In-Reply-To; b=ZreTyyvZBSAYNVsKJdR8VKVSIMKGJXesKqtARQBMcWUfi8L+YUtLJkpiT4yd/N9skLt98eyM8oW2wLR7O9NRuIx+ErTb+LejVwkT3nhe1mRegpVBSoi5C99gJVFj1Cfrwztj+d+hjRVP7O9skPk9KN9TfGKnrpjZmr8ZC5rFFKY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mNTv6Alo; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l+hbnWOb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05A601F000FF;
-	Fri, 18 Sep 2026 21:24:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789766702;
-	bh=ttXCrG08p/oBc6oZKbu1QRJWgL9obcgO5so+f03Mgbg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=l+hbnWOb0Wn/mLkdVSBGZbP3X6KdYSrGo79rDOB9JNFiRLUAwI+a/DzK8DYGSFPNG
-	 ulCWPLQh0FKwLnHr1ZK0sSDCFuoNdA/noXajLb1kZjk3F2eiWMbZ+YWMq/Yfoz6auc
-	 n75Dd0vOKo9QkmCiXXL0LLDgzRCxC9SUnuuj/08gw0RuvHhQMm0qZI/bhM7QQDo3jQ
-	 yCTl3K/2wKX/gS1tjD85Sl/XepXxV0CnqBiIhhrAwjsxgG6rOt/bEPVjd1ouhL2ON3
-	 Pi4BafoU/thlV8jwoK0ek3izYjjW5SaHfFNZkzpEm8Hl8QVG2/MWMOO78nLVChMirG
-	 YzKs4sgV8UpJw==
-Message-ID: <06e44dc2-ae67-4c48-8833-b3ec9d2827bd@kernel.org>
-Date: Fri, 18 Sep 2026 23:24:50 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mNTv6Alo"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccdaea75so403638a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:26:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789766791; x=1790371591; darn=vger.kernel.org;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=D3SEXFUxByL8NwUA0aascO5krkdBelJ+D590uzi7yTc=;
+        b=mNTv6AlosrVIQyufi0IV0pzu5f2qpw7mTvbw/ZeftIjGRqzWJwG564SNqOMJiA9Skc
+         pY5EC+4gXprPKZGcqHneRSzrmRE7+VEtllgVYe8p18p+bQXz4vLWbnZU1TrszMLYmsfX
+         EONOe3ElNqRi6MyIZgx+pBaKbj3a0yOBWdbS86doDISx+yoQGm0p1Tp5MqdM+FZlWzQp
+         V77igpIA6SK1A89CZnbTSAnhHaRq11TJvZdMjQJiGVF36NUp8FfKonLRhMK1OMJ8w0X2
+         GWpQEtG5y3o/XYUQoTBhYLGMoxM9v4DFFShUeJww4zPctYrMlmPdtBGLgTgm/IHVnuvs
+         dScQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789766791; x=1790371591;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=D3SEXFUxByL8NwUA0aascO5krkdBelJ+D590uzi7yTc=;
+        b=ffeonbKr4KSQvknZ6916CUrCUlb599LRwPMx02b+t87biepAg/H7E21TV0GoF17GQq
+         06Bqd72o7lP1J81XlRVUqOKsPoM3Bw0zasNdBDZRaNIBMAL7JxAxRqMmdnrTSWa7YczU
+         ykD+BN8syxMHuY/FxG5+pOww3sxerWI5lrqehSyQXSl792JlQ+PbyKDVqzpSl4YjSeYD
+         +XMDNW7owT8NwzUQtjx+UFy0vGnRta4rNWcgzqUlGQDyOes5OoNtjwcYzfXGBMDAxexK
+         oRyTil5CaJutDllXv/A36NAiAfI4Xwj76ccrDoihUyU9SKdjO0G5R5KpXLZe6AtudAMC
+         Wvng==
+X-Forwarded-Encrypted: i=1; AKwUvBwb2pCfuyJLv+UUfmvYZQbs+0GohOfVXOEuXY0sjksr5ny15ptNV0rE213PNQONa0A5QesmjubSuhVZpos=@vger.kernel.org
+X-Gm-Message-State: AFuF++nrwHdeXPJ36aGkl1hLA3Houxev9poEQpQq1/Qmu8Kkp9yva55I
+	x9+2uk7yma5bkysdVqUkYSYJvv9spO6yBQbLXkmcuz1LPM+aJ90XqLBX
+X-Gm-Gg: AYBFou1Z3XqBQa5Ai+pb+LlU6oMgOpbgw7e23L7LI6W+hElPe4bu3byFUU0tlfCZlqk
+	HW4NwiTZYt1/ytbLT8aGlvAGmkwQscijAFpI0M7oVZO/KI470IdQaGtEMbtdRlwi91R3kpR8EJ/
+	/kyehmUFoNJHW4KR/vqSQL259vYmGlp+Jv2wT31zZct15JLMobQC9Vk80DI69NjYcMmRMTy49l6
+	JUU6xpqzyXiLJeDSkhA0qMx1KDTXgKG1KXYBC7ifiqi5JhgYyXTLlUNiEYe6Sqe5kmbbeRd4HUE
+	JYQ9n0A2u12seEk7gSzJc3/iVqUdhZP6HHUHISRI9D2NhaUmTud+ZXd5/PNviVu6Uu8pCa/SNG1
+	8N62EEjG5yDV/fAREQpXf2VN8z+30P61Y3VIBv20Cs8Ek0c2p6ApwsvNm+M4qMrpOrkNH52Cu03
+	+z5g0cdcIyCJIhJNaG1mq/XOqFQGM6HG5PLxO/UemkY1hHkkUZ65N5R7J7yY2B8NGkZEFtEUii7
+	vl8sHdEQHsp00FLeDJ8wbzt+HMsRzXYmssH7eYk+yxmKWkDO5WEJOGhGvegn9S3zltTDBd5e30y
+	/rrw
+X-Received: by 2002:a17:90b:2584:b0:39e:6c68:fd89 with SMTP id 98e67ed59e1d1-39e6c68feb9mr902813a91.30.1789766791008;
+        Fri, 18 Sep 2026 14:26:31 -0700 (PDT)
+Received: from localhost ([153.61.198.254])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6cb427casm1165720a91.17.2026.09.18.14.26.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 18 Sep 2026 14:26:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RESEND v7 05/29] riscv: mm: add PMD swap-exclusive helpers
-To: Usama Arif <usama.arif@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>, chrisl@kernel.org,
- kasong@tencent.com, ljs@kernel.org, ziy@nvidia.com, linux-mm@kvack.org
-Cc: ying.huang@linux.alibaba.com, Baoquan He <baoquan.he@linux.dev>,
- willy@infradead.org, youngjun.park@lge.com, hannes@cmpxchg.org,
- riel@surriel.com, shakeel.butt@linux.dev, alex@ghiti.fr, kas@kernel.org,
- baohua@kernel.org, dev.jain@arm.com, baolin.wang@linux.alibaba.com,
- Nico Pache <nico.pache@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
- ryan.roberts@arm.com, Vlastimil Babka <vbabka@kernel.org>,
- lance.yang@linux.dev, linux-kernel@vger.kernel.org, nphamcs@gmail.com,
- shikemeng@huaweicloud.com, yosry@kernel.org, qi.zheng@linux.dev,
- luizcap@redhat.com, kernel-team@meta.com, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>
-References: <20260914122950.3283997-1-usama.arif@linux.dev>
- <20260914122950.3283997-6-usama.arif@linux.dev>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260914122950.3283997-6-usama.arif@linux.dev>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Fri, 18 Sep 2026 21:26:29 +0000
+Message-Id: <DLIRDKA6G2IQ.2Q62BXX7CJWIW@gmail.com>
+Subject: Re: [PATCH RFC v4 07/13] bpf, x86: Take a Tasks Trace reader in the
+ trampoline around its call-outs
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Josef Bacik" <josef@toxicpanda.com>, "Paul E. McKenney"
+ <paulmck@kernel.org>, "Frederic Weisbecker" <frederic@kernel.org>, "Neeraj
+ Upadhyay" <neeraj.upadhyay@kernel.org>, "Joel Fernandes"
+ <joelagnelf@nvidia.com>, "Boqun Feng" <boqun@kernel.org>, "Thomas Gleixner"
+ <tglx@kernel.org>, "Peter Zijlstra" <peterz@infradead.org>, "Steven
+ Rostedt" <rostedt@goodmis.org>, "Masami Hiramatsu" <mhiramat@kernel.org>,
+ "Mark Rutland" <mark.rutland@arm.com>, "Jiri Olsa" <jolsa@kernel.org>,
+ "Alexei Starovoitov" <ast@kernel.org>, "Daniel Borkmann"
+ <daniel@iogearbox.net>, "Andrii Nakryiko" <andrii@kernel.org>,
+ <x86@kernel.org>, "Catalin Marinas" <catalin.marinas@arm.com>, "Will
+ Deacon" <will@kernel.org>, "Puranjay Mohan" <puranjay@kernel.org>, "Xu
+ Kuohai" <xukuohai@huaweicloud.com>, "Paul E. McKenney"
+ <paulmck@kernel.org>, "Frederic Weisbecker" <frederic@kernel.org>, "Neeraj
+ Upadhyay" <neeraj.upadhyay@kernel.org>, "Joel Fernandes"
+ <joelagnelf@nvidia.com>, "Boqun Feng" <boqun@kernel.org>, "Thomas Gleixner"
+ <tglx@kernel.org>, "Peter Zijlstra" <peterz@infradead.org>, "Steven
+ Rostedt" <rostedt@goodmis.org>, "Masami Hiramatsu" <mhiramat@kernel.org>,
+ "Mark Rutland" <mark.rutland@arm.com>, "Jiri Olsa" <jolsa@kernel.org>,
+ "Alexei Starovoitov" <ast@kernel.org>, "Daniel Borkmann"
+ <daniel@iogearbox.net>, "Andrii Nakryiko" <andrii@kernel.org>,
+ <x86@kernel.org>, "Catalin Marinas" <catalin.marinas@arm.com>, "Will
+ Deacon" <will@kernel.org>, "Puranjay Mohan" <puranjay@kernel.org>, "Xu
+ Kuohai" <xukuohai@huaweicloud.com>
+Cc: "Andy Lutomirski" <luto@kernel.org>, "Josh Triplett"
+ <josh@joshtriplett.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Mathieu
+ Desnoyers" <mathieu.desnoyers@efficios.com>, "Lai Jiangshan"
+ <jiangshanlai@gmail.com>, "Zqiang" <qiang.zhang@linux.dev>, "Juergen Gross"
+ <jgross@suse.com>, "Luis Chamberlain" <mcgrof@kernel.org>, "Ihor Solodrai"
+ <ihor.solodrai@linux.dev>, <linux-kernel@vger.kernel.org>,
+ <rcu@vger.kernel.org>, <linux-trace-kernel@vger.kernel.org>,
+ <bpf@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <xen-devel@lists.xenproject.org>, "Andy Lutomirski" <luto@kernel.org>,
+ "Josh Triplett" <josh@joshtriplett.org>, "Uladzislau Rezki"
+ <urezki@gmail.com>, "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>,
+ "Lai Jiangshan" <jiangshanlai@gmail.com>, "Zqiang" <qiang.zhang@linux.dev>,
+ "Juergen Gross" <jgross@suse.com>, "Luis Chamberlain" <mcgrof@kernel.org>,
+ "Ihor Solodrai" <ihor.solodrai@linux.dev>, <linux-kernel@vger.kernel.org>,
+ <rcu@vger.kernel.org>, <linux-trace-kernel@vger.kernel.org>,
+ <bpf@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <xen-devel@lists.xenproject.org>
+X-Mailer: aerc 0.17.0
+References: <20260918-b4-rcu-tasks-preempt-qs-v4-0-63f0e9d69661@toxicpanda.com> <20260918-b4-rcu-tasks-preempt-qs-v4-7-63f0e9d69661@toxicpanda.com>
+In-Reply-To: <20260918-b4-rcu-tasks-preempt-qs-v4-7-63f0e9d69661@toxicpanda.com>
 
-On 9/14/26 14:27, Usama Arif wrote:
-> A later patch keeps a PMD-mapped anonymous THP mapped by a PMD across the
-> swap round-trip, so PG_anon_exclusive now has to survive in a swap PMD and
-> not just in a swap PTE.
-> 
-> riscv encodes a swap PMD exactly like a swap PTE, so the new helpers wrap
-> the PTE ones and reuse _PAGE_SWP_EXCLUSIVE.
-> 
-> Cc: Paul Walmsley <pjw@kernel.org>
-> Cc: Palmer Dabbelt <palmer@dabbelt.com>
-> Cc: Albert Ou <aou@eecs.berkeley.edu>
-> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+On Fri Sep 18, 2026 at 2:49 PM UTC, Josef Bacik wrote:
+> On HAVE_RCU_TRAMPOLINE_READERS kernels Tasks RCU keeps a BPF trampoline
+> image allocated only while a task using it is a Tasks Trace RCU reader
+> or is executing text that rcu_tasks_trampoline_text() recognises.  The
+> image itself is such text, but the C glue and the programs it calls are
+> not, and only sleepable programs take rcu_read_lock_trace() today.
+>
+> Have the x86-64 JIT open-code rcu_read_lock_trace() and
+> rcu_read_unlock_trace() in the trampoline, as ftrace_64.S does for
+> ftrace_caller: one reader from just after the frame is set up to just
+> before the original function is called, covering __bpf_tramp_enter()
+> and the fentry and fmod_ret programs, and a second one from just after
+> the original function returns to just before the final register
+> restore, covering the fexit programs and __bpf_tramp_exit().  The
+> original function itself runs outside both, since it may run for a long
+> time and the image is pinned by im->pcref across it.  Trampolines that
+> do not call the original function get a single reader around all their
+> programs.  The second reader is entered before ip_after_call, so the
+> ip_after_call -> ip_epilogue jump that bpf_tramp_image_put() patches in
+> is inside it, and the fmod_ret early-exit branch lands after that point
+> still holding the first reader, so exactly one is held on every path.
+>
+> The sequence uses r10 and r11, which are scratch at each emission point,
+> and references current_task and rcu_tasks_trace_srcu_struct by absolute
+> sign-extended address, the form the JIT already relies on for
+> this_cpu_off.  Sleepable programs' own rcu_read_lock_trace() simply
+> nests.  Nothing is emitted on other configurations.
+>
+> Suggested-by: Alexei Starovoitov <ast@kernel.org>
+> Assisted-by: LLM
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 > ---
->  arch/riscv/include/asm/pgtable.h | 15 +++++++++++++++
->  1 file changed, 15 insertions(+)
-> 
-> diff --git a/arch/riscv/include/asm/pgtable.h b/arch/riscv/include/asm/pgtable.h
-> index d48f90140841e..b644db16bda94 100644
-> --- a/arch/riscv/include/asm/pgtable.h
-> +++ b/arch/riscv/include/asm/pgtable.h
-> @@ -1219,6 +1219,21 @@ static inline pte_t pte_swp_clear_exclusive(pte_t pte)
+>  arch/x86/net/bpf_jit_comp.c | 113 ++++++++++++++++++++++++++++++++++++++=
+++++++
+>  1 file changed, 113 insertions(+)
+>
+> diff --git a/arch/x86/net/bpf_jit_comp.c b/arch/x86/net/bpf_jit_comp.c
+> index 2853e87797a7..c991f7ceacdf 100644
+> --- a/arch/x86/net/bpf_jit_comp.c
+> +++ b/arch/x86/net/bpf_jit_comp.c
+> @@ -14,6 +14,7 @@
+>  #include <linux/memory.h>
+>  #include <linux/sort.h>
+>  #include <linux/execmem.h>
+> +#include <linux/rcupdate_trace.h>
+>  #include <asm/extable.h>
+>  #include <asm/ftrace.h>
+>  #include <asm/set_memory.h>
+> @@ -722,6 +723,97 @@ static void emit_indirect_jump(u8 **pprog, int bpf_r=
+eg, u8 *ip)
+>  	*pprog =3D prog;
 >  }
->  
->  #ifdef CONFIG_ARCH_HAS_PMD_SOFTLEAVES
-> +static inline bool pmd_swp_exclusive(pmd_t pmd)
+> =20
+> +/*
+> + * Open-coded rcu_read_lock_trace() / rcu_read_unlock_trace() for the
+> + * trampoline, see CONFIG_HAVE_RCU_TRAMPOLINE_READERS and the equivalent
+> + * macros in arch/x86/kernel/ftrace_64.S.  The image is not relocated, s=
+o
+> + * current_task and rcu_tasks_trace_srcu_struct are referenced by absolu=
+te
+> + * (sign-extended 32-bit) address, the form the JIT already relies on fo=
+r
+> + * this_cpu_off.  Uses r10 and r11, which are scratch at every emission
+> + * point, and clobbers flags.
+> + *
+> + * lock:                                  unlock:
+> + *   mov  r11, gs:[current_task]            mov  r11, gs:[current_task]
+> + *   mov  r10d, [r11+nesting]               mov  r10d, [r11+nesting]
+> + *   inc  dword ptr [r11+nesting]           sub  r10d, 1
+> + *   test r10d, r10d                        jnz  2f
+> + *   jnz  1f                                mov  r10, [r11+scp]
+> + *   mov  r10, [&srcu.srcu_ctrp]            mov  dword ptr [r11+nesting]=
+, 0
+> + *   inc  qword ptr gs:[r10+locks]          (smp_mb)
+> + *   mov  [r11+scp], r10                    inc  qword ptr gs:[r10+unloc=
+ks]
+> + *   (smp_mb)                               jmp  3f
+> + * 1:                                     2: mov [r11+nesting], r10d
+> + *                                        3:
+> + */
+> +static void emit_trace_rcu_reader(u8 **pprog, bool lock)
 > +{
-> +	return pte_swp_exclusive(pmd_pte(pmd));
-> +}
-> +
-> +static inline pmd_t pmd_swp_mkexclusive(pmd_t pmd)
-> +{
-> +	return pte_pmd(pte_swp_mkexclusive(pmd_pte(pmd)));
-> +}
-> +
-> +static inline pmd_t pmd_swp_clear_exclusive(pmd_t pmd)
-> +{
-> +	return pte_pmd(pte_swp_clear_exclusive(pmd_pte(pmd)));
-> +}
-> +
->  #define __pmd_to_swp_entry(pmd) ((swp_entry_t) { pmd_val(pmd) })
->  #define __swp_entry_to_pmd(swp) __pmd((swp).val)
->  #endif /* CONFIG_ARCH_HAS_PMD_SOFTLEAVES */
+> +#ifdef CONFIG_TASKS_RCU_TRAMPOLINE_READERS
+> +	const u32 nesting =3D offsetof(struct task_struct, trc_reader_nesting);
+> +	const u32 scp =3D offsetof(struct task_struct, trc_reader_scp);
 
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+nesting_off ?
+scp_off ?
+Otherwise
+EMIT(nesting, 4);
+is a bit confusing.
 
--- 
-Cheers,
+> +	const bool mb =3D !IS_ENABLED(CONFIG_TASKS_TRACE_RCU_NO_MB);
+> +	u8 *prog =3D *pprog;
+> +
+> +	BUILD_BUG_ON(IS_ENABLED(CONFIG_NEED_SRCU_NMI_SAFE));
+> +	BUILD_BUG_ON(offsetof(struct srcu_ctr, srcu_locks) !=3D 0);
+> +	BUILD_BUG_ON(offsetof(struct srcu_ctr, srcu_unlocks) !=3D 8);
 
-David
+Looks too hardcoded here.
+Why not to use the same approach as with offsetof() few lines above?
+
+Overall looks ok,
+but I wonder what Paul will say that rcu_read_lock_tasks_trace()
+becomes baked in into JITs and will be pretty hard to change.
+
+We also lose rcu_tt lockdep runtime checks.
+So lockdep might get confused?
+
