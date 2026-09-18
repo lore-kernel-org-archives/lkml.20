@@ -1,112 +1,328 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Received: from lamorak.hansenpartnership.com (lamorak.hansenpartnership.com [198.37.111.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E55A4493636;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E9B935DA41;
 	Fri, 18 Sep 2026 19:26:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.37.111.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789759590; cv=none; b=SVSCyOEqiCN6w5J0GMts7LQ6buGw5XBLBk7AV6s5BgPqeyC4Ozyd0XNqY17V+eyNeNukiNm0PCfqqHz1Ku/63WG6NsvJlfjiodPYf1BNTEhPN5/6RelI6nsGlLboDbC7/KoCujHN5Pl4bWSGlwK7yyZPAoBixnd8ZeZV9L2MLvY=
+	t=1789759590; cv=none; b=gUHto6ojeNcZBxjppS3aTzfvP1tqd79dHVHIei0toXVwOjc1DdSmRqW2w8NVPu4gFZUScbph8b9em9zfT1CkOHQy6FwgY0es/Xt9r7a3nL51sp0kzvPNU68/zolmhfnk8UYoWHLwxoyXYbWbY7qtL1EvdNV0Z1qlKZj/NHTJjXI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789759590; c=relaxed/simple;
-	bh=zWaAR20x/Onb6LS/Yur8W5iuAsPCi9+2D/GoXxzIlsM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MAJq9kNB+jx3hMhl9RdmeoYXQwpx9PuPFY0o9TfNU9pZQgj/dV+28gePZGyrOfItgq10vCer/9LtNX5e6TU3wUKKO0b+Jc0UnDrVqvfEkc5yeqOHumSWypCQcQ8IsGEYeujvI7S2XE9RcJLUIssUJYDmOiE41WzfwtEGWnOVCZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=gb3wCR9p; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	bh=DerffHky16ckkjzbuLiv2bB5lWXY+g3WEzzavx4AyNs=;
+	h=Message-ID:Subject:From:To:Cc:Date:Content-Type:MIME-Version; b=nIaFTkNB+brD54AISdXmXcWnZ/l35FfcDMbGaL6ymVn3UbA4+3SGrrE0aGZuxY+itiP4a0OMeRqIqVzRKVBLcszX8KvYOfEyRo1pg1TZffpo1rHLKFkpsRE2SikTuLi6oKhcGbBFvCcQZphX8WGtctRO3Qm60R7ksIsxkjDbAAY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=HansenPartnership.com; spf=pass smtp.mailfrom=HansenPartnership.com; dkim=pass (1024-bit key) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.b=tjzBGw9P; arc=none smtp.client-ip=198.37.111.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=HansenPartnership.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=HansenPartnership.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="gb3wCR9p"
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	dkim=pass (1024-bit key) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.b="tjzBGw9P"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+	d=hansenpartnership.com; s=20151216; t=1789759584;
+	bh=DerffHky16ckkjzbuLiv2bB5lWXY+g3WEzzavx4AyNs=;
+	h=Message-ID:Subject:From:To:Date:From;
+	b=tjzBGw9PvDxw2I8ofN0PwmvZv7fzi8Gp5QHF1G8vYq5vcEH6xafthOXxyUbCO4y1h
+	 khfY6JCYscxTIKbNJOIXxOrJ6ijcZKSNiYF38jzwlZzmA2tatv9wKeRUqnDBCfnhUR
+	 4OHTsenvtAf5ujFOVnXHdPSeAjXBdD8Q1rBoBoOs=
+Received: from lingrow.int.hansenpartnership.com (unknown [IPv6:2601:5c4:4300:d341::8309])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 21F715340271;
-	Fri, 18 Sep 2026 21:26:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1789759578;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=HYotaPpjiGAt2FfzQU3Vj1LHo2/cGdO6Bfxfc5NuV5g=;
-	b=gb3wCR9pa4IwW/qJPzSm5a452In2YduuGuxIUdZydtR4V+F2rDSysBuTm7YVF95tjmi9/W
-	fObBW77gTE0d0nvsDIu3eKZsk+efarK3gl6EBTOLDE54ACb3uRQSjUS1pxVB2xliR3LAq7
-	xCKCFzGUFhvwrSzaA22flIgsmfzF4VA=
-Message-ID: <76e9ad4b-7430-41d3-9d31-9f513beedcb5@ixit.cz>
-Date: Fri, 18 Sep 2026 21:26:17 +0200
+	by lamorak.hansenpartnership.com (Postfix) with ESMTPSA id D9A7A1C0413;
+	Fri, 18 Sep 2026 15:26:23 -0400 (EDT)
+Message-ID: <71da251528b9af2948fb5a4c8bcd045e65b3e42e.camel@HansenPartnership.com>
+Subject: [GIT PULL] SCSI fixes for 7.3-rc3+
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Andrew Morton <akpm@linux-foundation.org>, Linus Torvalds
+	 <torvalds@linux-foundation.org>
+Cc: linux-scsi <linux-scsi@vger.kernel.org>, linux-kernel
+	 <linux-kernel@vger.kernel.org>
+Date: Fri, 18 Sep 2026 15:26:23 -0400
+Autocrypt: addr=James.Bottomley@HansenPartnership.com;
+ keydata=mQENBE58FlABCADPM714lRLxGmba4JFjkocqpj1/6/Cx+IXezcS22azZetzCXDpm2MfNE
+ lecY3qkFjfnoffQiw5rrOO0/oRSATOh8+2fmJ6el7naRbDuh+i8lVESfdlkoqX57H5R8h/UTIp6gn
+ 1mpNlxjQv6QSZbl551zQ1nmkSVRbA5TbEp4br5GZeJ58esmYDCBwxuFTsSsdzbOBNthLcudWpJZHU
+ RfMc0ew24By1nldL9F37AktNcCipKpC2U0NtGlJjYPNSVXrCd1izxKmO7te7BLP+7B4DNj1VRnaf8
+ X9+VIApCi/l4Kdx+ZR3aLTqSuNsIMmXUJ3T8JRl+ag7kby/KBp+0OpotABEBAAG0N0phbWVzIEJvd
+ HRvbWxleSA8SmFtZXMuQm90dG9tbGV5QEhhbnNlblBhcnRuZXJzaGlwLmNvbT6JAVgEEwEIAEICGw
+ MGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAhkBFiEE1WBuc8i0YnG+rZrfgUrkfCFIVNYFAml2ZBI
+ FCS3GUMIACgkQgUrkfCFIVNZKjQf/deRzlXZClKxTC/Ee2yEPqqS7mm/INUA49KdQQ5oIhSxkUBy0
+ 9J4qjMIo5F8ZFkFTqikBqeL35LKu7O7rn8WETfX8Bxvos3HUsl3jHo34DES4MUFIpoQPgtiLRGwLb
+ K0cVCAArR2u2qj4ABmTRrs1I1kvdjEw6gatOuXtEe/j5O2fvfzTq9GBr0Q3n2IAsFXi4hLlx6VPE8
+ tyWUZ8BWJKtih3JAeUiXFvASL3McV0rV9RnU0VbjEQEhSE7PMYhWpnDC9AyBb0lXJllQRvC3NSkUB
+ 8KVQgNNxRPss0WE/nBoZ4dFA42jTyzTz8lNylxZoAWV7WJb3QxVg4oCodRVrxxrQhSmFtZXMgQm90
+ dG9tbGV5IDxqZWpiQGtlcm5lbC5vcmc+iQFVBBMBCAA/AhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeA
+ QIXgBYhBNVgbnPItGJxvq2a34FK5HwhSFTWBQJgS5mYBQkbNYS9AAoJEIFK5HwhSFTWBpwIAL5Bk3
+ 5FB34U6iHmDzzgdCbxLTs43T/YQyJpcGIvopBvnI/fDY8oSG6Df64/O6B+1R+A8TDp6ZG5ysUWnCC
+ 6GuIaEHemBYkitMPglR6+sGCMQY7O0mlsPvdssvKK1KI9Bno4VU6ogaF2qVzefSqg1Djmf/DcsxWP
+ rI/jdJ8FB5AYR2rjIdDFc+zRdAJuavo1/anyY2wgpFh/3R8IOYAEfWV9nGgYkf9+tA4EIn1sxE0I3
+ L5oW2N3mbyRrkzuBwO8ztMCwqEPk7moWzhokcZqMXiAIahaZdkashJC+s2X2RZSGCy+g+pvY5NN4B
+ BVG5XwLgVBqbHMTcxE0fbmPqz+q6O0LEphbWVzIEJvdHRvbWxleSA8amVqYkBoYW5zZW5wYXJ0bmV
+ yc2hpcC5jb20+iQFXBBMBCABBFiEE1WBuc8i0YnG+rZrfgUrkfCFIVNYFAmODZ5ACGwMFCRs1hL0F
+ CwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQgUrkfCFIVNZu0Af/TzvL2/NdgAcw9uN3x60H8
+ jc4QUq14VpxcFEFEMpcj1morkX/G93V+56HBBaXZj+yK8PhxIA/SIz+sU7C/0YvKuvzakP8ZX/7WJ
+ e32SOUtjfr/VTaqjIBzNj6OxLvZpmNbBw7s6DwhhNpHOWqJ/1ml+PtDRDV71IB58yVqQjp1xlNKVl
+ ZppcJ5908EJzsFnRIVjiQiDSKoppqB2BCibBbrWcln7CiWMyOC/cco6SIn6twH+f7+aivJ3xGcOE2
+ a9gBKF5rNi9TBoX9oyPmshv/TDmnohsVrH7AYXlGYfZTk15SWEiROh1QX8/uD9wl/gcIv5EDUpT/F
+ L2jzOsA5663bw==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND] Input: rmi4 - Move sensor initialization into own
- function for F12
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260731-synaptics-rmi4-fnsplit-v1-1-8175cec2ded1@ixit.cz>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20260731-synaptics-rmi4-fnsplit-v1-1-8175cec2ded1@ixit.cz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 31/07/2026 20:40, David Heidelberg via B4 Relay wrote:
-> From: David Heidelberg <david@ixit.cz>
-> 
-> Makes rmi_f12_probe function a bit cleaner and more structured.
-> 
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
->   drivers/input/rmi4/rmi_f12.c | 58 ++++++++++++++++++++++++++------------------
->   1 file changed, 35 insertions(+), 23 deletions(-)
-> 
-Can you please let me know if there is something I should improve or this patch 
-is just NACK?
+The following changes since commit af8c27375733fb6a6df9fa484cda77cc3dd0cb80=
+:
 
-Thank you
-David
+  scsi: megaraid_sas: Limit NVMe request size to the PRP chain frame (2026-=
+09-02 12:13:15 -0400)
+
+are available in the Git repository at:
+
+  https://git.kernel.org/pub/scm/linux/kernel/git/jejb/scsi.git/ tags/scsi-=
+fixes
+
+for you to fetch changes up to 3d676e458fe0c566f5a62753dc696b6a862fc412:
+
+  scsi: core: Validate MODE SENSE lengths in scsi_cdl_enable() (2026-09-09 =
+22:23:00 -0400)
+
+----------------------------------------------------------------
+Four driver fixes, three of which are minor and one of which (fnic)
+tries to add some logic to try to avoid MSI-X being ineffective if
+hyperthreading is disabled.  The core fix adds validation to mode sense
+buffer sizes because it is used by ATA and could, theoretically, be
+exploited by a specially crafted USB device that can simply be plugged
+in to any laptop or server.
+
+----------------------------------------------------------------
+Alberto Carboneri (1):
+      scsi: core: Validate MODE SENSE lengths in scsi_cdl_enable()
+
+Arun Easi (1):
+      scsi: fnic: Fix missed link-up when critical IRQ targets offline CPU
+
+Karl Mehltretter (2):
+      scsi: pm80xx: Fix the use_msix, use_tasklet and read_wwn parameter de=
+scriptions
+      scsi: qla2xxx: Fix the ql2xfc2target parameter description
+
+Venkat Rao Bagalkote (1):
+      scsi: ibmvfc: Add Kconfig dependency to fix link failure when NVME_FC=
+=3Dm
+
+ drivers/scsi/Kconfig              |  1 +
+ drivers/scsi/fnic/fnic.h          |  2 +-
+ drivers/scsi/fnic/fnic_isr.c      | 13 ++++++++++---
+ drivers/scsi/fnic/fnic_main.c     | 41 +++++++++++++++++++++++++++++++++++=
++++-
+ drivers/scsi/pm8001/pm8001_init.c |  6 +++---
+ drivers/scsi/qla2xxx/qla_os.c     |  2 +-
+ drivers/scsi/scsi.c               | 24 ++++++++++++++++++-----
+ 7 files changed, 75 insertions(+), 14 deletions(-)
+
+---
+
+diff --git a/drivers/scsi/Kconfig b/drivers/scsi/Kconfig
+index 4a2af0f702e1..1eec66195cf4 100644
+--- a/drivers/scsi/Kconfig
++++ b/drivers/scsi/Kconfig
+@@ -753,6 +753,7 @@ config SCSI_IBMVFC
+ 	tristate "IBM Virtual FC support"
+ 	depends on PPC_PSERIES && SCSI
+ 	depends on SCSI_FC_ATTRS
++	depends on NVME_FC || NVME_FC=3Dn
+ 	help
+ 	  This is the IBM POWER Virtual FC Client
+=20
+diff --git a/drivers/scsi/fnic/fnic.h b/drivers/scsi/fnic/fnic.h
+index c576a7f5083e..3ba1592940ca 100644
+--- a/drivers/scsi/fnic/fnic.h
++++ b/drivers/scsi/fnic/fnic.h
+@@ -31,7 +31,7 @@
+=20
+ #define DRV_NAME		"fnic"
+ #define DRV_DESCRIPTION		"Cisco FCoE HBA Driver"
+-#define DRV_VERSION		"1.9.0.0"
++#define DRV_VERSION		"1.9.0.1"
+ #define PFX			DRV_NAME ": "
+ #define DFX                     DRV_NAME "%d: "
+=20
+diff --git a/drivers/scsi/fnic/fnic_isr.c b/drivers/scsi/fnic/fnic_isr.c
+index 02856745580f..43149d8312ec 100644
+--- a/drivers/scsi/fnic/fnic_isr.c
++++ b/drivers/scsi/fnic/fnic_isr.c
+@@ -245,7 +245,14 @@ int fnic_set_intr_mode_msix(struct fnic *fnic)
+ 	unsigned int m =3D ARRAY_SIZE(fnic->wq);
+ 	unsigned int o =3D ARRAY_SIZE(fnic->hw_copy_wq);
+ 	unsigned int min_irqs =3D n + m + 1 + 1; /*rq, raw wq, wq, err*/
+-
++	/*
++	 * Make driver critical vectors unmanaged, or else it can get tied
++	 * to an offline CPU. This can happen when hyper-threading is off.
++	 */
++	struct irq_affinity affd =3D {
++		.pre_vectors =3D n + m + 1, /* rq, raw wq, 1 ioq */
++		.post_vectors =3D 1, /* err */
++	};
+ 	/*
+ 	 * We need n RQs, m WQs, o Copy WQs, n+m+o CQs, and n+m+o+1 INTRs
+ 	 * (last INTR is used for WQ/RQ errors and notification area)
+@@ -263,8 +270,8 @@ int fnic_set_intr_mode_msix(struct fnic *fnic)
+ 		int vec_count =3D 0;
+ 		int vecs =3D fnic->rq_count + fnic->raw_wq_count + fnic->wq_copy_count +=
+ 1;
+=20
+-		vec_count =3D pci_alloc_irq_vectors(fnic->pdev, min_irqs, vecs,
+-					PCI_IRQ_MSIX | PCI_IRQ_AFFINITY);
++		vec_count =3D pci_alloc_irq_vectors_affinity(fnic->pdev, min_irqs,
++			    vecs, PCI_IRQ_MSIX|PCI_IRQ_AFFINITY, &affd);
+ 		FNIC_ISR_DBG(KERN_INFO, fnic,
+ 					"allocated %d MSI-X vectors\n",
+ 					vec_count);
+diff --git a/drivers/scsi/fnic/fnic_main.c b/drivers/scsi/fnic/fnic_main.c
+index 9b3025007075..f13c381a66d7 100644
+--- a/drivers/scsi/fnic/fnic_main.c
++++ b/drivers/scsi/fnic/fnic_main.c
+@@ -744,8 +744,19 @@ static int fnic_nvme_drv_init(struct fnic *fnic)
+ 	return ret;
+ }
+=20
++static void fnic_mq_init_queue_map(struct fnic *fnic,
++		struct blk_mq_queue_map *qmap)
++{
++	unsigned int cpu;
++
++	for_each_possible_cpu(cpu)
++		qmap->mq_map[cpu] =3D 0;
++}
++
+ void fnic_mq_map_queues_cpus(struct Scsi_Host *host)
+ {
++	const struct cpumask *mask;
++	unsigned int queue, cpu;
+ 	struct fnic *fnic =3D *((struct fnic **) shost_priv(host));
+ 	struct pci_dev *l_pdev =3D fnic->pdev;
+ 	int intr_mode =3D fnic->config.intr_mode;
+@@ -766,7 +777,35 @@ void fnic_mq_map_queues_cpus(struct Scsi_Host *host)
+ 		return;
+ 	}
+=20
+-	blk_mq_map_hw_queues(qmap, &l_pdev->dev, FNIC_PCI_OFFSET);
++	fnic_mq_init_queue_map(fnic, qmap);
++
++	/*
++	 * Setup CPU to Queue mapping for all managed MSI-X IRQs.
++	 * Q0 is driver critical and non-managed, hence start from Q1.
++	 */
++	for (queue =3D 1; queue < qmap->nr_queues; queue++) {
++		int irq_num =3D pci_irq_vector(fnic->pdev,
++					     queue + FNIC_PCI_OFFSET);
++
++		if (irq_num < 0)
++			continue;
++
++		mask =3D pci_irq_get_affinity(fnic->pdev,
++					    queue + FNIC_PCI_OFFSET);
++		if (!mask) {
++			shost_printk(KERN_ERR, host,
++				"failed to get irq_affinity map for queue:%d\n", irq_num);
++			continue;
++		}
++		FNIC_MAIN_DBG(KERN_INFO, fnic,
++				"got irq_affinity map for %d:\n", irq_num);
++		for_each_cpu(cpu, mask) {
++			qmap->mq_map[cpu] =3D qmap->queue_offset + queue;
++			FNIC_MAIN_DBG(KERN_INFO, fnic,
++				      "[Q%d] cpu:%d <=3D> irq:%d\n",
++				      queue, cpu, irq_num);
++		}
++	}
+ }
+=20
+ static int fnic_probe(struct pci_dev *pdev, const struct pci_device_id *en=
+t)
+diff --git a/drivers/scsi/pm8001/pm8001_init.c b/drivers/scsi/pm8001/pm8001=
+_init.c
+index 54b35893261a..5af81c73a8f8 100644
+--- a/drivers/scsi/pm8001/pm8001_init.c
++++ b/drivers/scsi/pm8001/pm8001_init.c
+@@ -58,15 +58,15 @@ MODULE_PARM_DESC(link_rate, "Enable link rate.\n"
+=20
+ bool pm8001_use_msix =3D true;
+ module_param_named(use_msix, pm8001_use_msix, bool, 0444);
+-MODULE_PARM_DESC(zoned, "Use MSIX interrupts. Default: true");
++MODULE_PARM_DESC(use_msix, "Use MSIX interrupts. Default: true");
+=20
+ static bool pm8001_use_tasklet =3D true;
+ module_param_named(use_tasklet, pm8001_use_tasklet, bool, 0444);
+-MODULE_PARM_DESC(zoned, "Use MSIX interrupts. Default: true");
++MODULE_PARM_DESC(use_tasklet, "Use tasklets for interrupt handling. Defaul=
+t: true");
+=20
+ static bool pm8001_read_wwn =3D true;
+ module_param_named(read_wwn, pm8001_read_wwn, bool, 0444);
+-MODULE_PARM_DESC(zoned, "Get WWN from the controller. Default: true");
++MODULE_PARM_DESC(read_wwn, "Get WWN from the controller. Default: true");
+=20
+ uint pcs_event_log_severity =3D 0x03;
+ module_param(pcs_event_log_severity, int, 0644);
+diff --git a/drivers/scsi/qla2xxx/qla_os.c b/drivers/scsi/qla2xxx/qla_os.c
+index c0efdbff5da7..3c412c7fb6fe 100644
+--- a/drivers/scsi/qla2xxx/qla_os.c
++++ b/drivers/scsi/qla2xxx/qla_os.c
+@@ -352,7 +352,7 @@ MODULE_PARM_DESC(ql2xnvme_queues,
+=20
+ int ql2xfc2target =3D 1;
+ module_param(ql2xfc2target, int, 0444);
+-MODULE_PARM_DESC(qla2xfc2target,
++MODULE_PARM_DESC(ql2xfc2target,
+ 		  "Enables FC2 Target support. "
+ 		  "0 - FC2 Target support is disabled. "
+ 		  "1 - FC2 Target support is enabled (default).");
+diff --git a/drivers/scsi/scsi.c b/drivers/scsi/scsi.c
+index 76cdad063f7b..f285521d9de6 100644
+--- a/drivers/scsi/scsi.c
++++ b/drivers/scsi/scsi.c
+@@ -727,6 +727,7 @@ int scsi_cdl_enable(struct scsi_device *sdev, bool enab=
+le)
+ 		struct scsi_mode_data data;
+ 		struct scsi_sense_hdr sshdr;
+ 		char *buf_data;
++		size_t avail, offset;
+ 		int len;
+=20
+ 		ret =3D scsi_mode_sense(sdev, 0x08, 0x0a, 0xf2, buf, sizeof(buf),
+@@ -735,11 +736,24 @@ int scsi_cdl_enable(struct scsi_device *sdev, bool en=
+able)
+ 			return -EINVAL;
+=20
+ 		/* Enable or disable CDL using the ATA feature page */
+-		len =3D min_t(size_t, sizeof(buf),
+-			    data.length - data.header_length -
+-			    data.block_descriptor_length);
+-		buf_data =3D buf + data.header_length +
+-			data.block_descriptor_length;
++		avail =3D min_t(size_t, data.length, sizeof(buf));
++		if (data.header_length > avail)
++			return -EINVAL;
++
++		offset =3D data.header_length;
++		avail -=3D data.header_length;
++
++		if (data.block_descriptor_length > avail)
++			return -EINVAL;
++
++		offset +=3D data.block_descriptor_length;
++		avail -=3D data.block_descriptor_length;
++
++		if (avail < 5)
++			return -EINVAL;
++
++		buf_data =3D buf + offset;
++		len =3D avail;
+=20
+ 		/*
+ 		 * If we want to enable CDL and CDL is already enabled on the
