@@ -1,168 +1,169 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010027.outbound.protection.outlook.com [52.101.84.27])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33E554F0553
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:37:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.27
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789738636; cv=fail; b=pZR9x8uWaCqKtduExBZKaTXhC2LsYE/rcVGRWM84sR4gxKLzGqtnDlN/b9DuBwsM5Ewi9zKNyLWdgJeZQU+aa0Nlcp4HMYmtZ12U8VuZn3V/ZPZaAvrEr87Vm+6h5b0WCEkAL10zs09kv+zYLLU28DrABgAOGnf3VY26VOHUrxg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789738636; c=relaxed/simple;
-	bh=w5zo8l/85O0D4TRhgIwIxx4HQMavUSSoKyctBsT5dRg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=qc9R6sYJIHMisBiBtIs8ADmYDKAW1L9OOz3B37nZCt+ISUiARSQUeLZQKwSSaamKC8gNwq89n+1bQMzNv74PDZW0G3noV3Y2e7Qk5vcNd3my5Zj6OrkW1MzWaEYBIgmoTQUL32YRKh3kfVJu2VRzqK73Zl2d4hJTkz9vuGrYgHg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=ZFrME8go; arc=fail smtp.client-ip=52.101.84.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAB2938E8CA;
+	Fri, 18 Sep 2026 13:38:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789738718; cv=none; b=NOmZO+9NoVwJDWRx26kbYnQHUkKFwb6tZnW6aetRi5R2A42uxH3D19W8/mlSHyxQZ9MgIuIdwDiwGVrG1KOcITV+90b8EbP9MYgmVu/pWIIUp0UVvTYQhhsgD7gnoI+pZsZN9wT1q/jTyJ+ikdWGuJLKHoxR0/+WV9xn7DMDp6Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789738718; c=relaxed/simple;
+	bh=uHxRfFpeeeqM0dj1pBYqYINu37TMxuN+a+TZg+JofAo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=k1J3i/qvh+p+oU69XfHXYAggSndgXH2Sbw/Ax8DmyUpXLex1YSRkhdI/48Xbn5Glz9Qn+0dNGcgvRg+krad/FAOztm6ByDxaLtAANLioLG2Pa8p3Q4Bl8KM8bgFZmSZ7LZAig5GDMBqBS8P6kA3JQkIcrKS5HZfDhwRj0dp+/cs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YFidbsMm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="ZFrME8go"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tZhzrRLK1vPBK+/xWIWSuV+SyzR2UmXdN4wXMupt6U63pTnsdgOcgZM91zSR52029BdNQtJGQI01M3SzdKAegReZR13ba1XmI3H5m2bExkHlnAqeXqYbD7SlQOEeZ+zk6I+Sm5O0lmbEoC6GHZV9FYyCKpPf0cxsK9XvKv3ycDodQj4Q9sqX9LyZ1p6K0Qmni4JqJsUn4h7vVxi8aPi3i0FZOvJdHZ9d9ihcwDFu4i2w8jbpMcBfr2lKjWtBQHiVF3rd22nmM5oPYcdbf64xdqteU4G37DKuTRTnWgrJDPBOB6ebR8UnK4sXQtoyQsfQ3wHlzk1U8HZJn+mdZ5JcYA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yjL3iUXwo2/cTbIpkMnuLytGjfyYr45FBZILjUnrt7E=;
- b=t8K+1ipUDwL/BkJSBijB0gtCpUgiuDH4j8S7FDE1vgBaPh5FhP82sbldG+VjEq2Z4Si1+0xcNaQPNWBVussc1O8sN5l0pBcn9O+VoHGt8GHRO2Ck/Wx0lHF3S6EpTxhbtgTF1AK/skAGDEvZ9oAfQsAxifZHI3Bs0XQ0iUqQ26oL9iCruuUsFJX+yAwpbLVZWS49kptD8uTMoi6k7Wtue21SsiJowgJcnM8hEwlvis+gfieISGcgIeVXFMrcdkhkJA5oKUhA45AMvYfaZgofMk3wboxmGjaP3+XgQW7zz96B1d6MFbWOyYX7ypJ6CYR0lSlz1tLsTiYXi+i4eTv+Fg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yjL3iUXwo2/cTbIpkMnuLytGjfyYr45FBZILjUnrt7E=;
- b=ZFrME8gouncwh5/1T6uUrmdVkwblxPJD+370DcmaIjEJt+2yUxfwlbp0OzqbNu2RK+vY0yABQFFmI8WFRVlQi6ILtKw8jlGvauiuUIhNLVClG1t5e5cdzdz59C9g+1lHiGOgUpvwhN19QwlyjVKRULJba1eLKWm4VmSxHUwdo2Ui4dzIViQ8Zf3sXkS5J5FPV9MCQShV2VfiYaL0SwDcWic/qhWaHUNNeS55ZJjysMSQQJeSK+WGxuyzPsPMjqOhWk5YAaV3DQyqRRDRQKTa4yHgGgfNm9oQBJfL7Szn77z+H0fAuLKU9l+gCnGhgHw6pLBavK6Z0HoJVv6xMUHbBg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by VI2PR04MB10785.eurprd04.prod.outlook.com (2603:10a6:800:26e::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Fri, 18 Sep
- 2026 13:37:10 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
- 13:37:10 +0000
-Date: Fri, 18 Sep 2026 21:41:29 +0800
-From: Peng Fan <peng.fan@oss.nxp.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>, Frank Li <frank.li@nxp.com>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Jean-Philippe Brucker <jpb@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH RFC 0/4] iommu/arm-smmu-v3: Support shared Stream IDs
-Message-ID: <aq0/iQKcWhgm5wqp@shlinux89>
-References: <20260916-smmu-shared-sid-v1-0-517384504aee@nxp.com>
- <20260916161018.GE3196566@ziepe.ca>
- <aqtDg1EH95RYOdCJ@shlinux89>
- <20260917144804.GI3196566@ziepe.ca>
- <aq0lEk56qRi93geW@shlinux89>
- <20260918121132.GA11599@ziepe.ca>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918121132.GA11599@ziepe.ca>
-X-ClientProxiedBy: SI2P153CA0011.APCP153.PROD.OUTLOOK.COM
- (2603:1096:4:140::14) To AM8PR04MB7874.eurprd04.prod.outlook.com
- (2603:10a6:20b:24d::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YFidbsMm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 419D81F000FF;
+	Fri, 18 Sep 2026 13:38:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789738716;
+	bh=MKGYAMvXjOap74e+UNuv2FfLwh1OSEeO0iMecbj8vYY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=YFidbsMme1vbL1Pbu5WDdBTx7bbuMUuYKYZOHQcou5+9zUr18QfZDDZ8LRHiEYMM/
+	 IVXEAuRddREGxRAArD9+mRc+ppJktjoJfqT3uAkaQXW8Brz97BCZtZsMO39213MBBO
+	 tysBNnZGUXzdbyaJ5si/IVn0F+NG+LRPRtmCNbwIVvEvSu0PwbPotZzFxwCbWHyC6K
+	 eK0qB8GVKGQSj4rAYciiMgLV5F02qO/4jxImXUbQAdKAZnhaW3D37bys/9o699Puxz
+	 odWY02eK9XRozJH0Wi71yfABkHtmeBG2r8J+wNFpNIxMbbUc2LcmKbTYSsiDO1eCBP
+	 CgR+6vXL0HlqQ==
+Message-ID: <8f7dd986-ac78-4a87-a8bc-228fdd05e9b4@kernel.org>
+Date: Fri, 18 Sep 2026 15:38:28 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|VI2PR04MB10785:EE_
-X-MS-Office365-Filtering-Correlation-Id: fb8ad6f0-b159-43ce-886d-08df1589f0a0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|19092799006|56012099006|11063799006|4143699003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	CifHkrZJqrHdFp/Xisjzl2m1uTe5p+c1Z27l7We3k3fVevX9jWBhXnSZQSmmKAzUc3teY0Rp0hsBLlxW89cmiX/H1aKl/oJPu+p++WUNCPIUuwBu+Q7biAV18Vo13/hSS9fWYcA9TZ7dBtmE9Na3AB1a7QuVUfmV1lmakeGuXqbZW8YGDFKIgNRV+DnYKihh+xE1twJB0VtvWWUhZtTs6NVHYX3IeaGuaQXs3ogcmSQeuu/25VZDPD+aziY9yEW72Gyqzy072p66lr70pUMpOaOhQXpoRH5sGmSeZcUQuUD7RWQZB9+bXROaQmba0t7aM7wWAGqatZyvs5SgRFQHIIf9rRCriFhOuzF3lriTF+drki1q0QTWLS0vLE+ciX2fUibQTLTjd+4SmxMTTuLWAf0qC1H8/2IxqbRXbhLEYc5n1n8/NWhiGOTkL2SbgUn70jgfIdBtCJAGjuivqT6+farEuuSHCbth1X1E3hgxEjVmDWtNu5pNU5KZSA/WxGGZ46JKsdwVz/oQt7PLuxuw35vjlHa7S13cQs/0inCMQo2YLyiCdTpgisBQC4PZ25oxrCxD6UWUeE5EzVlRaQ0YWiUgKYoc9OIuT0m8B6YjxSMAbdRXin0iCc0QW+KD7iKe0St0jKKLskewjeb6FXIrYAT6Y6e5lV0q1bgtRagahMQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(19092799006)(56012099006)(11063799006)(4143699003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?1CL8gtuqfDbh7KSFIzBGcIfpgiBAnq+ZODvpEowYuyW5CNMBE6RKYcHre4I+?=
- =?us-ascii?Q?OEtdwJ1EN/yO3TaaF9Khs/JD51ZGlyDhmdoNNs9yEceFvdg4HR1r2iHBeBMR?=
- =?us-ascii?Q?RIBRgBk3s/4whxy5tYDeX79iV84kykqal3ek1FuIWo75qxqGY8BnMEwCgPnU?=
- =?us-ascii?Q?gLhEZl7axerYNAPdzp6JTnmmjWRROT9GmXosxAxDsVtb1tmVIfNffejT526N?=
- =?us-ascii?Q?EYUDC4+lxNkE5lnu3duhT5YImuJYXfT/Oq2BakwbWWBp0S5uvP1Sei6czN99?=
- =?us-ascii?Q?E4F88MOx76x4W3GQ2JBH6Y8Al2/yHxP8aQ+qBEkLw/ug79tt40qespNAXKPb?=
- =?us-ascii?Q?h9o+Pth4Wiv4hvTFJCe0R4v+fUK02POl0ZnNOG6aZ6r/ROxLZAksZaxvpzRV?=
- =?us-ascii?Q?kEt655PBQC4AiqJOnEU79LGQkgKT54awiWfd0zbTzeLarn5xsIpwQIc67hHj?=
- =?us-ascii?Q?6aMif0xqhVR9Z7C9ASCxiDx0VzBb29wNo2iQjAPtKs8nOvTITJ5jDnL5u3y2?=
- =?us-ascii?Q?0fhnD2Fj92G+kH6OQVXq5N7zlLWonkWPGjX+3VZlO5owpskeDQnc83Rne1l3?=
- =?us-ascii?Q?8SfOjpDUMeI9F9S5SnwzazjaAPEesQIweLPa6W9hRqzlOKhwwBQhmV/GaBuw?=
- =?us-ascii?Q?ZSaY+jlfZa3sAjv1av6DK0tN3Dhp4X4y9RGlVw6toKXMlUcVK8RbLsekPd1q?=
- =?us-ascii?Q?1Y3uaf0ibZkAeTGt+msCopC4MvTTdZwMTs3aZs9MeVs5cX9Sa7Gbk//G+q80?=
- =?us-ascii?Q?swOhABNzXOrw0rY1XA3Zwpmx4fAATQQPcB3fB6recGfagZ0eLUa15ipTUsPt?=
- =?us-ascii?Q?WywmwgZl4OyG99IrBMenyT41/UfwO1wgAq34Ap9tSEOVjtuOtLzqQVCSQKLq?=
- =?us-ascii?Q?Wlw3kBpBW8Zdjtwila1qTwJ9PtLXNeHMpTKeGBmLCOV6Fr+FLzjRDtcTnZs7?=
- =?us-ascii?Q?9hb8fWUmeAUyum98fydHxIrxPHlAJ6OQouA7iJ000OW2Wa8K4MEF2tD3hyLB?=
- =?us-ascii?Q?gKa1fiUiJVnUB4nbyfN5w71yhtPJrwKqmhd5BTXDwwMev6+JkVjw7CrGMIeC?=
- =?us-ascii?Q?jDneAeGsMEW/TenvRbMnzs9TLhCcyUoa8tp+BSr2cmoATn2xlFmqE+5/ujR4?=
- =?us-ascii?Q?qyzwNPm/k/5FJdhcDZ1PQ31u2aEvPYXEA2Ko85H0D/WD+8vO9w6K8kzNHSP4?=
- =?us-ascii?Q?k+jjpit/jl9fO7TCkDRDIfs1dkTKZa8/0H3DZD3c4pBt35Dak8ql+UcVu9Sj?=
- =?us-ascii?Q?er7m+HKZcNutFqB7ccjCXIURUi9zQmU6+pgCk9staikifuO6DcebhlISntUV?=
- =?us-ascii?Q?Zzc8xdmUtVuhiNXA+E3bp7ZWGRAABKa0QQ2PEVgoLiLFprVKR52kjOB4p3c+?=
- =?us-ascii?Q?TCX1Nx1B8Ds/JtUJCN5L2zfqVzrUjxzkty7zgSXoYxLRkc32dLs97JxeVZqj?=
- =?us-ascii?Q?YegUhwbE8r5lJvPLj3aHFYgjJZzPBmGccb+FwA6ujUn9o9ZvDG0KOWbQ4LFm?=
- =?us-ascii?Q?cOMzdDegbcEkIVIsUP44Jyb5HNt9vHTJpwf4O/zwltYfcE5W3d5j5osg/C6c?=
- =?us-ascii?Q?Qf9HhzbS++hnqRTX+LDzWJgvNkOYWlcpHF1cyuObn17bt/s6SVfPXgBytBAq?=
- =?us-ascii?Q?xYkmlMW/inNzb7t1OnVuRoFdFr11jPSX7b7M1fGkvjKPMV+A0lpWFII75xad?=
- =?us-ascii?Q?uTv1DUjU6YrFMZahMJ1pHtcd/cVmhy459vbWS8MLpFsGz/HCXwvh29ygbzDq?=
- =?us-ascii?Q?71RQu+1I156pIyokuA1L5ZadM53V00J7di9FxgN6OWlNqnioofge?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fb8ad6f0-b159-43ce-886d-08df1589f0a0
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 13:37:10.4770
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8v5vMc6jD26aI7ZAmfazV+BtzpRrUjACbmRtBGELgQVTOxH17Y1soGnJknhWLULeuC4GEFekXg1/8warYNFwbkG4JRXxVSiQk+pb6sZF8ZSIe5zGZdc7DU5IiGlTesTs
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10785
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] dt-bindings: embedded-controller: Add ASUS Zenbook
+ A16 EC
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Guenter Roeck <linux@roeck-us.net>, Bjorn Andersson <andersson@kernel.org>,
+ Abel Vesa <abelvesa@kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, linux-arm-msm@vger.kernel.org
+References: <20260917-topic-asus_ec-v1-0-373516d347ae@oss.qualcomm.com>
+ <20260917-topic-asus_ec-v1-1-373516d347ae@oss.qualcomm.com>
+ <20260918-objective-okapi-from-neptune-cbcabd@quoll>
+ <92b7a87a-c086-48d1-8487-883dda7c4d70@oss.qualcomm.com>
+ <372e9dc8-ec28-4d8e-a349-15145b82385d@kernel.org>
+ <9709e146-0f9a-42a5-bfcf-2e5f8b49df2e@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <9709e146-0f9a-42a5-bfcf-2e5f8b49df2e@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 18, 2026 at 09:11:32AM -0300, Jason Gunthorpe wrote:
->On Fri, Sep 18, 2026 at 07:48:34PM +0800, Peng Fan wrote:
->
->> However, the DMA channel case was just one example - the shared-SID
->> need exists independently of it. Our SoC (i.MX95) has only 64 SIDs
->> total, serving MMC, SD, NET, PCI, DMA, NPU, DSP, DISPLAY and more.
->> Some of these are genuinely separate platform devices (distinct DT
->> nodes, distinct drivers) that share a SID by hardware design because
->> the SID space is exhausted.
->> 
->> That cross-IP case cannot be solved by DT restructuring - the devices
->> really are separate. Would you be open to reviewing the shared-SID
->> SMMU support (patches 1-4) on that basis, independent of the DMA
->> channel question?
->
->I think you should revise your commit message/cover letter to focus on
->something that is not a DT abuse and try again 
+On 18/09/2026 15:23, Konrad Dybcio wrote:
+> On 9/18/26 3:21 PM, Krzysztof Kozlowski wrote:
+>> On 18/09/2026 14:29, Konrad Dybcio wrote:
+>>> On 9/18/26 1:34 PM, Krzysztof Kozlowski wrote:
+>>>> On Thu, Sep 17, 2026 at 12:54:56PM +0200, Konrad Dybcio wrote:
+>>>>> +description:
+>>>>> +  The Qualcomm Snapdragon X2 series-based ASUS Zenbook A16 (and similar
+>>>>> +  machines) come with a custom EC firmware, loosely based on the
+>>>>> +  Qualcomm reference ("Hamoa CRD EC") implementation, with a lot of
+>>>>> +  customization.
+>>>>> +
+>>>>> +properties:
+>>>>> +  compatible:
+>>>>> +    enum:
+>>>>> +      - asus,zenbook-a14-ux3407na-ec
+>>>>> +      - asus,zenbook-a16-ux3607oa-ec
+>>>>> +
+>>>>> +  reg:
+>>>>> +    const: 0x76
+>>>>> +
+>>>>> +  interrupts:
+>>>>> +    maxItems: 1
+>>>>> +
+>>>>> +  "#thermal-sensor-cells":
+>>>>> +    const: 1
+>>>>> +
+>>>>> +  wakeup-source: true
+>>>>> +
+>>>>> +required:
+>>>>> +  - compatible
+>>>>> +  - reg
+>>>>> +  - interrupts
+>>>>> +  - '#thermal-sensor-cells'
+>>>>> +  - wakeup-source
+>>>>
+>>>> Wakeup source should not be required. If it is, then it is completely
+>>>> implied by compatible and there is no need for DT property, right?
+>>>
+>>> I suppose it's not *required* but it's highly desirable.. should I
+>>> just drop it from the required list?
+>>
+>> Then why isn't the device driver setting wakeup unconditionally?
+> 
+> The i2c core checks for wakeup-source - I can remove the property
+> and call the equivalent functions from the driver if you prefer,
+> but that feels a little "rough"
 
-Yes. I will prepare RFC V2 with revised cover letter.
+This is irrelevant here. If we remove I2C core handling of wakeup-source
+and rely on drivers, do we change the bindings?
 
->
->IIRC Robin said the SID aliasing was a PITA on SMMUv2 so it
->really needs to have a strong reason.
+Required means either hardware or software cannot work without it.
+Interrupts are required, because (supposedly) it is impossible to create
+a hardware with interrupt pin floating, which could be argument to move
+to the SW, but compatible cannot imply them. Saying that wakeup is
+required, means that something requires it while compatible cannot imply
+that property. Kind of contradictory to logic, because this means device
+has such characteristic but we need DT to represent it. That's odd
+because we should not need DT to represent simple bool - driver can do it.
 
-Not like sever/data center chips, i.MX95 does not the advanced features,
-so in [PATCH RFC 4/4], those advanced features are marked as not supported.
+This is basically the fourth device which requires being wakeup-source,
+so something highly unusual and anyway if it stays, needs explanation in
+device description.
 
-In the chip internal bus, there are only 6 bits are used to carry SID
-on the bus, so limited SIDs.
-
-Hope we could move forward to support just simple SID sharing between
-platform devices without advancing features.
-
-Thanks,
-Peng
-
->
->Jason
->
->
+Best regards,
+Krzysztof
