@@ -1,46 +1,74 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f2.google.com (mail-wm2-f2.google.com [74.125.225.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB4524E1C9E;
-	Fri, 18 Sep 2026 11:03:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28B6B4A64EE
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:04:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789729421; cv=none; b=BIOvhg65lHVdXpQBrftb9UqYfi+AcHGZwWmHPk4/yo3CBt8L0ZhJJFfVcxfU3N4Zis504ycOYM6T28iGkYtyYQVF1MsEdmP+dDvg2dEmyxQV6QUuU+J5dh81AW25wTj8Muc8Ehfpsw2r6g5bNMBXT7hMmEqrOXBHrgbPb4xF82o=
+	t=1789729491; cv=none; b=G9Wcb7csjqNrgq/dBfUTL0qzoAVOcwq4nL8PZYLoz57VBXHKmdD16Olb+KQoLvyUbxptMuqRPV5GyUiRnekuaeME2YyAytQ+UoEnhlim+EtIOHt60PhM/1OiQEgHIR2CsU1QRc7vVrMZRUXMLt22oCD2bKOcERAX4pG+ahhW0Ko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789729421; c=relaxed/simple;
-	bh=7hMlHQ92Hi0PHYL588/AFKKpnxpCCAmFuPG4bnG4VA4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=FhgdTZwJafzT17xSOuL0NP1sjJmXjN/1oPGjKcRfSLEOU7lItDhEQZ6BmgMFHs3DAn0ZG4Cnj9fjFPYPdH2FA02ZHiiab0ETYucLh7BKK2T5wzIN50VTXijjNySIfbiSq4h6zl4rwsVrRXOFOYRxWBpbaA8jtedDPLOYCU84+g0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 955b2cf0b35011f19a56ed5b684f684d-20260918
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:aa12bb74-f4b9-445f-b6eb-d3f544b44b73,IP:0,U
-	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:25
-X-CID-META: VersionHash:7db8b62,CLOUDID:25106767b6994b114a5c269aec4a3213,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:5,IP
-	:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV
-	:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 955b2cf0b35011f19a56ed5b684f684d-20260918
-X-User: zhangheng@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zhangheng@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1348284196; Fri, 18 Sep 2026 19:03:30 +0800
-From: Zhang Heng <zhangheng@kylinos.cn>
-To: tiwai@suse.com
-Cc: linux-sound@vger.kernel.org,
+	s=arc-20240116; t=1789729491; c=relaxed/simple;
+	bh=q14v7R3EK3i7SDZaNs52rxEa4lQHtackk/2drf66XPM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kiDRX2s1izbgw6H3YSA7SP8sAadwCoCUOyM0c9MvM3qJbQrryZDVkwX/fzR0usK5yNnbKPy0jukdMEPOq8vdCSzUlFFOn19oUJY6/jkH6ya97hV5dRnseAa+37MP43vTwZK7T9ay0fmnTL04xcC/86cd8Ba8U9qwgeMb0TIuaZU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pn4y+s4t; arc=none smtp.client-ip=74.125.225.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pn4y+s4t"
+Received: by mail-wm2-f2.google.com with SMTP id 5b1f17b1804b1-4926d058720so1285945e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 04:04:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789729488; x=1790334288; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dsUUrhZxDXVLnpzzLxhn6wboqqmfaSeS/zWhQNNaxZY=;
+        b=pn4y+s4t76zBfhjulOlDsawk1N9xo8OoiwzEFAoWLCg2G1qXgrwoKe5bwHPLpEZVXi
+         pwYy+IMNjeb/wzAhVZfS2rmiD0kNHDEj0YX85B5nYwJZavSOakxp+xLkSRfJD+tK03RF
+         1Hufs6a5aLjGqYoNv21c+WTet8Tn69ZFgU1CVloWlBE/az6XOvnJy+x9ovloQpRT1sd+
+         pKemMwH2GE+i9zrXGpkva89Q5+UTK3DpOcQe6FLLWEjbsuQ8Cm9ZF8q8qbhxs5J4vym9
+         AXL7mp8uf8IwsivzxiRed5mp5g4JjdPlPhkjlGt5efslIFt4SXDEBsSVcCNgVCu73f55
+         q4Tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789729488; x=1790334288;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dsUUrhZxDXVLnpzzLxhn6wboqqmfaSeS/zWhQNNaxZY=;
+        b=CgGjEBcB8fV9cxWioRS2myikwLPrmE09o5Akh8r/zK2yEh9EcxpzIFejo8oMSIjsxJ
+         MAAKmYILEnX97lxnK9jCBln32Jh+mAH+smUlfT4ikn1PzRUHFmf3Zqmms0RJL6vvFeR7
+         iPfm4TXxPsJ5y8Q+5cCiMPEfh9PtKahsKPBGA5BE/YsgX6cnmzO8IFPQDq8vDaom/xia
+         TM3+Y7qJtSGoNTWhHi8XVHU0c3eX3l4PUoR2cJimqUgMFvTs71uNCnM7SvVTAabgkhO2
+         zm34dnibyjGwChBdpLF9H/i7HmK1rI/Fl1ERdRp0QOYjRRp0jz8cYaH787Phovd5OLRn
+         Iw7Q==
+X-Forwarded-Encrypted: i=1; AKwUvBz7Tdu+YEPhdh9EF0xWWtGSM+vo5M4AKKgVu9JFug79XoW3Aqq6vMpFlPv3uJwCaPGiyAHLbj/2n9qhBVs=@vger.kernel.org
+X-Gm-Message-State: AFuF++mq0R3ns+NozbK+8okzH/KNDSz4cwGYea5ucsd01bYJoJ8zKqF3
+	zq16yJfBhFufYFGLG7jSCWTtz7uXm47aqJvWuLM558uGfEDGqApzLaz6
+X-Gm-Gg: AYBFou0oBIiSQuGzdG5xpBnGqt+U8FyvRjdLdLdmpe/mIwhaKMFdxNMVEk4fIg1ZtlQ
+	D1cekojDc+ae4uq5Da+jKviIvQMS8r5NmZJ2ZgkxfEpf/qhVnY8csm/x9E2UfoV4qQiC3glHoDA
+	wHlcVNJxlV9IwccE3eDON6UYcwFePDFpNBf1umGfopB5ti7IvoKoZGmPFHtGSVhkWAv0PlC5E04
+	ixRHPcMOuO/MSx2yw7d3uiuhoqmto2uOPE3tTIXhC3XewYAQpJq2MNEIef7/qA89HzZOC2pB0R6
+	ybxt+dvplyK/Qi7kVwA8RozAT97Uss26MGPrH6bL+flko7IVJh6skb0oOEEfARzjOxITNOCseBJ
+	/ZHJXaxl75zesqpRcoAcPU7KByAqj3UICPPHJS70UKomy2ND0hUx9L7gyOnGMlJodtREc6RIvzC
+	rQUsgSYH4VCyvXoBkXLK/aDxoxWs94VeSBKFQ7vZEUoBLiwy0/2P6YriMvu6FkCqc4gPUEuSCnw
+	UJuQMvK6k2bmag=
+X-Received: by 2002:a05:600c:a0a:b0:49e:84bf:6110 with SMTP id 5b1f17b1804b1-49fc56dbb49mr28248695e9.6.1789729488054;
+        Fri, 18 Sep 2026 04:04:48 -0700 (PDT)
+Received: from serhat-ubuntu.home ([212.253.192.148])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc53b1b78sm34115545e9.3.2026.09.18.04.04.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 04:04:47 -0700 (PDT)
+From: Serhat Kumral <serhatkumral1@gmail.com>
+To: tatyana.e.nikolova@intel.com,
+	jgg@ziepe.ca,
+	leon@kernel.org
+Cc: shiraz.saleem@intel.com,
+	linux-rdma@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Zhang Heng <zhangheng@kylinos.cn>
-Subject: [PATCH] ALSA: hda/realtek: Add quirk for Acer Nitro ANV16-41
-Date: Fri, 18 Sep 2026 19:03:01 +0800
-Message-Id: <20260918110301.664172-1-zhangheng@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	Serhat Kumral <serhatkumral1@gmail.com>
+Subject: [PATCH] RDMA/irdma: Free IRQ when CEQ vector mapping fails
+Date: Fri, 18 Sep 2026 14:04:28 +0300
+Message-ID: <20260918110428.36586-1-serhatkumral1@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,27 +77,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Acer Nitro ANV16-41 requires the ALC2XX_FIXUP_HEADSET_MIC quirk
-to make the headset microphone work properly.
+irdma_cfg_ceq_vector() registers an IRQ handler before requesting the
+CEQ-to-vector mapping through the virtual channel. If the mapping
+fails, the function returns without releasing the IRQ resources.
+The caller destroys the CEQ, leaving the IRQ handler registered
+and potentially referencing freed memory.
 
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=221953
-Signed-off-by: Zhang Heng <zhangheng@kylinos.cn>
+Call irdma_destroy_irq() on mapping failure to release
+the IRQ resources and drain the associated tasklet
+before the caller destroys the CEQ. Use the same dev_id
+passed to request_irq(), accounting for CEQ0 sharing
+its interrupt vector with the AEQ.
+
+Fixes: b800e82feba7 ("RDMA/irdma: Add GEN3 support for AEQ and CEQ")
+Signed-off-by: Serhat Kumral <serhatkumral1@gmail.com>
+Assisted-by: Claude:claude-opus-5
 ---
- sound/hda/codecs/realtek/alc269.c | 1 +
- 1 file changed, 1 insertion(+)
+Found by smatch:
+.../drivers/infiniband/hw/irdma/hw.c:1261 irdma_cfg_ceq_vector() warn: 'msix_vec->irq' from request_irq() not released on lines: 1261.
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index 618ff25eff18..ae029094e3dc 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -7243,6 +7243,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1025, 0x1679, "Acer Nitro 16 AN16-41", ALC2XX_FIXUP_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1025, 0x169a, "Acer Swift SFG16", ALC256_FIXUP_ACER_SFG16_MICMUTE_LED),
- 	SND_PCI_QUIRK(0x1025, 0x171e, "Acer Nitro ANV15-51", ALC245_FIXUP_ACER_MICMUTE_LED),
-+	SND_PCI_QUIRK(0x1025, 0x172c, "Acer Nitro ANV16-41", ALC2XX_FIXUP_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1025, 0x1731, "Acer Predator PHN16-72", ALC2XX_FIXUP_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1025, 0x173a, "Acer Swift SFG14-73", ALC245_FIXUP_ACER_MICMUTE_LED),
- 	SND_PCI_QUIRK(0x1025, 0x1758, "Acer Nitro ANV15-41", ALC245_FIXUP_ACER_MICMUTE_LED),
+I performed only compilation test, it hasn't been tested on hardware. 
+
+ drivers/infiniband/hw/irdma/hw.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/infiniband/hw/irdma/hw.c b/drivers/infiniband/hw/irdma/hw.c
+index cae4f316def4..522a1685d400 100644
+--- a/drivers/infiniband/hw/irdma/hw.c
++++ b/drivers/infiniband/hw/irdma/hw.c
+@@ -1252,12 +1252,20 @@ static int irdma_cfg_ceq_vector(struct irdma_pci_f *rf, struct irdma_ceq *iwceq,
+ 	}
+ 
+ 	msix_vec->ceq_id = ceq_id;
+-	if (rf->sc_dev.privileged)
++	if (rf->sc_dev.privileged) {
+ 		rf->sc_dev.irq_ops->irdma_cfg_ceq(&rf->sc_dev, ceq_id,
+ 						  msix_vec->idx, true);
+-	else
++	} else {
+ 		status = irdma_vchnl_req_ceq_vec_map(&rf->sc_dev, ceq_id,
+ 						     msix_vec->idx);
++		if (status) {
++			void *dev_id = (rf->msix_shared && !ceq_id) ?
++				(void *)rf : (void *)iwceq;
++
++			irdma_destroy_irq(rf, msix_vec, dev_id);
++		}
++	}
++
+ 	return status;
+ }
+ 
 -- 
-2.25.1
+2.53.0
 
