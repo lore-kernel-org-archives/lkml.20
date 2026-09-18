@@ -1,125 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6441392838;
-	Fri, 18 Sep 2026 12:08:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4AC9392838
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:08:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789733329; cv=none; b=XXT3lTBAS9OXlti75rtWhS6aEcXeKg0azzGPK5hEXhRDAM+e10sGQwQX2LzM0dkwGffpaCJTUiF61XMsUxtXnFcajOa7xsdV5TlVISic8sTCWIRYrW2XFv/WlfZ+Yc5xrFvlQ+TQPqEq5/RiFAylRlhjiIWC++SaWEg6q+iibig=
+	t=1789733340; cv=none; b=SClSiJhziQpSLnH2ReX8uwxecANZjGI/3L5fNG9LWja9/Xoxj5UXyQXGpeDjbrg2mC9w5UE8AhFW1kvyzXlbToZBCh2T0RzNJROj2NbAzMNfDLwOjpP4CB2X0MOQ1DG3JnyvdrI5SOyxgNkijSm+2F3TNVWf3URm7JHDF6+BSTg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789733329; c=relaxed/simple;
-	bh=3HbIWXGLsOu382WvPEzkFJrJvJlDUfpVXL/Umg8mu3w=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ge9WOYGD58gjNk7ne/Wd5xWyeFt4JMwz+NLBBhj8p+ruAzVIJRov824GB4QU7CDpmJ5zGcd35s9bJ1RqCufIormsmqs59waLtW0X2ssg3A0sQrfC2hPIPWp4l1mgDu6+M8ndjZRRPJVzfVbSsS4luamIQ+0GB4tytBzovLmkMC4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hZOcONQZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789733340; c=relaxed/simple;
+	bh=D5wAVqifshoGV6GyWkI3fNfqvP+PxrNLxNJ3PFw/AL8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qfO5BSOd7gnJDXC+W759S9uW5YAy6Tfm6C04KCtMmT8OT2KRq3FKXmiSHb20lr5uh3nLf52YFSjpCR9s0N1AjPVh3VPR5pUuo1p1FH8hF9z2I+TfmDhZoXIbC1Mr9qIXSB269jMTA1FpGI183lM//uMcrqtm//3UG0W4ucCC/EU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pJhOG6LG; arc=none smtp.client-ip=74.125.227.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hZOcONQZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 996E91F000FF;
-	Fri, 18 Sep 2026 12:08:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789733328;
-	bh=G4d5dLgZ43pLk8TSCsaTKNXKqimNxe33+rcdWHI4/Ps=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=hZOcONQZM/7dyiIb7+ABgovOGFzxsjfE2GXrUOCGH3p9zOIG/4jfmxC5JYF5R9Sxp
-	 qTDnAMT/Ef0urHdJFDozTZ2B0qR2F3RRtYT0qWVv57+fZraHO+fzv210gGOILxIDie
-	 v7e+pclrwT/8hXbswE+Lt+7bM/Lq/6fXNzwO/myEvu2IqBgIqzZcR6PcMA9TIsReeZ
-	 FpSDpRBecChPm4MR7yYy226fD6lD//juIo8yyt8yIlbxWerkFMKtvBNX0Fiy+ZEi9q
-	 A4ivdS240J/HG8JJGwUt7DtTaVk6iSPpL3KlPk6W4YWmyVAH0IyHBQ2c1kYs694LUQ
-	 0ar2KY27fkkmA==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x7XOY-0000000Aaln-1a8h;
-	Fri, 18 Sep 2026 12:08:46 +0000
-Date: Fri, 18 Sep 2026 13:08:45 +0100
-Message-ID: <861paq69te.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Yize Wang <wangyize7@huawei.com>
-Cc: <kvmarm@lists.linux.dev>,
-	<linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>,
-	<oupton@kernel.org>,
-	<catalin.marinas@arm.com>,
-	<will@kernel.org>,
-	<fuad.tabba@linux.dev>,
-	<joey.gouly@arm.com>,
-	<seiden@linux.ibm.com>,
-	<suzuki.poulose@arm.com>,
-	<yuzenghui@huawei.com>,
-	<mark.rutland@arm.com>,
-	<zhengchuan@huawei.com>,
-	<jiangjiacheng@huawei.com>,
-	<yize_w1110@163.com>
-Subject: Re: [PATCH 0/2] Batch register access for live migration optimization
-In-Reply-To: <20260918081930.4014735-1-wangyize7@huawei.com>
-References: <20260918081930.4014735-1-wangyize7@huawei.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pJhOG6LG"
+Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-39b350c69b4so590569a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 05:08:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789733338; x=1790338138; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ha8wUO0vAad7WPPmqJPILgb1Ew3Bf7lbxU7bR2Z218I=;
+        b=pJhOG6LGq44KPdP6BAVT/qIW82Xlu4qwgz4rRjfAmOJ4yOwjilC5/+fh07tl5Q0ojL
+         gAg5qBKw+4v90uM+vGoTI50alwfusrbtgBwxMGHKlIW9ou9PAF5OAFmIJ9Xu4tLSr7xr
+         66biQOPl1MSHkBAyM/sV803VGBPaHkGZtXV6Q3OERgtgYHPuWYHMyB6iadX2+8Isx+IR
+         tpj3H7ImoeoCbL3wIbdVgwKtqeZEkPCVbll499bluKKh+fAMRDNVVa4ohAUJiDsnqeaP
+         AmCEqvvlctnAjDEPdWk5zeSVrD+gNp/DXLIK4zuhxlOjlp3V85ngs2dfEbhU0t+BrXRZ
+         Pvcw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789733338; x=1790338138;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ha8wUO0vAad7WPPmqJPILgb1Ew3Bf7lbxU7bR2Z218I=;
+        b=a3O2q7hrCUMuIxYv9UXmVZiTX18sbeN7sXi27KwiIsSXTHZDNyZlI5C0XtyekcrjRs
+         gaLnakOLQyEHfuqHqwBsnh8s7Nsof1UYL3P1X7ynmtIdh/0sVY0IKkuw6A/WneDPPCfF
+         HEKv4Vr4asAqxjDOszFg/5TmKZgMbrt1hbEHXsaeypXUYYY+HgStyQPHYC+vpy904jnn
+         Z9FH4BTC+O1LJAtZyJXEkMoOgLbHAfi9b7rIcjCNNDskv/8xhZQonP/lfpMn/4z+yOtL
+         FDuif9jfr+EUtIjSAcc1XIRp/J0Xkio/dCB4Dq6fhSbvy+E1D7tus4XKBwJTb8pmnsOl
+         lPfA==
+X-Forwarded-Encrypted: i=1; AKwUvBzBOyrYqDM1WxE1CzpLkMchgdSHuWqPZWAMQWxFbOnxpz/WP14cvvwk3OXcNQb0DvWQWHn4teRb+f54GQA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lKrjYIxyejZIKQuSSXzQH9gaJ3rxZQvmXhjXSKIVXk02++EOCL
+	wGqxbgC3xTTmgPxs83XLVccO5tjhQR8hM1+d8bM5lFMXKqOiBsDIqN6c
+X-Gm-Gg: AYBFou1VXg2y7mybyOXof0a2Hw3as2kmMtBdxR0S75ydGfJFRXpnST5ILXeqf9beh8e
+	nt2HGYnT9k9yrfI8fYCF37Bx6f6oNH0WdJARbC4ZpZYw9CbKBcJql0Qp1rytrgmCvuGVf4r0kaV
+	hiGXMM41K4YUsfh62c1q4n0Zar2ZdjT8MhIMNh6cguGM6usoU43s3IyYhclEeDXw+4gv5MMjB4k
+	rNVs2r4WMdoeneFHMw6mpn6VZ1DPLkKhKeIRXu1XWm66Z5RT9LVg5m7fFTXmJo4GSSCJbvwFbl6
+	GwlrVOTCrs43XPsC6IsM/IUzuiA8j3wGL8M32U6NraUi/IXMqKxgGtuz0jI/+L3Ess7oCb9G14t
+	YQ+API70Zix4tFdyWqRWSoUdQiJqisYB3L9ouWtqItD5ZPlMuHFdQ95s/jJcG5fBw9KlIUFHcuC
+	LnUQAb3Dj00hx6Q442qEVmByNJ0YE0dH6R8fcB/nzomWL5Vd0KakxkGEGlt2+QpTEmUCI8l8YrN
+	6U4p1Q9QhcE
+X-Received: by 2002:a17:90b:398c:b0:39e:1c2c:1d4b with SMTP id 98e67ed59e1d1-39e54bcd0a9mr5392355a91.11.1789733338063;
+        Fri, 18 Sep 2026 05:08:58 -0700 (PDT)
+Received: from nevers1dd ([118.95.161.132])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c28180a4dsm5257193eec.0.2026.09.18.05.08.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 05:08:57 -0700 (PDT)
+From: Siddharth Karanam <sid9.karanam@gmail.com>
+To: nm@ti.com,
+	kristo@kernel.org,
+	ssantosh@kernel.org
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Siddharth Karanam <sid9.karanam@gmail.com>
+Subject: [PATCH] firmware: ti_sci: replace kcalloc with kzalloc for buffer pointer allocation
+Date: Fri, 18 Sep 2026 17:38:39 +0530
+Message-ID: <20260918120839.207459-1-sid9.karanam@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: wangyize7@huawei.com, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, oupton@kernel.org, catalin.marinas@arm.com, will@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, mark.rutland@arm.com, zhengchuan@huawei.com, jiangjiacheng@huawei.com, yize_w1110@163.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri, 18 Sep 2026 09:18:13 +0100,
-Yize Wang <wangyize7@huawei.com> wrote:
-> 
-> This series adds batch register access support to KVM/arm64 to reduce
-> syscall overhead during VM live migration.
-> 
-> Currently, QEMU issues one ioctl per register when saving/restoring VGIC
-> state. On large VM configurations this means tens of thousands of syscalls,
-> where lock acquisition and context switch overhead dominates migration
-> downtime. Thus, we provide a batch register method to allow userspace
-> read/write multiple distributor and redistributor registers in a single call.
-> In this way, we can significantly reduce syscalls and migration downtime.
-> 
-> Test the VM migration time under pressure conditions.
-> The VM specifications for migration are as follows:
-> - VM use 4-K page;
-> - the number of VCPU is 160;
-> - the total memory is 320Gigabit;
-> - use 'Redis SET-benchmark' to pressurize VM;
-> 
-> Performance results (3-run average, ms):
->     | Metric              | Without patch | With patch | Improvement |
->     |---------------------|---------------|------------|-------------|
->     | Migration downtime  |        536    |     321    |     40%     |
->     | Source (total)      |        344    |     230    |     33%     |
->     |   - VGIC put        |        158    |      40    |     75%     |
->     |   - VGIC get        |        120    |      19    |     84%     |
->     | Destination (total) |        192    |      91    |     53%     |
->     |   - VGIC put        |        132    |      27    |     80%     |
-> 
-> Yize Wang (2):
->   KVM: arm64: Add batch group constant and data structure to UAPI header
->   KVM: arm64: Add VGIC v3 batch register access implementation
+Previously, the buffer pointer was being allocated via devm_kcalloc that
+would check for a mul overflow before allocating n * size bytes
+(size being desc->max_msg_size), but since n is 1 here, we can instead
+use devm_kzalloc that allocates the size directly.
 
-Questions:
+Signed-off-by: Siddharth Karanam <sid9.karanam@gmail.com>
+---
+ drivers/firmware/ti_sci.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-- Why only the MMIO registers?
-
-- Why not the sysregs?
-
-- Why only the GIC?
-
-- Why not all of the state?
-
-- Where is the corresponding userspace code?
-
-More importantly, since this is about batching system calls:
-
-- Why can't this be done with io_uring instead?
-
-	M.
-
+diff --git a/drivers/firmware/ti_sci.c b/drivers/firmware/ti_sci.c
+index 33d7c4a4181e..8e346440e539 100644
+--- a/drivers/firmware/ti_sci.c
++++ b/drivers/firmware/ti_sci.c
+@@ -4132,7 +4132,7 @@ static int ti_sci_probe(struct platform_device *pdev)
+ 
+ 	/* Pre-initialize the buffer pointer to pre-allocated buffers */
+ 	for (i = 0, xfer = minfo->xfer_block; i < desc->max_msgs; i++, xfer++) {
+-		xfer->xfer_buf = devm_kcalloc(dev, 1, desc->max_msg_size,
++		xfer->xfer_buf = devm_kzalloc(dev, desc->max_msg_size,
+ 					      GFP_KERNEL);
+ 		if (!xfer->xfer_buf)
+ 			return -ENOMEM;
 -- 
-Without deviation from the norm, progress is not possible.
+2.55.0
+
