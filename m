@@ -1,121 +1,116 @@
-Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 777804AAC4D;
-	Fri, 18 Sep 2026 15:42:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8506850255B;
+	Fri, 18 Sep 2026 15:43:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789746174; cv=none; b=kl40MF6pp2Cling/3MZRqChCsdE4BZ+g1JQi4+HpuSbVNmJ3AwIWJFewCdWjBBxlD1Ts4EIDcMPKzSEXnB2ctnk1BfEiAZyTb7RUdt7n7OdwsJ6SIaQwctgYYaRnP4wfY/q24F4eO6Jygl4hoDbHWaEIYTsjH4kygZOtnN0UFI4=
+	t=1789746237; cv=none; b=ejG4uh7WQIZ5neQXLHDK7cTt+WVlZc+HKOLdxFYsYq27H1pCi0GGHEvCUBIzFfWpRScBsLCq7/nybjtOh0mLWHDUyIQIvLhrr4nJKlb6lMtwJ8PRRX/p2vnq0lpLVK8T4fUlU8m6g6Om2GrBzqavWpfezD6nfjdIjEPZcDXjPYg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789746174; c=relaxed/simple;
-	bh=X4Nal4dVzruiKWaSEYsGNCg4TNbqPVOO4N2xKunInrM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Eg/JCL902vVLZ/HtdEonoo7Y3O2UlQbZ7qv0rwE5oRP+tExTEVjTeOOa6NdSO8dqzuO7WzC7q3GboKVgj4VKb8p8ezjnN4qe85LiQ9z5M9ET3I4OvJiXzy1MqEXw7mi9F6TnFnI+T6/uEYDok9tu/sGgnM4L0xEeoJvmoX5ZcWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=nG4OWRHL; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=fhytSGHf; arc=none smtp.client-ip=202.12.124.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	s=arc-20240116; t=1789746237; c=relaxed/simple;
+	bh=xBxzDdY3aNVEWNE7Pl3HkthH7Jw/5hQ9PJG0qhQRIo8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=b2WAXsHfzNbFDoLCk1yx3G3+dBe8IeWF4+SzfT6+zXyrTIEBhPP6uAEggyta8jJKW+HWcnOkydsYTiKO6Xb3cLBAUPnEiiS4O3dc2XxCcQXvHqmLClyf4rxUso3Ol9SJy/3do92eO3nYwZjoTrwWVzECHrACkrSOjJnj/dXhMu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VePUKWlH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="nG4OWRHL";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="fhytSGHf"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfout.stl.internal (Postfix) with ESMTP id 5BF981D00060;
-	Fri, 18 Sep 2026 11:42:51 -0400 (EDT)
-Received: from phl-frontend-01 ([10.202.2.160])
-  by phl-compute-02.internal (MEProxy); Fri, 18 Sep 2026 11:42:51 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789746171;
-	 x=1789832571; bh=6hzt/ehdmet/uE6Jl1g7uhHtpkqXvD2yN4nNLwESikk=; b=
-	nG4OWRHLqJg24+nBVbPIJOFmuotLG5k5pCoJp6zlpn/YwSWpfM3vBFKv7DqiG6EL
-	NcT560VsCSKSIXPGpVA9m8RXE7Humzx5+s8K/0uHQAjFT1MWQx1XMPFXpQ5XG1RI
-	3Vw8u5/g2f7DJPLX/SzK4hACQiag/6S2mm4I5a+CyttZztDltR9L+Dg2k+5kHqZw
-	SypTqoHcFHrDr/pn2m+x8WYlMwFRLNp4xFXuPb04+tkBUPbgr29dEwSyi2/IX1kF
-	wlQDUAwRTJDzw7R5on0qaw+2pwtjgZph3g/qbfa9IvSMCqJJY4DDxsaZ1JdeA9CO
-	ZiXqBZWg0Lykkjm/EIrkwg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789746171; x=
-	1789832571; bh=6hzt/ehdmet/uE6Jl1g7uhHtpkqXvD2yN4nNLwESikk=; b=f
-	hytSGHfzWMLX/IPCErKoTfQmVc2Z3hFsXPnBwi7p7kkjTwzfO9q7FowppzHzxe9G
-	ih14sYnbvXBuNVvR5uN/q45r74CEy/SG3i7cgAbaKcJlX5GATmP513RrGqJX7Ozf
-	oQapokY/Oys10B8QL+ooKEbPrqHyFxfch8DAsW/Mxaa+orKjbxgcI6LHuO41jqbG
-	eGy78+Sa8psM6m6TWqJ4L7vYrXZDslCp5Il3tp8RuvyQXjeaR0YMXsLt+sYCI+dx
-	L54NZHH5DIfGy3BlR8x1aMlW3U4U9UJOhwl9OA2N8bkhhkzVwEFkzlklFW6SzSHm
-	/IihcXzcN4gabA4wdXFvQ==
-X-ME-Sender: <xms:-lutatxoiA2kcTBCkET4C99jhbOQZndqoaTNBGuXC5rRJK_tE518TQ>
-    <xme:-lutapKcHaBwFOymtKtAfWfWcpFKB6lLJ5_yCrTDBKAKwi2ubjeFNmAPEQEQoUP7b
-    1Kzbwyy4j0Bbj8bqoExgjYM_LdfTug6R55QYFOVmqLWi_B8X98YxQ>
-X-ME-Received: <xmr:-lutai298sLvhXQtBz3rNxrXoo0M_dww0CzBqZHhGXHN30VI8ZtskuGGmAcuGeTOQSj_IZNiLnnrI8g5pS7tbWqKiLX-7ASe>
-X-ME-Proxy-Cause: dmFkZTFi1A0oYdbKDak8eiKur6KTMrjOFJhUId6lGXsSvv1WVZlngbMKYROlWdB9kCWkCQ
-    94gk0YY+zhCtrYaPvWhtsqFiIUF94MHT/87NGOrqR3HZq5rWoDIn0YaMeZO86FCre/B94I
-    CMFLnNJVdfd8o9/jmIytsAeYSxegKXwCmBiBdjKUq97jD2c9DbRuZe+n1i42D/bS8e/0Op
-    tkAGzZ2P+ntwLFKlXWNXUbVRyxc8qpGfaDJg7y46XgQOyOGq3fOtBOTFMzi2OqKoE9ahDl
-    yJ6ooxD4Q75YjKHqxWY5IeSA7FzGsV8RYQgQBpzrtxPty/hsAj+u90d/A6oqDjtc36aJpO
-    peWHnfWALMsBV4o7CmwvJzfdBsy4m2+ouvAKyPHv57rmhWi3GUBzZZ2zBhCB4mwjwnNkeZ
-    c436l/IZ4nzN5xT718H0vjov6+3C6yrONmlBPN5WZeDQ1+USjYAEDy+UgTnWrJyWEFs3KB
-    LXdR3hynUfFuALqA4KafN3EDSf0r8mt+UXYjlTJxGqw1BaJUJKC2dnONbewQevjzagbh0p
-    1ces62+P0o0SjnSAYVmLC8iuiMxBakh3wVNDOzCALgPsAqrvYUETgfOhpyAdneCsU/xRUC
-    U+137LyqUXCWyPY0WyI2xm0uR5ra5dO38+bHhzFClTADqmE/TBdBBU8gJU0A
-X-ME-Proxy: <xmx:-lutajfkP9YVa0P6yErEFSccpHuFjdqIThqt-P1-_P9HxNp_BQTPbg>
-    <xmx:-lutam5OXTBRo9m1zvYOVY5CxgYh2VvV6nBO9m4n9LSUNocK7pU6uw>
-    <xmx:-lutam_P9N25CIt6H_MnfgHIk4H47JxA8yI2PD8DBzfoCLymj8sCxg>
-    <xmx:-lutatItuPnOKiWaav5jkikZTPxCbGQRuBCeCHjmGyxgbfY6S-u4vg>
-    <xmx:-1utaikzqus5RhH0lKUPWksN73Jrn-_5Hg-rD33moTDJTiZaufSsgHty>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 18 Sep 2026 11:42:47 -0400 (EDT)
-Message-ID: <a6b16511-b93a-42ca-99e9-084121793bf5@pobox.com>
-Date: Fri, 18 Sep 2026 08:42:46 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VePUKWlH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A985B1F000FF;
+	Fri, 18 Sep 2026 15:43:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789746234;
+	bh=sQfGDn9yyR3ZXb91yRMgev+vN7oB4VRZv+LNHP8T6Gg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VePUKWlHD7bUS9I2DIPpflWvvtLQ63sMvJX8/ex/pgsPwJKMGINp2walcskJbIEEA
+	 kTPrjW42ZmVq9iM5cZrIJPIVctiqB7HanAOogxNHgAD4qzcqUNStS388ygtwUSZAuI
+	 TmkJK2mBQYjKMBFbVXdCEEmlZkVr5Q+zw8bFPqx5Hs3/puoqxkp+lacTCHsonpqXnV
+	 UTsngDJmyBK06WLHGsu/rKDwt38WaZhEli1ByD4fQs/SsQ5HCq4IJf4U6MMarkgXF4
+	 CFeyGxiyB/69IZwqNqwvs7zZV9StdelW0FJi7BPp256jjzt0PA+LSoLsvkeaknSsdR
+	 eY4U+iv1rlgtw==
+Date: Fri, 18 Sep 2026 10:43:53 -0500
+From: Rob Herring <robh@kernel.org>
+To: Rodolfo Giometti <giometti@enneenne.com>
+Cc: Eliav Farber <farbere@amazon.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Fabio Estevam <festevam@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/3] dt-bindings: pps: pps-gpio: document optional
+ pinctrl states
+Message-ID: <20260918154353.GA4133751-robh@kernel.org>
+References: <20260916182641.9768-1-farbere@amazon.com>
+ <20260917075611.47881-1-farbere@amazon.com>
+ <20260917075611.47881-3-farbere@amazon.com>
+ <78b01d9f-5551-4bb8-8fe1-9a992f624810@enneenne.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 000/733] 7.2.7-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260917151350.597953846@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <78b01d9f-5551-4bb8-8fe1-9a992f624810@enneenne.com>
 
-On 9/17/26 8:05 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.7 release.
-> There are 733 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On Fri, Sep 18, 2026 at 09:50:06AM +0200, Rodolfo Giometti wrote:
+> On Thu, Sep 17, 2026 at 07:56:10AM +0000, Eliav Farber wrote:
+> > Document the optional "default" and "inactive" pinctrl-names and show
+> > both in the example.
+> > 
+> > Signed-off-by: Eliav Farber <farbere@amazon.com>
+> > ---
+> > diff --git a/Documentation/devicetree/bindings/pps/pps-gpio.yaml b/Documentation/devicetree/bindings/pps/pps-gpio.yaml
+> > index 383a838744eb..db6ecb17cb54 100644
+> > --- a/Documentation/devicetree/bindings/pps/pps-gpio.yaml
+> > +++ b/Documentation/devicetree/bindings/pps/pps-gpio.yaml
+> > @@ -28,6 +28,19 @@ properties:
+> >      description: Indicates a falling edge assert, when present. Rising edge if absent.
+> >      type: boolean
+> > 
+> > +  pinctrl-names:
+> > +    description:
+> > +      When the PPS input is muxed through a pin controller, the standard
+> > +      "default" state selects the PPS/GPIO function and is applied by the
+> > +      driver core before probe. If a state named "inactive" is also present,
+> > +      it is selected when the driver is unbound or the system is shut down,
+> > +      handing the pins back to their alternate function. The "inactive"
+> > +      state, if used, requires a "default" state; its position among the
+> > +      names does not matter.
+> > +    minItems: 1
+> > +    contains:
+> > +      const: default
+> > +
+> >  required:
+> >    - compatible
+> >    - gpios
+> > @@ -40,8 +53,9 @@ examples:
+> > 
+> >      pps {
+> >          compatible = "pps-gpio";
+> > -        pinctrl-names = "default";
+> > +        pinctrl-names = "default", "inactive";
+> >          pinctrl-0 = <&pinctrl_pps>;
+> > +        pinctrl-1 = <&pinctrl_pps_inactive>;
+> >          gpios = <&gpio1 26 GPIO_ACTIVE_HIGH>;
+> >          assert-falling-edge;
+> >          echo-gpios = <&gpio1 27 GPIO_ACTIVE_HIGH>;
 > 
-> Responses should be made by Sat, 19 Sep 2026 15:12:28 +0000.
-> Anything received after that time might be too late.
+> I tried:
 > 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.7-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
-> and the diffstat can be found below.
+>   $ make DT_SCHEMA_FILES=Documentation/devicetree/bindings/pps/pps-gpio.yaml \
+>          dt_binding_check
 > 
-> thanks,
+> and it gave me:
 > 
-> greg k-h
+>   pps-gpio.example.dtb: pps (pps-gpio): pinctrl-names:
+>         ['default', 'inactive'] is too long
+>         from schema $id: http://devicetree.org/schemas/pps/pps-gpio.yaml
 
-Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
-no regressions observed.
+I can't help you without the schema you used. Sounds like something 
+wrong with 'items'.
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
-
--- 
--Barry K. Nathan  <barryn@pobox.com>
+Rob
