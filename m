@@ -1,46 +1,45 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010029.outbound.protection.outlook.com [52.101.85.29])
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010006.outbound.protection.outlook.com [52.101.193.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69B933BB127
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:00:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.29
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB444398EE
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:00:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.6
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789725611; cv=fail; b=rFP2a36iUhbmnqOUsF9JhOvdjXqwjDtLglOl2w9U/jgxpSlzBd6WfThBmYYez2gSHrTUT58cKFn/kw197kml8a9b1eERnZnX9ZeWNCnpnIo4eApcqeyK1KVviKQGEWanqek4vulGMP9D9zpDWc5GCCkMzKBEWF5qBgH4THaI5Lg=
+	t=1789725608; cv=fail; b=IZjIAwOQVz6Q9dPIIOE6C6Fba4qbmCrq7G8nRdCMmMDWtnvfqSxEVQDsp3ofZvhgvkBtrB60GrVB5OW+p0lJGGbg1PQzfIg8zdcMksNLDudcRBWDL3JbIsOQ8PCG7PN434Fz7Dd5dYfz3KMLONaWR0KxL90B0FnbB+kUR/OHrpE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789725611; c=relaxed/simple;
-	bh=m2dJVrN4C+yWnA+bwb3IS+s8iwlfIVF2vRmATIpvxa4=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Xx9OT7iKl2Ed4jP2H3So3GQXU8KG59v8xgl3mYwU3bP8x89EGeKS7wK4z/R1qXPfT2qUwzmp/b3clxF0zH1z6CldS+9NbtVClbmw+sHWMzrIWX/niR906vRRek6bmyrh6pLWX8WrDfvXVxCL9xOBc1yG6rstotzk3p04F6n5JvE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=VhOi6Gta; arc=fail smtp.client-ip=52.101.85.29
+	s=arc-20240116; t=1789725608; c=relaxed/simple;
+	bh=f3SbiqoEHJgeSC0XXd5nxTkjV9bdxNva9bI8ZJAv/yg=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=jV0jz+aFnLg9ky5n7FaSHxyF9jVuDFnV/5UoUNuFcwluKriZImVGCACJekkxEUZmZYaKBrhzNBQ62LI1x6mzmvt0oSmK1weto0jUfx3zmfoaLPzJIq8R5npb2sH2ZNjq9FqDlbUgSHpGXWBqUsdNhC5ij9XSiPPXI3QBCBT3Zds=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=JRfnYp6T; arc=fail smtp.client-ip=52.101.193.6
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="VhOi6Gta"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="JRfnYp6T"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AqlT56Fhy/XJWVSFNz1MCvHY4ESL/XKuRdXplhEHoIJt7lE4GqzyMG3vH7rx1fUoK9kHFPZP2nKnPYjy3ZW+ck9RFCaUuHw/P5biQKG0dc79Rpe0JcmM6GhKwgWvSSst1bnO5PY6ud9Br2Qw4fBr9GssUMe2UgttKz/PW5SyXGjsoi6oSpJWqrI6F79OuqqjjeChWKrGaOFs0bowp6TuOPo4WgEJQScHntR2tNSJ+weDTGd+aYgK+z7vOcJ5CecnET6j/CYcM7SsBjp9sX9sqDpQmvmYNSFHnTI3AXgb+kYy2Eesgb5q3GkQ1q5AbnuDXk8CRzORMoiPHzDISE1qbg==
+ b=whg8lTHQMuFwjifXo3yDeZwEa3jADcYXonAgxTP3RSTwRI9LTX5TFcJfkRWj19UAuhkNAS+WuCJ1KIOKkX2sPFg66+97tMPRw2YbxMHU0BMtNzbxMOUvRn6W8bqZ4Im/7W/sOg3QZrWN+XyFaXh9psOc1NUGp+bixuf+CgitPCDSoR48L9zoObYpyQp6mptaCMWKgwzaXjgGZnSDM8X+KJ+yVZFp+Ih/yRykdHKfnN9U70+OnaE3MvxSiUJIHft7DHp0ZbRhZwQbcsuUkvzf9Hzihj5Ez3Tj1/E2bcw0IoGpwT91cmvLdK3EH4tBcLhY/MuIFVCAvc8jQb3wy9VhXQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZEd3Ws1ZJrISbTEwZ1itvhZz4BbQlDtfOlJ4JlqZyxE=;
- b=RJuSOmrYVhx4x3h0I60vPoxtxLRS2CsuPA3tUiIdEBPGwXUposSz4fbAClYRPu1u5OuwOlZhXHDtgBbHE/rjVS4wXR9TYx4aDSnxvawV4sgbfq+X8yRX3RoZt3fAOpnvEuRX6s4K5HARlF0L4EKb+dmWa1HuVM7OBHPtGm/NmsBy3LXTJnXD/OJB3J1PXMExkqlk9mFqIktyd3Df4+n4/4kwmLVBAG1XgyxUHp4wDWOIDOCDmXr7+4mTTk+QrqtPKT531M6RZs15679zIj3bB5GgbvvkQi90F7mKwp6BjtKZeZv65M3VdDnkJG3jiZRP9i5lQYMCs/PkzbYPSFlX6g==
+ bh=x41LyXrH4JYVgFWP+2IYuK3KFfLdptTo58+8pef3ieE=;
+ b=IaDhPvVslKevLqU/zIrXHpPPsyHe1uRFF89Z/n37sOama4MPd/egNVBuPE4XdZuaHDuyg/t0Dti/tydOz+dYmlgW4KFZNrF8YrUD5QObwOEQevMPfzZrNgK3Gi/J96zXxzGDNsD3lDyS/FUZmBlZIzwhI1FFU1NAv/YIv4OxtKNE8zOw4g6rSBfnAawJk9TopZvUJ7GTsyq/ZBG14PsGhS+/O2s9C5qFseBETUe5r7HvdilD/a9EhL5+xwXn2h8bNzTfZEKLDh4EriwFqV35uw8JYjgZ2pyWtjy4WRIImxxjaA/XAFlEjJIekvf1BsR9LbiDmG/UjyHofC6b59dzhw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=collabora.com smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZEd3Ws1ZJrISbTEwZ1itvhZz4BbQlDtfOlJ4JlqZyxE=;
- b=VhOi6GtaJGHh237jy7ve17Tb5Jhxiu3szxSZPSIE/SgzUbuZYKOltE8aauribZ/DPgKOBeyscjLuSXUWfnPrQGIqfTI5wHowOHQStdhfqhCQGnb3Ppar8HQ5L8/uM8kRkWU7+8EJekWKlzJwmpIEZh9Smm6NFW6bnGJD89hACno=
-Received: from SJ0PR05CA0089.namprd05.prod.outlook.com (2603:10b6:a03:332::34)
- by IA1PR12MB6282.namprd12.prod.outlook.com (2603:10b6:208:3e6::22) with
+ bh=x41LyXrH4JYVgFWP+2IYuK3KFfLdptTo58+8pef3ieE=;
+ b=JRfnYp6TN04x0vn7TtA2d+NGNlIGEnDIGH5bHFqvPzzEB/uFYGpyWS7yiED7Xf2b9bfJ0WW8QbOwTn281D573tNSlFBlg1i2l6u1hSslG+nweHFW5YJGlcMMtuQagXLtnuYvNFRrwimOO/uUc6y9Pj+o1Kj6iGLtqObUddQjoow=
+Received: from BY3PR05CA0046.namprd05.prod.outlook.com (2603:10b6:a03:39b::21)
+ by CY5PR12MB6033.namprd12.prod.outlook.com (2603:10b6:930:2f::19) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Fri, 18 Sep
- 2026 10:00:00 +0000
-Received: from SJ1PEPF000037A1.namprd04.prod.outlook.com
- (2603:10b6:a03:332:cafe::43) by SJ0PR05CA0089.outlook.office365.com
- (2603:10b6:a03:332::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.7 via Frontend Transport; Fri, 18
- Sep 2026 10:00:00 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
+ 2026 09:59:54 +0000
+Received: from SJ1PEPF000037A6.namprd04.prod.outlook.com
+ (2603:10b6:a03:39b:cafe::52) by BY3PR05CA0046.outlook.office365.com
+ (2603:10b6:a03:39b::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.9 via Frontend Transport; Fri, 18
+ Sep 2026 09:59:54 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +47,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF000037A1.mail.protection.outlook.com (10.167.244.133) with Microsoft
+ SJ1PEPF000037A6.mail.protection.outlook.com (10.167.244.138) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Fri, 18 Sep 2026 10:00:00 +0000
+ 15.21.451.8 via Frontend Transport; Fri, 18 Sep 2026 09:59:54 +0000
 Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 18 Sep
- 2026 04:59:56 -0500
+ 2026 04:59:51 -0500
 From: Honglei Huang <honghuan@amd.com>
 To: Dmitry Osipenko <dmitry.osipenko@collabora.com>, Akihiko Odaki
 	<odaki@rsg.ci.i.u-tokyo.ac.jp>, David Airlie <airlied@redhat.com>, "Gerd
@@ -63,12 +62,10 @@ CC: Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
 	<olvaffe@gmail.com>, Ray Huang <Ray.Huang@amd.com>,
 	<dri-devel@lists.freedesktop.org>, <virtualization@lists.linux.dev>,
 	<linux-kernel@vger.kernel.org>, Honglei Huang <honghuan@amd.com>
-Subject: [PATCH v8 2/4] drm/virtgpu api: add blob userptr resource
-Date: Fri, 18 Sep 2026 17:59:38 +0800
-Message-ID: <20260918095940.2253018-3-honghuan@amd.com>
+Subject: [PATCH v8 0/4] virtio-gpu: Add userptr support for compute workloads
+Date: Fri, 18 Sep 2026 17:59:36 +0800
+Message-ID: <20260918095940.2253018-1-honghuan@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260918095940.2253018-1-honghuan@amd.com>
-References: <20260918095940.2253018-1-honghuan@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,109 +78,150 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000037A1:EE_|IA1PR12MB6282:EE_
-X-MS-Office365-Filtering-Correlation-Id: 57aa3307-fe97-4b21-9994-08df156b9a43
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000037A6:EE_|CY5PR12MB6033:EE_
+X-MS-Office365-Filtering-Correlation-Id: c436533b-4efb-43fb-9c1e-08df156b96cf
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|82310400026|36860700016|376014|11063799006|56012099006|10067099003|22082099003|18002099003;
+	BCL:0;ARA:13230040|376014|1800799024|82310400026|23010399003|36860700016|13003099007|56012099006|6133799003|11063799006|18002099003|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	syRnVjhO2bPglVv6B9s+mlo98ybqJXWQOUCeRrVBwLDtGzAVubhA/Tiyk9ptP5lV0WB2b2cNOETiCp155knbpEEB9mMoeuoy877GAqozsfFW9UV1oDGyGVM1cG6vMdcBGg2exKyQ0MhaaDvDfc+kh5AcIhVviuEjrR8T9lszuYBflP8DBgXmB5NIvD1RdLML0kjf6sNukmUGxooywkNpZ3bT8nIeTwyL4muHepUhg/SCRqf8lKAgo1tJNDog77qsGDkmAaPb7BFEpEnN/ZcZcflLA1w0KAfII0350IixL7g8CvZuFhLrIyS2ynnXEOhpWyc8d+Ko/raYJ4HO+WxzGW+tmjo2NHfoSiokOISLn6YRV+/TNAc6ss9U5RlQ0/V5n4Az+YS0GQHC9F7XtenIDI7+1GQAFZKDTrgPLltBSqHIYo5NI3FHLCIkXAxhWY3sI19HveaxLsjPKedd18Z76/vfgy+5ZXUrVtrz/1BDpDHac8dBB8VEjyFIgG5LEUI9BtVTDxBT0YZAebC3QOeQUHehKyaw+RwC15fF6uqB23AH6Dq1NXqDPwR708kVuItFlyFeznLfXwqNVblP5coValQWoyMxGoSAYC6KC7XK5dGHNgHo84A7cGgBN/TSDh2ff4nH24HZvjDw1vfkYtHIf8YwV4yTwrFIJjwwsbQOm9a1NRRv5JziQjCSm7cHiEZeSvKPvhSO1MunsZg7kbpYMQ==
+	CuRMxgqRuoZ37/zX5/L5TPqEfGOwvZ0TheOmUNxF/tNbH2r20xRCcmjwRiy1meaLEBRnANeMe86VHbcfoWktukHUScxEy8EzgAwRcrPlT9FdAIOHoNPNFQxmLk9YQjuei++DM3xttrEBrq4XX773SF5ELqxNxrbSW7dY5qDnmqMlKw9ss9uVNGJlYaMWpOkZMtlyqHdsl1xaWTcK9Vyod9fl3oyvjfSrQmqV+Fu4iSZQY/Omc/uYwM+iOXtCz5CffCi/26FKBd9fV0MwDsa122qWc/ehaVXdbyO9d3bu32umsGcQdRpWpLLSiutTansdj1+JKwU3zpIcR2Hu4PKxw7ugdipOergpF5LufIN3nc+ANVCJ+DpJ/bokDiLqn8YUEH1TfX7X+B83LOZh0vSnpIV/hzvgEsSuNZFyM7NTCVw9hQUzb+M77iO4kuaHWWNuhaIvagzWo6te49HIV7gc9YCai+HqD3xqF8Zi0YL0lYSSAjXI2CtTw5V8f0TWxlZeWkohUEjdzCHbMH14QEcGIMH5IEiZu3L0SrxGonmuvTzZv9+ZQHEbw3xjldsBxUL1bqLAQdBSauBtRGOGRUgoKdDBXuGn305uTirPn3Fr/SeGDJUR9m0KmjaFvAm6APtDiTmFkIv7fbB1nONeuNvDEQhjB66Zkq5wbmIjTeZL4qa5C4zZTVTxSG90ovxS3qkHiG2F4b9Uz5g1VRDKdgF5AQ==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(82310400026)(36860700016)(376014)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(82310400026)(23010399003)(36860700016)(13003099007)(56012099006)(6133799003)(11063799006)(18002099003)(10067099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	kjLKxDq9jXgDJd06a9RgRLionevae9HN4nymZn2ZheXWChbuhiTZqZDBp0Rc7XPd2dqZ/yPh4vJRvgV2pPKrLyscM7M0hS/ljfMWY69WoN+Vp0JFkjXiMNtUAqawRnObdm4YdA/qA/HOhPiOTC12C+HqF2NDGE836VKz1iOAHpSyaSynxuNjEaqqRWQVl9cxgRov/5+QVEfhKRr2h4HqcTNQXp3OinNgdwCKevJr/pHqjauiHQo1SH68mq1Q/55LMRSf6QRcG8GsmCvnBXYEW0Cwk2I6tQaOYhBCPI+yRMM1phEmCx23kHS6+DRmk9TcGHFXOsMB1fqodVVZTzqr0DKuMyL1ao/vayf3E9k6os3c8RbSpTBokeD6P1J8oD25Nf2f94MRN+qs9f3IXLDNGdtg4my5ORaTnFyJRtrOPXob1ojFm9MOaJ6zZYfKIxyg
+	1LMQrfD3OekP5kOCUA7ViU+7/12z9CO0vEFz34YoPB5HTGIFJmplHezPz0ApxpwADiYO5Gu1pq36klaq3TM5Dt501Db8v6eClvgXJs7zxuNfs+/XE7xy9c5I5xumHs00ja/k4J9+i9LMWNfu7yjUcSp0Sg+s5uu+zSPnKmqjYVnho8cX6Ui+IRRkHAEts9poqenO9fB84HPkj/zqI5A8cxSJbC9dFPnGGuIhSn+QuBiOXfKCwpYKTsntaopzMQyL/xNTZV2Mqvuv6vh1v4xUyyELrHUJbKvdaG9cl0ztIeuycbmB/2fI2VUNojhjJbYFtdAiWEFsWfFedn4JFdMxFHkkIIpmVHTHRAXdZJ1M/b0F5dvKZ4e6npeuZ7YAOvmvk9crQEGtU3f7e5NKC/4KWIQsqIdPs7URQ7OpqbzeopuT78aFHkEO/pCi23vvYsEy
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 10:00:00.2444
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 09:59:54.4492
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 57aa3307-fe97-4b21-9994-08df156b9a43
+X-MS-Exchange-CrossTenant-Network-Message-Id: c436533b-4efb-43fb-9c1e-08df156b96cf
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000037A1.namprd04.prod.outlook.com
+	SJ1PEPF000037A6.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6282
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6033
 
-Add a userptr address field so userspace can request a blob backed
-by an existing process mapping. A non-zero userptr selects that
-path; probe VIRTGPU_PARAM_USERPTR before using the field.
+Hello,
+
+This series adds virtio-gpu userptr support for ROCm native compute
+contexts. The guest kernel pins an existing userspace mapping with
+FOLL_LONGTERM and exposes it to the host as ordinary CREATE_BLOB
+backing entries, avoiding a second shmem allocation and memcpy.
+
+A non-zero userptr field selects that path. Probe
+VIRTGPU_PARAM_USERPTR before using the field so an older guest kernel
+rejects the request instead of silently creating a shmem blob.
 
 GPU-readonly backing is requested with the virtio CREATE_BLOB wire
 flag VIRTIO_GPU_BLOB_FLAG_USE_READONLY (also
 VIRTGPU_BLOB_FLAG_USE_READONLY). The device MUST NOT write such a
-resource. The guest pins without FOLL_WRITE only when the device
-advertised VIRTIO_GPU_F_BLOB_READONLY (VIRTGPU_PARAM_BLOB_READONLY).
+resource. The guest accepts that flag and pins without FOLL_WRITE
+only when the device advertised VIRTIO_GPU_F_BLOB_READONLY
+(VIRTGPU_PARAM_BLOB_READONLY). Otherwise CREATE_BLOB fails, matching
+the CROSS_DEVICE host-capability check.
 
-Signed-off-by: Honglei Huang <honghuan@amd.com>
----
- include/uapi/drm/virtgpu_drm.h  | 13 +++++++++++++
- include/uapi/linux/virtio_gpu.h |  6 ++++++
- 2 files changed, 19 insertions(+)
+Patches overview:
+1. Add VIRTIO_GPU_CAPSET_ROCM capability for compute workloads
+2. Extend DRM/virtio UAPI with userptr, PARAM_USERPTR,
+   USE_READONLY, and F_BLOB_READONLY
+3. Implement core userptr functionality with page management
+4. Wire blob ioctl creation to userptr objects and probe the
+   readonly feature
 
-diff --git a/include/uapi/drm/virtgpu_drm.h b/include/uapi/drm/virtgpu_drm.h
-index 95587e12ae..80f73b3276 100644
---- a/include/uapi/drm/virtgpu_drm.h
-+++ b/include/uapi/drm/virtgpu_drm.h
-@@ -99,6 +99,8 @@ struct drm_virtgpu_execbuffer {
- #define VIRTGPU_PARAM_SUPPORTED_CAPSET_IDs 7 /* Bitmask of supported capability set ids */
- #define VIRTGPU_PARAM_EXPLICIT_DEBUG_NAME 8 /* Ability to set debug name from userspace */
- #define VIRTGPU_PARAM_BLOB_ALIGNMENT 9 /* Device alignment requirements for blobs */
-+#define VIRTGPU_PARAM_USERPTR 10 /* CREATE_BLOB userptr field is supported */
-+#define VIRTGPU_PARAM_BLOB_READONLY 11 /* VIRTGPU_BLOB_FLAG_USE_READONLY is honored */
- 
- struct drm_virtgpu_getparam {
- 	__u64 param;
-@@ -186,6 +188,10 @@ struct drm_virtgpu_resource_create_blob {
- #define VIRTGPU_BLOB_FLAG_USE_MAPPABLE     0x0001
- #define VIRTGPU_BLOB_FLAG_USE_SHAREABLE    0x0002
- #define VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE 0x0004
-+/* Wire flag: device MUST NOT write. Guest pins without FOLL_WRITE.
-+ * Rejected unless VIRTGPU_PARAM_BLOB_READONLY is 1.
-+ */
-+#define VIRTGPU_BLOB_FLAG_USE_READONLY     0x0008
- 	/* zero is invalid blob_mem */
- 	__u32 blob_mem;
- 	__u32 blob_flags;
-@@ -205,6 +211,13 @@ struct drm_virtgpu_resource_create_blob {
- #define DRM_VIRTGPU_BLOB_FLAG_HINT_DEFER_MAPPING        0x0001
- 	__u32 blob_hints;
- 	__u32 pad2;
-+
-+	/*
-+	 * Guest VA to pin as blob backing. Non-zero selects the userptr
-+	 * path and is valid only with VIRTGPU_BLOB_MEM_GUEST. Must be 0
-+	 * otherwise. Probe VIRTGPU_PARAM_USERPTR before using this field.
-+	 */
-+	__u64 userptr;
- };
- 
- #define VIRTGPU_CONTEXT_PARAM_CAPSET_ID       0x0001
-diff --git a/include/uapi/linux/virtio_gpu.h b/include/uapi/linux/virtio_gpu.h
-index 3d4dfadc9d..33f5332e59 100644
---- a/include/uapi/linux/virtio_gpu.h
-+++ b/include/uapi/linux/virtio_gpu.h
-@@ -72,6 +72,10 @@
-  * must be aligned to that value.
-  */
- #define VIRTIO_GPU_F_BLOB_ALIGNMENT      5
-+/*
-+ * VIRTIO_GPU_BLOB_FLAG_USE_READONLY
-+ */
-+#define VIRTIO_GPU_F_BLOB_READONLY       6
- 
- enum virtio_gpu_ctrl_type {
- 	VIRTIO_GPU_UNDEFINED = 0,
-@@ -415,6 +419,8 @@ struct virtio_gpu_resource_create_blob {
- #define VIRTIO_GPU_BLOB_FLAG_USE_MAPPABLE     0x0001
- #define VIRTIO_GPU_BLOB_FLAG_USE_SHAREABLE    0x0002
- #define VIRTIO_GPU_BLOB_FLAG_USE_CROSS_DEVICE 0x0004
-+/* Device MUST NOT write. Driver may pin read-only guest pages. */
-+#define VIRTIO_GPU_BLOB_FLAG_USE_READONLY     0x0008
- 	/* zero is invalid blob mem */
- 	__le32 blob_mem;
- 	__le32 blob_flags;
+Tests:
+- Full OPENCL CTS tests passed on ROCm 5.7.0 in V2000 platform.
+- Near 70% percentage of OPENCL CTS tests passed on ROCm 7.0 W7900 platform.
+- most HIP catch tests passed on ROCm 7.0 W7900 platform.
+- Some AI applications enabled on ROCm 7.0 W7900 platform.
+- latest ROCm 7.14 and ROCm 10 testing is ongoing.
+
+V8 changes:
+- Drop guest-only USERPTR ioctl flags; a non-zero userptr field
+  selects the path
+- Add VIRTGPU_PARAM_USERPTR so older kernels do not silently
+  ignore the new field
+- Request GPU-readonly backing with virtio wire flag USE_READONLY
+- Accept USE_READONLY and omit FOLL_WRITE only if the host
+  advertised VIRTIO_GPU_F_BLOB_READONLY
+- Restore userptr blobs after hibernation without the shmem path
+
+V7 changes:
+- Mask guest-only DRM flags out of CREATE_BLOB wire blob_flags
+- Clear userptr->pages after pin failure to avoid double-free
+- DMA-map userptr SG only when virtio_gpu_use_dma_api() is required
+- Use DMA_TO_DEVICE for readonly blobs
+- Sync userptr SG for the device on TRANSFER_TO_HOST
+- Mark writable pages dirty when unpinning
+- Reject USERPTR unless blob_mem is VIRTGPU_BLOB_MEM_GUEST
+- Disallow PRIME export of userptr objects
+- Note that CAPSET_ROCM uses ID 8 because ID 7 is taken by VIRCL
+
+V6 changes:
+- Rebase onto drm-misc-next
+- Keep USE_USERPTR / USERPTR_RDONLY as guest-only DRM flags; drop the
+  virtio wire-header patch (5 patches down to 4)
+- Fix userptr lifetime, DMA mapping, memlock accounting, alignment
+  checks, and PRIME SG export
+- Updated corresponding cover letter and commit messages
+
+V5 changes:
+    - Add VIRTIO_GPU_BLOB_FLAG_USERPTR_RDONLY definition to patch 2
+    - Dropped unused VIRTIO_GPU_F_RESOURCE_USERPTR feature bit in patch 2
+    - Included VIRTIO_GPU_BLOB_FLAG_USERPTR_RDONLY in VIRTGPU_BLOB_FLAG_USE_MASK in patch 5
+    - Add check for userptr feature in patch 5 before creating userptr blob resource
+    - Updated corresponding cover letter and commit messages
+
+V4 changes:
+    - Renamed VIRTIO_GPU_CAPSET_HSAKMT to VIRTIO_GPU_CAPSET_ROCM
+    - Remove userptr feature probing cause it can reuse the guest
+      blob resource code path, reduce patch count from 6 to 5
+    - Updated corresponding commit messages
+    - Consolidated userptr feature detection in final patch
+    - Update corresponding cover letter content
+
+V3 changes:
+    - Split into focused patches for easier review
+    - Removed complex interval tree userptr management
+    - Simplified resource creation without deduplication
+    - Added VIRTGPU_PARAM_RESOURCE_USERPTR for feature detection
+    - Improved UAPI documentation and error handling
+    - Enhanced code quality with proper cleanup paths
+    - Removed MMU notifier dependencies for simplicity
+    - Fixed resource lifecycle management issues
+
+V2: - Split add HSAKMT context and blob userptr resource to two patches.
+    - Remove MMU notifier related patches, cause use not moveable user space
+      memory with MMU notifier is not a good idea.
+    - Remove HSAKMT context check when create context, let all the context
+      support the userptr feature.
+    - Remove MMU notifier related content in cover letter.
+    - Add more comments  for patch 6 in cover letter.
+
+Previous version:
+https://lore.kernel.org/dri-devel/20260917102540.1312102-1-honghuan@amd.com/
+
+Honglei Huang (4):
+  drm/virtio-gpu: Add VIRTIO_GPU_CAPSET_ROCM capability
+  drm/virtgpu api: add blob userptr resource
+  drm/virtio: implement userptr support for zero-copy memory access
+  drm/virtio: wire blob ioctl creation to userptr objects
+
+ drivers/gpu/drm/virtio/Makefile          |   3 +-
+ drivers/gpu/drm/virtio/virtgpu_debugfs.c |   1 +
+ drivers/gpu/drm/virtio/virtgpu_drv.h     |  43 +++
+ drivers/gpu/drm/virtio/virtgpu_ioctl.c   |  35 ++-
+ drivers/gpu/drm/virtio/virtgpu_kms.c     |   8 +-
+ drivers/gpu/drm/virtio/virtgpu_object.c  |  22 ++
+ drivers/gpu/drm/virtio/virtgpu_userptr.c | 365 +++++++++++++++++++++++
+ drivers/gpu/drm/virtio/virtgpu_vq.c      |  33 +-
+ include/uapi/drm/virtgpu_drm.h           |  13 +
+ include/uapi/linux/virtio_gpu.h          |   7 +
+ 10 files changed, 513 insertions(+), 17 deletions(-)
+ create mode 100644 drivers/gpu/drm/virtio/virtgpu_userptr.c
+
+
+base-commit: 766bfba0f3bae329f99b42dcabc3ef11fa368f0b
 -- 
 2.34.1
-
