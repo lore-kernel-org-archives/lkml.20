@@ -1,138 +1,106 @@
-Received: from mta0.migadu.com (out-81.mta0.migadu.com [91.218.175.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A3084EB84D
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:05:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BE2C49739D
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:06:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789733161; cv=none; b=qhn/6WdvQN/tuWHJclLq1QmWL/KG9GSq+TG3/DdSoqOajYL8uii3owfKafUNzPLnizyd1LVriXwVw2F8P/S+6m6VlTpBEiE1TUIsTH0FiG3CuUQH2doOC3r3AZ//B3uuWyPjE071iCnEnrtTbDeYFAz7UE1hPAilJ4ocACY4WIo=
+	t=1789733186; cv=none; b=g9QlQSTnNrFe+Ip1V4F2QPURNJ8n2zIZ2YH/Pk+eT51uche+6MEdYQdqFRaTiu2GvF463XWtqY0wrMF1jQVCwS3rJidyWFhWpuNeUlub3U6665q0WiHd8NU5zR2pQvLMwi87OKFn9cegAfwWmJuLChKF3mvT+Kti9fGeJgEtKjo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789733161; c=relaxed/simple;
-	bh=GQDpK0dc1fRX5xqYlgvNb2kn+E+OlZng7gkPioKRS90=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gS60B3IeJEdjbDk6M3lKYa28Hm5VL4aSP8duRdnoHImBhv8D9FKlgbOSXlNtnQMgjF8JkHFsZO65hWc0NXZWOR2U798DOL2Bu7azcI049hZuS1toYLxxjj6U2KVQ9VJkecQf/LdY60n6XB9IO6TIAJ6zzER1F03hADf5vVOwf1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=khqJ+9GZ; arc=none smtp.client-ip=91.218.175.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789733186; c=relaxed/simple;
+	bh=exQ2GBdnM0/QZ7EqaQNEcOlMhVtArgXtat+0cQdBSs8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MHvG56mMO/2PZwJ9UGWoJsoxxVZ0A0aEJ1PfYeUDWwOw0VfaGOovCHPpkIkrlHQy4PHi1nUp9h8LY+rrw75dQZARBA3sDCCX+xEvSFpefiis0AuZd1AdUKx9Idjgiuj9EjhAxcpXAi8RzX3j02pLcptQVFGKrg6wEBSNXtlKhFM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=Z9OYV4Jj; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="khqJ+9GZ"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=GQDpK0dc1fRX5xqYlgvNb2kn+E+OlZng7gkPioKRS90=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789733158; v=1; x=1790337958;
- b=khqJ+9GZiuJ1ZP+SQKoK3VQx6poPai44MRzzoEo8XFFNK5cKHZoJTsVpGEkYcL90ZWotBEUk
- mFXmRxCVTx1Q716ywLagGhulelI76nV8i/LBRoeqk0TzORZcd09xC5bEhbd11YR7njZMjHi5/uI
- UjGjt4jW6zwIEor5E01W7ClQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 4620aac8f7d1920a;
-	Fri, 18 Sep 2026 12:05:58 +0000
-X-Mizu-Trace-ID: 4620aac8f7d1920a
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>
-Cc: Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Will Deacon <will@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Jack Thomson <jackabt@amazon.com>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Fuad Tabba <tabba@google.com>
-Subject: [PATCH] KVM: arm64: Restore the VM's feature bitmap when kvm_setup_vcpu() fails
-Date: Fri, 18 Sep 2026 13:05:53 +0100
-Message-Id: <20260918120553.163139-1-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.39.5
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Z9OYV4Jj"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
+	Sender:Reply-To:Content-ID:Content-Description;
+	bh=SRaU8y4A4/FVe1Z70TcZTz/SjVc3fuxJ2XAfmlHo/wc=; b=Z9OYV4Jjue9un2yzJ70E94/7Os
+	p3gWLXlXXGD3lao/BgWpNUSc1BC5h1UJEmprecIDBA7888nHTMdYtRhHnXnEpqCleiqQ4y07HTYIM
+	6t1DLZi7G9giu0pnx6BO00tINPRYRygsXr2oXCRykFsRhhzRAUbaQcR2IXZ8mrm1rjgW2FSHwPLjD
+	yExP49r5tqHuesqXKvQdD0vgA3mnGTWSc4PFas9HODdU5zX7D92OnjjCN977Vn8zBKwpHY9YiaNQB
+	PZq54O5dZz9ddvOPvfpRpm/xxCP6f9ygi0/zr/w6r7dfUS91XLMMfCs0/uwW3eFeqAz/MvYgAxjws
+	Duals0oA==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+	id 1x7XLt-0000000A2he-1iI8;
+	Fri, 18 Sep 2026 12:06:01 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 6BA0230057F; Fri, 18 Sep 2026 14:06:00 +0200 (CEST)
+Date: Fri, 18 Sep 2026 14:06:00 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Suleiman Souhlal <suleiman@google.com>
+Cc: linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>, Darren Hart <dvhart@infradead.org>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	=?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	zhidao su <soolaugust@gmail.com>, John Stultz <jstultz@google.com>,
+	Qais Yousef <qyousef@google.com>, ssouhlal@freebsd.org
+Subject: Re: [RFC PATCH 02/12] futex: Switch PI futex to use p->pi_futex_lock
+ instead of p->pi_lock.
+Message-ID: <20260918120600.GM1837346@noisy.programming.kicks-ass.net>
+References: <20260917043339.2093426-1-suleiman@google.com>
+ <20260917043339.2093426-3-suleiman@google.com>
+ <20260917153831.GL4121339@noisy.programming.kicks-ass.net>
+ <CABCjUKD60kEn0BZo0r3zie6QE8wFh-0V=V6OG3nfa3b1evjVKQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CABCjUKD60kEn0BZo0r3zie6QE8wFh-0V=V6OG3nfa3b1evjVKQ@mail.gmail.com>
 
-__kvm_vcpu_set_target() copies the requested features into the VM-wide
-bitmap before kvm_setup_vcpu() runs and doesn't undo it when setup
-fails, so a rejected KVM_ARM_VCPU_INIT leaves the VM recording features
-that were never set up. With HAS_EL2 | HAS_EL2_E2H0 on a host without
-FEAT_NV1, kvm_vcpu_init_nested() returns -EINVAL before it allocates any
-nested stage-2 MMU, and vcpu_has_nv() is then true with
-nested_mmus_size == 0; its -ENOMEM paths do the same on a VM's first
-INIT.
+On Fri, Sep 18, 2026 at 04:11:03PM +0900, Suleiman Souhlal wrote:
+> On Fri, Sep 18, 2026 at 12:38 AM Peter Zijlstra <peterz@infradead.org> wrote:
+> >
+> > On Thu, Sep 17, 2026 at 04:33:26AM +0000, Suleiman Souhlal wrote:
+> > > Switch PI futexes to use p->pi_futex_lock instead of p->pi_lock.
+> > >
+> > > When augmenting PING futexes with proxy execution, we get lock order
+> > > inversions, due to the lock order being p->pi_lock -> mutex->wait_lock
+> > > in the scheduler, but wait_lock -> p->pi_lock in futex code.
+> > >
+> > > So move the futex code to use a new lock, p->pi_futex_lock, to
+> > > protect p->pi_state_list and pi_state->owner.
+> >
+> > This is of course horrible. Lets not do this.
+> 
+> I suppose the alternatives would be to either figure out how to
+> un-nest pi_lock from wait_lock in futex code or un-nesting the
+> blocked_on lock from pi_lock in the scheduler.
+> Either of them seemed more involved than creating a new lock, but
+> maybe I was wrong.
 
-Nothing in the tree loads a vCPU whose init failed, so this is latent.
-The pending KVM_PRE_FAULT_MEMORY series for arm64 does, and the second
-such load NULL-dereferences in get_s2_mmu_nested() under mmu_lock.
+So the reason I reacted was because the futex_pi code is tied into
+rt_mutex and it isn't at all obvious separating futex from rt_mutex
+doesn't completely wreck things.
 
-Setup reads the VM-wide bitmap, so the copy can't be deferred; restore
-the previous value instead when kvm_setup_vcpu() fails.
+The scheduler's (ab)use of pi_lock might be simpler to separate -- it
+was the last added. I basically used pi_lock because I needed a
+per-task raw_spinlock and pi_lock existed and had the right nesting
+properties already (rq->lock nests inside pi->lock).
 
-Fixes: 1de10b7d13a97 ("KVM: arm64: Get rid of vCPU-scoped feature bitmap")
-Fixes: 427733579744e ("KVM: arm64: Select default PMU in KVM_ARM_VCPU_INIT handler")
-Link: https://lore.kernel.org/r/20260825-kvm-arm-prefault-v1-0-befe8947702e@kernel.org/
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
-The series' generic kvm_vcpu_pre_fault_memory() calls vcpu_load()
-before any arm64 hook, so there is no arm64 check it can pass through
-first. Reproduced on kvmarm/next plus the series under
-QEMU (-cpu max with an Apple M2 MIDR, which has_nv1() denies;
-kvm-arm.mode=nested): KVM_ARM_VCPU_INIT with HAS_EL2 | HAS_EL2_E2H0
-returns -EINVAL, then KVM_PRE_FAULT_MEMORY twice. The first call loads
-with hw_mmu still the canonical MMU and its vcpu_put() clears hw_mmu;
-the second takes the !hw_mmu path into get_s2_mmu_nested(), whose
-search over nested_mmus_size == 0 leaves s2_mmu NULL for the
-BUG_ON(atomic_read(&s2_mmu->refcnt)):
+Still, its been a while since I did that, so if you untangle that be
+very careful.
 
-  Unable to handle kernel NULL pointer dereference at virtual address 0000000000000074
-  Call trace:
-   kvm_vcpu_load_hw_mmu+0x94/0x2c0 (P)
-   kvm_arch_vcpu_load+0x2a8/0x5e8
-   kvm_vcpu_pre_fault_memory+0xa0/0x1b8
-   kvm_vcpu_ioctl+0x40c/0x6d0
+That is, doing something like s/pi_lock/sched_lock/ on kernel/sched/
+*might* just work. But separating futex from rt_mutex seems very
+dangerous to me.
 
-The thread dies with mmu_lock held for write and an RCU stall in
-queued_write_lock_slowpath() follows. With the fix both calls return
--ENOENT and the host is unaffected. Applies unchanged to v7.3-rc3.
-
- arch/arm64/kvm/arm.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
-
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index eaf583b771931..c2eb9b6da80f4 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -1685,6 +1685,7 @@ static int kvm_setup_vcpu(struct kvm_vcpu *vcpu)
- static int __kvm_vcpu_set_target(struct kvm_vcpu *vcpu,
- 				 const struct kvm_vcpu_init *init)
- {
-+	DECLARE_BITMAP(old_features, KVM_VCPU_MAX_FEATURES);
- 	unsigned long features = init->features[0];
- 	struct kvm *kvm = vcpu->kvm;
- 	int ret = -EINVAL;
-@@ -1695,11 +1696,17 @@ static int __kvm_vcpu_set_target(struct kvm_vcpu *vcpu,
- 	    kvm_vcpu_init_changed(vcpu, init))
- 		goto out_unlock;
- 
-+	/* Setup reads the VM-wide bitmap, so undo the copy if setup fails. */
-+	bitmap_copy(old_features, kvm->arch.vcpu_features,
-+		    KVM_VCPU_MAX_FEATURES);
- 	bitmap_copy(kvm->arch.vcpu_features, &features, KVM_VCPU_MAX_FEATURES);
- 
- 	ret = kvm_setup_vcpu(vcpu);
--	if (ret)
-+	if (ret) {
-+		bitmap_copy(kvm->arch.vcpu_features, old_features,
-+			    KVM_VCPU_MAX_FEATURES);
- 		goto out_unlock;
-+	}
- 
- 	/* Now we know what it is, we can reset it. */
- 	kvm_reset_vcpu(vcpu);
-
-base-commit: 089e4f3c4862ba3f29dff2361caa8084879194fd
--- 
-2.39.5
 
