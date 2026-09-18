@@ -1,130 +1,173 @@
-Received: from pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.34.181.151])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4E221A3AB0;
-	Fri, 18 Sep 2026 00:07:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.34.181.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31F411F5842
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:08:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789690060; cv=none; b=nXUWokoHKiDUHLcGKwWfgL7Z8CHMNXumbx9q0yEVtv1QoIass7z5siVX08/NgVniKCtLl0ta2TPLz2PpKXZmcXSOIOxKPRvkU5Y0D1PcFIH+fbvo8LmM4/QtBhVwmpZ6JFA+5aevOZBXnFOGFDwnjTtobvG7DjKOoUMDCRVU72Q=
+	t=1789690089; cv=none; b=RCq2/WX/lFjnRYPephjQf8lO8w4zWd1epmp+yvAJUjI60YmhK/mlLpyMASmEoAMFpcIc7ThVUsY2oMcU29vK0Haa5cYKK8G96PqALaJauyuu/70lGBVKBtNCT3EL4b9H8F2nlwZ2bLCWrqb+eZPblVZN8PsYb28l0nJbtTnuDtg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789690060; c=relaxed/simple;
-	bh=Y9bpKvVBXYWIaakR8aShecfuwmrw2o9u8ku+AHFVZpU=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=fBgznkppBQix+vBQIm57xZEtSbgvPHttboY8qBtF2rrqjDfd5I/VKMYXmurjyvgsVw4Eu+ON7xqivbEEl0fMSL/NF9ipLohkMVSZTWWaIOdLXEszei1TuXhYD4eXBKbzT9sG2FarOAVwhTnj0lz30zADiuQJU2Z/uq0c4nRkI7g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=J2mhtlci; arc=none smtp.client-ip=52.34.181.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	s=arc-20240116; t=1789690089; c=relaxed/simple;
+	bh=9cTmBbQi79bUMqVlswKYULGfTGkVMRwUrT/vU2uSWI0=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=SLoHUThAPNda4dG0TMp79EA5Y8fMOkjbkF4zlv/hZlORtMiw18AEIMjqegYDKDTYgnXbtJ4YNDFcZ1oghY3M/Ma3URU++xwROKWe3xL2Ia5QNLjFkd0nlGOtL2+X3lkVGsmpNGmLVRoINYSjk/H024b9qEdUPPTD3znux/L5rpA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Bv7xvDIQ; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="J2mhtlci"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1789690058; x=1821226058;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=Hcr0t73GjYbm1RcbpbTwDtkVhE7rUGbFIgLau1aa8lU=;
-  b=J2mhtlcibt4q1TV6kE01sFTmGR7+Ju5UWaWGn5jNedB9Ox5ml+WpDgfq
-   Hpvd7l9SLGvvu/ECCqO7GhoJMgCMVtrO2OWn5QYlcPTOZer7RIbrpP4hX
-   C+ka292ZCKB4ufEXUIMowTrZiaF5qtEy/5oWi0069iHBtE9Xt3pRniEsB
-   A5uFfwebRqYah6MsTD1F9J/JTrspLLE1bSqVv21LIv2va5UpQs9DvWmK5
-   rb3UDCXk/cYIs3Hgg+1jglcL1ubect5pSity/0NCgzEK6xHWKJcgJVh5I
-   oGKeFl591A6LSigHSmZbTHh22Vd6HsqOob0AAqdLWoy/nmiqJAC63jsaD
-   w==;
-X-CSE-ConnectionGUID: H2590wdlTS+x2z5PaGJSPg==
-X-CSE-MsgGUID: OXytW5IaR7SXs/ozLEGu+w==
-X-IronPort-AV: E=Sophos;i="6.27,103,1787011200"; 
-   d="scan'208";a="28977043"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
-  by internal-pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 00:07:35 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.51:2721]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.16.195:2525] with esmtp (Farcaster)
- id 46005627-63ec-4280-95cc-7dcd1c04f594; Fri, 18 Sep 2026 00:07:35 +0000 (UTC)
-X-Farcaster-Flow-ID: 46005627-63ec-4280-95cc-7dcd1c04f594
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
- Fri, 18 Sep 2026 00:07:35 +0000
-Received: from dev-dsk-surenkj-2b-416930d2.us-west-2.amazon.com (10.169.26.94)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
- Fri, 18 Sep 2026 00:07:34 +0000
-From: Surendran Kanagaraj <surenkj@amazon.com>
-To: Peter Huewe <peterhuewe@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
-	<linux-integrity@vger.kernel.org>
-CC: Jason Gunthorpe <jgg@ziepe.ca>, Stefan Berger <stefanb@linux.ibm.com>,
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>,
-	<nh-open-source@amazon.com>, <graf@amazon.de>, <gunnarku@amazon.com>
-Subject: [PATCH] tpm: Disable TPM on null key name mismatch
-Date: Fri, 18 Sep 2026 00:07:31 +0000
-Message-ID: <20260918000731.48657-1-surenkj@amazon.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Bv7xvDIQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789690087; x=1821226087;
+  h=date:from:to:cc:subject:message-id;
+  bh=9cTmBbQi79bUMqVlswKYULGfTGkVMRwUrT/vU2uSWI0=;
+  b=Bv7xvDIQ/8wCec+gjPE12mUPpnEHc9H2fEN1BHQgtgwMDiTLOCHYFgGU
+   jJmk5OJuIH5r+nxtkQIfZ01Hg2KPXkyKp9f7+Ghnx2VqEy+/iYa3iHiKP
+   aWVkMU+tkL2qGyqP00rDpbRkgcP2FAChVYy806eWMkxWK8cVWEr0zMH9p
+   DOVlNPuyHbD1PPs6Z4qfOpMASrI15Hzd7wpY2L+l/zgCsoF2aplf8CtCm
+   f6HwksvlBeCAmLgyT1f1u4MGN16TkrM7MQvCsQNc5OfVRcZ76i8URR9jy
+   0L7LyMABuHTVV2YeneKl3O1NsO96+/VDld9EDBICpw/k94PripGdgEVAp
+   g==;
+X-CSE-ConnectionGUID: SdZqGJKlSXiif5WFPdP+Xg==
+X-CSE-MsgGUID: xne8Z3ujTkegyjF/WMf9gQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="92674219"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="92674219"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 17:08:07 -0700
+X-CSE-ConnectionGUID: cyQ5qIzFSEO6Nqray6Jl6Q==
+X-CSE-MsgGUID: x/eodvKvSvK31Zh43oXPzw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="2296966"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by fmviesa012.fm.intel.com with ESMTP; 17 Sep 2026 17:08:05 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x7M94-000000008oh-353M;
+	Fri, 18 Sep 2026 00:08:02 +0000
+Date: Fri, 18 Sep 2026 08:07:36 +0800
+From: kernel test robot <lkp@intel.com>
+To: Simon Richter <Simon.Richter@hogyros.de>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: drivers/nfc/microread/microread.c:489:26: sparse: sparse:
+ cast to restricted __be16
+Message-ID: <202609180724.WqXUgoWn-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D038UWC001.ant.amazon.com (10.13.139.213) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-The null key name check exists to protect against TPM reset attacks, so
-a mismatch should stop the device from serving further requests.
-Currently it does not disable the chip when it finds a mismatch.
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   9b87fdc9af2fbfcdb5c24a64139685ef80f6573f
+commit: 25f9b0d351552f63ac3f72e6c655bc8f9994f7d2 misc/mei: Allow building Intel ME interface on non-x86
+date:   8 months ago
+config: powerpc-randconfig-r1308-20260917 (https://download.01.org/0day-ci/archive/20260918/202609180724.WqXUgoWn-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 148ee2b266b73a49f1f31d0bd17d4818b91bee9f)
+sparse: v0.6.5-rc1
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260918/202609180724.WqXUgoWn-lkp@intel.com/reproduce)
 
-The mismatch is logged:
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 25f9b0d35155 ("misc/mei: Allow building Intel ME interface on non-x86")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609180724.WqXUgoWn-lkp@intel.com/
 
-    tpm tpm0: null key integrity check failed
+sparse warnings: (new ones prefixed by >>)
+>> drivers/nfc/microread/microread.c:489:26: sparse: sparse: cast to restricted __be16
+   drivers/nfc/microread/microread.c:503:26: sparse: sparse: cast to restricted __be16
+   drivers/nfc/microread/microread.c:521:25: sparse: sparse: cast to restricted __le16
 
-but the chip keeps serving commands:
+vim +489 drivers/nfc/microread/microread.c
 
-    / # tpm2_getcap -c properties-fixed
-    TPM_PT_FAMILY_INDICATOR:
-      as UINT32:                0x08322e3000
-      as string:                "2.0"
-    ...
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  467  
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  468  static void microread_target_discovered(struct nfc_hci_dev *hdev, u8 gate,
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  469  					struct sk_buff *skb)
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  470  {
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  471  	struct nfc_target *targets;
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  472  	int r = 0;
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  473  
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  474  	pr_info("target discovered to gate 0x%x\n", gate);
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  475  
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  476  	targets = kzalloc(sizeof(struct nfc_target), GFP_KERNEL);
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  477  	if (targets == NULL) {
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  478  		r = -ENOMEM;
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  479  		goto exit;
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  480  	}
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  481  
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  482  	targets->hci_reader_gate = gate;
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  483  
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  484  	switch (gate) {
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  485  	case MICROREAD_GATE_ID_MREAD_ISO_A:
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  486  		targets->supported_protocols =
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  487  		      nfc_hci_sak_to_protocol(skb->data[MICROREAD_EMCF_A_SAK]);
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  488  		targets->sens_res =
+cfad1ba87150e19 Eric Lapuyade 2012-12-18 @489  			 be16_to_cpu(*(u16 *)&skb->data[MICROREAD_EMCF_A_ATQA]);
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  490  		targets->sel_res = skb->data[MICROREAD_EMCF_A_SAK];
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  491  		targets->nfcid1_len = skb->data[MICROREAD_EMCF_A_LEN];
+d07f1e8600ccb88 Dan Carpenter 2014-09-01  492  		if (targets->nfcid1_len > sizeof(targets->nfcid1)) {
+d07f1e8600ccb88 Dan Carpenter 2014-09-01  493  			r = -EINVAL;
+d07f1e8600ccb88 Dan Carpenter 2014-09-01  494  			goto exit_free;
+d07f1e8600ccb88 Dan Carpenter 2014-09-01  495  		}
+d07f1e8600ccb88 Dan Carpenter 2014-09-01  496  		memcpy(targets->nfcid1, &skb->data[MICROREAD_EMCF_A_UID],
+d07f1e8600ccb88 Dan Carpenter 2014-09-01  497  		       targets->nfcid1_len);
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  498  		break;
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  499  	case MICROREAD_GATE_ID_MREAD_ISO_A_3:
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  500  		targets->supported_protocols =
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  501  		      nfc_hci_sak_to_protocol(skb->data[MICROREAD_EMCF_A3_SAK]);
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  502  		targets->sens_res =
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  503  			 be16_to_cpu(*(u16 *)&skb->data[MICROREAD_EMCF_A3_ATQA]);
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  504  		targets->sel_res = skb->data[MICROREAD_EMCF_A3_SAK];
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  505  		targets->nfcid1_len = skb->data[MICROREAD_EMCF_A3_LEN];
+d07f1e8600ccb88 Dan Carpenter 2014-09-01  506  		if (targets->nfcid1_len > sizeof(targets->nfcid1)) {
+d07f1e8600ccb88 Dan Carpenter 2014-09-01  507  			r = -EINVAL;
+d07f1e8600ccb88 Dan Carpenter 2014-09-01  508  			goto exit_free;
+d07f1e8600ccb88 Dan Carpenter 2014-09-01  509  		}
+d07f1e8600ccb88 Dan Carpenter 2014-09-01  510  		memcpy(targets->nfcid1, &skb->data[MICROREAD_EMCF_A3_UID],
+d07f1e8600ccb88 Dan Carpenter 2014-09-01  511  		       targets->nfcid1_len);
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  512  		break;
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  513  	case MICROREAD_GATE_ID_MREAD_ISO_B:
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  514  		targets->supported_protocols = NFC_PROTO_ISO14443_B_MASK;
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  515  		memcpy(targets->nfcid1, &skb->data[MICROREAD_EMCF_B_UID], 4);
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  516  		targets->nfcid1_len = 4;
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  517  		break;
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  518  	case MICROREAD_GATE_ID_MREAD_NFC_T1:
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  519  		targets->supported_protocols = NFC_PROTO_JEWEL_MASK;
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  520  		targets->sens_res =
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  521  			le16_to_cpu(*(u16 *)&skb->data[MICROREAD_EMCF_T1_ATQA]);
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  522  		memcpy(targets->nfcid1, &skb->data[MICROREAD_EMCF_T1_UID], 4);
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  523  		targets->nfcid1_len = 4;
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  524  		break;
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  525  	case MICROREAD_GATE_ID_MREAD_NFC_T3:
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  526  		targets->supported_protocols = NFC_PROTO_FELICA_MASK;
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  527  		memcpy(targets->nfcid1, &skb->data[MICROREAD_EMCF_T3_UID], 8);
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  528  		targets->nfcid1_len = 8;
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  529  		break;
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  530  	default:
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  531  		pr_info("discard target discovered to gate 0x%x\n", gate);
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  532  		goto exit_free;
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  533  	}
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  534  
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  535  	r = nfc_targets_found(hdev->ndev, targets, 1);
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  536  
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  537  exit_free:
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  538  	kfree(targets);
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  539  
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  540  exit:
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  541  	kfree_skb(skb);
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  542  
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  543  	if (r)
+17936b43f0fdede Joe Perches   2013-04-05  544  		pr_err("Failed to handle discovered target err=%d\n", r);
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  545  }
+cfad1ba87150e19 Eric Lapuyade 2012-12-18  546  
 
-tpm2_load_null() where the null key name check is run sets the chip as
-disabled only if the rc is non zero. When the mismatch is seen, rc is
-zero at that point and it returns success. The other issue is that the
-caller expects the null key handle to be populated when the function
-returns 0 which it does here without writing the handle and proceeds
-assuming the null key handle is valid.
+:::::: The code at line 489 was first introduced by commit
+:::::: cfad1ba87150e198be9ea32367a24e500e59de2c NFC: Initial support for Inside Secure microread
 
-During the test, I noticed that tpm2_start_auth_session() uses the
-uninitialized stack value as the key handle since tpm2_load_null()
-returns 0 despite the integrity failure and proceeds with
-TPM2_CC_START_AUTH_SESS with this value as salt key handle.
+:::::: TO: Eric Lapuyade <eric.lapuyade@linux.intel.com>
+:::::: CC: Samuel Ortiz <sameo@linux.intel.com>
 
-Set rc to -ENODEV on the mismatch. The error path then disables the chip
-and returns the correct code to the caller.
-
-Tested in QEMU with swtpm and CONFIG_TCG_TPM2_HMAC=y by making
-TPM2_CC_CONTEXT_LOAD fail with TPM2_RC_INTEGRITY and changing the name
-of the re-created null key. The chip is now disabled on the mismatch.
-
-Fixes: cc7d8594342a ("tpm: Rollback tpm2_load_null()")
-Fixes: 423893fcbe7e ("tpm: Disable TPM on tpm2_create_primary() failure")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Surendran Kanagaraj <surenkj@amazon.com>
----
- drivers/char/tpm/tpm2-sessions.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/char/tpm/tpm2-sessions.c b/drivers/char/tpm/tpm2-sessions.c
-index cf8f1fd6790b..ca1e2bf424e1 100644
---- a/drivers/char/tpm/tpm2-sessions.c
-+++ b/drivers/char/tpm/tpm2-sessions.c
-@@ -975,6 +975,7 @@ static int tpm2_load_null(struct tpm_chip *chip, u32 *null_key)
- 	/* Deduce from the name change TPM interference: */
- 	dev_err(&chip->dev, "null key integrity check failed\n");
- 	tpm2_flush_context(chip, tmp_null_key);
-+	rc = -ENODEV;
- 
- err:
- 	if (rc) {
-
-base-commit: b5f1b25b21f56c9fff87ad0235791883d1bf01a9
--- 
-2.47.3
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
