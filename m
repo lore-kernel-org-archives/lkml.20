@@ -1,92 +1,221 @@
-Received: from mta0.migadu.com (out-203.mta0.migadu.com [91.218.175.203])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93D36439349
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:19:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.203
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BB4441F342;
+	Fri, 18 Sep 2026 18:19:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789755559; cv=none; b=L7DokmaqMX5YDr7QcOKcPj9JwUqi6cU/GnWGYG/Wq2RlXdw7ylCmIEdx72VF7nzH1enzXFlVZlqEPgBCzdH2riPDOYo0pDhcFbaC6GdFj6Kw0/cY0MBToNGKI9SFuGyMko+MfyTy04YR6GoiRqMCsiVsuPipFK3HUV7XIJAfQqc=
+	t=1789755589; cv=none; b=coAzDzzvd3iH9w1kSnPaGk234MRVXmyYjxON0Rhujpf1tsnoZf7aaNA4zOJckIGX4zT9a3s/oel1Yzj30JQnSIJaKtuKm8PDildsB+l8ZGnRHTV+QWO5VPEgeKlvfQGBJh3KnaV4rxwEN//Ehit/iPg5RGMq39bSYMpu6YmrGpE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789755559; c=relaxed/simple;
-	bh=iHCQilQ4x8FlNnS2IkgCh0INwKZKlX5mZWBCxqEI+cs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ceay9Seb1NmdZumy2VA7bCHkmaT9MqoLATLs5XYU2o6ak3SA4U/mIa5wIGLf2KmTblVVbHH/UcYMifuxTgLnrAsrdg+4hQF8PxWB1ohHn9Dty4roIeKtC2YqBKJdh8ouK6l3K82R+ZtUxzsM9qdIxpOj5Alqvescwb/aWcyNTcI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=LiSjmj38; arc=none smtp.client-ip=91.218.175.203
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789755589; c=relaxed/simple;
+	bh=XlsoKoyOZJJOlrj90Rg9bXIKOIoQo7u2V1+5XG4lemU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qXXkaVrOhMTW80l96ahumbpuetooAl5grI0tKl3wp6XP8PzMCcu8RrKwxmGInNf86xQ1O4x3ptRijKYaNaWofJrjMsMSaTky6gceAoBnDqlqnTVzrM3JymIVnbO1CztDhdmdNRl94JCSAFNUfrZ4n6EmRqpNPXQ8fKGAmYMUl3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S5IUZTk7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="LiSjmj38"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=iHCQilQ4x8FlNnS2IkgCh0INwKZKlX5mZWBCxqEI+cs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789755554; v=1; x=1790360354;
- b=LiSjmj3811D0sEQOkFqhqCslxtDax7X1LstUpScy0vbMDuBGjoX52NzwJM61BtguLCzlpZIO
- BPxpEGi6Qi3facgpZxEptn53a2H32/9PBQnF10xG20NBJhNu/QhIe/8PFFUC+8JiySfgRfASJVK
- mVQRrX4GuIeYOOgNpxkVkEQE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8db66427678445f3;
-	Fri, 18 Sep 2026 18:19:13 +0000
-X-Mizu-Trace-ID: 8db66427678445f3
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 18 Sep 2026 11:19:08 -0700
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: bingfangguo@tencent.com
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
-	Andrew Morton <akpm@linux-foundation.org>, Dave Chinner <david@fromorbit.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Bingfang Guo <bfguo@icloud.com>, cgroups@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/4] memcg: move memcg private ID refcount to objcg
-Message-ID: <aq2AUmRISe3Nmfft@linux.dev>
-References: <20260918-bingfangguo-memcgid-rework-v1-0-5bbf3220d88f@tencent.com>
- <20260918-bingfangguo-memcgid-rework-v1-4-5bbf3220d88f@tencent.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S5IUZTk7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D9901F000FF;
+	Fri, 18 Sep 2026 18:19:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789755588;
+	bh=E4x1orVy3zQ7AGPIczdDg64oCzP4Y9taMje2rrNyhqo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=S5IUZTk7eWuZuU7sRjP3DJAKcrfsFmeK7mXWbo2pC79yioHpLSGf7naKFDEsZaTRm
+	 oT5DENCTjvjI4FyuNoaz/ACNIdMt8CDggSHuyVRQS7pMwaRXn42EAUN1IB7O9dnIPM
+	 GvdoFgz4Dmqk/eXb1A6PFfVPwCIk887vWIF/P45nujLIt9HQVx6vMPmZSQFZNGwWLf
+	 WjB5/C+lejXh0RPAku5kIev11ykzlldcpUA+sz3hV4marWMlcUOdxPdFti5k6i57qu
+	 I6VTqWvxm3QdAF5o+1ZtBwCLNHCEnitvrbrMEInaURomdhIdpVwEccpmC/DjAXUsbb
+	 LKVoB4F8haTmg==
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+To: Jianyong Wu <wujianyong@hygon.cn>,
+ Ricardo Neri <ricardo.neri-calderon@linux.intel.com>
+Cc: Vincent Guittot <vincent.guittot@linaro.org>,
+ "viresh.kumar@linaro.org" <viresh.kumar@linaro.org>,
+ "kprateek.nayak@amd.com" <kprateek.nayak@amd.com>,
+ "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "ray.huang@amd.com" <ray.huang@amd.com>,
+ "mario.limonciello@amd.com" <mario.limonciello@amd.com>,
+ "perry.yuan@amd.com" <perry.yuan@amd.com>,
+ "zhanjie9@hisilicon.com" <zhanjie9@hisilicon.com>,
+ "zhenglifeng1@huawei.com" <zhenglifeng1@huawei.com>,
+ "pierre.gondois@arm.com" <pierre.gondois@arm.com>,
+ "sumitg@nvidia.com" <sumitg@nvidia.com>,
+ "srinivas.pandruvada@linux.intel.com" <srinivas.pandruvada@linux.intel.com>,
+ "hongyan.xia@transsion.com" <hongyan.xia@transsion.com>,
+ "zhongqiu.han@oss.qualcomm.com" <zhongqiu.han@oss.qualcomm.com>,
+ Fengyu Wang <wangfengyu@hygon.cn>, Yuan Zhong <zhongyuan@hygon.cn>,
+ Huangsj <huangsj@hygon.cn>
+Subject:
+ Re: [PATCH] cpufreq: Use a non-boost reference frequency for pressure
+ calculation
+Date: Fri, 18 Sep 2026 20:19:37 +0200
+Message-ID: <5135696.31r3eYUQgx@rafael.j.wysocki>
+Organization: Linux Kernel Development - Intel
+In-Reply-To: <B5C2AA60-4A07-45B6-AF06-3C5810E19F8C@hygon.cn>
+References:
+ <20260915065747.1671965-1-wujianyong@hygon.cn>
+ <CAJZ5v0g2d6fY8hM0FVH8tiOUhXm0PZM+Qn7OxM9YNXm8i0pYmg@mail.gmail.com>
+ <B5C2AA60-4A07-45B6-AF06-3C5810E19F8C@hygon.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918-bingfangguo-memcgid-rework-v1-4-5bbf3220d88f@tencent.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-On Fri, Sep 18, 2026 at 05:18:43PM +0800, Bingfang Guo via B4 Relay wrote:
-> From: Bingfang Guo <bingfangguo@tencent.com>
-> 
-> diff --git a/mm/workingset.c b/mm/workingset.c
-> index 8412f4840ae35..7e4fbc5a786d6 100644
-> --- a/mm/workingset.c
-> +++ b/mm/workingset.c
-> @@ -281,6 +281,9 @@ static bool lru_gen_test_recent(void *shadow, struct lruvec **lruvec,
->  	unpack_shadow(shadow, &memcg_id, &pgdat, token, workingset);
->  
->  	memcg = mem_cgroup_from_private_id(memcg_id);
-> +	if (!memcg)
-> +		return false;
+On Friday, September 18, 2026 6:08:49=E2=80=AFAM Central European Summer Ti=
+me Jianyong Wu wrote:
+> Hi Rafael,
+>=20
+> >=20
+> > On Sep 18, 2026, at 01:38, Rafael J. Wysocki (Intel) <rafael@kernel.org=
+> wrote:
+> > On Tue, Sep 15, 2026 at 9:03=E2=80=AFAM Jianyong Wu <wujianyong@hygon.c=
+n> wrote:
+> >>=20
+> >> Commit d2d5c129d07e ("cpufreq: Make cpufreq_update_pressure() fall
+> >> back to cpuinfo.max_freq") introduced cpuinfo.max_freq as the reference
+> >> frequency for cpufreq pressure when arch_scale_freq_ref() returns zero.
+> >>=20
+> >> However, cpuinfo.max_freq may include boost frequencies and therefore
+> >> does not necessarily represent the maximum sustainable frequency.
+> >=20
+> > And then it really matters what is sustainable and for how long.
+>=20
+> I think it's confusing to say "sustainable freq" in cpufreq part. I mean =
+the maximum
+> cpu frequency below boost here. For acpi-cpufreq, it=E2=80=99s P0. For am=
+d-pstate, it=E2=80=99s
+> nominal frequency. But I can't find a better word.
+>=20
+> >=20
+> >> On some systems using acpi-cpufreq, cpuinfo.max_freq includes boost wh=
+ile
+> >> the frequency table only contains non-boost frequencies.
+> >=20
+> > In which case selecting freq_table[0] may give the processor a license
+> > to go to the turbo (or boost) frequency range.
+>=20
+> Yeah, selecting freq_table[0] may also mean cpu can go to boost frequency=
+=2E=20
+> But the value doesn't denote that. freq_table[0] is assigned  to policy->=
+max which
+> is compared with policy->cpuinfo.max_freq. The difference between them ma=
+kes
+> the cpu pressure which is not intended.
+> =20
+> >=20
+> >> Consequently, cpufreq pressure remains nonzero even without an additio=
+nal
+> >> frequency limit.
+> >=20
+> > So when and where does this matter?
+>=20
+> I test it on amd, intel and hygon box. Once acpi-cpufreq is used, the une=
+xpected
+> cpu pressure appears when there is no cpu frequency capped and boost is e=
+nabled.
+>=20
+> The wrong cpu pressure affects load balancing. For example, Cache aware
+> scheduling wants to aggregate task in a LLC using 50% of the whole LLC ca=
+pacity.
+> Before commit d2d5c129d07e, everything is OK. But with that commit and us=
+ing
+> acpi-cpufreq and with boost on, cache aware scheduling can=E2=80=99t aggr=
+egate
+> task to occupy 50% of the LLC by default as the cpu capacity in the LLC i=
+s reduced.=20
 
-You can not return here without initializing *lruvec as it might be used in the
-caller. Also mem_cgroup_lruvec() can handle null memcg and will substitute with
-root_mem_cgroup.
+So actually the problem is that now the pressure is applied when it is not
+expected to be applied in general.
 
-> +
->  	*lruvec = mem_cgroup_lruvec(memcg, pgdat);
->  
->  	max_seq = READ_ONCE((*lruvec)->lrugen.max_seq);
-> @@ -470,7 +473,7 @@ bool workingset_test_recent(void *shadow, bool file, bool *workingset,
->  	 * configurations instead.
->  	 */
->  	eviction_memcg = mem_cgroup_from_private_id(memcgid);
-> -	if (!mem_cgroup_tryget(eviction_memcg))
-> +	if (eviction_memcg && !mem_cgroup_tryget(eviction_memcg))
->  		eviction_memcg = NULL;
->  	rcu_read_unlock();
->  
-> 
-> -- 
-> 2.43.7
-> 
-> 
+Clearly, the scheduler assumes that the pressure will be zero when
+arch_scale_freq_ref() is zero and the commit in question violates that
+assumption.
+
+This actually has a little to do with boost and making it depend on boost
+doesn't really help.  In fact, the reason for making the change was some
+inadequate behavior when intel_pstate ran with asym capacity, so something
+like the patch below (completely untested) can be used to limit the scope
+of it to the case in question.
+
+Can you please check if it helps?
+
+Ricardo, can you please test this one too?
+
+Thanks!
+
+
+=2D--
+ drivers/cpufreq/cpufreq.c      |    4 ++--
+ drivers/cpufreq/intel_pstate.c |   12 ++++++++++++
+ include/linux/cpufreq.h        |    3 +++
+ 3 files changed, 17 insertions(+), 2 deletions(-)
+
+=2D-- a/drivers/cpufreq/cpufreq.c
++++ b/drivers/cpufreq/cpufreq.c
+@@ -2590,8 +2590,8 @@ static void cpufreq_update_pressure(stru
+=20
+ 	cpu =3D cpumask_first(policy->related_cpus);
+ 	max_freq =3D arch_scale_freq_ref(cpu);
+=2D	if (!max_freq)
+=2D		max_freq =3D policy->cpuinfo.max_freq;
++	if (!max_freq && cpufreq_driver->scale_freq_ref)
++		max_freq =3D cpufreq_driver->scale_freq_ref(policy);
+=20
+ 	capped_freq =3D policy->max;
+=20
+=2D-- a/drivers/cpufreq/intel_pstate.c
++++ b/drivers/cpufreq/intel_pstate.c
+@@ -1135,6 +1135,16 @@ static bool hybrid_clear_max_perf_cpu(vo
+ 	return ret;
+ }
+=20
++static unsigned int intel_pstate_scale_freq_ref(struct cpufreq_policy *pol=
+icy)
++{
++	struct cpudata *cpu =3D all_cpu_data[policy->cpu];
++
++	if (cpu && cpu->capacity_perf)
++		return policy->cpuinfo.max_freq;
++
++	return 0;
++}
++
+ static void intel_pstate_update_freq_limits(struct cpudata *cpu)
+ {
+ 	int scaling =3D cpu->pstate.scaling;
+@@ -3088,6 +3098,7 @@ static struct cpufreq_driver intel_pstat
+ 	.offline	=3D intel_pstate_cpu_offline,
+ 	.online		=3D intel_pstate_cpu_online,
+ 	.update_limits	=3D intel_pstate_update_limits,
++	.scale_freq_ref =3D intel_pstate_scale_freq_ref,
+ 	.name		=3D "intel_pstate",
+ };
+=20
+@@ -3411,6 +3422,7 @@ static struct cpufreq_driver intel_cpufr
+ 	.suspend	=3D intel_cpufreq_suspend,
+ 	.resume		=3D intel_pstate_resume,
+ 	.update_limits	=3D intel_pstate_update_limits,
++	.scale_freq_ref =3D intel_pstate_scale_freq_ref,
+ 	.name		=3D "intel_cpufreq",
+ };
+=20
+=2D-- a/include/linux/cpufreq.h
++++ b/include/linux/cpufreq.h
+@@ -420,6 +420,9 @@ struct cpufreq_driver {
+ 	/* Will be called after the driver is fully initialized */
+ 	void		(*ready)(struct cpufreq_policy *policy);
+=20
++	/* Return the capacity reference frequency for policy. */
++	unsigned int	(*scale_freq_ref)(struct cpufreq_policy *policy);
++
+ 	struct freq_attr **attr;
+=20
+ 	/* platform specific boost support code */
+
+
+
