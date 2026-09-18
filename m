@@ -1,170 +1,237 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09F2049158D
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 19:18:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789759103; cv=pass; b=k7c1cezlspI4jPu3qRkwsjyaJ4uJEm9EHc4xIEeXZFOChwEdxsqRpTFi10QoRmfUAsN0Ts6FgUx33/8BnUFhdTN/zUo2whhIUIApt9pROsDTj5qIIy/2xIoXSaQDid8oqbRC0X0dhKYVpQXp8uaK3p1IHVVPnmT62KFrcGaxCcQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789759103; c=relaxed/simple;
-	bh=d+XJY6IjEfDw6B+KKS046I9YvRYsBRFL5fcv5i6AeZc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hEiaiA8md4eT26lMG3ErEhsjqXpt+aldWS+qDxANB2I2cWSVRsZLI43JePZ/zIdZ9rOam6HrI8DxU2M4W2F56NagE2Q5xly2RoQCTZ8rHQ11kmK5x7WQfX3X8y1IrU0IHa9xskb3gaGvXbIL2LMVNjAEGi3NkivbWyI11moyNkg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i2Pw+oiv; arc=pass smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF9D8492E54;
+	Fri, 18 Sep 2026 19:19:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789759152; cv=none; b=UPdr1hqiKPHBJr8mhrYsiz/uhRN86bkYQMjBfrODALuhEmbiY8fUNHPN/nFFaCy8n86YYRPdu6JX1PUAI7GNVFxCeWti+kffR21M6H3ZwkIvu57qU6ryAHM3851jTtQL5c//mB6RrLpL0F9Ib6FVW1wveIQIUAytf/d4Dtp5WxQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789759152; c=relaxed/simple;
+	bh=WqFgs23DKJd3JWYlDTf9n3272/7j/7VLSNlK0S+1jGc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=F85kn1ct1ELr8tmntLk9Zim0bYKbduuTG8k7HJXj3SVxnGZXK5crn+q81NpMrhk9INeI9/g7pOo1xcFjyCqRlTzyWF8Kmxlgv+x/+1p3XcChwZgaAyLLYxwTQTuZhki05Wxhf6wCt5+LrOLMCUEMlXfkLfr+bIqZ7hIjYhs9a64=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b=G91S9azG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i2Pw+oiv"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469b355ffso741804b3a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:18:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789759097; cv=none;
-        d=google.com; s=arc-20260327;
-        b=diqnt2BN7BWX2HkOdbnMQ+9UrLQOcI9H3mjF8gD/UuKytqgHBYPCMxbVT+M3vz4oZI
-         3YX7nd7zDIbVHOxERngMU8eDbpyvoTIGEIoer+xXCz5O6qTNxYrCyi155xS3DPEnqdB0
-         EBjOt/EzQpuOIBfBcI03eIzclLa8YBt5uM1W27Yv17awgUoRl4BeJblaGzlIjiKNnarH
-         6NixoM0TRHdaHn/cGCbl6uB3v31wplyuaCR/xYrQywNBqMFmY4vc6KvpTHw834qCCdPl
-         v3EUmdK93CvRv5OKPVFAtbulE+t3j16br9Z25by7IsxbZ8LhTkZ/NORshsGCsTwDSTFl
-         65fQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=2troVCYCbvQMPjyP8m9Thskq3hQDCRWw6lGuoi8DN70=;
-        fh=NMuhB4e+Xi5+2nvtd3gsyNPOIY8wxQdiKpyAwNJm0+s=;
-        b=EZv4yt9f+pskJCvF1eanThTQ6SnQuKQjPwgs41pvKCEGMg4VyrG4EQZ7uqL7YmYQJo
-         BdNtWTBUvBa7sJnl40sphY7v0PYLD9dywn5gldigSuc4d9R1P74wZ+vtOTV0OEjdIPik
-         mEXDs9H4JzEevFS5CcLXiQGSg1fQ3WRAeAyy/+3jrPjc01hf3/uyCLvtNJIrRqwzpHHp
-         IkuCSnbScmLHYL2WGK27qZQSs7j2d3lulZlpIG1POR8T16PNFlHSlZIuYrpqH3Y3YOJX
-         4XGaCHuydn37+tJB3cevQ0mnOhjZMqon/7YO3h/SPRu5K7Wl0B8QAxo7Uo/OoR24LvTG
-         lg4w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789759097; x=1790363897; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2troVCYCbvQMPjyP8m9Thskq3hQDCRWw6lGuoi8DN70=;
-        b=i2Pw+oivlDpwZA9WTvtnw+0/1M/n7/s5NjSEjRRbghCeabioGNa59ZCrMZ7Mbv1Je0
-         FgXKpuS1E2A1LyIfN/QdEIKFh6qVX7VmE2GCllCGWkqqBZcqEZbOg9fX0dZ1PSAvkz5n
-         Om0U0sJOmZoWDnY9nV6RJxQlxCgPj7jeKJwcmOpgajwi2LfynleHOOw5NCfBLATqTrNH
-         e39v8RySMTRWQcEF04tDvUmhA++WWH/eYWHOmTs1I/6iKR3haHNE9qE9LWSm8n1zzXVq
-         RoUis+EGa7GW0t1IvGlNCghW7Ssl9si39ErvYThos18K21NQdlMcydlxhoxlXxiQlncd
-         2uIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789759097; x=1790363897;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2troVCYCbvQMPjyP8m9Thskq3hQDCRWw6lGuoi8DN70=;
-        b=185UjyJSYts5v2Cv+J0taqeO+jkByh5wtQLh/rG7qSTlMaKPnwjuqBebuIGaqB8HQ3
-         DZR3imI8e7XDOVe1WHrLJxBiJHEuIEJE+JDF5PTxKhQnVgUPq+r+axt1ALjcq4kk8YJ0
-         GWnpj7m7HIrP3RuFUSNp/n0drKyaNJP3AoFGcjd80Xga+RFCubOyeQUxR+b+xJQGNT+r
-         iQ68ysa0RweVyjDYon0MGmNfQxWl5QKNzdWKQp4Oit0neRkaWoumqBJZwyWlay6f792O
-         9rXi8NOBPimnzfzP8ma5ePlRnjQi1epYH0GGwfqw+b+XD8FNNTlq5x7u2vZYyCeYGALo
-         lLxQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzdrvH0LHrfL+1fmYf01YHZqHQmv5WbZBrVkR4zhfRWM6V5SA4FgZifCmv/nPpakmRZK9KplNeZUMu2+VI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mgDjKBQhfRvaNZ1eboftaV6/85rl5k6+eABAjMN509ZaoK5GuQ
-	nNzBtx9KClDkX5vuNs6vqKvLuezQJKDA0ve54lzWHAMN1a0Z3kTn/wtWKHWucLG0fiRYZ5+f58L
-	svF+wOfPjpBahsg99c4xhPsjNup/kIdM=
-X-Gm-Gg: AYBFou3gGH2I+CZfD1xhb+3aVswlib7vVzvdqMhaQ3td7c+D63IYkoBbIl8emjQTc5E
-	sIJ9bsai90qzxIgQC1JRB9EtNBdTbcNkqD/JAZjn9kIeYNcfjYQqcUr1DBzYyCjeiakVaXSZd+x
-	Zh3Na6rKA/+3snERCNJ9UtwcWPg+fEYbu6aTVN6MkthU4JvcBnKpssFvz8h0xM3N4b29b2w3c4V
-	YtzJUd39CmQnymDWJ5PeVzANI0XM3IxS3KhmwYMu/DdCkTszLoj2ebm8I1j1Toqd3KV3nuOJ26Z
-	5Cai5A7pOQCArUmNCSRpovVYecBwzH03jQZgn6eiLVqdURok/q4ZrBMjO/r8ZpFcF3ie3U+eq5I
-	XlqG0sKWNpNwEdEhMKHZmsidMNmuyPvX9DZlz7YZHO0CYCNmqmp81lUkK
-X-Received: by 2002:a05:6a21:a382:b0:3d3:ad3c:49aa with SMTP id
- adf61e73a8af0-3dd8c5161d0mr8117225637.24.1789759097369; Fri, 18 Sep 2026
- 12:18:17 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b="G91S9azG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C60CB1F000FF;
+	Fri, 18 Sep 2026 19:19:05 +0000 (UTC)
+Authentication-Results: smtp.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20210105 header.b=G91S9azG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105;
+	t=1789759143;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2RBFia57WNvrXDdvLYcILx6qy8OTo+Na4EmZjhZXk/Q=;
+	b=G91S9azG7hTGwaZ6AuCDCHuq+CYkUPVTCFtm+CgfYp8Qa+2nuFOe4DNgFR6+BAvI5/ScZA
+	BVd50poERrfXTgarzLDQl6dvSJqMMnN7mOUJ3H/bbJH42d9v0Ee0Wa+fV+8nL0gxYJhdde
+	cxSlbApP2ndhbiYM3ZhBmBOL1aOIKVE=
+Received: 
+	by mail.zx2c4.com (OpenSMTPD) with ESMTPSA id 159f269a (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
+	Fri, 18 Sep 2026 19:19:03 +0000 (UTC)
+Date: Fri, 18 Sep 2026 21:19:00 +0200
+From: "Jason A. Donenfeld" <Jason@zx2c4.com>
+To: Nick Desaulniers <ndesaulniers@google.com>
+Cc: Andy Lutomirski <luto@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Theodore Ts'o <tytso@mit.edu>,
+	Vincenzo Frascino <vincenzo.frascino@arm.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev, Nathan Chancellor <nathan@kernel.org>
+Subject: Re: [PATCH] random: vDSO: Avoid call to memset() when zeroing
+ reserved in __cvdso_getrandom_data()
+Message-ID: <aq2OpBZIMVhMZhWW@zx2c4.com>
+References: <20260916-vdso-getrandom-avoid-memset-llvm-24-v1-1-80a92f2e225a@kernel.org>
+ <aquyVkdYceiWdckX@zx2c4.com>
+ <20260917173920.GB356152@ax162>
+ <CAKwvOdkHsw132XEY2zLxO-V4=_RyqBatavQDvLY-MpZ16ZSAdQ@mail.gmail.com>
+ <CAHmME9pcvUdkvYmeUs+Wi+v5Cy5QG=Wo48FmRCdQdL8x1ykDKA@mail.gmail.com>
+ <aq01ud_zTYN-3Zby@zx2c4.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915095017.942213-1-sunyiqixm@gmail.com>
-In-Reply-To: <20260915095017.942213-1-sunyiqixm@gmail.com>
-From: Xin Long <lucien.xin@gmail.com>
-Date: Fri, 18 Sep 2026 15:18:05 -0400
-X-Gm-Features: AcwNN1X66cAUN51FSkageQ3G0yykNkwaD2lYLObSNsrm0QVEPTOJRupGwVR0DZU
-Message-ID: <CADvbK_f2oTzRA4x5+5QsTkKeXAmodgD3Noypi7sULf3-7MKQPA@mail.gmail.com>
-Subject: Re: [PATCH v3 net] sctp: avoid livelock while updating retransmit path
-To: Yiqi Sun <sunyiqixm@gmail.com>
-Cc: marcelo.leitner@gmail.com, davem@davemloft.net, edumazet@google.com, 
-	horms@kernel.org, kuba@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-sctp@vger.kernel.org, netdev@vger.kernel.org, pabeni@redhat.com, 
-	stable@vger.kernel.org, sunyiqixm@hotmai.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aq01ud_zTYN-3Zby@zx2c4.com>
 
-On Tue, Sep 15, 2026 at 5:51=E2=80=AFAM Yiqi Sun <sunyiqixm@gmail.com> wrot=
-e:
->
-> sctp_assoc_update_retran_path() can loop forever when every remaining
-> transport, including retran_path, is SCTP_UNCONFIRMED: the state check
-> runs before the wraparound test, so the loop cannot observe that it has
-> completed a full pass.
->
-> Fix this by considering a transport only when it is not UNCONFIRMED,
-> then checking whether the walk has returned to retran_path. This makes
-> the full-pass termination independent of the transport state while
-> preserving the existing fallback selection semantics.
->
-> Also restore the NULL guard around the retran_path assignment. In the
-> all-UNCONFIRMED case there is no eligible replacement transport, and
-> installing NULL would leave later retransmit-path users and the debug
-> print with a NULL path.
->
-> Fixes: 4c47af4d5eb2 ("net: sctp: rework multihoming retransmission path s=
-election to rfc4960")
-> Signed-off-by: Yiqi Sun <sunyiqixm@gmail.com>
-> ---
-> Changes in v3:
-> - Post as a new, independent thread.
-> - Drop quoted review discussion and the reproducer attachment claim from
->   the commit message.
-> - Link to v2: https://lore.kernel.org/r/20260902025206.phbpyxmpf4zrtdpx@s=
-unyiqi-llm-kernel/
-> ---
->  net/sctp/associola.c | 15 ++++++++-------
->  1 file changed, 8 insertions(+), 7 deletions(-)
->
-> diff --git a/net/sctp/associola.c b/net/sctp/associola.c
-> index c0512c827d0f..4521be3bd85a 100644
-> --- a/net/sctp/associola.c
-> +++ b/net/sctp/associola.c
-> @@ -1289,18 +1289,19 @@ void sctp_assoc_update_retran_path(struct sctp_as=
-sociation *asoc)
->                 /* Manually skip the head element. */
->                 if (&trans->transports =3D=3D &asoc->peer.transport_addr_=
-list)
->                         continue;
-> -               if (trans->state =3D=3D SCTP_UNCONFIRMED)
-> -                       continue;
-> -               trans_next =3D sctp_trans_elect_best(trans, trans_next);
-> -               /* Active is good enough for immediate return. */
-> -               if (trans_next->state =3D=3D SCTP_ACTIVE)
-> -                       break;
-> +               if (trans->state !=3D SCTP_UNCONFIRMED) {
-> +                       trans_next =3D sctp_trans_elect_best(trans, trans=
-_next);
-> +                       /* Active is good enough for immediate return. */
-> +                       if (trans_next->state =3D=3D SCTP_ACTIVE)
-> +                               break;
-> +               }
->                 /* We've reached the end, time to update path. */
->                 if (trans =3D=3D asoc->peer.retran_path)
->                         break;
->         }
->
-> -       asoc->peer.retran_path =3D trans_next;
-> +       if (trans_next)
-> +               asoc->peer.retran_path =3D trans_next;
->
->         pr_debug("%s: association:%p updated new path to addr:%pISpc\n",
->                  __func__, asoc, &asoc->peer.retran_path->ipaddr.sa);
-> --
-> 2.34.1
->
-Acked-by: Xin Long <lucien.xin@gmail.com>
+On Fri, Sep 18, 2026 at 02:59:37PM +0200, Jason A. Donenfeld wrote:
+> On Fri, Sep 18, 2026 at 10:20:45AM +0200, Jason A. Donenfeld wrote:
+> > On Thu, Sep 17, 2026 at 6:49 PM Nick Desaulniers
+> > <ndesaulniers@google.com> wrote:
+> > >
+> > > On Thu, Sep 17, 2026 at 10:39 AM Nathan Chancellor <nathan@kernel.org> wrote:
+> > > >
+> > > > On Thu, Sep 17, 2026 at 11:26:46AM +0200, Jason A. Donenfeld wrote:
+> > > > > I don't suspect this is the right change. On x86_64, this changes to
+> > > > > code from:
+> > > > >
+> > > > >     rep stosq
+> > > > >
+> > > > > into:
+> > > > >
+> > > > >     loc_2D9:
+> > > > >     mov     dword ptr [rbx+rax*4+0Ch], 0
+> > > > >     add     rax, 1
+> > > > >     cmp     rax, 0Ch
+> > > > >     jbe     short loc_2D9
+> > >
+> > > /me nods
+> > >
+> > > > >
+> > > > > Which is a lot less compact. It seems like the actual solution is for
+> > > > > gcc&clang to emit this inline memset mnemonic when the platform has a
+> > > > > good one, and otherwise not. But disabling optimizations for all
+> > > > > platforms, because it's broken on one, seems bad.
+> > >
+> > > Ideally, yeah.
+> > > Pragmatically:
+> > > the compiler doesn't know what you will link against or not; so it
+> > > just emits relocations that the linker will (hopefully) resolve.  I've
+> > > definitely looked at how llvm decides when to emit libcalls to
+> > > compiler-rt/libgcc ("the compiler runtime") and thought "I wonder how
+> > > this works with compiler runtime version N-1?"
+> > >
+> > > There's also the requirement gcc and clang have about memcpy, memmove,
+> > > memset, memcmp always being available (-ffreestanding or not) noted
+> > > below.
+> > >
+> > > > > In this case, the compiler is being smart: it identifies a loop and
+> > > > > rightly turns it into memset. But if this isn't a compilation
+> > > > > environment that has an outline function, it should do something else.
+> > > >
+> > > > As I mentioned in the commit message, compilers require all environments
+> > > > (hosted or not) to provide memset(), so the "doing something else" is
+> > > > nothing :)
+> > > >
+> > > >   GCC requires the freestanding environment provide memcpy, memmove,
+> > > >   memset and memcmp.
+> > >
+> > > +1
+> > >
+> > > >
+> > > > I guess another option is to just include a basic memset() like the one
+> > > > in lib/string.c so that it is only used if the compiler makes this sort
+> > > > of transformation, while leaving all other architectures alone.
+> > >
+> > > It's also possible to get GCC to emit the libcall, even in the
+> > > presence of -ffreestanding: https://godbolt.org/z/6hTrYq9z8
+> > >
+> > > And it's not the first time this code in particular has had this issue;
+> > >
+> > > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=b7bad082e113640fc81200ff869e5c2d7a9c29a2
+> > >
+> > > (is this patch a Fixes: for that?)
+> > >
+> > > Clang has __builtin_memset_inline to avoid explicit libcalls; AFAICT
+> > > GCC does not.  So we could use that here to provide such a guarantee
+> > > with clang; the code would remain brittle and likely break again with
+> > > GCC.
+> > 
+> > It sounds like this is broken currently only on clang on riscv, right?
+> > So maybe we can use __builtin_memset_inline, and get something similar
+> > into gcc, before a future gcc version also breaks? That way it doesn't
+> > break in the future.
+> 
+> There's -finline-stringops=memset for gcc (>=14), which should keep
+> things sane there. So, we can use that on gcc, and alias memset to
+> __builtin_memset_inline on clang. And then we should be good?
+
+Untested, but putting this all together I suppose looks like this, if
+you want to play around and see:
+
+diff --git a/arch/arm64/kernel/vdso/Makefile b/arch/arm64/kernel/vdso/Makefile
+index 7dec05dd33b7..3b98058f95ea 100644
+--- a/arch/arm64/kernel/vdso/Makefile
++++ b/arch/arm64/kernel/vdso/Makefile
+@@ -41,7 +41,7 @@ CC_FLAGS_REMOVE_VDSO := $(CC_FLAGS_FTRACE) -Os $(CC_FLAGS_SCS) \
+ 			$(CC_FLAGS_LTO) $(CC_FLAGS_CFI) \
+ 			-Wmissing-prototypes -Wmissing-declarations
+
+-CC_FLAGS_ADD_VDSO := -O2 -mcmodel=tiny -fasynchronous-unwind-tables
++CC_FLAGS_ADD_VDSO := -O2 -mcmodel=tiny -fasynchronous-unwind-tables $(call cc-option,-finline-stringops=memset)
+
+ CFLAGS_REMOVE_vgettimeofday.o = $(CC_FLAGS_REMOVE_VDSO)
+ CFLAGS_REMOVE_vgetrandom.o = $(CC_FLAGS_REMOVE_VDSO)
+diff --git a/arch/loongarch/vdso/Makefile b/arch/loongarch/vdso/Makefile
+index 9c9181bb4071..4c6b597a7665 100644
+--- a/arch/loongarch/vdso/Makefile
++++ b/arch/loongarch/vdso/Makefile
+@@ -16,6 +16,7 @@ ccflags-vdso := \
+ 	$(filter -m64,$(KBUILD_CFLAGS)) \
+ 	$(filter -march=%,$(KBUILD_CFLAGS)) \
+ 	$(filter -m%-float,$(KBUILD_CFLAGS)) \
++	$(call cc-option,-finline-stringops=memset) \
+ 	$(CLANG_FLAGS) \
+ 	-D__VDSO__
+
+diff --git a/arch/riscv/kernel/vdso/Makefile b/arch/riscv/kernel/vdso/Makefile
+index 8dbf2532a573..720f95cd24f8 100644
+--- a/arch/riscv/kernel/vdso/Makefile
++++ b/arch/riscv/kernel/vdso/Makefile
+@@ -36,6 +36,7 @@ endif
+ ccflags-y := -fno-stack-protector
+ ccflags-y += -DDISABLE_BRANCH_PROFILING
+ ccflags-y += -fno-builtin
++ccflags-y += $(call cc-option,-finline-stringops=memset)
+ ccflags-y += $(KBUILD_BASE_ISA)$(CFI_MARCH)
+ ccflags-y += $(CFI_FULL)
+ asflags-y += $(KBUILD_BASE_ISA)$(CFI_MARCH)
+diff --git a/arch/s390/kernel/vdso/Makefile b/arch/s390/kernel/vdso/Makefile
+index 35c834b895ec..9d0ae1f38388 100644
+--- a/arch/s390/kernel/vdso/Makefile
++++ b/arch/s390/kernel/vdso/Makefile
+@@ -29,6 +29,7 @@ KBUILD_CFLAGS_VDSO := $(filter-out -munaligned-symbols,$(KBUILD_CFLAGS_VDSO))
+ KBUILD_CFLAGS_VDSO := $(filter-out -fno-asynchronous-unwind-tables,$(KBUILD_CFLAGS_VDSO))
+ KBUILD_CFLAGS_VDSO += -fPIC -fno-common -fno-builtin -fasynchronous-unwind-tables
+ KBUILD_CFLAGS_VDSO += -fno-stack-protector $(DISABLE_KSTACK_ERASE)
++KBUILD_CFLAGS_VDSO += $(call cc-option,-finline-stringops=memset)
+ ldflags-y := -shared -soname=linux-vdso.so.1 \
+ 	     --hash-style=both --build-id=sha1 \
+ 	     $(call ld-option, --eh-frame-hdr) -T
+diff --git a/arch/x86/entry/vdso/vdso64/Makefile b/arch/x86/entry/vdso/vdso64/Makefile
+index 7c0790065b5e..751cb6f99b65 100644
+--- a/arch/x86/entry/vdso/vdso64/Makefile
++++ b/arch/x86/entry/vdso/vdso64/Makefile
+@@ -14,7 +14,7 @@ vobjs-$(CONFIG_X86_SGX)			+= vsgx.o
+ vobjs-$(CONFIG_FUTEX_ROBUST_UNLOCK)	+= vfutex.o
+
+ # Compilation flags
+-flags-y				:= -DBUILD_VDSO64 -m64 -mcmodel=small
++flags-y				:= -DBUILD_VDSO64 -m64 -mcmodel=small $(call cc-option,-finline-stringops=memset)
+
+ # The location of this include matters!
+ include $(src)/../common/Makefile.include
+diff --git a/lib/vdso/getrandom.c b/lib/vdso/getrandom.c
+index 2851afa9154f..713e95dfdedc 100644
+--- a/lib/vdso/getrandom.c
++++ b/lib/vdso/getrandom.c
+@@ -29,6 +29,12 @@
+ 	}									\
+ } while (0)
+
++#if __has_builtin(__builtin_memset_inline)
++#define memset(dst, value, size) __builtin_memset_inline(dst, value, size)
++#else
++#define memset(dst, value, size) __builtin_memset(dst, value, size)
++#endif
++
+ static void memcpy_and_zero_src(void *dst, void *src, size_t len)
+ {
+ 	if (IS_ENABLED(CONFIG_HAVE_EFFICIENT_UNALIGNED_ACCESS)) {
+@@ -83,8 +89,7 @@ __cvdso_getrandom_data(const struct vdso_rng_data *rng_info, void *buffer, size_
+ 		params->size_of_opaque_state = sizeof(*state);
+ 		params->mmap_prot = PROT_READ | PROT_WRITE;
+ 		params->mmap_flags = MAP_DROPPABLE | MAP_ANONYMOUS;
+-		for (size_t i = 0; i < ARRAY_SIZE(params->reserved); ++i)
+-			params->reserved[i] = 0;
++		memset(params->reserved, 0, sizeof(params->reserved));
+ 		return 0;
+ 	}
+
+
