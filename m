@@ -1,105 +1,75 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 765BC4F392E;
-	Fri, 18 Sep 2026 11:35:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8697499F25;
+	Fri, 18 Sep 2026 11:35:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789731310; cv=none; b=QVMcCS5yV2G+laaliS90QbmNVnSsTFe0pyf4MZwGoxqgDVq/2nWu/wN1IcGQ6f+eQVxL0Z+QVRTk/bTWb5eiDRKE9T8vLPMxGXb/WIk3dv0L8lXGA32HznnmF0u4CKIwp+fpxdQIujcaiXXTQrbeG7HlHCMNwzAR9EU1N+Qdc8E=
+	t=1789731340; cv=none; b=i6t9QE1p0UvewBrzeUyLD5G3b1YZ2gTdtArnCEmEZBoch7EeAJF8CM6Qt+kVLD7E5TTyKemMFTdQ8aqZAqDYCbNyihOFx5E2Cpw/wskfeMHIQjDKgv4GlzpQOIYEWrUJvoDHW5ShdTyDDmfvuIEGQfJm8yhErS6DLGTPmUFNBMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789731310; c=relaxed/simple;
-	bh=wGxs+F/+5Vrhuyz2y5uEWLeuFrAw1YPbFSMnjR0PIic=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=RGOy6xoFs/2OwyBp6RPe+4GKGmba2HJ5p+SGJc4oDsXTX+wAIk5Kc7lzOPZmYMezeNJ+SZ7xsKAYr3vdlRbqbwa+k2b9KpAoHY+5+p+3UohCKlYqgPQv+78zAKz1grq/nEPPp/nRmOKIj56NR5ipw+zC6LjHeG9onnNWMjaFk1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=UfiHvClL; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1789731340; c=relaxed/simple;
+	bh=toJmEXNWLM3GB1lXX0xzB7u1NVNbQnWAt22LnWkn1yM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CDN6ubmj4v6TrbvGWpfXeH6qu4k5l+G62OAvBedK3HEUxIR2elmDDQ0Owj0w3wb3oAXLq2P/vihsl28mG1ic7lz+Mu8O7d1J2jERjlsWomFm8lkK2ukBiUmRj+lPxhZDE2ViZcx4i1shlmdYzrHadZBUjOoHWeohh6KXXSRSuN4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JgVpfAR1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="UfiHvClL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1789731308; x=1821267308;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=wGxs+F/+5Vrhuyz2y5uEWLeuFrAw1YPbFSMnjR0PIic=;
-  b=UfiHvClLrqONT81au3QmtN1De0oPKobZOw5buAAToyvnbfqiwAlKcP11
-   q6kVtYr/rvYG5yM3PhFnfGAgg65dHYRRpjZzLV/547/l9V4BuRtoCWTcz
-   3In3Nuyq+GN9T5+kjmJap+xih2zBdBI6VuyVQEZE2O0Z/hkEfODOEHAP5
-   XcLJk6u1OUtHqSA7VVwkt5iwSp08+TmeGi5gSTLkJX4MJasC352k9Ze20
-   HtqFqnpQN2GDRNGW3BdQTwqLIb/8n4CO44TfiUwfzxKwUvS/CGN4TtoSd
-   30W7IyGwbqcIXRcehh4sEYlHh1Lt9GEQx1wiwXQcaaj4RTOOvvfKEf64e
-   w==;
-X-CSE-ConnectionGUID: sCLJV7FZS8mM3CChFuNh7w==
-X-CSE-MsgGUID: WSOfmcd1RBWFuEl/bh22iA==
-X-IronPort-AV: E=Sophos;i="6.27,108,1787036400"; 
-   d="scan'208";a="73885846"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 04:35:07 -0700
-Received: from chn-vm-ex04.mchp-main.com (10.10.87.151) by
- chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.49; Fri, 18 Sep 2026 04:35:07 -0700
-Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Fri, 18 Sep 2026 04:35:03 -0700
-From: Daniel Machon <daniel.machon@microchip.com>
-Date: Fri, 18 Sep 2026 13:34:06 +0200
-Subject: [PATCH net-next v7 14/14] misc: lan966x-pci: dts: add fdma
- interrupt to overlay
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JgVpfAR1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D3EF1F000FF;
+	Fri, 18 Sep 2026 11:35:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789731339;
+	bh=0mbDCG9aoxrBG/Rn3UOI+IN8mXXmMTsan8LmCVnyhlc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JgVpfAR1Pqq6gjrlfoEHy9DBjiLn0poxCwOCknZGxSgkKFxdl4H/X2eH0k2jmTPmG
+	 dlPh86By85g8S73BRseKuRzFdDkc8A6MqNyDqro+gsUCe+2j1RjNYD3s65vJvJhhWo
+	 gXAcozrmB7+PGCRzD6TAd7G0qcOVqJikw5eQ0loL+BVVImmriQkOwHmzPWJ1dVmK83
+	 rAih7yhFPc4Ea/gxXQwp4LTx2R4pzjjlHO7Xbna+tgIf39GyvH5FOqGJt/Mget6Xmh
+	 bbepNYNMPem04b/btmnqFD7XxBL9Sx6TIL/y3VDzSqjsnhgo2z+WxRYR+ucBDKOVr9
+	 SsoB6UVFJHQiA==
+Date: Fri, 18 Sep 2026 13:35:35 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Hans de Goede <hansg@kernel.org>, Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, 
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Guenter Roeck <linux@roeck-us.net>, 
+	Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org, linux-hwmon@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH 2/3] platform: arm64: Add a driver for the EC found on
+ ASUS Glymur machines
+Message-ID: <20260918-calm-gainful-turkey-8ba016@quoll>
+References: <20260917-topic-asus_ec-v1-0-373516d347ae@oss.qualcomm.com>
+ <20260917-topic-asus_ec-v1-2-373516d347ae@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260918-lan966x-pci-fdma-v7-14-0ecc179c8a2c@microchip.com>
-References: <20260918-lan966x-pci-fdma-v7-0-0ecc179c8a2c@microchip.com>
-In-Reply-To: <20260918-lan966x-pci-fdma-v7-0-0ecc179c8a2c@microchip.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
-	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Horatiu Vultur
-	<horatiu.vultur@microchip.com>, Steen Hegelund
-	<steen.hegelund@microchip.com>, <UNGLinuxDriver@microchip.com>, "Alexei
- Starovoitov" <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
-	"Jesper Dangaard Brouer" <hawk@kernel.org>, John Fastabend
-	<john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, Herve
- Codina <herve.codina@bootlin.com>, Arnd Bergmann <arnd@arndb.de>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Mohsin Bashir
-	<mohsin.bashr@gmail.com>
-CC: Richard Cochran <richardcochran@gmail.com>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <bpf@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260917-topic-asus_ec-v1-2-373516d347ae@oss.qualcomm.com>
 
-Add the fdma interrupt (OIC interrupt 14) to the lan966x PCI device
-tree overlay, enabling FDMA-based frame injection/extraction when
-the switch is connected over PCIe.
+On Thu, Sep 17, 2026 at 12:54:57PM +0200, Konrad Dybcio wrote:
+> +static int asus_glymur_ec_resume(struct device *dev)
+> +{
+> +	return asus_glymur_ec_modern_standby(dev_get_drvdata(dev),
+> +					     ASUS_QCOM_EC_MODERN_STANDBY_EXIT);
+> +}
+> +
+> +static DEFINE_SIMPLE_DEV_PM_OPS(asus_glymur_ec_pm_ops,
+> +				asus_glymur_ec_suspend,
+> +				asus_glymur_ec_resume);
+> +
+> +static const struct of_device_id asus_glymur_ec_of_match[] = {
+> +	{ .compatible = "asus,zenbook-a14-ux3407na-ec" },
+> +	{ .compatible = "asus,zenbook-a16-ux3607oa-ec" },
 
-Tested-by: Herve Codina <herve.codina@bootlin.com>
-Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
----
- drivers/misc/lan966x_pci.dtso | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Does this mean devices are compatible? If so should be expressed in the
+bindings. If not, should be expressed in bindings commit msg, see
+writing bindings docs.
 
-diff --git a/drivers/misc/lan966x_pci.dtso b/drivers/misc/lan966x_pci.dtso
-index 7bb726550caf..5bb12dbc0843 100644
---- a/drivers/misc/lan966x_pci.dtso
-+++ b/drivers/misc/lan966x_pci.dtso
-@@ -141,8 +141,9 @@ switch: switch@e0000000 {
- 
- 					interrupt-parent = <&oic>;
- 					interrupts = <12 IRQ_TYPE_LEVEL_HIGH>,
-+						     <14 IRQ_TYPE_LEVEL_HIGH>,
- 						     <9 IRQ_TYPE_LEVEL_HIGH>;
--					interrupt-names = "xtr", "ana";
-+					interrupt-names = "xtr", "fdma", "ana";
- 
- 					resets = <&reset 0>;
- 					reset-names = "switch";
-
--- 
-2.34.1
+Best regards,
+Krzysztof
 
