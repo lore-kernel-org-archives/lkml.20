@@ -1,124 +1,89 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C15F043E067;
-	Fri, 18 Sep 2026 09:58:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DD2243499F;
+	Fri, 18 Sep 2026 09:58:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789725523; cv=none; b=V8CyDoyJO4ZV/KMIiic/MI97MqZs7QWjKrQ6XUO8e237yjB2eIFgif8jPBGZbA0LOOFxIiEUQhdMrkr2/Y/X4TaPlck6Ws7QzR3ks3NNtfscH3PXXjtY80h2rA8UF8KjrQkTAHUmN54SE/WJgCow3/dcWER318bmdpg5OKToWz8=
+	t=1789725534; cv=none; b=inVJjgDTUZvM9D6GuXly7XQsZYjRhRmCNYKau5l5DSllVJqlLB+1yKkdonzykt8fa9J5kmc9V/Z5PgM5lJKZRq2O6YQMBUwI0zYXu9E2q7GrxPMuiSHEp6UFTVyhdWK591hqL4aACRtY+bxD0kU6ojuK5K0bnaC5V8jPoDmdA74=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789725523; c=relaxed/simple;
-	bh=9g67EQ9OuHY/G45gQSz7wbLlQ5TmF52uuKGJ5KtFVgk=;
+	s=arc-20240116; t=1789725534; c=relaxed/simple;
+	bh=JsQggZigR/TcXmnx8/T+7z6r+BTFJnRQcEysKzuQRdc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qHqCogRpnuJF5yZNuV4DAEpKLjEIfTfxJ2M6Yoc3muGSwATr6Niw4rBQCGKoRv44w7X/xzzBy8FmlPv4uf2RKu0kW7jiFvAAHGo+nL4QGS269gagSCFu5sQpnkyxoy8Dr3azhj4dDzy1BvTtqJSp7P4GQpN/owZS1rfTXkSfi7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=byG/jqvw; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=JXB4D53XFU3V85o+QldPHc0b3Gq1kvVeOMv53pl3n6SS2CuNoTXFzk/ki5n3N6jV8nxffRuq7AT+hpFAgKGoLbw83N7zY1YJh5mmyaNLGdn0QRzQVwfMGs091nrE5ntZ4l3YkjMKbdKJcOKWsVp6bsM3DY4CHvymnc5jp2zAjtw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lzQGaa2w; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="byG/jqvw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789725522; x=1821261522;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=9g67EQ9OuHY/G45gQSz7wbLlQ5TmF52uuKGJ5KtFVgk=;
-  b=byG/jqvwRvdl2ZXi+DQ004zrB618NZdtkkXs2vk62K/K2f3ne4F0nDMg
-   pTvOnJL6XqYH38jR/+65SXSmwO5GaJOIVr9STNp1N79q+ziseA3bHf6/t
-   MfsglnFjhjFKIY3zOAwTlIOHwtClUe1lrbl2tATFGic/GEt4vCY522r0a
-   xw9a8yW7G14D+hKAGzsO6eJK3h4gRGHxU1rej5CZqro2XZmyRkbUkWQk0
-   3g8VVh4AjegeL2uRtCp37jN2BXinln+Q6hUIQ9tTB8JeZMUBkkcxLQv4u
-   W1HXVM/IM+Ap3LVsjTAq1Dswlur3oDyryy0x7f+6Qf9hFm0Uet2sadOJg
-   w==;
-X-CSE-ConnectionGUID: 5Iw/rcBeRQqY6Rp0Z79J6w==
-X-CSE-MsgGUID: sR1sPobLR1yHhZTcim1NTw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="77784065"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="77784065"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 02:58:41 -0700
-X-CSE-ConnectionGUID: 3tnGNR3XSXSvKOqxjeHKcg==
-X-CSE-MsgGUID: 5ObHnEfkSYadJJnDYqRKzQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="270642062"
-Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
-  by fmviesa010.fm.intel.com with ESMTP; 18 Sep 2026 02:58:37 -0700
-Date: Fri, 18 Sep 2026 17:58:14 +0800
-From: Xu Yilun <yilun.xu@linux.intel.com>
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-Cc: "linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"x86@kernel.org" <x86@kernel.org>, "Gao, Chao" <chao.gao@intel.com>,
-	"Xu, Yilun" <yilun.xu@intel.com>,
-	"Duan, Zhenzhong" <zhenzhong.duan@intel.com>,
-	"kas@kernel.org" <kas@kernel.org>,
-	"baolu.lu@linux.intel.com" <baolu.lu@linux.intel.com>,
-	"Li, Xiaoyao" <xiaoyao.li@intel.com>,
-	"Maloor, Kishen" <kishen.maloor@intel.com>,
-	"Hunter, Adrian" <adrian.hunter@intel.com>,
-	"tony.lindgren@linux.intel.com" <tony.lindgren@linux.intel.com>,
-	"Mehta, Sohil" <sohil.mehta@intel.com>,
-	"Fang, Peter" <peter.fang@intel.com>,
-	"nik.borisov@suse.com" <nik.borisov@suse.com>,
-	"kvm@vger.kernel.org" <kvm@vger.kernel.org>,
-	"artem.bityutskiy@linux.intel.com" <artem.bityutskiy@linux.intel.com>
-Subject: Re: [PATCH v2 3/5] x86/virt/tdx: Detect if the extensions
- initialization is required
-Message-ID: <aq0LNmCd296NjKI3@yilunxu-OptiPlex-7050>
-References: <20260915102658.713079-1-yilun.xu@linux.intel.com>
- <20260915102658.713079-4-yilun.xu@linux.intel.com>
- <8c7a630c25f04dcf5b19e29d3b271c611bf90378.camel@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lzQGaa2w"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB91C1F000FF;
+	Fri, 18 Sep 2026 09:58:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789725532;
+	bh=Ln1d4qHa7vdCKllJbzJ0Cgy2Evr00KW99XLnmyu9AZQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lzQGaa2wc7pzdKv4ZpCrAfV29vqmfnYgdzyKRSmxaEI3AfqMIfSFutWS+AZPvkSF2
+	 GdevVH2V8K7hWaHcSqJB0R8WJs5Xz5mW5ttf0/Id00JR1Y+uo2I6kHaw8Y2J7I2y1i
+	 iapc6g9TCJqF+xSdzEicL/Hw13gqjY7TtT7pd5JqiM4rOIW7P0qrlFGm5eiLghqT4b
+	 Ov3UNovPiZ9GJgafv3w0tWTH+TU0jwaLigTapVYn4gGe4Yv23+pqZQFo6ci5xQgJvQ
+	 MUTb1pXh7zwXzsXY9YgTTr/+tqPq8nZBjFh5YelJfm4W9gKq8N5yRl1AF1ZdM5rzgP
+	 rG2Hz2OWtvtxA==
+Date: Fri, 18 Sep 2026 11:58:48 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Selvarasu Ganesan <selvarasu.g@samsung.com>
+Cc: peter.griffin@linaro.org, alim.akhtar@samsung.com, 
+	gregkh@linuxfoundation.org, robh@kernel.org, conor+dt@kernel.org, Thinh.Nguyen@synopsys.com, 
+	mani@kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-samsung-soc@vger.kernel.org, linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, jh0801.jung@samsung.com, h10.kim@samsung.com, 
+	dh10.jung@samsung.com, akash.m5@samsung.com, hongpooh.kim@samsung.com, 
+	eomji.oh@samsung.com, shijie.cai@samsung.com, muhammed.ali@samsung.com, 
+	thiagu.r@samsung.com
+Subject: Re: [PATCH v2 1/3] MAINTAINERS: add Samsung USB DT binding to
+ ARM/SAMSUNG entry
+Message-ID: <20260918-eminent-wooden-shark-97b8be@quoll>
+References: <20260916122229.2604003-1-selvarasu.g@samsung.com>
+ <CGME20260916122351epcas5p37666f1232d3b2bcc1d02a96ab0df4142@epcas5p3.samsung.com>
+ <20260916122229.2604003-2-selvarasu.g@samsung.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <8c7a630c25f04dcf5b19e29d3b271c611bf90378.camel@intel.com>
+In-Reply-To: <20260916122229.2604003-2-selvarasu.g@samsung.com>
 
-> > +static __init int init_tdx_module_extensions(void)
-> > +{
-> > +	int ret;
-> > +
-> > +	if (!(tdx_sysinfo.features.tdx_features0 & TDX_FEATURES0_EXT))
-> > +		return 0;
-> > +
-> > +	ret = get_tdx_sys_info_ext(&tdx_sysinfo.ext);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	/*
-> > +	 * ext_required indicates if any add-on features requiring TDX module
-> > +	 * extensions are configured via TDH.SYS.CONFIG. If none, skip the
-> > +	 * initialization.
-> > +	 */
-> > +	if (!tdx_sysinfo.ext.ext_required)
-> > +		return 0;
+On Wed, Sep 16, 2026 at 05:52:27PM +0530, Selvarasu Ganesan wrote:
+> Add the Samsung USB devicetree binding file path under the existing
+> ARM/Samsung SoC maintainership.
 > 
-> Hmm, now that we don't need to do this on update, we don't need to save
-> ext.ext_required metadata.
-
-Good to me.
-
+> Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
+> ---
+>  MAINTAINERS | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-> Also, per:
-> https://lore.kernel.org/all/aox8DgpnSnhZRfCv@yilunxu-OptiPlex-7050/
-> the reason we even need to check anything is because TDH_EXT_INIT returns a
-> strange error code TDX_EXT_MEMORY_POOL_REQUIRED. In the case of a TDX module
-> that supports extensions, but none that the kernel knows about... what if
-> TDH_EXT_INIT returned SUCCESS meaning that all requested extensions (0 of them)
-> are initialized.
-> 
-> AFAICT the specs don't describe what to do in this situation. But does describe
-> SUCCESS as a possible error code. And TDX_EXT_MEMORY_POOL_REQUIRED is wrong. So
-> its probably the most sensible bug fix anyway.
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index a53620839407..87a1ab24a375 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -3576,6 +3576,7 @@ F:	Documentation/devicetree/bindings/arm/samsung/
+>  F:	Documentation/devicetree/bindings/hwinfo/samsung,*
+>  F:	Documentation/devicetree/bindings/power/pd-samsung.yaml
+>  F:	Documentation/devicetree/bindings/soc/samsung/
+> +F:	Documentation/devicetree/bindings/usb/samsung,*
 
-I raised to the module team, and they will fix it.
+I think this is not really needed. First of all, files will be covered
+by N: pattern further in the entry. Second, patches for these should go
+via USB, but listing here the directory could create impression that
+Samsung SoC is responsible.
 
-> 
-> Then basically this patch goes away? We still check TDX_FEATURES0_EXT, but it
-> can be squashed into the other one?
+This one entry is harmless, but if adding this, then next time we got 15
+more updates for each of Documentation/devicetree/bindings/*/samsung*
+files. Is it worth?
 
-Good to me.
+Interested people can add themselves to the bindings maintainers entry,
+that's always welcomed.
+
+Best regards,
+Krzysztof
+
