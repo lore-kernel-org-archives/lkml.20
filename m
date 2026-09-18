@@ -1,187 +1,241 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-135.mta0.migadu.com [91.218.175.135])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C3CA3D5246;
-	Fri, 18 Sep 2026 06:58:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6715A37268C
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:59:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.135
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789714720; cv=none; b=NsjpkjcczymimBFnyxr1pnTWZEkHQfUuYFczgOVScd9/jNnYPetCHTQYaWTHp0zF0Ug9EH5dyuyKetL2SwrSd5LA8O58HmcImvQaPxoyb97mNflr/SUPoaD4xTiUlhthiZ4IZzsHAfmgsm1gqvajXqd3nn7i0lrTXah+3nBA9SQ=
+	t=1789714767; cv=none; b=rGutQHt1ks7QDgFNHNDEkh8fZ26jVJTbYgNQW2Ieh2eoLrhKi413yuhtE2NtsfZJjf+kVkpyM0Yx0xq3z714WmWIt6xzkQKtxb8O1FswOnD5RjBXo4sUXpN/uD7zf4HkKalNZjQR4Ywg68LKPSgvp1P3Ww87n0cfcJXVdBQn5S8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789714720; c=relaxed/simple;
-	bh=V9cF5y+tutOk4VK6+m3sT0hS5YRLKDLB/lUHOug9XPA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=keNg+y8WPf5qMVSlvbNwQWuXKLRSGjA27SydnQ27PeBbtEohrB6t3q0yqHb1a4+ofzDxJtDdN9MQY0iNF9v1zSi126t7CA2CVo2afNbDsGFB5HPiB1P+BETow1QVO/VkxvaKA3rgJLjA4BUEmCXPn4mllhP2Mpk1sVPHAnkbt8M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=FLzf+935; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1789714767; c=relaxed/simple;
+	bh=u1IH4r+aCqyNvijH53MjoE8PjJY5Tc0reOM1hN6q8Mk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aEI74yfVnlIYawt4xF4QwqQVfAhKLO5hbyS8y9+iP3Hr+liOf96jfVSEIIN3cr4dE9bIiHN2wK4aVvoKKDihFywY2tJLdCvHgAJraMTQXV79nX5iKM3pmdtwDB9c3tW9GFgzR4nFj3dVujr3q4iVTrD7ATnGlB6jpkdZ2tLCUc0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xkJW2pDy; arc=none smtp.client-ip=91.218.175.135
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="FLzf+935"
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3FD7E1E6A;
-	Fri, 18 Sep 2026 08:56:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1789714610;
-	bh=V9cF5y+tutOk4VK6+m3sT0hS5YRLKDLB/lUHOug9XPA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=FLzf+935Kin+RI4p9MY+mBTKLOL2Dbi/QPunp1c47d1ud8V3TIn2W6rLUEz4Kfzww
-	 XNqFVeJYmHLqZJadSyBJjikSzyKCQAV/TTnaotSYr//BOZj7xXjKZ5s/aXjKECmkdM
-	 o5WiOteY2x92foPkOaMfRZZDhgPYvzebQKlL5mSM=
-Message-ID: <1d62db29-9add-4907-ab09-a916c551b161@ideasonboard.com>
-Date: Fri, 18 Sep 2026 09:58:30 +0300
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xkJW2pDy"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=u1IH4r+aCqyNvijH53MjoE8PjJY5Tc0reOM1hN6q8Mk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789714763; v=1; x=1790319563;
+ b=xkJW2pDyh3gLkhaNQxipBuQWFKhjvwv11pVmec9LSG2bTQDYFfWLQyvxiF1+PQb4dHzOFLLr
+ 03GsjVPnZF+uNeBDXOHtzpZ8cvXW0u0igRiAZVVF5hBWXNJ+tcCjdgFVuYYs5guIqd6Mga9caIY
+ CTeCPaVXlrlaQmR2z4ih/IcE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id fe34583bbf42bfe1;
+	Fri, 18 Sep 2026 06:59:13 +0000
+X-Mizu-Trace-ID: fe34583bbf42bfe1
+X-Migadu-Flow: FLOW_OUT
+From: Hui Zhu <hui.zhu@linux.dev>
+To: Roman Gushchin <roman.gushchin@linux.dev>,
+	JP Kobryn <inwardvessel@gmail.com>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Shuah Khan <shuah@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Barry Song <baohua@kernel.org>,
+	Geliang Tang <geliang@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org
+Cc: Hui Zhu <zhuhui@kylinos.cn>
+Subject: [PATCH bpf-next v12 0/2] bpf: BPF-driven proactive memcg reclaim
+Date: Fri, 18 Sep 2026 14:58:52 +0800
+Message-ID: <cover.1789714023.git.zhuhui@kylinos.cn>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: xilinx: vtc: Dynamically calculate pixel clock
-To: "Gugulothu, Rajesh" <rajesh.gugulothu@amd.com>
-Cc: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- "Simek, Michal" <michal.simek@amd.com>
-References: <20260729101808.3904212-1-rajesh.gugulothu@amd.com>
- <bfdf98d4-e3f3-42ff-a0b4-55c67790e4d0@ideasonboard.com>
- <CYYPR12MB9014FF79595C722B3482EDED9EB22@CYYPR12MB9014.namprd12.prod.outlook.com>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Content-Language: en-US
-In-Reply-To: <CYYPR12MB9014FF79595C722B3482EDED9EB22@CYYPR12MB9014.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi,
+From: Hui Zhu <zhuhui@kylinos.cn>
 
-On 07/09/2026 12:50, Gugulothu, Rajesh wrote:
-> AMD General
-> 
-> Hi Tomi,
-> 
-> Thanks for the review, and Laurent for looping you in.
-> 
->> -----Original Message-----
->> From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
->> Sent: Thursday, September 3, 2026 3:38 PM
->> To: Gugulothu, Rajesh <rajesh.gugulothu@amd.com>; Laurent Pinchart
->> <laurent.pinchart@ideasonboard.com>; Simek, Michal <michal.simek@amd.com>
->> Cc: linux-media@vger.kernel.org; linux-arm-kernel@lists.infradead.org; linux-
->> kernel@vger.kernel.org; Mauro Carvalho Chehab <mchehab@kernel.org>
->> Subject: Re: [PATCH] media: xilinx: vtc: Dynamically calculate pixel clock
->>
->> Hi,
->>
->> On 29/07/2026 13:18, Rajesh Gugulothu wrote:
->>> This update enables the vtc to set the pixel clock based on the
->>> specified timing parameters. A new fps field is added to struct
->>> xvtc_config and the pixel rate is computed as fps * hsize * vsize.
->>> After setting the rate, the actual clock rate is read back and a
->>> warning is emitted if it deviates beyond a small tolerance.
->>>
->>> The pixel rate is computed in unsigned long arithmetic to avoid a
->>> 32-bit overflow in the fps * hsize * vsize product.
->>>
->>> Signed-off-by: Rajesh Gugulothu <rajesh.gugulothu@amd.com>
->>> ---
->>>    drivers/media/platform/xilinx/xilinx-vtc.c | 19 +++++++++++++++++++
->>>    drivers/media/platform/xilinx/xilinx-vtc.h |  1 +
->>>    2 files changed, 20 insertions(+)
->>>
->>> diff --git a/drivers/media/platform/xilinx/xilinx-vtc.c
->>> b/drivers/media/platform/xilinx/xilinx-vtc.c
->>> index 92fec7bb4..695eb2a46 100644
->>> --- a/drivers/media/platform/xilinx/xilinx-vtc.c
->>> +++ b/drivers/media/platform/xilinx/xilinx-vtc.c
->>> @@ -141,6 +141,9 @@
->>>
->>>    #define XVTC_GENERATOR_GLOBAL_DELAY                0x0104
->>>
->>> +/* Value of 1 = .01% */
->>> +#define XVTC_CLK_MAX_PCT_ERR                        1
->>> +
->>>    /**
->>>     * struct xvtc_device - Xilinx Video Timing Controller device structure
->>>     * @xvip: Xilinx Video IP device
->>> @@ -175,10 +178,26 @@ int xvtc_generator_start(struct xvtc_device *xvtc,
->>>                        const struct xvtc_config *config)
->>>    {
->>>       int ret;
->>> +    unsigned long s_rate;
->>> +    unsigned long g_rate;
->>> +    unsigned long clk_err;
->>>
->>>       if (!xvtc->has_generator)
->>>               return -ENXIO;
->>>
->>> +    s_rate = (unsigned long)config->fps * config->hsize * config->vsize;
->>> +    ret = clk_set_rate(xvtc->xvip.clk, s_rate);
->>> +    if (ret < 0)
->>> +            return ret;
->>> +
->>> +    /* Verify that the clock is within a reasonable tolerance. */
->>> +    g_rate = clk_get_rate(xvtc->xvip.clk);
->>> +    clk_err = (abs(g_rate - s_rate) * 10000) / (s_rate);
->>> +    if (clk_err > XVTC_CLK_MAX_PCT_ERR)
->>> +            dev_warn(xvtc->xvip.dev,
->>> +                     "Failed to set clk rate: %lu, actual rate: %lu\n",
->>> +                     s_rate, g_rate);
->>> +
->>>       ret = clk_prepare_enable(xvtc->xvip.clk);
->>>       if (ret < 0)
->>>               return ret;
->>> diff --git a/drivers/media/platform/xilinx/xilinx-vtc.h
->>> b/drivers/media/platform/xilinx/xilinx-vtc.h
->>> index 855845911..0f360ed55 100644
->>> --- a/drivers/media/platform/xilinx/xilinx-vtc.h
->>> +++ b/drivers/media/platform/xilinx/xilinx-vtc.h
->>> @@ -27,6 +27,7 @@ struct xvtc_config {
->>>       unsigned int vsync_start;
->>>       unsigned int vsync_end;
->>>       unsigned int vsize;
->>> +    unsigned int fps;
->>>    };
->>>
->>>    struct xvtc_device *xvtc_of_get(struct device_node *np);
->>
->> In upstream there's a single user for the VTC: the TPG driver. It doesn't set the fps
->> field, so the above code would always try to set the rate to 0, wouldn't it?
->>
-> You're right. The VTC change was posted without the TPG hunk that sets
-> fps (xtpg_config_vtc(): .fps = xtpg->fi_d / xtpg->fi_n), so upstream fps
-> stays 0 and we end up calling clk_set_rate(clk, 0) and dividing by zero.
-> I will include the TPG change in the series so the VTC code has a real
-> user.
-> 
->> What is "reasonable tolerance", why did you arrive to .01%? Also, the actual result is
->> not visible to the user.
->>
-> Agreed, the 0.01% threshold was arbitrary. I will drop both the tolerance
-> and the dev_warn() - a log message is not something userspace can act on.
-> Instead the driver can use clk_round_rate() to get the achievable rate
-> and report the actual value through the API rather than dmesg. Does this
-> approach sound fine to you?
-> 
->> I think this is a slightly bigger topic than a single VTC patch. There should be a
->> userspace API to set the FPS, and the user should see what was the actual rate he
->> got via the API (instead of a dev_warn when the rate is off more than an arbitrary
->> tolerance).
-> 
-> Agreed. For v2 I will make the frame rate a userspace parameter and
-> report the achieved rate back through the same API, dropping the
-> tolerance/dev_warn heuristic entirely.
-> 
-> I plan to use the V4L2 frame-interval interface (VIDIOC_S/G_PARM on the
-> TPG source pad): compute the pixel clock from the requested interval,
-> program it via the VTC, and write the granted interval back so userspace
-> sees what it got. Let me know if you would prefer a different interface
-> (e.g. DV timings or a dedicated control); I would like to settle the API
-> before I respin.
-I think this sounds fine.
+BPF programs can observe memory pressure on a cgroup (e.g. refault
+stats via bpf_mem_cgroup_page_state()), but cannot act on it:
+triggering reclaim on a chosen cgroup requires writing to
+memory.reclaim, which BPF cannot do. This series adds
+bpf_proactive_reclaim(), a sleepable kfunc performing one proactive
+reclaim pass on a target memcg, so when and how hard to reclaim is
+BPF policy rather than hard-coded thresholds.
 
-Do you have a design to test the TPG? I think Vivado dropped it many 
-years ago, and I have never actually ran the TPG driver.
+The kfunc is restricted to BPF_PROG_TYPE_SYSCALL so that reclaim
+always runs in a clean process context: generic sleepable programs
+may execute with filesystem locks held or in NOFS/NOIO contexts,
+where the reclaim path could deadlock in filesystem shrinkers. The
+bpf_wq and task_work callbacks of a SYSCALL program keep its program
+type and run in process context, so reclaim work can still be queued
+asynchronously through them, as the selftest does with bpf_wq.
 
-  Tomi
+The use case we are looking at is protecting high-priority workloads:
+a BPF program monitors the state of a high-priority cgroup and, when
+it degrades (e.g. PSI rises or refaults increase, as in the
+selftest), asynchronously reclaims memory from low-priority cgroups
+via bpf_wq and bpf_proactive_reclaim(), giving the pressured cgroup
+more free pages.
+
+Another use case: several vendor-maintained kernels carry private
+implementations that trigger asynchronous reclaim when a memcg enters
+a certain state. These exist for historical and partly psychological
+reasons, but the underlying demand is real. We expect BPF-driven
+proactive reclaim, combined with the BPF hooks for the memory
+controller currently under discussion and development, to serve these
+needs in mainline, reducing kernel fragmentation and improving kernel
+maintainability.
+
+Benchmark numbers from the selftest (TEST_MEMCG_ASYNC_RECLAIM_BENCH=1
+runs the workload once without the BPF program and once with it; QEMU
+VM with 8 GiB RAM and 10 vCPUs, 10 runs): the pressured workload
+finishes in a median of 2.0s with BPF-driven async reclaim versus
+15.3s without, a 62%-94% improvement per run. The harvested workload
+shares the parent's memory.max with it and finishes in a median of
+7.5s versus 12.2s, as it has the limit to itself once the pressured
+workload finishes early.
+
+Raw benchmark output of the 10 runs (one line per run, all passed):
+memcg_async_reclaim: baseline high=15.331030 low=10.662426, reclaim high=2.311867 low=4.912402, high speedup=84.9%
+memcg_async_reclaim: baseline high=10.788771 low=15.127507, reclaim high=3.061484 low=4.518388, high speedup=71.6%
+memcg_async_reclaim: baseline high=16.553653 low=12.281844, reclaim high=2.586470 low=9.890286, high speedup=84.4%
+memcg_async_reclaim: baseline high=18.032006 low=14.058724, reclaim high=1.713115 low=3.967476, high speedup=90.5%
+memcg_async_reclaim: baseline high=15.253594 low=12.101572, reclaim high=1.880957 low=4.478044, high speedup=87.7%
+memcg_async_reclaim: baseline high=5.454157 low=9.781724, reclaim high=2.035418 low=10.322757, high speedup=62.7%
+memcg_async_reclaim: baseline high=10.010656 low=3.029734, reclaim high=1.947231 low=10.162948, high speedup=80.5%
+memcg_async_reclaim: baseline high=18.201170 low=15.182740, reclaim high=1.510723 low=9.390685, high speedup=91.7%
+memcg_async_reclaim: baseline high=10.772079 low=5.418259, reclaim high=2.325059 low=13.225425, high speedup=78.4%
+memcg_async_reclaim: baseline high=16.360502 low=14.506304, reclaim high=0.864310 low=5.624312, high speedup=94.7%
+
+Changelog:
+v12:
+Redo performance tests and update performance data.
+According to the comments of Barry, fix comments issue.
+Based on the AI review and my re-examination of selftests, updated the
+contents below.
+Express RECLAIM_SIZE in bytes so it is right on non-4K page kernels.
+Drop the local PAGE_SIZE macro, RECLAIM_SIZE is now a byte count.
+Remove the unused bpf_helpers.h, bpf_tracing.h and bpf_core_read.h.
+Rename CLOCK_MONOTONIC_ID to CLOCK_MONOTONIC to match the kernel.
+Drop the CSS_DYING test, it is never set on a cgroup's own css.
+Document that the lookup fails inside rmdir(), not at last put.
+Count bpf_timer_start() failures so a stalled loop is visible.
+Record the kfunc errno so failure is not read as an idle cgroup.
+Note that an idle tick discards the refault delta.
+Reject tmpfs for /tmp and the working dir, else the workload OOMs.
+Pass the mkstemp() fds to the children so no stale path is reopened.
+Read the timing file with lseek() and read() on the shared fd.
+Write the timing with snprintf() and write(), checking truncation.
+Close the data and time fds on every cleanup path.
+Remove fcntl.h, nothing calls open() any more.
+Factor disable_swap() out of the two cgroup setups.
+Recreate the cgroups between bench runs so both start cold.
+Guard the speedup calculation against a zero baseline.
+Drop the non-bench timing printf, it was noise on passing runs.
+Assert only TARGET_GONE, the outcome rmdir() actually guarantees.
+End the wait loop only on target_gone so later events are seen.
+Compare reclaimed_bytes against 0, a check that can now fail.
+Poll the keepalive reader with WNOHANG and report its exit code.
+Clear reader_pid after reaping so cleanup cannot kill a new PID.
+Rename the ring_buffer__poll() result to n, it counts events.
+Print timer_failures and last_reclaim_err when an assert fails.
+Explain why bench_printf() needs the stdout fallback and no # prefix.
+v11:
+According to the comments of Kumar, fix reclaim_cgroup() to not treat
+a negative bpf_proactive_reclaim() return as reclaimed bytes.
+According to the comments of Shakeel, shorten the commit message.
+v10:
+According to the comments of JP, drop redundant swap.h include, turn
+swappiness macros into a BTF-visible enum, and clarify the -1 swappiness
+semantics in docs and code in code patch.
+report each reclaim outcome via ringbuf and wait for events with timeout
+instead of sleep-polling, log workload timings instead of failing on
+them, drop a debug printf, and add a TEST_MEMCG_ASYNC_RECLAIM_BENCH
+baseline-comparison mode in the selftests patch.
+Include the benchmark numbers in the cover letter.
+v9:
+According to the comments of JP, copy the motivation from the cover
+letter to the commit message, restructure the kfunc documentation
+to separate the direct and asynchronous calling contexts, fold the
+fs-lock warning into the SYSCALL-only rationale, soften the "bounded
+unit of work" wording (only the reclaim target is capped), and drop
+the redundant comment above the reclaim kfunc set registration.
+v8:
+According to the comments of Andrew, Kumar and Shakeel, drop the
+bpf_in_reclaim_context() check because the SYSCALL-only restriction
+already rules out reentrancy.
+According to the comments of Kumar, Add the swappiness argument to
+bpf_proactive_reclaim().
+v7:
+According to the comments of JP, clamp the reclaim target of one
+bpf_proactive_reclaim() call to MEMCG_CHARGE_BATCH so each call is
+a bounded unit of work, and document the batching policy in the kfunc.
+selftest: check the target cgroup for dying state before reclaiming
+from it, and add the memcg_async_reclaim_dying test covering target
+removal while reclaim is running.
+v6:
+According to the comments of Kumar and Shakeel, Restrict
+bpf_proactive_reclaim() to BPF_PROG_TYPE_SYSCALL by moving it
+to a dedicated kfunc set registered for that program type only, and
+document the clean-process-context requirement in its kerneldoc.
+v5:
+According to the comments of Andrii, Kumar and Shakeel, remove
+bpf_proactive_reclaim_swappiness.
+v4:
+According to the comments of bot+bpf-ci and sashiko, also check
+current->reclaim_state to close the fentry-on-trace-iter recursion
+window in bpf_in_reclaim_context.
+Return bytes instead of pages ( nr * PAGE_SIZE ) in
+bpf_proactive_reclaim_pages and bpf_proactive_reclaim_swappiness.
+Return (unsigned long)-1 on out-of-range swappiness (was 0).
+Kdoc of both kfuncs: updated Return descriptions; added FS-lock deadlock
+warning to bpf_proactive_reclaim.
+Fix potential child process leak in selftests.
+Use _exit() instead of exit() in forked children in selftests.
+Rename reclaimed_pages to reclaimed_bytes in selftests.
+Fix comments issues in selftests.
+v3:
+According to the comments of bot+bpf-ci, add a shared helper
+bpf_proactive_reclaim_pages() that is called by bpf_proactive_reclaim
+and bpf_proactive_reclaim_swappiness.
+According to the comments of sashiko and bot+bpf-ci, fix the issues of
+selftests.
+v2:
+According to the comments of Shakeel Butt, replace
+bpf_try_to_free_mem_cgroup_pages() with
+bpf_proactive_reclaim(memcg, size) and
+bpf_proactive_reclaim_swappiness(memcg, size, swappiness).
+According to the comments of Kumar Kartikeya Dwivedi, drop patch 2
+and patch 3.
+Remove bpf_thread_wq code in patch 4.
+According to the comments of sashiko-bot, fix the issues of selftests.
+
+Hui Zhu (2):
+  mm/bpf: Add bpf_proactive_reclaim kfunc
+  selftests/bpf: Add memcg async reclaim test
+
+ mm/bpf_memcontrol.c                           |  62 +-
+ mm/internal.h                                 |  10 +-
+ tools/testing/selftests/bpf/config            |   1 +
+ .../bpf/prog_tests/memcg_async_reclaim.c      | 890 ++++++++++++++++++
+ .../selftests/bpf/progs/memcg_async_reclaim.c | 327 +++++++
+ 5 files changed, 1285 insertions(+), 5 deletions(-)
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/memcg_async_reclaim.c
+ create mode 100644 tools/testing/selftests/bpf/progs/memcg_async_reclaim.c
+
+-- 
+2.43.0
 
