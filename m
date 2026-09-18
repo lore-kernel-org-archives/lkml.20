@@ -1,54 +1,67 @@
-Received: from mta0.migadu.com (out-245.mta0.migadu.com [91.218.175.245])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B03624519A3
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 17:53:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.245
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3F1946E010;
+	Fri, 18 Sep 2026 17:54:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789754029; cv=none; b=rs0kYkD0B1eQm/ij9EaxcTa9sfx8Xiof4ZYKAAF/hRmM7XuOxXkbFqc6vEX3Am7abYPyIVivhyD6ovADjGWOIAa8AYNoPzv17Krb3/+W97nDLd1YkAQ7Iv+ZkOW20kA/wHW8tT3/EbWn0WDfbCU3U3WOvp8Ae4Gonz1jybE8/rs=
+	t=1789754066; cv=none; b=ffBYZsZ6kPh2ZePPOBiwtB/q+yg/AGJTeNO1+u5rF0DsTHDf6li/6zw+BzX6UkpWd+ZE3z3QHnn206DNRz1yV8/eFP0pdsScp5cM5QHnbqsr65yoLMDXu2q7DH17f6j4lttBkg4mpTnPif+4RSCAFJwtl47y92HKzQJDq3dn7aY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789754029; c=relaxed/simple;
-	bh=qef1qfESxx2iUjqupM6SsnRWUnav4c99ce74qBOBVbQ=;
+	s=arc-20240116; t=1789754066; c=relaxed/simple;
+	bh=prij5PCUdQoil0rbyeqHDx5N+IveFQtqry9v0buczzA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e6m+ASXTw7Mih0BgQ4voGfKGCGFZ8leYlXBN+7p7B8pNjTFGVPRuPc9Oy9qC/8ldUhiaEp+h94IDjxpZvZKQ/QLQq/FGh0gNTqGB7TZgcOfL0VFQ8i9qUbTg37BfIwHsT4sGCIeRzS2PHI1uyN5jPjOApeCAlRttzrtv/r+Az04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=F0SXkDdH; arc=none smtp.client-ip=91.218.175.245
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 Content-Type:Content-Disposition:In-Reply-To; b=mXli3Ca6H+aXqEFF3859NuL75P/A9AdugHV59b2rMX2xg1QpjeLmixTYvkiLYtU8qtpXlJL8cXrredub6qbn3fgx0+VFMHKjIKOAOTGsd2EyOnxtjEIeWGYUi5Ay+V33VA77sL+mXN3xEHJ+rRXC996zSFTHFgMcN/6GCo91HPo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Klb0wgBf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="F0SXkDdH"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=qef1qfESxx2iUjqupM6SsnRWUnav4c99ce74qBOBVbQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789754021; v=1; x=1790358821;
- b=F0SXkDdHJzR7M1rAPkRuYqPQWiYg23GAyrZPDhIs6K2ZEZC+PsmTC0JIUhyybYtAXO2UYNrM
- UV2bDvFpnIgJspy7hEMrqjcIXsjO8vP5erbnvRsQL8MN7K5cGaIl7VnJlIm1mjmwkEY9911vVZR
- erGmh8Hgg/g9vPqDna+bS8E4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 4b40d4790eec116b;
-	Fri, 18 Sep 2026 17:53:41 +0000
-X-Mizu-Trace-ID: 4b40d4790eec116b
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 18 Sep 2026 10:53:39 -0700
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc: Hui Zhu <hui.zhu@linux.dev>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	JP Kobryn <inwardvessel@gmail.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Ihor Solodrai <ihor.solodrai@linux.dev>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, 
-	Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, 
-	Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, 
-	Shuah Khan <shuah@kernel.org>, David Hildenbrand <david@kernel.org>, 
-	Barry Song <baohua@kernel.org>, Geliang Tang <geliang@kernel.org>, linux-kernel@vger.kernel.org, 
-	bpf@vger.kernel.org, linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
-	Hui Zhu <zhuhui@kylinos.cn>
-Subject: Re: [PATCH bpf-next v12 2/2] selftests/bpf: Add memcg async reclaim
- test
-Message-ID: <aq14epWc4EwAIEvs@linux.dev>
-References: <cover.1789714023.git.zhuhui@kylinos.cn>
- <44f7fcfafd5f33072dd2b9abc31aa9bf5eacd9bb.1789714023.git.zhuhui@kylinos.cn>
- <DLIK17AFECZV.3U5UY0LYU5Y5O@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Klb0wgBf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABE0C1F000FF;
+	Fri, 18 Sep 2026 17:54:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789754059;
+	bh=jf1Sg8JZNv68DkLQ9YM/PpRyl/DdqtnqTNtVqMW7pCQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Klb0wgBf/SLgWj8gfV4cN6tyX52Ht6NPmHY80Oiah1HnBqO/OyUciZTIDi9BkPFl+
+	 kVtM4MDrwL3iJ+Dk/0t3AaAekBg9bRyzcdefzbxTjxuIEhjb8dcgDVZPk9jdRN7OdI
+	 LMGZig5sWRuoHAiWPcr+7SpWNuYKQHu27i4Oj2XHabTFt/dxwR3ueBfq3VstKbxvyC
+	 AdTWPXpOPqP7ncNnv7LeerbxTpIM5NuWsruvwllc0f4393t8cH2oYPxlos/dV9NO5x
+	 dI7koVgdfW93gUCUPDUTUS2xQtbdNyDCufvoJUpFbuz/kdK/aX6pyvQl6zfm5KCgdj
+	 zRxyAidCalLFA==
+Date: Fri, 18 Sep 2026 23:24:15 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Frank.Li@oss.nxp.com
+Cc: Eugen Hristev <ehristev@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Felix Gu <ustc.gu@gmail.com>, Stepan Ionichev <sozdayvek@gmail.com>,
+	Shuvam Pandey <shuvampandey1@gmail.com>,
+	Antoniu Miclaus <antoniu.miclaus@analog.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Piyush Patle <piyushpatle228@gmail.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+	Giorgi Tchankvetadze <giorgitchankvetadze1997@gmail.com>,
+	Olivier Moysan <olivier.moysan@foss.st.com>,
+	"Rob Herring (Arm)" <robh@kernel.org>,
+	Pei Xiao <xiaopei01@kylinos.cn>, Shi Hao <i.shihao.999@gmail.com>,
+	Kees Cook <kees+treewide@kernel.org>,
+	Michael Hennerich <michael.hennerich@analog.com>,
+	"open list:MICROCHIP SAMA5D2-COMPATIBLE ADC DRIVER" <linux-iio@vger.kernel.org>,
+	"moderated list:ARM/Microchip (AT91) SoC support" <linux-arm-kernel@lists.infradead.org>,
+	open list <linux-kernel@vger.kernel.org>,
+	"moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>,
+	imx@lists.linux.dev
+Subject: Re: [PATCH 1/1] iio: use dmaengine_get_dma_device() instead of
+ chan->device->dev
+Message-ID: <aq16x3gAOIslmNE4@parshuram>
+References: <20260917203652.1279059-1-Frank.Li@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -57,36 +70,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <DLIK17AFECZV.3U5UY0LYU5Y5O@gmail.com>
+In-Reply-To: <20260917203652.1279059-1-Frank.Li@oss.nxp.com>
 
-On Fri, Sep 18, 2026 at 03:41:12PM +0000, Alexei Starovoitov wrote:
-> On Fri, Sep 18, 2026 at 02:58 PM Hui Zhu <hui.zhu@linux.dev> wrote:
-> > From: Hui Zhu <zhuhui@kylinos.cn>
-> >
-> > Exercise BPF-driven async proactive reclaim. A BPF program watches the
-> > refault stats of a memory-pressured cgroup and, once they grow, reclaims
-> > a second cgroup from a bpf_wq callback through bpf_proactive_reclaim().
-> > Pass/fail rests on the reclaim counters. The workload timings are a
-> > benchmark, not a criterion, so they are logged only under
-> > TEST_MEMCG_ASYNC_RECLAIM_BENCH=1, which also runs a baseline without the
-> > BPF program, recreating the cgroups in between so both runs start cold.
+On 17-09-26, 16:36, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
 > 
-> [...]
+> Replace direct dma_chan::device::dev access with the proper
+> dmaengine_get_dma_device() accessor in IIO DMA consumers.
 > 
-> > Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
-> > ---
-> >  tools/testing/selftests/bpf/config            |   1 +
-> >  .../bpf/prog_tests/memcg_async_reclaim.c      | 890 ++++++++++++++++++
-> >  .../selftests/bpf/progs/memcg_async_reclaim.c | 327 +++++++
-> >  3 files changed, 1218 insertions(+)
+> chan->device->dev is not always the device used for DMA mapping.
+> Some DMA engines support per-channel IOMMU mappings, so different
+> channels may use different DMA devices.  dmaengine_get_dma_device()
+> returns the correct device for each channel.
 > 
-> 1200 lines of selftest for a 20 line kfunc ?
-> Sorry that's an overkill.
+> This also prepares for making the DMA engine provider data structures
+> private. DMA consumers should not access DMA engine internals directly.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
 
-Yeah I agree. Also I understand that BPF would prefer to have very fast and
-minimal selftests and selftest for a memory reclaim kfunc would not be that.
+Reviewed-by: Vinod Koul <vkoul@kernel.org>
 
-We have memory.reclaim selftests in cgroup, maybe that would be a better home.
-Basically whatever we do for memory.reclaim, do the same but using this kfunc.
-If you don't mind, why not let's just take the patch 1 in bpf tree for now and
-we will cover the selftest in next release but in cgroup selftests.
+-- 
+~Vinod
