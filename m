@@ -1,86 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A5F84C226D;
-	Fri, 18 Sep 2026 10:16:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D1644F6460;
+	Fri, 18 Sep 2026 10:16:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789726612; cv=none; b=JJeOfDcBn1SYFV3zo3dUhaAVrglma+bewHht66h+ryA2+S/jQgsGpEJC6MstCqknLV58g8b39lFHCXxKxBjWLqMiN4G2BqeQsgTpdtccHfXKKuTyA+YhSqn0Hq5jHdfvwF3Dn+k8CEuhzfMt+Qn76LpkNnLstZ1O5rjvEzOEMMQ=
+	t=1789726626; cv=none; b=QagtNeHIYdyOUWlxebrTTsnULG9PwDtBp2PrSHp5ciMfzgXl4+wo8OjEp61Mdd0tkvS0FEcl0Q9kFj4jKHyl/s3u84D9WQ6OLC7s+prjsC182pCMVaVb+AB0i8UtZl5Yn3tvUg4jmjRstv0ROY+xdFEv439439V1CImjHG5qh+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789726612; c=relaxed/simple;
-	bh=UDxOdOM4SxQI/SRvITcvClpR4kJ1LyTAVJnnNy5mOjQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=o0uyltrQ19WeVaErbzIXWLwK777wmjTqzntXToZhrV+D7OwP0VOJeKU6R1Bj38PwntvjBByOJuGWydSDCkvmMMY20HrClEcz/jJYWL1Mk5/isIyr/kfJeQK14NFpvCmP4oqkU+34eZn1V+2yzxyb+P2mAj9zqY0Vbu9UmEltAgI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=fail (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qh+Pxjuh reason="signature verification failed"; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789726626; c=relaxed/simple;
+	bh=Umdnckj/Pv270Hpi+iJItlPPecV9HERP5wUxztOHEwE=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=BVpIiXeYDdboWW/fD9aWcMLBP8oZvP93FgzWqmXQw1W39ZlkjwjF1HoF+gNMLIHx0j/LkyhvTZSyalXETBV0SKjvUAoemCpYGd1F88EshtWbNtZC86f2D7rvpbyx1ZGglpKCkIJ3VF97FD6A0xzJuQLR9DFioU2oJf3pR3o9BWY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=QascyoPD; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qh+Pxjuh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D27101F00898;
-	Fri, 18 Sep 2026 10:16:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789726605;
-	bh=UDxOdOM4SxQI/SRvITcvClpR4kJ1LyTAVJnnNy5mOjQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Qh+PxjuhUYtQuTeeOL6D5uiL1736me4lgCC18Dyr540KpX1gn7g2viekAqDkINVeW
-	 V16ZuYKknpyPGGG3APdOEwuMAA9Mi2X01p1YlM68ibSO/A8gHWKdpYguVle1KPxGUW
-	 SwSHBlhTwmXypnGgRbnUrfbCkHZj8vLURNJsaxUScCCy2zq0L8WhG7YW/LanxlaQ30
-	 Y9ixgrAUskPcxu43UTAsVmm1yKlQoJ86LJsqXWxWO2wBCStypE1LKZLL4qmNA3jhPT
-	 N93ecpuLle22qWqJDfk1PgsNhWBnUkKlE/ktYVKnz6zp5EwRIw2pWOt96ZTKfbwF6+
-	 Dj/abVCxxaFWA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 02/17] kexec: Record allocated CMA pages to fix
- release size mismatch
-Reply-To: sashiko-reviews@lists.linux.dev
-To: gregkh@linuxfoundation.org, dakr@kernel.org, maddy@linux.ibm.com, mingo@redhat.com, bp@alien8.de, ruanjinjie@huawei.com, ardb@kernel.org, robh@kernel.org, vishal.l.verma@intel.com, me@linux.beauty, kas@kernel.org, bgwin@google.com, linux-kernel@vger.kernel.org, chleroy@kernel.org, baoquan.he@linux.dev, rppt@kernel.org, will@kernel.org, rafael@kernel.org, lizhengyu3@huawei.com, hpa@zytor.com, yeoreum.yun@arm.com, tangyouling@kylinos.cn, graf@amazon.com, eric.devolder@oracle.com, sshegde@linux.ibm.com, kernel@xen0n.name, loongarch@lists.linux.dev, gshan@redhat.com, thuth@redhat.com, linux-mm@kvack.org, sourabhjain@linux.ibm.com, hbathini@linux.ibm.com, ritesh.list@gmail.com, mark.rutland@arm.com, adityag@linux.ibm.com, guodongtai@kylinos.cn, catalin.marinas@arm.com, maqianga@uniontech.com, seanjc@google.com, kees@kernel.org, dave.hansen@linux.intel.com, ruirui.yang@linux.dev, x86@kernel.org, palmer@rivosinc.com, piliu@redhat.com, pratyush@kernel.org, james.morse@arm.com, tglx@kerne
- l.org, jbouron@amazon.com, zhangtianyang@loongson.cn, driver-core@lists.linux.dev, linux-arm-kernel@lists.infradead.org, chao.gao@intel.com, "Jinjie
- Ruan" <ruanjinjie@huawei.com>, liukexin@kylinos.cn, linux-fsdevel@vger.kernel.org, blum@kernel.org, npiggin@gmail.com, leitao@debian.org, mpe@ellerman.id.au, linuxppc-dev@lists.ozlabs.org, pasha.tatashin@soleen.com, mclapinski@google.com, chenhuacai@kernel.org, coxu@redhat.com, takahiro.akashi@linaro.org, akpm@linux-foundation.org
-Cc: kexec@lists.infradead.org
-In-Reply-To: <20260918100442.3841135-3-ruanjinjie@huawei.com>
-References: <20260918100442.3841135-1-ruanjinjie@huawei.com>
- <20260918100442.3841135-3-ruanjinjie@huawei.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 10:16:41 +0000
-Message-Id: <20260918101641.D27101F00898@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="QascyoPD"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0EF47A5620;
+	Fri, 18 Sep 2026 12:16:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1789726613; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=Q6RdvS2y/NYTy1eqHoSNFL6RWEeWGyUp6RfbyD3opoc=;
+	b=QascyoPDH9ubhwH/RD6xxeOdq9FccC5Bog6M2H9FGj4lFJl7SK1EDQjqdt1F3KoPW0+eJ6
+	MXEhlxIxnyo0TrZRfLrJ0XLV+pcnnuyY8bAKAE2YsPCNGV+YVKvA343LbbmaoZGny8rwj7
+	TEVeNNMJEKj93nGTvNfqOPscKbu3gI5OWhy+AhoC7IwyFFFmPwN/KDjPbRr4I4oxqjKR9S
+	MKX6H0e37AQoafWHVbxcUnJFRWnWghfQoZ2Krf36ZTUU1RqpQ+SRwmc9wNYc9AP6jvvB9G
+	JA3CdU7X3rQwhKPXB+pldHBw4W0gHNMoK+H+7ftCj4bI5jMXNkvd160h+5sGEg==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Date: Fri, 18 Sep 2026 12:16:53 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: netdev@vger.kernel.org, Cursor <cursoragent@cursor.com>, Doug Berger
+ <opendmb@gmail.com>, Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Zak Kemble <zakkemble@gmail.com>, Simon Horman
+ <horms@kernel.org>, Ryo Takakura <ryotkkr98@gmail.com>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net 3/8] net: bcmgenet: do not skip WoL power up on GENET
+ V1
+In-Reply-To: <20260918000732.276506-4-florian.fainelli@broadcom.com>
+References: <20260918000732.276506-1-florian.fainelli@broadcom.com>
+ <20260918000732.276506-4-florian.fainelli@broadcom.com>
+Message-ID: <d54766239c598f0261184a80d65799d2@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-> The CMA pages allocated for a kexec segment are released using the
-> segment's memsz to calculate the number of pages. However, some
-> architecture loaders modify the segment's memsz after allocation
-> (e.g. arm64 subtracts text_offset), causing the release function to
-> free fewer pages than were originally allocated, leaking the remaining
-> CMA pages.
->=20
-> Add a per-segment `segment_cma_pages` array to store the number of
-> pages actually allocated from CMA. Populate it during
-> kexec_add_buffer() using the aligned memsz, and use it in
-> kimage_free_cma() to accurately release all allocated pages.
->=20
-> This avoids relying on the potentially modified segment->memsz and
-> prevents silent CMA memory leaks.
->=20
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: Baoquan He <baoquan.he@linux.dev>
-> Cc: Mike Rapoport <rppt@kernel.org>
-> Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
-> Cc: Pratyush Yadav <pratyush@kernel.org>
-> Cc: Brian Mak <makb@juniper.net>
-> Cc: Pingfan Liu <piliu@redhat.com>
-> Cc: Sourabh Jain <sourabhjain@linux.ibm.com>
-> Cc: Justinien Bouron <jbouron@amazon.com>
-> Cc: Li Chen <me@linux.beauty>
-> Cc: stable@vger.kernel.org
-> Link: https://sashiko.dev/#/patchset/20260729031235.2840255-1-ruanjinjie%=
-40huawei.com
-> Fixes: 07d24902977e ("kexec: enable CMA based contiguous allocation")
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+On 18.9.2026 02:07, Florian Fainelli wrote:
+> bcmgenet_power_up() had an early check for bcmgenet_has_ext(priv) 
+> before
+> dispatching by power mode. GENET V1 does not have the EXT block (unlike
+> GENET V2+), which causes bcmgenet_power_up() to immediately return 0.
+> 
+> As a consequence, when waking up from GENET_POWER_WOL_MAGIC on GENET 
+> V1,
+> bcmgenet_wol_power_up_cfg() is never invoked to disable the WoL clock,
+> clear wake event masks, and restore normal PHY and MAC operations.
+> 
+> Move the bcmgenet_has_ext() checks to the GENET_POWER_PASSIVE and
+> GENET_POWER_CABLE_SENSE cases where the EXT registers are actually
+> accessed, allowing GENET_POWER_WOL_MAGIC cleanup to execute on all
+> hardware versions.
+> 
+> Fixes: 1c1008c793fa ("net: bcmgenet: add main driver file")
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+c3ae64ae0c08 ("net: bcmgenet: handle GENET_POWER_WOL_MAGIC") ?
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918100442.3841=
-135-1-ruanjinjie@huawei.com?part=3D2
+> [...]
 
+With the correct Fixes tag:
+
+Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+
+Thanks,
+Nicolai
