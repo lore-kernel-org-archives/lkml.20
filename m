@@ -1,62 +1,64 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3280E24A067
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:46:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75F4B392828
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:46:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789699601; cv=none; b=fbenDynkMF/QrWMF6Dmrab56l5AXpwrzuGEL6N0puyubQz8lDaYeSrQpG1I4MrDXiektJc3aJX3hkylYJO6NVXPwGnUCy2vg843ZX96CUi5GHBaKyLUgpj1/ViByDSXe18sNIke0m6VWUZHw4HDqiV4VeAarKo3mTBPpZbhRnlQ=
+	t=1789699614; cv=none; b=UsT1ZJ5OVLtx38hisY+QE9SquME22b0/CsJ6oezPiysXrjMClVbkJ/C7p6aSkxejrDCndYNzV5q/28wtncYdvFhjg+7WqWYvFdKfDeghZjcM7qIJeqvXiY/uGtzwByu5cs8aeoydBLmL6yk9kqIpkv3RYJmjJDmJCPBPxQNGRvo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789699601; c=relaxed/simple;
-	bh=LjJ5sJnEi5EE0IvALN7ryhHg4MlSKSnPS1b4dRznO70=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=E6/MOBwlz8zTMQg6xNYrnVzXy4F3MAq4fHZ0+olyPTkOVo/aYPcJWP7DN7zpDyuIV5+W/DdGAmr0vAKYKqxCjfXudfu8kWYWaV5PyknNehlGzvlhgbsV25Q21HN/m+RkPptsSwfKuOM2RS0L304nuuXsj+kBzsghiOz3gE1vzOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JapdOEl8; arc=none smtp.client-ip=74.125.228.12
+	s=arc-20240116; t=1789699614; c=relaxed/simple;
+	bh=dwjlFa/K9V/FlCSuEo2COBXLlzeVVphfTyK1djlBGbw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=B4zfDy/t5q6GdrqUQ078OOUW3yYDEoT2c+Lpjq+m07Okaqu7qizjpw2IrqKXcrVOfIbBM3HXWBiCRVU9O1huMPwqXRSbjzbXiOSsferGfOBc6BGy1iZt+X9vk/VLoRC8ldktqr1Z6aztnw0Um8zx41ozPgL2ZXzF1JxniOXpiK0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YtxPnCa2; arc=none smtp.client-ip=74.125.228.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JapdOEl8"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea4c79fso69333a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:46:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YtxPnCa2"
+Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469f20513so230950b3a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:46:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789699593; x=1790304393; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gGnBH0JUMzyPu3dd9hYfJ7ZyZxE1z3RVWLOS62okldY=;
-        b=JapdOEl8JJ09r9zDhLzltwOZw4miYVxvzvfdaPDbzwfUkwOfh8Booh3hBOC3XC96j/
-         mINCO7Q7H4cWRQvGNvYOQ6d0vQCtI+GP/cWdSHXbNY6nWCwu76gNLbkhuP58ADPEiId2
-         lbtJCQ+tA6tTBUjapg+aee20WzxrsOCbbje3k1bPXhHYxXLFulk1WLqo2tiBuvgWvusI
-         ctFxz18SlxCxgrga899Q+NbHS6gBxv3cWmE+KGi7bcjJ8Icg8bA+qyBqDy2HVAYP+pG/
-         2uoDAjQtUY2aJ5VcWvve/NnqEMd0rZcG57O1jk01wvkrlSQNx5fNEMnGukfjcfQuhnva
-         oVkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789699593; x=1790304393;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789699599; x=1790304399; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gGnBH0JUMzyPu3dd9hYfJ7ZyZxE1z3RVWLOS62okldY=;
-        b=Wi8IerO+9tdlb6uwV5DV4rMMzF+EvCYUW0/1cFAvwIx2SOHquCWuDT+B9iYMmiO5KZ
-         VHCl19gvL3vJE5pJ9k/o2mWjuUiimYTwaaS/KrJPfxGa5BPj2tlh3wkemptJ50ozKjhT
-         yg5CqpDmJuwDnru8mYSc9E0ClaZql5IbfOSUMt5ZJMv9PIWIbBhd3YccnUdIjleedj4y
-         Nf7Dlz1M7jJ+/EPIdq5s+vyeZMshQHcO2bWmGRbw5CRgqwoqYnTl3gFBoKboAn9k4Gmv
-         JBI0fqcGlNBDDsXUkHytnVqplBIB/99uDSSDRbCJwkdDJrUJVTtolYvlMRjfF0yM1Lfe
-         pgsw==
-X-Forwarded-Encrypted: i=1; AKwUvBwMSEtP5FEK1YfPqaa9dY/MnqCvdFyAOdp1d5EokCYcdHUhOKaxI/AD4J4LGvxGojwrS9rEJOseYi156us=@vger.kernel.org
-X-Gm-Message-State: AFuF++nJCYvzxlameXBd4Oo27h3/fIlfZYJ6ZWRoGwwhletx/kFAMjfO
-	IdMB822Vx9MeOEdCXK+MBUXdwM+Cz9sLrfTFp0wxZ+mWy7RP9JnTD6ad
-X-Gm-Gg: AYBFou1RMS1ZWHRG9UbGTeWQ2pnu/+j6viq74IzYGSwhBg2yBI1KhvE0xS3HiM0deht
-	PTtKhXDh1sxDwuCqc0Svwt9HRHycIsREGFsUBue72C7HPR7uLs9JzXEFdVlIIwse61vWHNj+E3W
-	xFYfzaeHfCQaO6EYHRwKy/kIHe4y/5WL4pDCKbOUPw7ZeaQQDHS6/9PtGgBGOuj0pkH07D1mKah
-	P0TINh5Zv+wZSKD4iTSofNxBg5GCofVERz7uSrNhykv+PbudH4C6fym1V5J0DUn3PXxMa25GMME
-	rFuFV9vku7RJw2PrUqNH8AJ0IkkyzmpJ2I2vSVupTwHXDWEBLr2SLOHjHBfwn1R64dSENMBiIl5
-	tjISfm782Z1ws5zqK/w3tLKGk9MPSZIJ/F5qbX1YS/PizsnGdyh1sq71HUarpF/17X3aKL/GBJl
-	IM/5K4gn0ymk3FTluJnLWcCzv/nXb+h020w/3XnBLQdZ127KopTMCak9/aebbnVo/hUI3TKT8tG
-	CXGJiW6kDipVD2h8SQHxgkK7ym8w2Dbxbu4d8g=
-X-Received: by 2002:a17:90b:3c05:b0:399:1f8b:d255 with SMTP id 98e67ed59e1d1-39e54af0c87mr2618598a91.5.1789699593167;
-        Thu, 17 Sep 2026 19:46:33 -0700 (PDT)
+        bh=6lGfz1siIT5q4E2uH8NernSgbLLCtHEciMJJUl+iNLo=;
+        b=YtxPnCa2f60qsbjunv8REnS7zQJxPotqbtKB3y9fZKS3CiGrG9Mwxvgpxs1DXpXT5A
+         aQQxb2C554zIRLL0JojiiYoZkHY3G+aw6EIamBVwubdvQFoVkva0eaaOshLiuZbtmS9E
+         7+jM4MwN3DxtlF5Y9DygZ8ip37dCaO1rcm45YApVTfEsNDi55RjVJhLDJtg9R67SLj5d
+         q8h/iXeIGSR+03Q9oZiFwcsPFP64X9psxxWmSUwpfTKo7onVz/5ZhATksAmIiCGib+XS
+         a0zROPQqBVRcpjzVPul49qSoyxdwsMrpmr1ggGEnFsBq24gkPkJJgp/SqCTl1JsWfepe
+         1UjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789699599; x=1790304399;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6lGfz1siIT5q4E2uH8NernSgbLLCtHEciMJJUl+iNLo=;
+        b=HfWgzN5L9vogngu+4yGEz6BzC4iiWCeD3pdc33Qyaw3my2DcvGSraS6AWGDd3rM268
+         d1OpmkTa7by1pzDNkvR99TFknNUZxsOfusHId/pA3+Tp/IF0DITmIG5OsiSDYFyxbrGP
+         6ZLJ8fDxM4Of5K5GZj+6/vEqkRtDCOAc6lbk4lPLJq/OW0b2Qw3puuPaTAv+qVI91rRU
+         ynz7PtXtVxaejWL/csbZiWOVQoKbqoCTReX22OSmiXYMWES8rZsexp1igz60BTsrvT7B
+         X2n8ZEcale6IOQXgDAHWpEhsd/MWOQFaCIj9187QmvmKkhVW9Obg5KkmNyQAADxlUmm0
+         Va3w==
+X-Forwarded-Encrypted: i=1; AKwUvBzRxcjipDHw4Y0l1sKzJLUsqH7hY8LnH6VGv16Cfs7NjNBuuEgu1UtcMMScfhJCNaL4ukfEtTuBKPmi1Yw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lDKxvI1hBzwZoy54EnDnEZKOBA5Pf89AMmyUeIaU78Qc+nVTCo
+	X5Dno5bKtaeFFd6zjTjKK4wM+E0VZkzBiFT2axtTKSf+H0JCdcCRwxhv
+X-Gm-Gg: AYBFou1ZEamIYzH2bMos7bsQeWa8N3dMDGkqvtl7/iJeo4s6+pXPG5wjlbHUKQJBYcd
+	0K3LsmjV2M2rsXMDcwJUinpr+BeU7FZ3pWCCSHYeoRWoDN2oF+NN7ClVlNpLekcaGh1yZDp50tu
+	qMzHPdVMvwE96ecOV7beKD4GeCOF3nZc/QUpEs/MWCOGa96g26bbAPWSUsHQNtPjzRHzEHmqi7R
+	qOZyIRgv0lXdUCCnmQiYpXRlsKj4fLKXofmEHtjNGduAyf1CfPhUJmZYP/VJzszt2WOhcayCD+A
+	W0XcGorJ4Yr47plDghzdhsIxwxfSH4Duk5LGpvZ5CdYXFXN/7TPoMp0glqzq6nxEzUwRGlkarEw
+	tmiZ0lYZwGg12pNihOoHI4VWMCn/ayfpC4asWWrE/MnQjTBEQkMwdMfFdpLU8zXpAOM4gKJA+EW
+	julOkDASoWHvUNtzc8ll6qurD/Gd+MQc7iYOy0eOeNaZyrVHqcdM1zQByiB51nN6pYF/GusX+CS
+	BsV/YrrRbZb+9OyfWoEZ7WSZqnxcu6QTRZIJ1g=
+X-Received: by 2002:a05:6a20:cc97:b0:3cc:9288:99aa with SMTP id adf61e73a8af0-3dd8c21565fmr2275776637.0.1789699598611;
+        Thu, 17 Sep 2026 19:46:38 -0700 (PDT)
 Received: from localhost.localdomain ([2409:8a1e:2e81:7320:ec74:2ce6:f939:d0ad])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c287b0293sm349521eec.24.2026.09.17.19.46.29
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c287b0293sm349521eec.24.2026.09.17.19.46.34
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 17 Sep 2026 19:46:32 -0700 (PDT)
+        Thu, 17 Sep 2026 19:46:38 -0700 (PDT)
 From: zjamg <ndaugoing@gmail.com>
 To: Marc Zyngier <maz@kernel.org>,
 	Oliver Upton <oupton@kernel.org>
@@ -71,11 +73,14 @@ Cc: Fuad Tabba <fuad.tabba@linux.dev>,
 	linux-arm-kernel@lists.infradead.org,
 	kvm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Yuchao Zhang <ndaugoing@gmail.com>
-Subject: [PATCH 0/1] KVM: arm64: vgic: fix UAF/crash on remote LPI disable
-Date: Fri, 18 Sep 2026 10:46:19 +0800
-Message-ID: <20260918024620.83869-1-ndaugoing@gmail.com>
+	Yuchao Zhang <ndaugoing@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/1] KVM: arm64: vgic: Do not remove in-flight LPIs from AP list on disable
+Date: Fri, 18 Sep 2026 10:46:20 +0800
+Message-ID: <20260918024620.83869-2-ndaugoing@gmail.com>
 X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260918024620.83869-1-ndaugoing@gmail.com>
+References: <20260918024620.83869-1-ndaugoing@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,27 +91,46 @@ Content-Transfer-Encoding: 8bit
 
 From: Yuchao Zhang <ndaugoing@gmail.com>
 
-Hi Marc, Oliver, and KVM/arm64 maintainers,
+By code inspection, a race condition and potential Use-After-Free/crash
+exists between remote LPI disabling and local LR folding when EOImode==0.
 
-By code inspection of commit 6da5e537f5af ("KVM: arm64: vgic: Pick EOIcount
-deactivations from AP-list tail"), a race condition exists when a remote
-vCPU disables LPIs while the target vCPU has an in-flight LPI in a List
-Register (LR).
+Commit 6da5e537f5af ("KVM: arm64: vgic: Pick EOIcount deactivations from
+AP-list tail") introduced tracking the last interrupt placed in a List
+Register in per-CPU host data (*host_data_ptr(last_lr_irq)) and traverses
+the remaining ap_list via list_for_each_entry_continue() in
+vgic_v3_fold_lr_state().
 
-Specifically:
-- vgic_flush_pending_lpis() unconditionally unlinks all LPIs from ap_list
-  without checking whether the interrupt is in an LR (irq->on_lr).
-- If the LPI in the LR happened to be the last one populated, the per-CPU
-  pointer *host_data_ptr(last_lr_irq) on the target vCPU is left dangling.
-- When the target vCPU exits guest mode, vgic_v3_fold_lr_state() starts
-  traversing ap_list via list_for_each_entry_continue() from this unlinked,
-  poisoned (or freed) last_lr_irq, leading to UAF or an immediate panic
-  when locking irq->irq_lock.
+However, an interrupt loaded into an LR can be an LPI. While vCPU-B is
+running the guest, another vCPU-A can write to vCPU-B's redistributor
+GICR_CTLR to clear EnableLPIs, which dispatches vgic_flush_pending_lpis().
 
-Solution & Scope:
-This patch prevents unlinking LPIs that are currently on an LR in
-vgic_flush_pending_lpis(), ensures *host_data_ptr(last_lr_irq) is cleared
-after folding, and skips the ap_list walk when eoicount is zero.
+vgic_flush_pending_lpis() unconditionally removes all LPIs from ap_list
+without checking whether the interrupt is currently in an LR
+(irq->on_lr):
+- It calls list_del(&irq->ap_list), setting ap_list.next to LIST_POISON1,
+  and drops the AP-list reference.
+- If the LPI is unmapped or its translation cache was invalidated, the
+  vgic_irq refcount drops to zero and the object is freed via RCU.
+- Meanwhile, vCPU-B's per-CPU *host_data_ptr(last_lr_irq) cannot be
+  cleared by remote vCPUs and is left dangling.
+
+When vCPU-B subsequently exits the guest:
+1. vgic_v3_fold_lr_state() resumes using the unlinked last_lr_irq.
+2. list_for_each_entry_continue() unconditionally evaluates
+   list_next_entry(irq, ap_list) during loop initialization, accessing
+   LIST_POISON1 (or freed memory).
+3. If eoicount > 0, it attempts guard(raw_spinlock)(&irq->irq_lock) on
+   the poisoned address, leading to an immediate host kernel panic.
+
+Fix this by:
+1. In vgic_flush_pending_lpis(), do not remove LPIs that are currently
+   in-flight in an LR (irq->on_lr == true). They will be naturally pruned
+   by the owning vCPU's vgic_prune_ap_list() after LR folding.
+2. In vgic_fold_state(), clear *host_data_ptr(last_lr_irq) after folding
+   so that no stale pointer survives past guest execution.
+3. In vgic_v3_fold_lr_state() and vgic_v2_fold_lr_state(), bail out
+   immediately if eoicount is zero, avoiding unnecessary list_next_entry()
+   evaluation.
 
 Note: this closes the primary race (the last_lr_irq node itself is no
 longer unlinkable while in-flight), but the fold traversal can still
@@ -117,18 +141,72 @@ in commit 7258770e5814 ("KVM: arm64: vgic: Handle race between
 interrupt affinity change and LPI disabling")) and is left as a
 follow-up.
 
-Any feedback is greatly appreciated.
-
-Thanks,
-Yuchao Zhang
-
-Yuchao Zhang (1):
-  KVM: arm64: vgic: Do not remove in-flight LPIs from AP list on disable
-
+Fixes: 6da5e537f5af ("KVM: arm64: vgic: Pick EOIcount deactivations from AP-list tail")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yuchao Zhang <ndaugoing@gmail.com>
+---
  arch/arm64/kvm/vgic/vgic-v2.c |  3 +++
  arch/arm64/kvm/vgic/vgic-v3.c |  3 +++
  arch/arm64/kvm/vgic/vgic.c    | 10 +++++++---
  3 files changed, 13 insertions(+), 3 deletions(-)
 
+diff --git a/arch/arm64/kvm/vgic/vgic-v2.c b/arch/arm64/kvm/vgic/vgic-v2.c
+index 7182f63fc938..7b6cd05ce32d 100644
+--- a/arch/arm64/kvm/vgic/vgic-v2.c
++++ b/arch/arm64/kvm/vgic/vgic-v2.c
+@@ -122,6 +122,9 @@ void vgic_v2_fold_lr_state(struct kvm_vcpu *vcpu)
+ 	for (int lr = 0; lr < vgic_cpu->vgic_v2.used_lrs; lr++)
+ 		vgic_v2_fold_lr(vcpu, cpuif->vgic_lr[lr]);
+ 
++	if (!eoicount)
++		return;
++
+ 	/* See the GICv3 equivalent for the EOIcount handling rationale */
+ 	list_for_each_entry_continue(irq, &vgic_cpu->ap_list_head, ap_list) {
+ 		u32 lr;
+diff --git a/arch/arm64/kvm/vgic/vgic-v3.c b/arch/arm64/kvm/vgic/vgic-v3.c
+index 726e20a1da6e..c6eb5d9dca2d 100644
+--- a/arch/arm64/kvm/vgic/vgic-v3.c
++++ b/arch/arm64/kvm/vgic/vgic-v3.c
+@@ -155,6 +155,9 @@ void vgic_v3_fold_lr_state(struct kvm_vcpu *vcpu)
+ 	for (int lr = 0; lr < cpuif->used_lrs; lr++)
+ 		vgic_v3_fold_lr(vcpu, cpuif->vgic_lr[lr]);
+ 
++	if (!eoicount)
++		return;
++
+ 	/*
+ 	 * EOIMode=0: use EOIcount to emulate deactivation. We are
+ 	 * guaranteed to deactivate in reverse order of the activation, so
+diff --git a/arch/arm64/kvm/vgic/vgic.c b/arch/arm64/kvm/vgic/vgic.c
+index b25303d9919f..0d7d75c3ac93 100644
+--- a/arch/arm64/kvm/vgic/vgic.c
++++ b/arch/arm64/kvm/vgic/vgic.c
+@@ -205,10 +205,12 @@ void vgic_flush_pending_lpis(struct kvm_vcpu *vcpu)
+ 		if (irq_is_lpi(vcpu->kvm, irq->intid)) {
+ 			raw_spin_lock(&irq->irq_lock);
+ 			irq->pending_latch = false;
+-			list_del(&irq->ap_list);
+-			irq->vcpu = NULL;
++			if (!irq->on_lr) {
++				list_del(&irq->ap_list);
++				irq->vcpu = NULL;
++				deleted |= vgic_put_irq_norelease(vcpu->kvm, irq);
++			}
+ 			raw_spin_unlock(&irq->irq_lock);
+-			deleted |= vgic_put_irq_norelease(vcpu->kvm, irq);
+ 		}
+ 	}
+ 
+@@ -873,6 +875,8 @@ static void vgic_fold_state(struct kvm_vcpu *vcpu)
+ 		vgic_v2_fold_lr_state(vcpu);
+ 	else
+ 		vgic_v3_fold_lr_state(vcpu);
++
++	*host_data_ptr(last_lr_irq) = NULL;
+ }
+ 
+ /* Requires the irq_lock to be held. */
 -- 
 2.53.0
+
