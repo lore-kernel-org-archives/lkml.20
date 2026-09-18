@@ -1,164 +1,243 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-136.mta0.migadu.com [91.218.175.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08CB638E8BF;
-	Fri, 18 Sep 2026 12:32:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B85083B42D9
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:32:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789734728; cv=none; b=alw+5aq/MGrPJaaWdMrjbFUSfIwdQg8lrKI9mLdWl31vTLclkhjdOZdxI7+YtiV7Z0NEti/dp3RwyJv/r77e2PO7mF8RjHOfZ20JxJjEW0+STgeSD13mzYzQcewvbeHxW8XwNICxq0yXq7Umw7D7wn/nmSFCL+wO6Oj6/j98DrI=
+	t=1789734737; cv=none; b=bjVfhASPqkB0Cr48LXyDNpN6sFxsIC7EgyNGq+DwTJ+W5ECRQku0lPRU/gilLgYg2k/HIcc5++Or6yBdW0wb3LdCFob0R0ZNBBVEO1mnLPhQcDRE0/GM9t7FVDIraP6S6Ez3p5Bv28SFmIXNW8C3a3chVGX17sLRkuJAvYjXhz8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789734728; c=relaxed/simple;
-	bh=KFAeqhtTXyKa4gFhQrg06ju+1iUL6ti3QWzmDq2VQ9Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=INMZ0376yacJQqzzZxZ14IQlZscIgcS3uf2PO32w+EsKwBMBj8Mm37lDS092yYg/P/zqrbnB3TLNlF3CzRQuchrXlM5wntmpq5DL9pSuVKqfOXXys3XJX6x6uVgHHtdtkAY0iUsLF/w9ml98EtRsQTEnTLfx1mvGTBiNRfKgPhI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mO043iGq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789734737; c=relaxed/simple;
+	bh=8uiO9U/2BnEzChyrQLc5F2J6jU60oIiTWfMimwuv1Kg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XGUQdgeLJGVrs/iQpEO+Svy4mAaqX/4/5JJNq4FK0iGiELUH2U0Om+iN3k7u7VFaW3T652PPT26LMGXJXRf3YICDRSqI3WolizbgJD4GhRitgitIV/74wqKehhZ6/Ry+b+aE9TvtJm8bwazwCoX2ezOVkLpACHDsMuWklr/380o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gTtEmCTA; arc=none smtp.client-ip=91.218.175.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mO043iGq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C811F1F000FF;
-	Fri, 18 Sep 2026 12:32:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789734726;
-	bh=mbzg/UEbf+MOm1966a9nICHfjUQV4C0eJW77QxZqSAQ=;
-	h=Date:From:To:Cc:Subject;
-	b=mO043iGqb0RgTq+djNkEb/ok1b0YcTmtk0zZOKtlj/twI+pglLjmBHpoezO4IYxz+
-	 Xe3DC4E6jyotlfaDPHodW/iXolSp+rmMp4nmJQwz2BTv5UTpP0OjXis2IFPYetaOtp
-	 V4VMJMaQ3bx7ePwQT+mU8GW/QS3OH9kUiPVt30/JcD/qXbW2bWOuU1RyZ52pU6FVH0
-	 Zxtb+4JURTpZkTtDrRbF3f4TB41fwn9nlD1n2drbBaR9y00j9w+t0DBJyeWsxv+pY6
-	 h4DnI/QHHAZNwIHaXmW5fPWNT2ALxwaEvsPorRnAjHV6l28z6CEE2olfAtaOzcJOli
-	 rZhJa6i16qNvg==
-Date: Fri, 18 Sep 2026 13:32:02 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Alex Hung <alex.hung@amd.com>,
-	Chenyu Chen <chen-yu.chen@amd.com>, James Lin <pinglei.lin@amd.com>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>
-Subject: linux-next: manual merge of the amdgpu tree with the drm-misc tree
-Message-ID: <aq0vQtb0cXTGuPxJ@sirena.org.uk>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gTtEmCTA"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=8uiO9U/2BnEzChyrQLc5F2J6jU60oIiTWfMimwuv1Kg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789734732; v=1; x=1790339532;
+ b=gTtEmCTAcUNNprdk0kQth0n5JD2vR4ElmBeM8oV2qfJDu8lqPqd04e+6YfW+5vAaJer3vn2I
+ 69HLTNJ8Qj9HQk1gPSQUJ4ilo8eEkOpqPBeSFXnLIiacpbckfx1Egn+Yx/aOlXs4MdWxwd2Cg3U
+ kMh6VW8wkgb09Y6/zTfJgcF8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 8eb446be46abee73;
+	Fri, 18 Sep 2026 12:32:12 +0000
+X-Mizu-Trace-ID: 8eb446be46abee73
+X-Migadu-Flow: FLOW_OUT
+From: Xuanqiang Luo <xuanqiang.luo@linux.dev>
+To: netdev@vger.kernel.org
+Cc: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	aleksander.lobakin@intel.com,
+	wojciech.drewek@intel.com,
+	marcin.szycik@linux.intel.com,
+	horms@kernel.org,
+	linux-kernel@vger.kernel.org,
+	Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+Subject: [PATCH net v1] pfcp: fix socket lifetime on netdevice registration failure
+Date: Fri, 18 Sep 2026 20:31:58 +0800
+Message-ID: <20260918123158.5631-1-xuanqiang.luo@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="uNkFzDPxWkscMViP"
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
+From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
 
---uNkFzDPxWkscMViP
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+pfcp_newlink() creates the UDP socket before register_netdevice().
+If registration fails after pfcp_dev_init() succeeds, the core calls
+pfcp_dev_uninit(), which releases the socket and clears pfcp->sk.
+The newlink error path then releases it again, causing a NULL pointer
+dereference. This was observed with failslab fault injection:
 
-Hi all,
+  FAULT_INJECTION: forcing a failure.
+  kobject: kobject_add_internal failed for pfcp0 (error: -12 parent: net)
+  BUG: KASAN: null-ptr-deref in udp_tunnel_sock_release+0x1c/0x50
+  Read of size 8 at addr 0000000000000120 by task ip/1037
+  Call trace:
+   show_stack+0x18/0x24 (C)
+   dump_stack_lvl+0x78/0x90
+   print_report+0x468/0x5cc
+   kasan_report+0xa4/0xf0
+   __asan_load8+0x7c/0xd0
+   udp_tunnel_sock_release+0x1c/0x50
+   pfcp_newlink+0x128/0x184
+   rtnl_newlink+0x848/0xe44
+   rtnetlink_rcv_msg+0x468/0x514
+   netlink_rcv_skb+0xc0/0x1f0
+   rtnetlink_rcv+0x18/0x24
+   netlink_unicast+0x4b8/0x558
+   netlink_sendmsg+0x2b8/0x584
+   ...
 
-Today's linux-next merge of the amdgpu tree got conflicts in:
+Create the socket in pfcp_dev_init() after initializing the GRO cells,
+and let pfcp_dev_uninit() release it on registration failure or removal.
 
-  drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+Move the RCU wait into pfcp_dev_uninit(), using synchronize_net() after
+socket release to drain receive callbacks before destroying the GRO cells.
 
-between commits:
+Fixes: 76c8764ef36a5 ("pfcp: add PFCP module")
+Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+---
+A NULL check would fix the crash. Moving socket creation into ndo_init
+also removes the duplicate cleanup and ensures the receive state is
+initialized before enabling the socket's receive callback.
 
-  2bcec01cf1055 ("drm/amdgpu_dm: Convert to atomic_create_state")
-  87882cd6debd9 ("drm/amdgpu_dm: tests: Fix wrong variable declaration afte=
-r merge conflict")
-  b8bc58515ac49 ("drm/panic: Display panic screen via per-plane callback")
+ drivers/net/pfcp.c | 90 ++++++++++++++++++++++------------------------
+ 1 file changed, 42 insertions(+), 48 deletions(-)
 
-=66rom the drm-misc tree and commits:
-
-  123f78c8fa9c1 ("drm/amd/display: Attach only plane updates that actually =
-changed")
-  055593492a1f7 ("drm/amd/display: Test optional plane property creation")
-  48c78d2199c0f ("drm/amd/display: Test panic flush DCC teardown")
-  7352d162d0401 ("drm/amd/display: Test cursor update without DC stream")
-  128cf6682d2d3 ("drm/amd/display: Test accepted plane atomic check")
-  567aadce7e28a ("drm/amd/display: Test pre-GFX9 plane buffer attributes")
-  9e7ed95bfdd9f ("drm/amd/display: Test modifier list growth failure")
-  80065ab5bcf25 ("drm/amd/display: Test DCC reject for multi-plane format")
-
-=66rom the amdgpu tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --cc drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index cf39db90dfe0a,dcf72ff438889..0000000000000
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-diff --cc drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index d357afcb0e93a,ab674a32279f3..0000000000000
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-diff --cc drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-index 1b0d3f16ef1a9,1001cbc334b09..0000000000000
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-@@@ -3755,10 -4110,12 +4102,12 @@@ static struct kunit_case amdgpu_dm_plan
-  	KUNIT_CASE(dm_test_atomic_check_helper_failure),
-  	KUNIT_CASE(dm_test_atomic_check_color_pipeline_conflict),
-  	KUNIT_CASE(dm_test_atomic_check_scaling_failure),
-+ 	KUNIT_CASE(dm_test_atomic_check_success),
-  	/* amdgpu_dm_plane_panic_flush() */
-  	KUNIT_CASE(dm_test_panic_flush_no_dc_state),
- +	/* amdgpu_dm_plane_drm_plane_create_state() */
- +	KUNIT_CASE(dm_test_plane_create_state_initializes_state),
-+ 	KUNIT_CASE(dm_test_panic_flush_disables_dcc),
- -	/* amdgpu_dm_plane_drm_plane_reset() */
- -	KUNIT_CASE(dm_test_plane_reset_initializes_state),
-  	/* amdgpu_dm_plane_drm_plane_duplicate_state() */
-  	KUNIT_CASE(dm_test_plane_duplicate_state_copies_fields),
-  	KUNIT_CASE(dm_test_plane_duplicate_state_copies_resources),
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drive=
-rs/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-index 233447dcf6b30..0124d1e7eb0b6 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-@@ -842,7 +842,6 @@ int amdgpu_dm_crtc_init(struct amdgpu_display_manager *=
-dm,
+diff --git a/drivers/net/pfcp.c b/drivers/net/pfcp.c
+index e1cca779d2ecc..3db813ba2344c 100644
+--- a/drivers/net/pfcp.c
++++ b/drivers/net/pfcp.c
+@@ -103,27 +103,63 @@ static int pfcp_encap_recv(struct sock *sk, struct sk_buff *skb)
  	return 0;
-=20
- error_ism_fini:
--	amdgpu_dm_ism_fini(&acrtc->ism);
- 	drm_crtc_cleanup(&acrtc->base);
- fail:
- 	kfree(acrtc);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_tes=
-t.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
-index ade20e6506780..45a7a35bd5ff5 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
-@@ -1666,8 +1666,6 @@ static void dm_test_crtc_reset_state_replaces_existin=
-g(struct kunit *test)
- 	old->stream =3D stream;
- 	crtc->state =3D &old->base;
-=20
--	amdgpu_dm_crtc_reset_state(crtc);
+ }
+ 
+-static void pfcp_del_sock(struct pfcp_dev *pfcp)
++static struct sock *pfcp_create_sock(struct pfcp_dev *pfcp)
+ {
+-	udp_tunnel_sock_release(pfcp->sk);
+-	pfcp->sk = NULL;
++	struct udp_tunnel_sock_cfg tuncfg = {};
++	struct udp_port_cfg udp_conf = {
++		.local_ip.s_addr	= htonl(INADDR_ANY),
++		.family			= AF_INET,
++	};
++	struct net *net = pfcp->net;
++	struct socket *sock;
++	int err;
++
++	udp_conf.local_udp_port = htons(PFCP_PORT);
++
++	err = udp_sock_create(net, &udp_conf, &sock);
++	if (err)
++		return ERR_PTR(err);
++
++	tuncfg.sk_user_data = pfcp;
++	tuncfg.encap_rcv = pfcp_encap_recv;
++	tuncfg.encap_type = 1;
++
++	setup_udp_tunnel_sock(net, sock->sk, &tuncfg);
++
++	return sock->sk;
+ }
+ 
+ static void pfcp_dev_uninit(struct net_device *dev)
+ {
+ 	struct pfcp_dev *pfcp = netdev_priv(dev);
+ 
++	udp_tunnel_sock_release(pfcp->sk);
++	pfcp->sk = NULL;
++	/* Wait for receive callbacks before destroying their state. */
++	synchronize_net();
+ 	gro_cells_destroy(&pfcp->gro_cells);
+-	pfcp_del_sock(pfcp);
+ }
+ 
+ static int pfcp_dev_init(struct net_device *dev)
+ {
+ 	struct pfcp_dev *pfcp = netdev_priv(dev);
++	struct sock *sk;
++	int err;
+ 
+ 	pfcp->dev = dev;
+ 
+-	return gro_cells_init(&pfcp->gro_cells, dev);
++	err = gro_cells_init(&pfcp->gro_cells, dev);
++	if (err)
++		return err;
++
++	sk = pfcp_create_sock(pfcp);
++	if (IS_ERR(sk)) {
++		gro_cells_destroy(&pfcp->gro_cells);
++		return PTR_ERR(sk);
++	}
++	pfcp->sk = sk;
++
++	return 0;
+ }
+ 
+ static const struct net_device_ops pfcp_netdev_ops = {
+@@ -153,39 +189,6 @@ static void pfcp_link_setup(struct net_device *dev)
+ 	netif_keep_dst(dev);
+ }
+ 
+-static struct sock *pfcp_create_sock(struct pfcp_dev *pfcp)
+-{
+-	struct udp_tunnel_sock_cfg tuncfg = {};
+-	struct udp_port_cfg udp_conf = {
+-		.local_ip.s_addr	= htonl(INADDR_ANY),
+-		.family			= AF_INET,
+-	};
+-	struct net *net = pfcp->net;
+-	struct socket *sock;
+-	int err;
 -
- 	/* Old state was destroyed (stream ref dropped) and a new one installed. =
-*/
- 	KUNIT_EXPECT_EQ(test, kref_read(&stream->refcount), 1);
- 	KUNIT_EXPECT_NOT_NULL(test, crtc->state);
+-	udp_conf.local_udp_port = htons(PFCP_PORT);
+-
+-	err = udp_sock_create(net, &udp_conf, &sock);
+-	if (err)
+-		return ERR_PTR(err);
+-
+-	tuncfg.sk_user_data = pfcp;
+-	tuncfg.encap_rcv = pfcp_encap_recv;
+-	tuncfg.encap_type = 1;
+-
+-	setup_udp_tunnel_sock(net, sock->sk, &tuncfg);
+-
+-	return sock->sk;
+-}
+-
+-static int pfcp_add_sock(struct pfcp_dev *pfcp)
+-{
+-	pfcp->sk = pfcp_create_sock(pfcp);
+-
+-	return PTR_ERR_OR_ZERO(pfcp->sk);
+-}
+-
+ static int pfcp_newlink(struct net_device *dev,
+ 			struct rtnl_newlink_params *params,
+ 			struct netlink_ext_ack *extack)
+@@ -197,16 +200,10 @@ static int pfcp_newlink(struct net_device *dev,
+ 
+ 	pfcp->net = link_net;
+ 
+-	err = pfcp_add_sock(pfcp);
+-	if (err) {
+-		netdev_dbg(dev, "failed to add pfcp socket %d\n", err);
+-		goto exit_err;
+-	}
+-
+ 	err = register_netdevice(dev);
+ 	if (err) {
+ 		netdev_dbg(dev, "failed to register pfcp netdev %d\n", err);
+-		goto exit_del_pfcp_sock;
++		goto exit_err;
+ 	}
+ 
+ 	pn = net_generic(link_net, pfcp_net_id);
+@@ -219,9 +216,6 @@ static int pfcp_newlink(struct net_device *dev,
+ 
+ 	return 0;
+ 
+-exit_del_pfcp_sock:
+-	pfcp_del_sock(pfcp);
+-	synchronize_rcu();
+ exit_err:
+ 	pfcp->net = NULL;
+ 	return err;
+-- 
+2.43.0
 
---uNkFzDPxWkscMViP
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqtL0EACgkQJNaLcl1U
-h9ASxwf+Lqz0taae78o3god7qB2eBXr3AJprmMhyZ9wKpz8BTcxvLk8ISGZSOcUD
-2Uu8aOIXCBV3Wz+ebUjAG2lPvvhFQX8+VTKBWOgOaPAPQWgstp30fy+eX6tMkzVq
-H/0thFS6T94jXa/8mnCDCVjeHvihregqwgQN8rJU7ydRym61Cb/xIZVOYTxI/yZd
-J8g7x4jkJkZcjqiUGLnTx9uTDEzgTE4s24nbD9GTfeMSPcSlImFU9aZ74L0eTwdY
-JYYkzjNnJjss4Ozsq9JPqIWMrXqK7bQ/VTDym1h+sPQA/id5dQ7OE/nxftPPQh4Q
-5kwsntnqrMeRKznhgHa2NvD07Kyxzw==
-=8TcT
------END PGP SIGNATURE-----
-
---uNkFzDPxWkscMViP--
