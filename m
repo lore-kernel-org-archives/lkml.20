@@ -1,75 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A8E64FB9C0
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:04:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AB5A4FC34D
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:05:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789743887; cv=none; b=jRoc1oWLrunnZSs23Yd19qQm0zv/4oMaVOcIhd56GY1LuXCjKXG2aU5EokwLf1E8oy31PEsKeOanuB0O5HSdTYfsmEt3ZEE6PyJOLHGW4yoMICYJWAeGBg0h+B7KgyD1Wa5oDHZYPtecMeH5wGuEc4YWmEUckFPEn50qcOPHuqg=
+	t=1789743909; cv=none; b=RQDuQ9K6mu7V1N/Zq5JDxL253BuKVNwrYAd7PI2WuwZLb3WnyXCDZ+LhW2Z8MMLMOm4uSDDyQiAtfQsWMQdPd1BpeGSByb7RYtBoq8g3ZlmwzEQEoSCuU8HZBB7AjbA0YF2u5fJxP84GnrOLI42YLHzQS6y9pyrYFhhmwiJeJBM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789743887; c=relaxed/simple;
-	bh=Gb/x6esgMQpQotVfJren+Rm4Q9BISakZHHgrn0/DCTg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=aicvrPRnnRRmraGBfRUN7c/IOjBdhX0raj3HYhpfqg8tYoRZ+cgqz80dXDDLvgMs3W3OUW66SHxh8LeSxejdSOC2w72Juaa+bnr+A7DkXiMvhMLnsF7gk2B1nMbnYvlqSiPmC59MhLs+7k1m8pVku9OZ1DeLcc8Pj+StvNjkzoI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lU1X3vFV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789743909; c=relaxed/simple;
+	bh=f8mvvksl1SUaVUErzE+wRXUolyqXSD1KXdzSFkjjDE0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Gwbr0wi2EkFKEKaRkJo6GsaPW0KJk2poFGjdtw7FdNN8M0QUowjHS1EIOl02xm4eW8Cwx4z9dUTHxfLQFedT5KShF3IvmquZlk4NeQJp/xaJy5fD+ihoBrstqJt7yl/UwdKYkGZ7tvMoAeyJSlowey5K/iHHr4EdIY4v0fg/Uws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LTT7/XGJ; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lU1X3vFV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 380411F000FF;
-	Fri, 18 Sep 2026 15:04:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789743886;
-	bh=I02gFSbSDWfyQ8250o/EPwBT5UIcmcn8R930+dynCG4=;
-	h=Date:Subject:To:References:From:In-Reply-To;
-	b=lU1X3vFVRMhDdH0ak6oco6luE0dfN3ozu/dVlm0SLMbQQHXjOj6aac3srOYQMhUJK
-	 BaE6b7WMca1fFYltZvkL+KehD6kByHP9obus2KY2oiVuPp+DexsBr+0dAkq34cnA7T
-	 1nfoxzS9Nxux5eS1SY3EhEvZDOWV15Q8YyaS02jgH+eiR+uaRgeZvYUaueMhoVAdDW
-	 HZmleFuXFdocxcYU4LqlfkjOh46vUC/gg/CpM2JJwWSpfAVEgsNEcvVQN6vD9Y/5a1
-	 2Uo6gLKuFAanFU5ejw681N0/SFPTsuY6BWsOEMA0j5or4EMXWOZB4VhsXc/iuStpZq
-	 pG5vavzsUmk9g==
-Message-ID: <9005742e-51d5-465a-8f9f-b4aaf46ccd51@kernel.org>
-Date: Fri, 18 Sep 2026 10:04:44 -0500
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LTT7/XGJ"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-8623e5d435cso278823b3a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:05:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789743907; x=1790348707; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=e7y/CcPBO636TJGAw7k8rF+8LZq12IShhUAQly8K8oU=;
+        b=LTT7/XGJdCSSeGDn6WqL0si5ZPiQRGsWXA9G24uNBrdbQkiyE4jaP7vCPjT4a0ZGk0
+         X7nCTS5FOGS6wKbuCSOxXeLJ+b0I1x/xc7ICeiu4mGKd8dYYORqqEV67JXhBiNnzUbsd
+         hf/iv63j8k3zVTEvirym4XgqwoHrSICiCwKLJWavSKwGgqrFzPJjs2EE3OzfJnfgT8E8
+         oW9asAi+JlkvLLKHaBW2zig18FLEuBdMsUm63R7twIuvt0JhcIySv7qC5i1/9IPHcfO8
+         YEdCV7pK4krnGuthPnhHqRoWnpcO4uow2SywN8pm06aKE1PQrNyUdsi0eKo9E93Z7tne
+         n0/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789743907; x=1790348707;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=e7y/CcPBO636TJGAw7k8rF+8LZq12IShhUAQly8K8oU=;
+        b=HS+pjN65oR1vqRdVRdQDeKtGHssKAPgotMtS6IetY053GlXEosWloZL9q9/7MQrt0I
+         gCVAu9lUeRvTb1se+p5I++0Xgccs3552ptuKrsm4tqytrlaIsCtpe1/uzUfR1xKZp+nD
+         fgjQa4Y6+njAh+WyJS241QYL+YGK65ojm1QnQe68dikmQH+4nOorr1f9ho+gg5dVJFs5
+         l227NdSvhOltFD1/1aSKVAV5wTmxc3uJfiecdCHva767Pyp0275UN7Wk5M53WPZCDwyC
+         Py1qnPOXlV6FECwrcdM6IpZl9nHu34D3oWd52pt3MY4/j9L7PaOrlqrtwTdFnszEMaTK
+         gMiQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxa++tzTx1jR0Nb7ALpXPsH0AjdegqM3sOhVELrdhcaImqL5wEhL82nTi8AZR7ZNGbaNDvudYh/iRHkPYs=@vger.kernel.org
+X-Gm-Message-State: AFuF++n8DLLh5YXj/7U7vCJ4IsVm/qhefKbY0vON1cBAQTw5s8XU5O08
+	FCbnoW7vJ5ElGGNuvGTi4iofaJyPM1KC4wzzGGLR3qfuHCeD5eCKX64y
+X-Gm-Gg: AYBFou2jww5QR2bosGr6WwYqv87tLVX4URz35cH8WlpHDbUasl2auBlR5Sbs+d+Vdov
+	fwqlfPmEcOkOcnEqDDus7AX7OV/k7zsn3l2swXRkJXVNa3EqjFjH7FN5dAg/hdieXjuGK4P73hG
+	NO1ZVCFS/m6E27ULmjrqZCj1+XqkHi6TBxVgan0iK0whNUgjEZNFGry3gXpUSzEWB/PRRMIop8z
+	W+Og/DTy6Z3TpbwvDxkcWTkSC2Oj121UfYHKDJXgudcMci8A2HU7Ou899twVbsGt+gR6m8kIccO
+	xeNSdamTS8T+QkBN+t6htoN2dSGizQS8XAjTHmw4QeiNFSoJTL/uw56lvDD1Ktx0zLjolUIwK0W
+	hC8v8lqUw7d+V3w1YURyfPjngLIM2NNKPgceAMyEgWW5M9SxEEX3PDdWNar36yRRoW+q83h4Bh9
+	CSMBY6Ly614esMsg0lY6fqZPkQYQpmTLO/K3z89M189yoicTfVelVZFGB/lfmGCT6uXMESTQvOS
+	TtgAEZRoMyLxuH01mlAuJE=
+X-Received: by 2002:a05:6a00:6c93:b0:851:8bde:7861 with SMTP id d2e1a72fcca58-874d259ea4bmr4306819b3a.1.1789743907066;
+        Fri, 18 Sep 2026 08:05:07 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-875dc8fd8c3sm1042506b3a.16.2026.09.18.08.05.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 08:05:05 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Fri, 18 Sep 2026 08:05:05 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Kees Cook <kees@kernel.org>
+Cc: Kees Cook <kees+treewide@kernel.org>, linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH] hwmon: pwm-fan: Add const to channels allocation type
+Message-ID: <4db2b003-f66e-4c15-a9ae-a8b4483f1168@roeck-us.net>
+References: <20260917211417.i.173-kees@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND] firmware: stratix10-svc: remove RSU exclusion from
- no-support path
-Content-Language: en-US
-To: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>,
- linux-kernel@vger.kernel.org
-References: <94bea0ef315adab7a8f9f9a4514eb961a9ea7be7.1778480470.git.adrian.ho.yin.ng@altera.com>
- <0b12d08b135d8bd1744db895050340b5929d5211.1789570907.git.adrian.ho.yin.ng@altera.com>
-From: Dinh Nguyen <dinguyen@kernel.org>
-In-Reply-To: <0b12d08b135d8bd1744db895050340b5929d5211.1789570907.git.adrian.ho.yin.ng@altera.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917211417.i.173-kees@kernel.org>
 
+On Thu, Sep 17, 2026 at 02:14:18PM -0700, Kees Cook wrote:
+> From: Kees Cook <kees+treewide@kernel.org>
+> 
+> In preparation for making the devm_kmalloc family of allocators type
+> aware, we need to make sure that the returned type from the allocation
+> matches the type of the variable being assigned. (Before, the allocator
+> would always return "void *", which can be implicitly cast to any
+> pointer type.)
+> 
+> The assigned type is "const struct hwmon_channel_info **", but the
+> converted allocation type would be "struct hwmon_channel_info **", which
+> is the same type without the const qualifier. As there is no general way
+> to safely add const qualifiers, take the size from the assignment target
+> instead. No change in allocation size results.
+> 
+> Build tested ARCH=x86_64 allmodconfig with GCC 16.2.0:
+> drivers/hwmon/pwm-fan.o
+> 
+> Assisted-by: LLM coccinelle
+> Signed-off-by: Kees Cook <kees+treewide@kernel.org>
 
-
-On 9/16/26 10:12, Adrian Ng Ho Yin wrote:
-> Remove the compatibility workaround for older firmware that excluded
-> COMMAND_RSU_UPDATE and COMMAND_RSU_STATUS from the no-support callback.
-> This exclusion caused receive_cb to never be invoked for these commands
-> when firmware returned an unsupported response, leaving callers blocked
-> until their completion timeout.
-> 
-> Always invoke receive_cb with SVC_STATUS_NO_SUPPORT when the secure
-> firmware does not recognise a command, regardless of command type.
-> 
-> Signed-off-by: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
-> ---
-> Link: https://lore.kernel.org/all/94bea0ef315adab7a8f9f9a4514eb961a9ea7be7.1778480470.git.adrian.ho.yin.ng@altera.com/
-> 
-> RESEND: refreshed against socfpga_firmware_for_v7.4; clarify commit
-> message (timeout wording, shorter subject).
-> 
->   drivers/firmware/stratix10-svc.c | 19 +++++--------------
->   1 file changed, 5 insertions(+), 14 deletions(-)
->
-Applied!
+Applied.
 
 Thanks,
-Dinh
+Guenter
