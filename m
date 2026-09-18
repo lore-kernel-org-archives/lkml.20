@@ -1,506 +1,409 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011020.outbound.protection.outlook.com [52.101.70.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92ABF4FE2D6
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:58:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.20
-ARC-Seal:i=3; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789743501; cv=fail; b=JWG5gyVbbizPfhH07ng2+tNWJLfrg7Nou3WP9/gf1noiehPZbBXRzzBfXQvVxsXEXwP1k1URjm2lanZYp8wA1dKER7va3a4NGP3dNsXer1a93zX7Glkoq1e8SA78cCTG3T+HQJT5aGEFyjJtSGHgA7lfdSN6RzPNFWR6wVd+fYc=
-ARC-Message-Signature:i=3; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789743501; c=relaxed/simple;
-	bh=pe/Gtou5fWlSpImbZ0qo0owj1/R9k47jjsNIlttgJq8=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=V80/EHhfvFZ5UV1xQAVsXSajUX/UusKABiCasEmZdFoQDP5HOpKGY9gR7QfxdlytHcMPTQBTf+vvmoPvoP3U7F5VHV9uXUF3sOPtDs7AupGvgNFrQreuEhGPAE2552hxhCcn52p6q/O0/OsJBDwvtexYarb4vDVDETf3UMPLhqM=
-ARC-Authentication-Results:i=3; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=iyCCAu4v; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=iyCCAu4v; arc=fail smtp.client-ip=52.101.70.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B63524FE2CF
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:58:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789743513; cv=none; b=YRDiFrv0i0tWqejtAn/tqPXFWshUd5tXMsGneOekNgWre07nYf9U48w4JTyFWoBsJ4wX5NndqOnH41q1oQB2ntuFDIrCqxT2Dm/ggcsSfb7Bz18aiS08ESOL0wupmOwkAPDfgxKYiPK3NFzRMk+U89iYLMjwFJkQeIgbG6Wpe3o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789743513; c=relaxed/simple;
+	bh=gM3dN3vn0teyG2eo0migns+FOD8Hc/tmEG6a/GRXaWU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iUUKRmeFJZ0i1X+eJjcDrb1lon8gAgBR9oa5pezE6U/8pNXQanbPgSat/uFTNBcSORPTnM5V2AsCvHOV11xwAV2DkPnxUix+mqsgNS15fhdtO5m1YpH7k4/LeH9zVJ5BYpLW1Mk2cTpvyzmE4ualoDCdFSWAu4N2Pw8uDIyrm18=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=As4Ukfbb; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="iyCCAu4v";
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="iyCCAu4v"
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=G236crVJihbJE/EU1ZJzLSngLQLDXSUDgNwOs09uCb5CRK2bK3Gx8fZ2+BCPyh9mHx95C9mNDrIRWbwC1sAtVDJQ4L2DqPqovKAnNOl2dONClUzTCIm8OlM/tZ3jYxURYQLd2jS70qRCd4/CP03h9l78NrAYMLun5UdXX6vKYH4Man6HqYNjHYQmL8TNSIFgoQdkMxb9Mf5IW3ExfUR4qYLvNTTk2NrQhLV6lc/Y1TWBY7xAGkFXPk25R+bXmyKrkV7IksjeH/G+7KWNdF7OzFM3LrNP+gAOi51GC4Lf1XlGPYmsW3yP8TFT8xqc0+qFUMJahI//q5GBA25sQZd8nA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=42YPCI4QCsZaMNyDC5mW32bMOIACfYflBli7hCrEV5k=;
- b=OWJf6zjWBDcbJhdXJWUo7oGaqlLPIQK1K/rKYtSwmyvFB0J83mXTi/xLAlxB45oVmWnvSwozyhUb/mD9ccu3uYKUe5WXS3MJDyaytU76pyLQvypDv0kFricQv4sdfZjegs9ACqcFYuoHruGed/igrFKQhHYeAgCI3hSSojVKehyDppvwg6nCCUql052cRFGF/iOm3x644ZDR/7mRHtPa6bP0sW0UNx4LKpdJ8njuF/udds6OERMW195uUmwcNlUJ0WZul4FODBRBIzO2b2u3/MXVimWRIwUkLXObj/ajw8iQb7S19bVnPOJJkZCvMJR/woq7YHjeWJbTPvEt+PUJVA==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=linaro.org smtp.mailfrom=arm.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
- (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=42YPCI4QCsZaMNyDC5mW32bMOIACfYflBli7hCrEV5k=;
- b=iyCCAu4vT6oTsyroAkCH7t58gJXbndjZMWnxAEUL2ee7kw3AA865C4YhPdshIlA8Qdh4gWRoXMIYo5XlqWKLv9EzQSU/MJa3Giu/fuD/NJKpAZqNbiOiKOsUTtKc6PwcDy4vL2Xjc/UwyfAe750leGb382AsbTtYjTua4gE9/OI=
-Received: from AM9P195CA0020.EURP195.PROD.OUTLOOK.COM (2603:10a6:20b:21f::25)
- by DB5PR08MB10310.eurprd08.prod.outlook.com (2603:10a6:10:4a1::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.8; Fri, 18 Sep
- 2026 14:58:06 +0000
-Received: from AM2PEPF00070CF5.eurprd02.prod.outlook.com
- (2603:10a6:20b:21f:cafe::72) by AM9P195CA0020.outlook.office365.com
- (2603:10a6:20b:21f::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.13 via Frontend Transport; Fri,
- 18 Sep 2026 14:58:06 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- AM2PEPF00070CF5.mail.protection.outlook.com (10.167.242.7) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.8
- via Frontend Transport; Fri, 18 Sep 2026 14:58:06 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kUjIQ6B0XO2gC6tGVau0U4CDbmnX5xZq6D4fF/L6WLsi9VNlwXNANw1tNF7N1BwOQqTTuo6ki2Jlyg3UVzNlrRfEb6v6aHX+ziT0JrgrwsDt0X76FWf0xthh/xCQ7aiPNlYJi8wJZ1GhWgdERQLQcYU02VIpsuFyTMBGa2Et0Y9DB7p2+Kusi/K0fXY+DOjTirKWyaWwLRu1k5f+RJiFs3f+z+7Zno0qEcd5lwCbHAS/nO5kf35xgxNjKKXH6UbRWR/hZN7KDXcSvF+paUhOJO+BC4cX24H93IEnHV65m4b1GoOcPyc7MLX/QjwQGB8/ui1lYCKbfUNIra0Mp0rF3A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=42YPCI4QCsZaMNyDC5mW32bMOIACfYflBli7hCrEV5k=;
- b=kyoKpBn6Zo2s6JAb1M4r9+M17VvhRXrqhPyt7cKP01cbkbIRxRZPChXkVscZA/QwqgDQWgQnlIP4/GaB+IrZFX2PuBJ6mBQE0ep0Ot+VMgngWZiDzdmQB3bIIOVqppH5fTfjYH8QrohET7Lm5SX/qNmWYLedRJtrHaIyDBtx7vmOjrzy4Yi5bWYYbT0njvqSl+0xbWyeNqotHiFpTiUgx5JmGfFUZBVuNdce9Zm2XNwNg3g57BmXypbMuOca9hNcHkMbIi8wJnjOkQW6dTOqE8qhdGheXCmErDSLtVriZroOz7EINpGcCTzJ76fA4sNQPDcN6aAF6/s0dzoMXP2WuQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=42YPCI4QCsZaMNyDC5mW32bMOIACfYflBli7hCrEV5k=;
- b=iyCCAu4vT6oTsyroAkCH7t58gJXbndjZMWnxAEUL2ee7kw3AA865C4YhPdshIlA8Qdh4gWRoXMIYo5XlqWKLv9EzQSU/MJa3Giu/fuD/NJKpAZqNbiOiKOsUTtKc6PwcDy4vL2Xjc/UwyfAe750leGb382AsbTtYjTua4gE9/OI=
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-Received: from PAVPR08MB9674.eurprd08.prod.outlook.com (2603:10a6:102:31d::14)
- by AS8PR08MB9908.eurprd08.prod.outlook.com (2603:10a6:20b:562::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Fri, 18 Sep
- 2026 14:57:33 +0000
-Received: from PAVPR08MB9674.eurprd08.prod.outlook.com
- ([fe80::6f25:3681:7c97:ea2e]) by PAVPR08MB9674.eurprd08.prod.outlook.com
- ([fe80::6f25:3681:7c97:ea2e%5]) with mapi id 15.21.0451.004; Fri, 18 Sep 2026
- 14:57:33 +0000
-Message-ID: <3f91ecea-05ad-4b95-9352-37ae2203807b@arm.com>
-Date: Fri, 18 Sep 2026 15:57:32 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 9/9] coresight: etm3x: introduce struct etm_caps
-To: Yeoreum Yun <yeoreum.yun@arm.com>, James Clark <james.clark@linaro.org>,
- Leo Yan <leo.yan@arm.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>, coresight@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-rt-devel@lists.linux.dev
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>
-References: <20260915-separate_etm_cfg_v2-v11-0-d2b258d51747@arm.com>
- <20260915-separate_etm_cfg_v2-v11-9-d2b258d51747@arm.com>
-Content-Language: en-US
-From: Mike Leach <mike.leach@arm.com>
-In-Reply-To: <20260915-separate_etm_cfg_v2-v11-9-d2b258d51747@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P123CA0522.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:272::8) To PAVPR08MB9674.eurprd08.prod.outlook.com
- (2603:10a6:102:31d::14)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="As4Ukfbb"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d3920so6093555e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:58:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789743509; x=1790348309; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VEqgVyr0IKosewJ1enUgGbXkimIQHDNWyRi2d4RqJp4=;
+        b=As4UkfbbA56uLOkK1Fc4H2XMww/nYoGWu9U16lg2GxtBe/20H3q1l/3rYAv+IJsuiE
+         Xj5d9p4MMnl3OfTrzY6nymlZmBVGst95WLqk2zKzijRqttdZwUDc7VQu+tkITKg0Yy0t
+         Z4WQgfFG+q9n4rwP52FXyHhX9NiQhiZduDtc5uFNEw4wTpcW8Xf3UsHEVL9rYhof2PHE
+         IZ6jKIxl/iZTkLcVmKHseTEiNxbLm6FMB4gSOYVNBFFwkl5IAcq+pI/R43NqCaeAlM8P
+         XbB7lOIsD5oQ3n51+PrEZRuRZ/lzx1oq2Fh17yltTC2bvZCIuy75uoOtFjUM0PmNlcwt
+         cSoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789743509; x=1790348309;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VEqgVyr0IKosewJ1enUgGbXkimIQHDNWyRi2d4RqJp4=;
+        b=Qj4RwQaNMPnMHrrN/Pwv6TKPpldtJU/OxN3dje1Mg2XapWDNDNY84aa71c6Rv9+gnW
+         5/tQmq4eR5ei9OmRpcMKAw8RfpnpgsHu6KaEvU9uZIP+XPSgzru/oa61ZbdlEnfAQZs6
+         HW3M9nfD6OT1UP18RK+FUB5EnC7+gB2uw/DkGjBHMJW5Lb4CdrbsuvNw/ofxDz9Aw7uT
+         qfOtsOD8CUSnG0AnqkxMzyXga5KoAtVIzlgmJEOogqezrEPYgP18Q8jvdjuxmagBpvJi
+         hJOUVpLTQAJqa9EbL4T3AMZ142ffQod5wYBBVrL5sm2QG/izv+tbhsWfbeQvMaGVjM6L
+         lw6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBz0S4Ly3/NU+4u9xcMnHMeoVuex8iTV0g1VBpHWUvCp6GbxG2lymzyZCqoIUujLRCTBt6rV95+Zqryn6/8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lR7qco6KsXixiKTclfEpYxuIK4UMcwYGDoJafWPWqSouqOg1oq
+	LhfljSs7/ozQ/IBgqa+lBGrqkc25G0o9O4vbQTsR413y+PrvbrRhs06b
+X-Gm-Gg: AYBFou0Haq0MC+jZwMYegQVg8Bw/tuzq3GUDAwmZkC9PlDJ1ZKdcR9Ix4J6w9OlMShE
+	Vly13F1IaD9hWArAD1DN/lZr0lvkNMxpEVm7DIIiERxDwunxLeUaxAA6YqPTqy4s15jou14jzt3
+	vE48792KUfsnBB4GjJQf9Pd+OJNXR1hQxt2GqfvFyDijPLJ3/+nS9HQucJgnZ3R1954T56/DKCM
+	txWk8ZtTA5s+sSIglpA+ItaF7vIMd3gT2ctcHxDSZuGv4mKQ1lM9uasn3OpA1KjAGEQQS+e5SXx
+	LH364/sKDFOkG33kvQbeN1bu3X9lJNYgHGFgsucByqyK9iJNQNDZO50tTqrjgVHe546JYTfXsVW
+	2XB4uCtKjpep5vn6PQgXQw4rco3er3Ag5OX8tAcbnKF8jxjbihSONVrnncc08E9g13yzX8OEYhN
+	sodNYMiisnUXtWjDOl+LUVJ6pjV8ibo4S3hbedGdiMO5KxpwdEOMmyUe3bvzHpQQAdaegMBd6ps
+	csRVv9qRsdibSz2q1jUBBDtWPYm8tSYXUkCbURC28bdlg==
+X-Received: by 2002:a05:600c:8518:b0:49d:28c4:b304 with SMTP id 5b1f17b1804b1-49fc5741563mr38720975e9.29.1789743508528;
+        Fri, 18 Sep 2026 07:58:28 -0700 (PDT)
+Received: from localhost.localdomain ([5.176.179.200])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc7d46399sm80345295e9.12.2026.09.18.07.58.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 07:58:28 -0700 (PDT)
+From: Omer PALA <palaomer100@gmail.com>
+To: jic23@kernel.org,
+	dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] dt-bindings: iio: adc: Add dt binding to xlnx,xadc
+Date: Fri, 18 Sep 2026 17:58:04 +0300
+Message-ID: <20260918145804.26957-1-palaomer100@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic:
-	PAVPR08MB9674:EE_|AS8PR08MB9908:EE_|AM2PEPF00070CF5:EE_|DB5PR08MB10310:EE_
-X-MS-Office365-Filtering-Correlation-Id: b51139b6-96a6-4ad9-c225-08df15953f10
-X-LD-Processed: f34e5979-57d9-4aaa-ad4d-b122a662184d,ExtAddr,ExtAddr
-x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|23010399003|1800799024|366016|7416014|376014|3023799007|6133799003|10067099003|11063799006|4143699003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info-Original:
- LJ4gcsdLQeRJC/J0pB1chgX4U5pSXhxgl/tEULhZ/fweX+NKBuB8/I+z57srH8Qwz1g/wroHxGxOjn4jVk1bN0XdOurxLi5eyF3aC9RAcwTPS89WlYt5pGu4D+0uAaIv5FkM47FLPqrUFGwVXv6/MzoWg+/cZUzS+IOjgmpvwMAGQHtzB+oRZ05dbl+66IpjU1lm7zrP0bZiyHJ+ufMC4W+vP+TIWL12mqO6ebz/GUU2uMJZqtWk0ROaYNn2WE086ifr//gos/Paz3MOgvQ3Qi/ra1EVOs5nZspvzmbEJUhP5X05gebQ3ILVPQIGwIOBJzFO3cWsWTO9PYXw4YYbQ5sbUFb8yhPZdimiofN8fay8VKUsHlNLFZy6vmqqZN+im5VZ/EH9JoWVHeM2agUgHIh50a5i5ib3UaxzT1E+OI3XPIzFbNarDJ+9YKkshePFu8SdnrF8YWCB2gbvbmKq7IAU3hHBiPAWe0vYvPR1CSgRFqrzcK4kFnpJqYMn8jozR9+l6Gh37Y89N+v1UOhrZ26ryRwXYhDrv+oXznLUPnXLoepPaLRZpF2yJRIDPyFVgyozYoTQ7eyf+qrYpy0jv3BLmQeMy+njU+cVhyZ2hmiJmrpjhvhU4vSkUPAigYeaYrnh2x4ky3g75EeoNETNBtoDZmoKxS0+zd7hI91/Vrc=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR08MB9674.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(7416014)(376014)(3023799007)(6133799003)(10067099003)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-Exchange-RoutingPolicyChecked:
- jLeFcOVsX+J3LKM11gqwm14aVP9IDHDcqP8v9r4CC5qZ7ynN8SPKVNAfoddW9QspfmgqJVdUjzWuSbimdBSV7MdCbpqEylBstsEIatnRjAXYjUDAA72/fLpvUCKp9Y8njrtdNGxKY6+Bx3FLFYdKz41FgwpIYQzC3O6Wbcjq13iC0MBw4+tmlkyNejSjqkX0aVZIAG4YYYvm0pweyNX0cqChnSq/CEssHg4fL6hrsWkzi47l6KvviX6jE8lzBvPFACm7QUA53+0/896huMeIMpSAhrdA2u1o2rAicsXB+PnTMAl5ZGAVJ8g6zYXLM0z/pmclxU4CxYXeapb+nKBr5A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB9908
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM2PEPF00070CF5.eurprd02.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	1ebae819-ad38-4c6d-3e45-08df15952b4c
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|376014|35042699022|1800799024|14060799003|36860700016|7416014|6133799003|18002099003|22082099003|3023799007|10067099003|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	zfNanLIgeTKQdwDEjewOkSjmbhKihF2VqFFTfzYh1XxKPpzsGfeFHcxHcr9+Ao42jYLFKZQYsAE+GnwJtoWwDxwgBbGNcb0fJSG6V6+LKbzlOWkv1CvWCWWCaHbkJ1RjVMeK8jEm96BqKlWwRdDWCjKEl1FIpOlU1Uj9y8/HRmYW64vVv3gBmorxwQSFN229VX7yUfHCMwkBpSevpa/yOXY/MKMB7A7ktzLSn50wNmEWs09zr39NJudPKBmdJ6PsBTDgt3tpifG409y8xLBW8Epz7eaq9NhpC48A42rRFXijuE5+JCJnPDFEhsPTHLujYhHEQsY9dGkVq+gMZRB4Z+8EAQP3kQTjnB3A5SoOMdDZbYCBhqcyfTch/J9ebYbtQXYR6d19+jEIBerWzpaWgD7CGCbGjmP4l4PQjDO+KI/G7vrXKZ2RtJV6f7F9VpuUdBZb2QLryX+TLRMEtEUcEAQi73Iwqh4jMB2+Ty2PGnxcnthjgYFtRNwy5x+Lf5hD6e2BH8/3u9WL4zBLP+5Rz+2/p37TFNHClEJQyLTFB6ivzJo4CMsLpbcZw8s0revkyDFpAp78QiS8jurlh9As2JMykyCE+fPZrCvhsif+hZxQ8fUTAFt4vOoHY732VbxrobYbc2apcLks2JvRpXnKTwrN/SgBwM0/rcBczF9NjiQFQmhXBwtJgg81fjBYrvrL3xkDElAxluGHd6/HnoKsKg==
-X-Forefront-Antispam-Report:
-	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(376014)(35042699022)(1800799024)(14060799003)(36860700016)(7416014)(6133799003)(18002099003)(22082099003)(3023799007)(10067099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	1l7FwcpR9t5r6mDeMH3PjwlMNryib4fzdVnBM9Hck+mes7oLr2oCZT0I3DnX/69O1J1T4xbmy5bIPuvyVAk2Z+BCB3qQ0OQMESIbjMj3IIrulYWrAtFQdqIC6V0hVuWgSvhkaBPY/9+VerD3MG21ziqKEt0VD1upMtT/iASc1sEerSxY0TFBfsjSld+asAkolRvCPEnISUFx5CrsvhsKtCsUwKWUqGdkldE94On5eIHTwS1I26eTt6/kLMspkbSk6ShIqP9ZQxsFSHfzYhoXgPo9roJWINZgYx3Wurq/AbBlJ6OyTG2olUNsOjDcMdw52HpFEa99BwwSqscFQ0gjpPDDnRvDgdDo8cikwuojJaj7xdh2QrwHPXsbP/39DgPfCwcPEqbGg+RfI2X2F+uHzFfbSCROavKzUUqUsORtKGbwWbzVWVyrYw84A+ZdhI6D
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 14:58:06.1268
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b51139b6-96a6-4ad9-c225-08df15953f10
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM2PEPF00070CF5.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB5PR08MB10310
+Content-Transfer-Encoding: 8bit
 
-Reviewed-by: Mike Leach <mike.leach@arm.com>
+Add yaml devicetree binding for xlnx,zynq-xadc-1.00.a,
+xlnx,axi-xadc-1.00.a and xlnx,system-management-wiz-1.3 from
+xilinx-xadc.txt file.
 
-On 9/15/26 12:34, Yeoreum Yun wrote:
-> Introduce struct etm_caps to describe ETMv3 capabilities
-> and move capabilities information into it.
-> 
-> Since drvdata->etmccr and drvdata->etmccer are used to check
-> whether it supports fifofull logic and timestamping,
-> remove etmccr and etmccer field from drvdata and add relevant fields
-> in etm_caps structure.
-> 
-> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
-> ---
->   drivers/hwtracing/coresight/coresight-etm.h        | 42 +++++++++++++---------
->   drivers/hwtracing/coresight/coresight-etm3x-core.c | 42 +++++++++++++---------
->   .../hwtracing/coresight/coresight-etm3x-sysfs.c    | 24 ++++++++-----
->   3 files changed, 66 insertions(+), 42 deletions(-)
-> 
-> diff --git a/drivers/hwtracing/coresight/coresight-etm.h b/drivers/hwtracing/coresight/coresight-etm.h
-> index f3796162168d4..cb5f18dcdd974 100644
-> --- a/drivers/hwtracing/coresight/coresight-etm.h
-> +++ b/drivers/hwtracing/coresight/coresight-etm.h
-> @@ -140,6 +140,30 @@
->   				 ETM_ADD_COMP_0		|	\
->   				 ETM_EVENT_NOT_A)
->   
-> +/**
-> + * struct etm_caps - specifics ETM capabilities
-> + * @port_size:	port size as reported by ETMCR bit 4-6 and 21.
-> + * @nr_addr_cmp:Number of pairs of address comparators as found in ETMCCR.
-> + * @nr_cntr:	Number of counters as found in ETMCCR bit 13-15.
-> + * @nr_ext_inp:	Number of external input as found in ETMCCR bit 17-19.
-> + * @nr_ext_out:	Number of external output as found in ETMCCR bit 20-22.
-> + * @nr_ctxid_cmp: Number of contextID comparators as found in ETMCCR bit 24-25.
-> + * @fifofull:	FIFOFULL logic is present.
-> + * @timestamp:	Timestamping is implemented.
-> + * @retstack:	Return stack is implemented.
-> + */
-> +struct etm_caps {
-> +	int	port_size;
-> +	u8	nr_addr_cmp;
-> +	u8	nr_cntr;
-> +	u8	nr_ext_inp;
-> +	u8	nr_ext_out;
-> +	u8	nr_ctxid_cmp;
-> +	bool	fifofull : 1;
-> +	bool	timestamp : 1;
-> +	bool	retstack : 1;
-> +};
-> +
->   /**
->    * struct etm_config - configuration information related to an ETM
->    * @mode:	controls various modes supported by this ETM/PTM.
-> @@ -212,19 +236,12 @@ struct etm_config {
->    * @csdev:	component vitals needed by the framework.
->    * @spinlock:	only one at a time pls.
->    * @cpu:	the cpu this component is affined to.
-> - * @port_size:	port size as reported by ETMCR bit 4-6 and 21.
->    * @arch:	ETM/PTM version number.
-> + * @caps:	ETM capabilities.
->    * @use_cpu14:	true if management registers need to be accessed via CP14.
->    * @sticky_enable: true if ETM base configuration has been done.
->    * @boot_enable:true if we should start tracing at boot time.
->    * @os_unlock:	true if access to management registers is allowed.
-> - * @nr_addr_cmp:Number of pairs of address comparators as found in ETMCCR.
-> - * @nr_cntr:	Number of counters as found in ETMCCR bit 13-15.
-> - * @nr_ext_inp:	Number of external input as found in ETMCCR bit 17-19.
-> - * @nr_ext_out:	Number of external output as found in ETMCCR bit 20-22.
-> - * @nr_ctxid_cmp: Number of contextID comparators as found in ETMCCR bit 24-25.
-> - * @etmccr:	value of register ETMCCR.
-> - * @etmccer:	value of register ETMCCER.
->    * @traceid:	value of the current ID for this component.
->    * @active_config:	structure holding current running configuration.
->    * @config:	structure holding sysfs mode configuration.
-> @@ -235,19 +252,12 @@ struct etm_drvdata {
->   	struct coresight_device		*csdev;
->   	spinlock_t			spinlock;
->   	int				cpu;
-> -	int				port_size;
->   	u8				arch;
-> +	struct etm_caps			caps;
->   	bool				use_cp14;
->   	bool				sticky_enable;
->   	bool				boot_enable;
->   	bool				os_unlock;
-> -	u8				nr_addr_cmp;
-> -	u8				nr_cntr;
-> -	u8				nr_ext_inp;
-> -	u8				nr_ext_out;
-> -	u8				nr_ctxid_cmp;
-> -	u32				etmccr;
-> -	u32				etmccer;
->   	u32				traceid;
->   	struct etm_config		active_config;
->   	struct etm_config		config;
-> diff --git a/drivers/hwtracing/coresight/coresight-etm3x-core.c b/drivers/hwtracing/coresight/coresight-etm3x-core.c
-> index 12bb38dc596e7..79c7cbe2084de 100644
-> --- a/drivers/hwtracing/coresight/coresight-etm3x-core.c
-> +++ b/drivers/hwtracing/coresight/coresight-etm3x-core.c
-> @@ -308,6 +308,7 @@ void etm_config_trace_mode(struct etm_config *config)
->   static int etm_parse_event_config(struct etm_drvdata *drvdata,
->   				  struct perf_event *event)
->   {
-> +	const struct etm_caps *caps = &drvdata->caps;
->   	struct etm_config *config = &drvdata->active_config;
->   	struct perf_event_attr *attr = &event->attr;
->   	u8 ts_level;
-> @@ -356,8 +357,7 @@ static int etm_parse_event_config(struct etm_drvdata *drvdata,
->   	 * has ret stack) on the same SoC. So only enable when it can be honored
->   	 * - trace will still continue normally otherwise.
->   	 */
-> -	if (ATTR_CFG_GET_FLD(attr, retstack) &&
-> -	    (drvdata->etmccer & ETMCCER_RETSTACK))
-> +	if (ATTR_CFG_GET_FLD(attr, retstack) && (caps->retstack))
->   		config->ctrl |= ETMCR_RETURN_STACK;
->   
->   	return 0;
-> @@ -367,6 +367,7 @@ static int etm_enable_hw(struct etm_drvdata *drvdata)
->   {
->   	int i, rc;
->   	u32 etmcr;
-> +	const struct etm_caps *caps = &drvdata->caps;
->   	struct etm_config *config = &drvdata->active_config;
->   	struct coresight_device *csdev = drvdata->csdev;
->   
-> @@ -388,7 +389,7 @@ static int etm_enable_hw(struct etm_drvdata *drvdata)
->   	etmcr = etm_readl(drvdata, ETMCR);
->   	/* Clear setting from a previous run if need be */
->   	etmcr &= ~ETM3X_SUPPORTED_OPTIONS;
-> -	etmcr |= drvdata->port_size;
-> +	etmcr |= caps->port_size;
->   	etmcr |= ETMCR_ETM_EN;
->   	etm_writel(drvdata, config->ctrl | etmcr, ETMCR);
->   	etm_writel(drvdata, config->trigger_event, ETMTRIGGER);
-> @@ -396,11 +397,11 @@ static int etm_enable_hw(struct etm_drvdata *drvdata)
->   	etm_writel(drvdata, config->enable_event, ETMTEEVR);
->   	etm_writel(drvdata, config->enable_ctrl1, ETMTECR1);
->   	etm_writel(drvdata, config->fifofull_level, ETMFFLR);
-> -	for (i = 0; i < drvdata->nr_addr_cmp; i++) {
-> +	for (i = 0; i < caps->nr_addr_cmp; i++) {
->   		etm_writel(drvdata, config->addr_val[i], ETMACVRn(i));
->   		etm_writel(drvdata, config->addr_acctype[i], ETMACTRn(i));
->   	}
-> -	for (i = 0; i < drvdata->nr_cntr; i++) {
-> +	for (i = 0; i < caps->nr_cntr; i++) {
->   		etm_writel(drvdata, config->cntr_rld_val[i], ETMCNTRLDVRn(i));
->   		etm_writel(drvdata, config->cntr_event[i], ETMCNTENRn(i));
->   		etm_writel(drvdata, config->cntr_rld_event[i],
-> @@ -414,9 +415,9 @@ static int etm_enable_hw(struct etm_drvdata *drvdata)
->   	etm_writel(drvdata, config->seq_32_event, ETMSQ32EVR);
->   	etm_writel(drvdata, config->seq_13_event, ETMSQ13EVR);
->   	etm_writel(drvdata, config->seq_curr_state, ETMSQR);
-> -	for (i = 0; i < drvdata->nr_ext_out; i++)
-> +	for (i = 0; i < caps->nr_ext_out; i++)
->   		etm_writel(drvdata, ETM_DEFAULT_EVENT_VAL, ETMEXTOUTEVRn(i));
-> -	for (i = 0; i < drvdata->nr_ctxid_cmp; i++)
-> +	for (i = 0; i < caps->nr_ctxid_cmp; i++)
->   		etm_writel(drvdata, config->ctxid_pid[i], ETMCIDCVRn(i));
->   	etm_writel(drvdata, config->ctxid_mask, ETMCIDCMR);
->   	etm_writel(drvdata, config->sync_freq, ETMSYNCFR);
-> @@ -562,6 +563,7 @@ static int etm_enable(struct coresight_device *csdev, struct perf_event *event,
->   static void etm_disable_hw(struct etm_drvdata *drvdata)
->   {
->   	int i;
-> +	const struct etm_caps *caps = &drvdata->caps;
->   	struct etm_config *config = &drvdata->active_config;
->   	struct coresight_device *csdev = drvdata->csdev;
->   
-> @@ -571,7 +573,7 @@ static void etm_disable_hw(struct etm_drvdata *drvdata)
->   	/* Read back sequencer and counters for post trace analysis */
->   	config->seq_curr_state = (etm_readl(drvdata, ETMSQR) & ETM_SQR_MASK);
->   
-> -	for (i = 0; i < drvdata->nr_cntr; i++)
-> +	for (i = 0; i < caps->nr_cntr; i++)
->   		config->cntr_val[i] = etm_readl(drvdata, ETMCNTVRn(i));
->   
->   	etm_set_pwrdwn(drvdata);
-> @@ -626,6 +628,7 @@ static void etm_disable_perf(struct coresight_device *csdev)
->   static void etm_disable_sysfs(struct coresight_device *csdev)
->   {
->   	struct etm_drvdata *drvdata = dev_get_drvdata(csdev->dev.parent);
-> +	const struct etm_caps *caps = &drvdata->caps;
->   	struct etm_config *config = &drvdata->config;
->   	const struct etm_config *active_config = &drvdata->active_config;
->   	int i;
-> @@ -641,7 +644,7 @@ static void etm_disable_sysfs(struct coresight_device *csdev)
->   	 * Userspace may read seq_curr_state and cntr_val through sysfs
->   	 * after the sysfs-session has been disabled.
->   	 */
-> -	for (i = 0; i < drvdata->nr_cntr; i++)
-> +	for (i = 0; i < caps->nr_cntr; i++)
->   		config->cntr_val[i] = active_config->cntr_val[i];
->   
->   	config->seq_curr_state = active_config->seq_curr_state;
-> @@ -726,7 +729,9 @@ static void etm_init_arch_data(void *info)
->   {
->   	u32 etmidr;
->   	u32 etmccr;
-> +	u32 etmccer;
->   	struct etm_drvdata *drvdata = info;
-> +	struct etm_caps *caps = &drvdata->caps;
->   
->   	/* Make sure all registers are accessible */
->   	etm_os_unlock(drvdata);
-> @@ -751,16 +756,19 @@ static void etm_init_arch_data(void *info)
->   	/* Find all capabilities */
->   	etmidr = etm_readl(drvdata, ETMIDR);
->   	drvdata->arch = BMVAL(etmidr, 4, 11);
-> -	drvdata->port_size = etm_readl(drvdata, ETMCR) & PORT_SIZE_MASK;
-> +	caps->port_size = etm_readl(drvdata, ETMCR) & PORT_SIZE_MASK;
-> +
-> +	etmccer = etm_readl(drvdata, ETMCCER);
-> +	caps->timestamp = !!(etmccer & ETMCCER_TIMESTAMP);
-> +	caps->retstack = !!(etmccer & ETMCCER_RETSTACK);
->   
-> -	drvdata->etmccer = etm_readl(drvdata, ETMCCER);
->   	etmccr = etm_readl(drvdata, ETMCCR);
-> -	drvdata->etmccr = etmccr;
-> -	drvdata->nr_addr_cmp = BMVAL(etmccr, 0, 3) * 2;
-> -	drvdata->nr_cntr = BMVAL(etmccr, 13, 15);
-> -	drvdata->nr_ext_inp = BMVAL(etmccr, 17, 19);
-> -	drvdata->nr_ext_out = BMVAL(etmccr, 20, 22);
-> -	drvdata->nr_ctxid_cmp = BMVAL(etmccr, 24, 25);
-> +	caps->fifofull = !!(etmccr & ETMCCR_FIFOFULL);
-> +	caps->nr_addr_cmp = BMVAL(etmccr, 0, 3) * 2;
-> +	caps->nr_cntr = BMVAL(etmccr, 13, 15);
-> +	caps->nr_ext_inp = BMVAL(etmccr, 17, 19);
-> +	caps->nr_ext_out = BMVAL(etmccr, 20, 22);
-> +	caps->nr_ctxid_cmp = BMVAL(etmccr, 24, 25);
->   
->   	coresight_clear_self_claim_tag_unlocked(&drvdata->csa);
->   	etm_set_pwrdwn(drvdata);
-> diff --git a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
-> index 2c8c129228589..36d4673537930 100644
-> --- a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
-> +++ b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
-> @@ -53,8 +53,9 @@ static ssize_t nr_addr_cmp_show(struct device *dev,
->   {
->   	unsigned long val;
->   	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
-> +	const struct etm_caps *caps = &drvdata->caps;
->   
-> -	val = drvdata->nr_addr_cmp;
-> +	val = caps->nr_addr_cmp;
->   	return sprintf(buf, "%#lx\n", val);
->   }
->   static DEVICE_ATTR_RO(nr_addr_cmp);
-> @@ -63,8 +64,9 @@ static ssize_t nr_cntr_show(struct device *dev,
->   			    struct device_attribute *attr, char *buf)
->   {	unsigned long val;
->   	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
-> +	const struct etm_caps *caps = &drvdata->caps;
->   
-> -	val = drvdata->nr_cntr;
-> +	val = caps->nr_cntr;
->   	return sprintf(buf, "%#lx\n", val);
->   }
->   static DEVICE_ATTR_RO(nr_cntr);
-> @@ -75,7 +77,7 @@ static ssize_t nr_ctxid_cmp_show(struct device *dev,
->   	unsigned long val;
->   	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
->   
-> -	val = drvdata->nr_ctxid_cmp;
-> +	val = drvdata->caps.nr_ctxid_cmp;
->   	return sprintf(buf, "%#lx\n", val);
->   }
->   static DEVICE_ATTR_RO(nr_ctxid_cmp);
-> @@ -115,7 +117,7 @@ static ssize_t reset_store(struct device *dev,
->   		memset(config, 0, sizeof(struct etm_config));
->   		config->mode = ETM_MODE_EXCLUDE;
->   		config->trigger_event = ETM_DEFAULT_EVENT_VAL;
-> -		for (i = 0; i < drvdata->nr_addr_cmp; i++) {
-> +		for (i = 0; i < drvdata->caps.nr_addr_cmp; i++) {
->   			config->addr_type[i] = ETM_ADDR_TYPE_NONE;
->   		}
->   
-> @@ -146,6 +148,7 @@ static ssize_t mode_store(struct device *dev,
->   	int ret;
->   	unsigned long val;
->   	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
-> +	const struct etm_caps *caps = &drvdata->caps;
->   	struct etm_config *config = &drvdata->config;
->   
->   	ret = kstrtoul(buf, 16, &val);
-> @@ -166,7 +169,7 @@ static ssize_t mode_store(struct device *dev,
->   		config->ctrl &= ~ETMCR_CYC_ACC;
->   
->   	if (config->mode & ETM_MODE_STALL) {
-> -		if (!(drvdata->etmccr & ETMCCR_FIFOFULL)) {
-> +		if (!caps->fifofull) {
->   			dev_warn(dev, "stall mode not supported\n");
->   			ret = -EINVAL;
->   			goto err_unlock;
-> @@ -176,7 +179,7 @@ static ssize_t mode_store(struct device *dev,
->   		config->ctrl &= ~ETMCR_STALL_MODE;
->   
->   	if (config->mode & ETM_MODE_TIMESTAMP) {
-> -		if (!(drvdata->etmccer & ETMCCER_TIMESTAMP)) {
-> +		if (!caps->timestamp) {
->   			dev_warn(dev, "timestamp not supported\n");
->   			ret = -EINVAL;
->   			goto err_unlock;
-> @@ -321,13 +324,14 @@ static ssize_t addr_idx_store(struct device *dev,
->   	int ret;
->   	unsigned long val;
->   	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
-> +	const struct etm_caps *caps = &drvdata->caps;
->   	struct etm_config *config = &drvdata->config;
->   
->   	ret = kstrtoul(buf, 16, &val);
->   	if (ret)
->   		return ret;
->   
-> -	if (val >= drvdata->nr_addr_cmp)
-> +	if (val >= caps->nr_addr_cmp)
->   		return -EINVAL;
->   
->   	/*
-> @@ -624,13 +628,14 @@ static ssize_t cntr_idx_store(struct device *dev,
->   	int ret;
->   	unsigned long val;
->   	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
-> +	const struct etm_caps *caps = &drvdata->caps;
->   	struct etm_config *config = &drvdata->config;
->   
->   	ret = kstrtoul(buf, 16, &val);
->   	if (ret)
->   		return ret;
->   
-> -	if (val >= drvdata->nr_cntr)
-> +	if (val >= caps->nr_cntr)
->   		return -EINVAL;
->   	/*
->   	 * Use spinlock to ensure index doesn't change while it gets
-> @@ -1030,13 +1035,14 @@ static ssize_t ctxid_idx_store(struct device *dev,
->   	int ret;
->   	unsigned long val;
->   	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
-> +	const struct etm_caps *caps = &drvdata->caps;
->   	struct etm_config *config = &drvdata->config;
->   
->   	ret = kstrtoul(buf, 16, &val);
->   	if (ret)
->   		return ret;
->   
-> -	if (val >= drvdata->nr_ctxid_cmp)
-> +	if (val >= caps->nr_ctxid_cmp)
->   		return -EINVAL;
->   
->   	/*
-> 
+Signed-off-by: Omer PALA <palaomer100@gmail.com>
+---
+ .../bindings/iio/adc/xilinx-xadc.txt          | 141 ----------------
+ .../bindings/iio/adc/xlnx,xadc.yaml           | 159 ++++++++++++++++++
+ 2 files changed, 159 insertions(+), 141 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
+ create mode 100644 Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
+
+diff --git a/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt b/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
+deleted file mode 100644
+index f42e18078..000000000
+--- a/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
++++ /dev/null
+@@ -1,141 +0,0 @@
+-Xilinx XADC device driver
+-
+-This binding document describes the bindings for the Xilinx 7 Series XADC as well
+-as the UltraScale/UltraScale+ System Monitor.
+-
+-The Xilinx XADC is an ADC that can be found in the Series 7 FPGAs from Xilinx.
+-The XADC has a DRP interface for communication. Currently two different
+-frontends for the DRP interface exist. One that is only available on the ZYNQ
+-family as a hardmacro in the SoC portion of the ZYNQ. The other one is available
+-on all series 7 platforms and is a softmacro with a AXI interface. This binding
+-document describes the bindings for both of them since the bindings are very
+-similar.
+-
+-The Xilinx System Monitor is an ADC that is found in the UltraScale and
+-UltraScale+ FPGAs from Xilinx. The System Monitor provides a DRP interface for
+-communication. Xilinx provides a standard IP core that can be used to access the
+-System Monitor through an AXI interface in the FPGA fabric. This IP core is
+-called the Xilinx System Management Wizard. This document describes the bindings
+-for this IP.
+-
+-Required properties:
+-	- compatible: Should be one of
+-		* "xlnx,zynq-xadc-1.00.a": When using the ZYNQ device
+-		  configuration interface to interface to the XADC hardmacro.
+-		* "xlnx,axi-xadc-1.00.a": When using the axi-xadc pcore to
+-		  interface to the XADC hardmacro.
+-		* "xlnx,system-management-wiz-1.3": When using the
+-		  Xilinx System Management Wizard fabric IP core to access the
+-		  UltraScale and UltraScale+ System Monitor.
+-	- reg: Address and length of the register set for the device
+-	- interrupts: Interrupt for the XADC control interface.
+-	- clocks: When using the ZYNQ this must be the ZYNQ PCAP clock,
+-	  when using the axi-xadc or the axi-system-management-wizard this must be
+-	  the clock that provides the clock to the AXI bus interface of the core.
+-
+-Optional properties:
+-	- xlnx,external-mux:
+-		* "none": No external multiplexer is used, this is the default
+-		  if the property is omitted.
+-		* "single": External multiplexer mode is used with one
+-		   multiplexer.
+-		* "dual": External multiplexer mode is used with two
+-		  multiplexers for simultaneous sampling.
+-	- xlnx,external-mux-channel: Configures which pair of pins is used to
+-	  sample data in external mux mode.
+-	  Valid values for single external multiplexer mode are:
+-		0: VP/VN
+-		1: VAUXP[0]/VAUXN[0]
+-		2: VAUXP[1]/VAUXN[1]
+-		...
+-		16: VAUXP[15]/VAUXN[15]
+-	  Valid values for dual external multiplexer mode are:
+-		1: VAUXP[0]/VAUXN[0] - VAUXP[8]/VAUXN[8]
+-		2: VAUXP[1]/VAUXN[1] - VAUXP[9]/VAUXN[9]
+-		...
+-		8: VAUXP[7]/VAUXN[7] - VAUXP[15]/VAUXN[15]
+-
+-	  This property needs to be present if the device is configured for
+-	  external multiplexer mode (either single or dual). If the device is
+-	  not using external multiplexer mode the property is ignored.
+-	- xnlx,channels: List of external channels that are connected to the ADC
+-	  Required properties:
+-		* #address-cells: Should be 1.
+-		* #size-cells: Should be 0.
+-
+-	  The child nodes of this node represent the external channels which are
+-	  connected to the ADC. If the property is no present no external
+-	  channels will be assumed to be connected.
+-
+-	  Each child node represents one channel and has the following
+-	  properties:
+-		Required properties:
+-			* reg: Pair of pins the channel is connected to.
+-				0: VP/VN
+-				1: VAUXP[0]/VAUXN[0]
+-				2: VAUXP[1]/VAUXN[1]
+-				...
+-				16: VAUXP[15]/VAUXN[15]
+-			  Note each channel number should only be used at most
+-			  once.
+-		Optional properties:
+-			* xlnx,bipolar: If set the channel is used in bipolar
+-			  mode.
+-
+-
+-Examples:
+-	xadc@f8007100 {
+-		compatible = "xlnx,zynq-xadc-1.00.a";
+-		reg = <0xf8007100 0x20>;
+-		interrupts = <0 7 4>;
+-		interrupt-parent = <&gic>;
+-		clocks = <&pcap_clk>;
+-
+-		xlnx,channels {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			channel@0 {
+-				reg = <0>;
+-			};
+-			channel@1 {
+-				reg = <1>;
+-			};
+-			channel@8 {
+-				reg = <8>;
+-			};
+-		};
+-	};
+-
+-	xadc@43200000 {
+-		compatible = "xlnx,axi-xadc-1.00.a";
+-		reg = <0x43200000 0x1000>;
+-		interrupts = <0 53 4>;
+-		interrupt-parent = <&gic>;
+-		clocks = <&fpga1_clk>;
+-
+-		xlnx,channels {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			channel@0 {
+-				reg = <0>;
+-				xlnx,bipolar;
+-			};
+-		};
+-	};
+-
+-	adc@80000000 {
+-		compatible = "xlnx,system-management-wiz-1.3";
+-		reg = <0x80000000 0x1000>;
+-		interrupts = <0 81 4>;
+-		interrupt-parent = <&gic>;
+-		clocks = <&fpga1_clk>;
+-
+-		xlnx,channels {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			channel@0 {
+-				reg = <0>;
+-				xlnx,bipolar;
+-			};
+-		};
+-	};
+diff --git a/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml b/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
+new file mode 100644
+index 000000000..6031de763
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
+@@ -0,0 +1,159 @@
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/iio/adc/xlnx,xadc.yaml#
++$schema: http://devicetree.org/schemas/meta-schema.yaml#
++
++title: Xilinx XADC device driver
++
++maintainers:
++  - Omer PALA <palaomer100@gmail.com>
++
++description: |
++  This binding document describes the bindings for the Xilinx 7 Series XADC as well
++  as the UltraScale/UltraScale+ System Monitor.
++
++properties:
++  compatible:
++    enum:
++      - xlnx,zynq-xadc-1.00.a
++      - xlnx,axi-xadc-1.00.a
++      - xlnx,system-management-wiz-1.3
++
++  reg:
++    description: Address and length of the register set for the device
++    maxItems: 1
++
++  interrupts:
++    description: Interrupt for the XADC control interface.
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  interrupt-parent: true
++
++  xlnx,external-mux:
++    description: Selects the external mux mode.
++    enum: [none, single, dual]
++    default: none
++
++  xlnx,external-mux-channel:
++    description: >
++      Configures which pair of pins is used to sample data in
++      external mux mode.
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++  xlnx,channels:
++    type: object
++    description: List of external channels that are connected to the ADC.
++    properties:
++      "#address-cells":
++        const: 1
++      "#size-cells":
++        const: 0
++    patternProperties:
++      "^channel@[0-9a-f]+$":
++        type: object
++        properties:
++          reg:
++            description: Pair of pins the channel is connected to
++            minimum: 0
++            maximum: 16
++          xlnx,bipolar:
++            description: If set the channel is used in bipolar mode.
++            $ref: /schemas/types.yaml#/definitions/flag
++        required:
++          - reg
++        additionalProperties: false
++    additionalProperties: false
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++
++unevaluatedProperties: false
++
++allOf:
++  - if:
++      properties:
++        xlnx,external-mux:
++          const: single
++    then:
++      properties:
++        xlnx,external-mux-channel:
++          minimum: 0
++          maximum: 16
++
++  - if:
++      properties:
++        xlnx,external-mux:
++          const: dual
++    then:
++      properties:
++        xlnx,external-mux-channel:
++          minimum: 1
++          maximum: 8
++
++examples:
++  - |
++    soc {
++      #address-cells = <1>;
++      #size-cells = <1>;
++
++      xadc@f8007100 {
++        compatible = "xlnx,zynq-xadc-1.00.a";
++        reg = <0xf8007100 0x20>;
++        interrupts = <0 7 4>;
++        interrupt-parent = <&gic>;
++        clocks = <&pcap_clk>;
++
++        xlnx,channels {
++          #address-cells = <1>;
++          #size-cells = <0>;
++
++          channel@0 {
++            reg = <0>;
++          };
++          channel@1 {
++            reg = <1>;
++          };
++          channel@8 {
++            reg = <8>;
++          };
++        };
++      };
++      xadc@43200000 {
++        compatible = "xlnx,axi-xadc-1.00.a";
++        reg = <0x43200000 0x1000>;
++        interrupts = <0 53 4>;
++        interrupt-parent = <&gic>;
++        clocks = <&fpga1_clk>;
++
++        xlnx,channels {
++          #address-cells = <1>;
++          #size-cells = <0>;
++          channel@0 {
++            reg = <0>;
++            xlnx,bipolar;
++          };
++        };
++      };
++      adc@80000000 {
++        compatible = "xlnx,system-management-wiz-1.3";
++        reg = <0x80000000 0x1000>;
++        interrupts = <0 81 4>;
++        interrupt-parent = <&gic>;
++        clocks = <&fpga1_clk>;
++
++        xlnx,channels {
++          #address-cells = <1>;
++          #size-cells = <0>;
++          channel@0 {
++            reg = <0>;
++            xlnx,bipolar;
++          };
++        };
++      };
++    };
+-- 
+2.55.0
 
