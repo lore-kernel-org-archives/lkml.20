@@ -1,266 +1,127 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011034.outbound.protection.outlook.com [52.101.57.34])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09A3C50B8A8
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:48:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.34
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789746534; cv=fail; b=Eim5MY/PVGGMJ6fqAVGaeC9cxekMLZPMDlRUjaxlyF9uhhfFQQXoUE8EJKnzN0OhY55/Nfecd5n3uLmJ1xZLqrManmgBLS6QTfWxtCmWtJPudjSziKyakH3Ymy6N4WVyVPqffa08i8loZusQ/FlkDkdewt7AhykdlT9Ld6fKb7c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789746534; c=relaxed/simple;
-	bh=2yH2Sf9Tkl7+cTrtoB96NGFSKh38+u0FIK7EwclaQks=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=FFdOFGZNVpIna7T3g3lDoajylO4sdwo+/I3RJicm6Ycmczz33SjC54paKupRWir+tRiaM0xnlFvV6V2NdvOxswmvGyEovLf/gNrKHalxhpyVAn3xykJUr0NjRuwOFuAAhCreynyNBtrLIy23ykJVb0nVKJxB6KBNmfvU7BdZJB4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=NfLcdKyU; arc=fail smtp.client-ip=52.101.57.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 656DD49D5BA;
+	Fri, 18 Sep 2026 15:50:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789746606; cv=none; b=on/eAvFx9e2GkeqLbV3dr9gcl9cLygnYqb4JNp4T5TBuq6BvW3h7rdt/Yb6wlgvtyd4NoQS3zDIz1o6ciXntrrogERmXnmlgiMqXIHvCet8Muigxs2EdGeW491rYVeBTrhQzmnE8wpx9RC94hU+LB/cAF3A8eYjIwRPE9MXP4ow=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789746606; c=relaxed/simple;
+	bh=NtTW+7R8syQSRECGj3UX4rZbRLNNdz3lSfU2efHFFpE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=F04HBAP2h5JAFPUxSQXKS1GHQuchX3jphMQ8Ekenf+I9oLk3zK0s7mSQS+wv0gAfC6dHFbr6hNnn7HXF7d2pSrtS4wrkwqrG62LJBrhpAPWKgTUkLCRlZGReI3M5Q8lPQCHTiz7uhTVTQuiEfggOi3GTOhso/jABegHFbOV+L18=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tqqodusm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="NfLcdKyU"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JJoQLIx1Tu6B7Z6YAJJbD1gzUSa4y+2K4D+CGAKL9zD6eFr3x0FKiQtUO2Rp76rk+rBsaWA0h6cY0HvVSgnTGu2wPDna5f0doZr590cvxEnNP6kMw34uACRB91vpOC4JUJD5x8GJkdo8bH2eysOuyyfCB+wEy+yArN0eyfW5QkK/rozeD/SCHk/lOQGp5DXNbC2jVRoDXuB7XQ9getUTI2nBiBhjTyKpFVp4NTcrF0M6SQNB+f7TQCIicloj2miku01Gd7oylIm85szzeMldE4+a9eDewg78BHZWye8pX2pNPLuSPI2g4ru0JWP8i+8gb824yt6+vGRRndcl4G6aFQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9pPCfm9RWL4J4x/97y6sGVvkd5DdoP94qa+oXo2cPig=;
- b=Le+bjWwFm6OoG7VM4hq+hDoVJ3Hw3xyQvuPuNZ8443yW8gJKi9WSZ1utNlSAxRObOqR85i4OApnx7H7QeJWwDA4I/WWmuAictTPpG6hON+lwbUcx8oyrvpcYMCm0ZlND9AFalwdJ7G1QOAYGNxrIhy/IebHzjMK23IFPgnMjZ5O+dKUBp4L8zJ61YLka165Vum+pEAsEje3fK2oP5X24rFR06/7KD2GCR7/oXpa8annwwYX05C72jnxscyBGBkCyvIF+wtu3tIjUJO3n46Vo+iFjFsxYiqJuWpQWv+Y7nJ343lysWauvF/Na+UHzDFaNKlRvI7EMccy1ddfvnuW3jg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9pPCfm9RWL4J4x/97y6sGVvkd5DdoP94qa+oXo2cPig=;
- b=NfLcdKyUA3MkX+vCYud1IhC9RwBJfPb0Bx/k9kgQoAL/Cj0KEfP3jMmN0DJjfW50uZAojM8mM5tBVoMpWfeLXCMHTjFey6TNHggWQVkhXNNoD5uWhz9kvIcT5YqA5cC2Z/CeAjtgUVe+AxJBOYT9QmgdfW/WMvXLT5Ykl+oK020=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY8PR12MB7170.namprd12.prod.outlook.com (2603:10b6:930:5a::18)
- by BY5PR12MB4145.namprd12.prod.outlook.com (2603:10b6:a03:212::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
- 2026 15:48:38 +0000
-Received: from CY8PR12MB7170.namprd12.prod.outlook.com
- ([fe80::7565:bdd3:383a:de5f]) by CY8PR12MB7170.namprd12.prod.outlook.com
- ([fe80::7565:bdd3:383a:de5f%3]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
- 15:48:37 +0000
-Message-ID: <6f36d088-9366-48fa-b67a-659eabbd1c42@amd.com>
-Date: Fri, 18 Sep 2026 23:48:32 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 2/4] drm/virtgpu api: add blob userptr resource
-To: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-Cc: Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>, Ray Huang <Ray.Huang@amd.com>,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org, Dmitry Osipenko
- <dmitry.osipenko@collabora.com>, David Airlie <airlied@redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>
-References: <20260918095940.2253018-1-honghuan@amd.com>
- <20260918095940.2253018-3-honghuan@amd.com>
- <a08fc58b-c67a-4a96-a967-7280c8f9e965@rsg.ci.i.u-tokyo.ac.jp>
-Content-Language: en-US
-From: "Huang, Honglei" <honghuan@amd.com>
-In-Reply-To: <a08fc58b-c67a-4a96-a967-7280c8f9e965@rsg.ci.i.u-tokyo.ac.jp>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: TY4PR01CA0062.jpnprd01.prod.outlook.com
- (2603:1096:405:370::14) To CY8PR12MB7170.namprd12.prod.outlook.com
- (2603:10b6:930:5a::18)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tqqodusm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EEFA1F000FF;
+	Fri, 18 Sep 2026 15:50:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789746605;
+	bh=tEW1QDQGaeEjP2/bEOYM+rrJce5dTl6rQHpum/y6Jk4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TqqodusmO+65WNT2urqrQ8BbzgUt3GYNxJA4+0GCWtGyNavFx75B2DOVLHJM7QDhM
+	 9QG8k5aWPz0WcWGYpmDi/UKNxwgo4wu5Nc9WunOpJpSA+Eee0Z9sV3fUa9dIPbugJp
+	 PCusP9TLoLVGfI3vkqYb1jda4BzO3vwaw/+ntuDUauWgsqr2R8N6enTMD5RT5goVyQ
+	 fwkc1+JQ1meZ6B1Jj934HOgZ8Ne0poG/1IXx2Lk8e39YzavLraR2/romfeXUY2WksU
+	 GAsLrr3QnW5XjlCNtJ5O7sNthm+MA7JgYJiaAqGcf9UmlrGW88np5SWn6UKzE2xDmk
+	 d8ra8JRu9/30Q==
+Date: Fri, 18 Sep 2026 18:49:59 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Peng Fan <peng.fan@oss.nxp.com>
+Cc: Robin Murphy <robin.murphy@arm.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Marek Szyprowski <m.szyprowski@samsung.com>, iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH RFC 0/2] iommu/dma: Fix DMA_ATTR_MMIO swiotlb rejection
+Message-ID: <20260918154959.GZ13683@unreal>
+References: <20260916-iommu-dma-fix-v1-0-a59a0c45ec5b@nxp.com>
+ <20260918123736.GW13683@unreal>
+ <aq1GyO3vv8W6Adlr@shlinux89>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PR12MB7170:EE_|BY5PR12MB4145:EE_
-X-MS-Office365-Filtering-Correlation-Id: 47a06a0d-0bec-4ee6-04ae-08df159c4df6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|10067099003|11063799006|22082099003|18002099003|56012099006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	XITswcXts4eoL7b4RlCfQR5yIGb/8W75jDnMUywYFy0hQZdjK2zwVGMo2/MTxtja42xO0sCN3UhIdCAyrbEGW3pt9ohgd0PkXJvGzWuuee396Sws49UmyuizsLn7H/jjGnUaZeiHmt9Ux1p5VgODuoDRRHibM+x/HW3u3MKiJb0lJ/Xid2qOzh/RHxD80S69Kpvph/sFn+DzqCuXaHJMKw0VpJrQfMu/JeT+ixVFKSr7dbpPBArxJ5z4L9QRQ9XOZNy88qxeRcuU5ZnF0Qni4YoIPmd5zczWUHNe9Ad81rxQ1XOdoUQigOz3jh64BzIxKYDnkERyZrBX9WJvbQ3FIcrLG/i644kYWQd5TSgocGVjHCbB5fO+D5BFdKxiwJ4nd9IiVqvjcXugHurnIiTogE8UKalEVLFVdEpWReu8jOYke4jFEsm3gaqlK8S89rImDUhKKI1IIWLfL3agV40Y/zJewZHdsUeJXF4C7fxQO9gEVO7qvEZqBhvwvxqfJ1kZGbFUwcpNw9Vgd7stgJIvuMr7nPMcmtAaohiLRnW9dWmAhJ68iLmKoRFrRGQRp8BZuZfUvaSFmTtoKE6aAI16QD4zcW/jK6HelN3JCZQO3TICutzwpsFf0u65YzBTnOSFrS1lDOFxfq98z4BsaATD5b0IY2DCjLRe+qIu2o/UVmU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7170.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(10067099003)(11063799006)(22082099003)(18002099003)(56012099006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?V2RXN1IrcE1iMkJkL2tMeEtLeE5lWHhzL0lEUVpuRElqVzRpcmloenRzTzEz?=
- =?utf-8?B?VTJMZVNNd0lHZnZtd1RXNXFIdk5JQnFVQkZ5dkhpcUpPbGJPcHc5MEE5eFFU?=
- =?utf-8?B?UWd1TjlxM0VIQ004cVhLOXpuNkhGb2tiRVgrUDUvSURnZnl5YTlQL0d3MzdG?=
- =?utf-8?B?V2tIOTBZU3htajJyN3ZleStiaTZaZkg2K3JpUHROUXJPcjV5MWJyR0kyRmFK?=
- =?utf-8?B?bHhmR1gvZERjb2NtL1NQYkFzZU0yMWk3cWU3bXArYUlxQVlaUkNBeFA4Mkpv?=
- =?utf-8?B?MVg1V0lZRWR4c0xTT1lDUWVKWWNUUTZzaWRSVDZwMTY0Z2szMDljSExPNEM4?=
- =?utf-8?B?V3VtendQWjFoVUpQSmRzV2FZQUZQSjdSbHA4TkRuWlp4VlpyUUsxNHIxVVh2?=
- =?utf-8?B?S29IYm5IWHlPR1VZRFIzMHN6MU9Ic0NRRmwxbHphZ1BmazRsV25NaENpeDVI?=
- =?utf-8?B?T0x3Z0hTMzF6Z2hQOHlrNzlHMkl2eFZEZHNFaXh6MWVWaWo5TGZheTFsQWxI?=
- =?utf-8?B?TDdCQTFRd3dIb1B3Mmt5VEI2NFcyYTFjK3VNSmhQd2FYc0w3TXE3WHA5ZmVG?=
- =?utf-8?B?MUhsdVpjUVdrcTIvVVNBbWVVckVUTHppUFFCajkrL0tXTFZKVEkxTlVIbERI?=
- =?utf-8?B?bTA5YWkrVEtBNDVZc2VWSmczNng0b0FTV1I4MURjSHhSb3VUdkloRXlySlB2?=
- =?utf-8?B?NTdjbVpGQWcxcHhBajZYMDQvcjZWYTNjUk44bXBoc2QyOFdFZFFtZWJZUWxC?=
- =?utf-8?B?NitYRXFsZnpIRFk5TlhGdFZWN21jWWVlaTVicWV3WERhNVA0VDBGRVgvbEdI?=
- =?utf-8?B?d1pGUmxlTzdvTXMyRllZQVlCNGNEblJ4UU1uRnJ3WWdVN3padXdkV0s2Vjkw?=
- =?utf-8?B?LytxME1XajJ1QXZQLzZqS0ZVOVk5SEJBUC85RW1vN3dvOS90aGIrd01GVW1P?=
- =?utf-8?B?QUhIckJaTm1ubEFsWmdrMmZjZ1YxMGNHVnE2NDdQbUlOL3VxajlabW5sRzNK?=
- =?utf-8?B?WmpiTzRybVZwVElpYmdSaGRNZ3VaOEtqNW9zZ1BRU0JXZUhFR3FnVUV5VzV6?=
- =?utf-8?B?dnJZOGRYd1lQRXgrQURlL0ZuWkdDUzdhaThwNDBvTE1UQmYwZVVUR1NEZmtW?=
- =?utf-8?B?blEvQ2RLak9NWmRUd1ZYRE50TlNrUFdZMk1jSzQ4ME5OWE4xNEgvYWFBY1dE?=
- =?utf-8?B?RGpwT0tNZG90VWlvRWxlaTdUd3Q1VXpmUlY5RXY5azhhU1BMdmNBeTJZT3ZC?=
- =?utf-8?B?cHp5bEpWZnJCUXVNREN3UXpxZXAwTC9OYUQzUkNseEpaekU3UFd1a295TVpG?=
- =?utf-8?B?VnhnWHBxbDFZVWdOeXg1WEt2cU15VlhrNVA0TVJub0Nid083YmRuT05nQ3ha?=
- =?utf-8?B?UCtrZnM1Y2ZWR1V5bDhEd2RKWEhTZHVJYXVtNlhCamZJUU1pZStFNjNxUlpn?=
- =?utf-8?B?WjZndk1uUlJqeGFWNjdCcmZ6aUhueFBjZVBZYXZjcGpqVEpmKzFtZ1JlaVhW?=
- =?utf-8?B?bHFJK0poS0p2VUJacWRYdHRNNjJ0KzFNc0RQQVVNMGxhVkluc25qQ2Jpakcw?=
- =?utf-8?B?UlhVL3FtMmlHb1poWGcyRWZpcVBtM2diN1FlU1c4ZDlHRVdFdDdEaTNsVjNQ?=
- =?utf-8?B?YzV2U3FoTEZwaFFKZkhaLzA5WmYrRXE0Y1B4enRNMm5rL2lxQjhaeHd2ZlY5?=
- =?utf-8?B?UVVMOVdGejFBZnUvaEd2bGNNNkdpaG9oWmphSE5rOUkxRGh6amtHdGVXWFdY?=
- =?utf-8?B?UDJHeE5kejRRRmVRVE5raUQ0VWZtN00wQkZ6Sk85a1F3dXVTWEJwMGFTMjFM?=
- =?utf-8?B?UjJucUl1Q3ZYUWcyN2hCSWFZbUtrNEZpOGZCM05IeGk3SEJlWHhqVTYxMWFW?=
- =?utf-8?B?L0RSdFNGemtJS1NHaWU4eFhseHlLZmxzTFBJY09OY1I2MG9Nbi90bnpvajJJ?=
- =?utf-8?B?anliYkZiUzR6QUxSdzJNUGJCZkV4SDh6SlYzaXBWUEZ2ZERVaEplOHIxSUxa?=
- =?utf-8?B?K0RuQTc1aGlObTB6VnUvWGhPditrNlR2dGZsSXZjcktFa25LNkhWNW9GR0Rh?=
- =?utf-8?B?RDA5L2RpL2F1bkhMdmZNQkZIK3Z5UlJCYmZYbnNpcU1pdlN3clNpWUw2Wnd6?=
- =?utf-8?B?L1lWVHVpNCthc2FvaHZLYkMxVXNKMlVhaGVwUE5xRHBzN0FiUWovRnoxMjhX?=
- =?utf-8?B?S09SU3dGNHBha2gzNU4rUDhrZERKY1hVQjg3ZUtJOGIvMUJIRlNtMStjZmI0?=
- =?utf-8?B?eisydmlPME9RUFVBeG1ZZnQ2WWt5NnZmVk41UTRjZGlSbUZVZ0dMN04xM3g4?=
- =?utf-8?B?emZzSGEvUjJHTlJLQWk1S3ZrR3V5K2g2VnhpRjUwVGlvMzZ1OFFDUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 47a06a0d-0bec-4ee6-04ae-08df159c4df6
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7170.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 15:48:37.9018
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0l/kfLAba3lWSvgY85K8uwbIh/LxrTadzWhD4a1N4+YgBPis9lmN5ihhr1RxaT6NZnUxTY24rNKkrf9dV2YPcA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4145
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aq1GyO3vv8W6Adlr@shlinux89>
 
+On Fri, Sep 18, 2026 at 10:12:24PM +0800, Peng Fan wrote:
+> Hi Leon,
+> 
+> On Fri, Sep 18, 2026 at 03:37:36PM +0300, Leon Romanovsky wrote:
+> >On Wed, Sep 16, 2026 at 11:23:32PM +0800, Peng Fan (OSS) wrote:
+> >> Commit f9374de14c0e8 ("iommu/dma: implement DMA_ATTR_MMIO for
+> >> iommu_dma_(un)map_phys()") and commit c288d657dd515 ("iommu/dma: implement
+> >> DMA_ATTR_MMIO for dma_iova_link().") added DMA_ATTR_MMIO support to skip
+> >> swiotlb bouncing and cache flushing for MMIO resources. However, both
+> >> implementations placed the DMA_ATTR_MMIO check inside the swiotlb bounce block,
+> >> causing non-page-aligned MMIO mappings to be rejected outright instead of
+> >> skipping the bounce and proceeding to create the IOVA mapping.
+> >> 
+> >> This breaks dma_map_resource() for any non-page-aligned device register when
+> >> behind an IOMMU: DMA controllers that map peripheral FIFO addresses
+> >> (e.g. SPI controller TX/RX data registers) through an IOMMU for per-channel
+> >> isolation.
+> >> 
+> >> Both patches move the DMA_ATTR_MMIO check before the swiotlb block so MMIO,
+> >> resources skip the entire bounce path and fall through directly to the IOMMU
+> >> mapping function.
+> >
+> >While I understand the rationale behind the first patch, why do we need the
+> >second one? Do we want to allow unaligned addresses for the _link_ as well?
+> >Current users don't need it.
+> 
+> My intention with the second patch was to make the DMA_ATTR_MMIO handling
+> consistent with iommu_dma_map_phys(), since MMIO cannot be bounced by
+> SWIOTLB in either case.
+> 
+> However, I don't have a dma_iova_link() user that requires an
+> unaligned MMIO address, so no need to relax the existing restriction there.
+> �
+> I'll drop the second patch and keep this fix scoped to iommu_dma_map_phys()
+> in v2. Does that sounds good to you?
+> 
+> BTW, does patch 1 look good to you?
 
+Yes, for both questions.
 
-On 9/18/2026 8:12 PM, Akihiko Odaki wrote:
-> On 2026/09/18 18:59, Honglei Huang wrote:
->> Add a userptr address field so userspace can request a blob backed
->> by an existing process mapping. A non-zero userptr selects that
->> path; probe VIRTGPU_PARAM_USERPTR before using the field.
->>
->> GPU-readonly backing is requested with the virtio CREATE_BLOB wire
->> flag VIRTIO_GPU_BLOB_FLAG_USE_READONLY (also
->> VIRTGPU_BLOB_FLAG_USE_READONLY). The device MUST NOT write such a
->> resource. The guest pins without FOLL_WRITE only when the device
->> advertised VIRTIO_GPU_F_BLOB_READONLY (VIRTGPU_PARAM_BLOB_READONLY).
->>
->> Signed-off-by: Honglei Huang <honghuan@amd.com>
->> ---
->>   include/uapi/drm/virtgpu_drm.h  | 13 +++++++++++++
->>   include/uapi/linux/virtio_gpu.h |  6 ++++++
->>   2 files changed, 19 insertions(+)
->>
->> diff --git a/include/uapi/drm/virtgpu_drm.h b/include/uapi/drm/ 
->> virtgpu_drm.h
->> index 95587e12ae..80f73b3276 100644
->> --- a/include/uapi/drm/virtgpu_drm.h
->> +++ b/include/uapi/drm/virtgpu_drm.h
->> @@ -99,6 +99,8 @@ struct drm_virtgpu_execbuffer {
->>   #define VIRTGPU_PARAM_SUPPORTED_CAPSET_IDs 7 /* Bitmask of supported 
->> capability set ids */
->>   #define VIRTGPU_PARAM_EXPLICIT_DEBUG_NAME 8 /* Ability to set debug 
->> name from userspace */
->>   #define VIRTGPU_PARAM_BLOB_ALIGNMENT 9 /* Device alignment 
->> requirements for blobs */
->> +#define VIRTGPU_PARAM_USERPTR 10 /* CREATE_BLOB userptr field is 
->> supported */
->> +#define VIRTGPU_PARAM_BLOB_READONLY 11 /* 
->> VIRTGPU_BLOB_FLAG_USE_READONLY is honored */
->>   struct drm_virtgpu_getparam {
->>       __u64 param;
->> @@ -186,6 +188,10 @@ struct drm_virtgpu_resource_create_blob {
->>   #define VIRTGPU_BLOB_FLAG_USE_MAPPABLE     0x0001
->>   #define VIRTGPU_BLOB_FLAG_USE_SHAREABLE    0x0002
->>   #define VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE 0x0004
->> +/* Wire flag: device MUST NOT write. Guest pins without FOLL_WRITE.
->> + * Rejected unless VIRTGPU_PARAM_BLOB_READONLY is 1.
->> + */
-> 
-> According to Documentation/process/coding-style.rst, the preferred style 
-> for long (multi-line) comments is:
-> 
->      /*
->       * This is the preferred style for multi-line
->       * comments in the Linux kernel source code.
->       * Please use it consistently.
->       *
->       * Description:  A column of asterisks on the left side,
->       * with beginning and ending almost-blank lines.
->       */
-> 
-> So please avoid putting text on the same line as the opening /*.
-> 
-> Furthermore, because this is a UAPI header (defining the interface 
-> between userspace and the kernel, rather than the guest and the host), 
-> it should use terminology appropriate for userspace. Kernel-internal 
-> implementation details like FOLL_WRITE and terms like "guest" shouldn't 
-> be mentioned here.
-> 
-> That being said, I don't think this comment is necessary in the first 
-> place. Anyone who needs to know the exact behavior will look at the 
-> virtio specification. I recommend just dropping the comment entirely.
-> 
-
-Thanks for the review, will remove this comment here.
-
->> +#define VIRTGPU_BLOB_FLAG_USE_READONLY     0x0008
->>       /* zero is invalid blob_mem */
->>       __u32 blob_mem;
->>       __u32 blob_flags;
->> @@ -205,6 +211,13 @@ struct drm_virtgpu_resource_create_blob {
->>   #define DRM_VIRTGPU_BLOB_FLAG_HINT_DEFER_MAPPING        0x0001
->>       __u32 blob_hints;
->>       __u32 pad2;
->> +
->> +    /*
->> +     * Guest VA to pin as blob backing. Non-zero selects the userptr
->> +     * path and is valid only with VIRTGPU_BLOB_MEM_GUEST. Must be 0
->> +     * otherwise. Probe VIRTGPU_PARAM_USERPTR before using this field.
->> +     */
-> 
-> This comment is useful since it discusses UAPI specifics. However, 
-> please avoid the term "Guest VA". Since guest userspace has no concept 
-> of a "host" or "PA" (physical address), simply saying "address" is 
-> sufficient and more concise.
-
-Got it, will modify the comment in next version.
-
-Regards,
-Honglei
+Thanks
 
 > 
-> Regards,
-> Akihiko Odaki
+> Thanks,
+> Peng
 > 
->> +    __u64 userptr;
->>   };
->>   #define VIRTGPU_CONTEXT_PARAM_CAPSET_ID       0x0001
->> diff --git a/include/uapi/linux/virtio_gpu.h b/include/uapi/linux/ 
->> virtio_gpu.h
->> index 3d4dfadc9d..33f5332e59 100644
->> --- a/include/uapi/linux/virtio_gpu.h
->> +++ b/include/uapi/linux/virtio_gpu.h
->> @@ -72,6 +72,10 @@
->>    * must be aligned to that value.
->>    */
->>   #define VIRTIO_GPU_F_BLOB_ALIGNMENT      5
->> +/*
->> + * VIRTIO_GPU_BLOB_FLAG_USE_READONLY
->> + */
->> +#define VIRTIO_GPU_F_BLOB_READONLY       6
->>   enum virtio_gpu_ctrl_type {
->>       VIRTIO_GPU_UNDEFINED = 0,
->> @@ -415,6 +419,8 @@ struct virtio_gpu_resource_create_blob {
->>   #define VIRTIO_GPU_BLOB_FLAG_USE_MAPPABLE     0x0001
->>   #define VIRTIO_GPU_BLOB_FLAG_USE_SHAREABLE    0x0002
->>   #define VIRTIO_GPU_BLOB_FLAG_USE_CROSS_DEVICE 0x0004
->> +/* Device MUST NOT write. Driver may pin read-only guest pages. */
->> +#define VIRTIO_GPU_BLOB_FLAG_USE_READONLY     0x0008
->>       /* zero is invalid blob mem */
->>       __le32 blob_mem;
->>       __le32 blob_flags;
+> >
+> >Thanks
+> >
+> >> 
+> >> Tested on NXP i.MX95 with ARM SMMUv3 where the fsl-edma DMA controller maps
+> >> SPI peripheral FIFO registers (non-page-aligned) via dma_map_resource()
+> >> through per-channel IOMMU domains. Only the iommu_dma_map_phys() path was
+> >> exercised; the dma_iova_link() fix is by code inspection of the same pattern.
+> >> 
+> >> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> >> ---
+> >> Peng Fan (2):
+> >>       iommu/dma: skip swiotlb bounce for DMA_ATTR_MMIO in iommu_dma_map_phys
+> >>       iommu/dma: skip swiotlb bounce for DMA_ATTR_MMIO in dma_iova_link()
+> >> 
+> >>  drivers/iommu/dma-iommu.c | 8 ++++----
+> >>  1 file changed, 4 insertions(+), 4 deletions(-)
+> >> ---
+> >> base-commit: e6e35979777d646fe3c7c94dca7dd32fb25d45f4
+> >> change-id: 20260916-iommu-dma-fix-9f55af1beb46
+> >> 
+> >> Best regards,
+> >> --  
+> >> Peng Fan <peng.fan@nxp.com>
+> >> 
+> >> 
+> >
+> >
 > 
-
