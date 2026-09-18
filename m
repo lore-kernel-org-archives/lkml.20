@@ -1,150 +1,117 @@
-Received: from fhigh-a8-smtp.messagingengine.com (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DD69304BB3;
-	Fri, 18 Sep 2026 08:26:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.159
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 083283515DC
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:27:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789719998; cv=none; b=SOtFUroh5Yb+Q26VrtnJ5tM8IGBgNgxLLY/zSQU20IgRXbTLt3MeGl8Tys26c9VgbhuyOwjiUQy3rZ8WjXZ0uuHbVSnerXwdFDDO2Xgm840DXLGfo6qiOP0X1iiKkyAlCbCBK/OflXx1mWqL6Uc52lfTTxos74E0lYi0QlrbQt0=
+	t=1789720050; cv=none; b=nbToA63wXv2f8MKBWxf1MlPRDMfucTM4y8F8LrXR1i+MgUARqKCAa/TPAQz2Sle+UuOQwsF8fMaL3dQ93A5U5IzEcAB7MsisurbY0kWh4HUL2f3ff5Gd/8PckWDCPwa5CDL4j6THd+vyRXc2/ieDESYu4p7GPAZP6AnsI2zE26o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789719998; c=relaxed/simple;
-	bh=oKKEv5p15WDmezLthJSp3xgXPDQHZBUhThRT9QEZwuA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dCTgPhDvIGoKkpNjhKlopWibm8aXjvE+b8PvQJuKD7YU9Oiky9JuMzlzC7PUocisdoiVs5o57mW3bHK6DZC+lZUGeEWMCX5+ZE+bvyH0loSTzNgfXmCU/6aZyYuFzAbyLFXL79LD35pvreJgi5x8IAbGtCFbx5V4cDTjhXwoPhk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=F9QiJutJ; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=FFTO69yB; arc=none smtp.client-ip=103.168.172.159
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	s=arc-20240116; t=1789720050; c=relaxed/simple;
+	bh=YeoWLTkt6g+7QQ/XCxHLmavHJDwmMxaxbM6DKy497OA=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=dB1LtGac2WwrTfQDPJG9JyaYc0aHWE8zLbHutLlPtR8pBew6WcaD4D/RUCUDNzNQEhcDaHJ0E2rlONHxNvoPOhVQ1kAb1Q0Vxb7jn1zo9zXERIz9HC0oYndqo9gHFJUv6OPFzi9UKMe1omiTlJccUBdTkyKLkxGCJzwpZ3TFmrs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=dlBWdqDB; arc=none smtp.client-ip=74.125.228.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="F9QiJutJ";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="FFTO69yB"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 09F77140013E;
-	Fri, 18 Sep 2026 04:26:35 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Fri, 18 Sep 2026 04:26:35 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1789719995;
-	 x=1789806395; bh=zXLWTmXS34ILfBWi1s0RdE2FX6OOvcd0JV9c4iX1eh4=; b=
-	F9QiJutJ+aJlqrjxfJ5xrYq2tXsdqOYQy0Lb41WigoAD4Uoi8Zegh1hSjo3XVwKn
-	U+TbnpvJjkF1O95LflyBNpC2ABfJ51Nuy1wWOEWplIHD7wohUFx6cDPJz8E9cez5
-	Bqvg/g3M1xuf4g8HKg17ylOz6v8vDjhSIWydfEAMT3iGhYsxa5q5OQcKgNP1790q
-	+GxRIBj15JDpASymAGFhyB1XBg2GxzEPXrcJYrUDfT5WdgiXgARK9EHavvrRBXXK
-	NEC592tG6KX1f5deHRmUosuIosle7rTKQG4sxj2tbf/eAgZhszyQmOpOUhdRc+le
-	KNRwRF3xSc6zL5fS9xV6Iw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789719995; x=
-	1789806395; bh=zXLWTmXS34ILfBWi1s0RdE2FX6OOvcd0JV9c4iX1eh4=; b=F
-	FTO69yBecWwKQscfp8Zt+7SAbBJxZDH3NTNH2qJQhIIT6FG1ZWwHPzoxmXkumdwI
-	jzAXou9MBo6DEOdt1FHhs7EMQdpuG3fZPkq9RCyx6hjl4tkQARCPWAFge9/E81yj
-	l5x0WOTPbHZenOPsPUzAO1jo7IxCAKBTqIAL6CUyKbk23uGLOQ9RoxNVO1pa0KfN
-	c8lpt0lQ7T0BPmv6N2C5EkZj9fuIfxKuAbACeHXieYPnM7MSmZFjZbhCprJiSW9l
-	ZsnuEPFL/d/5B00Fh20wxtMd0IqR9fQ4SjMUpbIdZ7gdMliBSJxpHKmToXp7a2n3
-	crhJC60BKYIH8w4Ph2g7Q==
-X-ME-Sender: <xms:uvWsauYr6V9AioUSzBVOZ8gppH-ji5Az12DBxOjsbi1l1kGNNES9uQ>
-    <xme:uvWsah0cLVtQIOfqK32EzpUqZWV5afB8xOZNW8ViOoq29urRoHyOOPpf0w--hRoeG
-    0oamF2KhVhF-_l_qBuRDyfDliQvIKkas6qFaOlYeZtWUm8XPQ>
-X-ME-Received: <xmr:uvWsauZJ8T4vcp_1YYuJCqbQjjHvAlmVMbeqL7TL2bMnj6w24lSolDTXNSG3>
-X-ME-Proxy-Cause: dmFkZTE3QrEhpqSHveIhRFHSUl1UZ8CTVBnbalAD6sa5w7LGOoFESM9GDnUgFYmOJSITgG
-    SxFbbRj3KImLv/ErBqmWRskIyQSU1Ca5UTbTXXv1sB+NcmMAd9brnQvHcN/vJZEJiQI/6N
-    feW1WR+gx0ZgcVPxQmsakREWrY+3sIwDf0eON3vCeV9XGm4jE50DA+1HN4nKdJ5Xkxx3oL
-    xpgl/QTShF0KfExs2zkd8SIxTP5FQN3h9ZAEP2tFJYIKbUmHgJNaCvgpKlXvxobFaB5kKz
-    f3e4XcHu4uHj0GeGIbcjdhVU4mVMQ1iJqS8doSzJ8nLJKy0TuynitxyVRHr4gydSSg8UP8
-    tigT2naD3Rd+KaB9PBd25UDIqPXoVjRDjvwEpSIRW8A4avXpXnNGYATlElsZ+XYhijzbel
-    yKD/u52ciRz2iQfkzNu7h/XqSnPChO2ew9+mxPTk2dgxybCzCrgLO1PZKEtYfdXn/0GZtk
-    2QeSroCWItn51QBvmcSyp0i+fFa0ferzCgKvjQNV4gd20paW1m2/Ro8WAJB9DpN3Uh5nTj
-    rDiDgQFkABvs3Hm91Ov+sow+HthVOneINdkvyXzcWm3LZ7L895gam0Evr328NfY7vscui/
-    IUaVE5Q0+PjT11+PDSAVGtWTHwORYyFousT0sytgsfw0eIQB5sisFpgNxTEw
-X-ME-Proxy: <xmx:uvWsaulxYT-5l3s2j3rp5lk0JFfQMeE7f7DL-B4_54_zZf_odciHDg>
-    <xmx:uvWsatdOWJGpsq-rjPBpFLnH6qIT0AHWE9JFunpB4NmRHj-RwB510Q>
-    <xmx:uvWsas3Ca28SXYOMGwHuSTZHQ2V0v07xw3BFGcsAQXixJUj2Noikww>
-    <xmx:uvWsaqkEpAMCqUTV0ImerhPqYL5_94zfM4y_eX9wwmIb_9AiNYH2Hw>
-    <xmx:u_Wsau4j9BkSTLDKWmovgG_MmtkzSSateX-zOFi9hi5as41-dv2ZoImp>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 18 Sep 2026 04:26:33 -0400 (EDT)
-Date: Fri, 18 Sep 2026 09:24:38 +0100
-From: Greg KH <greg@kroah.com>
-To: John Johansen <john.johansen@canonical.com>
-Cc: Ryan Lee <ryan.lee@canonical.com>, Wentao Liang <vulab@iscas.ac.cn>,
-	apparmor@lists.ubuntu.com, jmorris@namei.org,
-	linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
-	paul@paul-moore.com, serge@hallyn.com, stable@vger.kernel.org
-Subject: Re: [PATCH] apparmor: Fix label reference leak in aa_unix_file_perm()
-Message-ID: <2026091851-recent-ungraded-23eb@gregkh>
-References: <20260917164136.2162858-1-vulab@iscas.ac.cn>
- <CAKCV-6uui82r4U3+ab=2ZFQvGQYnxfhYMHJNzLim-HEw6pRp7A@mail.gmail.com>
- <760b1f31-32f6-44c6-8a5b-991f228a327f@canonical.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="dlBWdqDB"
+Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c254f55efe5so67212366b.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:27:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1789720047; x=1790324847; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=YeoWLTkt6g+7QQ/XCxHLmavHJDwmMxaxbM6DKy497OA=;
+        b=dlBWdqDB98VlAbFVyNLGHbECcRvQsOsIZQ3OuO2lBnzd3LAakvCtFxbX5dmkM7Dx6F
+         lSl1v8Bc/++kOkn3YYItf0PhlICnUE/+69zvJ33u+w1kg4yKaWPPZ1XoHLQry17/Zeeh
+         yYjQecRrwHo++gw3JEL7ZOQ+nzeHDuwKvkQDJ2ZgpMumZB45LHUUEJO1/6eGsMmTde3z
+         7JLMhnZIB0uvs245H8pcU0Q2108PfY8HPN4tVi7RDQbep4b+0/ZSzRg7txalCC0YtUZN
+         RjPiV2LENxGAJCS4G83ttbF1KyEGUDaOkKTJQgYBI2fq/oi9KLt62DAjiGppBOPCIGqV
+         oonA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789720047; x=1790324847;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YeoWLTkt6g+7QQ/XCxHLmavHJDwmMxaxbM6DKy497OA=;
+        b=A40c04CdgwT2vA/QTGbRF+TtwbmSSLexjc6naw81nlTjI2GiOO6be22a1hyqKuVXiR
+         ntZIxsMKDurhIwO4c6No/66ymAggJkCqJY6uEzFkdYLMVDYoSPPUWSykAlbF5+MwCy/+
+         iV/PyqBlDpgYyFeAoZz/aqYgEKqf4fRTRFvcwQWXWc2NW+F7NQW4cvkvnEsDTtXlCBiS
+         fC5VDiCzsTirgyqxY6hRxwGhAawibyKdWbleHb/9RAhDKNur6n7J6HJm0B6jCLlp+lJC
+         lA34WVEnNgVlHVr4VmHzR2MiwMnnMgOj457wwOe5PGI1r3d3zxthzJpLO8g4PmrU3upN
+         iVrw==
+X-Forwarded-Encrypted: i=1; AKwUvBwLTyte0XI24XHw0fe5CmAjTK0ndz1K2KGDtJYR5YRTyXdXfL+pdNXsQny+S1k4iI66EdR3bcAfvfumoNE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lwSG7OkbLGI2tShP+/R5TIBRxN1/6DKGdKGw3Ddpj06dJJY5LP
+	BWrvTNrOAUEpUgn3dWJigho0xt9jm7PHqnvoH/m3pxptObxdEqEWinPuCeieKXesruM=
+X-Gm-Gg: AYBFou0QpMUjZ931wDw/aszUzbnlwxpj3oau0FiR5iU0pAUd8/UEwFLhkxVJTqHoAWk
+	juco/71smjplg39dMV19IvmpfvtughVspLhUnO+KSu4JWrHhr6BoKSWXKEEg8i9an+qm6IO8/Jf
+	F4TfnkmQVPIA7rrnynvJ5GorMxAQOZU3rFgZBtpTDfcKOD+tGqvyLTjKWaTldm0199x47LLAm9Q
+	s/07iBJPAEsGmEnhfBm9VSJWRgFtJ2EnLHZTVWX9AYB+IQYBeJGrn8tpM9g6gWXX4h+uYGUkxd9
+	T0YZibonGxMEEbcoZNKu3+hTykjEK5rylkX6FvK4oULrokSbBNx7CCw67ylZw0eAHEqnJlzUmHD
+	GkThOBOV/wxsBSFqPobiSFVZ5JE5559m/Hzhsj6WxK7donzYPyiN0NO82M9xrloAZ+u5Cc1YxLn
+	ptziMg5GyPBeBR2gcvvD+/pCpq4IDjF12r2CcLtoLRmQ2KWxddqJvEnZlUABwChvL8s1FFg7qVL
+	nM=
+X-Received: by 2002:a17:907:d01:b0:c26:1691:b364 with SMTP id a640c23a62f3a-c2a157c2f4cmr178472466b.29.1789720047299;
+        Fri, 18 Sep 2026 01:27:27 -0700 (PDT)
+Received: from draszik.lan ([109.255.181.4])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a1bb87e5dsm32871766b.36.2026.09.18.01.27.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 01:27:26 -0700 (PDT)
+Message-ID: <6c762160b22cc801d26de2f2186717e41f7e640a.camel@linaro.org>
+Subject: Re: [PATCH v2 0/2] arm64: dts: exynos: Few strict dt-style-check
+ cleanups
+From: =?ISO-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Jesper
+ Nilsson <jesper.nilsson@axis.com>, Lars Persson <lars.persson@axis.com>,
+ Rob Herring	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley	 <conor+dt@kernel.org>, Peter Griffin
+ <peter.griffin@linaro.org>, Alim Akhtar	 <alim.akhtar@samsung.com>, Tudor
+ Ambarus <tudor.ambarus@linaro.org>, Ivaylo Ivanov
+ <ivo.ivanov.ivanov1@gmail.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+ 	linux-arm-kernel@axis.com, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Fri, 18 Sep 2026 09:28:49 +0100
+In-Reply-To: <20260916-b4-dts-samsung-cleanup-strict-continued-v2-0-8e9d534ba5b8@oss.qualcomm.com>
+References: 
+	<20260916-b4-dts-samsung-cleanup-strict-continued-v2-0-8e9d534ba5b8@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-9 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <760b1f31-32f6-44c6-8a5b-991f228a327f@canonical.com>
 
-On Thu, Sep 17, 2026 at 01:18:20PM -0700, John Johansen wrote:
-> On 9/17/26 12:19, Ryan Lee wrote:
-> > On Thu, Sep 17, 2026 at 11:59 AM Wentao Liang <vulab@iscas.ac.cn> wrote:
-> > > 
-> > > The inner block in aa_unix_file_perm() re-declares plabel, shadowing the
-> > > outer variable that is released at the out label. The reference taken by
-> > > aa_get_label_rcu() is thus lost when the block exits, and aa_put_label()
-> > > at out is a no-op on the still NULL outer plabel, leaking one label per
-> > > permission check on a non-filesystem unix socket.
-> > > 
-> > > Drop the shadowing declaration so the outer plabel is used and released.
-> > > 
-> > > Fixes: 88fec3526e84 ("apparmor: make sure unix socket labeling is correctly updated.")
-> > > Cc: stable@vger.kernel.org
-> > > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> > > ---
-> > >   security/apparmor/af_unix.c | 1 -
-> > >   1 file changed, 1 deletion(-)
-> > > 
-> > > diff --git a/security/apparmor/af_unix.c b/security/apparmor/af_unix.c
-> > > index fdb4a9f212c3..ecb40cfe7e14 100644
-> > > --- a/security/apparmor/af_unix.c
-> > > +++ b/security/apparmor/af_unix.c
-> > > @@ -758,7 +758,6 @@ int aa_unix_file_perm(const struct cred *subj_cred, struct aa_label *label,
-> > >                             unix_fs_perm(op, request, subj_cred, label,
-> > >                                          is_unix_fs(peer_sk) ? &peer_path : NULL));
-> > >          } else if (!is_sk_fs) {
-> > > -               struct aa_label *plabel;
-> > >                  struct aa_sk_ctx *pctx = aa_sock(peer_sk);
-> > > 
-> > >                  rcu_read_lock();
-> > > --
-> > > 2.34.1
-> > > 
-> > > 
-> > 
-> > NACK: this exact patch has been proposed before, and unfortunately
-> > exposes an additional latent bug around plabel handling that results
-> > in a use-after-free if the shadowed declaration is removed without
-> > additional fixes.
-> > 
-> > I can try to dig out the relevant exchange from the AppArmor mailing
-> > list later, if you'd be interested.
-> > 
-> The series Ryan is referring to is in Linus's tree, so you should see the
-> fix rolling out to stable kernels as well soon.
-> 
-> 6d25e7b47616c apparmor: fix refcount leak when updating the sk_ctx
-> b1aea2c196077 apparmor: fix race in unix socket mediation when peer_path is used
-> 4483efe4f2151 apparmor: fix shadowing of plabel that prevents cache from being updated
+On Wed, 2026-09-16 at 19:06 +0200, Krzysztof Kozlowski wrote:
+> Changes in v2:
+> - Do not reorder CPUs because cpu@4 must be the first one/boot.
+> - Remove applied patches.
+> - Link to v1: https://patch.msgid.link/20260911-b4-dts-samsung-cleanup-st=
+rict-continued-v1-0-9aa55051c42b@oss.qualcomm.com
+>=20
+> Not yet complete, more files will follow. I probably won't re-order all
+> Exynos5433 soc nodes by unit address because it is way too disruptive.
+>=20
+> Best regards,
+> Krzysztof
+>=20
+> ---
+> Krzysztof Kozlowski (2):
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 arm64: dts: exynos5433: Re-order nodes to =
+match coding style
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 arm64: dts: exynos5433: Re-order propertie=
+s to match coding style
+>=20
+> =C2=A0.../boot/dts/exynos/exynos5433-tm2-common.dtsi=C2=A0=C2=A0=C2=A0=C2=
+=A0 |=C2=A0 93 +++++++++---------
+> =C2=A0arch/arm64/boot/dts/exynos/exynos5433.dtsi=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 | 108 ++++++++++-----------
+> =C2=A02 files changed, 102 insertions(+), 99 deletions(-)
 
-These are all in stable released kernels already for many weeks, so how
-is any of this still being reported?
-
-confused,
-
-greg k-h
+Reviewed-by: Andr=C3=A9 Draszik <andre.draszik@linaro.org>
