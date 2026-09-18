@@ -1,177 +1,161 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE8E14AB3DA;
-	Fri, 18 Sep 2026 12:15:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76F4B485952
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:15:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789733736; cv=none; b=TRbHEkZUm9lRj/qS6RgJj4LWGbzb6vcixCwDmQ4UWrTYkAjxqg3ApfaWeOVtmqSK/CW14bfRMxM7BoXMIWS+5Aw4Qib/aJQA4Re+baTVlFvHnMtovtMb7OUVGkNpQHpqmbmNYC1fNtP7anZkxyoVzVFLYiXHhXFJV67ENx9w19I=
+	t=1789733747; cv=none; b=b2zprOul3QSzKzPOX2RzuJruJJjPLvVvG1W4mWCPpwTHH1KUA93hYmB0JdDp6XVWUHKpe9vNrxpwxH6APsdNQwIgB4ZyNh84VoI/lt6z7ochMrHVKBlfzIpyBh+RLOPYXa/4Kib6ORC8IkgrbU3bfqIYAjZn7DphNNvm2rJB5Oo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789733736; c=relaxed/simple;
-	bh=T/apRxOiS6EEfsFUMJh7FJWp82q3VzXDa8jFlGB6dos=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hn6y8d0etBmjrgAJCxmRtEfCQub05wkAK3/x3D7g/J+lxBV6RRxIBsj5W3rtSbqgJ9YGJ5mnsbnIDBR+/EkzALea6MdW1tw2QS9RLReesPTx61M7NNdVah3mwph4UGvM0xhr8tyMbswyeJUuZqbbc7Uep4Wq8Z3xiuqSuWM6K7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZlXuPLpW; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789733747; c=relaxed/simple;
+	bh=W1tv8dE3DY7Bm6UGQ2cDOk2nBGv7N8eN8buQAF5nRG8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Ia4ANxb/XFADlwQxWU7JULR7FtltGw4dXieIwJG98fPEJgm2hQQJEFzPWInUSrXBP6m116JyazLfkEXdEKeDjztSazBioaZHMlLnpAB478yhrtuTxllAV7GKsF2vHtRtiG0aVVK21D8MDdyCw6lrbttBe+v/3R8o6fhysMqAjSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b0tjc5YK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZlXuPLpW"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789733735; x=1821269735;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=T/apRxOiS6EEfsFUMJh7FJWp82q3VzXDa8jFlGB6dos=;
-  b=ZlXuPLpWcnGP9rPUfelThyUuMhTFpLqiKAAvd/lm30uru+vHQp4zpMuk
-   2B7CwwjxgY+W2Na0uIuH+Fir/XZFgsLb9Dl/YbGwnQC8p9kU+NvZIfu0V
-   ZjSDBwjAYdAqxxTU3KqoT15hP69xED0GTCP3Hs4620vj5bQOatdzqpyAH
-   l6KdbXxVk9Iy+7Y9SdgJRWb/zae3RGg6S70QeLFC6CuZnhjnVREnBsMEF
-   TMtPr5h2Ph9pqjLKBuYrJE8RDEryp6rVj/nyGgSAYV/VdyHp7doCRRfel
-   5dxX0l2n6mU2uwjkATAvjbsn26yQhqFONo18XXUMOuwxuc8En0KkCTOIC
-   Q==;
-X-CSE-ConnectionGUID: RMvnY9D2SWmXsH000GPcDA==
-X-CSE-MsgGUID: 94/XXiaWQAKvucHFv+vcNA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11908"; a="90368237"
-X-IronPort-AV: E=Sophos;i="6.27,108,1787036400"; 
-   d="scan'208";a="90368237"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 05:15:34 -0700
-X-CSE-ConnectionGUID: SKLexVT8TM23bbjGa8ylxw==
-X-CSE-MsgGUID: 0OkvWzxQT3G71Y4F2x0OjQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,108,1787036400"; 
-   d="scan'208";a="2565023"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa012.fm.intel.com with ESMTP; 18 Sep 2026 05:15:32 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x7XV3-000000009ll-0fqn;
-	Fri, 18 Sep 2026 12:15:29 +0000
-Date: Fri, 18 Sep 2026 20:14:46 +0800
-From: kernel test robot <lkp@intel.com>
-To: Salah Triki <salah.triki@gmail.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Salah Triki <salah.triki@gmail.com>
-Subject: Re: [PATCH v2] iio: temperature: tsys02d: Fix state
- desynchronization on resolution write error
-Message-ID: <202609182052.HpuVt6ba-lkp@intel.com>
-References: <20260917091609.626043-1-salah.triki@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b0tjc5YK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BA3B1F000FF;
+	Fri, 18 Sep 2026 12:15:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789733746;
+	bh=NrjzlvBlcAthqMoY0nUVtb7DfpEhHoAJ1WT5vLNBdqU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=b0tjc5YKb5z/mOo26YG2o/5X179Uj+KYWyXsu3iTwmy38EFVW2xTdSCsY7VFz25sX
+	 uDnKdJK2P0j0TlQ3ByPsfIIbcoezS/dPVZRNWXmv7Q40EnGOPHtmPtYI3Gqr1sZ3Ma
+	 IwPuxefaqX+K9SJlDlz39mpeJ9sC3Z1PJvdBRxjG1j2lG6eIo8DRUBWB2twm3Uql8K
+	 EmWrKZOPRO4/0hikl3b3vn3ZeOuA1RFeug4pnSZs6wOe9/aP5m5nSLKSAEyqJZhkRc
+	 WHABB+17IQX5TjGX+SWBYc4B6UcJJJmYV7xeBHn8IJx0gvrGHtJOzUp9K03xVGyksr
+	 vX9+IXrQ4tIIA==
+Message-ID: <37e9fc88-4896-482f-bc6b-9023d4419783@kernel.org>
+Date: Fri, 18 Sep 2026 14:15:39 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917091609.626043-1-salah.triki@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 2/2] mm/memory_hotplug: optimize zone contiguous check
+ when changing pfn range
+To: "Liu, Yuan1" <yuan1.liu@intel.com>, Mike Rapoport <rppt@kernel.org>
+Cc: Oscar Salvador <osalvador@suse.de>, Wei Yang <richard.weiyang@gmail.com>,
+ "linux-mm@kvack.org" <linux-mm@kvack.org>, "Zou, Nanhai"
+ <nanhai.zou@intel.com>, Chen Zhang <zhangchen.kidd@jd.com>,
+ "Zeng, Jason" <jason.zeng@intel.com>, "Chen, Yu C" <yu.c.chen@intel.com>,
+ "Deng, Pan" <pan.deng@intel.com>, "Li, Tianyou" <tianyou.li@intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20260914072929.1883794-1-yuan1.liu@intel.com>
+ <20260914072929.1883794-3-yuan1.liu@intel.com> <aqjfyGeQaL4g2EcA@kernel.org>
+ <209de483-a9a5-4d98-bda4-7998e8fdc7da@kernel.org>
+ <aqmVQeETYhbsl79A@kernel.org>
+ <PH7PR11MB69324C2F3079B23F8E20C489A3872@PH7PR11MB6932.namprd11.prod.outlook.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <PH7PR11MB69324C2F3079B23F8E20C489A3872@PH7PR11MB6932.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Salah,
+On 9/18/26 04:08, Liu, Yuan1 wrote:
+>> -----Original Message-----
+>> From: Mike Rapoport <rppt@kernel.org>
+>> Sent: Wednesday, September 16, 2026 2:58 AM
+>> To: David Hildenbrand (Arm) <david@kernel.org>
+>> Cc: Liu, Yuan1 <yuan1.liu@intel.com>; Oscar Salvador <osalvador@suse.de>;
+>> Wei Yang <richard.weiyang@gmail.com>; linux-mm@kvack.org; Zou, Nanhai
+>> <nanhai.zou@intel.com>; Chen Zhang <zhangchen.kidd@jd.com>; Zeng, Jason
+>> <jason.zeng@intel.com>; Chen, Yu C <yu.c.chen@intel.com>; Deng, Pan
+>> <pan.deng@intel.com>; Li, Tianyou <tianyou.li@intel.com>; linux-
+>> kernel@vger.kernel.org
+>> Subject: Re: [PATCH v9 2/2] mm/memory_hotplug: optimize zone contiguous
+>> check when changing pfn range
+>>
+>> On Tue, Sep 15, 2026 at 05:20:07PM +0200, David Hildenbrand (Arm) wrote:
+>> a
+>> pageblock
+>> cost
+>> pfn, int nid)
+>> last
+>> spfn,
+>> section
+>> However, only
+>> online.
+>>>
+>>>
+>>> Maybe extending that a bit we could do
+>>>
+>>> "With CONFIG_SPARSEMEM_VMEMMAP, early sections have a valid memmap for
+>> all PFNs
+>>> and the sections are marked online. However, we might have offline
+>> subsections
+>>> in such early sections, indicated by the subsection map. While we must
+>>> initialize the entire valid memmap, account only the online pages
+>> according to
+>>> the subsection map as online (see pfn_to_online_page())."
+>>
+>> init_unavailable_range() already has large comment on top, adding
+>> something
+>> like that there makes perfect sense to me :)
+>>
+>> How about a bit different version:
+>>
+>>  * The function counts pages that should be added to
+>>  * zone->pages_with_online_memmap.
+>>  * With CONFIG_SPARSEMEM_VMEMMAP there could be offline subsections even
+>> though
+>>  * the entire memory map is valid and all the early sections are online.
+>>  * Count only pages in online subsections (see pfn_to_online_page()).
+> 
+> Hi David
+> 
+> Should I prepare and send a new version based on Mike's latest suggested changes?
 
-kernel test robot noticed the following build errors:
+Yes please. I guess this comment is the final bit before this should be good to go.
 
-[auto build test ERROR on jic23-iio/togreg]
-[also build test ERROR on linus/master v7.3-rc3 next-20260916]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+-- 
+Cheers,
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Salah-Triki/iio-temperature-tsys02d-Fix-state-desynchronization-on-resolution-write-error/20260917-101608
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/jic23/iio.git togreg
-patch link:    https://lore.kernel.org/r/20260917091609.626043-1-salah.triki%40gmail.com
-patch subject: [PATCH v2] iio: temperature: tsys02d: Fix state desynchronization on resolution write error
-config: riscv-randconfig-1000-20260918 (https://download.01.org/0day-ci/archive/20260918/202609182052.HpuVt6ba-lkp@intel.com/config)
-compiler: clang version 17.0.6 (https://github.com/llvm/llvm-project 6009708b4367171ccdbf4b5905cb6a803753fe18)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260918/202609182052.HpuVt6ba-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609182052.HpuVt6ba-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/iio/temperature/tsys02d.c:89:2: error: cannot jump from switch statement to this case label
-      89 |         default:
-         |         ^
-   drivers/iio/temperature/tsys02d.c:82:3: note: jump bypasses initialization of variable with __attribute__((cleanup))
-      82 |                 guard(mutex)(&dev_data->lock);
-         |                 ^
-   include/linux/cleanup.h:423:2: note: expanded from macro 'guard'
-     423 |         CLASS(_name, __UNIQUE_ID(guard))
-         |         ^
-   include/linux/cleanup.h:303:3: note: expanded from macro 'CLASS'
-     303 |                 class_##_name##_constructor
-         |                 ^
-   <scratch space>:93:1: note: expanded from here
-      93 | class_mutex_constructor
-         | ^
-   note: (skipping 3 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   include/linux/compiler_types.h:16:23: note: expanded from macro '__PASTE'
-      16 | #define __PASTE(a, b) ___PASTE(a, b)
-         |                       ^
-   include/linux/compiler_types.h:15:24: note: expanded from macro '___PASTE'
-      15 | #define ___PASTE(a, b) a##b
-         |                        ^
-   <scratch space>:99:1: note: expanded from here
-      99 | __UNIQUE_ID_unlock_472
-         | ^
-   drivers/iio/temperature/tsys02d.c:82:3: note: jump bypasses initialization of variable with __attribute__((cleanup))
-   include/linux/cleanup.h:423:15: note: expanded from macro 'guard'
-     423 |         CLASS(_name, __UNIQUE_ID(guard))
-         |                      ^
-   include/linux/compiler.h:165:2: note: expanded from macro '__UNIQUE_ID'
-     165 |         __PASTE(__UNIQUE_ID_,                                   \
-         |         ^
-   include/linux/compiler_types.h:16:23: note: expanded from macro '__PASTE'
-      16 | #define __PASTE(a, b) ___PASTE(a, b)
-         |                       ^
-   include/linux/compiler_types.h:15:24: note: expanded from macro '___PASTE'
-      15 | #define ___PASTE(a, b) a##b
-         |                        ^
-   <scratch space>:87:1: note: expanded from here
-      87 | __UNIQUE_ID_guard_471
-         | ^
-   1 error generated.
-
-
-vim +89 drivers/iio/temperature/tsys02d.c
-
-53bf4d067d5115 Ludovic Tancerel 2015-10-01  65  
-53bf4d067d5115 Ludovic Tancerel 2015-10-01  66  static int tsys02d_write_raw(struct iio_dev *indio_dev,
-53bf4d067d5115 Ludovic Tancerel 2015-10-01  67  			     struct iio_chan_spec const *chan,
-53bf4d067d5115 Ludovic Tancerel 2015-10-01  68  			     int val, int val2, long mask)
-53bf4d067d5115 Ludovic Tancerel 2015-10-01  69  {
-53bf4d067d5115 Ludovic Tancerel 2015-10-01  70  	struct ms_ht_dev *dev_data = iio_priv(indio_dev);
-53bf4d067d5115 Ludovic Tancerel 2015-10-01  71  	int i, ret;
-53bf4d067d5115 Ludovic Tancerel 2015-10-01  72  
-53bf4d067d5115 Ludovic Tancerel 2015-10-01  73  	switch (mask) {
-53bf4d067d5115 Ludovic Tancerel 2015-10-01  74  	case IIO_CHAN_INFO_SAMP_FREQ:
-53bf4d067d5115 Ludovic Tancerel 2015-10-01  75  		i = ARRAY_SIZE(tsys02d_samp_freq);
-53bf4d067d5115 Ludovic Tancerel 2015-10-01  76  		while (i-- > 0)
-53bf4d067d5115 Ludovic Tancerel 2015-10-01  77  			if (val == tsys02d_samp_freq[i])
-53bf4d067d5115 Ludovic Tancerel 2015-10-01  78  				break;
-53bf4d067d5115 Ludovic Tancerel 2015-10-01  79  		if (i < 0)
-53bf4d067d5115 Ludovic Tancerel 2015-10-01  80  			return -EINVAL;
-53bf4d067d5115 Ludovic Tancerel 2015-10-01  81  
-3c8dd88f5e71a2 Salah Triki      2026-09-17  82  		guard(mutex)(&dev_data->lock);
-3c8dd88f5e71a2 Salah Triki      2026-09-17  83  
-3c8dd88f5e71a2 Salah Triki      2026-09-17  84  		ret = ms_sensors_write_resolution(dev_data, i);
-3c8dd88f5e71a2 Salah Triki      2026-09-17  85  		if (ret)
-53bf4d067d5115 Ludovic Tancerel 2015-10-01  86  			return ret;
-3c8dd88f5e71a2 Salah Triki      2026-09-17  87  
-3c8dd88f5e71a2 Salah Triki      2026-09-17  88  		dev_data->res_index = i;
-53bf4d067d5115 Ludovic Tancerel 2015-10-01 @89  	default:
-53bf4d067d5115 Ludovic Tancerel 2015-10-01  90  		return -EINVAL;
-53bf4d067d5115 Ludovic Tancerel 2015-10-01  91  	}
-53bf4d067d5115 Ludovic Tancerel 2015-10-01  92  }
-53bf4d067d5115 Ludovic Tancerel 2015-10-01  93  
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+David
