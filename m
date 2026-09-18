@@ -1,177 +1,107 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6978509EF3
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:45:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789746306; cv=pass; b=XvZQUhtGLICOhv9o5NH4CJstR087lNE1koag8n3aWhtF8ZIuXnFzG6ghNNHbCVRHz/85rGdSIeZFFTO5e8DlUckTOpgIXmJUhlIlwEfRb3WzBM936HhF6K389iRVR8wEURve19niXaAQ3dD8rW94wE+ctjZUyCsG6GmTTAKyouQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789746306; c=relaxed/simple;
-	bh=0/1+4lJRG/Hkv6PdUL67hZJoHTNmoGhPPghynZYaz+U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ouGG8wiF+5kMtkkz8NBfVmXWkwRcsflvwhjJ2CrUIa3BZqdWUNjwDlzN+hiezU/uRXwq5deMsb514BKzQPSa2d5rKIB1YLFNMbvWERkjFiJ93cOF3MdF3SVDEek+1rnLYxbyrORdFkBylDoogZBTpI1erLlaSgicklILcgNAEwM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rN9c9dUC; arc=pass smtp.client-ip=74.125.229.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07F0D503BDB
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:45:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789746356; cv=none; b=PSoB/Ry8haeqlrWG9kf5yrQtsl7X/+j/+zfX/xN8d7jvCaUcuW3dE6TtfZ6px6KGC7RVZNPTGbASkaavWhkYJXLRn7FMAoSWKB77B9NRvPKVVNS+SkQn5uonazsCxy2ghtNuyKGvRZVKRBvlIRkAsRpyI0z0s0Tk9J+kxyUcGdA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789746356; c=relaxed/simple;
+	bh=YBhMRCjXhrl0x9ETkgVjR+gi41jvBCooiZhKb3nRmV4=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=kv0+50rS+BIZFXE1wJqtpRQi926nAdvtChnq0RPy5ojbFCaOgrt+S8YKBb8xEn6EpnJSExzhiH98c/hV4SE+36KJuxjE8eq50KbDoUW5suk1sAPtd7DeBR0w8xaE6AuFtMu0HryXrGs+ElEecyt3akl1ap4d6Y8wWzMhBw+QCYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jmattson.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=QK+rpOZX; arc=none smtp.client-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jmattson.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rN9c9dUC"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f1b846so1144649e87.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:45:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789746302; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rSFgbMpfxf7XALVl4euViOdDtWXrW2VP/3e/OPgnT6dqNmWs5xZEPM8t+OSFjO8nvA
-         ZNA37sW7Gm0I0qqwL5WohqfO59gklnv/n1RONGrMO6a5WXjp+N1Kmrvgwsaw4ZP8Muc1
-         MDTgEiS21ySvehUdCQEMzaAej3/9UPo4TVr7fTXt87gg/PNy+hD3+DbZ8VJjikjVZPYq
-         div0fSogPqsxKlK9LqYbymYFPKnR2I/1o4+cacXsuHzId0morz2UuxZHw2rEduaaPehO
-         K7N5b6rjc2L+C/mE8trmA3XbEPyhseHCgxP6AV06UoZ1Filkhm9nEVUflc6J3MqXYRqg
-         uKpA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=M849De+JfrPs8EHvjdLAqoSNF4UdGYALe/nW+DKp+kQ=;
-        fh=SFJSdLFlQrPRnt0C5YkkYXcBd1qrKB68E1ARRYdqGW0=;
-        b=b3DyQrwxxGrRV9friZNX0QormNQIgALNJbzXvvRI4OPj877EoUqfHVph/FJUJcxEZ1
-         eNKYTmwM3LVWENy7h9XGfPn45biQy+Bh5yoFjfTmZ09kViqEzJp8fdEq3+a+8VNz/zGM
-         tslSxxp3y2h6OkZxPwBl09bGvqJUtQH8K3aKMaCWbNCqFpHAA6bkpHGIGKlxKdBHyzml
-         Xl32mPZK7CLZbBpLI2A3JvY1UvkhcvWPEvwoc4SS8Ob1HRudRA6jO4bTzcWvoQ3qUVvB
-         ftmVQ+MF3GL9lpExncEGOyGviX/9Q+cwTfGZrzwoG2nO1CebBtJXUeC8qXqgQK4JF6o5
-         SVsg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="QK+rpOZX"
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38ea32e57e2so1817295a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:45:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789746302; x=1790351102; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=M849De+JfrPs8EHvjdLAqoSNF4UdGYALe/nW+DKp+kQ=;
-        b=rN9c9dUCTI9ToiFMxQfilOfTl96zquqW8mheYkG2SBFD7lbxkBzwUiyptMGlJYr5U3
-         hOTpxqHWkGu6GVbkCibvwak9iwAWO7gq6B7kWV5NIl5FVGwiQ6jPwuD34zlL81DITyNb
-         kQ/vY4zhzgWfVi0feesRv6Sfx2QSN/rbf/HSRL38PUPVzdkF0LaR+3GCj+g2ksycVDJ2
-         lKfghT/rrlEccuToZDjTkliZDRSObjT/JjS+9axFdJlmuKTilw4RshGlfahJBykIHZZQ
-         fjQ9DLzW2yzyoqPGhBThGf5n0rgst44yI2JbymtBEiG9Xk4biJCMXtOw5+UF/Hqbpi29
-         c8jQ==
+        d=google.com; s=20251104; t=1789746354; x=1790351154; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=R++qxNNJJnPJa7wkOafzLmSyQyGcVXcxVtQxZqs7iqM=;
+        b=QK+rpOZXHn6iLNjK6l/itjf2+N4qNveYAKl6TD/uTlapuDiBkRODcihFZQaFEcOIez
+         IzMl6V9keua8y7IM+S2AE7cx8RpS/493tXGr3UAMFOyZS4R0nmuiVqCbrNJm36k+PUPa
+         2xmobsvk93CMDNOum3Dh9Av+Ml7mLpbZNs+g6750JZXDladxBINK/gBsTgMgj+i3sEck
+         QYKcnJmdvdoyaDsvAASLEV5JVK2Ib7qx6zRtNOV2yrZFFFvpCOoU/D4zrEimADcRlis1
+         DBvXUERIU8s38pFEjpChbQiTQvSdMQc6q0LisZ6zqg2BNy4A/Rblc4zVlgUhKfv6XafR
+         whnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789746302; x=1790351102;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1789746354; x=1790351154;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=M849De+JfrPs8EHvjdLAqoSNF4UdGYALe/nW+DKp+kQ=;
-        b=tVclAsk4Du0J/HBFZYGTc0xm7R7QKPXfpMyodfLijkCr0KTIq9BQj1tsVSDRXkvuiv
-         lhKF5qWooff/CQKhlJYtsL4dRn/JH83ld4A8mSyyNsH9yr6otTjU8OYQudZWM3oRb7xX
-         iYb98N5VY4G2emBFmdzo3QBmVoF6cIGKw9gVOnf7/UUszOxC5pfJwCY+4Xl7rr2hMelc
-         /62ZikIiYhbIWG47mYYpvRV1tyC93MCNfFc6cDFVibBHYN2LXx2JubeMpRvVpZke9fnh
-         r3+YbGZ8+fIYg3ZA8rMXgolDYwW0C5i1vEgjX2lQ0UjmSjn7XraliJmhP8y4o7uYhCAr
-         5MyA==
-X-Forwarded-Encrypted: i=1; AKwUvBxLHG5UIssA5Vv1CgIwvlcyf1pv/8TN7ib/AuZSfDZa+f+qtcCuHAatTWueBIoBXHPrT57DkSpOUau0CnE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nwXnH9R1B9mKYwC7qhLs0DhagHeVfZbyRR1GzFNfJKcf50gou1
-	9B3AOPEep/WmrO+PcsAaXg4txGxfXkVSl+c8YzjbPtbARlMVYN3jJHIbyKjzDoeLWg/nDhUJIeR
-	L5wJbSBHqca4WPO15KlB34p3I9p9R/g8=
-X-Gm-Gg: AYBFou11RX20QhM6cRLgR+0ZIEsvlqyG7WJxvqLbksZmQPyfansClS3jbk8Km1/f5XW
-	+vqi1b1ryU7ohy+T920nhYo3P4vvMxFS0OXQ8WobN2tEXAJV9sjA/hDbvGLHlAbQkda79P1OB0I
-	qDlCGKZpuyUOJdLOZZVstAbU1V0nXTX34B3g8wZz+eQxncyvwyxUxx0zsVqhkKP18QA7/vAiRJG
-	Ra8gIgBd4awYV/8qJkRclnAPyqz7WiGpWVCK1MdvYBEaAfY7Cw3q/sJYxcl3V36MGrBd1AFWl13
-	zmIshcSIv0Eyvk8LW+IBg6swNc4blcbQIaMvBKdn27eMQ8kiVepylg12
-X-Received: by 2002:a05:6512:3da8:b0:5b6:1a80:865b with SMTP id
- 2adb3069b0e04-5b8c198d00cmr959162e87.66.1789746302161; Fri, 18 Sep 2026
- 08:45:02 -0700 (PDT)
+        bh=R++qxNNJJnPJa7wkOafzLmSyQyGcVXcxVtQxZqs7iqM=;
+        b=VAzNAz2eLOnM8Bk4IvqVuIpqAkg7+jvjwNYt8/tUwvREm0OakM2TD0ka1m4Y2H3xAP
+         bzHSsdMk0Jrfo/trZPrJyvY+0UsQJoEC/JnEF7N3pTPpSEfTfviAEl7xvGctO7gR9PzX
+         ujIjv0dmUVIbZfHrQ1xnwXbQ8qAtU4mCGcVJdGpvWbWEncVP+umhbBNlClmduuY1vZYm
+         DyOyYEaiJip/WwSQipov2nys7f8PkddsbGMulBDtAvEQ3+YiKnesa6ZgYVboyPqy9koI
+         WhtmGg8z2x0/FNILXGTQ1HsvPy1xRjw6uKD997tJg1X79flpE4FeFNYHjr0Ef7TRd3/+
+         SAaA==
+X-Forwarded-Encrypted: i=1; AKwUvBwAMqNUwZGZiDn1RsZmmV5gMEQ7nJfL3xndREf6hmJFWB5LiG1KfLjtMTdxZ0c6zsXoKHIzrnF8VrNQC9I=@vger.kernel.org
+X-Gm-Message-State: AFuF++nAnlW4Te+vfmKgD4G4R8QFqZToZ7zEleX6Z3JjqklJF6/+nuGc
+	TsnJnELjXaQ24NZBQZqF/pEFc1K6Vk9U1mjwuccZoqKcCGyDS7witu2mp01CjYR5cWD/L4rt4tP
+	7Im5hgEX4ZTw08A==
+X-Received: from pjbiw4.prod.google.com ([2002:a17:90b:4204:b0:39d:a2e8:6890])
+ (user=jmattson job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:57e8:b0:39e:4c7f:8b19 with SMTP id 98e67ed59e1d1-39e54d458b7mr6747764a91.30.1789746353963;
+ Fri, 18 Sep 2026 08:45:53 -0700 (PDT)
+Date: Fri, 18 Sep 2026 08:45:30 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260915111351.2726334-1-qwe.aldo@gmail.com>
-In-Reply-To: <20260915111351.2726334-1-qwe.aldo@gmail.com>
-From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Date: Sat, 19 Sep 2026 00:44:45 +0900
-X-Gm-Features: AcwNN1X8ej3rRCLkfczv2RVOrS0_dkKqsBj2-sWdfA8x3U0GxRBrhWL40nsH-Ls
-Message-ID: <CAKFNMo=0hDANOd+DxxvKA=RNbiG-zygkWh6EUC6Vr2MYe4npLQ@mail.gmail.com>
-Subject: Re: [PATCH] nilfs2: validate file block counts during recovery
-To: Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, linux-nilfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+Message-ID: <20260918154530.4129698-1-jmattson@google.com>
+Subject: [PATCH] KVM: x86: Disallow EFER.LMSLE when EferLmsleUnsupported is
+ set in guest CPUID
+From: Jim Mattson <jmattson@google.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Nikunj A Dadhania <nikunj@amd.com>, Yosry Ahmed <yosry@kernel.org>, Jim Mattson <jmattson@google.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 15, 2026 at 8:14=E2=80=AFPM Aldo Ariel Panzardo wrote:
->
-> nilfs_scan_dsync_log() trusts the block counts in each on-disk file
-> information entry. If fi_ndatablk is greater than fi_nblocks, the data
-> block loop can consume excessive summary entries and the later subtractio=
-n
-> used to derive the number of node blocks underflows.
->
-> Reject inconsistent file information entries before consuming their block
-> information.
->
-> Fixes: 0f3e1c7f23f8 ("nilfs2: recovery functions")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-> ---
->  fs/nilfs2/recovery.c | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/fs/nilfs2/recovery.c b/fs/nilfs2/recovery.c
-> index 4d5a6aa521..6e4e0cf4cc 100644
-> --- a/fs/nilfs2/recovery.c
-> +++ b/fs/nilfs2/recovery.c
-> @@ -322,6 +322,7 @@ static void nilfs_skip_summary_info(struct the_nilfs =
-*nilfs,
->   *
->   * Return: 0 on success, or one of the following negative error codes on
->   * failure:
-> + * * %-EINVAL  - Invalid block counts in a file information entry.
->   * * %-EIO     - I/O error.
->   * * %-ENOMEM  - Insufficient memory available.
->   */
-> @@ -359,6 +360,10 @@ static int nilfs_scan_dsync_log(struct the_nilfs *ni=
-lfs, sector_t start_blocknr,
->                 ino =3D le64_to_cpu(finfo->fi_ino);
->                 nblocks =3D le32_to_cpu(finfo->fi_nblocks);
->                 ndatablk =3D le32_to_cpu(finfo->fi_ndatablk);
-> +               if (ndatablk > nblocks) {
-> +                       err =3D -EINVAL;
-> +                       goto out;
-> +               }
->                 nnodeblk =3D nblocks - ndatablk;
->
->                 while (ndatablk-- > 0) {
-> --
-> 2.43.0
+Reject guest writes to EFER (and nested VMRUN with VMCB12 EFER) that set
+EFER.LMSLE when CPUID.80000008H:EBX.EferLmsleUnsupported[bit 20] is set
+in the guest's CPUID.
 
-Acked-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+Commit c53c632592a4 ("KVM: SVM: Disallow EFER.LMSLE when not supported by
+hardware") prevented EFER.LMSLE from being enabled in supported_efer_bits
+on hosts that set EferLmsleUnsupported, but missed checking the guest
+CPUID capability in __kvm_valid_efer(). As a result, on a host that
+supports EFER.LMSLE (e.g. Rome), a guest whose userspace VMM sets
+EferLmsleUnsupported in guest CPUID (e.g. for migration compatibility
+with Milan, Genoa, or Turin) can still set EFER.LMSLE without triggering
+a #GP.
 
-Hi Viacheslav,
+Fixes: c53c632592a4 ("KVM: SVM: Disallow EFER.LMSLE when not supported by hardware")
+Assisted-by: LLM
+Signed-off-by: Jim Mattson <jmattson@google.com>
+---
+ arch/x86/kvm/msrs.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-Please apply this v1 patch instead of the v2 patch.
+diff --git a/arch/x86/kvm/msrs.c b/arch/x86/kvm/msrs.c
+index dd3bb04878ca..6dbaf063cc8d 100644
+--- a/arch/x86/kvm/msrs.c
++++ b/arch/x86/kvm/msrs.c
+@@ -598,8 +598,11 @@ static bool __kvm_valid_efer(struct kvm_vcpu *vcpu, u64 efer)
+ 	if (efer & EFER_NX && !guest_cpu_cap_has(vcpu, X86_FEATURE_NX))
+ 		return false;
+ 
+-	return true;
++	if (efer & EFER_LMSLE &&
++	    guest_cpu_cap_has(vcpu, X86_FEATURE_EFER_LMSLE_MBZ))
++		return false;
+ 
++	return true;
+ }
+ bool kvm_valid_efer(struct kvm_vcpu *vcpu, u64 efer)
+ {
+-- 
+2.55.0.1082.g2b9226bbc0-goog
 
-This function is called as part of mount operations.  When format
-errors are detected during superblock reading or log scanning at mount
-time, returning -EINVAL rather than -EIO is in line with the mount
-system call behavior, so the v1 implementation is the correct one.
-
-Also, please replace the 'Cc: stable' tag with the following tag, as
-with the previous patch:
-
-Cc: stable+noautosel@kernel.org # Non-fatal bug fix; defer backport
-until a real issue is reported
-
-I actually ran a test where a pseudo underflow of the nnodeblk
-variable occurred, but no issues that compromise system stability
-happened.
-
-Even if nnodeblk becomes a large value, long-duration block device
-scanning does not occur; it simply skips the position and abandons
-roll-forward recovery midway.  Since the mount normally succeeds, if
-anything, this silent failure is the issue.
-
-However, this is based on the assumption that the file system image
-was intentionally tampered with (anything goes) with root privileges,
-including log checksums.  Therefore, as long as it does not break the
-system, I do not believe it meets the stable kernel rules for
-backporting.
-
-Thanks,
-Ryusuke Konishi
