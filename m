@@ -1,121 +1,207 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 95B0D414435;
-	Fri, 18 Sep 2026 08:34:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 022D13C942C;
+	Fri, 18 Sep 2026 08:35:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.222
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789720476; cv=none; b=WEZSMMnieHqlOYlilEfxA20hg8GcUGNGnw0GC/qmF3oy+rNpDrJFXGT7JcpuNVZGrYdkB4xcmf6wBK47Uz6gWxw0C4p2B3v3TOU/KmXaZdmQsm0aOulb6JTMLcWexIPwCXmwZMeMFdda6sBxKjKC9szLVvPZyfICUzLrLR6dcBw=
+	t=1789720511; cv=none; b=TkX3nipBSmpIbUP352FbkjJN6n6cecFn/UkdOR0tKkpXyYHu/E3wmpmsZjC5Cz4mEnEv56XEenvkpiTHviy0YAacpyfRqM+Z63P6+P2Zm0Wg4891fF8v507Zc/wDGtTqZOxTJw29eWMBzl2xewl+qt85MhTtYwf7mxCjVl7Kw1k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789720476; c=relaxed/simple;
-	bh=1EvbTukYKzP9XG0mXC34VrrPp3kxiBJZWjbS6a/dIvI=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=mNKi/uYLC/O1LjubYnbg1inhvF2bpysJujXMfVRu0qG8+TnTFZEO8te6ITQBtisp5a135tJj+aTHE+Wr7IohCz51AVI8/qyqZMaQ5j/lKXYyIawIL/PrP4YczYnZBrAXScc04wkml5o6rxPyl4ybWgiBUn0ji8bPkJuEdIsGuWU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=tXd1e4tG; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789720511; c=relaxed/simple;
+	bh=8COvAdtMn3spnXyGgMVW42NNpWqP4tPV2ZEYwmjtTuA=;
+	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=MasQ9CsTgv2gHpFccQ2TkrhgP1HF+x0KSWVKLpeUnMnfQ381IH/Xk4vWrYCyJ2rdMPX6V5jFzA5bMTykdmHaNDhfCn4X4kCX3pGWDqeMir3jduBbOseQTMYoQ+BQA3JPUKVYHf+OsOAemUOc+8rlOEgIpylbSPOg3/N79MfOhDc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=xKpFyfcQ; arc=none smtp.client-ip=113.46.200.222
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="tXd1e4tG"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 22E6A168F;
-	Fri, 18 Sep 2026 01:34:26 -0700 (PDT)
-Received: from [10.41.4.144] (e142021.arm.com [10.41.4.144])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A2C1A3F86F;
-	Fri, 18 Sep 2026 01:34:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789720469; bh=1EvbTukYKzP9XG0mXC34VrrPp3kxiBJZWjbS6a/dIvI=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To:From;
-	b=tXd1e4tG8dljKhT5C2z8O5XWqawCvCHaDwubg1WNyr76TtpUGOxTX8nH8qiuk/YOh
-	 b/9J5Af920gYnEgJ90ON8n8844bDBVgmTA2n3kYslOa9euNETUWBeDWgS4ZW+3xjte
-	 w8fEVJoT9RJ7TGdjCW0Gtz+jah7jOqJKV97IRomc=
-Message-ID: <f00c9173-ce5c-435e-a982-7240b71bef42@arm.com>
-Date: Fri, 18 Sep 2026 10:34:22 +0200
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="xKpFyfcQ"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=JVGWE/qK9v712s+HPMWX0MyEOLtqPkE26TNEv0rEr50=;
+	b=xKpFyfcQwZKsvmbEx65fXN6GpNJkr+kZUUTmgLDVcKn0j2w4VgafJ6Nknr79K7SPBGpTDHdhh
+	CNp1io2PgF5tgqJ3E/rhOrQt+DO7nDCOX8QflxK0YRdxEJm9ZJph/kG7mDDHd9LSrQx1f8+PhVu
+	clCx4KWnDZAz8MK0kQYzSBY=
+Received: from mail.maildlp.com (unknown [172.19.163.214])
+	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4hmQdH74nGzLlSh;
+	Fri, 18 Sep 2026 16:24:03 +0800 (CST)
+Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
+	by mail.maildlp.com (Postfix) with ESMTPS id D534C4056C;
+	Fri, 18 Sep 2026 16:35:03 +0800 (CST)
+Received: from [10.174.178.46] (10.174.178.46) by
+ whupemo200011.china.huawei.com (7.152.185.179) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Fri, 18 Sep 2026 16:35:02 +0800
+Subject: Re: [PATCH v3] md: Fix the null-ptr-deref of 'mddev->private' while
+ submitting IO
+To: Abd-Alrhman Masalkhi <abd.masalkhi@gmail.com>, <song@kernel.org>,
+	<yukuai@fygo.io>, <xiao@kernel.org>, <magiclinan@didiglobal.com>,
+	<eadavis@sina.com>
+CC: <linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<yangerkun@huawei.com>, <yi.zhang@huawei.com>
+References: <20260918070900.1945351-1-chengzhihao1@huawei.com>
+ <m233v7586k.fsf@gmail.com> <249f987d-9d2d-8f5c-91dd-3af6baefe587@huawei.com>
+ <m2zexf3r84.fsf@gmail.com>
+From: Zhihao Cheng <chengzhihao1@huawei.com>
+Message-ID: <856a065c-38ef-08cd-7701-8f579212a1a3@huawei.com>
+Date: Fri, 18 Sep 2026 16:34:57 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Andre Przywara <andre.przywara@arm.com>
-Subject: Re: [PATCH v3 1/8] dt-bindings: arm: Add Live Firmware Activation
-To: Sudeep Holla <sudeep.holla@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Salman Nabi
- <salman.nabi@arm.com>, Vedashree Vidwans <vvidwans@nvidia.com>,
- Trilok Soni <trilokkumar.soni@oss.qualcomm.com>,
- Nirmoy Das <nirmoyd@nvidia.com>, vsethi@nvidia.com,
- Varun Wadekar <vwadekar@nvidia.com>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, devicetree@vger.kernel.org
-References: <20260706134455.132091-1-andre.przywara@arm.com>
- <20260706134455.132091-2-andre.przywara@arm.com>
- <20260717-lucky-gerbil-of-courtesy-162f0e@sudeepholla>
-Content-Language: en-GB
-In-Reply-To: <20260717-lucky-gerbil-of-courtesy-162f0e@sudeepholla>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <m2zexf3r84.fsf@gmail.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ whupemo200011.china.huawei.com (7.152.185.179)
 
-Hi,
-
-sorry, just figured that I never replied to this - was stuck in my Draft 
-folder ...
-
-On 7/17/26 10:38, Sudeep Holla wrote:
-> On Mon, Jul 06, 2026 at 03:44:41PM +0200, Andre Przywara wrote:
->> The Arm Live Firmware Activation spec [1] describes updating firmware
->> images during runtime, without requiring a reboot. Update images might
->> be deployed out-of-band, for instance via a BMC, in this case the OS
->> needs to be notified about the availability of a new image.
->>
->> Describe an interrupt that could be triggered by the platform, to notify
->> about any changes.
->>
->> [1] https://developer.arm.com/documentation/den0147/latest/
->>
->> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
->> ---
->>   .../devicetree/bindings/arm/arm,lfa.yaml      | 45 +++++++++++++++++++
->>   1 file changed, 45 insertions(+)
->>   create mode 100644 Documentation/devicetree/bindings/arm/arm,lfa.yaml
->>
->> diff --git a/Documentation/devicetree/bindings/arm/arm,lfa.yaml b/Documentation/devicetree/bindings/arm/arm,lfa.yaml
->> new file mode 100644
->> index 000000000000..ef8e250f2da7
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/arm/arm,lfa.yaml
->> @@ -0,0 +1,45 @@
->> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/arm/arm,lfa.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: Arm Live Firmware Activation (LFA)
->> +
->> +maintainers:
->> +  - Andre Przywara <andre.przywara@arm.com>
->> +  - Sudeep Holla <sudeep.holla@arm.com>
->> +
->> +description:
->> +  The Arm Live Firmware Activation (LFA) specification [1] describes a
->> +  firmware interface to activate an updated firmware at runtime, without
->> +  requiring a reboot. Updates might be supplied out-of-band, for instance
->> +  via a BMC, in which case the platform needs to notify an OS about pending
->> +  image updates.
+在 2026/9/18 16:20, Abd-Alrhman Masalkhi 写道:
+> On Fri, Sep 18, 2026 at 15:38 +0800, Zhihao Cheng wrote:
+>> 在 2026/9/18 15:29, Abd-Alrhman Masalkhi 写道:
+>>>
+>>> Hi Zhihao,
+>>>
+>>> On Fri, Sep 18, 2026 at 15:09 +0800, Zhihao Cheng wrote:
+>>>> Concurrent processes md_stop and IO submitting could trigger a
+>>>> null-ptr-deref of 'mddev->private':
+>>>>
+>>>>    BUG: kernel NULL pointer dereference, address: 0000000000000070
+>>>>    RIP: 0010:_wait_barrier+0x2f/0x250
+>>>>    Call Trace:
+>>>>     raid1_make_request+0x150/0xf50
+>>>>     md_handle_request+0x104/0x530
+>>>>     md_submit_bio+0x76/0x130
+>>>>     submit_bio+0xdd/0x250
+>>>>     submit_bio_wait+0x1f/0x40
+>>>>     __blkdev_direct_IO_simple+0x1f6/0x370
+>>>>     blkdev_write_iter+0x3b2/0x520
+>>>>     ksys_write+0x7d/0x190
+>>>>
+>>>>                 P1
+>>>>     fd = open(/dev/md0, O_RDWR)
+>>>> 	                      P2 (forked from P1, fd' <= fd)
+>>>>     write(fd)
+>>>>      submit_bio
+>>>>       md_handle_request
+>>>>        raid1_make_request
+>>>>         raid1_write_request
+>>>>                                     ioctl(fd, STOP_ARRAY)
+>>>> 		                   mddev_set_closing_and_sync_blockdev
+>>>> 				   // check passed, mddev->openers = 1,
+>>>> 				   // because md_open() is only called
+>>>> 				   // once in P1->open
+>>>> 				   do_md_stop
+>>>> 				    __md_stop
+>>>> 				     mddev->private = NULL
+>>>>
+>>>>          conf = mddev->private // NULL
+>>>>           wait_barrier(conf, sector) // null-ptr-deref !
+>>>>
+>>>> It is a common problem for raid0/1/10/5, and __md_stop could be triggered
+>>>> by several paths(eg. ioctl, sysfs, ->dtr). Fix it by replacing
+>>>> mddev_lock() with mddev_suspend_and_lock() for all __md_stop() callers.
+>>>> The caller dm_table_destroy() is guaranteed being invoked with device
+>>>> suspended, so raid_dtr() could keep using mddev_lock_nointr().
+>>>> The caller array_state_store() is guaranteed by the check
+>>>> mddev_set_closing_and_sync_blockdev(mddev, 0). For example, someone open
+>>>> /dev/mdx, write something and close /dev/mdx, it won't trigger the
+>>>> problem, all dirty pages can be flushed before mddev->openers decrement.
+>>>> Besides, fail the submitting IO in md_handle_request() if the
+>>>> 'mddev->pers' becomes NULL.
+>>>>
+>>>> Fetch a reproducer in https://bugzilla.kernel.org/show_bug.cgi?id=222020
+>>>>
+>>>> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+>>>> Reported-by: syzbot+3fe892ea5fc292e1353f@syzkaller.appspotmail.com
+>>>> Closes: https://syzkaller.appspot.com/bug?extid=3fe892ea5fc292e1353f
+>>>> Signed-off-by: Zhihao Cheng <chengzhihao1@huawei.com>
+>>>> ---
+>>>>    v1->v2:
+>>>>     1. Add 'mddev->pers != NULL' check before make_request
+>>>>     2. Delete dm-raid caller(->dtr) modifications
+>>>>     3. Move memalloc_noio_restore after mddev_unlock_and_resume
+>>>>    v2->v3:
+>>>>     1. Remove modifications in array_state_store()
+>>>>     2. update commit msg
+>>>>    drivers/md/md.c | 15 +++++++++++++++
+>>>>    1 file changed, 15 insertions(+)
+>>>>
+>>>> diff --git a/drivers/md/md.c b/drivers/md/md.c
+>>>> index 680b34a63cb3..e73338c26d53 100644
+>>>> --- a/drivers/md/md.c
+>>>> +++ b/drivers/md/md.c
+>>>> @@ -414,6 +414,20 @@ bool md_handle_request(struct mddev *mddev, struct bio *bio)
+>>>>    		if (!percpu_ref_tryget_live(&mddev->active_io))
+>>>>    			goto check_suspended;
+>>>>    	}
+>>>> +	if (!mddev->pers) {
+>>> Isn't this case already handled by md_submit_bio(). take a look in
+>>> md_submit_bio()
+>> Hi,Abd-Alrhman
+>> I understand that 'mddev == NULL || mddev->pers == NULL' in
+>> md_submit_bio() is a qiuck check, there still exists a small race window:
+>>        P1                     P2
+>> md_submit_bio
+>>    if (mddev == NULL || mddev->pers == NULL)
+>>                           md_ioctl
+>>                            mddev_suspend_and_lock
+>>                            do_md_stop->__md_stop
+>>                            // set mddev->pers/private as NULL
+>>                            mddev_unlock_and_resume
+>>    md_handle_request
+>>     if (is_suspended(mddev, bio))
+>>     percpu_ref_tryget_live(&mddev->active_io)
+>>     mddev->pers // null-ptr-deref
 > 
-> What does the below described "interrupts" cover or doesn't cover? Both
-> in case of in-band and out-of-band. It is not very clear for me.
+> It makes sense. It would solve only the null pointer reference, but I
+> see another issue. Look at the comment before calling
+> mddev_set_closing_and_sync_blockdev() in md_ioctl(). it says "Need to
+> flush page cache, and ensure no-one else opens and writes". The
+> suspending happens after flushing the page cache, in this case,
+> there might be other writes in-flight.
 
-DEN0147 says (at the very end of the document):
-"As of this version of the specification, the expected scope would be 
-notification to the Operating System to indicate new LFA updates are 
-available."
-In-band updates are work in progress, spec-wise, and we would cover this 
-when it has arrived. So for now this if for out-of-band updates, so that 
-a BMC for instance can signal the arrival of an updated image to the OS.
-I clarified the wording in the description of the interrupt property. I 
-also added that it must be an edge triggered IRQ, as there is no easy 
-way to signal completion, and the ACPI notification has the same semantics.
+At present, the current implementation does not align with the expected 
+annotations. Yu Kai privately gave me a feasible suggestion, which is to 
+have md_ioctl operate on a character device(like /dev/mapper/control) 
+instead of an md block device. This fix patch will serve as a temporary 
+solution before the official implementation is merged. By the way, I 
+don't have much time to implment it, do you have time to deal with the 
+official solution?
+> 
+>>>
+>>>> +		/*
+>>>> +		 * The __md_stop() sets 'mddev->private' to NULL during
+>>>> +		 * the IO submitting, check 'mddev->pers' before the IO
+>>>> +		 * being processed by specific driver to avoid the
+>>>> +		 * null-ptr-deref of 'mddev-><member>'. The check is
+>>>> +		 * safe because the IO has got the 'mddev->active_io'
+>>>> +		 * reference, and all __md_stop() callers will wait for
+>>>> +		 * the reference to be zero.
+>>>> +		 */
+>>>> +		bio_io_error(bio);
+>>>> +		percpu_ref_put(&mddev->active_io);
+>>>> +		return true;
+>>>> +	}
+>>>>    	if (!mddev->pers->make_request(mddev, bio)) {
+>>>>    		percpu_ref_put(&mddev->active_io);
+>>>>    		if (mddev_is_dm(mddev) && mddev->pers->prepare_suspend)
+>>>> @@ -8299,6 +8313,7 @@ static bool md_ioctl_need_suspend(unsigned int cmd)
+>>>>    	case HOT_REMOVE_DISK:
+>>>>    	case SET_BITMAP_FILE:
+>>>>    	case SET_ARRAY_INFO:
+>>>> +	case STOP_ARRAY:
+>>>>    		return true;
+>>>>    	default:
+>>>>    		return false;
+>>>> -- 
+>>>> 2.52.0
+>>>>
+>>>
+>>
+> 
 
-Cheers,
-Andre.
