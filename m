@@ -1,64 +1,64 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C460151CF5A
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:17:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6A6E51D501
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:17:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789755435; cv=none; b=ihVeUULNISvN6yZVKD/hnb9PQzOHJ+XlOMJLOcMlf1PVaqBZcZ2Zyqf3wTa80oXaWEw22E0tqtjGg3i7bWd7qQZWVqoxFtk+bfCOXNFcuvkz2UVZWbHyaylkmBGuCtJdukYwugzopX2cwQhGFMlL0LuI9lpG6cMfbPIVjcNJjBQ=
+	t=1789755436; cv=none; b=l5S+EDQYFY6n5iWvvLLi6PawIsJxAUX7VIYUie9/FpsRVQmz4Fbj5/55HXEOZbZBRvgAm2pPXBIeX43HgSj2pasvonruDHx13T96vbw8vYh/84ho8tuJKQPEaxfPnRqmMtvW6xjZl+dI3cJZ0bZAqGVhGZfTWlVDksw1MVIX0G4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789755435; c=relaxed/simple;
-	bh=wqPjBR1evZQ/NfBLUjWvC2B83LrJtIxtRxteAVRWHsM=;
+	s=arc-20240116; t=1789755436; c=relaxed/simple;
+	bh=SI/It3Y7Nmi0Qd33uYrJsmK8dlYFazFQgXLrKfZIwhw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DaedUgh5adknW3cnsVmwYoXJ6/Mt1TBJ9STp+B0nQFC0sH5QNuyWDF0e8Pz/d0iHm3C/NjrXzWY0g5rOfkpNydbNt2ZmMtyguZjQRqeswV38QvmOLrVfRRpT3d518WxcPZ7PZuEVVq46J7a/WI9BAqHTAqTx4R4w318Esi0GF3Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=H8AV/Ql3; arc=none smtp.client-ip=74.125.228.12
+	 MIME-Version; b=oCgGZKsNc51+GAaM9+9oYahBqSyTL1NzY9Txr8/RIEzNyq98/KxlyfcVVHfl8lewEGM5Z13VVPmsUsV7PAdA8va95/o3JkTe/NjhqV64E0iJUhWwTQMWpWBLR/LSrtiSA3DU1WKc10s/QreMkHxLJ7hkYINva5hvbuK7/VhYs7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=GGf3VJUj; arc=none smtp.client-ip=74.125.228.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="H8AV/Ql3"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea4ae2dso653737a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:17:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="GGf3VJUj"
+Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc1cebad4aeso855206a12.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:17:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1789755433; x=1790360233; darn=vger.kernel.org;
+        d=purestorage.com; s=google2022; t=1789755434; x=1790360234; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pmH177YS3gZ19sjEKDEKKTFEFMiPIMvZkv9++g5knBc=;
-        b=H8AV/Ql3jyu5Hz3zBmYL1y8/BWk+aHDHBHdmFX+6KAVfeM3Wsroigk9YTSffSxGvPu
-         prWFRv58Tsd3NiRRxOKSE2YNmwB+eQ0MD1Kcn9JImq01wtBRRSKEyWucBOFr1UX6ATke
-         5OcHYQvuXLlJYLXjL7JO9US8qgd1BXMm/WT1jis02r+bShrgeXKeXjR3OK3TRkvbzoi9
-         4E9JRYXxkXopK80tOlvl9Lcue7KhWdFGRMWnuAf6djgd6z7b2rxuDySFOm1O0YbRRAAY
-         IWI4fECJI8ICwUjBp4dpTcxxakzHcYQrEPwECqAV6e7tnaAp6/rhAu5nPyWtYDZ6ijxY
-         1n3Q==
+        bh=cVhzIJ0voivWryYWZvH7CE/nJwrk1ooSyz4ZIVHdKLo=;
+        b=GGf3VJUjxBSUpxPEgag3v7lFnw8BDpLcdSZ2PM0TB8UZOVx3F/N/xs225tga5UCwp9
+         47VBzOcHSHzOjr/RLXtzxHgipUnJ9IqjE4buAtTlqjhaCbf/HIO74TMrOgVD3DlWBunw
+         zg4AgP35p9+8YUD3hoNPUA8sN/mdNIpbT1xn1dvdy8LPDeYIGEmZpLruRxSZ7b7sYdW3
+         GnUeN1JEs8D2PIw6a2Df3OjFcZUZDdWJd0pWk5EDSlSdCEug1L7GCx85m9tGjU/809xm
+         raNyHK9VLMcM3CDjgVlmotV46syXLIAfNqpvw0dDdXy6HXUcNEvLFdli/f+cmnKDzZjm
+         pw2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789755433; x=1790360233;
+        d=1e100.net; s=20260707; t=1789755434; x=1790360234;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pmH177YS3gZ19sjEKDEKKTFEFMiPIMvZkv9++g5knBc=;
-        b=uZx1mjeozMjv5ps9ptxmeWvYFtY6H03VnJHNIwGNV1aipFrvjqvmS1whc7cqTWjs/n
-         5z3R51bkBkvl/Igoc/BKPxeOQIHOSgPLjdKMWUGOM+LoolHhY/fX6ROcGuXRmW9lY/Ce
-         ep0pX8nv0hEBIiBGX78eZqJazoONDy5kxhIBNonqeU+qnerGMYRToQzHpD6zY2x/D1I/
-         4pIVz/N0KT0cGdxuQEKgF4yrbOjBtpcbKG4q2SNKeCujHKHKmJQEqm3OpOz3VogMcVNf
-         PfbGjnMoT2fHXJYg2GCn6BGxVI6wHFXe7nddLY8gZUHC/TqCopYgX9t2FI713AkZJHxy
-         x93w==
-X-Forwarded-Encrypted: i=1; AKwUvByoTF4lQsWKnedgcwlJ/gz8q3Zjgnk1+jvedM6xWhc7herXsr3Tgh6qY2fxk02Z4IRNyahtIBr+sIgy2Xs=@vger.kernel.org
-X-Gm-Message-State: AFuF++l52Bt3S/+YPnjAATnipZTMp8zJlJmk0YnwkhTyABK6na1aeMy2
-	rv2cepLCAHg4Mm7QsorZmJ9sas/yfUTnin5LzbrnXYusBRfY7oKpws82/5aUNwSwiyc=
-X-Gm-Gg: AYBFou2VgSLfIw9451BKnWSoTpbCdynn0gAkT9uqbcQS4oY/mNQ/Szs8VkZErLN9xi2
-	OC0IT4dZUCGAkr3O1J5e/7NlU7uMm0jpWmSc95B+LR9hrt1j6zqlca7YNXFithcyI4MMrsdOun2
-	n4wkkQ0wyoEqwRValbtP5dZHijV9FZTTfcJhXHJXzzdF1mOLhz22fOmuHlY3+cXYfmJvn7no3VS
-	7sr4xYO1a/VCMDA3l8clUrCG7qW5zID4QPj0duZqvEu4rIDvsh1B1GEyg/w/j29Zm5M7XfdAesP
-	KpDI/bphe2rx6k5C1bpeLKNDpRnXOICOgdk++82YudiFTNwUG5403q2vZoUn/0b3MUESMd7MN+a
-	/BgepYlgONxGotcPYAB/9TlMpOXxq/wJwngyfSQ05Ugpm5b6uMMDavYdHvuJhBHbtmApJGrfjH2
-	uts+Y2tAMfBjnKeuyjMXFMcRoK9KYthWYBuZBET9BCzB69LLI0BH6hGFRDokkONjX1Sw7frnEVk
-	RWwrdZsIdRlhDwhmMVmyR9z3e0toEIL
-X-Received: by 2002:a17:90b:4c:b0:39e:6c68:c780 with SMTP id 98e67ed59e1d1-39e6c68ca53mr592406a91.54.1789755432638;
-        Fri, 18 Sep 2026 11:17:12 -0700 (PDT)
+        bh=cVhzIJ0voivWryYWZvH7CE/nJwrk1ooSyz4ZIVHdKLo=;
+        b=xBzl1mHcHQKlf7+2xIJ1ZYUoPXyxF3/E8UnwaCCI1NyJnWxl+vp3htxnz+l3CLMUyv
+         ITuvaCF4cIqHPyOA5cU8lEw9S+X3HzZR4Z9VgiWpblgm2MfCTAovFnfM0cLh85L/P3OZ
+         xjCMNU0nz2myG+8eTr8Ag7DvIvZAE6xbVM9k7M2yE15IZbXFdFf5YkN+PsdB1WaT0Mk3
+         kGvGl2sNjUL+K5estjp2qxxbZzhqLnWVi9clX1iUyCqgBOj8SYHn8jbS7CvA/ALD3qZX
+         1PZhCw9GIFL2zFtoKl9Jwe9TFGQaz8nmL4X5ZvP/GXvfB0I06na5xtASTzuxHjhTT4qt
+         Lx7w==
+X-Forwarded-Encrypted: i=1; AKwUvBwrql9zYNirHwfwlAdZGz/Qhdj5rM5Xdf5yh+UVOnFQX8cMWgISY/EaytGpAK949wTC2zf0t3fOimdY1jo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mDn4JbN24l7eT7to4e912eJRZX12QLIHHWIqmkI1G3r2tNwOXY
+	83ZE2zvXkJDfQrQCJw7AkmbP8h7a/As0uRMcaaPmuynaZTkr5u+xgbXD5FBCGI/42tU=
+X-Gm-Gg: AYBFou3NTjA8GD+FyE78lyt1ovCKZlnQXlLEYu3rPFIGhXO9jUH5G2MHEFUjk3Eifx5
+	+TZW2CIJaxiDRkkEFXgVAI0G1pAw0kUf07UN0MoBwwZURHvTiMES95RImOrXX9IKspEaanmiZKn
+	tK4cFjmXmPv1QiMyufa+lqMGBvn/ZWbtmnnOGaAFkRvY9X4YV/bWxYdWVVgbNOhr208L+JfZ41V
+	rEppwK2xLAPTpKDPX3dTIeikcc+J00RCOcD/KqwzV/mEQZXWIwDvtSGKFe2aDSxSAS7bT4bbrbH
+	Pl0ra4NIgQ1KuNYnKsyjYjycRd0cgtM3LHdnumFop/7KS+t8I629IMBT5qW02ieYvWOoIfj3ZCm
+	a/GpggrTaXEruFuCu2x96mL37MpSk4VMNUz+YpRbNtipbOHPG/swHV3xGS5lsLURAxRWyLHhEpb
+	FlOoovp+FanXuZ5Kgop+c9Q9OBQzuuJUmQnCt6KD50dx31jvKgFA4rfF/y1uOZNVVef0UsGreBW
+	PwKYaPEENzs6tlFG42D+w==
+X-Received: by 2002:a17:90b:2784:b0:39e:6a7f:eeec with SMTP id 98e67ed59e1d1-39e6a7ff073mr2104953a91.17.1789755433632;
+        Fri, 18 Sep 2026 11:17:13 -0700 (PDT)
 Received: from apollo.purestorage.com ([208.88.152.253])
-        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-33c331aeeddsm335107eec.24.2026.09.18.11.17.11
+        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-33c331aeeddsm335107eec.24.2026.09.18.11.17.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 11:17:12 -0700 (PDT)
+        Fri, 18 Sep 2026 11:17:13 -0700 (PDT)
 From: Mohamed Khalfella <mkhalfella@purestorage.com>
 To: Keith Busch <kbusch@kernel.org>,
 	Jens Axboe <axboe@kernel.dk>,
@@ -74,9 +74,9 @@ Cc: Justin Tee <justin.tee@broadcom.com>,
 	Mohamed Khalfella <mkhalfella@purestorage.com>,
 	linux-nvme@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 12/18] nvme-fc: start error recovery instead of aborting timed out IOs
-Date: Fri, 18 Sep 2026 11:14:12 -0700
-Message-ID: <20260918181614.3947933-13-mkhalfella@purestorage.com>
+Subject: [PATCH 13/18] nvme-fc: perform error recovery directly from ioerr_work
+Date: Fri, 18 Sep 2026 11:14:13 -0700
+Message-ID: <20260918181614.3947933-14-mkhalfella@purestorage.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260918181614.3947933-1-mkhalfella@purestorage.com>
 References: <20260918181614.3947933-1-mkhalfella@purestorage.com>
@@ -88,152 +88,164 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Aborts issued from the timeout handler run outside the FCCTRL_TERMIO
-window, so they are not counted in ctrl->iocnt and
-nvme_fc_delete_association() does not wait for them. The association
-can be torn down while the LLDD is still working on the abort.
+Now that nvme_fc_start_ioerr_recovery() moves the controller to
+RESETTING before queueing ioerr_work, the nvme_reset_ctrl() call in
+nvme_fc_error_recovery() fails with -EBUSY and no recovery runs.
 
-Instead of aborting the timed out command, reset the controller like
-the other fabrics transports do. All aborts now happen in
-nvme_fc_delete_association(), where they are counted and waited for.
+Do the recovery in the work itself instead: stop the controller, tear
+down the association, move to CONNECTING and schedule a reconnect,
+same as nvme_fc_reset_ctrl_work(). If the CONNECTING transition fails
+the controller is being deleted and the delete path finishes the job.
+This is how rdma and tcp structure their error recovery too.
 
-The new nvme_fc_start_ioerr_recovery() queues ioerr_work directly in
-CONNECTING (abort the IOs so the connect attempt fails) and in
-DELETING/DELETING_NOIO (tear down the association so the IOs the
-delete path is draining get completed - the timeout handler no longer
-aborts them, and a dead target would otherwise hang controller
-deletion). In all other states it moves the controller to RESETTING
-first. Connectivity loss, disconnect LS and IO errors now go through
-the same entry point.
+The work now re-checks the controller state when it runs. A work
+queued while CONNECTING can execute after the connect succeeded and
+the controller went LIVE (a timed out connect command that completes
+right after the timeout fires). Claim RESETTING in that case; if that
+fails, a concurrent reset or delete owns the controller and will
+complete the outstanding IOs.
 
-With nvme_fc_timeout() no longer aborts timedout IOs the reset code
-in nvme_fc_reset_ctrl_work() needs to be updated to teardown the
-association before stopping the controller. This is important because
-nvme_stop_ctrl() waiting for ana_work or fw_act_work to be flushed can
-get stuck forever.
-
-Link: https://lore.kernel.org/all/20250529214928.2112990-1-mkhalfella@purestorage.com/
 Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
 ---
- drivers/nvme/host/fc.c | 54 ++++++++++++++++++++++++++++--------------
- 1 file changed, 36 insertions(+), 18 deletions(-)
+ drivers/nvme/host/fc.c | 96 +++++++++++++++++++++++++++---------------
+ 1 file changed, 61 insertions(+), 35 deletions(-)
 
 diff --git a/drivers/nvme/host/fc.c b/drivers/nvme/host/fc.c
-index 48454cb7a0fc..6181cb7ea8ce 100644
+index 6181cb7ea8ce..5a530aa37641 100644
 --- a/drivers/nvme/host/fc.c
 +++ b/drivers/nvme/host/fc.c
-@@ -227,6 +227,8 @@ static DEFINE_IDA(nvme_fc_ctrl_cnt);
- static struct device *fc_udev_device;
- 
+@@ -229,6 +229,8 @@ static struct device *fc_udev_device;
  static void nvme_fc_complete_rq(struct request *rq);
-+static void nvme_fc_start_ioerr_recovery(struct nvme_fc_ctrl *ctrl,
-+					 char *errmsg);
+ static void nvme_fc_start_ioerr_recovery(struct nvme_fc_ctrl *ctrl,
+ 					 char *errmsg);
++static void __nvme_fc_abort_outstanding_ios(struct nvme_fc_ctrl *ctrl,
++					    bool start_queues);
  
  /* *********************** FC-NVME Port Management ************************ */
  
-@@ -788,7 +790,7 @@ nvme_fc_ctrl_connectivity_loss(struct nvme_fc_ctrl *ctrl)
- 		"Reconnect", ctrl->cnum);
+@@ -987,7 +989,7 @@ fc_dma_unmap_sg(struct device *dev, struct scatterlist *sg, int nents,
+ static void nvme_fc_ctrl_put(struct nvme_fc_ctrl *);
+ static int nvme_fc_ctrl_get(struct nvme_fc_ctrl *);
  
- 	set_bit(ASSOC_FAILED, &ctrl->flags);
--	nvme_reset_ctrl(&ctrl->ctrl);
-+	nvme_fc_start_ioerr_recovery(ctrl, "Connectivity Loss");
- }
+-static void nvme_fc_error_recovery(struct nvme_fc_ctrl *ctrl, char *errmsg);
++static void nvme_fc_error_recovery(struct nvme_fc_ctrl *ctrl);
  
- /**
-@@ -1569,7 +1571,8 @@ nvme_fc_ls_disconnect_assoc(struct nvmefc_ls_rcv_op *lsop)
- 	 */
- 
- 	/* fail the association */
--	nvme_fc_error_recovery(ctrl, "Disconnect Association LS received");
-+	nvme_fc_start_ioerr_recovery(ctrl,
-+				     "Disconnect Association LS received");
- 
- 	/* release the reference taken by nvme_fc_match_disconn_ls() */
- 	nvme_fc_ctrl_put(ctrl);
-@@ -1892,6 +1895,30 @@ char *nvme_fc_io_getuuid(struct nvmefc_fcp_req *req)
- }
- EXPORT_SYMBOL_GPL(nvme_fc_io_getuuid);
- 
-+static void
-+nvme_fc_start_ioerr_recovery(struct nvme_fc_ctrl *ctrl, char *errmsg)
-+{
+ static void
+ __nvme_fc_finish_ls_req(struct nvmefc_ls_req_op *lsop)
+@@ -1873,8 +1875,44 @@ nvme_fc_ctrl_ioerr_work(struct work_struct *work)
+ {
+ 	struct nvme_fc_ctrl *ctrl =
+ 			container_of(work, struct nvme_fc_ctrl, ioerr_work);
 +	enum nvme_ctrl_state state = nvme_ctrl_state(&ctrl->ctrl);
 +
 +	/*
-+	 * In CONNECTING, ioerr_work aborts the outstanding ios so the
-+	 * connect attempt sees the error. In DELETING/DELETING_NOIO it
-+	 * tears down the association so IOs the core delete path is
-+	 * draining get completed.
++	 * if an error (io timeout, etc) while (re)connecting, the remote
++	 * port requested terminating of the association (disconnect_ls)
++	 * or an error (timeout or abort) occurred on an io while creating
++	 * the controller.  Abort any ios on the association and let the
++	 * create_association error path resolve things.
 +	 */
-+	if (state == NVME_CTRL_CONNECTING || state == NVME_CTRL_DELETING ||
-+	    state == NVME_CTRL_DELETING_NOIO) {
-+		queue_work(nvme_reset_wq, &ctrl->ioerr_work);
++	if (state == NVME_CTRL_CONNECTING) {
++		__nvme_fc_abort_outstanding_ios(ctrl, true);
++		dev_warn(ctrl->ctrl.device,
++			 "NVME-FC{%d}: transport error during (re)connect\n",
++			 ctrl->cnum);
 +		return;
 +	}
 +
-+	if (nvme_change_ctrl_state(&ctrl->ctrl, NVME_CTRL_RESETTING)) {
-+		dev_warn(ctrl->ctrl.device, "NVME-FC{%d}: starting error recovery %s\n",
-+			 ctrl->cnum, errmsg);
-+		queue_work(nvme_reset_wq, &ctrl->ioerr_work);
++	/*
++	 * Tear the association down only if this work owns recovery via a
++	 * RESETTING claim, or if the delete path is waiting for IOs to
++	 * complete.
++	 */
++	if (state == NVME_CTRL_LIVE &&
++	    nvme_change_ctrl_state(&ctrl->ctrl, NVME_CTRL_RESETTING))
++		state = NVME_CTRL_RESETTING;
+ 
+-	nvme_fc_error_recovery(ctrl, "transport detected io error");
++	switch (state) {
++	case NVME_CTRL_RESETTING:
++	case NVME_CTRL_DELETING:
++	case NVME_CTRL_DELETING_NOIO:
++		nvme_fc_error_recovery(ctrl);
++		break;
++	default:
++		dev_warn(ctrl->ctrl.device,
++			 "NVME-FC{%d}: error recovery skipped, state %d owns recovery\n",
++			 ctrl->cnum, nvme_ctrl_state(&ctrl->ctrl));
++		break;
 +	}
-+}
-+
- static void
- nvme_fc_fcpio_done(struct nvmefc_fcp_req *req)
+ }
+ 
+ /*
+@@ -2533,39 +2571,6 @@ __nvme_fc_abort_outstanding_ios(struct nvme_fc_ctrl *ctrl, bool start_queues)
+ 		nvme_unquiesce_admin_queue(&ctrl->ctrl);
+ }
+ 
+-static void
+-nvme_fc_error_recovery(struct nvme_fc_ctrl *ctrl, char *errmsg)
+-{
+-	enum nvme_ctrl_state state = nvme_ctrl_state(&ctrl->ctrl);
+-
+-	/*
+-	 * if an error (io timeout, etc) while (re)connecting, the remote
+-	 * port requested terminating of the association (disconnect_ls)
+-	 * or an error (timeout or abort) occurred on an io while creating
+-	 * the controller.  Abort any ios on the association and let the
+-	 * create_association error path resolve things.
+-	 */
+-	if (state == NVME_CTRL_CONNECTING) {
+-		__nvme_fc_abort_outstanding_ios(ctrl, true);
+-		dev_warn(ctrl->ctrl.device,
+-			"NVME-FC{%d}: transport error during (re)connect\n",
+-			ctrl->cnum);
+-		return;
+-	}
+-
+-	/* Otherwise, only proceed if in LIVE state - e.g. on first error */
+-	if (state != NVME_CTRL_LIVE)
+-		return;
+-
+-	dev_warn(ctrl->ctrl.device,
+-		"NVME-FC{%d}: transport association event: %s\n",
+-		ctrl->cnum, errmsg);
+-	dev_warn(ctrl->ctrl.device,
+-		"NVME-FC{%d}: resetting controller\n", ctrl->cnum);
+-
+-	nvme_reset_ctrl(&ctrl->ctrl);
+-}
+-
+ static enum blk_eh_timer_return nvme_fc_timeout(struct request *rq)
  {
-@@ -2049,9 +2076,8 @@ nvme_fc_fcpio_done(struct nvmefc_fcp_req *req)
- 		nvme_fc_complete_rq(rq);
- 
- check_error:
--	if (terminate_assoc &&
--	    nvme_ctrl_state(&ctrl->ctrl) != NVME_CTRL_RESETTING)
--		queue_work(nvme_reset_wq, &ctrl->ioerr_work);
-+	if (terminate_assoc)
-+		nvme_fc_start_ioerr_recovery(ctrl, "io error");
+ 	struct nvme_fc_fcp_op *op = blk_mq_rq_to_pdu(rq);
+@@ -3389,6 +3394,27 @@ nvme_fc_reset_ctrl_work(struct work_struct *work)
+ 	}
  }
  
- static int
-@@ -2548,24 +2574,14 @@ static enum blk_eh_timer_return nvme_fc_timeout(struct request *rq)
- 	struct nvme_fc_cmd_iu *cmdiu = &op->cmd_iu;
- 	struct nvme_command *sqe = &cmdiu->sqe;
- 
--	/*
--	 * Attempt to abort the offending command. Command completion
--	 * will detect the aborted io and will fail the connection.
--	 */
- 	dev_info(ctrl->ctrl.device,
- 		"NVME-FC{%d.%d}: io timeout: opcode %d fctype %d (%s) w10/11: "
- 		"x%08x/x%08x\n",
- 		ctrl->cnum, qnum, sqe->common.opcode, sqe->fabrics.fctype,
- 		nvme_fabrics_opcode_str(qnum, sqe),
- 		sqe->common.cdw10, sqe->common.cdw11);
--	if (__nvme_fc_abort_op(ctrl, op))
--		nvme_fc_error_recovery(ctrl, "io timeout abort failed");
- 
--	/*
--	 * the io abort has been initiated. Have the reset timer
--	 * restarted and the abort completion will complete the io
--	 * shortly. Avoids a synchronous wait while the abort finishes.
--	 */
-+	nvme_fc_start_ioerr_recovery(ctrl, "io timeout");
- 	return BLK_EH_RESET_TIMER;
- }
- 
-@@ -3348,10 +3364,12 @@ nvme_fc_reset_ctrl_work(struct work_struct *work)
- 	struct nvme_fc_ctrl *ctrl =
- 		container_of(work, struct nvme_fc_ctrl, ctrl.reset_work);
- 
--	nvme_stop_ctrl(&ctrl->ctrl);
++static void
++nvme_fc_error_recovery(struct nvme_fc_ctrl *ctrl)
++{
 +	nvme_stop_keep_alive(&ctrl->ctrl);
 +	flush_work(&ctrl->ctrl.async_event_work);
- 
--	/* will block will waiting for io to terminate */
++
 +	/* will block while waiting for io to terminate */
- 	nvme_fc_delete_association(ctrl);
++	nvme_fc_delete_association(ctrl);
 +	nvme_stop_ctrl(&ctrl->ctrl);
++
++	/* Do not reconnect if controller is being deleted */
++	if (!nvme_change_ctrl_state(&ctrl->ctrl, NVME_CTRL_CONNECTING))
++		return;
++
++	if (ctrl->rport->remoteport.port_state == FC_OBJSTATE_ONLINE) {
++		queue_delayed_work(nvme_wq, &ctrl->connect_work, 0);
++		return;
++	}
++
++	nvme_fc_reconnect_or_delete(ctrl, -ENOTCONN);
++}
  
- 	if (!nvme_change_ctrl_state(&ctrl->ctrl, NVME_CTRL_CONNECTING))
- 		dev_err(ctrl->ctrl.device,
+ static const struct nvme_ctrl_ops nvme_fc_ctrl_ops = {
+ 	.name			= "fc",
 -- 
 2.55.0
 
