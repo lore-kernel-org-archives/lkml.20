@@ -1,50 +1,33 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFE9D47F2CC;
-	Fri, 18 Sep 2026 18:22:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7FE1551AEC1;
+	Fri, 18 Sep 2026 18:23:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789755780; cv=none; b=jwlF1+IuxHqNtnPtunR1kDOgZsxbwFfXrVCrttQnE186fiqcegcpma/dtPotldPMAfC1wUxcAeN0rabi8apoAhLoqSOiY/EbZCccj9LZ/ctUBK4PjN4xTXR2ZqBldvjwWReKA3u7Y15c6daf+3j4AuPQYo+lzhfnztRY13uFzEw=
+	t=1789755795; cv=none; b=nuAN7hLKg1mIoeFTNlwx43eujMEfoYThA1dYBtW1jXhkr0XnRcvEX5wiWHJhpI8ZtY8DiHIJLBi4otNXZxi0S9q6STC9PoZbgKmGgohBY1qhtERNQKa2AXTjFcUdhLoGTT09tzAQG2ABGt8jTWEaOiEuP6ymFCcdMB4KPxdtqjk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789755780; c=relaxed/simple;
-	bh=DQ11aT6chxj+is/hy9hP1fiwgbDJw2XvIWlCzvNSbts=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=O5RC3Dbs0eckEahp8bTvRX36/wJlDFtiPnveExAg2RFpu++7ZO7QMNwQFIuq9z26zD19ZQNlDq2DuQ7oiV6ERIdxdQppKvkz6iwNQYmeo0VFLhn6pZwxNQm2lPx0Zk4qmwTrCOGPm+EPUBLnziqDmTHCzhQXOpG56l/CvAuUpsk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=Goiz7D5Y; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1789755795; c=relaxed/simple;
+	bh=R4EGLP0NgUZ5EIEjB1r1udzgmhqJirLrudGKIdHuU6A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IXsr+/h4fqVvFsxMPzU1WnDYmg0Spl96YKvyfd3hhg4vwg/7VrQNfwjEarKojvXyYg+4tE4x6ikBiJyi4oQelijQyy7f4lEPqSiy8LdBImuyNuj6sDpAlC0IcWQ7L1VlN60aHUWbSMoQ/T49BQRWQ3D9wZ16dW1fCUkM+2oABDs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=uBViZE7W; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="Goiz7D5Y"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1789755778; x=1821291778;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=DQ11aT6chxj+is/hy9hP1fiwgbDJw2XvIWlCzvNSbts=;
-  b=Goiz7D5YCakOnpMdIsnQ5jaGlw1mKVEzFBws+ASbkDepwSCFYZIynLZY
-   0+CKB6JNSk2dtSovHZ2oqZ4ABtJZjFDDiy/IYW0/bL6x8TIcVIv2Et1DQ
-   yvDu8e7DABN26Apkkzc/B/h/GbQjTCHceRAvkgL8SXz5yk4jiOa8sgr4S
-   Z+BNo8KyDIGfYMK7KJp8rhk2IIZqu9AtbF0pZzNOm+/Q9MKJ+AJg7mw+X
-   L7ZpbJOgTvAcR7fZ7lCjrxHcFrKyRVX8u0rCXytkYEdmfU49SW5akR3s9
-   oNbw0arUy1jQc1iR1rhiiroXvHbo1tqXAAYz/k8HZoo0ElELD0dqaPgAJ
-   w==;
-X-CSE-ConnectionGUID: 5WHnhQZqR6u+GIxmC7mKRA==
-X-CSE-MsgGUID: Ee0zJLNUQYqD92MmQl47ag==
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="73905459"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 18 Sep 2026 11:22:57 -0700
-Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Fri, 18 Sep 2026 11:22:57 -0700
-Received: from [10.171.248.88] (10.10.85.11) by chn-vm-ex04.mchp-main.com
- (10.10.85.152) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Fri, 18 Sep 2026 11:22:55 -0700
-Message-ID: <70fd2e40-ddc1-4e80-9c4b-cf2fa9c3929e@microchip.com>
-Date: Fri, 18 Sep 2026 20:22:54 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="uBViZE7W"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 26133168F;
+	Fri, 18 Sep 2026 11:23:09 -0700 (PDT)
+Received: from [172.18.224.124] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DE73A3F86C;
+	Fri, 18 Sep 2026 11:22:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789755792; bh=R4EGLP0NgUZ5EIEjB1r1udzgmhqJirLrudGKIdHuU6A=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=uBViZE7WYA5IezA8HXvATa7vZqxde4vQR9FDelx+5xM6B1jzQNnpEagcPgtVcXg4o
+	 QdPpJQBrzu93qd0jFcZXkH0sWXS7QIh0aXhmB/dNhF/hGUjElDA5Nl2Vq3pCEnZj7l
+	 tZGiCBiF0PRTjP35B7KYEyyc3evTy82EGHYUzdmY=
+Message-ID: <6b35feab-353c-4802-b47d-08ff6d226eca@arm.com>
+Date: Fri, 18 Sep 2026 20:22:57 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,71 +35,103 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mmc: use assign_bit() where applicable
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>, Ulf Hansson <ulfh@kernel.org>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>, Alexandre Belloni
-	<alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Kees Cook <kees@kernel.org>, Peng Fan <peng.fan@nxp.com>
-CC: <linux-kernel@vger.kernel.org>, <linux-mmc@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>
-References: <20260918141810.3023069-1-peng.fan@oss.nxp.com>
-Content-Language: en-US, fr
-From: Aubin Constans <aubin.constans@microchip.com>
-In-Reply-To: <20260918141810.3023069-1-peng.fan@oss.nxp.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Subject: Re: [PATCH net-next v3 3/3] net: stmmac: sun8i: add support for
+ Allwinner H616 EMAC1
+To: James Hilliard <james.hilliard1@gmail.com>,
+ Richard Genoud <richard.genoud@bootlin.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Alastair D'Silva <alastair@d-silva.org>, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+References: <20260917-submit-h616-emac1-v1-v3-0-62cb8316e19b@gmail.com>
+ <20260917-submit-h616-emac1-v1-v3-3-62cb8316e19b@gmail.com>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <20260917-submit-h616-emac1-v1-v3-3-62cb8316e19b@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 18/09/2026 16:18, Peng Fan (OSS) wrote:
-> From: Peng Fan <peng.fan@nxp.com>
+Hi,
+
+On 9/17/26 19:55, James Hilliard wrote:
+> The H616 secondary EMAC uses a separate system-control clock register
+> and supports only RMII at 10/100 Mbps. It connects internally to the
+> co-packaged AC200 or AC300 EPHY and has no external PHY pins.
 > 
-> Convert open-coded if/else with set_bit/clear_bit and their
-> non-atomic __set_bit/__clear_bit variants to the assign_bit/__assign_bit
-> API.
+> Add an EMAC1 variant using the dedicated register and enable only RMII.
+> Leave PHY initialization to the PHY driver instead of using the H3
+> internal-PHY controls. No RX or TX clock delays are configured for this
+> RMII-only variant.
 > 
-> Done with Coccinelle semantic patch and manual fixups.
-> 
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> Co-developed-by: Richard Genoud <richard.genoud@bootlin.com>
+> Signed-off-by: Richard Genoud <richard.genoud@bootlin.com>
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+
+Looks good to me, nice and minimal:
+
+Reviewed-by: Andre Przywara <andre.przywara@arm.com>
+
+Cheers,
+Andre
+
+
 > ---
->   drivers/mmc/host/atmel-mci.c | 5 +----
-
-Acked-by: Aubin Constans <aubin.constans@microchip.com>
-
->   drivers/mmc/host/ushc.c      | 5 +----
->   2 files changed, 2 insertions(+), 8 deletions(-)
+>   drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c | 16 ++++++++++++++++
+>   1 file changed, 16 insertions(+)
 > 
-> diff --git a/drivers/mmc/host/atmel-mci.c b/drivers/mmc/host/atmel-mci.c
-> index 8f4df250a77a..98933be5f174 100644
-> --- a/drivers/mmc/host/atmel-mci.c
-> +++ b/drivers/mmc/host/atmel-mci.c
-> @@ -1677,10 +1677,7 @@ static void atmci_detect_change(struct timer_list *t)
-> 
->                  spin_lock(&host->lock);
-> 
-> -               if (!present)
-> -                       clear_bit(ATMCI_CARD_PRESENT, &slot->flags);
-> -               else
-> -                       set_bit(ATMCI_CARD_PRESENT, &slot->flags);
-> +               assign_bit(ATMCI_CARD_PRESENT, &slot->flags, present);
-> 
->                  /* Clean up queue if present */
->                  mrq = slot->mrq;
-> diff --git a/drivers/mmc/host/ushc.c b/drivers/mmc/host/ushc.c
-> index 7e8af5a06ac9..410e5bb62752 100644
-> --- a/drivers/mmc/host/ushc.c
-> +++ b/drivers/mmc/host/ushc.c
-> @@ -388,10 +388,7 @@ static void ushc_enable_sdio_irq(struct mmc_host *mmc, int enable)
->   {
->          struct ushc_data *ushc = mmc_priv(mmc);
-> 
-> -       if (enable)
-> -               set_bit(INT_EN, &ushc->flags);
-> -       else
-> -               clear_bit(INT_EN, &ushc->flags);
-> +       assign_bit(INT_EN, &ushc->flags, enable);
->   }
-> 
->   static void ushc_clean_up(struct ushc_data *ushc)
-> --
-> 2.51.0
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+> index 4523a14f5e0c..1020168f1c3a 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+> @@ -81,6 +81,13 @@ static const struct reg_field sun8i_syscon_reg_field = {
+>   	.msb = 31,
+>   };
+>   
+> +/* EMAC1 clock register @ 0x34 in the "system control" address range */
+> +static const struct reg_field sun8i_syscon_reg_field_emac1 = {
+> +	.reg = 0x34,
+> +	.lsb = 0,
+> +	.msb = 31,
+> +};
+> +
+>   /* EMAC clock register @ 0x164 in the CCU address range */
+>   static const struct reg_field sun8i_ccu_reg_field = {
+>   	.reg = 0x164,
+> @@ -143,6 +150,13 @@ static const struct emac_variant emac_variant_h6 = {
+>   	.tx_delay_max = 7,
+>   };
+>   
+> +static const struct emac_variant emac_variant_h616_emac1 = {
+> +	.syscon_field = &sun8i_syscon_reg_field_emac1,
+> +	/* The co-packaged AC200/AC300 PHY does not use the H3 PHY controls. */
+> +	.soc_has_internal_phy = false,
+> +	.support_rmii = true,
+> +};
+> +
+>   #define EMAC_BASIC_CTL0 0x00
+>   #define EMAC_BASIC_CTL1 0x04
+>   #define EMAC_INT_STA    0x08
+> @@ -1276,6 +1290,8 @@ static const struct of_device_id sun8i_dwmac_match[] = {
+>   		.data = &emac_variant_a64 },
+>   	{ .compatible = "allwinner,sun50i-h6-emac",
+>   		.data = &emac_variant_h6 },
+> +	{ .compatible = "allwinner,sun50i-h616-emac1",
+> +		.data = &emac_variant_h616_emac1 },
+>   	{ }
+>   };
+>   MODULE_DEVICE_TABLE(of, sun8i_dwmac_match);
 > 
 
