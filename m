@@ -1,148 +1,109 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net [217.70.183.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 580D0483BF8
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:03:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69F354718C8;
+	Fri, 18 Sep 2026 10:04:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789725824; cv=none; b=UqWOzkIBDalm/x4yqxknbj+n0qtAiM1vBRmefHh0DqXKC2UEbYS9LxviqerPbE/LhLHDNhHU6hqa4F0MLZsyxMNGj6/y4Wi/X0Gfw4IgkZ2dagTyokTFKHnSCZ/n/q97EyC8bh5rx6XgqAYm8bbI2hFJb8oGN8l47cZU9cJJjm4=
+	t=1789725857; cv=none; b=PdoREKkAj3eneq27GCFlrsI9xulOn3mQoX790jV226GBvKldR/aJonfn4eXILO5rRHe6M/M3v2lpBf2rWFcJ9xu+PRIARByL9Gx0SFopq++Ga0bIVhJsFNSj12m3vNYHz9Zud8ut+J7dA5t6wNaknrDhft0dRIMm87+7Z4N6kts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789725824; c=relaxed/simple;
-	bh=3p5vN/K+tl5KFJkSkDuOeo+dPwt4fh+z5N6WbPTJuNI=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=bmUVD9l2GyLcxkPkw0pWApFMEvggJ0Qfc5PSZYXLc9StI0tzNdeCmMMIDc2W+siuU5gygcUhHlOIhI36Ym6D6WnIKhI6Qqb5/r9xjzFIUYm6og1xXc6glpuRcw+EMNt1GI2C9OgzYlf5u+b318Y+qpjKEzWj7Z86XGs0oqcCDtw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mina86.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jx94ZNl6; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mina86.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789725857; c=relaxed/simple;
+	bh=Ysypt3jaDk9LX7+TGymG8tHempYw1fVXIlZASODTJug=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tLeYuBV7OHTJGofzwRndkjd7UrCZz+M5wat/77vbKEUpOcHJD1d/MOGz7LliE2NlEbVB4bmJjWj/4tBd39OsiGMkbj+21nsmp+8PlWtT0ctAFruIqQCsvBPxpgs9zOkQou8Sk7ewcsnDw8pNhSZacyLWO6nY2CpECgRCJsnJnF0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gtucker.io; spf=pass smtp.mailfrom=gtucker.io; dkim=pass (2048-bit key) header.d=gtucker.io header.i=@gtucker.io header.b=JIHeV+9/; arc=none smtp.client-ip=217.70.183.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gtucker.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gtucker.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jx94ZNl6"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c29d33431c8so66085266b.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 03:03:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789725819; x=1790330619; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:sender:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6sbMQAPQsa1PhAllTJIu6Zis/bac54ZxZcTnXaIMCgo=;
-        b=jx94ZNl6CB/Q4S2uJ60LYvw/3K3HBfGkdAC6mno8Ygg8NV7bDdEBJjL8dtWRvzpLWe
-         F6Ib6JBjVZJpkL/1C9q8aRMzXe74UQc3SZhYYfGJ63d3wxhsaAHPNsrrDLK0OE0gOwfe
-         LLSXKdzAGbEpufccQBSgXCKQGt22kbpgn1sKKdzWbmZF8ZpNK+T8YBPJA8frOAP+U5j+
-         jdLNh5ZEDOUXtpKY4N2CIqnGhtFAq+T8Utwqw9rRW0tU41/U1HBJq2Mf/HFzGKhG4BdT
-         O3wJoqnZXSGX+7wnUlYX9PiHAE9MhlhKkvxnuFnwTTN3euVxRSsGLmVXQVT8J0nWEUq/
-         kU0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789725819; x=1790330619;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6sbMQAPQsa1PhAllTJIu6Zis/bac54ZxZcTnXaIMCgo=;
-        b=d25T+GBW6X0wuQ3p7lzHBB5hN/JnTwUPOO19N6qwVEnqDasX6AEtCDqJfUY0jxxVir
-         TSFL20Bho5Q+ebaxwOK6Wr1708yizkX8vj1X/ZQddXqMpgKaV4AUo1uGwDt+ijrWkOMv
-         Lh31apinJsfE2Kiwn+hf9sOb9xWtiSS1uI4OnsbPIlpcBMsSUfKNnOIy0TqnuqVp4i1Z
-         LzgRgfZCBRl7PDxp5KZmSUCWyBmriko/WnfeTP/ptDXomcv6Bm0S4syxPzSz9YlRycsb
-         i3sZsIUir/bME05mmMZVFFsORfZgd10N7hdkR9SUzhBSxJFmAMX1L2231y7h3oOGq/38
-         6FFg==
-X-Forwarded-Encrypted: i=1; AKwUvBw9tka6p1pmmtvi+8iUau6sL+/xz3UMkCFkBI1Niexv4W/rVHyoNk4Nlk9W9iggSi649sVhG7CzZOG0u+U=@vger.kernel.org
-X-Gm-Message-State: AFuF++l+yEZ0r8QyoXB8joXu2TARO9a74iwuNMOeXNWu6vuppIL81rtg
-	LimJNZQtPxirQCUe+8DvyQm4lHenA3SEkE2N+t1+EMYXELdV8C/ROptB
-X-Gm-Gg: AYBFou2asUMZolh4sGjDr3/hpyKWCz0Et94lMPEz9oeE0U258QH8VNwFGL1Cs4qyGoB
-	hwR1ZzuN6UYEcxJIrJHkGY/49UDLQpXkhfnJDM9X0/Wn4HNZPLkkC2WvAwwnQVwIsf9s1cUR/wu
-	7JDkxDnh7zvfIhD8A3V7OWQDzwOJM2dsFPEWpP9no7g5HWSEk2H/VPDAjrUVFk8ok+e/O6EXXfc
-	1B3yVvfqwxU1F50krU6qmiFiQx/JwCzc2tCPS0zvkFImv7q/Ki4IsWEZcVy6TVAis2tPPmoNkDZ
-	FpBfUeRNoRZIHqHkk7Ma1vi2JtxuOKcredZlcgI9lP9xuK3JdyE/nzCp9p+23//1Y8L+80d57df
-	uv5X0eTKvCCFQthxQqjbz/JKLkPnZZFSVWthgYmihGSbwxVcDSbZoTxKATuJMDOexW6s5HtWPwj
-	kc/SgNLw+CNt2aDrGW/yWGBdFD5rhDE9XX3QaILvRw6IBasPn9bsPTcggxrOjFDDLka8JP0toJq
-	9sgtFGla57kBIyn/uDkqJxT
-X-Received: by 2002:a17:907:7b9f:b0:c29:4cb4:8582 with SMTP id a640c23a62f3a-c2a1582a81emr214270166b.47.1789725819049;
-        Fri, 18 Sep 2026 03:03:39 -0700 (PDT)
-Received: from erwin (109241130011.warszawa.vectranet.pl. [109.241.130.11])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a1bbc6830sm39654466b.52.2026.09.18.03.03.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 03:03:38 -0700 (PDT)
-Sender: =?UTF-8?Q?Micha=C5=82_Nazarewicz?= <mnazarewicz@gmail.com>
-From: =?utf-8?Q?Micha=C5=82?= Nazarewicz <mina86@mina86.com>
-To: zjamg <ndaugoing@gmail.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>
-Cc: Robert Baldyga <r.baldyga@samsung.com>, Felipe Balbi <balbi@ti.com>,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, Yuchao Zhang
- <ndaugoing@gmail.com>, stable@vger.kernel.org
-Subject: Re: [RESEND PATCH 1/1] usb: gadget: f_fs: Fix NULL pointer
- dereference in FUNCTIONFS_ENDPOINT_DESC
-In-Reply-To: <20260918005438.81263-2-ndaugoing@gmail.com>
-References: <20260918005438.81263-1-ndaugoing@gmail.com>
- <20260918005438.81263-2-ndaugoing@gmail.com>
-Date: Fri, 18 Sep 2026 12:03:37 +0200
-Message-ID: <ag6hspo092vj0q0uehcbkf4f@mina86.com>
+	dkim=pass (2048-bit key) header.d=gtucker.io header.i=@gtucker.io header.b="JIHeV+9/"
+Received: by mail.gandi.net (Postfix) with ESMTPSA id CB9D31F416;
+	Fri, 18 Sep 2026 10:04:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gtucker.io; s=gm1;
+	t=1789725851;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3+gDfmq7h3XDTeTaV1GQcAeaaLYfq4gZqiyPpz3v3UQ=;
+	b=JIHeV+9/N02rYia1t1EvGJLRUi0ZbHU4t5xlCuq92pB5vEbVOXOKzzOTqjHeOwgEkIAFzb
+	pzZemjNFBUtvvTcNgcqlAW2mOP+mF8bdY3N+t/KlUlBK2msbtyL3J68+uQz76x0TU5ZQb0
+	SsAEB7RZc0HqLqxp0J3aXcxXEu8b8DTlCs+uMvjkD8TIl6+CyV4UFl9B2eZiDpr8sH9SiR
+	3bSitj0RwBrHeqiS1cIYxH583+qXmwtUph7ETUyEl7jNcTSwmNwLdJqxznngb+LthOgT7H
+	TpvQxFxtgYI3CdhdOOMkgcRSKtQ1CuxiYuNOAa/tB2RAxupOeOPcz4i2BAuFRA==
+Message-ID: <03e8513a-3480-42a5-9d1b-fad6c36ed07a@gtucker.io>
+Date: Fri, 18 Sep 2026 12:04:09 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/3] scripts: add TOML config to container tool
+To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Miguel Ojeda <ojeda@kernel.org>
+Cc: =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Nick Desaulniers <ndesaulniers@google.com>, linux-doc@vger.kernel.org,
+ workflows@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kbuild@vger.kernel.org, kernelci@lists.linux.dev,
+ automated-testing@lists.yoctoproject.org
+References: <68b14a76a4cb2e6437c869bab948983a98acffbd.1788779245.git.gtucker@gtucker.io>
+Content-Language: en-GB
+From: Guillaume Tucker <gtucker@gtucker.io>
+Organization: gtucker.io
+In-Reply-To: <68b14a76a4cb2e6437c869bab948983a98acffbd.1788779245.git.gtucker@gtucker.io>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-GND-Sasl: gtucker@gtucker.io
+X-GND-Score: -100
+X-GND-Cause: dmFkZTFxUUHp53EL18Bb9M/JQza76+h26K4mGaSDc5K9XDme86qqMnFHH+rvynti1TbPuqrrc9xboTwjPdi2J4SEX38+db+SG75sK8c0TN5ScJZdIEvWoliaOA6h+tXUsq6PuPZUTut0MpLdmT94mvohnuNIeUeqE9wphUH5ZXd2szVUawzg1njiRkG8qir4EZeQlk7z1QcBzQ+30iYBH/C8NsuUotOoHF7iiC/2UQ/J0o0ofVsvYMZKf24ygtJVS3l+fLrX4UM1AM1QDtFBGi36R2qgWziM4q5xodfyHG2jeoHE+Zt3X+iutDD1qMe8xrm5y+znxfhDaAF1ioC9Dt5ZamwKDM48/ZW/e22b1PmbGReFQ9/YuLqjPmy06OwntVGS8G0ysfcgFlE2m3qHEcdkOI/MGu2V7VgawQG9WZ+4uw6QcoPrr0y2uqXLT4QP578jK0Z7v6i97udmAXuRAGSKkzxJlKtDqNKqQljfiIKiran5vR2waJgxNl99K5tVlb4VWGAQ2qd4aK7Wa4IYki278qTrGgGY3fe7eg6hd6FKVmwS9OyWfhuCy0W1DM8YS9boqZO5VPIEFyK1GGyBp5mUJCPYpJjpE5oD3Su/cZPbf6oKxm0Y9P+QGcXClTdiO3Y1wU+8Ofiwe5UQQX6v745qVzGRPHM/U0rQ2rzMCgALytE5Cw
+X-GND-State: clean
 
-On Fri, Sep 18 2026, zjamg wrote:
-> From: Yuchao Zhang <ndaugoing@gmail.com>
->
-> Fixes: c559a3534109 ("usb: gadget: f_fs: add ioctl returning ep descripto=
-r")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yuchao Zhang <ndaugoing@gmail.com>
+Hello,
 
-Acked-by: Micha=C5=82 Nazarewicz <mina86@mina86.com>
-
+On 07/09/2026 13:10, Guillaume Tucker wrote:
+> Add support for a TOML configuration file to the scripts/container
+> tool.  This improves user experience by not having to keep passing the
+> same command line options all the time or overly relying on built-in
+> default values.  Include the concept of 'profiles' with different
+> named sections in the file to cover various use cases.
+> 
+> Command line options take precedence over the config file, and values
+> defined in profile sections take precedence over the default one.
+> 
+> Add a -c option to override the location of the .container.toml config
+> file which should otherwise be located in the current working
+> directory.  If not found, the file is silently ignored as it is not
+> strictly required unless the -c option is used.
+> 
+> Add a -p option to choose a particular profile section in the config
+> file rather than the default.
+> 
+> Signed-off-by: Guillaume Tucker <gtucker@gtucker.io>
+> Acked-by: Nicolas Schier <n.schier@fritz.com>
 > ---
->  drivers/usb/gadget/function/f_fs.c | 15 +++++++++++++--
->  1 file changed, 13 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/func=
-tion/f_fs.c
-> index 43962e05eacf..c64a268e98a4 100644
-> --- a/drivers/usb/gadget/function/f_fs.c
-> +++ b/drivers/usb/gadget/function/f_fs.c
-> @@ -1877,8 +1877,9 @@ static long ffs_epfile_ioctl(struct file *file, uns=
-igned code,
->  		break;
->  	case FUNCTIONFS_ENDPOINT_DESC:
->  	{
-> +		const struct usb_endpoint_descriptor *desc;
-> +		struct usb_endpoint_descriptor desc1;
->  		int desc_idx;
-> -		struct usb_endpoint_descriptor desc1, *desc;
->=20=20
->  		switch (epfile->ffs->gadget->speed) {
->  		case USB_SPEED_SUPER:
-> @@ -1892,7 +1893,17 @@ static long ffs_epfile_ioctl(struct file *file, un=
-signed code,
->  			desc_idx =3D 0;
->  		}
->=20=20
-> -		desc =3D epfile->ep->descs[desc_idx];
-> +		do {
-> +			desc =3D epfile->ep->descs[desc_idx];
-> +		} while (!desc && --desc_idx >=3D 0);
-> +
-> +		if (!desc)
-> +			desc =3D epfile->ep->ep->desc;
+> 
+> Notes:
+>     Changes in v2:
+>     - fix uid / gid handling when set to 0 (root)
+>     
+>     Changes in v3:
+>     - fix logic when loading config profiles using None
+>     - fix typo with missing whitespace in help message
+>     - clarify how UID gets used as default value for GID
+>     
+>     Changes in v4:
+>     - drop registry option from TOML config
+> 
+>  scripts/container | 86 ++++++++++++++++++++++++++++++++++++++++-------
+>  1 file changed, 74 insertions(+), 12 deletions(-)
+Thanks for the reviews so far.
 
-IIUC, this will never be non-NULL if all the descriptors are NULL.  Then
-again, it probably won=E2=80=99t hurt, so dosen=E2=80=99t matter one way or=
- another.
+Do you guys need anything else regarding this series?
 
-> +		if (!desc) {
-> +			ret =3D -EINVAL;
-> +			break;
-> +		}
-> +
->  		memcpy(&desc1, desc, desc->bLength);
->=20=20
->  		spin_unlock_irq(&epfile->ffs->eps_lock);
+There's no rush of course and we're all busy, just making sure I
+didn't miss anything.
 
---=20
-Best regards
-=E3=83=9F=E3=83=8F=E3=82=A6 =E2=80=9C=F0=9D=93=B6=F0=9D=93=B2=F0=9D=93=B7=
-=F0=9D=93=AA86=E2=80=9D =E3=83=8A=E3=82=B6=E3=83=AC=E3=83=B4=E3=82=A3=E3=83=
-=84
-=C2=ABIf at first you don=E2=80=99t succeed, give up skydiving=C2=BB
+Thanks,
+Guillaume
+
