@@ -1,84 +1,111 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9616D51AED1
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 17:10:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B387051814C
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 17:10:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789751408; cv=none; b=CHt+BTY+R5vpGzQnsY4hQA/3S14QLxAD8OsyVzN3AHbMUe11acQ25S/BqiNE0VgKGcajHMaduRPqMUF4gVyMxNaoJVBit2zS0/5+vWMZWD02+OQ/fnTzX4f0pMjUJFtSkpfqXkF60h5FNIZFyQxSw+KZmkTUKMbp5H6jnDJqUTY=
+	t=1789751451; cv=none; b=uqauhJQDodY3Y7jo6b/AfJMOag1kaP6/2Qh5TnBY9mgYgmXYCYRCOOf1ky0gQWU6VdhKOFLvmx49UKm5OZRLA2OkYFI9wqiUGyVaKgCIvnWXWB81AvzOgNgVKlMGVy9Y4ZEFDkrOje/cIs+Ixz0tR603VOKBZjuAoKSYcAJSl9w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789751408; c=relaxed/simple;
-	bh=BgKcsXT68JH7sgpTC8Gm4cYQ/2FLLJZL15J9ATZKhdY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FieP2PZu0S0g4sbXCpm18uj9hjZTTHnW4FfYeNcd5ff9Uwqr6OKjRQ7IwACY8MPZdQ/oIo2OdbZRjo4exwpX0GDYl5Q5cxH792vTlg2OMmLo0Zg20Uei8uLPKAI6s/iujVWWD0BTnJHaMFuAAblSTtD2UOGZzMkd7HjrHQxu+OA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=c+3nHSYF; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789751451; c=relaxed/simple;
+	bh=ucvUi70zYMSNKdpB5M9U4/0JPwWH9o5vYxQ/RxH4z38=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oDoaynh6GRK5HNJdaoldZ1wfvZ1cwnu0ycN+o9IIdwsk65BRZB/bv2Id/OLbjxcRbIHAFOWsKxzbrLH+n1iPqqhqVbiviHqivvuzlhDqRT+gecguEZRIwfviPVLbi6c7CdKczZrqDQsDNXYZjs/X4Gl364QzMq3oLcsXPFM46ls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X/3Gfra/; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="c+3nHSYF"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4209B1476;
-	Fri, 18 Sep 2026 10:10:02 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1DACF3F7B4;
-	Fri, 18 Sep 2026 10:10:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789751405; bh=BgKcsXT68JH7sgpTC8Gm4cYQ/2FLLJZL15J9ATZKhdY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=c+3nHSYFUtf7SaswiArlABvI3b2BtMzdxnuXNvLB87iAQX6Q6HaMpLdSwSayvDuVR
-	 gJxPsA6IT7ZWN1hQIzcfuUzSvmwyEfbapuvFZPGEGXQzo6qO0pR9L257MQcNmha+M/
-	 EGHJ6ZVdBmJB4loa8mqNP1EmXfTgf3xUNsoRUZOA=
-Date: Fri, 18 Sep 2026 18:10:01 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
-	linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	iommu@lists.linux.dev, Marc Zyngier <maz@kernel.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>
-Subject: Re: [PATCH v6 0/9] coco: guest: Enforce host page-size alignment for
- shared buffers
-Message-ID: <aq1wabiHOhLRjHEd@arm.com>
-References: <20260904103452.1197239-1-aneesh.kumar@kernel.org>
- <aq1sT2EDsGaomqST@arm.com>
- <20260918165754.GG11599@ziepe.ca>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X/3Gfra/"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2db18fe459dso6409325ad.3
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:10:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789751449; x=1790356249; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tVg6kTrkQkmUGuiks//D1y2XA3XKuOl8NQNCerU5SkU=;
+        b=X/3Gfra/nivtqCsk6pHkyBPJoOHZb/Q9AOv7S6Hz/RqNjy5ZMpa5/+iO3h7rf4z+Ju
+         ZIFrygxxDdPld07CBab3jooOq3WZxvbF+2jNXSn1ARddELHeUEKcQX8tN6VPKr6t2ALx
+         PiChhSnA13tlFokZqEf3jAQQXf8/NbAwSyoYRYQ06cutbgmM+elE4ONIem79UpfmvrSs
+         Ob+2t24gYN0gj7wpOKRKgtkHDRxBOYIK1Jr3ovEGuHoZzhMyvVMAzlqE+EP9bQ15b6o+
+         krVk5SIJwS+TwilOmWhDACDpW0MeJEibgBVhdtksZLGuctSJVwWbymsMmq70yUJ4WZxX
+         M6Mw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789751449; x=1790356249;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tVg6kTrkQkmUGuiks//D1y2XA3XKuOl8NQNCerU5SkU=;
+        b=rt5ZWM8gaEZEV4+/0884ppH6GjH1Ta4rdMggBpvDhAGF2x3V3c9LXnF6AvlUkS0CuB
+         1emUpIMdgn5kgK0lC9R/6P6vyTTMJuoly2XqHLUI/zwXlcA/QP/voAK7iVe2QDMaQ0OA
+         teng6XaTlV1+XhyNkNV5am3hGAmdokxTLEUGGvTbMeHVA3d849qF9+/BM5pRKIl6pPMx
+         kymLH2Td/9ORWLgrLwbfwFQVGXOpEc31k7GmhTkl1EzDsP7UHFch2qiYpekM6R0cVWT7
+         CkhiGVJVqg53lCdq3VQ61ltrFI/Xa8bRpFFigA57txCpD7GYb+yLLwQopJn5VXbq7zFh
+         R1zw==
+X-Forwarded-Encrypted: i=1; AKwUvBx5pH7dBFKGO+6irmfg5O7Iq6V2kvScdrSlCNxppv0W4Fn2W8iAZ2cn59h6p31kMrqqKmNX4nQ/VCg1kpE=@vger.kernel.org
+X-Gm-Message-State: AFuF++k7axWlyakKjY0HsZRcXXM7+f+mEUp2DMJ3vYWVh+aiLVor2esJ
+	Fwwa6Yg03/dfwPgBkVbdJOklt0URqbfd4A7ZaedvUIOJD0xXK7/+hxPw
+X-Gm-Gg: AYBFou01knyTVGE47epRQX3EcshkO+CwG4TPm2Re0aoU2jSJS/V0tXBs9PMSJBsvCl8
+	IOTvvuBLbwv1W3kIcDml9eBzrhiU2KRLVyXduhE06KbakUOs0wwx2EeaD0abj3XbcixA9H0XvPm
+	n5KLMmntH7DBQzpMbCLRM3yYD7XbnRkRk6nIGX4QFz+LT5MzjuxxGqoXWwh0i4WAEk7Y/TJYMKc
+	BbiOzPYwOQ798BBiA/+4krRGxzLwLfPU4IUpcd9KbhL4neuk3WYLIuvzKsaO4vLmoSdPJDwbIOM
+	watcBe1DsZUc2zcK7NIykZSQE2ZKZZjwdXLVzyVc7riyTGjZZCSmMiz2FNYyS9aw6np52XDq8Hw
+	DmpkycKefHV6lYVFgm/CrLp2WeNgPrFR8jokHMYoYyz8JXdRanzLHHyoCL2aOOr32wS8e+PzqrG
+	yy00JFo/33CtD8vIb5xxWXr86xcwQeXLTt5VOzJtwafgHgCEW6Nphzug==
+X-Received: by 2002:a17:903:1446:b0:2dd:c100:4b7a with SMTP id d9443c01a7336-2ddc1005ecbmr3691105ad.49.1789751448786;
+        Fri, 18 Sep 2026 10:10:48 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddb75b6552sm11775625ad.61.2026.09.18.10.10.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 10:10:48 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] scsi: lasi700: put SCSI host on remove
+Date: Sat, 19 Sep 2026 01:10:38 +0800
+Message-ID: <20260918171038.3588395-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918165754.GG11599@ziepe.ca>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 18, 2026 at 01:57:54PM -0300, Jason Gunthorpe wrote:
-> On Fri, Sep 18, 2026 at 05:52:31PM +0100, Catalin Marinas wrote:
-> 
-> > TBH, I'm tempted not to support this configuration at all, just fail
-> > gracefully if the realm page size doesn't match the host's. However, if
-> > that's a real world configuration, 
-> 
-> realm != host is going to be fairly common.
-> 
-> host > realm is probably not that common, I would guess.
+lasi700_probe() obtains a SCSI host through NCR_700_detect(). The
+probe failure path drops the host reference with scsi_host_put(), but
+the normal remove path does not perform the corresponding cleanup.
 
-It's the latter that's problematic. If we don't think it's common, maybe
-not worth solving.
+As a result, the SCSI host reference remains allocated after the
+driver is removed.
 
-> > I wonder whether could we leverage the swiotlb mechanism but with a
-> > separate io_tlb_mem as a shared coco allocator with the right
-> > alignment and use this pool when force_dma_unencrypted() instead of
-> > specific alloc_pages() with adjusted order.
-> 
-> I propose we fix the far too low level set memory decrypted apis into
-> proper allocators, with APIs that can handle a round up. Then see
-> where we end up after that.
+Call scsi_host_put() after all users of the SCSI host have been torn
+down to release the reference acquired during probe.
 
-I fully agree. As you said, it also solves the double zeroing problem
-and we can wire up the granule difference handling.
+This issue was found by manual code inspection.
 
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/scsi/lasi700.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/scsi/lasi700.c b/drivers/scsi/lasi700.c
+index 6d1fb55cc3ad..1b4982cde210 100644
+--- a/drivers/scsi/lasi700.c
++++ b/drivers/scsi/lasi700.c
+@@ -146,6 +146,7 @@ lasi700_driver_remove(struct parisc_device *dev)
+ 	free_irq(host->irq, host);
+ 	iounmap(hostdata->base);
+ 	kfree(hostdata);
++	scsi_host_put(host);
+ }
+ 
+ static struct parisc_driver lasi700_driver __refdata = {
 -- 
-Catalin
+2.43.0
+
