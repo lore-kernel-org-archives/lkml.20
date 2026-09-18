@@ -1,196 +1,184 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF84E3D7D8D;
-	Fri, 18 Sep 2026 04:23:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D368230D3F1
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 04:23:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789705407; cv=none; b=COG2mJiTcSfVphccREIevd8wFwf+dp88oFg7mJOCReIm8KIMkASsmzt7jG8286uiOPcMNo8arUlEqDLoBPlL2sOix4LPp4wbgBsvtdzZudJSpMROXK+7mupuaeYAjMUXXKSsCujErtiMt/XmVb7J5GxwOkpC0+TNhrtf8vxmdVk=
+	t=1789705423; cv=none; b=qh6dvXhdHmqpzgIQgBGsLJjMhMcoMSpviA989d7ISi50Z+9y0XtCezNiyWwQ/FG/Oe1GGW7XKYbKws1dLw9lBAchPAKqhTfdOvlUmWa6QDoVpbMpjkG9mCnJ+pKuo1OKDcPD/2aUYJn/jZsmf1R94GR+g2UjSasN3cqYn2sGyGk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789705407; c=relaxed/simple;
-	bh=OYFLYzs65zTf5R7l1QWHf22dliRj+0HvzsvQGF6Q7FA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=u1PkNAvcYEPqZ5CnhSRzZ3/w9iHTTYtIdIZ3rptzdtAQLCIESD3/EkG6Mi8cgU8sfaCQZsLXdjG6fnf5A5Lq/Ic6pXwR+ArVx0kNyix1CXYlqOxXlaZVJ9d/wAb+QaIAsYEj5yXS7M+fIBVeLIgk4zFT8PjICcbMGBNpW0ibHoI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=e9X4JR1v; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1789705423; c=relaxed/simple;
+	bh=CLW7hDPd69ZKqON9v5+I/+GeNtAIJUzPFUdWDgkIng4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=WK2J82wWXLS4qtvQQytVYuvwQ8p6aufYj/GGpYOGpmhJKujgOY9Fu24PGLPo78UNosyJyW3IaIobRRxLegDfukXroBRReMeS2y00KgJKiXrDEWHyf+Nv6xvsT/31Gy+1cHEqcS5QShrbJlVDyOHvPH9wTDJ5JBtTfojDMdA4EPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gNmxSofd; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="e9X4JR1v"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I2VZMX042853;
-	Fri, 18 Sep 2026 04:23:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=ZmvDdD
-	7G2DURdy007nTdLCWSY9iH77w1BX+yQJIUAL4=; b=e9X4JR1vlc0A3J50feqYUD
-	GS0B1SBZaET1GXcNTdxg0/1/s7sknTinA0n21g3RmdRRoAUgmp4RX23dT2eWPa+J
-	ynxUCQqjvko3X1VMu+1WZlpaEQpIbX03x2Sf5r44yiiO/Tx3o5H4EeRgjgENdUYW
-	TmW8RFFIU+qVODruPAn8E6Lmqv94bZiCiP5piDobeTKv85jAssAXr0lu+eryTJxg
-	KPWvZfQqmO2ofGapSBna2OCA5jubw0X6Npabql9bWgswb7ljaLyUyedoIUCuDMIy
-	WIVUO3u/FLJuWpl+qc4wzGuQgG5GNb4DjmfvGiRJe01Jnranfy7Ww4ggo7fxKJcA
-	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmx84652h-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 18 Sep 2026 04:23:19 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68I2ZKbU918969;
-	Fri, 18 Sep 2026 04:23:19 GMT
-Received: from smtprelay03.wdc07v.mail.ibm.com ([172.16.1.70])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gr7gen9j7-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 18 Sep 2026 04:23:19 +0000 (GMT)
-Received: from smtpav05.dal12v.mail.ibm.com (smtpav05.dal12v.mail.ibm.com [10.241.53.104])
-	by smtprelay03.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68I4MYRR6816288
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 18 Sep 2026 04:22:34 GMT
-Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1476658065;
-	Fri, 18 Sep 2026 04:23:17 +0000 (GMT)
-Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id B7C9458068;
-	Fri, 18 Sep 2026 04:23:13 +0000 (GMT)
-Received: from [9.123.14.23] (unknown [9.123.14.23])
-	by smtpav05.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 18 Sep 2026 04:23:13 +0000 (GMT)
-Message-ID: <31c1533f-7d2a-448f-a929-6fefe976de69@linux.ibm.com>
-Date: Fri, 18 Sep 2026 09:53:12 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gNmxSofd"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469a34908so322974b3a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 21:23:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789705421; x=1790310221; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9BEYrdPncK5+8wcIBCPJhFb06NPsWm4ypvW09xMw3CI=;
+        b=gNmxSofdbqgxTk8YUjXaA87OeMKMsgm23/E8Oq6HxWairoccMuklBH5r/5VA4GXqwP
+         pNaRUjZPSXL1WgycCZHtq4GGnUrUej8NirmlfvnkJJtH4u5m3UFnbzJ7b5SEluzo9J4e
+         DY/3ZsyleXdXxVp1VgDsaxuo8iG6QGYe4H3DmF6tJ95+8OfcBaP+KX6azdaSXMJJejuB
+         lGyYsFCGXfgdnGglefDPoGRVLTO9QhwVLjNLHqK7y1F2tlOtQOfx6rE6RN1umtAvhfZR
+         uVivwf8PgpwIhl3kw5mlGdeJ4/i0JnW8753Y5DBPNDtut2aiFhrW+6WJ/ujdkF4hVb/W
+         9X7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789705421; x=1790310221;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9BEYrdPncK5+8wcIBCPJhFb06NPsWm4ypvW09xMw3CI=;
+        b=UCWdi0dD9F64JvZfSbqZcB1E0Qgr1Ulay3vBJlPvuM+LXxH3NOJTTRQTHv4bjrVWaZ
+         Ihon+UeJHOZZOGJ6OwmLNGOY9TpikKZE4dAyohWvt5woaOR1tuBsi0mpSDlhRN9l0nxd
+         VVIww/SSVJY1hM5+EgMFEBBPU/HsUKzGGtyUSPcgsr48cJ+2eXb60TLcZqStMi/BybXc
+         aiHvKhCnOTS3ibdqMxc18sRAMJovjhBMnJ8V73wJJbZiObCf5JsisVSjjaBmDt8UpRAT
+         /A4bExdDusgLAp4ImK1k0eHi9mfxbDmdGZujv6BygkDXjIbyFBYzifWRjqC0V5CQC/7H
+         1/KQ==
+X-Forwarded-Encrypted: i=1; AKwUvBycHhQHKns2hAc2OybJImeNcIlo82gnKFj9KbEl3ABDV5DbSdC1anYs4GEwne9Kzca5AWsTNIC3hQxN1Pc=@vger.kernel.org
+X-Gm-Message-State: AFuF++l2NV5UbIKoRGpn7ZMEkC63hMzGnnfpE1b9Fs+il6lrug9F5eVC
+	Skkzew8wtYNxFSyl7F0OWANuiUl7LxUVkpPuZKMhzbSgNd0UPxrbQdzV
+X-Gm-Gg: AYBFou1hDIoHm5DeSZtRHIyQK+d8vvBVbQNszryhoSRV8EXKBJTJpU4iqzIveokfBXQ
+	JSmOxr3c1WwzoJMbbbYKOnQSooddfqGVlCdKAX7E7E7ubE+K9fl1ddYMLBKXOErd3Fn4DsUS8Bw
+	u3k+hQftp280bCg2/TEM5GBfn2B9wDR8UXwNZORysBuvQZWkgl0uFTqAeLNMi/HzTdEaeHiA0kA
+	D+fQ4zMFNIJliKtgvAc2iXZ9qMTmDWLToQEZtcDSEUFrHNSgXElQTewJmTZv9KL3/FFx+rje9f8
+	8dN2aYZU2ELFafn77BkCzziDsCA8krvMQnry4kN+j21EAKPkgoWQYTgcjWEZxWLlRB5bv4lhkT4
+	qJ1lCCgxMBF/7FhCz3Ym3VBI/kkri1jhqd21xzlvgPr2nnAyKw/hx6piiLvQS+aCfmcYHK6KBx4
+	/Qq3U0jqqnEklxGaYnPbdSHBMJGWHcGgZDUpBwZs38oZ0rgZlOiWdAcyWjXgrU43V3lIhKSGtZ
+X-Received: by 2002:a05:6a20:6a20:b0:3d2:2afa:d7d with SMTP id adf61e73a8af0-3dd8c52d98emr2724989637.18.1789705420877;
+        Thu, 17 Sep 2026 21:23:40 -0700 (PDT)
+Received: from G15-5520 ([103.246.195.50])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144cdfc3df2sm2305851c88.5.2026.09.17.21.23.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 21:23:40 -0700 (PDT)
+From: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Zhenyu Wang <zhenyuw.linux@gmail.com>,
+	Zhi Wang <zhi.wang.linux@gmail.com>,
+	intel-gfx@lists.freedesktop.org (open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS),
+	intel-xe@lists.freedesktop.org (open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS),
+	dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
+	linux-kernel@vger.kernel.org (open list)
+Cc: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
+Subject: [PATCH] drm/i915: use string choice helpers
+Date: Fri, 18 Sep 2026 04:23:18 +0000
+Message-ID: <20260918042325.17700-1-lalitshankarch@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 0/2] Move TPM-specific fields out of
- trusted_key_options
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
-        James.Bottomley@hansenpartnership.com, zohar@linux.ibm.com,
-        stefanb@linux.ibm.com, linux-kernel@vger.kernel.org,
-        linux-security-module@vger.kernel.org, nayna@linux.ibm.com,
-        rnsastry@linux.ibm.com
-References: <20260912062950.279104-1-ssrish@linux.ibm.com>
- <aqyeGbZKvLxaDwju@kernel.org>
-Content-Language: en-US
-From: Srish Srinivasan <ssrish@linux.ibm.com>
-In-Reply-To: <aqyeGbZKvLxaDwju@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDA1MCBTYWx0ZWRfXx553KlEFs+EL
- 77xN3bD6j5FSr3IQqWtCbXUrNlH0Zb6pZD39cuwbSPlxnK0/819ndZyx5xCknHx2YIiFxSdIohW
- yioz9KzzeJBALg8zMnQtlil+Rbpj3e59akiTf3Gg5Owt79bn81OtgrAF0KR6aVyYRPUKPRjOt/f
- pJK7wwmreBXfxX0e3IEffTsw1x9boRVBf3Eb6HDaJVptQB9QmZ8yKpBp85BgLnmWyRgX9b6DWuH
- ObZW1STejcdFJfu/swp/IlyVYhVp/1r8HKhHWqYbRvW4dI2S8wNw1mJ7nJYAFVIZR+HA56WYlHZ
- euLrUgQLImGPY/MfBbu+9BuMhTGzjmfUd2J9qdJI4OYmD8zIEJyTPM1js6VXIqHBA6BcpsomU/M
- z6Voh+ukTMwH4Eye3zpRQmiKAJaIz/uydCTqN8UWOHDTQmRlnhWczfgQJmlnGCl5bHB+oW+eBKS
- Rfafr3wJ0v3VJFxf4vw==
-X-Proofpoint-ORIG-GUID: aLL5uXhr3XhPB-GJ-HsF_BWYGRVHovHg
-X-Proofpoint-GUID: aLL5uXhr3XhPB-GJ-HsF_BWYGRVHovHg
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDA1MCBTYWx0ZWRfXy+dzJD1tkOV0
- utqHG+bLoRRraRkjJalRubuSRdP4n8PgHsrxkA13FEbZGVYSBmL1l1WZk4fB65t2EOnIB6jQi3N
- u+YLcT8+2GEdMnGt+pxdi5SnYOGFZqk=
-X-Authority-Analysis: v=2.4 cv=cY9HPXDM c=1 sm=1 tr=0 ts=6aacbcb7 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
- a=m1BUU5f1b-1mlk2DMncA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-18_01,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 bulkscore=0 clxscore=1015 suspectscore=0
- impostorscore=0 malwarescore=0 phishscore=0 adultscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180050
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+Prefer the str_high_low() and str_read_write() helper functions
+over ternary operators with hardcoded strings.
 
-On 9/18/26 7:42 AM, Jarkko Sakkinen wrote:
-> On Sat, Sep 12, 2026 at 11:59:48AM +0530, Srish Srinivasan wrote:
->> struct trusted_key_options contains fields that are specific to the TPM
->> trusted source, resulting in the accumulation backend-specific fields in
->> the generic options structure.
->>
->> Move the TPM-specific fields into a new struct trusted_key_tpm and store a
->> pointer to it in the private member of struct trusted_key_options.
->>
->> As a preparatory change, return immediately after a TPM unseal failure to
->> prevent pcrlock() from overwriting the unseal error.
->>
->> Changelog:
->>
->>   v9:
->>    - Resent the full patch set with consistent v9 subject prefix
->>    - Corrected patch 1/2, which was sent as v3 in v8, which caused b4 to
->>      flag the series as incomplete
->>
->>   v8:
->>    - Rebase onto commit
->>      adc6a9f6d997 ("KEYS: trusted: Fix tpm2_load_cmd() boundary check")
->>      to resolve the merge conflicts
->>    - Include Jarkko's Reviewed-by tag
->>
->>   v7:
->>    - Fix a memory leak in the preparatory fix
->>
->>   v6:
->>    - Add a preparatory fix to return immediately after a TPM unseal failure
->>    - Replace explicit cleanup with __free(kfree_sensitive) in the TPM seal
->>      and unseal paths, as suggested by Jarkko
->>
->>   v5:
->>    - Rename struct trusted_tpm_options to struct trusted_key_tpm, as
->>      suggestedby Jarkko.
->>
->>   v4:
->>    - Rebased onto mainline after tpm-buf memory-safe allocation changes were
->>      merged
->>    - Resolved the resulting merge conflicts
->>
->>   v3:
->>    - Exclude the preparatory clean up patch as the problem has been
->>      addressed in commit
->>      9ec4175a30eb ("KEYS: trusted: Debugging as a feature")
->>
->>   v2:
->>    - Exclude the bug-fix patch as it has already been applied to 6.19-rc7
->>    - Rename instances of trusted_tpm_options from tpm_opts to private
->>    - Use pr_debug and KERN_DEBUG for logging debug messages (preparatory
->>      clean up patch)
->>    - Address other minor comments from Jarkko
->>
->> Srish Srinivasan (2):
->>    keys/trusted_keys: return immediately after TPM unseal failure
->>    keys/trusted_keys: move TPM-specific fields into struct
->>      trusted_key_tpm
->>
->>   include/keys/trusted-type.h               |  11 --
->>   include/keys/trusted_tpm.h                |  14 +++
->>   security/keys/trusted-keys/trusted_tpm1.c | 125 ++++++++++++----------
->>   security/keys/trusted-keys/trusted_tpm2.c |  50 +++++----
->>   4 files changed, 113 insertions(+), 87 deletions(-)
->>
->> -- 
->> 2.53.0
->>
-> I applied v8 already. Please check from my tree whether this needs
-> reapplying or not.
+No functional changes.
 
+Signed-off-by: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
+---
+ drivers/gpu/drm/i915/display/intel_cx0_phy.c | 5 +++--
+ drivers/gpu/drm/i915/gvt/aperture_gm.c       | 4 +++-
+ drivers/gpu/drm/i915/vlv_iosf_sb.c           | 6 ++++--
+ 3 files changed, 10 insertions(+), 5 deletions(-)
 
-Hi Jarkko,
-
-There is no functional change between v8 and v9.
-
-As per 
-https://lore.kernel.org/all/aqR1vX9u209mCHsq@kernel.org/#:~:text=ERROR%3A%20missing%20%5B1/2%5D!
-v8 did not apply cleanly as I got the versioning for patch 1/2 wrong.
-
-I fixed that problem in v9.
-
->
-> BR, Jarkko
-
-Thanks,
-Srish.
+diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+index dbebd7210848..b83f0afaa9b5 100644
+--- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
++++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+@@ -5,6 +5,7 @@
+ 
+ #include <linux/log2.h>
+ #include <linux/math64.h>
++#include <linux/string_choices.h>
+ 
+ #include <drm/drm_print.h>
+ 
+@@ -189,7 +190,7 @@ int intel_cx0_wait_for_ack(struct intel_encoder *encoder,
+ 		drm_dbg_kms(display->drm,
+ 			    "PHY %c Error occurred during %s command. Status: 0x%x\n",
+ 			    phy_name(phy),
+-			    command == XELPDP_PORT_P2M_COMMAND_READ_ACK ? "read" : "write", *val);
++			    str_read_write(command == XELPDP_PORT_P2M_COMMAND_READ_ACK), *val);
+ 		intel_cx0_bus_reset(encoder, lane);
+ 		return -EINVAL;
+ 	}
+@@ -198,7 +199,7 @@ int intel_cx0_wait_for_ack(struct intel_encoder *encoder,
+ 		drm_dbg_kms(display->drm,
+ 			    "PHY %c Not a %s response. MSGBUS Status: 0x%x.\n",
+ 			    phy_name(phy),
+-			    command == XELPDP_PORT_P2M_COMMAND_READ_ACK ? "read" : "write", *val);
++			    str_read_write(command == XELPDP_PORT_P2M_COMMAND_READ_ACK), *val);
+ 		intel_cx0_bus_reset(encoder, lane);
+ 		return -EINVAL;
+ 	}
+diff --git a/drivers/gpu/drm/i915/gvt/aperture_gm.c b/drivers/gpu/drm/i915/gvt/aperture_gm.c
+index 253b41789be9..794fb50e48dd 100644
+--- a/drivers/gpu/drm/i915/gvt/aperture_gm.c
++++ b/drivers/gpu/drm/i915/gvt/aperture_gm.c
+@@ -34,6 +34,8 @@
+  *
+  */
+ 
++#include <linux/string_choices.h>
++
+ #include <drm/drm_print.h>
+ 
+ #include "gt/intel_ggtt_fencing.h"
+@@ -76,7 +78,7 @@ static int alloc_gm(struct intel_vgpu *vgpu, bool high_gm)
+ 	mutex_unlock(&gt->ggtt->vm.mutex);
+ 	if (ret)
+ 		gvt_err("fail to alloc %s gm space from host\n",
+-			high_gm ? "high" : "low");
++			str_high_low(high_gm));
+ 
+ 	return ret;
+ }
+diff --git a/drivers/gpu/drm/i915/vlv_iosf_sb.c b/drivers/gpu/drm/i915/vlv_iosf_sb.c
+index 1f0332b4ad0d..fede1735bc08 100644
+--- a/drivers/gpu/drm/i915/vlv_iosf_sb.c
++++ b/drivers/gpu/drm/i915/vlv_iosf_sb.c
+@@ -3,6 +3,8 @@
+  * Copyright © 2013-2021 Intel Corporation
+  */
+ 
++#include <linux/string_choices.h>
++
+ #include <drm/drm_print.h>
+ #include <drm/intel/display_parent_interface.h>
+ 
+@@ -101,7 +103,7 @@ static int vlv_sideband_rw(struct drm_i915_private *i915,
+ 				    VLV_IOSF_DOORBELL_REQ, IOSF_SB_BUSY, 0,
+ 				    5)) {
+ 		drm_dbg(&i915->drm, "IOSF sideband idle wait (%s) timed out\n",
+-			is_read ? "read" : "write");
++			str_read_write(is_read));
+ 		return -EAGAIN;
+ 	}
+ 
+@@ -125,7 +127,7 @@ static int vlv_sideband_rw(struct drm_i915_private *i915,
+ 		err = 0;
+ 	} else {
+ 		drm_dbg(&i915->drm, "IOSF sideband finish wait (%s) timed out\n",
+-			is_read ? "read" : "write");
++			str_read_write(is_read));
+ 		err = -ETIMEDOUT;
+ 	}
+ 
+-- 
+2.53.0
 
