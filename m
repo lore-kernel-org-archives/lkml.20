@@ -1,132 +1,111 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 134FF501F27;
-	Fri, 18 Sep 2026 15:25:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.4
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789745143; cv=none; b=g5lF9de9+ufR3y9hX12C2lryekZfgJy/cIkhP1vS7ykGsDFTAIGrp55PkICIdRI+0DCjn+Oi0A5pnKlkjAU6uBKippzsyE09jU8ZsqOGRzzuAPCUolRrugsWu6HfvyBt0pCw4RYcNihuXaRRqo43MrhDylNEwVcyXhbwXKNlw2A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789745143; c=relaxed/simple;
-	bh=ZIUKz5YLX0dZKovTWpgV/pR/9RReZkXNWjNltpenNJ8=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=b9SBC9geUNsW2m+whaR0Vh7MSZi3Wr1ckotFLiPjlsfe1VblrdJz91Sh1hbwtm9P18qCqa63sveY0bpv+Ne9vkfRo/mINsUS1k3n3zBrMWJv7pKcfxR6HkcGvv/mDYbkN/3nM9XV3HolNnhr0yRt2q4zET4kToWPI/f/jyRQ4Y0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MQdcj/Ya; arc=none smtp.client-ip=192.198.163.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A8F538D3FE
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:26:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789745168; cv=pass; b=nT3UBgPEuFtfJ0LfMNIbHhET9yfIXK3AyqVlAASoIoGPWXbq5KIfHHrVZqPlTP77k6L2s6or8LKLLLmSkLReJiOT/5V5VTLXuCzdbNfShu7+oVEXL4KKLyX2/GQPmrcUoJlsov4xHdxkNEpHmKbifjhv9eMpjs/thUDfE7LVoNc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789745168; c=relaxed/simple;
+	bh=p+d9uQJYoKT6Gm3nV0Bd4xTjYIaei4gX72cUVpvlu1c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=l+c4OGshy3dIxOhyzsuH5cbN5YJc8me+qTRGrlXnZOQf8ttLjKpNbyMKHjaIYHbUJ6yLcZ9kiNhDLTZMFqpRqMJ8XdyK4jmOtlQX0X0cJr1mLALSR9AOls9em7IdqIuBsMSXeKJbAUqG4mJB935Z0yS1f8jC+ZMI2DtoKsMhU9o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=N/xY60Tu; arc=pass smtp.client-ip=74.125.229.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MQdcj/Ya"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789745142; x=1821281142;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=ZIUKz5YLX0dZKovTWpgV/pR/9RReZkXNWjNltpenNJ8=;
-  b=MQdcj/YacyKxIqIavVl3bp5bQpGIyzRUJrdNg5aI+a1bJdIkGI9o8D6V
-   eFil4fQluZWpVwqGbxwz+/f/gLj8QlhcHCPoLOLwoLNlllCSOJ6HDTyKZ
-   lBTWFy/bYr0UFTDOfUwUaS3pMz2dNMjFF+PobZFMkOeHcNHpvV1Gnjznm
-   Bz2YfvJnVSguSyW1uyaMx54SMv3OCPV0oGzalFUPb+tdmEnYcDhDe5+KH
-   g5SCX4ZvXt8UZe8fUgUNlyix01nP0TGJGeDfpGXl9qtyplg66mD4ApcO/
-   i8lzhhnCcPoVd6WhkldciJ6tz9OhEiRpPiKJc7Pz80i4+1VLgMlOq5hLw
-   g==;
-X-CSE-ConnectionGUID: apY68eVZTpWVnxBnX5VhqA==
-X-CSE-MsgGUID: koJFgZg9QrGvSj0sEQhFWQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11909"; a="766263"
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="766263"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa114.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 08:25:41 -0700
-X-CSE-ConnectionGUID: KbTEuaoxQHep9jxhnsyIeA==
-X-CSE-MsgGUID: wlNDtn/1Rw63H7donxBnzg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="2681767"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.223])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 08:25:39 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Fri, 18 Sep 2026 18:25:35 +0300 (EEST)
-To: Aaron Erhardt <aer@tuxedocomputers.com>
-cc: wse@tuxedocomputers.com, Hans de Goede <hansg@kernel.org>, 
-    LKML <linux-kernel@vger.kernel.org>, platform-driver-x86@vger.kernel.org
-Subject: Re: [PATCH v3 5/6] platform/x86/tuxedo: Update and extend
- documentation
-In-Reply-To: <7d7b5d84-e358-4745-8db1-69beb281c4d9@tuxedocomputers.com>
-Message-ID: <c5855c8d-6540-fe07-04e0-9e4173a6c27e@linux.intel.com>
-References: <20260826081149.235487-1-aer@tuxedocomputers.com> <20260826081149.235487-6-aer@tuxedocomputers.com> <7533530b-1d13-e977-df13-f7ebf4e92a29@linux.intel.com> <7d7b5d84-e358-4745-8db1-69beb281c4d9@tuxedocomputers.com>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="N/xY60Tu"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b899413537so1207443e87.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:26:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789745164; cv=none;
+        d=google.com; s=arc-20260327;
+        b=VaKHKl/2xHv8zMqeix8EOFquZH8/yDoMGt/HuxnblwevX0frjaLlKu0+j4Dx1WLyOF
+         YmA/oq824qRPxLeoDeMUvjraaDjPZ6BItnnx163gyn9lJyMkHrf0/sSRtSJYmopkVDOV
+         eJeAHXy2bBG2gJrwVRTvxq7rmH/gBJUPVgLr6U5vyrg46ThJ26OaoGjR2iVbH9Wati4t
+         GZXAuIfeCAT4aI3akK9s4xM7vQ9sWlEWJwbzztYmPNEoMXQy5AwdfaU5OYzpIaNonw9P
+         KM6MSK7om6sVmOAItWZCMyC6MSWgBAWRQikM5u6Y1RMROXKVuUiP4H6K5aS0dm75Og6U
+         g2yQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+uXlFumkwKpb2vNyO6JMeA2hS6nnt/1SxvmwQxKcpKo=;
+        fh=Zzdx9cPWYlooiRGoIPt+bp0Z1CIWvA+ikUBqI79aHyI=;
+        b=i2DUSfdJIKRsSZGbQEtndLzGpmMcvZHTgu6Eq5cvv0kvMN+1nzEWzfFLi+1ysmOXle
+         nS/FrAX1WDiHv6bKtGxlB7Y7wlIbhI213z/szc5+TVCAHtrD012ogqttOLh8P/yTLl1l
+         OAhWuz73Pqh8ocRQXWuL8j0f+hp53OzeyKFZkJNZZLy0RXG+5+0L3pnIVcdhza03NL8g
+         hAwsFIW9vK9JdMAUDDS/Fl0/TylXAmZo0bU6YGUSB5tEjMPMhJrAqhnpt03MurhY6jaE
+         onmtsSQtF/h/+KIVSLKSqL4VGOPEhd8PCzszHPiUeOacSNISqQrAY1RHgrKIypnAqXW4
+         L1lA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1789745164; x=1790349964; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+uXlFumkwKpb2vNyO6JMeA2hS6nnt/1SxvmwQxKcpKo=;
+        b=N/xY60TuFU6um/Qb71gyx/kgFioyqvwnOA48E2NWyrjN4i2RWA7fXl2kKjjQjTL+By
+         rjD5z13Palx19Nc4I7BtB/b6Gdt5q+NLAKi7fYKhD4NnJAD0JafD+YJdKP8T6anA/8iP
+         k0yWG6Ct+SV6sUU6uXWcLYpY1S6FlAvOkpV1lpDPNw4oRms/7AHiCPIZAoDH0QGTH+mD
+         tziFgABLBI66IV/r22iwoFnUtN/1cxx+D9FPR+xnwTjV0dub2qsajafdLU1Hu+9stMi1
+         wl2P5lA2XzVmm1budbzrejo0E4QRoTCsngZWyDSUHXswpg274yBxCsZJjHNtVt/b14XB
+         fAkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789745164; x=1790349964;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+uXlFumkwKpb2vNyO6JMeA2hS6nnt/1SxvmwQxKcpKo=;
+        b=OEF9mHbfhU4adNP6X41CtZpmfixVlVDk+x6Hb9iIqai3UJBk9Jp9DsPIE4zLbjpugX
+         dxtBopjbA+uRxpCD3z4zik0yRLMNiJrdzO73WS1eUeVBHw7kDtnwQAHQDNowPhJ9TXK1
+         Y0o23BvKuEwcX7shATM/9yqNhMBZ8na9Qzw3IbcTADXENO0FVlztw7Lvz/x2sU/33WGC
+         mgebhYvDKddnjXN1T35w4YdFY+K7X8ChRbmGa8V+CwupynC0nelTZLZ5DTKCLqM58YZr
+         aP97/1rDmOycwNiqRF9zXSNNU0OxKNBCasLjPSL+IuFsc9Yf5vYVmwPOILSbbNoRuq+j
+         p/Lw==
+X-Forwarded-Encrypted: i=1; AKwUvBzkFRGV5O0F3O3gIskpcNx3Buivm2I2xSzr1XVeLP16/VpcZ9T1/WX33DyrAk8aKKBi6OGg43b3+dRw5ZA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mzmxLN3xRZjgaIlI5A5mRN4rdyZxlhMwXxyoTEWcgdock5Z5KP
+	yVWTv8bbcymoczaWC1aPs4aARQKC6gaVgooeahnwELaExjcK4o+pic7b3Ru8S9/q99oZ/XakkGL
+	RIsmA5uTUnoJedA1gCg1l2kjGiydtA3WtQKqo5hu0Mw==
+X-Gm-Gg: AYBFou0PpZDJHUB3GyIDam9SbgTi5+xbPA6AUgaHsHWRSx1WwNS7DjHR1AcQN4tCBaX
+	zbswO/tHzGcZpKlJrGhRhJZnNJcUF9AEdbf7F1BRTJ7Z454kKtqtggjvzq2HYdZpi7O/PCrcjiY
+	TM7C/NvXu7uySKt2YWpCoCDhhuiKZsajuV5POcgIPUcul6YmvFqn0Uuh5bh2G/naJ9w6P7xBPp2
+	JEd4OYEKnYZEFjnYEdqZ9BTHgIiZGMOmtZ5xUyrAEcuwYTB71a1aBbKh9FfBukk3W2kSf8vg+kt
+	/7hnSRebFWQqLbIWyEMhAVJvhzrpROmTE8OpvoJ12OV8SrFh7CASyP6T3FWc9grJktc3bet82MA
+	yv8TAIqIFCIQb
+X-Received: by 2002:a05:6512:3b98:b0:5b6:183b:d204 with SMTP id
+ 2adb3069b0e04-5b8c1848ffbmr1030110e87.43.1789745163882; Fri, 18 Sep 2026
+ 08:26:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-1709566627-1789745135=:17235"
+References: <20260918-wq_final-v1-0-5c43c08a26bc@debian.org> <20260918-wq_final-v1-2-5c43c08a26bc@debian.org>
+In-Reply-To: <20260918-wq_final-v1-2-5c43c08a26bc@debian.org>
+From: Marco Crivellari <marco.crivellari@suse.com>
+Date: Fri, 18 Sep 2026 17:25:53 +0200
+X-Gm-Features: AcwNN1W-i5tEp94cueNiWucCvxRAb2LU8a_h58p5kBBZi4sBOk4sbLn2JXATBnA
+Message-ID: <CAAofZF6fPE9Q1ta+=wb-0jP8-2OiQ9FzhSpZ9_nC0_nyfW28gA@mail.gmail.com>
+Subject: Re: [PATCH RFC 2/3] workqueue: Add a concurrency_managed workqueue attribute
+To: Breno Leitao <leitao@debian.org>
+Cc: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>, linux-kernel@vger.kernel.org, 
+	kernel-team@meta.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Fri, Sep 18, 2026 at 4:25=E2=80=AFPM Breno Leitao <leitao@debian.org> wr=
+ote:
+> [...]
+>   * concurrency_managed
+>         - CM enabled or now.
 
---8323328-1709566627-1789745135=:17235
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
-
-On Tue, 15 Sep 2026, Aaron Erhardt wrote:
-
-> Am 15.09.26 um 15:08 schrieb Ilpo J=C3=A4rvinen:
-> > On Wed, 26 Aug 2026, Aaron Erhardt wrote:
-> >=20
-> >> Remove an incorrect comment about the Microsoft MacroPad reference
-> >> implementation allegedly deviating from the spec and add more
-> >> information about the module and some other minor improvements.
-> >=20
-> > Was it "incorrect" or was the spec clarified in a later version? If the=
-=20
-> > latter, that would be worth to mention instead of claiming the original=
-=20
-> > comment was "incorrect".
-> >=20
-> > This is a honest question, I don't know the answer but I'm kind trying =
-to=20
-> > read in between lines here how we ended up in this situation so my=20
-> > impression could be entirely wrong. ...Thus, please don't assume I know=
-=20
-> > much about the content of these specs (despite me briefly looking into=
-=20
-> > what I could find around this feature was introduced).
-> >=20
->=20
-> The MacroPad reference implementation never deviated from the spec in thi=
-s
-> area, at least not in the way the comment suggests. The comment removed h=
-ere
-> references another comment, which is removed alongside the code that was
-> touched in patch 3/6 and assumed that intensities should allow multiple v=
-alues
-> to be assigned (e.g. 256 levels), but that was never required in the spec=
-=2E Even
-> version 1.4 (the initial driver had 1.5 as a basis) of the spec already
-> suggests using only two intensities for on and off while everything else =
-is
-> done through the RGB channels unless the device has some sort of global
-> brightness control in its hardware.
->
-> I think the reason for this misconception might come from an actual bug i=
-n the
-> reference implementation (which is fixed now:
-> https://github.com/microsoft/RP2040MacropadHidSample/commit/cfc29120a3910=
-c5772976da29ecd57392dfd44d6)
-> and the natural assumption, that intensity should, similar to the RGB cha=
-nnels,
-> have 8 bit. Therefore, the driver initially implemented brightness exactl=
-y that
-> way with 256 levels, scaling the RGB intensities with integer arithmetic.=
- But=20
-> since the hardware doesn't scale the brightness and the spec doesn't requ=
-ire
-> this, there is no good reason to do this.
-
-Okay, thanks for the explanation. No further action required then for=20
-this patch.
+Just noticed you typed "now" instead of "not". :-)
 
 --=20
- i.
 
---8323328-1709566627-1789745135=:17235--
+Marco Crivellari
+
+SUSE Labs
