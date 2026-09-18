@@ -1,132 +1,155 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E53FC2E62A9;
-	Fri, 18 Sep 2026 23:40:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7EA141686D
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 23:40:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789774806; cv=none; b=sVFo23JhbNJXTngbuZWJm/aP4lTfloupvTzi5Y+ZKiyd7/5kBKnQ9tJak2dPBJzaqqshjj9bmmFoxRrqEmx4rAwx+9WSerHI7HBYawSRay37P/pK4P7a9xN0rQW1DMKV0FdgrOl4JVTInZspUlgOduA6GQE7jyBl/Z8WuvvnIX8=
+	t=1789774820; cv=none; b=bu6TvmQLzhfzMIgEtI9uItRXVbKXdAIMMDxf11Hmhk6Ua15q3VvOe2c2iSMgIAZFXv49QQj6qDY5CaHy8juECH/oyV7LWoUv3yX2eFKprP62tChOumCTyENusVUuQmpxcxc0pg3UObhI0krGK0fy9/HUxuo2+42/bfs65jJPLuY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789774806; c=relaxed/simple;
-	bh=f1i4j4wFPGQ3PlrQcFZCJSySXFx3gJOSaObAZfFD6z0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=N/wl6toIan2uICisvzGCiHv1QISA94SczZ5lZuS5X7jlXg/G2pG6bHTqcHwuxr3xxDcgHqw9ew+Tl3vyzQRdhckO7BfFDAvdLKDGx2zSXxXq596Xvaueiw7+4FO1FkCKGPcyp5QbQFwetBnc74gvD76l9ModbVO84M3WGT9fkvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=Gq4dvspR; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1789774820; c=relaxed/simple;
+	bh=bYAj3zJU4/bhOKYqpiP9deo18jfkgkWwofMdpY9Zt9M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=evNJGLtTVLYk5lEmQ64dMUym3ZAAnPrLVrSPMWFVKEtXuw10acTCtTnI1Ya3lU6a74KUetvsOgIAxq1EfxmNQu0PA0hNVRZICh0qFNaMNEmRvLUFkYs+C0C1KXIv4mmkBrTIdO3R1w4qJKmmUMHFgmaK80b/jIG50BhXmI4abto=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=dtY+0Lnl; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="Gq4dvspR"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 2D3DF40E00E5;
-	Fri, 18 Sep 2026 23:40:01 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id ovnvQ4Bb8XjR; Fri, 18 Sep 2026 23:39:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1789774791; bh=RQiq7JrJpJYJbr52IzNuLiSYVxDM/UptMCGU7a7i5fI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Gq4dvspRN59lENIAsfQtHq+auv+Uk/ZscQveXp8by9nxGcRecIRwDdRbEyol/dZgX
-	 hUHXy1Cg9yIr1L4Ii2LaZy1SYABQKqaIbyo9oHT9PAiM20cWA+vmtYOkfSO3YT3wb1
-	 5qcstlueMNOTnmKkaegf2SvsYb2vBHzJliYVluTwOt+s98jv9+7bdiVICegS5ShC1S
-	 i8rjvMP+kJcFG7ZF3dVeXwOKaua38VVNizTT+ODBoZsRD1uCV4327+tD3g2fN55sb9
-	 VIR5JvBA0pgCNww/RURMBs7mZj+a0GFo6+Yk/8WfQZM/HECdxbDEdeFwcaF+iBQ/fQ
-	 C5gdT3dKcoeicY1sqRSdoqmx4KPuEoiHrbhywJBb8tyQpQqglLiRJn3BcNGuvnqIGA
-	 lA8xEtKI1csSaYto6txGYrQOp8Tw6mbiPUj9MBoGqQYy2GgDge0pVFWLK7H8laCyNg
-	 ns92X6Z4eHotnTtNbS/+eub0mLq+wzzZVVGGDeQrb2EFobQ16hMaDbCJ70nUdLR6Qn
-	 TN/w/k6sKU9t5rWwk1i6zkZrh46JRwMMCfFSqD3FuVFSJprotcJfwKmaUsBDjjb796
-	 wuSELJsjr8/cqq+AoTcDLFYe/jrgqEFLCCZqNhB/W5PCmmrfsp2moIxV5EM0zxDBG5
-	 mTXQPtfP5PMftuYEoKo3feko=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::48])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 4D36D40E00B9;
-	Fri, 18 Sep 2026 23:39:17 +0000 (UTC)
-Date: Fri, 18 Sep 2026 16:39:13 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: "Kalra, Ashish" <ashish.kalra@amd.com>
-Cc: tglx@kernel.org, mingo@redhat.com, dave.hansen@linux.intel.com,
-	x86@kernel.org, hpa@zytor.com, seanjc@google.com,
-	peterz@infradead.org, thomas.lendacky@amd.com,
-	herbert@gondor.apana.org.au, davem@davemloft.net, ardb@kernel.org,
-	pbonzini@redhat.com, aik@amd.com, Michael.Roth@amd.com,
-	KPrateek.Nayak@amd.com, Tycho.Andersen@amd.com,
-	Nathan.Fontenot@amd.com, ackerleytng@google.com, jackyli@google.com,
-	pgonda@google.com, rientjes@google.com, jacobhxu@google.com,
-	xin@zytor.com, pawan.kumar.gupta@linux.intel.com,
-	babu.moger@amd.com, dyoung@redhat.com, nikunj@amd.com,
-	darwi@linutronix.de, linux-kernel@vger.kernel.org,
-	linux-crypto@vger.kernel.org, kvm@vger.kernel.org,
-	linux-coco@lists.linux.dev
-Subject: Re: [PATCH v16 4/5] x86/sev: Perform RMP optimizations asynchronously
-Message-ID: <20260918233913.GBaq3LoXAJHIHv5abI@fat_crate.local>
-References: <cover.1789594774.git.ashish.kalra@amd.com>
- <daa513fbe8f0672b00bc5e026e4399244be6dc72.1789594774.git.ashish.kalra@amd.com>
- <20260918222326.GBaq253l7rsV04EUpy@fat_crate.local>
- <49aa3713-d8af-4c9d-a67e-81c1f776a876@amd.com>
+	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="dtY+0Lnl"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396cccbba92so1285673a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:40:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=asu.edu; s=google; t=1789774817; x=1790379617; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QFXPOWlkcWbkw0VizSZPMIGc1O/sr7Ro7vwjf0xy78U=;
+        b=dtY+0Lnl6GgHFEkuuJrdft4BBznq3MKJy44Cm7Hl+IviF0h07VX/v1ih2pbvFlJ3d8
+         ZyAozFZXh94MxZKFhCfgoIS/Nx4Q/tPTXzDCpE/b6miWBc38Psfu4eECpfvI1yiaOEPJ
+         2JMPYmxb2zCEoseV8lr+bDJAKfL7tr8xsC8/BVx7wXyIN9qByuvPJBVqLWbJxG0PsLGo
+         O8q+IfjnSHY4TI36J1CnHZb2apZwytONBP8vLqdoLiQXzggCpnTuYoyERC1Se/nubD07
+         ptEitp4Y/r7BnUyDW/TozI5dgKLbBSlycACTfPb5bVt7Frg3Wpb30sJHKj7su/DM+Gy6
+         Iqcw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789774817; x=1790379617;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QFXPOWlkcWbkw0VizSZPMIGc1O/sr7Ro7vwjf0xy78U=;
+        b=1pG2cJaIgaqK7YM+lJ2I6x8EqFbKzsMHdF4NabOfajz2En3Lf9tdQiX+a6COniXlEU
+         OG5lqI2teTRIM4x1aakM8IXlE9wc1M80Wjib+JiGgB5ILSmJqvAraryQIdc5PwO+EI2H
+         zZJ5qs4+pzIXprzOrKVQcGSPd61aIKfSJHk6E+FSS8Ciy7Z1O965InHKV27gsm54kzVn
+         u5rjdgaPd/HUJE2KQz0cu1AUJM6/5LL8LWWjy8l3q7dLzmdIb5H2ZGWR39e676MM5FFZ
+         8c42A7ok1E/HJk4EE7EsPoQ96jzmpUYJhfAjXHLD0ibxVWZf/OAvd08JIvzY/AonVVrb
+         +2MA==
+X-Gm-Message-State: AFuF++kVuIJqbuX81z+PPVqqGVaAHdwc8NpG6dZ2oZ9XKU8DjKeThJ03
+	t55XQsXE1+7LgcNMtTdg3Icfh3tTonNH9Bvpg1KVlfbi+5Gx0KE51dYOoLjWKet7IS66EudVXym
+	d1bYtnA==
+X-Gm-Gg: AYBFou0cDnqO/uJcT0O5hD3Jn00X2yT/N6qzxliz29aJDeCbdXxLGJD010+rCgITrcs
+	4CVAr7jsxqcMHhvcYFg7Bnw4lmKmUcEiNIA9uyS5bAdfkMjTUDt5N0jOPoqAjFCUXX1a2kRxfg3
+	U2RCrZMHwBqXSsqfUw3WJ2jXiAXKXKiAhbQxBH9BvGJxDL9EOUFMQavHxSWsFtxQ7yvN+4blDj+
+	ZR4fOb47tJKeH60WD5u0QU2LT3qaqwvetBtugIRQxxLxl8AsA84XvBIKzTH0CNJ8MU81/koR2zy
+	hgwuu58YmUwnTZKPCrBe1z/HvzW/GMr1QGowcAHwvkFcPDhdCp8MRQ+3zvA0LZu0whs3K+Cc+XO
+	QVS2dhsOVrMV6a6so1GJrkXaFqCQcgGZWFMVo2pp5n6sBN+raZ7TaoK4ff3fqzmBDfBdKXhiIQ6
+	9FgC+PFpBgw6LMs+xSr+YRwqDoqe28Lg3BZ/g1VVVS3TSPPfAwmoS6UqciqZJhlT+d5YbiUn38d
+	HvOuivC+T+zrbnukph9l8hYuLo+FvqNRxbcsw==
+X-Received: by 2002:a17:90a:e7cd:b0:39e:4c81:6c5f with SMTP id 98e67ed59e1d1-39e54d5ca0emr7917972a91.26.1789774816934;
+        Fri, 18 Sep 2026 16:40:16 -0700 (PDT)
+Received: from p1.. (209-147-138-4.nat.asu.edu. [209.147.138.4])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144d55cef9bsm1609458c88.10.2026.09.18.16.40.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 16:40:16 -0700 (PDT)
+From: Xiang Mei <xmei5@asu.edu>
+To: tiwai@suse.com,
+	perex@perex.cz,
+	linux-sound@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	co+be8fa7ea6f77fdce@bugs.sh,
+	stable@vger.kernel.org,
+	Xiang Mei <xmei5@asu.edu>
+Subject: [PATCH] ALSA: line6: reject oversized playback packets
+Date: Fri, 18 Sep 2026 16:40:14 -0700
+Message-ID: <20260918234014.1318325-1-xmei5@asu.edu>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <49aa3713-d8af-4c9d-a67e-81c1f776a876@amd.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 18, 2026 at 05:46:00PM -0500, Kalra, Ashish wrote:
-> Looks good.
+Each playback URB is handed a slice of out.buffer that is exactly
+LINE6_ISO_PACKETS * max_packet_size_out bytes, sized from the OUT
+endpoint, but the number of bytes written into that slice is never
+compared against it.
 
-Thx.
+submit_audio_out_urb() takes the frame count from prev_fsize, which
+audio_in_callback() derived from the *IN* endpoint's received packet
+length, and rescales it with the playback frame size; when prev_fsize is
+still zero it synthesizes a length from the sample rate instead.  On a
+device declaring a large IN wMaxPacketSize and a small OUT
+wMaxPacketSize, the resulting memcpy(), or the memset() when the
+playback stream is idle, runs past its slice and, as the reproducer
+below shows, beyond the allocation.
 
-> One comment here, i originally had pr_info_once() for printing this once during SNP init, 
-> if you change it to pr_info(), it will get printed again at every SNP guest teardown too,
-> i am fine with it and actually it keeps the user aware that RMPOPT optimizations are
-> being re-applied/re-enabled, but there may be just too many kernel messages dumped.
+usb_submit_urb() is not a backstop.  max_packet_size_out comes from
+usb_maxpacket(), which returns only the low 11 bits of wMaxPacketSize,
+while USB core validates a high-speed isochronous length against that
+base scaled by usb_endpoint_maxp_mult().  A length of up to three times
+the allocated slice is therefore accepted, and even a rejected URB is
+only rejected after the write.
 
-Yeah, I had the exact same internal conflict :)
+Reject a packet that does not fit the slice the driver allocated for it.
+Clamping it instead would silently shorten the capture-derived rate
+feedback and desynchronize the two streams.
 
-I guess we should do the below instead. This tells us that all the necessary
-stuff needed for RMP optimizations has been set up and we can assume that
-those optimizations will happen from now on.
+  BUG: KASAN: slab-out-of-bounds in submit_audio_out_urb (sound/usb/line6/playback.c:229)
+  Write of size 1024 at addr ffff888100bbd400 by task kworker/1:2/5002
+  Workqueue: events line6_startup_work
+  Call Trace:
+   __asan_memcpy (mm/kasan/shadow.c:106)
+   submit_audio_out_urb (sound/usb/line6/playback.c:229)
+   line6_submit_audio_out_all_urbs (sound/usb/line6/playback.c:291)
+   line6_stream_start (sound/usb/line6/pcm.c:194)
+   line6_pcm_acquire (sound/usb/line6/pcm.c:337)
+   line6_startup_work (sound/usb/line6/driver.c:728)
+   process_one_work (kernel/workqueue.c:3396)
+   worker_thread (kernel/workqueue.c:3479 kernel/workqueue.c:3560)
+   kthread (kernel/kthread.c:436)
+   ret_from_fork (arch/x86/kernel/process.c:158)
+   ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
 
-We can later add some more non-screaming reporting to user - ratelimited or
-whatnot - which gives more info.
+  The buggy address belongs to the object at ffff888100bbd400
+   which belongs to the cache kmalloc-256 of size 256
+  The buggy address is located 0 bytes inside of
+   allocated 256-byte region [ffff888100bbd400, ffff888100bbd500)
 
-But let's do that when we cross that bridge and we decide that they're
-actually necessary.
+Cc: stable@vger.kernel.org
+Fixes: 7a0f55aeeb8f ("ALSA: line6: Support assymetrical in/out configurations")
+Reported-by: <co+be8fa7ea6f77fdce@bugs.sh>
+Assisted-by: LLM
+Signed-off-by: Xiang Mei <xmei5@asu.edu>
+---
+ sound/usb/line6/playback.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-Thx.
-
---
-
-diff --git a/arch/x86/virt/svm/sev.c b/arch/x86/virt/svm/sev.c
-index afa5f78808fe..bd70c4d0b774 100644
---- a/arch/x86/virt/svm/sev.c
-+++ b/arch/x86/virt/svm/sev.c
-@@ -656,6 +656,8 @@ static int __init rmpopt_init(void)
- 	if ((rmpopt_pa_end - rmpopt_pa_start) > SZ_2T)
- 		rmpopt_pa_end = rmpopt_pa_start + SZ_2T;
+diff --git a/sound/usb/line6/playback.c b/sound/usb/line6/playback.c
+index 7ebaf125f969..aa6ddf8746a0 100644
+--- a/sound/usb/line6/playback.c
++++ b/sound/usb/line6/playback.c
+@@ -182,6 +182,13 @@ static int submit_audio_out_urb(struct snd_line6_pcm *line6pcm)
  
-+	pr_info("RMPOPT optimizations enabled\n");
+ 		fsize *= bytes_per_frame;
+ 
++		if (fsize > line6pcm->max_packet_size_out) {
++			dev_err(line6pcm->line6->ifcdev,
++				"playback packet too large: %d > %d\n",
++				fsize, line6pcm->max_packet_size_out);
++			return -EMSGSIZE;
++		}
 +
- 	rmpopt_soft_init = true;
- 
- 	return 0;
-@@ -688,8 +690,6 @@ void snp_enable_rmpopt(void)
- 
- 	mod_delayed_work(rmpopt_wq, &rmpopt_delayed_work,
- 			 msecs_to_jiffies(RMPOPT_WORK_TIMEOUT));
--
--	pr_info("RMPOPT optimizations enabled\n");
- }
- EXPORT_SYMBOL_FOR_MODULES(snp_enable_rmpopt, "ccp,kvm-amd");
- 
+ 		fout->offset = urb_size;
+ 		fout->length = fsize;
+ 		urb_size += fsize;
 -- 
-Regards/Gruss,
-    Boris.
+2.43.0
 
-https://people.kernel.org/tglx/notes-about-netiquette
