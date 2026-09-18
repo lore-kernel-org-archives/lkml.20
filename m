@@ -1,298 +1,462 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E03734C753C
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:34:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF269392C20;
+	Fri, 18 Sep 2026 10:36:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789727670; cv=none; b=EPnAMGsOF3s4vUkNxvTe3IelC3TFY0ZShBfxhXEd8rt0SwbtyAJk+f3OzttQK5ETWtJy/HLHShRkFOrOiTbVHBGeAlnozuJQvZm7N//fMNEvsYf4qP+bttGevodDIqJbus/UbsIzeI0B7sKLg3jgSHJ1yfRoWDr/ltjh123t+dk=
+	t=1789727790; cv=none; b=GXr/qx3f396uoO/2wYrdddYAOMGAid15yhq7PHt/FW9UgUfvxSBVHUmLQhRvYnOujpyx30pgxSVKIMUJ70j4pKTyOPxLTsaLgRNAVy8t0V+N007RCwUBVAZnJZRhDXpD9wUpHL4hfgP14qXQ4Kk85AGMPhubirDOMMfl+GWCeGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789727670; c=relaxed/simple;
-	bh=7UKXu6Xq8urxgrZsJMuj2mAIxSvB6FQ4+ac3IUP+8sY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hQQ8FFr71xuPBvijISJrGWtpExzf/LTGyeuI92MAYR6MC6HUpErKJTBTMsWevfHMIT0S1Aj1k8E48KomkzQa72ymlGA47KM5vngzXvfzHWfeUYmzzuyjhP8pj8YOBA9rugixZHW29lilLVrX9W4wvlBO5d4qYTYGCVQ+Ept9hvM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bix5clzu; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789727790; c=relaxed/simple;
+	bh=/8WEpo3d4AcgkEBxVKIi0o0Ap9Q3DpoSy7HzDY0TFQk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QFIGfKFQKMrlN4QGbsYFxyLg8bYJFeJo0l3/LaOWua5jBILmUIMXK2QcWyzN/0P9Gu3ibtQJBHgBdpqQX6qXDZbcLIrQ6COTF58wJW/ih+5MJKYniIP/KMddxVcIPPa3Y6WfysOoWBgZw7bF2bTjuEWT4RDxOin1En8WXhWoYqk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fWrdrw5T; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bix5clzu"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ccff31419so5007255e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 03:34:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789727667; x=1790332467; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nrrLnTIbrTZ60I7yC8/lMcC7nvRzjdXpmgKGXHHN28k=;
-        b=Bix5clzuUwSHgCppRpLVcmLi+vJ0IjKiGj/7n/CrsxJNc4q5dwHD/W09noLp4SDqqO
-         ql4R9+zwd46fPp6N3ngLYh8BDsDVp2ieLtkYYOaV+aT1l8HV8G+qtkKUFy844wkuYMhF
-         YlvPpQuxzjDU7HbnOgseVEtFV8PXQHQMKbcdOLfYZFDw4sTtZ7NsfJBBel5HWZrJ6TuE
-         zVqXk04Y5uMCDIILgYEEkbBzaEgGnj9LLzWx5tHJ+9J8qebVxbSEg1RJvQ5K3Xy2jRFu
-         qpNxOsW4reB+SBqH920MkGqi3usy8vXgWuoG8aoPpSj0ohVVSkLu2qTXUvVdj8G8m2xw
-         BR6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789727667; x=1790332467;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nrrLnTIbrTZ60I7yC8/lMcC7nvRzjdXpmgKGXHHN28k=;
-        b=Cx8KTQgJjnVjQF1F22UnEqU6nzBCpkrPMNl3L/WECbh+eYdxm4dQivu1Z4nWWi+jrr
-         oAHoS/MY/mzpnbQoYi7efh7uwABREahJIlnP2iB/zSz152A90UABYGrCh2qL3/4sNl5f
-         rU+GwiIq9wtV0/cObPRElvwSC++asbQaTqGciY5U/SdGt/ydmV7WT6ws602vBEEbHlB8
-         Q3qmwKolAam4EXFVEl6JuH+X9kA18ejIsg+NM6NEtrCdjeArufYziICSvK8y+sYW03My
-         5b7JDtOkggspo5B8G3lhS1SntL8O8Wq+eNU3txZcOPkRt3gbxy4Gu1p1eJlrnqy88oKa
-         cWWA==
-X-Forwarded-Encrypted: i=1; AKwUvBxH5GG4KMjzsjtsakO7hQUYb2Shpl+h0POfzODG3gAV6SqjVRSzTgq7wjvDjNvaxAo7qBrcyVgTO1KAmkE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lOsx3EVbZwSdrGkIcD6px6nAyZ+e7qP/XmKEo+VYLGDGEREz7U
-	5nv+f2pdf57F5v5K0H8fVRTn7ZQ/Pn7vIiJyhLWR19eHG36pghm9MhiMJ2uOC/Xz
-X-Gm-Gg: AYBFou0JJ3lbbFR1vkFH4dfWWXZDoCX3MCS/QWPDTQUFEMN5kunxpf9OszLpU8fiou8
-	Ghjcmf+ERaBpSefHCk9fvtMx9xjpmGC9/xbzEw2BV5yUff7FpJE2GEIVeYxlIGGejz4d3gTDL+b
-	UGaJaQaPxA+I7C4jo++f3ABFIm3tRCmluJ4b1x8pr5gpBqxMFTtMauZo4ej1RsGUbj+59O/kkPP
-	57YByALMO6vu4z2DHEf71XIf+BJIFzbmPNj3To8/L2GXTY4FEY6L45TNM3Y7qVXUzB7Ly4bkiTN
-	9LX+KYSyKKuO65XTJbGvAyNUWn5k/IKJ23HZvsxNUzTvnzbgS1h+8PZJJ47r9FEU9lw9xr5HPn7
-	Xa/ZL1YPDRvx1q21CIsUsutGBSFHn1cl7bOZhi+v0hv5ZQMgLlC7UGMN+PLuEJbjh/IsaNmStQ/
-	ujPRTJS9BaagBdMKE2ED/+EL9W2nB/ZkSNT+D0POoi8iC9H8NDaAlno4/i7FzGiLgIYIVlZGdN5
-	Rv8URVnCVahDw==
-X-Received: by 2002:a05:600c:3494:b0:49d:1fa8:b266 with SMTP id 5b1f17b1804b1-49fc573faa4mr23849825e9.26.1789727666921;
-        Fri, 18 Sep 2026 03:34:26 -0700 (PDT)
-Received: from egonzo (82-64-73-52.subs.proxad.net. [82.64.73.52])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc6ec1e63sm30267795e9.0.2026.09.18.03.34.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 03:34:26 -0700 (PDT)
-From: Dave Penkler <dpenkler@gmail.com>
-To: gregkh@linuxfoundation.org,
-	linux-kernel@vger.kernel.org
-Cc: Dave Penkler <dpenkler@gmail.com>
-Subject: [PATCH] gpib: tnt4882: Clean up mite code
-Date: Fri, 18 Sep 2026 12:33:44 +0200
-Message-ID: <20260918103344.17034-1-dpenkler@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fWrdrw5T"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I9eEDf522593;
+	Fri, 18 Sep 2026 10:36:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	7+oxgIEFTuOpH+D6l8e+3PeG5Bj/epAOC4oHLEGkuCk=; b=fWrdrw5TcQMufaxv
+	FOzW4C8PMJginacfSOLWULF4kRLnaZkUeshuC+lQoNNrqi/WImRO7lJ5ZRYma7cT
+	wvlQ6PJtJipIUvr16SIBunDIE1jhvIpxn1UJ96BjEytjOxUkVfKe1aVHeTF+O4NP
+	Ab0rLOaI3pn6C/NpaKtGuCT6UqUNq1yxE9nVaHGbykOMIDrWWMVcGX900miHaPuE
+	ouZcAguSKeR3rnnoT+cypbUPcRii2wTBp5iRUsjzTZAsOj55On1bw4FfJQGXo06D
+	Ec5Fsy8e084gCcLO7QOzETxbfQMK7HxaWvf0hfQtokhGRoslqXZcbHVfbMKV2ytG
+	3blz3Q==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4grnqebg4b-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 18 Sep 2026 10:36:24 +0000 (GMT)
+Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 68IAaMR13805373;
+	Fri, 18 Sep 2026 10:36:22 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-kotarake-hyd.qualcomm.com [10.213.97.140])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 68IAaL2M3805366
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 18 Sep 2026 10:36:21 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2389607)
+	id C040FB22; Fri, 18 Sep 2026 16:06:20 +0530 (+0530)
+Date: Fri, 18 Sep 2026 16:06:20 +0530
+From: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Monish Chunara <quic_mchunara@quicinc.com>,
+        Sayali Lokhande <sayalil@qti.qualcomm.com>,
+        Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
+Subject: Re: [PATCH 2/3] arm64: dts: qcom: Add Talos Lyra EVK SoM platform
+Message-ID: <20260918103620.xqlsj52vugb5pyv5@hu-kotarake-hyd.qualcomm.com>
+References: <20260901-lyra_upstreaming-v1-0-e3a76dc9e21c@oss.qualcomm.com>
+ <20260901-lyra_upstreaming-v1-2-e3a76dc9e21c@oss.qualcomm.com>
+ <apmH0PSegmgOBqo6@baldur>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <apmH0PSegmgOBqo6@baldur>
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-ORIG-GUID: H9j9JsX-bujRCqlekSWo3pOBZbCnlO6d
+X-Authority-Analysis: v=2.4 cv=FfiiV5+6 c=1 sm=1 tr=0 ts=6aad1428 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=COk6AnOGAAAA:8
+ a=EUspDBNiAAAA:8 a=nfRGER2owpr_vNGksMQA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-GUID: H9j9JsX-bujRCqlekSWo3pOBZbCnlO6d
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDE0NyBTYWx0ZWRfX7yqn6vTqqaNY
+ rtrV16cMjE+VMTvYeZTFdmHluiWQmqx+OnEj8P2OQnHf8XbfpGR2ug7oJ29oTweonNOPgALyJK3
+ oM3EyAWNGrLXHKDLCdlFoHcQGMsUvMWGm+fxbLHFXQAS8StJrLTz34iYnt3MVvCio1J4Y1K3odB
+ SrXhKdNONA8jiYN3i3NaAznJ2igKMbGRLYURPOnFSlCdMRus3t/FkEtdypVRi/4rigEmrBqyM5A
+ DD2hP+6CvEDwElijKLFYaSemW4uJJHzrsGJRc9PKmQYy3JHPJifCD0vNuZUhBdLNkhd7HiHoHZH
+ BUlwpE63SN1S8GNY4ne0HNfc+3H0FrbAR5NqI8sS39ZDDn5SA/whTvdjO5JgfkZhnjUY0U0T9SC
+ pl+sYmvKXz+qyJNW9wU75hvgp3dSYkEtOZf2D5DbhKPYc3rDo0z8Gy8bVqufE7CfLzl5PN36DsY
+ I5Nso1kPHYkMBMO1LjA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDE0NyBTYWx0ZWRfX++bAz5H7bw6C
+ 3MByupqSAjFExN3YXS+eSAq7yKeDYPGtPR7/msFBnf4XoRsEMT+4eLzN4hqTE3929YsRtkZ94bS
+ 4QCTVeMQIs8xmFYikbos9UQYETMh4lw=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-18_03,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 clxscore=1011 priorityscore=1501 spamscore=0
+ bulkscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180147
 
-The mite driver was adapted from COMEDI and contains a lot of code
-that is not relevant for the gpib tnt4882 driver.
+On Thu, Sep 03, 2026 at 09:54:36AM -0500, Bjorn Andersson wrote:
+> On Tue, Sep 01, 2026 at 07:14:02PM +0530, Avaneesh Kumar Dwivedi wrote:
+> 
+> Please make subject prefix arm64: dts: qcom: talos: ... so that it
+> groups nicely in a git log --oneline.
+> 
+> > Introduce the device tree for the QCS615-based Talos Lyra EVK SoM.
+> > Lyra EVK SoM a compact compute module integrating the QCS615 SoC,
+> > PMIC, and essential connectivity, designed to mount on carrier boards.
+> > 
+> > The initial SoM device tree includes basic support for:
+> > 
+> > - CPU and memory
+> > - PMIC and board-level regulators
+> > - UFS and SD card storage
+> > - QUPv3 (I2C/SPI/UART) instances
+> > - ADSP/CDSP remoteprocs
+> > - GPU
+> > 
+> > Co-developed-by: Monish Chunara <quic_mchunara@quicinc.com>
+> > Signed-off-by: Monish Chunara <quic_mchunara@quicinc.com>
+> > Co-developed-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+> > Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+> > Co-developed-by: Sayali Lokhande <sayalil@qti.qualcomm.com>
+> > Signed-off-by: Sayali Lokhande <sayalil@qti.qualcomm.com>
+> > Signed-off-by: Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
+> > Signed-off-by: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
+> 
+> This s-o-b chain says Monish, Rakesh, Sayali, and Nirmesh first wrote
+> the patch, but the way you sent it claims you authored it. Retain
+> Nirmesh as author or fix the chain.
+> 
+> > ---
+> >  arch/arm64/boot/dts/qcom/talos-lyra-evk-som.dtsi | 282 +++++++++++++++++++++++
+> >  1 file changed, 282 insertions(+)
+> > 
+> > diff --git a/arch/arm64/boot/dts/qcom/talos-lyra-evk-som.dtsi b/arch/arm64/boot/dts/qcom/talos-lyra-evk-som.dtsi
+> > new file mode 100644
+> > index 000000000000..8c19f050d5b3
+> > --- /dev/null
+> > +++ b/arch/arm64/boot/dts/qcom/talos-lyra-evk-som.dtsi
+> > @@ -0,0 +1,282 @@
+> > +// SPDX-License-Identifier: BSD-3-Clause
+> > +/*
+> > + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> > + */
+> > +
+> > +#include <dt-bindings/gpio/gpio.h>
+> > +#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+> > +#include "talos.dtsi"
+> > +#include "pm8150.dtsi"
+> > +/ {
+> > +	aliases {
+> > +		mmc0 = &sdhc_1;
+> > +		mmc1 = &sdhc_2;
+> > +		serial0 = &uart0;
+> > +	};
+> > +
+> > +	chosen {
+> > +		stdout-path = "serial0:115200n8";
+> > +	};
+> > +
+> > +	clocks {
+> > +		sleep_clk: sleep-clk {
+> > +			compatible = "fixed-clock";
+> > +			clock-frequency = <32764>;
+> > +			#clock-cells = <0>;
+> > +		};
+> > +
+> > +		xo_board_clk: xo-board-clk {
+> > +			compatible = "fixed-clock";
+> > +			clock-frequency = <38400000>;
+> > +			#clock-cells = <0>;
+> > +		};
+> > +	};
+> > +};
+> > +
+> > +&apps_rsc {
+> > +	regulators-0 {
+> > +		compatible = "qcom,pm8150-rpmh-regulators";
+> > +		qcom,pmic-id = "a";
+> > +
+> > +		vreg_s3a: smps3 {
+> 
+> I don't see anything referencing s3a, s5a, and s6a, are you sure that
+> rpmh doesn't handle the SMPSs for us automatically?
+> 
+> Do we actually want to vote for s4a from Linux?
+>
 
-Remove useless code.
+We’ll remove these unused rails in the next patch set.
 
-Signed-off-by: Dave Penkler <dpenkler@gmail.com>
----
- drivers/gpib/tnt4882/mite.c |   6 --
- drivers/gpib/tnt4882/mite.h | 166 ------------------------------------
- 2 files changed, 172 deletions(-)
+> > +			regulator-name = "vreg_s3a";
+> > +			regulator-min-microvolt = <600000>;
+> > +			regulator-max-microvolt = <650000>;
+> > +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> > +		};
+> > +
+> > +		vreg_s4a: smps4 {
+> > +			regulator-name = "vreg_s4a";
+> > +			regulator-min-microvolt = <1800000>;
+> > +			regulator-max-microvolt = <1829000>;
+> > +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> > +		};
+> > +
+> > +		vreg_s5a: smps5 {
+> > +			regulator-name = "vreg_s5a";
+> > +			regulator-min-microvolt = <1896000>;
+> > +			regulator-max-microvolt = <2040000>;
+> > +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> > +		};
+> > +
+> > +		vreg_s6a: smps6 {
+> > +			regulator-name = "vreg_s6a";
+> > +			regulator-min-microvolt = <1304000>;
+> > +			regulator-max-microvolt = <1404000>;
+> > +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> > +		};
+> > +
+> > +		vreg_l1a: ldo1 {
+> > +			regulator-name = "vreg_l1a";
+> > +			regulator-min-microvolt = <488000>;
+> > +			regulator-max-microvolt = <852000>;
+> 
+> That's a wide span, narrow it to what the consumers need.
 
-diff --git a/drivers/gpib/tnt4882/mite.c b/drivers/gpib/tnt4882/mite.c
-index c75c45cdf03f..56afad7a9cc1 100644
---- a/drivers/gpib/tnt4882/mite.c
-+++ b/drivers/gpib/tnt4882/mite.c
-@@ -35,20 +35,14 @@
- #include <linux/ioport.h>
- #include <linux/delay.h>
- #include <linux/mm.h>
--#include <linux/interrupt.h>
- #include <linux/pci.h>
- #include <linux/io.h>
- #include <linux/slab.h>
- 
- #include "mite.h"
- 
--#define PCI_MITE_SIZE		4096
--#define PCI_DAQ_SIZE		4096
--
- struct mite_struct *mite_devices;
- 
--#define TOP_OF_PAGE(x) ((x) | (~(PAGE_MASK)))
--
- void mite_init(void)
- {
- 	struct pci_dev *pcidev;
-diff --git a/drivers/gpib/tnt4882/mite.h b/drivers/gpib/tnt4882/mite.h
-index dd251afa90e3..d334ab50fc40 100644
---- a/drivers/gpib/tnt4882/mite.h
-+++ b/drivers/gpib/tnt4882/mite.h
-@@ -13,14 +13,6 @@
- 
- #define PCI_VENDOR_ID_NATINST		0x1093
- 
--//#define DEBUG_MITE
--
--#ifdef DEBUG_MITE
--#define MDPRINTK(format, args...) pr_debug(format, ## args)
--#else
--#define MDPRINTK(args...)
--#endif
--
- #define MITE_RING_SIZE 3000
- struct mite_dma_chain {
- 	u32 count;
-@@ -59,164 +51,6 @@ void mite_init(void);
- void mite_cleanup(void);
- int mite_setup(struct mite_struct *mite);
- void mite_unsetup(struct mite_struct *mite);
--void mite_list_devices(void);
--
--#define CHAN_OFFSET(x)			(0x100 * (x))
--
--/* DMA base for chan 0 is 0x500, chan 1 is 0x600 */
--
--#define MITE_CHOR		0x500
--#define CHOR_DMARESET			BIT(31)
--#define CHOR_SET_SEND_TC		BIT(11)
--#define CHOR_CLR_SEND_TC		BIT(10)
--#define CHOR_SET_LPAUSE			BIT(9)
--#define CHOR_CLR_LPAUSE			BIT(8)
--#define CHOR_CLRDONE			BIT(7)
--#define CHOR_CLRRB			BIT(6)
--#define CHOR_CLRLC			BIT(5)
--#define CHOR_FRESET			BIT(4)
--#define CHOR_ABORT			BIT(3)
--#define CHOR_STOP			BIT(2)
--#define CHOR_CONT			BIT(1)
--#define CHOR_START			BIT(0)
--#define CHOR_PON			(CHOR_CLR_SEND_TC | CHOR_CLR_LPAUSE)
--
--#define MITE_CHCR		0x504
--#define CHCR_SET_DMA_IE			BIT(31)
--#define CHCR_CLR_DMA_IE			BIT(30)
--#define CHCR_SET_LINKP_IE		BIT(29)
--#define CHCR_CLR_LINKP_IE		BIT(28)
--#define CHCR_SET_SAR_IE			BIT(27)
--#define CHCR_CLR_SAR_IE			BIT(26)
--#define CHCR_SET_DONE_IE		BIT(25)
--#define CHCR_CLR_DONE_IE		BIT(24)
--#define CHCR_SET_MRDY_IE		BIT(23)
--#define CHCR_CLR_MRDY_IE		BIT(22)
--#define CHCR_SET_DRDY_IE		BIT(21)
--#define CHCR_CLR_DRDY_IE		BIT(20)
--#define CHCR_SET_LC_IE			BIT(19)
--#define CHCR_CLR_LC_IE			BIT(18)
--#define CHCR_SET_CONT_RB_IE		BIT(17)
--#define CHCR_CLR_CONT_RB_IE		BIT(16)
--#define CHCR_FIFODIS			BIT(15)
--#define CHCR_FIFO_ON			0
--#define CHCR_BURSTEN			BIT(14)
--#define CHCR_NO_BURSTEN			0
--#define CHCR_NFTP(x)			((x) << 11)
--#define CHCR_NFTP0			CHCR_NFTP(0)
--#define CHCR_NFTP1			CHCR_NFTP(1)
--#define CHCR_NFTP2			CHCR_NFTP(2)
--#define CHCR_NFTP4			CHCR_NFTP(3)
--#define CHCR_NFTP8			CHCR_NFTP(4)
--#define CHCR_NFTP16			CHCR_NFTP(5)
--#define CHCR_NETP(x)			((x) << 11)
--#define CHCR_NETP0			CHCR_NETP(0)
--#define CHCR_NETP1			CHCR_NETP(1)
--#define CHCR_NETP2			CHCR_NETP(2)
--#define CHCR_NETP4			CHCR_NETP(3)
--#define CHCR_NETP8			CHCR_NETP(4)
--#define CHCR_CHEND1			BIT(5)
--#define CHCR_CHEND0			BIT(4)
--#define CHCR_DIR			BIT(3)
--#define CHCR_DEV_TO_MEM			CHCR_DIR
--#define CHCR_MEM_TO_DEV			0
--#define CHCR_NORMAL			((0) << 0)
--#define CHCR_CONTINUE			((1) << 0)
--#define CHCR_RINGBUFF			((2) << 0)
--#define CHCR_LINKSHORT			((4) << 0)
--#define CHCR_LINKLONG			((5) << 0)
--#define CHCRPON				(CHCR_CLR_DMA_IE | CHCR_CLR_LINKP_IE | CHCR_CLR_SAR_IE | \
--					 CHCR_CLR_DONE_IE | CHCR_CLR_MRDY_IE | CHCR_CLR_DRDY_IE | \
--					 CHCR_CLR_LC_IE | CHCR_CLR_CONT_IE)
--
--#define MITE_TCR		0x508
--
--/* CR bits */
--#define CR_RL(x)			((x) << 21)
--#define CR_RL0				CR_RL(0)
--#define CR_RL1				CR_RL(1)
--#define CR_RL2				CR_RL(2)
--#define CR_RL4				CR_RL(3)
--#define CR_RL8				CR_RL(4)
--#define CR_RL16				CR_RL(5)
--#define CR_RL32				CR_RL(6)
--#define CR_RL64				CR_RL(7)
--#define CR_RD(x)			((x) << 19)
--#define CR_RD0				CR_RD(0)
--#define CR_RD32				CR_RD(1)
--#define CR_RD512			CR_RD(2)
--#define CR_RD8192			CR_RD(3)
--#define CR_REQS(x)			((x) << 16)
--#define CR_REQSDRQ0			CR_REQS(4)
--#define CR_REQSDRQ1			CR_REQS(5)
--#define CR_REQSDRQ2			CR_REQS(6)
--#define CR_REQSDRQ3			CR_REQS(7)
--#define CR_ASEQX(x)			((x) << 10)
--#define CR_ASEQX0			CR_ASEQX(0)
--#define	CR_ASEQDONT			CR_ASEQX0
--#define CR_ASEQXP1			CR_ASEQX(1)
--#define CR_ASEQUP			CR_ASEQXP1
--#define CR_ASEQXP2			CR_ASEQX(2)
--#define CR_ASEQDOWN			CR_ASEQXP2
--#define CR_ASEQXP4			CR_ASEQX(3)
--#define CR_ASEQXP8			CR_ASEQX(4)
--#define CR_ASEQXP16			CR_ASEQX(5)
--#define CR_ASEQXP32			CR_ASEQX(6)
--#define CR_ASEQXP64			CR_ASEQX(7)
--#define CR_ASEQXM1			CR_ASEQX(9)
--#define CR_ASEQXM2			CR_ASEQX(10)
--#define CR_ASEQXM4			CR_ASEQX(11)
--#define CR_ASEQXM8			CR_ASEQX(12)
--#define CR_ASEQXM16			CR_ASEQX(13)
--#define CR_ASEQXM32			CR_ASEQX(14)
--#define CR_ASEQXM64			CR_ASEQX(15)
--#define CR_PSIZEBYTE			BIT(8)
--#define CR_PSIZEHALF			(2 << 8)
--#define CR_PSIZEWORD			(3 << 8)
--#define CR_PORTCPU			(0 << 6)
--#define CR_PORTIO			BIT(6)
--#define CR_PORTVXI			(2 << 6)
--#define CR_PORTMXI			(3 << 6)
--#define CR_AMDEVICE			BIT(0)
--
--#define CHSR_INT			0x80000000
--#define CHSR_DONE			0x02000000
--#define CHSR_LINKC			0x00080000
--
--#define MITE_MCR		0x50c
--#define	MCRPON				0
--
--#define MITE_MAR		0x510
--
--#define MITE_DCR		0x514
--#define DCR_NORMAL			BIT(29)
--#define DCRPON				0
--
--#define MITE_DAR		0x518
--
--#define MITE_LKCR		0x51c
--
--#define MITE_LKAR		0x520
--#define MITE_LLKAR		0x524
--#define MITE_BAR		0x528
--#define MITE_BCR		0x52c
--#define MITE_SAR		0x530
--#define MITE_WSCR		0x534
--#define MITE_WSER		0x538
--#define MITE_CHSR		0x53c
--#define MITE_FCR		0x540
--
--#define MITE_FIFO		0x80
--#define MITE_FIFOEND		0xff
--
--#define MITE_AMRAM		        0x00
--#define MITE_AMDEVICE		        0x01
--#define MITE_AMHOST_A32_SINGLE	        0x09
--#define MITE_AMHOST_A24_SINGLE	        0x39
--#define MITE_AMHOST_A16_SINGLE	        0x29
--#define MITE_AMHOST_A32_BLOCK	        0x0b
--#define MITE_AMHOST_A32D64_BLOCK	0x08
--#define MITE_AMHOST_A24_BLOCK	        0x3b
- 
- enum mite_registers {
- 	MITE_IODWBSR = 0xc0,	// IO Device Window Base Size Register
--- 
-2.55.0
+we will fix's min and max in the next patch set.
 
+> 
+> > +			regulator-initial-mode = <RPMH_REGULATOR_MODE_LPM>;
+> 
+> Are you sure you want to go LPM here?
+ 
+we’ll keep HPM as the initial mode in the next patch set.
+
+regards
+Rakesh Kota
+> 
+> > +			regulator-allow-set-load;
+> > +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
+> > +						   RPMH_REGULATOR_MODE_HPM>;
+> > +		};
+> > +
+> > +		vreg_l2a: ldo2 {
+> > +			regulator-name = "vreg_l2a";
+> > +			regulator-min-microvolt = <1650000>;
+> > +			regulator-max-microvolt = <3100000>;
+> > +			regulator-initial-mode = <RPMH_REGULATOR_MODE_LPM>;
+> > +			regulator-allow-set-load;
+> > +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
+> > +						   RPMH_REGULATOR_MODE_HPM>;
+> > +		};
+> > +
+> > +		vreg_l3a: ldo3 {
+> > +			regulator-name = "vreg_l3a";
+> > +			regulator-min-microvolt = <1000000>;
+> > +			regulator-max-microvolt = <1248000>;
+> > +			regulator-initial-mode = <RPMH_REGULATOR_MODE_LPM>;
+> > +			regulator-allow-set-load;
+> > +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
+> > +						   RPMH_REGULATOR_MODE_HPM>;
+> > +		};
+> > +
+> > +		vreg_l5a: ldo5 {
+> > +			regulator-name = "vreg_l5a";
+> > +			regulator-min-microvolt = <875000>;
+> > +			regulator-max-microvolt = <975000>;
+> > +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> > +			regulator-allow-set-load;
+> > +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
+> > +						   RPMH_REGULATOR_MODE_HPM>;
+> > +		};
+> > +
+> > +		vreg_l7a: ldo7 {
+> > +			regulator-name = "vreg_l7a";
+> > +			regulator-min-microvolt = <1800000>;
+> > +			regulator-max-microvolt = <1900000>;
+> > +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> > +			regulator-allow-set-load;
+> > +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
+> > +						   RPMH_REGULATOR_MODE_HPM>;
+> > +		};
+> > +
+> > +		vreg_l8a: ldo8 {
+> > +			regulator-name = "vreg_l8a";
+> > +			regulator-min-microvolt = <1150000>;
+> > +			regulator-max-microvolt = <1350000>;
+> > +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> > +			regulator-allow-set-load;
+> > +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
+> > +						   RPMH_REGULATOR_MODE_HPM>;
+> > +		};
+> > +
+> > +		vreg_l10a: ldo10 {
+> > +			regulator-name = "vreg_l10a";
+> > +			regulator-min-microvolt = <2950000>;
+> > +			regulator-max-microvolt = <3312000>;
+> > +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> > +			regulator-allow-set-load;
+> > +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
+> > +						   RPMH_REGULATOR_MODE_HPM>;
+> > +		};
+> > +
+> > +		vreg_l11a: ldo11 {
+> > +			regulator-name = "vreg_l11a";
+> > +			regulator-min-microvolt = <1232000>;
+> > +			regulator-max-microvolt = <1260000>;
+> > +			regulator-initial-mode = <RPMH_REGULATOR_MODE_LPM>;
+> > +			regulator-allow-set-load;
+> > +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
+> > +						   RPMH_REGULATOR_MODE_HPM>;
+> > +		};
+> > +
+> > +		vreg_l12a: ldo12 {
+> > +			regulator-name = "vreg_l12a";
+> > +			regulator-min-microvolt = <1800000>;
+> > +			regulator-max-microvolt = <1890000>;
+> > +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> > +		};
+> > +
+> > +		vreg_l13a: ldo13 {
+> > +			regulator-name = "vreg_l13a";
+> > +			regulator-min-microvolt = <3000000>;
+> > +			regulator-max-microvolt = <3230000>;
+> > +			regulator-initial-mode = <RPMH_REGULATOR_MODE_LPM>;
+> > +			regulator-allow-set-load;
+> > +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
+> > +						   RPMH_REGULATOR_MODE_HPM>;
+> > +		};
+> > +
+> > +		vreg_l15a: ldo15 {
+> > +			regulator-name = "vreg_l15a";
+> > +			regulator-min-microvolt = <1800000>;
+> > +			regulator-max-microvolt = <1904000>;
+> > +			regulator-initial-mode = <RPMH_REGULATOR_MODE_LPM>;
+> > +			regulator-allow-set-load;
+> > +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
+> > +						   RPMH_REGULATOR_MODE_HPM>;
+> > +		};
+> > +
+> > +		vreg_l16a: ldo16 {
+> > +			regulator-name = "vreg_l16a";
+> > +			regulator-min-microvolt = <3000000>;
+> > +			regulator-max-microvolt = <3312000>;
+> > +			regulator-initial-mode = <RPMH_REGULATOR_MODE_LPM>;
+> > +			regulator-allow-set-load;
+> > +			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
+> > +						   RPMH_REGULATOR_MODE_HPM>;
+> > +		};
+> > +
+> > +		vreg_l17a: ldo17 {
+> > +			regulator-name = "vreg_l17a";
+> > +			regulator-min-microvolt = <2950000>;
+> > +			regulator-max-microvolt = <3312000>;
+> > +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> > +		};
+> > +	};
+> > +};
+> > +
+> > +&gcc {
+> > +	clocks = <&rpmhcc RPMH_CXO_CLK>,
+> > +		 <&rpmhcc RPMH_CXO_CLK_A>,
+> > +		 <&sleep_clk>;
+> 
+> I'm failing to see how that differs from that talos.dtsi already says.
+> 
+> That said, this list is incomplete and needs to be corrected - can be
+> done separately.
+> 
+> > +};
+> > +
+> > +&gpu {
+> > +	status = "okay";
+> > +};
+> > +
+> > +&gpu_zap_shader {
+> > +	firmware-name = "qcom/qcs615/a612_zap.mbn";
+> > +};
+> > +
+> > +&qupv3_id_0 {
+> > +	status = "okay";
+> > +};
+> > +
+> > +&qupv3_id_1 {
+> > +	status = "okay";
+> > +};
+> > +
+> > +&remoteproc_adsp {
+> > +	firmware-name = "qcom/qcs615/adsp.mbn";
+> > +
+> > +	status = "okay";
+> > +};
+> > +
+> > +&remoteproc_cdsp {
+> > +	firmware-name = "qcom/qcs615/cdsp.mbn";
+> > +
+> > +	status = "okay";
+> > +};
+> > +
+> > +&rpmhcc {
+> > +	clocks = <&xo_board_clk>;
+> 
+> That's what it says in talos.dtsi already. I must be misunderstanding
+> something?
+> 
+> > +};
+> > +
+> > +&sdhc_1 {
+> > +	pinctrl-0 = <&sdc1_state_on>;
+> > +	pinctrl-1 = <&sdc1_state_off>;
+> > +	pinctrl-names = "default", "sleep";
+> > +	bus-width = <8>;
+> > +	mmc-ddr-1_8v;
+> > +	mmc-hs200-1_8v;
+> > +	mmc-hs400-1_8v;
+> > +	mmc-hs400-enhanced-strobe;
+> > +	vmmc-supply = <&vreg_l17a>;
+> > +	vqmmc-supply = <&vreg_s4a>;
+> > +	non-removable;
+> > +	no-sd;
+> > +	no-sdio;
+> > +
+> > +	status = "okay";
+> > +};
+> > +
+> > +&sdhc_2 {
+> > +	pinctrl-0 = <&sdc2_state_on>;
+> > +	pinctrl-1 = <&sdc2_state_off>;
+> > +	pinctrl-names = "default", "sleep";
+> > +	bus-width = <4>;
+> > +	cd-gpios = <&tlmm 99 GPIO_ACTIVE_LOW>;
+> > +	vmmc-supply = <&vreg_l10a>;
+> > +	vqmmc-supply = <&vreg_s4a>;
+> > +
+> > +	status = "okay";
+> > +};
+> > +
+> > +&uart0 {
+> > +	status = "okay";
+> > +};
+> > +
+> > +&ufs_mem_hc {
+> > +	reset-gpios = <&tlmm 123 GPIO_ACTIVE_LOW>;
+> > +	vcc-supply = <&vreg_l17a>;
+> > +	vcc-max-microamp = <600000>;
+> > +	vccq2-supply = <&vreg_s4a>;
+> > +	vccq2-max-microamp = <600000>;
+> > +
+> > +	status = "okay";
+> > +};
+> > +
+> > +&ufs_mem_phy {
+> > +	vdda-phy-supply = <&vreg_l5a>;
+> > +	vdda-pll-supply = <&vreg_l12a>;
+> > +
+> > +	status = "okay";
+> > +};
+> > 
+> > -- 
+> > 2.34.1
+> > 
