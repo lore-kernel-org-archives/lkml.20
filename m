@@ -1,38 +1,38 @@
-Received: from relay.smtp-ext.broadcom.com (relay.smtp-ext.broadcom.com [192.19.144.207])
+Received: from relay.smtp-ext.broadcom.com (relay.smtp-ext.broadcom.com [192.19.166.231])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1DF92C3255;
-	Fri, 18 Sep 2026 00:14:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.19.144.207
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1DF93033E1;
+	Fri, 18 Sep 2026 00:16:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.19.166.231
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789690488; cv=none; b=Fjdf0igBalWOUFxfVRALenPtFAvMrMd34NvJF6T3P1HsdnkJ8TTcAkmN+eS0zYKAICcwHvAF7cJU8YepciRf2dhSE9p7RqE+opV3OAltmb2helPEVI1i4wdWxcH02NERXRi+hPmf+mPZomAzvNMs9qMwkcj7NgwyfxtW8G2OzXY=
+	t=1789690578; cv=none; b=cHleujX91bhH4QN5W8aOVGGZW2Oc9JtC4FsSBXqZjum2dM/rS/VfTIjaYz6BMUKxPYmwUGHtJrKBthpxnNF+f4eSdRtcYDOlcIaM54QQnapyLG0ed7njXtcDnajMJOyuaQyOCjmSZ6X4EuIH/ndsiAa3J4lUKzGa/eLn9bLp5jQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789690488; c=relaxed/simple;
-	bh=ltgQEPMPlXFyA04U5tftgacR8zuqN+977jnHwjyj9OU=;
+	s=arc-20240116; t=1789690578; c=relaxed/simple;
+	bh=SFwBTmAFjRx28AmNVjEg2GSfw/YyRzh3aFVaWsP2jr0=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=k+KEj5pLoY6R6RWjuqshGMY/GE+ctdFzUUPQlnPj0G5UylOTx0dxP/rMBXRs4GcmUwWw/+8gR8YGR9w+HymK64Qtat2c8q/jUHRn4lVFqpFbGlRBX0anpfEJ7EDxr6baWX7rfOCudxRbM9ILJdB8yOIxuwmFaemp2+Ts9w56dWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=Xo2wouNO; arc=none smtp.client-ip=192.19.144.207
+	 MIME-Version; b=jOiZlwjE3EpMMB3r0k6ABjGz53DrP8ENfBf+4LlIWlLTm34ao833ENusu636V/2AfH1/uQs+M2XKA5sKFvuONw9Tf7QC0JQ4qIrLJh8fMibde9xbcEklGwuRxzyh2Lmw4EmhzhaCfKNg+rc4Lc3yf2ZorErL83HIWpm5uiag6ik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=b8tDPlNE; arc=none smtp.client-ip=192.19.166.231
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="Xo2wouNO"
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="b8tDPlNE"
 Received: from mail-lvn-it-01.broadcom.com (mail-lvn-it-01.lvn.broadcom.net [10.36.132.253])
-	by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id DB7B9C035EC6;
-	Thu, 17 Sep 2026 17:07:40 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com DB7B9C035EC6
+	by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id 6F086C0C3BCA;
+	Thu, 17 Sep 2026 17:07:41 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com 6F086C0C3BCA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=broadcom.com;
-	s=dkimrelay; t=1789690060;
-	bh=ltgQEPMPlXFyA04U5tftgacR8zuqN+977jnHwjyj9OU=;
+	s=dkimrelay; t=1789690061;
+	bh=SFwBTmAFjRx28AmNVjEg2GSfw/YyRzh3aFVaWsP2jr0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Xo2wouNOHvnCkLyjX9tOOS/MMJaxzPK0pTNf2CGpIzrCagHsfZhQD1k8J1T6QTqA9
-	 QHWjBwffGjSPTRf8cgO9GXR3oBMmioJHCXNNdijvMrMnURMxLg6IYJTHC/dGcGZyvy
-	 YOnCsUFpbnPHEJg44NVtn+AQ0fEy1reP5h7PU/mw=
+	b=b8tDPlNEecd13MfPXEQhzlH5wuT9RZtobsVnqKhtcZBaGG6Hiba7bjrZWbZW9pDov
+	 DSw4nkVkSSLX7wEf7y+NgU8/M1m/VZ5SVS+O67XubehKmF2/D1DDTf/d4u6xyyhNTE
+	 x3q1t62OqWo3ezn97v18V/qb7yYWPBiYvW/RiYFs=
 Received: from stbirv-lnx-1.igp.broadcom.net (stbirv-lnx-1.igp.broadcom.net [10.67.48.32])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail-lvn-it-01.broadcom.com (Postfix) with ESMTPSA id 7D155AD9;
-	Thu, 17 Sep 2026 17:07:40 -0700 (PDT)
+	by mail-lvn-it-01.broadcom.com (Postfix) with ESMTPSA id 4718CAD9;
+	Thu, 17 Sep 2026 17:07:41 -0700 (PDT)
 From: Florian Fainelli <florian.fainelli@broadcom.com>
 To: netdev@vger.kernel.org
 Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
@@ -49,9 +49,9 @@ Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
 	Ryo Takakura <ryotkkr98@gmail.com>,
 	linux-kernel@vger.kernel.org (open list),
 	Nicolai Buchwitz <nb@tipi-net.de>
-Subject: [PATCH net 1/8] net: bcmgenet: fix 64-bit RTNL stats reading in ethtool on 32-bit systems
-Date: Thu, 17 Sep 2026 17:07:25 -0700
-Message-Id: <20260918000732.276506-2-florian.fainelli@broadcom.com>
+Subject: [PATCH net 5/8] net: bcmgenet: acquire ring lock with BH disabled in bcmgenet_dump_tx_queue
+Date: Thu, 17 Sep 2026 17:07:29 -0700
+Message-Id: <20260918000732.276506-6-florian.fainelli@broadcom.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260918000732.276506-1-florian.fainelli@broadcom.com>
 References: <20260918000732.276506-1-florian.fainelli@broadcom.com>
@@ -63,48 +63,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When bcmgenet was converted to 64-bit statistics, STAT_RTNL members were
-switched to point into struct rtnl_link_stats64, whose fields are 64-bit
-(__u64) regardless of architecture.
+bcmgenet_dump_tx_queue() is called from bcmgenet_timeout() in process or
+timer context and acquires ring->lock using spin_lock(). If a softirq
+such as TX NAPI (bcmgenet_tx_poll()) fires on the same CPU while the lock
+is held, it will deadlock trying to acquire ring->lock.
 
-However, bcmgenet_get_ethtool_stats() retained a legacy check:
-  if (sizeof(unsigned long) != sizeof(u32) &&
-      s->stat_sizeof == sizeof(unsigned long))
+Use spin_lock_bh() and spin_unlock_bh() in bcmgenet_dump_tx_queue(),
+matching bcmgenet_tx_reclaim().
 
-On 32-bit systems, sizeof(unsigned long) == sizeof(u32), causing this
-condition to evaluate to false. As a result, 64-bit RTNL stats fields were
-read via *(u32 *)p. On 32-bit Big-Endian systems (such as MIPS BE), this
-reads the high 32 bits and returns 0 until the counter exceeds 4GB; on
-32-bit Little-Endian systems (such as 32-bit ARM), the value is truncated
-to 32 bits.
-
-Fix this by checking if s->stat_sizeof == sizeof(u64) so 64-bit fields are
-always read as 64-bit values.
-
-Fixes: 59aa6e3072aa ("net: bcmgenet: switch to use 64bit statistics")
+Fixes: 13ea657806cf ("net: bcmgenet: improve TX timeout")
 Assisted-by: LLM
 Co-authored-by: Cursor <cursoragent@cursor.com>
-Change-Id: I3e9f2f8d4fd136392148d6c0cd4eb40f7ccbe4ef
+Change-Id: I0c4c6392590b2d16abd44f75d3f6974f3e1b874b
 ---
- drivers/net/ethernet/broadcom/genet/bcmgenet.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/net/ethernet/broadcom/genet/bcmgenet.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-index b916080f4ff1..7b089de9484e 100644
+index ef155a170fa6..799da63e3a4e 100644
 --- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
 +++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-@@ -1346,9 +1346,8 @@ static void bcmgenet_get_ethtool_stats(struct net_device *dev,
- 				p = (char *)&stats64;
+@@ -3508,14 +3508,14 @@ static void bcmgenet_dump_tx_queue(struct bcmgenet_tx_ring *ring)
  
- 			p += s->stat_offset;
--			if (sizeof(unsigned long) != sizeof(u32) &&
--				s->stat_sizeof == sizeof(unsigned long))
--				data[i] = *(unsigned long *)p;
-+			if (s->stat_sizeof == sizeof(u64))
-+				data[i] = *(u64 *)p;
- 			else
- 				data[i] = *(u32 *)p;
- 		}
+ 	txq = netdev_get_tx_queue(priv->dev, ring->index);
+ 
+-	spin_lock(&ring->lock);
++	spin_lock_bh(&ring->lock);
+ 	intsts = ~bcmgenet_intrl2_1_readl(priv, INTRL2_CPU_MASK_STATUS);
+ 	intmsk = 1 << ring->index;
+ 	c_index = bcmgenet_tdma_ring_readl(priv, ring->index, TDMA_CONS_INDEX);
+ 	p_index = bcmgenet_tdma_ring_readl(priv, ring->index, TDMA_PROD_INDEX);
+ 	txq_stopped = netif_tx_queue_stopped(txq);
+ 	free_bds = ring->free_bds;
+-	spin_unlock(&ring->lock);
++	spin_unlock_bh(&ring->lock);
+ 
+ 	netif_err(priv, tx_err, priv->dev, "Ring %d queue %d status summary\n"
+ 		  "TX queue status: %s, interrupts: %s\n"
 -- 
 2.34.1
 
