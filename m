@@ -1,194 +1,101 @@
-Received: from www262.sakura.ne.jp (www262.sakura.ne.jp [202.181.97.72])
+Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7485370AE1
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:20:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.181.97.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0BC34E1C97
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:21:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789734056; cv=none; b=iyhRY0dYXr8IgKAbdaosSxMhNHdsc6Uov3HJrUt/noSCPnJ3b833y3YyeYQcXH7tpaZ6+MK8dEYqETXReHTFhJB7bNuCuqdECfch7UQIgmIxJXm8GKnKEJawv1WJWPL3PGewPDtOzJmdw42yDdb+4DAwmt/nRauhUnQN+PooP2Y=
+	t=1789734087; cv=none; b=nldd2RXoUicCCZ2tUC/30opcYkGJj0hHh2X2gU5bnpXyrsnHEO2bUHuS2P0p6f1+GRpmg2GRmULbuY2FbZVTWLK7M0/T31zhBuOjSZqfG5tyJ0yvXIx2K0f4Fu+y+HmQs7+GwTKd8PqfKX490bSKWMv1Fd5MZ5vYRsbRLsH8eq8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789734056; c=relaxed/simple;
-	bh=Apyf4yioRR+wTqALR1/tHpUsikogxjsLBmDcWAlx7qM=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
-	 In-Reply-To:Content-Type; b=UW3tJgOiaTaygiFEXmhSPKgr9yLFHoa0F6nHYo34uXF13ZrSpxylqtqLscNiBDWEqJsBD85QU46jbR4ZkZsBX9BtIJcFQZ281EyvF7DDnbyvDS4cBIMCGuzeTxRREYJTvg3S5fLoi0KCyXvsRe02DIrX5dnywVEAShZKmLSl9I0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp; arc=none smtp.client-ip=202.181.97.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp
-Received: from www262.sakura.ne.jp (localhost [127.0.0.1])
-	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 68ICKgrw091964
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 21:20:42 +0900 (JST)
-	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Received: from [192.168.1.6] (M106072072000.v4.enabler.ne.jp [106.72.72.0])
-	(authenticated bits=0)
-	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id 68ICKgTo091960
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NO)
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 21:20:42 +0900 (JST)
-	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Message-ID: <7da3bdbf-666a-4675-961f-36433c59954c@I-love.SAKURA.ne.jp>
-Date: Fri, 18 Sep 2026 21:20:40 +0900
+	s=arc-20240116; t=1789734087; c=relaxed/simple;
+	bh=SEmeR4FLjJT2YPtaPNjUPThsojh0fPVV6bVT6zfE2vA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=pqMNrT3RkWgwOm3HQVyeZY5mGAk0QbRhyOe9ujdqteBIM9quj6efkJiVjCBbd4RmhfwmcDb9e6xtSeJYPbBNkAJOaZXLEu+CNP3pW/ZTJ4bQkE88F3tCznUwnIBgZo00YD3IJRoVCS11eRJHP53K6+g3avZVt+7siWOnizUIrIY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arkamondal.net; spf=pass smtp.mailfrom=arkamondal.net; dkim=pass (2048-bit key) header.d=arkamondal.net header.i=@arkamondal.net header.b=be+BFe5s; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=gYNfSGXb; arc=none smtp.client-ip=34.202.193.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arkamondal.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arkamondal.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=arkamondal.net header.i=@arkamondal.net header.b="be+BFe5s";
+	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="gYNfSGXb"
+DKIM-Signature: a=rsa-sha256; b=be+BFe5sXrf8abcK9x5P7FpVoZdDQOm0PmYtJR5VLWKcV5B7hJ53A/MAvQJqcKmsXACsOzQlYpvM28DRZRNPoCryiqVAnkifLSBVTKRw1qQd1mBiV+E88YcXrxz6bbO7MyugdDjf0GwJgrtwFwsq8rTVQ5DgHySxf8G9GWONmy0ZDFiOEYFiF0bGCuZDIpRhPTKT2nG/J13qnbZzpHpF+B9/+FXsRqoD7Mno8WAA87n2Y/13LvsUFShbW0dwbAP1hZoi0ieTZOGZDtx1rhjmFJC4Tt+fnkM4P4ZBxmGpztHkuH0269+TVOEX5PR9TS27l43QOrSP5dB4RcgtywwKAA==; s=purelymail2; d=arkamondal.net; v=1; bh=SEmeR4FLjJT2YPtaPNjUPThsojh0fPVV6bVT6zfE2vA=; h=Received:From:To:Subject:Date;
+DKIM-Signature: a=rsa-sha256; b=gYNfSGXbVuIGacqrUyzX4vG8zDnwXaGIhf4KKHmXCXS0znbMLyX+xTwdbcJvqNNCKE+or/5VO4kW6WIPr/m1DwhmECT0GCJEnJ4f5pNq+mQdwOupBwysiUeR4NnHisR1r4ofkUYlftbTy/+VfVhgiHPDmxgiK5RZls+oR48mWMAhognHHhG8Xz2G/2tzyfo3elcSva2u1USusLX+3yaGCBHB7eByleV7NAFlANQrN3fIbTLGYzhOsStLJ59p1fWxV3iLoEdJ+AZQec/uFEYq6zgZb9gXtmomxRA89QEAMRwnJtk/KtoQJPgHrlfiuQAQIHNNXYszk3rZqIQsoLkZaw==; s=purelymail2; d=purelymail.com; v=1; bh=SEmeR4FLjJT2YPtaPNjUPThsojh0fPVV6bVT6zfE2vA=; h=Feedback-ID:Received:From:To:Subject:Date;
+Feedback-ID: 1246644:48769:null:purelymail
+X-Pm-Original-To: linux-kernel@vger.kernel.org
+Authentication-Results: purelymail.com; auth=pass
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -1407208783;
+          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+          Fri, 18 Sep 2026 12:20:48 +0000 (UTC)
+From: Arka Mondal <arka@arkamondal.net>
+To: Jonathan Cameron <jic23@kernel.org>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>
+Cc: David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux@analog.com,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	arkamondalofficial@gmail.com,
+	Arka Mondal <arka@arkamondal.net>
+Subject: [PATCH 0/5] iio: dac: ad5758: fix DMA alignment, raw range, offset and 4-20 mA
+Date: Fri, 18 Sep 2026 21:20:27 +0900
+Message-ID: <20260918122032.134947-1-arka@arkamondal.net>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2.1 2/2] loop: Perform __loop_clr_fd() after disk->open_mutex
- is dropped.
-From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-To: LKML <linux-kernel@vger.kernel.org>
-References: <313debf1-4b85-4dad-a5b7-a5d9165681fd@I-love.SAKURA.ne.jp>
-Content-Language: en-US
-In-Reply-To: <313debf1-4b85-4dad-a5b7-a5d9165681fd@I-love.SAKURA.ne.jp>
+Content-Transfer-Encoding: quoted-printable
+X-MIME-Autoconverted: from 8bit to quoted-printable by Purelymail
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Anti-Virus-Server: fsav312.rs.sakura.ne.jp
-X-Virus-Status: clean
 
-syzbot is reporting NULL pointer dereference in lo_rw_aio().
-An analysis by the Gemini AI collaborator considers that this problem
-is caused by a timing shift primarily exposed by commit 65565ca5f99b
-("block: unify the synchronous bi_end_io callbacks"), along with helper
-refactorings like commit 92c3737a2473 ("block: add a bio_submit_or_kill
-helper").
+The first attempt to send this series on 2026-09-18 was rejected by
+the kernel.org mail servers, so it did not reach the lists. The patches
+are unchanged.
 
-But due to difficulty of reproducing this race, discussion about what is
-happening and how to fix this problem is stalling. Also, we haven't
-identified how many filesystems are subjected to this problem.
+This series fixes four bugs in the AD5758 driver, all present since
+commit 28d1a7ac2a0d ("iio: dac: Add AD5758 support"). The last bug
+takes two patches, one for the binding and one for the driver.
 
-Therefore, introduce a grace period for flushing outstanding I/O
-(which should be a good thing from the perspective of defensive
-programming) so that we won't hit NULL pointer dereference problem.
+Patch 1 marks the SPI receive buffer __aligned(IIO_DMA_MINALIGN), so
+it no longer shares a cacheline with other driver state. The 2022
+conversion of IIO drivers to IIO_DMA_MINALIGN only changed existing
+____cacheline_aligned markings, and this driver had none.
 
-Since calling drain_workqueue() from __loop_clr_fd() with disk->open_mutex
-held causes lockdep warnings, call __loop_clr_fd() from lo_post_release().
-Use rundown_owner for remembering who is responsible for calling
-__loop_clr_fd() from lo_post_release().
+Patch 2 rejects raw values outside 0 to U16_MAX. Writing -1 currently
+gives full-scale output.
 
-Link: https://lkml.kernel.org/r/fbb3edda-f108-4e5b-acf2-266f043f8125@I-love.SAKURA.ne.jp
-Reported-by: syzbot+cd8a9a308e879a4e2c28@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=cd8a9a308e879a4e2c28
-Reported-by: syzbot+bc273027d5643e48e5b3@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=bc273027d5643e48e5b3
-Depends-on: "block: Add post_release() operation"
-Fixes: 65565ca5f99b ("block: unify the synchronous bi_end_io callbacks")
-Assisted-by: Gemini-Pro
-Signed-off-by: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
----
- drivers/block/loop.c | 63 ++++++++++++++++++++++++++++++++++++--------
- 1 file changed, 52 insertions(+), 11 deletions(-)
+Patch 3 fixes the offset for every range that does not start at 0.
+The +-20 mA range reports -32 instead of -32768.
 
-diff --git a/drivers/block/loop.c b/drivers/block/loop.c
-index 758c20678bf6..aa7f1e22088a 100644
---- a/drivers/block/loop.c
-+++ b/drivers/block/loop.c
-@@ -75,6 +75,7 @@ struct loop_device {
- 	struct gendisk		*lo_disk;
- 	struct mutex		lo_mutex;
- 	bool			idr_visible;
-+	struct task_struct	*rundown_owner;
- };
- 
- struct loop_cmd {
-@@ -1142,6 +1143,34 @@ static void __loop_clr_fd(struct loop_device *lo)
- 	struct file *filp;
- 	gfp_t gfp = lo->old_gfp_mask;
- 	int err;
-+	struct gendisk *disk = lo->lo_disk;
-+
-+	/* Step 1: Flush all outstanding I/O, without open_mutex held. */
-+	/*
-+	 * Since loop_queue_rq() is called with RCU read lock, this synchronize_rcu()
-+	 * makes sure that no more queue_work() calls are made from loop_queue_work()
-+	 * from loop_queue_rq(). Subsequent loop_queue_rq() calls which are made after
-+	 * this synchronize_rcu() returned shall see lo->lo_state != Lo_bound and
-+	 * return with BLK_STS_IOERR.
-+	 */
-+	synchronize_rcu();
-+	/*
-+	 * This drain_workqueue() makes sure that no more loop_handle_cmd() calls are
-+	 * made from loop_process_work() from loop_workfn()/loop_rootcg_workfn().
-+	 */
-+	drain_workqueue(lo->workqueue);
-+	/*
-+	 * This blk_mq_freeze_queue() waits for completion of all outstanding I/O
-+	 * which has been scheduled via loop_queue_rq(), by waiting for q_usage_counter
-+	 * to reach 0. Since the lo->lo_state != Lo_bound check in loop_queue_rq()
-+	 * guarantees that no more new I/O requests are made, we can call
-+	 * blk_mq_unfreeze_queue() immediately after blk_mq_freeze_queue() returns.
-+	 */
-+	blk_mq_unfreeze_queue(lo->lo_queue, blk_mq_freeze_queue(lo->lo_queue));
-+
-+	/* Step 2: Perform remaining cleanup, with open_mutex held. */
-+	mutex_lock(&disk->open_mutex);
-+	WARN_ON_ONCE(lo->lo_state != Lo_rundown);
- 
- 	spin_lock_irq(&lo->lo_lock);
- 	filp = lo->lo_backing_file;
-@@ -1153,12 +1182,7 @@ static void __loop_clr_fd(struct loop_device *lo)
- 	lo->lo_sizelimit = 0;
- 	memset(lo->lo_file_name, 0, LO_NAME_SIZE);
- 
--	/*
--	 * Reset the block size to the default.
--	 *
--	 * No queue freezing needed because this is called from the final
--	 * ->release call only, so there can't be any outstanding I/O.
--	 */
-+	/* Reset the block size to the default. */
- 	lim = queue_limits_start_update(lo->lo_queue);
- 	lim.logical_block_size = SECTOR_SIZE;
- 	lim.physical_block_size = SECTOR_SIZE;
-@@ -1200,12 +1224,11 @@ static void __loop_clr_fd(struct loop_device *lo)
- 	mutex_lock(&lo->lo_mutex);
- 	WRITE_ONCE(lo->lo_state, Lo_unbound);
- 	mutex_unlock(&lo->lo_mutex);
-+	lo->rundown_owner = NULL;
-+
-+	/* Step 3: Drop refcounts, without open_mutex held. */
-+	mutex_unlock(&disk->open_mutex);
- 
--	/*
--	 * Need not hold lo_mutex to fput backing file. Calling fput holding
--	 * lo_mutex triggers a circular lock dependency possibility warning as
--	 * fput can take open_mutex which is usually taken before lo_mutex.
--	 */
- 	fput(filp);
- }
- 
-@@ -1771,7 +1794,24 @@ static void lo_release(struct gendisk *disk)
- 	need_clear = (lo->lo_state == Lo_rundown);
- 	mutex_unlock(&lo->lo_mutex);
- 
-+	/*
-+	 * In order to flush outstanding I/O (without open_mutex for deadlock
-+	 * avoidance) before clearing the backing device, defer __loop_clr_fd()
-+	 * to lo_post_release().
-+	 * The Lo_rundown state guarantees that lo_open() will fail with -ENXIO.
-+	 * The failing lo_open() guarantees that lo_release() will not overwrite
-+	 * lo->rundown_owner until __loop_clr_fd() resets to the Lo_unbound state.
-+	 */
- 	if (need_clear)
-+		lo->rundown_owner = current;
-+}
-+
-+static void lo_post_release(struct gendisk *disk)
-+{
-+	struct loop_device *lo = disk->private_data;
-+
-+	/* This function is called without serialization. */
-+	if (data_race(READ_ONCE(lo->rundown_owner)) == current)
- 		__loop_clr_fd(lo);
- }
- 
-@@ -1791,6 +1831,7 @@ static const struct block_device_operations lo_fops = {
- 	.owner =	THIS_MODULE,
- 	.open =         lo_open,
- 	.release =	lo_release,
-+	.post_release = lo_post_release,
- 	.ioctl =	lo_ioctl,
- #ifdef CONFIG_COMPAT
- 	.compat_ioctl =	lo_compat_ioctl,
--- 
-2.52.0
+Patches 4 and 5 fix the 4 mA to 20 mA range. The binding and the
+driver give it as <4 24000>, which is 4 uA to 24 mA. The data sheet
+(Rev. B, Table 32) and the original text binding say range code 1010
+is 4 mA to 20 mA. The old value is still accepted: the binding marks
+it deprecated and the driver maps it to the corrected range, so
+existing device trees keep working.
+
+Compile tested only; no relevant hardware available. The binding was
+checked with make dt_binding_check and with test device trees:
+<4000 20000> and <4 24000> are accepted; <4 20000> is rejected.
+
+Arka Mondal (5):
+  iio: dac: ad5758: Fix alignment for DMA safety
+  iio: dac: ad5758: Reject out-of-range raw values
+  iio: dac: ad5758: Fix the offset calculation
+  dt-bindings: iio: dac: adi,ad5758: Fix the 4 mA to 20 mA current range
+  iio: dac: ad5758: Fix the 4 mA to 20 mA current range
+
+ .../bindings/iio/dac/adi,ad5758.yaml           |  4 ++++
+ drivers/iio/dac/ad5758.c                       | 18 ++++++++++++++----
+ 2 files changed, 18 insertions(+), 4 deletions(-)
+
+
+base-commit: 08df884136f1c1197bab2a27814404fd329d9aac
+--=20
+2.55.0
 
