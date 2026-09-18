@@ -1,178 +1,222 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4400051354A
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:25:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789748733; cv=pass; b=shdKzU/CUx+UmVGPIizziN+2McUKe4HCZ0NUFASa689hIS9SyUI0EsOB2yvEmLibGOwE51jeH8O7llk6Up+3oly7YPAjS+o8VVWVXJqbFIAcQiHK/m4xX4krQhya1kwD65FBFZBXSds9N3NdQmOElnpdUfMmH1+Hv67CXE/+RmQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789748733; c=relaxed/simple;
-	bh=VrXbvFOV+NU9m5j2WeTHVhbaWFlGi5GoAqKgLGAISoE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YMMAQQTP39JN0S6wE5Sf+pjzK7Y6PMj9GdAfGPyPYyYvZoytKQNIuA5aExmrzsBCUe9WrVpCAlmScl3xiJoHgK5hlCBnmQ9rgjtvGEJkH1rw8DFOXOZCTrMMm0z7Kz1b9Jd8vqizcgjPo5ow7DnvJCCUXRboaN8HPhKNmvPKjk0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eI1WO8Rn; arc=pass smtp.client-ip=74.125.228.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5363B4EDCDE;
+	Fri, 18 Sep 2026 16:27:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789748868; cv=none; b=XZyO6mATih5ozeQUDphtfk/+J67cVpHLx5EDoTmFLIv3phC1hDb9rYO4q4PLff/7GcCxAH+VNHgonme8jqPmC7p2gvVuxxaq9jmq/IdWUQh3rFvkO5UJfhT+FG1yVeoJpGwWfO1sbed7P+STujW06wkyf1B890ZVsdNTX3uCoJI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789748868; c=relaxed/simple;
+	bh=dNJUCQxPilzp6newgbWXraokwGhDSL+qgKd75dUqn34=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=e3AECuSCa3MQpfBJqatg0oSNNRBeIoqfJL8/7Al6q87r8PQjEgpkI44fnt/xd7s0ycgGWOcyk9GClEuA5lyEeBUnUsKwwJdiciSgDfKGXs0PS7qDPsem5oZtfHRvyObe6zLNmNP3wXh9kr7KFI0STqjCJ94V2ZO/YOA0XK8uF5U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=m+nEUDr5; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eI1WO8Rn"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469d249c4so926611b3a.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:25:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789748727; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XV6ANQaDMfxS1QcuK6VM8AS4Kmm1839mSVFLSrELY76Ep5d9ixbmnNLjGuozzQgAzJ
-         J/V4mhXwLy7+hAqGMrFDRmKMa28LVFXF/dDuWmyGztPBHOmGzYZa7IhY5q2sX7qeub7s
-         5NjIUjUDTYaaSNfakAVv/GY9yHPcieu7tOTHcXgIcwa5gDV+yWqFCfSLuz/qfoEOCgHG
-         i/BA0od2UL8kUC9RgvZJ4cXdmpwkCT6hvVEi4+ObuPWtGHRLrDt0kiAJexKcWihAHy3s
-         d/pJv0Le6c1vDbHX4XfKeCNHqmUm0khrpYGoKtKr4Uy1SnXp1EfxPz4ccrDKnFCCw4cR
-         LtXQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=VrXbvFOV+NU9m5j2WeTHVhbaWFlGi5GoAqKgLGAISoE=;
-        fh=qtKGxT5MK5YPRFObbgRX5XGBLJLi6OeaM6DA1pAMJko=;
-        b=RHvMPGlFw/r6bcs1/zpHGWdZzIStALY8bCD/dgmQmKMBbZYnzYE3kXXAIdto9OpIGT
-         at/TJL+8tnQrtjPZi84YlHJalVMv+niSWmtdp26kVdgL6mcShUHSXj4sQJ8HPfBOOIFT
-         kDTbnRHnneClX63c0BrUM+WqT2sDQ67wTX6IMT9Q1Mtk6glzA004tRxolzzfQDBn4U5r
-         SkXWfLu+eAlCGswGhQPxdkcylX08J/Fhb5jJzECPQ4knaM+mXgvHdu+9X3k23Zzr9IlS
-         wp1vpHF1gpUUFXwVvYDbdibHI1P93tFLUBktme1w/48hkzpMPWFB5KzASJFkYya/AsL5
-         bkKQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789748727; x=1790353527; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VrXbvFOV+NU9m5j2WeTHVhbaWFlGi5GoAqKgLGAISoE=;
-        b=eI1WO8RnyeaXYWPeAUTKIjLT3bgSWi+jNhYoEh9QcvBhvZZpQq0aLd5paJZkAg1ph0
-         QZQcQ9KT5EqZAIZFvDZCAbbjl+olq+OrLjSkOYm/iL0Cov1CLAkZ1gMHSS8a2OxJWrzp
-         84KfPDVYUK2clwshSAdrCQDGvLYxC+H9eTuJZAV0u6/8ney9Nv6kZNmKJvjlRAwh9fmG
-         gXL6L8DGpW9tuxTe3MMS4gjbaRk6CRt8oj5OJkQQ634alkWnTUcQkMKEYo6eQ/RAwb6e
-         zWXpqVo7rAsNeG+7IRpUNgd8thuTKeuMm5iQKTKGwo/KZ1xjD2dVJkpY1LcgfmQNlblx
-         Rcxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789748727; x=1790353527;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=VrXbvFOV+NU9m5j2WeTHVhbaWFlGi5GoAqKgLGAISoE=;
-        b=u+InodZche//L1Q3xSxEJtNg7+cZxUOtk3JGdIxSLj/o88onRc+9w/oBfqYLAEcapq
-         gMpS25v/x777ZGESgXxVnWCOT+keEdnb/iP3JvT8SlWBQPFVWM6ItkycEYLpWK2I32Zb
-         2zMG9Z9DOE//gxvgKI89gvsx9alCBaVmZdfWgpp3Aza04TK4iXun1zYi9tSGmEmdYDFL
-         q463c3JMxqAEOFqa+lcJJZP/09cYQMqx2iOI55jaAUdxUtkS8qF46+KvMS5C61QVvfOh
-         tA4jYFR6Ttx2wANGZfsjkYs59WIcGLFKZtb5vQ8TsdM1fzWsYMillNWgeZTBaVWryYVv
-         OGIg==
-X-Forwarded-Encrypted: i=1; AKwUvBxvsuAKevdslvoM0xK9NWZSoxPnwR3yuiUhWkAkqpBFdk+vHWyBGsP94yiUThX6ZsRlZNQv06oKcgwtbNs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kgXagMqZrFCbW1IZscc7LDbA0PQPBAh0+CZPwKjGv0NuyvEzck
-	u8oUdnqRdffrm7jpDJX8hxjaoGj0/rQmHOanFavVsuEp+CSlkswHsSFmHIkQc0QYI+sOsnEXvWg
-	gtacC1Y911Nf9pJX6vwdhUwof6PRMZCU=
-X-Gm-Gg: AYBFou0u2n3ckFcUQnVytVCmMrAA96rV8L66Ux2BgYKHKl7FYUDwy/HIprdizWONuD9
-	X97wWwQC71qBJl14AxszmZlAfpF6ZzLph1dKAqRaFJCKog2IPyCK6Gx8ynuVMSA6T5VQPZ/8v0t
-	rnQwV9JpH6hOWeqRTVQAJFP/zW4XeSBAP8H8GlInVlxBOsI0N4sfBxFXhmdYl81b5HxGmnOqyX+
-	qytMQkGruSdrQB8mHEDhhGLq1DgkD2s5/hKefhZjO1X84SPtpZX4g2FaNrMR7JvCsU+E9zJB8Vh
-	vM7ZoUIqxlUDQgDsyJYB/kwO+dbb8Bh6zWc6Ob//zsG6sLIZBLJsIkwycH8ZyoqLFhYBURlHhYD
-	UfMCb2Oefz78DIw9BjvhL4J3vm7KaMzVB0dM=
-X-Received: by 2002:a05:6a00:13a7:b0:872:20f2:3287 with SMTP id
- d2e1a72fcca58-874dbeee762mr5939157b3a.10.1789748726761; Fri, 18 Sep 2026
- 09:25:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="m+nEUDr5"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68IDVpWV1421620;
+	Fri, 18 Sep 2026 16:27:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=diSL3g
+	PVIIsLP1y8rBsdiH9e7yVfU/AgUy7G1K9EC5E=; b=m+nEUDr5Ylfr4krcLS5fQD
+	+kNxdjikpfxIa1Sv5ZEvZql9ZAZa6h6P8EfDRyr9IU/dQ3AdnOMKEiVnm1XPj97q
+	7BX0jNHJImIcWZJOybDAVJD7wvUp45SLNC3DGmhXrqTNJhXd53wEoTIxZqPMbFK9
+	N3kozwbnBvjpjzbLDUmjnblaGKzNbitt0lm/MFDHGDq/kqPcibovwL36T66d1h38
+	E7rx9vf554DN6a/YWVTSeG+XADc2YpVtedPyUeOY0XSgwK+Rrh3J9yCxcTl3j8KM
+	6nROp5FHhg67PkGva07Jv1e3AULnzlDa0vZeadLYLUzqS6q5yyoWJFeaTE1RaMtw
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmxcvgh52-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 18 Sep 2026 16:27:05 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68IDO2Gc771897;
+	Fri, 18 Sep 2026 16:27:04 GMT
+Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gr5ffg6c4-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 18 Sep 2026 16:27:04 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
+	by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68IGR3bP14680736
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 18 Sep 2026 16:27:03 GMT
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0183858052;
+	Fri, 18 Sep 2026 16:27:03 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1D56358045;
+	Fri, 18 Sep 2026 16:27:00 +0000 (GMT)
+Received: from [9.224.64.252] (unknown [9.224.64.252])
+	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTPS;
+	Fri, 18 Sep 2026 16:26:59 +0000 (GMT)
+Message-ID: <c52c9e8c-260e-49a4-a88e-229e0795d07b@linux.ibm.com>
+Date: Fri, 18 Sep 2026 18:26:56 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260917183602.GA1036092@bhelgaas> <7c2a8582-280e-471a-b4b0-037b2cda6ad8@app.fastmail.com>
- <CAAsRjRnV-RTddO6h2XCUz2N5pB0pS8i_-_2XRcD=WOTA7AAFZQ@mail.gmail.com> <dc370463-125e-48d2-af6b-c3b4783f57ea@app.fastmail.com>
-In-Reply-To: <dc370463-125e-48d2-af6b-c3b4783f57ea@app.fastmail.com>
-From: Semih Baskan <strst.gs@gmail.com>
-Date: Fri, 18 Sep 2026 19:25:12 +0300
-X-Gm-Features: AcwNN1VOh8d_2xmEh01oZ9EcnHO1v-ja8QTE4DnWV1Kfj81LBJx61PkF6VeulFQ
-Message-ID: <CAAsRjR=sHgZMgXuTid+D7Vst=N_GBUZUrduZ4YZax5rbotHNMg@mail.gmail.com>
-Subject: Re: [PATCH] PCI: iproc: Use pci_alloc_host_bridge() on BCMA
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Bjorn Helgaas <helgaas@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, bhelgaas@google.com, 
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
-	bcm-kernel-feedback-list@broadcom.com, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>, 
-	=?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, linux-pci@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Rosen Penev <rosenp@gmail.com>, rani.hod@gmail.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] sched/deadline: Fix DL server divide-by-zero for inactive
+ CPUs
+To: Hui Su <sh_def@163.com>, mingo@redhat.com, peterz@infradead.org,
+        juri.lelli@redhat.com, vincent.guittot@linaro.org
+Cc: dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
+        mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+        Sashiko <sashiko-bot@kernel.org>, Heiko Carstens <hca@linux.ibm.com>,
+        Ilya Leoshkevich <iii@linux.ibm.com>
+References: <20260812123252.2355986-3-sh_def@163.com>
+Content-Language: en-US
+From: Mikhail Zaslonko <zaslonko@linux.ibm.com>
+In-Reply-To: <20260812123252.2355986-3-sh_def@163.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDIyOSBTYWx0ZWRfXyyyc/bOQ1h/D
+ DpnWTDm+ab2s4R2nPwFK6BTp/rCe3qXgH79ytA4uQgrr3PCwM3eDyQPcTHVti6i/c4buo4iJqoE
+ cb2TAXiWtorRV5Kt1WZQ2juEqovGFDI=
+X-Proofpoint-ORIG-GUID: 5Iiabi1vrPH-IF5YqTNpXI7xrvh9vISC
+X-Proofpoint-GUID: hf4yfVzoTVulraZKsxkO1eMEkwkU-9jS
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDIyOSBTYWx0ZWRfX3ehA8JH6R3/q
+ t9xse6lQBAHD2i6b1hXJ+39aCtxcrfbQrCPftmkwu/w3F6uuHkNpr7wQnpmF3wGXnsQIfEHEvkk
+ ZUIcBNmmK7U4+txZaXXY3tvAVEahEtouq2n32nvMncwjXX8cwDv6+gzikGY4x0tAaDI9a8ms7bm
+ juwTsov309F3VfuVJclLN/NVIIUD4i0wzDEbMKlEgZEKQ6ZpRmd/mT0f+YDLiTRNiUQYaxxy17w
+ OPe94Le/qy1UK9Ssn2dooUhvZsWuzj8WAY99Xxa1oxKmOR6Gb7GDiVBvCmsnSCsHSwGs+NHzMKJ
+ o/B8Z8WCvvBfVwcu3CEg9WeJ8BNEnNVK+oCgOfeKQH5emD+IzivvUKUm+Rjv71/6n1PVNjF2ghQ
+ 42Z9yrucq1mLH7apGym9gc2GA/tEIl90DhK1k/82fzcDCR0hQFqV9is9qnHjXmEQW8df9ebbDYF
+ XlpX5fTo2aZ2A88NcbA==
+X-Authority-Analysis: v=2.4 cv=F+7C5ahN c=1 sm=1 tr=0 ts=6aad6659 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=5hoDY7baIL5RK_9Huj0A:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-18_04,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 phishscore=0 clxscore=1011 malwarescore=0
+ lowpriorityscore=0 bulkscore=0 spamscore=0 impostorscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180229
 
-On Fri, Sep 18, 2026 at 12:32:12PM +0200, Arnd Bergmann wrote:
-> If the DT window doesn't match, how does the bcma driver find
-> the device node that corresponds to the EROM entry to populate
-> the child nodes?
 
-By reg. bcma_of_find_child_device() in drivers/bcma/main.c compares the
-first reg address of each child of the axi node with the core's register
-base from the EROM. That base is 0x18012000, 0x18013000 and 0x18014000
-on both revisions; only the outbound window differs. The pcie node's
-ranges is not looked at. The reg is translated through the axi node's
-first ranges entry. The PCI core then matches the wifi nodes below that
-node by devfn.
 
-> The driver should probably check earlier if the device is
-> already bound to the bcma bus, rather than just trying to
-> request the bus windows. If anything, I would have expected
-> the conflict on the 18012000 address for the register
-> base.
->
-> I see an ioremap() of bdev->addr in drivers/bcma/scan.c but
-> don't see a corresponding request_resource() for it, so maybe
-> an easy fix is to add this to the bcma bus scan and
-> make sure that always happens before the pci driver probe?
+On 12-Aug-26 14:32, Hui Su wrote:
+> Commit 4043f5498416 ("sched/deadline: Reject debugfs dl_server writes
+> for offline CPUs") rejects per-CPU DL server parameter updates once the
+> target CPU is offline. However, during CPU hot-unplug, the CPU is cleared
+> from cpu_active_mask before it is marked offline.
+> 
+> This leaves a window where cpu_online() is still true while
+> cpu_active() is already false. A debugfs write during this window passes
+> the cpu_online() check in sched_server_write_common() and reaches
+> dl_server_apply_params() with init=false.
+> 
+> dl_bw_cpus() counts the active CPUs in the root domain. For an isolated
+> CPU whose root-domain span contains only that CPU, it returns zero once
+> the CPU becomes inactive. If the server bandwidth is attached,
+> dl_server_apply_params() then passes this zero CPU count to __dl_sub()
+> and __dl_add(), both of which divide by the CPU count.
 
-In the tree as it is, neither side claims the register base. bcma
-only ioremaps it in scan.c, and pcie-iproc-platform maps its reg with
-devm_pci_remap_cfgspace(), which does not request the region either.
-That is why the window is the first thing the two collide on. On the
-ordering, bcma_bus_register() calls bcma_bus_scan(), then
-of_platform_default_populate(), then bcma_register_devices(), so the
-scan is done before the pcie platform devices are created and the
-bcma core devices are registered after that.
+Hello Hui, Juri
 
-> If a board has nothing connected to one of the host bridges,
-> why is the pcie host bridge still marked as status="ok"?
-> Do you need a driver to put it into low-power mode, or
-> should this just be marked as disabled?
+We hit the same divide-by-zero on s390x, but from the sched_setscheduler()
+syscall path rather than debugfs:
 
-The three nodes are in bcm-ns.dtsi without a status property, and no
-Northstar board file disables one. Which controllers carry a device
-differs per board: the RT-N18U has one on the first, the R8000 on the
-first, and on the second through a switch with two radios behind it.
-bcma takes the cores from the EROM, and bcma_register_devices() skips a
-core whose node is not available, so a node marked status = "disabled"
-is skipped there too, and neither driver would take that core. I do not
-know whether an unused core needs a driver for power.
+[  836.069103] fixpoint divide exception: 0009 ilc:2 [#1]SMP
+[  836.069114] Modules linked in: algif_hash af_alg ctcm fsm zfcp scsi_transport_fc mlx5_ib ib_uverbs_support ib_core mlx5_vdpa vdpa vringh vhost_iotlb nft_fib_inet nft_fib_ipv4 nft_fib_ipv6 nft_fib nft_reject_inet nf_reject_ipv4 nf_reject_ipv6 nft_reject nft_ct nft_chain_nat nf_nat nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 nf_tables mlx5_core s390_trng ism eadm_sch vfio_ccw mdev vfio_iommu_type1 vfio sch_fq_codel drm i2c_core drm_panel_orientation_quirks diag288_wdt hmac_s390 prng aes_s390 dm_mirror dm_region_hash dm_log pkey_ep11 pkey_cca zcrypt phmac_s390 paes_s390 rng_core pkey_pckmo pkey crypto_engine uvdevice autofs4 ecdsa_generic ecc sha512
+[  836.069173] CPU: 19 UID: 0 PID: 1005719 Comm: stress-ng-cpu-s Kdump: loaded Tainted: G        W           7.3.0-20260917.rc3.git3.a10f6da4ba31.300.fc44.s390x #1 PREEMPTLAZY
+[  836.069178] Tainted: [W]=WARN
+[  836.069180] Hardware name: IBM 9175 ME1 705 (LPAR)
+[  836.069182] Krnl PSW : 0404c00180000000 001925217a23136e (task_non_contending+0x19e/0x370)
+[  836.069191]            R:0 T:1 IO:0 EX:0 Key:0 M:1 W:0 P:0 AS:3 CC:0 PM:0 RI:0 EA:3
+[  836.069194] Krnl GPRS: 0000000000000000 0000000000000000 0000000000000000 00000000ffffffff
+[  836.069197]            ffffffffffffffff 0000000000006666 001925217be2d038 001925217a237950
+[  836.069199]            0000000000000014 0000000000006666 001925217c3785e8 000003f15af10330
+[  836.069201]            0000000000000000 001925217b284f40 001925217a231366 0019249f1e61fbc0
+[  836.069210] Krnl Code: 001925217a231360: c0e5ffffdff8        brasl   %r14,001925217a22d350
+           001925217a231366: b9140059           lgfr    %r5,%r9
+          *001925217a23136a: b90d0042           dsgr    %r4,%r2
+          >001925217a23136e: e330f0a80004       lg      %r3,168(%r15)
+           001925217a231374: c0a000dfe7da       larl    %r10,001925217be2e328
+           001925217a23137a: e32030f80004       lg      %r2,248(%r3)
+           001925217a231380: b9090029           sgr     %r2,%r9
+           001925217a231384: 41903018           la      %r9,24(%r3)
+[  836.069243] Call Trace:
+[  836.069245]  [<001925217a23136e>] task_non_contending+0x19e/0x370
+[  836.069249] ([<001925217a231366>] task_non_contending+0x196/0x370)
+[  836.069252]  [<001925217a231678>] switched_from_dl+0x138/0x190
+[  836.069256]  [<001925217a207f56>] sched_change_begin+0x116/0x330
+[  836.069260]  [<001925217a23b0c6>] __sched_setscheduler+0x1e6/0xad0
+[  836.069263]  [<001925217a23baba>] sched_setscheduler+0x7a/0xb0
+[  836.069266]  [<001925217a23bb66>] do_sched_setscheduler+0x76/0x130
+[  836.069268]  [<001925217a23be7c>] __s390x_sys_sched_setscheduler+0x3c/0x60
+[  836.069271]  [<001925217b125850>] __do_syscall+0x1a0/0x4c0
+[  836.069274]  [<001925217b135b42>] system_call+0x72/0x90
+[  836.069277] Last Breaking-Event-Address:
+[  836.069278]  [<001925217a22d3ac>] dl_bw_cpus+0x5c/0x70
+[  836.069283] Kernel panic - not syncing: Fatal exception: panic_on_oops
 
-> Does the platform driver reprogram the windows to match the DT
-> description, or does it rely on the boot loader to ensure they
-> ranges/dma-ranges properties match the register contents?
+In this case dl_bw_cpus(task_cpu(p)) returned 0 and task_non_contending() passed it to
+__dl_sub().
 
-It programs OARR/OMAP from ranges only when the node has
-"brcm,pcie-ob", and the inbound side only when it has dma-ranges.
-The bcm-ns.dtsi nodes have neither, so it programs nothing and runs
-with what is in the registers at boot. The PAXB_BCMA register table
-has no OARR/OMAP at all, and the bcma driver never asks for an
-outbound mapping, so it does not program them either. OARR0/OMAP0
-are in the PAXB table the platform driver uses, at 0xd20 and 0xd40;
-I have not written them on revision 0x01. Broadcom's 2.6.36 driver
-writes OMAP/OARR 1:1 from its own table: 0x08000000, 0x40000000 and
-0x48000000, with the last two replaced by 0x20000000 and 0x28000000
-when the core revision reads 0x07.
+CPU offlining was running concurrently. 11 seconds before the panic:
 
-> When using the bcma driver, does that update the ranges properties
-> in memory to match the EROM contents?
+  [  824.924635] select_fallback_rq: 11 callbacks suppressed
+  [  824.924640] process 1005879 (stress-ng-cpu-s) no longer affine to cpu118
+  [  824.944307] process 1005883 (stress-ng-cpu-s) no longer affine to cpu122
 
-No. 552aa843e4c5 drops the windows parsed from ranges out of the
-bridge's resource list and adds the EROM one; the patch in this
-thread reads ranges only to compare them with the EROM window. The
-property in the live tree is not touched, so /proc/device-tree keeps
-the dtsi values and the mismatch shows up only as the warning.
+There was also a preceding WARN_ON_ONCE(!cpu_online(new_cpu)) in set_task_cpu(),
+reached from dl_task_timer(). That looks like a separate issue.
 
-Best regards,
-Semih
+I have no exact reproducer at the moment, this is a CI run with several workloads in
+parallel. But we can test a candidate patch in the same environment.
+
+
+As for the patch, the same division is unguarded in several other callers
+in deadline.c:
+
+  task_non_contending()     (this trace)
+  inactive_task_timer()
+  set_cpus_allowed_dl()
+  sched_dl_overflow()
+  dl_bw_manage()
+  
+so rejecting inactive CPUs in dl_server_apply_params() closes only one of
+them.
+
+Would it make sense to guard inside __dl_sub() and __dl_add() instead?
+
+	void __dl_sub(struct dl_bw *dl_b, u64 tsk_bw, int cpus)
+	{
+		dl_b->total_bw -= tsk_bw;
+		if (cpus)
+			__dl_update(dl_b, (s32)tsk_bw / cpus);
+	}
+	
+	void __dl_add(struct dl_bw *dl_b, u64 tsk_bw, int cpus)
+	{
+		dl_b->total_bw += tsk_bw;
+		if (cpus)
+			__dl_update(dl_b, -((s32)tsk_bw / cpus));
+	}
+
+__dl_update() walks for_each_cpu_and(i, rd->span, cpu_active_mask) over the
+same root domain, so when cpus == 0 the loop body never runs anyway.
+Skipping the division changes nothing else. Yes, total_bw is still updated
+on a root domain with no active CPUs, but it turns a kernel panic into an
+accounting inaccuracy that already exists today.
+
+What do you think?
+
+Thanks,
+Mikhail
+
+
