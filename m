@@ -1,115 +1,125 @@
-Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DEFF518146
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:38:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A0353515F9;
+	Fri, 18 Sep 2026 16:39:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789749521; cv=none; b=TCZssPWM8NEh0012keXhq1AWuvcA1bcWlPVVyekoOtbwT6eqXvcxpQ9lhna0yV+pVCmW7eAVtA3QRNMQPqBetkGv0IWOcoPELQrZTRUgjTMO0osgFq4VC4oTtaPfQGxxmzXUO9Js61QK9t2Icc7NLGlAXKWebBuHktXZMIkdkgU=
+	t=1789749549; cv=none; b=fqpg+IN0WbjsntQbWx0tdXlKonUT/c5oIksd6WCxa3iVlnRPs1uj+fRo0t+0y30xXFW+Nzd95piDJPyMamcZrH1lyuXj/FE2Xae8iAEAYu2HekoPLH5JhTgWtZ1Uvt2MiyglH1vPA6iMMZRxmaTOezlz2hb23PcQhco/mAViIvk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789749521; c=relaxed/simple;
-	bh=KRGC9wawDzgkbiMY0zM6hzk3Dv8DE+14/bvdz6PWn+Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=R2cZIfA7vXkUWu5CYCCrmpgk/0nzXRSZzsvfjDsGaibEJy2LeCgbEPXCqvIdKv7IHkyHOUXcl/LKHdzucjQfDBcyq8nn8u1K2VxVNmYxvfYFxYOH06ywFjjDKVKydS3L1hCXq0HNtwhevlxvKgOX8ZR6BsajrL1tE8oyGtJkWwY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=WLmkjs16; arc=none smtp.client-ip=74.125.230.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1789749549; c=relaxed/simple;
+	bh=yKgqDhth18rfq4TSlyCvIyYEuIgAYU4N900hfByc7S0=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:From:Subject:Cc:
+	 References:In-Reply-To; b=MFJZfyyeYURrrVrGFH7LTR0q16blkOw1aSvSxS6u+LQx5EnHaKPDzm4Ys+2B0O4K0jTm6B4boyA4qmdSrVvcswEm+pfthaCs+MhmTMBBrG0t9Doh11jMwZtz5/bYdF/GVTRDIc0cg/6tZtUQgNd7F1vhOgAvn06adwI9Hof+cfo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PzvJbrnV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="WLmkjs16"
-Received: by mail-qk2-f43.google.com with SMTP id af79cd13be357-93910a0cb7cso71203685a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:38:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1789749519; x=1790354319; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ycexu/7p8mN/PXe2TLXJ60lA5nKStrY7x+9HFkGFF0w=;
-        b=WLmkjs163rP9Bg1OExrPB1CtCIYmhMJ9/fjIKpUnCYQstCqG/1SqPPqdeigyS4tDZi
-         QxsKbkhBp46DGzEdDKqoV7iN/kexse/+xwpFMgrnwaB9+Qq1hVyM4Kr6NtDifLgKNCbK
-         7zyk669rxLXO86tva/GdN6tmk5o2uYlAGgLecK19sFpbJ4EsO1nbzEiXjF/dxBvGRq3z
-         C5miYXTBwrOBuQb9YI2HCABIZmhUzxFo3XQnyYDkfVs/hILExUPnh3mv685sLOxYaxx7
-         396BYIkrZcYSqwm9sUA1kTR4RrONNen58epVGojhh7sEaJf0uiPs8HPE+yXrYO94pWc2
-         haZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789749519; x=1790354319;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ycexu/7p8mN/PXe2TLXJ60lA5nKStrY7x+9HFkGFF0w=;
-        b=ORlr1aJxULi5+x+PwMqTjWzebHRbBvx2PRcboBG2Tn/MP9jhs9mfqKIItm32pRuc9V
-         fxeq1NmiIRtOD4VKJ4jF6D4NvofDmv3hl68DNJa8n6LH1ZLEXGx1Mwe0lURwANZ0Ykwy
-         3oPrsZu+0ZrC+wJ1GDLffTNKylQADmwA58hW1K0r2PJRgLxSoxAm6ciYfUj6/1pWeXAx
-         XZEyNMkImBmVD8h6QZT6iB0i8D218wh668B95yDp1pFRdKVXG46ZMaXzs/iRUSuztXnI
-         kOIC/0S1hlVAyRTtAygFGJn25Kpklq5hRq/33SuD47ilFbseFAkFx4kS0cr1kcvYSMoJ
-         jfWw==
-X-Forwarded-Encrypted: i=1; AKwUvBzuFFH45nTN1FVxurLSCeygpNs3QtfTXjSPZYsoa9oOU1SiRkFYzC4U0So3dqZxhIVFMxuKbgjmhw1/Tqo=@vger.kernel.org
-X-Gm-Message-State: AFuF++lWww6ep9b1qi9sYGx7WxI944W/jrdS4r0o7aLH8S11M+Fu4qoc
-	8O+LXKhmPcmS5wjhb41erpFfLjtxz/5+g8f3A45qrHHwcUwuRJ1X6TEHpwKKO5gnxT8=
-X-Gm-Gg: AYBFou1pcKcS9efheKBYJLY5JaDJ1moNa9F58XuM7YohBbZFdAieddFexoHsXxougCH
-	Ey4s6wO3l9Zz4sXih9OpUM+nEh+BDSP0ZezzacUNmTW8k7XT8sPyMBSFT9LqMA9qjkRTkBbNAvp
-	hDjTD54yXbnD5mKIkiXokEvB3F5Aykektu3d2QKstVFU7PGB59W3t6uT5LkSIVW9aYns5niHPQd
-	qyepTTO8vKQDZk3W8MnQszhX7Fm4ca5O+sQclYC9Ptvv4wZYn5BTdRTUaWkF3Yz6vOLkqFtFqSL
-	U46FZ3XOkdlIv/A0mIOoHwieYFFx5Ohj9L0nwFpdixttDERzINAC15ye5CfyG4ecVP7ruxe6HWz
-	wt9kGP7rFabzwz7/l8FcLuIseydTTPKWq5226MKTs8XqXhn1I+4P5uk9yCcPeRx53WT0w2Po5D+
-	Dyn8ILZ90OtBMx+xU7xNRoKPylo19JS30/jR26znHdKTLk0wvMxS80BqfOuNsV4Bsj3rp4aXclY
-	M7xH0JtasxCDtIFBXUG1QoJf6UKyxsPdIy1TjLYizR/v7zNvxMQ7ak=
-X-Received: by 2002:a05:620a:17a3:b0:93b:d7a2:83c8 with SMTP id af79cd13be357-93bdc8c69f5mr461480685a.55.1789749519034;
-        Fri, 18 Sep 2026 09:38:39 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93be0e90276sm176813285a.21.2026.09.18.09.38.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 09:38:38 -0700 (PDT)
-Date: Fri, 18 Sep 2026 12:38:36 -0400
-From: Gregory Price <gourry@gourry.net>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kernel-team@meta.com, akpm@linux-foundation.org, 
-	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
-	mhocko@suse.com, mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com, 
-	vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org, 
-	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, 
-	ziy@nvidia.com, baolin.wang@linux.alibaba.com, nico.pache@linux.dev, 
-	ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org, lance.yang@linux.dev, 
-	usama.arif@linux.dev, kas@kernel.org, matthew.brost@intel.com, joshua.hahnjy@gmail.com, 
-	rakie.kim@sk.com, byungchul@sk.com, ying.huang@linux.alibaba.com, 
-	apopple@nvidia.com, jannh@google.com, pfalcato@suse.de, osalvador@suse.de, 
-	hannes@cmpxchg.org, raghavendra.kt@amd.com, stable@vger.kernel.org
-Subject: Re: [PATCH v2 3/4] sched/numa: scan read-only file mappings in
- tiering mode
-Message-ID: <aq1o3TYZR9JNkXXP@gourry-fedora-PF4VCD3F>
-References: <20260911001826.2109390-1-gourry@gourry.net>
- <20260911001826.2109390-4-gourry@gourry.net>
- <0ed3ab3a-80b4-492f-867a-0584441722a9@kernel.org>
- <aq1Cwh9hNw4wWEUP@gourry-fedora-PF4VCD3F>
- <c445a20c-ae83-4571-ae97-031ce7facc45@kernel.org>
- <aq1FDhy00epXXtgd@gremlin>
- <aq1ZUTgLQfLBxn80@gourry-fedora-PF4VCD3F>
- <aq1inYWiNWtZlyoo@gremlin>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PzvJbrnV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 052EC1F000FF;
+	Fri, 18 Sep 2026 16:39:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789749548;
+	bh=b5Zrlq13Fo17ThZWJD48N0yBnSkZxyrfKbw9LMfDzNo=;
+	h=Date:To:From:Subject:Cc:References:In-Reply-To;
+	b=PzvJbrnVDw1/FGRQjNdgtxkja4g0UKdhJ6ysQeKqAjw3SPoQdbPUDDDVRezIlzPRn
+	 BizmkSglTWN3z27ESnNWnNJ/BNE/5Pf134Kuopamm2cqa+Vg4m4fskohwsleBAZ2kq
+	 8VeG45ejMxOfvV8B5nlzi3rG7isstYgL+7Zzmi6JW51Bc5581vIt00jI9nQCcL0h5r
+	 TJA42xr+2N1e8Upe7jJRd6iYP4RmP4V22zWBn1trh8Pak11rKzlZgEkDRtY82x6XWn
+	 gOXrlr0hA3dXINFz3CQ2chmBvyX/TG7t9RH5RVc3N8nvBO6tGulEJzrciuRym+vaZ4
+	 UoBQJcmt+Ps+Q==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aq1inYWiNWtZlyoo@gremlin>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 18 Sep 2026 18:39:02 +0200
+Message-Id: <DLIL9H50MALI.3JROXYEEUM3KU@kernel.org>
+To: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH v4 0/3] driver core: add TAINT_FORCED_BIND for when
+ userspace manually messes with devices and drivers
+Cc: "Luis Chamberlain" <mcgrof@kernel.org>, "Petr Pavlu"
+ <petr.pavlu@suse.com>, "Daniel Gomez" <da.gomez@kernel.org>, "Sami
+ Tolvanen" <samitolvanen@google.com>, "Aaron Tomlin" <atomlin@atomlin.com>,
+ "Jonathan Corbet" <corbet@lwn.net>, "Shuah Khan"
+ <skhan@linuxfoundation.org>, "Randy Dunlap" <rdunlap@infradead.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, "Steven Rostedt"
+ <rostedt@goodmis.org>, "Masami Hiramatsu" <mhiramat@kernel.org>, "Mathieu
+ Desnoyers" <mathieu.desnoyers@efficios.com>, "Bradley Morgan"
+ <brads@mainlining.org>, "Aleksandr Nogikh" <nogikh@google.com>,
+ <linux-modules@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-doc@vger.kernel.org>, <linux-usb@vger.kernel.org>,
+ <driver-core@lists.linux.dev>, <linux-trace-kernel@vger.kernel.org>, "Johan
+ Hovold" <johan@kernel.org>
+References: <20260914-bind_taint-v4-0-eadf8a090903@linuxfoundation.org>
+In-Reply-To: <20260914-bind_taint-v4-0-eadf8a090903@linuxfoundation.org>
 
-On Fri, Sep 18, 2026 at 05:19:31PM +0100, Lorenzo Stoakes (ARM) wrote:
-> >
-> > Can you at least propose a patch on top that adds the cleanup you
-> > suggest? Much of the VMA stuff is lost on me because I haven't had
-> > the time to sit down and consume the novel.
-> 
-> What, literally writing the function for you wasn't enough? ;)
-> 
-> I can follow up on it _myself_ if you like + you nag me to (hard to keep
-> track of things...) good enough? ;)
-> 
+On Mon Sep 14, 2026 at 4:30 PM CEST, Greg Kroah-Hartman wrote:
+> The ability to add and remove devices from a driver through the sysfs
+> "bind" and "unbind" files was created all those decades ago as a way
+> that kernel developers can iterate faster, and provide a debugging way
+> for users to attempt to add a new device to a driver without having to
+> rebuild their kernel.
+>
+> This api over the years has been abused and recently come under a major
+> fuzzing "attack" through tools like syzbot which decided that it would
+> attempt to just randomly bind any driver to any type of device, causing
+> loads of unneeded errors and pointless kernel patches to be generated by
+> unsuspecting new developers.
+>
+> Handle all of this by adding a new taint flag, TAINT_FORCED_BIND, which
+> will be set on the driver if the bind/unbind sysfs files are ever
+> written to.  This lets kernel developers "know" that a user is
+> attempting to do something that is not normal, and as such, if the
+> kernel breaks they get to keep the shiny pieces laying around on the
+> floor.
+>
+> The flag is 'Y' which was unused, and can remembered as the user is
+> "yeeting" the device being operated on here (thrown with force without
+> regard for the thing being thrown).
+>
+> Note, the taint flag gets set _BEFORE_ the bind/unbind callback happens,
+> as many times crashes/oops/warnings/failures happen within the callback,
+> and the taint flag needs to be there to show what was being attempted.
+> If it were to be set after the callback happens, the oops report would
+> not properly reflect what foolishness was being attempted.
+>
+> Fuzzing tools like syzbot, that doesn't have hand-crafted rules to keep
+> the tool from hitting bind/unbind, should be run with panic_on_taint
+> enabled so that they fall over and don't continue on, thinking that they
+> actually found a real issue.
+>
+> Userspace operations that rely on the bind/unbind files
 
-Sorry i got a bit triggered by "If you check out my 40 patch series" :P
+I agree that this should be avoided.
 
-give me the weekend, i'll see what i can clean up
+But I also think the biggest offender really is driver_override. Specifical=
+ly,
+on a hot-pluggable bus a driver must be complient with the device driver
+lifecycle rules and hence shouldn't break on bind/unbind. I think it would =
+be
+nice to not taint the kernel for such busses, and only taint on driver_over=
+ride,
+as I think we'd still want the bug reports for such cases.
 
-~Gregory
+But I think this is fine to leave for a follow-up.
+
+Acked-by: Danilo Krummrich <dakr@kernel.org>
+
+> to work around
+> the lack of will to upgrade a kernel image to a newer version with
+> proper support for new devices, or the lack of will to submit valid
+> device ids to driver authors, will still work properly, but now the
+> kernel will be flagged in a way that will show that perhaps those users
+> should reconsider their behavior and work to have the drivers properly
+> support these devices in a "native" manner.
+>
+> Finally, the bind/unbind files can find real use-after-free issues with
+> some drivers by forcing the process to happen virtually without having
+> to rely on manual removal processes.  Those real bugs should still be
+> worked on, but by adding this taint flag, developers can more easily
+> determine bug reports that are actually worth looking at.
+>
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
