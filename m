@@ -1,136 +1,58 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83E20384CD6;
-	Fri, 18 Sep 2026 22:58:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 028CC384CD6;
+	Fri, 18 Sep 2026 22:59:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789772300; cv=none; b=eK8fzNmZLrQezMZW6Eo+cEB/EfYU9zG/byLN7ZTtfbktgDHjdPU91WsJGzVHOjDttTZwLwi9PQ1Pu8oiVmbf6+e6Lp++dzOfPsc4LuUMdc79YfagyDQ4mEXZQZNH6UX8D5ZpYZNpxuRH5Xr1I3keSZGAkOuczZ0j2EtGEBtyZgg=
+	t=1789772349; cv=none; b=fu87ahUgCrqFZE87HpRfFG8qoJnrurDzRgLH9AsMvOq5ohAtCiR0xxkl7B3zGi8cOTQGSQcQS7+vuAVRwu54tLuMgZOYI4K6qGiFbZxm9RGkrOqkggjUV6IrmHzhPNBOECz8e7NbyR/1SGO3ZPIG/RvULMudgmiuhkzHJksC020=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789772300; c=relaxed/simple;
-	bh=mNkTUn67zmGzc/jGWEYrIXWl3lwX0tuYcA2bZyAI2VA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=HRYje9RBX6RMdcuT5SBOflvQ9ZFVUQT3lCmehTo/yNT/uBJLf8oxplc28csP1bbpzkdgRPq9sbEXt1UTqXBjvhnfQ98h1jbOTTvGk5JbyhZOAMtHRBybQPHHyCjLZ7Sd22Ek3NahDxpZyCE7lEkwroeR6Oy1c/o8hgOf3AymlGU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fYyWHMS4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789772349; c=relaxed/simple;
+	bh=xBGKHDXPYihZ4GLk48VakX/kzZufL5ySVCmdvEtRPGI=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=u6RmX2WlC0bkxwOjbsf9ANsWXdxn/nV5TZ9E5/XJv2O55lavSqDSJgdB9JpWVoIxjgaMb7XQJzS2wPhGIZEh9189wFlm0HhQStZdozsUGEgRYulBhKfbgnBmd3x4NX4qTCsScB+LgqFJnicWz8EHALG4po8o3udcAg+kGH82OqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aaCvuE+g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fYyWHMS4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5840A1F000FF;
-	Fri, 18 Sep 2026 22:58:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aaCvuE+g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F9B61F000FF;
+	Fri, 18 Sep 2026 22:59:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789772299;
-	bh=sHXwsGr1uavLjHSu6rlc+2w5RT2dJPcmThYuznQz0y0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fYyWHMS47LQnb+FfECXaQNJ/Y8oIM4F8d+0+1oA7LXEA+oMxpN020GMzYA0JRd3J2
-	 zw8re8HCCQoTjcPrZ9LIxCFSpvhvJpJrz9eHS8KmAfr6WttP+BZwID657VRPR62OHA
-	 CyWnSchK96yhS6XinnVAEht+F6qbQSFBES4X8cTWbSsryYVskzVOKlyFyUGTHLg7Of
-	 X29J2CnW9jfdiYWzwkWLtgRp96dr86CzLfu2SeOQXfwSAqWynLK1gt76IowceucSn7
-	 EsTX6e2H4WwA3qVKJ2CbcchbihJXcqAlX5bD4hXHJRSzQ/G2ZT/De8s4scKmXgnr3T
-	 qKbhadLqYloHA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 10/11] arm64, crypto/lib: Annotate leaf functions
- with CFI info
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Peter Zijlstra" <peterz@infradead.org>, "Roman Gushchin" <roman.gushchin@linux.dev>, "Indu
- Bhagat" <ibhagatgnu@gmail.com>, "Dylan Hatch" <dylanbhatch@google.com>, "Jens
- Remus" <jremus@linux.ibm.com>, "Catalin Marinas" <catalin.marinas@arm.com>, "Steven
- Rostedt" <rostedt@goodmis.org>, "Jiri Kosina" <jikos@kernel.org>, "Weinan
- Liu" <wnliu@google.com>, "Mark Rutland" <mark.rutland@arm.com>, "Josh
- Poimboeuf" <jpoimboe@kernel.org>, "Will Deacon" <will@kernel.org>
-Cc: "Mostafa Saleh" <smostafa@google.com>, "Herbert Xu" <herbert@gondor.apana.org.au>, "David
- S. Miller" <davem@davemloft.net>, linux-toolchains@vger.kernel.org, live-patching@vger.kernel.org, joe.lawrence@redhat.com, "Prasanna
- Kumar T S M" <ptsm@linux.microsoft.com>, "Puranjay Mohan" <puranjay@kernel.org>, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, "Randy
- Dunlap" <rdunlap@infradead.org>, "Song Liu" <song@kernel.org>
-In-Reply-To: <20260918224157.1471085-11-dylanbhatch@google.com>
-References: <20260918224157.1471085-1-dylanbhatch@google.com>
- <20260918224157.1471085-11-dylanbhatch@google.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 22:58:16 +0000
-Message-Id: <20260918225817.5840A1F000FF@smtp.kernel.org>
+	s=k20260515; t=1789772347;
+	bh=9O9nwFFcNTmEpdAdVQ9YRRXNtMctqMg8jGkJKm2S3xY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=aaCvuE+gUlXN6jZTKjfScJjLAnK0pvcetjstsdqwxuh6z0lR7AfzeOF+pJA68q6Kq
+	 bkTB0AauZCKN/mYUKzgOxfBPgQR3v4tN8GLUEEX8GLTTKYPjCx0iOhyk3bP2iDowLH
+	 rD14dV3z6DOpmIy1WIs6Tx7Zv8JULMCgYnwC85OC4PIn3p9GrM1swG4MbaGZqix5kC
+	 oQa2m+ZzzVQ8MoTt8SubsRGiajBADFXNJdRQde5yITNbGCb/qkMIDl3jLAoxS0flO+
+	 odE/Uex2il6yveKadUdsB3tUes69WPweN3v6FDctOOd6CovEqP+/x17wATxCSJIVTn
+	 MHT/2J/oOogFQ==
+Date: Fri, 18 Sep 2026 15:59:06 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: "Hemendra M. Naik" <hemendranaik@gmail.com>
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
+ pabeni@redhat.com, horms@kernel.org, jiri@resnulli.us, jhs@mojatatu.com,
+ shuah@kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, vishy0777@gmail.com, tahiliani@nitk.edu.in
+Subject: Re: [PATCH net-next v6 0/3] net/sched: sch_fq_pie: add per-flow
+ class statistics
+Message-ID: <20260918155906.13d01c2a@kernel.org>
+In-Reply-To: <20260917204225.275251-1-hemendranaik@gmail.com>
+References: <20260917204225.275251-1-hemendranaik@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] arm64: CFI start directive placed before function alignment corr=
-upts DWARF FDE bounds
---
+On Fri, 18 Sep 2026 02:12:22 +0530 Hemendra M. Naik wrote:
+> This patch series is accompanied by a companion iproute2 patch series that
+> can be found at:
+> https://lore.kernel.org/netdev/20260902040221.83734-1-hemendranaik@gmail.com/
 
-commit 498fccd9732a9f4edcb2b385432263d6681de459
-Author: Dylan Hatch <dylanbhatch@google.com>
+Does not apply any more. Also can you put it on a branch on github to
+make it easier to pull please ? 
 
-arm64, crypto/lib: Annotate leaf functions with CFI info
-
-This commit adds simple CFI annotations to assembly leaf functions so that
-the link register can be recovered by the unwinder. It introduces the
-SYM_LEAF_FUNC_START macro family for these annotations.
-
-> diff --git a/arch/arm64/include/asm/linkage.h b/arch/arm64/include/asm/li=
-nkage.h
-> index d1f7a16729d25..c4377e6ba0a67 100644
-> --- a/arch/arm64/include/asm/linkage.h
-> +++ b/arch/arm64/include/asm/linkage.h
-> @@ -47,4 +53,27 @@
-> =20
->  #define __bss_pgtbl __section(".bss..pgtbl") __aligned(PAGE_SIZE)
-> =20
-> +/*
-> + * SYM_[TYPED_]LEAF_FUNC_[START|END] macros add CFI minimal CFI directiv=
-es
-> + * allowing .sframe data to be generated for functions which do not modi=
-fy the
-> + * LR (x30). Unwind data will not be correct if these macros are used on
-> + * non-leaf functions, as additional CFI directives would be necessary i=
-n such
-> + * cases.
-> + */
-> +#define SYM_LEAF_FUNC_START(name)			\
-> +	.cfi_startproc ;				\
-> +	SYM_FUNC_START(name)
-
-[Severity: Medium]
-Will placing .cfi_startproc before SYM_FUNC_START() cause the DWARF FDE bou=
-nds
-to include alignment padding bytes?
-
-Since SYM_FUNC_START() emits the .balign directive for the function,
-placing .cfi_startproc before it captures this padding. This can misalign
-the FDE start address relative to the function symbol, which could confuse
-stack unwinders like the sframe unwinder.
-
-Should the .cfi_startproc directive be emitted after the alignment within
-SYM_FUNC_START() completes?
-
-> +
-> +#define SYM_LEAF_FUNC_END(name)				\
-> +	.cfi_endproc ;					\
-> +	SYM_FUNC_END(name)
-> +
-> +#define SYM_LEAF_FUNC_START_LOCAL(name)			\
-> +	.cfi_startproc ;				\
-> +	SYM_FUNC_START_LOCAL(name)
-
-[Severity: Medium]
-Does the same alignment issue apply to SYM_LEAF_FUNC_START_LOCAL()? The
-.cfi_startproc directive is emitted before SYM_FUNC_START_LOCAL(), which
-also handles function alignment.
-
-> +
-> +#define SYM_TYPED_LEAF_FUNC_START(name)			\
-> +	.cfi_startproc ;				\
-> +	SYM_TYPED_FUNC_START(name)
-
-[Severity: Medium]
-Could this also lead to misaligned FDE start addresses for typed leaf
-functions, since .cfi_startproc is placed before SYM_TYPED_FUNC_START()
-alignment?
-
-> +
->  #endif
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918224157.1471=
-085-1-dylanbhatch@google.com?part=3D10
+Please rebase and repost both the kernel and the iproute2. 
