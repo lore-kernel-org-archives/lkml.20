@@ -1,137 +1,114 @@
-Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8DEA4BD34E
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:13:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F1214BFE77;
+	Fri, 18 Sep 2026 10:13:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789726407; cv=none; b=TCLpBdcLcWL0Jpqjt2P5ztb0gxAUC3M2TjQJf5HjWokCZiWA2VKbrUOQUUifxyOGTP2okzgT/Ws+wsCDjkqfQuvNePfRd8ix9vXULJIfiwQq92zU4Uqq2srds/CTGmgnwEvfUmZnd+6qWwb5kAi4h24jeMfdl/PbHosEg5JH0kA=
+	t=1789726417; cv=none; b=qnp9utbVdpYoOqrkzEjka9HSaUTERxcER2mrDo379bPY4qF0jLHeaoZBdF3tqhzVREObzR2FhUu+IJZqKfXVTm/hVwJy4cj5MxQZZdRy9S4a/ERX9Bo9gl9qPlhISqy32dImoPCfAR3lkqC06AxJTjLIOlMBSHSIkIbkqf+J04Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789726407; c=relaxed/simple;
-	bh=dZHhw90Zo7hwyMM0KWsX/6pY2ExSGOUDO83AkrjYefY=;
-	h=Cc:Subject:Date:Message-Id:Content-Type:To:From:Mime-Version; b=TUcb7zv4hLEEDj+GVk6KdRSjNDtxHPhpzgUjUji4Khyb74cxViKm8vRTkYp7rNPbiPNLg7sdcaG9g5+Fy12KsBh02wud2OanxOXZZFOqc9zljgV9R/SOcMvy9Ncu7hddCPU4Jq/w/Zs+WPLk/84mRvZ/asZqkt4Wbdo5ybne4rw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=nOS2JkU9; arc=none smtp.client-ip=209.127.230.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1789726417; c=relaxed/simple;
+	bh=fRrqI5J+OlElTMaF/UNHADJVENN3ol8ONwJxSkxWZZw=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=lE5xcnOlcVti4JeiA9vfXVntkXSvMh9OXs2VsziGZGKXeLN1jIGg3+LY0LFKQJrAweQXLUtG9P0daa+8+qdObSSOq16rw99xTGFppt+DVW28HaAHRw/PsSE+j3VLzJD+uc/kGT4ZxD6j1B+ozkGQyhit0h18pa3QopmShRfoEmw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=pymUGmbV; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="nOS2JkU9"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1789726394; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=jUh0oO6Klx+ZE+PWk/0c8jcKPhTLuXbCHk9sShXLA5g=;
- b=nOS2JkU9i6ZySyKuqTa1toPHrOdppKcv171Y8ix4e2Ym6UP4y6JrZ6uZmhzKgwO5Un3HQ1
- KGvtf5TYSe6bNS+54h2soxzkt6Jt0WLn9ckbGDqI4RRUm1C07LHArPYdedjQTcp64WKU4R
- YjTjEHh/X+2Mguxq7Sx5ynged0YVL9La0vUaf9GG9pNDTjnfKBTsmfWApXmvuvb9D9Bnn9
- cZ6GsvWCyFmCi5H9UTg+g1CS4rmIkSaJ37/0eOre7lCqIcadwtxMYMP+b3VMxlaNhuNNEG
- 8KZomwBWGJGjYKJDRu7uN7XA/Vp1cwVdIOy/cgeQav44A1eMTyzsWAWVbkKGDQ==
-Cc: "Andreas Dilger" <adilger.kernel@dilger.ca>, 
-	"Baokun Li" <libaokun@linux.alibaba.com>, "Jan Kara" <jack@suse.cz>, 
-	"Ojaswin Mujoo" <ojaswin@linux.ibm.com>, 
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
-	"Zhang Yi" <yi.zhang@huawei.com>, <linux-ext4@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
-	"Zhao Gongyi" <zhaogongyi@bytedance.com>
-X-Lms-Return-Path: <lba+26aad0eb8+74b509+vger.kernel.org+zhaogongyi@bytedance.com>
-Subject: [PATCH] ext4: fix OOB memmove in ext4_xattr_set_entry
-Date: Fri, 18 Sep 2026 18:12:49 +0800
-Message-Id: <20260918101249.43643-1-zhaogongyi@bytedance.com>
-X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-Content-Type: text/plain; charset=UTF-8
-To: "Theodore Ts'o" <tytso@mit.edu>
-From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="pymUGmbV"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 153ADA50C5;
+	Fri, 18 Sep 2026 12:13:24 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1789726407; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=3CYQS4HO8f0XF+m33dmFezZdv8NcnvT2y/K10fo+O68=;
+	b=pymUGmbV5foIdqUNdFn0C6JsuZpw1yrH8JlG6lFLhVGgFUNkZmOBm8jewZpdC8BDzLFXCL
+	BIf0xaFaa6BnEbR+fLjol4nhU8b3dH7su/ICjyC28XAl7xEaleSsLuoM2oDAhPknXiPjQ/
+	QwAIYS6YA4fD7seVIFm3jJVQy2LTsilZgcpuStyo/+ouwpCFHYJQwoqvoUiGmeIGuHmQ5l
+	tSiX2CgjkXTY+XDR5aAyhv9mcQ2ENHzyfHo/QzIYd4NPet5gmcrjkg30ezoHwGKEdq49kh
+	7wBp9mUeiZ+t4+r2nD2y+DyDszdEy2psxP7NASHXspzbo35KM6ea5E731Hjc1A==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+Date: Fri, 18 Sep 2026 12:13:24 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: netdev@vger.kernel.org, Cursor <cursoragent@cursor.com>, Doug Berger
+ <opendmb@gmail.com>, Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Zak Kemble <zakkemble@gmail.com>, Simon Horman
+ <horms@kernel.org>, Ryo Takakura <ryotkkr98@gmail.com>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net 1/8] net: bcmgenet: fix 64-bit RTNL stats reading in
+ ethtool on 32-bit systems
+In-Reply-To: <20260918000732.276506-2-florian.fainelli@broadcom.com>
+References: <20260918000732.276506-1-florian.fainelli@broadcom.com>
+ <20260918000732.276506-2-florian.fainelli@broadcom.com>
+Message-ID: <3e7e04d782c22ab609ebb1e5297a4f47@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
 Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-A corrupted filesystem can leave an inode marked as having inline data
-while the system.data xattr is missing. ext4_destroy_inline_data_nolock()
-then asks ext4_xattr_set_entry() to remove an entry even though
-ext4_xattr_ibody_find() left the search state at the insertion position.
+On 18.9.2026 02:07, Florian Fainelli wrote:
+> When bcmgenet was converted to 64-bit statistics, STAT_RTNL members 
+> were
+> switched to point into struct rtnl_link_stats64, whose fields are 
+> 64-bit
+> (__u64) regardless of architecture.
+> 
+> However, bcmgenet_get_ethtool_stats() retained a legacy check:
+>   if (sizeof(unsigned long) != sizeof(u32) &&
+>       s->stat_sizeof == sizeof(unsigned long))
+> 
+> On 32-bit systems, sizeof(unsigned long) == sizeof(u32), causing this
+> condition to evaluate to false. As a result, 64-bit RTNL stats fields 
+> were
+> read via *(u32 *)p. On 32-bit Big-Endian systems (such as MIPS BE), 
+> this
+> reads the high 32 bits and returns 0 until the counter exceeds 4GB; on
+> 32-bit Little-Endian systems (such as 32-bit ARM), the value is 
+> truncated
+> to 32 bits.
+> 
+> Fix this by checking if s->stat_sizeof == sizeof(u64) so 64-bit fields 
+> are
+> always read as 64-bit values.
+> 
+> Fixes: 59aa6e3072aa ("net: bcmgenet: switch to use 64bit statistics")
+> Assisted-by: LLM
+> Co-authored-by: Cursor <cursoragent@cursor.com>
+> Change-Id: I3e9f2f8d4fd136392148d6c0cd4eb40f7ccbe4ef
+> ---
+>  drivers/net/ethernet/broadcom/genet/bcmgenet.c | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c 
+> b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+> index b916080f4ff1..7b089de9484e 100644
+> --- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+> +++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+> @@ -1346,9 +1346,8 @@ static void bcmgenet_get_ethtool_stats(struct 
+> net_device *dev,
+>  				p = (char *)&stats64;
+> 
+>  			p += s->stat_offset;
+> -			if (sizeof(unsigned long) != sizeof(u32) &&
+> -				s->stat_sizeof == sizeof(unsigned long))
+> -				data[i] = *(unsigned long *)p;
+> +			if (s->stat_sizeof == sizeof(u64))
+> +				data[i] = *(u64 *)p;
+>  			else
+>  				data[i] = *(u32 *)p;
+>  		}
 
-In the syzkaller reproducer, the old xattr value offset is smaller than
-min_offs. ext4_xattr_set_entry() then computes val - first_val for
-memmove(), the length wraps to a huge size_t, and memmove() can run out of
-the xattr buffer. This results in an out-of-bounds memmove and a kernel
-page fault.
+Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
 
-A crafted corrupted ext4 image can trigger this while inline data is being
-converted out of the inode. Treat the inconsistent inline/xattr state as
-filesystem corruption before updating the xattr entry.
-
-The issue was found by syzkaller and reproduced with the generated C
-reproducer. The crash signature is:
-
-  BUG: unable to handle page fault for address: ffff8880074cf000
-  RIP: 0010:memmove+0x28/0x1b0
-  Call Trace:
-   ext4_xattr_set_entry+0xe2f/0x1e90 fs/ext4/xattr.c:1761
-   ext4_xattr_ibody_set+0x3d6/0x5d0 fs/ext4/xattr.c:2268
-   ext4_destroy_inline_data_nolock+0x288/0x5b0 fs/ext4/inline.c:467
-   ext4_convert_inline_data_nolock+0x178/0xe80 fs/ext4/inline.c:1222
-   ext4_convert_inline_data+0x52a/0x610 fs/ext4/inline.c:2083
-   ext4_fallocate+0x1a0/0x3ba0 fs/ext4/extents.c:4752
-
-Reject the missing system.data xattr before destroying inline data, and
-validate the old value offset before ext4_xattr_set_entry() reaches the
-memmove().
-
-The crash was reproduced on unpatched 7.3.0-rc3 and 6.6.122 kernels. With
-this fix applied to both versions, the same syzkaller C reproducer ran for
-120 seconds without triggering KASAN, Oops, a memmove fault, or panic.
-
-Fixes: 67cf5b09a46f ("ext4: add the basic function for inline data support")
-Cc: stable@vger.kernel.org # v3.8+
-Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
----
- fs/ext4/inline.c |  6 ++++++
- fs/ext4/xattr.c  | 12 ++++++++++++
- 2 files changed, 18 insertions(+)
-
-diff --git a/fs/ext4/inline.c b/fs/ext4/inline.c
-index ceee69a66..0a30d40cb 100644
---- a/fs/ext4/inline.c
-+++ b/fs/ext4/inline.c
-@@ -461,6 +461,12 @@ static int ext4_destroy_inline_data_nolock(handle_t *handle,
- 	error = ext4_xattr_ibody_find(inode, &i, &is);
- 	if (error)
- 		goto out;
-+	if (is.s.not_found) {
-+		EXT4_ERROR_INODE(inode,
-+				 "corrupted inline data without system.data xattr");
-+		error = -EFSCORRUPTED;
-+		goto out;
-+	}
- 
- 	BUFFER_TRACE(is.iloc.bh, "get_write_access");
- 	error = ext4_journal_get_write_access(handle, inode->i_sb, is.iloc.bh,
-diff --git a/fs/ext4/xattr.c b/fs/ext4/xattr.c
-index 5c310747b..9a0ee5779 100644
---- a/fs/ext4/xattr.c
-+++ b/fs/ext4/xattr.c
-@@ -1712,6 +1712,18 @@ static int ext4_xattr_set_entry(struct ext4_xattr_info *i,
- 		}
- 	}
- 
-+	if (!s->not_found && here->e_value_size && !here->e_value_inum) {
-+		size_t offs = le16_to_cpu(here->e_value_offs);
-+
-+		if (offs < min_offs) {
-+			EXT4_ERROR_INODE(inode,
-+					 "corrupted xattr: value offset %zu < min_offs %zu",
-+					 offs, min_offs);
-+			ret = -EFSCORRUPTED;
-+			goto out;
-+		}
-+	}
-+
- 	/*
- 	 * Getting access to old and new ea inodes is subject to failures.
- 	 * Finish that work before doing any modifications to the xattr data.
--- 
-2.39.5 (Apple Git-154)
+Thanks,
+Nicolai
