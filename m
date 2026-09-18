@@ -1,78 +1,179 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB66F2FD696;
-	Fri, 18 Sep 2026 10:34:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31F444A49B2;
+	Fri, 18 Sep 2026 10:34:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789727656; cv=none; b=tGWjSOx/S2VbFW6X2VX+5/MqutQ/FJP6Qxp0OjffKhorsG5DK5tATd9zQ6ZCI7QwRxXcfEpCFuPqastdg8CXEuF3Pn/jiQpJArFO4JSogc9mAqIF7FT2rZuqxhQq4iT/vZMm3/99grjq96m6s6zH4Z+t6Qs5/7NXvVbLVLoW0Ok=
+	t=1789727664; cv=none; b=BIjG1tZZCKN6w1X0FaJlpTdtCNdM4KlQHQOxsZsHjbEDjG+SaRSPPMLMSIg40KIjTRbgXMqmVPlWfIhlH/yktvcxzOskPX5GUdDpZfuf7U9X7Ye9nBiEqaVhiLaN4Geg0tzpKHtDLXkEEPGyoZGaZ9v+FlR2BA27jO8ECAkbeA4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789727656; c=relaxed/simple;
-	bh=71jFtym32R/pNn5C3yPgZDDzaq5qZS8JIIHmgqqBkfY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=GVtfWHFgqaAVmlE7R+ECKcFWc5u3O+bs6M9LSOfxXXwjDvQo+Ol+HAOPwitDysAWXCyGxRcT0sqMMdO1UzDZyOoiOdy3gzFRmyiZU/sv2nzZCtZ8jo+RuUEYk3wGIh8S/6Oq7IRH3asVzJmSi3iFqUXBRZtVVrgpJU9WG48L2lk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UQiwVwcr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789727664; c=relaxed/simple;
+	bh=u6XsNCelDRkK9eb5s39wI4hiOut0FxwgdIFI24z4NgI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kfxdC3dALcp+n0qaMhxWFMmzVuq9BkrgauUy1/pllXx3oAkpjq7iDvhV4uhPrfUYKtC6ojSfEb36cWfLH+hURzUTjYd+gIbQF7XuaLJ01X0cUk+AHcugYNlQzIMeJ5oV/2iRcXIxJgJsmZDNaVWCJ6hPyMp4hp8/EP+Nd7z7e8M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=Mdj+wLod; arc=none smtp.client-ip=220.197.31.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UQiwVwcr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E8601F000FF;
-	Fri, 18 Sep 2026 10:34:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789727654;
-	bh=71jFtym32R/pNn5C3yPgZDDzaq5qZS8JIIHmgqqBkfY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UQiwVwcrQYLLOMOj+NzO2JrLYChumnio/fc/mR5O1sf+FXz56jqfp8xu3Zrn/AQ+s
-	 UPQyFX9daLLzA6NyhjGsoN+Am67E0Plu3Mfyd5MMPIetvbNA9eZOvvUVUwHG4KkIpd
-	 Hm/jAvYbKzwaavhWLnLyf8e6cQcV9SfiClrlMIomraUmmkXu7tWNmkMAxTVqQ1kGvu
-	 3PA8y2MCJUX2uWkWgRxGYr4d1uKTFqRc5E5X8XQb4BwZPPMAW4GtRKnetdW/5jxo5v
-	 HIf7SrFWALwipQXYaKiwGiTgnED/7M//LvvFLI5CfiI/ADJfkSN8KaNbw2mngKa4Vn
-	 EsC+2NfERzkuw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 12/17] crash: Fix TOCTOU race in crash memory range
- collection
-Reply-To: sashiko-reviews@lists.linux.dev
-To: vishal.l.verma@intel.com, linux-fsdevel@vger.kernel.org, jbouron@amazon.com, linux-mm@kvack.org, sshegde@linux.ibm.com, bp@alien8.de, maqianga@uniontech.com, mpe@ellerman.id.au, kas@kernel.org, gregkh@linuxfoundation.org, chao.gao@intel.com, mingo@redhat.com, kernel@xen0n.name, "Jinjie
- Ruan" <ruanjinjie@huawei.com>, chenhuacai@kernel.org, seanjc@google.com, ritesh.list@gmail.com, pratyush@kernel.org, tglx@kernel.org, pasha.tatashin@soleen.com, yeoreum.yun@arm.com, gshan@redhat.com, chleroy@kernel.org, liukexin@kylinos.cn, thuth@redhat.com, eric.devolder@oracle.com, linux-kernel@vger.kernel.org, kees@kernel.org, dakr@kernel.org, mark.rutland@arm.com, x86@kernel.org, leitao@debian.org, blum@kernel.org, catalin.marinas@arm.com, zhangtianyang@loongson.cn, me@linux.beauty, mclapinski@google.com, palmer@rivosinc.com, loongarch@lists.linux.dev, ruanjinjie@huawei.com, rafael@kernel.org, will@kernel.org, npiggin@gmail.com, dave.hansen@linux.intel.com, rppt@kernel.org, hpa@zytor.com, james.morse@arm.com, tangyouling@kylinos.cn, linuxppc-dev@lists.ozlabs.org, takahiro.akashi@linaro.org, baoquan.he@linux.dev, lizhengyu3@huawei.com, maddy@linux.ibm.com, coxu@redhat.com, linux-arm-kernel@lists.infradead.org, guodongtai@kylinos.cn, hbathini@linux.ibm.com, ruirui.yang@linux.dev, 
- adityag@linux.ibm.com, graf@amazon.com, akpm@linux-foundation.org, sourabhjain@linux.ibm.com, driver-core@lists.linux.dev, piliu@redhat.com, ardb@kernel.org, robh@kernel.org, bgwin@google.com
-Cc: kexec@lists.infradead.org
-In-Reply-To: <20260918100442.3841135-13-ruanjinjie@huawei.com>
-References: <20260918100442.3841135-1-ruanjinjie@huawei.com>
- <20260918100442.3841135-13-ruanjinjie@huawei.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 10:34:10 +0000
-Message-Id: <20260918103411.5E8601F000FF@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="Mdj+wLod"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=o+oZnGlHZIGMyCuHE5hh6qyYk862NKFKTYCCieZ2ADg=;
+	b=Mdj+wLodmw30hc3o+5LCnBT1zwxAS4bhZq8B3ESj2ef5vZ9UbKE+ggW/FtnHtv
+	VY8pQMpDfaMEhTDPVPrhX/3c6bRL5gZV8PhXP7Q/MIhO2xRJgSiYWVW4zUP+YC9V
+	ox9SWy9QePhHw3+e86s3IcRL6vkJiKfVP0qdHLF0JTQR4=
+Message-ID: <62d9f679-68dd-45bc-9754-9e0ae931d2af@126.com>
+Date: Fri, 18 Sep 2026 18:32:53 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net: stmmac: do not cache the new TSO MSS before it
+ reaches the DMA
+To: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Linkui Xiao <xiaolinkui@kylinos.cn>, stable@vger.kernel.org
+References: <20260917124234.1348673-1-xiaolinkui@126.com>
+ <aqwlUWN3rAXfcaWr@lore-qca>
+Content-Language: en-US
+From: Linkui Xiao <xiaolinkui@126.com>
+In-Reply-To: <aqwlUWN3rAXfcaWr@lore-qca>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:_____wDnNx9WE61q7PYEBg--.785S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXr1DGFW7ZFWkZry5Ww15Jwb_yoWrKFy8pF
+	WUAa90y395Jr4fZw4kCw40qa4rJay3tF4Yyw18Kr9xCw43tr9Ygry3KrW5Wa4Uur95Zr1S
+	ka1qka47CF4DZrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UZZ2-UUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBqBfftmqtE1ckogAA3T
 
-> The crash kernel ELF core header construction counts system memory
-> ranges via `arch_get_system_nr_ranges()`, allocates the crash_mem
-> buffer, and then populates it via `arch_crash_populate_cmem()`.
-> This sequence has a time-of-check-to-time-of-use (TOCTOU) race with
-> memory hotplug: a concurrent hotplug event between the count
-> and populate steps can increase the number of ranges beyond the allocated
-> capacity, causing an out-of-bounds write. If the event triggers
-> memblock_double_array(), the memblock array can be freed and reallocated
-> during iteration, leading to a use-after-free.
->=20
-> Protect the entire range collection with device_hotplug_lock. Since
-> the hotplug notification path already holds that lock, add a lockless
-> helper, crash_get_memory_ranges_nolock(), for use there. The regular
-> crash_get_memory_ranges() acquires the lock and calls the helper.
->=20
-> [ ... ]
-> Fixes: 3751e728cef2 ("arm64: kexec_file: add crash dump support")
-> Fixes: 8acea455fafa ("RISC-V: Support for kexec_file on panic")
-> Fixes: 1bcca8620a91 ("LoongArch: Add crash dump support for kexec_file")
-> Link: https://sashiko.dev/#/patchset/20260729031235.2840255-1-ruanjinjie%=
-40huawei.com
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Hi Lorenzo,
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+thanks for the review.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918100442.3841=
-135-1-ruanjinjie@huawei.com?part=3D12
+On 2026/9/18 01:37, Lorenzo Bianconi wrote:
+>> From: Linkui Xiao <xiaolinkui@kylinos.cn>
+>>
+>> stmmac_tso_xmit() fills the MSS context descriptor and stores the new
+>> MSS in tx_q->mss right away, but the descriptor only gets its OWN bit
+>> much later, right before the frame is handed to the DMA. Every error
+>> path in between - the dma_map_single() of the linear part and the
+>> skb_frag_dma_map() of each fragment - returns with tx_q->mss already
+>> updated while the MAC is still programmed with the previous MSS; the
+>> abandoned context descriptor is later reclaimed by stmmac_tx_clean().
+>>
+>> The next skb carrying the same MSS then compares equal to the cached
+>> value, so no context descriptor is emitted and the hardware segments
+>> the TCP stream with a stale MSS, generating frames whose payload size
+>> does not match what the stack accounted for.
+>>
+>> Only update tx_q->mss once the context descriptor has been given to the
+>> DMA so that the cached value always describes what the hardware is
+>> actually programmed with.
+>>
+>> Fixes: f748be531d70 ("stmmac: support new GMAC4")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
+>> ---
+>>   drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+>> index af2d38a2bb3d..a8f94cd6abb4 100644
+>> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+>> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+>> @@ -4563,7 +4563,6 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
+>>   			mss_desc = &tx_q->dma_tx[tx_q->cur_tx];
+>>   
+>>   		stmmac_set_mss(priv, mss_desc, mss);
+>> -		tx_q->mss = mss;
+>>   		tx_q->cur_tx = STMMAC_NEXT_ENTRY(tx_q->cur_tx,
+>>   						priv->dma_conf.dma_tx_size);
+>>   		WARN_ON(tx_q->tx_skbuff[tx_q->cur_tx]);
+>> @@ -4714,6 +4713,7 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
+>>   		 */
+>>   		dma_wmb();
+>>   		stmmac_set_tx_owner(priv, mss_desc);
+>> +		tx_q->mss = mss;
+> 
+> I think the issue is real. A couple of comments:
+> - do you think we should run stmmac_release_tx_desc() on mss descritpr in order
+>    to clean it up?
+> - I guess we should use the same approach used for data descriptor and advance
+>    tx_q->cur_tx when there are no other possible error condition. What do you
+>    think?
+
+I started from your second suggestion, because that is the one that 
+makes the
+error handling consistent: tx_q->cur_tx is no longer advanced while the
+context descriptor is being filled, it moves past it together with the data
+descriptors, exactly like stmmac_xmit() does. On failure the ring index is
+therefore still where it was and there is nothing to unwind.
+
+That in turn makes your first suggestion mandatory rather than optional.
+stmmac_tx_clean() walks the ring until it reaches tx_q->cur_tx, and the
+context descriptor now sits exactly at the slot cur_tx points to, so the
+cleaner cannot reach it and a descriptor tagged with CTXT|TCMSSV would stay
+in the ring until the slot is reused. The error paths release it explicitly
+instead, using the same helper the cleaner uses for descriptors. OWN is 
+never
+granted on that descriptor on these paths, so zeroing des0-des3 cannot race
+with the DMA engine.
+
+Concretely, v2:
+
+  - keeps tx_q->cur_tx untouched while the context descriptor is filled 
+and lets
+    it advance together with the data descriptors;
+
+  - moves first_entry past the context slot, so the error_dma_unmap 
+unwind loop
+    does not call stmmac_free_tx_buffer() on a slot that has no skb 
+attached, and
+    is_last_segment = CIRC_CNT(tx_q->cur_tx, first_entry, ...) == 1 
+keeps the
+    correct value for single descriptor frames;
+
+  - updates tx_q->mss only after stmmac_set_tx_owner(mss_desc);
+
+  - releases the context descriptor at the common "error:" label, which 
+covers
+    both the dma_map_single() of the linear part and the 
+skb_frag_dma_map() of
+    every fragment.
+
+Nothing else changes. first_tx is sampled before the context descriptor is
+allocated, so the tx_packets accounting used by the coalescing logic is
+unaffected, and stmmac_tso_get_num_desc() already counts the context 
+descriptor,
+so the stmmac_tx_avail() check is unchanged as well. The
+WARN_ON(tx_q->tx_skbuff[tx_q->cur_tx]) that followed the old cur_tx 
+update is
+dropped: it checked the first data slot, which the WARN_ON on
+tx_q->tx_skbuff[entry] right after the first_entry assignment already 
+covers.
+
+v2 follows in a moment.
+
+Regards,
+Linkui
+
+> 
+> Regards,
+> Lorenzo
+> 
+>>   	}
+>>   
+>>   	if (netif_msg_pktdata(priv)) {
+>> -- 
+>> 2.25.1
+>>
+>>
 
