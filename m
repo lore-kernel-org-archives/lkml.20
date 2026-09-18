@@ -1,60 +1,33 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A783B4ACC61
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:59:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 86E084B1CE0;
+	Fri, 18 Sep 2026 08:59:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789721956; cv=none; b=hSwQTpCmtyKfSf9Jz+YcQqUYEEmLBN0KbNTqK/AdJin56X7JenRsZegIIWPXfP+7Ggo7OBZffZ2Ck7BmRGZeTV1/ps1frDvt2EkASw27zwbyIiI2j+tcrJDzTB/q2O1xnA+8yks2sjzQ2P6ACuXqC2NU3/LxIstIOFzwjoGx9PM=
+	t=1789721962; cv=none; b=hmhfiCxLou99686JxHu7RIw79gO56f9HRRO1M43ywCv9OWaIjNMw/WL/hkvoyAPcQhhsUw5HqTX6Lpaebt9j27ZCfB2F17qBM8DMAiT9LWbBT2+Oe+FjWAOZWpo4HEWJnTl4DF7ncXsvj3AxSkV7+lMeHkBk1e1RdVP+AYAVoXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789721956; c=relaxed/simple;
-	bh=3llZ0C2kl642u/5fzHEpIu8NGOivq0uhloKKpyPXvYA=;
+	s=arc-20240116; t=1789721962; c=relaxed/simple;
+	bh=1M1QtH7NdzkDYZ09YQzOvcKU43QqUz+DMQ3u7GB+BTA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nkiaja8SOOxV7tDBtnPNCUo0PNAvwNbC8wDcWHLFHdCXR+pn48C1IUrlunWQpCPYQO4q2FOt5pIgueT1tktEYEymG1qIRvk3ts4duMEYLC351VH6PxlNm+EItMICqZE7cCJTinctzrUQD8jaQp4HoHtglHeEdBHbj0xmpWa/7PQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=RqJUtE3o; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	 In-Reply-To:Content-Type; b=pBaMC9R5m8K36ED/7zSYXxwzs0ZIksMSvYMvhWCpf619aWtJPYNLH+AxPiXtq+9C4VK0SgGtLTl+H5tTR9zIKwmQXHv2luedrtBF/cVBd+hY2zB9mkMg09b6Hx/ptAozaBkUfgVnG6ZjZduLtZte/dnLtVTnm66L6GHwjHoRAak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=gMhNVUf7; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="RqJUtE3o"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I61anT498282;
-	Fri, 18 Sep 2026 08:58:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=MFHjua
-	oz4ERr0WSsjThNkyjewWe29aS7GK0NR+fLQm8=; b=RqJUtE3ox/YnGV2ZTLCd4/
-	DpKdw7fGNtsc9hAeYAzODaMP09Lt76fU6ne8J3KUNRd8D4j2THncQ71CNfVAi9Ye
-	UGCdueVm3cH11oMPC3Po4IUbmitG0b84ShawvXZvS7NnMs+LzKQDjHe1917noef4
-	EwegdWcJ0OkSt3MEwvYwgBFVcTa5/eJsDoxLgWCuKJUkJwlfYqKC8NbFVgjKq6CM
-	lFthAnl73YmXjnv6jqXiwjBXgOemNrWN3msy+btHTAu1qdcPX6szYGrxD/xKModw
-	sn72JL+trFmwGQzi7Lm9rKVXQXN9USUbKo4oz6o4QSJbtdHqDLAP2K/hwjq1BFrQ
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmxcvehr5-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 18 Sep 2026 08:58:55 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68I653aM246091;
-	Fri, 18 Sep 2026 08:58:55 GMT
-Received: from smtprelay02.dal12v.mail.ibm.com ([172.16.1.4])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gr5ffekas-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 18 Sep 2026 08:58:55 +0000 (GMT)
-Received: from smtpav06.wdc07v.mail.ibm.com (smtpav06.wdc07v.mail.ibm.com [10.39.53.233])
-	by smtprelay02.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68I8wsSA28574286
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 18 Sep 2026 08:58:54 GMT
-Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 719315804E;
-	Fri, 18 Sep 2026 08:58:54 +0000 (GMT)
-Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 2D20F58054;
-	Fri, 18 Sep 2026 08:58:50 +0000 (GMT)
-Received: from [9.61.58.220] (unknown [9.61.58.220])
-	by smtpav06.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 18 Sep 2026 08:58:49 +0000 (GMT)
-Message-ID: <7b9e6dc8-6d44-4bfa-9c3c-9e51a5ba643f@linux.ibm.com>
-Date: Fri, 18 Sep 2026 14:28:48 +0530
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="gMhNVUf7"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F1C06168F;
+	Fri, 18 Sep 2026 01:59:14 -0700 (PDT)
+Received: from [10.57.6.197] (unknown [10.57.6.197])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A15FA3F86F;
+	Fri, 18 Sep 2026 01:59:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789721958; bh=1M1QtH7NdzkDYZ09YQzOvcKU43QqUz+DMQ3u7GB+BTA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=gMhNVUf7FU14C3AvALw/IJRAU0r5ZC7LybOmBcwkNWc+DAjCckG9KnP01I1wmlwyC
+	 jwkpPhL4ENWatRqaHBHlgShatqY/nVK4er+43d5StSotzGLtEXPJotp0f1EKvtUnpj
+	 Bzj946PL96YGt37gh2bvsO5zxsWPabKAQrRAacd0=
+Message-ID: <e26cbb4e-84e2-4fcc-9eb0-93bfd4aff4a7@arm.com>
+Date: Fri, 18 Sep 2026 09:59:14 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,104 +35,105 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] nvme-multipath: add fail_if_no_path sysfs attribute
-To: Krishna Iyer <kiyer@crusoe.ai>, linux-nvme@lists.infradead.org,
-        Keith Busch <kbusch@kernel.org>, Christoph Hellwig <hch@lst.de>,
-        Sagi Grimberg <sagi@grimberg.me>, Jens Axboe <axboe@kernel.dk>
-Cc: SeongJae Park <sj@kernel.org>, Saravanan D <saravanand@crusoe.ai>,
-        linux-kernel@vger.kernel.org
-References: <20260917231647.79956-1-kiyer@crusoe.ai>
-Content-Language: en-US
-From: Nilay Shroff <nilay@linux.ibm.com>
-In-Reply-To: <20260917231647.79956-1-kiyer@crusoe.ai>
+Subject: Re: [PATCH v18 05/23] KVM: arm64: Track the type of VM in kvm_arch
+Content-Language: en-GB
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+ will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+ aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+ joey.gouly@arm.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev,
+ gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com,
+ alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com,
+ lpieralisi@kernel.org, enju.kohei@fujitsu.com
+References: <20260915160141.3543048-1-suzuki.poulose@arm.com>
+ <20260915160141.3543048-6-suzuki.poulose@arm.com>
+ <CA+EHjTz65G0MM=tOrzmk=jMweBX1us6FqfrmSkQs4KSyAEoxhg@mail.gmail.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <CA+EHjTz65G0MM=tOrzmk=jMweBX1us6FqfrmSkQs4KSyAEoxhg@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDExNyBTYWx0ZWRfX/4Yhi2FYg16u
- 6N5LKmINE1BGoPIJqaDZO9q/yHny1JLg/O9PCF1J2gwDOSNC6V3MpRB1zfGK0riGbC8uWSOZbx4
- xyAQR5NXkYtOd27gg/N7m1rbYOrgg8w=
-X-Proofpoint-ORIG-GUID: 1tav0ShUU1oGP4q9LUsNUcTVVRZicn1p
-X-Proofpoint-GUID: 1tav0ShUU1oGP4q9LUsNUcTVVRZicn1p
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDExNyBTYWx0ZWRfX+G8DfdN4K1MD
- LJr0dIvUzlYakag+k2N9mm7N+LBb7uzxWqNWitgOD8oZHZazVYceUViECEl+nZ4+vTgDS55UO5R
- 90HVz5LddlQBhEgDH5gM5h34/Z8neuq+uEbVZBsYQCh9fytWG98ZRJiy+xBPkmmG6ZOwvTVIsZm
- A4EE07STAJtEb88YcnaSeUhteAkPqIALzSQmFGGfhP6Xp0ndlUe1rg8oxCLYo7G7HIIrQJP3hZi
- 4PdrndgeLTiKyZAJF/1aDaHXJgQZX/rnuf8g58LZa5j1cXE236pQlvNUXeoRzvM/ixj5KZZOn/y
- jfw2dXJXJPI1Bgf8E+GVkZQVR6E03xLVnF1drOv9Nfj1/jFbQjVMzfAl6HC/doduQKJPE1Yv4KO
- VeKVyv5u24/bkB9nrayeSxdUXCNEWqdvLGpOuA7dDTrHrtmetikNyc3HFQP+0+HZ+EaQfeIrtHk
- +K8DG1/VqPhB/fFgTdg==
-X-Authority-Analysis: v=2.4 cv=F+7C5ahN c=1 sm=1 tr=0 ts=6aacfd4f cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=B9cS5ykv82s0ofZVmBsA:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-18_02,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 phishscore=0 clxscore=1015 malwarescore=0
- lowpriorityscore=0 bulkscore=0 spamscore=0 impostorscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180117
 
-On 9/18/26 4:46 AM, Krishna Iyer wrote:
-> diff --git a/drivers/nvme/host/multipath.c b/drivers/nvme/host/multipath.c
-> index 3d46c4f28a47..23aeb1737ab5 100644
-> --- a/drivers/nvme/host/multipath.c
-> +++ b/drivers/nvme/host/multipath.c
-> @@ -499,6 +499,8 @@ inline struct nvme_ns *nvme_find_path(struct nvme_ns_head *head)
->   static bool nvme_available_path(struct nvme_ns_head *head)
->   	__must_hold_shared(&head->srcu)
->   {
-> +	bool fail_if_no_path = test_bit(NVME_NSHEAD_FAIL_IF_NO_PATH,
-> +					&head->flags);
->   	struct nvme_ns *ns;
->   
->   	if (!test_bit(NVME_NSHEAD_DISK_LIVE, &head->flags))
-> @@ -510,14 +512,25 @@ static bool nvme_available_path(struct nvme_ns_head *head)
->   			continue;
->   		switch (nvme_ctrl_state(ns->ctrl)) {
->   		case NVME_CTRL_LIVE:
-> +			if (fail_if_no_path &&
-> +			    (ns->ana_state == NVME_ANA_INACCESSIBLE ||
-> +			     ns->ana_state == NVME_ANA_PERSISTENT_LOSS))
-> +				continue;
-I think we have helper nvme_state_is_live() which could be used here.
-  [...]
+On 17/09/2026 12:24, Fuad Tabba wrote:
+> Hi Suzuki,
+> 
+> On Tue, 15 Sep 2026 17:01:23 +0100, Suzuki K Poulose
+> <suzuki.poulose@arm.com> wrote:
+> [...]
+>> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+> [...]
+>> +#define kvm_vm_hyp_is_pkvm(kvm)                (is_protected_kvm_enabled())
+> 
+> I'd keep is_protected_kvm_enabled() at the three call sites: this
+> takes a VM and ignores it, so it reads as per-VM when it's the mode,
+> and patch 20's comment about not being able to use the kvm_vm_ helpers
+> with a NULL kvm goes away too.
 
-> +static ssize_t fail_if_no_path_store(struct device *dev,
-> +		struct device_attribute *attr, const char *buf, size_t count)
-> +{
-> +	struct gendisk *disk = dev_to_disk(dev);
-> +	struct nvme_ns_head *head = disk->private_data;
-> +	bool enable;
-> +	int ret;
-> +
-> +	ret = kstrtobool(buf, &enable);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	if (enable)
-> +		set_bit(NVME_NSHEAD_FAIL_IF_NO_PATH, &head->flags);
-> +	else
-> +		clear_bit(NVME_NSHEAD_FAIL_IF_NO_PATH, &head->flags);
-> +
-> +	/*
-> +	 * Ensure that update to NVME_NSHEAD_FAIL_IF_NO_PATH is seen
-> +	 * by its reader.
-> +	 */
-> +	synchronize_srcu(&head->srcu);
-> +
-> +	/* Make already-queued I/O re-evaluate path availability. */
-> +	if (enable)
-> +		kblockd_schedule_work(&head->requeue_work);
-> +
-If the user stores the same value as the current setting, we could
-return immediately instead of waiting for synchronize_srcu() and
-scheduling the requeue work.
+Actually, that comment is invalid. kvm_arch_vm_ioctl_allowed, is only
+called from the kvm_arch_vm_ioctl() with a valid kvm instance. I have 
+changed that hunk to:
 
-Otherwise changes look good.
 
-Thanks,
---Nilay
++/*
++ * Check whether the KVM VM IOCTL is allowed. For pKVM and Realm VMs, 
+certain
++ * ioctls are not allowed. Further, certain features are allowed only for
++ * non-protected VMs in pKVM.
++ */
++static inline bool kvm_arch_vm_ioctl_allowed(struct kvm *kvm, unsigned 
+int ioctl)
++{
++       long ext;
++       int r;
++
++       /*
++        * We are guaranteed to be called with a valid kvm instance, as the
++        * only caller is kvm_arch_vm_ioctl(). Catch any deviations, as we
++        * rely on the kvm instance below.
++        */
++       if (WARN_ON_ONCE(!kvm))
++               return false;
++
++       /* Cover both pKVM host and Realm VMs */
++       if (!kvm_vm_hyp_is_distrusting(kvm))
++               return true;
++
+
+I resorted to is_protected_kvm_enabled() to make it faster than using
+the vm_flavor checks. I could rever those anyways.
+
+> 
+>> diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+> [...]
+>> @@ -432,7 +432,7 @@ static void init_pkvm_hyp_vm(struct kvm *host_kvm, struct pkvm_hyp_vm *hyp_vm,
+>>
+>>           hyp_vm->host_kvm = host_kvm;
+>>           hyp_vm->kvm.created_vcpus = nr_vcpus;
+>> -        hyp_vm->kvm.arch.pkvm.is_protected = READ_ONCE(host_kvm->arch.pkvm.is_protected);
+>> +        hyp_vm->kvm.arch.vm_flavor = READ_ONCE(host_kvm->arch.vm_flavor);
+> 
+> Could EL2 reduce this to VM_PKVM or VM_PROTECTED_PKVM here instead of
+> storing what it reads? The host supplies the value, and it's now an
+> enum rather than a bool. Patch 12 relies on EL2 only ever seeing those
+> two, and with VM_REALM above the marker a host-written value passes
+> kvm_vm_is_protected() but not the == form, if EL2 ever adds one.
+
+Do you mean something like :
+
+	if (kvm_vm_is_protected_pkvm(host_kvm))
+		hyp_vm->kvm.arch.vm_flavor = VM_PROTECTED_PKVM;
+	else
+		hyp_vm->kvm.arch.vm_flavor = VM_PKVM;
+
+Do we additionally need to WARN_ON() if we encounter a VM_REALM ?
+
+> 
+> Both hunks are new since v17, which is where I gave the Reviewed-by.
+> Happy to keep it if you can settle these please.
+
+Apologies, I thought this one didn't change, but later patches changes 
+them, which is why I kept this.
+
+Cheers
+Suzuki
 
