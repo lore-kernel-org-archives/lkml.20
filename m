@@ -1,94 +1,103 @@
-Received: from kylie.crudebyte.com (kylie.crudebyte.com [5.189.157.229])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF6BB4E4C2B;
-	Fri, 18 Sep 2026 11:07:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.189.157.229
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F5304B95D3
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:08:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789729655; cv=none; b=R1PYBWsQH9vXvUeYdVeObooVaWEP2/G3KEIdee4NdwWtDn0zHj5n5f/AMCrw6zQQ3WgiXDgfoYl0KhzeP6+XARgckQMlaB3XahJzfxPYGPIN3WJa3DrdLbjDcWqxP0bYMMsh5L/yFK4Cr2FDy5naQx6sAbZIwvsD60q7aufSphM=
+	t=1789729726; cv=none; b=N9KQ02kaimST5KKQ79ZV9liVECwJdeWqnypBMrLNns9MuuTP4O+4mnZi6zbi8OIpfGzprFj3UsQ24dqsXMS7YuSZKFzdPoe+qWho8wMF6qqad7VqftbwfvmMi+AKjxv0uDrgVyVPckvjX5ugcXgrW/tePvaauo3p6yoe7z6bdY8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789729655; c=relaxed/simple;
-	bh=uEcZUe9RzTzScYBCvapTtyu1X3UMlG9+8b6Er10mQlE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=EE3JtJcPVnb6pYAye/VZQdZ8E8lcCkaEHRFPn5eLAgB+hHspYc493ghtQlxcFyvb5+h1QZ6CEcpeCSX9e8edB5Id0ApdA54H53wFz/WB54MyyOTOU0zz6e+dasZYii9qhDNyCVGqWuuHrZgc++ANIuOzcUnIlDwAz569CXNqJgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crudebyte.com; spf=pass smtp.mailfrom=crudebyte.com; dkim=pass (4096-bit key) header.d=crudebyte.com header.i=@crudebyte.com header.b=HR6YKorb; arc=none smtp.client-ip=5.189.157.229
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crudebyte.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crudebyte.com
+	s=arc-20240116; t=1789729726; c=relaxed/simple;
+	bh=CTynR59BziX2J50wpNmLmLXJ3GpwJvm84Os5HZU24uE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=qdkohPcBst3SQwaS/K7JviRSX/eRP4LH0AuBLqyrEZnVbII8fPwRESTEwQrRtXQ7gidvEaXdtg0nvgWZ+8j++h5pZErEVxMGBL0N2hKbEo2XRarsarwBo/yAjsaBdsj3aKAQ1A0sXxeVnPcoiQCg6MEtcV2LBF+cTV/JIvHNGmQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qQxv37kF; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=crudebyte.com header.i=@crudebyte.com header.b="HR6YKorb"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=crudebyte.com; s=kylie; h=Content-Type:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
-	Content-ID:Content-Description;
-	bh=uEBFH40ySP52gMVi8KeSDDnEIMVSWvNo3SjFokXECUY=; b=HR6YKorbEaUJEQJmZZKuvqRxtQ
-	bHY96zijWGWsEzme6g7ojKEciuv0CSUG9iaER+QOJhg+HvWb3Fr9Ng/vYLMrM65YvGavLfyPfeD/J
-	/rYoUavrruqe8VNDB66uM8DNYXjnsBk042kMp5qlTKEOQ9BI07h1hMgVyFwAxiZT/T2tcfngklBuU
-	MH1Powevsa0zd+sWxRtT5TQqsaQBFruMxxbZEAAWVQc3nJCmG0/znPyRIfUprFdoX21Wx+Gn+ipMs
-	94FWio+ULazt+6k3rcHYtn3UDCZgZgBD37pRh+gCuROI9bmZ+v/O2hS6KZ82AyHaQ+zFK8sEdG9Lk
-	JpL6WcGq3YwpGFd81kH93P/m9z1YUzVCIe7s0zY4/Zi/y4TDiL/1DhRoAMsJ2FTrW6I6egsEo5WCP
-	rCdgesNU08Mm/0k0yLbxxxhSkIyF3CgYhN7akGayYSJUXvhTaPU8G2YtXkvunKY2wNiHZCUgA7vJX
-	pLNVZUL6YNBCuVhfG9+c/NA74BMCvuYQkD7nFdsUvKVPhe2jPzVYoOIwgI/mEY5CB+fI+nSaJrI4W
-	R0/u6+X4CGbJR5ZC+pDQT0BIjy0AJ/IJrb41uC8tmZMSsO+i5peOTigmjp1Asc97Fdh1LtW4WOHOM
-	gGoJJBOnwz82CmGNkNKmuw0s3//owQI9+S50nt9QM=;
-From: Christian Schoenebeck <linux_oss@crudebyte.com>
-To: ericvh@kernel.org, lucho@ionkov.net, asmadeus@codewreck.org,
- v9fs@lists.linux.dev, Haobin Wu <853555@gmail.com>
-Cc: jack@suse.cz, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- aneesh.kumar@linux.vnet.ibm.com, willy@infradead.org, dhowells@redhat.com,
- viro@zeniv.linux.org.uk, brauner@kernel.org
-Subject:
- Re: [PATCH v3 1/3] 9p: skip intermediate directory entry name copy in
- p9dirent_read()
-Date: Fri, 18 Sep 2026 13:07:10 +0200
-Message-ID: <12972173.O9o76ZdvQC@weasel>
-In-Reply-To: <20260918024851.51229-2-853555@gmail.com>
-References:
- <20260918024851.51229-1-853555@gmail.com>
- <20260918024851.51229-2-853555@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qQxv37kF"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd38e0f79so3874505e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 04:08:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789729721; x=1790334521; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GZN+e+voYt5PknARoCumXWZsLFyIMao9d8Ma+Y4jDI0=;
+        b=qQxv37kFE4iV+jfZ3oZiH0QSvfHFAPE84OeoueIKa6/3+zCFKPrGhTt7LClxlW8swD
+         MvXMqhmCEGzbuda4RKLznI8zg/RjzqfvOmNc5lzUYkWcLUm8Esny0yuH49h6EbzDulcn
+         VQ9N5v9CHjOG38vq6cjP6Q/SwsHyg6e3Hx1jZh5EeZBAKui0aTzzPXKuCPPIktt0fF8V
+         apDHlyKgRXzx6r7SQfHgBlOF0jTh1jXzvjNOsg2p/GgKgJRudLx/utVlxGkYFCP8JPMG
+         a1yr3eWDHtaJyj14qtfbmuLq0X5VME1sldUifY/hpjKlLgOzb4JsgLMn/CfRESqg9gI/
+         aVhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789729721; x=1790334521;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GZN+e+voYt5PknARoCumXWZsLFyIMao9d8Ma+Y4jDI0=;
+        b=NOOaLiI+vwUZ1TUMTcSz9K6QIlioH7DYrzT8MQ6rNey53DsiXOps557kOcwM4xOHh1
+         WO7RY9hOgCQUg5r/cwpY1CCOCxqvas79CcAKE/Iz8fQzLISxev2zIwYnFhq3pi5Ot/tS
+         dMFe+aDnwGqLlpkVNF1dqblXP6w4yJgv2yzmE9qhWo7uwaI2LICWmNXsk8NUhFepqS/G
+         2QR2HKAqAJYQcmDk7f5XZ/7YJ30bdbR7RBSdwteF4Jw6P2m9mkrbXJw+WUakusS+1kOd
+         0jwHplcS6+rhkYv/+NBbkMgw5e87nCDwl8Gq5M+7v14+yC1nEQ7W5uvSMidHPOpVyrJh
+         d5Lw==
+X-Forwarded-Encrypted: i=1; AKwUvBwbryiq6rvCYvxzNQe8YAJKv6eCHHQC1pQJcQmamJkVdr0eilrGvZQdMWoctKVOvNaFoBibujqXY3hhjzk=@vger.kernel.org
+X-Gm-Message-State: AFuF++k4z2JNwjDHBbSm5GKUtQZCeYHXlDB20ruQBCyPJwdCIPHaqUJr
+	G6bQI7HL0x9dn0M48/xBzoYXMIsCTy9BVQKBgDCNq16IGY8oIddqz5+z
+X-Gm-Gg: AYBFou0Y4DxINPHlVnny36PXRytxydcyJTDVUryko9Y4M5RbmLbftG5Kg5ocafy8vrR
+	INMLvOxfJWiCBEncgFX4FjeEkmCeZjk43tQfPZAIwkaKv1mpGIuIu4sWqL2i63HIGNR3ZKi3Msy
+	OWQHq/pPdp9NmjdQX9pm1EtxPiuHH1o3CceeMWnogONtqUrpklx08R/CqZ+KmcViPOZqIFBMFRb
+	VNnyyfeBfDjUxkvmoejteRaiIy9+nIGaNCzkDv+CGXxh49QQB/m2KJhxVAIihVeDpXWk9guARgj
+	LT3HsPPhN2JawYw3WGuS0m0JmBP/pDrEnHHVIokrsXOh9kAARYRFJFWgvKwFOyG5MwQunyhENly
+	sx4io9TtZLXU+VfPabWzuJPqzZ43ETXVTcunG14xzja5UNzBwSORiWQvRzv7Tw1ZNaYuZo91NBF
+	Bi9WTdbCQ5sqQZkHHs3K9byHuFYgPmhyGQGyAvg7n2kPHjIE9/g7dst6XOxY75cwrJTWHI8wFKy
+	yXDqjYPh+0Nacumwzr7+A==
+X-Received: by 2002:a05:600c:6211:b0:49f:bc28:e8b1 with SMTP id 5b1f17b1804b1-49fc5735be7mr54409315e9.14.1789729721115;
+        Fri, 18 Sep 2026 04:08:41 -0700 (PDT)
+Received: from ubuntu-4gb-nbg1-1.. ([2a01:4f8:1c19:b0ad::1])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc7cfd3fcsm43592295e9.10.2026.09.18.04.08.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 04:08:40 -0700 (PDT)
+From: =?UTF-8?q?Rare=C8=99-Mihai=20Vladu?= <vladurares@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Rare=C8=99-Mihai=20Vladu?= <vladurares@gmail.com>
+Subject: [PATCH] staging: rtl8723bs: replace msleep with usleep_range in rtw_mlme_ext.c
+Date: Fri, 18 Sep 2026 11:08:21 +0000
+Message-ID: <20260918110821.1117935-1-vladurares@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Friday, 18 September 2026 04:48:49 CEST Haobin Wu wrote:
-> v9fs_dir_readdir_dotl() decodes each entry of a Rreaddir reply with
-> p9dirent_read(), which parses it through p9pdu_readf("Qqbs"). The 's'
-> conversion in p9pdu_vreadf() already allocates a NUL-terminated copy
-> of the name from the wire buffer; p9dirent_read() then strscpy()s that
-> copy into the fixed 256-byte p9_dirent::d_name and frees the original.
-> 
-> The wire format carries the name length in 16 bits, so a name longer
-> than 255 bytes is valid on the wire and may well be valid on the
-> server's filesystem, but it makes strscpy() return -E2BIG.
-> v9fs_dir_readdir_dotl() turns that into -EIO and aborts getdents64(),
-> so every entry after the long one disappears from the listing.
-> 
-> Drop the second copy: keep the string allocated by p9pdu_vreadf() in
-> p9_dirent and let v9fs_dir_readdir_dotl(), its only user, free it once
-> dir_emit() has consumed it. p9_dirent is a short-lived stack object, so
-> the string's lifetime does not change.
-> 
-> Note that the VFS only rejects names of PATH_MAX bytes or more in
-> verify_dirent_name(), so after this change a name between NAME_MAX and
-> PATH_MAX is returned by getdents64() even though any later lookup on it
-> fails with -ENAMETOOLONG. The next patch skips such entries.
-> 
-> Fixes: 7751bdb3a095 ("9p: readdir implementation for 9p2000.L")
-> Closes: https://github.com/microsoft/WSL/issues/41192
-> Signed-off-by: Haobin Wu <853555@gmail.com>
+Replace msleep(10) with usleep_range(10000, 11000) for more
+precise short sleep. msleep() can sleep up to 20ms for values
+below 20ms due to timer granularity.
 
-Reviewed-by: Christian Schoenebeck <linux_oss@crudebyte.com>
+Signed-off-by: Rareș-Mihai Vladu <vladurares@gmail.com>
+---
+ drivers/staging/rtl8723bs/core/rtw_mlme_ext.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> ---
->  fs/9p/vfs_dir.c         |  6 +++++-
->  include/net/9p/client.h |  2 +-
->  net/9p/protocol.c       | 12 ++----------
->  3 files changed, 8 insertions(+), 12 deletions(-)
-
+diff --git a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
+index e965133d9..f59302802 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
++++ b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
+@@ -5749,7 +5749,7 @@ u8 chk_bmc_sleepq_hdl(struct adapter *padapter, unsigned char *pbuf)
+ 		return H2C_SUCCESS;
+ 
+ 	if ((pstapriv->tim_bitmap & BIT(0)) && (psta_bmc->sleepq_len > 0)) {
+-		msleep(10);/*  10ms, ATIM(HIQ) Windows */
++		usleep_range(10000, 11000); /*  10ms, ATIM(HIQ) Windows */
+ 
+ 		/* spin_lock_bh(&psta_bmc->sleep_q.lock); */
+ 		spin_lock_bh(&pxmitpriv->lock);
+-- 
+2.43.0
 
