@@ -1,77 +1,88 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F6674E50DA
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:32:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7780C4F93B3;
+	Fri, 18 Sep 2026 13:32:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789738357; cv=none; b=QYP+vMZfnLPmyQfFGdybpgio4pU0rW8xAS96XkmXLFMeTln0ClJ2GCXrOu38ZYDUX6XRtZs6Y/DhMsLGd0cvKufw8nMoDkQXbdZr9ceMvxHG331u2tvLrzMUJcR+fp1TODYGcJmBVHb06HdS2ISAfHwME82TWSug2bmC7Imc2vo=
+	t=1789738359; cv=none; b=QYpPnaOraxIhTfNlHCcKrANZ54jLROHwLxBAQnH8UaJB/tqBGNNEKT+Rxfft08ZEqF/8KQ/xPlxUI6AhKKPiNTUAm6aqlNI7LVhNWbDBzhR4k9Gi0SXHuDx0qjNwTkyL5GMLLfz1ZpHWS1prcv42CXS78tQ49ZFib/P5VTFfpIs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789738357; c=relaxed/simple;
-	bh=1dBpP7l681zRShb+b4zwZU2Rzf69nl3mp5ML8CPf9qI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e9xiSRrebjWKUMATIIk0kEYPX13RX5HX+1K/Tys/DHgMVHOt02J60F9xqgJyG6gMri5EkIVcytxqZvJx+aqJOOXE6FqQRe18HG3SmusN9B8uEZIKDRTBFjutWQpAABCb6ukjNMyZv7NVTbp2zeQEprCHfnheBAXmzM7p7gH4x7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=INixMQl2; arc=none smtp.client-ip=74.125.228.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789738359; c=relaxed/simple;
+	bh=K0pH/kIzdjn7XhRQ01Q7s1FQZEgJAfF9fnAxKZl9i7c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=URhzW7y3MBegDiL18uSgCk1krVGgd90Mc2agAM1hAi9cU+vLQ8sBeBynNmRnK+dCKv9vIn01j9fFERmkFdQTmJqzPJFYhVJyejcs2OO2IvWEnEAuRACH/XiSiMg+vMC1U/0PqiE8PA+l0D7fG+DkmsPCycAWPtiUkn+RGseg08w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=TXEUsyp7; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="INixMQl2"
-Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469d20963so514117b3a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:32:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789738355; x=1790343155; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2V5XTy73tYiUK954Gg8bkkUQBuh9HGa8ceTDdFzo0Bo=;
-        b=INixMQl2rdRF85x4vys5MotCViefXiFywMQTx/NVYMVZ0h1RZ5jln4xjaQaBdrhEjO
-         xLabpu2r7MODtTdTk49tm/qf7YK465CVGrXJbIGHlMtKWTS6Ug2MFEWiBP4vBzd0jW1c
-         n6qNIzF/0sWGVor/zkU8ltuO9XCXywSoKkn2KFSA6Yypbr9KTsw30YrLtmgDTbxrerB1
-         E2cJD2VbymsAiVKINMP2DLNKm5gLAmSako6S6KSYt4p8c1nJEiqf4Eepvcizh40kaPx1
-         EXM1f1ji6I7Nog8oU7Du3D00E5cDtoQhC/41hFJSr5ZnPOD/oSr4Kslme63KKe6Cu8Ri
-         zEyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789738355; x=1790343155;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2V5XTy73tYiUK954Gg8bkkUQBuh9HGa8ceTDdFzo0Bo=;
-        b=Tg4pKVJmqtujTQDFdcOMdOtiXfzYcWjKrzYlkkD/Bkxa1MjCwXxRs2AXxCK1Z5GJKe
-         9sE4UyaD5MY+iRdjOgw+Wq1sgMt74i4KKKLsCqe6gJUoclJu25vy8LiR6kfKHAPfuTEi
-         lNKheVF/mB46htzlne+EdICYPNhIJuINwGwo9GCZmBAS4USxoOQvcFYKxLAd1FCLs/Dv
-         qzttVk+COU7mX59zrqLmW67SWLpNDof6D42tXznG/1BVG8JnfVNQROroS6LX3p9aaP2q
-         MyAhwyKUNJ2abdFeFSnIiQy88oMnEteHljl2HxvCricRQKbDVFm9v7c+vfcTH7jcl2HN
-         5UWQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxQ0pTinv19iIuDwWX8ZxfuJfro7E7bdMifMb2kAIpNKqfbR3+XaX/LPnEueliZ8M1YTX2lHZdEMoEhfj0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lEPIrH1nZkMTtajtzniAqaMcyv4Tl3UW7bXC5Kro606q7TEvM5
-	0Mt/YXDZ+Gm4imP9PllmIpLEtpRG4Hls3RM5mRlL3gJMUT6d9MWu5x09
-X-Gm-Gg: AYBFou2FQ3Bm6b3Rl/41qOvUf95qCsoBHNwhRi/6BvQwZIcpWDaYX06fdKISbTfR6z2
-	hTRT61oR9q/tqmb0JR0NGEQ4ghSBHTsH5tQpa9RdPn7o43pnS8gCouHrZhucBnT5GehtpndFOeq
-	6v1g3WezlWEj0I13MFgda2WnFpQrhs0iGdOEjU4MEwwyrldZukLaAqvpZ6VmMSimayM+dbE7Vcf
-	jDgLN5RrVVeR8jBqUKYq8XmU1V++fc8COrFiudVE6Ejrhmr3sb0LItN61Yv1TYBHpOkTWZoTGVy
-	S6KU9K59hYNFZgC61MVeK5ik2bLFrooyWLdEzsZDClBKpV3ARPKzEEStqEFFhNcTUXDrRuLtmFr
-	laX30epRNzqHKff5HbJuimMp2rn0+l6LfMsECL2p8AAmCFI5TfTKhIA0JL6U+1GEZuK9ol2YhVh
-	gr+9TyD80fCkOcYSnW/Sqs8h3HFxOqBU/bE/Kkwz9O2bU0WzpGlthJ4Cdn8UTOnzMayfI78J3Uq
-	g==
-X-Received: by 2002:a05:6a00:2e26:b0:847:99bb:b6d0 with SMTP id d2e1a72fcca58-874dcbf2693mr4878215b3a.15.1789738355341;
-        Fri, 18 Sep 2026 06:32:35 -0700 (PDT)
-Received: from G15-5520 ([103.206.144.105])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-875dd8ddd57sm817797b3a.48.2026.09.18.06.32.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 06:32:34 -0700 (PDT)
-From: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
-To: Raju Rangoju <Raju.Rangoju@amd.com>,
-	Prashanth Kumar K R <PrashanthKumar.K.R@amd.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org (open list:AMD XGBE DRIVER),
-	linux-kernel@vger.kernel.org (open list)
-Cc: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
-Subject: [PATCH] amd-xgbe: use str_yes_no() helper in xgbe_get_all_hw_features()
-Date: Fri, 18 Sep 2026 13:32:18 +0000
-Message-ID: <20260918133218.39778-1-lalitshankarch@gmail.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="TXEUsyp7"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68IA1UxN960828;
+	Fri, 18 Sep 2026 13:31:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=z8sLHo8BqRMdgseyc
+	gHYqYz+145DnazUIQfzCQ3O+EU=; b=TXEUsyp7tpftExjG3PvhHzCrmmOX/hy7j
+	XZav0EJGnBznAiVp97CzFdXE/SricpHQ/ZUoBoVKH3FZ9Ete7nFUFMpmNzHU3vpx
+	v7eRjEOyNi1/iVnF7Elf0Gsn3P0zbORgE8d90qac7l4iy9V+z+ihh6s7J4LnC0Kx
+	89GEwotPJvfOdlmeiQRljNEmvWvdSJYcopzqKWsddGVJ1Puu0cQMvRbe2R1cJRAc
+	vAjSW3cghVIm0p99ivvq3CgjsYLDPjtAGeNJ0VifkC/xqz8EXz7k5qnLn8OU72ry
+	P+cxqPii13dpDQWl5oub7WW7bkoo9j6rFQN3nJtKHOSudUa2o38bg==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmxf5gb7x-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 18 Sep 2026 13:31:27 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68IDOFiA739719;
+	Fri, 18 Sep 2026 13:31:26 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gs56q88uk-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 18 Sep 2026 13:31:26 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68IDVEfx20841002
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 18 Sep 2026 13:31:14 GMT
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id AFEFE20049;
+	Fri, 18 Sep 2026 13:31:14 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 599DA2004D;
+	Fri, 18 Sep 2026 13:31:14 +0000 (GMT)
+Received: from tuxmaker.lnxne.boe (unknown [9.87.85.9])
+	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Fri, 18 Sep 2026 13:31:14 +0000 (GMT)
+From: Steffen Eiden <seiden@linux.ibm.com>
+To: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+        linux-s390@vger.kernel.org
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
+        Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        David Hildenbrand <david@kernel.org>,
+        Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
+        Gautam Gala <ggala@linux.ibm.com>,
+        Hariharan Mari <hari55@linux.ibm.com>,
+        Heiko Carstens <hca@linux.ibm.com>,
+        Hendrik Brueckner <brueckner@linux.ibm.com>,
+        Ilya Leoshkevich <iii@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>,
+        Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>,
+        Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
+        Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
+        Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
+        Zenghui Yu <yuzenghui@huawei.com>
+Subject: [PATCH v8 18/29] s390/tools: Use arm64 headers
+Date: Fri, 18 Sep 2026 15:30:55 +0200
+Message-ID: <20260918133107.1042730-19-seiden@linux.ibm.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260918133107.1042730-1-seiden@linux.ibm.com>
+References: <20260918133107.1042730-1-seiden@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,106 +90,279 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: PM5P4ONwvp8aq_-ervFBOC6wbtARJ8S4
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDE4NCBTYWx0ZWRfX8duBsZH4K1lb
+ zZQsIPsiVBfO4eNjU29XFEvwZCWT++xJ4FMFGD7W6ivzBzCMq+lB0pjdC7z1wkyrvrEMZCbq6YP
+ zNRMMuuvICwcWUNVYJwLWJnBquPwNPM=
+X-Authority-Analysis: v=2.4 cv=cvgOAF4i c=1 sm=1 tr=0 ts=6aad3d30 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8 a=ZhoKsAT7EqIUtuKD8d0A:9
+X-Proofpoint-ORIG-GUID: zY9TUmbVGn5R_HPEJBGWQp6E46Zl6Q9I
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDE4NCBTYWx0ZWRfX3b/I2acUpJIV
+ 1IZfE4XuANgIUARNvopskPG/TDdYI7mecaUAAGnChUzNPcI01wYOi4QGeWqREGU0+Z1snLsa1n4
+ F569J7ELjx2QhPYlwMQwgO3MaAl+aMnPMPTKzuj2AkIVHoHcT5j08QniIDv9rhfv5XIGuTwN6RL
+ j43j9R1F/+YEBeXCxjfBGbVoVQMwQFY+4JJS+gkKqa8cVnXe+mkzMor9FEneA2UxhEvW6UYp3pO
+ BYVPyaOo0gIHd7FrtH5JfBzsBdWDw/6jo+HEVYQDaY78XG7Q8vXBXp/wFOlq0IWCH/srUuAFVPP
+ JmVOZQKPALw96y88OSA5zvZ/B+4YyUsHROzG8pDuDuaidLKEst6Trrw8k6LQDaXUwgAiRnOGDMr
+ tMZCl41R4iEeytwVqxnjz8zaow/kKrl9AuS4WtgDboRchC0SUB4/C+wb/k5nss8GXuvGg/VaqkX
+ YsuklSfm4jBi55FkUsQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-18_03,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 clxscore=1015 priorityscore=1501
+ suspectscore=0 bulkscore=0 impostorscore=0 phishscore=0 spamscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609180184
 
-Prefer the str_yes_no() helper function over ternary operators
-with hardcoded strings.
+Introduce a flexible system for sharing ARM64 headers with s390 KVM.
+Selected arm64 headers or snippet of headers will be reachable by s390
+code through asm/header.h.
 
-No functional change.
+Add copy-arm64h.awk that detects ARM64_S390_COMMON markers and extracts
+marked section into a generated header consumable by s390. Falls back to
+full file copy when no markers are found.
 
-Signed-off-by: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
+Transform copied includes by replacing '#include <asm/...>' with
+'#include <arm64/...>' and similar for uapi headers to ensure
+correct path resolution on s390 and allow for a clear separation of s390
+asm headers and arm64 asm headers.
+
+Integrate this extraction into the s390/kapi target, conditional on
+CONFIG_KVM.
+
+Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
 ---
- drivers/net/ethernet/amd/xgbe/xgbe-drv.c | 39 ++++++++++++------------
- 1 file changed, 20 insertions(+), 19 deletions(-)
+ arch/s390/tools/Makefile             |  9 +++-
+ arch/s390/tools/Makefile.arm64h      | 56 ++++++++++++++++++++++
+ arch/s390/tools/copy-arm64h-full.awk | 47 ++++++++++++++++++
+ arch/s390/tools/copy-arm64h.awk      | 71 ++++++++++++++++++++++++++++
+ 4 files changed, 182 insertions(+), 1 deletion(-)
+ create mode 100644 arch/s390/tools/Makefile.arm64h
+ create mode 100644 arch/s390/tools/copy-arm64h-full.awk
+ create mode 100644 arch/s390/tools/copy-arm64h.awk
 
-diff --git a/drivers/net/ethernet/amd/xgbe/xgbe-drv.c b/drivers/net/ethernet/amd/xgbe/xgbe-drv.c
-index 2d6d00e3689b..fa7909cff75b 100644
---- a/drivers/net/ethernet/amd/xgbe/xgbe-drv.c
-+++ b/drivers/net/ethernet/amd/xgbe/xgbe-drv.c
-@@ -14,6 +14,7 @@
- #include <linux/if_ether.h>
- #include <linux/net_tstamp.h>
- #include <linux/phy.h>
-+#include <linux/string_choices.h>
- #include <net/vxlan.h>
+diff --git a/arch/s390/tools/Makefile b/arch/s390/tools/Makefile
+index f2862364fb42..6a97beff03a2 100644
+--- a/arch/s390/tools/Makefile
++++ b/arch/s390/tools/Makefile
+@@ -3,12 +3,19 @@
+ # Makefile for s390 specific build tools
+ #
  
- #include "xgbe.h"
-@@ -807,27 +808,27 @@ void xgbe_get_all_hw_features(struct xgbe_prv_data *pdata)
++include $(srctree)/arch/s390/tools/Makefile.arm64h
++
+ kapi := arch/$(ARCH)/include/generated/asm
+ kapi-hdrs-y := $(kapi)/facility-defs.h $(kapi)/dis-defs.h
  
- 		/* Hardware feature register 0 */
- 		dev_dbg(pdata->dev, "  1GbE support              : %s\n",
--			hw_feat->gmii ? "yes" : "no");
-+			str_yes_no(hw_feat->gmii));
- 		dev_dbg(pdata->dev, "  VLAN hash filter          : %s\n",
--			hw_feat->vlhash ? "yes" : "no");
-+			str_yes_no(hw_feat->vlhash));
- 		dev_dbg(pdata->dev, "  MDIO interface            : %s\n",
--			hw_feat->sma ? "yes" : "no");
-+			str_yes_no(hw_feat->sma));
- 		dev_dbg(pdata->dev, "  Wake-up packet support    : %s\n",
--			hw_feat->rwk ? "yes" : "no");
-+			str_yes_no(hw_feat->rwk));
- 		dev_dbg(pdata->dev, "  Magic packet support      : %s\n",
--			hw_feat->mgk ? "yes" : "no");
-+			str_yes_no(hw_feat->mgk));
- 		dev_dbg(pdata->dev, "  Management counters       : %s\n",
--			hw_feat->mmc ? "yes" : "no");
-+			str_yes_no(hw_feat->mmc));
- 		dev_dbg(pdata->dev, "  ARP offload               : %s\n",
--			hw_feat->aoe ? "yes" : "no");
-+			str_yes_no(hw_feat->aoe));
- 		dev_dbg(pdata->dev, "  IEEE 1588-2008 Timestamp  : %s\n",
--			hw_feat->ts ? "yes" : "no");
-+			str_yes_no(hw_feat->ts));
- 		dev_dbg(pdata->dev, "  Energy Efficient Ethernet : %s\n",
--			hw_feat->eee ? "yes" : "no");
-+			str_yes_no(hw_feat->eee));
- 		dev_dbg(pdata->dev, "  TX checksum offload       : %s\n",
--			hw_feat->tx_coe ? "yes" : "no");
-+			str_yes_no(hw_feat->tx_coe));
- 		dev_dbg(pdata->dev, "  RX checksum offload       : %s\n",
--			hw_feat->rx_coe ? "yes" : "no");
-+			str_yes_no(hw_feat->rx_coe));
- 		dev_dbg(pdata->dev, "  Additional MAC addresses  : %u\n",
- 			hw_feat->addn_mac);
- 		dev_dbg(pdata->dev, "  Timestamp source          : %s\n",
-@@ -835,9 +836,9 @@ void xgbe_get_all_hw_features(struct xgbe_prv_data *pdata)
- 			(hw_feat->ts_src == 2) ? "external" :
- 			(hw_feat->ts_src == 3) ? "internal/external" : "n/a");
- 		dev_dbg(pdata->dev, "  SA/VLAN insertion         : %s\n",
--			hw_feat->sa_vlan_ins ? "yes" : "no");
-+			str_yes_no(hw_feat->sa_vlan_ins));
- 		dev_dbg(pdata->dev, "  VXLAN/NVGRE support       : %s\n",
--			hw_feat->vxn ? "yes" : "no");
-+			str_yes_no(hw_feat->vxn));
++targets += $(addprefix ../../../,$(kapi-hdrs-y))
++targets += $(patsubst $(objtree)/%,../../../%,$(ARM64_TARGETS))
++
++kapi-hdrs-$(CONFIG_KVM) += $(ARM64_TARGETS)
++
+ PHONY += kapi
  
- 		/* Hardware feature register 1 */
- 		dev_dbg(pdata->dev, "  RX fifo size              : %u\n",
-@@ -845,19 +846,19 @@ void xgbe_get_all_hw_features(struct xgbe_prv_data *pdata)
- 		dev_dbg(pdata->dev, "  TX fifo size              : %u\n",
- 			hw_feat->tx_fifo_size);
- 		dev_dbg(pdata->dev, "  IEEE 1588 high word       : %s\n",
--			hw_feat->adv_ts_hi ? "yes" : "no");
-+			str_yes_no(hw_feat->adv_ts_hi));
- 		dev_dbg(pdata->dev, "  DMA width                 : %u\n",
- 			hw_feat->dma_width);
- 		dev_dbg(pdata->dev, "  Data Center Bridging      : %s\n",
--			hw_feat->dcb ? "yes" : "no");
-+			str_yes_no(hw_feat->dcb));
- 		dev_dbg(pdata->dev, "  Split header              : %s\n",
--			hw_feat->sph ? "yes" : "no");
-+			str_yes_no(hw_feat->sph));
- 		dev_dbg(pdata->dev, "  TCP Segmentation Offload  : %s\n",
--			hw_feat->tso ? "yes" : "no");
-+			str_yes_no(hw_feat->tso));
- 		dev_dbg(pdata->dev, "  Debug memory interface    : %s\n",
--			hw_feat->dma_debug ? "yes" : "no");
-+			str_yes_no(hw_feat->dma_debug));
- 		dev_dbg(pdata->dev, "  Receive Side Scaling      : %s\n",
--			hw_feat->rss ? "yes" : "no");
-+			str_yes_no(hw_feat->rss));
- 		dev_dbg(pdata->dev, "  Traffic Class count       : %u\n",
- 			hw_feat->tc_cnt);
- 		dev_dbg(pdata->dev, "  Hash table size           : %u\n",
+-kapi:	$(kapi-hdrs-y)
++kapi:	$(kapi-hdrs-y) $(kapi-hdrs-m)
+ 
+ hostprogs		    += gen_facilities
+ hostprogs		    += gen_opcode_table
+diff --git a/arch/s390/tools/Makefile.arm64h b/arch/s390/tools/Makefile.arm64h
+new file mode 100644
+index 000000000000..069473ea335d
+--- /dev/null
++++ b/arch/s390/tools/Makefile.arm64h
+@@ -0,0 +1,56 @@
++# SPDX-License-Identifier: GPL-2.0
++#
++# Share ARM64 headers with s390 KVM
++#
++
++arm64api := $(objtree)/arch/$(ARCH)/include/generated/arm64
++arm64uapi := $(objtree)/arch/$(ARCH)/include/generated/uapi/arm64
++
++# List of ARM64 headers to share with s390 KVM
++# Format: [uapi:]header.h or header-gen.h
++#
++# * header.h - from arch/arm64/include/asm/ to arm64/
++# * uapi:header.h - from arch/arm64/include/uapi/asm/ to uapi/arm64/
++# * header-gen.h - generated as header-gen.h from ARM64 header header.h
++# If a header contains partial markers (#ifdef ARM64_S390_COMMON) only this part will be copied.
++# If the file does not contain any markers the whole file will be copied.
++ARM64_SHARED_HEADERS := \
++	brk-imm.h \
++	esr.h \
++	kvm_arm.h \
++	kvm_emulate-gen.h \
++	kvm_host.h \
++	ptrace-gen.h \
++	sysreg-gen.h \
++	uapi:hwcap.h \
++	uapi:kvm.h \
++	uapi:ptrace.h \
++	uapi:sve_context.h \
++
++quiet_cmd_gen_arm_hdr = GEN     $@
++      cmd_gen_arm_hdr = mkdir -p $(dir $@); \
++                      $(AWK) -f $(src)/copy-arm64h.awk $< > $@ || \
++                      $(AWK) -f $(src)/copy-arm64h-full.awk -v srcfile="$(subst $(srctree)/,,$(subst $(srctree)/../,,$<))" $< > $@ || \
++		      { echo "Error: Unbalanced ARM64_S390_COMMON markers in $<" >&2; rm -f $@; exit 1; }
++
++arm64-type = $(firstword $(subst :, ,$(1)))
++arm64-base = $(or $(word 2,$(subst :, ,$(1))),$(1))
++arm64-src-base = $(patsubst %-gen.h,%.h,$(call arm64-base,$(1)))
++
++arm64-src = $(srctree)/arch/arm64/include/$(if $(filter uapi,$(call arm64-type,$(1))),uapi/)asm/$(call arm64-src-base,$(1))
++arm64-dst = $(if $(filter uapi,$(call arm64-type,$(1))),$(arm64uapi),$(arm64api))/$(call arm64-base,$(1))
++
++$(foreach hdr,$(ARM64_SHARED_HEADERS),\
++	$(eval $(call arm64-dst,$(hdr)): $(call arm64-src,$(hdr)) $(src)/copy-arm64h.awk $(src)/copy-arm64h-full.awk FORCE))
++
++ARM64_TARGETS := $(sort $(foreach hdr,$(ARM64_SHARED_HEADERS),$(call arm64-dst,$(hdr))))
++$(ARM64_TARGETS):
++	$(call if_changed,gen_arm_hdr)
++
++quiet_cmd_gen_sysreg_arm64 = GEN     $@
++      cmd_gen_sysreg_arm64 = mkdir -p $(dir $@); $(AWK) -f $(srctree)/arch/arm64/tools/gen-sysreg.awk $(srctree)/arch/arm64/tools/sysreg > $@
++
++$(arm64api)/sysreg-defs.h: $(srctree)/arch/arm64/tools/gen-sysreg.awk $(srctree)/arch/arm64/tools/sysreg FORCE
++	$(call if_changed,gen_sysreg_arm64)
++
++ARM64_TARGETS += $(arm64api)/sysreg-defs.h
+diff --git a/arch/s390/tools/copy-arm64h-full.awk b/arch/s390/tools/copy-arm64h-full.awk
+new file mode 100644
+index 000000000000..a6aaf9cc3332
+--- /dev/null
++++ b/arch/s390/tools/copy-arm64h-full.awk
+@@ -0,0 +1,47 @@
++#!/usr/bin/awk -f
++# SPDX-License-Identifier: GPL-2.0
++#
++# Process entire ARM64 headers for sharing with s390 KVM
++#
++# Usage: copy-arm64h-full.awk -v srcfile=<source_path> <input_file>
++#
++# This processes the entire file (unlike copy-arm64h.awk which only extracts marked sections)
++
++BEGIN {
++	max_guard_line = 25
++	guard_found = 0
++	header_added = 0
++}
++
++# Find and process the include guard in the first few lines
++NR <= max_guard_line && !guard_found && /^#ifndef [A-Z_0-9]+$/ {
++	guard_name = $2
++	guard_found = 1
++	print "/* This header was copied from " srcfile " */"
++	print ""
++	print
++	header_added = 1
++	next
++}
++
++# Transform include directives
++/^#include <uapi\/asm\// {
++	sub(/<uapi\/asm\//, "<uapi/arm64/")
++	print
++	next
++}
++
++/^#include <asm\// {
++	sub(/<asm\//, "<arm64/")
++	print
++	next
++}
++
++/ARM64_S390_COMMON/ {
++	exit 1
++}
++
++# Pass through all other lines
++{
++	print
++}
+diff --git a/arch/s390/tools/copy-arm64h.awk b/arch/s390/tools/copy-arm64h.awk
+new file mode 100644
+index 000000000000..e7fb00ffb987
+--- /dev/null
++++ b/arch/s390/tools/copy-arm64h.awk
+@@ -0,0 +1,71 @@
++#!/usr/bin/awk -f
++# SPDX-License-Identifier: GPL-2.0
++#
++# Extract marked sections from ARM64 headers for sharing with s390 KVM
++#
++# Usage: copy-arm64h.awk <input_file>
++#
++# Extracts all sections between start/end markers. If no markers found, signals for fallback.
++BEGIN {
++	# Constants
++	start_pattern = "^#ifdef ARM64_S390_COMMON$"
++	end_pattern = "^#endif \\/\\* ARM64_S390_COMMON \\*\\/$"
++	max_guard_line = 25
++
++	# State variables
++	copying = found_marker = 0
++	guard_name = ""
++	file_header_done = 0
++}
++
++NR <= max_guard_line && !guard_name && /^#ifndef [A-Za-z0-9_]+$/ {
++	guard_name = $2
++	filename = FILENAME
++	sub(/^.*arch\/arm64\//, "arch/arm64/", filename)
++	print "/*"
++	print " * This header was automatically generated from " filename
++	print " * Do not modify this file directly."
++	print " */"
++	print "#ifndef " guard_name
++	print "#define " guard_name
++	print ""
++	next
++}
++
++NR > max_guard_line && !guard_name && !file_header_done {
++	print "error: no include guard found in first " max_guard_line " lines" > "/dev/stderr"
++	file_header_done = 1
++	exit 1
++}
++
++!guard_name {
++	print
++	next
++}
++
++$0 ~ start_pattern {
++	if (copying) { exit 1 }
++	copying = found_marker = 1
++	next
++}
++
++guard_name && !found_marker {
++	next
++}
++
++$0 ~ end_pattern { copying = 0; next }
++
++copying {
++	gsub(/#include <asm\//, "#include <arm64/")
++	gsub(/#include <uapi\/asm\//, "#include <uapi/arm64/")
++	print
++	next
++}
++
++END {
++	if (found_marker) {
++		print ""
++		print "#endif /* " guard_name " */"
++	}
++	exit !found_marker || copying
++}
 -- 
 2.53.0
 
