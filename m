@@ -1,153 +1,49 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C07D93CF209
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 20:53:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 44538448B81;
+	Fri, 18 Sep 2026 20:54:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.133.224.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789764835; cv=none; b=FAgEtS+nlx1E34VK4s4DlJInE2WsDKtjcsIeddrfSAoXfCTlNiFI0+fqtl9LuBGs2UMDfbH3bLkPif4+01g0hyY+HTGvIoZ+SUuO81+DZlEvWxRDzvlsvuLd+eR5an8sWvy3dNW0QS4HsJ9kUXomiCjylb0O8zkTmcim2pFVp5c=
+	t=1789764847; cv=none; b=emwn53com3vD1UjjWRgvUzTbGh8Qice1WgJ0OafQRDWkvfbXd3TqZctf1hdCDnGwa5LHhU9Xp0tgiGc3ZyeRfg7dioke//nG9ewFr66DO7tM/V41Ooc8rdfJXU4/17j/+yY9+gEgdjSOJ736Zo0haR1UYHzVngL1TINuO8601Y0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789764835; c=relaxed/simple;
-	bh=Qqhh0Cu8gO4U0oF10cUD2923SVElRu0xgwRbO2RJhZE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qbDcL1LaH+lLvGEtSYuQ1vr1voLqvTdx1BSFTZKNmc4vlVgn4gD1xMISX1W64EYU1LJOo5wMjI+2CJAPJuYuD/V1etvlepKtUcyAM7IHUN6eFjRG3oPHQhFE1h5L9kmQFFvMboe+QmNg8rRfCMA7hFQwPiStFuJG6HjgCN80Ni0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kn6cunyI; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kn6cunyI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29BD21F000FF;
-	Fri, 18 Sep 2026 20:53:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789764834;
-	bh=xubuskVOjl35A2T8LbXWyaJic0HJ1gjUagG1E7uyg5k=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Kn6cunyIes7b/fgeRfTD/r8Fz5Dt/p48ZFG59t5T2b5RHLeaNgCTrqw7SoEvlPOI5
-	 OvuHjFp9mBWp2eSxzlYCzHbBrSV8vl/DXuPzPJZsbYv0Xuqx3JThxg5gE7p21r47NM
-	 re8B0ycP+LBJEhifDZxmaPWvMaTdbkP9L8TH7qLJTIaTctBBzxc/RuD/7RF6jFkHb8
-	 KWnVoWNdO0FqVgOZmWwuAtlvnO4A/sZK0V15/LeRJeHFJOPaq8+/KJ7WwXC3Fux/3b
-	 Sy/yzfOLjEbN8O91kS4uuktMUrONkl0khiUu0A6+wRjAt+8vW3dCgUQdRS96CC41GY
-	 RUB7RSuRPKQLg==
-Message-ID: <475ff6df-c8ef-4681-be83-2fbd7a68c417@kernel.org>
-Date: Fri, 18 Sep 2026 22:53:45 +0200
+	s=arc-20240116; t=1789764847; c=relaxed/simple;
+	bh=lpEwoKL0jkqnJNwRqBICHo8Mu0Fwnp1sHi7oTNOcV/8=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=bwXwquKqOkoqr7O7ZueyX7izKwWKe8n88nHS51o9KizRI+Mb6GpZQFYjdGeUETy/7uWr1uvrqwsk3i/CizVkWj2M6inyRnoEJpUZhUvW62GEk6QYuKFcGDYlp5mn0eUtGr563oAmRIuPGyAi+5Jh67zj3hHAwcc1WNu8G4kGVjI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk; spf=none smtp.mailfrom=orcam.me.uk; arc=none smtp.client-ip=78.133.224.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
+Received: by angie.orcam.me.uk (Postfix, from userid 500)
+	id 2E3B592009C; Fri, 18 Sep 2026 22:54:03 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+	by angie.orcam.me.uk (Postfix) with ESMTP id 2140692009B;
+	Fri, 18 Sep 2026 21:54:03 +0100 (BST)
+Date: Fri, 18 Sep 2026 21:54:03 +0100 (BST)
+From: "Maciej W. Rozycki" <macro@orcam.me.uk>
+To: WangYuli <wangyuli@uniontech.com>
+cc: guanwentao@uniontech.com, linux-kernel@vger.kernel.org, 
+    linux-mips@vger.kernel.org, niecheng1@uniontech.com, 
+    Thomas Bogendoerfer <tsbogend@alpha.franken.de>, zhanjun@uniontech.com
+Subject: Re: [PATCH v2 4/6] MIPS: dec: Remove dec_irq_dispatch()
+In-Reply-To: <093E43FBF9F4F005+20250422102253.137944-4-wangyuli@uniontech.com>
+Message-ID: <alpine.DEB.2.21.2609182152230.57799@angie.orcam.me.uk>
+References: <24EC7D2CA58B25F5+20250422101855.136675-1-wangyuli@uniontech.com> <093E43FBF9F4F005+20250422102253.137944-4-wangyuli@uniontech.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 10/17] mm/huge_memory: move the racy refcount check
- into unmap_folio()
-To: kasong@tencent.com, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
- Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
- Yeoreum Yun <yeoreum.yun@arm.com>, "Kiryl Shutsemau (Meta)"
- <kas@kernel.org>, Shivam Kalra <shivamkalra98@zohomail.in>,
- Kairui Song <ryncsn@gmail.com>
-References: <20260915-swap-thp-cleanup-v5-0-39878b37dfb0@tencent.com>
- <20260915-swap-thp-cleanup-v5-10-39878b37dfb0@tencent.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
- dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
- QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
- XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
- Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
- PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
- WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
- UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
- jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
- B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
- ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
- AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
- 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
- g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
- ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
- 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
- /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
- jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
- DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
- HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
- 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
- LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
- 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
- VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
- /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
- iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
- 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
- zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
- azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
- FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
- sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
- 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
- EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
- IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
- 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
- Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
- sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
- yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
- 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
- r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
- 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
- CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
- qIws/H2t
-In-Reply-To: <20260915-swap-thp-cleanup-v5-10-39878b37dfb0@tencent.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
-On 9/14/26 19:14, Kairui Song via B4 Relay wrote:
-> From: Kairui Song <kasong@tencent.com>
-> 
-> The check only exists to avoid the expensive PMD-splitting unmap of a
-> folio that cannot be split anyway.  Move it from __folio_split() into
+On Tue, 22 Apr 2025, WangYuli wrote:
 
-and folio_split_unmapped()
+> Commit 187933f23679 ("[MIPS] do_IRQ cleanup") introduced dec_irq_dispatch()
+> function. But Subsequent to commit 8f99a1626535 ("MIPS: Tracing: Add
+> IRQENTRY_EXIT section for MIPS"), the dec_irq_dispatch() function is
+> rendered superfluous. Remove it to eradicate compilation warnings.
 
-> unmap_folio(), right before the PMD split, so both the anon and file
-> split helpers get the early check without repeating it.
-> 
-> unmap_folio() now returns -EAGAIN if the check fails and the split
-> helpers propagate the error.  folio_split_unmapped() drops its own
-> copy of the check: it works on already unmapped folios and the
-> definitive folio_ref_freeze() in __folio_freeze_split_anon() still
-> catches unexpected references.
-> 
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
-> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> Signed-off-by: Kairui Song <kasong@tencent.com>
-> ---
->  mm/huge_memory.c | 29 +++++++++++++----------------
->  1 file changed, 13 insertions(+), 16 deletions(-)
-> 
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index 77bf68c9b9af..859aefda7356 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -3539,13 +3539,17 @@ void vma_adjust_trans_huge(struct vm_area_struct *vma,
->  		split_huge_pmd_if_needed(next, end);
->  }
->  
-> -static void unmap_folio(struct folio *folio)
-> +static int unmap_folio(struct folio *folio)
+ Superseded with commit 35554eadc1b1 ("MIPS: DEC: Remove do_IRQ() call 
+indirection").  Sorry to miss this change of yours too.
 
-The semantics are special: a return value of 0 does not mean that unmapping
-succeeded. It might have still failed, but remap_anon_folio() must be called
-afterwards (for anon folios). Might be worth a quick comment.
-
-In general, LGTM.
-
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-
--- 
-Cheers,
-
-David
+  Maciej
