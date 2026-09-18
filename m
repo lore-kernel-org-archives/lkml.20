@@ -1,197 +1,164 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11020142.outbound.protection.outlook.com [52.101.84.142])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7F41456E0B;
-	Fri, 18 Sep 2026 11:32:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.142
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789731123; cv=fail; b=fbMl5+nitUPos/FHFn7j1cFoXaf+SO9DYc77sLXEbtQmSHa15sW9Ykl8EcckCLdExugLE8v/kSOPmgzw/6ZwBsCt7Kc/pPeJb+JZY0xzuhl4A2P4anIxyTHl7Z9ydWUv/MDV4aXm+2yW38QZJHEyuj+60qgsyeT8hInwliMtO0g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789731123; c=relaxed/simple;
-	bh=I+yiB5VNxEOi6ds+epJI11slitDITuSFVbVoLQqtYuE=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=KDJefl38zC4eB7TEQogWestwwMlAjA4C5Czjhlo2v5u8g/DavT1pXywHuJGksDOJ8ouR9q2rHVix5pO0BDmJS7xgme5ejtaEaBJ8qMsua4KoNs5xGuwm1IAjXB/eYN44MvizQFwWdLT3AD4JvDacI26i/HIYMvckkC/qOoHdHe8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=phytec.de; spf=pass smtp.mailfrom=phytec.de; dkim=pass (2048-bit key) header.d=phytec.de header.i=@phytec.de header.b=I8/cu4VP; arc=fail smtp.client-ip=52.101.84.142
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=phytec.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phytec.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B1215B206
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:32:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789731127; cv=none; b=HyuzMBI3T5dO7K9pohckaNjsD77Islw8IR8eGO5U0UfJahudYP2sL/Kkf5phhHqREfP+irY642a6uwzclCZkgjcoj8nX400S4crtBalgROsF9VvQaXz/8x/EMAgfk+A4iM0tqPVZ5Jw0iUWErJ4UHutoqOxSSXBeXkv4phxhknE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789731127; c=relaxed/simple;
+	bh=Cl35MNCELM6Ycb5GIrlJros8Uv+l/+Eeznqjrc9Ickw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nyZLePxSgiBfdPyAym9ujP0WThc5XgT7bMJGVsf1oeYl/upZBt0H18bsX8yU09Qf0NMgMeuOb9JBoZBQTqT9F67SRevMExLK/05ApxodPnOGFKbQrIjvBP0nlx4fltD6jFvjDhp/SdlNOpxYG1sftys5K4BtAn2dG4x8TffPGO0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=msnhd0UY; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=NqStikK9; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=JSEofGrj; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=6L1HpnEf; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=phytec.de header.i=@phytec.de header.b="I8/cu4VP"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jo4g6WHOo0zr/dfNzhhKPcb6M8L+zUSWxJHLuwWdHhMpCkn0Tl1vSZDQD0x/M/YA9v04euDEghkjoHpHvWCmPv6IKL7YwPQeT1VS98Suw6hihE5kU6iaAxxqD4z9RQU4DD/IsfOz9GS9orY/9eoIvj6dlb9YNozRPctw5jjK6IdBS4UIGpIkPsnRuaEV4gdd7wEbf63YEp4hndyH27NMx5cUmdrWLoovNaYyY/QONAxJyHosImQOiT7TYA76V6J3GPQ9Pu56JAlqaikXAVF802UcMMAHYE76DWBcLyT8fGMlkANfUyC0f71LWRoajlkWM97vUBbbR9Vz6yDRaFAkew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QQlhkdfz1gzFxtyTszpHIEYekI6iOreTEo0QTFnvBXg=;
- b=PHcTPxl2BaPAjOLw1tyxp78n6QY9O+7GJet6KuD375H6tGOL2UJ2UonLVSjMM+RrXvU7Uo/mm2LxDznKcvFAWTmZ55ASE4xM46JDVSzJc74+Kamkbm2jRELMrh5HBYJcXXauGdv7/wcwd8QuxWNbsQk5ieSadcmqgaT+DQC3Oo548KeG99N6Vu4TgAtIdpOEQwxd/+TMCY3ugi0AtwZCIlc3iiH6jZJN6z7n356zdjzdo61h6Ak3l4a5fcRk93NmKJWEjKiXZET77e5aUaI1tn97/mqWyiZNwWZJcbYmi7CCSpM3Eov4Tg1je8ThwEpI/EcA78X0OVvVEiqHvbqbkg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=phytec.de; dmarc=pass action=none header.from=phytec.de;
- dkim=pass header.d=phytec.de; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=phytec.de;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QQlhkdfz1gzFxtyTszpHIEYekI6iOreTEo0QTFnvBXg=;
- b=I8/cu4VP/+vI4XG9y7wu4+EKIF9noNMIOEqB0X3tg0R4NWUW6mvkfo4m4xhXwWU6aZioDCCQBdztekQuPzVMq9USV6YJOVu9gjHvSSRBtrzO75dqu/TmO6d6LY5Uhv6HufY3jdOsxvT/7BnIOpfFzDc65XzRlqyGbff/DNR8i1BWleMDVtWCVVahTLXPg12H2Ek99cSHv8iq0uB3M7cX4CYgx+fuIKxO9MOrWNgHN6uiwAfMe3bVZ0pMwbkeSznKdwTCQDMIVLNootZY8Vl9b/Q2gfUTfGXQcppm+sEJyFrpqwranRaOQu0qWZrGQmf9Gg5hiPUHC1rXrNWJSUSkSA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=phytec.de;
-Received: from AS4P195MB1456.EURP195.PROD.OUTLOOK.COM (2603:10a6:20b:4b3::21)
- by AS8P195MB1978.EURP195.PROD.OUTLOOK.COM (2603:10a6:20b:548::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Fri, 18 Sep
- 2026 11:31:55 +0000
-Received: from AS4P195MB1456.EURP195.PROD.OUTLOOK.COM
- ([fe80::295f:9a59:b66a:621a]) by AS4P195MB1456.EURP195.PROD.OUTLOOK.COM
- ([fe80::295f:9a59:b66a:621a%5]) with mapi id 15.21.0428.008; Fri, 18 Sep 2026
- 11:31:53 +0000
-Message-ID: <bbf069ba-2942-4c89-86ed-444fb6f9ff08@phytec.de>
-Date: Fri, 18 Sep 2026 14:31:48 +0300
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 1/9] arm64: dts: ti: k3-am62a-phycore-som: Fix wkup R5F
- memory region size
-To: "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>,
- Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
- Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- Judith Mendez <jm@ti.com>, Daniel Schultz <d.schultz@phytec.de>,
- Andrew Davis <afd@ti.com>, Siddharth Vadapalli <s-vadapalli@ti.com>,
- Paresh Bhagat <p-bhagat@ti.com>, Bryan Brattlof <bb@ti.com>,
- Jai Luthra <jai.luthra@ideasonboard.com>, Devarsh Thakkar <devarsht@ti.com>,
- Beleswar Padhi <b-padhi@ti.com>,
- Francesco Dolcini <francesco.dolcini@toradex.com>,
- Stefano Radaelli <stefano.radaelli21@gmail.com>,
- Nick Desaulniers <ndesaulniers@google.com>
-Cc: Vishal Mahaveer <vishalm@ti.com>, Kevin Hilman <khilman@baylibre.com>,
- Sebin Francis <sebin.francis@ti.com>, Kendall Willis <k-willis@ti.com>,
- Akashdeep Kaur <a-kaur@ti.com>, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- llvm@lists.linux.dev, Hari Nagalla <hnagalla@ti.com>
-References: <20260918-topic-am62a-ioddr-dt-v6-19-v9-0-40972ef1f663@baylibre.com>
- <20260918-topic-am62a-ioddr-dt-v6-19-v9-1-40972ef1f663@baylibre.com>
-From: Wadim Egorov <w.egorov@phytec.de>
-Content-Language: en-US
-In-Reply-To: <20260918-topic-am62a-ioddr-dt-v6-19-v9-1-40972ef1f663@baylibre.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: DB8PR04CA0028.eurprd04.prod.outlook.com
- (2603:10a6:10:110::38) To AS4P195MB1456.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:20b:4b3::21)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="msnhd0UY";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="NqStikK9";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="JSEofGrj";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="6L1HpnEf"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 0A2A11F750;
+	Fri, 18 Sep 2026 11:31:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789731119; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=16VPl1VnEWjYKKn2b0VatZqqKxwtk4sxaC4QgUhEMps=;
+	b=msnhd0UY7XBEygV4zpJsichyutt/FvkLNxgEaqVvEAaQXcsXno9pCujTVafi/y3lyO05Dh
+	oS5/2ggGU2z7GO+Yof2bvqs6EaR0AKEqrcijU73wlSJoU3rMlYvf5lkPhS9iWwS3Z44L9x
+	CPjGXgH04gxrYVKTUw/lJe8JH2zOnhY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789731119;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=16VPl1VnEWjYKKn2b0VatZqqKxwtk4sxaC4QgUhEMps=;
+	b=NqStikK9HHMaMzU7DdZCQp1NuHC0eodVh8h2ldxDgLs/oJJd3P97j2IlFNgj+lU50eeQL/
+	/kLJKLw4mucl9TAg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789731115; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=16VPl1VnEWjYKKn2b0VatZqqKxwtk4sxaC4QgUhEMps=;
+	b=JSEofGrj3K9xy5rBCGR9RM03EUSv9MIirWaPUIpsV/6o2Y1SsdnlZNBDJ2Eo4xvkV5qLFw
+	3yfQ/t3DdCk2iEaj9LqCHJItMDbrQ1KQGOdSe1rKt62d0LR9eGQi1ZHDIYZ+tAaVlvgg3C
+	Uabfd84mA9jNlMFcxmBzl2thku7n9dk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789731115;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=16VPl1VnEWjYKKn2b0VatZqqKxwtk4sxaC4QgUhEMps=;
+	b=6L1HpnEfyUGSKDuZfIBN9LnhkSHDYxk3ds3mBJ2Tt9oF/tcDxaw+DLCa8E1rc44JodXLgY
+	3axm0IQ24XIzPbBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6E45F133CF;
+	Fri, 18 Sep 2026 11:31:52 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id k0nRDighrWpEQAAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Fri, 18 Sep 2026 11:31:52 +0000
+Date: Fri, 18 Sep 2026 12:31:50 +0100
+From: Pedro Falcato <pfalcato@suse.de>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Suren Baghdasaryan <surenb@google.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
+	Xu Xin <xu.xin16@zte.com.cn>, Chengming Zhou <chengming.zhou@linux.dev>, 
+	Jann Horn <jannh@google.com>, Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Youngjun Park <youngjun.park@lge.com>, Peter Xu <peterx@redhat.com>, 
+	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	Rakie Kim <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>, 
+	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+	Alistair Popple <apopple@nvidia.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 3/3] mm: update comments to refer to anon rmap rather
+ than anon_vma
+Message-ID: <aq0dInU5aaJN_eMa@pedro-suse.lan>
+References: <20260917-vma-is-faulted-v3-0-5c22314a72e7@kernel.org>
+ <20260917-vma-is-faulted-v3-3-5c22314a72e7@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS4P195MB1456:EE_|AS8P195MB1978:EE_
-X-MS-Office365-Filtering-Correlation-Id: b97059ab-ba51-4664-b8cd-08df15787071
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|7416014|376014|366016|921020|4143699003|3023799007|11063799006|56012099006|18002099003|22082099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	xX0CFGCju9e4Ac/RH6UgOp/Vf1W1KP4oTMYlgD8pAwgnZAvfnD5ptDU8EKZsxAro991CaGA11e9HGSpgwILneQG08NDHiaSSCMxiLwT9dpxua4STkNxJYEK+ppLrA5kbUqaGZHptOacrA5OTTjxcA7E90ph0V3fEp42puMxIkan2dAwBjzMi1BKcebUphOiQcClkl9Hy7csDHaxC/QVh5J/55wgo8HHnG67qc2picd7AQhuMlYhozr4Ll0CqTFY1nElzgy9uWRHG/QCgiou2CGSCKgJ8bpj9+tzA60TmMNxsFfpQGgqwzQfbMyP/ZC+6juawTJ3YVUX+NoVCx36K4MYggzNkh1UoepDRjkNX/l8HhaIB1iBlJsrdtPXWltLuv4l/q23QmUwXii7f543wmFt0fpSyQ/QbRMYwdyMbVGkfbLrOYqBLpkrI+7xBCm1TXvhgm5gJa5jX4fvHkr9XN6xBNcSn2t1mBXGA77dQcYu5JQhaZPWaRcZimiWfKFDPqKxB/NjgaHri95prgeuWyk9WpqKffZGG+Mv74H/H3vq8VYVb0/brw+ND8n5uYEbBtdMp7CVmR7fDLpc74ArPCq2NwxZFQcU1s7BbNPIw130vyuMimLtfGSbOZKxzn2FTlRBN9n1SeHWKPrbzcNS1SzNZSLtmHwN2NPPQ4uuyDwc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS4P195MB1456.EURP195.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(366016)(921020)(4143699003)(3023799007)(11063799006)(56012099006)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZFhnbjQ5VDFQQlg5eFJuYnY2MVhSLy9KdUJtekMraWdIQ011SElNWWNlWUNw?=
- =?utf-8?B?T0JydjF1em9IbFo5L3IybmlBSHY3anVLYldFUkhpTitaOWd2UUVETjgwTnVO?=
- =?utf-8?B?V255ZXBKVG8xVStZNEd5MDFXbVI3QUs3Vi9tbzJVZEJPUlVNMDRxQ0FEd3RQ?=
- =?utf-8?B?VE5GVFdPRHFBaCtHVFdGSUd1azNEaXoxYjZBQXk4NlFTVStqcm5xbWE4Nk4w?=
- =?utf-8?B?aDBJL0pGd3RHRXM3ZXhyT0c0V2dCTXZyN2MvM1RlZVhRNUpxTmJ3V1JCMDdi?=
- =?utf-8?B?RzhzNjhqWi84SndtWDBmcVhJek1wK3p0MW9FczExQnBXSVBBOTlmQ3FhMGhE?=
- =?utf-8?B?ZVlueEZZb2lXc1MvK1JmdG12Qlh6cmh4NlN5VEhyTFpLZ0NkMlB0RVd3R3J0?=
- =?utf-8?B?RmdrR1NxK0svZitDYjFMK3MwOFFwMjMxY01CUEVHQmZHN3lDSm1ydlViVUlG?=
- =?utf-8?B?dnhDYmxkeU1rZnRxL243NVVKRTNUV2ZCYWhKaGlHV3lNUEk3S0lYOTF1OFZj?=
- =?utf-8?B?cTU0dDBzREtaaHJINmhxbXZ2aGtNenN3eC9QNi9TNDZQanpILzc3V1dmVjIr?=
- =?utf-8?B?UC84MEJCcERPRC9CdGVBK1pwMnBkcHVqR1VMbERwc1RKbUd5bTlvQkZLWklz?=
- =?utf-8?B?Qld1TEV4VFBhY3RheTRtV0ozcnFGcUE2TSt1ZWVPQVNjZnJtWWNocXVKZk5m?=
- =?utf-8?B?ZUZyVkllOUR4QjQzTTRFaWxPUnBNbExFZ2w4elRONUVwQnZTdk0yQmpRZTkx?=
- =?utf-8?B?b1NNMWpmdEgxdmNYQVFnZU5UcWpZYmNqdUoxT3lsODg5cG0ybERpT1N3SEh4?=
- =?utf-8?B?cCtqdktCKzhzSXVtdzdTeDNBQVpNWVlXZXpvWU5JSUQ1V1VtM2hqMldvSlpt?=
- =?utf-8?B?bEh0YUFqa2RVMDBTYzE2Y29rNWEzR3laV2JmVGFIUmY4ckdHVG9XaDNvdFNz?=
- =?utf-8?B?YVdtaVAyR1pUTU9RalJjU2pvN0oxRTdoZThxczJic0l0ZnFBVi9FU3ZwcGRY?=
- =?utf-8?B?QmV0NEpSSzNFMERxTFFxVTc0endmZFZqYUN6SC96V2h3UHUwbXFxT2gyMTJl?=
- =?utf-8?B?SFRZZmJiSzJ2R1h3OFdBSE5hQ0VWRWQxcXdYcnloVXFiUThwRWlIWFhwRlZR?=
- =?utf-8?B?Sm1MNk5saXQ5N1NZZGpNWkIzcXYxVnhSUUVDV0tLblVwcWUzYTNEd2d1SHZr?=
- =?utf-8?B?WHZKUjA0b01Ed0hrbzZWSWUvUHZ0bHJzVVNkNXlvK3Y0WHFIaXVHYkR3ZjB4?=
- =?utf-8?B?VkdyT0pwMGZRellmcXBYdml1NVFENGhaN2ZCcU9iOEhHSGdwOUhHS2NJYzI5?=
- =?utf-8?B?MXBSQmRabkQxbENhUkFLWmlPOXV0YXdqUVM0SU1nRk9rSDc5ODFyTDdWTEFu?=
- =?utf-8?B?Um1ZQjVJUU5hQ283eHdiRXpjRFhjTS9TWUJrbGZiTTZkVFdKZUxMTzVtNW42?=
- =?utf-8?B?MEZJMFRRWDF0SWNYSFFGUTQ0Tlp5VG43K0ZNalpOaXFpSU5RQmlTWTdqL2NJ?=
- =?utf-8?B?M1NQUmI1Z0ZvaFcydW5WNGZVK0VwZTJQTkJ2TXV4YTE0M2dnQTkrWW9KbjZE?=
- =?utf-8?B?KzU3QUhpZ21WQ01PMmwwUUMzdmpLRnN1ZXY2b3c2RlFMbWhoT2k2YUVnNHM4?=
- =?utf-8?B?WHYwSEZTb2c3YzZjR3p5Y2ZxODhzazZUZXoyQ0w2dkM5bFFyRE43d2pKTUM0?=
- =?utf-8?B?SGdFVFR5ZWtNN2MrRXRmMW5rejVJUnRsV0V2ZXB1RHdrbTk1cmFRL0huZUM4?=
- =?utf-8?B?bHU4UHY0bVRob0h4dW4xa08vUmR1dTNKNUhJdUxGK2JnNnNlQUVNaHpXeEU2?=
- =?utf-8?B?SjF3MitteHBkVVBSUEV3cmFZTHVkZ0x2SWJmQWEzVW1PRlcxUWFRenlSQVFT?=
- =?utf-8?B?b1RyMFJhN0t5bVg4cjFZeDZMaHN2MHlBUnZvclQ2b1NLaklRZGFSY0RBNzdq?=
- =?utf-8?B?aTBOWVRXNGF0cW1Wa2pab0s2WVNiYTh1Y0ZkYVdFTFBsWElHWk5FOHVMT3h1?=
- =?utf-8?B?T29hWTEyRDkrNExaVHNPSENMR1kwalJCSlRGd0Joc3hJTml5SlZvSzlWK01V?=
- =?utf-8?B?YS8wbjB6cnA2dmhmeE1TLzN0dXg4SHBkUkREcVFxUzMzSzlhMEc1TkhPZmhn?=
- =?utf-8?B?V1duWUdMUGh4M1BtWnBXNlhWejkyVG1CRVljOWpGRjdsa0YyelN4WTRrSTgv?=
- =?utf-8?B?bmF3V0s2TnRGc2daSzFEaVd3aVo2Tm9oK2diOHJkSUxqbzVwQVhTMlBlSzV4?=
- =?utf-8?B?bzNCWUFneW5ZYmNubE1TVytoRkMwK2wrUDdrTXQ5ZzVYTVpyT05XbjBQNUtl?=
- =?utf-8?B?Q28vK1BDUTYxdkRDdjBSNVNYenZ1eWp6Y3RLMVpmdWNqUUhPV3FTUT09?=
-X-OriginatorOrg: phytec.de
-X-MS-Exchange-CrossTenant-Network-Message-Id: b97059ab-ba51-4664-b8cd-08df15787071
-X-MS-Exchange-CrossTenant-AuthSource: AS4P195MB1456.EURP195.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 11:31:53.8404
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e609157c-80e2-446d-9be3-9c99c2399d29
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DbR2w9HuI8QQx6RsULx0HLHrEBYbvPLx8O8/++uX5GMBtkEWUtmkN2M63lExeb9hN1GJb2nogYkkrnwrWmSLcA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8P195MB1978
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917-vma-is-faulted-v3-3-5c22314a72e7@kernel.org>
+X-Spam-Score: -2.80
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[41];
+	MISSING_XM_UA(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	R_RATELIMIT(0.00)[to_ip_from(RL8d8xedm6iu8o66torxsk6bwd)];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[linux-foundation.org,google.com,infradead.org,kernel.org,linux.dev,nvidia.com,linux.alibaba.com,arm.com,suse.com,zte.com.cn,surriel.com,tencent.com,huaweicloud.com,gmail.com,lge.com,redhat.com,suse.de,intel.com,sk.com,gourry.net,kvack.org,vger.kernel.org];
+	RCVD_TLS_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email]
+X-Spam-Flag: NO
+
+On Thu, Sep 17, 2026 at 08:47:43PM +0100, Lorenzo Stoakes (ARM) wrote:
+> Now that vma_has_anon_rmap() abstracts whether a VMA has an anonymous
+> reverse mapping, remove references to anon_vma and instead reference the
+> anon rmap.
+
+Hmm, I guess this is where we figure out if "drop the anon rmap" or "insert the
+anon rmap" or "iterate anon rmaps" makes sense, language wise.
+
+Wouldn't the rmap be the map itself (e.g the current cursed
+anon-vma-anon-vma-chain structure, or in the Glorious Future your remap
+tracking tree)?
 
 
+> 
+> The anon_vma is an implementation detail and should be treated as such.
+> 
+> Do not update mm/rmap.c which implements the anon_vma mechanism as it is
+> reasonable to directly reference it there.
+> 
+> No functional change intended.
+> 
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-On 9/18/26 12:17 PM, Markus Schneider-Pargmann (TI) wrote:
-> The wkup_r5fss0_core0_memory_region was reserved with only
-> 0x0f00000 but the MCU SDK linker for the wkup R5F firmware on
-> AM62A defines the DM code/data DDR footprint differently:
-> 
->     /* DDR for DM R5F code/data [ size 27 MiB + 364 KB ] */
->     DDR                         : ORIGIN = 0x9CAA5000 LENGTH = 0x1B5B000
-> 
-> which results in an end at 0x9e600000. For this memory region which
-> starts at 0x9c900000 this means a length of:
-> 
->     0x9e600000 - 0x9c900000 = 0x1d00000
-> 
-> AM62A additionally has a second DM firmware for edgeai whose highest
-> section end address reaches 0x9e700000, so the region should end there:
-> 
->     0x9e700000 - 0x9c900000 = 0x1e00000
-> 
-> Link: https://github.com/TexasInstruments/mcupsdk-core-k3/blob/k3_main/examples/drivers/ipc/ipc_rpmsg_echo_linux/am62ax-sk/r5fss0-0_freertos/ti-arm-clang/linker.cmd
-> Fixes: 8dd0ac27fcd1 ("arm64: dts: ti: k3-am62a-phycore-som: Enable Co-processors")
-> Acked-by: Andrew Davis <afd@ti.com>
-> Reviewed-by: Bryan Brattlof <bb@ti.com>
-> Reviewed-by: Kendall Willis <k-willis@ti.com>
-> Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
+Anyway, you're the native speaker here, so I'll let you decide:
 
-Reviewed-by: Wadim Egorov <w.egorov@phytec.de>
+Acked-by: Pedro Falcato <pfalcato@suse.de>
 
-> ---
->  arch/arm64/boot/dts/ti/k3-am62a-phycore-som.dtsi | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/boot/dts/ti/k3-am62a-phycore-som.dtsi b/arch/arm64/boot/dts/ti/k3-am62a-phycore-som.dtsi
-> index de4048a3564b..53c096da68b5 100644
-> --- a/arch/arm64/boot/dts/ti/k3-am62a-phycore-som.dtsi
-> +++ b/arch/arm64/boot/dts/ti/k3-am62a-phycore-som.dtsi
-> @@ -67,7 +67,7 @@ wkup_r5fss0_core0_dma_memory_region: memory@9c800000 {
->  
->  		wkup_r5fss0_core0_memory_region: memory@9c900000 {
->  			compatible = "shared-dma-pool";
-> -			reg = <0x00 0x9c900000 0x00 0xf00000>;
-> +			reg = <0x00 0x9c900000 0x00 0x1e00000>;
->  			no-map;
->  		};
->  
-> 
+Thank you for the series!
 
+-- 
+Pedro
