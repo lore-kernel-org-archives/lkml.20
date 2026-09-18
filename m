@@ -1,66 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 526A925B0B6;
-	Fri, 18 Sep 2026 04:25:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E26211E505
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 04:27:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.132.180.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789705525; cv=none; b=fzDXC2KSG5iL6YqAQgC2xgkhMVqPf0yCFEVYpW++8zhE2/zVEi7kS/VvvNGByh1y758baM9IbMjjWrGoKhNZmL/PmDI90kFbh6RkL1LryPIIK6/8e9MhKYSSF8lvjteXN87r3abmXJusmZ/hxsk9kVxI2OGfmKcKrnlS/s7fznU=
+	t=1789705656; cv=none; b=EVJ1M69E9gHkShJFr9nGeRu48ft2B86Efo0BVimQ8KDEYiAlTKKfOJpGlfvf04YQnwmiYelPbymHxIJK/0eHF/GZ8MUvkeJOecLGmRfjkm65JbN6s6HpQzGEzn7ymdoyQ7CnCqTI19cTXY9VRuECSq9RjrhsHv2ANGh1Ot+hVKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789705525; c=relaxed/simple;
-	bh=iGH3DUH6VuklBcZIraTyxJiU7x/rPZYQdrfEX2QivKY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hhx6Mxkh5tcMfVFwf6LlyrsEf13ONiSrdEwfO+aWPdhD3leHdOXQj9ERsNvOfViuwyShBdFDnK2Jlx97wLKVnrWw9UIi1KW1rsueIAbwWjYcCdhorN/job0k9vbjSA9FhDZvlLSSes2xrHPizNfuQ9xK2UakvDf6iWLjfrRJ7M0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VX7BR2lh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789705656; c=relaxed/simple;
+	bh=Y33ELKfAMzrkjFzF0kEnX1fBpNvqnSDzITTAf/KsW68=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=irNf+sOvC3UX0lVfk9MAGpW7wRWNXiY7Czxq1uZegxp43IKlfWkVzKipT553NV/4zImbbT0vljKIA3PqzAmtsTXa78SAuNvdDtye8w6ANHpQo/iiKKv2EZiacgtRQ/ZvUrlIoPZ8VEv57OciFjJQ1LX0M71PuXoifQYQhKFLMAE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=g42h1p8/; arc=none smtp.client-ip=185.132.180.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VX7BR2lh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D78011F000FF;
-	Fri, 18 Sep 2026 04:25:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789705523;
-	bh=cyet3U0TOY/t70+ejc3bmUU8cREeugIEtDcQrnLm16I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VX7BR2lh3d9GSIX7IwyrdrOizlvxC+8QjNcLKA40PHLTRXpqG8FBlnlKjgo8MjnnY
-	 vkPCsq3eEVtS/WW24Wn1y9ZkeMT1W0IdlhQqmLNfMY0rTr5+XLM/d4WXlPthFb5/d5
-	 +GzCioByXnpP8PqrcDmuDrTitgLpqHXpddT9yaJUsDHFlglKSlZKKUheAHBB/Hws1D
-	 c2nfvnDNjRs1/oK68+IFHcX+OnQHSNggLBPb+3bXS2YDPxCFBClp4kmjyigg8rl+ia
-	 ViBACLzPhrWAEkkQvUHbLtlwhcfNY/pcjRQ8ynL88+Bj6fSjbLsVwxjCEFvnkufuzy
-	 rlbMAhIBVs4bQ==
-Date: Thu, 17 Sep 2026 21:25:23 -0700
-From: Kees Cook <kees@kernel.org>
-To: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: sashiko <sashiko@lists.linux.dev>, LKML <linux-kernel@vger.kernel.org>,
-	Chris Mason <mason@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
-	Jakub Kicinski <kuba@kernel.org>
-Subject: Re: sashiko & pre-existing bugs
-Message-ID: <202609172122.425EFBD9@keescook>
-References: <7ia4se37qwvk.fsf@castle.c.googlers.com>
+	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="g42h1p8/"
+Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
+	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I4IpSV1111029;
+	Fri, 18 Sep 2026 05:27:01 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=dk201812; bh=wSYRDUhUydbYwdiUUtGqE1p
+	hgMUHv0FTmYqzeTJxOqg=; b=g42h1p8/6IXPxmSZd6bBuYbc6d9M+CwJWgw62TE
+	s6LrxBeOVUvlJdCyrD4QpOgSQs4aANxLvzu0JHVjJUxGpo9rkE6MGrKQ1Ur5E6e3
+	WNmhuWFt4c5fh1Q/COhbUpYnl+pLHuDHy8kVuWYy5peCoIwxgx5wr/nA9i5MH62F
+	i3JRLUoHGSVdtHXXBg+d5pND+HFfNHMVWly3pB17LXTwN5I0EPBW/9vYmNj97bd8
+	guJHx981slsulRp1Il3c8VQdfvuuZCV390wNUSrFN1KJNqy0nT+Rn9Pvur/3GGkJ
+	O2KNQaj1yT6gyGhuqp9fqMt7sVPpFkQiA+Q1HzOaIKQvDAQ==
+Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4gmxtun90t-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 18 Sep 2026 05:27:01 +0100 (BST)
+Received: from [127.0.1.1] (172.25.128.225) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 18 Sep
+ 2026 05:26:57 +0100
+From: Brajesh Gupta <brajesh.gupta@imgtec.com>
+Date: Fri, 18 Sep 2026 09:56:34 +0530
+Subject: [PATCH v2] drm/imagination: Add job type info to pvr_job_submit_fw
+ trace event
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7ia4se37qwvk.fsf@castle.c.googlers.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260918-b4-submitjob_tracepoint-v2-1-d9b104de07b8@imgtec.com>
+X-B4-Tracking: v=1; b=H4sIAHm9rGoC/4WNWw7CIBBFt9LMtxigT/1yH6YxhQ7tmBQaQKJpu
+ nexG/DznOSeu0FATxjgWmzgMVEgZzPIUwF6HuyEjMbMILlseCcuTFUsvNRC8enUI/pB4+rIRja
+ WbWV4U5dVjZDXq0dD76N87zPPFKLzn+MoiZ/930yCCWY60SoppTLNcKNliqjP2i3Q7/v+BTrw9
+ y2/AAAA
+To: Alessio Belle <alessio.belle@imgtec.com>,
+        Luigi Santivetti
+	<luigi.santivetti@imgtec.com>,
+        Frank Binns <frank.binns@imgtec.com>,
+        Alexandru Dadu <alexandru.dadu@imgtec.com>,
+        Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+        <linux-kernel@vger.kernel.org>,
+        Brajesh Gupta <brajesh.gupta@imgtec.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1970;
+ i=brajesh.gupta@imgtec.com; h=from:subject:message-id;
+ bh=Y33ELKfAMzrkjFzF0kEnX1fBpNvqnSDzITTAf/KsW68=;
+ b=owEBbQKS/ZANAwAKAdAmd1l+AvFwAcsmYgBqrL2QEIO6+0mSLaSw8aD5j4X2aBiMlE1mwbMrq
+ RTOwLbsYMSJAjMEAAEKAB0WIQSQIkZAwD1cxcAsz3LQJndZfgLxcAUCaqy9kAAKCRDQJndZfgLx
+ cMLDD/4kgDjz1eCw/w3jyNXktdMwvbglIFYaLoBM29MHi35zb/CZxaOh0i5ru0Tuze3FvOGwy2S
+ lcqGizzrUk5ajB8mjsAMC1iYt06QslyibRc86mohMNjRP9HHjMDdzH64y+vBcQq/EEc5HIYdvVO
+ 9Dcm1ccYeI8JxiDIgnb7ZpUp0eRlK+o1ILZlJoyiaSd2ndhWHbmPhXcB3JvPXekWhcIwcIoW9yV
+ +090SA3G2LaHil0L/nXSaEMtdtkFOz0JmWvDVqSY1h/WbkZBkwf9V9FvwGPeoW6GjDaSrFcgUNL
+ I7fDliKgukYTAPhWFPpEl+ElXoUsD8CETqP+ci2FgdJTW0EP9/U5MB+zMbwYO9/Nkl+WWRrumBd
+ KOd7hcyHXeqOvKoJvCDrDOt7aHq1X3f93mHyJPG5YeIwIo6ohOCvniZ9GOaQ+Y+Vgq8RbBP5z1I
+ pmMVz+6j31xk3h8Pg+8qKhu0H/gcxcmW6USMAmT4lVr1Ilja1hNvvSUOdMuu9QkkzIZ7p+ukT1R
+ WqzwQwyY99XY7EBII/H9mF1W6fLzmD7nIipp0wo2OUFZZF8M0mzhdcOPWShvYvSICYbjQXH2jb2
+ Okqnv8BRJ1EXQJh2/ZSj5zYrV05S1s1yd94wvKBa42jtU55xyM4N6u/pZ1eoxbzj3rEZMqGu0Cp
+ aYjEhdaVil6SULw==
+X-Developer-Key: i=brajesh.gupta@imgtec.com; a=openpgp;
+ fpr=05BAA300FD5C580EFD3F8D2F073292BAD0D39671
+X-Authority-Analysis: v=2.4 cv=Se9i5fRu c=1 sm=1 tr=0 ts=6aacbd95 cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=HYrZrZQ_E1YA:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
+ a=VwQbUJbxAAAA:8 a=r_1tXGB3AAAA:8 a=gsgZ4iqZy9nM05cRbg0A:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-ORIG-GUID: vtFybvpemEjxwsQ9jZrZlF0dmvW423Un
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDA1NSBTYWx0ZWRfX8zg/9gU4m6vB
+ mGyTD8ck6zmgj7gUqjrfVim8sDpxmug2Hc+I1BuAX1740dFx7m7r1mEGbmEXCJ8jpB7nwaXrBYm
+ Uw/lpIgVEbABKxOZiE4B9b2f5uxTSS2kuj67t8WP9gAzWtEfKPXeje8F6iRPRtJOuSNhO1J8Rhw
+ 4hE7BfOyIij0xvTj05hIbn3uLGEzvaIxcmPat7VCZIGo1J5rI64cmInl9S82A6RGczymxLWLbiQ
+ j+nkYjaBZf4u84QfY0m+LBJyuZu6UzwEvR0GEtRlK02CPJ/hoNXJy/RhQjRrsC9xxWD7RNr5eJh
+ bITa+PsrrwsQ+Hrc0O/ncfKiPh0CBfaOqRhher1RCcT+2akpvQV+PNs9dQ1TtNZz6DzsNFUbBlQ
+ nLqHqj0kWt9q5fhWQWpl8dIkpCqrDJ7QA6pUNi0BCEd4AblI2ka/3uzbmJ0Teq582sE4Z6YwTn4
+ kTjjz4LrKN+J9NDpocQ==
+X-Proofpoint-GUID: vtFybvpemEjxwsQ9jZrZlF0dmvW423Un
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDA1NSBTYWx0ZWRfX7ia6wlGHtwX3
+ ZVvr/pcMbbuJMpXYUvQPBsU1KT0OdSHkjsDTm1gWDiLz/6aK1unYkEW2h3VWmtsNwgUhs+KKq3g
+ d3iBOf/WIrr9JDfWtF7eSYl+C6CVpOU=
 
-On Thu, Sep 17, 2026 at 11:30:23PM +0000, Roman Gushchin wrote:
-> as some of you might notice, a couple of days ago sashiko stopped to
-> report preexisting bugs together with not-yet-introduced new issues.
-> Instead, it started putting them into the database. All M: and R: in the
-> current MAINTAINERS file have full access to corresponding bugs.
-> 
-> There is a new "Bugs" button in the top right corner which is the access
-> to the database. You don't need to create an account, invent a password,
-> etc. It's all stateless.
-> 
-> If you're working on other tools which discover linux kernel issues
-> and/or can generate reproducers/fix candidates and want to collaborate,
-> please, reach out to me.
+Update trace event pvr_job_submit_fw to additionally capture and display
+type of the submitted job to easily map events as per type.
 
-Oh cool! That worked very nicely; I'm all logged in and cringing at the
-lists. ;)
+Signed-off-by: Brajesh Gupta <brajesh.gupta@imgtec.com>
+Reviewed-by: Alessio Belle <alessio.belle@imgtec.com>
+---
+Changes in v2:
+- Updated to latest drm-misc-next to resolve a conflict as pointed out by Alessio.
+- Link to v1: https://lore.kernel.org/r/20260819-b4-submitjob_tracepoint-v1-1-f817b222bf6a@imgtec.com
+---
+ drivers/gpu/drm/imagination/pvr_trace.h | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
 
+diff --git a/drivers/gpu/drm/imagination/pvr_trace.h b/drivers/gpu/drm/imagination/pvr_trace.h
+index 943d6b2418cb..4be7d4b8a357 100644
+--- a/drivers/gpu/drm/imagination/pvr_trace.h
++++ b/drivers/gpu/drm/imagination/pvr_trace.h
+@@ -90,21 +90,25 @@ TRACE_EVENT(pvr_job_create,
+ 		      __entry->sync_op_count)
+ );
+ 
+-#undef PVR_JOB_TYPE_TO_STR
+ #undef PVR_JOB_GET_HWRT_FW_ADDR
+ 
+ TRACE_EVENT(pvr_job_submit_fw,
+ 	    TP_PROTO(struct pvr_job *job),
+ 	    TP_ARGS(job),
+ 	    TP_STRUCT__entry(__field(struct pvr_job *, job)
+-			     __field(u32, done_seqno)),
++			     __field(u32, done_seqno)
++			     __field(enum drm_pvr_job_type, job_type)),
+ 	    TP_fast_assign(__entry->job = job;
+-			   __entry->done_seqno = job->done_fence->seqno;),
+-	    TP_printk("job=%p done_seqno=%u",
++			   __entry->done_seqno = job->done_fence->seqno;
++			   __entry->job_type = job->type;),
++	    TP_printk("job=%p done_seqno=%u job_type=%s",
+ 		      __entry->job,
+-		      __entry->done_seqno)
++		      __entry->done_seqno,
++		      PVR_JOB_TYPE_TO_STR(__entry->job_type))
+ );
+ 
++#undef PVR_JOB_TYPE_TO_STR
++
+ TRACE_EVENT(pvr_job_done,
+ 	    TP_PROTO(struct pvr_job *job),
+ 	    TP_ARGS(job),
+
+---
+base-commit: a8fe4e162ba8212b7e51fdb024b37800f36b496c
+change-id: 20260819-b4-submitjob_tracepoint-d374f065345e
+
+Best regards,
 -- 
-Kees Cook
+Brajesh Gupta <brajesh.gupta@imgtec.com>
+
