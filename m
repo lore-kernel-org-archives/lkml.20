@@ -1,159 +1,125 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E745251588B;
-	Fri, 18 Sep 2026 16:23:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 833EB5111BE
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:24:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789748610; cv=none; b=BlSuFHLsa9lfnY1HjIbLohJ5sSIzSZf85RE/CjB94OffaetyCwSa2MRCc0Qpc00bz/QPNnsVB3+wMY6OhahwtyMTqJEew/O8gf2nBoAFxirtOwQ0MgEsTazcQY3EEgWgWsQjC4n9u5f5jjy2Wgjq9li1tLIczRPhxwMAPeFNRGY=
+	t=1789748655; cv=none; b=Vd4tMp01sdNguUX4OCge+gB7qNCWJ1621K6U6Rkt5cb/Lut3DuwFaY0t1H1uYg14N5j35mybz4e15R/eWO6dIh7HfenALkqDN7Ol1KMJiG4EX4NQYKUCY+nPwgH/aoq7JaguGxfTWugrimFc184BGbErY6AQAxC3IOIG82WgshY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789748610; c=relaxed/simple;
-	bh=7KbXMhEqmqjcyHwSyY4d88MqeXx5NAmrig7I9IyDPkQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Kh3wqgVjPElLLTOAI3jq4ACr59//Nx8oJU8fIma50a9yhJpRdifagBUJaMTwa8buFbbDMMNC1TKOg9SsOWnL2itnh7JWQthZCLrXUNVQJ4K0zNJKI8+9+WTbBkYh/wZp5jfSq0jzpEDJ8/E3l3+awxBMJAS+y3mM5+uoXRFguAI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=U164ZCfS; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1789748655; c=relaxed/simple;
+	bh=u2qNzscspgNjHmDHfUPnMbVtInEKJuHzmMhUl3PFTKU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=c8alBQCQ8Ozf8acqJK1D7K7V8Evt0YIRtSgVGJAqpTgOrgBUeGHM2QlHirxOyYv910BZgd2VRffSA8Eghf5JJl2bamQTEriaf9EbhURh+GYlX/xfW5M94z0QM89so1jkL9ZQFeYkjyF+Oey/+rGWwhA64eZFWc/QtoK/+kCrnho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=VytQKG6w; arc=none smtp.client-ip=74.125.230.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="U164ZCfS"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68IDVZm71393547;
-	Fri, 18 Sep 2026 16:23:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=IrSrPG
-	h89ZBDJ8ImJt+nz22I+rOlaK5hWlIv4GDrkKo=; b=U164ZCfSbTri6NhwgGdd3A
-	OoIYNbQwf6mDGk/ZN7w8Ru+s+GGDPi7jYOhlIoGDlMrqjEqWYq92ruppUAa9NUwO
-	CG0fsRs5JefNx1W/Hdsrh4qtjwKMQ8v/5GrtRvuNbpFFKBxE28bvz/3Za8P0bzhq
-	P1gkqz8uUaNTxWXzufHcxsdRQ+0jmi98abs178Z3ffGngut6hFVqyrlR14A+H2e0
-	2XqfAstr4OqhE6z7mksk7I1jcjnV5YAZtWYtu1Bot1F9D+A/n+m1iqsUGJILvbgl
-	+eLk77feKSajb86IdZm2kzBFQmDS5rzm96q8jyIXCe9ZvuDcdA8Oo5BSBCEVSf9g
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmxf5h770-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 18 Sep 2026 16:23:10 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68IDO2Fh771897;
-	Fri, 18 Sep 2026 16:23:09 GMT
-Received: from smtprelay06.dal12v.mail.ibm.com ([172.16.1.8])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gr5ffg5yc-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 18 Sep 2026 16:23:09 +0000 (GMT)
-Received: from smtpav01.wdc07v.mail.ibm.com (smtpav01.wdc07v.mail.ibm.com [10.39.53.228])
-	by smtprelay06.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68IGN8YI31982158
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 18 Sep 2026 16:23:08 GMT
-Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 5A5B358055;
-	Fri, 18 Sep 2026 16:23:08 +0000 (GMT)
-Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 498C45804B;
-	Fri, 18 Sep 2026 16:23:06 +0000 (GMT)
-Received: from [9.111.192.138] (unknown [9.111.192.138])
-	by smtpav01.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 18 Sep 2026 16:23:06 +0000 (GMT)
-Message-ID: <bf57f67e-4a51-407a-b869-b9d78a9875b4@linux.ibm.com>
-Date: Fri, 18 Sep 2026 18:23:00 +0200
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="VytQKG6w"
+Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-939922847efso85090785a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:24:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cmpxchg.org; s=google; t=1789748651; x=1790353451; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=22UHuqAYfKNfgslt+w3Gb+mOi1pe1zYpAqvus/G0CRA=;
+        b=VytQKG6we8ypXfNkrDDwlg8IqE83rQF/jMlzJ+3yNfQlrmfmb/Y7MemRi7gj5SfL/y
+         MQyrFruwPdIhgI2pEkiiAc0sFLcuKMErbJT223jkceruQAQUuvqP6vfW0W3llJYvLHu5
+         9+D2CPJ677y37AqCHON/iDgtjWjVFVt749rFkwcysGQlHc2eWeoyhAXsmzPhQxNlaMqc
+         DStAw3I89w3pe799zJyGB+mx2jUu1NnvSmMQhPgFh3OirhL+aHqaxAN5edwLp2HQtIAS
+         qC6TBXMw3IDr1E5VRZZaBSFZs+PmV0HiTQU/BJP60H3/SJ1hEgAwoj0O53b0ZBuRaWjS
+         axSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789748651; x=1790353451;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=22UHuqAYfKNfgslt+w3Gb+mOi1pe1zYpAqvus/G0CRA=;
+        b=SEG0n8gvNXFi+nVGZq501JDu9z4nCjTfkRLto198ckc6fGe2sMtoYIhDC9uKVrv4+S
+         /xb6IXohO/J9pK92KOFce6nmHHUVfIeg+/y3waK8gbuUxxNgJgTSEqcGv7aBu5u3v2mS
+         LvK7lKaaCjNr/vmf90vfvRHQ7ai1Xi5R1L2TkCo/Ri3Prigdc1Kvj1bNc78eTuj6hByY
+         phz/AES/GS6RYkEGmhHhzUVKH5ribPKqDOiaC8iTqYt7hFXacxmxkp31zBdLr4UpGSjs
+         D9ifKzN7wIjJd20f9odAF0BR3/MaeccUJz7CSprPwTWn6GpJPfFFnG5S086Pe2WlC5kj
+         +O7A==
+X-Forwarded-Encrypted: i=1; AKwUvBxKX6o1KZb79mSIbolwIQ0cKQn++QZpU3630EOQumxs9hRmrKykyCnc1LlpToW8558sE7voQ6j4Ex7dtJg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lV++K9t4rLRhXqdE38h4AJEK6sVD9UN2CgJi2HXkjP7f3Ywspf
+	/xsUR3EiWGgnXKySxP/ukYKH4msGYlkIxK/N36OcaUkE/rPY8bvRJUG4+6hCR9bZ2XM=
+X-Gm-Gg: AYBFou0Er7+OMzfoGhRhHqPwaPpR7tqUqzwzQJZMsNipVIQNYCjXirkxEHNhwLicsG4
+	sWe+Jp+3Af3cgA4ZjIehX2cJTrzPvAxrxtCV5xNG6fdPDsNyN6MUfUsF5vL3yyeUp4m1+dJiEDS
+	WF2vJ77fSxCKWQd6+xUARoXOurl1RlODUmfjJ7xewOu1f4i7siSqfatx4BXYjPLUyR4eVUkPodR
+	nYHFD3EiEfIuEV/no+b2tdgps525dpZFT7+kIu9MOLilNxV2LmmVMpelzIV53fn1cUCfReL8wFt
+	eU4Qk9bldJFvRok6DfzNZJL2xqfE6GQ+vQxTiDUk2wDzbO3b7d1AKdQs6j8QSLpg6twxtHql1Zi
+	WHGxN0Ae1neRz5wSwnV2T8EsXqQ4k6xZ6KUN+AIiG7v+xLF1kx3sY2XUvsUxNFqwQR2vLqQ1z7t
+	+KZnXxFPavxpRxRiLQ8bZIxwXfmMSp175o8t6Svs1aprXVL/zH3oLY0+DmB0HTXu0BhdD2ow==
+X-Received: by 2002:a05:620a:4455:b0:93b:da6f:50a4 with SMTP id af79cd13be357-93bdc6aef5amr427968285a.36.1789748650894;
+        Fri, 18 Sep 2026 09:24:10 -0700 (PDT)
+Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93be0e95a4asm173223285a.18.2026.09.18.09.24.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 09:24:09 -0700 (PDT)
+Date: Fri, 18 Sep 2026 12:24:08 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Michal Hocko <mhocko@suse.com>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>, Tao Cui <cui.tao@linux.dev>,
+	roman.gushchin@linux.dev, muchun.song@linux.dev,
+	cgroups@vger.kernel.org, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, Tao Cui <cuitao@kylinos.cn>
+Subject: Re: [RFC PATCH 0/3] mm, memcg: isolate deprecated v1 state from
+ struct mem_cgroup
+Message-ID: <aq1lqJdVZ1stTKCn@cmpxchg.org>
+References: <20260916125737.1095414-1-cui.tao@linux.dev>
+ <aqxMk6yaiFHeeAAg@linux.dev>
+ <aq0HNe5s3zvOnM_I@tiehlicka>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 00/13] s390/cio: replace page allocator calls with
- k[mz]alloc()
-To: Heiko Carstens <hca@linux.ibm.com>,
-        "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Cc: Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Vineeth Vijayan
- <vneethv@linux.ibm.com>,
-        Vlastimil Babka <vbabka@kernel.org>, linux-s390@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-mm@kvack.org
-References: <20260916-s390-cio-ready-v3-0-39e4894637d6@kernel.org>
- <20260916130613.15587F91-hca@linux.ibm.com>
-From: Peter Oberparleiter <oberpar@linux.ibm.com>
-Content-Language: en-US
-In-Reply-To: <20260916130613.15587F91-hca@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: vTyVM8gFf2TLxGe0RjdKNlWme4FkyRm6
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDIyOSBTYWx0ZWRfX12DmjXrEm5MR
- h/AvVcvlh5F9Jzcx3msRny4416tysM3XT+DK1T4EAg1Tc8kI2m3sAh0MCVEE5m2jJsOzsor/lWm
- LhlGoZjGMZlGoTfMOpXBVOkV27ORGEo=
-X-Authority-Analysis: v=2.4 cv=cvgOAF4i c=1 sm=1 tr=0 ts=6aad656e cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8
- a=IRwR5hotAdJOlb6Xvy0A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: vTyVM8gFf2TLxGe0RjdKNlWme4FkyRm6
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDIyOSBTYWx0ZWRfX9VrQ2GokdTf/
- ij01HjXDQRKd9KcreIiqI/fXcgj3CFh8IV3Ywtcj5oFBp9ClR4zc1dWxHF+s+wNUqCODODzn0pz
- 62Hn7XGiwhK8ouluqvAn2U2Uv3R9hZ4nUA1k/ozSdmbdM3yLAouP2b7TjU+za74QNUP/SDs2kuV
- +TzM3unuJpH/QCI0WNt9zWl+flvufd6ShlibskDDOwZ/Wgrs7g7sEiVXHUAAMsiGIykrOcfZkZr
- aJYf1nfQqrxhYuQcle7w8QKFUsrgFS4tU2c6lyp9aiDUNFOues2xArRa4Dh+hp9pRGjSdWg2S+y
- 3Z97elu/WJo/mNnyWwADDXckyafk1reo63sgpjQ+FSiVjXUxVdlqeiU4eSitu4SDZeNzQe6busz
- pjpvKbW7ZS+wbhuVrz+xIv9PsUoHOGDu0h9PeCq1L05AK5Bult0pgC74RcUO75w2eNGm7Hyaopl
- jmnErCQwD70LaaCERwQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-18_04,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 clxscore=1011 priorityscore=1501
- suspectscore=0 bulkscore=0 impostorscore=0 phishscore=0 spamscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609180229
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aq0HNe5s3zvOnM_I@tiehlicka>
 
-On 16.09.2026 15:06, Heiko Carstens wrote:
-> On Wed, Sep 16, 2026 at 03:03:07PM +0300, Mike Rapoport (Microsoft) wrote:
->> The saga continues :)
->>
->> This series covers CIO, QDIO, SCM and IDAL buffer allocations.
+On Fri, Sep 18, 2026 at 11:41:09AM +0200, Michal Hocko wrote:
+> On Thu 17-09-26 13:26:40, Shakeel Butt wrote:
+> > On Wed, Sep 16, 2026 at 08:57:34PM +0800, Tao Cui wrote:
+> > > From: Tao Cui <cuitao@kylinos.cn>
+> > > 
+> > > The legacy cgroup v1 memory controller has already been moved out of
+> > > the shared implementation at the file level (mm/memcontrol-v1.c) and at
+> > > the Kconfig level (CONFIG_MEMCG_V1, default n since 6.11).  Its
+> > > per-cgroup state, however, still sits as individual members inside
+> > > struct mem_cgroup, guarded by #ifdefs.
+> > > 
+> > > This series isolates the deprecated implementation from the shared hot
+> > > structure: all v1-only members are grouped into a dedicated
+> > > struct mem_cgroup_v1, and every access goes through memcg->v1.X.
+> > > 
+> > > With this in place the v1 implementation is self-contained: its
+> > > interface in mm/memcontrol-v1.c, its state in struct mem_cgroup_v1, and
+> > > its eventual removal becomes a localized deletion of this struct
+> > > together with mm/memcontrol-v1.c, instead of unwinding
+> > > ifdef-scattered members across the shared header.
+> > 
+> > Sorry I don't see any benefit of this code churn. The code is already behind
+> > config. What exactly this code churn is giving us?
 > 
-> ...
-> 
->> Mike Rapoport (Microsoft) (13):
->>       s390/chsc: Use kzalloc() for CUBs
->>       s390/chsc: Use kzalloc() for the SEI work area
->>       s390/chsc_sch: Use kzalloc() for CHSC requests
->>       s390/chsc_sch: Use __free(kfree) for synchronous CHSC requests
->>       s390/cio: Use kzalloc() for CHSC work areas
->>       s390/cmf: Use kmalloc() for the CMB area
->>       s390/idals: Use kmalloc() for IDAL data buffers
->>       s390/qdio_main: Use kzalloc() for the IRQ structure
->>       s390/qdio_main: Use kzalloc() for the QDR
->>       s390/qdio_setup: Use kzalloc() for QDIO buffers
->>       s390/qdio_setup: Use kmalloc() for the storage list
->>       s390/qdio_setup: Use kmalloc() for the SSQD request
->>       s390/scm: Use kmalloc() for SCM information
->>
->>  arch/s390/include/asm/idals.h   |   9 +-
->>  drivers/s390/cio/chsc.c         |  20 +--
->>  drivers/s390/cio/chsc_sch.c     | 300 ++++++++++++++--------------------------
->>  drivers/s390/cio/cmf.c          |  11 +-
->>  drivers/s390/cio/qdio.h         |   2 +-
->>  drivers/s390/cio/qdio_main.c    |  23 ++-
->>  drivers/s390/cio/qdio_setup.c   |  14 +-
->>  drivers/s390/cio/qdio_thinint.c |   2 +-
->>  drivers/s390/cio/scm.c          |   7 +-
->>  9 files changed, 150 insertions(+), 238 deletions(-)
-> 
-> As far as I am concerned:
-> Reviewed-by: Heiko Carstens <hca@linux.ibm.com>
-> 
-> Waiting for IO folks before applying. Thanks!
+> The only arguable upside is that this would make it ever so slightly
+> easier to track v1 specific stuff (once that s@v1@memcg1@ or similar).
 
-Looks good to me! For the full series:
+I had the same thought. It's kiiind of nice to see which members are
+completely specific to memcg1.
 
-Reviewed-by: Peter Oberparleiter <oberpar@linux.ibm.com>
+> I am not convinced this is sufficient to justify the churn either.
 
+IMO it helps that it's mostly in memcontrol-v1.c where the chances of
+interfering with other work are pretty slim.
 
--- 
-Peter Oberparleiter
-Linux on IBM Z Development - IBM Germany R&D
+The patch 1 + patch 2 split is a bit bothersome: indenting everything
+into a union, only to then move it out in the next patch.
+
+Tao, if you folded these two patches to make it one clean extraction
+and changed over the sites at the same time, I would probably lean
+supportive on this.
