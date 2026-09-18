@@ -1,169 +1,127 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAB2938E8CA;
-	Fri, 18 Sep 2026 13:38:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B02B23B47C6;
+	Fri, 18 Sep 2026 13:38:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789738718; cv=none; b=NOmZO+9NoVwJDWRx26kbYnQHUkKFwb6tZnW6aetRi5R2A42uxH3D19W8/mlSHyxQZ9MgIuIdwDiwGVrG1KOcITV+90b8EbP9MYgmVu/pWIIUp0UVvTYQhhsgD7gnoI+pZsZN9wT1q/jTyJ+ikdWGuJLKHoxR0/+WV9xn7DMDp6Q=
+	t=1789738731; cv=none; b=fbzzJ3w9grYKInrn+zXcpnnIBBBmDxUS+z4OMk8wrlTioa9NKDcxOTEir80dJyAZYutTN3VBMJxHy09W7lhmxQWGHldLLv3Bwi826T5rJCgWkOFoXqH+oQ4uz1XMtrv8U5jz5oLvOl+e4ieT9dA+lJKmSaMx9B+SuY5S7wLlZzs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789738718; c=relaxed/simple;
-	bh=uHxRfFpeeeqM0dj1pBYqYINu37TMxuN+a+TZg+JofAo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=k1J3i/qvh+p+oU69XfHXYAggSndgXH2Sbw/Ax8DmyUpXLex1YSRkhdI/48Xbn5Glz9Qn+0dNGcgvRg+krad/FAOztm6ByDxaLtAANLioLG2Pa8p3Q4Bl8KM8bgFZmSZ7LZAig5GDMBqBS8P6kA3JQkIcrKS5HZfDhwRj0dp+/cs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YFidbsMm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789738731; c=relaxed/simple;
+	bh=z46G0bqcIh2LGqc3firE0uMW8MWjL4tc5VkCRr67/GU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=M6RPjxTbEpbNfgiNNvr+IUNe1CrkKlH4Bsg1PaWEeLA49n81xcbsC5WhOKE0WBrvG3jquLuSLKtAi7KFn+/egind/8SRI3gGMN/MCBQLg7XJE5QjWvELgKAzT78Ix91l0gmr8CWDXcBQvn+VTwfG8GH74Ztx3EZLGAtvrI7eAiI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cUuOkv/a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YFidbsMm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 419D81F000FF;
-	Fri, 18 Sep 2026 13:38:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cUuOkv/a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D00971F000FF;
+	Fri, 18 Sep 2026 13:38:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789738716;
-	bh=MKGYAMvXjOap74e+UNuv2FfLwh1OSEeO0iMecbj8vYY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=YFidbsMme1vbL1Pbu5WDdBTx7bbuMUuYKYZOHQcou5+9zUr18QfZDDZ8LRHiEYMM/
-	 IVXEAuRddREGxRAArD9+mRc+ppJktjoJfqT3uAkaQXW8Brz97BCZtZsMO39213MBBO
-	 tysBNnZGUXzdbyaJ5si/IVn0F+NG+LRPRtmCNbwIVvEvSu0PwbPotZzFxwCbWHyC6K
-	 eK0qB8GVKGQSj4rAYciiMgLV5F02qO/4jxImXUbQAdKAZnhaW3D37bys/9o699Puxz
-	 odWY02eK9XRozJH0Wi71yfABkHtmeBG2r8J+wNFpNIxMbbUc2LcmKbTYSsiDO1eCBP
-	 CgR+6vXL0HlqQ==
-Message-ID: <8f7dd986-ac78-4a87-a8bc-228fdd05e9b4@kernel.org>
-Date: Fri, 18 Sep 2026 15:38:28 +0200
+	s=k20260515; t=1789738728;
+	bh=UAOy211GQO8ZsvZCQNqPn3L4mKEDMAq855MNr2jtBdw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cUuOkv/amenXWBkIAUlZv6naAxqa57uqW1Nr/SIhH4UTEbrBfRdhsCWGVKcmXFaO9
+	 NDSaTvl61cFqHIwaNmtm+lnnz3eLP+GwmMIt5YkTHazLlHeRvr3F1DhFTaidMndNNi
+	 t6SwL5GdkNekf5UgqMsc2X+XhPzoinekoy1e8+hNssrHN3jzQ9txE5Zxigkl78aLCM
+	 Esxw+wLXPd6Ju5c87rfo6bHENHPnuGTUn8SpQGflEF47LkECRVKUVhdEZIQejh6trg
+	 b2zyHj6fCzZqadjaquey1fpzB9PhUiz10ytvscm40H8SBoVnsMpM38H/wIHNsE0yX+
+	 1UzdbW3bncyXg==
+Date: Fri, 18 Sep 2026 14:38:44 +0100
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+Cc: Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>, Frank.Li@kernel.org,
+	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-arm-msm@vger.kernel.org, imx@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 1/2] module: add SCMI device table alias support
+Message-ID: <20260918-roaring-bee-of-acceptance-50a8a9@sudeepholla>
+References: <20260918092951.5656-1-johannes.goede@oss.qualcomm.com>
+ <20260918092951.5656-2-johannes.goede@oss.qualcomm.com>
+ <2104f437-e960-4e55-b0e1-2b37126e8c2f@oss.qualcomm.com>
+ <82a72918-7bc7-4e2c-892c-0dcdd6dd5548@oss.qualcomm.com>
+ <3f51bf6c-5318-4e32-a1ca-3ce8cf8c4ceb@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: embedded-controller: Add ASUS Zenbook
- A16 EC
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Guenter Roeck <linux@roeck-us.net>, Bjorn Andersson <andersson@kernel.org>,
- Abel Vesa <abelvesa@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
- linux-hwmon@vger.kernel.org, linux-arm-msm@vger.kernel.org
-References: <20260917-topic-asus_ec-v1-0-373516d347ae@oss.qualcomm.com>
- <20260917-topic-asus_ec-v1-1-373516d347ae@oss.qualcomm.com>
- <20260918-objective-okapi-from-neptune-cbcabd@quoll>
- <92b7a87a-c086-48d1-8487-883dda7c4d70@oss.qualcomm.com>
- <372e9dc8-ec28-4d8e-a349-15145b82385d@kernel.org>
- <9709e146-0f9a-42a5-bfcf-2e5f8b49df2e@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <9709e146-0f9a-42a5-bfcf-2e5f8b49df2e@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <3f51bf6c-5318-4e32-a1ca-3ce8cf8c4ceb@oss.qualcomm.com>
 
-On 18/09/2026 15:23, Konrad Dybcio wrote:
-> On 9/18/26 3:21 PM, Krzysztof Kozlowski wrote:
->> On 18/09/2026 14:29, Konrad Dybcio wrote:
->>> On 9/18/26 1:34 PM, Krzysztof Kozlowski wrote:
->>>> On Thu, Sep 17, 2026 at 12:54:56PM +0200, Konrad Dybcio wrote:
->>>>> +description:
->>>>> +  The Qualcomm Snapdragon X2 series-based ASUS Zenbook A16 (and similar
->>>>> +  machines) come with a custom EC firmware, loosely based on the
->>>>> +  Qualcomm reference ("Hamoa CRD EC") implementation, with a lot of
->>>>> +  customization.
->>>>> +
->>>>> +properties:
->>>>> +  compatible:
->>>>> +    enum:
->>>>> +      - asus,zenbook-a14-ux3407na-ec
->>>>> +      - asus,zenbook-a16-ux3607oa-ec
->>>>> +
->>>>> +  reg:
->>>>> +    const: 0x76
->>>>> +
->>>>> +  interrupts:
->>>>> +    maxItems: 1
->>>>> +
->>>>> +  "#thermal-sensor-cells":
->>>>> +    const: 1
->>>>> +
->>>>> +  wakeup-source: true
->>>>> +
->>>>> +required:
->>>>> +  - compatible
->>>>> +  - reg
->>>>> +  - interrupts
->>>>> +  - '#thermal-sensor-cells'
->>>>> +  - wakeup-source
->>>>
->>>> Wakeup source should not be required. If it is, then it is completely
->>>> implied by compatible and there is no need for DT property, right?
->>>
->>> I suppose it's not *required* but it's highly desirable.. should I
->>> just drop it from the required list?
->>
->> Then why isn't the device driver setting wakeup unconditionally?
+On Fri, Sep 18, 2026 at 12:13:10PM +0200, Daniel Lezcano wrote:
+> On 9/18/26 12:02, Hans de Goede wrote:
+> > Hi Daniel,
+> > 
+> > On 18-Sep-26 11:53, Daniel Lezcano wrote:
+> > > 
+> > > Hi Hans,
+> > > 
+> > > thanks for taking care of that
+> > > 
+> > > 
+> > > On 9/18/26 11:29, Hans de Goede wrote:
+> > > > From: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+> > > > 
+> > > > SCMI client drivers already describe their bus match data with
+> > > > MODULE_DEVICE_TABLE(scmi, ...), but modpost does not know how to consume
+> > > > SCMI device tables. As a result, SCMI modules do not get generated module
+> > > > aliases from their id tables.
+> > > > 
+> > > > Move struct scmi_device_id to mod_devicetable.h so it has a fixed layout
+> > > > visible to modpost, add the corresponding generated offsets and teach
+> > > > file2alias to emit scmi:<protocol>:<name> aliases.
+> > > > 
+> > > > Use the same stable alias format for SCMI device uevents and sysfs
+> > > > modaliases. The previous string included the instance-specific device
+> > > > name, which is not useful for matching modules.
+> > > > 
+> > > > Assisted-by: Codex:GPT-5.5
+> > > > Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+> > > > Tested-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+> > > > Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+> > > > Signed-off-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+> > > > ---
+> > > 
 > 
-> The i2c core checks for wakeup-source - I can remove the property
-> and call the equivalent functions from the driver if you prefer,
-> but that feels a little "rough"
+> [ ... ]
+> 
+> > > >    #include <linux/bitfield.h>
+> > > > +#include <linux/device-id/scmi.h>
+> > > >    #include <linux/device.h>
+> > > >    #include <linux/notifier.h>
+> > > >    #include <linux/types.h>
+> > > > @@ -951,11 +952,6 @@ struct scmi_device {
+> > > >      #define to_scmi_dev(d) container_of_const(d, struct scmi_device, dev)
+> > > >    -struct scmi_device_id {
+> > > > -    u8 protocol_id;
+> > > > -    const char *name;
+> > > > -};
+> > > > -
+> > > 
+> > > What is the reason of converting the char * to a fixed array? That limits the name and may result in truncation and potentially name collision, no ?
+> > 
+> > Because of how modpost works to generate modaliases inside the .ko
+> > any string buffers in device_id structs need to have a fixed length.
+> > 
+> > So the truncation / name collision issue pretty much applies to all
+> > foo_device_id structs in the kernel. People should now to make sure
+> > that any strings used will fit inside the fixed string. And I would
+> > expect the compiler to warn for overly long strings.
+> Ok, thanks for the clarification
 
-This is irrelevant here. If we remove I2C core handling of wakeup-source
-and rely on drivers, do we change the bindings?
+Not related to above topic, but just wanted to check with Daniel if this
+solves module auto-loading for you. Was there someone else who was testing
+this series and was having issue with earlier versions or its you only
+Hans de Goede and it was with v1/v2 when Bjorn posted them. I remember
+something vaguely and couldn't trace back all the versions easily.
 
-Required means either hardware or software cannot work without it.
-Interrupts are required, because (supposedly) it is impossible to create
-a hardware with interrupt pin floating, which could be argument to move
-to the SW, but compatible cannot imply them. Saying that wakeup is
-required, means that something requires it while compatible cannot imply
-that property. Kind of contradictory to logic, because this means device
-has such characteristic but we need DT to represent it. That's odd
-because we should not need DT to represent simple bool - driver can do it.
-
-This is basically the fourth device which requires being wakeup-source,
-so something highly unusual and anyway if it stays, needs explanation in
-device description.
-
-Best regards,
-Krzysztof
+-- 
+Regards,
+Sudeep
