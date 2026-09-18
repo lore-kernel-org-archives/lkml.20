@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35ED1502562
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:53:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10B9A502559
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:53:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789743186; cv=none; b=ddREIRX0ecv/gpP3ZN5spGXHjl5x6Qp4Pl2FSUlYVVsBuZmm+xnU0IMYsnBNA/tBW1pGCL37PkJGJpFDG/Pqx90TKLOj4UGHXYTl5MkTgT2BOVf1rOtLP0z2jPCutR+xOwOTNY0f0Q94M+Hit/HD8iUxdS3XjHYAm2PHmdn5W0s=
+	t=1789743190; cv=none; b=YaHwWhSf9P2K95qkVYuBKXr/ewveh6a2C2rHifawqBVtBkfeCbSLDWA5N6hxNYLeBS4WXKqCDPQ4FrowKGvO0x7pGVcQh/0YBPuxnvtFx37Rhk7Wn4CoswruNxTVE0Py+dnB5l/7JV9Z5F/puU6/dOUzU7BoB9+/Ln2bq/3JmPo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789743186; c=relaxed/simple;
-	bh=DsLJ8Qa+QCZQf5fgSJC7h+SpO76RZsp8tU+Js6vj1ko=;
+	s=arc-20240116; t=1789743190; c=relaxed/simple;
+	bh=be/D3i8Rt3Gxt3jkMPf4MKSN6HuuCSR7lBEp2DloW7w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KMBncedPMFzB+jaBPTTGBJXyEGiwxyNyMNT9TwlwfGawZQFF31BnRmKoyiPqyaEnC/BXefjVYMm4XBLVL4VYE+5sozx8l3aZD8+dtBJtDgXGy/FabLdTaMvfNx8f59f119QQvRjzuRTRDiFkiQ9fCP4T1vAinYQZQzYb7XnPW2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jo01Md8S; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=nUlTP2Od6aG32h/LaKBj8wKFVk+JHYVf5QG1VwcnbxxIIxyT4Xnfodg7fEH9QfoC+y7dF198KexgUhFX+sZ/0AFer8XKuQhdi9ABk8r/i0Gt9b9+ZKzRi5QHcNlRhpUBXBzmnDqfN6FziOPyTmtm/2WkyYlpAERclPP6Yy8tmBI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WvLj/88A; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jo01Md8S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CAE81F00898;
-	Fri, 18 Sep 2026 14:52:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WvLj/88A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1478C1F000FF;
+	Fri, 18 Sep 2026 14:53:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789743182;
-	bh=LulIGN7292GTiMIEws/TfczRl4FN5PF77P6YQjIWumE=;
+	s=k20260515; t=1789743185;
+	bh=4ojc02aemqoLwNxvvZsv+b8G2yi1V858/hEEaqJeGoY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Jo01Md8S83N0kd6jIfpRnTqfQ+ej/NJCAID17mZKo+NWxOWn4QZhIWwXx4r57kxvV
-	 notw/V5VyH7DM2niFgZLTNXp2mnkOyOxgfYxn7i8fo2pqpKFBGkPVHM4Ix4F7Ojtec
-	 oVw0R9WG99Zu7GJTAzA5WyU2qJfNDMw8Xr+PdYZqFogMKRISB/K/6BbVfaEmGrblZx
-	 Imv0vwu/MhbTQ5z8HZ3lRE+75UfILVS7c+gFDzb8zfuMwUIL8nWC5EOWhw9n5zV4hL
-	 aDaRKYI3Nruo0fS6Pwr1EfAhsBOKHiOkDGOESpZ2AqRE6gBbom+Mj3l3YugqoEDkii
-	 czlj8Viw0oh5Q==
+	b=WvLj/88Ac8AnU5yMp8ElZgGdcWNko+AR8s1xotTG/QtyLGZ8hdyhjlM/gI6Qax3W6
+	 QiH8qK79Q4fJPl6a9WD+2h079wY9BFb23wxcwm11+pY2JSCqmUCOSadQXY5x+6/6Kq
+	 w5Fc3/HwGp8yuvQojwzsXytalEhBmpPC3wtakK/4szdOMI5/CGmf20XXGwyO4ceD+v
+	 TYtxh44DL4nQBC1W2QsThi/EJpGRGP9T5FmNn/cfJp8b4xsnT/CFxkH/IEenf2F0YU
+	 wSMKB0JtXQpcqibfQK9MCh6tN1uvreg5AggNolcfXMkdy3HdApn4LX+JVDrWCqGXCi
+	 2+6Dw/+Aun/zw==
 From: Will Deacon <will@kernel.org>
 To: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org,
@@ -38,10 +38,11 @@ Cc: linux-kernel@vger.kernel.org,
 	Alexei Starovoitov <ast@kernel.org>,
 	Oliver Upton <oupton@kernel.org>,
 	Herbert Xu <herbert@gondor.apana.org.au>,
-	Marc Zyngier <maz@kernel.org>
-Subject: [PATCH v3 12/13] arm64: Kbuild: Remove vestigial big-endian support
-Date: Fri, 18 Sep 2026 15:52:14 +0100
-Message-ID: <20260918145217.1669-13-will@kernel.org>
+	Marc Zyngier <maz@kernel.org>,
+	Michael Kelley <mhklinux@outlook.com>
+Subject: [PATCH v3 13/13] drivers: Kconfig: Simplify dependencies on ARM64 && !CPU_BIG_ENDIAN
+Date: Fri, 18 Sep 2026 15:52:15 +0100
+Message-ID: <20260918145217.1669-14-will@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260918145217.1669-1-will@kernel.org>
 References: <20260918145217.1669-1-will@kernel.org>
@@ -53,137 +54,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Since 1cf89b6bf660 ("arm64: Kconfig: Make CPU_BIG_ENDIAN depend on
-BROKEN"), CONFIG_CPU_BIG_ENDIAN has depended on BROKEN for arm64.
+Now that arm64 no longer supports a big-endian kernel, simplify some
+driver Kconfig entries so that the dependency on a little-endian kernel
+no longer needs to be called out explicitly.
 
-Remove the last traces of its existence and unconditionally force a
-little-endian kernel build.
-
-Acked-by: Catalin Marinas <catalin.marinas@arm.com>
-Acked-by: Arnd Bergmann <arnd@arndb.de>
-Acked-by: Marc Zyngier <maz@kernel.org>
-Acked-by: Eric Biggers <ebiggers@kernel.org>
+Reviewed-by: Michael Kelley <mhklinux@outlook.com> # Hyper-V
+Suggested-by: Arnd Bergmann <arnd@arndb.de>
 Signed-off-by: Will Deacon <will@kernel.org>
 ---
- arch/arm64/Kconfig  | 35 ++++-------------------------------
- arch/arm64/Makefile | 12 ++----------
- 2 files changed, 6 insertions(+), 41 deletions(-)
+ drivers/hv/Kconfig                     | 3 +--
+ drivers/misc/vmw_vmci/Kconfig          | 2 +-
+ drivers/net/ethernet/microsoft/Kconfig | 2 +-
+ drivers/soc/tegra/Kconfig              | 5 -----
+ 4 files changed, 3 insertions(+), 9 deletions(-)
 
-diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index b5a51b0ef944..766410827f3c 100644
---- a/arch/arm64/Kconfig
-+++ b/arch/arm64/Kconfig
-@@ -73,7 +73,7 @@ config ARM64
- 	select ARCH_SUPPORTS_HUGETLBFS
- 	select ARCH_SUPPORTS_MEMORY_FAILURE
- 	select ARCH_SUPPORTS_SHADOW_CALL_STACK if CC_HAVE_SHADOW_CALL_STACK
--	select ARCH_SUPPORTS_LTO_CLANG if CPU_LITTLE_ENDIAN
-+	select ARCH_SUPPORTS_LTO_CLANG
- 	select ARCH_SUPPORTS_LTO_CLANG_THIN
- 	select ARCH_SUPPORTS_CFI
- 	select ARCH_SUPPORTS_ATOMIC_RMW
-@@ -224,7 +224,7 @@ config ARM64
- 	select HAVE_FUNCTION_ARG_ACCESS_API
- 	select MMU_GATHER_RCU_TABLE_FREE
- 	select HAVE_RSEQ
--	select HAVE_RUST if RUSTC_SUPPORTS_ARM64
-+	select HAVE_RUST
- 	select HAVE_STACKPROTECTOR
- 	select HAVE_STATIC_CALL if CFI
- 	select HAVE_SYSCALL_TRACEPOINTS
-@@ -263,10 +263,6 @@ config ARM64
+diff --git a/drivers/hv/Kconfig b/drivers/hv/Kconfig
+index aa11bcefddf2..36445c2619ed 100644
+--- a/drivers/hv/Kconfig
++++ b/drivers/hv/Kconfig
+@@ -4,8 +4,7 @@ menu "Microsoft Hyper-V guest support"
+ 
+ config HYPERV
+ 	bool "Microsoft Hyper-V core hypervisor support"
+-	depends on (X86 && X86_LOCAL_APIC && HYPERVISOR_GUEST) \
+-		|| (ARM64 && !CPU_BIG_ENDIAN)
++	depends on (X86 && X86_LOCAL_APIC && HYPERVISOR_GUEST) || ARM64
+ 	select PARAVIRT
+ 	select X86_HV_CALLBACK_VECTOR if X86
+ 	select OF_EARLY_FLATTREE if OF
+diff --git a/drivers/misc/vmw_vmci/Kconfig b/drivers/misc/vmw_vmci/Kconfig
+index b6d4d7fd686a..ca03cbfdab1e 100644
+--- a/drivers/misc/vmw_vmci/Kconfig
++++ b/drivers/misc/vmw_vmci/Kconfig
+@@ -5,7 +5,7 @@
+ 
+ config VMWARE_VMCI
+ 	tristate "VMware VMCI Driver"
+-	depends on (X86 || ARM64) && !CPU_BIG_ENDIAN && PCI
++	depends on (X86 || ARM64) && PCI
  	help
- 	  ARM 64-bit (AArch64) Linux support.
- 
--config RUSTC_SUPPORTS_ARM64
--	def_bool y
--	depends on CPU_LITTLE_ENDIAN
--
- config CLANG_SUPPORTS_DYNAMIC_FTRACE_WITH_ARGS
- 	def_bool CC_IS_CLANG
- 	# https://github.com/ClangBuiltLinux/linux/issues/1507
-@@ -1596,28 +1592,6 @@ config ARM64_LPA2
- 	def_bool y
- 	depends on ARM64_PA_BITS_52 && !ARM64_64K_PAGES
- 
--choice
--	prompt "Endianness"
--	default CPU_LITTLE_ENDIAN
--	help
--	  Select the endianness of data accesses performed by the CPU. Userspace
--	  applications will need to be compiled and linked for the endianness
--	  that is selected here.
--
--config CPU_BIG_ENDIAN
--	bool "Build big-endian kernel"
--	depends on BROKEN
--	help
--	  Say Y if you plan on running a kernel with a big-endian userspace.
--
--config CPU_LITTLE_ENDIAN
--	bool "Build little-endian kernel"
--	help
--	  Say Y if you plan on running a kernel with a little-endian userspace.
--	  This is usually the case for distributions targeting arm64.
--
--endchoice
--
- config NR_CPUS
- 	int "Maximum number of CPUs (2-4096)"
- 	range 2 4096
-@@ -1855,7 +1829,6 @@ config KUSER_HELPERS
- 
- config COMPAT_VDSO
- 	bool "Enable vDSO for 32-bit applications"
+ 	  This is VMware's Virtual Machine Communication Interface.  It enables
+ 	  high-speed communication between host and guest in a virtual
+diff --git a/drivers/net/ethernet/microsoft/Kconfig b/drivers/net/ethernet/microsoft/Kconfig
+index e9be18c92ca5..c4ad3d85875a 100644
+--- a/drivers/net/ethernet/microsoft/Kconfig
++++ b/drivers/net/ethernet/microsoft/Kconfig
+@@ -18,7 +18,7 @@ if NET_VENDOR_MICROSOFT
+ config MICROSOFT_MANA
+ 	tristate "Microsoft Azure Network Adapter (MANA) support"
+ 	depends on PCI_MSI
+-	depends on X86_64 || (ARM64 && !CPU_BIG_ENDIAN)
++	depends on X86_64 || ARM64
+ 	depends on PCI_HYPERV
+ 	select AUXILIARY_BUS
+ 	select DIMLIB
+diff --git a/drivers/soc/tegra/Kconfig b/drivers/soc/tegra/Kconfig
+index 8b6fdb9ad1ea..318e7b604342 100644
+--- a/drivers/soc/tegra/Kconfig
++++ b/drivers/soc/tegra/Kconfig
+@@ -102,7 +102,6 @@ config ARCH_TEGRA_210_SOC
+ config ARCH_TEGRA_186_SOC
+ 	bool "NVIDIA Tegra186 SoC"
+ 	default ARCH_TEGRA
 -	depends on !CPU_BIG_ENDIAN
- 	depends on (CC_IS_CLANG && LD_IS_LLD) || "$(CROSS_COMPILE_COMPAT)" != ""
- 	default y
+ 	select PINCTRL_TEGRA186
+ 	select MAILBOX
+ 	select SOC_TEGRA_PMC
+@@ -117,7 +116,6 @@ config ARCH_TEGRA_186_SOC
+ config ARCH_TEGRA_194_SOC
+ 	bool "NVIDIA Tegra194 SoC"
+ 	default ARCH_TEGRA
+-	depends on !CPU_BIG_ENDIAN
+ 	select MAILBOX
+ 	select PINCTRL_TEGRA194
+ 	select SOC_TEGRA_PMC
+@@ -127,7 +125,6 @@ config ARCH_TEGRA_194_SOC
+ config ARCH_TEGRA_234_SOC
+ 	bool "NVIDIA Tegra234 SoC"
+ 	default ARCH_TEGRA
+-	depends on !CPU_BIG_ENDIAN
+ 	select MAILBOX
+ 	select PINCTRL_TEGRA234
+ 	select SOC_TEGRA_PMC
+@@ -137,7 +134,6 @@ config ARCH_TEGRA_234_SOC
+ config ARCH_TEGRA_238_SOC
+ 	bool "NVIDIA Tegra238 SoC"
+ 	default ARCH_TEGRA
+-	depends on !CPU_BIG_ENDIAN
+ 	select MAILBOX
+ 	select SOC_TEGRA_PMC
  	help
-@@ -2319,7 +2292,7 @@ menu "ARMv9.6 architectural features"
- config ARM64_LSUI
- 	bool "Support Unprivileged Load Store Instructions (LSUI)"
- 	default y
--	depends on AS_HAS_LSUI && !CPU_BIG_ENDIAN
-+	depends on AS_HAS_LSUI
+@@ -152,7 +148,6 @@ config ARCH_TEGRA_241_SOC
+ config ARCH_TEGRA_264_SOC
+ 	bool "NVIDIA Tegra264 SoC"
+ 	default ARCH_TEGRA
+-	depends on !CPU_BIG_ENDIAN
+ 	select MAILBOX
+ 	select SOC_TEGRA_PMC
  	help
- 	  The Unprivileged Load Store Instructions (LSUI) provides
- 	  variants load/store instructions that access user-space memory
-@@ -2524,7 +2497,7 @@ config EFI_STUB
- 
- config EFI
- 	bool "UEFI runtime support"
--	depends on OF && !CPU_BIG_ENDIAN
-+	depends on OF
- 	depends on KERNEL_MODE_NEON
- 	select ARCH_SUPPORTS_ACPI
- 	select LIBFDT
-diff --git a/arch/arm64/Makefile b/arch/arm64/Makefile
-index 6b005c8fef70..04e1a0d12f8f 100644
---- a/arch/arm64/Makefile
-+++ b/arch/arm64/Makefile
-@@ -119,20 +119,12 @@ KBUILD_CFLAGS	+= -ffixed-x18
- KBUILD_RUSTFLAGS += -Zfixed-x18
- endif
- 
--ifeq ($(CONFIG_CPU_BIG_ENDIAN), y)
--KBUILD_CPPFLAGS	+= -mbig-endian
--CHECKFLAGS	+= -D__AARCH64EB__
--# Prefer the baremetal ELF build target, but not all toolchains include
--# it so fall back to the standard linux version if needed.
--KBUILD_LDFLAGS	+= -EB $(call ld-option, -maarch64elfb, -maarch64linuxb -z norelro)
--UTS_MACHINE	:= aarch64_be
--else
- KBUILD_CPPFLAGS	+= -mlittle-endian
- CHECKFLAGS	+= -D__AARCH64EL__
--# Same as above, prefer ELF but fall back to linux target if needed.
-+# Prefer the baremetal ELF build target, but not all toolchains include
-+# it so fall back to the standard linux version if needed.
- KBUILD_LDFLAGS	+= -EL $(call ld-option, -maarch64elf, -maarch64linux -z norelro)
- UTS_MACHINE	:= aarch64
--endif
- 
- ifeq ($(CONFIG_LD_IS_LLD), y)
- KBUILD_LDFLAGS	+= -z norelro
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
