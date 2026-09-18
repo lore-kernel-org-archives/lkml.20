@@ -1,57 +1,42 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EA0351EE02;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4909851EE01;
 	Fri, 18 Sep 2026 18:24:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789755877; cv=none; b=Ann6ZSCNsRX9Ozrb2/RvZzQdYHqKIDlHgEcZxlRpOWl+u/FNrYqAkGt2oBxj2NgYkDVDDtVkxNEEo74bwSAKliXqYaQvhsPh2sFFw84BibbjA8Rn6THaXK9FkRDzUrke8gdN0FZN+BXZ7rrcRTLYY1kiIpTBvExiOFhnzwzetIM=
+	t=1789755878; cv=none; b=eOaAs2qka85xSivqF/QheRE2KM8F4tRVN4RagTuuSyJBHH7cCy2coDuyOU2YDveBzIvm5yTNmMaza57tovthLi4HQEEglF5c5tfwG5pdHgUPAuPctp8FVcBT2E1DD9yhsq3ZvA8XIZVX0KsMGkKXkmFKSy1uho2Y/EOVlQ8D3yA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789755877; c=relaxed/simple;
-	bh=7dPcj5UUnczYNg8wepPU0myCdaeAGNORlbBDHjag+bA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=hOI+sUYtiVoIeR4jit/qZ7yxVilrdulduODI65a0AmmjLsl1LX7J12izO5E/6j3WLziyPi/HH6goTsyLbuPiS8BWZMyIEdz3uOu6VB2YDvUQ2Nn/P5H7qFgHxImuZirhryQ/NwHAaWFSXrh+8tAgHyPMDK2bgRdUqP9vzhbSaTg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HuhlbooD; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789755878; c=relaxed/simple;
+	bh=HpFaIKXamEw2O5kEunyfuAd/hF8mFtMb+3TtsgCVQKM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=R9w2mJQWC5GgE9gkHrziF02gCcm8Rd4yU2hMdjN0hdxKpXBn4XxLZBvyEQJ9kzxgLfegcO7FWwhDpBc4jqb81hRhB0rYLdSy8BojWZQ6fEmXsuuzkl3qE9LVgv5QZCxzO1Jowv6bxOnH+Rh7PHy2ywhh7JQgvqEFHAkQVzdk8bE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Qs1UowhL; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HuhlbooD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789755875; x=1821291875;
-  h=from:to:cc:in-reply-to:references:subject:message-id:
-   date:mime-version:content-transfer-encoding;
-  bh=7dPcj5UUnczYNg8wepPU0myCdaeAGNORlbBDHjag+bA=;
-  b=HuhlbooDMjq4edZFHgPM6eBfhpXB4rz7+DClwP5TL7nxrqhZx4v8qmxT
-   +0IDIXqXYWPZ/TOQ20BGgfLesE8Z2cRhTNtbCLF+f0rNDckADNmx4xGKQ
-   n0uIXergOE/i3vfXgs5+k+hmV8ucyYM4309r2ETTOvWPsC++ltlW07InM
-   Ya3KnzV/Bvw7s4eklWr9k8qLcErYtgrnldSzNdTqmaPAlB0JVseDI9Q1C
-   Tbbk2qwyrHoPBGl3xMrhs7gXlwD6/K+2XGn6Ca2WGTS342Yh5/ELONAhU
-   bhSEmfJP2LtUs1zMM9UOlUlQvwswiEBxXx2skAG6J6o466IcoNpvHwQ1f
-   g==;
-X-CSE-ConnectionGUID: ARNljGKkSXeSFtgI8dJ6Gg==
-X-CSE-MsgGUID: jzoAuaW8RHq691kAem7rLw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11909"; a="100947358"
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="100947358"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 11:24:35 -0700
-X-CSE-ConnectionGUID: CZm3x/XxQ1my29O0uYQrtg==
-X-CSE-MsgGUID: U/bXlhnpRUykb3e/KCbnNg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="271860356"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.223])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 11:24:33 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: hansg@kernel.org, Suryansh Singh <technosfan14@gmail.com>
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260823072407.74512-1-technosfan14@gmail.com>
-References: <20260823072407.74512-1-technosfan14@gmail.com>
-Subject: Re: [PATCH] platform/x86: hp-wmi: Add OMEN board 8A18 thermal
- profile support
-Message-Id: <178975586858.29716.4185622384592340112.b4-ty@b4>
-Date: Fri, 18 Sep 2026 21:24:28 +0300
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Qs1UowhL"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id A3E9F1A0997;
+	Fri, 18 Sep 2026 18:24:33 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 7785860649;
+	Fri, 18 Sep 2026 18:24:33 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 35C0D10328E70;
+	Fri, 18 Sep 2026 20:24:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789755868; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=Pvc36FoghEYYCFubfFnQMRN2FocAYJqIw+J0M0VhtOU=;
+	b=Qs1UowhLbuNVZAi+zdnVS5gLiHmPUX0FvCEn+t57bPVZgM8CgmDxisCMPWBTdCfvkFBGI3
+	QcsJhFEfK1i/uGUYyk8asoT9zX00eburOHr+AtHVxc8uTm36kGLIaU2/h668paw9QZFMve
+	ab8JzTIcYnQ6STNWApaHHfHYfM6q/gr/10Jm+FPCzyrgWKRgMiZjsnQ2iWEYQaDlJyxF24
+	1uiHrHEfI/atFlAj4UDSgk9B6OMoiVO+4moYEzltwCo99SbtiQAtGdhTexQP0fJzoiPL1k
+	dTJ6p8dELJCh4XnIQ2E3Xme614dn5AsAPofGVSsj3AzGaezjpbDC/JX57gsuHg==
+From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+Date: Fri, 18 Sep 2026 20:23:56 +0200
+Subject: [PATCH 6.6.y 3/3] netfilter: nf_conntrack_expect: use conntrack GC
+ to reap expectations
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -60,35 +45,670 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260918-cve-2026-80668-6-6-v1-3-07f89b880b6c@bootlin.com>
+References: <20260918-cve-2026-80668-6-6-v1-0-07f89b880b6c@bootlin.com>
+In-Reply-To: <20260918-cve-2026-80668-6-6-v1-0-07f89b880b6c@bootlin.com>
+To: stable@vger.kernel.org, Pablo Neira Ayuso <pablo@netfilter.org>, 
+ Jozsef Kadlecsik <kadlec@netfilter.org>, Florian Westphal <fw@strlen.de>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ David Ahern <dsahern@kernel.org>
+Cc: Benjamin Robin <benjamin.robin@bootlin.com>, 
+ netfilter-devel@vger.kernel.org, coreteam@netfilter.org, 
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
 X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789755843; l=22826;
+ i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
+ bh=2I1jKQMcmQuybm4IAOk0+KeNi3Flt9feeG+IqHEZd5E=;
+ b=8G78GnXaCPG+kySrrMOgkCdtDdwbsqJOMIJ7H8xBo7YuRrrZR15vFk8c9gJl1YLOOAIlO1Krt
+ Fx/+0I1LTM0AUFVKRlrhE4Hwz+EWI4BBPmxvOvDx/NVwJkE8yaBA6VO
+X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
+ pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Sun, 23 Aug 2026 12:54:07 +0530, Suryansh Singh wrote:
+From: Pablo Neira Ayuso <pablo@netfilter.org>
 
-> The HP OMEN 17-ck1000nw (board ID: 8A18) supports the existing
-> OMEN thermal profile handling.
-> 
-> Add the DMI board name to omen_thermal_profile_boards[] so that
-> the existing thermal profile support is enabled for this board.
-> 
-> This enables the existing fan control and platform profile
-> handling for 8A18.
-> 
-> [...]
+This patch replaces the timer API by GC worker approach for
+expectations, as it already happened in many other subsystems.
 
-Thank you for your contribution, it has been applied to my local
-review-ilpo-next branch. Note it will show up in the public
-platform-drivers-x86/review-ilpo-next branch only once I've pushed my
-local branch there, which might take a while.
+Use the existing conntrack GC worker to iterate over the local list of
+expectations in the master conntrack to reap expired expectations.
+Check IPS_HELPER_BIT to run GC for expectations, set it on for nft_ct
+expectation which nevers sets it. Hold the expectation spinlock while
+iterating over the master conntrack expectation list to synchronize with
+nf_ct_remove_expectations(). This also performs runtime packet path
+garbage collection through the expectation insertion and lookup
+functions while walking over one of the chains of the global expectation
+hashtables. Unconfirmed conntrack entries are skipped since ct->ext can
+be reallocated and dying are skipped since those will be gone soon.
+Set on IPS_HELPER_BIT if the helper ct extension is added, then the new
+GC worker does not need to bump the ct refcount to check if the ct->ext
+helper is available.
 
-FYI [if applicable to your patch], as per Linus' policy change, also
-fixes are mostly routed through for-next unless the fix is for a
-commit introduced in the most recent cycle or is clearly a regression
-fix.
+This removes the extra bump on the refcount for expectation timers, this
+allows to remove several nf_ct_expect_put() calls after the unlink,
+after this update only refcount remains at 1 while on the expectation
+hashes.
 
-The list of commits applied:
-[1/1] platform/x86: hp-wmi: Add OMEN board 8A18 thermal profile support
-      commit: 6241e07ab561fa017b0eb63f785b98aefcfb2477
+This patch implicitly addresses a race with the existing timer API
+allowing an expectation to access a stale exp->master pointer which has
+been already released when expectation removal loses races with an
+expiring timer, ie. timer_del() reporting false.
 
---
- i.
+Add a new NF_CT_EXPECT_DEAD flag to reap this expectation via GC. This
+is needed by nf_conntrack_unexpect_related() which is called in error
+paths to invalidate newly created expectations that has been added into
+the hashes. These expectactions cannot be inmediately released as GC or
+nf_ct_remove_expectations() could race to make it. On expectation
+insert, the runtime GC reaps stale expectations before checking the
+expectation limit set by policy.
+
+Set current timestamp in nf_ct_expect_alloc(), then add the expectation
+policy timeout (or custom timeout specified added on top of this) to
+specify the expectation lifetime.
+
+Fixes: bffcaad9afdf ("netfilter: ctnetlink: ensure safe access to master conntrack")
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+---
+ include/net/netfilter/nf_conntrack_expect.h        |  16 ++-
+ include/uapi/linux/netfilter/nf_conntrack_common.h |   1 +
+ net/netfilter/nf_conntrack_core.c                  |  33 ++++-
+ net/netfilter/nf_conntrack_expect.c                | 145 ++++++++++-----------
+ net/netfilter/nf_conntrack_h323_main.c             |   4 +-
+ net/netfilter/nf_conntrack_helper.c                |  10 +-
+ net/netfilter/nf_conntrack_netlink.c               |  22 ++--
+ net/netfilter/nf_conntrack_sip.c                   |  13 +-
+ net/netfilter/nft_ct.c                             |   3 +-
+ 9 files changed, 139 insertions(+), 108 deletions(-)
+
+diff --git a/include/net/netfilter/nf_conntrack_expect.h b/include/net/netfilter/nf_conntrack_expect.h
+index 80f50fd0f7ad..be4a120d549e 100644
+--- a/include/net/netfilter/nf_conntrack_expect.h
++++ b/include/net/netfilter/nf_conntrack_expect.h
+@@ -54,8 +54,8 @@ struct nf_conntrack_expect {
+ 	/* The conntrack of the master connection */
+ 	struct nf_conn *master;
+ 
+-	/* Timer function; deletes the expectation. */
+-	struct timer_list timeout;
++	/* jiffies32 when this expectation expires */
++	u32 timeout;
+ 
+ #if IS_ENABLED(CONFIG_NF_NAT)
+ 	union nf_inet_addr saved_addr;
+@@ -69,6 +69,14 @@ struct nf_conntrack_expect {
+ 	struct rcu_head rcu;
+ };
+ 
++static inline bool nf_ct_exp_is_expired(const struct nf_conntrack_expect *exp)
++{
++	if (READ_ONCE(exp->flags) & NF_CT_EXPECT_DEAD)
++		return true;
++
++	return (__s32)(READ_ONCE(exp->timeout) - nfct_time_stamp) <= 0;
++}
++
+ static inline struct net *nf_ct_exp_net(struct nf_conntrack_expect *exp)
+ {
+ 	return read_pnet(&exp->net);
+@@ -130,7 +138,6 @@ static inline void nf_ct_unlink_expect(struct nf_conntrack_expect *exp)
+ 
+ void nf_ct_remove_expectations(struct nf_conn *ct);
+ void nf_ct_unexpect_related(struct nf_conntrack_expect *exp);
+-bool nf_ct_remove_expect(struct nf_conntrack_expect *exp);
+ 
+ void nf_ct_expect_iterate_destroy(bool (*iter)(struct nf_conntrack_expect *e, void *data), void *data);
+ void nf_ct_expect_iterate_net(struct net *net,
+@@ -153,5 +160,8 @@ static inline int nf_ct_expect_related(struct nf_conntrack_expect *expect,
+ 	return nf_ct_expect_related_report(expect, 0, 0, flags);
+ }
+ 
++struct nf_conn_help;
++void nf_ct_expectation_gc(struct nf_conn_help *master_help);
++
+ #endif /*_NF_CONNTRACK_EXPECT_H*/
+ 
+diff --git a/include/uapi/linux/netfilter/nf_conntrack_common.h b/include/uapi/linux/netfilter/nf_conntrack_common.h
+index 56b6b60a814f..ee51045ae1d6 100644
+--- a/include/uapi/linux/netfilter/nf_conntrack_common.h
++++ b/include/uapi/linux/netfilter/nf_conntrack_common.h
+@@ -160,6 +160,7 @@ enum ip_conntrack_expect_events {
+ #define NF_CT_EXPECT_USERSPACE		0x4
+ 
+ #ifdef __KERNEL__
++#define NF_CT_EXPECT_DEAD		0x8
+ #define NF_CT_EXPECT_MASK	(NF_CT_EXPECT_PERMANENT | NF_CT_EXPECT_INACTIVE | \
+ 				 NF_CT_EXPECT_USERSPACE)
+ #endif
+diff --git a/net/netfilter/nf_conntrack_core.c b/net/netfilter/nf_conntrack_core.c
+index bed9c370fd70..1b3e704800da 100644
+--- a/net/netfilter/nf_conntrack_core.c
++++ b/net/netfilter/nf_conntrack_core.c
+@@ -1423,6 +1423,31 @@ static bool gc_worker_can_early_drop(const struct nf_conn *ct)
+ 	return false;
+ }
+ 
++static void nf_ct_help_gc(struct nf_conn *ct)
++{
++	struct nf_conn_help *help;
++
++	if (!refcount_inc_not_zero(&ct->ct_general.use))
++		return;
++
++	/* load ->status after refcount increase */
++	smp_acquire__after_ctrl_dep();
++
++	if (!nf_ct_is_confirmed(ct) || nf_ct_is_dying(ct)) {
++		nf_ct_put(ct);
++		return;
++	}
++
++	/* re-check helper due to SLAB_TYPESAFE_BY_RCU */
++	if (test_bit(IPS_HELPER_BIT, &ct->status)) {
++		help = nfct_help(ct);
++		if (help)
++			nf_ct_expectation_gc(help);
++	}
++
++	nf_ct_put(ct);
++}
++
+ static void gc_worker(struct work_struct *work)
+ {
+ 	unsigned int i, hashsz, nf_conntrack_max95 = 0;
+@@ -1501,7 +1526,13 @@ static void gc_worker(struct work_struct *work)
+ 			expires = (expires - (long)next_run) / ++count;
+ 			next_run += expires;
+ 
+-			if (nf_conntrack_max95 == 0 || gc_worker_skip_ct(tmp))
++			if (gc_worker_skip_ct(tmp))
++				continue;
++
++			if (test_bit(IPS_HELPER_BIT, &tmp->status))
++				nf_ct_help_gc(tmp);
++
++			if (nf_conntrack_max95 == 0)
+ 				continue;
+ 
+ 			net = nf_ct_net(tmp);
+diff --git a/net/netfilter/nf_conntrack_expect.c b/net/netfilter/nf_conntrack_expect.c
+index e0b99cffe1ee..acf6e3490f8c 100644
+--- a/net/netfilter/nf_conntrack_expect.c
++++ b/net/netfilter/nf_conntrack_expect.c
+@@ -43,6 +43,24 @@ unsigned int nf_ct_expect_max __read_mostly;
+ static struct kmem_cache *nf_ct_expect_cachep __read_mostly;
+ static siphash_aligned_key_t nf_ct_expect_hashrnd;
+ 
++void nf_ct_expectation_gc(struct nf_conn_help *master_help)
++{
++	struct nf_conntrack_expect *exp;
++	struct hlist_node *next;
++
++	if (hlist_empty(&master_help->expectations))
++		return;
++
++	spin_lock_bh(&nf_conntrack_expect_lock);
++	hlist_for_each_entry_safe(exp, next, &master_help->expectations, lnode) {
++		if (!nf_ct_exp_is_expired(exp))
++			continue;
++
++		nf_ct_unlink_expect(exp);
++	}
++	spin_unlock_bh(&nf_conntrack_expect_lock);
++}
++
+ /* nf_conntrack_expect helper functions */
+ void nf_ct_unlink_expect_report(struct nf_conntrack_expect *exp,
+ 				u32 portid, int report)
+@@ -52,7 +70,6 @@ void nf_ct_unlink_expect_report(struct nf_conntrack_expect *exp,
+ 	struct nf_conntrack_net *cnet;
+ 
+ 	lockdep_nfct_expect_lock_held();
+-	WARN_ON_ONCE(timer_pending(&exp->timeout));
+ 
+ 	hlist_del_rcu(&exp->hnode);
+ 
+@@ -70,16 +87,6 @@ void nf_ct_unlink_expect_report(struct nf_conntrack_expect *exp,
+ }
+ EXPORT_SYMBOL_GPL(nf_ct_unlink_expect_report);
+ 
+-static void nf_ct_expectation_timed_out(struct timer_list *t)
+-{
+-	struct nf_conntrack_expect *exp = from_timer(exp, t, timeout);
+-
+-	spin_lock_bh(&nf_conntrack_expect_lock);
+-	nf_ct_unlink_expect(exp);
+-	spin_unlock_bh(&nf_conntrack_expect_lock);
+-	nf_ct_expect_put(exp);
+-}
+-
+ static unsigned int nf_ct_expect_dst_hash(const struct net *n, const struct nf_conntrack_tuple *tuple)
+ {
+ 	struct {
+@@ -117,19 +124,6 @@ nf_ct_exp_equal(const struct nf_conntrack_tuple *tuple,
+ 	       nf_ct_exp_zone_equal_any(i, zone);
+ }
+ 
+-bool nf_ct_remove_expect(struct nf_conntrack_expect *exp)
+-{
+-	lockdep_nfct_expect_lock_held();
+-
+-	if (del_timer(&exp->timeout)) {
+-		nf_ct_unlink_expect(exp);
+-		nf_ct_expect_put(exp);
+-		return true;
+-	}
+-	return false;
+-}
+-EXPORT_SYMBOL_GPL(nf_ct_remove_expect);
+-
+ struct nf_conntrack_expect *
+ __nf_ct_expect_find(struct net *net,
+ 		    const struct nf_conntrack_zone *zone,
+@@ -144,6 +138,8 @@ __nf_ct_expect_find(struct net *net,
+ 
+ 	h = nf_ct_expect_dst_hash(net, tuple);
+ 	hlist_for_each_entry_rcu(i, &nf_ct_expect_hash[h], hnode) {
++		if (nf_ct_exp_is_expired(i))
++			continue;
+ 		if (nf_ct_exp_equal(tuple, i, zone, net))
+ 			return i;
+ 	}
+@@ -178,6 +174,7 @@ nf_ct_find_expectation(struct net *net,
+ {
+ 	struct nf_conntrack_net *cnet = nf_ct_pernet(net);
+ 	struct nf_conntrack_expect *i, *exp = NULL;
++	struct hlist_node *next;
+ 	unsigned int h;
+ 
+ 	lockdep_nfct_expect_lock_held();
+@@ -186,7 +183,11 @@ nf_ct_find_expectation(struct net *net,
+ 		return NULL;
+ 
+ 	h = nf_ct_expect_dst_hash(net, tuple);
+-	hlist_for_each_entry(i, &nf_ct_expect_hash[h], hnode) {
++	hlist_for_each_entry_safe(i, next, &nf_ct_expect_hash[h], hnode) {
++		if (nf_ct_exp_is_expired(i)) {
++			nf_ct_unlink_expect(i);
++			continue;
++		}
+ 		if (!(i->flags & NF_CT_EXPECT_INACTIVE) &&
+ 		    nf_ct_exp_equal(tuple, i, zone, net)) {
+ 			exp = i;
+@@ -196,13 +197,16 @@ nf_ct_find_expectation(struct net *net,
+ 	if (!exp)
+ 		return NULL;
+ 
++	if (!refcount_inc_not_zero(&exp->use))
++		return NULL;
++
+ 	/* If master is not in hash table yet (ie. packet hasn't left
+ 	   this machine yet), how can other end know about expected?
+ 	   Hence these are not the droids you are looking for (if
+ 	   master ct never got confirmed, we'd hold a reference to it
+ 	   and weird things would happen to future packets). */
+ 	if (!nf_ct_is_confirmed(exp->master))
+-		return NULL;
++		goto err_release_exp;
+ 
+ 	/* Avoid race with other CPUs, that for exp->master ct, is
+ 	 * about to invoke ->destroy(), or nf_ct_delete() via timeout
+@@ -214,18 +218,17 @@ nf_ct_find_expectation(struct net *net,
+ 	 */
+ 	if (unlikely(nf_ct_is_dying(exp->master) ||
+ 		     !refcount_inc_not_zero(&exp->master->ct_general.use)))
+-		return NULL;
++		goto err_release_exp;
+ 
+-	if (exp->flags & NF_CT_EXPECT_PERMANENT || !unlink) {
+-		refcount_inc(&exp->use);
+-		return exp;
+-	} else if (del_timer(&exp->timeout)) {
+-		nf_ct_unlink_expect(exp);
++	if (exp->flags & NF_CT_EXPECT_PERMANENT || !unlink)
+ 		return exp;
+-	}
+-	/* Undo exp->master refcnt increase, if del_timer() failed */
+-	nf_ct_put(exp->master);
+ 
++	nf_ct_unlink_expect(exp);
++
++	return exp;
++
++err_release_exp:
++	nf_ct_expect_put(exp);
+ 	return NULL;
+ }
+ 
+@@ -241,9 +244,8 @@ void nf_ct_remove_expectations(struct nf_conn *ct)
+ 		return;
+ 
+ 	spin_lock_bh(&nf_conntrack_expect_lock);
+-	hlist_for_each_entry_safe(exp, next, &help->expectations, lnode) {
+-		nf_ct_remove_expect(exp);
+-	}
++	hlist_for_each_entry_safe(exp, next, &help->expectations, lnode)
++		nf_ct_unlink_expect(exp);
+ 	spin_unlock_bh(&nf_conntrack_expect_lock);
+ }
+ EXPORT_SYMBOL_GPL(nf_ct_remove_expectations);
+@@ -292,7 +294,7 @@ static bool master_matches(const struct nf_conntrack_expect *a,
+ void nf_ct_unexpect_related(struct nf_conntrack_expect *exp)
+ {
+ 	spin_lock_bh(&nf_conntrack_expect_lock);
+-	nf_ct_remove_expect(exp);
++	WRITE_ONCE(exp->flags, exp->flags | NF_CT_EXPECT_DEAD);
+ 	spin_unlock_bh(&nf_conntrack_expect_lock);
+ }
+ EXPORT_SYMBOL_GPL(nf_ct_unexpect_related);
+@@ -308,6 +310,7 @@ struct nf_conntrack_expect *nf_ct_expect_alloc(struct nf_conn *me)
+ 	if (!new)
+ 		return NULL;
+ 
++	new->timeout = nfct_time_stamp;
+ 	new->master = me;
+ 	refcount_set(&new->use, 1);
+ 	return new;
+@@ -413,17 +416,12 @@ static void nf_ct_expect_insert(struct nf_conntrack_expect *exp,
+ 	struct net *net = nf_ct_exp_net(exp);
+ 	unsigned int h = nf_ct_expect_dst_hash(net, &exp->tuple);
+ 
+-	/* two references : one for hash insert, one for the timer */
+-	refcount_add(2, &exp->use);
++	refcount_inc(&exp->use);
+ 
+-	timer_setup(&exp->timeout, nf_ct_expectation_timed_out, 0);
+ 	helper = rcu_dereference_protected(master_help->helper,
+ 					   lockdep_is_held(&nf_conntrack_expect_lock));
+-	if (helper) {
+-		exp->timeout.expires = jiffies +
+-			helper->expect_policy[exp->class].timeout * HZ;
+-	}
+-	add_timer(&exp->timeout);
++	if (helper)
++		exp->timeout += helper->expect_policy[exp->class].timeout * HZ;
+ 
+ 	hlist_add_head_rcu(&exp->lnode, &master_help->expectations);
+ 	master_help->expecting[exp->class]++;
+@@ -435,19 +433,26 @@ static void nf_ct_expect_insert(struct nf_conntrack_expect *exp,
+ 	NF_CT_STAT_INC(net, expect_create);
+ }
+ 
+-/* Race with expectations being used means we could have none to find; OK. */
+ static void evict_oldest_expect(struct nf_conn_help *master_help,
+-				struct nf_conntrack_expect *new)
++				struct nf_conntrack_expect *new,
++				const struct nf_conntrack_expect_policy *p)
+ {
+ 	struct nf_conntrack_expect *exp, *last = NULL;
++	struct hlist_node *next;
+ 
+-	hlist_for_each_entry(exp, &master_help->expectations, lnode) {
++	hlist_for_each_entry_safe(exp, next, &master_help->expectations, lnode) {
++		if (nf_ct_exp_is_expired(exp)) {
++			nf_ct_unlink_expect(exp);
++			continue;
++		}
+ 		if (exp->class == new->class)
+ 			last = exp;
+ 	}
+ 
+-	if (last)
+-		nf_ct_remove_expect(last);
++	/* Still worth to evict oldest expectation after garbage collection? */
++	if (last &&
++	    master_help->expecting[last->class] >= p->max_expected)
++		nf_ct_unlink_expect(last);
+ }
+ 
+ static inline int __nf_ct_expect_check(struct nf_conntrack_expect *expect,
+@@ -467,14 +472,18 @@ static inline int __nf_ct_expect_check(struct nf_conntrack_expect *expect,
+ 
+ 	h = nf_ct_expect_dst_hash(net, &expect->tuple);
+ 	hlist_for_each_entry_safe(i, next, &nf_ct_expect_hash[h], hnode) {
++		if (nf_ct_exp_is_expired(i)) {
++			nf_ct_unlink_expect(i);
++			continue;
++		}
+ 		if (master_matches(i, expect, flags) &&
+ 		    expect_matches(i, expect)) {
+ 			if (i->class != expect->class ||
+ 			    i->master != expect->master)
+ 				return -EALREADY;
+ 
+-			if (nf_ct_remove_expect(i))
+-				break;
++			nf_ct_unlink_expect(i);
++			break;
+ 		} else if (expect_clash(i, expect)) {
+ 			ret = -EBUSY;
+ 			goto out;
+@@ -486,14 +495,8 @@ static inline int __nf_ct_expect_check(struct nf_conntrack_expect *expect,
+ 	if (helper) {
+ 		p = &helper->expect_policy[expect->class];
+ 		if (p->max_expected &&
+-		    master_help->expecting[expect->class] >= p->max_expected) {
+-			evict_oldest_expect(master_help, expect);
+-			if (master_help->expecting[expect->class]
+-						>= p->max_expected) {
+-				ret = -EMFILE;
+-				goto out;
+-			}
+-		}
++		    master_help->expecting[expect->class] >= p->max_expected)
++			evict_oldest_expect(master_help, expect, p);
+ 	}
+ 
+ 	cnet = nf_ct_pernet(net);
+@@ -547,10 +550,8 @@ void nf_ct_expect_iterate_destroy(bool (*iter)(struct nf_conntrack_expect *e, vo
+ 		hlist_for_each_entry_safe(exp, next,
+ 					  &nf_ct_expect_hash[i],
+ 					  hnode) {
+-			if (iter(exp, data) && del_timer(&exp->timeout)) {
++			if (iter(exp, data))
+ 				nf_ct_unlink_expect(exp);
+-				nf_ct_expect_put(exp);
+-			}
+ 		}
+ 	}
+ 
+@@ -577,10 +578,8 @@ void nf_ct_expect_iterate_net(struct net *net,
+ 			if (!net_eq(nf_ct_exp_net(exp), net))
+ 				continue;
+ 
+-			if (iter(exp, data) && del_timer(&exp->timeout)) {
++			if (iter(exp, data))
+ 				nf_ct_unlink_expect_report(exp, portid, report);
+-				nf_ct_expect_put(exp);
+-			}
+ 		}
+ 	}
+ 
+@@ -657,17 +656,17 @@ static int exp_seq_show(struct seq_file *s, void *v)
+ 	struct net *net = seq_file_net(s);
+ 	struct hlist_node *n = v;
+ 	char *delim = "";
++	__s32 timeout;
+ 
+ 	expect = hlist_entry(n, struct nf_conntrack_expect, hnode);
+ 
+ 	if (!net_eq(nf_ct_exp_net(expect), net))
+ 		return 0;
++	if (nf_ct_exp_is_expired(expect))
++		return 0;
+ 
+-	if (expect->timeout.function)
+-		seq_printf(s, "%ld ", timer_pending(&expect->timeout)
+-			   ? (long)(expect->timeout.expires - jiffies)/HZ : 0);
+-	else
+-		seq_puts(s, "- ");
++	timeout = (__s32)(READ_ONCE(expect->timeout) - nfct_time_stamp) / HZ;
++	seq_printf(s, "%d ", timeout > 0 ? timeout : 0);
+ 	seq_printf(s, "l3proto = %u proto=%u ",
+ 		   expect->tuple.src.l3num,
+ 		   expect->tuple.dst.protonum);
+diff --git a/net/netfilter/nf_conntrack_h323_main.c b/net/netfilter/nf_conntrack_h323_main.c
+index 2e8595f2adcd..1f979268057f 100644
+--- a/net/netfilter/nf_conntrack_h323_main.c
++++ b/net/netfilter/nf_conntrack_h323_main.c
+@@ -1408,8 +1408,8 @@ static int process_rcf(struct sk_buff *skb, struct nf_conn *ct,
+ 				 "timeout to %u seconds for",
+ 				 info->timeout);
+ 			nf_ct_dump_tuple(&exp->tuple);
+-			mod_timer_pending(&exp->timeout,
+-					  jiffies + info->timeout * HZ);
++			WRITE_ONCE(exp->timeout,
++				   nfct_time_stamp + (info->timeout * HZ));
+ 		}
+ 		spin_unlock_bh(&nf_conntrack_expect_lock);
+ 	}
+diff --git a/net/netfilter/nf_conntrack_helper.c b/net/netfilter/nf_conntrack_helper.c
+index 7174369e5aa6..2caf728408a7 100644
+--- a/net/netfilter/nf_conntrack_helper.c
++++ b/net/netfilter/nf_conntrack_helper.c
+@@ -180,10 +180,10 @@ nf_ct_helper_ext_add(struct nf_conn *ct, gfp_t gfp)
+ 	struct nf_conn_help *help;
+ 
+ 	help = nf_ct_ext_add(ct, NF_CT_EXT_HELPER, gfp);
+-	if (help)
++	if (help) {
++		__set_bit(IPS_HELPER_BIT, &ct->status);
+ 		INIT_HLIST_HEAD(&help->expectations);
+-	else
+-		pr_debug("failed to add helper extension area");
++	}
+ 	return help;
+ }
+ EXPORT_SYMBOL_GPL(nf_ct_helper_ext_add);
+@@ -207,10 +207,8 @@ int __nf_ct_try_assign_helper(struct nf_conn *ct, struct nf_conn *tmpl,
+ 		return 0;
+ 
+ 	help = nfct_help(tmpl);
+-	if (help != NULL) {
++	if (help)
+ 		helper = rcu_dereference(help->helper);
+-		set_bit(IPS_HELPER_BIT, &ct->status);
+-	}
+ 
+ 	help = nfct_help(ct);
+ 
+diff --git a/net/netfilter/nf_conntrack_netlink.c b/net/netfilter/nf_conntrack_netlink.c
+index c9bbe25f2d67..6f211680a16e 100644
+--- a/net/netfilter/nf_conntrack_netlink.c
++++ b/net/netfilter/nf_conntrack_netlink.c
+@@ -2993,8 +2993,8 @@ static int
+ ctnetlink_exp_dump_expect(struct sk_buff *skb,
+ 			  const struct nf_conntrack_expect *exp)
+ {
++	__s32 timeout = (__s32)(READ_ONCE(exp->timeout) - nfct_time_stamp) / HZ;
+ 	struct nf_conn *master = exp->master;
+-	long timeout = ((long)exp->timeout.expires - (long)jiffies) / HZ;
+ 	struct nf_conntrack_helper *helper;
+ #if IS_ENABLED(CONFIG_NF_NAT)
+ 	struct nlattr *nest_parms;
+@@ -3157,6 +3157,9 @@ ctnetlink_exp_dump_table(struct sk_buff *skb, struct netlink_callback *cb)
+ restart:
+ 		hlist_for_each_entry_rcu(exp, &nf_ct_expect_hash[cb->args[0]],
+ 					 hnode) {
++			if (nf_ct_exp_is_expired(exp))
++				continue;
++
+ 			if (l3proto && exp->tuple.src.l3num != l3proto)
+ 				continue;
+ 
+@@ -3435,11 +3438,8 @@ static int ctnetlink_del_expect(struct sk_buff *skb,
+ 		}
+ 
+ 		/* after list removal, usage count == 1 */
+-		if (del_timer(&exp->timeout)) {
+-			nf_ct_unlink_expect_report(exp, NETLINK_CB(skb).portid,
+-						   nlmsg_report(info->nlh));
+-			nf_ct_expect_put(exp);
+-		}
++		nf_ct_unlink_expect_report(exp, NETLINK_CB(skb).portid,
++					   nlmsg_report(info->nlh));
+ 		spin_unlock_bh(&nf_conntrack_expect_lock);
+ 		/* have to put what we 'get' above.
+ 		 * after this line usage count == 0 */
+@@ -3463,14 +3463,10 @@ static int
+ ctnetlink_change_expect(struct nf_conntrack_expect *x,
+ 			const struct nlattr * const cda[])
+ {
+-	if (cda[CTA_EXPECT_TIMEOUT]) {
+-		if (!del_timer(&x->timeout))
+-			return -ETIME;
++	if (cda[CTA_EXPECT_TIMEOUT])
++		WRITE_ONCE(x->timeout, nfct_time_stamp +
++			   ntohl(nla_get_be32(cda[CTA_EXPECT_TIMEOUT])) * HZ);
+ 
+-		x->timeout.expires = jiffies +
+-			ntohl(nla_get_be32(cda[CTA_EXPECT_TIMEOUT])) * HZ;
+-		add_timer(&x->timeout);
+-	}
+ 	return 0;
+ }
+ 
+diff --git a/net/netfilter/nf_conntrack_sip.c b/net/netfilter/nf_conntrack_sip.c
+index 366f6c062801..51ea8a32139a 100644
+--- a/net/netfilter/nf_conntrack_sip.c
++++ b/net/netfilter/nf_conntrack_sip.c
+@@ -897,11 +897,10 @@ static int refresh_signalling_expectation(struct nf_conn *ct,
+ 		    exp->tuple.dst.protonum != proto ||
+ 		    exp->tuple.dst.u.udp.port != port)
+ 			continue;
+-		if (mod_timer_pending(&exp->timeout, jiffies + expires * HZ)) {
+-			exp->flags &= ~NF_CT_EXPECT_INACTIVE;
+-			found = 1;
+-			break;
+-		}
++		WRITE_ONCE(exp->timeout, nfct_time_stamp + (expires * HZ));
++		WRITE_ONCE(exp->flags, exp->flags & ~NF_CT_EXPECT_INACTIVE);
++		found = 1;
++		break;
+ 	}
+ 	spin_unlock_bh(&nf_conntrack_expect_lock);
+ 	return found;
+@@ -920,8 +919,7 @@ static void flush_expectations(struct nf_conn *ct, bool media)
+ 	hlist_for_each_entry_safe(exp, next, &help->expectations, lnode) {
+ 		if ((exp->class != SIP_EXPECT_SIGNALLING) ^ media)
+ 			continue;
+-		if (!nf_ct_remove_expect(exp))
+-			continue;
++		nf_ct_unlink_expect(exp);
+ 		if (!media)
+ 			break;
+ 	}
+@@ -1416,7 +1414,6 @@ static int process_register_request(struct sk_buff *skb, unsigned int protoff,
+ 
+ 	nf_ct_expect_init(exp, SIP_EXPECT_SIGNALLING, nf_ct_l3num(ct),
+ 			  saddr, &daddr, proto, NULL, &port);
+-	exp->timeout.expires = sip_timeout * HZ;
+ 	rcu_assign_pointer(exp->assign_helper, helper);
+ 	exp->flags = NF_CT_EXPECT_PERMANENT | NF_CT_EXPECT_INACTIVE;
+ 
+diff --git a/net/netfilter/nft_ct.c b/net/netfilter/nft_ct.c
+index 1d1673f49ff7..e624ea3b8c29 100644
+--- a/net/netfilter/nft_ct.c
++++ b/net/netfilter/nft_ct.c
+@@ -1129,7 +1129,6 @@ static void nft_ct_helper_obj_eval(struct nft_object *obj,
+ 	help = nf_ct_helper_ext_add(ct, GFP_ATOMIC);
+ 	if (help) {
+ 		rcu_assign_pointer(help->helper, to_assign);
+-		set_bit(IPS_HELPER_BIT, &ct->status);
+ 
+ 		if ((ct->status & IPS_NAT_MASK) && !nfct_seqadj(ct))
+ 			if (!nfct_seqadj_ext_add(ct))
+@@ -1311,7 +1310,7 @@ static void nft_ct_expect_obj_eval(struct nft_object *obj,
+ 		          &ct->tuplehash[!dir].tuple.src.u3,
+ 		          &ct->tuplehash[!dir].tuple.dst.u3,
+ 		          priv->l4proto, NULL, &priv->dport);
+-	exp->timeout.expires = jiffies + priv->timeout * HZ;
++	exp->timeout += priv->timeout * HZ;
+ 
+ 	if (nf_ct_expect_related(exp, 0) != 0)
+ 		regs->verdict.code = NF_DROP;
+
+-- 
+2.55.0
 
