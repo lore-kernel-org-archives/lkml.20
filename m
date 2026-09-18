@@ -1,59 +1,74 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9248B418A29;
-	Fri, 18 Sep 2026 09:53:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07D3E3FCB3D;
+	Fri, 18 Sep 2026 09:53:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789725189; cv=none; b=X6AZ2xt8T74E3Wok8s4ZnlYHjJtBoMorYUcz8xb1OuiZY8gRoFhz6PRNu+cP6Uy6Ij1E2rahp5fIHD9+V1RJ+tM3hlcSqjcqgJG16tnGGcCDDYCaSscqKT53b2cGhcay39uZwfcn50P3mhd0smPMNMfCMxvQCJj6WW98zKUt0Ok=
+	t=1789725220; cv=none; b=iyvipkSZDloDH26826nV9rnCgedhi1EHZp0XjDGcwiaDxWEqplYaWN697lQe4kdP1DyuBIp/ptTTYCZn4bacj2i6HZjsZXbJEZtqzZudexEHSGTCagvw9MkTp1NtT+ca7u1CdymLu87dTgPUZJlIvqpX9sbwyhYkEpMn2cTdQ2o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789725189; c=relaxed/simple;
-	bh=A2BCPxbyBOcu7X3icYlUuLbRwiLcqIjGSpxVUnQ2rDc=;
+	s=arc-20240116; t=1789725220; c=relaxed/simple;
+	bh=PXo58cPQdVMI15aEcgOn4rx1iY+tB75MZFCf4ZqiuGI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WkQZZuaOo0sZc6r0K4S0XwmVLl67YgabYIkqPjltqVJxQnH06pu3D6j14slLEjGwg9/FAx66iS3/EMm7GGzHm8rZ3wz6cZzEOadSA6EmOGpCJQpDJeZzQ1uMJCtNmctCLESkeEZUj8P81QPvGDTi4ioJpPtejt5JUrHzp8uAdS4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Uesenlux; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=rRhACiHFcuT1gpdnV2EGdsFEOFVrG5F+fTYgPiCMFs/cMooj+mLb65Pp5JRHKf8CTBVDNuiIKE8eWcpigPHWoQKIeJfgSfqFhwiKXkaRyRaiIKaTSnsaxDh2rpM2dCnN2jHAF6UGO7NfdDFyUx91UCnK6m+q4DM2P8jncwzYE6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=BXnJY+Kw; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Uesenlux"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789725187; x=1821261187;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=A2BCPxbyBOcu7X3icYlUuLbRwiLcqIjGSpxVUnQ2rDc=;
-  b=UesenluxtXyx5EScbqUh+X08XINN7DB0Xs/gN7z2EzELSPLb4S9PAc+r
-   ASbwInQF40yGtdu13ittnzsHXeSAkVLLnZEqYzwpBqoJybEl5YmMByHUV
-   XHdSZiwqs5lQkKjehi/gpwjCJXOUiUMCJByNjV+WM2QzBMLv3iyPzmgj8
-   LT7FQv959Udxd3IqHljct/qIaWVOlvSg0tTgmM1Z4srAtMOP9ZsE8Uxxm
-   7pDiKQKHmKe+Q1MonaSMceTQFyJKReU4CqEml0rGg8C3HkJnI70vKpkUN
-   om/sHwEkuzsdQZC2NGcJ5L61EgNi4QjeH65VMLiTU/9AygdzKRVQeIxVj
-   w==;
-X-CSE-ConnectionGUID: uQCBPyz4Q4Wjr7co041UxA==
-X-CSE-MsgGUID: 3FxkxgrGQJqUQKijZs8yfw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90085849"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="90085849"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 02:53:07 -0700
-X-CSE-ConnectionGUID: 35Z2PhwCRF+Bwer0KXRtBQ==
-X-CSE-MsgGUID: w4LxUBk0SruRMJi41bUAKA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="268066188"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa009.fm.intel.com with ESMTP; 18 Sep 2026 02:53:05 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 57B9699; Fri, 18 Sep 2026 11:53:00 +0200 (CEST)
-Date: Fri, 18 Sep 2026 11:53:00 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] usb: typec: Fix PD object leak in
- select_usb_power_delivery_store()
-Message-ID: <aq0J_PL-T0ccaAGf@black.igk.intel.com>
-References: <20260916170139.2085947-1-vulab@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="BXnJY+Kw"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I61mAY457514;
+	Fri, 18 Sep 2026 09:53:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=StVNTW7sQrE7aMJQyiQZ/VjGsw4C5c
+	2kstKvovWi+b8=; b=BXnJY+Kw4DjINLSUZQc7L1q6QutdAUPpHY9H0KB7M/581f
+	j2C14gq6Ou1gg4/tD+26aKvn44VqG7HiOW3Imxm5z+ybimkz1pDiMgtlDbGP08d9
+	6HJC9HHhurJT2/StjyVS2MKUCqnhhw2Fc32woCgRvS+/vdmW7n5sMnX4MLs1fvdA
+	nBm3ATZaB/KLWOOZkV2Ino8Sd2EDdGtW5uRxU3n0VTPMRWJ0tpNAzRHS1kWSL0sI
+	LM/nLswldk+qe19U0mvUxOc49MvVWFkapLa2M0kNBcRLalCcP5paepdriY62GgLS
+	zLBc8lq+nlT/mdUK52mfTJyxpQJZZ+1f18OU9uRA==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmx847d99-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 18 Sep 2026 09:53:28 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68I9o4b0466611;
+	Fri, 18 Sep 2026 09:53:27 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gr5xa6p4p-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 18 Sep 2026 09:53:27 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68I9rNmj51446168
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 18 Sep 2026 09:53:23 GMT
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7305D2004D;
+	Fri, 18 Sep 2026 09:53:23 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0A89A20040;
+	Fri, 18 Sep 2026 09:53:23 +0000 (GMT)
+Received: from osiris (unknown [9.111.38.246])
+	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Fri, 18 Sep 2026 09:53:22 +0000 (GMT)
+Date: Fri, 18 Sep 2026 11:53:21 +0200
+From: Heiko Carstens <hca@linux.ibm.com>
+To: Heiko Carstens <hca@linux.ibm.com>
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Mete Durlu <meted@linux.ibm.com>,
+        Peter Zijlstra <peterz@infradead.org>,
+        Mark Rutland <mark.rutland@arm.com>,
+        Juergen Christ <jchrist@linux.ibm.com>,
+        Ilya Leoshkevich <iii@linux.ibm.com>, linux-kernel@vger.kernel.org,
+        linux-s390@vger.kernel.org
+Subject: Re: [PATCH v2 12/12] s390/percpu: Rework to simplify percpu_entry()
+ and percpu_exit()
+Message-ID: <20260918095321.20386Ad2-hca@linux.ibm.com>
+References: <20260918084842.2333237-1-hca@linux.ibm.com>
+ <20260918084842.2333237-13-hca@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,46 +77,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260916170139.2085947-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260918084842.2333237-13-hca@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDEzMiBTYWx0ZWRfX5W5DOAYiz45z
+ HDgcVI04FVkmwnD/0u7hxxzSXnpvST78sX7n2TUw38MKx+DCeyzv6BG2gg8iIG9Jv2DKJ5JabkG
+ MaH0PR0lM7LTcXATRIi+Ndk2VNZZJvUveMDwIVoYwl+EqRHDwhqLyTemJeJFsRSsCM7MFBQj5E3
+ xo6UHRcyEPiClWho7dLVavHizeZSxyaSgX5NWLiCCT+NeIYXVyB7EFPmAUVInjp857n0Nf3IxnF
+ HYUtFNcwVUFFvFJqIBO1Y3ttqRW90oukQUXc8c852GlQyNQcO/MKpN7+cbuejwBB3rzfNeDSmaS
+ t1pGL6cNIUPD3hD27MDiM+PCYQdp9qagaccXFDnqejOsgfrtiUGorU/hERorf8mpsEUxx2mol8D
+ l9cZEvuZ6rCsao+ikR5iVKqRTLnASljzDVdgwIdkdAkl+ohbvJvsnTODR21THTn458UDjZH/LvO
+ 1uvD33D59q6JERbW4KQ==
+X-Proofpoint-ORIG-GUID: cgre2q3CAEt0lqF25r9Bv6lY0dShOcWs
+X-Proofpoint-GUID: cgre2q3CAEt0lqF25r9Bv6lY0dShOcWs
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDEzMiBTYWx0ZWRfX9dNANkoe3Yj1
+ XBaFzNGEC6vNwxuxIblmWIT28VJzgqL4mI24QhLLDyEsqKFSl5oXei09y1DT97fAO6qWTdowMhP
+ wcMmEccIC2XT1N7+cAkIpfwLS8eOf9A=
+X-Authority-Analysis: v=2.4 cv=cY9HPXDM c=1 sm=1 tr=0 ts=6aad0a18 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=1QE0VkzyRqUCxVgU6bQA:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-18_02,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 bulkscore=0 clxscore=1015 suspectscore=0
+ impostorscore=0 malwarescore=0 phishscore=0 adultscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180132
 
-On Wed, Sep 16, 2026 at 05:01:39PM +0000, Wentao Liang wrote:
-> select_usb_power_delivery_store() looks up the requested USB Power
-> Delivery object with usb_power_delivery_find(), which returns the
-> object with a reference taken by class_find_device_by_name(). The
-> reference is never dropped, neither when port->ops->pd_set() fails nor
-> when it succeeds, leaking a reference to the USB PD object on every
-> sysfs store.
-> 
-> Drop the reference with put_device() once the pd_set() callback has
-> returned and the object is no longer needed.
-> 
-> Fixes: a7cff92f0635 ("usb: typec: USB Power Delivery helpers for ports and partners")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+On Fri, Sep 18, 2026 at 10:48:42AM +0200, Heiko Carstens wrote:
+> diff --git a/arch/s390/include/asm/ptrace.h b/arch/s390/include/asm/ptrace.h
+> index 6411e3584283..5102d851b84b 100644
+> --- a/arch/s390/include/asm/ptrace.h
+> +++ b/arch/s390/include/asm/ptrace.h
+> @@ -132,7 +132,7 @@ struct pt_regs {
+>  	};
+>  	unsigned long flags;
+>  	unsigned long last_break;
+> -	unsigned int cpu;
+> +	unsigned int cpu
 
-There seems to already be a fix for this:
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=43ae2f90b70cda374c487c1639a01d0f14e5d583
-
-Thanks,
-
-> ---
->  drivers/usb/typec/class.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/usb/typec/class.c b/drivers/usb/typec/class.c
-> index 0977581ad1b6..0595e8cb83aa 100644
-> --- a/drivers/usb/typec/class.c
-> +++ b/drivers/usb/typec/class.c
-> @@ -1619,6 +1619,7 @@ static ssize_t select_usb_power_delivery_store(struct device *dev,
->  		return -EINVAL;
->  
->  	ret = port->ops->pd_set(port, pd);
-> +	put_device(&pd->dev);
->  	if (ret)
->  		return ret;
->  
-> -- 
-> 2.34.1
-
--- 
-heikki
+Looks like I forgot to amend a compile fix (missing semicolon) before
+sending. I'm not going to send a new version for just this.
