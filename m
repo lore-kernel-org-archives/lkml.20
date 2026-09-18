@@ -1,33 +1,33 @@
-Received: from outbound.mr.icloud.com (mr-2004l-snip4-11.eps.apple.com [57.103.69.151])
+Received: from outbound.mr.icloud.com (mr-2004e-snip4-11.eps.apple.com [57.103.69.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0135F4F68A0
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:16:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.69.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D63D4F6473
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:16:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.69.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789737389; cv=none; b=Ot1dF6zvZt1/JledVv+5rdMMU+gBPCZ8+HBBkx74U9I58VHnX8pOa5soet8GTtMCJYTxpbtKraqrzrGQTS+lcIwVID//Oku7w1RMQecp62HDh1s8+oDt3cXntb/20Vl9hakro+3Tr9YCiwyLCOxny8tGiuBNmW+J8khPyupjFW0=
+	t=1789737386; cv=none; b=Tg+fHjhIDpUh+EOr57ly60uTCRyzYqNLGAqh5kk/WlXkZ41sXXBHzaLm7quS0qhcrSSXxcurecox+aaX9/msFDT6vlbXjRO2qq266Vbb+EwKSYHck/sctNVS6lG9oTPY+k5G1E8QC4di4yyeQEJIITJHeaHQFUzJl7KD9uGD/Bo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789737389; c=relaxed/simple;
-	bh=GCD9DV4GGgw4cdzVkvPEZ3AbeLuLhpLPn9mSczGXylA=;
+	s=arc-20240116; t=1789737386; c=relaxed/simple;
+	bh=SK6s7KMD4Jl95cfCwPbPxtO5NbFYUyQnL6+IayhVHcM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FAFCQhHgxQ5OyXUrq+bXD4kKtkLqy12H9v13ewb/D1AHyU3zaYZoU4VhPtnRrqbGQcpxlq/XRa+5krCQOcAnuQAr5szkJaEjHWU6Vba5IzZyfOSDMPpAWiNoMg2TAF0uBMNvSLvLqpQ+W7J97lYTnUkd5F3hp3yQUkr6RY3WD4I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=UyKuVi9e; arc=none smtp.client-ip=57.103.69.151
+	 In-Reply-To:To:Cc; b=mQhHrQMvcvzif/j12NAhjllpeU7gv64O46ToqcegdiG0vZ0zfUEzsSE+FtK5Y1eiDhfzIo9XVNr6AUqsq0Bkn3Lbc61LOAPa61wOTNzHaeSv5Drvwr6wFS9sQLDJTIJuhhInNB14tqejaPwdb8VpQu5U1qQ4Z9rIDg36TovUKfc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=bvjinllW; arc=none smtp.client-ip=57.103.69.161
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="UyKuVi9e"
+	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="bvjinllW"
 Received: from outbound.mr.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-2a-10-percent-1 (Postfix) with ESMTPS id 50241180185B;
-	Fri, 18 Sep 2026 13:16:21 +0000 (UTC)
-X-ICL-RepId: 01a0b4a9-2d8e-7d9b-b824-aed8472b9981
-X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQFMHV8EUxxCDFYAXRcOVk1KF1UYREVRMFAbXwJCDxwTVhUTC1NWWxNVF0YJGQhdHRkKUFAGXRIYXBRcUFgeRhJWDV0JGQZAXlAbXwJCDxwTVhUTHUMZDysISgRDB0UCXgslEwlTVlsTVRdGCRkIXR0ZFVoJClcAQAtOA1QGUx8RTxweGwZGA0IUTApUAFwLQwgeB1gCK1sTVRdGCRkIXR0HWEcURw4PGVoUXBhT
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1789737383; x=1792329383; bh=Oo6D6URAaDvJzqA8a3rL3pvgHutk8Ae/Aa71TYMUavY=; h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:x-icloud-hme; b=UyKuVi9eQPOZjsKxOv9GbLc4Baa32MSMXR7sjtC6m0b+ORS30uCtws+q8n9CGOpHwnRWLJ13SQIQ60EHX1LEoiJngJGrC1JbxW8DwrqwOYaPIZZnzRgsKY/TNZDbcr1CF6pbG1N/qiAIrrSa1r74PJgdbr68zu90/lbFHDKE7P1Mr+M0VfkUrUbv2DPm1QZWYT5u8DqJ1PeyKWrekxj9Cd+HXntXYBIC109AoFYIdpJZPsCFCTMw63Nca3+vUT2cOhQ8vZZWraku4eVWwVFQbmux8LZW8EcMxIOPq6UEkZKA2TjJZEJy3KdN/Au94HSxZSV3CrJGq2Rr+I5WOlujOw==
+	by p00-icloudmta-asmtp-us-west-2a-10-percent-1 (Postfix) with ESMTPS id 0F08B1801853;
+	Fri, 18 Sep 2026 13:16:14 +0000 (UTC)
+X-ICL-RepId: 01a0b4a9-14cf-713b-a9fb-1165a4106375
+X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQFMHV8EUxxCDFYAXRcOVk1KF1UYREVRMFAbXwJCDxwTVhUTC1NWWxNVF0YJGQhdHRkKUFAGXRIYXBRcUFgeRhJWDV0JGQZAXlAbXwJCDxwTVhUTHUMZDysISgRDB0UCXgslEwlTVlsTVRdGCRkIXR0ZFVoJClcAQAtOA1QGUx8RTxweGwZGA0AUTApUAFwLQwgeB1gCK1sTVRdGCRkIXR0HWEcURw4PGVoUXBhT
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1789737380; x=1792329380; bh=h/ulgrp0eamLzgJbxhdpBetYThRbXMJU9M0DHtbFjys=; h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:x-icloud-hme; b=bvjinllWkcr3SfGKMMR7GRZfXMMyMMRJc7E05pWNGHusWCtvvGAH1iLRUfatLzeXNYcGhY7pWltLoYsDKg1UPJaHXn73Jk2kp/Zvo9I9rh/04XDFnkWgDJ6joPCrhJZTCVPktaTDazn60WAW6x86IZIclO4VQpcxxQH4LL5N9mWnoL84wOLO1hSIQ8Nz89peIQhpc59yWw+YgQTull4SsQsqaK0t9aZwRWnBxWSx7Vm/wGgAY+psiqkZLu6GTqIj6nPOj43Je28BFCHh7vjS3AYQ7qu89RYQZBcxbbHK/YAmNM/dyBJhvUXNWlGMquPvXfeD/xEHNxhV5y7+0AKPwA==
 Received: from [127.0.0.1] (unknown [17.156.200.36])
-	by p00-icloudmta-asmtp-us-west-2a-10-percent-1 (Postfix) with ESMTPSA id E330A1800864;
-	Fri, 18 Sep 2026 13:16:17 +0000 (UTC)
+	by p00-icloudmta-asmtp-us-west-2a-10-percent-1 (Postfix) with ESMTPSA id C9833180184F;
+	Fri, 18 Sep 2026 13:16:10 +0000 (UTC)
 From: Sofus Forstreuter <sofus.c@icloud.com>
-Date: Fri, 18 Sep 2026 15:15:17 +0200
-Subject: [PATCH 12/14] media: apple: avd: add vp9 support
+Date: Fri, 18 Sep 2026 15:15:15 +0200
+Subject: [PATCH 10/14] media: apple: add avd driver
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -36,7 +36,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-avd-v1-12-49977931f455@icloud.com>
+Message-Id: <20260918-avd-v1-10-49977931f455@icloud.com>
 References: <20260918-avd-v1-0-49977931f455@icloud.com>
 In-Reply-To: <20260918-avd-v1-0-49977931f455@icloud.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
@@ -50,1225 +50,2347 @@ Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
  devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org, 
  Sofus Forstreuter <sofus.c@icloud.com>
 X-Mailer: b4 0.15.2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDE4OCBTYWx0ZWRfX7ZG5P08XdlMv
- AoUE1Sd7b4VXc0dim6ObVlcHrs+aomjVRBl5baVhdyLCLO0ueZAnze3m9KDhwAXx8D+hnXUjwpy
- ULLLmFR0J0IHuBU+BOvnxNOq7+krQn5wdDhuAXxbRJiPOTdyQ5apP9rboC85SX4p3Y34WGJl5EY
- W4IyWxUcsMwolouwiPqJ7paBwof1d8JwpV5j3T/Zonq/TmQmj8Q77qvq9kj86frx4vr9AVQ1cef
- g9pdzpgUWv5sHXr8CR2UhfXFM7LaXSxDILEiDzDAq7DnCx7Fm/OtXIm48bW3wNFGsnYPdciJEqh
- t2WU55l9gcj4Xn6rdsGHI3LMYKK+TEZ+quOQ9guq1BqYUVDExwDHfESuCC9kL8=
-X-Authority-Info-Out: v=2.4 cv=Iv0Tsb/g c=1 sm=1 tr=0 ts=6aad39a6
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDE4OCBTYWx0ZWRfX3k0w6T2UqZfz
+ +ugbspYx0hzQwECwSNFESeMbHMfBxsOtMYfn6HecPEVBQLvKYK0b0bKLH5xid0nDisS7EWFg061
+ KeM039N6htAX4vpklbDHdSP7Lm+aIgF5C4O+/1QXcGz3ESZqS2XqOInje2NgHsPdrhKcvxZNg+W
+ nIaZOoW8niUurKiAAKJh9W/hS+A77rIZNN4SwKi3Ej8QtzFEA41pxsmZakXyGGIMzUgktwYqRc2
+ W5vypOfZFPopInOXMk4AIA4ANBnvt1OohH8jTGRX74xBMuJaHGPaj1FTKZ1wL9m44ytbY3xVfPG
+ KYAzkQKtBVBp71TuHytWqMS/sydaRIh290HnjRZ+S67cuuDpU0Qtx3DGNVU/7s=
+X-Proofpoint-ORIG-GUID: Bi8ipOqASb0ViF8r5bMO7zvvJCv2XX_5
+X-Proofpoint-GUID: Bi8ipOqASb0ViF8r5bMO7zvvJCv2XX_5
+X-Authority-Info-Out: v=2.4 cv=D8VK6/Rj c=1 sm=1 tr=0 ts=6aad39a1
  cx=c_apl:c_pps:t_out a=9mRn2PO/+PIrVdEbaIuMPg==:117
  a=9mRn2PO/+PIrVdEbaIuMPg==:17 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
  a=x7bEGLp0ZPQA:10 a=kLM9Tyy99jAA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=v3ZZPjhaAAAA:8 a=7YfXLusrAAAA:8 a=QX4gbG5DAAAA:8 a=s8YR1HE3AAAA:8
- a=Rqfy-2Hu8ob1gihRBwcA:9 a=QEXdDO2ut3YA:10 a=SLz71HocmBbuEhFRYD3r:22
- a=AbAUZ8qAyYyZVLSsDulk:22 a=jGH_LyMDp9YhSvY-UuyI:22
-X-Proofpoint-ORIG-GUID: qpHvihYuoXep2Ks93pAAqStTbPmmLHqo
-X-Proofpoint-GUID: qpHvihYuoXep2Ks93pAAqStTbPmmLHqo
-X-JNJ: AAAAAAABqfvPZxyj45cAkc9dumE8uBUoLRn2xRxA2GAbGHuyzuQa9qgZNZq/vIcmJjRgkSBELy3lWx5CShVxmrRTJmkmjbeIzr/LjtVzMUoDGLae6+LAziRYMsyq5Bw3Qw77htl2wVrVbx3J+DEz/unGHq6llYtpwYo2ko5wxai+fgUYmWoZ1EnC86Dr2a61zNawkVvlT1obc0byFWr61i7LaVZOzpqbZWcbO3FCZHOt8O+NCAAP5XikiFjj0qk60QXOLac5cDbCz3ehpXlEXSs9GghFAOpRiH7vKZ49VJ0Xnpvt8CbSnsWuAAiaa8QAIyAaThLycg5NuNtbrAKJhPDb2c+MYAZYJIDW8Aii7yluWEzxSfpm9ZeQDs2Xj7DMY+v/6I1mnU+F/tU/l9JxAj7OBi4/7nfyOdFCfOAGm89ee8LaWEc4bTzKmDwjAGlaW30EvnPPLbPYNfYUACWKV5anfpCIcQvTwoBq5cbCJkNIXUY+YBQ31zO8Y111ekaVxq7E9LDLFJhbWno02B0okjnhZ1qvZw8ABpXHVLaWO2jcFEocYgH3vemCA4aOfcahwimxvahs9z3qUQAgxyJMMIg+Kd2C03UlFdQfn8pqLzfopywTLJlWerGFrVAlW/LWH85A4jMP91WJVBU/Pbvx1OImcWY+J310d8KkxlKT3wTqk549ZJohQ2JY/bKc+0NV6RM6qj58ig6mdDK79w/5WvMhg7MgPy2uIRRnRU3Z8Okg89ucGcL2E148qDnFa8yph/K3dqYBJWEXyJmJPaSXtvdGrBQYDuDfeK1OSQBqL55Dpw8w+Y44TjsgmqS8wZDR7RyOpMV4zZIC97zbZJv58YJtPnu8qRh5UZcua2L7loAjIo0riVfuN2Pan10=
+ a=a4NEJbfMAAAA:8 a=cANso0OxAAAA:8 a=v3ZZPjhaAAAA:8 a=cm27Pg_UAAAA:8
+ a=7YfXLusrAAAA:8 a=dpTjxrn7gldKvdbQPh0A:9 a=QEXdDO2ut3YA:10
+ a=C1Acd3J0lQIyQdj7UkMi:22 a=SLz71HocmBbuEhFRYD3r:22
+X-JNJ: AAAAAAABvb4jsoVEy6UkEmVPBEDjBK/G/deENuSq3q4tKpCdapH9NTSskvPjMeN+wbmbAGxWv7+jo1y6T5RkVfsO+If1sVvkj7EcFDmHMaxjb5kEI6ZysyKI7nWvfMTIHnQ4SJycoTuazdHgUyLOIziBxabO5Upe26Vsj7jG9fOSBzImHUhrILknEC5JoIBabqf/+oiUVMCm2mRwiQsqQvrSnbS2YK0IW3PAW6+3laYR9d7dcESqNP/WiT/k6HDEwSdbYVPxaLqxqdm5Ys3oHSmDMuvj2uKz217qsrabAO2KOiWT9NuJq6A2wOzP3KJyPlIfZd4dhTb4brZv0C3iNMfcJoDJkvQm6fx1h6m39UFsX/3U+w8eYv14wWHFNszTy5BYqgXLnfQcVTFZSqjGtZPoA7NWh4djBX1mg35kK1pXO4flFbiKLBMBxVVb54DUTLYCz4UaZGj5yzVs4FbJ4adKVf3WCN26wt0VlI8xAqidJFiJ3jO4FfJeNjhyE05wxrgAIhngRotBUadzM5WoXMKhubn9dDugClDf6+PsZatR3DbrGPaeLg8PLgpCVQNPyPoGPjcD1Gx3iMxTb7fh8kU2y/OjTaOHvjhfFVE410y3XmWrRxbQAOLd6smgwm2sBQ0Ajw99zNtgoTe66tMICI/zHPhklKW4LTbcFS5yEv7Ye5huc7/MoQFmqSWkSJpgb/RDJdANvoJI9tN4FLYOGbalypmjewOg62iiaOqHhWS8Do2vnmZILwzMiLz+mObgEdGu3g14h4K/N7KdJ9sO1HKhVgrEzmRrJt6QkP8kYbIzKn0kaepYvoTS6ZM5SofCuja1s3+AZriBHGTKetKRqhsJeyaENFSfoTRWJdjtrHOi9CIwJ0T2+WKZqx9IdBtD
 
-The fluster scores is 216/305 for VP9-TEST-VECTORS and 1/6 for
-VP9-TEST-VECTORS-HIGH.
+Add the AVD (Apple Video Decoder) driver with V4L2 M2M stateless
+support based largely on rockchips implementation.
 
 Signed-off-by: Sofus Forstreuter <sofus.c@icloud.com>
 ---
- drivers/media/platform/apple/avd/Kconfig    |    1 +
- drivers/media/platform/apple/avd/Makefile   |    2 +-
- drivers/media/platform/apple/avd/avd-v4l2.c |   37 +
- drivers/media/platform/apple/avd/avd-vp9.c  | 1072 +++++++++++++++++++++++++++
- drivers/media/platform/apple/avd/avd.h      |   10 +
- 5 files changed, 1121 insertions(+), 1 deletion(-)
+ MAINTAINERS                                 |   1 +
+ drivers/media/platform/Kconfig              |   1 +
+ drivers/media/platform/Makefile             |   1 +
+ drivers/media/platform/apple/Kconfig        |   5 +
+ drivers/media/platform/apple/Makefile       |   3 +
+ drivers/media/platform/apple/avd/Kconfig    |  16 +
+ drivers/media/platform/apple/avd/Makefile   |   4 +
+ drivers/media/platform/apple/avd/avd-drv.c  | 817 ++++++++++++++++++++++++++++
+ drivers/media/platform/apple/avd/avd-hw.c   | 127 +++++
+ drivers/media/platform/apple/avd/avd-inst.h | 218 ++++++++
+ drivers/media/platform/apple/avd/avd-v4l2.c | 752 +++++++++++++++++++++++++
+ drivers/media/platform/apple/avd/avd.h      | 273 ++++++++++
+ 12 files changed, 2218 insertions(+)
 
-diff --git a/drivers/media/platform/apple/avd/Kconfig b/drivers/media/platform/apple/avd/Kconfig
-index 9e2e4e3fa56e..6d31f9285973 100644
---- a/drivers/media/platform/apple/avd/Kconfig
-+++ b/drivers/media/platform/apple/avd/Kconfig
-@@ -10,6 +10,7 @@ config VIDEO_APPLE_AVD
- 	select V4L2_MEM2MEM_DEV
- 	select VIDEOBUF2_DMA_CONTIG
- 	select V4L2_H264
-+	select V4L2_VP9
- 	help
- 	  Support for hardware video decoding on Apple Silicon devices using
- 	  the Apple Video Decoder (AVD).
-diff --git a/drivers/media/platform/apple/avd/Makefile b/drivers/media/platform/apple/avd/Makefile
-index 837182588e2a..54ea67a589cd 100644
---- a/drivers/media/platform/apple/avd/Makefile
-+++ b/drivers/media/platform/apple/avd/Makefile
-@@ -1,4 +1,4 @@
- # SPDX-License-Identifier: GPL-2.0-only
- 
--apple-avd-y := avd-drv.o avd-v4l2.o avd-hw.o avd-h264.o
-+apple-avd-y := avd-drv.o avd-v4l2.o avd-hw.o avd-h264.o avd-vp9.o
- obj-$(CONFIG_VIDEO_APPLE_AVD) += apple-avd.o
-diff --git a/drivers/media/platform/apple/avd/avd-v4l2.c b/drivers/media/platform/apple/avd/avd-v4l2.c
-index 36117fd5fbff..52dcb70b340c 100644
---- a/drivers/media/platform/apple/avd/avd-v4l2.c
-+++ b/drivers/media/platform/apple/avd/avd-v4l2.c
-@@ -227,6 +227,29 @@ static const struct avd_ctrls avd_h264_ctrls = {
- 	.num_ctrls = ARRAY_SIZE(avd_h264_ctrl_descs),
- };
- 
-+static const struct avd_ctrl_desc avd_vp9_ctrl_descs[] = {
-+	{
-+		.cfg.id = V4L2_CID_STATELESS_VP9_FRAME,
-+		.cfg.ops = &avd_ctrl_ops,
-+	},
-+	{
-+		.cfg.id = V4L2_CID_STATELESS_VP9_COMPRESSED_HDR,
-+	},
-+	{
-+		.cfg.id = V4L2_CID_MPEG_VIDEO_VP9_PROFILE,
-+		.cfg.min = V4L2_MPEG_VIDEO_VP9_PROFILE_0,
-+		.cfg.max = V4L2_MPEG_VIDEO_VP9_PROFILE_2,
-+		.cfg.menu_skip_mask =
-+			BIT(V4L2_MPEG_VIDEO_VP9_PROFILE_1),
-+		.cfg.def = V4L2_MPEG_VIDEO_VP9_PROFILE_0,
-+	},
-+};
-+
-+static const struct avd_ctrls avd_vp9_ctrls = {
-+	.ctrls = avd_vp9_ctrl_descs,
-+	.num_ctrls = ARRAY_SIZE(avd_vp9_ctrl_descs),
-+};
-+
- static const struct avd_coded_fmt_desc avd_coded_fmts[] = {
- 	{
- 		.fourcc = V4L2_PIX_FMT_H264_SLICE,
-@@ -243,6 +266,20 @@ static const struct avd_coded_fmt_desc avd_coded_fmts[] = {
- 		.subsystem_flags = VB2_V4L2_FL_SUPPORTS_M2M_HOLD_CAPTURE_BUF,
- 		.capability = AVD_CAPABILITY_H264,
- 	},
-+	{
-+		.fourcc = V4L2_PIX_FMT_VP9_FRAME,
-+		.frmsize = {
-+			.min_width = 64,
-+			.max_width = 16384,
-+			.step_width = 64,
-+			.min_height = 64,
-+			.max_height = 16384,
-+			.step_height = 16,
-+		},
-+		.ctrls = &avd_vp9_ctrls,
-+		.ops = &avd_vp9_fmt_ops,
-+		.capability = AVD_CAPABILITY_VP9,
-+	},
- };
- 
- static bool avd_is_capable(struct avd_ctx *ctx, unsigned int capability)
-diff --git a/drivers/media/platform/apple/avd/avd-vp9.c b/drivers/media/platform/apple/avd/avd-vp9.c
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 3c7c5fe3f0bc..6903baa15955 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -2676,6 +2676,7 @@ F:	drivers/input/touchscreen/apple_z2.c
+ F:	drivers/iommu/apple-dart.c
+ F:	drivers/iommu/io-pgtable-dart.c
+ F:	drivers/irqchip/irq-apple-aic.c
++F:	drivers/media/platform/apple/*
+ F:	drivers/mfd/macsmc.c
+ F:	drivers/nvme/host/apple.c
+ F:	drivers/nvmem/apple-efuses.c
+diff --git a/drivers/media/platform/Kconfig b/drivers/media/platform/Kconfig
+index 2c7699b6610b..280a9db25935 100644
+--- a/drivers/media/platform/Kconfig
++++ b/drivers/media/platform/Kconfig
+@@ -66,6 +66,7 @@ source "drivers/media/platform/allegro-dvt/Kconfig"
+ source "drivers/media/platform/amd/Kconfig"
+ source "drivers/media/platform/amlogic/Kconfig"
+ source "drivers/media/platform/amphion/Kconfig"
++source "drivers/media/platform/apple/Kconfig"
+ source "drivers/media/platform/arm/Kconfig"
+ source "drivers/media/platform/aspeed/Kconfig"
+ source "drivers/media/platform/atmel/Kconfig"
+diff --git a/drivers/media/platform/Makefile b/drivers/media/platform/Makefile
+index d47c47d817da..aa82e189936b 100644
+--- a/drivers/media/platform/Makefile
++++ b/drivers/media/platform/Makefile
+@@ -9,6 +9,7 @@ obj-y += allegro-dvt/
+ obj-y += amd/
+ obj-y += amlogic/
+ obj-y += amphion/
++obj-y += apple/
+ obj-y += arm/
+ obj-y += aspeed/
+ obj-y += atmel/
+diff --git a/drivers/media/platform/apple/Kconfig b/drivers/media/platform/apple/Kconfig
 new file mode 100644
-index 000000000000..76599a1a3981
+index 000000000000..43c0a56c36a8
 --- /dev/null
-+++ b/drivers/media/platform/apple/avd/avd-vp9.c
-@@ -0,0 +1,1072 @@
++++ b/drivers/media/platform/apple/Kconfig
+@@ -0,0 +1,5 @@
++# SPDX-License-Identifier: GPL-2.0-only
++
++comment "Apple media platform drivers"
++
++source "drivers/media/platform/apple/avd/Kconfig"
+diff --git a/drivers/media/platform/apple/Makefile b/drivers/media/platform/apple/Makefile
+new file mode 100644
+index 000000000000..d502cab93970
+--- /dev/null
++++ b/drivers/media/platform/apple/Makefile
+@@ -0,0 +1,3 @@
++# SPDX-License-Identifier: GPL-2.0-only
++
++obj-y += avd/
+diff --git a/drivers/media/platform/apple/avd/Kconfig b/drivers/media/platform/apple/avd/Kconfig
+new file mode 100644
+index 000000000000..3c41006f3a02
+--- /dev/null
++++ b/drivers/media/platform/apple/avd/Kconfig
+@@ -0,0 +1,16 @@
++# SPDX-License-Identifier: GPL-2.0
++
++config VIDEO_APPLE_AVD
++	tristate "Apple Silicon Video Decoding driver"
++	depends on VIDEO_DEV
++	depends on MEDIA_CONTROLLER
++	depends on ARCH_APPLE || (COMPILE_TEST && 64BIT)
++	depends on OF_ADDRESS
++	depends on V4L_PLATFORM_DRIVERS
++	select V4L2_MEM2MEM_DEV
++	select VIDEOBUF2_DMA_CONTIG
++	help
++	  Support for hardware video decoding on Apple Silicon devices using
++	  the Apple Video Decoder (AVD).
++          To compile this driver as a module, choose M here: the module will
++          be called apple-avd.
+diff --git a/drivers/media/platform/apple/avd/Makefile b/drivers/media/platform/apple/avd/Makefile
+new file mode 100644
+index 000000000000..bcf912cfea3d
+--- /dev/null
++++ b/drivers/media/platform/apple/avd/Makefile
+@@ -0,0 +1,4 @@
++# SPDX-License-Identifier: GPL-2.0-only
++
++apple-avd-y := avd-drv.o avd-v4l2.o avd-hw.o
++obj-$(CONFIG_VIDEO_APPLE_AVD) += apple-avd.o
+diff --git a/drivers/media/platform/apple/avd/avd-drv.c b/drivers/media/platform/apple/avd/avd-drv.c
+new file mode 100644
+index 000000000000..f6a5145c7038
+--- /dev/null
++++ b/drivers/media/platform/apple/avd/avd-drv.c
+@@ -0,0 +1,817 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
-+ * Apple Video Decoder VP9 driver
++ * Apple Video Decoder driver
++ *
++ * Copyright (C) 2026 The Asahi Linux Contributors
++ * Copyright (C) 2026 Sofus Forstreuter <sofus.c@icloud.com>
++ *
++ * Based on rkvdec driver by Collabora, Ltd.
++ * Copyright (C) 2019 Collabora, Ltd.
++ * Based on rkvdec driver by Google LLC. (Tomasz Figa <tfiga@chromium.org>)
++ * Based on s5p-mfc driver by Samsung Electronics Co., Ltd.
++ * Copyright (C) 2011 Samsung Electronics Co., Ltd.
++ */
++
++#include <linux/pm_runtime.h>
++#include <linux/iommu.h>
++#include <linux/reset.h>
++#include <linux/delay.h>
++
++#include <media/videobuf2-dma-contig.h>
++#include <media/videobuf2-v4l2.h>
++
++#include "avd.h"
++#include "avd-inst.h"
++
++static void calc_tile_meta(u32 w, u32 h, u32 bpb, u32 tile_dim,
++			   u32 meta_hdr_bytes, u32 *tile, u32 *meta)
++{
++	u32 tiles_width, tiles_height, meta_tile_w, meta_tile_h, tile_bytes;
++
++	tiles_width = DIV_ROUND_UP(w, tile_dim);
++	tiles_height = DIV_ROUND_UP(h, tile_dim);
++	tile_bytes = tile_dim * tile_dim * DIV_ROUND_UP(bpb, 8);
++	*tile = ALIGN(tiles_width * tiles_height * tile_bytes, 16);
++
++	meta_tile_w = roundup_pow_of_two(tiles_width);
++	meta_tile_h = roundup_pow_of_two(tiles_height);
++
++	*meta = ALIGN(meta_tile_w * meta_tile_h * meta_hdr_bytes, 16);
++}
++
++void fill_comp(struct avd_comp *comp, enum avd_image_fmt image_fmt, u32 width,
++	       u32 height)
++{
++	u32 y_meta, y, uv_meta, uv;
++	int bit_depth, vdiv, hdiv = 2;
++
++	switch (image_fmt) {
++	case AVD_IMG_FMT_420_10BIT:
++	case AVD_IMG_FMT_422_10BIT:
++		bit_depth = 10;
++		break;
++	default:
++		bit_depth = 8;
++		break;
++	}
++
++	switch (image_fmt) {
++	case AVD_IMG_FMT_420_10BIT:
++	case AVD_IMG_FMT_420_8BIT:
++		vdiv = 2;
++		break;
++	default:
++		vdiv = 1;
++		break;
++	}
++
++	/* y has 32x32 tiles and 32 bytes of metadata per tile */
++	calc_tile_meta(width, height, bit_depth, 32, 32, &y, &y_meta);
++	/* uv has 16x16 tiles and 8 bytes of metadata per tile */
++	calc_tile_meta(width / vdiv, height / hdiv, bit_depth * 2, 16, 8, &uv,
++		       &uv_meta);
++
++	/* output like DCP driver expects */
++	comp->offsets[0] = y;
++	comp->offsets[1] = 0;
++	comp->offsets[2] = y + y_meta + uv;
++	comp->offsets[3] = y + y_meta;
++
++	comp->size = y_meta + y + uv_meta + uv;
++}
++
++int avd_buf_alloc(struct avd_dev *avd, struct avd_buf *buf, size_t size)
++{
++	if (!buf->cpu && size < buf->size)
++		return 0;
++	else if (buf->cpu)
++		avd_buf_free(avd, buf);
++
++	if (size <= 0)
++		return -ENOMEM;
++
++	buf->size = size;
++	buf->cpu =
++		dma_alloc_coherent(avd->dev, buf->size, &buf->addr, GFP_KERNEL);
++	return buf->cpu ? 0 : -ENOMEM;
++}
++
++void avd_buf_free(struct avd_dev *avd, struct avd_buf *buf)
++{
++	if (buf->cpu)
++		dma_free_coherent(avd->dev, buf->size, buf->cpu, buf->addr);
++	memset(buf, 0, sizeof(*buf));
++}
++
++struct avd_decoded_buffer *
++avd_get_ref_buf(struct avd_ctx *ctx, struct vb2_v4l2_buffer *dst, u64 timestamp)
++{
++	struct v4l2_m2m_ctx *m2m_ctx = ctx->fh.m2m_ctx;
++	struct vb2_queue *cap_q = &m2m_ctx->cap_q_ctx.q;
++	struct vb2_buffer *buf;
++
++	/*
++	 * If a ref is unused or invalid, address of current destination
++	 * buffer is returned.
++	 */
++	buf = vb2_find_buffer(cap_q, timestamp);
++	if (!buf)
++		buf = &dst->vb2_buf;
++
++	return vb2_to_avd_decoded_buf(buf);
++}
++
++static int avd_wait_submission_queue(struct avd_ctx *ctx, int vp)
++{
++	struct avd_dev *avd = ctx->dev;
++	u32 max = readl_relaxed(avd->ctrl +
++				avd->variant->submit_queue_max_offset + vp * 4);
++	u32 cur = readl_relaxed(avd->ctrl +
++				avd->variant->submit_queue_status_offset + vp * 4);
++
++	if (cur == max) {
++		dev_err(avd->dev, "instruction que full! %d/%d", cur, max);
++		return 1;
++	}
++
++	if (cur >= max / 2) {
++		/* TODO: to high? low? Has weird side effects??? */
++		usleep_range(500, 650);
++	}
++	return 0;
++}
++
++int avd_init_job(struct avd_ctx *ctx, enum avd_codec codec, size_t segments)
++{
++	int ret = 0;
++	struct avd_job *job = &ctx->job;
++
++	job->codec = codec;
++	job->num = 0;
++	job->segments = kzalloc_objs(*job->segments, segments, GFP_KERNEL);
++	if (!job->segments)
++		ret = -ENOMEM;
++	return ret;
++}
++
++int avd_submit_job(struct avd_ctx *ctx)
++{
++	struct avd_dev *avd = ctx->dev;
++	struct avd_job *sub = &ctx->job;
++	struct avd_segment *seg;
++	int i, idx = 0, vp = 0;
++	void __iomem *reg;
++	u32 exec_mask = sub->codec == AVD_CODEC_VP9 &&
++					avd->variant->revision == 3 ?
++				AVD_OP_EXEC_REV3_VP9_MASK :
++				0;
++	u32 exec_rev_flag =
++		AVD_OP_EXEC_FLAG_START_REV4(avd->variant->revision == 4) |
++		AVD_OP_EXEC_FLAG_START_REV3(avd->variant->revision == 3);
++
++	ctx->fifo_idx = 0;
++	for (i = 0; i < sub->codec; i++)
++		vp += avd->variant->vp_slots[i];
++
++	schedule_delayed_work(&ctx->watchdog_work, msecs_to_jiffies(2000));
++	avd->variant->configure_stream(avd, ctx->inst.addr, ctx->fifo_idx, vp);
++	reg = avd->ctrl + avd->variant->vp_slot_offset + vp * 4;
++
++	/* the first segment is always the header (needs special handling) */
++
++	writel(AVD_OP_EXEC | exec_mask | exec_rev_flag |
++		       AVD_OP_EXEC_FIFO_IDX(ctx->fifo_idx),
++	       reg);
++	seg = &sub->segments[idx++];
++	for (i = 0; i < seg->num; i++)
++		writel(seg->instructions[i], reg);
++	for (; idx <= sub->num; idx++) {
++		seg = &sub->segments[idx];
++		for (i = 0; i < seg->num; i++)
++			writel(seg->instructions[i], reg);
++		if (avd_wait_submission_queue(ctx, vp))
++			break;
++		writel(AVD_OP_EXEC | exec_mask |
++			       AVD_OP_EXEC_FLAG_END(idx == sub->num),
++		       reg);
++	}
++
++	kfree(sub->segments);
++	sub->segments = NULL;
++	return 0;
++}
++
++static int avd_reset(struct avd_dev *avd)
++{
++	int ret = 0;
++
++	ret = pm_runtime_resume_and_get(avd->dev);
++	if (ret < 0)
++		return ret;
++
++	ret = reset_control_reset(avd->rstc);
++	if (ret)
++		dev_err(avd->dev, "reset: failed: %d", ret);
++
++	if (avd->empty_domain) {
++		iommu_attach_device(avd->empty_domain, avd->dev);
++		iommu_detach_device(avd->empty_domain, avd->dev);
++	}
++
++	ret = avd_boot(avd);
++	if (ret)
++		dev_err(avd->dev, "reset: failed to boot");
++
++	pm_runtime_put_autosuspend(avd->dev);
++
++	return ret;
++}
++
++static void avd_watchdog_func(struct work_struct *work)
++{
++	struct avd_dev *avd;
++	struct avd_ctx *ctx;
++	int ret;
++
++	ctx = container_of(to_delayed_work(work), struct avd_ctx,
++			   watchdog_work);
++	if (!ctx)
++		return;
++
++	avd = ctx->dev;
++
++	dev_err(avd->dev, "Frame processing timed out!");
++
++	writel(0, avd->mbox + AVD_REG_MBOX_IRQ_ENABLE);
++	ret = avd_reset(avd);
++	if (ret)
++		dev_err(avd->dev, "failed to reset: %d", ret);
++
++	avd_job_finish(ctx, VB2_BUF_STATE_ERROR);
++}
++
++static irqreturn_t avd_irq_handler(int irq, void *data)
++{
++	struct avd_dev *avd = data;
++	struct avd_ctx *ctx = v4l2_m2m_get_curr_priv(avd->m2m_dev);
++	enum vb2_buffer_state state;
++	u32 status;
++
++	if (!ctx)
++		return IRQ_HANDLED;
++
++	status = readl(avd->mbox + AVD_REG_MBOX1_RETRIEVE);
++
++	writel(AVD_MBOX1_NOT_EMPTY, avd->mbox + AVD_REG_MBOX_IRQ_CLR);
++
++	if (status & 0x10000) { /* dbg */
++		dev_warn(avd->dev, "no handler for IRQ: %3d",
++			 status & ~0x10000);
++		writel_relaxed(0, avd->mbox + AVD_REG_MBOX_IRQ_ENABLE);
++		return IRQ_HANDLED;
++	}
++
++	if (status & 0x1000) {
++		/* pp is done ! we are done */
++		state = VB2_BUF_STATE_DONE;
++	} else if (status & 0x100) {
++		/* a vp is done, kick the pp and hope for the best */
++		if (ctx->coded_fmt_desc->ops->submit)
++			ctx->coded_fmt_desc->ops->submit(ctx);
++		goto done;
++	} else {
++		dev_err(avd->dev, "H%d error", status);
++		/* let watchdog handle */
++		goto done;
++	}
++
++	/* if the watchdog_work has run the work has already been submitted */
++	if (cancel_delayed_work(&ctx->watchdog_work))
++		avd_job_finish(ctx, state);
++
++done:
++	return IRQ_HANDLED;
++}
++
++static void avd_device_run(void *priv)
++{
++	struct avd_ctx *ctx = priv;
++	struct avd_dev *avd = ctx->dev;
++	const struct avd_coded_fmt_desc *desc = ctx->coded_fmt_desc;
++	int ret;
++
++	if (WARN_ON(!desc))
++		return;
++
++	ret = pm_runtime_resume_and_get(avd->dev);
++	if (ret < 0) {
++		avd_job_finish_no_pm(ctx, VB2_BUF_STATE_ERROR);
++		return;
++	}
++
++	ret = desc->ops->run(ctx);
++	if (ret)
++		avd_job_finish(ctx, VB2_BUF_STATE_ERROR);
++}
++
++static int avd_queue_init(void *priv, struct vb2_queue *src_vq,
++			  struct vb2_queue *dst_vq)
++{
++	struct avd_ctx *ctx = priv;
++	int ret;
++
++	src_vq->type = V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE;
++	src_vq->io_modes = VB2_MMAP | VB2_DMABUF;
++	src_vq->drv_priv = ctx;
++	src_vq->ops = &avd_queue_ops;
++	src_vq->mem_ops = &vb2_dma_contig_memops;
++
++	src_vq->dma_attrs = 0;
++	src_vq->buf_struct_size = sizeof(struct v4l2_m2m_buffer);
++	src_vq->timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_COPY;
++	src_vq->lock = &ctx->dev->vdev_lock;
++	src_vq->dev = ctx->dev->v4l2_dev.dev;
++	src_vq->supports_requests = true;
++
++	ret = vb2_queue_init(src_vq);
++	if (ret)
++		return ret;
++
++	dst_vq->bidirectional = true;
++	dst_vq->mem_ops = &vb2_dma_contig_memops;
++	dst_vq->dma_attrs = 0;
++	dst_vq->type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
++	dst_vq->io_modes = VB2_MMAP | VB2_DMABUF;
++	dst_vq->drv_priv = ctx;
++	dst_vq->ops = &avd_queue_ops;
++	dst_vq->buf_struct_size = sizeof(struct avd_decoded_buffer);
++	dst_vq->timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_COPY;
++	dst_vq->lock = &ctx->dev->vdev_lock;
++	dst_vq->dev = ctx->dev->v4l2_dev.dev;
++
++	return vb2_queue_init(dst_vq);
++}
++
++static int avd_open(struct file *filp)
++{
++	struct avd_dev *avd = video_drvdata(filp);
++	struct avd_ctx *ctx;
++	int ret;
++
++	ctx = kzalloc_obj(*ctx, GFP_KERNEL);
++	if (!ctx)
++		return -ENOMEM;
++
++	ctx->dev = avd;
++
++	ret = avd_buf_alloc(avd, &ctx->inst, AVD_FIFO_SIZE);
++	if (ret)
++		goto err_free_ctx;
++
++	ret = avd_buf_alloc(avd, &ctx->pipe_state, 512);
++	if (ret)
++		goto err_free_ctx;
++
++	INIT_DELAYED_WORK(&ctx->watchdog_work, avd_watchdog_func);
++
++	avd_reset_coded_fmt(ctx);
++	avd_reset_decoded_fmt(ctx);
++
++	v4l2_fh_init(&ctx->fh, video_devdata(filp));
++
++	ctx->fh.m2m_ctx = v4l2_m2m_ctx_init(avd->m2m_dev, ctx, avd_queue_init);
++	if (IS_ERR(ctx->fh.m2m_ctx)) {
++		ret = PTR_ERR(ctx->fh.m2m_ctx);
++		goto err_free_ctx;
++	}
++
++	ret = avd_init_ctrls(ctx);
++	if (ret)
++		goto err_cleanup_m2m_ctx;
++
++	v4l2_fh_add(&ctx->fh, filp);
++
++	return 0;
++
++err_cleanup_m2m_ctx:
++	v4l2_m2m_ctx_release(ctx->fh.m2m_ctx);
++
++err_free_ctx:
++	avd_buf_free(avd, &ctx->pipe_state);
++	avd_buf_free(avd, &ctx->inst);
++	kfree(ctx);
++	return ret;
++}
++
++static int avd_release(struct file *filp)
++{
++	struct avd_ctx *ctx = file_to_ctx(filp);
++
++	v4l2_fh_del(&ctx->fh, filp);
++	v4l2_m2m_ctx_release(ctx->fh.m2m_ctx);
++	v4l2_ctrl_handler_free(&ctx->ctrl_hdl);
++	v4l2_fh_exit(&ctx->fh);
++	avd_buf_free(ctx->dev, &ctx->inst);
++	avd_buf_free(ctx->dev, &ctx->pipe_state);
++	kfree(ctx);
++
++	return 0;
++}
++
++static const struct v4l2_file_operations avd_fops = {
++	.owner = THIS_MODULE,
++	.open = avd_open,
++	.release = avd_release,
++	.poll = v4l2_m2m_fop_poll,
++	.unlocked_ioctl = video_ioctl2,
++	.mmap = v4l2_m2m_fop_mmap,
++};
++
++static const struct v4l2_m2m_ops avd_m2m_ops = {
++	.device_run = avd_device_run,
++};
++
++static const struct media_device_ops avd_media_ops = {
++	.req_validate = vb2_request_validate,
++	.req_queue = v4l2_m2m_request_queue,
++};
++
++static int avd_v4l2_init(struct avd_dev *avd)
++{
++	int ret;
++
++	ret = v4l2_device_register(avd->dev, &avd->v4l2_dev);
++	if (ret) {
++		dev_err(avd->dev, "Failed to register V4L2 device\n");
++		return ret;
++	}
++
++	avd->m2m_dev = v4l2_m2m_init(&avd_m2m_ops);
++	if (IS_ERR(avd->m2m_dev)) {
++		v4l2_err(&avd->v4l2_dev, "Failed to init mem2mem device\n");
++		ret = PTR_ERR(avd->m2m_dev);
++		goto err_unregister_v4l2;
++	}
++
++	avd->mdev.dev = avd->dev;
++	strscpy(avd->mdev.model, "avd", sizeof(avd->mdev.model));
++	strscpy(avd->mdev.bus_info, "platform:avd", sizeof(avd->mdev.bus_info));
++	media_device_init(&avd->mdev);
++	avd->mdev.ops = &avd_media_ops;
++	avd->v4l2_dev.mdev = &avd->mdev;
++
++	avd->vdev.lock = &avd->vdev_lock;
++	avd->vdev.v4l2_dev = &avd->v4l2_dev;
++	avd->vdev.fops = &avd_fops;
++	avd->vdev.release = video_device_release_empty;
++	avd->vdev.vfl_dir = VFL_DIR_M2M;
++	avd->vdev.device_caps = V4L2_CAP_STREAMING | V4L2_CAP_VIDEO_M2M_MPLANE;
++	avd->vdev.ioctl_ops = &avd_ioctl_ops;
++	video_set_drvdata(&avd->vdev, avd);
++	strscpy(avd->vdev.name, "avd", sizeof(avd->vdev.name));
++
++	ret = video_register_device(&avd->vdev, VFL_TYPE_VIDEO, -1);
++	if (ret) {
++		v4l2_err(&avd->v4l2_dev, "Failed to register video device\n");
++		goto err_cleanup_mc;
++	}
++
++	ret = v4l2_m2m_register_media_controller(avd->m2m_dev, &avd->vdev,
++						 MEDIA_ENT_F_PROC_VIDEO_DECODER);
++	if (ret) {
++		v4l2_err(&avd->v4l2_dev,
++			 "Failed to initialize V4L2 M2M media controller\n");
++		goto err_unregister_vdev;
++	}
++
++	ret = media_device_register(&avd->mdev);
++	if (ret) {
++		v4l2_err(&avd->v4l2_dev, "Failed to register media device\n");
++		goto err_unregister_mc;
++	}
++
++	return 0;
++
++err_unregister_mc:
++	v4l2_m2m_unregister_media_controller(avd->m2m_dev);
++
++err_unregister_vdev:
++	video_unregister_device(&avd->vdev);
++
++err_cleanup_mc:
++	media_device_cleanup(&avd->mdev);
++	v4l2_m2m_release(avd->m2m_dev);
++
++err_unregister_v4l2:
++	v4l2_device_unregister(&avd->v4l2_dev);
++	return ret;
++}
++
++static void avd_v4l2_cleanup(struct avd_dev *avd)
++{
++	media_device_unregister(&avd->mdev);
++	v4l2_m2m_unregister_media_controller(avd->m2m_dev);
++	video_unregister_device(&avd->vdev);
++	media_device_cleanup(&avd->mdev);
++	v4l2_m2m_release(avd->m2m_dev);
++	v4l2_device_unregister(&avd->v4l2_dev);
++}
++
++static const struct avd_variant avd_t8103_variant = {
++	.vp_slots = {
++		[AVD_CODEC_HEVC] = 2, /* no sure */
++		[AVD_CODEC_H264] = 1,
++		[AVD_CODEC_VP9] = 1,
++	},
++	.fifo_slots = 7,
++	.capabilities = AVD_CAPABILITY_HEVC |
++			AVD_CAPABILITY_H264 |
++			AVD_CAPABILITY_VP9,
++	.configure_stream = t8103_configure_stream,
++	.fw_name = "apple/avd-fw-v2-t0.bin",
++	.revision = 3,
++	.quirks = AVD_QUIRK_LSR | AVD_QUIRK_NO_PIPE_STATE,
++	.vp_slot_offset = 0x4004,
++	.submit_offset = 0x4014,
++	.submit_queue_max_offset = 0x4018,
++	.submit_queue_status_offset = 0x402c, /* (vp slots + 1) * 4 */
++};
++
++static const struct avd_variant avd_t6000_variant = {
++	.vp_slots = {
++		[AVD_CODEC_HEVC] = 4,
++		[AVD_CODEC_H264] = 4,
++		[AVD_CODEC_VP9] = 1,
++	},
++	.fifo_slots = 15,
++	.capabilities = AVD_CAPABILITY_HEVC |
++			AVD_CAPABILITY_H264 |
++			AVD_CAPABILITY_VP9,
++	.configure_stream = t8112_configure_stream,
++	.fw_name = "apple/avd-fw-v3-t0.bin",
++	.revision = 4,
++	.quirks = AVD_QUIRK_LSR | AVD_QUIRK_NO_PIPE_STATE,
++	.vp_slot_offset = 0xc,
++	.submit_offset = 0x30,
++	.submit_queue_max_offset = 0x34,
++	.submit_queue_status_offset = 0x5c,
++};
++
++static const struct avd_variant avd_t8112_variant = {
++	.vp_slots = {
++		[AVD_CODEC_HEVC] = 4,
++		[AVD_CODEC_H264] = 4,
++		[AVD_CODEC_VP9] = 1,
++	},
++	.fifo_slots = 15,
++	.capabilities = AVD_CAPABILITY_HEVC |
++			AVD_CAPABILITY_H264 |
++			AVD_CAPABILITY_VP9,
++	.configure_stream = t8112_configure_stream,
++	.fw_name = "apple/avd-fw-v3-t1.bin",
++	.revision = 4,
++	.quirks = AVD_QUIRK_LSR,
++	.vp_slot_offset = 0xc,
++	.submit_offset = 0x30,
++	.submit_queue_max_offset = 0x34,
++	.submit_queue_status_offset = 0x5c,
++};
++
++static const struct avd_variant avd_t6020_variant = {
++	.vp_slots = {
++		[AVD_CODEC_HEVC] = 4,
++		[AVD_CODEC_H264] = 4,
++		[AVD_CODEC_VP9] = 1,
++	},
++	.fifo_slots = 15,
++	.capabilities = AVD_CAPABILITY_HEVC |
++			AVD_CAPABILITY_H264 |
++			AVD_CAPABILITY_VP9,
++	.configure_stream = t8112_configure_stream,
++	.fw_name = "apple/avd-fw-v3-t1.bin",
++	.revision = 4,
++	.vp_slot_offset = 0xc,
++	.submit_offset = 0x30,
++	.submit_queue_max_offset = 0x34,
++	.submit_queue_status_offset = 0x5c,
++};
++
++static const struct avd_variant avd_t8122_variant = {
++	.vp_slots = {
++		[AVD_CODEC_HEVC] = 4,
++		[AVD_CODEC_H264] = 4,
++		[AVD_CODEC_VP9] = 1,
++		[AVD_CODEC_AV1] = 2,
++	},
++	.fifo_slots = 15,
++	.configure_stream = t8122_configure_stream,
++	.capabilities = AVD_CAPABILITY_HEVC |
++			AVD_CAPABILITY_H264 |
++			AVD_CAPABILITY_VP9 |
++			AVD_CAPABILITY_AV1,
++	.fw_name = "apple/avd-fw-v4-t0.bin",
++	.revision = 4,
++	.vp_slot_offset = 0xc,
++	.submit_offset = 0x40,
++	.submit_queue_max_offset = 0x44,
++	.submit_queue_status_offset = 0x7c,
++};
++
++static const struct avd_variant avd_t8140_variant = {
++	/* This is filled in using the tunables, what vp/pp to use? */
++	.vp_slots = {
++		[AVD_CODEC_HEVC] = 2,
++		[AVD_CODEC_H264] = 1,
++		[AVD_CODEC_VP9] = 1,
++		[AVD_CODEC_AV1] = 1,
++	},
++	.fifo_slots = 7,
++	.configure_stream = t8122_configure_stream,
++	.capabilities = AVD_CAPABILITY_HEVC |
++			AVD_CAPABILITY_H264 |
++			AVD_CAPABILITY_VP9 |
++			AVD_CAPABILITY_AV1,
++	.fw_name = "apple/avd-fw-v5-t0.bin",
++	.revision = 4,
++	.vp_slot_offset = 0xc,
++	.submit_offset = 0x40,
++	.submit_queue_max_offset = 0x44,
++	.submit_queue_status_offset = 0x7c,
++};
++
++static const struct avd_variant avd_t8132_variant = {
++	.vp_slots = {
++		[AVD_CODEC_HEVC] = 4,
++		[AVD_CODEC_H264] = 4,
++		[AVD_CODEC_VP9] = 1,
++		[AVD_CODEC_AV1] = 3,
++	},
++	.fifo_slots = 15,
++	.configure_stream = t8122_configure_stream,
++	.capabilities = AVD_CAPABILITY_HEVC |
++			AVD_CAPABILITY_H264 |
++			AVD_CAPABILITY_VP9 |
++			AVD_CAPABILITY_AV1,
++	.fw_name = "apple/avd-fw-v5-t1.bin",
++	.revision = 4,
++	.vp_slot_offset = 0xc,
++	.submit_offset = 0x40,
++	.submit_queue_max_offset = 0x44,
++	.submit_queue_status_offset = 0x7c,
++};
++
++/* can also be derived from a version register */
++static const struct of_device_id avd_of_match[] = {
++	{ .compatible = "apple,t8103-avd", .data = &avd_t8103_variant },
++	{ .compatible = "apple,t6000-avd", .data = &avd_t6000_variant },
++	{ .compatible = "apple,t8112-avd", .data = &avd_t8112_variant },
++	{ .compatible = "apple,t6020-avd", .data = &avd_t6020_variant },
++	{ .compatible = "apple,t8122-avd", .data = &avd_t8122_variant },
++	{ .compatible = "apple,t8132-avd", .data = &avd_t8132_variant },
++	{ .compatible = "apple,t8140-avd", .data = &avd_t8140_variant },
++	{},
++};
++
++MODULE_DEVICE_TABLE(of, avd_of_match);
++
++static int avd_probe(struct platform_device *pdev)
++{
++	struct avd_dev *avd;
++	const struct of_device_id *match;
++	int ret, irq;
++
++	avd = devm_kzalloc(&pdev->dev, sizeof(*avd), GFP_KERNEL);
++	if (!avd)
++		return -ENOMEM;
++
++	platform_set_drvdata(pdev, avd);
++	avd->dev = &pdev->dev;
++	avd->pdev = pdev;
++
++	mutex_init(&avd->vdev_lock);
++
++	match = of_match_node(avd_of_match, pdev->dev.of_node);
++	avd->variant = match->data;
++
++	avd->rstc = devm_reset_control_get_exclusive(avd->dev, NULL);
++
++	avd->code = devm_platform_ioremap_resource_byname(pdev, "code");
++	if (IS_ERR(avd->code))
++		return PTR_ERR(avd->code);
++	avd->mbox = devm_platform_ioremap_resource_byname(pdev, "mbox");
++	if (IS_ERR(avd->mbox))
++		return PTR_ERR(avd->mbox);
++	avd->ctrl = devm_platform_ioremap_resource_byname(pdev, "ctrl");
++	if (IS_ERR(avd->ctrl))
++		return PTR_ERR(avd->ctrl);
++
++	avd->domain = iommu_get_domain_for_dev(avd->dev);
++	if (avd->domain) {
++		avd->empty_domain = iommu_paging_domain_alloc(avd->dev);
++		if (IS_ERR(avd->empty_domain)) {
++			avd->empty_domain = NULL;
++			dev_warn(avd->dev, "cannot alloc new empty domain");
++		}
++	}
++
++	ret = request_firmware(&avd->fw, avd->variant->fw_name, avd->dev);
++
++	if (ret) {
++		dev_err(avd->dev, "failed to load firmware: %d", ret);
++		return ret;
++	}
++
++	ret = dma_set_mask_and_coherent(avd->dev,
++					DMA_BIT_MASK((avd->variant->quirks &
++						     AVD_QUIRK_LSR) ? 38 : 64));
++	if (ret) {
++		dev_err(avd->dev, "Failed to set DMA mask");
++		return ret;
++	}
++
++	irq = platform_get_irq(pdev, 1);
++	if (irq < 0)
++		return irq;
++	ret = devm_request_threaded_irq(&pdev->dev, irq, NULL, avd_irq_handler,
++					IRQF_ONESHOT, dev_name(&pdev->dev),
++					avd);
++	if (ret) {
++		dev_err(avd->dev, "Could not request IRQ 1");
++		return ret;
++	}
++
++	pm_runtime_set_autosuspend_delay(avd->dev, 100);
++	pm_runtime_use_autosuspend(avd->dev);
++	pm_runtime_enable(avd->dev);
++
++	ret = avd_v4l2_init(avd);
++	if (ret)
++		goto err_disable_runtime_pm;
++
++	return 0;
++
++err_disable_runtime_pm:
++	pm_runtime_dont_use_autosuspend(&pdev->dev);
++	pm_runtime_disable(&pdev->dev);
++	return ret;
++}
++
++static void avd_remove(struct platform_device *pdev)
++{
++	struct avd_dev *avd = platform_get_drvdata(pdev);
++
++	release_firmware(avd->fw);
++
++	avd_v4l2_cleanup(avd);
++
++	if (avd->empty_domain)
++		iommu_domain_free(avd->empty_domain);
++
++	pm_runtime_disable(avd->dev);
++	pm_runtime_dont_use_autosuspend(avd->dev);
++}
++
++static __maybe_unused int avd_runtime_resume(struct device *dev)
++{
++	int ret;
++	struct avd_dev *avd = platform_get_drvdata(to_platform_device(dev));
++
++	ret = avd_boot(avd);
++	if (ret)
++		dev_err(dev, "failed to boot");
++	return ret;
++}
++
++static __maybe_unused int avd_runtime_suspend(struct device *dev)
++{
++	struct avd_dev *avd = platform_get_drvdata(to_platform_device(dev));
++
++	avd_shutdown(avd);
++	return 0;
++}
++
++static const struct dev_pm_ops avd_pm_ops = {
++	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
++				pm_runtime_force_resume)
++	SET_RUNTIME_PM_OPS(avd_runtime_suspend, avd_runtime_resume, NULL)
++};
++
++static struct platform_driver avd_driver = {
++	.probe = avd_probe,
++	.remove = avd_remove,
++	.driver = {
++		.name = "avd",
++		.of_match_table = avd_of_match,
++		.pm = &avd_pm_ops,
++	},
++};
++module_platform_driver(avd_driver);
++
++MODULE_LICENSE("GPL");
++MODULE_DESCRIPTION("Apple Video Decoder driver");
++MODULE_FIRMWARE("apple/avd-fw-v2-t0.bin");
++MODULE_FIRMWARE("apple/avd-fw-v3-t0.bin");
++MODULE_FIRMWARE("apple/avd-fw-v3-t1.bin");
++MODULE_FIRMWARE("apple/avd-fw-v4-t0.bin");
++MODULE_FIRMWARE("apple/avd-fw-v5-t0.bin");
++MODULE_FIRMWARE("apple/avd-fw-v5-t1.bin");
+diff --git a/drivers/media/platform/apple/avd/avd-hw.c b/drivers/media/platform/apple/avd/avd-hw.c
+new file mode 100644
+index 000000000000..c14d2094e8e2
+--- /dev/null
++++ b/drivers/media/platform/apple/avd/avd-hw.c
+@@ -0,0 +1,127 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Apple Video Decoder hardware configuration
++ *
++ * Copyright (C) 2026 The Asahi Linux Contributors
++ * Copyright (C) 2026 Sofus Forstreuter <sofus.c@icloud.com>
++ * Copyright (C) 2023 Eileen Yoon <eyn@gmx.com>
++ */
++
++#include <linux/dev_printk.h>
++#include <linux/iopoll.h>
++
++#include "avd.h"
++
++#define AVD_V3_VP_INSN_FIFO_IOVA	0x4068
++#define AVD_V3_VP_INSN_FIFO_MASK	0x4084
++#define AVD_V3_VP_INSN_FIFO_CACH	0x40a0
++#define AVD_V3_VP_INSN_FIFO_XFER	0x40bc
++#define AVD_V3_VP_CTRL_UNK		0x4040
++#define AVD_V3_CTRL_CM3_IRQ_MASK	0x405c
++
++#define AVD_V4_VP_INSN_FIFO_IOVA_HI	0x30c
++#define AVD_V4_VP_INSN_FIFO_IOVA_LO	0x150
++#define AVD_V4_VP_INSN_FIFO_MASK	0x18c
++#define AVD_V4_VP_INSN_FIFO_CACH	0x1c8
++#define AVD_V4_VP_INSN_FIFO_XFER	0x204
++#define AVD_V4_VP_CTRL_CM3_IRQ_MASK	0x0fc
++#define AVD_V4_PP_CTRL_CM3_IRQ_MASK	0x120
++
++#define AVD_V5_VP_INSN_FIFO_IOVA_HI	0x20c
++#define AVD_V5_VP_INSN_FIFO_IOVA_LO	0x1d0
++#define AVD_V5_VP_INSN_FIFO_MASK	0x248
++#define AVD_V5_VP_INSN_FIFO_CACH	0x284
++#define AVD_V5_VP_INSN_FIFO_XFER	0x2c0
++#define AVD_V5_VP_CTRL_CM3_IRQ_MASK	0x15c
++#define AVD_V5_PP_CTRL_CM3_IRQ_MASK	0x190
++
++#define AVD_CM3_UNK	BIT(0)
++#define AVD_CM3_ERROR	BIT(1)
++#define AVD_CM3_DONE	BIT(2)
++#define AVD_CM3_FULL	BIT(3)
++
++#define AVD_VP_CM3_MASK	(AVD_CM3_UNK | AVD_CM3_ERROR | AVD_CM3_DONE)
++#define AVD_PP_CM3_MASK	(AVD_CM3_UNK | AVD_CM3_DONE)
++
++int avd_boot(struct avd_dev *avd)
++{
++	u32 val;
++	int ret;
++
++	if (avd->variant->revision != 3)
++		dev_info_once(avd->dev, "booting hw version: %04x",
++			      readl_relaxed(avd->ctrl));
++
++	memcpy_toio(avd->code, avd->fw->data, avd->fw->size);
++
++	writel_relaxed(AVD_MBOX_ENABLE, avd->mbox + AVD_REG_MBOX1_STATUS);
++	writel_relaxed(AVD_MBOX1_NOT_EMPTY,
++		       avd->mbox + AVD_REG_MBOX_IRQ_ENABLE);
++	writel_relaxed(AVD_RUN_CTRL_UNK_RUN, avd->mbox + AVD_REG_RUN_CTRL);
++
++	/* wait for cm3 to boot */
++	ret = readl_poll_timeout(avd->mbox + AVD_REG_FLAG0_SET, val, val == 1,
++				 10, 10000);
++	if (ret)
++		return ret;
++
++	return 0;
++}
++
++void avd_shutdown(struct avd_dev *avd)
++{
++	writel_relaxed(AVD_RUN_CTRL_UNK_STOP, avd->mbox + AVD_REG_RUN_CTRL);
++	writel_relaxed(1, avd->mbox + AVD_REG_FLAG0_CLR);
++	writel_relaxed(0, avd->mbox + AVD_REG_MBOX_IRQ_ENABLE);
++}
++
++#define w32(reg, val) (writel_relaxed(val, avd->ctrl + (reg)))
++#define m32(reg, val) (w32(reg, (val) | readl_relaxed(avd->ctrl + (reg))))
++
++void t8103_configure_stream(struct avd_dev *avd, dma_addr_t addr, u8 fifo_idx,
++			    u32 vp_slot)
++{
++	w32(AVD_V3_VP_INSN_FIFO_IOVA + (fifo_idx * 4), addr >> 8);
++	w32(AVD_V3_VP_INSN_FIFO_MASK + (fifo_idx * 4), 0);
++	w32(AVD_V3_VP_INSN_FIFO_CACH + (fifo_idx * 4), 0);
++	w32(AVD_V3_VP_INSN_FIFO_XFER + (fifo_idx * 4), 0);
++
++	w32(AVD_V3_VP_CTRL_UNK + (vp_slot * 4), 0);
++	m32(AVD_V3_CTRL_CM3_IRQ_MASK,
++	    AVD_VP_CM3_MASK << (vp_slot * 5) | (AVD_PP_CM3_MASK << 20));
++}
++
++void t8112_configure_stream(struct avd_dev *avd, dma_addr_t addr, u8 fifo_idx,
++			    u32 vp_slot)
++{
++	if (avd->variant->quirks & AVD_QUIRK_LSR) {
++		w32(AVD_V4_VP_INSN_FIFO_IOVA_LO + (fifo_idx * 4), addr >> 8);
++	} else {
++		w32(AVD_V4_VP_INSN_FIFO_IOVA_HI + (fifo_idx * 4), addr >> 32);
++		w32(AVD_V4_VP_INSN_FIFO_IOVA_LO + (fifo_idx * 4),
++		    addr & 0xffffffff);
++	}
++	w32(AVD_V4_VP_INSN_FIFO_MASK + (fifo_idx * 4), 0);
++	w32(AVD_V4_VP_INSN_FIFO_CACH + (fifo_idx * 4), 0);
++	w32(AVD_V4_VP_INSN_FIFO_XFER + (fifo_idx * 4), 0);
++
++	m32(AVD_V4_VP_CTRL_CM3_IRQ_MASK + (vp_slot * 4), AVD_VP_CM3_MASK);
++	m32(AVD_V4_PP_CTRL_CM3_IRQ_MASK, AVD_PP_CM3_MASK);
++}
++
++void t8122_configure_stream(struct avd_dev *avd, dma_addr_t addr, u8 fifo_idx,
++			    u32 vp_slot)
++{
++	w32(AVD_V5_VP_INSN_FIFO_IOVA_HI + (fifo_idx * 4), addr >> 32);
++	w32(AVD_V5_VP_INSN_FIFO_IOVA_LO + (fifo_idx * 4), addr & 0xffffffff);
++	w32(AVD_V5_VP_INSN_FIFO_MASK + (fifo_idx * 4), 0);
++	w32(AVD_V5_VP_INSN_FIFO_CACH + (fifo_idx * 4), 0);
++	w32(AVD_V5_VP_INSN_FIFO_XFER + (fifo_idx * 4), 0);
++
++	m32(AVD_V5_VP_CTRL_CM3_IRQ_MASK + (vp_slot * 4), AVD_VP_CM3_MASK);
++	m32(AVD_V5_PP_CTRL_CM3_IRQ_MASK, AVD_PP_CM3_MASK);
++}
++
++#undef w32
++#undef r32
++#undef m32
+diff --git a/drivers/media/platform/apple/avd/avd-inst.h b/drivers/media/platform/apple/avd/avd-inst.h
+new file mode 100644
+index 000000000000..d8e7ede37eb5
+--- /dev/null
++++ b/drivers/media/platform/apple/avd/avd-inst.h
+@@ -0,0 +1,218 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Apple Video Decoder instruction stream definitions
 + *
 + * Copyright (C) 2026 The Asahi Linux Contributors
 + * Copyright (C) 2026 Sofus Forstreuter <sofus.c@icloud.com>
 + * Copyright (C) 2023 Eileen Yoon <eyn@gmx.com>
 + *
-+ * Copyright (C) 2019 Collabora, Ltd.
-+ *	Boris Brezillon <boris.brezillon@collabora.com>
-+ * Copyright (C) 2021 Collabora, Ltd.
-+ *	Andrzej Pietrasiewicz <andrzej.p@collabora.com>
++ * The AVD block consists of one to four processors for each codecs
++ * called "VP". Its the VP's job to prepare codecs specifik syntax into
++ * something the shared processor(s?) (called PP, Pipeline?) understands. PP
++ * implements different DSP routines: QT, IPMC, LF, MV, TP, PC, SW, LR.
 + *
-+ * Copyright (C) 2016 Rockchip Electronics Co., Ltd.
-+ *	Alpha Lin <Alpha.Lin@rock-chips.com>
++ * When VP processes a u32, if the value has the two upper bits set and unset
++ * respectively, it will execute the opcode function stored in the next 8
++ * bits.
++ *
++ * Please refer to
++ * https://web.archive.org/web/20240105073842/https://eiln.net/avd-notes2.html
++ * for an excellent write-up by Eileen.
 + */
 +
-+#include <linux/dev_printk.h>
-+#include <linux/unaligned.h>
++#ifndef AVD_INST_H_
++#define AVD_INST_H_
 +
-+#include <media/v4l2-vp9.h>
++#include <linux/types.h>
++#include <linux/bitfield.h>
++
++#include "avd.h"
++
++#define AVD_OP_EXEC			FIELD_PREP(GENMASK(31, 24), 0x2b)
++#define AVD_OP_EXEC_FIFO_MASK(v)	FIELD_PREP(GENMASK(3, 0), v)
++#define AVD_OP_EXEC_FIFO_IDX(v)		FIELD_PREP(GENMASK(7, 4), v)
++#define AVD_OP_EXEC_FLAG_START_REV3(v)	FIELD_PREP(BIT(8), !!(v))
++#define AVD_OP_EXEC_FLAG_START_REV4(v)	FIELD_PREP(BIT(9), !!(v))
++#define AVD_OP_EXEC_FLAG_END(v)		FIELD_PREP(BIT(10), !!(v))
++#define AVD_OP_EXEC_REV3_VP9_MASK	FIELD_PREP(GENMASK(23, 12), 0xfff)
++
++#define AVD_OP_HDR			FIELD_PREP(GENMASK(31, 20), 0x2db)
++#define AVD_OP_HDR_CONST		FIELD_PREP(GENMASK(10, 0), 0x2e0)
++
++/*
++ * only for 10 bit.
++ * output in packed p010 / nv15 kinda format
++ * 10 bits per component. With groups of tree packed into 4 bytes (little
++ * endian order)
++ *  P  3  2  1
++ * [2:10:10:10]
++ *
++ * additionally, av1 and vp9 need an extra scratch buffer if this is set
++ */
++#define AVD_OP_HDR_FLAG_PACKED(v)	FIELD_PREP(BIT(10), !!(v))
++/* decompress pixel data */
++#define AVD_OP_HDR_FLAG_DECOMP(v)	FIELD_PREP(BIT(12), !!(v))
++#define AVD_OP_HDR_FLAG_INTRA(v)	FIELD_PREP(BIT(13), !!(v))
++#define AVD_OP_HDR_FLAG_PIPE_STATE(v)	FIELD_PREP(BIT(19), !!(v))
++
++#define AVD_OP_WEIGHTS_HDR		FIELD_PREP(GENMASK(31, 20), 0x2dd)
++#define AVD_OP_WEIGHTS_HDR_CHROMA(v)	FIELD_PREP(GENMASK(2, 0), v)
++#define AVD_OP_WEIGHTS_HDR_LUMA(v)	FIELD_PREP(GENMASK(5, 3), v)
++#define AVD_OP_WEIGHTS_HDR_FLAG0(v)	FIELD_PREP(BIT(6), !!(v))
++#define AVD_OP_WEIGHTS_HDR_FLAG1(v)	FIELD_PREP(BIT(7), !!(v))
++
++#define AVD_OP_WEIGHTS			FIELD_PREP(GENMASK(31, 20), 0x2de)
++#define AVD_OP_WEIGHTS_WEIGHT(v)	FIELD_PREP(GENMASK(8, 0), v)
++#define AVD_OP_WEIGHTS_INDEX(v)		FIELD_PREP(GENMASK(12, 9), v)
++#define AVD_OP_WEIGHTS_LIST_IDX(v)	FIELD_PREP(BIT(13), v)
++/* 1 = luma, 2,3 = chroma[{0,1}] */
++#define AVD_OP_WEIGHTS_IDENT(v)		FIELD_PREP(GENMASK(16, 14), v)
++
++#define AVD_OP_OFFSETS			FIELD_PREP(GENMASK(31, 20), 0x2df)
++#define AVD_OP_OFFSETS_OFFSET(v)	FIELD_PREP(GENMASK(15, 0), v)
++
++#define AVD_OP_CODED_DATA		FIELD_PREP(GENMASK(31, 20), 0x2d8)
++#define AVD_OP_CODED_DATA_ADDR(v)	FIELD_PREP(GENMASK(12, 0), v)
++#define AVD_OP_CODED_DATA_FLAG0(v)	FIELD_PREP(BIT(13), !!(v))
++#define AVD_OP_CODED_DATA_FLAG1(v)	FIELD_PREP(BIT(14), !!(v))
++#define AVD_OP_CODED_DATA_BIT_OFF(v)	FIELD_PREP(GENMASK(18, 15), v)
++
++#define AVD_OP_SL_LOC			FIELD_PREP(GENMASK(31, 24), 0x2c)
++#define AVD_OP_SL_LOC_X(v)		FIELD_PREP(GENMASK(11, 0), v)
++#define AVD_OP_SL_LOC_Y(v)		FIELD_PREP(GENMASK(23, 12), v)
++
++#define AVD_OP_SL_DIM_START		FIELD_PREP(GENMASK(31, 24), 0x2a)
++#define AVD_OP_SL_DIM_START_X(v)	FIELD_PREP(GENMASK(11, 0), v)
++#define AVD_OP_SL_DIM_START_Y(v)	FIELD_PREP(GENMASK(23, 12), v)
++
++/* end is not an op */
++#define AVD_SL_DIM_END_X(v)		FIELD_PREP(GENMASK(11, 0), v)
++#define AVD_SL_DIM_END_Y(v)		FIELD_PREP(GENMASK(23, 12), v)
++#define AVD_SL_DIM_END_COL(v)		FIELD_PREP(GENMASK(27, 24), v)
++#define AVD_SL_DIM_END_ROW(v)		FIELD_PREP(GENMASK(31, 28), v)
++
++#define AVD_OP_SL_REF			FIELD_PREP(GENMASK(31, 24), 0x2d)
++#define AVD_OP_SL_REF_MAX_MERGE(v)	FIELD_PREP(GENMASK(3, 1), v)
++
++#define AVD_OP_SL_REF_FLAG0(v)		FIELD_PREP(BIT(4), !!(v))
++#define AVD_OP_SL_REF_FLAG_CABAC(v)	FIELD_PREP(BIT(5), !!(v))
++#define AVD_OP_SL_REF_FLAG1(v)		FIELD_PREP(BIT(6), !!(v))
++#define AVD_OP_SL_REF_NUM_L0(v)		FIELD_PREP(GENMASK(15, 11), v)
++#define AVD_OP_SL_REF_NUM_L1(v)		FIELD_PREP(GENMASK(10, 7), v)
++#define AVD_OP_SL_REF_FLAG2(v)		FIELD_PREP(BIT(15), !!(v))
++#define AVD_OP_SL_REF_SLICE_P(v)	FIELD_PREP(BIT(16), !!(v))
++#define AVD_OP_SL_REF_SLICE_I(v)	FIELD_PREP(BIT(17), !!(v))
++/* not really kinda more like has_ref_and_ref_is_valid_ref */
++#define AVD_OP_SL_REF_SLICE_B(v)	FIELD_PREP(BIT(18), !!(v))
++
++#define AVD_OP_QP			FIELD_PREP(GENMASK(31, 20), 0x2d9)
++#define AVD_OP_QP_CR_OFF(v)		FIELD_PREP(GENMASK(4, 0), v)
++#define AVD_OP_QP_CB_OFF(v)		FIELD_PREP(GENMASK(9, 5), v)
++#define AVD_OP_QP_VAL(v)		FIELD_PREP(GENMASK(17, 10), v)
++
++#define AVD_OP_DBLK			FIELD_PREP(GENMASK(31, 20), 0x2da)
++#define AVD_OP_DBLK_FLAG_SAO_CHROMA(v)	FIELD_PREP(BIT(6), !!(v))
++#define AVD_OP_DBLK_FLAG_SAO_LUMA(v)	FIELD_PREP(BIT(7), !!(v))
++#define AVD_OP_DBLK_OFF0(v)		FIELD_PREP(GENMASK(11, 8), v)
++#define AVD_OP_DBLK_OFF1(v)		FIELD_PREP(GENMASK(16, 12), v)
++#define AVD_OP_DBLK_FLAG_EN(v)		FIELD_PREP(BIT(16), !!(v))
++#define AVD_OP_DBLK_FLAG_FULL_EN(v)	FIELD_PREP(BIT(17), !!(v))
++#define AVD_OP_DBLK_FLAG_TILES_EN(v)	FIELD_PREP(BIT(18), !!(v))
++#define AVD_OP_DBLK_FLAG_PCM_EN(v)	FIELD_PREP(BIT(19), !!(v))
++
++#define AVD_OP_REF			FIELD_PREP(GENMASK(31, 20), 0x2dc)
++/* same order as they where submitted */
++#define AVD_OP_REF_DBP_IDX(v)		FIELD_PREP(GENMASK(3, 0), v)
++#define AVD_OP_REF_LOOP_IDX(v)		FIELD_PREP(GENMASK(7, 4), v)
++#define AVD_OP_REF_LIST_IDX(v)		FIELD_PREP(GENMASK(11, 8), v)
++
++#define AVD_HDR_CODEC_MODE(v)		FIELD_PREP(GENMASK(28, 24), v)
++#define AVD_HDR_WIDTH(v)		FIELD_PREP(GENMASK(15, 0), v)
++#define AVD_HDR_HEIGHT(v)		FIELD_PREP(GENMASK(31, 16), v)
++
++#define AVD_HDR_FEAT_H264		FIELD_PREP(GENMASK(3, 0), 10)
++#define AVD_HDR_FEAT_PIPE_STATE_EN(v)	FIELD_PREP(GENMASK(7, 4), (v) ? 3 : 0)
++#define AVD_HDR_FEAT_H26X		FIELD_PREP(BIT(20), 1)
++#define AVD_HDR_FEAT_COMMON		FIELD_PREP(BIT(21), 1)
++#define AVD_HDR_FEAT_VP9		FIELD_PREP(BIT(17), 1)
++
++#define AVD_HDR_COMMON_FLAG0(v)		FIELD_PREP(BIT(0), !!(v))
++#define AVD_HDR_COMMON_LUMA_TBS(v)	FIELD_PREP(GENMASK(8, 7), v)
++#define AVD_HDR_COMMON_MIN_LUMA_TBS(v)	FIELD_PREP(GENMASK(10, 9), v)
++#define AVD_HDR_COMMON_LUMA_CBS(v)	FIELD_PREP(GENMASK(12, 11), v)
++#define AVD_HDR_COMMON_MIN_LUMA_CBS(v)	FIELD_PREP(GENMASK(14, 13), v)
++#define AVD_HDR_COMMON_BIT_DEPTH_L(v)	FIELD_PREP(GENMASK(18, 15), v)
++#define AVD_HDR_COMMON_BIT_DEPTH_C(v)	FIELD_PREP(GENMASK(23, 19), v)
++#define AVD_HDR_COMMON_CHROMA_FORMAT(v)	FIELD_PREP(GENMASK(26, 24), v)
++
++#define AVD_HDR_H26X_QP_OFFSET_CR(v)	FIELD_PREP(GENMASK(4, 0), v)
++#define AVD_HDR_H26X_QP_OFFSET_CB(v)	FIELD_PREP(GENMASK(9, 5), v)
++
++#define AVD_SCALING_I0(v)		FIELD_PREP(GENMASK(7, 0), v)
++#define AVD_SCALING_I1(v)		FIELD_PREP(GENMASK(15, 8), v)
++#define AVD_SCALING_I2(v)		FIELD_PREP(GENMASK(23, 16), v)
++#define AVD_SCALING_I3(v)		FIELD_PREP(GENMASK(31, 24), v)
++
++#define AVD_REF_NUM(v)			FIELD_PREP(GENMASK(31, 28), v)
++#define AVD_REF_FLAG_CONST		FIELD_PREP(BIT(24), 1)
++#define AVD_REF_FLAG_LONG(v)		FIELD_PREP(BIT(17), !!(v))
++#define AVD_REF_DELTA_POC(v)		FIELD_PREP(GENMASK(16, 0), v)
++
++#define AVD_FIFO_SIZE			(0x100000 * 12)
++
++static inline void push(struct avd_ctx *ctx, u32 inst)
++{
++	struct avd_job *job = &ctx->job;
++	struct avd_segment *seg = &job->segments[job->num];
++
++	seg->instructions[seg->num++] = inst;
++}
++
++static inline void push_address(struct avd_ctx *ctx, dma_addr_t addr)
++{
++	if (ctx->dev->variant->quirks & AVD_QUIRK_LSR) {
++		push(ctx, (addr >> 8));
++	} else {
++		push(ctx, (u32)(addr & 0xffffffff));
++		push(ctx, (u32)(addr >> 32));
++	}
++}
++
++static inline void push_comp(struct avd_ctx *ctx, dma_addr_t addr,
++			     u32 offsets[4])
++{
++	if (ctx->dev->variant->quirks & AVD_QUIRK_LSR) {
++		for (int i = 0; i < 4; i++)
++			push(ctx, (addr + offsets[i]) >> 7);
++	} else {
++		for (int i = 0; i < 4; i++)
++			push_address(ctx, (addr + offsets[i]));
++	}
++}
++
++#ifdef DEBUG_INST
++#define push(inst, name)                                           \
++	do {                                                       \
++		dev_info(ctx->dev->dev, "%8x | %s", (inst), name); \
++		push(ctx, inst);                                   \
++	} while (0)
++
++#else
++#define push(inst, name) push(ctx, inst)
++#endif
++
++#ifdef DEBUG_INST_ADDR
++#define pusha(inst, name, i)                                                   \
++	do {                                                                   \
++		dev_info(ctx->dev->dev, "%8llx | %s[%d]", (inst) & 0xffffffff, \
++			 name, i);                                             \
++		dev_info(ctx->dev->dev, "%8llx | %s[%d] (high)", (inst) >> 32, \
++			 name, i);                                             \
++		push_address(ctx, inst);                                       \
++	} while (0)
++
++#else
++#define pusha(inst, name, i) push_address(ctx, inst)
++#endif
++
++#endif /* AVD_INST_H_ */
+diff --git a/drivers/media/platform/apple/avd/avd-v4l2.c b/drivers/media/platform/apple/avd/avd-v4l2.c
+new file mode 100644
+index 000000000000..874e46d22c45
+--- /dev/null
++++ b/drivers/media/platform/apple/avd/avd-v4l2.c
+@@ -0,0 +1,752 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Apple Video Decoder V4L2 M2M api functions
++ *
++ * Copyright (C) 2026 The Asahi Linux Contributors
++ * Copyright (C) 2026 Sofus Forstreuter <sofus.c@icloud.com>
++ *
++ * Based on rkvdec driver by Collabora, Ltd.
++ * Copyright (C) 2019 Collabora, Ltd.
++ * Based on rkvdec driver by Google LLC. (Tomasz Figa <tfiga@chromium.org>)
++ * Based on s5p-mfc driver by Samsung Electronics Co., Ltd.
++ * Copyright (C) 2011 Samsung Electronics Co., Ltd.
++ */
++
++#include <linux/pm_runtime.h>
++
++#include <media/v4l2-event.h>
++#include <media/v4l2-mem2mem.h>
 +#include <media/videobuf2-dma-contig.h>
 +
 +#include "avd.h"
-+#include "avd-inst.h"
 +
-+#define VP9_Q_IDX(v)	FIELD_PREP(GENMASK(31, 15), v)
-+#define VP9_Q_DC_Y(v)	FIELD_PREP(GENMASK(14, 10), v)
-+#define VP9_Q_DC_UV(v)	FIELD_PREP(GENMASK(9, 5), v)
-+#define VP9_Q_AC_UV(v)	FIELD_PREP(GENMASK(4, 0), v)
-+
-+#define VP9_LF_SHARPNESS(v)	FIELD_PREP(GENMASK(31, 28), v)
-+#define VP9_LF_REF0(v)		FIELD_PREP(GENMASK(27, 21), v)
-+#define VP9_LF_REF1(v)		FIELD_PREP(GENMASK(20, 14), v)
-+#define VP9_LF_REF2(v)		FIELD_PREP(GENMASK(13, 7), v)
-+#define VP9_LF_REF3(v)		FIELD_PREP(GENMASK(6, 0), v)
-+
-+#define VP9_LF_LV(v)	FIELD_PREP(GENMASK(31, 14), v)
-+#define VP9_LF_MODE0(v)	FIELD_PREP(GENMASK(13, 7), v)
-+#define VP9_LF_MODE1(v)	FIELD_PREP(GENMASK(6, 0), v)
-+
-+#define VP9_FEAT_LVL_ALT_Q_EN(v)	FIELD_PREP(BIT(21), !!(v))
-+#define VP9_FEAT_LVL_ALT_Q(v)		FIELD_PREP(GENMASK(20, 12), v)
-+#define VP9_FEAT_LVL_ALT_L_EN(v)	FIELD_PREP(BIT(11), !!(v))
-+#define VP9_FEAT_LVL_ALT_L(v)		FIELD_PREP(GENMASK(10, 4), v)
-+#define VP9_FEAT_LVL_REF_FRAME_EN(v)	FIELD_PREP(BIT(3), !!(v))
-+#define VP9_FEAT_LVL_REF_FRAME(v)	FIELD_PREP(GENMASK(2, 1), v)
-+#define VP9_FEAT_LVL_SKIP_EN(v)		FIELD_PREP(BIT(0), !!(v))
-+#define VP9_FEAT_LVL_SKIP(v)
-+
-+#define VP9_REF_SEL_LAST(v)	FIELD_PREP(GENMASK(2, 0), v)
-+#define VP9_REF_BIAS_LAST(v)	FIELD_PREP(BIT(3), !!(v))
-+#define VP9_REF_SEL_GOLDEN(v)	FIELD_PREP(GENMASK(6, 4), v)
-+#define VP9_REF_BIAS_GOLDEN(v)	FIELD_PREP(BIT(7), !!(v))
-+#define VP9_REF_SEL_ALT(v)	FIELD_PREP(GENMASK(10, 8), v)
-+#define VP9_REF_BIAS_ALT(v)	FIELD_PREP(BIT(11), !!(v))
-+#define VP9_REFERENCE_MODE(v)	FIELD_PREP(GENMASK(13, 12), v)
-+#define VP9_PARALLEL_DEC(v)	FIELD_PREP(BIT(14), !!(v))
-+#define VP9_REFRESH_CTX(v)	FIELD_PREP(BIT(15), !!(v))
-+#define VP9_INTERP_FILTER(v)	FIELD_PREP(GENMASK(18, 16), v)
-+#define VP9_HIGH_PREC_MV(v)	FIELD_PREP(BIT(19), !!(v))
-+#define VP9_ERR_RES(v)		FIELD_PREP(BIT(20), !!(v))
-+#define VP9_HAS_REF(v)		FIELD_PREP(BIT(21), !!(v))
-+#define VP9_SEG_ABS(v)		FIELD_PREP(BIT(22), !!(v))
-+#define VP9_SEG_UDATA_TEMP(v)	FIELD_PREP(BIT(23), !!(v))
-+#define VP9_SEG_UPDATE_MAP(v)	FIELD_PREP(BIT(24), !!(v))
-+#define VP9_SEG_ENABLED(v)	FIELD_PREP(BIT(25), !!(v))
-+#define VP9_SEG_RESET(v)	FIELD_PREP(BIT(26), !!(v))
-+
-+#define VP9_MAX_TILE_COLS	(1 << 4)
-+#define VP9_REF_SCALE_SHIFT	14
-+#define VP9_LAST_FRAME		1
-+#define VP9_GOLDEN_FRAME	2
-+#define VP9_ALTREF_FRAME	3
-+
-+struct avd_vp9_seg_probs {
-+	u8 tree_probs[7];
-+	u8 pred_probs[3];
++static const struct avd_decoded_fmt_desc avd_decoded_fmts[] = {
++	{
++		.fourcc = V4L2_PIX_FMT_NV12,
++		.image_fmt = AVD_IMG_FMT_420_8BIT,
++	},
++	{
++		.fourcc = V4L2_PIX_FMT_P010,
++		.image_fmt = AVD_IMG_FMT_420_10BIT,
++	},
++	{
++		.fourcc = V4L2_PIX_FMT_NV16,
++		.image_fmt = AVD_IMG_FMT_422_8BIT,
++	},
++	{
++		.fourcc = V4L2_PIX_FMT_P210,
++		.image_fmt = AVD_IMG_FMT_422_10BIT,
++	},
 +};
 +
-+struct avd_vp9_probs {
-+	struct avd_vp9_seg_probs seg;
-+	u8 tx8[2][1];
-+	u8 tx16[2][2];
-+	u8 tx32[2][3];
-+	/* [4][2][2][k=6][(k == 0) ? 3 : 6][3] */
-+	u8 coef[1584];
-+	u8 skip[3];
-+	u8 inter_mode[7][3];
-+	u8 interp_filter[4][2];
-+	u8 is_inter[4];
-+	u8 comp_mode[5];
-+	u8 single_ref[5][2];
-+	u8 comp_ref[5];
-+	u8 y_mode[4][9];
-+	u8 uv_mode[10][9];
-+	u8 partition[16][3];
-+	u8 joint[3];
-+	struct mv_comp {
-+		u8 sign;
-+		u8 classes[10];
-+		u8 class0_bit;
-+		u8 bits[10];
-+	} mv_comp[2];
-+	struct mv_fr {
-+		u8 class0_fr[2][3];
-+		u8 fr[3];
-+	} mv_fr[2];
-+	struct mv_hp {
-+		u8 class0_hp;
-+		u8 hp;
-+	} mv_hp[2];
-+};
-+
-+struct avd_vp9_frame_symbol_counts {
-+	u32 padding;
-+	u32 tx8p[2][2];
-+	u32 tx16p[2][3];
-+	u32 tx32p[2][4];
-+	/* [4][2][2][k=6][(k == 0) ? 3 : 6] */
-+	u32 eob_0[528];
-+	/*
-+	 * struct ref_cnt { u32 coef[3]; u32 eob_1; }
-+	 * struct ref_cnt cef_counts[4][2][2][k=6][(k == 0) ? 3 : 6];
-+	 */
-+	u32 ref_cnt[2112];
-+	u32 skip[3][2];
-+	u32 mv_mode[7][4];
-+	u32 filter[4][3];
-+	u32 intra_inter[4][2];
-+	u32 comp[5][2];
-+	u32 single_ref[5][2][2];
-+	u32 comp_ref[5][2];
-+	u32 y_mode[4][10];
-+	u32 uv_mode[10][10];
-+	u32 partition[16][4];
-+	u32 mv_joint[4];
-+	struct mv_comp_ctn {
-+		u32 sign[2];
-+		u32 classes[11];
-+		u32 class0[2];
-+		u32 bits[10][2];
-+	} mv_comp[2];
-+	struct mv_fr_cnt {
-+		u32 class0_fr[2][4];
-+		u32 fr[4];
-+	} mv_fr[2];
-+	struct mv_hp_cnt {
-+		u32 class0_hp[2];
-+		u32 hp[2];
-+	} mv_hp[2];
-+};
-+
-+struct avd_vp9_frame_info {
-+	u32 valid : 1;
-+	u32 segmapid : 1;
-+	u32 frame_context_idx : 2;
-+	u32 reference_mode : 2;
-+	u32 tx_mode : 3;
-+	u32 interpolation_filter : 3;
-+	u32 flags;
-+	u64 timestamp;
-+	struct v4l2_vp9_segmentation seg;
-+	struct v4l2_vp9_loop_filter lf;
-+};
-+
-+struct avd_vp9_run {
-+	struct avd_run base;
-+
-+	const struct v4l2_ctrl_vp9_frame *decode_params;
-+	const struct v4l2_ctrl_vp9_compressed_hdr *prob_updates;
-+};
-+
-+struct avd_vp9_ctx {
-+	struct v4l2_vp9_frame_symbol_counts cnts;
-+	struct v4l2_vp9_frame_context probability_tables;
-+	struct v4l2_vp9_frame_context frame_context[4];
-+	struct avd_vp9_bufs {
-+		struct avd_buf az_left;
-+		struct avd_buf above_info;
-+		struct avd_buf ip_above;
-+		struct avd_buf lf_above;
-+		struct avd_buf lf_left_info;
-+		struct avd_buf lf_left;
-+		struct avd_buf color;
-+		struct avd_buf seg;
-+		struct avd_buf counts;
-+		struct avd_buf probs;
-+	} bufs;
-+	struct avd_vp9_frame_info cur;
-+	struct avd_vp9_frame_info last;
-+	u8 submit_num;
-+};
-+
-+static void set_refs(struct avd_ctx *ctx, struct avd_vp9_run *run)
++static bool avd_image_fmt_match(enum avd_image_fmt fmt1,
++				enum avd_image_fmt fmt2)
 +{
-+	const struct v4l2_ctrl_vp9_frame *frame = run->decode_params;
-+	struct avd_decoded_buffer *dst, *ref_buf[4];
-+	dma_addr_t addr;
-+	int xscale, yscale;
-+
-+	dst = vb2_to_avd_decoded_buf(&run->base.bufs.dst->vb2_buf);
-+
-+	ref_buf[0] = avd_get_ref_buf(ctx, &dst->base.vb, frame->last_frame_ts);
-+	ref_buf[1] =
-+		avd_get_ref_buf(ctx, &dst->base.vb, frame->golden_frame_ts);
-+	ref_buf[2] = avd_get_ref_buf(ctx, &dst->base.vb, frame->alt_frame_ts);
-+
-+	push(0, "");
-+	push(0, "");
-+	push(0, "");
-+
-+	for (int i = 0; i < V4L2_VP9_NUM_FRAME_CTX - 1; i++) {
-+		addr = vb2_dma_contig_plane_dma_addr(
-+			       &ref_buf[i]->base.vb.vb2_buf, 0) +
-+		       ref_buf[i]->comp.start_offset;
-+
-+		push(AVD_REF_FLAG_CONST, "hdr_9c_ref_100");
-+		push(AVD_HDR_HEIGHT(ref_buf[i]->vp9.height - 1) |
-+			     AVD_HDR_WIDTH(ref_buf[i]->vp9.width - 1),
-+		     "hdr_70_ref_height_width");
-+
-+		xscale = (ref_buf[i]->vp9.width << VP9_REF_SCALE_SHIFT) /
-+			 dst->vp9.width;
-+		yscale = (ref_buf[i]->vp9.height << VP9_REF_SCALE_SHIFT) /
-+			 dst->vp9.height;
-+		push(AVD_HDR_HEIGHT(xscale) | AVD_HDR_WIDTH(yscale),
-+		     "ref_scale");
-+
-+		push_comp(ctx, addr, ref_buf[i]->comp.offsets);
-+	}
++	return fmt1 == fmt2 || fmt2 == AVD_IMG_FMT_ANY ||
++	       fmt1 == AVD_IMG_FMT_ANY;
 +}
 +
-+static u32 make_flags1(struct avd_ctx *ctx, struct avd_vp9_run *run)
++static bool avd_image_fmt_changed(struct avd_ctx *ctx,
++				  enum avd_image_fmt image_fmt)
 +{
-+	struct avd_vp9_ctx *vp9_ctx = ctx->priv;
-+	const struct v4l2_ctrl_vp9_frame *frame = run->decode_params;
-+	struct avd_decoded_buffer *dst, *last, *golden, *alt;
++	if (image_fmt == AVD_IMG_FMT_ANY)
++		return false;
 +
-+	dst = vb2_to_avd_decoded_buf(&run->base.bufs.dst->vb2_buf);
-+	last = avd_get_ref_buf(ctx, &dst->base.vb, frame->last_frame_ts);
-+	golden = avd_get_ref_buf(ctx, &dst->base.vb, frame->golden_frame_ts);
-+	alt = avd_get_ref_buf(ctx, &dst->base.vb, frame->alt_frame_ts);
-+	u32 flags;
-+
-+	/*
-+	 * i have only seen V4L2_VP9_SIGN_BIAS_ALT, im simply guessing the
-+	 * same applies for last and golden
-+	 */
-+	flags = VP9_REF_SEL_LAST(VP9_LAST_FRAME);
-+
-+	flags |= VP9_REF_BIAS_LAST(frame->ref_frame_sign_bias &
-+				   V4L2_VP9_SIGN_BIAS_LAST);
-+	flags |= VP9_REF_SEL_GOLDEN(golden == last ? VP9_LAST_FRAME :
-+						     VP9_GOLDEN_FRAME);
-+	flags |= VP9_REF_BIAS_GOLDEN(frame->ref_frame_sign_bias &
-+				     V4L2_VP9_SIGN_BIAS_GOLDEN);
-+	flags |= VP9_REF_SEL_ALT(alt != golden ? VP9_ALTREF_FRAME :
-+				 alt != last   ? VP9_GOLDEN_FRAME :
-+						 VP9_LAST_FRAME);
-+	flags |= VP9_REF_BIAS_ALT(frame->ref_frame_sign_bias &
-+				  V4L2_VP9_SIGN_BIAS_ALT);
-+
-+	flags |= VP9_REFERENCE_MODE(frame->reference_mode);
-+
-+	flags |= VP9_PARALLEL_DEC(frame->flags &
-+				  V4L2_VP9_FRAME_FLAG_PARALLEL_DEC_MODE);
-+	flags |= VP9_REFRESH_CTX(frame->flags &
-+				 V4L2_VP9_FRAME_FLAG_REFRESH_FRAME_CTX);
-+	flags |= VP9_INTERP_FILTER(frame->interpolation_filter);
-+	flags |= VP9_HIGH_PREC_MV(frame->flags &
-+				  V4L2_VP9_FRAME_FLAG_ALLOW_HIGH_PREC_MV);
-+
-+	flags |=
-+		VP9_ERR_RES(frame->flags & V4L2_VP9_FRAME_FLAG_ERROR_RESILIENT);
-+
-+	flags |= VP9_SEG_ABS(frame->seg.flags &
-+			     V4L2_VP9_SEGMENTATION_FLAG_ABS_OR_DELTA_UPDATE);
-+	flags |= VP9_SEG_UDATA_TEMP(
-+		frame->seg.flags & V4L2_VP9_SEGMENTATION_FLAG_UPDATE_DATA &&
-+		frame->seg.flags & V4L2_VP9_SEGMENTATION_FLAG_TEMPORAL_UPDATE);
-+	flags |= VP9_SEG_UPDATE_MAP(frame->seg.flags &
-+				    V4L2_VP9_SEGMENTATION_FLAG_UPDATE_MAP);
-+	flags |= VP9_SEG_ENABLED(frame->seg.flags &
-+				 V4L2_VP9_SEGMENTATION_FLAG_ENABLED);
-+
-+	flags |= VP9_HAS_REF(
-+		!(frame->flags & V4L2_VP9_FRAME_FLAG_ERROR_RESILIENT) &&
-+		!(frame->flags & V4L2_VP9_FRAME_FLAG_KEY_FRAME) &&
-+		vp9_ctx->last.valid &&
-+		vp9_ctx->last.flags & V4L2_VP9_FRAME_FLAG_SHOW_FRAME &&
-+		!(vp9_ctx->last.flags & V4L2_VP9_FRAME_FLAG_KEY_FRAME));
-+
-+	flags |= VP9_SEG_RESET(
-+		frame->seg.flags & V4L2_VP9_SEGMENTATION_FLAG_ENABLED &&
-+		(frame->flags & V4L2_VP9_FRAME_FLAG_KEY_FRAME ||
-+		 (vp9_ctx->last.valid &&
-+		  !(vp9_ctx->last.seg.flags &
-+		    V4L2_VP9_SEGMENTATION_FLAG_ENABLED) &&
-+		  vp9_ctx->last.flags & (V4L2_VP9_FRAME_FLAG_KEY_FRAME |
-+					 V4L2_VP9_FRAME_FLAG_INTRA_ONLY))));
-+
-+	return flags;
++	return ctx->image_fmt != image_fmt;
 +}
 +
-+static u32 seg_features(struct avd_ctx *ctx, struct avd_vp9_run *run,
-+			unsigned int segid)
++static u32 avd_enum_decoded_fmt(struct avd_ctx *ctx, int index,
++				enum avd_image_fmt image_fmt)
 +{
-+	struct avd_vp9_ctx *vp9_ctx = ctx->priv;
-+	const struct v4l2_vp9_segmentation *seg = &vp9_ctx->cur.seg;
-+	u32 feature_val = 0;
-+	int feature_id = 0;
++	const struct avd_coded_fmt_desc *desc = ctx->coded_fmt_desc;
++	int fmt_idx = -1;
++	unsigned int i;
 +
-+	feature_id = V4L2_VP9_SEG_LVL_ALT_Q;
-+	feature_val |= VP9_FEAT_LVL_ALT_Q_EN(v4l2_vp9_seg_feat_enabled(
-+		seg->feature_enabled, feature_id, segid));
-+	feature_val |= VP9_FEAT_LVL_ALT_Q(seg->feature_data[segid][feature_id]);
++	if (WARN_ON(!desc))
++		return 0;
 +
-+	feature_id = V4L2_VP9_SEG_LVL_ALT_L;
-+	feature_val |= VP9_FEAT_LVL_ALT_L_EN(v4l2_vp9_seg_feat_enabled(
-+		seg->feature_enabled, feature_id, segid));
-+	feature_val |= VP9_FEAT_LVL_ALT_L(seg->feature_data[segid][feature_id]);
-+
-+	feature_id = V4L2_VP9_SEG_LVL_REF_FRAME;
-+	feature_val |= VP9_FEAT_LVL_REF_FRAME_EN(v4l2_vp9_seg_feat_enabled(
-+		seg->feature_enabled, feature_id, segid));
-+	feature_val |=
-+		VP9_FEAT_LVL_REF_FRAME(seg->feature_data[segid][feature_id]);
-+
-+	feature_id = V4L2_VP9_SEG_LVL_SKIP;
-+	feature_val |= VP9_FEAT_LVL_SKIP_EN(v4l2_vp9_seg_feat_enabled(
-+		seg->feature_enabled, feature_id, segid));
-+
-+	return feature_val;
-+}
-+
-+static void set_header(struct avd_ctx *ctx, struct avd_vp9_run *run)
-+{
-+	struct avd_vp9_ctx *vp9_ctx = ctx->priv;
-+	const struct v4l2_ctrl_vp9_compressed_hdr *prob_updates =
-+		run->prob_updates;
-+	const struct v4l2_ctrl_vp9_frame *frame = run->decode_params;
-+	struct avd_dev *avd = ctx->dev;
-+	u32 bytesperline;
-+
-+	bool intra_only = !!(frame->flags & (V4L2_VP9_FRAME_FLAG_KEY_FRAME |
-+					     V4L2_VP9_FRAME_FLAG_INTRA_ONLY));
-+
-+	push(AVD_OP_HDR | AVD_OP_HDR_FLAG_DECOMP(ctx->decomp) |
-+		     AVD_OP_HDR_FLAG_INTRA(intra_only) | AVD_OP_HDR_CONST |
-+		     AVD_OP_HDR_FLAG_PIPE_STATE(
-+			     !(avd->variant->quirks & AVD_QUIRK_NO_PIPE_STATE)),
-+	     "hdr_34_start_hdr");
-+
-+	push(AVD_HDR_CODEC_MODE(AVD_CODEC_VP9), "hdr_38_mode");
-+
-+	push(AVD_HDR_HEIGHT(frame->frame_height_minus_1) |
-+		     AVD_HDR_WIDTH(frame->frame_width_minus_1),
-+	     "hdr_28_height_width_shift3");
-+	push(0, "");
-+	push(AVD_HDR_HEIGHT(frame->frame_height_minus_1) |
-+		     AVD_HDR_WIDTH(frame->frame_width_minus_1),
-+	     "hdr_38_height_width_shift3");
-+
-+	push(AVD_HDR_COMMON_CHROMA_FORMAT(1) |
-+		     AVD_HDR_COMMON_BIT_DEPTH_C(frame->bit_depth - 8) |
-+		     AVD_HDR_COMMON_BIT_DEPTH_L(frame->bit_depth - 8) |
-+		     AVD_HDR_COMMON_LUMA_CBS(3) |
-+		     AVD_HDR_COMMON_LUMA_TBS(min(prob_updates->tx_mode, 3)) |
-+		     AVD_HDR_COMMON_FLAG0(prob_updates->tx_mode &
-+					  V4L2_VP9_TX_MODE_SELECT),
-+	     "hdr_2c_txfm_mode");
-+
-+	push(make_flags1(ctx, run), "hdr_40_flags1_pt1");
-+
-+	for (int i = 0; i < 8; i++)
-+		push(seg_features(ctx, run, i), "seg");
-+
-+	push(AVD_HDR_FEAT_VP9, "unk_const");
-+	push(0, "");
-+	push(0, "");
-+
-+	pusha(vp9_ctx->bufs.counts.addr, "counts", 0);
-+	pusha(vp9_ctx->bufs.probs.addr, "probs", 0);
-+	pusha(vp9_ctx->bufs.above_info.addr, "above_info", 0);
-+	pusha(vp9_ctx->bufs.seg.addr, "seg", 1);
-+	pusha(vp9_ctx->bufs.seg.addr, "seg", 2);
-+	pusha(vp9_ctx->bufs.color.addr, "color", 3);
-+	pusha(vp9_ctx->bufs.color.addr, "color", 4);
-+
-+	push(VP9_Q_IDX(frame->quant.base_q_idx) |
-+		     VP9_Q_DC_Y(frame->quant.delta_q_y_dc) |
-+		     VP9_Q_DC_UV(frame->quant.delta_q_uv_dc) |
-+		     VP9_Q_AC_UV(frame->quant.delta_q_uv_ac),
-+	     "hdr_4c_base_q_idx");
-+	/* filter related flags? */
-+	push(VP9_LF_SHARPNESS(frame->lf.sharpness) |
-+		     (frame->lf.flags &
-+				      V4L2_VP9_LOOP_FILTER_FLAG_DELTA_ENABLED ?
-+			      VP9_LF_REF0(frame->lf.ref_deltas[0]) |
-+				      VP9_LF_REF1(frame->lf.ref_deltas[1]) |
-+				      VP9_LF_REF2(frame->lf.ref_deltas[2]) |
-+				      VP9_LF_REF3(frame->lf.ref_deltas[3]) :
-+			      0),
-+	     "hdr_44_flags1_pt2");
-+
-+	push(VP9_LF_LV(frame->lf.level) |
-+		     (frame->lf.flags &
-+				      V4L2_VP9_LOOP_FILTER_FLAG_DELTA_ENABLED ?
-+			      VP9_LF_MODE0(frame->lf.mode_deltas[0]) |
-+				      VP9_LF_MODE1(frame->lf.mode_deltas[1]) :
-+			      0),
-+	     "hdr_48_loop_filter_level");
-+
-+	push(0, "");
-+	push(0, "");
-+
-+	if (avd->variant->revision == 3)
-+		push(0, "");
-+	if (!(avd->variant->quirks & AVD_QUIRK_NO_PIPE_STATE))
-+		pusha(ctx->pipe_state.addr, "pipe_state", 0);
-+
-+	pusha(vp9_ctx->bufs.ip_above.addr, "ip_above", 0);
-+	pusha(vp9_ctx->bufs.lf_above.addr, "lf_above", 0);
-+	/* no lf_above_info? */
-+	pusha((u64)0, "hdr_e8_sps0_tile_addr_lsb8", 0);
-+	pusha(vp9_ctx->bufs.lf_left.addr, "lf_left", 0);
-+	pusha(vp9_ctx->bufs.lf_left_info.addr, "lf_left_info", 0);
-+	pusha(vp9_ctx->bufs.az_left.addr, "az_left", 0);
-+
-+	push(0, "");
-+
-+	push_comp(ctx, run->base.comp_out, ctx->comp.offsets);
-+
-+	pusha((u64)0, "packed_fmt_scratch", 0);
-+
-+	bytesperline = ctx->decoded_fmt.fmt.pix_mp.plane_fmt[0].bytesperline;
-+	if (avd->variant->quirks & AVD_QUIRK_LSR)
-+		bytesperline = bytesperline >> 4;
-+
-+	pusha(run->base.y_out, "hdr_168_y_addr_lsb8", 0);
-+	push(bytesperline, "hdr_170_width_align");
-+	pusha(run->base.uv_out, "hdr_16c_uv_addr_lsb8", 0);
-+	push(bytesperline, "hdr_174_width_align");
-+	push(0, "");
-+	push(AVD_HDR_HEIGHT(frame->frame_height_minus_1) |
-+		     AVD_HDR_WIDTH(frame->frame_width_minus_1),
-+	     "cm3_height_width");
-+
-+	if (!(intra_only))
-+		set_refs(ctx, run);
-+}
-+
-+static void set_tiles(struct avd_ctx *ctx, struct avd_vp9_run *run)
-+{
-+	const struct v4l2_ctrl_vp9_frame *frame = run->decode_params;
-+	struct avd_vp9_ctx *vp9_ctx = ctx->priv;
-+	struct vb2_v4l2_buffer *src = v4l2_m2m_next_src_buf(ctx->fh.m2m_ctx);
-+	const u8 *data = vb2_plane_vaddr(&src->vb2_buf, 0);
-+
-+	u32 offset =
-+		frame->uncompressed_header_size + frame->compressed_header_size;
-+	u32 size = vb2_get_plane_payload(&src->vb2_buf, 0) - offset;
-+	u32 num_tile_rows = 1 << frame->tile_rows_log2;
-+	u32 num_tile_cols = 1 << frame->tile_cols_log2;
-+	u32 tile_size;
-+
-+	/* 6.2.6 Compute image size syntax */
-+	u32 sb_64_cols = (((frame->frame_width_minus_1 + 8) >> 3) + 7) >> 3;
-+	u32 sb_64_rows = (((frame->frame_height_minus_1 + 8) >> 3) + 7) >> 3;
-+
-+	for (int row = 0; row < num_tile_rows; row++)
-+		for (int col = 0; col < num_tile_cols; col++) {
-+			ctx->job.num++;
-+			if (row == num_tile_rows - 1 &&
-+			    col == num_tile_cols - 1) {
-+				tile_size = size;
-+			} else {
-+				tile_size = get_unaligned_be32(&data[offset]);
-+				/* i have crashed my computer because of this */
-+				if (tile_size > size - 4)
-+					return;
-+				offset += 4;
-+				size -= 4;
-+			}
-+			push(AVD_OP_CODED_DATA |
-+				     AVD_OP_CODED_DATA_ADDR(
-+					     run->base.coded_in >> 32),
-+			     "cm3_cmd_set_slice_data");
-+			push((u32)((run->base.coded_in + offset) & 0xffffffff),
-+			     "til_ab4_tile_addr_low");
-+			push(tile_size, "til_ab8_tile_size");
-+			push(AVD_OP_SL_DIM_START |
-+				     AVD_OP_SL_DIM_START_Y((row * sb_64_rows) /
-+							   num_tile_rows) |
-+				     AVD_OP_SL_DIM_START_X((col * sb_64_cols) /
-+							   num_tile_cols),
-+			     "i");
-+
-+			push(AVD_SL_DIM_END_COL(col) |
-+				     AVD_SL_DIM_END_Y(((row + 1) * sb_64_rows) /
-+							      num_tile_rows - 1) |
-+				     AVD_SL_DIM_END_X(((col + 1) * sb_64_cols) /
-+							      num_tile_cols - 1),
-+			     "til_ac0_tile_dims");
-+
-+			offset += tile_size;
-+			size -= tile_size;
-+			vp9_ctx->submit_num++;
-+		}
-+}
-+
-+static void update_dec_buf_info(struct avd_decoded_buffer *buf,
-+				const struct v4l2_ctrl_vp9_frame *dec_params)
-+{
-+	buf->vp9.width = dec_params->frame_width_minus_1 + 1;
-+	buf->vp9.height = dec_params->frame_height_minus_1 + 1;
-+	buf->vp9.bit_depth = dec_params->bit_depth;
-+}
-+
-+static void update_ctx_cur_info(struct avd_vp9_ctx *vp9_ctx,
-+				struct avd_decoded_buffer *buf,
-+				const struct v4l2_ctrl_vp9_frame *dec_params)
-+{
-+	vp9_ctx->cur.valid = true;
-+	vp9_ctx->cur.reference_mode = dec_params->reference_mode;
-+	vp9_ctx->cur.interpolation_filter = dec_params->interpolation_filter;
-+	vp9_ctx->cur.flags = dec_params->flags;
-+	vp9_ctx->cur.timestamp = buf->base.vb.vb2_buf.timestamp;
-+	vp9_ctx->cur.seg = dec_params->seg;
-+	vp9_ctx->cur.lf = dec_params->lf;
-+}
-+
-+static void update_ctx_last_info(struct avd_vp9_ctx *vp9_ctx)
-+{
-+	vp9_ctx->last = vp9_ctx->cur;
-+}
-+
-+static void copy_vp9_frame_mv(struct avd_vp9_probs *avd_probs,
-+			      const struct v4l2_vp9_frame_context *probs)
-+{
-+	memcpy(avd_probs->joint, probs->mv.joint, sizeof(avd_probs->joint));
-+	for (int i = 0; i < 2; i++) {
-+		avd_probs->mv_comp[i].sign = probs->mv.sign[i];
-+		memcpy(avd_probs->mv_comp[i].bits, probs->mv.bits[i],
-+		       sizeof(avd_probs->mv_comp[i].bits));
-+		avd_probs->mv_comp[i].class0_bit = probs->mv.class0_bit[i];
-+		memcpy(avd_probs->mv_comp[i].classes, probs->mv.classes[i],
-+		       sizeof(avd_probs->mv_comp[i].bits));
-+
-+		memcpy(avd_probs->mv_fr[i].class0_fr, probs->mv.class0_fr[i],
-+		       sizeof(avd_probs->mv_fr[i].class0_fr));
-+		memcpy(avd_probs->mv_fr[i].fr, probs->mv.fr[i],
-+		       sizeof(avd_probs->mv_fr[i].fr));
-+
-+		avd_probs->mv_hp[i].class0_hp = probs->mv.class0_hp[i];
-+		avd_probs->mv_hp[i].hp = probs->mv.hp[i];
-+	}
-+}
-+
-+static void init_probs(struct avd_ctx *ctx, const struct avd_vp9_run *run)
-+{
-+	const struct v4l2_ctrl_vp9_frame *dec_params;
-+	struct avd_vp9_ctx *vp9_ctx = ctx->priv;
-+	struct avd_vp9_probs *avd_probs = vp9_ctx->bufs.probs.cpu;
-+	const struct v4l2_vp9_segmentation *seg;
-+	const struct v4l2_vp9_frame_context *probs;
-+	bool intra_only;
-+	int count = 0;
-+
-+	dec_params = run->decode_params;
-+	probs = &vp9_ctx->probability_tables;
-+	seg = &dec_params->seg;
-+
-+	memset(avd_probs, 0, sizeof(*avd_probs));
-+
-+	intra_only = !!(dec_params->flags & (V4L2_VP9_FRAME_FLAG_KEY_FRAME |
-+					     V4L2_VP9_FRAME_FLAG_INTRA_ONLY));
-+
-+	memcpy(avd_probs->tx8, probs->tx8, sizeof(avd_probs->tx8));
-+	memcpy(avd_probs->tx16, probs->tx16, sizeof(avd_probs->tx16));
-+	memcpy(avd_probs->tx32, probs->tx32, sizeof(avd_probs->tx32));
-+	memcpy(avd_probs->skip, probs->skip, sizeof(avd_probs->skip));
-+	memcpy(avd_probs->inter_mode, probs->inter_mode,
-+	       sizeof(avd_probs->inter_mode));
-+	memcpy(avd_probs->interp_filter, probs->interp_filter,
-+	       sizeof(avd_probs->interp_filter));
-+	memcpy(avd_probs->is_inter, probs->is_inter,
-+	       sizeof(avd_probs->is_inter));
-+	memcpy(avd_probs->comp_mode, probs->comp_mode,
-+	       sizeof(avd_probs->comp_mode));
-+	memcpy(avd_probs->single_ref, probs->single_ref,
-+	       sizeof(avd_probs->single_ref));
-+	memcpy(avd_probs->comp_ref, probs->comp_ref,
-+	       sizeof(avd_probs->comp_ref));
-+	memcpy(avd_probs->y_mode, probs->y_mode, sizeof(avd_probs->y_mode));
-+
-+	memcpy(avd_probs->partition,
-+	       intra_only ? v4l2_vp9_kf_partition_probs : probs->partition,
-+	       sizeof(avd_probs->partition));
-+	memcpy(avd_probs->uv_mode,
-+	       intra_only ? v4l2_vp9_kf_uv_mode_prob : probs->uv_mode,
-+	       sizeof(avd_probs->uv_mode));
-+
-+	copy_vp9_frame_mv(avd_probs, probs);
-+
-+	for (int t = 0; t < 4; t++)
-+		for (int i = 0; i < 2; i++)
-+			for (int j = 0; j < 2; j++)
-+				for (int k = 0; k < 6; k++) {
-+					int max_l = (k == 0) ? 3 : 6;
-+					for (int l = 0; l < max_l; l++) {
-+						for (int n = 0; n < 3; n++)
-+							avd_probs->coef[count++] =
-+								probs->coef[t][i][j][k][l][n];
-+					}
-+				}
-+
-+	memcpy(avd_probs->seg.pred_probs, seg->pred_probs,
-+	       sizeof(avd_probs->seg.pred_probs));
-+	memcpy(avd_probs->seg.tree_probs, seg->tree_probs,
-+	       sizeof(avd_probs->seg.tree_probs));
-+}
-+
-+static int validate_dec_params(struct avd_ctx *ctx,
-+			       const struct v4l2_ctrl_vp9_frame *dec_params)
-+{
-+	unsigned int aligned_width, aligned_height;
-+
-+	if (dec_params->bit_depth > 10)
-+		/* not implemented */
-+		return -EINVAL;
-+
-+	if (dec_params->profile == 1 || dec_params->profile > 2)
-+		return -EINVAL;
-+
-+	if (dec_params->frame_height_minus_1 + 1 < 64 ||
-+	    dec_params->frame_width_minus_1 + 1 < 64)
-+		return -EINVAL;
-+
-+	aligned_width = round_up(dec_params->frame_width_minus_1 + 1, 64);
-+	aligned_height = round_up(dec_params->frame_height_minus_1 + 1, 16);
-+
-+	/*
-+	 * Userspace should update the capture/decoded format when the
-+	 * resolution changes.
-+	 */
-+	if (aligned_width != ctx->decoded_fmt.fmt.pix_mp.width ||
-+	    aligned_height != ctx->decoded_fmt.fmt.pix_mp.height) {
-+		dev_err(ctx->dev->dev,
-+			"unexpected bitstream resolution %dx%d\n",
-+			aligned_width, aligned_height);
-+		return -EINVAL;
++	for (i = 0; i < ARRAY_SIZE(avd_decoded_fmts); i++) {
++		if (!avd_image_fmt_match(avd_decoded_fmts[i].image_fmt,
++					 image_fmt))
++			continue;
++		fmt_idx++;
++		if (index == fmt_idx)
++			return avd_decoded_fmts[i].fourcc;
 +	}
 +
 +	return 0;
 +}
 +
-+static int avd_vp9_alloc_bufs(struct avd_ctx *ctx)
++static bool avd_is_valid_fmt(struct avd_ctx *ctx, u32 fourcc,
++			     enum avd_image_fmt image_fmt)
 +{
-+	struct avd_dev *avd = ctx->dev;
-+	struct avd_vp9_ctx *vp9_ctx = ctx->priv;
-+	int ret, w, h, bit_depth;
++	unsigned int i;
 +
-+	w = fmt_width(ctx);
-+	h = fmt_height(ctx);
-+	bit_depth = (ctx->image_fmt == AVD_IMG_FMT_420_10BIT ||
-+		     ctx->image_fmt == AVD_IMG_FMT_422_10BIT) ?
-+			    10 :
-+			    8;
++	for (i = 0; i < ARRAY_SIZE(avd_decoded_fmts); i++) {
++		if (avd_image_fmt_match(avd_decoded_fmts[i].image_fmt,
++					image_fmt) &&
++		    avd_decoded_fmts[i].fourcc == fourcc)
++			return true;
++	}
 +
-+	ret = avd_buf_alloc(avd, &vp9_ctx->bufs.probs,
-+			    sizeof(struct avd_vp9_probs));
-+	if (ret)
-+		return ret;
++	return false;
++}
 +
-+	ret = avd_buf_alloc(avd, &vp9_ctx->bufs.counts,
-+			    sizeof(struct avd_vp9_frame_symbol_counts));
-+	if (ret)
-+		return ret;
++static void avd_fill_decoded_pixfmt(struct avd_ctx *ctx,
++				    struct v4l2_pix_format_mplane *pix_mp)
++{
++	v4l2_fill_pixfmt_mp(pix_mp, pix_mp->pixelformat, pix_mp->width,
++			    pix_mp->height);
 +
-+	ret = avd_buf_alloc(avd, &vp9_ctx->bufs.color,
-+			    DIV_ROUND_UP(w, 16) * DIV_ROUND_UP(h, 64) * 144);
-+	if (ret)
-+		return ret;
++	ctx->comp.start_offset = pix_mp->plane_fmt[0].sizeimage;
++	fill_comp(&ctx->comp, ctx->image_fmt, pix_mp->width, pix_mp->height);
++	pix_mp->plane_fmt[0].sizeimage += ctx->comp.size;
++	if (ctx->coded_fmt_desc->ops->adjust_decoded_fmt)
++		ctx->coded_fmt_desc->ops->adjust_decoded_fmt(ctx, pix_mp);
++}
 +
-+	ret = avd_buf_alloc(avd, &vp9_ctx->bufs.ip_above,
-+			    DIV_ROUND_UP(w, 16) * 4 * bit_depth +
-+				    (VP9_MAX_TILE_COLS - 1) * 128);
-+	if (ret)
-+		return ret;
-+	ret = avd_buf_alloc(avd, &vp9_ctx->bufs.lf_above,
-+			    DIV_ROUND_UP(w, 8) * 16 * bit_depth);
-+	if (ret)
-+		return ret;
++static void avd_reset_fmt(struct avd_ctx *ctx, struct v4l2_format *f,
++			  u32 fourcc)
++{
++	memset(f, 0, sizeof(*f));
++	f->fmt.pix_mp.pixelformat = fourcc;
++	f->fmt.pix_mp.field = V4L2_FIELD_NONE;
++	f->fmt.pix_mp.colorspace = V4L2_COLORSPACE_REC709;
++	f->fmt.pix_mp.ycbcr_enc = V4L2_YCBCR_ENC_DEFAULT;
++	f->fmt.pix_mp.quantization = V4L2_QUANTIZATION_DEFAULT;
++	f->fmt.pix_mp.xfer_func = V4L2_XFER_FUNC_DEFAULT;
++}
 +
-+	ret = avd_buf_alloc(avd, &vp9_ctx->bufs.seg, DIV_ROUND_UP(w, 8) * 24);
-+	if (ret)
-+		return ret;
++void avd_reset_decoded_fmt(struct avd_ctx *ctx)
++{
++	struct v4l2_format *f = &ctx->decoded_fmt;
++	u32 fourcc;
 +
-+	ret = avd_buf_alloc(avd, &vp9_ctx->bufs.lf_left,
-+			    DIV_ROUND_UP(h, 8) * 16 * bit_depth);
-+	if (ret)
-+		return ret;
++	fourcc = avd_enum_decoded_fmt(ctx, 0, ctx->image_fmt);
++	avd_reset_fmt(ctx, f, fourcc);
++	f->type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
++	f->fmt.pix_mp.width = ctx->coded_fmt.fmt.pix_mp.width;
++	f->fmt.pix_mp.height = ctx->coded_fmt.fmt.pix_mp.height;
++	avd_fill_decoded_pixfmt(ctx, &f->fmt.pix_mp);
++}
 +
-+	ret = avd_buf_alloc(avd, &vp9_ctx->bufs.lf_left_info,
-+			    DIV_ROUND_UP(h, 64) * 16);
-+	if (ret)
-+		return ret;
++static int avd_try_ctrl(struct v4l2_ctrl *ctrl)
++{
++	struct avd_ctx *ctx =
++		container_of(ctrl->handler, struct avd_ctx, ctrl_hdl);
++	const struct avd_coded_fmt_desc *desc = ctx->coded_fmt_desc;
 +
-+	ret = avd_buf_alloc(avd, &vp9_ctx->bufs.az_left,
-+			    bit_depth * 36 * DIV_ROUND_UP(h, 8) +
-+				    bit_depth * 18 * DIV_ROUND_UP(h, 16));
-+	if (ret)
-+		return ret;
-+
-+	ret = avd_buf_alloc(avd, &vp9_ctx->bufs.above_info,
-+			    DIV_ROUND_UP(w, 64) * 288 +
-+				    (VP9_MAX_TILE_COLS - 1) * 128);
-+	if (ret)
-+		return ret;
++	if (desc->ops->try_ctrl)
++		return desc->ops->try_ctrl(ctx, ctrl);
 +
 +	return 0;
 +}
 +
-+static int avd_vp9_run_preamble(struct avd_ctx *ctx, struct avd_vp9_run *run)
++static int avd_s_ctrl(struct v4l2_ctrl *ctrl)
 +{
-+	struct v4l2_ctrl *ctrl;
-+	const struct v4l2_ctrl_vp9_frame *dec_params;
-+	struct avd_vp9_ctx *vp9_ctx = ctx->priv;
-+	unsigned int fctx_idx;
++	struct avd_ctx *ctx =
++		container_of(ctrl->handler, struct avd_ctx, ctrl_hdl);
++	const struct avd_coded_fmt_desc *desc = ctx->coded_fmt_desc;
++	enum avd_image_fmt image_fmt;
++	struct vb2_queue *vq;
++
++	/* Check if this change requires a capture format reset */
++	if (!desc->ops->get_image_fmt)
++		return 0;
++
++	image_fmt = desc->ops->get_image_fmt(ctx, ctrl);
++	if (avd_image_fmt_changed(ctx, image_fmt)) {
++		vq = v4l2_m2m_get_vq(ctx->fh.m2m_ctx,
++				     V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
++		if (vb2_is_busy(vq))
++			return -EBUSY;
++
++		ctx->image_fmt = image_fmt;
++		avd_reset_decoded_fmt(ctx);
++	}
++
++	return 0;
++}
++
++const struct v4l2_ctrl_ops avd_ctrl_ops = {
++	.try_ctrl = avd_try_ctrl,
++	.s_ctrl = avd_s_ctrl,
++};
++
++static const struct avd_coded_fmt_desc avd_coded_fmts[] = {};
++
++static bool avd_is_capable(struct avd_ctx *ctx, unsigned int capability)
++{
++	return (ctx->dev->variant->capabilities & capability) == capability;
++}
++
++static const struct avd_coded_fmt_desc *
++avd_enum_coded_fmt_desc(struct avd_ctx *ctx, int index)
++{
++	int fmt_idx = -1;
++	unsigned int i;
++
++	for (i = 0; i < ARRAY_SIZE(avd_coded_fmts); i++) {
++		if (!avd_is_capable(ctx, avd_coded_fmts[i].capability))
++			continue;
++		fmt_idx++;
++		if (index == fmt_idx)
++			return &avd_coded_fmts[i];
++	}
++
++	return NULL;
++}
++
++static const struct avd_coded_fmt_desc *
++avd_find_coded_fmt_desc(struct avd_ctx *ctx, u32 fourcc)
++{
++	unsigned int i;
++
++	for (i = 0; i < ARRAY_SIZE(avd_coded_fmts); i++) {
++		if (avd_is_capable(ctx, avd_coded_fmts[i].capability) &&
++		    avd_coded_fmts[i].fourcc == fourcc)
++			return &avd_coded_fmts[i];
++	}
++
++	return NULL;
++}
++
++void avd_reset_coded_fmt(struct avd_ctx *ctx)
++{
++	struct v4l2_format *f = &ctx->coded_fmt;
++
++	ctx->coded_fmt_desc = avd_enum_coded_fmt_desc(ctx, 0);
++	avd_reset_fmt(ctx, f, ctx->coded_fmt_desc->fourcc);
++
++	f->type = V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE;
++	f->fmt.pix_mp.width = ctx->coded_fmt_desc->frmsize.min_width;
++	f->fmt.pix_mp.height = ctx->coded_fmt_desc->frmsize.min_height;
++
++	f->fmt.pix_mp.num_planes = 1;
++	if (!f->fmt.pix_mp.plane_fmt[0].sizeimage)
++		f->fmt.pix_mp.plane_fmt[0].sizeimage =
++			f->fmt.pix_mp.width * f->fmt.pix_mp.height;
++}
++
++static int avd_enum_framesizes(struct file *file, void *priv,
++			       struct v4l2_frmsizeenum *fsize)
++{
++	struct avd_ctx *ctx = file_to_ctx(file);
++	const struct avd_coded_fmt_desc *desc;
++
++	if (fsize->index != 0)
++		return -EINVAL;
++
++	desc = avd_find_coded_fmt_desc(ctx, fsize->pixel_format);
++	if (!desc)
++		return -EINVAL;
++
++	fsize->type = V4L2_FRMSIZE_TYPE_CONTINUOUS;
++	fsize->stepwise.min_width = 1;
++	fsize->stepwise.max_width = desc->frmsize.max_width;
++	fsize->stepwise.step_width = 1;
++	fsize->stepwise.min_height = 1;
++	fsize->stepwise.max_height = desc->frmsize.max_height;
++	fsize->stepwise.step_height = 1;
++
++	return 0;
++}
++
++static int avd_querycap(struct file *file, void *priv,
++			struct v4l2_capability *cap)
++{
++	struct avd_dev *avd = video_drvdata(file);
++	struct video_device *vdev = video_devdata(file);
++
++	strscpy(cap->driver, avd->dev->driver->name, sizeof(cap->driver));
++	strscpy(cap->card, vdev->name, sizeof(cap->card));
++	snprintf(cap->bus_info, sizeof(cap->bus_info), "platform:%s",
++		 avd->dev->driver->name);
++	return 0;
++}
++
++static int avd_try_capture_fmt(struct file *file, void *priv,
++			       struct v4l2_format *f)
++{
++	struct v4l2_pix_format_mplane *pix_mp = &f->fmt.pix_mp;
++	struct avd_ctx *ctx = file_to_ctx(file);
++	const struct avd_coded_fmt_desc *coded_desc;
++
++	/*
++	 * The codec context should point to a coded format desc, if the format
++	 * on the coded end has not been set yet, it should point to the
++	 * default value.
++	 */
++	coded_desc = ctx->coded_fmt_desc;
++	if (WARN_ON(!coded_desc)) {
++		dev_err(ctx->dev->dev, "no coded desc!");
++		return -EINVAL;
++	}
++
++	if (!avd_is_valid_fmt(ctx, pix_mp->pixelformat, ctx->image_fmt))
++		pix_mp->pixelformat =
++			avd_enum_decoded_fmt(ctx, 0, ctx->image_fmt);
++
++	/* Always apply the frmsize constraint of the coded end. */
++	pix_mp->width = max(pix_mp->width, ctx->coded_fmt.fmt.pix_mp.width);
++	pix_mp->height = max(pix_mp->height, ctx->coded_fmt.fmt.pix_mp.height);
++	v4l2_apply_frmsize_constraints(&pix_mp->width, &pix_mp->height,
++				       &coded_desc->frmsize);
++
++	avd_fill_decoded_pixfmt(ctx, pix_mp);
++	pix_mp->field = V4L2_FIELD_NONE;
++
++	return 0;
++}
++
++static int avd_try_output_fmt(struct file *file, void *priv,
++			      struct v4l2_format *f)
++{
++	struct v4l2_pix_format_mplane *pix_mp = &f->fmt.pix_mp;
++	struct avd_ctx *ctx = file_to_ctx(file);
++	const struct avd_coded_fmt_desc *desc;
++
++	desc = avd_find_coded_fmt_desc(ctx, pix_mp->pixelformat);
++	if (!desc) {
++		desc = avd_enum_coded_fmt_desc(ctx, 0);
++		pix_mp->pixelformat = desc->fourcc;
++	}
++
++	v4l2_apply_frmsize_constraints(&pix_mp->width, &pix_mp->height,
++				       &desc->frmsize);
++
++	pix_mp->field = V4L2_FIELD_NONE;
++	/* All coded formats are considered single planar for now. */
++	pix_mp->num_planes = 1;
++
++	if (!pix_mp->plane_fmt[0].sizeimage)
++		pix_mp->plane_fmt[0].sizeimage =
++			pix_mp->width * f->fmt.pix_mp.height;
++
++	return 0;
++}
++
++static int avd_s_capture_fmt(struct file *file, void *priv,
++			     struct v4l2_format *f)
++{
++	struct avd_ctx *ctx = file_to_ctx(file);
++	struct vb2_queue *vq;
 +	int ret;
 +
-+	avd_run_preamble(ctx, &run->base);
++	/* Change not allowed if queue is busy */
++	vq = v4l2_m2m_get_vq(ctx->fh.m2m_ctx,
++			     V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
++	if (vb2_is_busy(vq))
++		return -EBUSY;
 +
-+	ctrl = v4l2_ctrl_find(&ctx->ctrl_hdl,
-+			      V4L2_CID_STATELESS_VP9_COMPRESSED_HDR);
-+	if (WARN_ON(!ctrl))
-+		return -EINVAL;
-+	run->prob_updates = ctrl->p_cur.p;
-+
-+	ctrl = v4l2_ctrl_find(&ctx->ctrl_hdl, V4L2_CID_STATELESS_VP9_FRAME);
-+	if (WARN_ON(!ctrl))
-+		return -EINVAL;
-+	dec_params = ctrl->p_cur.p;
-+
-+	ret = validate_dec_params(ctx, dec_params);
++	ret = avd_try_capture_fmt(file, priv, f);
 +	if (ret)
 +		return ret;
 +
-+	run->decode_params = dec_params;
++	ctx->decoded_fmt = *f;
++	return 0;
++}
 +
-+	vp9_ctx->cur.tx_mode = run->prob_updates->tx_mode;
++static int avd_s_output_fmt(struct file *file, void *priv,
++			    struct v4l2_format *f)
++{
++	struct avd_ctx *ctx = file_to_ctx(file);
++	struct v4l2_m2m_ctx *m2m_ctx = ctx->fh.m2m_ctx;
++	const struct avd_coded_fmt_desc *desc;
++	struct v4l2_format *cap_fmt;
++	struct vb2_queue *peer_vq, *vq;
++	int ret;
 +
-+	fctx_idx = v4l2_vp9_reset_frame_ctx(dec_params, vp9_ctx->frame_context);
-+	vp9_ctx->cur.frame_context_idx = fctx_idx;
++	/*
++	 * In order to support dynamic resolution change, the decoder admits
++	 * a resolution change, as long as the pixelformat remains. Can't be
++	 * done if streaming.
++	 */
++	vq = v4l2_m2m_get_vq(m2m_ctx, V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE);
++	if (vb2_is_streaming(vq) ||
++	    (vb2_is_busy(vq) && f->fmt.pix_mp.pixelformat !=
++					ctx->coded_fmt.fmt.pix_mp.pixelformat))
++		return -EBUSY;
 +
-+	vp9_ctx->probability_tables = vp9_ctx->frame_context[fctx_idx];
-+	v4l2_vp9_fw_update_probs(&vp9_ctx->probability_tables,
-+				 run->prob_updates, dec_params);
++	/*
++	 * Since format change on the OUTPUT queue will reset the CAPTURE
++	 * queue, we can't allow doing so when the CAPTURE queue has buffers
++	 * allocated.
++	 */
++	peer_vq = v4l2_m2m_get_vq(m2m_ctx, V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
++	if (vb2_is_busy(peer_vq))
++		return -EBUSY;
++
++	ret = avd_try_output_fmt(file, priv, f);
++	if (ret)
++		return ret;
++
++	desc = avd_find_coded_fmt_desc(ctx, f->fmt.pix_mp.pixelformat);
++	if (!desc)
++		return -EINVAL;
++	ctx->coded_fmt_desc = desc;
++	ctx->coded_fmt = *f;
++
++	/*
++	 * Current decoded format might have become invalid with newly
++	 * selected codec, so reset it to default just to be safe and
++	 * keep internal driver state sane. User is mandated to set
++	 * the decoded format again after we return, so we don't need
++	 * anything smarter.
++	 *
++	 * Note that this will propagates any size changes to the decoded
++	 * format.
++	 */
++	ctx->image_fmt = AVD_IMG_FMT_ANY;
++	avd_reset_decoded_fmt(ctx);
++
++	/* Propagate colorspace information to capture. */
++	cap_fmt = &ctx->decoded_fmt;
++	cap_fmt->fmt.pix_mp.colorspace = f->fmt.pix_mp.colorspace;
++	cap_fmt->fmt.pix_mp.xfer_func = f->fmt.pix_mp.xfer_func;
++	cap_fmt->fmt.pix_mp.ycbcr_enc = f->fmt.pix_mp.ycbcr_enc;
++	cap_fmt->fmt.pix_mp.quantization = f->fmt.pix_mp.quantization;
++
++	/* Enable format specific queue features */
++	vq->subsystem_flags |= desc->subsystem_flags;
 +
 +	return 0;
 +}
 +
-+static int avd_vp9_run(struct avd_ctx *ctx)
++static int avd_g_output_fmt(struct file *file, void *priv,
++			    struct v4l2_format *f)
 +{
-+	struct avd_vp9_run run;
-+	struct avd_vp9_ctx *vp9_ctx;
++	struct avd_ctx *ctx = file_to_ctx(file);
++
++	*f = ctx->coded_fmt;
++	return 0;
++}
++
++static int avd_g_capture_fmt(struct file *file, void *priv,
++			     struct v4l2_format *f)
++{
++	struct avd_ctx *ctx = file_to_ctx(file);
++
++	*f = ctx->decoded_fmt;
++	return 0;
++}
++
++static int avd_enum_output_fmt(struct file *file, void *priv,
++			       struct v4l2_fmtdesc *f)
++{
++	struct avd_ctx *ctx = file_to_ctx(file);
++	const struct avd_coded_fmt_desc *desc;
++
++	desc = avd_enum_coded_fmt_desc(ctx, f->index);
++	if (!desc)
++		return -EINVAL;
++
++	f->pixelformat = desc->fourcc;
++	return 0;
++}
++
++static int avd_enum_capture_fmt(struct file *file, void *priv,
++				struct v4l2_fmtdesc *f)
++{
++	struct avd_ctx *ctx = file_to_ctx(file);
++	u32 fourcc;
++
++	fourcc = avd_enum_decoded_fmt(ctx, f->index, ctx->image_fmt);
++	if (!fourcc)
++		return -EINVAL;
++
++	f->pixelformat = fourcc;
++	return 0;
++}
++
++const struct v4l2_ioctl_ops avd_ioctl_ops = {
++	.vidioc_querycap = avd_querycap,
++	.vidioc_enum_framesizes = avd_enum_framesizes,
++
++	.vidioc_try_fmt_vid_cap_mplane = avd_try_capture_fmt,
++	.vidioc_try_fmt_vid_out_mplane = avd_try_output_fmt,
++	.vidioc_s_fmt_vid_out_mplane = avd_s_output_fmt,
++	.vidioc_s_fmt_vid_cap_mplane = avd_s_capture_fmt,
++	.vidioc_g_fmt_vid_out_mplane = avd_g_output_fmt,
++	.vidioc_g_fmt_vid_cap_mplane = avd_g_capture_fmt,
++	.vidioc_enum_fmt_vid_out = avd_enum_output_fmt,
++	.vidioc_enum_fmt_vid_cap = avd_enum_capture_fmt,
++
++	.vidioc_reqbufs = v4l2_m2m_ioctl_reqbufs,
++	.vidioc_querybuf = v4l2_m2m_ioctl_querybuf,
++	.vidioc_qbuf = v4l2_m2m_ioctl_qbuf,
++	.vidioc_dqbuf = v4l2_m2m_ioctl_dqbuf,
++	.vidioc_prepare_buf = v4l2_m2m_ioctl_prepare_buf,
++	.vidioc_create_bufs = v4l2_m2m_ioctl_create_bufs,
++	.vidioc_expbuf = v4l2_m2m_ioctl_expbuf,
++
++	.vidioc_subscribe_event = v4l2_ctrl_subscribe_event,
++	.vidioc_unsubscribe_event = v4l2_event_unsubscribe,
++
++	.vidioc_streamon = v4l2_m2m_ioctl_streamon,
++	.vidioc_streamoff = v4l2_m2m_ioctl_streamoff,
++
++	.vidioc_decoder_cmd = v4l2_m2m_ioctl_stateless_decoder_cmd,
++	.vidioc_try_decoder_cmd = v4l2_m2m_ioctl_stateless_try_decoder_cmd,
++};
++
++static int avd_queue_setup(struct vb2_queue *vq, unsigned int *num_buffers,
++			   unsigned int *num_planes, unsigned int sizes[],
++			   struct device *alloc_devs[])
++{
++	struct avd_ctx *ctx = vb2_get_drv_priv(vq);
++	struct v4l2_format *f;
++	unsigned int i;
++
++	if (V4L2_TYPE_IS_OUTPUT(vq->type))
++		f = &ctx->coded_fmt;
++	else
++		f = &ctx->decoded_fmt;
++
++	if (*num_planes) {
++		if (*num_planes != f->fmt.pix_mp.num_planes)
++			return -EINVAL;
++
++		for (i = 0; i < f->fmt.pix_mp.num_planes; i++) {
++			if (sizes[i] < f->fmt.pix_mp.plane_fmt[i].sizeimage)
++				return -EINVAL;
++		}
++	} else {
++		*num_planes = f->fmt.pix_mp.num_planes;
++		for (i = 0; i < f->fmt.pix_mp.num_planes; i++)
++			sizes[i] = f->fmt.pix_mp.plane_fmt[i].sizeimage;
++	}
++
++	return 0;
++}
++
++static int avd_buf_prepare(struct vb2_buffer *vb)
++{
++	struct vb2_queue *vq = vb->vb2_queue;
++	struct avd_ctx *ctx = vb2_get_drv_priv(vq);
++	struct v4l2_format *f;
++	unsigned int i;
++
++	if (V4L2_TYPE_IS_OUTPUT(vq->type))
++		f = &ctx->coded_fmt;
++	else
++		f = &ctx->decoded_fmt;
++
++	for (i = 0; i < f->fmt.pix_mp.num_planes; ++i) {
++		u32 sizeimage = f->fmt.pix_mp.plane_fmt[i].sizeimage;
++
++		if (vb2_plane_size(vb, i) < sizeimage)
++			return -EINVAL;
++	}
++
++	/*
++	 * Buffer's bytesused must be written by driver for CAPTURE buffers.
++	 * (for OUTPUT buffers, if userspace passes 0 bytesused, v4l2-core sets
++	 * it to buffer length).
++	 */
++	if (V4L2_TYPE_IS_CAPTURE(vq->type))
++		vb2_set_plane_payload(vb, 0,
++				      f->fmt.pix_mp.plane_fmt[0].sizeimage);
++
++	return 0;
++}
++
++static void avd_buf_queue(struct vb2_buffer *vb)
++{
++	struct avd_ctx *ctx = vb2_get_drv_priv(vb->vb2_queue);
++	struct vb2_v4l2_buffer *vbuf = to_vb2_v4l2_buffer(vb);
++
++	v4l2_m2m_buf_queue(ctx->fh.m2m_ctx, vbuf);
++}
++
++static int avd_buf_out_validate(struct vb2_buffer *vb)
++{
++	struct vb2_v4l2_buffer *vbuf = to_vb2_v4l2_buffer(vb);
++
++	vbuf->field = V4L2_FIELD_NONE;
++	return 0;
++}
++
++static void avd_buf_request_complete(struct vb2_buffer *vb)
++{
++	struct avd_ctx *ctx = vb2_get_drv_priv(vb->vb2_queue);
++
++	v4l2_ctrl_request_complete(vb->req_obj.req, &ctx->ctrl_hdl);
++}
++
++static int avd_start_streaming(struct vb2_queue *q, unsigned int count)
++{
++	struct avd_ctx *ctx = vb2_get_drv_priv(q);
++	const struct avd_coded_fmt_desc *desc;
++	int ret;
++
++	if (V4L2_TYPE_IS_CAPTURE(q->type))
++		return 0;
++
++	desc = ctx->coded_fmt_desc;
++	if (WARN_ON(!desc))
++		return -EINVAL;
++
++	if (desc->ops->start) {
++		ret = desc->ops->start(ctx);
++		if (ret)
++			return ret;
++	}
++
++	return 0;
++}
++
++static void avd_queue_cleanup(struct vb2_queue *vq, u32 state)
++{
++	struct avd_ctx *ctx = vb2_get_drv_priv(vq);
++
++	while (true) {
++		struct vb2_v4l2_buffer *vbuf;
++
++		if (V4L2_TYPE_IS_OUTPUT(vq->type))
++			vbuf = v4l2_m2m_src_buf_remove(ctx->fh.m2m_ctx);
++		else
++			vbuf = v4l2_m2m_dst_buf_remove(ctx->fh.m2m_ctx);
++
++		if (!vbuf)
++			break;
++
++		v4l2_ctrl_request_complete(vbuf->vb2_buf.req_obj.req,
++					   &ctx->ctrl_hdl);
++		v4l2_m2m_buf_done(vbuf, state);
++	}
++}
++
++static void avd_stop_streaming(struct vb2_queue *q)
++{
++	struct avd_ctx *ctx = vb2_get_drv_priv(q);
++
++	if (V4L2_TYPE_IS_OUTPUT(q->type)) {
++		const struct avd_coded_fmt_desc *desc = ctx->coded_fmt_desc;
++
++		if (WARN_ON(!desc))
++			return;
++
++		if (desc->ops->stop)
++			desc->ops->stop(ctx);
++	}
++
++	avd_queue_cleanup(q, VB2_BUF_STATE_ERROR);
++}
++
++const struct vb2_ops avd_queue_ops = {
++	.queue_setup = avd_queue_setup,
++	.buf_prepare = avd_buf_prepare,
++	.buf_queue = avd_buf_queue,
++	.buf_out_validate = avd_buf_out_validate,
++	.buf_request_complete = avd_buf_request_complete,
++	.start_streaming = avd_start_streaming,
++	.stop_streaming = avd_stop_streaming,
++};
++
++void avd_job_finish_no_pm(struct avd_ctx *ctx, enum vb2_buffer_state result)
++{
++	if (ctx->coded_fmt_desc->ops->done) {
++		struct vb2_v4l2_buffer *src_buf, *dst_buf;
++
++		src_buf = v4l2_m2m_next_src_buf(ctx->fh.m2m_ctx);
++		dst_buf = v4l2_m2m_next_dst_buf(ctx->fh.m2m_ctx);
++		ctx->coded_fmt_desc->ops->done(ctx, src_buf, dst_buf, result);
++	}
++
++	v4l2_m2m_buf_done_and_job_finish(ctx->dev->m2m_dev, ctx->fh.m2m_ctx,
++					 result);
++}
++
++void avd_job_finish(struct avd_ctx *ctx, enum vb2_buffer_state result)
++{
++	struct avd_dev *avd = ctx->dev;
++
++	pm_runtime_put_autosuspend(avd->dev);
++	avd_job_finish_no_pm(ctx, result);
++}
++
++void avd_run_preamble(struct avd_ctx *ctx, struct avd_run *run)
++{
++	struct media_request *src_req;
 +	struct avd_decoded_buffer *dst;
-+	int ret;
 +
-+	ret = avd_vp9_run_preamble(ctx, &run);
-+	if (ret) {
-+		avd_run_postamble(ctx, &run.base);
-+		return ret;
-+	}
++	memset(run, 0, sizeof(*run));
 +
-+	ret = avd_init_job(
-+		ctx, AVD_CODEC_VP9,
-+		(1 << run.decode_params->tile_rows_log2) *
-+				(1 << run.decode_params->tile_cols_log2) +
-+			1);
-+	if (ret)
-+		return ret;
++	run->bufs.src = v4l2_m2m_next_src_buf(ctx->fh.m2m_ctx);
++	run->bufs.dst = v4l2_m2m_next_dst_buf(ctx->fh.m2m_ctx);
 +
-+	init_probs(ctx, &run);
++	run->coded_in =
++		vb2_dma_contig_plane_dma_addr(&run->bufs.src->vb2_buf, 0);
++	run->y_out = vb2_dma_contig_plane_dma_addr(&run->bufs.dst->vb2_buf, 0);
++	run->uv_out = run->y_out +
++		      ctx->decoded_fmt.fmt.pix_mp.plane_fmt[0].bytesperline *
++			      ctx->decoded_fmt.fmt.pix_mp.height;
 +
-+	vp9_ctx = ctx->priv;
-+	dst = vb2_to_avd_decoded_buf(&run.base.bufs.dst->vb2_buf);
-+	update_dec_buf_info(dst, run.decode_params);
-+	update_ctx_cur_info(vp9_ctx, dst, run.decode_params);
++	run->comp_out = run->y_out + ctx->comp.start_offset;
++	ctx->decomp = true;
 +
-+	set_header(ctx, &run);
-+	vp9_ctx->submit_num = 0;
-+	set_tiles(ctx, &run);
-+	avd_run_postamble(ctx, &run.base);
++	dst = vb2_to_avd_decoded_buf(&run->bufs.dst->vb2_buf);
++	memcpy(&dst->comp, &ctx->comp, sizeof(ctx->comp));
 +
-+	return avd_submit_job(ctx);
++	/* Apply request(s) controls if needed. */
++	src_req = run->bufs.src->vb2_buf.req_obj.req;
++	if (src_req)
++		v4l2_ctrl_request_setup(src_req, &ctx->ctrl_hdl);
++
++	v4l2_m2m_buf_copy_metadata(run->bufs.src, run->bufs.dst);
 +}
 +
-+#define copy_tx_and_skip(p1, p2)                                    \
-+	do {                                                        \
-+		memcpy((p1)->tx8, (p2)->tx8, sizeof((p1)->tx8));    \
-+		memcpy((p1)->tx16, (p2)->tx16, sizeof((p1)->tx16)); \
-+		memcpy((p1)->tx32, (p2)->tx32, sizeof((p1)->tx32)); \
-+		memcpy((p1)->skip, (p2)->skip, sizeof((p1)->skip)); \
-+	} while (0)
-+
-+static void avd_vp9_done(struct avd_ctx *ctx, struct vb2_v4l2_buffer *src_buf,
-+			 struct vb2_v4l2_buffer *dst_buf,
-+			 enum vb2_buffer_state result)
++void avd_run_postamble(struct avd_ctx *ctx, struct avd_run *run)
 +{
-+	struct avd_vp9_ctx *vp9_ctx = ctx->priv;
-+	unsigned int fctx_idx;
++	struct media_request *src_req = run->bufs.src->vb2_buf.req_obj.req;
 +
-+	/* v4l2-specific stuff */
-+	if (result == VB2_BUF_STATE_ERROR)
-+		goto out_update_last;
++	if (src_req)
++		v4l2_ctrl_request_complete(src_req, &ctx->ctrl_hdl);
++}
 +
-+	/*
-+	 * vp9 stuff
-+	 *
-+	 * 6.1.2 refresh_probs()
-+	 *
-+	 * In the spec a complementary condition goes last in 6.1.2 refresh_probs(),
-+	 * but it makes no sense to perform all the activities from the first "if"
-+	 * there if we actually are not refreshing the frame context. On top of that,
-+	 * because of 6.2 uncompressed_header() whenever error_resilient_mode == 1,
-+	 * refresh_frame_context == 0. Consequently, if we don't jump to out_update_last
-+	 * it means error_resilient_mode must be 0.
-+	 */
-+	if (!(vp9_ctx->cur.flags & V4L2_VP9_FRAME_FLAG_REFRESH_FRAME_CTX))
-+		goto out_update_last;
++static int avd_add_ctrls(struct avd_ctx *ctx, const struct avd_ctrls *ctrls)
++{
++	unsigned int i;
 +
-+	fctx_idx = vp9_ctx->cur.frame_context_idx;
++	for (i = 0; i < ctrls->num_ctrls; i++) {
++		const struct v4l2_ctrl_config *cfg = &ctrls->ctrls[i].cfg;
 +
-+	if (!(vp9_ctx->cur.flags & V4L2_VP9_FRAME_FLAG_PARALLEL_DEC_MODE)) {
-+		/* error_resilient_mode == 0 && frame_parallel_decoding_mode == 0 */
-+		struct v4l2_vp9_frame_context *probs =
-+			&vp9_ctx->probability_tables;
-+		bool frame_is_intra = vp9_ctx->cur.flags &
-+				      (V4L2_VP9_FRAME_FLAG_KEY_FRAME |
-+				       V4L2_VP9_FRAME_FLAG_INTRA_ONLY);
-+		struct tx_and_skip {
-+			u8 tx8[2][1];
-+			u8 tx16[2][2];
-+			u8 tx32[2][3];
-+			u8 skip[3];
-+		} _tx_skip, *tx_skip = &_tx_skip;
-+		struct v4l2_vp9_frame_symbol_counts *counts;
++		v4l2_ctrl_new_custom(&ctx->ctrl_hdl, cfg, ctx);
++		if (ctx->ctrl_hdl.error)
++			return ctx->ctrl_hdl.error;
++	}
 +
-+		/* buffer the forward-updated TX and skip probs */
-+		if (frame_is_intra)
-+			copy_tx_and_skip(tx_skip, probs);
++	return 0;
++}
 +
-+		/* 6.1.2 refresh_probs(): load_probs() and load_probs2() */
-+		*probs = vp9_ctx->frame_context[fctx_idx];
++int avd_init_ctrls(struct avd_ctx *ctx)
++{
++	unsigned int i, nctrls = 0;
++	int ret;
 +
-+		/* if FrameIsIntra then undo the effect of load_probs2() */
-+		if (frame_is_intra)
-+			copy_tx_and_skip(probs, tx_skip);
++	for (i = 0; i < ARRAY_SIZE(avd_coded_fmts); i++)
++		if (avd_is_capable(ctx, avd_coded_fmts[i].capability))
++			nctrls += avd_coded_fmts[i].ctrls->num_ctrls;
 +
-+		counts = &vp9_ctx->cnts;
++	v4l2_ctrl_handler_init(&ctx->ctrl_hdl, nctrls);
 +
-+		v4l2_vp9_adapt_coef_probs(
-+			probs, counts,
-+			!vp9_ctx->last.valid ||
-+				vp9_ctx->last.flags &
-+					V4L2_VP9_FRAME_FLAG_KEY_FRAME,
-+			frame_is_intra);
-+		if (!frame_is_intra) {
-+			const struct avd_vp9_frame_symbol_counts *cnts;
-+			int i;
-+			u32 tx16p[2][4];
-+			u32 sign[2][2];
-+			u32 classes[2][11];
-+			u32 class0[2][2];
-+			u32 bits[2][10][2];
-+			u32 class0_fp[2][2][4];
-+			u32 fp[2][4];
-+			u32 class0_hp[2][2];
-+			u32 hp[2][2];
-+
-+			cnts = vp9_ctx->bufs.counts.cpu;
-+
-+			for (i = 0; i < ARRAY_SIZE(cnts->tx16p); ++i)
-+				memcpy(tx16p[i], cnts->tx16p[i],
-+				       sizeof(tx16p[0]));
-+
-+			for (i = 0; i < 2; i++) {
-+				memcpy(sign[i], cnts->mv_comp[i].sign,
-+				       sizeof(sign[0]));
-+				memcpy(classes[i], cnts->mv_comp[i].classes,
-+				       sizeof(classes[0]));
-+				memcpy(class0[i], cnts->mv_comp[i].class0,
-+				       sizeof(class0[0]));
-+				memcpy(bits[i], cnts->mv_comp[i].bits,
-+				       sizeof(bits[0]));
-+				memcpy(class0_fp[i], cnts->mv_fr[i].class0_fr,
-+				       sizeof(class0_fp[0]));
-+				memcpy(fp[i], cnts->mv_fr[i].fr, sizeof(fp[0]));
-+				memcpy(class0_hp[i], cnts->mv_hp[i].class0_hp,
-+				       sizeof(class0_hp[0]));
-+				memcpy(hp[i], cnts->mv_hp[i].hp, sizeof(hp[0]));
-+			}
-+
-+			counts->tx16p = &tx16p;
-+			counts->sign = &sign;
-+			counts->classes = &classes;
-+			counts->class0 = &class0;
-+			counts->bits = &bits;
-+			counts->class0_fp = &class0_fp;
-+			counts->fp = &fp;
-+			counts->class0_hp = &class0_hp;
-+			counts->hp = &hp;
-+
-+			/* load_probs2() already done */
-+			v4l2_vp9_adapt_noncoef_probs(
-+				&vp9_ctx->probability_tables, counts,
-+				vp9_ctx->cur.reference_mode,
-+				vp9_ctx->cur.interpolation_filter,
-+				vp9_ctx->cur.tx_mode, vp9_ctx->cur.flags);
++	for (i = 0; i < ARRAY_SIZE(avd_coded_fmts); i++) {
++		if (avd_is_capable(ctx, avd_coded_fmts[i].capability)) {
++			ret = avd_add_ctrls(ctx, avd_coded_fmts[i].ctrls);
++			if (ret)
++				goto err_free_handler;
 +		}
 +	}
 +
-+	/* 6.1.2 refresh_probs(): save_probs(fctx_idx) */
-+	vp9_ctx->frame_context[fctx_idx] = vp9_ctx->probability_tables;
-+
-+out_update_last:
-+	update_ctx_last_info(vp9_ctx);
-+}
-+
-+static noinline_for_stack void
-+avd_init_v4l2_vp9_count_tbl(struct avd_ctx *ctx)
-+{
-+	struct avd_vp9_ctx *vp9_ctx = ctx->priv;
-+	struct avd_vp9_frame_symbol_counts *cnts = vp9_ctx->bufs.counts.cpu;
-+	int coeff_cnts = 0, eob_cnts = 0;
-+
-+	vp9_ctx->cnts.intra_inter = &cnts->intra_inter;
-+	vp9_ctx->cnts.y_mode = &cnts->y_mode;
-+	vp9_ctx->cnts.uv_mode = &cnts->uv_mode;
-+	vp9_ctx->cnts.comp = &cnts->comp;
-+	vp9_ctx->cnts.comp_ref = &cnts->comp_ref;
-+	vp9_ctx->cnts.single_ref = &cnts->single_ref;
-+	vp9_ctx->cnts.filter = &cnts->filter;
-+	vp9_ctx->cnts.mv_mode = &cnts->mv_mode;
-+	vp9_ctx->cnts.mv_joint = &cnts->mv_joint;
-+	/* all of the mv use a different structure, so they must all be copied */
-+	vp9_ctx->cnts.tx8p = &cnts->tx8p;
-+	/*
-+	 * AVD also uses "u32 tx16p[2][3]" instead of "u32 tx16p[2][4]", so
-+	 * they must also be copied
-+	 */
-+	vp9_ctx->cnts.tx32p = &cnts->tx32p;
-+	vp9_ctx->cnts.partition = &cnts->partition;
-+	vp9_ctx->cnts.skip = &cnts->skip;
-+
-+	for (int t = 0; t < 4; t++)
-+		for (int i = 0; i < 2; i++)
-+			for (int j = 0; j < 2; j++)
-+				for (int k = 0; k < 6; k++) {
-+					int max_l = (k == 0) ? 3 : 6;
-+					for (int l = 0; l < max_l; l++) {
-+						vp9_ctx->cnts.coeff[t][i][j][k][l] =
-+							(u32 (*)[3])&cnts->ref_cnt[coeff_cnts];
-+						coeff_cnts += 3;
-+						vp9_ctx->cnts.eob[t][i][j][k][l][0] =
-+							&cnts->eob_0[eob_cnts++];
-+						vp9_ctx->cnts.eob[t][i][j][k][l][1] =
-+							&cnts->ref_cnt[coeff_cnts++];
-+					}
-+				}
-+}
-+
-+static int avd_vp9_start(struct avd_ctx *ctx)
-+{
-+	struct avd_vp9_ctx *vp9_ctx;
-+	int ret;
-+
-+	vp9_ctx = kzalloc_obj(*vp9_ctx, GFP_KERNEL);
-+	if (!vp9_ctx)
-+		return -ENOMEM;
-+
-+	ctx->priv = vp9_ctx;
-+	ret = avd_vp9_alloc_bufs(ctx);
++	ret = v4l2_ctrl_handler_setup(&ctx->ctrl_hdl);
 +	if (ret)
-+		goto err_free_ctx;
++		goto err_free_handler;
 +
-+	avd_init_v4l2_vp9_count_tbl(ctx);
-+
++	ctx->fh.ctrl_handler = &ctx->ctrl_hdl;
 +	return 0;
 +
-+err_free_ctx:
-+	kfree(vp9_ctx);
-+	ctx->priv = NULL;
++err_free_handler:
++	v4l2_ctrl_handler_free(&ctx->ctrl_hdl);
 +	return ret;
 +}
-+
-+static void avd_vp9_stop(struct avd_ctx *ctx)
-+{
-+	struct avd_vp9_ctx *vp9_ctx = ctx->priv;
-+	struct avd_dev *avd = ctx->dev;
-+
-+	avd_buf_free(avd, &vp9_ctx->bufs.probs);
-+	avd_buf_free(avd, &vp9_ctx->bufs.counts);
-+	avd_buf_free(avd, &vp9_ctx->bufs.seg);
-+	avd_buf_free(avd, &vp9_ctx->bufs.color);
-+	avd_buf_free(avd, &vp9_ctx->bufs.ip_above);
-+	avd_buf_free(avd, &vp9_ctx->bufs.lf_above);
-+	avd_buf_free(avd, &vp9_ctx->bufs.above_info);
-+	avd_buf_free(avd, &vp9_ctx->bufs.az_left);
-+	avd_buf_free(avd, &vp9_ctx->bufs.lf_left_info);
-+	avd_buf_free(avd, &vp9_ctx->bufs.lf_left);
-+
-+	kfree(vp9_ctx);
-+}
-+
-+static enum avd_image_fmt avd_vp9_get_image_fmt(struct avd_ctx *ctx,
-+						struct v4l2_ctrl *ctrl)
-+{
-+#define BIT_DEPTH(chroma)                                      \
-+	(frame->bit_depth == 8 ? AVD_IMG_FMT_##chroma##_8BIT : \
-+				 AVD_IMG_FMT_##chroma##_10BIT)
-+	const struct v4l2_ctrl_vp9_frame *frame = ctrl->p_new.p_vp9_frame;
-+
-+	if (ctrl->id != V4L2_CID_STATELESS_VP9_FRAME)
-+		return AVD_IMG_FMT_ANY;
-+
-+	/* 7.2.2 Color config semantics */
-+	if (frame->flags & V4L2_VP9_FRAME_FLAG_X_SUBSAMPLING) {
-+		if (frame->flags & V4L2_VP9_FRAME_FLAG_Y_SUBSAMPLING)
-+			return BIT_DEPTH(420);
-+		else
-+			return BIT_DEPTH(422);
-+	}
-+
-+	return AVD_IMG_FMT_ANY;
-+#undef BIT_DEPTH
-+}
-+
-+static void avd_vp9_submit(struct avd_ctx *ctx)
-+{
-+	struct avd_vp9_ctx *vp9_ctx = ctx->priv;
-+	struct avd_dev *avd = ctx->dev;
-+	u32 submit_mask = ctx->dev->variant->revision == 3 ?
-+				  AVD_OP_EXEC_REV3_VP9_MASK :
-+				  0;
-+
-+	writel(AVD_OP_EXEC | submit_mask |
-+		       AVD_OP_EXEC_FLAG_START_REV4(avd->variant->revision ==
-+						   4) |
-+		       AVD_OP_EXEC_FLAG_START_REV3(avd->variant->revision ==
-+						   3) |
-+		       AVD_OP_EXEC_FIFO_IDX(ctx->fifo_idx) |
-+		       AVD_OP_EXEC_FIFO_MASK(avd->variant->fifo_slots),
-+	       avd->ctrl + avd->variant->submit_offset);
-+	for (int i = 0; i < vp9_ctx->submit_num - 1; i++)
-+		writel(AVD_OP_EXEC | submit_mask |
-+			       AVD_OP_EXEC_FIFO_IDX(ctx->fifo_idx) |
-+			       AVD_OP_EXEC_FIFO_MASK(avd->variant->fifo_slots),
-+		       avd->ctrl + avd->variant->submit_offset);
-+}
-+
-+const struct avd_coded_fmt_ops avd_vp9_fmt_ops = {
-+	.start = avd_vp9_start,
-+	.stop = avd_vp9_stop,
-+	.run = avd_vp9_run,
-+	.done = avd_vp9_done,
-+	.submit = avd_vp9_submit,
-+	.get_image_fmt = avd_vp9_get_image_fmt,
-+};
 diff --git a/drivers/media/platform/apple/avd/avd.h b/drivers/media/platform/apple/avd/avd.h
-index 5dab6cb077fa..facf23d151c0 100644
---- a/drivers/media/platform/apple/avd/avd.h
+new file mode 100644
+index 000000000000..771cf430f284
+--- /dev/null
 +++ b/drivers/media/platform/apple/avd/avd.h
-@@ -91,6 +91,12 @@ struct avd_ctrls {
- 	unsigned int num_ctrls;
- };
- 
-+struct avd_vp9_decoded_buffer_info {
-+	unsigned short width;
-+	unsigned short height;
-+	unsigned int bit_depth : 4;
+@@ -0,0 +1,273 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Apple Video Decoder driver
++ *
++ * Copyright (C) 2026 The Asahi Linux Contributors
++ * Copyright (C) 2026 Sofus Forstreuter <sofus.c@icloud.com>
++ *
++ * Based on rkvdec driver by Collabora, Ltd.
++ * Copyright (C) 2019 Collabora, Ltd.
++ * Based on rkvdec driver by Google LLC. (Tomasz Figa <tfiga@chromium.org>)
++ * Based on s5p-mfc driver by Samsung Electronics Co., Ltd.
++ * Copyright (C) 2011 Samsung Electronics Co., Ltd.
++ */
++
++#ifndef AVD_H_
++#define AVD_H_
++
++#include <linux/platform_device.h>
++#include <linux/firmware.h>
++#include <linux/iommu.h>
++#include <linux/slab.h>
++
++#include <media/v4l2-ctrls.h>
++#include <media/v4l2-device.h>
++#include <media/v4l2-mem2mem.h>
++#include <media/v4l2-ioctl.h>
++
++#define AVD_CAPABILITY_HEVC	BIT(0)
++#define AVD_CAPABILITY_H264	BIT(1)
++#define AVD_CAPABILITY_VP9	BIT(2)
++#define AVD_CAPABILITY_AV1	BIT(3)
++
++/* Shifts addresses right and bytesperline?? */
++#define AVD_QUIRK_LSR		BIT(0)
++#define AVD_QUIRK_NO_PIPE_STATE	BIT(1)
++
++#define AVD_REG_RUN_CTRL	0x08
++#define AVD_RUN_CTRL_UNK_RUN	BIT(0)
++#define AVD_RUN_CTRL_UNK_STOP	(BIT(1) | BIT(2) | BIT(3))
++
++#define AVD_REG_MBOX_IRQ_ENABLE	0x48
++#define AVD_REG_MBOX_IRQ_CLR	0x4c
++#define AVD_MBOX1_EMPTY		BIT(2)
++#define AVD_MBOX1_NOT_EMPTY	BIT(3)
++
++#define AVD_REG_MBOX1_STATUS	0x5c
++#define AVD_REG_MBOX1_RETRIEVE	0x64
++#define AVD_MBOX_ENABLE		BIT(0)
++
++#define AVD_REG_FLAG0_SET	0x90
++#define AVD_REG_FLAG0_CLR	0x98
++
++/*
++ * AVD needs most addresses to be aligned to 256
++ * the only exception are the compressed buffers, they are aligned to 128
++ * instead
++ */
++#define AVD_ALIGN	256
++/* hevc, with a b slice where all references are active and weights are sent */
++#define AVD_MAX_INST	512
++
++struct avd_ctx;
++struct avd_dev;
++
++/* Matches hdr mode (inst stream) and register layout */
++enum avd_codec {
++	AVD_CODEC_HEVC = 0,
++	AVD_CODEC_H264 = 1,
++	AVD_CODEC_VP9 = 2,
++	AVD_CODEC_AV1 = 3
 +};
 +
- struct avd_comp {
- 	u32 size;
- 	/* offset to start of compressed data */
-@@ -103,6 +109,9 @@ struct avd_decoded_buffer {
- 	/* Must be the first field in this struct. */
- 	struct v4l2_m2m_buffer base;
- 	struct avd_comp comp;
-+	union {
-+		struct avd_vp9_decoded_buffer_info vp9;
-+	};
- };
- 
- static inline struct avd_decoded_buffer *
-@@ -238,6 +247,7 @@ void avd_run_preamble(struct avd_ctx *ctx, struct avd_run *run);
- void avd_run_postamble(struct avd_ctx *ctx, struct avd_run *run);
- 
- extern const struct avd_coded_fmt_ops avd_h264_fmt_ops;
-+extern const struct avd_coded_fmt_ops avd_vp9_fmt_ops;
- 
- extern const struct v4l2_ctrl_ops avd_ctrl_ops;
- extern const struct v4l2_ioctl_ops avd_ioctl_ops;
++struct avd_run {
++	struct {
++		struct vb2_v4l2_buffer *src; /* OUTPUT coded */
++		struct vb2_v4l2_buffer *dst; /* CAPTURE decoded */
++	} bufs;
++
++	dma_addr_t coded_in;
++	dma_addr_t y_out;
++	dma_addr_t uv_out;
++	dma_addr_t comp_out;
++};
++
++struct avd_ctrl_desc {
++	struct v4l2_ctrl_config cfg;
++};
++
++struct avd_ctrls {
++	const struct avd_ctrl_desc *ctrls;
++	unsigned int num_ctrls;
++};
++
++struct avd_comp {
++	u32 size;
++	/* offset to start of compressed data */
++	size_t start_offset;
++	/* relative offsets to start */
++	u32 offsets[4];
++};
++
++struct avd_decoded_buffer {
++	/* Must be the first field in this struct. */
++	struct v4l2_m2m_buffer base;
++	struct avd_comp comp;
++};
++
++static inline struct avd_decoded_buffer *
++vb2_to_avd_decoded_buf(struct vb2_buffer *buf)
++{
++	return container_of(buf, struct avd_decoded_buffer, base.vb.vb2_buf);
++}
++
++struct avd_decoded_buffer *avd_get_ref_buf(struct avd_ctx *ctx,
++					   struct vb2_v4l2_buffer *dst,
++					   u64 timestamp);
++
++struct avd_coded_fmt_ops {
++	void (*adjust_decoded_fmt)(struct avd_ctx *ctx,
++				   struct v4l2_pix_format_mplane *pix_mp);
++	void (*submit)(struct avd_ctx *ctx);
++	int (*start)(struct avd_ctx *ctx);
++	void (*stop)(struct avd_ctx *ctx);
++	int (*run)(struct avd_ctx *ctx);
++	void (*done)(struct avd_ctx *ctx, struct vb2_v4l2_buffer *src_buf,
++		     struct vb2_v4l2_buffer *dst_buf,
++		     enum vb2_buffer_state result);
++	int (*try_ctrl)(struct avd_ctx *ctx, struct v4l2_ctrl *ctrl);
++	enum avd_image_fmt (*get_image_fmt)(struct avd_ctx *ctx,
++					    struct v4l2_ctrl *ctrl);
++};
++
++enum avd_image_fmt {
++	AVD_IMG_FMT_ANY = 0,
++	AVD_IMG_FMT_420_8BIT,
++	AVD_IMG_FMT_420_10BIT,
++	AVD_IMG_FMT_422_8BIT,
++	AVD_IMG_FMT_422_10BIT,
++};
++
++struct avd_decoded_fmt_desc {
++	u32 fourcc;
++	enum avd_image_fmt image_fmt;
++};
++
++struct avd_coded_fmt_desc {
++	u32 fourcc;
++	struct v4l2_frmsize_stepwise frmsize;
++	const struct avd_ctrls *ctrls;
++	const struct avd_coded_fmt_ops *ops;
++	u32 subsystem_flags;
++	unsigned int capability;
++};
++
++struct avd_variant {
++	unsigned int vp_slots[4];
++	unsigned int fifo_slots;
++	unsigned int capabilities;
++	void (*configure_stream)(struct avd_dev *avd, dma_addr_t addr,
++				 u8 fifo_idx, u32 vp_slot);
++	const char *fw_name;
++	unsigned char revision; /* the same as the device tree */
++	/* just for convenience */
++	u32 vp_slot_offset;
++	u32 submit_offset;
++	u32 submit_queue_max_offset;
++	u32 submit_queue_status_offset;
++	unsigned int quirks;
++};
++
++struct avd_dev {
++	struct device *dev;
++	struct v4l2_device v4l2_dev;
++	struct media_device mdev;
++	struct video_device vdev;
++	struct v4l2_m2m_dev *m2m_dev;
++	struct platform_device *pdev;
++	const struct firmware *fw; /* fw is lost on suspend */
++	void __iomem *code;
++	void __iomem *mbox;
++	void __iomem *ctrl;
++	struct iommu_domain *domain;
++	struct iommu_domain *empty_domain;
++	struct mutex vdev_lock; /* serializes ioctls */
++	struct reset_control *rstc;
++	const struct avd_variant *variant;
++};
++
++struct avd_segment {
++	size_t num;
++	u32 instructions[AVD_MAX_INST];
++};
++
++struct avd_job {
++	enum avd_codec codec;
++	size_t num;
++	struct avd_segment *segments;
++};
++
++struct avd_buf {
++	void *cpu;
++	dma_addr_t addr;
++	size_t size;
++};
++
++struct avd_ctx {
++	struct v4l2_fh fh;
++	struct avd_dev *dev;
++	struct v4l2_format coded_fmt;
++	struct v4l2_format decoded_fmt;
++	const struct avd_coded_fmt_desc *coded_fmt_desc;
++	struct v4l2_ctrl_handler ctrl_hdl;
++	enum avd_image_fmt image_fmt;
++	bool decomp;
++	struct delayed_work watchdog_work;
++	void *priv;
++	struct avd_comp comp;
++	int fifo_idx;
++	struct avd_job job;
++	struct avd_buf inst;
++	struct avd_buf pipe_state;
++};
++
++int avd_init_job(struct avd_ctx *ctx, enum avd_codec codec, size_t segments);
++int avd_submit_job(struct avd_ctx *ctx);
++
++int avd_buf_alloc(struct avd_dev *avd, struct avd_buf *buf, size_t size);
++void avd_buf_free(struct avd_dev *avd, struct avd_buf *buf);
++
++void avd_reset_coded_fmt(struct avd_ctx *ctx);
++void avd_reset_decoded_fmt(struct avd_ctx *ctx);
++int avd_init_ctrls(struct avd_ctx *ctx);
++
++void avd_job_finish_no_pm(struct avd_ctx *ctx, enum vb2_buffer_state result);
++void avd_job_finish(struct avd_ctx *ctx, enum vb2_buffer_state result);
++
++void avd_run_preamble(struct avd_ctx *ctx, struct avd_run *run);
++void avd_run_postamble(struct avd_ctx *ctx, struct avd_run *run);
++
++extern const struct v4l2_ctrl_ops avd_ctrl_ops;
++extern const struct v4l2_ioctl_ops avd_ioctl_ops;
++extern const struct vb2_ops avd_queue_ops;
++
++static inline u32 fmt_height(struct avd_ctx *ctx)
++{
++	return ctx->coded_fmt.fmt.pix_mp.height;
++}
++
++static inline u32 fmt_width(struct avd_ctx *ctx)
++{
++	return ctx->coded_fmt.fmt.pix_mp.width;
++}
++
++void fill_comp(struct avd_comp *comp, enum avd_image_fmt image_fmt, u32 width,
++	       u32 height);
++
++static inline struct avd_ctx *file_to_ctx(struct file *filp)
++{
++	return container_of(file_to_v4l2_fh(filp), struct avd_ctx, fh);
++}
++
++/* hw stuff */
++int avd_boot(struct avd_dev *avd);
++void avd_shutdown(struct avd_dev *avd);
++
++void t8103_configure_stream(struct avd_dev *avd, dma_addr_t addr, u8 fifo_idx,
++			    u32 vp_slot);
++void t8112_configure_stream(struct avd_dev *avd, dma_addr_t addr, u8 fifo_idx,
++			    u32 vp_slot);
++void t8122_configure_stream(struct avd_dev *avd, dma_addr_t addr, u8 fifo_idx,
++			    u32 vp_slot);
++
++#endif /* AVD_H_ */
 
 -- 
 2.55.0
