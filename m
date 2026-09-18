@@ -1,338 +1,133 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E1923BF67A;
-	Fri, 18 Sep 2026 14:33:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4546E3B1ED0
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:34:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789742012; cv=none; b=oC6RbGoBhQQGpOhzmk2D9RCcoxzrGXKgYHCZ5Ire5Y7RaQ6H6oF+TzYsHJF92/Q+Kgm7jtfLwww0R6aPABhtOqF1GzLkU29GkMObnbpVMCR3yilu7ksB/ePpgznUXpHMsHAO1m/pAfkCUnfkAoadzXpcNB7/QxIHkQXAQ3amGUA=
+	t=1789742044; cv=none; b=NiWGg/4Rbid6Zx7WmZMZpqize0miOpegCk+qnrSOk502GSPcczmdTQboQaopLIMvJ4jDPaoHI+k+cyVu0i6bGcPPs0sVWS2Bd2VSW6X5fJ6BIiGpzO1PRk3ipKpjtxfoHIXjPpEKqbZmelXMlu6Mp/4tYqUXYQa9YFKU5H4RxwE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789742012; c=relaxed/simple;
-	bh=CEtPt1OIVJcWvrM0vYC4+5MnARffVyTm+wgu61bIFE4=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=FuiX5YgylO6rHJac7zdXA1QM+h1d6ydcmTuw4WrmafS8EeIaNrc4w0ffUEcVx0LxtpQCpuaFRegHcHE5SRnrTHnwiII9frd1MWtlo+FF2iZB5CLveTrEkonQF1t44qwlDh9N/R7l9GkaJYRmdqz/tIMudX8w0hUAXVjwtUEUx3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=b6lbPAYz; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1789742044; c=relaxed/simple;
+	bh=CRzKAxpUlFq5Wd+7/e0Agj6JML70XnNYB6sRMUphW4Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ljNysMO3lZ7j1YNkLHUKNjCgCiZt6m9fZHnTJvAPV8xjrpxPkNOWXBooZACFu5gJF3uzSZGX9aZmImdC1CqVon18FYkukj87DwVJgpzDr7S2NqRCvx8tBsEqOo0N5gCurPDFEjwrQx/KGfKoQXZeZ//nz0lB/kafL9PMNNKfYfY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=LKJLMBzT; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="b6lbPAYz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1789742010; x=1821278010;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=CEtPt1OIVJcWvrM0vYC4+5MnARffVyTm+wgu61bIFE4=;
-  b=b6lbPAYzKvOz5cNCYeivfLiw3vy7na6BWQkdLnUkhTqefoddZORftqgb
-   4sRrKo5ttpeQhJgrECThCU3ELRIdrz63/U5IhmqrhR+FnPbzJjx3/DiEw
-   YxxzUBx2/FvkSt1Cb3fuSYIpwTU/cC4/61A/SII6758q0OPK8/b3yz4tg
-   aVCTNgco1KZUzhKbaYbbjdHzrFyGB15OfvHhhbuF+3tm97FSH2J3NfMOW
-   yzbnW5uRndESNzAC0JVgmUR3snAPlOPA9xRWA0YW1hFgkI+bwGvJ3zueC
-   ivMM2ysEpHteElBcUo4s8OMYyNREASJhZmIKTlWhyD+fQCVsb0gteboj8
-   w==;
-X-CSE-ConnectionGUID: 1HRGPZFjQ6mjKILVpT+Pbw==
-X-CSE-MsgGUID: EhJJPUtZRmC8+L+b5RRXRw==
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="62883842"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 18 Sep 2026 07:33:29 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Fri, 18 Sep 2026 07:33:28 -0700
-Received: from che-ll-i17164.microchip.com (10.10.85.11) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Fri, 18 Sep 2026 07:33:24 -0700
-From: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>
-To: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
-	<kuba@kernel.org>, <pabeni@redhat.com>, <hkallweit1@gmail.com>,
-	<linux@armlinux.org.uk>
-CC: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<UNGLinuxDriver@microchip.com>, <Parthiban.Veerasooran@microchip.com>,
-	Parthiban Veerasooran <parthiban.veerasooran@microchip.com>
-Subject: [PATCH net-next v3 4/4] net: phy: microchip_t1s: fix collision detection for LAN867X Rev.D0
-Date: Fri, 18 Sep 2026 20:03:02 +0530
-Message-ID: <20260918143302.76909-5-parthiban.veerasooran@microchip.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260918143302.76909-1-parthiban.veerasooran@microchip.com>
-References: <20260918143302.76909-1-parthiban.veerasooran@microchip.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="LKJLMBzT"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d3931so6103145e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:34:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1789742039; x=1790346839; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3Iw/Uos+s86X9GmGfeJVE31qnn37ChCYcPePO9lpThQ=;
+        b=LKJLMBzTDb4omBz2Zjwwn+WkThB7xYzRS4e0xnFeCygy3E0usN76aLlenaVG37A33D
+         HbfRtDLPPqRZzMiLeC2X2qaTCtegMYTb2BmNGRj0yBj1aXX+D30XVuaAhObvs1lUvtTL
+         bfNzpNVBw9biYGRveLOXNjD10ocEkIpf7GXvJUniZyl4d8XvJOkZSy6oPwZ7dHlrytas
+         np5U8VZ/jPdfAgXXqXSCeNO3ZiZ6LVvpMjZNv5L/l5Eeujehaixm0CNTDhELK/UrwP1b
+         k2uVXDvFBAW2E0M+C2/e+9cGi+K9fJljyHVkoOq8zqINsNcJ/preE4Y1rXrivGF8naWl
+         IL2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789742039; x=1790346839;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3Iw/Uos+s86X9GmGfeJVE31qnn37ChCYcPePO9lpThQ=;
+        b=df7X245kss1SCMnPu59WV+aIGCtcPuDaB7Qi37JUBIBZYgUFehv2mk6rJm2LT0BL4X
+         uzPmRGZech6S9NhNkUSbm+zuveLz+7ZcWBCK8OGaVCwGVR+kBWths1rEIjCuBcDYtH62
+         QcAPjxVSqd6UYm8RFVzHkt3FwdKOUy6nN6VmIEvT3Fepi+noAbgtIgeOm3wZWiJFSu/A
+         7IaUH0pphpUlrDg9aRtDHE6AwbPyCzyWTRtxjy+kyqG0DS1P8HJLj3P3NS3H/4FcgiM7
+         rKG0T+xHxAjsxfXIHNkxS/8avA1gEyxJGY2wgqIAqPuhTzK4x5yZ/PGE0CSOY4Jsc0mL
+         ArKg==
+X-Forwarded-Encrypted: i=1; AKwUvByQztKrUJYWuYjhYWC3XVSFtgyEAeAvzKdPb4XH/hi73TH4h21t9s5O50nYTMY0I8x7skqPvSib2xReqos=@vger.kernel.org
+X-Gm-Message-State: AFuF++m1U6QBGLyPFPe6RxEIX8XO1U2uHet64h0xKuXQn26CyGNwg+wo
+	VZsBgRdvxomuZUC6yqjs+Xie5R0umwJ6kQT65DgrxR9ztmUI3ukHswzsnGu4yB7tiL8=
+X-Gm-Gg: AYBFou0oCcKwFHXq33FBm+hbalLxV5OtZVqrWlo+hoDH1eY/Vjr5CVbt7xkCRQZEseU
+	CwJikaRohgyEKizmJ51NVdsqOtIbxLZ9NFX90847yKDAT04ktDuhGloS1NIt3rYZJu+AxgZrLee
+	oY5KdVZniEgdrbtEBVMW2v2pT32D2/W1Vgj68Fd0EtvLnAZABO3j59525Z52TPvHAPcqos45CzA
+	o9mW9BSxsWOnAJN6rkNlTB2sWFmuFgdEh4s3CwnNzdEssfQoRNQKOP4TOJoZ/ZqpYWsKVzd1cIC
+	M+6JUhkrVqaSmnotImXGOF3T99sRwDzQOvs3li/+ZGSNy79qZ6whfpqECmW4DhEBeiAlNAjOatx
+	w6Sbhl2HF/lzxh1I+KdlVSw1C/TgyUsXIWIxUCw2HIEnAt2tfKrbNZyg+XuJAfbzKC3soL+UbI3
+	kDG/QpAoUpqDjLVmcX4BuY2ZCfFWno5JTyu8Wwe4AINsSS2/c0co3VYi04TW2v45Z0WUgVjF7H8
+	zmkjgE8SObgkQtpJqhw6M/CVxG3oB5iFLk3PeablaHG0sgRG1wTE/fdOI7HmQ==
+X-Received: by 2002:a05:600c:8b6a:b0:49f:bc43:9e8e with SMTP id 5b1f17b1804b1-49fc5741199mr36086125e9.26.1789742038920;
+        Fri, 18 Sep 2026 07:33:58 -0700 (PDT)
+Received: from localhost (p200300f65f19a90444c8989fe13f5be4.dip0.t-ipconnect.de. [2003:f6:5f19:a904:44c8:989f:e13f:5be4])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49fc55cd8a8sm61606545e9.0.2026.09.18.07.33.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 07:33:58 -0700 (PDT)
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Mikko Perttunen <mperttunen@nvidia.com>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-pwm@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/3] pwm: tegra: Cleanups and .get_state()
+Date: Fri, 18 Sep 2026 16:33:44 +0200
+Message-ID: <cover.1789741839.git.u.kleine-koenig@baylibre.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1769; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=CRzKAxpUlFq5Wd+7/e0Agj6JML70XnNYB6sRMUphW4Q=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBqrUvJ4l3buWoLNn8yyHMgb4/NF2D3cdFjhzkst zrYNKYzgPeJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCaq1LyQAKCRCPgPtYfRL+ TlMbB/416PVhikXSeG+rl2Vn98ol8X4mjw+EfXcbGpU1LegxL2aAY8imKvrby22p5yJGNtkjbtb 0UEqZQ1jOjHciD+sfbFvEuJgjUvsteRW4Vy9KNMoW6P2jodsbta2e5nvVTM8PZySfg20Ftd9yUK 40N15CPLU2+hcT+ySHoisqocz69Swtv+Jt5xH0+e3iu8NCGdh3/BFbpvq/O9HzPPn2Z/c/rpix6 KWKyJTYHbyctTUr0+T6bkJIJVHNXlfRWxXZWMo6FZXN3nXB57yLYpkboezzzQW+S0i2cEo4yFI9 KHOWR9Gc/VhbKP0gj9Q5wytv4eEErvw7hWiN5r9vKchsjjR8
+X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 
-LAN867X Rev.D0 adds a Collision Counting and MAC Forwarding Control
-field (CCMFC, bits 10:9) in COL_DET_CTRL0 (0x0087). Set to the OA
-default (0x1), the hardware autonomously gates collision forwarding
-based on live PLCA_Status, removing the delay a software-driven CDEN
-toggle had on older revisions. The PSTC interrupt handler for Rev.D0
-therefore only needs to update the link status selection on each PLCA
-transition.
+Hello,
 
-Configure CCMFC to the OA default in lan867x_revd0_config_init(). Add
-lan867x_revd0_handle_interrupt() for two events: Link Status Change
-triggers the phylib state machine; PLCA Status Change re-reads the PLCA
-config and updates the link status selection.
+v1 of this series can be found at
+https://lore.kernel.org/cover.1784030076.git.ukleinek@kernel.org.
 
-Rev.D0 can also be configured (PRSCTL1, 0x0035, bit 10) to autonomously
-fall back to CSMA/CD when no BEACON is seen. When that's active, the
-PHY's own hardware transition already handles CSMA/CD correctly, so
-driving link status from PLCA_Status reports nothing meaningful. Force
-the semaphore (forced-active) source whenever fallback is enabled; only
-when fallback is disabled - the PHY stays pinned to PLCA mode - does
-tracking PLCA_Status serve its purpose.
+Changes since then:
 
-Wire up .config_intr/.handle_interrupt for Rev.D0 via a dedicated
-lan867x_revd0_config_intr(), reusing the STS1/IMSK1 helpers from the
-other LAN86XX PHYs.
+ - Reordered the patches to have dev_err_probe and dev first. Fixes a
+   build failure in the middle of v1. This way patch 2 -- which could be
+   considered a fix -- isn't before the cleanup in patch 1, but doing
+   patch 1 the old way first also feels strange.
 
-Fixes: e7e756779afa ("net: phy: microchip_t1s: add support for Microchip LAN867X Rev.D0 PHY")
-Signed-off-by: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>
----
- drivers/net/phy/microchip_t1s.c | 169 +++++++++++++++++++++++++++++++-
- 1 file changed, 164 insertions(+), 5 deletions(-)
+ - add { } around blocks with a single statement if there is also a
+   comment.
 
-diff --git a/drivers/net/phy/microchip_t1s.c b/drivers/net/phy/microchip_t1s.c
-index 3333e4801aae..a69ad6ce1d8a 100644
---- a/drivers/net/phy/microchip_t1s.c
-+++ b/drivers/net/phy/microchip_t1s.c
-@@ -20,7 +20,8 @@
- 
- #define LAN867X_REG_STS2 0x0019
- 
--#define LAN867x_RESET_COMPLETE_STS BIT(11)
-+#define LAN86XX_STS1_LINK_STS_CHANGED	BIT(13)
-+#define LAN867x_RESET_COMPLETE_STS	BIT(11)
- 
- #define LAN865X_REG_CFGPARAM_ADDR 0x00D8
- #define LAN865X_REG_CFGPARAM_DATA 0x00D9
-@@ -40,6 +41,17 @@
- #define COL_DET_CTRL0_ENABLE_BIT_MASK	BIT(15)
- #define COL_DET_ENABLE			BIT(15)
- #define COL_DET_DISABLE			0x0000
-+#define COL_DET_CTRL0_CCMFC_MASK	GENMASK(10, 9)
-+/* OA default: collisions gated by PLCA_Status in hardware */
-+#define COL_DET_CTRL0_CCMFC_OA_DEFAULT	BIT(9)
-+
-+/* PLCA Reconciliation Sublayer Control 1 Register (PRSCTL1). Bit 10
-+ * controls whether the PHY autonomously falls back to CSMA/CD mode when
-+ * no BEACON is observed while PLCA is enabled, versus staying pinned to
-+ * PLCA mode regardless of BEACON presence.
-+ */
-+#define LAN867X_REG_PRSCTL1               0x0035
-+#define PRSCTL1_PLCA_FALLB_TO_CSMACD_EN   BIT(10)
- 
- /* LAN8670/1/2 Rev.D0 Link Status Selection Register */
- #define LAN867X_REG_LINK_STATUS_CTRL	0x0012
-@@ -438,6 +450,40 @@ static int lan867x_revd0_link_active_selection(struct phy_device *phydev,
- 			     LAN867X_REG_LINK_STATUS_CTRL, value);
- }
- 
-+static int lan867x_revd0_fallback_to_csmacd(struct phy_device *phydev)
-+{
-+	int ret;
-+
-+	ret = phy_read_mmd(phydev, MDIO_MMD_VEND2, LAN867X_REG_PRSCTL1);
-+	if (ret < 0)
-+		return ret;
-+
-+	return !!(ret & PRSCTL1_PLCA_FALLB_TO_CSMACD_EN);
-+}
-+
-+/* When the PHY autonomously falls back to CSMA/CD once BEACONs stop (PRSCTL1
-+ * bit 10 set), the hardware fallback already provides correct CSMA/CD
-+ * operation; selecting link status from PLCA_STATUS in that case reports
-+ * nothing meaningful, since the PHY may already be running CSMA/CD regardless
-+ * of the stale PLCA_STATUS value. Force the semaphore (forced-active) source
-+ * in that case instead. Only when fallback is disabled - the PHY is pinned
-+ * to PLCA mode - does tracking PLCA_STATUS serve its intended purpose.
-+ */
-+static int lan867x_revd0_update_link_selection(struct phy_device *phydev,
-+					       bool plca_operational)
-+{
-+	int fallback;
-+
-+	fallback = lan867x_revd0_fallback_to_csmacd(phydev);
-+	if (fallback < 0)
-+		return fallback;
-+
-+	if (fallback)
-+		return lan867x_revd0_link_active_selection(phydev, false);
-+
-+	return lan867x_revd0_link_active_selection(phydev, plca_operational);
-+}
-+
- /* As per LAN8650/1 Rev.B0/B1 AN1760 (Revision F (DS60001760G - June 2024)) and
-  * LAN8670/1/2 Rev.C1/C2 AN1699 (Revision E (DS60001699F - June 2024)), under
-  * normal operation, the device should be operated in PLCA mode. Disabling
-@@ -446,6 +492,11 @@ static int lan867x_revd0_link_active_selection(struct phy_device *phydev,
-  * distortion cause poor signal quality. Collision detection must be re-enabled
-  * if the device is configured to operate in CSMA/CD mode.
-  *
-+ * LAN867X Rev.D0 has autonomous collision detection gating via CCMFC and
-+ * does not toggle CDEN in the interrupt handler. CDEN remains permanently
-+ * enabled in config_init(), so no software-driven CDEN toggling is needed
-+ * here.
-+ *
-  * AN1760: https://www.microchip.com/en-us/application-notes/an1760
-  * AN1699: https://www.microchip.com/en-us/application-notes/an1699
-  */
-@@ -454,9 +505,12 @@ static int lan86xx_plca_set_cfg(struct phy_device *phydev,
- {
- 	int ret;
- 
--	/* Link status selection must be configured for LAN8670/1/2 Rev.D0 */
--	if (phydev->phy_id == PHY_ID_LAN867X_REVD0) {
--		ret = lan867x_revd0_link_active_selection(phydev,
-+	/* Link status selection must be configured for LAN8670/1/2 Rev.D0.
-+	 * Only update link status selection if enabled is explicitly specified
-+	 * (not -1, which means "don't change").
-+	 */
-+	if (phydev->phy_id == PHY_ID_LAN867X_REVD0 && plca_cfg->enabled != -1) {
-+		ret = lan867x_revd0_update_link_selection(phydev,
- 							  plca_cfg->enabled);
- 		if (ret)
- 			return ret;
-@@ -472,8 +526,12 @@ static int lan86xx_plca_set_cfg(struct phy_device *phydev,
- 	 * here as a baseline on every ethtool PLCA reconfiguration. The
- 	 * limitation is that autonomous PLCA mode transitions between ethtool
- 	 * reconfigurations are not tracked on such boards.
-+	 *
-+	 * LAN867X Rev.D0 has autonomous collision detection via CCMFC, so skip
-+	 * the software CDEN toggling for that revision.
- 	 */
--	if (phy_interrupt_is_valid(phydev))
-+	if (phy_interrupt_is_valid(phydev) ||
-+	    phydev->phy_id == PHY_ID_LAN867X_REVD0)
- 		return 0;
- 
- 	if (plca_cfg->enabled > 0)
-@@ -507,6 +565,20 @@ static int lan867x_revd0_config_init(struct phy_device *phydev)
- 			return ret;
- 	}
- 
-+	/* AN1699: Configure CCMFC (Collision Counting and MAC Forwarding
-+	 * Control) to OA default (0x1) so that the hardware autonomously gates
-+	 * collision forwarding to the MAC based on the live PLCA_Status:
-+	 * collisions are neither counted nor forwarded when PLCA_Status is OK,
-+	 * and are counted/forwarded when not OK. This eliminates the need for
-+	 * software-driven CDEN toggling. CDEN is enabled by default and remains
-+	 * permanently enabled for Rev.D0.
-+	 */
-+	ret = phy_modify_mmd(phydev, MDIO_MMD_VEND2, LAN86XX_REG_COL_DET_CTRL0,
-+			     COL_DET_CTRL0_CCMFC_MASK,
-+			     COL_DET_CTRL0_CCMFC_OA_DEFAULT);
-+	if (ret)
-+		return ret;
-+
- 	/* Initially the PHY will be in CSMA/CD mode by default. So it is
- 	 * required to set the link always active as it doesn't support
- 	 * autoneg.
-@@ -634,6 +706,91 @@ static irqreturn_t lan86xx_handle_interrupt(struct phy_device *phydev)
- 	return ret_irq;
- }
- 
-+static int lan867x_revd0_config_intr(struct phy_device *phydev)
-+{
-+	u16 mask = LAN86XX_STS1_PLCA_STS_CHANGED |
-+		   LAN86XX_STS1_LINK_STS_CHANGED;
-+	struct phy_plca_cfg plca_cfg;
-+	int sts1, ret;
-+
-+	if (phydev->interrupts == PHY_INTERRUPT_ENABLED) {
-+		/* Read to clear any pending status before enabling. */
-+		sts1 = lan86xx_read_clear_sts1(phydev);
-+		if (sts1 < 0)
-+			return sts1;
-+
-+		if (sts1 & LAN86XX_STS1_LINK_STS_CHANGED)
-+			phy_trigger_machine(phydev);
-+
-+		/* STS1 may have cleared a pending PSTC while masked, and a
-+		 * missed PSTC leaves no trace to key off, so unconditionally
-+		 * resync the link-status-selection source from the current
-+		 * PLCA enable state and fallback configuration. CDEN is
-+		 * never touched here - see lan867x_revd0_config_init().
-+		 */
-+		ret = genphy_c45_plca_get_cfg(phydev, &plca_cfg);
-+		if (ret < 0)
-+			return ret;
-+
-+		ret = lan867x_revd0_update_link_selection(phydev,
-+							  plca_cfg.enabled);
-+		if (ret < 0)
-+			return ret;
-+
-+		return lan86xx_set_intr_mask(phydev, mask, true);
-+	}
-+
-+	ret = lan86xx_set_intr_mask(phydev, mask, false);
-+	if (ret)
-+		return ret;
-+
-+	/* Read to clear any pending status after disabling. */
-+	ret = lan86xx_read_clear_sts1(phydev);
-+	return ret < 0 ? ret : 0;
-+}
-+
-+static irqreturn_t lan867x_revd0_handle_interrupt(struct phy_device *phydev)
-+{
-+	irqreturn_t ret_irq = IRQ_NONE;
-+	struct phy_plca_cfg plca_cfg;
-+	int sts1, ret;
-+
-+	sts1 = lan86xx_read_clear_sts1(phydev);
-+	if (sts1 < 0) {
-+		phy_error(phydev);
-+		return IRQ_NONE;
-+	}
-+
-+	if (sts1 & LAN86XX_STS1_LINK_STS_CHANGED) {
-+		phy_trigger_machine(phydev);
-+		ret_irq = IRQ_HANDLED;
-+	}
-+
-+	if (sts1 & LAN86XX_STS1_PLCA_STS_CHANGED) {
-+		ret = genphy_c45_plca_get_cfg(phydev, &plca_cfg);
-+		if (ret < 0) {
-+			phy_error(phydev);
-+			return IRQ_NONE;
-+		}
-+
-+		/* lan867x_revd0_update_link_selection() drives the selection
-+		 * source from the configured PLCA enable state, forcing
-+		 * semaphore mode instead whenever autonomous fallback to
-+		 * CSMA/CD is configured (see PRSCTL1 above).
-+		 */
-+		ret = lan867x_revd0_update_link_selection(phydev,
-+							  plca_cfg.enabled);
-+		if (ret < 0) {
-+			phy_error(phydev);
-+			return IRQ_NONE;
-+		}
-+
-+		ret_irq = IRQ_HANDLED;
-+	}
-+
-+	return ret_irq;
-+}
-+
- static struct phy_driver microchip_t1s_driver[] = {
- 	{
- 		PHY_ID_MATCH_EXACT(PHY_ID_LAN867X_REVB1),
-@@ -676,6 +833,8 @@ static struct phy_driver microchip_t1s_driver[] = {
- 		.name               = "LAN867X Rev.D0",
- 		.features           = PHY_BASIC_T1S_P2MP_FEATURES,
- 		.config_init        = lan867x_revd0_config_init,
-+		.config_intr        = lan867x_revd0_config_intr,
-+		.handle_interrupt   = lan867x_revd0_handle_interrupt,
- 		.get_plca_cfg	    = genphy_c45_plca_get_cfg,
- 		.set_plca_cfg	    = lan86xx_plca_set_cfg,
- 		.get_plca_status    = genphy_c45_plca_get_status,
+ - fixed too many parenthesis in patch #3 (formerly #6).
+
+ - dropped other patches as they reorder stuff in unwanted or at least
+   untested ways.
+
+There was a concern in reply to patch #1 of the v1 series (now #2) from
+Mikko Perttunen. He wrote: 
+
+> I feel like driver_override falls in the realm of 'root can mess with
+> the system as they feel like but if they don't know what they're doing
+> they get to keep the pieces'. So adding a check in every driver, or
+> in practice having a random mix of drivers with and without the check,
+> doesn't seem necessary to me.
+> 
+> If we actually want to check for this condition, could it be done
+> centrally instead? I.e. don't call probe if there's no match data and
+> the driver's match table implies it requires it.
+
+It cannot be done reliably in the driver core, and IMHO even root
+shouldn't be able to trigger a NULL pointer exception. So I kept the
+check.
+
+Uwe Kleine-König (3):
+  pwm: tegra: Make use of dev_err_probe()
+  pwm: tegra: Check for match_data being NULL
+  pwm: tegra: Implement .get_state()
+
+ drivers/pwm/pwm-tegra.c | 108 ++++++++++++++++++++++++++++++++--------
+ 1 file changed, 87 insertions(+), 21 deletions(-)
+
+
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
 -- 
-2.43.0
+2.47.3
 
