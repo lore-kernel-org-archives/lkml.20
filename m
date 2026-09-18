@@ -1,39 +1,78 @@
-Received: from out28-221.mail.aliyun.com (out28-221.mail.aliyun.com [115.124.28.221])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6FEF248880;
-	Fri, 18 Sep 2026 02:37:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.221
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60D083CC9EA
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:37:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789699039; cv=none; b=Fw2r4h/vyw3/X0ZCMqf8NOSRTZgXaY8ZZRSalwXacG94wd0g0kmAxMb2yOtGcwiDEUwxqCN/+HOfLba1rF9T5Kox7qP3rJOXAU+WI/d0XE34wsFofGBvufzx4eFobE8pQcqMU1cmhVOjsiyMmx7hoi9mpkiZ5/+CEyUcjlB9FLE=
+	t=1789699065; cv=none; b=VUMl0W5FRaT+WVYnypjh2NXFaEUlgyf40K71716P+MlciI84BQ9lGd/yDO0Lvj49k4/pr2GqVkZZTWwfAiKvGwcqSUWKfnm3wnVL3RU/q5chcWjF1yeEut2G8qV4iFT9qSyavBtUyIRt2qIdndeoLyvPajO9TYjwosh+vkPeHF4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789699039; c=relaxed/simple;
-	bh=fG8s2Rbuo1jfWojmNf3RSIRc91piDlgqYy+unMLmx7Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LVbMysVFmgKKlEB8kp33C0FvngOYvaC3lLHWwXkRJ1ZCM2E2+q5KEs3Ds7ibusbRTcG1rXO3M2chFMvF8HCpc/KsKOKd2R8PPbhyQX3XV8NnYr2UOdQbEiQsQ/Bz93zdml3GdnOfLrgAlAP0Pji3CAbC/PHCG5G/rVI2n+Yc60o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=p80KohTm; arc=none smtp.client-ip=115.124.28.221
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	s=arc-20240116; t=1789699065; c=relaxed/simple;
+	bh=Xp96osNKNV73rMrH2Cx3GnQRPM4ktS3CCX6WmIYhStg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=MebqI1/IPFufOb+CJwlSD6+2QT5ZVT3WUlq4ee0Vrl4zbkUyyMiVuuPhvyqTQv4OEhrk5Wzbo5E7gWsxBBLiOhUSFhEUE0uTcC3r2MYBgNeh+a+85GWS4OHwhUCLLVufqV91139KHy1FF6/bVnyWqL9ZNSTzNJ0F4vXfI8GULqc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EyZuyCN/; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="p80KohTm"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1789699021; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=oeMHnYZJ6KNxI0SiboJu3JfQeQKWe3PW6bkDrXO2XDw=;
-	b=p80KohTmQTvYjKHTuXfjJGhYxP60WDzNV1Yw+f1Qm44eK0N/jYfPPt+g1JcJX8iZCySmM91Oxy3SCo4e8j76IWtzAfbkVnl53nrAbboF7YJI7zv5eLCrFdMWJ7ro7thoLjQErODmcA/OZyJf0GC8h0AcqcLXvsdX74welM0Z/ao=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07452739|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.00963083-0.00484189-0.985527;FP=17220283626844399422|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037006180;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.jGJMEY8_1789699020;
-Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jGJMEY8_1789699020 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Fri, 18 Sep 2026 10:37:00 +0800
-From: Guo Zihao <guozh23@xiaopeng.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EyZuyCN/"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-8631d0023daso188749b3a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:37:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789699060; x=1790303860; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Xp96osNKNV73rMrH2Cx3GnQRPM4ktS3CCX6WmIYhStg=;
+        b=EyZuyCN/syvco3JhnB2GfxTcORb7BNAMn1ycHBVGDA+XFfz0jZtTFt3p3y+VbhqTUe
+         V14jR4X37jc3sS8Pyj3SbcWjXSiLjt/weWWvAQiy2wGWPFkVV8wQ8M7eoZL3/+3i+HVV
+         kENsJIlV0HbFwZVZJ3qehnwecztKvzrulHyBIhelGVfqynMKHzfqJBvZu5fsiX/iB9T8
+         nQWT8CywZCgCj133xgjlGHJ/0ttIAiykJ9hZgeIOgkyqgeOoG7Fss31kl5MuVrTF4dAJ
+         8fHHhR0wD3eYg44zY/N6txioltVk/BPYrp0Zt4AAfHyfIAfmAMxchO4TZfMFl6pkQ4u2
+         MVhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789699060; x=1790303860;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Xp96osNKNV73rMrH2Cx3GnQRPM4ktS3CCX6WmIYhStg=;
+        b=EIZI9bm1H4a/91J1VP0FeTVMHmfuhgAD3sj0MFnDJ80+/uxKfPgnAIn1IY0bRX3slo
+         K9dcwPhc2d1OLOsuHts/jxnti73N+Wiktu/vUwJ51gZvtqpbAe/uJ2VbV/+odZLSLqQg
+         PceruMZo1bW2WeyUnzaxUp+4b2lA/syzNcKionuytrpYs4IDQxzqG5mqumx5uAMok2+y
+         bO6Mp/rXFYV7OVTX6TqmH3ubfyqyP5PEgI/lx9BYBPE02ugmivS4GkYNLA3pe+9jPw5w
+         PjUZqjepJB1oiCWOj5L3T50NW9ZvSBywirtrbFN0xq08rp+YERPW2VuoRTC9mrD8WYjk
+         JZWA==
+X-Forwarded-Encrypted: i=1; AKwUvByUokUZYsc1BdqATdeYpnUqhWqWBWv7Mm9NYQoTQXxpa/U0W8L2jWvPA6rqUt29Gep85mzCN4iZfT6V3cI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kMcY7vw0NgOFgmujR4eKs/q4aVTkZjAMgftlB0YJvP7QpbYBMW
+	EqqDoSNNvxHaSWA56Ox9uz6EERD3asgdnRlJ6kZm0IzrjQPCdREdKSZe
+X-Gm-Gg: AYBFou1VNsScMjunLFJZGTpQ3hWTTHgTlbJst6PiDGvBZMM3Mnk6hryUa8RVWBXcalw
+	d/J0RBRhFgWg/vCG1JMzvUeUkTrD1Wp1p+yMXYMCX7TA8BsLkutO/Eu1VB31XDdJMK5Aj7DiaDT
+	em3ianZNauGpF2ZbQD30SaLdmBOTB4a1J7d9Dg4Sl6j2rzIiPVpPwBHUnA3KkWD5bhpDbDPZGqd
+	v0gtL5R76fejLLk/1Uemkp+I1sOvvANPOMl1IQ8LimLttPJ+ITtmCdZZiZrMyxu58V10IfJ86RX
+	6Yhq4XCWpb0m/6zPqKhekJI10Gqp5bhLJTzebkgQEOCApxyQPrBNytsuSwKixujV4cAge4syjFh
+	fY7Ionqo5Rb/5tGJELXwHOh/CP2QkVDXY4nRAbG8zVOs+X58p+NON4oD/2PyCcj5PgPA/TFDmjX
+	skeHk2Say/Bl9/79GVRh1iDUk5HlDDnucgzWJ1LD8h8ABTVJAjPwaJAEFLXZC4o9Zw
+X-Received: by 2002:a05:6a00:4185:b0:86d:3958:6b13 with SMTP id d2e1a72fcca58-874dd5f0ecfmr1988918b3a.19.1789699059693;
+        Thu, 17 Sep 2026 19:37:39 -0700 (PDT)
+Received: from bloom.localdomain ([2604:3d09:178e:e100::c570])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-875dd3ed2f5sm76564b3a.40.2026.09.17.19.37.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 19:37:39 -0700 (PDT)
+From: Ivy Lopez <skunkolee@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: rosenp@gmail.com,
+	kees@kernel.org,
+	balbi@ti.com,
+	tomoya.rohm@gmail.com,
+	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Liu Chao <liuc63@xiaopeng.com>
-Subject: [PATCH] media: dst_ca: validate the CA message length in ca_set_pmt()
-Date: Fri, 18 Sep 2026 10:36:59 +0800
-Message-ID: <20260918023659.467911-1-guozh23@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	Ivy Lopez <skunkolee@gmail.com>
+Subject: Re: [PATCH] usb: gadget: pch_udc: Disable VBUS work before removing the gadget
+Date: Thu, 17 Sep 2026 20:37:24 -0600
+Message-ID: <20260918023724.10584-1-skunkolee@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <CAGEsz8GQR2vJ8ddedaLg=Yq_RoeTxgoXTQ4-QS8mJpDXNn36qA@mail.gmail.com>
+References: <CAGEsz8GQR2vJ8ddedaLg=Yq_RoeTxgoXTQ4-QS8mJpDXNn36qA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,77 +81,4 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ca_set_pmt() takes the payload length from the ASN.1 length field of the
-userspace supplied CA_PMT message and uses it to clear and fill
-hw_buffer->msg, which is a fixed 256 byte array:
-
-        length = asn_1_decode(&p_ca_message->msg[3]);
-        debug_string(&p_ca_message->msg[4], length, 0);
-
-        memset(hw_buffer->msg, '\0', length);
-        handle_dst_tag(state, p_ca_message, hw_buffer, length);
-
-asn_1_decode() implements the ASN.1 long form length, so msg[3] = 0x84
-reads four length bytes and can return up to 0xffffffff. Nothing
-compares the result against the size of the destination, so the memset()
-overruns the kmalloc'd hw_buffer.
-
-handle_dst_tag() does reject lengths above 247, but three things make it
-ineffective here:
-
- - it runs after the memset() has already overflowed the buffer,
- - it is skipped entirely on the DST_TYPE_HAS_SESSION path,
- - debug_string() walks the message up to length and is called before
-   any of the checks, so it reads out of bounds as well.
-
-Validate the decoded length against sizeof(hw_buffer->msg) before it is
-used, accounting for the tag that handle_dst_tag() prepends. Messages
-that do not fit are rejected with -EINVAL.
-
-No Fixes tag. asn_1_decode() and the ca_set_pmt() call chain come from
-the original driver import, and the ASN.1 long form handling was last
-touched in 93a14f15d35c (2005). The missing bound has been there since.
-
-Reviewed-by: Liu Chao <liuc63@xiaopeng.com>
-Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
----
-Reaching this needs nothing more than a CA device node: open
-/dev/dvb/adapterX/ca0 and issue CA_SEND_MSG with msg[0..2] set to
-0x00 0x9f 0x80 (CA_PMT) and msg[3] = 0x84 followed by four length
-bytes. No CAM has to be present, because the overrun happens before any
-hardware access.
-
-The 247 limit handle_dst_tag() uses is one byte short of what
-sizeof(hw_buffer->msg) - tag_length allows, so the two bounds disagree.
-Removing the check from handle_dst_tag() is not part of this patch, but
-if a single check in one place is preferred, that would be the natural
-follow-up.
-
-cxd2099 bounds its CAM reply length the same way after a comparable
-report (len > ecount || len < 2), so there is precedent in the DVB
-frontend drivers.
-
- drivers/media/pci/bt8xx/dst_ca.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/media/pci/bt8xx/dst_ca.c b/drivers/media/pci/bt8xx/dst_ca.c
-index 6da75c6ed..e126afc2f 100644
---- a/drivers/media/pci/bt8xx/dst_ca.c
-+++ b/drivers/media/pci/bt8xx/dst_ca.c
-@@ -401,6 +401,13 @@ static int ca_set_pmt(struct dst_state *state, struct ca_msg *p_ca_message, stru
- 	u8 tag_length = 8;
- 
- 	length = asn_1_decode(&p_ca_message->msg[3]);
-+	if (length > sizeof(hw_buffer->msg) - tag_length) {
-+		dprintk(verbose, DST_CA_ERROR, 1,
-+			" CA Message too long (%u) ! *** Bailing Out *** !",
-+			length);
-+		return -EINVAL;
-+	}
-+
- 	dprintk(verbose, DST_CA_DEBUG, 1, " CA Message length=[%d]", length);
- 	debug_string(&p_ca_message->msg[4], length, 0); /*	length is excluding tag & length	*/
- 
--- 
-2.50.1
-
+Reviewed-by: Ivy Lopez <skunkolee@gmail.com>
