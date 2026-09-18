@@ -1,96 +1,138 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A22922853FD;
-	Fri, 18 Sep 2026 05:57:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E935839E9D5;
+	Fri, 18 Sep 2026 05:57:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789711022; cv=none; b=db1o7K0S3nIsI3w7CjthYKNsdZJef+hZDZdJiTvHoYOgyWmeEMC+DjG9+0P2DLe5pj7kyH+DLpMzLKU4TVlZyW2OGWRGPWR5vSuq0r902M4kRYP3/FCxjCkq21f+C3jsXEbpu0OyvfdhXzZCMeezYc1YcDU5WA3XukFkFYNszd4=
+	t=1789711046; cv=none; b=df4TsnEEWJxeeRzT+zr9xgGGxDKVjWu8ZQ7jXtX68z1hfOqNequx7j4LO9i+Ngx1r2FCCdyTcDr3zyAHaPVinAi7R+lMneTh5zaBEEx5HkhnHXx3wigeMokdjAoL/0G+6xaIOTgcilSqJOMaO6vRyC2LieSByBmGGOuOm1mSnfU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789711022; c=relaxed/simple;
-	bh=Ug1YYs1QoG5a0cLyLRgAfW0LHixvwk05lM/CTrnNHHk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=l4jFWDQaNwJW8nRBbezkEFk3kFQ/TdompJYoyv949b89F6XmhhWZ08sKb1Izi/04hhXbXPGWP4yRwiA7DUwG0rrY+2xrjy5QAF+Wj0O47ItgaA7U64X/SHHPOk4V6aYOrkupF5zMbFZUMlVp5LrH3FYmxZQvJm0PJNswdC6PY2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=i7bgDJZs; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="i7bgDJZs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789711020; x=1821247020;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Ug1YYs1QoG5a0cLyLRgAfW0LHixvwk05lM/CTrnNHHk=;
-  b=i7bgDJZsO16TSpV8KQP3gKpnOovYgsBUyRlpLqBWWhAowmjOQZDRF/6t
-   K9VG9bYjquf/9aHeVaQHmsXfmOM88M1CyRoL+Yo1HUo5EKyaiZi5I6e5f
-   luzAaxLwqSbFq1FuFivz44jxGxhErE8rXEaRxyQ+zaNk+7dE+MX15bv9V
-   owBuACV0WZshQgBRMQ0Gll2XSeihX1CEEeaN1+ANy1pk6j1atGK3j/sCg
-   cN1JpNKa0qOYTvLWzcku/bPr/3feH47YA2Al3F7mpsfhc81g1X1QMiWrF
-   beMmOo5paP8L7uO6jwD2kGOMenhmm4uw8hRF/D7YzP1RaEyD9+fFBPAGO
-   A==;
-X-CSE-ConnectionGUID: WagMAFepQMytKC6pOKfyuw==
-X-CSE-MsgGUID: kxbWuQRNQY+3fMezksnUMg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90326751"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="90326751"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 22:57:00 -0700
-X-CSE-ConnectionGUID: U3QRh2jRRqWdopq5s0ua8Q==
-X-CSE-MsgGUID: 55OnJffxSEancRpCOmUhyw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="2629668"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa013.fm.intel.com with ESMTP; 17 Sep 2026 22:56:59 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1001)
-	id 6136D99; Fri, 18 Sep 2026 07:56:53 +0200 (CEST)
-Date: Fri, 18 Sep 2026 07:56:53 +0200
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: Yuqi Xu <xuyuqiabc@gmail.com>
-Cc: westeri@kernel.org, andi.shyti@kernel.org, linux-i2c@vger.kernel.org,
-	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] i2c: acpi: Add ELAN0662 to
- i2c_acpi_force_100khz_device_ids
-Message-ID: <20260918055653.GD106095@black.igk.intel.com>
-References: <20260918054109.23550-1-xuyuqiabc@gmail.com>
+	s=arc-20240116; t=1789711046; c=relaxed/simple;
+	bh=4n98uE0B+9mziyyWPWkocZ+VLA9+G84bxcBJo0+ht+k=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=EJ+8Iv0k9oTOF2/gCCUopYo16LMalqjttUO+FwRbQcLTL8YiHHdDgb/jhnWNzVDihFlk8qFEw8wX+1fjvpyvxAkXWa1rHzczYnxWCgZ3hMb/xuu3q07M7olf4RwTsWw4+j9vh2jdHbfvjbyj0Y5GT3Oi9DMyfnvwcGHAvZH0EVg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.103.44])
+	by APP-01 (Coremail) with SMTP id qwCowAB3EPS20qxqc19ICA--.15319S2;
+	Fri, 18 Sep 2026 13:57:11 +0800 (CST)
+Message-ID: <75cf43a96c36a9afd76b191437a6675ffa8cba36.camel@iscas.ac.cn>
+Subject: Re: [PATCH v7 1/7] dt-bindings: display: verisilicon,dc: add
+ support for nuvoton,ma35d1-dcu
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
+	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Conor
+ Dooley	 <conor.dooley@microchip.com>
+Date: Fri, 18 Sep 2026 13:57:10 +0800
+In-Reply-To: <20260918030125.315978-2-a0987203069@gmail.com>
+References: <20260918030125.315978-1-a0987203069@gmail.com>
+	 <20260918030125.315978-2-a0987203069@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260918054109.23550-1-xuyuqiabc@gmail.com>
+X-CM-TRANSID:qwCowAB3EPS20qxqc19ICA--.15319S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxArWUtFW8ArW7Xr1fAFWxXrb_yoWrCFW5pF
+	95JFWUJryxJrn5Xr1Utr1jyFyUJw1kJw1DJr18XF1UKr4UJr10qr4Ygr1qgF15Jr48Xr15
+	JF1UWr17Zw17Ar7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPGb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
+	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWUJVW8Jw
+	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFcxC0VAYjxAxZF0Ew4CEw7xC0wAC
+	Y4xI67k04243AVC20s07M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r4a6r
+	W5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_
+	Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x
+	0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8
+	JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIx
+	AIcVC2z280aVCY1x0267AKxVW8JVW8Jr1l6VACY4xI67k04243AbIYCTnIWIevJa73UjIF
+	yTuYvjxU3rb1DUUUU
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-On Fri, Sep 18, 2026 at 01:41:09PM +0800, Yuqi Xu wrote:
-> The ELAN0662 touchpad (04F3:317C) in the Lenovo ThinkBook 14 G4+ ARA
-> (21D0) intermittently stutters and drops touches. libinput discards
-> invalid touch coordinates and logs (rate limited to five messages per
-> 24 hours):
-> 
->   libinput error: event6 - ELAN0662:00 04F3:317C Touchpad: kernel
->   bug: Touch jump detected and discarded.
-> 
-> The ACPI DSDT describes the touchpad's I2cSerialBus resource on an
-> AMDI0010 controller with a connection speed of 0x00061A80 (400 kHz),
-> and the kernel does not lower it for this device, so the touchpad runs
-> at 400 kHz. This is the same issue previously fixed for ELAN06FA and
-> ELAN0678.
-> 
-> Forcing the bus to 100 kHz was tested with a DSDT override on the
-> affected machine, and the kernel confirmed the override:
-> 
->   ACPI: Table Upgrade: override [DSDT-LENOVO-CB-01]
-> 
-> Before the change libinput discarded three touch jumps within about a
-> minute of touchpad use; after the change no touch jumps were logged
-> during more than an hour of normal use. The patch itself was not build
-> tested; the behaviour was validated through the ACPI table override
-> above.
-> 
-> Assisted-by: DeepSeek:deepseek-v4.1-flash
-> Signed-off-by: Yuqi Xu <xuyuqiabc@gmail.com>
+5ZyoIDIwMjYtMDktMTjkupTnmoQgMTE6MDEgKzA4MDDvvIxKb2V5IEx15YaZ6YGT77yaCj4gQWRk
+IHRoZSBOdXZvdG9uIE1BMzVEMSBEQ1VsdHJhTGl0ZSAobnV2b3RvbixtYTM1ZDEtZGN1KSB0byB0
+aGUKPiBiaW5kaW5nLgo+IFRoZSBEQ1VsdHJhTGl0ZSB1c2VzIG9ubHkgZm91ciBjbG9ja3MgKGNv
+cmUsIGF4aSwgYWhiLCBwaXgwKSBhbmQgb25lCj4gcmVzZXQgKGNvcmUpLCB3aXRoIGEgc2luZ2xl
+IG91dHB1dCBwb3J0Lgo+IAo+IFRoZSBNQTM1RDEgY2xvY2sgY29udHJvbGxlciBnYXRlcyB0aGUg
+Y29yZSwgQVhJIGFuZCBBSEIgY2xvY2tzIHdpdGggYQo+IHNpbmdsZSBiaXQsIGJ1dCBlYWNoIHJl
+bWFpbnMgYSBkaXN0aW5jdCBjbG9jayBsaW5lIGZlZWRpbmcgdGhlIElQCj4gd2l0aAo+IGl0cyBv
+d24gcmF0ZSBjb25zdHJhaW50cywgc28gYWxsIGZvdXIgbXVzdCBzdGlsbCBiZSBsaXN0ZWQKPiBp
+bmRpdmlkdWFsbHkKPiBpbiB0aGUgZGV2aWNldHJlZTsgY29yZSwgYXhpIGFuZCBhaGIgaGFwcGVu
+IHRvIHNoYXJlIHRoZSBzYW1lIGNsb2NrCj4gcGhhbmRsZS4KPiAKPiBNb3ZlIHRoZSBjbG9ja3Mv
+Y2xvY2stbmFtZXMgbWluSXRlbXMgdG8gNCBhbmQgcmVzZXRzL3Jlc2V0LW5hbWVzCj4gbWluSXRl
+bXMgdG8gMSBhdCB0aGUgdG9wIGxldmVsLCBzaW5jZSB0aGF0IGlzIHRoZSBsb3dlc3QgY291bnQg
+YW55Cj4gc3VwcG9ydGVkIHZhcmlhbnQgbmVlZHMuwqAgQWRkIGFuIGFsbE9mL2lmIGJsb2NrIHRo
+YXQgdGlnaHRlbnMgdGhlCj4gY29uc3RyYWludCBiYWNrIHVwIHRvIHRoZSBmaXhlZCA1LWNsb2Nr
+LzMtcmVzZXQgdG9wb2xvZ3kgcmVxdWlyZWQgYnkKPiB0aGUgZXhpc3RpbmcgdGhlYWQsdGgxNTIw
+LWRjODIwMCBjb21wYXRpYmxlLCBhbmQgYW5vdGhlciBvbmUgdGhhdAo+IGNhcHMKPiB0aGUgbmV3
+IG51dm90b24sbWEzNWQxLWRjdSBjb21wYXRpYmxlIGF0IHRoZSA0LWNsb2NrLzEtcmVzZXQgY291
+bnQgaXQKPiBhY3R1YWxseSB3aXJlcyB1cC4KPiAKPiBSZXN0cmljdCB0aGUgc2FtZSBudXZvdG9u
+LG1hMzVkMS1kY3UgaWYgYmxvY2sgdG8gYSBzaW5nbGUgcG9ydEAwLAo+IHNpbmNlIHRoZSBEQ1Vs
+dHJhTGl0ZSBvbmx5IGhhcyBvbmUgb3V0cHV0IHBvcnQuCj4gCj4gU2lnbmVkLW9mZi1ieTogSm9l
+eSBMdSA8YTA5ODcyMDMwNjlAZ21haWwuY29tPgo+IEFja2VkLWJ5OiBDb25vciBEb29sZXkgPGNv
+bm9yLmRvb2xleUBtaWNyb2NoaXAuY29tPgo+IC0tLQo+IMKgLi4uL2JpbmRpbmdzL2Rpc3BsYXkv
+dmVyaXNpbGljb24sZGMueWFtbMKgwqDCoMKgwqAgfCA1MQo+ICsrKysrKysrKysrKysrKysrKysK
+PiDCoDEgZmlsZSBjaGFuZ2VkLCA1MSBpbnNlcnRpb25zKCspCj4gCj4gZGlmZiAtLWdpdAo+IGEv
+RG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvdmVyaXNpbGljb24sZGMu
+eWFtbAo+IGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvdmVyaXNp
+bGljb24sZGMueWFtbAo+IGluZGV4IDkxOWE5MDAxMjIwMTIuLmUxZTZhM2E5NTM2NDYgMTAwNjQ0
+Cj4gLS0tIGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvdmVyaXNp
+bGljb24sZGMueWFtbAo+ICsrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9k
+aXNwbGF5L3ZlcmlzaWxpY29uLGRjLnlhbWwKPiBAQCAtMTcsNiArMTcsNyBAQCBwcm9wZXJ0aWVz
+Ogo+IMKgwqDCoMKgIGl0ZW1zOgo+IMKgwqDCoMKgwqDCoCAtIGVudW06Cj4gwqDCoMKgwqDCoMKg
+wqDCoMKgwqAgLSB0aGVhZCx0aDE1MjAtZGM4MjAwCj4gK8KgwqDCoMKgwqDCoMKgwqDCoCAtIG51
+dm90b24sbWEzNWQxLWRjdQo+IMKgwqDCoMKgwqDCoCAtIGNvbnN0OiB2ZXJpc2lsaWNvbixkYyAj
+IERDIElQcyBoYXZlIGRpc2NvdmVyYWJsZSBJRC9yZXZpc2lvbgo+IHJlZ2lzdGVycwo+IMKgCj4g
+wqDCoCByZWc6Cj4gQEAgLTI2LDYgKzI3LDcgQEAgcHJvcGVydGllczoKPiDCoMKgwqDCoCBtYXhJ
+dGVtczogMQo+IMKgCj4gwqDCoCBjbG9ja3M6Cj4gK8KgwqDCoCBtaW5JdGVtczogNAo+IMKgwqDC
+oMKgIGl0ZW1zOgo+IMKgwqDCoMKgwqDCoCAtIGRlc2NyaXB0aW9uOiBEQyBDb3JlIGNsb2NrCj4g
+wqDCoMKgwqDCoMKgIC0gZGVzY3JpcHRpb246IERNQSBBWEkgYnVzIGNsb2NrCj4gQEAgLTM0LDYg
+KzM2LDcgQEAgcHJvcGVydGllczoKPiDCoMKgwqDCoMKgwqAgLSBkZXNjcmlwdGlvbjogUGl4ZWwg
+Y2xvY2sgb2Ygb3V0cHV0IDEKPiDCoAo+IMKgwqAgY2xvY2stbmFtZXM6Cj4gK8KgwqDCoCBtaW5J
+dGVtczogNAo+IMKgwqDCoMKgIGl0ZW1zOgo+IMKgwqDCoMKgwqDCoCAtIGNvbnN0OiBjb3JlCj4g
+wqDCoMKgwqDCoMKgIC0gY29uc3Q6IGF4aQo+IEBAIC00MiwxMiArNDUsMTQgQEAgcHJvcGVydGll
+czoKPiDCoMKgwqDCoMKgwqAgLSBjb25zdDogcGl4MQo+IMKgCj4gwqDCoCByZXNldHM6Cj4gK8Kg
+wqDCoCBtaW5JdGVtczogMQo+IMKgwqDCoMKgIGl0ZW1zOgo+IMKgwqDCoMKgwqDCoCAtIGRlc2Ny
+aXB0aW9uOiBEQyBDb3JlIHJlc2V0Cj4gwqDCoMKgwqDCoMKgIC0gZGVzY3JpcHRpb246IERNQSBB
+WEkgYnVzIHJlc2V0Cj4gwqDCoMKgwqDCoMKgIC0gZGVzY3JpcHRpb246IENvbmZpZ3VyYXRpb24g
+QUhCIGJ1cyByZXNldAo+IMKgCj4gwqDCoCByZXNldC1uYW1lczoKPiArwqDCoMKgIG1pbkl0ZW1z
+OiAxCj4gwqDCoMKgwqAgaXRlbXM6Cj4gwqDCoMKgwqDCoMKgIC0gY29uc3Q6IGNvcmUKPiDCoMKg
+wqDCoMKgwqAgLSBjb25zdDogYXhpCj4gQEAgLTc5LDYgKzg0LDUyIEBAIHJlcXVpcmVkOgo+IMKg
+wqAgLSByZXNldC1uYW1lcwo+IMKgwqAgLSBwb3J0cwo+IMKgCj4gK2FsbE9mOgo+ICvCoCAtIGlm
+Ogo+ICvCoMKgwqDCoMKgIHByb3BlcnRpZXM6Cj4gK8KgwqDCoMKgwqDCoMKgIGNvbXBhdGlibGU6
+Cj4gK8KgwqDCoMKgwqDCoMKgwqDCoCBjb250YWluczoKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oCBjb25zdDogdGhlYWQsdGgxNTIwLWRjODIwMAoKSnVzdCBhIG5vdGU6IGEgbmV3IGNvbXBhdGli
+bGUgc3RyaW5nLCBgc3RhcmZpdmUsamg3MTEwLWRjODIwMGAsIGlzCmZsb2F0aW5nIGluIHRoZSBt
+YWlsaW5nIGxpc3Q7IGFsdGhvdWdoIEkgZG9uJ3QgdGhpbmsgaXQgd2lsbCBiZSBzb29uCmVub3Vn
+aCBmb3IgaXQgdG8gYmUgYXBwbGllZCBiZWZvcmUgdGhpcyBwYXRjaHNldC4KClRoYW5rcywKSWNl
+bm93eQoKPiArwqDCoMKgIHRoZW46Cj4gK8KgwqDCoMKgwqAgcHJvcGVydGllczoKPiArwqDCoMKg
+wqDCoMKgwqAgY2xvY2tzOgo+ICvCoMKgwqDCoMKgwqDCoMKgwqAgbWluSXRlbXM6IDUKPiArCj4g
+K8KgwqDCoMKgwqDCoMKgIGNsb2NrLW5hbWVzOgo+ICvCoMKgwqDCoMKgwqDCoMKgwqAgbWluSXRl
+bXM6IDUKPiArCj4gK8KgwqDCoMKgwqDCoMKgIHJlc2V0czoKPiArwqDCoMKgwqDCoMKgwqDCoMKg
+IG1pbkl0ZW1zOiAzCj4gKwo+ICvCoMKgwqDCoMKgwqDCoCByZXNldC1uYW1lczoKPiArwqDCoMKg
+wqDCoMKgwqDCoMKgIG1pbkl0ZW1zOiAzCj4gKwo+ICvCoCAtIGlmOgo+ICvCoMKgwqDCoMKgIHBy
+b3BlcnRpZXM6Cj4gK8KgwqDCoMKgwqDCoMKgIGNvbXBhdGlibGU6Cj4gK8KgwqDCoMKgwqDCoMKg
+wqDCoCBjb250YWluczoKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb25zdDogbnV2b3Rvbixt
+YTM1ZDEtZGN1Cj4gK8KgwqDCoCB0aGVuOgo+ICvCoMKgwqDCoMKgIHByb3BlcnRpZXM6Cj4gK8Kg
+wqDCoMKgwqDCoMKgIGNsb2NrczoKPiArwqDCoMKgwqDCoMKgwqDCoMKgIG1heEl0ZW1zOiA0Cj4g
+Kwo+ICvCoMKgwqDCoMKgwqDCoCBjbG9jay1uYW1lczoKPiArwqDCoMKgwqDCoMKgwqDCoMKgIG1h
+eEl0ZW1zOiA0Cj4gKwo+ICvCoMKgwqDCoMKgwqDCoCByZXNldHM6Cj4gK8KgwqDCoMKgwqDCoMKg
+wqDCoCBtYXhJdGVtczogMQo+ICsKPiArwqDCoMKgwqDCoMKgwqAgcmVzZXQtbmFtZXM6Cj4gK8Kg
+wqDCoMKgwqDCoMKgwqDCoCBtYXhJdGVtczogMQo+ICsKPiArwqDCoMKgwqDCoMKgwqAgcG9ydHM6
+Cj4gK8KgwqDCoMKgwqDCoMKgwqDCoCBwcm9wZXJ0aWVzOgo+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgIHBvcnRAMTogZmFsc2UKPiArCj4gK8KgwqDCoMKgwqDCoMKgwqDCoCByZXF1aXJlZDoKPiAr
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAtIHBvcnRAMAo+ICsKPiDCoGFkZGl0aW9uYWxQcm9wZXJ0
+aWVzOiBmYWxzZQo+IMKgCj4gwqBleGFtcGxlczoK
 
-Acked-by: Mika Westerberg (Intel) <westeri@kernel.org>
