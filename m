@@ -1,47 +1,47 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24CC93B19D0
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:46:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 356D0397352
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:46:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789695993; cv=none; b=hIDZUlpFxU7sVCw/oHVY7j26YRqwMFtqtRxSH1TBR2ms66ghpqL2zSnXfcjC8kTo18j4dqK4ZhtgN4tDrzQN28eFuvQqSI6eUBDK4kObTLS1zM1pPM2irnXO45s6SbH6NoX4Rfdnh8IvaX5uaTrDJ+QVfd33RXupLrg476eox5U=
+	t=1789695997; cv=none; b=YPd9vSHebN56y0fAcyxNUMlDWkDMTWqlRYAHnRwVJ92llgC2+J+jx9yd8D4x0mxugKo/qb+13hJiyk4uS4OrFDaeu5/3mdx+l4ywyTFRMk7gSX5XBQd+G3Q0XyC5xkYgmPTTYnoXCIXcsdll///Jp7jVBrFnEb1XNTbGPWXQqsA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789695993; c=relaxed/simple;
-	bh=j0AXLY1wsN/s+ZetchPWUSvf8zNNgDUa2WCndoKm3Ng=;
+	s=arc-20240116; t=1789695997; c=relaxed/simple;
+	bh=IWo8K8Ath75VoPrVg1XoiMwhI4xLfgFkKOpsccJJuWg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hETg7BCDPrnyERvkuffvACGtTTJU/U46TwX3N5tkUvWa1owYTZcQIKP25L/L66g+gArdK0zUa0oIont2s7h0rcbaUw4+0OZtUASuEXpm1uskasGbW7t8JnhsL76SZfbF4uAUfJfIJ8Sc7PGVWMgrlQA0wXIejQH/DKhD830Ye2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=gTNP3TkC; arc=none smtp.client-ip=170.10.129.124
+	 MIME-Version; b=u25MkSrDmyRW+F77zF10NYBw5coIx9sGOMVz/1A6HG2f0K1kXXIKf7NzELD8JfdFbBizXK8MmUv0+pqO0PQRiOvuMVVa/MoW0Fhg9DzOFNiL+9f9U+dG6egDxwfpGYv5UBRhYIUfDyf8X/16ePRDLzDq+GspCTXDt2P37hoEQLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RmhpMrN2; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gTNP3TkC"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RmhpMrN2"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789695980;
+	s=mimecast20190719; t=1789695987;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=nu0VWB6WJUsLY8Seekb2z32XfHWSxsRL/xoH2InAx9g=;
-	b=gTNP3TkCNhtk5ULVoIqq4ar3AN3hnE5NdF1YLxXgu5qMmQqu5yyYwF4F+IXI9FyXQjPWWN
-	qF3mh5JujDKvPnaTISCeS34Ib5OpTH54dQ3H/74v1Xdgkif2KWoZ3W8tPP35IXcD4UArwl
-	ShFDfDS9Bm88IYzQDQBP48oQlhExbQs=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+	bh=U5VGhony2GlXcldX4fKODtBEKHSnENc20be4cbUK9lc=;
+	b=RmhpMrN2OengJUnp5KKpxLc6b7+Z4GwbeYqO26gcUpPorNzRJawaOddwS2/ObkYnh1H2d7
+	9yG0iSnCfySITy1U9yV4EuiCYka52ZAXON7y2l5WXW68Lxv+N45cwODCSnft5n3/plnYbK
+	gzXXzyciF6Nmi+c/XEsidMLHi3z1mQY=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-351-ka5wWLBlPva_h9-srx9ilA-1; Thu,
- 17 Sep 2026 21:46:16 -0400
-X-MC-Unique: ka5wWLBlPva_h9-srx9ilA-1
-X-Mimecast-MFC-AGG-ID: ka5wWLBlPva_h9-srx9ilA_1789695973
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-368-_lSHthIDPy2okUaTYnaKsg-1; Thu,
+ 17 Sep 2026 21:46:25 -0400
+X-MC-Unique: _lSHthIDPy2okUaTYnaKsg-1
+X-Mimecast-MFC-AGG-ID: _lSHthIDPy2okUaTYnaKsg_1789695981
 Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8ED251977019;
-	Fri, 18 Sep 2026 01:46:12 +0000 (UTC)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 94E7A195F142;
+	Fri, 18 Sep 2026 01:46:21 +0000 (UTC)
 Received: from lcapitul-thinkpadt14gen3.rmtcaqc.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 58DA718004D2;
-	Fri, 18 Sep 2026 01:46:07 +0000 (UTC)
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id DBC3018004D2;
+	Fri, 18 Sep 2026 01:46:17 +0000 (UTC)
 From: Luiz Capitulino <luizcap@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org,
@@ -70,9 +70,9 @@ Cc: corbet@lwn.net,
 	yintirui@huawei.com,
 	dev.jain@arm.com,
 	usama.arif@linux.dev
-Subject: [PATCH v8 02/14] mm: shmem: shmem_getattr(): set blksize to highest supported THP order
-Date: Thu, 17 Sep 2026 21:45:23 -0400
-Message-ID: <0f18a45baec44d193f8dbc760ef57c0430e04bdb.1789695931.git.luizcap@redhat.com>
+Subject: [PATCH v8 04/14] drivers: dax: use pgtable_has_pmd_leaves()
+Date: Thu, 17 Sep 2026 21:45:25 -0400
+Message-ID: <700b622814a2b294083f9066631f655cf61c3070.1789695931.git.luizcap@redhat.com>
 In-Reply-To: <cover.1789695931.git.luizcap@redhat.com>
 References: <cover.1789695931.git.luizcap@redhat.com>
 Precedence: bulk
@@ -84,56 +84,28 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-Today, shmem_getattr() sets stat->blksize to PMD size whenever
-shmem_huge_global_enabled() returns non-zero. While this works fine
-for the normal THP-enabled case as explained by Baolin in [1], this
-has two problems:
+dax_align_valid() uses has_transparent_hugepage() to check if PMD-sized
+pages are supported, use pgtable_has_pmd_leaves() instead.
 
- 1. Theoretically, when shmem is configured for within_size, this
-    could set blksize to PMD size even though the allocation may
-    be a smaller mTHP order
-
- 2. A future commit will allow shmem THP support to be enabled
-    even when the CPU doesn't support PMD-sized pages. We should
-    not allow blksize to be set to PMD size in this case
-
-In order to fix #1 and prepare for #2, this commit sets blksize
-to the size of the highest supported order returned by
-shmem_huge_global_enabled().
-
-  [1] https://lore.kernel.org/linux-mm/6591a74c-7ef9-4614-9ae9-cb2fbed86ebf@linux.alibaba.com/
-
-Suggested-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Acked-by: Zi Yan <ziy@nvidia.com>
+Acked-by: David Hildenbrand (Red Hat) <david@kernel.org>
 Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
 ---
- mm/shmem.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/dax/dax-private.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/mm/shmem.c b/mm/shmem.c
-index b572c60f2af8..776dff8a848e 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -1506,6 +1506,7 @@ static int shmem_getattr(struct mnt_idmap *idmap,
+diff --git a/drivers/dax/dax-private.h b/drivers/dax/dax-private.h
+index 607a53a91f58..18a6295aa766 100644
+--- a/drivers/dax/dax-private.h
++++ b/drivers/dax/dax-private.h
+@@ -121,7 +121,7 @@ static inline bool dax_align_valid(unsigned long align)
  {
- 	struct inode *inode = path->dentry->d_inode;
- 	struct shmem_inode_info *info = SHMEM_I(inode);
-+	unsigned int orders;
- 
- 	/* Fast-path hint; recalc under info->lock corrects any stale read. */
- 	if (data_race(info->alloced - info->swapped != inode->i_mapping->nrpages))
-@@ -1522,8 +1523,9 @@ static int shmem_getattr(struct mnt_idmap *idmap,
- 			STATX_ATTR_NODUMP);
- 	generic_fillattr(idmap, request_mask, inode, stat);
- 
--	if (shmem_huge_global_enabled(inode, 0, 0, false, NULL, 0))
--		stat->blksize = HPAGE_PMD_SIZE;
-+	orders = shmem_huge_global_enabled(inode, 0, 0, false, NULL, 0);
-+	if (orders)
-+		stat->blksize = PAGE_SIZE << highest_order(orders);
- 
- 	if (request_mask & STATX_BTIME) {
- 		stat->result_mask |= STATX_BTIME;
+ 	if (align == PUD_SIZE && IS_ENABLED(CONFIG_HAVE_ARCH_TRANSPARENT_HUGEPAGE_PUD))
+ 		return true;
+-	if (align == PMD_SIZE && has_transparent_hugepage())
++	if (align == PMD_SIZE && pgtable_has_pmd_leaves())
+ 		return true;
+ 	if (align == PAGE_SIZE)
+ 		return true;
 -- 
 2.55.0
 
