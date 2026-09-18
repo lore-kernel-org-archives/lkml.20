@@ -1,156 +1,114 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 594A551B173;
-	Fri, 18 Sep 2026 17:08:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1044B51D52C
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 17:08:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789751296; cv=none; b=Wa7GWCb8ZhK8VAyPOtD/JPU5pkY9LSCk80AuS0ZMU05JYXVMP8MIVt2uO+e4bGhhwIkuI1ES9FjLkQfe5vK5vHT+SxFCHUDkaMEdmxo/mKKBe0jQzhJlJFHNPbokjvc6nH/+hm4HLqFB0OkDU87liIRBO3JEt9wJDhS0NrAla6w=
+	t=1789751298; cv=none; b=KftoKSvgeDKEQMqz3muZD8ANrStyI5eHzAJ5KiktuzHn1rZq4RJ7UzKKyBDllkZ2tB8UJFeAtHhLxkYU+/F5OLpBGwh0jlLlnEyDPrTuqCZjzbCMD1Vmutc45jAfpBlDy5E5je/3f7idDd7tQuS6vseV5jG1WtjkMYqY3+0tjq4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789751296; c=relaxed/simple;
-	bh=ZRs5ShIc5SPKgFFZGlNAk63M6odw+wLS2yueYvmPToI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=on1ZSFQKO/tYdEu0s86sTt1v5welw1CzEiXoQh6yWStaXjoCSCwV9By/uUTLK+EIhkbG7TsIfXudpgRaw08JyV7cqtUO7R8yffSn4POeo8Yfbu8w+EASNUKF3GA70LsELu6wjt1Aozj6Svgp4XWhW6u7HlvTxXwu1Bw813vZQsw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=GdlIRMhh; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1789751298; c=relaxed/simple;
+	bh=PY6JJUepgxCEPlcrfnMmYVpbq3oRM0GsIQdyMQ4tARA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hoyY8Xx5XUE/2kcPqaaUVJ+tNlEk/Fe+UuJ+ZWBJPzIjQtZE8de1l2smxIkRf1334KpqFhXFtrtoM5o+hTzAJ5ntqcVwW0O3svy4QQsEk/dvZSxzuZ1BtEvZosuNtelpVt8rpJfv2zBFTRSZ/We0dXfySlp2sxD75YPbX1l80fM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=aN4/oV3l; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="GdlIRMhh"
-Received: from neptunite.rasen.tech (unknown [IPv6:2400:2411:160:2f00:e327:a298:3a5b:4b08])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C48974FC4;
-	Fri, 18 Sep 2026 19:06:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1789751190;
-	bh=ZRs5ShIc5SPKgFFZGlNAk63M6odw+wLS2yueYvmPToI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=GdlIRMhhIyLJ9mGrEA8K56+LH13CqN5eYU8OICKy0lJr3akDYkt9Ybxrsn5YAB7E/
-	 afkuPQZzGjJxjG/W0q4lthQ5WcudPewSAAovo8REyP4HK2Qrr+axGBgcySI9fFX0gR
-	 nkV+BOgMyblWv11de7fNE2lBz8VZH70O1m9/o6SA=
-From: Paul Elder <paul.elder+renesas@ideasonboard.com>
-Date: Sat, 19 Sep 2026 02:07:07 +0900
-Subject: [PATCH v2 10/11] media: rcar-fcp: Handle resets
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="aN4/oV3l"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DC3C31476;
+	Fri, 18 Sep 2026 10:08:12 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 15E903F7B4;
+	Fri, 18 Sep 2026 10:08:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789751296; bh=PY6JJUepgxCEPlcrfnMmYVpbq3oRM0GsIQdyMQ4tARA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=aN4/oV3ljICWliH14xVpOIhBTcs+SMZFCDdbcHCzgm6ENRDTCMb4Jo51Olhger7Rl
+	 dZdeFIq5TTL1ChBaAyhsuSJqvrK+brtiGQ0N3YGuCLmpntsdysHRXKx/9kQUwNJEYX
+	 jcy3B8E2+G/GHL4Vq8IB57bFwQKZn7Q//a0XQmqA=
+Date: Fri, 18 Sep 2026 18:08:11 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: Mike Leach <mike.leach@arm.com>
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>, James Clark <james.clark@linaro.org>,
+	Leo Yan <leo.yan@arm.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>, nd@arm.com
+Subject: Re: [PATCH v11 1/9] coresight: etm4x: prohibit modifying ss_status
+ and cntr_val while session is enabled
+Message-ID: <aq1v-yo7gsQHasZP@e129823.arm.com>
+References: <20260915-separate_etm_cfg_v2-v11-0-d2b258d51747@arm.com>
+ <20260915-separate_etm_cfg_v2-v11-1-d2b258d51747@arm.com>
+ <89b18b1e-65ca-4e97-b827-90d360b9e881@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260919-epaul-v7-3-rc1-x5h-vsp-fcp-v2-10-dbe9236bfd22@ideasonboard.com>
-References: <20260919-epaul-v7-3-rc1-x5h-vsp-fcp-v2-0-dbe9236bfd22@ideasonboard.com>
-In-Reply-To: <20260919-epaul-v7-3-rc1-x5h-vsp-fcp-v2-0-dbe9236bfd22@ideasonboard.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
- Ulf Hansson <ulfh@kernel.org>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
-Cc: linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-pm@vger.kernel.org, linux-media@vger.kernel.org, 
- Paul Elder <paul.elder+renesas@ideasonboard.com>
-X-Mailer: b4 0.14.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <89b18b1e-65ca-4e97-b827-90d360b9e881@arm.com>
 
-On some versions of the FCP, such as the one on the X5H, reset control
-is required to operate the FCP. Add support for handling resets
-optionally, to continue supporting versions that do not require it.
+Hi Mike,
 
-Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
+> Hi,
+> 
+> Preventing a write to the counter value register is correct, but protecting
+> the ss_status is redundant.
+> 
+> On 9/15/26 12:34, Yeoreum Yun wrote:
+> > ss_status and cntr_val are overwritten with the values read from the
+> > corresponding registers by etm4_disable_hw() when the session is disabled.
+> > 
+> > This means that any changes to these values made while the session is
+> > enabled would be lost when the session is disabled.
+> > 
+> > Therefore, prohibit modifying ss_status and cntr_val while the session is
+> > enabled.
+> > 
+> > Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> > ---
+> >   drivers/hwtracing/coresight/coresight-etm4x-sysfs.c | 6 ++++++
+> >   1 file changed, 6 insertions(+)
+> > 
+> > diff --git a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c b/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
+> > index cc6cdd3ae29d5..8d73248b840a6 100644
+> > --- a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
+> > +++ b/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
+> > @@ -1613,6 +1613,8 @@ static ssize_t cntr_val_store(struct device *dev,
+> >   		return -EINVAL;
+> >   	if (val > ETM_CNTR_MAX_VAL)
+> >   		return -EINVAL;
+> > +	if (coresight_get_mode(drvdata->csdev))
+> > +		return -EBUSY;
+> >   	raw_spin_lock(&drvdata->spinlock);
+> >   	idx = config->cntr_idx;
+> > @@ -1797,6 +1799,8 @@ static ssize_t sshot_ctrl_store(struct device *dev,
+> >   	if (kstrtoul(buf, 16, &val))
+> >   		return -EINVAL;
+> > +	if (coresight_get_mode(drvdata->csdev))
+> > +		return -EBUSY;
+> 
+> This is protecting a write clearing the STATUS bit in TRCSSCSR - but this is
+> cleared automatically when next time the hardware is enabled in
+> etm4_enable_hw(). So the write to ss_status in this function is redundant as
+> is this protection.
+> 
+> The actual write to the targeted control register will persist.
 
----
-Changes in v2:
-- handle errors
----
- drivers/media/platform/renesas/rcar-fcp.c | 30 ++++++++++++++++++++++++++++--
- 1 file changed, 28 insertions(+), 2 deletions(-)
+Acked, I'll remove this protection in here.
 
-diff --git a/drivers/media/platform/renesas/rcar-fcp.c b/drivers/media/platform/renesas/rcar-fcp.c
-index dfb0ca93e854dd0bb8aedfb757fd786ef6e45542..76d4c250b30815d9eac58f9b54ad923748df79f6 100644
---- a/drivers/media/platform/renesas/rcar-fcp.c
-+++ b/drivers/media/platform/renesas/rcar-fcp.c
-@@ -16,6 +16,7 @@
- #include <linux/mutex.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
-+#include <linux/reset.h>
- #include <linux/slab.h>
- 
- #include <media/rcar-fcp.h>
-@@ -29,6 +30,7 @@ struct rcar_fcp_device {
- 	struct list_head list;
- 	struct device *dev;
- 	void __iomem *base;
-+	struct reset_control *rstc;
- };
- 
- static LIST_HEAD(fcp_devices);
-@@ -162,20 +164,25 @@ static int rcar_fcp_probe(struct platform_device *pdev)
- 
- 	fcp->dev = &pdev->dev;
- 
-+	platform_set_drvdata(pdev, fcp);
-+
- 	fcp->base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(fcp->base))
- 		return PTR_ERR(fcp->base);
- 
- 	dma_set_max_seg_size(fcp->dev, UINT_MAX);
- 
-+	fcp->rstc = devm_reset_control_get_optional(&pdev->dev, NULL);
-+	if (IS_ERR(fcp->rstc))
-+		return dev_err_probe(&pdev->dev, PTR_ERR(fcp->rstc),
-+				     "failed to get reset control\n");
-+
- 	pm_runtime_enable(&pdev->dev);
- 
- 	mutex_lock(&fcp_lock);
- 	list_add_tail(&fcp->list, &fcp_devices);
- 	mutex_unlock(&fcp_lock);
- 
--	platform_set_drvdata(pdev, fcp);
--
- 	return 0;
- }
- 
-@@ -190,6 +197,24 @@ static void rcar_fcp_remove(struct platform_device *pdev)
- 	pm_runtime_disable(&pdev->dev);
- }
- 
-+static int fcp_pm_runtime_suspend(struct device *dev)
-+{
-+	struct rcar_fcp_device *fcp = dev_get_drvdata(dev);
-+
-+	return reset_control_assert(fcp->rstc);
-+}
-+
-+static int fcp_pm_runtime_resume(struct device *dev)
-+{
-+	struct rcar_fcp_device *fcp = dev_get_drvdata(dev);
-+
-+	return reset_control_deassert(fcp->rstc);
-+}
-+
-+static const struct dev_pm_ops fcp_pm_ops = {
-+	RUNTIME_PM_OPS(fcp_pm_runtime_suspend, fcp_pm_runtime_resume, NULL)
-+};
-+
- static const struct of_device_id rcar_fcp_of_match[] = {
- 	{ .compatible = "renesas,fcpf" },
- 	{ .compatible = "renesas,fcpv" },
-@@ -202,6 +227,7 @@ static struct platform_driver rcar_fcp_platform_driver = {
- 	.remove		= rcar_fcp_remove,
- 	.driver		= {
- 		.name	= "rcar-fcp",
-+		.pm = pm_ptr(&fcp_pm_ops),
- 		.of_match_table = rcar_fcp_of_match,
- 		.suppress_bind_attrs = true,
- 	},
+Thanks!
+
+[...]
 
 -- 
-2.47.3
-
+Sincerely,
+Yeoreum Yun
