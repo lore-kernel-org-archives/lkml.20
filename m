@@ -1,116 +1,256 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9685B3B27D4;
-	Fri, 18 Sep 2026 01:50:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C6DC3B2FDB
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:50:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789696237; cv=none; b=NWAEPzDxJRf7bchVKl4zJ7hz16hcTAm3RacGIdoPYa3+grcM56EXgMmYooeK3bsclWy3xTGXJ3BzmWaHITXtJMPgGAherpHoRj1Ad/enP5pj3Wvq4gpDgiDuLNQqEv9ogbUw9CEZ5u47d7tGkQRAx6mCCS5Ff39AcCw2dRq71Ys=
+	t=1789696246; cv=none; b=FAVISglM1v/CZG6mtcUikDBvgjh64ygCTlA5xJvAUN+fsc7osfiQT4RLLXLNOvu9Hn1uXMxf9FYfjxy4nnFXTdTwrO1/a0pDDm+y0Fs0z55p372YpHfPfLtOIM8F2gwJTkcsfrwkynvqKVLk27LQ8O0GWgxfg2x5xJpFup47oYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789696237; c=relaxed/simple;
-	bh=h2rnnvU1cABd1Qm85kshfAoTaocBNolJoMMn0SOrP2k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z7TrRS70NTmvX88sZQWbcD5nG+OLRQDS166szayJAfxbD1iR3qmjN02++ZVPrSofPmCQkAh0w0RmQoeysFpxr5RZIdnVzVOr85Sia54m8E8uVBHX8yfd/fxsO+1WZ5LAehxAbTrIn0FN5qwWf6gu0e5HKasWygI2AO7GA65yq8I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=WK+s33XW; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1789696246; c=relaxed/simple;
+	bh=tMNt3WgDbWiLcST77Z8fyAfuth/lQG6KwaNQU/at8DU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Rpp6BebJ96Jm9Upud2AQxN63NFqVjEdwS4FSjmuOFV3owKHsUxy25epwhtdKc/TedEYdSFTISd5+KdKPYugllokFsCngujJ/CxjTgC+9QQE/2OQdXE0J619+aWpANKY7yBEJR4xh7cqmtrVnq8lW5pbHWIEE9lqnMFfAjGVV6G8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=MU8borQr; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="WK+s33XW"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8585B4DC;
-	Fri, 18 Sep 2026 03:48:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1789696118;
-	bh=h2rnnvU1cABd1Qm85kshfAoTaocBNolJoMMn0SOrP2k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=WK+s33XWYcpStYU868v7Jk2/7Ndecv2D71Ut07mRDZxnQnTkoO9IOzSXmEGGMeYye
-	 LXon4+ic+fxFC14w2LXuTacNjGh8IL2L91e/lFlXKbArSTShVemTWEZYAAWKi0xbVs
-	 aYN/RqZ8kMkC25Boz/HugRF6ty2zHyEgX8hO/E8M=
-Date: Fri, 18 Sep 2026 04:50:19 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Paul Elder <paul.elder+renesas@ideasonboard.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-media@vger.kernel.org
-Subject: Re: [PATCH 00/10] media: rcar-fcp, vsp1: Enable on R-Car X5H
-Message-ID: <20260918015019.GA736264@killaraus.ideasonboard.com>
-References: <20260917-epaul-v7-3-rc1-x5h-vsp-fcp-v1-0-4c72d4e086dd@ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="MU8borQr"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccfd61ecaso1797285e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 18:50:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=lex.la; s=google; t=1789696229; x=1790301029; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hQ1vqCiYyinbzAJglQK3AA19n9BUGKxeEFgjB2l0094=;
+        b=MU8borQr/X2O7px/QHE+Dnlw+yUW7QZVC3g9Zf4taZzmyFAhLhoyfDlbSF/s8M7QD+
+         gmAlzwAvQQ5/OwT4N1SY5pextTdIgf/FxhbIrStd9PoR0PeITQbkF2/Vi3BeFw+z1wYs
+         6Xz+FiBlN5R/pybFClTR6cppyC//ui5/kAm5+KiSVBGifnSHBPjDwpGunfTPLxGmPuMB
+         BbeURsz94ca6JfQ8OnR9Xz4IbfEe7SbAnTDctj3uIpapoknPTt86XhhvO7B3pwF+QKTx
+         Aq5ONPqBaIST/Sley2F0ktkVYpDH726MR4iwRUni+qGSBYQvvgJ26B2dlm0QUqeIEcB+
+         wXDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789696229; x=1790301029;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hQ1vqCiYyinbzAJglQK3AA19n9BUGKxeEFgjB2l0094=;
+        b=bpYy5M7FkJhQyIlserCzI11RRKEKIv0QySim+BssU5QChGPqurXXjpyU9ZFIWHmIzM
+         d+ch078BDPjH+4onu6iGhvI28TUfe8y9rKdgvkJNjL6+o8vbDWl9X1yxHwP+lv2jcq2J
+         925U9nRJeqoUHgpe0U3J/9j9CAVJkppmoijwCqm8tygZxjY2R8IbB1h6v2W7jyLCRU6/
+         QQHYnSkZLO4p8rOT3CWo0xu3aYiGT3tet8NQCUl+MbEZzRlkh77gSKCYolYlYyIfnIkz
+         apb7isv/Uy5i5nmYutqyl6/bVMyDyxVKINr/6/ewHSeaVTp3vACY252l5wKvhsqiKudL
+         RUqA==
+X-Forwarded-Encrypted: i=1; AKwUvBwmywU3zBmmvPaPkHlEh2BODDwiYpLfXVCOiMMax/r1fBxa6jypZXQXrDpaMVyL65fXssuhGqTh5HpaCns=@vger.kernel.org
+X-Gm-Message-State: AFuF++nDHAyV9aWkYCpaafNJuznj+YAVk4Icwbxg52fOvr0TJWPQgMLL
+	CQxh2gFxIR4ZNiavd4Fmn7W/dSGc73k6mf7l9rHjtJK8T6xZGFpsfXxPOwVhwhH8Dbg=
+X-Gm-Gg: AYBFou2Ir7x2ILSpZ3somRKoo9ezi/MODlwgH9bByVMi92zWbRc/xdUQa2qZUjL8o4j
+	+RYGXVHKjb4BtZtdZ2VsCEFgGJ5j+YStp+hv/FguQqbQJq07UsuMI44rsvuvYpX8JrAT/AcwSRU
+	eDbm7KWmS1cMKweOcOMN+xeQ3j8eF+z7VopYsSmv7x7UoU+7VWc3au2YsmCGyb3VwvDe5+/JWyR
+	zZdWFL9+D4BxP0+rz8ZQlWOGbludf9OhZ369+hh4xfA6zLrnBVBejE8vruL417W3HpQR/KkSHeU
+	eiR8Z+b+TzksgtjrE0tkvMX0+C2Zu8FFflwphT5nWEwUIJPzDJuWZlXrNJod7T22MNutt2HOoYN
+	dKEhN4t3oTFiVZod7NgjQpWbT91SmAS5nFg+HHLfrd0dDHNSLSXqP/66KePVBG6w5EKG9hw2mKI
+	NjBguyGjYcfz71PuoruAclfq0YzAprG7AUVWfEbc3QfmXWs+8nVw==
+X-Received: by 2002:a05:600c:4e46:b0:49e:642a:4f6f with SMTP id 5b1f17b1804b1-49fc585e9edmr7361175e9.33.1789696229219;
+        Thu, 17 Sep 2026 18:50:29 -0700 (PDT)
+Received: from remote-01 ([84.17.55.229])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4871ff57926sm70569f8f.14.2026.09.17.18.50.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 18:50:28 -0700 (PDT)
+From: Aleksei Sviridkin <f@lex.la>
+To: netdev@vger.kernel.org
+Cc: chester.a.unal@arinc9.com,
+	daniel@makrotopia.org,
+	andrew@lunn.ch,
+	olteanv@gmail.com,
+	gerg@kernel.org,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	Aleksei Sviridkin <f@lex.la>
+Subject: [PATCH net v2 2/2] net: dsa: mt7530: leave the MDIO IRQ mappings to regmap-irq
+Date: Fri, 18 Sep 2026 04:50:20 +0300
+Message-ID: <20260918015020.2518315-3-f@lex.la>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260918015020.2518315-1-f@lex.la>
+References: <20260918015020.2518315-1-f@lex.la>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260917-epaul-v7-3-rc1-x5h-vsp-fcp-v1-0-4c72d4e086dd@ideasonboard.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 17, 2026 at 09:04:39PM +0900, Paul Elder wrote:
-> This series is based on Geert's
-> "topic/rcar-x5h-ironhide-scmi-cpg-mdlc-remapping-v3" branch [0]. A
-> branch including this series is available here [1].
+mt7530_remove_common() disposes the per-PHY interrupt mappings from
+.remove, but the regmap-irq chip that owns the domain is devm-registered,
+so its parent interrupt is only freed once .remove has returned. The
+switch's own regmap-irq thread can therefore still dispatch on a mapping
+that is already gone: irq_find_mapping() returns 0, irq_to_desc() returns
+NULL and handle_nested_irq() locks desc->lock without checking it. The
+attached PHYs have not given those interrupts back yet either, which the
+kernel warns about a moment before the fault.
 
-The series contains a mix of patches ready for upstream and patches that
-are not. The cover letter should explain this better to avoid wasting
-reviewers' time. Please organize the patches better in v2, mark the ones
-not ready for uptreaming with '[DNI]' or a similar prefix, and explain
-the rationale in the cover letter.
+regmap_del_irq_chip() disposes the same mappings itself, after freeing the
+parent interrupt and before removing the domain, so there is nothing left
+for the driver to do here. Until it runs the descriptors stay alive, and a
+late dispatch on one of them is harmless: dsa_unregister_switch() has freed
+the PHY handlers by then, so handle_nested_irq() finds no action and
+returns.
 
-> This series enables the FCPV[BI] and the VSP[BI] blocks on the Renesas
-> R-Car X5H SoC.
-> 
-> This has been tested on an Ironhide with the vsp-tests test suite [2]:
-> 148 tests: 142 passed, 0 failed, 6 skipped
-> 
-> There was some odd behavior with the clocks, where from what I
-> understood was that the clocks for the FCPV[BI] and VSP[BI] are
-> always-on, but the tests would hang unless I explicitly enabled...  the
-> always-on clock (or fsleep). Then after I removed the patch that
-> explicitly enabled the always-on clock everything ran fine. Just
-> reporting that this happened just in case it's relevant.
-> 
-> [0] https://git.kernel.org/pub/scm/linux/kernel/git/geert/renesas-drivers.git/log/?h=topic/rcar-x5h-ironhide-scmi-cpg-mdlc-remapping-v3
-> [1] https://git.ideasonboard.com/epaul/linux/src/branch/epaul/v7.3-rc1/x5h/vsp/fcp
-> [2] https://git.ideasonboard.com/renesas/vsp-tests/commit/900168f58c9d96be0592c2593f4d8f34edc9c69e
-> 
-> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
-> ---
-> Paul Elder (10):
->       dt-bindings: clock: renesas,r8a78000-cpg: Add CPG_SGD4_VIO_DP_{TX,OTHER}
->       clk: renesas: r8a78000: Add clock for FCPV and VSP for SCP FW SDKv4.36
->       pmdomain: renesas: r8a78000: Add maps for VIO for SCP FW SDKv4.36
->       arm64: renesas: r8a78000: Add FCPV[BI] nodes
->       arm64: renesas: r8a78000: Add VSP[BI] nodes
->       media: rcar-fcp: Check device revision at probe time
->       media: rcar-fcp: Handle resets
->       media: vsp1: Support full VSPB on R-Car M3-W, M3-N and E3
->       media: vsp1: Document X5H SoC ID
->       media: rcar-fcp: Add R-Car X5H support
-> 
->  arch/arm64/boot/dts/renesas/r8a78000.dtsi        | 171 +++++++++++++++++++++++
->  drivers/clk/renesas/r8a78000-cpg.c               |   2 +
->  drivers/media/platform/renesas/rcar-fcp.c        | 162 +++++++++++++++++++--
->  drivers/media/platform/renesas/vsp1/vsp1_drv.c   |  13 +-
->  drivers/media/platform/renesas/vsp1/vsp1_regs.h  |   3 +-
->  drivers/pmdomain/renesas/r8a78000-mdlc.c         |  34 ++++-
->  include/dt-bindings/clock/renesas,r8a78000-cpg.h |   2 +
->  7 files changed, 372 insertions(+), 15 deletions(-)
-> ---
-> base-commit: 02c5d61866607bce0b3271e7c1b838c53dbedc55
-> change-id: 20260917-epaul-v7-3-rc1-x5h-vsp-fcp-8afdeb2740f7
+Fixes: 254f6b272e3b ("dsa: mt7530: Utilize REGMAP_IRQ for interrupt handling")
+Assisted-by: LLM
+Signed-off-by: Aleksei Sviridkin <f@lex.la>
+---
+Found on a Netcraze NC-1012 (MT7981B + MT7531, 6.18.44) directly behind the
+regulator fix in patch 1: with that one applied the unbind stops faulting
+in mt7530_remove() and reaches the teardown, where the kernel says what is
+wrong in words before it dies.
 
+  # echo mdio-bus:1f > /sys/bus/mdio_bus/drivers/mt7530-mdio/unbind
+  remove_proc_entry: removing non-empty directory 'irq/81', leaking at least
+    'mt7530-0:02'
+  WARNING: CPU: 0 PID: 4629 at remove_proc_entry+0x1d0/0x1f0
+  ...
+  Call trace:
+   remove_proc_entry+0x1d0/0x1f0 (P)
+   unregister_irq_proc+0xd0/0x104
+   free_desc+0x38/0xa0
+   irq_free_descs+0x64/0x98
+   irq_dispose_mapping+0x70/0x14c
+   mt7530_free_mdio_irq+0x5c/0x60
+   mt7530_remove_common+0x1c/0x30
+   mt7530_remove+0x24/0x90
+   mdio_remove+0x20/0x40
+   device_remove+0x68/0x80
+   device_release_driver_internal+0x1cc/0x220
+   device_driver_detach+0x14/0x20
+   unbind_store+0xac/0xb0
+   ...
+
+  Unable to handle kernel read from unreadable memory at virtual address
+    00000000000000ac
+  pc : handle_nested_irq+0x28/0x168
+  ...
+  Call trace:
+   handle_nested_irq+0x28/0x168 (P)
+   regmap_irq_thread+0x19c/0x2e8
+   irq_thread_fn+0x28/0x88
+   irq_thread+0x18c/0x28c
+   kthread+0xe4/0x1ac
+   ret_from_fork+0x10/0x20
+  Kernel panic - not syncing: Oops: Fatal exception
+
+The WARN comes from unregister_irq_proc() under irq_free_descs(), fired for
+a mapping a PHY still holds. The captured record shows one, for
+mt7530-0:02, and already carries the W taint bit, so at least one earlier
+WARN fell outside the ramoops window. Later in the same teardown, and in
+the same ramoops record, the switch's own regmap-irq thread - PID 627, Comm
+irq/53-mt7530 - dispatches for a mapping that is already gone:
+irq_find_mapping() returns 0, irq_to_desc() returns NULL and
+handle_nested_irq() takes desc->lock on it, which is the read at virtual
+address 0xac in the trace.
+
+The mappings regmap-irq disposes are a superset of the driver's.
+mt7530_setup_mdio_irq() maps hwirq p for each user port p below
+MT7530_NUM_PHYS - at most 0 to 4, and 0 to 2 on the board below, since the
+loop tests ds->phys_mii_mask. regmap_del_irq_chip() walks hwirq 0 to
+chip->num_irqs and skips only entries whose mask is zero; mt7530_irqs[] is
+written with designated initialisers up to [31], so num_irqs is 32 with 12
+zero-mask holes, none of them below 5 - hwirq 0 to 4 carry masks 0x1 to
+0x10. A devicetree that gives the PHYs their own interrupts lands on the
+same hwirqs, since regmap_domain_ops uses irq_domain_xlate_onetwocell;
+today the driver disposes those too without ever having created them, and
+after this patch the remove path no longer does. mt7530_free_mdio_irq()
+does nothing but dispose - it neither removes the domain nor clears
+bus->irq[] - so the call is the whole of what goes away.
+
+The devres order is the right way round as well: mt7530_setup_irq()
+registers the chip before mt7530_setup_mdio() registers the bus, so the bus
+is released first and the chip after, and regmap_del_irq_chip() frees the
+parent interrupt before it disposes anything.
+
+Fixes names the regmap-irq conversion rather than the 2021 commit that put
+this call in .remove. Before 254f6b272e3b the driver created the domain
+with irq_domain_add_linear() and tore it down in mt7530_free_irq_common(),
+where irq_domain_remove() disposes nothing, so mt7530_free_mdio_irq() was
+required there. The conversion handed both the parent interrupt and the
+domain to regmap-irq and left the call behind.
+
+The two remaining callers are error paths in mt7530_setup_mdio() and
+mt753x_setup(), reached before probe completes, and only one of them can
+run in a given probe: a failing mt7530_setup_mdio() returns from
+mt753x_setup() before the second is reached. An early dispose there costs
+nothing anyway, because regmap_del_irq_chip() looks each hwirq up again and
+only disposes the ones that still map. Dropping those calls is a cleanup,
+not a fix, so they stay.
+
+Tested on the board above with both patches applied, on a kernel identified
+by the sha256 of its ELF notes section - read from /sys/kernel/notes on the
+running board and computed in advance from the flashed image. Three
+unbind/bind cycles. In the two whose dmesg was captured, each unbind
+dropped mdio-bus:1f from the driver directory and took lan1 to lan4 with
+it, each bind brought them back, lan1 relinked at 1Gbps/full after both and
+lan4 after the second; the third logged interrupt descriptors instead, as
+below. uptime rose from 58 to 202 seconds across the three cycles without
+resetting and pstore gained no record. At the end of the two logged cycles
+dmesg carried no handle_nested_irq, no Oops and no remove_proc_entry line,
+against 82 lines mentioning mt7530 in that same dmesg, so those zeros are
+absences and not a broken grep; the third cycle re-read the first two
+counters, still zero, against 91. One unrelated WARN remains, on the first
+unbind only: sysfs_remove_link() under dsa_user_destroy(), a separate DSA
+teardown-ordering defect.
+
+The third cycle was left unbound for a moment to look at the descriptors.
+/proc/interrupts then had no mt7530 line at all - the parent 53 gone along
+with the per-PHY 79, 80 and 81 - and /proc/irq had lost those three
+directories; the next bind came back on the same three numbers. That is
+regmap_del_irq_chip() doing both the free and the dispose once the driver
+stopped doing half of it by hand. Had it not, the directories would have
+stayed behind and the rebind would have taken the next free virqs.
+
+What this board cannot show is the race itself. The window is narrow, and
+reordering the two calls instead of removing one ran just as clean here.
+The panic quoted above is what the unfixed path does, captured on the same
+board and the same base with only patch 1 applied. Both kernels also
+carried a local debug msleep() in phy_remove(), left over from unrelated
+work in the same tree. It only widens the window this patch closes:
+phy_remove() runs after .remove has returned and before
+regmap_del_irq_chip() frees the parent interrupt, which is exactly the span
+an early dispose leaves open. The clean runs, the WARN and the descriptor
+readings do not depend on it; the panic quoted above was captured with it
+in place.
+
+Not tested: any MMIO part - there is no MT7988, EN7581, AN7583 or EN7528
+hardware here. The object file was read instead: mt7530_remove_common() now
+compiles to a single call to dsa_unregister_switch(), and
+mt7530_free_mdio_irq() keeps its two remaining callers. Built with W=1, no
+warnings; checkpatch --strict clean.
+
+ drivers/net/dsa/mt7530.c | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/drivers/net/dsa/mt7530.c b/drivers/net/dsa/mt7530.c
+index 3e61eb3c2b1e..96832852c65a 100644
+--- a/drivers/net/dsa/mt7530.c
++++ b/drivers/net/dsa/mt7530.c
+@@ -3593,9 +3593,6 @@ EXPORT_SYMBOL_GPL(mt7530_probe_common);
+ void
+ mt7530_remove_common(struct mt7530_priv *priv)
+ {
+-	if (priv->irq_domain)
+-		mt7530_free_mdio_irq(priv);
+-
+ 	dsa_unregister_switch(priv->ds);
+ 
+ 	mutex_destroy(&priv->reg_mutex);
 -- 
-Regards,
+2.53.0
 
-Laurent Pinchart
