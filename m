@@ -1,127 +1,201 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010048.outbound.protection.outlook.com [52.101.69.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FF2E4A33EA
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:25:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789716361; cv=none; b=hQ0ITO6LJAAeLUx0OaJCp0WVfAlNuWsZrLh3cZ2Cqobucq/G3L7LXzUFqWM/yYAl7R5KdAY6uemGjL/AVtR2p4/ljWVTVtki1/6iUjAXebwp9ffekcamp1lgTfT/44kMMJj1w5ZCRXMzlmdIx8RUc/OxdcBGQHzHJtpGWPgZO6I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F4C64A2A52;
+	Fri, 18 Sep 2026 07:25:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789716361; cv=fail; b=YNp8wfHjWpyPc14v82SUe9ApzPgcayp9EcpU9a9o754p6bMKNUuqW7RmZxx5qXG+sepRM185j3274riAMf+El1UibOi5IJpRE0QkUz+Nn2X/A/KV70t833JnTsbOCa4pWQpuBnwv0iVn7LOGtGlPKw+RCEjIMqXXuREgNSl3ntw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789716361; c=relaxed/simple;
-	bh=pCk2J+fgptwUO4ZKmoJEpMZTEt2qL0pw+tfe5x+LU3Y=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=eL0aMfiNX+7a/R1oz2HMG8P776Ev79oA2sDn77jPi+gvPQTQlSUvLEDBQ1MKye5ysTYOBak5axZd59See+9yKCAFg00mKwcl+3hm4ULKfoq6AkMqg03PAO3pixXbmGDftogv0bn8yFEPfmLDL5rxat0UGnmeQ2n1LMYvmytcV6o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=K1890ecV; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	bh=GlljgvSK8rj/TN9GesX1YenrYap/P2LlYKrsFx3aMG0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=uziPlXkf+TA/1++dvLU6Mkb4IuFtlZpWlHCnKh0vaoEDSyeip5fyrq3loHbjrVE+mA3JeYAQkK1NV8yRUEzwclEobAsGHs4p0toFqoUZ9rL9BKrLqDwoqS88lSb1aMnSshExp6fM9GnwKL8W6b04aFT/51E/b5FdCXWSWNdekG8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=AWbWkzqW; arc=fail smtp.client-ip=52.101.69.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="K1890ecV"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd38e0f79so2338585e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:25:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789716344; x=1790321144; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=r05tTilDhW1mEwckTpWxKtNRtIR6JTrQLuNfaUJ+HZk=;
-        b=K1890ecVGbPQleJ/P0SbVIRca3Cq1bmFIZRaGbe7atg5XqcjRaWOkW4FzheXCLh1Ay
-         /XUxqsM16QYoyXZODrHjHwwCzWFqjqdzKDTxz8vQ/ZOssRBpOPOkJtEzBlDiH3X3xUxX
-         SEkd2dQoA/B991B8OkX0IEPvznvwpMVSVLBWFsKzIiqp2/OnN0STVyT7yTVaVAM/javQ
-         bauIE39xvpL5+r6GMl3tMeDze6wrGSxLBh7+AXpT7rA1bKxx42U/JG7zD1VEPB3tAFet
-         6I5zP/8v8NsJr+w4nJ9bhCZI7Puqz+EDN+G2/8KAgmGlsJWsF3eJKGp1WJCvT3ZucPnz
-         li2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789716344; x=1790321144;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=r05tTilDhW1mEwckTpWxKtNRtIR6JTrQLuNfaUJ+HZk=;
-        b=PL/yP/7MFxvhEonfHeu+nqvWmN2uN9Nw2doG5P3jxvrolUR3eCJuXLZfrMAbiJeJCU
-         re2/11B1H8daJnS1cEj6Hq2v1zrsAyBzx20TlNMSymdyyfk6gH9ljyH2WakOUBBq8pcC
-         uAY672zDkQBOsa6IFwnpmPmC1HjUm1ZKEMtgumdzd9JNTTp7hrWyOQpGMoyxA9Iko8VN
-         Ok0duasvkwUPHrp7tQGyF/SjwtKeDgDAauLMWCKLgdNcVZcPsKYZksyYCDbgU/C8agXv
-         AtzyEN7Q+R7iqmgItgWSnJDXYHzNPmPzJBYUaIUN06jjTVY7Q3eiMcXm4iVq18DDDQf4
-         RPYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy3E6A8648x/OKngGVzeft95JEjZ4KBEAsk2spCPS4hI8bQRKL8TQUZC4TlWIYGPxffBrvH3daSPSHL2zg=@vger.kernel.org
-X-Gm-Message-State: AFuF++muIW4uczwRm1BDv21/rV4EdiaAEE85Xi7mJtHS5mMZEahnorxb
-	nyczODwPqhDqvCGwomdBQpqBk07nd1qq0FeSnEkAsRSF4dNTVyMr+p/DBbxvzeWNhSsZ4BBipsz
-	0fKYS
-X-Gm-Gg: AYBFou2TiPEWXVYbCzriy0cC8qtq82iblHGfTxE/+rQyyFy9+1eLeXQAoovsXaPoCkC
-	mwgKQvJUbwP8ckxqveqFecy0RZTjZF6m5N6cVxiPXdJpmw7Vpq6R0ZPJjRLuGO18w5yVxxM/zFQ
-	7B6RWVHQXO32VkFYIkcisSh3FupQUm8LMHhmadjqO3Wxr1eRJeKmmyK/DbV5KVL6HudQf1/xjN1
-	+nXMvva/VoM33q+EX4OLdGbDd8R/IO8nz5nv1cFJq8opC2dn45YPWBsLF69UE//O5pothjtSxWU
-	KwQ/J5gHNH1wdpKc6k7905UXLZqbviHVY9B6cxPjNzG7cRDrIY0ZFxg2kyMPrqRj8E5j8Nz0Xuc
-	BGP9qOIntN1hVU6+SX6xs1xcj/LXxbz4pL7/8i/bNInIFDvLDmmuYaIbx7FQdL2UFh6H/4kx974
-	A2/LZhtL/ScbNGQDhP8yaRXtGkugUvYykBu7Iy8MmiGB+nwnX+1Fl9VPdcOwFF5U+fwLPhJxUqB
-	7CtUNeOZ4EBDw==
-X-Received: by 2002:a05:600c:5489:b0:49c:dca4:94c with SMTP id 5b1f17b1804b1-49fc573579amr35922575e9.13.1789716344041;
-        Fri, 18 Sep 2026 00:25:44 -0700 (PDT)
-Received: from arrakeen-2.home ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd2160c2sm139523555e9.6.2026.09.18.00.25.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 00:25:43 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Fri, 18 Sep 2026 09:25:37 +0200
-Subject: [PATCH 1/3] dt-bindings: vendor-prefixes: add vendor prefix for
- Nexperia B.V.
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="AWbWkzqW"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RacaZgFNVxzDonsJzaCY4/Ohnabv868bdMz9p907g+3lKvvyrx/aseU9onJgGcyuCC4Ukd2iat9nAEccmt87Mf6AaZs6EMT3O7NqZhiraxE5s4SaE7ZNXficdKHtOzCpvKXXKiprbcHHs6oI0ea5DR28dzaUFutdqgOj3BOhCvELcJtTKQVk1JX7FRmSqUAXxNucw6vSNpz41GBaU4/6kiV5DrVPbCwgE8j7dL/YESkXMSzVYMhlUyjcdeHNtnkmBal9whKrfdh4Upc37RjcTySDJy2m7m2P/8X1MwWlxZtxfRzph2f9whLxaWGgdGORC9Q3sxpQpBKaiFZYPFBSzQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0XSrdEwNFICcjMzRn2imRUNuG3r2khLp+ZBIuMm1+dc=;
+ b=aiRdcLqS/78BSkQPiOau1Fq77q97cQtXw+b9G156Pq49Q8s829glar2dwNGJSG+E6gGTZzakkND/VmvCAqj6CruIk9b9LLUN86meOOMwPuDk6vdqbFxD4hk+HHlVzUvlWqNqrnbHooxgb6vFr5Sh0vFo8AzY/bVwLWEg8fvYB8gFK5uTP8hUSlRA4kJ4qzjo/8nMeL0nbNQTwSvMhR/9UiurSVFPSm79q99wfpDla6Emjxg9FnIzOHgtSw9GiI0oA7X8dljQ2DkrK/Wq9eqwubEFxbDZrjCGuyuu9M02Q+bMNCmrDDwviKaXH90HwQgOCD3JgPwoFaeHZfWokWO6NA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0XSrdEwNFICcjMzRn2imRUNuG3r2khLp+ZBIuMm1+dc=;
+ b=AWbWkzqWx3K9OPOXy4yvSyoCo9HS6jhP4Tlf0LCU29C5eN3Ctd0yqR7zcpQroLXR3zq2u3v0tw6JRB2qRqWH6+Alq9RPkOjhXeiUrjzw2HT5GgjkMrRksn55z4lCrARtYkte1xkD5OGi6g5YVRFh1HeFrv70ep81WyAg4/CT0XPH62ssCWC4eWGqwNP15oGFR1breOIsUCja51YDVytiNlTCm3ROWBA5djWAz45I9/JXGSEj/pmWK29RTO7RuBtZCZwB0iIaTIl9Fv/G4i3u3kWzbom4QZ8f/in6+M69L3qUc8SWGXBsdl+nUgJ6vvgd4BlNSjMxeXTo0OoDUoZqWA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from VE1PR04MB7216.eurprd04.prod.outlook.com (2603:10a6:800:1b0::22)
+ by AS8PR04MB7541.eurprd04.prod.outlook.com (2603:10a6:20b:29a::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Fri, 18 Sep
+ 2026 07:25:21 +0000
+Received: from VE1PR04MB7216.eurprd04.prod.outlook.com
+ ([fe80::a9a5:cf83:dbe8:1f74]) by VE1PR04MB7216.eurprd04.prod.outlook.com
+ ([fe80::a9a5:cf83:dbe8:1f74%3]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
+ 07:25:21 +0000
+From: wei.fang@oss.nxp.com
+To: xiaoning.wang@nxp.com,
+	andrew@lunn.ch,
+	olteanv@gmail.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	richardcochran@gmail.com,
+	linusw@kernel.org,
+	linux@armlinux.org.uk
+Cc: wei.fang@nxp.com,
+	imx@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v4 net-next 6/8] net: dsa: netc: enable ingress port filtering lookup by default
+Date: Fri, 18 Sep 2026 15:28:50 +0800
+Message-Id: <20260918072852.501420-7-wei.fang@oss.nxp.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260918072852.501420-1-wei.fang@oss.nxp.com>
+References: <20260918072852.501420-1-wei.fang@oss.nxp.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MA5P287CA0175.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1af::6) To VE1PR04MB7216.eurprd04.prod.outlook.com
+ (2603:10a6:800:1b0::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-topic-sm8x50-nex10000ub-v1-1-5afe06bace03@linaro.org>
-References: <20260918-topic-sm8x50-nex10000ub-v1-0-5afe06bace03@linaro.org>
-In-Reply-To: <20260918-topic-sm8x50-nex10000ub-v1-0-5afe06bace03@linaro.org>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=863;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=pCk2J+fgptwUO4ZKmoJEpMZTEt2qL0pw+tfe5x+LU3Y=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqrOd1Jjz+DH6paCzn1qzvrr+PyJ6xL4NrpJvUIwUN
- Nf2nocCJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCaqzndQAKCRB33NvayMhJ0ZeqD/
- 9th+1lAA58IGfrcp75YdhYNAWOkJceB4fI2cgJgbGfF456B5mHlAQoRDFa1p1+5b4r1qB/wsVRR5Pa
- IC6iN9qr9oqEg2pt7GfQTMN0Sg9VGt9R6zyFV3XpWhR8aJfRiLU17ju+1uFAbNidFOqiQnTxiKY8xZ
- k6Lb8yk9o5xamipkTgrMzPBGEKQ75iFpoiPa/7XSjvaWvy+uapsI+YVsWnupkHHtGoP5Uy7+4yvkym
- ewhYmnlbzoDmgHV5O7+acnZ6cPANw0R/cWmWYz5K09eAFOHS3ZJs3ZIia2kS2nCn79PKxHsivNDB9u
- zD9qgo4yRWFtlR6xibv7JnFMvbC+shmKmlgxq0b1yBQDecMGMYBYnYfOmjjdJIIuhdmJCglUNKmLA/
- pFLOqfjWqQyYqh4ZHNoiku2bGKes5ycfvrDOdK4gZg/Bigcmto8PNE2xF+fJsZAmrqwoM63O1tIgYe
- MbQUqi1HGR48AAIZnLAOfQIQemiDhqc+G6OcCkShzCj6z0NTpqxc/SU640xaaXAXp30srJCNpiAPFK
- kaABxcI6KvSOHGoSL8suD7ljStIYfNOvxdheb8ugFsT9vWaRbhV8Zm4t6P1qVWLLtLxHyvWKFX0slC
- 5imtmqOli7lWNUngPPtQD0jOinwYV5vGbmHFOPQ0igLxvhYH/vUxbKizeRmQ==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB7216:EE_|AS8PR04MB7541:EE_
+X-MS-Office365-Filtering-Correlation-Id: 63123632-523f-416c-2731-08df1555ff86
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|23010399003|7416014|376014|1800799024|366016|921020|10067099003|56012099006|11063799006|3023799007|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	4SkSpPE/IrpU9Vn7dHaTAPZHOubCUYobntvSUqOvsywL+38FxKF401swx0+MPVbZA7JV6FVF1Bp/36L+qza0rXm4TkDpKFJ3RW+mTvtamWlMHgLHBgK87UVsuBEwcdCQ/P/Bl9IROyzeyDYDp+8fkNAedjfsyCRNRyi78NeWFpfoajqIBNXcjx/kwiNCZ283UsiEOMmBuMFlIoSvnpfJA+vwIzsOCWbjXCvaHj/1c06xm7gOICZrhplv+Ri1/8NDaqwyN7+rzrObVvObk3llrjpXJBATilf8wzxjVLCrefOtO2w9Fkp8I5L37yZZT/YRFEMyzfsQ0Ky7M2fDDpFuiaOhbiUvfKPGKUmF8y7i3jI4+Wuylmdm2A9lOhJT3AeO1qObuAZWwqswMXrnyZSuK3Xilae1hmTn51eDapV7EY1q6a21LSxPkRnlQ0q5YeWmwX1hkk7XSa/Rhc220zQQPvXC83yFvtvi2Jp2UvWROf9e9W2u+OqiZ6qK/sIJDS0hgRrIJK57dvnvd5nzoF7WpoCNjFIo7ku5hC5LZp+m1O4CxEiPrhxXnr69Wdk9/y3rBeHdiStRj/vKvmUdk5xrFu9dwopETU67JM4wU9lGKWO6bbNvLdjxOguPO8hFT1G02yy3pSUewQZrCx6BRRBh/GICi64jFMYGFidt6Zf6kztKr2VY8WpVtoJJb1finx/jW/nB+v3YNEAkSe038CJM9g==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB7216.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(7416014)(376014)(1800799024)(366016)(921020)(10067099003)(56012099006)(11063799006)(3023799007)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?kRlfW+L/MqWJYNWBE6ZcbUnbZqRiB/OibXpcqqAXdvWY4PxXmJqLPJSPOXxa?=
+ =?us-ascii?Q?b78udxbIsfzq91W+n/uiQPuHozW57rDCHYP7mDZHgqH4Jt3s8vLINdP0JjQA?=
+ =?us-ascii?Q?a/Is/mni5ovLdJ2cYVP6poA4bhYnKvqdbofYRluHLbrCbsn/LSHXgq+NqQ0P?=
+ =?us-ascii?Q?TV3fP92oSjtkCXzH3YKTpE61n1ugr4+Dn7IFE4Xw4AAapEFU60Bm8QjC2a+Z?=
+ =?us-ascii?Q?G/mNqu5JHhTxjf8tW2goLDUaBhUjJcxsN9fOtheIMjbkuQs6IeCu74l+7z2v?=
+ =?us-ascii?Q?5a/miiTYccubkGwhE3Y5nW1I2DHfNtBIErcDzWVOqu6eDWCJ4g55DXh4PXAe?=
+ =?us-ascii?Q?2FS8H0DhFpijpTntbzRzQ0fipaA5i7k/mqimmWQaZZEg1k5MJ8AjMrATzT53?=
+ =?us-ascii?Q?IS9kXwzSO28ij57MRwjnn/lVcraPv2crOpB6o3+lyD49ErtrW45UGbMkTQdh?=
+ =?us-ascii?Q?tOk23anttsQw4i4yptHC/kOKdsD63/LU/OQ1IAnqSaj5FsipLgS2FRfni0xP?=
+ =?us-ascii?Q?b7n8S28ue8fn7T11G0JXYtz5pgCYJKXiPDYPbHraG5CjdyZ3S7LcWmZW7qyu?=
+ =?us-ascii?Q?OAEAVsW+7ECIGcOfjKQC4GCAGpZpJxM3O87yPlF3Y5bSb1LgY/9/7hJGO5v5?=
+ =?us-ascii?Q?lpBKyv+2uMBBMfxegalRU6VHlTlu0isFpyEAnok1a+SbR1vEo1E+ZTkoOP+v?=
+ =?us-ascii?Q?09EekQh6ecTjaDQDTLj9I1fpkQ/KG+tEeVOg8fCuUw3NGQ8e3CtrAYjrWSGg?=
+ =?us-ascii?Q?pOr9ZnhtuLiikvHTARhK+2/nm0zSC188PMPFo//wvW/5KMnxI+0/T6/R6H3y?=
+ =?us-ascii?Q?BHzWeQ3Jfbxe1f/IynTfBtBWD1PjgON90LMWLRed0b2KyIe1/LsS5MUVve2I?=
+ =?us-ascii?Q?n4zaqebp+M3jnoM10iWD3Lg1LO0fTTrB4/61GkTQZEefTmF+25OVDONywCLe?=
+ =?us-ascii?Q?jo9xKlIt/Iq9VuTkGJOezS2AVQb8hb3H+NTbtpt57dQ5VLt/VsT6MxPCRt5r?=
+ =?us-ascii?Q?cVoIUOiosxp/IoJ2I7AkF69aifxHJ36tZ7C/IGrXVtvyWOhXGsyg133mA3Mv?=
+ =?us-ascii?Q?YdmLDS+21s6XjaI8PhHMG48CxtyjoxP2ApWKs6JQFN3bIDNXUDh+RHP9W9ah?=
+ =?us-ascii?Q?gbAkb0FOn5BH0w9po6Du619CRDuQt0cKaTRMMIEOEW0oXbheoqh0cVXEkvSy?=
+ =?us-ascii?Q?dRBQbUvj1ESKtXQDgB9IqZoh3cmWwp+PsYbxgxMpDn96o5gMNseSSGjpTSQx?=
+ =?us-ascii?Q?2B4t341gtcmrHjFHTANaWUvi1TvocotDsK2Zxou9lAFH9YCXd4SLfrAXxktF?=
+ =?us-ascii?Q?372lmPeytUGRV+doq0NS47quv3iJdvVfcHoyBCm6FAt23W8kOZYo9KxozU+Y?=
+ =?us-ascii?Q?WpK3l+8xgXjPXsj4Y5rpTDkQOf9dlKUQ1xBSc2Ekq7aJeTBqSgbHCR7f4s0G?=
+ =?us-ascii?Q?h6qOiTPcHktpIxphjHTU5vlcdPg7bxYeAN5KPPzoEBksJPJhW4oxlIf9yLXB?=
+ =?us-ascii?Q?7t3r+MjUdgtTwJ25cCyTPFIoGZNuDAD4ElurJfG7YWPgMGfrgRlSFP/SeJ9P?=
+ =?us-ascii?Q?cAWNsQzmjVUhrxqN2GhsxnezDcJgG0n4BSlxyLmJ/+b6X/fyKInOhO8DBF6E?=
+ =?us-ascii?Q?mLkfEwYzTtpsRYay/i9f50SbJnaG6LjvGUY90ElPBO2elC0t2HV9lvFKVB6f?=
+ =?us-ascii?Q?B9rgEOVVooerxac5UAcuI2P6NPWQGc5TcmmIEdbt+GCmMrrFue/ZUGYdPjL/?=
+ =?us-ascii?Q?F7KHXyt1XYVQyqNRqoDuXS2dZR65smUu+y+Pe9fatyt5/tHZKVKE?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 63123632-523f-416c-2731-08df1555ff86
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB7216.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 07:25:21.5720
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0oOTmFGh/iThgXba4IlarVgSI431qPf1SRpMFh6y5QmTDF1VaoZ/aZqqagcWE13jkiJDm38kbux3SdB4qXpwiHmeHR6Rwng47DtyCg0P702Q0rJF8HPeO9kapMUl1L8Y
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7541
 
-Document the vendor prefix for the semiconductor company Nexperia B.V.
+From: Wei Fang <wei.fang@nxp.com>
 
-The company website is https://www.nexperia.com/
+The ingress port filtering lookup function involves performing a lookup
+against the ingress port filter table (IPFT). If the frame matches an
+entry, subsequent frame processing functions will perform corresponding
+operations based on the parameters specified in that entry. If no entry
+matches the frame, the frame is allowed in, and passed to the next frame
+processing function.
 
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+In the future, the IPFT will be used to filter PTP frames and support tc
+flower. Tracking in software whether any IPFT entry exists for a port in
+order to decide whether to enable the ingress port filtering lookup would
+increase code complexity unnecessarily. Since enabling the lookup when
+the IPFT is empty has no effect on RX frames, enable the ingress port
+filtering lookup unconditionally during driver initialization to simplify
+code logic.
+
+The only concern is that when deleting an IPFT entry fails, the hardware
+will continue filtering RX frames based on that entry. However, we have
+no choice. We cannot disable ingress port filter lookup because this
+would deactivate other IPFT entries, which is obviously not what we want.
+Moreover, deletion failures are almost impossible under normal
+circumstances, and we don't need to be bothered by this minor issue.
+
+Signed-off-by: Wei Fang <wei.fang@nxp.com>
 ---
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/net/dsa/netc/netc_main.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index ba2002969373..9103ced78b91 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -1192,6 +1192,8 @@ patternProperties:
-     description: New Vision Display (Shenzhen) Co., Ltd.
-   "^nexbox,.*":
-     description: Nexbox
-+  "^nexperia,.*":
-+    description: Nexperia B.V.
-   "^nextthing,.*":
-     description: Next Thing Co.
-   "^ni,.*":
-
+diff --git a/drivers/net/dsa/netc/netc_main.c b/drivers/net/dsa/netc/netc_main.c
+index 082ed9405868..336f5a4633e9 100644
+--- a/drivers/net/dsa/netc/netc_main.c
++++ b/drivers/net/dsa/netc/netc_main.c
+@@ -554,6 +554,12 @@ static void netc_port_fixed_config(struct netc_port *np)
+ 	netc_port_rmw(np, NETC_PCR, PCR_L2DOSE | PCR_L3DOSE,
+ 		      PCR_L2DOSE | PCR_L3DOSE);
+ 
++	/* Enable ingress port filter table lookup, if no match is found,
++	 * the frame is allowed and passed to the next frame processing
++	 * function.
++	 */
++	netc_port_wr(np, NETC_PIPFCR, PIPFCR_EN);
++
+ 	/* Set the quanta value of TX PAUSE frame */
+ 	netc_mac_port_wr(np, NETC_PM_PAUSE_QUANTA(0), NETC_PAUSE_QUANTA);
+ 
+@@ -1746,8 +1752,6 @@ static int netc_port_add_host_flood_rule(struct netc_port *np,
+ 	np->uc = uc;
+ 	np->mc = mc;
+ 	np->ipft_hf_eid = host_flood->entry_id;
+-	/* Enable ingress port filter table lookup */
+-	netc_port_wr(np, NETC_PIPFCR, PIPFCR_EN);
+ 
+ free_host_flood:
+ 	kfree(host_flood);
+@@ -1771,7 +1775,6 @@ static int netc_port_remove_host_flood(struct netc_port *np)
+ 	np->ipft_hf_eid = NTMP_NULL_ENTRY_ID;
+ 	np->uc = false;
+ 	np->mc = false;
+-	netc_port_wr(np, NETC_PIPFCR, 0);
+ 
+ 	return 0;
+ }
 -- 
 2.34.1
 
