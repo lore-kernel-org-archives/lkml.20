@@ -1,88 +1,80 @@
-Received: from mail-pz2-f30.google.com (mail-pz2-f30.google.com [74.125.228.30])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F48B3BD64D
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 03:02:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.30
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED7E63E5A19
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 03:02:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789700524; cv=none; b=Amvl6q/hAGrup4fKZOh1eUlvfDeFmYM0kdhHBE3oIZxXs3Kg0l9Y0fd2n13pJMnr84UJcZq8XO14QNwqHG8oHEDOK4Tn0wLdGIIXn+pT5VVlWHLRzl2KpRI6giqc/woEPJfG8BIn/mpAeInOlOGnivempmifNuGWBqVBTLTQIxE=
+	t=1789700528; cv=none; b=YtGR1bj+0ZqB9anmdhh1AKdsSJlCIHzPORXfr95VKFsl6DAPK3CYleiCnQVQvStVCzV7pjQHLWcjBuQeUM6QOvOWN08iHGOwbnHxkigMJWFNex8PjX5SUY32drFyrdLoFNDzbSM+qC2ASSp4s4IRC2Sw6TTVe9qvZCNemaGB7pU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789700524; c=relaxed/simple;
-	bh=2fOXWQ+D606ZEtKoesxi3yPFiMCtrfZbrG+MPby33tU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=u49WaQBg0esooieolNbxIeSF9SrPQA5NCfnw57IOaun+EblfUkN6g25+AZwGXFP3X5M+cYPhXUiLYuq5IQGl54F2MuDCGKxM7DikByG0h3Wf0mjoGMLVxaXZ0QO/3U8u4kyb1naecfdeNzt+F/NTgtJs4EuNWsX/2Xisj8Xy4d0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JsKRVJnd; arc=none smtp.client-ip=74.125.228.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789700528; c=relaxed/simple;
+	bh=5AdYSZFlM9mpA/HI3S7NB0TkV6f4XovkiyBzqzde/oY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=n9xC3OVUYcmBOF8n+1vfJ08OfXVNhgYsWVabN9qIyLMeNZ2A2bUJPipf1ofgfOTjFETk+IxodryhErMIBwHygerAeW46RYVSHQY8IIQ/kdRUEqm+nvW0eBAf/jCM2qnTGpk3BgM4iHo1rTI9WovFVf96rwjTT/jCYvpFwcqhB7A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com; spf=pass smtp.mailfrom=jclark.com; dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b=E/SOupZA; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jclark.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JsKRVJnd"
-Received: by mail-pz2-f30.google.com with SMTP id 41be03b00d2f7-cc1cea50dc0so68853a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 20:02:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b="E/SOupZA"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea50dc1so108584a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 20:02:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789700518; x=1790305318; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=f70EL2u57AlsQGuy6taCWBcjNOQfxHMXhBaDu9pSD1s=;
-        b=JsKRVJndOYWb2b+t2ClORDriyvRVT4cWddvK9hMcag6logGlpJEFu5AKTR37yKinZo
-         WWpOa/deBeB/nqKQSM12VL8XHgRlKu8jvA4ugBKwoNKKcEPVz/MfmNGKiBnPDpSQ9R9H
-         iO7NaAYUxIJjjxl3ISTL73nENkwZY8AZF58nVBO43lxyhTgxpHeGEBM8ilv0eFZQvGA7
-         yfFGGUzFV1HYOUmzwUW4Gqb3FU99SY+r16kNto6awkiv74K29qIaFyLb728rbxaB/HDe
-         4nMEd0Zaz20tcJvEYruah+FQWNSyaHKVNtJJNkkGdHmDcdv/VGbovwCy4oXApRdZrbJk
-         AXJg==
+        d=jclark-com.20251104.gappssmtp.com; s=20251104; t=1789700520; x=1790305320; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=V6X1MKF9iM/+JNuGTPcTXOfmgyWPwSTXzdW5BB/5bwY=;
+        b=E/SOupZAQPei8zbJZP2BcCPFdlKjOj8FI9vbUjsCCnHwSzcfPN3QnEiXM/5Yrhzsaw
+         1iR/ZmjPqzf02BVEQ59+jy25xZK0MoIAkfkgLzlifgEOV/2RVLGsAPRAda53rQ4Ag4xX
+         ZAPzjfgP6yi7Jy3FKsgqTtQnOwd0iMPon0q40SARiIZKOZG1r3jMak/TCdkUvLisGBkN
+         QWbsthF3mqb1MJCqjhd3NPcPa1541ftXsU/XJNQ0k0yLgtMojlWZVWL+lTHlUwWSet6t
+         4P5NTnaOabgK5TciYUfdj9gQsbo1UMme+v4hNeLRnJjhkNHcxzZboIrMMU+eeTPO7W2s
+         RC3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789700518; x=1790305318;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=f70EL2u57AlsQGuy6taCWBcjNOQfxHMXhBaDu9pSD1s=;
-        b=S2iicdQG6gLQKraQ2vMSsUdYvU0vczQBQvM+u8hLM1xxs77PAxqH/mWxszc1gQwozn
-         Emu0LsWVH06Mpjs5f5Z3qsDpcMd3Iqpqrgv3Tluf+sWWMFZKuuO9p7p3f8/SLJ0oTyjS
-         CaLO87f9RoVUD9ALS2WCiVVomglhg4UUw1bwL+hgVzq7l0zeiSwkdWwqbZuP0Q8abKjv
-         U7hyStFgKyoqz9IjXO/HxVXI4Ob8Z7RUac5cLi4Q4+m/coUUadW6dHC0T4TODyHwydZM
-         gGqqB8BBGJNRaARDDZS+E/NGpIQTyknW76QVT2Oty1BQOt2LumkaIoEfwCreQpcbsg5G
-         7W9g==
-X-Forwarded-Encrypted: i=1; AKwUvByayXmAyqLbUgv9pVly3zo3ASL+JcIYjfhaihjmyskMNRlLNNVtUZ3APWXXlNUcd6w0x2JJK0OXIP3QNQA=@vger.kernel.org
-X-Gm-Message-State: AFuF++m4v0V7JBKJquCCrqUZ6nideXS4r9NHDd1WtkF26HtcoQClCS9f
-	2pBe7gLxmEXZG3ndXRIGk8Jw5EKWWc9neIf9Hc9PCZm9ezGSKbPUt7A4
-X-Gm-Gg: AYBFou0Njm7kjMwMTl5inP17on7pGhIer/TrNH0vhJmhr5cWV3T2YXU3MbVmiirVEuv
-	a+VRQO7YatMCRgA+z+VIPOd7vxuu5QWZiJOugs2X8036E4j/qvGos6ozPoie97k7JRpvL11wSQ/
-	TAo8SRajsafWOZtsXVRsxh9LOEgck0gXAsZK5DR69e21awc22iS2b8fG4exMfkja0nxuFLc4GzA
-	0C+SmmIcZtpCjptOL1bHa3gG5zOVDALplzZt5uVcUeTekvymkybyPmqn5i4MDgQWTZcGA3hOqGD
-	2KF2+weDCHVCS8nfyHkjB4YL0Qag7Sx2rzBkOKUcQbGSNBQ5j9fEZLXiBuG5m/T5j2xsymYBYH4
-	J2/5yGSd98AsP1sxGthFHf2N5IYWALPPmshrR9a/ThotlwfMn+H0GwxytWDkGTloaL09lmGKjAr
-	8EBMSb/6UIB3I0XHK1+QGW42F6o+NTlO3pf0fREtIMNHKoW14xGz2Tk27kskEDV0BInrGxNAgTJ
-	XfXaes+Jj2uUiicRq7IYSfxSW5j5u0jAJlPr1xNzey7fWWjoI7oGzRnIL+/gRc=
-X-Received: by 2002:a17:90b:1644:b0:39e:2ea1:e2a9 with SMTP id 98e67ed59e1d1-39e54d8b0ecmr2306119a91.8.1789700518239;
-        Thu, 17 Sep 2026 20:01:58 -0700 (PDT)
-Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e362e9402sm7969141a91.15.2026.09.17.20.01.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 20:01:57 -0700 (PDT)
-From: Joey Lu <a0987203069@gmail.com>
-To: zhengxingda@iscas.ac.cn,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com,
-	schung@nuvoton.com,
-	yclu4@nuvoton.com,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+        d=1e100.net; s=20260707; t=1789700520; x=1790305320;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=V6X1MKF9iM/+JNuGTPcTXOfmgyWPwSTXzdW5BB/5bwY=;
+        b=Od0SIb9ma3GKCcpwDNLoeX2oCLu8O1RCTyR+FgYwxPWKHEcidtySxwhnyK9mTgmi2H
+         kkSCEPlwPFVA0fUYvl4vCYTEPHRT9xddX6eQ5OiX4lLk3tboxudzKxNey7oF+wf6Zl8o
+         xDMlViIelZ2O8zQPDWI7yORnMGTFIlkYAb+v1mT1hNLEVzzyficMtJJ8GgdD696VI/IQ
+         KanMsJ1WWmrv5MyrWNBcNrX+dO6JKiMg4AqQN1KCOfPkMmcBDx3etgsGjC217D6McjE7
+         sldMOAi2lhdg6qYFWb+sgbocaPvmZCbBtfQSmLacFDZAGwAu15LNXZenS1bH+8ypwNgN
+         2aoA==
+X-Forwarded-Encrypted: i=1; AKwUvBxkKMDl848PFI4w/U4wYLF5UkBRJ/6RQ03c6O6+eVEljZsq56bWameEeQGgdKEptubvItFZXcnDrDxqB3I=@vger.kernel.org
+X-Gm-Message-State: AFuF++lksFup8U/x7R2XWv1gmhYm64BGyWqsVZueCWqI53Jw73SM5uJd
+	R06ZvhuYK5HkKIzXSfqhnnN1hUk49D9G/P3dblfA5I+QPVLmq1Chkh4gMmyVy7SoNw==
+X-Gm-Gg: AYBFou2nlh5xXnpTMet7jkcjpF31Z5CUYT4SOS/nCe3l0gSOX79aa8b8+3XBPRc9IXV
+	GmyYeSS2Q2lUqQCMIi6IzYIai/+peMaF8oS4vtPTQfMiTEs6c4JEEYdwiIMrduI8mF1lrMUOqMU
+	0Y0PUKR99DitJ3QrYD7Yv54P6JsupgDTYVKAjYpL4yVMtg8tyVGveejFphlM5X8Sycx8Z5tG6PK
+	mwL7TA7ze2ehi0UrCc1GtJ0/f7rFZEztc7cSMkLJz3gofn1imIAgUauRRgr+WVgB6lU49gnhLMQ
+	rgvPuvL0WiXpgI5MHvrHOA90k52m8KG8eWHIEX1IUEuJxhZqdx4JJ1A30dx2GD0egSggxHTICuQ
+	UPHpEo4LSyk8mwsqPbSjDKx1+uFlZ6g5OJl5lyLGakeClnZ5oB0jbN0G1oa+Dpg9kosg1aWVIIh
+	ls2FDZUOBIktZ6uGMxA9gP6HCiBvFDUpEIYtYnXFmtJf0r/O64CSktdqdc8C3fq3fdKjpEx7aNF
+	2vC6yzr
+X-Received: by 2002:a17:90b:3fcc:b0:39d:efa9:cd1a with SMTP id 98e67ed59e1d1-39e54d36eabmr2302207a91.4.1789700519688;
+        Thu, 17 Sep 2026 20:01:59 -0700 (PDT)
+Received: from mimolette.lan ([58.136.228.96])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e5a3e3dbcsm618906a91.5.2026.09.17.20.01.55
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 17 Sep 2026 20:01:59 -0700 (PDT)
+From: James Clark <jjc@jclark.com>
+To: Doug Berger <opendmb@gmail.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	netdev@vger.kernel.org
+Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
 	linux-kernel@vger.kernel.org,
-	Joey Lu <a0987203069@gmail.com>
-Subject: [PATCH v7 7/7] drm/verisilicon: fix DC8200 primary plane disable clearing FB_EN
-Date: Fri, 18 Sep 2026 11:01:25 +0800
-Message-ID: <20260918030125.315978-8-a0987203069@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260918030125.315978-1-a0987203069@gmail.com>
-References: <20260918030125.315978-1-a0987203069@gmail.com>
+	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Kory Maincent <kory.maincent@bootlin.com>
+Subject: [PATCH net] net: bcmgenet: add hwtstamp callbacks to restore PHY timestamping
+Date: Fri, 18 Sep 2026 10:01:44 +0700
+Message-ID: <20260918030149.80398-1-jjc@jclark.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,37 +83,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-vs_dc8200_primary_plane_disable_ex() calls regmap_set_bits() on
-VSDC_FB_CONFIG_EX_FB_EN instead of regmap_clear_bits(), so disabling
-the primary plane on DC8200-family hardware actually leaves the
-framebuffer enable bit instead of clearing it.
+Hardware timestamp configuration fails with EOPNOTSUPP on BCMGENET
+interfaces connected to a timestamp-capable PHY. On a Raspberry Pi
+CM4, "hwstamp_ctl -i eth0 -t 1 -r 12" fails with "SIOCSHWTSTAMP failed:
+Operation not supported", preventing ptp4l from using hardware
+timestamping.
 
-This bug predates this series: it was carried over unchanged from
-vs_primary_plane_atomic_disable() when patch "drm/verisilicon:
-introduce per-variant hardware ops table" split the DC8200-specific
-implementation out into vs_dc8200.c.
+Commit 5062245a5a7f ("net: remove legacy way to get/set HW timestamp
+config") removed the legacy ioctl fallback, assuming that all MAC
+drivers supporting hardware timestamping implement ndo_hwtstamp_get()
+and ndo_hwtstamp_set(), even when timestamping is provided only by
+an attached PHY. BCMGENET does not implement these callbacks, so the
+core rejects timestamp configuration requests before they reach
+the PHY.
 
-Fixes: dbf21777caa8 ("drm: verisilicon: add a driver for Verisilicon display controllers")
-Signed-off-by: Joey Lu <a0987203069@gmail.com>
+Add ndo_hwtstamp_get() and ndo_hwtstamp_set() callbacks so the core
+can dispatch timestamp configuration requests through its phylib
+helpers. Both callbacks return -EOPNOTSUPP because the MAC itself
+does not support hardware timestamping; requests for the PHY are
+handled by the core without invoking these callbacks.
+
+Fixes: 5062245a5a7f ("net: remove legacy way to get/set HW timestamp config")
+Assisted-by: LLM
+Signed-off-by: James Clark <jjc@jclark.com>
 ---
- drivers/gpu/drm/verisilicon/vs_dc8200.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/net/ethernet/broadcom/genet/bcmgenet.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/drivers/gpu/drm/verisilicon/vs_dc8200.c b/drivers/gpu/drm/verisilicon/vs_dc8200.c
-index f72da10295e1b..25b5906a1c5fc 100644
---- a/drivers/gpu/drm/verisilicon/vs_dc8200.c
-+++ b/drivers/gpu/drm/verisilicon/vs_dc8200.c
-@@ -70,8 +70,8 @@ static void vs_dc8200_primary_plane_enable_ex(struct vs_dc *dc, unsigned int out
- 
- static void vs_dc8200_primary_plane_disable_ex(struct vs_dc *dc, unsigned int output)
- {
--	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
--			VSDC_FB_CONFIG_EX_FB_EN);
-+	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-+			  VSDC_FB_CONFIG_EX_FB_EN);
- 
- 	vs_dc8200_plane_commit(dc, output);
+diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+index a2305e642..8ead37ff9 100644
+--- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
++++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+@@ -3712,6 +3712,19 @@ static int bcmgenet_change_carrier(struct net_device *dev, bool new_carrier)
+ 	return 0;
  }
+ 
++static int bcmgenet_hwtstamp_get(struct net_device *dev,
++				 struct kernel_hwtstamp_config *cfg)
++{
++	return -EOPNOTSUPP;
++}
++
++static int bcmgenet_hwtstamp_set(struct net_device *dev,
++				 struct kernel_hwtstamp_config *cfg,
++				 struct netlink_ext_ack *extack)
++{
++	return -EOPNOTSUPP;
++}
++
+ static const struct net_device_ops bcmgenet_netdev_ops = {
+ 	.ndo_open		= bcmgenet_open,
+ 	.ndo_stop		= bcmgenet_close,
+@@ -3723,6 +3736,8 @@ static const struct net_device_ops bcmgenet_netdev_ops = {
+ 	.ndo_set_features	= bcmgenet_set_features,
+ 	.ndo_get_stats64	= bcmgenet_get_stats64,
+ 	.ndo_change_carrier	= bcmgenet_change_carrier,
++	.ndo_hwtstamp_get	= bcmgenet_hwtstamp_get,
++	.ndo_hwtstamp_set	= bcmgenet_hwtstamp_set,
+ };
+ 
+ /* GENET hardware parameters/characteristics */
 -- 
-2.43.0
+2.55.0
 
