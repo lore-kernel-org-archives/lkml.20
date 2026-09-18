@@ -1,44 +1,66 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE01D431A44;
-	Fri, 18 Sep 2026 09:56:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F6B943A81A;
+	Fri, 18 Sep 2026 09:56:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789725402; cv=none; b=PK1igbD7aFMZcMoectJVSf8hTJj06zOx+oGYF8GO9da30xH1LWcPzJrgSUiNkYJc/cbcMs8cL6MJSWer+1246SGYWGVJYIY5vAqd8dfsPdW/HD3w/jE9rVwSoH8BrEpOB6xJK0SR8JEFHHJkH4TqBdTIdkac5S3Dt+h8hR7X8Yo=
+	t=1789725409; cv=none; b=s4i+iaoId7M3Rojvf5F4RCxNsPIi9V13kyYvg+5me95T1UUIbzHGQ1jVe32064PgNF1Y7FgLXapY867T3SGizNbBCEqR2vUIEP95kTfjvTka5dWMKliuNfo+PubptIi8hh0aBe2MaccvYo+TGPoliMYjJsHtP8sz97qzDnwcqPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789725402; c=relaxed/simple;
-	bh=YmlNl+zvXvZksJMG4+954NZlIhBvgXlGjH+FoBIR6Zs=;
+	s=arc-20240116; t=1789725409; c=relaxed/simple;
+	bh=NuH7pmx+0A8Wu/jHvV54MuVr4rgjrQerP0rzVSpk7+w=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=li1QaGk3pStHvnGo299gckTczh2T9vkHzyl7C2+yOB+ST3NUnQnDTRF2mnswL69t7RyDSXGzJJlslYL/+6g7Tr+oZSVxZ1ygMxCqXLP5mIQFCFtLxsBfsSq9tQuMriydI9UZyXO5qelpiQEjwiegnM3enc5orw5S36rOdCYWyCM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=TgPYYqio; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	 Content-Type:Content-Disposition:In-Reply-To; b=o7W90cBf27ctRR/5fJmOPPdv/v8Ps3x21+S7WFsNde/85QKiv5LQzsW7XpI3x+ZT7e0MYp8NoEj4HozJQqID0+ckN7WE2tPh4sW5N7oBnAFLQf71WM3+C3Ljt4yuYvYvnnNT+AMYrLxVRYq6CiNQZP1tR+MgtNxuZrs2posgaZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=a5zEF/13; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="TgPYYqio"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=8fZvlcu1P62EpkpFn/DN7tWPJ+MfVsNicXb7/rCtLBs=; 
-	b=TgPYYqiokGmptU5MwgVm4wPhOn+PD34jYzH27/oEIG4WzqqHxWRDJL2FQRRYJgfJ+j/xmvKuq2H
-	D/N0Pky1Kv6BfrV/zShQlRigDLaJOegmnrfo0Sp5aEYLCxXi5WqU9gJr7JlHcJi5p03I/+ugq82Qx
-	ECU9z/YAcTmK8FdSrpD5tH8AY9rGILIxKE+EeZ2jGRklUkJJyxg7aa0wJYj9/JD6FuhWBFqfPuHBp
-	8CFKmoPB+KblZD2JT1F0uTtqov+5oPhpxr9CF1Gdf08EfzP7FB8eiBhp6C0g4qYq1UIiwrJOExqZ3
-	8v/A/isIeNHAQ7HpcXW0ltv6XhJdRnayY97g==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1x7VKd-0000000FM3f-3C9G;
-	Fri, 18 Sep 2026 17:56:36 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 18 Sep 2026 19:56:35 +1000
-Date: Fri, 18 Sep 2026 19:56:35 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: "David S. Miller" <davem@davemloft.net>, Tero Kristo <t-kristo@ti.com>,
-	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] crypto: omap-sham: fix crypto engine cleanup
-Message-ID: <aq0K0x22WHS5bc9I@gondor.apana.org.au>
-References: <20260912144608.994510-1-lgs201920130244@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="a5zEF/13"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789725407; x=1821261407;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=NuH7pmx+0A8Wu/jHvV54MuVr4rgjrQerP0rzVSpk7+w=;
+  b=a5zEF/13yw2YvoP3J/m01Tgs52XcSVAYUayRW6CRiI7855INc1z2hUql
+   JuCh++6GMOGZEKAszrGPbRLmqdaWgj85cwMHUrLjeRWHyM0GChu2i2vMM
+   HnM7IIc1RPFsl+P8s9Xw4Zx9yz5UVYUGloSla+/uFe2LfJ9bc8ntxnGCd
+   T4QNaP8n2oZ4grAPCtCZUKxyC/kYvRkjDSRzAPN2YkFzJAKF0erRjfYW+
+   It+ZUYnjRetAw4BJdDtQYg8fx8wbLJ0xsTh9f2+KxaXCqe9DqgI0FB0ej
+   ZpX9mVXgXgKk8TFFK6tbLft9q1jSnQCsu0a34qxFAyM5uxbTHbkNFNl6d
+   g==;
+X-CSE-ConnectionGUID: R+sp3ZbhQPuKsz+W5RwE1A==
+X-CSE-MsgGUID: FWSrewIFR0+YCwEgPv0x2Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90351768"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="90351768"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 02:56:47 -0700
+X-CSE-ConnectionGUID: nsTEGihQSAmHzty72eXD3w==
+X-CSE-MsgGUID: Fq6vv3jvS7qVK+1N5UW4Mg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="2514002"
+Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
+  by fmviesa012.fm.intel.com with ESMTP; 18 Sep 2026 02:56:43 -0700
+Date: Fri, 18 Sep 2026 17:56:20 +0800
+From: Xu Yilun <yilun.xu@linux.intel.com>
+To: Chao Gao <chao.gao@intel.com>
+Cc: x86@kernel.org, linux-coco@lists.linux.dev,
+	linux-kernel@vger.kernel.org, kas@kernel.org,
+	rick.p.edgecombe@intel.com, yilun.xu@intel.com,
+	xiaoyao.li@intel.com, sohil.mehta@intel.com,
+	adrian.hunter@intel.com, kishen.maloor@intel.com,
+	tony.lindgren@linux.intel.com, peter.fang@intel.com,
+	baolu.lu@linux.intel.com, zhenzhong.duan@intel.com,
+	artem.bityutskiy@linux.intel.com, kvm@vger.kernel.org,
+	nik.borisov@suse.com
+Subject: Re: [PATCH v2 2/5] x86/virt/tdx: Configure add-on features on TDX
+ module init
+Message-ID: <aq0KxJ34tI9ZdmSF@yilunxu-OptiPlex-7050>
+References: <20260915102658.713079-1-yilun.xu@linux.intel.com>
+ <20260915102658.713079-3-yilun.xu@linux.intel.com>
+ <aqoLqXyeXUFkvnxF@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,32 +69,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260912144608.994510-1-lgs201920130244@gmail.com>
+In-Reply-To: <aqoLqXyeXUFkvnxF@intel.com>
 
-On Sat, Sep 12, 2026 at 10:46:08PM +0800, Guangshuo Li wrote:
-> omap_sham_probe() allocates and starts a crypto engine, but the remove
-> path does not call the matching crypto_engine_exit(). The probe failure
-> path already performs this cleanup.
+On Wed, Sep 16, 2026 at 11:23:21AM +0800, Chao Gao wrote:
+> On Tue, Sep 15, 2026 at 06:26:55PM +0800, Xu Yilun wrote:
+> >The TDX architecture identifies some features that are off by default
+> >but can be enabled by the host during TDX module initialization. They
+> >are classified as add-on features because enabling them affects existing
+> >TDX systems: they may change existing feature behavior, or reserve more
+> >memory.
+> >
+> >The TDX module extends TDH.SYS.CONFIG with a new register argument to
+> >specify which add-on features to enable. This new argument is a bitmap
+> >that uses the same feature bits as TDX_FEATURES0. Note that Dynamic PAMT
+> >is an exception: although it is an add-on feature, it is controlled via
+> >a legacy, dedicated register argument [1].
+> >
+> >The kernel needs to enable these add-on features when it supports them.
+> >Add a get_tdx_addon_features0() helper to return the bitmap of the add-on
+> >features that the module & kernel both support. Initially, this helper
+> >returns 0. It will be updated to return specific feature bits as full
+> >kernel support lands. Pass this extra bitmap to TDH.SYS.CONFIG wrapper.
 > 
-> crypto_engine_alloc_init() creates a kthread worker for processing
-> requests. Without crypto_engine_exit() during driver removal, the
-> worker is left running after the device is removed.
-> 
-> Call crypto_engine_exit() after unregistering the algorithms and before
-> tearing down the remaining request handling resources. This stops the
-> engine and destroys its worker.
-> 
-> This issue was found by manual code inspection.
-> 
-> Fixes: 133c3d434d91 ("crypto: omap-sham - convert to use crypto engine")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> ---
->  drivers/crypto/omap-sham.c | 1 +
->  1 file changed, 1 insertion(+)
+> The last sentence is stale: the bitmap is no longer passed to the wrapper.
 
-Patch applied.  Thanks.
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+Good catch.
+
+  Pass this bitmap as an argument to TDH.SYS.CONFIG.
+
+Thanks.
