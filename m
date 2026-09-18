@@ -1,131 +1,117 @@
-Received: from mail-lr2-f7.google.com (mail-lr2-f7.google.com [74.125.230.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E73164848AC
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:36:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFC8A3BB138;
+	Fri, 18 Sep 2026 14:36:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789742177; cv=none; b=VdYIolzjK7GsggkTRISV9IR2lKqJu5p4fRoicPlutgdI9Uc+iTHTSoY0GtSj9Pzef0CzHflWEOFvSLeGS94fmvEGhZU7lwgkG5GGRubran0UL/lkofJny2OhVpozpuGK2ucOq1uF0XGn5ZNeHZFn3RzBFS/jjEoESsyefv2JobM=
+	t=1789742199; cv=none; b=Ka/y1FHvE6MxB/5RoMKCHQFrQ25jZC244UW3/151CuQMoNoeouNk8WZmOVj98raVtN0fuAHLlVnoVAJH6ZE61enFgfOkV6P+aUpH+bZ2bdIhDuHkNNx2wtMtR1EnoECA6Y5rqTWevFzwI5Ga7RXyGJWPRmhzaNRtGqg60iwvgZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789742177; c=relaxed/simple;
-	bh=oHK7jTtToiFcxA/9CIKnKR3YjDf4Xd/qP/4WmuFBlso=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MK5eS8SVvA7Oq8ilR4tmc/4urK17Q6pGUiHXIe8UKJN2Kq7lctoOEZoiNz7by+ZU08sVzcdRX6OHrbgPmT09ISJAz0vQM39juAmwsXNCX5jH8injJZ2h3GXjkULgPS56aEpig44daUKOSp8dCePbNJpu9c4StsGvZ4wMn0M6e/k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q6GZOzx+; arc=none smtp.client-ip=74.125.230.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789742199; c=relaxed/simple;
+	bh=XRKgRLZGoiA4AKB7jnw/P9eV3f9O4BqfOKxhqxlfDY4=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=qUi3vr20kuaoGZM3q2nguNElra+7bEV1pGqw3a9e4UhXDJpSBVBlRLeQKvEvvixnId6mVOrHgpthhKindYKmIfT3k2djXvKML568yPMkU5Iy8PnJ0x2ltik9yoqr20C9lfCy5p4BZ/OfzRrujZKkIwrVslAv7qO/Q+ziKociur0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UPkbxp3f; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q6GZOzx+"
-Received: by mail-lr2-f7.google.com with SMTP id 38308e7fff4ca-3a5acb204daso4725131fa.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:36:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789742174; x=1790346974; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=80thoqF6oWnfHU18nXpOy6DAO7B/ZBVuVLAIvy3f1Nk=;
-        b=q6GZOzx+hzy2iRbWqUtd613E/F1RSqTkZy6oNpOtQiM22AldCxh7HS9KPHKzTq1dRn
-         UPzCjtFO08wT2CY5eorcv/MRk7YDYX8yOi0qrltD/rGX31xNJacSz9UpTAraXANOUfBY
-         zG+xBKDt4H/ok9tA3pJJHHPEkHGvLuuZcMlPgkEclOUph9KLFyRIXLaB75OxKiGPkVRM
-         8FcNxB1I5WAt8C/vnCnrP2geeNujKK2WMoRIIkPOouSDvf4zIenD3BB49KIv9WREDHOn
-         7fTSe7rZSeyhnq+Scx/a/NcFr8coe9JvsoXD9HOtOD976pxEL+zCo5F9xXPaNIS1BYX8
-         G29Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789742174; x=1790346974;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=80thoqF6oWnfHU18nXpOy6DAO7B/ZBVuVLAIvy3f1Nk=;
-        b=SL/i+10f2rXqkT5k8/cHffQAH8wTp56OCMa15pb9hIs4U6Bv3pfxm4/+mD9/klYZtI
-         z/j8mDzvaH8C+ukpxBTjkfy0uFxZf4E0CQGOUIXxUtoXFKIIUayeiEKqcA3CP4oi3xrH
-         Dhlv/0qZ5n9yu4cR4TsDg7t3IaZ4+HKFeDfLtxJJkG8b7VYMqQQZHDbh54ixs/pPHVPe
-         HbyQKRNOH1ER49ZLlAXyCZVC5sL+d6JuEtkpvOF9HgYQrLc03B93rR5d6vCK+iEVp/I6
-         HKrJy+gyqis9N7dcsHl0qaHXqmY6ViZGI8BST0P7cxZtSV3VwtmN1NroDDFPcbhU9RcZ
-         qGpA==
-X-Forwarded-Encrypted: i=1; AKwUvByhwljTasJEJXvJOLKBUayipLDKxbVw+W4ExhjBaFgKvpL8qOQ0zW6MAvGdFtjVSb2LYWm50NFd5F3om28=@vger.kernel.org
-X-Gm-Message-State: AFuF++lbgTCQ49DdQOQYTeJUsCxUVBO9/6aYpL1LKan7g9hdIM+BC3Qb
-	TVVGfFAzbW6abBO6HkNiJQnf/qmrrET9/ibiOV6Ooyu2B/xU50JLAqK9
-X-Gm-Gg: AYBFou1KkSI53TpQ3ALlLfW4D/bSwaM/qR449QPVJMayIcw6QllCo5ppPjNbEqABb1J
-	1itK5Yp9u0X+HWCFPQw++3x4SS/43blMsQYoDtgbt91j2uHPCKzYUoDLyCvX13c12+jKJ/b0QK5
-	FiEizpMun4RBSzS7IQ5kwNdGlXe42EZ/ajT4XNLq4H75vPAuITJ6mPJp8GK7BADaZTeUvHBhdyX
-	GBfsaaLJSt10MyChJ7yBToc5kxNnYXGSiF2Cs/xgC1N0PpE6zFKl2pja7YPNgDKh5+im89bL0ap
-	rUOE+wo/gD1Ezg7Nu6Lx0VvE6gS6gkLlXLASrOYiqQqxRA8992+eoJY7gY4Bl8sx2WWbgyz6uhX
-	lBe55Nm+Y0g65k8f86L2XpKsyWfkuWKQHdeAJATwGOVJERzixOC4Aqqyxb/LmzNIumZCu2fqUxK
-	iO6awpyhlr05XiLxLzyfdcYCMHLyzYKVUVo9EnFLEfe95HTfI7WPcf0wvN7qE45ahVHgr7YF/l/
-	YlRgw==
-X-Received: by 2002:a05:651c:150b:b0:3a3:749e:319b with SMTP id 38308e7fff4ca-3a5fbf55489mr5837501fa.15.1789742173556;
-        Fri, 18 Sep 2026 07:36:13 -0700 (PDT)
-Received: from linux ([78.40.184.2])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a5fd80eb8csm4784691fa.21.2026.09.18.07.36.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 07:36:13 -0700 (PDT)
-From: Roman Demidov <roman.demidov.nn@gmail.com>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
-	Kalle Valo <kvalo@codeaurora.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	"John W. Linville" <linville@tuxdriver.com>,
-	Eugene Krasnikov <k.eugene.e@gmail.com>,
-	wcn36xx@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	Tristan Madani <tristan@talencesecurity.com>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15] wifi: wcn36xx: fix heap overflow from oversized firmware HAL response
-Date: Fri, 18 Sep 2026 17:35:31 +0300
-Message-ID: <20260918143539.97842-1-roman.demidov.nn@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UPkbxp3f"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55FC31F000FF;
+	Fri, 18 Sep 2026 14:36:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789742197;
+	bh=WjVfs8qTNBrB/D3OacnguDihU7OuPlCzMGTvdv4MHYA=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=UPkbxp3fGuG6BMe9mZzqqiwcubZg5zyteypZqxXXPpDhwC0nFiPtqtHae+e32h1SI
+	 6lZ88BHqer2H/xlCxUmzohKbUFQXI03uZ2GFq6micz8WLcAEty7DyCpKuVst7xyiWZ
+	 U9uWFnorF4uodW/b2Ui4qLZFW8Tn8iPjXXOVaR2UqXhdbmQXGr2U+IA1MRSv0ghK+m
+	 jUj2yaa6tzk9HuAGH99o/7ViPHuDgg4+tZ624Ht2+6w4UpMWLloBMka3Ebf8cAbtp9
+	 oThlalCpeYgRphdQzqZKRDic/6BZO5QWvJBxJtaSwcOik9ca/qgm5q7qxIr9sWyQSz
+	 rcUrJnoBcQTfw==
+Content-Type: multipart/mixed; boundary="===============0526606943701778729=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-Id: <2b6908175c7fee960d1db94820dd61d11ba182feb41d5aa76b00cf059d4d3671@mail.kernel.org>
+In-Reply-To: <20260918131757.42802-2-tasos.papagiannnis@gmail.com>
+References: <20260918131757.42802-2-tasos.papagiannnis@gmail.com>
+Subject: Re: [PATCH bpf-next v9 1/5] mm: Add copy_remote_mm_str()
+From: bot+bpf-ci@kernel.org
+To: tasos.papagiannnis@gmail.com,bpf@vger.kernel.org
+Cc: linux-fsdevel@vger.kernel.org,linux-kernel@vger.kernel.org,linux-mm@kvack.org,david@kernel.org,akpm@linux-foundation.org,andrii@kernel.org,ast@kernel.org,brauner@kernel.org,daniel@iogearbox.net,eddyz87@gmail.com,kpsingh@kernel.org,ljs@kernel.org,matt@bobrowski.net,memxor@gmail.com,song@kernel.org,sun.jian.kdev@gmail.com,utilityemal77@gmail.com,viro@zeniv.linux.org.uk,tasos.papagiannnis@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Fri, 18 Sep 2026 14:36:36 +0000 (UTC)
 
-From: Tristan Madani <tristan@talencesecurity.com>
+--===============0526606943701778729==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-commit 88a240d86d3d64521f9194abe185ac71cc74d0bd upstream.
+> diff --git a/mm/util.c b/mm/util.c
+> index bf0513d1d3d08..75c0fc2061aa0 100644
+> --- a/mm/util.c
+> +++ b/mm/util.c
+> @@ -1061,6 +1061,66 @@ int get_cmdline(struct task_struct *task, char *buffer, int buflen)
+>  	return res;
+>  }
+>
+> +/**
+> + * copy_remote_mm_str - copy a string from a remote address space.
+> + * @mm:         the remote address space
+> + * @addr:       start address to read from
+> + * @buf:        destination buffer
+> + * @len:        number of bytes to copy
+> + * @gup_flags:  flags modifying lookup behaviour
+> + *
+> + * The caller must hold a reference on @mm.
+> + *
+> + * Return: number of bytes copied from @addr (source) to @buf (destination),
+> + * not including the trailing NUL. If @len is zero, return 0 without accessing
+> + * @buf. Otherwise, @buf is always NUL-terminated. On any error, return
+> + * -EFAULT.
+> + */
+> +int copy_remote_mm_str(struct mm_struct *mm, unsigned long addr,
+> +		void *buf, int len, unsigned int gup_flags)
+> +{
+> +	if (unlikely(len == 0))
+> +		return 0;
+> +
+> +	return __copy_remote_mm_str(mm, addr, buf, len, gup_flags);
+> +}
 
-The firmware response dispatcher copies all synchronous HAL responses
-into the 4096-byte hal_buf without validating the response length. A
-response exceeding WCN36XX_HAL_BUF_SIZE causes a heap buffer overflow
-with firmware-controlled content.
+The documentation says "The caller must hold a reference on @mm" but
+doesn't specify which reference count. Should this clarify that the
+caller needs an mm_users reference (mmget/mmget_not_zero) rather than
+just mm_count (mmgrab)?
 
-Add a bounds check on the response length.
+The implementation takes mmap_read_lock_killable(mm) and accesses the
+address space through vma_lookup() and get_user_page_vma_remote() in
+__copy_remote_mm_str():
 
-Fixes: 8e84c2582169 ("wcn36xx: mac80211 driver for Qualcomm WCN3660/WCN3680 hardware")
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
-Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260421135018.352774-2-tristmd@gmail.com
-Signed-off-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
+mm/memory.c:__copy_remote_mm_str() {
+    ...
+    if (mmap_read_lock_killable(mm))
+        return -EFAULT;
+
+    addr = untagged_addr_remote(mm, addr);
+    ...
+    while (len) {
+        ...
+        vma = vma_lookup(mm, addr);
+        ...
+        ret = get_user_page_vma_remote(mm, addr, gup_flags, &page, &vma);
+        ...
+    }
+    ...
+}
+
+An mmgrab()-only caller would race with address space teardown in
+__mmput()->exit_mmap() once mm_users reaches zero.
+
+
 ---
-Backport fix for CVE-2026-74341
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
- drivers/net/wireless/ath/wcn36xx/smd.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/net/wireless/ath/wcn36xx/smd.c b/drivers/net/wireless/ath/wcn36xx/smd.c
-index a778e3e0599e..6ab91ff8338c 100644
---- a/drivers/net/wireless/ath/wcn36xx/smd.c
-+++ b/drivers/net/wireless/ath/wcn36xx/smd.c
-@@ -3174,6 +3174,10 @@ int wcn36xx_smd_rsp_process(struct rpmsg_device *rpdev,
- 	case WCN36XX_HAL_GTK_OFFLOAD_GETINFO_RSP:
- 	case WCN36XX_HAL_HOST_RESUME_RSP:
- 	case WCN36XX_HAL_UPDATE_CHANNEL_LIST_RSP:
-+		if (len > WCN36XX_HAL_BUF_SIZE) {
-+			wcn36xx_warn("HAL response too large: %d\n", len);
-+			break;
-+		}
- 		memcpy(wcn->hal_buf, buf, len);
- 		wcn->hal_rsp_len = len;
- 		complete(&wcn->hal_rsp_compl);
--- 
-2.53.0
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/35351393336
+--===============0526606943701778729==--
