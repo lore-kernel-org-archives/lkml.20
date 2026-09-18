@@ -1,94 +1,138 @@
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A4ED4F3EA8;
-	Fri, 18 Sep 2026 13:39:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDC124FD27F
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:39:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789738781; cv=none; b=py45NHG3wRuaIqVwhGKgyznOihD/sLBDKLik8X5ld9PNmuN++6lwBCGIOMiMobPfdkzgLyP0DD0K6VIbvMbLxrqrAsBHFSt89JLyl725nDibGLTaaqLni+/QvSM456P9sMd//2vwU4OtckF9kRrulL1W96BiWfGvz9I7dWMTkRo=
+	t=1789738783; cv=none; b=MpEEmwaRq9Bu+uExyWKg0mL0hmxagE+ZWhgGFml0WmBOUPj12QK/pgo8lBAVyxNCiSzhWBX1o7Uz/gORTzJNeHaPT/BDRjm9NLtJ7UVNedJL7A2bp+EvAlNA0n4luYjJyM0yXMtvaR5d5VpwOBOJofTfWjKYtc8ZOYVNPBXSw74=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789738781; c=relaxed/simple;
-	bh=wFcWsLONtbUvs7sxc+0S1oVLrs8sf7OqU8z8dXRIRgs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EFqC0au5PiU71f8Ssl/9TAAz0cbQ/BrIgI542HP1yRaSh6YxfAbiqkVM0NH6g2joxSm1gFLGACcNqjXuvbcuSAdNSIop+5mvsLV87z30QiOSiwvZYU239nAVqz2tcdAsuxDNH9pypHQXryYaQ02C/6qneDxR1iSxar0X+drVmx0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id 8BBDC68BEB; Fri, 18 Sep 2026 15:39:35 +0200 (CEST)
-Date: Fri, 18 Sep 2026 15:39:35 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: glaubitz@physik.fu-berlin.de, frank.li@vivo.com, hch@lst.de,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	vdubeyko@coreweave.com, willy@infradead.org, brauner@kernel.org,
-	djwong@kernel.org
-Subject: Re: [PATCH v4 6/7] hfsplus: introduce iomap-based file_operations
-Message-ID: <20260918133935.GF18107@lst.de>
-References: <20260914233941.2966421-1-slava@dubeyko.com> <20260914233941.2966421-7-slava@dubeyko.com>
+	s=arc-20240116; t=1789738783; c=relaxed/simple;
+	bh=bfkR/qLfNTRZ34en6gQMGVqTglrIkt0mNbRGBMAZoDA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uaSvhb0HP6OiaRP6wiOOFWr2KSXGLF6EwSl5bn5ku0Tr0MBOQyeYq4PHK8cixr/vd4/kvmY6pKwYCMopDWAvZviCjuztX5J3DDK39Udhqx8Hyw5eSGbHeC9S5CcfRqQz5XhHYY2zj2UZ1I7nDWf9eDpmpvvkB2xqO2oL9UDlEOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ncc1c4U+; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ncc1c4U+"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-398c066106cso633675a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:39:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789738781; x=1790343581; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TxsRadM9sjHy6Zgyy9bUhpwEa5BB107/pv0esjxDrJQ=;
+        b=Ncc1c4U+EbAqreU6nIH8KKRspB8WfBXXLN96f7oaJn6aovVbz20//ds6Ihl1smbua9
+         HXHmkl3b1WBvjgSCOj8E8RVfdYp6ElV5lLB2APcws/Iec9lQlyAB5u2eO3CCnpegHDJa
+         +8cI9LRBJqVnBw+7Z8OiBzBpPkL211MttYu/AcSiVO9DUHWEVUTNrmtBI9mv9llV9XNr
+         hQkThPpmbDOCFEaBLYLKOe9hkh21uednPzu56h8elr/AdKLqhAxI2rPht1if/dQ+Vhya
+         n04s5GDrwkZJRKHKKZ4hLFHL+ymXjAVz47fkHJfSMXXTgdDDOu8FT5tmWn7Z5bhg32vc
+         DiJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789738781; x=1790343581;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TxsRadM9sjHy6Zgyy9bUhpwEa5BB107/pv0esjxDrJQ=;
+        b=2sZWHiFdICaucOT3/A9G/mJSfqwTZgBrN39jtney50UzN3VbMUQMC7Bngv85z3gG+5
+         iS9z+MrdkPKhW1YukqpRvD2qyg2XBDAHaxNkJw243edWIZ9XFyOKQ5oKEbR1ZFVBdCZg
+         H8/RT3sr8CYmG8GrOfxfFYlb2U8nXzA4UMhW8JCBDx2jiOoJmQhFvt6T1RCyaEimwTSv
+         sU+b9hhlAeMxnDaQucJUnetv0Eb4VHIMY2kENW/m/uFwvkBsL2OXGE1Mz/AKwkkFyIKM
+         n1bMF0FMZdRdHPmKCtqQETc9jIe7cs+KB2gV2E+ptuujikaRUcDcq7J1o0Uqcce82rbe
+         L9vQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwdNC0n1TNkHrhZyF9o/tiNuxBkxJw7j9hOPYVLbDHxSXW6sTZB1fPHC5uOnMLpM7/+cwlNh67pXtEM9BE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kTvKwH3NP9Zth+E94mW58vHzm8aEtH79ACJ7Yxi43KDGxITX2f
+	+kfeLZGGsQqPUYMcnmxs42vGf1J1bbsKXDlcWyHy/MmHE4q1ZTLVK3nm
+X-Gm-Gg: AYBFou1hNMuFKB5MF+31AYa2X/n6dn86GG2OgS3lTanCnHzlRcqvgFMdTsu9RaDBOko
+	80JDznJOGV5BaydwDbBRFdjf5k/LTjbXRmD5Ksyet49wib8uli395Lh2Q6VAfw6qhV5NYLsmqqo
+	4H+DN5ubopIQuPzXII0VbSzbAR/6s0Stl3aYZltXjkr4AhE72PPjrcmJNOJMTbFfPemTYRxThUY
+	/uALnPFK8IUNCwvZ2muiZ0jqcJszwsYDR+EipReDpGpRmP/mXAVDkbLs0Gtc77kWGr94BW9Bcud
+	qcL5i3nCE2RJ5Q61u5rDHTj0UfNe9yqb/09sckr0OsJtH+85celdUlVv7SW5yfCyuFS9vpnjbjR
+	V4DGFASDAVaWGgfliEy2mhOPN/NtwAhuTixL0u3kUGvP5O2ccdKplCLC5oREbftTuNVth7Wrq4u
+	zZzjYLUwfXHHa3XIqtbgNiq2rIV824rucw11OowJ1meiHutRy71X/DNqRabmauB/8z4lNvZvh7X
+	DjoDbRhhQTbJtOqbhi+FiQXgOQssGX3d+KRYD9f1UHhY0UsKc2lFo6/ASWp+aPgUSoC7bvf8JQl
+	DNYaaWiUg5HK3w==
+X-Received: by 2002:a17:90b:2dc3:b0:39d:e9b6:cec9 with SMTP id 98e67ed59e1d1-39e54d36756mr10232434a91.7.1789738781094;
+        Fri, 18 Sep 2026 06:39:41 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e3617443asm13253792a91.9.2026.09.18.06.39.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 06:39:40 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Mark Brown <broonie@kernel.org>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	cassiogabrielcontato@gmail.com,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+	Jiaxin Yu <jiaxin.yu@mediatek.com>,
+	linux-sound@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH 00/15] ASoC: mediatek: mt8192: Improve error handling
+Date: Fri, 18 Sep 2026 20:38:56 +0700
+Message-ID: <20260918133912.133799-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260914233941.2966421-7-slava@dubeyko.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 14, 2026 at 04:39:40PM -0700, Viacheslav Dubeyko wrote:
-> This patch
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-Patch descriptions are not supposed to start with "this patch".
-By the time this fets into git, it isn't a patch any more :)
+Hi all, 
 
-> @@ -55,7 +58,6 @@ int hfsplus_file_fsync(struct file *file, loff_t start, loff_t end,
->  	error = file_write_and_wait_range(file, start, end);
->  	if (error)
->  		return error;
-> -	inode_lock(inode);
->  
->  	/*
->  	 * Sync inode metadata into the catalog and extent trees.
-> @@ -114,15 +116,184 @@ int hfsplus_file_fsync(struct file *file, loff_t start, loff_t end,
->  	if (!test_bit(HFSPLUS_SB_NOBARRIER, &sbi->flags))
->  		blkdev_issue_flush(inode->i_sb->s_bdev);
->  
-> +	return error;
-> +}
+This series addresses part of the error handling in the MT8192 driver.
 
-Changing fsync locking feels like something that should move
-into a well-documented prep patch.
+It propagates errors from clock operations, GPIO requests, and DAPM event
+handlers, and uses dev_err_probe() for cleaner probe logic.
 
-> +/*
-> + * hfsplus_fallback_buffered_write() - fall back to buffered I/O for the
+Compile-tested only.
 
-Pointless function name in the comment.
+Best regards, 
+Phuc
 
-> + * tail of a write that iomap_dio_rw() could not perform directly
-> + * (unaligned tail, or no blocks could be mapped without allocation
-> + * outside the direct path).
-> + */
-> +static ssize_t hfsplus_fallback_buffered_write(struct kiocb *iocb,
-> +						struct iov_iter *from)
-> +{
+bui duc phuc (15):
+  ASoC: mediatek: mt8192: fix APLL mux error handling
+  ASoC: mediatek: mt8192: fix AFE clock error handling
+  ASoC: mediatek: mt8192: fix error handling in APLL enable functions
+  ASoC: mediatek: mt8192: fix MCK clock error handling
+  ASoC: mediatek: mt8192: switch to devm_clk_get_optional()
+  ASoC: mediatek: mt8192: Use dev_err_probe() in mt8192_init_clock()
+  ASoC: mediatek: mt8192: Propagate errors in mt8192_afe_gpio_request()
+  ASoC: mediatek: mt8192: Use dev_err_probe() for devm_pinctrl_get()
+  ASoC: mediatek: mt8192: check return values in mt8192_afe_gpio_init()
+  ASoC: mediatek: mt8192: Handle regcache_sync() failure in runtime
+    resume
+  ASoC: mediatek: mt8192: Remove redundant error message
+  ASoC: mediatek: mt8192: Propagate mt8192_afe_gpio_request() errors in
+    ADDA DAI
+  ASoC: mediatek: mt8192: Propagate errors in TDM DAI DAPM event
+    handlers
+  ASoC: mediatek: mt8192: Propagate errors in I2S DAI DAPM event
+    handlers
+  ASoC: mediatek: mt8192-mt6359: Fix error handling in MTKAIF
+    calibration
 
-Can this use direct_write_fallback()?
+ sound/soc/mediatek/mt8192/mt8192-afe-clk.c    | 163 +++++++++++-------
+ sound/soc/mediatek/mt8192/mt8192-afe-gpio.c   |  94 +++++-----
+ sound/soc/mediatek/mt8192/mt8192-afe-pcm.c    |  12 +-
+ sound/soc/mediatek/mt8192/mt8192-dai-adda.c   |  44 +++--
+ sound/soc/mediatek/mt8192/mt8192-dai-i2s.c    |  20 ++-
+ sound/soc/mediatek/mt8192/mt8192-dai-tdm.c    |  18 +-
+ .../mt8192/mt8192-mt6359-rt1015-rt5682.c      |  37 ++--
+ 7 files changed, 240 insertions(+), 148 deletions(-)
 
-> +	struct hfsplus_sb_info *sbi = HFSPLUS_SB(inode->i_sb);
-> +	loff_t total_capacity;
-> +	ssize_t ret;
-> +	int err;
-> +
-> +	inode_lock(inode);
-> +
-> +	ret = generic_write_checks(iocb, iter);
-> +	if (ret <= 0)
-> +		goto unlock;
-> +
-> +	total_capacity = (loff_t)sbi->total_blocks << sbi->alloc_blksz_shift;
-> +	if (iocb->ki_pos >= total_capacity) {
-
-This is weird.  The total capacity should not matter for a write.
+-- 
+2.43.0
 
