@@ -1,145 +1,143 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41DF652D2A1
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 21:41:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AD7852D2A1;
+	Fri, 18 Sep 2026 21:41:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.145
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789767672; cv=none; b=RlcrhwxNSOg60DNbocf7cFBLVOLl0ngLpTsyxt7G0YK8/tCKOMhGO575P+lNVglCFgqXQbzKi96bD3zVHaAiIpKS64mtddVumwUAJCR31jhxJKGaSc+51dVqHvgwlMrml2dI5bDIKLPDt/oOEMlnUeE+5DGL14Or4PGT3jjG5ic=
+	t=1789767699; cv=none; b=osBbWWhC4sboi3s+0Weib7DvY6pCPwMUz7yJ7/guh+BagDLdSes6rIdBxxPE4LKq40/ATRBUl+zq6+KHW82BCUx3lMhMjijPlyyzKKABDfnToO2wp9tYOnYuNvGaKuarIEuhVxA7Tndj6pkpTerkRFPzLqSyXfJej+b754K5bZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789767672; c=relaxed/simple;
-	bh=nDTmUj7sxiRZWw0UZ3oWow7n2lAuqZkJ8d5o3RIweZM=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=flEN2QZ8pjqMd3/jK6Noy5t9PpKu2Q5OKItPWI6YPS6BHLAiGNK+KsGT1ErTUEuxoj1bpvteEzRInE0JGcNDygiEVTLqpoANnFmKD0HLSP/WyNEcF0W4CuSB52iCvbDngBStPdI2pdM1eDodI4KZzCHfUdXvJYLieNyPbaVN9fw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Uyh4QE9y; arc=none smtp.client-ip=74.125.228.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1789767699; c=relaxed/simple;
+	bh=g2pNaqSjEUVUSnZ0XDVKFKgnJiptI9oCl+wn/0Eep/A=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=LxjgOSdChC5M4JzvpWkOshlXbWR7ypGmQZpcO/kHlGV/Yph4O/jc9zuTNP6hb0B8LOPYIH3bMx58/OEI9HUS83oVwbA2dZX1TpwXQRKcqkOuGsHjoO26vVWS1AoU/s9r0Jd+El1G6/aZ5FjFPhlggWpOENEbL+HXG7DQusR6sJM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca; spf=pass smtp.mailfrom=squebb.ca; dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b=pV6FJZrV; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=cl/EcELO; arc=none smtp.client-ip=202.12.124.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Uyh4QE9y"
-Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc4c3304784so1047752a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:41:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789767670; x=1790372470; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:user-agent
-         :message-id:date:references:in-reply-to:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=1bBne8O0S6mfXSySaLyMvwVSNnSHmNTMqD1uvwMapRY=;
-        b=Uyh4QE9yq9i2Si2Nk9BMCwdAirU2AySP0L3BL+k8Sup/IOG7eafHN4ivvJYe8RxkfJ
-         EZmYYPH2vevDqN6VDegn8Mv3aVDi3fo0vvtNEG01o3wzQd1ku6LFtZvDi8WUVyRG+bfb
-         xE3mod/ONhwQAV/M36DOGyEzIYBPRlx0F98Puq8ElBV9nmQguICXf+nluum7KTGF4yxO
-         JeDVW3Q6NzliGzT74piRr1Wcj+df/obHo8rd8IsWn/5mjcShZGCiiL2tCsmzMP3R+1lq
-         6HuEiNj3rwchLlre7YcLvzNws8YQn+4el1gKhRlhMhJVVEayYkjzjORcAg5i2YXglP0J
-         6eng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789767670; x=1790372470;
-        h=content-transfer-encoding:content-type:mime-version:user-agent
-         :message-id:date:references:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1bBne8O0S6mfXSySaLyMvwVSNnSHmNTMqD1uvwMapRY=;
-        b=VVnYHFVgUiEE666drlOB3N4skkdFBOa27kPqUVgSvkJ78Zm2qSY0On1wLdpgXPxl5o
-         p4H+eLa21HyvyQK0EgTL/uA/2b6+tyZjehYymXQeghrCcTAwRUgIsmN7mtMRUh9T5Kox
-         BYij79ZBDsmWpwc7hGVXjP5Fi+CxwVrPEA49C5wGAHhSw2pYqmLA3cCzGVLdz2BQUwou
-         HSckj4QL4w8cZlV9P476wDQxwroZD9SEHEIN1LVR6xMeM3wgTG2e0jR39biZw6Wr7Rer
-         7eqrJz5cWJO4dFI3uqiUGCNnNYGuKHTaEkezx16xGI7UULhoEpVMQ/LgaB998SuQG+h2
-         p0YA==
-X-Forwarded-Encrypted: i=1; AKwUvBw+mjSrdCRn07AJMhGg9tkZtqp0jbMliMzutSNXRt1N8B5KArT3RWVPQA0wsBiBWAwE2cYk8BGbMqhBz9c=@vger.kernel.org
-X-Gm-Message-State: AFuF++m8Pw8ZqYd0ygL3hDuwp5oVlJWCbgE3jXgGh/rTwOW4HAiQ7rBn
-	2XNtuj4OlJRHviEpt5Utgvo9HcZ7xAFKrfDrk5GGcMRNRIAPifpS2FyO4zYqyzjBWw==
-X-Gm-Gg: AYBFou3PU50RwSmH4SfPB5oImFTI7cdhPpvUtyOgPbmOWXrKPNqArTz42j8FSx95M2S
-	bYP6l+mHGVt9pQXu2ZbxZPJfdQstRFXi7xBxLcYcyZRPftr54fFMcoTvEJBujivqk57IaaoKo/u
-	nFET+T3p7VmNfzcmrkPauHPN2eulNSE1Ari4QTEti3dEXi3xlJIhTycYeJjD58DsWDaka3DFec6
-	GXlgyFzJY2axhcVsTcUL7mY3rzcaxbh3zxSLTjMWHAsKMhu5E4feED+E8A7uxP37s8bBcUIvzd9
-	Zn2JOus4T+yaDAqh/TArz8UmyYMdlhQETe8mwY1s26KUUm9KCDUsgLkKfFAEIDPiK2INMxihpX3
-	7Zlxq0GPrCWP6+wiMh4LJjIv7ZZind1yzW/AunhIZIEJixZxpqsAAsw6sOtUfVU7EiCPRlkIpVN
-	I1owbhQ82rHhCrEoVLN6s/srH1LVYbGPORE32QJbfVw1HOUloZ3rw2aAIoWjC1Xr5qmu309pXfw
-	C0N9aU=
-X-Received: by 2002:a05:6300:6cd1:10b0:3dd:a006:7b3b with SMTP id adf61e73a8af0-3dda0067bb0mr1085141637.58.1789767670167;
-        Fri, 18 Sep 2026 14:41:10 -0700 (PDT)
-Received: from bsegall27.localhost ([98.45.141.147])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144d55d2269sm1072505c88.11.2026.09.18.14.41.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 14:41:09 -0700 (PDT)
-From: Benjamin Segall <bsegall@google.com>
-To: Zhe Liu <liuzhe1@kylinos.cn>
-Cc: tj@kernel.org,  hannes@cmpxchg.org,  mkoutny@suse.com,  corbet@lwn.net,
-  mingo@redhat.com,  peterz@infradead.org,  juri.lelli@redhat.com,
-  vincent.guittot@linaro.org,  skhan@linuxfoundation.org,
-  rdunlap@infradead.org,  dietmar.eggemann@arm.com,  rostedt@goodmis.org,
-  mgorman@suse.de,  vschneid@redhat.com,  kprateek.nayak@amd.com,
-  dtcccc@linux.alibaba.com,  changhuaixin@linux.alibaba.com,
-  shanpeic@linux.alibaba.com,  cgroups@vger.kernel.org,
-  linux-doc@vger.kernel.org,  linux-kernel@vger.kernel.org,
-  linux-kselftest@vger.kernel.org,  Tao Cui <cuitao@kylinos.cn>
-Subject: Re: [PATCH v3 1/3] sched/fair: remove quota/burst write-order
- dependency
-In-Reply-To: <20260911092258.660771-2-liuzhe1@kylinos.cn> (Zhe Liu's message
-	of "Fri, 11 Sep 2026 17:22:56 +0800")
-References: <20260911092258.660771-1-liuzhe1@kylinos.cn>
-	<20260911092258.660771-2-liuzhe1@kylinos.cn>
-Date: Fri, 18 Sep 2026 14:41:05 -0700
-Message-ID: <xm2633v6w83y.fsf@google.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b="pV6FJZrV";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="cl/EcELO"
+Received: from stl-compute-04.internal (stl-compute-04.internal [10.204.2.64])
+	by mailfout.stl.internal (Postfix) with ESMTP id 4F3A41D0006C;
+	Fri, 18 Sep 2026 17:41:36 -0400 (EDT)
+Received: from stl-imap-02 ([10.204.2.93])
+  by stl-compute-04.internal (MEProxy); Fri, 18 Sep 2026 17:41:36 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1789767696;
+	 x=1789854096; bh=V6a8DjpXuP1JaHpHQpka+djywQAWhu24+NeFfy31YWo=; b=
+	pV6FJZrVOY2efp+YFo47R/2FjQrFjp2XX+8V0rUkh4XkPUSLMbJiPyAxjwfT88Kx
+	k+uz/lS3aKr1OA0xZTgrqaWRpjBzq/6/QgsZQ6AMkeqWveUzn86/+3EJFLPnYOjJ
+	5IPkxS92cacTKQs8W/drR015hFL0urme2TTPM2uVrAc11zIEK+Hy8WXKukSkvMPw
+	Fu2YEiqQv3kavalXt5FCYdAGFucGPas5+coOhqvvg/inpeyCR6TJkau7sj2VZDxD
+	Diyfs+cZGahDyVJDKadMfx5VHeEBWdEfOuBConpxzTxAnXXe/X8l6xiKTetxqfR/
+	lTcuIt6XIVw/RfvJevGs8Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789767696; x=
+	1789854096; bh=V6a8DjpXuP1JaHpHQpka+djywQAWhu24+NeFfy31YWo=; b=c
+	l/EcELOUH/KBYFpVMu2LxHEpIjoiX2HUiJ4dZktwVFtOC6XDmaJtq3cjw14cpGFt
+	HcsfaeuAtdjzzsIsoJWg5M3QrX1WIqDChHS+8JcvInoWBQRCvy4HxUGDGS/01604
+	54MPxYVgvb7RkdErospSYgHaGcw+MbS30u5aFjby6CoU7zw30dKHlz3Bbh82Z+Pd
+	pWUq4nWTwT1QV3v3d6pi1QwhHNuyO8ZJxLKCQuO9G/ZLSAQM9LY5uZJiCV0BDBSA
+	daBZI8ByRBVDN4m/FUc/msSs5qSjtn+h1HJHL5zrP4Ipo05MEBo/w8XDcutnRQsM
+	Ey9ohSlDlnwDAmmrwOvtw==
+X-ME-Sender: <xms:D7CtagMaO9XOtReKeQEjzTEP82pJQdlbWpgfTDIlrNv6f297yU65Vg>
+    <xme:D7CtahyZ21O5xF2nSJIXhtyDytc42l0TOvBpsK3DALKYz6per3NLIByCHUmQHrdyo
+    YWXXRDJ4MAwvLnGocubamvwjm2xrWOS3uxJHeebv_VMiPkGWKiJkuM>
+X-ME-Proxy-Cause: dmFkZTFhfILZr58CCorNsiwKh84e3A84AdOSEPLZoX2XgQYFtC08YP8NwkBYSeMFs35k9d
+    L6EuU7lDPskUk9ffe6Z/d/y+XfbmzO+stCFkrBH19yMZTpBVNp2mRMvzzDM8i80NS7BFfY
+    rSy5yQ0tVqtWsXoQ2itK2tR/NsZkoYcGqOjTdaQTD6Px2uAQzyhtkYvJ0MbFvaSZ3frzwr
+    zrywnDYMsHdh5uPsSx0F1oy/f9C9U19MdDJLvh5QMpkExOxIYUeIBViUor8Lhk6mO14+EF
+    lHqTkoJ/MuMdlugQHinAS0SaRu/eBkEii+LcvJRFwbbqyUEZHna+6nfjdSR/bDS0vzR1dv
+    ftWQZppy2V55o+naxZLf5HA03fG+Y+Nm4TKzEtXKa1QP+yXhWcmf936vWj7XCrDCjkKlwi
+    qy0MdZxa1efa25IuR400fN9boqWzX1n3IQ8WGaaV/YJ9ufiihwU2Wzw6cFwy2PZ++PDpfs
+    DYBtb837wNcHovYHQHzWg3lwS1N0MV0VXdo5aU3bSr5pQjT2aAQW0Kz+p5CBmWsYL6ip4o
+    IaUu0SpPhEYYf/QmDiQXdzMAIV6nVjfE56f5fp/UDALAWWloCZciSbgUbxpj2QQSghzMfX
+    WT0qf0jplrDvSXn9dFAmgRSlpjs5XKayvqvBs7O9zb73wEd5moZXPpumNdrQ
+X-ME-Proxy: <xmx:D7CtapwcaWiz4Jivkk7Y2n3_eK50t99u3kpKkxU30-aTfd3U4bYxNQ>
+    <xmx:D7CtaoVRrhqhgfggZsKJYEng7mCqBzfFxhVMHHhUpkgYLH8D5uVGsQ>
+    <xmx:D7CtapjxngltwRqAwefsbitwEvy1VmAVCzbnrbx9pa306m3g_LdGpA>
+    <xmx:D7CtaoCLxOLtHW4zqMBQolGm5iJC_RbI-Bah_3tRPqloKM-NL-PZhA>
+    <xmx:ELCtapDa8ij1ghPnMOBiTPL4CeWFX3IWt38GJ_JS-p9fBK1XQw5MaXU7>
+Feedback-ID: ibe194615:Fastmail
+Received: by mailuser.stl.internal (Postfix, from userid 501)
+	id 6E1742C00067; Fri, 18 Sep 2026 17:41:35 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-ThreadId: AcycUTG39Ir7
+Date: Fri, 18 Sep 2026 17:41:15 -0400
+From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
+To: "Navon John Lukose" <navonjohnlukose@gmail.com>,
+ "Ike Panhc" <ikepanhc@gmail.com>, "Hans de Goede" <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: "Derek J . Clark" <derekjohn.clark@gmail.com>,
+ "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
+ linux-kernel@vger.kernel.org
+Message-Id: <3c345c9f-ca1b-4f77-9641-cb026704c6c1@app.fastmail.com>
+In-Reply-To: <20260914134216.1295740-1-navonjohnlukose@gmail.com>
+References: <20260914134216.1295740-1-navonjohnlukose@gmail.com>
+Subject: Re: [PATCH v2] platform/x86: ideapad-laptop: Add Yoga Pro 7 14IAH10 Mode key
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Zhe Liu <liuzhe1@kylinos.cn> writes:
-
-> Burst validation currently depends on the active quota, so the same quota
-> and burst values may be accepted or rejected depending on the order in
-> which userspace updates them.
+On Mon, Sep 14, 2026, at 9:42 AM, Navon John Lukose wrote:
+> The F9 "Mode" key emits WMI fn-key event 0x46, which the keymap does not
+> cover, so it reaches userspace as KEY_UNKNOWN and cannot be remapped from
+> there. Under Windows it opens a performance profile chooser. The Fn+Q
+> button already cycles platform_profile through
+> ideapad_check_special_buttons(), so map 0x46 to KEY_PROG4 as a
+> user-assignable key rather than cycling the profile a second way.
 >
-> Make burst validation independent of the current quota while preserving,
-> for finite quotas, the previous maximum configurable burst at
-> max_bw_runtime_us / 2. Keep the configured burst across quota updates and
-> cap the effective burst to min(burst, quota) when CFS runtime is refilled.
->
-> Fixes: f4183717b370 ("sched/fair: Introduce the burstable CFS controller")
-> Signed-off-by: Zhe Liu <liuzhe1@kylinos.cn>
-> Tested-by: Tao Cui <cuitao@kylinos.cn>
-> Reviewed-by: Michal Koutn=C3=BD <mkoutny@suse.com>
-
-Yeah, all the state validation that winds up requiring doing edits in a
-particular order is annoying and imo not particularly valuable.
-
-Reviewed-by: Ben Segall <bsegall@google.com>
-
+> Signed-off-by: Navon John Lukose <navonjohnlukose@gmail.com>
 > ---
->  kernel/sched/core.c | 3 +--
->  kernel/sched/fair.c | 3 ++-
->  2 files changed, 3 insertions(+), 3 deletions(-)
+> v2: reword the entry comment and explain why 0x46 is not routed through
+> platform_profile_cycle() (Hans).
 >
-> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> index b998ef6b87af..c399f0a59c25 100644
-> --- a/kernel/sched/core.c
-> +++ b/kernel/sched/core.c
-> @@ -10181,8 +10181,7 @@ static int tg_set_bandwidth(struct task_group *tg,
->  	if (quota_us !=3D RUNTIME_INF && quota_us > max_bw_runtime_us)
->  		return -EINVAL;
->=20=20
-> -	if (quota_us !=3D RUNTIME_INF && (burst_us > quota_us ||
-> -					burst_us + quota_us > max_bw_runtime_us))
-> +	if (burst_us > max_bw_runtime_us / 2)
->  		return -EINVAL;
->=20=20
->  #ifdef CONFIG_CFS_BANDWIDTH
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index ade1eceb39b8..e6f9d9296fd2 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -6627,7 +6627,8 @@ void __refill_cfs_bandwidth_runtime(struct cfs_band=
-width *cfs_b)
->  		cfs_b->nr_burst++;
->  	}
->=20=20
-> -	cfs_b->runtime =3D min(cfs_b->runtime, cfs_b->quota + cfs_b->burst);
-> +	cfs_b->runtime =3D min(cfs_b->runtime,
-> +			     cfs_b->quota + min(cfs_b->burst, cfs_b->quota));
->  	cfs_b->runtime_snap =3D cfs_b->runtime;
->  }
+> https://lore.kernel.org/platform-driver-x86/2eab84cb-6d2f-4ec3-9869-e2aa9c1d75da@kernel.org/
+>
+> Lenovo Yoga Pro 7 14IAH10 (83KF), BIOS QGCN35WW.
+>
+> Measured with dyndbg on ideapad-laptop.c and a kprobe on
+> platform_profile_cycle():
+>
+>   Mode key (plain F9), 2 presses:
+>       WMI fn-key event: 0x46, twice
+>       no platform_profile change
+>
+>   Fn+Q, 2 presses:
+>       platform_profile_cycle() twice, called from ideapad_acpi_notify()
+>       no WMI fn-key event
+>
+>  drivers/platform/x86/lenovo/ideapad-laptop.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/platform/x86/lenovo/ideapad-laptop.c 
+> b/drivers/platform/x86/lenovo/ideapad-laptop.c
+> index 8213524..35c13d9 100644
+> --- a/drivers/platform/x86/lenovo/ideapad-laptop.c
+> +++ b/drivers/platform/x86/lenovo/ideapad-laptop.c
+> @@ -1360,6 +1360,8 @@ static const struct key_entry ideapad_keymap[] = {
+>  	{ KE_KEY,	0x45 | IDEAPAD_WMI_KEY, { KEY_PROG3 } },
+>  	/* Performance toggle also Fn+Q, handled inside ideapad_wmi_notify() 
+> */
+>  	{ KE_KEY,	0x3d | IDEAPAD_WMI_KEY, { KEY_PROG4 } },
+> +	/* Mode, opens a profile chooser; the Fn+Q button cycles the profile 
+> */
+> +	{ KE_KEY,	0x46 | IDEAPAD_WMI_KEY, { KEY_PROG4 } },
+
+Just a note that on Thinkpad we handle the mode key also as a profile cycler so it's a shame these are different.
+I personally would have added 0x46 to the code in ideapad_wmi_notify too so either mode key or FN+Q could be used. The mode key is a much more obvious way of cycling through profiles in my opinion.
+
+In theory you could maybe use KEY_PERFORMANCE there so they're 'different'. ProfileD should handle that (don't think tuneD does yet).
+
+Mark
