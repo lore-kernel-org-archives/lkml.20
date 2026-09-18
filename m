@@ -1,158 +1,322 @@
-Received: from mail-ej2-f23.google.com (mail-ej2-f23.google.com [74.125.228.151])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011044.outbound.protection.outlook.com [52.101.65.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97BDE328B56
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:21:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.151
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789741299; cv=none; b=Sj7pZxF0Se6SctoI2H78+SrIFU+rqTQKgn7MIySv7cOmVWRcQMD3ExT5VZf1hq+U27CxcFB/v+5339m4w04yJ86vaQCQE5yj7/F1a9AifE290WxD0GzRTNngH7mDycfD1Ybnvq1v8idiKSCXr8G7EeDCtQjc2vba74mXP0tAAeE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789741299; c=relaxed/simple;
-	bh=Zs0q3BB6FPEKrnEd2QcTPKWAEsGsAYzDdsgAWxcpX18=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
-	 References:In-Reply-To; b=nV67lJ/MpkIL2UkUj1sPc5KqS3+tkg1M+rxf9RilIjRd3CRKphhd4RWTX23ZjX6lgBgrJOk3vTy2ZkihRrWGOJTHHLPQQ36Drhh08Og4X4yLECaMPT6FY7CHlQ+7uOK5pGe73Np4o27Gmdd1lsR77aQ/1XOpPASZbAZSd638z3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=DTneyczo; arc=none smtp.client-ip=74.125.228.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84AFB4FD295;
+	Fri, 18 Sep 2026 14:21:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789741301; cv=fail; b=mZG0/zrOjsX23iQXXpfrBjyLp+HigofOkO9KBUU0vaqsvlC/coFvJ4pD5wGms1RxYvzdrJcFni6831GUfEvup7nPoWZofjMqLZ3iu6Cvi99fz3nERQriMJ+LcGYtZq0uBbGoXHbOnaVaoh00cOFFOACImLru1MgXcguSP5m2Kr4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789741301; c=relaxed/simple;
+	bh=EROl+aIjRqX+nkStNlqD9pbOweYR1V3yAhrEjOttdAQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=icQBM2Rmh763bZj1KA/K/Nzt0LFmP9joFb1LTFZz4nBqmdp/v5DNMiD/BFdJ3blCCUVxj0BveAmM2y+rspjQXP/40xgp8blONwK3sOPV03fOVVLCpMFL1+i3doECx2eC7CiAEAO8NErpwWuM73lNfjvwpztTiFItMxQj2MfF3lo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=UHkuwW7V; arc=fail smtp.client-ip=52.101.65.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="DTneyczo"
-Received: by mail-ej2-f23.google.com with SMTP id a640c23a62f3a-c25ef7a3ce9so103774966b.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:21:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1789741296; x=1790346096; darn=vger.kernel.org;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=2t5ETH0BVW3gDZ+cs/uAotP/lQAVJkBPSTT8r5GG204=;
-        b=DTneyczoiM0wkdqGRDTwFWnc2vvUAJyd/2a2kKLGjmHRKxVTxX/emog/QBcXFPFhc8
-         tJ92+aiJzKBzHcOOSZ5iGG5m4DcDGK+t4ei7Wck2FWza//vDda2COTM3VjQ6jBfph8YI
-         cZWgETrMmYSTohD/b0QdP1M+3aLJzdcvjzGo5jzIJ1beEHY8SqgIokcXKuUQ7YMqr9oz
-         KmCa67L9TcpAo5dDOt5eJw7GaZNfMeLA109NHwVL4wb0YaQnRogMJLaY9M5Fg7UMQvc5
-         VV1zj2e18iZH0CJDEYijSuFcOXvVkgyOhY4cC2PJpDxxvDAvu/0BCKXP9Vw/zBjHzjsl
-         vg6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789741296; x=1790346096;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2t5ETH0BVW3gDZ+cs/uAotP/lQAVJkBPSTT8r5GG204=;
-        b=nT6rGoAfOw9EKv+AhPRZTqgRN51NGC+z+lqkrOumADU8tdVhCRrw4lvFdi5sz0xqo8
-         9tS9XgyREYoi483RFndQaLTp8hipj8VfrmI0uNjDp75u/2l0FXwbRFr1cUnuOyMd90Z/
-         wDc++dKOZuDBdYuDynyIAk1G9CugPtn5n98LsCax7cTR4sJV0s6urFJ6YbSC7uMhEXg4
-         3WB1r0EOkRjCgxLQAdCUWLOhRsAnI+l/oTGCnEUPegNr7vje2fZTOu9inu5FACYIHiL+
-         Lscvc8Dw9rqQfbAFGzLaM2BjCDDiBsQmIZ7RPYINFJKj3nOcnDrbF30cRLa4k9v6kDSU
-         A/AQ==
-X-Forwarded-Encrypted: i=1; AKwUvByEZlNISU+BDn5t/nEXa17z/aGdJ4xChuEU1Dsh046mvqYZrFt+qXsAeILB4N98qLcwlinxHDLa959Ax6c=@vger.kernel.org
-X-Gm-Message-State: AFuF++lrCNgPxPPK3yhDNqqccQ6tBGZAcAgcJbZ40LcrXnYuYouC6m8K
-	4+WAzzeYmS4Xu0nmziwBpOnlIJL2fmdHB53YSZwqEd9MzcTIY+Z6HJ+Cf0cFn4DYRAI=
-X-Gm-Gg: AYBFou0wN0Ww1WIy2Z+tlkpACmfvQecOS2Kvl32f2wN36/VDD7Xgnlw3Q5JM74afI/s
-	lsRQ65x7OiYdrcOytDHr2bAvix3ZCjKSefzOm8I8r1Uen5lsPR6Tk0+Bw6uTlEDeSu4uvrBPwEr
-	I8c4hhPjYCUrgRWJrlbXjQwa6+gzPi8LehRdPObV8RJQqIUTOLiocpBpqgiZ/l15hQLpbpMsY3u
-	rHB4KDvTPj01J/arTSIUEpomaZEu4nXPvfB4to6El2xfgb8DnKCx1bghJ6vY/46Huccd2hJVvYY
-	+qG7N6rxE6OQ9jdM4ucqxgFfZqh7TbtMbdmE/lphJTx/XcK1dxHqyPCrUBYWGFy+hIxwid9uc7+
-	HlacwV8umB7mSKcPeNPsFCBBevLnPT2W3SPR9DF17fEFlNHpnx2LHVSHV9U0FG2IhW6/VJUewDk
-	CH/MiyM1K5VxEcNXJDYIo75gEl0sLt289BNLFOexZsOQWbqwigaMR0jMQOlD9h8cOEXkqpVuVMc
-	LAGicCNewbvXpqgd9ZYdyomgxbz5iY8CI6lPKYW3MA=
-X-Received: by 2002:a17:907:e0d2:10b0:c26:3107:71dd with SMTP id a640c23a62f3a-c2a2538ac4fmr66810866b.13.1789741295804;
-        Fri, 18 Sep 2026 07:21:35 -0700 (PDT)
-Received: from localhost (144-178-202-138.static.ef-service.nl. [144.178.202.138])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a1b424826sm61186066b.0.2026.09.18.07.21.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2026 07:21:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="UHkuwW7V"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IWrsM1Dct+hlOgnFqooM1uhmHWIVDm/h+5QIf3Q0CspkYRwR21ZvCs9gP6huBRuI/HMq5bKA15I19VNxl/PnFgzirLtIClnf3Atszo67//j8+04gIlug7SuI4F9FM6BOSsY18ukTHgbcZwcxrTUrE+H/e3KAuXUi2xLCqIuS/0ZFAyeuiicmZjy3ZaJjevY7dbe3rbETwUu1WVRU5iSaEysjvK7RzF5WSaib7LWNqmxNPXFLBWxHXbfEev8saEI7okzejJZnBu7DX8tASd0jjQzO30rgrim4W81erR0YhorYfPdpdSkiDKn59VST7cghDa86srroGWoiMxf8vrWnWQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PvpRAgjpPu8BvnLU6MpxRN7ZJdfDqg5AYLix3SjE9mk=;
+ b=WGIUVdoGkCKqe/gigmPfpcIPG1zljkgvEfgi5PGbSUvmRdduu17G1ddJBaiCs+Yy9RmaYGuFgg1w9SXMbXJnJWY3QPq5rv9+XyXBMaS4OkYLOtqAuwqTIhekmCBhdK692sXvEfT1CT8yhQtALMeogBV009Wt6W6kkmHROXB4l/VDEkzx7lEkp2lkIEUvmUZRfsvgZYO+C6446+V5JVy8hkTdvnO1WX2VkjG+yyg+Ob1IMWoMTH/nBOT7TcCec1lHs65pxGd2fNv0O1DWZBSuBBrb6BAjeJbHYDaE1J7SAksulqUM+y+EEdimzCcQU1Ccfui4f2GsjZSU1pRBN6t+fA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PvpRAgjpPu8BvnLU6MpxRN7ZJdfDqg5AYLix3SjE9mk=;
+ b=UHkuwW7Vfndjd3j8Q8fS066rSCjUmS9vpCD9KRcujiLbHyqztfJQf8W/gA/NU9Tln1T73e+IBzmU+t9mvp3qZzFYIGIklEBxmaEsPhyMuVI8nqsuERF71bvrCekdNZWUdRiMwv79DB4TfilhOu19bPRwzk9ZTK05ZUmzuJWj5CB+9/X490gBwhvqNr+c7a47SPO46pZHFHBib31jk1uV891ahxssApyrXYw6naqMFgN6R8FHqusRlfFeBO3KmPFsdZZ1ZlLf6nevblpvA5c8VfQqhruDwfZZJ8M5vQulNA8pnvWDLf+vzxZGcqcXhdCSl4LfxkZhvpuqvylTC7mvgw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+ by DU4PR04MB11846.eurprd04.prod.outlook.com (2603:10a6:10:627::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Fri, 18 Sep
+ 2026 14:21:34 +0000
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
+ 14:21:34 +0000
+From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Bin Liu <b-liu@ti.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Griffin Kroah-Hartman <griffin@kroah.com>,
+	Kuen-Han Tsai <khtsai@google.com>,
+	Martin Rys <martin@archlinux.org>,
+	Oliver Neukum <oneukum@suse.com>,
+	Peng Fan <peng.fan@nxp.com>,
+	Nikhil Solanke <nikhilsolanke5@gmail.com>,
+	Kees Cook <kees@kernel.org>,
+	Thorsten Blum <blum@kernel.org>,
+	Takashi Iwai <tiwai@suse.de>,
+	Victor Krawiec <victor.krawiec@arturia.com>,
+	Jeffin Philip <jeffinphilip14@gmail.com>,
+	Fan Wu <fanwu01@zju.edu.cn>
+Cc: linux-kernel@vger.kernel.org,
+	Lovekesh Solanki <lovekeshsolanki00@gmail.com>,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	linux-usb@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev
+Subject: [PATCH] usb: use assign_bit() where applicable
+Date: Fri, 18 Sep 2026 22:18:50 +0800
+Message-ID: <20260918141905.3023171-1-peng.fan@oss.nxp.com>
+X-Mailer: git-send-email 2.51.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SI2PR06CA0003.apcprd06.prod.outlook.com
+ (2603:1096:4:186::14) To AM8PR04MB7874.eurprd04.prod.outlook.com
+ (2603:10a6:20b:24d::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 18 Sep 2026 16:21:34 +0200
-Message-Id: <DLIIC89MM6AK.L02JKTJKQSXZ@fairphone.com>
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Konrad Dybcio" <konrad.dybcio@oss.qualcomm.com>, "Luca Weiss"
- <luca.weiss@fairphone.com>, "Liam Girdwood" <lgirdwood@gmail.com>, "Mark
- Brown" <broonie@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Bjorn Andersson" <andersson@kernel.org>, "Konrad Dybcio"
- <konradybcio@kernel.org>
-Cc: <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
- "Krzysztof Kozlowski" <krzk@kernel.org>, <linux-arm-msm@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>
-Subject: Re: [PATCH 3/4] regulator: qcom-rpmh: Add missing regulators in
- PM6350
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3-dirty
-References: <20260901-fp4-regulator-supply-v1-0-68288ab70aee@fairphone.com>
- <20260901-fp4-regulator-supply-v1-3-68288ab70aee@fairphone.com>
- <ef06178c-5c16-4cb4-8ef8-3a7e1ccbf260@oss.qualcomm.com>
-In-Reply-To: <ef06178c-5c16-4cb4-8ef8-3a7e1ccbf260@oss.qualcomm.com>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|DU4PR04MB11846:EE_
+X-MS-Office365-Filtering-Correlation-Id: 793c1d1c-b092-4925-d2b3-08df159024c2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|7416014|23010399003|376014|19092799006|56012099006|921020|10067099003|18002099003|6133799003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	NA0glPZIJ3kGcY4b/DsFVNRwUgb03YcjAiih4G91ubpWaXFHJp0752lX5J8CywzgEJ727j6tXiiPm2TtN0rosFxX8dTOMPAm3FJjH/9pwedemLh32gWMfjd7gf0iK5+ufIruYupyjxh8a8BDAxo91K8BmXD604qE2S4VnCwZ4KkNsfu6CFnbQC0QlM4LuX5+5eISEut7jOulHiJtddJcd0ehgCQ9lOpCJv5mOWXMD6ZOK5Zdov44LK2XgwdoqI+IDSbKLgU5wkoePaqZVEhAqLm/uNyoLLARi8kd8nf8909SaNanVCh/Gddf/RO3ZDQ9/KFS5sV2xEP6VNr3wWD6HQwuRKKUbjw4yaX+QrnFhtb6bbA8vVDx6EtC2yAbDqp2V2ug/skG2ub7TQGSQWzM5QAK48cz96i6pQlkKz077dHSf40TMx5sr2MP8UK9uUWxFmrUS+nddEyeqJSweijl3/6U7Vl8ZsSsU84oDyoYcFvhMMJLvowH2sj2HiH6TTO0gbfVj0mTnSNj7bKJ3uqJafG6iv3HwGCGMR/Ak7hrhtiy1u8Zyx2XjVQAZOedV6DRXcWXae5doAu08utC71TAETICbWzeZWf32xFLGut/oIlkXyucPMesQXzX9jVzLtENnIf7kHU19V09IB3FBArdbREA5Jz8HklzR2LgjFeLkyceOQpibOzrS4MqTApJ1pPabU+berZ9nSipJ+kmztSGBQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(23010399003)(376014)(19092799006)(56012099006)(921020)(10067099003)(18002099003)(6133799003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?hYxN8rg+vOwf/qSnnwyoDUaBiOL2ZgVDK4cJA0cPiR+x6uDfLkENrRzly3Sy?=
+ =?us-ascii?Q?0iwEfhBzr/g+ym+xs/yW/tKEkBCKxZ6vNCZ+HI1QlLX2gPJUnlGsagkuOlv1?=
+ =?us-ascii?Q?f5KxawDcKtaKNlvhb6tYZxfyYeoNGW1pttYVofPpWgwd/KaUT18qNPnIPn3J?=
+ =?us-ascii?Q?x51+82s1+izsRBR4VF4Fymz1MjVy4W/rstclliFj6HulXwJeGWaPtZcoIe7w?=
+ =?us-ascii?Q?PbhfJfxvfrpixq5cu2ggiU26X7oUEAndJgExEFIGG3psDWvGmhU2ym2ugPRd?=
+ =?us-ascii?Q?SkQ1MZByvRDsYyptwE0xQ+UI1o0SzJyMbZTBo6iuKuMtO8I7MPwyqZ4GO9kP?=
+ =?us-ascii?Q?LYF4J9kZh329LzgBBOCzije4zNhmx0ZGHTpVmffhnRvle3jgJN+fNrAHU96y?=
+ =?us-ascii?Q?HQQXFr8gOyC8zGxPS2zXR6t+FHq9lWhQHUJH03SW+6DdoDs0Ry0gOT7E5EOg?=
+ =?us-ascii?Q?zl54+xu9O1ShjG/N9txg7+hcIEBFqbd2Shv/Z1L0CuoTc7JHbZXpy4lyIFzG?=
+ =?us-ascii?Q?2By1sVRNAetkpEboq5hF8Bwm10T4tC439+wI3D9eRSPHHvyFNSIk4UGM8Jqm?=
+ =?us-ascii?Q?sDIqqdT/fbRiQyRm3/oQvxE4pV/sah5yaC4VVwck8/lCMdQKyTw1a1CX9YDk?=
+ =?us-ascii?Q?3oN8csvgNLeJNuPcygkOmMNwU7Hk1fjxcK4iv/QgmsJ0Fw+lvB6/TqwtHqT+?=
+ =?us-ascii?Q?DEpP1Oull7kH1EfeX75f2k3vA93hv0XVUyIcVM/c0f1YEMU4vB6j+hKkxpdw?=
+ =?us-ascii?Q?dEp4XRYlITj4NQn7fx/KPYg3Kpx53FY+y2GsumnSXIh6BH4QkdlaVkAeelOp?=
+ =?us-ascii?Q?8k91kgrwCNlB+ph9TvYCYw29eUMKrNU1Z+K9lo7D2YCee6WHrIF1TTB/Rmbs?=
+ =?us-ascii?Q?ggWBeZmoY5V9pRWAvK2LVE+S/9Dj7VTg4HqyxI/Ec8mcvnfs2PtYPfTO/3Ji?=
+ =?us-ascii?Q?/dJG0/vKzJoorHr79A5/XrOo6VDLucle313DJl329ey/slhk9qMz8ChfxPEK?=
+ =?us-ascii?Q?CL+GqYZaULDX5E5LwkvYH4gEPDgMEfvdxivSdmmjxGacKsYPHS2pHTetjAeQ?=
+ =?us-ascii?Q?t66upO5Te1hTmAnfC59vl9jWVAOOAEYiZUAkzhV9azEHQbHAtsBmvhf13Uky?=
+ =?us-ascii?Q?3oBsxKsHXGmXiv+oaUYIbPt2/4mrT23DFchAN1kmjW3eA8M4ry0aMTxdVllX?=
+ =?us-ascii?Q?MkMj9qxLrCI2+zqaAn8B4EVY7lbyaW2bVrTOetB56UvHRezDb9My0ZXUnCIW?=
+ =?us-ascii?Q?Jx0MoCaal81Mksofq3u75PBl0T27OTSFeihRP4HkodcuPhHKOuKbyUHKboCe?=
+ =?us-ascii?Q?WaLe2o1esAeYUGqCv2D3sJsMCXwnqAzAivlMf5PI4j4L83QhwAveXupek5TN?=
+ =?us-ascii?Q?0A8tWcRD/aKOWgJCGzJTh3nOBGq6krMZDW5c+Lsh3Z9fdyW/LkzM29cUjyYh?=
+ =?us-ascii?Q?BQf/qvq+DO2d35hqrV8yFXwR0JduO3l8+6Ur8+msDkBrBwdK6QRT0gjQyQ/u?=
+ =?us-ascii?Q?cNE7uG1pUFRZX3ef68XpneZV/swFxiiZA6XCA10AghazzMN7XL07jAnNp7nA?=
+ =?us-ascii?Q?dQhPwDhrzajAvz5uOI40ofDcNbIN4r0ct/ooVYC2VluZmEE9GgIwrcxDYgdJ?=
+ =?us-ascii?Q?VVlORAZ/i7W5tlYwjaWtiO2N76kieIzhQlA/zfPBFJiF32z8aBVmgI/5rUQG?=
+ =?us-ascii?Q?i629ve85djDEiV7APZWVJB6muFw2RF9Bq86qnY0vTULIxNWyNap90qXVK3gz?=
+ =?us-ascii?Q?+2wz2RXN3sh2mbSdT1E7R6HTGumYdI6N1vYZcTTjAZ/no7+j6HsI?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 793c1d1c-b092-4925-d2b3-08df159024c2
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 14:21:34.7137
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VznhkuaqeWLv9EvKIA7jXOdiMyVyfd3mMW8lxt1z5c9L/gCloawLfdG9qXyCRk4cIJtOb4ibfF+VD8ZcwGnVHh8/FPYvdl58gQcCygZB40neEORhdC1aI8/LDeAtMo46
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB11846
 
-Hi Konrad,
+From: Peng Fan <peng.fan@nxp.com>
 
-On Wed Sep 2, 2026 at 10:51 AM CEST, Konrad Dybcio wrote:
-> On 9/1/26 10:58 AM, Luca Weiss wrote:
->> Add the missing smps3-6 and ldo17 definitions. While smps3/5 and ldo17
->> are not used from the rpmh regulator driver on SM6350, the regulators do
->> exist, so add them with the types based on the datasheet.
->>=20
->> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
->> ---
->>  drivers/regulator/qcom-rpmh-regulator.c | 7 +++++--
->>  1 file changed, 5 insertions(+), 2 deletions(-)
->>=20
->> diff --git a/drivers/regulator/qcom-rpmh-regulator.c b/drivers/regulator=
-/qcom-rpmh-regulator.c
->> index dd2265961151..7d20f3e47760 100644
->> --- a/drivers/regulator/qcom-rpmh-regulator.c
->> +++ b/drivers/regulator/qcom-rpmh-regulator.c
->> @@ -1591,7 +1591,10 @@ static const struct rpmh_vreg_init_data pm6150l_v=
-reg_data[] =3D {
->>  static const struct rpmh_vreg_init_data pm6350_vreg_data[] =3D {
->>  	RPMH_VREG("smps1",  SMPS, 1,  &pmic5_ftsmps510, "vdd-s1"),
->>  	RPMH_VREG("smps2",  SMPS, 2,  &pmic5_hfsmps510, "vdd-s2"),
->> -	/* smps3 - smps5 not configured */
->> +	RPMH_VREG("smps3",  SMPS, 3,  &pmic5_ftsmps510, "vdd-s3"),
->> +	RPMH_VREG("smps4",  SMPS, 4,  &pmic5_ftsmps510, "vdd-s4"),
->> +	RPMH_VREG("smps5",  SMPS, 5,  &pmic5_ftsmps510, "vdd-s5"),
->> +	RPMH_VREG("smps6",  SMPS, 6,  &pmic5_hfsmps510, "vdd-s6"),
->>  	RPMH_VREG("ldo1",   LDO,  1,  &pmic5_nldo,      "vdd-l1"),
->>  	RPMH_VREG("ldo2",   LDO,  2,  &pmic5_pldo,      "vdd-l2-l5-l7"),
->>  	RPMH_VREG("ldo3",   LDO,  3,  &pmic5_pldo,      "vdd-l3-l6-l8-l9-l10")=
-,
->> @@ -1608,7 +1611,7 @@ static const struct rpmh_vreg_init_data pm6350_vre=
-g_data[] =3D {
->>  	RPMH_VREG("ldo14",  LDO,  14, &pmic5_pldo,      "vdd-l12-l14"),
->>  	RPMH_VREG("ldo15",  LDO,  15, &pmic5_nldo,      "vdd-l15-l19-l22"),
->>  	RPMH_VREG("ldo16",  LDO,  16, &pmic5_nldo,      "vdd-l16"),
->> -	/* ldo17 not configured */
->> +	RPMH_VREG("ldo17",  LDO,  17, &pmic5_nldo,      "vdd-l17"),
->
-> L17 (and other NLDOs on this PMIC) can do 0.312 - 1.304 V, whereas
-> the pmic5_nldo config allows a range of 0.32 - 1.296 V. But I suppose
-> that is something to fix separately anyway
+Convert open-coded if/else with set_bit/clear_bit and their
+non-atomic __set_bit/__clear_bit variants to the assign_bit/__assign_bit
+API.
 
-Can you help with what numbers from the data sheet we're supposed to
-use?
+Done with Coccinelle semantic patch:
+    // set_bit -> clear_bit => assign_bit
 
-In 80-PR887-1 Rev. G, Table 3-20 would suggest L17 is programmable from
-0.312V to 1.328V while "output voltage range" is 0.32V-1.304V.
+    @@
+    expression cond, bit, addr;
+    @@
 
-But Table 3-11 does indeed show 0.312V - 1.304V as "Programming range"
-for this specific LDO.
+    -if (cond)
+    -        set_bit(bit, addr);
+    -else
+    -        clear_bit(bit, addr);
+    +assign_bit(bit, addr, cond);
 
-So the voltages from the Table 3-11 are the ones to use? The other ones
-can be ignored completely? But e.g. the step size is only listed in
-3-20.
+    // clear_bit -> set_bit => assign_bit
 
-Sidenote, are the step sizes for the SMPS listed anywhere?
+    @@
+    expression cond, bit, addr;
+    @@
 
-Regards
-Luca
+    -if (cond)
+    -        clear_bit(bit, addr);
+    -else
+    -        set_bit(bit, addr);
+    +assign_bit(bit, addr, !cond);
 
->
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->
-> Konrad
+    // __set_bit -> __clear_bit => __assign_bit
 
+    @@
+    expression cond, bit, addr;
+    @@
+
+    -if (cond)
+    -        __set_bit(bit, addr);
+    -else
+    -        __clear_bit(bit, addr);
+    +__assign_bit(bit, addr, cond);
+
+    // __clear_bit -> __set_bit => __assign_bit
+
+    @@
+    expression cond, bit, addr;
+    @@
+
+    -if (cond)
+    -        __clear_bit(bit, addr);
+    -else
+    -        __set_bit(bit, addr);
+    +__assign_bit(bit, addr, !cond);
+
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
+---
+ drivers/usb/core/hub.c               | 5 +----
+ drivers/usb/core/sysfs.c             | 5 +----
+ drivers/usb/gadget/function/f_midi.c | 5 +----
+ drivers/usb/host/ehci-sysfs.c        | 5 +----
+ drivers/usb/host/ohci-hub.c          | 7 ++-----
+ drivers/usb/host/uhci-hcd.c          | 6 ++----
+ drivers/usb/musb/sunxi.c             | 5 +----
+ 7 files changed, 9 insertions(+), 29 deletions(-)
+
+diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
+index 199d3f535a89..25a1cba39063 100644
+--- a/drivers/usb/core/hub.c
++++ b/drivers/usb/core/hub.c
+@@ -902,10 +902,7 @@ int usb_hub_set_port_power(struct usb_device *hdev, struct usb_hub *hub,
+ 	if (ret)
+ 		return ret;
+ 
+-	if (set)
+-		set_bit(port1, hub->power_bits);
+-	else
+-		clear_bit(port1, hub->power_bits);
++	assign_bit(port1, hub->power_bits, set);
+ 	return 0;
+ }
+ 
+diff --git a/drivers/usb/core/sysfs.c b/drivers/usb/core/sysfs.c
+index d22dc78457d7..25e8af8c1bd7 100644
+--- a/drivers/usb/core/sysfs.c
++++ b/drivers/usb/core/sysfs.c
+@@ -1032,10 +1032,7 @@ static ssize_t interface_authorized_default_store(struct device *dev,
+ 	if (kstrtobool(buf, &val) != 0)
+ 		return -EINVAL;
+ 
+-	if (val)
+-		set_bit(HCD_FLAG_INTF_AUTHORIZED, &hcd->flags);
+-	else
+-		clear_bit(HCD_FLAG_INTF_AUTHORIZED, &hcd->flags);
++	assign_bit(HCD_FLAG_INTF_AUTHORIZED, &hcd->flags, val);
+ 
+ 	return rc;
+ }
+diff --git a/drivers/usb/gadget/function/f_midi.c b/drivers/usb/gadget/function/f_midi.c
+index 63fb6ee70a3d..eaec5a517faf 100644
+--- a/drivers/usb/gadget/function/f_midi.c
++++ b/drivers/usb/gadget/function/f_midi.c
+@@ -769,10 +769,7 @@ static void f_midi_out_trigger(struct snd_rawmidi_substream *substream, int up)
+ 
+ 	VDBG(midi, "%s()\n", __func__);
+ 
+-	if (up)
+-		set_bit(substream->number, &midi->out_triggered);
+-	else
+-		clear_bit(substream->number, &midi->out_triggered);
++	assign_bit(substream->number, &midi->out_triggered, up);
+ }
+ 
+ static const struct snd_rawmidi_ops gmidi_in_ops = {
+diff --git a/drivers/usb/host/ehci-sysfs.c b/drivers/usb/host/ehci-sysfs.c
+index 5e6b545c30e6..83bbcf759435 100644
+--- a/drivers/usb/host/ehci-sysfs.c
++++ b/drivers/usb/host/ehci-sysfs.c
+@@ -48,10 +48,7 @@ static ssize_t companion_store(struct device *dev,
+ 	if (portnum <= 0 || portnum > HCS_N_PORTS(ehci->hcs_params))
+ 		return -ENOENT;
+ 	portnum--;
+-	if (new_owner)
+-		set_bit(portnum, &ehci->companion_ports);
+-	else
+-		clear_bit(portnum, &ehci->companion_ports);
++	assign_bit(portnum, &ehci->companion_ports, new_owner);
+ 	set_owner(ehci, portnum, new_owner);
+ 	return count;
+ }
+diff --git a/drivers/usb/host/ohci-hub.c b/drivers/usb/host/ohci-hub.c
+index 84d10a932942..1ebf6aa4b2a3 100644
+--- a/drivers/usb/host/ohci-hub.c
++++ b/drivers/usb/host/ohci-hub.c
+@@ -518,11 +518,8 @@ int ohci_hub_status_data(struct usb_hcd *hcd, char *buf)
+ 		}
+ 	}
+ 
+-	if (ohci_root_hub_state_changes(ohci, changed,
+-			any_connected, rhsc_status))
+-		set_bit(HCD_FLAG_POLL_RH, &hcd->flags);
+-	else
+-		clear_bit(HCD_FLAG_POLL_RH, &hcd->flags);
++	assign_bit(HCD_FLAG_POLL_RH, &hcd->flags,
++		   ohci_root_hub_state_changes(ohci, changed, any_connected, rhsc_status));
+ 
+ 
+ done:
+diff --git a/drivers/usb/host/uhci-hcd.c b/drivers/usb/host/uhci-hcd.c
+index 433d64a5fab5..efc1e01005fd 100644
+--- a/drivers/usb/host/uhci-hcd.c
++++ b/drivers/usb/host/uhci-hcd.c
+@@ -376,10 +376,8 @@ __acquires(uhci->lock)
+ 	 * doesn't work, then we won't get an interrupt when a wakeup event
+ 	 * occurs.  Thus the suspended root hub needs to be polled.
+ 	 */
+-	if (wakeup_enable && (!int_enable || !egsm_enable))
+-		set_bit(HCD_FLAG_POLL_RH, &uhci_to_hcd(uhci)->flags);
+-	else
+-		clear_bit(HCD_FLAG_POLL_RH, &uhci_to_hcd(uhci)->flags);
++	assign_bit(HCD_FLAG_POLL_RH, &uhci_to_hcd(uhci)->flags,
++		   wakeup_enable && (!int_enable || !egsm_enable));
+ 
+ 	uhci_scan_schedule(uhci);
+ 	uhci_fsbr_off(uhci);
+diff --git a/drivers/usb/musb/sunxi.c b/drivers/usb/musb/sunxi.c
+index a6bd3e968cc7..347f547696b3 100644
+--- a/drivers/usb/musb/sunxi.c
++++ b/drivers/usb/musb/sunxi.c
+@@ -208,10 +208,7 @@ static int sunxi_musb_host_notifier(struct notifier_block *nb,
+ {
+ 	struct sunxi_glue *glue = container_of(nb, struct sunxi_glue, host_nb);
+ 
+-	if (event)
+-		set_bit(SUNXI_MUSB_FL_HOSTMODE, &glue->flags);
+-	else
+-		clear_bit(SUNXI_MUSB_FL_HOSTMODE, &glue->flags);
++	assign_bit(SUNXI_MUSB_FL_HOSTMODE, &glue->flags, event);
+ 
+ 	set_bit(SUNXI_MUSB_FL_HOSTMODE_PEND, &glue->flags);
+ 	schedule_work(&glue->work);
+-- 
+2.51.0
 
