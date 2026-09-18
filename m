@@ -1,150 +1,152 @@
-Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012036.outbound.protection.outlook.com [52.101.43.36])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B52A63403F1
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:55:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789700138; cv=none; b=Vdmr7wpQ8N1HoQbjlryLQV309QeePdyW1/4KVN5p9gNBpzA07LJUmCy8BtA4+SJkPbr0Ilb4zK/isJoVpp3N0cucJL1fHiviTKC5ucyv3SEdyMlPKcFBkUpM7ZmW0cHR2QGKaFA9Y+ETRezw/R2UiQhsxxnTo6S6YY/JEDXdjqM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789700138; c=relaxed/simple;
-	bh=cljyv+SKsQFwrL67mF8CfrpMbEF+fcNmGcIPIp6I/M4=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=qmaWd/fb8ql3dz48kMrYuu4WojvYjk3Te1FwI4erf0Ju0MRpTRe1hShWAP4yvi0OXrZa6yPeISkSyPUWlrZTU0DkgbyxgFIlqf1/qprZHwG9O4M9/Jij/Vqz0QjOCk40XHjWY9jEnqzyV6gmSfNThE6mCTnFd8eOXecustekD6Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=gbFpiLlP; arc=none smtp.client-ip=80.86.107.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 591542EACEF
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:56:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.36
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789700165; cv=fail; b=LW3dlazIbfs8iaDjXEnBB1DdH5ImxaXWnRDJOHau4irvmBxdns7ghRq9L0QFGGT3tUHlgVzHteDmokmwAAk2grFEt7CglBvvaGKlEfMNSu9TcHsqSLHrxu7/JfXZcG44OFHryjcasjKGQuitSjvKNTJ+tfsanaYLeCQl492Efck=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789700165; c=relaxed/simple;
+	bh=dGEH1bFy2hiai4hJi+Okvvaf6Xt7ZmFOXiJDK+krhWY=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=CphljxqvD3P7exaj/P9C6/C04gxuSwghDTfIS8llXFJUe8UaEd6/aNUvA/HprPTIw7pFCV1cP9+uZDl2323VAhmJYrFHQWvOKNwqBiV9Q5ScohDtVEsQHK4iVXtfoJg54unf3CL5pck01DxGeLMDx72cgR4T+YyhGHowZUHFTOU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=VtOZlXfQ; arc=fail smtp.client-ip=52.101.43.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="gbFpiLlP"
-Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
-	by mail.mindbit.ro (Postfix) with ESMTPSA id 174C2CFAEA;
-	Fri, 18 Sep 2026 05:55:27 +0300 (EEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro 174C2CFAEA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
-	s=default; t=1789700129;
-	bh=nc7IR0S77e9xUm+l+/OSiKzzT+W5l7tXh7cDJdyopAE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=gbFpiLlP92Dd+ZFCK4K7U530X7mi6M4DO6LUyuP2swrkIViaQL0wb7NroPMHN/go5
-	 mxGf3hESE2ilL7IeLKVrGsL2lc25N40P01G62kaKTNCITAEpxCzyEK6GmJsb3pL/Pk
-	 J84LOFOzHzcGtuHhlUg6D2goWtG0lPMUTftAlLFPt2CO2jrv8/tHyBnZMlhYX4NNVF
-	 nm8nbslZqz1l/tDrJKsQiAPecUj7MxM/IyB0CPHoGbbbgwH/vTYP/OxqsNTkhpTx0u
-	 Wx2tfC/I2BTKc36svJR/0RxMp7ZRKNp3H6CYJ+aLrUihBBTLzfD/N3WAt7CQQmUgwV
-	 KXJmQXmD0mA9Q==
-Message-ID: <0f9ca9d4af4ac5cb5056c4900e61b747e4d7a806.camel@rendec.net>
-Subject: Re: [PATCH] genirq/proc: Fix missing CPU header in /proc/interrupts
-From: Radu Rendec <radu@rendec.net>
-To: Haris Okanovic <harisokn@amazon.com>, Thomas Gleixner <tglx@kernel.org>,
-  Dmitry Ilvokhin	 <d@ilvokhin.com>
-Cc: Michael Kelley <mhklinux@outlook.com>, linux-kernel@vger.kernel.org
-Date: Thu, 17 Sep 2026 22:55:26 -0400
-In-Reply-To: <20260911-dev-harisokn-proc-interrupts-fix-b4-v1-1-f9ff208efcfa@amazon.com>
-References: 
-	<20260911-dev-harisokn-proc-interrupts-fix-b4-v1-1-f9ff208efcfa@amazon.com>
-Content-Type: text/plain; charset="UTF-8"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="VtOZlXfQ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nLHKq9zxPhocxTW06dgEGWKifSB1H/LpKvs7hgxsQZWoqG1y8pL5Q/2qtSVPzIwqAt7ognbh6cxJJnAWHhDQZ5dlSCJxfPJgFILZD+JZZfpCVL012bnhvOHUfzhCEGXy1NIWUqtoVpYXgrKyNz9py4O7zGe01aGnXW1pJyUGdreZTVOpuFhCLDQ4m1QMEeAoQKXdPne0qjHfMSTrCOBQh+yi8w7KHe4C0FmHfj5OhptC+lEcdMjEr/XwjpUTD/uJC2K0bIp59tJSTZfpNuAVUBjMcUDlko6yBVQMkaMHxKI7hfdQyh5c8Z5AIEVHrsB9+MvZtmowwWYlpCLC62ToCw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TZUL3Eplppm51Vvf3wRkb6Rb9P1+9cpJIHUMnzRdvMo=;
+ b=JUG57x5HdiXtsGIEOEnW2wPNOUwv51Ahe1YrzikJT9iM6l1tQlcDM9PFvOdZ8pyXnV7B4I9gFcmtQvff/xsPKzRmt1Ud5tSGbaHqSTvYORb3pNSkkv7ahLg29ev5E2QDOfuBU3L3hv+3tk+QLq9E8V64tHMl7/uNaHYRIgHM4+C7rXRjiHsqmJcfdH1NK8xd7knI+BO6kebROWjG4B4+OQY0pHwkiY+vpVn1xav42+jvW/DxlG4pa1b+WLMqhpG8KKUhCWKYdGbnTgm+EPE1xEB7eMrFb75fDT562sBlI20kWEgSYLJE86HeikPUEKIwBREaMYuB3yl6MPY4/xKHpg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TZUL3Eplppm51Vvf3wRkb6Rb9P1+9cpJIHUMnzRdvMo=;
+ b=VtOZlXfQ7Dp5D9dQbb5WYhCeSNtwDHGDSFE6PReR/BYNhdktwuoc7HYmESkgRCpQG+hM6NcSomG1jTrzCu8iFSSM+BIu2d3gdOlYXezxTw7r/uFPQDjn02qWGBwfTTnZ6mkomx7J6Jb8OsTAkRFvSy+WzeM5HUpB42P+TllxD19zU96VkjbICWIbYo4w9aXb2ITKiVkEmbdORJHLnh5XSdvwCtycrQ4dSoRybGfyuuaRXVOkByfAIeFuLQgAtyXQzLCUQkrEK9o16JfOBNGwMeQVymHVxGI6/rGOdK+idUjtvlWH9YGL7W7wznlsYgInwB3YYCOw7hg2VSJFLU4RCQ==
+Received: from SAWPR12MB999267.namprd12.prod.outlook.com
+ (2603:10b6:806:55f::17) by CY5PR12MB6132.namprd12.prod.outlook.com
+ (2603:10b6:930:24::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Fri, 18 Sep
+ 2026 02:55:55 +0000
+Received: from SAWPR12MB999267.namprd12.prod.outlook.com
+ ([fe80::fe35:8a00:d9eb:40f9]) by SAWPR12MB999267.namprd12.prod.outlook.com
+ ([fe80::fe35:8a00:d9eb:40f9%4]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
+ 02:55:55 +0000
+From: Ankit Agrawal <ankita@nvidia.com>
+To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+	"kvmarm@lists.linux.dev" <kvmarm@lists.linux.dev>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+CC: Alexey Kardashevskiy <aik@amd.com>, Catalin Marinas
+	<catalin.marinas@arm.com>, Dan Williams <dan.j.williams@intel.com>, Jason
+ Gunthorpe <jgg@ziepe.ca>, Jonathan Cameron <jic23@kernel.org>, Marc Zyngier
+	<maz@kernel.org>, Samuel Ortiz <sameo@rivosinc.com>, Steven Price
+	<steven.price@arm.com>, Suzuki K Poulose <Suzuki.Poulose@arm.com>, Will
+ Deacon <will@kernel.org>, Xu Yilun <yilun.xu@linux.intel.com>
+Subject: Re: [PATCH v5 11/15] coco: host: arm64: Connect RMM pdev streams for
+ IDE devices
+Thread-Topic: [PATCH v5 11/15] coco: host: arm64: Connect RMM pdev streams for
+ IDE devices
+Thread-Index: AQHdQTBNZsWT6J6bdkaQWvWFEK2da7bTrZ40
+Date: Fri, 18 Sep 2026 02:55:55 +0000
+Message-ID:
+ <SAWPR12MB9992670293875EF547CA440A18B0872@SAWPR12MB999267.namprd12.prod.outlook.com>
+References: <20260910140509.868402-1-aneesh.kumar@kernel.org>
+ <20260910140509.868402-12-aneesh.kumar@kernel.org>
+In-Reply-To: <20260910140509.868402-12-aneesh.kumar@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SAWPR12MB999267:EE_|CY5PR12MB6132:EE_
+x-ms-office365-filtering-correlation-id: aeddfb62-d449-4c05-d3d5-08df15305bfc
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|1800799024|376014|7416014|23010399003|10067099003|4143699003|18002099003|22082099003|56012099006|11063799006|38070700021;
+x-microsoft-antispam-message-info:
+ 6n59Z9ql29wnkppqkGHsx35tq0NUMcyMhGavkCUDyZbRsPM2QJW7fX233y6iq5wpW7M671gDSODRLQEVi9v+ytgpbFyo+vcmhHLWUtAAKAIbl12X9+i46O4gzBW2izdLHKzYGy/CI5nbNDfvtvG6K2A3ehGTHwrILyychtdUAVLZ7tFG5jpWnepkBVfndygxe7Cqdd/pIjWvYZ9CfxsLEyoAIi4sLGy8iVqFLnTtRmNPUxNt9dEROVwMQmPX4ZuFRpM5qG1ok7GSiwrw4K+AP1zuKnoY+AdW6mQ/gqk+mu8ZlaTDGqhxHiV7aEJTUOJM0M7Ih66BKDymvP6T4ZTkT+QBUD/XOYjofcRUdoG52EZ/RiXgvDnGlKQ0nGfgY37WqNhAEX2Yv0ZezNGJUO1BKj98mYi4aTyP0ZXr128s8jzP57chkpPzyk2CX40EbvyAG8LwlZsa4jnM0JdQkReW8ywq13lQHhLuYkcpUXahqNLP2EqCJZwMeQOvGnz0wRe4AKIFdfP3iQ1yr1YUdKfV9Qa6FhiVeI8C1msIbIUHUafgb4tBsMA8Vi2htE+Q2MMm+JlZwqrj0fNkelo+YD9toeRjy/pZapkAqxTBCKWVZW0NcV1HfACxwZZ9lMcLG6Mv6VsvRDINajIVIDy9S/KlY5eQGXf+VeVTFxU3PCiKZmJvIQaKWS5khpQFN7Kjb5FaHJ/0+zTd/zR4TTejReRT72I/wdnJUzdn461zK+B1wrY=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SAWPR12MB999267.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(23010399003)(10067099003)(4143699003)(18002099003)(22082099003)(56012099006)(11063799006)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?/joV5VzVRLiA6BOR3vtVnPZXTB8SW/zDmsX+2GMweqXhucZnnAxrna6GQb?=
+ =?iso-8859-1?Q?yxQQ2wUrTOGM7WAQayCf/Z/dHlN1KlTxEQr1yX4s5OSnja8qo6KtzIQupv?=
+ =?iso-8859-1?Q?5v2gcKNu0HpUJ5oPGc6ls9Xd3B8OFifXce3+oY+zbh22TNsEpiRSxAvPIA?=
+ =?iso-8859-1?Q?4TMXzDhk3rg91UOYFHivwomHArMQ03PGXYKdMvAOPxEqK5C61FOyz9PSzc?=
+ =?iso-8859-1?Q?DMcGHjIBKgJ52g5/i7f3dd33OHk0PnNlktU4kLzSfsbVUoDVh3OJDCQMEp?=
+ =?iso-8859-1?Q?DzRRy486URRWomP7sUmcCWhZgGCHfzsS/mSCt3q7o2FwbH5t+reULZdhZh?=
+ =?iso-8859-1?Q?9Ll/AfnGpgN3XvB2rvKCaza7Xaw6HurACSbVr/PG7CWrsYUIBYJRws1/Pf?=
+ =?iso-8859-1?Q?+egVF0wH4mKVB5oRvNBeyBI5aKXV4GLLeBnjky6AEpZbus9UFwqSNcNvJn?=
+ =?iso-8859-1?Q?ujdj91T0GAM5UIWXrbqsEsB7EtSUeizk08PT0EO31/ZX50wHM0qA+/OaGX?=
+ =?iso-8859-1?Q?oFtOulheZOgHJ6AQmN2m20K5EEVyN6BLQqac6l42E8k2l9vmFtT64fTwNS?=
+ =?iso-8859-1?Q?8t/dzysdATLL3+Av2PrVzAXasPo4OvIZz74u+A3qaa5tnxFh9phFtdzoNe?=
+ =?iso-8859-1?Q?ZXrNN47ewQiUSJ8AkT/9zjURY9YG8VZ+65tGUDCE0lSvqjix62d3Lxu0YS?=
+ =?iso-8859-1?Q?C96yJfXNmmyk9SrJHv97mAPqXDqXYifL/SN3XVTGnMZ3Z8v9NLpnPj5/1v?=
+ =?iso-8859-1?Q?SBqz/8jndnezLEPmcPU7faz1KVNKF1kAu8QVk0otQewdLy9kWyCcmFu4ta?=
+ =?iso-8859-1?Q?W5pBEhHA1WZo0ib4MxWLGzGvVSJcJlP/5GBzK2kJSC/KBPlMWGIN3rnw5B?=
+ =?iso-8859-1?Q?e1cSkqdSG3IGU+liEKFe6V73dOXNNUN7uZtSFue69lkmHGmuzTYR4QhlPe?=
+ =?iso-8859-1?Q?9W5oV+Txu+E3u+t3+t4Rb3pTk2rPhxZuK8C5Hl0W2v6qZBMF78nv/mIVF5?=
+ =?iso-8859-1?Q?rPkmCt6OzMK1vl4txHb6ONcgF/NIZ3quOECAFO0UYk7Lya8IpxNzwE8hDU?=
+ =?iso-8859-1?Q?V9Hk0wxy8tu4h1LWYxrQDtXu0SPvMSncYkhfiiUkZ5XeqvIN2NpcAny+XW?=
+ =?iso-8859-1?Q?4tSQIrfrB/GAZM/xJ7OXsGzH6I68498FcQAcAE7BS2GjtAivKNOg/hUn5D?=
+ =?iso-8859-1?Q?QOT3Rx7hWzcXthmOWcfCfHX7UpVRBf/XPDQLVNj7NZnm8pf9v+We9IfU5S?=
+ =?iso-8859-1?Q?S4LPH2AC51SUTQs3UrKsbuKJ+TE/tLIr08TjJuxZMIv99UTWZUa17pRDgQ?=
+ =?iso-8859-1?Q?sIVftpjWKjKGKDp4KCHCzLI/8eX8ufxqxen7Po0jxyCMhWTulDxhqpaCQu?=
+ =?iso-8859-1?Q?8mhv1tzBJlf+YmzaGljPmRV7+F2+PVyYMS3NMizezFQbpicrXVnu2crxtO?=
+ =?iso-8859-1?Q?lR60zvIJnTcEK1QjW+15se/JihrfVklCxIRCdLIXm+jAJj59DqIypsQ9O6?=
+ =?iso-8859-1?Q?dqsVOp0xhE5WdyIuB16tjG8pqKc3mT1QhGA9b7OUb1QtxxPqfiZG/uTOOX?=
+ =?iso-8859-1?Q?6QZNhKrC/Wf+wQzpeQMBUyuJPA9dDoIQ/gKA+8V7MJBfDBYV5vU4ddTRIi?=
+ =?iso-8859-1?Q?F4o4lccEg2v6Oyqd5NLi/sTP68X01ZyLrFJgqDnAxhLeXXJ6/W3OXJc9Dc?=
+ =?iso-8859-1?Q?gJ0KcTlz1HUePhhKfevn6wKoiQTZtsSsLzaIm98zsnZ7F9v8PYVo7Qov/b?=
+ =?iso-8859-1?Q?8G1MU2buDjoEu6LAOSJgjWe4laVtXOckk+IvcwqgWg5oBK?=
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SAWPR12MB999267.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: aeddfb62-d449-4c05-d3d5-08df15305bfc
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Sep 2026 02:55:55.5443
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 2sEJzabHGbQMZrRylSCkfcUeqRmS0uPOvHVKGyxqTqj+FjLMAgaqHteXjvgjnr8O+s4r91zLqpm2JPai9LHjrg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6132
 
-On Fri, 2026-09-11 at 13:31 -0500, Haris Okanovic wrote:
-> irq_seq_show() must be idempotent since it may be called multiple times
-> to render the same record, e.g. when seq_file's buffer is exceeded. It
-> emits the CPU header behind the one-shot print_header flag, which the
-> first pass clears, so the header is lost with the discarded buffer.
->=20
-> This can be seen on large systems, such as 8g.48xl (192 CPUs) and
-> 8i.96xl (384 CPUs) AWS instance types:
->=20
-> =C2=A0 $ head -1 /proc/interrupts
-> =C2=A0=C2=A0=C2=A0=C2=A0 9:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0 ...=C2=
-=A0 0=C2=A0 GICv3=C2=A0 25 Level=C2=A0 vgic
->=20
-> Replace print_header with the position of the first record and include
-> the header whenever that record is emitted.
->=20
-> Fixes: 171cc0d9eed1 ("genirq/proc: Speed up /proc/interrupts iteration")
-> Signed-off-by: Haris Okanovic <harisokn@amazon.com>
-> ---
-> =C2=A0kernel/irq/proc.c | 24 +++++++++++++++++-------
-> =C2=A01 file changed, 17 insertions(+), 7 deletions(-)
->=20
-> diff --git a/kernel/irq/proc.c b/kernel/irq/proc.c
-> index 1b835725f7b1c..0c0df16de5816 100644
-> --- a/kernel/irq/proc.c
-> +++ b/kernel/irq/proc.c
-> @@ -462,7 +462,7 @@ int __weak arch_show_interrupts(struct seq_file *p, i=
-nt prec)
-> =C2=A0static DEFINE_RAW_SPINLOCK(irq_proc_constraints_lock);
-> =C2=A0
-> =C2=A0static struct irq_proc_constraints {
-> -	bool		print_header;
-> +	loff_t		first_pos;
-> =C2=A0	unsigned int	num_prec;
-> =C2=A0	unsigned int	chip_width;
-> =C2=A0} irq_proc_constraints __read_mostly =3D {
-> @@ -543,14 +543,13 @@ static int irq_seq_show(struct seq_file *p, void *v=
-)
-> =C2=A0	struct irqaction *action;
-> =C2=A0
-> =C2=A0	/* Print header for the first interrupt? */
-> -	if (constr->print_header) {
-> +	if (p->index =3D=3D constr->first_pos) {
-> =C2=A0		unsigned int cpu;
-> =C2=A0
-> =C2=A0		seq_printf(p, "%*s", constr->num_prec + 8, "");
-> =C2=A0		for_each_online_cpu(cpu)
-> =C2=A0			seq_printf(p, "CPU%-8d", cpu);
-> =C2=A0		seq_putc(p, '\n');
-> -		constr->print_header =3D false;
-> =C2=A0	}
-> =C2=A0
-> =C2=A0	if (desc =3D=3D ARCH_PROC_IRQDESC)
-> @@ -635,14 +634,25 @@ static void *irq_seq_next_desc(loff_t *pos)
-> =C2=A0
-> =C2=A0static void *irq_seq_start(struct seq_file *f, loff_t *pos)
-> =C2=A0{
-> -	if (!*pos) {
-> -		struct irq_proc_constraints *constr =3D f->private;
-> +	struct irq_proc_constraints *constr =3D f->private;
-> +	bool first =3D !*pos;
-> +	void *ret;
-> =C2=A0
-> +	if (first) {
-> =C2=A0		constr->num_prec =3D READ_ONCE(irq_proc_constraints.num_prec);
-> =C2=A0		constr->chip_width =3D READ_ONCE(irq_proc_constraints.chip_width)=
-;
-> -		constr->print_header =3D true;
-> =C2=A0	}
-> -	return irq_seq_next_desc(pos);
-> +
-> +	ret =3D irq_seq_next_desc(pos);
-> +
-> +	/*
-> +	 * Record position of the first output record so that irq_seq_show()
-> +	 * knows where to write the header.
-> +	 */
-> +	if (first)
-> +		constr->first_pos =3D *pos;
-> +
-> +	return ret;
-> =C2=A0}
-> =C2=A0
-> =C2=A0static void *irq_seq_next(struct seq_file *f, void *v, loff_t *pos)
->=20
-> ---
-> base-commit: 08df884136f1c1197bab2a27814404fd329d9aac
-> change-id: 20260911-dev-harisokn-proc-interrupts-fix-b4-7498f7e18db5
-
-Since I don't have access to a machine with so many CPUs, I tested
-locally in a regular VM and simulated the large number of CPUs by
-adding artificial buffer writes to both the header part and the IRQ
-counter part of irq_seq_show(). I could reproduce the problem and
-validate the fix. Also, semantically the fix looks good to me.
-Thanks for catching this and for the patch!
-
-Reviewed-by: Radu Rendec <radu@rendec.net>
+Hi Aneesh=0A=
+=0A=
+As I read it, the address ranges handed to RMM in this patch are captured=
+=0A=
+once and at the point cca_tsm_connect() runs. That becomes the address=0A=
+range RMM has on record for the pdev/stream going forward.=0A=
+=0A=
+So a couple of questions on that..=0A=
+1.  Is connect -> {driver probe / vfio-pci bind } the intended=0A=
+     sequence or is that ordering left entirely to userspace/VMM policy?=0A=
+2. Are the resources/BARs captured at connect time assumed to be=0A=
+    fixed for the lifetime of the PDEV? If a PCI rescan (or resource=0A=
+    reassignment such as pci=3Drealloc, a hotplug re-enumeration=0A=
+    happens after connect, is that expected to be rejected/blocked?=0A=
+=0A=
+Thanks=0A=
