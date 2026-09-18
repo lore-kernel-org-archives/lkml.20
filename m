@@ -1,74 +1,82 @@
 Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A26AF57C9F
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:41:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A67D4973A9
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:41:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789720865; cv=none; b=hCmTSO5X7c123J8lqTKfKn0tbRRRxpXi+pY6dw3nYDZDlq2+iWykdfLr15O9tAELr4FzE3zGHRGFF40JorJhpM8MA5LBfFygMcpaxJM4t7vzTmCJ4efhHxrOQ0bK+dXLTUaJY4kmdwSSu8lBZBvAWbkXyzCmHtEaSE3Vo9wIfMQ=
+	t=1789720878; cv=none; b=TJc3h6ZM9hrfzBSr3FhyaqwQNCWzBfC5i9+RXHWfRZOa8pdhYDaVQhLfO5G22bJ6MZCbUI/fuFqUZ2bdtcXFLs2Q11N7VAuG8EaA+WZ3U4MmpdD/VQVi1OwjcgBrtpdPB8hTjc7nlB0n8o/iVYiM8ZPK6DDWxC+AC4DvTfDB/RU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789720865; c=relaxed/simple;
-	bh=jJn91aodMj/ywR9F01grlpxLPS/rpmD2XwxYG0rDeLQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Cmu+2cwvM+IS/LaxoFFOZsaac2sDMgKqsBC/jbM3UeSgdDTca2qLAxoiw9a3RlYV/cKpoUzHLP+isSqTndpTMDMlY0cBUE0OOQ7qQKsen/4DgGpwtk6TCvkOuo3RYKHFnsi72rPgIdYO4Uu1XRkqJdRDcICiV5RNmI6+esm2tDQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kfrzn4e0; arc=none smtp.client-ip=74.125.227.141
+	s=arc-20240116; t=1789720878; c=relaxed/simple;
+	bh=wrkRKuHru9tDnAksOKICjvX2eXVZPnIV0pkf0wg10Ao=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=D0285P8YLI+Hbo1nAvpZOCrH4i+5tKmqljH3+hL3vLJuIhBvAKQ/vHs/r9CdRSIe7nnw/uzuTdurJtUYWp1pvTxPhbTje7TTe58Eby73RtWLXvgvR2MY3ZGJaQY71npD8cE13MiosLkoiNIG4qCKjDyIWIS67pgxSTQz+MYT41g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hg/jOWHP; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kfrzn4e0"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39dbdfaef3cso441227a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:41:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hg/jOWHP"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccc09d65so479445a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 01:41:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789720863; x=1790325663; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wsXVXVuJdv5wBUtq2F3KswaK2ghGLUk+j2BrYbmK/Jk=;
-        b=kfrzn4e06o9bj2BbFFWT3BqtoukuhnXY8mo6uO4AbgBZ0MKj8TRkM+RRs4KUoUn4+j
-         X4FyXCKHpXFp7UCuIPmDVSioK9Q0WI/81ehknPSdjG5ticPrItPmJn5rXPMOAoOMh10T
-         PNO6FldisybWW7VKb3PHd5CAktyGwqJs7tj8JYkRppQgrYsBrkRIQyM4uJqrkxnoMZIo
-         aA/T0fdcFnEcIxekz3JNgq6lVL/1OIzAaPS1JRGu3aiu9lQSD3I1FAtLkbiOmjG2jWAS
-         9urckif3GsHiRmzxlIT53k3PcVg3pIAu+tlzJVxLUrZFbXjqjuUCXNVoimTIbE8ekQmz
-         g3yw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789720863; x=1790325663;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789720876; x=1790325676; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=wsXVXVuJdv5wBUtq2F3KswaK2ghGLUk+j2BrYbmK/Jk=;
-        b=FrieqB/hg8wqbWg0qUo2ypvkHl5u9yEdMxDeNFoypyEwqU7BLP+1VskvCHHPdHbUOw
-         wI3O07IDxD4WeKusF5fVEUiS2zweDeg/NGTmhW5I0GbU6AgXFmhOqyr5AvHYvDzsLUFj
-         29YSemmUfHAR0C9kmPoDdMSJZoRV98r+02ZZRTsKvy3rhP7npY/wMKRY3ewAUHRDkfN8
-         pkmp44dY4Azlnvo7JK6uIpSi3CLJaJLw7OOjD8LKuTgmyHX7dIq8aBM090ZWCsk5PqRk
-         gc3lDoAeCpaOM28mKtS5VonF8mav2SY675KdF/d6O+OVcaKAkeLHc+D0Py+yDSgixS1A
-         ckrQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwGGlHjvWqjowbAXdFOzajSJB9ccjv6SMwFrWbq7grbys8e+CSR016kcMo6sDLyhkstRxu2BWRFFI2FYrs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nz434E3eIOCLIM1CTPLaiginavyuuY71VTeNL5OAZUv8JQuaq7
-	A2j9QlmEYf8E6NzCKjHRC5Ja+aMwrcg1rnTrXONoL5ysYh8W61Q7BZtH
-X-Gm-Gg: AYBFou2KbyJdY0pqet/66odhO/u8Rt1L0vtWLuOxEhpQUFblB2Ik++vxsWGhUDUnjny
-	+nWmYaz0ZuzU7Q6t1V0Seh40P6uUT3PlGh5WYsd2d2pCh3HeB27IiUaLB70C17/O6vqb2+AJZz6
-	j3mFzxOwjz/tLW1MzBP1CVJtzMG6V6bp9YdXAzbZ6SjCvLIuRyjj0gj+7YA/c8T05BarbpQCDEd
-	3utJUu8s/Zi2tY11VATWHNx/ZyNS7GwQyU3H7oITl0X4xRcBqb4Cqn2TV4Mb0MVA2Z4PdlIxpyl
-	9W7P/TNxGfYBmoB27fKEYjLdwXIJp/9A5Si5ysC3lIGaujTfI1Q802lRZ/yUZ0oeoxeeWlqaPO1
-	QJz1Z+jAk+ej37eXQabtGH3RjPsPvaYW8UAh+lLYHqDicAqsfru/to7rbwSsrAfjmmupd+rxZWl
-	3Mopq+jeyBN6BcmAdI1qqXpAKyVzF0rQ58Dxoi2UC+hTjxkrRugwX/nuPoQEBMJojThI7yGujmi
-	FqVxO16buqE75SZD8Lyqw2WMZQozTcO
-X-Received: by 2002:a17:90b:518c:b0:39e:3554:4d0c with SMTP id 98e67ed59e1d1-39e54d38b01mr8032969a91.2.1789720862877;
-        Fri, 18 Sep 2026 01:41:02 -0700 (PDT)
-Received: from thangnn-Dell.vingroup.local ([202.60.105.126])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e5a3e3fd4sm2125644a91.6.2026.09.18.01.41.00
+        bh=GxDmGUi2C59ZkDrEBuMyQkkkrDWgX+iuYFMfWFNId3U=;
+        b=hg/jOWHPlkv4fYETiJx+uSqvxJOYvUBk8L3ZNm0Qm5jVa3Az7SxZnV018vVEMxB9vk
+         qmY6gQqU6WWpy/qd9DpKsIAUBhSwkNh7vhDGrYwnbLrgePitxgPFib29lbHjt3eULWV1
+         +LQHOatYT1wcTLM+6koOOlssHLx8+bqr5y/Zy0KF5jhg7KuI9m15V+01svN/9YNIyw83
+         +efVVmQZsXGo53yXtSjzta4kt7Sjz9tis6kGfcechcKLgofgxOsvjC9ygIHpnfk3PCKv
+         lwZekC4mEpq6Wc1uTqMmhzG+NDBX9kDuGPbJSxvJsVzzVSh1K02BgWyhYNnq2LElZEfw
+         SZ0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789720876; x=1790325676;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GxDmGUi2C59ZkDrEBuMyQkkkrDWgX+iuYFMfWFNId3U=;
+        b=oqxrAudSV6j4CgNH3dK4/aMHgB1A7wLiOBG8THEVcI6aN68pksmPzOmli32tWjdZ/T
+         7Thhn7dd0lpvenLRbUfJELJXfaQSPli7IX6dTTup8bIFBRLy8A7KabMCn3Nw8Il5xc7T
+         C4maNq6qnuqpYA52Pu0BmJ+xZhQTikAwzWwrjZOX1baLVnQn9p4rQd90C72n2stbJvW8
+         aok4KNh3w6+xlrVbDLqQKdAhkdiZ5obOeU6uI424agrVHOdYrF5iAb2tOuuvepiGbubi
+         AJ2YDLI36P+nqAgneasT0fpZmYPaWVPbcM5pwFztNBz8byXmf7ju+MNwA3GqViHKyqjj
+         LKnQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxgx66/jAJdPC0YyseIxRwjfrBKZUoXggx0LYLoavcq3UxdVNSjbUvwerpq/ILTrhXhJum9PsruZLOVFPE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nflhwAKHVGFzBE3d77tpqd02326XF5BVe6mYYGll549BSZ9mJK
+	/AXdePRIhCuRFRew/X0CvoxUjRi8KkzuUM7+TqfFsr5WdXvHp0C+ubw6
+X-Gm-Gg: AYBFou30zXuKKdyf6lXfCYYv3fvzQfd/uvzF2Ogv10sOYJurmBukYznZgUmgXhR2wxl
+	BE0yOlA62/NxN16ufJk+XrI/6W6evr1iFMmPZhjpEElqosl9t94+Mjk4vc1spWd02bqtUFPFM8/
+	7X3yD/8nDmjU58ofrIGLXQE+p9uFzGvI/inh2JOsZaRuiAFLWJU2sCsGrRxzpjaQJFtUnGfIZTe
+	4XyDkYe2lSXNPOnnksVlMjSDG6QOG9rq+Zt5khxzL9P5uicpUsVg6/hr8yEcGMsZ0dVtYujkOXp
+	7tOhiHdy6XCGbXm0EfJbLZ6FW6chqxqMTwZD1PNC4kmFRNRCPhDQiNU6DKycKuSkhgUTo4ESNTb
+	JnT8iQc3QJLRkbJ0w0ZEcrHQyIV3FJAQxcm83JQeGOUou3q1iaOttM+GC9Mbo77/piDs5n6KNP1
+	RR9jMm5TL9w4KGVcY+obLQvaE7Th31xBuWg3GWqbMZ3Abd73I32dOdqREKKqlyIHqyICK/gTgjw
+	3aZ0+JD1bTuk/wx7hpSl6pfYiKD+1vbsh2sta3gDgws9aUtihT3r9CJdP5ngo2a3//BeIF+Oa+Y
+	ug==
+X-Received: by 2002:a17:90b:574e:b0:39e:1fb6:9659 with SMTP id 98e67ed59e1d1-39e54f0772fmr4397778a91.22.1789720875692;
+        Fri, 18 Sep 2026 01:41:15 -0700 (PDT)
+Received: from cs00-MS-7C09.. (2001-b400-e35f-d966-bfea-f724-5ada-7374.emome-ip6.hinet.net. [2001:b400:e35f:d966:bfea:f724:5ada:7374])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e5a50d332sm2093716a91.9.2026.09.18.01.41.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 01:41:02 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	Yangtao Li <frank.li@vivo.com>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+f8ce6c197125ab9d72ce@syzkaller.appspotmail.com,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Subject: [PATCH v6] hfsplus: validate b-tree fork extents at mount and inode read
-Date: Fri, 18 Sep 2026 15:39:45 +0700
-Message-ID: <20260918083945.918170-1-ngocthang2710.1999@gmail.com>
+        Fri, 18 Sep 2026 01:41:15 -0700 (PDT)
+From: hsyemail2@gmail.com
+X-Google-Original-From: syhuang3@nuvoton.com
+To: Guenter Roeck <linux@roeck-us.net>,
+	linux-hwmon@vger.kernel.org
+Cc: Sheng-Yuan Huang <syhuang3@nuvoton.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jean Delvare <jdelvare@suse.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 1/2] dt-bindings: hwmon: lm75: Add Nuvoton NCT7715
+Date: Fri, 18 Sep 2026 16:40:40 +0800
+Message-ID: <20260918084042.19541-2-syhuang3@nuvoton.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260918084042.19541-1-syhuang3@nuvoton.com>
+References: <20260918084042.19541-1-syhuang3@nuvoton.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,152 +85,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Validate fork extents during inode reading and mount time to catch
-on-disk corruptions early, returning appropriate errors and marking
-the tree as corrupted.
+From: Sheng-Yuan Huang <syhuang3@nuvoton.com>
 
-v6:
- - Move fork validation logic into inode read fork function.
- - Refactor extent validation helpers, use volume_blocks, count == 0,
-   and introduce HFSPLUS_EXTENT_LAST_IDX named constant.
- - Return error from hfsplus_inode_read_fork() to allow hfsplus_iget()
-   to catch on-disk corruption and propagate error correctly.
+Add the Nuvoton NCT7715 compatible to the LM75 hwmon binding.
 
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+The NCT7715 supports an ALERT output, so permit the optional
+interrupts property for this compatible.
+
+Signed-off-by: Sheng-Yuan Huang <syhuang3@nuvoton.com>
 ---
- fs/hfsplus/extents.c | 41 ++++++++++++++++++++++++++++
- fs/hfsplus/inode.c   | 65 ++++++++++++++++++++++++++------------------
- 2 files changed, 79 insertions(+), 27 deletions(-)
+v4:
+- Split the devicetree binding changes into a separate patch.
+- Allow interrupts for the Nuvoton NCT7715 compatible.  
 
-diff --git a/fs/hfsplus/extents.c b/fs/hfsplus/extents.c
-index eb7c11524d18..737cf113f215 100644
---- a/fs/hfsplus/extents.c
-+++ b/fs/hfsplus/extents.c
-@@ -16,6 +16,47 @@
- #include "hfsplus_fs.h"
- #include "hfsplus_raw.h"
- 
-+/* Index of the last extent in the fork */
-+#define HFSPLUS_EXTENT_LAST_IDX 7
-+
-+static inline bool is_extents_btree(struct inode *inode)
-+{
-+    return inode->i_ino == HFSPLUS_EXT_CNID;
-+}
-+
-+static bool hfsplus_extent_valid(struct hfsplus_extent *ext, u32 volume_blocks)
-+{
-+    u32 start = be32_to_cpu(ext->start_block);
-+    u32 count = be32_to_cpu(ext->block_count);
-+
-+    if (count == 0)
-+        return start == 0;
-+
-+    return start + count <= volume_blocks;
-+}
-+
-+/*
-+ * Returns 0 if fork extents are consistent, -EUCLEAN if extents
-+ * past the first are corrupt, or -EIO if the first extent is corrupt.
-+ */
-+int hfsplus_check_fork(struct super_block *sb, struct hfsplus_extent *ext, u32 volume_blocks)
-+{
-+    bool non_zero_seen = false;
-+    int i;
-+
-+    for (i = 0; i <= HFSPLUS_EXTENT_LAST_IDX; i++, ext++) {
-+        u32 count = be32_to_cpu(ext->block_count);
-+
-+        if (!hfsplus_extent_valid(ext, volume_blocks) || (non_zero_seen && count == 0))
-+            return i ? -EUCLEAN : -EIO;
-+
-+        if (count > 0)
-+            non_zero_seen = true;
-+    }
-+
-+    return 0;
-+}
-+
- /* Compare two extents keys, returns 0 on same, pos/neg for difference */
- int hfsplus_ext_cmp_key(const hfsplus_btree_key *k1,
- 			const hfsplus_btree_key *k2)
-diff --git a/fs/hfsplus/inode.c b/fs/hfsplus/inode.c
-index 2ce6de574fa6..57fedd0e80fb 100644
---- a/fs/hfsplus/inode.c
-+++ b/fs/hfsplus/inode.c
-@@ -559,34 +559,45 @@ void hfsplus_delete_inode(struct inode *inode)
- 	hfsplus_mark_mdb_dirty(sb);
- }
- 
--void hfsplus_inode_read_fork(struct inode *inode, struct hfsplus_fork_raw *fork)
-+int hfsplus_inode_read_fork(struct inode *inode, struct hfsplus_fork_raw *fork)
- {
--	struct super_block *sb = inode->i_sb;
--	struct hfsplus_sb_info *sbi = HFSPLUS_SB(sb);
--	struct hfsplus_inode_info *hip = HFSPLUS_I(inode);
--	u32 count;
--	int i;
--
--	memcpy(&hip->first_extents, &fork->extents, sizeof(hfsplus_extent_rec));
--	for (count = 0, i = 0; i < 8; i++)
--		count += be32_to_cpu(fork->extents[i].block_count);
--	hip->first_blocks = count;
--	memset(hip->cached_extents, 0, sizeof(hfsplus_extent_rec));
--	hip->cached_start = 0;
--	hip->cached_blocks = 0;
--
--	hip->alloc_blocks = be32_to_cpu(fork->total_blocks);
--	hip->phys_size = inode->i_size = be64_to_cpu(fork->total_size);
--	hip->fs_blocks =
--		(inode->i_size + sb->s_blocksize - 1) >> sb->s_blocksize_bits;
--	inode_set_bytes(inode, hip->fs_blocks << sb->s_blocksize_bits);
--	hip->clump_blocks =
--		be32_to_cpu(fork->clump_size) >> sbi->alloc_blksz_shift;
--	if (!hip->clump_blocks) {
--		hip->clump_blocks = HFSPLUS_IS_RSRC(inode) ?
--			sbi->rsrc_clump_blocks :
--			sbi->data_clump_blocks;
--	}
-+    struct super_block *sb = inode->i_sb;
-+    struct hfsplus_sb_info *sbi = HFSPLUS_SB(sb);
-+    struct hfsplus_inode_info *hip = HFSPLUS_I(inode);
-+    u32 count;
-+    int i, ret;
-+
-+    /* Validate fork extents to catch on-disk corruption early */
-+    ret = hfsplus_check_fork(sb, fork->extents, sbi->total_blocks);
-+    if (ret) {
-+        pr_err("hfsplus: fork check failed for inode %lu (err=%d)\n", inode->i_ino, ret);
-+        set_bit(HFSPLUS_I_CORRUPT_TREE, &hip->flags);
-+        sb->s_flags |= SB_RDONLY;
-+        return ret; /* Return error directly to the caller */
-+    }
-+
-+    memcpy(&hip->first_extents, &fork->extents, sizeof(hfsplus_extent_rec));
-+    for (count = 0, i = 0; i <= HFSPLUS_EXTENT_LAST_IDX; i++)
-+        count += be32_to_cpu(fork->extents[i].block_count);
-+    hip->first_blocks = count;
-+    memset(hip->cached_extents, 0, sizeof(hfsplus_extent_rec));
-+    hip->cached_start = 0;
-+    hip->cached_blocks = 0;
-+
-+    hip->alloc_blocks = be32_to_cpu(fork->total_blocks);
-+    hip->phys_size = inode->i_size = be64_to_cpu(fork->total_size);
-+    hip->fs_blocks =
-+        (inode->i_size + sb->s_blocksize - 1) >> sb->s_blocksize_bits;
-+    inode_set_bytes(inode, hip->fs_blocks << sb->s_blocksize_bits);
-+    hip->clump_blocks =
-+        be32_to_cpu(fork->clump_size) >> sbi->alloc_blksz_shift;
-+    if (!hip->clump_blocks) {
-+        hip->clump_blocks = HFSPLUS_IS_RSRC(inode) ?
-+            sbi->rsrc_clump_blocks :
-+            sbi->data_clump_blocks;
-+    }
-+
-+    return 0;
- }
- 
- void hfsplus_inode_write_fork(struct inode *inode,
+ Documentation/devicetree/bindings/hwmon/lm75.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/hwmon/lm75.yaml b/Documentation/devicetree/bindings/hwmon/lm75.yaml
+index b48bf3fd721f..d55b8b7e49c5 100644
+--- a/Documentation/devicetree/bindings/hwmon/lm75.yaml
++++ b/Documentation/devicetree/bindings/hwmon/lm75.yaml
+@@ -31,6 +31,7 @@ properties:
+       - nxp,p3t1750
+       - nxp,p3t1755
+       - nxp,pct2075
++      - nuvoton,nct7715
+       - st,stds75
+       - st,stlm75
+       - microchip,tcn75
+@@ -78,6 +79,7 @@ allOf:
+                 - ti,tmp101
+                 - ti,tmp112
+                 - ti,tmp75
++                - nuvoton,nct7715
+     then:
+       properties:
+         interrupts: false
 -- 
 2.43.0
 
