@@ -1,144 +1,135 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1CAC4D4866
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:06:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D5444D9575;
+	Fri, 18 Sep 2026 10:06:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.132.180.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789726015; cv=none; b=D/a1cxpgOZWrxbVnqlrByFX1jRF9zXB0fhCIDOQ2+iptj5BYv32DFUWjZf2d+a6ThpL6oNTe2gWLD8VbgYVtRVwJxjJWTCVn3ALZWpwqnLizlPG2/8fYnETKPAviVscFqAGfL52cPUeMJc/RYgxa0ypqBe0XUapS091XqNgY4KA=
+	t=1789726014; cv=none; b=oJ+5koEMzOH/psv9bmMJbHm6bmnhBWGijBpozolha87Xv7ZyPikeoPFMT1xDJ0BetXYB2H38+gFFuRiAaGCGuSB+j6G9dhvXbCAac+Vjj7YbcW4A1UpbHc1ZjDE4e3UrfvxBcw7/u2Ml2GPufjYb8NQWJKKUfUzDH6kgV/yax9I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789726015; c=relaxed/simple;
-	bh=cBNeZA0r7R9zvsiqu8Idtil55GSDTZMVR4PPevLVqOI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=XXR9lpfYeVuqif7zxnPBbV03ZmYd8lTyXLEaD1JuOTrVhNrlpPshMojYwAD364X2OJGVGdO9cpNhm3jQqbbTajo7VFYMSJxNtISHYWzqFPIN8MXb74Tk0xE3ZKmxKHM0RvSTCn718OjGuhEmZnFF5UuyKpptFaZkVdUKCdPHaMs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mails.ucas.ac.cn; spf=pass smtp.mailfrom=mails.ucas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mails.ucas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.ucas.ac.cn
-Received: from fric.. (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAB3eTcaDa1quWsICA--.10974S2;
-	Fri, 18 Sep 2026 18:06:18 +0800 (CST)
-From: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
-To: gregkh@linuxfoundation.org
-Cc: akpm@linux-foundation.org,
-	kees@kernel.org,
-	linux-kernel@vger.kernel.org,
-	petr.pavlu@suse.com,
-	samitolvanen@google.com,
-	shyamsaini@linux.microsoft.com,
-	xujiakai24@mails.ucas.ac.cn
-Subject: Re: [PATCH] params: serialize lookup_or_create_module_kobject()
-Date: Fri, 18 Sep 2026 10:06:18 +0000
-Message-Id: <20260918100618.3123807-1-xujiakai24@mails.ucas.ac.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <2026091832-thesis-implicate-ba51@gregkh>
-References: <2026091832-thesis-implicate-ba51@gregkh>
+	s=arc-20240116; t=1789726014; c=relaxed/simple;
+	bh=1N1UiEuWEXFSvrW9p/wemXb0rx97+jCEHhcSTl2f/hI=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=nlFbDHJMyPX5ZTVzqzn31F8Ky7dU+tg3HZJnclR6EwrKbrWLfMkUUHeBmFN/i2m0FbkQPb8KeGoe8No8wKJ5k6ve6+McT8blQPwE2KWVASHMRc5m6q+rh1nYJiuqry/wlHahvJMl4DcXwFrDR6OrLhguJLTdEdt7fXxuZZQ2IUg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=Uc9geHOW; arc=none smtp.client-ip=185.132.180.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="Uc9geHOW"
+Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
+	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I9dSFH1687136;
+	Fri, 18 Sep 2026 11:06:28 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=dk201812; bh=nyyGsfICKl6UDLxHVBbtG+s
+	/iFbvRwCynaXlMznokAU=; b=Uc9geHOWuZF2fyTJHYILnEG0/DYdBbZsgFKl1uo
+	Xyeq4KkAvqkrNxz8RkwAOTB7q2Bqf+gCHtWfP5qvt4rxVxVgeWcE8byPZP/woVWy
+	nBa/z9JEem5Bq0JScGyb/MAgkP8KZWzUqQXoJZGSoAo6ApgbqwYfSwqlXhCgKGuI
+	jWvUmwCpqyU8eTHqJ6SSDtqESWv2rcVarKs1W+JOyKicdhLz6VdWfmEwgRqbdIVm
+	bKZPy4Du2Jfa8YAqmnfEZYpIe3jGQPTm4wFyMW+lU7XffYlLavPs4Z/ghkETP7Wr
+	uS9FVYMCUnZ1GKBAlRVKD+0S6x1/wtlJaPOFoEV1cCw32Cg==
+Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4gmxtung34-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 18 Sep 2026 11:06:28 +0100 (BST)
+Received: from [127.0.1.1] (172.25.128.225) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 18 Sep
+ 2026 11:06:24 +0100
+From: Brajesh Gupta <brajesh.gupta@imgtec.com>
+Subject: [PATCH v2 0/2] Fixes for map() path
+Date: Fri, 18 Sep 2026 15:35:38 +0530
+Message-ID: <20260918-mmu_fix-v2-0-f7c004fbe203@imgtec.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAB3eTcaDa1quWsICA--.10974S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxGrW5XF17Jw1fKw1xGr1DAwb_yoW5ZF1kpr
-	WfX34ak3yDJrW7Can3ZF1kXr9xG3yvqrsFgF9Iqr1fAF45uwnavF15Kr1Y9F1DCry8Jw4I
-	qF1jqrn0kFWUtFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvE14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
-	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVW8Jr0_Cr
-	1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I
-	648v4I1lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7
-	v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF
-	1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIx
-	AIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI
-	42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWI
-	evJa73UjIFyTuYvjfUOhL0UUUUU
-X-CM-SenderInfo: 50xmxthndljko6pdxz3voxutnvoduhdfq/
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAPIMrWoC/2WMQQ7CIBAAv9LsWcwWUkw9+Y+mMRSXdg8UA5VoG
+ v4u9upxJpPZIVFkSnBtdoiUOXFYK8hTA3Yx60yCH5VBotTYoxTev+6O30L1UhlrNDqNUOtnpKq
+ P0zBWXjhtIX6OcW5/9v+RW4HCdp2Ryk0Xa6Yb+3kje7bBw1hK+QLd3Ww0nwAAAA==
+To: Alessio Belle <alessio.belle@imgtec.com>,
+        Luigi Santivetti
+	<luigi.santivetti@imgtec.com>,
+        Frank Binns <frank.binns@imgtec.com>,
+        Alexandru Dadu <alexandru.dadu@imgtec.com>,
+        Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+        <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>,
+        Brajesh Gupta
+	<brajesh.gupta@imgtec.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1119;
+ i=brajesh.gupta@imgtec.com; h=from:subject:message-id;
+ bh=1N1UiEuWEXFSvrW9p/wemXb0rx97+jCEHhcSTl2f/hI=;
+ b=owEBbQKS/ZANAwAKAdAmd1l+AvFwAcsmYgBqrQ0ebJSXEVWJVwO6aR/vdouqbqZp3nl5WR9Yj
+ bkNLRQeFhaJAjMEAAEKAB0WIQSQIkZAwD1cxcAsz3LQJndZfgLxcAUCaq0NHgAKCRDQJndZfgLx
+ cHuAD/9FwWX0Fu+NThEhsBfd2CsKqDnHfbIsyoFxudScFmxRupIZSPv+abAoZ4UixXhuYsOekCT
+ 7olu7JEfLYV6PAY9KDlojdJrMYyyGt/F5zb3+aMzbAThnGwskeRBlCYG2C7aM/Fn9Shv4F2vw7V
+ rxlakoOXYjomttavVGV01pPvMpluy+rVdKiBKkrU8elb7DpnWH5qf5DhZ05t9HFFQZ3N0DtQw3s
+ ygw1/ABNiM1WVTJ4XFTXZh4Oqe8ly19Q2U3Ne3F7/l4JxrVXpsoMIjNWsrKQfqoidd2SYF4PO4w
+ GrsmjjnffJAMOff8KQJY2CDlureDINTF3OagqCMJ2DdwCY0pGEUj1EizWBnazeqPN26fIMKeEcg
+ zG9X3U2Zbyp2lhvEPEAWM+7WaEsXABU4UgQtmXqq4lkXv2OJZzAB+YhpbZUIuUFBKr+2mNWKy8k
+ a5L2Xd2lTQh5KpZ6oXUD9OpBFh3+qyew/5V3DIeGeaa4L8GkpWoT/0fV4Gknhja+x6qQkUblBH9
+ 51zxqPZA1UM1BSxqy5YgS6URrelVutXL0Bg9MzUdwq813FQ7fHo+CojI8w+pSsINllyWE1XbQJc
+ OSzHZjy1+/X/3plnFZNgV8y/Zd7aNqaHr1rV6Q3wctJcY8XdqF5Wy1lFO5sjCpzrEMY3Urky2cJ
+ 6eOZWCiE5yjSKGQ==
+X-Developer-Key: i=brajesh.gupta@imgtec.com; a=openpgp;
+ fpr=05BAA300FD5C580EFD3F8D2F073292BAD0D39671
+X-Authority-Analysis: v=2.4 cv=Se9i5fRu c=1 sm=1 tr=0 ts=6aad0d24 cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=HYrZrZQ_E1YA:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
+ a=VwQbUJbxAAAA:8 a=r_1tXGB3AAAA:8 a=BHDeEogJK7FFARuNjgwA:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-ORIG-GUID: 1aUS79igIN_EReuu2YoqF3ZR47tVKuhO
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDE0MCBTYWx0ZWRfX498bckPkHNxr
+ rlAL5absY3EhjKUT34ML0X1Z0U+Sfwvvbp9PvsLqvfH/weIYRZTvKDUF2Ooxvl5pax0hplsTMNY
+ /DqhDJc1l4HsB0Sbnk4tw7+Kr50gs03wookaKyPCTFbJMLChIMCP9ber/yVPfFtVEKeLsWcKInA
+ VzKGKXH9yQ7OCmkXsdj5mEE2i3uIMa6UvQgwhFTGfZ+80j8vqU5rLAHms2DFvAwVpN0xQJlCSE/
+ 9H9lSx1NLpmNkqSXSkEHvaSDVW4ejjQZJX6hk9Pis/38fSD3ujhmTnGeC34T6JUsO06jmaEAyYt
+ ijyQb8ufw08DpQdVK8ZUGOVQCqpQi5pks/dgKcT3olKK6dc1w315c4OmOmqVsjsofEAFr4w/CkD
+ Zz3oFGIO1xtJaJJlmUJPK9iyB0zHCzDr25iMQsZaEuIWx7AQMwHQoZYso9D6llxBah/I/xxGezl
+ z0LBvasKMdrIJrR0StQ==
+X-Proofpoint-GUID: 1aUS79igIN_EReuu2YoqF3ZR47tVKuhO
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDE0MCBTYWx0ZWRfX0V8uQR5rFFYN
+ 1i4ZefTJPnR4utcqLdS4rm65n3dBJPidhR4aHZ1nwUKYf1Pm4e9eLZHAymvoD4FECI71Vc79j8t
+ LBvIPfHu4s++ScqsueNlX8tafr/YLFw=
 
-Thanks for your review! I'll send a v2 patch~
+Two changes in map() path fix a kernel crash and a map failure.
 
-> > lookup_or_create_module_kobject() first looks up the module kobject with
-> > kset_find_obj() and, if not found, creates a new one with
-> > kobject_init_and_add().  The function is called at runtime from
-> > module_add_driver() since commit f95bbfe18512 ("drivers: base: handle
-> > module_kobject creation"), which means two concurrent driver
-> > registrations for the same built-in module name can both miss the
-> > lookup and race to create the same kobject.
-> > 
-> > The loser of the race gets -EEXIST from kobject_init_and_add() and its
-> > kobject is removed from module_kset by kobject_add_internal() before
-> > the failure is reported.  The error path then calls kobject_put(),
-> > which invokes module_kobj_release(), but that only completes
-> > ->kobj_completion and never frees the dynamically allocated
-> > module_kobject, leaking it (96 bytes) along with the object having been
-> > detached from the kset.
-> > 
-> > This is triggerable by unprivileged users, e.g. by concurrently issuing
-> > the RAW_IOCTL_INIT ioctl of the raw-gadget driver, which registers the
-> > "raw_gadget" driver on the gadget bus:
-> > 
-> >   sysfs: cannot create duplicate filename '/module/raw_gadget'
-> >   ...
-> >   Adding module 'raw_gadget' to sysfs failed (-17), the system may be
-> >   unstable.
-> >   ...
-> >   unreferenced object 0xffff8880188dacc0 (size 96):
-> >     backtrace:
-> >       lookup_or_create_module_kobject+0x47/0x100
-> >       module_add_driver+0x73/0x1b0
-> >       bus_add_driver+0x1d9/0x340
-> >       driver_register+0xde/0x170
-> > 
-> > Fix it by serializing the lookup and the creation with a mutex, so that
-> > the second caller finds the kobject created by the first one instead of
-> > racing with it.
-> > 
-> > Fixes: f95bbfe18512 ("drivers: base: handle module_kobject creation")
-> > Fixes: 7c76c813cfc4 ("kernel: globalize lookup_or_create_module_kobject()")
-> > Signed-off-by: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
-> > ---
-> >  kernel/params.c | 29 ++++++++++++++++++++++++-----
-> >  1 file changed, 24 insertions(+), 5 deletions(-)
-> 
-> Did you forget an Assisted-by: tag?
-> 
-> > diff --git a/kernel/params.c b/kernel/params.c
-> > index 8b25133fed242..78f00d3f6a165 100644
-> > --- a/kernel/params.c
-> > +++ b/kernel/params.c
-> > @@ -20,6 +20,11 @@
-> >  /* Protects all built-in parameters, modules use their own param_lock */
-> >  static DEFINE_MUTEX(param_lock);
-> >  
-> > +/* Serializes module kobject lookup and creation in
-> > + * lookup_or_create_module_kobject()
-> > + */
-> 
-> Wrong coding style :(
-> 
-> > +static DEFINE_MUTEX(mod_kobject_mutex);
-> > +
-> >  /* Use the module's mutex, or if built-in use the built-in mutex */
-> >  #ifdef CONFIG_MODULES
-> >  #define KPARAM_MUTEX(mod)	((mod) ? &(mod)->param_lock : &param_lock)
-> > @@ -754,13 +759,24 @@ lookup_or_create_module_kobject(const char *name)
-> >  	struct kobject *kobj;
-> >  	int err;
-> >  
-> > +	/*
-> > +	 * The lookup and the creation must be done atomically, otherwise
-> > +	 * concurrent callers may race to create the same kobject, and the
-> > +	 * loser of the race gets -EEXIST from kobject_init_and_add().
-> > +	 */
-> > +	mutex_lock(&mod_kobject_mutex);
-> > +
-> 
-> guard()?
-> 
-> thanks,
-> 
-> greg k-h
+Patch 0 fixes error path handling which triggers a kernel crash.
+
+Patch 1 fixes prealloc page table memory requirement for a mapping
+which led to map failure due to running out of page table space.
+
+Signed-off-by: Brajesh Gupta <brajesh.gupta@imgtec.com>
+---
+Changes in v2:
+- Update as per Alessio's feedback.
+- Fixed variable name in the description. Move the error message to a new line.
+- Link to v1: https://lore.kernel.org/r/20260902-mmu_fix-v1-0-c55a23fb7cab@imgtec.com
+
+---
+Brajesh Gupta (2):
+      drm/imagination: Propagate map failures correctly from pvr_mmu_map_sgl()
+      drm/imagination: Fix page count for page table for map() interface
+
+ drivers/gpu/drm/imagination/pvr_mmu.c | 19 ++++++++++++-------
+ drivers/gpu/drm/imagination/pvr_mmu.h |  2 +-
+ drivers/gpu/drm/imagination/pvr_vm.c  |  4 ++--
+ 3 files changed, 15 insertions(+), 10 deletions(-)
+---
+base-commit: bd4f284df04d76fd65e57141cb1e6e7a49e4c3cb
+change-id: 20260902-mmu_fix-3923aca60f60
+
+Best regards,
+-- 
+Brajesh Gupta <brajesh.gupta@imgtec.com>
 
