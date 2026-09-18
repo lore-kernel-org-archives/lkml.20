@@ -1,87 +1,40 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F5BA3CFF53
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:39:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DB903F5BE3
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:39:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.217
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789724358; cv=none; b=qKWrm6xcujsOh9hKt08gxakAzYKM4B+34gnlHhsN+Pslj8hw8joaljZflM74ug4P8kmnh8Y8G99BpYQ0CA8AGcOQt+fDfLoySowbxLF+l8cR+zoW/clrbLVCD4IHNclXeGWYA7dwOVpNMwMAAJ4YQmup1gCrdagipVWov9twhI8=
+	t=1789724367; cv=none; b=PImK128LtIzvxi19PEcauGJGL3YujoMzYdyWMV1eBwaeqsn5RwWJBqxpjMC95wec6vwG6llEnTq4jZsjhfM7B76zGC2HTJfaH1r9yhqL9hsFQo27M1jh47ThU2E6CCJikx/+WvnfL7CDQEuz4Phnel5iyhRTm5tcYsOesuKhkzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789724358; c=relaxed/simple;
-	bh=9VZyRGE5AG6+PTN1ZQZs/f/CAnfSiRJXvH/4u5hljWc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=r1cHqg6EpLaHw3HV59/k2iIe1PBIydF69Cw2JwSSpOolUsbLNMeuYEmUc92a1Z9NNtZKep8raUd4Ss/pV9H7oGYRltasi5NB/S9YnNYENJ3JNrZoZjhuqSG+CXjD4PMwvNl9OuUfkUVS38Ie7kkOZpO5AropHVJkwOmNMezlk8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QYVGprWe; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jRZwxNt1; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789724367; c=relaxed/simple;
+	bh=x30Xff6v9RoHS3rr+aR/zikdov5W8APnTFwkltti0dU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=l1Fk02Fd8sUY+j8xYWxAr7nKKCnxUK9kE6wgYduiEPV6mTcAzu620np/OwNYNX13Pv9iWObBb2F6thXnIyWZiC5f9dLAnyazJe/dJ5twCKEgJd292F8xCIhRaXAT2yVQE9P0H39ibTZ8mpuSFlKR3ZOzGhjQDrMjyrnfArLfJzw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=yxGnWENT; arc=none smtp.client-ip=113.46.200.217
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QYVGprWe";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jRZwxNt1"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I5xw9q716997
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:39:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ljbnXfK0HSxtYi88q8uk1kj233fQBjiA4iMScmH5ED8=; b=QYVGprWeihFbqW83
-	aCIbanLQI2+Qhgi6/uwAWU5Yz4AJ4UPi5hKNOdN+twvSABG8nHRI7IH9TYa1EgJE
-	Q3COLLkTvO2/1Lhl5bCxwqKNlbflhV8A1UKaAqkveV1lX2LxsOos2v+K/2ecS2Bf
-	IazAqSrIeaR7z6vcguVMzWIxJlhsGA7Pz9LSUayAEtR6X2AvGP8VtpFyQChwL2H3
-	Ssgkb5V6Ep3MT3FVCdGhIjp3YZc2gY5H652uIAD5LU/93rWorCqnwvSOk13aqWFo
-	YxSIAYeXqmmvmdzxqvyiSVQ2hxxRLSPKK9EtqQ9kVaBXGpmiA87+KlSsqh7+ppdl
-	K+E6Ew==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4grrg42gq5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:39:15 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-9392788b3f8so13040885a.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:39:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789724355; x=1790329155; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ljbnXfK0HSxtYi88q8uk1kj233fQBjiA4iMScmH5ED8=;
-        b=jRZwxNt1FrcAHwDzHQccnn2XfoGeUuir3TIGrLaQyrVvMV73PNfWtJWHytTFxHMAp1
-         y8e65BEbOJ6qXpPkavfodMKIC/rsK6HdC/BVNnPvaAgY98zv9h3MZLa+hpwSz3RX9u9c
-         UtRH8IfGe/coB5v81jFP7N42O7EMbZKQhMbWbDCpOAN+vYPlPd4K6005MycVXTPdH4VE
-         GT4A4y+bzpQou3JKiHyYdU8OCQNp2O/nxyHrKHXnfYk6udf1WKRGtZqS8i1IP7gP77os
-         XXps4ikWBuwYcHlg7btG/BDhlnz+2HSEHo3Ps7bvid9U09zjkEwiF1i0JptiIebTLmeE
-         miwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789724355; x=1790329155;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ljbnXfK0HSxtYi88q8uk1kj233fQBjiA4iMScmH5ED8=;
-        b=X7bl8lTjdSSN5SZzkq5tbbbG538stXWbCgnrCXixpVSejj6N6CQoi4xw5sTgWn2vlq
-         oOmjUfW+uu11Jy/zeQpotuqMslhS92uyYaqN74J7mwXpr1t8oGVc9/SJaYmLSW/H9jP2
-         aw5QaOTb7U5tOzfuBX9yO91hoamvcqOKC9kS5MQ0oZw1hAk5kLCg/So5Vkr2HyFdpx1V
-         pqT9GQ+iMDVWHHvHvJ3mI9uds8jPzpFEMMeknIdHqP6y7p05n1epqeQXL620Ng1Dy4XX
-         UP+ynxAeFZp7nMzCEAXv2VqqKmo8oTcbZfJUD5WAD3bn2Br88qzXeIHxj1Y5dj/Osza7
-         nCTg==
-X-Forwarded-Encrypted: i=1; AKwUvBx/3CZvZCYHt+Itb/7NlmjvAGT5AuM35u0KCC3HgI34tZ+kVyalNY6PdjEdYFxqBf2kWEhFVrKGbfBqhic=@vger.kernel.org
-X-Gm-Message-State: AFuF++lmgLmCGWSsSQVhnl8k7YAOiv6flWw8N9dsvAzzROGdPvgWMpfN
-	Y83z7E2sRx6OvTApl4oGximN7mNopRSkSJawiEwZkX5NO/vV86JwuFUJxahOTVAy9dnW7bkutQp
-	lcRLPEuqv7im3U8iFmSSkb6TgTaiUwgrcIT+66IYcIwr4O1t+jPFV8w1rY27X7eH0MXw=
-X-Gm-Gg: AYBFou2uAuiqYWDWfqiF9zryn9fniQ4cq+jIEeL4qyRonGHw57TRpE7g8v8bQASLGlN
-	ipAOyFXuw5jqCWZMEeZOi85eQb4qvFoaB7enO7LCLguZ8M5MQ5oIXDGfpTYPpBYcPGria8SqYS1
-	zcirFdp8zFNSsdCULjYdpG4lzjl2UMn5dd7SJPhB8w4VoOyubfezAxAuRSSjSXcRHDq8gjV9M/H
-	Mnlk9IA8mZv3bH9KGu8wa6sX82QmiGRIBP1BEXx64Q/FhWkrb0mV2hc2O3bSnc2bLumtD0WohgU
-	cEzLJRixLa8ZFE+k3mjw9DPcn/kNa04UiiL3xx3JggfuzD0FktnBtKWrSC/QDx5P2i4zKQRBoG0
-	8cS4MZ6PKuh8hodJ183LuFA==
-X-Received: by 2002:a05:620a:bca:b0:93a:14c:329c with SMTP id af79cd13be357-93be04cd56amr164941885a.1.1789724354792;
-        Fri, 18 Sep 2026 02:39:14 -0700 (PDT)
-X-Received: by 2002:a05:620a:bca:b0:93a:14c:329c with SMTP id af79cd13be357-93be04cd56amr164939385a.1.1789724354375;
-        Fri, 18 Sep 2026 02:39:14 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a1bbc68ffsm37355666b.57.2026.09.18.02.39.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2026 02:39:13 -0700 (PDT)
-Message-ID: <66ed49d3-caf0-4513-9ef5-1f40b6a92ba3@oss.qualcomm.com>
-Date: Fri, 18 Sep 2026 11:39:10 +0200
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="yxGnWENT"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=SYG6Rv7rKoT3HJcrg2i2QELzkrtM2tVPl3fiKJLD4rM=;
+	b=yxGnWENTYn0X7FGHufcyGrNC9lHdsm1QQvV0Qk3LMfvm7yNoH4+MkhoRaS19uC7kBn/EE+lsG
+	pxXRYwaaapCS2zkfc3DvbFMgxYv4VJf4rySxVWtOQ8/uMiKQHaDXyjrjVM+50X7WczZnRA5UQJC
+	7/BsLcMuQfl9/LCfJt8KGcU=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4hmS372yfJzcb4c;
+	Fri, 18 Sep 2026 17:28:03 +0800 (CST)
+Received: from kwepemr100010.china.huawei.com (unknown [7.202.195.125])
+	by mail.maildlp.com (Postfix) with ESMTPS id 83AB14057F;
+	Fri, 18 Sep 2026 17:39:18 +0800 (CST)
+Received: from [10.67.120.103] (10.67.120.103) by
+ kwepemr100010.china.huawei.com (7.202.195.125) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Fri, 18 Sep 2026 17:39:17 +0800
+Message-ID: <eb629070-a02f-426a-92ee-b2c8f9e2aa9a@huawei.com>
+Date: Fri, 18 Sep 2026 17:39:17 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,74 +42,145 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 29/48] clk: qcom: gcc-sm8250: Use common clock controller
- probe data
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260916-clk-qcom-rework-legacy-always-on-clocks-v1-0-25a24e50f82a@oss.qualcomm.com>
- <20260916-clk-qcom-rework-legacy-always-on-clocks-v1-29-25a24e50f82a@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260916-clk-qcom-rework-legacy-always-on-clocks-v1-29-25a24e50f82a@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [RFC PATCH 1/5] KVM: arm64: pgtables: Change write bit from
+ S2AP_W to DBM
+To: Leonardo Bras <leo.bras@arm.com>, Oliver Upton <oupton@kernel.org>
+CC: Marc Zyngier <maz@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>, Joey
+ Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, Suzuki K
+ Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, Catalin
+ Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Mark
+ Rutland <mark.rutland@arm.com>, Raghavendra Rao Ananta <rananta@google.com>,
+	<linux-arm-kernel@lists.infradead.org>, <kvmarm@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>
+References: <20260901171558.2674031-1-leo.bras@arm.com>
+ <20260901171558.2674031-2-leo.bras@arm.com> <86bja17cg7.wl-maz@kernel.org>
+ <aql8jY4o8SzjJuFU@LeoBrasDK> <aqnku2TcFzIKhjQl@kernel.org>
+ <aqp73SxO78o7LJTs@LeoBrasDK>
+From: Tian Zheng <zhengtian10@huawei.com>
+In-Reply-To: <aqp73SxO78o7LJTs@LeoBrasDK>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: PH89AqXzGpKzZQh7p6EqpROitdTszTjD
-X-Authority-Analysis: v=2.4 cv=ZO9CCn7b c=1 sm=1 tr=0 ts=6aad06c3 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=9t_OtDgf2ifsZ5-kfxQA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-ORIG-GUID: PH89AqXzGpKzZQh7p6EqpROitdTszTjD
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDEzNCBTYWx0ZWRfX9jZ3xPJDLF3t
- c33YFKqRLbQMD9iz0GDR7hlbSTj0eFkEtaEyhnjbNedQHsbl+lbbZ2uC9W5lTWkuxBfOQVsP6bZ
- GkZyEFYqNN4CYBYR2ggUZ5s0dbOsDrASwsFuUaGszLz3SjdjNEc97HerQJ0rNLz+WVlNLbTaTSe
- jy/bgsoo7Nrp0RmOz4w/bKRSvMI1BsYoeoXXj7+Lgn99RmGEovNC961NJ+v6RDQR3EY86Ory/Qi
- ORbXzkRGAWmzWbE9Pk5Fml1VpwxDxDaQZ0ZADWdErEJcLq4jKIRf2Qm2rvu5ivMclgbQu/UNZ9B
- 29YpddutbzMYf8CQAMYcSKCQouZeP1s+g2pI1OWO0pen1gJGGGVGTHeXb71EByRCAzE1JIJKrBg
- GiapdnYqZaRfD9ZazmIBpyFifiwLwDeKHESWsBh8epCHhcuChcwKxJW7WQseXStfvk4km79LTug
- SjdL96FAQJS6GwuNuQg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDEzNCBTYWx0ZWRfX2XU55+2wH1S+
- Mk6ZkRNqrnvovECAdCx8tBzmiB2bzM7fnHys1W7B5lA3MaLa2dS6MX8XI42Krs2GXo+9YLfxuzi
- w4B9oYGEpwbNYLuOpb/QiBZ6QWCL1pE=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-18_02,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 priorityscore=1501 suspectscore=0 adultscore=0
- spamscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180134
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemr100010.china.huawei.com (7.202.195.125)
 
-On 9/16/26 12:28 PM, Abel Vesa wrote:
-> Move the always-on branch register offsets into a critical_cbcrs array,
-> describe the DFS RCGs through qcom_cc_driver_data and move the register
-> programming into the clk_regs_configure callback.
+
+
+On 9/16/2026 7:22 PM, Leonardo Bras wrote:
+> On Tue, Sep 15, 2026 at 05:37:15PM -0700, Oliver Upton wrote:
+>> On Tue, Sep 15, 2026 at 06:12:45PM +0100, Leonardo Bras wrote:
+>>>> Yes, the HW should ignore it. But we have also
+>>>> seen quite a few broken designs in this area...
+>>>>
+>>>
+>>> I lack experience on what bad thing could happen. So I will expand on what
+>>> I belive to understand up to here:
+>>>
+>>> - The PTE is in memory, so the DBM bit can be set regardless of being RES0
+>>> - For SW pagetable walking, I don't think 'bit 51 == 0' is checked
+>>> - For HW pagetable walking, maybe some faulty implementation may rely on
+>>>    bit51 being RES0, and fault otherwise.
+>>>
+>>> If that's the case, then we would have to actually support both encodings,
+>>> and only enable the new one if HAFDBS is available in the system.
+>>>
+>>> I just wonder how high are the chances to have such a broken design,
+>>> or other broken designs did not come to my mind, and if we have to start
+>>> with that multiple-encoding option.
+>>
+>> FWIW, the host stage-1 already uses the DBM bit unconditionally,
+>> treating it as a software bit on implementations without HAFDBS.
+>> Although given the quality of any garden variety Arm MMU I understand
+>> where Marc is coming from.
+>>
+>> I don't think the HAFDBS enablement is complicated enough to be done in
+>> a separate series without any meaningful users, nor would I really be
+>> interested in taking it without, say, HDBSS.
+>>
+>> Can you please work with Tian to get a combined series out for this?
+>>
 > 
-> Use qcom_cc_probe() to perform the common initialization instead of
-> open-coding it in the driver's probe.
+> Hi Oliver, thanks for reviewing!
 > 
-> Assisted-by: LLM
-> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> ---
+> Sure, one of the reasons I sent like this is so Tian could use it as a base
+> for his next version.
+> 
+> 
 
-[...]
+Hi Oliver, Leo,
 
-> +static void gcc_sm8250_regs_configure(struct device *dev, struct regmap *regmap)
-> +{
-> +	/*
-> +	 * Disable the GPLL0 active input to NPU and GPU
-> +	 * via MISC registers.
-> +	 */
-> +	regmap_update_bits(regmap, 0x4d110, 0x3, 0x3);
-> +	regmap_update_bits(regmap, 0x71028, 0x3, 0x3);
+Works for us. I plan to send HDBSS v5 maybe next week with this series
+merged in. Both dirty-tracking consumers are already built on top of the
+DBM approach: dirty ring and dirty bitmap.
 
-Tell the robot to do another pass, using regmap_set/clear_bits()
-where it makes sense
+Leo, with your blessing, I'd like to pick patches 1-4 into the HDBSS
+tree with your Signed-off-by preserved and mine added on top, plus some
+bug fixes on top of this RFC series.
 
-Konrad
+For patch 5, I'd like to rework it into a derived hardware dirty mode
+that replaces both kvm_set_hafdbs() and our earlier HDBSS enable/disable
+hooks, so the whole thing lands as one series.
+
+Performance looks good in both dirty ring and dirty bitmap scenarios so
+far.
+
+Thanks,
+Tian
+
+>>>>> diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+>>>>> index 17123f0b6dab..eb8dfffc32c7 100644
+>>>>> --- a/arch/arm64/kvm/nested.c
+>>>>> +++ b/arch/arm64/kvm/nested.c
+>>>>> @@ -379,21 +379,23 @@ static int walk_nested_s2_pgd(struct kvm_vcpu *vcpu, phys_addr_t ipa,
+>>>>>   	}
+>>>>>   
+>>>>>   	addr_bottom += contiguous_bit_shift(desc, wi, level);
+>>>>>   
+>>>>>   	/* Calculate and return the result */
+>>>>>   	paddr = (desc & GENMASK_ULL(47, addr_bottom)) |
+>>>>>   		(ipa & GENMASK_ULL(addr_bottom - 1, 0));
+>>>>>   	out->output = paddr;
+>>>>>   	out->block_size = 1UL << ((3 - level) * stride + wi->pgshift);
+>>>>>   	out->readable = desc & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R;
+>>>>> -	out->writable = desc & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
+>>>>> +	/* Takes care of both RO/RW and RO/WC/WD encodings */
+>>>>> +	out->writable = desc & (KVM_PTE_LEAF_ATTR_HI_S2_DBM |
+>>>>> +				KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W);
+>>>>
+>>>> Absolutely NOT. For a start, NV doesn't support FEAT_HAFDBS. But even
+>>>> if it did, you are now actively corrupting memory by turning a RO
+>>>> mapping with a spurious DBM bit set into a writable mapping.
+>>>> VTCR_EL2.HD exists for a reason.
+>>>>
+>>>> Do you see why your blanket approach of equating DBM with writable is
+>>>> plain wrong?
+>>>
+>>> Sorry, not really... please help me understand it.
+>>>
+>>> When you say a spurious DBM bit, what does it mean?
+>>
+>> You've implemented the exact sort of bug that was alluded to above. In
+>> this case it's a software page table walker consuming DBM regardless of
+>> the value of VTCR_EL2.HD.
+>>
+> 
+> So you mean that DBM being treated as "writable" could _only_ happen if we
+> have VTCR_EL2.HD=1? I was previously under the impression that it could be
+> used regardless of HD value.
+> 
+>> If the guest hypervisor sets VTCR_EL2.HD=0, the expectation is that the
+>> shadow stage-2 MMU treats the corresponding bit in the PTE as RES0.
+>>
+> 
+> Okay, I think I can see it now: since the guest hypervisor could use RO/RW,
+> and has no decoupled concept of dirty and writable, it could think all
+> writable pages are dirty when we run above function.
+> 
+> So.. would it make sense to have an out->dirty, which we would check based
+> on S2AP while out->writable is compared against DBM, and we change the
+> logic that uses out->writable to properly match it, maybe based on the
+> guest having the feature enabled?
+> 
+> Thanks for your patience on explaining this!
+> Leo
+> 
+
