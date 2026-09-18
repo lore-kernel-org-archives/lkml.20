@@ -1,339 +1,232 @@
-Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 594F7331EB0;
-	Fri, 18 Sep 2026 04:17:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=119.15.109.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47FEB331EB0;
+	Fri, 18 Sep 2026 04:17:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789705072; cv=none; b=I/UyOR37clCc0XHVqpEW/LD6MbqiZU+8/svUCqroKOjAF3WmWzt3KNoDY5P0bGFDXt7jUWdDnFsuLQbb7qLmfhB2wklKh7oSzlbHAAbzLx1r0IeLO5jruEHFzXHFrLcwVS7DR/qhLCaUHEF2e+EX88OgX9p/N/j2HpxrkZPT2wY=
+	t=1789705078; cv=none; b=iN8NvXJwOS3njSTcVxKHPgAMvCsQl4J04/i27zzYU4kxJZECxBu80e76OK6FqfzR05xJHPbXCCLiPuegktET86NsRFIiXAxTFdofcq8xZ5FOo6JSMK8p038Cpk7vzk6busfUcu/QnGs3HrvSQxDwyvjBqlP+iFgj5/imxgTs4gE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789705072; c=relaxed/simple;
-	bh=Ae2y/7Lor9GXygTSiajiM9tRdhivw8M0DHKfjYgiGjI=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=bS4luwIuk7XcSVNREVpkj4xwMBITpJ2BK5oB+iBEUw9UbAxI3Wf/6w2a2D7Js5/7MtPF7hG5WJW59ftTIDYJ++rUHUQcwHJACfORlslw4I0VyVjSCakq3oE+roUED8AavU+xV2K5UruGK9SnO3n/AZgtaY14xCWFVq2/g3r2st8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org; spf=pass smtp.mailfrom=d-silva.org; dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b=t6Nhw73t; arc=none smtp.client-ip=119.15.109.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
+	s=arc-20240116; t=1789705078; c=relaxed/simple;
+	bh=hAKfeURgimH+zD5v3mZSGKclYtLi5kuQXJoRur/UxdQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=M+B35J+r2cqVzhdIuSg6kwqrG9v3Mq0KdT0rSKMx6EBnXElftmnGatRpVSopnHAcG9ANu2n9/FAfX/b9wZvxk/zDXasxA2zMu2NYQwG4ie4N9g2PErWX4D43fkz3HZI74aXAdY4UQ+Qj0TT70+Nx1CbbyQCrO48lEUJs0+E7q2c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dZdUIubP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b="t6Nhw73t"
-Received: from hawking.lan (ntp.lan [10.0.1.1])
-	by www.nmnhosting.com (Postfix) with ESMTPSA id 0669540198;
-	Fri, 18 Sep 2026 14:17:35 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1789705055;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=x5/5jYTk97QiuhKteVx/RjbUQ68rvY/RzcvH0sprR9c=;
-	b=t6Nhw73tsb751+JJrDIUFANMISU+10SS6C8/C1CscNgtzDyyuCWuxLVaswC6gcbeV0qQjT
-	Rv3HtPDW9OY4MLkpBlMtFgeJcwXcvf6sMe1w2DNBs0V4e5MOPeHVLbingPYipMOF3FhjuV
-	LeP/Iicnqyg+SXFSOvXG185o+m9izR94q9dqR7uQTTHad4a4SgB6NoK7505D2IHmaLo02o
-	3dobayPCvzblQXD4Y6jYKEG1jd1aF4H2vIhwGi/1tu+nik8YM1HJCvKXezXM/E2vobV6la
-	4R/iC55Dm5GhkXX3jL739q4h53C5JHZjRnoOxx95TAxx3fKQ3OiM8fkabGUEqw==
-X-GPT-Reason: legitimate_transactional_technical_discussion; the
-	content is a highly technical Linux kernel patch discussion (net-next)
-	regarding stmmac driver support for Allwinner H616; the sender
-	(alastair@d-silva.org) matches a personal/professional mailbox
-	and the technical depth, including iperf3 results, kernel logs, and
-	specific register offsets (0x34, 0x05), confirms a genuine engineering
-	workflow; the URL domains kernel.org and msgid.link are standard
-	for kernel development and do not exhibit phishing indicators.
-Message-ID: <9cd900993fc385ccffcf743f629e87071be9820a.camel@d-silva.org>
-Subject: Re: [PATCH net-next v3 0/3] net: stmmac: add Allwinner H616 EMAC1
- support
-From: Alastair D'Silva <alastair@d-silva.org>
-To: James Hilliard <james.hilliard1@gmail.com>, Richard Genoud	
- <richard.genoud@bootlin.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David
- S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
- Kicinski <kuba@kernel.org>,  Paolo Abeni <pabeni@redhat.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor Dooley
- <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec
- <jernej.skrabec@gmail.com>,  Samuel Holland <samuel@sholland.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Giuseppe Cavallaro	
- <peppe.cavallaro@st.com>, Jose Abreu <joabreu@synopsys.com>, Maxime
- Chevallier	 <maxime.chevallier@bootlin.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>
-Cc: Maxime Ripard <mripard@kernel.org>, netdev@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com
-Date: Fri, 18 Sep 2026 14:17:34 +1000
-In-Reply-To: <20260917-submit-h616-emac1-v1-v3-0-62cb8316e19b@gmail.com>
-References: <20260917-submit-h616-emac1-v1-v3-0-62cb8316e19b@gmail.com>
-Autocrypt: addr=alastair@d-silva.org; prefer-encrypt=mutual;
- keydata=mQINBGactvoBEADBFM2HqfQUUM4j40ZQPyYzmnM8S6zrycO0ipDDPMs7nZMzyzGzOdqfS
- VB/tuYvZOOKVWzJuWJ5aT/YyHx54r3L+D5hTkEG0sXPVJky3yTS9sbHEMSLBHb8TVVuhPVPuieV4g
- Nkqg5POMTidk8xAw50WpV++tUlewXVSciehnuCQPXhXMP7FcCh4uO8LdN7E8m7ir1LafKTFfoWPah
- KVT8NGG9r+ucrFcN5F+VnHxTDaI68yRPkNdtUWmp22wIX1KwDCtKFrndYO4p5Hv2hlDKomsuIIHHn
- muQGRwuh0xpf0nVJNF8ETZHMzxQLfo3e/HvxBFOTkwY9w7CuuQFZchbhS0I3PfmGT0+jiNcdfqjDC
- fPPB5uhy+DkR6wO72vuwFYUrpU2mdliDSdKEtWBHulnXMJjpBOXetfIwhI8G2dTVg59lN5i9DvJZc
- 7y1Sp+qfZQ4P9qpYZyQEKR4GNDOdnm6F2LW2cZkcyAU/Ii765zdDMTQMIzZNSxT/FcDd0K1voTNRl
- QHbQw+kmIMhzSv2JefcC9oNbE0XYzcBDNP5T3O/4itOQ90GCKQEPAbIPeBjlQif7kkyvo/H6yv4s9
- duuK7zbJD9AID/+KGLkpU3p68VDB/C2ZSb9rQz3p1CJNSfsX/CPk7sPqA7RKZ4a2B0hSJ2pJCncNZ
- KXtMlkkm/FmewARAQABtCdBbGFzdGFpciBEJ1NpbHZhIDxhbGFzdGFpckBkLXNpbHZhLm9yZz6JAl
- EEEwEKADsWIQTQGemDFwqYyU/dBWv75AdnjVo60gUCZpy2+gIbAwULCQgHAgIiAgYVCgkICwIEFgI
- DAQIeBwIXgAAKCRD75AdnjVo60qHZEACJnLfpS71Hk8bX0CLCNJ5wgqdZD3pBHEdbv9Ux9kRlZp4a
- ZFwlg9ltwBjl2dZP3PLtD9xQdsdYKVippKd5a7ZZC2y81oDaHjeC9LnPYn8+ce3mGE/+gRyoNfToY
- N06DeUNJKSlZ9t11UIqZCgfp12u16/Yrigy8C4ihEeHXlLhNX6JkeJR5gsHXJnC7vSuMZY+Qz2R72
- ZidWg+cd2WDMGop5sbTvc+55q94A7vTMlWzaix5HdbEUA3sd2U0dMBju5QodRGGhDQMcCu64TydRD
- MtMzzOk9ThJ036ze3HASWGOppyQmaw58k+XNzbHlr9Sc1LsFUNF7zpWXac2rzlywbyRAdFIT/TC76
- hy9zOkwIo2nwA/tdIwLx1j0UZPpAMQmcDUvJqZh6sE+fv6HN0yMPr+sSYJmriMt8Z6leCEHQXOHVI
- SI5z5FvV3coMmHYRq6aXpfs/8SLiYgkV3B0HE/E18Y3j1OkeLYoqIH1VfzQZeCSL/S77NYvk60/MV
- 1HFSyqLdUR3uWZI4uZzoEcMoB0GX33uCTp2Ntc00+wSntwekCUQLCMLUb7dZrbpVuobHoWWtkiD2I
- uE5kAiaVwwwzM0BUwiM6VzVoKbeECz93rdsNtwoDqM0NtzoISC46H/BKVQ9mRNXDO4ThEBpJ4H2Tn
- mPNRYYcR0u2mNy1EJII04w==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-9 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dZdUIubP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1E811F000FF;
+	Fri, 18 Sep 2026 04:17:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789705076;
+	bh=WWxabFUVlB3kxXBm4kFTC6I3NzI8FakdyNfET9iDosQ=;
+	h=From:To:Cc:Subject:Date;
+	b=dZdUIubP7WawPPBoUISGeGIF5ET69n9vHrkUVvspPnrH7fxHweJj2pqEOElVx2vIL
+	 0gFC5UbRFw2yyrUHY8PuEWsj3Mk6WHImCplwTlI60/XUI76P7v6YKqCFuBRQ3z6vC8
+	 D4IfiDdtb9OpF9KJwyaUUmE0WCWrChqkCcnscAtjBVSlbLeT1gn8kIAGDPn7QXBRDy
+	 uyVZJ/cSvCjKvvkrk1SWqjkP71K7D2BHoKJ257aiaDDnQ+ozchaBZMGL59Cyc8YNCA
+	 cgNPGGgrw2vZkS3Mn+lrb1xgQs6YmdMPOv5u8KaDeiJ+0j1eeksXZuaT4qd7J9F0+p
+	 3erBVRFc7D2AQ==
+From: Yu Kuai <yukuai@kernel.org>
+To: Jens Axboe <axboe@kernel.dk>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Coly Li <colyli@fygo.io>,
+	Kent Overstreet <kent.overstreet@linux.dev>,
+	Alasdair Kergon <agk@redhat.com>,
+	Mike Snitzer <snitzer@kernel.org>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	Benjamin Marzinski <bmarzins@redhat.com>,
+	Song Liu <song@kernel.org>,
+	Li Nan <magiclinan@didiglobal.com>,
+	Xiao Ni <xiao@kernel.org>,
+	Andreas Gruenbacher <agruenba@redhat.com>,
+	Matthew Wilcox <willy@infradead.org>,
+	Jan Kara <jack@suse.cz>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Chris Li <chrisl@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Youngjun Park <youngjun.park@lge.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>
+Cc: Yu Kuai <yukuai@fygo.io>,
+	Christoph Hellwig <hch@lst.de>,
+	Nilay Shroff <nilay@linux.ibm.com>,
+	Tao Cui <cuitao@kylinos.cn>,
+	linux-block@vger.kernel.org,
+	cgroups@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-bcache@vger.kernel.org,
+	dm-devel@lists.linux.dev,
+	linux-raid@vger.kernel.org,
+	gfs2@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org,
+	llvm@lists.linux.dev
+Subject: [PATCH v3 0/3] blk-cgroup: store blkcg in bio before blkcg_mutex conversion
+Date: Fri, 18 Sep 2026 12:17:41 +0800
+Message-ID: <20260918041744.1526924-1-yukuai@kernel.org>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+
+From: Yu Kuai <yukuai@fygo.io>
+
+This is v3 of the preparatory series for the blkcg_mutex conversion
+proposed in the related series [1]. That conversion moves queue-local
+blkg topology synchronization from q->queue_lock to q->blkcg_mutex,
+which is awkward while bios directly store queue-local blkg references.
+
+Storing a blkg also ties a bio to one request_queue. A remapped bio must
+drop that reference and recreate the association for the new queue even
+when no blkcg policy needs it. Dying blkgs add another complication:
+they disappear from the per-blkcg lookup tree before all pinned bio
+references drain.
+
+Patch 1 makes request_queue the authoritative lookup owner. A
+queue-owned rhashtable keyed by the blkcg CSS ID keeps dying blkgs
+discoverable until their references drain, while q->blkg_list remains
+available for ordered walks.
+
+Patch 2 stores and pins the queue-independent blkcg CSS in each bio.
+Queue-local blkgs are created lazily by policy users, then pinned until
+the bio changes devices or releases its cgroup state. Completion and
+accounting paths which do not create a blkg remain lookup-only.
+
+Patch 3 moves async bio punt state from blkg to blkcg, so punting alone
+does not instantiate a queue-local blkg.
+
+Changes since v2:
+
+  - Rebase onto the latest for-7.4/block branch.
+  - In patch 2, clarify why dm_bio_record() excludes BIO_BLKG_REF and
+    add Nilay Shroff's Reviewed-by.
+  - In patch 3, replace scoped spinlock guards with explicit
+    spin_lock()/spin_unlock(), drop the redundant teardown check, and
+    rely on zero-initialization for async_bios before publication, as
+    suggested by Nilay Shroff and Christoph Hellwig.
+
+Changes since v1:
+
+  - Rebase onto the latest block-7.3 branch.
+  - In patch 2, require every blkg rhashtable lookup to run inside an
+    explicit RCU read-side critical section. Annotate blkg_lookup_any(),
+    blkg_lookup(), and recursive wrappers with __must_hold_shared(RCU)
+    so Clang thread-safety analysis verifies the contract.
+  - In patch 2, exclude BIO_BLKG_REF from the flags saved by
+    dm_bio_record(), since restoring an ownership bit cannot recreate
+    the associated blkg reference.
+  - In patch 3, use scoped spinlock guards for async_bios and annotate
+    the list with __guarded_by().
+  - Add Nilay Shroff's Reviewed-by to patch 1.
+
+Changes since RFC v3:
+
+  - Drop the RFC prefix.
+  - Add Christoph Hellwig's Reviewed-by to patch 1.
+  - Add Tao Cui's Reviewed-by to patch 2.
+  - In patch 2, relax blkg_lookup_any()/blkg_lookup() to also allow
+    q->queue_lock as an alternative to the RCU read lock.
+
+Changes since RFC v2:
+
+  - Drop the old patch 1 and send it separately as a bugfix for 7.3 and
+    -stable, as suggested by Christoph Hellwig.
+  - Rebase onto the latest for-7.3/block branch.
+  - In the new patch 1, note that the remaining q->blkg_list walkers are
+    cgroupfs/sysfs slow paths and can move to rhashtable iteration after
+    the queue_lock-to-blkcg_mutex conversion.
+  - In the new patch 1, explain the list_empty case in blkg_release(), and
+    add an RCU lockdep assertion plus documentation that blkg_lookup_any()
+    does not acquire a reference.
+
+Changes since RFC v1:
+
+  - Add patch 1 to wait for every old blkg to leave q->blkg_list before a
+    shared request_queue is rebound, instead of treating root_blkg == NULL
+    as completion of asynchronous blkg teardown.
+  - Add patch 2 to replace the per-blkcg radix tree and lookup hint with a
+    request_queue rhashtable keyed by blkcg->css.id, as suggested by
+    Christoph Hellwig. Keep dying pinned blkgs in the hash until
+    blkg_release() so bio-owned references remain discoverable.
+  - Fold the v1 helper-only patch into patch 3, as suggested by Jan Kara
+    and Christoph Hellwig, and make bio_blkcg() naturally return NULL for
+    an unassociated bio.
+  - Rework patch 3 so blkg_lookup_create() acquires the bio-owned
+    reference, falls back to a live parent when creation or tryget fails,
+    and updates bi_blkcg when the returned blkg belongs to an ancestor.
+  - Make bio_blkg_lookup() lookup-only: it returns NULL unless BIO_BLKG_REF
+    is already set. Use bio_blkg() in the BFQ and IOCOST merge paths which
+    may need to create a blkg, while keeping blk_cgroup_bio_start() and
+    completion paths lookup-only.
+  - Move CSS online-reference handling into
+    bio_associate_blkcg_from_css(), including fallback to the root blkcg,
+    so bio_associate_blkcg() does not take a redundant reference.
+  - Keep the v1 async bio punt conversion as patch 4 and document that
+    async_bio_lock protects async_bios.
+
+Previous versions:
+  - v2: https://lore.kernel.org/r/cover.1789237876.git.yukuai@fygo.io
+  - v1: https://lore.kernel.org/r/20260823133045.970199-1-yukuai@kernel.org
+  - RFC v3:
+    https://lore.kernel.org/r/20260818070641.756747-1-yukuai@kernel.org
+  - RFC v2:
+    https://lore.kernel.org/r/20260811064744.1139446-1-yukuai@kernel.org
+  - RFC v1:
+    https://lore.kernel.org/r/20260804065313.2092022-1-yukuai@kernel.org
+
+Related series:
+  [1] RFC v2 blk-cgroup: protect blkgs with blkcg_mutex
+      https://lore.kernel.org/r/20260724123037.3004560-1-yukuai@kernel.org
+
+Yu Kuai (3):
+  blk-cgroup: use a request_queue rhashtable for blkg lookup
+  blk-cgroup: store blkcg in bio instead of blkg
+  blk-cgroup: move async bio punt state to blkcg
+
+ Documentation/admin-guide/cgroup-v2.rst |   2 +-
+ block/bfq-cgroup.c                      |  18 +-
+ block/bfq-iosched.c                     |  19 +-
+ block/bio.c                             |  22 +-
+ block/blk-cgroup-fc-appid.c             |  10 +-
+ block/blk-cgroup-rwstat.h               |   2 +-
+ block/blk-cgroup.c                      | 346 ++++++++++++++----------
+ block/blk-cgroup.h                      |  93 +++++--
+ block/blk-core.c                        |   9 +-
+ block/blk-crypto-fallback.c             |   2 +-
+ block/blk-iocost.c                      |  12 +-
+ block/blk-iolatency.c                   |  11 +-
+ block/blk-ioprio.c                      |   2 +-
+ block/blk-throttle.c                    |   3 +-
+ block/blk-throttle.h                    |   2 +-
+ drivers/md/bcache/request.c             |   2 +-
+ drivers/md/dm-bio-record.h              |   5 +-
+ drivers/md/dm.c                         |   2 +-
+ drivers/md/md.c                         |   2 +-
+ fs/gfs2/lops.c                          |   3 +-
+ include/linux/bio.h                     |  26 +-
+ include/linux/blk_types.h               |   9 +-
+ include/linux/blkdev.h                  |   2 +
+ include/linux/writeback.h               |   2 +-
+ mm/page_io.c                            |  12 +-
+ 25 files changed, 381 insertions(+), 237 deletions(-)
 
 
-On Thu, 2026-09-17 at 11:55 -0600, James Hilliard wrote:
-> The H616 secondary EMAC supports RMII at 10/100 Mbps and uses a
-> separate
-> system-control clock register at offset 0x34. Add its binding and a
-> sun8i stmmac variant using that register. A distinct compatible
-> without
-> an older fallback prevents the driver from using EMAC0's clock
-> register.
->=20
-> EMAC1 connects internally to the co-packaged AC200 or AC300 EPHY and
-> has
-> no external PHY pins. Leave PHY initialization to the PHY driver
-> instead
-> of using the H3 internal-PHY controls. The RMII-only variant does not
-> expose the RGMII clock-delay properties.
->=20
-> First move the MAC software reset from probe to the DMA reset
-> callback,
-> after PHY initialization. This lets the MAC and its MDIO bus remain
-> registered when the PHY driver or one of its suppliers is not ready
-> yet.
-> Keep the separate H3 MDIO-mux reset sequence unchanged.
->=20
-> The AC200/AC300 EPHY driver and package bindings are already in
-> net-next. This series separates the H616 EMAC1 MAC driver and binding
-> support from the earlier combined series. PWM, MFD and device-tree
-> enablement are being handled separately.
->=20
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-> ---
-> Changes in v3:
-> - Add a prerequisite fix moving the MAC software reset to the DMA
-> reset
-> =C2=A0 callback, after PHY initialization, so delayed module loading and
-> =C2=A0 deferred PHY probes do not tear down the MAC and its MDIO bus.
-> - Preserve the H3 MDIO-mux reset and propagate hardware-reset
-> failures
-> =C2=A0 through the normal stmmac hardware-setup error path.
-> - Add Alastair D'Silva to Cc and rebase onto current net-next.
-> - Link to v2: https://patch.msgid.link/20260915-submit-h616-emac1-v1-
-> v2-0-322b32e40eb9@gmail.com
->=20
-> Changes in v2:
-> - Drop EMAC1 TX/RX clock-delay property support and keep the existing
-> =C2=A0 RGMII-only delay descriptions unchanged, as requested by Maxime
-> Ripard.
-> - Clarify that EMAC1 connects internally to a co-packaged PHY, not an
-> =C2=A0 external PHY or the H3-style internal-PHY controls.
-> - Rebase onto current net-next.
-> - Link to v1: https://patch.msgid.link/20260915-submit-h616-emac1-v1-
-> v1-0-195de0bb1f8a@gmail.com
->=20
-> ---
-> James Hilliard (3):
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 net: stmmac: sun8i: reset the MAC after PH=
-Y initialization
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dt-bindings: net: allwinner: add H616 EMAC=
-1
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 net: stmmac: sun8i: add support for Allwin=
-ner H616 EMAC1
->=20
-> =C2=A0.../bindings/net/allwinner,sun8i-a83t-emac.yaml=C2=A0=C2=A0=C2=A0 |=
- 13 +++++
-> =C2=A0.../devicetree/bindings/net/snps,dwmac.yaml=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +
-> =C2=A0drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c=C2=A0 | 66
-> +++++++++++++---------
-> =C2=A03 files changed, 55 insertions(+), 26 deletions(-)
-> ---
-> base-commit: 26ee8cd69d46a14b37ba5e512084fe80d730127a
-> change-id: 20260914-submit-h616-emac1-v1-143703842abb
->=20
-> Best regards,
-> --=C2=A0=20
-> James Hilliard <james.hilliard1@gmail.com>
->=20
-
-Confirmed working on the Mellow Fly C5 when brought in as a module and
-backported to 6.18, tested in the Armbian environment, along with the
-recommended PWM patch:
-https://lore.kernel.org/all/20260804-h616-pwm-v8-v8-0-db37ab8624ae@gmail.co=
-m/T/
-
-
-root@mellowflyc5:~# lsmod
-Module                  Size  Used by
-rtw88_8821cs           12288  0
-rtw88_8821c            86016  1 rtw88_8821cs
-rtw88_sdio             20480  1 rtw88_8821cs
-rtw88_core            180224  2 rtw88_8821c,rtw88_sdio
-snd_soc_hdmi_codec     16384  0
-mac80211              929792  2 rtw88_sdio,rtw88_core
-zram                   36864  2
-842_decompress         12288  1 zram
-842_compress           16384  1 zram
-gs_usb                 20480  0
-can_dev                36864  1 gs_usb
-dw_hdmi_i2s_audio      12288  0
-dw_hdmi_cec            12288  0
-cdc_acm                32768  0
-sun50i_h6_prcm_ppu     12288  0
-panfrost               73728  0
-governor_simpleondemand    12288  0
-gpu_sched              45056  1 panfrost
-sun8i_ce               36864  0
-drm_shmem_helper       24576  1 panfrost
-crypto_engine          12288  1 sun8i_ce
-cfg80211              831488  2 rtw88_core,mac80211
-binfmt_misc            16384  1
-rfkill                 24576  2 cfg80211
-sch_fq_codel           16384  2
-fuse                  163840  1
-configfs               40960  1
-nfnetlink              16384  2
-ip_tables              24576  0
-x_tables               28672  1 ip_tables
-btrfs                1441792  0
-blake2b_generic        16384  0
-xor                    12288  1 btrfs
-raid6_pq               94208  1 btrfs
-ac300_phy              12288  1
-ac200_phy              12288  0
-dwmac_sun8i            20480  0
-
-root@mellowflyc5:~# uname -a
-Linux mellowflyc5 6.18.52-current-sunxi64 #27 SMP PREEMPT Mon Sep 14
-21:36:19 AEST 2026 aarch64 GNU/Linux
-
-root@mellowflyc5:~# ifconfig end0
-end0: flags=3D4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
-        inet 10.0.1.136  netmask 255.255.255.0  broadcast 10.0.1.255
-        inet6 fe80::9aff:fea2:59e8  prefixlen 64  scopeid 0x20<link>
-        ether 02:00:9a:a2:59:e8  txqueuelen 1000  (Ethernet)
-        RX packets 5202  bytes 941999 (919.9 KiB)
-        RX errors 0  dropped 0  overruns 0  frame 0
-        TX packets 4059  bytes 431730 (421.6 KiB)
-        TX errors 0  dropped 5 overruns 0  carrier 0  collisions 0
-        device interrupt 50 =20
-
-root@mellowflyc5:~# iperf3 -c 10.0.1.1
-Connecting to host 10.0.1.1, port 5201
-[  5] local 10.0.1.136 port 53578 connected to 10.0.1.1 port 5201
-[ ID] Interval           Transfer     Bitrate         Retr  Cwnd
-[  5]   0.00-1.00   sec  12.0 MBytes   101 Mbits/sec    0    191 KBytes
-[  5]   1.00-2.00   sec  11.5 MBytes  96.5 Mbits/sec    0    191 KBytes
-[  5]   2.00-3.00   sec  11.1 MBytes  93.3 Mbits/sec    0    191 KBytes
-[  5]   3.00-4.00   sec  11.2 MBytes  94.4 Mbits/sec    0    191 KBytes
-[  5]   4.00-5.00   sec  11.2 MBytes  94.4 Mbits/sec    0    191 KBytes
-[  5]   5.00-6.00   sec  11.1 MBytes  93.3 Mbits/sec    0    191 KBytes
-[  5]   6.00-7.00   sec  11.4 MBytes  95.4 Mbits/sec    0    191 KBytes
-[  5]   7.00-8.00   sec  11.2 MBytes  94.3 Mbits/sec    0    191 KBytes
-[  5]   8.00-9.00   sec  11.2 MBytes  94.4 Mbits/sec    0    191 KBytes
-[  5]   9.00-10.00  sec  11.1 MBytes  93.2 Mbits/sec    0    191 KBytes
-- - - - - - - - - - - - - - - - - - - - - - - - -
-[ ID] Interval           Transfer     Bitrate         Retr
-[  5]   0.00-10.00  sec   113 MBytes  95.0 Mbits/sec    0          =20
-sender
-[  5]   0.00-10.01  sec   112 MBytes  94.1 Mbits/sec                =20
-receiver
-
-iperf Done.
-
-
-
-I did notice that the speed and activity LEDs on the magjack remained
-dark.
-
-LED Output Pad Enables (Register 0x05 - SYS_IO)
------------------------------------------------
-
-According to the AC300 datasheet (Section 4.2.5), bits [3:1] default to
-0 (disabled):
-   - Bit 1: E_LNK_LED_IO_EN
-   - Bit 2: E_SPD_LED_IO_EN
-   - Bit 3: E_DPX_LED_IO_EN
-
-In drivers/net/phy/xpowers/ac300.c, AC300_SYS_IO_VALUE does not set =C2=A0=
-=20
-any of these bits. Consequently, the LED outputs remain disabled/tri-
-stated, and neither the link nor speed LEDs illuminate on the board.
-
-LED Polarity (Register 0x06 - EPHY_CONFIG)
-------------------------------------------
-
-Once the I/O pads are enabled, Register 0x06 bit 1 (LED_POL) controls
-the drive logic:
-   - Bit 1 =3D 0: Active-High (Default)
-   - Bit 1 =3D 1: Active-Low
-
-Because common RJ45 magjacks (such as the HY911105AE on Fly-C5, Orange
-Pi Zero 2W/3, etc.) have LED anodes connected to 3.3V, the PHY must
-sink current (Active-Low) to drive them. Without setting LED_POL =3D 1,
-the LED logic is inverted.
-
-Could we update AC300_SYS_IO_VALUE to enable the LED IO pads, and
-configure LED_POL for active-low operation (or wire it up to the phylib
-LED framework)?
-
-
-Suggested patch for drivers/net/phy/xpowers/ac300.c:
-
---- a/drivers/net/phy/xpowers/ac300.c
-+++ b/drivers/net/phy/xpowers/ac300.c
-@@ -43,10 +43,14 @@
- #define AC300_IO_DRV_LEVEL_2			2
- #define AC300_CLKIN_PAD_ENABLE			BIT(4)
-+#define AC300_EPHY_DPX_LED_IO_ENABLE		BIT(3)
-+#define AC300_EPHY_SPD_LED_IO_ENABLE		BIT(2)
-+#define AC300_EPHY_LNK_LED_IO_ENABLE		BIT(1)
- #define AC300_EPHY_MII_IO_ENABLE		BIT(0)
-=20
- #define AC300_EPHY_CONFIG_REG			0x06
- #define AC300_EPHY_BGS_EFFUSE_MASK		GENMASK(15, 12)
- #define AC300_EPHY_RMII_SEL			BIT(11)
-+#define AC300_EPHY_LED_POL_ACTIVE_LOW		BIT(1)
- #define AC300_EPHY_SHUTDOWN			BIT(0)
-=20
-@@ -58,7 +62,10 @@
- #define AC300_SYS_IO_VALUE \
- 	(FIELD_PREP(AC300_MDIO_DRV_MASK, AC300_IO_DRV_LEVEL_2) | \
- 	 FIELD_PREP(AC300_MII_DRV_MASK, AC300_IO_DRV_LEVEL_2) | \
--	 AC300_CLKIN_PAD_ENABLE | AC300_EPHY_MII_IO_ENABLE)
-+	 AC300_CLKIN_PAD_ENABLE | AC300_EPHY_MII_IO_ENABLE | \
-+	 AC300_EPHY_LNK_LED_IO_ENABLE | \
-+	 AC300_EPHY_SPD_LED_IO_ENABLE | \
-+	 AC300_EPHY_DPX_LED_IO_ENABLE)
-=20
- static u16 ac300_ephy_ctl_config(const struct ac300_ephy_ctl *priv)
- {
-@@ -131,7 +138,8 @@ static u16 ac300_ephy_ctl_config(const struct
-ac300_ephy_ctl *priv)
- 	return priv->ephy_config |
-+		AC300_EPHY_LED_POL_ACTIVE_LOW |
- 		(priv->interface =3D=3D PHY_INTERFACE_MODE_RMII ?
- 		 AC300_EPHY_RMII_SEL : 0);
- }
-
-
---=20
-Alastair D'Silva
-
-
-
+base-commit: af78ca007be5f63dc34b8180c8063c1113697192
+-- 
+2.51.0
