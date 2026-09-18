@@ -1,139 +1,156 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53B8952CCE0
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 21:22:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2B4A52CCF8
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 21:22:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789766557; cv=none; b=FjB+PZr/hJzL5qR+D8uAU9iFEVGbfmVyLFtYxAKKR7IGkH8uX9gY9MKKENkNSpmiE58k//y0/5KG8WTRxuzAxFdubADPJ+QpwaK8Cq8fy9h1P0nkd/IRLpDzDWC9Uz1tpVcVNxo6rODPM/HxGrcDqpi07xHEirQ+Ni6ro5uRJfk=
+	t=1789766559; cv=none; b=MMzB189SA3ryJANN1ChyXsOeUwfffKdR9eCAVk9mHbcB7dH4HT9IeFxCiuyqS+nS/ZoBfJYQ2KvQ1hAjLWYMC/OJrAasDlVmc0ztqG8N+AppV2f4KPF50xvyte4Xwl8lbcYTm17Y6+Tp5fZYplIcUaKk09k5WkYc73tnlU9ScYE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789766557; c=relaxed/simple;
-	bh=hoCAkVBtBvC9DAPYEWIlEI0CsEORI44ZWvGIi95NMtc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dSwZNefbUt9KFE4Nm+YALnkaGNuYFUthTt8CPnKDgeWOHy0INVY5AjnmISutRA7mXS69MOM3OWBhZi9gJJRon46Q7fPxRD6cCO2JWj76hpeFPs1kCBSCdWFpFLbHHUDST44eg3mXAVNyKlE61UdjtiDhsXkbChNmYFESjfwpiZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=menurgeB; arc=none smtp.client-ip=209.85.215.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
+	s=arc-20240116; t=1789766559; c=relaxed/simple;
+	bh=pBa4BPJqXRcLuaQWWToSymupvQ2ECd6V9b0S+yahvTY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rONsXbWnAnFMc5t8xsdLWnFhtKIml6nSV+M7lp1hoT3fy7pVRLV7YRZKyWnakfZWDBwJxaMyh0moMNgsV8yyBGy3LiEXOz+hOVsC1riTrnW6W9kUjrzVtFHsNzQdhF1x07bf/FcH7rBt4TXf+ew0WO8+7CShVJ71IqmnU/fUQK0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B8KzO6ly; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="menurgeB"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc147d86bebso1204004a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:22:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1789766555; x=1790371355; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=N0QetRYgCZpW+pGrhIsg7iJBlh9aiyAlkrfN9/mWYWk=;
-        b=menurgeBizzAb7/WA2tvS1VC3RazV7gL6mUnIKTYBaxw/HrgbvDkP0C39tkT9MYlU4
-         fhf/w59kBdgkI66LFSScWXFXWLzJSoZvcwIFm6LSWqOLNKgbVZ2L3h7z44XLz+lEyFRu
-         eQWneCxs+MtvYg4VGl0AlZrpnrWULquA33o69k42uHaVmm5R3DMLTbl+ffWq8zlAKPOX
-         crfHzDaPOxLIBlHHOgGah4//+oxIwA8lDdwH4sWgtjwVakgo1zFUNVlYBd4r9cu9mNK5
-         hiAPB92830vV1kPULT2ZwSmvcbjj5su408cBcSpG0r2xUI0kCT84FHAlTvwet7YV0h3R
-         i4sQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789766555; x=1790371355;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=N0QetRYgCZpW+pGrhIsg7iJBlh9aiyAlkrfN9/mWYWk=;
-        b=SGR+NubN7agbTqlYgKN8D1XwSfXpPpBWNekt9jwUPeRVKuM809F1rNf+TzVWqOrjpd
-         U4pbOrlUb0Di5vVlRXPeW7iX8amDfanhbJV6nL0iPopNYeRJlGS0mpSKEBxWgihmFzCn
-         JyZl+6LnEfecUafk8yHDR44uA9q+OpRz0vev9dxeOMltuSjUOFIF1TLSnmx/jCLIbOsd
-         yyZpEgr5FMXakcbj+qxny74aPq+fUPg+RgJ6uKJIcn9zaL+VglTdYWp6babtDy2eywxA
-         H1S8PtXYHpjAedZwUHkxfhlhb1L1UsjonNF6CZjN+EGb0xwN9B77M7/7pdbWBGHTCSxD
-         wCcw==
-X-Forwarded-Encrypted: i=1; AKwUvByY/0vx+icCIBAYhQYUgSO+5Nndz+Z25HtSB6M3YCjpwwhZqUDYEfmYdg2W1EgsfWfTL7PZg+0jJo7NuqA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kwqD5xJgKa+lx0hGUz0GZgNPY4QdotnUsRVg7HEq7RvvGpTdQb
-	ewAUqFbIbvoZxALfSXZjtcE8H2CXd5/7peVShJu4dgjPnoLZFe0BiZAvrCgJWtUVdxqiE8wCT4i
-	TQYvuzw==
-X-Gm-Gg: AYBFou0CTrvYZ/Ik8F6KWE1ysdo7zVlR5UkR0HVq7Nldj4RpsnCMM4BYrAfEndIm2Gr
-	02QfkYMjVt50Bo6aI8U7x9pWQ0om1vAi2kUc3/XRf82pkWfJmH9f4z3pILoZbuqlWKYQzCpw/S5
-	xleDYyJVDBtK3m7EM+l942A7Uox28lA8VXb7J39HQFr5y3dpOgs9ZwPL8yOc8zDesN/rW6tbOuJ
-	haznpushbTOcx0YoBkv2MofMIhWAqBEnrfEYJr6mIavbOHO2xYULkwxXyrHW2C1rhIyFvPt9l3u
-	kXDe4YAZjYL+sf63s9t7JfBLnRZjyjarxltY6/ZPiaaKkIC0ELfCj4jILGP6hoW/6OzVc3jElBv
-	HxNBYQDw4vuzDT8ugaI/cL87/RUDmMVGEqq1mbAWcwZAvYg7h6u+1QUA4Nocp+tsG8eNbpLI1ze
-	e3qIWeO9LIa4ajslgrFAOAtfu2f5eGvI4s0rTwvVIVmgDSzNDAuTkpMMsxRJUpbt2gyCEjbdjNA
-	9cPrgzX8OngA+DzR7/jUP+x4JzlrBZZza3I7Q==
-X-Received: by 2002:a05:6a20:20c3:b0:3db:4bf:53fc with SMTP id adf61e73a8af0-3dd72522a1dmr11258967637.9.1789766554581;
-        Fri, 18 Sep 2026 14:22:34 -0700 (PDT)
-Received: from p1.. (209-147-138-4.nat.asu.edu. [209.147.138.4])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c32f16f9csm1261175eec.2.2026.09.18.14.22.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 14:22:34 -0700 (PDT)
-From: Xiang Mei <xmei5@asu.edu>
-To: perex@perex.cz,
-	tiwai@suse.com,
-	linux-sound@vger.kernel.org
-Cc: dev@andree.sk,
-	co+f595d33a1b0a565b@bugs.sh,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Xiang Mei <xmei5@asu.edu>
-Subject: [PATCH] ALSA: line6: Clamp the playback URB size to the OUT endpoint packet size
-Date: Fri, 18 Sep 2026 14:22:31 -0700
-Message-ID: <20260918212231.1193758-1-xmei5@asu.edu>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B8KzO6ly"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6DBB1F000FF;
+	Fri, 18 Sep 2026 21:22:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789766557;
+	bh=C73E6Le+67WYIluMdsgmrs2q/oVPB+LK1n/ed4dGSno=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=B8KzO6lysIoyffMg2GGY6hxUGrTPlq5HDRDp45GMbDnFnHPrfc/rKa07eAN1espP9
+	 w25mOHnGeumnnk+YMtk9hfHgMOtM4wRF4ZtE8r1gnaBcoYGQGH134kZ+LAGp/kAnoj
+	 Qrqqb8cz3YoZo/dvTElPbvISAGhsIXgRMaabG2EQLwoL6WbqWK7lwVrhtztRnqn0wK
+	 o6qMA9yhjR46HAZuBjpW5d48VZu2t/tJqryIHHrX1wBWRU9otRFxDjPop/ysX1Tr2k
+	 bqdXTZVJ3i7jXIPUN5hw48c6VbLjErL15WGD1dCYdiF5u+1m7UKPaadvMHALHWs+ez
+	 GaJceCdAzuK8g==
+Message-ID: <47ccd5ce-2301-4ddd-881c-d57cb82b562c@kernel.org>
+Date: Fri, 18 Sep 2026 23:22:26 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RESEND v7 04/29] powerpc: mm: add PMD swap-exclusive helpers
+To: Usama Arif <usama.arif@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, chrisl@kernel.org,
+ kasong@tencent.com, ljs@kernel.org, ziy@nvidia.com, linux-mm@kvack.org
+Cc: ying.huang@linux.alibaba.com, Baoquan He <baoquan.he@linux.dev>,
+ willy@infradead.org, youngjun.park@lge.com, hannes@cmpxchg.org,
+ riel@surriel.com, shakeel.butt@linux.dev, alex@ghiti.fr, kas@kernel.org,
+ baohua@kernel.org, dev.jain@arm.com, baolin.wang@linux.alibaba.com,
+ Nico Pache <nico.pache@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
+ ryan.roberts@arm.com, Vlastimil Babka <vbabka@kernel.org>,
+ lance.yang@linux.dev, linux-kernel@vger.kernel.org, nphamcs@gmail.com,
+ shikemeng@huaweicloud.com, yosry@kernel.org, qi.zheng@linux.dev,
+ luizcap@redhat.com, kernel-team@meta.com,
+ Madhavan Srinivasan <maddy@linux.ibm.com>
+References: <20260914122950.3283997-1-usama.arif@linux.dev>
+ <20260914122950.3283997-5-usama.arif@linux.dev>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260914122950.3283997-5-usama.arif@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The playback buffer is sized from the OUT endpoint's max_packet_size_out,
-but submit_audio_out_urb() takes the length to write into it from
-prev_fsize, which audio_in_callback() derived from the IN endpoint.  Both
-come from the device's own descriptors and nothing relates them, so a
-device declaring a large iso IN and a small iso OUT wMaxPacketSize
-overflows the buffer.  usb_submit_urb() rejects the oversized URB, but
-only after the write has run.
+On 9/14/26 14:27, Usama Arif wrote:
+> A later patch keeps a PMD-mapped anonymous THP mapped by a PMD across the
+> swap round-trip, so PG_anon_exclusive now has to survive in a swap PMD and
+> not just in a swap PTE.
+> 
+> book3s64 builds a swap PMD by running the PTE encoding over pmd_pte(), so
+> the PMD helpers use the same _PAGE_SWP_EXCLUSIVE bit. It is also the only
+> powerpc variant that selects ARCH_HAS_PMD_SOFTLEAVES, via PPC_THP.
+> 
+> Cc: Madhavan Srinivasan <maddy@linux.ibm.com>
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+> ---
+>  arch/powerpc/include/asm/book3s/64/pgtable.h | 17 +++++++++++++++++
+>  1 file changed, 17 insertions(+)
+> 
+> diff --git a/arch/powerpc/include/asm/book3s/64/pgtable.h b/arch/powerpc/include/asm/book3s/64/pgtable.h
+> index dff8790a047db..28943ef3c1c80 100644
+> --- a/arch/powerpc/include/asm/book3s/64/pgtable.h
+> +++ b/arch/powerpc/include/asm/book3s/64/pgtable.h
+> @@ -699,6 +699,23 @@ static inline pte_t pte_swp_clear_exclusive(pte_t pte)
+>  	return __pte_raw(pte_raw(pte) & cpu_to_be64(~_PAGE_SWP_EXCLUSIVE));
+>  }
+>  
+> +#ifdef CONFIG_ARCH_HAS_PMD_SOFTLEAVES
+> +static inline pmd_t pmd_swp_mkexclusive(pmd_t pmd)
+> +{
+> +	return __pmd_raw(pmd_raw(pmd) | cpu_to_be64(_PAGE_SWP_EXCLUSIVE));
+> +}
+> +
+> +static inline bool pmd_swp_exclusive(pmd_t pmd)
+> +{
+> +	return !!(pmd_raw(pmd) & cpu_to_be64(_PAGE_SWP_EXCLUSIVE));
+> +}
+> +
+> +static inline pmd_t pmd_swp_clear_exclusive(pmd_t pmd)
+> +{
+> +	return __pmd_raw(pmd_raw(pmd) & cpu_to_be64(~_PAGE_SWP_EXCLUSIVE));
+> +}
+> +#endif
 
-Attaching the device is the whole trigger: toneport_startup() acquires the
-monitor stream and starts both URB streams on its own, so the overflow
-happens in the URB completion handler with no local process involved.
+This should likely go below the pmd_swp_mksoft_dirty() handling block?
 
-Clamp the length to max_packet_size_out.  A device whose OUT endpoint
-matches the audio format it announces never reaches the limit.
+For softdirty it's e.g.,
 
-BUG: KASAN: slab-out-of-bounds in submit_audio_out_urb (sound/usb/line6/playback.c:242)
-Write of size 1024 at addr ffff88801b94bc00 by task vhci_rx/183
+#define pmd_swp_mksoft_dirty(pmd)	pte_pmd(pte_swp_mksoft_dirty(pmd_pte(pmd)))
 
-Call Trace:
- kasan_report (mm/kasan/report.c:595)
- kasan_check_range (mm/kasan/generic.c:186 mm/kasan/generic.c:200)
- __asan_memset (mm/kasan/shadow.c:84)
- submit_audio_out_urb (sound/usb/line6/playback.c:242)
- audio_out_callback (sound/usb/line6/playback.c:354)
- __usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1657)
- usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1741)
- vhci_rx_loop (drivers/usb/usbip/vhci_rx.c:107)
- kthread (kernel/kthread.c:436)
- ret_from_fork (arch/x86/kernel/process.c:158)
- ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
 
-The buggy address belongs to the object at ffff88801b94bc00
- which belongs to the cache kmalloc-512 of size 512
+Why can't we follow a similar model here?
 
-Cc: stable@vger.kernel.org
-Fixes: 7a0f55aeeb8f ("ALSA: line6: Support assymetrical in/out configurations")
-Reported-by: <co+f595d33a1b0a565b@bugs.sh>
-Assisted-by: LLM
-Signed-off-by: Xiang Mei <xmei5@asu.edu>
----
- sound/usb/line6/playback.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/sound/usb/line6/playback.c b/sound/usb/line6/playback.c
-index 7ebaf125f969..cfb20585c5ea 100644
---- a/sound/usb/line6/playback.c
-+++ b/sound/usb/line6/playback.c
-@@ -181,6 +181,7 @@ static int submit_audio_out_urb(struct snd_line6_pcm *line6pcm)
- 		}
- 
- 		fsize *= bytes_per_frame;
-+		fsize = min(fsize, line6pcm->max_packet_size_out);
- 
- 		fout->offset = urb_size;
- 		fout->length = fsize;
 -- 
-2.43.0
+Cheers,
 
+David
