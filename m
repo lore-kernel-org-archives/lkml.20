@@ -1,59 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-134.mta0.migadu.com [91.218.175.134])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C0E214900E;
-	Fri, 18 Sep 2026 08:04:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ABA43033FD
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:04:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.134
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789718673; cv=none; b=TWC0Y4Q97DXHh5kMUXJ35rFXEBwBEK0CGYLwAVQeoBoZXFav9UgTdBwvN2qetGXZbiEzwXbgZp1Bu9y7+4RSIbKdiFS32QwAoplvg5hdQFNA2UrPbI8SnYx/fWD7TWCca1ZNr4CtQ0CsXajUFDvPakT9mQDXMfnYhzHO39psb0w=
+	t=1789718680; cv=none; b=pBjh8LGKnmscV5IlJbALJLASpuPPSwuLLW1lLwy6Rkkoyn+agFAZUiUM2gEAlYI65kPbj9IWyGhoALAt6ntexYXuGrM75zENG6p2z//HL6M1weTlRwCkyucskYVE3zHFbpiq+sS6DC1KEWl6IWlvZ96rauvsh0Cxs5cZkz4DrCE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789718673; c=relaxed/simple;
-	bh=W8Y2Iiptzh3PAirfHIu0IxFbxBTCwpPhLsDfQ9KpzS0=;
+	s=arc-20240116; t=1789718680; c=relaxed/simple;
+	bh=aMbcna5jLWNAqx3Ry2+7V7gyF2U3dGtOqExnDesb2fI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rvpB4bzFoRw/kcbvq2it3Sej9mxg0Ah51/SKJ8ViMnybDrR47kvzl6qC/3TJxQOTkQCcnYtczpa/Vx2+OjJmbwnO1KRYieJ3CYN2LRYxYbSM7Cma5TB3q1Ifvbz7GF1MW8/KfxkHIxOHOBo1qglO3c0vzwo1LiCZPk3E+DANPY4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tkgip5Y0; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=OIRPhhXFCZBIKeh8aCriZuNo0sMqXv3lJntteI/qQRqi0K6iJloja/SpQxVrB4p2HEy4sUD560Cul85FOMORULEjE24bKVy6x8ARI+chWOHT9AFUf3qAsv2BG372kj9ChN8TdoiRTPf5DN/BuOJ2Obz7Ix+5ooi5UC9omk0BCaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=GM3c5Eao; arc=none smtp.client-ip=91.218.175.134
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tkgip5Y0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25B311F000FF;
-	Fri, 18 Sep 2026 08:04:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789718672;
-	bh=JoolW+mpYeOiDJYYvBVHlQXWnPeM+HLuLahZJB6MWMI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Tkgip5Y0AG8Yuz10dSf3/M6N0t0qft3H3KkUfbRoBy9xLwB2cHZSsTNsic4x945dk
-	 XQZ+PNX0jE83j3LXc9cTbLig7eSUSCImnjRr7v14K+n5ax5fB+qHuulrkxO/ozZ6Kl
-	 u9cmiSDsOf6x/DnnXI3NxxQKK38M2QUJjb9cK9zUcsZulzNDPuvxNiCAscXQti01vA
-	 xcs9Je22Ee3OmpKZWcwBGjgjcY6NCA8AcswnZSjrUDySKcFaBGfBecQ+WioDDpCUY9
-	 VHNNcGiN1lUS9BBtg4Yxz8k6Mhaezlkki7AhSBFJooNvWbsTQ57ua5uo4hgXbhaC1J
-	 Gt4HNQQTOJ6VA==
-Date: Fri, 18 Sep 2026 10:04:26 +0200
-From: Christian Brauner <brauner@kernel.org>
-To: Jori Koolstra <jkoolstra@xs4all.nl>
-Cc: Jeff Layton <jlayton@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
-	Aleksa Sarai <aleksa@amutable.com>, NeilBrown <neil@brown.name>, Amir Goldstein <amir73il@gmail.com>, 
-	Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 08/12] vfs: change ->create/->mkdir operations
- unavailable errno
-Message-ID: <20260918-kargheit-reibung-meinung-b0030a0b063e@brauner>
-References: <20260913185016.523376-1-jkoolstra@xs4all.nl>
- <20260913185016.523376-9-jkoolstra@xs4all.nl>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="GM3c5Eao"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=aMbcna5jLWNAqx3Ry2+7V7gyF2U3dGtOqExnDesb2fI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789718677; v=1; x=1790323477;
+ b=GM3c5EaoyflUF7CWwtfTtu5IXbmYDA4S9MecRd3maV8jL/5eBAPLJhtz+IIeC27Bg8YeXroG
+ sGJ10OP8XciAgkKoXHv3C/Q9rbV6R0sQRw623xarvpsk0LTGkyrGtTbGwOkNou2kuzaoTXZarC3
+ ePWlB0u1vXPB9v/SPwZ13Bfk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id e28637c2a9188785;
+	Fri, 18 Sep 2026 08:04:36 +0000
+X-Mizu-Trace-ID: e28637c2a9188785
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 18 Sep 2026 16:04:33 +0800
+From: Baoquan He <baoquan.he@linux.dev>
+To: Wandun Chen <chenwandun1@gmail.com>
+Cc: catalin.marinas@arm.com, will@kernel.org, chenhuacai@kernel.org,
+	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
+	tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+	dave.hansen@linux.intel.com, x86@kernel.org, robh@kernel.org,
+	saravanak@kernel.org, akpm@linux-foundation.org, rppt@kernel.org,
+	pasha.tatashin@soleen.com, pratyush@kernel.org,
+	m.szyprowski@samsung.com, mark.rutland@arm.com, kernel@xen0n.name,
+	alex@ghiti.fr, hpa@zytor.com, ruirui.yang@linux.dev,
+	robin.murphy@arm.com, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
+	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
+	kexec@lists.infradead.org, linux-mm@kvack.org,
+	iommu@lists.linux.dev
+Subject: Re: [PATCH v6 05/10] crash_core: replace for_each_mem_range() with
+ for_each_mem_region()
+Message-ID: <aqzwkVldaBWcMojx@fedora>
+References: <20260902073116.802752-1-chenwandun1@gmail.com>
+ <20260902073116.802752-6-chenwandun1@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260913185016.523376-9-jkoolstra@xs4all.nl>
+In-Reply-To: <20260902073116.802752-6-chenwandun1@gmail.com>
 
-On Sun, Sep 13, 2026 at 08:50:12PM +0200, Jori Koolstra wrote:
-> Currently filesystems return -EACCES for missing ->create and -EPERM for
-> missing ->mkdir in vfs_create/vfs_mkdir. Instead of duplicating these
-> dubious and inconsistent error codes to lookup_open(), change all to
-> -EOPNOTSUPP.
+On 09/02/26 at 03:31pm, Wandun Chen wrote:
+> From: Wandun Chen <chenwandun@lixiang.com>
 > 
-> Signed-off-by: Jori Koolstra <jkoolstra@xs4all.nl>
+> for_each_mem_range() skips MEMBLOCK_NOMAP regions implicitly. Switch the
+> weak defaults to for_each_mem_region(), which exposes struct
+> memblock_region and per-region flags, and filter NOMAP regions explicitly
+> via the new crash_should_skip_region() helper. This prepares for a
+> subsequent patch to extend the skip filter.
+> 
+> No functional change.
+> 
+> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
+> Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
 > ---
+>  kernel/crash_core.c | 25 +++++++++++++++++--------
+>  1 file changed, 17 insertions(+), 8 deletions(-)
 
-I suspect that still has regression potential but we can try.
+Acked-by: Baoquan He <baoquan.he@linux.dev>
+
+> 
+> diff --git a/kernel/crash_core.c b/kernel/crash_core.c
+> index 3adee1ae120c..bd64cf585795 100644
+> --- a/kernel/crash_core.c
+> +++ b/kernel/crash_core.c
+> @@ -270,6 +270,12 @@ int crash_prepare_elf64_headers(struct crash_mem *mem, int need_kernel_map,
+>  	return 0;
+>  }
+>  
+> +/* Exclude NOMAP regions from the vmcore. */
+> +static bool crash_should_skip_region(struct memblock_region *reg)
+> +{
+> +	return memblock_is_nomap(reg);
+> +}
+> +
+>  static struct crash_mem *alloc_cmem(unsigned int nr_ranges)
+>  {
+>  	struct crash_mem *cmem;
+> @@ -285,22 +291,25 @@ static struct crash_mem *alloc_cmem(unsigned int nr_ranges)
+>  unsigned int __weak arch_get_system_nr_ranges(void)
+>  {
+>  	unsigned int nr_ranges = 2 + crashk_cma_cnt; /* crashk_res + crashk_low_res, +CMA splits */
+> -	phys_addr_t start, end;
+> -	u64 i;
+> +	struct memblock_region *reg;
+>  
+> -	for_each_mem_range(i, &start, &end)
+> +	for_each_mem_region(reg) {
+> +		if (crash_should_skip_region(reg))
+> +			continue;
+>  		nr_ranges++;
+> +	}
+>  	return nr_ranges;
+>  }
+>  
+>  int __weak arch_crash_populate_cmem(struct crash_mem *cmem)
+>  {
+> -	phys_addr_t start, end;
+> -	u64 i;
+> +	struct memblock_region *reg;
+>  
+> -	for_each_mem_range(i, &start, &end) {
+> -		cmem->ranges[cmem->nr_ranges].start = start;
+> -		cmem->ranges[cmem->nr_ranges].end = end - 1;
+> +	for_each_mem_region(reg) {
+> +		if (crash_should_skip_region(reg))
+> +			continue;
+> +		cmem->ranges[cmem->nr_ranges].start = reg->base;
+> +		cmem->ranges[cmem->nr_ranges].end = reg->base + reg->size - 1;
+>  		cmem->nr_ranges++;
+>  	}
+>  	return 0;
+> -- 
+> 2.43.0
+> 
