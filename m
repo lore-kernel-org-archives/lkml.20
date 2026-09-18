@@ -1,186 +1,138 @@
-Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 196734A68BE;
-	Fri, 18 Sep 2026 07:38:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.225
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A11AA3BE155;
+	Fri, 18 Sep 2026 07:39:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789717153; cv=none; b=u5Nbns3NU0/TvHD4ar+jqx+g4+dLsJGlsebC9HtOtqhvOPZdqAcwPX5R7xjrLYLY5N2crrupzKHrMWp/VGHjGJgmzEdW2rG5kuBTfFQ2slX2hS/tJA+anc/XaHmx+E2aOqKYUZt3o0+ptJKKVjayUYS07HR+XDQNQCwmizRaC78=
+	t=1789717206; cv=none; b=hYDlk1cJH2VfA8mxfaBl8gcaZZlVtJ9dept19ql2gKBtzp8GTlafuYga3G4FLp4wSh+BY/AHt5GtptQYOIuC+uUOAvScHrWUfzZq+8KNDv21B2ftSltkVktJpS6z7EX2jBJH75frm4+u5HR4wVBWP6rnFeIVKuvSjhnQy6QCpZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789717153; c=relaxed/simple;
-	bh=wMPneGXOul6xoZ4l3T0Z5gh//T69JqOrik39lv3iZXQ=;
-	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=ZKBtWlz7098OD8bIw17C8nQAQ0lN2ZOeBl8NyisliYhcJVZLNlyZA+gxA0jMZcezfK2trYk3BhsBWpGHt7530RavKbguMbTFVbGdkSm923NOHcPa17zzm4WRsARBIVJntWC5KQru2FGo1kBy0GioyXkv1ElwIbXbk4mJhaXrMHc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=iytQqvaN; arc=none smtp.client-ip=113.46.200.225
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1789717206; c=relaxed/simple;
+	bh=9HjgM9JbkGt1A3yefJhN4x6xA3Vg7LoR3hGeySb0Qow=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AeFfo2fQ5C/dcYEqvUuJ+dXQYu+ZmubxzEW9cM55fVZAREs4jiFOV9NZfI3rLp4K5q+TjSMioqeqZ8bevOX1EHvr5JekoPLitO+zFRVYNITxV9QMuwnr+z20UXWI6jcGno6QOvmoIpLb9k5JL24jDXpTvsw5VHZd4eKJdleGp04=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QRyltiK/; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="iytQqvaN"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=fSyDGglXq16ALJMyy68SuHSXMGVQu08Z+26mcysiUMw=;
-	b=iytQqvaNmEwikQ2y/ixGJJbaZDE0OsG677QJUbQdnS/iw1z/PAZEwGGwI/gF+eQ6d6pXA0uaZ
-	qwakjFgJiZZ/mdTgywe7ajzSAJ3LkEcfHfk9QIxsteR4YqaWWYFY6E7H0zI9Tvq/NmfFbnrODmz
-	RvbRmgsSVUZPjqo0jJD7nNA=
-Received: from mail.maildlp.com (unknown [172.19.163.15])
-	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4hmPNG2gHPz1K9B2;
-	Fri, 18 Sep 2026 15:27:42 +0800 (CST)
-Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
-	by mail.maildlp.com (Postfix) with ESMTPS id 6107640586;
-	Fri, 18 Sep 2026 15:38:42 +0800 (CST)
-Received: from [10.174.178.46] (10.174.178.46) by
- whupemo200011.china.huawei.com (7.152.185.179) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Fri, 18 Sep 2026 15:38:41 +0800
-Subject: Re: [PATCH v3] md: Fix the null-ptr-deref of 'mddev->private' while
- submitting IO
-To: Abd-Alrhman Masalkhi <abd.masalkhi@gmail.com>, <song@kernel.org>,
-	<yukuai@fygo.io>, <xiao@kernel.org>, <magiclinan@didiglobal.com>,
-	<eadavis@sina.com>
-CC: <linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<yangerkun@huawei.com>, <yi.zhang@huawei.com>
-References: <20260918070900.1945351-1-chengzhihao1@huawei.com>
- <m233v7586k.fsf@gmail.com>
-From: Zhihao Cheng <chengzhihao1@huawei.com>
-Message-ID: <249f987d-9d2d-8f5c-91dd-3af6baefe587@huawei.com>
-Date: Fri, 18 Sep 2026 15:38:36 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QRyltiK/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789717199; x=1821253199;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=9HjgM9JbkGt1A3yefJhN4x6xA3Vg7LoR3hGeySb0Qow=;
+  b=QRyltiK/8VXtmYoDNqHqSA6+r/9gYRqGlcGdjn5gfRAhfQYAn5XrGY+x
+   /+35p6LcSwkm7LHxQ0H0T7RP61tFADN8S0MIQBnpTXmqy1wJlBfBetV8D
+   M0sM5sNh7CvD6aBqts1P3nYb3nGLGHE4yU652I33CC3bngi3TQwFTcxAM
+   pP7c2U8bSt06+1+1/MKj2IhZGMSCRZDLIqtfLwiyHZoMUaLXo/e34lt73
+   3eMaFW6VmLVdJy13a1YgT2W8h/AwUBXpEMCyuMjYl9a4V6QWavGhOpmcL
+   LT+mt+THYI+YR8kQ1SogLaARS2dQsaUtbsHxCqQ4tDduzF5sjo4nlVIAA
+   Q==;
+X-CSE-ConnectionGUID: 9td86wudQRe8nBfvawUHFg==
+X-CSE-MsgGUID: uZRVMeamQZSrFr1z7FHMXA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89340112"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="89340112"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 00:39:52 -0700
+X-CSE-ConnectionGUID: EQSigIixQTGHBye9zTlPZA==
+X-CSE-MsgGUID: SCwZTKvvQfmatyBz20cYNw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="297731196"
+Received: from carterle-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.170])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 00:39:47 -0700
+Date: Fri, 18 Sep 2026 10:39:41 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Wentao Liang <vulab@iscas.ac.cn>, Miaoqian Lin <linmq006@gmail.com>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Lucas Stach <l.stach@pengutronix.de>,
+	Dong Aisheng <aisheng.dong@nxp.com>, linux-pm@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] pmdomain: imx: gpc: remove all initialized power domains
+Message-ID: <aqzqvfbeh653jUce@ashevche-desk.local>
+References: <20260918031323.3376849-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <m233v7586k.fsf@gmail.com>
-Content-Type: text/plain; charset="gbk"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- whupemo200011.china.huawei.com (7.152.185.179)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918031323.3376849-1-lgs201920130244@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-ÔÚ 2026/9/18 15:29, Abd-Alrhman Masalkhi Ð´µÀ:
+On Fri, Sep 18, 2026 at 11:13:22AM +0800, Guangshuo Li wrote:
+> imx_gpc_old_dt_init() initializes all power domains described by
+> of_id_data->num_domains. Its probe failure path removes all of these
+> domains, but imx_gpc_remove() only removes the PU and ARM domains.
 > 
-> Hi Zhihao,
+> On SoCs with more than two domains, such as i.MX6SL and i.MX6SX, the
+> additional DISPLAY and PCI generic power domains can remain registered
+> after the GPC driver is removed.
 > 
-> On Fri, Sep 18, 2026 at 15:09 +0800, Zhihao Cheng wrote:
->> Concurrent processes md_stop and IO submitting could trigger a
->> null-ptr-deref of 'mddev->private':
->>
->>   BUG: kernel NULL pointer dereference, address: 0000000000000070
->>   RIP: 0010:_wait_barrier+0x2f/0x250
->>   Call Trace:
->>    raid1_make_request+0x150/0xf50
->>    md_handle_request+0x104/0x530
->>    md_submit_bio+0x76/0x130
->>    submit_bio+0xdd/0x250
->>    submit_bio_wait+0x1f/0x40
->>    __blkdev_direct_IO_simple+0x1f6/0x370
->>    blkdev_write_iter+0x3b2/0x520
->>    ksys_write+0x7d/0x190
->>
->>                P1
->>    fd = open(/dev/md0, O_RDWR)
->> 	                      P2 (forked from P1, fd' <= fd)
->>    write(fd)
->>     submit_bio
->>      md_handle_request
->>       raid1_make_request
->>        raid1_write_request
->>                                    ioctl(fd, STOP_ARRAY)
->> 		                   mddev_set_closing_and_sync_blockdev
->> 				   // check passed, mddev->openers = 1,
->> 				   // because md_open() is only called
->> 				   // once in P1->open
->> 				   do_md_stop
->> 				    __md_stop
->> 				     mddev->private = NULL
->>
->>         conf = mddev->private // NULL
->>          wait_barrier(conf, sector) // null-ptr-deref !
->>
->> It is a common problem for raid0/1/10/5, and __md_stop could be triggered
->> by several paths(eg. ioctl, sysfs, ->dtr). Fix it by replacing
->> mddev_lock() with mddev_suspend_and_lock() for all __md_stop() callers.
->> The caller dm_table_destroy() is guaranteed being invoked with device
->> suspended, so raid_dtr() could keep using mddev_lock_nointr().
->> The caller array_state_store() is guaranteed by the check
->> mddev_set_closing_and_sync_blockdev(mddev, 0). For example, someone open
->> /dev/mdx, write something and close /dev/mdx, it won't trigger the
->> problem, all dirty pages can be flushed before mddev->openers decrement.
->> Besides, fail the submitting IO in md_handle_request() if the
->> 'mddev->pers' becomes NULL.
->>
->> Fetch a reproducer in https://bugzilla.kernel.org/show_bug.cgi?id=222020
->>
->> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
->> Reported-by: syzbot+3fe892ea5fc292e1353f@syzkaller.appspotmail.com
->> Closes: https://syzkaller.appspot.com/bug?extid=3fe892ea5fc292e1353f
->> Signed-off-by: Zhihao Cheng <chengzhihao1@huawei.com>
->> ---
->>   v1->v2:
->>    1. Add 'mddev->pers != NULL' check before make_request
->>    2. Delete dm-raid caller(->dtr) modifications
->>    3. Move memalloc_noio_restore after mddev_unlock_and_resume
->>   v2->v3:
->>    1. Remove modifications in array_state_store()
->>    2. update commit msg
->>   drivers/md/md.c | 15 +++++++++++++++
->>   1 file changed, 15 insertions(+)
->>
->> diff --git a/drivers/md/md.c b/drivers/md/md.c
->> index 680b34a63cb3..e73338c26d53 100644
->> --- a/drivers/md/md.c
->> +++ b/drivers/md/md.c
->> @@ -414,6 +414,20 @@ bool md_handle_request(struct mddev *mddev, struct bio *bio)
->>   		if (!percpu_ref_tryget_live(&mddev->active_io))
->>   			goto check_suspended;
->>   	}
->> +	if (!mddev->pers) {
-> Isn't this case already handled by md_submit_bio(). take a look in
-> md_submit_bio()
-Hi,Abd-Alrhman
-I understand that 'mddev == NULL || mddev->pers == NULL' in 
-md_submit_bio() is a qiuck check, there still exists a small race window:
-      P1                     P2
-md_submit_bio
-  if (mddev == NULL || mddev->pers == NULL)
-                         md_ioctl
-                          mddev_suspend_and_lock
-                          do_md_stop->__md_stop
-                          // set mddev->pers/private as NULL
-                          mddev_unlock_and_resume
-  md_handle_request
-   if (is_suspended(mddev, bio))
-   percpu_ref_tryget_live(&mddev->active_io)
-   mddev->pers // null-ptr-deref
+> Remove all initialized power domains in reverse order. Keep releasing
+> the PU clocks immediately after the PU domain has been successfully
+> removed.
 > 
->> +		/*
->> +		 * The __md_stop() sets 'mddev->private' to NULL during
->> +		 * the IO submitting, check 'mddev->pers' before the IO
->> +		 * being processed by specific driver to avoid the
->> +		 * null-ptr-deref of 'mddev-><member>'. The check is
->> +		 * safe because the IO has got the 'mddev->active_io'
->> +		 * reference, and all __md_stop() callers will wait for
->> +		 * the reference to be zero.
->> +		 */
->> +		bio_io_error(bio);
->> +		percpu_ref_put(&mddev->active_io);
->> +		return true;
->> +	}
->>   	if (!mddev->pers->make_request(mddev, bio)) {
->>   		percpu_ref_put(&mddev->active_io);
->>   		if (mddev_is_dm(mddev) && mddev->pers->prepare_suspend)
->> @@ -8299,6 +8313,7 @@ static bool md_ioctl_need_suspend(unsigned int cmd)
->>   	case HOT_REMOVE_DISK:
->>   	case SET_BITMAP_FILE:
->>   	case SET_ARRAY_INFO:
->> +	case STOP_ARRAY:
->>   		return true;
->>   	default:
->>   		return false;
->> -- 
->> 2.52.0
->>
-> 
+> This issue was found by manual code inspection.
+
+...
+
+>  static void imx_gpc_remove(struct platform_device *pdev)
+>  {
+> +	const struct imx_gpc_dt_data *of_id_data =
+> +		device_get_match_data(&pdev->dev);
+
+No...
+
+>  	struct device_node *pgc_node;
+> -	int ret;
+> +	int i, ret;
+
+...and no.
+
+The result of the device_get_match_data() better to be checked, in some cases
+it might lead to NULL dereference.
+
+It's better to split semantically different variables, also naming 'i' is not
+good, num_domains is better. Besides that, why is it signed?
+
+...
+
+> +		for (i = of_id_data->num_domains - 1; i >= 0; i--) {
+
+What you are doing here can be written in a shorter form
+
+		num_domains = of_id_data->num_domains;
+		while (num_domains--) {
+
+> +			ret = pm_genpd_remove(&imx_gpc_domains[i].base);
+> +			if (ret) {
+> +				dev_err(&pdev->dev,
+> +					"Failed to remove %s power domain (%pe)\n",
+> +					imx_gpc_domains[i].base.name,
+> +					ERR_PTR(ret));
+> +				return;
+> +			}
+>  
+> +			if (i == GPC_PGC_DOMAIN_PU)
+> +				imx_pgc_put_clocks(&imx_gpc_domains[i]);
+>  		}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
