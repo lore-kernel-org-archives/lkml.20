@@ -1,127 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.61.103])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B02B23B47C6;
-	Fri, 18 Sep 2026 13:38:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789738731; cv=none; b=fbzzJ3w9grYKInrn+zXcpnnIBBBmDxUS+z4OMk8wrlTioa9NKDcxOTEir80dJyAZYutTN3VBMJxHy09W7lhmxQWGHldLLv3Bwi826T5rJCgWkOFoXqH+oQ4uz1XMtrv8U5jz5oLvOl+e4ieT9dA+lJKmSaMx9B+SuY5S7wLlZzs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789738731; c=relaxed/simple;
-	bh=z46G0bqcIh2LGqc3firE0uMW8MWjL4tc5VkCRr67/GU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=M6RPjxTbEpbNfgiNNvr+IUNe1CrkKlH4Bsg1PaWEeLA49n81xcbsC5WhOKE0WBrvG3jquLuSLKtAi7KFn+/egind/8SRI3gGMN/MCBQLg7XJE5QjWvELgKAzT78Ix91l0gmr8CWDXcBQvn+VTwfG8GH74Ztx3EZLGAtvrI7eAiI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cUuOkv/a; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cUuOkv/a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D00971F000FF;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 548F94FC343;
 	Fri, 18 Sep 2026 13:38:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789738728;
-	bh=UAOy211GQO8ZsvZCQNqPn3L4mKEDMAq855MNr2jtBdw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cUuOkv/amenXWBkIAUlZv6naAxqa57uqW1Nr/SIhH4UTEbrBfRdhsCWGVKcmXFaO9
-	 NDSaTvl61cFqHIwaNmtm+lnnz3eLP+GwmMIt5YkTHazLlHeRvr3F1DhFTaidMndNNi
-	 t6SwL5GdkNekf5UgqMsc2X+XhPzoinekoy1e8+hNssrHN3jzQ9txE5Zxigkl78aLCM
-	 Esxw+wLXPd6Ju5c87rfo6bHENHPnuGTUn8SpQGflEF47LkECRVKUVhdEZIQejh6trg
-	 b2zyHj6fCzZqadjaquey1fpzB9PhUiz10ytvscm40H8SBoVnsMpM38H/wIHNsE0yX+
-	 1UzdbW3bncyXg==
-Date: Fri, 18 Sep 2026 14:38:44 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-Cc: Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Cristian Marussi <cristian.marussi@arm.com>,
-	Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>, Frank.Li@kernel.org,
-	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-arm-msm@vger.kernel.org, imx@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 1/2] module: add SCMI device table alias support
-Message-ID: <20260918-roaring-bee-of-acceptance-50a8a9@sudeepholla>
-References: <20260918092951.5656-1-johannes.goede@oss.qualcomm.com>
- <20260918092951.5656-2-johannes.goede@oss.qualcomm.com>
- <2104f437-e960-4e55-b0e1-2b37126e8c2f@oss.qualcomm.com>
- <82a72918-7bc7-4e2c-892c-0dcdd6dd5548@oss.qualcomm.com>
- <3f51bf6c-5318-4e32-a1ca-3ce8cf8c4ceb@oss.qualcomm.com>
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.61.103
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789738729; cv=none; b=M6gLXBY5z+7OKNU9k02rFj1DemKLqN2KZ8mX0SZ0ZBIjk2Nubc0xrpL8zMFnRgI2sQAQ7NtnLEYla1wwSLQyWRQcpdRo/xCWg+uoTHPPIUHIXv720KhTaH6J8D673U3H5GWJpaaX5CTRU3aPy4KTVfulcJ+vpXGPPr7qa8WbQQk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789738729; c=relaxed/simple;
+	bh=NSGPR63vm0J21dwn5r1enKuzdn3dCG4YKJPLYpM64W8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pFoP2V7uLvvNlseT7j68T+ECogibR/n5gY5Ji9HoR+/VZJLmbzfZY+IBGvXkeMtjvsQRlGgnmH+0PQBXjQGKQKkU0ChJIbaqdZjqL+lWmR8rFSJ0iHlGfwSs+it5/gOWmeNaZueefq1qazpKR6O6cCY+wRu3Vsz3Dok0+9Z5nDI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=HW+OE7NR; arc=none smtp.client-ip=188.68.61.103
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="HW+OE7NR"
+Received: from mors-relay-8403.netcup.net (localhost [127.0.0.1])
+	by mors-relay-8403.netcup.net (Postfix) with ESMTPS id 4hmYcN1gwTz87cq;
+	Fri, 18 Sep 2026 15:38:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1789738724;
+	bh=NSGPR63vm0J21dwn5r1enKuzdn3dCG4YKJPLYpM64W8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=HW+OE7NRUKVex6wzHEF3IQTF86Pm+OWJotfW/8EBhztiEcpPSe0QZnBjVbXTtdl60
+	 BWd9B/DO/3HiiCAI4dB/LGmJEPmSVb3f46lkkj0u0dbLZxY5kBBcFhRZWC/fSoqLtD
+	 ylHfmj2tlAQUjwRWp229sCJ/47+p2NR38zKOFv07cH+WKFvJBB2RrlERKJw9s7JIVC
+	 vZo2ijWwyMzYHu/6u/Q9/Qws+KnYzi485QNnv9H30juGLbOt7JEVa3x53ZFNV1pCZj
+	 O9iWgt3P6eV0XUc7C05InzdA+9M7MVUnF6Jov/6fm1pcQvpNtnShLnKE2sj5F1KhhL
+	 hQq37qPtD9qaw==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay-8403.netcup.net (Postfix) with ESMTPS id 4hmYb34b8Jz8DFZ;
+	Fri, 18 Sep 2026 15:37:35 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hmYb243hHz8sZP;
+	Fri, 18 Sep 2026 15:37:34 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id CAC7F5FA16;
+	Fri, 18 Sep 2026 15:37:33 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <f322a3b2-71eb-45e7-aeaf-18ad87f938ce@leemhuis.info>
+Date: Fri, 18 Sep 2026 15:37:32 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <3f51bf6c-5318-4e32-a1ca-3ce8cf8c4ceb@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION] RTL8761BU 0bda:a728: removing BROKEN_EXT_SCAN fixes
+ 0x200c timeout
+To: Andy Tsvetinskiy <andrew.tsvetinskiy@gmail.com>
+Cc: regressions@lists.linux.dev, linux-bluetooth@vger.kernel.org,
+ Kamil Serwus <kserwus@gmail.com>, Junjie Cao <junjie.cao@intel.com>,
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+ Marcel Holtmann <marcel@holtmann.org>, LKML <linux-kernel@vger.kernel.org>,
+ Alexej Sidorenko <alexej@sidorenko.cz>
+References: 
+ <CAE4bxw+ofDFVx0aTHqCrzns9oP1CRQDm_wzeyHPeMBYOhSpcuA@mail.gmail.com>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: 
+ <CAE4bxw+ofDFVx0aTHqCrzns9oP1CRQDm_wzeyHPeMBYOhSpcuA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: 
+ <178973865431.1866550.16469531839496829366@mxe9fb.netcup.net>
+X-NC-CID: bpcrAflHt8zdY5QrWqS0S4zUNqIX10pwqepvi9WfE/OjxMyZz1A=
 
-On Fri, Sep 18, 2026 at 12:13:10PM +0200, Daniel Lezcano wrote:
-> On 9/18/26 12:02, Hans de Goede wrote:
-> > Hi Daniel,
-> > 
-> > On 18-Sep-26 11:53, Daniel Lezcano wrote:
-> > > 
-> > > Hi Hans,
-> > > 
-> > > thanks for taking care of that
-> > > 
-> > > 
-> > > On 9/18/26 11:29, Hans de Goede wrote:
-> > > > From: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-> > > > 
-> > > > SCMI client drivers already describe their bus match data with
-> > > > MODULE_DEVICE_TABLE(scmi, ...), but modpost does not know how to consume
-> > > > SCMI device tables. As a result, SCMI modules do not get generated module
-> > > > aliases from their id tables.
-> > > > 
-> > > > Move struct scmi_device_id to mod_devicetable.h so it has a fixed layout
-> > > > visible to modpost, add the corresponding generated offsets and teach
-> > > > file2alias to emit scmi:<protocol>:<name> aliases.
-> > > > 
-> > > > Use the same stable alias format for SCMI device uevents and sysfs
-> > > > modaliases. The previous string included the instance-specific device
-> > > > name, which is not useful for matching modules.
-> > > > 
-> > > > Assisted-by: Codex:GPT-5.5
-> > > > Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-> > > > Tested-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-> > > > Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-> > > > Signed-off-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-> > > > ---
-> > > 
+Lo!
+
+On 9/18/26 11:21, Andy Tsvetinskiy wrote:
 > 
-> [ ... ]
+>    This report concerns USB ID 0bda:a728, not 0bda:8771.
 > 
-> > > >    #include <linux/bitfield.h>
-> > > > +#include <linux/device-id/scmi.h>
-> > > >    #include <linux/device.h>
-> > > >    #include <linux/notifier.h>
-> > > >    #include <linux/types.h>
-> > > > @@ -951,11 +952,6 @@ struct scmi_device {
-> > > >      #define to_scmi_dev(d) container_of_const(d, struct scmi_device, dev)
-> > > >    -struct scmi_device_id {
-> > > > -    u8 protocol_id;
-> > > > -    const char *name;
-> > > > -};
-> > > > -
-> > > 
-> > > What is the reason of converting the char * to a fixed array? That limits the name and may result in truncation and potentially name collision, no ?
-> > 
-> > Because of how modpost works to generate modaliases inside the .ko
-> > any string buffers in device_id structs need to have a fixed length.
-> > 
-> > So the truncation / name collision issue pretty much applies to all
-> > foo_device_id structs in the kernel. People should now to make sure
-> > that any strings used will fit inside the fixed string. And I would
-> > expect the compiler to warn for overly long strings.
-> Ok, thanks for the clarification
+>    I have a Realtek RTL8761BUV USB Bluetooth adapter:
+> 
+>    - USB ID: 0bda:a728
+>    - Product: Bluetooth 5.4 Radio
+>    - Firmware: rtl_bt/rtl8761bu_fw.bin
+>    - Firmware version: 0xdfc6d922
+>    - Running kernel: 6.18.51-1-lts
+>    - Distribution: Arch Linux
+> 
+>    With the stock btusb driver, Bluetooth repeatedly failed with:
+> 
+>        Bluetooth: hci0: command 0x200c tx timeout
+>        Bluetooth: hci0: Opcode 0x200c failed: -110
+>        Bluetooth: hci0: Unable to disable scanning: -110
+>        Bluetooth: hci0: Resetting usb device.
+>        usb 1-2.2: reset full-speed USB device
+>        Bluetooth: hci0: unexpected event for opcode 0x200c
 
-Not related to above topic, but just wanted to check with Daniel if this
-solves module auto-loading for you. Was there someone else who was testing
-this series and was having issue with earlier versions or its you only
-Hans de Goede and it was with v1/v2 when Bjorn posted them. I remember
-something vaguely and couldn't trace back all the versions easily.
+Thx for the report. Just replying to bring a few people into the loop
+that can help handling this: the Blutooth maintainers and developers
+which were involved in ca0583c2466174 ("Bluetooth: btusb: limit RTL8761B
+BROKEN_EXT_SCAN quirk to 0bda:a728") [v7.3-rc1] and 5ead2063611ae5
+("Bluetooth: btrtl: fix RTL8761B/BU broken LE extended scan")
+[v7.2-rc1]. Ciao, Thorsten
 
--- 
-Regards,
-Sudeep
+>    The firmware was loaded successfully:
+> 
+>        Bluetooth: hci0: RTL: loading rtl_bt/rtl8761bu_fw.bin
+>        Bluetooth: hci0: RTL: loading rtl_bt/rtl8761bu_config.bin
+>        Bluetooth: hci0: RTL: fw version 0xdfc6d922
+> 
+>    The USB autosuspend setting was not the cause:
+> 
+>        /sys/bus/usb/devices/1-2.2/power/autosuspend: -1
+> 
+>    The current upstream fix ca0583c24661
+>    ("Bluetooth: btusb: limit RTL8761B BROKEN_EXT_SCAN quirk to 0bda:a728")
+>    is already present in my kernel. It sets BTUSB_BROKEN_EXT_SCAN for 0bda:a728.
+> 
+>    I tested the opposite change locally in drivers/bluetooth/btusb.c:
+> 
+>        - { USB_DEVICE(0x0bda, 0xa728), .driver_info = BTUSB_REALTEK |
+>        -                    BTUSB_BROKEN_EXT_SCAN },
+>        + { USB_DEVICE(0x0bda, 0xa728), .driver_info = BTUSB_REALTEK },
+> 
+>    After rebuilding and reloading the btusb module:
+> 
+>        systemctl stop bluetooth
+>        modprobe -r btusb
+>        modprobe btusb
+>        systemctl start bluetooth
+> 
+>    Bluetooth scanning worked normally. A 20-second scan completed with:
+> 
+>        Discovery started
+>        Discovering: yes
+> 
+>    After loading the patched module, no new occurrences of the
+> following messages appeared:
+> 
+>        Opcode 0x200c failed: -110
+>        Opcode 0x2042 failed
+>        command tx timeout
+>        Unable to disable scanning
+>        Resetting usb device
+> 
+>    The patched driver is currently loaded and Bluetooth remains operational.
+> 
+>    This suggests that different RTL8761BUV devices or firmware
+> revisions using USB ID 0bda:a728 may require different scan quirks. On
+> my device, keeping BTUSB_BROKEN_EXT_SCAN causes the legacy 0x200c
+> command to
+>  time out, while removing the quirk fixes the issue.
+> 
+>    Relevant upstream reports:
+> 
+>    https://linux-regtracking.leemhuis.info/regzbot/regression/lore/20260822141115.58815-1-kserwus@gmail.com/
+> 
+>    https://bugzilla.redhat.com/show_bug.cgi?id=2521504
+> 
+>    https://lkml.iu.edu/2608.2/12212.html
+> 
+>    Please let me know if more logs, a full patch, or additional
+> testing is needed.
+> 
+
