@@ -1,66 +1,45 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 456AC3AAF4A;
-	Fri, 18 Sep 2026 09:56:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9A3E38947F;
+	Fri, 18 Sep 2026 09:57:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789725424; cv=none; b=TG/URBgYlvBH+kEAmpvsdbUiY+aC6j4uOTYyT12IcNoAfOR/FEU8jzIndZadtp3V3Ye8/IHUY2AvcXR1BcM/Ud0sDnMQGpbRIvkZGXUFAjl0SVW/PzFKG51OpdaZvdJ3tLzqrylRJKTWIwo8QVIID07CNRCaiKKMDPNNHivHhkM=
+	t=1789725456; cv=none; b=qRb3XJztV0XD+8QXvOXYpOjLSu/G8hdzAJEZ0JJIv6dJdP+9t9RHhsAipNBH3u6Sld8DNygJzXAc8h6e50rkHnMrbDkkay9uMRu5egRpsGd8YYKEU1Bzc9zxPWrwyorEotGVuyji7gehZYFeHTVqMozhs6fl5zuYM/qgoDshuyI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789725424; c=relaxed/simple;
-	bh=hZ1x00CmvH/v3SfkzJvQTSbvvIy+fDJWOOfZXXMnCSc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Nu/LaLnH9tkPNDr11OhHhKX0gRYLQuOqyqUeo/gowNNGyDv6rB9NZOFDCE6ZhlaJ/M4e92BgowPeHFPlIxZeGR0vmlx1SVLh6rIwkvTtSoMJxb/R1YNYM2buM3WOxs8j34xJ9l5tKzn/RCtxy/bmpmspP2Oqq1tWODrEDEDdrkk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nM/Joy5T; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789725456; c=relaxed/simple;
+	bh=PPmcgWAtzaNGk2cQAWCxyeyiI8hiUzFM5yKVc4tKWg0=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=S22nppZaRZ0iydY8pXR3kp+qeuCiUBHWxGFnlbcm4aSr18EdfGktk95tFvz5u4fVLsvnNvd0l4tgGgcfLPlniN3UsxTaHq1HkZWoZ8qXepJ/UtZGTHZXtfgtVr/CDNABRy433mmYrPLzqzU0ZqF5Jf8WH2A/bwxcBMx2SRq8j4o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=je90bFkv; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nM/Joy5T"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789725420; x=1821261420;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=hZ1x00CmvH/v3SfkzJvQTSbvvIy+fDJWOOfZXXMnCSc=;
-  b=nM/Joy5Tx9d7T7IguFOUYEnEUsGtEz2HFbuuA5Fmd7xHiT2N2Scl0BMz
-   nYUwTPIQZR7OoSxnvqQvh2eIZOvINoxdebHQg7oDphsOMKZpXpUrfu/Fd
-   hpCvrT2GWqBOWfAZ0U5Owo5jeYOIo+seIfLPtDqcnfdrZBzooOrbxrQzO
-   Ldwpaftnt6nI1QJHgyBSpjN77ix0FdURhw5hkKsDblSJA6dAavy2raYqa
-   7VFrjKH+qP2sZpowjRjnCdrETalpEmTE6b2T1zI+WUY07CG5pduUkHqUa
-   muUv3uYJw5rlCkG2VIVSCSigCEjf+ww+mEHvkOTsRvDhNUPp1BSKUymi/
-   Q==;
-X-CSE-ConnectionGUID: 77026hMORE2kGrzHrfs4FA==
-X-CSE-MsgGUID: dLlbpJE+RAa+Obnl1UvnkA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="100882634"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="100882634"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 02:56:54 -0700
-X-CSE-ConnectionGUID: TCzrHF1/RhWzhNMUEHoKGw==
-X-CSE-MsgGUID: 37tYMD3SSuClkfINO9FYoA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="299431634"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa001.fm.intel.com with ESMTP; 18 Sep 2026 02:56:51 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id F08B999; Fri, 18 Sep 2026 11:56:50 +0200 (CEST)
-Date: Fri, 18 Sep 2026 11:56:50 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: jens.glathe@oldschoolsolutions.biz
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Sebastian Reichel <sre@kernel.org>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	stable@vger.kernel.org, "Dr. David Alan Gilbert" <dave@treblig.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v3 3/3] usb: typec: mux: ps883x: disable USB4 on
- incomplete USB4 platforms
-Message-ID: <aq0K4ryxva5sdbjr@black.igk.intel.com>
-References: <20260916-ps883x-disable-usb4-v3-0-8f19386456d0@oldschoolsolutions.biz>
- <20260916-ps883x-disable-usb4-v3-3-8f19386456d0@oldschoolsolutions.biz>
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="je90bFkv"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:from:
+	content-type:references:reply-to;
+	bh=vSVyhelhFsfegw4hVxsjPHJm1Yo/7biii+IJ3uJLRNo=; b=je90bFkvhOQrvZxbwrZZrlVKBo
+	/6CZ2ngkSPuohY6QFxZ3/GbKelfat54bngKn8uAmjXkSldlyMKu+E8xYtFjgKhLTzxu1IselZuShw
+	dCIBxavcRp4LfrhHaI/kfvfkWUjTmef8gjium8ydW6oxp1qZocfdYonoaaZfkcQGLcMe2orj55ugE
+	VyLzokIkTgjKsTEQZp4yWOGI/OrSI+ZKCLVte2hIvEa76emPoQKgx1aunyvWE7zUT9wZUpPQKOiGj
+	rFXG8ST4naS73wbJkbJ+8XwvBBL8YNy63RdjKWGSD/zIPE8DHQnM/RK+i5OHZzhVk6jjTQ42eYDrQ
+	5jfottaQ==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1x7VLQ-0000000FM4K-3Gpm;
+	Fri, 18 Sep 2026 17:57:25 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 18 Sep 2026 19:57:24 +1000
+Date: Fri, 18 Sep 2026 19:57:24 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Slavin Liu <bolin.liu@seu.edu.cn>
+Cc: davem@davemloft.net, nicolas.ferre@microchip.com,
+	alexandre.belloni@bootlin.com, claudiu.beznea@tuxon.dev,
+	linux-crypto@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, bolin.liu@seu.edu.cn
+Subject: Re: [PATCH] crypto: atmel-sha: reject initialization without a device
+Message-ID: <aq0LBO6C20OuPVdE@gondor.apana.org.au>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,121 +48,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260916-ps883x-disable-usb4-v3-3-8f19386456d0@oldschoolsolutions.biz>
+In-Reply-To: <20260913125143.109897-1-bolin.liu@seu.edu.cn>
+X-Newsgroups: apana.lists.os.linux.cryptoapi,apana.lists.os.linux.kernel
 
-On Wed, Sep 16, 2026 at 09:36:34PM +0200, Jens Glathe via B4 Relay wrote:
-> From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+Slavin Liu <bolin.liu@seu.edu.cn> wrote:
+> A transform may be initialized for the first time after the last
+> device has been removed from the driver list. Return -ENODEV when the
+> lookup is empty, before the debug message reads dd->dev.
 > 
-> On Qualcomm X1E80100 / X1P42100 platforms using the Parade PS883x
-> retimer, hotplugging USB4-capable docks such as the Lenovo 40B0 can
-> result in working USB but no DisplayPort output.
+> Detected by static analysis and reviewed with AI-assisted source auditing.
 > 
-> When the dock negotiates USB4, the retimer receives TYPEC_MODE_USB4
-> and forwards it via typec_mux_set(). The qmp-combo PHY then selects
-> USB3-only because no classic DP altmode SVID is present in the state,
-> leaving the DP transmitter and AUX channel disabled.
-> 
-> Reject USB4 with -EOPNOTSUPP on platforms whose USB4 / DP-tunneling
-> stack is not ready yet. The Type-C stack then falls back to USB3 + DP
-> Alt Mode. DP altmode configuration continues to use the existing
-> ps883x_set() path.
-> 
-> Use a machine-compatible table rather than a DT property so the quirk
-> stays inside the kernel and can be removed later without creating ABI.
-> 
-> Link: https://patch.msgid.link/20260312101431.2375709-1-krishna.kurapati@oss.qualcomm.com
-> Assisted-by: Grok(xAI):4.6
-> Tested-by: Dr. David Alan Gilbert <dave@treblig.org>
-> Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-
-Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-
+> Fixes: ebc82efa1cd6 ("crypto: atmel - add Atmel SHA1/SHA256 driver")
+> Assisted-by: LLM
+> Signed-off-by: Slavin Liu <bolin.liu@seu.edu.cn>
 > ---
->  drivers/usb/typec/mux/ps883x.c | 37 +++++++++++++++++++++++++++++++++++++
->  1 file changed, 37 insertions(+)
-> 
-> diff --git a/drivers/usb/typec/mux/ps883x.c b/drivers/usb/typec/mux/ps883x.c
-> index 15aee1d613b1a..2ec57cfe748a9 100644
-> --- a/drivers/usb/typec/mux/ps883x.c
-> +++ b/drivers/usb/typec/mux/ps883x.c
-> @@ -13,6 +13,7 @@
->  #include <linux/kernel.h>
->  #include <linux/module.h>
->  #include <linux/mutex.h>
-> +#include <linux/of.h>
->  #include <linux/regmap.h>
->  #include <linux/regulator/consumer.h>
->  #include <linux/usb/pd.h>
-> @@ -42,6 +43,22 @@
->  #define CONN_STATUS_2_TBT_UNIDIR_LSRX_ACT_LT	BIT(4)
->  #define CONN_STATUS_2_USB4_CONNECTED		BIT(7)
->  
-> +/*
-> + * Platforms where the USB4 / DP-tunneling stack is not ready yet. Rejecting
-> + * USB4 here lets the Type-C stack fall back to USB3 + DP Alt Mode instead of
-> + * negotiating USB4 and then failing to drive DisplayPort.
-> + *
-> + * This is a temporary, kernel-contained quirk (not DT ABI). Drop the entries
-> + * once the corresponding USB4 support is complete.
-> + */
-> +static const char * const ps883x_disable_usb4_compats[] = {
-> +	"qcom,x1e80100",
-> +	"qcom,x1p42100",
-> +	"qcom,hamoa",
-> +	"qcom,purwa",
-> +	NULL,
-> +};
-> +
->  struct ps883x_retimer {
->  	struct i2c_client *client;
->  	struct gpio_desc *reset_gpio;
-> @@ -63,8 +80,21 @@ struct ps883x_retimer {
->  
->  	enum typec_orientation orientation;
->  	bool in_reset;
-> +	bool disable_usb4;
->  };
->  
-> +static bool ps883x_should_disable_usb4(void)
-> +{
-> +	const char * const *compat;
-> +
-> +	for (compat = ps883x_disable_usb4_compats; *compat; compat++) {
-> +		if (of_machine_is_compatible(*compat))
-> +			return true;
-> +	}
-> +
-> +	return false;
-> +}
-> +
->  static int ps883x_enable_vregs(struct ps883x_retimer *retimer)
->  {
->  	struct device *dev = &retimer->client->dev;
-> @@ -260,6 +290,9 @@ static int ps883x_set(struct ps883x_retimer *retimer, struct typec_retimer_state
->  			cfg0 |= CONN_STATUS_0_USB_3_1_CONNECTED;
->  			break;
->  		case TYPEC_MODE_USB4:
-> +			if (retimer->disable_usb4)
-> +				return -EOPNOTSUPP;
-> +
->  			eudo_data = state->data;
->  
->  			cfg2 |= CONN_STATUS_2_USB4_CONNECTED;
-> @@ -389,6 +422,10 @@ static int ps883x_retimer_probe(struct i2c_client *client)
->  
->  	retimer->client = client;
->  
-> +	retimer->disable_usb4 = ps883x_should_disable_usb4();
-> +	if (retimer->disable_usb4)
-> +		dev_info(dev, "USB4 disabled until platform USB4 support is complete\n");
-> +
->  	mutex_init(&retimer->lock);
->  
->  	retimer->regmap = devm_regmap_init_i2c(client, &ps883x_retimer_regmap);
-> 
-> -- 
-> 2.53.0
-> 
+> drivers/crypto/atmel-sha.c | 3 +++
+> 1 file changed, 3 insertions(+)
 
+Patch applied.  Thanks.
 -- 
-heikki
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
