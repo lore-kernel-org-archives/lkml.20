@@ -1,99 +1,57 @@
-Received: from mta0.migadu.com (out-158.mta0.migadu.com [91.218.175.158])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E4E44E73AE
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:08:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5BF94E9C0E
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:08:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789733305; cv=none; b=ZtQLJoHkLdtfHO+CkuS3KCUjVBlM0eEPolPxPblJk6PmnzrsIIot1kKGm4V3Ej1CzMQbZAptTpSeBh1jjRwdTUA8nj+oYl9Ugbln5hA6rg68iaBB7Gak1/GTMa1R+a1BNEGu+n4gTTnwcUhRcI2t05r9yCZ2RvUU4UMEOLu28SM=
+	t=1789733313; cv=none; b=p7uz/19o/PPKhDlEDGTkQkecw1fULg+7xaJYO0HCoCdpUWmr4hk+DmNM9TwrVEpUXL+LC0HCYa6IFPvyc98ZhLV8pCoLGhHmigx9AlIwlbhP1fBGIrkD1bY8AHwSeBeaw947niKYV6dRR3aG8MA5rdVt8gB1Q5VFjNNpaAPDYnQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789733305; c=relaxed/simple;
-	bh=e6Sc8d6TCv1Hiij+M19oHz2OIgibmXC/82dg97Yi2uY=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=nGoj3NiQtuR1SYGx47nZyGDr2FYPfH7DrKnbNKxuHX+nDl0MR0vFTczG16Le5UDGsF38I0UIagpJUkisyYjhMQT5EMDDbWo+D43uO6Nc6egcWEuKT/DfeVtbEDn4PNXuOOv7RMx6hyBIc1bK1yVAU7hfZ0VC3Yv9MmiRgi4gAjo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=W+p2LRty; arc=none smtp.client-ip=91.218.175.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="W+p2LRty"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=e6Sc8d6TCv1Hiij+M19oHz2OIgibmXC/82dg97Yi2uY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789733301; v=1; x=1790338101;
- b=W+p2LRtyH0cD8luUar7ncxicH5z3+LEiL2RytsSSbPlZaL1AnSkNyXVEjUzCMVOMWrPV1IIo
- LNbNuMwZ/qDI5ZYoztb1ecqpYe/9mg/4YXOIrgJrkqTiPyp6Q8B7A+njv0eQ3KDHcMt2I/rzITp
- 03etA0c0yf68ljwq0WJZ4SlU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id ac9122ca51626832;
-	Fri, 18 Sep 2026 12:08:21 +0000
-X-Mizu-Trace-ID: ac9122ca51626832
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	s=arc-20240116; t=1789733313; c=relaxed/simple;
+	bh=IyHQhhtBW/xXuMdUpr+WJrwDcpG8BeKtRMRvIs7SLQk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KztVY3dER1aWPekwx94uHpqnk2JMg+ck77CGRmqXAMBgLu7ppv02bBVJ1CuXKZq6KgOv+E+W1P8OzKrjzjfmWV+npPRH/IDPucdWOpv4hJ6G5fLC+LWo7/uVgxfiVgq1tjUOhHPIxX9w57y5xWkXsvQhQvSbsZ/o0vGa136QOZI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 1D0ED68BEB; Fri, 18 Sep 2026 14:08:26 +0200 (CEST)
+Date: Fri, 18 Sep 2026 14:08:25 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Nilay Shroff <nilay@linux.ibm.com>
+Cc: hch@lst.de, kbusch@kernel.org, sagi@grimberg.me, kch@nvidia.com,
+	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
+	gjoyce@linux.ibm.com
+Subject: Re: [PATCH 1/2] nvmet: defer setting ns->enabled to false in
+ nvmet_ns_disable()
+Message-ID: <20260918120825.GA16547@lst.de>
+References: <20260916151012.3702896-1-nilay@linux.ibm.com> <20260916151012.3702896-2-nilay@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
-Subject: Re: [PATCH 1/4] memcg: keep swap charging under RCU protection
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20260918-bingfangguo-memcgid-rework-v1-1-5bbf3220d88f@tencent.com>
-Date: Fri, 18 Sep 2026 20:07:59 +0800
-Cc: Johannes Weiner <hannes@cmpxchg.org>,
- Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>,
- Dave Chinner <david@fromorbit.com>,
- Qi Zheng <qi.zheng@linux.dev>,
- Kairui Song <kasong@tencent.com>,
- Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>,
- David Hildenbrand <david@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>,
- Bingfang Guo <bfguo@icloud.com>,
- cgroups@vger.kernel.org,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <CEA43253-5A6F-46EF-A7CF-645D5EC95E05@linux.dev>
-References: <20260918-bingfangguo-memcgid-rework-v1-0-5bbf3220d88f@tencent.com>
- <20260918-bingfangguo-memcgid-rework-v1-1-5bbf3220d88f@tencent.com>
-To: bingfangguo@tencent.com
-X-Mailer: Apple Mail (2.3864.700.51.1.1)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916151012.3702896-2-nilay@linux.ibm.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
+On Wed, Sep 16, 2026 at 08:39:59PM +0530, Nilay Shroff wrote:
+> In nvmet_ns_disable(), keep ns->enabled set while existing namespace
+> references are being drained, so namespace configuration remains blocked
+> until all in-flight I/O has completed. Set ns->enabled to false only
+> after the namespace references have been drained and the namespace
+> device has been disabled.
+> 
+> Since setting ns->enabled to false is deferred in nvmet_ns_disable(),
+> use the NVMET_NS_ENABLED XArray mark in nvmet_req_find_ns() to
+> determine whether a namespace can accept new I/O.
+> 
+> Similarly, use the NVMET_NS_ENABLED XArray mark in nvmet_ns_disable()
+> to prevent concurrent callers from starting namespace disable.
 
-
-> On Sep 18, 2026, at 17:18, Bingfang Guo via B4 Relay =
-<devnull+bingfangguo.tencent.com@kernel.org> wrote:
->=20
-> From: Bingfang Guo <bingfangguo@tencent.com>
->=20
-> This is a preparatory work for unbinding memcgid from memcg. No
-> functional change.
->=20
-> The swap charging path currently drops its RCU read lock after =
-acquiring
-> a private ID reference. This is safe because the ID reference pins the
-> memcg's CSS.
->=20
-> Moving private ID references to objcgs will remove that lifetime
-> guarantee. Keep the RCU read lock held while accessing the memcg for
-> counter charging, statistics and failure handling. (This matches what
-> __memcg1_swapout() already does.).
->=20
-> Save the private ID before dropping the RCU read lock, and use the =
-saved
-> value when recording the swap entry. The swap cluster locking remains
-> outside the RCU read-side critical section.
->=20
-> Signed-off-by: Bingfang Guo <bingfangguo@tencent.com>
-
-Acked-by: Muchun Song <muchun.song@linux.dev>
-
-Thanks.
-
+This does look sane, but have you looked at profiles if getting the
+xarray tag might touch a lot more cache lines vs the flag?  It might
+make sense to turn enabled into an atomic bit mask and just have two
+flags in there.
