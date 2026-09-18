@@ -1,81 +1,67 @@
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24C0538889B;
-	Fri, 18 Sep 2026 01:59:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B75983905E0;
+	Fri, 18 Sep 2026 01:59:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789696764; cv=none; b=r6m9WmGG7YMloxa3jOYaqyW7puDmZH4g9/VrO7VReyF4OPhd3NYKOncF07k/bFdF4jcdvK2RotkT1SNbDHSzMEITx7q8paJ3lqSyj3TpFOFaLaWdiYqRG7VRdLbCQy+dzqS21v4lGbR6toJifagBepZrhwCs6NGM8KBgU71pfUM=
+	t=1789696774; cv=none; b=G3SEH62GvkZGRAd445yP+QJa/4W2V0YZNqMbz39fY/A7Em8Pw4bHpRXbkdzUNCP/EC/b65UD3alx4KgmmoyD394zfY3NRoZyrBWitiNCvaY6/6AiX9pqQ7hwZHu49Kqg+aBrPCoxPgbgPYwXDa+GBNObwRPyvW7T8sL6ljxcUbI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789696764; c=relaxed/simple;
-	bh=4xyMfp3eWJOkdRB1tNqKwqNqU32rQznFUU0AnRgm1/c=;
-	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=U7AKuEmATToaludElUtbBSgQY4d7d+K2Tzvr4dCUzIoRAWAtAhbw3SFaFjU7jaoik9/eJJraCAyjsL6zGzaSl8guXFiY6X96Za58m1XiJYpJi83xx9VSvSMDB7lMsF++3eJEUQOey4jdhvKAr4WsjWLV5z3VviBez6Bj0n45QPs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=pLYZSBci; arc=none smtp.client-ip=113.46.200.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1789696774; c=relaxed/simple;
+	bh=gYdkWASzdto4w7d3rcLJnbDDH4XmI/DyXN8bJd/CAek=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=avKkYp5tdAEIRrVIA4LMtaakNnpWcymSPORg/1mbw18FFwzwdVyy2Iyp6u4zxx0RRUpqjVxTbCsubW58/XMByeOEiLcv+EzZ3eGAxvaPg1919B0oOZk1f/S0NseyyRJCRK6ZRR/3qAdsdgiS1ryx+qdvtb+zjQ7BOTwnPQOlcuQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dacUQKQy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="pLYZSBci"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=GrILUD6fya954kCY/ApjoU68FPWsIBexNxkwtfF+YY8=;
-	b=pLYZSBci1O9ZpgAJTt5hdufb5v6aPP03tc9UDaq8KvGIicJFF/vpVlG23kAwCxTRE/RZIIfk6
-	KwsCLLlvrUYV+cKJ6oFW5kQvK91z4qCMNLEXIvyclA8KZxjsRYjIENo3Rknf07RNeRGs9ZNUaUC
-	zSfrZb1w74KviHfbUJjv2Iw=
-Received: from mail.maildlp.com (unknown [172.19.162.140])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4hmFqj3GqRz1T4LL;
-	Fri, 18 Sep 2026 09:47:29 +0800 (CST)
-Received: from whupemo200006.china.huawei.com (unknown [7.152.185.252])
-	by mail.maildlp.com (Postfix) with ESMTPS id 5207420333;
-	Fri, 18 Sep 2026 09:59:13 +0800 (CST)
-Received: from [10.174.178.219] (10.174.178.219) by
- whupemo200006.china.huawei.com (7.152.185.252) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Fri, 18 Sep 2026 09:59:12 +0800
-Subject: Re: [PATCH RFC v4 23/25] fs: start all kthreads in nullfs
-To: Christian Brauner <brauner@kernel.org>
-CC: <linux-fsdevel@vger.kernel.org>, Linus Torvalds
-	<torvalds@linux-foundation.org>, <linux-kernel@vger.kernel.org>, Alexander
- Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Jann Horn
-	<jannh@google.com>
-References: <20260601-work-kthread-nullfs-v4-0-77ee053060e0@kernel.org>
- <20260601-work-kthread-nullfs-v4-23-77ee053060e0@kernel.org>
- <15174353-3f4a-a1ca-5bd1-ea2a4c77828e@huawei.com>
- <20260917-atemtechnik-bleichen-befassen-9a57db01baf0@brauner>
-From: Zenghui Yu <yuzenghui@huawei.com>
-Message-ID: <08c0cb4e-343c-b03a-020d-218d27c6c353@huawei.com>
-Date: Fri, 18 Sep 2026 09:59:11 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dacUQKQy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E23D31F000FF;
+	Fri, 18 Sep 2026 01:59:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789696768;
+	bh=gYdkWASzdto4w7d3rcLJnbDDH4XmI/DyXN8bJd/CAek=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=dacUQKQyWtVSbYPvJiBlAX4GrtAshKdsLhPjk2g1CFDbfWR9yKA+LGhJHxkG6w7Rq
+	 tHS5KdnRvZwtMW2LZ3KUqrbu1/7nEdD0ZqwHT9XRzT0MB7XO3daMWYipl2Mscshsl6
+	 pbykNbM0yUOLKfeEf9t+OBTTd+CjFSXVy310N3HKtaJVOBJD/wMuWL1I8L5Kex2g0k
+	 cLdeP2Uygd5FNbjcXVi8TBNPo2y8YS+R29zgi16U4UemCiigzuRlFLntZdSar49SkV
+	 iP4QfRBuQJ6BXUa52dYBggyTiIJSYpdzCYOxHW5CYplASf/cc5Cr2Vo+cHuPQE8u9k
+	 f0A9EXJbk1bGw==
+Date: Thu, 17 Sep 2026 18:59:26 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Jiayuan Chen <jiayuan.chen@linux.dev>
+Cc: bpf@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo
+ Abeni <pabeni@redhat.com>, Alexei Starovoitov <ast@kernel.org>, Daniel
+ Borkmann <daniel@iogearbox.net>, Jesper Dangaard Brouer <hawk@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>, Stanislav Fomichev
+ <sdf@fomichev.me>, Simon Horman <horms@kernel.org>, Andrii Nakryiko
+ <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya
+ Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song
+ Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa
+ <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai
+ <ihor.solodrai@linux.dev>, Shuah Khan <shuah@kernel.org>, Kuniyuki Iwashima
+ <kuniyu@google.com>, Hangbin Liu <liuhangbin@gmail.com>, Martin Karsten
+ <mkarsten@uwaterloo.ca>, Toke =?UTF-8?B?SMO4aWxhbmQtSsO4cmdlbnNlbg==?=
+ <toke@redhat.com>, Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
+ Eelco Chaudron <echaudro@redhat.com>, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH bpf v3 0/2] net: xdp: fix bpf_xdp_shrink_data() page
+ handling on generic XDP and veth
+Message-ID: <20260917185926.1bb7c430@kernel.org>
+In-Reply-To: <20260911135711.109338-1-jiayuan.chen@linux.dev>
+References: <20260911135711.109338-1-jiayuan.chen@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20260917-atemtechnik-bleichen-befassen-9a57db01baf0@brauner>
-Content-Type: text/plain; charset="utf-8"
-Content-Language: en-US
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- whupemo200006.china.huawei.com (7.152.185.252)
 
-On 2026/9/17 20:07, Christian Brauner wrote:
-> > The following lockdep splat can be triggered on mainline, which is built
-> > with arm64's defconfig plus
-> >
-> > 	CONFIG_SHRINKER_DEBUG
-> > 	CONFIG_PROVE_LOCKING
-> > 	CONFIG_FTRACE
-> >
-> > .  Reverting this patch (as pointed out by AI) makes this warn disappear.
-> 
-> This is benign and caused by holding LOCK_MOUNT_EXACT() for longer than
-> necessary. I'm adding the appended fix to vfs.fixes.
+On Fri, 11 Sep 2026 21:56:50 +0800 Jiayuan Chen wrote:
+> I'm always confused which tree(net or bpf) should XDP target.
 
-Tested-by: Zenghui Yu <yuzenghui@huawei.com>
-
-Thanks!
-
-Zenghui
+Selfishly Id prefer net so that all our CI would just run without any
+manual effort on my part :) But perhaps BPF folks will disagree using
+basically the same argument.. :S If not perhaps please switch to net?
