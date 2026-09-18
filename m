@@ -1,825 +1,393 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013013.outbound.protection.outlook.com [40.107.159.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0867A4B66D2;
-	Fri, 18 Sep 2026 08:49:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789721348; cv=none; b=c1OpOy6iPNw19dFw7hJX8MPS0ZRv/oMU+2eZcrVF0OJw8M98bV7XFcXe6YnSjtj77GV8OKJzE5drFp9cunHmApBuJtpd/UOb59KQ4MKgxGypw9gUqNH8Ejv8eOAH6tgi7n8Z95JqHGh1xhPDRzNHlNsv9iGVORta8bIDgeYlrxo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789721348; c=relaxed/simple;
-	bh=k94WpIVXf8FC6jqN6M0KyFVg/F1d1nls+9qEw+hc94k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RNwZNgVxneIIYIIh2Y530kmT8HEOLec9+5GY7OCC+bdEr+LrNCxN+al01DzKPPreX3SGRrzaus3IHuchYTmunenhTbJ3/0T11pHowSrUvQD4+R9C0bqFm6vnx2bYu5MfUlepMRFFhGil9+vVLmo0GtLb/pBcDG+MarXEKL4SkbQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=kQwmSq8O; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8525A4B404D;
+	Fri, 18 Sep 2026 08:49:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789721387; cv=fail; b=H5H+APR2CWLSuSMfEygTERxmYCgXqo5J3c26ZU8n0ztrluxjypVOIDj1cXgE+YWiwPof4Z+DpUnL60mPYoNTETfq/tcVH0F4TuyM4sGllPo5XSbTUWyXPZkDjhsGNU/xtvWSeJW2cCiTOJE4cG25Vtnwe6FMOOdbxlA2xx9wl8E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789721387; c=relaxed/simple;
+	bh=tHyYJo19+DWKA9r89Jif1Ef+VBZeK85rlZH3/HDs3yQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=btNEkxWwFgb71YW1So4pvpWQwOcKBlCItpCriM3MYa3qkA3CU5+xhg36G9QtwuApq/M3/pD2Lncz1vLBblZgUq1Bd2w1OJn7Ufy1w3VrH39fFqAFL0GaP9DLiwRLiIihBo7G1R2lfjFHL2NWekGSkdYn0Lgbo5VS9V8Eikt38SU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com; spf=pass smtp.mailfrom=axis.com; dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b=b3QGZVvl; arc=fail smtp.client-ip=40.107.159.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="kQwmSq8O"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I62FA0314809;
-	Fri, 18 Sep 2026 08:48:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=n0nlVzD1ijBv0mwee
-	jkUiKT6JxGRLsgCTfsO44Yt+lc=; b=kQwmSq8OHecg2OXHkrD0kHWeYXmwYWqld
-	tMa558Sa1BJ3ybg9YXN+CMieZoDxSsI1NTypjB1VVn+6aJqwhO0yz1YwIXBRJyKw
-	ajZ1w/dnG/tGRkFyuDR8IOg354Hq4Kkl129yYAWC96MImyp0hY3e4X057DJj0NMv
-	LCsztHBiG8Va4cb9GX87w+KbH71hcfi0YsifMIC6W+OwRJwydPc9mIqtWlTueRy+
-	/ssf1a8RuCJoTF56I0MlClZNBy+0iUg+PT3zvpXf0kxxrfdrYNMlsqkzpihVb7U1
-	47xWQrvWhtksQc02nySkUP0Y6Ho2rdUpuG+/bK9EYqj72NudkVJ3Q==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmv5j6upe-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 18 Sep 2026 08:48:50 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68I653qU208414;
-	Fri, 18 Sep 2026 08:48:49 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gr5xa6ewh-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 18 Sep 2026 08:48:49 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68I8mjDJ40632640
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 18 Sep 2026 08:48:45 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 5553E20040;
-	Fri, 18 Sep 2026 08:48:45 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 19CB22004E;
-	Fri, 18 Sep 2026 08:48:45 +0000 (GMT)
-Received: from tuxmaker.lnxne.boe (unknown [9.87.85.9])
-	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 18 Sep 2026 08:48:45 +0000 (GMT)
-From: Heiko Carstens <hca@linux.ibm.com>
-To: Alexander Gordeev <agordeev@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Mete Durlu <meted@linux.ibm.com>,
-        Peter Zijlstra <peterz@infradead.org>,
-        Mark Rutland <mark.rutland@arm.com>,
-        Juergen Christ <jchrist@linux.ibm.com>,
-        Ilya Leoshkevich <iii@linux.ibm.com>
-Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
-Subject: [PATCH v2 12/12] s390/percpu: Rework to simplify percpu_entry() and percpu_exit()
-Date: Fri, 18 Sep 2026 10:48:42 +0200
-Message-ID: <20260918084842.2333237-13-hca@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260918084842.2333237-1-hca@linux.ibm.com>
-References: <20260918084842.2333237-1-hca@linux.ibm.com>
+	dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b="b3QGZVvl"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AZJo6eWjE5I/gNzVsBob62izldljXxQYgSeVF4A76bWT71JAKuxp8K06CTFyUtZosG6bn3rBc4R3AYRNhzR5ujUsfWPmtetSaSkJ/DKmL6mFjRAeYKchzYE67Icps9u4QFpzuQDWU7zxG8Dyp/YXELeC6ExCf7S09iBMGlHqVKTJIMa6xDCCd3s2knqlDO9srJXmf2I3vpO6T0QEqJIQwbDQzCRnX6PUHLLCjQMa8oLQsg91Y1e8mPsRln5Aqzx0mFBXqCrQ82xjP6cgBqEF4zR6U2Az/+rXmkchJpbC1Pp8+CFs2Gkwv7IbLS5OnZJ51LfdCZEbKT9Br1ky7TnVWA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aqdMHQBzAluLCDDANsE6LWi0m/ZRN1c/5WSU/24dE8Q=;
+ b=DfvZhl5B/yEx72oTTtMASebbmtD/1b8SKIzESWC62HZFjgnXGcU8ZoobAMEJ8EekSfFmqdJrdwh6FQJsj241Qxy9naBovUtsj+kYtpKLsmEtX4g0o9sirhhjqLk1e1YXA0dTAEtZXmvwWaStzaSBAm+K3I1uDrB+C+WDVDK4xLBhpkFL3VHg0tVGVdBJ7EA/rlO2L8yjpVfsNi8lbx2dhyB2/9Oka4Khl+azmW7VlW3gEs6IfqcBSN/uFwrP2c1vy8K28En7e8UciW5vB36hXYPOrlsPak3c0EuonL7LAC3OgLN4LUEYtqKzoIZ1ywIWeyRH6HY99RHf4jA6tbjkeg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=axis.com; dmarc=pass action=none header.from=axis.com;
+ dkim=pass header.d=axis.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aqdMHQBzAluLCDDANsE6LWi0m/ZRN1c/5WSU/24dE8Q=;
+ b=b3QGZVvli49bkn5jmdXQ/dLX74mGUlP8puF6CIO+KMkT5cuoocAN7SV0cvbtumq4FdBLcSh6gcNjs3ctH7cYj0Q9dlnauZJQz296tc+K8QEMloiBP6MpznaBr9lD52VMwwettZFK7dCk/lbMEzjNHPq6Hw4w2VzVb4yXFtKBOw4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=axis.com;
+Received: from GV2PPFBD14D17F4.eurprd02.prod.outlook.com
+ (2603:10a6:158:401::5df) by PA4PR02MB6862.eurprd02.prod.outlook.com
+ (2603:10a6:102:f5::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
+ 2026 08:49:38 +0000
+Received: from GV2PPFBD14D17F4.eurprd02.prod.outlook.com
+ ([fe80::7e4e:c249:e481:d43]) by GV2PPFBD14D17F4.eurprd02.prod.outlook.com
+ ([fe80::7e4e:c249:e481:d43%2]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
+ 08:49:38 +0000
+Date: Fri, 18 Sep 2026 10:49:36 +0200
+From: Henrik Grimler <henrik.grimler@axis.com>
+To: Alexander Svarvare <alexander.svarvare@axis.com>
+Cc: Sebastian Reichel <sre@kernel.org>,
+	Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
+	Waqar Hameed <waqar.hameed@axis.com>, linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, kernel@axis.com
+Subject: Re: [PATCH] power: supply: bq27xxx: add model name support for
+ bq27z561
+Message-ID: <20260918084936.GA1531069@pc67698-2615.sto.se.axis.com>
+References: <20260814-alexander-laddchip-patch-v1-1-1624d6725108@axis.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260814-alexander-laddchip-patch-v1-1-1624d6725108@axis.com>
+X-ClientProxiedBy: BE1P281CA0304.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:b10:85::11) To GV2PPFBD14D17F4.eurprd02.prod.outlook.com
+ (2603:10a6:158:401::5df)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDExNyBTYWx0ZWRfXzqKpHehsv/ht
- FuErQ/r5js1ZLXJjhnpwe+2h6HcYpzAp2kFlW6Tk75t1DGHwn8X0TfflnC1NbCLR/ZgiEbCCwLq
- xLqWBd4x1qs1ConwIOfXTAmsypOLd4Z2ClzyCsB9SJNSqH7XIhRcIJVf2RCd1sPUrVRfu5Xbg49
- dpoRi5+/jQtGukVTzZOKLmPleP2noWb9MMfkGh9ihUG5odwQfd4vnGtRKAeKKJciE+wSHdd7Hul
- YL7tadU2dUMBTegVg5WEeGXs0LYLxxzal+RE0oVAFB9W2M/uC6bnv9xBphwA03FsGyMeXTVLQj3
- JxijzZ4mY3CRidOgm81y5nvBKZuEdg036fsKtWlLsiPY71TZHB41i5DAdL31lBM7g6dLDp0gulZ
- a9+2rWG9AefPo0JMBzDRFJ7ZLdYuqlPiqrRnP1FQMKOhQxg0qUy/RDzVjdAdSwBknuBHYz+OeHG
- KENYCOy7L7NuVbed7eg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDExNyBTYWx0ZWRfX6ktwnv/Zm6TX
- Dsnqa1Fg+Nz7SqA2ZxJXleVgkmWcXNo6tjGEvpWKofcna5tW8mM0Pf+A+toopgrH6LFgFZQ7V8W
- hbhLQB6VujLB0p76IznYyEDS0+Wx9gI=
-X-Authority-Analysis: v=2.4 cv=Zsx4uN7G c=1 sm=1 tr=0 ts=6aacfaf2 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8 a=7CQSdrXTAAAA:8 a=VnNF1IyMAAAA:8
- a=nX91KqSqHLHixs4I5UoA:9 a=ZBt6NyxRiIMNS_uD:21 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-ORIG-GUID: xlEj-N6jmQueWAQf6G4cGDHZTRh3W871
-X-Proofpoint-GUID: xlEj-N6jmQueWAQf6G4cGDHZTRh3W871
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-18_02,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 impostorscore=0 clxscore=1015 priorityscore=1501
- lowpriorityscore=0 bulkscore=0 adultscore=0 phishscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609180117
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PPFBD14D17F4:EE_|PA4PR02MB6862:EE_
+X-MS-Office365-Filtering-Correlation-Id: 61a54633-e7d9-499a-0ea4-08df1561c552
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|18002099003|22082099003|56012099006|11063799006|5023799004|10067099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	VI5JUpg3goBjUubUpI4NOtCCOsFnUpz0fk6WrEm2RGytKP2v2JSYK7IJeJ/Q1hDxJAwCrcrEVp6+fMKgVNqzMM11LRLKY/q745jS2W9jLBgYMNvRguueVKRB6vich7IK5UnrAEUg+DXdPhCaLJ36XPzRZfxDuuumQDyFN/HEElAzVBUPVdgDXYnnOAOqMKJF4L4yCOMOlaJ3/vo4rwgc+7SdSFM80TjV1uwUxpMkNICQTZuIZUQwqSIBABNNz+C2k/CAItHR3NDrV3r2gqKvbYmYF9xjpN1UM0iQflVLxJ98fISh8pko4b9C8jtWFl+lrsGPmvyzLmwHccMHCuQhwCqxtwH0vVBdWGEmzOKs4hto0zDxw3mUq1QJcCks0YIJ9vX0I7+vze6qyRIOTbzQSydG4RfEuEwvW6g6CoeOnR8+cHjh7MgKxMgD92goDsegiD+uLR43iximR5gsFLzS7JXU2P7SYPxwN0aC35ZiZdZeix3LfPdEHeSO4UoV+Rgm8BHb60qZGFOmruMEJZhisYvL4Ech7gEzj4JJ2jCL+aGW+myF4VNK7XAkqJ84rLDTHXrowxUwBGjCXC35adLCH7HXuJyYnH+BCXnUxJi2g7wqqmPNgHmMmof+jJjydxqM7dy7Rw4ycGvH2OAzv1LxPehj0cxSvbf4A3P/Pc/9e/Q=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PPFBD14D17F4.eurprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(18002099003)(22082099003)(56012099006)(11063799006)(5023799004)(10067099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SENINXZCYkFKeWJQZzdnNU00c0lDUWIrY3hiVDd2bXNTNGZTd3hVRXFlcXRW?=
+ =?utf-8?B?UnUwK0dwMTUxRGtHeUZiY1c0YmlMUWFLTWpVOEdvUkpTZzZSbUdRb1EydkFT?=
+ =?utf-8?B?SFN2U2JBenJHVFFkOEw4eWpHUllZTXBxTk1MZk5wbHJ3bWFhcVVxVkZBVU8x?=
+ =?utf-8?B?QjRIOXpIdkFEbC9RSVd0NWxLb243eUZMZlBmZ3BDcXNsUW9aKzJVc2YwVVhl?=
+ =?utf-8?B?YUw1QkRJS2g3RU1DRWMvTW9SOS9UcTF2cWovNGsxaVU4TnRmN2NlWWdZcGRG?=
+ =?utf-8?B?NE43MXVsVVVzOGkrNUF1K0VSSG9sTUxmc1MrL2ZXM1pUTDljSGN6T1FFdFZr?=
+ =?utf-8?B?US8wbWNiVGVIQ0h1Zi81dWlWclJYQ2NVZ2dnN1BMMUEvQTF2YXNITGVFOVNh?=
+ =?utf-8?B?NXcrWmlGNGtYK0ZGRjNaM2k0NWlwNEp2Mk9CMkpONXdETlNEZ3RVWFBDTnpy?=
+ =?utf-8?B?VUdMVmR0QzU1a3B5Nkp3bVRqU2ZBSWY0Vit3ekFONXFwSWJlcnpmU0N5RjBo?=
+ =?utf-8?B?QVhRRGg0SWNZamcvUU53SVRLZWlDRHliclJ1L0p1M2pOVGYwbm0vMnlIWjJt?=
+ =?utf-8?B?RWFWK2hLalpVUnhsYW5TWlFZN3NqNVdoTWd1aHI5MzFweGFGaDVPRkc2RGNU?=
+ =?utf-8?B?amF5eG5oa1Nsbm5HeWNWb3FpYnQ2ck9GYS9vcktHN2hkT1RyTGx3VnRBMENW?=
+ =?utf-8?B?TDFnQjNCOUhsRzRHU3dwQkNhVWppdjZIRTVnZ0NXTUdsdUZvS2wzMEllQ0dp?=
+ =?utf-8?B?dlZpOXBWSDdRQTVJbUFNQlY0RjNnbWdDaHQ1ZkVZbEhTZkRabDNBSElvcUFY?=
+ =?utf-8?B?dGNRcDAwRWFkSjJrSDJaOW1HZCtEVWUweTNjVFFVTGEvaUlOeXdkME1PRHN0?=
+ =?utf-8?B?bE5tekhQZHp2bzhzU3pHTmNQaVRsTGlqV0MwQmh2Z0tnWlJLMW9vaHlEVUhB?=
+ =?utf-8?B?UllRZnI2WWZ2NVJIendCZ0xVSkVwOTFqZjR5bGRuaHhnQVhtWjN5TC84RTdS?=
+ =?utf-8?B?L09UKzFTWVFjWGxYbzUzc1dsTXhuV2pFT1Z0YzJuamN3QUlZc1VOOEtKWmRP?=
+ =?utf-8?B?TWdTUFZ3c0s0d09rU1ZORlp5VkpadmYxN1VzUEgxSTlOd3dLeFpISmE3NGVp?=
+ =?utf-8?B?T3A3TEt4aWtLS2RMK1ZNR1ROa3ZkWUZWY01GQjRsSUxsU0pXVlZ2UUx6K0Fp?=
+ =?utf-8?B?YkNuNmZ5MkNXVXIzM2t6WWtoMXEyRmphVmVRMUhnQ3BicjRkdW9HNmIza203?=
+ =?utf-8?B?ZkdrQjNjNEFhK1FySXRBQm04V1ZxaHRJWXBIWkc1UmZpNkxLV1VkRlBsWTEy?=
+ =?utf-8?B?Zk1PNndoVkM0U24yUGFpZUN2UVh1VXpIc09GbjM2NjNwR3R0dmdHUkZEallI?=
+ =?utf-8?B?elllVGY3dllPY096bUd0TUVmZndFdHlicGxDK3NtcWpIYXdzVnlKYVpsb3ZQ?=
+ =?utf-8?B?bVRXRjJGUzFFY21VNFdQYlNCczZGUGpHQmkxcGhnTmVTbER0d2NpL0U2N1FS?=
+ =?utf-8?B?MGFCc2tEQmhvZjAwU0QwTWpRUHlRZ0FXRVd4R1RUVzZNaUIyZDFLVW95MzhD?=
+ =?utf-8?B?WXhLS056OVZ0NXByWDZpMkhwQlVrNCtEenFxSjgvVFFTdVZPMUxUWitnZHpx?=
+ =?utf-8?B?UnVjSnZldEJpY3ZnNTgyeFZiNU9pVjdUZTFSVlgxU2ZMQ29XZG9HcSsrV0h3?=
+ =?utf-8?B?T2ZDd2o2NnhUR2U5WjhQdG5VMlFFVUxwbUZYZVAveWgwRURMYVVHR0RKaG54?=
+ =?utf-8?B?Ynd1S1VsVTFsSFo0QTdJK3ZnWDVLVU50ZEY1K1Z4UWh4SHNhMXFrOUphT1dG?=
+ =?utf-8?B?cHMyeEVmOHVMSWN3RkFLbU5BTlFYSjlHcGErNmlKT0lRVkpDTWl4UlVkdStj?=
+ =?utf-8?B?L3Nqa095NWJVUmxISk9qQU5KVkxtQ2VVZ1Z2WGd6ZW1TUFZobW9Kak5JU0tF?=
+ =?utf-8?B?cnl2bVVjV3VVNisrVWJBRjRqN2ZmN1g2K0NWV1BGUWs4ajBUSVdCY0EwcGUy?=
+ =?utf-8?B?bGo3UGV6aWM0NlRubW1SVXV1aURoZGVRSW5yTGJqRlg5SnVBSmtxcVlTRFFs?=
+ =?utf-8?B?VDliSGVUWCs1SUJoME5BYnAzNHJZMEUwaWpid0N1Tm93QUZhRHI3SU4xUjJ5?=
+ =?utf-8?B?VjdybnRoMTZtVHlMZzY1cEsxOFBVWmpBRGdMQ2syZ0ZEWTFvKzFzME9ORjN5?=
+ =?utf-8?B?U2sraDUyc2tTa2tUeEh5Y1dzTTJOcmh5bFpsV1JGZ3lMQ2V2L1AweWsvdEZi?=
+ =?utf-8?B?SE1vNVV6ZFgxdm13bWVSMFNBQW1jUFBaS21LWmdQUWZkZEpIYnJ1aWRiVlJS?=
+ =?utf-8?B?ZXFRSUpoKy9GdEZuNUNMc1U3QkxSbTBBbXFxQ0tmQis4akNpVml3UT09?=
+X-OriginatorOrg: axis.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 61a54633-e7d9-499a-0ea4-08df1561c552
+X-MS-Exchange-CrossTenant-AuthSource: GV2PPFBD14D17F4.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 08:49:37.9549
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FzuPDSCK0DGrCrBcTlx7Zd1XQaK103ZKeE8XzUf4oy5eY0e70FrcxjKRAJ0o1edJPnLEg1jwvnzNK0M7D996FA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR02MB6862
 
-The percpu code section functionality uses a rather complex method to
-figure out if the register, which contains the address of the current
-cpu's percpu variable, needs to be adjusted.
+Hi Alexander,
 
-If an interrupt happens within a percpu code section (indicated by a
-lowcore field), the instruction at the interrupted location is
-checked. If it is not a specific AG instruction, the register needs to
-be updated. This mechanism needs to take kprobes into account, and
-enforces a specific instruction ordering.
+I think we can take this patch for another round internally, please
+see comments. Sashiko also had three concerns that seem valid to me,
+please have a look.
 
-Mark Rutland provided with a different solution for arm64 [1] which
-comes without such limitations, but requires to use one more
-instruction, and two more registers. Given that this simplifies
-percpu_entry() and percpu_exit() it seems to be worth to go that
-route.
+On Fri, Aug 14, 2026 at 04:05:58PM +0200, Alexander Svarvare wrote:
+> The bq27z561 fuel gauge can report its device name via the
+> AltManufacturerAccess() (MAC) command 0x004A. Expose this information
+> through the POWER_SUPPLY_PROP_MODEL_NAME property.
+> 
+> This allows userspace charge-management daemons to make more intelligent
+> decisions by being able to map battery pack to datasheet and infer
+> additional useful battery characteristics.
+> 
+> Other power_supply properties can be provided through
+> AltManufacturerAccess(), so implement an interface. Make it
+> modular/flexible since for other chips, the same MAC-command
+> for retrieving a property may have a different numerical value.
+> 
+> Serialize the complete MAC write-delay-read transaction for concurrency
+> safety, preventing another command from replacing the pending response
+> during the required delay. Keep dedicated per-device storage for the model
+> name to preserve the returned pointer’s lifetime.
+> 
+> Hardware-tested on BQ27Z561 using a backport to the product kernel.
+> 
+> The model_name property returned the expected value.
 
-Change s390 to implement a similar approach. This requires to encode
-three register numbers into the "percpu_register" field, which is used
-to indicate if a percpu code section is executed.
+Great that it is tested, and worked, with the backported patch! It
+would be good to test with a close-to-mainline kernel as well, as
+there might very well be some regression elsewhere that affects the
+patch or driver. Let's talk off-list for how such tests can most
+easily be done.
 
-The used mviy instruction can write only one byte, which allows to
-encode only two register numbers. Use a register pair for the inline
-assemblies, and only encode the even register number of the register
-pair to work around this.
+> Signed-off-by: Alexander Svarvare <alexander.svarvare@axis.com>
+> ---
+> bq27xxx fuel gauges (FGs) provide most of power_supply properties by basic
+> register reads. For the remaining properties, they can be read by writing a
+> command to a buffer AltManufacturerAccess() and reading the result from
+> another buffer MACData().
+> 
+> Since the release of bq27z561, six bq27xxx 1-cell FGs have been released. 
+> Three support reading the model_name in the same way as bq27z561 while five
+> provide properties supported by power_supply.h through
+> AltManufacturerAccess(). In addition, five specify the return string as 
+> 2 bytes echo of the MAC command followed by the string. This format has 
+> therefore been hardcoded.
+> 
+> *Some* properties (varies) provided in this manner which are supported in
+> power_supply.h are:
+> model_name, manufacturer, serial_number, manufacture day/month/year
+> ---
+>  drivers/power/supply/bq27xxx_battery.c | 95 ++++++++++++++++++++++++++++++++--
+>  include/linux/power/bq27xxx_battery.h  |  5 ++
+>  2 files changed, 97 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/power/supply/bq27xxx_battery.c b/drivers/power/supply/bq27xxx_battery.c
+> index 45f0e39b8c2d..2a24eaf1aecb 100644
+> --- a/drivers/power/supply/bq27xxx_battery.c
+> +++ b/drivers/power/supply/bq27xxx_battery.c
+> @@ -93,6 +93,9 @@
+>  
+>  #define INVALID_REG_ADDR	0xff
+>  
+> +/* SMBus block transfers are limited to 32 bytes. */
+> +#define BQ27XXX_DATA_BLOCK_LEN   32
+> +
+>  /*
+>   * bq27xxx_reg_index - Register names
+>   *
+> @@ -833,6 +836,7 @@ static enum power_supply_property bq27z561_props[] = {
+>  	POWER_SUPPLY_PROP_CYCLE_COUNT,
+>  	POWER_SUPPLY_PROP_POWER_AVG,
+>  	POWER_SUPPLY_PROP_HEALTH,
+> +	POWER_SUPPLY_PROP_MODEL_NAME,
+>  	POWER_SUPPLY_PROP_MANUFACTURER,
+>  };
+>  
+> @@ -1010,16 +1014,39 @@ static struct bq27xxx_dm_reg bq27621_dm_regs[] = {
+>  
+>  #define BQ27XXX_DATA(ref, key, opt) {		\
+>  	.opts = (opt),				\
+> -	.unseal_key = key,			\
+> +	.unseal_key = (key),			\
+> +	.cmds = &bq27xxx_no_cmds,		\
+> +	.regs  = ref##_regs,			\
+> +	.dm_regs = ref##_dm_regs,		\
+> +	.props = ref##_props,			\
+> +	.props_size = ARRAY_SIZE(ref##_props),  }
+> +
+> +#define BQ27XXX_CMDS(ref, key, opt, cptr) {	\
+> +	.opts = (opt),				\
+> +	.unseal_key = (key),			\
+> +	.cmds = (cptr),				\
+>  	.regs  = ref##_regs,			\
+>  	.dm_regs = ref##_dm_regs,		\
+>  	.props = ref##_props,			\
+> -	.props_size = ARRAY_SIZE(ref##_props) }
+> +	.props_size = ARRAY_SIZE(ref##_props),  }
+> +
+> +struct bq27xxx_cmds {
+> +	u16 model_name_cmd;
+> +};
+> +
+> +static const struct bq27xxx_cmds bq27xxx_no_cmds = {
+> +	.model_name_cmd = 0,
+> +};
 
-The generated code changes like this for e.g. a simple this_cpu_inc():
+Rather than having one struct with all 0 u16's we can use bits in the
+opts variable (and save some memory) to indicate that a command is
+supported. We could add something like:
 
-Old:
+#define BQ27XXX_O_MODEL_NAME_CMD BIT(9)
 
-c0 20 00 00 00 00  larl    %r2,c6 <foo+0x6> <-- load address of percpu var
-b9 04 00 32        lgr     %r3,%r2          <-- pointless copy of address
-eb 03 03 c0 00 52  mviy    960,3            <-- start of percpu code section
-                                                - gpr 3 contains percpu var address
-e3 30 03 b8 00 08  ag      %r3,952          <-- add percpu offset
-eb 01 30 00 00 7a  agsi    0(%r3),1         <-- atomic inc
-eb 00 03 c0 00 52  mviy    960,0            <-- end of percpu code section
+and check `di->opts & BQ27XXX_O_MODEL_NAME_CMD`.
 
-New:
+I looked through the reference manuals for quite a few of the bq27
+chips, and all that have Device Name among the ManufacturerAccess regs
+seem to use 0x004A, so should be safe to always use that command for
+that opt bit (if some future bq chip has another command then it could
+use another opts bit).
 
-c0 10 00 00 00 00  larl    %r1,c6 <foo+0x6> <-- load address of percpu var
-eb 21 03 c0 00 52  mviy    960,33           <-- start of percpu code section
-                                                33 == 0x21:
-						- gpr 1 contains percpu var address
-						- gpr 2 used for percpu offset
-  					        - gpr 2+1 == 3 used for current cpu's percpu var address
-e3 20 03 b8 00 04  lg      %r2,952          <-- load percpu offset
-b9 e8 20 31        agrk    %r3,%r1,%r2      <-- generate current cpu's percpu var address
-eb 01 30 00 00 7a  agsi    0(%r3),1         <-- atomic inc
-eb 00 03 c0 00 52  mviy    960,0            <-- end of percpu code section
+Best regards,
+Henrik Grimler
 
-In the above "new" code example 33 (0x21) is used as indicator value to
-mark that a percpu code section is executed. This value implies that
-registers 2 and 3 will (only) hold the percpu offset and the current
-cpu's percpu var address. Those registers will always be updated by the
-percpu_exit() code to contain the percpu offset and percpu var address of
-the current cpu.
-
-Note that because of the pointless lgr instruction in the "old" code
-example the two code sequences have identical size, and it looks like
-only one more register is used. However this is because of suboptimal
-gcc code generation.
-
-[1] https://lore.kernel.org/all/20260908151741.394589-1-mark.rutland@arm.com/
-
-Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
----
- arch/s390/include/asm/entry-percpu.h |  71 ++-------
- arch/s390/include/asm/percpu.h       | 222 ++++++++++++++++++---------
- arch/s390/include/asm/ptrace.h       |   2 +-
- arch/s390/kernel/irq.c               |  10 +-
- arch/s390/kernel/nmi.c               |   4 +-
- arch/s390/kernel/traps.c             |   4 +-
- 6 files changed, 173 insertions(+), 140 deletions(-)
-
-diff --git a/arch/s390/include/asm/entry-percpu.h b/arch/s390/include/asm/entry-percpu.h
-index 89c9e44f6f83..92fdc9142f1d 100644
---- a/arch/s390/include/asm/entry-percpu.h
-+++ b/arch/s390/include/asm/entry-percpu.h
-@@ -2,79 +2,42 @@
- #ifndef ARCH_S390_ENTRY_PERCPU_H
- #define ARCH_S390_ENTRY_PERCPU_H
- 
--#include <linux/kprobes.h>
-+#include <linux/bitfield.h>
- #include <linux/percpu.h>
- #include <asm/lowcore.h>
- #include <asm/ptrace.h>
--#include <asm/asm-offsets.h>
- 
- static __always_inline void percpu_entry(struct pt_regs *regs)
- {
- 	struct lowcore *lc = get_lowcore();
- 
--	if (user_mode(regs))
--		return;
- 	regs->cpu = lc->cpu_nr;
- 	regs->percpu_register = lc->percpu_register;
- 	lc->percpu_register = 0;
- }
- 
--static __always_inline bool percpu_code_check(struct pt_regs *regs)
--{
--	unsigned int insn, disp;
--	struct kprobe *p;
--
--	if (likely(user_mode(regs) || !regs->percpu_register))
--		return false;
--	/*
--	 * Within a percpu code section - check if the percpu base register
--	 * needs to be updated. This is the case if the PSW does not point to
--	 * the ADD instruction within the section.
--	 * - AG %rx,percpu_offset_in_lowcore(%r0,%r0)
--	 * which adds the percpu offset to the percpu base register.
--	 */
--	lockdep_assert_preemption_disabled();
--again:
--	insn = READ_ONCE(*(u16 *)psw_bits(regs->psw).ia);
--	if (unlikely(insn == BREAKPOINT_INSTRUCTION)) {
--		p = get_kprobe((void *)psw_bits(regs->psw).ia);
--		/*
--		 * If the kprobe is concurrently removed on a different CPU
--		 * it might not be found anymore. However text must have
--		 * been restored - try again.
--		 */
--		if (!p)
--			goto again;
--		insn = p->opcode;
--	}
--	if ((insn & 0xff0f) != 0xe300)
--		return true;
--	disp = LC_PERCPU_OFFSET;
--	if (machine_has_relocated_lowcore())
--		disp += LOWCORE_ALT_ADDRESS;
--	insn = (disp & 0xff000) >> 4 | (disp & 0x00fff) << 16 | 0x8;
--	if (*(u32 *)(psw_bits(regs->psw).ia + 2) != insn)
--		return true;
--	return false;
--}
--
--static __always_inline void percpu_exit(struct pt_regs *regs, bool needs_fixup)
-+static __always_inline void percpu_exit(struct pt_regs *regs)
- {
-+	unsigned char regval, regpcp, regoff, regptr;
- 	struct lowcore *lc = get_lowcore();
--	unsigned char reg;
- 
--	if (user_mode(regs))
-+	if (!regs->percpu_register)
- 		return;
--	reg = regs->percpu_register;
--	lc->percpu_register = reg;
--	if (likely(!needs_fixup))
--		return;
--	/* Check if process has been migrated to a different CPU. */
-+	regval = regs->percpu_register;
-+	lc->percpu_register = regval;
-+	/* Migrated to a different CPU? */
- 	if (regs->cpu == lc->cpu_nr)
- 		return;
--	/* Fixup percpu base register */
--	regs->gprs[reg] -= __per_cpu_offset[regs->cpu];
--	regs->gprs[reg] += lc->percpu_offset;
-+	regpcp = FIELD_GET(PCPU_REG_PCP, regval);
-+	regoff = FIELD_GET(PCPU_REG_OFF, regval);
-+	regptr = regoff + 1;
-+	/*
-+	 * Update register 'regoff' which contains the current CPU's percpu
-+	 * offset, and recalculate and update current CPU's percpu variable
-+	 * address contained in register 'regptr'.
-+	 */
-+	regs->gprs[regoff] = lc->percpu_offset;
-+	regs->gprs[regptr] = regs->gprs[regpcp] + regs->gprs[regoff];
- }
- 
- #endif
-diff --git a/arch/s390/include/asm/percpu.h b/arch/s390/include/asm/percpu.h
-index 46368131b932..ea9448009468 100644
---- a/arch/s390/include/asm/percpu.h
-+++ b/arch/s390/include/asm/percpu.h
-@@ -67,28 +67,31 @@
-  * this. The idea is that this_cpu operations based on atomic instructions are
-  * guarded with mviy instructions:
-  *
-- * - The first mviy instruction writes the register number, which contains the
-- *   percpu address variable to lowcore. This also indicates that a percpu
-- *   code section is executed.
-+ * - The first mviy instruction writes the register number of the percpu address
-+ *   variable and the even register number of a register pair (which encodes two
-+ *   registers: the even register for the percpu offset and the odd register for
-+ *   the percpu pointer) to lowcore. This also indicates that a percpu code
-+ *   section is executed.
-  *
-- * - The first mviy instruction following the mviy instruction must be the ag
-- *   instruction which adds the percpu offset to the percpu address register.
-+ * - The mviy instruction is followed by the lg instruction which loads the
-+ *   percpu offset into the even register of the pair and the agrk instruction
-+ *   which adds the percpu offset and the percpu address into the odd register
-+ *   of the pair (the percpu pointer register).
-  *
-  * - Afterwards the atomic percpu operation follows.
-  *
-  * - Then a second mviy instruction writes a zero to lowcore, which indicates
-  *   the end of the percpu code section.
-  *
-- * - In case of an interrupt/exception/nmi the register number which was
-- *   written to lowcore is copied to the exception frame (pt_regs), and a zero
-- *   is written to lowcore.
-+ * - In case of an interrupt/exception/nmi the encoded register numbers which
-+ *   were written to lowcore are copied to the exception frame (pt_regs), and a
-+ *   zero is written to lowcore.
-  *
-  * - On return to the previous context it is checked if a percpu code section
-- *   was executed (saved register number not zero), and if the process was
-- *   migrated to a different cpu. If the percpu offset was already added to
-- *   the percpu address register (instruction address does _not_ point to the
-- *   ag instruction) the content of the percpu address register is adjusted so
-- *   it points to percpu variable of the new cpu.
-+ *   was executed (saved register value not zero). The content of the percpu
-+ *   offset register (even register of the pair) is reloaded with the current
-+ *   cpu's percpu offset and the percpu pointer register (odd register of the
-+ *   pair) is recalculated so it points to the percpu variable of the new cpu.
-  *
-  * Inline assemblies making use of this typically have a code sequence like:
-  *
-@@ -115,27 +118,45 @@
- #define UNDEF_GR_NUM								\
- 	".purgem _GR_NUM\n"
- 
-+#define PCPU_REG_PCP_SHIFT		0
-+#define PCPU_REG_PCP			GENMASK(3, 0)
-+#define PCPU_REG_OFF_SHIFT		4
-+#define PCPU_REG_OFF			GENMASK(7, 4)
-+
- #define __PCPU_MVIY(lcreg, imm)							\
- 	ALTERNATIVE("	mviy	" lcreg			"(%%r0)," imm "\n",	\
- 		    "	mviy	" lcreg "+" LC_ALT_ADDR "(%%r0)," imm "\n",	\
- 		    ALT_FEATURE(MFEATURE_LOWCORE))
- 
--#define __PCPU_AG(reg, lcoff)							\
--	ALTERNATIVE("	ag	" reg ", " lcoff		 "(%%r0)\n",	\
--		    "	ag	" reg ", " lcoff "+" LC_ALT_ADDR "(%%r0)\n",	\
-+#define __PCPU_MVIY_REGS(lcreg, regpcp, regoff)					\
-+	DEFINE_GR_NUM								\
-+	"_GR_NUM .Lregpcp, " regpcp "\n"					\
-+	"_GR_NUM .Lregoff, " regoff "\n"					\
-+	UNDEF_GR_NUM								\
-+	".if .Lregpcp == .Lregoff\n"						\
-+	"	.error \"Registers must not be identical\"\n"			\
-+	".endif\n"								\
-+	".set .Lregval, ((.Lregpcp << " __stringify(PCPU_REG_PCP_SHIFT) ") |"	\
-+	"		 (.Lregoff << " __stringify(PCPU_REG_OFF_SHIFT) "))\n"	\
-+	__PCPU_MVIY(lcreg, ".Lregval")
-+
-+#define __PCPU_LG(regoff, lcoff)						\
-+	ALTERNATIVE("lg	" regoff ", " lcoff		    "(%%r0)\n",		\
-+		    "lg	" regoff ", " lcoff "+" LC_ALT_ADDR "(%%r0)\n",		\
- 		    ALT_FEATURE(MFEATURE_LOWCORE))
- 
--#define __PCPU_BEGIN(lcreg, lcoff, reg)						\
--	DEFINE_GR_NUM								\
--	"_GR_NUM .Lreg, " reg "\n"						\
--	UNDEF_GR_NUM								\
--	__PCPU_MVIY(lcreg, ".Lreg")						\
--	__PCPU_AG(reg, lcoff)
-+#define __PCPU_AGRK(regptr, regpcp, regoff)					\
-+	"	agrk	" regptr "," regpcp "," regoff "\n"
-+
-+#define __PCPU_BEGIN(lcreg, lcoff, regpcp, regoff, regptr)			\
-+	__PCPU_MVIY_REGS(lcreg, regpcp, regoff)					\
-+	__PCPU_LG(regoff, lcoff)						\
-+	__PCPU_AGRK(regptr, regpcp, regoff)
- 
- #define __PCPU_END(lcreg)							\
- 	__PCPU_MVIY(lcreg, "0")
- 
--#ifndef MARCH_HAS_Z196_FEATURES
-+#if !defined(MARCH_HAS_Z196_FEATURES) || !defined(CONFIG_CC_HAS_ASM_M_FORMAT_FLAG)
- 
- #define this_cpu_add_4(pcp, val)	arch_this_cpu_to_op_simple(pcp, val, +)
- #define this_cpu_add_8(pcp, val)	arch_this_cpu_to_op_simple(pcp, val, +)
-@@ -146,11 +167,12 @@
- #define this_cpu_or_4(pcp, val)		arch_this_cpu_to_op_simple(pcp, val, |)
- #define this_cpu_or_8(pcp, val)		arch_this_cpu_to_op_simple(pcp, val, |)
- 
--#else /* MARCH_HAS_Z196_FEATURES */
-+#else /* MARCH_HAS_Z196_FEATURES || CONFIG_CC_HAS_ASM_M_FORMAT_FLAG */
- 
- #define arch_this_cpu_add(pcp, val, op1, op2, szcast)				\
- do {										\
- 	typedef typeof(pcp) pcp_op_T__;						\
-+	union register_pair pair__;						\
- 	pcp_op_T__ val__ = (val);						\
- 	pcp_op_T__ old__, *ptr__;						\
- 										\
-@@ -158,25 +180,27 @@ do {										\
- 	if (__builtin_constant_p(val__) &&					\
- 	    ((szcast)val__ > -129) && ((szcast)val__ < 128)) {			\
- 		asm volatile(							\
--			__PCPU_BEGIN("%[lcreg]","%[lcoff]","%[ptr__]")		\
--			op2 "   0(%[ptr__]),%[val__]\n"				\
-+			__PCPU_BEGIN("%[lcreg]","%[lcoff]","%[ptr__]",		\
-+				      "%[pair__]","%M[pair__]")			\
-+			op2 "   0(%M[pair__]),%[val__]\n"			\
- 			__PCPU_END("%[lcreg]")					\
--			: [ptr__] "+&a" (ptr__), "+m" (*ptr__),			\
-+			: [pair__] "=&d" (pair__), "+m" (*ptr__),		\
- 			  "=m" (((struct lowcore *)0)->percpu_register)		\
--			: [val__] "i" ((szcast)val__),				\
-+			: [val__] "i" ((szcast)val__), [ptr__] "d" (ptr__),	\
- 			  [lcreg] "i" (LC_PERCPU_REGISTER),			\
- 			  [lcoff] "i" (LC_PERCPU_OFFSET),			\
- 			  "m" (((struct lowcore *)0)->percpu_offset)		\
- 			: "cc");						\
- 	} else {								\
- 		asm volatile(							\
--			__PCPU_BEGIN("%[lcreg]","%[lcoff]","%[ptr__]")		\
--			op1 "   %[old__],%[val__],0(%[ptr__])\n"		\
-+			__PCPU_BEGIN("%[lcreg]","%[lcoff]","%[ptr__]",		\
-+				     "%[pair__]","%M[pair__]")			\
-+			op1 "   %[old__],%[val__],0(%M[pair__])\n"		\
- 			__PCPU_END("%[lcreg]")					\
--			: [old__] "=&d" (old__),				\
--			  [ptr__] "+&a" (ptr__),  "+m" (*ptr__),		\
-+			: [old__] "=&d" (old__), [pair__] "=&d" (pair__),	\
-+			  "+m" (*ptr__),					\
- 			  "=m" (((struct lowcore *)0)->percpu_register)		\
--			: [val__] "d" (val__),					\
-+			: [val__] "d" (val__), [ptr__] "d" (ptr__),		\
- 			  [lcreg] "i" (LC_PERCPU_REGISTER),			\
- 			  [lcoff] "i" (LC_PERCPU_OFFSET),			\
- 			  "m" (((struct lowcore *)0)->percpu_offset)		\
-@@ -190,18 +214,20 @@ do {										\
- #define arch_this_cpu_add_return(pcp, val, op)				\
- ({									\
- 	typedef typeof(pcp) pcp_op_T__; 				\
-+	union register_pair pair__;					\
- 	pcp_op_T__ val__ = (val);					\
- 	pcp_op_T__ old__, *ptr__;					\
- 									\
- 	ptr__ = PERCPU_PTR(&(pcp));					\
- 	asm_inline volatile(						\
--		__PCPU_BEGIN("%[lcreg]","%[lcoff]","%[ptr__]")		\
--		op "	%[old__],%[val__],0(%[ptr__])\n"		\
-+		__PCPU_BEGIN("%[lcreg]","%[lcoff]","%[ptr__]",		\
-+			     "%[pair__]","%M[pair__]")			\
-+		op "	%[old__],%[val__],0(%M[pair__])\n"		\
- 		__PCPU_END("%[lcreg]")					\
--		: [old__] "=&d" (old__),				\
--		  [ptr__] "+&a" (ptr__), "+m" (*ptr__),			\
-+		: [old__] "=&d" (old__), [pair__] "=&d" (pair__),	\
-+		  "+m" (*ptr__),					\
- 		  "=m" (((struct lowcore *)0)->percpu_register)		\
--		: [val__] "d" (val__),					\
-+		: [val__] "d" (val__), [ptr__] "d" (ptr__),		\
- 		  [lcreg] "i" (LC_PERCPU_REGISTER),			\
- 		  [lcoff] "i" (LC_PERCPU_OFFSET),			\
- 		  "m" (((struct lowcore *)0)->percpu_offset)		\
-@@ -215,18 +241,20 @@ do {										\
- #define arch_this_cpu_to_op(pcp, val, op)				\
- do {									\
- 	typedef typeof(pcp) pcp_op_T__; 				\
-+	union register_pair pair__;					\
- 	pcp_op_T__ val__ = (val);					\
- 	pcp_op_T__ old__, *ptr__;					\
- 									\
- 	ptr__ = PERCPU_PTR(&(pcp));					\
- 	asm_inline volatile(						\
--		__PCPU_BEGIN("%[lcreg]","%[lcoff]","%[ptr__]")		\
--		op "    %[old__],%[val__],0(%[ptr__])\n"		\
-+		__PCPU_BEGIN("%[lcreg]","%[lcoff]","%[ptr__]",		\
-+			     "%[pair__]","%M[pair__]")			\
-+		op "    %[old__],%[val__],0(%M[pair__])\n"		\
- 		__PCPU_END("%[lcreg]")					\
--		: [old__] "=&d" (old__),				\
--		  [ptr__] "+&a" (ptr__), "+m" (*ptr__),			\
-+		: [old__] "=&d" (old__), [pair__] "=&d" (pair__),	\
-+		  "+m" (*ptr__),					\
- 		  "=m" (((struct lowcore *)0)->percpu_register)		\
--		: [val__] "d" (val__),					\
-+		: [val__] "d" (val__), [ptr__] "d" (ptr__),		\
- 		  [lcreg] "i" (LC_PERCPU_REGISTER),			\
- 		  [lcoff] "i" (LC_PERCPU_OFFSET),			\
- 		  "m" (((struct lowcore *)0)->percpu_offset)		\
-@@ -238,22 +266,23 @@ do {									\
- #define this_cpu_or_4(pcp, val)		arch_this_cpu_to_op(pcp, val, "lao")
- #define this_cpu_or_8(pcp, val)		arch_this_cpu_to_op(pcp, val, "laog")
- 
--#endif /* MARCH_HAS_Z196_FEATURES */
--
- #define arch_this_cpu_read(pcp, op)					\
- ({									\
- 	typedef typeof(pcp) pcp_op_T__;					\
-+	union register_pair pair__;					\
- 	unsigned long res__;						\
- 	pcp_op_T__ *ptr__;						\
- 									\
- 	ptr__ = PERCPU_PTR(&(pcp));					\
- 	asm_inline volatile(						\
--		__PCPU_BEGIN("%[lcreg]","%[lcoff]","%[ptr__]")		\
--		op "	%[res__],0(%[ptr__])\n"				\
-+		__PCPU_BEGIN("%[lcreg]","%[lcoff]","%[ptr__]",		\
-+			      "%[pair__]","%M[pair__]")			\
-+		op "	%[res__],0(%M[pair__])\n"			\
- 		__PCPU_END("%[lcreg]")					\
--		: [res__] "=&d" (res__), [ptr__] "+&a" (ptr__),		\
-+		: [res__] "=&d" (res__), [pair__] "=&d" (pair__),	\
- 		  "=m" (((struct lowcore *)0)->percpu_register)		\
--		: [lcreg] "i" (LC_PERCPU_REGISTER),			\
-+		: [ptr__] "d" (ptr__),					\
-+		  [lcreg] "i" (LC_PERCPU_REGISTER),			\
- 		  [lcoff] "i" (LC_PERCPU_OFFSET),			\
- 		  "m" (*ptr__),						\
- 		  "m" (((struct lowcore *)0)->percpu_offset)		\
-@@ -269,16 +298,18 @@ do {									\
- #define arch_this_cpu_write(pcp, val, op)				\
- do {									\
- 	typedef typeof(pcp) pcp_op_T__;					\
-+	union register_pair pair__;					\
- 	pcp_op_T__ *ptr__, val__ = (val);				\
- 									\
- 	ptr__ = PERCPU_PTR(&(pcp));					\
- 	asm_inline volatile(						\
--		__PCPU_BEGIN("%[lcreg]","%[lcoff]","%[ptr__]")		\
--		op "    %[val__],0(%[ptr__])\n"				\
-+		__PCPU_BEGIN("%[lcreg]","%[lcoff]","%[ptr__]",		\
-+			      "%[pair__]","%M[pair__]")			\
-+		op "    %[val__],0(%M[pair__])\n"			\
- 		__PCPU_END("%[lcreg]")					\
--		: [ptr__] "+&a" (ptr__), "=m" (*ptr__),			\
-+		: [pair__] "=&d" (pair__), "=m" (*ptr__),		\
- 		  "=m" (((struct lowcore *)0)->percpu_register)		\
--		: [val__] "d" (val__),					\
-+		: [val__] "d" (val__), [ptr__] "d" (ptr__),		\
- 		  [lcreg] "i" (LC_PERCPU_REGISTER),			\
- 		  [lcoff] "i" (LC_PERCPU_OFFSET),			\
- 		  "m" (((struct lowcore *)0)->percpu_offset)		\
-@@ -290,6 +321,8 @@ do {									\
- #define this_cpu_write_4(pcp, val) arch_this_cpu_write(pcp, val, "st")
- #define this_cpu_write_8(pcp, val) arch_this_cpu_write(pcp, val, "stg")
- 
-+#endif /* MARCH_HAS_Z196_FEATURES || CONFIG_CC_HAS_ASM_M_FORMAT_FLAG */
-+
- #define arch_this_cpu_cmpxchg_simple(pcp, oval, nval)			\
- ({									\
- 	typedef typeof(pcp) pcp_op_T__;					\
-@@ -302,21 +335,33 @@ do {									\
- 	ret__;								\
- })
- 
-+#define this_cpu_cmpxchg_1(pcp, oval, nval) arch_this_cpu_cmpxchg_simple(pcp, oval, nval)
-+#define this_cpu_cmpxchg_2(pcp, oval, nval) arch_this_cpu_cmpxchg_simple(pcp, oval, nval)
-+
-+#if !defined(MARCH_HAS_Z196_FEATURES) || !defined(CONFIG_CC_HAS_ASM_M_FORMAT_FLAG)
-+
-+#define this_cpu_cmpxchg_4(pcp, oval, nval) arch_this_cpu_cmpxchg_simple(pcp, oval, nval)
-+#define this_cpu_cmpxchg_8(pcp, oval, nval) arch_this_cpu_cmpxchg_simple(pcp, oval, nval)
-+
-+#else /* MARCH_HAS_Z196_FEATURES || CONFIG_CC_HAS_ASM_M_FORMAT_FLAG */
-+
- #define arch_this_cpu_cmpxchg(pcp, oval, nval, op)			\
- ({									\
- 	typedef typeof(pcp) pcp_op_T__;					\
- 	pcp_op_T__ old__ = (oval), new__ = (nval);			\
-+	union register_pair pair__;					\
- 	pcp_op_T__ *ptr__;						\
- 									\
- 	ptr__ = PERCPU_PTR(&(pcp));					\
- 	asm_inline volatile(						\
--		__PCPU_BEGIN("%[lcreg]","%[lcoff]","%[ptr__]")		\
--		op "	%[old__],%[new__],0(%[ptr__])\n"		\
-+		__PCPU_BEGIN("%[lcreg]","%[lcoff]","%[ptr__]",		\
-+			     "%[pair__]","%M[pair__]")			\
-+		op "	%[old__],%[new__],0(%M[pair__])\n"		\
- 		__PCPU_END("%[lcreg]")					\
--		: [old__] "+&d" (old__),				\
--		  [ptr__] "+&a" (ptr__), "+m" (*ptr__),			\
-+		: [old__] "+&d" (old__), [pair__] "=&d" (pair__),	\
-+		  "+m" (*ptr__),					\
- 		  "=m" (((struct lowcore *)0)->percpu_register)		\
--		: [new__] "d" (new__),					\
-+		: [new__] "d" (new__), [ptr__] "d" (ptr__),		\
- 		  [lcreg] "i" (LC_PERCPU_REGISTER),			\
- 		  [lcoff] "i" (LC_PERCPU_OFFSET),			\
- 		  "m" (((struct lowcore *)0)->percpu_offset)		\
-@@ -324,28 +369,45 @@ do {									\
- 	old__;								\
- })
- 
--#define this_cpu_cmpxchg_1(pcp, oval, nval) arch_this_cpu_cmpxchg_simple(pcp, oval, nval)
--#define this_cpu_cmpxchg_2(pcp, oval, nval) arch_this_cpu_cmpxchg_simple(pcp, oval, nval)
- #define this_cpu_cmpxchg_4(pcp, oval, nval) arch_this_cpu_cmpxchg(pcp, oval, nval, "cs")
- #define this_cpu_cmpxchg_8(pcp, oval, nval) arch_this_cpu_cmpxchg(pcp, oval, nval, "csg")
- 
-+#endif /* MARCH_HAS_Z196_FEATURES || CONFIG_CC_HAS_ASM_M_FORMAT_FLAG */
-+
- #define this_cpu_cmpxchg64(pcp, o, n)	this_cpu_cmpxchg_8(pcp, o, n)
- 
-+#if !defined(MARCH_HAS_Z196_FEATURES) || !defined(CONFIG_CC_HAS_ASM_M_FORMAT_FLAG)
-+
-+#define this_cpu_cmpxchg128(pcp, oval, nval)				\
-+({									\
-+	u128 *ptr__, ret__;						\
-+									\
-+	preempt_disable_notrace();					\
-+	ptr__ = raw_cpu_ptr(&(pcp));					\
-+	ret__ = arch_cmpxchg128(ptr__, oval, nval);			\
-+	preempt_enable_notrace();					\
-+	ret__;								\
-+})
-+
-+#else /* MARCH_HAS_Z196_FEATURES || CONFIG_CC_HAS_ASM_M_FORMAT_FLAG */
-+
- #define this_cpu_cmpxchg128(pcp, oval, nval)				\
- ({									\
- 	typedef typeof(pcp) pcp_op_T__;					\
- 	u128 old__ = (oval), new__ = (nval);				\
-+	union register_pair pair__;					\
- 	pcp_op_T__ *ptr__;						\
- 									\
- 	ptr__ = PERCPU_PTR(&(pcp));					\
- 	asm_inline volatile(						\
--		__PCPU_BEGIN("%[lcreg]","%[lcoff]","%[ptr__]")		\
--		"	cdsg	%[old__],%[new__],0(%[ptr__])\n"	\
-+		__PCPU_BEGIN("%[lcreg]","%[lcoff]","%[ptr__]",		\
-+			     "%[pair__]","%M[pair__]")			\
-+		"	cdsg	%[old__],%[new__],0(%M[pair__])\n"	\
- 		__PCPU_END("%[lcreg]")					\
--		: [old__] "+&d" (old__), [ptr__] "+&a" (ptr__),		\
-+		: [old__] "+&d" (old__), [pair__] "=&d" (pair__),	\
- 		  "+m" (*ptr__),					\
- 		  "=m" (((struct lowcore *)0)->percpu_register)		\
--		: [new__] "d" (new__),					\
-+		: [new__] "d" (new__), [ptr__] "d" (ptr__),		\
- 		  [lcreg] "i" (LC_PERCPU_REGISTER),			\
- 		  [lcoff] "i" (LC_PERCPU_OFFSET),			\
- 		  "m" (((struct lowcore *)0)->percpu_offset)		\
-@@ -353,6 +415,8 @@ do {									\
- 	old__;								\
- })
- 
-+#endif /* MARCH_HAS_Z196_FEATURES || CONFIG_CC_HAS_ASM_M_FORMAT_FLAG */
-+
- #define arch_this_cpu_xchg_simple(pcp, nval)				\
- ({									\
- 	typeof(pcp) *ptr__;						\
-@@ -364,23 +428,35 @@ do {									\
- 	ret__;								\
- })
- 
--#define arch_this_cpu_xchg(pcp, nval, ldop, csop)			\
-+#define this_cpu_xchg_1(pcp, nval) arch_this_cpu_xchg_simple(pcp, nval)
-+#define this_cpu_xchg_2(pcp, nval) arch_this_cpu_xchg_simple(pcp, nval)
-+
-+#if !defined(MARCH_HAS_Z196_FEATURES) || !defined(CONFIG_CC_HAS_ASM_M_FORMAT_FLAG)
-+
-+#define this_cpu_xchg_4(pcp, nval) arch_this_cpu_xchg_simple(pcp, nval)
-+#define this_cpu_xchg_8(pcp, nval) arch_this_cpu_xchg_simple(pcp, nval)
-+
-+#else /* MARCH_HAS_Z196_FEATURES || CONFIG_CC_HAS_ASM_M_FORMAT_FLAG */
-+
-+#define arch_this_cpu_xchg(pcp, nval, lop, cop)				\
- ({									\
- 	typedef typeof(pcp) pcp_op_T__;					\
- 	pcp_op_T__ old__, new__ = (nval);				\
-+	union register_pair pair__;					\
- 	pcp_op_T__ *ptr__;						\
- 									\
- 	ptr__ = PERCPU_PTR(&(pcp));					\
- 	asm_inline volatile(						\
--		__PCPU_BEGIN("%[lcreg]","%[lcoff]","%[ptr__]")		\
--		"	" ldop "	%[old__],0(%[ptr__])\n"		\
--		"0:	" csop "	%[old__],%[new__],0(%[ptr__])\n"\
-+		__PCPU_BEGIN("%[lcreg]","%[lcoff]","%[ptr__]",		\
-+			     "%[pair__]","%M[pair__]")			\
-+		"	" lop "	%[old__],0(%M[pair__])\n"		\
-+		"0:	" cop "	%[old__],%[new__],0(%M[pair__])\n"	\
- 		"	jnz	0b\n"					\
- 		__PCPU_END("%[lcreg]")					\
--		: [old__] "=&d" (old__),				\
--		  [ptr__] "+&a" (ptr__), "+m" (*ptr__),			\
-+		: [old__] "=&d" (old__), [pair__] "=&d" (pair__),	\
-+		  "+m" (*ptr__),					\
- 		  "=m" (((struct lowcore *)0)->percpu_register)		\
--		: [new__] "d" (new__),					\
-+		: [new__] "d" (new__), [ptr__] "d" (ptr__),		\
- 		  [lcreg] "i" (LC_PERCPU_REGISTER),			\
- 		  [lcoff] "i" (LC_PERCPU_OFFSET),			\
- 		  "m" (((struct lowcore *)0)->percpu_offset)		\
-@@ -388,11 +464,11 @@ do {									\
- 	old__;								\
- })
- 
--#define this_cpu_xchg_1(pcp, nval) arch_this_cpu_xchg_simple(pcp, nval)
--#define this_cpu_xchg_2(pcp, nval) arch_this_cpu_xchg_simple(pcp, nval)
- #define this_cpu_xchg_4(pcp, nval) arch_this_cpu_xchg(pcp, nval, "l",  "cs")
- #define this_cpu_xchg_8(pcp, nval) arch_this_cpu_xchg(pcp, nval, "lg", "csg")
- 
-+#endif /* MARCH_HAS_Z196_FEATURES || CONFIG_CC_HAS_ASM_M_FORMAT_FLAG */
-+
- #include <asm-generic/percpu.h>
- 
- #endif /* __ARCH_S390_PERCPU__ */
-diff --git a/arch/s390/include/asm/ptrace.h b/arch/s390/include/asm/ptrace.h
-index 6411e3584283..5102d851b84b 100644
---- a/arch/s390/include/asm/ptrace.h
-+++ b/arch/s390/include/asm/ptrace.h
-@@ -132,7 +132,7 @@ struct pt_regs {
- 	};
- 	unsigned long flags;
- 	unsigned long last_break;
--	unsigned int cpu;
-+	unsigned int cpu
- 	unsigned char percpu_register;
- };
- 
-diff --git a/arch/s390/kernel/irq.c b/arch/s390/kernel/irq.c
-index c923496aa7b4..8f21bea349a6 100644
---- a/arch/s390/kernel/irq.c
-+++ b/arch/s390/kernel/irq.c
-@@ -144,9 +144,9 @@ static int irq_pending(struct pt_regs *regs)
- 
- void noinstr do_io_irq(struct pt_regs *regs)
- {
--	bool from_idle, percpu_needs_fixup;
- 	struct pt_regs *old_regs;
- 	irqentry_state_t state;
-+	bool from_idle;
- 
- 	percpu_entry(regs);
- 	state = irqentry_enter(regs);
-@@ -174,21 +174,20 @@ void noinstr do_io_irq(struct pt_regs *regs)
- 			do_irq_async(regs, IO_INTERRUPT);
- 	} while (machine_is_lpar() && irq_pending(regs));
- 
--	percpu_needs_fixup = percpu_code_check(regs);
- 	irq_exit_rcu();
- 	set_irq_regs(old_regs);
- 	irqentry_exit(regs, state);
- 
- 	if (from_idle)
- 		regs->psw.mask &= ~(PSW_MASK_EXT | PSW_MASK_IO | PSW_MASK_WAIT);
--	percpu_exit(regs, percpu_needs_fixup);
-+	percpu_exit(regs);
- }
- 
- void noinstr do_ext_irq(struct pt_regs *regs)
- {
--	bool from_idle, percpu_needs_fixup;
- 	struct pt_regs *old_regs;
- 	irqentry_state_t state;
-+	bool from_idle;
- 
- 	percpu_entry(regs);
- 	state = irqentry_enter(regs);
-@@ -214,14 +213,13 @@ void noinstr do_ext_irq(struct pt_regs *regs)
- 
- 	do_irq_async(regs, EXT_INTERRUPT);
- 
--	percpu_needs_fixup = percpu_code_check(regs);
- 	irq_exit_rcu();
- 	set_irq_regs(old_regs);
- 	irqentry_exit(regs, state);
- 
- 	if (from_idle)
- 		regs->psw.mask &= ~(PSW_MASK_EXT | PSW_MASK_IO | PSW_MASK_WAIT);
--	percpu_exit(regs, percpu_needs_fixup);
-+	percpu_exit(regs);
- }
- 
- static void show_msi_interrupt(struct seq_file *p, int irq)
-diff --git a/arch/s390/kernel/nmi.c b/arch/s390/kernel/nmi.c
-index 17297a8b63d9..56a15edc65d7 100644
---- a/arch/s390/kernel/nmi.c
-+++ b/arch/s390/kernel/nmi.c
-@@ -361,7 +361,6 @@ NOKPROBE_SYMBOL(s390_backup_mcck_info);
-  */
- void notrace s390_do_machine_check(struct pt_regs *regs)
- {
--	bool percpu_needs_fixup;
- 	static int ipd_count;
- 	static DEFINE_SPINLOCK(ipd_lock);
- 	static unsigned long long last_ipd;
-@@ -495,9 +494,8 @@ void notrace s390_do_machine_check(struct pt_regs *regs)
- 	if (mcck_pending)
- 		schedule_mcck_handler();
- 
--	percpu_needs_fixup = percpu_code_check(regs);
- 	irqentry_nmi_exit(regs, irq_state);
--	percpu_exit(regs, percpu_needs_fixup);
-+	percpu_exit(regs);
- }
- NOKPROBE_SYMBOL(s390_do_machine_check);
- 
-diff --git a/arch/s390/kernel/traps.c b/arch/s390/kernel/traps.c
-index b6ba4465f59d..dd051046170b 100644
---- a/arch/s390/kernel/traps.c
-+++ b/arch/s390/kernel/traps.c
-@@ -338,7 +338,6 @@ static void (*pgm_check_table[128])(struct pt_regs *regs);
- void noinstr __do_pgm_check(struct pt_regs *regs, unsigned long flags)
- {
- 	struct lowcore *lc = get_lowcore();
--	bool percpu_needs_fixup;
- 	irqentry_state_t state;
- 	struct pgm_stat *stat;
- 	unsigned int trapnr;
-@@ -400,9 +399,8 @@ void noinstr __do_pgm_check(struct pt_regs *regs, unsigned long flags)
- 		pgm_check_table[trapnr](regs);
- out:
- 	local_irq_disable();
--	percpu_needs_fixup = percpu_code_check(regs);
- 	irqentry_exit(regs, state);
--	percpu_exit(regs, percpu_needs_fixup);
-+	percpu_exit(regs);
- }
- 
- static int pgm_check_stat_show(struct seq_file *p, void *v)
--- 
-2.53.0
-
+> +static const struct bq27xxx_cmds bq27z561_cmds = {
+> +	.model_name_cmd = 0x004A,
+> +};
+> 
+>  static struct {
+>  	u32 opts;
+>  	u32 unseal_key;
+>  	u8 *regs;
+> +	const struct bq27xxx_cmds *cmds;
+>  	struct bq27xxx_dm_reg *dm_regs;
+>  	enum power_supply_property *props;
+>  	size_t props_size;
+> @@ -1051,7 +1078,7 @@ static struct {
+>  	[BQ27426]   = BQ27XXX_DATA(bq27426,   0x80008000, BQ27XXX_O_UTOT | BQ27XXX_O_CFGUP | BQ27XXX_O_RAM),
+>  	[BQ27441]   = BQ27XXX_DATA(bq27441,   0x80008000, BQ27XXX_O_UTOT | BQ27XXX_O_CFGUP | BQ27XXX_O_RAM),
+>  	[BQ27621]   = BQ27XXX_DATA(bq27621,   0x80008000, BQ27XXX_O_UTOT | BQ27XXX_O_CFGUP | BQ27XXX_O_RAM),
+> -	[BQ27Z561]  = BQ27XXX_DATA(bq27z561,  0         , BQ27Z561_O_BITS),
+> +	[BQ27Z561]  = BQ27XXX_CMDS(bq27z561,  0         , BQ27Z561_O_BITS, &bq27z561_cmds),
+>  	[BQ28Z610]  = BQ27XXX_DATA(bq28z610,  0         , BQ27Z561_O_BITS),
+>  	[BQ34Z100]  = BQ27XXX_DATA(bq34z100,  0         , BQ27XXX_O_OTDC | BQ27XXX_O_SOC_SI | \
+>  							  BQ27XXX_O_HAS_CI | BQ27XXX_O_MUL_CHEM),
+> @@ -1220,6 +1247,60 @@ static inline int bq27xxx_write_block(struct bq27xxx_device_info *di, int reg_in
+>  	return ret;
+>  }
+>  
+> +static int bq27xxx_mac_read_string(struct bq27xxx_device_info *di, u16 cmd,
+> +				   char *name_buffer, u8 buf_len)
+> +{
+> +	u8 mac_data[BQ27XXX_DATA_BLOCK_LEN + 1];
+> +	int ret;
+> +
+> +	if (!buf_len)
+> +		return -EINVAL;
+> +
+> +	/* Serialize the complete MAC command-response transaction. */
+> +	guard(mutex)(&di->lock);
+> +
+> +	ret = bq27xxx_write(di, BQ27XXX_REG_CTRL, cmd, false);
+> +	if (ret < 0) {
+> +		dev_err(di->dev, "failed to issue MAC command: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	/* 66-us AltManufacturerAccess() wait time, use 1 ms guard */
+> +	BQ27XXX_MSLEEP(1);
+> +
+> +	ret = bq27xxx_read_block(di, BQ27XXX_DM_CLASS, mac_data,
+> +				 BQ27XXX_DATA_BLOCK_LEN);
+> +	if (ret < 0) {
+> +		dev_err(di->dev, "failed to read MAC data block: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	if (mac_data[0] != (cmd & 0xff) ||
+> +	    mac_data[1] != (cmd >> 8))
+> +		return -EPROTO;
+> +
+> +	if (!mac_data[2])
+> +		return -ENODATA;
+> +
+> +	mac_data[BQ27XXX_DATA_BLOCK_LEN] = '\0';
+> +	ret = strscpy(name_buffer, &mac_data[2], buf_len);
+> +
+> +	if (ret < 0) {
+> +		dev_err(di->dev, "failed to copy MAC string: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int bq27xxx_get_model_name(struct bq27xxx_device_info *di, char *name, u8 len)
+> +{
+> +	if (!di->cmds || !di->cmds->model_name_cmd)
+> +		return -EINVAL;
+> +
+> +	return bq27xxx_mac_read_string(di, di->cmds->model_name_cmd, name, len);
+> +}
+> +
+>  static int bq27xxx_battery_seal(struct bq27xxx_device_info *di)
+>  {
+>  	int ret;
+> @@ -2206,6 +2287,13 @@ static int bq27xxx_battery_get_property(struct power_supply *psy,
+>  	case POWER_SUPPLY_PROP_HEALTH:
+>  		ret = bq27xxx_battery_read_health(di, val);
+>  		break;
+> +	case POWER_SUPPLY_PROP_MODEL_NAME:
+> +		ret = bq27xxx_get_model_name(di, di->model_name_buf, sizeof(di->model_name_buf));
+> +		if (ret < 0)
+> +			break;
+> +
+> +		val->strval = di->model_name_buf;
+> +		break;
+>  	case POWER_SUPPLY_PROP_MANUFACTURER:
+>  		val->strval = BQ27XXX_MANUFACTURER;
+>  		break;
+> @@ -2243,6 +2331,7 @@ int bq27xxx_battery_setup(struct bq27xxx_device_info *di)
+>  	di->unseal_key = bq27xxx_chip_data[di->chip].unseal_key;
+>  	di->dm_regs    = bq27xxx_chip_data[di->chip].dm_regs;
+>  	di->opts       = bq27xxx_chip_data[di->chip].opts;
+> +	di->cmds       = bq27xxx_chip_data[di->chip].cmds;
+>  
+>  	psy_desc = devm_kzalloc(di->dev, sizeof(*psy_desc), GFP_KERNEL);
+>  	if (!psy_desc)
+> diff --git a/include/linux/power/bq27xxx_battery.h b/include/linux/power/bq27xxx_battery.h
+> index d56e1276aafe..009ccdd6395a 100644
+> --- a/include/linux/power/bq27xxx_battery.h
+> +++ b/include/linux/power/bq27xxx_battery.h
+> @@ -4,6 +4,9 @@
+>  
+>  #include <linux/power_supply.h>
+>  
+> +/* S21 Device Name holds up to 20 characters; reserve one byte for NUL. */
+> +#define BQ27XXX_STR_BUF_LEN      21
+> +
+>  enum bq27xxx_chip {
+>  	BQ27000 = 1, /* bq27000, bq27200 */
+>  	BQ27010, /* bq27010, bq27210 */
+> @@ -58,6 +61,8 @@ struct bq27xxx_device_info {
+>  	const char *name;
+>  	struct bq27xxx_dm_reg *dm_regs;
+>  	u32 unseal_key;
+> +	const struct bq27xxx_cmds *cmds;
+> +	char model_name_buf[BQ27XXX_STR_BUF_LEN];
+>  	struct bq27xxx_access_methods bus;
+>  	struct bq27xxx_reg_cache cache;
+>  	int charge_design_full;
+> 
+> ---
+> base-commit: 4549871118cf616eecdd2d939f78e3b9e1dddc48
+> change-id: 20260625-alexander-laddchip-patch-4b565f9844cb
+> 
+> Best regards,
+> --  
+> Alexander Svarvare <alexander.svarvare@axis.com>
+> 
