@@ -1,47 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C03CA52B1FB;
-	Fri, 18 Sep 2026 21:04:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8EEE52BE29;
+	Fri, 18 Sep 2026 21:04:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789765480; cv=none; b=k7ZPEBUeiHkhbF3oXqKz8ZALKyxbpxj+pXu1H3hJl7RbA9pEiiZp72kxj1RMujYGMtFrP0KnMbw0vG4CMZiKho3ThXgK1OYNv5kXnGUeVjBSQPgStIE7bUtRpPNGPK3tdLjQrqI17S042e+W/iM9nQucZ61vALHLp0gM323+bSw=
+	t=1789765486; cv=none; b=VdOhYHAdLiXEXFCtCgrV6rxyWlcQiIUu60mVYaXXNGnUD+cgmUwlA9JSIrwVrx0Bk/UDvUSNIBtADMqiuekxaL9weBkfVxnDiAhW5ulcC3imzbyNKLb5HiBwE/R1SKqdUpZmmJNJpyJWGUcjTlhw456Bo7oLOxrOyaBASJZO7as=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789765480; c=relaxed/simple;
-	bh=GFHRyf2jIdAfF7MP/qTWqHFwkn2oRho9x+IOTWdtN/w=;
+	s=arc-20240116; t=1789765486; c=relaxed/simple;
+	bh=ckePIfgoka0Rf4mwt80S3uV3xBUMBRQgF7iWoRQakm8=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=Roy7zUM52gMqjEe1R+jVAtuPZvMdn05A6yrEfV9GFAlPLy5hv16oDNLCRKyUoXpLR91a1ebZM689pgxlXm72IwCIIPlW0lh+4wYLNuHpFoKa/nwWWo6cOG88/LldtqZLZ48Ds0vt8J9H7C6tcGsAXYZ8NIEp6Fp41dkzS/ddhl0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eScX0Tvk; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=cSfvNF+hlfUg4zmsfC36N+zrsSyhhNN8iRhdItg10ydrr+QTSMyz96AUdNRQdPdDc91dHm8qvgHC0BC1Ta+RmyOjHB3piDFoIfXfbhku2yHHifcTaFaOkzaJ2rpyV/ZsE6NwbZAPfuhGGNJGu7QDTq8iQwLzsyaftYqcsX/+G2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GnCWyOlD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eScX0Tvk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36E7E1F000FF;
-	Fri, 18 Sep 2026 21:04:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GnCWyOlD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B84501F000FF;
+	Fri, 18 Sep 2026 21:04:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789765479;
-	bh=lY59RKj1ZloY8qxaipt/kf80DvellTJaVh3BsKjOf2Y=;
+	s=k20260515; t=1789765485;
+	bh=fsss2wB7f+lxa1B6M3RPy+oqjwmiHVsAVHF6YEIzzQE=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=eScX0Tvksqz3kkuQ0uEoO8sjqVyDJVuqA/j63LYAI4/chjh3Aw+460ETvLM7I3Wft
-	 0pzlNKWgUpqYzuLVBY6W1Fq+bVgCr95sLuz+SA25MtIPgO+ZlJp2EF4zfYgQWHnRU3
-	 jP1Vj4WgyNExj45hnFvtp27L2l1bY2OukCjVQh9XvxNkhUO5qgth7rSlBQBKQA5BfZ
-	 boXQUyKj/PudEupD53QppdkJJc48Onxw681AL0upvQ9iieZdhLvDNifTcS9SiwXXAU
-	 zo+IbXv061H2CwsHy/s4jWyzmsc2ksXQ54ANxQdOkeGnPWrMH/sXHdP/ENIxbT756n
-	 6GkPoA+lVyKUw==
+	b=GnCWyOlD2Q1/FdbnjDaIWSVnLqmLOl4BDMV9zaC0UnRAuYHgZUB6QZ9ZQWMhKAv0f
+	 rFH1lze6gvxJzHVgaalZNUcnHoIdLGiZf8UtbS0NBdFbqdp7fHqrh8iIokPBbR88Bl
+	 m2RQpYVBxyHk5hW9fv71kfXkyGunYeqIWJz6H/s5oZtUaoqcYEwVg7B61a9L6CQYYg
+	 Sk7rjLywyEhtG8jFpgZAI01j8QzH6aqml9p3Fd3SA0BX/OTWVo1qYNRPHS9mllEnO1
+	 QGu4J2yvsgH3DkkVN8UAXyOoFaa6QesOxEqS84Qx9DTdASwmKM2nga12rC740kVnQx
+	 VFmNo0lxrKjJQ==
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Kees Cook <kees@kernel.org>
-Cc: Kees Cook <kees+treewide@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, 
- Richard Fitzgerald <rf@opensource.cirrus.com>, 
- Cezary Rojewski <cezary.rojewski@intel.com>, 
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
- bui duc phuc <phucduc.bui@gmail.com>, Al Viro <viro@zeniv.linux.org.uk>, 
- patches@opensource.cirrus.com, linux-sound@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-In-Reply-To: <20260917211102.i.029-kees@kernel.org>
-References: <20260917211102.i.029-kees@kernel.org>
-Subject: Re: [PATCH] ASoC: codecs: wm8958: Add const to enum texts
- allocation types
-Message-Id: <178975027491.1717936.237839412558346234.b4-ty@b4>
-Date: Fri, 18 Sep 2026 17:51:14 +0100
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: ckeepax@opensource.cirrus.com, krzk@kernel.org, lgirdwood@gmail.com, 
+ linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org, 
+ patches@opensource.cirrus.com, perex@perex.cz, s.nawrocki@samsung.com, 
+ tiwai@suse.com, stable@vger.kernel.org
+In-Reply-To: <20260917165130.2163278-1-vulab@iscas.ac.cn>
+References: <20260917165130.2163278-1-vulab@iscas.ac.cn>
+Subject: Re: [PATCH] ASoC: codecs: wm8994: Fix runtime PM leak in
+ wm8994_mic_detect()
+Message-Id: <178975136505.1812520.14638556027707618597.b4-ty@b4>
+Date: Fri, 18 Sep 2026 18:09:25 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,20 +47,20 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1139; i=broonie@kernel.org;
- h=from:subject:message-id; bh=GFHRyf2jIdAfF7MP/qTWqHFwkn2oRho9x+IOTWdtN/w=;
- b=kA0DAAoBJNaLcl1Uh9AByyZiAGqtp2LISafV6nciGeW7a43T/5ebxoaSQAHvwBWFmmGI9x2cI
- okBMwQAAQoAHRYhBK3maKpnVxi1n+Kf6iTWi3JdVIfQBQJqradiAAoJECTWi3JdVIfQDhIH/A4w
- 5lI6TtmVfLRXySvtlYZ1tC+Wux4S3EMsSUO+XspZpeIZC+f73N//9I7HEudFZwjibuRq59Au1rH
- m24vRfb9bjvdc0pRizaWvQW/wd+A+QpbLU6jbNNADCl3A+ky5fmDrra900XDcFtxNMXaUZWMhn6
- 0huxC6d8xqOIITgJDP/GecRJPFO1pHskpQDFuOk86Wd7zaeZyNlhgbggwi5v1Pv4x9B5C2cgVpW
- 1eHqbLWu/L0hb7eAJzDLEBOu4jK1ui/OWJa7sdEJPQDRvgtHcQoT0nERi0eI26/AFLiKMQ7yXxg
- WXfsXulfaUkbFNtV/o6y/FNxFdCI+6qUDRO286A=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1146; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=ckePIfgoka0Rf4mwt80S3uV3xBUMBRQgF7iWoRQakm8=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqradomm2SSXxOvZt8Nrd972H9J6IEjXpewRVgO
+ 3vRNvSDowiJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaq2naAAKCRAk1otyXVSH
+ 0J3SB/99D6YBfuifpYnuHkLLg0mWAX/4un8CBXR+lx8jwjws0o9yuTZuftSNyTN2+Zaj07Ztgtd
+ /FEvgs50MB8MT9WY7kZ5xBoGyQmBwtFnv5wX8jA/CwwFWh7WaspSQXr/4UC5AwXyhKqdEyioH/6
+ Rcv6tBjkTuS8hiRo3k2L1OaLCztzvVkuNStp9A7iIS/aPCp6Yqprxl5JdoDnk2qqf4NWJVbEGKI
+ 181Zway1XcfjdRVM/5YRbmjLWLIIMxFnMQ50pGDZIZpQxxm6XpmhV6kiHAaq9yBpZ/vVHpoPQKX
+ BuVQM9iwPsC2BbUYuEzvLR4UjWlO7xJZHnujwX5HBVOQdYiX
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Thu, 17 Sep 2026 14:11:03 -0700, Kees Cook wrote:
-> ASoC: codecs: wm8958: Add const to enum texts allocation types
+On Thu, 17 Sep 2026 16:51:30 +0000, Wentao Liang wrote:
+> ASoC: codecs: wm8994: Fix runtime PM leak in wm8994_mic_detect()
 
 Applied to
 
@@ -72,8 +68,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: codecs: wm8958: Add const to enum texts allocation types
-      https://git.kernel.org/broonie/sound/c/d0d2b9576f44
+[1/1] ASoC: codecs: wm8994: Fix runtime PM leak in wm8994_mic_detect()
+      https://git.kernel.org/broonie/sound/c/b2c0e5bf750e
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
