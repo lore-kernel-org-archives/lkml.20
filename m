@@ -1,360 +1,171 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010036.outbound.protection.outlook.com [52.101.229.36])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C6443F3277
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 04:29:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789705775; cv=none; b=XRC7HbjIrjMmV2aneVIGqu1YDR49XO+jfg1EmsX84mnR1jH51xyfN8fH3y2S8EojMLlgdbRwYpGupGFU/WwBY4IMFk1zsGEjfnDNX3OYzSYlHBrO/HEw18XuaXGgXbilseCNRwnAL2pQv9JiDrqYBfrKutN2fj5W+NbqQE5IzAs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789705775; c=relaxed/simple;
-	bh=VDncICb4cyA2swdK3ezYrt+ezqlf7ozvYxBHzhEQoVk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=aUUQCgJAnBYmIi17+dPeWmXJsi1EWewvL9T4RARFNy4D0ilpStqL+o2mPIHzn6BFCCsMyIpWjn7i2I+yG+aKCSNoxq//Uz5TrQvc/pqdnBXfBBelTO+mSvZ0ma09P8G9pcYmp5bufgRouZI0Tq8/aMijHEkfFpIpRpKbvRXtMYU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Zws8HyDo; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eDZF9aR+; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72BD532ED21;
+	Fri, 18 Sep 2026 04:30:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.36
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789705823; cv=fail; b=tpB4ncEqBPAx7XsFiohEPJuhsL//SVLyvCZh4yS4OW6y9yqeDt2DtzisT2WQsY17fuZbHJR+ynHEMxJXFoMWv0hzhNblqJ75bUX78ztY0O+36+M1tB7+fos+3fKAd3stH6mQF/fi3e6GTbyBmtYz9jdbp8n1hIgQ4e66KCVqri8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789705823; c=relaxed/simple;
+	bh=L216I3W634iuk9FebVOTmFkM9FSo4zfueLfo5J7HvjI=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=NFYpqZKc+MmSTtPMASAizVYiLPATTV3UMuy0SXIp/YSqrLR1GwhuvKPcW4HpxQE569n38feyWrIIKUqhHMeQo9xsIU4nR1TmDXrk8dBWS7am8n1V0WIpN2qlmwLLiVGLuTxyRfgEFHI2TjVmuQg4Xym5ep89kXnXPvEbi2nV+mY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=K+pNnmEm; arc=fail smtp.client-ip=52.101.229.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Zws8HyDo";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eDZF9aR+"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I2VDOJ4104955
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 04:29:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	IbRfDSJoMUHlkBQLK0yHnHTYPiVwydvfPWthJ49O4cA=; b=Zws8HyDo3suRXQDt
-	kTImm9n1+zXC4X1NRtqCg1wQ8kYu3hFWlMkHr/E3CEUrHc92zvrjjN54XtU5xlSn
-	ntT+TmX6rk+D6xsYfh2DY9QYlGXU2WQrcYF7XciRmiyMjAUQO52lhfagwdynG+w+
-	eYTytoCOKKbVV1L06wzn//9ZsSzn6E8SmjsdwFbBrj5RxcF9OoLCayCatL3c/o/F
-	meSJOIeIZ7GmnBZoAa8vRvERLljc6GmCYBmia4McSGPeDhXyy0faSmrGusfFttNb
-	BQLQDZY0J05ze0jr/usw9XEm/aYLnQtpF4r8Q6ZDYot93CjfNLilwIc4ZKLlceEZ
-	8zRdMQ==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4grhs6kdq9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 04:29:32 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-c89704da8c7so412505a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 21:29:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789705772; x=1790310572; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IbRfDSJoMUHlkBQLK0yHnHTYPiVwydvfPWthJ49O4cA=;
-        b=eDZF9aR+UsJpL+y0WoKeVMOlL/MyP7q7qo859PBLH+ht59Wc0QKWnwr7VPUo3DZTTL
-         BhYXfdvP7YX+Ne0zvinl/uOjr4CcdPI25jkdxSUlHvF55plN1lwQ2Oz1x/G13qUJkSab
-         ZoU0EEgdG9wNItyCsYtDB3ZIB0CCzhIMevpcC6dU3v6rNt1MLvIJ8OEkA9pbnrymRIZg
-         PVLdIytVm6aoKKg//67pRWAgm5jbqcS8zRwV8dRapR4q7YK/IomiNck2iahxVeeHrUHY
-         NJ2/P5LrTmMacHJfWvKp5P5HQjuZKNuTojHXkEWR6JQXcZsNbDNWEZN1wOAY+GQ0bW04
-         dgZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789705772; x=1790310572;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IbRfDSJoMUHlkBQLK0yHnHTYPiVwydvfPWthJ49O4cA=;
-        b=KDKOettJB2gIcfT67J/c8wWjSFyqngHoiVDRokbUGRQIwS8TjmLdSXMRaNSl9aIYJV
-         lymn6sOwjyNJriVxUdTHNNTa0vrOIabfCLluqNyBPkiMVIpreR7enivDTI9lGvRmZl4o
-         ST9DaLjw06h/tAivtyas4dSqwyotFUKBhq/QMSXZ36dAw8/h+JV4u0TIvKRUbiWL1rXB
-         zrHvT1FgOQiC1btALF9gZ8amrPTujRqjq4/icFNiv3ZjRBPwfL4fqrOC7I1UDc7tAnkY
-         akivwd01/Q4EJC2TIzurTr5SdwNIol9lF2JJpHNmt/C/WYnYgTIwpJq0mr0l3YWJn8Hc
-         Ejwg==
-X-Forwarded-Encrypted: i=1; AKwUvBzcd6hC2nR/ufqYiwJUYHwPQWMuM6vxBq1abyjl3nWWZEIOBazvzaAdj1LSvIP+9aDNMs3sQ/Uf96XDt5A=@vger.kernel.org
-X-Gm-Message-State: AFuF++mbZPcUeACN/sAuIZpbW9ei9pbQ0FDZSRKZL0rBEf+b8seLjzSw
-	PumXdfzH1vDhFJBe5oHia3bdE2ezB5ny6TYcC2LQcdvVQnucq2YK3zYUj8H6EIZcrmbq98zIYxk
-	VcrExLVoqt/fbZ9YgO07zXB804DclQXaW7Y3Wl0g4/KrHZ5/1gzhT2cQ5F8tFWyhnctk=
-X-Gm-Gg: AYBFou3arWDYZJAJmD9x1C9vYqOoVKcYGdPlbTuo2X9JF7s8lxW9GvIXMsJtTqHa+id
-	SSRPbIGNXcRszVxcHOxP2rJzpoZXrz6taktuzCTsAcahlMHw4rQhSBEwyhc0DKwMl19VjDM0COW
-	KvM3Hf80c3VYFOYKvn72z3t/V4BJdBuKQAaudM6mAdJpa9Es8hkK0APY8vx/3BRcvLn3hQoR1Pb
-	Uh5wykPNYNrnhbMle6/w2lXl2eEbSRK1OKQ3XQhnCVkbp39hTKnlx/6hyFM0opvWLnd06E1VDc3
-	tI/mL0rV4y/BNJ+aV0GfW0QI5cIJrPDq0qhvbgEIjZ+EiQOnUjbQY9FZHlPfoEjjHUKLp6cicIM
-	ieMeaJgVT2G8JwjJoH6P698LwteqMy1A=
-X-Received: by 2002:a05:6300:2204:b0:3cd:67e9:8565 with SMTP id adf61e73a8af0-3dd8c32eefbmr2992406637.9.1789705771693;
-        Thu, 17 Sep 2026 21:29:31 -0700 (PDT)
-X-Received: by 2002:a05:6300:2204:b0:3cd:67e9:8565 with SMTP id adf61e73a8af0-3dd8c32eefbmr2992368637.9.1789705771292;
-        Thu, 17 Sep 2026 21:29:31 -0700 (PDT)
-Received: from WANGAOW-LAB01.ap.qualcomm.com ([114.94.8.21])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc5c4dba322sm214595a12.10.2026.09.17.21.29.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 21:29:30 -0700 (PDT)
-From: Wangao Wang <wangao.wang@oss.qualcomm.com>
-Date: Fri, 18 Sep 2026 12:28:45 +0800
-Subject: [PATCH 6/6] media: iris: add hawi platform data
+	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="K+pNnmEm"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pWlU71frw2VvryuWnfETywu2X3GjvOqRWbAJKH9oML0zm/siXFTpdwnSWpIeOOrYgMJ4v4doSaIOnI3zc5E8U4LYptGoYFZVOIoILjnK8K1E/G3XIqDq6Wq74CnXkPLOkgDIk6uarzvtRbnJ5YT1IONMCBU2HTTIcrB2k5wy/g6N4yiQ7Y53cuttBiMz6ojZ4qJxRKlW2K6vB/MgtroduCTD6yxUuSfW9IWXalPTwA5/29sOmgYY6L9AjKOJG4K6vMhieZ7coRTLnhhRbHzSI/3tflppoPRWMwAiu6aAyl30anrdGsihfSPQ/wIBOQR8r2awmoMGI4pteCYYWk7dLw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vaCYzECCFpS6tPTPzxFpcw2KpHgWQQDUVT/y3NLLRXU=;
+ b=P4lnCVmIk21FqKoMaoycVPXPED9cxzrZvd38/+EXAG41nRCHknND2p05fYcB5d5W63xQkD8+jti2K6VX0EsUnYQarYjRLI4HkyiNLafoH8bkh2eIfdQ9brH/eSQyMD/cw7nq3u2zKnyrF+zbW9hDiRA+5rpTgzgT/QiXXS07HTWzsOuzvzP2msinXiqf6ASJpEaMG8M3oB4rzYM30h9vRrIxj6GI+fXl8Eb//aBBG3DvA3rPro0RyDcN42AUeCQw49VkblCyrK4umhNJmJSRs/MPfeT2HdNPJfcqoCVz3StUKv0jJtaKOdqy9yioyoFk2Iet0Y9uxCSAB3ColkL/aw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vaCYzECCFpS6tPTPzxFpcw2KpHgWQQDUVT/y3NLLRXU=;
+ b=K+pNnmEmxXPVuQFQAqr9s19gvx67FBLlwvMhqcHbfVniWU80CbK4Yw6Wu67GZTggkQlK489z16jGHdqCRAWuRGxWdsQ60A0j/UMN1434ujj8UKTPaJbzqAXEr5TawqLHrvuNc6iWzSoP8JPy/yzn5nMemPfvmBmGRbmiadR8DSU=
+Received: from TYCPR01MB7481.jpnprd01.prod.outlook.com (2603:1096:400:f4::5)
+ by OS9PR01MB12372.jpnprd01.prod.outlook.com (2603:1096:604:2e6::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
+ 2026 04:30:16 +0000
+Received: from TYCPR01MB7481.jpnprd01.prod.outlook.com
+ ([fe80::8071:f03b:77d1:aeaf]) by TYCPR01MB7481.jpnprd01.prod.outlook.com
+ ([fe80::8071:f03b:77d1:aeaf%7]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
+ 04:30:16 +0000
+From: Yoshihisa Yamamoto <yoshihisa.yamamoto.xn@renesas.com>
+To: =?iso-8859-1?Q?Cl=E9ment_L=E9ger?= <clement.leger@bootlin.com>, Andrew
+ Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, Russell King
+	<linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>
+CC: Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: [PATCH net v3] net: pcs: rzn1-miic: Reset PRCMD state before
+ unprotect sequence
+Thread-Topic: [PATCH net v3] net: pcs: rzn1-miic: Reset PRCMD state before
+ unprotect sequence
+Thread-Index: Ad1HGbSgtZ0GfGRfRzuoBdIzDmUtDw==
+Date: Fri, 18 Sep 2026 04:30:16 +0000
+Message-ID:
+ <TYCPR01MB7481CE8351FDB2CDCA229955A4872@TYCPR01MB7481.jpnprd01.prod.outlook.com>
+Accept-Language: ja-JP, en-US
+Content-Language: ja-JP
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TYCPR01MB7481:EE_|OS9PR01MB12372:EE_
+x-ms-office365-filtering-correlation-id: 27f4b028-1e1d-4cfe-786f-08df153d89f7
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|38070700021|18002099003|56012099006|11063799006|10067099003;
+x-microsoft-antispam-message-info:
+ BKTZQchiJbD0FBUyKdMnWJGVXxeriUwt23EPZ5txDWWcgj5NxTvyolJq4aK+W/ok+GLjyQB+8I/SCUKCPMTgGFkGvrkLPzhsUf3acVTiwvF2DzH7mNa+XowPT//KGFJKtN6OgytTwYvvVxkN9GseSsy5Icc3+dRRii5YJ8mXCB6IqLjuUmI7kp0w3Qv0OLHxqapqhBUWqyy9RfMQcx5jmqk3X8HeivvGrVdiKaWY4ibHwo6b+Z28LQ2c+BEjIO0funLaMJj8DJJOD4u7n/fhAS93a1py3iIlRELEJ4AWMV1h5ogL80P6BH4EcYR7zpkbInHIw1d3JJBA7uNeaZ4kb9k7LBjx02+YtblAcPTHqzzEepvUUUTBaz9X6Mn1f0FHcGQLYyk1QAZAPIvHIasU4v7fmGtFmsk9evGaUaqp8okFbEhaqFn+cIuZoZFjK0r7K7MNbBdd0cEPxKBh4iKFwnLX7RNKUnw0q3uenztVzXipiMefeZTvGwCZ8CU8SXYtpbznMgnIXYtBm7p6Ov8WXBaiMYed/0u8IlOgw5uwO5zfUKWef6Hr5Mv249XGiLudh0CUS03DZvBaPjf7mGCwpLAE4PHhDVePNcRQMy9Mvutl8++0UgOHMn4fYjqYhKN4Em3/gr6O+55/iHRi9/klJwjPrWib6Atnn1vg36g+3wjVQFaO96MQh6FIX8eyz7Pak0E7Yh2RXBTtttyLQ3B37uOqvMCLuvqRmVUJE0B3dIc=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:ja;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB7481.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(38070700021)(18002099003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?NFcixv9npNJFrRP4lRemsiJPZhrBbB2DSShA32p4VfVd2TF4OXEzF+pAev?=
+ =?iso-8859-1?Q?6jHDXj/P3jHWlDKPBCWgadpE9WtBXjYpRtvbZME+x1q9JVB2ztbrJjoNWw?=
+ =?iso-8859-1?Q?mqzl6P0jw3JNvN+w3FI5/EzB3cUf5ebfpUYDoGnc9a0oMoVPiakWXZ/ZCL?=
+ =?iso-8859-1?Q?h9E7iNbboPnTZMlbXRQZ+OieFn1QRQYtSEzcbyN8PLb9fqupXi3cQVeztB?=
+ =?iso-8859-1?Q?347Gc5WY3USMaws376+FXKQ9E0jOD4ADTmfUFdM8UmFAG1ZTa1YFftsIbt?=
+ =?iso-8859-1?Q?DkyMLr+My7zW/Ydi2uDL7he4M8xGYaZ5wYoUoN3+LguzlhK0JDFbR0zFDE?=
+ =?iso-8859-1?Q?GylqWzC/TcH15ahtvuZX4eizPvZMCw4go6oV8K1itPKFwLEu/A2MCQZIAT?=
+ =?iso-8859-1?Q?wXE/Z3ztfVY47zuDJ+LonQ7vm1P7MSdvuDYf3nXliA8CPFR10XwdVDV7J3?=
+ =?iso-8859-1?Q?P6jF/3M2va/tAAm65eDASleI5Did8F2mIFeOH41LyU/gwCROKNxzStBBMZ?=
+ =?iso-8859-1?Q?qdH29YkrB50+Lama/4mqlIAiR13gtcfJaDyMliuMvC9EqEVEiLfAOItznL?=
+ =?iso-8859-1?Q?xP7AbkYt1zHuhzq1rlEqxmfMVT0so1PgNNaZiJVZKYNIQflJ95lU9LSkW3?=
+ =?iso-8859-1?Q?YMPfzQPq3cd0p8M270xt9LZL9Ba2OhO6/j1Jrw37PhvNpoLVSlHs4+676b?=
+ =?iso-8859-1?Q?9cEPsq2zCjgYgc8KBA1Vy2QzN+0HSxM4y4uuyy7B7LV8jJuJDjoxUvRynm?=
+ =?iso-8859-1?Q?grrL6Unyin8Li4dSHuOMW5oqpYqtacYgo+prRJqo4ZP4ACSwnv97pIkCm1?=
+ =?iso-8859-1?Q?/QJRUbKtL0BKd78T5j05ONEfpXg8cczkqPRyG7nOnpViSiDFwJKWJd5QeV?=
+ =?iso-8859-1?Q?cA6/mawKk/ytvWgjtO3Rlm98EbKOxOQJgyzagJQEOB1WaW20XSqjOqISyJ?=
+ =?iso-8859-1?Q?T7UF1lSGAo9H0GVigJXBAuTcuTGhcSviHZT+VWHC2/4B0sczzWx6s2fxCC?=
+ =?iso-8859-1?Q?3Ulyo3s82H+c+gzXfOng1t8PGRbEIXLqZ4AhW41/WF4jXT/dprNlE5DI1l?=
+ =?iso-8859-1?Q?Y4OQdjb+/6Xm3/E+Qg5pIZWbywkXfvv3Wb8t1mvCRDDGR1HKCdLX3xVRvL?=
+ =?iso-8859-1?Q?eD7yWSDXRJRKuAfB2HzMc/dvrx9B4u2QJWA+Y9aCPlaz6EOy115hLXrfJw?=
+ =?iso-8859-1?Q?4yxRl8DmCdLJkN3/nSlAEZjQM6xlAGyMAGTWmWWzBzt4G75Xcuh3udt1LE?=
+ =?iso-8859-1?Q?tg8OLR9qJYIpThtZy+SaqbFUXEbucx+Q/B0yMet/Zeu4Idb0Ah0DWpupCp?=
+ =?iso-8859-1?Q?pRXkeKOTmSpbbbr04SiHqrbCKf2D7h5GuoNWd2sykLaYL8UfTjvEQrLpEC?=
+ =?iso-8859-1?Q?7HJ6kD1KgtbgXeMXBsz4fx0Rq0CqZha+VvDh/1tr7nZy/GK4yl241Wqu0Q?=
+ =?iso-8859-1?Q?Uqhv9SML1ECKrWHB3DYhRAfVV76KMdNfX06rP+j4yHyxDkJ8Wdr2rk4MGQ?=
+ =?iso-8859-1?Q?w6xRENV0GqAevQ/XBxdbx2hx8TLCiwPjpvs4mPGQNqpbew1m9Z900lmw5e?=
+ =?iso-8859-1?Q?w/Tm8lXuHoQkv0xawEYkcSjYI+LbWdr8EoxQshv67gSmYve3WsEiCaplCm?=
+ =?iso-8859-1?Q?eNMkoMaYrBa7Kw51nVKSMYfaXGeraeTUTbVCYeB0LNQBbeSqaQ/JDFfZ/A?=
+ =?iso-8859-1?Q?iUyTMoO5dIxFEuEGztY1eJE0d8xcOUG9Qq4QXXc9QqcKBCf4I8a3/IfUmz?=
+ =?iso-8859-1?Q?U0EEzrvOhH8hNHwXiP7Lx5I/TXd4goCKMyKn4V0+8qy1MdyxbX2T4Kz8Qx?=
+ =?iso-8859-1?Q?ngnWRm3YM4e4wT2qRtlIdDH/KBry9mA=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-add_iris_for_hawi-v1-6-ac60fd15c98b@oss.qualcomm.com>
-References: <20260918-add_iris_for_hawi-v1-0-ac60fd15c98b@oss.qualcomm.com>
-In-Reply-To: <20260918-add_iris_for_hawi-v1-0-ac60fd15c98b@oss.qualcomm.com>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Wangao Wang <wangao.wang@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789705735; l=7690;
- i=wangao.wang@oss.qualcomm.com; s=20251021; h=from:subject:message-id;
- bh=VDncICb4cyA2swdK3ezYrt+ezqlf7ozvYxBHzhEQoVk=;
- b=9fqMmz8gkGU8HFLEiNafn8acCjlby+d9fKhH0CuKWRlk1ON3CBRB4k6dHh9caFzF657X63hb7
- k/LFK8v3k+hBrQ5xt1jr8x8hHuUfTFjHT1TfaKuj6Ml7rNir74XrUfe
-X-Developer-Key: i=wangao.wang@oss.qualcomm.com; a=ed25519;
- pk=bUPgYblBUAsoPyGfssbNR7ZXUSGF8v1VF4FJzSO6/aA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDA1NiBTYWx0ZWRfXxURx9vuJpBSS
- IADVHSmhD3S9Q1SfMlgHFPrQ0OB3XXcLk4TI7UUmOQvZ6XeJ+ExHmFiLIpBJ22Dn0Lg9/xaPQAs
- J/q+MP/F5I75iwAu6EVGhHaD0Q6lmCwaXoSh4C0IvIp/pRdcnNTqL+sbzSKAk/S8hjbXIa3cOMB
- TzLeXVWtPfO070h0Een1bm1cPiNP/R5pcuxvICOGnXS7E5X7CIJYnqXOkQMwNHluJdNg4y+6eOI
- dACTYbCLq9CjZiEMQRat8AAta69VXU0ZHbr8H6C7/rAv+/NR7ZYMRpeRjZTO0/ru1r+gVFHsuRd
- 4UriBP8MEfylvbO4gOTh7UBk3apf0CnseLc3N4w93UqRsEkdnT+QMNXs4h4At/rQzONmVASuDWm
- k8F28Jp6QgVKu4er7PoIwRb2Na++4CKMkK2OUclNgZT5SJK3ocks9TA23xWI3fHJVrGHGzDB1qv
- oYtxMJVPu6wNT8e5dyg==
-X-Proofpoint-GUID: zAeQvCwN2p01AUWxkj1dnPy3hGulek0R
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDA1NiBTYWx0ZWRfX5zVmC+1A//by
- gnFpXw3fWIVC5caHEwJg0gCNdEeeigRASOcUDQFSuYy5+Ztn+8bXXj5jnEjzNA+pJNdRDvkZmLF
- JbVDRb8sTT489f6zmJFp3vK7E3PU4XI=
-X-Proofpoint-ORIG-GUID: zAeQvCwN2p01AUWxkj1dnPy3hGulek0R
-X-Authority-Analysis: v=2.4 cv=cvwOAF4i c=1 sm=1 tr=0 ts=6aacbe2c cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=f3iahYxl3_2vxJznN8gA:9 a=QEXdDO2ut3YA:10
- a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-18_01,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 adultscore=0 spamscore=0 suspectscore=0
- lowpriorityscore=0 clxscore=1015 impostorscore=0 phishscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609180056
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB7481.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 27f4b028-1e1d-4cfe-786f-08df153d89f7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Sep 2026 04:30:16.1467
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: CYpZDeGsLmwAMgITFyDZxuQxMIuIQSPNS1Nqu2j9lBQe9gJGFb6vlYhE2FwIWEa2wrgcxJEsli/vjOobf3EFmU6V97x+anI3V48GSSx0cZ88lg/yxod4lIstII/dAUoL
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS9PR01MB12372
 
-The Iris block in the Hawi SoC is a VPU5 capable of decoding H.264,
-H.265, VP9 and AV1, and encoding H.264 and H.265. Add the platform
-data entry describing the Hawi-specific clock tree, power domains,
-firmware image, bandwidth table, DMA address range, and secure memory
-regions so the Iris driver can match the qcom,hawi-iris compatible and
-initialize the hardware.
+On RZ/T2H MIIC, writing 0x0000 to PRCMD resets the command state
+machine to the IDLE state.
 
-Signed-off-by: Wangao Wang <wangao.wang@oss.qualcomm.com>
+Reset PRCMD before issuing the unprotect sequence so that it always
+starts from a known state, regardless of any previous PRCMD activity.
+
+Fixes: 419747319e3a ("net: pcs: rzn1-miic: Add per-SoC control for MIIC reg=
+ister unlock/lock")
+Signed-off-by: Yoshihisa Yamamoto <yoshihisa.yamamoto.xn@renesas.com>
 ---
- drivers/media/platform/qcom/iris/Makefile          |  1 +
- .../platform/qcom/iris/iris_platform_common.h      |  4 +
- .../media/platform/qcom/iris/iris_platform_hawi.h  | 48 ++++++++++++
- .../media/platform/qcom/iris/iris_platform_vpu5.c  | 86 ++++++++++++++++++++++
- drivers/media/platform/qcom/iris/iris_probe.c      |  4 +
- 5 files changed, 143 insertions(+)
+v3:
+- Add Fixes tag
 
-diff --git a/drivers/media/platform/qcom/iris/Makefile b/drivers/media/platform/qcom/iris/Makefile
-index 3ca4db45cb07323bdc18e5aba99ec7195087fe73..6c6f11184a1d0e46786e9aeebed5b79ee414aa15 100644
---- a/drivers/media/platform/qcom/iris/Makefile
-+++ b/drivers/media/platform/qcom/iris/Makefile
-@@ -14,6 +14,7 @@ qcom-iris-objs += iris_buffer.o \
-              iris_hfi_queue.o \
-              iris_platform_vpu2.o \
-              iris_platform_vpu3x.o \
-+             iris_platform_vpu5.o \
-              iris_power.o \
-              iris_probe.o \
-              iris_resources.o \
-diff --git a/drivers/media/platform/qcom/iris/iris_platform_common.h b/drivers/media/platform/qcom/iris/iris_platform_common.h
-index 193e6f293cda5462ecca9acc0ebc79c936b68bb4..67f79cf86136f4e2374467b436cb43438cd02d6c 100644
---- a/drivers/media/platform/qcom/iris/iris_platform_common.h
-+++ b/drivers/media/platform/qcom/iris/iris_platform_common.h
-@@ -39,6 +39,9 @@ struct iris_inst;
- #define MAX_HEVC_VBR_LAYER_HP_SLIDING_WINDOW	5
- #define MAX_HIER_CODING_LAYER_GEN1		6
- 
-+#define VIDEO_REGION_VM0_SECURE_NP_ID		1
-+#define VIDEO_REGION_VM0_NONSECURE_NP_ID	5
-+
- enum stage_type {
- 	STAGE_1 = 1,
- 	STAGE_2 = 2,
-@@ -54,6 +57,7 @@ extern const struct iris_firmware_data iris_hfi_gen1_data;
- extern const struct iris_firmware_data iris_hfi_gen2_data;
- extern const struct iris_firmware_data iris_hfi_milos_data;
- 
-+extern const struct iris_platform_data hawi_data;
- extern const struct iris_platform_data milos_data;
- extern const struct iris_platform_data qcs8300_data;
- extern const struct iris_platform_data sc7280_data;
-diff --git a/drivers/media/platform/qcom/iris/iris_platform_hawi.h b/drivers/media/platform/qcom/iris/iris_platform_hawi.h
-new file mode 100644
-index 0000000000000000000000000000000000000000..90d9282ce59821489c941d7282b3f23e8c06622e
---- /dev/null
-+++ b/drivers/media/platform/qcom/iris/iris_platform_hawi.h
-@@ -0,0 +1,48 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+#ifndef __MEDIA_IRIS_PLATFORM_HAWI_H__
-+#define __MEDIA_IRIS_PLATFORM_HAWI_H__
-+
-+static const char * const hawi_clk_reset_table[] = {
-+	"bus0",
-+	"core",
-+};
-+
-+static const struct platform_clk_data hawi_clk_table[] = {
-+	{IRIS_AXI_CLK, "iface" },
-+	{IRIS_AXIC_CLK, "ifacec" },
-+	{IRIS_CTRL_CLK, "core" },
-+	{IRIS_HW_FREERUN_CLK, "core_freerun" },
-+	{IRIS_CTRL_FREERUN_CLK, "core_ctl_freerun" },
-+	{IRIS_CTRL_DEBUG_CLK, "core_debug" },
-+	{IRIS_CX_AXI_CLK, "cx_iface" },
-+	{IRIS_HW_CLK, "vcodec0_core" },
-+	{IRIS_VPP0_HW_CLK, "vcodec_vpp0" },
-+	{IRIS_VPP1_HW_CLK, "vcodec_vpp1" },
-+	{IRIS_VPP_GATING_CLK, "vcodec_vpp0_vpp1_gating" },
-+	{IRIS_APV_HW_CLK, "vcodec_apv" },
-+	{IRIS_BSE_HW_CLK, "vcodec_bse" },
-+};
-+
-+static const char *const hawi_opp_clk_table[] = {
-+	"vcodec0_core",
-+	"vcodec_apv",
-+	"vcodec_bse",
-+	"core",
-+	NULL,
-+};
-+
-+static const char * const hawi_pmdomain_table[] = {
-+	"venus",
-+	"vcodec0",
-+	"vpp0",
-+	"vpp1",
-+	"apv",
-+	"mm-int",
-+	"cx-int",
-+};
-+
-+#endif
-diff --git a/drivers/media/platform/qcom/iris/iris_platform_vpu5.c b/drivers/media/platform/qcom/iris/iris_platform_vpu5.c
-new file mode 100644
-index 0000000000000000000000000000000000000000..0240b4dad6ad483feaad480a35c365c7a211ac42
---- /dev/null
-+++ b/drivers/media/platform/qcom/iris/iris_platform_vpu5.c
-@@ -0,0 +1,86 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+#include "iris_core.h"
-+#include "iris_ctrls.h"
-+#include "iris_hfi_gen2.h"
-+#include "iris_hfi_gen2_defines.h"
-+#include "iris_platform_common.h"
-+#include "iris_vpu_buffer.h"
-+#include "iris_vpu_common.h"
-+
-+#include "iris_platform_sm8550.h"
-+#include "iris_platform_hawi.h"
-+
-+static const struct iris_firmware_desc iris_vpu50_p2_s8_gen2_desc = {
-+	.firmware_data = &iris_hfi_gen2_data,
-+	.get_vpu_buffer_size = iris_vpu5x_buf_size,
-+	.fwname = "qcom/vpu/vpu50_p2_s8.mbn",
-+};
-+
-+static const u32 iris_fmts_vpu5_dec[] = {
-+	[IRIS_FMT_H264] = V4L2_PIX_FMT_H264,
-+	[IRIS_FMT_HEVC] = V4L2_PIX_FMT_HEVC,
-+	[IRIS_FMT_VP9] = V4L2_PIX_FMT_VP9,
-+	[IRIS_FMT_AV1] = V4L2_PIX_FMT_AV1,
-+};
-+
-+static const struct icc_info iris_icc_info_vpu5[] = {
-+	{ "cpu-cfg",    1000, 1000     },
-+	{ "video-mem",  1000, 15000000 },
-+};
-+
-+static const struct bw_info iris_bw_table_dec_vpu5[] = {
-+	{ ((4096 * 2160) / 256) * 60, 1608000 },
-+	{ ((4096 * 2160) / 256) * 30,  826000 },
-+	{ ((1920 * 1080) / 256) * 60,  567000 },
-+	{ ((1920 * 1080) / 256) * 30,  294000 },
-+};
-+
-+static const char * const iris_opp_pd_table_vpu5[] = { "mxc", "mmcx" };
-+
-+static const struct tz_cp_config tz_cp_config_vpu5[] = {
-+	{
-+		.cp_start = VIDEO_REGION_VM0_SECURE_NP_ID,
-+		.cp_size = 0,
-+		.cp_nonpixel_start = 0x0d000000,
-+		.cp_nonpixel_size = 0x25000000,
-+	},
-+	{
-+		.cp_start = VIDEO_REGION_VM0_NONSECURE_NP_ID,
-+		.cp_size = 0,
-+		.cp_nonpixel_start = 0x32000000,
-+		.cp_nonpixel_size = 0xcdc00000,
-+	},
-+};
-+
-+const struct iris_platform_data hawi_data = {
-+	.firmware_desc_gen2 = &iris_vpu50_p2_s8_gen2_desc,
-+	.vpu_ops = &iris_vpu5x_ops,
-+	.icc_tbl = iris_icc_info_vpu5,
-+	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu5),
-+	.clk_rst_tbl = hawi_clk_reset_table,
-+	.clk_rst_tbl_size = ARRAY_SIZE(hawi_clk_reset_table),
-+	.bw_tbl_dec = iris_bw_table_dec_vpu5,
-+	.bw_tbl_dec_size = ARRAY_SIZE(iris_bw_table_dec_vpu5),
-+	.pmdomain_tbl = hawi_pmdomain_table,
-+	.pmdomain_tbl_size = ARRAY_SIZE(hawi_pmdomain_table),
-+	.opp_pd_tbl = iris_opp_pd_table_vpu5,
-+	.opp_pd_tbl_size = ARRAY_SIZE(iris_opp_pd_table_vpu5),
-+	.clk_tbl = hawi_clk_table,
-+	.clk_tbl_size = ARRAY_SIZE(hawi_clk_table),
-+	.opp_clk_tbl = hawi_opp_clk_table,
-+	/* Upper bound of DMA address range */
-+	.dma_mask = 0xffc00000 - 1,
-+	.inst_iris_fmts = iris_fmts_vpu5_dec,
-+	.inst_iris_fmts_size = ARRAY_SIZE(iris_fmts_vpu5_dec),
-+	.inst_caps = &platform_inst_cap_sm8550,
-+	.tz_cp_config_data = tz_cp_config_vpu5,
-+	.tz_cp_config_data_size = ARRAY_SIZE(tz_cp_config_vpu5),
-+	.num_vpp_pipe = 2,
-+	.max_session_count = 16,
-+	.max_core_mbpf = NUM_MBS_8K * 2,
-+	.max_core_mbps = NUM_MBS_8K * 60,
-+};
-diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/media/platform/qcom/iris/iris_probe.c
-index 4bdb078d83b5c331869dab2409bc4d10ab302737..3512ad7cad4ae9fc07d21bad339176ed959e3dc4 100644
---- a/drivers/media/platform/qcom/iris/iris_probe.c
-+++ b/drivers/media/platform/qcom/iris/iris_probe.c
-@@ -427,6 +427,10 @@ static const struct dev_pm_ops iris_pm_ops = {
- };
- 
- static const struct of_device_id iris_dt_match[] = {
-+	{
-+		.compatible = "qcom,hawi-iris",
-+		.data = &hawi_data,
-+	},
- 	{
- 		.compatible = "qcom,milos-iris",
- 		.data = &milos_data,
+v2: https://lore.kernel.org/all/TYCPR01MB748157ECB6B92D8E3FFD433BA4B82@TYCP=
+R01MB7481.jpnprd01.prod.outlook.com
+- Fix indentation
 
--- 
-2.43.0
+v1: https://lore.kernel.org/all/TYCPR01MB748139F059DF2459B9813416A4B92@TYCP=
+R01MB7481.jpnprd01.prod.outlook.com
 
+ drivers/net/pcs/pcs-rzn1-miic.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/net/pcs/pcs-rzn1-miic.c b/drivers/net/pcs/pcs-rzn1-mii=
+c.c
+index 2b72fa98d..818756bb8 100644
+--- a/drivers/net/pcs/pcs-rzn1-miic.c
++++ b/drivers/net/pcs/pcs-rzn1-miic.c
+@@ -270,6 +270,9 @@ static struct miic_port *phylink_pcs_to_miic_port(struc=
+t phylink_pcs *pcs)
+=20
+ static void miic_unlock_regs(struct miic *miic)
+ {
++	/* Reset PRCMD state before unprotect sequence */
++	writel(0x0000, miic->base + MIIC_PRCMD);
++
+ 	/* Unprotect register writes */
+ 	writel(0x00A5, miic->base + MIIC_PRCMD);
+ 	writel(0x0001, miic->base + MIIC_PRCMD);
+--=20
+2.34.1
