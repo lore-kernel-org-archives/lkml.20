@@ -1,121 +1,190 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3270C501F28
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:16:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3EF895013D1
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 15:16:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789744594; cv=none; b=FFvyOB1fN9HUglR0Gk0n2htVGBWu/VNfFmbHtKZCVIRS8qtGhvBRRFNOayEkBJk0NrS7jGlKIl/YPdq4zy2BQ/SSIa460FfZ7T6VmDCPTez0BmnFsZ8z9zy7DONgDYGYmwb6DoJSJAbg3H6c+7L+nYZTp/GB20tmgKhEAZoAk1U=
+	t=1789744615; cv=none; b=q1buTn5RooKhTVldHbsx2j4dgHopW0RT4FUS12OfGWiI/hoCzk/kbG6VbvslsZTWz1K1Gl4NPoxjnBNoTIDUcOuF+QnpKbHq/OSV6oJSBpWNFQrQL3GCo2TnmjDWSIP4rpBbJrXF86NloxMvqveqsoSAjNkAoUC0IBBam8zlLQo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789744594; c=relaxed/simple;
-	bh=kqyTsLxvJqqNIVbyBSny9ezC0Wz+9JYHM95lhispPdQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Sud5ZNwy9DwV59wTs8jNeJIJjOiB+2d5kx7qn0tVVpwsiaQh53nOCSaRzfxLxgFSomiaKmAX8fPuP+QIkLL616iotRG8z8aAr19WKXWNU9z2PQ+Av9r8QWQdh8noumHGQ2RwfaGu46pu5YXM3IFFvCu0S6RySJzd2lX40k0xC8o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kUtAPpeF; arc=none smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789744615; c=relaxed/simple;
+	bh=a5utTgTrQwCtDxIq1a+n9f+R6vI9xlTx+AyFq50CaAg=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=JkReIEDcLzxy+NToEJE4+23r9zNbtSp2wpSdCI4jbuWpis5j/Qeafj4fcozxJCUlEqOt9B6KYrwoFvNVVIiR3MIeaeX7FVqftm2B1PvRMgwmMVQu0q4H9+0RPeZNREYLJ93Pch+NB4Bm/r1VuybM54PRwoTxuiiEZ6oL67fQIXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=TB9/msUH; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kUtAPpeF"
-Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d45ae011cso8899557b3.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 08:16:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789744590; x=1790349390; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qpPL+Kfb/Xa0aIKQ1c4l4vPP5OJgxaNW5DW9HZvgIrQ=;
-        b=kUtAPpeFeVjZ5jW9VzyX6Ktwm07OJO0ooJP9Yq6rGq6UOeByGwvYlOkYQlSOhPwipy
-         WVzXPIePOC00r8AFokQKP0HQtqn/z9HTwi44hp1kqPUTSDzHDeuIayvi2GM62Iw0bzbi
-         9p6PlUNe3PQ1J2A8VuU6uJhVQKyCR/xR9Bkz8/ARoUlhYjp+65YaGhx+Pq5piWRUDVw+
-         i6g8mpeo4KMsacA02rAttJoB3cn3e+I9szT4NtCGClwkfQrsKozjorScJj8FtilWgsna
-         gr8BUZkCny/7SuIMrmaItVDEF0edWOzdSf6SllXT61JpxbK/6Qz+e01I6WS7gaXaqvsQ
-         ievg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789744590; x=1790349390;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qpPL+Kfb/Xa0aIKQ1c4l4vPP5OJgxaNW5DW9HZvgIrQ=;
-        b=pEzgFzzucNQYXmusgli+qL/8gzbjydzs82bfb6JHn5v8YEHHhstaPbhf8l87i/Dyd7
-         u7tNc62kU2vMuD1tMsJeNS2pBo+bj0zDsSMpANDMlkRzYIm2fCFPYVjPtzc84Up26LKH
-         cJdpQ0gA6DiFd00AwKCtNGvMX8YtbESevXd8PpF3ymJvGKq1qbcut+3UaDIwg+7n0x6Q
-         Z0aovg7o7f0H181p7CGhTxwmKHy2O7je249R84M7OnevaSiLD0iz3s5ZTGQReF2T+LaC
-         Xs76RFIuRohTCi4bsCUlrnSHp1/8aTsXcOencVnt5DljvchZHky+xmBkuxhE1X+eotsa
-         Nwqw==
-X-Forwarded-Encrypted: i=1; AKwUvBwKbPh/Vtiohr0vtaWgxjBIzoXZAqvLQLPp+hKueHbFr6dHyNwmHF43L9MBWAhVdmGreNWBjairf+7u8Y4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lwMWRo/PVhFrmqzwS0p0wNQXZqHQGNVawoFwP9EUHkd1a/HaEk
-	2yvp0TcS9PM0Q8C4IK0iLmDAW3TiSazpd5zZ4j4Mi9vr5jiGa6TMd4wN
-X-Gm-Gg: AYBFou3VGuF9XBmR0k9EOhMKNohTIkIoXW9txBkUGQt3+p8LHjohxQ7jR4/vMjwDsNe
-	vWQegiTl81S0Mj83E+XPdViFs5JJrLh4WVRZp1ogR9HViDprS75dIVQJlLwAxo7siJjr/wm53IV
-	mlA/eKr+uuA4XyG6Mz0OMDFXoI4L3n5Xctmxf/ht/5epO23akjm3XGpgsjnDuUp39JbSoj8MwNE
-	9543tMKplKAz3jG/AknZc+D7hTRBvqy65mQRQRIg9HLUfa/iNdjoiMhMPU4H2IA7393plOAqXIk
-	j4+o0Lx+BoDbjHDFH34aJ9SQ1SIv90e+DKZGk0ytscFt+U6o94dkopkGubN+7dXMdUTIZmDJItb
-	PkY1xA+IdV7d9SiG5pKR+86VtJcuiM4DdgfGE/Ar/6urXJvPcb3bdY+F9fpB7V26RRvm9W04Glm
-	bM/443SGDDGN8tDveqjSb/b5hhD0SiNyjNVlzDA8a2z80MaeBVIQFSNEjyXJ0rC1QEdCDxEQ==
-X-Received: by 2002:a05:690c:60c7:b0:873:5bb2:6c26 with SMTP id 00721157ae682-89735d83d68mr9261677b3.45.1789744590356;
-        Fri, 18 Sep 2026 08:16:30 -0700 (PDT)
-Received: from shaunak ([103.48.102.247])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-897ea659c06sm5814157b3.49.2026.09.18.08.16.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 08:16:29 -0700 (PDT)
-From: Shaunak Datar <shaunakkdatar@gmail.com>
-To: mkl@pengutronix.de,
-	mailhol@kernel.org
-Cc: pabeni@redhat.com,
-	socketcan@hartkopp.net,
-	linux-can@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Shaunak Datar <shaunakkdatar@gmail.com>,
-	syzbot+1aae11dc8d42ec1a87ec@syzkaller.appspotmail.com
-Subject: [PATCH] can: dev: fix missing skb header initialization in init_can_skb
-Date: Fri, 18 Sep 2026 20:46:06 +0530
-Message-ID: <20260918151606.765490-1-shaunakkdatar@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="TB9/msUH"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E929E168F;
+	Fri, 18 Sep 2026 08:16:47 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 31C553F7B4;
+	Fri, 18 Sep 2026 08:16:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789744611; bh=a5utTgTrQwCtDxIq1a+n9f+R6vI9xlTx+AyFq50CaAg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:From;
+	b=TB9/msUHN2vrWlQICZPC+83cf1IB/i9/2I3Z/TrF6MORPdTsqSiyRyZ2ANfolctQh
+	 2ByVOQm6mphvT4Q0jPKHlFkmiTDKzOHNc8fCuy7eInksOMWoRusFG/dgFliyApexUa
+	 W8RUrbqXZuAK7JBy+Xtm7ryZmh0cTjMK4M5MbI7E=
+Date: Fri, 18 Sep 2026 16:16:46 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+Cc: linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	iommu@lists.linux.dev, Jason Gunthorpe <jgg@ziepe.ca>,
+	Marc Zyngier <maz@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Subject: Re: [PATCH v6 7/9] dma-buf: system_heap: Enforce shared-granule
+ alignment for cc-shared buffers
+Message-ID: <aq1V3oeDdvXobt8J@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904103452.1197239-8-aneesh.kumar@kernel.org>
 
-__alloc_skb() sets skb->mac_header to (typeof(skb->mac_header))~0U via
-__finalize_skb_around(). skb_reset_mac_len() checks if the value has been
-updated via the skb_mac_header_was_set() and fires
-DEBUG_NET_WARN_ON_ONCE(1) if not.
+First, none of the DMA-BUF maintainers have been cc'ed. It might be fine
+for an RFC but this series got to version 6. We need their feedback.
 
-init_can_skb() previously included three header reset calls:
+On Fri, Sep 04, 2026 at 04:04:50PM +0530, Aneesh Kumar K.V (Arm) wrote:
+> The system heap can allocate buffers that are decrypted and shared with the
+> host. For confidential-computing guests, those shared buffers must cover
+> whole shared-buffer granule; otherwise a userspace mmap of the dma-buf may
+> expose only part of a host-managed granule and allow unintended access to
+> adjacent private memory.
+> 
+> Require cc-shared system-heap allocations to have a size aligned to
+> mem_cc_shared_granule_size(), and allocate pages at least as large as the
+> required granule. Keep the allocation bounded by the existing heap orders,
+> but fall back to an exact minimum-order allocation when the required
+> granule is not one of the preferred heap orders.
+> 
+> Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+> ---
+>  drivers/dma-buf/heaps/system_heap.c | 50 +++++++++++++++++++++++------
+>  1 file changed, 41 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_heap.c
+> index c8959eadc71d..9cbfcebe2088 100644
+> --- a/drivers/dma-buf/heaps/system_heap.c
+> +++ b/drivers/dma-buf/heaps/system_heap.c
+> @@ -55,7 +55,6 @@ struct dma_heap_attachment {
+>  #define HIGH_ORDER_GFP  (((GFP_HIGHUSER | __GFP_ZERO | __GFP_NOWARN \
+>  				| __GFP_NORETRY) & ~__GFP_RECLAIM) \
+>  				| __GFP_COMP)
+> -static gfp_t order_flags[] = {HIGH_ORDER_GFP, HIGH_ORDER_GFP, LOW_ORDER_GFP};
+>  /*
+>   * The selection of the orders used for allocation (1MB, 64K, 4K) is designed
+>   * to match with the sizes often found in IOMMUs. Using order 4 pages instead
+> @@ -375,26 +374,44 @@ static const struct dma_buf_ops system_heap_buf_ops = {
+>  	.release = system_heap_dma_buf_release,
+>  };
+>  
+> +static struct page *system_heap_alloc_order(unsigned int order)
+> +{
+> +	gfp_t flags = order ? HIGH_ORDER_GFP : LOW_ORDER_GFP;
+> +
+> +	if (mem_accounting)
+> +		flags |= __GFP_ACCOUNT;
+> +
+> +	return alloc_pages(flags, order);
+> +}
+> +
+>  static struct page *alloc_largest_available(unsigned long size,
+> -					    unsigned int max_order)
+> +					    unsigned int max_order,
+> +					    unsigned int min_order)
+>  {
+>  	struct page *page;
+>  	int i;
+> -	gfp_t flags;
+>  
+>  	for (i = 0; i < NUM_ORDERS; i++) {
+>  		if (size <  (PAGE_SIZE << orders[i]))
+>  			continue;
+> -		if (max_order < orders[i])
+> +
+> +		if (max_order < orders[i] || orders[i] < min_order)
+>  			continue;
+> -		flags = order_flags[i];
+> -		if (mem_accounting)
+> -			flags |= __GFP_ACCOUNT;
+> -		page = alloc_pages(flags, orders[i]);
+> +
+> +		page = system_heap_alloc_order(orders[i]);
+>  		if (!page)
+>  			continue;
+>  		return page;
+>  	}
+> +	/*
+> +	 * The required minimum order might not be one of the preferred heap
+> +	 * orders. Allocate exactly min_order when it does not exceed the
+> +	 * remaining size.
+> +	 */
+> +	if (min_order && min_order <= max_order &&
+> +	    size >= (PAGE_SIZE << min_order))
+> +		return system_heap_alloc_order(min_order);
+> +
+>  	return NULL;
+>  }
+>  
+> @@ -409,6 +426,8 @@ static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
+>  	unsigned int max_order = orders[0];
+>  	struct system_heap_priv *priv = dma_heap_get_drvdata(heap);
+>  	bool cc_shared = priv->cc_shared;
+> +	unsigned int min_order = 0;
+> +	size_t cc_granule_size;
+>  	struct dma_buf *dmabuf;
+>  	struct sg_table *table;
+>  	struct scatterlist *sg;
+> @@ -425,6 +444,18 @@ static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
+>  	buffer->heap = heap;
+>  	buffer->len = len;
+>  	buffer->cc_shared = cc_shared;
+> +	if (cc_shared_buffer(buffer)) {
+> +		cc_granule_size = mem_cc_shared_granule_size();
+> +		if (!IS_ALIGNED(len, cc_granule_size)) {
+> +			ret = -EINVAL;
+> +			goto free_buffer;
+> +		}
+> +		min_order = get_order(cc_granule_size);
+> +		if (min_order > max_order) {
+> +			ret = -EINVAL;
+> +			goto free_buffer;
+> +		}
+> +	}
+>  
+>  	INIT_LIST_HEAD(&pages);
 
-- skb_reset_mac_header(skb)
-- skb_reset_network_header(skb)
-- skb_reset_transport_header(skb)
+You need to get a proper base so that Sashiko can review this series. I
+ran it through Claude and the above is wrong to go to free_buffer which
+walks over the pages list that has not been initialised yet.
 
-Commit 9f10374bb024 ("can: remove private CAN skb headroom
-infrastructure") dropped these calls which leads to the skb->mac_header
-retaining the original value.
+Another issue, I'm just copying it verbatim:
 
-Restore the three missing calls in the init_can_skb().
+drivers/dma-buf/heaps/system_heap.c:379 (patch 7/9)
+system_heap_alloc_order() picks "order ? HIGH_ORDER_GFP :
+LOW_ORDER_GFP".  HIGH_ORDER_GFP clears __GFP_RECLAIM and sets
+__GFP_NORETRY, which was fine while orders 8/4 always had order 0 as a
+fallback.  The new min_order fallback at line 411 has no smaller order
+to fall back to - it is the mandatory minimum.  On a 16K-page host with
+a 4K-page guest, min_order = get_order(SZ_16K) = 2, which is not in
+orders[] = {8, 4, 0}, and order 0 is filtered out by "orders[i] <
+min_order".  Every tail allocation below 64K therefore goes through the
+non-reclaiming fallback and returns -ENOMEM under pressure that ordinary
+reclaim would have cleared.  Note any fix must keep __GFP_COMP:
+compound_order()/page_size() are used on the result
+(system_heap_set_page_decrypted(), the free paths and sg_set_page()).
 
-Fixes: 9f10374bb024 ("can: remove private CAN skb headroom infrastructure")
-Reported-by: syzbot+1aae11dc8d42ec1a87ec@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=1aae11dc8d42ec1a87ec
-Signed-off-by: Shaunak Datar <shaunakkdatar@gmail.com>
----
- drivers/net/can/dev/skb.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/net/can/dev/skb.c b/drivers/net/can/dev/skb.c
-index 95fcdc1026f8..9cbddc1edd41 100644
---- a/drivers/net/can/dev/skb.c
-+++ b/drivers/net/can/dev/skb.c
-@@ -210,6 +210,9 @@ static void init_can_skb(struct sk_buff *skb)
- {
- 	skb->pkt_type = PACKET_BROADCAST;
- 	skb->ip_summed = CHECKSUM_UNNECESSARY;
-+	skb_reset_mac_header(skb);
-+	skb_reset_network_header(skb);
-+	skb_reset_transport_header(skb);
- }
- 
- struct sk_buff *alloc_can_skb(struct net_device *dev, struct can_frame **cf)
 -- 
-2.53.0
-
+Catalin
