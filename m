@@ -1,90 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9015A3D5C2A;
-	Fri, 18 Sep 2026 02:39:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AF773D967A;
+	Fri, 18 Sep 2026 02:39:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789699150; cv=none; b=nfGEtwO2GLOGhoFSZhMMk5Vf6TRdLFfiEOAHiG3VbS4v6ff170fwg4IhF+IK5YZ25+pa/ck7qCu2E4PdC88rVG1nsMuM3YqWSNh+qgp9bdpK8e8CYyO1Z+leP+CWfjRN5URhIKu+rqUG4uyCaNO4HMhISETxRfKwCYgRZfVMfvc=
+	t=1789699187; cv=none; b=KEiW+PQHWKkw4XOLE39nzKFSPYP+BmCfLASeE6ZtOtE9rdp9t2s0u6ZFrvzh7Nqy6ZYGQKXLM1niRmtSruUEW4G9TBIzUNkzi76FDrzJpavqe+CRBa/YGuaqZacQ7qun4hRXPZvg6mayLI+xKXBAfUhO0uTxzBNdMAyu81eCgjM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789699150; c=relaxed/simple;
-	bh=lVcb7JMl9+mQgNhF1+gbNYM+yWP9vUq59rxw4DlhIZ4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dBWXfh5Hi1laNHupp2g4CBFbddsFRJcPpojue/JabUcAYM0K8kiVHw8kSraEzOvR44wDaBuM/5VsSJicPlFMX8pe40lE0QY9vpK73uWlNymFOzB89DwE9a/7Dv+zE/CmNEbiWS59qMgKbc0oZDDMOS2T9Ek2IPJgOlAgMqoKFXw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MiP7VDcR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789699187; c=relaxed/simple;
+	bh=LHxvULIjuhzzrdmod5Ti349waN78Al8eYLLBzfZPFxQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mvMZeDSf/pR13bnQNzcmRgMq1VaBu13P3kj0N5dRys9dTx7I1cPUXX7rNJ54BjwZRX0/99wiRY++CfEiDta/FR2LEqKww7XJACBqUM3NwBpBb4Q+4fVwf4q2fSXyOO79KWV2+0eql0ORTeRVWX1mm1MGwdriboJ3Xu2S9hOJDlE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZjAbvwLB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MiP7VDcR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEE8D1F000FF;
-	Fri, 18 Sep 2026 02:39:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZjAbvwLB"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 69B041F000FF;
+	Fri, 18 Sep 2026 02:39:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789699141;
-	bh=XFn+Q7rC2VQ5SocqsOrcZJwTW1fdmqaD8YlZTdVp2Do=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MiP7VDcRQNxMZAViYh9ABN4d1iXEi+V+WYJvnsLJAWfhT+7QAEotrRl6/3uITknyl
-	 6ttkv7XDTs0ivbLlBK3OAqzmDL9aj7TLgOpOkmxJYOqmcfG6CiWZX0VRwITgxVfG9O
-	 Ai0TSUZsRilaiaPW83IHQgYwu6lIZpA/s5BpV38Q8m2y40zOoOBC0Qu9oVv4AN72TB
-	 S46vabyDMQ5O725glZrJD9WbtjIOYpUauf3tuqnzBHLQN4aGPyd5VYRN1+7p4+kE4p
-	 uW4LOKg+ciwSt4XlhEXu+ClA50kwYL0IpZxAPoQnsuUsDECimD0zW5p1MueQwKA+HO
-	 qD+IjFaOgQtqw==
-From: SeongJae Park <sj@kernel.org>
-To: Karthikeyan KS <karthiproffesional@gmail.com>
-Cc: SeongJae Park <sj@kernel.org>,
-	Sang-Heon Jeon <ekffu200098@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/damon: reject zero sampling interval
-Date: Thu, 17 Sep 2026 19:38:58 -0700
-Message-ID: <20260918023859.13556-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260917180013.1279018-1-karthiproffesional@gmail.com>
-References: 
+	s=k20260515; t=1789699171;
+	bh=iXQ8/FN2HIWNxcjvM/55UBFKrybyLV2KJVEHMIIV2fQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZjAbvwLBHpr5Esdtq4I/8X7Ar3v79g3g2Pu1HaqDD2XU3sGOiKT0tjBa1Ktlrnk7L
+	 vIs9W/spDzkf8WkMVswAkaEn/5G+2+gkXeJoXZXLQn0++O6VzXN8d5r+6Ie+2oIn5x
+	 WJ0C5C2NdHNQMo0XNYJpcp+yKZz+UlFv1ePMNpLZB2OdJS5DF9lLU/KvQXCuuPJmmC
+	 dpFDOTK6YJ+iLOiO/0uXmgpk/T5CmcNK4ZCjBIDeRCRtu5NuIRPVEy89C0jXoJ5XxV
+	 ik5zjSt+QQ+FTpTed14gOfhuFl51QKUHn9hAGI1wYX40Q5vZ02/xDFAlHdcbTieHhr
+	 tCjqFzhqeHzGA==
+Date: Fri, 18 Sep 2026 05:39:27 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Surendran Kanagaraj <surenkj@amazon.com>
+Cc: Peter Huewe <peterhuewe@gmx.de>, linux-integrity@vger.kernel.org,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Stefan Berger <stefanb@linux.ibm.com>, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, nh-open-source@amazon.com, graf@amazon.de,
+	gunnarku@amazon.com
+Subject: Re: [PATCH] tpm: Disable TPM on null key name mismatch
+Message-ID: <aqykXxFybNMB_KSv@kernel.org>
+References: <20260918000731.48657-1-surenkj@amazon.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918000731.48657-1-surenkj@amazon.com>
 
-Hi Karthikeyan and Sang-Heon,
-
-On Thu, 17 Sep 2026 18:00:13 +0000 Karthikeyan KS <karthiproffesional@gmail.com> wrote:
-
-> Hi Sang-Heon, Hi SJ,
+On Fri, Sep 18, 2026 at 12:07:31AM +0000, Surendran Kanagaraj wrote:
+> The null key name check exists to protect against TPM reset attacks, so
+> a mismatch should stop the device from serving further requests.
+> Currently it does not disable the chip when it finds a mismatch.
 > 
-> > I think SJ already commented on a similar patch. please refer to [1]
-> >
-> > [1] https://lore.kernel.org/all/20260722094304.3132750-1-dayou5941@163.com/
-
-Thank you for pointing this out, Sang-Heon!
-
+> The mismatch is logged:
 > 
-> Thanks, missed that thread. Same objection applies to mine.
+>     tpm tpm0: null key integrity check failed
 > 
-> > Can't we keep supporting zero sample interval and fix the warning
-> > or the real bug instead?
+> but the chip keeps serving commands:
 > 
-> I measured a few floors for kdamond_usleep():
+>     / # tpm2_getcap -c properties-fixed
+>     TPM_PT_FAMILY_INDICATOR:
+>       as UINT32:                0x08322e3000
+>       as string:                "2.0"
+>     ...
 > 
->   floor    kdamond CPU (3s)   vs sample_us=5000
->   1us      84%                28x
->   100us    42%                14x
->   1000us   12%                ~3x
->   5000us   ~2%                1x (matches control)
+> tpm2_load_null() where the null key name check is run sets the chip as
+> disabled only if the rc is non zero. When the mismatch is seen, rc is
+> zero at that point and it returns success. The other issue is that the
+> caller expects the null key handle to be populated when the function
+> returns 0 which it does here without writing the handle and proceeds
+> assuming the null key handle is valid.
 > 
-> 5000us is damon_new_ctx()'s own default, and at that floor the spin
-> is just gone.
+> During the test, I noticed that tpm2_start_auth_session() uses the
+> uninitialized stack value as the key handle since tpm2_load_null()
+> returns 0 despite the integrity failure and proceeds with
+> TPM2_CC_START_AUTH_SESS with this value as salt key handle.
 > 
-> Would you rather we just document sample_us=0 as accepted/expected
-> behavior, or clamp it to that default inside damon_set_attrs()?
+> Set rc to -ENODEV on the mismatch. The error path then disables the chip
+> and returns the correct code to the caller.
+> 
+> Tested in QEMU with swtpm and CONFIG_TCG_TPM2_HMAC=y by making
+> TPM2_CC_CONTEXT_LOAD fail with TPM2_RC_INTEGRITY and changing the name
+> of the re-created null key. The chip is now disabled on the mismatch.
+> 
+> Fixes: cc7d8594342a ("tpm: Rollback tpm2_load_null()")
+> Fixes: 423893fcbe7e ("tpm: Disable TPM on tpm2_create_primary() failure")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Surendran Kanagaraj <surenkj@amazon.com>
+> ---
+>  drivers/char/tpm/tpm2-sessions.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/char/tpm/tpm2-sessions.c b/drivers/char/tpm/tpm2-sessions.c
+> index cf8f1fd6790b..ca1e2bf424e1 100644
+> --- a/drivers/char/tpm/tpm2-sessions.c
+> +++ b/drivers/char/tpm/tpm2-sessions.c
+> @@ -975,6 +975,7 @@ static int tpm2_load_null(struct tpm_chip *chip, u32 *null_key)
+>  	/* Deduce from the name change TPM interference: */
+>  	dev_err(&chip->dev, "null key integrity check failed\n");
+>  	tpm2_flush_context(chip, tmp_null_key);
+> +	rc = -ENODEV;
+>  
+>  err:
+>  	if (rc) {
+> 
+> base-commit: b5f1b25b21f56c9fff87ad0235791883d1bf01a9
+> -- 
+> 2.47.3
+> 
 
-I'd prefer adding a comment saying zero sampling interval is accepted.  I think
-damon_attr kernel-doc comment is a good place for adding that.
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
 
+Thank you.
 
-Thanks,
-SJ
-
-[...]
+BR, Jarkko
