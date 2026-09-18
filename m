@@ -1,122 +1,176 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32679339853
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 19:35:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789760141; cv=pass; b=A6Vkh9veSX9ZRvfRdp4TUMsF8Xbhpp/rv/glB8j5pIUWyWt3zJAoWyik3HoFNfVi7aEFtttavPM4q/7TEs/FuryycDLX40BRVLCFokWfxE4NqruXaUI7z50nv02ig6Bu+6wpXPJn0Mt7qTIxefU5ilaGbia6S/sIAaQ5Bx8iR5E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789760141; c=relaxed/simple;
-	bh=HzvNuidgeL3juabceaGKuJfW0x/vamvj7Q7WND4DCxg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=eXvL4QgSEjCnWNySUVxkl6LKN5A8HLsMofWhUC3ezWPpsvjt03q9DR9YUB52qv/bclR2Df9TVFoTNrYSw8EefYEpN0uzwLVlEOM3+UL49ZySK47IqgyA5Kny0E5kyDYs/TQ0dSdve5ytxa58rLMbdf+vjFeJXeH7J0SkX+wgGoI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tvmof/NP; arc=pass smtp.client-ip=74.125.229.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 376513CF209;
+	Fri, 18 Sep 2026 19:35:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789760157; cv=none; b=jnejDTSWwUnmWeh0+n+kYAFcu+ytWxzmhJWAB3jwBU4R30ViYlKtevGVYeUCmw+TELrcS0tBfg1usWPZaS/btQzUtFjpjRsEX6CO9Q/IPauVzGDEuvG1DUKnn1P8VmqdmwM8K1tmdum244Y25iyt8XQ8rYgAjjMZHxY1n7C89AI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789760157; c=relaxed/simple;
+	bh=+fKPcxLXju5lZu5zZhxP1QAODeIgkYcDYvhPOaNeTYo=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=O1WtQrc9guC883L9PMzElkPupxyooI5d9/DzBMcwwD92GIzjS8EJqmoI4mduDqWkvm3Vkx0mQEzW/UxjK6TiGigtV0cFBgSusXwTCa+QltEYOWnqrXIiAIPobo+izjbjDsXbCKYIuPW1zYrJqr7N9eziQ3WDfns9Jl52sPB9ybQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LhHnvh8i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tvmof/NP"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f13d76so1289698e87.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:35:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789760138; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kASw8prdFbB+hsG42K7pyCmCxGWJwW29ThNQXQcoQCl5FDdvxNu0Q4zqWcSOJeMMjW
-         w1oE6QO4PKSrQn4NsidicUtW/dHIisd+vybCs+DAqvGq9NjNcJyIwOOzYNR0tFipFm0+
-         z/rc/pwSyKxFXR8OdjGs18+6xHCI44B0yBEFSogsYBZnrY7dX30K9VwI1CY94KyTHlXb
-         rHmLoaGxMlSzVHCSk/PWxPrvbAHi/N7DyWycD0l1tUt43452MSIw+7z32o6Y70N9N6io
-         AVPBUIL79x45noKMHuYRVGXqAC6JKVf+seA7HRdx3wrRxp8AtX3ZIFuTsPZOaIT2P24s
-         0HOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=2nxFd75vNkOQ0e5yGedl+RZU+0EEEGzGt/S9Rcg/pPc=;
-        fh=jKqgPei8jyjek7iTXvP1ApPZWpVI3UjNe/6Wzpr2wBI=;
-        b=TFlUOsqOLIojcNLby+R4uK/pCSf1/zY/+acEwUohqGJeMT3AFjIiZK9h0CO7MqjSbN
-         3lK2TQ0styg4a7Va3oCQLgQRHqWIoNTDskrNsHsYZ5QhVjLsNf0SrfGHNXx1ZxNDI3II
-         yRfc1SLqdDZn8PHtgxelaktrqF5ljWVWtmLMsAxgzWIVe7g21dm97RhNFLO/hh7Nm8bX
-         qVcGlq+ZVPrGpO0+1pCtZH+HWxx3txy0Noo5tdmVSxAyptQaMT1kTykSDYJGSwu3tpno
-         +HmdF2vjbNnNLndcdoaUQIgXsn8739AP3+tRoBgwwbv5iqKylD5lOwipGVLHDriihgJV
-         XCQQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789760138; x=1790364938; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2nxFd75vNkOQ0e5yGedl+RZU+0EEEGzGt/S9Rcg/pPc=;
-        b=Tvmof/NPM7ege0mtijP7zeeP8y6IVGoFRHpLtot42xLIcVn2xDEpBAqVRO6dT1MT2k
-         ae2hEJWJb+Msg4YVLLRLNFb/nf7FOKyHXjccuqppLJz26RWmTebRTYiYYeskssHRQ74x
-         XePvq+owocNPOX738LUVlSg7a/hBUWZ7kMnvAMOdLDsSYJpWSWTuCdzTzUK4MxihvrKg
-         yMBeLwRKQGcHr/JFqluvGwKw7s8Ep1DZMRu8SC3oi4W5H8aokf8kNQHd/8LhcWa7ZXzD
-         s5USyYBxF4pnV72GukZUeHGNTyXUcO+HCvfszYqFzghIXFa5YQGrrm6BuVVNY4TKV/vl
-         IEzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789760138; x=1790364938;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2nxFd75vNkOQ0e5yGedl+RZU+0EEEGzGt/S9Rcg/pPc=;
-        b=GysvxxYzRVbq8XRgDJRoGVSvRfdc0M7Gs1D37l07lr6oPOuqQOfijvl/ed/v2mFYfV
-         QRqaGLubiY1XdrbeGDjd/oGMQ1/xN3FDrwJR4gjZkM7Pu0rMZspYs6LEQ1EYL47H4qCT
-         KXqmxY85f/y96cHy8S5XfXjclqC1AaTVtuh3Bbtf3NNUBBpIeZDqN8Uq53T6zpmKqa1z
-         FJIy7xWI8O7YQaISPKOhmctHqEMRT9fQbe5JRV5EzGnjr8GD106FgEbnSi9Jt5uIZXDq
-         Z5dq5a7jIb5yJcHw4V8XdcBHJR+cQMpGHj6FQO7hnP468ze/79YJz3KN+IbNV1hcZYMn
-         VfVQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzfRfJnYdhq2yZAiwOjfc5koAoLMtSLPIj6kUKdEOXFmhpNl2IFdX9yndeW1ZBkzF4JhFoiNunC/NTt4z8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kAeY9Ssnbt05J/o5OP8/h7Qn7kpwpFhdvWKy691DkGZl/rN1yK
-	ssmqYjfs7T8mOusHx0CDJMCUloJF6YOoA2fo6OxaDxgbSVaKWT1RVEj4w7r1RXntkNuGewu5Nic
-	Dt0tZS8F1+jTO80cmzyP5z3j3+R2ZJIQ=
-X-Gm-Gg: AYBFou2gQoscO0Gcw14tvgtbDWR4hwoAng23SJ+YBwUMaFf5VkcM/Wwmem06bWLCkLD
-	2r+xqs158gSRnrGFYjOCjcnGn0eyNns4upp6LOB2xT9U0UOxZy97TWf8MZYASO9j8DsgYX+V/yt
-	TK/GyQ/5qBgOlMIN2bPUXOZz+YBqz30xjGUmp3g+rbJAlaKB/2po+Q58zgPXeofjuxGsu4d5Af0
-	5lPhiZl/vWg9iy20LVVY9hkrGbP1hLy/AkZchPiwDLKvTB6hbrirw3nSgoSu7jreFxCBhZgpxSY
-	mGbBWsxFqIYVQKSLzZbpyjyR0DFUyHsdxRj/WVdvqAiAUe6BYaucVbWigpa8V4L2qn+FYeyGpMU
-	fHVtEFWUaR7LENVbEAaFzbzJviEfGwrittdrAVALYgnJYxj0=
-X-Received: by 2002:a05:6512:a344:b0:5b8:c21e:28e8 with SMTP id
- 2adb3069b0e04-5b8c21e2a24mr835758e87.19.1789760137898; Fri, 18 Sep 2026
- 12:35:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LhHnvh8i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A11631F000FF;
+	Fri, 18 Sep 2026 19:35:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789760154;
+	bh=1ajIuw4DcZ5aRzTfYwrSY5jagf7KcXQsMJC4bn5QUio=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=LhHnvh8iGSdg4AZkKj3hpr4pYqdEXzg3gTEECRQ2vUjYxC8AVmDJDfnkJYrmRPJkL
+	 Reyi+cQxs3deCqd7zOK2sx2S+fQk5N15LNQFsXg6nT1o/iaC9LV24UAzk/qYNMiCB+
+	 GggSA5Mz7wQI6sJ5/NfWitndhBJSpm/0QB2pN/CYOQuZp4S4TAzSqxs3RivizKYTuk
+	 Nn3iR1YOwB4ZaJlWos8nsokjITaV2vmrJb+t1rUhSVjNtGh5LgDN9IN5msAbOlB/bB
+	 pqgRs4h7tbqJ0vvlZxvLLcujT9U4+iFq5b2dHQL6Gq63JnSAxqcMidagdysRTWT/ok
+	 y+Ey6ghEbulpQ==
+Date: Fri, 18 Sep 2026 20:35:51 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Gaobin Huang <huanggaobin23@semi.ac.cn>
+Cc: Ira Weiny <iweiny@kernel.org>, linux-cxl@vger.kernel.org, Davidlohr
+ Bueso <dave@stgolabs.net>, Dave Jiang <dave.jiang@intel.com>, Alison
+ Schofield <alison.schofield@intel.com>, Vishal Verma
+ <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>, Li Ming
+ <ming.li@zohomail.com>, Richard Cheng <icheng@nvidia.com>,
+ linux-kernel@vger.kernel.org, Anisa Su <anisa.su887@gmail.com>
+Subject: Re: [PATCH RESEND] cxl/mbox: validate the DCD extent list counts
+ against the payload
+Message-ID: <20260918203551.4bf64538@jic23-hlaptop>
+In-Reply-To: <20260917104656.2658591-1-huanggaobin23@semi.ac.cn>
+References: <20260917104656.2658591-1-huanggaobin23@semi.ac.cn>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911-fix-macsec-net-v1-1-c82aa58ae741@gmail.com>
- <178951752525.22033.8547704610100726932@kernel.org> <20260917180909.566fb795@kernel.org>
-In-Reply-To: <20260917180909.566fb795@kernel.org>
-From: Haseeb Malik <haseebulhaq55@gmail.com>
-Date: Fri, 18 Sep 2026 15:35:26 -0400
-X-Gm-Features: AcwNN1WpSFcsIQWeLcBWVspSvI8wcqej2JfgX23uUmxVKrtS9ZZ_74s9WB4btHQ
-Message-ID: <CAB4N2KPz-ARRDUdkos_S64Cyvm5cBfq-5NxP5wwL835wf+tO-Q@mail.gmail.com>
-Subject: Re: [PATCH net] macsec: initialize SecY before registering the netdevice
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: netdev-bot+sashiko@kernel.org, sd@queasysnail.net, andrew+netdev@lunn.ch, 
-	horms@kernel.org, hangbin.liu@linux.dev, felix.walter@cloudandheat.com, 
-	netdev@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
-	syzbot+f2f6312ad1b5a0bfe316@syzkaller.appspotmail.com, davem@davemloft.net, 
-	pabeni@redhat.com, edumazet@google.com, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Fixed in v2 by moving MAC address inheritance and SCI initialization
-before register_netdevice():
+On Thu, 17 Sep 2026 18:46:56 +0800
+Gaobin Huang <huanggaobin23@semi.ac.cn> wrote:
 
-https://lore.kernel.org/netdev/20260918-fix-macsec-net-v2-1-784203ec4836@gm=
-ail.com/
+> __cxl_process_extent_list() trusts two counts from the Get DC Extent List
+> response: returned_extent_count bounds the loop over the flexible
+> extents->extent[] array, and total_extent_count decides when the enclosing
+> do/while is finished.  Neither is compared against what the device
+> actually returned, and the command is only issued with .min_out = 1.
+> 
+> A device that reports more extents than it delivered walks the loop past
+> the end of the mailbox buffer.  A device that reports a large total while
+> returning nothing makes the loop spin forever, because total_read never
+> reaches total_expected; a stable generation number and total also keep the
+> existing -EAGAIN check from firing.  The caller cannot recover from that
+> one: __cxl_process_extent_list() never returns, so the retry loop around
+> it never runs.
+> 
+> Derive the bound from mbox_cmd.size_out, clamp the claim to it, and fail
+> with -EIO when the device stops making progress.  min_out is smaller than
+> the response header, so the subtraction needs the same underflow guard.
+> 
+> Seen with QEMU emulating a device that lies.  The response header is 16
+> bytes and an extent is 40, so a 2048 byte mailbox buffer holds 50:
+> 
+> 	BUG: KASAN: slab-out-of-bounds in cxl_validate_extent+0xca/0x310
+> 	Read of size 2 at addr ffff888005758800 by task sh/1
+> 	 cxl_validate_extent+0xca/0x310
+> 	 cxl_process_extent_list+0x2c1/0x430
+> 	 cxl_region_probe+0xb2b/0xc40
+> 	 which belongs to the cache kmalloc-2k of size 2048
+> 
+> The Read of size 2 is extent->shared_extn_seq.  extent[50] starts at
+> 16 + 50 * 40 = 2016 and the field is 32 bytes into the record, so that
+> read is the first byte outside the buffer; a claimed count of 50 stays
+> inside and 51 does not, as the sweep shows.  Reporting
+> total_extent_count = 100000 with returned_extent_count = 0 instead spins
+> region bring-up until the guest stops answering console commands; with the
+> fix it logs "Extent list: no progress after 0/100000" and fails.
+> 
+> This is in the dynamic capacity device series under review (branch
+> dcd-v6-2025-04-13 of weiny2/linux-kernel, based on 6.15-rc2), so the fix
+> belongs in that series before it is merged.
+> 
+> Signed-off-by: Gaobin Huang <huanggaobin23@semi.ac.cn>
+I'd probably just have sent a reply to Anisa's series with a snippet of what
+needed changing.  Anyhow, as it is a patch, the above needs cutting down a lot.
+The first part about reading too far or looping forever is sufficent without
+the details.
 
-Thanks,
-Haseeb
+Otherwise, similar to Alison's feedback on the other patch. If it's
+wrong just error out the moment you know that. No reason to carry on
+or clamp value etc.  Broken hardware should fail in a nice obvious fashion
+so people notice!
 
+Jonathan
 
-On Thu, Sep 17, 2026 at 9:09=E2=80=AFPM Jakub Kicinski <kuba@kernel.org> wr=
-ote:
->
-> On Wed, 16 Sep 2026 00:12:05 +0000 netdev-bot+sashiko@kernel.org wrote:
-> > - [Medium] Incomplete fix: the registration-time RTM_NEWLINK notificati=
-on
-> >   that this patch makes succeed now carries a bogus IFLA_MACSEC_SCI =3D=
- 0.
->
-> Looks legit
+> ---
+> Resend note: the patch is byte-for-byte unchanged.  v1 went to
+> ira.weiny@intel.com, which no longer exists, so the author it is addressed to
+> never received it.  The v2 revision of the linux-cxl patch (drop the Fixes:
+> tag, struct_offset(), fail on a response too short for the header) does not
+> apply to this one: this code is not in mainline, so there is no commit to point
+> a Fixes: at, and the bound here already guards the subtraction against wrap.
+> 
+>  drivers/cxl/core/mbox.c | 30 ++++++++++++++++++++++++++++++
+>  1 file changed, 30 insertions(+)
+> 
+> diff --git a/drivers/cxl/core/mbox.c b/drivers/cxl/core/mbox.c
+> index 0b51a5d..c12ff86 100644
+> --- a/drivers/cxl/core/mbox.c
+> +++ b/drivers/cxl/core/mbox.c
+> @@ -1764,6 +1764,7 @@ static int __cxl_process_extent_list(struct cxl_endpoint_decoder *cxled)
+>  	struct device *dev = mds->cxlds.dev;
+>  	struct cxl_mbox_cmd mbox_cmd;
+>  	u32 max_extent_count;
+> +	size_t extents_hdr, max_returned;
+>  	int latched_rc = 0;
+>  	bool first = true;
+>  
+> @@ -1808,7 +1809,24 @@ static int __cxl_process_extent_list(struct cxl_endpoint_decoder *cxled)
+>  			first = false;
+>  		}
+>  
+> +		/*
+> +		 * The returned count is device-supplied: never index
+> +		 * extent[] past the payload the device actually returned.
+> +		 * The device also chooses the reported length and may return a
+> +		 * response shorter than the header (min_out is 1), so derive the
+> +		 * bound without underflowing.
+> +		 */
+> +		extents_hdr = offsetof(struct cxl_mbox_get_extent_out, extent);
+> +		max_returned = mbox_cmd.size_out > extents_hdr ?
+> +			       (mbox_cmd.size_out - extents_hdr) /
+> +			       sizeof(struct cxl_extent) : 0;
+>  		nr_returned = le32_to_cpu(extents->returned_extent_count);
+> +		if (nr_returned > max_returned) {
+> +			dev_warn_ratelimited(dev,
+> +					     "Extent list: device claimed %u extents but the payload holds %zu\n",
+> +					     nr_returned, max_returned);
+> +			nr_returned = max_returned;
+> +		}
+>  		total_read += nr_returned;
+>  		current_total = le32_to_cpu(extents->total_extent_count);
+>  		current_gen_num = le32_to_cpu(extents->generation_num);
+> @@ -1823,6 +1841,18 @@ static int __cxl_process_extent_list(struct cxl_endpoint_decoder *cxled)
+>  			return -EAGAIN;
+>  		}
+>  
+> +		/*
+> +		 * A device that keeps claiming more extents without ever
+> +		 * delivering any would otherwise spin this loop forever
+> +		 * (the outer retry cannot help: this call never returns).
+> +		 */
+> +		if (!nr_returned && total_expected > total_read) {
+> +			dev_warn_ratelimited(dev,
+> +					     "Extent list: no progress after %u/%u extents; aborting\n",
+> +					     total_read, total_expected);
+> +			return -EIO;
+> +		}
+> +
+>  		for (int i = 0; i < nr_returned ; i++) {
+>  			struct cxl_extent *extent = &extents->extent[i];
+>  
+
