@@ -1,195 +1,163 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com [67.231.152.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B7E54F85C5
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:57:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789743444; cv=none; b=JZ9DhnziP/+U/RXeC398ZVURBZHpUcP1r5cDirAQ+aajgM+4MO7HugK+UkMa+hu86gkDWEOdJeMTnVo4iCNmJz67LV2jm8WmRIMOeK0YeID/flsRnPCGl4PPhWJqIYxdXyXAgcvS6wc7/tgOCWcnQNk7cFWrfAztbj/aOQpSde0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789743444; c=relaxed/simple;
-	bh=lWWAOnJQYkK4Q79tp+EhvHztAuAQYpY6SiBXKauuJOw=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=A2OLKsMsvpY/ES3OlNpMZ92zg8XvuvpfLqeL+iL+ay2cQogC3DlEFFFnox0BEOOBUHEwcYOSk/VlINXMxtB9UbsA+vTUygZgN0nlCz6qGblmyX7Evwz1X8B9+t1VBcIYomlWtfI2qC9Wcscc5dFHr217GZdmXqeNFJEFq9+DTq0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QA6umjJL; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A0874FD281;
+	Fri, 18 Sep 2026 14:57:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.152.168
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789743455; cv=fail; b=YlhqKRpozcC2bUfICtbTKIPM6QScBcdoTIxdD5v1Ju2kCjtQztTiTqDYBwkStv+DFTIlweMC0kEIuYsTKhFBUQqQjH6FkAFRqEcYSTmZ3JT+UisICBTNqtGsDE+6Vg2+4DnJqje4mpi/D8hjV7DKUKEg9OMm+pnwoiNADbSv074=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789743455; c=relaxed/simple;
+	bh=12ChgY/Swxgp5buM9vGq4qv2DAuFI0Uu+vF7PtyopiU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QjCeOyxN2X5fgO/YjaL+KFDUzWs2WdadXozZDy1oMDQaIsvB3LG3YjmagWPA40jEuJjTV85WV9Vy0+Ss9rVu5AAQcuPKRQzRcMd+1JGdPF6hNTsnBUkf7xk6KmtwgTqAZm0cZUdjn1S32+7dZwP1A/vpnC86V9W7xNwVz9oDVi4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=gKDI+0sT; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=PD+Hs1lI; arc=fail smtp.client-ip=67.231.152.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QA6umjJL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789743442; x=1821279442;
-  h=date:from:to:cc:subject:message-id;
-  bh=lWWAOnJQYkK4Q79tp+EhvHztAuAQYpY6SiBXKauuJOw=;
-  b=QA6umjJL0cGbuODujt1KddGZY1Bth7T9ozSXJjKtAQdyqsuf7GKBz9PD
-   TIoY+wrmgHoX1emSTCP6GIkqZSnxgJb2wf/Ds8mq7RMKNOGFNEQzSRIMW
-   24QW8KSULxyBgJki+l7yLoyGQLGu5xtnOIbGM5ry1oV7EKfFvCTbPIvmm
-   nE4+kXIJQbzhpels9IxwNoSzMoKQdg2td0dfjXibMWaVUTPhBNDdaY7nB
-   ouOiphO5Q8NoZREtelf2Qtnn5WwIeZYTEwdgcSQzqGx9g9ugnUpSgfWwH
-   QtZWnW5BbUcKw9Lk+LTBsGhAWG/ezYI2dtcdai2i7ttXwlKGFyeOMFIlj
-   w==;
-X-CSE-ConnectionGUID: fCEHgrbARu+Fl3feYl+ZaQ==
-X-CSE-MsgGUID: VY9cP2hiQDaSAqlw3eWa0w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11909"; a="115786859"
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="115786859"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 07:57:21 -0700
-X-CSE-ConnectionGUID: gax0m94QRaW6Jc8Gqbptig==
-X-CSE-MsgGUID: sVM5xCS8TuiUhvi//knDbw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="2871906"
-Received: from igk-lkp-server01.igk.intel.com (HELO fe5626a770c0) ([10.211.93.152])
-  by fmviesa013.fm.intel.com with ESMTP; 18 Sep 2026 07:57:20 -0700
-Received: from kbuild by fe5626a770c0 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x7a1Z-0000000017Y-1g9u;
-	Fri, 18 Sep 2026 14:57:13 +0000
-Date: Fri, 18 Sep 2026 16:56:37 +0200
-From: kernel test robot <lkp@intel.com>
-To: Lohita Mudimela <lohita.mudimela@amd.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Robin Chen <robin.chen@amd.com>, Ivan Lipski <ivan.lipski@amd.com>
-Subject: 
- drivers/gpu/drm/amd/display/modules/power/power_replay.c:693:80-85: WARNING:
- conversion to bool not needed here
-Message-ID: <202609181646.cK7p3Ghd-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="gKDI+0sT";
+	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="PD+Hs1lI"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68IEDjno2648216;
+	Fri, 18 Sep 2026 09:57:19 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=PODMain02222019; bh=kpyhXyUg79AAFYBuAG
+	KtwzN9IkQZXsVcAtDTjLHfliA=; b=gKDI+0sTXFtSHX4kv21XrXGTlwzXCSg65n
+	uC3CKW0pKNPM3FFMqWIMbFexYqLsbgioF9dHH56qP0D1TNiP0t6gBjBURMj+a10s
+	uRBLlHxtGzBsv9GYvxSa1vjpmaiCP5vhs9xeIIFGnna3aNHm4S+vIu5+tF/DgatR
+	HEcqY4PnkaGe46Kx11N7MggPQVPgXp/dnRj9ikTBXoZZ4RztLkYqnQJTVlDO/RVL
+	XDIEDewaXYXOtMMOGS0V/d1ND7kv8esSdTFTIfNkDPaG/TFVz7Vxse2fas+ajn9W
+	EnqOXqVPUlalmly+HWBiRAXqOLcG0Pa1Wh740AtvNHH4PjBhP6uQ==
+Received: from ch1pr05cu001.outbound.protection.outlook.com (mail-northcentralusazon11020108.outbound.protection.outlook.com [52.101.193.108])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4gs6vmr2s5-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 18 Sep 2026 09:57:19 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RL5CIgbjFrQGYMfHCczisF63JgP66AJgEhWfRVsnuRu5aBGETRlfQw6aCQvjWonxslR4WHNKlSHaehtI6H2EaiDlbaXjPfEylPRuFAd5HCuj1WNdNu335ZnU2Zv6cDx24vxY44RZMvomZtuvJJoXJGMMKZ7CksPFa+aqkhwMER8878gjowGPAFFyG3ZsVvUwxnXEmqYYMstCcp4TBALHcKnQ2qTeiskXeMO2VEHlotSnlxrGk2skL3TxYQKhP8ShiQpYQSiSP/FEODAAt12skw34Knun9taRYa0PWDvwaXay+fY+t2gCx2ya7ViJvAcJK3b3k+rQuWxnyT+JtP8e5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kpyhXyUg79AAFYBuAGKtwzN9IkQZXsVcAtDTjLHfliA=;
+ b=dV9MKJbLc2vvHrJbHhQ9wieiyNrZ1tQu8gk6dDQVRhcrP7eTk+lUP0WTmH2Y8U45Y4036fTajTTYv0jvcGKIga1mWWO2O1m0TB4UqMO/z9UqvHOFvFpY/oW0XjJvz8iJ7/3eHNWXPw9yoA/Hu0ekZpbTghgU5s8dr/sO9Ft9o6BtVXRwKVrU8VALMom72b/FHYchgONWFyjyTnKxOCiAKxM9I3QLCIjg8MNqcZvDHrKXMH/GxXcue2YEMtgONsW85tzwwGXzBiCYAcWQfNe7iJzVOa7ctoBSzmDdoqfl9TKCXOg9AYSe6H9zjDSf1gcvLrNsfXYkiUCksotwa3zRuw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 84.19.233.75) smtp.rcpttodomain=cirrus.com
+ smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
+ action=oreject header.from=opensource.cirrus.com; dkim=none (message not
+ signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kpyhXyUg79AAFYBuAGKtwzN9IkQZXsVcAtDTjLHfliA=;
+ b=PD+Hs1lIv1F9U9x/kebVPzesAdc9ELmsNpT4fBK1Xep/Mo/icLfKzVDoUwh4jHZXiyWmYs+C6FXf2U4wcXizOVVQG1XBjQ8CREotVbBeSSlVdo95sQlxToA7jfdKmDRKaoQMD8VzMurzUcMnuy3MYcXwDsgZg3R9VQM7/42OhoY=
+Received: from MW4PR04CA0199.namprd04.prod.outlook.com (2603:10b6:303:86::24)
+ by CH6PR19MB329215.namprd19.prod.outlook.com (2603:10b6:610:303::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
+ 2026 14:57:14 +0000
+Received: from SJ1PEPF000037A2.namprd04.prod.outlook.com
+ (2603:10b6:303:86:cafe::73) by MW4PR04CA0199.outlook.office365.com
+ (2603:10b6:303:86::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.13 via Frontend Transport; Fri,
+ 18 Sep 2026 14:57:13 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is 84.19.233.75)
+ smtp.mailfrom=opensource.cirrus.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=oreject header.from=opensource.cirrus.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
+Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
+ SJ1PEPF000037A2.mail.protection.outlook.com (10.167.244.134) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.8
+ via Frontend Transport; Fri, 18 Sep 2026 14:57:12 +0000
+Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 8A648406542;
+	Fri, 18 Sep 2026 14:57:11 +0000 (UTC)
+Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 7341482254B;
+	Fri, 18 Sep 2026 14:57:11 +0000 (UTC)
+Date: Fri, 18 Sep 2026 15:57:10 +0100
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: broonie@kernel.org, krzk@kernel.org, lgirdwood@gmail.com,
+        linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org,
+        patches@opensource.cirrus.com, perex@perex.cz, s.nawrocki@samsung.com,
+        tiwai@suse.com, stable@vger.kernel.org
+Subject: Re: [PATCH] ASoC: codecs: wm8994: Fix runtime PM leak in
+ wm8994_mic_detect()
+Message-ID: <aq1RRlQQB2BTikJF@opensource.cirrus.com>
+References: <20260917165130.2163278-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917165130.2163278-1-vulab@iscas.ac.cn>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000037A2:EE_|CH6PR19MB329215:EE_
+X-MS-Office365-Filtering-Correlation-Id: 22f4fa23-6450-46e1-16c8-08df15951f7a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|61400799027|23010399003|7416014|376014|36860700016|6133799003|22082099003|10067099003|11063799006|56012099006|16102099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	O6Xyix02fJWKl/z/CUW301KqZDEsvuQj1JUa3uFWJWNAtlx5okkYUh4O2xM/2iZgiHTyp2+Mj6e7miuAxSSg7I0cuObMmIiRuADm5jzrjGn8W6BYz6ZJ0APVsaKIaVr1H2EqphvCsYZYIz3HyfLM6nV0Vwr2U472WCBUazomkXnYIxN3yQ8o5sfuQqTGSYrVFDxtmH15bW+e5PFkmHEA/2jwJ033qJgIbXy3M80daTnMu3ELaESQAJNJ5z/plsCpPorVt5AViu7lqxyJa6rzviZwcFQMUpZjVXKKN8hLw3GtGqBB04k9PFEWKM8yUPWpn5FutUIyihQZMQQ2xasIVTG0UgahHgaYVAD4NFvFwGgScW9i2SaJYJhyvmQxAFNKQX/5DYUH5y0KaOyzsjkqMJj4ZpZN/nrmoiSmg32dwDFE07xmLQLfv7NFbCtCNcLummhPKH0Hmzww2sa2SaTlvieLD9YRFjczfAd+/l66cOtK1uxnqx7PkrAx2SRQe3dBJnlYWT9w3ryUyZ9/lkYueIiUIoBaCsos8gIndkHyYFkd/NVoSCsptyWo9GLnPhE58nQBA9/fmE0X/Nk2Jr01TRcn9scrVrBqpwsP8P4ZY+OLnx4q2NyWg4Ld2zJsovt1RPB5zJrLnevx72TeWZHfUpsPs++YooTsRTTAY4WIL1ujdXy2XM468e+5GzJVQ2I0Oy0RrUQxZZ69y8ZI4UK4ig==
+X-Forefront-Antispam-Report:
+	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(61400799027)(23010399003)(7416014)(376014)(36860700016)(6133799003)(22082099003)(10067099003)(11063799006)(56012099006)(16102099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	RTf+jiMTfbFgJ4j0e3uZtAxqLTKvSwwY1wKoNmNoCuWgJRpNEUBYiyOPZDD5JRSMjXkBNVNBFfn16dC1BqTcm+GSJZhwjJe0K5Y+Lutu9aGSh5yK+8J9AELfH9kzOjplD9EjZuA4AmYgQr6OVXmR0y++VDk6Qik62IleBqJM7JwFWTvtwocPFWbV+a4OBS9QAtPf9+MZQZEbcdDDfzUYeavPtWTZBPLNscmB8OYQXsan8MlSk9q2q+d69eiINSJUJBAz6u79mgjDSA6GWKwjTHphQGXWsunDe+YGB54GjVHQWG2/sVryW2BOARRtFRcluQW5SFtTaAK3+0u6Sws9c0zfQSsyrK0T0+Evz5EEDNR1sL6YB44l7hVG477voyw7IjAHSp1doE8FKb/tdnXxW7ARwe/rpm9kEkP9VDGjG0+wlK5GT9uBOhUv4JCaG4DL
+X-Exchange-RoutingPolicyChecked:
+	Z8R0feZRuQZ4NCUgCw0sCDs6g6pNqw/fzdVVoMsWZjFcjaD6MeNkXlZIO1obuuqLEc5bsIUoFZTiowVeOfcarQdMGfW3UsVwkmk2gdfRBm6fotbFaiO/Om9to49d2jtc/cHkTLIG4apgsKMtz+cahBv0zotIbix8Bswb7Fm3GkxZRHvY/ylC55CIlcbyHMZPjlJUept1OYu56EnWHB5zQh3cM1hmeBUOS0VVdh+zYbEcP2lCs1HgJjqzNG1X0jZxQjAt7Hs/Xap/C3oVPVaLA42ZFzNmaMzHTq2ZK041LMitej85wgkm59z7OIcrU40ji3Km70RmkUzRQtN2glJvxA==
+X-OriginatorOrg: opensource.cirrus.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 14:57:12.9062
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 22f4fa23-6450-46e1-16c8-08df15951f7a
+X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-SJ1PEPF000037A2.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH6PR19MB329215
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDIxMyBTYWx0ZWRfX5buYLpdoIgbE
+ bym5RWBvLxarw8t7webmrB8jevNTWk0szQ/XUoyqlH5fuXUL/4A0nEtBz2Grzxx/O04J39iYPa/
+ hCyVTe1MqR0Ilcw/wTSe+ROS/CT64ykApQXcxGxK5lJDjpjrDc9oR1hSS2cxprtVfGTpF2qvZc8
+ ld8Hzp/ZrPNPuy6r/a9dERU14HUkOpaL5xiA9rtWALrao7ZHQnwVJbVS9sF/JaYe3eOj9Inrtm0
+ CdCnaSf85NyasILKa7JPTj4+brSwkICX+jQwH2pJ1vxKkfo959lV4tGzWRabtdiM/SfSo79lb2F
+ I4rt42Xm87Xqigqyft/H3q4tgZGEcRBmXkFquyr+MAamnOIcFb2K5nyumv98ZNbwBKyUsrrXDuY
+ ps6u2OQJlVe8Zrzfi6krE2CBiSHCXdTW65DghFxzqfTimk7FZQG8myzw3GkYbkNTLTufmlw1u99
+ zeCVNacjG0aOzWNjFYw==
+X-Authority-Analysis: v=2.4 cv=YawodARf c=1 sm=1 tr=0 ts=6aad514f cx=c_pps
+ a=3vymZyyPHrzzyqIQw/cfUw==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22
+ a=VwQbUJbxAAAA:8 a=w1d2syhTAAAA:8 a=ykPtkzD1fplRG1xO3x8A:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDIxMyBTYWx0ZWRfX/tHBcRF4E4aZ
+ InyV/+r8HjFNdKjTQKjVadcS/ZPsucIQuCn/Ka91pd9RvSgkEkoPRMe6ugL3fPpH+ClmV0WFuW3
+ h+h9dxL/QSb/VBtqe1AVj/12VnVNlWQ=
+X-Proofpoint-GUID: j50s-ml-RhNvKcp4ZEy5an7ZykTGt2WT
+X-Proofpoint-ORIG-GUID: j50s-ml-RhNvKcp4ZEy5an7ZykTGt2WT
+X-Proofpoint-Spam-Reason: safe
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   5dd1818b15d98d4a20806cd00b1b40320b06004f
-commit: d7e41c6f513ef59e890d9fb34a2631fdf6d87789 drm/amd/display: Refactor Replay functionality into dedicated power_replay module
-date:   4 months ago
-config: x86_64-randconfig-103-20260911 (https://download.01.org/0day-ci/archive/20260918/202609181646.cK7p3Ghd-lkp@intel.com/config)
-compiler: gcc-13 (Debian 13.3.0-16) 13.3.0
+On Thu, Sep 17, 2026 at 04:51:30PM +0000, Wentao Liang wrote:
+> wm8994_mic_detect() resumes the component before configuring the MICBIAS
+> pins, but the default case of the micbias switch returns -EINVAL right
+> after taking that reference, skipping the pm_runtime_put() on the
+> success path. This leaks a runtime PM reference on every call with an
+> invalid micbias.
+> 
+> Release the reference before returning -EINVAL.
+> 
+> Fixes: f5a2cda4f1db ("ASoC: wm8994: Ensure the device is resumed in wm89xx_mic_detect functions")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: d7e41c6f513e ("drm/amd/display: Refactor Replay functionality into dedicated power_replay module")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609181646.cK7p3Ghd-lkp@intel.com/
+Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-cocci warnings: (new ones prefixed by >>)
->> drivers/gpu/drm/amd/display/modules/power/power_replay.c:693:80-85: WARNING: conversion to bool not needed here
-
-vim +693 drivers/gpu/drm/amd/display/modules/power/power_replay.c
-
-   622	
-   623	bool mod_power_set_replay_event(struct mod_power *mod_power,
-   624		struct dc_stream_state *stream, bool set_event,
-   625		enum replay_event event, bool wait_for_disable)
-   626	{
-   627		struct core_power *core_power = NULL;
-   628		struct dc_link *link = NULL;
-   629		unsigned int stream_index = 0;
-   630		unsigned int active_replay_events = 0;
-   631		bool replay_active_request = false;
-   632		bool force_static = false;
-   633		uint32_t coasting_vtotal = 0;
-   634		bool current_timing_sync_status = false;
-   635		bool is_full_screen_video = false;
-   636		bool is_ultra_sleep_mode = false;
-   637		unsigned int sink_duration_us = 0;
-   638		bool low_rr_active = false;
-   639		uint16_t frame_skip_number = 0;
-   640		bool is_video_playback = false;
-   641	
-   642		if (!stream)
-   643			return false;
-   644	
-   645		if (mod_power == NULL)
-   646			return false;
-   647	
-   648		core_power = MOD_POWER_TO_CORE(mod_power);
-   649	
-   650		if (core_power->num_entities == 0)
-   651			return false;
-   652	
-   653		stream_index = map_index_from_stream(core_power, stream);
-   654	
-   655		if (set_event)
-   656			core_power->map[stream_index].replay_events |= event;
-   657		else
-   658			core_power->map[stream_index].replay_events &= ~event;
-   659	
-   660		link = dc_stream_get_link(stream);
-   661		if (!link || !link->replay_settings.replay_feature_enabled)
-   662			return false;
-   663	
-   664		if ((core_power->map[stream_index].replay_events & replay_event_disable_replay_while_switching_mux) != 0)
-   665			return false;
-   666	
-   667		if ((core_power->map[stream_index].replay_events & replay_event_os_override_hold) != 0)
-   668			return false;
-   669	
-   670		active_replay_events = core_power->map[stream_index].replay_events;
-   671	
-   672		current_timing_sync_status =
-   673			link->replay_settings.config.replay_timing_sync_supported;
-   674	
-   675		replay_active_request = mod_power_update_replay_active_status(active_replay_events,
-   676			link, &coasting_vtotal, &is_full_screen_video, &is_ultra_sleep_mode, &frame_skip_number, &is_video_playback);
-   677	
-   678		if (is_full_screen_video)
-   679			mod_power_replay_set_pseudo_vtotal(mod_power, stream,
-   680				link->replay_settings.low_rr_full_screen_video_pseudo_vtotal);
-   681		else
-   682			mod_power_replay_set_pseudo_vtotal(mod_power, stream, 0);
-   683	
-   684		//If timing_sync_status change, then re-enabled set timing_sync_supported value and re-enabled replay
-   685		if (current_timing_sync_status != link->replay_settings.config.replay_timing_sync_supported)
-   686			mod_power_replay_set_timing_sync_supported(mod_power, stream);
-   687	
-   688		if (link->replay_settings.config.low_rr_supported) {
-   689			sink_duration_us =
-   690				(unsigned int)(div_u64(((unsigned long long)(coasting_vtotal)
-   691					* 10000) * stream->timing.h_total,
-   692						stream->timing.pix_clk_100hz));
- > 693			low_rr_active = sink_duration_us < LOW_REFRESH_RATE_DURATION_US_UPPER_BOUND ? false : true;
-   694			if (low_rr_active != link->replay_settings.config.low_rr_activated) {
-   695				mod_power_set_low_rr_activate(mod_power, stream, low_rr_active);
-   696				link->replay_settings.config.low_rr_activated = low_rr_active;
-   697			}
-   698		}
-   699	
-   700		// The function return fail when
-   701		// 1. DMUB function is not support (for backward compatible).
-   702		// 2. active_replay_events or coasting_vtotal is not updated in the same time
-   703		if (!mod_power_replay_set_power_opt_and_coasting_vtotal(mod_power,
-   704			stream, active_replay_events, coasting_vtotal, is_ultra_sleep_mode, frame_skip_number)) {
-   705			if (!mod_power_replay_set_power_opt(mod_power, stream, active_replay_events, is_ultra_sleep_mode))
-   706				return false;
-   707	
-   708			if (!mod_power_replay_set_coasting_vtotal(mod_power, stream, coasting_vtotal, frame_skip_number))
-   709				return false;
-   710		}
-   711	
-   712		mod_power_set_live_capture_with_cvt_activate(mod_power, stream, is_video_playback);
-   713	
-   714		mod_power_update_error_status(mod_power, stream);
-   715	
-   716		// If Replay is going to be enable (No matter is disable -> enable or enable -> enable), we don't need to wait.
-   717		// If Replay is going to be disable
-   718		//     if disable -> disable
-   719		//         -> Replay DMUB state should be state 0.
-   720		//            So no matter wait_for_disable is true or not, it should makes no difference.
-   721		//     if enable -> disable -> We should wait if wait_for_disable is true.
-   722		if (replay_active_request)
-   723			wait_for_disable = false;
-   724	
-   725		if (!mod_power_set_replay_active(stream, replay_active_request, wait_for_disable, force_static))
-   726			return false;
-   727	
-   728		return true;
-   729	}
-   730	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Thanks,
+Charles
