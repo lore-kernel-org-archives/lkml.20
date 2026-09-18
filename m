@@ -1,241 +1,69 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D3723B7B7F
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 02:04:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E04FF3264C7;
+	Fri, 18 Sep 2026 02:04:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789697072; cv=none; b=lxJxvEwAXdl61IIH3NvlWwm3Ucv1p4AcwSJzlHao1F8KwSaMLSu0pG9MTi+k12E5wd/vf3rSC0bv3cw5XuzEuzQMld7xyp35mj/h6VH7TSYL3WQlWR4NxdWYVB7Q3oCaSF7iFi5TI7JRgXYkzQzgQEY3Ovp8caGAYPh2JM8pK6I=
+	t=1789697097; cv=none; b=OV3sHORAGeVkrSaIU7STMY3dP/uuJJd7JalXu2k35GiUWwzItIxjl4/8yIUucSGhtnq40qvFNXXZUzc2QZeNfUjoVn21vd5gQRuCd1+rGnkJIbtVDc1mDFdmd9+qhHReSgtnddL0oA6EON0ads3r6wx79E+Y77bfACqy2hdm1EU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789697072; c=relaxed/simple;
-	bh=UkhzmiDRxOJm/KkY5kZc/kXeWdTV119sUKWsG2ZBJ0c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HOlElBHoCkPf6DdwNikTZ529t5nEpq3bymf81xuTbk4Ne2WQ3MwvVLudyTgyBie87DZuejYQy14iMiaw7t1EimFbX9oCFd/v8vYW3Sh6Awyrua/ek9v1/0wm+Bixds8O3reEHUVgNswUqBwXFoCj8HFGGLRohuuk13tTIFmpYws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jELWBBhT; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789697097; c=relaxed/simple;
+	bh=b8J32IclhFRZKEhYc2Ax/YbbycCEXO/fQlcEXh8IGRQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uaP/hQju8GHNSV1xU0pTgIVvVpNt/U8IkT5KPWxlLxrxh/eAVFlB2tt24j8M1TgwXnuCjb4eA1oBZ1IZD4yYMJd0MsKp1K5AA3w+EoBylIP0ZnX/QLnkQWoVxXXz4wmjAHG0L7g8c9C1rsAtMb6LVPBqaA2tHFZMETrKJCberK8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=YWRDsWHL; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jELWBBhT"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-8674704dab1so417228b3a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 19:04:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789697065; x=1790301865; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=k+ZmYKPJxwk4ppbLxhtM923pOwtZYQbBQl5io1pIn2g=;
-        b=jELWBBhTNaYxjuEQzafD4ICzvqECtnk5UIDQH4e1cHpg3oae9s1iqZ8TW3gIlQeRkH
-         JPLeYQQAzw6p5K3xcxHKhGxI1JBzfTD5mkOCI+GwtmoQihOTk3EXvqgcsRo0IZ8cEf/K
-         KbeZ47H/kfeGbIDYE1AKVB2X/Q69zqb9+zCX2a02ISI40CVB+Cv+rKTPWCi5EVXimJLX
-         +kNn1HGluS83//RngeWft3BO0fbPU/WIAanciH7s5cAVGMypvmc8lJashoE3Xxulttqq
-         7NLhop9JRcVxHrI0yqEOjRXgqIrBFLLn0efVA8Dlxrz3OqeY+h6zHkAp+8H5K0+O/E4F
-         RRyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789697065; x=1790301865;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=k+ZmYKPJxwk4ppbLxhtM923pOwtZYQbBQl5io1pIn2g=;
-        b=OWgU0ylEHQPGp9N2rDudsFLwvgdbiaWGQIZ6NFtW1N6Cd1SxgtnRY4yXsGnSQmvcKW
-         Nwm8VmL+afbBjvGwwcroftnVNjwND5KT+CcdcZCsnRVuTkPdeuP4skjldjmzR8OmveCo
-         GL5HfHvB9AiBvAjWV8gKC20TTj/hnW+DC07PmZChDH47Bn3AChtrx7h6fM08nnwl+Vg4
-         GLCr0V81a4fNhT4oobpa0Vto82iowQCRqKgeXarQ3MhW7FEkUbGvw1/R1H+zlzQDPO0v
-         5AsAMtVAAxAAy6b8Lvr1sCnvx76DSFWl6nu+KOuu33L8EObPdtmcpMntRAwQPhUjVAA6
-         J3iw==
-X-Forwarded-Encrypted: i=1; AKwUvBymdUUDKpIEghC0Y6+NL1ym8j9A9n0NrhOq1KpPko+0Sd3xa5h0Gs4d9bfLA3ZWgxaw/QmJd1LGEZQH3tc=@vger.kernel.org
-X-Gm-Message-State: AFuF++m++2BXFFbtrSE843L8WhJiW5FcOwGwYDB3SukGAcgP9YQamkfM
-	TAlyeWPg60KqS67l7PoHOk+0hADBorLKgYzXaa9Gu+7/stq/AVRmn/iq
-X-Gm-Gg: AYBFou37+4CYMt8GKBsSxInifNi130WL6be+wW0Ls5jmOZQ2/vGRcQLE3xrJ+F9MV+j
-	0fXomOTvxltPOGonM05a/adByOjRFhyOKZA3yMmR19fQqpgW59YIbgRxt4lXPaaVhEox6QcG+zk
-	WMhmPx6pxSTsphqNQFxuD9awcN6RPR1mlNnSHe9ryqLvj68FBrb9ZX4dd+u+vo+RTIIXgLvK2cD
-	z7ln75sh9IpyPCrugv1xx3nGH3kf6nXYUMzlM6hUIRJyyQVOfSTeLarx82FOs+QMEPvuWGenrlg
-	kJDQ67PpsTECyoL/s8MowSSeFP9oFyp+ex25ibZbbxIPAzxk9PurHnn3fDP0WhJOzYBxEtxBOeE
-	LGXcWh0ibkoSU3FedtGdntJvHOlzdcLGaf4tIKmjrYp+BLB5kW9oLBvAgneWnfu8cOx7LKfqhjq
-	9Db/vMHPXR/z7BZLiPp04N1cEgCED6JmICZ1Chv6+zPqMjQaLmdMGkcKGnuAL9MH8UTv6p3DNyD
-	6e69WpXl6f/mbDZkiuHn3glypCgfmNsujFMkWM=
-X-Received: by 2002:a05:6a20:c989:b0:3dd:85aa:4532 with SMTP id adf61e73a8af0-3dd8c5eaf0emr1932234637.36.1789697064675;
-        Thu, 17 Sep 2026 19:04:24 -0700 (PDT)
-Received: from localhost.localdomain ([2409:8a1e:2e81:7320:79ca:7a54:4576:24ac])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c2890b915sm136049eec.30.2026.09.17.19.04.21
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 17 Sep 2026 19:04:24 -0700 (PDT)
-From: zjamg <ndaugoing@gmail.com>
-To: David Heidelberg <david@ixit.cz>
-Cc: Christophe Ricard <christophe.ricard@gmail.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	oe-linux-nfc@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yuchao Zhang <ndaugoing@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/1] nfc: nci: do not process unexpected or invalid CORE_CONN_CREATE_RSP
-Date: Fri, 18 Sep 2026 10:04:12 +0800
-Message-ID: <20260918020412.82878-2-ndaugoing@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260918020412.82878-1-ndaugoing@gmail.com>
-References: <20260918020412.82878-1-ndaugoing@gmail.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="YWRDsWHL"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=LHUx2/wvX7FJ+93KxwZ/dGo27LKl6yUoLqN/CHdjTUo=; b=YWRDsWHLXXdbG5cdBbrcrFLUGu
+	rIK5D1Qbxs1H1C/9BHoMa01sA58ve6+Fbid2IP0rwPQfr8aVN8jrfQQmxbsW1ry8U2A+SYujnc/Ag
+	ugTmU+iiiNDZ7K1UyGiDTquAADcho+EfxG12pWG8mF898sljXws73c+uGax7D9KTRzno=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x7Nxw-005meW-Lp; Fri, 18 Sep 2026 04:04:40 +0200
+Date: Fri, 18 Sep 2026 04:04:40 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Aleksei Sviridkin <f@lex.la>
+Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, hkallweit1@gmail.com,
+	linux@armlinux.org.uk, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+	olteanv@gmail.com, Thangaraj.S@microchip.com,
+	UNGLinuxDriver@microchip.com, steve.glendinning@shawell.net,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v8 1/4] net: usb: lan78xx: register the PHY interrupt
+ with the MDIO bus
+Message-ID: <df5d4af1-a86a-4820-9aeb-b1449a60f37e@lunn.ch>
+References: <20260918015029.2518425-1-f@lex.la>
+ <20260918015029.2518425-2-f@lex.la>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918015029.2518425-2-f@lex.la>
 
-From: Yuchao Zhang <ndaugoing@gmail.com>
+> -	/* if phyirq is not set, use polling mode in phylib */
+>  	if (dev->domain_data.phyirq > 0)
+> -		phydev->irq = dev->domain_data.phyirq;
+> -	else
+> -		phydev->irq = PHY_POLL;
+> +		dev->mdiobus->irq[phydev->mdio.addr] = dev->domain_data.phyirq;
+> +
+> +	phydev->irq = dev->mdiobus->irq[phydev->mdio.addr];
 
-When an NCI_OP_CORE_CONN_CREATE_RSP packet is received,
-nci_core_conn_create_rsp_packet() parses it and creates a logical
-connection entry in ndev->conn_info_list.
+This line is redundant, given how phylib works.
 
-However, nci_core_conn_create_rsp_packet() suffers from several issues:
-1. It does not verify that a connection creation command is currently
-   pending. An unsolicited or delayed CORE_CONN_CREATE_RSP packet
-   unconditionally creates a rogue connection and calls
-   nci_req_complete(), prematurely completing unrelated in-flight
-   requests.
-2. It lacks bounds checking against sizeof(struct nci_core_conn_create_rsp)
-   for the packet payload, leading to potential out-of-bounds reads.
-3. It does not validate rsp->conn_id. Dynamic logical connections
-   assigned by the NFCC must not use NCI_STATIC_RF_CONN_ID (0x00) or
-   collide with any existing connection ID.
-4. It inserts the new connection at the head of ndev->conn_info_list
-   via list_add(). Because connection lookup (e.g. in nci_tx_work() and
-   nci_data_exchange_complete()) uses first-match semantics, prepending
-   allows a newly created connection with a duplicate ID to shadow the
-   static RF connection or earlier connections.
-   Furthermore, ndev->hci_dev->conn_info is mistakenly updated even
-   when the destination type is not NCI_DESTINATION_NFCEE because
-   cur_params.id and nfcee_id both default to 0.
+>  	netdev_dbg(dev->net, "phydev->irq = %d\n", phydev->irq);
 
-Fix this by:
-- Adding an NCI_CONN_CREATE_PENDING flag in enum nci_flag to track
-  in-flight connection creation commands, and rejecting unsolicited or
-  delayed responses.
-- Adding packet length verification before reading payload fields.
-- Rejecting responses that allocate NCI_STATIC_RF_CONN_ID or duplicate
-  existing connection IDs.
-- Appending new connections with list_add_tail() instead of list_add().
-- Restricting ndev->hci_dev->conn_info assignment to NFCEE destination
-  types.
+So maybe change this line?
 
-Fixes: 736bb9577407 ("NFC: nci: Support logical connections management")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yuchao Zhang <ndaugoing@gmail.com>
----
- include/net/nfc/nci_core.h |  1 +
- net/nfc/nci/core.c         |  2 ++
- net/nfc/nci/rsp.c          | 37 ++++++++++++++++++++++++++++++-------
- 3 files changed, 33 insertions(+), 7 deletions(-)
-
-diff --git a/include/net/nfc/nci_core.h b/include/net/nfc/nci_core.h
-index 664d5058e66e..a4652ffc173d 100644
---- a/include/net/nfc/nci_core.h
-+++ b/include/net/nfc/nci_core.h
-@@ -31,6 +31,7 @@ enum nci_flag {
- 	NCI_DATA_EXCHANGE,
- 	NCI_DATA_EXCHANGE_TO,
- 	NCI_UNREG,
-+	NCI_CONN_CREATE_PENDING,
- };
- 
- /* NCI device states */
-diff --git a/net/nfc/nci/core.c b/net/nfc/nci/core.c
-index 5f46c4b5720f..b5fa17f0524e 100644
---- a/net/nfc/nci/core.c
-+++ b/net/nfc/nci/core.c
-@@ -134,6 +134,7 @@ static int __nci_request(struct nci_dev *ndev,
- 	}
- 
- 	ndev->req_status = ndev->req_result = 0;
-+	clear_bit(NCI_CONN_CREATE_PENDING, &ndev->flags);
- 
- 	return rc;
- }
-@@ -709,6 +710,7 @@ static void nci_core_conn_create_req(struct nci_dev *ndev, const void *opt)
- {
- 	const struct core_conn_create_data *data = opt;
- 
-+	set_bit(NCI_CONN_CREATE_PENDING, &ndev->flags);
- 	nci_send_cmd(ndev, NCI_OP_CORE_CONN_CREATE_CMD, data->length, data->cmd);
- }
- 
-diff --git a/net/nfc/nci/rsp.c b/net/nfc/nci/rsp.c
-index b0ab4f5acbce..a56a7392ab5e 100644
---- a/net/nfc/nci/rsp.c
-+++ b/net/nfc/nci/rsp.c
-@@ -305,15 +305,37 @@ static void nci_nfcee_mode_set_rsp_packet(struct nci_dev *ndev,
- static void nci_core_conn_create_rsp_packet(struct nci_dev *ndev,
- 					    const struct sk_buff *skb)
- {
--	__u8 status = skb->data[0];
- 	struct nci_conn_info *conn_info = NULL;
- 	const struct nci_core_conn_create_rsp *rsp;
-+	__u8 status;
-+
-+	if (skb->len < 1)
-+		return;
- 
-+	status = skb->data[0];
- 	pr_debug("status 0x%x\n", status);
- 
-+	if (!test_and_clear_bit(NCI_CONN_CREATE_PENDING, &ndev->flags)) {
-+		pr_warn_ratelimited("unexpected CORE_CONN_CREATE_RSP\n");
-+		return;
-+	}
-+
- 	if (status == NCI_STATUS_OK) {
-+		if (skb->len < sizeof(*rsp)) {
-+			status = NCI_STATUS_SYNTAX_ERROR;
-+			goto exit;
-+		}
-+
- 		rsp = (struct nci_core_conn_create_rsp *)skb->data;
- 
-+		if (rsp->conn_id == NCI_STATIC_RF_CONN_ID ||
-+		    nci_get_conn_info_by_conn_id(ndev, rsp->conn_id)) {
-+			pr_warn_ratelimited("invalid or duplicate conn_id 0x%x\n",
-+					    rsp->conn_id);
-+			status = NCI_STATUS_REJECTED;
-+			goto exit;
-+		}
-+
- 		conn_info = devm_kzalloc(&ndev->nfc_dev->dev,
- 					 sizeof(*conn_info), GFP_KERNEL);
- 		if (!conn_info) {
-@@ -339,21 +361,22 @@ static void nci_core_conn_create_rsp_packet(struct nci_dev *ndev,
- 		 */
- 
- 		INIT_LIST_HEAD(&conn_info->list);
--		list_add(&conn_info->list, &ndev->conn_info_list);
-+		list_add_tail(&conn_info->list, &ndev->conn_info_list);
- 
--		if (ndev->cur_params.id == ndev->hci_dev->nfcee_id)
-+		if (conn_info->dest_type == NCI_DESTINATION_NFCEE &&
-+		    ndev->cur_params.id == ndev->hci_dev->nfcee_id)
- 			ndev->hci_dev->conn_info = conn_info;
- 
--		conn_info->conn_id = rsp->conn_id;
- 		conn_info->max_pkt_payload_len = rsp->max_ctrl_pkt_payload_len;
- 		atomic_set(&conn_info->credits_cnt, rsp->credits_cnt);
- 	}
- 
-+	nci_req_complete(ndev, status);
-+	return;
-+
- free_conn_info:
--	if (status == NCI_STATUS_REJECTED)
--		devm_kfree(&ndev->nfc_dev->dev, conn_info);
-+	devm_kfree(&ndev->nfc_dev->dev, conn_info);
- exit:
--
- 	nci_req_complete(ndev, status);
- }
- 
--- 
-2.53.0
-
+	Andrew
