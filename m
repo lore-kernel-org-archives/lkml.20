@@ -1,329 +1,142 @@
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 485E63B19C2
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:26:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789712789; cv=none; b=Pm9oE/9kY8Y7odoSIE4YUHwA27heRJh0c2nnCWJyMZ/XyjRZs2IyVG9d7cOKyx4nZqZGPaJ3a7bWaW/oHxP5GUYY7GWYbWpCj3x1b/5KvK8ntNBj3iNMKo22FD9EaGDcfHE/z8NmevpNVMErhN78HH7WnA+ZFg5IEGAXmIEvGo0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789712789; c=relaxed/simple;
-	bh=xQRWzj5Fu19D3vhZlPB3KeKBzKXeDse3MTAZQAQ/++g=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=m/8Oarci8fJkMHB3dQKC/KNQnAU/e5dojo7moWTppFRgCZAhNLjkOCH2f10bCdm/2joQdnvncFvw0SaohGj230smoYExT2tmRcRqs8cSSu/b/qSySYOVIlaN5WT3i1NaXcfd2Y0dJ7TQTOWnJFRnxppw0UrVBkxuQATzaGmgSMs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=fSjPrjs6; arc=none smtp.client-ip=209.85.216.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75AB1488DAF;
+	Fri, 18 Sep 2026 06:26:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.185.170.37
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789712819; cv=pass; b=RoyvUhojZMEz7APHhhc6WASA9TjYSNG8zNNHEu67ELfv89HLp7RcY4IgxMSMt8w/5EaxuMk69iMn+QXUSvaRpv6dRHGMdYnnmJUlc4K8zPR/SoEHJx8R683bKIEmO7INpP+OgYXk3eVmBELSItOhiF7KYHCDCIKjC5sURFrvBTE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789712819; c=relaxed/simple;
+	bh=LP0IIN7pY003UkA/8lpEQmNYH2LWWi0j/4H3NIKqHkw=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=Nzefzf4X4oAYWl818m5j5wfDJgew3F+5UXo4BuC1Ao4+wEmTjXnp5CDX8QgrQ/XKYNYdYHs+2UXpqbiV5L9PjUW6Cs/O1bEWfCzbCK5TGglTqnOiWNiehg8goJiocJcAOf23+WWpLFvXtKwwvQng/c50ez1V//O92RKHv4n94mU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b=EtD36l/z; arc=pass smtp.client-ip=185.185.170.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="fSjPrjs6"
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-39deb05ef51so706817a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 23:26:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789712788; x=1790317588; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6tCF6WJ2WJS1iG2OvyI+viXS+7wGZJUXbwcD+A23+n0=;
-        b=fSjPrjs6TQ6DB0rA0C+aal55VCyrev2n6Sv+6LIJfs8HXOGsL5UrhHV3eVr20XoXBz
-         hOpMBM6eEL7lTgZcS7udN5doV+I+JsraYOzQQ3zX8QZRMy39A4IUI4VwxLwJC6dI6+wQ
-         eesoH77wXJ7gT5NuRV/FP0XIsAuP7LdloEf9ktdzhOBo0Cj5pklQcLgrczX+YLKQRKkM
-         tm3Pz08OKzsQQr90+CNWWmZIEWsEa7XfPPZB7MNwle0KKllBJRmQ/pdrcwwOHaUU9KpV
-         ZK/5szAkIIiYfYJCelpQYSp7pCLGyujLnTbiqzg/CW9Un2qfOZUiyAz/q9orU1esZtRr
-         ObgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789712788; x=1790317588;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6tCF6WJ2WJS1iG2OvyI+viXS+7wGZJUXbwcD+A23+n0=;
-        b=1xlUBrRHyE0okAKb0Agtkqz5MrG74wc19+6v9zuHJ9mf8zeLKj5eTRjsxFpkA222Lt
-         l9MyI4s1aiIwNH5oIu6cqfSjP2Vwvzg83xQUjAjPEhYzfRWDP1cYHtl99K6ojt0UN5hX
-         RkMbM9x18QgjnZaiCsubPM43LGKo2Ef+sB+LDXN60hyrH6B72ypVd6EZ89MlOIJ4d6y4
-         vomQrqmir9+/vnXdkZjS5quoo6sJD8jSIZlob31k3pbbuFztQN7SXP4AFuXXiOx1hgmF
-         vOsnt/wJJlEj4L13Wei5mZwn0VysXaT6Px6lLV2G/74SBCUJ+Pv1EtSc1w2oU0VmjYrh
-         6fIQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwEe4NEP0pfp+wctCzClqRy35sbWwE1UHDHDFyqTglf82EaZJ+kO7m65nmImandel4pOufu3vwXMDWObzc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kjGO7CUNlHYSizRPBkZdnYbstgFxA1qlEHVBHnDvkyscKRkINM
-	fnSaTofc7eRJujmTRYXzWyDgSc5O6hcqHP6vVK5cVqHJkOklg7vIl8VD/vn4fUSg7UhqU0Mv5JY
-	oe4KymUokIA==
-X-Received: from dlae20.prod.google.com ([2002:a05:701b:2314:b0:143:7cf0:d45a])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:3b4b:b0:39d:f66e:1720
- with SMTP id 98e67ed59e1d1-39e54eaf13cmr4664801a91.13.1789712787401; Thu, 17
- Sep 2026 23:26:27 -0700 (PDT)
-Date: Thu, 17 Sep 2026 23:26:20 -0700
+	dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b="EtD36l/z"
+Received: from fauth-c1-smtp.messagingengine.com (fauth-c1-smtp.messagingengine.com [204.75.18.200])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: jmtilli)
+	by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4hmN216ld9z49Q3t;
+	Fri, 18 Sep 2026 09:26:49 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
+	t=1789712810;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SbGB/4hNeZUFNX6/pPlJdv0sQED8O6qK3gQGbfLFPKo=;
+	b=EtD36l/zfEmUzxZS6akl1aci/5CgdkqcosNdYxf3qz7AnJIXazparbRx+TSqn54LS5L1SV
+	/oWQAgT3Urc1VMZ3U9G5YLiwiY1xcJlln6mb2mne1G5Aos4GQ+wN3iX6xwzXo1GTwAKC4O
+	JbWawgiSxS/E+Cev4sx1hNRO6N36uctkGNzOh2JXYwmMWIOy9iVjPZ8GQQVBd6Pigpmfgb
+	5qeYQCiRrxAEOLubAcIa4v285Z9SA6Zdqv/CtfNgWcLJLF1EWSBPwh+xL57Q6u8Xu+WGxz
+	LfHw2/HShIv/MdLo0HpTquBy396VDkg9Zy9/TsgAZvKD9e736UMJq9L4wKszdA==
+ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=lahtoruutu; cv=none; t=1789712810;
+	b=EBK1LCwv4Ct6Tdg/SGOpQVFqhYUg9xDRTiZjkGz//Y4fmOtgxNjgCN/F4zE3H8JqsWEuSB
+	MxV58PBPrAJeIojeSsyekKkJMHAvnZKrXhCRVODIjIz/fiV/5CNp11M0eOxOH6hHk5Rh7D
+	NYHs20t9mJ2O0hYrDy3mjc/2KHcZoFKOtzPZpD4dVUucWKVfbSlSiAfKULXfpGGE5cg6D6
+	/QuJMyTbF4sXUJrcwjm91VhPSEqf91/KTlxx96AJoYffMwd+IObvvsudMmhoTyw911E703
+	Obmw3j7VQE1KEWFBINuIhktOZ3pnqTwVK5I3CQRpDGUub/apaI5kwRBhbWNSgQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
+	s=lahtoruutu; t=1789712810;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SbGB/4hNeZUFNX6/pPlJdv0sQED8O6qK3gQGbfLFPKo=;
+	b=AtwzFY3275Eb2GaABkhTTHMvQu57UbZUCfEL/NYpdDNdDCBcvIK1/cCR30+zP3wNp+ifIv
+	PriVco4ohXKNoZ76ybrQciZcVLoPc+OD9VSXGa9u94LB6QwtLEAsRKOYdkNS/dAfngPpqn
+	WCS6mYgAD/PXnh8wvwELrcpN6wXnZ9+eiepJw+m1R15zUcecYyi1SMaqp5DTgR+8GCd3i2
+	DTFTv9V7I/NDhfHIk/1ME+fyvzqOmvhJj8EtxG9j4pWxkPVu9+gUoJApkB9tY1izVfcl1P
+	vaDSZEge3GWXUbWoUMZsj95tY9WVOZ8Acglx0DQ7kGTNebtz1ytOPvqMpMaIdQ==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=jmtilli smtp.mailfrom=juha-matti.tilli@iki.fi
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id A31C8198003A;
+	Fri, 18 Sep 2026 02:26:48 -0400 (EDT)
+Received: from ams-imap-13 ([10.64.2.33])
+  by ams-compute-02.internal (MEProxy); Fri, 18 Sep 2026 02:26:48 -0400
+X-ME-Sender: <xms:pdmsahWJdmupBtcwACxHjr-e6uQgIh0-Y1wyAfksKZ9598zNAXIBNg>
+    <xme:pdmsasYPjLGqkqre6F3h7PTmk-EbE80w96uH9LdwxMxHsyrwf1Fslrwcko9NVzGGM
+    65-ryFnEKAvA5Qfh09EKW0FXBF8a3P_UJjxHPjAYVJrG5rm7Ndh-QYY>
+X-ME-Proxy-Cause: dmFkZTFbGgTFyzr43rklC79WMROH2XMGgfTXx9kUipHZMopomzGpZPM3/OWscnMHveFvKL
+    R8IddKqeOBIwxn0zXVt54zj/dE2h59NlPXjdcnHs2T+QA09up05hhLzn0p7k7DjFiwq6v2
+    S4C6lWzDYrJwwEV+5FajmR712RM88E7UrJ2ngdpLy6/Ac0ILSZ2wPcHLjYu6fWPoxmqK8h
+    qTgqrFmNiE+6lolgVqLAnT2zoQXC8Fh28XdzDCavOGyyBIxZs8J362URMiHzLJ7PBBrCbj
+    jf7CH7mf1GC/LwtdV7wIhFFD9eYj/ek58uMz5AE6h9xyIG7K5yyLcbM/PfNoIqndAaSyWG
+    97SsgZhI60ri6+0JjxG8OBtIVUbYwYxsw+xIvwe0yzsvrLbqWYZqiT9tgwyuibxFu+NM/A
+    nLDyJspmmXH4Pf1YdKI6JLfm573MrZNG18zUftSBURUOkA+RDYtdJvLJyVOOVjBL34jwc4
+    wm4ij2gtDgrh6izFrPXvb78JHXf3PF2rkfZbJCeXYv9ULfeVxQxk33NKu4/ohXsq2luPRi
+    XpHUmfy3Z+Eec2DxMrDWIAptwq0MepuU/rzsVzICnw+FxZrgO4WqP6ZHMYXiLPgsrgLS0e
+    XeZtpn7w7qxnCK0E4fu4jpdHMxacuMOdCIVRqB6YtPU8JxKDUx+qmLnh7ytQ
+X-ME-Proxy: <xmx:qNmsaiL2T51LXhbS8udNAUIs5Rlw4Kk7jfadcPhQ_oUfZXl8anQjkQ>
+    <xmx:qNmsarxfT0uT2HLBEq52irqQsqKrqtfIxAcooXUgIyeM_buikAnVeA>
+    <xmx:qNmsamyQ4BBP29gNNi-pzXRYS5GOxQLdbyqX1ZI2J0ZfTv_ppyCnPQ>
+    <xmx:qNmsat0sAIPIw_XWTdcaXQjsI42lXUd4LBWgcSiJXgfZ-IGf_C6UOw>
+    <xmx:qNmsaoVEGL9yWvRgP115kx1g9TnPAY1y3CBsL-KtqO7h2dWL3OLoQAmX>
+Feedback-ID: i02414972:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 73B87F80091; Fri, 18 Sep 2026 02:26:45 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260918062620.2145220-1-irogers@google.com>
-Subject: [PATCH v1] perf machine: Add session back pointer to fix out of
- bounds read
-From: Ian Rogers <irogers@google.com>
-To: Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Ian Rogers <irogers@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+X-ThreadId: A2KHHV_FOEKJ
+Date: Fri, 18 Sep 2026 09:26:24 +0300
+From: "Juha-Matti Tilli" <juha-matti.tilli@iki.fi>
+To: ath11k@lists.infradead.org, ath12k@lists.infradead.org,
+ mhi@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+ "Manivannan Sadhasivam" <mani@kernel.org>,
+ "Jeff Johnson" <jjohnson@kernel.org>
+Cc: "Jeff Hugo" <jeff.hugo@oss.qualcomm.com>,
+ "Bjorn Andersson" <andersson@kernel.org>,
+ "Konrad Dybcio" <konradybcio@kernel.org>,
+ "Eric Dumazet" <edumazet@google.com>,
+ "Kuniyuki Iwashima" <kuniyu@google.com>, "Paolo Abeni" <pabeni@redhat.com>,
+ "Willem de Bruijn" <willemb@google.com>,
+ "David S . Miller" <davem@davemloft.net>, "Jakub Kicinski" <kuba@kernel.org>,
+ "Simon Horman" <horms@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-wireless@vger.kernel.org, netdev@vger.kernel.org,
+ "Mihai Moldovan" <ionic@ionic.de>, "Denis Kenzior" <denkenz@gmail.com>
+Message-Id: <98cc01fd-0df0-46ee-b27f-2556a577a5a5@app.fastmail.com>
+In-Reply-To: <20260915074135.2567411-1-juha-matti.tilli@iki.fi>
+References: <20260915074135.2567411-1-juha-matti.tilli@iki.fi>
+Subject: Re: [PATCH v4 00/12] ath1{1,2}k: support multiple PCI devices in one system
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-thread__e_machine_endian() decides whether a thread is live, and so
-whether to read /proc/pid/exe rather than fall back to the perf.data
-environment, by recovering the session from the machine:
+On Tue, Sep 15, 2026, at 10:41, Juha-Matti Tilli wrote:
+> Hello,
+> 
+> As you may well know, multiple identical ath11k and ath12k devices are
+> not supported in a single Linux host because they use conflicting QRTR
+> node IDs. Fortunately, Denis Kenzior created a patchset to support
+> multiple QRTR endpoints with identical node IDs, and Mihai Moldovan
+> refined it, after which I took over the patchset and refined it more.
+> 
+> Mihai Moldovan also created a patchset for actually adding the support
+> for this QRTR multi-endpoint feature to ath11k and ath12k drivers.
+> Unfortunately, the code of Mihai was not merge-quality, since it leaked
+> memory if you ran rmmod and modprobe inside a loop. Mihai mentioned this
+> drawback, without providing an API for deleting endpoints or usage of
+> such API in code that's responsible for freeing resources. Also Mihai's
+> patchset had a race condition.
 
-	session = container_of(machine->machines, struct perf_session,
-			       machines);
-	is_live = !session->data;
+Hello,
 
-That only holds when the struct machines is the one embedded in a struct
-perf_session. It is not the only one. aslr_tool keeps its own in struct
-aslr_tool, and hists_cumulate, hists_filter, hists_link, hists_output
-and thread-maps-share each put one on the stack. For those the
-container_of subtracts offsetof(struct perf_session, machines) from an
-address that was never inside a session, and the following load of
-session->data reads outside the object, which is what ASan reports.
+Some positive news. There will be no next version, as Qualcomm is going
+to provide a superior patchset that I tested. It's easier to backport,
+cleaner design, fewer lines changed, has 1 author as opposed to 3, and
+most importantly, it worked just fine on my 2x card setup. 
 
-Replace the derivation with an explicit link. machines__init() takes the
-owning session, or NULL when the machines is standalone, and
-thread__e_machine_endian() reads it back through machines__session().
+Thus, I'm going to abandon this patchset.
 
-A NULL session is treated as live. The tests use synthetic pids that
-have no /proc entry, so the read fails there and the e_machine falls
-back to EM_HOST as before, rather than being decided by whatever the
-out of bounds read happened to return. perf inject registers its
-session with the aslr tool once the session exists, before any event is
-processed, so that tool keeps reporting file based threads as not live.
-
-Fixes: 70351029b556 ("perf thread: Add support for reading the e_machine type for a thread")
-Assisted-by: Antigravity:gemini-3.1-pro
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- tools/perf/builtin-inject.c          |  3 +++
- tools/perf/tests/hists_cumulate.c    |  2 +-
- tools/perf/tests/hists_filter.c      |  2 +-
- tools/perf/tests/hists_link.c        |  2 +-
- tools/perf/tests/hists_output.c      |  2 +-
- tools/perf/tests/thread-maps-share.c |  3 ++-
- tools/perf/util/aslr.c               | 10 +++++++++-
- tools/perf/util/aslr.h               |  2 ++
- tools/perf/util/machine.c            |  3 ++-
- tools/perf/util/machine.h            | 10 +++++++++-
- tools/perf/util/session.c            |  2 +-
- tools/perf/util/thread.c             |  8 +++-----
- 12 files changed, 35 insertions(+), 14 deletions(-)
-
-diff --git a/tools/perf/builtin-inject.c b/tools/perf/builtin-inject.c
-index 70bbfad5653e..1446e5c0f63e 100644
---- a/tools/perf/builtin-inject.c
-+++ b/tools/perf/builtin-inject.c
-@@ -2880,6 +2880,9 @@ int cmd_inject(int argc, const char **argv)
- 		goto out_close_output;
- 	}
- 
-+	if (inject.aslr)
-+		aslr_tool__register_session(tool, inject.session);
-+
- 	if (zstd_init(&(inject.session->zstd_data), 0) < 0)
- 		pr_warning("Decompression initialization failed.\n");
- 
-diff --git a/tools/perf/tests/hists_cumulate.c b/tools/perf/tests/hists_cumulate.c
-index 9356451a172e..c4a11a3255bc 100644
---- a/tools/perf/tests/hists_cumulate.c
-+++ b/tools/perf/tests/hists_cumulate.c
-@@ -723,7 +723,7 @@ static int test__hists_cumulate(struct test_suite *test __maybe_unused, int subt
- 		goto out;
- 	err = TEST_FAIL;
- 
--	if (machines__init(&machines))
-+	if (machines__init(&machines, /*session=*/NULL))
- 		goto out;
- 
- 	/* setup threads/dso/map/symbols also */
-diff --git a/tools/perf/tests/hists_filter.c b/tools/perf/tests/hists_filter.c
-index f9eaa511487b..6c7e4cdc71a7 100644
---- a/tools/perf/tests/hists_filter.c
-+++ b/tools/perf/tests/hists_filter.c
-@@ -131,7 +131,7 @@ static int test__hists_filter(struct test_suite *test __maybe_unused, int subtes
- 		goto out;
- 	err = TEST_FAIL;
- 
--	if (machines__init(&machines))
-+	if (machines__init(&machines, /*session=*/NULL))
- 		goto out;
- 
- 	/* setup threads/dso/map/symbols also */
-diff --git a/tools/perf/tests/hists_link.c b/tools/perf/tests/hists_link.c
-index d88591bcbe50..cd32c8277627 100644
---- a/tools/perf/tests/hists_link.c
-+++ b/tools/perf/tests/hists_link.c
-@@ -303,7 +303,7 @@ static int test__hists_link(struct test_suite *test __maybe_unused, int subtest
- 		goto out;
- 
- 	err = TEST_FAIL;
--	if (machines__init(&machines))
-+	if (machines__init(&machines, /*session=*/NULL))
- 		goto out;
- 
- 	/* setup threads/dso/map/symbols also */
-diff --git a/tools/perf/tests/hists_output.c b/tools/perf/tests/hists_output.c
-index f58c8d18fe33..35d230a83e43 100644
---- a/tools/perf/tests/hists_output.c
-+++ b/tools/perf/tests/hists_output.c
-@@ -610,7 +610,7 @@ static int test__hists_output(struct test_suite *test __maybe_unused, int subtes
- 		goto out;
- 	err = TEST_FAIL;
- 
--	if (machines__init(&machines))
-+	if (machines__init(&machines, /*session=*/NULL))
- 		goto out;
- 
- 	/* setup threads/dso/map/symbols also */
-diff --git a/tools/perf/tests/thread-maps-share.c b/tools/perf/tests/thread-maps-share.c
-index 0431bff31b3a..4a0bbf715acb 100644
---- a/tools/perf/tests/thread-maps-share.c
-+++ b/tools/perf/tests/thread-maps-share.c
-@@ -27,7 +27,8 @@ static int test__thread_maps_share(struct test_suite *test __maybe_unused, int s
- 	 * other  group (pid: 4, tids: 4, 5)
- 	*/
- 
--	TEST_ASSERT_VAL("failed to init machines", machines__init(&machines) == 0);
-+	TEST_ASSERT_VAL("failed to init machines",
-+			machines__init(&machines, /*session=*/NULL) == 0);
- 	machine = &machines.host;
- 
- 	/* create process with 4 threads */
-diff --git a/tools/perf/util/aslr.c b/tools/perf/util/aslr.c
-index 027695d96779..76eba1a23bc7 100644
---- a/tools/perf/util/aslr.c
-+++ b/tools/perf/util/aslr.c
-@@ -1243,7 +1243,7 @@ static int aslr_tool__init(struct aslr_tool *aslr, struct perf_tool *delegate)
- 	delegate_tool__init(&aslr->tool, delegate);
- 	aslr->tool.tool.ordered_events = true;
- 
--	if (machines__init(&aslr->machines))
-+	if (machines__init(&aslr->machines, /*session=*/NULL))
- 		return -ENOMEM;
- 
- 	hashmap__init(&aslr->remap_addresses,
-@@ -1343,6 +1343,14 @@ void aslr_tool__delete(struct perf_tool *tool)
- 	free(aslr);
- }
- 
-+void aslr_tool__register_session(struct perf_tool *tool, struct perf_session *session)
-+{
-+	struct delegate_tool *del_tool = container_of(tool, struct delegate_tool, tool);
-+	struct aslr_tool *aslr = container_of(del_tool, struct aslr_tool, tool);
-+
-+	aslr->machines.session = session;
-+}
-+
- int aslr_tool__cache_orig_attrs(struct perf_tool *tool, struct evsel *evsel)
- {
- 	struct delegate_tool *del_tool = container_of(tool, struct delegate_tool, tool);
-diff --git a/tools/perf/util/aslr.h b/tools/perf/util/aslr.h
-index 522e31c8e2c0..9cc14f0263db 100644
---- a/tools/perf/util/aslr.h
-+++ b/tools/perf/util/aslr.h
-@@ -28,6 +28,7 @@
- 	PERF_SAMPLE_CODE_PAGE_SIZE | \
- 	PERF_SAMPLE_AUX)
- 
-+struct perf_session;
- struct perf_tool;
- struct evsel;
- struct evlist;
-@@ -36,6 +37,7 @@ union perf_event;
- struct perf_tool *aslr_tool__new(struct perf_tool *delegate);
- void aslr_tool__delete(struct perf_tool *tool);
- 
-+void aslr_tool__register_session(struct perf_tool *tool, struct perf_session *session);
- void aslr_tool__strip_attr_event(union perf_event *event, struct evlist *evlist);
- int aslr_tool__cache_orig_attrs(struct perf_tool *tool, struct evsel *evsel);
- void aslr_tool__strip_evlist(const struct perf_tool *tool, struct evlist *evlist);
-diff --git a/tools/perf/util/machine.c b/tools/perf/util/machine.c
-index a1288fbed833..1d9d3bf57720 100644
---- a/tools/perf/util/machine.c
-+++ b/tools/perf/util/machine.c
-@@ -233,10 +233,11 @@ void machine__delete(struct machine *machine)
- 	}
- }
- 
--int machines__init(struct machines *machines)
-+int machines__init(struct machines *machines, struct perf_session *session)
- {
- 	int err = machine__init(&machines->host, "", HOST_KERNEL_ID);
- 
-+	machines->session = session;
- 	machines->host.machines = machines;
- 	machines->guests = RB_ROOT_CACHED;
- 	return err;
-diff --git a/tools/perf/util/machine.h b/tools/perf/util/machine.h
-index 26f9827062f5..973a59f7c26a 100644
---- a/tools/perf/util/machine.h
-+++ b/tools/perf/util/machine.h
-@@ -15,6 +15,7 @@ struct dso;
- struct dso_id;
- struct evsel;
- struct perf_sample;
-+struct perf_session;
- struct symbol;
- struct target;
- struct thread;
-@@ -148,13 +149,20 @@ int machine__process_event(struct machine *machine, union perf_event *event,
- typedef void (*machine__process_t)(struct machine *machine, void *data);
- 
- struct machines {
-+	/** @session: back link to owning session if there is one. */
-+	struct perf_session *session;
- 	struct machine host;
- 	struct rb_root_cached guests;
- };
- 
--int machines__init(struct machines *machines);
-+int machines__init(struct machines *machines, struct perf_session *session);
- void machines__exit(struct machines *machines);
- 
-+static inline struct perf_session *machines__session(struct machines *machines)
-+{
-+	return machines->session;
-+}
-+
- void machines__process_guests(struct machines *machines,
- 			      machine__process_t process, void *data);
- 
-diff --git a/tools/perf/util/session.c b/tools/perf/util/session.c
-index a5b596cd14be..85ae20ccb489 100644
---- a/tools/perf/util/session.c
-+++ b/tools/perf/util/session.c
-@@ -161,7 +161,7 @@ struct perf_session *__perf_session__new(struct perf_data *data,
- 	session->active_decomp = &session->decomp_data;
- 	INIT_LIST_HEAD(&session->auxtrace_index);
- 	perf_env__init(&session->header.env);
--	if (machines__init(&session->machines))
-+	if (machines__init(&session->machines, session))
- 		goto out_delete;
- 
- 	ordered_events__init(&session->ordered_events,
-diff --git a/tools/perf/util/thread.c b/tools/perf/util/thread.c
-index f0d3773d87db..8b8ca94e89ea 100644
---- a/tools/perf/util/thread.c
-+++ b/tools/perf/util/thread.c
-@@ -531,12 +531,10 @@ uint16_t thread__e_machine_endian(struct thread *thread, struct machine *machine
- 		bool is_live = machine->machines == NULL;
- 
- 		if (!is_live) {
--			/* Check if the session has a data file. */
--			struct perf_session *session = container_of(machine->machines,
--								    struct perf_session,
--								    machines);
-+			/* Check if the session has a data file (assume no session is a test). */
-+			struct perf_session *session = machines__session(machine->machines);
- 
--			is_live = !session->data;
-+			is_live = !session || !session->data;
- 		}
- 		/* Read from /proc/pid/exe if live. */
- 		if (is_live) {
--- 
-2.55.0.1082.g2b9226bbc0-goog
-
+BR, Juha-Matti
