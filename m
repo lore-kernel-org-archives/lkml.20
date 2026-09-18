@@ -1,203 +1,177 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010013.outbound.protection.outlook.com [52.101.61.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25ABC519905;
-	Fri, 18 Sep 2026 18:09:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789754948; cv=fail; b=fzGXlDr2ePahakHq/FIO/qdVujDtuuwd3G4ehx67JK15A7Az9eQz22w8AamDbIt/plYqPO5Y6QuAV553KcrK93i3Nu3Ez86yIg0SaNQiMD+juuFLz83dYLmZOCR8wRWw43Pt5n6kzeZdpl7qzb3zX6rMNTQoExSR0OZQXHAS/5w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789754948; c=relaxed/simple;
-	bh=HzpIzenAX7CNaBEqYdky39pqaTon3FH5HvOUIR+4CzA=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=WjSCc8uQtzihIIjEsUBsBdZKs2J49isobzx11wJMl5n6EHKu6JqnApSAxNpHrxJDOG9+ERAu8TJask0OTEdId9+dZ4hOctFh1jPVUQCdZNWAE9097U95UeW+f/fMBs2FDVCfiE4AiBp/DwKz8vCatrKc5fDSPekJzMXqu40TjVM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=ixj5bkQo; arc=fail smtp.client-ip=52.101.61.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 071D947C108
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:10:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789755006; cv=none; b=Cw90AFDZ137Yo0yE8R3umJN17ktUkawKFjFZOp8KDdi6K2XUI29kIPzfcRrwhc3GwUL6PNe1PN2bHftUtLc194YJSfkV7WRe0Iktm24vnL3kCOB+dwvOj2TKVv9+jKXszcLS8hgcoyPKaPmTOm5Xy3XkDCGNUcZUiU7DAP54lbg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789755006; c=relaxed/simple;
+	bh=g2dDcbuELeoyq024UQ7gXyKl9zmzOJf9YkgYRJ77ljI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=nt0PdBwF16HNiO8uDlbGiEM3Qy5WA0MOPfj8HH1BGx/fcrPLu5cr/Rht80mk9g7GBJkLgJp6i5XJ4rJzNIaXB3HH+OdHSg+9jMKSHjP5s9ieAYxj7JX8c7cx/EZq2Tq9PffJw8zxiuz87w4sNizBJi0mrK9FnzfA8DpwDa+273w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YCwt6QFi; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="ixj5bkQo"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DJxbTzlxGfTjZR6bG3MYa7IuBq8M1524DckJpSb0932W3vPUxXfXNNEOscQ3z35AkOxktRhbxGKMuUzOyOM0coC+dDPPI7ruPMr0QOrXIvXQS9FUcI27NrEmfgCHcx5iAMw8jPdtvE/T2O7bsriIGudPj1vWvaO+oCk541UkiryuEDe3eRexyAMv94hBua3Tbp4bzcj1xrn+PTmaYH4mnFKZXlsGOF65iXIj4UFugme+Pu1LDwPFdEPdBSBHBrt7hFJzgiMaxNYdka/ek8iBtQrEriUipTMZJXfdSJ4XAXKZRkvzhKM/YTsZIq1sLAWWdZKDPxo9EIga9AU47mJJQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ddG3RTP/bSnQN7AKIWy4wCF6mKnjjbqAUmtagm1hGBo=;
- b=emLHPk4rTaG+eHf5oZO+sdjWG3FBZAx37TaajsjBmvyEXei3g2m5xDZtaF3dB1SMOvxm/toK5nEfI27McHRS9CzWmqaa710rwviVRiAJtyzArC2U2D0hyL0aKjnEdZW3IHLmsGu/doUswT7AHKIsfnMkYXKLpFi79OtGwNBwdgrPKVtb/lLJB1D4dZEummV2sxM8BiSkA/pnDHKhZWkCxTlAKi8OfP6pEyIIIQNuu9SckfNroUIv14KaSMp49nRzHTPJBio/qZr/oE2gkWO3aCWiIc7mzh/+8Usg95I/9469CSerVs9cLS2Mc6NNix/OhMJIhAORUaUDFfe5ZPaj5A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ddG3RTP/bSnQN7AKIWy4wCF6mKnjjbqAUmtagm1hGBo=;
- b=ixj5bkQoIM9qbAJ+EePAm10K5cRhFrhgTG17dCeqBsQTfGyl7QIGBYR2gIi6zXpBGsiTdR0WXsWt6BhMtggKHSGuHY3KUDqIJ9XcnvySvuoCA9BUNKacGPus7IRMJTqPx7DoU+0tfMOl9rUdMhXDzaYDiFhvxXHyxPzLBVTr3sc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
- by DS7PR12MB9551.namprd12.prod.outlook.com (2603:10b6:8:24f::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
- 2026 18:08:57 +0000
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8%3]) with mapi id 15.21.0428.008; Fri, 18 Sep 2026
- 18:08:57 +0000
-Message-ID: <18a8b7ee-d588-48be-bfe4-0b79309e3339@amd.com>
-Date: Fri, 18 Sep 2026 12:08:55 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Preserve eDP mode on initial ASSR
- failure
-To: Arthur Heymans <arthur@aheymans.xyz>, amd-gfx@lists.freedesktop.org
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com,
- michael.mityushkin@amd.com, nicholas.kazlauskas@amd.com,
- qingqing.zhuo@amd.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- "Zhang, George" <George.Zhang@amd.com>
-References: <20260912151137.3913987-1-arthur@aheymans.xyz>
-Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <20260912151137.3913987-1-arthur@aheymans.xyz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR03CA0154.namprd03.prod.outlook.com
- (2603:10b6:303:8d::9) To DM4PR12MB8476.namprd12.prod.outlook.com
- (2603:10b6:8:17e::15)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YCwt6QFi"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6598dd44so6046175e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:10:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789755003; x=1790359803; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LKlUeTgsUIfRI0atORsIxb1VqvMvzHxb6pWhQeWrV9k=;
+        b=YCwt6QFiHq+D4VlriQ8DmObjeX+q6E6ruhxqrOQsn3TUysH3VZ5pHMfAHVKEAn2RN3
+         xxGjUxmX7Wq3OFKNCu1WnPFEwWVtWr6+rC3UCtRgPqFfHM8ojV7ArlKfLe1TxWh1mlD+
+         jVj8grFgndB4n6pWStnfkGVZSlsekJh+NJJBsKgS02SUHsAvv3xAgOepqq9B/jqJGKFK
+         fj52b6NHXXxKggXPKVS26XI4ZO2g5r/jF2YOywYnFi+x5+jnob7eLPh+yZ+QEDznC5Sv
+         vr16Zk7HZPqRm9V15CxBBZhvVBDi55akhPKb2tVsEK8IF23CsTN1qo07am0YftgOC/vL
+         el/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789755003; x=1790359803;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LKlUeTgsUIfRI0atORsIxb1VqvMvzHxb6pWhQeWrV9k=;
+        b=wCAGEjrmcDS/E9urD7VkwGayFxPZ1tf5Mn4Q/YNObGUbBWIYvrgc+xh8Or3oOE7Btv
+         AZewsIJLAeJSCk9EHlYPJlIrwrkv72rz2rt1PhEKnWDAUgWgofYGI4Xt2JwRjCVEvLba
+         zxhsHL/FknA4vW/oS8D49/YzYHXhTxCIgjDkmqnIXNhG2xGZwp8va1qoTpIOJIxzIQDe
+         XgJpX2cJW75PbiF6aQEllcc2bxpXy+tzuQH/19Vvf+eX+gLcm+6u6QAA++IwvtfHLOi+
+         iPsbmaFBtmCCLeuu86eYKsGtKcmqYruLLXc/PJFwjQ6h3KICuP8mBU8LWNGmvNG2BWFQ
+         6YNw==
+X-Forwarded-Encrypted: i=1; AKwUvBytZdOz8s5FlxtF1GAuMzzSWQ+yBe7Bu4xHkumjL5cm9zQoX3WKK9tU0d7kaAXwT0Bh7Kzmqz8KsclWapQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nNe/Igbi5HTJdGKfTPQr4KZnRuAN0PHQh0d+JKcgh8F16aMq9Z
+	J5xr0stWy8br3aIZNsR7ZPzcBYWti4fwBnxvhGalXVicc9pC/VD86+/3
+X-Gm-Gg: AYBFou0ef4ooEf1C9TDf3MlL4PNjqUufT2kA74IA6hUyUSvZ+diipDF64YItkOCAKy2
+	Bq3uztPqr56KdhBJSO5NmSegvIjwW4/ScgVPmDlLSyH6MzD3YXCYUlCO55mOM/8i94Fbgis+gXI
+	cSVy2MSDVND6PxTjAIr6YF+XDkSSsdwZox1+AJ4buhw/ikhFD32OaMXyxf98VrZiUutHcBZW3ht
+	p7Zcze63lxd2bPrZEnDfCkvSDbQH0JzH9h7FKyauzc+nSCWTECvIAuULUOLdSzNpqrr1lM2GjCr
+	W3Tudgp2oiwiDxCKSYAoKOLPooA8xq6wm1IQSPo03M7+o06fSVbR+hSyPv6Q/mpAYNRVTvvBrWD
+	NwI0Sbzn7+9k4bROiPXgg5VsW9fLFUZcghy+ha9fPY2322gAeUAmf9ti9yUsj0AsN/ewWE+RTOc
+	0nB8jkPOTTplP+ACgX/XaT9XvqC4buoFhq7LAjlPwQRbwgLcjq+UXefIbnS06lBPax0kPWWT9gY
+	wfX3PUlvaowW1lj89I=
+X-Received: by 2002:a05:600c:6308:b0:49c:fa20:cbfd with SMTP id 5b1f17b1804b1-49fc5728e35mr46424925e9.20.1789755002999;
+        Fri, 18 Sep 2026 11:10:02 -0700 (PDT)
+Received: from Jorge-Linux ([2a0c:5a82:3505:c900:6bc4:7c82:6f6f:f81a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc481c738sm39304715e9.1.2026.09.18.11.10.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 11:10:02 -0700 (PDT)
+From: =?UTF-8?q?Jorge=20N=C3=BA=C3=B1ez=20Granero?= <eljorge199525@gmail.com>
+To: platform-driver-x86@vger.kernel.org
+Cc: Corentin Chary <corentin.chary@gmail.com>,
+	"Luke D . Jones" <luke@ljones.dev>,
+	Denis Benato <denis.benato@linux.dev>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Jorge=20N=C3=BA=C3=B1ez=20Granero?= <eljorge199525@gmail.com>
+Subject: [PATCH] platform/x86: asus-wmi: add speaker mute LED
+Date: Fri, 18 Sep 2026 20:09:54 +0200
+Message-ID: <20260918180954.56382-1-eljorge199525@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|DS7PR12MB9551:EE_
-X-MS-Office365-Filtering-Correlation-Id: ca8ef721-8615-402e-1462-08df15afe867
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|10067099003|56012099006|11063799006|3023799007|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	YY1HkPNCNaKASMRMUYi+Q4dpHEpJkrmwnWh6uUqO9jXz1gkUHZ5u3ZQkPpZ4+y/3HnGr20IXlbaggIi192eIij27PeRGFVZBB3sqtCjwhtbwlUuQ4I6OytoQ7swSwUCcnMnTX+lr2AZbr/wZ9DjNGfOo6vHecf98Fdhd+x1j9M57b+OrDLCCYMCIyEvC1sUFmrKLujAv60KOAKLCyvVN8p6m6PNHPnPBmEso/CCkBJOIkp4p/HpuS0ydLohrXLwn2m6BSckvi/jrvvMJE4pP0S7IlWOb9ipUh/lCNhhWJ3Tv0bQ0k7kjrz+br7NGQVTpDHhZjceIzUzAy7foPpHTUe0Bx0uqL1/PTSEb4K2MNw0zlRNwBRCemmnR3okjroxNREIDbcCGWyNiB76DDtZs9JBihWEsdnVRAWNmjqKf5LOr8i67bqOQgsHfFxBtgJkAxjHwbrxl928t2ImJnf/hW0o9HTXEThhuVW4DPBKYOCoPvfdW41c7hNNxzWlwdbsf/JD8GhdHrzy8AODSmFwIqd9byMqC+fV4a+Yd4nBXVZBSYBfg1V7N2AkfEib0kICgrvg2a6dYA7PaEcfqc9KhMtL03tfLHHCyLZAGjQ+vggYWZuJzH/fMQQU48f9hdeoO7Vh6G1ackTNLK6CtyFBu92Asel7eas90AnHqmka0z90=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB8476.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(10067099003)(56012099006)(11063799006)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UWNuQTJDZE1YQ1FHczVLZnNLTkpuTGJsclQxZmpESTNVU0M5WGV4UVppQlF1?=
- =?utf-8?B?SWRIckJuWE4yLzVDd2RPRDByUlBxV3h1Mlc4ckxwSGo0NUFSWTIzNmpEOEd5?=
- =?utf-8?B?L3d3aVFicE5UcExrMXIwT3Q0MWlkNU10Q1o4anVreklDdFVNVFdtdWhVRWp0?=
- =?utf-8?B?MzlXYllNZTliaWlWdldwbCtBMGRMaWdINWMraktPWG81RDhVT3Y2d3BHTUdn?=
- =?utf-8?B?dXlNQ29BUmdmUVpqaTZSUjduTk1HdlRBYWtoalNSQnZGb3hZRE1jVFVYWUNX?=
- =?utf-8?B?ejJiR2FlYkhxNWtyeDEzQjVGQU1KZ2Yxem9EZ1ZQZVNtNGxzcXZzTDV0T3N0?=
- =?utf-8?B?NDg5MnlnQnJOTGNWZkxiNDBoajJBMEU5TGp5NGFJNXJUdTVleHRFdS9yT0Jn?=
- =?utf-8?B?SWZUakJIcUE0ZnVkUXlrRTFVem8xQldSNE9ITDdpemZmYkRHd0hlWlhZSkNT?=
- =?utf-8?B?S1dTZHJWazFidDZ2MXNrMnhrcWdDYm9vdm94TkZtMmtyWS93NHdkTDVzNHRX?=
- =?utf-8?B?VTJ2cC96VDFrbzRNQ0dKVDl6YW01YkVlTllPbmUzbzZFUUJUUDFaT1FncGRO?=
- =?utf-8?B?c2lNVU8vQ3FiaVNHbmlidmhvRXFsSHpVVzlJYWRvcmFmemVCWFlWaU5FUjBD?=
- =?utf-8?B?NGlRRkIwMXYzZUdFRUdrNTlKTGtXKzBhQ0hWN0hXNy82QXhrTE1oZ1RDRzJk?=
- =?utf-8?B?eXhuMmo4bllFU1pocUhOWmsycUc1bTkxNUJBMllJandsUnVIWWljdG5aaS91?=
- =?utf-8?B?MHlwMU1rTllOZlhoVTlTYTBsUVdpNTducjZlbStwN1RLQnJIT0pLcDAwWi91?=
- =?utf-8?B?QlorYmNVSFlTWE9XN0U2ZHBZaXhPb2Nwa3hCMmhwSVNrc0xLeDRwcHBjN2Fq?=
- =?utf-8?B?M2xnbnpUVFI2ZzY0QUtmd2lzSFFYWUNzbWNCT29rdXNxZVo4b3dBenZodG1B?=
- =?utf-8?B?WExHNFlCS09NRjNLR1ZOQjlHYTlhNkU4T2I5NzhGbkhjYUFCL1FWT1dMRm9W?=
- =?utf-8?B?TWNXVWNIdG8wYnhXMEd1Ym5tVVR0dzdxR0U4eUF3VFExM1BINjFVUVh0bzY3?=
- =?utf-8?B?NE14Z0dZRDJxZnZKZmR2YWtvNVpHVlF0ZFpiSFdPZERDT2wyZHp1NndOYnVt?=
- =?utf-8?B?OGlSK1pOYlZubUVPVDRIWU01L0JpMGdHSUZzcXArMHI1aGwySHVDUWFmQUlt?=
- =?utf-8?B?V2hUaG5jTEVGOUl4cjNUVjl0WWVhRUVPVXBJQ0gwYWNNOG1qVVpRWDQyalVv?=
- =?utf-8?B?dGQ2MGQraHk5YlNNWWd4U1hSNGFvYlZ2ck5SOGNPNllPMGR0MmhZQjk4Sk13?=
- =?utf-8?B?cHdCUjQvV0wxVVJYVUV0L2JWUkd0QjM1UE93R29DSmZ6KzREQkVGTnYydnI5?=
- =?utf-8?B?N01VV0lKQ2grMDJmdDQ3YWlENUJZblhpK0orQVAyRHBSRitwbGJ6Tm1tbEFJ?=
- =?utf-8?B?Q2d3US8zbnViZS8vcVBUd3A5TXNYQUtVSVArQTY0NlhiN1hNbjhja0hDckhM?=
- =?utf-8?B?WGtlWG00czlaSGNBSzAvMFNacHMyd2xlSklXU2NZTnh2RzJBRUdtQ1ZnbXpU?=
- =?utf-8?B?TUY3S2I4K3hiaWMvK0NxdTdnUGIxWXMvWnVkczdIbzF0SEFYYm12YzJwbytJ?=
- =?utf-8?B?MjVzVmlhNENMUlFtd1J6U3VYbXl4UmJVa0hub3BlZDhiRnF4bmJrSzZsa0dt?=
- =?utf-8?B?bUNQUUJkSmJXeVZVblBSQXAySFhFWTdZUjdXaXZnWGJ5NUtFKzlWQ1dsYTVr?=
- =?utf-8?B?ZlBvYTNnVXZRYUlwSTlrdXc3YytkSm14K3BaQ3BxRnVXWHRjaUlwazVzY3ZC?=
- =?utf-8?B?RU9tU0pKSFoyb3dFUGZqOW9hVmhjTi9tVHlrZ2RnZGVvWmg3c0ZsVE5mUlFD?=
- =?utf-8?B?NVIvWkZ1RmQ0ZGNQNk5Sa3N0SmlZRFRKc0NQeUZjTlBZeUt1bXUrK3EwZ2Fz?=
- =?utf-8?B?dS80RFMyTml4Y0NNWVBhNVB4K3grbkp3aVQ1dlpNN2VZTFBBM0EwMXpuRFVJ?=
- =?utf-8?B?OTNKS2lZa3pkQmNhbWs4dTlkU1NnaGtYb3ZwLzc5TjR5dEY1RlBONTdLMDkx?=
- =?utf-8?B?a3lKVEF5d29LMnkvM0RKeEN2VWRFNW5EbTQ4akRFNkF5Y2RjOWgvZk1BRUNj?=
- =?utf-8?B?Vi9FQUk4OVRTblFzUkNXbDVsUmowYUJvYWFpZEhKMG90ekZ1NTdINGlRcWRE?=
- =?utf-8?B?VmdKMWhyRW1uTzg0ek1aMjROYzROQ2NRd2ZHcGNkMUQ1T00wQ0EzRUs5cytK?=
- =?utf-8?B?UjlNVmkvVHFpWHREM0JWK2NEb3NnMlMzdnJrWVhHTjRSQU9yTElKZkJJUU5M?=
- =?utf-8?Q?7tWn2wZMhzeKsi7vIK?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ca8ef721-8615-402e-1462-08df15afe867
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 18:08:57.4351
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kVVfWpJLv5FM0+u4T7Fg+DYxZNgeCoOJvHxvHhw7uZLcGCi+zsPYJxA+/RdJzNMXjBrnGfbBCPssDEA+NQSoEA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB9551
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Reviewed-by: Alex Hung <alex.hung@amd.com>
+Some ASUS laptops (e.g. the ExpertBook B3405CCA) have a mute LED on the
+F1 key next to the mic mute LED on F4. The mic mute LED is already
+driven through WMI device 0x00040017, but the speaker mute LED is not
+known to the driver, so it never lights up under Linux while the
+firmware does light it under Windows.
 
-On 9/12/26 09:11, Arthur Heymans wrote:
-> [Some people who received this message don't often get email from arthur@aheymans.xyz. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> 
-> Commit 56d8ce9d8c17 ("drm/amd/display: Apply correct panel mode when
-> reinitializing hardware") made ASSR failure fall back to the default panel
-> mode unless eDP mode had previously been applied.
-> 
-> However, dc_link is zero-initialized and DP_PANEL_MODE_DEFAULT is zero.
-> Before the first call to dp_set_panel_mode(), panel_mode therefore looks
-> like a previously applied default mode. If ASSR setup fails during the
-> first link training attempt, the driver incorrectly trains the eDP link
-> using the default scrambling mode.
-> 
-> On a Google Vilboz Chromebook running self-built coreboot firmware and
-> PSP verstage, this leaves the panel mostly black with corrupted output
-> along the top edge.
-> 
-> Track whether panel_mode has actually been initialized, and only consult
-> the saved mode after it has been applied. This retains the recovery
-> behavior while preserving eDP mode during initial link training.
-> 
-> Fixes: 56d8ce9d8c17 ("drm/amd/display: Apply correct panel mode when reinitializing hardware")
-> Cc: stable@vger.kernel.org # v6.4+
-> Assisted-by: Pi:gpt-5.6-sol
-> Signed-off-by: Arthur Heymans <arthur@aheymans.xyz>
-> ---
->   drivers/gpu/drm/amd/display/dc/dc.h                           | 1 +
->   .../amd/display/dc/link/protocols/link_edp_panel_control.c    | 4 +++-
->   2 files changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-> index 4ecd5699ac5e..0db55a73da0c 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dc.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dc.h
-> @@ -1912,6 +1912,7 @@ struct dc_scratch_space {
->          struct ddc_service *ddc;
-> 
->          enum dp_panel_mode panel_mode;
-> +       bool panel_mode_initialized;
->          bool aux_mode;
-> 
->          /* Private to DC core */
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-> index 9883216dcc9d..cd90576bc6f0 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-> @@ -93,6 +93,7 @@ void dp_set_panel_mode(struct dc_link *link, enum dp_panel_mode panel_mode)
->          }
-> 
->          link->panel_mode = panel_mode;
-> +       link->panel_mode_initialized = true;
->          DC_LOG_DETECTION_DP_CAPS("%d eDP panel mode supported: %d, enabled: %d\n",
->                                   link->link_index,
->                                   link->dpcd_caps.panel_mode_edp,
-> @@ -1300,7 +1301,8 @@ void edp_set_panel_assr(struct dc_link *link, struct pipe_ctx *pipe_ctx,
-> 
->                  result = cp_psp->funcs.enable_assr(cp_psp->handle, link);
-> 
-> -               if (!result && link->panel_mode != DP_PANEL_MODE_EDP)
-> +               if (!result && link->panel_mode_initialized &&
-> +                   link->panel_mode != DP_PANEL_MODE_EDP)
->                          *panel_mode = DP_PANEL_MODE_DEFAULT;
->          }
->   }
-> --
-> 2.55.0
+The DSDT of the B3405CCA exposes device 0x0004001C in the same LED
+group with the presence bit set, and calling DEVS(0x0004001C, 1/0)
+turns the F1 key LED on and off.
+
+Register it as "platform::mute" with the "audio-mute" default trigger,
+mirroring the existing mic mute LED, so that the snd-ctl-led speaker
+mode drives it automatically. Only registered when the firmware
+reports the device as present, so nothing changes on other models.
+
+Tested on an ASUS ExpertBook B3405CCA (BIOS 307): DSTS reports the
+device present and DEVS 1/0 toggles the LED.
+
+Signed-off-by: Jorge Núñez Granero <eljorge199525@gmail.com>
+---
+ drivers/platform/x86/asus-wmi.c            | 24 ++++++++++++++++++++++
+ include/linux/platform_data/x86/asus-wmi.h |  1 +
+ 2 files changed, 25 insertions(+)
+
+diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
+index a650904..60bbd10 100644
+--- a/drivers/platform/x86/asus-wmi.c
++++ b/drivers/platform/x86/asus-wmi.c
+@@ -262,6 +262,7 @@ struct asus_wmi {
+ 	struct led_classdev lightbar_led;
+ 	int lightbar_led_wk;
+ 	struct led_classdev micmute_led;
++	struct led_classdev mute_led;
+ 	struct led_classdev camera_led;
+ 	struct workqueue_struct *led_workqueue;
+ 	struct work_struct tpd_led_work;
+@@ -2054,6 +2055,16 @@ static int micmute_led_set(struct led_classdev *led_cdev,
+ 	return err < 0 ? err : 0;
+ }
+ 
++static int mute_led_set(struct led_classdev *led_cdev,
++			enum led_brightness brightness)
++{
++	int state = brightness != LED_OFF;
++	int err;
++
++	err = asus_wmi_set_devstate(ASUS_WMI_DEVID_MUTE_LED, state, NULL);
++	return err < 0 ? err : 0;
++}
++
+ static enum led_brightness camera_led_get(struct led_classdev *led_cdev)
+ {
+ 	struct asus_wmi *asus;
+@@ -2084,6 +2095,7 @@ static void asus_wmi_led_exit(struct asus_wmi *asus)
+ 	led_classdev_unregister(&asus->wlan_led);
+ 	led_classdev_unregister(&asus->lightbar_led);
+ 	led_classdev_unregister(&asus->micmute_led);
++	led_classdev_unregister(&asus->mute_led);
+ 	led_classdev_unregister(&asus->camera_led);
+ 
+ 	if (asus->led_workqueue)
+@@ -2181,6 +2193,18 @@ static int asus_wmi_led_init(struct asus_wmi *asus)
+ 			goto error;
+ 	}
+ 
++	if (asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_MUTE_LED)) {
++		asus->mute_led.name = "platform::mute";
++		asus->mute_led.max_brightness = 1;
++		asus->mute_led.brightness_set_blocking = mute_led_set;
++		asus->mute_led.default_trigger = "audio-mute";
++
++		rv = led_classdev_register(&asus->platform_device->dev,
++					   &asus->mute_led);
++		if (rv)
++			goto error;
++	}
++
+ 	if (asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_CAMERA_LED)) {
+ 		asus->camera_led.name = "asus::camera";
+ 		asus->camera_led.max_brightness = 1;
+diff --git a/include/linux/platform_data/x86/asus-wmi.h b/include/linux/platform_data/x86/asus-wmi.h
+index b5ed8c8..6cb2e58 100644
+--- a/include/linux/platform_data/x86/asus-wmi.h
++++ b/include/linux/platform_data/x86/asus-wmi.h
+@@ -54,6 +54,7 @@
+ #define ASUS_WMI_DEVID_LED5		0x00020015
+ #define ASUS_WMI_DEVID_LED6		0x00020016
+ #define ASUS_WMI_DEVID_MICMUTE_LED		0x00040017
++#define ASUS_WMI_DEVID_MUTE_LED		0x0004001C
+ 
+ /* Disable Camera LED */
+ #define ASUS_WMI_DEVID_CAMERA_LED_NEG	0x00060078 /* 0 = on (unused) */
+-- 
+2.55.0
 
