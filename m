@@ -1,133 +1,196 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C61B51B17C;
-	Fri, 18 Sep 2026 17:30:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E12351AEDE
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 17:32:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789752630; cv=none; b=U/93TqxUQlPs2bb+L9SWGBjQYJRJ9h6H8uGJLAcDye5l+pMzg1IjFeF1HZD5Z31vBdzxd0O05RLR1ssh0Lo7nV155WlJ4Jm7r6ngn9MBRfMRP+gWhVTMu/U7DSYvfFGDBf+3AHESrDXhHNCn7CUPMW6Pd4ot7JcIz/ax+FxK7Nc=
+	t=1789752748; cv=none; b=V3erhXGp52pZReYXRJHBXFESZJuj7rJxWb32PkkecV6O6oITChyaAIgYESbrPBUeSRKbOwUNRKsgYbqlwMbcnI6VitC/Hbkcng4O17Z+ZeWqJHpl9wnyvQFyHapl2OffaK3fCH6rsDXPiulXdw4xSb7FN0sTB4tbxa2IZF08aP8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789752630; c=relaxed/simple;
-	bh=1tm+AoINV4L0DvNzsG7gAL49kbFMoxpgRosliSqN+rM=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=igg484xKveUt3kuxwcbjk8GkLN5uRhOILVydApPJ+e+ipZE+8QS0gmDxCkR7jc/zMS6Mu1+KfLhCk8HTPxXOYaRBzn79FaHtHWGBAVcvBmCNCAdQCk5hWegenYtc03RBUakiW0NZTLaLpsZIno6RPGmXDu3IUV2ceuU2Ku6DjuA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=HDkpRqJZ; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=3XiiCKBo; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1789752748; c=relaxed/simple;
+	bh=6FfrmzjH54GEcJ1wWK2iIQb91lI6OlRWrtkK0i6oGQ4=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=eftKNnKAvr64dAwStdUREHanqJh/L+0hgZVgL5oDwaJAXYIiAf0X51+7eKUYY3b0DpOI8DOqOsAI98U/cwOyjaqiI1GXrU+WAoIY9k8KABuVAMn2+0STiFV6q2lFBuMBJqTYFsESs8ZTP9D+peMovELa2oCinhpY/J1idegxmMM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y0a8hqOj; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="HDkpRqJZ";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="3XiiCKBo"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1789752577; bh=1dl4tmqft2dG4MFdNCM1smn
-	Ytjht1tHIKCyecdkRmjI=; b=HDkpRqJZVr8TL8Fkk5XJ1YJQ3JKdWNDF6Dvz6sK7t555pTWVA5
-	9+Cm698R50pHkoL9Mg1ZQoSUcHyOij0yBorfNWlLYUFtmEwsf6f4u23zyvuYV3nDtxpNUYLjQ/P
-	7kqDUrrm3IgKPoObcgI7KnJdt/wVBWhrEyP2ysCNtT7kXYvE6XAMP/mkhc/UKYzH82PJfO0NFI1
-	j3bYCr7pCYuha2nlNCrVh0jfM6o3IbhUoSKFC0zjXdXFLCfE44pO2KNrxDaQuhrGO4o5p2gNkbc
-	47sgj7QQxa6B8/gqZatfx3mRX/i435W+dC74xKppg5/FUmNgZZeUPl8H8yOEge5qKxw==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1789752577; bh=1dl4tmqft2dG4MFdNCM1smn
-	Ytjht1tHIKCyecdkRmjI=; b=3XiiCKBoVXkz5w7h2YTLDkGnQG8EO73zQ+/Fv0ZwZfOhKoim5A
-	98WmeNqIRXZ0MA7FUVAIvcxS9vUMB9IHtVDg==;
-Date: Fri, 18 Sep 2026 18:29:37 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Danilo Krummrich <dakr@kernel.org>
-CC: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
- Aaron Tomlin <atomlin@atomlin.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Aleksandr Nogikh <nogikh@google.com>, linux-modules@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-usb@vger.kernel.org, driver-core@lists.linux.dev,
- linux-trace-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v4_0/3=5D_driver_co?=
- =?US-ASCII?Q?re=3A_add_TAINT=5FFORCED=5FBIND_fo?=
- =?US-ASCII?Q?r_when_userspace_manually_messes_with_devices_and_drivers?=
-In-Reply-To: <2026091850-geriatric-overfull-3370@gregkh>
-References: <20260914-bind_taint-v4-0-eadf8a090903@linuxfoundation.org> <DLIL9H50MALI.3JROXYEEUM3KU@kernel.org> <2026091850-geriatric-overfull-3370@gregkh>
-Message-ID: <BF545013-EC9D-4939-BBFC-F51B277EEB84@mainlining.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y0a8hqOj"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2db1ca069c8so10387915ad.3
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:32:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789752732; x=1790357532; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
+         :content-language:references:cc:to:from:subject:user-agent
+         :mime-version:date:message-id:sender:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GBzAIA75tY6+1ABqxWJzAnAi665MvkZni2otJtamYAI=;
+        b=Y0a8hqOjSpKfMvcts1WbdVVBbRVjZEtNxApeWheJ/K5qEtz/KckIyjlgbQMCR94Yz0
+         sg+TomiPVw7Yk2wnXYXaQQPRszYK4gD5Sb/aQQ7ncrupdCD81CSA1YoqrRSEdM/+kMBl
+         Y+ruEcV1KZXGTC/OqEUrXPeWj1eopkytFZX9uX/KVlBWKY+g+4LsPRUcYfz5NtrA8PI/
+         5KpzV4ZAyIiFnhqjGpbJ76XvuWZicIv2BLETGz2FfmeUYqYuBh7rW8kwyYz97X+VM6lg
+         CQCUEavsDvS0HruBHZ1YOLOHSUo1cl1gl3Jnbk/x8WkiI6WpLds6pPI+d5ZHuCkPugFJ
+         RsTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789752732; x=1790357532;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
+         :content-language:references:cc:to:from:subject:user-agent
+         :mime-version:date:message-id:sender:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GBzAIA75tY6+1ABqxWJzAnAi665MvkZni2otJtamYAI=;
+        b=Pp8bqvh3jJmskpopBXo+eOVP5YB7wBZ6Uq5t+pmI/znBdB71KxMtYcM1mRb4coX1V+
+         9QzRrPiCXXH54cNviUybratw57zwUNgUOwJTZKzWYcCR/Wuu4QnZbZSLeb4kFW6a/OIg
+         /a5CUY7w9mMII376UOYS9KxvtnVNTuUiFP81Hj+g6jJkHIBpjn9xqM+Uem07r3a+qtc8
+         1YloUEHprQX5prCB934RNQw9HL3E+FmxOegRpdsg3JiMmlGhi9DMfdI0+1H3+FXg0YW+
+         uqC95hZ9XLVtQq9O7xmcPZKRWt1ztgdGp1kImXLVS9RE3MoFcJAW55rHtuGe63BmEJOQ
+         H1Wg==
+X-Forwarded-Encrypted: i=1; AKwUvBzdl68JZNzSBa7/8Rhy1BomR6rMgWlfkfmW9/mqchlvrOWaaG2w0uTie2SHdh8K922CPtD7uvPGNXLd96E=@vger.kernel.org
+X-Gm-Message-State: AFuF++kpcf9ZQtW8ObBkOTwFPsGcwX8jyiaqssxP8j5MUeXHnb9iaOyw
+	FKF51ZHgpYoO+hGp+Ez29DzS7BLu06z9C/mwPNqO6q7ZGdD0PfPzbtljOG8sf76B
+X-Gm-Gg: AYBFou0hfQIGb6s8hOXN71bAa3Q7DyK+In+cegJsJ5cg0DuNmZO2zhfjQLx03UIalY9
+	UdV3zgxcpWvyHb0JZH4iY3uzd/669+BRYJCwA9zB8+ZI/jQhjRfLG7uP5NrDBDv0i0J4OUeLT6/
+	bxQ5P/AocOmzyDHzshlgcAF0BGOPNKsvGaElwbBsCP2CjOcFMOemnHwc6711X3ourSUDk6f8/Z8
+	JVMN6eh3R5fx8o0gqLZEU25eMUqwQWAhHYTi0m7WcXWL1JlcdTywLpLJz1q1pSLg1H1XhdtsbW1
+	qUJl9J/b7yQgr0kqepPEOWEcsIh4O/AWPVxhsZmbAvTjiqCG3HCxqussZOUPCmvR4q6/X6MDKvr
+	SuXaSLm0eoNTw83Ms3NEevDNL6EAs/PGJsnsHJbux/9nFdIR4e5YZVnnE07EzMmwHm04XTuobgG
+	3IYSuA8S3PE97efMtxHKhR2XWxhoNayjJsdPi/YHWT+N4HF0eIKxXYmkWmXPYaBK736EzOrdpAp
+	rz2PIf9IglV5m1BD77RIHPO5KBpVdugpurE9nmRsNmrBEaR
+X-Received: by 2002:a17:90b:2f47:b0:39d:eca2:5c81 with SMTP id 98e67ed59e1d1-39e54b19f9fmr7592828a91.8.1789752731861;
+        Fri, 18 Sep 2026 10:32:11 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c37c8e7sm465970a91.9.2026.09.18.10.32.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 18 Sep 2026 10:32:11 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <a81ad111-43e7-4afa-8b2f-f75f5b47115a@roeck-us.net>
+Date: Fri, 18 Sep 2026 10:32:10 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [GIT PULL] watchdog fixes for v7.3-rc4
+From: Guenter Roeck <linux@roeck-us.net>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
+ "linux-watchdog@vger.kernel.org" <linux-watchdog@vger.kernel.org>
+References: <20260918162041.18444-1-linux@roeck-us.net>
+Content-Language: en-US
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260918162041.18444-1-linux@roeck-us.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 18 September 2026 18:25:38 BST, Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
->On Fri, Sep 18, 2026 at 06:39:02PM +0200, Danilo Krummrich wrote:
->> On Mon Sep 14, 2026 at 4:30 PM CEST, Greg Kroah-Hartman wrote:
->> > The ability to add and remove devices from a driver through the sysfs
->> > "bind" and "unbind" files was created all those decades ago as a way
->> > that kernel developers can iterate faster, and provide a debugging way
->> > for users to attempt to add a new device to a driver without having to
->> > rebuild their kernel.
->> >
->> > This api over the years has been abused and recently come under a
->major
->> > fuzzing "attack" through tools like syzbot which decided that it would
->> > attempt to just randomly bind any driver to any type of device,
->causing
->> > loads of unneeded errors and pointless kernel patches to be generated
->by
->> > unsuspecting new developers.
->> >
->> > Handle all of this by adding a new taint flag, TAINT_FORCED_BIND,
->which
->> > will be set on the driver if the bind/unbind sysfs files are ever
->> > written to.  This lets kernel developers "know" that a user is
->> > attempting to do something that is not normal, and as such, if the
->> > kernel breaks they get to keep the shiny pieces laying around on the
->> > floor.
->> >
->> > The flag is 'Y' which was unused, and can remembered as the user is
->> > "yeeting" the device being operated on here (thrown with force without
->> > regard for the thing being thrown).
->> >
->> > Note, the taint flag gets set _BEFORE_ the bind/unbind callback
->happens,
->> > as many times crashes/oops/warnings/failures happen within the
->callback,
->> > and the taint flag needs to be there to show what was being attempted.
->> > If it were to be set after the callback happens, the oops report would
->> > not properly reflect what foolishness was being attempted.
->> >
->> > Fuzzing tools like syzbot, that doesn't have hand-crafted rules to
->keep
->> > the tool from hitting bind/unbind, should be run with panic_on_taint
->> > enabled so that they fall over and don't continue on, thinking that
->they
->> > actually found a real issue.
->> >
->> > Userspace operations that rely on the bind/unbind files
->> 
->> I agree that this should be avoided.
->> 
->> But I also think the biggest offender really is driver_override.
->Specifically,
->> on a hot-pluggable bus a driver must be complient with the device driver
->> lifecycle rules and hence shouldn't break on bind/unbind. I think it
->would be
->> nice to not taint the kernel for such busses, and only taint on
->driver_override,
->> as I think we'd still want the bug reports for such cases.
->> 
->> But I think this is fine to leave for a follow-up.
->
->Yeah, let's see how this goes, thanks for the review!
->
+On 9/18/26 09:20, Guenter Roeck wrote:
+> Hi Linus,
+> 
+> Please pull watchdog fixes for Linux v7.3-rc4 from signed tag:
+> 
+>      git://git.kernel.org/pub/scm/linux/kernel/git/groeck/linux-staging.git watchdog-fixes-for-v7.3-rc4
+> 
+> Thanks,
+> Guenter
 
-Famous last words :) 
+Hmm, that was supposed to be copied to linux-watchdog@, not linux-hwmon@.
+Sorry for that. Copying now, and, yes, I know, I'll to fix my scripts.
 
-(I see no regression but AI finds mysteries)
+Guenter
 
->greg k-h
+> ------
+> 
+> The following changes since commit fd73f4a6659897191fa0d40695fe370925dd3780:
+> 
+>    Linux 7.3-rc3 (2026-09-13 14:38:02 -0700)
+> 
+> are available in the Git repository at:
+> 
+>    git://git.kernel.org/pub/scm/linux/kernel/git/groeck/linux-staging.git tags/watchdog-fixes-for-v7.3-rc4
+> 
+> for you to fetch changes up to 7cb575b71ab98194d2e040bded3a7281e089c5ed:
+> 
+>    watchdog: da9063: fix suspend/resume handling of HW_RUNNING watchdog (2026-09-18 08:10:45 -0700)
+> 
+> ----------------------------------------------------------------
+> watchdog fixes for v7.3-rc4
+> 
+> * da9062, da9063: Fix suspend/resume handling of HW_RUNNING watchdog
+> 
+> * digicolor, rtd119x, and rzv2h: Avoid division by zero if clock rate is 0
+> 
+> * msc313e: Fix premature reset during timeout update, and propagate error
+>    code in resume()
+> 
+> * sp5100_tco: Fix pci_dev reference leak in sp5100_tco_init()
+> 
+> * starfive-wdt: Fix runtime PM leak in starfive_wdt_pm_start()
+> 
+> ----------------------------------------------------------------
+> Li Jun (2):
+>        watchdog: da9062: fix suspend/resume handling of HW_RUNNING watchdog
+>        watchdog: da9063: fix suspend/resume handling of HW_RUNNING watchdog
+> 
+> Tzung-Bi Shih (5):
+>        watchdog: digicolor: Avoid division by zero
+>        watchdog: rtd119x: Avoid division by zero
+>        watchdog: rzv2h: Avoid division by zero
+>        watchdog: msc313e: Propagate error code in resume()
+>        watchdog: msc313e: Fix premature reset during timeout update
+> 
+> Wentao Liang (2):
+>        watchdog: sp5100_tco: Fix pci_dev reference leak in sp5100_tco_init()
+>        watchdog: starfive-wdt: Fix runtime PM leak in starfive_wdt_pm_start()
+> 
+>   drivers/watchdog/da9062_wdt.c    |  4 ++--
+>   drivers/watchdog/da9063_wdt.c    |  4 ++--
+>   drivers/watchdog/digicolor_wdt.c | 13 +++++++++----
+>   drivers/watchdog/msc313e_wdt.c   | 16 +++++++++++++---
+>   drivers/watchdog/rtd119x_wdt.c   |  7 ++++++-
+>   drivers/watchdog/rzv2h_wdt.c     |  7 ++++++-
+>   drivers/watchdog/sp5100_tco.c    |  6 +++++-
+>   drivers/watchdog/starfive-wdt.c  |  2 +-
+>   8 files changed, 44 insertions(+), 15 deletions(-)
 
---- Thanks!
-https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
