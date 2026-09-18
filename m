@@ -1,62 +1,64 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E671D4E535D
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:44:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFA794E80B1
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:44:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789731842; cv=none; b=Ws/4Vpy9llRwtu5uUOlfiz3bcr4QeDD0LsP2Ibco/7g9uRJHh+8nhr9DdJxJpd/N1Wt1GAQ31prMRqlInaLdFlhHgYl5H8pYbHBNjDvObtoKAmGK0qvR1/aCPQh7VtKBVr/JWbCW9Poius44yOKkp8kW+ulx+r2ly5khXJk/gYw=
+	t=1789731846; cv=none; b=LgjEXFuGmtBoOl5c6BjDosoeXeK16gfdDWuHBqzgyZ7CfnxegwKjJNWjS+t0SQhqCHQ1YkdQm3uSMfpbLlKYeutKEaxLrsRsEVS5448l3WUnppWAPxBGdVs1+uZ372nsnwRogcAAwNw0gJjfev/35le0G7bk9G5zNQltOC1Et10=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789731842; c=relaxed/simple;
-	bh=6bh17PdmX5TKrdwWeikxgoSU8keCsgvFkmcGubKaqR0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mSUibQP6m6uBk/Z11d9On8AUDFcIg5NH0vMws51neZMD3oZBuVdyRHYVzAk2uyYxPGK3bbogFZgd9yTlGl4MciEZMFFq/eh+tsrd6LNaiOTYnPXn5CFTHxQ0S/bqXtY3Z1CeOaBFbPETkJQmgm+PxSBj4sdIIVMQ39OEKVAo6KM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EsBY1g6l; arc=none smtp.client-ip=209.85.216.50
+	s=arc-20240116; t=1789731846; c=relaxed/simple;
+	bh=TLmFSaGZ6YlfSIeQ9CJTEgY2bTQ6Uc8e6Zt8WOBkoCI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rqKxfBoRjGqSpNXKVR9DMv2iGERqsVFLYEeo/cJkiMzq7yC9VN2OiahpfwC4Q7zwNlKfhe1J+w1T3A2z8VScQlhuvLlvTqvO5gSnfdRHqZeSIwAKRiM/b6qVcjCz+XGei4mZ9cn0/+iywTtap5F65FnNJkTQjhazuvhJaV+dQjA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CGmqb0Yu; arc=none smtp.client-ip=74.125.228.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EsBY1g6l"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-398b1e63c49so1347227a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 04:44:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CGmqb0Yu"
+Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469e211a3so573019b3a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 04:44:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789731840; x=1790336640; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=z+gIlvnIDxGsE2zs/bxvoadgXEzUPdH93sukY7i/YsA=;
-        b=EsBY1g6l3Xjf8FFo/WTWMLSwVH4b5NQyfqbqz+VncMXUUe7Q0HAN0hWU1FT35WXR3I
-         acbZZ2rmUmxlJZMwTya6DkMxD6KFLPSOMol5feNwIlE2n+SBAu9GMmL9TFj21n/vA3Sy
-         DfWLUi8nhCPxdtu3ftVQuslqupJ8HapqL7ttpAA0i5wg4yum63o/12gAgLUdhZJuQ6XK
-         Ye7IbrGVC4m61HSok0YdsOogT5jkm+nxW9/4DeKn0ubrD8dCxjkJrKDQPWchyVszKYc4
-         MwjBQD3hLkmduPs46B6WZaczfH3/FPEupf2Yi6mwNqJvEzrEl6meQMY/HfiQ6zzX5Axx
-         TLyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789731840; x=1790336640;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789731843; x=1790336643; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=z+gIlvnIDxGsE2zs/bxvoadgXEzUPdH93sukY7i/YsA=;
-        b=0izsBgjkNrgVwvBOxDxTAs50xO2QNVC5lf3pIkj79MWleeIhDq/mm/y7XN0i5hbej/
-         zfFTdC13bPs5iXiwiJ4gx3eMAvM00YAfZ2p2+/ZNaGL0c7Ga56F8uKsIDwgaVBAmnAkH
-         UDstR4C1L18Fry1geazB4thdDjf1eAN90rafb7Ac5Lv43CFlChsb6j2y7hvD2e/Nt6Oc
-         mOzFbLPuQhoUFdNtd/kHvZYJ2/6GMvd/cqGvmVfqqr+yubUJpjpS09wANtR43/NJonX0
-         v73tqfK1TO6fLoib4FI71p0sdyfGSSFyikoTiE+nTD4rIOClMspu8/mS+AgXcJyxPglU
-         kzRg==
-X-Forwarded-Encrypted: i=1; AKwUvBwQgxRKdon1bDyzt4aaqSqTauTU+r7iNLsHzPXDceTdpOCnE5sd60BX+7WdgSFHeEckY0RnstK8NXWjioY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kwT6k9TGv4hm87ohoNQnSslrGLvDTxsqoLGP3+68XsdQWWX72g
-	+W7FkVjBu2KlsbZYjfOaKHw/UjX9tunCeWt0EnLGNwcNh/L5hBKoIkGe
-X-Gm-Gg: AYBFou2btpOqiiuXfKRHgtQca9hq59AFWvbWQHcvowFrGdOEQzelfgdP+GbtT49ql6f
-	TK7CSWl5QlR01eAbFiyKPgKVW9Hf7VWizEZ6IBb5xJV+zqT4/MxmH/bu9hMsgEdU/a9Ld07xbS6
-	rfAEEuxHpP4TS6q36gYO0iKjQ0Kn6L50oD4/gdHA88BwwR08R9BBrAkXXSW/I8KUWsL2NtsfKHe
-	dR1kZpsjFFJgGMJp1FQTHFT0gUTG+jtGsJ8PlChA8PLwHsp+bBA+t3H3mfnlBnGDKuTptkJkPl0
-	Ype5tpZAmVe10p+3NpYjFtrFJTGTsxEOsv8C5e7xlN8VhQ4QkuoSMP2H1DgFGmasLKcIJdaJy+H
-	WhUwHZFcyYXkwYJKfJtlJXBOb5ZwDwXiaRraR28Y/BGEYqqiHBvPSGDgXqG42QSw+8yWGzdVBOq
-	VLtM4dhL59Ej0DAD1H4C6NPJPAhE18UcNcOFS2DVIDwH3jxJ2SWYnU2RplUnGsLRiwwj8xgkzPj
-	1A/LUWnaG4=
-X-Received: by 2002:a17:90b:3b52:b0:39e:fe9:c5b8 with SMTP id 98e67ed59e1d1-39e35df66f8mr9845308a91.10.1789731839978;
-        Fri, 18 Sep 2026 04:43:59 -0700 (PDT)
+        bh=LQcaFZ1+zYaV5pEknG6YG0muENfu4eg72I6eX4kOQzo=;
+        b=CGmqb0Yu65zzdUUzUmepcbz+tf4FhYM3HJtqx084QCUciqeCp8jhRZ416E0YoVkoeW
+         MQbCuxMsY0cvVmcoN/S5Ltaiud5mPwFKE0fFGIOKfQTFd24OWrUVXaYNjQPy+6PA5CKj
+         qk+1+Tt1Cgz3KMu796UomgACMFPG2te2UBEyJR484q/rJYpmPvUhRsWFI3Rc5RatVbyk
+         t1OIGtk2eHNErNehHqSzUSe6aOSl4E6kPDQ+JRgF57iy735wATgssIGyqEWRukdrk1gh
+         Eg8e7uH00h/5ES2inb1IPYAqltIxuF2LLvYAQSLgyYdqdRS+jDzWGTE4TvrUSR2sI+Oa
+         s/Ng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789731843; x=1790336643;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LQcaFZ1+zYaV5pEknG6YG0muENfu4eg72I6eX4kOQzo=;
+        b=PjgUrjpFaepQO3jBNm0sf/G+AmiIYYluNxideWF/R9VIdzGz4Gz1UtJUSUFhgUs7xY
+         tDujjqOA2hImukl20JESQXDjPQB7Szeswff60QNtY/+Z5Uw6V+dkr72PI8yUKOPM62Uq
+         M7MuaAnLB35NkzxtxNmFftYfC17KHTcJM7AJgmfSBgN9M/osOWBRehW4bzESD02iN/ET
+         GQGqxQ1X6vxJtyu2i/Ul9mdNnjX2SbJtpcZMyfXZtkNJafSHlxg1q8p4VkpUZh5P0Dyd
+         ZfOYNgESYyRwT3emDUjT0ufzx2rmb5XI7obIqAoDNo+10quKFPFcJM/zZgbDPhl1yW57
+         VEQg==
+X-Forwarded-Encrypted: i=1; AKwUvBzroLMfMu5BR77hA78M8uk4lKMnPhgvtC/x51UNLGFRE04EdVf1dhOgKpm91N6eWnqR2CKHNGRN4noHidg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kAZDVZNr5LNKZUGUIIfPwWV0B8FdpgIjmADGvRhzr7kDJGUkRv
+	hfmRQk3TmSQTgWkNsighqm/SUqZ5DY9k2rUa6O+HCZMkA2eZOpuJKQHb
+X-Gm-Gg: AYBFou34q1amMNj5whG9BvisPB3yLGRJHFbai45YY8kIQJicqdg3WRvv/JOVYSOeGnW
+	HwHYZhwpZOCKyoYUaGDbvXnyQtKI6D+rDFx8oZv6/+95gpsQ7m559xWEZY7IzpDj53vSy2IF7w6
+	gBwzb2WN1fihXIBCoaCiFm4vUqF7iBHyLA8a55oq7hILU6c7g6oYi3GtCa5AUY4lCPAmGA0PQWx
+	zflIadlohGViMhTk7r04IAAaVX5oiG8V7huvqC+jcHpia9ewkcwRlRcrGZ7v+UjGKA5zKl/+cCv
+	gaTY9H1GW7CdzMEO7fa2SrmcJGd3FrO4qJfvBAkWtzpe6uW03B0Q0Hg2NQgDsBcIRbnFFqlznPU
+	5qfUw0hXQxH37oN+gDHzfNTzPXs/mnM83rvWbcK4mOWT97d78tcek6Qbj0F/Oy7OIHFRIIE5QuV
+	+4IQHLENKCTOJeLkBm6WRDNflF9J/eWHEZqgyrcOfRnhAwUT54SuWirAMoDYr9ujRtNnMTfo31+
+	CgglV0mghI=
+X-Received: by 2002:a05:6a21:9204:b0:3d1:e510:905f with SMTP id adf61e73a8af0-3dd8c3fd351mr4731985637.1.1789731843082;
+        Fri, 18 Sep 2026 04:44:03 -0700 (PDT)
 Received: from 73ebd4c7787b ([183.194.144.114])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144ce02b063sm3404520c88.9.2026.09.18.04.43.57
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144ce02b063sm3404520c88.9.2026.09.18.04.44.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 04:43:59 -0700 (PDT)
+        Fri, 18 Sep 2026 04:44:02 -0700 (PDT)
 From: Yuchao Zhang <ndaugoing@gmail.com>
 To: =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger@xenproject.org>,
 	Juergen Gross <jgross@suse.com>,
@@ -68,10 +70,12 @@ Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Yuchao Zhang <ndaugoing@gmail.com>
-Subject: [PATCH 0/1] xen-blkfront: unbind irq before tearing down ring and shadow requests
-Date: Fri, 18 Sep 2026 19:43:53 +0800
-Message-ID: <20260918114354.3660102-1-ndaugoing@gmail.com>
+Subject: [PATCH 1/1] xen-blkfront: unbind irq before tearing down ring and shadow requests
+Date: Fri, 18 Sep 2026 19:43:54 +0800
+Message-ID: <20260918114354.3660102-2-ndaugoing@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260918114354.3660102-1-ndaugoing@gmail.com>
+References: <20260918114354.3660102-1-ndaugoing@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,48 +84,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Roger, Juergen, Stefano, and Jens,
+In blkif_free_ring(), the driver tears down the ring's persistent grants,
+shadow request arrays, and shared ring structure (xenbus_teardown_ring),
+and only calls unbind_from_irqhandler() at the very end.
 
-This patch addresses a race condition during device disconnect and
-ring teardown in drivers/block/xen-blkfront.c.
+While blkif_free_ring() is freeing persistent grants and clearing the
+shadow array, the event channel interrupt (blkif_interrupt) is still
+registered and active.  If an interrupt arrives from the backend during
+this teardown window, blkif_interrupt() reads rinfo->ring.sring and,
+via blkif_completion(), accesses rinfo->shadow[id].grants_used and
+rinfo->shadow[id].sg.  blkif_free_ring() tears these structures down
+without holding rinfo->ring_lock, and the handler only checks
+info->connected at entry, so this is a real race resulting in a
+use-after-free or NULL pointer dereference.
 
-Problem:
+Fix this by moving unbind_from_irqhandler() to the beginning of
+blkif_free_ring().  Calling unbind_from_irqhandler() first frees the
+IRQ and synchronizes with any in-flight interrupt handlers on other CPUs
+before ring memory and shadow request structures are deallocated,
+matching the teardown order in drivers/net/xen-netfront.c.
 
-In blkif_free_ring(), the driver currently cleans up all persistent
-grants, frees indirect pages, frees the shadow request structures
-(rinfo->shadow[i].grants_used and rinfo->shadow[i].sg), and tears
-down the shared ring via xenbus_teardown_ring().  Only after all these
-deallocations does it invoke unbind_from_irqhandler().
-
-Because the event channel interrupt (blkif_interrupt) remains active
-throughout this teardown procedure, a completion interrupt received
-from the backend runs blkif_interrupt() concurrently on another CPU.
-Since blkif_free_ring() tears the ring and shadow structures down
-without holding rinfo->ring_lock, this races against the cleanup loop,
-leading to use-after-free and NULL pointer dereferences when accessing
-rinfo->ring.sring, rinfo->shadow[id].grants_used, or
-rinfo->shadow[id].sg.
-
-Fix:
-
-Move unbind_from_irqhandler() to the beginning of blkif_free_ring().
-This immediately unbinds the event channel and synchronizes with any
-in-flight interrupt handlers via free_irq(), guaranteeing that no
-interrupts execute concurrently while ring memory, grants, and shadow
-structures are being freed.
-
-This matches the teardown ordering already used in
-drivers/net/xen-netfront.c (xennet_disconnect_backend()).
-
-Best regards,
-Yuchao Zhang
-
-Yuchao Zhang (1):
-  xen-blkfront: unbind irq before tearing down ring and shadow requests
-
+Fixes: 907c3eb18e0b ("xen-blkfront: convert to blk-mq APIs")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yuchao Zhang <ndaugoing@gmail.com>
+---
  drivers/block/xen-blkfront.c | 8 ++++----
  1 file changed, 4 insertions(+), 4 deletions(-)
 
+diff --git a/drivers/block/xen-blkfront.c b/drivers/block/xen-blkfront.c
+index 8dad7bf5f664..e70b78ca4df2 100644
+--- a/drivers/block/xen-blkfront.c
++++ b/drivers/block/xen-blkfront.c
+@@ -1210,6 +1210,10 @@ static void blkif_free_ring(struct blkfront_ring_info *rinfo)
+ 	struct blkfront_info *info = rinfo->dev_info;
+ 	int i, j, segs;
+ 
++	if (rinfo->irq)
++		unbind_from_irqhandler(rinfo->irq, rinfo);
++	rinfo->evtchn = rinfo->irq = 0;
++
+ 	/*
+ 	 * Remove indirect pages, this only happens when using indirect
+ 	 * descriptors but not persistent grants
+@@ -1292,10 +1296,6 @@ static void blkif_free_ring(struct blkfront_ring_info *rinfo)
+ 	/* Free resources associated with old device channel. */
+ 	xenbus_teardown_ring((void **)&rinfo->ring.sring, info->nr_ring_pages,
+ 			     rinfo->ring_ref);
+-
+-	if (rinfo->irq)
+-		unbind_from_irqhandler(rinfo->irq, rinfo);
+-	rinfo->evtchn = rinfo->irq = 0;
+ }
+ 
+ static void blkif_free(struct blkfront_info *info, int suspend)
 -- 
 2.53.0
 
