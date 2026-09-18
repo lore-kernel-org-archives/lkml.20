@@ -1,34 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD59D38F24B;
-	Fri, 18 Sep 2026 02:40:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41A0839C631;
+	Fri, 18 Sep 2026 02:40:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789699242; cv=none; b=IU0JZycMhYs07eJyrDRlwa10dU6OtgZ/b9ag1nDB2j4dz/QoFYGkjujBQ2eL4tWHjqTd6e9pS5XNa+SB0AiS61SdlUYO2IYNYG6R7D0zdbSgTT6zOF5EW4xX52+osr4LfMP4Yyu+Nn/dIr4ZTpPG7Y2XfwM/egiUm4QfYJtExkY=
+	t=1789699246; cv=none; b=RFvyGq5izQsgUxwS1z6HwKrTkSNNLYFzJVBsxEfAY3vb+FMcEOJMs18gv4f/BS9DRlteWWRJJ7wZobTHqUZbsyJ18yUB9mtT7jzDlPe0VtOSs2uDjaRU2sWfVBxvf9A7od9A5PtDt1xjq/7potIb4F9fYaLBPzaiOidTENu7V5s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789699242; c=relaxed/simple;
-	bh=3O+/WmoIsQzDrwJGBdKpLb03xqXIbSpp60sfODS9ckQ=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=aCMuwhaS/yVgSRTLCcT9LTFLIhvbz1rNTwvKCULTjdXpXAF1X9ANl9OgUP7ZMa64fPIPF1cAt/SYjEYeWzIVpKcv6269QAI3H09ZTSxKQN/731IpxNgIxHxd6b4n4Y3/zPI4ZVDv51tfPG9GQyraomCY11tyUzj+/ZkvV+B2RLo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lQqomUMh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789699246; c=relaxed/simple;
+	bh=LjFaux2RkoflSgfa+SRMzDruiFnZt3y6YPLO1trSPWs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=nBm6IX34r+AuO8Kb1VwGqJkVLxjq2teMjQPLUAZgPks2kCTl1qBdyKBm7Z+/L/T8+ZALBGVVI6guztwE7/c86s+zmR7sMtyvtEOgOzwb2cG57927o18ot+cQ7ppKZzcMLAMhD19RKoc+wRE10Bwqk/GnGzhx6ULTtrt1pNxN2No=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hyuNQFon; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lQqomUMh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DEA11F000FF;
-	Fri, 18 Sep 2026 02:40:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hyuNQFon"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10E6A1F00893;
+	Fri, 18 Sep 2026 02:40:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789699231;
-	bh=FvP9c+47Wnat9R6UeaiF9F4Zu92ZPfmKwYxC3QsujYA=;
-	h=From:Subject:Date:To:Cc;
-	b=lQqomUMhWAJTkQUAHVNWt2SQ2sG1XVLHDfpBihuNjfSFUJs/JvnWlLlMx9FEFRbLq
-	 JBjsqLzeSpJ4JTiuiYZowgHKUnw8319rcnBAKNDz+kdiN+FbxQwdg28aIx+nLsUvAm
-	 M2FlDqUmQGoSimChFWcr3Fuo6iK04u2VVkkkp9fMBiohgqr5CDOG0LAnzo9lSw1fFG
-	 NQcbBGLeAO94hntL4Ba2QLtQv8eI7ClZ/L5xls0TQP/Kr3q2knKvaQXXIB3Ltq231f
-	 6xM9Mhd6k97wl8d1aqn9PZ9RgJQEPfWPkqYpu+Ji7AM5ZrPLHmoOfRpJ2Gpwuju5qE
-	 e8rjKrnlMM78Q==
+	s=k20260515; t=1789699234;
+	bh=PDbqsyc8sRVugfq1jQAe0RjqzyEbOeblXoaM2oNL4+k=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=hyuNQFoncmrsh0OVEgXaMr7VNUi3hHDsjTpwni03lmR03Ht85l7Mg9Gg99xsK6q5T
+	 f938tAJchCSKB+bfduAh7Vj6pLJUz+q1OWHQQLHgUZY+9enkTFOgTp6Typ6ouhxB7I
+	 sMHdj8OjiXgsjrUA0PM6WQA8ehsuupqpS9sgqBWLuFGR6lH2hZMXqiSHN5D7W05Kkx
+	 klkRU7vGlLJsKlXWIp0tqv/T9cPWlFfwZJTyDKhLUIHP3rwFQ9gpF+sXYhHrJ3Alac
+	 B0hjRNeRVglAkea8evREtxMclb1GN1RC/+lzDgikBnazfpse+UGiaaGHd0NqVD2jgX
+	 N9NNmR4UM3WRg==
 From: Yixun Lan <dlan@kernel.org>
-Subject: [PATCH 0/3] PM: spacemit: Add power domain support
-Date: Fri, 18 Sep 2026 02:40:12 +0000
-Message-Id: <20260918-04-k3-pm-support-v1-0-0acd2b36b96f@kernel.org>
+Date: Fri, 18 Sep 2026 02:40:13 +0000
+Subject: [PATCH 1/3] dt-bindings: power: spacemit: Add power domain
+ controller
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,10 +38,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBBA0auQWTvJWIgVr2Jc2DLV0UibDhAS0
- rtTdfkW/2+gnIUVLs0GmRdRiWPF8dCAf97HB6MM1WDInKinHqnDd4vpgzqnFPOE5Dh0xGcbBgs
- 1S5mDrL/l9fa3zu7Ffvp+oJQdYCdHKHQAAAA=
-X-Change-ID: 20260909-04-k3-pm-support-0bef40e87fd7
+Message-Id: <20260918-04-k3-pm-support-v1-1-0acd2b36b96f@kernel.org>
+References: <20260918-04-k3-pm-support-v1-0-0acd2b36b96f@kernel.org>
+In-Reply-To: <20260918-04-k3-pm-support-v1-0-0acd2b36b96f@kernel.org>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
  Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
@@ -49,54 +49,125 @@ Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
  spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
  linux-pm@vger.kernel.org, Yixun Lan <dlan@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1395; i=dlan@kernel.org;
- h=from:subject:message-id; bh=3O+/WmoIsQzDrwJGBdKpLb03xqXIbSpp60sfODS9ckQ=;
- b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBqrKSPaZFxU8QzhQ9Y2U7+D5syhEnOdw7Nngoji
- I2j6PagAeqJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCaqykjxsUgAAAAAAEAA5t
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3268; i=dlan@kernel.org;
+ h=from:subject:message-id; bh=LjFaux2RkoflSgfa+SRMzDruiFnZt3y6YPLO1trSPWs=;
+ b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBqrKSSsV4vhz3ANSGQtXvagH3NvV73rB7g4AHhK
+ Rs3VXWPYJqJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCaqykkhsUgAAAAAAEAA5t
  YW51MiwyLjUrMS4xMiwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
  maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
- QACgkQMarqR1lNu+2LvA/8Ds9YgZDS3nc2r4peu6+pIJIckVk5I8OxyX4FXIAKrgr9cAq7E6ReQ
- 4vfQhPQ5Q64oxF+VHR9MEm+lBQXliGu6XtUtzM/ciBzFmMbaGUnqAfhb4C7tFlR/HBRHTBwpNfV
- T65CkzIR5B1v2GczgBkYd2TrzzUXjjUyMlauKE4fpewyeGddRa29oeT4OUV9UA6aaUvXrdc68+t
- IPaj1kYneXc2YurIXKRwN7FzlVECcus9+TxIRjFoC/cXDuT+WiMSDKwo3Jc58kh3cbOJ3jCr09r
- ixRgbCVr5MdexCJcRL6YQsCQjez53Y7we8twAxqayFrWQ0zvYugvtLxwObB+/VyDe8T6C+z4VsJ
- rwKxxq7+5FBbkGtWNjTbu3lJm46fonoT4rO98qpNsup9cg8BEV3cViBb6NKMfO9KhKIf4bV5JG4
- YnBQGv7RuPG0m/5yINbDvxKni8BrznyWGOBjr1ySFBbUpYMvF1nlG5wkiKh1ylpZzmnkE/RTmzQ
- l0tFvwAqUcL2nRf+hUm8Yucc1Lnl9d/LXb227TGcDhpouG8LoqmhucSkzwMczRtuTqygqe/XvQf
- 3nCWAJbIgve1zJngREt/tWq5gLEFgU35IZbjutmaLiF67nKewBBZIdkelpa9xyqnmKRd6m1s29L
- vFUmDtTO/t5TihhUDxhlRTFbzmm17Q=
+ QACgkQMarqR1lNu+2xwxAAjNbE3A3tMYAn70EbRs4GLqvjvYjlxxSoVe6JBT8087K/0FiEU2rpM
+ SQfWFlbZ7YMqiXp4x8TkBG3LGjp3XO8CltZznTkkmvnljke+QmVxbib1D19n4LNIHUnGAW2/hiH
+ QongiyppF3gJwj39ALsKqrtpezxtl52xBBDLDhN1sYBieNlhyafWBFfaF6SvcpNvaCsEAE4aEZk
+ Pu3iUI2a0rGHOWaeJm4oMoZneCv8Wwa9Taxot+V27CF8v2p9CtwLUKTk3ZRQQmv02BetlZsMDzC
+ doiSeUHtf7hgpxpxqT7VeNKwXL8xDP6fjuTz8v4KGAgt5Ga1JJxQvmcGR7PAg3STe5ZZ7FeVTSg
+ fuSufapu8RDHquSP/7eJPpBHviEAPGfGWrse/YL2k43xzff4uf9Cb3aOUS03ciWelgy2ExquYl3
+ 6eiptqGPgSq9iziwCDc+6KUUY/1IsKTs+AojFAna7VVOrh+7Est3icO9mLq4WCuoPwiNdhmfbHb
+ oUAooFM6+JVliRAYfrLxm7fYce57g94c1F8E7DI52p8bQRscgAhRC+8dynPisv+u2u/tSBI3PoD
+ XS8mNNlRG7gDzOm51XyS46iRUOheWE6DcQiK+XZFlULQia+JTcfRnrLYKtdJCvyo9UJy1GPByI4
+ tKyOn6mRt4nX2j1WKAQvKZWSm47jGQ=
 X-Developer-Key: i=dlan@kernel.org; a=openpgp;
  fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
 
-In this series, we try to add a Power Domain driver support for SpacemiT
-K1/K3 SoCs, the driver implement the power-switch functionaly which support
-power on/off, and it's based on Linux Generic PM Domain framework and
-similiar to vendor K1's implementation, but unlike the K3's vendor
-version which is more complicated.
+Add initial power domain driver support for SpacemiT K1/K3 SoC, The Power
+Domain Controller is SoC internal module which is part of APMU (Advanced
+Power Management Unit), it is responsible for managing power across multi
+power domains, which includes power on/off, isolation, power-on sequence.
 
 Signed-off-by: Yixun Lan <dlan@kernel.org>
 ---
-Yixun Lan (3):
-      dt-bindings: power: spacemit: Add power domain controller
-      pmdomain: spacemit: Add power domain driver
-      dts: riscv: spacemit: Add power domain nodes
+ .../bindings/power/spacemit,power-controller.yaml  | 43 ++++++++++++++++++++++
+ include/dt-bindings/power/spacemit,k1-power.h      | 14 +++++++
+ include/dt-bindings/power/spacemit,k3-power.h      | 12 ++++++
+ 3 files changed, 69 insertions(+)
 
- .../bindings/power/spacemit,power-controller.yaml  |  43 ++
- arch/riscv/boot/dts/spacemit/k1.dtsi               |   6 +
- arch/riscv/boot/dts/spacemit/k3.dtsi               |   6 +
- drivers/pmdomain/Kconfig                           |   1 +
- drivers/pmdomain/Makefile                          |   1 +
- drivers/pmdomain/spacemit/Kconfig                  |  15 +
- drivers/pmdomain/spacemit/Makefile                 |   1 +
- drivers/pmdomain/spacemit/pm_domains.c             | 448 +++++++++++++++++++++
- include/dt-bindings/power/spacemit,k1-power.h      |  14 +
- include/dt-bindings/power/spacemit,k3-power.h      |  12 +
- 10 files changed, 547 insertions(+)
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260909-04-k3-pm-support-0bef40e87fd7
+diff --git a/Documentation/devicetree/bindings/power/spacemit,power-controller.yaml b/Documentation/devicetree/bindings/power/spacemit,power-controller.yaml
+new file mode 100644
+index 000000000000..f869285f84da
+--- /dev/null
++++ b/Documentation/devicetree/bindings/power/spacemit,power-controller.yaml
+@@ -0,0 +1,43 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/power/spacemit,power-controller.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: SpacemiT Power Domains Controller
++
++maintainers:
++  - Yixun Lan <dlan@kernel.org>
++
++description: |
++  SpacemiT processors include support for multiple power domains which can be
++  powered on/off by software based on different application scenes to save power.
++
++properties:
++  compatible:
++    enum:
++      - spacemit,k1-power-controller
++      - spacemit,k3-power-controller
++
++  '#power-domain-cells':
++    const: 1
++
++  spacemit,apmu:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description:
++      A phandle to APMU syscon to control registers for power domain
++
++required:
++  - compatible
++  - '#power-domain-cells'
++  - spacemit,apmu
++
++additionalProperties: false
++
++examples:
++  - |
++    power-controller {
++            compatible = "spacemit,k1-power-controller";
++            spacemit,apmu = <&syscon_apmu>;
++            #power-domain-cells = <1>;
++    };
+diff --git a/include/dt-bindings/power/spacemit,k1-power.h b/include/dt-bindings/power/spacemit,k1-power.h
+new file mode 100644
+index 000000000000..41ef540b5c44
+--- /dev/null
++++ b/include/dt-bindings/power/spacemit,k1-power.h
+@@ -0,0 +1,14 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++
++#ifndef _DT_BINDINGS_SPACEMIT_K1_POWER_H_
++#define _DT_BINDINGS_SPACEMIT_K1_POWER_H_
++
++#define K1_PMDOMAIN_VPU		0
++#define K1_PMDOMAIN_GPU		1
++#define K1_PMDOMAIN_LCD		2
++#define K1_PMDOMAIN_ISP		3
++#define K1_PMDOMAIN_AUDIO	4
++#define K1_PMDOMAIN_GNSS	5
++#define K1_PMDOMAIN_HDMI	6
++
++#endif
+diff --git a/include/dt-bindings/power/spacemit,k3-power.h b/include/dt-bindings/power/spacemit,k3-power.h
+new file mode 100644
+index 000000000000..54b39f2f0936
+--- /dev/null
++++ b/include/dt-bindings/power/spacemit,k3-power.h
+@@ -0,0 +1,12 @@
++// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++
++#ifndef _DT_BINDINGS_SPACEMIT_K3_POWER_H_
++#define _DT_BINDINGS_SPACEMIT_K3_POWER_H_
++
++#define K3_PMDOMAIN_VPU		0
++#define K3_PMDOMAIN_GPU		1
++#define K3_PMDOMAIN_AUDIO	2
++#define K3_PMDOMAIN_LCD0	3
++#define K3_PMDOMAIN_LCD1	4
++
++#endif
 
-Best regards,
---  
-Yixun Lan <dlan@kernel.org>
+-- 
+2.55.0
 
