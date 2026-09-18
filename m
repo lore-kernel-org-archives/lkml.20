@@ -1,65 +1,65 @@
 Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DEE14E06E7
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:40:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6D1F4E5350
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:40:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789731621; cv=none; b=iNZ7sCuHi6HbFqTdBsOmLm4tNx0R82jGNv01dHhn7N4+SHazmEHm/34afu9C8MtqYBhX3DZQlz/vWPg4b9r+cLRFGpA3f88vw+dx4gTY9obUBtohDKxV+wv4FBwrZBdqleZxpMRimdZDRNbmqyNhCmm9OpcLYL8oQVyCg5RtROc=
+	t=1789731623; cv=none; b=K2+RVY+AtIAnijnPgUzM1+3wFZMgF3TxsA/Z0e3ZahYo7Hjtnm31rPDFGT7hOiWlCBzP0jhq+Kq1DG+DAzx8jQhPVoNpuxqaNEROoPljEMhTR7r/x8ygFZZofAl/op3zI/Uxk7ilmUWYqiwyWYyZ7PAWh9Y15xzzKuC/grTiw10=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789731621; c=relaxed/simple;
-	bh=VLOgYBB284e6UvetsR2kb8uGxt30t++4NGeUIM3BLp0=;
+	s=arc-20240116; t=1789731623; c=relaxed/simple;
+	bh=qBwQ7DEw79JJnVxr4S8TbgGFePlNOOs8PFNmivGw38c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=B+HFH7VfV9cJW8f/+F7eA6A5vV79LQAMsSgFvAeuf71o/j3sXbzLRayCw3tHdY1sRRyKXCa92uokOdMDiFLlZh4ikZ5c9qWuzE/NHMnZ42ZN8yq59I1Vc+p2egRcwxfBTCma5MPhbYX7DkjmddykrXLc/62BHyHhHsYYHmgQFac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oL9OR3op; arc=none smtp.client-ip=74.125.225.76
+	 MIME-Version:Content-Type; b=YiCB8q0aFX66LKfRYXz9pki6r6XuwFD1xWTysskCIfbmDYLCpvjnWguKpp38f/veuFsmB5l1F5dtlUB9c2MwaZUSaeBFIb+i3Ekb+OJ46oUPvZWxBAeyX4NMJfNiRiq+lFV0XBVljFU6QkcVY2h4YTu8gFo/OJeNYYPOp4RRq9Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m0XkQ7x/; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oL9OR3op"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485ac898fa4so536167f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 04:40:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m0XkQ7x/"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485933b2522so427924f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 04:40:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789731615; x=1790336415; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789731612; x=1790336412; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=qsOk67V7rRXI6BMJYe6ZaVYzC3vxvy2AFyjxpdxDJNc=;
-        b=oL9OR3opRltkdNEaiQgKlwLG84MyajATZZ0WJE8TW0M5AeWKrDatabbzveClZIzRw1
-         gGknTcWTw7xfeNfYc59SWKIUF3VnSlFKosVM+uzjcGDuQOkBvTpiLRLHkEPEz67aB9Wm
-         aZRr5cYLV8kl/RIm4sfMHOuwH5rlnqHFnDScerPLdHQCJHfdmLFWIMf51M/TzSMM9IJK
-         7CIBJQajUiO11xe2cauIStjgnj/HfLTaOXaB1LTceonGJ4fPdIIen6xjE2HVzmvPF6P2
-         fjYtjHRgZN58qFucWA5UmskufYFPq3mLVV1GcKhTcosTrrQbyKfNF77d43XQAwH7mnw3
-         ONnw==
+        bh=ILd0M2zVl8BwYHpmpxJRTpfYdHAsHwekqBNo1i5w1cs=;
+        b=m0XkQ7x/Ry7Tr83guAM/NcvfTOdzUL18ek/9mgT/ufWe3fTp9rqY9zsBT3//vx4+vp
+         tHJVC5lahImuP45JfMWCdsxXwW8jx8nVQgZ5ucszUUJ4sJaDC505+5rrvtCuNrXukyTH
+         3jeHLKns9xi5H55WpRhw9s9rgOBnCM4q/98c3kOLuOZW6JZX7+Lriq5aC7L8pmzCWX0o
+         R+IcArd3fmZvxtvRMLdz7Lwu4w192bk9V3Ea7CsOtsJj5jkqa640xWPevb5rPmNBfNRv
+         n5+JheuM7ImjnjJQKTnDww8eWg9oQKzAzKMof3aOCveP09aR1rXo5/vMOk9FPJkxS9sA
+         f3pw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789731615; x=1790336415;
+        d=1e100.net; s=20260707; t=1789731612; x=1790336412;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=qsOk67V7rRXI6BMJYe6ZaVYzC3vxvy2AFyjxpdxDJNc=;
-        b=wGibUPL3IZq3FLvzoFOcq2mvL21CrTOOCLiWA5vDL3nn4rNdMKjGe6nrI2bk8Liftd
-         lq61gyDW1GbxFhqGlKxuLQ+w2T6gHA1R+BSZRd499vw5VVumVJLMU7KNb8q0As27d1u/
-         EXieD784FU7cUVXSpvVSO4sLkG0cRF0mg/PDwp5jUgfzk7wUXOqbn/bT1mEsLGKaL2+Y
-         tKVwSloI+EBEQK9Nn587AyU5ALjhMidayiHlH8/dgM6JnhpCjw6LR3XoTseqs53m36h+
-         WDo1/dIFImp2ojuKndTmjv4Osc9M5JnaDq/QDD+ljphPzVCMKr0h4At57V3/5yk6v+GQ
-         +qpw==
-X-Forwarded-Encrypted: i=1; AKwUvBwko5Hnwjmlqu8xWyfn188B2bCu/6PsBBwWqFLckyvsvyakKz5LgGlNBY5gBUDJ89OfZMu8CEPfBYLzc24=@vger.kernel.org
-X-Gm-Message-State: AFuF++k1JlyA7fL7Xd7pOMX2RMbW3lZEhq1O/iEmj2ZMGqdxnSe7UZWV
-	7gTMjpppM2cZ1739LiBJfEs2+oQOl658PF+akvRhoYBdNF5ZVt/eD+Gq
-X-Gm-Gg: AYBFou0esEnTkzS0Rw4J43cIGAkW2EmmzciMLMk4yW8sDPOsycyI2U8dIFFXe9JtLP5
-	bnVyux70dJQWDsUwWTDBHiTNNBbukq4C4cCOB1C6tZ2GmyCebE03DLIBLQWU9zRnO+ql/pwYsBF
-	BoF/eQega3lZF9HLuBoQ0oOBw/cDg72vQ718Bdbscu9p/dPANkUHkQrIOcuuf/s5GVEa2dOsiif
-	RpxYEGxzfbOuNnUa6v1Z8fSSC3URuqRfygmrNyfEbvOsameOpFrPSwv7YJxldNEc+cFD96C+0qZ
-	JOkABVbfO1Tz3H1kXtgWIhvRo8kwyrEJRnC8TH1xwA6VTgTIyvL+f1H+5sUpHb+mG7srqi+ybPG
-	os6Hnxc9xERg/nq22569YKPx1H2rL0qG8ZtiSKLj/HrDreq2DASkX0p1RVPaiyzDTQfqlezkBMN
-	hR+DmizGAJ2v680H179vGAatt1djGLzSpZ1z8IwcZu/dzepmoBBfODO4ZNzhOWxccs6J0IEP+9e
-	xSj5CWvFhdraBc8bBz63lHIlJI=
-X-Received: by 2002:a05:6000:4904:b0:486:fed8:8710 with SMTP id ffacd0b85a97d-4871e367d9amr3116450f8f.38.1789731614971;
-        Fri, 18 Sep 2026 04:40:14 -0700 (PDT)
+        bh=ILd0M2zVl8BwYHpmpxJRTpfYdHAsHwekqBNo1i5w1cs=;
+        b=NeFl4L623JCh/v0Jc/WD8rnfBnYvWhQtQq86Ac3+j+N7moj7iBpZz7UWr7IYWita7R
+         255Y5rsP3pI4utVx4eQe8VPFcxs9kgni/JpVyNRgpAioB0oFiN7ct2wmQ+wYjurZbZkL
+         YBtsdXxbFiIA5FEMxY+8OPM4KeX8QIdCMrjYvopr0JJyWfG6UWAxiX2c3wOp9BAtpiVk
+         KlNAIZmO26ugrSVefXU2XOYmw0MjT4MO0I6GTnA1nPPPt+y07kWmj9v+uDlabrOoDE1x
+         X4sPy6K5UfmId/70o/YRYGMI4v4RNrhk3b6s1KvNJoI0gNdYjepq6CrM6QGDJgmzm+MI
+         9MNw==
+X-Forwarded-Encrypted: i=1; AKwUvBxHBuNaLVn/u3cZNZs8QnyZ3fUvEPp16ShDV5f/5s/ARwgfzToNS+v9D0/gABbw7stF95SeCDABGmg2w+k=@vger.kernel.org
+X-Gm-Message-State: AFuF++mGfdFEfmO9jqvH42eKw0ujfrWh9u6Mb0NUVeCt4/TvK65secjF
+	alQcdvvZZleH5JomL1pjVno/g8QYxPE6KvLCGkQQEcan5ytieqZ7oQVk
+X-Gm-Gg: AYBFou2amBGDzUG/buayrttCrwNhnDrx/zgsN5YXmYP8H36zTc+HnuhO9Qhy67oIOtd
+	RnbHXUU/RCFkxY1nXPAJ7orxVHeQFk7OQO+0OhJ/Cy5OgPiEOI6JqDHc6l+jHNjEhMCqWC5GyeC
+	KDzNiKOuprmgy4h/X1Yi3OuARBTmWvhQf3slvJIR+MRtxdkqimrRTEI6u2M76Iq9qhCyanu2wCD
+	OsC2FBR2pHk5Zn8uXLMWxtVAVdwHNBbnVp46o51pAnLIkjkn9Sa9JWDvj/W+Y7HyHbywhFR6Pp8
+	DTToNX86QxrQZmx8b7jMaLWSnXyJEl+Lc4KmctqNpYl6cV/BkV8CeFrZSZSIx/O6QDS7oLdKKQB
+	3yxmIV5AZ5qlbEmu3SemoPMatigKgFWIvQdcQSRH7mjXY+Ai+O0xAhBHZkT/C3wBcUO14+EZhII
+	Aubexs3qdxDB1u+HCb3m0aKSbTM55mWA7Yb6/bq/jbJnUTbrAoSwZWLZln/GhQtIpYKV9fPDcQx
+	kK0g0sJzWIE+qrF7R8WMWCS/4I=
+X-Received: by 2002:a05:6000:2f87:b0:487:c3e:8df8 with SMTP id ffacd0b85a97d-4871e20f764mr5372813f8f.5.1789731611855;
+        Fri, 18 Sep 2026 04:40:11 -0700 (PDT)
 Received: from cachyos ([41.143.99.116])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4871feb5636sm3734893f8f.5.2026.09.18.04.40.13
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4871feb5636sm3734893f8f.5.2026.09.18.04.40.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 04:40:14 -0700 (PDT)
+        Fri, 18 Sep 2026 04:40:11 -0700 (PDT)
 From: =?UTF-8?q?Isma=C3=AFl=20Bahloul?= <i.bahloul01@gmail.com>
 To: linux-sound@vger.kernel.org
 Cc: linux-usb@vger.kernel.org,
@@ -71,10 +71,11 @@ Cc: linux-usb@vger.kernel.org,
 	skhan@linuxfoundation.org,
 	rdunlap@infradead.org,
 	linux-doc@vger.kernel.org,
-	=?UTF-8?q?Isma=C3=AFl=20Bahloul?= <i.bahloul01@gmail.com>
-Subject: [RFC PATCH v5 5/8] ALSA: usb: babyfacepro: add S3 suspend/resume
-Date: Fri, 18 Sep 2026 12:39:41 +0100
-Message-ID: <20260918113944.76871-6-i.bahloul01@gmail.com>
+	=?UTF-8?q?Isma=C3=AFl=20Bahloul?= <i.bahloul01@gmail.com>,
+	David Fredman <davfre@gmail.com>
+Subject: [RFC PATCH v5 3/8] ALSA: usb: babyfacepro: add mic preamp, phantom/pad and input trim
+Date: Fri, 18 Sep 2026 12:39:39 +0100
+Message-ID: <20260918113944.76871-4-i.bahloul01@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260918113944.76871-1-i.bahloul01@gmail.com>
 References: <20260918113944.76871-1-i.bahloul01@gmail.com>
@@ -87,85 +88,1018 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Kills the stream and lets the PCM core suspend substreams (apps get
--ESTRPIPE and restart) on suspend; resume re-runs the cold init and
-replays the cached mixer state.  Front-panel poll start/stop around
-suspend is added by the front-panel patch, once that poll exists.
+Adds the mic-input side of the mixer: phantom power, pad, instrument
+ref level, the four preamp gains, and the phase/stereo-split/trim
+controls layered on the AN1/2 monitor bus crosspoint registers.
 
-USB autosuspend itself is out of scope (already disabled at probe in
-the first patch of this series) - this is S3 system sleep only.
+The phase/split/trim registration loops and the crosspoint fader
+curve they share with the front-panel MIX wheel (added by a later
+patch) were split out of the same source function as the crosspoint
+matrix; the curve is introduced here because bf_trim_apply() is its
+first user.
 
+Co-developed-by: David Fredman <davfre@gmail.com>
+Signed-off-by: David Fredman <davfre@gmail.com>
 Signed-off-by: Ismaïl Bahloul <i.bahloul01@gmail.com>
 ---
- sound/usb/babyfacepro/babyfacepro.c | 48 +++++++++++++++++++++++++++++
- 1 file changed, 48 insertions(+)
+ sound/usb/babyfacepro/babyfacepro-ctl.c | 752 ++++++++++++++++++++++++
+ sound/usb/babyfacepro/babyfacepro.c     |  51 +-
+ sound/usb/babyfacepro/babyfacepro.h     |  85 +++
+ 3 files changed, 887 insertions(+), 1 deletion(-)
 
-diff --git a/sound/usb/babyfacepro/babyfacepro.c b/sound/usb/babyfacepro/babyfacepro.c
-index c15fca214..ccf3dbf36 100644
---- a/sound/usb/babyfacepro/babyfacepro.c
-+++ b/sound/usb/babyfacepro/babyfacepro.c
-@@ -1592,6 +1592,52 @@ static void babyface_disconnect(struct usb_interface *intf)
- 	snd_card_free_when_closed(chip->card);
+diff --git a/sound/usb/babyfacepro/babyfacepro-ctl.c b/sound/usb/babyfacepro/babyfacepro-ctl.c
+index a3d3252f5..8ee711b81 100644
+--- a/sound/usb/babyfacepro/babyfacepro-ctl.c
++++ b/sound/usb/babyfacepro/babyfacepro-ctl.c
+@@ -705,3 +705,755 @@ int babyface_create_masters(struct snd_usb_babyface *chip)
+ 	return 0;
  }
  
-+static int babyface_suspend(struct usb_interface *intf, pm_message_t message)
++int bf_preamp_state_write(struct snd_usb_babyface *chip)
 +{
-+	struct snd_usb_babyface *chip = usb_get_intfdata(intf);
++	int ret;
 +
-+	struct snd_device *sdev;
++	ret = bf_vendor_write(chip, BF_REQ_PREAMP, chip->preamp, BF_REG_PREAMP);
++	if (ret < 0)
++		return ret;
++	/* Boost's 0x21 commit value (0x0003) is NOT a persisted register
++	 * bit - PROTOCOL.md's "Ref level" section found it only in the
++	 * one-shot 0x21 value alongside the 0x17 state write, so it has
++	 * to be re-sent alongside EVERY preamp write (phantom/PAD toggles
++	 * included), or Boost would silently degrade to plain -10dBV the
++	 * next time anything else touches this shared byte.
++	 */
++	return bf_vendor_write(chip, BF_REQ_PREAMP_COMMIT,
++			       chip->ref_level == BF_REF_LEVEL_BOOST ?
++			       0x0003 : 0x0000, 0x0000);
++}
 +
-+	if (!chip)
-+		return 0;
-+	list_for_each_entry(sdev, &chip->card->devices, list) {
-+		if (sdev->type == SNDRV_DEV_PCM)
-+			snd_pcm_suspend_all(sdev->device_data);
++/* Phase (polarity) invert (AN1-4 only, PROTOCOL.md "Phase toggle",
++ * hardware-verified 2026-08-23): NEGATE (bitwise NOT, not two's
++ * complement) the L crosspoint register on every output pair's
++ * standard map, plus the AN1/2 low-map shadow specifically (the same
++ * single low-map register set CUE/mute/solo already use for that
++ * monitor bus - see this driver's own bf_ms_put for the address
++ * pattern). `chip->xpoint[out][mic][0]` is deliberately left holding
++ * the PLAIN value the user actually set - only the value WRITTEN to
++ * hardware is negated - so the crosspoint control's own readback still
++ * reports the real fader position while phase is engaged.
++ *
++ * KNOWN LIMITATION, same class TuxMix's own USB backend already has
++ * in `usb.rs::set_phase` (not fixed there either, as of this writing):
++ * this negates the CURRENT register value once, at toggle time. A
++ * later `bf_xpoint_put` on the same [out][mic] slot (i.e. the user
++ * drags that fader again while phase is engaged) writes the plain
++ * value, silently un-inverting phase until the user re-toggles it.
++ * Making the crosspoint hot path itself phase-aware would close this
++ * properly, but touches every one of the 84 crosspoint controls'
++ * write path - out of scope for this pass; flagged rather than
++ * silently shipped.
++ */
++int bf_phase_apply(struct snd_usb_babyface *chip, int mic, bool invert)
++{
++	const struct bf_source *s = &bf_sources[mic];
++	int out, ret;
++	u16 flag;
++
++	for (out = 0; out < 6; out++) {
++		unsigned int blk = bf_xpoint_block[out];
++		u16 plain = chip->xpoint[out][mic][0];
++		u16 value = invert ? (u16)~plain : plain;
++
++		flag = bf_flag_cycle[chip->flag_cnt];
++		chip->flag_cnt = (chip->flag_cnt + 1) & 3;
++		ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, value,
++				      (BF_REG_CROSS_BASE_L +
++				       BF_REG_CROSS_STRIDE * blk + s->idx_l) |
++				      flag);
++		if (ret < 0)
++			return ret;
++
++		if (out == 0) {
++			ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, value,
++					      s->idx_l);
++			if (ret < 0)
++				return ret;
++		}
 +	}
-+	cancel_work_sync(&chip->stream_work);
-+	mutex_lock(&chip->mutex);
-+	if (chip->streaming)
-+		babyface_stream_kill(chip);
-+	mutex_unlock(&chip->mutex);
 +	return 0;
 +}
 +
-+static int babyface_resume(struct usb_interface *intf)
++static int bf_phase_info(struct snd_kcontrol *kctl,
++			 struct snd_ctl_elem_info *uinfo)
 +{
-+	struct snd_usb_babyface *chip = usb_get_intfdata(intf);
-+	int err;
-+
-+	if (!chip)
-+		return 0;
-+
-+	/* The device lost its state across the suspend; re-run the cold
-+	 * init and re-apply the cached mixer state.  Suspended PCM
-+	 * substreams are woken by the core - apps get -ESTRPIPE and
-+	 * restart (the trigger re-arms the stream).
-+	 */
-+	mutex_lock(&chip->mutex);
-+	err = usb_set_interface(chip->dev, BF_IFACE, chip->alt);
-+	if (err < 0)
-+		goto out;
-+	err = bf_cold_init(chip);
-+	if (err < 0)
-+		goto out;
-+	err = babyface_restore_state(chip);
-+out:
-+	mutex_unlock(&chip->mutex);
-+	return err;
++	uinfo->type = SNDRV_CTL_ELEM_TYPE_BOOLEAN;
++	uinfo->count = 1;
++	uinfo->value.integer.min = 0;
++	uinfo->value.integer.max = 1;
++	return 0;
 +}
 +
- static const struct usb_device_id babyface_ids[] = {
- 	{ USB_DEVICE(USB_VENDOR_RME, USB_PRODUCT_BABYFACE_PRO_FS) },
- 	{ }
-@@ -1602,6 +1648,8 @@ static struct usb_driver babyface_driver = {
- 	.name = "snd-usb-babyface-pro",
- 	.probe = babyface_probe,
- 	.disconnect = babyface_disconnect,
-+	.suspend = babyface_suspend,
-+	.resume = babyface_resume,
- 	.id_table = babyface_ids,
++static int bf_phase_get(struct snd_kcontrol *kctl,
++			struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_usb_babyface *chip = snd_kcontrol_chip(kctl);
++	int mic = kctl->private_value;
++
++	ucontrol->value.integer.value[0] = chip->phase[mic];
++	return 0;
++}
++
++static int bf_phase_put(struct snd_kcontrol *kctl,
++			struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_usb_babyface *chip = snd_kcontrol_chip(kctl);
++	int mic = kctl->private_value;
++	bool invert = ucontrol->value.integer.value[0];
++	int ret = 0;
++
++	mutex_lock(&chip->mutex);
++	if (invert == chip->phase[mic])
++		goto out;
++	ret = bf_phase_apply(chip, mic, invert);
++	if (ret < 0)
++		goto out;
++	chip->phase[mic] = invert;
++	ret = 1;
++out:
++	mutex_unlock(&chip->mutex);
++	return ret;
++}
++
++/* Stereo split (PROTOCOL.md "Stereo split", cap_ctrl3.pcap, hardware-
++ * verified): a playback pair's signal into the AN1/2 monitor bus goes
++ * hard-split (L=0x2000/R=0x0000, "split-mono") instead of the normal
++ * stereo pair (L=R=0x1000, -6 dB each side) - fixed constants, not
++ * derived from the current fader value (unlike Phase, there's nothing
++ * to preserve), matching TuxMix's own `usb.rs::set_stereo_split`
++ * exactly. Only reaches the AN1/2 destination (low map + that output's
++ * standard crosspoint block) - same scope as CUE/mute/solo's own
++ * low-map-only reach. `chip->xpoint[][]` is deliberately left
++ * untouched, same reasoning as Phase.
++ */
++int bf_split_apply(struct snd_usb_babyface *chip, int pb, bool split)
++{
++	const struct bf_source *s = &bf_sources[8 + pb];
++	unsigned int blk = bf_xpoint_block[0]; /* AN1/2 output */
++	u16 l = split ? 0x2000 : 0x1000;
++	u16 r = split ? 0x0000 : 0x1000;
++	int ret;
++
++	ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, l,
++			      BF_REG_LOWMAP_BASE_L + s->idx_l);
++	if (ret < 0)
++		return ret;
++	ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, r,
++			      BF_REG_LOWMAP_BASE_R + s->idx_r);
++	if (ret < 0)
++		return ret;
++	ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, l,
++			      (BF_REG_CROSS_BASE_L + BF_REG_CROSS_STRIDE * blk +
++			       s->idx_l));
++	if (ret < 0)
++		return ret;
++	return bf_vendor_write(chip, BF_REQ_CROSSPOINT, r,
++			       (BF_REG_CROSS_BASE_R + BF_REG_CROSS_STRIDE * blk +
++				s->idx_r));
++}
++
++static int bf_split_get(struct snd_kcontrol *kctl,
++			struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_usb_babyface *chip = snd_kcontrol_chip(kctl);
++	int pb = kctl->private_value;
++
++	ucontrol->value.integer.value[0] = chip->split[pb];
++	return 0;
++}
++
++static int bf_split_put(struct snd_kcontrol *kctl,
++			struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_usb_babyface *chip = snd_kcontrol_chip(kctl);
++	int pb = kctl->private_value;
++	bool split = ucontrol->value.integer.value[0];
++	int ret = 0;
++
++	mutex_lock(&chip->mutex);
++	if (split == chip->split[pb])
++		goto out;
++	ret = bf_split_apply(chip, pb, split);
++	if (ret < 0)
++		goto out;
++	chip->split[pb] = split;
++	ret = 1;
++out:
++	mutex_unlock(&chip->mutex);
++	return ret;
++}
++
++/* bf_fader_raw_to_db2()/bf_fader_db2_to_raw() (the crosspoint fader
++ * curve) are defined further down in this file, alongside the
++ * front-panel wheel code that was their first user - forward-declared
++ * here rather than moved, to keep this diff to additions only.
++ */
++static int bf_fader_raw_to_db2(u16 raw);
++static u16 bf_fader_db2_to_raw(int db2);
++
++static int bf_trim_info(struct snd_kcontrol *kctl, struct snd_ctl_elem_info *uinfo);
++static int bf_trim_get(struct snd_kcontrol *kctl, struct snd_ctl_elem_value *ucontrol);
++static int bf_trim_put(struct snd_kcontrol *kctl, struct snd_ctl_elem_value *ucontrol);
++
++/* Input Trim (T button, AN1-4): PROTOCOL.md "Trim (T) write for the
++ * AN1/2 pair" (cap_trim2/3/4.pcap, hardware-verified) - the analog
++ * input's own gain-trim, applied through the crosspoint registers
++ * exactly like a fader (there is no separate trim register). Two
++ * different curves combine: the low map holds the trim ALONE on the
++ * MASTER curve (0x2000 = 0 dB, `bf_master_16bit`); the standard map
++ * holds fader+trim SUMMED on the FADER curve (`bf_fader_db2_to_raw`).
++ * Always writes all 8 registers for the pair (both AN1+AN2 or both
++ * AN3+AN4, matching the vendor software's linked-strip behaviour);
++ * `mic` may be either channel of the pair, and the base is derived
++ * (`mic & ~1`) so the write always lands on the correct pair's
++ * registers regardless of which channel's control triggered it.
++ * Destination is always the AN1/2 monitor bus, the same scope the
++ * MS-processor and CUE writes have, and the same one the vendor
++ * software's Trim reaches.
++ *
++ * Trim is a genuinely SHARED value per pair on real hardware (one
++ * write always touches both channels' registers) but is exposed as 2
++ * per-channel ALSA controls, one per input strip. `bf_trim_put` keeps
++ * the pair's two cache entries equal and notifies the sibling control,
++ * so the cache never claims a per-channel split the hardware cannot
++ * represent - and `bf_state_apply_flags`, which replays the pair from
++ * its even index, always replays the value that is actually on the
++ * wire.
++ *
++ * ONE KNOWN LIMITATION, kept rather than silently hidden:
++ *    Same class as Phase (see `bf_phase_apply`'s own comment):
++ *    `chip->xpoint[0][mic][0]` is read here for the CURRENT fader
++ *    value but never written back - the standard-map register ends up
++ *    holding fader+trim while the cache still holds the plain fader,
++ *    so a later `bf_xpoint_put` on the same slot writes the plain
++ *    value, silently dropping trim from the combined register until
++ *    this is re-applied. Not fixed for the same reason Phase wasn't:
++ *    touches the shared 84-crosspoint write path, out of scope here.
++ */
++int bf_trim_apply(struct snd_usb_babyface *chip, int mic, int trim_db2)
++{
++	int base = mic & ~1;
++	int sib = base + 1;
++	const struct bf_source *sb = &bf_sources[base];
++	const struct bf_source *ss = &bf_sources[sib];
++	unsigned int blk = bf_xpoint_block[0]; /* AN1/2 output */
++	u16 trim_raw = bf_master_16bit(trim_db2);
++	int fader_db2 = bf_fader_raw_to_db2(chip->xpoint[0][base][0]);
++	u16 standard_raw = bf_fader_db2_to_raw(fader_db2 + trim_db2);
++	int ret;
++
++	ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, trim_raw,
++			      BF_REG_LOWMAP_BASE_L + sb->idx_l);
++	if (ret < 0)
++		return ret;
++	ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, trim_raw,
++			      BF_REG_LOWMAP_BASE_R + sb->idx_r);
++	if (ret < 0)
++		return ret;
++	ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, trim_raw,
++			      BF_REG_LOWMAP_BASE_L + ss->idx_l);
++	if (ret < 0)
++		return ret;
++	ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, trim_raw,
++			      BF_REG_LOWMAP_BASE_R + ss->idx_r);
++	if (ret < 0)
++		return ret;
++	ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, standard_raw,
++			      (BF_REG_CROSS_BASE_L + BF_REG_CROSS_STRIDE * blk +
++			       sb->idx_l));
++	if (ret < 0)
++		return ret;
++	ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, standard_raw,
++			      (BF_REG_CROSS_BASE_R + BF_REG_CROSS_STRIDE * blk +
++			       sb->idx_r));
++	if (ret < 0)
++		return ret;
++	ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, standard_raw,
++			      (BF_REG_CROSS_BASE_L + BF_REG_CROSS_STRIDE * blk +
++			       ss->idx_l));
++	if (ret < 0)
++		return ret;
++	return bf_vendor_write(chip, BF_REQ_CROSSPOINT, standard_raw,
++			       (BF_REG_CROSS_BASE_R + BF_REG_CROSS_STRIDE * blk +
++				ss->idx_r));
++}
++
++/* Trim's control value is dB as well, -65..+6. */
++static const DECLARE_TLV_DB_SCALE(bf_trim_tlv, -6500, 100, 0);
++
++static int bf_trim_info(struct snd_kcontrol *kctl, struct snd_ctl_elem_info *uinfo)
++{
++	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
++	uinfo->count = 1;
++	uinfo->value.integer.min = -65;
++	uinfo->value.integer.max = 6;
++	uinfo->value.integer.step = 1;
++	return 0;
++}
++
++static int bf_trim_get(struct snd_kcontrol *kctl, struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_usb_babyface *chip = snd_kcontrol_chip(kctl);
++	int mic = kctl->private_value;
++
++	ucontrol->value.integer.value[0] = chip->trim[mic];
++	return 0;
++}
++
++static int bf_trim_put(struct snd_kcontrol *kctl, struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_usb_babyface *chip = snd_kcontrol_chip(kctl);
++	int mic = kctl->private_value;
++	int sib = mic ^ 1;
++	int db = ucontrol->value.integer.value[0];
++	int ret = 0;
++
++	if (db < -65 || db > 6)
++		return -EINVAL;
++
++	mutex_lock(&chip->mutex);
++	if (db == chip->trim[mic])
++		goto out;
++	ret = bf_trim_apply(chip, mic, db * 2);
++	if (ret < 0)
++		goto out;
++	/* One register per pair on the wire, so both channels of the pair
++	 * really did change: mirror the cache (the state restore replays
++	 * the pair from the even index) and tell user space about the
++	 * sibling control.
++	 */
++	chip->trim[mic] = db;
++	chip->trim[sib] = db;
++	ret = 1;
++out:
++	mutex_unlock(&chip->mutex);
++	if (ret == 1 && chip->trim_kctl[sib])
++		snd_ctl_notify(chip->card, SNDRV_CTL_EVENT_MASK_VALUE,
++			       &chip->trim_kctl[sib]->id);
++	return ret;
++}
++
++/* Phase, stereo split and input trim - registered together since all
++ * three are per-input-strip controls layered on the same AN1/2 monitor
++ * bus crosspoint registers the matrix in babyface_create_xpoints()
++ * already created controls for.
++ */
++int babyface_create_trim(struct snd_usb_babyface *chip)
++{
++	struct snd_kcontrol *kctl;
++	int src, err;
++
++	for (src = 0; src < 4; src++) {
++		kctl = snd_ctl_new1(&(struct snd_kcontrol_new){
++			.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
++			.name = "Phase Switch",
++			.index = src,
++			.info = bf_phase_info,
++			.get = bf_phase_get,
++			.put = bf_phase_put,
++			.private_value = src,
++		}, chip);
++		strscpy(kctl->id.name, bf_sources[src].name, sizeof(kctl->id.name));
++		strlcat(kctl->id.name, " Phase Switch", sizeof(kctl->id.name));
++		err = snd_ctl_add(chip->card, kctl);
++		if (err < 0)
++			return err;
++	}
++
++	for (src = 0; src < 6; src++) {
++		kctl = snd_ctl_new1(&(struct snd_kcontrol_new){
++			.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
++			.name = "Stereo Split Switch",
++			.index = src,
++			.info = bf_phase_info, /* plain boolean, same shape */
++			.get = bf_split_get,
++			.put = bf_split_put,
++			.private_value = src,
++		}, chip);
++		strscpy(kctl->id.name, bf_sources[8 + src].name, sizeof(kctl->id.name));
++		strlcat(kctl->id.name, " Stereo Split Switch", sizeof(kctl->id.name));
++		err = snd_ctl_add(chip->card, kctl);
++		if (err < 0)
++			return err;
++	}
++
++	for (src = 0; src < 4; src++) {
++		kctl = snd_ctl_new1(&(struct snd_kcontrol_new){
++			.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
++			.name = "Trim Volume",
++			.index = src,
++			.access = SNDRV_CTL_ELEM_ACCESS_READWRITE |
++				  SNDRV_CTL_ELEM_ACCESS_TLV_READ,
++			.info = bf_trim_info,
++			.get = bf_trim_get,
++			.put = bf_trim_put,
++			.tlv.p = bf_trim_tlv,
++			.private_value = src,
++		}, chip);
++		chip->trim_kctl[src] = kctl;
++		strscpy(kctl->id.name, bf_sources[src].name, sizeof(kctl->id.name));
++		strlcat(kctl->id.name, " Trim Volume", sizeof(kctl->id.name));
++		err = snd_ctl_add(chip->card, kctl);
++		if (err < 0)
++			return err;
++	}
++	return 0;
++}
++
++/* -- MIX-mode monitoring level (fader curve) ----------------
++ * Calibrated crosspoint-fader curve (AN1->AN1/2, cap_calib.pcap
++ * 2026-08-22; the same table as tuxmix-core/src/usb.rs FADER_CURVE).
++ * dB stored x2 (half-dB grid): the MIX wheel steps +/-0.5 dB per click
++ * on this curve (cap_mix.pcap).  0x0000 = -inf (digital mute),
++ * 0x0003 = -62 dB, ... 0x2D41 = +6 dB.  Raw values interpolate linearly
++ * between the 1-dB points.  This table's own front-panel MIX-mode user
++ * (the wheel readback) is added by a later patch in this series; it is
++ * introduced here because bf_trim_apply() above already needs it to
++ * combine trim with the current fader value on the same curve.
++ */
++#define BF_FADER_DB2_INF	(-130)	/* -65 dB = the wheel's -inf floor */
++
++static const struct bf_fader_pt {
++	s16 db2;	/* dB x 2 */
++	u16 raw;
++} bf_fader_curve[] = {
++	{ -124, 0x0003 }, { -122, 0x0004 }, { -120, 0x0005 },
++	{ -118, 0x0006 }, { -116, 0x0007 }, { -114, 0x0008 },
++	{ -112, 0x0009 }, { -110, 0x000a }, { -108, 0x000b },
++	{ -106, 0x000d }, { -104, 0x000e }, { -102, 0x0010 },
++	{ -100, 0x0012 }, {  -98, 0x0014 }, {  -96, 0x0017 },
++	{  -94, 0x0019 }, {  -92, 0x001d }, {  -90, 0x0020 },
++	{  -88, 0x0024 }, {  -86, 0x0029 }, {  -84, 0x002e },
++	{  -82, 0x0033 }, {  -80, 0x003a }, {  -78, 0x0041 },
++	{  -76, 0x0049 }, {  -74, 0x0051 }, {  -72, 0x005b },
++	{  -70, 0x0067 }, {  -68, 0x0073 }, {  -66, 0x0081 },
++	{  -64, 0x0091 }, {  -62, 0x00a3 }, {  -60, 0x00b7 },
++	{  -58, 0x00cd }, {  -56, 0x00e6 }, {  -54, 0x0102 },
++	{  -52, 0x0122 }, {  -50, 0x0145 }, {  -48, 0x016d },
++	{  -46, 0x019a }, {  -44, 0x01cc }, {  -42, 0x0204 },
++	{  -40, 0x0243 }, {  -38, 0x028a }, {  -36, 0x02d9 },
++	{  -34, 0x0332 }, {  -32, 0x0396 }, {  -30, 0x0406 },
++	{  -28, 0x0483 }, {  -26, 0x0510 }, {  -24, 0x05af },
++	{  -22, 0x0660 }, {  -20, 0x0727 }, {  -18, 0x0807 },
++	{  -16, 0x0902 }, {  -14, 0x0a1b }, {  -12, 0x0b57 },
++	{  -10, 0x0cb9 }, {   -8, 0x0e47 }, {   -6, 0x1004 },
++	{   -4, 0x11f9 }, {   -2, 0x142a }, {    0, 0x16a0 },
++	{    2, 0x1963 }, {    4, 0x1c7c }, {    6, 0x1ff6 },
++	{    8, 0x23dc }, {   10, 0x283d }, {   12, 0x2d41 },
++};
++
++/* Fader raw -> dBx2 (linear interpolation; raw 0 = -inf). */
++static int bf_fader_raw_to_db2(u16 raw)
++{
++	int i;
++
++	if (raw == 0 || raw < bf_fader_curve[0].raw)
++		return BF_FADER_DB2_INF;
++	for (i = 0; i < ARRAY_SIZE(bf_fader_curve) - 1; i++) {
++		if (raw <= bf_fader_curve[i + 1].raw) {
++			u32 num = (u32)(raw - bf_fader_curve[i].raw) *
++				  (u32)(bf_fader_curve[i + 1].db2 - bf_fader_curve[i].db2);
++			u32 den = bf_fader_curve[i + 1].raw - bf_fader_curve[i].raw;
++
++			return bf_fader_curve[i].db2 + (int)((num + den / 2) / den);
++		}
++	}
++	return bf_fader_curve[ARRAY_SIZE(bf_fader_curve) - 1].db2;
++}
++
++/* dBx2 -> fader raw (linear interpolation; below -62 dB = mute 0). */
++static u16 bf_fader_db2_to_raw(int db2)
++{
++	int i;
++
++	if (db2 <= bf_fader_curve[0].db2)
++		return db2 < bf_fader_curve[0].db2 ? 0 : bf_fader_curve[0].raw;
++	for (i = 0; i < ARRAY_SIZE(bf_fader_curve) - 1; i++) {
++		if (db2 <= bf_fader_curve[i + 1].db2) {
++			u32 num = (u32)(db2 - bf_fader_curve[i].db2) *
++				  (u32)(bf_fader_curve[i + 1].raw - bf_fader_curve[i].raw);
++			u32 den = bf_fader_curve[i + 1].db2 - bf_fader_curve[i].db2;
++
++			return bf_fader_curve[i].raw + (u16)((num + den / 2) / den);
++		}
++	}
++	return bf_fader_curve[ARRAY_SIZE(bf_fader_curve) - 1].raw;
++}
++
++static int bf_bool_info(struct snd_kcontrol *kctl,
++			struct snd_ctl_elem_info *uinfo)
++{
++	uinfo->type = SNDRV_CTL_ELEM_TYPE_BOOLEAN;
++	uinfo->count = 1;
++	uinfo->value.integer.min = 0;
++	uinfo->value.integer.max = 1;
++	return 0;
++}
++
++static int bf_phantom_get(struct snd_kcontrol *kctl,
++			  struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_usb_babyface *chip = snd_kcontrol_chip(kctl);
++
++	ucontrol->value.integer.value[0] =
++		!!(chip->preamp & kctl->private_value);
++	return 0;
++}
++
++static int bf_phantom_put(struct snd_kcontrol *kctl,
++			  struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_usb_babyface *chip = snd_kcontrol_chip(kctl);
++	u16 bit = kctl->private_value;
++	bool on = ucontrol->value.integer.value[0];
++	bool cur = !!(chip->preamp & bit);
++	int ret = 0;
++
++	mutex_lock(&chip->mutex);
++	if (on == cur)
++		goto out;
++	chip->preamp = on ? (chip->preamp | bit) : (chip->preamp & ~bit);
++	ret = bf_preamp_state_write(chip);
++	if (ret < 0)
++		goto out;
++	ret = 1;
++out:
++	mutex_unlock(&chip->mutex);
++	return ret;
++}
++
++/* Ref Level (Instr 3/4) - see the constants' own comment in the
++ * header. A single shared 3-state switch, not per-channel (the
++ * protocol has no independent bits for IN3 vs IN4).
++ */
++static const char *const bf_reflevel_texts[] = {
++	"+4dBu", "-10dBV", "Boost", NULL
++};
++
++static int bf_reflevel_info(struct snd_kcontrol *kctl,
++			    struct snd_ctl_elem_info *uinfo)
++{
++	return snd_ctl_enum_info(uinfo, 1, 3, bf_reflevel_texts);
++}
++
++static int bf_reflevel_get(struct snd_kcontrol *kctl,
++			   struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_usb_babyface *chip = snd_kcontrol_chip(kctl);
++
++	ucontrol->value.enumerated.item[0] = chip->ref_level;
++	return 0;
++}
++
++static int bf_reflevel_put(struct snd_kcontrol *kctl,
++			   struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_usb_babyface *chip = snd_kcontrol_chip(kctl);
++	unsigned int item = ucontrol->value.enumerated.item[0];
++	u16 old_preamp;
++	int old_ref_level;
++	int ret = 0;
++
++	if (item > BF_REF_LEVEL_BOOST)
++		return -EINVAL;
++
++	mutex_lock(&chip->mutex);
++	if ((int)item == chip->ref_level)
++		goto out;
++	old_preamp = chip->preamp;
++	old_ref_level = chip->ref_level;
++	chip->preamp = (chip->preamp & ~BF_PREAMP_REF_MASK) |
++		       (item == BF_REF_LEVEL_4DBU ? BF_PREAMP_REF_4DBU : 0);
++	chip->ref_level = item;
++	ret = bf_preamp_state_write(chip);
++	if (ret < 0) {
++		chip->preamp = old_preamp;
++		chip->ref_level = old_ref_level;
++		goto out;
++	}
++	ret = 1;
++out:
++	mutex_unlock(&chip->mutex);
++	return ret;
++}
++
++/* Gain scales.
++ *
++ * The mic preamps (AN1/2) span 0-65 dB in 1 dB steps, carried in a
++ * packed byte rather than a plain count:
++ *
++ *	coarse = min(db / 3, 20)	bits 0-4, 3 dB per step
++ *	fine   = db - 3 * coarse	bits 5-7, the 0-2 dB remainder
++ *	value  = (fine << 5) | coarse
++ *
++ * Above 60 dB coarse saturates at 20 and fine continues 3, 4, 5, so
++ * 65 dB is 0xb4.  Decoded from USBPcap captures of TotalMix on
++ * Windows (bbf-gain2/3/4.pcap, 48 writes, all matching).
++ *
++ * Bits 5-7 were previously read as a transaction counter and written
++ * with a rotating 0x20/0x00/0x40, which both discarded the fine part
++ * of the setting and applied 0-2 dB of error depending on where the
++ * rotation happened to be.
++ *
++ * The Hi-Z instrument inputs (AN3/4) are not packed: the value is the
++ * gain in 0.5 dB units, 0-9 dB over 0-18.
++ */
++int bf_gain_max_db(int mic)
++{
++	return mic < 2 ? BF_GAIN_MAX_DB : 9;
++}
++
++int bf_gain_db(int mic, u8 raw)
++{
++	if (mic >= 2)
++		return raw / 2;
++	return 3 * (raw & BF_GAIN_COARSE_MASK) + (raw >> BF_GAIN_FINE_SHIFT);
++}
++
++u8 bf_gain_raw(int mic, int db)
++{
++	int coarse, fine;
++
++	if (mic >= 2)
++		return db * 2;
++	coarse = min(db / 3, BF_GAIN_COARSE_MAX);
++	fine = db - 3 * coarse;
++	return (u8)((fine << BF_GAIN_FINE_SHIFT) | coarse);
++}
++
++/* The preamp control's value already IS the gain in dB (0..65 for the mic
++ * inputs, 0..9 for the instrument ones), and the hardware really does
++ * resolve every one of those steps - bf_gain_raw() packs it into the
++ * register's coarse and fine fields.
++ */
++static const DECLARE_TLV_DB_SCALE(bf_gain_tlv, 0, 100, 0);
++
++static int bf_gain_info(struct snd_kcontrol *kctl,
++			struct snd_ctl_elem_info *uinfo)
++{
++	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
++	uinfo->count = 1;
++	uinfo->value.integer.min = 0;
++	uinfo->value.integer.max = bf_gain_max_db(kctl->private_value);
++	uinfo->value.integer.step = 1;
++	return 0;
++}
++
++static int bf_gain_get(struct snd_kcontrol *kctl,
++		       struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_usb_babyface *chip = snd_kcontrol_chip(kctl);
++	int mic = kctl->private_value;
++
++	/* chip->gain[] tracks the dB; the packed register value is derived
++	 * at write time (bf_gain_raw).
++	 */
++	ucontrol->value.integer.value[0] = chip->gain[mic];
++	return 0;
++}
++
++static int bf_gain_put(struct snd_kcontrol *kctl,
++		       struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_usb_babyface *chip = snd_kcontrol_chip(kctl);
++	int mic = kctl->private_value;
++	int db = ucontrol->value.integer.value[0];
++	u8 raw;
++	int ret = 0;
++
++	if (db < 0 || db > bf_gain_max_db(mic))
++		return -EINVAL;
++
++	mutex_lock(&chip->mutex);
++	if (db == chip->gain[mic])
++		goto out;
++	raw = bf_gain_raw(mic, db);
++
++	ret = bf_vendor_write(chip, BF_REQ_GAIN, (u16)raw,
++			      BF_REG_GAIN + mic);
++	if (ret < 0)
++		goto out;
++	chip->gain[mic] = db;
++	ret = 1;
++out:
++	mutex_unlock(&chip->mutex);
++	return ret;
++}
++
++/* Preamp controls: phantom power, pad, instrument ref level and the
++ * four mic/instrument gains.  Registered separately from the output
++ * masters (babyface_create_masters()) since they cover a different
++ * part of the signal path (mic input, not output routing).
++ */
++int babyface_create_preamp(struct snd_usb_babyface *chip)
++{
++	struct snd_kcontrol *kctl;
++	int i, err;
++
++	for (i = 0; i < 2; i++) {
++		u16 bit = i == 0 ? BF_PREAMP_48V_MIC1 : BF_PREAMP_48V_MIC2;
++
++		kctl = snd_ctl_new1(&(struct snd_kcontrol_new){
++			.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
++			.name = "Phantom Power Mic 1",
++			.index = i,
++			.info = bf_bool_info,
++			.get = bf_phantom_get,
++			.put = bf_phantom_put,
++			.private_value = bit,
++		}, chip);
++		err = snd_ctl_add(chip->card, kctl);
++		if (err < 0)
++			return err;
++	}
++
++	for (i = 0; i < 2; i++) {
++		u16 bit = i == 0 ? BF_PREAMP_PAD_MIC1 : BF_PREAMP_PAD_MIC2;
++
++		kctl = snd_ctl_new1(&(struct snd_kcontrol_new){
++			.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
++			.name = "Pad Mic 1",
++			.index = i,
++			.info = bf_bool_info,
++			.get = bf_phantom_get,
++			.put = bf_phantom_put,
++			.private_value = bit,
++		}, chip);
++		err = snd_ctl_add(chip->card, kctl);
++		if (err < 0)
++			return err;
++	}
++
++	kctl = snd_ctl_new1(&(struct snd_kcontrol_new){
++		.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
++		.name = "Instrument Ref Level",
++		.info = bf_reflevel_info,
++		.get = bf_reflevel_get,
++		.put = bf_reflevel_put,
++	}, chip);
++	err = snd_ctl_add(chip->card, kctl);
++	if (err < 0)
++		return err;
++
++	for (i = 0; i < 4; i++) {
++		kctl = snd_ctl_new1(&(struct snd_kcontrol_new){
++			.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
++			.name = "Mic 1 Capture Volume",
++			.index = i,
++			.access = SNDRV_CTL_ELEM_ACCESS_READWRITE |
++				  SNDRV_CTL_ELEM_ACCESS_TLV_READ,
++			.info = bf_gain_info,
++			.get = bf_gain_get,
++			.put = bf_gain_put,
++			.tlv.p = bf_gain_tlv,
++			.private_value = i,
++		}, chip);
++		err = snd_ctl_add(chip->card, kctl);
++		if (err < 0)
++			return err;
++	}
++	return 0;
++}
++
+diff --git a/sound/usb/babyfacepro/babyfacepro.c b/sound/usb/babyfacepro/babyfacepro.c
+index 50b6a31a5..3a564f853 100644
+--- a/sound/usb/babyfacepro/babyfacepro.c
++++ b/sound/usb/babyfacepro/babyfacepro.c
+@@ -279,7 +279,21 @@ static DEFINE_MUTEX(bf_saved_mutex);
+  */
+ int babyface_restore_state(struct snd_usb_babyface *chip)
+ {
+-	int out, src, ret;
++	int out, src, mic, ret;
++
++	/* Preamp state + commit. */
++	ret = bf_preamp_state_write(chip);
++	if (ret < 0)
++		return ret;
++
++	/* The four input gains. */
++	for (mic = 0; mic < 4; mic++) {
++		ret = bf_vendor_write(chip, BF_REQ_GAIN,
++				      (u16)bf_gain_raw(mic, chip->gain[mic]),
++				      BF_REG_GAIN + mic);
++		if (ret < 0)
++			return ret;
++	}
+ 
+ 	/* Masters (8-bit = the real volume) + mutes. */
+ 	ret = bf_apply_masters(chip);
+@@ -337,10 +351,16 @@ void bf_state_save(struct snd_usb_babyface *chip)
+ 		list_add_tail(&s->list, &bf_saved_list);
+ 	}
+ 
++	s->preamp = chip->preamp;
++	memcpy(s->gain, chip->gain, sizeof(s->gain));
+ 	s->flag_cnt = chip->flag_cnt;
+ 	memcpy(s->master, chip->master, sizeof(s->master));
+ 	memcpy(s->muted, chip->muted, sizeof(s->muted));
+ 	memcpy(s->xpoint, chip->xpoint, sizeof(s->xpoint));
++	memcpy(s->phase, chip->phase, sizeof(s->phase));
++	memcpy(s->trim, chip->trim, sizeof(s->trim));
++	memcpy(s->split, chip->split, sizeof(s->split));
++	s->ref_level = chip->ref_level;
+ 	mutex_unlock(&bf_saved_mutex);
+ }
+ 
+@@ -359,10 +379,16 @@ int bf_state_restore(struct snd_usb_babyface *chip)
+ 	list_for_each_entry(s, &bf_saved_list, list) {
+ 		if (strcmp(s->key, key))
+ 			continue;
++		chip->preamp = s->preamp;
++		memcpy(chip->gain, s->gain, sizeof(chip->gain));
+ 		chip->flag_cnt = s->flag_cnt;
+ 		memcpy(chip->master, s->master, sizeof(chip->master));
+ 		memcpy(chip->muted, s->muted, sizeof(chip->muted));
+ 		memcpy(chip->xpoint, s->xpoint, sizeof(chip->xpoint));
++		memcpy(chip->phase, s->phase, sizeof(chip->phase));
++		memcpy(chip->trim, s->trim, sizeof(chip->trim));
++		memcpy(chip->split, s->split, sizeof(chip->split));
++		chip->ref_level = s->ref_level;
+ 		ret = 1;
+ 		break;
+ 	}
+@@ -1118,6 +1144,7 @@ static int babyface_probe(struct usb_interface *intf,
+ 	struct snd_card *card;
+ 	struct snd_pcm *pcm;
+ 	unsigned int urbsize;
++	u8 st[4];
+ 	int i, err;
+ 
+ 	if (intf->cur_altsetting->desc.bInterfaceNumber != BF_IFACE) {
+@@ -1152,6 +1179,7 @@ static int babyface_probe(struct usb_interface *intf,
+ 	chip->rate = 48000;
+ 	chip->alt = BF_ALT_1;
+ 	chip->frame_bytes = 56;
++	chip->preamp = BF_PREAMP_BASE;
+ 	mutex_init(&chip->mutex);
+ 	spin_lock_init(&chip->lock);
+ 	atomic_set(&chip->urb_err, 0);
+@@ -1207,6 +1235,15 @@ static int babyface_probe(struct usb_interface *intf,
+ 		goto error;
+ 	}
+ 
++	/* Sync the preamp state from the 0x17 readback (byte 0 mirrors
++	 * the 48V/PAD bits; it persists across power cycles).
++	 */
++	err = bf_vendor_read(chip, BF_REQ_PREAMP, BF_REG_PREAMP, st);
++	if (err < 0)
++		dev_dbg(&intf->dev, "preamp readback failed: %d\n", err);
++	else
++		chip->preamp = st[0];
++
+ 	/* Restore the mixer state saved at the last disconnect (if any);
+ 	 * the device keeps its registers across a usbfs detach, but the
+ 	 * cold init above cleared them, so push the user's settings back.
+@@ -1283,6 +1320,18 @@ static int babyface_probe(struct usb_interface *intf,
+ 		goto error;
+ 	}
+ 
++	err = babyface_create_trim(chip);
++	if (err < 0) {
++		dev_err(&intf->dev, "phase/split/trim control creation failed: %d\n", err);
++		goto error;
++	}
++
++	err = babyface_create_preamp(chip);
++	if (err < 0) {
++		dev_err(&intf->dev, "preamp control creation failed: %d\n", err);
++		goto error;
++	}
++
+ 	err = snd_card_register(chip->card);
+ 	if (err < 0) {
+ 		dev_err(&intf->dev, "snd_card_register failed: %d\n", err);
+diff --git a/sound/usb/babyfacepro/babyfacepro.h b/sound/usb/babyfacepro/babyfacepro.h
+index 6125e763f..505ec1927 100644
+--- a/sound/usb/babyfacepro/babyfacepro.h
++++ b/sound/usb/babyfacepro/babyfacepro.h
+@@ -114,6 +114,45 @@
+ #define BF_SETTINGS_CLOCK_INTERNAL	0x0001
+ #define BF_SETTINGS_CLOCK_OPTICAL	0x0004
+ 
++/* Preamp state byte (0x17, wIdx 0x003F - full state, verified).
++ * NOTE 2026-08-26 (cap_reflevel3.pcap): the 0x0C "base" is NOT a
++ * constant - it is the Instr 3/4 REF-LEVEL bits (bits 2-3, +4dBu =
++ * 0x0C set; -10dBV/Boost = clear; Boost additionally commits 0x21
++ * wVal 0x0003).  Keeping it always set = forcing the default +4dBu,
++ * which is correct for the driver (no ref-level control).
++ */
++#define BF_REG_PREAMP			0x003f
++#define BF_REG_GAIN			0x0000	/* + mic 0-3 (bReq 0x1a) */
++#define BF_PREAMP_REF_4DBU		0x000c
++#define BF_PREAMP_REF_MASK		0x000c
++#define BF_PREAMP_BASE			BF_PREAMP_REF_4DBU
++#define BF_PREAMP_48V_MIC1		0x0001
++#define BF_PREAMP_48V_MIC2		0x0002
++#define BF_PREAMP_PAD_MIC1		0x0010
++#define BF_PREAMP_PAD_MIC2		0x0020
++
++/* Ref Level (Instr 3/4) - PROTOCOL.md "Ref level (Instr 3/4) - LABELED"
++ * (cap_reflevel2.pcap, hardware-verified): a single shared 3-state
++ * switch for the Instrument pair.  +4dBu/-10dBV are bits 2-3 of the
++ * preamp byte (BF_PREAMP_REF_MASK); Boost shares -10dBV's bits and is
++ * distinguished only by the 0x21 commit value (0x0003, not the usual
++ * 0x0000) - not a persisted register bit, so it must be tracked
++ * host-side (chip->ref_level) and re-asserted on every preamp write,
++ * not just the one that engaged it (see bf_preamp_state_write).
++ */
++#define BF_REF_LEVEL_4DBU		0
++#define BF_REF_LEVEL_MINUS10DBV		1
++#define BF_REF_LEVEL_BOOST		2
++
++/* Preamp gain: 0-65 dB in 1 dB steps, packed coarse/fine (see the
++ * gain-scale comment above bf_gain_max_db).
++ */
++#define BF_GAIN_MAX_DB			65
++/* Mic gain is packed: bits 0-4 coarse (3 dB), bits 5-7 the 0-2 dB rest. */
++#define BF_GAIN_COARSE_MASK		0x1f
++#define BF_GAIN_COARSE_MAX		20
++#define BF_GAIN_FINE_SHIFT		5
++
+ /* Register addresses (masters + crosspoint matrix). */
+ #define BF_REG_MASTER_16		0x03e0	/* + 2*out (bReq 0x12) */
+ #define BF_REG_MASTER_8			0x0004	/* + 2*out (bReq 0x1a) */
+@@ -216,6 +255,37 @@ struct snd_usb_babyface {
+ 	u16 master[6][2];		/* cached 16-bit masters */
+ 	bool muted[6];
+ 	u16 xpoint[6][14][2];		/* cached crosspoints (out, src, L/R) */
++	u16 preamp;			/* 48V/PAD bits, base 0x0c */
++	u8 gain[4];			/* preamp gain in dB 0-65/9 (raw derived
++					 * at write: mic packed coarse/fine,
++					 * instr 0.5 dB/step)
++					 */
++	bool phase[4];			/* polarity invert, AN1-4 (bf_sources 0-3);
++					 * xpoint[][0..3][0] stays the PLAIN
++					 * value, only the wire write is
++					 * negated - see bf_phase_put's own
++					 * comment for the known limitation
++					 * this implies.
++					 */
++	int trim[4];			/* Trim (T), dB (-65..+6), AN1-4;
++					 * one shared register per pair, so
++					 * both entries of a pair are kept
++					 * equal; same "wire-only" caveat as
++					 * phase - see bf_trim_apply's own
++					 * comment.
++					 */
++	bool split[6];			/* stereo split, playback pairs PB1-PB6
++					 * (bf_sources idx 8-13); fixed
++					 * constants (PROTOCOL.md "Stereo
++					 * split"), not derived from the
++					 * fader - xpoint[][] is left
++					 * untouched, same as phase.
++					 */
++	int ref_level;			/* Instr 3/4 ref level, one of the
++					 * BF_REF_LEVEL_* values
++					 * (0 = +4dBu, the default)
++					 */
++	struct snd_kcontrol *trim_kctl[4]; /* for snd_ctl_notify */
  };
  
+ /* The mixer state cached across interface re-probes/resume (see
+@@ -226,10 +296,16 @@ struct snd_usb_babyface {
+ struct bf_saved {
+ 	struct list_head list;
+ 	char key[32];
++	u16 preamp;
++	u8 gain[4];
+ 	u8 flag_cnt;
+ 	u16 master[6][2];
+ 	bool muted[6];
+ 	u16 xpoint[6][14][2];
++	bool phase[4];
++	int trim[4];
++	bool split[6];
++	int ref_level;
+ };
+ 
+ struct bf_rate {
+@@ -273,6 +349,15 @@ int bf_xpoint_write(struct snd_usb_babyface *chip, int out, int src,
+ 		    u16 l, u16 r);
+ int babyface_create_masters(struct snd_usb_babyface *chip);
+ int babyface_create_xpoints(struct snd_usb_babyface *chip);
++int babyface_create_trim(struct snd_usb_babyface *chip);
++int babyface_create_preamp(struct snd_usb_babyface *chip);
++int bf_preamp_state_write(struct snd_usb_babyface *chip);
++int bf_phase_apply(struct snd_usb_babyface *chip, int mic, bool invert);
++int bf_split_apply(struct snd_usb_babyface *chip, int pb, bool split);
++int bf_trim_apply(struct snd_usb_babyface *chip, int mic, int trim_db2);
++int bf_gain_max_db(int mic);
++int bf_gain_db(int mic, u8 raw);
++u8 bf_gain_raw(int mic, int db);
+ 
+ /* Master gain-law helpers - shared with the front-panel wheels once
+  * the front panel lands.
 -- 
 2.55.0
 
