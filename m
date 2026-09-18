@@ -1,36 +1,49 @@
-Received: from mta0.migadu.com (out-130.mta0.migadu.com [91.218.175.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B6AB37FF68
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:36:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FE874F93BD
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:36:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789738586; cv=none; b=exudPYOZkt19DX/dKaeWwsXRRm8vun/l4MtomgAyuQPx28ABrW/owp/2pVQt22cKVLlupCOc8/4Ybigh5HpTP68nV0czfF+fQR7qVkNaKrwySPnTHA2AEH4FOwkuJpC7t3aKAIhurgpQIrkEu1bHm/nXYqbHkPlN9gXMUmwsrTk=
+	t=1789738588; cv=none; b=MO9ub2ezLgKm1PKr+3M3CMhgv4NspgNCwizwomATPUOKeG4QIcIpmV/a6R8e/spAyCPfVFwmJ7vtNJyNakOuG2L4Pqw8wM6+WhkEHhN9ZZtg3AOKLrwAlkAg3NWlY7tSI+RCX2CSkf/7hmB/K1EuYus66ep1YvfViPuJBW7rkP4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789738586; c=relaxed/simple;
-	bh=pvD3aJ8le/Im6vSiNfoFqTwGeUg+ivaLxFZnLjWT+cU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IuBqMZ3XJoTO6uykqG+74K6tPSlreYBX/bL/NWRH5Lzr/S3KXPh4yrGglBeSuCXrxArixDXInDUCK+1yNRwanJy9ga1yc/BQ9Dsb1oaFcB4Ev1Cit0kyRy6atXpApinAnnf9ogXTzrM/qv8N2+TBdwFyHXnyiXfZmQz1sm5ZQiA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=kapzy+CL; arc=none smtp.client-ip=91.218.175.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789738588; c=relaxed/simple;
+	bh=EQOVRg/qVIU5+nVTCQ1rPABzKLZ/omnfd9FhU1eP2m4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=GsvtnBghym4oF9g302AUa1FOZxHe1SnTkXD9ieIi/ETuEEBrldVCYpS8ajIPW5VO241/fCPVr9azPoSHc+nmf66BglF/081NCtdNx5hsDBhekH6iuI6zpTklg5raWRMmBRu6p5NJ79dmeE+gMyeWVf9sfuhfUzs5lLNa3UFG2gw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=hTRqG8yR; arc=none smtp.client-ip=203.254.224.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="kapzy+CL"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=pvD3aJ8le/Im6vSiNfoFqTwGeUg+ivaLxFZnLjWT+cU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789738581; v=1; x=1790343381;
- b=kapzy+CL8MxYpnUjnMi2eYTtP7h+6QUMWN/lJJHjsIb60SYxnQhEt6/Ufn81HRAlzfdVzPiN
- MWnn8Bi7JZ4/M9mEP2cbnX3cK0kAoqTh5I3tLrRnuD321s8U3AWcX3HGDuwBms9+UzR61gRJVj8
- fJlAKbgALNOnYrRKyJzC9faI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 5c05e03064eca122;
-	Fri, 18 Sep 2026 13:36:10 +0000
-X-Mizu-Trace-ID: 5c05e03064eca122
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <5db7d87e-8d1b-40e0-a69c-4dcebc173456@linux.dev>
-Date: Fri, 18 Sep 2026 14:36:05 +0100
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="hTRqG8yR"
+Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20260918133623epoutp0205c0d75c4982a7bd62ef30a89ce73825~WbcJ40bLe1520615206epoutp02k
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:36:23 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20260918133623epoutp0205c0d75c4982a7bd62ef30a89ce73825~WbcJ40bLe1520615206epoutp02k
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1789738583;
+	bh=DmavpybYN0LBa3BilD0E1eX3g1b+G3rHrs0swG4JQog=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=hTRqG8yRJaM4O2m3d0ZvEYN9GaqgUYb84dNJdYaBvCCz0cVJh4FFo3d5BBkV6W31o
+	 Y88XAzzWNm9lSxFYewVJY2elCLojWV4jIy2BPdvCYXaU2MHNJ+rfYtgSnAqL2zj6i1
+	 9BAuoI1wrYTjMaRVsBafTTwea5ZeGQc9AavCzXhQ=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas5p2.samsung.com (KnoxPortal) with ESMTPS id
+	20260918133623epcas5p2a0d653ee2ad5d6f01b37f0089059b8ba~WbcJGrl-n0578205782epcas5p2r;
+	Fri, 18 Sep 2026 13:36:23 +0000 (GMT)
+Received: from epcas5p2.samsung.com (unknown [182.195.38.88]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4hmYYf0mpMz6B9m5; Fri, 18 Sep
+	2026 13:36:22 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
+	20260918133621epcas5p38bcaad0af7a96839fea53c06c57d10f3~WbcHtMVS91576415764epcas5p3D;
+	Fri, 18 Sep 2026 13:36:21 +0000 (GMT)
+Received: from [107.122.5.126] (unknown [107.122.5.126]) by
+	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20260918133618epsmtip22c2e800475d63ed12ae7e900b295f553~WbcExuej70030600306epsmtip2F;
+	Fri, 18 Sep 2026 13:36:18 +0000 (GMT)
+Message-ID: <fef2b2f5-3838-4eec-8118-d41f9ca0ed2f@samsung.com>
+Date: Fri, 18 Sep 2026 19:06:17 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,48 +51,159 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] tick/nohz: Avoid unused timekeeping_max_deferment() calls
-To: axboe@kernel.dk, cgroups@vger.kernel.org, josef@toxicpanda.com,
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, tj@kernel.org
-Cc: hannes@cmpxchg.org, mkoutny@suse.com, shakeel.butt@linux.dev,
- riel@surriel.com
-References: <20260918133345.2823363-1-usama.arif@linux.dev>
+Subject: Re: [PATCH v2 2/3] dt-bindings: usb: Introduce samsung,snps-dwc3
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: peter.griffin@linaro.org, alim.akhtar@samsung.com,
+	gregkh@linuxfoundation.org, robh@kernel.org, conor+dt@kernel.org,
+	Thinh.Nguyen@synopsys.com, mani@kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, jh0801.jung@samsung.com, h10.kim@samsung.com,
+	dh10.jung@samsung.com, akash.m5@samsung.com, hongpooh.kim@samsung.com,
+	eomji.oh@samsung.com, shijie.cai@samsung.com, muhammed.ali@samsung.com,
+	thiagu.r@samsung.com
 Content-Language: en-US
-From: Usama Arif <usama.arif@linux.dev>
-In-Reply-To: <20260918133345.2823363-1-usama.arif@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Selvarasu Ganesan <selvarasu.g@samsung.com>
+In-Reply-To: <20260918-burgundy-marmoset-of-focus-c9b9a7@quoll>
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20260918133621epcas5p38bcaad0af7a96839fea53c06c57d10f3
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-542,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20260916122354epcas5p401fd6470d6cef75951af732b03aa5970
+References: <20260916122229.2604003-1-selvarasu.g@samsung.com>
+	<CGME20260916122354epcas5p401fd6470d6cef75951af732b03aa5970@epcas5p4.samsung.com>
+	<20260916122229.2604003-3-selvarasu.g@samsung.com>
+	<20260918-burgundy-marmoset-of-focus-c9b9a7@quoll>
 
 
+On 9/18/2026 3:24 PM, Krzysztof Kozlowski wrote:
+> On Wed, Sep 16, 2026 at 05:52:28PM +0530, Selvarasu Ganesan wrote:
+>> +maintainers:
+>> +  - Krzysztof Kozlowski <krzk@kernel.org>
+>> +  - Selvarasu Ganesan <selvarasu.g@samsung.com>
+>> +
+>> +description:
+>> +  Describes the DWC3 USB controller block implemented on Samsung Exynos SoCs.
+>> +
+>> +select:
+>> +  properties:
+>> +    compatible:
+>> +      contains:
+>> +        const: samsung,snps-dwc3
+>> +  required:
+>> +    - compatible
+> This select is not needed.
+>
+>> +
+>> +properties:
+>> +  compatible:
+>> +    items:
+>> +      - enum:
+>> +          - samsung,exynos8855-dwc3
+>> +      - const: samsung,snps-dwc3
+> And this fallback is not really accurate. Samsung does not have snps
+> device, because snps is a vendor. Anyway, generic fallbacks should go
+> away, drop, so you are left with samsung,exynos8855-dwc3 only.
 
-On 18/09/2026 14:33, Usama Arif wrote:
-> tick_nohz_next_event() limits a CPU's sleep interval to the maximum
-> deferment supported by the current clocksource when that CPU owns the
-> do_timer() duty. If the duty is unassigned, the limit also applies when
-> the CPU's TS_FLAG_DO_TIMER_LAST flag is set.
-> 
-> After the early timer checks, the function currently reads the maximum
-> deferment unconditionally. It then replaces the result with KTIME_MAX
-> unless one of the two conditions above applies.
-> 
-> timekeeping_max_deferment() performs a seqcount-protected read of the
-> shared timekeeper and follows its clocksource pointer. Check the do_timer
-> state first and avoid this work when the result would be discarded. This
-> leaves the resulting expiry unchanged and reduces accesses to timekeeper
-> data that is modified regularly.
-> 
-> On x86-64 this removes 18-20 dynamically executed instructions, including
-> the call, from the common non-owner path when the seqcount does not retry.
-> 
-> Signed-off-by: Usama Arif <usama.arif@linux.dev>
-> ---
-> v1 -> v2:
-> - Remove the unnecessary comment and delta variable (Frederic Weisbecker).
-> ---
->  kernel/time/tick-sched.c | 23 ++++++++++++-----------
->  1 file changed, 12 insertions(+), 11 deletions(-)
-> 
-Sorry about the noise, please ignore, copied the wrong list of people to send to.
-The correct list is [1]
+Hi Krzysztof,
 
-[1] https://lore.kernel.org/all/20260918133408.2834751-1-usama.arif@linux.dev/
+Thanks for your review comments.
+And We apologize for our repeated below explanation, but we wanted to 
+ensure our intentions were clear for each point to avoid any 
+misunderstanding.
+
+The original intent of the generic fallback was to support existing 
+Exynos dwc3 bindings from a parent/child representation from 
+(samsung,exynos-dwc3.yaml), and upcoming SoCs (Exynos 8865, 9955, and 
+9965) can use this flattened representation without requiring a unique 
+compatible string for every project in the dwc3-generic-plat driver 
+of_match_table. We referred to qcom,snps-dwc3 as a helpful reference for 
+this approach.
+
+As seen in samsung,exynos-dwc3.yaml, our existing bindings already 
+support multiple SoCs with diverse clock requirements within a single 
+file. Similarly, we plan to use a single flattened Samsung binding to 
+manage these diverse clock requirements. for different SoCs.
+
+Regarding the migration for current and future SoCs, would you prefer,
+
+Option A: A single flattened binding file using a common fallback 
+compatible string (instead of samsung,snps-dwc3) to minimize 
+of_match_table entries, and if/then constraints to handle diverse clock 
+requirements.
+Option B: Separate binding files for each individual SoCs.
+
+Could you please let us know your preferred approach? Once confirmed, we 
+will address your other review comments based on the selected approach.
+
+
+Thanks,
+Selva
+
+
+> Filename should be then samsung,exynos8855-dwc3.yaml.
+>
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  power-domains:
+>> +    maxItems: 1
+>> +
+>> +  interrupts:
+>> +    maxItems: 1
+>> +
+>> +  clocks:
+>> +    description: |
+>> +      Several clocks are used, depending on the variant. Typical ones are:
+>> +       - ref: Reference clock for SOF/ITP generation.
+>> +       - bus: Bus (APB) clock for register access.
+> You have only one variant, no? Or you mean one SoC has different
+> variants?
+>
+>> +    minItems: 1
+>> +    maxItems: 4
+> Nope, you to list items.
+>
+>> +
+>> +  clock-names:
+>> +    minItems: 1
+>> +    maxItems: 4
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +  - clocks
+>> +  - clock-names
+>> +  - interrupts
+>> +
+>> +allOf:
+>> +  - $ref: snps,dwc3-common.yaml#
+>> +
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          contains:
+>> +            const: samsung,exynos8855-dwc3
+>> +    then:
+>> +      properties:
+>> +        clocks:
+>> +          minItems: 2
+>> +          maxItems: 2
+> How can it be two if you have ONLY one device in the binding and that
+> device has between 1 and 4?
+>
+> This entire if is redundant, no? How many clocks do you actually have
+> there?
+>
+>> +        clock-names:
+>> +          items:
+>> +            - const: ref
+>> +            - const: bus
+>> +
+>> +unevaluatedProperties: false
+> Best regards,
+> Krzysztof
