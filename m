@@ -1,121 +1,114 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52C1A4D0CE0;
-	Fri, 18 Sep 2026 10:06:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ED1E4D17AA
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:06:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789725972; cv=none; b=OqCEscrItACMFp64w74PTHbPqUEEsZWtbVtBZc+8ntR+iNrNpeynqJ86cKx+uhJN2mlwxVfaM/C54cIvTCL6uv24qqjokJkgcrtN2mXfDkWDApxSFAxMaD1jBvyTLvWPwyOA4V88I+Fj4i9NjjO95YkMDEvwtIrkqXj4nqad9Zc=
+	t=1789725973; cv=none; b=aFSe9gYcmAujz9Vg09JOod4qEaGmafwmlrPY7mFzJc+B5GnM7uKqtAwExe/EgT0F6Vk6bfcaDS4zElpvbnQL24vM/x2zgvPuG5hVByejqvj5YkQyjXn1Tw6yAcOVA9RNlqnf2FnjGzqVHGauM5BCGEMCp/mlO+OTaNTL9tVjwwk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789725972; c=relaxed/simple;
-	bh=IemuaaDTh+ufOQ+a/jPwiya6O9RT0jUk6jmHVwjrF0Q=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=EBHstukTLRZpEUtxzTqQid7C2rOkambJjIuETkkE/77Bukiy5dPCIu3LxYtOzc3xsKH++SXdhl0kqwLQJQT19IasDBZ6w/EAFYrp3xUTAeH5pSvU2yttcPNvJuja0CiEjBlqCeQMbiNTspsDET3wsz5sy7Cca5RGIz/OAIxGLKE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=slle6GwP; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1789725973; c=relaxed/simple;
+	bh=1cDRNp7sN30u47HZEONtfi3hMQ/gOuKGJhHadwqE0Vk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=NtbM4u/VOPyKtOmi0rSB3oJo0D5zIHxixXCJX1l09N1s0LKTeu10TDLiA4by7QFJL1dNCm16/O5GbdMnhgTU53t8vVgKWFQh6vvPoNCxI+uOEuwEVDeJihlCgZTt2f9Fa3eqbM/EPpfZNswf+tbdhScFyEZkZnm2ycpLn5Ph+Tc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gwmaNpy7; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="slle6GwP"
-Received: from ping.linuxembedded.co.uk (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6128126D7;
-	Fri, 18 Sep 2026 12:04:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1789725841;
-	bh=IemuaaDTh+ufOQ+a/jPwiya6O9RT0jUk6jmHVwjrF0Q=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=slle6GwP7vdTHbdjmDQpgqZT4J7JVMHIZlpYUsMRhyxwp2E8xueL10cPAdX8gXbDZ
-	 UIBj6M+ud9zTQI+hwwtiYMr/O4JT7h7NlIXeFIAII+SCWDyRD6f2uTgqz8GOZZNdke
-	 HwbH7shuQnD7fhFKII9o+JR7j8nIGxnEZrg0ogIQ=
-From: Kieran Bingham <kieran.bingham@ideasonboard.com>
-Date: Fri, 18 Sep 2026 11:05:27 +0100
-Subject: [PATCH v5 6/6] dt-bindings: media: i2c: himax,hm1246: Use
- video-interface-devices
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gwmaNpy7"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4838dbf1bbeso64472f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 03:06:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789725967; x=1790330767; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1cDRNp7sN30u47HZEONtfi3hMQ/gOuKGJhHadwqE0Vk=;
+        b=gwmaNpy78/xbD0P9d/Skf3yiI+OvGv6GC6WWwpq+ZwSjMS4RUeU+63H0ka7NhZz+Zk
+         0JbBizwObmhNrRl7M8sI+c+/8iMvB+m+t7WcKy9hVwEh7nR+d5UMgMjeKCPCbnDl5Fmb
+         gpo2teQazeTJ81DxIIuSVp0Cx7/YJ1kgAj29o0hQ6cERIcooX3zGpWMxk/3a8gG/Y5Jc
+         UxrSaoT0OT/B6CQ0wwAppqt9CqCzRjwjlVtXQoYKdMUWcgacWwIWTXLa3xvs6TTsSSBX
+         vZhoqbAvg2dD8Udy10ddfC1iZOKMxq2c/aAJ8mx9uX/MFdxonK4nV2jjC9EPKQeU/tC9
+         3qXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789725967; x=1790330767;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1cDRNp7sN30u47HZEONtfi3hMQ/gOuKGJhHadwqE0Vk=;
+        b=vW2OraO25GSvbqIinX5usNXzJmXNlVi9nCTULbOT10P/0y0XaZma7wQyuwhWJm64C9
+         379wwFjq3XyiVHVzNZ8QERTgFmlBcM/rmLYGb7LLfEASf3wYTT2fiUpTisBSP+9Gmp3K
+         dGp4LB21ox+Pz9SXOrMLj3CKnIB3PXFq796iIEQDYiPk0GnJ2ZH68TOOsILBKee6oXBx
+         C8uZl4Ix7gsOvGtJm1zo5/xLfSboFTaSeFjR9kmsDO7BqQqSmLLJDNKddevKpq8SxoWS
+         dFMUYIQqBDFpX3kGabKsk2hzj+kUKlmt4ZSPg3qAW63RRZPt0xSVhFmFNmFDrhRj0oMY
+         WMTw==
+X-Forwarded-Encrypted: i=1; AKwUvBwEhtH6eX66aijo1ii3ybml/cZi4TjWq/kdqgU/MJWJ/gDxtM3dkoRAIuva8qkltkDMa0mzyPXb24fjfXE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kfJaCYqPN0ZVH/pYe0bbt9P2rt8NGDMnyP894Xr7zcBQ773h1F
+	QyHy5bZ6vPzDhw9rrbTpTx+rzCSB7dpz7c/GN4NufyRN1LQZbhFP+xg/
+X-Gm-Gg: AYBFou05hox9sZM96gY3BfR+yljK01vqg60nVGRdmBnFUpAzwcgmoKAO0CvJS6ttB88
+	DftBAOJFqx7iTxONiPELukJW9wDJK7n2gC6gOu7fw3mlY6czOCI0qpDM8ownsJ2/1Ki29m6dkBg
+	6rCg0cWoy696hTriUrPZGBrpChDCEv6HImAtDFl8nr5jSMPYXxSI2wsUTG4PtOQ/PmmH5Kn1WtP
+	5+c1C/USCKQU+jkjrok8gzYDV40R4g22/0epwfJvmOQZWuDMiLrzLFKO1vMc/VHXTd3gh54LUNh
+	SvGIrkSeCYB+wZqCdVKBH1qjOEy9Ic+EZmTMRxoXgpxXnunlXGnuCpv0dJ6iaYqr5g4jx3FfcDR
+	q24QLKR5qAXEXt9BNwlmDOd+PM3UrZZPubJCa8ihvA7TE8r4Cbvfd9NBAEFUfbatwp+nEepeSeG
+	r/+IQ6AoM/OvjTx4GcayoYvWGqMP7XygZITt1dp4XIfeoz1IC0GuWbg/14aWKnyeqLuuW3cBQXy
+	D2Ja1JAg24TdEiaqwCqizhM/oq9MXtJFlnkwqbdZDLRMmScKaAxwp4koFvCsYms917h84vn+YRB
+	uSCSTjM6J3GG87s=
+X-Received: by 2002:a05:600c:83cd:b0:49e:6806:5712 with SMTP id 5b1f17b1804b1-49fc7ddb90emr15837745e9.2.1789725967027;
+        Fri, 18 Sep 2026 03:06:07 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME (20014C4E1B829B006E521A2A508563A3.dsl.pool.telekom.hu. [2001:4c4e:1b82:9b00:6e52:1a2a:5085:63a3])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4871ff3a8easm2922671f8f.9.2026.09.18.03.06.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 03:06:06 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+	Oded Gabbay <ogabbay@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Igor Paunovic <royalnet026@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sidong Yang <sidong.yang@furiosa.ai>,
+	Diederik de Haas <diederik@cknow-tech.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	Jiaxing Hu <gahing@gahingwoo.com>,
+	Nicolas Dufresne <nicolas@ndufresne.ca>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/7] accel/rocket: DVFS for the RK3588 NPU
+Date: Fri, 18 Sep 2026 12:05:43 +0200
+Message-ID: <20260918100543.23974-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260904130858.27803-1-royalnet026@gmail.com>
+References: <20260904130858.27803-1-royalnet026@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-kbingham-orientation-v5-6-e1a134326988@ideasonboard.com>
-References: <20260918-kbingham-orientation-v5-0-e1a134326988@ideasonboard.com>
-In-Reply-To: <20260918-kbingham-orientation-v5-0-e1a134326988@ideasonboard.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jacopo Mondi <jacopo@jmondi.org>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, Jimmy Su <jimmy.su@intel.com>, 
- Matthias Fend <matthias.fend@emfend.at>, 
- Mikhail Rudenko <mike.rudenko@gmail.com>, 
- Daniel Scally <dan.scally@ideasonboard.com>, 
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
- Michael Riesch <michael.riesch@collabora.com>, 
- Benjamin Mugnier <benjamin.mugnier@foss.st.com>, 
- Sylvain Petinot <sylvain.petinot@foss.st.com>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Paul Elder <paul.elder@ideasonboard.com>, 
- Martin Kepplinger <martin.kepplinger@puri.sm>, 
- Quentin Schulz <quentin.schulz@theobroma-systems.com>, 
- Tommaso Merciai <tomm.merciai@gmail.com>, 
- Svyatoslav Ryhel <clamor95@gmail.com>, 
- Richard Acayan <mailingradian@gmail.com>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, Heiko Stuebner <heiko@sntech.de>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux@ew.tq-group.com, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org, 
- linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-tegra@vger.kernel.org, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789725933; l=1221;
- i=kieran.bingham@ideasonboard.com; s=20260207; h=from:subject:message-id;
- bh=a1u9dH46t8TQM0p5BUpF3YP+7NFhTDL8vdaZRSaoqWY=;
- b=CGtj1EmEZHNgrT48UiKv8wKVyltCaQ3UK+f31pdPaeOZEd+/cwD81stGeoEqXXmS05wdMnFxv
- naTWDyjpzrzCt9APL3bP36Tdmm2WI9vw2gGnWaQy3ULWwgfNLC1oxj+
-X-Developer-Key: i=kieran.bingham@ideasonboard.com; a=ed25519;
- pk=FVXKN7YuwHc6UtbRUeTMAmranfsQomA+vnilfglWdaY=
+Content-Transfer-Encoding: 8bit
 
-From: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+Hi Tomeu,
 
-The orientation property for video interface devices now has definitions
-to prevent hardcoded integer values for the enum options.
+A gentle ping on this series, two weeks on.
 
-Update the example binding documentation.
+Conor acked 2/7, and Nicolas's review of 3/7 means a v2 is due.
+Sashiko could not apply the series, for the reason you gave Jiaxing
+on 31 August: its prerequisite, the slot-search fix (link below),
+is not part of it. With that fix first, the series still applies to
+today's drm-misc-next without conflicts (git am only, no build).
 
-Signed-off-by: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
----
- Documentation/devicetree/bindings/media/i2c/himax,hm1246.yaml | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+I can send v2 with the fix bundled in, so Sashiko can review it,
+or wait for your comments first, whichever you prefer.
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/himax,hm1246.yaml b/Documentation/devicetree/bindings/media/i2c/himax,hm1246.yaml
-index a65488fcc643..ca5817684e1e 100644
---- a/Documentation/devicetree/bindings/media/i2c/himax,hm1246.yaml
-+++ b/Documentation/devicetree/bindings/media/i2c/himax,hm1246.yaml
-@@ -86,6 +86,7 @@ examples:
-   - |
-     #include <dt-bindings/gpio/gpio.h>
-     #include <dt-bindings/media/video-interfaces.h>
-+    #include <dt-bindings/media/video-interface-devices.h>
- 
-     i2c {
-         #address-cells = <1>;
-@@ -103,7 +104,7 @@ examples:
-             iovdd-supply = <&hm1246_iovdd>;
-             dvdd-supply = <&hm1246_dvdd>;
- 
--            orientation = <2>;
-+            orientation = <MEDIA_ORIENTATION_FRONT>;
-             rotation = <0>;
- 
-             port {
+An LLM helped me draft this mail.
 
--- 
-2.52.0
+Thanks,
+Igor
 
+https://lore.kernel.org/r/20260904125936.26234-1-royalnet026@gmail.com
