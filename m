@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6477B4B0C9E;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 649CD4B2034;
 	Fri, 18 Sep 2026 08:57:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789721841; cv=none; b=UO8MUfi8Mop9E0+H0xTEtn+8KkF3seayCtc2UbthU7cIaRVbzxOW9dteO7wuwBcLWduO7K3Pr0J7FRvT+qspayQ9UIHfAONRFUzVdGQJjo1yEleeri/3rjPGlpQTb3069WoybZp9j3ah31F8YCPSopK9nhT6HMosX0gRYhjPDe0=
+	t=1789721841; cv=none; b=SL2TVeoodkbZx1z4DSvcU+V2aKtB65RC6dBzaTGLPVEna20zYCyyDnwzzk6/ErftoL3kuXwk7ALEJhVUomakIkiHwEq5Hhax+18hsKwGysrGjyK5eN9nXqGcRxKYfJIJpMVF3tVMSUYfv2f0u/Y4451sCYIIahfkgOLENckoAv4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789721841; c=relaxed/simple;
-	bh=e+E5iM1FydG87K4LexzdnkRbFFD5Ce6LN1dQg+EYuWk=;
+	bh=Y09jJH9K4LAobG30wFGPg8/lf73Of68us5AYvkdSpkg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=s4g6YC+9RLFUdYhJCHWFC+dWmfiL15yv47qdagJXAdxpD5QG+Ce1F+/ulxSqr9TKHe+TQa3bWAC8+CE1VaxkT7CNYgMBNfIUsiZQ1wvuBNthyAsCBICK5AfG1akE0MwDwDox9UsisZzsDwx6qAVYKg6hrxTV9Lm6fHuG2UOi46I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MFLuQyJz; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=sscmoaI/BZO3fnCnKztTrouBGR9b0m8YBKkIsDe6x+eLbfWevN+BqekAA4drJOgqwg2uOp3rgtmtlmrgW1y2xogKk1Mvoxc38uZRYeoCFukivg1wny1Sg7kMokZHv7bWokN6kzAB94JaLNKUobsQQvjFk3NfoeCUeSmSPCQ4tu4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b41DGEEi; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MFLuQyJz"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 794D3C2BCB9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b41DGEEi"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 99C22C2BCFD;
 	Fri, 18 Sep 2026 08:57:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1789721839;
-	bh=e+E5iM1FydG87K4LexzdnkRbFFD5Ce6LN1dQg+EYuWk=;
+	bh=Y09jJH9K4LAobG30wFGPg8/lf73Of68us5AYvkdSpkg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=MFLuQyJzXUhyv3Rb1KLRAI9NRf0jHpbR0fBHNX4iUNL12e2ErZpFUODsA0cr8V/8x
-	 /oJCRqD+qXyj/qbS6QdlKXKZoz3jLxfkaQUewkSSO/4qu2iRZE4hfkRP6SmuJX4Kgv
-	 HJkYf4xf7h5P/MzJiwVgd+9cUw4z+KS4wNviyStuPusEDUiGZ7wDM4Ib/Tv3JEvR8+
-	 L45pyPSWPT1IIZJTSvSmstd4ywFtgocpkTc6JukpUqWRSYJ/hvTipsjN46FjPs62tl
-	 fHEbBZegfTRBGQFZh3JSDmWGB+0+tT1wZBRZEviNVhpeMQveFkntDS2jgsLra0RLz7
-	 hg0dK7tgRwHJg==
+	b=b41DGEEipKK2ihPevUE2RmdlpmR0ROsJ9E7LmC5LD8t0NSd8jYzuYbJ7YZkJpYXYs
+	 RBerr+cj2azdKkYaOiLB69J94bbpSs6ZNkyi2rp/SUfIVpNkwY5ioxw/vtCDg1OGM3
+	 CBe2nqT3AohVvRIu6USKR3GNaoaK79tpx8C9vyXyIl7Q2Ghj+c98FAIGS8aRvTQXje
+	 UK09Cy4qzOpfOE1+uxGU6gcKsHpAbMYDb/3v35IreiXXBXlNRbAW8YqWDr5G+hXf6F
+	 zFL25FvceuDDJ834RMhi3Gluu7ZQGXcY2L70gJO0SYBASdIEuPM2e/gfoaeS9X9DqP
+	 E4IVvg76x3ojQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5919DC88E72;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 81029C982D9;
 	Fri, 18 Sep 2026 08:57:19 +0000 (UTC)
 From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
-Date: Fri, 18 Sep 2026 16:57:16 +0800
-Subject: [PATCH 01/21] media: dt-bindings: ite,it6625: document the default
- CSI-2 bus type
+Date: Fri, 18 Sep 2026 16:57:18 +0800
+Subject: [PATCH 03/21] media: i2c: it6625: default the debug module
+ parameter to 0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-upstream-it6625-follow-up-patch-v1-1-78d72d7886a5@ite.com.tw>
+Message-Id: <20260918-upstream-it6625-follow-up-patch-v1-3-78d72d7886a5@ite.com.tw>
 References: <20260918-upstream-it6625-follow-up-patch-v1-0-78d72d7886a5@ite.com.tw>
 In-Reply-To: <20260918-upstream-it6625-follow-up-patch-v1-0-78d72d7886a5@ite.com.tw>
 To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
@@ -52,11 +52,11 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
  linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Hermes Wu <Hermes.wu@ite.com.tw>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789721837; l=1548;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789721837; l=753;
  i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
- bh=9JG2gnHxv5HEk2OflV4GnhtoGwENcuutmXv8NLZl2zU=;
- b=2+6GDfh7bjm2quDcWDEExkXG0+2/O5n/T5weM/DqTYqUWm4G/Xgsyr3lIKcXiXqd9AFif6Srj
- 0RilO9sog2cBrts5V5y1zGd2ZyCA53rP1Ev1FVXxSBCdmrNpuG1EYgp
+ bh=4gDgLddPvEaApefdm/VXiVuCA+25zmyLXFpBDuZ557I=;
+ b=Yb7vBS9u+fyUDCkPjWNic/5G/TIqKMye9wdZqZO5rdvuWGRbVA2OOTaTPxihG0Qy16rsCgtaT
+ uTEqkSWiu5/BV7NFk7PqcOZCjQbpzZc9FSFh6flKbMWf/pMjp9+kyWn
 X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
  pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
 X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
@@ -66,40 +66,27 @@ Reply-To: Hermes.wu@ite.com.tw
 
 From: Hermes Wu <Hermes.wu@ite.com.tw>
 
-bus-type is optional under port@0 and port@1's endpoint for ite,it6625
-(the allOf/if/then clause only requires it for ite,it6626, which
-supports both C-PHY and D-PHY and needs disambiguation). With bus-type
-omitted, the actual runtime default is D-PHY:
-v4l2_fwnode_endpoint_parse_csi2_bus() falls back to
-V4L2_MBUS_CSI2_DPHY whenever data-lanes is present, which this binding
-already requires. Document that default explicitly instead of leaving
-it unstated.
+Printing all debug information by default is noisy for a normal boot;
+default debug to 0 like the module parameter's own description implies.
 
 Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
 ---
- Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/media/i2c/it6625.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
-index 756fe655f534f85b23b7741d06710c956f9694d8..9b621f726249189255692da02049ebcbf1d5b43c 100644
---- a/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
-+++ b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
-@@ -65,6 +65,7 @@ properties:
-                 enum:
-                   - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
-                   - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
-+                default: 4 # MEDIA_BUS_TYPE_CSI2_DPHY
+diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
+index 5d267676606e340ad0ee5ad2b78e5acb50a32980..42bdcc3af326ceb6c529b8da35836c49c8c43643 100644
+--- a/drivers/media/i2c/it6625.c
++++ b/drivers/media/i2c/it6625.c
+@@ -29,7 +29,7 @@
+ #include <media/v4l2-fwnode.h>
+ #include <uapi/linux/it6625.h>
  
-             required:
-               - data-lanes
-@@ -88,6 +89,7 @@ properties:
-                 enum:
-                   - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
-                   - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
-+                default: 4 # MEDIA_BUS_TYPE_CSI2_DPHY
+-static int debug = 3;
++static int debug;
+ module_param(debug, int, 0644);
+ MODULE_PARM_DESC(debug, "debug level (0-3)");
  
-             required:
-               - data-lanes
 
 -- 
 2.34.1
