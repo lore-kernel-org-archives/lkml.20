@@ -1,123 +1,152 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF5B02CCC5;
-	Fri, 18 Sep 2026 05:59:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BCB54848BA;
+	Fri, 18 Sep 2026 05:59:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789711156; cv=none; b=NXkxnZhh8fm7VX55UWmHUPib3oQfvyX4n5FIXotcL+zHlDiPyI5Ugs+2BUWPXozuvU7qvhIS1wqbPIRd/K1eFgD2Bw/b1MSU4yqg/dQ3E16x84MGykYGIE8vSnyRFcH+RFQjEEFjqtiUhwgtezZWeVqLd5HM0b1xsLTHHzg1SMo=
+	t=1789711174; cv=none; b=Oy4NYaxE+utLBMusQiz1obsKRBIknxpdbP4q1JdFuA7KNY65+LdTEARye8SnX2D7Vg19QzTU5PJKZudtLIowEHf5+xmC+jxoHkSs2admsB/JkeO2jt9/RTLsWCElZvRFD/0jQfEi5sBd8SwCf1NjD47YRn1nRoZyqZH6BEtwOFM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789711156; c=relaxed/simple;
-	bh=JS8Rhd7b/HFoVVdP0RMjIv015cFtAfHlBy4pvpu4gbk=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=PXtal17c4HRHyhXxytlBBlou6PxUxswYbKkMTkHZtn+suHUHfo9di/2DX0CCrBH2RdIILFC9GFDKJWKa7YjxQRXKPwMB35xluLwGIpefn2Jc12WGxUwngelGHdGThaNURQpajecfAXklZdbwZllX6LRKrhwmTQUC0F08n2BvDWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.103.44])
-	by APP-01 (Coremail) with SMTP id qwCowAAn_O8C06xqtWNICA--.15380S2;
-	Fri, 18 Sep 2026 13:58:28 +0800 (CST)
-Message-ID: <1aa49a9bcf5c5a16ce38b57f8f508a31ca70c1ce.camel@iscas.ac.cn>
-Subject: Re: [PATCH v4 05/20] dt-bindings: display: verisilicon: Add
- starfive,jh7110-dc8200
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Michal Wilczynski <m.wilczynski@samsung.com>, Vinod Koul
- <vkoul@kernel.org>,  Neil Armstrong <neil.armstrong@linaro.org>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, Andrzej Hajda	 <andrzej.hajda@intel.com>,
- Robert Foss <rfoss@kernel.org>, Laurent Pinchart	
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
- Yan <andy.yan@rock-chips.com>, Philipp Zabel	 <p.zabel@pengutronix.de>,
- Emil Renner Berthing <kernel@esmil.dk>, Hal Feng	
- <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul
- Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
- <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,  Dominique
- Belhachemi	 <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
- Brunet	 <jbrunet+clk@baylibre.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	mfd@lists.linux.dev, linux-clk@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
-	linux-riscv@lists.infradead.org, Marek Szyprowski
- <m.szyprowski@samsung.com>,  Maud Spierings <maud_spierings@murena.io>,
- Graham Markall <hello@big-grey.co.uk>, Chaoyi Chen	
- <chaoyi.chen@rock-chips.com>, Joshua Peisach <jpeisach@ubuntu.com>, Uwe
- =?ISO-8859-1?Q?Kleine-K=F6nig?=	 <u.kleine-koenig@baylibre.com>
-Date: Fri, 18 Sep 2026 13:58:26 +0800
-In-Reply-To: <20260915-jh7110-clean-send-v4-5-f0e4fd6f2cc8@samsung.com>
-References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
-		<CGME20260915153222eucas1p213b95b05ea7eb9a18700af8888ef5a44@eucas1p2.samsung.com>
-	 <20260915-jh7110-clean-send-v4-5-f0e4fd6f2cc8@samsung.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	s=arc-20240116; t=1789711174; c=relaxed/simple;
+	bh=Aj2cxAKytVuUBR9S7C+f0lIC6bIonnVaZ+5ohFEAS+o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SSO//4KQcRL5S5XuhsNdRLTmx2fKpSlslAI311psZPw8Vja2HUpeNkqjXXo2lrT7UMDq5pt/+vVkG/9N7P60Av62tG8nSd0zeY/SM0g1nnmTOjlTPE5vBK8XjD+TW6oNtgrle6w2dJgFjIiGbjLzIcaGurH7jMGEiOQ7A6D2GRA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=mJjICfUS; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="mJjICfUS"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I2VXop3075103;
+	Fri, 18 Sep 2026 05:59:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=Gu3CyY2cPSd04sTF2pYnIPNZ6GDVbmQxXpMwm3bVr
+	uA=; b=mJjICfUSyg84ZRERN7Hdkykg7wkzZ98fmrm6un6hrBC3hwDl9KSAMCEjp
+	u12r7EesUXTMJI3HCzWpWHzzUdABQOg/0nUcsyDCyVqEAEwRbe2XA3MfOiMcTYUr
+	YmLQbK5UlS3iKqoRVfq10hr8fu4RwvMsxC1FUi9t7vTjCdezKdudrYALTA6YKxWb
+	cZ4hkaKH9FjuHDLsFZrHcS2VmFcofTRGhkyBfhSbsSdWOm7mPIymG2JaOFSmsmCZ
+	3jD3RWyFMlZgk008Ab7Pa/aXRBLfIlCtHLCxEXifCZfZEOskbUnujZQ2wc7jnHWR
+	CMXeKiVQ1/EqnsT406RBeWLYfLXKA==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmw5ee0mw-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 18 Sep 2026 05:59:07 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68I2Z4Vs918832;
+	Fri, 18 Sep 2026 05:59:06 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gr7genk50-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 18 Sep 2026 05:59:06 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68I5x2DG47382888
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 18 Sep 2026 05:59:02 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3553C20043;
+	Fri, 18 Sep 2026 05:59:02 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1DFD020040;
+	Fri, 18 Sep 2026 05:59:00 +0000 (GMT)
+Received: from localhost.localdomain (unknown [9.43.70.22])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Fri, 18 Sep 2026 05:58:59 +0000 (GMT)
+From: Gautam Menghani <gautam@linux.ibm.com>
+To: maddy@linux.ibm.com, npiggin@gmail.com, mpe@ellerman.id.au,
+        chleroy@kernel.org, ritesh.list@gmail.com, sshegde@linux.ibm.com
+Cc: linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+        Timothy Pearson <tpearson@raptorengineering.com>
+Subject: [PATCH v2] KVM: PPC: Book3S HV: Avoid spurious interrupts caused by LPCR_MER bit
+Date: Fri, 18 Sep 2026 11:28:47 +0530
+Message-ID: <20260918055848.28390-1-gautam@linux.ibm.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID:qwCowAAn_O8C06xqtWNICA--.15380S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7ur4fJrW7tF1UKFykGFy5XFb_yoW8GF4xpF
-	sakFZrJFyIgrn3W3y8J3WUK3y7Wr1xA3W0gF1jq3W2grs8GFWFqr4Y9r1qgF4UJFW8CFW8
-	ZFsY9rWYvr1vyF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvGb7Iv0xC_Cr1lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
-	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
-	MxkF7I0En4kS14v26rWY6Fy7MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
-	4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
-	67AKxVWrXVW8Jr1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6x
-	IIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY
-	6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa
-	73UjIFyTuYvjxUaGYpUUUUU
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDA3MiBTYWx0ZWRfX16NPBwFAaT+O
+ UAgOzr6YBjQuhaVqDP/RwGGYM4L1MjMahMx6/dtAIaC3hYNFF0fU2scCxvlmKDWozIZHzXgLLej
+ xDb7Y/WSpfcE7MGLJ8gwwQBMYF5mXR/iPAeqnXSX/K3LnXdc8MMfdu+S9mwtd68FG1LoeOp/jHQ
+ PpzVKBxdRJXH1Fh1lWsQhCWQ3dfXwIlDlFpeVDba9P+JCrDex+R9UzcMH2XwGebZC0ICJOrZTx7
+ LpfWqLqwL66mNS/TbWPvgEUWFbH21LICJGQKEdYKDjzm6mmldAiKdI2UtS91ACenXK1/9mGm7me
+ FF/o3njIZTWu5uHKxGrhoE+eXBU0sMIOZ1CUDCWxBjg6BDiWUvUb/jRCWe98emjEnPeNvtI7uiq
+ sX8J72Y+HLTkgRdupY3xJGbm11phEDVXOI9LunkDSAfM6qSAsPpmbfKDLICZrkqIPjd+A7ZrNlm
+ Uiw48wbvryUS7B4E3LQ==
+X-Authority-Analysis: v=2.4 cv=E/NYNqdl c=1 sm=1 tr=0 ts=6aacd32b cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8 a=yKAn6K1XAAAA:8 a=_AprYWD3AAAA:8
+ a=VnNF1IyMAAAA:8 a=r95I5fjiukzm4VaaYucA:9 a=6M1ixcW_PCWoKiWyFx5v:22
+ a=fKH2wJO7VO9AkD4yHysb:22
+X-Proofpoint-ORIG-GUID: tt32x94vHuGk4pnxneHxbSzCeDo7yIZp
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDA3MiBTYWx0ZWRfX8FYpZe9/zPPT
+ mJgCkXp+DisA82Rv4eHdYk5yL7+R/nL7+wfMYADlsovjsfp8NWPxTQpqma0bxSKBkXOLaf5rF4+
+ PvLrIMo6rnyP0WvKGlxD93DugmzLT54=
+X-Proofpoint-GUID: uYJ5aT56HSo-DAVALs0w8ZzyRhKxWAW8
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-18_01,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0
+ adultscore=0 clxscore=1015 bulkscore=0 malwarescore=0 suspectscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609180072
 
-=E5=9C=A8 2026-09-15=E4=BA=8C=E7=9A=84 17:32 +0200=EF=BC=8CMichal Wilczynsk=
-i=E5=86=99=E9=81=93=EF=BC=9A
-> The JH7110 embeds a DC8200. The binding requires an SoC specific
-> compatible ahead of the generic one, so add the JH7110 to the enum.
->=20
-> Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
-> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
-> ---
-> =C2=A0Documentation/devicetree/bindings/display/verisilicon,dc.yaml | 1 +
-> =C2=A01 file changed, 1 insertion(+)
->=20
-> diff --git
-> a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> index
-> 919a9001220120054cb62d1d01b7293367266f95..05a202633cd273fec358c095c64
-> 584d959d96d90 100644
-> --- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> +++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> @@ -16,6 +16,7 @@ properties:
-> =C2=A0=C2=A0 compatible:
-> =C2=A0=C2=A0=C2=A0=C2=A0 items:
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - enum:
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - starfive,jh7110=
--dc8200
+A huge number of spurious interrupts can be seen immediately after a KVM
+on PowerNV guest boots up in XIVE mode.
 
-Note: this binding is being refactored as part of MA35D1 support
-introduction (this SoC has a single-port DC like a DC8000), after the
-refactor the binding string might need to appear twice.
+$ cat /proc/interrupts  | grep SPU
+SPU:     223705     192439     273526     147623   Spurious interrupts
 
-Thanks,
-Icenowy
+This bug was introduced by commit ecd10702baae5 ("KVM: PPC: Book3S HV:
+Handle pending exceptions on guest entry with MSR_EE"). The root cause
+is that once LPCR_MER bit is set, it is supposed to be reset by
+software. But when a vCPU starts running with LPCR_MER set, the vCPU does
+not exit back to the host until the decrementer expires or there is an
+hcall, etc. This is because KVM on PowerNV guests have support for
+native XIVE, so they are not dependent on host for interrupt emulation.
+Due to this behaviour, a huge number of spurious interrupts are seen
+since LPCR_MER continues to be set and LPCR_MER cannot be reset until the
+vCPU exits to the host.
 
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - thead,th15=
-20-dc8200
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: verisilicon,dc # DC IPs hav=
-e discoverable ID/revision
-> registers
-> =C2=A0
+Fix this behaviour by not using the LPCR_MER bit in case of KVM on
+PowerNV, as the XIVE hardware can present interrupts to the KVM guest
+vCPU directly. So the LPCR_MER functionality is not required.
+This reduces the number of spurious interrupts drastically.
+
+Fixes: ecd10702baae5 ("KVM: PPC: Book3S HV: Handle pending exceptions on guest entry with MSR_EE")
+Cc: stable@vger.kernel.org #6.8+
+Reported-by: Timothy Pearson <tpearson@raptorengineering.com>
+Closes: https://lore.kernel.org/linuxppc-dev/582904882.11159.1786719390349.JavaMail.zimbra@raptorengineeringinc.com
+Signed-off-by: Gautam Menghani <gautam@linux.ibm.com>
+---
+v2:
+1. Handle the case where xive_interrupt_pending() is true and also the
+external exception bit is set.
+
+ arch/powerpc/kvm/book3s_hv.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/powerpc/kvm/book3s_hv.c b/arch/powerpc/kvm/book3s_hv.c
+index dbac3573b2c8..f4d12a97311b 100644
+--- a/arch/powerpc/kvm/book3s_hv.c
++++ b/arch/powerpc/kvm/book3s_hv.c
+@@ -4980,7 +4980,7 @@ int kvmhv_run_single_vcpu(struct kvm_vcpu *vcpu, u64 time_limit,
+ 			if (!kvmhv_on_pseries() && (__kvmppc_get_msr_hv(vcpu) & MSR_EE))
+ 				kvmppc_inject_interrupt_hv(vcpu,
+ 							   BOOK3S_INTERRUPT_EXTERNAL, 0);
+-			else
++			else if (!xics_on_xive())
+ 				lpcr |= LPCR_MER;
+ 		} else {
+ 			/*
+-- 
+2.55.0
 
