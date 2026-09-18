@@ -1,370 +1,182 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f12.google.com (mail-oi2-f12.google.com [74.125.231.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C375502D44;
-	Fri, 18 Sep 2026 18:49:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDC6548AE24
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:49:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789757367; cv=none; b=rbw4rDvr2PPK0/SZGkLfG4qAiwCIAGdp8stR+xm9YzhglltG7CsRDxfYnObeUz3wfQ/43fWPBzhKE2036blAzLR3HtbM4GO8NaB/jOgGRgvtXVNjdotZiqd2hwwB/CUU7VZLjN1K/yzjcvEFF1c7KiDws/3iGntZwFlj7fMxUcs=
+	t=1789757403; cv=none; b=ISsi49EMpH4t0lu2/mwLr5Rv7v0L49yi6tDgANgihsYs4X0aU+o9VxZpUMKESPKIOxmTgxASiSFj+Hf9+v1mDwG4qyj7Ybq25ia9nc1AoPjQkaF6IvILMgprGzygJgFFU2Fgo7izHNsEltNVQvGg1XdIL03BGjR6OKGHmGX2SBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789757367; c=relaxed/simple;
-	bh=hJ61B8b61TzVK2aFvc1CIkWDiRJ6cUS/H0I64tZq06w=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=RmFnrQPFLfhfpSjlWZS3SAtWrp/GHXmOwMKRKesEYLsfr3W+LCLaPRccZPRqu3aZh14IBkzjgnXsvdkYyMr+H/adYQPQEl7VByVyIoirjwb/yukptGFY9t9YYUDVIF5IgXD1mpFAioSneFC6jUuBmOqs1NEnOUIdZ2K/hGhmBs0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YuFxYvgz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789757403; c=relaxed/simple;
+	bh=9oC39/JappGs0sqzr06Vb/T9nRG9qxulTyMwkYPuvjE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KVnV7ecIvnEFEsgPW4nHDnA2BPd4kK4nfKRCymFGgA7BUF6QlhOp1HwsBHSFucwdfkBP13Y4FInoFmigs3K86OswrXjjX8ivsC9vTzUZDiNhYHy7IJr1YFuImQY/00w002PEbv/yJ0bj3F+cSxAIkptp0ZmacYAEc1dBZ0jSR8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pR6TXwrp; arc=none smtp.client-ip=74.125.231.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YuFxYvgz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E53211F000FF;
-	Fri, 18 Sep 2026 18:49:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789757353;
-	bh=+YjGVXkvvWrv64RKhh2Ovbep417GN5lNtlx2Grs+mP0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=YuFxYvgzPYhdduBLAORJLPUdjvearnmMp/fan5nWo+/eh3i1rmVcE2+8bsxFqWAZB
-	 KT1QRxXloP9WcCBp5VHvkzeaxyBVcEXaFVs8L7px5wEmCFVd4DRuTzSePmsvx/QZsH
-	 557qUC/xYhUq1LcRg2M8cvXcIBStQBlD2TmDm3UAxhu50WlfYNC7YwKuHpTKgyWpQO
-	 SwelWz7E13KCSFTM8WqUr7mEmspD1XuBqCRdIX7HQx/MI0C2cE4G3XwIUqT7vjqFZj
-	 WHVl2SMv2LHLxANBnVl5BVIOC5Zpn68h5xB4xDXglbxHvWtTBpjqoUM+JJU+8Qixol
-	 s6YDhozh+VXUw==
-Date: Fri, 18 Sep 2026 13:49:11 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: David Matlack <dmatlack@google.com>
-Cc: kexec@lists.infradead.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	linux-pci@vger.kernel.org,
-	Adithya Jayachandran <ajayachandra@nvidia.com>,
-	Alexander Graf <graf@amazon.com>,
-	Alex Williamson <alex@shazbot.org>,
-	Bjorn Helgaas <bhelgaas@google.com>, Chris Li <chrisl@kernel.org>,
-	David Rientjes <rientjes@google.com>,
-	Jacob Pan <jacob.pan@linux.microsoft.com>,
-	Jason Gunthorpe <jgg@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
-	Josh Hilke <jrhilke@google.com>,
-	Leon Romanovsky <leonro@nvidia.com>, Lukas Wunner <lukas@wunner.de>,
-	Mike Rapoport <rppt@kernel.org>, Parav Pandit <parav@nvidia.com>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pranjal Shrivastava <praan@google.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Saeed Mahameed <saeedm@nvidia.com>,
-	Samiullah Khawaja <skhawaja@google.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Vipin Sharma <vipinsh@google.com>, William Tu <witu@nvidia.com>,
-	Yi Liu <yi.l.liu@intel.com>
-Subject: Re: [PATCH v8 01/12] PCI: liveupdate: Set up FLB handler for the PCI
- core
-Message-ID: <20260918184911.GA1172993@bhelgaas>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pR6TXwrp"
+Received: by mail-oi2-f12.google.com with SMTP id 5614622812f47-4b37a2ffee6so468737b6e.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:49:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789757390; x=1790362190; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/Ph6ZaVxaO7CXgv08gaPlk+fBtFgV6Zs+sxg/G7AO88=;
+        b=pR6TXwrpMEITHw2br1BoaGrggsW7bp1HhgIFVbGpV1QTAcv4U+YsMI1N7ixc0z+hJb
+         ElQGHys3Gn8tXBrOXLBfNLXmaCLRZYpE4KdFuOOhyYqt9NFLm+3PrBq7MIePSjrPYmVk
+         hGeIT2CZL1Sru91/5dQHdJ2LWfSo08eKWWLyUBJQzpcvfsreXK1S7UO7vdEHbTnLp+jb
+         3ugysWsEf61cAExDw4/gmoaClvYMNtcqyFmTBFhVzzn8zKe2Smsau5ZsqYt5tD9Vaywr
+         3Ho8ozYTiLY9most3r4hMEN23idPpARFlwn8T4VLlOvSoUizBe5pmuuk2rq9WZdVN4fY
+         vRwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789757390; x=1790362190;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/Ph6ZaVxaO7CXgv08gaPlk+fBtFgV6Zs+sxg/G7AO88=;
+        b=SP33it938aLDgxKgxXnWl+nvRMkFRt4usmZHSnJtqsuiooY3DCWy20XBSsRF6DcTj3
+         Ycgub7f6b3x0q+VjKppM37FG8Yjxy9cpyHdMnVadOpFWTQZMeht8iBq4wqSRfkgAta9t
+         Ae9D7w9xrykURp6Jrn8Wv/yaNATQQJXZZXfPcPEAgg/HzLpw+HBcRLqq87addBAOII4h
+         zjCWV38Rac+QtXCtQ0mmC6xUhPnpDLleBcU9Gfej//1VOBeF0U2HKkhH0kiT2mFbrfxH
+         /w15uuFKHkhzSMR4n0pKlBDKI1CN3U0vRWwCSDwsPwcrbs4cJHhGuc0k/fiHj4bZz4mN
+         ugOA==
+X-Forwarded-Encrypted: i=1; AKwUvBz5OLGSq0rv6T9QkchBdxfhiassUgYDWZ6UAWCoqzGpcB6kRh2VwEDTMyRRbCYsLSGV9/vAV1qQkGXKGcc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lkYkGI8UYzEDYnbkJqQUn4KiHTAQ+8VaIrI0nYim+MMjQ5Uzg/
+	Hk2I/xWBy8tcaD11nU3FILo214RNvP+gvdlHvBnGsejyY8G+XJNRiV+M
+X-Gm-Gg: AYBFou0CNEFNkyc850t3URZAXDpKBqW4MwNYK2tw+OlwqOE2xxRhl3+501iGtG21w/P
+	xOUSkE+Ch0TndWJO4EzJvBohEy8ZcxEiZHWSnbMK1p3/gZku2JpgO6m3ZiHpcXZWn0MSG8ginQt
+	oVN9/m2F6potK/HTFXzSeMvebPn+BWY6xDfG5oV/Jwjffc7gw9M265Z62KfsHcYSijGdKhKww22
+	EiYmT/h+43JVBUiZz4TtzG2XW+xFUiQSTllNwTxmW/ekf8r9XjQxpDTVjwoWtLfAmMbIPO1eYXc
+	wXrtFhCu4/er+GQUi/3XdwesQt69DY3Wu3Wets+zpt0ZUmctPb+9Pi2VX5WlffE9jbrQCFVTq05
+	sK9furfvOpHujo+Ty3IncWOO4y0DTlTInSzz1GhKt2b9IOfaMKD6dUr4a++h+hG4AV8LU/MydqD
+	wy4Hbo9L0RbENkB3de/eaCfaZFQxCi+hSMnH38cWGSoIiI+r2ozzVk7/JmyLmNda9nx1F+8q+e8
+	UpoOZVAzwpdJ74m/Z4EocGnesmsbg==
+X-Received: by 2002:a05:6808:13cd:b0:4c1:83fb:8c7b with SMTP id 5614622812f47-4ccf6f9803amr3772164b6e.12.1789757390210;
+        Fri, 18 Sep 2026 11:49:50 -0700 (PDT)
+Received: from localhost ([2a03:2880:10ff:17::])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4cf3f77781csm69823b6e.18.2026.09.18.11.49.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 11:49:49 -0700 (PDT)
+From: Joshua Hahn <joshua.hahnjy@gmail.com>
+To: =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Maarten Lankhorst <dev@lankhorst.se>,
+	Maxime Ripard <mripard@kernel.org>,
+	Natalie Vock <nat@pixelcluster.dev>,
+	Tejun Heo <tj@kernel.org>,
+	Oscar Salvador <osalvador@suse.de>,
+	cgroups@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	kernel-team@meta.com
+Subject: Re: [PATCH v6 0/5] mm/page_counter: move stock from mem_cgroup to page_counter
+Date: Fri, 18 Sep 2026 11:49:45 -0700
+Message-ID: <20260918184947.3681164-1-joshua.hahnjy@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <aqzulM8S63363Tr1@localhost.localdomain>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqyKVkIH58DK0EZO@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 18, 2026 at 12:48:22AM +0000, David Matlack wrote:
-> On 2026-09-16 06:50 PM, Bjorn Helgaas wrote:
-> > On Fri, Sep 11, 2026 at 04:44:02PM +0000, David Matlack wrote:
-> > > On 2026-09-10 06:48 PM, Bjorn Helgaas wrote:
-> > > > On Tue, Jul 28, 2026 at 10:09:55PM +0000, David Matlack wrote:
-> > > > > Set up a File-Lifecycle-Bound (FLB) handler for the PCI core to enable
-> > > > > it to participate in the preservation of PCI devices across Live Update.
-> > > > > Essentially, this commit enables the PCI core to allocate a struct
-> > > > > (struct pci_ser) and preserve it across a Live Update whenever at least
-> > > > > one device is preserved.
-> > > > 
-> > > > I assume pci_ser is the state the PCI core needs to preserve across
-> > > > kexec so the new kernel's enumeration doesn't interrupt the device
-> > > > operation.  And that whatever state the endpoint drivers need to
-> > > > adopt/inherit the device in the new kernel is managed without any help
-> > > > from the PCI core?
-> > > 
-> > > Yes.
-> > > 
-> > > > > Preserving PCI devices across Live Update is built on top of the Live
-> > > > > Update Orchestrator's (LUO) support for file preservation. Drivers are
-> > > > > expected to expose a file to userspace to represent a single PCI device
-> > > > > and support preservation of that file. This is intended primarily to
-> > > > > support preservation of PCI devices bound to VFIO drivers.
-> > > > 
-> > > > Where do drivers expose this file?  sysfs?  I guess it's a file per
-> > > > preserved device?  Thinking like a driver writer, I'm expecting a hint
-> > > > about how to expose this file (should also be in the file doc somehere
-> > > > if it's not already).
-> > > 
-> > > There is no requirement about how drivers do this from the PCI core
-> > > perspective. For all intents and purposes, the VFIO PCI variant drivers
-> > > are the only drivers that are going to be supported in the next 1-2
-> > > years. They expose a misc character device for each file.
-> > 
-> > If this file isn't relevant to the PCI core, maybe we don't need to
-> > mention it here.  It doesn't seem like it motivates this patch.
-> > 
-> > > > > This commit enables drivers to register their liveupdate_file_handler
-> > > > > with the PCI core so that the PCI core can do its own tracking and
-> > > > > enforcement of which devices are preserved.
-> > > > > 
-> > > > >   pci_liveupdate_register_flb(driver_file_handler);
-> > > > >   pci_liveupdate_unregister_flb(driver_file_handler);
-> > > > 
-> > > > So a driver calls pci_liveupdate_register_flb() once, then
-> > > > pci_liveupdate_preserve() once for each device it wants preserved?
-> > > 
-> > > Yes
-> > > 
-> > > > > When the first file (with a handler registered with the PCI core) is
-> > > > > preserved, the PCI core will be notified to allocate its tracking struct
-> > > > > (pci_ser).
-> > > > 
-> > > > The passive voice here makes the actors a bit obscure.  I guess a
-> > > > LIVEUPDATE_SESSION_PRESERVE_FD ioctl on some per-device file kicks
-> > > > this off?
-> > > 
-> > > Yes. (And I will reduce the passive voice in the next version.)
-> > > 
-> > > > I guess the pci_ser allocation is in
-> > > > pci_liveupdate_flb_ops.preserve(), i.e., pci_flb_preserve()?
-> > > 
-> > > Yes.
-> > > 
-> > > > So the PCI core tracker (pci_ser) isn't actually allocated at the time
-> > > > of pci_liveupdate_register_flb(); it's allocated on the first
-> > > > LIVEUPDATE_SESSION_PRESERVE_FD ioctl for a driver that has called
-> > > > pci_liveupdate_register_flb()?
-> > > 
-> > > Yes. The first device that gets preserved triggers the allocation of
-> > > struct pci_ser. And the last device that gets unpreserved (preservation
-> > > cancelled) triggers the freeing of struct pci_ser.
-> > > 
-> > > > IIUC the call tree for that ioctl looks something like this:
-> > > > 
-> > > >   <driver>
-> > > >     pci_liveupdate_register_flb
-> > > >       liveupdate_register_flb(fh, &pci_liveupdate_flb)
-> > > > 
-> > > >   luo_session_ioctl
-> > > >     op = &luo_session_ioctl_ops[...]
-> > > >     op->execute                               # eg luo_session_preserve_fd()
-> > > >       luo_session_preserve_fd
-> > > >         luo_preserve_file
-> > > >           luo_flb_file_preserve
-> > > >             luo_flb_file_preserve_one
-> > > >               if (outgoing_count == 0)        # only for first FLB device
-> > > >                 flb->ops->preserve            # eg pci_flb_preserve()
-> > > >                   pci_flb_preserve
-> > > >                     ser = kho_alloc_preserve  <-- alloc pci_ser
-> > > >                 outgoing.count = 1
-> > > >           fh->ops->preserve                   # something not included here
-> > 
-> > So IIUC this part of the path looks like this, which answers my
-> > question below about ordering of pci_ser and
-> > pci_liveupdate_preserve():
-> > 
-> >               fh->ops->preserve                   # eg vfio_pci_liveupdate_preserve()
-> >                 vfio_pci_liveupdate_preserve
-> >                   pci_liveupdate_preserve
-> >                     pci_liveupdate_preserve_device
-> >                       dev_ser = pci_flb_alloc_dev_ser  <-- alloc per-dev PCI core serialized state
-> >                       dev_ser->bdf = pci_dev_id(dev)
-> > 
-> > > > Seems like kind of an awkward way to allocate pci_ser.  Couldn't it be
-> > > > allocated on the first call to pci_liveupdate_register_flb()?  That
-> > > > would be a lot easier for driver writers to trace through.
-> > > 
-> > > I agree the LUO FLB API is a bit awkward, but this is how it works.
-> > > 
-> > > If we allocated it during pci_liveupdate_register_flb() we would then
-> > > need to stash it in a global variable to hand-off the LUO later. Despite
-> > > the awkwardness of FLBs, it is useful to avoid globals and have LUO
-> > > management the lifetime.
-> > 
-> > It seems like pci_ser is a singleton by design, so a global variable
-> > doesn't sound like it would be terrible to me.
-> > 
-> > > > > When the last file is unpreserved (i.e. preservation
-> > > > > cancelled) the PCI core will be notified to free struct pci_ser.
-> > > > 
-> > > > There's a lot going on behind "PCI core will be notified".  I assume
-> > > > these refer to the first-time behavior of luo_flb_file_preserve_one()
-> > > > and last-time behavior of liveupdate_flb_put_outgoing(), which is
-> > > > honestly kind of hard to suss out.
-> > 
-> > Could we say something specific and PCI-related here, to help connect
-> > the dots?  Most of these paths are outside the PCI core.
-> > 
-> > IIUC luo_session essentially has a refcount (outgoing.count)
-> > incremented by each LIVEUPDATE_SESSION_PRESERVE_FD ioctl, and the 0->1
-> > transition in luo_flb_file_preserve_one() ends up calling
-> > pci_flb_preserve(), where pci_ser is allocated.
-> > 
-> > And the refcount is decremented by luo_flb_file_unpreserve() (in a
-> > luo_session .release() function), where the 1->0 transition in
-> > liveupdate_flb_put_outgoing() calls pci_flb_unpreserve() where pci_ser
-> > is deallocated.
-> > 
-> > That gets into a lot of detail, probably too much for a commit log.
-> > Maybe mentioning the function names by which the PCI core is notified
-> > to alloc/free pci_ser would be enough of a bread crumb.
-> > 
-> > > > This series doesn't include a caller of pci_liveupdate_preserve() (or
-> > > > pci_liveupdate_register_flb()), so I can't figure out the ordering.
-> > > > Obviously pci_liveupdate_register_flb() must be first.
-> > > 
-> > > In every version of this patch series I have sent I included a link to
-> > > the vfio-pci driver changes that build on top of this, rebased that
-> > > series on top of this one, uploaded it to my GitHub, and included a link
-> > > in the cover letter. Here is the relevant section from the v8 cover
-> > > letter:
-> > > 
-> > > . This series was tested in conjunction with v5 of the VFIO PCI driver
-> > > . series:
-> > > .
-> > > .   https://lore.kernel.org/kvm/20260714151505.3466855-1-vipinsh@google.com/
-> > > .
-> > > . The full set of patches used for testing can be found on GitHub.
-> > > .
-> > > .   https://github.com/dmatlack/linux/tree/liveupdate/pci/base/v8-with-vfio
-> > > 
-> > > 
-> > > > I first thought pci_liveupdate_preserve() would be called via the
-> > > > fh->ops->preserve() in the luo_session_preserve_fd() ioctl path, but
-> > > > it's not.  pci_liveupdate_preserve() is intended for the driver to
-> > > > call it directly.  But it looks like it has to be called *after* the
-> > > > ioctl?  Obviously I'm confused :)
-> > > 
-> > > It is called by the driver during it's fh->ops->preserve() callback. In
-> > > other words, it is called during the ioctl by the driver.
-> > 
-> > I think the updated call tree above shows the connection?
-> 
-> Yes the call tree you added above is correct. Here is an attempt at the
-> complete picture that I plan to include in the kernel-doc in v9:
-> 
->  * Call Flow
->  * ---------
->  *
->  * ::
->  *
->  *   # Driver initialization
->  *   pci_liveupdate_register_flb(fh)
->  *
->  *   # Userspace: ioctl(LIVEUPDATE_SESSION_PRESERVE_FD, devfd)
->  *   luo_preserve_file()
->  *     luo_flb_file_preserve()
->  *       luo_flb_file_preserve_one()      # first preserved file only
->  *         pci_flb_preserve()             # alloc and preserve struct pci_ser
->  *     fh->ops->preserve()                # driver callback
->  *       pci_liveupdate_preserve(dev)     # record this device in struct pci_ser
->  *
->  *   # Userspace: preservation cancelled or session torn down
->  *   luo_file_unpreserve_files()
->  *     luo_flb_file_unpreserve()
->  *       liveupdate_flb_put_outgoing()    # last unpreserved file only
->  *         pci_flb_unpreserve()           # free struct pci_ser
->  *
->  *   # ---------------- kexec ----------------
->  *
->  *   # New kernel: PCI enumeration
->  *   pci_setup_device()
->  *     pci_liveupdate_setup_device()
->  *       liveupdate_flb_get_incoming()
->  *         luo_flb_retrieve_one()         # first request only
->  *           pci_flb_retrieve()           # previous kernel's struct pci_ser
->  *
->  *   # Userspace: ioctl(LIVEUPDATE_SESSION_FINISH)
->  *   luo_file_finish_one()
->  *     fh->ops->finish()                  # driver callback
->  *       pci_liveupdate_finish(dev)       # release this device's pci_dev_ser
->  *     luo_flb_file_finish()
->  *       liveupdate_flb_put_incoming()    # last incoming file only
->  *         pci_flb_finish()               # free struct pci_ser
->  *
-> 
-> And here is an updated commit message that I hope explains everything more
-> clearly:
-> 
->  PCI: liveupdate: Set up FLB handler for the PCI core
-> 
->  Set up a File-Lifecycle-Bound (FLB) handler so that the PCI core can
->  preserve its own state across a Live Update kexec.
-> 
->  Preserving a PCI device across kexec requires preserving two independent
->  sets of state:
-> 
->   - Driver state, e.g. everything vfio-pci needs so that userspace can
->     keep using the device in the new kernel. The driver preserves this
->     itself and the PCI core is not involved.
-> 
->   - PCI core state, e.g. which devices are preserved, so that the new
->     kernel knows not to disturb them while they are still running and
->     doing DMA. That is what this commit adds, serialized into struct
->     pci_ser.
-> 
->  Userspace, not the kernel, decides which devices are preserved, and it
->  does so through the Live Update Orchestrator's (LUO) support for file
->  preservation: a driver exposes a file that represents a single PCI
->  device, and userspace preserves that device with
->  ioctl(LIVEUPDATE_SESSION_PRESERVE_FD) on that file. Binding preservation
->  to a file gives it proper lifecycle management, e.g. the preservation is
->  undone if userspace cancels it or goes away. How a driver exposes that
->  file is up to the driver and invisible to the PCI core (vfio-pci variant
->  drivers, the first intended use-case, use their per-device cdev).
-> 
->  LUO only knows that a file was preserved; it does not know that the
+On Fri, 18 Sep 2026 09:58:17 +0200 Michal Koutný <mkoutny@suse.com> wrote:
 
-s/the/it/
+> Hi.
+> 
+> On Thu, Sep 17, 2026 at 10:57:00AM -0700, Joshua Hahn <joshua.hahnjy@gmail.com> wrote:
+> > 
+> > This is true, but this is already the behavior for vanilla memcg.
+> > In this series I'm hoping to preserve all existing semantics without
+> > changing behaviors, so I can fix this problem in a separate issue.
+> > 
+> > Specifically, in vanilla try_charge_memcg:
+> > 
+> > done_restock:
+> > 	if (batch > nr_pages)
+> > 		refill_stock(memcg, batch - nr_pages);
+> > 
+> > ...
+> > 			current->memcg_nr_pages_over_high += batch;
+> > 
+> > So I've just preserved the exact semantics that we used to have before.
+> 
+> Kudos to you for the conservative approach.
 
->  represents a PCI device, or which one. Bridging that gap, drivers
->  register their liveupdate_file_handler with the PCI core:
-> 
->    pci_liveupdate_register_flb(driver_file_handler);
->    pci_liveupdate_unregister_flb(driver_file_handler);
-> 
->  LUO then refcounts the PCI core's FLB against the files preserved by
->  that handler, and that refcount drives the lifetime of struct pci_ser:
-> 
->   - On the first preserved file, luo_flb_file_preserve_one() calls
->     pci_flb_preserve(), which allocates struct pci_ser and preserves it
->     with KHO.
-> 
->   - On the last unpreserved file (i.e. preservation cancelled),
->     liveupdate_flb_put_outgoing() calls pci_flb_unpreserve(), which
->     unpreserves and frees struct pci_ser.
-> 
->   - In the next kernel, pci_flb_retrieve() hands the PCI core the struct
->     pci_ser built by the previous kernel, whenever the PCI core asks for
->     it (e.g. during enumeration), and pci_flb_finish() frees it once the
->     PCI core is done with it.
-> 
->  So the flow for preserving a device, once a driver has registered, looks
->  like this:
-> 
->    ioctl(LIVEUPDATE_SESSION_PRESERVE_FD)
->      luo_session_preserve_fd()
->        luo_preserve_file()
->          luo_flb_file_preserve()
->            luo_flb_file_preserve_one()  # only on the first preserved file
->              pci_flb_preserve()         # alloc + KHO-preserve pci_ser
->          fh->ops->preserve()            # driver callback, e.g. vfio-pci
-> 
->  Note that struct pci_ser is deliberately not allocated when a driver
->  calls pci_liveupdate_register_flb(). A driver can be loaded for the
->  lifetime of the machine without ever preserving a device, and there is
->  no reason to allocate memory and hand it to the next kernel in that
->  case. Letting LUO own the lifetime also means the PCI core does not have
->  to duplicate LUO's refcounting and unwind logic for preservation
->  failures, session aborts and fd close, and the incoming side
->  (retrieve/finish) comes from the same object rather than requiring a
->  separate KHO FDT entry owned by the PCI core.
-> 
->  Note: This commit only allocates struct pci_ser and preserves it across
->  Live Update. A subsequent commit adds pci_liveupdate_preserve(), the API
->  drivers call from their fh->ops->preserve() callback to tell the PCI
->  core exactly which devices are being preserved.
-> 
->  Note: There is no reason to check for kho_is_enabled() since it can be
->  assumed to return true. If KHO was not enabled then Live Update would
->  not be enabled and these routines would never run.
+Hi Michal, thanks for your kind words : -)
 
-Beautiful, thanks for your patience :)
+> > 
+> > The problem isn't that big anyways though, it's a transient inflation
+> > in memcg_over_high and will be wiped on the next high handling run,
+> > and there is no effect on accounting or permanent inflations.
+> 
+> It reminds me [1] where stockage imprecision could even trigger OOM but
+> it was reportedly only visible in LTP.
+
+So I was thinking about this part quite a bit in the older versions of
+this series where I changed the draining from being async to sync.
+
+If I understand the issue you saw in LTP correctly, it's not one of
+actual memory OOMs but that there was stock that the memcg could use,
+just not in the current CPU that was trying to fulfill the charge,
+and also the draining for the remote CPUs did not happen in the time
+that it took to run through 16 retry attempts.
+
+IOW seems to me we are synchronously waiting for asynchronous drains.
+
+To me this did sound a little bit unfortunate since there really is
+memory that the memcg could have used, just cached in the "wrong"
+place (and for some reason that CPU is too busy to do the drain).
+One of the versions that I worked on previously (v4, [2]) used an atomic
+for the stock so that we just always do a synchronous drain via
+cmpxchg and we wouldn't have the problem above.
+
+Obviously there are pros and cons. Synchronous means the reclaim path
+has the ability to reclaim more memory NOW and prevent futile reclaim
+retries, but also it makes each flushing operation more expensive as
+the cmpxchg operation is more expensive than acquiring a local trylock,
+even if it succeeds on the first try. 
+
+In my opinion just doing the synchronous reclamation makes a bit more
+sense to me since it gives a stronger guarantee that we are going to
+get the charges we need to fulfill the charge attempt NOW rather than
+spinning until some remote CPU gets scheduled to perform a local flush.
+
+But this is just personal taste, I haven't really seen too much 
+evidence that we are wasting too much time on the reclaims. So maybe
+asynchronous drains are OK here. I can do some more digging in our
+production data to see if we're ever just waiting for remote drains
+to finish.
+
+Anyways, I still intend on separating out the two efforts so that this
+one is just a simple code move (and make stock more scalable) for
+cgroup v2 users (and I hope not-so-big impact for cgroup v1 users)
+and I can work on removing the 7-slot limit and improving the draining
+as a follow-up work.
+
+> HTH,
+> Michal
+
+Thanks for your thoughts Michal. Have a great day!
+Joshua
+
+> [1] https://lore.kernel.org/all/20250530151858.672391-1-mkoutny@suse.com/
+[2] https://lore.kernel.org/all/20260623180124.868655-2-joshua.hahnjy@gmail.com/
