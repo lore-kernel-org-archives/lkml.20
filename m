@@ -1,83 +1,130 @@
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AF7E7260D
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:37:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC6CF3126DF
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:38:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789691859; cv=none; b=sS6q83lrwf91I50nDXo///j0HuCBeMSxzlsamU4EBaP0nLWlnaDPntQmE04cDZ/fH8dP5OvhvsmvRPLvwLhuXRLN9GGUs21Odw3UXIaSZFoK7nipG2K5vRohLRZMb/OP8qqGzQwll6SUfNJVUxAKy+q47C+56zL2j/BTzVVEne0=
+	t=1789691889; cv=none; b=iluXmqVCJkUAmQimcludOxF27XPCyNBNTKYNEsdGT632/LBdXEbBKZzIdxD6g3ZzUI3K3ZifHdrf2enUxFHO3vuYCoDJdPFMHB+lwsIWefBRi4xhhYjy2YgM19f0EjRPcD0TvP0MYbhjSJmAi/AMIPBpBHVnAnNUiQ6Eq7hHNJ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789691859; c=relaxed/simple;
-	bh=1gwNE+OBSnQyLjeDU8H4XDoiVsytL2D9V4t/U5WKHu8=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ir1QwMHuG2wkHyX48UmnikRYIMcgq8JPVmdwt4bbz36YjTc5ZxZpQF5GQw+tg87V6zSEnebXKU+JzraoUJoHsWVrpP0UEBRy4cV+UvhJlW3ZJpfdHYvkbC2tFgqrfuQOPBmQPFUYMSntw4ZLGjDMcidPKavUOmevYzG1yxn7wjY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=O0rVwSh5; arc=none smtp.client-ip=60.244.123.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	s=arc-20240116; t=1789691889; c=relaxed/simple;
+	bh=WsE2Pe4vXp9onoewbg9I6Eq4BwVOI/CfeJKJljhpX0M=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=nPqmd/+8T23cwW6h2FpoPRI8cg3qMHmytBH6dmOXqRhkbut6hO5t4XR9XrRrk7WLEg2OLLi/uIotepdLhfHFyVL7iPkCz9zDHGpJ7UEsqenFNlC2BV2oYqDE1y3UjwmrCIMyFdJgW6bhUwlLhSDYYJHxh6u7Ut97S8tgsj0F05o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d+bSl1Gv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="O0rVwSh5"
-X-UUID: 1d8b7056b2f911f1b1788b6acf885367-20260918
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=1gwNE+OBSnQyLjeDU8H4XDoiVsytL2D9V4t/U5WKHu8=;
-	b=O0rVwSh5F81ot508m8Q9fWpIAAVAoohpA7b5k1r4x/V/sS7Mi6IUlDU06ZKrF9cD39KJUy/d3PfqIa2E5oFmP/v+QqnH9PN5dvAx3zSn3ZIewn3JkIrdF45Gn3KmlI8F9hJ+TxABrcF2IpmJiO9RI9EQyP7jluNyKwRmTd9v9DA=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:1663853e-9bac-4343-acf8-fe8e4f27c4b6,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:7db8b62,CLOUDID:0b37e792-6bb9-4981-a431-c1037949190e,B
-	ulkID:nil,BulkQuantity:0,SF:81|82|83|102|836|865|888|898,TC:-5,Content:0|1
-	5|50|99,EDM:-3,IP:nil,URL:99|1,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,
-	OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 1d8b7056b2f911f1b1788b6acf885367-20260918
-Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by mailgw01.mediatek.com
-	(envelope-from <justin.yeh@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1497972149; Fri, 18 Sep 2026 08:37:23 +0800
-Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
- mtkmbs13n2.mediatek.inc (172.21.101.108) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Fri, 18 Sep 2026 08:37:22 +0800
-Received: from mtksitap99.mediatek.inc (10.233.130.16) by
- mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Fri, 18 Sep 2026 08:37:22 +0800
-From: Justin Yeh <justin.yeh@mediatek.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
-	<angelogioacchino.delregno@collabora.com>
-CC: <Project_Global_Chrome_Upstream_Group@mediatek.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<linux-mediatek@lists.infradead.org>
-Subject: Re: [PATCH 0/2] Allow mtk-regulator-coupler to be built as a module
-Date: Fri, 18 Sep 2026 08:37:22 +0800
-Message-ID: <20260918003722.2764284-1-justin.yeh@mediatek.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20260903062056.1024263-1-justin.yeh@mediatek.com>
-References: <20260903062056.1024263-1-justin.yeh@mediatek.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d+bSl1Gv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67A161F000FF;
+	Fri, 18 Sep 2026 00:38:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789691888;
+	bh=Ze9UETo+1hNVH97tpJEWQvJ1yZNxYlSuzO4Oj6uf588=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=d+bSl1GvJPGpKJYMJztB6DW2nOd5gK/0XiKZ5AIB6VuavdGfd3Prp+D3XBcOpYA2R
+	 iIwVPvgYhgv6yfq2RUHTq4tnZGKxFiz/sxeJePe2MHqQYzaJoFt/VExnajbgcNtN30
+	 sa5IxWpBsDig62Xv2bnappORxL1PDe2qQS/Q7poO1/9geVH64dcJjyP+wYLajXtPGW
+	 BpqwM8jasLiVs4z8X42oTLB+m9XNHKPXhw0LX6S3Rtspl31EcKrWRP7ZRwE6r3GQ1F
+	 JgCdXruZNKoLXeJgzsha6AEnjUkqjx6HxogeUiC1370bKypIA0nJRIYT5WQ0KL2FIB
+	 p85YVOSKrGvqQ==
+From: Pratyush Yadav <pratyush@kernel.org>
+To: Tarun Sahu <tarunsahu@google.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,  Pasha Tatashin
+ <pasha.tatashin@soleen.com>,  dmatlack@google.com,  Mike Rapoport
+ <rppt@kernel.org>,  kexec@lists.infradead.org,
+  linux-kernel@vger.kernel.org,  dev.jain@arm.com,  Pratyush Yadav
+ <pratyush@kernel.org>,  linux-mm@kvack.org
+Subject: Re: [PATCH v2 1/2] memblock: drop for_each_memblock_type() and open
+ code its users
+In-Reply-To: <20260918002239.4024231-1-tarunsahu@google.com> (Tarun Sahu's
+	message of "Fri, 18 Sep 2026 00:22:38 +0000")
+References: <20260918002239.4024231-1-tarunsahu@google.com>
+Date: Fri, 18 Sep 2026 02:38:04 +0200
+Message-ID: <2vxzwlsj5r83.fsf@kernel.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-MTK: N
 
-Hi Mark, Liam, Matthias, Angelo,
+On Fri, Sep 18 2026, Tarun Sahu wrote:
 
-Gentle ping on this series, sent two weeks ago:
-https://lore.kernel.org/all/20260903062056.1024263-1-justin.yeh@mediatek.com/
+> for_each_memblock_type() always starts the iteration at index 0 and its
+> body is a trivial 'for' loop, so it hides very little. It also gets in
+> the way of iterating from an arbitrary index, which the next patch
+> needs.
+>
+> Remove the macro and open code its three users: memblock_add_range(),
+> memblock_isolate_range() and memblock_dump(). While at it, move the
+> region pointer into the loop body scope.
+>
+> No functional change.
+>
+> Signed-off-by: Tarun Sahu <tarunsahu@google.com>
+> ---
+>  mm/memblock.c | 14 ++++++--------
+>  1 file changed, 6 insertions(+), 8 deletions(-)
+>
+> diff --git a/mm/memblock.c b/mm/memblock.c
+> index 9ce86349a29f..5aae75d34dec 100644
+> --- a/mm/memblock.c
+> +++ b/mm/memblock.c
+> @@ -155,11 +155,6 @@ struct memblock_type physmem = {
+>   */
+>  static __refdata struct memblock_type *memblock_memory = &memblock.memory;
+>  
+> -#define for_each_memblock_type(i, memblock_type, rgn)			\
+> -	for (i = 0, rgn = &memblock_type->regions[0];			\
+> -	     i < memblock_type->cnt;					\
+> -	     i++, rgn = &memblock_type->regions[i])
+> -
+>  #define memblock_dbg(fmt, ...)						\
+>  	do {								\
+>  		if (memblock_debug)					\
+> @@ -651,7 +646,8 @@ static int __init_memblock memblock_add_range(struct memblock_type *type,
+>  	base = obase;
+>  	nr_new = 0;
+>  
+> -	for_each_memblock_type(idx, type, rgn) {
+> +	for (idx = 0; idx < type->cnt; idx++) {
+> +		rgn = &type->regions[idx];
 
-Is it OK to pick up as it is, or is there something you would like me to
-change first?
+Nit: this is really odd to read. You assign rgn and then declare rbase
+and rend. Doesn't checkpatch complain?
 
-One note on the routing: patch 2/2 (soc/mediatek Kconfig) depends on the
-exports added by patch 1/2 (regulator core), so the two have to land in
-that order - ideally via the same tree.
+Regardless, I reckon it would be a lot nicer to read of you move the
+declaration of rgn into the loop. Same for the others below.
 
-Thanks,
-Justin
+LGTM otherwise, so after fixing this up, feel free to add:
+
+Reviewed-by: Pratyush Yadav <pratyush@kernel.org>
+
+>  		phys_addr_t rbase = rgn->base;
+>  		phys_addr_t rend = rbase + rgn->size;
+>  
+> @@ -827,7 +823,8 @@ static int __init_memblock memblock_isolate_range(struct memblock_type *type,
+>  		if (memblock_double_array(type, base, size) < 0)
+>  			return -ENOMEM;
+>  
+> -	for_each_memblock_type(idx, type, rgn) {
+> +	for (idx = 0; idx < type->cnt; idx++) {
+> +		rgn = &type->regions[idx];
+>  		phys_addr_t rbase = rgn->base;
+>  		phys_addr_t rend = rbase + rgn->size;
+>  
+> @@ -2198,7 +2195,8 @@ static void __init_memblock memblock_dump(struct memblock_type *type)
+>  
+>  	pr_info(" %s.cnt  = 0x%lx\n", type->name, type->cnt);
+>  
+> -	for_each_memblock_type(idx, type, rgn) {
+> +	for (idx = 0; idx < type->cnt; idx++) {
+> +		rgn = &type->regions[idx];
+>  		char nid_buf[32] = "";
+>  
+>  		base = rgn->base;
+
+-- 
+Regards,
+Pratyush Yadav
