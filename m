@@ -1,66 +1,55 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E32644C957B;
-	Fri, 18 Sep 2026 10:58:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C568E4D9F67;
+	Fri, 18 Sep 2026 10:59:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789729102; cv=none; b=n6+oi6LKC7H04V5iE1y2mpzvODcnxwxQwPjW02qQEVBOk71BG4oQeNeN1bJXaBA+Ep279QlMOnQm1hzFCd3HGGyFw7o88YbL1RHRTFydjjYiu0DR6HhraFY0ZdRtBB7z+s/jImZcsNq4wrSGrj+EHOixsKFW29Mp6m3lNJt8U7o=
+	t=1789729142; cv=none; b=EVjKdhPdpQY19M0O6hVkvweZpbmB667qxZFaAh77F0y9U37QmZiBGitPNpSGrelRMNydHdmsnxZUOd1/inqKrJg6KCmJh/gCO52BF4Fp2jntMnMv7wVcBouMGSSC3hPgWhy+qicL23x8HSue+3vPb+eO7SmFVk/gKfv+AcmOsxo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789729102; c=relaxed/simple;
-	bh=dMVUjPAPcZ5t0i73zThqgVGb8fVx+3qXaQRGh15EfhQ=;
+	s=arc-20240116; t=1789729142; c=relaxed/simple;
+	bh=SjXUbPsiVwlp7m6xMbqXwevtaXlpT+PW3YMCgiZRLNE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gzrX9GmoozEgydcfz4rYiHBkLgXsyoWX0u7D49LWo8JFcRPR/OskHW8vml31G4RL9onpFcvErYmemSIdAUSPQXgIj4d8KYN1tOa8wnRgnJOwUtzozoTZgq0T9Cf/GhwGFrbfBtEHLekbnhkXBzTjynbi4eFLA7+/gVXNoBhhWUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gX6miYZR; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=to+uP8gjJjH/cwXG6Ic8qRXef4vjnnieJ8NGeKLn4/EEO4U2DmeTVxgXI39FtxZ4BOlaE+nrGVOEabjHTRVCV7udmkG6oaK0WuMChQYiQLOqaHUkG3wpAE+uPaFDlAR3tSzuTDNMLNhDvdDE39B1DLT604XXWqE2DAt2UF+IvXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=C5XS60Pd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gX6miYZR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DAB01F000FF;
-	Fri, 18 Sep 2026 10:58:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789729097;
-	bh=m1S/tznoTQw+vAi7GEBuHVHmSR4dRiXITXrdjAtyCJ8=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="C5XS60Pd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0F111F000FF;
+	Fri, 18 Sep 2026 10:58:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789729140;
+	bh=WBoCCq9qMgQXPbVes0bE28WdSdE94XkOuxnNbIbO05Q=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gX6miYZROM/WCUo/3itVv5k9IdhKCUOYp45hmLgEMGezllawSb1SK0j27sP7PNRCn
-	 4i7yDH67yBdTDtQNUZqOFuPJYGe0WA4hGMYwjSOhrVM20eKubFyzoz9ZTj6WmAQZGp
-	 /BSCgWIeBaeq5Ye6kmnQdQISJQqTHoonzTc/c7PiuqpunDvjxrZ5fFsBZFihX/2wh1
-	 5RxQTqW6FG4hcfTu2piIweKyYI8IB6d8hZlqF1/is8ons7X1fRY2506Ne9Stii2JHN
-	 3BiRmQIQlXBW5pwGxMky03hSWjCP6oLU+sMNqYWTbF0Ssie/sVgKZYhcdC6WQSY/Nj
-	 SxmNIETMxSgiA==
-Date: Fri, 18 Sep 2026 12:58:13 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Marek Vasut <marex@nabladev.com>
-Cc: linux-arm-kernel@lists.infradead.org, 
-	Aswath Govindraju <a-govindraju@ti.com>, Conor Dooley <conor+dt@kernel.org>, 
-	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Marc Kleine-Budde <mkl@pengutronix.de>, 
-	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, imx@lists.linux.dev, 
-	linux-can@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/3] dt-bindings: phy: ti,tcan104x-can: Document
- Microchip ATA6563
-Message-ID: <20260918-energetic-cheerful-hoatzin-aac346@quoll>
-References: <20260917062543.534416-1-marex@nabladev.com>
+	b=C5XS60Pd4e1xyCJxDWXOXHydo5VwTCEALCDQqL5rObG8lW/N8oOAcm6dStRFST7Gk
+	 lQWAQi9LmXtbv6y5aAo1E++jT8fSXa0G/045n+AiyVQGTKi5FT3XmJPD6gC8yklJMv
+	 sVb0acM66oN8sehPTHnpqlKua9JID3XF5Zi1dhPc=
+Date: Fri, 18 Sep 2026 11:56:58 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Johan Hovold <johan@kernel.org>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [GIT PULL] USB serial fixes for 7.3-rc4
+Message-ID: <2026091848-squeezing-outlook-0093@gregkh>
+References: <aqzjMWHGKkiL02Ob@hovoldconsulting.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260917062543.534416-1-marex@nabladev.com>
+In-Reply-To: <aqzjMWHGKkiL02Ob@hovoldconsulting.com>
 
-On Thu, Sep 17, 2026 at 08:25:26AM +0200, Marek Vasut wrote:
-> Microchip ATA6563 is High-Speed CAN Transceiver with Standby Mode.
-> It is pin-compatible with TI TCAN1042 and has a compatible programming
-> model, therefore use ti,tcan1042 as fallback compatible.
+On Fri, Sep 18, 2026 at 09:07:29AM +0200, Johan Hovold wrote:
+> The following changes since commit ae0e61d95677efa778379853e495d748e6efbf95:
 > 
-> Signed-off-by: Marek Vasut <marex@nabladev.com>
+>   USB: serial: fix ioctl hangup race (2026-09-08 11:00:48 +0200)
+> 
+> are available in the Git repository at:
+> 
+>   https://git.kernel.org/pub/scm/linux/kernel/git/johan/usb-serial.git tags/usb-serial-7.3-rc4
 
-I'll fix up the binding constraints.
+Pulled and pushed out, thanks
 
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Best regards,
-Krzysztof
-
+greg k-h
