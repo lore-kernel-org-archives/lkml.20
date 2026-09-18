@@ -1,199 +1,129 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 983F9233933;
-	Fri, 18 Sep 2026 09:55:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2DBC43E083;
+	Fri, 18 Sep 2026 09:56:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789725362; cv=none; b=bD96DnAy3tnY8XkI5ULdoD0aKCyzdy8MOPTi96q8z6OzvdI7Opli/GfELsSdvTJsetMva65jb0KR6m7oObYYrlz9OVCd1TbaAqjR8oUdQaEqNkxc5wxy5f5Hureu96iuxrvx17KLqSHIG7QXBitL8Xkpctmj4TG8XmK3jmXGuH4=
+	t=1789725367; cv=none; b=EJHi0N+8xOOCYy1opQ7rxFGIbIM4PVJE/Sq1fHjhDpugx+IKuXpK1qgQSuZopsawTXuZaMWV7oKeYeXBwOVAZeLnITn8Y0g4F9m2CJDgdCAMI07FyWiseWZDm04jwqHJYwsKcNmtynzu0KYE7fRl6QNz4kxIrR0QOvxpWPp2aZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789725362; c=relaxed/simple;
-	bh=RloubzetdNOj3zTBg25Rv/u14MpkvCQNuwFPs/m9hxY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=H3XkBYA4XlnavfVanVu9r3hHLKdNMUrYAVe4yx314FbWOKyS9vsWiZNbm2MwA+n3Zp2tRkdKJnUT5crUIWQAJacr3dgVvGNZIkwvuYUl8nUX4bftAwZsbj3OWnSujVTqb4NcUJla4vYTYLKVmxhtxyKKDL91kY6Q5aaABh7lMus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=IPIKaSh6; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1789725367; c=relaxed/simple;
+	bh=A/ox7ZE4vAif5kQLQDU5rNYE23M1iB2N/MfTE9UgpC0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=o0+r3KfsXmDMnCIeB3kM1zfkQzkHiaKZS3XWMBHWuijrfj6zW7jBwI6Uc3iNSK+yMC3m1TkxgNDO1WiFo3n2EAfmwmFs85fJYCEw1SGZWt5J9+KXdTocchErZ2V8DN8N4dZFJ/6fT1oYv/dXCp0yJCOqsK/a/q8L/9+NnjqCC1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=F0VnkkiP; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="IPIKaSh6"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7FE6DA02D0;
-	Fri, 18 Sep 2026 11:55:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1789725345; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=fdr599RH+uTsb7aefNgR/cD0PKRqtTo+C8uj7tmQJ7o=;
-	b=IPIKaSh64fYTSmNViLLy94UAGJm0UZQS0g9nFgBe66v6NN+xxUIntI8KjzVwzL+wOSFLVu
-	4Kc50f5LD/DF/MFjfRFEnlmqlrBY9x1XDwqWj+x9/V5jmDbyZ5BQ7NmLKx3iY5AJDEwCrR
-	IUPIt7NTwJHqxUFj0cBBAYaESICxw85rj3OlIZYWZvt3OEZJvwiyAX15w99FMTVjWlzqAu
-	DgekQu0vAnuDuE6rkMjWR5eykSUXkCqTkwp9n+rdJfLQ7wgo8k/LxQ3WWNdh9NKHAYiV5v
-	/q/V5qw59SF4bh2tyeEGhRdXalZh6ZiXKeji0TehFl8kxAiwV14CLplCKspBmg==
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Kory Maincent <kory.maincent@bootlin.com>,
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>
-Cc: James Clark <jjc@jclark.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Doug Berger <opendmb@gmail.com>,
-	Nicolai Buchwitz <nb@tipi-net.de>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] net: don't require the hwtstamp NDOs when a PHY provides timestamping
-Date: Fri, 18 Sep 2026 11:55:40 +0200
-Message-ID: <20260918095540.34286-1-nb@tipi-net.de>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="F0VnkkiP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789725365; x=1821261365;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=A/ox7ZE4vAif5kQLQDU5rNYE23M1iB2N/MfTE9UgpC0=;
+  b=F0VnkkiPtN8EHy9DG9gk0POzCVvZvrS/B+WqWOwoRUWlDFByWfMw6og9
+   hvMybrr7DbvmpAlEok6YMIGVgsPk4rxsMGZp2cVJg2nq3fBcmEewtWkAD
+   HHxtDVrrjccs7wxMvZ4obPWJeiTBIv20VHogugnSII5YwBsqhfBxadvMj
+   mP0BvcrIK2loXosFBfbyH34MOiZxM0ONwAHvAGi1uPLLH65T+WDk0G7p6
+   W+xJBctOn0g45Xyl79tTx7tDWF8YgPFBpT3KlqJ9iZu78xZnowvI+BXR8
+   kddQHK1qlLlyNXHRUV6lv0OmShcU4X7Vx4j/Lz2ozpG1PYYU9d+TI/UUK
+   w==;
+X-CSE-ConnectionGUID: 2/DwYilwREOrlLudFNUKwQ==
+X-CSE-MsgGUID: jibyqViZR/ORdUhKU0JWBw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90086143"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="90086143"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 02:56:05 -0700
+X-CSE-ConnectionGUID: Qe9lG5lCTqyz1vefHD97TQ==
+X-CSE-MsgGUID: 7mJg3ctFQcOJJehiRT7oHw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="268067818"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa009.fm.intel.com with ESMTP; 18 Sep 2026 02:56:01 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 6902A99; Fri, 18 Sep 2026 11:55:57 +0200 (CEST)
+Date: Fri, 18 Sep 2026 11:55:57 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: jens.glathe@oldschoolsolutions.biz
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Sebastian Reichel <sre@kernel.org>, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	stable@vger.kernel.org, "Dr. David Alan Gilbert" <dave@treblig.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: [PATCH v3 2/3] usb: typec: mux: ps883x: add a delay after
+ writing config regs
+Message-ID: <aq0Krd3M5u2pbbYZ@black.igk.intel.com>
+References: <20260916-ps883x-disable-usb4-v3-0-8f19386456d0@oldschoolsolutions.biz>
+ <20260916-ps883x-disable-usb4-v3-2-8f19386456d0@oldschoolsolutions.biz>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916-ps883x-disable-usb4-v3-2-8f19386456d0@oldschoolsolutions.biz>
 
-Removing the legacy ioctl fallback made both hwtstamp NDOs mandatory. A
-device that only timestamps in its PHY implements neither, so
-SIOCSHWTSTAMP fails with EOPNOTSUPP before anything looks at the PHY and
-PTP stops working there.
+On Wed, Sep 16, 2026 at 09:36:33PM +0200, Jens Glathe via B4 Relay wrote:
+> From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+> 
+> The connection-status registers need time to propagate through the
+> analog front-end (PLLs, lane training) after they are written. A 30 ms
+> delay after ps883x_configure() brings DisplayPort Alt Mode hotplug on
+> the Lenovo 40B0 to a reliable success rate.
+> 
+> Tested with T14s G6 and IdeaCentre Mini with the 40B0 dock on the HDMI
+> port with a Type-C host cable. Qualcomm firmware that programs this
+> retimer from an MCU uses a similar post-config delay.
+> 
+> Assisted-by: Grok(xAI):4.6
+> Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 
-The check only ever picked the legacy path. That path is gone, so drop it
-and test where the NDOs are actually called.
+Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 
-SIOCGHWTSTAMP is new here, not restored. The old path went through
-phy_mii_ioctl(), which only handled SIOCSHWTSTAMP.
+> ---
+>  drivers/usb/typec/mux/ps883x.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+> 
+> diff --git a/drivers/usb/typec/mux/ps883x.c b/drivers/usb/typec/mux/ps883x.c
+> index a5696aef054ee..15aee1d613b1a 100644
+> --- a/drivers/usb/typec/mux/ps883x.c
+> +++ b/drivers/usb/typec/mux/ps883x.c
+> @@ -7,6 +7,7 @@
+>  
+>  #include <drm/bridge/aux-bridge.h>
+>  #include <linux/clk.h>
+> +#include <linux/delay.h>
+>  #include <linux/gpio/consumer.h>
+>  #include <linux/i2c.h>
+>  #include <linux/kernel.h>
+> @@ -184,6 +185,15 @@ static int ps883x_configure(struct ps883x_retimer *retimer, int cfg0,
+>  		return ret;
+>  	}
+>  
+> +	/*
+> +	 * The retimer needs time after the connection-status registers are
+> +	 * written for the analog front-end (PLLs, lane training) to settle.
+> +	 * Without this, DisplayPort Alt Mode hotplug is unreliable on some
+> +	 * docks (e.g. Lenovo 40B0). Qualcomm firmware on platforms that
+> +	 * program this chip from an MCU uses a similar post-config delay.
+> +	 */
+> +	fsleep(30000);
+> +
+>  	return 0;
+>  }
+>  
+> 
+> -- 
+> 2.53.0
+> 
 
-Such a device now returns -ENODEV while absent instead of -EOPNOTSUPP,
-like the ones that do implement the NDOs.
-
-Fixes: 5062245a5a7f ("net: remove legacy way to get/set HW timestamp config")
-Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
----
-This is an alternative to James' patch, which adds -EOPNOTSUPP stubs to
-bcmgenet:
-
-  https://lore.kernel.org/netdev/20260918030149.80398-1-jjc@jclark.com/
-
-A quick grep finds a few dozen more drivers pointing ndo_eth_ioctl at
-phylib without either NDO. So this is better fixed in the core than by
-adding the same stubs everywhere.
-
-Left the HWTSTAMP_SOURCE_NETDEV branch alone on purpose, because hwprov
-only gets installed by ethnl_set_tsconfig(), which already wants both NDOs.
-
-Tested on a Raspberry Pi CM4 (BCM54213PE, PHC from bcm-phy-ptp) with
-bcmgenet unmodified, get and set with tx_type 1 and rx_filter 12:
-
-  before 5062245a5a7f   get EOPNOTSUPP   set ok
-  without this patch    get EOPNOTSUPP   set EOPNOTSUPP
-  with this patch       get ok           set ok
-
-tsconfig keeps its own copy of the check, but that one is older than
-5062245a5a7f and never worked for these devices, so IMHO this is an
-extra patch for net-next.
-
- net/core/dev_ioctl.c | 25 +++++++++----------------
- 1 file changed, 9 insertions(+), 16 deletions(-)
-
-diff --git a/net/core/dev_ioctl.c b/net/core/dev_ioctl.c
-index a320e264eaaf..164643140a52 100644
---- a/net/core/dev_ioctl.c
-+++ b/net/core/dev_ioctl.c
-@@ -276,19 +276,18 @@ int dev_get_hwtstamp_phylib(struct net_device *dev,
- 	if (phy_is_default_hwtstamp(dev->phydev))
- 		return phy_hwtstamp_get(dev->phydev, cfg);
- 
-+	if (!dev->netdev_ops->ndo_hwtstamp_get)
-+		return -EOPNOTSUPP;
-+
- 	return dev->netdev_ops->ndo_hwtstamp_get(dev, cfg);
- }
- 
- static int dev_get_hwtstamp(struct net_device *dev, struct ifreq *ifr)
- {
--	const struct net_device_ops *ops = dev->netdev_ops;
- 	struct kernel_hwtstamp_config kernel_cfg = {};
- 	struct hwtstamp_config cfg;
- 	int err;
- 
--	if (!ops->ndo_hwtstamp_get)
--		return -EOPNOTSUPP;
--
- 	if (!netif_device_present(dev))
- 		return -ENODEV;
- 
-@@ -359,12 +358,18 @@ int dev_set_hwtstamp_phylib(struct net_device *dev,
- 	cfg->source = phy_ts ? HWTSTAMP_SOURCE_PHYLIB : HWTSTAMP_SOURCE_NETDEV;
- 
- 	if (phy_ts && dev->see_all_hwtstamp_requests) {
-+		if (!ops->ndo_hwtstamp_get)
-+			return -EOPNOTSUPP;
-+
- 		err = ops->ndo_hwtstamp_get(dev, &old_cfg);
- 		if (err)
- 			return err;
- 	}
- 
- 	if (!phy_ts || dev->see_all_hwtstamp_requests) {
-+		if (!ops->ndo_hwtstamp_set)
-+			return -EOPNOTSUPP;
-+
- 		err = ops->ndo_hwtstamp_set(dev, cfg, extack);
- 		if (err) {
- 			if (extack->_msg)
-@@ -390,7 +395,6 @@ int dev_set_hwtstamp_phylib(struct net_device *dev,
- 
- static int dev_set_hwtstamp(struct net_device *dev, struct ifreq *ifr)
- {
--	const struct net_device_ops *ops = dev->netdev_ops;
- 	struct kernel_hwtstamp_config kernel_cfg = {};
- 	struct netlink_ext_ack extack = {};
- 	struct hwtstamp_config cfg;
-@@ -413,9 +417,6 @@ static int dev_set_hwtstamp(struct net_device *dev, struct ifreq *ifr)
- 		return err;
- 	}
- 
--	if (!ops->ndo_hwtstamp_set)
--		return -EOPNOTSUPP;
--
- 	if (!netif_device_present(dev))
- 		return -ENODEV;
- 
-@@ -441,15 +442,11 @@ static int dev_set_hwtstamp(struct net_device *dev, struct ifreq *ifr)
- int generic_hwtstamp_get_lower(struct net_device *dev,
- 			       struct kernel_hwtstamp_config *kernel_cfg)
- {
--	const struct net_device_ops *ops = dev->netdev_ops;
- 	int err;
- 
- 	if (!netif_device_present(dev))
- 		return -ENODEV;
- 
--	if (!ops->ndo_hwtstamp_get)
--		return -EOPNOTSUPP;
--
- 	netdev_lock_ops(dev);
- 	err = dev_get_hwtstamp_phylib(dev, kernel_cfg);
- 	netdev_unlock_ops(dev);
-@@ -462,15 +459,11 @@ int generic_hwtstamp_set_lower(struct net_device *dev,
- 			       struct kernel_hwtstamp_config *kernel_cfg,
- 			       struct netlink_ext_ack *extack)
- {
--	const struct net_device_ops *ops = dev->netdev_ops;
- 	int err;
- 
- 	if (!netif_device_present(dev))
- 		return -ENODEV;
- 
--	if (!ops->ndo_hwtstamp_set)
--		return -EOPNOTSUPP;
--
- 	netdev_lock_ops(dev);
- 	err = dev_set_hwtstamp_phylib(dev, kernel_cfg, extack);
- 	netdev_unlock_ops(dev);
-
-base-commit: c9151088f1674fd29ff26a20f5fc687acf53a2f0
 -- 
-2.53.0
-
+heikki
