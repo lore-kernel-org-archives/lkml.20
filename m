@@ -1,86 +1,44 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9221F4FC337
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:54:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 966CC4F96D9
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:55:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789739689; cv=none; b=RQNcl4jpDYpwMlVKHp/1W7hmIM6mSRiYMhjPK6Yjj2Y7tHyw5fzLjuTfCYaRLr37Pm793Xwdvn3E5nGEPcN8zCZrFs2xGblmmRlnpfcYlarqXYl0lDIlRDGqci3/pV1YQdFCVeHu95jLQ0vJcTelKbwoPG6ViZnH60pzi6R+ODE=
+	t=1789739704; cv=none; b=ueqvZzJqvYOHBYooD6bW3rwJdaISxctUlp65fnW8W36VsEi9IqMgJT0s8abmnKkziCPy7e+n4j76HtM2IHO2OFp03apBOfACUnPO9VHgyuIh2E+ZMbPXF6ITPjZjENX9ppTNqQnZ5thP4uAyr1rCl1YgI1CEb20bDtV+HBMHPx0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789739689; c=relaxed/simple;
-	bh=HBA4UGDBkv/vn1j9Qy2I4DNOs12GdkwlUY7HLsx5OjE=;
+	s=arc-20240116; t=1789739704; c=relaxed/simple;
+	bh=lNyQgcG7CXt+b0W6T7Ks2i0IR+1eGcoSOmHYXXjXsNQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HzQAaONBIF7j9W3rv+DP4WcNjWzTjjLbitutD2FKX0cuP2Oh45Nc0EU2eo8mF4wmQBRben+KxcnQ9O/1NTxKdqERFZWWUCf/i5LxxYMh/KdC5Ebq4SMrrBse7ZmrxIAHoKaYZRAkgENlDjGFgFzDPzEIybslzn/n9R5OT6I07Tg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=b1hWbXqF; arc=none smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	 Content-Type:Content-Disposition:In-Reply-To; b=XUdndt7H0OzZ9jSh6A0vot3AeMtpXsT731WOIrPARCMNLCz9mHQqICZAbmOztNIBLS+JCdanXgKCyeOlpeGVWyznIfrFPdMKTfM6DGZGIEg3533/M/seeZGYGFlWDZMDllsZx5jjTYtK6NGHpoOSRgo3dfvvPuEnPcuQJbrE/ws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E/n+9Ysn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="b1hWbXqF"
-Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-939656ff6d9so84356885a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:54:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1789739680; x=1790344480; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JQrKgT91q1ivpfGUE5/zHrleZU+aU6ToiCAfQUtBMlw=;
-        b=b1hWbXqFKhJCjVHlbXMLM+dvb0Zi1mGM2j3wYECD/ezK1ONNPo+wUzI9Z9Br4KearP
-         ZlIonRo58CwfNBjl0XEmFd2K0926ZqQLsfDUaFSaWEqt3m15HKM7d6rxxfjxzbCnOAmV
-         pDhfRgiTPa29pkaDkZN8kR3I6xdReqVGUaNNOCZwZPuK5oclmR0RDmGNZCa64QQW32Oy
-         cWUrIkHi1EQ2J1OSNqSmhfUDmKdAqXC1VV+XqHg0lj9FF7bS0vW8k83OX/vEoYtf7yQo
-         kccfXWvx4uqtt47JYpwVYk8FZDIW7NEYdvHAhwL8Q5TNKM9qJMjtpvwVoBCd4lFUMV1Y
-         PFpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789739680; x=1790344480;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JQrKgT91q1ivpfGUE5/zHrleZU+aU6ToiCAfQUtBMlw=;
-        b=1wVo+/StDsyW05HLuduIZ33NuR2uEmjpzXms6Pj2YKDt+E+e59T9kJXehY7ttX6gm8
-         ZvWevhmglGLadKFWuNQXtbVKS+sAXzYLdYUjt1qJv4z4B7GeH8ERw/BYbXqQJ2WKoWWu
-         OAY8ZhpcltUGeeTQ6wvQ8Gm5XlgfuZc5rc/pVNtoiR3T7Iw9k93YuhHNPt6E8J5XBkYK
-         4tNJ2ocI57Y7I70uhGl+/+FycQ0fWBedHxqoLfUgMHAE/Us6FkIQv4trQwgZBnjebFGZ
-         Bzmb6atw2gfVaAA9dcd+L0bJlBSuExSby0VD54IatMkxsWjB9RzaHfY25lXjWjxsZHm3
-         S/6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBytEIbYAo6hUFSdLmnk4TtaU6Rpkpj/tpOBDrvlz8MIiploCFfT9Fg5wISLQ5qwe/M28OObNGizsgO1eOM=@vger.kernel.org
-X-Gm-Message-State: AFuF++ljLeDHwIzndllPr5z8KvQGlWD3jCPsOpakMdWjaoNiH842AfTQ
-	o+qJw6cEV4cGGkM/Ib29DFLQkYakhWKeWLjhPB+W/h89EqHPvufHCKVh3DJKKoj9WWo=
-X-Gm-Gg: AYBFou2tsiEuOhe1GhRGa1FJ043rPj1N2ym+hsByIclm/rf5luB2WRkrP0O8nXfffEV
-	09tQoR6X8NdfsdRctWRN4jKCBzbBR5Fi1INl022v2/t96k/mRxc3qTOTqAf6XeYxjcE6jVkB6Sv
-	2TYKBaeLDqd1Hp8LPGnvH89TO4LZWqFjdx7cYDtFNB7Sk5yOMbNtv4VLf84BwDFW30WurvfmlWK
-	KcaAwKYj6havT/zs17VlsjWG79EpOKZ0jcWKfxxtHGWAekd8rBhu4vR7hzkGBJfWteDxRbQxCYn
-	9Ikdb+gYcSlS4OegLllqGrCDVJtDoZUF/iC7OePDj49X24k3qWc5tyYCT9A1/cceY7gegkg7oB6
-	2nYA5+wS8q4IxKYoK7trvKIaSp9zfrD6DXHMt4LxYLC1Dk6OUhU2Dmq34A0DjunE+wR9ldd3wJW
-	wdz+9Mhbp46wBOFX4k17LQ4gPPgjYRl7UV1zGYtUSow0Mzcf8OcrCrZjeqmQGwlE0FkUUSepYuA
-	Hc1QCF+XRCG3cdY5WNjdk8DJ+zR8a+WvKVxfnY00TyFi76daclFhkY=
-X-Received: by 2002:a05:620a:2806:b0:93b:d79f:d949 with SMTP id af79cd13be357-93bdca2c16bmr338384985a.62.1789739679965;
-        Fri, 18 Sep 2026 06:54:39 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93be0ea6560sm145221785a.24.2026.09.18.06.54.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 06:54:39 -0700 (PDT)
-Date: Fri, 18 Sep 2026 09:54:37 -0400
-From: Gregory Price <gourry@gourry.net>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, 
-	rppt@kernel.org, surenb@google.com, mhocko@suse.com, mingo@redhat.com, 
-	peterz@infradead.org, juri.lelli@redhat.com, vincent.guittot@linaro.org, 
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, 
-	vschneid@redhat.com, kprateek.nayak@amd.com, ziy@nvidia.com, 
-	baolin.wang@linux.alibaba.com, nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com, 
-	baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev, kas@kernel.org, 
-	matthew.brost@intel.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com, byungchul@sk.com, 
-	ying.huang@linux.alibaba.com, apopple@nvidia.com, jannh@google.com, pfalcato@suse.de, 
-	osalvador@suse.de, hannes@cmpxchg.org, raghavendra.kt@amd.com, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/4] mm: allow shared folios to be promoted to a fast
- tier
-Message-ID: <aq1A90ltg9Qn6pWZ@gourry-fedora-PF4VCD3F>
-References: <20260911001826.2109390-1-gourry@gourry.net>
- <20260911001826.2109390-3-gourry@gourry.net>
- <41b46756-ed02-439c-ab72-e32a84fc7f17@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E/n+9Ysn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 596EA1F000FF;
+	Fri, 18 Sep 2026 13:54:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789739699;
+	bh=SuewnJ4cX6K+cdzYuqWn1gEacAxYr+xkLgLUiMzhGVY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=E/n+9YsnFPCJNQYhI2oLS7/TbIxEkc0E9Ejf8j1jZFairtOUrDRIoAuGEEfpmjC25
+	 bxYiJwGFBakQUFKjH0nriCu5ra1qurr6rpigZhwxxL3E9JTlAe1lNFeWvxvsNI2HBY
+	 f7hRz+GKI/lZAl5ILSkLdoZakD+E0eZ83ZE3TX474Bk+p/6EYYviON/NhiIIx4dYVn
+	 P3fOidp+4rJ397iYsXHX5npRSI0E7xsqee9ELH7sf/p1xYJU9BurR9NhH58gw5266L
+	 c76NIBAoOau40lvcTHPw4zWzuO+HuRcGUqOYDc05QBigaZFqDp+/bF+rDUAvLT1UM8
+	 MbrIIGo3sr2HA==
+Date: Fri, 18 Sep 2026 14:54:52 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Yuan-Hao Hsu <aa9736195201@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, liam@infradead.org, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Barry Song <baohua@kernel.org>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/memory: reuse the whole exclusive large folio on a
+ write fault
+Message-ID: <aq1CjdaPUg_Fos0t@gremlin>
+References: <20260918064238.868-1-aa9736195201@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,39 +47,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <41b46756-ed02-439c-ab72-e32a84fc7f17@kernel.org>
+In-Reply-To: <20260918064238.868-1-aa9736195201@gmail.com>
 
-On Fri, Sep 18, 2026 at 02:53:40PM +0200, David Hildenbrand (Arm) wrote:
-> On 9/11/26 02:18, Gregory Price wrote:
-> > From: "Gregory Price (Meta)" <gourry@gourry.net>
-> > 
-> > NUMA balancing rejects shared copy-on-write folios and executable
-> > file folios mapped by multiple processes to avoid placement bouncing.
-> > These checks also block promotion from slow memory.
-> 
-> Right. How to we know the direction of promotion vs. demotion, though?
->
 
-numa balancing never demotes.  It either:
+This is the friendly patch-bot of Lorenzo Stoakes.
 
-1) moves between sockets (nodes w/ N_CPU) (NORMAL)
- or
-2) moves from !top_tier to top_tier (TIERING)
+You have sent him a patch/series that has triggered this response.
 
-Demotion is only enacted in reclaim / vmscan, and has no coupling with
-numa balancing.
+He used to manually respond to these common problems, but in order to save
+his sanity (he kept writing the same thing over and over, yet to different
+people), I was created.
 
-> > +	if (vma_is_cow_mapping(vma) && folio_maybe_mapped_shared(folio) &&
-> > +	    !folio_use_access_time(folio))
-> 
-> 
-> While I understand a "!node_is_toptier(node)" to say "this is a slow tier", I am
-> clueless about the folio_use_access_time() check.
-> 
-> Confusing.
-> 
+Hopefully you will not take offence and will fix the problem in your patch
+and resubmit it so that it can be accepted into the Linux kernel tree.
 
-agree, and agree with Zi's request to rename.  I can add that to the end
-of the series as well if you like (avoid backport headaches).
+When sending emails to mm:
 
-~Gregory
+For one of several possible reasons this mail has triggered an AI
+detector script.
+
+Thank you for using the Assisted-by tag to acknowledge this.
+
+However, please do note the policy at
+https://docs.kernel.org/process/generated-content.html most notably:
+
+        If tools permit you to generate a contribution automatically, expect
+        additional scrutiny in proportion to how much of it was generated.
+
+        As with the output of any tooling, the result may be incorrect or
+        inappropriate. You are expected to understand and to be able to
+        defend everything you submit. If you are unable to do so, then do
+        not submit the resulting changes.
+
+        If you do so anyway, maintainers are entitled to reject your series
+        without detailed review.
+
+This change is significant, and you are a relative newcomer to mm. As a
+result, I must ask that you provide some details as to how you solved this
+problem and your overall understanding of these changes and mm as a whole.
+
+In general, if you are a newcomer to mm, we expect you to do smaller work
+before moving on to larger changes, so you build understanding of both the
+technical aspects of mm and how we do things.
+
+If you wish to discuss this problem further, or you have questions about
+how to resolve this issue, please feel free to respond to this email and
+Lorenzo will reply once he has dug out from the pending patches received
+from other developers.
+
+thanks,
+
+Lorenzo's patch email bot
+
+[ Idea shamelessly stolen from greg-kh ]
+
+--
+Cheers, Lorenzo
