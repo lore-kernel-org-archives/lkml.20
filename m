@@ -1,119 +1,98 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mta-64-228.siemens.flowmailer.net (mta-64-228.siemens.flowmailer.net [185.136.64.228])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51C19397928
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 23:13:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BF1F37C91B
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 23:15:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.64.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789773233; cv=none; b=PtPnr82lP2jt+LdL1lBViDKOg+zKvkOa57OP22nZeJc12xDU1d4US9TRjQPrhyAmQUDhv43mQxxYSwbJQrzOogEAy7fER25g9rYmAZw1K98bCALK0YhGVkPU6xMP/l5fZaWLhzy7EOvWsrJG9JremD//2gpoIqybDo3vRj2qekE=
+	t=1789773310; cv=none; b=e4G64qfnocpNqynxr7sfF4b4gK0nDRdu0Kgq9u2fMQWeu/fOM8uX6SlO1eFwiPsaTyReW2MD4/jdwllPaZEMncBP7LAhJLdxOB7C22C9SPUoDrXT3zVMo4VpEI+MKPYU1ysg73ARonR+8pArqH57VuJqWS+/e4lOyBVNiEbRwTM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789773233; c=relaxed/simple;
-	bh=6y+7czlKK/tta15hugGL0Z+zCEcp7uVIfBypdcFDsqA=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=daPoI2DZfamjiQzj23bsADyADInKYBQVqmeRuibPMeFidBic//4VxFIyTy73hIJHA+7a0jpZ/7oK8bjwHkSr+0AkNj+weFCpQ4P+cgg9nk86WNDchD8EKR9+IbRz36NlUcIBbgkRLGDe58GPBOjtgbVBit1m8je65dmmL3s6yNA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qaonM2oS; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789773310; c=relaxed/simple;
+	bh=hLBY2zf+6VnoPbXCPRBhdJf/OiwfbzirHGuOKsXxhCA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=io+s96uuk+4JGw7irnI14B4BTj5Jgk/us+CiZKbls4IAun5acejDS46LC49OuMEY1CuLxQ1juUcqTHlQVChJoyTXrcYtE7EGRsdoUQIS1/wR4A+8EI5lS5CI/6cTXZrxcYWZVbdnpqGp3/aRIeuTwThMH7Q8n3dJLqeiP8jvLL8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alessandro.zini@siemens.com header.b=fgTXPqyp; arc=none smtp.client-ip=185.136.64.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qaonM2oS"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccd66bb4so1185940a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:13:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789773229; x=1790378029; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=6y+7czlKK/tta15hugGL0Z+zCEcp7uVIfBypdcFDsqA=;
-        b=qaonM2oSj9rA2vRwFBptu1pWvPBeFHJO8naAMlXCz2DklGd4IakjylA3t6RGSN2zQn
-         0GbnXR9rAmJ3VzgYTk5wp98Fm3m4DzajbCfxLr/p/AesoRNEF25C+7A/QZNjexcQh5Zb
-         z1yw2QpAAcc1X6T+x9377dPXOudWIYih/Su8DStT9sljgXqDCsyJ9xgSQkYki95YTKGJ
-         AC+TZH7wftmcRFiCipP3UhpPmBlVBAp9QSaM4Jv2xG258fBC9/FhKdbeAQDCmCaJZRm3
-         2upBg7KoUSGNPioQTTtN32x584ze20uhkHlLAQEkXPO2w9uOIQS+LwUjxhAy7Gqbe1N+
-         TalA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789773229; x=1790378029;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6y+7czlKK/tta15hugGL0Z+zCEcp7uVIfBypdcFDsqA=;
-        b=Z754BTcS10VY2xPc76p4yYyOPsNH698vdVgKjIWpw+rzBvm1s52Kz8sstFKwO66TiW
-         CnaWhymJRxPf3ISlpOMrnCGzrGYCZXX/zbrOJFX3rqDTr+32529oeCz7nWtRpY05eH64
-         zUJATCRS/rFgY/py4G0Z/8QL9VqPaWidP3A4tco2I1Tzy4Ep4ldR1SNftVwpIQeKSqL1
-         ywcuDoik3tPZfL2Ydmnc6BLobWybvL2U1a0qIELRSFOzR0smwR5V6mFG9JLy46w5TPxX
-         zPgoFVRjqkN2atEcfT35vwilstA9fFQY6opCczhaSmIyea7sMW943cXNuoW573dBuc+N
-         8E4A==
-X-Forwarded-Encrypted: i=1; AKwUvBz0GMO1fD5cMRRmV5QfCvWBBS0cSRtxOQQkAW8l+anl1k+lmC6zwyjgTx3f/ezGNaB4uEp8avMvp5onW7E=@vger.kernel.org
-X-Gm-Message-State: AFuF++kqoyD/VRWyCciXnWZOzmbcGQY36iiY4GYnEFmj533xLCIg3Urh
-	MmyJ2E+hmHtTsA5jCxZ4MNbJIbkQeoL3YYKPSi5fN3dKUqI43Mr4Mwgw
-X-Gm-Gg: AYBFou3ONxNvuKoE3fEduaWiUEvrs+FDo1HYd8cslURyX4BtUAkNunknFgFry+Y+etL
-	jFh22CtB4dxzhfqSg6rJoM/ZaJr8XbsFCM68t05ovYyY8I0uMn/LyfBUPuwrGb3TnReJhuhdJ65
-	xGm1wxmw9wmkCQuY6FNuLUi/W3UuXviAL6lpk0HU5T9ZYkinkRQIPE6TeVUxLJYCI7PQs29iGKu
-	YkEAGvyVm8FfmzewETRWX7HoPEvfsxF57i+0KV9zjTyWyXsbx5XyEToZWjWeoHGEFD7wn6Cn//B
-	I8P5/5pMkUWbFQC5oA5MNIeARVEIwn7QaWMwWKRHjrqUsr+V107b1DNvRz5FVc/LFmNL8GlQ+n7
-	2DqyZKTBbhSqDEquJ5RePKhyPNuhbl3Le1FgZX6TrjYV63mnkhQkxpxKowlOxL/q+pQNIV5gpbQ
-	2dnwXqrdfhk6NUwbqOmSTZIbrEvVka2bWqp/kZQhmqc3TiOydWhukUQlGTg+/1unut6+j0tJrqj
-	FE5CdyJpfwEoAUSPM9At9nfg33VNCj4Pbk+jl22fB8p9kshy55/Q2LIJA==
-X-Received: by 2002:a17:90b:4a4e:b0:39e:6c69:34d3 with SMTP id 98e67ed59e1d1-39e6c693665mr1503726a91.55.1789773228966;
-        Fri, 18 Sep 2026 16:13:48 -0700 (PDT)
-Received: from ?IPv6:2a03:83e0:115c:1:e136:8952:772a:93a4? ([2620:10d:c090:500::4:e681])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c32f16f9csm1690414eec.2.2026.09.18.16.13.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 16:13:48 -0700 (PDT)
-Message-ID: <6289e47f004b8b0d5ce55143fb1d55f7306856c0.camel@gmail.com>
-Subject: Re: [PATCH bpf-next v2 01/13] bpf: move linked-scalar flags out of
- bpf_reg_state->id [NFC]
-From: Eduard Zingerman <eddyz87@gmail.com>
-To: Vineet Gupta <vineet.gupta@linux.dev>, Alexei Starovoitov
-	 <alexei.starovoitov@gmail.com>, ast@kernel.org, daniel@iogearbox.net, 
-	andrii@kernel.org, memxor@gmail.com
-Cc: martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev, 
-	jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev, 
-	john.fastabend@gmail.com, shuah@kernel.org, bpf@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-Date: Fri, 18 Sep 2026 16:13:46 -0700
-In-Reply-To: <f575fe19-a5a0-4f43-b1bd-cdec2c6e9830@linux.dev>
-References: <20260910164635.459558-1-vineet.gupta@linux.dev>
-	 <20260910164635.459558-2-vineet.gupta@linux.dev>
-	 <DLDKB6BTHVXE.PFK87O3QY1J5@gmail.com>
-	 <f575fe19-a5a0-4f43-b1bd-cdec2c6e9830@linux.dev>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=siemens.com header.i=alessandro.zini@siemens.com header.b="fgTXPqyp"
+Received: by mta-64-228.siemens.flowmailer.net with ESMTPSA id 20260918231503c6ad2ab4d5000207f6
+        for <linux-kernel@vger.kernel.org>;
+        Sat, 19 Sep 2026 01:15:03 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
+ d=siemens.com; i=alessandro.zini@siemens.com;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
+ bh=nmkoZlnx/BL3ojyVxAH/rD6DTukxyiQe4iQkVt0G2O8=;
+ b=fgTXPqyp4GMRJIerp/t/6Wt9WpXBNOOhBHh3rvTGxzTzh02kIcVtaJU8JqRE3oT5LxmoHc
+ h43YvkIKUX88RpEYpFRgtyKW/VRQTnb3vo6MEwkvwSCUCtUEhvyaoYH+Qn5dy9/tVTJLqt+N
+ AHzz+0gYhoaK8JGBJevr052h9pcYCQSdFBOv7o7h4XfFL+HSj3uW5pghs28aWYT4E91HdIu0
+ iYbC29QQi1bZj0H8Ew9BBeM8FTZSd7jsNjv7NCA4NBSyqapKpMUX7KH7OGjpgDR7QxVco6sj
+ /QbvQ83K0qSzhUFgF5/ae7IrL9e7h9qdNAquSzEuLHFiId1q3f3ol8Sw==;
+From: Alessandro Zini <alessandro.zini@siemens.com>
+To: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Ciprian Regus <ciprian.regus@analog.com>,
+	Qingfang Deng <qingfang.deng@linux.dev>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Alessandro Zini <alessandro.zini@siemens.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH net-next v4 1/3] dt-bindings: net: microchip,lan8650: add reset-gpios property
+Date: Sat, 19 Sep 2026 01:14:48 +0200
+Message-ID: <20260918231450.55966-2-alessandro.zini@siemens.com>
+In-Reply-To: <20260918231450.55966-1-alessandro.zini@siemens.com>
+References: <20260918231450.55966-1-alessandro.zini@siemens.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Flowmailer-Platform: Siemens
+Feedback-ID: 519:519-1327013:519-21489:flowmailer
 
-On Mon, 2026-09-14 at 18:17 -0700, Vineet Gupta wrote:
+Add optional reset-gpios property to describe the connection to the
+hardware RESET_N pin of the LAN8650/1 MAC-PHY.
 
-...
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Alessandro Zini <alessandro.zini@siemens.com>
+---
+Changes in v4:
+- None
 
-> > =C2=A0 static bool regs_exact(const struct bpf_reg_state *rold,
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0const str=
-uct bpf_reg_state *rcur,
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct bp=
-f_idmap *idmap)
-> > =C2=A0 {
-> > =C2=A0 =C2=A0 =C2=A0 return memcmp(rold, rcur, offsetof(struct bpf_reg_=
-state, id)) =3D=3D 0 &&
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0check_ids(rold->id, rcu=
-r->id, idmap) &&
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0check_ids(rold->parent_=
-id, rcur->parent_id, idmap);
-> > =C2=A0 }
->=20
-> > Also even after above change to check_scalar_ids() the check_scalar_ids=
-() is still
-> > no equivalent to check_ids() that regs_exact() is doing.
->=20
-> ... Right: reverting back to what we had before.
-> FWIW Eduard had suggested to use regs_exact; I'm not sure if he had=20
-> something else in mind which we might be overlooking.
+Changes in v3:
+- Picked up Acked-by tag.
 
-I missed the check_scalar_ids() vs check_ids() difference, sorry.
-Also, yes, let's squash with patch #2.
+Changes in v2:
+- None
+ Documentation/devicetree/bindings/net/microchip,lan8650.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-...
+diff --git a/Documentation/devicetree/bindings/net/microchip,lan8650.yaml b/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
+index 766ff58147ae3..1b543ce307632 100644
+--- a/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
++++ b/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
+@@ -40,6 +40,11 @@ properties:
+       Event.
+     maxItems: 1
+ 
++  reset-gpios:
++    description:
++      GPIO connected to the active-low RESET_N pin of the MAC-PHY.
++    maxItems: 1
++
+   spi-max-frequency:
+     minimum: 15000000
+     maximum: 25000000
+-- 
+2.55.0
+
