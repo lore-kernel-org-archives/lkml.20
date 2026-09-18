@@ -1,115 +1,223 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E75450E59E
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 17:25:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F2F64F93D8
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 17:26:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789752362; cv=none; b=TXY+J5bezo0JJWZZnCTNi72U9ksw5YPckwlOJ2PwHLPIgUuBBeGIh0SIc6ldgLx4wurS4uQMeRMEm0oepTXykAha0haWBxIoyGEgm7jNTMSx4TdfhQ5YLZVyXR5+zUm1ND00v5ItthZUpgNyCc17mpNeSoCUcokv8jHXrSY1nT0=
+	t=1789752413; cv=none; b=CAmEi5WPbPJ26spbJygiqHVfFm7o2r1c4MvZY7tzTMmWWVBVANWqiC0EizS/KClTx9Y2smeLia6QH9qHxOg8yVRe8fYSTdQAP6DkZVe6XVsHLWhdMn2E0EuMkihWqxDs+Mo9ztJ6t3QngD1/JLqS04ka9bwTyu+mhlxsHz7NUiY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789752362; c=relaxed/simple;
-	bh=cZKn69nF+ltHhO2GnIWhmR8Ldl8qwapZb+XHEzvz4/g=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cUuNhQNOhy8H5Q0n+gyTQHdpQ0ix83PmGKFGoAOBblRs6p6m7+S14DO82wshApF+uh0Bpfj/hdk+SuiWtsIVLOwS9sSCFHTsCOrve1gcUFyaDcoXtkICeBrVlIji90eCRX9e58ZiMyXTUclltGv/rdFaJ1gIajmoGmU1WUjmlVQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nA7MHShR; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789752413; c=relaxed/simple;
+	bh=qo8jkdcJFEHFTzGipPaUfZqW7W+79EGKtSF4WXhEUus=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=d8vCh5l060001LzyjyIbPPBtL9dFN9ezAfTXxs5Wdy+Z4ds8zGjNlk/aLhIGbxawhIX6qTzAZG4sK8zBEbs5y+C8GsI7CRAhK9y3EyJkYVEs9gqxyPs7N8xbSyQ1E3iJ5b2Ly1rjmnRea+o/D7Yckke9NnIURDXbXEsQeHP7TyA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ICXVmdJN; arc=none smtp.client-ip=74.125.228.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nA7MHShR"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccdaea75so330939a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:25:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ICXVmdJN"
+Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c264788fd58so161931666b.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:26:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789752351; x=1790357151; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7w41cGtnpU1fKAfJJK8XLWeOJGEaeMvKYoPj2+vL5e8=;
-        b=nA7MHShREbJeQLkNa6zVyADyKV4Ml/X87W5j71Hi6xnXjmBNrME+Rd54rWgt+MADca
-         UTHxfCPjAE08EAzLxYjo0R1m3VW/DBnyDP/uIKbrMz0SClqqxXHSpBQh4TUXuRCnspnd
-         Fpbhix9XYFjuZ/8/1EmcTgpY4idHjxrji6Cvi6ALTlztH25j1j59u64vFu/0AQhY0wV4
-         q5HZsSmGYkS8jKrytDRIBOwjQmmJashQzISHs5tP7i4KqG7mlNIlS4zNdtfTU3TYuqPT
-         fR5V1itwB/0bEAUf7WvRaglINbFbskS+RRjv+FFED0SLIvBDh/72whxGvgxKfbmQx0HL
-         k0vA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789752351; x=1790357151;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1789752410; x=1790357210; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=7w41cGtnpU1fKAfJJK8XLWeOJGEaeMvKYoPj2+vL5e8=;
-        b=Qp0hmtNoOsbdfBDWGcSX/E53MT/2yJ8yfjMhRrRuphdD1WKH8t4mgqPRdSab5+90xU
-         a+kCdyg7KGmMuXxHRbuHVMcHpog98eT79uf/ErBgDzhf54Kjzmb5H2hoXoMCXjNXRzOe
-         jSl7mn8xj4cQje1NglYSDRhlaT54UY1SCkKA8S29TrxlqLXclMxlEjEFAmRULMZF4adM
-         /o3C5YfwAewbduKHYJ7DbhUJ8Yoth54BF7sJAFmSSMhihfj471F6nYZf/QjFxdm+MpJ5
-         WVSFq1WBctYzoU+XGzWZT5E4Gwa03i2l65P6NdoMeqvirbZTxDKXL88JNUMOvFennF4Q
-         6M6A==
-X-Forwarded-Encrypted: i=1; AKwUvBywm8zdaaNr56mbrEfAEEhwqpJdw14PbRe2HKWx4HqzOU0RtrfPpItQsKbVevYSJUEdeAEsaOV/xjwatmE=@vger.kernel.org
-X-Gm-Message-State: AFuF++l9eTvf6+sHHEApMvs/2L9o/+Ip2ockEd/rAayhAslNjFyuTA4V
-	Mus68Ndt8Ce20VlVPU6D4j7sYinXCoImdQFWhdPoFaj7NewitT5JXT8E
-X-Gm-Gg: AYBFou1JMQ0F2JtqA7CnxzlM78wFkeKNtlvB2iRP5a7GAOfKkZmHke51hDC/t+Ej4ux
-	JfisZ8AvYUKUdMinehx4m+yOVZBA+KGXp/YD1Oi3T32IOae7bha6q99UqyiS1s414EOEEej2iUO
-	iDMqoqFvglrqrGs0KjGPmH+Zc7Fgenffpb2Y1nvDTekKee+witwIpqQXtuIWBb1InffK5p254/z
-	9iM5wrv4lsG59AbUcC4nk1CX1/bqQinW8CZglfocq4Xk1eHEz4A25haGCDdqinHBL+9TBzI3Ctv
-	3Q7ME+Jes0ScPNeFzkcJxxsYT9kr40igY6o0nmqioyUak1/eA3sn3sbRhWmAmuz/VCRzymmYbyK
-	RCkObr3uZZlijokywzGYgqwFXuQByLERptpXVmsP4IgUwczdAe2BACLnrKtJlwdumCQ6kdwasfl
-	J4wooGWX6lCEucASuvyAhSIRxNraDGDOUwSb+nNm7ShS8RkL6Iap1/1Q==
-X-Received: by 2002:a17:90b:51c1:b0:39e:6c68:fd92 with SMTP id 98e67ed59e1d1-39e6c68fee8mr313201a91.39.1789752350791;
-        Fri, 18 Sep 2026 10:25:50 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6cae997csm395136a91.11.2026.09.18.10.25.47
+        bh=mkx2G8tVXZT5TMOyj6mqwZ1d2EOEfZ7XnWbPQ3SK7sc=;
+        b=ICXVmdJNUPIDRYVB1DGTXikaoOqvTqJsQLHndy2UEzI0WPYGNmgVjHbDklBKzBK4W6
+         fSVZpWIfOBa/9PA2cEYHbUxy3RvyWZ7Ud/XIyYuHi/H0YX6m/gkljLy2hFDcxorNvZwi
+         M49fGFwXJkToI2vofchSp9kxBmvn9DVWr422Pg18XaOf0yNVZP2Tn3nryj+67fuIi3Z4
+         f5i3KQuJpmxHGXHwzDg6B7OYoDRVmh10ruwX/t9xkUHORPvsZktsXy/ikn1ZaQrmCDYW
+         RN85CFUI96igMvO/Is9AofyFn8SQDP6gJFsoIpNGji+QveBUUaIbpT0h/v6o/FQBsXTu
+         GpKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789752410; x=1790357210;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mkx2G8tVXZT5TMOyj6mqwZ1d2EOEfZ7XnWbPQ3SK7sc=;
+        b=ewrwUN9WhukUJ7kt7C1UtwyruhqthlcVlhy1Z9S6DrCGM27tRvhvbB5UG1H9zOR8Ew
+         qlZLrMIKwo/j9zTTEe6jT4B9cCtFK3haZKaufLxu4jgV4onafdL9OVsHej3HMGH+e51N
+         LShnWE5fiQ6LvuWJYjoyXHX2flV0BdjnanLlykzrIviPFsKGSNH+xK9vMohM1Eqnh7HM
+         9tlEnfaIfTpVLXZiICNCqVxgdEwhOmwi38Yplbe3oHdT4o/kaJYOZR2kCDXL0Nk9kMlN
+         y1gCo/8etMhQakRtySTuTqoxEKc2SwTtl+UBMiBAtsRtK0kHQkbtWRt0ZDM0NYExNh5d
+         BfWQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwT6vqq/mfZ3EjSYsbIi1bNAoIBCSDfWPzVTYRioG7xzBrshWwcePEt8XHoQ+G1I7lg4Necm0sfclHvjZc=@vger.kernel.org
+X-Gm-Message-State: AFuF++ltcLrF6xNKk/q7fSY8phbzbCJ2sh24kPZ7psolIk1KIEU8SH81
+	7LHoSBlgTDgDIujgEYwjxy+XdKaSzdsScmiFoPDBFmTSKJdio2i2OMs3GIR3/q5dgd0=
+X-Gm-Gg: AYBFou1rggnHozgKq+88GLOaHdgeNFsSnXa+h/KKZx8Sm1TQbYxvVtgA0ZuU4+wFbU8
+	uMfQh+SsLQvVJr2T973U9XqDFRHEChAvqg+KRcRlYW07y6moC79gNJCtMepW0ivD0AuZygWK7Ze
+	3nsE8FJ5pwVa05FQk2vANMUg4kPwiFvSfbvspPaH7GVGyy7nF8ks7Cc6cKI6g3mKlGZMRUY1N5x
+	YxweV9V5pEFUNdjO7Ve/tjgdl4O8rBcCEN+Ee1bt5NjZttzBkANOq1WCh4AeKrNpc2Js8G6jPxy
+	6GNQafJqr6fhUgbEDLxFoCj3ef1EOaCa3abTqfhXdjgE3vG3oYwCMXtkDduOX0rCUcWEeQnJTVr
+	I+e+MGhphBSj1UHwReE7QvwTIX2XEaVxPIZGEEHKQT7wYIrz85n3wxGuGoIlKKN6izS7uxgIgCV
+	lGarufb4RLrxhuD8UdIsWeMmI3OMys+eD15uGXMoHuhloqpLRHldoT6RGiy7sh5v+GctEWGMf4j
+	WbqIuofPvkf80sVdktoJfhL0zU1JBN5p1SFcZSxO00fmyIy1IMqSMvYuudVpAkrmA==
+X-Received: by 2002:a17:907:972a:b0:c29:59ea:5bf9 with SMTP id a640c23a62f3a-c2a1584d0c3mr348855166b.14.1789752409709;
+        Fri, 18 Sep 2026 10:26:49 -0700 (PDT)
+Received: from petegriffin.c.googlers.com (116.118.90.34.bc.googleusercontent.com. [34.90.118.116])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a35701d8bsm902966b.27.2026.09.18.10.26.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 10:25:50 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	Anil Ravindranath <anil_ravindranath@pmc-sierra.com>,
-	James Bottomley <James.Bottomley@suse.de>,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] scsi: pmcraid: decrement adapter count on remove
-Date: Sat, 19 Sep 2026 01:25:41 +0800
-Message-ID: <20260918172541.3599902-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Fri, 18 Sep 2026 10:26:49 -0700 (PDT)
+From: Peter Griffin <peter.griffin@linaro.org>
+Date: Fri, 18 Sep 2026 17:26:34 +0000
+Subject: [PATCH v3 1/4] dt-bindings: arm: google: Add dt bindings for
+ frankel/blazer/mustang
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260918-contrib-pg-pixel10-initial-dts-v3-1-c94e51140509@linaro.org>
+References: <20260918-contrib-pg-pixel10-initial-dts-v3-0-c94e51140509@linaro.org>
+In-Reply-To: <20260918-contrib-pg-pixel10-initial-dts-v3-0-c94e51140509@linaro.org>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+ Tudor Ambarus <tudor.ambarus@linaro.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Linus Walleij <linusw@kernel.org>, Drew Fustini <fustini@kernel.org>, 
+ Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, 
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
+ soc@lists.linux.dev, Douglas Anderson <dianders@chromium.org>, 
+ Juan Yescas <jyescas@google.com>, RD Babiera <rdbabiera@google.com>, 
+ Brian Norris <briannorris@google.com>, 
+ William McVicker <willmcvicker@google.com>, kernel-team@android.com, 
+ linux-serial@vger.kernel.org, Peter Griffin <peter.griffin@linaro.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Brian Norris <briannorris@chromium.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3553;
+ i=peter.griffin@linaro.org; h=from:subject:message-id;
+ bh=qo8jkdcJFEHFTzGipPaUfZqW7W+79EGKtSF4WXhEUus=;
+ b=owEBbQKS/ZANAwAKAc7ouNYCNHK6AcsmYgBqrXRXzv2ubpfgFzjRAOY1RgWBr71XsDwLoS9hx
+ 9EJkqiEJ9SJAjMEAAEKAB0WIQQO/I5vVXh1DVa1SfzO6LjWAjRyugUCaq10VwAKCRDO6LjWAjRy
+ uoxOEACNW73L3XepiEmszEXR+097pW2CyPuEVZUfEl1WFOxXsh2s9eREfKoQrvGdelmSZRGPO3f
+ Fw3a8grTgAuHA5Ffm1J2bFTpozcO6nolBLfQAQbxkO81z1ho4nXHIRPKjfts5/Ll7vfwo8735tp
+ S120by72b/v10A+hPdPTqSKYaCTfq8xmE7XRjAYB6syuE97GssBdyNv5RaUeCxqYksWWQhLzeSd
+ kCzW2mRtVsMHcVe0Pyytdf1k+LQrWMf9TDqZF8lm5kPe02eEv7ASqxzLDbaAoRblPuQ00Y0fU16
+ kEXEZFKABxaOFoR6j+FypBuZ787lHgw5mD/a3SNUK6ItYyE6ZaRmqQ+EBsrfmLDgdVoKQDQidE8
+ QWRUAbY5zT2IQq0irMXNN8yggaBfvOaMnCHrA4IpaT4GvY/SqtM1KAZ8Xbf+Rd3X9xxja6k0Lz7
+ zcv/99P/DEnP56aFQaWi04uhwMn9P8mjUDBAwxxd8X9EALxvRJRHPlz0F3iPL0Wrbfh9eg9e9Ef
+ UTsZYYLhBP3tWluUYOMMaZ8N9lNEk1mWUVQK/WTQTt6C6uc1W5hGg1NP5KnP4YIR0wEVidgSyg8
+ MX3/R6blspUuCSfbbFv9F27lXKp18SH1J4zmtN9ZLwuThYmtPNXDm0a/on/Rvp9maHZ3UGsdoHE
+ vSaPuqr1RVm7YMQ==
+X-Developer-Key: i=peter.griffin@linaro.org; a=openpgp;
+ fpr=0EFC8E6F5578750D56B549FCCEE8B8D6023472BA
 
-pmcraid_probe() increments pmcraid_adapter_count when an adapter is
-being initialized. All probe failure paths decrement the count again,
-but the normal remove path does not perform the corresponding cleanup.
+Add binding documentation for Tensor G5 SoC (Laguna) which is referred
+to in code as "lga" and three of the boards that use the Laguna SoC
+Frankel (Pixel 10), Blazer (Pixel 10 Pro) and Mustang (Pixel 10 Pro XL).
 
-As a result, the adapter count remains incremented after a device is
-removed. Repeated bind and unbind cycles can eventually make the count
-reach PMCRAID_MAX_ADAPTERS and prevent otherwise valid adapters from
-being probed.
+Additionally update to use a more efficient and scalable way to express
+the various names a SoC is known by.
 
-Decrement pmcraid_adapter_count in pmcraid_remove(), matching the probe
-error path.
-
-This issue was found by manual code inspection.
-
-Fixes: 89a368104150 ("[SCSI] pmcraid: PMC-Sierra MaxRAID driver to support 6Gb/s SAS RAID controller")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Co-developed-by: Douglas Anderson <dianders@chromium.org>
+Signed-off-by: Douglas Anderson <dianders@chromium.org>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Brian Norris <briannorris@chromium.org>
+Signed-off-by: Peter Griffin <peter.griffin@linaro.org>
 ---
- drivers/scsi/pmcraid.c | 1 +
- 1 file changed, 1 insertion(+)
+Changes in v2:
+ * Update ect rule as per Krysztof suggestion
+ * Remove all the pre-production variants (EVT, DVT etc)
+ * The equivalent patch in the previous submission is
+   https://lore.kernel.org/lkml/05c833f0-15bc-4a86-9ac4-daf835fe4393@kernel.org/
+   but this is now almost entirely different diff. I've added the
+   co-developed-by tag as I've kept the more efficient way to express
+   the names a SoC is known by.
+---
+ Documentation/devicetree/bindings/arm/google.yaml | 48 ++++++++++++++---------
+ 1 file changed, 29 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/scsi/pmcraid.c b/drivers/scsi/pmcraid.c
-index 942a99393204..da80f1d39ec4 100644
---- a/drivers/scsi/pmcraid.c
-+++ b/drivers/scsi/pmcraid.c
-@@ -4778,6 +4778,7 @@ static void pmcraid_remove(struct pci_dev *pdev)
- 	iounmap(pinstance->mapped_dma_addr);
- 	pci_release_regions(pdev);
- 	scsi_host_put(pinstance->host);
-+	atomic_dec(&pmcraid_adapter_count);
- 	pci_disable_device(pdev);
+diff --git a/Documentation/devicetree/bindings/arm/google.yaml b/Documentation/devicetree/bindings/arm/google.yaml
+index 99961e5282e56..b5977e20f3937 100644
+--- a/Documentation/devicetree/bindings/arm/google.yaml
++++ b/Documentation/devicetree/bindings/arm/google.yaml
+@@ -13,27 +13,16 @@ description: |
+   ARM platforms using SoCs designed by Google branded "Tensor" used in Pixel
+   devices.
  
- 	return;
+-  Currently upstream this is devices using "gs101" SoC which is found in Pixel
+-  6, Pixel 6 Pro and Pixel 6a.
+-
+-  Google have a few different names for the SoC:
+-  - Marketing name ("Tensor")
+-  - Codename ("Whitechapel")
+-  - SoC ID ("gs101")
+-  - Die ID ("S5P9845")
+-
+-  Likewise there are a couple of names for the actual device
+-  - Marketing name ("Pixel 6")
+-  - Codename ("Oriole")
+-
+-  Devicetrees should use the lowercased SoC ID and lowercased board codename,
+-  e.g. gs101 and gs101-oriole.
++  Currently upstream this is devices using gs101 SoC which is found in Pixel
++  6, Pixel 6 Pro and Pixel 6a and Laguna SoC canonically referred to as lga
++  found in Pixel 10, Pixel 10 Pro and Pixel 10 Pro XL.
+ 
+ properties:
+   $nodename:
+     const: '/'
+   compatible:
+     oneOf:
++      # Google Tensor G1 AKA gs101 AKA whitechapel AKA Die ID S5P9845 boards
+       - description: Google Pixel 6 or 6 Pro (Oriole or Raven)
+         items:
+           - enum:
+@@ -41,14 +30,35 @@ properties:
+               - google,gs101-raven
+           - const: google,gs101
+ 
+-  # Bootloader requires empty ect node to be present
++      # Google Tensor G5 AKA lga (laguna) SoC and boards
++      - description:
++          Google Pixel 10, 10 Pro, 10 Pro XL (Frankel, Blazer,
++          Mustang).
++        items:
++          - enum:
++              - google,lga-blazer
++              - google,lga-frankel
++              - google,lga-mustang
++          - const: google,lga
++
+   ect:
+     type: object
+     additionalProperties: false
+ 
+-required:
+-  - ect
+-
+ additionalProperties: true
+ 
++allOf:
++  # Bootloader requires empty ect node to be present
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: google,gs101
++    then:
++      required:
++        - ect
++    else:
++      properties:
++        ect: false
++
+ ...
+
 -- 
-2.43.0
+2.55.0.1082.g2b9226bbc0-goog
 
