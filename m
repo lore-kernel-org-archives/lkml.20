@@ -1,144 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F6B545D908;
-	Fri, 18 Sep 2026 05:41:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 925193DC857
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 05:41:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789710074; cv=none; b=GBV96ukPQaQ532ioWlYAtOAw2Mmg7g7p6zVrFGIoFf453s9vgKt+IwtHAQFMJ37NqnL53gnIP2gZhFTtHyRmzjW3dOUI4zSA/3vgP9nX4GGs6iorIaXaKPE3fTPgV+eO0sKI56dDx3swfaoOVL8zU3F/xtRjg6Qe1wEzaoQJlbM=
+	t=1789710078; cv=none; b=YOQ3/muAlFdrSfrxezolL51bLk5B12nwQJaEUbacXmRvILrdNZNu3/krqTiO6C/wrRFdpCyUwtrm3TeX6mq4tSziEQd/DRUYjbfX+8sVmU+evbsBbVj70ECCmIA/zrmuqIgvk0al+qfldnh88ck0Z4lT/FUxxeQTfMXx5u0Guco=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789710074; c=relaxed/simple;
-	bh=q81s4VRJ10fHWXZi7mqz8BJjAODdW6bRd9tOdGWEU3k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qFKx73Uk0Ct8yuow5xNB8V8bfxsWBmMIXhxIdjZfbWprXjiyMGmfkyo2Vkf1rMlDiV5EfmQjCRE2PLD6FyU/ASkaSZo1xKC3NiQVoEEXstOQQg0gmSS5UsE+1ZBrqMiDiFd5k2hYJGzH/smQFU6ITd/A69VoBdxuwUrpx7Lz2Bw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mm2MU//K; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789710078; c=relaxed/simple;
+	bh=VA1iZkpKLsP31AptUWmjVmN+0ut8zSXRATtnPZO5bjA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=B2fni0H+MHBS0h4XEDeudeSC088pA9ushHZGTG6qRtU+UzxoKis/aFUydPxmtpmH9BIrrtoHNBNfh8nIcGIAKFmwIKNsOrUeU4lentdCFpPy4NwPxH4dUFGKEC/3JMzMfXlbVYL5Y7Av4dk/A6a6j58UsVOhqvEEyFPVltGlYCU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pQOs0xee; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mm2MU//K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20B0C1F000FF;
-	Fri, 18 Sep 2026 05:41:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789710071;
-	bh=nHd6+0HC/1nPCk+6Tm6Uyj6WwdTzSmqKCRyfLZwz4Js=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Mm2MU//KnClCqSqTzNYerNrxjAq+FvG29dS83BnDmwvFqi3DX6rp174BcDccwAzMy
-	 CnDZJF5NO67EZaqviRLLQizWwNt++tMwZVUv6rve6qhUHE5KkbcL7yoUn4QMwtcMb+
-	 J7/I7DzTEVhddYQS1Hf8p5zoYucUAfWC6iMMd2cy6jJCHzuhcBimIpmeEeeEDGZ/aI
-	 PaAGna5sA0SeZs/ylvheVEeDvmDFnUgqPDcFN5VSGJlo2kXwXfR3QccNRJvloa7vW2
-	 xbeQjifYIbf4BE3igjVi0tGeJsmSDJeZdq55shnuTsF5lSqMT3vJqwEtY1mLnH5c51
-	 AI80yPMRfMhAQ==
-Date: Thu, 17 Sep 2026 22:40:58 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Kees Cook <kees@kernel.org>
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Nicolas Schier <nsc@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Masahiro Yamada <masahiroy@kernel.org>,
-	Alexey Gladkov <legion@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
-	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org,
-	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
-	linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v3 11/20] kbuild: avoid re-running compiler and linker
- probes
-Message-ID: <20260918054058.GA384222@ax162>
-References: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
- <20260917-build-speedup-v3-11-9ecf4163ff36@kernel.org>
- <202609171154.BEA5134F7@keescook>
- <20260918012119.GC1585590@ax162>
- <202609172130.3DF0D66@keescook>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pQOs0xee"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-8623e5d435cso107366b3a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 22:41:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789710077; x=1790314877; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JFMkuW0Bqe7MVkCpNYHYvmJJeyYJ8ubSGhbpI1Nwdj0=;
+        b=pQOs0xeeplTsdlCs4nqBh52mX4XwZCVu/DSRCWtN9tOeEAjxnPB2ucx7EycFUpYjFf
+         dJPdcD5xr/ZPz9mWgUycdW3sf1lbiNm1A6tbDQB+QidqFjtkQvQdis6PM0QjiUAtuazD
+         ka18pVdNGVoRxxp1GVoPJ67lMATCnNJdAxuF20HWtRTcbF0dIljt3t9zvg4INWD1OxpD
+         aXfYOWW3wYqMTzSvWxWPmtxVPVlbufHYkcimonNcN9s3rx0+Wxe6lBmif4+wZjvi3GYC
+         zG+DKcVC9jsVUsMTU42rzhkoqYZq9SEyzgikB+5JjYeeevvnAnGKfGUiq1l4IG9Z++ET
+         Tfsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789710077; x=1790314877;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JFMkuW0Bqe7MVkCpNYHYvmJJeyYJ8ubSGhbpI1Nwdj0=;
+        b=Ky2nq90gvSH9wBZkmlEGdLUIqRmaoA7EfSXu4EJ+Cd8FNNYgjEe4hJ6cCcVjUgg1St
+         GyycJqOuKtSy3mYOuKCYvJLavx7aMaFdSEUE7L7FvwU2ouWqgDPbVZ3gO0i8oXrbfzPV
+         bxRIQqpQ7x8deDvFP7NaLaajXVUw03Fak5clT03/qa6aHbJM9tLqB+smNsWfU6Gbk3yZ
+         NtcrA9hq0pNigqOICQfk1ZrN9CNdD+GyWpIM4N65jhJrHHpUUCO3xRhzIK4O+v1amGb5
+         R9X8vYkeGqTn2TDDjjMz7wrtTNMnQ7YH+hl5gZqNfsj7jsAgNc2+OZVP5JH5M296bQdH
+         gP+A==
+X-Forwarded-Encrypted: i=1; AKwUvBxG4USG4QUR3K1s87pUu3J4jspF10F84oSIVPZkQLxg70VFSwZSnSEBCeZwDZfVQwINJV4RfPcCmAh6m7w=@vger.kernel.org
+X-Gm-Message-State: AFuF++n6GELlM5kYg0Vot1wgtkpt+z5odNr+PBNEEQNhRKlMO+n9yzGX
+	7KdJB5PMNL0PhwezQ/U8m9BKojsTOe8KuRp8K8zSfaMSpwPewnVj3PQXqa66Ar7Oucaf5A==
+X-Gm-Gg: AYBFou1+ZgxJYZ3fR8Cm5GhDTAc2yaeR87ruc4p8qWUUoicjDoUmoB4BskVju+u74pO
+	l9KF5RVCwv3U1EQAc/uSK7z1HneQq6bSy35YwE0SI+7nmYkHZ9TOTEw7woGdPGnlyx0cDPS1VcQ
+	KIE810js9Pj+R/SiRG9iiwBTi/TTlxSEyKDq/c95N6YDVRWtuWgjCcQ2C8e96RZ0xUXQEjlaYtM
+	2K3xfJjZoEzK4o4Y8G7M0jhYagLNdzSa0IkvKXTt4uZPs87NZin30prpjtFtIPgWFx4D1XAvEeH
+	JVdRHUhGc9L5k18bOALJUOVeK9OEfub9f5rI0YA/6WF+psHfWyaNW45DQZ0e9rfk+NiVJIBSw4F
+	FxsO2EcuEYof1Kubgk7mdgxoc6YKtySZ04+CpgQvfFods2TZ6M32ewG9UCZdcjJcjCM+Mvqagzj
+	giqQqAT1zFe2iMJ5Iapd/o2UQ4WYrqIbMF5H+lYn0YUAEuHhd03Fmo2xkfGbAHRa6E8j9Ruqdum
+	c3/poreQIo+TD/z+3PMClGMgki99MhPHlmL+URO7IbOmiNBibvjdb1z5bURqYecwn1aCOLFIuiN
+X-Received: by 2002:a05:6a21:6b8b:b0:3da:fe32:4217 with SMTP id adf61e73a8af0-3dd8bc6cf32mr1894679637.16.1789710076506;
+        Thu, 17 Sep 2026 22:41:16 -0700 (PDT)
+Received: from lenovo-thinkbook.lenovo.com (n11212025079.netvigator.com. [112.120.25.79])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc5bc98a45csm348612a12.2.2026.09.17.22.41.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 22:41:16 -0700 (PDT)
+From: Yuqi Xu <xuyuqiabc@gmail.com>
+To: westeri@kernel.org,
+	andi.shyti@kernel.org
+Cc: linux-i2c@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yuqi Xu <xuyuqiabc@gmail.com>
+Subject: [PATCH] i2c: acpi: Add ELAN0662 to i2c_acpi_force_100khz_device_ids
+Date: Fri, 18 Sep 2026 13:41:09 +0800
+Message-ID: <20260918054109.23550-1-xuyuqiabc@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <202609172130.3DF0D66@keescook>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 17, 2026 at 09:44:24PM -0700, Kees Cook wrote:
-> On Thu, Sep 17, 2026 at 06:21:19PM -0700, Nathan Chancellor wrote:
-> > While we could certainly try to cook something like this up, we could
-> > also avoid the split across two files by just defining the flags in
-> > Kconfig directly and using them in the Makefile through their symbol,
-> > like we already do for -Wimplicit-fallthrough. For example, instead of
-> > 
-> >   config CC_HAS_STRICT_FLEX_ARRAYS
-> >       def_bool $(cc-option,-fstrict-flex-arrays=3)
-> > 
-> >   KBUILD_CFLAGS += $(if $(CONFIG_CC_HAS_STRICT_FLEX_ARRAYS),-fstrict-flex-arrays=3)
-> > 
-> > We would just do
-> > 
-> >   config CC_STRICT_FLEX_ARRAYS
-> >       string
-> >       default "-fstrict-flex-arrays=3" if $(cc-option,-fstrict-flex-arrays=3)
-> > 
-> >   KBUILD_CFLAGS += $(CONFIG_CC_STRICT_FLEX_ARRAYS)
-> > 
-> > While we still get the duplication (and we could look at getting rid of
-> > it with your cc-option-str idea or whatever), it is at least contained
-> > to the same location, so out of sync issues should be much rarer. I do
-> > diff Kconfigs so this might make certain issues with checks a little bit
-> > more obvious if something changes on the compiler side.
-> 
-> Yeah, and note that cc-option-bit already exists. It's just a weird name
-> is all and there isn't an ld-option-bit.
+The ELAN0662 touchpad (04F3:317C) in the Lenovo ThinkBook 14 G4+ ARA
+(21D0) intermittently stutters and drops touches. libinput discards
+invalid touch coordinates and logs (rate limited to five messages per
+24 hours):
 
-Ah, I see. I worry that the current cc-option-bit is not sufficient for
-all options that we may want to test because it uses '-E' to stop after
-preprocessing (whereas some options may need to get to code generation
-to be validated properly) and it does not use $(CLANG_FLAGS) to properly
-set the target (so we might not get consistent results). I wonder if we
-would be better off refactoring cc-option-bit into cc-option-str that
-shares most of the machinery of cc-option. Then we could just add
-ld-option-str.
+  libinput error: event6 - ELAN0662:00 04F3:317C Touchpad: kernel
+  bug: Touch jump detected and discarded.
 
-> As for naming conventions, I think "CC_OPT_" would be a good prefix. And
-> this works today with no change:
-> 
-> config CC_OPT_STRICT_FLEX_ARRAYS
-> 	string
-> 	default "$(cc-option-bit,-fstrict-flex-arrays=3)"
+The ACPI DSDT describes the touchpad's I2cSerialBus resource on an
+AMDI0010 controller with a connection speed of 0x00061A80 (400 kHz),
+and the kernel does not lower it for this device, so the touchpad runs
+at 400 kHz. This is the same issue previously fixed for ELAN06FA and
+ELAN0678.
 
-This does look pretty nice.
+Forcing the bus to 100 kHz was tested with a DSDT override on the
+affected machine, and the kernel confirmed the override:
 
-> (do we need "def_string" now?)
+  ACPI: Table Upgrade: override [DSDT-LENOVO-CB-01]
 
-def_string would certainly make these even nicer.
+Before the change libinput discarded three touch jumps within about a
+minute of touchpad use; after the change no touch jumps were logged
+during more than an hour of normal use. The patch itself was not build
+tested; the behaviour was validated through the ACPI table override
+above.
 
+Assisted-by: DeepSeek:deepseek-v4.1-flash
+Signed-off-by: Yuqi Xu <xuyuqiabc@gmail.com>
+---
+ drivers/i2c/i2c-core-acpi.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/i2c/i2c-core-acpi.c b/drivers/i2c/i2c-core-acpi.c
+index 3af0e0551185..aae4f159955a 100644
+--- a/drivers/i2c/i2c-core-acpi.c
++++ b/drivers/i2c/i2c-core-acpi.c
+@@ -373,6 +373,7 @@ static const struct acpi_device_id i2c_acpi_force_100khz_device_ids[] = {
+ 	 */
+ 	{ "DELL0A86", 0 },
+ 	{ "DLL0945", 0 },
++	{ "ELAN0662", 0 },
+ 	{ "ELAN0678", 0 },
+ 	{ "ELAN06FA", 0 },
+ 	{ "ELAN1300", 0 },
 -- 
-Cheers,
-Nathan
+2.55.0
+
