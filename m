@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DFA6519907;
-	Fri, 18 Sep 2026 16:41:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3364151815A;
+	Fri, 18 Sep 2026 16:41:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789749689; cv=none; b=Ips0DYISfJlFxYC7w6a1R7Doa7NHgVLq8C2hKjq8YdVdz/d5HZFurAGxgYB/up6MIevXy1WgKXAox2UDsgTNZCiJIMgh2DBWmhWqC1vUC8c7XS1FqUsYh/UbS3jL0pHuFyM1Y7avl6BFlQsWBu1CfhFiWr8SMIUT9uS0ZbiHQRU=
+	t=1789749685; cv=none; b=qOPxgtEOMWy/D5kpVuhJlQSXVU51WbGlAsmo3EsSypMYgP5e/1wirwaJuzkrNj/fWsCj/nd494RI4JY8WxRMiKZSB0JHgAnbS33g17wC5vKEpNLDZXmbF1gltUpRfjAlkon+Gu3hYlP08GSu8LYPyqKcYITXpAv5Jq183nqHo8U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789749689; c=relaxed/simple;
-	bh=nLpGmFvOGhrcVxd42GzwwZGnbPpVwFeU5iBCxwqjFno=;
+	s=arc-20240116; t=1789749685; c=relaxed/simple;
+	bh=BOZWafU3f4ITSsJBLEr368j82TV+YUOqf180XRodaHg=;
 	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=kB1xjfQpJiOCklUf4I/t39pUOL88q38Dr/hByCHn9EjlT2TqRwr9KfcDDdWH6a6lhoQAu3bUoA3B6y2RnN/9eQGwpEsQxW0CYVGthzGy9G9WVM5yT8sEphKnxiSVgGERLAKDhbtZMJTcOYGH14eKyRJyRyILOgLz9BP4YYi0K9w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OEo0+okI; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id:Subject; b=t/OUKBYf8xYux/ipKfcrjyS8tPYN3AXt4745qrW+O74UxaAIlbRKUS6osKO4jTlGt9d/9N7xCANx0vF5aeAm16RkSLKUVDCcMwgy4sCZtpmT61m5N0cNf2teJUxteoxZdTJFbJ3afJXw4nsPEKoUz3AsmW6Uxfi8CLQbMdSaQSU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ICXEfZWG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OEo0+okI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 411D11F0089E;
-	Fri, 18 Sep 2026 16:41:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ICXEfZWG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 057BC1F00899;
+	Fri, 18 Sep 2026 16:41:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789749683;
-	bh=DQy8xfZJcmUaC/sKAyK859rqQKwFupUHwsfmyZlgdFc=;
+	s=k20260515; t=1789749681;
+	bh=WbkQpYzW8fMnBq57NK7jpTmVbQoZoa+LajFAmJqaKwg=;
 	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=OEo0+okI5XcqwI7OPvVyb04axh12q/YgirvHHyZhdrOHHlMN3pRThmNJt1gNb82GL
-	 bbirWLJom6ekRGcmWqJ0ik1qrR/PSsLegVa1bzJpXPetm0mvqlqNcpufHfZonkJ+FB
-	 hZlSi+1q85yngvgIr71qtauAYMTzTT3JKZX2vq6LmV+Hprwd4ERU/iBFufGAq2WOyr
-	 rSumUc/kFtT9UO+yLUuYd/NgkG5STHQ1z8JCDxbIDUddMY6Er3Yn4O+4mNNMM0g99g
-	 M2idOF6R94a36QilG7HHBbsdLd3ob0JMYPV30520lOXWCMlwbQ46w5a8JRobePsoKP
-	 NrD3HWScOx9QA==
-Date: Fri, 18 Sep 2026 11:41:22 -0500
+	b=ICXEfZWGgydsyAdHsmcIuO4df3Y4EmINakIsTIkpaCi6VmkVnmH7MXbZGhReGj2Ow
+	 ZXF/3hck8Ye7aD4t69fCe7WHqgn9VD3D3XWtRv8FrP3OM42vigP7m8SJJbwOSf82wK
+	 +GkZH2rTy7zUpje/4SmZg6BCJmATbTrN3RcIyaCYxa5RAlT0aqjFteGuDJVV3qyN2h
+	 D5qJn0E5oegFAxnC7eIwVZB+XTJWijZsTQuJ3o08jgBb+aOql6zky8m1PSF+0mRWkx
+	 vWpzhYyJ7S8vphq4LER8kYXpb7Tyx42RQN6x9nC3byDve67DG9lTwceG9x7XqXa+p1
+	 qmKaxYqoSi75g==
+Date: Fri, 18 Sep 2026 11:41:20 -0500
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -36,39 +36,41 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Conor Dooley <conor+dt@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, linux-kernel@vger.kernel.org, 
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Stanimir Varbanov <stanimir.k.varbanov@gmail.com>, 
- linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, devicetree@vger.kernel.org, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Bryan O'Donoghue <bod@kernel.org>, 
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-To: Wangao Wang <wangao.wang@oss.qualcomm.com>
-In-Reply-To: <20260918-add_iris_for_hawi-v1-2-ac60fd15c98b@oss.qualcomm.com>
-References: <20260918-add_iris_for_hawi-v1-0-ac60fd15c98b@oss.qualcomm.com>
- <20260918-add_iris_for_hawi-v1-2-ac60fd15c98b@oss.qualcomm.com>
-Message-Id: <178974865004.291453.1481546992616254827.robh@kernel.org>
-Subject: Re: [PATCH 2/6] dt-bindings: media: qcom,hawi-iris: Add Hawi video
- codec
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ linux-rockchip@lists.infradead.org, Chanwoo Choi <cw00.choi@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
+ linux-pm@vger.kernel.org, Brian Masney <bmasney+clk@redhat.com>, 
+ MyungJoo Ham <myungjoo.ham@samsung.com>, devicetree@vger.kernel.org, 
+ Sascha Hauer <s.hauer@pengutronix.de>, linux-arm-kernel@lists.infradead.org, 
+ linux-clk@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>, 
+ Heiko Stuebner <heiko@sntech.de>, kernel@collabora.com, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+In-Reply-To: <20260917-b4-rockchip-dfi-rk3576-support-v1-3-a5752a29f7bd@collabora.com>
+References: <20260917-b4-rockchip-dfi-rk3576-support-v1-0-a5752a29f7bd@collabora.com>
+ <20260917-b4-rockchip-dfi-rk3576-support-v1-3-a5752a29f7bd@collabora.com>
+Message-Id: <178974864695.290479.16274908479214373555.robh@kernel.org>
+Subject: Re: [PATCH 3/7] dt-bindings: devfreq: event: rockchip,dfi: add
+ rk3576
 
 
-On Fri, 18 Sep 2026 12:28:41 +0800, Wangao Wang wrote:
-> Add a devicetree binding for the Iris5 video encoder and decoder block
-> found on the Qualcomm Hawi SoC.
+On Thu, 17 Sep 2026 16:04:09 +0200, Sebastian Reichel wrote:
+> From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 > 
-> Compared to the Iris4 generation, this block has
-> - additional power domains for internal NoC(cx & mm).
-> - additional clock for internal NoC(cx_iface).
-> - additional power domain and clock for apv codec.
-> - different reset lines.
+> The RK3576 has DFI hardware for monitoring the DDR's bandwidth much
+> like other rockchip SoCs do. Unlike the RK3588 however, it only has two
+> memory channels, so only two per-channel pclks for DFI.
 > 
-> Signed-off-by: Wangao Wang <wangao.wang@oss.qualcomm.com>
+> Add a compatible for this SoC's variant, and add it to the conditionals
+> at the bottom of the bindings file.
+> 
+> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 > ---
->  .../devicetree/bindings/media/qcom,hawi-iris.yaml  | 262 +++++++++++++++++++++
->  1 file changed, 262 insertions(+)
+>  .../bindings/devfreq/event/rockchip,dfi.yaml       | 23 ++++++++++++++++++++++
+>  1 file changed, 23 insertions(+)
 > 
 
 My bot found errors running 'make dt_binding_check' on your patch:
@@ -76,14 +78,13 @@ My bot found errors running 'make dt_binding_check' on your patch:
 yamllint warnings/errors:
 
 dtschema/dtc warnings/errors:
-Documentation/devicetree/bindings/media/qcom,hawi-iris.example.dtb: video-codec@2000000 (qcom,hawi-iris): non-pixel:iommu-ranges: [[838860800, 3451912192]] is too short
-	from schema $id: http://devicetree.org/schemas/media/qcom,hawi-iris.yaml
-Documentation/devicetree/bindings/media/qcom,hawi-iris.example.dtb: video-codec@2000000 (qcom,hawi-iris): Unevaluated properties are not allowed ('#address-cells', '#size-cells', 'dma-ranges', 'memory-region', 'non-pixel', 'pixel' were unexpected)
-	from schema $id: http://devicetree.org/schemas/media/qcom,hawi-iris.yaml
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/devfreq/event/rockchip,dfi.yaml: properties:clock-names: {'minItems': 1, 'maxItems': 4, 'items': [{'enum': ['pclk_ddr_mon', 'pclk_ddr_mon_ch0']}, {'const': 'pclk_ddr_mon_ch1'}, {'const': 'pclk_ddr_mon_ch2'}, {'const': 'pclk_ddr_mon_ch3'}]} should not be valid under {'required': ['maxItems']}
+	hint: "maxItems" is not needed with an "items" list
+	from schema $id: http://devicetree.org/meta-schemas/items.yaml
 
 doc reference errors (make refcheckdocs):
 
-See https://patchwork.kernel.org/project/devicetree/patch/20260918-add_iris_for_hawi-v1-2-ac60fd15c98b@oss.qualcomm.com
+See https://patchwork.kernel.org/project/devicetree/patch/20260917-b4-rockchip-dfi-rk3576-support-v1-3-a5752a29f7bd@collabora.com
 
 The base for the series is generally the latest rc1. A different dependency
 should be noted in *this* patch.
