@@ -1,61 +1,39 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+Received: from proxmox-new.maurer-it.com (proxmox-new.maurer-it.com [94.136.29.106])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7CF233D512;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A2054F93AE;
 	Fri, 18 Sep 2026 15:35:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=94.136.29.106
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789745757; cv=none; b=bFpT9kfc+pv1QPaowHyI1FJZTRYHW4sHdBfjo+gQn2xEZ+VrIt5ucJ6g8I2TPRtjzWjcSxK2r6pKK/uOYt7/QqHpN9u66PD57K1aEwzRLv7nDj0UJ207DsGpXcezXc5HalW5zBP9E+Tp+YgB0+UKd2cmP5SRqFuSynsMom+gDxI=
+	t=1789745758; cv=none; b=gUxMNNQysMOoiKeOSOaCaDTFriZV5SpyajyIyNZPPHoC1hyx2L6XkIbweIjbGZEE9LaWxeGU1V5CcPACNHQgeu9+Z9Iv1CMAHmcMm+IPI35hjSWa4r1Ujm1Bm278mTRbkIBL4CyeAsBu+DwVe72b0vRdbBFtZA6xq/yekGiuDx0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789745757; c=relaxed/simple;
-	bh=rTXEQS/4c/No4cusfrMb4rT1nMkSE1gMmPlhr/SAhWg=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=icdBDxz78o5oo4cFVvLStD3NdYe6njYaYAWFpXKwLM0JfmMZ4ij1XPZ/Q2QBBzBCORN36Pd7s3Kg2VGTO8/x0goCIW4LxNQ3WhlJtZYPwohgQNUAIPzXb2hiD/q4aYjPSnjgWVBMn6ozYve8iNz3DIkPIwbEsji/Uk9xdwB67s4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=VHjheNUY; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="VHjheNUY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1789745761; x=1821281761;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=rTXEQS/4c/No4cusfrMb4rT1nMkSE1gMmPlhr/SAhWg=;
-  b=VHjheNUYnGkGrTh9mezpIQD3fO/IITyIBn+QFd1roUnPA5pa3CPMOgsQ
-   s9x+yC8++997NFiK4LJ4pdAg5NWVGyAffoh7ErKY2TE5A3qpjQiJScfkC
-   IXtcF+aKmiBjG6LOSIGVDqRoAl0lAfU1+YzFFtQ1QbS8SGwRihUx4go3F
-   JkjIGiN0ecrxat88iINQ8Q8Obtd7iXZ2JIJMVG+n68MH54QL4tM9OtR+V
-   MsMCuPyMcNYOLM5+mlydGMkXEeK216s6S9pxWRNYuiYjQDWCUfjgpf5Ba
-   E9TkSG/0aw6UQlLu30//1L723hm9MWptdu7zpQuDxuezkxcv5I7xUZhX8
-   w==;
-X-CSE-ConnectionGUID: w2bhoBCSSuq9+YKwtcsTHg==
-X-CSE-MsgGUID: QjUTgLfMS+qldTVbdzbPCQ==
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="295232781"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 08:36:00 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
- chn-vm-ex4.mchp-main.com (10.10.87.33) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.49; Fri, 18 Sep 2026 08:35:54 -0700
-Received: from ROU-LL-M51280.microchip.com (10.10.85.11) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Fri, 18 Sep 2026 08:35:51 -0700
-From: Aubin Constans <aubin.constans@microchip.com>
-To: Ulf Hansson <ulfh@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>,
-	Eugen Hristev <ehristev@kernel.org>, Claudiu Beznea
-	<claudiu.beznea@tuxon.dev>, Romain Sioen <romain.sioen@microchip.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>, Ludovic Desroches
-	<ludovic.desroches@microchip.com>, Robert Marko <robert.marko@sartura.hr>
-CC: Alexandre Belloni <alexandre.belloni@bootlin.com>, Ryan Wanner
-	<ryan.wanner@microchip.com>, <linux-mmc@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	"Aubin Constans" <aubin.constans@microchip.com>
-Subject: [PATCH] mmc: sdhci-of-at91: disable selectively clocks on pm runtime
-Date: Fri, 18 Sep 2026 17:34:14 +0200
-Message-ID: <20260918153414.909333-1-aubin.constans@microchip.com>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1789745758; c=relaxed/simple;
+	bh=cpIBgXULYb03HMA48vKKBNv/NqLBKIiN2QOCfiRgYDk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rXmEGnASyIXlrM1I/cklgvWiLBjcKswy6Zcb+OHMTbwmczolV4INn+B+MG61e/PUAb75VXV3Sovbo5Th0Ih+VAUX6LNuVgPF3wzJ38oQg7gG9gyenWBLQXf5itGL7T0HbWw3MXZG/s/pCQqp/1+5tkX+C3qOqTm1vn7lkjKdhD8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com; spf=pass smtp.mailfrom=proxmox.com; arc=none smtp.client-ip=94.136.29.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proxmox.com
+Received: from proxmox-new.maurer-it.com (localhost.localdomain [127.0.0.1])
+	by proxmox-new.maurer-it.com (Proxmox) with ESMTP id 5E0564772C;
+	Fri, 18 Sep 2026 17:35:53 +0200 (CEST)
+From: Gabriel Goller <g.goller@proxmox.com>
+To: Andrea Mayer <andrea.mayer@uniroma2.it>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Shuah Khan <shuah@kernel.org>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH net-next 2/2] selftests: seg6: check extack messages on SRv6 lwtunnel setup
+Date: Fri, 18 Sep 2026 17:35:16 +0200
+Message-ID: <20260918153544.1178884-3-g.goller@proxmox.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260918153544.1178884-1-g.goller@proxmox.com>
+References: <20260918153544.1178884-1-g.goller@proxmox.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -63,144 +41,207 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+X-Bm-Milter-Handled: 55990f41-d878-4baa-be0a-ee34c49e34d2
+X-Bm-Transport-Timestamp: 1789745751870
 
-From: Claudiu Beznea <claudiu.beznea@tuxon.dev>
+Add a ksft/ynl test that shoves invalid RTA_ENCAP payloads to
+RTM_NEWROUTE and asserts both the errno and the extack message are
+correct.Also verify that the rejected route was not installed.
 
-SAMA7G5's SDMMC run-time clock disabling is not supported.
-Add support to avoid this scenario for SAMA7G5.
-
-[Amended with a fix from Romain Sioen below this line]
-
-Sama7 boards are impacted by an unbalanced prepare/unprepare
-and enable/disable clock management in sdhci driver due to
-the lack of support for SDMMC clock runtime disabling,
-managed instead by the PMC driver.
-
-Add conditions in the preset function to manage clock
-depending on if the board support runtime clock disabling
-and if we come from the probing or restoring procedure.
-
-Add boolean start_clks variable to manage condition
-in preset function.
-
-Signed-off-by: Claudiu Beznea <claudiu.beznea@tuxon.dev>
-Co-developed-by: Romain Sioen <romain.sioen@microchip.com>
-Signed-off-by: Romain Sioen <romain.sioen@microchip.com>
-Signed-off-by: Aubin Constans <aubin.constans@microchip.com>
+Signed-off-by: Gabriel Goller <g.goller@proxmox.com>
 ---
- drivers/mmc/host/sdhci-of-at91.c | 36 ++++++++++++++++++++++++--------
- 1 file changed, 27 insertions(+), 9 deletions(-)
+ tools/testing/selftests/net/Makefile          |   1 +
+ .../selftests/net/srv6_iptunnel_extack.py     | 168 ++++++++++++++++++
+ 2 files changed, 169 insertions(+)
+ create mode 100755 tools/testing/selftests/net/srv6_iptunnel_extack.py
 
-diff --git a/drivers/mmc/host/sdhci-of-at91.c b/drivers/mmc/host/sdhci-of-at91.c
-index 7c4ac65f247d..399856643e57 100644
---- a/drivers/mmc/host/sdhci-of-at91.c
-+++ b/drivers/mmc/host/sdhci-of-at91.c
-@@ -39,6 +39,7 @@ struct sdhci_at91_soc_data {
- 	const struct sdhci_pltfm_data *pdata;
- 	bool baseclk_is_generated_internally;
- 	unsigned int divider_for_baseclk;
-+	bool pm_runtime_disable_clks;
- };
- 
- struct sdhci_at91_priv {
-@@ -149,12 +150,14 @@ static const struct sdhci_pltfm_data sdhci_sama5d2_pdata = {
- static const struct sdhci_at91_soc_data soc_data_sama5d2 = {
- 	.pdata = &sdhci_sama5d2_pdata,
- 	.baseclk_is_generated_internally = false,
-+	.pm_runtime_disable_clks = true,
- };
- 
- static const struct sdhci_at91_soc_data soc_data_sam9x60 = {
- 	.pdata = &sdhci_sama5d2_pdata,
- 	.baseclk_is_generated_internally = true,
- 	.divider_for_baseclk = 2,
-+	.pm_runtime_disable_clks = true,
- };
- 
- static const struct of_device_id sdhci_at91_dt_match[] = {
-@@ -164,7 +167,7 @@ static const struct of_device_id sdhci_at91_dt_match[] = {
- };
- MODULE_DEVICE_TABLE(of, sdhci_at91_dt_match);
- 
--static int sdhci_at91_set_clks_presets(struct device *dev)
-+static int sdhci_at91_set_clks_presets(struct device *dev, bool start_clks)
- {
- 	struct sdhci_host *host = dev_get_drvdata(dev);
- 	struct sdhci_pltfm_host *pltfm_host = sdhci_priv(host);
-@@ -174,7 +177,14 @@ static int sdhci_at91_set_clks_presets(struct device *dev)
- 	unsigned int			gck_rate, clk_base_rate;
- 	unsigned int			preset_div;
- 
--	clk_prepare_enable(priv->hclock);
-+	/*
-+	 * Manage clock prepare/enable procedure depending on if the board
-+	 * support runtime clock disabling and if we come from the probing
-+	 * or restoring procedure (for backup+self refresh).
-+	 */
-+	if (start_clks)
-+		clk_prepare_enable(priv->hclock);
+diff --git a/tools/testing/selftests/net/Makefile b/tools/testing/selftests/net/Makefile
+index 3ee3378f8b26..45639f46b003 100644
+--- a/tools/testing/selftests/net/Makefile
++++ b/tools/testing/selftests/net/Makefile
+@@ -101,6 +101,7 @@ TEST_PROGS := \
+ 	srv6_hencap_red_l3vpn_test.sh \
+ 	srv6_hl2encap_red_l2vpn_test.sh \
+ 	srv6_iptunnel_cache.sh \
++	srv6_iptunnel_extack.py \
+ 	stress_reuseport_listen.sh \
+ 	tcp_ecmp_failover.sh \
+ 	tcp_fastopen_backup_key.sh \
+diff --git a/tools/testing/selftests/net/srv6_iptunnel_extack.py b/tools/testing/selftests/net/srv6_iptunnel_extack.py
+new file mode 100755
+index 000000000000..77e708a08c3e
+--- /dev/null
++++ b/tools/testing/selftests/net/srv6_iptunnel_extack.py
+@@ -0,0 +1,168 @@
++#!/usr/bin/env python3
++# SPDX-License-Identifier: GPL-2.0
++#
++# author: Gabriel Goller <g.goller@proxmox.com>
 +
- 	caps0 = readl(host->ioaddr + SDHCI_CAPABILITIES);
- 	caps1 = readl(host->ioaddr + SDHCI_CAPABILITIES_1);
- 
-@@ -223,8 +233,11 @@ static int sdhci_at91_set_clks_presets(struct device *dev)
- 	writew(SDHCI_AT91_PRESET_COMMON_CONF | preset_div,
- 	       host->ioaddr + SDHCI_PRESET_FOR_DDR50);
- 
--	clk_prepare_enable(priv->mainck);
--	clk_prepare_enable(priv->gck);
-+	/* Same clock management as for hclock */
-+	if (start_clks) {
-+		clk_prepare_enable(priv->mainck);
-+		clk_prepare_enable(priv->gck);
-+	}
- 
- 	return 0;
- }
-@@ -254,9 +267,11 @@ static int sdhci_at91_runtime_suspend(struct device *dev)
- 	if (host->tuning_mode != SDHCI_TUNING_MODE_3)
- 		mmc_retune_needed(host->mmc);
- 
--	clk_disable_unprepare(priv->gck);
--	clk_disable_unprepare(priv->hclock);
--	clk_disable_unprepare(priv->mainck);
-+	if (priv->soc_data->pm_runtime_disable_clks) {
-+		clk_disable_unprepare(priv->gck);
-+		clk_disable_unprepare(priv->hclock);
-+		clk_disable_unprepare(priv->mainck);
-+	}
- 
- 	return 0;
- }
-@@ -269,7 +284,7 @@ static int sdhci_at91_runtime_resume(struct device *dev)
- 	int ret;
- 
- 	if (priv->restore_needed) {
--		ret = sdhci_at91_set_clks_presets(dev);
-+		ret = sdhci_at91_set_clks_presets(dev, priv->soc_data->pm_runtime_disable_clks);
- 		if (ret)
- 			return ret;
- 
-@@ -277,6 +292,9 @@ static int sdhci_at91_runtime_resume(struct device *dev)
- 		goto out;
- 	}
- 
-+	if (!priv->soc_data->pm_runtime_disable_clks)
-+		goto out;
++"""Exercise SRv6 tunnel validation with invalid netlink attributes."""
 +
- 	ret = clk_prepare_enable(priv->mainck);
- 	if (ret) {
- 		dev_err(dev, "can't enable mainck\n");
-@@ -344,7 +362,7 @@ static int sdhci_at91_probe(struct platform_device *pdev)
- 		return dev_err_probe(&pdev->dev, PTR_ERR(priv->gck),
- 				     "failed to get multclk\n");
- 
--	ret = sdhci_at91_set_clks_presets(&pdev->dev);
-+	ret = sdhci_at91_set_clks_presets(&pdev->dev, true);
- 	if (ret)
- 		return ret;
- 
++import errno
++import os
++import socket
++import struct
++from contextlib import contextmanager
++
++from lib.py import KsftNamedVariant, KsftSkipEx, Netlink, NetNS, NetNSEnter
++from lib.py import NlError, RtnlRouteFamily, ip, ksft_eq, ksft_exit, ksft_raises
++from lib.py import ksft_run, ksft_variants
++
++
++LWTUNNEL_ENCAP_SEG6 = 5
++SEG6_IPTUNNEL_SRH = 1
++SEG6_IPTUNNEL_SRC = 2
++SEG6_IPTUNNEL_TABLE = 3
++SEG6_IPTUN_MODE_INLINE = 0
++SEG6_IPTUN_MODE_ENCAP = 1
++SEG6_IPTUN_MODE_L2ENCAP = 2
++SEG6_IPTUN_MODE_ENCAP_RED = 3
++SEG6_IPTUN_MODE_L2ENCAP_RED = 4
++
++
++def encap(mode=SEG6_IPTUN_MODE_ENCAP, hdrlen=2, routing_type=4):
++    # seg6_iptunnel_encap followed by an SRH containing one segment.
++    srh = struct.pack('!BBBBBBH', 0, hdrlen, routing_type, 0, 0, 0, 0)
++    srh += socket.inet_pton(socket.AF_INET6, '2001:db8::1')
++    return struct.pack('=i', mode) + srh
++
++
++def nlattr(attr_type, payload):
++    length = 4 + len(payload)
++    return (struct.pack('=HH', length, attr_type) + payload +
++            bytes(-length % 4))
++
++
++def route(family, oif, payload, tunsrc=None, table=None):
++    attrs = b''
++    if payload is not None:
++        attrs += nlattr(SEG6_IPTUNNEL_SRH, payload)
++    if tunsrc is not None:
++        attrs += nlattr(SEG6_IPTUNNEL_SRC,
++                        socket.inet_pton(socket.AF_INET6, tunsrc))
++    if table is not None:
++        attrs += nlattr(SEG6_IPTUNNEL_TABLE, struct.pack('=I', table))
++
++    return {
++        'rtm-family': family,
++        'rtm-dst-len': 32 if family == socket.AF_INET else 128,
++        'rtm-table': 254,
++        'rtm-protocol': 4,  # RTPROT_STATIC
++        'rtm-type': 1,  # RTN_UNICAST
++        'dst': '192.0.2.1' if family == socket.AF_INET else '2001:db8:1::1',
++        'oif': oif,
++        'encap-type': LWTUNNEL_ENCAP_SEG6,
++        'encap': attrs,
++    }
++
++
++def add_route(rtnl, attrs):
++    rtnl.newroute(attrs.copy(),
++                  flags=[Netlink.NLM_F_CREATE, Netlink.NLM_F_EXCL])
++
++
++def matching_routes(rtnl, attrs):
++    routes = rtnl.getroute({'rtm-family': attrs['rtm-family']}, dump=True)
++    return [entry for entry in routes
++            if entry.get('dst') == attrs['dst'] and
++            entry['rtm-table'] == attrs['rtm-table']]
++
++
++@contextmanager
++def setup():
++    if os.geteuid() != 0:
++        raise KsftSkipEx('Root privileges are required')
++
++    with NetNS() as ns, NetNSEnter(str(ns)):
++        ip('link set lo up')
++        oif = socket.if_nametoindex('lo')
++        rtnl = RtnlRouteFamily()
++        try:
++            # Probe with a valid route so missing SRv6 support is a skip,
++            # whereas missing diagnostics remain a test failure.
++            probe = route(socket.AF_INET6, oif, encap())
++            try:
++                add_route(rtnl, probe)
++            except NlError as error:
++                if error.error == errno.EOPNOTSUPP:
++                    raise KsftSkipEx('SRv6 tunnels are not supported') from error
++                raise
++            rtnl.delroute(probe.copy())
++            yield rtnl, oif
++        finally:
++            rtnl.close()
++
++
++# (name, SRH payload, extra encap attributes, expected extack message)
++INVALID = [
++    ('missing_srh', None, {}, 'missing SRv6 SRH attribute'),
++    ('empty_srh', b'', {}, 'truncated SRv6 SRH attribute'),
++    ('short_srh', encap()[:-1], {}, 'truncated SRv6 SRH attribute'),
++    ('invalid_mode', encap(mode=255), {}, 'invalid SRv6 encapsulation mode'),
++    ('invalid_type', encap(routing_type=0), {},
++     'invalid SRv6 segment routing header'),
++    ('invalid_length', encap(hdrlen=4), {},
++     'invalid SRv6 segment routing header'),
++    ('invalid_tunsrc', encap(), {'tunsrc': '::'}, 'invalid tunsrc address'),
++    ('invalid_table', encap(), {'table': 0}, 'invalid lookup table'),
++]
++
++
++@ksft_variants([
++    KsftNamedVariant(f'{name}_{af_name}', family, payload, extra, message)
++    for name, payload, extra, message in INVALID
++    for af_name, family in [('ipv4', socket.AF_INET), ('ipv6', socket.AF_INET6)]
++] + [KsftNamedVariant('inline_ipv4', socket.AF_INET,
++                      encap(mode=SEG6_IPTUN_MODE_INLINE), {},
++                      'inline mode requires an IPv6 route'),
++     # Inline mode rejects a non-IPv6 route before it looks at tunsrc,
++     # so only IPv6 reaches the tunsrc check.
++     KsftNamedVariant('inline_tunsrc_ipv6', socket.AF_INET6,
++                      encap(mode=SEG6_IPTUN_MODE_INLINE),
++                      {'tunsrc': '2001:db8::2'},
++                      'incompatible mode for tunsrc')])
++def invalid_config(family, payload, extra, message):
++    with setup() as (rtnl, oif):
++        attrs = route(family, oif, payload, **extra)
++        with ksft_raises(NlError) as caught:
++            add_route(rtnl, attrs)
++        ksft_eq(matching_routes(rtnl, attrs), [], 'Rejected route was installed')
++        if caught.exception is None:
++            return
++        ksft_eq(caught.exception.error, errno.EINVAL)
++        ksft_eq((caught.exception.nl_msg.extack or {}).get('msg'), message)
++
++
++@ksft_variants([
++    KsftNamedVariant(f'{name}_{af_name}', family, mode)
++    for name, mode in [('inline', SEG6_IPTUN_MODE_INLINE),
++                       ('encap', SEG6_IPTUN_MODE_ENCAP),
++                       ('l2encap', SEG6_IPTUN_MODE_L2ENCAP),
++                       ('encap_red', SEG6_IPTUN_MODE_ENCAP_RED),
++                       ('l2encap_red', SEG6_IPTUN_MODE_L2ENCAP_RED)]
++    for af_name, family in [('ipv4', socket.AF_INET), ('ipv6', socket.AF_INET6)]
++    if mode != SEG6_IPTUN_MODE_INLINE or family == socket.AF_INET6
++])
++def valid_config(family, mode):
++    with setup() as (rtnl, oif):
++        attrs = route(family, oif, encap(mode=mode))
++        add_route(rtnl, attrs)
++        routes = matching_routes(rtnl, attrs)
++        ksft_eq(len(routes), 1)
++        if routes:
++            ksft_eq(routes[0].get('encap-type'), LWTUNNEL_ENCAP_SEG6)
++            ksft_eq(routes[0].get('encap'), attrs['encap'])
++            rtnl.delroute(attrs.copy())
++            ksft_eq(matching_routes(rtnl, attrs), [])
++
++
++if __name__ == '__main__':
++    ksft_run([invalid_config, valid_config])
++    ksft_exit()
 -- 
-2.43.0
+2.47.3
+
 
