@@ -1,169 +1,180 @@
-Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDFDF38C2D8;
-	Fri, 18 Sep 2026 01:21:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D14F2C15A0;
+	Fri, 18 Sep 2026 01:21:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789694485; cv=none; b=pHGujk1WDOYyQcUk5hkJmSgQXiSedqvCq4uBh9T+gwPrOAiwLmWhqiMWDNet5tuQhRF1Op2A3v7u1yhUVuxmFX+YI3kzyYY1J8GfXF1ms1Ikn8QCcq9ZpgtPwT30D3ciYJyBGa0yoOnk0w0oh7PorpNTMfTeP664vGONmIOYaWY=
+	t=1789694498; cv=none; b=dXm/VJJv35REZ6EO1SrGDOGNhbi+5t5llnwB2QpffXVhosmxcHZrvAcqJVU8pd3B8wWMrepoeQxkN/61xRpiM9tmpB0qqrKhMPKsXXxHN6bYUSx2VfHiAZnzDlTQnYtgZWjq+iIHEh27jnw38ET3xY/0Gv7O9OF4WgB+ycXxenw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789694485; c=relaxed/simple;
-	bh=fUsfNJ6JcRszNFdEqS6aJHvvHbTsUjVbaXDekcad+qU=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Es/TLNM5dZdUwP+n0ejKDBKhKsZeZ3R/L9h52AS72m1X3miDkZNwSzI3l33kk5CImdblaZ6SWUDV16IbLWnzVq8MaMAL1qAM31hxWpNkcu5IOpRpvsEsCN0Dii2ISArZ1JiHFThdwzS9lI6bbl9Rp+5UyrBT9YEvbf9w7TA3jxE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=ax2Ggqeb; arc=none smtp.client-ip=80.86.107.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
+	s=arc-20240116; t=1789694498; c=relaxed/simple;
+	bh=0yZCtWvChQhiTX62NQsXX3heRzS09mB7c3/SHhPSEqU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nYYjMp0U+glM4iUSTbtJrYgdEDTruFWt7Jf4Nqyfz3AaBXray5bmEZdLh+owlWfaaAEx6XhDucQda1hvQu5uvri6XAIEHFLh/dr26eCMCgY7u8nGClyCWhimCSXGEPsGbUi+gJtNMqiu6Ep8EP/8gqZEVNHMAxHibhucKc126K0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aJLTUh8b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="ax2Ggqeb"
-Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
-	by mail.mindbit.ro (Postfix) with ESMTPSA id 76870D0766;
-	Fri, 18 Sep 2026 04:21:14 +0300 (EEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro 76870D0766
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
-	s=default; t=1789694477;
-	bh=69bnCVQM5n3sV/AN5VtraQEwkW0YanBMdQC8pbKcydM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=ax2GgqebXNR2R2lP+6/CijC3VqGvyDb08ILb0eZ6Ema1QmO+nzkiVt/qRo7PjqTGp
-	 omF5ojiR+tFY2fkhlBSOfp1uhXyFE5u1MkIs/42ovtNJ+0FF/txHSbBXiE5YlIqqXz
-	 7ZfxK8+GnM/1UaO/A/wiJz4RukrOPn8ziE+7vEOamYCHnXcUjxPRGUakAtZoryriXd
-	 hzMZ+JCt9n9yC1f1spnVcwlt9shjLNaDYXtF4nrnK/oHV7gCM1A9PdtfQYADHAkmYd
-	 vd+8dsupfkAL9T2QqNdP05m/gXaJ7VZc2W+030SRS9tXyKQrP6cko254BVWIod5kye
-	 4hJvIM4Oow2Kw==
-Message-ID: <2b23ecf7ae8baf0266c3701060858abec901a71c.camel@rendec.net>
-Subject: Re: [PATCH v2 6/6] media: mtk-vpu: rename IPI_MAX to IPI_VPU_MAX
-From: Radu Rendec <radu@rendec.net>
-To: "GUO Ren (XuanTie)" <guoren@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-  Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>,  Daniel Lezcano
- <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Anup Patel
- <anup@brainfault.org>,  Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT
- Chen <andrew-ct.chen@mediatek.com>, Yunfei Dong	
- <yunfei.dong@mediatek.com>, Minghsiu Tsai <minghsiu.tsai@mediatek.com>, 
- Houlong Wei <houlong.wei@mediatek.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Matthias Brugger	 <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno	 <angelogioacchino.delregno@collabora.com>
-Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-mediatek@lists.infradead.org, Nathan Chancellor <nathan@kernel.org>
-Date: Thu, 17 Sep 2026 21:21:12 -0400
-In-Reply-To: <20260911-ipi_max-v2-6-a77826ff189e@kernel.org>
-References: <20260911-ipi_max-v2-0-a77826ff189e@kernel.org>
-	 <20260911-ipi_max-v2-6-a77826ff189e@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aJLTUh8b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E5521F000FF;
+	Fri, 18 Sep 2026 01:21:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789694493;
+	bh=PKIVsNOUBkTvWGBthw3StTS5zUBeSADLiIKEQwT9Z1M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aJLTUh8bOmPHIIxbkbTasFPdsby/oj73sfuTs4fHyGjyvO9eay/V8HiFzZVHQ9ZV1
+	 xScG95SmWMyTQLGruGQJM+5ibJCFfHGrAZvF8tTaT82cV5L8vFiCmuej5Ycx/vR/R9
+	 fLy7vVqGyzYP3I4HTgQwiPOxQccMssXco3Ji+DXMnMgHtXRnAk3Y1jiUlALO8D9xJa
+	 zBkdOQYcJ5J9kV47pIeFFXFnrrnL30ex+XvCZs+1CPOq2mehWVhq0nAs9O01FJR9UL
+	 u1/MxWsUZtUrnDJPBmwCl06z+VFrvV8GJi6qiyPK0fq3IA271K+oCOl9VN2o+oJH1Q
+	 FHWIBkcvwIYtg==
+Date: Thu, 17 Sep 2026 18:21:19 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Kees Cook <kees@kernel.org>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Masahiro Yamada <masahiroy@kernel.org>,
+	Alexey Gladkov <legion@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
+	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
+	linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v3 11/20] kbuild: avoid re-running compiler and linker
+ probes
+Message-ID: <20260918012119.GC1585590@ax162>
+References: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
+ <20260917-build-speedup-v3-11-9ecf4163ff36@kernel.org>
+ <202609171154.BEA5134F7@keescook>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <202609171154.BEA5134F7@keescook>
 
-On Fri, 2026-09-11 at 03:27 +0000, GUO Ren (XuanTie) wrote:
-> The last enumerator of this driver's firmware IPI id list is a bound
-> for the VPU mailbox protocol, not a generic host IPI limit. Follow the
-> existing naming in this header: IPI_VPU_INIT already carries a VPU
-> prefix, so the terminator should match.
->=20
-> The same convention is used by the SCP IPI enum, which ends with a
-> prefixed SCP_IPI_MAX rather than a bare IPI_MAX.
->=20
-> Rename IPI_MAX to IPI_VPU_MAX and update the descriptor table bounds
-> and range checks. No functional change.
->=20
-> Link: https://lore.kernel.org/linux-riscv/20260908222349.GA2324870@ax162
-> Cc: Nathan Chancellor <nathan@kernel.org>
-> Signed-off-by: GUO Ren (XuanTie) <guoren@kernel.org>
-> ---
-> =C2=A0drivers/media/platform/mediatek/vpu/mtk_vpu.c | 12 ++++++------
-> =C2=A0drivers/media/platform/mediatek/vpu/mtk_vpu.h |=C2=A0 4 ++--
-> =C2=A02 files changed, 8 insertions(+), 8 deletions(-)
->=20
-> diff --git a/drivers/media/platform/mediatek/vpu/mtk_vpu.c b/drivers/medi=
-a/platform/mediatek/vpu/mtk_vpu.c
-> index 8d8319f0cd22..b3e9f8c4ab7a 100644
-> --- a/drivers/media/platform/mediatek/vpu/mtk_vpu.c
-> +++ b/drivers/media/platform/mediatek/vpu/mtk_vpu.c
-> @@ -211,7 +211,7 @@ struct mtk_vpu {
-> =C2=A0	struct vpu_regs reg;
-> =C2=A0	struct vpu_run run;
-> =C2=A0	struct vpu_wdt wdt;
-> -	struct vpu_ipi_desc ipi_desc[IPI_MAX];
-> +	struct vpu_ipi_desc ipi_desc[IPI_VPU_MAX];
-> =C2=A0	struct share_obj __iomem *recv_buf;
-> =C2=A0	struct share_obj __iomem *send_buf;
-> =C2=A0	struct device *dev;
-> @@ -221,7 +221,7 @@ struct mtk_vpu {
-> =C2=A0	struct mutex vpu_mutex; /* for protecting vpu data data structure =
-*/
-> =C2=A0	u32 wdt_refcnt;
-> =C2=A0	wait_queue_head_t ack_wq;
-> -	bool ipi_id_ack[IPI_MAX];
-> +	bool ipi_id_ack[IPI_VPU_MAX];
-> =C2=A0};
-> =C2=A0
-> =C2=A0static inline void vpu_cfg_writel(struct mtk_vpu *vpu, u32 val, u32=
- offset)
-> @@ -296,7 +296,7 @@ int vpu_ipi_register(struct platform_device *pdev,
-> =C2=A0		return -EPROBE_DEFER;
-> =C2=A0	}
-> =C2=A0
-> -	if (id < IPI_MAX && handler) {
-> +	if (id < IPI_VPU_MAX && handler) {
-> =C2=A0		ipi_desc =3D vpu->ipi_desc;
-> =C2=A0		ipi_desc[id].name =3D name;
-> =C2=A0		ipi_desc[id].handler =3D handler;
-> @@ -319,7 +319,7 @@ int vpu_ipi_send(struct platform_device *pdev,
-> =C2=A0	unsigned long timeout;
-> =C2=A0	int ret =3D 0;
-> =C2=A0
-> -	if (id <=3D IPI_VPU_INIT || id >=3D IPI_MAX ||
-> +	if (id <=3D IPI_VPU_INIT || id >=3D IPI_VPU_MAX ||
-> =C2=A0	=C2=A0=C2=A0=C2=A0 len > sizeof(send_obj->share_buf) || !buf) {
-> =C2=A0		dev_err(vpu->dev, "failed to send ipi message\n");
-> =C2=A0		return -EINVAL;
-> @@ -748,7 +748,7 @@ static void vpu_ipi_handler(struct mtk_vpu *vpu)
-> =C2=A0	s32 id =3D readl(&rcv_obj->id);
-> =C2=A0
-> =C2=A0	memcpy_fromio(data, rcv_obj->share_buf, sizeof(data));
-> -	if (id < IPI_MAX && ipi_desc[id].handler) {
-> +	if (id < IPI_VPU_MAX && ipi_desc[id].handler) {
-> =C2=A0		ipi_desc[id].handler(data, readl(&rcv_obj->len),
-> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0 ipi_desc[id].priv);
-> =C2=A0		if (id > IPI_VPU_INIT) {
-> @@ -934,7 +934,7 @@ static int mtk_vpu_probe(struct platform_device *pdev=
-)
-> =C2=A0#ifdef CONFIG_DEBUG_FS
-> =C2=A0	debugfs_remove(vpu_debugfs);
-> =C2=A0#endif
-> -	memset(vpu->ipi_desc, 0, sizeof(struct vpu_ipi_desc) * IPI_MAX);
-> +	memset(vpu->ipi_desc, 0, sizeof(struct vpu_ipi_desc) * IPI_VPU_MAX);
-> =C2=A0vpu_mutex_destroy:
-> =C2=A0	mutex_destroy(&vpu->vpu_mutex);
-> =C2=A0disable_vpu_clk:
-> diff --git a/drivers/media/platform/mediatek/vpu/mtk_vpu.h b/drivers/medi=
-a/platform/mediatek/vpu/mtk_vpu.h
-> index 3951547e9ec5..44ab631ec904 100644
-> --- a/drivers/media/platform/mediatek/vpu/mtk_vpu.h
-> +++ b/drivers/media/platform/mediatek/vpu/mtk_vpu.h
-> @@ -49,7 +49,7 @@ typedef void (*ipi_handler_t) (void *data,
-> =C2=A0 *			 handle VP8 video encoder job,, and vice versa.
-> =C2=A0 * @IPI_MDP:		 The interrupt from vpu is to notify kernel to
-> =C2=A0 *			 handle MDP (Media Data Path) job, and vice versa.
-> - * @IPI_MAX:		 The maximum IPI number
-> + * @IPI_VPU_MAX:	 The maximum VPU IPI number
-> =C2=A0 */
-> =C2=A0
-> =C2=A0enum ipi_id {
-> @@ -60,7 +60,7 @@ enum ipi_id {
-> =C2=A0	IPI_VENC_H264,
-> =C2=A0	IPI_VENC_VP8,
-> =C2=A0	IPI_MDP,
-> -	IPI_MAX,
-> +	IPI_VPU_MAX,
-> =C2=A0};
-> =C2=A0
-> =C2=A0/**
+On Thu, Sep 17, 2026 at 12:26:48PM -0700, Kees Cook wrote:
+> On Thu, Sep 17, 2026 at 05:06:21PM +0100, Lorenzo Stoakes (ARM) wrote:
+> > Each kernel make invocation begins with ~30 compiler and linker runs each
+> > of which performs duplicate probe for a number of compiler and linker
+> > options.
+> > 
+> > This is useless work - the compiler and its version is known, so use these
+> > to determine which options are available, once.
+> > 
+> > A convention already exists for this - CC_HAS_xxx, LD_HAS_xxx in Kconfig
+> > files (for example, CC_HAS_COUNTED_BY), so convert these probes to Kconfig
+> > options where appropriate.
+> 
+> Yeah, I agree about the rationale here.
+> 
+> It does, however, now drive a long-time annoyance of mine to the top of
+> mind: the repetition of the compiler command-line options in two places:
+> the Kconfig and the Makefile. I dislike that pattern so much that I really
+> really worked hard to use cc-option instead where ever I possibly could
+> (though it continued to add to my growing concern about the repetition
+> of running those checks all the time, so I'm motivated to see something
+> like what you have here actually land).
+> 
+> But I would really like to find a way to avoid the duplication. It's
+> fragile and it's weird and it's split across 2 files that don't always
+> have an obvious relationship. I really don't like it. And with it being
+> used for things that are "detected" (i.e. not part of always required
+> builds), that fragility means typos may go unnoticed, etc.
+> 
+> We've had a need for some kind of kconfig "append to a list" logic that
+> we've been working around in places, e.g. include/linux/lsm_count.h for
+> how "count the list of enabled LSMs" got dealt with. If we could have
+> had:
+> 
+> config LSM_LIST
+> 	list
+> 	separator " "
+> 
+> config SECURITY_SELINUX
+> 	...
+> 	append_to LSM_LIST
+> 	...
+> 
+> We could just parse CONFIG_LSM_LIST directly. And I think we can do the
+> same with this:
+> 
+> config CC_OPTION_LIST
+> 	list
+> 	separator " "
+> 
+> config CC_OPTION_ZERO_INIT_PADDING_BITS
+> 	string
+> 	default "$(cc-option-bit,-fzero-init-padding-bits=all)"
+> 	append_to CC_OPTION_LIST
+> 
+> And the dump all of it into the Makefile in one via CONFIG_CC_OPTION_LIST
+> 
+> (And we'd need to implement ld-option-bit. Though really I think
+> cc-option-bit should be renamed to cc-option-str or something)
+> 
+> But even without the new "list" Kconfig type, it'd be nicer to use the
+> cc-option-bit string default method and dump all the newly created
+> CC_OPTION_... strings into the makefile manually. The "append_to" idea
+> could be a follow-up.
 
-Reviewed-by: Radu Rendec <radu@rendec.net>
+While we could certainly try to cook something like this up, we could
+also avoid the split across two files by just defining the flags in
+Kconfig directly and using them in the Makefile through their symbol,
+like we already do for -Wimplicit-fallthrough. For example, instead of
+
+  config CC_HAS_STRICT_FLEX_ARRAYS
+      def_bool $(cc-option,-fstrict-flex-arrays=3)
+
+  KBUILD_CFLAGS += $(if $(CONFIG_CC_HAS_STRICT_FLEX_ARRAYS),-fstrict-flex-arrays=3)
+
+We would just do
+
+  config CC_STRICT_FLEX_ARRAYS
+      string
+      default "-fstrict-flex-arrays=3" if $(cc-option,-fstrict-flex-arrays=3)
+
+  KBUILD_CFLAGS += $(CONFIG_CC_STRICT_FLEX_ARRAYS)
+
+While we still get the duplication (and we could look at getting rid of
+it with your cc-option-str idea or whatever), it is at least contained
+to the same location, so out of sync issues should be much rarer. I do
+diff Kconfigs so this might make certain issues with checks a little bit
+more obvious if something changes on the compiler side.
+
+-- 
+Cheers,
+Nathan
