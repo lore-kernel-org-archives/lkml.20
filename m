@@ -1,256 +1,276 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAE2051A140;
-	Fri, 18 Sep 2026 18:01:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2970F51AFE6
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:01:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789754507; cv=none; b=MPRVh6l4HQyaxeEN9KWLm5WqCz8r2loXxEU0yk61S+newsEPxd/RM8gd7rIAVD4r8ylt43m6K8MvumnFHdXTGZfrnWZy+8BBuYlw5/zOMcc09wU2z2qaKC5ENbr8YuhNnKtGkx2ncYI1+hHksF5zXN5UzlkzTDCT1fcJFhaoxfA=
+	t=1789754521; cv=none; b=XsofG3CeyybqRdmRmmWca2ZUSFR7k8OiJSNVl94cQgOAz72yYAn+9n+gTU97qA+yuXpKp3kTmVfxnwCbMSqAV6Ep/a7/yRyQ/dKG10hDKdRGqmj56rFzYpUgPgv7dhvNJ4NgYpUc2Kng1HAzIFsLXzqmubx92A7TAgN741PSaog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789754507; c=relaxed/simple;
-	bh=OhEhLLsIoIfy5GHA41zX2jbBNoqjEV2J/4j8Ln8O36M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Uupnuq8D60lWMfkgRtIei2unpbB+xjcNm7FOVpy6c6jRCveuFj6Fkn41FAza4obXq3dqPZxhMRRkmq7YQfr+2u4k3Uq2e40kaWFIONgEEODCW5UfCNw8Ax1PDFM9+2lQfZsp2g1fApmE1YnCPQcewRO5TzynJ44Rs5xp91EmGGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=gqpaSw1N; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1789754521; c=relaxed/simple;
+	bh=vzHRl2fIPJx9LZ1L3hJNpSp/FYA4853N42Bv8nFDNus=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=m3xzBsahpZwHbLTL3+BOrprFVuKEoUcpduyQVOnsCTeYu0YrP/ZSBzlV8+HJnCSocY89ggJbrjozq9jD/w4FyEl4byIw/W5AcEThfFmSIXZ289RveC+kWlIYfhjfLm4IRhDHrCC5Y9iazscCEZX35O0GanwXQjt9hJEU+vHHkhU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A6U+Pnlh; arc=none smtp.client-ip=74.125.229.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="gqpaSw1N"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 515F240E00E5;
-	Fri, 18 Sep 2026 18:01:41 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id UWP2W9vP4TKJ; Fri, 18 Sep 2026 18:01:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1789754490; bh=To2NtLovobbsVi+zYzNAooWSosUMaxwE9+3unUn2R8I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=gqpaSw1N8+80u3oWbbKLdEWMvW7Oubu2njowZa3TGpVsEdN4anqh8cFxVdGXGxz1t
-	 2VPVF7fmWRKogVD15HKDjFh2P87wQjEb6KDjIzvK36syfdnJa8g+FTvAOJdsccWbP5
-	 Pu7GP6sPbzKYOeRDkAOZ1+eA4kIJguYvabFTI2pduLVHksvaWnDyhsoK5gZbIfOML1
-	 SRjHmgE0wtD+BU6dmf164CeklInFauRhozNmtnOqDQHtT8H1YrH/0sQ6OmXVPuuGRT
-	 WRwClEdlq2Cn14dwDanPsGQjMi7AZkQxPEnzsQGSzruS07zWa1jR4zqPoBeOjnRGAs
-	 kcLE8ClOn2OTF/RiLnKDua05Z3G+75hfAAG8bSJEH0s3G81l5N55xyl7hwWSuBsNBN
-	 ZHDOu1tt3jPbn+OiQaUt4W9lnwL5uN0Y6iwQ+zCK5m/2a5Kro7G4AWuLNQqRoVwCm0
-	 ou143zdnS7axg2AMMtG7ZigRLJmocLsvoahXisKtcR0DwqSsrGhs76pXhqPywd5r7d
-	 j/CHPEdtGdWd5n9ZFbKUmJ4J1WTDz2BKHXKfNQrGYBhNDwexU/k0o6EIWrquUGcClG
-	 BWcuWp92wzy7VSB6MqwciM6MmywREXPQN7Lce2RbbPbC5uBo9Dnq5RC9u9rf6r65uM
-	 fCAtlUgJla1DDEJGW7k3gG3E=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::48])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 836F740E00B9;
-	Fri, 18 Sep 2026 18:00:56 +0000 (UTC)
-Date: Fri, 18 Sep 2026 11:00:53 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Ashish Kalra <Ashish.Kalra@amd.com>
-Cc: tglx@kernel.org, mingo@redhat.com, dave.hansen@linux.intel.com,
-	x86@kernel.org, hpa@zytor.com, seanjc@google.com,
-	peterz@infradead.org, thomas.lendacky@amd.com,
-	herbert@gondor.apana.org.au, davem@davemloft.net, ardb@kernel.org,
-	pbonzini@redhat.com, aik@amd.com, Michael.Roth@amd.com,
-	KPrateek.Nayak@amd.com, Tycho.Andersen@amd.com,
-	Nathan.Fontenot@amd.com, ackerleytng@google.com, jackyli@google.com,
-	pgonda@google.com, rientjes@google.com, jacobhxu@google.com,
-	xin@zytor.com, pawan.kumar.gupta@linux.intel.com,
-	babu.moger@amd.com, dyoung@redhat.com, nikunj@amd.com,
-	darwi@linutronix.de, linux-kernel@vger.kernel.org,
-	linux-crypto@vger.kernel.org, kvm@vger.kernel.org,
-	linux-coco@lists.linux.dev
-Subject: Re: [PATCH v16 3/5] x86/sev: Initialize RMPOPT configuration MSRs
-Message-ID: <20260918180053.GAaq18VQB9IOia1S-7@fat_crate.local>
-References: <cover.1789594774.git.ashish.kalra@amd.com>
- <7fdf0f5b1be4b561c884c5200d6606a947cbc09d.1789594774.git.ashish.kalra@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A6U+Pnlh"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f13d7aso1419325e87.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:01:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789754514; x=1790359314; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=C0vuR5V82Y+Qb6AE6xYu5ugAq0TM6WhXlM05nO0jW+c=;
+        b=A6U+PnlhMwvmFLxtI/ZUJYLgaU9s7+dwTBz5O3Yny0sR8FaL+sOQ6Dj6GQtpdvikyX
+         355A0ry6To9P/aQlbI3rs5RQy2XcwWItqsjl5z+QBCKxUk/Qg2v6OtOxfvCIHDw5keh7
+         jABOInpsiYtA/0PUBs9JcWdP6UVPnhJ3I7meli+xr7AIqJ/Jf1KxuN+V9NauR5H1Lg7/
+         GLEMibhni37cRRJbpDUr8XNV1kfPC3GlRZ6hhqNpl8i7c+lhQe9rGJq7cUqk2PYfRU2i
+         o1lGmQbMUivbAJfwF2nNUkdSDXRn4ZKAxdHs4hqMRyACAbF+IW00NOciESLeQvYSvarO
+         H5gg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789754514; x=1790359314;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=C0vuR5V82Y+Qb6AE6xYu5ugAq0TM6WhXlM05nO0jW+c=;
+        b=YCY+n66qBZE7mjYuZqioFzzx5LrsWXgTsb8gEQY2bXz2JANNV3V6Z9izsJ2RCWIBfj
+         Ot5WTDmGiP4tUDnRYd8kNNEN3ac8xve2J2BJ+VLPhX7Qc+R319QV1wfg4aB7XC6jQg4y
+         bHWK7e3fk/blT/7lX/RFJ+7+FhggPh/8Z4Ht2e0mHlXl48h5G2qryy0JrSIYy7Q6mexo
+         ZIsPv2ePYs/TGm/bty5zdcz2ygI01ZeN00TrfL5rhFs+TXy3NyiHgzO1ZFa7czbN19O6
+         Kw+UWOQZnKTY4koWYeUuj9ddKce75d6xbnxlnaBs6dKSxQNqBAKRCET+45R3gw8/s3Jm
+         oiqA==
+X-Forwarded-Encrypted: i=1; AKwUvBzNSv0bk4v+ZhUEQtZPtlVMDSn/LlZzSqHvzOH291vzMZMzjUvr/ZT5oTxW2U3ocPj0Tm10UgRJvugcYyI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kpcs6bXNwQvu3xq8uz5AvpzR1lmkKYV4qZz8iSAMbDPRZw5tn+
+	lGB8foCMlhDsnZxb+VuPhxjMTxsUH8y+4YKJShZlaUm3Ix5LhmcxVwyvMdezXIPUrLU=
+X-Gm-Gg: AYBFou0YhtX0zuX5TG+t36R/2NUT6RQ931Ljw/DOzrQKK796QI3AHDv5FqTsMt7obok
+	rwrEiPex8KLQzpLxiz9uiU6/+vl/IhQbuNbxHDqGhTLQMk3NYpv6KyDHeAxLdDlXEU5yIXrNTWL
+	2+BEc+QK9nU0Pw4UWtkhylkujnypxkGikBDiU2Nm0dZ7eALnQ99WAdDJNuZ9PbQf3Qv4X4rcntx
+	emEDfx8U5boA1k11ABD7sA4zNtKBLVa3k3rsX6CokDYNtbnGdKBOqZKfP0wgxk+kARahEM5RzzK
+	JNji+qobX9UmUyMXtZaLHb65uqcy3eXy+BIFTqT38c0LmQzaIMeM1gZFFcSbBg0nMUqwIU1xQ7J
+	XxNeN6NCSdUwkcs67TrW67UfKCZdceD5UhlRNERt8XebQLX9KB/LJNWboiXu2yWh+CXwqyQcdIv
+	Ne0OdNgBw2JLrwsxnqbTIk5KD8wirWIJHhYNy3KNY9WC0alVUHoor8LquwOb47WtRGhgUjZaWnk
+	fQpoA==
+X-Received: by 2002:a05:6512:1322:b0:5ae:b887:bb33 with SMTP id 2adb3069b0e04-5b8c17f5d99mr1030983e87.1.1789754514170;
+        Fri, 18 Sep 2026 11:01:54 -0700 (PDT)
+Received: from [194.95.0.0] ([104.28.232.201])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8c64a5bcesm165153e87.31.2026.09.18.11.01.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 18 Sep 2026 11:01:53 -0700 (PDT)
+Message-ID: <33a7c239-ede5-4091-ba72-ff429d97013c@gmail.com>
+Date: Fri, 18 Sep 2026 21:01:52 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <7fdf0f5b1be4b561c884c5200d6606a947cbc09d.1789594774.git.ashish.kalra@amd.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] HID: multitouch: add support for Goodix GXTP7863
+ touchpad
+To: Benjamin Tissoires <bentiss@kernel.org>
+Cc: jikos@kernel.org, linux-input@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260814171247.16707-1-daminovruzal7@gmail.com>
+ <20260819123326.3242-1-daminovruzal7@gmail.com> <aquWNXpJuQr8HLBU@beelink>
+ <51055e02-5bf1-4b1e-b430-382d00d3d004@gmail.com> <aqwUYWPz_nORoFr6@beelink>
+Content-Language: en-US
+From: Ruzal <daminovruzal7@gmail.com>
+In-Reply-To: <aqwUYWPz_nORoFr6@beelink>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 16, 2026 at 10:14:52PM +0000, Ashish Kalra wrote:
-> Changes in v15:
-> - Rename snp_setup_rmpopt() to snp_enable_rmpopt().
-> - Program each core's RMPOPT_BASE only when it is not already set.
->  arch/x86/include/asm/msr-index.h |  3 ++
->  arch/x86/include/asm/sev.h       |  2 +
->  arch/x86/virt/svm/sev.c          | 66 +++++++++++++++++++++++++++++---
->  drivers/crypto/ccp/sev-dev.c     |  2 +
->  4 files changed, 68 insertions(+), 5 deletions(-)
+On 9/18/26 7:18 PM, Benjamin Tissoires wrote:
 
-Did some scrubbing:
+> On Sep 17 2026, Ruzal wrote:
+>> On 9/17/26 10:30 AM, Benjamin Tissoires wrote:
+>>> Hi,
+>>>
+>>> sorry it looks like this one fell through the cracks.
+>>>
+>>> On Aug 19 2026, Ruzal Daminov wrote:
+>>>> The Goodix GXTP7863 touchpad controller (VID: 0x27c6, PID: 0x01e0)
+>>>> found on Honor MagicBook laptops (e.g. FMI-76 / X14 Plus)
+>>>> was missing from the mt_devices[] table.
+>>>>
+> [...]
+>>>>  
+>>>> +	/* Goodix GXTP7863 Touchpad */
+>>>> +	{ .driver_data = MT_CLS_WIN_8,
+>>>> +	  HID_DEVICE(BUS_I2C, HID_GROUP_ANY, I2C_VENDOR_ID_GOODIX,
+>>> I'm puzzled here: HID_GROUP_ANY? How can this even be working with hid-multitouch?
+>>>
+>>> Are you sure the touchpad part is not already handled by hid-multitouch, but only
+>>> the telemetry/phantom event gets assigned to hid-generic?
+>>>
+>>> Can you share the report descriptors of all nodes with hid-recorder so I
+>>> can understand why we suddenly have to map to non multitouch devices.
+>>>
+>>> Cheers,
+>>> Benjamin
+>> Hi Benjamin,
+>>
+>> Thanks for pointing that out. You were completely right, and I apologize
+>> for the inaccurate explanation in my previous commit messages.
+> no need to apologize, we can make mistakes, and that's our job as
+> maintainers to catch them :)
+>
+>> I re-checked the device binding: the touchpad is indeed claimed by
+>> hid-multitouch out of the box under HID_GROUP_MULTITOUCH_WIN_8 (using
+>> MT_CLS_WIN_8). It was never claimed by hid-generic.
+> Well, I guess it was the first time you started the laptop, until
+> hid-multitouch gets loaded.
+>
+>> The actual root cause is that MT_CLS_WIN_8 sets `.export_all_inputs = true`.
+>> Because of this, hid-multitouch exports the vendor application collection
+>> (Usage Page 0xFF01, Usage 0x01, Report ID 8) to an input node.
+> Actually, it's even worse than that.
+>
+> Because some vendors are not using standard HID usages, we do have a
+> `HID_UP_HPVENDOR2` definition of (Usage Page 0xFF01). And hid-input.c
+> considers that this is only used by HP laptops/keyboards, and then we
+> have some fancy mapping of non standard usages.
+>
+> The real fix would be to actually ensure this mapping is only triggered
+> for:
+> - keyboards
+> - HP platforms
+>
+> But, there is always a but, `HID_UP_HPVENDOR` was there since the origin
+> of time (git conversion IIRC), and `HID_UP_HPVENDOR2` appeared in 2012.
+>
+> We do have some info on the affected devices (VID/PID) but nothing else
+> like the report descriptor. So it's the typical case of "damn, we can't
+> fix this without possibly regressing a lot of existing hardware".
+>
+>> As captured in the hid-recorder trace below, the firmware sends a 1-Hz
+>> heartbeat packet on Report ID 8:
+>>   E: 000000.000000 30 08 ab 00 00 2a ...
+>>   E: 000001.006503 30 08 ab 00 00 2a ...
+>>   E: 000002.012748 30 08 ab 00 00 2a ...
+>>
+>> hid-input interprets these changing payload bytes as key events, resulting
+>> in the endless KEY_BRIGHTNESSUP autorepeat loop.
+>>
+>> So, adding the device entry with HID_GROUP_ANY to mt_devices[] is indeed
+>> completely redundant. The only thing needed is to ignore the 0xFF01 vendor
+>> collection so that no phantom input node is created for it.
+>>
+>> Here is the report descriptor and event recording from hid-recorder:
+>>
+>> # GXTP7863:00 27C6:01E0
+>> # 0x05, 0x01,                    // Usage Page (Generic Desktop)        0
+>> # 0x09, 0x02,                    // Usage (Mouse)                       2
+> [...]
+>> # 0xc0,                          // End Collection                      624
+>> # 0x06, 0x01, 0xff,              // Usage Page (Vendor Usage Page 0xff01) 625
+>> # 0x09, 0x01,                    // Usage (Vendor Usage 0x01)           628
+>> # 0xa1, 0x01,                    // Collection (Application)            630
+>> # 0x85, 0x08,                    //  Report ID (8)                      632
+>> # 0x09, 0x01,                    //  Usage (Vendor Usage 0x01)          634
+>> # 0x19, 0x00,                    //  Usage Minimum (0)                  636
+>> # 0x29, 0xff,                    //  Usage Maximum (255)                638
+>> # 0x15, 0x00,                    //  Logical Minimum (0)                640
+>> # 0x25, 0xff,                    //  Logical Maximum (255)              642
+>> # 0x95, 0x40,                    //  Report Count (64)                  644
+>> # 0x75, 0x08,                    //  Report Size (8)                    646
+>> # 0x91, 0x02,                    //  Output (Data,Var,Abs)              648
+>> # 0x09, 0x01,                    //  Usage (Vendor Usage 0x01)          650
+>> # 0x19, 0x00,                    //  Usage Minimum (0)                  652
+> Technically, we could simply convert these 0x01 and 0x00 into 0x05 and
+> this would make the mapping ignored by hid-input.c
+>
+> However, when changing those bytes in the hid-recorder output and
+> replaying the device this creates a 10 seconds freeze on my desktop
+> because some component is not happy about the empty input node it creates.
+>
+> I'm trying to investigate what is going on, without much success. I'll
+> continue working on it on Monday.
+>
+>> # 0x29, 0xff,                    //  Usage Maximum (255)                654
+>> # 0x15, 0x00,                    //  Logical Minimum (0)                656
+>> # 0x25, 0xff,                    //  Logical Maximum (255)              658
+>> # 0x95, 0x1d,                    //  Report Count (29)                  660
+>> # 0x81, 0x02,                    //  Input (Data,Var,Abs)               662
+>> # 0xc0,                          // End Collection                      664
+> [...]
+>> Would you prefer handling this by simply dropping the 0xff010001 collection
+>> in mt_input_mapping() in hid-multitouch, or should this device quirk be
+>> implemented via HID-BPF instead?
+> So:
+> - mt_input_mapping() in hid-multitouch -> probably not. Having such
+>   quirk in the hid-multitouch code would be better handled with a proper
+>   quirk, not a random check in mt_input_mapping().
+> - HID-BPF: so far, if it weren't for that 10s freeze, I would have said
+>   yes, go for it. But right now there is something fishy in the code
+>   that creates empty input devices that are not properly cleaned up by
+>   hid-input and that messes up userspace.
+>  
+> Ideally we should fix the generic mapping, but that has a strong chance
+> of regressing existing HW, which is a PITA.
+>
+> And to add to the bucket, when replaying your device, I see that fwupd
+> is trying to communicate with the device, so we should be sure to not
+> break this as well :(
+>
+> Hopefully I'll have a better understanding next week.
+>
+> Cheers,
+> Benjamin
+Hi Benjamin,
 
-commit 61132258c7a139a9533ae24b056a099184b70e50 (HEAD -> refs/heads/tip-x86-sev)
-Author: Ashish Kalra <ashish.kalra@amd.com>
-Date:   Wed Sep 16 22:14:52 2026 +0000
+I did some testing to investigate the freeze you
+experienced.
 
-    x86/sev: Initialize RMPOPT configuration MSRs
-    
-    The new RMPOPT instruction helps manage per-CPU RMP optimization
-    structures inside the CPU. It takes a 1GB-aligned physical address and
-    either returns the status of the optimizations or tries to enable the
-    optimizations.
-    
-    Initialize the per-CPU RMPOPT table base to the starting physical
-    address.  This enables RMP optimization for up to 2 TB of system RAM on
-    all CPUs because this is the maximum the RMPOPT tables support.
-    
-    The RMPOPT_BASE MSR can only be written after SNP is enabled, so the
-    enabling runs from the ccp SNP init path (and again on guest teardown)
-    rather than from an initcall. This is also in line with the intention to
-    not enable SNP by default but enable it on demand, when the ccp module
-    is loaded.
-    
-    RMPOPT_BASE is programmed on all primary threads.  RMPOPT_EN cannot be
-    cleared while SNP is enabled, and CPU hotplug is disabled while SNP is
-    active, so once programmed the MSRs stay set on all CPUs until SNP is
-    disabled.  A set RMPOPT_EN on the local CPU therefore means the
-    programming has already been done and thus it can be skipped.
-    
-      [ bp:
-        - Massage commit message
-        - move enabling logic into the commit message
-        - zap unnecessary comments
-        - cleanup ]
-    
-    Suggested-by: Thomas Lendacky <thomas.lendacky@amd.com>
-    Suggested-by: Dave Hansen <dave.hansen@linux.intel.com>
-    Signed-off-by: Ashish Kalra <ashish.kalra@amd.com>
-    Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-    Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
-    Link: https://patch.msgid.link/7fdf0f5b1be4b561c884c5200d6606a947cbc09d.1789594774.git.ashish.kalra@amd.com
+I tried two different descriptor modifications to see how userspace reacts:
 
-diff --git a/arch/x86/include/asm/msr-index.h b/arch/x86/include/asm/msr-index.h
-index 3a8e51a0c9e8..1635e2e1c576 100644
---- a/arch/x86/include/asm/msr-index.h
-+++ b/arch/x86/include/asm/msr-index.h
-@@ -761,6 +761,9 @@
- #define MSR_AMD64_SEG_RMP_ENABLED_BIT	0
- #define MSR_AMD64_SEG_RMP_ENABLED	BIT_ULL(MSR_AMD64_SEG_RMP_ENABLED_BIT)
- #define MSR_AMD64_RMP_SEGMENT_SHIFT(x)	(((x) & GENMASK_ULL(13, 8)) >> 8)
-+#define MSR_AMD64_RMPOPT_BASE		0xc0010139
-+#define MSR_AMD64_RMPOPT_ENABLE_BIT	0
-+#define MSR_AMD64_RMPOPT_ENABLE		BIT_ULL(MSR_AMD64_RMPOPT_ENABLE_BIT)
- 
- #define MSR_SVSM_CAA			0xc001f000
- 
-diff --git a/arch/x86/include/asm/sev.h b/arch/x86/include/asm/sev.h
-index 9e7a077c445d..fa81aa004e8b 100644
---- a/arch/x86/include/asm/sev.h
-+++ b/arch/x86/include/asm/sev.h
-@@ -662,6 +662,7 @@ static inline void snp_leak_pages(u64 pfn, unsigned int pages)
- 	__snp_leak_pages(pfn, pages, true);
- }
- int snp_prepare(void);
-+void snp_enable_rmpopt(void);
- void snp_shutdown(void);
- #else
- static inline bool snp_probe_rmptable_info(void) { return false; }
-@@ -680,6 +681,7 @@ static inline void snp_leak_pages(u64 pfn, unsigned int npages) {}
- static inline void kdump_sev_callback(void) { }
- static inline void snp_fixup_e820_tables(void) {}
- static inline int snp_prepare(void) { return -ENODEV; }
-+static inline void snp_enable_rmpopt(void) {}
- static inline void snp_shutdown(void) {}
- #endif
- 
-diff --git a/arch/x86/virt/svm/sev.c b/arch/x86/virt/svm/sev.c
-index 558f7924a3f8..1fecd246ce5f 100644
---- a/arch/x86/virt/svm/sev.c
-+++ b/arch/x86/virt/svm/sev.c
-@@ -124,6 +124,8 @@ static void *rmp_bookkeeping __ro_after_init;
- 
- static u64 probed_rmp_base, probed_rmp_size;
- 
-+static phys_addr_t rmpopt_pa_start;
-+
- static LIST_HEAD(snp_leaked_pages_list);
- static DEFINE_SPINLOCK(snp_leaked_pages_list_lock);
- 
-@@ -575,6 +577,34 @@ void snp_shutdown(void)
- }
- EXPORT_SYMBOL_FOR_MODULES(snp_shutdown, "ccp");
- 
-+static bool rmpopt_capable(void)
-+{
-+	return cpu_feature_enabled(X86_FEATURE_RMPOPT) &&
-+	       cc_platform_has(CC_ATTR_HOST_SEV_SNP);
-+}
-+
-+void snp_enable_rmpopt(void)
-+{
-+	u64 base;
-+	int cpu;
-+
-+	if (!rmpopt_capable())
-+		return;
-+
-+	rmpopt_pa_start = ALIGN_DOWN(PFN_PHYS(min_low_pfn), SZ_1G);
-+
-+	/*
-+	 * Per-CPU RMPOPT tables cover at most 2 TB.  Program each core's
-+	 * RMPOPT_BASE with the start of RAM to optimize up to 2 TB.
-+	 */
-+	rdmsrq(MSR_AMD64_RMPOPT_BASE, base);
-+	if (!(base & MSR_AMD64_RMPOPT_ENABLE))
-+		for_each_cpu(cpu, cpu_primary_thread_mask)
-+			wrmsrq_on_cpu(cpu, MSR_AMD64_RMPOPT_BASE,
-+				      rmpopt_pa_start | MSR_AMD64_RMPOPT_ENABLE);
-+}
-+EXPORT_SYMBOL_FOR_MODULES(snp_enable_rmpopt, "ccp");
-+
- /*
-  * Do the necessary preparations which are verified by the firmware as
-  * described in the SNP_INIT_EX firmware command description in the SNP
-@@ -699,13 +729,21 @@ static bool probe_segmented_rmptable_info(void)
- 
- bool snp_probe_rmptable_info(void)
- {
--	if (cpu_feature_enabled(X86_FEATURE_SEGMENTED_RMP))
-+	if (cpu_feature_enabled(X86_FEATURE_SEGMENTED_RMP)) {
- 		rdmsrq(MSR_AMD64_RMP_CFG, rmp_cfg);
- 
--	if (rmp_cfg & MSR_AMD64_SEG_RMP_ENABLED)
--		return probe_segmented_rmptable_info();
--	else
--		return probe_contiguous_rmptable_info();
-+		if (rmp_cfg & MSR_AMD64_SEG_RMP_ENABLED) {
-+			if (probe_segmented_rmptable_info())
-+				return true;
-+
-+			setup_clear_cpu_cap(X86_FEATURE_RMPOPT);
-+			return false;
-+		}
-+	} else {
-+		setup_clear_cpu_cap(X86_FEATURE_RMPOPT);
-+	}
-+
-+	return probe_contiguous_rmptable_info();
- }
- 
- /*
-diff --git a/drivers/crypto/ccp/sev-dev.c b/drivers/crypto/ccp/sev-dev.c
-index f833cb7e4da3..5c996ab63895 100644
---- a/drivers/crypto/ccp/sev-dev.c
-+++ b/drivers/crypto/ccp/sev-dev.c
-@@ -1663,6 +1663,8 @@ static int __sev_snp_init_locked(int *error, unsigned int max_snp_asid)
- 
- 	sev_es_tmr_size = SNP_TMR_SIZE;
- 
-+	snp_enable_rmpopt();
-+
- 	return 0;
- }
- 
--- 
-Regards/Gruss,
-    Boris.
+1. Test A (Your approach: changing Usage Page 0xFF01 to 0xFF05):
+   Changing the usage page indeed strips the keyboard keys
+   (KEY_BRIGHTNESSUP/DOWN disappear), but hid-input still registers the
+   third input node ("GXTP7863:00 27C6:01E0 UNKNOWN").
 
-https://people.kernel.org/tglx/notes-about-netiquette
+   Checking /proc/bus/input/devices during the replay shows that this node
+   is created with an anomalous capability set:
+     N: Name="GXTP7863:00 27C6:01E0 UNKNOWN"
+     H: Handlers=event15
+     B: PROP=0
+     B: EV=9 (EV_SYN | EV_ABS)
+     B: ABS=10000000000 (ABS_MISC only, zero keys, no X/Y axes)
+
+   This triggered the desktop freeze for ~15 seconds until the timeout
+   expired and the system recovered.
+
+2. Test B (Changing the 29-byte payload to Constant/Padding):
+   I also tried keeping the original Usage Page 0xFF01 but changing
+   `Input (Data,Var,Abs)` (0x81, 0x02) to `Input (Cnst,Var,Abs)` (0x81, 0x03)
+   in Report ID 8, hoping hid-input would ignore the fields.
+
+   Running `libinput debug-events` during this test captured the exact
+   watchdog trace during the stall:
+     event13  DEVICE_ADDED                 GXTP7863:00 27C6:01E0 Mouse
+     client bug: timer event6 keyboard: scheduled expiry is in the past (-14747ms), your system is too slow
+     client bug: timer event6 hold: scheduled expiry is in the past (-14396ms), your system is too slow
+     client bug: timer event6 hold: scheduled expiry is in the past (-14389ms), your system is too slow
+     client bug: timer event6 hold: scheduled expiry is in the past (-14369ms), your system is too slow
+     event14  DEVICE_ADDED                 GXTP7863:00 27C6:01E0 Touchpad
+
+   libinput explicitly confirms that the compositor's event loop was
+   completely blocked for 14,747 ms (~15 seconds) during enumeration.
+   Notice that the third node (UNKNOWN) is never even announced as
+   DEVICE_ADDED.
+
+Conclusion:
+Both descriptor-level approaches confirm what you suspected: modifying the
+descriptor still leaves the application collection instantiated as an empty/
+broken input node, which trips up libinput and blocks the compositor event
+loop for ~15 seconds.
+
+Hope this empirical data helps you track down the hid-input cleanup issue on
+Monday!
+
+Cheers,
+Ruzal
