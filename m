@@ -1,30 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 435304F4CF4
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:14:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6D2E511229
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:14:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789748057; cv=none; b=tuZtTyeOndv0/qfDx7Mx9sTX4PTarj4zQlRhFuVRINhgQ2onhiEShMqAwgzMjwSUI4GpSlNd/sIdw2qHvliYu7etctbNhMuKK13vyTYoJi10zwR+Q16zuhtL0pPCIFhinJC3tnDA6N9Jd4/9kRMBcH7LirbHq/us6ntob8nQwww=
+	t=1789748062; cv=none; b=NVuRI3gUERcvWnAmvZmzy+/NGIjeHeYVujJU3H+ii03fp0/RolERadqpvhzOySI91fLOuWB4EYySf8hrg3hj30CvLtk9wfsoR7Heqm1fVle4k5awhuYQs3w5hdCYpqZATQzmI9EakMKyeNutTrklmHT/Q6Mp4K7/JSCvSAmcj70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789748057; c=relaxed/simple;
-	bh=45Os9dok78RfEbHW3Rd8R/S6LjvlK7ufMwgd9l9xIKs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HXwPlTVefKFuOFt5YfUnfrcjq2UE3Z//VtynEafQrw2uWgXjP/M2hZcrYhVKsk43k+W1fj7pYHBQc0201bxsig+o1MeaDu/0cBUIvaHlkeaWBazNkbMFIdGG9oWEKN3jhKzEDBiflyjqHZDhIELGOs9UuNkk5eayAqSL8wDRn4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JfNDDED3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789748062; c=relaxed/simple;
+	bh=jEHOyThQNVQGH87GswmHtKYBQUn0el5qwv3lK3LootU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=GZ+MTTjrnaRsGd5hY/9O8eIg3nAKVLgTbpPQ6z0YXvf4kTtQ+C/WNRz7BoJ+RLGdwfIxVD9tbcdpuy6YaOPhTu/xUu1Wz73hAcHKQ++Lixy1XeRtx+MZpwgbWXcz64Ab5UtzGk5M7V0t7iTcCr4U0cjiV8fFXbtM5ApHZJimr9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iJ/U7tCM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JfNDDED3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB6B21F000FF;
-	Fri, 18 Sep 2026 16:14:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iJ/U7tCM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F4BF1F00898;
+	Fri, 18 Sep 2026 16:14:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789748055;
-	bh=VB5k3Wml/fFNZyCpymkNQJ+FvcHgU5DxlT/k8e3AOT0=;
-	h=From:To:Cc:Subject:Date;
-	b=JfNDDED3TFrWpiX+nNirvrgEs/m6uPBbLSElfwyQm9AUKS6xZYMBmM/fdYK0m/TLh
-	 1grbiZWVzUeNDpFxlHzxAdPpl77Yt86F/wVWEptggr1NhIbYLooOjTDP1B7p74cHiK
-	 lcDRarH0F2Jb0AudIg/216NPdLRgKnNPZLVLghsCJSYv35mfkuD5yYuUO2+li8zwGW
-	 6mbMDhlzLnCXbaq+TaXu0ULaQKb7Dv+J8bR3Fe35PDDlGHLDVyMZbLPHISM/PSCGBa
-	 uY/KSwxNcbLZbCPw2/U5VH2RisPJmGoW97jWu1FCcj7LAyfT19jvpvdf3+WfS2pMWt
-	 Xo7R+xspjSuWQ==
+	s=k20260515; t=1789748059;
+	bh=g05Ard4UsBeemIxWUEUKYYZHiVLLsuvwUe2V0GrB124=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=iJ/U7tCMmdcODZval+eCkvTcE/eHYCD/sk5kfMZJcWywfaUd5spljQRtyBnx2LLcr
+	 mvOYukQVMrnMRhxDtFtAYpGoMnhyOa7KbHNsFb9umxVfLqPyWmp5/2Vu8aE5v2DDei
+	 4M9OVXmoEijL8ztroDyvYwqaxwDMFKJu2KhtG39A3rhg19Isk/1Z6p0IuD81zB/wPT
+	 /8ysYLuZ90um3OuJCNfUbo159L37cfQ3cqkB2bAsIcRoFhlmGldQFENq0osA/ouRW+
+	 xF5jmImyd7jDelonalvOm/5ryybQ6GNT/08JxX9Wo0BiifR4WxmcWmI6ABZRT4fGBw
+	 8Q9a6i4QiIZFg==
 From: Will Deacon <will@kernel.org>
 To: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org,
@@ -40,11 +41,14 @@ Cc: linux-kernel@vger.kernel.org,
 	Lorenzo Stoakes <ljs@kernel.org>,
 	Oliver Upton <oupton@kernel.org>,
 	Linus Walleij <linusw@kernel.org>,
-	Marc Zyngier <maz@kernel.org>
-Subject: [PATCH v2 00/21] arm64: Move overflow sp into SP_EL1 and kernel sp into SP_EL0
-Date: Fri, 18 Sep 2026 17:13:44 +0100
-Message-ID: <20260918161407.2300-1-will@kernel.org>
+	Marc Zyngier <maz@kernel.org>,
+	Jinjie Ruan <ruanjinjie@huawei.com>
+Subject: [PATCH v2 01/21] arm64: entry: Defer setting of TPIDRRO_EL0 until exit to userspace
+Date: Fri, 18 Sep 2026 17:13:45 +0100
+Message-ID: <20260918161407.2300-2-will@kernel.org>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260918161407.2300-1-will@kernel.org>
+References: <20260918161407.2300-1-will@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,101 +57,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi folks,
+In preparation for using TPIDRRO_EL0 to point at 'current' while running
+inside the kernel, defer its userspace initialisation from the
+context-switch patch to exception return. This has the added benefit of
+not having to worry about keeping the in-memory value and the register
+value in-sync during preemptible sections.
 
-This is version two of the kernel stack juggling patches I previously
-posted here:
-
-  https://lore.kernel.org/r/20260907164247.17223-1-will@kernel.org
-
-Changes since v1 include:
-  * Fixed suspend/resume paths to handle the stack pointers properly
-  * Fixed restoration of ptrauth keys on resume
-  * Added tags
-
-Cheers,
-
-Will
-
-Cc: Arnd Bergmann <arnd@arndb.de>
-Cc: Ard Biesheuvel <ardb@kernel.org>
-Cc: Ada Couprie Diaz <ada.coupriediaz@arm.com>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Vladimir Murzin <vladimir.murzin@arm.com>
 Cc: Mark Rutland <mark.rutland@arm.com>
-Cc: Mostafa Saleh <smostafa@google.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Oliver Upton <oupton@kernel.org>
-Cc: Linus Walleij <linusw@kernel.org>
-Cc: Marc Zyngier <maz@kernel.org>
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Signed-off-by: Will Deacon <will@kernel.org>
+---
+ arch/arm64/kernel/asm-offsets.c |  1 +
+ arch/arm64/kernel/entry.S       |  4 +++-
+ arch/arm64/kernel/process.c     | 16 +---------------
+ arch/arm64/kernel/sys_compat.c  |  7 -------
+ 4 files changed, 5 insertions(+), 23 deletions(-)
 
---->8
-
-Mostafa Saleh (1):
-  KVM: arm64: Protect TPIDRRO_EL0 across guest entry/exit
-
-Will Deacon (20):
-  arm64: entry: Defer setting of TPIDRRO_EL0 until exit to userspace
-  arm64: entry: Only check for stack overflow on exceptions from EL1
-  arm64: stackprotector: Temporarily disable per-task stackprotector
-  arm64: bpf: Add support for generating reads of TPIDRRO_EL0
-  arm64: Store 'current' in TPIDRRO_EL0 instead of SP_EL0
-  selftests/bpf: arm64: Use TPIDRRO_EL0 instead of SP_EL0 for 'current'
-  scripts/gdb: arm64: Use TPIDRRO_EL0 instead of SP_EL0 for 'current'
-  arm64: stackprotector: Re-enable per-task stackprotector
-  arm64: percpu: Specialise set_my_cpu_offset() for the primary CPU
-  arm64: percpu: Annotate __kern_my_cpu_offset() as '__always_inline'
-  KVM: arm64: Preserve handler/thread bit of EL1 mode in
-    __finalise_el2()
-  arm64: sdei: Guard most of asm/sdei.h with CONFIG_ARM_SDE_INTERFACE
-  arm64: sdei: Support SDEI events from kernel handler and thread modes
-  arm64: entry: Point SP_EL0 at the overflow stack
-  arm64: entry: Implement EL1t exception handlers for overflow stack
-  arm64: entry: Use SPSel to switch to overflow stack
-  arm64: entry: Split up kernel_ventry macro into separate helper macros
-  arm64: entry: The great stack switcheroo
-  arm64: tracing: Advertise a mode of EL1t in synthetic kernel regs
-  arm64: Rename 'overflow_stack' and OVERFLOW_STACK_SIZE
-
- arch/arm64/Kconfig                            |   2 +-
- arch/arm64/Makefile                           |   2 +-
- arch/arm64/include/asm/assembler.h            |   2 +-
- arch/arm64/include/asm/current.h              |   6 +-
- arch/arm64/include/asm/ftrace.h               |   4 +-
- arch/arm64/include/asm/insn.h                 |   1 +
- arch/arm64/include/asm/kvm_asm.h              |  26 +++++
- arch/arm64/include/asm/memory.h               |  10 +-
- arch/arm64/include/asm/percpu.h               |  10 +-
- arch/arm64/include/asm/perf_event.h           |   2 +-
- arch/arm64/include/asm/sdei.h                 |   2 +
- arch/arm64/include/asm/stacktrace.h           |   9 +-
- arch/arm64/include/asm/stacktrace/nvhe.h      |   3 +-
- arch/arm64/include/uapi/asm/ptrace.h          |   1 +
- arch/arm64/kernel/asm-offsets.c               |   2 +
- arch/arm64/kernel/entry-common.c              |  51 +++++++--
- arch/arm64/kernel/entry.S                     | 108 +++++++++---------
- arch/arm64/kernel/head.S                      |   8 +-
- arch/arm64/kernel/hyp-stub.S                  |   7 +-
- arch/arm64/kernel/process.c                   |  21 +---
- arch/arm64/kernel/sdei.c                      |   6 +-
- arch/arm64/kernel/sleep.S                     |   3 +-
- arch/arm64/kernel/smp.c                       |  19 ++-
- arch/arm64/kernel/stacktrace.c                |   2 +-
- arch/arm64/kernel/sys_compat.c                |   7 --
- arch/arm64/kernel/traps.c                     |  14 +--
- arch/arm64/kvm/hyp/entry.S                    |  15 ++-
- arch/arm64/kvm/hyp/include/hyp/sysreg-sr.h    |   2 -
- arch/arm64/kvm/hyp/nvhe/host.S                |   2 +-
- arch/arm64/kvm/hyp/nvhe/stacktrace.c          |   4 +-
- arch/arm64/kvm/stacktrace.c                   |   4 +-
- arch/arm64/mm/proc.S                          |  16 ++-
- arch/arm64/net/bpf_jit.h                      |   2 +
- arch/arm64/net/bpf_jit_comp.c                 |   4 +-
- scripts/gdb/linux/cpus.py                     |   2 +-
- .../selftests/bpf/progs/verifier_jit_inline.c |   2 +-
- 36 files changed, 230 insertions(+), 151 deletions(-)
-
+diff --git a/arch/arm64/kernel/asm-offsets.c b/arch/arm64/kernel/asm-offsets.c
+index 9c853ed3ceab..6038ab3beb25 100644
+--- a/arch/arm64/kernel/asm-offsets.c
++++ b/arch/arm64/kernel/asm-offsets.c
+@@ -42,6 +42,7 @@ int main(void)
+ #endif
+   BLANK();
+   DEFINE(THREAD_CPU_CONTEXT,	offsetof(struct task_struct, thread.cpu_context));
++  DEFINE(THREAD_TP_VALUE,	offsetof(struct task_struct, thread.uw.tp_value));
+   DEFINE(THREAD_SCTLR_USER,	offsetof(struct task_struct, thread.sctlr_user));
+ #ifdef CONFIG_ARM64_PTR_AUTH
+   DEFINE(THREAD_KEYS_USER,	offsetof(struct task_struct, thread.keys_user));
+diff --git a/arch/arm64/kernel/entry.S b/arch/arm64/kernel/entry.S
+index f63049ac32dc..59f045e496ec 100644
+--- a/arch/arm64/kernel/entry.S
++++ b/arch/arm64/kernel/entry.S
+@@ -47,7 +47,6 @@
+ 	b	.Lskip_tramp_vectors_cleanup\@
+ 	.if	\regsize == 64
+ 	mrs	x30, tpidrro_el0
+-	msr	tpidrro_el0, xzr
+ 	.else
+ 	mov	x30, xzr
+ 	.endif
+@@ -360,9 +359,12 @@ alternative_else_nop_endif
+ 	.if	\el == 0
+ 	ldr	x23, [sp, #S_SP]		// load return stack pointer
+ 	msr	sp_el0, x23
++	msr	tpidrro_el0, xzr
+ 	tst	x22, #PSR_MODE32_BIT		// native task?
+ 	b.eq	3f
+ 
++	ldr	x0, [tsk, #THREAD_TP_VALUE]
++	msr	tpidrro_el0, x0
+ #ifdef CONFIG_ARM64_ERRATUM_845719
+ alternative_if ARM64_WORKAROUND_845719
+ #ifdef CONFIG_PID_IN_CONTEXTIDR
+diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
+index 581f80e9b9b7..bfdc12166895 100644
+--- a/arch/arm64/kernel/process.c
++++ b/arch/arm64/kernel/process.c
+@@ -256,17 +256,8 @@ static void tls_thread_flush(void)
+ 	if (system_supports_tpidr2())
+ 		write_sysreg_s(0, SYS_TPIDR2_EL0);
+ 
+-	if (is_compat_task()) {
++	if (is_compat_task())
+ 		current->thread.uw.tp_value = 0;
+-
+-		/*
+-		 * We need to ensure ordering between the shadow state and the
+-		 * hardware state, so that we don't corrupt the hardware state
+-		 * with a stale shadow state during context switch.
+-		 */
+-		barrier();
+-		write_sysreg(0, tpidrro_el0);
+-	}
+ }
+ 
+ static void flush_tagged_addr_state(void)
+@@ -531,11 +522,6 @@ static void tls_thread_switch(struct task_struct *next)
+ {
+ 	tls_preserve_current_state();
+ 
+-	if (is_compat_thread(task_thread_info(next)))
+-		write_sysreg(next->thread.uw.tp_value, tpidrro_el0);
+-	else
+-		write_sysreg(0, tpidrro_el0);
+-
+ 	write_sysreg(*task_user_tls(next), tpidr_el0);
+ 	if (system_supports_tpidr2())
+ 		write_sysreg_s(next->thread.tpidr2_el0, SYS_TPIDR2_EL0);
+diff --git a/arch/arm64/kernel/sys_compat.c b/arch/arm64/kernel/sys_compat.c
+index 0451f96c2c3f..59eee301c6f4 100644
+--- a/arch/arm64/kernel/sys_compat.c
++++ b/arch/arm64/kernel/sys_compat.c
+@@ -89,13 +89,6 @@ long compat_arm_syscall(struct pt_regs *regs, int scno)
+ 
+ 	case __ARM_NR_compat_set_tls:
+ 		current->thread.uw.tp_value = regs->regs[0];
+-
+-		/*
+-		 * Protect against register corruption from context switch.
+-		 * See comment in tls_thread_flush.
+-		 */
+-		barrier();
+-		write_sysreg(regs->regs[0], tpidrro_el0);
+ 		return 0;
+ 
+ 	default:
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
