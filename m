@@ -1,185 +1,343 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 566C634A791;
-	Fri, 18 Sep 2026 05:30:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8F4C2F1FDF
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 05:31:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789709420; cv=none; b=KHOAzZcRu8MdXrof+uq69z4EAXZ7Do+X0WYaKJdf2LNAUiXil+l1huJS44b6YgcawUqwK/AqzTlRDFYgQYhwa+NNhyeTOOGLKGm+f3hEqb9fIKUekbDRWyB1cHpfkw1WmERBBz6sDz2CWQXC5NqSyyYqoqQDe435Tw9AGGQ6rNg=
+	t=1789709464; cv=none; b=NrA9ckzPVyM7QoNZ7ZpS+dZY8Qf0yO+OyFicwEhXaxwnCLvmy2N1MOlyTdc4DqWLvfgy/Ta/e/WPyemmJTV267SGOZa7F3evpqTxSBbDhg7FletS5Zf+z/yjhgKkoysKhqlk2P0ksJ/mDwK217fRFHB4ERxtPT0WHxjHmVLSoU0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789709420; c=relaxed/simple;
-	bh=2u7WM2Az5WGCuznKRHgG9ZW2G9Ztm22RFNuUE6ET7AY=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=E5vgAcQZrFfFkn+2gYgf1TbCVjs60PN3phyIi8/8vIaHPPT/mSJfg6xXD/yIGi284eCK9qnRo63V+cv8cpTDOV58wx6PNpx71eytEAyc8K3cJ0QvzyDB4uKk/zzm2rUyHWSOAZFR1iOKTArdKnO0rBFayKc9I7LNGxbAHDfZIw0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PH+ui5d8; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PH+ui5d8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ED591F000FF;
-	Fri, 18 Sep 2026 05:30:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789709419;
-	bh=uSG8JD6ADXrSi2jR52ykjUubPWou8qkTfr5gP9P4nBw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=PH+ui5d8oROePnxc0oMc5opx4ZOgeaQc0alo1cCjONbyFapoUx07dbZY2jnrDrFtk
-	 qt9IsaC0BG5vP9ta954xSDRlbF0vm9l43t4tbgWXiORcI5uEEG13oHl3JEzakJpH4B
-	 mw5jtwGkqQcegHRY56a3TmiGuPnI8nlrRx2OT/Vy9fcEdgiTk/VodSxIDbqqovH/Y+
-	 1k9xDTA07Utv3FaJHQIJfk1B4UaywzLoqhAIzr7tv8vYubXGWxJUaoGAHDyOEUXO6c
-	 MTgnvfpnfK/v2NzbCnmevNstRyWRef8PlyooYWvx60xc3p90Lg40AO+cKFxWqDhoso
-	 ZMFudDJ+/NRAw==
-Subject: Re: [PATCH net] octeontx2-af: guard is_pf_cgxmapped() when PF to CGX
- map is absent
-From: netdev-bot+sashiko@kernel.org
-To: rkannoth@marvell.com
-Cc: davem@davemloft.net, gakula@marvell.com, lcherian@marvell.com,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org, sgoutham@marvell.com,
- andrew+netdev@lunn.ch, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, saikrishnag@marvell.com
-Date: Fri, 18 Sep 2026 05:30:17 +0000
-Message-ID: <178970941782.22033.17901214089531533321@kernel.org>
-In-Reply-To: <20260915022952.886639-1-rkannoth@marvell.com>
-References: <20260915022952.886639-1-rkannoth@marvell.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=arc-20240116; t=1789709464; c=relaxed/simple;
+	bh=AQGbT+57m2bWw3I9uMed8dCXXWwbmrUgORLiPtWUPmA=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=U0sC+qQcQJ1LOncbDw8YXUImcWP2PmaEULAkJ9InbBVmpL6QPwpjqIYoPDQHEvVpqIEHnoVXBeoo4NeOaT1o/3V9ik1ZFyp+JaqnBovnsomTs4KzEFo33VDnlKZbiMBKGfvhrJlpMqxQJBe5hUJ5xW34jyoYorqeNSzkD4G2Iog=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-8051cdb9338so568119a34.3
+        for <linux-kernel@vger.kernel.org>; Thu, 17 Sep 2026 22:31:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789709462; x=1790314262;
+        h=content-transfer-encoding:content-type:to:from:subject:message-id
+         :in-reply-to:date:mime-version:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Jx2P8eWubv34fNaz66AydUkXQRNiSOcBAcdJsuByp7o=;
+        b=wyBJYj8sWXlNbw0oVZ5cqeo0Bu2lZBFYfY8mJnqnv5C2/mOsdjRMkUWwxjqeOjQSrr
+         zfHwZae3KjskLrqmhww5Kjzzg7SoQjyVB8WcSixrxnznOjo94yUKqSqV3nJNK8Gstc9E
+         QWZWQWi4OOyInbTbdMBvKuVLkZeZm3vv85iP40UWbtwSC5GlK0c2gAnuER7IzjRddLq8
+         gRG0ppXLiLW7AN+ZprkvzKp5On+DhNE1+n2WhxsCQLcgkmVtJLDxpSuWAjhrqduoUub/
+         PxIC0Py/fZOCubL6VJZeewjAkhgN16pD5/mqkZuYfS3juvQTnGY3CLcZkBt0I/Dim39M
+         GwLw==
+X-Forwarded-Encrypted: i=1; AKwUvByD0lqWFIIc/OXdU4fnLbhOudzxc0jiJjLHa/IqncsxV+YLNC6yO3t21n0hcwXkz5EdlgHkbsm9wFtoQZk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kF4T9cSH5NkIZHJq4ac2qIF2YZwULXEpUtG1S2pR3ez14QaQ1Q
+	bktWQOwnL1v51K4Fgu6proXjWpjGdRlQE5PtkZ9TrQN51vAMx+IkhH/+ZSNb9u//krSSTE/gekZ
+	AdMHA5E6eMN1FFEguwuDE/yB4MSU7vL6EjPElb+8cCv7F2eUFnezhB/ijrpE=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Received: by 2002:a05:6820:f02f:b0:6c7:cd95:f109 with SMTP id
+ 006d021491bc7-6ca9b52b57emr1375904eaf.29.1789709461801; Thu, 17 Sep 2026
+ 22:31:01 -0700 (PDT)
+Date: Thu, 17 Sep 2026 22:31:01 -0700
+In-Reply-To: <20260918051712.24978-1-kartikey406@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aaccc95.b398a7c9.1f86be.002f.GAE@google.com>
+Subject: Re: [syzbot] [media?] KASAN: slab-use-after-free Read in __dynamic_dev_dbg
+From: syzbot <syzbot+9bfac891bdd42eb708fc@syzkaller.appspotmail.com>
+To: kartikey406@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider:
+Hello,
 
-Critical: 0 · High: 0 · Medium: 1 (1) · Low: 0
+syzbot tried to test the proposed patch but the build/boot failed:
 
-- [Medium] The added `if (!rvu->pf2cgxlmac_map) return false;` in
-  `is_pf_cgxmapped()`…
+SYZFAIL: failed to recv rpc
 
-Pre-existing issues:
-- [Medium] Asymmetry between the NIX backpressure enable and disable
-  mailbox handlers for SDP interfaces.
+SYZFAIL: failed to recv rpc
+fd=3D3 want=3D4 recv=3D0 n=3D0 (errno 9: Bad file descriptor)
+execution of simple program fails: NOTFAIL: arptable checkpoint: getsockopt=
+(ARPT_SO_GET_ENTRIES) failed. table=3Dfilter (errno 22: Invalid argument).
 
---
 
-octeontx2-af: guard is_pf_cgxmapped() when PF to CGX map is absent
+Warning: Permanently added '[localhost]:54685' (ED25519) to the list of kno=
+wn hosts.
+2026/09/18 05:30:02 parsed 1 programs
+2026/09/18 05:30:02 serving rpc on tcp://32951
+[   47.745155][ T5743] cgroup: Unknown subsys name 'net'
+[   47.852384][ T5743] cgroup: Unknown subsys name 'cpuset'
+[   47.856459][ T5743] cgroup: Unknown subsys name 'rlimit'
+Setting up swapspace version 1, size =3D 127995904 bytes
+[   48.886846][ T5743] Adding 124996k swap on ./swap-file.  Priority:0 exte=
+nts:1 across:124996k=20
+[   51.358683][ T5755] soft_limit_in_bytes is deprecated and will be remove=
+d. Writing any value to this file has no effect. Please report your usecase=
+ to linux-mm@kvack.org if you depend on this functionality.
+[   51.365586][ T5755] ebtables: xtables 32bit compat interface no longer s=
+upported in namespaces and will be removed soon.
+[   51.375529][ T5755] arp_tables: xtables 32bit compat interface no longer=
+ supported in namespaces and will be removed soon.
+[   51.379024][   T37] wlan0: Created IBSS using preconfigured BSSID 50:50:=
+50:50:50:50
+[   51.379041][   T37] wlan0: Creating new IBSS network, BSSID 50:50:50:50:=
+50:50
+[   51.518286][  T228] wlan1: Created IBSS using preconfigured BSSID 50:50:=
+50:50:50:50
+[   51.518311][  T228] wlan1: Creating new IBSS network, BSSID 50:50:50:50:=
+50:50
+[   52.518770][   T66] Bluetooth: hci0: unexpected cc 0x0c03 length: 249 > =
+1
+[   52.526974][   T66] Bluetooth: hci0: unexpected cc 0x1003 length: 249 > =
+9
+[   52.535189][   T66] Bluetooth: hci0: unexpected cc 0x1001 length: 249 > =
+9
+[   52.539813][   T66] Bluetooth: hci0: unexpected cc 0x0c23 length: 249 > =
+4
+[   52.540335][   T66] Bluetooth: hci0: unexpected cc 0x0c38 length: 249 > =
+2
+[   52.541643][ T5769] bridge0: port 1(bridge_slave_0) entered blocking sta=
+te
+[   52.542691][ T5769] bridge0: port 1(bridge_slave_0) entered disabled sta=
+te
+[   52.542775][ T5769] bridge_slave_0: entered allmulticast mode
+[   52.545963][ T5769] bridge_slave_0: entered promiscuous mode
+[   52.558325][ T5769] bridge0: port 2(bridge_slave_1) entered blocking sta=
+te
+[   52.558372][ T5769] bridge0: port 2(bridge_slave_1) entered disabled sta=
+te
+[   52.558428][ T5769] bridge_slave_1: entered allmulticast mode
+[   52.560598][ T5769] bridge_slave_1: entered promiscuous mode
+[   52.584378][ T5769] bond0: (slave bond_slave_0): Enslaving as an active =
+interface with an up link
+[   52.611029][ T5769] bond0: (slave bond_slave_1): Enslaving as an active =
+interface with an up link
+[   52.648950][ T5769] team0: Port device team_slave_0 added
+[   52.660980][ T5769] team0: Port device team_slave_1 added
+[   52.719483][ T5769] batman_adv: batadv0: Adding interface: batadv_slave_=
+0
+[   52.719500][ T5769] batman_adv: batadv0: The MTU of interface batadv_sla=
+ve_0 is too small (1500) to handle the transport of batman-adv packets. Pac=
+kets going over this interface will be fragmented on layer2 which could imp=
+act the performance. Setting the MTU to 1532 would solve the problem.
+[   52.719521][ T5769] batman_adv: batadv0: Not using interface batadv_slav=
+e_0 (retrying later): interface not active
+[   52.737518][ T5769] batman_adv: batadv0: Adding interface: batadv_slave_=
+1
+[   52.737533][ T5769] batman_adv: batadv0: The MTU of interface batadv_sla=
+ve_1 is too small (1500) to handle the transport of batman-adv packets. Pac=
+kets going over this interface will be fragmented on layer2 which could imp=
+act the performance. Setting the MTU to 1532 would solve the problem.
+[   52.737551][ T5769] batman_adv: batadv0: Not using interface batadv_slav=
+e_1 (retrying later): interface not active
+[   52.909782][ T5809] ip_tables: xtables 32bit compat interface no longer =
+supported in namespaces and will be removed soon.
+[   52.910132][ T5809] ip6_tables: xtables 32bit compat interface no longer=
+ supported in namespaces and will be removed soon.
+[   52.936259][ T5769] hsr_slave_0: entered promiscuous mode
+[   52.942371][ T5769] hsr_slave_1: entered promiscuous mode
+[   53.428872][ T5769] netdevsim netdevsim4 netdevsim0: renamed from eth0
+[   53.436610][ T5769] 8021q: adding VLAN 0 to HW filter on device netdevsi=
+m0
+[   53.437232][ T5769] netdevsim netdevsim4 netdevsim1: renamed from eth1
+[   53.441662][ T5769] 8021q: adding VLAN 0 to HW filter on device netdevsi=
+m1
+[   53.442889][ T5769] netdevsim netdevsim4 netdevsim2: renamed from eth2
+[   53.457545][ T5769] 8021q: adding VLAN 0 to HW filter on device netdevsi=
+m2
+[   53.468017][ T5769] netdevsim netdevsim4 netdevsim3: renamed from eth3
+[   53.472353][ T5769] 8021q: adding VLAN 0 to HW filter on device netdevsi=
+m3
+[   53.554786][ T5769] 8021q: adding VLAN 0 to HW filter on device bond0
+[   53.574890][ T5769] 8021q: adding VLAN 0 to HW filter on device team0
+[   53.583923][   T37] bridge0: port 1(bridge_slave_0) entered blocking sta=
+te
+[   53.584039][   T37] bridge0: port 1(bridge_slave_0) entered forwarding s=
+tate
+[   53.592421][   T37] bridge0: port 2(bridge_slave_1) entered blocking sta=
+te
+[   53.592552][   T37] bridge0: port 2(bridge_slave_1) entered forwarding s=
+tate
+[   53.917390][ T5769] 8021q: adding VLAN 0 to HW filter on device batadv0
+[   54.072213][ T5769] veth0_vlan: entered promiscuous mode
+[   54.077626][ T5769] veth1_vlan: entered promiscuous mode
+[   54.092533][ T5769] veth0_macvtap: entered promiscuous mode
+[   54.094902][ T5769] veth1_macvtap: entered promiscuous mode
+[   54.106231][ T5769] batman_adv: batadv0: Interface activated: batadv_sla=
+ve_0
+[   54.111897][ T5769] batman_adv: batadv0: Interface activated: batadv_sla=
+ve_1
+[   54.141095][   T12] netdevsim netdevsim4 netdevsim3: set [1, 0] type 2 f=
+amily 0 port 6081 - 0
+[   54.141137][   T12] netdevsim netdevsim4 netdevsim2: set [1, 0] type 2 f=
+amily 0 port 6081 - 0
+[   54.141165][   T12] netdevsim netdevsim4 netdevsim1: set [1, 0] type 2 f=
+amily 0 port 6081 - 0
+[   54.141194][   T12] netdevsim netdevsim4 netdevsim0: set [1, 0] type 2 f=
+amily 0 port 6081 - 0
+[   54.184771][   T12] netdevsim netdevsim4 netdevsim3 (unregistering): uns=
+et [1, 0] type 2 family 0 port 6081 - 0
+SYZFAIL: failed to recv rpc
+fd=3D3 want=3D4 recv=3D0 n=3D0 (errno 9: Bad file descriptor)
+execution of simple program fails: NOTFAIL: arptable checkpoint: getsockopt=
+(ARPT_SO_GET_ENTRIES) failed. table=3Dfilter (errno 22: Invalid argument).
+[   54.261521][   T12] netdevsim netdevsim4 netdevsim2 (unregistering): uns=
+et [1, 0] type 2 family 0 port 6081 - 0
+[   54.340989][   T12] netdevsim netdevsim4 netdevsim1 (unregistering): uns=
+et [1, 0] type 2 family 0 port 6081 - 0
+[   54.428677][   T12] netdevsim netdevsim4 netdevsim0 (unregistering): uns=
+et [1, 0] type 2 family 0 port 6081 - 0
+[   55.676684][   T12] bridge_slave_1: left allmulticast mode
+[   55.676720][   T12] bridge_slave_1: left promiscuous mode
+[   55.679098][   T12] bridge0: port 2(bridge_slave_1) entered disabled sta=
+te
+[   55.685646][   T12] bridge_slave_0: left allmulticast mode
+[   55.685669][   T12] bridge_slave_0: left promiscuous mode
+[   55.685832][   T12] bridge0: port 1(bridge_slave_0) entered disabled sta=
+te
+[   55.793840][   T12] bond0 (unregistering): (slave bond_slave_0): Releasi=
+ng backup interface
+[   55.796673][   T12] bond0 (unregistering): (slave bond_slave_1): Releasi=
+ng backup interface
+[   55.798080][   T12] bond0 (unregistering): Released all slaves
+[   55.875181][ T5450] 8021q: adding VLAN 0 to HW filter on device eth2
+[   55.907074][   T12] hsr_slave_0: left promiscuous mode
+[   55.907494][   T12] hsr_slave_1: left promiscuous mode
+[   55.907913][   T12] batman_adv: batadv0: Interface deactivated: batadv_s=
+lave_0
+[   55.907928][   T12] batman_adv: batadv0: Removing interface: batadv_slav=
+e_0
+[   55.908530][   T12] batman_adv: batadv0: Interface deactivated: batadv_s=
+lave_1
+[   55.908540][   T12] batman_adv: batadv0: Removing interface: batadv_slav=
+e_1
+[   55.917255][   T12] veth1_macvtap: left promiscuous mode
+[   55.917296][   T12] veth0_macvtap: left promiscuous mode
+[   55.917345][   T12] veth1_vlan: left promiscuous mode
+[   55.917401][   T12] veth0_vlan: left promiscuous mode
+[   56.037674][   T12] team0 (unregistering): Port device team_slave_1 remo=
+ved
+[   56.054457][   T12] team0 (unregistering): Port device team_slave_0 remo=
+ved
+[   56.103005][ T5450] 8021q: adding VLAN 0 to HW filter on device eth3
+[   56.289426][ T5450] 8021q: adding VLAN 0 to HW filter on device eth4
+[   56.450317][ T5450] 8021q: adding VLAN 0 to HW filter on device eth5
 
-This adds a NULL check for rvu->pf2cgxlmac_map at the top of
-is_pf_cgxmapped(), so the helper returns false when the PF to CGX LMAC map
-was never allocated. The stated goal is to avoid dereferencing the map in
-RPM-less configurations where the bootloader supplies no RPM/firmware data.
 
-> diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu.h b/drivers/net/ethernet/marvell/octeontx2/af/rvu.h
-> index 094227404ef9f..1e0a5aeb3f577 100644
-> --- a/drivers/net/ethernet/marvell/octeontx2/af/rvu.h
-> +++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu.h
-> @@ -970,6 +970,9 @@ static inline int rvu_get_pf(struct pci_dev *pdev, u16 pcifunc)
->  /* CGX APIs */
->  static inline bool is_pf_cgxmapped(struct rvu *rvu, u8 pf)
->  {
-> +	if (!rvu->pf2cgxlmac_map)
-> +		return false;
-> +
+syzkaller build log:
+go env (err=3D<nil>)
+AR=3D'ar'
+CC=3D'gcc'
+CGO_CFLAGS=3D'-O2 -g'
+CGO_CPPFLAGS=3D''
+CGO_CXXFLAGS=3D'-O2 -g'
+CGO_ENABLED=3D'1'
+CGO_FFLAGS=3D'-O2 -g'
+CGO_LDFLAGS=3D'-O2 -g'
+CXX=3D'g++'
+GCCGO=3D'gccgo'
+GO111MODULE=3D'auto'
+GOAMD64=3D'v1'
+GOARCH=3D'amd64'
+GOAUTH=3D'netrc'
+GOBIN=3D''
+GOCACHE=3D'/syzkaller/.cache/go-build'
+GOCACHEPROG=3D''
+GODEBUG=3D''
+GOENV=3D'/syzkaller/.config/go/env'
+GOEXE=3D''
+GOEXPERIMENT=3D''
+GOFIPS140=3D'off'
+GOFLAGS=3D''
+GOGCCFLAGS=3D'-fPIC -m64 -pthread -Wl,--no-gc-sections -fmessage-length=3D0=
+ -ffile-prefix-map=3D/tmp/go-build3502523694=3D/tmp/go-build -gno-record-gc=
+c-switches'
+GOHOSTARCH=3D'amd64'
+GOHOSTOS=3D'linux'
+GOINSECURE=3D''
+GOMOD=3D'/syzkaller/jobs/linux/gopath/src/github.com/google/syzkaller/go.mo=
+d'
+GOMODCACHE=3D'/syzkaller/jobs/linux/gopath/pkg/mod'
+GONOPROXY=3D''
+GONOSUMDB=3D''
+GOOS=3D'linux'
+GOPATH=3D'/syzkaller/jobs/linux/gopath'
+GOPRIVATE=3D''
+GOPROXY=3D'https://proxy.golang.org,direct'
+GOROOT=3D'/usr/local/go'
+GOSUMDB=3D'sum.golang.org'
+GOTELEMETRY=3D'local'
+GOTELEMETRYDIR=3D'/syzkaller/.config/go/telemetry'
+GOTMPDIR=3D''
+GOTOOLCHAIN=3D'auto'
+GOTOOLDIR=3D'/usr/local/go/pkg/tool/linux_amd64'
+GOVCS=3D''
+GOVERSION=3D'go1.26.0'
+GOWORK=3D''
+PKG_CONFIG=3D'pkg-config'
 
-[Severity: Medium]
-Can this new branch ever be taken?
+git status (err=3D<nil>)
+HEAD detached at f41e228a2e7
+nothing to commit, working tree clean
 
-struct rvu is zero allocated in rvu_probe():
 
-	rvu = devm_kzalloc(dev, sizeof(*rvu), GFP_KERNEL);
+tput: No value for $TERM and no -T specified
+tput: No value for $TERM and no -T specified
+Makefile:31: run command via tools/syz-env for best compatibility, see:
+Makefile:32: https://github.com/google/syzkaller/blob/master/docs/contribut=
+ing.md#using-syz-env
+go list -f '{{.Stale}}' -ldflags=3D"-s -w -X github.com/google/syzkaller/pr=
+og.GitRevision=3Df41e228a2e7b883d75a56aa602070c9893ccb54c -X github.com/goo=
+gle/syzkaller/prog.gitRevisionDate=3D20260915-092900"  ./sys/syz-sysgen | g=
+rep -q false || go install -ldflags=3D"-s -w -X github.com/google/syzkaller=
+/prog.GitRevision=3Df41e228a2e7b883d75a56aa602070c9893ccb54c -X github.com/=
+google/syzkaller/prog.gitRevisionDate=3D20260915-092900"  ./sys/syz-sysgen
+make .descriptions
+tput: No value for $TERM and no -T specified
+tput: No value for $TERM and no -T specified
+Makefile:31: run command via tools/syz-env for best compatibility, see:
+Makefile:32: https://github.com/google/syzkaller/blob/master/docs/contribut=
+ing.md#using-syz-env
+bin/syz-sysgen
+touch .descriptions
+GOOS=3Dlinux GOARCH=3Damd64 go build -ldflags=3D"-s -w -X github.com/google=
+/syzkaller/prog.GitRevision=3Df41e228a2e7b883d75a56aa602070c9893ccb54c -X g=
+ithub.com/google/syzkaller/prog.gitRevisionDate=3D20260915-092900"  -o ./bi=
+n/linux_amd64/syz-execprog github.com/google/syzkaller/tools/syz-execprog
+mkdir -p ./bin/linux_386
+x86_64-linux-gnu-g++ -o ./bin/linux_386/syz-executor executor/executor.cc \
+	-m32 -O2 -pthread -Wall -Werror -Wparentheses -Wunused-const-variable -Wfr=
+ame-larger-than=3D16384 -Wno-stringop-overflow -Wno-array-bounds -Wno-forma=
+t-overflow -Wno-unused-but-set-variable -Wno-unused-command-line-argument -=
+static-pie -std=3Dc++17 -I. -Iexecutor/_include   -DGOOS_linux=3D1 -DGOARCH=
+_386=3D1 \
+	-DHOSTGOOS_linux=3D1 -DGIT_REVISION=3D\"f41e228a2e7b883d75a56aa602070c9893=
+ccb54c\"
+/usr/bin/ld: /tmp/ccyeqg4J.o: in function `Connection::Connect(char const*,=
+ char const*)':
+executor.cc:(.text._ZN10Connection7ConnectEPKcS1_[_ZN10Connection7ConnectEP=
+KcS1_]+0x145): warning: Using 'gethostbyname' in statically linked applicat=
+ions requires at runtime the shared libraries from the glibc version used f=
+or linking
+./tools/check-syzos.sh 2>/dev/null
+[INFO] Unsupported architecture '386', skipping check.
 
-so cgx_mapped_pfs starts at 0.  rvu_map_cgx_lmac_pf() in rvu_cgx.c is the
-only writer of cgx_mapped_pfs, and both the reset and the increment happen
-only after pf2cgxlmac_map and cgxlmac2pf_map have been allocated
-successfully:
 
-	rvu->pf2cgxlmac_map = devm_kmalloc(rvu->dev, size, GFP_KERNEL);
-	if (!rvu->pf2cgxlmac_map)
-		return -ENOMEM;
-	...
-	rvu->cgx_mapped_pfs = 0;
-	...
-			rvu->cgx_mapped_pfs++;
 
-In exactly the configuration the commit message describes, rvu_cgx_init()
-returns early:
+Tested on:
 
-	rvu->cgx_cnt_max = cgx_get_cgxcnt_max();
-	if (!rvu->cgx_cnt_max) {
-		dev_info(rvu->dev, "No CGX devices found!\n");
-		return 0;
-	}
+commit:         5dd1818b Merge tag 'for-next-keys-v7.3-rc4' of git://g..
+git tree:       upstream
+kernel config:  https://syzkaller.appspot.com/x/.config?x=3Dd61c584072d6137
+dashboard link: https://syzkaller.appspot.com/bug?extid=3D9bfac891bdd42eb70=
+8fc
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Deb=
+ian) 2.44
+userspace arch: i386
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=3D1741b8c95800=
+00
 
-which leaves pf2cgxlmac_map NULL and cgx_mapped_pfs at 0.  In that state the
-pre-existing range test:
-
-	return (pf >= PF_CGXMAP_BASE && pf <= rvu->cgx_mapped_pfs) &&
-
-is already false for every u8 pf, since PF_CGXMAP_BASE is 1 and
-cgx_mapped_pfs is 0, and the && short circuits before is_sdp_pf() runs.  If
-the allocation itself fails, rvu_map_cgx_lmac_pf() returns -ENOMEM and
-rvu_probe() aborts:
-
-	err = rvu_cgx_init(rvu);
-	if (err) {
-		dev_err(rvu->dev, "%s: Failed to initialize cgx\n", __func__);
-		goto cgx_err;
-	}
-
-so the state "pf2cgxlmac_map == NULL with cgx_mapped_pfs != 0" does not seem
-to exist, and no is_pf_cgxmapped() guarded caller (rvu_cgx.c, rvu_nix.c,
-rvu_npc.c, rvu_debugfs.c) can reach the map with a NULL pointer.
-
-Given that, is the Fixes: 3a4fa841b039 tag appropriate here, and can the
-commit message wording "Several call paths use is_pf_cgxmapped() before
-indexing pf2cgxlmac_map[], but the helper did not verify that the map
-exists" be reworded to describe this as hardening rather than a NULL
-dereference fix?
-
-If a crash was actually observed, was it on one of the unguarded
-dereferences instead?  nix_lf_free() indexes the map directly, gated only by
-pfvf->hw_rx_tstamp_en:
-
-	rvu->pf2cgxlmac_map[pf]
-
-That site is not covered by this change and would still be reachable.
-
->  	return (pf >= PF_CGXMAP_BASE && pf <= rvu->cgx_mapped_pfs) &&
->  		!is_sdp_pf(rvu, rvu_make_pcifunc(rvu->pdev, pf, 0));
->  }
-
-[Severity: Medium]
-This is a pre-existing issue and was not introduced by this patch, but
-while looking at the callers of this helper: is the SDP handling in
-nix_bp_disable() and nix_bp_enable() in rvu_nix.c intentionally asymmetric?
-
-is_pf_cgxmapped() deliberately returns false for SDP PFs because of the
-!is_sdp_pf() term above.  nix_bp_enable() classifies SDP before its gate and
-admits it explicitly:
-
-	type = is_lbk_vf(rvu, pcifunc) ? NIX_INTF_TYPE_LBK : NIX_INTF_TYPE_CGX;
-	if (is_sdp_pfvf(rvu, pcifunc))
-		type = NIX_INTF_TYPE_SDP;
-
-	/* Enable backpressure only for CGX mapped PFs and LBK/SDP interface */
-	if (!is_pf_cgxmapped(rvu, pf) && type != NIX_INTF_TYPE_LBK &&
-	    type != NIX_INTF_TYPE_SDP)
-		return 0;
-
-nix_bp_disable() applies the gate first, while type is still
-NIX_INTF_TYPE_CGX:
-
-	type = is_lbk_vf(rvu, pcifunc) ? NIX_INTF_TYPE_LBK : NIX_INTF_TYPE_CGX;
-	if (!is_pf_cgxmapped(rvu, pf) && type != NIX_INTF_TYPE_LBK)
-		return 0;
-
-	if (is_sdp_pfvf(rvu, pcifunc))
-		type = NIX_INTF_TYPE_SDP;
-
-For an SDP requester the early return fires, which makes the following
-is_sdp_pfvf() assignment unreachable.  Does this leave BIT(16) of
-NIX_AF_RX_CHANX_CFG set on the SDP RX channels after NIX_BP_DISABLE returns
-success, so backpressure stays armed once the interface is torn down?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260915022952.886639-1-rkannoth%40marvell.com
