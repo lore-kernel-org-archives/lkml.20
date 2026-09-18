@@ -1,38 +1,53 @@
-Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f6.google.com (mail-wm2-f6.google.com [74.125.225.134])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B11B6502D4F;
-	Fri, 18 Sep 2026 17:22:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A3045172E3
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 17:23:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.134
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789752129; cv=none; b=PYwnN5ESg8bO5E8EFO07YKNt+N4UtkAHqAfHBnZs6VVVX/U//DQglHTkDB7ZSnLqhpQ9Cn132XEf6xjkPLheoL7peKeH5mo4iJnFZ13u7hG6uCrmLzegRhr0o2vOpd6nNFAxcjeulHKXjAGp43jds0A05pPXhJrNg+DSaY8Z79c=
+	t=1789752238; cv=none; b=k92CqzwOc42Y8yoZa7IHJ4sD4Huj6Gn9nwdz0y9AaMEzHpxMwBz/fCEzRoQxW21wTcl7eE2PCp45eybCyA2jPAx0EsEMPTTet4pRUt09Nqc7TP5gS9OdWGQWARqAkORhmpcB7Q9CiyvoW30aiVkSrI+yrG8Hu8nRJNtTI6FrNkQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789752129; c=relaxed/simple;
-	bh=m1kavMsIrsbFpp6YX3ATPXQIXgFOXcMDXNsdmsVwvB8=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Subject; b=pFIZgGdiR9Ig4AB7M0VasYLCn9Z8kEcuVfpmSlqftBar0hvBzmpZeQ4MlC5or0sOGv271/YNPaMFX73rO9Ojkfax2IuKpS+Yk5eIzz++6eI0nX6I1PbN38RHG8dWwcBrG51Q8kZvDQt2cnC6aUx8fw/cUnfEL/X2R0il4mu+Eec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=iZ507tbQ; arc=none smtp.client-ip=204.191.154.188
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="iZ507tbQ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
-	MIME-Version:Date:Message-ID:content-disposition;
-	bh=lMD3gvYRvDZDQq/d47q9h3oOHm+fflUw2oDq6EM9/iM=; b=iZ507tbQ6UwaCLR9bwbV2AWeK1
-	0q60/cJUG1IrORMndMeMmCx/IJ3Uyg3gX7pbqjoPw5C+TVyV8UjBIeVCUHNmfivANq52tCK0A70V+
-	eKRPRoE7QF/LAiIdQ+ihrVk1dWEpFazxZJ1JmYdT6RgFoUbfJ+kCf620XW/6dd+h7VBBsVfHd6Mvx
-	36QIS+hZsP54tsY/osS8S99VsMF9QxjmF2nOLWU6ZQaC/gDCXq8fcAzeNdM77E3vD0AvwTmuetIqY
-	P2cgBsxpysYr7sppz7q9uY3VDNBYsc2c41xDODCW/tlLs4Bc9LJ+6G1+IgPZY1/UJxjmFgLQCBUe0
-	QFkt7I3Q==;
-Received: from guinness.priv.deltatee.com ([172.16.1.162])
-	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.98.2)
-	(envelope-from <logang@deltatee.com>)
-	id 1x7cHa-0000000CqZc-3KEN;
-	Fri, 18 Sep 2026 11:21:55 -0600
-Message-ID: <0cf58fd0-8a41-443e-ae0f-f47f7bd8a1fc@deltatee.com>
-Date: Fri, 18 Sep 2026 11:21:48 -0600
+	s=arc-20240116; t=1789752238; c=relaxed/simple;
+	bh=YIjlZKIm+IFO56oHuR2t4YL5KZwQ2kRZEAKcQevolLY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JMj2URASsFRhDopESyHBcc5z+WR+Gn5+pxZCyfymScheoRBdtCuCQTsqT0vSW7LSO6ieyACp5gmHR8VWnqMab9QmiNkZpP4cvpHX/aQQEeLiyBnEomGPeA8PLfw9xEQDmm3fprPqhK+MXgyg9bacTvQNhJP3mVofyZJi86fEsTM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.134
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm2-f6.google.com with SMTP id 5b1f17b1804b1-49b0dd21eb8so2010555e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:23:56 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789752234; x=1790357034;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zLyNnBxb3LiRUxaaBPI15vkPRVnqKuYKpEiINQXaj50=;
+        b=op1GlriS0fDR2Y/9EVqFrqPUnvfGLrWIqQNcNXSsYvHI9x9YlU9dDZ5pRJG12Ax3RN
+         XpGt2Kc+zhvtKVgGV08TXaK89pnDteu504JgUvZAwuDxls5bSUeuVgEwBQ4eLCdGJh08
+         3j+y/tKnVQgi658gKDzMGrgvoB0JWUakYZTi+8tz9CKCsyBCx5RfMsUaXASYj+ww0kjJ
+         t0KNC/hsExzEsA5mlBwLnclTJDGksvvj2w8SqROc0QGiNu8S397SeG42kelnLGklNKfK
+         r7Fj2IKIhBFEEdg73Z0gq3wjztdN25rNPR102quVWXftVBNUAkgf9lGcXX2zlg5Xtdv4
+         pRNA==
+X-Forwarded-Encrypted: i=1; AKwUvBxDO87Tu/nsAl+AHKNGhJxcjsvCf88jMGBH40R6Z/Wsdc7IvcKpvQYbxCVCOhhb6paPsna13mdrg76RBJw=@vger.kernel.org
+X-Gm-Message-State: AFuF++l5BzCMFocAu6u26NFFR4jgQ9gGfatlAsrrKmwL0rnK6AfcK+1m
+	mi8nGD8E4N8yeuy8yIE8A51Ngf3qG3C1GlBYnaS7uvdA1PVut+iSbSP5
+X-Gm-Gg: AYBFou3sjkeS4D58dTQgu1oPfotheyywgtV6ohKu3dDgyRSY/e/m64hRGXrsUQlMF2t
+	Z/G4LsohN6FLBHel+vR9qNc5SASu3ZVrx5/s+UrLHoZubbKGkduZc6IhfA3s/Z0OlQn0tZorko5
+	LNbshzwoiJYPN2U5GXg44ZXDNg9zeUzYskLvlLfvwbKHy+pvF/gNtfULjxcsIGyhRPoIQQ5JAg7
+	AFGsxG60tm2onoV65SXsJ/AxAUHAEx1GVynvbiTo/ILUfWJpxdIDYPwOgO6m4A/Kr6U+ky6DeBG
+	mY2sHVT11CrzpohUSehp1mwxjK8oq91ZwGwYDcMlfTFLiN6jRrtDYwwSTyMqmfl++CAE39BP1hQ
+	a0e16ixlquppHbBVvLbwIrTuVJ17F+3C/bQY6tIUwodAXUa+BBpGReoJ15a5htaH+uWzNw/TW2/
+	5KfeJ4z9S7gaY1GmMX6bzK0DMr8jYPbnhsxwZz095WIO7EECO1DniGdCcELQdnZsf+wVBByGcsM
+	CvzM5to6AZARHW2rjTxS/aPBwSWyLWU5ZDewUh7wCn7wYdXq6qU
+X-Received: by 2002:a05:600c:3b29:b0:49c:fc6c:bdfa with SMTP id 5b1f17b1804b1-49fc57469bbmr43372925e9.17.1789752234306;
+        Fri, 18 Sep 2026 10:23:54 -0700 (PDT)
+Received: from [192.168.88.241] (37-48-42-237.nat.epc.tmcz.cz. [37.48.42.237])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd10d21asm8649175e9.12.2026.09.18.10.23.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 18 Sep 2026 10:23:53 -0700 (PDT)
+Message-ID: <2bd2dd1e-19d7-4f89-b921-f7a07fea9a7a@ovn.org>
+Date: Fri, 18 Sep 2026 19:23:52 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,52 +55,136 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Koichiro Den <den@valinux.co.jp>, Jon Mason <jdmason@kudzu.us>,
- Dave Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>
-Cc: Frank Li <Frank.Li@kernel.org>, fuyuanli <fuyuanli0722@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Nicholas Bellinger <nab@linux-iscsi.org>,
- Joey Zhang <joey.zhang@microchip.com>, ntb@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260910040836.3792333-1-den@valinux.co.jp>
- <20260910040836.3792333-11-den@valinux.co.jp>
-Content-Language: en-CA
-From: Logan Gunthorpe <logang@deltatee.com>
-In-Reply-To: <20260910040836.3792333-11-den@valinux.co.jp>
+Subject: Re: [PATCH net v2] ipv6: do not let ipv6_find_hdr() return an offset
+ past the packet end
+To: Norbert Szetei <norbert@doyensec.com>, netdev@vger.kernel.org
+Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Ilya Maximets <i.maximets@ovn.org>,
+ Aaron Conole <aconole@redhat.com>, Eelco Chaudron <echaudro@redhat.com>,
+ dev@openvswitch.org, linux-kernel@vger.kernel.org
+References: <8F80BA1A-DDFD-432D-9075-242A3435FEB5@doyensec.com>
+Content-Language: en-US
+From: Ilya Maximets <i.maximets@ovn.org>
+Autocrypt: addr=i.maximets@ovn.org; keydata=
+ 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
+In-Reply-To: <8F80BA1A-DDFD-432D-9075-242A3435FEB5@doyensec.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-SA-Exim-Connect-IP: 172.16.1.162
-X-SA-Exim-Rcpt-To: den@valinux.co.jp, jdmason@kudzu.us, dave.jiang@intel.com, allenbh@gmail.com, Frank.Li@kernel.org, fuyuanli0722@gmail.com, gregkh@linuxfoundation.org, nab@linux-iscsi.org, joey.zhang@microchip.com, ntb@lists.linux.dev, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: logang@deltatee.com
-X-Spam-Level: 
-Subject: Re: [PATCH v2 10/14] NTB: ntb_transport: Wait for RX completions
- before resetting a QP
-X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
-X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 
-
-
-On 2026-09-09 22:08, Koichiro Den wrote:
-> Transport link cleanup can free an MW still used by RX DMA or its
-> completion path. QP-only cleanup retains the MW, but can restart RX
-> on ring slots whose old completion callbacks have not yet cleared
-> the headers.
+On 9/16/26 9:57 PM, Norbert Szetei wrote:
+> ipv6_find_hdr() walks the extension header chain, skipping each header by
+> the length that header itself declares.  ipv6_optlen() returns up to 2048,
+> and the skip is never checked against skb->len, so the offset stored in
+> *offset can point past the end of the packet.
 > 
-> Wait for rx_post_q to empty before resetting the QP. ntb_complete_rxc()
-> finishes its MW accesses before removing each entry under ntb_rx_q_lock,
-> so cleanup can free the MW without racing with these RX accesses.
-> Using dmaengine_terminate_sync() instead would not work with drivers
-> such as IOAT that lack the required ops. Cookie-based waits would
-> not work with DMA_COMPLETION_NO_ORDER either.
+> openvswitch installs that offset as the transport header, and
+> update_ipv6_checksum() then reads and writes the transport checksum field
+> out of bounds:
 > 
-> DMA teardown in ntb_transport_free_queue() is unchanged.
+>   BUG: KASAN: slab-use-after-free in inet_proto_csum_replace16+0x445/0x470
+>   Read of size 2 at addr ffff88810b754b06 by task ovs_ipv6_oob/629
+>   CPU: 4 UID: 1000 PID: 629 Comm: ovs_ipv6_oob Tainted: G N 7.3.0-rc3+ #348
+>   Call Trace:
+>    inet_proto_csum_replace16+0x445/0x470
+>    set_ipv6_addr+0x3dd/0x460
+>    do_execute_actions+0x6a3d/0x7c40
+>    ovs_execute_actions+0xfd/0x480
+>    ovs_packet_cmd_execute+0xc38/0xf20
+>    genl_rcv_msg+0x59e/0x870
+>    netlink_rcv_skb+0x18b/0x450
+>    genl_rcv+0x2d/0x40
+>    netlink_unicast+0x6bc/0xa20
 > 
-> Fixes: 9143595a7e05 ("NTB: ntb_transport: Free MWs in ntb_transport_link_cleanup()")
+>   The buggy address belongs to the object at ffff88810b754980
+>    which belongs to the cache skbuff_small_head of size 704
+>   The buggy address is located 390 bytes inside of
+>    freed 704-byte region [ffff88810b754980, ffff88810b754c40)
+> 
+> Other callers use that offset too, so bound it here rather than in one
+> caller.
+> 
+> Reject a header whose declared length does not fit in the packet.
+> ipv6_find_hdr() already fails with -EBADMSG on a malformed chain, so this
+> adds no new failure mode.
+> 
+> Fixes: f8f626754ebe ("ipv6: Move ipv6_find_hdr() out of Netfilter code.")
+> Suggested-by: Ilya Maximets <i.maximets@ovn.org>
+> Suggested-by: Eric Dumazet <edumazet@google.com>
 > Cc: stable@vger.kernel.org
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Link: https://lore.kernel.org/r/20260907144257.767281F00A3A@smtp.kernel.org/
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
+> Assisted-by: LLM
+> Signed-off-by: Norbert Szetei <norbert@doyensec.com>
+> ---
+> v2:
+>   - fix ipv6_find_hdr() instead of the openvswitch caller, per the review
+>     of v1
+>   - dropped the openvswitch change
+>   - retitled
+> v1: https://lore.kernel.org/netdev/114FAFBD-F7BC-46AE-AF9F-0D15124F130E@doyensec.com/
+> 
+> Reproducer available on request.
+> 
+>  net/ipv6/exthdrs_core.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/net/ipv6/exthdrs_core.c b/net/ipv6/exthdrs_core.c
+> index 9d06d487e8b1..4a9748338cf4 100644
+> --- a/net/ipv6/exthdrs_core.c
+> +++ b/net/ipv6/exthdrs_core.c
+> @@ -278,6 +278,9 @@ int ipv6_find_hdr(const struct sk_buff *skb, unsigned int *offset,
+>  			hdrlen = ipv6_optlen(hp);
+>  
+>  		if (!found) {
+> +			if (skb->len - start < hdrlen)
+> +				return -EBADMSG;
+> +
+>  			nexthdr = hp->nexthdr;
+>  			start += hdrlen;
+>  		}
 
-Looks good to me,
+Beside the inaccurate Fixes tag that Ido already flagged, the change
+looks good to me.
 
-Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
+Reviewed-by:  Ilya Maximets <i.maximets@ovn.org>
