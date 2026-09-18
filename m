@@ -1,261 +1,162 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 794C34F68C6
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:18:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C298A4F7999
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:18:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789737518; cv=none; b=U9znLAsOKdlv8pCP2S7urbNDn5SlAcrSoHTu5fYk7OieAITUlbG72r6QbrSawhEGjg3rXa8KTCccf9+do9uhGqY9b0qWWUNcCRSXEEP91Nu+gUhQ+El6FJPWp/2IZrVMpsjbRroEdGyBmCIN57IRMJjKGvm/4BF/dpV6IMA+QV0=
+	t=1789737524; cv=none; b=uNDKC0Wqu8rgDov+fnaD3cb9dWUPOti5cdCRjUXQP6HadgyOFV6CABULLKR0Jgw3iUnmUEW2Dh++2wR96pxbX3tsPM4VKLHC4WJmsL1t+FIfm0Cu5xtDbH/arUp7AWtXTQ5yhN6wsK3TK4RKd8SGu2Pw7avYhtAKJCnvH/qzxk8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789737518; c=relaxed/simple;
-	bh=GnQNNaO2NdAe4bfr6j79tdcCpkRyZDIf9oDO6K4Un58=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VYl8DR29mqhxqk12WT27X+gI/9s0GAn/OmWFg8kfNNQBQmgJJRxhqDvHPYwJA1XUf85WbNAc6BmzN70MXEkzenYZMfHNRU7Uz6cWozf6w0w3YHfLtYaRFcbyWXHvPGL3lRBF9Mi+xfrap4buXKFLAD/+HhBz1flXRwKChsWUXOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dfNj6vqq; arc=none smtp.client-ip=74.125.225.76
+	s=arc-20240116; t=1789737524; c=relaxed/simple;
+	bh=MXMecSS5un1Vw5RPUBhc/MQTR/N1uDtr5TFfUDNnDkc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pJE9dlkLBEIGswWdXDizW1MsDlUjK9SxWVkbg/8EYvagg5Y2o7vs4i1AawF3ZiznBlgGoqMx5XzF9KtTVey3YfndFKRnOEMRPPzAbh1MHN7P9+PPNrG8xamm/ubRdj29U0u4J6yfTlXatxPg95dlOkom/BANs4havEMdssR1MUE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SMp35hXi; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dfNj6vqq"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843f22dc83so504182f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:18:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SMp35hXi"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e4b11so4241045e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:18:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789737513; x=1790342313; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fpIPJYBrAn9lh0X90aJ+LjetM4Yd20S6QCxk4a13+gY=;
-        b=dfNj6vqq9xkhGvDp+J6LNGtrm5ncKHKgZ8DFRcbBaYW1fEYVgQRm+GygaOxmtkowpi
-         Hn6UAlfO3JrbHYqvVctOMS/O46fN8RBxPeAq7HwsObKpN4Gv5xnKfFZyiYSV/85gpsCK
-         mJ0zFAZNfCANkCk6/ZCsf6OzyzYBiAPY+OM6t2Xz1NGPPiDp0nnbvMTkE9MjIOLuZ3nj
-         ZzmJDso5Pp7WkAoRqsX3wzyzblhY9prTKhybIRe5eJ6VZAvHwqsS0DgByxx3ZWm2EHbY
-         ZojEHTVgSft6SrLfQFWYn4EhDj2/OxavCHGMoq74PDzTq6Ap8TY8UtCLmh6uKSDtbYBR
-         Bwag==
+        d=gmail.com; s=20251104; t=1789737519; x=1790342319; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FSYhKatlju631s2mF43cFtG3PZ8R0OZ445m3aP3hlTo=;
+        b=SMp35hXiJaeVNxYiS6HIgTgEB/vqI1gkvKZ56xzpON6sbNsdZriJw+qSAgJ3MRE77i
+         QudT/8aAVob0I/o06oGLP1KdduYUkzMv9TzJgqw+ua2H1ZS5kEbvxdyjmOW0thayeBGN
+         PwXhOg2FqNZaAs/HQTmG6QIi/Ag1ma56Hr3aJ9wVb8vKLo0hj3xKcxqu0C2bcM5UTxRp
+         SvSLsuj2+kyqHPuHW6eX0L3VWcB2kGshWm6ki3LNZ52lb05hZslT/5RKGiKOBlD37BuM
+         s/MhhDs7/Y4hWSd4GC+hWI5iQK8XV5qULBYcnesbbyceJjZ22PsvgQozbJlRflDIDV/M
+         pa4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789737513; x=1790342313;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fpIPJYBrAn9lh0X90aJ+LjetM4Yd20S6QCxk4a13+gY=;
-        b=dF0K7CFEAbJ0fNIF8IpdBmEeeG8iss15rfNuP0Ft5uDIPfwKZ1mlU1SpJ78KgQPhaS
-         m23tR2gRTKbayczihIWIgKlSWutY/TUyShTNcU/V5TeG1cn9IDxosw9BHfCPzJkMoky+
-         /LMCeDN1e9XvMkjCzWzWeaYa3SN0ZbM3l5ZRm60uFS5LywbiHZF/K6UIBxy25z6duPGM
-         GODo2RnS20ROBUgVz2j7a3RWvggLrl7rzvCuhgFy/FlkG3EFoJHPNchYJbGENYBMrYMe
-         0njK5+xsVx2kgi/b4lxT/zmKMlqCqJ1Clrk0C0L5jmJq1B/4IJnjhT8DK0MbzV2HR4dg
-         GWdA==
-X-Forwarded-Encrypted: i=1; AKwUvByFLtCLQQFPUgBm7UA2C3TEf3hnMIRoGCbfeai5z6V16JyIWyLUcmE4IPFQue07UZPin+DFFb3rnzlxzM8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lzZgs971MvSG1EolnLXTMD48unQBm5Y5r3UpL1DkgF3UYlf7BJ
-	ty6MAcRMuEJksWXJ6JjhF9XX7sWIRmrS7Fwnb7JlnmH3o/2BC29NHVDD
-X-Gm-Gg: AYBFou38siD0AhE5Tsyjn+2kLoCEcxb+/ysyLiFdTTSNQgTbs/7/rmYa9MFLjSoNJV9
-	Y073j+5KKRV42kc/QTjuL57SZnM0CfkKSKrsfRcWQ/vnA9g/C4pdATNopUh1DGEJAw5TX+d2COv
-	QUPxz8N6XBy9tNBq12VmH575h5reOFLRe+91RD5KljX9Thqmh+d6FjZ61uit3gnRPFVHIG1RRuh
-	fmTdG6QV2rIJFpkjs9d2iL43s0s358WX1RDQ3XdkDTyzZHs6yNZO0khrIlu8Bcbh2vMuhfgdUrD
-	Vi0G7MCtXwjz9rTDzuEY6RTrpBThN5ecqxAwR5rKnuqCxfAmlviC037nlRCDKND7Bmbj5PKQ+Vr
-	KdCFP+p76f7JWXSkoMOyQT4eR8RuyqsStuLeTJks946TtUJ3UIPy/ZWSZYWgVtrzfS3awKqNAvm
-	MHf4545LArrOqb2KIYqMcuXhzwRhucsnIqoFZQJos723QVNKdRvss3RP22bZugM59d4LEL/+/eT
-	ocyzk/stB9BcXY=
-X-Received: by 2002:a05:6000:41f0:b0:487:7fd:730 with SMTP id ffacd0b85a97d-4871e254ef7mr3501858f8f.13.1789737513163;
-        Fri, 18 Sep 2026 06:18:33 -0700 (PDT)
-Received: from dell-desktop ([2a02:587:4b4e:8500:290c:210b:1c76:5710])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4871feb5de3sm4424549f8f.1.2026.09.18.06.18.31
+        d=1e100.net; s=20260707; t=1789737519; x=1790342319;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FSYhKatlju631s2mF43cFtG3PZ8R0OZ445m3aP3hlTo=;
+        b=zyZ0eExqzZ1X2ZJsjhRSbItT49Rh8+kYZTmvmNoQhByCYOJKkwUeos+x35B0qCX+hi
+         Du5m+oDBIHUIynbm7GkTYh29l0I5BWvlkipqXcz13miDmP07a7lPYc3eP58oorMKBg9c
+         QNcLM9R7Rwz1T9iBrsIg4alug6CJx7h52cROgEsotfNFePDbjQyEGoElACf3ClKV76Mc
+         al1ramB0nKyLMBqdyDwejBmFmLkW+dGLJkbKrhahFLGSZ9epKfJFtKes2VAUeurL+apq
+         p51+a0z31F91UITCl+QqG1wFlXkgO0AwFpq9CHGYV3GQZ6VxjZKYK0dlGGUsSYkR46wI
+         BfAA==
+X-Forwarded-Encrypted: i=1; AKwUvByWjIaiyYeMSG2A+rb+t9cv9iMYiaJz3xPu4RFoVdJVnB3Dz4vR3ZRIxRRCoyt6avwgsp4LKWvIcBWKYGw=@vger.kernel.org
+X-Gm-Message-State: AFuF++l8nkFIlR0mdukqf8yBK3pSCCFTeTILH3JyBpST70uzUvNSkvDS
+	je5PpqwKVsN5rkIXSq/2KNNFm5MTfhO47B/0G0SWU+wDr6yJqkMcGaMq
+X-Gm-Gg: AYBFou22eTbqk4M+/lqPv3Uo7uJavxChlUo81ZQOQ+FwnGeQgwXTyNReByvWu1X0HOG
+	FoHoYrDCjIjRuXsshmX7ZBOJryTu8DpU8ZmqKyYPXAzgpgZASMKmSb2V19NWl1gQRJvSG2JZjYb
+	IDc2+C88H5fp/8UBP7eWaIbBAUvEnPsufAfBl5rSOZoXFFNJSxgQHwzMU/KW4ZZXv9Lwlorom9N
+	EYwnwcrmregEAtN86+8TEgs6/Smr30Hr2LYZ+bwAxgYUNnKNb96ugp5WBDSOVhexO4HGPaIsiv/
+	Ns6axw+g7vVdtDUkGEguX9+xd4SyOr6bXANr3Vr8f00ABWLS4pEEAeJ2flDxn0l2fHPFOYJhfp4
+	O0Lblu3L49jauFgPii36vsPHIPOiRe0ouRhkQ9n6+Y9HhwAo5ki9b69vhx9104eisFjKMRp6AoE
+	S29kJXJsrXTBQck6wdEmf5HU/fxvqe3LWkpfUpTudlbR0Jqe5xbqgWEVUm8VPy7acLOlpl
+X-Received: by 2002:a05:600c:548c:b0:49e:6e7c:d895 with SMTP id 5b1f17b1804b1-49fc584fee0mr32705835e9.26.1789737518934;
+        Fri, 18 Sep 2026 06:18:38 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4872008fe3csm4156879f8f.37.2026.09.18.06.18.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 06:18:32 -0700 (PDT)
-From: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
-To: bpf@vger.kernel.org
-Cc: linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	david@kernel.org,
-	akpm@linux-foundation.org,
-	andrii@kernel.org,
-	ast@kernel.org,
-	brauner@kernel.org,
-	daniel@iogearbox.net,
-	eddyz87@gmail.com,
-	kpsingh@kernel.org,
-	ljs@kernel.org,
-	matt@bobrowski.net,
-	memxor@gmail.com,
-	song@kernel.org,
-	sun.jian.kdev@gmail.com,
-	utilityemal77@gmail.com,
-	viro@zeniv.linux.org.uk,
-	tasos.papagiannnis@gmail.com
-Subject: [PATCH bpf-next v9 5/5] selftests/bpf: Test mm_struct user memory kfuncs with linux_binprm
-Date: Fri, 18 Sep 2026 16:17:57 +0300
-Message-ID: <20260918131757.42802-6-tasos.papagiannnis@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260918131757.42802-1-tasos.papagiannnis@gmail.com>
-References: <20260918131757.42802-1-tasos.papagiannnis@gmail.com>
+        Fri, 18 Sep 2026 06:18:38 -0700 (PDT)
+Date: Fri, 18 Sep 2026 16:18:34 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Ricardo Ribalda <ribalda@chromium.org>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>, Yunke Cao <yunkec@google.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	kernel-janitors@vger.kernel.org
+Subject: Re: [PATCH] media: uvcvideo: Fix buffer overflow in
+ uvc_mapping_get_menu_value()
+Message-ID: <aq06Kq-3n2R79YZL@stanley.mountain>
+References: <aq0siVcghDe6x9cs@stanley.mountain>
+ <CANiDSCtiVU1PJh7=Pb56PNGF0s=cxfe1kVjwW+7O9JOT5CrDAw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CANiDSCtiVU1PJh7=Pb56PNGF0s=cxfe1kVjwW+7O9JOT5CrDAw@mail.gmail.com>
 
-Add a sleepable BPF LSM program attached to bprm_check_security to test
-bpf_copy_from_user_mm() and bpf_copy_from_user_mm_str().
+On Fri, Sep 18, 2026 at 02:59:29PM +0200, Ricardo Ribalda wrote:
+> Hi Dan
+> 
+> I believe that for all the uses of uvc_mapping_get_menu_value we are
+> already doing bound checks:
+> 
+> index >= BITS_PER_TYPE(mapping->menu_mask) in uvc_query_v4l2_menu()
+> value> fls(mapping->menu_mask) -1 in uvc_ctrl_clamp()
+> BIT(i) <= mapping->menu_mask in uvc_menu_to_v4l2_menu()
+>
 
-Starting at bprm->p, verify that bpf_copy_from_user_mm() can copy the
-contiguous NUL-separated argument and environment data. Then use
-bpf_copy_from_user_mm_str() to read each argument and environment string
-separately, advancing the offset by the length returned from each call.
+The problematic caller is uvc_set_le_value().
 
-Signed-off-by: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
----
- .../bpf/prog_tests/copy_from_user_bprm.c      | 65 +++++++++++++++++
- .../selftests/bpf/progs/copy_from_user_bprm.c | 69 +++++++++++++++++++
- 2 files changed, 134 insertions(+)
- create mode 100644 tools/testing/selftests/bpf/prog_tests/copy_from_user_bprm.c
- create mode 100644 tools/testing/selftests/bpf/progs/copy_from_user_bprm.c
+	value = *(s32 *)v4l2_in;
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/copy_from_user_bprm.c b/tools/testing/selftests/bpf/prog_tests/copy_from_user_bprm.c
-new file mode 100644
-index 000000000000..310370689427
---- /dev/null
-+++ b/tools/testing/selftests/bpf/prog_tests/copy_from_user_bprm.c
-@@ -0,0 +1,65 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <errno.h>
-+#include <sys/wait.h>
-+#include <unistd.h>
-+
-+#include <test_progs.h>
-+
-+#include "copy_from_user_bprm.skel.h"
-+
-+void test_copy_from_user_bprm(void)
-+{
-+	char data[] = "first\0second-argument\0SOME_ENV=a\0OTHER_ENV=something";
-+	char arg0[] = "first";
-+	char arg1[] = "second-argument";
-+	char env0[] = "SOME_ENV=a";
-+	char env1[] = "OTHER_ENV=something";
-+	struct copy_from_user_bprm *skel;
-+	pid_t child;
-+	int status;
-+
-+	skel = copy_from_user_bprm__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "open_and_load"))
-+		return;
-+
-+	if (!ASSERT_OK(copy_from_user_bprm__attach(skel), "attach"))
-+		goto out;
-+
-+	child = fork();
-+	if (!ASSERT_GE(child, 0, "fork"))
-+		goto out;
-+
-+	if (!child) {
-+		char *const argv[] = { arg0, arg1, NULL };
-+		char *const envp[] = { env0, env1, NULL };
-+
-+		skel->bss->monitored_pid = getpid();
-+		execvpe("true", argv, envp);
-+		_exit(errno);
-+	}
-+
-+	if (!ASSERT_EQ(waitpid(child, &status, 0), child, "waitpid"))
-+		goto out;
-+
-+	if (ASSERT_TRUE(WIFEXITED(status), "child_exited"))
-+		ASSERT_EQ(WEXITSTATUS(status), EPERM, "exec_errno");
-+
-+	ASSERT_EQ(skel->bss->bprm_argc, 2, "bprm_argc");
-+	ASSERT_EQ(skel->bss->bprm_envc, 2, "bprm_envc");
-+	ASSERT_EQ(skel->bss->data_len, sizeof(data), "data_len");
-+	ASSERT_EQ(skel->bss->invalid_flags_ret, -EINVAL, "invalid_flags_ret");
-+	ASSERT_EQ(skel->bss->copy_ret, 0, "copy_ret");
-+	ASSERT_EQ(skel->bss->arg0_ret, sizeof(arg0), "arg0_ret");
-+	ASSERT_EQ(skel->bss->arg1_ret, sizeof(arg1), "arg1_ret");
-+	ASSERT_EQ(skel->bss->env0_ret, sizeof(env0), "env0_ret");
-+	ASSERT_EQ(skel->bss->env1_ret, sizeof(env1), "env1_ret");
-+	ASSERT_EQ(memcmp(skel->bss->data, data, sizeof(data)), 0, "data");
-+	ASSERT_EQ(memcmp(skel->bss->arg0, arg0, sizeof(arg0)), 0, "arg0");
-+	ASSERT_EQ(memcmp(skel->bss->arg1, arg1, sizeof(arg1)), 0, "arg1");
-+	ASSERT_EQ(memcmp(skel->bss->env0, env0, sizeof(env0)), 0, "env0");
-+	ASSERT_EQ(memcmp(skel->bss->env1, env1, sizeof(env1)), 0, "env1");
-+
-+out:
-+	copy_from_user_bprm__destroy(skel);
-+}
-diff --git a/tools/testing/selftests/bpf/progs/copy_from_user_bprm.c b/tools/testing/selftests/bpf/progs/copy_from_user_bprm.c
-new file mode 100644
-index 000000000000..00ecba3ea567
---- /dev/null
-+++ b/tools/testing/selftests/bpf/progs/copy_from_user_bprm.c
-@@ -0,0 +1,69 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include "vmlinux.h"
-+
-+#include <bpf/bpf_helpers.h>
-+#include <bpf/bpf_tracing.h>
-+#include <errno.h>
-+
-+char _license[] SEC("license") = "GPL";
-+
-+int monitored_pid;
-+int bprm_argc;
-+int bprm_envc;
-+int data_len;
-+int invalid_flags_ret;
-+int copy_ret;
-+int arg0_ret;
-+int arg1_ret;
-+int env0_ret;
-+int env1_ret;
-+char data[64] = {};
-+char arg0[32] = {};
-+char arg1[32] = {};
-+char env0[32] = {};
-+char env1[32] = {};
-+
-+SEC("lsm.s/bprm_check_security")
-+int BPF_PROG(check_exec_args, struct linux_binprm *bprm)
-+{
-+	u32 pid = bpf_get_current_pid_tgid() >> 32;
-+	struct mm_struct *mm;
-+	u64 offset = 0;
-+
-+	if (pid != monitored_pid)
-+		return 0;
-+
-+	mm = bprm->mm;
-+	if (!mm)
-+		return 0;
-+
-+	bprm_argc = bprm->argc;
-+	bprm_envc = bprm->envc;
-+
-+	/* this is the total size of args and envs starting from bprm->p */
-+	data_len = bprm->exec - bprm->p;
-+
-+	invalid_flags_ret = bpf_copy_from_user_mm(data, sizeof(data), (void *)bprm->p, mm, ~0ULL);
-+
-+	copy_ret = bpf_copy_from_user_mm(data, sizeof(data), (void *)bprm->p, mm, 0);
-+	if (copy_ret)
-+		return 0;
-+
-+	/* arg0 is at bprm->p */
-+	arg0_ret = bpf_copy_from_user_mm_str(arg0, sizeof(arg0), (void *)(bprm->p + offset), mm, BPF_F_PAD_ZEROS);
-+	offset += arg0_ret;
-+
-+	/* arg1 is at bprm->p + arg0_ret */
-+	arg1_ret = bpf_copy_from_user_mm_str(arg1, sizeof(arg1), (void *)(bprm->p + offset), mm, BPF_F_PAD_ZEROS);
-+	offset += arg1_ret;
-+
-+	/* env0 is at bprm->p + arg0_ret + arg1_ret */
-+	env0_ret = bpf_copy_from_user_mm_str(env0, sizeof(env0), (void *)(bprm->p + offset), mm, BPF_F_PAD_ZEROS);
-+	offset += env0_ret;
-+
-+	/* env1 is at bprm->p + arg0_ret + arg1_ret + env0_ret */
-+	env1_ret = bpf_copy_from_user_mm_str(env1, sizeof(env1), (void *)(bprm->p + offset), mm, BPF_F_PAD_ZEROS);
-+
-+	return -EPERM;
-+}
--- 
-2.55.0
+Smatch thinks that is called from uvc_mapping_set_xctrl_compound().
+
+drivers/media/usb/uvc/uvc_ctrl.c
+  2772          data = memdup_user(xctrl->ptr, size);
+  2773          if (IS_ERR(data))
+  2774                  return PTR_ERR(data);
+  2775  
+  2776          return mapping->set(mapping, size, data,
+  2777                              uvc_ctrl_data(ctrl, UVC_CTRL_DATA_CURRENT));
+
+But maybe that mapping->set can't point to uvc_set_le_value.
+
+> In any case, I think this patch is still worthwhile. It will help us
+> avoiding bugs in the future (have you found this with a new test for
+> smatch?)
+> and if we go that way it is probably a good idea to also "fix"
+> uvc_mapping_get_menu_name()
+> 
+> 
+> On Fri, 18 Sept 2026 at 14:20, Dan Carpenter <error27@gmail.com> wrote:
+> >
+> > The "idx" value is a user controlled u32 so we have to bounds check it
+> > before calling test_bit() to avoid reading beyond the end of the bitmap.
+> Maybe change the commit message as well to avoid stable cherry picking
+> it blindly (sorry seems like I am more picky than usual  :) )
+> 
+
+I mean if uvc_set_le_value() turns out not to be a bug then, of course.
+
+> >
+> > Fixes: 4e15c535659b ("media: uvcvideo: Support any size for mapping get/set")
+> I believe this should be:
+> Fixes: 40140eda661e ("media: uvcvideo: Implement mask for V4L2_CTRL_TYPE_MENU")
+> or no Fixes at all.
+> 
+> 
+> 
+> > Signed-off-by: Dan Carpenter <error27@gmail.com>
+> > ---
+> >  drivers/media/usb/uvc/uvc_ctrl.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
+> > index 3ca108b83f1d..f157ed99be4e 100644
+> > --- a/drivers/media/usb/uvc/uvc_ctrl.c
+> > +++ b/drivers/media/usb/uvc/uvc_ctrl.c
+> > @@ -538,7 +538,7 @@ static void uvc_mapping_set_s32(struct uvc_control_mapping *mapping,
+> >  static int uvc_mapping_get_menu_value(const struct uvc_control_mapping *mapping,
+> >                                       u32 idx)
+> >  {
+> > -       if (!test_bit(idx, &mapping->menu_mask))
+> > +       if (idx >= BITS_PER_LONG || !test_bit(idx, &mapping->menu_mask))
+> >                 return -EINVAL;
+> 
+> What about using BITS_PER_TYPE(mapping->menu_mask) to be consistent?
+> 
+
+Sure.
+
+regards,
+dan carpenter
 
