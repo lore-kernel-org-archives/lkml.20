@@ -1,211 +1,273 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F03934F93D2
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:13:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 133B751C04A
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:13:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789755229; cv=none; b=tIKMW2nrKNWvhpzE21DPf4eLW7nPzNrVP6/oDPlXHqX1dfxYItiztcpVObAlg46tLk+wxHTKoKNLgvjUaqE1OsWOvYlny0rhLZky+cMeKIZI6ex746zhJwPdqkONLwBAmJDK1OBX1PtKU427FXibTKCW2br5niJ8rc5wtxCMmUw=
+	t=1789755237; cv=none; b=YVz5C7QcomNOeuWjDSYOXZSDBmsBi3k0Qj5huejJLp8GsHilAUEqkmSEy6tR0wvpI8PMdbf2aeVOk+qUIaWNSW1bqJ7CElMfbuiVVzteh9mDdLlEfAU3YvVPkfz8i6UmtDCizF43FoRbudOEtvyqWuUbUIrKurLrBjNLjtM8X4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789755229; c=relaxed/simple;
-	bh=Dlx/PfGUh6GfEk2g3gR+hejrW0fiMomk39XMRrdIbOc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ueGhlxZtrKiDP4SMLSdqC4bJBuU2UskR+evb6dBpir6KAw1aC6+Ighxsx1m7RVjZPfeC4tApWny64+AdJ2z9ASde4AkALmg0ju/QjlCU69iMUtLVSWfj/16hv8wswh/vSCB5B0Ci3AK06pIYz+n8GaYk1I7vmX5lq1qEONcxaBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QnSiSkrB; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Wgexgwh7; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789755237; c=relaxed/simple;
+	bh=FHCq7SmPbetwxFeWjQ6CxHIb7CuohVnpcgF3k8l2nLs=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=MtMcLn293uIntu3HnRVG97ugojSh6VCLvhdaT4uY5wwgidj+ACwFbMspyIiNQnNSrchJuJRFWUqBlXf/o+gs42ZrjibpL2uDxTcwQ/gxMr9dNP6Z+mbRe4A5Klw5Wa8SnFM7YuuIPiDIqhJWfDON35Ax/xSnS47KIvqLAuRLGWc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fOZsj7/M; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=M+OzFwXK; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QnSiSkrB";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Wgexgwh7"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68IGp38Z1102422
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:13:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	vlrqp6hzEyvS2JuXrzVg/2ASZasMwkiKMUs6oP7YPjU=; b=QnSiSkrBsQffLT2m
-	/WdGxKrll1bdiyVF5lVP37RUWAP1kVlS37YajVydWd+bTWHY6SP/0NFwUhDO3ZtV
-	6MySMjpuVY0RQ2x4J5kye9lloYTC3mXXc6vvo3X0jOSro38GWRDRcsh8RpdMQ7f8
-	wrNG+VRzNNNH5fLuQleWYapmnEAalGWb1GK/KXXOiNBrfQ9hUzLprhbZlNR+IUmN
-	TIO2uA3b5iLJHP+LR8RBcPKra+YAIWPs6LpaXgIOERPuhUUce1tQ5KVY7wvGd/l0
-	lnnY6vzkGGO1jB4EYQShfL3YJvlnTT+FV0fDMJZsaCFrmL7ozjCRRNkiWO532YSX
-	fBGxlQ==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gry2bu5yf-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:13:46 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39de4e72b33so1778186a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:13:46 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fOZsj7/M";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="M+OzFwXK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789755233;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=J1jtneS41EfApWU8IJSvGq3jJfWC73gwxxyLVnNUCV4=;
+	b=fOZsj7/MW08aLnxxmeerfYGkvokes2E7QF3eS4hJquxcnVGIJE+sohNQRNqQtgF94mJKqh
+	1SGCNAdawn8E105aSeW6TA1sGOQmm86TfiervB9vH10CIGONA9KCP6zeoCOyKTrM4S7fVw
+	fAXx7NSR6EM+31TvFFK8xr3FmJcjR4A=
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-154-GdENDVHHNDi1bz3RtQCLSQ-1; Fri, 18 Sep 2026 14:13:52 -0400
+X-MC-Unique: GdENDVHHNDi1bz3RtQCLSQ-1
+X-Mimecast-MFC-AGG-ID: GdENDVHHNDi1bz3RtQCLSQ_1789755232
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-530d912b923so19642511cf.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 11:13:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789755226; x=1790360026; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vlrqp6hzEyvS2JuXrzVg/2ASZasMwkiKMUs6oP7YPjU=;
-        b=Wgexgwh7WkKWRuH7D17ZcmhrXNgbiv0LvH0P1w8kYgjSUf9bT1FEbVQ2plmylH5wHk
-         5J/tptQpqwtf2lMi0bF5ZsAvIBRfHxHwgeeRSeoD2zjWGZ0Uya5FCWZDis81xbu6pARk
-         wRWHob4NyBjtitcT4VnG4oVLoiXcd/2rOgG0mD6AjIdwoDeld9yW8PEI/JiBWRt5STH1
-         Fb7aY23J6yO/5VPOBF/ibVHK5x2SFvqNohlVt59UWShqa0fLG1Q2X/oxRC7Nspm5dbrV
-         D2aTy7x7Q4WOk4l9p4/nJtJ900kVP+w7R6ya5rsvp+DBpNdAoseg2BjEwzPCcaT6gWzB
-         MaQQ==
+        d=redhat.com; s=google; t=1789755232; x=1790360032; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=J1jtneS41EfApWU8IJSvGq3jJfWC73gwxxyLVnNUCV4=;
+        b=M+OzFwXK4zfj2F5YBbASGjmo0z6+Xpi0aN2+nPIj/EOVWZtlRYBGaLi2PdPDGUQIWI
+         Y8fIJGVo5cvPCstj09DQaIFJQEFEzcrbn/MH7Uh1gPV+JWz3ZU5VZVBsP5BDpJbw5IUG
+         YxVQKwp4HFA1B56/KkMbosO5Nu4clsIOqzEO+tNlTvjWI2Omb0Ur5rGdp7opsJ+Ns45M
+         pO/krEsQvRaCzCkLvMewX2C9Ja1Hg72y5/4AhS/krUms8NOer1oiTuWSLRpE9LJEjika
+         QMUlAG4BO6wPDJsiLprXCwvQ1UHCz/eb/QM3IXoLRauV0GnEHYRRYv4QgaNgAC2cYHbh
+         9nGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789755226; x=1790360026;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vlrqp6hzEyvS2JuXrzVg/2ASZasMwkiKMUs6oP7YPjU=;
-        b=PAzbXQDehDB/qR1q+kHzGjgKB5n8aBHT8+Z8AC7QZwRgm73qmL5v27Wpda/tVIF+Iy
-         Y35g/BiNRv0f6PmObFKx6UFF2ZukwbB/orypBYGXhJEKPAWtsDT+y0n3AeUE3Nq2+hh8
-         UPkQASE5Zfke/oHx8IgpTO5xW9a4DlWgn8ZOyfYBivEg0eNr65TQHnR4Cvh4yl10X8HO
-         VrTuEXnxWEfmbEY7h27AuPb/I2TAkKFU6bblBsR+tW7SNVhz2yb2VvvwzLXge38/wkbM
-         NvDJFREGEtLnr7ZCiHFtLhWdumtcQ7Yyku85Qb92nU7rz6Gc1etRmbnHC2PGDt5UAj5X
-         EO3Q==
-X-Forwarded-Encrypted: i=1; AKwUvByYfAOLqpA2Yx3CgJU6JITfxDDPG2JeoKOMEBn5muk/6r5NG0upykbq8ekuaxtjQktgMPpUaw6wiH7C0IA=@vger.kernel.org
-X-Gm-Message-State: AFuF++ldFGbxb9pWRfov4qa8RBJeAgUemhnfy5LdOfyPEsStnhwSeMzT
-	bJvIPG81G+8XC1UmjUJtisFaHTGK5QpnJVZfpSWWIh37N4d2WZfs5GW4OtvdfB3snu85dHPDwML
-	W2xfEED2wiR7RGPLiOtdqv7n8gpihyOasEJuvTWcqi98T/sUrfs1uT7e5JgiEpRep8/4=
-X-Gm-Gg: AYBFou3Wot7Uol+QgsbAhPz9lEF2ptdeef+QujH1hzlgKtMrK1o0G7sqJj+D3E7dxF+
-	QpzFaW4cuLesi5feeCzDlun8AMjyFQLVKbdenxA+4/Vzcnpu/cu+ZztrM7Mn5/3DqzLlXVAuSwx
-	KUeQTTevJdoGqgTjrYjX1FBlr0DQ+EXAcJgF09OOYR31FCMy3SRgtXT1axeSL9s+kM2m8olseKG
-	ARNVTHBHV3xfEA1S0DkTuiG2M3WcuuRaSyoxub1SRI6DJY3tODaeE2ZzVMcI/NmHluqD7e46ZrZ
-	9muh9cNzWAp7YmbtDY0PsrQSYlvxxJ1uJooeaKGaNtE28WZJkacUZVQDgzSbVOrBPUTfDraJOix
-	UGftred9NXpX13wiu1pb2iLWBKVfBCo8pcu62p0KCorIP9rkAvkAy/kA3/w==
-X-Received: by 2002:a17:90b:134f:b0:39d:febe:7460 with SMTP id 98e67ed59e1d1-39e54d3651cmr7028580a91.22.1789755225603;
-        Fri, 18 Sep 2026 11:13:45 -0700 (PDT)
-X-Received: by 2002:a17:90b:134f:b0:39d:febe:7460 with SMTP id 98e67ed59e1d1-39e54d3651cmr7028536a91.22.1789755225051;
-        Fri, 18 Sep 2026 11:13:45 -0700 (PDT)
-Received: from [192.168.1.20] (33.sub-75-218-193.myvzw.com. [75.218.193.33])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c331433besm467963eec.16.2026.09.18.11.13.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2026 11:13:44 -0700 (PDT)
-Message-ID: <4e0481c1-9288-42d4-94c9-e18da5cf8e5d@oss.qualcomm.com>
-Date: Fri, 18 Sep 2026 11:13:42 -0700
+        d=1e100.net; s=20260707; t=1789755232; x=1790360032;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=J1jtneS41EfApWU8IJSvGq3jJfWC73gwxxyLVnNUCV4=;
+        b=ApD3343hxDMOFli5FUKPKa4k8O/Y4Ff+KeDah9hd47Qe4TVMAWkVbR5gg/eYJc5fTg
+         TDhRkPwROUvzYWB0PIgPGlYp2npneauchC+YvR+Be8kR0x7LANK2M4n3kllPTUP7FTnB
+         pSzqO99R4/p+TpVjnuJezY/Uq1WAXGM1UyZjedzM69FJZiH0211Wz4K0kmxaqrkqXeN7
+         sUOmD0R6tqRD/3XWlINH4MikkhkdpkWtu++W5CoPu9kjnlycttn0gyFLvzmUEOlS6jvK
+         19JF9I18FmHNQR4NAynw+efI2oqpi6hwH3s5yqCRTZeOaAkSMZzPPcFbH79m/Qgl8C4S
+         5OmQ==
+X-Gm-Message-State: AFuF++nU7nH2o5xDsgkY1mM64WOI68oOxtjlTta3UqLOB3jP1xKA/51d
+	OTwM0LIPQoNwpyZ/YxzmLoT0zJGZDnWg1kHn4Mz2LdZs8u1Q+hz6lTTG+Q2uvH9tvJIGDu7Q/rp
+	YYOskiyk+Vcdy/EeN+QVk1FFo5XC+jeb2mfRAjqXTw9c6UYdzNnUv6OORu7S6JiaeVbS4Xz9jSQ
+	==
+X-Gm-Gg: AYBFou1KyjKwgKexDBi06YjKj2HuSLJ88MonvhCWVsz7xZk/aem1SmXw6bnTUwkWfJO
+	UBMS4ynH9WHb3teW3QvirMExFH52FXxezC43I6UmiEq6FXgabnKVQElPxvCrr5fgA9rPybOJo+L
+	4Hfv1iRacA6ND24K8ojlYEFCA5dHJxBvuxfbXyHR1J7wicu+gyUet5xmojyGWOGqS8Do4QbFB2E
+	BdtcXo3FymemusAFtyD+wGi9EHpWsbmhN9HvPVeoszNxM0EAfpWQXUEHeOP2b117UC9amUR0zag
+	9RG/8J9WYTSOBuXnKXC41y+Ib4mm+/CatCAtXjgc8G75gVSNiZhidG6gjiy/6DnftK8Cbn+/
+X-Received: by 2002:a05:622a:5c16:b0:532:9add:50b4 with SMTP id d75a77b69052e-5329e3f97b8mr62334581cf.68.1789755231720;
+        Fri, 18 Sep 2026 11:13:51 -0700 (PDT)
+X-Received: by 2002:a05:622a:5c16:b0:532:9add:50b4 with SMTP id d75a77b69052e-5329e3f97b8mr62333991cf.68.1789755231255;
+        Fri, 18 Sep 2026 11:13:51 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91260968826sm1929916d6.4.2026.09.18.11.13.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 11:13:50 -0700 (PDT)
+Message-ID: <794fc2ed6ee73b65a5d714c16fd9c24bf92c4340.camel@redhat.com>
+Subject: Re: [PATCH v2] drm/nouveau: don't bump pin count on failed re-pin
+ in nouveau_bo_pin_locked()
+From: lyude@redhat.com
+To: Peiyang He <peiyang_he@smail.nju.edu.cn>, dakr@kernel.org, 
+	dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Fri, 18 Sep 2026 14:13:49 -0400
+In-Reply-To: <EACEF2F4E098413F+20260918025312.2814889-1-peiyang_he@smail.nju.edu.cn>
+References: 
+	<EACEF2F4E098413F+20260918025312.2814889-1-peiyang_he@smail.nju.edu.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] net: qrtr: Add support for using identical MHI
- endpoint devices
-To: manivannan.sadhasivam@oss.qualcomm.com,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
-        Jeff Johnson <jjohnson@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org,
-        ath11k@lists.infradead.org, ath12k@lists.infradead.org,
-        Bjorn Andersson <andersson@kernel.org>,
-        Chris Lew <christopher.lew@oss.qualcomm.com>,
-        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>,
-        Raj Kumar Bhagat <raj.bhagat@oss.qualcomm.com>,
-        Juha-Matti Tilli <juha-matti.tilli@iki.fi>,
-        Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-References: <20260918-qrtr-multi-ep-v1-0-8a06caa368d3@oss.qualcomm.com>
-From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <20260918-qrtr-multi-ep-v1-0-8a06caa368d3@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDI2MSBTYWx0ZWRfX4zQ/kFkl8A4i
- tQ3bWP+VQu8AEeUzzcdb0wSrykJNc/tKva6BoltJJjs2mbJyZg7nfHakDhEmkTOxiFdTxqkBzCt
- QBjWy/XiNnEPdXUkZpNKxHm8W9eG/yes8DZc6ytMFH7d4iMbPbzkMIKLajdLLlMMxC+NBGRDJD8
- uVnrgsE6MKRRaPlABSLNix+rvBmXiQLpf4PhWJMpJVsXzv+pTQ4Lip0/8LxMR3vfd2yA2Fr7LIh
- EsY+NqJrN0U3gW9//Wr5+Hh3v5/G4c8YkqoSBuhfhN4MKWmx0rKDYaJb8YcRKxcwwPPXzTuOBRB
- 5rKKLKmQ1d9YlSzKNZdPC+R6qikT/KEjmwpJbtuScQ8zfBU8rM7/F0B+foYg6wEZ9ZHruhwTCv4
- MIaT+fvs/EeDVPG2IutEEbfRVR0Dp7SSYnyGAlyzGDytI+OW45Da2xudGnmpS3npLW53s/6nCkl
- iA29Y5GQrv2V2do0y4Q==
-X-Proofpoint-GUID: fXlOVv8PfeInpxrZr4uHjTxAXF9Y-51m
-X-Authority-Analysis: v=2.4 cv=bYP+w+PB c=1 sm=1 tr=0 ts=6aad7f5a cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=AnolQpdaNwb4XK4FG+QP+g==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=KAMPhC-K3bquQAzTacoA:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDI2MSBTYWx0ZWRfX0gwhFLBjz9aR
- ASktxSqBfLcMeUmtzK6NCsOIK/V463/Yylf8VGB17NDyGo3kUuk1ZlAlUkpopnPjTQZZOd/TaDZ
- oGibOBrhIwxbPl9T9sOkaMvqOHoZESA=
-X-Proofpoint-ORIG-GUID: fXlOVv8PfeInpxrZr4uHjTxAXF9Y-51m
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-18_05,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 priorityscore=1501 impostorscore=0 bulkscore=0 clxscore=1015
- suspectscore=0 spamscore=0 lowpriorityscore=0 phishscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180261
 
-On 9/18/2026 9:28 AM, Manivannan Sadhasivam via B4 Relay wrote:
-> Hi,
-> 
-> This series reworks the QRTR driver to add support for using identical MHI
-> endpoint devices at the same time. Currently, QRTR driver has a limitation on
-> using more than one identical MHI endpoint devices like QCS6490 or any Qcom
-> Endpoint device making use of QRTR at the same time. Because of the fact that
-> these devices will have the identical QRTR node id, they cannot be used at the
-> same time, on the same host machine.
-> 
-> This limitation is a blocker for running upstream kernel on devices like Qcom
-> based routers as they often have multiple identical WLAN Endpoint devices
-> connected to the Router SoC.
-> 
-> This series supersedes the following 2 series from Juha:
-> https://lore.kernel.org/all/20260915054207.2513877-1-juha-matti.tilli@iki.fi
-> https://lore.kernel.org/all/20260915074135.2567411-1-juha-matti.tilli@iki.fi
-> 
-> Compared to the series from Juha, this series simplifies the multi-endpoint
-> support by computing a unique node id for each MHI endpoint and uses it for the
-> internal QRTR book keeping. This ensures that even if the MHI endpoint devices
-> have same node ids, the host QRTR will always use a unique node id for each one
-> of them.
-> 
-> More details can be found in the individual patches.
-> 
-> Testing
-> =======
-> 
-> Juha tested this series on multi ath11k setup by backporting this series to
-> 6.6.156 kernel. I'd appreciate a formal tested-by tag from Juha and other folks
-> CCed to this series.
-> 
-> Merge Strategy
-> ==============
-> 
-> Since both QRTR and ath drivers are falling under the networking tree, the whole
-> series can be merged through netdev tree.
-> 
-> Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Reviewed-by: Lyude Paul <lyude@redhat.com>
+
+Will push to drm-misc-fixes in just a moment
+
+On Fri, 2026-09-18 at 10:53 +0800, Peiyang He wrote:
+> nouveau_bo_pin_locked() checks whether an already pinned BO is in a
+> memory domain compatible with a new pin request. When the domains are
+> incompatible, it sets -EBUSY but still calls ttm_bo_pin() before
+> returning.
+>=20
+> Callers treat a failed nouveau_bo_pin() as not having acquired a new
+> pin,
+> so the extra pin count is never decreased by a matching unpin.
+> This triggers the warning in ttm_bo_release():
+>=20
+> 	WARN_ON_ONCE(bo->pin_count);
+>=20
+> Found when fuzzing the nouveau driver with a modified Syzkaller:
+>=20
+> 	WARNING: drivers/gpu/drm/ttm/ttm_bo.c:256 at
+> ttm_bo_release+0x827/0x9e0 drivers/gpu/drm/ttm/ttm_bo.c:256, CPU#1:
+> syz.3.24/2212
+> 	Modules linked in:
+> 	CPU: 1 UID: 0 PID: 2212 Comm: syz.3.24 Not tainted 7.2.0 #24
+> PREEMPT(lazy)
+> 	nouveau 0000:01:00.0: gsp:msg fn:103 len:0x40/0x20 res:0x19
+> resp:0x19
+> 	Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS
+> 1.16.3-debian-1.16.3-2 04/01/2014
+> 	RIP: 0010:ttm_bo_release+0x827/0x9e0
+> drivers/gpu/drm/ttm/ttm_bo.c:256
+> 	Code: 02 00 0f 85 51 01 00 00 48 8b 7b 08 e8 d2 20 01 00 e9
+> 80 fd ff ff e8 d8 15 c0 fe 90 0f 0b 90 e9 e1 f8 ff ff e8 ca 15 c0 fe
+> 90 <0f> 0b 90 e9 a4 f8 ff ff e8 bc 15 c0 fe be 03 00 00 00 4c 89 e7
+> e8
+> 	msg: 00000000: 05 00 d0 c1 04 00 f0 f1 01 30 00 00 2d 90 00
+> 00=C2=A0 .........0..-...
+> 	RSP: 0018:ffffc9000f5cf710 EFLAGS: 00010293
+> 	RAX: 0000000000000000 RBX: ffff888018e5d2a8 RCX:
+> ffffffff82bb1b36
+> 	RDX: ffff888017b68000 RSI: 0000000000000004 RDI:
+> ffff888018e5d2a8
+> 	msg: 00000010: 19 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> 00=C2=A0 ................
+> 	RBP: ffff88801261c720 R08: 0000000000000001 R09:
+> ffffed10031cba55
+> 	R10: ffff888018e5d2ab R11: 00000000000000f3 R12:
+> ffff888018e5d290
+> 	R13: ffff888018e5d2d4 R14: ffff88801b219c18 R15:
+> dffffc0000000000
+> 	FS:=C2=A0 0000000000000000(0000) GS:ffff8880e0f6f000(0000)
+> knlGS:0000000000000000
+> 	CS:=C2=A0 0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> 	CR2: 0000001b31223ffc CR3: 0000000028e00005 CR4:
+> 0000000000770ef0
+> 	PKRU: 80000000
+> 	Call Trace:
+> 	<TASK>
+> 	kref_put include/linux/kref.h:65 [inline]
+> 	ttm_bo_put drivers/gpu/drm/ttm/ttm_bo.c:325 [inline]
+> 	ttm_bo_fini+0x55/0x80 drivers/gpu/drm/ttm/ttm_bo.c:330
+> 	nouveau_gem_object_del+0xb2/0x1b0
+> drivers/gpu/drm/nouveau/nouveau_gem.c:90
+> 	drm_gem_object_free+0x5f/0x90 drivers/gpu/drm/drm_gem.c:1165
+> 	kref_put include/linux/kref.h:65 [inline]
+> 	__drm_gem_object_put include/drm/drm_gem.h:562 [inline]
+> 	drm_gem_object_put include/drm/drm_gem.h:575 [inline]
+> 	nouveau_abi16_chan_fini.constprop.0+0x44f/0x5a0
+> drivers/gpu/drm/nouveau/nouveau_abi16.c:195
+> 	nouveau 0000:01:00.0: syz.2.23[2209]: Unknown handle
+> 0x00000000
+> 	nouveau_abi16_fini+0x1d0/0x340
+> drivers/gpu/drm/nouveau/nouveau_abi16.c:225
+> 	nouveau_drm_postclose+0x18b/0x3e0
+> drivers/gpu/drm/nouveau/nouveau_drm.c:1284
+> 	nouveau 0000:01:00.0: syz.2.23[2209]: validate_init
+> 	drm_file_free.part.0+0x6d6/0xb60
+> drivers/gpu/drm/drm_file.c:267
+> 	drm_file_free drivers/gpu/drm/drm_file.c:237 [inline]
+> 	drm_close_helper.isra.0+0x11a/0x160
+> drivers/gpu/drm/drm_file.c:290
+> 	drm_release+0x1ab/0x330 drivers/gpu/drm/drm_file.c:438
+> 	__fput+0x39c/0xa60 fs/file_table.c:512
+> 	nouveau 0000:01:00.0: syz.2.23[2209]: validate: -2
+> 	task_work_run+0x15a/0x230 kernel/task_work.c:233
+> 	exit_task_work include/linux/task_work.h:40 [inline]
+> 	do_exit+0x82b/0x25a0 kernel/exit.c:1009
+> 	do_group_exit+0xc2/0x280 kernel/exit.c:1152
+> 	get_signal+0x1d6e/0x1f30 kernel/signal.c:3046
+> 	arch_do_signal_or_restart+0x7d/0x6e0
+> arch/x86/kernel/signal.c:337
+> 	__exit_to_user_mode_loop kernel/entry/common.c:66 [inline]
+> 	exit_to_user_mode_loop+0xdf/0x440 kernel/entry/common.c:101
+> 	__exit_to_user_mode_prepare include/linux/irq-entry-
+> common.h:207 [inline]
+> 	syscall_exit_to_user_mode_prepare include/linux/irq-entry-
+> common.h:230 [inline]
+> 	syscall_exit_to_user_mode include/linux/entry-common.h:318
+> [inline]
+> 	do_syscall_64+0x4f8/0x690 arch/x86/entry/syscall_64.c:100
+> 	entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 	RIP: 0033:0x7f12bac8594d
+> 	Code: Unable to access opcode bytes at 0x7f12bac85923.
+> 	RSP: 002b:00007f12b96e70d8 EFLAGS: 00000246 ORIG_RAX:
+> 00000000000000ca
+> 	RAX: 0000000000000001 RBX: 00007f12baf15fa8 RCX:
+> 00007f12bac8594d
+> 	RDX: 00000000000f4240 RSI: 0000000000000081 RDI:
+> 00007f12baf15fac
+> 	RBP: 00007f12baf15fa0 R08: 00007f12baee8000 R09:
+> 0000000000000000
+> 	R10: 0000000000000000 R11: 0000000000000246 R12:
+> 0000000000000000
+> 	R13: 00007f12baf16038 R14: 0000000000000006 R15:
+> 00007ffe2ed394b0
+> 	</TASK>
+> 	irq event stamp: 47867
+> 	hardirqs last=C2=A0 enabled at (47883): [<ffffffff815cafc6>]
+> __up_console_sem+0x66/0x70 kernel/printk/printk.c:347
+> 	hardirqs last disabled at (47892): [<ffffffff815cafab>]
+> __up_console_sem+0x4b/0x70 kernel/printk/printk.c:345
+> 	softirqs last=C2=A0 enabled at (47880): [<ffffffff81434277>]
+> __do_softirq kernel/softirq.c:656 [inline]
+> 	softirqs last=C2=A0 enabled at (47880): [<ffffffff81434277>]
+> invoke_softirq kernel/softirq.c:496 [inline]
+> 	softirqs last=C2=A0 enabled at (47880): [<ffffffff81434277>]
+> __irq_exit_rcu+0x137/0x1c0 kernel/softirq.c:735
+> 	softirqs last disabled at (47875): [<ffffffff81434277>]
+> __do_softirq kernel/softirq.c:656 [inline]
+> 	softirqs last disabled at (47875): [<ffffffff81434277>]
+> invoke_softirq kernel/softirq.c:496 [inline]
+> 	softirqs last disabled at (47875): [<ffffffff81434277>]
+> __irq_exit_rcu+0x137/0x1c0 kernel/softirq.c:735
+>=20
+> Fix by calling ttm_bo_pin() only when the existing placement is
+> compatible
+> with the new pin request. This matches the correct behavior in other
+> DRM
+> drivers such as amdgpu_bo_pin() in amdgpu.
+>=20
+> Cc: stable@vger.kernel.org
+> Fixes: ad76b3f7c7a0 ("drm/nouveau: teach nouveau_bo_pin() how to
+> force a contig vram allocation")
+> Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+> Assisted-by: LLM
 > ---
-> Manivannan Sadhasivam (4):
->       net: qrtr: Allow the host QRTR to assign a unique node id
->       net: qrtr: Assign unique node id for MHI endpoints
->       wifi: ath11k: Connect to the QMI server belonging to the device owned by this driver
->       wifi: ath12k: Connect to the QMI server belonging to the device owned by this driver
-> 
->  MAINTAINERS                           |  1 +
->  drivers/net/wireless/ath/ath11k/hif.h |  9 ++++++
->  drivers/net/wireless/ath/ath11k/pci.c |  9 ++++++
->  drivers/net/wireless/ath/ath11k/qmi.c | 10 ++++++
->  drivers/net/wireless/ath/ath12k/hif.h |  9 ++++++
->  drivers/net/wireless/ath/ath12k/pci.c |  9 ++++++
->  drivers/net/wireless/ath/ath12k/qmi.c | 11 +++++++
->  include/net/qrtr.h                    | 21 ++++++++++++
->  net/qrtr/af_qrtr.c                    | 61 +++++++++++++++++++++++++++++++----
->  net/qrtr/mhi.c                        |  4 ++-
->  10 files changed, 136 insertions(+), 8 deletions(-)
-> ---
-> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-
-I see this is based upon v7.3-rc1 (current release tree).
-This series doesn't cleanly apply on the net-next tree.
-
-Are you planning on netdev taking this through current or next?
-
-And an alternate merge strategy would be for netdev to take the first two
-patches and then after wireless fast-forwards and ath fast-forwards, I could
-take the last two though the ath tree.
+> Changes in v2:
+> =C2=A0 - replace goto with else branch (suggested by Lyude Paul)
+> =C2=A0 - fix Assisted-by tag
+>=20
+> =C2=A0drivers/gpu/drm/nouveau/nouveau_bo.c | 3 ++-
+> =C2=A01 file changed, 2 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_bo.c
+> b/drivers/gpu/drm/nouveau/nouveau_bo.c
+> index 0e8de6d4b36f..6dcb92575eb4 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_bo.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_bo.c
+> @@ -578,8 +578,9 @@ int nouveau_bo_pin_locked(struct nouveau_bo
+> *nvbo, uint32_t domain, bool contig)
+> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "0x%08x vs 0x%08x\n", bo,
+> =C2=A0				 bo->resource->mem_type, domain);
+> =C2=A0			ret =3D -EBUSY;
+> +		} else {
+> +			ttm_bo_pin(&nvbo->bo);
+> =C2=A0		}
+> -		ttm_bo_pin(&nvbo->bo);
+> =C2=A0		goto out;
+> =C2=A0	}
+> =C2=A0
+>=20
+> base-commit: df2908090cda368b01ff43709f51890076c56157
 
