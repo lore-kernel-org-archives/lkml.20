@@ -1,178 +1,137 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE9363ABD8F;
-	Fri, 18 Sep 2026 10:13:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8DEA4BD34E
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 10:13:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.112
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789726404; cv=none; b=tetQGybWh6rC20idHuuVh/RYyk6n2LraAEMBttaugAlIuuuXZjHrEEKDwfuMWftMrE44UXYmKCuhsS+jybz4vbjg+SgHPIrJK+EwoYs2Wl+Q/Vho/b50Lakmr1XPchkQYT1HbQxwMSjEGRjEwBgkK4XqWyc91MVyRpwVYZ6IPrI=
+	t=1789726407; cv=none; b=TCLpBdcLcWL0Jpqjt2P5ztb0gxAUC3M2TjQJf5HjWokCZiWA2VKbrUOQUUifxyOGTP2okzgT/Ws+wsCDjkqfQuvNePfRd8ix9vXULJIfiwQq92zU4Uqq2srds/CTGmgnwEvfUmZnd+6qWwb5kAi4h24jeMfdl/PbHosEg5JH0kA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789726404; c=relaxed/simple;
-	bh=ap1Y8a3oUP+UBdrEdrwyOGF4XZzM4Il2098hOyizWJo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PqeJBh+94bkfoTm/mLb+sdCvjRMMcOIBov5B6crr74jc38YNzOnfxdzYw8llDZQwIvQcqwAImfDO9Sz9Q+ob6toDNJuA7N0f2q3f1YGG78vepGfS5GTirCBVGPJzzkUiiQM0a4MGmDsS6+wHFlA4l2Vpiho0tYeSIz1RTrPjMWM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=V4wMKtX1; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789726407; c=relaxed/simple;
+	bh=dZHhw90Zo7hwyMM0KWsX/6pY2ExSGOUDO83AkrjYefY=;
+	h=Cc:Subject:Date:Message-Id:Content-Type:To:From:Mime-Version; b=TUcb7zv4hLEEDj+GVk6KdRSjNDtxHPhpzgUjUji4Khyb74cxViKm8vRTkYp7rNPbiPNLg7sdcaG9g5+Fy12KsBh02wud2OanxOXZZFOqc9zljgV9R/SOcMvy9Ncu7hddCPU4Jq/w/Zs+WPLk/84mRvZ/asZqkt4Wbdo5ybne4rw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=nOS2JkU9; arc=none smtp.client-ip=209.127.230.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="V4wMKtX1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789726402; x=1821262402;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ap1Y8a3oUP+UBdrEdrwyOGF4XZzM4Il2098hOyizWJo=;
-  b=V4wMKtX1tU2OhwAUzYdG/D4Ar5rqOti9ift5szJLUvcz5HK2TS167xOF
-   wW6YFMyO32nJLGveCCWup/w72UrYaWtScuYz4W17WIDvMI6RHG2L4c1yk
-   TikC5b69knxCviN54azTd/ApUsnnR+yltie4zylVWC9Nch/GUqy0YrBtl
-   CGINLAR8o/41zPUwLaf+7uDn4Y8GR8w3Ty9YQIvXzeVZJlNKrX1xi+Y7U
-   sjS3ziQCqWkW707nVy7syhy3G0WCnF8RX6C5gplZGUFan+JMXOiVA4Agj
-   eBC1N4siphVuxwTVN1gsBAnEpAvPSmSMOJrQcwqaQAgftTqYOcqOUkwgG
-   A==;
-X-CSE-ConnectionGUID: rg+u4/pkRvC9OuonM3ga9A==
-X-CSE-MsgGUID: vGPoBD2KSP+L2TWWPyZG1g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="77785751"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="77785751"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 03:13:18 -0700
-X-CSE-ConnectionGUID: EO9hDx4mTX+u/N0/fa2OXA==
-X-CSE-MsgGUID: Eo0mktPNTa+RSo3R6CrlKQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="268074483"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.224])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 03:13:16 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 936B5121BB0;
-	Fri, 18 Sep 2026 13:13:11 +0300 (EEST)
-Date: Fri, 18 Sep 2026 13:13:11 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Hermes.wu@ite.com.tw
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 19/21] media: i2c: it6625: fold subdev initialization
- into probe
-Message-ID: <aq0Ot1n9q6f_AtpX@kekkonen.localdomain>
-References: <20260918-upstream-it6625-follow-up-patch-v1-0-78d72d7886a5@ite.com.tw>
- <20260918-upstream-it6625-follow-up-patch-v1-19-78d72d7886a5@ite.com.tw>
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="nOS2JkU9"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1789726394; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=jUh0oO6Klx+ZE+PWk/0c8jcKPhTLuXbCHk9sShXLA5g=;
+ b=nOS2JkU9i6ZySyKuqTa1toPHrOdppKcv171Y8ix4e2Ym6UP4y6JrZ6uZmhzKgwO5Un3HQ1
+ KGvtf5TYSe6bNS+54h2soxzkt6Jt0WLn9ckbGDqI4RRUm1C07LHArPYdedjQTcp64WKU4R
+ YjTjEHh/X+2Mguxq7Sx5ynged0YVL9La0vUaf9GG9pNDTjnfKBTsmfWApXmvuvb9D9Bnn9
+ cZ6GsvWCyFmCi5H9UTg+g1CS4rmIkSaJ37/0eOre7lCqIcadwtxMYMP+b3VMxlaNhuNNEG
+ 8KZomwBWGJGjYKJDRu7uN7XA/Vp1cwVdIOy/cgeQav44A1eMTyzsWAWVbkKGDQ==
+Cc: "Andreas Dilger" <adilger.kernel@dilger.ca>, 
+	"Baokun Li" <libaokun@linux.alibaba.com>, "Jan Kara" <jack@suse.cz>, 
+	"Ojaswin Mujoo" <ojaswin@linux.ibm.com>, 
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+	"Zhang Yi" <yi.zhang@huawei.com>, <linux-ext4@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
+	"Zhao Gongyi" <zhaogongyi@bytedance.com>
+X-Lms-Return-Path: <lba+26aad0eb8+74b509+vger.kernel.org+zhaogongyi@bytedance.com>
+Subject: [PATCH] ext4: fix OOB memmove in ext4_xattr_set_entry
+Date: Fri, 18 Sep 2026 18:12:49 +0800
+Message-Id: <20260918101249.43643-1-zhaogongyi@bytedance.com>
+X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+Content-Type: text/plain; charset=UTF-8
+To: "Theodore Ts'o" <tytso@mit.edu>
+From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918-upstream-it6625-follow-up-patch-v1-19-78d72d7886a5@ite.com.tw>
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Hi Hermes,
+A corrupted filesystem can leave an inode marked as having inline data
+while the system.data xattr is missing. ext4_destroy_inline_data_nolock()
+then asks ext4_xattr_set_entry() to remove an entry even though
+ext4_xattr_ibody_find() left the search state at the insertion position.
 
-Overall the patches are nice, thank you. One comment below...
+In the syzkaller reproducer, the old xattr value offset is smaller than
+min_offs. ext4_xattr_set_entry() then computes val - first_val for
+memmove(), the length wraps to a huge size_t, and memmove() can run out of
+the xattr buffer. This results in an out-of-bounds memmove and a kernel
+page fault.
 
-On Fri, Sep 18, 2026 at 04:57:34PM +0800, Hermes Wu via B4 Relay wrote:
-> From: Hermes Wu <Hermes.wu@ite.com.tw>
-> 
-> it6625_init_v4l2_subdev() split subdev/control-handler/media-entity
-> initialization out of probe(), which made error handling harder to
-> follow across the two functions and forced probe() to normalize every
-> init_v4l2_subdev() failure to -ENOMEM regardless of the real error
-> (e.g. a media_entity_pads_init() failure was reported to the caller as
-> -ENOMEM instead of its actual code).
-> 
-> Inline it into it6625_probe() so initialization and its unwind path
-> are visible together, and propagate the real error from
-> it6625_v4l2_init_controls() instead of replacing it. Cleanup behavior
-> on each failure path is unchanged: it6625_v4l2_init_controls() already
-> frees the control handler internally before returning an error, and a
-> media_entity_pads_init() failure still frees it explicitly before
-> unwinding, so neither path double-frees it through the later
-> err_clean_hdl label.
-> 
-> State finalization (v4l2_subdev_init_finalize()/cleanup()) is
-> deliberately left for a follow-up change, to keep this a pure
-> restructuring and keep the locking-model transition atomic on its own.
-> 
-> Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
-> ---
->  drivers/media/i2c/it6625.c | 46 +++++++++++++++++-----------------------------
->  1 file changed, 17 insertions(+), 29 deletions(-)
-> 
-> diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
-> index 40cd413e0ed49c118421ce3dec77bb2df08cf042..ec6aaa878471ff210264a35e4aa66dfb1e63ed3b 100644
-> --- a/drivers/media/i2c/it6625.c
-> +++ b/drivers/media/i2c/it6625.c
-> @@ -2142,33 +2142,6 @@ static int it6625_parse_dt(struct it6625 *it6625)
->  	return it6625_parse_endpoint(it6625);
->  }
->  
-> -static int it6625_init_v4l2_subdev(struct it6625 *it6625)
-> -{
-> -	struct v4l2_subdev *sd = &it6625->sd;
-> -	int err;
-> -
-> -	sd->dev = it6625->dev;
-> -
-> -	v4l2_i2c_subdev_init(sd, it6625->i2c_client, &it6625_ops);
-> -	sd->internal_ops = &it6625_internal_ops;
-> -	sd->flags |= V4L2_SUBDEV_FL_HAS_DEVNODE | V4L2_SUBDEV_FL_HAS_EVENTS;
-> -	if (it6625_v4l2_init_controls(sd)) {
-> -		dev_err(it6625->dev, "Failed to initialize v4l2 controls");
-> -		return -ENOMEM;
-> -	}
-> -
-> -	it6625->pad.flags = MEDIA_PAD_FL_SOURCE;
-> -	sd->entity.function = MEDIA_ENT_F_CAM_SENSOR;
-> -	err = media_entity_pads_init(&sd->entity, 1, &it6625->pad);
-> -	if (err < 0) {
-> -		dev_err(it6625->dev, "%s %d err=%d", __func__, __LINE__, err);
-> -		v4l2_ctrl_handler_free(sd->ctrl_handler);
-> -		return err;
-> -	}
-> -
-> -	return 0;
-> -}
-> -
->  static int it6625_check_device(struct it6625 *it6625)
->  {
->  	static const u8 chip_ids[][2] = {
-> @@ -2254,9 +2227,24 @@ static int it6625_probe(struct i2c_client *client)
->  	}
->  
->  	sd = &it6625->sd;
-> -	err = it6625_init_v4l2_subdev(it6625);
-> -	if (err)
-> +	v4l2_i2c_subdev_init(sd, it6625->i2c_client, &it6625_ops);
-> +	sd->internal_ops = &it6625_internal_ops;
-> +	sd->flags |= V4L2_SUBDEV_FL_HAS_DEVNODE | V4L2_SUBDEV_FL_HAS_EVENTS;
-> +
-> +	err = it6625_v4l2_init_controls(sd);
-> +	if (err) {
-> +		dev_err(it6625->dev, "failed to initialize v4l2 controls: %d", err);
->  		goto err_clean_work_queues;
-> +	}
-> +
-> +	it6625->pad.flags = MEDIA_PAD_FL_SOURCE;
-> +	sd->entity.function = MEDIA_ENT_F_CAM_SENSOR;
-> +	err = media_entity_pads_init(&sd->entity, 1, &it6625->pad);
-> +	if (err < 0) {
-> +		dev_err(it6625->dev, "%s %d err=%d", __func__, __LINE__, err);
-> +		v4l2_ctrl_handler_free(sd->ctrl_handler);
+A crafted corrupted ext4 image can trigger this while inline data is being
+converted out of the inode. Treat the inconsistent inline/xattr state as
+filesystem corruption before updating the xattr entry.
 
-Please add a new label instead of freeing the control handler here.
+The issue was found by syzkaller and reproduced with the generated C
+reproducer. The crash signature is:
 
-> +		goto err_clean_work_queues;
-> +	}
->  
->  	err = v4l2_ctrl_handler_setup(sd->ctrl_handler);
->  	if (err)
-> 
+  BUG: unable to handle page fault for address: ffff8880074cf000
+  RIP: 0010:memmove+0x28/0x1b0
+  Call Trace:
+   ext4_xattr_set_entry+0xe2f/0x1e90 fs/ext4/xattr.c:1761
+   ext4_xattr_ibody_set+0x3d6/0x5d0 fs/ext4/xattr.c:2268
+   ext4_destroy_inline_data_nolock+0x288/0x5b0 fs/ext4/inline.c:467
+   ext4_convert_inline_data_nolock+0x178/0xe80 fs/ext4/inline.c:1222
+   ext4_convert_inline_data+0x52a/0x610 fs/ext4/inline.c:2083
+   ext4_fallocate+0x1a0/0x3ba0 fs/ext4/extents.c:4752
 
+Reject the missing system.data xattr before destroying inline data, and
+validate the old value offset before ext4_xattr_set_entry() reaches the
+memmove().
+
+The crash was reproduced on unpatched 7.3.0-rc3 and 6.6.122 kernels. With
+this fix applied to both versions, the same syzkaller C reproducer ran for
+120 seconds without triggering KASAN, Oops, a memmove fault, or panic.
+
+Fixes: 67cf5b09a46f ("ext4: add the basic function for inline data support")
+Cc: stable@vger.kernel.org # v3.8+
+Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
+---
+ fs/ext4/inline.c |  6 ++++++
+ fs/ext4/xattr.c  | 12 ++++++++++++
+ 2 files changed, 18 insertions(+)
+
+diff --git a/fs/ext4/inline.c b/fs/ext4/inline.c
+index ceee69a66..0a30d40cb 100644
+--- a/fs/ext4/inline.c
++++ b/fs/ext4/inline.c
+@@ -461,6 +461,12 @@ static int ext4_destroy_inline_data_nolock(handle_t *handle,
+ 	error = ext4_xattr_ibody_find(inode, &i, &is);
+ 	if (error)
+ 		goto out;
++	if (is.s.not_found) {
++		EXT4_ERROR_INODE(inode,
++				 "corrupted inline data without system.data xattr");
++		error = -EFSCORRUPTED;
++		goto out;
++	}
+ 
+ 	BUFFER_TRACE(is.iloc.bh, "get_write_access");
+ 	error = ext4_journal_get_write_access(handle, inode->i_sb, is.iloc.bh,
+diff --git a/fs/ext4/xattr.c b/fs/ext4/xattr.c
+index 5c310747b..9a0ee5779 100644
+--- a/fs/ext4/xattr.c
++++ b/fs/ext4/xattr.c
+@@ -1712,6 +1712,18 @@ static int ext4_xattr_set_entry(struct ext4_xattr_info *i,
+ 		}
+ 	}
+ 
++	if (!s->not_found && here->e_value_size && !here->e_value_inum) {
++		size_t offs = le16_to_cpu(here->e_value_offs);
++
++		if (offs < min_offs) {
++			EXT4_ERROR_INODE(inode,
++					 "corrupted xattr: value offset %zu < min_offs %zu",
++					 offs, min_offs);
++			ret = -EFSCORRUPTED;
++			goto out;
++		}
++	}
++
+ 	/*
+ 	 * Getting access to old and new ea inodes is subject to failures.
+ 	 * Finish that work before doing any modifications to the xattr data.
 -- 
-Kind regards,
-
-Sakari Ailus
+2.39.5 (Apple Git-154)
