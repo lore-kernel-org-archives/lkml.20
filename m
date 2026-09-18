@@ -1,122 +1,177 @@
-Received: from out28-195.mail.aliyun.com (out28-195.mail.aliyun.com [115.124.28.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 399581A680B;
-	Fri, 18 Sep 2026 06:03:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7345396567
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 06:05:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789711439; cv=none; b=fyMi4gdMHzHxzx5f3TO3x9247x3dnwcUx8Kj/4ZpApEqUzmTrbktap+ixI//17jYdQ4+g83wM3U9kn2xLsUu8Vwzvj79ffLDjM/pOpZtkDSn1tiEy0e4nVL6VZsBAJXLInnnhe10qyYp6KVfE26yqxFLpbxfVHZzY3+8p0siMB8=
+	t=1789711544; cv=none; b=kv97cmnY9dksRvattLVQrGaFhjN+QGmXKgB4mr1+KrUw03/TPJ63J4JJEocHPvuj2d5j8RcWFyiiGM7PVWUAftIpauLS3GB+lshPgQt8Du6i6Vp+rqg3TbEFWvKVcHspVgfpiYD78SfdIz/3GJo0zGIU15Ygjt257YjbN2bQJbk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789711439; c=relaxed/simple;
-	bh=m12oV/qbHe0k+fhE6WunLLWrTILIoe2+ymCvPGNvHbQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kgwvnodjr0JHpx3PdG9KnvHNu+UFM9uzvLMVEDTSj9F6rmjIJs9RHEz0jUpq+aeXrf0uRAB4HbrZeuEJCRpQm2SEiiTxIObjQzaj26Z84C/sc5trDmLx8w5qc64h7taPtwEvJNvLIZru7BWWoYo/m1nOMl09/m5b7KxsF8IWpb8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=Da6kmjy1; arc=none smtp.client-ip=115.124.28.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	s=arc-20240116; t=1789711544; c=relaxed/simple;
+	bh=1nFJDMrYdn3GbWtOumxhGy3vguq9cbshqr+iX+p9L/I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YplJCbkl+APhgwiKgho4ES6mKeTtaZcgvpcNagwJLlXQFq0VIswrMR2gC33H9pxdepVFC6/Tn+MjJEaQpfMI6cw6wARJFqEbtcJQgTIMwXyyPuvc3pZXtcGbXsGdesImPP/Q9ui12JQIgGpcOrsNDTTdk2R0EYHPkbf2iWzKF6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HRYJtWuL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="Da6kmjy1"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1789711433; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=rWq10pqqosi/sjq7XgPLVJ0kZKsNG1BwJJnmrCMR4Ik=;
-	b=Da6kmjy1ioDQCl4modquBwMIvLbJ9dv8G39V3CDY2jHoT0deXH3aG4/kq0dPNl2Hd4NZYg8yzwfxzdheMtJziFSTOZ4NOtx2A7fZlmrb/riAot/EzamA6NWCaRaS7b+T9jxnTViUdFkFXDY2nShjHV3yU8tM3nv0l8PQesO7pwc=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07439084|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.36421-0.158334-0.477456;FP=5127288922640715334|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033023018039;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.jGTYvIj_1789711432;
-Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jGTYvIj_1789711432 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Fri, 18 Sep 2026 14:03:53 +0800
-From: Guo Zihao <guozh23@xiaopeng.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Liu Chao <liuc63@xiaopeng.com>
-Subject: [PATCH] media: i2c: vgxy61: reject out of range MIPI CSI-2 lane numbers
-Date: Fri, 18 Sep 2026 14:03:52 +0800
-Message-ID: <20260918060352.1879381-1-guozh23@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HRYJtWuL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DB971F000FF;
+	Fri, 18 Sep 2026 06:05:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789711542;
+	bh=2iSN1j31Sw9qmqTYVp6Ry3mKQfg4lt3sT+FCrOQ8mF4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=HRYJtWuL74SbBnfcEwdWnfbXL/tQ2LS0eZcRDZCBlNLQXBydIBtYqkiENXlDagnbT
+	 C2yEEFg2K7h5z+2opnb1JHsi/x+l+mdBVTLNqkvv/DpshLB82Svt8wnmGViSmp38iu
+	 RqWJqCe9NjqFd7sIoVai7vkuR1L3g/ELqekIScdjqxdSM+2tF1sE2M5vUb+ybXhH2T
+	 qeHd1/7ezHu35c25/Re5wk4kWvG7SMvYr71yv/QjO7HFaVvMkPqGp28tk2Tjav58QQ
+	 8Q3/O3ocmaqrfak5BYTC5KAwevQhgl+fUqMCEBp14MV+FG3sEjD8+8xfzUSXElZXjR
+	 UltrRtZcQGVSg==
+Message-ID: <2462f67c-f7d3-4eb3-a093-6a338ef49f14@kernel.org>
+Date: Fri, 18 Sep 2026 08:05:32 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 03/10] mm/vmalloc: use pte_set_huge()/pte_clear_huge()
+ for PTE-level block mappings
+To: Barry Song <baohua@kernel.org>, Wen Jiang <jiangwenxiaomi@gmail.com>
+Cc: akpm@linux-foundation.org, catalin.marinas@arm.com, linux-mm@kvack.org,
+ urezki@gmail.com, will@kernel.org, Xueyuan.chen21@gmail.com,
+ ajd@linux.ibm.com, anshuman.khandual@arm.com, david@kernel.org,
+ dev.jain@arm.com, jiangwen6@xiaomi.com, leo.yan@arm.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com, mpe@ellerman.id.au,
+ npiggin@gmail.com, rppt@kernel.org, ryan.roberts@arm.com
+References: <20260917052933.188679-1-jiangwenxiaomi@gmail.com>
+ <20260917052933.188679-4-jiangwenxiaomi@gmail.com>
+ <27072d94-13bf-4bea-948a-d8a67976601e@kernel.org>
+ <CAHKocdE_zyUQT459AiTBDzQHk0jh+VpXuSMDdgHjkg-dAkgBNg@mail.gmail.com>
+ <CAGsJ_4yJ-KCHbJ9S2GKXfO51KB8g-y2Q_MikqE9-6VesR-RC9Q@mail.gmail.com>
+Content-Language: fr-FR
+From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+In-Reply-To: <CAGsJ_4yJ-KCHbJ9S2GKXfO51KB8g-y2Q_MikqE9-6VesR-RC9Q@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-vgxy61_tx_from_ep() builds the log2phy and phy2log maps straight from the
-lane numbers in the device tree endpoint, using them as array indices:
 
-        log2phy[0] = ep.bus.mipi_csi2.clock_lane;
-        phy2log[log2phy[0]] = 0;
-        for (l = 1; l < l_nb + 1; l++) {
-                log2phy[l] = ep.bus.mipi_csi2.data_lanes[l - 1];
-                phy2log[log2phy[l]] = l;
-        }
 
-Both arrays hold VGXY61_NB_POLARITIES (5) entries, and neither lane
-number is checked against that, so an endpoint with a larger value
-writes past the end of the arrays on the stack.
+Le 17/09/2026 à 23:44, Barry Song a écrit :
+> On Thu, Sep 17, 2026 at 10:41 PM Wen Jiang <jiangwenxiaomi@gmail.com> wrote:
+>>
+>> On Thu, 17 Sept 2026 at 22:00, Christophe Leroy (CS GROUP)
+>> <chleroy@kernel.org> wrote:
+>>>
+>>>
+>>>
+>>> Le 17/09/2026 à 07:29, Wen Jiang a écrit :
+>>>> From: Wen Jiang <jiangwen6@xiaomi.com>
+>>>>
+>>>> vmap installs PTE-level block mappings by reusing set_huge_pte_at() and
+>>>> huge_ptep_get_and_clear() under #ifdef CONFIG_HUGETLB_PAGE. This makes
+>>>> the feature silently unavailable on CONFIG_HUGETLB_PAGE=n kernels and
+>>>> couples mm/vmalloc.c to HugeTLB internals it does not otherwise need.
+>>>>
+>>>> Now that arm64 and powerpc/8xx provide pte_set_huge() and
+>>>> pte_clear_huge(), add the generic fallbacks next to the existing
+>>>> pmd/pud_set_huge() family and convert vmap_pte_range() and
+>>>> vunmap_pte_range() to the new helpers. The CONFIG_HUGETLB_PAGE guards
+>>>> around the block-mapping paths are dropped, so PTE-level block mappings
+>>>> now also work on CONFIG_HUGETLB_PAGE=n kernels, and mm/vmalloc.c no
+>>>> longer includes <linux/hugetlb.h>.
+>>>>
+>>>> The fallbacks exist only to keep the build working on architectures
+>>>> without PTE-level block mapping support. They are unreachable there:
+>>>> the callers only run when arch_vmap_pte_range_map_size() or
+>>>> arch_vmap_pte_range_unmap_size() return a size other than PAGE_SIZE,
+>>>> which requires an arch implementation. WARN_ON_ONCE() makes that
+>>>> explicit rather than silently doing nothing.
+>>>>
+>>>> Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
+>>>> ---
+>>>>    include/linux/pgtable.h | 29 +++++++++++++++++++++++++++++
+>>>>    mm/vmalloc.c            | 19 ++++++-------------
+>>>>    2 files changed, 35 insertions(+), 13 deletions(-)
+>>>>
+>>>> diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
+>>>> index cdd68ed3ae1a9..349ced999f959 100644
+>>>> --- a/include/linux/pgtable.h
+>>>> +++ b/include/linux/pgtable.h
+>>>> @@ -2134,6 +2134,35 @@ static inline int pmd_free_pte_page(pmd_t *pmd, unsigned long addr)
+>>>>    }
+>>>>    #endif      /* CONFIG_HAVE_ARCH_HUGE_VMAP */
+>>>>
+>>>> +/*
+>>>> + * PTE-level block mappings for vmap.
+>>>> + *
+>>>> + * pte_set_huge() only has to be implemented by architectures whose
+>>>> + * arch_vmap_pte_range_map_size() can return a size other than PAGE_SIZE.
+>>>> + */
+>>>> +#ifndef __HAVE_ARCH_PTE_SET_HUGE
+>>>> +static inline void pte_set_huge(pte_t *ptep, unsigned long addr,
+>>>> +                             phys_addr_t phys, pgprot_t prot,
+>>>> +                             unsigned long size)
+>>>> +{
+>>>> +     WARN_ON_ONCE(1);
+>>>
+>>> BUILD_BUG_ON() would be better here.
+>>>
+>>> It should be possible because fallback arch_vmap_pte_range_map_size()
+>>> will constant-fold PAGE_SIZE so pte_set_huge() will never be called.
+>>>
+>>
+>> Agreed. These fallbacks exist only to keep the build working on
+>> architectures with PTE-level block mappings and should never actually
+>> be reached, so BUILD_BUG_ON() is right. I'll make that change in v9.
+>>
+> 
+> I am not quite sure. It won't be called at runtime because
+> `vmap size`/`unmap size` return `PAGE_SIZE`, so the code won't
+> reach this branch. But it will still be built.
 
-The endpoint parsing just above validates the number of lanes, but not
-the lane numbers themselves: l_nb is checked against 1, 2 and 4, while
-clock_lane and data_lanes[] are used as-is.
+The fallbacks are defined as:
 
-v4l2_fwnode_endpoint_alloc_parse() does not constrain them either: the
-only use of clock_lane in v4l2-fwnode.c is a BIT(clock_lane) duplicate
-check, which does not reject a value that is merely large.
+#ifndef arch_vmap_pte_range_map_size
+static inline unsigned long arch_vmap_pte_range_map_size(unsigned long 
+addr, unsigned long end,
+							 u64 pfn, unsigned int max_page_shift)
+{
+	return PAGE_SIZE;
+}
+#endif
 
-Reject a clock lane or any data lane that is not below
-VGXY61_NB_POLARITIES, with the same dev_err() and goto the lane count
-check uses.
+#ifndef arch_vmap_pte_range_unmap_size
+static inline unsigned long arch_vmap_pte_range_unmap_size(unsigned long 
+addr,
+							   pte_t *ptep)
+{
+	return PAGE_SIZE;
+}
+#endif
 
-No Fixes tag. The arrays and the indexing come from the initial driver
-import, 153e4ad44d60 ("media: i2c: Add driver for ST VGXY61 camera
-sensor"), and have not been touched since.
+Therefore in:
 
-Reviewed-by: Liu Chao <liuc63@xiaopeng.com>
-Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
----
-The lane numbers come from the "clock-lanes" and "data-lanes" properties
-of the sensor's endpoint node. Both are read as u32 by the fwnode
-helpers, so a value like 5 or 0xffffffff reaches vgxy61_tx_from_ep()
-unchanged.
+                 size = arch_vmap_pte_range_unmap_size(addr, pte);
+                 if (size != PAGE_SIZE) {
 
-For a module built into a device whose DT the machine owner controls this
-is not a trust boundary, so the practical impact is a malformed DT
-corrupting the stack rather than an attacker escalating. It is the same
-class of fix that the driver already applies to the lane count two lines
-above, and that other CSI-2 drivers apply to their lane numbers.
+GCC knows 'size' is const and its value is PAGE_SIZE, so it won't emit 
+the branch at all.
 
-dab65dfbf9c8 is a recent example of this file taking a defensive check
-for input it cannot control.
+It is call constant folding, some explanation here: 
+https://en.wikipedia.org/wiki/Constant_folding
 
- drivers/media/i2c/vgxy61.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+> 
+> So, would a `BUILD_BUG_ON()` trigger a build failure here?
 
-diff --git a/drivers/media/i2c/vgxy61.c b/drivers/media/i2c/vgxy61.c
-index 3fb2166c8..ed1205cc6 100644
---- a/drivers/media/i2c/vgxy61.c
-+++ b/drivers/media/i2c/vgxy61.c
-@@ -1457,9 +1457,20 @@ static int vgxy61_tx_from_ep(struct vgxy61_dev *sensor,
- 	}
- 
- 	/* Build log2phy, phy2log and polarities from ep info */
-+	if (ep.bus.mipi_csi2.clock_lane >= VGXY61_NB_POLARITIES) {
-+		dev_err(&client->dev, "invalid clock lane %u\n",
-+			ep.bus.mipi_csi2.clock_lane);
-+		goto error_ep;
-+	}
- 	log2phy[0] = ep.bus.mipi_csi2.clock_lane;
- 	phy2log[log2phy[0]] = 0;
- 	for (l = 1; l < l_nb + 1; l++) {
-+		if (ep.bus.mipi_csi2.data_lanes[l - 1] >=
-+		    VGXY61_NB_POLARITIES) {
-+			dev_err(&client->dev, "invalid data lane %u\n",
-+				ep.bus.mipi_csi2.data_lanes[l - 1]);
-+			goto error_ep;
-+		}
- 		log2phy[l] = ep.bus.mipi_csi2.data_lanes[l - 1];
- 		phy2log[log2phy[l]] = l;
- 	}
--- 
-2.50.1
+It shouldn't, if it does it is a compiled bug or this is because someone 
+has redefined arch_vmap_pte_range_map_size() and not pte_set_huge() 
+which we'd better know at build time rather than at runtime.
+
+
+> 
+> Best Regards
+> Barry
+> 
 
