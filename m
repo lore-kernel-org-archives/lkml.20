@@ -1,154 +1,378 @@
-Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94A9133F58D;
-	Fri, 18 Sep 2026 07:17:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.221
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789715826; cv=none; b=IS+veSgn6jDgyZNLn9LvO10gWqMvi6LWeWAHT4wXqB0HVh19n7wKevpGeFzhgLFL+1zv5ew5fNWx1uLs5zKjREc3n8c78qJ+MRzBatFY6y4rxKFRC+5srHL8vFoQAbkRqTX8lE9x0Dzg4BEbJnF+r8Pl/d/FxoR/ssKL/Ulib8Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789715826; c=relaxed/simple;
-	bh=vVHtmstrQVXoPO4Wgtv4WNm7Eo/RvWmdG7G5nDuT2aU=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=NbhQd+4Y79WtjnI3c3nlG1frjU4vpZJNRGaSQmbbZBaxSX+b+qPmlMsFhX9Ym3eJZr8eS7fQTJnH1aAd2pkD+rWNjNSKKps9XHXFqQcXdxXM3K0UUXTQQ2xR1JXBHYTYaEXrQxuw7iVyj+9H4+Cl1C5VR5ghjltU3RZnlhRqx/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=iy6BSnpt; arc=none smtp.client-ip=113.46.200.221
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EC7838BF6A
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 07:17:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789715848; cv=pass; b=TLoJ0YPOwBGYZwf/hNEKdqCY1pIGA3YcB1WSurTb8Gf2zsXzSJK+DlbJyykTyTFyNPayXDu2x7NOAIB2DHcXiu2AGzXUyRHG8wFEGKypJKkbwq2YAQvzX+epgirN3A5axd4U82U8cLRit4bpvQdp5IIPw7Dw6k57waDvDJXFmlE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789715848; c=relaxed/simple;
+	bh=2Bm3gAwazjbLTUFW3jtpTEj1rRnxPSASuhBdBF/Mong=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=En3UI5snrHhmqu6stfKtOgm9+/aIkzyM5VettQuZScjX8FRZVZ4RvyMr3FoHkd8D7xhp/C7trF8Mn3xpxmbEo6fjgllvhXLzDaIAuRe5FgxGRQ13mv5qZid/rL8hotO9cqXSUexNIJeLg+uY6Qrue8ieJdYtZnGijaDyO6beK80=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=HGPXu1aA; arc=pass smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="iy6BSnpt"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=h90PgzraUO12tjqHfMCcOTpkxEXvZivlcpNjX7iY9jQ=;
-	b=iy6BSnptFCHTyKZjyp2K3u8K5Z7llD4atisDvy+lurmWUdTtt1MkXc2Vg+Ucg2GeChV/YCK5I
-	PA2hWkzgimVdACSMheDuj3NR807+DzDWJMGTXcgftFL2ypAcWSZlpmZ5thacKzr9LC0+B+vtN2D
-	sxDPgTUx4BGjbzO0cgpu2S8=
-Received: from mail.maildlp.com (unknown [172.19.162.140])
-	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4hmNv74QCGzRhXR;
-	Fri, 18 Sep 2026 15:05:55 +0800 (CST)
-Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
-	by mail.maildlp.com (Postfix) with ESMTPS id F0F5C20333;
-	Fri, 18 Sep 2026 15:16:52 +0800 (CST)
-Received: from huawei.com (10.50.85.155) by whupemo200011.china.huawei.com
- (7.152.185.179) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 18 Sep
- 2026 15:16:51 +0800
-From: Zhihao Cheng <chengzhihao1@huawei.com>
-To: <song@kernel.org>, <yukuai@fygo.io>, <xiao@kernel.org>,
-	<magiclinan@didiglobal.com>, <eadavis@sina.com>, <abd.masalkhi@gmail.com>
-CC: <linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<chengzhihao1@huawei.com>, <yangerkun@huawei.com>, <yi.zhang@huawei.com>
-Subject: [PATCH v3] md: Fix the null-ptr-deref of 'mddev->private' while submitting IO
-Date: Fri, 18 Sep 2026 15:09:00 +0800
-Message-ID: <20260918070900.1945351-1-chengzhihao1@huawei.com>
-X-Mailer: git-send-email 2.52.0
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="HGPXu1aA"
+Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66f7f72a284so373277d50.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 00:17:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789715844; cv=none;
+        d=google.com; s=arc-20260327;
+        b=eHHzxiZOkeed5ZdhLBx3ixeoT9/LvK9IMBxEJXpuHBLPQTwGEIGOlwzCjh4O3ofi+p
+         OPKHxtDii/bWtEAiKHeuatZhnxBbnZAuexdVVBFlb14ZpEyzU6lKT+ja9n078eB1EfEI
+         HRdDGTbeQS5+494oaqwKmIKuv2t1aohiz7G2BR3ieEwErEi86/iKDxeyRIWGphc0fEhP
+         Ut3rqawKCZ90azONu5uFOmAz73o05jIy01mk4DMMgsjPUYYLSI8TvNJ2HRbaA7lRhB7/
+         ePHZCAInxSqyxEuyNYxIFzyEtXXTC/prIgTrV5RmO+9pojIA7JZEFOLfzhbbDeaLd//4
+         v9ZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ITqNY912hHAbwc9T2h8ninUwVl/brEY9TWjcH5XDilY=;
+        fh=QY1P7UDhYXB0irUJWePPla2JxLguo3/8UeglWZ00wR4=;
+        b=XBhdN7xKhoQuPg5rBGbTlyldzWKijwmIx6J6nx3pCqI4w6szXtXFzjoxHIS+GVRiB1
+         EYL1EWYYhSq6JkAeBZpUgXvldRG44PMlHiDoVdIZdE96hSzicWvtfka8j7V52Q5Kn0tE
+         q4K5CTTKXF7GAYv28ZBRoUhNtvRkWAaK4qm07rEpMouV+tyIgEmeUsQhy9VmNNGqef4z
+         ERs6WrgMuldW8bau6A0C3hCiIfTpXTT4cJpaJ0T/UsZD48WTwsGTUDFeo7QDlHlGKfFD
+         65bdFL10B7Fg4CtMlTgq+ZkK4tGYyyTPweBGp169hxgIQxw5zfG4VnafvA9DBcUuks+D
+         f54g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1789715844; x=1790320644; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ITqNY912hHAbwc9T2h8ninUwVl/brEY9TWjcH5XDilY=;
+        b=HGPXu1aA2c9NKqJZH2dQnmh4gojs6EcsgYRcJAT95un/mPNE+b7PYgm4IoE09r2+wj
+         pjUxzG27t2Iqj5b/YJ9uHmo63LI0btERqb/6dZPPzyMvW0DA7vwAgYQ3h2zG7XnezkZy
+         ww0rBJJcUSDmfScKqcKb/RHYKiwPsCxaqutyk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789715844; x=1790320644;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ITqNY912hHAbwc9T2h8ninUwVl/brEY9TWjcH5XDilY=;
+        b=zyazp8W47P7XvQ9aBPMjSnUjJ9ZeFc6ItlT8c0Ev48DZP3z3/vYzlm8/d6gqJS66Ux
+         4bO0b2iVoyPThX/DavbQ7i86lKQDJWI2Jw1/vVv9H1C4JDU7onmTElGzuLYqrqY8lUW0
+         MY8TCXOxfcxfW3rESxkWXCpN8sEa7jRXXOWTO30BayLUxlwMJZFQxYuMNhEGged/8Rtd
+         YSicseJtzNRAcFrf8YmO1mRtPVg62D71GW+89SRZRtEf8F2nkXRWkxBO7W4gH5NJ8IkO
+         b+1pQekxoco7CouGj8aSJz3EftRrUkFgOHs9LQU8WntsTvVcMAp0VB22rjgOXEoyjor/
+         dKxQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzkKiYRd/Fh97+SLffgjQswnL3xM9rIg9PH1TLtEsrJQ76bThW10xPPYrcQqfLRosOVkfCts48XrFbUrdA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mbHPOzK5qNjSp1Hazz4CfVwxSBPWkXfznHoO0l2rWEu7i6CmYM
+	xGZnzEapfqYMgWwdNaoFOfp9TFztjlSl0tHg3j2BoJmC02i+X16gSw4P04ajmMEWNt9i8G8Dsf/
+	QF1QhXVfERHi/pF+qBa4kpmJY+34kIhPgau/sGIxH
+X-Gm-Gg: AYBFou3ROTInkqT2z47mmRhmn4aPMCyOanVUNuBjGIGkM6Xa4mXX1RVg6hZp4D/VFKo
+	HSAbmvfpYs1gxcL/qUrP0fFdoOLDB27IVOwrZWF4dOZvAKGz4GdhF6geFV/pMa/PFHxDqjy4XwL
+	XtxqGTIJuHGxGV76vfcbt7ERFN7NDzihl4tGNrX/AGfdHNlwyqU/yfUe51EzVum1TIn0JxcZtmm
+	e6vbhECzUa/Q2f40+p+kcE+lVjT5m0qu5ex/rdSpHpJb6J2/FKtMcrc8TkGh/3cdA6HSG3Rhjk0
+	Z7t4KTz+jUUULi4YF57XLAqo3+qO7loSrTzKnhdByGyDWySsKqs8F4o4n3KnjmPlGEWOxomOQ1e
+	MyxVJOrvsHg==
+X-Received: by 2002:a05:690e:1244:b0:667:ba34:51e2 with SMTP id
+ 956f58d0204a3-6717fc73f18mr528044d50.13.1789715844017; Fri, 18 Sep 2026
+ 00:17:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- whupemo200011.china.huawei.com (7.152.185.179)
+References: <20260916033327.3054126-1-wenst@chromium.org> <20260916033327.3054126-2-wenst@chromium.org>
+ <f6ace486-70d8-4e81-89cb-e9d55ad9ac8b@suse.de> <CAGXv+5ErgWVNtnRiW+QA7+Mzh=W_Y+HGL_iRa1fOaXCYSoAwMA@mail.gmail.com>
+ <f7fa4c4c-bc59-4822-94bb-6e9d68f8f0ca@suse.de> <CAGXv+5GNjKxzHuBn28PbRtbFA1yuJ7h02xDpght4add3emuKJg@mail.gmail.com>
+In-Reply-To: <CAGXv+5GNjKxzHuBn28PbRtbFA1yuJ7h02xDpght4add3emuKJg@mail.gmail.com>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Fri, 18 Sep 2026 15:17:12 +0800
+X-Gm-Features: AcwNN1VfNznx-wGfs8r_CeKKtrEj641j8sqUrt8qB1yK2OIkZ-fPkbPmzPQcswY
+Message-ID: <CAGXv+5FOB9Y3HCt=ydrcUPdo7S92MiJRqsjXAZiW99-3NfYECQ@mail.gmail.com>
+Subject: Re: [PATCH RFT v2 1/5] drm: Split framebuffer pixel offset
+ calculation from drm_fb_dma_get_gem_addr()
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Liu Ying <victor.liu@nxp.com>, Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
+	Lucas Stach <l.stach@pengutronix.de>, Chen-Yu Tsai <wens@kernel.org>, 
+	Jernej Skrabec <jernej@kernel.org>, Samuel Holland <samuel@sholland.org>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, linux-sunxi@lists.linux.dev, 
+	imx@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Concurrent processes md_stop and IO submitting could trigger a
-null-ptr-deref of 'mddev->private':
+On Fri, Sep 18, 2026 at 3:06=E2=80=AFPM Chen-Yu Tsai <wenst@chromium.org> w=
+rote:
+>
+> On Fri, Sep 18, 2026 at 2:41=E2=80=AFPM Thomas Zimmermann <tzimmermann@su=
+se.de> wrote:
+> >
+> > Hi
+> >
+> > Am 18.09.26 um 06:16 schrieb Chen-Yu Tsai:
+> > > On Thu, Sep 17, 2026 at 11:20=E2=80=AFPM Thomas Zimmermann <tzimmerma=
+nn@suse.de> wrote:
+> > >> Hi
+> > >>
+> > >> Am 16.09.26 um 05:33 schrieb Chen-Yu Tsai:
+> > >>> Currently drm_fb_dma_get_gem_addr() calculates the offset into the
+> > >>> framebuffer memory for the framebuffer's unclipped source coordinat=
+es,
+> > >>> adds that to the framebuffer's backing storage, and returns the res=
+ult.
+> > >>>
+> > >>> We are about to add a variant that uses the clipped source coordina=
+tes,
+> > >>> so there is already some reuse of code. However, calculating the da=
+ta
+> > >>> offset for a given pixel is not specific to the DMA FB helpers. The
+> > >>> offset is only related to the framebuffer.
+> > >>>
+> > >>> Split out the offset calculation into a new framebuffer helper so t=
+hat
+> > >>> non-DMA users can also reuse the same code.
+> > >>>
+> > >>> Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
+> > >>> Cc: <stable@vger.kernel.org> # dependency for next patch
+> > >>> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+> > >>> ---
+> > >>> Changes since v1:
+> > >>> - New patch
+> > >>> ---
+> > >>>    drivers/gpu/drm/drm_fb_dma_helper.c | 28 ++----------------
+> > >>>    drivers/gpu/drm/drm_framebuffer.c   | 45 +++++++++++++++++++++++=
+++++++
+> > >>>    include/drm/drm_framebuffer.h       |  3 ++
+> > >>>    3 files changed, 51 insertions(+), 25 deletions(-)
+> > >>>
+> > >>> diff --git a/drivers/gpu/drm/drm_fb_dma_helper.c b/drivers/gpu/drm/=
+drm_fb_dma_helper.c
+> > >>> index fd71969d2fb1..ab0f37d8a5ff 100644
+> > >>> --- a/drivers/gpu/drm/drm_fb_dma_helper.c
+> > >>> +++ b/drivers/gpu/drm/drm_fb_dma_helper.c
+> > >>> @@ -75,36 +75,14 @@ dma_addr_t drm_fb_dma_get_gem_addr(struct drm_f=
+ramebuffer *fb,
+> > >>>                                   unsigned int plane)
+> > >>>    {
+> > >>>        struct drm_gem_dma_object *obj;
+> > >>> -     dma_addr_t dma_addr;
+> > >>> -     u8 h_div =3D 1, v_div =3D 1;
+> > >>> -     u32 block_w =3D drm_format_info_block_width(fb->format, plane=
+);
+> > >>> -     u32 block_h =3D drm_format_info_block_height(fb->format, plan=
+e);
+> > >>> -     u32 block_size =3D fb->format->char_per_block[plane];
+> > >>> -     u32 sample_x;
+> > >>> -     u32 sample_y;
+> > >>> -     u32 block_start_y;
+> > >>> -     u32 num_hblocks;
+> > >>>
+> > >>>        obj =3D drm_fb_dma_get_gem_obj(fb, plane);
+> > >>>        if (!obj)
+> > >>>                return 0;
+> > >>>
+> > >>> -     dma_addr =3D obj->dma_addr + fb->offsets[plane];
+> > >>> -
+> > >>> -     if (plane > 0) {
+> > >>> -             h_div =3D fb->format->hsub;
+> > >>> -             v_div =3D fb->format->vsub;
+> > >>> -     }
+> > >>> -
+> > >>> -     sample_x =3D (state->src_x >> 16) / h_div;
+> > >>> -     sample_y =3D (state->src_y >> 16) / v_div;
+> > >>> -     block_start_y =3D (sample_y / block_h) * block_h;
+> > >>> -     num_hblocks =3D sample_x / block_w;
+> > >>> -
+> > >>> -     dma_addr +=3D fb->pitches[plane] * block_start_y;
+> > >>> -     dma_addr +=3D block_size * num_hblocks;
+> > >>> -
+> > >>> -     return dma_addr;
+> > >>> +     return obj->dma_addr + drm_framebuffer_get_block_offset(fb, p=
+lane,
+> > >>> +                                                             state=
+->src_x >> 16,
+> > >>> +                                                             state=
+->src_y >> 16);
+> > >>>    }
+> > >>>    EXPORT_SYMBOL_GPL(drm_fb_dma_get_gem_addr);
+> > >>>
+> > >>> diff --git a/drivers/gpu/drm/drm_framebuffer.c b/drivers/gpu/drm/dr=
+m_framebuffer.c
+> > >>> index d32aceb6ca9b..9e1231162047 100644
+> > >>> --- a/drivers/gpu/drm/drm_framebuffer.c
+> > >>> +++ b/drivers/gpu/drm/drm_framebuffer.c
+> > >>> @@ -1208,6 +1208,51 @@ void drm_framebuffer_print_info(struct drm_p=
+rinter *p, unsigned int indent,
+> > >>>        }
+> > >>>    }
+> > >>>
+> > >>> +/**
+> > >>> + * drm_framebuffer_get_block_offset() - Get offset to start of pix=
+el block for
+> > >>> + * the given framebuffer and coordinates.
+> > >>> + * @fb: The framebuffer
+> > >>> + * @plane: Which plane
+> > >>> + * @x: x coordinate for pixel
+> > >>> + * @y: y coordinate for pixel
+> > >>> + *
+> > >>> + * This function will usually be called from the PLANE callback fu=
+nctions,
+> > >>> + * or from one of the helpers that calculates the framebuffer's DM=
+A address.
+> > >>> + *
+> > >>> + * Return: offset from start of framebuffer to start of pixel bloc=
+k
+> > >>> + */
+> > >>> +u32 drm_framebuffer_get_block_offset(struct drm_framebuffer *fb, u=
+nsigned int plane,
+> > >>> +                                  unsigned int x, unsigned int y)
+> > >> Better use u64 as return type.
+> > > To avoid overflow? Not sure who would use crazy large framebuffers, b=
+ut
+> > > doesn't hurt to play it safe.
+> >
+> > I'd be worried about a malicious user space that tries to access OOB.
+> >
+> > Apart from that, we use u64 for other framebuffer-related sizes like
+> > pitch calculations or dma addresses. Using u64 here would keep that
+> > consistent.
+>
+> Indeed. It seemed weird that the helper originally used u32. Maybe it
+> was carried over from CMA on ARMv7, which predominantly only had
+> 32-bit address space data busses?
+>
+> >
+> > >
+> > >>> +{
+> > >>> +     u8 h_div =3D 1, v_div =3D 1;
+> > >>> +     u32 block_w =3D drm_format_info_block_width(fb->format, plane=
+);
+> > >>> +     u32 block_h =3D drm_format_info_block_height(fb->format, plan=
+e);
+> > >>> +     u32 block_size =3D fb->format->char_per_block[plane];
+> > >>> +     u32 sample_x;
+> > >>> +     u32 sample_y;
+> > >>> +     u32 block_start_y;
+> > >>> +     u32 num_hblocks;
+> > >>> +     u32 offset;
+> > >>> +
+> > >>> +     offset =3D fb->offsets[plane];
+> > >>> +
+> > >>> +     if (plane > 0) {
+> > >>> +             h_div =3D fb->format->hsub;
+> > >>> +             v_div =3D fb->format->vsub;
+> > >>> +     }
+> > >>> +
+> > >>> +     sample_x =3D x / h_div;
+> > >>> +     sample_y =3D y / v_div;
+> > >>> +     block_start_y =3D (sample_y / block_h) * block_h;
+> > >>> +     num_hblocks =3D sample_x / block_w;
+> > >>> +
+> > >>> +     offset +=3D fb->pitches[plane] * block_start_y;
+> > >>> +     offset +=3D block_size * num_hblocks;
+> > >> User space controls the values in fb->offsets and fb->pitches.  I'm =
+not
+> > >> sure how well they have been validated already at this point. Did yo=
+u
+> > >> investigate this?
+> > > It wouldn't be worse than before, since this changes is purely code m=
+ovement.
+> > >
+> > > There are minimal sanity checks done by drm_internal_framebuffer_crea=
+te()
+> > > in framebuffer_check(), such as offset overflow or pitch size too sma=
+ll,
+> > > but that's about it. It would be up to individual drivers to perform =
+more
+> > > checks that match their hardware limitations.
+> >
+> > Right, makes sense. Looking through the framebuffer validation, a
+> > buffer-size check could be done in framebuffer_check().  But that's
+> > another patch series.
+>
+> That's further covered by drm_gem_fb_init_with_funcs(), which
+> drm_gem_fb_create*() goes into. I didn't check all the drivers that
+> implemented their own .fb_create callback though.
+>
+> - rockchip uses the GEM FB helpers
+> - MSM reimplements the GEM FB helpers, but does have proper size checks
+> - nouveau has size checks
+> - omap has size checks
 
- BUG: kernel NULL pointer dereference, address: 0000000000000070
- RIP: 0010:_wait_barrier+0x2f/0x250
- Call Trace:
-  raid1_make_request+0x150/0xf50
-  md_handle_request+0x104/0x530
-  md_submit_bio+0x76/0x130
-  submit_bio+0xdd/0x250
-  submit_bio_wait+0x1f/0x40
-  __blkdev_direct_IO_simple+0x1f6/0x370
-  blkdev_write_iter+0x3b2/0x520
-  ksys_write+0x7d/0x190
+Side note: it seems that the drivers that reimplement
+drm_gem_fb_init_with_funcs() do so because they need to do additional
+checks on the (sub-classed) GEM objects. Perhaps exporting drm_gem_fb_init(=
+)
+or deconstructing drm_gem_fb_init_with_funcs() could allow more of them
+to use common helpers for things like size checks.
 
-              P1
-  fd = open(/dev/md0, O_RDWR)
-	                      P2 (forked from P1, fd' <= fd)
-  write(fd)
-   submit_bio
-    md_handle_request
-     raid1_make_request
-      raid1_write_request
-                                  ioctl(fd, STOP_ARRAY)
-		                   mddev_set_closing_and_sync_blockdev
-				   // check passed, mddev->openers = 1,
-				   // because md_open() is only called
-				   // once in P1->open
-				   do_md_stop
-				    __md_stop
-				     mddev->private = NULL
-
-       conf = mddev->private // NULL
-        wait_barrier(conf, sector) // null-ptr-deref !
-
-It is a common problem for raid0/1/10/5, and __md_stop could be triggered
-by several paths(eg. ioctl, sysfs, ->dtr). Fix it by replacing
-mddev_lock() with mddev_suspend_and_lock() for all __md_stop() callers.
-The caller dm_table_destroy() is guaranteed being invoked with device
-suspended, so raid_dtr() could keep using mddev_lock_nointr().
-The caller array_state_store() is guaranteed by the check
-mddev_set_closing_and_sync_blockdev(mddev, 0). For example, someone open
-/dev/mdx, write something and close /dev/mdx, it won't trigger the
-problem, all dirty pages can be flushed before mddev->openers decrement.
-Besides, fail the submitting IO in md_handle_request() if the
-'mddev->pers' becomes NULL.
-
-Fetch a reproducer in https://bugzilla.kernel.org/show_bug.cgi?id=222020
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: syzbot+3fe892ea5fc292e1353f@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=3fe892ea5fc292e1353f
-Signed-off-by: Zhihao Cheng <chengzhihao1@huawei.com>
----
- v1->v2:
-  1. Add 'mddev->pers != NULL' check before make_request
-  2. Delete dm-raid caller(->dtr) modifications
-  3. Move memalloc_noio_restore after mddev_unlock_and_resume
- v2->v3:
-  1. Remove modifications in array_state_store()
-  2. update commit msg
- drivers/md/md.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
-
-diff --git a/drivers/md/md.c b/drivers/md/md.c
-index 680b34a63cb3..e73338c26d53 100644
---- a/drivers/md/md.c
-+++ b/drivers/md/md.c
-@@ -414,6 +414,20 @@ bool md_handle_request(struct mddev *mddev, struct bio *bio)
- 		if (!percpu_ref_tryget_live(&mddev->active_io))
- 			goto check_suspended;
- 	}
-+	if (!mddev->pers) {
-+		/*
-+		 * The __md_stop() sets 'mddev->private' to NULL during
-+		 * the IO submitting, check 'mddev->pers' before the IO
-+		 * being processed by specific driver to avoid the
-+		 * null-ptr-deref of 'mddev-><member>'. The check is
-+		 * safe because the IO has got the 'mddev->active_io'
-+		 * reference, and all __md_stop() callers will wait for
-+		 * the reference to be zero.
-+		 */
-+		bio_io_error(bio);
-+		percpu_ref_put(&mddev->active_io);
-+		return true;
-+	}
- 	if (!mddev->pers->make_request(mddev, bio)) {
- 		percpu_ref_put(&mddev->active_io);
- 		if (mddev_is_dm(mddev) && mddev->pers->prepare_suspend)
-@@ -8299,6 +8313,7 @@ static bool md_ioctl_need_suspend(unsigned int cmd)
- 	case HOT_REMOVE_DISK:
- 	case SET_BITMAP_FILE:
- 	case SET_ARRAY_INFO:
-+	case STOP_ARRAY:
- 		return true;
- 	default:
- 		return false;
--- 
-2.52.0
-
+> > >
+> > > What sort of issues are you thinking about?
+> >
+> > Again, I'm thinking of malicious user space that crafts these values to
+> > force an OOB access.
+>
+> I think we're covered.
+>
+>
+> Thanks
+> ChenYu
+>
+> > Best regards
+> > Thomas
+> >
+> >
+> > >
+> > >
+> > > ChenYu
+> > >
+> > >> Best regards
+> > >> Thomas
+> > >>
+> > >>
+> > >>> +
+> > >>> +     return offset;
+> > >>> +}
+> > >>> +EXPORT_SYMBOL(drm_framebuffer_get_block_offset);
+> > >>> +
+> > >>>    #ifdef CONFIG_DEBUG_FS
+> > >>>    static int drm_framebuffer_info(struct seq_file *m, void *data)
+> > >>>    {
+> > >>> diff --git a/include/drm/drm_framebuffer.h b/include/drm/drm_frameb=
+uffer.h
+> > >>> index 38b24fc8978d..c07aea1cc59f 100644
+> > >>> --- a/include/drm/drm_framebuffer.h
+> > >>> +++ b/include/drm/drm_framebuffer.h
+> > >>> @@ -220,6 +220,9 @@ void drm_framebuffer_remove(struct drm_framebuf=
+fer *fb);
+> > >>>    void drm_framebuffer_cleanup(struct drm_framebuffer *fb);
+> > >>>    void drm_framebuffer_unregister_private(struct drm_framebuffer *=
+fb);
+> > >>>
+> > >>> +u32 drm_framebuffer_get_block_offset(struct drm_framebuffer *fb, u=
+nsigned int plane,
+> > >>> +                                  unsigned int x, unsigned int y);
+> > >>> +
+> > >>>    /**
+> > >>>     * drm_framebuffer_get - acquire a framebuffer reference
+> > >>>     * @fb: DRM framebuffer
+> > >> --
+> > >> --
+> > >> Thomas Zimmermann
+> > >> Graphics Driver Developer
+> > >> SUSE Software Solutions Germany GmbH
+> > >> Frankenstr. 146, 90461 N=C3=BCrnberg, Germany, www.suse.com
+> > >> GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG N=C3=BCrnberg)
+> > >>
+> > >>
+> >
+> > --
+> > --
+> > Thomas Zimmermann
+> > Graphics Driver Developer
+> > SUSE Software Solutions Germany GmbH
+> > Frankenstr. 146, 90461 N=C3=BCrnberg, Germany, www.suse.com
+> > GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG N=C3=BCrnberg)
+> >
+> >
