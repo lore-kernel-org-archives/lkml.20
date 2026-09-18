@@ -1,134 +1,116 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F8CF37E300
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:45:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61EF3376A1A
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 12:48:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789735547; cv=none; b=u+HCT1ihy/axrpfd7aqpBAFelvCTxIyBXX7W9cOhK8BIo9GfNYVFmb1us02PQ9UxJ5N23U6NDGf7VyVqzEZ38A0Jz0UK/4hAk5LvtFr0r/ta3ottBLSLrNQJBAvybj6g+h2Zuv7K28g1Mcn0kRG20UhYmVEN7KRyUT0/TzQq2+s=
+	t=1789735682; cv=none; b=RT3aWRozjRHyJCH6YQ3jOr+ruTBzmzwJQuwY9DhglvrZwvdosGf0uSz6FT1PFbPX7s3A+nAkbfazz3ixU2Q1zg0FLwd0y2bZjqo9JB9hoNWuaEL8DsUL8BI58+ICwD7mbh6fZPYcdoaWEoOUjoZCtkAVLtk3XOi4ifbejQc/Ihc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789735547; c=relaxed/simple;
-	bh=iWjO1eSo+3/EJWsO63nQhJLs5VsBn4+/GTQ15xaFdP8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=M2P2BvDY0U9dXLAkfs5r0CW1HT2OAYB7MheXsqBrSxJxtyzMkp//HcvpleqgWygJu4CSSm5Ue9CHoqWPXPgon02O5opU+blYhxoJX1DavWh2EPwcXxdDuoLAgRffaGMf/cR6E5lx/x7H3aaLjZSBttxFtAW6rwaLwIoL89MbxCc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=meBchw49; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789735682; c=relaxed/simple;
+	bh=q9aV8UEMRbT/uR1gFd6YDDhJxj0IDZcbyD15EdPgcc0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=izTEpt9XNtYOXD1oaurz25W555lfoDSZmZqQKhpuY6v4SF3enH6U428eKVc8XbDHUCpSvz8/jUU8v0yqcU0f92jSoHICYsS7+8dm9rthJshlRuQVDhLk47nACa5TkENCr550ppeF0phLpMO2LUwRDCs04WN6Vn6NQDgDlQkc9oU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FLpa61C2; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=YhakHtRz; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="meBchw49"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 9DC551A0979;
-	Fri, 18 Sep 2026 12:45:35 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 6718860649;
-	Fri, 18 Sep 2026 12:45:35 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8411110328E57;
-	Fri, 18 Sep 2026 14:45:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789735534; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=wDnz042JhVx8TouMwH/GponpahIwHIiyB0UKPpUXJhA=;
-	b=meBchw49EU3xYhJ2R+QquSCXhUZhoes8nlbjSzVB+TRW9BDqkMcAIzkt7zkR3aylnWG62l
-	oePWdC51PtWnOwkOOT8oKe57qmJqDqkCKcZh528nSwchgU4a8YN4KI+v+/JmMuRpuaDwPy
-	E2r7s5g5hDvOYsl+iapbu9v1lF+xdb9ErqBX4CrqhfkKQH+TtYM2XQSEhq54G//LXFFr/O
-	t+R7rRJf11mzaF2Pd0I7175KWvgQYWbm3xYThqxJl4PnVbbmJWKepTfvr+4AQuuZbPUD+p
-	nRhotCmyam8ZPHAby10qIsjAKFO09pGUbrxmrdI788XtveRAHzOLobph5sYUFQ==
-Message-ID: <fd937877-306e-48c1-8b14-e8dc62986420@bootlin.com>
-Date: Fri, 18 Sep 2026 14:45:10 +0200
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FLpa61C2";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="YhakHtRz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789735679;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=v+JaQ3C2cAyYFQJK2/l9R/7/otniBmov2ptyT3UUpaA=;
+	b=FLpa61C2G1npS71icky6TU6kqja4FX1q1xTeIAfM+eI65G05BaMN07T49Q8zd10XlNnNgu
+	ehY8lUBr+q+tXzQFzy6YZSZpIWbKNEdR7eOusjEHxP+9qf7Rw8Wi+sma1X4kO/42ilUCpe
+	FW6+Xsf3spdJqSuCwC2KNSyxlDLTExA=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-76-g1mThiNANrOsQPToN75KSg-1; Fri, 18 Sep 2026 08:47:58 -0400
+X-MC-Unique: g1mThiNANrOsQPToN75KSg-1
+X-Mimecast-MFC-AGG-ID: g1mThiNANrOsQPToN75KSg_1789735677
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4994d67d0e3so5791935e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 05:47:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1789735677; x=1790340477; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=v+JaQ3C2cAyYFQJK2/l9R/7/otniBmov2ptyT3UUpaA=;
+        b=YhakHtRzDg3AFAhi1m8zD/7L6U44YVEtLDLCl6RlFTwUl4Azw27op6Kk363YDZq74m
+         VrIhqEyAY32Y3vk99imElBMWb0zqMolGrHzTGEeLMb5HumtauqNMdlScUbYj5ahv9xR4
+         TEMHDF0n/bMWsN4B4hX9xQFB05WARj4/psUFp9bF/ebfg6EY0sTb3ooP9OKYFPM08HXQ
+         MoxCYGRSp1f17KHNaTjbQ/kE6hU6jzd25xah+a7ryCfzo06AJdMF86Lmt9dpZ0+gefQY
+         IyND+X/WYsZUF6Mf+wBGhXRCNrVSNDJ67MB0jvomZwfmlIdnEpneTna3a0Ap/wgYeDO1
+         jhNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789735677; x=1790340477;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=v+JaQ3C2cAyYFQJK2/l9R/7/otniBmov2ptyT3UUpaA=;
+        b=2Qv6W3eGVhsQ7HY3lOStHEGO053NiwgUVoqxW6i5/kcA8IOYnK+YahSiEsN8kCDesn
+         DLmMh/yyNIDDw3C8F5AMZoKmbY86NPKT9+EQ4kN5jSKYARncastsa8do2HBuTnh3ALRM
+         swoYQpJ8weHn3UF7LU2i4ru7mqEU+6INmzkfrzMOwY4b9pPkFuTeWMlKsF32JPSKglTQ
+         7M+kYPS3NLzZob6sxzJ2gkeSiirdxPVFyI/Gm/sHR/AQZkQEsD2MX8Yi7+eiXq9QUlK6
+         nwZOKCw6N9IMorNpdU0duFO1PE3HxjKqn9Fe3fHVmuAOLpxfZdjVCs0E2JxD42EOAmW2
+         neKA==
+X-Forwarded-Encrypted: i=1; AKwUvBw+IWrauhwTXzkmY8+3wDH5eDrvz1WFa6gla6VEX3P7tiYhl5eI7xEn5zo15+h5vysVkF0cTD2Kcmpejp8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mFonYv1TqcituY3yo+XcruSUgu6JGeGGY6LrDzlOlKlI35xYou
+	Jii2GMlIHiCRjdW86H3hvQeRbPaf4s5iB8QL43wwO6bhquMjDASaC7aJx+YGclKOE4+TBgJyHb0
+	pJWUnbMnn1MIBJRHT6rHtChfZbOd2o5gbfVb2cZvzvnzBREz2eS2a3nmwQ/4ygMAPSJzdyqEc4A
+	==
+X-Gm-Gg: AYBFou2B/4FcTTYLDO4aqNQHG/rusZ/trKbyuECjNizmBFKxUefLN/AhOSeEED3ZhDC
+	/xpPUVNA/F9Vu3s9u+1pxE9YuMBCxgahDZW6yvWiM6789aOmfa2JLDrXby72QII9rDZBAITEybi
+	kcU9LP6+tI52zXvo4e60r/sCFIQslJ6R6al1mqgB/ijeJsneRSdNxr56pS2KWevhdkr6+tAiZLE
+	GSqE44ahn163QSr3B9wKBOgeJDMMUpKeZMYvABKGhWm8Qv/rzj5TGTxTR+yV0gwxH+1z7Z/YLvS
+	m4KgzLdvs+nr9O1v6fL5xf6Hgbr8YtOlJ1q0W2wi3X/WZdF0eXZtN0X0J4ZZY+C3sPHzNa5SnC/
+	FD26R4WAMcrHYF4EQke7itqNlTyulK6/aR2o1qSf4/oQ+sw==
+X-Received: by 2002:a05:600c:1d99:b0:499:8ff5:8ecc with SMTP id 5b1f17b1804b1-49fc56dacbfmr35462315e9.15.1789735676784;
+        Fri, 18 Sep 2026 05:47:56 -0700 (PDT)
+X-Received: by 2002:a05:600c:1d99:b0:499:8ff5:8ecc with SMTP id 5b1f17b1804b1-49fc56dacbfmr35461105e9.15.1789735675472;
+        Fri, 18 Sep 2026 05:47:55 -0700 (PDT)
+Received: from sgarzare-redhat (host-79-53-30-11.retail.telecomitalia.it. [79.53.30.11])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc58a1176sm39414825e9.2.2026.09.18.05.47.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 05:47:54 -0700 (PDT)
+Date: Fri, 18 Sep 2026 14:47:41 +0200
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: Ivy Lopez <skunkolee@gmail.com>
+Cc: kys@microsoft.com, haiyangz@microsoft.com, wei.liu@kernel.org, 
+	decui@microsoft.com, longli@microsoft.com, davem@davemloft.net, edumazet@google.com, 
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
+	linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] vsock/hv_sock: fix socket/table leak when rescind races
+ the delayed close
+Message-ID: <aq0ydoRGx4hq7BdR@sgarzare-redhat>
+References: <20260917220213.56102-1-bartlomiej.dmitruk@isec.pl>
+ <20260918025650.15990-1-skunkolee@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v4 5/7] net: stmmac: dwmac4: Use the correct bufzise
- when the len is exactly 8K
-To: Nicolai Buchwitz <nb@tipi-net.de>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Russell King <linux@armlinux.org.uk>,
- Heiner Kallweit <hkallweit1@gmail.com>,
- =?UTF-8?Q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Emil Renner Berthing <kernel@esmil.dk>,
- Minda Chen <minda.chen@starfivetech.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Jan Petrous <jan.petrous@oss.nxp.com>,
- Ovidiu Panait <ovidiu.panait.rb@renesas.com>, Jose.Abreu@synopsys.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- thomas.petazzoni@bootlin.com, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, PKneuper@dspace.de,
- David Laight <david.laight.linux@gmail.com>
-References: <20260917215339.2022523-1-maxime.chevallier@bootlin.com>
- <20260917215339.2022523-6-maxime.chevallier@bootlin.com>
- <4b3c26c482ac1d26f39b53fea072e4d1@tipi-net.de>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <4b3c26c482ac1d26f39b53fea072e4d1@tipi-net.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20260918025650.15990-1-skunkolee@gmail.com>
 
+On Thu, Sep 17, 2026 at 08:56:50PM -0600, Ivy Lopez wrote:
+>LGTM.
+>
+>Should this need a Fixes: tag and possibly a Cc: stable@vger.kernel.org?
+>
 
+Yes, please.
 
-On 9/18/26 14:25, Nicolai Buchwitz wrote:
-> Hi Maxime
-> 
-> On 17.9.2026 23:53, Maxime Chevallier wrote:
->> DMA bufsize selection isn't made on the MTU but the actual frame length,
->> so including the L2 header. On DWMAC4, if the len is exactly BUF_SIZE_8KiB,
->> the next larger size is incorrectly selected.
->>
->> Lets fix the comparison and while at it, rename the parameter from len
->> to mtu.
-> 
-> Isn't it "[...] from mtu to len"?
+Also, if LLM was used, we should add also Assisted-by tag, see 
+https://docs.kernel.org/process/coding-assistants.html
 
-:(
-
-Bah, if respin is required I'll fix this
-
->>
->> Fixes: c3efed5ad1b0 ("net: stmmac: Enable dwmac4 jumbo frame more than 8KiB").
->> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
->> ---
->>  drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c | 4 ++--
->>  drivers/net/ethernet/stmicro/stmmac/hwif.h         | 2 +-
->>  drivers/net/ethernet/stmicro/stmmac/ring_mode.c    | 4 ++--
->>  3 files changed, 5 insertions(+), 5 deletions(-)
->>
->> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
->> index 2994df41ec2c..c6a8f8d73501 100644
->> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
->> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
->> @@ -474,11 +474,11 @@ static void dwmac4_set_sarc(struct dma_desc *p, u32 sarc_type)
->>                        sarc_type));
->>  }
->>
->> -static int set_16kib_bfsize(int mtu)
->> +static int set_16kib_bfsize(int len)
->>  {
->>      int ret = 0;
->>
->> -    if (unlikely(mtu >= BUF_SIZE_8KiB))
->> +    if (unlikely(len > BUF_SIZE_8KiB))
-> 
-> Should we drop set_16kib_bfsize() instead?
-> 
-> After 6/7 it looks to me like the same test as the first branch of
-> stmmac_set_bfsize(). The caller ends up there anyway when it returns 0
-> and chain_mode_ops doesn't have it at all.
-
-True yeah :) however maybe we can wait for this to be merged and have the
-cleanup in net-next ?
-
-Sashiko is getting crazy with the "pre-existing issues" everytime we touch
-stmmac, cleanups are long overdue and this could be included in there :(
-
-Maxime
-
+Stefano
 
