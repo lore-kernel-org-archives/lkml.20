@@ -1,341 +1,378 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012012.outbound.protection.outlook.com [52.101.66.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07C4E3CE099;
-	Fri, 18 Sep 2026 14:52:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789743165; cv=fail; b=glPjUYwZCbSzF+CoanRyj5nptffDU2kFR683I4ucIsEKkcMsQAxm0CV9BZcZnkOhgkIFyW/lXexweDUqAVclJY+Xm+BixEoviP4TzyuoZAgrKNFCvhoPVTT5ZcvGyiTluxKFV4nuvLsuHFI5dLShTc7cnFPkZWxVhxb52vNL8tE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789743165; c=relaxed/simple;
-	bh=PRByG5sxTaunBRg7B6hqrmK1PTDtfcDSM7xkbkcB1jA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=tyqQMY5BCG64WJ9CNoav73RLXiKIdB0OHtj4GK51D9BZb8wNo7Cl6r77QeU+1UC6uIIXhypR2KIov6GtCdwVCoIRl55/87viYH/K50MtWURvJx9Vm51p6jmm6WqG11WJFLWZ2IWrwrsemVFWJGDjU2GEBfa6GYyHwo3r1inpYx4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=o7cF4AoZ; arc=fail smtp.client-ip=52.101.66.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2141B4F5DF3
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 14:52:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789743177; cv=none; b=FoFngCScY4brnFhTUYxfVuH8X1aWsqC4ZJNqt0TqaWIjHyEm0iDajqll98emBq1tRDSvuL9fpmV9ld4qdpcw6XPt6fVwgeYYt0NiGlKlqPVqb4Uub1SixzcS5Tmg0tGk1BYZGJBG2O9fKF5TkLmJdiTo29Jvz/tSzv6CzK2spuE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789743177; c=relaxed/simple;
+	bh=kUjVykxBgZ48iAkG83MXlDe95tjr3avIowvv+ejq+m8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cJPSKeRTGVuuzOOC/AxSwc52j8ipJDyR060gqRp+tV/FPwcqzTcT0yFl8F9AAQXysAejoRI37Uado9Qi0I+1tc3EPy0epz7Wog3e1cab9AhVxmxwB/s8UMr6OAZ7ig2Q4mMx+ecj4xhmsCr0nmNZBXjBLuU0oEAT+iWEnimNi2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dwsWtx3W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="o7cF4AoZ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=t6kBEoXjSnu67q6lYjwIGncvELHByZLPu//wDQphZgPsJmZvgpdzukGph4gJ4cB/LzFAoDr3mD07IpB5wQZBnUm1UZqf5KRRuCBy+zvQR+IfhwrwUT/i9mNEmWzO5N6RRjPuOsbMef1WGXoBCxZ/BZeZAdVb/Rdv/STUYoxZrvZ/xvM+3yg3fNIupXVi71MtEayHgrePTrqVlBRiuz/6zDp26PvOQjEHVAOWOmwT83pr42N3Ad3JBeBpIprPDCMlqUduv9TEmZ4MrmJ8AorVA4HS2ceGmTtUImXOndhR3KuC62dxB2nahQ9nca9cTfUIOip28og7Ub/awwAesnVUdw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uZBdSvEW3nA8W18mYzFaVqXGJb3q3bjw0DazXvHmoi0=;
- b=ctMnCCwvEBarzJDBfyWagXHyicE4Wd3autcGq/lKWKqOfd2PZ1zLtnIt6c64x+zioAQuPmUiTIgJWZXltMGf/v5j1KSOYyBG1l6g9q4arIE1Ly0Wiz3wjQDvN5WRRIvAXQvJLDPuMPbzT8THbB3fU/VuxSiWcVsTNj+UkiMTwpQta4D3CCYK/B+SB/JqQpMQMI0w8AiP5aJhbU8dyqMbLa+qbLaY/7Tr2JaWmYBIBJew2/0dpLoglGnjqR+RL3jqWHx1JzbbcBUFUjFRoVL6yV1TDUotvMmKd3xym+t9uF3SiA/vZi1PIWIS2kIHl87IjjceNkJ4YTuoI8VlIl2t2w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uZBdSvEW3nA8W18mYzFaVqXGJb3q3bjw0DazXvHmoi0=;
- b=o7cF4AoZYLy5rrhAhUI0nXsI09ZtSbYM+JKkUWCUWR6z0XtPQRkJt3Ij60ehdW0TpYYtmS52BgdENkLwr4uSfD7uomLxvkC9abGFsWY1cep1ehAZLHHwKkUILEPmfxksGlC2FQxE7Fnwmz57QYree19qgFl1ftze+tuIzcuZiK/xw5WLIkeDc9ktQ9g9RKBI6WHuEcRtZ+RXPsjZ1mSiub19NUMmaTcgnJbO5R6rw97uI66Tx7fpKJc8XZK3EwBNGwTU2lf+iJuFqqQ0mX9vZbkn+CXd3y2cvX7Fm7uK5fI8RB7HiNJO3qwjwOBlZHKp8wKcLT9hhO8G8tLqdc2xUg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AS1PR04MB9653.eurprd04.prod.outlook.com (2603:10a6:20b:475::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
- 2026 14:52:32 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
- 14:52:32 +0000
-Date: Fri, 18 Sep 2026 09:52:22 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: "Ming Qian(OSS)" <ming.qian@oss.nxp.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
-	Peng Fan <peng.fan@nxp.com>, Lucas Stach <l.stach@pengutronix.de>,
-	linux-pm@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Zhou Peng <eagle.zhou@nxp.com>, Xiahong Bao <xiahong.bao@nxp.com>,
-	Ming Zhou <ming.zhou@nxp.com>
-Subject: Re: [PATCH v2] pmdomain: imx8m-blk-ctrl: Serialize power on/off
- across sibling domains
-Message-ID: <aq1QJmhK9c3wwFZ-@SMW015318>
-References: <20260917-imx8mp-blk-ctrl-v2-1-81d29e907a5d@oss.nxp.com>
- <aqwYbhghBVb1fwdy@SMW015318>
- <aqycJQHcR9bqwXKr@lsvm11u0000189.swis.ap-northeast-2.aws.nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqycJQHcR9bqwXKr@lsvm11u0000189.swis.ap-northeast-2.aws.nxp.com>
-X-ClientProxiedBy: CY5PR14CA0005.namprd14.prod.outlook.com
- (2603:10b6:930:2::14) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dwsWtx3W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D35E21F00898;
+	Fri, 18 Sep 2026 14:52:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789743172;
+	bh=qQd7ODwO4bXjEtPFM6OmreeZx9u+APc+qcSW720QQrs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=dwsWtx3WoEW2g0xhJti0Uw1qcJ4Sow2HARqwo7x2KxI8Xz6q2jGtrjPP8HJ7icLE1
+	 UG5B6hZqHMM7unamwjnYv/9yZcotVtvWq8NKeaYxH7CdkoOdWiDvp9SVhI8t6xAnxY
+	 7Hi9yvZKlfgb4+BsphiEOVRYSS5EobUdzzaQQ22NElW4EzknFJpy1elX/cD8PA4KCx
+	 mE0dEz8G1vEfLMSMXPD/EqD7M5ZxZ88tNm9d0cL4q3sQ8A10X/U6hMIcu3c+rwIyPj
+	 6LZAtkzQ2Txnod6ILhmcFGRYItJ2SqrcBnQkBuPVw9lWhHBaE07ZdTk5OwzLcJc2WQ
+	 OIoWSBf3iPrhQ==
+From: Will Deacon <will@kernel.org>
+To: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org,
+	Will Deacon <will@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Marc Zyngier <maz@kernel.org>
+Subject: [PATCH v3 09/13] arm64: Remove all usage of CONFIG_CPU_BIG_ENDIAN
+Date: Fri, 18 Sep 2026 15:52:11 +0100
+Message-ID: <20260918145217.1669-10-will@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260918145217.1669-1-will@kernel.org>
+References: <20260918145217.1669-1-will@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS1PR04MB9653:EE_
-X-MS-Office365-Filtering-Correlation-Id: 81b5693e-4323-4b96-ed1a-08df159477e3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|19092799006|376014|7416014|1800799024|23010399003|6133799003|10067099003|5023799004|11063799006|4143699003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	Fo91ytMOEihwE78uwhRM9iDguepVE6IVIBVQrggRusbef5InmeHh358XyUa9cpFd5iqQrckB2wwbZS2CLpR+bXrmziKQBYx7YiWeOkkWGatmKichkROC4A5Nyw2OLY3Rpqk8DcjF0nes9Km7NcsRsuhwNek/8CxxYGThexjeRE9DqHisCTy4Tv0cX2+MMx9wEqOxNXrmrcuvd0LII5Qdm/bQV7D485FvuUXAoHSrpgxAidenEMYfZERWsthrlRA6448PKBDJMgW6d/H3bCoJLrkY29NqtObpbHzHLa3n/C0AVebomxWoGmE4ETuYA4mOPzsbhQBBVu8fjVPjfLL2XtgfzXap5wUZA0agXG7up9T0xEzwzzDZ+2lTnnsnn/yK9gQVnbRKgYg3cWx9tRCOLCNHrpGIflHgPuZ627zCvo+eaBBGPosFWv4mMSuF98tFtC7AWN4O4HefOUmxg1mOogcc3V0S3yH4M7w40qmDrAG2rwOzE431niLcTC0wMggZJDb4baPV1glAfiGvsQ6dKONPUpmhB1uKHgYvUG7Xoddcg0vMk4t/upnZCt6yZKSmOSpoaoat2EH3ho6N6cbHoEm58Sp2CwTNdDQCe7dQkhBJSSBgyHX2ehsJBLmxViPe
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(376014)(7416014)(1800799024)(23010399003)(6133799003)(10067099003)(5023799004)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?L3Hf5UiYLMsBONam6ovXufMjFKMkkib5I5WWBk+EAdIPfDitpEcv3CWoKirI?=
- =?us-ascii?Q?WGNpq+qD5QsTMRElyNtm0E53JQZyiy+uugRtoMIzXqbbe16/qtIeWtKX8Lmb?=
- =?us-ascii?Q?EEAw21oAS6zrCjE3pL6x7M76jx4sdRdIvTXLeoSM/aEHE1TdG5M3BVAxMc8E?=
- =?us-ascii?Q?yNMIePDVP5Z78LHFIFBuwnL92zIjI9PJOZTTyKXcgeJIhK7/jLml5qSz/9KS?=
- =?us-ascii?Q?vMFu7ByCE4Lac2Kv+K9iFljAwOMvzF9f2IDSb8sRam9ot6To9XzDzy8HWmJq?=
- =?us-ascii?Q?LAyF5E4bPI/U0OKh95FdYvHWo++qxBzcZ31CB7n1H6hPrpSFdmY7p0sAa/sG?=
- =?us-ascii?Q?BIkhprHXkUyul0ewIHtfp3+7v3OaKoI+bffMwly7iKQQC1BjSVlvBE2tPq8h?=
- =?us-ascii?Q?l59AgyW3JaSZHnVAX1WEroophnjbC0gbpEAVIgH3F2VZp9uwjfCS7QmLEEwj?=
- =?us-ascii?Q?9pgxyKd1Do9yMriiCkM7UKRjydT1GctiwF5ijsS1orE2SRdz2WdYOrAr6Wb/?=
- =?us-ascii?Q?mmP6eMtgXJ3OBCEixpgGigbt/jntW6SR02h0DIn3K/BtjkqQWFYwLwFUtHG0?=
- =?us-ascii?Q?tcQD7lQERaMmUIU4/i8AnL5tK1kVD49WiEFwZpYYEMqSVmdmYb4MYhal6PsB?=
- =?us-ascii?Q?3i09T1FljqxAPPKtoF/ViLqOH6MLvBOyIAduduQC8qUZIPcl+jpDTbKuM2xP?=
- =?us-ascii?Q?pcI8nbU12QM2nvgo6OIUlJhpX5d2wZegQOp+yAiHtfwuZTREcblUoXfRQQeS?=
- =?us-ascii?Q?73Zvqork2dRK2/bteDC1NjVmjA/1UCZiR7irUj/poF57QJs77d4hs3mKGg+y?=
- =?us-ascii?Q?c8nimHGZUkeMZ+wLIdV51eVbLR322PTknrghc1gjAfjB5Uco04UBWkVU4Jc0?=
- =?us-ascii?Q?B5MyuT2I9AMl+eXCX3BLsVl7X3lgAn3dVKS4plZ5dcf6l8hZYWgJtGBX3M4z?=
- =?us-ascii?Q?A/A46C3btCeJwH0mK13SmrugGXE6fWTwbkTH4rGq10jC2G1lGla1VLijfpxk?=
- =?us-ascii?Q?cdEVoFozGmi0J2EGwU9pAXr0f6qqlAnNchc/fk1rNpXNuunTHrGJ34heg7rd?=
- =?us-ascii?Q?CogyNyNtCV+5yVcmFX/SYVPpGS+2Pba1OxPrIfMhm2BVbZThwa6vIpzVJptv?=
- =?us-ascii?Q?8sBXPhb4WtYppP+6BUA9iwzD3rW0p7f+p2O2Fbkev6tewYUypwjchhGy0z/R?=
- =?us-ascii?Q?r5RefdLBhAeLaW/mJEJv/6ANmhCn9evx8hSeSYauUPA7Gk8WB701iM+Ih86C?=
- =?us-ascii?Q?/PpE63nBQnkagTm8gfCF5nvlJUQx7oprbH/MGgSRS4o2yc3l1si6PTjK8D1i?=
- =?us-ascii?Q?lUvZEZcSPISOhEdxZciEjx+2FWeZUCLPEoKRfr8m7/dZaI5kFEafbb2KAbAt?=
- =?us-ascii?Q?XJwuFN7+7CEAAO5RVsp/SZRPL4o/kN1zm37+N56uq7Kxp4LuL3CYyzzNi5DZ?=
- =?us-ascii?Q?bGoFXAHRYyBumA27ZDWx0IZpaQMTNq4WToxQgOM4h1lnNV3iZKMm2mN5OZMw?=
- =?us-ascii?Q?T9TNtrpwKCpWUH2yj2qG5rg+qqjmJTJeUuE4gsG801B4BRbyewDGfh3O+sQ7?=
- =?us-ascii?Q?vbhTU/UMpmb2NVYJFqlanR1wOJnDQPmBR0EAGxEwIBtnmfcPe9wsFNmWu8nr?=
- =?us-ascii?Q?hzpLpj4IkAhocGCnW/scz6ZhkH+p9zmevTOr6hXakUftO2HrQbb8jNvGJ4rf?=
- =?us-ascii?Q?RLZDis3zIuZwkdRKxZfX4sUHxo0fzIjUvqW0UUy7khtbywaJNBlxzsZfDe72?=
- =?us-ascii?Q?SKIP0aBUMHXluo01cMEXOwRKUzb+P4wdGZtyYfDBCs0gl9n1oWVH?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 81b5693e-4323-4b96-ed1a-08df159477e3
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 14:52:32.4307
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NMjE4zu62DZZ4+G397NgQTAH+6Gzp8WbiG5BUFKv271Dx3ZqQBuBMslk+XM+cXbUyh8UdhGil8jb6H0AyKpOFWY4IxvX0onhnYyyahih3QKahI3WRupDD8tson6nOCkn
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9653
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 18, 2026 at 11:08:06AM +0900, Ming Qian(OSS) wrote:
-> Hi Frank,
->
-> On Thu, Sep 17, 2026 at 11:42:22AM -0500, Frank Li wrote:
-> > On Thu, Sep 17, 2026 at 04:07:54PM +0900, Ming Qian wrote:
-> > > On i.MX8MP the VPU blk-ctrl exposes G1, G2 and VC8000E as three separate
-> > > genpds, each serialized only by its own genpd lock, so their power_on and
-> > > power_off callbacks can run concurrently on SMP.
-> > >
-> > > The sequences are not independent: they share the VPUMIX bus domain, the
-> > > VPU_NOC and the ADB400 handshake. On power up the GPC cannot ack-verify
-> > > the ADB400 handshake - the ack only completes once blk-ctrl sets the bus
-> > > clk-en bit - so it just waits a fixed delay instead of polling hskack. A
-> > > sibling transition landing inside another domain's reset window disturbs
-> > > that shared clock and handshake timing, the victim's reset does not take
-> > > effect, and its block registers read back all zeros: the decoder times
-> > > out or the encoder fails its format check.
-> > >
-> > > Serialize the blk-ctrl reset sequence with a per-blk-ctrl mutex; the
-> > > driver deliberately avoids a genpd hierarchy, so the genpd core gives no
-> > > cross-sibling serialization.
-> > >
-> > > Fixes: a1a5f15f7f6c ("soc: imx: imx8m-blk-ctrl: add i.MX8MP VPU blk ctrl")
-> > > Signed-off-by: Ming Qian <ming.qian@oss.nxp.com>
-> > > ---
-> > > Problem:
-> > > On i.MX8MP, running the VC8000E encoder and the G1/G2 decoders
-> > > concurrently rarely and non-deterministically leaves a VPU stuck in
-> > > reset: its block registers read back all zeros. A decoder then times out
-> > > or the encoder fails its format check.
-> > >
-> > > Root cause:
-> > > The VPU blk-ctrl exposes G1, G2 and VC8000E as three separate genpds,
-> > > serialized only by the per-genpd lock, so on SMP their power_on/power_off
-> > > callbacks can run concurrently. The sequences share the VPUMIX bus
-> > > domain, the VPU_NOC and the ADB400 handshake. On power up the GPC does
-> > > not ack-verify the ADB400 handshake - the ack only completes once
-> > > blk-ctrl sets the bus clk-en bit - so it just waits a fixed delay. A
-> > > sibling transition landing inside another domain's reset window disturbs
-> > > that shared clock and handshake timing, the victim's reset fails to take
-> > > effect, and its block is left in reset with registers reading zero.
-> > >
-> > > Fix:
-> > > Serialize the blk-ctrl reset sequence with a per-blk-ctrl mutex, so a
-> > > sibling domain cannot run its sequence while another is inside its reset
-> > > window. The driver deliberately avoids a genpd hierarchy, so the genpd
-> > > core provides no cross-sibling serialization.
-> > >
-> > > Test:
-> > > i.MX8MP, Android 6.18 kernel, concurrent H.264 decode and encode. Without
-> > > this patch the failure reproduces within one to two hours. With it the
-> > > same test ran overnight, over 14 hours, without a single occurrence.
-> > > ---
-> > > Changes in v2:
-> > > - Replace guard(mutex) with explicit mutex_lock()/mutex_unlock():
-> > >   power_on() already unwinds errors with goto, and cleanup.h asks not to
-> > >   mix goto and scope-based cleanup in one function (sashiko-bot).
-> > > - Shorten the commit message to the essentials and move the detailed
-> > >   hardware analysis into this cover letter (Frank Li).
-> > > - Link to v1: https://patch.msgid.link/20260915-imx8mp-blk-ctrl-v1-1-b3b4e6e7e676@oss.nxp.com
-> > >
-> > > To: Ulf Hansson <ulfh@kernel.org>
-> > > To: Frank Li <Frank.Li@nxp.com>
-> > > To: Sascha Hauer <s.hauer@pengutronix.de>
-> > > To: Pengutronix Kernel Team <kernel@pengutronix.de>
-> > > To: Fabio Estevam <festevam@gmail.com>
-> > > To: Shawn Guo <shawnguo@kernel.org>
-> > > To: Peng Fan <peng.fan@nxp.com>
-> > > Cc: linux-pm@vger.kernel.org
-> > > Cc: imx@lists.linux.dev
-> > > Cc: linux-arm-kernel@lists.infradead.org
-> > > Cc: linux-kernel@vger.kernel.org
-> > > ---
-> > >  drivers/pmdomain/imx/imx8m-blk-ctrl.c | 23 ++++++++++++++++++++++-
-> > >  1 file changed, 22 insertions(+), 1 deletion(-)
-> > >
-> > > diff --git a/drivers/pmdomain/imx/imx8m-blk-ctrl.c b/drivers/pmdomain/imx/imx8m-blk-ctrl.c
-> > > index 479789009c7f..270f43229fe7 100644
-> > > --- a/drivers/pmdomain/imx/imx8m-blk-ctrl.c
-> > > +++ b/drivers/pmdomain/imx/imx8m-blk-ctrl.c
-> > > @@ -15,6 +15,7 @@
-> > >  #include <linux/pm_runtime.h>
-> > >  #include <linux/regmap.h>
-> > >  #include <linux/clk.h>
-> > > +#include <linux/mutex.h>
-> > >
-> > >  #include <dt-bindings/power/imx8mm-power.h>
-> > >  #include <dt-bindings/power/imx8mn-power.h>
-> > > @@ -34,6 +35,12 @@ struct imx8m_blk_ctrl {
-> > >  	struct regmap *regmap;
-> > >  	struct imx8m_blk_ctrl_domain *domains;
-> > >  	struct genpd_onecell_data onecell_data;
-> > > +	/*
-> > > +	 * Serializes the blk-ctrl reset/clock sequence across sibling domains;
-> > > +	 * their transitions interact through the shared VPUMIX bus domain,
-> > > +	 * VPU_NOC and the not-ack-verified ADB400 handshake (ERR050531).
-> > > +	 */
-> > > +	struct mutex power_lock;
-> > >  };
-> > >
-> > >  struct imx8m_blk_ctrl_domain_data {
-> > > @@ -98,12 +105,14 @@ static int imx8m_blk_ctrl_power_on(struct generic_pm_domain *genpd)
-> > >  	struct imx8m_blk_ctrl *bc = domain->bc;
-> > >  	int ret;
-> > >
-> > > +	mutex_lock(&bc->power_lock);
-> > > +
-> > >  	/* make sure bus domain is awake */
-> > >  	ret = pm_runtime_get_sync(bc->bus_power_dev);
-> > >  	if (ret < 0) {
-> > >  		pm_runtime_put_noidle(bc->bus_power_dev);
-> > >  		dev_err(bc->dev, "failed to power up bus domain\n");
-> > > -		return ret;
-> > > +		goto unlock;
-> >
-> > can you use auto cleanup guard()
-> >
-> > Frank
-> >
->
-> v1 did exactly that, and sashiko-bot flagged it, because
-> imx8m_blk_ctrl_power_on() unwinds its errors with goto:
->
->   https://patch.msgid.link/20260915102028.2CFFD1F000FF@smtp.kernel.org
->
-> According to the cleanup subsystem guidelines (include/linux/cleanup.h),
-> using goto and scope-based cleanup helpers shouldn't be mixed in the same
-> function:
->
->    * Lastly, given that the benefit of cleanup helpers is removal of
->    * "goto", and that the "goto" statement can jump between scopes, the
->    * expectation is that usage of "goto" and cleanup helpers is never
->    * mixed in the same function. I.e. for a given routine, convert all
->    * resources that need a "goto" cleanup to scope-based cleanup, or
->    * convert none of them.
->
-> So v2 changed imx8m_blk_ctrl_power_on() back from guard() to
-> mutex_lock(), and imx8m_blk_ctrl_power_off() follows the same style for
-> consistency.
+Big-endian support on arm64 depends on BROKEN. In preparation for
+removing the dead code altogether, remove all usage of
+CONFIG_CPU_BIG_ENDIAN from the arm64 kernel port.
 
-include/linux/cleanup.h, the description is not exactly correct. The major
-means is avoid goto back to cleanup scope, which will cause scope's cause.
+Acked-by: Catalin Marinas <catalin.marinas@arm.com>
+Acked-by: Arnd Bergmann <arnd@arndb.de>
+Acked-by: Marc Zyngier <maz@kernel.org>
+Acked-by: Eric Biggers <ebiggers@kernel.org>
+Signed-off-by: Will Deacon <will@kernel.org>
+---
+ arch/arm64/include/asm/processor.h   |  2 --
+ arch/arm64/include/asm/ptrace.h      |  6 ----
+ arch/arm64/include/asm/sysreg.h      | 50 ++++++++--------------------
+ arch/arm64/include/asm/thread_info.h |  5 ---
+ arch/arm64/kernel/fpsimd.c           | 21 ++----------
+ arch/arm64/kernel/image.h            | 18 ++--------
+ arch/arm64/kernel/kexec_image.c      |  5 ++-
+ arch/arm64/kernel/kgdb.c             |  6 +---
+ arch/arm64/kernel/ptrace.c           |  8 ++---
+ arch/arm64/kernel/signal32.c         |  3 --
+ arch/arm64/kernel/sys32.c            |  5 ---
+ 11 files changed, 23 insertions(+), 106 deletions(-)
 
-err:
+diff --git a/arch/arm64/include/asm/processor.h b/arch/arm64/include/asm/processor.h
+index 6dfbcacd9ba0..481f1999f7c1 100644
+--- a/arch/arm64/include/asm/processor.h
++++ b/arch/arm64/include/asm/processor.h
+@@ -351,8 +351,6 @@ static inline void compat_start_thread(struct pt_regs *regs, unsigned long pc,
+ 	unsigned long pstate = PSR_AA32_MODE_USR;
+ 	if (pc & 1)
+ 		pstate |= PSR_AA32_T_BIT;
+-	if (IS_ENABLED(CONFIG_CPU_BIG_ENDIAN))
+-		pstate |= PSR_AA32_E_BIT;
+ 
+ 	start_thread_common(regs, pc, pstate);
+ 	spectre_v4_enable_task_mitigation(current);
+diff --git a/arch/arm64/include/asm/ptrace.h b/arch/arm64/include/asm/ptrace.h
+index f7dc5fb9427d..57c98c775aca 100644
+--- a/arch/arm64/include/asm/ptrace.h
++++ b/arch/arm64/include/asm/ptrace.h
+@@ -66,12 +66,6 @@
+ #define PSR_AA32_IT_MASK	0x0600fc00	/* If-Then execution state mask */
+ #define PSR_AA32_GE_MASK	0x000f0000
+ 
+-#ifdef CONFIG_CPU_BIG_ENDIAN
+-#define PSR_AA32_ENDSTATE	PSR_AA32_E_BIT
+-#else
+-#define PSR_AA32_ENDSTATE	0
+-#endif
+-
+ /* AArch32 CPSR bits, as seen in AArch32 */
+ #define COMPAT_PSR_DIT_BIT	0x00200000
+ 
+diff --git a/arch/arm64/include/asm/sysreg.h b/arch/arm64/include/asm/sysreg.h
+index 7aa08d59d494..f97c60b5dfca 100644
+--- a/arch/arm64/include/asm/sysreg.h
++++ b/arch/arm64/include/asm/sysreg.h
+@@ -62,19 +62,10 @@
+ 
+ #else  /* CONFIG_BROKEN_GAS_INST */
+ 
+-#ifndef CONFIG_CPU_BIG_ENDIAN
+-#define __INSTR_BSWAP(x)		(x)
+-#else  /* CONFIG_CPU_BIG_ENDIAN */
+-#define __INSTR_BSWAP(x)		((((x) << 24) & 0xff000000)	| \
+-					 (((x) <<  8) & 0x00ff0000)	| \
+-					 (((x) >>  8) & 0x0000ff00)	| \
+-					 (((x) >> 24) & 0x000000ff))
+-#endif	/* CONFIG_CPU_BIG_ENDIAN */
+-
+ #ifdef __ASSEMBLER__
+-#define __emit_inst(x)			.long __INSTR_BSWAP(x)
++#define __emit_inst(x)			.long (x)
+ #else  /* __ASSEMBLER__ */
+-#define __emit_inst(x)			".long " __stringify(__INSTR_BSWAP(x)) "\n\t"
++#define __emit_inst(x)			".long " __stringify(x) "\n\t"
+ #endif	/* __ASSEMBLER__ */
+ 
+ #endif	/* CONFIG_BROKEN_GAS_INST */
+@@ -835,39 +826,26 @@
+ #define SCTLR_ELx_A	 (BIT(1))
+ #define SCTLR_ELx_M	 (BIT(0))
+ 
+-#ifdef CONFIG_CPU_BIG_ENDIAN
+-#define ENDIAN_SET_EL2		SCTLR_ELx_EE
+-#else
+-#define ENDIAN_SET_EL2		0
+-#endif
+-
+ #define INIT_SCTLR_EL2_MMU_ON						\
+ 	(SCTLR_ELx_M  | SCTLR_ELx_C | SCTLR_ELx_SA | SCTLR_ELx_I |	\
+-	 SCTLR_ELx_IESB | SCTLR_ELx_WXN | ENDIAN_SET_EL2 |		\
+-	 SCTLR_ELx_ITFSB | SCTLR_ELx_EIS | SCTLR_ELx_EOS | SCTLR_EL2_RES1)
++	 SCTLR_ELx_IESB | SCTLR_ELx_WXN | SCTLR_ELx_ITFSB |		\
++	 SCTLR_ELx_EIS | SCTLR_ELx_EOS | SCTLR_EL2_RES1)
+ 
+-#define INIT_SCTLR_EL2_MMU_OFF \
+-	(SCTLR_EL2_RES1 | ENDIAN_SET_EL2)
++#define INIT_SCTLR_EL2_MMU_OFF	(SCTLR_EL2_RES1)
+ 
+ /* SCTLR_EL1 specific flags. */
+-#ifdef CONFIG_CPU_BIG_ENDIAN
+-#define ENDIAN_SET_EL1		(SCTLR_EL1_E0E | SCTLR_ELx_EE)
+-#else
+-#define ENDIAN_SET_EL1		0
+-#endif
+-
+ #define INIT_SCTLR_EL1_MMU_OFF \
+-	(ENDIAN_SET_EL1 | SCTLR_EL1_LSMAOE | SCTLR_EL1_nTLSMD | \
+-	 SCTLR_EL1_EIS  | SCTLR_EL1_TSCXT  | SCTLR_EL1_EOS)
++	(SCTLR_EL1_LSMAOE | SCTLR_EL1_nTLSMD | SCTLR_EL1_EIS  |		\
++	 SCTLR_EL1_TSCXT  | SCTLR_EL1_EOS)
+ 
+ #define INIT_SCTLR_EL1_MMU_ON \
+-	(SCTLR_ELx_M      | SCTLR_ELx_C      | SCTLR_ELx_SA    | \
+-	 SCTLR_EL1_SA0    | SCTLR_EL1_SED    | SCTLR_ELx_I     | \
+-	 SCTLR_EL1_DZE    | SCTLR_EL1_UCT    | SCTLR_EL1_nTWE  | \
+-	 SCTLR_ELx_IESB   | SCTLR_EL1_SPAN   | SCTLR_ELx_ITFSB | \
+-	 ENDIAN_SET_EL1   | SCTLR_EL1_UCI    | SCTLR_EL1_EPAN  | \
+-	 SCTLR_EL1_LSMAOE | SCTLR_EL1_nTLSMD | SCTLR_EL1_EIS   | \
+-	 SCTLR_EL1_TSCXT  | SCTLR_EL1_EOS)
++	(SCTLR_ELx_M      | SCTLR_ELx_C      | SCTLR_ELx_SA     | \
++	 SCTLR_EL1_SA0    | SCTLR_EL1_SED    | SCTLR_ELx_I      | \
++	 SCTLR_EL1_DZE    | SCTLR_EL1_UCT    | SCTLR_EL1_nTWE   | \
++	 SCTLR_ELx_IESB   | SCTLR_EL1_SPAN   | SCTLR_ELx_ITFSB  | \
++	 SCTLR_EL1_UCI    | SCTLR_EL1_EPAN   | SCTLR_EL1_LSMAOE | \
++	 SCTLR_EL1_nTLSMD | SCTLR_EL1_EIS    | SCTLR_EL1_TSCXT  | \
++	 SCTLR_EL1_EOS)
+ 
+ /* MAIR_ELx memory attributes (used by Linux) */
+ #define MAIR_ATTR_DEVICE_nGnRnE		UL(0x00)
+diff --git a/arch/arm64/include/asm/thread_info.h b/arch/arm64/include/asm/thread_info.h
+index 5d7fe3e153c8..161b91762e93 100644
+--- a/arch/arm64/include/asm/thread_info.h
++++ b/arch/arm64/include/asm/thread_info.h
+@@ -29,13 +29,8 @@ struct thread_info {
+ 	union {
+ 		u64		preempt_count;	/* 0 => preemptible, <0 => bug */
+ 		struct {
+-#ifdef CONFIG_CPU_BIG_ENDIAN
+-			u32	need_resched;
+-			u32	count;
+-#else
+ 			u32	count;
+ 			u32	need_resched;
+-#endif
+ 		} preempt;
+ 	};
+ #ifdef CONFIG_SHADOW_CALL_STACK
+diff --git a/arch/arm64/kernel/fpsimd.c b/arch/arm64/kernel/fpsimd.c
+index e7f1682a3059..65e7147067aa 100644
+--- a/arch/arm64/kernel/fpsimd.c
++++ b/arch/arm64/kernel/fpsimd.c
+@@ -621,23 +621,6 @@ static int __init sme_sysctl_init(void) { return 0; }
+ #define ZREG(sve_state, vq, n) ((char *)(sve_state) +		\
+ 	(SVE_SIG_ZREG_OFFSET(vq, n) - SVE_SIG_REGS_OFFSET))
+ 
+-#ifdef CONFIG_CPU_BIG_ENDIAN
+-static __uint128_t arm64_cpu_to_le128(__uint128_t x)
+-{
+-	u64 a = swab64(x);
+-	u64 b = swab64(x >> 64);
+-
+-	return ((__uint128_t)a << 64) | b;
+-}
+-#else
+-static __uint128_t arm64_cpu_to_le128(__uint128_t x)
+-{
+-	return x;
+-}
+-#endif
+-
+-#define arm64_le128_to_cpu(x) arm64_cpu_to_le128(x)
+-
+ static void __fpsimd_to_sve(struct arm64_sve_state *sst,
+ 			    struct user_fpsimd_state const *fst,
+ 			    unsigned int vq)
+@@ -647,7 +630,7 @@ static void __fpsimd_to_sve(struct arm64_sve_state *sst,
+ 
+ 	for (i = 0; i < SVE_NUM_ZREGS; ++i) {
+ 		p = (__uint128_t *)ZREG(sst, vq, i);
+-		*p = arm64_cpu_to_le128(fst->vregs[i]);
++		*p = fst->vregs[i];
+ 	}
+ }
+ 
+@@ -702,7 +685,7 @@ static inline void sve_to_fpsimd(struct task_struct *task)
+ 	vq = sve_vq_from_vl(vl);
+ 	for (i = 0; i < SVE_NUM_ZREGS; ++i) {
+ 		p = (__uint128_t const *)ZREG(sst, vq, i);
+-		fst->vregs[i] = arm64_le128_to_cpu(*p);
++		fst->vregs[i] = *p;
+ 	}
+ }
+ 
+diff --git a/arch/arm64/kernel/image.h b/arch/arm64/kernel/image.h
+index 7bc3ba897901..5c10ca773363 100644
+--- a/arch/arm64/kernel/image.h
++++ b/arch/arm64/kernel/image.h
+@@ -24,28 +24,14 @@
+  * when PIE is in effect. So we need to split them up in 32-bit high and low
+  * words.
+  */
+-#ifdef CONFIG_CPU_BIG_ENDIAN
+-#define DATA_LE32(data)				\
+-	((((data) & 0x000000ff) << 24) |	\
+-	 (((data) & 0x0000ff00) << 8)  |	\
+-	 (((data) & 0x00ff0000) >> 8)  |	\
+-	 (((data) & 0xff000000) >> 24))
+-#else
+-#define DATA_LE32(data) ((data) & 0xffffffff)
+-#endif
+-
+ #define DEFINE_IMAGE_LE64(sym, data)				\
+-	sym##_lo32 = DATA_LE32((data) & 0xffffffff);		\
+-	sym##_hi32 = DATA_LE32((data) >> 32)
++	sym##_lo32 = (data) & 0xffffffff;			\
++	sym##_hi32 = (data) >> 32
+ 
+ #define __HEAD_FLAG(field)	(__HEAD_FLAG_##field << \
+ 					ARM64_IMAGE_FLAG_##field##_SHIFT)
+ 
+-#ifdef CONFIG_CPU_BIG_ENDIAN
+-#define __HEAD_FLAG_BE		ARM64_IMAGE_FLAG_BE
+-#else
+ #define __HEAD_FLAG_BE		ARM64_IMAGE_FLAG_LE
+-#endif
+ 
+ #define __HEAD_FLAG_PAGE_SIZE	((PAGE_SHIFT - 10) / 2)
+ 
+diff --git a/arch/arm64/kernel/kexec_image.c b/arch/arm64/kernel/kexec_image.c
+index b70f4df15a1a..b8d0fb0a9daf 100644
+--- a/arch/arm64/kernel/kexec_image.c
++++ b/arch/arm64/kernel/kexec_image.c
+@@ -40,7 +40,7 @@ static void *image_load(struct kimage *image,
+ {
+ 	struct arm64_image_header *h;
+ 	u64 flags, value;
+-	bool be_image, be_kernel;
++	bool be_image;
+ 	struct kexec_buf kbuf = {};
+ 	unsigned long text_offset, kernel_segment_number;
+ 	struct kexec_segment *kernel_segment;
+@@ -58,8 +58,7 @@ static void *image_load(struct kimage *image,
+ 	/* Check cpu features */
+ 	flags = le64_to_cpu(h->flags);
+ 	be_image = arm64_image_flag_field(flags, ARM64_IMAGE_FLAG_BE);
+-	be_kernel = IS_ENABLED(CONFIG_CPU_BIG_ENDIAN);
+-	if ((be_image != be_kernel) && !system_supports_mixed_endian())
++	if (be_image && !system_supports_mixed_endian())
+ 		return ERR_PTR(-EINVAL);
+ 
+ 	value = arm64_image_flag_field(flags, ARM64_IMAGE_FLAG_PAGE_SIZE);
+diff --git a/arch/arm64/kernel/kgdb.c b/arch/arm64/kernel/kgdb.c
+index 968324a79a89..3426d0908973 100644
+--- a/arch/arm64/kernel/kgdb.c
++++ b/arch/arm64/kernel/kgdb.c
+@@ -60,11 +60,7 @@ struct dbg_reg_def_t dbg_reg_def[DBG_MAX_REG_NUM] = {
+ 	 * 32-bits. Look for the big comment in asm/kgdb.h for more
+ 	 * detail.
+ 	 */
+-	{ "pstate", 4, offsetof(struct pt_regs, pstate)
+-#ifdef CONFIG_CPU_BIG_ENDIAN
+-							+ 4
+-#endif
+-	},
++	{ "pstate", 4, offsetof(struct pt_regs, pstate)},
+ 	{ "v0", 16, -1 },
+ 	{ "v1", 16, -1 },
+ 	{ "v2", 16, -1 },
+diff --git a/arch/arm64/kernel/ptrace.c b/arch/arm64/kernel/ptrace.c
+index f743cbec1c3a..7405c76724bf 100644
+--- a/arch/arm64/kernel/ptrace.c
++++ b/arch/arm64/kernel/ptrace.c
+@@ -2517,12 +2517,8 @@ static int valid_compat_regs(struct user_pt_regs *regs)
+ {
+ 	regs->pstate &= ~SPSR_EL1_AARCH32_RES0_BITS;
+ 
+-	if (!system_supports_mixed_endian_el0()) {
+-		if (IS_ENABLED(CONFIG_CPU_BIG_ENDIAN))
+-			regs->pstate |= PSR_AA32_E_BIT;
+-		else
+-			regs->pstate &= ~PSR_AA32_E_BIT;
+-	}
++	if (!system_supports_mixed_endian_el0())
++		regs->pstate &= ~PSR_AA32_E_BIT;
+ 
+ 	if (user_mode(regs) && (regs->pstate & PSR_MODE32_BIT) &&
+ 	    (regs->pstate & PSR_AA32_A_BIT) == 0 &&
+diff --git a/arch/arm64/kernel/signal32.c b/arch/arm64/kernel/signal32.c
+index bb3b526ff43f..5edcab50f753 100644
+--- a/arch/arm64/kernel/signal32.c
++++ b/arch/arm64/kernel/signal32.c
+@@ -334,9 +334,6 @@ static void compat_setup_return(struct pt_regs *regs, struct k_sigaction *ka,
+ 	/* The IT state must be cleared for both ARM and Thumb-2 */
+ 	spsr &= ~PSR_AA32_IT_MASK;
+ 
+-	/* Restore the original endianness */
+-	spsr |= PSR_AA32_ENDSTATE;
+-
+ 	if (ka->sa.sa_flags & SA_RESTORER) {
+ 		retcode = ptr_to_compat(ka->sa.sa_restorer);
+ 	} else {
+diff --git a/arch/arm64/kernel/sys32.c b/arch/arm64/kernel/sys32.c
+index 12a948f3a504..8ac07aeb018d 100644
+--- a/arch/arm64/kernel/sys32.c
++++ b/arch/arm64/kernel/sys32.c
+@@ -59,12 +59,7 @@ COMPAT_SYSCALL_DEFINE6(aarch32_mmap2, unsigned long, addr, unsigned long, len,
+ 	return ksys_mmap_pgoff(addr, len, prot, flags, fd, off_4k);
+ }
+ 
+-#ifdef CONFIG_CPU_BIG_ENDIAN
+-#define arg_u32p(name)	u32, name##_hi, u32, name##_lo
+-#else
+ #define arg_u32p(name)	u32, name##_lo, u32, name##_hi
+-#endif
+-
+ #define arg_u64(name)	(((u64)name##_hi << 32) | name##_lo)
+ 
+ COMPAT_SYSCALL_DEFINE6(aarch32_pread64, unsigned int, fd, char __user *, buf,
+-- 
+2.55.0.1082.g2b9226bbc0-goog
 
-guard()
-goto err
-
-sashiko mark feedback as low. I think it is fine by use guard, if your goto
-to do tear down work.
-
-Frank
-
->
-> Regards,
-> Ming
->
-> > >  	}
-> > >
-> > >  	/* put devices into reset */
-> > > @@ -148,12 +157,16 @@ static int imx8m_blk_ctrl_power_on(struct generic_pm_domain *genpd)
-> > >  	/* disable upstream clocks */
-> > >  	clk_bulk_disable_unprepare(data->num_clks, domain->clks);
-> > >
-> > > +	mutex_unlock(&bc->power_lock);
-> > > +
-> > >  	return 0;
-> > >
-> > >  clk_disable:
-> > >  	clk_bulk_disable_unprepare(data->num_clks, domain->clks);
-> > >  bus_put:
-> > >  	pm_runtime_put(bc->bus_power_dev);
-> > > +unlock:
-> > > +	mutex_unlock(&bc->power_lock);
-> > >
-> > >  	return ret;
-> > >  }
-> > > @@ -164,6 +177,8 @@ static int imx8m_blk_ctrl_power_off(struct generic_pm_domain *genpd)
-> > >  	const struct imx8m_blk_ctrl_domain_data *data = domain->data;
-> > >  	struct imx8m_blk_ctrl *bc = domain->bc;
-> > >
-> > > +	mutex_lock(&bc->power_lock);
-> > > +
-> > >  	/* put devices into reset and disable clocks */
-> > >  	if (data->mipi_phy_rst_mask)
-> > >  		regmap_clear_bits(bc->regmap, BLK_MIPI_RESET_DIV, data->mipi_phy_rst_mask);
-> > > @@ -177,6 +192,8 @@ static int imx8m_blk_ctrl_power_off(struct generic_pm_domain *genpd)
-> > >  	/* allow bus domain to suspend */
-> > >  	pm_runtime_put(bc->bus_power_dev);
-> > >
-> > > +	mutex_unlock(&bc->power_lock);
-> > > +
-> > >  	return 0;
-> > >  }
-> > >
-> > > @@ -202,6 +219,10 @@ static int imx8m_blk_ctrl_probe(struct platform_device *pdev)
-> > >
-> > >  	bc->dev = dev;
-> > >
-> > > +	ret = devm_mutex_init(dev, &bc->power_lock);
-> > > +	if (ret)
-> > > +		return ret;
-> > > +
-> > >  	bc_data = of_device_get_match_data(dev);
-> > >
-> > >  	base = devm_platform_ioremap_resource(pdev, 0);
-> > >
-> > > ---
-> > > base-commit: 27953c044974baf7e24dee3e9342fe0103dea80c
-> > > change-id: 20260911-imx8mp-blk-ctrl-c46f26783073
-> > >
-> > >
