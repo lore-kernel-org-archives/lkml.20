@@ -1,275 +1,92 @@
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46E5A527587
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 20:07:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD65437FF68;
+	Fri, 18 Sep 2026 20:07:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789762025; cv=none; b=GAThhd9Q02ObdMxe5kBAuQo05P2b1SquEbiHSfu5WTPbchDwMxtuYowOD1a/suvFo+viklkQ0WDlKKrUct6IUi6yfZH3EyGSA/tKU2AEJCerPoJXyBHoNZLbcdSaD37ZxHLcKF1jZlfWIJT6UfT2opJNdFFA03ZtyYWxaTWtksk=
+	t=1789762064; cv=none; b=ui3Cv5NdZaaAboiRtDnJTqWdW7ud8RG820WQOpTFIDdOpoyyQgT5PdZy+mrLKUdOZq+yYeoH9Sfm2q4CH8LXQFI1ZZuCGeL43RyiDd7rqSCNBqZPpmSUfPiud2Ze7zMq+x5UCY2VxA/jT1Ti4/+GAxHhsI6bAHiM9TquBjBzCYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789762025; c=relaxed/simple;
-	bh=R4Az/uRUuF1PiT5xSJs/E4kzyzqFdBSW3WJkEp2Js04=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=X/Gh9JyqLPSW61iaja9XVeZkA9TfxqRwPv1fu/xskONowTAnn132FR4ExOkb9W0dwC8Kt2+0szjFgYngDxABesm4SG55EVRXCXZRBp4s8twZN67ZhJ9CiqCWa5B5ktakDCKOZchilQaNcpOuNxOPaDIbye2bEFjjt/sJbGpshOo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=RzSGmqLp; arc=none smtp.client-ip=209.85.210.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com
+	s=arc-20240116; t=1789762064; c=relaxed/simple;
+	bh=/V7mSylXoMK+jkLlBzPSKoPOqJXtmnyWjv/QXQfBwBI=;
+	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Subject; b=c98lJqy13c6/5n5HPad1iQFI0RCIbgJeJ1RYOqdGWMsInsqwKGSvQQh/Jc0q6DRiJQ+MX8Mc6O1COplne8NvbqRo+x9FWvITKkOOnWNHOTrAplyj01oQ3cL3hzprDAj5++11Kq8kKuMgGgw0wEH845K/Qmq7RKQRWY45N3FGdRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=KGv8ai85; arc=none smtp.client-ip=204.191.154.188
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="RzSGmqLp"
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-86a43fc3527so2920077b3a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 13:07:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789762021; x=1790366821; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9ZcqrsSF0ioZzw9gFyyhQYx/Js3WyQJlrd8b2TpGaYs=;
-        b=RzSGmqLpCtG5g6LeEX9pvglnVRXlzVQoqbaVXexeJ0VU7mhlxWnvLnEaPI70ioWj2Y
-         DTMS86vDme7ulFFMBBMb6GcHg0AU0W49Aiob5b69y5nUab7hxhBbM1i/kXNVvribigCP
-         H8rGoUJeMpCucAXzzhWjVIfgKi0/aOqjafCguw/pBxFoMR8nqAP8A3/USbeAHTpARAs9
-         JjyHmR+It1jsNPWLrDcs5TXu9X5FkR1xkhc877Rgm+xRiYop3bDm+uyyLj84wFdX5751
-         jN5YnaSg9ZCc3fp14K1bu8sFkQMCSzmYaXMOAyGJMmKzKXZc/XseQK4RI4prCw0Azarl
-         U2Kw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789762021; x=1790366821;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9ZcqrsSF0ioZzw9gFyyhQYx/Js3WyQJlrd8b2TpGaYs=;
-        b=M0/f2I8OS6IF0lIPmVV+IUasEkbxvM+3Bb3TccRuevbHJkkFvCzgnaix1hnB3ShpcY
-         fGddCmrr0tHsZzoO93ZYhFrlD8OljFcTwxLxmzIiHnrSfeEU1w6Xi2lLBE8quRX84CsJ
-         1o2UNJ2v7UbYohZcoshlD4XMiz2ddc/y2Sq6SLRHCswMJdfDT97iq+pLQFU5NyuJIRi4
-         RMTee50bwrghQT2oEvSFt1GVD6uHbDO7TV77finL6gAVoOui9k2hQRkoirxwQlwrMo95
-         Ej6BS3N3DnSChvie0mjsy4fp2MADa1DDx6eB0fMSoifLa6w4c05N8HjOJyViIniAE7Uy
-         J1SA==
-X-Forwarded-Encrypted: i=1; AKwUvByyy56p3xzQfeN3NVJLRTFaPyLeTXGfHah1q7Or7rgOzIH3ZUuYAHntWdiwHF6MFKhm5j729PpVkLBCamY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nQMK24Ux75Je8OzJ8nfRHBq/dDVGXXKgTQptgnxEtLzzfvCzah
-	Hg4j7Yx2PYzhs1hhF4JfKxCfsYBv41XOflVEn5/iKcUjms+qCL+q02B5Pn230jurPewWunAqaOg
-	K//ezyg1jEmJWWQ==
-X-Received: from pgvn14.prod.google.com ([2002:a65:63ce:0:b0:cc1:bda2:d0a3])
- (user=dmatlack job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a21:7017:b0:3c8:e304:99d0 with SMTP id adf61e73a8af0-3dd721125e9mr11870192637.0.1789762021113;
- Fri, 18 Sep 2026 13:07:01 -0700 (PDT)
-Date: Fri, 18 Sep 2026 20:06:35 +0000
-In-Reply-To: <20260918200640.887030-1-dmatlack@google.com>
+	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="KGv8ai85"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
+	MIME-Version:Date:Message-ID:content-disposition;
+	bh=I9+s5+K/DpZgsWdaC4psIlA8J8Zx5wR4CRtj24i+rVk=; b=KGv8ai85MAx/Sdr7ncFrnU1GEe
+	gRzsCB/CSdZQhb0L8DXgcgP0GNgItLQXPZskeIp+zAruBxb4fMQOuY/Z2IZiKzv0duBXEiGAHJtPK
+	i8DXDp1zoTZA+V/oeDodyWlUBxJYOZykZqf5tPX2YkbytsGTF5Tsb+KpbPkUDdosPuncJ+gPCc7dM
+	ExHflG2VdS1IA0ouX3cwaIVa6XyubxJPs2LytZ/R29QODp1lfRgqI4hEJtsy9nU7Ka8dtsZSp7LoX
+	mNWrDxLzWruEL+UPDnK+PASA66N2LfCqO69Zr+ff55lrC2sg/gd5zDlnBdxMJ+K0ixYHcutK9zyyl
+	ItQHcsEQ==;
+Received: from guinness.priv.deltatee.com ([172.16.1.162])
+	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.98.2)
+	(envelope-from <logang@deltatee.com>)
+	id 1x7ery-0000000CsOc-1rKW;
+	Fri, 18 Sep 2026 14:07:39 -0600
+Message-ID: <8623c5e5-bca8-4398-895b-2a7b1227e93b@deltatee.com>
+Date: Fri, 18 Sep 2026 14:07:36 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260918200640.887030-1-dmatlack@google.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260918200640.887030-10-dmatlack@google.com>
-Subject: [PATCH v9 09/13] PCI: liveupdate: Adopt ACS controls in incoming
- preserved devices
-From: David Matlack <dmatlack@google.com>
-To: kexec@lists.infradead.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-pci@vger.kernel.org
-Cc: Adithya Jayachandran <ajayachandra@nvidia.com>, Alexander Graf <graf@amazon.com>, 
-	Alex Williamson <alex@shazbot.org>, Bjorn Helgaas <bhelgaas@google.com>, Chris Li <chrisl@kernel.org>, 
-	David Matlack <dmatlack@google.com>, David Rientjes <rientjes@google.com>, 
-	Jacob Pan <jacob.pan@linux.microsoft.com>, Jason Gunthorpe <jgg@nvidia.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Josh Hilke <jrhilke@google.com>, Leon Romanovsky <leonro@nvidia.com>, 
-	Lukas Wunner <lukas@wunner.de>, Mike Rapoport <rppt@kernel.org>, Parav Pandit <parav@nvidia.com>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, Pranjal Shrivastava <praan@google.com>, 
-	Pratyush Yadav <pratyush@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Saeed Mahameed <saeedm@nvidia.com>, Samiullah Khawaja <skhawaja@google.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Vipin Sharma <vipinsh@google.com>, 
-	William Tu <witu@nvidia.com>, Yi Liu <yi.l.liu@intel.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Chaitanya Kulkarni <kch@nvidia.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jens Axboe
+ <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Randy Dunlap <rdunlap@infradead.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+ Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, kvm@vger.kernel.org
+References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
+ <20260914-fix-p2p-acs-v4-0-v6-5-5ef07ec9ef06@nvidia.com>
+Content-Language: en-CA
+From: Logan Gunthorpe <logang@deltatee.com>
+In-Reply-To: <20260914-fix-p2p-acs-v4-0-v6-5-5ef07ec9ef06@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 172.16.1.162
+X-SA-Exim-Rcpt-To: leon@kernel.org, bhelgaas@google.com, kch@nvidia.com, gregkh@linuxfoundation.org, axboe@kernel.dk, alex@shazbot.org, ankita@nvidia.com, jgg@ziepe.ca, corbet@lwn.net, skhan@linuxfoundation.org, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, rdunlap@infradead.org, sumit.semwal@linaro.org, christian.koenig@amd.com, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, iommu@lists.linux.dev, tdave@nvidia.com, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org, kvm@vger.kernel.org
+X-SA-Exim-Mail-From: logang@deltatee.com
+X-Spam-Level: 
+Subject: Re: [PATCH v6 05/18] PCI/P2PDMA: Evaluate ACS controls at the path
+ divergence
+X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
+X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 
-Adopt Access Control Services (ACS) controls on all incoming preserved
-devices (endpoints and upstream bridges) during a Live Update.
 
-Inheriting ACS flags avoids changing routing rules while memory
-transactions are in flight from preserved devices. This is also strictly
-necessary to ensure that IOMMU group assignments do not change during or
-after Live Update.
 
-The adopted controls are recorded by the pci_save_state() call in
-pci_bus_add_device(), which runs before drivers bind, so they are
-automatically reapplied by pci_restore_state() if the device is reset.
-If that save buffer could not be allocated there is nowhere to record
-the adopted controls, and they would be silently lost by the first
-reset. Program ACS from scratch in that case, which is a better outcome
-than leaving ACS disabled.
+On 2026-09-14 05:22, Leon Romanovsky wrote:
+> From: Leon Romanovsky <leonro@nvidia.com>
+> 
+> ACS redirect controls choose between peer and upstream routes only at the
+> path divergence. Applying them below that point rejects valid nested
+> topologies because traffic already has only an upstream route.
+> 
+> Evaluate Request controls on the client-side divergence port and Completion
+> Redirect on the provider-side port and reject an unreadable ACS Control
+> register.
+> 
+> Fixes: 52916982af48 ("PCI/P2PDMA: Support peer-to-peer memory")
+> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 
-To simplify ACS inheritance, reject preserving any devices that require
-quirks to enable ACS as those quirks would also have to take Live Update
-into account.
+Still looks good to me:
 
-Signed-off-by: David Matlack <dmatlack@google.com>
----
- drivers/pci/liveupdate.c | 78 ++++++++++++++++++++++++++++++++++++++++
- drivers/pci/liveupdate.h |  6 ++++
- drivers/pci/pci.c        |  5 +++
- 3 files changed, 89 insertions(+)
-
-diff --git a/drivers/pci/liveupdate.c b/drivers/pci/liveupdate.c
-index 686887a6c8d9..0145399b3834 100644
---- a/drivers/pci/liveupdate.c
-+++ b/drivers/pci/liveupdate.c
-@@ -123,6 +123,9 @@
-  *
-  *  * The device cannot be a Virtual Function (VF).
-  *
-+ *  * The device cannot require device-specific quirks to enable Access
-+ *    Control Services (ACS).
-+ *
-  * Driver Binding
-  * ==============
-  *
-@@ -174,6 +177,18 @@
-  * bus, since the bus numbers of the failed bridge can no longer be read from
-  * hardware and handing them to another bridge would let an unrelated device
-  * inherit the BDF of a preserved device.
-+ *
-+ * Handling Preserved Devices
-+ * ==========================
-+ *
-+ * The PCI core treats preserved devices differently than non-preserved devices.
-+ * This section enumerates those differences.
-+ *
-+ *  * The PCI core adopts all ACS controls enabled on incoming preserved devices
-+ *    rather than assigning new ones. This ensures that TLPs are routed the same
-+ *    way after Live Update and ensures that IOMMU groups do not change. Note
-+ *    that a device will use its adopted ACS controls for the lifetime of its
-+ *    struct pci_dev (i.e. even after pci_liveupdate_finish()).
-  */
- 
- #define pr_fmt(fmt) "PCI: liveupdate: " fmt
-@@ -189,6 +204,7 @@
- #include <linux/slab.h>
- 
- #include "liveupdate.h"
-+#include "pci.h"
- 
- /**
-  * struct pci_liveupdate_global - Global state for PCI Live Update support
-@@ -502,6 +518,16 @@ static int pci_liveupdate_preserve_device(struct pci_flb_outgoing *outgoing,
- 		return -EINVAL;
- 	}
- 
-+	/*
-+	 * Do not preserve devices that rely on device-specific ACS equivalents
-+	 * (for now) since that would complicate keeping ACS constant across
-+	 * Live Update.
-+	 */
-+	if (pci_need_dev_specific_enable_acs(dev)) {
-+		pci_warn(dev, "Refusing to preserve device that relies on ACS quirks\n");
-+		return -EINVAL;
-+	}
-+
- 	/*
- 	 * Endpoint devices should not be preserved more than once.
- 	 * Bridges are preserved once for every downstream device that
-@@ -826,6 +852,58 @@ void pci_liveupdate_finish(struct pci_dev *dev)
- }
- EXPORT_SYMBOL_GPL(pci_liveupdate_finish);
- 
-+/**
-+ * pci_liveupdate_adopt_acs() - Adopt ACS controls
-+ * @dev: The PCI device to adopt ACS controls for
-+ *
-+ * For devices preserved across a Live Update, leave the ACS controls
-+ * established by the previous kernel alone instead of programming new ones.
-+ * The adopted controls are recorded by the pci_save_state() call in
-+ * pci_bus_add_device(), so they are reapplied by pci_restore_state() if the
-+ * device is subsequently reset.
-+ *
-+ * Return: 0 on success, or -EINVAL if the device was not preserved, requires
-+ * device-specific quirks, or has nowhere to record the adopted controls.
-+ */
-+int pci_liveupdate_adopt_acs(struct pci_dev *dev)
-+{
-+	/*
-+	 * Check if the device was preserved over a previous Live Update (even
-+	 * if it has already gone through pci_liveupdate_finish()). This ensures
-+	 * that the device continues to use the ACS controls established by the
-+	 * previous kernel.
-+	 */
-+	if (!dev->liveupdate.was_incoming)
-+		return -EINVAL;
-+
-+	/*
-+	 * The previous kernel should not have preserved any devices that
-+	 * require device-specific quirks to enable ACS, but if such a device is
-+	 * detected (e.g. new device-specific ACS quirk in the current kernel),
-+	 * log a big warning and fall back to the normal enable ACS path.
-+	 */
-+	if (pci_need_dev_specific_enable_acs(dev)) {
-+		pci_warn(dev, "Device-specific quirk required to enable ACS!\n");
-+		WARN_ON_ONCE(true);
-+		return -EINVAL;
-+	}
-+
-+	/*
-+	 * Adopting the previous kernel's controls depends on them being
-+	 * captured in the ACS save buffer, so that they are reapplied if the
-+	 * device is later reset. Without that buffer, e.g. because it could
-+	 * not be allocated under memory pressure, the adopted controls would
-+	 * be silently lost by the first reset. Program ACS from scratch
-+	 * instead, which is a better outcome than leaving ACS disabled.
-+	 */
-+	if (dev->acs_cap && !pci_find_saved_ext_cap(dev, PCI_EXT_CAP_ID_ACS)) {
-+		pci_err(dev, "No ACS save buffer, not adopting ACS controls\n");
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
- /**
-  * pci_liveupdate_is_incoming() - Check if a device is incoming-preserved
-  * @dev: The PCI device to check
-diff --git a/drivers/pci/liveupdate.h b/drivers/pci/liveupdate.h
-index e5d2a19d2ca2..d4721ffcecb2 100644
---- a/drivers/pci/liveupdate.h
-+++ b/drivers/pci/liveupdate.h
-@@ -15,6 +15,7 @@ void pci_liveupdate_setup_device(struct pci_dev *dev);
- void pci_liveupdate_cleanup_device(struct pci_dev *dev);
- bool pci_liveupdate_preserve_bus_numbers(void);
- bool pci_liveupdate_refuse_bus_numbers(struct pci_bus *bus, struct pci_dev *dev);
-+int pci_liveupdate_adopt_acs(struct pci_dev *dev);
- #else
- static inline void pci_liveupdate_setup_device(struct pci_dev *dev)
- {
-@@ -34,6 +35,11 @@ static inline bool pci_liveupdate_refuse_bus_numbers(struct pci_bus *bus,
- {
- 	return false;
- }
-+
-+static inline int pci_liveupdate_adopt_acs(struct pci_dev *dev)
-+{
-+	return -EINVAL;
-+}
- #endif
- 
- #endif /* DRIVERS_PCI_LIVEUPDATE_H */
-diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-index dd25c01736b4..47d8229115b8 100644
---- a/drivers/pci/pci.c
-+++ b/drivers/pci/pci.c
-@@ -35,6 +35,8 @@
- #include <linux/aer.h>
- #include <linux/bitfield.h>
- #include <linux/suspend.h>
-+
-+#include "liveupdate.h"
- #include "pci.h"
- 
- DEFINE_MUTEX(pci_slot_mutex);
-@@ -1080,6 +1082,9 @@ void pci_enable_acs(struct pci_dev *dev)
- 	bool enable_acs = false;
- 	int pos;
- 
-+	if (!pci_liveupdate_adopt_acs(dev))
-+		return;
-+
- 	/* If an iommu is present we start with kernel default caps */
- 	if (pci_acs_enable) {
- 		if (pci_dev_specific_enable_acs(dev))
--- 
-2.55.0.1082.g2b9226bbc0-goog
-
+Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
