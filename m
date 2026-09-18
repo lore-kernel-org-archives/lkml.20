@@ -1,108 +1,178 @@
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AC0D274670
-	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:24:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789748697; cv=none; b=ulJqf5kQs8ebOVCa5XxLtaJOJbbsdeDWQ8tK1W+idbhwqtQ8xfb0YaKkZI6HU0XHrqJmBijLWvFDSvCRQ2wr1JoUvv1EADsnw8HBryINu58w9dE+D5B7s0pVcdFTzCbX2FWHEVBT2cv1v2plYODXWCQcmny4VIWRI1c3HucbepE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789748697; c=relaxed/simple;
-	bh=/VEJ+LucLRgG3GQveLMeKu8gGNtxOYLsCkVGmvtubPI=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=oQmAJNNf6sWgwvE0K3CDBBjsactuunxcdVplstVquQoQLMMcW+pC/9/19+mAU91uuw5+q54UN2b4dhlpCqD8VOkiNy3im5wdZ/ui43+Q7hKHvt+RwnrhW3u+9LYtrgkNZin5YWhOB94LXqspUxlNJcObdCk41SUsId2pJUR0qtY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NypGK/y/; arc=none smtp.client-ip=209.85.216.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4400051354A
+	for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 16:25:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789748733; cv=pass; b=shdKzU/CUx+UmVGPIizziN+2McUKe4HCZ0NUFASa689hIS9SyUI0EsOB2yvEmLibGOwE51jeH8O7llk6Up+3oly7YPAjS+o8VVWVXJqbFIAcQiHK/m4xX4krQhya1kwD65FBFZBXSds9N3NdQmOElnpdUfMmH1+Hv67CXE/+RmQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789748733; c=relaxed/simple;
+	bh=VrXbvFOV+NU9m5j2WeTHVhbaWFlGi5GoAqKgLGAISoE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YMMAQQTP39JN0S6wE5Sf+pjzK7Y6PMj9GdAfGPyPYyYvZoytKQNIuA5aExmrzsBCUe9WrVpCAlmScl3xiJoHgK5hlCBnmQ9rgjtvGEJkH1rw8DFOXOZCTrMMm0z7Kz1b9Jd8vqizcgjPo5ow7DnvJCCUXRboaN8HPhKNmvPKjk0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eI1WO8Rn; arc=pass smtp.client-ip=74.125.228.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NypGK/y/"
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39533bb224cso1875671a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:24:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eI1WO8Rn"
+Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469d249c4so926611b3a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 09:25:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789748727; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XV6ANQaDMfxS1QcuK6VM8AS4Kmm1839mSVFLSrELY76Ep5d9ixbmnNLjGuozzQgAzJ
+         J/V4mhXwLy7+hAqGMrFDRmKMa28LVFXF/dDuWmyGztPBHOmGzYZa7IhY5q2sX7qeub7s
+         5NjIUjUDTYaaSNfakAVv/GY9yHPcieu7tOTHcXgIcwa5gDV+yWqFCfSLuz/qfoEOCgHG
+         i/BA0od2UL8kUC9RgvZJ4cXdmpwkCT6hvVEi4+ObuPWtGHRLrDt0kiAJexKcWihAHy3s
+         d/pJv0Le6c1vDbHX4XfKeCNHqmUm0khrpYGoKtKr4Uy1SnXp1EfxPz4ccrDKnFCCw4cR
+         LtXQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=VrXbvFOV+NU9m5j2WeTHVhbaWFlGi5GoAqKgLGAISoE=;
+        fh=qtKGxT5MK5YPRFObbgRX5XGBLJLi6OeaM6DA1pAMJko=;
+        b=RHvMPGlFw/r6bcs1/zpHGWdZzIStALY8bCD/dgmQmKMBbZYnzYE3kXXAIdto9OpIGT
+         at/TJL+8tnQrtjPZi84YlHJalVMv+niSWmtdp26kVdgL6mcShUHSXj4sQJ8HPfBOOIFT
+         kDTbnRHnneClX63c0BrUM+WqT2sDQ67wTX6IMT9Q1Mtk6glzA004tRxolzzfQDBn4U5r
+         SkXWfLu+eAlCGswGhQPxdkcylX08J/Fhb5jJzECPQ4knaM+mXgvHdu+9X3k23Zzr9IlS
+         wp1vpHF1gpUUFXwVvYDbdibHI1P93tFLUBktme1w/48hkzpMPWFB5KzASJFkYya/AsL5
+         bkKQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789748694; x=1790353494; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1789748727; x=1790353527; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=JHL6ulY39G3oYupBS7XaH4v+pqwb8EWJ7uPAAnt0DUo=;
-        b=NypGK/y/QMSj7kykXuqffJBWeSeURdROrAIZpIjuU6YeyErphUB3XGkaWeL2TTFWM7
-         Dw1NqYCmMfCvkxWkgE9RsPF44QZMqZRzbs9CW0P87Ol92pkhzwkm08TuBGctGbDyvkpt
-         5v4qiJQy1BrdD1A8GZ4Q8RiLJWn0xo3RmKll+MD+wjEhuk2UXDQD+1AfVFh6QMlzhds5
-         t2AfPNf7zS8NHrsQAYAKI/QUWS8gi2xZNh//prS01ORUYnKTDn+eBzF7YM4yBH6rzlt/
-         JxarJucsIc4pVy6OOg1TwahbnKgkf9bOT5CPlDV5G45LBUzqaecPyYQVh52tgfTS1sYR
-         GoIg==
+        bh=VrXbvFOV+NU9m5j2WeTHVhbaWFlGi5GoAqKgLGAISoE=;
+        b=eI1WO8RnyeaXYWPeAUTKIjLT3bgSWi+jNhYoEh9QcvBhvZZpQq0aLd5paJZkAg1ph0
+         QZQcQ9KT5EqZAIZFvDZCAbbjl+olq+OrLjSkOYm/iL0Cov1CLAkZ1gMHSS8a2OxJWrzp
+         84KfPDVYUK2clwshSAdrCQDGvLYxC+H9eTuJZAV0u6/8ney9Nv6kZNmKJvjlRAwh9fmG
+         gXL6L8DGpW9tuxTe3MMS4gjbaRk6CRt8oj5OJkQQ634alkWnTUcQkMKEYo6eQ/RAwb6e
+         zWXpqVo7rAsNeG+7IRpUNgd8thuTKeuMm5iQKTKGwo/KZ1xjD2dVJkpY1LcgfmQNlblx
+         Rcxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789748694; x=1790353494;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JHL6ulY39G3oYupBS7XaH4v+pqwb8EWJ7uPAAnt0DUo=;
-        b=ZfUCbsjyJA2V08RFiD332QTGhiaWG9Y+oG+5B+RUr+VjPM/rJUMkosbV0AgcZDirYr
-         KjBhhd3ya1kTF3Qb0ZDa13op2Ty+xzfq0QTz200UuZxztWN2fXVk1IeFcdZFVX/qo6nT
-         WSkdrbqEMvpd2Wj2W639SkTpjuUGeZdhsOpzcMwuuy4EeNFDNDfaBvfkWwJtgadMUDRW
-         DVXKTfqt+zrl8/6++Jv6ZYyKLoDEQpgepzhYTobrXWOFjFd7EIgEbj8ylPZMeYkXLCGd
-         qc2Y8cRzbKleDVXzBlkH88iZ7h6dfbIGUbSO02WxAZHM7xhYfZghe8Pinnv3dIAnL+AP
-         4w0w==
-X-Forwarded-Encrypted: i=1; AKwUvByE+q++osc1ogLEMAMSMp20Kjo+t5spsZO+9zmQY3NbrkvOfWW3Y8uOlKzXDWkNRyx2/GltsI+yC4Bm3vw=@vger.kernel.org
-X-Gm-Message-State: AFuF++l6eyNWjzUjhWrz8Yl7KIGmB3EBPuTIW6/2gjEhcnx/TSJFzx/z
-	SVW6a6IeVPesnv1xN/86EZhHcs53+jEcEi3JhSx7r5J9LOsAlHLBEOsQROm7fOZF3V1f5baxNGu
-	LusuvcQ==
-X-Received: from pjbiw20.prod.google.com ([2002:a17:90b:4214:b0:39e:ac:d0a2])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:d648:b0:39e:6c6a:4b6f
- with SMTP id 98e67ed59e1d1-39e6c6a5502mr182977a91.57.1789748693726; Fri, 18
- Sep 2026 09:24:53 -0700 (PDT)
-Date: Fri, 18 Sep 2026 09:24:53 -0700
-In-Reply-To: <20260918113631.634233-2-gokul02k@gmail.com>
+        d=1e100.net; s=20260707; t=1789748727; x=1790353527;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=VrXbvFOV+NU9m5j2WeTHVhbaWFlGi5GoAqKgLGAISoE=;
+        b=u+InodZche//L1Q3xSxEJtNg7+cZxUOtk3JGdIxSLj/o88onRc+9w/oBfqYLAEcapq
+         gMpS25v/x777ZGESgXxVnWCOT+keEdnb/iP3JvT8SlWBQPFVWM6ItkycEYLpWK2I32Zb
+         2zMG9Z9DOE//gxvgKI89gvsx9alCBaVmZdfWgpp3Aza04TK4iXun1zYi9tSGmEmdYDFL
+         q463c3JMxqAEOFqa+lcJJZP/09cYQMqx2iOI55jaAUdxUtkS8qF46+KvMS5C61QVvfOh
+         tA4jYFR6Ttx2wANGZfsjkYs59WIcGLFKZtb5vQ8TsdM1fzWsYMillNWgeZTBaVWryYVv
+         OGIg==
+X-Forwarded-Encrypted: i=1; AKwUvBxvsuAKevdslvoM0xK9NWZSoxPnwR3yuiUhWkAkqpBFdk+vHWyBGsP94yiUThX6ZsRlZNQv06oKcgwtbNs=@vger.kernel.org
+X-Gm-Message-State: AFuF++kgXagMqZrFCbW1IZscc7LDbA0PQPBAh0+CZPwKjGv0NuyvEzck
+	u8oUdnqRdffrm7jpDJX8hxjaoGj0/rQmHOanFavVsuEp+CSlkswHsSFmHIkQc0QYI+sOsnEXvWg
+	gtacC1Y911Nf9pJX6vwdhUwof6PRMZCU=
+X-Gm-Gg: AYBFou0u2n3ckFcUQnVytVCmMrAA96rV8L66Ux2BgYKHKl7FYUDwy/HIprdizWONuD9
+	X97wWwQC71qBJl14AxszmZlAfpF6ZzLph1dKAqRaFJCKog2IPyCK6Gx8ynuVMSA6T5VQPZ/8v0t
+	rnQwV9JpH6hOWeqRTVQAJFP/zW4XeSBAP8H8GlInVlxBOsI0N4sfBxFXhmdYl81b5HxGmnOqyX+
+	qytMQkGruSdrQB8mHEDhhGLq1DgkD2s5/hKefhZjO1X84SPtpZX4g2FaNrMR7JvCsU+E9zJB8Vh
+	vM7ZoUIqxlUDQgDsyJYB/kwO+dbb8Bh6zWc6Ob//zsG6sLIZBLJsIkwycH8ZyoqLFhYBURlHhYD
+	UfMCb2Oefz78DIw9BjvhL4J3vm7KaMzVB0dM=
+X-Received: by 2002:a05:6a00:13a7:b0:872:20f2:3287 with SMTP id
+ d2e1a72fcca58-874dbeee762mr5939157b3a.10.1789748726761; Fri, 18 Sep 2026
+ 09:25:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260918113631.634233-1-gokul02k@gmail.com> <20260918113631.634233-2-gokul02k@gmail.com>
-Message-ID: <aq1l1WwdySbfX0qt@google.com>
-Subject: Re: [PATCH 1/3] KVM: selftests: Delete the unused sparsebit copy and
- count helpers
-From: Sean Christopherson <seanjc@google.com>
-To: Gokul K <gokul02k@gmail.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, Shuah Khan <shuah@kernel.org>, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+References: <20260917183602.GA1036092@bhelgaas> <7c2a8582-280e-471a-b4b0-037b2cda6ad8@app.fastmail.com>
+ <CAAsRjRnV-RTddO6h2XCUz2N5pB0pS8i_-_2XRcD=WOTA7AAFZQ@mail.gmail.com> <dc370463-125e-48d2-af6b-c3b4783f57ea@app.fastmail.com>
+In-Reply-To: <dc370463-125e-48d2-af6b-c3b4783f57ea@app.fastmail.com>
+From: Semih Baskan <strst.gs@gmail.com>
+Date: Fri, 18 Sep 2026 19:25:12 +0300
+X-Gm-Features: AcwNN1VOh8d_2xmEh01oZ9EcnHO1v-ja8QTE4DnWV1Kfj81LBJx61PkF6VeulFQ
+Message-ID: <CAAsRjR=sHgZMgXuTid+D7Vst=N_GBUZUrduZ4YZax5rbotHNMg@mail.gmail.com>
+Subject: Re: [PATCH] PCI: iproc: Use pci_alloc_host_bridge() on BCMA
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Bjorn Helgaas <helgaas@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, bhelgaas@google.com, 
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
+	bcm-kernel-feedback-list@broadcom.com, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>, 
+	=?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, linux-pci@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Rosen Penev <rosenp@gmail.com>, rani.hod@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Sep 18, 2026, Gokul K wrote:
-> sparsebit_copy() and sparsebit_num_set() have no callers.  Nor does the
-> FUZZ harness at the bottom of lib/sparsebit.c, which exercises most of
-> the rest of the API and still builds and links with both removed.
-> 
-> sparsebit_copy() was the only non-recursive caller of
-> node_copy_subtree(), which leaves that unreachable too.  It is static,
-> so keeping it would trip -Wunused-function; delete it as well.
-> 
-> The comment on the num_set member gives sparsebit_num_set() as the
-> reason the count is maintained.  The member stays - it is what lets
-> sparsebit_all_set() answer in O(1), and the dump path prints it - so
-> point the comment at what still uses it.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Gokul K <gokul02k@gmail.com>
-> ---
->  .../testing/selftests/kvm/include/sparsebit.h |  2 -
->  tools/testing/selftests/kvm/lib/sparsebit.c   | 63 +------------------
->  2 files changed, 1 insertion(+), 64 deletions(-)
-> 
-> diff --git a/tools/testing/selftests/kvm/include/sparsebit.h b/tools/testing/selftests/kvm/include/sparsebit.h
-> index e027e5790946..8a2ab11dae6f 100644
-> --- a/tools/testing/selftests/kvm/include/sparsebit.h
-> +++ b/tools/testing/selftests/kvm/include/sparsebit.h
-> @@ -30,7 +30,6 @@ typedef u64 sparsebit_num_t;
->  
->  struct sparsebit *sparsebit_alloc(void);
->  void sparsebit_free(struct sparsebit **sbitp);
-> -void sparsebit_copy(struct sparsebit *dstp, const struct sparsebit *src);
+On Fri, Sep 18, 2026 at 12:32:12PM +0200, Arnd Bergmann wrote:
+> If the DT window doesn't match, how does the bcma driver find
+> the device node that corresponds to the EROM entry to populate
+> the child nodes?
 
-I'm somewhat tempted to keep sparsebit_copy() even though there are no users.
-In the unlikely scenario someone wanted/needed to make a copy, it seems like a
-potentially painful waste of time to have to recreate this or hunt down its prior
-existence.
+By reg. bcma_of_find_child_device() in drivers/bcma/main.c compares the
+first reg address of each child of the axi node with the core's register
+base from the EROM. That base is 0x18012000, 0x18013000 and 0x18014000
+on both revisions; only the outbound window differs. The pcie node's
+ranges is not looked at. The reg is translated through the axi node's
+first ranges entry. The PCI core then matches the wifi nodes below that
+node by devfn.
 
-Anyone else have an opinion?
+> The driver should probably check earlier if the device is
+> already bound to the bcma bus, rather than just trying to
+> request the bus windows. If anything, I would have expected
+> the conflict on the 18012000 address for the register
+> base.
+>
+> I see an ioremap() of bdev->addr in drivers/bcma/scan.c but
+> don't see a corresponding request_resource() for it, so maybe
+> an easy fix is to add this to the bcma bus scan and
+> make sure that always happens before the pci driver probe?
+
+In the tree as it is, neither side claims the register base. bcma
+only ioremaps it in scan.c, and pcie-iproc-platform maps its reg with
+devm_pci_remap_cfgspace(), which does not request the region either.
+That is why the window is the first thing the two collide on. On the
+ordering, bcma_bus_register() calls bcma_bus_scan(), then
+of_platform_default_populate(), then bcma_register_devices(), so the
+scan is done before the pcie platform devices are created and the
+bcma core devices are registered after that.
+
+> If a board has nothing connected to one of the host bridges,
+> why is the pcie host bridge still marked as status="ok"?
+> Do you need a driver to put it into low-power mode, or
+> should this just be marked as disabled?
+
+The three nodes are in bcm-ns.dtsi without a status property, and no
+Northstar board file disables one. Which controllers carry a device
+differs per board: the RT-N18U has one on the first, the R8000 on the
+first, and on the second through a switch with two radios behind it.
+bcma takes the cores from the EROM, and bcma_register_devices() skips a
+core whose node is not available, so a node marked status = "disabled"
+is skipped there too, and neither driver would take that core. I do not
+know whether an unused core needs a driver for power.
+
+> Does the platform driver reprogram the windows to match the DT
+> description, or does it rely on the boot loader to ensure they
+> ranges/dma-ranges properties match the register contents?
+
+It programs OARR/OMAP from ranges only when the node has
+"brcm,pcie-ob", and the inbound side only when it has dma-ranges.
+The bcm-ns.dtsi nodes have neither, so it programs nothing and runs
+with what is in the registers at boot. The PAXB_BCMA register table
+has no OARR/OMAP at all, and the bcma driver never asks for an
+outbound mapping, so it does not program them either. OARR0/OMAP0
+are in the PAXB table the platform driver uses, at 0xd20 and 0xd40;
+I have not written them on revision 0x01. Broadcom's 2.6.36 driver
+writes OMAP/OARR 1:1 from its own table: 0x08000000, 0x40000000 and
+0x48000000, with the last two replaced by 0x20000000 and 0x28000000
+when the core revision reads 0x07.
+
+> When using the bcma driver, does that update the ranges properties
+> in memory to match the EROM contents?
+
+No. 552aa843e4c5 drops the windows parsed from ranges out of the
+bridge's resource list and adds the EROM one; the patch in this
+thread reads ranges only to compare them with the EROM window. The
+property in the live tree is not touched, so /proc/device-tree keeps
+the dtsi values and the mismatch shows up only as the warning.
+
+Best regards,
+Semih
