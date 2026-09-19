@@ -1,130 +1,153 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AE8F35C6B4
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:40:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789828842; cv=none; b=QdPoQVyZ4q+Ocz+EykAL/Ar3aLmsLpuZMfjRH74yY4I90qauk8NTKXhPkxgtlyoAmkthmFl2rwAnPxWlVDQzib+kdLUmbFBZC5gnzDbGJ25GDgrAb8Eurb0gmpcMS8BXsxohNfF2E0MC0UAKDr3WYXcqvYBFcwpY5AzuZVMP+og=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789828842; c=relaxed/simple;
-	bh=mLnArDqYAL1ntffXjM4958AzFGRsCn0t9y9yelbJeFI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=fNOfcJzGYNLYMJcq7WjH/P7tOm3AeHw5Qk49AgVyXtHTRHWbogO7KlVBrFOj33Kd1Sqm0nOVHe1QSBmzexETvkNPPwCC7etWPyiswex7sxgJTB5SDjGef5pEm888HIDCoSUHZy9aqc5CKHbq0/uvEuG+HTwuiGdcdN/POq1hxiM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W4Vl35k6; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FCA4145A1F
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:44:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789829085; cv=pass; b=GJJUMRnruoURjI3BoaadFdArEGw8XOg99/X+d83YR35QVck6H57QgL+o+9hP+zzIia7Y099posm34/EfNxLNYD6tCzRss0ceaEckjF7uQ3qUGdbd6e40IaA74pPglTqMIJo62OaZK7N3CGTDO5s2buEASKaiXsjAU717WjZKvgU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789829085; c=relaxed/simple;
+	bh=SEEDrnoYh0mOnGCpCP8AW5s7jRnMWmh4+4NV544y7SY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=S+mMLz0HJZh4UfKka/w1M8vd9RF3REkqXTt2LicOzM86MSauh7QiP3jggE2vlhsPDHXWowXUTi9zFHDzypmdMFD3Hqlskl+KMIHK/L/hUDuVUbrOkFiU7o57i23ShfZ9MbPRWeEGz9AxFbiq/JfNPFIjq3Xf0xMNwalNbv//qcE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thechris.in; spf=pass smtp.mailfrom=thechris.in; dkim=pass (2048-bit key) header.d=thechris.in header.i=@thechris.in header.b=M8T8bq94; arc=pass smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thechris.in
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thechris.in
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W4Vl35k6"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccfd61ecaso14319935e9.3
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 07:40:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=thechris.in header.i=@thechris.in header.b="M8T8bq94"
+Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e4ab19127so1789395d50.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 07:44:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789829083; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XcjmuR0Ym0vzEx69cV95qebbdMKv2BZjS7leTDq0/eXnvNGFzi/na1LsHUp+wpeDxc
+         NDLdnB2HLlSrUgxRf+NdAfQ0yoNTFWwNeKWtjoQ260cHyuVWLnYxlwL9PWxzp5145eXk
+         //dESCse+BzdNnPV/GsX1hwNi4kYf50BCHqNioJpe9FeIExJTJSCXxB6AqdVaErS5+ps
+         rlcd3ZTMH3tIBWsTP0c6AHPivW+/DMa2V2UhGkqxJGUkDrjN0kpMxvXGOP6u5fsKBKZK
+         QodXwWU0lvQB+xma2/1rmgZFrw+NZcfZ5jKBhjAWw4x8qZ1y+Q8a1RwRPtWSk34cpSzJ
+         EdYA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=BaTMOAzAK//5V3+VmXnptDmlkQpvBCAoWeySpIAKihg=;
+        fh=2R2KD/p5ozVpAhOprUEJ53ZEabGM89KHp5FR6HH/Fy4=;
+        b=iRYN0BlehLlWZNe4BgpkrR42kj/qIOYqeJBrazvchrNMDcv8hOsqJNEkqvtNmBVred
+         +vdcv1VnBrFM5DZm0MkUey1H85LemlbwtWBE0AVAlvnGJKEV5p4RUf4Nn2rJC7M6weU6
+         lTCOwmwNbfrg+J04r1aKS6fx8FgAu7DdESUpOkzI2lzuhMBeTWK/q35V1g6k95VpvXMR
+         2H4FHyIXaKZ/ufDz0QQ5dgkHuCflpHQqPVPM+WnyDSpYqhc0ZO1dXn2++wM+tFVbth3K
+         wj9dvrwRkR7jBad3tT6P+P8U4SGuVdUKREF2D13j0RDuXcgbX1nkSJLsJqfEw7UZR0Tl
+         53JQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789828839; x=1790433639; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PgN7nWScW5BJSzPdYvBki0LAnthq6w0fiY8IXN8fGAk=;
-        b=W4Vl35k6Y7uzGORNci/uYaOMbP8wi/KEtO0+PGENC/sCWcF3dJA8pA9Rpytdsl5kbE
-         Y2gCDY/As+1+uW0t5GvCMIWvUIdDkmuR19GePAmmUDZOGSkN73fPUdQK7lNQcnhL/7Qh
-         TG+HBXLaTlxy/VHK8zcPyTV/gtDcqvYddsp/+8gGcmmpW5oS5T9+ShCMmaDYivUlLyYq
-         mmSEjoex42DuLPjVT0OoZNHfIezhf5pnmEIx4ime93ccUoG1WG4UWfp/Z0GLcemGHJKS
-         674PE3jnOeCdgJdvG9AVv/lUrAiWWnEwnOiYi9yle+qymKrH6GwxDiTdxfPUBqO39deQ
-         Y+eg==
+        d=thechris.in; s=google; t=1789829083; x=1790433883; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BaTMOAzAK//5V3+VmXnptDmlkQpvBCAoWeySpIAKihg=;
+        b=M8T8bq94Zy4wB+w1MJE8Lc9Dgi/vIjcvW/tPfyMErJqHNQW4v8PFhhDFH+QfoIDhvO
+         hD1W3kqYUCxZmLkMD1oDeXzj12Yel5O9YwLU3ZEhIP0UILWXnLN8VvecWg22ujd98jPB
+         2mCjFMO/W/KebI2IHmiKUgVNdPFERsDebcXrv/+vjI0v/3zkWYSJcJcy54muK6eWzNgL
+         YnJTwgVCgNM29vQwfJwKLzIzcrOlUMVRF1dsn1H5kG/8TnfTCTo7ZWC0UK53fJSO41Ix
+         MnwR5C/0LpU4tYVzIhZWU9f8s6CRaDskdZAgCel8KL2wF30z4KyzIEt78civbA0ygnOB
+         otYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789828839; x=1790433639;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PgN7nWScW5BJSzPdYvBki0LAnthq6w0fiY8IXN8fGAk=;
-        b=dX7h3rymC7XYY4zDZTD3hQe9yy8lgzP3a3hoFqo3BbUcwHDBro3FfsupYxW3aUMgn0
-         cWZ3QQUOeJx9+5phv5Pynd9LQEuQrvalVP6IcuATHVD14DcruWy1AED4eHD+NuVibFjZ
-         URo/XQIFuakOvRu7WbBPbKrCaL7FrwIWCb7iiORHBMnShYodVGEJZA8NQDS2TMf/mU7Y
-         bQ4mEKBWz4SKL+/wKFjMoM8OLcv0FgJETy9LS4fMSsk2vBM3fJSgs/NNdR93NfW4ygHW
-         dNuBHnVb2nz7MnYWICNB++akirymWB97PzgJf2OyhIiS6JwIxQMIC9+h/vQHPnxD1TWS
-         yEvA==
-X-Forwarded-Encrypted: i=1; AKwUvBxMvznR5HHxt1qDoAohzK0PKvFET8z5B7rNpfHrZMQlaOxUifOJb1ZA36NYRdzZz6Tj5Z6bZG3aS0ZCXLU=@vger.kernel.org
-X-Gm-Message-State: AFuF++m+Ef82rLnXIx2KxdM82xOWXA+UdE4q6ykGei+DLz9clzqYWVdy
-	yWCr+PS5TVZ3Gy06YRNJS3YBwGm8ufWCu6+iLh1KT+P84e/UrbcVdehPdM3mjfac
-X-Gm-Gg: AYBFou36KeWbOMTuyFEYy3hKYo0wXn43e3r3DbdrTayY2sKYz/6evhYzXrcGcrR9PdX
-	JOp3iCDEzEKyQL6s3Ns33J/W/zclWhfHaaJoezVQGVFpUP3Z4BCB0zmevV+g3fyY+J5QyMGxrkc
-	1md3YdryskpWpd7XVZ7SdoY3ogyjafarM5imHCumAIP8d9/XpNcjZ8hQqsQ4cnc5I2O9WVEPVfC
-	NZjj4kDfN9XzNPRP23u/n9TNDNAya2pwEAybSQtRu/fnVa34uoiomrV7rQTxPVnNYXmoQwKVJJe
-	Dci/Ts68Mw1pZs5t+nMnLWPKrS6pNAaEzkA0l5AxRJvMqz+Ec20uJ08B08RwlTtzv2WxAVbhzRl
-	SYo7ehtLPw6eURuR5dv8Q7CdJ8a8QXzqce3jtwoKS3aMrBGmkaeuGIFiL2JHzbS/882UX/VqbIt
-	nGasCWWv1e2tQTsT1SBiBsEQZZ2/rZzRp16SH4PPOD0gBN7PG7neRunIUMouwmsSTwK5vZtUesn
-	t6kTkkJ+rvhQTyAPBgYgcL9OFUyHuJFfRxpTmeVYn6WUgGIogH1EJgQde+raDSRhCXESMBuzYwL
-	7dVGRmLlTgPSVtZ1K3I5DJG5Z5ASm91g0H3lVo4etF7GE8mhSjq/O4do3xlMGondF04wbkG1cnp
-	A
-X-Received: by 2002:a05:600c:138f:b0:49f:bbab:aa10 with SMTP id 5b1f17b1804b1-49fc5741672mr73100745e9.20.1789828839005;
-        Sat, 19 Sep 2026 07:40:39 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-a017-2b01-05fe-203b-7cd2-a640.310.pool.telefonica.de. [2a02:3100:a017:2b01:5fe:203b:7cd2:a640])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd12ad97sm84083545e9.13.2026.09.19.07.40.38
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 19 Sep 2026 07:40:38 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Anna-Maria Behnsen <anna-maria@linutronix.de>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Andy Lutomirski <luto@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] hrtimer: Use the mask to clear TIF_HRTIMER_REARM from the exit work
-Date: Sat, 19 Sep 2026 16:40:27 +0200
-Message-Id: <20260919144027.70250-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+        d=1e100.net; s=20260707; t=1789829083; x=1790433883;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BaTMOAzAK//5V3+VmXnptDmlkQpvBCAoWeySpIAKihg=;
+        b=eVSPTYU2rwswUbdG0lGlBZzbnZpp1LZEoTezbQzpHRjLGoAkQf7NvbeMCekBg1gVhC
+         jishLIni9I9H+HWpKvKvgJ02Sf/iRlCDxAwZfLR0Wlq3uXhkdJfpDaFzlpGUu6+uWU1z
+         9CTQ4jNYSDQRAKWVQjGgshIWvb31jcX7Vrh63rKBfwKyO4HV06kYnbIsymp/8iPfijoR
+         B+wYjGj4tZpUVcGzpW/W5Kz5/a3pQDkIvojdG63XHYjAWn/4ST6DohIQN5HGgeTpffIZ
+         E0zGtDAyluoU24nPLZYyaRhHOmOBJxjx9N19JAthcetI/1h8txDoCUd8ubYaJBA8FvSX
+         aUDQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzKjuaJfCuvIDv9ssnCfntyX32a6e1h785AHr0Oq/X54FPTl1pNp3w84Ct+tMqVQAn1pf540mVzW9qfr9k=@vger.kernel.org
+X-Gm-Message-State: AFuF++ku4tb2PBTitRw8w77ViojU6sL3YyocKcyc63eIV87NvW/0Zs+1
+	I4qvN/CjBS9XvHMgfMUXRlsbroowjrgtNbbt/1fihosB6BVEIZJIGiOlWlOr031oYckxLkH+1D7
+	rybLFozYXOmTjjw/IQVW2GEtsxc43czT+S3M7lFZz7zY=
+X-Gm-Gg: AYBFou29ghs/v98AWKQ9afBgkbKuGxPWw3pISAdhAvFRnZhliWdi8s51HsCpZkNy67c
+	Vv0sM/osLRFjMqsiCyn1WZoHQ6Mu07RorQNfsLWN5g2IR7YmRJvXgv1NKIdRJi651UNiMPQlUER
+	HNmyixXvHiTu/hJJ4b/OvFGqHX090MoRfhWgajCkbUWwgrm9LgYrB8uPMPQe+pFGFS/W0MWhOrU
+	6kBy26VofxSdX24aHZ1Y5/X5FxGQmwGSC2lMtRP12mTXqZoDhw1hMjMMB8MGiFbF1qzH9dxV+0l
+	aXt5jvGEcZIFavphwY20EprdEImTAu8Ti5ADPlCj8hDZsJtSLMmHDJJuP3La1DOlC/KZcDE09av
+	gH/mZRsKux12LcfU6/rOLTiCib1AGNLtmoBuM5VPTPWzVnWrw0YOcGmLMmS+YG8ZMqaasW5krZP
+	WRRItV12rH94sd6tw=
+X-Received: by 2002:a05:690c:e685:b0:89a:63da:cbe5 with SMTP id
+ 00721157ae682-89a63dacd4cmr7313797b3.43.1789829083163; Sat, 19 Sep 2026
+ 07:44:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CAE2Bdm3NuEHshrG6K2boKAnCQUvT5SX79cP9nPgS2s1afzY1hg@mail.gmail.com>
+ <6aab0f82.e91c2013.3bdb06.0009.GAE@google.com> <CAE2Bdm2wzxj-J0TM8F+3SVnu0W3HeiROW97U4qvBeyHKdHJFmg@mail.gmail.com>
+ <2026091753-broadness-bootie-b683@gregkh> <CAE2Bdm14hif17B8RTAE+PhWEps5Fzh=WPurZeSNp9C6TqCKumg@mail.gmail.com>
+ <aqwuWWMwdIcx3704@cashel.logfs.org> <mu82xsi6.76ee613a-07fb-48b1-9336-99e8780e8b6e@nod.at>
+ <aq6afmdN5DYpuUa2@cashel.logfs.org> <mu8hfoxj.7ce5e90c-076c-4b73-813b-f9c60310ddab@nod.at>
+In-Reply-To: <mu8hfoxj.7ce5e90c-076c-4b73-813b-f9c60310ddab@nod.at>
+From: Chris Roy <iam@thechris.in>
+Date: Sat, 19 Sep 2026 20:14:31 +0530
+X-Gm-Features: AcwNN1VVdZq_i5--e-uskgSmXVQpAASq_eAqaNA9x5LP_XOGGCjlgNcTays_lsQ
+Message-ID: <CAE2Bdm2UA2UTkYY-w2qxLaXWjnujTkOoC2mS+WXu7McZV2MyeA@mail.gmail.com>
+Subject: Re: [syzbot] [fs?] possible deadlock in ovl_create_object (2)
+To: Richard Weinberger <richard@nod.at>
+Cc: =?UTF-8?Q?J=C3=B6rn_Engel?= <joern@barelysecure.org>, 
+	Greg KH <gregkh@linuxfoundation.org>, 
+	syzbot <syzbot+7cab6a19619f1b8efc00@syzkaller.appspotmail.com>, dakr@kernel.org, 
+	driver-core@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, rafael@kernel.org, 
+	syzkaller-bugs@googlegroups.com, linux-mtd@lists.infradead.org, 
+	miquel.raynal@bootlin.com, vigneshr@ti.com, 
+	Adarsh Das <adarshdas950@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-hrtimer_rearm_deferred_user_irq() removes the rearm bit from the local
-copy of the TIF work with:
+On Sat, Sep 19, 2026, Richard Weinberger wrote:
+> While we're here, maybe it's time to add a decent configfs interface to
+> this driver instead of configuring through module parameters.
+> That way also multiple instances are possible.
+>
+> IMHO testing is the only use case. I use it regularly.
 
-	*tif_work &= ~TIF_HRTIMER_REARM;
+I would love to look at this if you think it's worth the added
+complexity. A couple of design questions before I start
+on anything:
 
-TIF_HRTIMER_REARM is the bit number (12), not the mask. That clears
-TIF_NOTIFY_SIGNAL (bit 2) and TIF_MEMDIE (bit 3) from the copy and
-leaves bit 12 set.
+- Does configfs coexist with the existing block2mtd=3D module param
+  (for early-boot/cmdline compatibility), or replace it outright?
 
-So the function never returns true, and the copy handed to
-exit_to_user_mode_loop() lacks TIF_NOTIFY_SIGNAL. If that was the only
-work for the loop, the task returns to user space with the task work
-still pending. hrtimer_interrupt() sets TIF_HRTIMER_REARM every time,
-so the next tick repeats that. Task work queued with TWA_SIGNAL from a
-hrtimer callback stays pending until the task does a syscall, takes an
-interrupt without deferred rearm or has to reschedule.
+- For multiple instances, would a configfs group per device (backing
+  path, erase size, label) match what you had in mind?
 
-A task which polls the io_uring completion ring in user space sees a
-timeout completion after 30ms (median) instead of 70us. 2 CPU QEMU
-guest, HZ=1000.
+Can sketch an RFC-style doc once I have a sense of the above.
 
-Use the mask.
+Regards,
+Chris
 
-Fixes: 15dd3a948855 ("hrtimer: Push reprogramming timers into the interrupt return path")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
- include/linux/hrtimer_rearm.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/include/linux/hrtimer_rearm.h b/include/linux/hrtimer_rearm.h
-index 17a81826bd9a9..12e42721c8e01 100644
---- a/include/linux/hrtimer_rearm.h
-+++ b/include/linux/hrtimer_rearm.h
-@@ -45,7 +45,7 @@ hrtimer_rearm_deferred_user_irq(unsigned long *tif_work, const unsigned long tif
- 		clear_thread_flag(TIF_HRTIMER_REARM);
- 		__hrtimer_rearm_deferred();
- 		/* Don't go into the loop if HRTIMER_REARM was the only flag */
--		*tif_work &= ~TIF_HRTIMER_REARM;
-+		*tif_work &= ~_TIF_HRTIMER_REARM;
- 		return !*tif_work;
- 	}
- 	return false;
-
-base-commit: 40288c9206c17eb66a603262e06a58d300d0f279
--- 
-2.53.0
-
+On Sat, 19 Sept 2026 at 19:58, Richard Weinberger <richard@nod.at> wrote:
+>
+> Am Sat, Sep 19, 2026, 16:22 schrieb J=C3=B6rn Engel <joern@barelysecure.o=
+rg>:
+> > I added Adarsh Das, who also attempted to fix this bug.
+> >
+> > On Sat, Sep 19, 2026 at 07:42:25AM +0000, Richard Weinberger wrote:
+> > >
+> > > While we're here, maybe it's time to add a decent configfs interface =
+to
+> > > this driver instead of configuring through module parameters.
+> > > That way also multiple instances are possible.
+> >
+> > I honestly wonder whether this driver has any production users.  It is
+> > somewhat useful for developers that want to simulate hardware they don'=
+t
+> > have.  But beyond that?
+>
+> IMHO testing is the only use case. I use it regularly.
+>
+> Thanks,
+> //richard
