@@ -1,87 +1,79 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D29F034107F
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 17:14:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CDFB2D73B6
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 17:17:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789838095; cv=none; b=rqp0cinh36HRIrLFqU253ARIEGi9EUJoNleKX6D+bo3wcEuftKCiLFuJunoA7hogNK+s1m+e2WHzpQlYWd7jFtFOvXNXG5q2c/wwHIgl4HuhNhhxuDVW7kkpxrlX9zmwkLjLw/gkc3+9urbMg0mETXq5BDdJdLO+V0FHpP9dzcs=
+	t=1789838264; cv=none; b=gaholPSOPeAOZjw+a5W4a90MQLI7KQxTgcViAOaKPUmeHXFHC8fw5389aKn2ITJbU/MjNI0RoboCAqjxd9hpgJTq427yBEPK9TGRrC9aFvS2jDzf9IcoNDjm2MCSlSrjlGoEYWK0JvaqiSIXR4zmPfjnlXlWn9hHCevjA26NUGw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789838095; c=relaxed/simple;
-	bh=PGZzHUHFHYTXrrUg2O+WQoA1hsv6kLUB3pqq1Y2X5Ww=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ZyQZsEwkZhBx+Izg4edQWECXkYrrHMyIGmz4OG9ZKJYudlztW+WZIBvGfPXFFcd+n8PqU8v9TPMeko5I7VUFBRmf9vPy3SS/uwzyjTuQmtelU8HH0HKRyd/G7qcOFQOsMvQm2uDc44soXEvdCyC8i9Va27RA9/dL4wCSU+N1KJI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JXsKlzUi; arc=none smtp.client-ip=74.125.225.140
+	s=arc-20240116; t=1789838264; c=relaxed/simple;
+	bh=zZcEWKNvvhjYGtNKjvZ2y9HOEYVHDBGGsfcyr/qCUkA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=W9t1j9d7452xT81UzNFsNo9z6icqHH5g+C3unsaZ4+id54bQBQObpUVDypINVcjapfzDh5SoMj1SeuTjOk3uleALGO4nWK/b1IpEn1o7EEJvBnnvAKnLUKydQlQSRV+YCYEeJaBXfVyN5Tg6zC5pkXhzxdRK8h/Bj2/j3QKH334=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k4ZLUR+A; arc=none smtp.client-ip=209.85.216.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JXsKlzUi"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d391aso11700275e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 10:14:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k4ZLUR+A"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-39647184c73so2335088a91.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 10:17:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789838090; x=1790442890; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789838263; x=1790443063; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PO9QkOcRvzbwAD+Es+kdxYQwQzMtVSQSyoVPRMtp9qc=;
-        b=JXsKlzUiuVQ70d3qjdMMHWK2F1U5S58ajPbDMSohtnfWFbtCJYYCaZ72UjXsKIyzCo
-         0q12iZIfHv60FK6yB/rMcd79FHSLSzwL83awh9uU+QwFDhQIJ/bCIU3cXrxywPdqSPnM
-         b/olPA6H8fMEvOo3nHJderxkzxf6qaW5POrO0uO0wxrRYTgTbr3ESTXE9GQ6s3bpkkx2
-         2i1nVAWJLsx2NRwSKspdaZM4fEheb2jZ+lLwgEFuaQ2lXb8gI+qmyPTlrFOlUp9xp3ib
-         B0vLkkFd3qbnXG65SWnwmPTRYE4pGHNaoutWKFBuAM7GvYySQJC60rhuYB/ZTVfLaLt9
-         lT4w==
+        bh=H22gG3gfK534GA7eikUt6vOg1Uc/mcVXz/VN/miRKww=;
+        b=k4ZLUR+AfcT81sKnPgJNSDNTxASwogEG5CPv3850zfrnLYdO2wAhpy15u3zbH3QQGg
+         vlWeeRvsQNqaeD9PX4Gk2FdAB3hnNddh1yL8D2DVEFxZRzx8KI4h60LkhVeCjwt/eZ8y
+         0cz1cuYhZo7IrR63z1gpX05vR+6YNyk1uupWw1pHLnSb+bxFMgQKf6KAGpWRBpEWrhTU
+         u1nehxPTaorE7TJ0LCnId7+rwZ0QTfwBW/mod7AGsXfHUPabwNNZFBSAkTUK1fUpJG1I
+         gYmDhaJvhHNJUOZqEGhYJ64ZNm/FnnywaIO71PzRO7koTyft+XlDDrVfwp5XuAxL13n1
+         Qi6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789838090; x=1790442890;
+        d=1e100.net; s=20260707; t=1789838263; x=1790443063;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=PO9QkOcRvzbwAD+Es+kdxYQwQzMtVSQSyoVPRMtp9qc=;
-        b=dQb11+J4hdSF5Q8Z020bqh8+0aQ9ncaCH9Rab3iXsyIU/1xKYfmNfHTv3BCfdySZnu
-         jjiuTy4aMsNu/o7c6CPoYhadiihvPxj/rIdWWKwL2ipJE9yiMA5I53W0GzZgRUEee39V
-         RBXRUEiz3dqAFMNRB5pc04vCmjarRKWmRU2NJ6aRsPFt83cNRajBJrOyxazcpLbTT88y
-         0OOHN79lq2IRQVSZ9gd+1aZ9yfkVtvYT3EPhAgkYemtmVfD4RSaEiIIBSKgL5hLt/f82
-         JzBGhb0H9dNLzMN/mNsjib2ntNQOPfjwCypEIkeHWfmU/1T7XApV/viT0ur9YjaADa8t
-         S2Dg==
-X-Forwarded-Encrypted: i=1; AKwUvBwuIZiCZ2UmF/pMpTDy3GN3lQcYjbHDvT6hY+r9ecIWWiDi0qbB9/jzT/E8jUIu7WT0zh08A6x68jVqdv8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mdiHANwwTWWe74FbX/uPzGWbHrFdD1pQCkSXSTKz70MBQ587No
-	3PbViyxQZr1hF0OwRaeNIHlRwWWO+RunXJnEh9F+V+V3JV5xROQImrqR
-X-Gm-Gg: AYBFou0ld/OMajwEkCj98WWw6zoPsB6WM6T2nMBqw9Tf8WQjXfvs4HaqXqFgiWBsq0T
-	1GqLV8TXt56LbOYiVzw21jjiy2r62BHoUSD6xj3/6bylRKEqYh/K4OIrNKsLWhDgFJbmAZnVdyH
-	AF1D+mgQvOQQxoO2/tx+0OaZyIKQPXPH4hlv/a71EY7LUjLaR56xD17VtWqN6CTjzT8mtN7g44H
-	uknwr8jPrMm/GLjnsq67Eku9sql93NsvU+xfULfBz2IypQ8oNhrKd1juRAX1UyXySslmPwUsoJi
-	5rdaA3acd/jGhOviixcBtaN5rMUfygS4bXnnP5Gojmaw60usDqKchz0htbWQHT7X9uoRREQWtx+
-	rx2+trtJbeCDwwNRU+C26E8JJRUy5kcaejUuSJIbRdxrFFGMQriMmjOin4KdVnpq9cROLPHgAfH
-	BcGE6tduZ0JeyWMZalEKOdWi9U8jAugsWYiCC4SZKPg9nC93miBG0YzNrj7ZTGat5pjSq8Mr5ob
-	E+7YGwsfCOIxO0k8wMRlNKgjXR2zimbe72Ixiw/yiMfU4NBU3Mb5O7lkVTweQaEDfn49fe+fWvd
-	81LvKCBmFjEmqbma7xbQRWiQhzabx42aaR9pEtcvL57Jn2tWhAo45DgUFHHFYQRwVZA8IFVZNWK
-	NCdC9c9wj8J0DLMk=
-X-Received: by 2002:a05:600c:468c:b0:49f:c331:39e4 with SMTP id 5b1f17b1804b1-49fc5671095mr87272955e9.7.1789838089820;
-        Sat, 19 Sep 2026 10:14:49 -0700 (PDT)
-Received: from MacBook-Pro-von-Karl.localdomain (dynamic-2a02-3100-a017-2b01-05fe-203b-7cd2-a640.310.pool.telefonica.de. [2a02:3100:a017:2b01:5fe:203b:7cd2:a640])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-487244608e7sm8986486f8f.6.2026.09.19.10.14.48
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 19 Sep 2026 10:14:49 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Vlastimil Babka <vbabka@kernel.org>,
-	Harry Yoo <harry@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Alexei Starovoitov <ast@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Hao Li <hao.li@linux.dev>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Brendan Jackman <jackmanb@google.com>,
-	Amery Hung <ameryhung@gmail.com>,
-	Swaraj Gaikwad <swarajgaikwad1925@gmail.com>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	linux-mm@kvack.org,
-	bpf@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev,
+        bh=H22gG3gfK534GA7eikUt6vOg1Uc/mcVXz/VN/miRKww=;
+        b=Rcn+hMRTCQ8DlWNEVSE8YpT1VcXY3v16igCDQ9gF/4QMD8l3tfCyAVzj+Vh5i+zLFx
+         mR0OAdH8gCaExui8nktfR8kl0TE9TF2UqrbU1/7tmSimrGedTIhJ6G085ngb+uQYFFyC
+         y2oY8AO7cocNrFQBVzNCkLk2pFMuqI62sppSpwieo1PQWi6sW2tb4kYQduT5Ass2jaHW
+         cwjINrvCXYCSLwJ/mNvsB9S4Oahbn1mYgZWyiHu8AErsVMdsbnTuWcT4DfK2FX3QSYtr
+         XfP9ca4ft5kIqXQubv0bwyPDcQBAieOyW4jVqrzp32eNxqVDtKn1MxDOT0W2vuu9nhSr
+         uxSQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxx+L27spEY8ZWpIfLGPDvt7x4HE3LraI/dAYZFG+oVYSURNOWekbLG2kuMrgsQlGALcS53wFPNXk8GUII=@vger.kernel.org
+X-Gm-Message-State: AFuF++kQCAw+fC1RF1ffgjp3ThXplrIvdlqKjgxSCNtr+kt9DG6ed/x5
+	NQQFmd1CNpv93XCwiJFiynYc753vGDyt94RdVOKkOnY9fe5wZhLZ6GWM
+X-Gm-Gg: AYBFou06Ic3WKixJldmRrofG0Zcse10mkxgMpodz9HoxAPbntew0ihG6iIQy2mobg99
+	8up2toaY0V7l04qyekv5s1HVIaCxmrnNDM5X9k30g/PzDd4lQPKJiHZKYYQ79zkobtHtWWv7JGB
+	opPAsREixQjA25fAUEYiTJuNfHaE6Q2GR/8RZr8Qb5nYqicvQbxQunjHM9luRmSb5KyWfJZnhL7
+	23sdfFMxrI8AyK4IKPVjJKOFFIh5YgJiZu0d7pfPtJMuE9mW4o5BOBVVKT5ideN/RpUYT8sNFFQ
+	9xkcIss0uE022eTpxUn5TQL7tTnnYVUnaU29Xsr7jtYpA8grveuQZi2zVeaeaKIlgJ2/EVzkn0+
+	V/m/VmXii9MjhJ4qDqZ4olHqJXybGDsm3nrfcHdvSXETaFMg9CVNOz63y4o5mcuufzgxlnCZUJi
+	UQWMjgDWQhJNSY3xdMa3dyQ5Sngxwxv19tON7+0w9qPcK/g/HfPoHTGX3ubHjEha/a
+X-Received: by 2002:a17:90a:e7c7:b0:3a0:25f0:d89b with SMTP id 98e67ed59e1d1-3a025f0de30mr1987486a91.50.1789838262634;
+        Sat, 19 Sep 2026 10:17:42 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144d55e71a4sm6919949c88.13.2026.09.19.10.17.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Sep 2026 10:17:41 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	Matthew Auld <matthew.auld@intel.com>,
+	Chris Wilson <chris@chris-wilson.co.uk>,
+	intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH] mm: restrict can_spin_trylock() to preemptible context on PREEMPT_RT
-Date: Sat, 19 Sep 2026 19:14:43 +0200
-Message-Id: <20260919171443.90512-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+Cc: stable@vger.kernel.org
+Subject: [PATCH] drm/i915: fix mock ring memory leak on context allocation failure
+Date: Sun, 20 Sep 2026 01:17:10 +0800
+Message-ID: <20260919171710.3699710-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,173 +82,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On PREEMPT_RT kmalloc_nolock() deadlocks the machine when the caller
-holds a pi_lock. A BPF program which creates task local storage from
-the sched_waking tracepoint is enough. With it mainline hangs in 10 of
-10 boots on a Raspberry Pi 500+ and in 7 of 28 boots in a 4 CPU x86-64
-QEMU guest. The CPUs spin on raw locks with interrupts disabled and
-there is no output.
+mock_context_alloc() creates ce->ring before allocating and pinning the
+context timeline. mock_ring() initializes the ring reference count and
+returns the initial reference to the context.
 
-sched_waking fires in try_to_wake_up() with p->pi_lock held.
-can_spin_trylock() refuses only NMI and hard interrupt context on
-PREEMPT_RT, so kmalloc_nolock() does spin_trylock_irqsave() on
-n->list_lock, which is a sleeping lock. Two things go wrong:
+If intel_timeline_create() fails, mock_context_alloc() returns without
+dropping the ring reference. The same leak occurs when
+mock_timeline_pin() fails after the timeline has been created. Since
+context allocation did not complete, CONTEXT_ALLOC_BIT is not set and
+the later context teardown does not release the ring.
 
- - rt_spin_trylock() takes the rtmutex wait_lock under the pi_lock. A
-   regular kmalloc() on another CPU holds wait_lock and takes a
-   pi_lock in try_to_take_rt_mutex().
+Drop the initial ring reference with kref_put() on both failure paths.
+When the reference count reaches zero, intel_ring_free() releases the
+ring VMA and frees the ring allocation. Clear ce->ring after dropping
+the reference to avoid retaining a stale pointer.
 
- - If the trylock succeeded and a waiter arrived, rt_spin_unlock() has
-   to wake it. That is a try_to_wake_up() inside try_to_wake_up():
+The issue was identified by a static analysis tool I developed and
+confirmed by manual review.
 
-     try_to_wake_up               raw_spin_lock_irqsave(&p->pi_lock)
-     rt_mutex_slowunlock
-     rt_spin_unlock
-     spin_unlock_irqrestore(&n->list_lock)
-     get_from_partial_node
-     ___slab_alloc
-     __kmalloc_nolock_noprof
-     bpf_local_storage_alloc
-     ...
-     bpf_trace_run1
-     try_to_wake_up               sched_waking, a pi_lock is held
-
-   The pi_lock held there belongs to the woken task, not to current.
-
-Commit 99a3e3a1cfc9 ("slab: fix kmalloc_nolock() context check for
-PREEMPT_RT") closed this for v6.19 with a !preemptible() check.
-v7.0-rc1 relaxed it again, see the Fixes tag.
-
-Allow preemptible context only, as v6.19 did. A held raw spinlock
-implies !preemptible(), so the locks of the caller do not have to be
-known. With this change both machines pass 10 of 10 boots.
-
-The nolock allocations then fail on PREEMPT_RT from every context with
-preemption or interrupts disabled, also where no scheduler lock is
-held. Creation of BPF local storage from such a context fails, as it
-did in v6.19.
-
-Fixes: 073d5f156292 ("slab: simplify kmalloc_nolock()")
-Assisted-by: LLM
+Fixes: 75d0a7f31eec ("drm/i915: Lift timeline into intel_context")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
+ drivers/gpu/drm/i915/gt/mock_engine.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Notes:
-    RFC because I do not know if that last paragraph is acceptable for
-    BPF. 073d5f156292 relaxed the check on purpose.
-    
-    Harry wrote that the _nolock() helpers can be called under pi_lock at
-    least in theory, that it was tough to reproduce, and proposed a check
-    of current's pi_lock:
-    https://lore.kernel.org/r/apfwshahN_C6jBSn@nixos
-    https://lore.kernel.org/r/apfyeYF8IE03aazT@nixos
-    That check would not see the pi_lock in the stack above. Sebastian
-    described the wait_lock and pi_lock order here:
-    https://lore.kernel.org/r/20260831143500.x-saxdAs@linutronix.de
-    
-    Same config, program and load for all rows. x86-64 QEMU (TCG), 4 CPUs,
-    PREEMPT_RT, no lockdep, 60 seconds of load per boot:
-    
-      v6.18                                  10 pass,  0 hang
-      parent of f484f4a3e058                 10 pass,  0 hang
-      f484f4a3e058                            0 pass, 10 hang
-      v6.19                                  10 pass,  0 hang
-      parent of 073d5f156292                 10 pass,  0 hang
-      073d5f156292                            0 pass, 10 hang
-      mainline 40288c9206c1 (v7.3-rc3)       21 pass,  7 hang
-      mainline with this change              10 pass,  0 hang
-    
-    f484f4a3e058 ("bpf: Replace bpf memory allocator with kmalloc_nolock()
-    in local storage") made the path reachable.
-    
-    Raspberry Pi 500+, arm64 defconfig plus PREEMPT_RT, same mainline
-    commit: the output stops 1 to 2 seconds after the load starts. 4 of the
-    10 boots were then reset by the hardware watchdog. The other 6 made no
-    more progress but still answered ping.
-    
-    The stacks are from gdb on the hung QEMU guests, I have none from the
-    Pi. gdb does not unwind through the JITed program. The frames below it
-    are from a raw dump of the stacks. In that capture three of four CPUs
-    wait like this for the pi_lock of the same task. The first case looks
-    like this, two CPUs from the BPF program against one regular kmalloc():
-    
-      rt_mutex_slowtrylock           raw_spin_lock(&lock->wait_lock)
-      rt_spin_trylock
-      spin_trylock_irqsave(&n->list_lock)
-      get_from_partial_node
-      ___slab_alloc
-      __kmalloc_nolock_noprof
-    
-      try_to_take_rt_mutex           raw_spin_lock(&task->pi_lock)
-      rtlock_slowlock_locked
-      rtlock_slowlock
-      rt_spin_lock
-      spin_lock(&n->list_lock)
-      get_from_partial_node
-      ___slab_alloc
-    
-    With lockdep and DEBUG_RT_MUTEXES the same program gives "possible
-    circular locking dependency detected" for wait_lock and pi_lock on the
-    first event.
-    
-    The program:
-    
-      struct {
-    	__uint(type, BPF_MAP_TYPE_TASK_STORAGE);
-    	__uint(map_flags, BPF_F_NO_PREALLOC);
-    	__type(key, int);
-    	__type(value, long);
-      } per_task SEC(".maps");
-    
-      SEC("tp_btf/sched_waking")
-      int BPF_PROG(on_waking, struct task_struct *p)
-      {
-    	struct task_struct *cur = bpf_get_current_task_btf();
-    	long *v;
-    
-    	v = bpf_task_storage_get(&per_task, cur, 0,
-    				 BPF_LOCAL_STORAGE_GET_F_CREATE);
-    	if (v)
-    		bpf_task_storage_delete(&per_task, cur);
-    	return 0;
-      }
-    
-    The delete only makes every event allocate again. The load is a few
-    loopback ping floods, tmpfs and block writes, /proc walks and fork/pipe
-    loops, so that list_lock sees contention. The program is more
-    aggressive than a real tool and the load is synthetic.
-    
-    can_spin_trylock() is also used by the page allocator. Its nolock free
-    paths fall back to their deferred lists. I did not test those
-    separately. Kernels before v7.3-rc1 have no can_spin_trylock() and need
-    the check in kmalloc_nolock() instead.
-
- mm/internal.h | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
-
-diff --git a/mm/internal.h b/mm/internal.h
-index 38b1165212c94..29646c4afb419 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -1641,10 +1641,14 @@ static inline bool can_spin_trylock(void)
- 	 * confuse PI logic, so return immediately if called from hard IRQ or
- 	 * NMI.
- 	 *
--	 * Note, irqs_disabled() case is ok. spin_trylock() can be called
--	 * from raw_spin_lock_irqsave region.
-+	 * Task context with a raw spinlock held is not safe either. The
-+	 * caller may hold a pi_lock, like a BPF program on a tracepoint in
-+	 * try_to_wake_up(). rt_spin_trylock() takes the rtmutex wait_lock
-+	 * and can take a pi_lock under it. rt_spin_unlock() wakes a waiter
-+	 * if there is one, which takes a pi_lock again. The locks held by
-+	 * the caller are not known here, so allow preemptible context only.
- 	 */
--	if (IS_ENABLED(CONFIG_PREEMPT_RT) && (in_nmi() || in_hardirq()))
-+	if (IS_ENABLED(CONFIG_PREEMPT_RT) && !preemptible())
- 		return false;
+diff --git a/drivers/gpu/drm/i915/gt/mock_engine.c b/drivers/gpu/drm/i915/gt/mock_engine.c
+index 79741f043f03..fa4368730d33 100644
+--- a/drivers/gpu/drm/i915/gt/mock_engine.c
++++ b/drivers/gpu/drm/i915/gt/mock_engine.c
+@@ -170,6 +170,8 @@ static int mock_context_alloc(struct intel_context *ce)
  
- 	/* On UP, spin_trylock() always succeeds even when it is locked */
-
-base-commit: 40288c9206c17eb66a603262e06a58d300d0f279
+ 	ce->timeline = intel_timeline_create(ce->engine->gt);
+ 	if (IS_ERR(ce->timeline)) {
++		kref_put(&ce->ring->ref, intel_ring_free);
++		ce->ring = NULL;
+ 		kfree(ce->engine);
+ 		return PTR_ERR(ce->timeline);
+ 	}
+@@ -178,6 +180,8 @@ static int mock_context_alloc(struct intel_context *ce)
+ 	if (err) {
+ 		intel_timeline_put(ce->timeline);
+ 		ce->timeline = NULL;
++		kref_put(&ce->ring->ref, intel_ring_free);
++		ce->ring = NULL;
+ 		return err;
+ 	}
+ 
 -- 
-2.53.0
+2.43.0
 
