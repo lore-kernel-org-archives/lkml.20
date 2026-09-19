@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E66A735F199;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A9032F60CC;
 	Sat, 19 Sep 2026 00:01:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789776065; cv=none; b=mAI0js1MaQlBtXRkgaasSpmqFKajfsFXWBNowTXMOoxt3yBVv9Cm0J2ng//qinSQ7jxYrokXBGYvmDWZ1gto1FHcaWhcF8cxBkyw0P1ZMVa57wn7f7dnl92lLfXPIzLJvO5QoqbctoS+58uf1ZUBDEHs72uokxST2s0klFMewjo=
+	t=1789776065; cv=none; b=kGVysOInBZ0rq0lnV8AvGUMT0Gx4EXfv9qxDU4iaeTntjimE+xkcWQgSFgiCcBJqKG6p+IQM+q7VfwDgzZJRFD6poi2tuKbSnz+Y6e49Lo2T1hMLWmMPVFb5C+77m3Wu/900GZUV1B6fP8kVLzA441Zl9fAxWeyJaUMePcKVDD8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789776065; c=relaxed/simple;
-	bh=+wGIl4VJl35HMRC0sRggvWaIg9d9Kd3cllVydeBN5Rs=;
+	bh=61CsDYD42Hn4RmaJTwo/FFWzeZtval50mJNbZdB8ALk=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=SWBCjf0g61Sjcnxr191CKJ+oWgt0wcWDPogwxqKhgmylDb7ySSnHm3nKH/oMDSJM5SC6ZYBKleg0Q2MFQSApKWXRYl16ljRDNd5/xhjciqNCdaWxCGMahrhkwbh/vEgYZSaGrtcJjoLV6NJAj1cK0Dj+tSFRo6wwEETyCDKOXNE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FDmseEFb; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=asJ9qyVS3S1NztD1yWEdhFTF36vHRHYf+ZlBQtk23z9trVCp3MCAT711aW/y8oQe1fJL0ELCl25rIstcZ+11vxTC6Toootp/eialZNfj+ecsNRPY1y63mllsOhzWRAWkzoiLGiWVWnVLYK9Hlbz84BogoplVE2je1xzNu2sbHA4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EGqaNz6M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FDmseEFb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DA611F00900;
-	Sat, 19 Sep 2026 00:01:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EGqaNz6M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E68F11F008A5;
+	Sat, 19 Sep 2026 00:00:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789776060;
-	bh=lptpBN2RiMuT/Hsp284DO7b/nXFKvjfkdX3nE5ykFsQ=;
+	bh=FLPv1yzHxy7boTo89t3qhl8/USKRoVHawqm+eZOunzc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FDmseEFbGR6JmGCJcqxyIlWITP8ywEwJFK2TLSCBNvLT1jGB8pvrMTnuIraU4l4Ci
-	 cRSxf5oPNKBncKFAoJMPgj7thYZXjkbAWj96rtJFsDOaB84wubRo2pIOCa9b9z+DG3
-	 LD5HtRII/gvrpd2HrsuH9FPsSFif1Qb7YdnjcEtFkQleb4HCyfUbNaM4kfWs5SfTxx
-	 oPcq/jj6xAPVm3mc3IgN6peXdK1tm01yyBbynXYK3JZUchgFD08uQMOg1kIhdIA/oe
-	 x0LSO88dAJ3RWq96Zn2/VBnwUu/ch3j0u2+aCBwMS9d93tY1wuP69zUqCt/WhmPgmb
-	 GocyS6ohoLclg==
+	b=EGqaNz6MoBWMEuys74XnWgZB904OztciyGf1HN0WPEIULbEifMRpvkT4VfhRkiHIS
+	 7n+/3s2nFHmpOqi8UpW9jOBIdfdfsEgXLpNTjz8+JKyNs0/5VrptFgay13uf+0yop0
+	 MbbIeP9EqMO0h88JafC8M3xeyNKEVUFCHb0fGrz7lETMpIO3AvBPRRATW9EqhL6Glm
+	 lfVn/OAMMkP7uCYgZiArXHeEx3jb+nHBOyNtgRA5+LQz/7c4bsG5I1p+Z3A62Y03xY
+	 8rkWexKJH/QxNFqeEgFIp24RhZvX2U2ODbLCTHwHV/dZJTafpVwzt0b49yag5yCk+a
+	 NGfv97k3YN7Ng==
 Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 7A76BCE0E5A; Fri, 18 Sep 2026 17:00:59 -0700 (PDT)
+	id 69AC6CE0BA3; Fri, 18 Sep 2026 17:00:59 -0700 (PDT)
 From: "Paul E. McKenney" <paulmck@kernel.org>
 To: rcu@vger.kernel.org,
 	linux-kernel@vger.kernel.org
@@ -41,9 +41,9 @@ Cc: kernel-team@meta.com,
 	Kunwu Chan <kunwu.chan@gmail.com>,
 	Bradley Morgan <brads@mainlining.org>,
 	"Paul E. McKenney" <paulmck@kernel.org>
-Subject: [PATCH 17/28] hazptrtorture: Accumulate operation statistics
-Date: Fri, 18 Sep 2026 17:00:45 -0700
-Message-Id: <20260919000056.3132131-17-paulmck@kernel.org>
+Subject: [PATCH 11/28] hazptrtorture: Defer release of hazard pointers
+Date: Fri, 18 Sep 2026 17:00:39 -0700
+Message-Id: <20260919000056.3132131-11-paulmck@kernel.org>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <e9669b34-12c2-4cf2-a887-315f581f0789@paulmck-laptop>
 References: <e9669b34-12c2-4cf2-a887-315f581f0789@paulmck-laptop>
@@ -55,8 +55,16 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This commit accumulates and prints counts of the number and types of
-hazard-pointer operations that the test performed.
+This commit creates the defer_modulus module parameter, so that the
+releases of one out of defer_modulus hazard-pointer acquisitions will
+be deferred.  This parameter defaults to -1, which results in a value
+of 1000*nr_cpu_ids to be used.
+
+This parameter must be zero for hazptr_torture runs that set
+cur_ops->onstack_ctx, because otherwise we would get on-stack data races.
+It must also be zero when the kthread_do_pending_ms module parameter
+is zero.  Setting the defer_modulus module parameter to a value less
+than -1 will result in disabling hazard-pointer deferral.
 
 Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
 Cc: Boqun Feng <boqun@kernel.org>
@@ -64,138 +72,201 @@ Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 Cc: <rcu@vger.kernel.org>
 Cc: <lkmm@lists.linux.dev>
 ---
- include/linux/torture.h    |  3 +++
- kernel/rcu/hazptrtorture.c | 28 ++++++++++++++++++++++++++--
- kernel/torture.c           | 15 +++++++++++++++
- 3 files changed, 44 insertions(+), 2 deletions(-)
+ kernel/rcu/hazptrtorture.c | 87 +++++++++++++++++++++++++-------------
+ 1 file changed, 58 insertions(+), 29 deletions(-)
 
-diff --git a/include/linux/torture.h b/include/linux/torture.h
-index b8e5d0f3c2d8..1b6d5be641f8 100644
---- a/include/linux/torture.h
-+++ b/include/linux/torture.h
-@@ -136,4 +136,7 @@ void torture_sched_set_normal(struct task_struct *t, int nice);
- long torture_sched_setaffinity(pid_t pid, const struct cpumask *in_mask, bool dowarn);
- #endif
- 
-+/* Atomic per-CPU counters. */
-+s64 torture_sum_pcpu_atomic_long(atomic_long_t __percpu *pcp);
-+
- #endif /* __LINUX_TORTURE_H */
 diff --git a/kernel/rcu/hazptrtorture.c b/kernel/rcu/hazptrtorture.c
-index 5016d04d1bae..a72375cb3221 100644
+index 97663f22b36f..ff253fe35ca2 100644
 --- a/kernel/rcu/hazptrtorture.c
 +++ b/kernel/rcu/hazptrtorture.c
-@@ -81,6 +81,12 @@ static atomic_t n_hazptr_torture_alloc;
- static atomic_t n_hazptr_torture_alloc_fail;
- static atomic_t n_hazptr_torture_free;
- static atomic_t n_hazptr_torture_error;
-+static DEFINE_PER_CPU(atomic_long_t, hazptr_torture_acquires);
-+static DEFINE_PER_CPU(atomic_long_t, hazptr_torture_releases);
-+static DEFINE_PER_CPU(atomic_long_t, hazptr_torture_acquires_irq);
-+static DEFINE_PER_CPU(atomic_long_t, hazptr_torture_releases_irq);
-+static DEFINE_PER_CPU(atomic_long_t, hazptr_torture_releases_defer);
-+static DEFINE_PER_CPU(atomic_long_t, hazptr_torture_releases_undefer);
- static struct list_head hazptr_torture_removed;
+@@ -30,6 +30,7 @@ MODULE_DESCRIPTION("Hazard-pointer module-based torture test facility");
+ MODULE_LICENSE("GPL");
+ MODULE_AUTHOR("Paul E. McKenney <paulmckrcu@meta.com>");
  
- // State for a deferred (AKA pending) hazard pointer
-@@ -364,6 +370,7 @@ static void hazptr_torture_acquire(void *hppp_in)
- 	struct hazptr_pending *hppp = hppp_in;
++torture_param(int, defer_modulus, -1, "Defer once per specified # of hazptr ops, zero to disable");
+ torture_param(int, kthread_do_pending_ms, -1,
+ 	      "Delay between cleanups for deferred hazard pointers (ms), zero to disable");
+ torture_param(int, nreaders, -1, "Number of hazard-pointer reader threads");
+@@ -187,7 +188,7 @@ hazptr_torture_pipe_update(struct hazptr_torture *old_rp)
+ struct hazptr_torture_ops {
+ 	void (*init)(void);
+ 	void (*cleanup)(void);
+-	struct hazptr_torture *((*readlock)(struct hazptr_ctx **hcpp));
++	struct hazptr_torture *((*readlock)(struct hazptr_ctx *hcpp));
+ 	void (*read_delay)(struct torture_random_state *rrsp);
+ 	void (*readunlock)(struct hazptr_ctx *hcp, struct hazptr_torture *htp);
+ 	void (*sync)(void *htp);
+@@ -203,14 +204,12 @@ static struct hazptr_torture_ops *cur_ops;
+  * structures.
+  */
  
- 	hppp->hpp_htp = cur_ops->readlock(&hppp->hpp_hc);
-+	atomic_long_inc(per_cpu_ptr(&hazptr_torture_acquires_irq, raw_smp_processor_id()));
+-static struct hazptr_torture *hazptr_torture_read_lock(struct hazptr_ctx **hcpp)
++static struct hazptr_torture *hazptr_torture_read_lock(struct hazptr_ctx *hcpp)
+ {
+-	struct hazptr_ctx *hcp = kmalloc(sizeof(*hcp), GFP_KERNEL);
++	struct hazptr_torture *htp;
+ 
+-	*hcpp = hcp;
+-	if (!hcp)
+-		return NULL;
+-	return (struct hazptr_torture *)hazptr_acquire(hcp, (void *)&hazptr_torture_current);
++	htp = (struct hazptr_torture *)hazptr_acquire(hcpp, (void *)&hazptr_torture_current);
++	return htp;
  }
  
- /*
-@@ -374,6 +381,7 @@ static void hazptr_torture_release(void *hppp_in)
- 	struct hazptr_pending *hppp = hppp_in;
- 
- 	cur_ops->readunlock(&hppp->hpp_hc, hppp->hpp_htp);
-+	atomic_long_inc(per_cpu_ptr(&hazptr_torture_releases_irq, raw_smp_processor_id()));
- }
- 
- /*
-@@ -407,6 +415,7 @@ hazptr_torture_reader_tail(struct hazptr_pending *hppp, struct torture_random_st
- 		smp_call_function_single(cpu, hazptr_torture_release, hppp, 1);
- 	} else {
- 		cur_ops->readunlock(hcp, htp);
-+		atomic_long_inc(per_cpu_ptr(&hazptr_torture_releases, raw_smp_processor_id()));
+ static void hazptr_read_delay(struct torture_random_state *rrsp)
+@@ -241,8 +240,6 @@ static void hazptr_torture_read_unlock(struct hazptr_ctx *hcp, struct hazptr_tor
+ {
+ 	if (hcp) {
+ 		hazptr_release(hcp, htp);
+-		if (cur_ops->onstack_ctx)
+-			kfree(hcp);
  	}
  }
  
-@@ -422,6 +431,7 @@ static void hazptr_torture_defer(struct hazptr_pending *hppp, struct torture_ran
- 	cpu = cpumask_next_wrap(cpu, cpu_online_mask);
- 	llhp = per_cpu_ptr(&hazptr_pending, cpu);
- 	llist_add(&hppp->hpp_node, llhp);
-+	atomic_long_inc(per_cpu_ptr(&hazptr_torture_releases_defer, raw_smp_processor_id()));
+@@ -266,17 +263,9 @@ static struct hazptr_torture_ops hazptr_ops = {
+  * hazptr_ctx structures.
+  */
+ 
+-static struct hazptr_torture *hazptr_torture_read_lock_stack(struct hazptr_ctx **hcpp)
+-{
+-	struct hazptr_torture *htp;
+-
+-	htp = (struct hazptr_torture *)hazptr_acquire(*hcpp, (void *)&hazptr_torture_current);
+-	return htp;
+-}
+-
+ static struct hazptr_torture_ops hazptr_stack_ops = {
+ 	.init			= hazptr_sync_torture_init,
+-	.readlock		= hazptr_torture_read_lock_stack,
++	.readlock		= hazptr_torture_read_lock,
+ 	.read_delay		= hazptr_read_delay,
+ 	.readunlock		= hazptr_torture_read_unlock,
+ 	.sync			= hazptr_synchronize,
+@@ -387,6 +376,20 @@ static void hazptr_torture_reader_tail(struct hazptr_ctx *hcp, struct hazptr_tor
+ 	cur_ops->readunlock(hcp, htp);
  }
  
- /*
-@@ -455,12 +465,17 @@ static int hazptr_torture_reader(void *arg)
- 		if (irq_acquire && !(torture_random(&rand) % irq_acquire)) {
- 			guard(preempt)();
- 			cpu = cpumask_next_wrap(cpu, cpu_online_mask);
--			if (cpu != smp_processor_id())
-+			if (cpu != smp_processor_id()) {
- 				smp_call_function_single(cpu, hazptr_torture_acquire, hppp, 1);
--			else
-+			} else {
- 				hppp->hpp_htp = cur_ops->readlock(&hppp->hpp_hc);
-+				atomic_long_inc(per_cpu_ptr(&hazptr_torture_acquires,
-+							    raw_smp_processor_id()));
-+			}
- 		} else {
- 			hppp->hpp_htp = cur_ops->readlock(&hppp->hpp_hc);
-+			atomic_long_inc(per_cpu_ptr(&hazptr_torture_acquires,
-+						    raw_smp_processor_id()));
- 		}
- 		if (!hppp->hpp_htp) {
- 			// Still starting up, so get out of the way.
-@@ -502,6 +517,8 @@ static void hazptr_torture_do_one_pending(int cpu, struct torture_random_state *
- 		return;
- 	llist_for_each_entry_safe(hppp, hppp1, llnp, hpp_node) {
- 		hazptr_torture_reader_tail(hppp, trsp);
-+		atomic_long_inc(per_cpu_ptr(&hazptr_torture_releases_undefer,
-+					    raw_smp_processor_id()));
- 		kfree(hppp);
- 	}
- }
-@@ -611,6 +628,13 @@ hazptr_torture_stats_print(void)
- 		atomic_read(&n_hazptr_torture_alloc_fail),
- 		atomic_read(&n_hazptr_torture_free));
- 	torture_onoff_stats();
-+	pr_cont("acq: %lld rel: %lld acqirq: %lld relirq: %lld reldefer: %lld relundefer %lld\n",
-+		torture_sum_pcpu_atomic_long(&hazptr_torture_acquires),
-+		torture_sum_pcpu_atomic_long(&hazptr_torture_releases),
-+		torture_sum_pcpu_atomic_long(&hazptr_torture_acquires_irq),
-+		torture_sum_pcpu_atomic_long(&hazptr_torture_releases_irq),
-+		torture_sum_pcpu_atomic_long(&hazptr_torture_releases_defer),
-+		torture_sum_pcpu_atomic_long(&hazptr_torture_releases_undefer));
- 
- 	pr_alert("%s%s ", torture_type, TORTURE_FLAG);
- 	if (i > 1) {
-diff --git a/kernel/torture.c b/kernel/torture.c
-index 93caaa8b807e..1f5e4463b1e1 100644
---- a/kernel/torture.c
-+++ b/kernel/torture.c
-@@ -1012,3 +1012,18 @@ void torture_sched_set_normal(struct task_struct *t, int nice)
- 	sched_set_normal(t, realnice);
- }
- EXPORT_SYMBOL_GPL(torture_sched_set_normal);
-+
 +/*
-+ * Sum the specified per-CPU atomic_long_t variable.
++ * Defer the specified hazard pointer to some other context.
 + */
-+s64 torture_sum_pcpu_atomic_long(atomic_long_t __percpu *pcp)
++static void hazptr_torture_defer(struct hazptr_pending *hppp, struct torture_random_state *trsp)
 +{
-+	int cpu;
-+	s64 sum = 0;
++	int cpu = torture_random(trsp) % nr_cpu_ids;
++	struct llist_head *llhp;
 +
-+	for_each_possible_cpu(cpu) {
-+		sum += atomic_long_read(per_cpu_ptr(pcp, cpu));
-+	}
-+	return sum;
++	guard(preempt)();
++	cpu = cpumask_next_wrap(cpu, cpu_online_mask);
++	llhp = per_cpu_ptr(&hazptr_pending, cpu);
++	llist_add(&hppp->hpp_node, llhp);
 +}
-+EXPORT_SYMBOL_GPL(torture_sum_pcpu_atomic_long);
++
+ /*
+  * Hazard-pointer torture reader kthread.  Repeatedly dereferences
+  * hazptr_torture_current, incrementing the corresponding element of the
+@@ -395,9 +398,9 @@ static void hazptr_torture_reader_tail(struct hazptr_ctx *hcp, struct hazptr_tor
+  */
+ static int hazptr_torture_reader(void *arg)
+ {
+-	struct hazptr_ctx hc;
+-	struct hazptr_ctx *hcp = &hc;
+-	struct hazptr_torture *htp;
++	bool can_defer = !cur_ops->onstack_ctx && kthread_do_pending_ms && defer_modulus;
++	struct hazptr_pending hpp;
++	struct hazptr_pending *hppp = cur_ops->onstack_ctx ? &hpp : NULL;
+ 	unsigned long lastsleep = jiffies;
+ 	long myid = (long)arg;
+ 	int mynumonline = myid % nr_cpu_ids;
+@@ -406,10 +409,17 @@ static int hazptr_torture_reader(void *arg)
+ 	VERBOSE_TOROUT_STRING("hazptr_torture_reader task started");
+ 	set_user_nice(current, MAX_NICE);
+ 	do {
+-		htp = cur_ops->readlock(&hcp);
+-		if (!htp) {
+-			// Still starting up or allocation failure,
+-			// so get out of the way.
++		if (!hppp) {
++			hppp = kmalloc_obj(*hppp, GFP_KERNEL);
++			if (!hppp) {
++				// Allocation failure, so get out of the way.
++				schedule_timeout_interruptible(HZ / 10);
++				continue;
++			}
++		}
++		hppp->hpp_htp = cur_ops->readlock(&hppp->hpp_hc);
++		if (!hppp->hpp_htp) {
++			// Still starting up, so get out of the way.
+ 			schedule_timeout_interruptible(HZ / 10);
+ 			continue;
+ 		}
+@@ -417,7 +427,12 @@ static int hazptr_torture_reader(void *arg)
+ 			torture_hrtimeout_us(500, 1000, &rand);
+ 			lastsleep = jiffies + 10;
+ 		}
+-		hazptr_torture_reader_tail(hcp, htp, &rand);
++		if (can_defer && !(torture_random(&rand) % defer_modulus)) {
++			hazptr_torture_defer(hppp, &rand);
++			hppp = NULL;
++		} else {
++			hazptr_torture_reader_tail(&hppp->hpp_hc, hppp->hpp_htp, &rand);
++		}
+ 		while (!torture_must_stop() &&
+ 		       (torture_num_online_cpus() < mynumonline || !rcu_inkernel_boot_has_ended()))
+ 			schedule_timeout_interruptible(HZ / 5);
+@@ -478,7 +493,10 @@ static int hazptr_torture_do_pending(void *arg)
+ static int hazptr_torture_do_pending_init(void)
+ {
+ 	if (kthread_do_pending_ms == -1)
+-		kthread_do_pending_ms = cur_ops->onstack_ctx ? 0 : 3;
++		kthread_do_pending_ms = (cur_ops->onstack_ctx || defer_modulus == 0) ? 0 : 3;
++	if (defer_modulus == -1)
++		defer_modulus = (cur_ops->onstack_ctx ||
++				 kthread_do_pending_ms == 0) ? 0 : 1000 * nr_cpu_ids;
+ 	if (kthread_do_pending_ms < 0) {
+ 		pr_alert("Cannot have negative kthread_do_pending_ms, disabling deferral.\n");
+ 		goto err_out;
+@@ -487,6 +505,16 @@ static int hazptr_torture_do_pending_init(void)
+ 		pr_alert("Cannot defer onstack hazptr_ctx, disabling deferral.\n");
+ 		goto err_out;
+ 	}
++	if (defer_modulus < 0) {
++		pr_alert("Cannot have negative defer_modulus (%d), disabling deferral.\n",
++			 defer_modulus);
++		goto err_out;
++	}
++	if (!kthread_do_pending_ms != !defer_modulus) {
++		pr_alert("Pending kthread (%d) & deferral (%d) don't match, disabling deferral.\n",
++			 kthread_do_pending_ms, defer_modulus);
++		goto err_out;
++	}
+ 	if (!kthread_do_pending_ms)
+ 		return 0;
+ 	return torture_create_kthread(hazptr_torture_do_pending, NULL, do_pending_task);
+@@ -494,6 +522,7 @@ static int hazptr_torture_do_pending_init(void)
+ err_out:
+ 	WARN_ON(IS_BUILTIN(CONFIG_HAZPTR_TORTURE_TEST));
+ 	kthread_do_pending_ms = 0;
++	defer_modulus = 0;
+ 	return 0;
+ }
+ 
+@@ -605,14 +634,14 @@ hazptr_torture_print_module_parms(struct hazptr_torture_ops *cur_ops, const char
+ {
+ 	pr_alert("%s" TORTURE_FLAG
+ 		 "--- %s: nreaders=%d "
+-		 "kthread_do_pending_ms=%d "
++		 "defer_modulus=%d kthread_do_pending_ms=%d "
+ 		 "onoff_interval=%d onoff_holdoff=%d "
+ 		 "preempt_duration=%d preempt_interval=%d "
+ 		 "reader_sleep_us=%d "
+ 		 "shuffle_interval=%d shutdown_secs=%d stat_interval=%d stutter=%d "
+ 		 "verbose=%d\n",
+ 		 torture_type, tag, nrealreaders,
+-		 kthread_do_pending_ms,
++		 defer_modulus, kthread_do_pending_ms,
+ 		 onoff_interval, onoff_holdoff,
+ 		 preempt_duration, preempt_interval,
+ 		 reader_sleep_us,
 -- 
 2.40.1
 
