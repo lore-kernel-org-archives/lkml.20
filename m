@@ -1,182 +1,118 @@
-Received: from mail-pj2-f16.google.com (mail-pj2-f16.google.com [74.125.227.144])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D2763803F2
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 16:27:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.144
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EBB5345ED9
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 16:30:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789835239; cv=none; b=CL4J6ld5FpBVOi3tOxEyU6vbqirFEr/nSn7qnrx0Z3cyz8o2pIKmiZj2oJ0QuDOZp/DZh6fK03dcURHz4BfhI64n1ZiACM9bRLcBcSptFR6HKSyEd6CKBFvs1R3WeHrD0Zh7pchOb44a0J5ktLV3kbZyQhRc4vlaWcE1aGQXPQg=
+	t=1789835448; cv=none; b=W817ICwM1mXBaPyFYKcjbkQMe2V9FjIy9U5jmVUEdBAJQwQIP72BS0woHrdQeNeVvyXYqcV+DB0Nd+t1w0BnAE2QX7KuM0g0F6//+XR5B0bcIM8mT8V3aQvJfG/8GKN9sf7aojU6WdyDmv6FCHajeK+N3od9nrcJMEZ3zeIvuns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789835239; c=relaxed/simple;
-	bh=eMFhlR0TS5Kn/tFofe+TMpxutHYTDD8uIlIIph5XMws=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HFZyk7NyIvUOfVEotrdacrA9cG2odxWaImvEDycsmhseX1UR7LeHWuGfSvmed4UYz6OGlnw7rQmJJwJAmPtRHrhyx89J6XaC4jFZmvwi4cKhJQ9iV71L4s6yvc2wfC8hWmZWjEkosSGWLKac/pY98p6SW4iDi862knoPoZmSMp8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=szvgrJgI; arc=none smtp.client-ip=74.125.227.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789835448; c=relaxed/simple;
+	bh=nBbiCr4fg61dV4D2oGNu2aR4a7biYiZnhkG7Z99V1Hs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mX2v1Ru9w7yfaXNcgzAeFQD/W8iqcZPfiy5CvEgIEg4yBC43wA00sfz9j8QVqi5G4ebCX/D8jeR3RC8W+twWvQhhIoXhsm5LwNEj5IaLuiBOya4IX6Ly0J/aTNjKLf5k3HXpblhbTS5+FSjfcYkeHjVmzNwAPU6ckH9O90BWbRk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=My7SVqmT; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="szvgrJgI"
-Received: by mail-pj2-f16.google.com with SMTP id 98e67ed59e1d1-396ccd78e6eso661738a91.0
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 09:27:18 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="My7SVqmT"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254fa4c24cso277215866b.2
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 09:30:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789835237; x=1790440037; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0GPztW8MlLhQMli3TwZRtsdRaRgM99w65yRo1wA4KFY=;
-        b=szvgrJgIPAliHmKYhl+PmP32fEJY0A+BygnS9jc7DyXYJyZl0QLl+6q34wTpk2YNsY
-         /w59jg1Zsgm4ZLYvLtGISj8tWknGKeerTClVjZuiZFD6/bnI5T3IKm9jwu5xV191RTBd
-         5Wi7KArs+6ahmQQFtG6kxjAap3JgxvlAmrAVh9hpIhgJgXYiIHF/jxuIv9UxgEEYkwZ6
-         pOCZIJO3b01jWs6UEK+hGfiKFxXPhG2Rbs8Dwv7w0zfehn3+I6s3yesxTY6ehxF0NTT7
-         vJ2Byi//52dIgGphN1FoBR2WkWGPa1sECMv20AIittSHx8BIRB8R7aRkfLLGkXw6hx1K
-         cvyA==
+        d=linux-foundation.org; s=google; t=1789835444; x=1790440244; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UGWocLshUzVVG8Rydp43t4CQtO4FrerHAEoPSMI/C8I=;
+        b=My7SVqmTc+ySsHbzbPJr+tKLM4xy50gul4tsayLne1rU7IyZz6wqBHpOzZLmMZvSit
+         7qIkOQALQCZr8xE7vadpFcHyZhDD35rnw29IXWM2KFJvMX9lf6Bqjy7ThEmMcBBZkV7H
+         SOZQ4U5O2e15SiF4VtmYIF8DaracUEntfofU0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789835237; x=1790440037;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0GPztW8MlLhQMli3TwZRtsdRaRgM99w65yRo1wA4KFY=;
-        b=fGM0VnuLI7Wq/LweAroUbaEXD/kOBjDsOJ3525yET+cff4DoN78eM4UofEZ0s7q7JC
-         u87qEHPNifTYTGrfZmmfGA1VxC3w16i9Gva3LHVMLPtNwxME3woZVzDoXAvRVxDKBzSv
-         iTs+6DTVSPOJPoChWlTe+aT0m7Nn8hVmADoHWFpyDNdgy6OxRrvLtXXcsibYhkRgshdR
-         DLRjQZYUf8cdOFUWFSEQjSpAA4D1hhwiyuE6Sm6OnonD4JRGNoFkSitmrSqs4m9AcPOe
-         TSUmX3UGGM3VAgZTaZvIym2OxjSuhNNZmVyYubI7MroB8LIJ7NFSHHi9PYvmAoeuANYN
-         uOrQ==
-X-Forwarded-Encrypted: i=1; AKwUvByn2WmHcQSBcJ+BzU1JMzBtYe8JhXZRoHHTQGszqCDxCfeDuC7ndg5PGRSvqY0cndyNXz/j4HMEoct7IH4=@vger.kernel.org
-X-Gm-Message-State: AFuF++n0pFC/3XAMO7myKh+im1pY2BtiPttQiSX5FLzx5gP52y0ZXPQO
-	jHpDD7f+5H/XpDvk5i7rg458HgfN+6Vl6XBL+i2RdLwbpuHGg8pQzKVg
-X-Gm-Gg: AYBFou0P/YjuWdThmiZzFJWAgBiu9mmn/cuTmML6WIG3vt34QL4houSJmLNKJKDxqtY
-	XghVAJV1bJBynMyrIPnglxsq0eHLP+7W/0YdtTP1/oaxSIfhRI0DS06DrmNnyOLd55fUqX2zwHC
-	FVfLohIe4jv/vNIN6BvQo7yHpUCx6CDBbUrRd5yX4diPbxJyJ9KXvc3guWpkYX5uwLvSErtTPDB
-	vh2hWrwvmcEXZMAGieIm17yrUnwQx9Z4wnqDFnPwldPDihuqSoREZphhtcn0+mwnto/+m/wR0n0
-	Es9CDXxLPONPtJ4fXQea8VJ3zqaDg+89k5aQCFN9AYVxnk6qoZDV1jszRn89OYiRhPLm1zhK6wt
-	f0mbI+yk1hiINwBqKyQiInWuSydfGyyrwaMoatapQYw2Gkr4TqCxS5VP7bLAD+1CJQwJoKrzGXn
-	yI4IrDRdpXyIZg4OUXaMx3Ehvu1Eb3A8twJEy3Xf6fpb2xr5MsCNYYauPY6ZEFwrv2/GbdF5nS9
-	AexLrZASU4+zt9a
-X-Received: by 2002:a17:90a:fc4b:b0:3a0:2900:f55e with SMTP id 98e67ed59e1d1-3a02900f85dmr1166378a91.29.1789835237378;
-        Sat, 19 Sep 2026 09:27:17 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:814e:e9d3:767e:9a2a])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e55b83602sm4190789a91.1.2026.09.19.09.27.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 09:27:16 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	syzbot+74de6401dbdd377b5746@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH] media: v4l2-subdev: fix NULL deref in subdev_open() racing with unbind
-Date: Sat, 19 Sep 2026 23:27:09 +0700
-Message-ID: <20260919162709.314464-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1789835444; x=1790440244;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=UGWocLshUzVVG8Rydp43t4CQtO4FrerHAEoPSMI/C8I=;
+        b=18qD6O16mjhxSMWCizY/j/pyLV679rGn8mTCchDA6/wUlZv909autrp1Jf+C/PR2xm
+         6dCSSOdpLFf9JX9X/je/xixhyxsCazA1XLYNVxM8Oyb9jwvaVuzlt0LJAMWZwMLAMMin
+         afSTYAvsZvNdRyF4y+5Y3Z50uGJJVxWXEORfUBXi3sxmxbfqDz7+swbD6GMxI8hdYbFC
+         P3A1M7hpnuNC9oWI5VkxL0eDI9ZuCmb+4vonkqIYCOsUM+4ogU0zocqpmCBfNtuEsr14
+         +xxhJrDGm0KdJ/sdsrJkMwgDP48K2n0AdGaKmGdr62AK507BSd27CsLEfazlJdQv/9GW
+         KNaw==
+X-Forwarded-Encrypted: i=1; AKwUvBzXl9l4zJ0xfm5JnpNJiND8+uAoORz9BW5yWzZgW8ofE7Sr200bsyQNl3uDVmIJEtX8Bhf1aCn9XpI9/Ik=@vger.kernel.org
+X-Gm-Message-State: AFuF++kpJlMQAmwYa0qUe6cb4qc9pNqM9NCfX5kmq/WuuEFVEW95o3Eq
+	4zVZ2PQ1rpImJqnPNjKHE7uzm+Uft5R7Kflp5dFY44+NNcfWbn3BSDfudEmyVgnfz5HX4jraEVg
+	aPs8NHyI=
+X-Gm-Gg: AYBFou2gmcv0YC5wHArN9KrH8jOl0jr1jvuSMQOseqI+cFhzW4ZEKFsdn3M3hlo7jSQ
+	kj4xtDatv3XFewqqqmMmXe7rzASetLjSC/WnQgNjkvBk/afcqe75OwPuuoecLxCCr72B/3RbSto
+	L7E1weX/k762IWmDe87SuKIDRBZK36siq2td4T0nH9QnRrTp3f4wRf0Y/zX+iY9psWYDHPOUaVa
+	Hctj6WWefTc9Xc3tDIH19phRb9JaSaksIhtMYQAikEKJHdm1RvD5wkW7fyb22AeJeYqpR3mYrRX
+	y8/9UGK0rHR74DcCBApxFIP8/dZDiEOq6mfibUvmYmCo/dRg5lARGwR16RW/GDdDOvTZVBMdx0v
+	hGJNKp1xWbZ0Ce05/kD9URXQ3u4ZKsJGGZ9jXphASV8IxUunYzgAzf12dRWRgaDFKvMw1IO6TGP
+	8fbBNFEA+bVkDx3XqXefE2hn1Y5lGmLM3S4ui6Jo9Q94oBD13c2C222abUJzY9jx4Urlb2yPAq3
+	iXiaON/OjAC3ahAZ1q7jQkCwu98Wlvyr1DIJS5mqZ8MQt3v9A==
+X-Received: by 2002:a17:906:6a06:b0:c26:2c3d:67aa with SMTP id a640c23a62f3a-c2a15e7d68cmr543130866b.47.1789835444481;
+        Sat, 19 Sep 2026 09:30:44 -0700 (PDT)
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com. [74.125.228.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a3585e768sm95062866b.41.2026.09.19.09.30.44
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 19 Sep 2026 09:30:44 -0700 (PDT)
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c2953a01240so261545166b.0
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 09:30:44 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzbaC0MC1Oq3wgVaszfmQ9MAsYPqSusydsIyz8+rns9DHddqJxARq3itHwlLV3E6yV0Rr16bb3zDx9vN28=@vger.kernel.org
+X-Received: by 2002:a17:907:6d0b:b0:c29:2646:fc3c with SMTP id
+ a640c23a62f3a-c2a158569e3mr548265666b.15.1789835444190; Sat, 19 Sep 2026
+ 09:30:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <e9669b34-12c2-4cf2-a887-315f581f0789@paulmck-laptop> <20260919000056.3132131-1-paulmck@kernel.org>
+In-Reply-To: <20260919000056.3132131-1-paulmck@kernel.org>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Sat, 19 Sep 2026 09:30:26 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wj9knmxXD01=top1DQ9_aqrN2a3kpWRS5DQv6QLwLOztg@mail.gmail.com>
+X-Gm-Features: AcwNN1UfxSUGwclkVhiP1abbV-DjzJIO2ybg4zteTUzmnNfVhojty9fZ436aqK4
+Message-ID: <CAHk-=wj9knmxXD01=top1DQ9_aqrN2a3kpWRS5DQv6QLwLOztg@mail.gmail.com>
+Subject: Re: [PATCH 01/28] hazptr: Implement Hazard Pointers
+To: "Paul E. McKenney" <paulmck@kernel.org>
+Cc: rcu@vger.kernel.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Boqun Feng <boqun@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, lkmm@lists.linux.dev, Zqiang <qiang.zhang@linux.dev>, 
+	Wang Lian <lianux.mm@gmail.com>, Kunwu Chan <kunwu.chan@gmail.com>, 
+	Bradley Morgan <brads@mainlining.org>, Nicholas Piggin <npiggin@gmail.com>, 
+	Michael Ellerman <mpe@ellerman.id.au>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Will Deacon <will@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Alan Stern <stern@rowland.harvard.edu>, 
+	John Stultz <jstultz@google.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Frederic Weisbecker <frederic@kernel.org>, Joel Fernandes <joel@joelfernandes.org>, 
+	Josh Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>, 
+	Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang1211@gmail.com>, 
+	Ingo Molnar <mingo@redhat.com>, Waiman Long <longman@redhat.com>, 
+	Mark Rutland <mark.rutland@arm.com>, Thomas Gleixner <tglx@linutronix.de>, 
+	Vlastimil Babka <vbabka@suse.cz>, maged.michael@gmail.com, Mateusz Guzik <mjguzik@gmail.com>, 
+	Jonas Oberhauser <jonas.oberhauser@huaweicloud.com>, linux-mm@kvack.org
+Content-Type: text/plain; charset="UTF-8"
 
-subdev_open() dereferences sd->v4l2_dev->mdev and then
-sd->entity.graph_obj.mdev->dev->driver->owner. v4l2_open() only checks
-that the node is still registered, while
-v4l2_device_unregister_subdev() clears sd->v4l2_dev and the entity's mdev
-before it unregisters the node. Opening a sub-device node while the
-driver is being unbound (e.g. vimc through sysfs) can therefore see a
-NULL entity mdev, or a NULL dev->driver once remove() has finished, and
-oops:
+On Fri, 18 Sept 2026 at 17:01, Paul E. McKenney <paulmck@kernel.org> wrote:
+>
+> Its main benefit over RCU is that it allows fast reclaim of
+> HP-protected pointers without needing to wait for a grace period.
 
-  Oops: general protection fault, probably for non-canonical address 0xdffffc0000000000
-  KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
-  RIP: 0010:subdev_open+0x193/0x510 drivers/media/v4l2-core/v4l2-subdev.c:115
-  Call Trace:
-   v4l2_open+0x1d2/0x490 drivers/media/v4l2-core/v4l2-dev.c:433
-   chrdev_open+0x234/0x6a0 fs/char_dev.c:411
+So last time I looked at this was some time ago, but the thing I was
+missing then seems to still be missing: actual real numbers.
 
-Read the entity's mdev once and treat NULL as "no media device". Take
-the driver module reference under device_lock(), which is what unbind
-holds while it clears dev->driver, and fail with -ENODEV if the driver
-is already gone.
+And no, I most *definitely* do not mean the pointless "do this in a tight loop".
 
-Reported-by: syzbot+74de6401dbdd377b5746@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=74de6401dbdd377b5746
-Fixes: 218bf10e39ed ("media: v4l2-subdev: handle module refcounting here")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
----
-Root cause
-  v4l2_open() checks video_is_registered() and then calls subdev_open().
-  v4l2_device_unregister_subdev() clears sd->v4l2_dev and the entity's
-  graph_obj.mdev *before* video_unregister_device() on the node, so an open
-  in that window sees a NULL mdev. After remove() returns, dev->driver is
-  also NULL. subdev_open() dereferences both unchecked (v4l2-subdev.c:115).
+That's just garbage. Honestly, when I see those numbers it just makes
+me go "I don't want to merge things that even mention this kind of
+stupid load". It's worse than irrelevant - it's an actively
+misleading.
 
-Fix
-  Snapshot entity mdev once (NULL == no media device), and take the driver
-  module reference under device_lock(dev), the lock unbind holds while it
-  clears dev->driver; return -ENODEV if the driver is gone. Errors go
-  through the existing "err" label.
+So I want to see a real load where this is actually visible not a
+"loop a billion times on a hot-cache thing that doesn't do anything".
 
-Testing (QEMU x86_64, KASAN, vimc built in, syzbot's C reproducer:
-16 threads opening /dev/v4l-subdevN vs. one thread doing vimc bind/unbind,
-vivid.n_devs=1 to avoid minor exhaustion at boot):
-  before: 32 x "RIP: subdev_open+0x193/0x510" GPF (same as syzbot report)
-  after : 0 oopses, 0 KASAN reports, reproducer runs to completion
-  (checked with 1 ms and 30 ms bind/unbind period)
-
-Unrelated finding (not addressed here)
-  If the sub-device node registration in vimc_probe() fails (e.g.
-  "videodev: could not get a free minor"), the error path in
-  vimc_register_devices() frees the entities and then
-  v4l2_device_unregister() hits a slab-use-after-free. Easy to trigger
-  with the same reproducer if minors are exhausted. I'll look at it
-  separately.
-
- drivers/media/v4l2-core/v4l2-subdev.c | 20 ++++++++++++++------
- 1 file changed, 14 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
-index e9f81b9be9e2..cec63694a658 100644
---- a/drivers/media/v4l2-core/v4l2-subdev.c
-+++ b/drivers/media/v4l2-core/v4l2-subdev.c
-@@ -97,6 +97,7 @@ static int subdev_open(struct file *file)
- 	struct video_device *vdev = video_devdata(file);
- 	struct v4l2_subdev *sd = vdev_to_v4l2_subdev(vdev);
- 	struct v4l2_subdev_fh *subdev_fh;
-+	struct media_device *mdev;
- 	int ret;
- 
- 	subdev_fh = kzalloc_obj(*subdev_fh);
-@@ -112,15 +113,22 @@ static int subdev_open(struct file *file)
- 	v4l2_fh_init(&subdev_fh->vfh, vdev);
- 	v4l2_fh_add(&subdev_fh->vfh, file);
- 
--	if (sd->v4l2_dev->mdev && sd->entity.graph_obj.mdev->dev) {
--		struct module *owner;
-+	/* Unregistration clears the entity's mdev without waiting for open. */
-+	mdev = READ_ONCE(sd->entity.graph_obj.mdev);
-+	if (mdev && mdev->dev) {
-+		struct device *dev = mdev->dev;
- 
--		owner = sd->entity.graph_obj.mdev->dev->driver->owner;
--		if (!try_module_get(owner)) {
-+		/* Unbind clears dev->driver under the device lock. */
-+		device_lock(dev);
-+		if (!dev->driver)
-+			ret = -ENODEV;
-+		else if (!try_module_get(dev->driver->owner))
- 			ret = -EBUSY;
-+		else
-+			subdev_fh->owner = dev->driver->owner;
-+		device_unlock(dev);
-+		if (ret)
- 			goto err;
--		}
--		subdev_fh->owner = owner;
- 	}
- 
- 	if (sd->internal_ops && sd->internal_ops->open) {
--- 
-2.43.0
-
+               Linus
