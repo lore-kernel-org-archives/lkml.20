@@ -1,87 +1,68 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1C4E36166A
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 07:44:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56DB23B2FF6
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 07:45:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789803884; cv=none; b=gOS12phyu3SG9ptm6ZGM+EboEaCIUqZEPBDKR4+BwCWXHFvpTq4E2xyB95aAx6L/33XmkXntbgqzVU/OcL16h6HetwFyK7+MFh+7MCRZz5rLJOnTH31Ofo4MP8mSM/CqqDou8LbY3p9y6Qm8s2u7hKYULWavv6YP0+WZlvn5ZTU=
+	t=1789803905; cv=none; b=YEdOTAAO03CTUxGsq9gcB15EtFBLGaetCm4TGnsTiL8qgxncWTJpnaobZORWFWybOd6OCvz7R2HEkJMGCpqtl/dR6Vr0owfqPvDOmytD8T5D2RxV9UxCeX3uOV9xoOW5CyVZI0h0i3zvNZo2qnvMIPiLzXI4GGtUf7vPL2SnEe8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789803884; c=relaxed/simple;
-	bh=zmQaAqUIl7//Kq0oq/8binkgmY6+p1Kj0FCnPr/APxY=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=HTt3Pd26DvkzzkseA3Fi980ScicTtfF2uUS91kF/HwzJqrT9R3Wb2ywMOLP96jMmdEi+aYzKUrBohPnKki+TdaMGB+A5znMDCSU/4u1I1h8xZVJ2EPcCfkoBiXbHAzB5nTtVrAsaf+z1tJFz9YOq7KpILdcdupHUa4vedPuif7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=c51o0feI; arc=none smtp.client-ip=192.198.163.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789803905; c=relaxed/simple;
+	bh=Q1nUjk9VuBCM7ULANZtpDZsdAc2C3fd8JSuzKbgnvQ4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=suIkpomWoEADibjaG1FnJPMMgdZhrCjKSiZ4A0fAhFDPy5IXUfYzxSi1J+TAu23lPJXpa4kWgEbe+pQDraNSyvIJx3sbunLzvhOnDax9Z+QXv0hioBL5PO4RQD5vQZ6EJgxTS4bgI+9KCGTEzEIQItvBuR/wqKYsvIllffPrpko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=jHPYmXIC; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="c51o0feI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789803883; x=1821339883;
-  h=date:from:to:cc:subject:message-id;
-  bh=zmQaAqUIl7//Kq0oq/8binkgmY6+p1Kj0FCnPr/APxY=;
-  b=c51o0feI/H5bRdmaEnvIkxuDwWXy2I77Vva5sxK7AfYvyPNbyzfM4YNU
-   OaitW0TYKlDuC/RQATVLhGcyD0RNEfduu5X3b4+uNhmiYwrkgGFH7PsqS
-   5n7wWZN9SAA+a6/XSqU3o1vs/r3tPCNfWenWWSevSqwpsXehqyM565Pii
-   D24X2REnxAfJUc16x36ptQQ3TgKpJwvTaw0YqboY629xmCtBO6+v0u8gL
-   0I6kJmkQo6PsOHHrsGMPXKndEjvKW9zBYZsEia9H/LibCRQiezbSy7uin
-   F1by04/Z8yNkBex5FoKYqJONt6xb32lecaOg0E9f8mUG8kyWG+2vU4Opx
-   w==;
-X-CSE-ConnectionGUID: M7L57X0IRtKbIGj8bmTwIQ==
-X-CSE-MsgGUID: 5LqukY8VQxiWltSz+GvEIw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11909"; a="838847"
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="838847"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2026 00:44:42 -0700
-X-CSE-ConnectionGUID: 9PMppINCR1mb0JhMI3QQMg==
-X-CSE-MsgGUID: BE4RmvhDQaa60m8rXisXQw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="268448315"
-Received: from igk-lkp-server01.igk.intel.com (HELO fe5626a770c0) ([10.211.93.152])
-  by fmviesa009.fm.intel.com with ESMTP; 19 Sep 2026 00:44:40 -0700
-Received: from kbuild by fe5626a770c0 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x7pkQ-000000001O6-1viq;
-	Sat, 19 Sep 2026 07:44:34 +0000
-Date: Sat, 19 Sep 2026 09:44:02 +0200
-From: kernel test robot <lkp@intel.com>
-To: Youling Tang <tangyouling@kylinos.cn>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Huacai Chen <chenhuacai@kernel.org>
-Subject: arch/loongarch/kernel/machine_kexec.o: warning: objtool:
- kexec_shutdown_secondary+0x60: stack state mismatch: cfa1=3+0 cfa2=3+16
-Message-ID: <202609190905.OZTcO07l-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="jHPYmXIC"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 75AAB4E408AC;
+	Sat, 19 Sep 2026 07:45:00 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id BB066606CA;
+	Sat, 19 Sep 2026 07:44:59 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EA9C31032907B;
+	Sat, 19 Sep 2026 09:44:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789803898; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=Q1nUjk9VuBCM7ULANZtpDZsdAc2C3fd8JSuzKbgnvQ4=;
+	b=jHPYmXICISt0CBNQjPTDTCC2qeZGvMsEMJrbnwLOm3YogxWf3b761RqRUgHk4k/qiSDy7e
+	W/YLodLm8ONW3xTvS2dp3x/JSSjNy3k/Q9BQKZFU0WRIc7/gEPd3koACUfo2mPE6HKqVOb
+	cPZMjC4/1pc4R+u/YZUQXVgi615GFpnT1TbLF/cbrIE9PftbtkKQTrQL0tidZO5ZvryMYE
+	we+X/a+wBLsMrbDUD9Vaw9ZOeLPWg7gxzcA3DJ5VBlUFDUMPbtXyRUr/IEYmQPcRG5qsQu
+	O0uSGkuHhtt8p51XvVvFo4mUEqAyuhWx2UDpVn4VdsiKCih4gqaTshLp7R82Ow==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: sashiko-bot@kernel.org
+Cc: "Wentao Liang" <vulab@iscas.ac.cn>,  alexandre.belloni@bootlin.com,
+  sashiko-reviews@lists.linux.dev,  linux-mtd@lists.infradead.org,
+  linux-kernel@vger.kernel.org,  vigneshr@ti.com,
+  claudiu.beznea@tuxon.dev,  stable@vger.kernel.org,
+  linux-arm-kernel@lists.infradead.org,  nicolas.ferre@microchip.com,
+  bbrezillon@kernel.org,  richard@nod.at
+Subject: Re: [PATCH] mtd: rawnand: atmel: Fix HSMC clock leak in legacy
+ controller init
+In-Reply-To: <20260917103855.934A81F000FF@smtp.kernel.org>
+	(sashiko-bot@kernel.org's message of "Thu, 17 Sep 2026 10:38:55
+	+0000")
+References: <20260917102804.2146887-1-vulab@iscas.ac.cn>
+	<20260917103855.934A81F000FF@smtp.kernel.org>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Sat, 19 Sep 2026 09:44:51 +0200
+Message-ID: <87se35elcc.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Youling,
+On 17/09/2026 at 10:38:55 GMT, sashiko-bot@kernel.org wrote:
 
-FYI, the error/warning still remains.
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Low] mtd: backward goto in error handling path violates kernel
+> style
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   40288c9206c17eb66a603262e06a58d300d0f279
-commit: d162feec6b6e7ed97986118450812fdd7e9ba202 LoongArch: Add preparatory infrastructure for kexec_file
-date:   12 months ago
-config: loongarch-randconfig-r2105-20260919 (https://download.01.org/0day-ci/archive/20260919/202609190905.OZTcO07l-lkp@intel.com/config)
-compiler: loongarch64-linux-gcc (GCC) 16.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260919/202609190905.OZTcO07l-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: d162feec6b6e ("LoongArch: Add preparatory infrastructure for kexec_file")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609190905.OZTcO07l-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> arch/loongarch/kernel/machine_kexec.o: warning: objtool: kexec_shutdown_secondary+0x60: stack state mismatch: cfa1=3+0 cfa2=3+16
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Yes, it is strange, can you please fix this?
