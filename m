@@ -1,140 +1,146 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A25B381EAD;
-	Sat, 19 Sep 2026 20:46:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FCD33148BF
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 20:48:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789850795; cv=none; b=LO9XTcv1OMDu2QLP//zUNBVd6chhRIlMEuJnqcToirECX0zxodBzP0xPvl6sNRoZA9gt9V7SMv9af7ttMycopbMbJ3cyELJPPQgUkPiJmeEvPSzFbjK9/j0o7bBOta/60aEdN8R/B1Hw3okiguRCwJWhWTKpz4/C/KEOjRYUeqk=
+	t=1789850888; cv=none; b=H4E9RRLlRWdkU0xw0H83HpPVkN2gbz4cxFhJhcHqfzk5kS+aBfTbWJoiO+RfypPFnP0xkjgKVZ5JW2ihVofM8k7EUlPqQDhSWRFRj8kWmcs0b8tEugQN1kl7iqVthRC52zVvRNLEE06zgJ97KAkX+wnh0ck4N/PQp9duvm+dOPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789850795; c=relaxed/simple;
-	bh=nlJiER+kDXS3d2daiPSvVpFIPEQ+6sw6rHJaRPpLD6M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QbZedXHO2Lj5y4N3TDw4EHHSceJOZRaQ0SyEqHxkYIb1eniBHx1TlJbhPj6/i0v9x8qd1yj6fOI55I4aNDliDgg3FC1IklrBfU3Qvx34UVjcHo+AEI4ZwRokp/j1LDwwFL7mElb/HF8QDU/zogpfosjVwVKBavKQZ9npL0nLjDc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=F19q3Kq6; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=3htMDqVN; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=UiApHGCb; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=KKCvQmaH; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1789850888; c=relaxed/simple;
+	bh=PXzOW8D/JPC4glKuSHEeGq8SfS8CyVzZS0VKZ//P1OI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KIn2CZ41LFrfy93KpZX1Z2bI5ftTjE91X9+77zYePbx9pXU/NkCDdclyHgJRed40BWi4uHogEXbSwE5sUhgY/zb2d5sdLUPltD5Rc+Ynd/uhlN4pSDp9a3jmsPeHSTB1+EKNUQJ7cOSXo/kzr5GOYlwak45vJH+wGKw+Xil10x8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L/jACuv4; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="F19q3Kq6";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="3htMDqVN";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="UiApHGCb";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="KKCvQmaH"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 6B85221D72;
-	Sat, 19 Sep 2026 20:46:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789850784;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UJMe82CQ3Djnx2A8rPKycYLGgzecxoVzpCYmqYJA/Gk=;
-	b=F19q3Kq61Uc2yaXnjoEtjooK49h5azwAWOVghKOIZiI4TFYEJhTlmHMikmMM6c7FU/MLid
-	EUW1/AD/kftYRr+TuLFQhR241dxbSB0HJ7DloCn5TbbGBfLjjEC/UrnHqcFVWl0XSIvBiC
-	YpcRzMv//MlXRba6y3vttkCRQygMarI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789850784;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UJMe82CQ3Djnx2A8rPKycYLGgzecxoVzpCYmqYJA/Gk=;
-	b=3htMDqVNwXfBqjZJD7Lzxz2hhQv/IuauJ+9YqkspWgEuy4UnfjEcIquxF1U6wOiRDVieaS
-	70Vvv6tKuJPT6QDw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=UiApHGCb;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=KKCvQmaH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789850780;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UJMe82CQ3Djnx2A8rPKycYLGgzecxoVzpCYmqYJA/Gk=;
-	b=UiApHGCbDA7I98fMcOJAhQgxcrWYKpXo2jgP4ns6A8DzAfHgULruzAJPqW8CTw9woHsNqc
-	GUH1ceGHSS0++w6VZcInWlZLI/7Ukznln1Gly1rtAQbKrbvI9HJ1PB5lkkNuNudiQdQetw
-	+UzNSRYZ9whvMHDJEtywg1FOCqaITQA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789850780;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UJMe82CQ3Djnx2A8rPKycYLGgzecxoVzpCYmqYJA/Gk=;
-	b=KKCvQmaHHoHm7v+Nw0pNd5NOvzSQmggDDPpl3W0cT7oUttCmabSohbvilq5ucCcBwAG33U
-	+bEiZKHi93jiYBDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3EB8D13331;
-	Sat, 19 Sep 2026 20:46:20 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 3ljlBpz0rmoSPQAAD6G6ig
-	(envelope-from <dsterba@suse.cz>); Sat, 19 Sep 2026 20:46:20 +0000
-Date: Sat, 19 Sep 2026 22:46:14 +0200
-From: David Sterba <dsterba@suse.cz>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: David Sterba <dsterba@suse.com>, linux-btrfs@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L/jACuv4"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85a4329731cso1432874b3a.3
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 13:48:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789850886; x=1790455686; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IbzMWY27RNn6TvNZ0mX5/THo8gbiTxzyAVe/fdV+7Y0=;
+        b=L/jACuv46l2hKmNpEQd8ITYau2awShtYptfgPFBau5HyuF7pcmnFEuYoZXYSTSnVKz
+         2Zt4Ii1nmPyuyWTlbbJ8Ub0ohRqkH41qudBZgnlCl3xmj/a4WzTWRZrJDopNmnm5d3kx
+         6Ra71/mjV09f+xrJUSamNInLNZOHqfPXLl1MOLTEFZ18sOoCdxlWSJvIm5bhawGEGy4g
+         IAgCtb7PnpwnFDTj0RnjXh1lObWdE2TUeLaFkrEj+Q35wglFBQNFzb+2MruIw+/AKtqJ
+         POQ2aHDrzDu8b8wPYaXIMF5KGHO/hvKuNVFpkfLn1n19tZw8w0A/OvQaJxSXM3EFmgSJ
+         BhWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789850886; x=1790455686;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IbzMWY27RNn6TvNZ0mX5/THo8gbiTxzyAVe/fdV+7Y0=;
+        b=oKt3gASbxCsFIcGIOeBAjPjFvS1FpTrWbNVXnZqvvb3/9u61gAFDzzlEMg7YIOiT3s
+         4C8z6aIYRshQJtkfIx6U4LOk85QzgfYm2XP0ulaYQ6sL2DnLDDsm186YZ7312n26Z8ht
+         G6WizuVkpI0hE2QvZjiZlW9u7KlivlVYKhFfwdBSwlo4Z/IzumvfZiYiwN/T5W5db5JW
+         aNae4plsYbKBYKMrJ5e5FTRW9HjxcVQLiRvhiyhtxhipX7/1YYGyuozX9H4RX6BWTZBp
+         m23VHEM41Z1VnaVt+yWppHqqRZgellg3T/s4tSkbfJrIXfxfUMrWZI14VhoKx6KgAS0B
+         PfbQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzrdkS8yfDJnXx7IEHAlnArpHC5n7Eijo564AhOra3cUjH9mO1M0Kq/JOoujLMcCcayR754AYOq6HXwBfY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lyoDyJUuyeJw72dZkTYcY2YwNn7FM3PmkkVKumAsp0DWmBetkj
+	ESmZbElhOCfxZNSrlYuXa1j3aW/wiGXYGkqlM5GVULHSfumjvg+NltMt
+X-Gm-Gg: AYBFou3+rWO/0DcVMzZX2Cqxsn8wubVLR9Yh6/6wqs7FS1ue2Y3p1GXibWyjgXBVy2v
+	lcO0rkws9rtREcw7UJB8CXtjPSeuIjxDbpcLjQi85vROM7f2P2U7xPlMr3UTKT3gXlBLjzWz9lC
+	39PiDCpre/Sn6hsJr2PhsUtqhN0semzFGgU8aYMuoES408GfdDymV/Il0jda4dg75fVCH9AyICs
+	2YlsCUtbkPicFhYXdKtJG54p+shrL8HEMFdiaAgKYBAkGUVEUC7QqDscDayWveYs91qfY1l5iLc
+	jgxzXKXMjZlkJH6NXR5/vdPThyu31iC44hKJwEjsfQtpno4SFVtsSFr4yDYoLiOwPUgzukxbAZd
+	cJ68qVzVLmhwKiU7cI8yDX69c4HcTqanjcM4oie3VprkB7NVwEicB4ueNXEyHM0DsJ4Sd9ZUaB3
+	2iXkuOwJfo30bcYL5LZE0QiMp0jB7qMt1bV3Ee0FMt6tLuq3j097HYWN25ElIvvJddOWgFvL75m
+	X9uEbrtMpQZbZfnD984xdEZmJ/aFXntnRFcKiKhGZQSSGrlZIhedMqtcM12WMZwayDluD+L0Zoc
+	waGJWfg21A==
+X-Received: by 2002:a05:6a00:2ea8:b0:878:3658:23dc with SMTP id d2e1a72fcca58-87836678cfcmr2747328b3a.53.1789850886311;
+        Sat, 19 Sep 2026 13:48:06 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a95f915csm1282928b3a.29.2026.09.19.13.48.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Sep 2026 13:48:05 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Jakub Kicinski <kuba@kernel.org>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Kory Maincent <kory.maincent@bootlin.com>,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [GIT PULL] Btrfs fixes for 7.3-rc4
-Message-ID: <20260919204614.GY54722@suse.cz>
-Reply-To: dsterba@suse.cz
-References: <cover.1789845496.git.dsterba@suse.com>
- <CAHk-=wjwehxF3wP-vj23RXYH8RmK-Crmnq0g2wr6wNDet87S6g@mail.gmail.com>
+Subject: [PATCH] ethtool: tsinfo: release net_device reference in ethnl_tsinfo_start()
+Date: Sat, 19 Sep 2026 20:48:03 +0000
+Message-ID: <20260919204803.2811673-1-benquike@gmail.com>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAHk-=wjwehxF3wP-vj23RXYH8RmK-Crmnq0g2wr6wNDet87S6g@mail.gmail.com>
-User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
-X-Spam-Score: -4.21
-X-Rspamd-Queue-Id: 6B85221D72
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.21 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	HAS_REPLYTO(0.30)[dsterba@suse.cz];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	RCVD_COUNT_TWO(0.00)[2];
-	REPLYTO_ADDR_EQ_FROM(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email,suse.cz:dkim,suse.cz:replyto,suse.cz:mid]
-X-Spam-Flag: NO
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 19, 2026 at 12:53:08PM -0700, Linus Torvalds wrote:
-> On Sat, 19 Sept 2026 at 12:44, David Sterba <dsterba@suse.com> wrote:
-> >
-> >   git://git.kernel.org/pub/scm/linux/kernel/git/kdave/linux.git tags/for-7.3-rc3-tag
-> 
-> -ENOSUCHTAG.
-> 
-> I see a 'for-7.3-rc3' branch that has that top commit in it, but no
-> signed tags. Forgot to push?
+Unlike ethnl_default_start(), ethnl_tsinfo_start() keeps the net_device
+reference acquired by ethnl_parse_header_dev_get() in
+ctx->req_info->base.dev until ethnl_tsinfo_done().
 
-Yes, sorry, now pushed.
+When a Netlink dump (NLM_F_DUMP) of ETHTOOL_MSG_TSINFO_GET specifying a
+device header fails on its initial netlink_dump() invocation (for
+example, with -ENOBUFS when sk_rmem_alloc >= sk_rcvbuf), Netlink keeps
+cb->cb_running = true without calling cb->done(). As long as the Netlink
+socket remains open, the netdev_hold() reference is held, causing
+unregister_netdevice() to hang indefinitely when the device is removed.
+
+Save dev->ifindex in ctx->pos_ifindex with ctx->single_dev = true and
+immediately release req_info->base.dev via ethnl_parse_header_dev_put()
+in ethnl_tsinfo_start(), looking up the device transiently by ifindex
+inside ethnl_tsinfo_dumpit().
+
+Fixes: b9e3f7dc9ed9 ("net: ethtool: tsinfo: Enhance tsinfo to support several hwtstamp by net topology")
+Assisted-by: LLM
+Signed-off-by: Hui Peng <benquike@gmail.com>
+---
+diff --git a/net/ethtool/tsinfo.c b/net/ethtool/tsinfo.c
+--- a/net/ethtool/tsinfo.c
++++ b/net/ethtool/tsinfo.c
+@@ -295,6 +295,7 @@ struct ethnl_tsinfo_dump_ctx {
+ 	struct tsinfo_reply_data	*reply_data;
+ 	unsigned long			pos_ifindex;
+ 	bool				netdev_dump_done;
++	bool				single_dev;
+ 	unsigned long			pos_phyindex;
+ 	enum hwtstamp_provider_qualifier pos_phcqualifier;
+ };
+@@ -476,12 +477,15 @@ int ethnl_tsinfo_dumpit(struct sk_buff *skb, struct netlink_callback *cb)
+ 	struct net *net = sock_net(skb->sk);
+ 	int ret = 0;
+ 
+-	if (ctx->req_info->base.dev) {
+-		struct net_device *dev = ctx->req_info->base.dev;
++	if (ctx->single_dev) {
++		struct net_device *dev = dev_get_by_index(net, ctx->pos_ifindex);
+ 
++		if (!dev)
++			return -ENODEV;
+ 		netdev_lock_ops_compat(dev);
+ 		ret = ethnl_tsinfo_dump_one_net_topo(skb, dev, cb);
+ 		netdev_unlock_ops_compat(dev);
++		dev_put(dev);
+ 		return ret;
+ 	}
+ 
+@@ -533,6 +537,13 @@ int ethnl_tsinfo_start(struct netlink_callback *cb)
+ 	ctx->req_info = req_info;
+ 	ctx->reply_data = reply_data;
+ 	ctx->pos_ifindex = 0;
++	ctx->single_dev = false;
++	if (req_info->base.dev) {
++		ctx->pos_ifindex = req_info->base.dev->ifindex;
++		ctx->single_dev = true;
++		ethnl_parse_header_dev_put(&req_info->base);
++		req_info->base.dev = NULL;
++	}
+ 	ctx->pos_phyindex = 0;
+ 	ctx->netdev_dump_done = false;
+ 	ctx->pos_phcqualifier = HWTSTAMP_PROVIDER_QUALIFIER_PRECISE;
+-- 
+2.43.0
