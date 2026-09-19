@@ -1,152 +1,119 @@
-Received: from 19.mo584.mail-out.ovh.net (19.mo584.mail-out.ovh.net [87.98.179.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDCE831A55B
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 09:25:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=87.98.179.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D6113DAAD7
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 09:31:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789809914; cv=none; b=G2niPi6mmHjYEepd0BCt9SGm70YY/a8eKp4RTGqu73wS9EGmHlN0U21DDPKNBRhVt7O/XTdm0F1m9sEch/GApGLYse7jIJ/rGPJX2/oS1jXUOlo0SSABNo6SzWPOHSKgcx3IdvSCpwS7wt+VseJK9XE9oKix3cHM8IWLu4kY618=
+	t=1789810286; cv=none; b=ZF/Ehs9vAZLEq/q0d3etQJkCk7+7ga2Es4/OgwqUwJHhJP0BPRMaJP638HwN2VV8f4uqCi1PCJDbiTW8UBSLfEuocjU9RKiJmC5iTqlOBuzzmoiKMfDSEMxE5eXfiKfzxuufNZrPTnqtU9fF4vucGZapqfepJeSZCI6f/YTIl2I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789809914; c=relaxed/simple;
-	bh=aOU5wawSteXdSqWO4qzo4hFyuEUf/Z6xXw3ars+XFhQ=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=M9XmQrb3ZFv3sbTNvn8vKtUw4m8L3BAPN8vWmu4r6kYJVt5Gv+oUj9bSHRRKlfJz+VrDTwluEhjwxvIWN8Lnt/7vk3IOxjGFiyB+8v/u1uZHwxjFIlRVklwwWoNF26EofZHEzFeNNePLqudn2RubmrCYBUz7vyH2bxVo8dZXQfI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quelquesmots.fr; spf=pass smtp.mailfrom=quelquesmots.fr; dkim=pass (2048-bit key) header.d=quelquesmots.fr header.i=@quelquesmots.fr header.b=ifxda4BP; arc=none smtp.client-ip=87.98.179.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quelquesmots.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quelquesmots.fr
+	s=arc-20240116; t=1789810286; c=relaxed/simple;
+	bh=SNfprDKeEAk5wYlgA1hVVVIHsXt+aVLRxcUxr1jrF80=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pq6kH9aYtlzOUkSn0Ab2m4nh72MvPirl4L0edsQrZ+H8jBmHZF+IahrYVyrqrqeBdo6CPNOpmduiNghrJIWfsXwyU6JuqRrkYZrcHs+y8dnw9XJNejzm8y8Gh7N2il1wb1S/KL/khFVuOXrqLP+nOtR8rJWvee2KBWSnj6lxkG4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DKn2xwFT; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=quelquesmots.fr header.i=@quelquesmots.fr header.b="ifxda4BP"
-Received: from director11.ghost.mail-out.ovh.net (unknown [10.109.249.19])
-	by mo584.mail-out.ovh.net (Postfix) with ESMTP id 4hn36D064Mz8TC9
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 08:47:47 +0000 (UTC)
-Received: from ghost-submission-c7b579475-bj6bb (unknown [10.108.54.81])
-	by director11.ghost.mail-out.ovh.net (Postfix) with ESMTPS id AEDADC2D7D;
-	Sat, 19 Sep 2026 08:47:46 +0000 (UTC)
-Received: from quelquesmots.fr ([37.59.142.107])
-	by ghost-submission-c7b579475-bj6bb with ESMTPSA
-	id DOQQHTJMrmqqKz4ARPrK6Q
-	(envelope-from <l.wandrebeck@quelquesmots.fr>); Sat, 19 Sep 2026 08:47:46 +0000
-Authentication-Results:garm.ovh; auth=pass (GARM-107S0010625eb38-c7d4-4fce-b293-e10b4d451288,
-                    EE4819A1D5F070B8F0B9E6333000BC2C31875CAF) smtp.auth=l.wandrebeck@quelquesmots.fr
-X-OVh-ClientIp:109.190.254.62
-Message-ID: <45dc4a4f62e49107de788b4be9a4039e0d772fa1.camel@quelquesmots.fr>
-Subject: Re: [PATCH] x86/mm: don't apply va_align to hugetlb mappings on AMD
- F15h
-From: Laurent Wandrebeck <l.wandrebeck@quelquesmots.fr>
-To: Borislav Petkov <bp@alien8.de>
-Cc: Dave Hansen <dave.hansen@intel.com>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, Oscar Salvador
- <osalvador@suse.de>, Andrew Morton <akpm@linux-foundation.org>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,  stable@vger.kernel.org
-Date: Sat, 19 Sep 2026 10:47:46 +0200
-In-Reply-To: <20260916200247.GFaqr15333nu5IAfjU@fat_crate.local>
-References: <20260828135747.724789-1-l.wandrebeck@quelquesmots.fr>
-	 <3faecf65-7edb-4cec-be7a-e5266dd3a649@intel.com>
-	 <20260829174704.GAapMbGAZMwImcvIN7@fat_crate.local>
-	 <0B48BE2C-2E72-4961-91D9-35E215F537A9@quelquesmots.fr>
-	 <20260829185120.GBapMqKFM35KtL0Mod@fat_crate.local>
-	 <78225f07785ed89e0c3e5def8a8bb1a48e444322.camel@quelquesmots.fr>
-	 <20260916200247.GFaqr15333nu5IAfjU@fat_crate.local>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DKn2xwFT"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccff31419so12848155e9.3
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 02:31:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789810281; x=1790415081; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+PkC9L5fOjPL6sBbulqfAvEH4cZDiVNQRsYYaLvTHWM=;
+        b=DKn2xwFTnC+wJL22N5WBEj3tVZ5lfqG9qh1CAP7+ALustf/oXZJfmtLiZP6bSGOo2C
+         YXuuB0C8hRkfK1e++b7vlapQtHhFkA5tm90+YGqjuiXsPymdUw2o3YpST+WmTpxMZWb8
+         ZXzNqpkcV1a36y7fRsK0+PZf1CRLswvANx60aJwspyX2o7Px2GK3S22SV1Pyv4YW70ck
+         /7Z0PEtVt9rxfwVQq6popeF/9rrRuX7RYFlzeaeKa4/q+rFHM2Lc9yNY+jLoZjfv0uvB
+         hHAlAe+EIHnPgGm81aCFe9eHNifg9/WAI1uQ+SgCiswbfRW9/j3foRsN+03V2s5WhfBp
+         597w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789810281; x=1790415081;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+PkC9L5fOjPL6sBbulqfAvEH4cZDiVNQRsYYaLvTHWM=;
+        b=UdQSncl4myxE2XTbFLCATlnz53DEs6+3LNoChQBADC+LDNu7HFcogM52gKkNSuzGJ1
+         nD8vYvjcGN9u/g3mrsTIwyCBGJVE1p38TLp8kpGKAFHQR3KMmnwOLSEo4n8IWwFF4DSQ
+         b5a4zb5PlBHOGaLIJn2X2WPgJW4o4lnLsKpbnQX+3A++X4LocjV2xsf7wW/igQ0UaQ5B
+         z6lom8E1Q+wfoiazzwT/CQNmQUxn8Wkp4G1f5sS8PtaDIQoB3EUKVs72jSx06AE4qY6I
+         FlK+PLd6lD/MeizCUBLhbc4ISehGMXm+OpHQE92Xg6ZfC5LDIc0qRv6MNZexsnWQtj6z
+         h1GQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwMZ8JId4iGYL2PP/aAUeVgugztXIWecCPwYM90sOol0d66YqRTG79JrVgAGmVxcBpApIaRTtIq6cIdY3g=@vger.kernel.org
+X-Gm-Message-State: AFuF++kpPO7teC02kelRR9gLo0Oa+SX0+SJCMnJf5aeRrWtGNKg+O+eD
+	OxHFJlE1LJqbNmYaWgkeuCXWqiU7e0EFg4oZYZ367cfTkdftk3Rs8QbG
+X-Gm-Gg: AYBFou0TgTWHmkcL54ZpPX4Ynxd3zAY6e45iQY7JpCLtAdkRI5bJewf65RUAKXJj5Rf
+	JqFQHb0BcuagsZLEbY1USrw1dZiG202TOszbzdRsOcNtwtahKuAdAlXrxDAWpRKC9t+hIp6EYNz
+	LRxCLR6yg7+WP6GKTHK38onYgGvfNOgJGpWF30LpCVU5LW0AtwPKPxxNV3cPHHydGsev+jNVxc6
+	De2lPRI/EPRjErKHoQ4IbojJOmrUdasZD/eakSaLt/mG7JAvmwpAzT7ypg8IWnWi4x+lNbxwfLi
+	RyIpE30bZ6Z8rpqTnH8i8H8Ay50yT1iAv26ecpqJPvPzLqqElyfARkilgtSbE4xQUn01O/YMgLu
+	cK2z6zV1Bp2ybV6CmkVAT9WV67uQ4wR7/FjKaApStGgPGX0q5G7o39f1YMjbY1OmkH9qk1kzcNy
+	FQM9BnA6xx/7Wupxavfb14POeqPQkBOkCRX1h/urhskGaZAFqR1dJqsVbNgISVjbaCRLS3EU10u
+	OfhLGsQ5gRwjU2sId4qVeUxboSCqL8C4Gjui8DQJo+bmX8sRMA+Wugqf7ocg7hn6apnNU69golA
+	j5tZBQ5vT1H7CsdaafpZTwxJKqO5GRSF7fVN0pPmK2skYRVfYo2wqQ6HG43BfBkYanWOm9acKQx
+	epZLZiOek1ADO9vETxaerWsmZO07nQeY=
+X-Received: by 2002:a05:600c:8b61:b0:49e:69ff:c6b1 with SMTP id 5b1f17b1804b1-49fc5749edemr79130785e9.31.1789810281330;
+        Sat, 19 Sep 2026 02:31:21 -0700 (PDT)
+Received: from systembl0wer ([2a02:8308:4092:11f0::f9f])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd086ce9sm85591855e9.12.2026.09.19.02.31.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Sep 2026 02:31:21 -0700 (PDT)
+Date: Sat, 19 Sep 2026 11:31:18 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+Cc: jic23@kernel.org, gregkh@linuxfoundation.org, nuno.sa@analog.com,
+ Michael.Hennerich@analog.com, dlechner@baylibre.com, andy@kernel.org,
+ linux@analog.com, linux-iio@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: iio: adc: ad7816: Protect sysfs attributes
+ with mutex
+Message-ID: <20260919113118.51036850@systembl0wer>
+In-Reply-To: <20260919085513.9173-1-abdelnasserhussein11@gmail.com>
+References: <20260919085513.9173-1-abdelnasserhussein11@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-x-ovh-tracer-id: 5490732374257761563
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTGPq357b6u3PaYeqTnZgFYWzVaEMDvfgxX4qKZ/OTzfZmZGHXOAnED6aCURb3o5qqIJGhv99/gJQ9pN6ZCHH+p9yKRc9PmTLqO00L422g/1qAh4ZmTErP0wiOx41xpEXwlXWe/9AEfi8Fgxng+8GzTuV4Zfyg/vxgID600Hsp0iuMDl3sdKDXVbGK6YpKV16K64DK93XshX/Q0puDwe/qxeaIBr9PecvkmFxBfFwnuljEVhuHR4tCS9vF5odTlGMPn/88wjLgG6jwwZFQPqSScT/2OUW+wvAm0Acsew7OBeLXT2l0VuRY7dAf/CSuiywzcB5+5raygS/2AurzAAD0NUOPkpxIXIG5EUXTpWwTQ9i22LJtuTB7b+iY3E8OFXffCrtWzQLYAwGed3GbR3Y3jYv9by9u6g21h4S8XBFPXDAfVsnyLbqqXEDCalxVqUdTYilRwZ+nBA2A1bJNSzvano4Q4dlPmWeCcu3CfGm0WUL75B2JwiGcqonsS0hLNBkCnOxkc+R0tLKHVxyfHroNR6t7BlJesYTXsqArwcwJc8AaL9wGFS+tt16vJNvUf27XFu5VBuXshX4l47gNo7g93n9sIb0x5C5n0jHLGVQj5cP4+jEwc0ptEr9xC4A4oPOdvpsVu4jPLuthGeOFiuH7Da4dkJHeQqm7mZDQbMFvVMQg
-DKIM-Signature: a=rsa-sha256; bh=dJ5AQwi4ZkHQPw/8D79gm21ialov4SoaTR54NOHjovs=;
- c=relaxed/relaxed; d=quelquesmots.fr; h=From; s=ovhmo4049951-selector1;
- t=1789807668; v=1;
- b=ifxda4BPcutZg/RmXXbM1TRNY7BDmuwrfDdRJaQ2rz99cFcLvxeM1kfIE25DtLkvbTxMjaFY
- QTp9QYPeVicqXI4BCxt5FWYtCPr99ZYx5Rw8GguPsVmAU0SylovIIwBAQNZi9WEL9IMcHKZW117
- aOk33DpkkvoG5HI8XX7ejGDzZZu41hWjgaxqCXUWPyXdEnMQdfAmSUgPzTLMw/LnKmM5w4HQEyW
- uEd8N91mgoZd3yxKPrsxDBEf9hx056SPbUHJ93ZMO0xhbe3I9sXT1CuiXoe0LWAegn6RijoXwRm
- T/yjNfOvCuoOCTfOtWU+Cr16zM28EBFX00+nZu5Jz8I0A==
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Wed, 2026-09-16 at 13:02 -0700, Borislav Petkov wrote:
-> On Tue, Sep 01, 2026 at 10:12:07AM +0200, Laurent Wandrebeck wrote:
-> > Sorry about, replied from my phone without thinking about it.
->=20
-> No worries.
->=20
-> > FYI, patched kernel has run a couple more days without any problem, and
-> > I=E2=80=99m now running 7.3-rc1 with the same patch flawlessly.
->=20
-> ...
-> =C2=A0
-> > Can I do anything else ?
->=20
-> Does Dave's suggestion work too?
->=20
-> https://lore.kernel.org/all/3faecf65-7edb-4cec-be7a-e5266dd3a649@intel.co=
-m/
->=20
-> Thx.
->=20
+On Sat, 19 Sep 2026 11:55:13 +0300
+Abdelnasser Hussein <abdelnasserhussein11@gmail.com> wrote:
 
-Here=E2=80=99s the =C2=AB v2 =C2=BB patch I used instead, on top of 7.3-rc3=
-.
-Works without problem (several hours uptime).
-If this looks ok to you, I=E2=80=99ll follow up with a proper [PATCH v2] ma=
-il.
-Thanks !
+...
 
-diff --git a/arch/x86/kernel/sys_x86_64.c b/arch/x86/kernel/sys_x86_64.c
-index 776ae6fa7f2d..a54f930e2c9a 100644
---- a/arch/x86/kernel/sys_x86_64.c
-+++ b/arch/x86/kernel/sys_x86_64.c
-@@ -28,7 +28,7 @@
-  */
- static unsigned long get_align_mask(struct file *filp)
- {
--       if (filp && is_file_hugepages(filp))
-+       if (is_file_hugepages(filp))
-                return huge_page_mask_align(filp);
-        /* handle 32- and 64-bit case with a single conditional */
-        if (va_align.flags < 0 || !(va_align.flags & (2 - mmap_is_ia32())))
-@@ -50,9 +50,13 @@ static unsigned long get_align_mask(struct file *filp)
-  * value before calling vm_unmapped_area() or ORed directly to the
-  * address.
-  */
--static unsigned long get_align_bits(void)
-+static unsigned long get_align_bits(struct file *filp)
- {
--       return va_align.bits & get_align_mask(NULL);
-+       /* hugetlb mappings must stay on the huge page boundary. */
-+       if (is_file_hugepages(filp))
-+               return 0;
-+
-+       return va_align.bits & get_align_mask(filp);
- }
-=20
- static int __init control_va_addr_alignment(char *str)
-@@ -157,7 +161,7 @@ arch_get_unmapped_area(struct file *filp, unsigned long=
- addr, unsigned long len,
-        }
-        if (filp) {
-                info.align_mask =3D get_align_mask(filp);
--               info.align_offset +=3D get_align_bits();
-+               info.align_offset +=3D get_align_bits(filp);
-        }
-=20
-        return vm_unmapped_area(&info);
-@@ -222,7 +226,7 @@ arch_get_unmapped_area_topdown(struct file *filp, unsig=
-ned long addr0,
-=20
-        if (filp) {
-                info.align_mask =3D get_align_mask(filp);
--               info.align_offset +=3D get_align_bits();
-+               info.align_offset +=3D get_align_bits(filp);
-        }
-        addr =3D vm_unmapped_area(&info);
-        if (!(addr & ~PAGE_MASK))
+> @@ -143,6 +143,7 @@ static ssize_t ad7816_store_mode(struct device *dev,
+>  	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
+>  	struct ad7816_chip_info *chip = iio_priv(indio_dev);
+>  
+> +	guard(mutex)(&chip->lock);
 
---=20
-Laurent Wandrebeck <l.wandrebeck@quelquesmots.fr>
++ Blank line.
+
+>  	if (strcmp(buf, "full") == 0) {
+>  		gpiod_set_value(chip->rdwr_pin, 1);
+>  		chip->mode = AD7816_FULL;
+> @@ -207,6 +208,7 @@ static ssize_t ad7816_store_channel(struct device *dev,
+>  		return -EINVAL;
+>  	}
+>  
+> +	guard(mutex)(&chip->lock);
+
++ Blank line.
+
+>  	chip->channel_id = data;
+
+With these issues addressed,
+
+Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+
+-- 
+Kind regards,
+Joshua Crofts
