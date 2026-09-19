@@ -1,77 +1,75 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 949B33655FC
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 21:52:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D58A1394492
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 21:52:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789854760; cv=none; b=sJKu3DV5dlhgO4NzVaV8fdFfBYui2PUYohbhKVxHi1Yt1d1o9utvA5gA3e6TWLCyRZZIMJ5xfUSTj2cJHny5cC6PUfC8YChDaeH622flKi0U3DQYwIu8OsKeoEaB8WgwFDXY4FFImHKx+f6VZdtK+liQ3Xt8AiTYDs00D75Tnrg=
+	t=1789854760; cv=none; b=LSIGtk75POwt4C+N9sRUxa8+x7u7ieefoY7FXJIBlc3cQVYUzYk1boBVqtqeSYMeaO+jjrfhKa7M9n4iOSneifsFTBrFhQcw1rpLYypYiSSe91yvbiy1P4x9DdMaK27P5EElbbWnw5zkjuXUJAhayRE403gSyPyK+w5OYQGF8KM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789854760; c=relaxed/simple;
-	bh=U1jq3rVIXf2vsobUdSDWCpqO680/ab1TVPGCTkzaIrc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZQ9ko5XMLqUxUfqr+6qG81qHY58uatvItz2nnYfwvFZgJfHiRT3nMsPEFZXYQT5BDrvNUbUhpqGJk5bd3vGvgELLDlCZHXq7hghrkyuoF1MlJAQdFXZ+0zGt4EgVuB1jNvhCnBM6RalSsvUTN139L/xDR7YFcyKXAbZCM93Q+yw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b/YLlNN1; arc=none smtp.client-ip=74.125.227.141
+	bh=VQ9Ha0Kv35OQUZIpcPbivRupE8x247MSqdoR4m67+Ho=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ImHVjGYdaQ8/Hi9XitHhciN7P88k2Gi/Rr0pIB0dHOLS2QgzZMNS3Qh3qov0IpMo9c2lc4L+nQjEFNqjN6PmiZwgWPFeUCXkZJewvuyfykc3Q6clmyqhttCiXlNosVJA+VGzYmtzqTaLuxWraiM05NkglnzP8+24uPRsI+GtS2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X9A5fMSf; arc=none smtp.client-ip=74.125.227.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b/YLlNN1"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398beb616f5so776171a91.1
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:52:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X9A5fMSf"
+Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2db1ca069c8so18839635ad.3
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:52:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789854752; x=1790459552; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789854755; x=1790459555; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SFfjjVYuyX+ZWtIQTKnBoyatvatssXhZQujt0x3z3r0=;
-        b=b/YLlNN1DdjGTGR4eNx679mJaf/zbUtKsz8pL6uAnuhv8iPNy5kT2plACVscAdQmCu
-         6nVu6KfNN2A6aeUNE5rrF7zT/8JsJR10aiusvZYNSLxMptqxCKw9bp2Vg6iiuJDpj3pi
-         PpeOvvSPzXfNkpdtn6rxQ6XOf+W72ZwcHF2g1VgNUybsLXI/MObv2WE32pdUt299c44h
-         fIExBmBG6Z50oSnbu/K3EJKB2H8CHJy70UvCSnSrsq20FyeE1lncucox8Zc6U0v/dNyA
-         /tbO6bp/3AlG3yVM7kllHh+YvKjp7JBrMlkFVYsrQjt/jBTQ6+3cd2NvRTkWsQLkclJ3
-         w/ow==
+        bh=9aJFCfj2LQ5guspfVFESmNOnFBxFScArLrkp4w4HDqo=;
+        b=X9A5fMSf6Ey7j1lhELdG149NMTlNwd1aYMVzCjjErg3oC//sGLBGsDNxovof9rXB0j
+         fj1PiEp4qtAYSJn1+7C/FsjFgPDEmRkj2rHt0t/PcvtWdLfpmQny7OanLzpePEK4Cy8L
+         YQzIFNL2MR0hn9ekLlOK5qAmfMF8RAFqLYQyn6YfJdCeq03S44En+3wnAxVsiOaparZr
+         D61+UX/X2UNXJIJWTKFMgeNq9D+b+RVkLjp4z2MYlw+kRMwtEaxD77Vhf92R+Vqqoba9
+         /Yd3vfwWaEMqrGw1+Mt84JM/DnCJpFa2CQoW9ugv37CVgHDkgVCjCmeUWpFZITQ+9i2L
+         8aRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789854752; x=1790459552;
+        d=1e100.net; s=20260707; t=1789854755; x=1790459555;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SFfjjVYuyX+ZWtIQTKnBoyatvatssXhZQujt0x3z3r0=;
-        b=Qc3WJAgudJtfZLKxRKMuIlP12jlNFsEY77HVcu5OX16Q+ys4bDCLAIM0lBXlXGRtGj
-         gsRWFIBNI8ysDlVuaBZyJd+4F+RPVQpmPorAYrzKsRKQXCXhxc6Sy4a+DOGEzfjE5LpN
-         Fgbge8boQsPr1MLrlufhmtXgZ8VCUtidqxajiSfaRfBZMKaJkxGrMMvyTxmeFQQ4ZrNj
-         eMVd+dfBP09ZT4fHeEDPlSooThmX2jA3wzfBcSTfPHmU60q57qVHvwD+3UNnl8Yx/Kjt
-         aHlQRaVAwMdvLSUzfji4a1+OuQciZIRBdeJniOKWHEibkYQxLAE89fficODumBdceI2a
-         xA3g==
-X-Forwarded-Encrypted: i=1; AKwUvBxrz/NpsKG6K+bQbRlrAqplj7QXwxs8ycc39uRLBV6dAV8cJ4tC+1V/LTq/U/BNmRINYaTbjsmYpQDzQyU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lHS47XJ5NCD5wbH+XYbPGxraCc/y6vSMPWCUTXNWL+Wx5XUr4S
-	I7Ylnv6UoJs6gM0DLCjipARfI642qf0LBQTKxC1NLlWMOck/ELD78gXO
-X-Gm-Gg: AYBFou2Ug6zShWfht7UmWCklXUc22le+QRuOP0zYAFamf4246R8GvQLvffckZZY4Ep3
-	Xgi/ebPzZobnZqxhEjGgqw/AevMUR4k4VOP2J6uwsZoDldo32SCEN5kD1wn7lBTIntzxDZSNZvf
-	BgcEXA5Di95Qno7ou0dkQFelFrfspq3GF8TnCi31RAIvOGT6NlrdYtX+fezYub12kzpCJGoFYV/
-	Kz/rkYqIc999HmFtI+vblm6lWotIXXLRGXC24az7LsMBjoEjwm4iQbAXqHzoQ6AwI0Fi93SbGpG
-	JCO/wS3Y1/FyP/AfRhRp4AaXr/JyL96/U9C8SLRUHFiBeCrA5CuM62lgMS32btXLmoQt8GUIP+E
-	PvkYPQbg34NXSWk3HYdKDJjKpYXczj15lBLll/55dB3SJbzMOmVgslzw8YTLYf10MhSKwAToTsY
-	6/Us28QvPGs3GTXPetkk/AjVY9AkRtvI/BD+KI7Gn33ETWJ2ITJ7nPu5s55Kh1WxokrHHdhgDS9
-	M9ggsP6irOTNFmrGSgmL97EIwctlDNCvD9OhBhBa32EKU01cl3NB3hzQl3IImlVL0v4/VSnEGLW
-	fD7A9KzyCL4s3ufEJs2P
-X-Received: by 2002:a17:90b:3908:b0:39e:3d38:7ef1 with SMTP id 98e67ed59e1d1-39e5565236dmr6546738a91.10.1789854751817;
-        Sat, 19 Sep 2026 14:52:31 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com (67.51.127.34.bc.googleusercontent.com. [34.127.51.67])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a02526e27dsm1883481a91.0.2026.09.19.14.52.30
+        bh=9aJFCfj2LQ5guspfVFESmNOnFBxFScArLrkp4w4HDqo=;
+        b=RZg7XM9ZkV027weYo6fI1HysVDsgEscJ3uFUeDpwhpz5i7ANq9MFZglZz/nhTepgmk
+         rW4KWznMH3A6QuaHdJeJj6aEKO6a/bVEMDClE2a0V3woJ0YhbVgnbngWqzb253wBfcUJ
+         YT1Q//+YiZksAbuUyZ/T24IHLkqYj6XzJUS9j5j/i2a3bAU1YEn8MX3aHNdl2pMSjSxO
+         F4+Yd17d8ygBeLCVQ6byoGVZqRhKQ00wwQl6jj53DAXq7P6ecmPMz/ZbPZGoOVmAo/K3
+         njMKwDdTWRTO9EbblWbEqjHVOCwav2c4hgqAmQYTVbaFGYcQ8pROoLPw6xCf7kXt2MOi
+         QAhA==
+X-Forwarded-Encrypted: i=1; AKwUvBx5CHzAwVmhmJMn5AI77q8fyigJPguJy9e+zsD0NjbwKt7FdrIaa+m767VdqlJ1IMAInKc+cIkhRM41T+Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++lNxv6InGdKtxw2EHNtVQmIOREexpoFNLEm9EJcqDDHXGiwibji
+	N6NHi3aWPjRY/goT/Y6eQFphkujJF6yJJxBCQ3T3i6gK5M7gYykRz0rULVWksYTT
+X-Gm-Gg: AYBFou2PDAF5uTUFcUQ6M0JWlVgS3KorGWZI/wTMlaPm9Xnko5oUM1OaxgAe4R3K/1/
+	Uw6qD9byTrTHpcwozktgRbYdaMALxQ/ffJ2bgPW3eboVd6T59csB3fGCQgcXIvUK2rj5EriFzIK
+	auPX0fhbXrOCsqlI0F+MAoYlmk7HDil5EiiIHlc5oVIM18UBJF2Ry2dyV0uLj6pVInQkJBu/IvA
+	XBiRTz5CVd7QOVQjKd4KUaEYPc4Vp1sR58LcafH2tlbEStRtgs5nPT7qzlZ4F6yUisGLU9mt9ua
+	z+3AtFbvgDrYtDzsSEqeKUzz5QcRi80rMQSGAE+WWPBxBJlBHxDqPKIcYJiMI2jjDSviYFQig94
+	BKtAv3dFVnMcC55f4ZaUzNOYHDcgVUzLe5Fe1gcksx3957e39pXseERBk/Bh0ZmOCHK4SSlU8Ze
+	iHxp+CD9/j5fCc9wxLnFOcSCpoplTTVCTZHp7b+JzT3WqFID91zoXL7OVdJ0hSAoMVySjsEofs3
+	4yUOy5waDI34HyTEZNu3fVpCwyKzDISodJO3xeqUmfAGizGqTASG3N58h2Muu9m5NfWjmGM/CUr
+	VtpGi8f5aA==
+X-Received: by 2002:a17:90b:5690:b0:398:bee5:61d6 with SMTP id 98e67ed59e1d1-39e54cfabf6mr11253729a91.24.1789854754661;
+        Sat, 19 Sep 2026 14:52:34 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0309d5760sm862843a91.4.2026.09.19.14.52.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 14:52:31 -0700 (PDT)
+        Sat, 19 Sep 2026 14:52:34 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
-To: airlied@redhat.com,
-	kraxel@redhat.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	simona@ffwll.ch
-Cc: virtualization@lists.linux.dev,
-	spice-devel@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
+To: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: linux-ppp@vger.kernel.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/qxl: fix cursor OOB read, dirty-rect bounds, and monitors double-fetch
-Date: Sat, 19 Sep 2026 21:52:30 +0000
-Message-ID: <20260919215230.3469792-1-benquike@gmail.com>
+Subject: [PATCH] ppp: fix bsd_decompress() OOB read and ppp_decompress_frame() headroom check
+Date: Sat, 19 Sep 2026 21:52:33 +0000
+Message-ID: <20260919215233.3470411-1-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -81,207 +79,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix out-of-bounds accesses and missing bounds checks in the QXL display
-and dirty-framebuffer drawing paths:
+In ppp_decompress_frame(), skb->data - 2 is passed to the decompressor
+assuming at least 2 bytes of headroom exist for the PPP Address/Control
+fields, and the returned decompressed length is only checked for len < 0
+before indexing ns->data[2..3] and calling skb_pull_rcsum(skb, 2).
 
-1. In qxl_create_cursor() and qxl_cursor_atomic_check(), verify that the
-   cursor GEM BO is at least 64 * 64 * 4 bytes (16 KiB) before copying
-   into the QXL cursor command, and zero-initialize the stack struct
-   qxl_cursor header.
-2. In qxl_draw_dirty_fb() and qxl_framebuffer_surface_dirty(), validate
-   clip coordinates against the framebuffer dimensions and negative x/y
-   offsets before computing pixel pointers, and handle odd clip counts
-   when DRM_MODE_FB_DIRTY_ANNOTATE_COPY is set.
-3. In qxl_display_copy_rom_client_monitors_config(), read
-   qdev->rom->client_monitors_config.count once with READ_ONCE() and
-   clamp num_monitors to ARRAY_SIZE(heads).
-4. In qxl_prepare_shadow(), propagate qxl_bo_create() allocation failures
-   to qxl_plane_prepare_fb().
+Ensure 2 bytes of headroom via pskb_expand_head(skb, 2, 0, GFP_ATOMIC),
+reject decompressed frames shorter than PPP_HDRLEN (4 bytes), and check
+isize >= PPP_HDRLEN + BSD_OVHD in bsd_decompress() before reading the
+sequence number and header bytes.
 
-Fixes: f64122c1f6ad ("drm: add new QXL driver. (v1.4)")
-Fixes: b4b27f08f9f9 ("drm/qxl: rework cursor plane")
+Fixes: 224cf5ad14c0 ("ppp: Move the PPP drivers")
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
-diff --git a/drivers/gpu/drm/qxl/qxl_display.c b/drivers/gpu/drm/qxl/qxl_display.c
-index 0719fc6a52d5..0fc14312e027 100644
---- a/drivers/gpu/drm/qxl/qxl_display.c
-+++ b/drivers/gpu/drm/qxl/qxl_display.c
-@@ -82,7 +82,7 @@ static int qxl_display_copy_rom_client_monitors_config(struct qxl_device *qdev)
- 	uint32_t crc;
- 	int status = MONITORS_CONFIG_UNCHANGED;
+diff --git a/drivers/net/ppp/bsd_comp.c b/drivers/net/ppp/bsd_comp.c
+index 63a6d251c746..03ee4ff4ec1b 100644
+--- a/drivers/net/ppp/bsd_comp.c
++++ b/drivers/net/ppp/bsd_comp.c
+@@ -847,6 +847,8 @@ static int bsd_decompress (void *state, unsigned char *ibuf, int isize,
+     int extra;
  
--	num_monitors = qdev->rom->client_monitors_config.count;
-+	num_monitors = READ_ONCE(qdev->rom->client_monitors_config.count);
- 	crc = crc32(0, (const uint8_t *)&qdev->rom->client_monitors_config,
- 		  sizeof(qdev->rom->client_monitors_config));
- 	if (crc != qdev->rom->client_monitors_config_crc)
-@@ -95,9 +95,9 @@ static int qxl_display_copy_rom_client_monitors_config(struct qxl_device *qdev)
- 		DRM_DEBUG_KMS("client monitors list will be truncated: %d < %d\n",
- 			      qxl_num_crtc, num_monitors);
- 		num_monitors = qxl_num_crtc;
--	} else {
--		num_monitors = qdev->rom->client_monitors_config.count;
- 	}
-+	if (num_monitors > ARRAY_SIZE(qdev->rom->client_monitors_config.heads))
-+		num_monitors = ARRAY_SIZE(qdev->rom->client_monitors_config.heads);
- 	if (qdev->client_monitors_config
- 	      && (num_monitors != qdev->client_monitors_config->count)) {
- 		status = MONITORS_CONFIG_MODIFIED;
-@@ -454,6 +454,9 @@ static int qxl_framebuffer_surface_dirty(struct drm_framebuffer *fb,
- 		norect.x2 = fb->width;
- 		norect.y2 = fb->height;
- 	} else if (flags & DRM_MODE_FB_DIRTY_ANNOTATE_COPY) {
-+		if (num_clips < 2)
-+			goto out_lock_end;
-+		clips++;
- 		num_clips /= 2;
- 		inc = 2; /* skip source rects */
- 	}
-@@ -601,7 +604,7 @@ static struct qxl_bo *qxl_create_cursor(struct qxl_device *qdev,
- 	struct qxl_cursor cursor;
- 	int ret;
+     db       = (struct bsd_db *) state;
++	if (isize < PPP_HDRLEN + BSD_OVHD)
++		return DECOMP_ERROR;
+     max_ent  = db->max_ent;
+     accm     = 0;
+     bitno    = 32;		/* 1st valid bit in accm */
+diff --git a/drivers/net/ppp/ppp_generic.c b/drivers/net/ppp/ppp_generic.c
+index 1a610a18893b..f7af328b7bf8 100644
+--- a/drivers/net/ppp/ppp_generic.c
++++ b/drivers/net/ppp/ppp_generic.c
+@@ -2552,7 +2552,8 @@ ppp_decompress_frame(struct ppp *ppp, struct sk_buff *skb)
+ 	/* Until we fix all the decompressor's need to make sure
+ 	 * data portion is linear.
+ 	 */
+-	if (!pskb_may_pull(skb, skb->len))
++	if (!pskb_may_pull(skb, skb->len) ||
++	    pskb_expand_head(skb, 2, 0, GFP_ATOMIC))
+ 		goto err;
  
--	if (!user_bo)
-+	if (!user_bo || user_bo->tbo.base.size < size)
- 		return NULL;
- 
- 	ret = qxl_bo_create(qdev, sizeof(struct qxl_cursor) + size,
-@@ -618,6 +621,7 @@ static struct qxl_bo *qxl_create_cursor(struct qxl_device *qdev,
- 	if (ret)
- 		goto err_unmap;
- 
-+	memset(&cursor, 0, sizeof(cursor));
- 	cursor.header.unique = 0;
- 	cursor.header.type = SPICE_CURSOR_TYPE_ALPHA;
- 	cursor.header.width = 64;
-@@ -819,10 +823,11 @@ static void qxl_calc_dumb_shadow(struct qxl_device *qdev,
- 		DRM_DEBUG("%dx%d\n", surf->width, surf->height);
- }
- 
--static void qxl_prepare_shadow(struct qxl_device *qdev, struct qxl_bo *user_bo,
--			       int crtc_index)
-+static int qxl_prepare_shadow(struct qxl_device *qdev, struct qxl_bo *user_bo,
-+			      int crtc_index)
- {
- 	struct qxl_surface surf;
-+	int ret;
- 
- 	qxl_update_dumb_head(qdev, crtc_index,
- 			     user_bo);
-@@ -836,9 +841,11 @@ static void qxl_prepare_shadow(struct qxl_device *qdev, struct qxl_bo *user_bo,
- 				(&qdev->dumb_shadow_bo->tbo.base);
- 			qdev->dumb_shadow_bo = NULL;
- 		}
--		qxl_bo_create(qdev, surf.height * surf.stride,
--			      true, true, QXL_GEM_DOMAIN_SURFACE, 0,
--			      &surf, &qdev->dumb_shadow_bo);
-+		ret = qxl_bo_create(qdev, surf.height * surf.stride,
-+				    true, true, QXL_GEM_DOMAIN_SURFACE, 0,
-+				    &surf, &qdev->dumb_shadow_bo);
-+		if (ret)
-+			return ret;
- 	}
- 	if (user_bo->shadow != qdev->dumb_shadow_bo) {
- 		if (user_bo->shadow) {
-@@ -851,6 +858,7 @@ static void qxl_prepare_shadow(struct qxl_device *qdev, struct qxl_bo *user_bo,
- 		user_bo->shadow = qdev->dumb_shadow_bo;
- 		qxl_bo_pin(user_bo->shadow);
- 	}
-+	return 0;
- }
- 
- static int qxl_plane_prepare_fb(struct drm_plane *plane,
-@@ -869,7 +877,9 @@ static int qxl_plane_prepare_fb(struct drm_plane *plane,
- 
- 	if (plane->type == DRM_PLANE_TYPE_PRIMARY &&
- 	    user_bo->is_dumb) {
--		qxl_prepare_shadow(qdev, user_bo, new_state->crtc->index);
-+		ret = qxl_prepare_shadow(qdev, user_bo, new_state->crtc->index);
-+		if (ret)
-+			return ret;
- 	}
- 
- 	if (plane->type == DRM_PLANE_TYPE_CURSOR &&
-@@ -919,7 +929,25 @@ static const uint32_t qxl_cursor_plane_formats[] = {
- 	DRM_FORMAT_ARGB8888,
- };
- 
-+static int qxl_cursor_atomic_check(struct drm_plane *plane,
-+				   struct drm_atomic_commit *state)
-+{
-+	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state,
-+										 plane);
-+	struct drm_framebuffer *fb = new_plane_state->fb;
-+
-+	if (!fb)
-+		return 0;
-+
-+	if (fb->width != 64 || fb->height != 64 ||
-+	    !fb->obj[0] || fb->obj[0]->size < 64 * 64 * 4)
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+
- static const struct drm_plane_helper_funcs qxl_cursor_helper_funcs = {
-+	.atomic_check = qxl_cursor_atomic_check,
- 	.atomic_update = qxl_cursor_atomic_update,
- 	.atomic_disable = qxl_cursor_atomic_disable,
- 	.prepare_fb = qxl_plane_prepare_fb,
-diff --git a/drivers/gpu/drm/qxl/qxl_draw.c b/drivers/gpu/drm/qxl/qxl_draw.c
-index 3a3e127ce297..302c17d87d1c 100644
---- a/drivers/gpu/drm/qxl/qxl_draw.c
-+++ b/drivers/gpu/drm/qxl/qxl_draw.c
-@@ -154,27 +154,40 @@ void qxl_draw_dirty_fb(struct qxl_device *qdev,
- 	struct qxl_drm_image *dimage;
- 	int ret;
- 
--	ret = alloc_drawable(qdev, &release);
--	if (ret)
--		return;
--
--	clips->x1 += dumb_shadow_offset;
--	clips->x2 += dumb_shadow_offset;
--
--	left = clips->x1;
--	right = clips->x2;
-+	left = clips->x1 + dumb_shadow_offset;
-+	right = clips->x2 + dumb_shadow_offset;
- 	top = clips->y1;
- 	bottom = clips->y2;
- 
- 	/* skip the first clip rect */
- 	for (i = 1, clips_ptr = clips + inc;
- 	     i < num_clips; i++, clips_ptr += inc) {
--		left = min_t(int, left, (int)clips_ptr->x1);
--		right = max_t(int, right, (int)clips_ptr->x2);
-+		left = min_t(int, left, (int)clips_ptr->x1 + dumb_shadow_offset);
-+		right = max_t(int, right, (int)clips_ptr->x2 + dumb_shadow_offset);
- 		top = min_t(int, top, (int)clips_ptr->y1);
- 		bottom = max_t(int, bottom, (int)clips_ptr->y2);
- 	}
- 
-+	if (dumb_shadow_offset < 0 || dumb_shadow_offset > INT_MAX - fb->width)
-+		return;
-+
-+	left = clamp_t(int, left, dumb_shadow_offset,
-+		       dumb_shadow_offset + fb->width);
-+	right = clamp_t(int, right, dumb_shadow_offset,
-+			dumb_shadow_offset + fb->width);
-+	top = clamp_t(int, top, 0, fb->height);
-+	bottom = clamp_t(int, bottom, 0, fb->height);
-+
-+	if (left >= right || top >= bottom)
-+		return;
-+
-+	if ((size_t)bottom * stride > fb->obj[0]->size)
-+		return;
-+
-+	ret = alloc_drawable(qdev, &release);
-+	if (ret)
-+		return;
-+
- 	width = right - left;
- 	height = bottom - top;
- 
+ 	if (proto == PPP_COMP) {
+@@ -2576,7 +2577,7 @@ ppp_decompress_frame(struct ppp *ppp, struct sk_buff *skb)
+ 		/* the decompressor still expects the A/C bytes in the hdr */
+ 		len = ppp->rcomp->decompress(ppp->rc_state, skb->data - 2,
+ 				skb->len + 2, ns->data, obuff_size);
+-		if (len < 0) {
++		if (len < PPP_HDRLEN) {
+ 			/* Pass the compressed frame to pppd as an
+ 			   error indication. */
+ 			if (len == DECOMP_FATALERROR)
