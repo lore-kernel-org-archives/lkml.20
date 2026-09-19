@@ -1,72 +1,73 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F12AC38D3E2
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:25:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64AF53947A4
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:25:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789856758; cv=none; b=KRvsjUQi9LyuCWfpFxNf1dV0UoroSFhyjesICXxRuhpAghV0N0qgcrDj4ZKZH8kYvFeg03dbzoFT1aXlNTrnzuZdBF4JOug988/FAjQmmFri+JEJXdAInovLfx1AN2722eK/5uiATb1hyPTrdsQk4zkVjKN7e3gLLPVUeHCHZFY=
+	t=1789856761; cv=none; b=UNve6wt7dBtYI7UuyJTCFBUxNrUBvEOB1lfmCmyR9LwF/KrhIn218YWHAr1+kBinhZiUUuTw8DdCDrE+YtkyyJVB9bqHSTwArzCS1cmwqcDo+PD81FaOS3Ulm5bjpnGeSX8q+XsD3ofCW1aLDPzbWZ3hXehDQbFvoxmiWjeKglY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789856758; c=relaxed/simple;
-	bh=3uk51tS1mYUgZHNG/UdKJaqCGmFIXOIh/0REyH694DE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SLq0smBw7PnT9IJPZ2qutpXV9SxkTuqCihjlCv8aSmoi3iZVc2yg5vEk9ToAbSH/qHOfCVWvp1LP3ZMEOtRp/HhI+ujIyHR1gmX12sWumSq9jKa71//KQVuovQdlEgYBGUZhYYe4jpQoyFSWIQBCTCJnwL5RZwIbrwAcUYfRjBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fAEGlIOD; arc=none smtp.client-ip=74.125.228.41
+	s=arc-20240116; t=1789856761; c=relaxed/simple;
+	bh=xNQwH62g/JqmUeU/ubF+uzPeD2Dq1WT1mt5tcvgWD3Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UgmJSAo7MHeKgcfRSZ29tDQAYbXCelIRtjBgsiLW4N+Xy1l8cYRmBGfVA3mDvu/wZ7bEflAxPFdVKPothBM9Xad5rfbRgG6b4zpbC4VTyvQeJsS7dDtmN7uRTE4lPq83E5LFrxAJA4ECHBh4VJXW1ml9HQSmeUl09gaO90oWmDw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rtc1kIvD; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fAEGlIOD"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469b2e1d5so1977579b3a.1
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:25:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rtc1kIvD"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747f01363so15813125ad.2
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:25:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789856756; x=1790461556; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789856758; x=1790461558; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KOoxuMhgY6m8DdTXUHscRdC+zhj/Vf9kYVS3vMLfy/w=;
-        b=fAEGlIODIBTu1WF0ZFe50otQcDoMDsZi0gnl5b9Yi+vpk+MGzbkYMzsaOezuZZQ7jt
-         vDMAIbaHARjmDs0CXXqoOdL1EVIPUMZKaaYaz/4v+uxdhnlab+vdUrwNCUxtcFrZPLq8
-         O+tDBNb3JcCbKPPs+a8SL/e4gmwfZUQKcFe+qqsmiQxsJOrODSbOpelnliGhN3TgCAF6
-         BXm1m+671g50YemFwz2xOWe/H8Hgw1nRI17DVa4TOhHLXCOtEXVr7u98iC15O3SZfE0K
-         ZfbTmWSTpwowmny/ZLJHxOOO22CcB3ysNKLuyDGKyfLXQ6e11DLo8s2Gj5BDN+99CY4k
-         AogQ==
+        bh=a/MNqjqxirQpmsC9DWQIwWbU2XOq2TVyvQ9irLpQkP0=;
+        b=rtc1kIvDi5yN3JbpdmA+ZEqyf9ZXOh0CseaTtarRv+nY+rOn/x0Rk5Puk1j3U3kAZo
+         JeRzINJj05UgNQlsAGjgHMzDS1ZH0SEHuFhsNizxE906/nDIjsSo8fdof2GQN7xxcuQz
+         kNVM0xdYy5xOLyEp3yG1zaUbLmF9hRQV+7p+6qbyc+FfRRpk9LXZ8Rhz/EbleqNaDRJC
+         o9WCeTk1aCU4Tylky+xSmkDhBfqKY2ACzbEXt30sw6J0d2UKi+ThtsMlINr7MLcs8poA
+         QgF1xCB/XY6jkkDB7vt8kNfUniq/kuN2kLOTZrgZvVU7GdStZnMnb1viWLP2CK1Q6ST1
+         z6NA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789856756; x=1790461556;
+        d=1e100.net; s=20260707; t=1789856758; x=1790461558;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=KOoxuMhgY6m8DdTXUHscRdC+zhj/Vf9kYVS3vMLfy/w=;
-        b=jTNytgaAHqdX06VKyn6e0doayt07n+mxmT3s07a4FJeIiH6V/4cwTTwIa6OBSYbroo
-         FaJR7ZtwwfnOXbMGpGQ7NSUBSVq3BSlJcDagnDZbwj9CHnU5Ai0aHjB5yXR9I12q+cBu
-         7Td18J3gKLjBehWaLwUXQVvWGUJDsPC1nHrWDxM+RqhiyWVdB10LXWxjLdsEPYtTC0aU
-         7i1KFBrV4mkh7qQrAFdV8w7cTUQhhcr68JHq1jCnyY+dJaEJTBzyyAyR7FWawlHIu3Eb
-         5Ng9LT2ss79N1/Cjs9GDKHN+4kaDgPrhEdBlvoE/s6BO9Usp26Xl33esNCIoHwKvKwmK
-         JJPQ==
-X-Forwarded-Encrypted: i=1; AKwUvByMTs60XEaUU7yojJ4QuYdImTp0bbAoJ0iwGEQYNoL4RW4PXz2V72SEBkfAEdb0PXseV6jwZPQNTGa4Hyc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kwT8UEGSv/MQaU0UX6cwTiEPJSFWKtiBh2jyZEz7ep9kq/4C+u
-	+BSDyISwj14gs7Q87PHwnrqY19G9Ju3hucCiirXQFn1Gs6lM3GYEEWNf
-X-Gm-Gg: AYBFou0TGe5XugzufZPLsj8+7ZheSHTPzh+J1XhXNhlWilfdV3zK5hmuKCmRCxP/BO/
-	ptiNOUbvgoIUuFF03Cg6k4cKxXVBp93dwUJLPPe5hrVCOyhFfYtdWQGIzFx+5t/021Uc1Hj8VvY
-	4JTTAdqnv8hymR30xSn03cVdjXAOa0QGilqvsnA2yMciQauFAGRQMI79EXz8D7HJ6+AAKkcGF0h
-	NsQL09y+j+OK/KvpiJ5DH1l61jkxKiq7qdUQifRSI0ehzXNiiN9cJtfhDNMAR1sPd3eI6fqdE0o
-	wQHFawPeO/z64PQjpucUC9aHLLiy6znuTwBo0qaR9KvOt8MRCnOphkfGpc9QEMjdhqqe3yps/Rh
-	4voMYR/Y1PW6/ONjYT0gytCoPpEWyLUH9+0qanfrrVDbqtZDluHKm7hlRVnhXhW62lOMdEQz41v
-	/unluYWstaUwcn2pus+P33Vmbd7zG6+WFxzVCaHLdsfr1WTRXvGBTEZKPydz6zRhcuNFg67cFdY
-	iWIvCKtFiRFg3XN/Tz+Ca3fJjz8UABQqg6//xfBPGUkVmgnzMKAmYJa3QvTM7dF/PeatYN1E5Bi
-	x5Ck0P5tVA==
-X-Received: by 2002:a05:6300:2208:b0:3dd:a197:cf1d with SMTP id adf61e73a8af0-3dda197d752mr4625102637.65.1789856756331;
-        Sat, 19 Sep 2026 15:25:56 -0700 (PDT)
+        bh=a/MNqjqxirQpmsC9DWQIwWbU2XOq2TVyvQ9irLpQkP0=;
+        b=aDpDBThqcppwgD7dCwqPi3/neUq5ynYQwC3R14BqC0HlD5aIBgvMcWMb05JxF1iHQ/
+         kpAmSbE8MpviQ3VoH4NjKlYGYmiDQJt9kJq2I2JzDK7uwJv97XWFi+p3Da9/udbxLNAS
+         5HtyF5h3qqXrMZysYjP3NHiq5jR+DLILjEItpAHg8r6KTI5LcXawqbnRM1qqAUHtJexS
+         PMASSRvptiDe9k67HKAtR6QHLKWkLB3Lklw1Akgq4fNU3xXfNQrX5pJTe+Zyf22NyEz0
+         79MhKmHC6lFAPFJtUP6aWBh9aXtcIqcjFc3y4TNu13XxbjaTAMoJZ8KaN0PMVeCBWxuD
+         0fJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy0es4SfzYjr/ZV7EBzKtbtEL+BmCFaSvdiKsBswfIgP72Lr1minD3RYXrAWITdxQj/g6znqSK/+XrODro=@vger.kernel.org
+X-Gm-Message-State: AFuF++n4Tov/vg3ordflnL5OUh09IdpA/ISidYcG6R4AY0cAdLOFSKms
+	8S1adEbV0HNTJxFU0hJLRjHafR7LgDOdTHH6b5Z1ctamvpWvVJPOMnL3
+X-Gm-Gg: AYBFou3tJv6do9WX2bscQqNp9Wu1kUPHUy3nWW8w5vnD/dkelJv6A1YsCl29Ngagv+c
+	XqOMkOx8DvAg4jMdXYmUGvzTMMmTf17LS2qD/zxw+N8WJciHgG9VY9pyDMqXuGsO/sPY42qASJy
+	8n8HSyixr5HBWdqdfkU+GIIGmZD4WWZOcQuio2C5cWLdaO66snS0D4EhV5SpG8RiRpOU4Xy+Dn4
+	61ncruehBreAd4lA0/GvF6SZpbRhjykUkrTRaatnSQ7UlBX+nD46J1j6JR87CRELbjBWjw2G2/K
+	lHur0Jn0ioF4Vijmi4abkTrabZeRCNs4G+eY9f0Cxds8QHSRe71qwfoJThmQi+Zm+oJW0cG1Qkp
+	mXlGvv8kc9y1cl1NAAhfPWsgzG34kgyzDE1QWLNHMihP++gZeTMRK+Gmb3K+bH1bD6/9LVDvCei
+	8O3I828yxx+gTTWmEKbpIHPbyy5JPSLz/ioN5CfdVLFzf86mqx9Qtu80zt5id7qcHV8jraZhfte
+	VYm8pDUj5mwLwL4ONz/c/WGInArl1MwlnRdWUUtuBxqJADAeSACLnjYig8Quxh3KyHc+tO7YKC/
+	tGWucQcY9w==
+X-Received: by 2002:a17:903:324f:b0:2dd:c053:9c6c with SMTP id d9443c01a7336-2ddc0539d9cmr52572835ad.34.1789856757711;
+        Sat, 19 Sep 2026 15:25:57 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc72aefc0a6sm1360118a12.28.2026.09.19.15.25.55
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17888f2sm13411685ad.20.2026.09.19.15.25.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 15:25:55 -0700 (PDT)
+        Sat, 19 Sep 2026 15:25:57 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
-To: luisbg@kernel.org,
-	salah.triki@gmail.com,
-	brauner@kernel.org
+To: brauner@kernel.org,
+	jack@suse.cz,
+	dlemoal@kernel.org,
+	jlayton@kernel.org
 Cc: linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] befs: check NULL return from befs_bt_get_key() and fix keysize in befs_btree_read()
-Date: Sat, 19 Sep 2026 22:25:55 +0000
-Message-ID: <20260919222555.3792599-1-benquike@gmail.com>
+Subject: [PATCH] qnx6: validate di_filelevels in qnx6_iget() and fix mount error handling
+Date: Sat, 19 Sep 2026 22:25:56 +0000
+Message-ID: <20260919222556.3792829-1-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -76,124 +77,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix two issues in fs/befs/:
+Fix two issues in fs/qnx6/:
 
-1. In befs_btree_find() and befs_btree_read() (fs/befs/btree.c), check
-   for a NULL return from befs_bt_get_key() when a corrupted B+tree node
-   has out-of-bounds key offsets or lengths.
-2. In befs_btree_read() and befs_readdir() (fs/befs/linuxvfs.c), set
-   keysize from the actual copied string length rather than the raw
-   buffer size so uninitialized stack bytes are not passed to filldir().
+1. In qnx6_iget(), reject raw_inode->di_filelevels > QNX6_PTR_MAX_LEVELS
+   so computing the maximum block count does not trigger shift-out-of-
+   bounds undefined behavior or out-of-bounds block pointer array walks.
+2. In qnx6_fill_super() and qnx6_mmi_fill_super(), prevent MS_SILENT
+   from bypassing superblock magic validation and ensure sbi->sb_buf is
+   released exactly once on failure.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: 5d026c724220 ("fs: initial qnx6fs addition")
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
-diff --git a/fs/befs/btree.c b/fs/befs/btree.c
-index aa24f1daccdd..67633e5f27fe 100644
---- a/fs/befs/btree.c
-+++ b/fs/befs/btree.c
-@@ -219,6 +219,19 @@ befs_bt_read_node(struct super_block *sb, const befs_data_stream *ds,
- 	node->head.all_key_length =
- 	    fs16_to_cpu(sb, node->od_node->all_key_length);
+diff --git a/fs/qnx6/inode.c b/fs/qnx6/inode.c
+index 6de49333acad..04214b829e10 100644
+--- a/fs/qnx6/inode.c
++++ b/fs/qnx6/inode.c
+@@ -144,8 +144,10 @@ static unsigned qnx6_block_map(struct inode *inode, unsigned no)
+ 		levelptr = (no >> bitdelta) & mask;
+ 		ptr = ((__fs32 *)bh->b_data)[levelptr];
  
-+	{
-+		size_t keylen_off = round_up(sizeof(befs_btree_nodehead) +
-+					     node->head.all_key_length, 8);
-+		size_t total_needed = keylen_off +
-+			(size_t)node->head.all_key_count * (sizeof(fs16) + sizeof(fs64));
-+		if (off >= node->bh->b_size ||
-+		    total_needed > node->bh->b_size - off) {
-+			brelse(node->bh);
-+			node->bh = NULL;
-+			return BEFS_ERR;
+-		if (!qnx6_check_blockptr(ptr))
++		if (!qnx6_check_blockptr(ptr)) {
++			brelse(bh);
+ 			return 0;
 +		}
+ 
+ 		block = qnx6_get_devblock(s, ptr);
+ 		brelse(bh);
+@@ -397,12 +399,14 @@ static int qnx6_fill_super(struct super_block *s, struct fs_context *fc)
+ 		sbi->sb_buf = bh1;
+ 		sbi->sb = (struct qnx6_super_block *)bh1->b_data;
+ 		brelse(bh2);
++		bh2 = NULL;
+ 		pr_info("superblock #1 active\n");
+ 	} else {
+ 		/* superblock #2 active */
+ 		sbi->sb_buf = bh2;
+ 		sbi->sb = (struct qnx6_super_block *)bh2->b_data;
+ 		brelse(bh1);
++		bh1 = NULL;
+ 		pr_info("superblock #2 active\n");
+ 	}
+ mmi_success:
+@@ -463,6 +467,8 @@ static int qnx6_fill_super(struct super_block *s, struct fs_context *fc)
+ out1:
+ 	iput(sbi->inodes);
+ out:
++	if (sbi->sb_buf && sbi->sb_buf != bh1 && sbi->sb_buf != bh2)
++		brelse(sbi->sb_buf);
+ 	brelse(bh1);
+ 	brelse(bh2);
+ outnobh:
+@@ -560,6 +566,13 @@ struct inode *qnx6_iget(struct super_block *sb, unsigned ino)
+ 	memcpy(&ei->di_block_ptr, &raw_inode->di_block_ptr,
+ 				sizeof(raw_inode->di_block_ptr));
+ 	ei->di_filelevels = raw_inode->di_filelevels;
++	if (ei->di_filelevels > QNX6_PTR_MAX_LEVELS) {
++		pr_err("invalid filelevels (%u) in inode %u\n",
++		       ei->di_filelevels, ino);
++		folio_release_kmap(folio, raw_inode);
++		iget_failed(inode);
++		return ERR_PTR(-EIO);
 +	}
-+
- 	befs_debug(sb, "<--- %s", __func__);
- 	return BEFS_OK;
- }
-@@ -343,6 +356,8 @@ befs_find_key(struct super_block *sb, struct befs_btree_node *node,
- 	/* if node can not contain key, just skip this node */
- 	last = node->head.all_key_count - 1;
- 	thiskey = befs_bt_get_key(sb, node, last, &keylen);
-+	if (!thiskey)
-+		return BEFS_BT_NOT_FOUND;
  
- 	eq = befs_compare_strings(thiskey, keylen, findkey, findkey_len);
- 	if (eq < 0) {
-@@ -360,6 +375,8 @@ befs_find_key(struct super_block *sb, struct befs_btree_node *node,
- 		befs_debug(sb, "first: %d, last: %d, mid: %d", first, last,
- 			   mid);
- 		thiskey = befs_bt_get_key(sb, node, mid, &keylen);
-+		if (!thiskey)
-+			return BEFS_BT_NOT_FOUND;
- 		eq = befs_compare_strings(thiskey, keylen, findkey,
- 					  findkey_len);
- 
-@@ -417,6 +434,7 @@ befs_btree_read(struct super_block *sb, const befs_data_stream *ds,
- 	int cur_key;
- 	fs64 *valarray;
- 	char *keystart;
-+	ssize_t copy_len;
- 	u16 keylen;
- 	int res;
- 
-@@ -487,6 +505,10 @@ befs_btree_read(struct super_block *sb, const befs_data_stream *ds,
- 	valarray = befs_bt_valarray(this_node);
- 
- 	keystart = befs_bt_get_key(sb, this_node, cur_key, &keylen);
-+	if (!keystart) {
-+		brelse(this_node->bh);
-+		goto error_alloc;
-+	}
- 
- 	befs_debug(sb, "Read [%llu,%d]: keysize %d",
- 		   (long long unsigned int)node_off, (int)cur_key,
-@@ -499,9 +521,9 @@ befs_btree_read(struct super_block *sb, const befs_data_stream *ds,
- 		goto error_alloc;
+ 	if (S_ISREG(inode->i_mode)) {
+ 		inode->i_fop = &generic_ro_fops;
+diff --git a/fs/qnx6/super_mmi.c b/fs/qnx6/super_mmi.c
+index b8afb6f388b2..28cb9322278e 100644
+--- a/fs/qnx6/super_mmi.c
++++ b/fs/qnx6/super_mmi.c
+@@ -51,10 +51,9 @@ struct qnx6_super_block *qnx6_mmi_fill_super(struct super_block *s, int silent)
+ 	sb1 = (struct qnx6_mmi_super_block *)bh1->b_data;
+ 	sbi = QNX6_SB(s);
+ 	if (fs32_to_cpu(sbi, sb1->sb_magic) != QNX6_SUPER_MAGIC) {
+-		if (!silent) {
++		if (!silent)
+ 			pr_err("wrong signature (magic) in superblock #1.\n");
+-			goto out;
+-		}
++		goto out;
  	}
  
--	strscpy(keybuf, keystart, keylen + 1);
-+	copy_len = strscpy(keybuf, keystart, keylen + 1);
-+	*keysize = (copy_len < 0) ? keylen : copy_len;
- 	*value = fs64_to_cpu(sb, valarray[cur_key]);
--	*keysize = keylen;
- 
- 	befs_debug(sb, "Read [%llu,%d]: Key \"%.*s\", Value %llu", node_off,
- 		   cur_key, keylen, keybuf, *value);
-@@ -678,7 +700,7 @@ befs_bt_get_key(struct super_block *sb, struct befs_btree_node *node,
- 	char *keystart;
- 	fs16 *keylen_index;
- 
--	if (index < 0 || index > node->head.all_key_count) {
-+	if (index < 0 || index >= node->head.all_key_count) {
- 		*keylen = 0;
- 		return NULL;
+ 	/* checksum check - start at byte 8 and end at byte 512 */
+@@ -64,15 +63,16 @@ struct qnx6_super_block *qnx6_mmi_fill_super(struct super_block *s, int silent)
+ 		goto out;
  	}
-@@ -691,6 +713,12 @@ befs_bt_get_key(struct super_block *sb, struct befs_btree_node *node,
- 	else
- 		prev_key_end = fs16_to_cpu(sb, keylen_index[index - 1]);
  
-+	if (fs16_to_cpu(sb, keylen_index[index]) < prev_key_end ||
-+	    fs16_to_cpu(sb, keylen_index[index]) > node->head.all_key_length) {
-+		*keylen = 0;
-+		return NULL;
-+	}
+-	/* calculate second superblock blocknumber */
+-	offset = fs32_to_cpu(sbi, sb1->sb_num_blocks) + QNX6_SUPERBLOCK_AREA /
+-					fs32_to_cpu(sbi, sb1->sb_blocksize);
+-
+ 	/* set new blocksize */
+ 	if (!sb_set_blocksize(s, fs32_to_cpu(sbi, sb1->sb_blocksize))) {
+ 		pr_err("unable to set blocksize\n");
+ 		goto out;
+ 	}
 +
- 	*keylen = fs16_to_cpu(sb, keylen_index[index]) - prev_key_end;
- 
- 	return keystart + prev_key_end;
-diff --git a/fs/befs/linuxvfs.c b/fs/befs/linuxvfs.c
-index ee0cbae521b9..de3be4d61c80 100644
---- a/fs/befs/linuxvfs.c
-+++ b/fs/befs/linuxvfs.c
-@@ -222,7 +222,7 @@ befs_readdir(struct file *file, struct dir_context *ctx)
- 	befs_off_t value;
- 	int result;
- 	size_t keysize;
--	char keybuf[BEFS_NAME_LEN + 1];
-+	char keybuf[BEFS_NAME_LEN + 1] = { 0 };
- 
- 	befs_debug(sb, "---> %s name %pD, inode %llu, ctx->pos %lld",
- 		  __func__, file, inode->i_ino, ctx->pos);
++	/* calculate second superblock blocknumber */
++	offset = fs32_to_cpu(sbi, sb1->sb_num_blocks) + QNX6_SUPERBLOCK_AREA /
++					fs32_to_cpu(sbi, sb1->sb_blocksize);
++
+ 	/* blocksize invalidates bh - pull it back in */
+ 	brelse(bh1);
+ 	bh1 = sb_bread(s, 0);
