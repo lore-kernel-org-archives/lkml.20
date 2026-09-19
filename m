@@ -1,37 +1,38 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8131C230BD5;
-	Sat, 19 Sep 2026 15:18:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35613376466;
+	Sat, 19 Sep 2026 15:19:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789831141; cv=none; b=i3QW9HV70q+Q1d56LoNb1Rr96/vKnn5x5bjEVVQewVGYLd2VfJauV1c0NSoFg73/rS1tjESNgBXW5q9tQ1VsT7/AY6VRsYclW9DNBN+b1A7vVIAIAnfBU27h8nB6f4Q/oXr8XyNZtk6hVeiFFAM/ED9TM8YviLPe8abYLyOaInM=
+	t=1789831144; cv=none; b=P4lV6rxQYsYpIn/uItavngo/1hgolrcu55qKyaI/DJN0//a+OEy33o7X0Hy9r6mWADUKDdf2vAibLaCB0khaGdS/Af0Zozjv/5YE/nsraKusDXGdNSrxg8TWOfOQYPOkfvcfJkF4VepUzsuxqZpmKBFZ7nUz6/cKrWG0EbII8Pc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789831141; c=relaxed/simple;
-	bh=ADRZ2fOJfXlxldGMfngLbLZBTq68dfXPMmGBP4XmQRc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mEy5LHVytoixYWxuS6SU36D3tV7JnllAWTznY9ZsE3v+HJ5Vfw4zSNXr+n7vHngf3luib5fEE5+ozqgc797VhfeekuzjQY+IkVogpcRE4nv9lmptleuf2S44va0ZrXpaY0zDQjDv5jHBHfyc/bmIQIRQgR3IIC9Fk8sV4L3sdy8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.li; spf=pass smtp.mailfrom=gmx.li; dkim=pass (2048-bit key) header.d=gmx.li header.i=arc@gmx.li header.b=mbAzjmFL; arc=none smtp.client-ip=212.227.15.18
+	s=arc-20240116; t=1789831144; c=relaxed/simple;
+	bh=xmC+QB2UU+zl2BiuIUMcTTovkYMQyK+LxWwik+0ccSE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Rz4gyXkfVv7ZzNtD2zoBP13gTeCEJuivM0F2XZxOLm9LrUlhsK+gGlSxX8P596vg7xEarQrPh9+a127gngRHD8bsyT2cvgKRc7Gug4ye1PnQ5xAbuU2WIul6Gjof3DrvPwxuvm7PE+wkaRGclpX/mqrELKKkWe5J4MA1+8TOM+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.li; spf=pass smtp.mailfrom=gmx.li; dkim=pass (2048-bit key) header.d=gmx.li header.i=arc@gmx.li header.b=KXb+gB0o; arc=none smtp.client-ip=212.227.15.15
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.li
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.li
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.li header.i=arc@gmx.li header.b="mbAzjmFL"
+	dkim=pass (2048-bit key) header.d=gmx.li header.i=arc@gmx.li header.b="KXb+gB0o"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.li;
-	s=s31663417; t=1789831132; x=1790435932; i=arc@gmx.li;
-	bh=+2F0OTwnSdxIATpuxEHT0H8Q6UTQ2n4AgAU26+Ozcto=;
-	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:
-	 MIME-Version:Content-Transfer-Encoding:cc:
+	s=s31663417; t=1789831140; x=1790435940; i=arc@gmx.li;
+	bh=5d9PFEsMCXl2qFqGQofGZLyaz32vCIcLD9l1YFijCCw=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:cc:
 	 content-transfer-encoding:content-type:date:from:message-id:
 	 mime-version:reply-to:subject:to;
-	b=mbAzjmFLp56M0oClJQfiUGzbQD3XDFHJyt62WEnuvwZ8AGfFE3L+BaRZMapTM6m+
-	 QGNvv/w4wVni4V8M+wq4VNdhoVjUd1QQ7AZmHoFuCgUERx256OWi6aY8csItWcPmZ
-	 NwJCf2zkO/VeZCm0sOHF3q4BYjD2LZVZm8KeFZw/Xl7Zyz5jNL6g3PQbdMDv8cuCI
-	 MEof2LwcTVih48D5sgKOycyTbtVdGAZiwgRaov0/f/T4npMJDAr3NV6AJWmAw+2Lk
-	 LiccRPU0dTQjzBCv2EggfecqJIDrkHD9aC1uvhafAie6ok78opz1yfJSXMGB36fQx
-	 RiuSUsaiIwRVzjDt5Q==
+	b=KXb+gB0ogdKJuXf0NphRVODRFeEJG65IVPM/wP8uU6jb5SRywKKt6OngPU5oN954
+	 UTa57j6ySSJLc6MDKSWea69kbmdG4434BR1G60C2lTx5dCvfG4rhuN9QTRR6H5czC
+	 PH/XXEvnlzJjwXFCLbZkZNnqwOUGenWmbuSfsfaK/IpSMDc9CJBy0iSRm0QXCjAZ9
+	 p4ZVZnzK8kmL0n5zkD/+rn0qMnMYI4Evlzo3QiHMYgsP4E8QHiXkD74iQypEGY6DW
+	 PeUnbeZUgOsSZF0gPaGpwQ+OHSjobwjj0L7T36F7h7sbzpaf/lvhJLJCZ/DT94PH1
+	 8J34tgry7AAUXfYXLA==
 X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1Mi2Jn-1wdIqb0IcL-00gHOQ; Sat, 19
- Sep 2026 17:18:52 +0200
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1N4hzZ-1wg3z10IRL-010O4L; Sat, 19
+ Sep 2026 17:19:00 +0200
 From: Christian Ruppert <arc@gmx.li>
 To: Jaroslav Kysela <perex@perex.cz>,
 	Takashi Iwai <tiwai@suse.com>,
@@ -41,10 +42,12 @@ Cc: Christian Ruppert <arc@gmx.li>,
 	Will Porter <mrwillporter@gmail.com>,
 	Peter Drabik <drabik.p@gmail.com>,
 	Neil Andrews <neil@androos.io>
-Subject: [PATCH 0/3] Add Audient EVO4 support
-Date: Sat, 19 Sep 2026 17:18:37 +0200
-Message-ID: <20260919151840.24371-1-arc@gmx.li>
+Subject: [PATCH 3/3] Add Kconfig option for Audient EVO4 mixer quirks
+Date: Sat, 19 Sep 2026 17:18:40 +0200
+Message-ID: <20260919151840.24371-4-arc@gmx.li>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260919151840.24371-1-arc@gmx.li>
+References: <20260919151840.24371-1-arc@gmx.li>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,126 +55,182 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:M/8UOFu9a57ZJjzpjCwd/cnNd8u4WFBhV3Evh1V8v6Pbu7xH1Qm
- jE6DWL4Qin2C+7oxRY2hYP65yvzwu3Lvi2739yzb5q49Pn8DgcupuJGffn4+ydwOmL7j8R5
- m8weyM8/zgixcczshpWSCnQjVzL3k4ozE2Zzrmn3VFWBdUu4cUBWPac3nwDXXVbaqaadQW7
- 4KX3GMoFhwP/LCNuozj7g==
+X-Provags-ID: V03:K1:SRDl1NxvUu8peSfRR2iqqgmq9z5Tzobd9smnIyeAS3TumaKKgpl
+ pjGCmI1z/tTuAGS26MeGl8BE7GYbxs2CbIF6HhkFa3NpfR2xrKJ3MpNnBJjNkJkgosnu9g0
+ vX53V+L9xPfrr5Xvnl+rcHlyRwfZNSFPTc0Di56riFvHqj7Z7C8FTeXig48VRXpw8z4KbWK
+ rhaY9pqXsmgeuqwgv+yxQ==
 X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:tveFnmyqZj0=;vC62A3Ya/86axmyrA3x849qkUoh
- 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
+UI-OutboundReport: notjunk:1;M01:P0:bM2r6pZQH5Q=;yN6+Kw56r5995YSRrLPTy6qLDEl
+ 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
 
-This patch set adds support for advanced mixer features of the Audient
-EVO4 audio interface. The code is structured so that support for the
-EVO8 (and potentially other Audient devices) should be trivial to add
-but I don't have access to the hardware and no way of testing them so
-they are not supported by this patch set.
+Add Kconfig option for the Audient EVO4 support. This is split out from
+the evo4 driver so it can be optionally applied. Other mixer quirks don't
+seem to have Kconfig options so I leave it to the upstream to decide what
+to do with this.
 
-The third patch in the series (Add Kconfig option for Audient EVO4 mixer
-quirks) is optional. Other mixer quirks are compiled in by default and
-don't provide Kconfig options but as this one adds a few hundred lines
-of code I decided to provide this last patch as an option and leave the
-choice if such an option should be added to the subsystem maintainers.
+Signed-off-by: Christian Ruppert <arc@gmx.li>
+=2D--
+ sound/usb/Kconfig        | 10 ++++++++++
+ sound/usb/Makefile       |  3 ++-
+ sound/usb/mixer_quirks.c |  4 ++++
+ 3 files changed, 16 insertions(+), 1 deletion(-)
 
-Christian Ruppert (3):
-  Fix Audient EVO4 master playback control name
-  Add Audient EVO4 mixer quirks
-  Add Kconfig option for Audient EVO4 mixer quirks
-
- MAINTAINERS              |   7 +
- sound/usb/Kconfig        |  10 +
- sound/usb/Makefile       |   2 +
- sound/usb/mixer_evo.c    | 505 +++++++++++++++++++++++++++++++++++++++
- sound/usb/mixer_evo.h    |  12 +
- sound/usb/mixer_maps.c   |  13 +
- sound/usb/mixer_quirks.c |   9 +
- 7 files changed, 558 insertions(+)
- create mode 100644 sound/usb/mixer_evo.c
- create mode 100644 sound/usb/mixer_evo.h
-
+diff --git a/sound/usb/Kconfig b/sound/usb/Kconfig
+index b4588915efa1..21039dd4ae3a 100644
+=2D-- a/sound/usb/Kconfig
++++ b/sound/usb/Kconfig
+@@ -175,6 +175,16 @@ config SND_USB_HIFACE
+ 	  To compile this driver as a module, choose M here: the module
+ 	  will be called snd-usb-hiface.
+=20
++config SND_USB_EVO
++	bool "Audient EVO advanced mixer features"
++	help
++	  Support advanced mixer features for the Audient EVO4 USB audio
++	  interface such as
++	    * the recording mixer
++	    * the monitor crossfader
++	    * phantom power control
++	    * missing channel mute buttons
++
+ config SND_BCD2000
+ 	tristate "Behringer BCD2000 MIDI driver"
+ 	select SND_RAWMIDI
+diff --git a/sound/usb/Makefile b/sound/usb/Makefile
+index 2e842dcc73de..f3664adeab85 100644
+=2D-- a/sound/usb/Makefile
++++ b/sound/usb/Makefile
+@@ -11,7 +11,6 @@ snd-usb-audio-y :=3D 	card.o \
+ 			helper.o \
+ 			implicit.o \
+ 			mixer.o \
+-			mixer_evo.o \
+ 			mixer_quirks.o \
+ 			mixer_scarlett.o \
+ 			mixer_scarlett2.o \
+@@ -27,6 +26,8 @@ snd-usb-audio-y :=3D 	card.o \
+ snd-usb-audio-$(CONFIG_SND_USB_AUDIO_MIDI_V2) +=3D midi2.o
+ snd-usb-audio-$(CONFIG_SND_USB_AUDIO_USE_MEDIA_CONTROLLER) +=3D media.o
+=20
++snd-usb-audio-$(CONFIG_SND_USB_EVO) +=3D mixer_evo.o
++
+ snd-usbmidi-lib-y :=3D midi.o
+=20
+ # Toplevel Module Dependency
+diff --git a/sound/usb/mixer_quirks.c b/sound/usb/mixer_quirks.c
+index 1e266fdbbb8e..c32ccff40122 100644
+=2D-- a/sound/usb/mixer_quirks.c
++++ b/sound/usb/mixer_quirks.c
+@@ -38,7 +38,9 @@
+ #include "mixer_scarlett2.h"
+ #include "mixer_us16x08.h"
+ #include "mixer_s1810c.h"
++#ifdef CONFIG_SND_USB_EVO
+ #include "mixer_evo.h"
++#endif
+ #include "helper.h"
+ #include "fcp.h"
+=20
+@@ -4540,9 +4542,11 @@ int snd_usb_mixer_apply_create_quirk(struct usb_mix=
+er_interface *mixer)
+ 		err =3D snd_fcp_init(mixer);
+ 		break;
+=20
++#ifdef CONFIG_SND_USB_EVO
+ 	case USB_ID(USB_AUDIENT_VID, USB_EVO4_PID): /* Audient EVO 4 */
+ 		err =3D snd_evo_controls_create(mixer);
+ 		break;
++#endif
+=20
+ 	case USB_ID(0x041e, 0x323b): /* Creative Sound Blaster E1 */
+ 		err =3D snd_soundblaster_e1_switch_create(mixer);
 =2D-=20
 2.55.0
 
