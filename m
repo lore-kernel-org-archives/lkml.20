@@ -1,64 +1,126 @@
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E5FE179A3
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 03:00:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F8E33438A6
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 03:01:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789786839; cv=none; b=b78BD6uNJdzuj0U3MwbCUxtUhWVHPIwVIckAwjRIIoQuEP+VbqSr1IWRdWlpn2no+zEefxZ3dzworHNgN/AnDv2l8sy2izn8+bbYwdogwLg+MF7Ese1rf+13MZN5gaV5r5ESeV3HX0qXBjSUbTKJTZ93nyYNi6CjTXlyPmqCTeI=
+	t=1789786893; cv=none; b=naSqRFrvHC31eKTi/gwS3YJ2Dn5xG6ObRQnxbz7FKxsYGr2Xyhw6sC9O++5u1KQFH5Ol7urm+MzjY5OTGEv0Kh1QHA3eOHH3Oiea1S2/EQUVWIS/impTKkxiC+Smr0da9auqZZe5W5GVhfsBaJctTHho6R6CMmTxQKDSxpF0DpY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789786839; c=relaxed/simple;
-	bh=BnvAR8q2sSnB4DFCyBNXaJ4MkqZefWdj3cCdrL6j5rQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=OlvNPxykXFefpYIy87Fyt5kbysTfDA2TeTYxp+y7ExGar0mr62b73t+0QAoYg7u0B5x8l0K48WFdgDbP/0a2EFIDNyNPvBm/fcNEsa3745kMkD6POEZmGwm5xY7wEe8aVfjruRReE9ngnhbr3ZPdPXzEmylelDx6k68OROZ/Kl8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=idkmanager.com; spf=pass smtp.mailfrom=idkmanager.com; arc=none smtp.client-ip=74.125.227.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=idkmanager.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=idkmanager.com
-Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c67e5059fbso457264e0c.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 20:00:38 -0700 (PDT)
+	s=arc-20240116; t=1789786893; c=relaxed/simple;
+	bh=Z3xfdok/MjLW7iYsOLwOg962uzXBF28qhYl9orh4Ijs=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=lr2/GkozznwSqjZ+ZghnLb20hmmJ/RfvHkwm+Ru5rjrTab/T27/QKjvFPYB+aqcS3l19FhBrmOhs9esb5hwPhffNsv0ipJWAl10x33+ywkXIodwpSiy1TkiaFUyYdx6lsznqiT7rYMsxT+S7KU3bgFw9LmwGdSQJVFB3lAVuvBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=pUfzyrIA; arc=none smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="pUfzyrIA"
+Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d43ac6072so13630617b3.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 20:01:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1789786891; x=1790391691; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Z3xfdok/MjLW7iYsOLwOg962uzXBF28qhYl9orh4Ijs=;
+        b=pUfzyrIA9GpnzJQxw5erLIqQh8rgUg+6ktNEDIzL5YK9f9uxGB5/XD9bZAAVDXswsk
+         jl+mii9EtEmaq4qU++UaqbE7UQ6Hui9jLb8ekcFA8M6X/nfGqkR0wEcBzkxiVYFXwUWA
+         RnyZ7mx7sP6N15LVwNv96zlk7oi0e+e39JDXHwEDff7Jlt5pCAW/lb6ZYNBwdbZG67Ox
+         +y4ZH9J+hQSJyV5N1pmLZZhk6upzF3m/B86IAFJs66HOMEVlp4I01JtybkpXXzZI0Yaf
+         KWmelOW2aDDSCWp/j1dqZE6jqP6gv99Ikll5dVoowGlBWpuUrfg/qBs9CcpfbK1ONjrU
+         ymYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789786837; x=1790391637;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BnvAR8q2sSnB4DFCyBNXaJ4MkqZefWdj3cCdrL6j5rQ=;
-        b=bwYSn5hP/1HTP5eOu/4+zOEhvCuUHmY4vy848Eq/yDFRYaMZy1GffE1A/YRpnlympW
-         sv8BorTZkGq1Vgr67R1xU4eSK7MHDcOXlDWYzwAJxOXq5MRf8cnxDgJO6kQEzivkmppT
-         rab1aZlmjxLJe5xzz7KsjDF3ix/F+NtWkLXL9u/eEhLQSm/IuNW61zuUFHoiGhT6NfZt
-         uyulGrgwlWzbAUTz5empehKNZx4pnx0JoFSk4Y0YjVjc1ymg4jrz1y+Aio3nv522kD1R
-         L4tep/jxT8nzTxfvzGdVRNLSN5yDkz0AqlDp7hfnLNB4LS104MrVeD2u+TLgiOi+RbL5
-         KG8A==
-X-Forwarded-Encrypted: i=1; AKwUvBx7Mykhlv66AS65ZFy1x27dKsjZNbWq/5A7eb7+tRxiKFgIrAFgdAFdud61/9uSQYhj5yeNgZCm0pl6ufw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mptzWI9dVZUBTbjBxhZGiF+3J1Sm9AVizGi5+vVL2nyHHtGYdw
-	EyDHKjvWkT8C73GxueazOAmMfF51l7047c1x79a5xSM2lMEzkpU09U42+4mNQpLC+rI=
-X-Gm-Gg: AYBFou1FK/fsDO46AllV7Z4A/t6LDa7NGY7huAzo2HL9pGvIQazzywNAXaZuxiALYsJ
-	zZiRy0X35ObtUpZsWjnhbUBG/Hp278eCNZk63pCen6w9RdJROPTfuVt+ljTnXNFW230HYQz5l3y
-	DdSrxrjOn1dONmO4K7C580jyBcSh0KHkXIj/UL/mPfDXZ0A1MACpivDfAdWYFRBJ+HQb8Lyp+V1
-	8ONzDYsvCPpiPKGoZ/HU7raMpnjQYf5DOxmzIBHrVt80yhrR8baIUmr0vJO0ej2rif7N1P43LvQ
-	vJBGR79vDf8uJPE8miZKVF+uszgTulDjtyd8hL0SQ77utdECbvhRM9Tp8HF05nk155ezVSrIuYo
-	3963ZScZpKYzZOTaXwn4bf6emR4Vbh3wzxRtbwTN+28Yjyti72xvaUTyI9v7OSHcx1m8M3W8Cet
-	mEJjg2Lk7xPLYAv0r1NZietk7ZonMpcMSNYrQ07lpDr+n++260PORe1Rzpout+XkRmdlklzoYc9
-	dE5o3uIlX32nqrRgntrKmVQKjl46cn5xSl739OOwcDLABL//ROHB50=
-X-Received: by 2002:a05:6102:3592:b0:7a1:f980:e938 with SMTP id ada2fe7eead31-7a55d284613mr2150925137.20.1789786837322;
-        Fri, 18 Sep 2026 20:00:37 -0700 (PDT)
-Received: from [100.96.0.25] (corp-190-12-36-222.uio.puntonet.ec. [190.12.36.222])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-984d5342f9csm1418996241.7.2026.09.18.20.00.36
+        d=1e100.net; s=20260707; t=1789786891; x=1790391691;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Z3xfdok/MjLW7iYsOLwOg962uzXBF28qhYl9orh4Ijs=;
+        b=VPm36sEhTLukZQN+U6ZOkI48qzt4YVCALEdqDbsDyNolnfIV0TcGPYDCAdUc9vayuR
+         +WNWoP/iMjjPu9qBztgicHdXNJxrbkAwTKBK75TJnj2qXR6Ebc8Ac93tj4d4+uK8QsC3
+         Vk1yp9SLa8hBtViztqeqCei3FLXwjrtw2qplRvEBpTAPu/gm/uU4gw8jctT52UmSLJ37
+         i2iJgC8W/NZFDNk+G/w9PpAUngqQ3pjBf1eigrYRL7X5rEMxrzZv4OoK7aBw6y3gcuWQ
+         yJPtfxhAd1HJL1JuYWqhS5fA46plm7kO5UmoJ8PlkJlySoAVnDs8e5XXhZA4NkiIEDv2
+         ELBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy9HUFftkt7IX/FtlDX22f70W5ArfnCpxh6Q8eQhcpI2VZK1I+p2h3PpdgU9FhHe5ZvTVbqTpQurcSBysI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kZGAP94Tfu6D0169e2TALncZQlwi3loRo9OjKfbfGdmrr3faMV
+	6Driid843gIXIulqwJ24uS+1me0nlCE+tfBGq1KnEZdewYQgHWWjQDdiqun7ijWvqHQ=
+X-Gm-Gg: AYBFou3vnkl7C1jnvn9AdHjLtQNZumQTkoEOglLzjmgsKXHOLD9x6t/aB3XnfABftiq
+	Q+m0TEh2c2tXbjGkMxopsbrtxq1q93XAZiGgcLgBo8Z3co/CiRUnHoi6svNZH2JV8gLqg/QSM1c
+	9AMUvJPoWGxTKJS4jHMnhUkZJ+QqkEmtkNJ5bZ6lum76WWLy+P7VXqZYVnrwMsTO6ohFgcap4an
+	/XTGvZ6fGpQJKY3YFjlauFRUU/CVuXQRS5IbrjYx2kWUSuQBRCo0MEHRMPlJ28fipFebCPzmFhz
+	xZ13q5hv99k5FCPJvC2PKS/oBMEV58+z3Tmpoh6kf1TLSOVrtPMBIqCQ/peaONHEZrGgqbw6pMT
+	vOEQQAizdzcm+1kYBoRyg2omy5MXNFHCrNJ79TbcPp4s1pkXeAenPraR9zV2PQt1rUnWizswfsI
+	9lJKOLk+VLFcnvzFvx0Ird416DZCFc2HjVf6mD1NZgOy5S9DQEgOYK8GvT4SMNUJEOUxf74tGvd
+	pA3GP+x10r2e4ctjbyDPMK/Itm8gHob3GlJj8IRhPU7iaFLKQew/j0wxjvh27CaVeSiKHVeUkz8
+	XJAsHm9odtNvZ4RfVxlmHHrfwb2ov7hi+wfrEbGrI36HnEG5Hb+Fk8MVG7QfUKxjSGaBnC57z5I
+	=
+X-Received: by 2002:a05:690c:a5d8:b0:87d:8d6f:b579 with SMTP id 00721157ae682-897353aba4dmr10924147b3.40.1789786890894;
+        Fri, 18 Sep 2026 20:01:30 -0700 (PDT)
+Received: from ?IPv6:2600:1700:6476:1430:bcb1:f9f4:6193:b412? ([2600:1700:6476:1430:bcb1:f9f4:6193:b412])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-89a46e47e87sm5729537b3.23.2026.09.18.20.01.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 20:00:36 -0700 (PDT)
-From: Ing. Alfonso Kuen Arroyo <gerencia@idkmanager.com>
-To: Maurizio Lombardi <mlombard@arkamax.eu>
-Cc: hch@lst.de, sagi@grimberg.me, kch@nvidia.com,
- linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] nvmet-tcp: report a bounded MDTS instead of "no limit"
-Date: Fri, 18 Sep 2026 22:00:36 -0500
-Message-ID: <178978683646.43804.6940923486189370705@idkmanager.com>
-In-Reply-To: <DL41D2NGEUHW.2UUHTZ6LLM9X7@arkamax.eu>
-References: 20260829013900.10392-1-gerencia@idkmanager.com,
- 20260831005117.142713-1-gerencia@idkmanager.com
- <DL41D2NGEUHW.2UUHTZ6LLM9X7@arkamax.eu>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+        Fri, 18 Sep 2026 20:01:28 -0700 (PDT)
+Message-ID: <2f638ff0568a55233899b2a7ef4dba3ed945bc51.camel@dubeyko.com>
+Subject: Re: [PATCH] nilfs2: validate file block counts during recovery
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, linux-nilfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Fri, 18 Sep 2026 20:01:26 -0700
+In-Reply-To: <CAKFNMo=0-rxN0BKG1v+KhrGwnh2ZL_Hn2Jbcqc9sWRV8cwxPrQ@mail.gmail.com>
+References: <20260915111351.2726334-1-qwe.aldo@gmail.com>
+	 <CAKFNMo=0hDANOd+DxxvKA=RNbiG-zygkWh6EUC6Vr2MYe4npLQ@mail.gmail.com>
+	 <e197037b70377be78b296380bcb31b8c3e8f8d74.camel@dubeyko.com>
+	 <CAKFNMo=0-rxN0BKG1v+KhrGwnh2ZL_Hn2Jbcqc9sWRV8cwxPrQ@mail.gmail.com>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 (by Flathub.org) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -66,36 +128,43 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-On Tue Sep 01, 2026, Maurizio Lombardi wrote:
-> #define NVMET_TCP_MAXH2CDATA 0x400000 /* 16M arbitrary limit */
->
-> So the comment should be fixed, it says NVMET_TCP_MAXH2CDATA is 16M.
+On Sat, 2026-09-19 at 09:46 +0900, Ryusuke Konishi wrote:
+> On Sat, Sep 19, 2026 at 4:33=E2=80=AFAM Viacheslav Dubeyko wrote:
+> >=20
+> > On Sat, 2026-09-19 at 00:44 +0900, Ryusuke Konishi wrote:
+> > > Also, please replace the 'Cc: stable' tag with the following tag,
+> > > as
+> > > with the previous patch:
+> > >=20
+> > > Cc: stable+noautosel@kernel.org=C2=A0# Non-fatal bug fix; defer
+> > > backport
+> > > until a real issue is reported
+> >=20
+> > Damn! I missed this request. I already pushed the commit. Are you
+> > OK
+> > with that? :)
+>=20
+> Viacheslav,
+>=20
+> Since we haven't hit the merge window yet, and linux-next (the
+> destination where your for-next branch is integrated) is a daily
+> integration tree intended to be rebased before being pulled into
+> Linus's tree, updating the commit message on your branch now should
+> be
+> completely fine.
+>=20
+> As documented in Documentation/maintainer/rebasing-and-merging.rst:
+> "Some trees (linux-next being a significant example) are frequently
+> rebased by their nature..."
+>=20
+> I think it would be better to fix the tag and overwrite-push it now
+> rather than leaving it as is, though of course it will need to be
+> frozen once we hit the merge window (or after the official release).
+>=20
 
-Agreed - the value is 4 MiB and the comment is stale; it predates this
-patch. I'll send a separate one-line patch for the comment rather than
-fold an unrelated change into this one.
+Sorry, I have too busy day.
 
-> Also, it's not entirely clear to me how the target enforces this. Suppose
-> an host sends a 2 MiB command, violating the MDTS setting, what happens?
+The commit message has been updated and pushed.
 
-It doesn't enforce it, and this patch doesn't add enforcement. MDTS is a
-limit the host is required to honour (the base spec says the host shall
-not submit a command exceeding it), and nvmet has no per-command check
-against it, neither in the core nor in the transports.
-
-What the target does have is the hard limit in nvmet_tcp_map_data():
-since 4a3f00262a04 a data length above NVMET_TCP_MAXH2CDATA fails with
-NVME_SC_SGL_INVALID_DATA | DNR before any buffer is allocated. So today
-there are two numbers: the one the target will actually accept (4 MiB)
-and the one it advertises (none). The patch makes them the same number,
-so a compliant host never builds the command that the second check would
-reject. With MDTS = 4 MiB, a 2 MiB command is within the limit and is
-served normally; a command above the limit from a host that ignores MDTS
-is rejected by the existing map_data check exactly as it is now - only
-with a reason the host could have known in advance.
-
-If you'd rather see the advertised limit derived from
-NVMET_TCP_MAXH2CDATA directly (so the two cannot drift) instead of the
-constant I used, I'm happy to respin as v4 that way.
-
-Alfonso
+Thanks,
+Slava.
