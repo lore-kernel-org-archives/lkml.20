@@ -1,120 +1,139 @@
-Received: from outbound.ms.icloud.com (ms-2001d-snip4-2.eps.apple.com [57.103.73.163])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f7.google.com (mail-oo2-f7.google.com [74.125.231.135])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CDC728690
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 00:09:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.73.163
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D61B51397
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 00:10:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.135
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789776557; cv=none; b=qI0AjMNpmg/1pgpQslTj1EvZre+yRpoA2ZnXaQEEiyFBGaU6+XgdulXqEbXi8sObGGRiP7xMOwm+BOHFnTETmPwJYXTchVmgjDx7kN3RQSPK8we4hmhFsoeBOCkE1XB9GkTkq01XHmlHPt5VxrrW2PyCYH2N652dkRVI7wTyAtk=
+	t=1789776628; cv=none; b=alecbq/mzIshhuIl/6ty3OOn0vAmSEI6lOueHbpskqgaS9IdDlE6A+BjXM3mZjyyT0s/UjO4yEB7KOhREZiNKT9ZS+Mf8NuKTHAR1m4PzUxTQPlkZL/BC2XcB8RN6gzHcVw+2HhZgmA7Ruy35zEy4HHPrswNdL6aiBNXSA2ZRlg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789776557; c=relaxed/simple;
-	bh=nVD/Wq1bffouIXB6sEuIEnn5KaOl+dJUz6TNKysi7PQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=O+yM5XNncnllRMPz3yCof6yh+rI+Tk6pWJDhXbz9CUMdsitswUKVhiisFju62uajpAnXI8dlPCIKzsR59GFwK97jAgV41H26Ga0L3kTFOgici4hrVEEy1/D8mZ0sbWBzJ6kTLofryl+cPM6QTa+GT4dPx0nfUo1Jf88DCmGHntw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lcb.to.it; spf=pass smtp.mailfrom=lcb.to.it; dkim=pass (2048-bit key) header.d=lcb.to.it header.i=@lcb.to.it header.b=gxSzVl8M; arc=none smtp.client-ip=57.103.73.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lcb.to.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lcb.to.it
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lcb.to.it header.i=@lcb.to.it header.b="gxSzVl8M"
-Received: from outbound.ms.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-3a-60-percent-2 (Postfix) with ESMTPS id E1ADD1800192;
-	Sat, 19 Sep 2026 00:09:11 +0000 (UTC)
-X-ICL-RepId: 01a0b6fe-df24-7d74-b4c1-7b16bc828ad8
-X-ICL-Out-Info: HUtFAUMHWwJACUgATUQeDx5WFlZNRAJCTQhBBkMEWRxBCU0dXwVcEhVdRV4MRR9bHlZWQwxHDkAfeRRQDxkfXV5QDBMLU1ZeE1tWRwIZAkZQSxsOWxcDVxxWRVwYQwldBVccHQBERVsTVRdGCRkIXR0ZCEcfCjADQg5WA0MHRQAtGRxXUFsIUF5NFx0EQ0tfGV1FDwsPXwsVAE4KQARdBhMUTAJeD0ZQRF1IHghUXARBCUoBDARZVDBVG1FDQwQcGU1GExlOG1dNWg1AGVgGbRRWFVIEWQ==
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lcb.to.it; s=sig1; t=1789776554; x=1792368554; bh=xKp4/RRNjf7CFluY7B04eZM12U9KQe4R3f9PTydW+qI=; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type:x-icloud-hme; b=gxSzVl8MvV5AGhXU/3+/2soWY0fhHsIu/TYOdJ7rrksEPSuQ/bCXTlCGl2u6jeT2msbZGYsfyN2anMfCo011O0xmTBWJh/tpkLl1DWbZLLXCm5u8QmIkdWWVY31aJGh1dS1aLZSccpppzsYoa+NvUZqKSWbXsw0JL3NLaA28WAenBgNqBJTBSpom5f8d6qcVB0uY2pZWx4g38Ex5LbJvm1B0ogXMnPU40S3sVVVWS9XiWdHm3fIFaLlJrlInXcDYLPuiGGa2Q0UTOdk2M0vcg9CUa5kuzQF4NNkgaspVmOwyxiouU0yHid/cgksyqc1ALREsla47y6shKPuk5StKsA==
-mail-alias-created-date: 1748381178872
-Received: from [10.69.1.69] (unknown [17.156.208.39])
-	by p00-icloudmta-asmtp-us-west-3a-60-percent-2 (Postfix) with ESMTPSA id 15DF3180018F;
-	Sat, 19 Sep 2026 00:09:09 +0000 (UTC)
-Message-ID: <f849e969-364c-4138-b4d0-ec761022a32f@lcb.to.it>
-Date: Sat, 19 Sep 2026 02:09:07 +0200
+	s=arc-20240116; t=1789776628; c=relaxed/simple;
+	bh=uvrpE+ZMEwzZvvst0nIEmLN+s+ABNTry+DvEqIbCT8I=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=IXWVkk4Pg0fZCbdFgcz+kk1lVDaEwSEqIo0g+lHnYn8xgPF06DnOO3uc/OLFkPAJfzMYitA2tRKSzYwb1mmUidNglpm2giWqJGvLOSv2RnoFRa6FPr+ji+Ed6IXEegfIcWgAGtz0R1i6s4KgM9s9sjgI4otaQSSqGx8gZtwBjYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.135
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo2-f7.google.com with SMTP id 006d021491bc7-6c197ff1f3aso466275eaf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 17:10:26 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789776625; x=1790381425;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xo9q5xUUXF4KjJ0+zPrqtPtiLxRKts0CpehP+nEYXok=;
+        b=eq6H4AAwXFnoO6UxXBTIeCigbTZVqOmGMSKg1Z4yP7fYX90JGOfbY/PF00YoQvQMR5
+         cOD2mgzl9DJcDZArdRlFKysEZajWbjczkyBObqZduHfWi5VmV0lEvc1ek9EESvrE3uBT
+         ezx9rciTpJm6k7hG72SwduyU/BT4TMtVBLWEVSmIB97RX6W84KXYmNDBAAsf03jokcRB
+         dZFUTs99hVaj/mZDeZAjQDFKQPQORxCy8R/nUOsLcSmkYmjyggC3a/nd06T6N5hWG4Z2
+         /zdY4J4wxrn5r0IcL/xfc+dsOLcQ1ZxN0iN8I37lgCOkxgUmvw9F4sUJrnJWBr2invbW
+         tsWQ==
+X-Forwarded-Encrypted: i=1; AKwUvByG95O1CgFT+FuRcfPEH/MFfIbcH4L1bpGf68IIT0Q56Ld9wKDi4JVKggr/+Cv767KojSLaz3OihAuorrE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nwqBOKGA31c8Uc+R8cuCQZ5TyOLb7uy1qfjbDLSFo4SOIczXrY
+	iokUgL5thKHLllINmfmY3kGt4MB5NXoLVuppFCuSZMbCePmUuD4NXmSW4dsRvPG09LBxSdpOIOt
+	RJBBMtQvnppBXktvWOA/pv+WmW7uaCm4eyg5ce369XVBG8IEK7W7ftA6LCTA=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Input: atkbd - skip deactivate for Lenovo IdeaPad Slim 3
- 14IWC11
-To: Hans de Goede <hansg@kernel.org>, Iustin Ivan <iustinivan2002@gmail.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260911182328.9267-1-iustinivan2002@gmail.com>
- <db8af2fe-481d-454b-a205-4f22cd9b7a0d@kernel.org>
-Content-Language: en-US, it-IT
-From: Martino Papero <martino.papero@lcb.to.it>
-In-Reply-To: <db8af2fe-481d-454b-a205-4f22cd9b7a0d@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Info-Out: v=2.4 cv=M+BA6iws c=1 sm=1 tr=0 ts=6aadd2a8
- cx=c_apl:c_pps:t_out a=kRaGL2Q7qLiahLf3O6OaIA==:117
- a=kRaGL2Q7qLiahLf3O6OaIA==:17 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8
- a=l0MiAaP3XIdLQyEXZS4A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE5MDAwMCBTYWx0ZWRfX2YRQCxa8cX12
- Ctg5yDcoGE6Kgj0rji0/y1mTPGr2n9KyDGjzH6gW0AgJ1+ybIPuncUEAQLQejw4wHK0RUPLXW6O
- 1ySCd7e0rEhKJ4eHbkdAOTOl0CS7OLtf/X+3gqJF6j5PHlVZAyt4owMg7drDXEy8ecLS8GjMtaD
- 2ZafeRbxbLKTafLqQyfgULWGUlNbhpyyKUCnu5RlqwOUWc49RakAuH4y4ZmPVRyePPU0w7++cAx
- v0Clbx/pXoEBlvpbpzwAhAjk7j6myOuNtOpQwEa+GVWGWpcMHs4No3Qb9dcxLlmd7vpl7wZCpov
- P6q6a2dx9Q54jbN5Skwkied/Mr/t10wXO8lE8uwAOTysIuSO5B4v4a3f0Z7Z5c=
-X-Proofpoint-ORIG-GUID: frZBqAUdx1N_rdLCK-4fVDxq8vqKt9jR
-X-Proofpoint-GUID: frZBqAUdx1N_rdLCK-4fVDxq8vqKt9jR
-X-JNJ: AAAAAAABTVUeWKANSERCDdK+LL5hNOoqj3KVzwZdON6F+8LTIE6d6GWdwRjW2kXWsUA6pr3nKwpc7h2KProF9S/2DBuJYy0Yr40b1ow9ysNTBTsC3xVJlpowZBL319tFBma8ujABpn9+lnFUhsvYh/3eIOfFcuxV/sVMGRnXkF6qHfrKF8/y3Y0TDXe6rR8KkIuRmeQWGirnZNpK9Vi0904p0Xz2L0Xwwvn50NcP5HXz81RM0IuH4MpiAkR5rhU6VmiHrsxtjz4aMwY+DH224xl/8UmBJqjb2p/iyMhsB9Ie7co8QIipaHA08xMH4si+LCXTByguY3tT122+dnUPxZ5a6Jmmhma4wWsSykki1SLHds6jlRb+mCjoAUrVN+MWg7PGeg5xrM7sHmIm6+5CtSXUvartyDvMZ78mfxrdJMadH9SoJO4zv8kPFY/sOczKsRvCpkV1ZaDEzVax21API0wFeSG0C1JIHocTCFRsm25EemX+qpbg4KJwJXwnn8FOlzOs7dbMXnbCznq0RD/LHt4IBsxzGXuyaWI3lIJWNmNE60kc3k3ywBLqNgT1/m2vJkSRs5BNw68vPXLST4E+kdmyErcKPrys91lBCwGRKj7C03UF6JbzsN5cysZGnKobEAS26QNZCKYYFa8JX8Bxv09ZQxhrRuU5xz0hMcO8gUG2fANGp5bDVyuSVDfkUQrZZXWvQ9gLgbYBakqRM/a5mf9ehRhw+O+ik+nNzMSfRCNooybz8UtiIdRRpY1AvIaa0EBz0iqW8UtITg8QmjeIvRKT364S00xH4A/iCvEET51FEDrriaOev0EdtqCRUr+KA3xk1eoTgvCoKnqKotr3/nBhoHipvd1WWLS5/if+m9sQTTDWO4KQ8awl9/CZ33EmxKKcR/KwQVFNqcn2fQSziu+9FuaEaTycKF6l+yEyMuMfqLQN/Pt0ZpgnOGjT3M8SenYlaxhJtHcD82dn1VDmstA8236frF3
- I9vybrkpD/uk1SSM2ZGs2NMarNWhlagCQ2CZ3u1EpJses7lK3nW2WOz4lGJ/MluPYh+4hdOYhGN3oP/7UG3iBdR56KOLc8V4Bx5l6tuAUKSrj9hWd7KEvgWpwjjyEeehJFwuz+J8l9f0vk3tp2GQSLz8LY/iYiWm+aw1nv0Dl3VBKZTGyuQmXTzZXCdhg4TxsJswK5VFg6EBROCjAMHmBqqjP5jW6o118uxXskzJZ9Xf9st3enZ4du+COZeVZUm4dREoipE9Z8edCsdzFj7fDELkCaz/r+pJEfY8fAD7F3lNjVfTdMHuB2330UKojKiCF9c1M+QhfhxYVlCYQncLpdzAtUvo3HSHPkRRtnmDXmLoSyNs=
+X-Received: by 2002:a05:6820:201b:b0:6c9:80d9:5e8 with SMTP id
+ 006d021491bc7-6ca9bf4c753mr3598445eaf.41.1789776625762; Fri, 18 Sep 2026
+ 17:10:25 -0700 (PDT)
+Date: Fri, 18 Sep 2026 17:10:25 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aadd2f1.ef152331.3350b.0000.GAE@google.com>
+Subject: [syzbot] [nvme?] WARNING: bad unlock balance in nvme_update_ns_info
+From: syzbot <syzbot+64bc2169c92ee55ad31f@syzkaller.appspotmail.com>
+To: axboe@kernel.dk, hch@lst.de, kbusch@kernel.org, 
+	linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org, 
+	sagi@grimberg.me, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+
+Hello,
+
+syzbot found the following issue on:
+
+HEAD commit:    704340f1cd0d Merge tag 'x86_urgent_for_7.3-rc4' of git://g..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=126bbdf9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=b454dc6b1b7acd30
+dashboard link: https://syzkaller.appspot.com/bug?extid=64bc2169c92ee55ad31f
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/068a35f4a268/disk-704340f1.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/5bb5e44895e8/vmlinux-704340f1.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/8cb2bd26a861/bzImage-704340f1.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+64bc2169c92ee55ad31f@syzkaller.appspotmail.com
+
+=====================================
+WARNING: bad unlock balance detected!
+syzkaller #0 Tainted: G             L     
+-------------------------------------
+kworker/u8:28/9220 is trying to release lock (&q->q_usage_counter(io)) at:
+[<ffffffff85e833c7>] blk_mq_unfreeze_queue include/linux/blk-mq.h:962 [inline]
+[<ffffffff85e833c7>] nvme_update_ns_info+0xa07/0x1200 drivers/nvme/host/core.c:2623
+but there are no more locks to release!
+
+other info that might help us debug this:
+locks held by kworker/u8:28/9220: 2, last CPU#1:
+ #0: ffff88801ae8d138 ((wq_completion)async){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff88801ae8d138 ((wq_completion)async){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff88801ae8d138 ((wq_completion)async){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #0: ffff88801ae8d138 ((wq_completion)async){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+ #1: ffffc9000460fc40 ((work_completion)(&entry->work)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc9000460fc40 ((work_completion)(&entry->work)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc9000460fc40 ((work_completion)(&entry->work)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3361 [inline]
+ #1: ffffc9000460fc40 ((work_completion)(&entry->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3479
+
+stack backtrace:
+CPU: 1 UID: 0 PID: 9220 Comm: kworker/u8:28 Tainted: G             L      syzkaller #0 PREEMPT_{RT,(full)} 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+Workqueue: async async_run_entry_fn
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_unlock_imbalance_bug+0xdc/0xf0 kernel/locking/lockdep.c:5349
+ __lock_release kernel/locking/lockdep.c:5590 [inline]
+ lock_release+0x252/0x3c0 kernel/locking/lockdep.c:5964
+ blk_mq_unfreeze_queue include/linux/blk-mq.h:962 [inline]
+ nvme_update_ns_info+0xa07/0x1200 drivers/nvme/host/core.c:2623
+ nvme_alloc_ns drivers/nvme/host/core.c:4293 [inline]
+ nvme_scan_ns+0x34c1/0x46c0 drivers/nvme/host/core.c:4483
+ async_run_entry_fn+0x9d/0x430 kernel/async.c:129
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
+ kthread+0x38b/0x470 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
 
 
-Il 11/09/26 20:52, Hans de Goede ha scritto:
-> Hi,
-> I'm starting to wonder if we should not just make this behavior the default.
->
-> IIRC the whole deactivate thing was added as a workaround for multi-byte scancodes
-> getting split-up during suspend/resume. I wonder if we can come-up with some
-> better fix for that ?
->
-> Regards,
->
-> Hans
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-Hi,
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-I tested the same atkbd_deactivate_fixup on a Lenovo IdeaPad Slim 3 
-15IWC11 (83RR), which was affected by the keyboard issue previously 
-discussed here:
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
-https://lore.kernel.org/all/20260628-ideapad-kbd-leds-v1-0-50b421d94927@gmail.com/ 
-<https://lore.kernel.org/all/20260628-ideapad-kbd-leds-v1-0-50b421d94927@gmail.com/>
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
 
-Without any kernel quirk, the internal keyboard does not work. I had 
-been using:
-
-|i8042.nopnp=1 i8042.dumbkbd=1|
-
-which makes the keyboard work, but prevents the Caps Lock LED from working.
-
-I built Fedora kernel 7.2.5 with the following additional DMI entry:
-
-|{ /* Lenovo IdeaPad Slim 3 15IWC11 (83RR) */ .matches = { 
-DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"), DMI_MATCH(DMI_PRODUCT_NAME, 
-"83RR"), }, .callback = atkbd_deactivate_fixup, },|
-
-I booted this kernel without any i8042 command-line parameters.
-
-The internal keyboard and Caps Lock LED both work correctly. I also 
-tested suspend/resume and a cold boot, with no issues so far.
-
-DMI:
-LENOVO 83RR
-LENOVO_MT_83RR_BU_idea_FM_IdeaPad Slim 3 15IWC11
-
-So it looks like the 83RR can use the same atkbd_deactivate_fixup as the 
-83RQ.
-
-I can test a revised patch if needed.
-
-Regards,
-Martino
-
-
+If you want to undo deduplication, reply with:
+#syz undup
