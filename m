@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B2927404E;
-	Sat, 19 Sep 2026 00:11:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 546A1768EA;
+	Sat, 19 Sep 2026 00:11:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789776686; cv=none; b=KFSIqxPG1DSH5WwHd9dd6/VYFa2hvZg7ufbU0TTbES1wu7euZ6/H+lCfFbaYNdvq6/pTjG0Zabo2v0CVmC8p8QwmIi3OHMgTUDWCQdy4eROj57YyL+WTaECERm6Lca/dbKcq7HsyHa+loU7+WO3cez0qwBia2pKkrtXA5SrB4bA=
+	t=1789776690; cv=none; b=CqhRN4akWg+/uCJ5V/AlY1gyh7rQaT+9PeKI4XRu4YTm11PxcHt0PdRm3Cbw0L1m7iQZtLm6xvI4znmpGk8bsRzbl5nEmOCIhNKCDsE8rMyT2tGwjnXAqhFZT96AkEOG6aTtoRuRRiI/zV85gdX0Y+eKbPsEYu4OgJo4dcrkE18=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789776686; c=relaxed/simple;
-	bh=Hpht0b0H7ad4Hv3e+h/HNkBRIkCCLJQ5sog9dQa74v8=;
+	s=arc-20240116; t=1789776690; c=relaxed/simple;
+	bh=y4YGe3OhDAz+8bGGzF7i/mcIygKGkFQDPfiAhT2bsRU=;
 	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=fkrwbNI8ebVvYuJJJdp1MgpRRAnL3Sm93/ZnONlD62Fob7+iDkIJFEvc/gc7zaLLQxCiUfyUyuH0EO+mbfz7CP+WEQ053nLxAjGw/MZO7q5M3w3/iKTxqmzAyx+c4LGfdjhp8S5YZaMIj739KoANf646H++kf9OniNILSx22X/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W+VbrFWA; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=sAkRRgmxYUWDB56DEkabxtENRQo6/3Xl5/25asYFJyt/VO1uibQfwDrmx2Rfc8/TFritZUEEKzsrAGSj4mKZurv5r+uelvqFSADcjC3HAY0lvkNq4qr2EzKcGRr/xpbPAoX90bypQcsqHZ9rkr+ltityX2jvZc/ErAPB8BxATVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VNnT8ta0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W+VbrFWA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E28BC1F000FF;
-	Sat, 19 Sep 2026 00:11:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VNnT8ta0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3B161F000FF;
+	Sat, 19 Sep 2026 00:11:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789776684;
-	bh=PlotTYYxNbOD7JGn3qwtelHeSilEx9+MP5lTp1SKrmU=;
+	s=k20260515; t=1789776687;
+	bh=KOINVxgqoFKzSX8a5gZMH+tl2aPxnd4p5tQznpEqfMw=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=W+VbrFWAfcOXbLNFQNmXcajaeTS+ndailzaqT3XyNa+e6QXh71IDaS/LP7EuLtoOI
-	 uWt5gZl6TTEyLschk9/Dv1K0jjx6jD9KSSPEmX1KH7V8looGA9gb+8IXKd21+7vlsc
-	 4V/qpyGEkqmf5ao1YKiTew88JtW2/jJI4xxEobjskHRMkjGjH96yJIKDb8jsGW/wI0
-	 W8eWBOzszIkUrln6B2YsMPuD7XeWK2R6YWRokH4GgjHBJ2K3/ZYNAuRrkmaR+4biH3
-	 VZ5v9AIGTDMPVxapSCaaZ8FYdHRwcBWcW1PFce06AkFRmfjZ8QvscVVy2+gYdw2jrw
-	 AWVklRZlOYnEw==
+	b=VNnT8ta0xWtd97FG0fmVQs33InxDyXuVJLUfN/ARATvkI8pwkUsXBgBPIZMnpEz1W
+	 BGYsIWhgxr9FRjfCk8Z7psbkMjzbXLZ5yXsn8gUBT5BRU8mVHi7Wpy7amPGpNgdRtP
+	 en6ya0/Oh/I/rDKpUS8Vr8NXzmdl9yeEXpK3s0N8XHOBFHZQFLvBBEjvRpw+Z8pBHX
+	 rAdjsB8r6aT9the5G4F/632MoknxCLFZ4ka/jLrl8NdDIRI7VHBQGcgJ2wxjFqfBFD
+	 xMOwIYsXi5g07Sf5r+NBrzKh0nA88WcsejI5QMu2eAvKe1xCAIWenCUG3GU+mK8NpD
+	 aqz8idK9dGUpQ==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 198FE3811977;
-	Sat, 19 Sep 2026 00:10:19 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 198B13811977;
+	Sat, 19 Sep 2026 00:10:22 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -37,43 +37,37 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v2 0/2] net: a sockopt_t quirk for the options
- that write past optlen
+Subject: Re: [PATCH] net: dpaa2: ptp: fix device node reference leak on remove
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <178977661763.1197442.5618718493004846350.git-patchwork-notify@kernel.org>
-Date: Sat, 19 Sep 2026 00:10:17 +0000
-References: <20260914-getsockopt_phase6-v2-0-e48befc9602e@debian.org>
-In-Reply-To: <20260914-getsockopt_phase6-v2-0-e48befc9602e@debian.org>
-To: Breno Leitao <leitao@debian.org>
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, kuniyu@google.com, willemb@google.com,
- dsahern@kernel.org, idosch@nvidia.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, david.laight.linux@gmail.com,
- kernel-team@meta.com
+ <178977662064.1197442.16493624007705281871.git-patchwork-notify@kernel.org>
+Date: Sat, 19 Sep 2026 00:10:20 +0000
+References: <20260916030015.2818545-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260916030015.2818545-1-lgs201920130244@gmail.com>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: yangbo.lu@nxp.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ richardcochran@gmail.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
 Hello:
 
-This series was applied to netdev/net-next.git (main)
+This patch was applied to netdev/net-next.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Mon, 14 Sep 2026 05:20:06 -0700 you wrote:
-> This series continues the migration of our protocols to sockopt_t, as
-> described in [1].
+On Wed, 16 Sep 2026 11:00:15 +0800 you wrote:
+> dpaa2_ptp_probe() gets a referenced device node with
+> of_find_compatible_node() and stores it in dev->of_node.
 > 
-> There are some protocols that use optlen as the header size, and the real
-> buffer size comes from a field inside the header. This means a bug, given
-> that optlen should be the full buffer size, but there are indications [2]
-> that we have programs that use the bad behaviour above, and we want to
-> avoid breaking them (or, honestly, avoid being cursed by Linus).
+> The probe failure paths release this reference with of_node_put().
+> However, after a successful probe, dpaa2_ptp_remove() tears down the
+> PTP and MC resources without dropping the device node reference.
 > 
 > [...]
 
 Here is the summary with links:
-  - [net-next,v2,1/2] net: add sockopt_expand_out()
-    https://git.kernel.org/netdev/net-next/c/0093f7db9c47
-  - [net-next,v2,2/2] ipv4: igmp: convert ip_mc_msfget() to sockopt_t
-    https://git.kernel.org/netdev/net-next/c/e12e04f5ab54
+  - net: dpaa2: ptp: fix device node reference leak on remove
+    https://git.kernel.org/netdev/net-next/c/9211c455dee8
 
 You are awesome, thank you!
 -- 
