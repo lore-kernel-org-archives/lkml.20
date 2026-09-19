@@ -1,140 +1,112 @@
 Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6BB035C68C
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 09:39:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D30783F1070
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 09:39:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789810791; cv=none; b=N7cNV6NVDlcC3hy2FIg3skVKd0ykKUiV+G+/eAA9ge6GBnsuh8wsm2VG/HgeMU9wyOSJ1yyFji/l8/XCxyzrFu81XRWCRXiInasXHYP5kksCxJQsacW9VFNG5sTPjkc5ytukOlXCesaDZAGtXZ3s9/sPO9qVW8qUOZ9Yggj6HAc=
+	t=1789810794; cv=none; b=KK7z46wfVUOVoXQxt75mic9ya7D6c73zxKUhMDMT1JX0YUs2gv2qOgxJTJ3CK16bKWg+3Pyo9dn0fweCiQ/Wxe8wdnJl1eUnfdncd33h7Qix3j/p1iR18CqX90zugkUURTJgf8hYooN3EYUMJ8NICryC/pvA6CGtwSV0OrZuduA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789810791; c=relaxed/simple;
-	bh=VnurqPrpnN+sAeEL0x3TldaQv3nsKFA2accKz2jjL5k=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Fqu6hM60FkrpWQgHY+SKdG2/taL12jmFhuO0rGPfslRPu/9U0BG2ZpEfipWKraSjiBXD9lojOOZEw8nLeqppNXcQRpR2mNXCahH6HMfsMtm8XzrLKxPPAYw26TBlTZiLAeGnoybGQoOmQM8Nr/No+gWwwdeTrYGYC0zyKZBXqHk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xdy4y/0d; arc=none smtp.client-ip=74.125.225.141
+	s=arc-20240116; t=1789810794; c=relaxed/simple;
+	bh=tHdHCeV3i/53pBzx+BvRaG4iEMebCHpkPsy50Fuskxk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rvB1wVhBEJJleEjtiU/2odtZsF2aHUtluxKD2AGFv7Hv71ZFXpYWBU8gVIkZed31pMzMz2xgqDNkIlUg+p2MSQeW82MiQPDzFAv9Oya6H04+CYa22VqwUoMZ0hJoLMTl+oTpDMIx08WEHMJgspM03eXlD4OtGDjtM1/q6uxQtac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QcDGXE9v; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xdy4y/0d"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso19674355e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 02:39:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QcDGXE9v"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d8239so10945715e9.0
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 02:39:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789810788; x=1790415588; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1789810791; x=1790415591; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=uuNs+jmp7P80c+ETSoD8IhUkYAoa0hGSn0P6AjTo/tk=;
-        b=Xdy4y/0d9E2EulS41gMojgLvVGEQa5wi6wotpFRTtA5Ug2QefACIn+1zHZfH4ZDUXk
-         Zdc6t5JAYrL8mZCUeTf9NqrpUeIkVGOYHjXROLksUbQEOMX8U15kNJY96+RM9VjpQlGC
-         8Xg/n5gD1UQ8W8WuV/1+raPO3W4RQN5b0OHIJ9XBcKfCMBxy+lw1SSbXkSAr/mX6dRha
-         ICmho3xvBFd9RHdsphEZ2ZzaYnzW3YxaCmjLauVBN1PnSkoNgkzUEk5jTM5YYrxgZ4MG
-         XT2Rx9W1m87Y4EdaXCfpJVzn509bBTWF5mWaG1utt0zE2Bm908PNouVsG9uvgGJwba8n
-         GU1g==
+        bh=G7D6znmpASqvbzZksdBAJ2aUTbJ7HvmNoE6FBY58urg=;
+        b=QcDGXE9vmm/H8m4H5M7wjApIcK1rfcHQ4bH6+pzWqT/pcTdIEgATWEUucjdZPixKK0
+         ELFSRmPrh1/I82b3TSRUZE7sMNGGxJAcAPCYS5Tu6oTiwZwYVo75pnao4p7E9DRO1xxs
+         FE2dhZ9g+MCW0DkDaqh4F7yNxvViK2ClO9JUcgsV0e03pXZyhqM1lCoL29UF5E3m+NBY
+         1slOKaaOnH+bzU+qLC/lXcVFIZ3qc3myHL08DAs3aJLYNydQf9o2H2Twx8MIYl0pVzFi
+         lfM72nR1e96Am1bEriXQUISdbDBXfeTcf0JOglWdsAb0funNzAsxxm+z+zbCUiUOoLAo
+         Tpag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789810788; x=1790415588;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1789810791; x=1790415591;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=uuNs+jmp7P80c+ETSoD8IhUkYAoa0hGSn0P6AjTo/tk=;
-        b=lPh0fWKLPCSvrz35l7acDWOC8Olr0BmrCrqMSoXPOvueOw3u7NBCvnmbRkk7FrQhEc
-         XFxAk8ApXDpGaYtRBtcD9hYR4oeszJwPeSWCwVF4mTG4s673TrR9t+pe68NaGLaMOt4e
-         7wREsfznKOxav6iHBOQKuuanxacPJYfUEdiabOfGBrG0M98wkIFwTQJpspBqHKsViv75
-         qhraagza1ogt80/rXxjdrtLGqdCszorlarqUVZ5ao+6xYK4xT9Mpl2DhoAlHasDdTzq4
-         5NzX+Wvbk2rVLBDV2hNfqPpVfY8vyTBYvlUDEQHCGEA+lh4sitccPbV4j8EUBBBGvz0Y
-         qh9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwaIK8QQL/H+7T9gRC3UrXD2hJvyScXC6p65GUeHx7st242h3WijCLqptsVDQgWVGCKCa6Z6hPB0pHYeE4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kO/Wk04/K9OoxlVQB4LGs/8ljK9+naP4QUOiva04YhoicCb8Sl
-	LXyb9qkV0t53fwQ2Tt6HFiDaM5QsFNXUkjYz/qJw677P6m8aHj9ygxEwSgXpxw==
-X-Gm-Gg: AYBFou1kygVcE3xAU/Jr/Q3C/wvklM/IMx1weJtpas20ZvRdc/O2bLa+0jDbD0Z2UF4
-	9oFiTSeTMwe0Qhv5CxSN8WjN4Qv7BTAz6wpyB83H9UPGVJVeOcbAciraztZP0owgvif314Cfon0
-	Hglg8pJNy1eyu6V0QqfvuNDKMI2H9y7jmk18KRxh/9qqpYkc+mQQPR8bOMDt9R9ceR7FLoNndsv
-	1nukWpG0Bpe1mY8bMhqLxU3Q8Euk3yTcN2FL4Bg/njfwwX5p50BwRXED2DzspIa606ZoYHY8T/1
-	KcugUAqe9M8+rHcnqAmUZO7GpB2UjNDwwvs0sWtkI+YQdxp6zUv49+gcIW5egbDALO9u2QhU+uz
-	iJVBkHeO5GotiC0keVZlW6lNmkEOyXJav5l4lqBgt6UJn3v84cv43FMpbYkOg4yW6GqgVHd3aZP
-	yXm1K+8bzNy7zGDnBrVtWQUoyvzdd57sYOxmSZF6Gk9q6LYgVvmd8Xmjr6KCx47GVW5TkME+RHc
-	8EW1l1dLkJbe8vr6ac5DoBFlwuiTCFJKXfEfD878HSBzL6zyqmnUsT4baj3KS5NbbrtfdVdC8bw
-	F/4n5bi3J6KeUokJu9pmGvIA0y7vmXdwyl71PIbnMF7EyBfmsyIjbZKCdQiWP0BLdScX5JJHR0B
-	wGSso65FPST16l85pmeRk6g5Dt4Q58GA=
-X-Received: by 2002:a05:600c:1391:b0:49d:272d:74b4 with SMTP id 5b1f17b1804b1-49fc566e5ebmr66465085e9.2.1789810787947;
-        Sat, 19 Sep 2026 02:39:47 -0700 (PDT)
-Received: from systembl0wer ([2a02:8308:4092:11f0::f9f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd0ece6esm83417145e9.2.2026.09.19.02.39.47
+        bh=G7D6znmpASqvbzZksdBAJ2aUTbJ7HvmNoE6FBY58urg=;
+        b=wVCRK4a0w7gZpk25xbbwGiNXs4sxbGlYNC3I+ruYsMBZ8GLoWpDQWffwxQAEMLPsPb
+         puyqDBUjBQCMs49VHCFlzfnQMDDdvndlWua4qlPKtmFvEWcNhW+kemzSxqwqJjBAzC12
+         W4un1EtnfDuz1+srJpN+7REcl1lZ7JxxhK3GeLrJt3ab6urPcccsR/p4ABa/aOFuqdOg
+         2vpUsjRPnvjk4HMW1XBtEOrfsPB3XXKF/z7jDDQXkr/i1fXwXfVmyXsk6l2nXjiRN5/K
+         /rTK8dq+ZVQcuW2VeaECLckwVu3UH+VKkJm52gXjWej3FthzVUVvAhCeidUAsrpjhcmV
+         Pn6A==
+X-Forwarded-Encrypted: i=1; AKwUvBxrTjcEr+BGju31LVKtuS+ELdcuoWFPTOt4fGwYZhKclDCWZv1qBEAEjNKccMOxT5FS/pi3Z+7uWU87id0=@vger.kernel.org
+X-Gm-Message-State: AFuF++l2ES3XrQM3LyePoT6Vm6TsUjcO03hhVOFBt2+qnp4HifVFm33T
+	Uq+cLn792C181gpI8j01O/YbuwgxHk9vZDfOrQqTFVzMpxnNAvH8CZL8mKY0nFO+
+X-Gm-Gg: AYBFou3JFdGafVCE6dPU1RMCIo7LlE/uYulDmZIz2Q7gyuTwIhx5vAxQp8ewSQGLvlb
+	HA8oVLlbdZpajwpSMAmLSXrOOVIFPPrC06WfUms0PLbKqe+m7uAYgw2kgY9Jormq1tLe4pmL48E
+	Fg0ZEx/Qf+YL1K6IDYNaFK4y1Igr+CzflriSnXZJvuxwdj8H4s+aCflj/xwxIAglQsNB5U7+k4N
+	yYrL1w9wa7QVsjFdFGfeCgmAqPgC2Vqqh1X8mVTYO1lZBt0nxiuv53HgaPjdLJTpfJSAaHvolOX
+	9CWrTFrQ8E0uN9R7VBblRlCNdsBMF85cOIbDYvOorgZIuPMG8JW2IJdQHVLzvLE6vMW1WNuY0HQ
+	nrR6n8wn9qWkErhe0nVK4kXysPDl4TK/xm0KgSZ04Z2NnX3xKwbl+Bk3MGjuH7nPlVpyr5hl3fx
+	DsN66YXXU4iI1C4xgykNA+uFKR2cGJOVlQSsJgHNRsTcRQ2U9CdZ2QHYSfPso6VOkDDsrdcdX49
+	wY8W35vYMsQP96S9toNg1SS9qiMh4hK2ig/f5PaZDHB+aJ9lYpX55N0qjAo44ENyWqTyridlYj+
+	QmfYUJAWTzt2y+6YdchW+eNSk9E0+FUCgoXOaBXSu7EWHGtAJO3oKmRniM2cTUEAwcqXycznp1r
+	xr15whKzp
+X-Received: by 2002:a05:600d:848f:10b0:49d:827:e5b6 with SMTP id 5b1f17b1804b1-49fc5735351mr48923145e9.20.1789810790822;
+        Sat, 19 Sep 2026 02:39:50 -0700 (PDT)
+Received: from unknown748F3CBA5068 (dynamic-2a02-3100-a017-2b01-05fe-203b-7cd2-a640.310.pool.telefonica.de. [2a02:3100:a017:2b01:5fe:203b:7cd2:a640])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc6ca43edsm124495965e9.0.2026.09.19.02.39.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 02:39:47 -0700 (PDT)
-Date: Sat, 19 Sep 2026 11:39:45 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: "Ivan A. Melnikov" <iv@altlinux.org>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Jonathan Cameron
- <Jonathan.Cameron@huawei.com>, Francesco Lavra <flavra@baylibre.com>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: tools: Use proper macro to detect _Float16 support
-Message-ID: <20260919113945.2bee973b@systembl0wer>
-In-Reply-To: <20260918161305.1161852-1-iv@altlinux.org>
-References: <20260918161305.1161852-1-iv@altlinux.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+        Sat, 19 Sep 2026 02:39:50 -0700 (PDT)
+Date: Sat, 19 Sep 2026 11:39:47 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Harry Yoo <harry@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
+	Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
+	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A . R . Silva" <gustavoars@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Shuah Khan <shuah@kernel.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+	linux-hardening@vger.kernel.org, linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev
+Subject: Re: [PATCH v3 3/5] slab: handle ERR_PTR values in kfree and hardened
+ usercopy
+Message-ID: <aq5YL3P6tuFy4eTU@gmail.com>
+References: <20260903203720.63689-1-kmehltretter@gmail.com>
+ <20260903203720.63689-4-kmehltretter@gmail.com>
+ <497a85d3-e062-4930-bcb8-c86a8205e7b2@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <497a85d3-e062-4930-bcb8-c86a8205e7b2@kernel.org>
 
-On Fri, 18 Sep 2026 20:13:02 +0400
-"Ivan A. Melnikov" <iv@altlinux.org> wrote:
-
-> __FLT16_MAX__ is an internal compiler macro. GCC defines it if
-> _Float16 is supported by the target in general, but the support
-> may depend on the exact target options. For example, on i586
-> without -msse2 I get the following error from GCC15:
+> > +	if (WARN_ON(IS_ERR(object)))
 > 
->   iio_generic_buffer.c: In function 'print2byte':
->   iio_generic_buffer.c:141:17: error: invalid conversion from type '_Float16' without option '-msse2'
->     141 |                 printf("%05f ", ((float)converter.f + info->offset) * info->scale);
->         |                 ^~~~~~
+> Wonder if WARN_ON_ONCE() would be better.
+> Also wonder about the benefits for hardening (as opposed to debugging).
+> Without this check it would fault. Now it warns, but hardened setups often
+> use panic_on_warn anyway, so the result is the same?
 > 
-> To fix that, use the public macro without double underscores.
-> 
-> Fixes: cdd445d4b2a9 ("iio: tools: Add support for floating-point types in buffer scan elements")
-> Signed-off-by: Ivan A. Melnikov <iv@altlinux.org>
-> ---
->  tools/iio/iio_generic_buffer.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/tools/iio/iio_generic_buffer.c b/tools/iio/iio_generic_buffer.c
-> index 000193612aad..9ea93984e0e9 100644
-> --- a/tools/iio/iio_generic_buffer.c
-> +++ b/tools/iio/iio_generic_buffer.c
-> @@ -131,7 +131,7 @@ static void print2byte(uint16_t input, struct iio_channel_info *info)
->  		printf("%05f ", ((float)input + info->offset) * info->scale);
->  		break;
->  	case 'f': {
-> -#if defined(__FLT16_MAX__)
-> +#if defined(FLT16_MAX)
->  		union {
->  			uint16_t u;
->  			_Float16 f;
 
-One Sashiko issue:
+Yes, I'll switch to WARN_ON_ONCE().
 
-Does this unintentionally disable _Float16 support for all architectures?
+You're right about panic_on_warn. The benefit is a clearer diagnostic
+and, when warnings aren't fatal, returning before virt_to_page().
 
-Since the tools build environment uses gnu11 compilation flags without
-explicitly defining __STDC_WANT_IEC_60559_TYPES_EXT__, FLT16_MAX is
-undefined across all architectures. This causes the preprocessor to skip
-this block entirely, causing the tool to always print 
-<unsupported 2-byte float> for 16-bit float data, even on platforms where 
-native support previously worked.
+I'll split out the ERR_PTR patches as Harry suggested and recheck the
+KUnit warning-count test with WARN_ON_ONCE().
 
-If FLT16_MAX were actually defined, the compiler would still parse the
-_Float16 block and throw the same missing -msse2 compilation error mentioned
-in the commit message. Is there an alternative way to check for hardware
-support without completely disabling the feature?
-
--- 
-Kind regards,
-Joshua Crofts
+Thanks,
+Karl
