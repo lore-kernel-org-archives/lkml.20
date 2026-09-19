@@ -1,731 +1,228 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C54D03C09F5;
-	Sat, 19 Sep 2026 10:28:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 091BF47209D
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 10:28:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789813705; cv=none; b=qlT2AkoVJrtldNaheNXLlny26Bw5ZqaE/qSQ+cp+ZqTNvWvEqL7fx3yCEszVQ2rj9uPGupKwGcCWPQyEFAzSM8oQitH63ufwqw5Y8GQLWAiyibtL00FANBSJKEqoUEwt7JeJ96Y7E4x6DQ+JMPF6hmIIj9JBXUOJU8PfGhwCY2M=
+	t=1789813709; cv=none; b=g7QaxiRr0e+cjDjPeiz4u7gh7xTUHbK1RFPGvKF4+d5Tnr7b5hl9Xrjhf0k2iPWbclpwjSPZSrPQJoYhA1gcsjE4P2z1D4e/5C2INvTBa9zPSv9BwnYFInomc6kC4wocqCj4LIYMklUqdEEIjEhGMmkvIfDfMlzjJAMa7E9JtPs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789813705; c=relaxed/simple;
-	bh=GklM1ZNU9RcI1qd3Ywbc0TKR4fgsIHhPR8uVaoNB6k0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=pkWvC2eP+Un/slMGyIgczSe1HQKfkqIc7+jEqi51gOIx08BBcI1RTAKmqKK5mc5whHBWWTxV4mQK+2zv+NdA8Z7dajE3hq1Nq1cYGkMxWIoQEvWP/NQ8BwPJucUSmxeE2o2GrBg5j7m4Hkqc8kSzKQzWPnlfqj8LxrjTAwaZ4uQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ym2au2K+; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789813709; c=relaxed/simple;
+	bh=5oMA+CY9eg2MPQW/ZzazYNrDQiFaMFZzkKAVWP9/XHo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NtXsd/MvFHq+mE0bf79mVoKACg2m1p7VNHlsPD88KyL/gtM+jDtR53KOwv2isnr9SoWsUVcBNLtSfbxwP6RkMauPKzyOfmCyaPdysfzDcuQjPSi70J9Y5cVy1XwA8DcwUmsKNsRif/n+WxbkLGRtB52ZAnDXo9frZxS8Mch+y80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f2kNP1WL; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ym2au2K+"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 649F5C2BCFA;
-	Sat, 19 Sep 2026 10:28:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789813705;
-	bh=GklM1ZNU9RcI1qd3Ywbc0TKR4fgsIHhPR8uVaoNB6k0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Ym2au2K+0vcBXf6ju6+ZF1Bu5sT+VCumHLkMwQZErqZUwNUA7jJlPz2Wh/ZlmX7j1
-	 YWgAAYJ2v7N9P0BjI2tUbOpIjg7T6ecKluKAX5NC9U7NbQISqbtd2BtCXU9lY5X0PW
-	 cME5i2u2+Z0cl+h7b/bJAWBwbq+XbML+bddraIVITATu3/hLsjSPdaa7nyktIPoplm
-	 HCX3wqoLS66dAMEbYUIC+qnfSZiFSTUA1hIkJ5meOlMf+bwdHTpZ3otYHamBgyup+U
-	 iZdx/kziNC7u4dWtL5B3Gn2PZuRogde+mP9Ar0zy9oLtLVSH6vS1r1QB7YVKq5WAOK
-	 jpzQmxNtsVcGQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4727FC982E1;
-	Sat, 19 Sep 2026 10:28:25 +0000 (UTC)
-From: =?utf-8?q?=E5=AE=89=E5=AE=B9_via_B4_Relay?= <devnull+HystericalDragons.proton.me@kernel.org>
-Date: Sat, 19 Sep 2026 18:28:18 +0800
-Subject: [PATCH v7 2/3] arm64: dts: rockchip: Split out the common NanoPi
- RK3528 parts
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f2kNP1WL"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccc09d65so1493939a91.3
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 03:28:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789813707; x=1790418507; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+T4o7Z4sldFW89gg456PmAN7vw155d0OxgwruAX/bjg=;
+        b=f2kNP1WLxpvn/t+tUVbCCW9qQi8v7yZhZP4wuzHoq4yZG7bfEaEBwN+SEWo6eBRm5H
+         SbIVwc0QnCDZ5rGfb8sej1SbFqn2GErZWE10spac0xqjx6paYxJNUllIIAddz6FLhLYL
+         OlVQyWI0JH82nLIWJ56HmEgC5rKT32x1JiTBj5BLHy7I0O3snFQpmHtZmwOhSlHiSn1p
+         Sc4/gHlaWDWgbJisvSBIID3Ut9Nz4R+1ngKB989GtrrU9jADnNTciwPQ4PtMJ5AH4Fn0
+         c6u8c3j3Honlrca1efBY2qMpBppoLgxDBfuXLj4IpffBUBgSlbsyx3IUnWqrFjAszNVH
+         CO8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789813707; x=1790418507;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+T4o7Z4sldFW89gg456PmAN7vw155d0OxgwruAX/bjg=;
+        b=xpa4mNN67JalEf6GRlrHeEqgHIJDz9r1cwH+O207FjqHlW5gtgNbp0g0tV5UbLGVVA
+         HHZm7rjDyqhzTDbLBf+e+jWbvz63YBU5kUKR1EAkqY/ExWM908HQBgWV0WYagcLM5LNH
+         6M1806TYHzOBOQR/FRcvK3xG3kT1+MMIR7MS7TFfVTimHM8IOBNhuqTrej9OZCpFLlsy
+         oC9n8FOkd2qrTiSot9q2CiIki7ok5JG0l2kRLB6LsJ2Bf345th2ghaodfUgLZnkts5IX
+         W9d4oQbfCVWQnpJm7IXUhFVI+sRWM+ddpRQk09aZbwNteXixOZZNz21AcwhIrFSeIzOV
+         D9ng==
+X-Forwarded-Encrypted: i=1; AKwUvByUfbOsMa8sr8lIM9MtDbfTYbd8cLUURaJYXfQqqTwEnB/CFE3DDJK6s5CYAq9aHocG1WdsNE4I0mtqdPY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kBbD65+gW8cLVi4wn8ZfB+/hiq8iN4jrA8i+FUYAGD3woY9llf
+	y9ThgcVMX/ZD0Q8dFS8RSAMXA5bNSWIzOgwwGRAeXTE4YIJzaG3VnMUa
+X-Gm-Gg: AYBFou3JMFM77Jh6vp3nT1GY3e6bfuIUR3ZV0S6AKsUXmUPb6kGTx6HWOM0c/nRt/Gv
+	gE3nVBBkgTeALgiO7d1SaQc2PFJi2N2qlla+gJLMQA9XPoD7v2tCOqiaGasqLl7hIO5vw120Vt/
+	j6Wjph4Xiv5Ytec0zJ9d1k6lzUgTlHZecsJ21rCyKdZhB7R/VMopLI+P/ycRAx7SSFNiLdekFNy
+	kkuPHxHwMwOa7trP05uqMWLVFD3mwfuyn6cvr6eFMYZE1oXxhBoSyOzuOgSM0J63Nn0sG5yY8Qq
+	meI4r8kVfi79hEKfvWcPUKWD3OWvMIdjG4hPvigXB1BR07YzJ3BussHZKP/lftgJugeoZYq3DVp
+	afQb80Bv471WE6AmPKXYQGx6BrHbas2iYimxehd1wAq/JyQVuDrrVMfOp06QvIvMI8dROO39gsh
+	syyX/JhQ51l9vxPsqSFvANK6FCHywVug+w5aedCjGWUq6yvrezDyAV/QIMMmowsP55MKvSXelso
+	yK/x5mrXx4=
+X-Received: by 2002:a17:90b:184d:b0:39e:6a7f:1dcc with SMTP id 98e67ed59e1d1-39e6a7f222amr3389602a91.40.1789813707258;
+        Sat, 19 Sep 2026 03:28:27 -0700 (PDT)
+Received: from localhost ([118.34.230.2])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c615f05sm4060068a91.15.2026.09.19.03.28.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Sep 2026 03:28:26 -0700 (PDT)
+Date: Sat, 19 Sep 2026 15:58:25 +0530
+From: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
+To: Breno Leitao <leitao@debian.org>
+Cc: Ard Biesheuvel <ardb@kernel.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Miaohe Lin <linmiaohe@huawei.com>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>, kas@kernel.org,
+	kexec@lists.infradead.org, David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, hannes@cmpxchg.or,
+	shakeel.butt@linux.dev, linux-efi@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, rmikey@meta.com,
+	riel@surriel.com, harry@kernel.org, linux-cxl@vger.kernel.org,
+	driver-core@lists.linux.dev, kernel-team@meta.com
+Subject: Re: [PATCH v5 8/9] mm/memory-failure: add hwpoison_boot_page() to
+ flag an inherited frame
+Message-ID: <aq5jyXzuDAANeCJs@acer-nitro-anv15-41>
+References: <20260915-hwpoison-kho-v5-0-3bc7a57bd503@debian.org>
+ <20260915-hwpoison-kho-v5-8-3bc7a57bd503@debian.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260919-r28s-upstream-v7-2-e80a6f8ef521@proton.me>
-References: <20260919-r28s-upstream-v7-0-e80a6f8ef521@proton.me>
-In-Reply-To: <20260919-r28s-upstream-v7-0-e80a6f8ef521@proton.me>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Chukun Pan <amadeus@jmu.edu.cn>, Jonas Karlman <jonas@kwiboo.se>, 
- jensen <jensenhuang@friendlyarm.com>, 
- Andrey Korshunov <razor1702@gmail.com>, 
- Diederik de Haas <diederik@cknow-tech.com>, 
- =?utf-8?q?=E5=AE=89=E5=AE=B9?= <HystericalDragons@proton.me>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=15840;
- i=HystericalDragons@proton.me; h=from:subject:message-id;
- bh=OVYqUKVBomUQYh86hFJiuZIMUUesPgC4S44gBgQRULw=;
- b=owGbwMvMwCUmepz3XUtTHjvjabUkhqx1ycenTC63e3ct5AP3Q8GkGcmPrsXciGKp1k07//WYv
- Xlaz37ujlIWBjEuBlkxRRbZTdWRQquiZxaxSB2HmcPKBDKEgYtTACaidIjhfwmT42euQN3+mDiR
- P8+6ROLfvm2NY+9U7i+sCrJItur5w8hwtMD1S9rOon+RnSarkzKibETq/l9ieSfY0BG9kUWCk48
- XAA==
-X-Developer-Key: i=HystericalDragons@proton.me; a=openpgp;
- fpr=1DB27B5912AA5B9972041AC715C70DEE84826E07
-X-Endpoint-Received: by B4 Relay for HystericalDragons@proton.me/default
- with auth_id=1004
-X-Original-From: =?utf-8?q?=E5=AE=89=E5=AE=B9?= <HystericalDragons@proton.me>
-Reply-To: HystericalDragons@proton.me
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260915-hwpoison-kho-v5-8-3bc7a57bd503@debian.org>
 
-From: 安容 <HystericalDragons@proton.me>
-
-The FriendlyElec NanoPi Zero2 and the NanoPi R28S share their power
-tree, storage, RGMII Ethernet, RTC, LEDs and debug console. Move those
-parts into rk3528-nanopi.dtsi so the NanoPi R28S can reuse them, and
-leave only the board specific nodes in the NanoPi Zero2 devicetree.
-
-Both boards drive a green LED from GPIO4_PB1, but give it a different
-purpose, so the common file describes the LED itself and each board
-adds the function, trigger and default state. While moving the LED pins
-give them the usual _pin suffix, which frees the led1 label for the LED
-node.
-
-Suggested-by: Chukun Pan <amadeus@jmu.edu.cn>
-Signed-off-by: 安容 <HystericalDragons@proton.me>
----
- .../boot/dts/rockchip/rk3528-nanopi-zero2.dts      | 290 +-------------------
- arch/arm64/boot/dts/rockchip/rk3528-nanopi.dtsi    | 291 +++++++++++++++++++++
- 2 files changed, 296 insertions(+), 285 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts b/arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts
-index 97d85124d2..05ae03622e 100644
---- a/arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts
-@@ -2,41 +2,12 @@
- 
- /dts-v1/;
- 
--#include <dt-bindings/input/input.h>
--#include <dt-bindings/leds/common.h>
--#include <dt-bindings/pwm/pwm.h>
--#include "rk3528.dtsi"
-+#include "rk3528-nanopi.dtsi"
- 
- / {
- 	model = "FriendlyElec NanoPi Zero2";
- 	compatible = "friendlyarm,nanopi-zero2", "rockchip,rk3528";
- 
--	aliases {
--		ethernet0 = &gmac1;
--		i2c1 = &i2c1;
--		mmc0 = &sdhci;
--		mmc1 = &sdmmc;
--		serial0 = &uart0;
--	};
--
--	chosen {
--		stdout-path = "serial0:1500000n8";
--	};
--
--	adc-keys-0 {
--		compatible = "adc-keys";
--		io-channels = <&saradc 0>;
--		io-channel-names = "buttons";
--		keyup-threshold-microvolt = <1800000>;
--		poll-interval = <100>;
--
--		button-maskrom {
--			label = "MASK";
--			linux,code = <KEY_SETUP>;
--			press-threshold-microvolt = <0>;
--		};
--	};
--
- 	adc-keys-1 {
- 		compatible = "adc-keys";
- 		io-channels = <&saradc 1>;
-@@ -51,28 +22,6 @@ button-recovery {
- 		};
- 	};
- 
--	leds {
--		compatible = "gpio-leds";
--		pinctrl-names = "default";
--		pinctrl-0 = <&led1>, <&led_sys>;
--
--		led-0 {
--			color = <LED_COLOR_ID_RED>;
--			default-state = "on";
--			function = LED_FUNCTION_HEARTBEAT;
--			gpios = <&gpio4 RK_PB0 GPIO_ACTIVE_HIGH>;
--			linux,default-trigger = "heartbeat";
--		};
--
--		led-1 {
--			color = <LED_COLOR_ID_GREEN>;
--			default-state = "on";
--			function = LED_FUNCTION_STATUS;
--			gpios = <&gpio4 RK_PB1 GPIO_ACTIVE_HIGH>;
--			linux,default-trigger = "default-on";
--		};
--	};
--
- 	vcc0v6_ddr: regulator-0v6-vcc-ddr {
- 		compatible = "regulator-fixed";
- 		regulator-name = "vcc0v6_ddr";
-@@ -83,66 +32,6 @@ vcc0v6_ddr: regulator-0v6-vcc-ddr {
- 		vin-supply = <&vcc5v0_sys>;
- 	};
- 
--	vdd_0v9: regulator-0v9-vdd {
--		compatible = "regulator-fixed";
--		regulator-name = "vdd_0v9";
--		regulator-always-on;
--		regulator-boot-on;
--		regulator-min-microvolt = <900000>;
--		regulator-max-microvolt = <900000>;
--		vin-supply = <&vcc5v0_sys>;
--	};
--
--	vcc_ddr: regulator-1v1-vcc-ddr {
--		compatible = "regulator-fixed";
--		regulator-name = "vcc_ddr";
--		regulator-always-on;
--		regulator-boot-on;
--		regulator-min-microvolt = <1100000>;
--		regulator-max-microvolt = <1100000>;
--		vin-supply = <&vcc5v0_sys>;
--	};
--
--	vcc_1v8: regulator-1v8-vcc {
--		compatible = "regulator-fixed";
--		regulator-name = "vcc_1v8";
--		regulator-always-on;
--		regulator-boot-on;
--		regulator-min-microvolt = <1800000>;
--		regulator-max-microvolt = <1800000>;
--		vin-supply = <&vcc_3v3>;
--	};
--
--	vcc_3v3: regulator-3v3-vcc {
--		compatible = "regulator-fixed";
--		regulator-name = "vcc_3v3";
--		regulator-always-on;
--		regulator-boot-on;
--		regulator-min-microvolt = <3300000>;
--		regulator-max-microvolt = <3300000>;
--		vin-supply = <&vcc5v0_sys>;
--	};
--
--	vcc3v3_sd: regulator-3v3-vcc-sd {
--		compatible = "regulator-fixed";
--		gpios = <&gpio4 RK_PA1 GPIO_ACTIVE_LOW>;
--		pinctrl-names = "default";
--		pinctrl-0 = <&sdmmc_pwren_l>;
--		regulator-name = "vcc3v3_sd";
--		regulator-min-microvolt = <3300000>;
--		regulator-max-microvolt = <3300000>;
--		vin-supply = <&vcc_3v3>;
--	};
--
--	vcc5v0_sys: regulator-5v0-vcc-sys {
--		compatible = "regulator-fixed";
--		regulator-name = "vcc5v0_sys";
--		regulator-always-on;
--		regulator-boot-on;
--		regulator-min-microvolt = <5000000>;
--		regulator-max-microvolt = <5000000>;
--	};
--
- 	usb2_host_5v: regulator-5v0-usb2-host {
- 		compatible = "regulator-fixed";
- 		enable-active-high;
-@@ -154,138 +43,15 @@ usb2_host_5v: regulator-5v0-usb2-host {
- 		regulator-max-microvolt = <5000000>;
- 		vin-supply = <&vcc5v0_sys>;
- 	};
--
--	vccio_sd: regulator-vccio-sd {
--		compatible = "regulator-gpio";
--		gpios = <&gpio4 RK_PB6 GPIO_ACTIVE_HIGH>;
--		pinctrl-names = "default";
--		pinctrl-0 = <&sdmmc_vol_ctrl_h>;
--		regulator-name = "vccio_sd";
--		regulator-min-microvolt = <1800000>;
--		regulator-max-microvolt = <3300000>;
--		states = <1800000 0x0>, <3300000 0x1>;
--		vin-supply = <&vcc5v0_sys>;
--	};
--
--	vdd_arm: regulator-vdd-arm {
--		compatible = "pwm-regulator";
--		pwms = <&pwm1 0 5000 PWM_POLARITY_INVERTED>;
--		pwm-supply = <&vcc5v0_sys>;
--		regulator-name = "vdd_arm";
--		regulator-always-on;
--		regulator-boot-on;
--		regulator-min-microvolt = <746000>;
--		regulator-max-microvolt = <1201000>;
--		regulator-settling-time-up-us = <250>;
--	};
--
--	vdd_logic: regulator-vdd-logic {
--		compatible = "pwm-regulator";
--		pwms = <&pwm2 0 5000 PWM_POLARITY_INVERTED>;
--		pwm-supply = <&vcc5v0_sys>;
--		regulator-name = "vdd_logic";
--		regulator-always-on;
--		regulator-boot-on;
--		regulator-min-microvolt = <705000>;
--		regulator-max-microvolt = <1006000>;
--		regulator-settling-time-up-us = <250>;
--	};
--};
--
--&cpu0 {
--	cpu-supply = <&vdd_arm>;
--};
--
--&cpu1 {
--	cpu-supply = <&vdd_arm>;
--};
--
--&cpu2 {
--	cpu-supply = <&vdd_arm>;
--};
--
--&cpu3 {
--	cpu-supply = <&vdd_arm>;
- };
- 
--&gmac1 {
--	clock_in_out = "output";
--	phy-handle = <&rgmii_phy>;
--	phy-mode = "rgmii-id";
--	phy-supply = <&vcc_3v3>;
--	pinctrl-names = "default";
--	pinctrl-0 = <&rgmii_miim>, <&rgmii_tx_bus2>, <&rgmii_rx_bus2>,
--		    <&rgmii_rgmii_clk>, <&rgmii_rgmii_bus>;
--	status = "okay";
--};
--
--&gpu {
--	mali-supply = <&vdd_logic>;
--	status = "okay";
--};
--
--&i2c1 {
--	pinctrl-names = "default";
--	pinctrl-0 = <&i2c1m0_xfer>;
--	status = "okay";
--
--	hym8563: rtc@51 {
--		compatible = "haoyu,hym8563";
--		reg = <0x51>;
--		#clock-cells = <0>;
--		interrupt-parent = <&gpio4>;
--		interrupts = <RK_PC1 IRQ_TYPE_LEVEL_LOW>;
--		pinctrl-names = "default";
--		pinctrl-0 = <&rtc_int_l>;
--		wakeup-source;
--	};
--};
--
--&mdio1 {
--	rgmii_phy: ethernet-phy@1 {
--		compatible = "ethernet-phy-ieee802.3-c22";
--		reg = <0x1>;
--		pinctrl-names = "default";
--		pinctrl-0 = <&gmac1_rstn_l>;
--		reset-assert-us = <20000>;
--		reset-deassert-us = <100000>;
--		reset-gpios = <&gpio4 RK_PC2 GPIO_ACTIVE_LOW>;
--	};
-+&led1 {
-+	default-state = "on";
-+	function = LED_FUNCTION_STATUS;
-+	linux,default-trigger = "default-on";
- };
- 
- &pinctrl {
--	ethernet {
--		gmac1_rstn_l: gmac1-rstn-l {
--			rockchip,pins = <4 RK_PC2 RK_FUNC_GPIO &pcfg_pull_none>;
--		};
--	};
--
--	leds {
--		led1: led1 {
--			rockchip,pins = <4 RK_PB1 RK_FUNC_GPIO &pcfg_pull_none>;
--		};
--
--		led_sys: led-sys {
--			rockchip,pins = <4 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
--		};
--	};
--
--	rtc {
--		rtc_int_l: rtc-int-l {
--			rockchip,pins = <4 RK_PC1 RK_FUNC_GPIO &pcfg_pull_up>;
--		};
--	};
--
--	sdmmc {
--		sdmmc_vol_ctrl_h: sdmmc-vol-ctrl-h {
--			rockchip,pins = <4 RK_PB6 RK_FUNC_GPIO &pcfg_pull_none>;
--		};
--
--		sdmmc_pwren_l: sdmmc-pwren-l {
--			rockchip,pins = <4 RK_PA1 RK_FUNC_GPIO &pcfg_pull_none>;
--		};
--	};
--
- 	usb {
- 		usb20_host1_pwren: usb20-host1-pwren {
- 			rockchip,pins = <4 RK_PB5 RK_FUNC_GPIO &pcfg_pull_none>;
-@@ -293,52 +59,6 @@ usb20_host1_pwren: usb20-host1-pwren {
- 	};
- };
- 
--&pwm1 {
--	pinctrl-names = "default";
--	pinctrl-0 = <&pwm1m0_pins>;
--	status = "okay";
--};
--
--&pwm2 {
--	pinctrl-names = "default";
--	pinctrl-0 = <&pwm2m0_pins>;
--	status = "okay";
--};
--
--&saradc {
--	vref-supply = <&vcc_1v8>;
--	status = "okay";
--};
--
--&sdhci {
--	bus-width = <8>;
--	cap-mmc-highspeed;
--	mmc-hs200-1_8v;
--	no-sd;
--	no-sdio;
--	non-removable;
--	vmmc-supply = <&vcc_3v3>;
--	vqmmc-supply = <&vcc_1v8>;
--	status = "okay";
--};
--
--&sdmmc {
--	bus-width = <4>;
--	cap-mmc-highspeed;
--	cap-sd-highspeed;
--	disable-wp;
--	sd-uhs-sdr104;
--	vmmc-supply = <&vcc3v3_sd>;
--	vqmmc-supply = <&vccio_sd>;
--	status = "okay";
--};
--
--&uart0 {
--	pinctrl-names = "default";
--	pinctrl-0 = <&uart0m0_xfer>;
--	status = "okay";
--};
--
- &usb_host0_ehci {
- 	status = "okay";
- };
-diff --git a/arch/arm64/boot/dts/rockchip/rk3528-nanopi.dtsi b/arch/arm64/boot/dts/rockchip/rk3528-nanopi.dtsi
-new file mode 100644
-index 0000000000..4b3f26dab6
---- /dev/null
-+++ b/arch/arm64/boot/dts/rockchip/rk3528-nanopi.dtsi
-@@ -0,0 +1,291 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+
-+#include <dt-bindings/input/input.h>
-+#include <dt-bindings/leds/common.h>
-+#include <dt-bindings/pwm/pwm.h>
-+#include "rk3528.dtsi"
-+
-+/ {
-+	aliases {
-+		ethernet0 = &gmac1;
-+		i2c1 = &i2c1;
-+		mmc0 = &sdhci;
-+		mmc1 = &sdmmc;
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:1500000n8";
-+	};
-+
-+	adc-keys-0 {
-+		compatible = "adc-keys";
-+		io-channels = <&saradc 0>;
-+		io-channel-names = "buttons";
-+		keyup-threshold-microvolt = <1800000>;
-+		poll-interval = <100>;
-+
-+		button-maskrom {
-+			label = "MASK";
-+			linux,code = <KEY_SETUP>;
-+			press-threshold-microvolt = <0>;
-+		};
-+	};
-+
-+	leds: leds {
-+		compatible = "gpio-leds";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&led_sys_pin>, <&led1_pin>;
-+
-+		led-0 {
-+			color = <LED_COLOR_ID_RED>;
-+			default-state = "on";
-+			function = LED_FUNCTION_HEARTBEAT;
-+			gpios = <&gpio4 RK_PB0 GPIO_ACTIVE_HIGH>;
-+			linux,default-trigger = "heartbeat";
-+		};
-+
-+		/* The purpose of the second LED differs per board. */
-+		led1: led-1 {
-+			color = <LED_COLOR_ID_GREEN>;
-+			gpios = <&gpio4 RK_PB1 GPIO_ACTIVE_HIGH>;
-+		};
-+	};
-+
-+	vdd_0v9: regulator-0v9-vdd {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vdd_0v9";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <900000>;
-+		regulator-max-microvolt = <900000>;
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+
-+	vcc_ddr: regulator-1v1-vcc-ddr {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc_ddr";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <1100000>;
-+		regulator-max-microvolt = <1100000>;
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+
-+	vcc_1v8: regulator-1v8-vcc {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc_1v8";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		vin-supply = <&vcc_3v3>;
-+	};
-+
-+	vcc_3v3: regulator-3v3-vcc {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc_3v3";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+
-+	vcc3v3_sd: regulator-3v3-vcc-sd {
-+		compatible = "regulator-fixed";
-+		gpios = <&gpio4 RK_PA1 GPIO_ACTIVE_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&sdmmc_pwren_l>;
-+		regulator-name = "vcc3v3_sd";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		vin-supply = <&vcc_3v3>;
-+	};
-+
-+	vcc5v0_sys: regulator-5v0-vcc-sys {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc5v0_sys";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+	};
-+
-+	vccio_sd: regulator-vccio-sd {
-+		compatible = "regulator-gpio";
-+		gpios = <&gpio4 RK_PB6 GPIO_ACTIVE_HIGH>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&sdmmc_vol_ctrl_h>;
-+		regulator-name = "vccio_sd";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <3300000>;
-+		states = <1800000 0x0>, <3300000 0x1>;
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+
-+	vdd_arm: regulator-vdd-arm {
-+		compatible = "pwm-regulator";
-+		pwms = <&pwm1 0 5000 PWM_POLARITY_INVERTED>;
-+		pwm-supply = <&vcc5v0_sys>;
-+		regulator-name = "vdd_arm";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <746000>;
-+		regulator-max-microvolt = <1201000>;
-+		regulator-settling-time-up-us = <250>;
-+	};
-+
-+	vdd_logic: regulator-vdd-logic {
-+		compatible = "pwm-regulator";
-+		pwms = <&pwm2 0 5000 PWM_POLARITY_INVERTED>;
-+		pwm-supply = <&vcc5v0_sys>;
-+		regulator-name = "vdd_logic";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <705000>;
-+		regulator-max-microvolt = <1006000>;
-+		regulator-settling-time-up-us = <250>;
-+	};
-+};
-+
-+&cpu0 {
-+	cpu-supply = <&vdd_arm>;
-+};
-+
-+&cpu1 {
-+	cpu-supply = <&vdd_arm>;
-+};
-+
-+&cpu2 {
-+	cpu-supply = <&vdd_arm>;
-+};
-+
-+&cpu3 {
-+	cpu-supply = <&vdd_arm>;
-+};
-+
-+&gmac1 {
-+	clock_in_out = "output";
-+	phy-handle = <&rgmii_phy>;
-+	phy-mode = "rgmii-id";
-+	phy-supply = <&vcc_3v3>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&rgmii_miim>, <&rgmii_tx_bus2>, <&rgmii_rx_bus2>,
-+		    <&rgmii_rgmii_clk>, <&rgmii_rgmii_bus>;
-+	status = "okay";
-+};
-+
-+&gpu {
-+	mali-supply = <&vdd_logic>;
-+	status = "okay";
-+};
-+
-+&i2c1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c1m0_xfer>;
-+	status = "okay";
-+
-+	hym8563: rtc@51 {
-+		compatible = "haoyu,hym8563";
-+		reg = <0x51>;
-+		#clock-cells = <0>;
-+		interrupt-parent = <&gpio4>;
-+		interrupts = <RK_PC1 IRQ_TYPE_LEVEL_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&rtc_int_l>;
-+		wakeup-source;
-+	};
-+};
-+
-+&mdio1 {
-+	rgmii_phy: ethernet-phy@1 {
-+		compatible = "ethernet-phy-ieee802.3-c22";
-+		reg = <0x1>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&gmac1_rstn_l>;
-+		reset-assert-us = <20000>;
-+		reset-deassert-us = <100000>;
-+		reset-gpios = <&gpio4 RK_PC2 GPIO_ACTIVE_LOW>;
-+	};
-+};
-+
-+&pinctrl {
-+	ethernet {
-+		gmac1_rstn_l: gmac1-rstn-l {
-+			rockchip,pins = <4 RK_PC2 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+
-+	leds {
-+		led_sys_pin: led-sys-pin {
-+			rockchip,pins = <4 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+
-+		led1_pin: led1-pin {
-+			rockchip,pins = <4 RK_PB1 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+
-+	rtc {
-+		rtc_int_l: rtc-int-l {
-+			rockchip,pins = <4 RK_PC1 RK_FUNC_GPIO &pcfg_pull_up>;
-+		};
-+	};
-+
-+	sdmmc {
-+		sdmmc_pwren_l: sdmmc-pwren-l {
-+			rockchip,pins = <4 RK_PA1 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+
-+		sdmmc_vol_ctrl_h: sdmmc-vol-ctrl-h {
-+			rockchip,pins = <4 RK_PB6 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+};
-+
-+&pwm1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pwm1m0_pins>;
-+	status = "okay";
-+};
-+
-+&pwm2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pwm2m0_pins>;
-+	status = "okay";
-+};
-+
-+&saradc {
-+	vref-supply = <&vcc_1v8>;
-+	status = "okay";
-+};
-+
-+&sdhci {
-+	bus-width = <8>;
-+	cap-mmc-highspeed;
-+	mmc-hs200-1_8v;
-+	no-sd;
-+	no-sdio;
-+	non-removable;
-+	vmmc-supply = <&vcc_3v3>;
-+	vqmmc-supply = <&vcc_1v8>;
-+	status = "okay";
-+};
-+
-+&sdmmc {
-+	bus-width = <4>;
-+	cap-mmc-highspeed;
-+	cap-sd-highspeed;
-+	disable-wp;
-+	sd-uhs-sdr104;
-+	vmmc-supply = <&vcc3v3_sd>;
-+	vqmmc-supply = <&vccio_sd>;
-+	status = "okay";
-+};
-+
-+&uart0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart0m0_xfer>;
-+	status = "okay";
-+};
-
--- 
-2.55.0
+On Tue, Sep 15, 2026 at 05:53:42AM -0700, Breno Leitao wrote:
+> A frame the previous kernel recorded as poisoned has to be flagged before
+> it reaches the allocator, which is long before memory_failure() can run.
+> Add a helper that leaves it in the state a frame poisoned by this kernel
+> would be in, so everything that already understands PG_hwpoison covers it,
+> the kexec segment placement check included.
+> 
+> num_poisoned_pages_inc() does not work at boot: its per memory block half
+> looks the block up by pfn, and memory_dev_init() has not run, so it
+> divides by zero. Take only the global counter there. A hotplugged block is
+> already there, so that path takes both counters as usual.
+> 
+> The caller comes later in this series.
+> 
+> Signed-off-by: Breno Leitao <leitao@debian.org>
+> ---
+>  include/linux/mm.h  |  7 +++++++
+>  mm/memory-failure.c | 26 ++++++++++++++++++++++++++
+>  2 files changed, 33 insertions(+)
+> 
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index b68824fcfbef19..8039830998dd4b 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -5225,6 +5225,8 @@ extern const struct attribute_group memory_failure_attr_group;
+>  extern void memory_failure_queue(unsigned long pfn, int flags);
+>  void num_poisoned_pages_inc(unsigned long pfn);
+>  void num_poisoned_pages_sub(unsigned long pfn, long i);
+> +void __meminit hwpoison_boot_page(struct page *page,
+> +				  enum meminit_context context);
+>  phys_addr_t range_first_hwpoison(phys_addr_t start, unsigned long size);
+>  phys_addr_t range_last_hwpoison(phys_addr_t start, unsigned long size);
+>  #else
+> @@ -5232,6 +5234,11 @@ static inline void memory_failure_queue(unsigned long pfn, int flags)
+>  {
+>  }
+>  
+> +static inline void hwpoison_boot_page(struct page *page,
+> +				      enum meminit_context context)
+> +{
+> +}
+> +
+>  static inline void num_poisoned_pages_inc(unsigned long pfn)
+>  {
+>  }
+> diff --git a/mm/memory-failure.c b/mm/memory-failure.c
+> index d9b8be696aac38..60e9682434700b 100644
+> --- a/mm/memory-failure.c
+> +++ b/mm/memory-failure.c
+> @@ -137,6 +137,32 @@ phys_addr_t range_last_hwpoison(phys_addr_t start, unsigned long size)
+>  	return range_hwpoison(start, size, false);
+>  }
+>  
+> +static void update_per_node_mf_stats(unsigned long pfn, enum mf_result result);
+> +
+> +void __meminit hwpoison_boot_page(struct page *page,
+> +				  enum meminit_context context)
+> +{
+> +	unsigned long pfn = page_to_pfn(page);
+> +
+> +	if (PageHWPoison(page))
+> +		return;
+> +
+> +	SetPageHWPoison(page);
+> +	set_page_count(page, 1);
+> +	/* The page has been completely isolated == MF_RECOVERED */
+> +	update_per_node_mf_stats(pfn, MF_RECOVERED);
 
 
+snip
+
+> +
+> +	/*
+> +	 * The per memory block half of num_poisoned_pages_inc() has no block to
+> +	 * find at boot, and divides by zero looking for one. A hotplugged block
+> +	 * is already there.
+> +	 */
+> +	if (context == MEMINIT_HOTPLUG)
+> +		num_poisoned_pages_inc(pfn);
+> +	else
+> +		atomic_long_inc(&num_poisoned_pages);
+> +}
+
+Hi Breno,
+
+num_poisoned_pages_inc() currently assumes that the supplied PFN can
+be used for per-memory-block accounting and therefore calls
+memblk_nr_poison_inc() unconditionally. The early-boot path needs
+global-only accounting because the memory-block infrastructure is not
+initialized yet.
+
+Could num_poisoned_pages_inc() treat -1UL as global-only accounting,
+matching num_poisoned_pages_sub()?
+
+Example as below:
+
+void num_poisoned_pages_inc(unsigned long pfn)
+{
+	atomic_long_inc(&num_poisoned_pages);
+
+	if (pfn != -1UL)
+		memblk_nr_poison_inc(pfn);
+}
+
+
+The caller could then use:
+
+num_poisoned_pages_inc(context == MEMINIT_HOTPLUG ? pfn : -1UL);
+
+This would keep updates to `num_poisoned_pages` encapsulated rather than
+manipulating the counter directly here, while also making the increment
+and decrement interfaces consistent.
+
+Thanks,
+Shaikh Kamaluddin.
+> +
+>  /**
+>   * MF_ATTR_RO - Create sysfs entry for each memory failure statistics.
+>   * @_name: name of the file in the per NUMA sysfs directory.
+> 
+> -- 
+> 2.53.0-Meta
+> 
