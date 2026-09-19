@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAD3E3ACEE2;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9BDB3B14B8;
 	Sat, 19 Sep 2026 06:54:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789800882; cv=none; b=cd4rjfU/Rd3Q+tIovH6uC3el6YvGD53nQRwoYcK/zi+hw4pDHNWWyWO8THmJY0+olLbbothnh+vlqYijznK6s9fHNj370vBb/SyUVHUt1IsRPhsgQvoX63WcyQlIDVC6cjj0KB43bhYKqEjQ0a6MZKFLPS5g8pjrphTLcGLdQT4=
+	t=1789800882; cv=none; b=OcNFYK54SqEEAhnbBrmbAyMLpTWPe3EyiuSa+A7D/Z/HMF3jyZVowM/0UBI/atRUR4EOJvBy/QWWIe+1614rml21I2p6lbVwMKh9rsXssIRAnGTm/EpQGo21k6W2aNKAsbP4MNvYZAB0qLWn21Mh8WeVl2xY9zX5T0n4oaqt0zk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789800882; c=relaxed/simple;
-	bh=uSo8bZNbkIHsnVdQZGbJA8vvd3OR2BORJto4RXhDTmU=;
+	bh=6EejufrpwC/UtsiftUOzo0NzHkyCdWKMKJS4FmujPqE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=N4mU/WJ3mYQa9Np6zb4eJ3vqI/GT2fnF21naduRdQQyj/H7ounA4EfKPA1GfUgss3xMYa2ADSlX/Y9Y/uxo5i0ahw8ZBmM7C4uaDRpy1O5eMaX9ecZqVdo8ruerJn4X3qwPpPQWasWmqT50VznSxKTEhA3pHm5ndBhgBeBpcwZE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j7bctcZX; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=nRir9I+7VmkHPYQwl5ygRcarLollHCZqByYhGu4sDGThbmD2i06BW4/4rbUSo4nnkWM5u78L6WsdDi3kgtesuUydtH41+aU5jgzKpr7bm8d3TYi0EYh6n1Epl+AY8KNCJFQk0ajEEbTjnJZVhOBNYE7jFHzFz/cB3hJTaHkrDkc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jx5vjY/C; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j7bctcZX"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 51932C4AF65;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jx5vjY/C"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A6CFAC2BD00;
 	Sat, 19 Sep 2026 06:54:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1789800882;
-	bh=uSo8bZNbkIHsnVdQZGbJA8vvd3OR2BORJto4RXhDTmU=;
+	bh=6EejufrpwC/UtsiftUOzo0NzHkyCdWKMKJS4FmujPqE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=j7bctcZX8ZMKSw9pRuehWjrSOFoxdrNRW/T8D+EhdnS3c63XtyZ9vFzUT1pZdslGv
-	 ygXaEq/AN95ik8b4sJkl3d6qlOJNTXCbNOIjPCoWv2qZvQSRHk7+JZavzV9E9D8EZi
-	 ARa7HCwsvmIsOwNRB2JP0wyN6NDhrdLCHRBE3VTWZiVfJ5Ow4plBvS3cVQwI84q/Nu
-	 DnnulGm9JO291lUiKcdK/IPM5Ur5YwxCx9m1iqW5W3BDNYUktWWE75xrqPxXZwamUi
-	 YGPYtegAD/FCKliQ99PCc1iM35/OZuinSBkVb0BaP7PJvkroNetN8+nFHuxtgEtDHx
-	 NdJjMtAIJSKEw==
+	b=Jx5vjY/CCRE7CRlYzRSaE83vJkwuKU0rLyy3049H2XqQY2lsVFUSiTMPhrkltdSka
+	 VAspCoCSGTl6EviRc7hkTZYWr2KjKdxvNzUT6H8NtJ6v+73Q84NkcpE2YANHQII0zF
+	 XhHnjNsKtud9ASdC9OhGS1S07nX38T2h8fPGXq1dogXzTF24MQfsCViUaMvZW8Mkzk
+	 xPbwoiQGWy6QIuHtUP6gadVBZriqpZ+FfOkHmywR6KwuhPoqypq5UN+tYuMjF2XGm8
+	 WlVZpfivX80AUkgyRj2hsv/MfWNjSUtKkz5SBUD58omWLLuojCRAH6HRXM/zg6Jq1P
+	 0gbzD+oLBgiwQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3AA58C982E0;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 91612C982D8;
 	Sat, 19 Sep 2026 06:54:42 +0000 (UTC)
 From: Jan Petrous via B4 Relay <devnull+jan.petrous.oss.nxp.com@kernel.org>
-Date: Sat, 19 Sep 2026 08:54:35 +0200
-Subject: [PATCH RFC v3 07/12] net: stmmac: dwmac-s32: Add SGMII support
+Date: Sat, 19 Sep 2026 08:54:38 +0200
+Subject: [PATCH RFC v3 10/12] arm64: dts: s32g: Add SerDes controller nodes
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260919-s32g_serdes-v3-7-9d68868c1e89@oss.nxp.com>
+Message-Id: <20260919-s32g_serdes-v3-10-9d68868c1e89@oss.nxp.com>
 References: <20260919-s32g_serdes-v3-0-9d68868c1e89@oss.nxp.com>
 In-Reply-To: <20260919-s32g_serdes-v3-0-9d68868c1e89@oss.nxp.com>
 To: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>, 
@@ -80,11 +80,11 @@ Cc: linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
  Vincent Guittot <vincent.guittot@linaro.org>, 
  "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
 X-Mailer: b4 0.14.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789800879; l=6849;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789800879; l=3680;
  i=jan.petrous@oss.nxp.com; s=20240922; h=from:subject:message-id;
- bh=4xD+2UliT9if7xfxC4obvM/j/KDsycsnBr6+hB/0laM=;
- b=5OIBAAJuZHkhcAGGtQ976p6z0oaLbUzT0mz/wqPWyV3kJCvbFOuBzbCc2cYTYTrUDNzienbYv
- 59ARLxHrLvhBqBjrHdBziUL43EFZQ42qlxWYLQ4uvdnlXh7yuRwdaYp
+ bh=+XdDZhOByuFg4ugqbcosSUu/1UqTDyBj7h2t2yZcItw=;
+ b=kZUh437M7THMDFoZdyk69tr7g1HHaMmr1ZlQyhm0sBeIJNMStvThEvrBZyUPuUKNJgHwFCwqz
+ YeZiqpPQy75C/lroDEnwnQIfWWGthgowbolg75PLA4GriZYTmxmDaPO
 X-Developer-Key: i=jan.petrous@oss.nxp.com; a=ed25519;
  pk=Ke3wwK7rb2Me9UQRf6vR8AsfJZfhTyoDaxkUCqmSWYY=
 X-Endpoint-Received: by B4 Relay for jan.petrous@oss.nxp.com/20240922 with
@@ -94,193 +94,105 @@ Reply-To: jan.petrous@oss.nxp.com
 
 From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
 
-Wire the NXP S32G SerDes XPCS PCS into the dwmac-s32 glue layer so the
-MAC can run SGMII over a SerDes lane.
-
-Changes:
-- s32_gmac_write_phy_intf_select: replace the hard-coded RGMII selector
-  with a switch on phy_interface so SGMII (0x01), RGMII, RMII and MII
-  all programme the SoC control register correctly.
-- Add s32_gmac_pcs_init: obtain the phylink_pcs handle from the SerDes
-  subsystem via s32g_serdes_pcs_create(), keyed by the standard
-  pcs-handle property on the GMAC node pointing at the SerDes XPCS lane
-  child. Propagates -EPROBE_DEFER if the SerDes driver has not probed
-  yet. There is no matching exit hook: the device link created by
-  s32g_serdes_pcs_create() covers the lifetime.
-- Add s32_gmac_select_pcs: return the stored PCS handle when the
-  negotiated interface is SGMII.
-- Hook pcs_init and select_pcs into plat_stmmacenet_data.
-
-Note that installing a select_pcs callback suppresses the core's
-integrated_pcs fallback, because stmmac treats a NULL return from
-select_pcs as "no PCS" rather than "fall through". This matches what
-dwmac-rzn1 and dwmac-intel already do.
-
-Both negotiation modes are supported by the PCS. The board device
-trees added later in this series describe the MAC-side link as fixed,
-so they exercise the out-of-band path.
-
-The XPCS header guards its s32g_serdes_pcs_create() declaration with
-IS_REACHABLE(CONFIG_PHY_S32G_SERDES) and provides a static-inline stub
-returning -ENODEV otherwise. IS_REACHABLE is false both when the SerDes
-driver is disabled and in the built-in-consumer / modular-provider case
-(DWMAC_S32=y with PHY_S32G_SERDES=m), so this driver links in all four
-combinations of the two symbols.
-
-Linking is not sufficient on its own, though. In the DWMAC_S32=y with
-PHY_S32G_SERDES=m case the stub makes s32_gmac_pcs_init() return
--ENODEV, and stmmac treats a failing plat->pcs_init() as fatal, so a
-built-in MAC would refuse to probe on any device tree describing
-pcs-handle. Add a Kconfig dependency forbidding that combination
-rather than letting it build into a MAC that cannot probe.
-
-Tested on an S32G3-VNP-RDB3 board: GMAC0 links at 1G over SGMII and
-passes traffic, both in SerDes mode 1 (alongside two active PCIe root
-complexes) and in mode 3.
+Add the SerDes/PCIe combo-PHY controller nodes for S32G2 and S32G3 in
+the disabled state. Each SoC integrates two SerDes instances (SerDes_0
+and SerDes_1) with identical register layout; every instance exposes
+the PCIe PHY and the two XPCS instances used for SGMII. Board device
+trees enable the required instance and add the lane PHY child nodes
+matching the wanted SerDes subsystem mode.
 
 Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/Kconfig     |  6 ++
- drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c | 74 ++++++++++++++++++++++++-
- 2 files changed, 78 insertions(+), 2 deletions(-)
+ arch/arm64/boot/dts/freescale/s32g2.dtsi | 32 ++++++++++++++++++++++++++++++++
+ arch/arm64/boot/dts/freescale/s32g3.dtsi | 32 ++++++++++++++++++++++++++++++++
+ 2 files changed, 64 insertions(+)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-index e3dd5adda5ac..1443ff4149b4 100644
---- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
-+++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-@@ -192,6 +192,12 @@ config DWMAC_S32
- 	tristate "NXP S32G/S32R GMAC support"
- 	default ARCH_S32
- 	depends on OF && (ARCH_S32 || COMPILE_TEST)
-+	# SGMII needs the PCS from the SerDes driver. The header falls back
-+	# to a stub returning -ENODEV when that driver is not reachable, and
-+	# stmmac makes a failing plat->pcs_init() fatal, so a built-in MAC
-+	# with a modular SerDes would refuse to probe on any DT describing
-+	# pcs-handle. Forbid that combination instead.
-+	depends on PHY_S32G_SERDES || PHY_S32G_SERDES=n
- 	help
- 	  Support for ethernet controller on NXP S32CC SOCs.
+diff --git a/arch/arm64/boot/dts/freescale/s32g2.dtsi b/arch/arm64/boot/dts/freescale/s32g2.dtsi
+index 6a2774d53747..404913b208fb 100644
+--- a/arch/arm64/boot/dts/freescale/s32g2.dtsi
++++ b/arch/arm64/boot/dts/freescale/s32g2.dtsi
+@@ -877,6 +877,38 @@ gmac0mdio: mdio {
+ 			};
+ 		};
  
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c
-index 024d8e10e918..a3a56b21181a 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c
-@@ -16,12 +16,14 @@
- #include <linux/of_mdio.h>
- #include <linux/of_address.h>
- #include <linux/phy.h>
-+#include <linux/phy/nxp-s32g-serdes.h>
- #include <linux/phylink.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
- #include <linux/stmmac.h>
- 
- #include "stmmac_platform.h"
-+#include "stmmac.h"
- 
- #define GMAC_INTF_RATE_125M	125000000	/* 125MHz */
- 
-@@ -40,23 +42,89 @@ struct s32_priv_data {
- 	phy_interface_t *intf_mode;
- 	struct clk *tx_clk;
- 	struct clk *rx_clk;
-+	/* SGMII PCS provided by the SerDes subsystem (NULL if not SGMII) */
-+	struct phylink_pcs *pcs;
- };
- 
- static int s32_gmac_write_phy_intf_select(struct s32_priv_data *gmac)
- {
-+	u32 intf_sel;
- 	int ret = 0;
- 
-+	switch (*gmac->intf_mode) {
-+	case PHY_INTERFACE_MODE_SGMII:
-+		intf_sel = S32_PHY_INTF_SEL_SGMII;
-+		break;
-+	case PHY_INTERFACE_MODE_RGMII:
-+	case PHY_INTERFACE_MODE_RGMII_ID:
-+	case PHY_INTERFACE_MODE_RGMII_RXID:
-+	case PHY_INTERFACE_MODE_RGMII_TXID:
-+		intf_sel = S32_PHY_INTF_SEL_RGMII;
-+		break;
-+	case PHY_INTERFACE_MODE_RMII:
-+		intf_sel = S32_PHY_INTF_SEL_RMII;
-+		break;
-+	case PHY_INTERFACE_MODE_MII:
-+		intf_sel = S32_PHY_INTF_SEL_MII;
-+		break;
-+	default:
-+		dev_err(gmac->dev, "Unsupported phy interface mode: %s\n",
-+			phy_modes(*gmac->intf_mode));
-+		return -EINVAL;
-+	}
++		serdes0: serdes@40480000 {
++			compatible = "nxp,s32g2-serdes0", "nxp,s32g2-serdes";
++			reg = <0x40480000 0x108>,
++			      <0x40483008 0x10>,
++			      <0x40482000 0x800>,
++			      <0x40482800 0x800>;
++			reg-names = "ss-pcie", "pcie-phy", "xpcs0", "xpcs1";
++			clocks = <&clks 1>, <&clks 2>, <&clks 3>, <&clks 4>;
++			clock-names = "axi", "aux", "apb", "ref";
++			resets = <&scmi_reset 9>, <&scmi_reset 8>;
++			reset-names = "serdes", "pcie";
++			#address-cells = <1>;
++			#size-cells = <0>;
++			status = "disabled";
++		};
 +
- 	if (gmac->ctrl_sts)
--		writel(S32_PHY_INTF_SEL_RGMII, gmac->ctrl_sts);
-+		writel(intf_sel, gmac->ctrl_sts);
- 	else
- 		ret = regmap_write(gmac->sts_regmap, gmac->sts_offset,
--				   S32_PHY_INTF_SEL_RGMII);
-+				   intf_sel);
++		serdes1: serdes@44180000 {
++			compatible = "nxp,s32g2-serdes1", "nxp,s32g2-serdes";
++			reg = <0x44180000 0x108>,
++			      <0x44183008 0x10>,
++			      <0x44182000 0x800>,
++			      <0x44182800 0x800>;
++			reg-names = "ss-pcie", "pcie-phy", "xpcs0", "xpcs1";
++			clocks = <&clks 1>, <&clks 2>, <&clks 3>, <&clks 4>;
++			clock-names = "axi", "aux", "apb", "ref";
++			resets = <&scmi_reset 11>, <&scmi_reset 10>;
++			reset-names = "serdes", "pcie";
++			#address-cells = <1>;
++			#size-cells = <0>;
++			status = "disabled";
++		};
++
+ 		gic: interrupt-controller@50800000 {
+ 			compatible = "arm,gic-v3";
+ 			reg = <0x50800000 0x10000>,
+diff --git a/arch/arm64/boot/dts/freescale/s32g3.dtsi b/arch/arm64/boot/dts/freescale/s32g3.dtsi
+index da3915b7e915..0d001b2895c6 100644
+--- a/arch/arm64/boot/dts/freescale/s32g3.dtsi
++++ b/arch/arm64/boot/dts/freescale/s32g3.dtsi
+@@ -956,6 +956,38 @@ gmac0mdio: mdio {
+ 			};
+ 		};
  
- 	dev_dbg(gmac->dev, "PHY mode set to %s\n", phy_modes(*gmac->intf_mode));
- 
- 	return ret;
- }
- 
-+static int s32_gmac_pcs_init(struct stmmac_priv *priv)
-+{
-+	struct s32_priv_data *gmac = priv->plat->bsp_priv;
-+	struct device_node *pcs_node;
++		serdes0: serdes@40480000 {
++			compatible = "nxp,s32g3-serdes0", "nxp,s32g3-serdes";
++			reg = <0x40480000 0x108>,
++			      <0x40483008 0x10>,
++			      <0x40482000 0x800>,
++			      <0x40482800 0x800>;
++			reg-names = "ss-pcie", "pcie-phy", "xpcs0", "xpcs1";
++			clocks = <&clks 1>, <&clks 2>, <&clks 3>, <&clks 4>;
++			clock-names = "axi", "aux", "apb", "ref";
++			resets = <&scmi_reset 9>, <&scmi_reset 8>;
++			reset-names = "serdes", "pcie";
++			#address-cells = <1>;
++			#size-cells = <0>;
++			status = "disabled";
++		};
 +
-+	/*
-+	 * pcs-handle points at the SerDes XPCS lane child node; its
-+	 * nxp,xpcs-instance property is what identifies the XPCS instance.
-+	 */
-+	pcs_node = of_parse_phandle(gmac->dev->of_node, "pcs-handle", 0);
-+	if (!pcs_node) {
-+		dev_dbg(gmac->dev, "no 'pcs-handle' property, SGMII PCS unavailable\n");
-+		return 0;
-+	}
++		serdes1: serdes@44180000 {
++			compatible = "nxp,s32g3-serdes1", "nxp,s32g3-serdes";
++			reg = <0x44180000 0x108>,
++			      <0x44183008 0x10>,
++			      <0x44182000 0x800>,
++			      <0x44182800 0x800>;
++			reg-names = "ss-pcie", "pcie-phy", "xpcs0", "xpcs1";
++			clocks = <&clks 1>, <&clks 2>, <&clks 3>, <&clks 4>;
++			clock-names = "axi", "aux", "apb", "ref";
++			resets = <&scmi_reset 11>, <&scmi_reset 10>;
++			reset-names = "serdes", "pcie";
++			#address-cells = <1>;
++			#size-cells = <0>;
++			status = "disabled";
++		};
 +
-+	gmac->pcs = s32g_serdes_pcs_create(gmac->dev, pcs_node);
-+	of_node_put(pcs_node);
-+
-+	if (IS_ERR(gmac->pcs)) {
-+		int err = PTR_ERR(gmac->pcs);
-+
-+		gmac->pcs = NULL;
-+		/* SerDes may not be probed yet - defer probe. */
-+		return err;
-+	}
-+
-+	dev_dbg(gmac->dev, "SGMII PCS created via SerDes XPCS\n");
-+	return 0;
-+}
-+
-+static struct phylink_pcs *s32_gmac_select_pcs(struct stmmac_priv *priv,
-+					       phy_interface_t interface)
-+{
-+	struct s32_priv_data *gmac = priv->plat->bsp_priv;
-+
-+	if (interface == PHY_INTERFACE_MODE_SGMII && gmac->pcs)
-+		return gmac->pcs;
-+
-+	return NULL;
-+}
-+
- static int s32_gmac_init(struct device *dev, void *priv)
- {
- 	struct s32_priv_data *gmac = priv;
-@@ -204,6 +272,8 @@ static int s32_dwmac_probe(struct platform_device *pdev)
- 
- 	plat->init = s32_gmac_init;
- 	plat->exit = s32_gmac_exit;
-+	plat->pcs_init = s32_gmac_pcs_init;
-+	plat->select_pcs = s32_gmac_select_pcs;
- 
- 	plat->clk_tx_i = gmac->tx_clk;
- 	plat->set_clk_tx_rate = stmmac_set_clk_tx_rate;
+ 		swt8: watchdog@40500000 {
+ 			compatible = "nxp,s32g3-swt", "nxp,s32g2-swt";
+ 			reg = <0x40500000 0x1000>;
 
 -- 
 2.55.0
