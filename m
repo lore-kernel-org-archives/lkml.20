@@ -1,76 +1,80 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D14C37E30F
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 21:36:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77C2D349CF8
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 21:36:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789853798; cv=none; b=q4UeUG7MTG0LeiKTpQVKkLoGTEifQKhgk3xp8mJTJ9mm4QxNcNmJvGnqsJyIbDW9OjElFwENfVqscPfIPbKoh27/ZLwEGbcEOS23VXIr/LvjhYu8vWpdq97MZssDAPlcc4C7g74gQ+jDy2OGureNGzUpQRl0+jhYeO4csv/71yk=
+	t=1789853800; cv=none; b=vEL6FWQ0UNKnhCARn4Z+7LaBUlDDBSSMrBn8o7hnw2UXa5zrz1f2aXaqT9TFfOOz7ndmfOBy0RgFR+BOHSr0faLhn0o4DJnAFjOhoqAynWhUPUAk4w16IPEt/bC2o7pHsouTQRJLQNK0fI9OZYVyuC2DoUAYxOqWqu4T75QFhD0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789853798; c=relaxed/simple;
-	bh=bMfllS2RYCeR0IwhWUFdoERnpYtUYbtX7V1i9njrQ8Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HQGt9tG5OSMz4lI0fJEge9IddppCy4h6E9OwBJFXg+H/HNauZaZMX4Y+HNxYBa//q8oO9ubj+F37j+GvQjhOLuHCDhBBhdIGjbp7Fv9RDrbQWdY3cmLTNJYzc4XqUDLpqmofwI+h3++aau0i9Gymi6ZfRhIPlkWWsmddOYMylZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BmH4vtmS; arc=none smtp.client-ip=209.85.214.175
+	s=arc-20240116; t=1789853800; c=relaxed/simple;
+	bh=6bizVIdgIj1fNJLVf+eOfVtpiCc+m0cvPAZP03MoOZg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DGVgcorhrep3EM6rPBB2Z5XCdIJcBOU3NEhrAtwETwqPSauUcMWvY9zmHK5vvPUzWJyLL47hC6HXuCjkcPaJ98TCQbrKv96EzOfI9cj+4NY/VtAg220Bzf4FSiz2XgT3u6StP7Wru2ZKXkDl8wyA0USEKv7sTYXWvD9pPKSKrwg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Fqm5eufv; arc=none smtp.client-ip=74.125.227.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BmH4vtmS"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2dd1dcdcf95so13113015ad.1
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:36:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Fqm5eufv"
+Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-3a02902dce2so271662a91.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:36:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789853793; x=1790458593; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789853794; x=1790458594; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mNEBb3BmdvWSvN0iF1avI37h7OoCf9PVvmj/ZWnj+vc=;
-        b=BmH4vtmSPsAH0K7IGsnjNo8agE9ilFK8RDfx71IOBlqTsMByFBTaAvwd/PqeAnIvGn
-         c4JGlujpkIOz9yCjjZQj1a4t0Z1Z1TcyNKRkZbZrZLzXK9tlN/q7pGLH6nDm426ZdiFo
-         mhnZLW+JVVDLbjaYfdEHLyJ8DrYbeiVmDmDFtUFdOzvt6QvSzU9/YgCE1ZJUYz/r8Wnd
-         MTrt//ce74GRD6sQSYTGp3/LBv/GaTqt5ZRLJbKyl+6BoYK/Er41VFkGoUX6u7L3Pv9u
-         Ar9wJA6NzvMUITc0T83NmdkXSuOpfEGifzhdcVvaeoiiHZ1W37RZ9nmr91Tx7UrkX53T
-         yZaw==
+        bh=YDLB5spO9G86KxxkAWQZpWYmhLuhLdNenkp/2zmUocU=;
+        b=Fqm5eufviFjPOlyEF+t4FkaNGnoLfTtaMaEuK1miUGPdubQElGchhbM1f/ux4FtXnc
+         UH7Uh8Ea8pue9b6AhYMuHQni3rpcKoS9bwD4stA6WlTYZveD7oMQaZnK24FpcJIvlPdw
+         rUtXnKLm5WgtxFGxCn4aXPPq20djI2dzjp9som1j8qD0NmzW8K7PUfnxlXpC19DtfWf4
+         2vDcloNjWUnmJ4oVKatKPFBrjT7y3x6VbHCE+rWN/TONPgh0B1a3SiNwpWFTVvojJ2cf
+         KdsdJwwUP6zG1RMQ9n7nBqpvjmPE15PJa4nuDuCpHkgmBt1sQ93rsw0R9N5Kqgtekj3O
+         4gLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789853793; x=1790458593;
+        d=1e100.net; s=20260707; t=1789853794; x=1790458594;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mNEBb3BmdvWSvN0iF1avI37h7OoCf9PVvmj/ZWnj+vc=;
-        b=D293m8I3xFxJ4F6REEhBwnBSmjQ9giqHM7SpuyunLgNMxS90gkaHxSyqdnjuMX1bII
-         AAlO/XxPgwta/KXIFCewhR1iP0dfA2bqW+vGG84ixijMhg+FLU3Bs+3UPCjhqWkuC1uL
-         8qs6pRyVOlHUqyYhGmYJliUzSPShUZ0IDxMvmJUhTIsuEU7M9yzOQUr6cRiUPrlGwZgM
-         RWlgpfRHcGwfZTjXpLVPIGI366c8hPWJ6P+O9I0Z3M7iLkAhK4l/mvQ86ysva4J05SOz
-         MecaaaP/cj9P7wuYCsbG/J3yYyfir3Bx4/x1gKEHCNWxAMJ2oAXMrMTwhpKWmjlME9rf
-         NDMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy57pTWZoI0zSSwlWyz7DnxeIpGspnPeOj+9W8O+FI/OazfQXIJ0SUYxZ3CGm+niOpYbnOyfh8TNIEdVuo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nrK0pXuPGBQxLHXjm3Lwr5G51i7YEv57MoAM/ThCY2K0/8CPDe
-	czGUsX2SZiuICMnjzxKbHEGGzabVU1eW8sbpakVbJAdV57F7sKa47Znn
-X-Gm-Gg: AYBFou2I0lrTBfbOhQqEbI376RJJexTDYOTbSl42BE9ZisNcvH0pMlirGr+NLxyj3vs
-	sIBUHBFjjHpysCa8v6YbL4hvd+myvugTb+1IX1sCmq611BB9wi2ffx5XK+etrxdtZu0UJ48wcvR
-	wSyoM1CxZNHULclZRZUYjQV0QKO1j1UjTh9XBctCLU2BuDD3YlICxNHZB63Vqx08AC2R8PZgoP1
-	xWv+X4qz3HloZB0D8jg6dKdaGTJLyBUN9Bfq3EaOiAUOYtCv2V2VbD8i7HeticIN7VHQ9k8jL2L
-	9O0B/dsQVotaXR0y/jtkeRYfplIWjDiR4snz4AJVjj6bIPyujK0JQQ+kmisdhtnkNI+QbYXUEpy
-	I0XPMGjd2jCrLpMvGK5ZbJQKZfFhRJozoA/2nVIn9aYl5mxNiK0Atue1KtUZfhi7EAO1YG5mBF7
-	jJLM3810Dv2jn11KfdmywxQwgMRkW6DrjqdLJrTfeuqzmXro6Bmwe1Kkm+lWf1arRAuTBQ/4Gyr
-	PrT5/rDXn3JX6S+93DYSJpxSbrdCz8jh7+qKcRHwNwOKlNPHy5fdLn4XM23i2l6vDwWArR/v6IY
-	mlobH4jFQ7+S9uZImrTV
-X-Received: by 2002:a17:903:1a4e:b0:2d8:d4d2:d13a with SMTP id d9443c01a7336-2dd9ca3f373mr130521785ad.22.1789853792359;
-        Sat, 19 Sep 2026 14:36:32 -0700 (PDT)
+        bh=YDLB5spO9G86KxxkAWQZpWYmhLuhLdNenkp/2zmUocU=;
+        b=lJ0fdh90Q3XDgiWYUXIYz4a9xPPD1x9HSy8G10z2uVjuAuW27spuEMP/sNjvfmd3vV
+         lzIYtmCYHurLQH4QWhsSpKNetJOI2wt18EpH8PwUaDkcAAEHp6D9uy5ixK8z44AKWsqV
+         v9zeYj+/FicyTj2LbVa5l2ffjhhOffMGzIg9fG8EX2NdE8AIq0XG3vobUpZrj0nv8dFS
+         4Me0d1o7dbfXuf0RJZrk16KXJJU/acKunvwm2mxupgRsQAf1l6/FKRBq0CQfA4EODSeB
+         JpOj+rNICGoHHmeGeBNM1wX2oFApj6OVMEDt7R7kowelpi0J2AXPcVI1rVZGIabCc83Y
+         D0oA==
+X-Forwarded-Encrypted: i=1; AKwUvBzfP4u+Mve9wmWsWTlFUbYKOwwMq7BbDzdZW3A/vu1Zvhu8K0L/nysl/ImYFE+wJCkeVE8dCr268n5Y+o4=@vger.kernel.org
+X-Gm-Message-State: AFuF++khUeHnCViS0GB2pV1j9uLHLMUArWug/CCShnUf0mVoOwnUAL6k
+	pXWghP7hz5c9XxQ5PjUYIn9/6iStCOPB74jG6k0hvNMDzPlAaZ0/yLyi
+X-Gm-Gg: AYBFou30V1YvE90slXVejMb3FuzqtFsucfPaxMP/DMA4xD3j3Qg6u19Ok6BbZKZN1tE
+	Jg2RRf7q1XIZEPOHVxssDE4UHFJsMUgupnSZorK57a/k+abgcTCTQkv2pbW09ZmxJJSTM8Z9o8Y
+	H6IK05gHy31nzdj749g2VB3Nh0Q7knff2fP5ph9HUZKcOn1xEqHpJzQhlrHY9nr0BIC1JEaHdHL
+	/1ktWDoVM7Aua60xvGVl6ObG8/xPJu8hrGsk5l8mcVReHBx34BNYIEaUZjp4V6p5356iEEnGF8H
+	3Yu5QKMpLE/9sjyT+FWhKgVN0c5RgHQKHfUjDqWw3+w+BMj5Slh3bGaVGMLBao0g8FcxIBrB1N4
+	aBVKDj9uqnEh3Tb+3p+ReiYnDRMnQ1BPeJJOkQHSAWqkffc42CdldbfZ/ysgGZBZgblZuR+xbdT
+	5DFj1FdpMxvvkofiINDjoDOBOQR4Yu0kCcY5kcKWJjtfrHvbTwnH6VPWsv0YHsaYcIUdg21ceh8
+	3sXpvEP7aJuLJAzjouMVa10qtCd6UrgXUzsjuh14I1u+HV/8o8x+8Uuh8k3Tsq4ZMuYDrlYnHS8
+	VddczFCpxw==
+X-Received: by 2002:a17:90b:554b:b0:39e:6c6a:4b6d with SMTP id 98e67ed59e1d1-39e6c6a550dmr4317444a91.55.1789853793981;
+        Sat, 19 Sep 2026 14:36:33 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17a04afsm12964215ad.42.2026.09.19.14.36.31
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ed362c71csm2147955a91.2.2026.09.19.14.36.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 14:36:32 -0700 (PDT)
+        Sat, 19 Sep 2026 14:36:33 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
-To: edumazet@google.com,
-	ncardwell@google.com,
-	kuniyu@google.com,
+To: robin@protonic.nl,
+	o.rempel@pengutronix.de,
+	mkl@pengutronix.de,
+	mailhol@kernel.org,
 	davem@davemloft.net,
-	dsahern@kernel.org,
+	edumazet@google.com,
 	kuba@kernel.org,
 	pabeni@redhat.com
-Cc: netdev@vger.kernel.org,
+Cc: kernel@pengutronix.de,
+	socketcan@hartkopp.net,
+	linux-can@vger.kernel.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] net/tcp: check rnext_key for NULL in tcp_ao_prepare_reset()
-Date: Sat, 19 Sep 2026 21:36:30 +0000
-Message-ID: <20260919213630.3313360-1-benquike@gmail.com>
+Subject: [PATCH] can: j1939: return 0 instead of user value in j1939_sk_setsockopt_flag()
+Date: Sat, 19 Sep 2026 21:36:32 +0000
+Message-ID: <20260919213632.3313825-1-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -80,40 +84,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In `tcp_ao_prepare_reset()`, when an active reset is sent on a TCP-AO
-socket (when `skb` is NULL, such as `tcp_send_active_reset()` during
-`tcp_disconnect()`), `rnext_key` is read via
-`READ_ONCE(ao_info->rnext_key)` and immediately dereferenced at
-`rnext_key->rcvid` without checking whether `rnext_key` is NULL.
+In `j1939_sk_setsockopt_flag()`, after copying the integer option value
+`tmp` from userspace and updating `jsk->state`, the function returns
+`tmp` instead of `0`.
 
-When a TCP-AO socket uses `TCP_FASTOPEN_CONNECT` (or disconnects before
-a peer `rnext_key` is selected), `ao_info->rnext_key` can be NULL while
-`ao_info->current_key` is set, causing a kernel NULL pointer dereference
-in `tcp_ao_prepare_reset()`.
+If a caller passes a negative integer (e.g., `-1`) to enable
+`SO_J1939_BROADCAST` or `SO_J1939_PROMISC`, `if (tmp)` sets `jsk->state
+|= flag` and then returns the negative value as an error code from
+`setsockopt()`. If a caller passes a positive non-zero integer (e.g.,
+`1`), `setsockopt()` violates POSIX by returning `1` instead of `0`.
 
-Return `-ENOENT` if `rnext_key` is NULL in `tcp_ao_prepare_reset()`.
+Return `0` on success in `j1939_sk_setsockopt_flag()`.
 
-Fixes: 06b22ef29591 ("net/tcp: Wire TCP-AO to request sockets")
+Fixes: 9d71dd0c7009 ("can: add support of SAE J1939 protocol")
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 
 ---
- net/ipv4/tcp_ao.c | 2 ++
- 1 file changed, 2 insertions(+)
+ net/can/j1939/socket.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/ipv4/tcp_ao.c b/net/ipv4/tcp_ao.c
-index bb7bbc20ba3f..18aca0dd5252 100644
---- a/net/ipv4/tcp_ao.c
-+++ b/net/ipv4/tcp_ao.c
-@@ -857,6 +857,8 @@ int tcp_ao_prepare_reset(const struct sock *sk, struct sk_buff *skb,
- 			return -ENOENT;
- 		*traffic_key = snd_other_key(*key);
- 		rnext_key = READ_ONCE(ao_info->rnext_key);
-+		if (!rnext_key)
-+			return -ENOENT;
- 		*keyid = rnext_key->rcvid;
- 		*sne = tcp_ao_compute_sne(READ_ONCE(ao_info->snd_sne),
- 					  snd_basis, seq);
+diff --git a/net/can/j1939/socket.c b/net/can/j1939/socket.c
+index 50a598ef5fd4..1d4af472de4a 100644
+--- a/net/can/j1939/socket.c
++++ b/net/can/j1939/socket.c
+@@ -688,7 +688,7 @@ static int j1939_sk_setsockopt_flag(struct j1939_sock *jsk, sockptr_t optval,
+ 	else
+ 		jsk->state &= ~flag;
+ 	release_sock(&jsk->sk);
+-	return tmp;
++	return 0;
+ }
+ 
+ static int j1939_sk_setsockopt(struct socket *sock, int level, int optname,
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
