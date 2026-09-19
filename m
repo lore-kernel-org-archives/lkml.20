@@ -1,35 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f43.google.com (mail-yx2-f43.google.com [74.125.224.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C81C39BFE7;
-	Sat, 19 Sep 2026 23:51:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E22F837F72D
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 23:51:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789861879; cv=none; b=Ihv/eJcZqnEOd+KFmV8uZ7OD/n3/s6Cqhi2OcOrW5QYNqkzamMa59b9clW5pU9Yn1XV5hso9yhlghRusS6y58wOSgJ2ApZlFE0d8+zAu+LpPm8lQw1HkDWWFw2/qYOEOS4s+Y9oIVskVv0zVCjbLF9cGzyZrWALvhRrJl7C/HLU=
+	t=1789861914; cv=none; b=H5tAhTJoc2eBmXzKxw7QjN3CuqKmqwU21iruc8Jzwf/CLJ5+HumXS3OfeVrncwTimVH/4Qp4tXta2pmqFDe04eHH+TIsz0RnhNQmymrtMkzALQAR8DUEWbGbI0f35FQqiJa6LZPkxbrmwcE5/ZNHo84uYhY1Nj77wYTQWA7UUr4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789861879; c=relaxed/simple;
-	bh=ExTM/prwA3uW9N45/RsK39KUDUvYh6aNfsLS3lJaLbQ=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=VYTkdGeJ3FTt98QB9APofJWb4iArBqxHRt/+23KSeOWNnkE/fE1cA/NAVQNKlnPuLFLWHRY6g3kMkXqjf7wkGd655oXO0cXwr0JVpLNjzr+l5DSETphy59NW5/AZbQLMbftnDyChqBjSu/fXA72lYw5qo+lON2YHP50amkoMKcw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LrQPHQhE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789861914; c=relaxed/simple;
+	bh=Y6ZObWU1Z2ZztY/hYQNoKGTSXkwkmhRskhS1y/6eADA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rxPovusCTt6VvQu7yRSTJwXnQ8ms0XVkgtIMv8w+bkw2KX2Ls/bu2wrioGc61bHnokQSHNKTdc9a9BhZY3DtpEzGTlpQOhhVWCT2unylfv5GGCkaKXS5eif9aFMQmnIBcYACofwm/4ncQsqGs+GY66Bw3l+EBA8NPBlN2dOQm/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DXEsPluR; arc=none smtp.client-ip=74.125.224.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LrQPHQhE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3F6B1F000FF;
-	Sat, 19 Sep 2026 23:51:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789861876;
-	bh=9H7cYUaxyrKSHFuxlcv2NgJmh8jNY00jYHElKTKyXQY=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=LrQPHQhEvpow53gTH+Eafz+TsOsLnkIFrfjIYgzVEFdTFayZ3HlG7em4b+8qHc5vD
-	 DsjyT+8ux6FjC24dIGZpZHk7vTw5YRAge/OzNc2YP9jTERTXz/JxdnkosGBCaqzvPz
-	 /sMuLYLTotHi2D5citxfHHXMZmUQAD1EOlkGEuccXqU/Sd7Bj4p0xUC8rPe54kU56G
-	 6x3QnuTVebybksIgifjJ2fOOqQa3BSu2053RTtwnBPxIY/ly8d54P08lfBxxfb5rPg
-	 8P/Yw8RcGdflG5Hv/v3EdkpNklEKuj1EogMwzZLvy4I1llx8RxVJAZ4QoYMvW3iq6B
-	 O+KLt+d3ICoZw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 93BC6392447F;
-	Sat, 19 Sep 2026 23:50:10 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DXEsPluR"
+Received: by mail-yx2-f43.google.com with SMTP id 00721157ae682-85d43db0c17so16448187b3.3
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 16:51:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789861912; x=1790466712; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ST8aG/F/FNnjM5J68hWhWpomXQzQDyZYeETFKkQSf94=;
+        b=DXEsPluR1+YcMAvvmMu34GWAzjus7Mui477frcxfup6WDUUdfSvd1fITpL6vYhYrxN
+         8fjrEXcPVPoj1eZ3/bc2zP6pyzxiwxuMySiiTrP8xrLEftMLexahEs8zTaR34SKFX0Vv
+         c+vk3tr4KjoZkHVAvwApplDL4WcHYOqN+G22l7twhQC5+VmoNTw/KDDdjWqqgBiu+uKD
+         O1iUzJkhHJCkdl4oo7s2uHNG8mS0Xb8Fp+4ABLZJvJU3IhZzAttODk0i2zfCSAQNXVci
+         cxXZvqBvVncsVIOCooFDNIFbmOQmSTj6eE0nIC+Fz1oNjEW/E/7Tzu0Qt2P23875IGYl
+         Ju6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789861912; x=1790466712;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ST8aG/F/FNnjM5J68hWhWpomXQzQDyZYeETFKkQSf94=;
+        b=Xfg8J81iljFL6ziB0gaAaPzjDeLwvOsNkeAME+d4qoKUU9a/uqBAYKZmWZ5d/br2TA
+         SNvM/cW0Ywxlzy/ehCvHVfLU309DxfRdBYg+rK1vg9fCezt7EWgUDnAchWzF5+ituzZG
+         T8caWmqCdb1mUYjvgYfJZl2+Whfn/BSm9hRSoyfQ9lQ6zHaOciVDWQxhwJHwk/Mlccjv
+         uorZigWl0Z00GsS2ms9vbtYg0cV76kpeSDEQv7Pu4hfE26vKZgIFYR0UYEcNNq/CGQUJ
+         tWnVTGEiVg3LQCL1MWy6S0JQM08asTRlp9WHYD4PqM6j7bj91/OFeNJW5/edKLE3CM01
+         9ESQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx15rHfGVLGBSFVwPtPLvGN7nBVeldqxgMkBMsRDZ9Nph/iTmArz3WmCal5d2zfM8bbNJmT/8uCZMSD+RM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nL64w7cRa/CkcDBBywN75uK5kapIqZBeHYe+d4OGSXe9g+d7k7
+	5Tx7sYxStoySz8WFANts47QWTzA9h3eXfTP8ORi6pyCiAyKf8LbwsmZm
+X-Gm-Gg: AYBFou0dWThbCux1OgRQi7/pmyZjbnabB8hS5U9kC8RB9bLoldHeWB9/APn/a3G5KNt
+	YlEb9FrhcIfri3+vUsB8jUVNiOrUdpaxAdIamZz4o4kbBFic/YkwmdOfWxbinQyIUDrRHbD0Yki
+	Q64wsKIOZZjDcRnQd46bTKCL2c1uuofLw9FjqYXPm/uhQFYaSa2DCbkxL1bzKrvhtK5iPywJ4d/
+	kCX87C77cP/rJEsrVr2rsUYwUTOQ64NWP3drE/WTiiX8AYpHGqzzWOxyRlsCGg45IjZ88P69BcC
+	DD7V80qpbqu1dXuQtaR1rqvGGDh22BYLuXiMcx+HS9iuuCp4mNEcctfBdP1EUMYcyL4f39Hhl5H
+	uYuq8NQSzqxWDCcqG9Fl3eghXnEoU1HLE/TCeerohJW6+m2yMDVtodehD1y5Et9DXviJLXnxBje
+	2AMAlBMut5frmLyD+hD4h4tQgjCXbzwjMHk+RqEhlvW6wmeL4bHgHodPq/cddmMPCd
+X-Received: by 2002:a05:690c:498f:b0:896:632c:85d9 with SMTP id 00721157ae682-8972ca6e635mr19752237b3.0.1789861912006;
+        Sat, 19 Sep 2026 16:51:52 -0700 (PDT)
+Received: from localhost ([2600:1700:5431:250::3e])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-89a480d7131sm12548687b3.37.2026.09.19.16.51.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Sep 2026 16:51:51 -0700 (PDT)
+From: Chang Yu <marcus.yu.56@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Chang Yu <marcus.yu.56@gmail.com>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Shi Hao <i.shihao.999@gmail.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v5 0/2] Add support for AS7343 multi-spectral sensor
+Date: Sat, 19 Sep 2026 16:51:43 -0700
+Message-ID: <20260919235145.48273-1-marcus.yu.56@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,62 +82,62 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v28 net-next 00/10] nbl driver for Nebulamatrix NICs
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178986180913.1496100.6448081038233123934.git-patchwork-notify@kernel.org>
-Date: Sat, 19 Sep 2026 23:50:09 +0000
-References: <20260914123429.56596-1-illusion.wang@nebula-matrix.com>
-In-Reply-To: <20260914123429.56596-1-illusion.wang@nebula-matrix.com>
-To: illusion.wang <illusion.wang@nebula-matrix.com>
-Cc: dimon.zhao@nebula-matrix.com, alvin.wang@nebula-matrix.com,
- sam.chen@nebula-matrix.com, netdev@vger.kernel.org, andrew+netdev@lunn.ch,
- corbet@lwn.net, kuba@kernel.org, horms@kernel.org, linux-doc@vger.kernel.org,
- pabeni@redhat.com, vadim.fedorenko@linux.dev, lukas.bulwahn@redhat.com,
- edumazet@google.com, enelsonmoore@gmail.com, skhan@linuxfoundation.org,
- hkallweit1@gmail.com, linux-kernel@vger.kernel.org
 
-Hello:
+This series adds initial support for the AMS AS7343 14-channel
+multi-spectral sensor.
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+The sensor has 14 optical channels (11 visible + NIR + clear +
+flicker) in total. This initial driver supports reading raw counts
+from all 12 spectral channels (11 visible + NIR) via sysfs and basic
+power management.
 
-On Mon, 14 Sep 2026 20:34:14 +0800 you wrote:
-> From: illusion wang <illusion.wang@nebula-matrix.com>
-> 
-> This patch series represents the first phase. We plan to integrate it in
-> two phases: the first phase covers mailbox and chip configuration,
-> while the second phase involves net dev configuration.
-> Together, they will provide basic PF-based Ethernet port transmission and
-> reception capabilities.
-> 
-> [...]
+Not yet supported:
+- Configurable integration time and gain
+- Interrupt support
+- Clear (VIS) channel and flicker detection
 
-Here is the summary with links:
-  - [v28,net-next,01/10] net/nebula-matrix: add minimum nbl build framework
-    https://git.kernel.org/netdev/net-next/c/cffde9e49e86
-  - [v28,net-next,02/10] net/nebula-matrix: add core driver architecture and HW layer initialization
-    https://git.kernel.org/netdev/net-next/c/825e6d230163
-  - [v28,net-next,03/10] net/nebula-matrix: add channel layer
-    (no matching commit)
-  - [v28,net-next,04/10] net/nebula-matrix: add common resource implementation
-    (no matching commit)
-  - [v28,net-next,05/10] net/nebula-matrix: add intr resource implementation
-    (no matching commit)
-  - [v28,net-next,06/10] net/nebula-matrix: add chip-wide hardware init/deinit implementation
-    (no matching commit)
-  - [v28,net-next,07/10] net/nebula-matrix: dispatch: add control-level routing core infrastructure
-    (no matching commit)
-  - [v28,net-next,08/10] net/nebula-matrix: dispatch: implement channel RPC framework and serialize hardware ops
-    (no matching commit)
-  - [v28,net-next,09/10] net/nebula-matrix: add common/ctrl dev init/remove operation
-    (no matching commit)
-  - [v28,net-next,10/10] net/nebula-matrix: add common dev start/stop operation
-    (no matching commit)
+Patch 1 adds device tree bindings.
+Patch 2 adds the driver.
 
-You are awesome, thank you!
+Testing was performed on a Raspberry Pi 4.
+
+Datasheet: https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
+
+Changes in v5:
+  - Remove the GPIO pin from dt bindings.
+  - Add autosuspend.
+  - Start measurements before setting up runtime PM.
+
+Changes in v4:
+  - Fix led-max-microamp property in dt bindings.
+  - Use REGCACHE_MAPLE and add volatile table.
+  - Use PM_RUNTIME_ACQUIRE* when resuming.
+
+Changes in v3:
+  - Fix gpio description and example in dt.
+  - Only start measurements after suspend action has been registered.
+  - Add a mutex and pm_runtime_resume_and_get before reading measurements.
+
+Changes in v2:
+  - Add the LDR, the interrupt pin, and the GPIO pin to the dt bindings.
+  - Adjust the default gain to x256 and integration time to 50.1ms as
+  recommended by the datasheet.
+  - Use read_label instead of .extend
+  - Remove all unused scan_index related constants.
+
+Chang Yu (2):
+  dt-bindings: iio: light: add as7343
+  iio: light: add AS7343 multi-spectral sensor driver
+
+ .../bindings/iio/light/ams,as7343.yaml        |  63 +++
+ MAINTAINERS                                   |   7 +
+ drivers/iio/light/Kconfig                     |  11 +
+ drivers/iio/light/Makefile                    |   1 +
+ drivers/iio/light/as7343.c                    | 441 ++++++++++++++++++
+ 5 files changed, 523 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
+ create mode 100644 drivers/iio/light/as7343.c
+
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.55.0
 
