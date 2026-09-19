@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 737592C21FD;
-	Sat, 19 Sep 2026 06:58:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59DB92E7387;
+	Sat, 19 Sep 2026 06:59:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789801116; cv=none; b=HzaQER3MVH0q8ClAdaqoW5XlwuRPYfmTt7vVRLcrOX2J/4J37LQmZs+faEG+MyOx1VEfGKDIXu5XcqzSNlUHIaWupFX1oatQe03Ce6b4BNfFycXQeWnS9mPo+Y2hXgaD9QhqLGWGAuvRuBRQvCx97qcUJhezcyoIiqBgvCrlZYs=
+	t=1789801194; cv=none; b=jzTeSl83WAzVLvpDfiYK4jAbsN9M9UJnimivasXBIBZDDR64vzLGrOtJcCnizlJVdQPOY9mv6FEJnVsh78JvNAzLXqP77act3f+q9MEprlmKwugf9qodsPZuctCMC3z3By1g8nPbopLZVkRYVYHMKdNes/PmH6N9D+M+rD3xpM0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789801116; c=relaxed/simple;
-	bh=THpmH/26IM188XCXIApLqWOfX5I/Luc5E4FzoCBSzCk=;
+	s=arc-20240116; t=1789801194; c=relaxed/simple;
+	bh=8SjGvr8/O2gclvrCAm4kDJBJai2iJMxC1yw/98CkclY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=muDMrXQ9417HigVNoqVSfU5m1BtfU/71M26XBPZQcp0zrHt797zoP47kSsSzWLhDxctnVb9ZebaFSD4vz7tXtbvgKROoJbD0uY0dgiR7+9kU1V96e60+Scckl23xOhD+cK2y+7JkC0ZgOcmOqwD5VhTealYIvBL8delqCHocURI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EVVCPZju; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=LwjSBf7f7Y0pr2+v8rWo8NIGqe4AjmFReUW/EzNli+nXiPD7nI69oOlf+9LluJ1/98a2tiGfctO9lTiBftMdeZftt4jpS/naIC4g1mjbhIyEq2QALnbpYW+ZxfIoG3mKBTzGAr+sH+9zIekAdEVhSt3D9xt+BlavPKzi1eyO+IA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VNiIYoeW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EVVCPZju"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BA091F000FF;
-	Sat, 19 Sep 2026 06:58:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VNiIYoeW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1C7E1F000FF;
+	Sat, 19 Sep 2026 06:59:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789801115;
-	bh=yWPiYTCWkxEvhuQ3ZHXnB8M1VNaYfeBzDz5XHvNlJYg=;
+	s=k20260515; t=1789801193;
+	bh=AcK3qN4mIQkoSdoSSWTxmWlqlNCPKjKRHTtUStmtPnM=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=EVVCPZjuCB8az4e6+vCt8unTBwoKthRu+JRVGPFUkahSwad2RYnAD159sH7ha2WW4
-	 PWtapF+JvJ3Gg//L30le1dmlHr9e0MD7jslwB1QTiD38G3lelx87xzgAbepTeObHJU
-	 jmKegP8rX81GhUskrnwdYIfrtS3yRX/vDm5tSyyNT+V3KjhD2ukejU75+Hdrgb2XK7
-	 LUTzapdiuB7xFZi7Fvf71iE3uBzif4I/KftiivJY/hKSJxSWhz7jw4k7cgglWs3pYN
-	 VOOfgRBmtgQfV5QnpPbgMMfJd7iE2aEXF4C2GkjS1jO3K7+0k/WAU9nvscYwLgndZ5
-	 UsMASvc++FuKA==
-Message-ID: <61fd1bd2-d089-4604-a469-980a9bb813d0@kernel.org>
-Date: Sat, 19 Sep 2026 08:58:28 +0200
+	b=VNiIYoeWtj7YxYLhvJbFkVg3+axpW7PcOropK3rWC136FGDhk6Sw/amyDY4neu6hF
+	 umi8OwoN67A40VUEk336XNWu/5ns2jc6AxyGTRQ5mPhamZ80W1jv/2z2UEUslYqrbl
+	 s4wDMzf2QWBneK10fmRGet3S8VMSNzYE9kdXsZyLOJb+V2xq0D6Jtobu2jZ3zTHYsD
+	 7zjM+DMOXTgvOeHN92IXyD8E5yIY39w3X2u5kCP/XHrnzANBgVZuZY/u7ms1NzJDZW
+	 cCdXj7WqjRuokKjU4uqPpw60FQzH31YoPP6i641ltydV1xcaLBPkk/cSkDnll0Xvsd
+	 dBpY2jXcpR+/Q==
+Message-ID: <4240bc80-4cde-4b19-8ed1-2e3d9a92537c@kernel.org>
+Date: Sat, 19 Sep 2026 08:59:45 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,8 +35,7 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: misc: convert axis-fifo binding to
- YAML
+Subject: Re: [PATCH v2 2/2] staging: axis-fifo: remove superseded text binding
 To: Daniel28972897 <danyboy28sep@gmail.com>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
  <conor+dt@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
@@ -44,7 +43,7 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-staging@lists.linux.dev
 References: <20260919011417.156828-1-danyboy28sep@gmail.com>
  <20260919025900.169703-1-danyboy28sep@gmail.com>
- <20260919025900.169703-2-danyboy28sep@gmail.com>
+ <20260919025900.169703-3-danyboy28sep@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -90,34 +89,22 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260919025900.169703-2-danyboy28sep@gmail.com>
+In-Reply-To: <20260919025900.169703-3-danyboy28sep@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 19/09/2026 04:58, Daniel28972897 wrote:
-> Convert drivers/staging/axis-fifo/axis-fifo.txt to a YAML schema
-> under Documentation/devicetree/bindings/misc/, so it is checked by
-> dtbs_check and by checkpatch.pl's undocumented-compatible warning.
-
-So you fix not because it has to be fixed, but some tool told you?
-
-> 
-> The FIFO depth properties are documented as being in 32-bit words,
-> matching the original text binding and the driver's own arithmetic
-> in axis_fifo_write(), not bytes as an earlier draft of this schema
-> incorrectly stated.
-> 
-> All properties from the original text binding are preserved,
-> including ones the driver itself ignores, since they are generated
-> unconditionally by the Xilinx IP integrator and may be present in
-> real-world devicetree sources.
+On 19/09/2026 04:59, Daniel28972897 wrote:
+> This driver's devicetree binding has been converted to
+> Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml,
+> which supersedes and duplicates this file.
 > 
 > Signed-off-by: Daniel28972897 <danyboy28sep@gmail.com>
+> ---
+>  drivers/staging/axis-fifo/axis-fifo.txt | 96 -------------------------
+>  1 file changed, 96 deletions(-)
 
-Another, third try this week? Is there some staging-checkpatch spree?
-
-Same comments as before, no. For explanations, just search:
-https://lore.kernel.org/all/
+Pointless commit on its own. Never should be split. Just look at history
+how it is done (`git log`) and do not do such work COMPLETELY different.
 
 Best regards,
 Krzysztof
