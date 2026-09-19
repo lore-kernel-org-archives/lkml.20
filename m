@@ -1,80 +1,76 @@
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77C2D349CF8
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 21:36:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C282D3876DF
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 21:36:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789853800; cv=none; b=vEL6FWQ0UNKnhCARn4Z+7LaBUlDDBSSMrBn8o7hnw2UXa5zrz1f2aXaqT9TFfOOz7ndmfOBy0RgFR+BOHSr0faLhn0o4DJnAFjOhoqAynWhUPUAk4w16IPEt/bC2o7pHsouTQRJLQNK0fI9OZYVyuC2DoUAYxOqWqu4T75QFhD0=
+	t=1789853802; cv=none; b=GyBFnbo8r3qJTUYYeqNYh337SVt3Nmgj7LCcQFFeFdFubMC34pdcJ3aQu4niD2RLBvJtHu/sPr8d5GMpfkX2NTpcujQSzo8llrpNjdLmpmRpLf9KZ//mQ6aZRJ1tLujrHFrg0w5WWt1tm9pYuNZD5e2gUFW48En//ZEx9IkiLF8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789853800; c=relaxed/simple;
-	bh=6bizVIdgIj1fNJLVf+eOfVtpiCc+m0cvPAZP03MoOZg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DGVgcorhrep3EM6rPBB2Z5XCdIJcBOU3NEhrAtwETwqPSauUcMWvY9zmHK5vvPUzWJyLL47hC6HXuCjkcPaJ98TCQbrKv96EzOfI9cj+4NY/VtAg220Bzf4FSiz2XgT3u6StP7Wru2ZKXkDl8wyA0USEKv7sTYXWvD9pPKSKrwg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Fqm5eufv; arc=none smtp.client-ip=74.125.227.170
+	s=arc-20240116; t=1789853802; c=relaxed/simple;
+	bh=lfoMmck27h8rxcEq//cYQsmDPpfPgRsuhqt5p1flyWY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y6iVC7RNxsDlwDmrPhdk5ld9dJN/OWtUBx7zgzAEwLoKpLsopUmdaJeAReCN8FJs/lXkgr5roKVPiKtdzR/1NYYf7kDI+NGRgDozY3/HlZAKWDlgAQZWrEKt9lXvxzGJu93Xu0fW4gIl26xLyn/OaF+b3G0Y/CnemqOspgwLM/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j+TcEW8k; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Fqm5eufv"
-Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-3a02902dce2so271662a91.1
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:36:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j+TcEW8k"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747f01363so15694125ad.2
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:36:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789853794; x=1790458594; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789853795; x=1790458595; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YDLB5spO9G86KxxkAWQZpWYmhLuhLdNenkp/2zmUocU=;
-        b=Fqm5eufviFjPOlyEF+t4FkaNGnoLfTtaMaEuK1miUGPdubQElGchhbM1f/ux4FtXnc
-         UH7Uh8Ea8pue9b6AhYMuHQni3rpcKoS9bwD4stA6WlTYZveD7oMQaZnK24FpcJIvlPdw
-         rUtXnKLm5WgtxFGxCn4aXPPq20djI2dzjp9som1j8qD0NmzW8K7PUfnxlXpC19DtfWf4
-         2vDcloNjWUnmJ4oVKatKPFBrjT7y3x6VbHCE+rWN/TONPgh0B1a3SiNwpWFTVvojJ2cf
-         KdsdJwwUP6zG1RMQ9n7nBqpvjmPE15PJa4nuDuCpHkgmBt1sQ93rsw0R9N5Kqgtekj3O
-         4gLQ==
+        bh=lBz1wgM4ChVQkuNTsUB6r2UpX/KNTDzOql2jPvCkbsk=;
+        b=j+TcEW8keaWFeHwCCe0d9DnBLIUebs0lT33AnkTz+R1w+nrHjYbfrA4KCgz2lKU26h
+         9sGcGgs5iAvKs9q0Mvf1tuvsvPzXzkxP822zBvm55WRX9S5eOBiemUScy/MYLz2PVGnK
+         cKSHb4dC7CK1ESKSyRf1jhM86TW6QqGXrtRWWWLMioUFJF8gg2SxuA+DBzN/IRLLE6wV
+         hPYf+jj2ZESf8xNFAnxkDn7sBqde0Zd1SLb9OAyNYqd0eI2PVgrPW3vhrA877u44rGJF
+         tyL3TjiljBmNTBh61PCSZe6SRqXBiVOdfqsCXckYD1/tTTneKqyNsh0E0ujrF6bMFn4C
+         JHcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789853794; x=1790458594;
+        d=1e100.net; s=20260707; t=1789853795; x=1790458595;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=YDLB5spO9G86KxxkAWQZpWYmhLuhLdNenkp/2zmUocU=;
-        b=lJ0fdh90Q3XDgiWYUXIYz4a9xPPD1x9HSy8G10z2uVjuAuW27spuEMP/sNjvfmd3vV
-         lzIYtmCYHurLQH4QWhsSpKNetJOI2wt18EpH8PwUaDkcAAEHp6D9uy5ixK8z44AKWsqV
-         v9zeYj+/FicyTj2LbVa5l2ffjhhOffMGzIg9fG8EX2NdE8AIq0XG3vobUpZrj0nv8dFS
-         4Me0d1o7dbfXuf0RJZrk16KXJJU/acKunvwm2mxupgRsQAf1l6/FKRBq0CQfA4EODSeB
-         JpOj+rNICGoHHmeGeBNM1wX2oFApj6OVMEDt7R7kowelpi0J2AXPcVI1rVZGIabCc83Y
-         D0oA==
-X-Forwarded-Encrypted: i=1; AKwUvBzfP4u+Mve9wmWsWTlFUbYKOwwMq7BbDzdZW3A/vu1Zvhu8K0L/nysl/ImYFE+wJCkeVE8dCr268n5Y+o4=@vger.kernel.org
-X-Gm-Message-State: AFuF++khUeHnCViS0GB2pV1j9uLHLMUArWug/CCShnUf0mVoOwnUAL6k
-	pXWghP7hz5c9XxQ5PjUYIn9/6iStCOPB74jG6k0hvNMDzPlAaZ0/yLyi
-X-Gm-Gg: AYBFou30V1YvE90slXVejMb3FuzqtFsucfPaxMP/DMA4xD3j3Qg6u19Ok6BbZKZN1tE
-	Jg2RRf7q1XIZEPOHVxssDE4UHFJsMUgupnSZorK57a/k+abgcTCTQkv2pbW09ZmxJJSTM8Z9o8Y
-	H6IK05gHy31nzdj749g2VB3Nh0Q7knff2fP5ph9HUZKcOn1xEqHpJzQhlrHY9nr0BIC1JEaHdHL
-	/1ktWDoVM7Aua60xvGVl6ObG8/xPJu8hrGsk5l8mcVReHBx34BNYIEaUZjp4V6p5356iEEnGF8H
-	3Yu5QKMpLE/9sjyT+FWhKgVN0c5RgHQKHfUjDqWw3+w+BMj5Slh3bGaVGMLBao0g8FcxIBrB1N4
-	aBVKDj9uqnEh3Tb+3p+ReiYnDRMnQ1BPeJJOkQHSAWqkffc42CdldbfZ/ysgGZBZgblZuR+xbdT
-	5DFj1FdpMxvvkofiINDjoDOBOQR4Yu0kCcY5kcKWJjtfrHvbTwnH6VPWsv0YHsaYcIUdg21ceh8
-	3sXpvEP7aJuLJAzjouMVa10qtCd6UrgXUzsjuh14I1u+HV/8o8x+8Uuh8k3Tsq4ZMuYDrlYnHS8
-	VddczFCpxw==
-X-Received: by 2002:a17:90b:554b:b0:39e:6c6a:4b6d with SMTP id 98e67ed59e1d1-39e6c6a550dmr4317444a91.55.1789853793981;
-        Sat, 19 Sep 2026 14:36:33 -0700 (PDT)
+        bh=lBz1wgM4ChVQkuNTsUB6r2UpX/KNTDzOql2jPvCkbsk=;
+        b=IrKC2IJgUWHXegLd+0ttImGgcYXHnEQlcSLIFDwTOXGUryqPlxOJ1rE9P2rfvcAbZG
+         +XvWxpO3i7BS2oigXjxpq5OiErwIMTs0iLKz61VxdWuVt6+647U/q/fhNr/uHDsicDdk
+         rgcwcsSAXHOH6Ff9duFyfILab1NxVPMO+X+RXRO9mNcQi1L01Y54JxJaoUN5TReZI1ZO
+         un1+TDiPk8NEpvNwJuxEAbPcVnXuVXuVP07wVB36k1PQmVOpDxIhOgA7jwcqoVRqLRCd
+         uYd8EhnZ4/i66BdcCARdhmloTDJlbezXRpill9zqfM3jcweOojujIAwgBYqVOgNvHXYc
+         UW1g==
+X-Forwarded-Encrypted: i=1; AKwUvBzf/OhmJsc7HjdrB2DKNrV50j8hoQ1hPj4fkJorB/2gL3YEbehhnw3hp8uzeD8fBPjKpF7C6VY5ogBVI/A=@vger.kernel.org
+X-Gm-Message-State: AFuF++k7efZXDjb7g01bLRM5JSvlsvhVovrJXaFhdVJviNs0QrKT8Ll9
+	SC/5HEZZEPNbqW6Sc/wnMX/cqYHDeDhhfJcCEma9TGY+4JdDna54Owjr
+X-Gm-Gg: AYBFou2lTfplIEXoTYGdKYCywc/IO5MBDVPk05/lkiQ8U/LghYg2DDLiKT8jxueMzYd
+	ujVSrOX1R0hyUVgaaCt70LkEOexThOQIKlH2MLKvLic/wkHhcNQleGTUUxD61/bDPicYC64Aa88
+	8UhXK37Df21znAWe3f+Y5WxyrYQ7YtcLoacSofL1v/kVx/D06Z3Tx957NiTJarczfQGUgrHD+Ps
+	Bsqop8QgjGGTZeRT1HLnP3kJBnM8Lm7q2Zbc95JdqGERp9GRQpKmsSMgn/96zfOZDcNUf7SZbD4
+	q1Z9vRwIhC29MNNG2m2mYU4W92SCTh3iRAjvXtd8vHzRtTUn6WfgVnvRuE37LUjDNEdCOfJIKkD
+	HYNLN7iE56xabOO7f8FG7gSnqxn+MvOE4ASwDPljWML/NpmITWyEgh1GVhV5s685ClEVCiUK8N2
+	nQgxqosuNIT7J1pZ0ZX+e5mn1mPbyLQeg+ASt4wOX2YPKypJq/63gGy4CEysmJwg+1qS7crEbla
+	0N8Iob26B/ziegCFjbVChVGu6Mt46Wqu3FXrsi3mWlem07hkR4S7KyNhqZ2BOnqW1M3hlUoqKzz
+	gOkf8Fh5jg==
+X-Received: by 2002:a17:903:2f0f:b0:2dd:c100:943d with SMTP id d9443c01a7336-2ddc1009bdfmr43991255ad.59.1789853795511;
+        Sat, 19 Sep 2026 14:36:35 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ed362c71csm2147955a91.2.2026.09.19.14.36.33
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc16b4a8dsm12762905ad.12.2026.09.19.14.36.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 14:36:33 -0700 (PDT)
+        Sat, 19 Sep 2026 14:36:34 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
-To: robin@protonic.nl,
-	o.rempel@pengutronix.de,
-	mkl@pengutronix.de,
-	mailhol@kernel.org,
+To: marcelo.leitner@gmail.com,
+	lucien.xin@gmail.com,
 	davem@davemloft.net,
 	edumazet@google.com,
 	kuba@kernel.org,
 	pabeni@redhat.com
-Cc: kernel@pengutronix.de,
-	socketcan@hartkopp.net,
-	linux-can@vger.kernel.org,
+Cc: linux-sctp@vger.kernel.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] can: j1939: return 0 instead of user value in j1939_sk_setsockopt_flag()
-Date: Sat, 19 Sep 2026 21:36:32 +0000
-Message-ID: <20260919213632.3313825-1-benquike@gmail.com>
+Subject: [PATCH] sctp: copy zeroed stats to user in sctp_getsockopt_pr_streamstatus() when !streamoute
+Date: Sat, 19 Sep 2026 21:36:34 +0000
+Message-ID: <20260919213634.3314055-1-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -84,39 +80,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In `j1939_sk_setsockopt_flag()`, after copying the integer option value
-`tmp` from userspace and updating `jsk->state`, the function returns
-`tmp` instead of `0`.
+In `sctp_getsockopt_pr_streamstatus()`, when the stream output extension
+(`streamoute`) has not yet been allocated for `params.sprstat_sid`, the
+function zeroes `params.sprstat_abandoned_unsent` and
+`params.sprstat_abandoned_sent`, sets `retval = 0`, and jumps directly
+to `out:`, skipping both `put_user(len, optlen)` and
+`copy_to_user(optval, &params, len)`.
 
-If a caller passes a negative integer (e.g., `-1`) to enable
-`SO_J1939_BROADCAST` or `SO_J1939_PROMISC`, `if (tmp)` sets `jsk->state
-|= flag` and then returns the negative value as an error code from
-`setsockopt()`. If a caller passes a positive non-zero integer (e.g.,
-`1`), `setsockopt()` violates POSIX by returning `1` instead of `0`.
+Consequently, `getsockopt(SCTP_PR_STREAM_STATUS)` returns `0` to
+userspace without writing the zeroed statistics into the caller's
+`optval` buffer.
 
-Return `0` on success in `j1939_sk_setsockopt_flag()`.
+Remove the premature `goto out` so the zeroed statistics and `optlen`
+are copied to userspace.
 
-Fixes: 9d71dd0c7009 ("can: add support of SAE J1939 protocol")
+Fixes: f952be79cebd ("sctp: introduce struct sctp_stream_out_ext")
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 
 ---
- net/can/j1939/socket.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/sctp/socket.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/net/can/j1939/socket.c b/net/can/j1939/socket.c
-index 50a598ef5fd4..1d4af472de4a 100644
---- a/net/can/j1939/socket.c
-+++ b/net/can/j1939/socket.c
-@@ -688,7 +688,7 @@ static int j1939_sk_setsockopt_flag(struct j1939_sock *jsk, sockptr_t optval,
- 	else
- 		jsk->state &= ~flag;
- 	release_sock(&jsk->sk);
--	return tmp;
-+	return 0;
- }
+diff --git a/net/sctp/socket.c b/net/sctp/socket.c
+index c7b9e325ec1c..f3e48861e9e6 100644
+--- a/net/sctp/socket.c
++++ b/net/sctp/socket.c
+@@ -7569,11 +7569,7 @@ static int sctp_getsockopt_pr_streamstatus(struct sock *sk, int len,
+ 		/* Not allocated yet, means all stats are 0 */
+ 		params.sprstat_abandoned_unsent = 0;
+ 		params.sprstat_abandoned_sent = 0;
+-		retval = 0;
+-		goto out;
+-	}
+-
+-	if (policy == SCTP_PR_SCTP_ALL) {
++	} else if (policy == SCTP_PR_SCTP_ALL) {
+ 		params.sprstat_abandoned_unsent = 0;
+ 		params.sprstat_abandoned_sent = 0;
+ 		for (policy = 0; policy <= SCTP_PR_INDEX(MAX); policy++) {
+@@ -7589,6 +7585,8 @@ static int sctp_getsockopt_pr_streamstatus(struct sock *sk, int len,
+ 			streamoute->abandoned_sent[__SCTP_PR_INDEX(policy)];
+ 	}
  
- static int j1939_sk_setsockopt(struct socket *sock, int level, int optname,
++	retval = 0;
++
+ 	if (put_user(len, optlen) || copy_to_user(optval, &params, len)) {
+ 		retval = -EFAULT;
+ 		goto out;
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
