@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D923A4718E3;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EABE1471CEB;
 	Sat, 19 Sep 2026 10:36:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789814201; cv=none; b=TxkcSItdwLmHBRRBzjl8UMjMSHhT+8sisvhMyvcYXW6DRAAQ6avZE3AZkHEcaDvCzmYecaaOm71NpCwXKec+OuVxiylr0vEi8qzOcj3jniSRy2P4vjbvgBCcI967Bz4fEp8AqI8kajlKSmSApmdPcpGZboN7fB9COBOt7z0Ua3Q=
+	t=1789814202; cv=none; b=ACFoISYTWHfkPGJ4Xq64LCbgUijc3qOnh7+IQGB49EDs7VBM7hesUoifvqK2+m2pgj3WosZahVMJ7CKDGMr5EvloKjQLzoAB+zloj9qSEG43q0Q8N7QrS+bMlcS9xCSGapx67y5U+Za1tTeJ60g+OJZGku9mjVTI/aK87R6uEDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789814201; c=relaxed/simple;
-	bh=/O/jwNr8U2kz2vrQ2d9Bz7kTcnnb1Lw0rPParIURebQ=;
+	s=arc-20240116; t=1789814202; c=relaxed/simple;
+	bh=1+LATJmQfGnsPHSpLjng0/+Dl6/lw5qZw/neErfDwj4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=F2qf73jY7u7Mp7pICME4R/qQH+mGw3lg5FwhHb7B9hIWdDwKUirPTx6Un4/oaSzAaL1tBckb/oBh6h/sORg2bDXsfENn41isLR99fJAQforW6Gt1JxatZQOwHStbqK0AXrllis1TnV6xtlVIjCmSMcD8/ZFSp7D9NFWyuSJb65k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JCk3TRqZ; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=Ta7gWhLer6uB5qX6W6qF28/A6ofJypyQ87m6DhHg0u2CiyYGDMH0qnC2ELPTw0zaF7BBOhfCNl47J7ypwAstboPz+tfIg9Mh2ZjyA1oTmeSyNEREcSzTszAK8OSz91SaRVRjP1KsnTIIjsPSqNVfa7Tz1YtHZQ1p+sDJTxsGf3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EACwITYB; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JCk3TRqZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9CD01C4AF14;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EACwITYB"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id CC86BC2BCFC;
 	Sat, 19 Sep 2026 10:36:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1789814201;
-	bh=/O/jwNr8U2kz2vrQ2d9Bz7kTcnnb1Lw0rPParIURebQ=;
+	bh=1+LATJmQfGnsPHSpLjng0/+Dl6/lw5qZw/neErfDwj4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=JCk3TRqZZReRMs4IIs8dLvIRkUlbCQfIMjid81p3Dl1VyOewjKgQi3oeoLykn8dIb
-	 x2w47vYL90F3AmNiCmaabhmm/B+jm48SfVXnJq3llrsX6LNNjkgSPxi23acVYpwzXx
-	 m9c3M0IqICJYPC9mGsdklwr1XMjGwgZkBdKZSHYqWSuAWLT/CyEJ+W4CGmyJJsdWHM
-	 9tsvd5dAmcz32qVomEqlJrjTweCpu2/A0q7gHjjzA03fsF8pDt2qwG678jVAa8s5cG
-	 gLqNgbg0Y266CwEvU27OwGTxZwlgRX7YGqG/SkBbKYTRwtsLZ3yQ1EPzxJs4a54m6u
-	 YXllO0jzr9Ppw==
+	b=EACwITYBCjekTo5/DP26jX7gRWqrWFgB2lWhTpT3AhQIDXblBN8CzOTJ3pCtneOMa
+	 6W/ugYlDgUz12RKNxM3bsxX6lZ7OM/Mv2xdIlzHT3mFfk0xPXTAaz8GB+rOTa7WAEU
+	 LCDYoYoJ1Vp3srQxXc3QRVr86KpSFBRfqPsi8tJ5/6GL01pCCYvLpNAY2c98RJQQOe
+	 iueRrvwhC/zd44spJ7Gsx8lIgaCAWUOUy8+BRGYa0W9ifnAcswbxieEohSV2pDHLqU
+	 Hzm9g+6uz+IXwWN8cSB/MJMvcDJ9LE2eWe1rrZX4RE/GfX03mBze2+VNUHOFa0Xz7u
+	 t0oJD46uxHNqw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8A38DC982CC;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B9D6BC982D7;
 	Sat, 19 Sep 2026 10:36:41 +0000 (UTC)
 From: Sanjay Chitroda via B4 Relay <devnull+sanjayembeddedse.gmail.com@kernel.org>
-Date: Sat, 19 Sep 2026 16:06:30 +0530
-Subject: [PATCH v6 07/14] iio: light: hid-sensor-prox: convert probe and
- teardown to devm-managed resources
+Date: Sat, 19 Sep 2026 16:06:33 +0530
+Subject: [PATCH v6 10/14] iio: orientation: hid-sensor-incl-3d: convert
+ probe and teardown to devm-managed resources
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260919-28-apr-iio-redundant-argument-v5-temp-v6-7-d577b2371b3c@gmail.com>
+Message-Id: <20260919-28-apr-iio-redundant-argument-v5-temp-v6-10-d577b2371b3c@gmail.com>
 References: <20260919-28-apr-iio-redundant-argument-v5-temp-v6-0-d577b2371b3c@gmail.com>
 In-Reply-To: <20260919-28-apr-iio-redundant-argument-v5-temp-v6-0-d577b2371b3c@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>, 
@@ -53,11 +53,11 @@ To: Jonathan Cameron <jic23@kernel.org>,
 Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-input@vger.kernel.org, Sanjay Chitroda <sanjayembeddedse@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789814199; l=3466;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789814199; l=3627;
  i=sanjayembeddedse@gmail.com; s=20260702; h=from:subject:message-id;
- bh=LYf4T3sDm8ysK9zTki2uYUQRgyfp4w+aSKgDHMnP8Yw=;
- b=PAVNfEEax/NnB66nWYareAN7ErVxXsa7HTuJ9eERC4XaQnqPAH++naSjmVyx9M3WncTK9PSzg
- 7g3TtlF8VNzD5Knnqh3dwxSBefwNj1j2MX4lbH+kzE34XEBADw4AdGe
+ bh=Db8QZy6XNbEvWiQnvLmsz7HdMBrrBkrM5ikOGII6cRw=;
+ b=CCMRrubCqlNjcIwmr43ocCUKAfUiLWWhud7I7i7WCw2utA4U2//EBGLCxdDmUE23BYXFstoDJ
+ 2O09aSiAiinCUtbWCOU9e8VQuXyyk5w0Z9m5irGw96j/2kiWvIcyxfy
 X-Developer-Key: i=sanjayembeddedse@gmail.com; a=ed25519;
  pk=PcneEFtkmY+Ldl+KmOTpB/Q/HDsqko6Fb0/Z/5cuycI=
 X-Endpoint-Received: by B4 Relay for sanjayembeddedse@gmail.com/20260702
@@ -79,43 +79,45 @@ eliminates the remove callback entirely.
 
 Signed-off-by: Sanjay Chitroda <sanjayembeddedse@gmail.com>
 ---
- drivers/iio/light/hid-sensor-prox.c | 40 ++++++++-----------------------------
- 1 file changed, 8 insertions(+), 32 deletions(-)
+ drivers/iio/orientation/hid-sensor-incl-3d.c | 42 ++++++----------------------
+ 1 file changed, 9 insertions(+), 33 deletions(-)
 
-diff --git a/drivers/iio/light/hid-sensor-prox.c b/drivers/iio/light/hid-sensor-prox.c
-index 5e28f9b7f40a..355b7b02868c 100644
---- a/drivers/iio/light/hid-sensor-prox.c
-+++ b/drivers/iio/light/hid-sensor-prox.c
-@@ -260,7 +260,8 @@ static int prox_parse_report(struct platform_device *pdev,
+diff --git a/drivers/iio/orientation/hid-sensor-incl-3d.c b/drivers/iio/orientation/hid-sensor-incl-3d.c
+index 435e70557721..b5f70732d035 100644
+--- a/drivers/iio/orientation/hid-sensor-incl-3d.c
++++ b/drivers/iio/orientation/hid-sensor-incl-3d.c
+@@ -293,7 +293,8 @@ static int incl_3d_parse_report(struct platform_device *pdev,
  /* Function to initialize the processing for usage id */
- static int hid_prox_probe(struct platform_device *pdev)
+ static int hid_incl_3d_probe(struct platform_device *pdev)
  {
 -	struct hid_sensor_hub_device *hsdev = dev_get_platdata(&pdev->dev);
 +	struct device *dev = &pdev->dev;
 +	struct hid_sensor_hub_device *hsdev = dev_get_platdata(dev);
- 	int ret = 0;
- 	static const char *name = "prox";
+ 	int ret;
+ 	static char *name = "incli_3d";
  	struct iio_dev *indio_dev;
-@@ -299,8 +300,8 @@ static int hid_prox_probe(struct platform_device *pdev)
+@@ -343,8 +344,8 @@ static int hid_incl_3d_probe(struct platform_device *pdev)
  
- 	atomic_set(&prox_state->common_attributes.data_ready, 0);
+ 	atomic_set(&incl_state->common_attributes.data_ready, 0);
  
 -	ret = hid_sensor_setup_trigger(indio_dev, name,
--				       &prox_state->common_attributes);
+-				       &incl_state->common_attributes);
 +	ret = devm_hid_sensor_setup_trigger(dev, indio_dev, name,
-+					    &prox_state->common_attributes);
++					    &incl_state->common_attributes);
  	if (ret) {
  		dev_err(&pdev->dev, "trigger setup failed\n");
  		return ret;
-@@ -309,38 +310,14 @@ static int hid_prox_probe(struct platform_device *pdev)
- 	prox_state->callbacks.send_event = prox_proc_event;
- 	prox_state->callbacks.capture_sample = prox_capture_sample;
- 	prox_state->callbacks.pdev = pdev;
--	ret = sensor_hub_register_callback(hsdev, hsdev->usage,
--					   &prox_state->callbacks);
-+	ret = devm_sensor_hub_register_callback(dev, hsdev, hsdev->usage,
-+						&prox_state->callbacks);
- 	if (ret < 0) {
+@@ -353,39 +354,15 @@ static int hid_incl_3d_probe(struct platform_device *pdev)
+ 	incl_state->callbacks.send_event = incl_3d_proc_event;
+ 	incl_state->callbacks.capture_sample = incl_3d_capture_sample;
+ 	incl_state->callbacks.pdev = pdev;
+-	ret = sensor_hub_register_callback(hsdev,
+-					   HID_USAGE_SENSOR_INCLINOMETER_3D,
+-					   &incl_state->callbacks);
++	ret = devm_sensor_hub_register_callback(dev, hsdev,
++						HID_USAGE_SENSOR_INCLINOMETER_3D,
++						&incl_state->callbacks);
+ 	if (ret) {
  		dev_err(&pdev->dev, "callback reg failed\n");
 -		goto error_remove_trigger;
 -	}
@@ -127,36 +129,36 @@ index 5e28f9b7f40a..355b7b02868c 100644
 +		return ret;
  	}
  
--	return ret;
+-	return 0;
 -
 -error_remove_callback:
--	sensor_hub_remove_callback(hsdev, hsdev->usage);
+-	sensor_hub_remove_callback(hsdev, HID_USAGE_SENSOR_INCLINOMETER_3D);
 -error_remove_trigger:
--	hid_sensor_remove_trigger(&prox_state->common_attributes);
+-	hid_sensor_remove_trigger(&incl_state->common_attributes);
 -	return ret;
 -}
 -
 -/* Function to deinitialize the processing for usage id */
--static void hid_prox_remove(struct platform_device *pdev)
+-static void hid_incl_3d_remove(struct platform_device *pdev)
 -{
 -	struct hid_sensor_hub_device *hsdev = dev_get_platdata(&pdev->dev);
 -	struct iio_dev *indio_dev = platform_get_drvdata(pdev);
--	struct prox_state *prox_state = iio_priv(indio_dev);
+-	struct incl_3d_state *incl_state = iio_priv(indio_dev);
 -
 -	iio_device_unregister(indio_dev);
--	sensor_hub_remove_callback(hsdev, hsdev->usage);
--	hid_sensor_remove_trigger(&prox_state->common_attributes);
+-	sensor_hub_remove_callback(hsdev, HID_USAGE_SENSOR_INCLINOMETER_3D);
+-	hid_sensor_remove_trigger(&incl_state->common_attributes);
 +	return devm_iio_device_register(dev, indio_dev);
  }
  
- static const struct platform_device_id hid_prox_ids[] = {
-@@ -363,7 +340,6 @@ static struct platform_driver hid_prox_platform_driver = {
+ static const struct platform_device_id hid_incl_3d_ids[] = {
+@@ -404,7 +381,6 @@ static struct platform_driver hid_incl_3d_platform_driver = {
  		.pm	= &hid_sensor_pm_ops,
  	},
- 	.probe		= hid_prox_probe,
--	.remove		= hid_prox_remove,
+ 	.probe		= hid_incl_3d_probe,
+-	.remove		= hid_incl_3d_remove,
  };
- module_platform_driver(hid_prox_platform_driver);
+ module_platform_driver(hid_incl_3d_platform_driver);
  
 
 -- 
