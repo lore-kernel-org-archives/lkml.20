@@ -1,144 +1,143 @@
-Received: from mail-wr2-f21.google.com (mail-wr2-f21.google.com [74.125.225.85])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B8C1376A06
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 06:11:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.85
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8081E370D5C
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 06:11:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789798283; cv=none; b=Iu68ijzjvdXqOd0i5LlccxYHYzdY632FGS7CB4M5JOyBVzq/mIPQwDFPAlJeILXtrUJ3p0+NK+JYr92rcdpwMAYWMWLPmcdHNS/8EXC8FYrYrCfhAPx2SUiKW9RpuxLEd+g6AXq3z5nHTMYWvioMmrK383+xbdaWi3/fD3C3CuA=
+	t=1789798286; cv=none; b=DGeIMqlQKDC+6DBf95pwa/9DOW2R3XF9amxexgezpJlM5w03nEpGa5ZnQnZxLCF7RsSc4c6kMwGHMI4vyejD4wtEDKHIVnyxoDWg/0kMr/HGGire5BfIXCUq43+rJ9QQ7kMqyjxf2ni16qV3+6I6AsHHH57BE+3nmzKPVIzn2jg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789798283; c=relaxed/simple;
-	bh=lwcvsGM7dkF7romeMnX3Ds75/0ZlM0UvamxerXT9LbA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=jc5jQgPzSg2+hMbpVtEVdkIsHhp0Z2Mi/R+KJfWrfA/gmj/IIRgiRvZ6exv5VnVZsVR3SNDvy7vqALY7BuGEUCBlop7UHFjjimAGYAnes0/MJ0rROZnVZDnApifYjRbFsgGwBMMiEkezd3NfRiVvDS4C25mfJaOtsITvjz0m9Jk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Uh6Atq+H; arc=none smtp.client-ip=74.125.225.85
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789798286; c=relaxed/simple;
+	bh=v4Dsp8VziA0MtayIX2+ZsKE2QvUYp7X2142WJPUh3F0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DIoJ8Y+y29R83ts71s0N3p5GLjNK+AxjETUU4p5MuSaRuwGIACB8EqLd0tv9107E3AkRhVUO3TP+CjXxewzOm5Pdd8Py5eEugmrCzsa/JpieD8DMRiOum9YFpWH5/x+djFDcSmO3XLNQfEqKxgmSPEOhIHk7W6RpPweoEJV8aEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BOsSGr6c; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Uh6Atq+H"
-Received: by mail-wr2-f21.google.com with SMTP id ffacd0b85a97d-482f633cd80so658134f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 23:11:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789798280; x=1790403080; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Wzv5spbilUO1qSlslWoXOyl5RLYwHziQsHbiWKOWqZ0=;
-        b=Uh6Atq+HTmmPQ8WVekaEkCIekTTuRWPtOpnha3hf2CkpKiIGzivqKtbYwUegyZWNct
-         LkFtvu/85nlr2r1+D1steBNiVBU0KW3S8mMmPgl4b7fB+RVVULF9/IK+8BOelZvB/bT1
-         U5ZjlUBEaUclJKxwBgm8W1FxCdnHOjaqFEsu0t42jlrXuthmr21q88jHgnstb/n/hfmB
-         LSIyuKQz2P/n3BiZINOb63bUHTksrqs72ECXZ5bdrtXqSxqLSGZmEFnDyEfEQVjFyj4c
-         GN++ech6YB2l4GtQj1+j7RSoS5keexlycup7R+xjG/w2DmYIngW1mWdFLo2FHMEhg13W
-         PHBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789798280; x=1790403080;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Wzv5spbilUO1qSlslWoXOyl5RLYwHziQsHbiWKOWqZ0=;
-        b=wsxjEl5NPSpfreODZOxuNgibXf5caJZQNGR4dyzubLpCjf8k/kPECOzuiw5tnJad9w
-         uCD2fJqERzCXVxnJX8k1NhPZdQjtH/cUy4pItpOKt3WasPbQp4baX9XGBZ3J8aaHE205
-         eQUksdDh8rF+PQ9VxyRXWmtYkBGMqi+v8D3WJt2ak+Fnzb//oa4gtIZp58uORp+pNSDi
-         cRHQBfY5Rz4iUnjhKIltyVn7EtLFHr8sQlzuf98wkYv/UUlgDn2BBlpzsMbjiUjqAZ3M
-         16rV8Xur8AXrv7O2leTi+4DT8x6FA85wEl/CY7KydrqYAGpp7iF03w9UZWFgoaK12SJD
-         oZvA==
-X-Forwarded-Encrypted: i=1; AKwUvBy5Jf6JDWtmOTXE2baQtVlkynkT2BZ2uOb4mXa78dXk8QF2lzdJSkemV4XuXFmmWSTX2JLteo8R+LfHq1w=@vger.kernel.org
-X-Gm-Message-State: AFuF++k4qUl2D9ZnPq10aFtPuxSIJW2aEh9ihIZFAxyLO9fr5nozgKb4
-	6SMAwrVacy95DeDh08/kA5BRrKopN5j4LLkO8xsF5fV50VRR4T1EeACm
-X-Gm-Gg: AYBFou0Zs0cJGkp1kWy8AA5yikJS88YpBGz6upalbJgOlxcOIWsCdfefUAPJNjpET4u
-	7KPWcgI/gMlOPC/N8VPaYw5bUiw6asRAvoyPWPzX1OIyOVq4HWemGsYhbp4f5nT1gm2CEeH9P5+
-	2o+MMyq5mIVye2Cllwn7onqVJg4H8oFbqyE5Nnbcqfydpc+0muAcm5cLz6ZdOiuZag+nk8YYeik
-	oQ4BEVbPuVaaSJSIdsLqBR7iAV1BGoUm6Bbuxu9PKdKHGCFhdmH5zKuByKMa77l2vh9ciy47nRo
-	gaPm+Yj07rKZoykcjec3GIR5DBcA30cL+MKmikphxnjZV+IlJSRWG0+8+IwP/vGS/CXxFmjSDfZ
-	uqvJASK+505DSU2U8BbnWuNhrovjwI+yS6ZgExgcc6dJFtGmnBPG7oT4Y1PBAx32xYP3d7cirtK
-	RpaNkQduc8ADUyDCbUijajLMyJuKG61O0QtlD7j2u9aBjgyok3W3rv9VPF0mtOurzJj7a8SNoue
-	0cV2a5a2WYcTMxE0VCrrAYZpRJ3MMySqF1LFrca4s5lm2DWRwPy
-X-Received: by 2002:a05:600c:6211:b0:49c:fa20:cbfb with SMTP id 5b1f17b1804b1-49fc5728f84mr58855245e9.18.1789798280343;
-        Fri, 18 Sep 2026 23:11:20 -0700 (PDT)
-Received: from fedora ([202.47.63.86])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd1026f4sm52016675e9.8.2026.09.18.23.11.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 23:11:19 -0700 (PDT)
-From: Muhammad Bilal <meatuni001@gmail.com>
-To: Jorge Lopez <jorge.lopez2@hp.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: =?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Muhammad Bilal <meatuni001@gmail.com>
-Subject: [PATCH v3] platform/x86: hp-bioscfg: remove dead bounds check in audit_log_entries_show
-Date: Sat, 19 Sep 2026 11:11:08 +0500
-Message-ID: <20260919061108.87240-1-meatuni001@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BOsSGr6c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2D981F000FF;
+	Sat, 19 Sep 2026 06:11:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789798284;
+	bh=06PjwJFZE3BfGNUfr/Vv4TUh7POhP7Pa28xxRAW4zdY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=BOsSGr6cefyU8A3CtFHg47ZxkeNiIwALqyzGenQgGs0pukynJlr3Y5SOoMqhZ3K4U
+	 /Q9iuR4PkWJtmZiEosyA0vItC+wbMA3HzjS5uY89JM3PoXt5eL81atgd/Au2+Dve6S
+	 ifYVkuUdKzwLH393CoTMnLKRmF2A3vH+EzQ4Ud2XTUA0twmvJQ/299/a+MrWt0aQE8
+	 RAoxG/jutGLbRNdzZtq06Ac0bJehch1djQw2EJbDuISwNj6T6eM05WtJOqDzGvBKZw
+	 KGFCq9DiAuTXfnCctenKw8BB4VnCX5tLEI86q+T9NVvyrICbvCu+Qst8YojRQq6pp+
+	 NatQn8AuAZLSQ==
+Message-ID: <fe7459ab-ddb8-41fa-a770-5bccb504dfe6@kernel.org>
+Date: Sat, 19 Sep 2026 08:11:18 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] powerpc/ftrace: Don't restore r13 during
+ ftrace_regs_caller
+To: Shrikanth Hegde <sshegde@linux.ibm.com>, maddy@linux.ibm.com,
+ linuxppc-dev@lists.ozlabs.org
+Cc: mpe@ellerman.id.au, npiggin@gmail.com, linux-kernel@vger.kernel.org,
+ msuchanek@suse.de, ritesh.list@gmail.com
+References: <20260918150811.1743769-1-sshegde@linux.ibm.com>
+Content-Language: fr-FR
+From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+In-Reply-To: <20260918150811.1743769-1-sshegde@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-audit_log_entries_show() checks "count * LOG_ENTRY_SIZE > PAGE_SIZE"
-prior to entering the loop. Because "count" is already bounded to fit
-within PAGE_SIZE, the inner loop check "(LOG_ENTRY_SIZE * i) > PAGE_SIZE"
-can never be reached and is dead code.
 
-Remove the redundant inner bounds check and eliminate the unnecessary
-"else" block after "break" to clean up the loop control flow.
 
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
----
-Resending v3 2/2 unchanged: the previous attempt reached the list with
-a corrupted hunk (header/diffstat didn't match the body), which is
-what "patch: **** malformed patch at line 65" was. No content change
-from the previous v3, this is a clean re-generation of the same diff.
+Le 18/09/2026 à 17:08, Shrikanth Hegde a écrit :
+> Michal reported a stack-protector failure and subsequent panic when
+> running kernel builds. This was observed with full/lazy preemption.
+> Initially it was suspected as KVM, but later turned out to be due
+> to a bcc tool running in parallel.
+> 
+> Issue was recreated using a bcc tool.
+> For example, running below in parallel leads to crash.
+> ./funccount sched* -d 100 and make -j 64
+> 
+> The same crash was observed when running kprobe for schedule() function,
+> while simpler function tracer for schedule() didn't cause the crash.
+> This helped to narrow it down to ftrace backed kprobes area.
+> 
+> The crash occurs as follows:
+> 
+> ftrace_regs_caller entry on CPU A
+>      |
+>      +-> save r13 = CPU A PACA into pt_regs
+>      |
+>      +-> call kprobe_ftrace_handler()
+>              |
+>              +-> ftrace_test_recursion_unlock()
+>                      |
+>                      +-> preempt_enable
+>                      +-> task can schedule and migrate to CPU B
+>                      +-> task resumes with live r13 = CPU B PACA
+>      |
+>      +-> REST_GPRS(2, 31)
+>              |
+>              +-> restore saved r13 = CPU A PACA
+>      |
+>      |-> The task then continues running on CPU B with r13 pointing
+>      |   to CPU A's PACA.
+> 
+> The stack-protector canary is accessed through the PACA. After the task
+> migrates, CPU A may run a different task and update its PACA with that
+> task's canary. Restoring the saved r13 then causes the migrated task's
+> saved stack canary to be compared against the canary in CPU A's PACA,
+> resulting in a stack-protector failure.
+> 
+> Similarly, current is resolved through the PACA. With a stale r13,
+> preempt_count() can access the state of the task referenced by CPU A's
+> PACA instead of the task running on CPU B. This results in corrupted
+> preempt-count warnings and scheduling-while-atomic failures.
+> 
+> This path for example is called when using kprobes and parallel kernel builds
+> can cause preemptions during ftrace_test_recursion_unlock.
+> 
+> Do not restore r13 from the saved register frame. If the task did not
+> migrate, the live r13 already has the saved value. If it migrated, the
+> live r13 contains the correct PACA pointer for the CPU on which the task
+> resumed.
+> 
+> Fixes: 153086644fd1 ("powerpc/ftrace: Add support for -mprofile-kernel ftrace ABI")
+> Reported-by: Michal Suchánek <msuchanek@suse.de>
+> Closes: https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Fall%2FaqKfsVArHHaIK6M9%40kunlun.suse.cz%2F&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7C47f05d7553a44699e1eb08df1596affe%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639253409091782376%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=yrGFyJtjVk8VFxU5%2BqT4HfxrvTTNPwrQqwn2cLxyT7o%3D&reserved=0
+> Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
 
-Changes in v3:
-  - Remove the dead inner loop check completely instead of adjusting
-    the boundary arithmetic, as noted by Ilpo Järvinen.
-  - Remove the redundant else block after break.
+Reviewed-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
 
-Changes in v2:
-  - None for this patch; resubmitted as part of the v2 series.
+> ---
+> PS:
+> Fixes is the initial commit that introduced this restore regs almost
+> 10 years ago, all commit afterwords are code refactors changing the
+> code layout. Also backporting all the way maybe tricky.
+> Backport can easily happen till aebd1fb45c622.
 
-Link: https://lore.kernel.org/r/20260803143037.93105-1-meatuni001@gmail.com [v1]
-Link: https://lore.kernel.org/r/20260812111829.172273-1-meatuni001@gmail.com [v2]
----
- .../x86/hp/hp-bioscfg/surestart-attributes.c   | 18 ++++++++----------
- 1 file changed, 8 insertions(+), 10 deletions(-)
+Probably not a big issue. That commit is in 5.17. Stable branches 5.10 
+and 5.15 will be EOL by Decembre 2026.
 
-diff --git a/drivers/platform/x86/hp/hp-bioscfg/surestart-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/surestart-attributes.c
-index b57e42f..d689ee8 100644
---- a/drivers/platform/x86/hp/hp-bioscfg/surestart-attributes.c
-+++ b/drivers/platform/x86/hp/hp-bioscfg/surestart-attributes.c
-@@ -90,17 +90,15 @@ static ssize_t audit_log_entries_show(struct kobject *kobj,
- 					   HPWMI_SURESTART,
- 					   audit_log_buffer, 1, 128);
- 
--		if (ret < 0 || (LOG_ENTRY_SIZE * i) > PAGE_SIZE) {
--			/*
--			 * Encountered a failure while reading
--			 * individual logs. Only a partial list of
--			 * audit log will be returned.
--			 */
-+		/*
-+		 * Encountered a failure while reading individual logs.
-+		 * Only a partial list of audit log will be returned.
-+		 */
-+		if (ret < 0)
- 			break;
--		} else {
--			memcpy(buf, audit_log_buffer, LOG_ENTRY_SIZE);
--			buf += LOG_ENTRY_SIZE;
--		}
-+
-+		memcpy(buf, audit_log_buffer, LOG_ENTRY_SIZE);
-+		buf += LOG_ENTRY_SIZE;
- 	}
- 
- 	return i * LOG_ENTRY_SIZE;
--- 
-2.43.0
+> 
+>   arch/powerpc/kernel/trace/ftrace_entry.S | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/powerpc/kernel/trace/ftrace_entry.S b/arch/powerpc/kernel/trace/ftrace_entry.S
+> index 6599fe3c6234..54c8727b48cd 100644
+> --- a/arch/powerpc/kernel/trace/ftrace_entry.S
+> +++ b/arch/powerpc/kernel/trace/ftrace_entry.S
+> @@ -220,7 +220,9 @@
+>   
+>   	/* Restore gprs */
+>   	.if \allregs == 1
+> -	REST_GPRS(2, 31, r1)
+> +	REST_GPRS(2, 12, r1)
+> +	/* Do not restore a stale PACA pointer if the task migrated */
+> +	REST_GPRS(14, 31, r1)
+>   	.else
+>   	REST_GPRS(3, 10, r1)
+>   #if defined(CONFIG_LIVEPATCH_64) || defined(CONFIG_PPC_FTRACE_OUT_OF_LINE)
 
