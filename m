@@ -1,150 +1,129 @@
-Received: from va-1-115.ptr.blmpb.com (va-1-115.ptr.blmpb.com [209.127.230.115])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0885236EAA8
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 03:38:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.115
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B64F368D40
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 03:41:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789789107; cv=none; b=fIoSJ6gc+TfnEIcpp+0rdTVkRvqvdWdDAvVwffRleaVfuFLhU2uoy0ZQPkpdiVz4wWCDkMVXVGkpsyiQJBFLCAcW38LGk6Ujy0XkCCIqtrJnWzbV75ax72UsBf8Kke5s8KDU6xmt2xlnLnPTtf4NgadYIDgz0EU7EXIVfGXJMXw=
+	t=1789789266; cv=none; b=udm6/AIi6it4ZddWSYm7xrup3RxBiZf18gXK79R681T2ydfJYnR7KIFQMkpTfeKags60t+fob4X8rcaP+Zy8eorAqM/WNcpUjv5QhurlsBX2ILzXoT8MeqYDuYcdnV3SOnA/jIhHMujEfjWN4fQvGSvx5PqPcxls+riaXANSxGk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789789107; c=relaxed/simple;
-	bh=X8heIndhjaL0J1x4VNQ8WUV230+MNuFvnt8ZppdQL0s=;
-	h=To:Date:Mime-Version:In-Reply-To:Content-Type:Cc:Message-Id:
-	 References:From:Subject; b=Z8qh7lHYp1gJDZhk+jcHvX+xdvxUyjlDeqGC3eIuExfY7UfwhiOpbLyDERaQhbxJBYqDByNTAw1O39Aj9vzFZoFwZyYQ11IHfS3mvbGg+RzzOZ4CVMoflHR86KY2EXzjKE5BoqoDnXcG/rpOkeE98IHwkF8X9AtUAnhHPZ/nNjQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=PGTbCAW3; arc=none smtp.client-ip=209.127.230.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1789789266; c=relaxed/simple;
+	bh=V5auvF0wDhj1xG/C2ULNfcgAP0vtIWzoMY87R2/u4is=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DAuTt+4uB2XfjaTUIHtkdVt+xD1V2gRsO/J53OwzVSrQrbv+zDR0XEoVKnaH+Di+XAYd17IdXZFUXmjikzk3WbRXfxtwpYvLjmEvPow+HDqApRWX1GmKXPvakIhvtiuj7rfUnysleM2yoY5MNgoXClpGFkbRZ3CFopYLE0GPM0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=jxdQjQH1; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="PGTbCAW3"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1789789094; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=W8TBtJ6IM0md7XKM9TP3O7DHtc171bBY9OmQaBcVFCE=;
- b=PGTbCAW35qyxcV9R1LO8ShDtOsRomtefiAAZDmkg91ttmLOf5mkL2VWkLz5IR0RcZBffy/
- f6lFI51BT2EyvxdSADsrMat261lG2l9vmJ4kdAQ5KsRTmOPNEULHZqg5z/Q/iSyWOHYT1h
- 87DyTCmxYtvpAQac0OZ0QmPficJlro5n0RQ4863JJfPbFSR9Lij2egFp+MaQTBJkiw0NrT
- 8lP7FmvmjVPPaBlSfuHzwgp9h1HXnTPJDUiR2vmV3DybG1vGwwEJQsRc4S6gxr8q0WJNAe
- rkF9pttzyzsc63vkdRDgOSOX5ZgAT1qtBI9RoPQXLmY/sCedOYkfKvQXoaqPLw==
-To: <rostedt@goodmis.org>
-Date: Sat, 19 Sep 2026 11:37:26 +0800
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="jxdQjQH1"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 9D31140E01DD;
+	Sat, 19 Sep 2026 03:41:01 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id RNrp2A5wLxfN; Sat, 19 Sep 2026 03:40:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1789789250; bh=kMvNqYKd+0lYpFeqnp5H/IUOqJ2O49tv4alh/7MFz/s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=jxdQjQH1haDdDStB7xK5pHzSpVL31wq1t/DawmYU0HRU2ghN1LSrkkt3KmbQh8gs4
+	 bDjs6Chm/xWj9bJrDDnNAD6kktTc7BUAGsVFLXNofWuSE/VMh5i/+iVnUwF36nKbXV
+	 aMuUwj/wHimRZx8wfGxgaz98AzKVT0kQaDR8+Pn8uvyiQTc23RcCzAdwx1cH/kdA7g
+	 8P10JlbLpVYHUcjDedBKfWRFjGz69MDeaLG3HognIpGDWci1Yqc3Yb3b8qyjOAEojZ
+	 liH/fh4G388BBkXopLWgR12PXtY1jvZAOUEt0OK5izIRjfjL7PAMEKneh1FDTkCis+
+	 4spIrCx5EoiqNlxE1iQ0cpH8jb2XrAVEOHzmkfYa4OUDquBu0o8KQmlPR0s1Zzz44a
+	 XlsrD1TAVScTSCCJ6Ad2sTRW0moZby2RUfJl/rluW7L9/u81+fznttyjYbS4UPiyAi
+	 nW+r45JMigas863PBhOz6df7cVOyrEG71nwAQcP2WUDW5PzvhkurGvX3+DJV9DYPdi
+	 MjFQYHy559thcs+wTq9NOC93m9wQ69rCNHQgIoezJbQtuYt1gI8Uq10139KWH5exGl
+	 bj4ijoZD9UEvwnQiDPPnywzNNBh8Fkc1AcI/hjF8pjIWGGeJehhC+W1n7iAtM3mii6
+	 f1EU8wT0i2n91G0ogHsmiHwc=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::48])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 36FF840E015B;
+	Sat, 19 Sep 2026 03:40:39 +0000 (UTC)
+Date: Fri, 18 Sep 2026 20:40:35 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: "Naveen N Rao (AMD)" <naveen@kernel.org>,
+	Robert Richter <rrichter@amd.com>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>, linux-kernel@vger.kernel.org,
+	x86@kernel.org, Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>, Bharata B Rao <bharata@amd.com>,
+	Manali Shukla <manali.shukla@amd.com>,
+	Nikunj A Dadhania <nikunj@amd.com>,
+	"H. Peter Anvin" <hpa@zytor.com>
+Subject: Re: [PATCH RESEND v4 1/3] perf/amd/ibs: Limit the max EILVT register
+ count for AMD family 0x10
+Message-ID: <20260919034035.GDaq4EM5Z41kzGVw1i@fat_crate.local>
+References: <cover.1788425679.git.naveen@kernel.org>
+ <b98bf368f4c0e2af51ab8f9dbe3acaf11ebfee40.1788425679.git.naveen@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-In-Reply-To: <20260919033726.1361382-1-qirui.001@bytedance.com>
-X-Mailer: git-send-email 2.20.1
-Content-Type: text/plain; charset=UTF-8
-Cc: "Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, 
-	=?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?= <bjorn@rivosinc.com>, 
-	"Chunyan Zhang" <zhangchunyan@iscas.ac.cn>, 
-	"Guo Ren" <guoren@kernel.org>, "Jiakai Xu" <xujiakai2025@iscas.ac.cn>, 
-	<linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>, 
-	<linux-trace-kernel@vger.kernel.org>, 
-	"Mark Rutland" <mark.rutland@arm.com>, 
-	"Masami Hiramatsu" <mhiramat@kernel.org>, 
-	"Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>, 
-	"Palmer Dabbelt" <palmer@dabbelt.com>, "Paul Walmsley" <pjw@kernel.org>, 
-	"Song Shuai" <suagrfillet@gmail.com>
-Message-Id: <20260919033726.1361382-3-qirui.001@bytedance.com>
-Content-Transfer-Encoding: 7bit
-X-Lms-Return-Path: <lba+26aae03a4+8d6af0+vger.kernel.org+qirui.001@bytedance.com>
-References: <20260919033726.1361382-1-qirui.001@bytedance.com>
-From: "Rui Qi" <qirui.001@bytedance.com>
-Subject: [PATCH 2/2] riscv: ftrace: Use frame CFA for function graph retp
-X-Original-From: Rui Qi <qirui.001@bytedance.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <b98bf368f4c0e2af51ab8f9dbe3acaf11ebfee40.1788425679.git.naveen@kernel.org>
 
-RISC-V dynamic function graph tracing currently uses &fregs->ra for two
-different purposes. As the parent argument, it is the temporary slot where
-ftrace_caller saved the incoming ra. Reading that slot and replacing it
-with return_to_handler is correct, because ftrace_caller reloads the slot
-into the hardware ra register before returning to the traced function.
+On Thu, Sep 03, 2026 at 02:58:39PM +0530, Naveen N Rao (AMD) wrote:
+> For AMD family 0x10, EILVT offsets are not assigned by BIOS and is
+> instead assigned by picking the next available EILVT offset.  Use the
+> maximum EILVT count for family 0x10 (APIC_EILVT_NR_AMD_10H) rather than
+> an arbitrary maximum EILVT count when looking for the next available
+> EILVT offset.
 
-It is wrong to save the same address as the function graph retp. The retp
-is not used to patch the return address later; ftrace_graph_ret_addr()
-uses it as a lookup key for the shadow stack entry. Once ftrace_caller
-returns, its temporary fregs frame is gone. Later stack unwinding finds
-return_to_handler in the traced function's own frame, so the unwinder
-cannot match a key that points back into the vanished ftrace_caller frame.
+Huh?
 
-This also breaks function_get_true_parent_ip(), which looks up the
-original parent with ftrace_regs_get_stack_pointer(fregs). On RISC-V that
-is the saved entry SP, not &fregs->ra, so ftrace_graph_ret_addr() cannot
-match the graph return entry.
+#define         APIC_EILVT_NR_MAX       APIC_EILVT_NR_AMD_10H
 
-Use the frame CFA as the RISC-V graph retp identity instead. The static
-_mcount path derives it from &frame->ra, the dynamic ftrace path uses the
-saved entry SP, and the frame-pointer unwinder uses the same CFA when
-recovering graph return addresses.
+What is this "fixing"?
 
-Fixes: 35e61e8827ee ("riscv: ftrace: Make function graph use ftrace directly")
-Signed-off-by: Rui Qi <qirui.001@bytedance.com>
----
- arch/riscv/kernel/ftrace.c     | 10 ++++++++--
- arch/riscv/kernel/stacktrace.c |  2 +-
- 2 files changed, 9 insertions(+), 3 deletions(-)
+Also,
 
-diff --git a/arch/riscv/kernel/ftrace.c b/arch/riscv/kernel/ftrace.c
-index be8b68514417..faad2608216f 100644
---- a/arch/riscv/kernel/ftrace.c
-+++ b/arch/riscv/kernel/ftrace.c
-@@ -229,11 +229,16 @@ int ftrace_modify_call(struct dyn_ftrace *rec, unsigned long old_addr,
- #ifdef CONFIG_FUNCTION_GRAPH_TRACER
- /*
-  * Most of this function is copied from arm64.
-+ *
-+ * Use the frame CFA as the RISC-V graph return address identity: static
-+ * _mcount derives it from &frame->ra, dynamic ftrace uses the saved entry
-+ * SP, and the unwinder tracks the same value when walking frame records.
-  */
- void prepare_ftrace_return(unsigned long *parent, unsigned long self_addr,
- 			   unsigned long frame_pointer)
- {
- 	unsigned long return_hooker = (unsigned long)&return_to_handler;
-+	unsigned long *retp = parent + 1;
- 	unsigned long old;
- 
- 	if (unlikely(atomic_read(&current->tracing_graph_pause)))
-@@ -245,7 +250,7 @@ void prepare_ftrace_return(unsigned long *parent, unsigned long self_addr,
- 	 */
- 	old = *parent;
- 
--	if (!function_graph_enter(old, self_addr, frame_pointer, parent))
-+	if (!function_graph_enter(old, self_addr, frame_pointer, retp))
- 		*parent = return_hooker;
- }
- 
-@@ -256,6 +261,7 @@ void ftrace_graph_func(unsigned long ip, unsigned long parent_ip,
- 	unsigned long return_hooker = (unsigned long)&return_to_handler;
- 	unsigned long frame_pointer = arch_ftrace_regs(fregs)->s0;
- 	unsigned long *parent = &arch_ftrace_regs(fregs)->ra;
-+	unsigned long *retp = (unsigned long *)arch_ftrace_regs(fregs)->sp;
- 	unsigned long old;
- 
- 	if (unlikely(atomic_read(&current->tracing_graph_pause)))
-@@ -267,7 +273,7 @@ void ftrace_graph_func(unsigned long ip, unsigned long parent_ip,
- 	 */
- 	old = *parent;
- 
--	if (!function_graph_enter_regs(old, ip, frame_pointer, parent, fregs))
-+	if (!function_graph_enter_regs(old, ip, frame_pointer, retp, fregs))
- 		*parent = return_hooker;
- }
- #endif /* CONFIG_DYNAMIC_FTRACE */
-diff --git a/arch/riscv/kernel/stacktrace.c b/arch/riscv/kernel/stacktrace.c
-index c7555447149b..96fb7d29ebb1 100644
---- a/arch/riscv/kernel/stacktrace.c
-+++ b/arch/riscv/kernel/stacktrace.c
-@@ -88,7 +88,7 @@ void notrace walk_stackframe(struct task_struct *task, struct pt_regs *regs,
- 			fp = READ_ONCE_TASK_STACK(task, frame->fp);
- 			pc = READ_ONCE_TASK_STACK(task, frame->ra);
- 			pc = ftrace_graph_ret_addr(task, &graph_idx, pc,
--						   &frame->ra);
-+						   (unsigned long *)sp);
- 			if (pc >= (unsigned long)handle_exception &&
- 			    pc < (unsigned long)&ret_from_exception_end) {
- 				if (unlikely(!fn(arg, pc)))
++ Robert
+
+who happens to know something about that code. Don't forget to use git
+annotate, do some git archeology and CC the relevant people on patches.
+
+Leaving in the rest for him.
+
+> Signed-off-by: Naveen N Rao (AMD) <naveen@kernel.org>
+> Tested-by: Manali Shukla <manali.shukla@amd.com>
+> ---
+>  arch/x86/events/amd/ibs.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/x86/events/amd/ibs.c b/arch/x86/events/amd/ibs.c
+> index 3531f9c23b8c..555912ac520f 100644
+> --- a/arch/x86/events/amd/ibs.c
+> +++ b/arch/x86/events/amd/ibs.c
+> @@ -1839,13 +1839,13 @@ static void force_ibs_eilvt_setup(void)
+>  
+>  	preempt_disable();
+>  	/* find the next free available EILVT entry, skip offset 0 */
+> -	for (offset = 1; offset < APIC_EILVT_NR_MAX; offset++) {
+> +	for (offset = 1; offset < APIC_EILVT_NR_AMD_10H; offset++) {
+>  		if (get_eilvt(offset))
+>  			break;
+>  	}
+>  	preempt_enable();
+>  
+> -	if (offset == APIC_EILVT_NR_MAX) {
+> +	if (offset == APIC_EILVT_NR_AMD_10H) {
+>  		pr_debug("No EILVT entry available\n");
+>  		return;
+>  	}
+> -- 
+> 2.55.0
+> 
+
 -- 
-2.20.1
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
