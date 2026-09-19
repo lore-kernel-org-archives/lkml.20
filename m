@@ -1,290 +1,196 @@
-Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11020082.outbound.protection.outlook.com [52.101.229.82])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AB9330C37A
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 13:08:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.82
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789823299; cv=fail; b=b9GsstXI/Gsw5K75y/LgvmdZR0P9+v24AIDSV6BjOK6TE4+chn1MDuUuFEEsOHcxhM29Q93QVd6ERynlwE7CTCw3nPX1OFxoiRld2K/d+9Z2AGOFx+LeN1WmnLY1TAZXM4vGVesJ9uJMKt696tFHe3cdnYrNnY/XoPBCGis5un0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789823299; c=relaxed/simple;
-	bh=KwEAzyzL0GGXWGk2kbNiqLxDmlz7aDAwRH8bY/ZNsAc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=eMjyBryjItk9OgX2kxrcOI07oWLDZ8KnXizm7PG81+1/hKMv5Aum2ixXVod04CL+u8uc684ZRB5YutmpQ5hFobF62nwZLC1YsBSiZDvMHh3ef1VNa27de0uz9eKQxixWptfLtmC1fsWbNI/Gc9hnNKDKXvyfmfFiBR/xMAcJ6NA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=LJICrlOi; arc=fail smtp.client-ip=52.101.229.82
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E65882D322E
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 13:09:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789823394; cv=none; b=JuH6NUvGV7Hvs2TQDDca77P8hBmoojf6emKAePNHzweXvremYfacyiqEh3kud/QtqLyNba6ml4tZAeRJrG3JxI1KJ2+rvokFtKzCBl+vIB+MW3jfgFCzUPfgIsj/g2S+J1ZXYJ3VFC+KI0ulq8EpKGkS3EGgdKeAEMNVQIHDNYA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789823394; c=relaxed/simple;
+	bh=kvsVjbn5MX51Sg1KdLJbDsyYlb7eTlx3AJQ5a8S+a58=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=YWkfrmOHraxaqmfX9mpa8yZhRjAkocnGJREfMPHYlnT4HiXvvzJpnj+TyhJdIMWGvJzmsPIn/u7vR2Fhp6/ZSlK1tEdLtq5RacaKXVpSmRd+g02fPaZrHW+VxqDvp9j86spIUlNxrR2I/6XnGb9R9MO0i+51cR/hAoAEYi5ksBw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y/9yBzIC; arc=none smtp.client-ip=74.125.228.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="LJICrlOi"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sj7m39ac5rZ/QTQUWknsHe3GtmmdzsfqLrGXRUlwBvzsFWCzhg1/Dry6PgP4MZTIaCqV0gXwKqk4MsvyeXseaeUsIyNMnNXtOHQvSMydElLaTRIdyBQFKORQFmLkt1DPOktbdBwKQHGCW9R4npj0txH4ZflKHyWkvL/HUaZzl9DTcGLKdDdFSvOVc/vK27lhZN/256ECo0mQqu7ZHxmEsLuLLdQ4qZeSQRu0oQ4nTIEnT9dKtniPkYQ/V1H1vSENQ6UYv03EZYjRXxA7I+mkY/bCi7wk6Q4i1QpUKI8yWKdSDWZuId1LEpu4NocS6HOU5q6Y29awnb1ZQwTZO9pw6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5Qr4ASLx9qHkrzz6rwJMaCEeBOIaBUEBZeIojM/zzQM=;
- b=xY/iQF7gJOZwg7Rq7mPP9OSxQ6wU8jdQaXXOmB7uwT7409SmEgkCyT8DttDBgsU9Orhu70Zp9c6I0aensaWpnTKq2lKJrlwYf6jJceCP1IF/rh1qiQhJMxeqcdqPAV8lNn9bffJVeDjYP8YRHzfPRAjL+oG7pSGzYTDpdRyJvYOZDplMG/HXfdvD8OhG8nYvrIoHmMKo5iQ37sEfj9DLchIUXPih7VDqyrTfq0x8P9CEPbHfCbDVbZnlKh8zy8MekKmvtPwFBF4RHKBfjg3xghuUtBbs2QSVwDDqQt82fCTpeJxFDsgCVdVSBbOhJrPtUraG1BoHqK+1ncpCGxAD5w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
- header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5Qr4ASLx9qHkrzz6rwJMaCEeBOIaBUEBZeIojM/zzQM=;
- b=LJICrlOiVXuxRdeeIL2FYhs8Cu9I6f+UESYoMC6750AU8LamsNcWFb+eVdvMkMQErJqC5BFuM3dsRk5EgzhDN277xYEhWDrwnr5xXcKHrqrtTuXqgT7U//EWFJD0B4OZTNfPv8YsjGq6+aeKcavs/bniZOZgKsPsyvdh4byQvv4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=valinux.co.jp;
-Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
- by OS3P286MB2405.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:156::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Sat, 19 Sep
- 2026 13:08:16 +0000
-Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0428.014; Sat, 19 Sep 2026
- 13:08:16 +0000
-Date: Sat, 19 Sep 2026 22:08:15 +0900
-From: Koichiro Den <den@valinux.co.jp>
-To: Dave Jiang <dave.jiang@intel.com>
-Cc: Frank Li <Frank.li@oss.nxp.com>, Jon Mason <jdmason@kudzu.us>, 
-	Allen Hubbe <allenbh@gmail.com>, Frank Li <Frank.Li@kernel.org>, 
-	Logan Gunthorpe <logang@deltatee.com>, fuyuanli <fuyuanli0722@gmail.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Nicholas Bellinger <nab@linux-iscsi.org>, 
-	Joey Zhang <joey.zhang@microchip.com>, ntb@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 05/14] NTB: ntb_transport: Avoid losing QP link-up
- requests
-Message-ID: <dnx4sr5pnlxnq6yivlii3un7eeky2lu7tgzvud5ll2lk43p2tl@kdb633hchvju>
-References: <20260910040836.3792333-1-den@valinux.co.jp>
- <20260910040836.3792333-6-den@valinux.co.jp>
- <aqQyEbLbABhhvFTO@SMW015318>
- <ciucjqvb7qbendlxqdya2wigyivgj4bvqbxtc4cidulr4knq6j@xbwucjdsiayy>
- <l5xf2iuwxgfa4xmtm2l3wn6nce5onfjxxkzfsj627k5xp3snmp@er6fkwlb3sgs>
- <aqTFAi8uo4LwzSj0@SMW015318>
- <i3b4kyeuwyjssav2kne5uhxmltwl2bmug2weyfaujxtrwlkuox@ms6ozb55tmz5>
- <a135b068-e7ee-40f9-8ae7-ca5c44db2dac@intel.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a135b068-e7ee-40f9-8ae7-ca5c44db2dac@intel.com>
-X-ClientProxiedBy: TYCP301CA0013.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:400:386::16) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:325::11)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y/9yBzIC"
+Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469b35601so980827b3a.3
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 06:09:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789823392; x=1790428192; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=y5Tjh3GexCBzXdpLVPsyPNiT6yr4CdLK794OeNiom9k=;
+        b=Y/9yBzICjTqn3xUtfV8PAU3AaiiEbJSKGTfWtjtYnxQ7dfLzRVHiO/xezI0UhDbVCP
+         6HJuoo7xdYb1vAqCz0mTKqmoK6/YMBCKAAZO0NTxTmkODV9sE4I3wE6uzaNR4G0jAII/
+         9RPYoOw/XxMqJtwbnU7F/LCn8GwfEqw04ghB1Wx0H8kp4qdgUqbbzCS/IcDxQCudU4qK
+         Uu9DrmDPyagIkfy6fZgORZo/p8gKes3PdBBLjR8pa6MKDZdr/F9k1K+msE9VKytKq12M
+         CwR7KmrMfQI5bsg71dJMUj59dKf7wVIbmXWfL1DBTx8enXZUXAS3Gq4hX6nd5dpDZvom
+         evhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789823392; x=1790428192;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=y5Tjh3GexCBzXdpLVPsyPNiT6yr4CdLK794OeNiom9k=;
+        b=b2dfjazgX2SG9HFTYJfA9t5u8OqVBvbdOVj/5aU7v9SyC+LpnbalsrFAtHAPDkkjXe
+         EYZXzu/K0QrYPRkQU/44kVKRFY0+8WXk8yoDy8i6BHA8pXJvThKT0K9sFQ2sNQKFHI2f
+         u1sa2VpV3MsCK//kq/xUouE5hMlFmH7eg8EeiAMyDQQUnQdUaEJ8b3+EiFCDTSjv7h5v
+         zmNRUWz/brQzk4m8wta6SV8QgyQCIWaRmOzphFn8g7uGGzyn94csz3tObOT+h2psyKwU
+         waGYUL/ljYu9dLsdRWclTxSAXrha+AVtSeFEf+6nUlhz9+W4PpO3y2TY32pMjjhr05Tf
+         1Xdw==
+X-Forwarded-Encrypted: i=1; AKwUvBwfhApu0BT+T/81FlBtJ1E7G8BLGrqeJW0InizPcsMguK3gm8nwxL7Q43GSToCR0f1EUiryj44LYdTYrso=@vger.kernel.org
+X-Gm-Message-State: AFuF++mIc43zJNqK4sAbUQbyfxMSIJ1JhE6pPqhi6mv/uF8mSaqTZmVB
+	o8TWlz9PZ+y11bcpjQCGh0rsQxfqz84swGSeHQq3efoGD6VVJEgmAmfa
+X-Gm-Gg: AYBFou10D91kIBTMiaawtP7/eBh18rvM0vIgCN859fyzFLFmPLr3z5FGr7X9efd9Fmo
+	K/1xuYzxuJdm3TidmY9G+aikQxVItCce0FEfhp0PKHo8I6enQXGHzu8yJhIYrWnoOtBkS/GdUyc
+	+yZ9Y4u7dOTQVyAwz7/Mq1EZcoxS3B0XlAkIjjf7vaLuCurGwL6iVIA3paaaDp6RDD6zYjCN6zX
+	wIKZ/JPXkbMOfNFSwNrPCh338PYw9FHdp5d6PM68QO+CXSY7iLh4mnH8feOwIFNVr/QhQoDIYMF
+	EsiTKEu6QzmifhbJdjPye9D6Kihq6oIo+c/WM5b89ogDrLrtjjhY8NeJrPIqsx07T9kyQH5Hh/O
+	NOqBM0Sql7va8uaShQqatHEJ0uRQWtPSKcZJBfUPeP6FfXBgppWRWYt24nGZPcOMBt2UOVjPHmy
+	xHK8OXK6uoGF39b7G9eqP5JSVUYQXL6TdVO+MXZhs23Qn7JcaL4kw1HsYmuRV47B6GsU+F9VGW9
+	u5v3/Id2HW3ZATGKRIfG8+42QNjTuBhfTtz
+X-Received: by 2002:a05:6a00:94e7:b0:878:34d7:6997 with SMTP id d2e1a72fcca58-87834d76dcfmr1434910b3a.39.1789823392057;
+        Sat, 19 Sep 2026 06:09:52 -0700 (PDT)
+Received: from csl-conti-dell7859.ntu.edu.sg ([155.69.199.57])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877aa6fd3ecsm1025493b3a.59.2026.09.19.06.09.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Sep 2026 06:09:51 -0700 (PDT)
+From: Kaixuan Li <kaixuanli0131@gmail.com>
+To: Jaegeuk Kim <jaegeuk@kernel.org>,
+	Chao Yu <chao@kernel.org>
+Cc: Kaixuan Li <kaixuanli0131@gmail.com>,
+	linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] f2fs: bound the SIT/NAT bitmaps by the checkpoint pack
+Date: Sat, 19 Sep 2026 21:09:24 +0800
+Message-Id: <20260919130925.1899994-1-kaixuanli0131@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|OS3P286MB2405:EE_
-X-MS-Office365-Filtering-Correlation-Id: 42a9b71e-7707-43b4-baee-08df164f116b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|10070799003|23010399003|7416014|376014|1800799024|56012099006|4143699003|10067099003|22082099003|6133799003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	imH2D2rzxcyik2bh53VXcYih+XWPIE9Zu/45QBvSc6oAsvMuzXmBXHHGzDK3F7DBAK0yu+nfY99GSG1X7U0FhEeWRrkMt7c8lyFETgfx2+3EBYsED9fVn7PfnvGzvwZGX2DAHPXj76sq1QLOnGjvr4Q/ddjHj75nWBBo8sdrID5PasE2rV7YDlIL+jSjsMwnmU7GwYCgPtTvkIIUiHVd5uleRQQdIXABvkys1DFMtpBvojz3yxo1YUhd119N01MUNgLAdL9rUxTkSbAXXMyriVyXK0fuQ+rIhkOBubrlkOCt39+i2IpLSXwv0JKK3/rWkseeABuSYnp6KWQ4e7yuDisFU3gqAog0dw592lB/lMSG6iy6OhRCwlEi1rRuqpUPdPzjiW+TKLo+ACSmSfdbuXf5t5x5nurV3cZuW8wnEmybcJXC4LLPMVk7J5Xh9KHjiey0lIkG+woROAmYFUL9xCwjCawqWoKvnZwYiMYXeHORI257FFskIVx8GvbZ+KQYdmIgOvpRIVpepJ8U6NaN9OR1u8W9bwvP7EFgB9Ll2X91tiL4V7ts29CU0a0MuIn7x+MlaS/NBVYuIvFtZNPEJG/kU/+Ry9vdh3Z+GbD3QXztFd2iOwJP+rrPa4bS6HOj
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(10070799003)(23010399003)(7416014)(376014)(1800799024)(56012099006)(4143699003)(10067099003)(22082099003)(6133799003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?f9Levpd4Bd2Dz/bgH4UnCJBZ1ZhuQjVyGy6gDgrGNxgbGUWdpVEC/rCvXPiI?=
- =?us-ascii?Q?HbudgWnx4rQ1LTVOFLY8d+r79w3/WGiblp1/Sxn37yWOeCrrMh8YUDZRsuxZ?=
- =?us-ascii?Q?B+Q242LyJfVL/3RPl9VpLnBwxU8WEWJPYPrvBs/Mw4UtZX92ttKevzrwPsnA?=
- =?us-ascii?Q?hcL1bYPzUmyXjfFD9DGxFR/1Ni+WvAs5xj+oO+HaN3aHs7OqrL8H1cOB1uMJ?=
- =?us-ascii?Q?fpVDQ5aHFiqQ9piMF2ipWWQaijwpWF1xpCq2nI1kcHa5ugbT0eqvaEHwES7C?=
- =?us-ascii?Q?OlpB65wn2ChBGBfu8WrCvZzCUSPKdBu28OLM+FCitBxOcCZ1yebbpNCmExa4?=
- =?us-ascii?Q?eidyBVf0skknE1OpWZcrkz/FkHBchA18CfpVZQYmCZnkcgLGvdrBrj27uzae?=
- =?us-ascii?Q?/UYiFQfPmrKU8fjDGoq7dSR8NsxzAUrqFV3Gh+3dmeJ6fYVM1SngCO8c+sDH?=
- =?us-ascii?Q?209U/DhnJC58dQ11ZZGRUKOsAZyFGxj8tq969SPz2P0H/cDDn8Uh4uX2iYFe?=
- =?us-ascii?Q?hwCzSqOVvAM9bMwp+YvfQ6bemSrYAEbYAKQcESeNLd7TJAq3ofrbKKddJHXY?=
- =?us-ascii?Q?Fae1rTvlgTperKMCwKaYDsbrk/2L5Q9tSpN1a2D2z2r5/wwN2/xRFA2pH1Z3?=
- =?us-ascii?Q?TSIPp6Wouk/q05Q76WHASIIkLXdXhRoIjNQ/Im7NOWgkmFd0Xn/0PKH6mFS6?=
- =?us-ascii?Q?rlPchsK3dcfQHFCUgYqiheQm9x/ORxIFzLpB4ZDlPr929BdovRDhvIf6/VcZ?=
- =?us-ascii?Q?9kauOJVT0Y5weOCIhiIQL9rE08i4JQUVfgDkfivFIOPGfWj8Ce7tyyg7GNv+?=
- =?us-ascii?Q?5pIX30/ZddPYsUN+UEq/F7bAZ78t3hH3sIOGGtNNv3mRJtgvwozQ5PrQ2YAx?=
- =?us-ascii?Q?z1V7B2zvsR7BBq3teSXk9sYdsG9+SFFQ4ys+lArtdv3qxG3TTKsGziDlGobJ?=
- =?us-ascii?Q?79PA+eItbx5a/23qbwxyQ/+2A/C6OXIhLwU4mzerAoTsUSlRTlYxmkKSuNQx?=
- =?us-ascii?Q?RLk6I4HEmmUjXJNr4JHRrD+cnNl6InXupUXie5DFXzAFhwO2SBBD39b2HAbm?=
- =?us-ascii?Q?QJru9IwO7WMDKra/uw/aUMJgmqzAG+z3u5qerWaupuERVOvs7DsuZMFxXsk6?=
- =?us-ascii?Q?rqwmbKkysfR7gAESvKEynwRLMVfj6bwbTFfekZdTFLK6GAIFtYXH8zJS3OUN?=
- =?us-ascii?Q?ACEml1W0rRAVjIhulXITA42XCsjILvRrhbUqIVUG1HR8Ol93d+pVGQL/NyYQ?=
- =?us-ascii?Q?yq3SRiYfj+bU3P+apA1UAj2W3+Ip5M/j09EEIi8GnsawU14kUp9++1NEjZp0?=
- =?us-ascii?Q?BKrDiAgsnicvimtpsys+V/PSUnap95tZ+qnV8svigXU25K71lRPOljw8eD/z?=
- =?us-ascii?Q?/ni1QhQchEWqj82ExrzuT7NgoTM+axqhFfCXLcHNhkzMwXmeBQ8TT8Kuj/Tg?=
- =?us-ascii?Q?6bd/5o0RHjphKY6e4ev4ITp5Vj5B7trbQTOCuHpU5LDptruHG8SOzUtkstIO?=
- =?us-ascii?Q?Opav50roKgt5/tD5btzdXSCWjuUba15BdDTqXfxPGktC8eXZY/RLqv9mukL7?=
- =?us-ascii?Q?R/xOjxTGofGXIRczf6j8IvbQFmj0hJF2CaqoXowk4OqbyWtX9G90/qvIms0Y?=
- =?us-ascii?Q?2MkSvFCTjcZOLzU1H+ul3nrrLPJ97tCox2exgJCDpwt4Lr5Xqdd1l3XMkcVM?=
- =?us-ascii?Q?RxIBLX/bJqCzJV1cglrUBIIpaAmyPSlNlF+AuMZ8+jI5gAGZ6QEc9AFio7bd?=
- =?us-ascii?Q?XTzcdMFq+j+g67Mx3UT8uo7JIOGD7Q1JMAEqtTjT6Qruf8FhO7Vw?=
-X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: 42a9b71e-7707-43b4-baee-08df164f116b
-X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Sep 2026 13:08:16.1219
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rZmrUYTFxTWRHdOedlMJpgmWIZe4DvsM+xthsS5m6LGW8kTP5JQ1M1MyE1O+76IBxod1bZRcUiydugySPjNTNg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3P286MB2405
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 18, 2026 at 07:43:26AM -0700, Dave Jiang wrote:
-> 
-> 
-> On 9/12/26 7:52 AM, Koichiro Den wrote:
-> > On Fri, Sep 11, 2026 at 10:20:34PM -0500, Frank Li wrote:
-> >> On Sat, Sep 12, 2026 at 03:21:08AM +0900, Koichiro Den wrote:
-> >>> On Sat, Sep 12, 2026 at 03:04:21AM +0900, Koichiro Den wrote:
-> >>>> On Fri, Sep 11, 2026 at 11:53:37AM -0500, Frank Li wrote:
-> >>>>> On Thu, Sep 10, 2026 at 01:08:27PM +0900, Koichiro Den wrote:
-> >>>>>> ntb_netdev_open() can call ntb_transport_link_up() while the transport
-> >>>>>> worker is completing setup on another CPU. Concurrent transport setup
-> >>>>>> and a client link-up request can both read the other's flag as false and
-> >>>>>> leave QP link work unqueued. The QP then stays down until another link
-> >>>>>> event or client link-up request.
-> >>>>>>
-> >>>>>> This is the store-buffering pattern described in
-> >>>>>> tools/memory-model/Documentation/recipes.txt ("Store buffering").
-> >>>>>>
-> >>>>>> Add a full barrier between the store and load on each side, and
-> >>>>>> mark the client_ready accesses with READ_ONCE()/WRITE_ONCE().
-> >>>>>>
-> >>>>>> Fixes: fce8a7bb5b4b ("PCI-Express Non-Transparent Bridge Support")
-> >>>>>> Cc: stable@vger.kernel.org
-> >>>>>> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> >>>>>> Link: https://lore.kernel.org/r/20260907144701.702E41F00A3A@smtp.kernel.org/
-> >>>>>> Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> >>>>>> ---
-> >>>>>> Changes in v2:
-> >>>>>>   - New patch (Sashiko)
-> >>>>>>
-> >>>>>>  drivers/ntb/ntb_transport.c | 13 +++++++++++--
-> >>>>>>  1 file changed, 11 insertions(+), 2 deletions(-)
-> >>>>>>
-> >>>>>> diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
-> >>>>>> index 75d4a2e021f4..1332d53bcfe7 100644
-> >>>>>> --- a/drivers/ntb/ntb_transport.c
-> >>>>>> +++ b/drivers/ntb/ntb_transport.c
-> >>>>>> @@ -1104,10 +1104,16 @@ static void ntb_transport_link_work(struct work_struct *work)
-> >>>>>>  	/* Publish the link only after every QP has been set up. */
-> >>>>>>  	smp_store_release(&nt->link_is_up, true);
-> >>>>>>
-> >>>>>> +	/*
-> >>>>>> +	 * Prevent both sides from missing each other's flag. Pairs with
-> >>>>>> +	 * the barrier in ntb_transport_link_up().
-> >>>>>> +	 */
-> >>>>>> +	smp_mb();
-> >>>>>> +
-> >>>>>>  	for (i = 0; i < nt->qp_count; i++) {
-> >>>>>>  		struct ntb_transport_qp *qp = &nt->qp_vec[i];
-> >>>>>>
-> >>>>>> -		if (qp->client_ready)
-> >>>>>> +		if (READ_ONCE(qp->client_ready))
-> >>>>>
-> >>>>> I think it'd better change to use atomic variable for client_ready to avoid
-> >>>>> manual handle smp sync.
-> >>>>
-> >>>> AFAICT converting client_ready to atomic_t and using atomic_set()/atomic_read()
-> >>>> instead of WRITE_ONCE()/READ_ONCE() would not free us from the smp sync, as
-> >>>> those operations are unordered.
-> >>
-> >> there are acquire version for atomic
-> >>
-> >> atomic_set_release()
-> >>
-> >> atomic_read_acquire()
-> >>
-> >> My key point is use existing higher level sync APIs to avoid consider
-> >> barrier problem, which need more brain cell to think it.
-> >>
-> >> this is just sync state, which don't impact performance.
-> > 
-> > I agree with the idea of changing both flags to atomic_t for cleaner code, but
-> > I'm not sure if it frees us from "the smp sync" or the "barrier problem". We'd
-> > still need both smp_mb()s and still have to think about *_release/*_acquire when
-> > revisiting the code and maybe scratching our heads, right?
-> > 
-> > BTW, I once wondered whether it might be worth consolidating
-> > link_work/link_cleanup into a single state machine worker per transport or QP.
-> > That could simplify synchronization between setup and cleanup, which aren't
-> > really performance-critical, as you say. However, that would possibly require a
-> > larger rework, so for now I've put together this fix series as a small step. I
-> > would be interested to hear what NTB maintainers think about the possibility of
-> > such a rework.
-> 
-> I'm fine with it if it doesn't break any existing code and reduces complexity with simpler code.
+sit_ver_bitmap_bytesize and nat_ver_bitmap_bytesize are used as memcpy
+lengths into and out of sbi->ckpt, which is sized from cp_payload alone,
+and nothing compares either length against that allocation.
 
-Alright, I'll look into it when I have some bandwidth to see if it's really
-worth doing for mainline.
+sanity_check_ckpt() has checked these two fields since c77ec61ca0a4, which
+added them after a crafted image overran build_sit_info(). That check ties
+each length to a segment count; it never compares either against the
+allocation, which is the half this adds.
 
-Thanks for the review!
-And thanks to Logan and Frank as well for taking the time to look at this.
-(Saying it here to save ML traffic :))
+Mounting over-reads in build_sit_info() and build_node_manager(), and the
+first checkpoint writes the same lengths back through the same pointers,
+so the over-read's contents reach the on-disk checkpoint. An unmount is
+enough; the filesystem does not have to be used.
 
-Best regards,
-Koichiro
+Bound both ends the way __bitmap_ptr() lays them out. The three branches
+differ, so a single sum of the two lengths would still admit a small
+overflow when cp_payload is non-zero.
 
-> 
-> DJ
-> 
-> 
-> > 
-> > Best regards,
-> > Koichiro
-> > 
-> >>
-> >> Frank
-> >>
-> >>>> So to illustrate this in litmus test like form:
-> >>>>
-> >>>>    # L = nt->link_is_up
-> >>>>    # R = qp->client_ready
-> >>>>    # Both initially false
-> >>>>
-> >>>>    Transport setup                  Client link-up
-> >>>>    ---------------                  --------------
-> >>>>     smp_store_release(&L, true);     WRITE_ONCE(R, true);
-> >>>>     smp_mb(); /* added */            smp_mb(); /* added */
-> >>>>     r0 = READ_ONCE(R);               r1 = smp_load_acquire(&L);
-> >>>>
-> >>>>    Both reads return false?
-> >>>>     Before: allowed
-> >>>>     After:  forbidden
-> >>>>
-> >>>> I might be misunderstanding your suggestion though. If you have something
-> >>>> different in mind, please let me know.
-> >>>
-> >>> Just for the record, smp_store_release/smp_load_acquire depicted above, instead
-> >>> of WRITE_ONCE()/READ_ONCE(), is intentional. They are for MP ordering to publish
-> >>> the QP setup, which is needed by an earlier patch:
-> >>> https://lore.kernel.org/r/20260910040836.3792333-5-den@valinux.co.jp/
-> >>>
-> >>> Best regards,
-> >>> Koichiro
-> >>>
-> >>>>
-> >>>> Thanks for the review.
-> >>>> Koichiro
-> >>>>
-> >>>>>
-> >>>>> Frank
-> >>>>>
-> >>>>>>  			ntb_transport_schedule_qp_link(qp, 0);
-> >>>>>>  	}
-> >>>>>>
-> >>>>>> @@ -2401,7 +2407,10 @@ void ntb_transport_link_up(struct ntb_transport_qp *qp)
-> >>>>>>  	if (!qp)
-> >>>>>>  		return;
-> >>>>>>
-> >>>>>> -	qp->client_ready = true;
-> >>>>>> +	WRITE_ONCE(qp->client_ready, true);
-> >>>>>> +
-> >>>>>> +	/* Pairs with the barrier in ntb_transport_link_work(). */
-> >>>>>> +	smp_mb();
-> >>>>>>
-> >>>>>>  	ntb_transport_schedule_qp_link(qp, 0);
-> >>>>>>  }
-> >>>>>> --
-> >>>>>> 2.51.0
-> >>>>>>
-> 
+Fixes: c77ec61ca0a4 ("f2fs: fix to do sanity check with {sit,nat}_ver_bitmap_bytesize")
+Signed-off-by: Kaixuan Li <kaixuanli0131@gmail.com>
+---
+Reproduced on v7.2.4 x86_64 with CONFIG_KASAN=y. Two crafted images from a
+plain mkfs.f2fs 512G volume, with segments taken off the SSA area so
+main_blkaddr does not move:
+
+	cp_payload 0, segment_count_sit 20 -> 220
+		sbi->ckpt 4096 bytes, SIT bitmap at +192 for 7040, NAT at
+		+7232 for 3200, ending 6336 past the allocation
+	cp_payload 2, segment_count_sit 20 -> 520
+		sbi->ckpt 12288 bytes, SIT bitmap at +4096 for 16640,
+		ending 8448 past
+
+	case                    kernel    result
+	crafted cp_payload=2    stock     mounts and unmounts
+	crafted cp_payload=0    stock     mounts and unmounts
+	pristine mkfs.f2fs      stock     mounts
+	crafted cp_payload=2    patched   rejected
+	crafted cp_payload=0    patched   rejected
+	pristine mkfs.f2fs      patched   mounts
+
+with the patched kernel naming the numbers:
+
+	Bitmaps do not fit the checkpoint pack: sit ends at 20736, nat at 3392, pack is 12288 bytes
+	Bitmaps do not fit the checkpoint pack: sit ends at 7232, nat at 10432, pack is 4096 bytes
+
+Setting sit_ver_bitmap_bytesize to 7040 while leaving segment_count_sit at
+20 gives "Wrong bitmap size: sit: 7040, nat:3200" and the mount fails, so
+the field is read and the only thing checked against it is the segment
+count.
+
+KASAN does not flag the copy: with cp_payload 0 the allocation requests
+exactly 4096, so there is no in-object redzone, and at 12288 it went
+unreported too. What the cp_payload 2 image does produce, on one of three
+runs with a freshly built image each time, is the corruption landing at
+unmount:
+
+	BUG: KASAN: slab-use-after-free in kthread_stop+0x23/0x390
+	Write of size 4 at addr ffff88800a329fa8 by task init/1
+	Call Trace:
+	 kasan_check_range+0x39/0x1c0
+	 kthread_stop+0x23/0x390
+	 f2fs_destroy_segment_manager+0x176/0x9b0
+	 f2fs_put_super+0x635/0x10e0
+	 generic_shutdown_super+0x13e/0x440
+	 kill_f2fs_super+0x24e/0x500
+
+Which neighbour it lands on varies.
+
+Mounting a crafted image is not a Linux kernel vulnerability
+(Documentation/process/threat-model.rst), and I am not reporting it as
+one.
+---
+ fs/f2fs/super.c | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
+
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -4180,8 +4180,9 @@ int f2fs_sanity_check_ckpt(struct f2fs_sb_info *sbi)
+ 	block_t user_block_count, valid_user_blocks;
+ 	block_t avail_node_count, valid_node_count;
+ 	unsigned int nat_blocks, nat_bits_bytes, nat_bits_blocks;
+ 	unsigned int sit_blk_cnt;
++	unsigned long long ckpt_size, sit_end, nat_end;
+ 	int i, j;
+ 
+ 	total = le32_to_cpu(raw_super->segment_count);
+ 	fsmeta = le32_to_cpu(raw_super->segment_count_ckpt);
+@@ -4308,8 +4309,31 @@ skip_cross:
+ 			 cp_pack_start_sum);
+ 		return 1;
+ 	}
+ 
++	/*
++	 * Nothing above ties the bitmap lengths to sbi->ckpt, which is
++	 * (1 + cp_payload) blocks. Bound both ends the way __bitmap_ptr()
++	 * lays them out.
++	 */
++	ckpt_size = (unsigned long long)(cp_payload + 1) * F2FS_BLKSIZE;
++	if (__is_set_ckpt_flags(ckpt, CP_LARGE_NAT_BITMAP_FLAG)) {
++		nat_end = CP_MIN_CHKSUM_OFFSET + sizeof(__le32) + nat_bitmap_size;
++		sit_end = nat_end + sit_bitmap_size;
++	} else if (cp_payload > 0) {
++		nat_end = CP_MIN_CHKSUM_OFFSET + nat_bitmap_size;
++		sit_end = F2FS_BLKSIZE + sit_bitmap_size;
++	} else {
++		sit_end = CP_MIN_CHKSUM_OFFSET + sit_bitmap_size;
++		nat_end = sit_end + nat_bitmap_size;
++	}
++
++	if (sit_end > ckpt_size || nat_end > ckpt_size) {
++		f2fs_err(sbi, "Bitmaps do not fit the checkpoint pack: sit ends at %llu, nat at %llu, pack is %llu bytes",
++			 sit_end, nat_end, ckpt_size);
++		return 1;
++	}
++
+ 	if (__is_set_ckpt_flags(ckpt, CP_LARGE_NAT_BITMAP_FLAG) &&
+ 		le32_to_cpu(ckpt->checksum_offset) != CP_MIN_CHKSUM_OFFSET) {
+ 		f2fs_warn(sbi, "using deprecated layout of large_nat_bitmap, "
+ 			  "please run fsck v1.13.0 or higher to repair, chksum_offset: %u, "
