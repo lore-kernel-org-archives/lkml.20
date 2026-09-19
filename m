@@ -1,103 +1,79 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from calculus.sigma-star.at (calculus.sigma-star.at [188.245.196.96])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F7B4257827
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:25:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FBE249620;
+	Sat, 19 Sep 2026 14:28:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.245.196.96
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789827942; cv=none; b=Xa3PkdrxbSOX8ycY0pjOq//RGhasQbs7giYG5XDeksTzP93cq0lnYfEjEovnCcKVx5/UDauqdiVWQ/b9asdQpJSeKL+iTIZa/a4Wmj1+K6INiEf+//f5bZFxgUIBzmZhL/Hs10K0tsVpAn4d3f86trcHcbQ/6nGHmF/++x9LaAU=
+	t=1789828121; cv=none; b=FMviri4/kBwKT8YcxDETxR6eNH2US7nRCjeiGt9491kzBQM73earnQyeTIfdCVGP+LarrukON4Vn7UqWZf1oLqMA3WyRMF4wQbMq0zSfjwp8knN953Cu/Yu56aSBQIJyXzjHILmXizB7RmR3/q3S6BaDiO/pJAARMPXId/2hyFk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789827942; c=relaxed/simple;
-	bh=MXiWKKMga59CYgjF+JX/HuYbRMF4SIgIjBhzB9KdFlQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XihM3NFE6EhswRO9jZzcPSsqTXgCMnIKFoPC4W9rOr9VJT1MwzMXEUY4m1r24H7iqoK+BTICyyqaE+zg8zs/4CWiC6HBSmYN4QCP6AkN8CtXelGixZBLyE8+RTLRFqc5QPRn5rX6YU+pOH6vcPtQqhTbycmXkkAegMDC/fOH2Vg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev; spf=pass smtp.mailfrom=tuxon.dev; dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b=WUJOE8Yz; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxon.dev
+	s=arc-20240116; t=1789828121; c=relaxed/simple;
+	bh=wHFhJZYMC+Cf2lvydqNtVJcP//AgIIi2qiL0aSglkVY=;
+	h=From:To:Cc:Subject:Message-ID:In-Reply-To:References:Date:
+	 MIME-Version:Content-Type; b=BvzpRoY1rrtkqCJ9qSPL/DasEZMLhro4nG+QAiq2HicNAgwoYAXBu5gQR1v4jpmQWywT+dJ8HzQITskgWQxZOPus7LtZ8CIKH/fYUuKhemNWRuaY8WshAxH/4u1fYBAdSFCsckwQ76JzYfb6sA/ho7K2OR9ryGLHPGxDQO9lStg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nod.at; spf=fail smtp.mailfrom=nod.at; dkim=permerror (0-bit key) header.d=nod.at header.i=@nod.at header.b=7vQXNP/H; dkim=pass (2048-bit key) header.d=nod.at header.i=@nod.at header.b=imjidSQu; arc=none smtp.client-ip=188.245.196.96
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nod.at
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nod.at
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b="WUJOE8Yz"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912e64ccso12209535e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 07:25:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tuxon.dev; s=google; t=1789827937; x=1790432737; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7shCbBzL3NxDtg4fCdmbNM7nlS/zl4e99x1q/nsZ2so=;
-        b=WUJOE8YzyYqKoC0lgK1BYOOiRGFAVM6djLmzvzy4l65wej8x7yFTexCLN57n2qgfRd
-         qzN6rjDEZuB0DAf1UXGMlWt1v0Gn9sBcF9qCgUXmJIWq36oS5Bcu3CsiTARMYK4dUWq+
-         IKIrv0ekJV7nKA65Gy2xyBabd+dUwx3rTgplUTGLrcUHZyhVOklVjzSRgRX/sAIEk8A4
-         1mQwIAB6vvlqD79OFH4aT+uI0XwPKRwNlYQAz0cxIqE+TL/wYUubgfXFsh3v9qTYYp7n
-         42KZJKu5ns1lZp0rFJkAIxzNfFSD4rlPRlbXPWrwihkGksDJJreMkfv2Yr3lPnxPsxQc
-         aQxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789827937; x=1790432737;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7shCbBzL3NxDtg4fCdmbNM7nlS/zl4e99x1q/nsZ2so=;
-        b=rGBURe0YDdZ7DsqNmi/3wrXJbTFq9g5zUrjw3icus7mqpzJafXNgAx/7GSAtPtvaeA
-         sw8YwesFq8ITWsi/BLvXeuoItLA1lVXgtGrCUMadllqzuJ8tBLMozcN+iOXRDmweFua0
-         YewEY9Br46TtDMb06YrRGagY7JJwIKHI5RPQxrk3SFm1GKwNs1NHz+Ig/2JVc21Ums0s
-         gWUATikahrVbAkB8GjKzCduFEAVXbXSrAfv8T38S76zSblqE2o09Jdb28RwAIiM6ZlSc
-         V3DkIUO23WZndbQyUalNMCaFkSkA12ra2/U/vYeOSskKHakBfPW/EeQGAY1CdIdZunE2
-         Rsyw==
-X-Forwarded-Encrypted: i=1; AKwUvBzaQOctuz3xXIxTwzXbPR0Rk2MYaOF27fSPKPkj5OtqaoSFeh0L5qp7YUAmItTXE208eT1tbcpEATDmfdU=@vger.kernel.org
-X-Gm-Message-State: AFuF++n+FHe0/2EcMCgQYwIZieqpsCfd0a5ZhEfVInvzzRgWyJd5IwTC
-	iiWy273qA3J9gMWNyQ9bmqJHVz9dhO5eBC/47sgYZapxnpotlygtzIA7nHNfd8m5BoE=
-X-Gm-Gg: AYBFou10BY0uYgUrOi/WhrlU5G2K1OzpeXzymLfy99IbvvMvHX7FHAJB/5QZFaSULhf
-	ZVtoEZufcp0yW3QVHro89SzjtjEuc1eY0BnLMfxEMnk8sWof+bkpmMxxPbpxhyLfsS2bpO09tC+
-	LpUwEQgV3O91yEoagQyD1P9jS2tQ9Oe0HDcU8b4z2w6v5I6dQ7dKS2YDJxvT4u9OyKiGCK1iJ41
-	5mDvKMzMyAkkttaDuMpwRqhLNcqFymI1qGt0LdwAmPKkWVt1LsIGkYvp7l5tKZjNKdS/fRfV5Js
-	CKV7hwc2gEC2s8l70IkdGR80WXnIbpMavOFatvn8K2qhMPG/c22uQCvutry9XZmbL0r85MF36ua
-	Jp9cse0J44MP4svp4IhTHV1KUvwrlzSTGvlkmVIBQWhvN9a25UE204Wh/XZkBNoxskw217hoEn4
-	SQ5iHcbhN5pjmR+WWQSAUQ8NamnLFd5ur5gogJznNQ85iBF4nALvwe+1qxZLcZoEIX+6rgTBdD/
-	rrXSOJSsMcb26GTBYDU2BKMJtUjzaNU2kTuanxM+prmS3dMsUrBscRVnlnBqTqmdw==
-X-Received: by 2002:a05:600c:8b35:b0:49f:bd3c:bc18 with SMTP id 5b1f17b1804b1-49fc572f15dmr69026285e9.19.1789827937433;
-        Sat, 19 Sep 2026 07:25:37 -0700 (PDT)
-Received: from ?IPV6:2a02:2f05:1204:e000:2cf7:c250:64a9:ae77? ([2a02:2f05:1204:e000:2cf7:c250:64a9:ae77])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd8bc15esm53940005e9.1.2026.09.19.07.25.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 19 Sep 2026 07:25:36 -0700 (PDT)
-Message-ID: <c173168c-f3a1-4712-b093-b49b5f798e13@tuxon.dev>
-Date: Sat, 19 Sep 2026 17:25:35 +0300
+	dkim=permerror (0-bit key) header.d=nod.at header.i=@nod.at header.b="7vQXNP/H";
+	dkim=pass (2048-bit key) header.d=nod.at header.i=@nod.at header.b="imjidSQu"
+DKIM-Signature: v=1; a=ed25519-sha256; s=v1-ed25519-20260901; d=nod.at; c=relaxed/relaxed; r=y;
+	h=Date:Message-ID:Subject:To:From; t=1789828095; bh=UrgYY8MFqXrOzsNouXVaAax
+	Dtnqt6fnSXyeh0VeYM04=; b=7vQXNP/H9pGK1c3sSY/0ts6j4BwJQQ+XL68EgHg0L7wuJxqWT6
+	YAC3PsBSpDVmJlU6ziWQWoDgdNVwsKAmfRBw==;
+DKIM-Signature: v=1; a=rsa-sha256; s=v1-rsa-20260901; d=nod.at; c=relaxed/relaxed; r=y;
+	h=Date:Message-ID:Subject:To:From; t=1789828095; bh=UrgYY8MFqXrOzsNouXVaAax
+	Dtnqt6fnSXyeh0VeYM04=; b=imjidSQuACRRCll4S1R1l/07/MzzkUkwiwx9HR69cq66NxOBpD
+	MYQVNIUs5gHDC6oq1sWv/ppmhxZz54Qypde1greKAAMu3K7zYJAIOTwappCLfYMmIt2Ov2xO4l4
+	VJaY9LfbFeufDEEAZfGS31axjn/dvpsjyHGfRAiYK566XPjwiGZF3k2Y0ysMAYXzWCMdoV6mahy
+	AECeNmF0RioV5w9R414+0UrRgeXEJOHeMriq9H/ssHF3oGrthNgytBrPZ5nzazMmGmFDmnZqWsD
+	O1ciQJdv32pnd9FnEJ2K8ArPz6dlH5wpVcdRaqEhgLHi/GKcNSUArYMb6Gb51ah7LJQ==;
+From: "Richard Weinberger" <richard@nod.at>
+To: =?utf-8?Q?J=C3=B6rn_Engel?= <joern@barelysecure.org>
+Cc: "Chris Roy" <iam@thechris.in>, 
+	"Greg KH" <gregkh@linuxfoundation.org>, 
+	"syzbot" <syzbot+7cab6a19619f1b8efc00@syzkaller.appspotmail.com>, 
+	<dakr@kernel.org>, <driver-core@lists.linux.dev>, 
+	<linux-fsdevel@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<rafael@kernel.org>, <syzkaller-bugs@googlegroups.com>, 
+	<linux-mtd@lists.infradead.org>, <miquel.raynal@bootlin.com>, 
+	<vigneshr@ti.com>, "Adarsh Das" <adarshdas950@gmail.com>
+Subject: AW: [syzbot] [fs?] possible deadlock in ovl_create_object (2)
+Message-ID: <mu8hfoxj.7ce5e90c-076c-4b73-813b-f9c60310ddab@nod.at>
+In-Reply-To: <aq6afmdN5DYpuUa2@cashel.logfs.org>
+References: <CAE2Bdm3NuEHshrG6K2boKAnCQUvT5SX79cP9nPgS2s1afzY1hg@mail.gmail.com>
+	<6aab0f82.e91c2013.3bdb06.0009.GAE@google.com>
+	<CAE2Bdm2wzxj-J0TM8F+3SVnu0W3HeiROW97U4qvBeyHKdHJFmg@mail.gmail.com>
+	<2026091753-broadness-bootie-b683@gregkh>
+	<CAE2Bdm14hif17B8RTAE+PhWEps5Fzh=WPurZeSNp9C6TqCKumg@mail.gmail.com>
+	<aqwuWWMwdIcx3704@cashel.logfs.org>
+	<mu82xsi6.76ee613a-07fb-48b1-9336-99e8780e8b6e@nod.at>
+	<aq6afmdN5DYpuUa2@cashel.logfs.org>
+Date: Sat, 19 Sep 2026 14:28:15 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 5/5] ARM: configs: at91_dt_defconfig: enable GFX2D
- driver
-To: Cyrille Pitchen <cyrille.pitchen@microchip.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Russell King <linux@armlinux.org.uk>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-References: <20260828-cpitchen-mainline_gfx2d-v8-0-378374559738@microchip.com>
- <20260828-cpitchen-mainline_gfx2d-v8-5-378374559738@microchip.com>
-Content-Language: en-US
-From: claudiu beznea <claudiu.beznea@tuxon.dev>
-In-Reply-To: <20260828-cpitchen-mainline_gfx2d-v8-5-378374559738@microchip.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
+Am Sat, Sep 19, 2026, 16:22 schrieb J=C3=B6rn Engel <joern@barelysecure.org>=
+:
+> I added Adarsh Das, who also attempted to fix this bug.
+>=20
+> On Sat, Sep 19, 2026 at 07:42:25AM +0000, Richard Weinberger wrote:
+> >=20
+> > While we're here, maybe it's time to add a decent configfs interface to
+> > this driver instead of configuring through module parameters.
+> > That way also multiple instances are possible.
+>=20
+> I honestly wonder whether this driver has any production users.  It is
+> somewhat useful for developers that want to simulate hardware they don't
+> have.  But beyond that?
 
+IMHO testing is the only use case. I use it regularly.
 
-On 8/28/26 18:52, Cyrille Pitchen wrote:
-> The GFX2D GPU is embedded in both SAM9X60 and SAM9X75; enable the
-> driver to use it.
-> 
-> Acked-by: Nicolas Ferre<nicolas.ferre@microchip.com>
-> Signed-off-by: Cyrille Pitchen<cyrille.pitchen@microchip.com>
-
-Reviewed-by: Claudiu Beznea <claudiu.beznea@tuxon.dev>
+Thanks,
+//richard
