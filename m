@@ -1,72 +1,72 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AABF397692
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:26:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BCC039CCE4
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:26:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789856790; cv=none; b=M0MNvAijcOM6DZjQZ8JKLmUantoBdNZFbmFX75we9y/Hwcst0uBLBB8pMabDjjsPjmmeSZmhsRCDcJS3zihlZwAK6vMso9SxvVQmkUj8IJECFcozLXrD2XajqDF6pdGyeKSFEz8fcOiekr6KQi/ONhIC7QorXYRJCX5ozmflle8=
+	t=1789856791; cv=none; b=hzUvEF5KixJYasweNgu/9F89sZheT5x6SNVZVSUymFTZNf33GhjdtRW7MVZ8yMeqVVei2Q2H//gen8jbaYdCrh0ChpeV0NoAPj/vNPEwRNQdNOt5jtkclTPYDF9g7cSVq0BHwDgT1jyDWCRdx71dUro6b3kMZnFMgORYTQGzeHo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789856790; c=relaxed/simple;
-	bh=gU93zAzsOoQ1roR6T6OlNqwkUWFuikccQakX9808gFA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Kj6miZqvrld1StKcDKmP3U1DGfxYw/GXciT5WQxnfUPx8cosUtArm/B1Tiub/UD4Hn+vC+/fOp36oRQcTkQTuvWgKSuQ9zGJ/FABos6aiKAl0V2NOsrpfH12UTsZtYce/6gGcpsEqq55IuIhHDNSuEoG2V9EN2X3GlfSFFgmlns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ldAToeH7; arc=none smtp.client-ip=74.125.227.140
+	s=arc-20240116; t=1789856791; c=relaxed/simple;
+	bh=bKmQjDO7xOd0syALACTYy/o5iBLTBBmStjTLuJ58dQQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MUbssbm5Mxhh2RbPo5jPOL6w9GELNpNUsmK0JMGRlzqI63oljr25pL5SnbuTTyXquaLfLAT8gmQfOdEHqOVHVGNDIK/fz4JYCIrF84rz3jP2yePPhjMbRSS9JrNBJDJKyxlushCxgwW6b0LrwjnVpHKzytx07cB76f9F6c8rwqM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ee10MDwo; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ldAToeH7"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396cccbba91so1278914a91.1
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:26:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ee10MDwo"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85a4329731cso1448930b3a.3
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:26:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789856788; x=1790461588; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789856789; x=1790461589; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AHexZoASrrLFUeP2m4HCenY6Z1qSfaQk6YYJHltbZIA=;
-        b=ldAToeH7rvrAqYS/pCUkXqOI0Qmyk8GeEgaYYUkixo3QFHN7Sx2MhcE0CbXnpPBhkI
-         Ypif5eZYRPt+rfG3P9wztKZPAd4c8Rqc1ITZN68JXlVjMBxDkOTBXieD23SvwXep0ZC7
-         qrd6MUQhcnXAZk9QI1uZX+/VdGhdg39lVAXnthtJo2eRmdGFqz+/btK3OqBRaT1q9PkF
-         XqOKo00/XRLYItFKvR4wGx2JwuT7SAYJDNUkk+n3sdkUJTZsnDeR60LOQ6p8bZ9aInMS
-         7rwcW/OQ8Sw0fF/OvWE/baYGv8Q3wso3U/0WHYNBHwKW1cw2Pozcha73UeExAhgunQPc
-         Zzeg==
+        bh=V9Y/SVxm8MOmqJvVl1qnXFoqmvLC78rd9Cv4PArFdCA=;
+        b=Ee10MDwor725T37Cj10NUKdaLvJofCD+zWGsJp+ns1L7a9/Qx36I5as1qOrDHMZikb
+         Z/UayuZShLR1NWmcJKtGMg6cdBkygWNbtg/kfDI+yGvbbzsM1ikGkcvwHdQKGkS3FU3I
+         z6bBd+7ULRrQJYHbLcDQXorNXFkeuC/zpj2tZpub6lkZXy5wmclbLZt+XZ/5K1Cp8+iL
+         qONmuSZweJYbkmrrfzB/JcinmcCLqFrpLxIrhbqrMpzbIES3aU9lM/KeTv6JqncLcpse
+         Mf/HrHqKqxEuiCo7YnvC1yAfEB43Gu3KZEJbyfn6ca92o6veVUc4L1xNwdBgoVoIM7Tj
+         i20g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789856788; x=1790461588;
+        d=1e100.net; s=20260707; t=1789856789; x=1790461589;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=AHexZoASrrLFUeP2m4HCenY6Z1qSfaQk6YYJHltbZIA=;
-        b=M3Skt2XZfX0ShtIKXBoHdQ4AsNt6xShSZsHARjVaBucFsSv+3agg75bmoI+lUkHuRF
-         LNyO2f91Nuod9V3ylAtEYngmhhzk70q8yBpOO/fz5zlyV1SsNL+Sy5yw26gugXfpw8z7
-         g5pZzURGkHjD6S++N320JndiCZ15QPLCaquZdXPjI+F5V+sx6nTUh9WqvtadyLrzb6aP
-         0nCs1KJwiI0rHUeGbgNY2WSyJeHrIfkjoxvqmRcx+Ps8LX4px5pH5bFKhK7drOxpYi6g
-         mJStztRQibiaESxnxit6eooTVDROLXVHqyLW4PI0ByiqsBCkAWB1AmSLVfb5mcW8amC4
-         /HAg==
-X-Forwarded-Encrypted: i=1; AKwUvByiaY+G+sRn8531+pLJHEfaaa0B1/U5974aMm4M8qBlZnRYsqJavjBwD29brPflZZgvrHU09/Ep/wHETVg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lzu9XxeNGseSSxPVwR59I+jPFIoRwXDE2jy/wDEjKAIsIpPATZ
-	RQZ2jnpYqzaUBBcHdxzMGJN3k4eonf/oa0t8V2WKn++gtARjs4BL5F6O
-X-Gm-Gg: AYBFou3+z3Vqa2gtUV0+KcxMI2SjpQyWldSD0kcS0q3m5KTDRaT9ShfrhLTNefSIck7
-	cz849FvHaNpwiBbt/To2ADB8/+BB4cwahKs6bJibVH2MhR3ey9DQCt94IEhdI8vmqQ6KM8B3BSd
-	lJI2mdjSEi+DVI+su4dP+1LkX9mAJNYyRExGJz6G58HP+yR0/RyPB75tYw/5U6f0O+KFPnxn8kP
-	4GV52skZ9qMWAbpPLmiUfHwk5fwPJ5NeYaCeiGaebX32zUmgWnPsCa+oaZJkVSiWVDQxM/EBERU
-	8fHnXy30Q6Qq9X0M7QcfHPsDgZiFk28TgMaum0XtlfHk/Kpgbc6URFzVMzpAB+h0KgQBPxV9f8m
-	4AgONh/IwAhs2PqI8nNKzp5HKJWoBERPeyj1QzQ1q710LZGwqnWHAqIXqXWdvAHZs4KUxfrtxIx
-	C357TbpRmeEaWFZAVbODY4410X78pwp9Iv7KbCx3W+17PpWI7RC7wFF0m30A9VJwLB8KYMe5Bsd
-	89M3rb5ziVNOfvim+x6ra3oT47eIaeNfId0H9IkcQ4HRkddVUDahY3yJ0LakiMOOEZV014IXxBG
-	48+ux54UGQ==
-X-Received: by 2002:a17:90b:2d03:b0:39e:1c03:14c2 with SMTP id 98e67ed59e1d1-39e54baa3f1mr10887430a91.11.1789856787653;
-        Sat, 19 Sep 2026 15:26:27 -0700 (PDT)
+        bh=V9Y/SVxm8MOmqJvVl1qnXFoqmvLC78rd9Cv4PArFdCA=;
+        b=GUb4eZ+39T2d4BA6smvKEHqsRijqea7ZyvdbaOrjkyjw/gAKi1qp2U1pP4K82NP5j9
+         mDUvjBSi5HwSssQzl72Y1BIfclw0RXMxEbx95MqQUZOtj/oNGReo5kcD3hO9UJqjfeG7
+         p5oKPx1nWMtP+iKbKmtQsPfXpUBlntV6oCd5ARhQYeMmppzKbTm45544YookjXwTu6/Y
+         U9x+fapwSqygiYSPccqejAxIm4ekZN5O61IzWI+p+4qyVmfh1nFLyhihMYRCcF0cvD6c
+         Z7V/nBwpv/BmtnYXPGdiMp1O7U0BOcei6XA5pVf67sZFWREvLRGnSmu5F4zBImC2OAMM
+         Y89A==
+X-Forwarded-Encrypted: i=1; AKwUvBzR/dQ3HR8vnPH7vDYvrxDEeQ0zmfmo8Ph6E60FcG9G0t3s1JSCfed6soJxlxepfDSZlCIIZ2PpnlCmKgA=@vger.kernel.org
+X-Gm-Message-State: AFuF++llPtlu47je2Y8vzWLATWEth6j8RLMa4iEUYkik0PmMVyQzUjtr
+	NTBbvHDVUbOVn22Ob8Oc4KKo+fQgNLD7POglJGpFWWUZVm0UK/mpD3DQ
+X-Gm-Gg: AYBFou3jD4emyfWCVrR26fpn7CX98fMRTMp2RpHnquPuQpHRFpmzsQBYf/CNaT6Bm/r
+	cTiomQEntMaz9gmz/Q/+F9fnTuOhiCoFhtg1/9xEZKxQy0s3L1czpBF/Lye+atQp4IG/XDGDmBX
+	XnwZxK/I4GtNIJNXVFDggjhhszzzxmIje2PJEu2W/+PzJfJCw3V6IVvTN/OCgW30oFhmAqa5LIK
+	tpeTMiKHRH+7UFwhBjUxRxjtCPmi591V/ZN1tVopYxrN+7fO1Y3EgRllYJ31N06u5MsmBmgpIel
+	etegDF5tZnz0cWoTd2UJ4GenA/wBdY5Sis0yMrqe4JsECWu0g2OB2dY+ZV82/1d9/3WeKPOSfWK
+	U+6ZLCJhStUz6nv1KQaYSZn6vkUG5+q5N7RogfDGCFEVXSexm443upSX+PrYvptkTW+aVz2lGcS
+	W6Km4TNbaGz2SpvSG7WotnjXmPVxbKV7E/NQvnnJxoE5cxhtCsvxQsazGDkpDlS5eaG65/3CI0E
+	6OEnQQGztbCcJX6wypRoqpgQxqh8on4XaAq9rp0Yepg1kxU7Z5rd/A7StoYGBk75yJ1/PcXUiO6
+	IJtSqumDYQ==
+X-Received: by 2002:a05:6a00:94d6:b0:857:7317:cff5 with SMTP id d2e1a72fcca58-874decf4e9emr10344836b3a.22.1789856789222;
+        Sat, 19 Sep 2026 15:26:29 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c3145e5sm6614629a91.5.2026.09.19.15.26.26
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a6ae7d71sm1352690b3a.2.2026.09.19.15.26.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 15:26:27 -0700 (PDT)
+        Sat, 19 Sep 2026 15:26:28 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
-To: dgilbert@interlog.com,
-	James.Bottomley@HansenPartnership.com,
-	mkp@kernel.org
-Cc: linux-scsi@vger.kernel.org,
+To: gregkh@linuxfoundation.org,
+	jirislaby@kernel.org,
+	john.ogness@linutronix.de
+Cc: linux-serial@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] scsi: sg, sr: fix stale scatter_elem_sz in sg_build_indirect() and OOB read in sr_is_xa()
-Date: Sat, 19 Sep 2026 22:26:26 +0000
-Message-ID: <20260919222626.3797788-1-benquike@gmail.com>
+Subject: [PATCH] serial: fix 8250 hash_mutex race and uart_get_baud_rate() divide-by-zero
+Date: Sat, 19 Sep 2026 22:26:27 +0000
+Message-ID: <20260919222627.3797854-1-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -76,91 +76,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix two issues in drivers/scsi/sg.c and drivers/scsi/sr_ioctl.c:
+Fix two bugs in the serial subsystem:
 
-1. In sg_build_indirect() (drivers/scsi/sg.c), snapshot scatter_elem_sz
-   into a local variable and clamp it to [PAGE_SIZE, SG_SCATTER_SZ] so a
-   concurrent SG_SET_RESERVED_SIZE ioctl cannot cause inconsistent page
-   order calculations or unbounded order-10 allocations.
-2. In sr_is_xa() (drivers/scsi/sr_ioctl.c), allocate at least 2048 bytes
-   (or CD_FRAMESIZE_RAW) before calling sr_read_sector() so reading
-   sector data at offset + 14 does not read or write past the kmalloc
-   buffer.
+1. In serial8250_Label / serial_link_irq_chain() and
+   serial_unlink_irq_chain() (drivers/tty/serial/8250/8250_core.c), hold
+   hash_mutex across the entire IRQ list manipulation and
+   request_irq()/free_irq() sequence to prevent racing IRQ chain
+   insertions/removals.
+2. In uart_get_baud_rate() and uart_set_info()
+   (drivers/tty/serial/serial_core.c), avoid unsigned overflow in
+   port->uartclk = new_info->baud_base * 16 and ensure the fallback
+   retry in uart_get_baud_rate() terminates cleanly when no baud rate
+   lies in [min, max].
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: ab4382d27412 ("tty: move drivers/serial/ to drivers/tty/serial/")
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
-diff --git a/drivers/scsi/sg.c b/drivers/scsi/sg.c
-index 5408f002e6c0..5d635349e06e 100644
---- a/drivers/scsi/sg.c
-+++ b/drivers/scsi/sg.c
-@@ -480,8 +480,10 @@ sg_read(struct file *filp, char __user *buf, size_t count, loff_t * ppos)
- 
- 	hp = &srp->header;
- 	old_hdr = kzalloc(SZ_SG_HEADER, GFP_KERNEL);
--	if (!old_hdr)
--		return -ENOMEM;
-+	if (!old_hdr) {
-+		retval = -ENOMEM;
-+		goto free_old_hdr;
-+	}
- 
- 	old_hdr->reply_len = (int) hp->timeout;
- 	old_hdr->pack_len = old_hdr->reply_len; /* old, strange behaviour */
-@@ -543,10 +545,10 @@ sg_read(struct file *filp, char __user *buf, size_t count, loff_t * ppos)
- 		}
- 	} else
- 		count = (old_hdr->result == 0) ? 0 : -EIO;
--	sg_finish_rem_req(srp);
--	sg_remove_request(sfp, srp);
- 	retval = count;
- free_old_hdr:
-+	sg_finish_rem_req(srp);
-+	sg_remove_request(sfp, srp);
- 	kfree(old_hdr);
- 	return retval;
- }
-@@ -1667,9 +1669,12 @@ init_sg(void)
+diff --git a/drivers/tty/serial/8250/8250_core.c b/drivers/tty/serial/8250/8250_core.c
+index b875d394796f..0bc810f285a4 100644
+--- a/drivers/tty/serial/8250/8250_core.c
++++ b/drivers/tty/serial/8250/8250_core.c
+@@ -134,8 +134,6 @@ static struct irq_info *serial_get_or_create_irq_info(const struct uart_8250_por
  {
- 	int rc;
+ 	struct irq_info *i;
  
--	if (scatter_elem_sz < PAGE_SIZE) {
-+	if (scatter_elem_sz < (int)PAGE_SIZE) {
- 		scatter_elem_sz = PAGE_SIZE;
- 		scatter_elem_sz_prev = scatter_elem_sz;
-+	} else if (scatter_elem_sz > (int)(PAGE_SIZE << MAX_PAGE_ORDER)) {
-+		scatter_elem_sz = PAGE_SIZE << MAX_PAGE_ORDER;
-+		scatter_elem_sz_prev = scatter_elem_sz;
+-	guard(mutex)(&hash_mutex);
+-
+ 	hash_for_each_possible(irq_lists, i, node, up->port.irq)
+ 		if (i->irq == up->port.irq)
+ 			return i;
+@@ -156,6 +154,8 @@ static int serial_link_irq_chain(struct uart_8250_port *up)
+ 	struct irq_info *i;
+ 	int ret;
+ 
++	guard(mutex)(&hash_mutex);
++
+ 	i = serial_get_or_create_irq_info(up);
+ 	if (IS_ERR(i))
+ 		return PTR_ERR(i);
+diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
+index 95774b0f1484..4cd4fb0f7ee3 100644
+--- a/drivers/tty/serial/serial_core.c
++++ b/drivers/tty/serial/serial_core.c
+@@ -501,7 +501,7 @@ uart_get_baud_rate(struct uart_port *port, struct ktermios *termios,
+ 		break;
  	}
  
- 	rc = register_chrdev_region(MKDEV(SCSI_GENERIC_MAJOR, 0), 
-@@ -1875,9 +1880,14 @@ sg_build_indirect(Sg_scatter_hold * schp, Sg_fd * sfp, int buff_size)
+-	for (try = 0; try < 2; try++) {
++	for (try = 0; try < 3; try++) {
+ 		baud = tty_termios_baud_rate(termios);
  
- 	num = scatter_elem_sz;
- 	if (unlikely(num != scatter_elem_sz_prev)) {
--		if (num < PAGE_SIZE) {
-+		if (num < (int)PAGE_SIZE) {
-+			num = PAGE_SIZE;
- 			scatter_elem_sz = PAGE_SIZE;
- 			scatter_elem_sz_prev = PAGE_SIZE;
-+		} else if (num > (int)(PAGE_SIZE << MAX_PAGE_ORDER)) {
-+			num = PAGE_SIZE << MAX_PAGE_ORDER;
-+			scatter_elem_sz = PAGE_SIZE << MAX_PAGE_ORDER;
-+			scatter_elem_sz_prev = PAGE_SIZE << MAX_PAGE_ORDER;
- 		} else
- 			scatter_elem_sz_prev = num;
+ 		/*
+@@ -965,7 +965,7 @@ static int uart_set_info(struct tty_struct *tty, struct tty_port *port,
  	}
-diff --git a/drivers/scsi/sr_ioctl.c b/drivers/scsi/sr_ioctl.c
-index 089653018d32..2a3ce6a460ed 100644
---- a/drivers/scsi/sr_ioctl.c
-+++ b/drivers/scsi/sr_ioctl.c
-@@ -582,7 +582,7 @@ int sr_is_xa(Scsi_CD *cd)
- 	if (!xa_test)
- 		return 0;
  
--	raw_sector = kmalloc(2048, GFP_KERNEL);
-+	raw_sector = kmalloc(CD_FRAMESIZE_RAW1, GFP_KERNEL);
- 	if (!raw_sector)
- 		return -ENOMEM;
- 	if (0 == sr_read_sector(cd, cd->ms_offset + 16,
+ 	if ((new_info->irq >= irq_get_nr_irqs()) || (new_info->irq < 0) ||
+-	    (new_info->baud_base < 9600))
++	    (new_info->baud_base < 9600) || (new_info->baud_base > UINT_MAX / 16))
+ 		return -EINVAL;
+ 
+ 	if (change_port || change_irq) {
