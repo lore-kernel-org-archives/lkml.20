@@ -1,32 +1,33 @@
-Received: from mta1.migadu.com (out-164.mta1.migadu.com [95.215.58.164])
+Received: from mta1.migadu.com (out-171.mta1.migadu.com [95.215.58.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C3882248AF
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 13:53:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.164
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0416D2248AF
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 13:53:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789826027; cv=none; b=NMdyXC1LtTMtoRUUXSWbr8vLPkwXk2yVlTJF3R8PzlFGxF66dIkzRTmML+kXc1dJ2enQ9iP+1pXyN9dhp6hwS00BxXMu37EEskwzZIqPtkQYWdHFz8Lg9VWEUk9i7nPnG5MR8PpGtt2k1s1dw4NWZ2+aowI7bkVlujb63xn9AXw=
+	t=1789826036; cv=none; b=roW3ayBsVdVIcBCMZRWPpE2oh2mjfO3vBZE9dQUvMECFUJNN9Qk4Hun0KiywBKzDXNoBRSmvfo7LgZTzzSleB2rsyedg1uqgELr/Y6Ci1ek0efvV5RKolEasVWFQmS3+3L1znLBiJFR66Zd4LJdkjkbE0eG7Yi1J2bXL1SlVSmA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789826027; c=relaxed/simple;
-	bh=eQ4xyA9EmXhqdnCJrxxqL/S8/wudyVgXuV6D/sxwFlE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UW/p2O24r/KtKdXKXIB6mV6IBt+irbCs1FOtIQ5Zrg4DbJTJYCZ3VAD94Gdcdo378AMAAtvq0/PIz9Cr64o6zIHd1sAiFofNWiOmsOxykRQjF5G98J81wYaL+BHZ9R5wy4taQer64cTs1JXxy3PcRyZzmqr3ZvtBJCs8d4jaN1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=copzxKrK; arc=none smtp.client-ip=95.215.58.164
+	s=arc-20240116; t=1789826036; c=relaxed/simple;
+	bh=ulFUDD8oGZETsKoDZVeS8UP/2Tko9UtaPMINXvCETkE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=De0R9Exam/Zyu/MsPuWRPzM7MIYVg85KiRJFIxVtHSlJfv6HsCg1NACrktHAZSm7tYoAh7biANHEgvoLLMZcjwRs0xnkmGMm2m24lf87usz2Ok26sAspQIy+ZeH77qaVtXePdw20FRyE7aPdjg3qOv+tUWT+jgs1zOtoQQNh3jI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=AAud+wk9; arc=none smtp.client-ip=95.215.58.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="copzxKrK"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="AAud+wk9"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=eQ4xyA9EmXhqdnCJrxxqL/S8/wudyVgXuV6D/sxwFlE=;
+DKIM-Signature: a=rsa-sha256; bh=ulFUDD8oGZETsKoDZVeS8UP/2Tko9UtaPMINXvCETkE=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789826022; v=1; x=1790430822;
- b=copzxKrKesehwOqtLJ2tmVRsXRgpGugarmTiEPkfrIQzEHO4b0n132Er0vmnJJAwn0nKRQuN
- E0AjFmrl220tsPlLFUDJP1Hb8utgSDb4mMcOfUwLs0GoMjdDVHuen+A3Lzf0W5CkbOJkcp5dmNm
- s/AOyPikyxxdkNC8nXRAwg+k=
+ t=1789826032; v=1; x=1790430832;
+ b=AAud+wk9BYaenQoL/FFK9pNb5yYL+wdD3itOwNh0fu+/foyQnSwPo90CtGCy/x3Yr6aW8L9Y
+ MQ/8m4163aGeDpMrYA6hE1z6P+HrHaZL+OvfnLGgMLJFojq57JDaiAAs6mFfQF49ZHDO47Xptk2
+ Ym47octg/p003kFy1g0wVyDk=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 568801b7d887b774;
-	Sat, 19 Sep 2026 13:53:42 +0000
-X-Mizu-Trace-ID: 568801b7d887b774
+Received: by smtp.migadu.com with ESMTPS id f6f7a880625134d2;
+	Sat, 19 Sep 2026 13:53:52 +0000
+X-Mizu-Trace-ID: f6f7a880625134d2
 X-Migadu-Flow: FLOW_OUT
 From: Kaitao Cheng <kaitao.cheng@linux.dev>
 To: Mike Rapoport <rppt@kernel.org>,
@@ -41,11 +42,13 @@ To: Mike Rapoport <rppt@kernel.org>,
 Cc: Priyanshu Kumar <priyanshukumarpu@gmail.com>,
 	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	Kaitao Cheng <kaitao.cheng@linux.dev>
-Subject: [PATCH v2 0/3] memblock: Remove unused exact nid allocation API
-Date: Sat, 19 Sep 2026 21:53:24 +0800
-Message-ID: <20260919135327.74089-1-kaitao.cheng@linux.dev>
+	Kaitao Cheng <chengkaitao@kylinos.cn>
+Subject: [PATCH v2 1/3] mm: Remove unused exact_nid parameter from memmap_alloc()
+Date: Sat, 19 Sep 2026 21:53:25 +0800
+Message-ID: <20260919135327.74089-2-kaitao.cheng@linux.dev>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260919135327.74089-1-kaitao.cheng@linux.dev>
+References: <20260919135327.74089-1-kaitao.cheng@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,48 +57,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
+From: Kaitao Cheng <chengkaitao@kylinos.cn>
+
 Commit ffe55393137c ("mm/sparse: remove sparse buffer pre-allocation
-mechanism") removed the only memmap_alloc() caller that requested an
-allocation from an exact NUMA node. All remaining callers allow fallback
-to other nodes, leaving the exact_nid argument unused.
+mechanism") removed sparse_buffer_init(), which was the only caller of
+memmap_alloc() that passed true for exact_nid.
 
-Remove the argument from memmap_alloc(). This leaves
-memblock_alloc_exact_nid_raw() without any in-kernel callers, so move the
-applicable exact-node allocation tests to memblock_alloc_range_nid() and
-remove the unused API. Also remove the exact_nid argument from the internal
-allocation helper, since all of its remaining callers allow fallback.
+All remaining callers pass false, leaving the exact-node allocation
+branch unreachable. Remove the exact_nid parameter and unconditionally
+use memblock_alloc_try_nid_raw().
 
-Exact-node allocation remains a required behavior of
-memblock_alloc_range_nid(). CMA uses it when reserving per-node CMA areas;
-allowing fallback could leave the area's recorded nid inconsistent with
-the physical location of its memory. KHO also uses it for per-node scratch
-areas that must remain on the requested node. Therefore, retain coverage
-of this behavior by making the applicable NUMA tests call
-memblock_alloc_range_nid() directly with exact_nid set.
+This has no functional impact.
 
-The tests that exercise memblock_alloc_internal() retrying below min_addr
-cannot be retained unchanged. Unlike memblock_alloc_internal(),
-memblock_alloc_range_nid() treats its start address as a hard boundary and
-does not retry from address zero. Remove those tests along with the now
-unused TEST_F_EXACT dispatch from the shared allocation tests.
+Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
+---
+ mm/mm_init.c        | 14 ++++----------
+ mm/mm_init.h        |  4 ++--
+ mm/sparse-vmemmap.c |  2 +-
+ mm/sparse.c         |  2 +-
+ 4 files changed, 8 insertions(+), 14 deletions(-)
 
-Kaitao Cheng (3):
-  mm: Remove unused exact_nid parameter from memmap_alloc()
-  memblock tests: Move exact nid tests to memblock_alloc_range_nid()
-  memblock: Remove unused memblock_alloc_exact_nid_raw()
-
- include/linux/memblock.h                      |   3 -
- mm/memblock.c                                 |  44 +-
- mm/mm_init.c                                  |  14 +-
- mm/mm_init.h                                  |   4 +-
- mm/sparse-vmemmap.c                           |   2 +-
- mm/sparse.c                                   |   2 +-
- .../memblock/tests/alloc_exact_nid_api.c      | 454 ++----------------
- tools/testing/memblock/tests/alloc_nid_api.c  |  20 -
- tools/testing/memblock/tests/alloc_nid_api.h  |   1 -
- tools/testing/memblock/tests/common.h         |   2 -
- 10 files changed, 50 insertions(+), 496 deletions(-)
-
+diff --git a/mm/mm_init.c b/mm/mm_init.c
+index 9ce6060de06d..af3c8a2cc91b 100644
+--- a/mm/mm_init.c
++++ b/mm/mm_init.c
+@@ -1596,7 +1596,7 @@ static void __init free_area_init_core(struct pglist_data *pgdat)
+ }
+ 
+ void __init *memmap_alloc(phys_addr_t size, phys_addr_t align,
+-			  phys_addr_t min_addr, int nid, bool exact_nid)
++			  phys_addr_t min_addr, int nid)
+ {
+ 	void *ptr;
+ 
+@@ -1604,14 +1604,8 @@ void __init *memmap_alloc(phys_addr_t size, phys_addr_t align,
+ 	 * Kmemleak will explicitly scan mem_map by traversing all valid
+ 	 * `struct *page`,so memblock does not need to be added to the scan list.
+ 	 */
+-	if (exact_nid)
+-		ptr = memblock_alloc_exact_nid_raw(size, align, min_addr,
+-						   MEMBLOCK_ALLOC_NOLEAKTRACE,
+-						   nid);
+-	else
+-		ptr = memblock_alloc_try_nid_raw(size, align, min_addr,
+-						 MEMBLOCK_ALLOC_NOLEAKTRACE,
+-						 nid);
++	ptr = memblock_alloc_try_nid_raw(size, align, min_addr,
++					 MEMBLOCK_ALLOC_NOLEAKTRACE, nid);
+ 
+ 	if (ptr && size > 0)
+ 		page_init_poison(ptr, size);
+@@ -1639,7 +1633,7 @@ static void __init alloc_node_mem_map(struct pglist_data *pgdat)
+ 	end = ALIGN(pgdat_end_pfn(pgdat), MAX_ORDER_NR_PAGES);
+ 	size =  (end - start) * sizeof(struct page);
+ 	map = memmap_alloc(size, SMP_CACHE_BYTES, MEMBLOCK_LOW_LIMIT,
+-			   pgdat->node_id, false);
++			   pgdat->node_id);
+ 	if (!map)
+ 		panic("Failed to allocate %ld bytes for node %d memory map\n",
+ 		      size, pgdat->node_id);
+diff --git a/mm/mm_init.h b/mm/mm_init.h
+index c9fc35e7e9f1..a8ed5c20851b 100644
+--- a/mm/mm_init.h
++++ b/mm/mm_init.h
+@@ -31,8 +31,8 @@ static inline void clear_zone_contiguous(struct zone *zone)
+ 
+ void memblock_free_pages(unsigned long pfn, unsigned int order);
+ 
+-void *memmap_alloc(phys_addr_t size, phys_addr_t align, phys_addr_t min_addr,
+-		int nid, bool exact_nid);
++void *memmap_alloc(phys_addr_t size, phys_addr_t align,
++		   phys_addr_t min_addr, int nid);
+ 
+ void memmap_init_range(unsigned long size, int nid, unsigned long zone,
+ 		unsigned long start_pfn, unsigned long zone_end_pfn,
+diff --git a/mm/sparse-vmemmap.c b/mm/sparse-vmemmap.c
+index 96506f594924..dbd1ebe93fe9 100644
+--- a/mm/sparse-vmemmap.c
++++ b/mm/sparse-vmemmap.c
+@@ -62,7 +62,7 @@ void __ref *vmemmap_alloc_block(unsigned long size, int node)
+ 		}
+ 		return NULL;
+ 	} else
+-		return memmap_alloc(size, size, __pa(MAX_DMA_ADDRESS), node, false);
++		return memmap_alloc(size, size, __pa(MAX_DMA_ADDRESS), node);
+ }
+ 
+ static void * __meminit altmap_alloc_block_buf(unsigned long size,
+diff --git a/mm/sparse.c b/mm/sparse.c
+index b75921c622ed..36692b1dd733 100644
+--- a/mm/sparse.c
++++ b/mm/sparse.c
+@@ -215,7 +215,7 @@ struct page __init *__populate_section_memmap(unsigned long pfn,
+ {
+ 	const unsigned long size = PAGE_ALIGN(sizeof(struct page) * PAGES_PER_SECTION);
+ 
+-	return memmap_alloc(size, size, __pa(MAX_DMA_ADDRESS), nid, false);
++	return memmap_alloc(size, size, __pa(MAX_DMA_ADDRESS), nid);
+ }
+ #endif /* !CONFIG_SPARSEMEM_VMEMMAP */
+ 
 -- 
 2.54.0 (Apple Git-157)
 
