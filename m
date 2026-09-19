@@ -1,413 +1,202 @@
-Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022085.outbound.protection.outlook.com [52.101.126.85])
+Received: from mout.web.de (mout.web.de [212.227.15.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C832331A48;
-	Sat, 19 Sep 2026 13:41:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.85
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789825301; cv=fail; b=n3kTop1SsMEd1mpMa2vkPRuT0okAGKPe+nwNYTGLSrVVMzl9Ozr4/cfBmLxkS/EkaXTzTafYY9sD0eSsvS46Dfi5jbD0rY14gBEO8RvR3NgEQ12G26gVFj7Fk4Xxz80yvgKtjnsTHWk81P8gRTwSJIa5n/bLcL5TvgaF0yoIY/k=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789825301; c=relaxed/simple;
-	bh=32LOZrozlh1CcsAU+tNuk873HkN8EjV/lTPbB2Udsvc=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=Kdb9ADkCNdz+M0wHnG2wZI5VUvZtFba+Fpl9vEuI7m/3W6coCUxY63sQ75U8GNsuq3Qpx2lLgIG90yeDTsLPp6Jxo6uEAv+S1B/4FMgTJ7fMGiXr14Ip1qcAnoTa/uhLvM2c9WJfmtXOM/Ow3Fv4C6vchmZDUxC5PGJxdEvb8wI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crepuse.com; spf=pass smtp.mailfrom=crepuse.com; dkim=pass (2048-bit key) header.d=crepuse.com header.i=@crepuse.com header.b=peFCZ804; arc=fail smtp.client-ip=52.101.126.85
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crepuse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crepuse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18BB73446CA
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 13:44:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.14
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789825483; cv=none; b=DCv/w93YkSil7w5cV7D7iFA3G9fKW5MERPq7V0mVEYCVzweV4FjFeGMWdjFa/JPlV+RcG2B9Ybess4WsfiOGG9R1L+cAuHHtx8UhYWdSVNJM7vo7hKbLWclXUxc7aS143C8n860SbMhz3OhiTV5TOqPY0LYhaOGyighXYvLEsF8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789825483; c=relaxed/simple;
+	bh=oD8a4Oh23fwRqYM8icbyCfjZPiFtqIJMWmGbfEJq+j4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Yhrt4QdWtqA44fFKTzWMVe8bIKfjMLG1tb/WyZgak7u7wvEzg7KAVgZwsHWnSUI3TrE6CEpxCoDnaWXNMiCPKCucPPbpD9prjp4/XZ5VJlh8p4kodAksIWtpiEBetOk9ZV7d0b8lsuH4jcJN88o13KZwBZxXUoJP5XUMISbgjC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=golasch18@web.de header.b=VbYwgVuw; arc=none smtp.client-ip=212.227.15.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=crepuse.com header.i=@crepuse.com header.b="peFCZ804"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KkdZUIhtaFFB9D+PzMEx0zmzvaiRSRmdvHL+OCRVyHXWrKF68lwWbzJev+3hwKH6+JgtnY0Bgr3VQbBQaNInYcCfgQxbXKkpUmhq8t20PLbVhhilsNJl3PTi05E8h8JhHIhja5h/Lfj8VDOBPLnjcFf5qD1sbT5V2bUFdhTViOh1GtcaU0RULSzrAWv9KHGf2adjNghTdUli6s+Si5D50dYWgDdTQdk6wfHvIrGrOCBWwBrzzqjNng06AfcH/kuuxypLpXcqYQOnvyHTJYlCuy3f0NirOwi3EtVUjDadb/7sfYpo8Oqj6ZiCvgv4tuMIKx/l3Qvr5/w4VoRVlLYlCQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kIl0wL0tvq09HW6ObRqXQ70T3C1MrWZ/U5O6rMrOZYI=;
- b=MRqIn48IXd0ItXwP2nL3pb2QIoX8FEHIoFTKxZtVIt9ULk1kgILKOwQ2+UyUS18kmUFhcuDo0evy2QxdeApF5SjsUSE91TEaXGD2J6BNXDK/OlCegFaVQeib+n8Zs9i9XobU6daY+X83/OW+gxe5jJ74b6Ox1DoeU75W38zFhK07VXZJdX3joKRjuOiCfr/NpcQscNlT/6iEILSYno9UhKl+uPnVkpeTSOu6aj/PXSxhTNj1hQGhFLWY0NdHP0SfItYMW5bqgvwUJQyDKexO6Zg8WTKVIERPx2rSIwanvtd78cAT4UOiwdtJqyZdxdIlMQFNVV4ho6Bngrb6DhIUFA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=crepuse.com; dmarc=pass action=none header.from=crepuse.com;
- dkim=pass header.d=crepuse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crepuse.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kIl0wL0tvq09HW6ObRqXQ70T3C1MrWZ/U5O6rMrOZYI=;
- b=peFCZ804tdQZOigkRNbCwig6mEmYiDxbHtQX0+pRS12+OnTNoBo6lVF7MW4pSodkjFKh/rMQx0tDM4Yssw0gNgPH8JJJ9IiBBU9lCuYe8UC0+OT4N6C6A8RQGFg9+ZYq16ImqJXqbw9b18LKEC2CEC+0ZytvRLboVdXh+rEg97gDLnLdcYre/0RPipwyZlO3Ub/1yG9qOmIY35xVRKiUM7m8n8qxQoWQEiSKjVKDh/VhMuFD92TCqcWY8hab3ErcKlXHwTCp1us5jvxb7r1l4GeHY2w67D2iYYg0fGXLM22u2KinW36VJciWg98AWWlRZJwUzZiDjTxXY8xdMTNGvg==
-Received: from PS1PPF6469DE8C6.apcprd06.prod.outlook.com (2603:1096:308::253)
- by JH0PR06MB6581.apcprd06.prod.outlook.com (2603:1096:990:33::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.14; Sat, 19 Sep
- 2026 13:41:32 +0000
-Received: from PS1PPF6469DE8C6.apcprd06.prod.outlook.com
- ([fe80::e60a:2617:6895:a0cf]) by PS1PPF6469DE8C6.apcprd06.prod.outlook.com
- ([fe80::e60a:2617:6895:a0cf%6]) with mapi id 15.21.0406.007; Sat, 19 Sep 2026
- 13:41:32 +0000
-From: Mizuno Miotsuki <founder@crepuse.com>
-To: Heiko Stuebner <heiko@sntech.de>
-CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-rockchip@lists.infradead.org"
-	<linux-rockchip@lists.infradead.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH 2/2] arm64: dts: rockchip: Add DFRobot UNIHIKER M10 V1.2
-Thread-Topic: [PATCH 2/2] arm64: dts: rockchip: Add DFRobot UNIHIKER M10 V1.2
-Thread-Index: AQHdSDyUoUvij9D5qUSYvSUSAiH2NA==
-Date: Sat, 19 Sep 2026 13:41:32 +0000
-Message-ID: <20260919134125.59419-3-founder@crepuse.com>
-References: <20260919134125.59419-1-founder@crepuse.com>
-In-Reply-To: <20260919134125.59419-1-founder@crepuse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=crepuse.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PS1PPF6469DE8C6:EE_|JH0PR06MB6581:EE_
-x-ms-office365-filtering-correlation-id: 0c57455d-bcd2-4fc2-15e6-08df1653b74b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|38070700021|56012099006|10067099003|22082099003|18002099003;
-x-microsoft-antispam-message-info:
- DqwO4kOzWheBVh4DQO0IIWSRWvDa7SiwisLX2MnQVdXDNUzDy5RNNKk7TJcXd3rCC+CG/jWRHegPwgV5TPq7pdHP5HbIKvV3CugKeklSBZK1oqsiTb7drLLN7Ary2s/+bA2HpnDTAR0JuPOLfVVJC1TXDyeAi7WNiJnbhzvPezpJ7rwPrA5P676mYRyp+mcyjBW1K8/UDTJM9Ii4v8rr/b2yJdGZDa8QBa0AP7tX6/e+M8zfUQTiyiZf5tjVrwsN8f5oJZGRKPDPyq/jsNnHabWmAFjXvM6IIauh/VjyfRI/p9F+JHQMFGZ8Tj144z50DEDMIz2AXnXonIQY8kFGUSOuPkMzp3n4eQrEF+xJt4ryE+vvoMXxpH8QROPqPfHT2Twxt8i4rOut0ImP9OwiNvxHzn+XT9d3ZLrcG+ZkTCqQJGdtdDLWWv+LqM6e4l44sQPOnZdDPE6196UTZjvCbFMq4Zh5vM26gPJo7lIsXC9tJVtknQ+DtMC5E4ELMFzFri9oLG4j5nkf6iXqgYf+578OjMGYWc/mU/1z07PbEtuOaXm0cIqIILp/7atRGGncQteBHPLNscuJIIerA2rDGS4ELA9jPB7CAk5Zp3Rc1zHXglNKx6oA6gG/kYOUrowQ06/UUJ/G+mNm2A5h5PKNwxLGKtDe6J4Nc98JoU96Ul7AVMhjHcK7HH8duxfOFtKJYeBYh3yKIPnVBsxZVNuALPW420IIqmqwYUe3iHCp/K0=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PS1PPF6469DE8C6.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(38070700021)(56012099006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?pw5DnXQ5mthrMyyBoAL3BqZuHg12URHMPqDKuTOfo1IA/MdlEZvCDFIASo?=
- =?iso-8859-1?Q?LNRw/Aw3KtmhkqQdo5Bjxmpns12zD5CVmjC9KBz0n71jJKxeUSABv6pcX/?=
- =?iso-8859-1?Q?tQf0GXTtj+K5zLcjVAJbg8ibJrv0XhcM7I1yzPf1N9kasgynNlRa+EGIN4?=
- =?iso-8859-1?Q?eA1eWJOnXXiPSFowkHJelz7+1VquTzjBiF2zpCfACKdbqHtW6uh3AilmgY?=
- =?iso-8859-1?Q?3w8q9FOWhu6sB0O8hAAzNFQA9YFyMBf7UxIiBwiatA30b+IbZ2tCADSrAg?=
- =?iso-8859-1?Q?6BjE2QI5eHNRHCCYaAxLnwg1SjG7JVWhSXPf6kslNC4FapkztEJjIYjjhs?=
- =?iso-8859-1?Q?zXDju4b4pLtPhYzwuIpSkxj3Bh1buqkwZ5EmlFR0/vc/etrBq/iFQgJ7Xt?=
- =?iso-8859-1?Q?Ylwl5j+XGu8dDr9zbmzBah3pYt9wJ76bLQI7dFet1LO0wMpNBu6nfiSGPC?=
- =?iso-8859-1?Q?9JF7n2+PO76719H+K+FzEK/z7zDPJ3XJPZUYkWZe9VXg60Fznn5V5jt0ac?=
- =?iso-8859-1?Q?uI3tPvoIlCvB12Gj56t+XSbcSdUyn/thexu3DDC7i3zlpX7mCTemnbTjgp?=
- =?iso-8859-1?Q?j5Mb089CcWbYsu5N7cUG7QByZoOIalnKkAZ2Eoqj+RUS3fMRwnGXMoUx8l?=
- =?iso-8859-1?Q?3xFOnIC+omk+e3w2troysxHzu9ckcd4LxNvXFH9rtE7W1P0bdvJLqzLaz4?=
- =?iso-8859-1?Q?E7XW257PvohQfDJ6t/9wR76ILLg0uWKfoslY03PznKsnhzehl2VFJE29c/?=
- =?iso-8859-1?Q?7v6Adp5mRZoL0JI2AqT0FVeHMNJ8gfHHzEpHO2ClzFNzTwTrQcCzXBYNra?=
- =?iso-8859-1?Q?6RwTzqkR3Apn6uYQDSaF5jVLWIKH5HXiD9HEEtbuz6jToFX4NQypufEoo5?=
- =?iso-8859-1?Q?Bt2o2W+qxKI16iZKXe1QZnqRmsLuIafsjfPnal+4m21Y5U1d0hmDH8Klyf?=
- =?iso-8859-1?Q?bf/P3bTYPcslnybtBnqklrW0FSxk1/v1gp43rUdtLykaL/CqL7FCngV3WI?=
- =?iso-8859-1?Q?q3wdSmutjgUmepRoL9Ic9OwdhHUCvTUXkNFA03kNnZ/CvXlU4vALE83W9g?=
- =?iso-8859-1?Q?0uMkRKkxENbBaNWiVEgvSQxVSLViFgj10XyZ0hPJcT37XzlHjgN/TovXGQ?=
- =?iso-8859-1?Q?7V1nj7Yg7HPg8XHcfhDW3v4PnyHEnSXnksi4noc2rSem6Icqe/Oxbqu0uM?=
- =?iso-8859-1?Q?Cqd3sBBZqfR7kunJqQP5R/csQtkryLmvtVZbERudocU7nfEgp6lE4S4zEc?=
- =?iso-8859-1?Q?7PIeUvOtDJiYfF+SEx612Re7KdL0QWcr8cexoKkQnbJCy/9MIillQ1g2bF?=
- =?iso-8859-1?Q?WoZlDbKpIF6K5b1vp8QfWWSyuVLWZx5zxbbsFe0WrZ3q41JjGo6V+2AfXK?=
- =?iso-8859-1?Q?ovtmZjaTjdOlOFTkLVAOEhRiv+hbnqVyknaciBueJ8I9uvyVbmf4i1qAdn?=
- =?iso-8859-1?Q?A5JGP30A9iFiE1l0zbM7TVLY9J/wTqkYzlU/LvXcIx2vEch46aYRP1fJ94?=
- =?iso-8859-1?Q?e4ooAkLOTAOEkIZDP+PDupbfPGvOZGTW1E5+YjX9hRui5c0R/qpz8nxNyN?=
- =?iso-8859-1?Q?r4AG07xrWiaYGpBKLPTsmLPmxPEuOfNn8SVQ/NJjy1D0kdPPLoEMGcRl82?=
- =?iso-8859-1?Q?Mwpfh8QwKZW8M1amZ+q7Kh8PzwqHlPURvGWZKMBxYS0pLl6gz1xyDhwo8+?=
- =?iso-8859-1?Q?Z/BSE9N+Ic8lEo2pBv08IZarMgvGWe4wHE7V0bZ1vmaWTGPwGwIOfhvnEI?=
- =?iso-8859-1?Q?AzCENatg7k6/el/hWfhxU3wT/2NvPwP0eWzBfLPaZS66J2?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=web.de header.i=golasch18@web.de header.b="VbYwgVuw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1789825472; x=1790430272; i=golasch18@web.de;
+	bh=QtrZgwhnFhiyTC+VLEr1PfW58DpfOSTZUn5dJfOEuhk=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:
+	 MIME-Version:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=VbYwgVuwBBM/yAh8rsHM5h3RNSz280ihWqDGEC+uCj+654Z4HkkQS9dZ/yPGx/VA
+	 zZNUpSmhpAiAjYf3bcVIf5ElYvjWuYebt+2DJpHpIt2ijGjGB1iAhC5Uwy99IhVm2
+	 i9VJl8aK+9WzU0lEE1S6+vyffJ2KYZk+STNsPq/8w8wHvBFsaXyeaMTgtjIjAvJup
+	 epM/Fkij0p8C2DRQ+1+5nSC3mk7yZJjc4GjzQMAY3j1EESxdh5rSYvOMw2Ag77xos
+	 7aSyZjPbzx488ZHW/6Dj132oS1YJC32CvOeYZhbo1Z4gAuv79btT9kGIfJjPTNF7Z
+	 e/pmCZ5SMK3H3W3Ctw==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb005
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1M2Pda-1x45cM0S6g-00FGYL; Sat, 19
+ Sep 2026 15:44:32 +0200
+From: golasch18@web.de
+To: Jan Kara <jack@suse.com>
+Cc: linux-kernel@vger.kernel.org,
+	Lukas Blesser <golasch18@web.de>,
+	syzbot+de2fef01040748da6822@syzkaller.appspotmail.com
+Subject: [PATCH] udf: fix WARN_ON_ONCE in udf_map_block on concurrent expand failure
+Date: Sat, 19 Sep 2026 15:44:31 +0200
+Message-ID: <20260919134431.83785-1-golasch18@web.de>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: crepuse.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PS1PPF6469DE8C6.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0c57455d-bcd2-4fc2-15e6-08df1653b74b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Sep 2026 13:41:32.2492
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 1d352272-7d70-4a91-9c85-0db444db1bc9
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: mdW7bC6k/bTQU4yn+kqtLBYXk3z0y/Q1u984+7T5CNXZsOcS0ilADw+B3eeYiyfVhMpOjRDP7Bt9yaXzID+xCQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: JH0PR06MB6581
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:YIQuGzTwhHDXgBLz3BM//SB6iCVkHLPiZgokTPCXnXdNJaQOqWs
+ Y/AOuVSh+UrR/yaALSf7tPKPHR3tXmfuG2FTEtRw8eWbcr6aI9527ZFVD4nNY16U0wp6QYK
+ QkkEk/LeBbpW3iIvCVcgMHOQ4y72pFgQfeOw01A+cfL/yWH5ibo7c/Yq7tJHLwPNQgTSI7b
+ 2In5/LZfuG/26gVP5RBHw==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:4758inf56xk=;1wuo882YapNKr7ThqDYVNJFK0Qd
+ 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
+ Qvgo9KdetKLLMC3t6NGDom
 
-Add a minimal device tree for revision 1.2 of the DFRobot UNIHIKER=0A=
-M10. Enable the CPU regulator, eMMC, SD, SDIO Wi-Fi, serial console,=0A=
-USB host and peripheral ports, GPIO keys, and watchdog.=0A=
-=0A=
-Audio, display, touchscreen, Bluetooth, IMU, and companion MCU support=0A=
-remain disabled until their dependencies and board wiring are ready for=0A=
-upstream.=0A=
-=0A=
-Signed-off-by: Mizuno Miotsuki <founder@crepuse.com>=0A=
----=0A=
- arch/arm64/boot/dts/rockchip/Makefile         |   1 +=0A=
- .../dts/rockchip/rk3308-unihiker-m10-v1.2.dts | 248 ++++++++++++++++++=0A=
- 2 files changed, 249 insertions(+)=0A=
- create mode 100644 arch/arm64/boot/dts/rockchip/rk3308-unihiker-m10-v1.2.d=
-ts=0A=
-=0A=
-diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/ro=
-ckchip/Makefile=0A=
-index e7936a21c118..6e520a5e3c61 100644=0A=
---- a/arch/arm64/boot/dts/rockchip/Makefile=0A=
-+++ b/arch/arm64/boot/dts/rockchip/Makefile=0A=
-@@ -19,6 +19,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3308-roc-cc.dtb=0A=
- dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3308-rock-pi-s.dtb=0A=
- dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3308-rock-s0.dtb=0A=
- dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3308-sakurapi-rk3308b.dtb=0A=
-+dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3308-unihiker-m10-v1.2.dtb=0A=
- dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3318-a95x-z2.dtb=0A=
- dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3326-anbernic-rg351m.dtb=0A=
- dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3326-anbernic-rg351v.dtb=0A=
-diff --git a/arch/arm64/boot/dts/rockchip/rk3308-unihiker-m10-v1.2.dts b/ar=
-ch/arm64/boot/dts/rockchip/rk3308-unihiker-m10-v1.2.dts=0A=
-new file mode 100644=0A=
-index 000000000000..270ea970c95a=0A=
---- /dev/null=0A=
-+++ b/arch/arm64/boot/dts/rockchip/rk3308-unihiker-m10-v1.2.dts=0A=
-@@ -0,0 +1,248 @@=0A=
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)=0A=
-+/*=0A=
-+ * Copyright (c) 2026 Mizuno Miotsuki <founder@crepuse.com>=0A=
-+ */=0A=
-+=0A=
-+/dts-v1/;=0A=
-+=0A=
-+#include <dt-bindings/input/input.h>=0A=
-+#include "rk3308.dtsi"=0A=
-+=0A=
-+/ {=0A=
-+	model =3D "DFRobot UNIHIKER M10 V1.2";=0A=
-+	compatible =3D "dfrobot,unihiker-m10-v1.2", "rockchip,rk3308";=0A=
-+=0A=
-+	aliases {=0A=
-+		mmc0 =3D &emmc;=0A=
-+		mmc1 =3D &sdmmc;=0A=
-+		mmc2 =3D &sdio;=0A=
-+	};=0A=
-+=0A=
-+	chosen {=0A=
-+		stdout-path =3D "serial0:1500000n8";=0A=
-+	};=0A=
-+=0A=
-+	keys {=0A=
-+		compatible =3D "gpio-keys";=0A=
-+=0A=
-+		key-a {=0A=
-+			debounce-interval =3D <20>;=0A=
-+			gpios =3D <&gpio0 RK_PC1 GPIO_ACTIVE_LOW>;=0A=
-+			label =3D "A";=0A=
-+			linux,code =3D <KEY_A>;=0A=
-+		};=0A=
-+=0A=
-+		key-b {=0A=
-+			debounce-interval =3D <20>;=0A=
-+			gpios =3D <&gpio0 RK_PC2 GPIO_ACTIVE_LOW>;=0A=
-+			label =3D "B";=0A=
-+			linux,code =3D <KEY_B>;=0A=
-+		};=0A=
-+=0A=
-+		key-home {=0A=
-+			debounce-interval =3D <20>;=0A=
-+			gpios =3D <&gpio1 RK_PA0 GPIO_ACTIVE_LOW>;=0A=
-+			label =3D "Home";=0A=
-+			linux,code =3D <KEY_HOME>;=0A=
-+		};=0A=
-+	};=0A=
-+=0A=
-+	sdio_pwrseq: sdio-pwrseq {=0A=
-+		compatible =3D "mmc-pwrseq-simple";=0A=
-+		pinctrl-names =3D "default";=0A=
-+		pinctrl-0 =3D <&wifi_enable_h>;=0A=
-+		reset-gpios =3D <&gpio0 RK_PA2 GPIO_ACTIVE_LOW>;=0A=
-+	};=0A=
-+=0A=
-+	vcc_1v8: regulator-vcc-1v8 {=0A=
-+		compatible =3D "regulator-fixed";=0A=
-+		regulator-name =3D "vcc_1v8";=0A=
-+		regulator-always-on;=0A=
-+		regulator-boot-on;=0A=
-+		regulator-min-microvolt =3D <1800000>;=0A=
-+		regulator-max-microvolt =3D <1800000>;=0A=
-+		vin-supply =3D <&vcc_io>;=0A=
-+	};=0A=
-+=0A=
-+	vcc_io: regulator-vcc-io {=0A=
-+		compatible =3D "regulator-fixed";=0A=
-+		regulator-name =3D "vcc_io";=0A=
-+		regulator-always-on;=0A=
-+		regulator-boot-on;=0A=
-+		regulator-min-microvolt =3D <3300000>;=0A=
-+		regulator-max-microvolt =3D <3300000>;=0A=
-+		vin-supply =3D <&vcc5v0_sys>;=0A=
-+	};=0A=
-+=0A=
-+	vcc_sd: regulator-vcc-sd {=0A=
-+		compatible =3D "regulator-fixed";=0A=
-+		gpios =3D <&gpio4 RK_PD6 GPIO_ACTIVE_LOW>;=0A=
-+		pinctrl-names =3D "default";=0A=
-+		pinctrl-0 =3D <&sd_vcc_en>;=0A=
-+		regulator-name =3D "vcc_sd";=0A=
-+		regulator-min-microvolt =3D <3300000>;=0A=
-+		regulator-max-microvolt =3D <3300000>;=0A=
-+	};=0A=
-+=0A=
-+	vcc5v0_sys: regulator-vcc5v0-sys {=0A=
-+		compatible =3D "regulator-fixed";=0A=
-+		regulator-name =3D "vcc5v0_sys";=0A=
-+		regulator-always-on;=0A=
-+		regulator-boot-on;=0A=
-+		regulator-min-microvolt =3D <5000000>;=0A=
-+		regulator-max-microvolt =3D <5000000>;=0A=
-+	};=0A=
-+=0A=
-+	vcc5v0_usb_host: regulator-vcc5v0-usb-host {=0A=
-+		compatible =3D "regulator-fixed";=0A=
-+		enable-active-high;=0A=
-+		gpios =3D <&gpio0 RK_PC5 GPIO_ACTIVE_HIGH>;=0A=
-+		pinctrl-names =3D "default";=0A=
-+		pinctrl-0 =3D <&usb_host_vbus_en>;=0A=
-+		regulator-name =3D "vcc5v0_usb_host";=0A=
-+		regulator-min-microvolt =3D <5000000>;=0A=
-+		regulator-max-microvolt =3D <5000000>;=0A=
-+		vin-supply =3D <&vcc5v0_sys>;=0A=
-+	};=0A=
-+=0A=
-+	vdd_core: regulator-vdd-core {=0A=
-+		compatible =3D "pwm-regulator";=0A=
-+		pwms =3D <&pwm0 0 5000 1>;=0A=
-+		regulator-name =3D "vdd_core";=0A=
-+		regulator-always-on;=0A=
-+		regulator-boot-on;=0A=
-+		regulator-min-microvolt =3D <827000>;=0A=
-+		regulator-max-microvolt =3D <1340000>;=0A=
-+		regulator-settling-time-up-us =3D <250>;=0A=
-+	};=0A=
-+};=0A=
-+=0A=
-+&cpu0 {=0A=
-+	cpu-supply =3D <&vdd_core>;=0A=
-+};=0A=
-+=0A=
-+&emmc {=0A=
-+	cap-mmc-highspeed;=0A=
-+	no-1-8-v;=0A=
-+	non-removable;=0A=
-+	pinctrl-names =3D "default";=0A=
-+	pinctrl-0 =3D <&emmc_bus8 &emmc_clk &emmc_cmd>;=0A=
-+	vmmc-supply =3D <&vcc_io>;=0A=
-+	status =3D "okay";=0A=
-+};=0A=
-+=0A=
-+&io_domains {=0A=
-+	vccio0-supply =3D <&vcc_io>;=0A=
-+	vccio1-supply =3D <&vcc_io>;=0A=
-+	vccio2-supply =3D <&vcc_io>;=0A=
-+	vccio3-supply =3D <&vcc_io>;=0A=
-+	vccio4-supply =3D <&vcc_1v8>;=0A=
-+	vccio5-supply =3D <&vcc_io>;=0A=
-+	status =3D "okay";=0A=
-+};=0A=
-+=0A=
-+&otp {=0A=
-+	status =3D "disabled";=0A=
-+};=0A=
-+=0A=
-+&pinctrl {=0A=
-+	pinctrl-names =3D "default";=0A=
-+	pinctrl-0 =3D <&rtc_32k>;=0A=
-+=0A=
-+	sdmmc {=0A=
-+		sd_vcc_en: sd-vcc-en {=0A=
-+			rockchip,pins =3D <4 RK_PD6 RK_FUNC_GPIO &pcfg_pull_none>;=0A=
-+		};=0A=
-+	};=0A=
-+=0A=
-+	usb {=0A=
-+		usb_host_vbus_en: usb-host-vbus-en {=0A=
-+			rockchip,pins =3D <0 RK_PC5 RK_FUNC_GPIO &pcfg_pull_none>;=0A=
-+		};=0A=
-+	};=0A=
-+=0A=
-+	wifi {=0A=
-+		wifi_enable_h: wifi-enable-h {=0A=
-+			rockchip,pins =3D <0 RK_PA2 RK_FUNC_GPIO &pcfg_pull_none>;=0A=
-+		};=0A=
-+=0A=
-+		wifi_host_wake: wifi-host-wake {=0A=
-+			rockchip,pins =3D <0 RK_PA0 RK_FUNC_GPIO &pcfg_pull_down>;=0A=
-+		};=0A=
-+	};=0A=
-+};=0A=
-+=0A=
-+&pwm0 {=0A=
-+	pinctrl-names =3D "default";=0A=
-+	pinctrl-0 =3D <&pwm0_pin_pull_down>;=0A=
-+	status =3D "okay";=0A=
-+};=0A=
-+=0A=
-+&sdio {=0A=
-+	#address-cells =3D <1>;=0A=
-+	#size-cells =3D <0>;=0A=
-+	cap-sd-highspeed;=0A=
-+	cap-sdio-irq;=0A=
-+	keep-power-in-suspend;=0A=
-+	mmc-pwrseq =3D <&sdio_pwrseq>;=0A=
-+	no-mmc;=0A=
-+	no-sd;=0A=
-+	non-removable;=0A=
-+	vmmc-supply =3D <&vcc_io>;=0A=
-+	vqmmc-supply =3D <&vcc_1v8>;=0A=
-+	status =3D "okay";=0A=
-+=0A=
-+	wifi@1 {=0A=
-+		reg =3D <1>;=0A=
-+		interrupt-parent =3D <&gpio0>;=0A=
-+		interrupts =3D <RK_PA0 IRQ_TYPE_LEVEL_HIGH>;=0A=
-+		interrupt-names =3D "host-wake";=0A=
-+		pinctrl-names =3D "default";=0A=
-+		pinctrl-0 =3D <&wifi_host_wake>;=0A=
-+	};=0A=
-+};=0A=
-+=0A=
-+&sdmmc {=0A=
-+	cap-sd-highspeed;=0A=
-+	disable-wp;=0A=
-+	no-1-8-v;=0A=
-+	vmmc-supply =3D <&vcc_sd>;=0A=
-+	vqmmc-supply =3D <&vcc_io>;=0A=
-+	status =3D "okay";=0A=
-+};=0A=
-+=0A=
-+&u2phy {=0A=
-+	status =3D "okay";=0A=
-+};=0A=
-+=0A=
-+&u2phy_host {=0A=
-+	phy-supply =3D <&vcc5v0_usb_host>;=0A=
-+	status =3D "okay";=0A=
-+};=0A=
-+=0A=
-+&u2phy_otg {=0A=
-+	status =3D "okay";=0A=
-+};=0A=
-+=0A=
-+&uart0 {=0A=
-+	pinctrl-names =3D "default";=0A=
-+	pinctrl-0 =3D <&uart0_xfer>;=0A=
-+	status =3D "okay";=0A=
-+};=0A=
-+=0A=
-+&usb20_otg {=0A=
-+	dr_mode =3D "peripheral";=0A=
-+	status =3D "okay";=0A=
-+};=0A=
-+=0A=
-+&usb_host_ehci {=0A=
-+	status =3D "okay";=0A=
-+};=0A=
-+=0A=
-+&usb_host_ohci {=0A=
-+	status =3D "okay";=0A=
-+};=0A=
-+=0A=
-+&wdt {=0A=
-+	status =3D "okay";=0A=
-+};=0A=
--- =0A=
-2.55.0=0A=
-=0A=
+From: Lukas Blesser <golasch18@web.de>
+
+udf_direct_IO() falls back to buffered I/O for in-ICB files, but it
+checks i_alloc_type without holding i_data_sem. If a concurrent write
+fails to expand the file, udf_expand_file_adinicb() restores inline
+allocation, so udf_map_block() can observe ICBTAG_FLAG_AD_IN_ICB after
+the caller checked and hit the WARN_ON_ONCE() for a transient state.
+
+Move the allocation-type check under the down_read() udf_map_block()
+already takes on the lookup path and return -EFSCORRUPTED gracefully
+instead of warning.
+
+Reported-by: syzbot+de2fef01040748da6822@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=3Dde2fef01040748da6822
+Signed-off-by: Lukas Blesser <golasch18@web.de>
+=2D--
+ fs/udf/inode.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
+
+diff --git a/fs/udf/inode.c b/fs/udf/inode.c
+index e45e546a7..cea8d5c4d 100644
+=2D-- a/fs/udf/inode.c
++++ b/fs/udf/inode.c
+@@ -352,9 +352,6 @@ static int udf_map_block(struct inode *inode, struct u=
+df_map_rq *map)
+ 	int ret;
+ 	struct udf_inode_info *iinfo =3D UDF_I(inode);
+=20
+-	if (WARN_ON_ONCE(iinfo->i_alloc_type =3D=3D ICBTAG_FLAG_AD_IN_ICB))
+-		return -EFSCORRUPTED;
+-
+ 	map->oflags =3D 0;
+ 	if (!(map->iflags & UDF_MAP_CREATE)) {
+ 		struct kernel_lb_addr eloc;
+@@ -364,6 +361,18 @@ static int udf_map_block(struct inode *inode, struct =
+udf_map_rq *map)
+ 		int8_t etype;
+=20
+ 		down_read(&iinfo->i_data_sem);
++		/*
++		 * The allocation type may have changed back to in-ICB
++		 * after a caller checked it without holding i_data_sem:
++		 * e.g. a concurrent expand failure restores inline
++		 * allocation in udf_expand_file_adinicb(). Recheck here
++		 * under i_data_sem and fail gracefully instead of
++		 * warning about a transient state.
++		 */
++		if (iinfo->i_alloc_type =3D=3D ICBTAG_FLAG_AD_IN_ICB) {
++			ret =3D -EFSCORRUPTED;
++			goto out_read;
++		}
+ 		ret =3D inode_bmap(inode, map->lblk, &epos, &eloc, &elen, &offset,
+ 				 &etype);
+ 		if (ret < 0)
+=2D-=20
+2.55.0
+
