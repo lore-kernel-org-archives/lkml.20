@@ -1,154 +1,254 @@
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+Received: from mail-pj2-f0.google.com (mail-pj2-f0.google.com [74.125.227.128])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD918263F4A
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 12:46:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62A5C233933
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 12:51:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.128
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789821972; cv=none; b=MobmCxIY7jTz9tQdV5rvYXSt5edg3AeXd1LDEmXTx//T4ZSZ1YjY+Std35OkYnwgFS7Luhp8s75WSz8FnVrOeMGj8DY8GI3zULoHBOa3ngxcWgLS6KKcQFgKMgq7Vj/SMD11QUZj7AFxr7kJpuFUm/lULNomXhzcTr3+CvjEgGU=
+	t=1789822308; cv=none; b=S8fIMgxeS4OYe2PvBmRm+fJSqZGKKncMO726e3gNYKyMmOpYdBgIw2zwTnxnQg2+vqlR0TWUOZhCRTo4k1HBGd5q+TsV+1/Xdm2rtGR4nTUceDGaUF1MhlCa1Rla8s/I6pr1G2g1A1vtVn6R8/OgogzsrYRiMNtVwF+ZForMpUM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789821972; c=relaxed/simple;
-	bh=ni44iwwOBdXWZhwAMWSEdLuNIEgQHha1arOyS3hPP8M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CPqqy7Xph+XmWJACutS/X3toBBNUItReYUgxcYsj4Y7qSTaq+/nbp3tQdCz0Pen4LfjJwt30Nlg9NXqlozYCk13+aqmI1hUZzAGOMgSFgQoxFVOyP2tsrue4tHRTtSz8rhetQz3rpCcAjpi/9BxZ3PqoyfPVYcl4O3kf7LAFgpY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C7DT/OkT; arc=none smtp.client-ip=74.125.227.170
+	s=arc-20240116; t=1789822308; c=relaxed/simple;
+	bh=NIJkPdrb34c+GXUZql5gIGKgt46vdTtKGO6ZMghyykQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=omGzZ6XKovmoL3ZeHt0t1SY92DZYLOBjE2uFECCv6gbzMnEtODV6gATMwSWWSv7g3mEFHhG2iey+u8+KGp6piSLQk9cWp6Oy9Hdzd6P5n6aR8WdNY2CDvqE165CNkMzr2YWMZnuvZWN7qRRb2ax+teR2HbYpjv59v4sl7I5Mw6w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bI/zaacI; arc=none smtp.client-ip=74.125.227.128
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C7DT/OkT"
-Received: by mail-pj2-f42.google.com with SMTP id d9443c01a7336-2df38376150so443335ad.0
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 05:46:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bI/zaacI"
+Received: by mail-pj2-f0.google.com with SMTP id 98e67ed59e1d1-39e0e245eadso664728a91.0
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 05:51:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789821970; x=1790426770; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pHarfBm/2Lwn8RhgpUebc10L/RTVf+2oe3HM+fTBOeg=;
-        b=C7DT/OkT0Aswe929HPmd2e6TNH6iCJTr/QHyb79iP35P2myISnTPgW0SYTNCNTaavv
-         A9kgbYly+sh6g/eqd6SdVDgLliZ1sjIrzSCwLB/4jW8M4y4S19Gp2p5Qq7Rme/SRZYk2
-         aE0UzstF+f8tBsps+ADssDs3QOWN68XCRwzQQccqHJ5srNRjElybM66KgjS7cJ41zWoh
-         v7ABUYzgmIkLtCE+u7I5D2IKtz1zoGK/fiUnujX7X+8JgNqyVvMavLbIJtjwC0x9Y/us
-         TokSTJpOj5wLnOzRFXYAtHzdR/VheG17DWdNMGXXEmK8oZbpSzFzy0bpJCWBX0Il9n9W
-         tS6A==
+        d=gmail.com; s=20251104; t=1789822306; x=1790427106; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WeS5LqLOuIKT4KDWIZgKWwOtuHWnT7hUVImYY975124=;
+        b=bI/zaacIqyY3JPP921Jr3f3kTHtIMpjWqDZafaaZ+/btLyXs/qCh4VdYj7PLblAhFX
+         wNugegYlPFRZxNQXqnX1Uu92pAo9HRCod4uesoaJa5uTOMkSrUftkoqMd1TYvMsBn52L
+         SviSRHlNij0c73Uvnl2e1gzDVbSdMR0o1DnYAN5wLZTQ8ij1nrWoMC/PkCRFNw2BvtOL
+         XVqHnBlN5W5Fq3AKY2mbThGOP+FSJ7A2MzQFs8C/cYPH/kFbkmn5IKIWlemeDPvelRH+
+         +ql7QgssUoNFtekVLASq9ycb6fVimZl9uFu9ydryibyqwgOh2p9/MLwLdAFczuAMEpOs
+         bEBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789821970; x=1790426770;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pHarfBm/2Lwn8RhgpUebc10L/RTVf+2oe3HM+fTBOeg=;
-        b=KVJuTtUNG8PeM9OQBLtnufGQAI8jJLRc+3SjaOwrZv7dzlSbMtObDNqViVExP9vk4l
-         yxkWw57L++9bRZtAvGShWDD5RVc6WL7FsUe4Qg3/n30/uhouCQThsq+ROv1w+MykrQ7s
-         8OAe2fZrQh+hCCdoDqeabSOTnAwSv/cUdMZBMMlgJp9AOOIIF8KUPzXbBr51pBWBCOGC
-         vYjm8zf4TBl6Kchpfruiik66whT0An5BwmTdW1oIuWaxeNqYC+XvKllb5TzjF2mKPRtU
-         y7Of4gP30/gIMxmnTLmNS13NUa2ZHF93uYDS6sdURgcJbzoacJy8J8HmFJDkgSdHXOuE
-         bj3g==
-X-Forwarded-Encrypted: i=1; AKwUvBx1sCwwWd4ANlhiy9ZkEuqYinaBhm1oVe5Gp1KZdNpgdeAegm/ugoNitE3lP8XQ2uHn6E/WGmVO1vYoYgc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kuoLbJ08pkKGFwMVMEq1ko5LBy4JKXq4vZEroZtCQIQZpyilyG
-	5QbeQtSfDORu2+BWtxCi6SHNK/w8Wa9uqou3vk7ARX665DEWgEhWe9eo
-X-Gm-Gg: AYBFou0P2sS1J65x+qCl1MeaB9aKC4pRLdUCbilF8DmEPVJlEM6DhAk5EW+0+4J12o7
-	gk4iPRS4aBMA1sJtIWcRTpRwQi55m8Ty1id4YaD2Pz2FzRRAtOVOsKYTl6pdCxIwhUzVrkdx0Pz
-	YQ8vp9m8qIFNPEp9fH7vtkoTJTD9QpDMuka9zmoOWS/lnCruKVX4Trj4cLTNebsLSY5SNRMjMjF
-	KIm+NBgE2EyQWEz+aJeVu0iyh167hUevVbK6gt4S5/S7/+cI1dechZg4VSZ5C0cb/GG8AFBeIgx
-	1e6MsFf4hpsCakeVcuDEEJCvnWfS9EbDJYpblZXK0gPGyZvh4fA4jq4bgizJaRUydtS/iq2s7Xo
-	yWWo4TgI0sJEw91Irewj6UaQC+9afs5M760GVNBhA5GbykYP4NzQaM+kNzP3nn+QTrL9YmcoC3S
-	ONgmX/X+cgt0Hvwku+Y/rpN2fa3eGFvdnRoVPQzzl3ThNlwx2U0pOuA30FSMgeWvOCHI90j1Pai
-	rgba1hDEtsMYQ+d
-X-Received: by 2002:a17:902:968d:b0:2dd:c100:2522 with SMTP id d9443c01a7336-2ddc10025c8mr16867405ad.43.1789821969883;
-        Sat, 19 Sep 2026 05:46:09 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:814e:e9d3:767e:9a2a])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17eb03dsm9769945ad.71.2026.09.19.05.46.07
+        d=1e100.net; s=20260707; t=1789822306; x=1790427106;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WeS5LqLOuIKT4KDWIZgKWwOtuHWnT7hUVImYY975124=;
+        b=lTItItNkwBiwrxuKoquvo6V3Ex7ZjGX8/RhJhUaThltw6H9awHL93Yc7KU7IJO9lTe
+         CDHdhLFVE6TTQlmbFirz2fGYPbjGv/67CvZ3ChHmq2tmm0nUANZNk57KZlnyxDBJ+uUP
+         JYAWj2aYxZhZ8Ue3ZTaNQgEAEVs9M/GfHBkYO/haRxOvak1xch8UltBhw/9gqb5v9c1N
+         m4dKF2vmVhNPAdu1MUYZSm1RK2da+rOIj05cMq+Bm2DBDaCq5Oc+2fpkaG6zFEeNHESm
+         aZES1fXEClmeFQIL+7mN3OlhnG6W/tFeFxKPsX234KoRgiWZo1Wf6Sb51tfFWEO4EeBs
+         kJ4A==
+X-Forwarded-Encrypted: i=1; AKwUvBwR4BBFwSiLL2EbgoJJeISnWKeFKYxBD9F1SJVGqM5+kt0mmqUCM3iFxYIxC8Y4vktKpUvFgbFK5mwZmEA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kQS4Ekm/WtBGko3rkNMsSeAwLDn3tofAdeLJtwFssOcthrvQoK
+	jpC65b+XB0p6kMfBjLERFnmKrA2f5kx7t5iV7afwJ3Vmdac0zmcgDk7n
+X-Gm-Gg: AYBFou3T3RKDkTFUBH3naIAerMj2eAj9b7bv7L72AnL99BNUnC/igmA+E5BmR6SKYRV
+	zQrKzSjz7P8K5I1bbCEa3UG64P3LSl0piaR7AnhHtMY/F4r1CVIiE56IW9CQVlEf6MNHoR6xCEb
+	GY4yS41W/iSjupNfvJ3XfAi9LtkQ5/Fn+CKOSKl3FScnfuewyv7cgAOPi5/D//lxXKrjehGjalX
+	di0MhAgDidaQsKWsiP0GDQh4DLXtViIbYREJHhtfYAzED3PYwmQIOQLH2RoJa4CQLzPImxwLzML
+	36iz9eH+UM3KJs4trErW2vWXSk5g/CEJpkAs9V/9wPJM64LvOGpIEXTUl2oYI4U0ZpbyPaIaAYX
+	f4x/jadgrKzzVmJwjpx8jvdsulHh+NSaoup0syMDzj4+YwgNFClEED498vb1+RyDXjvkwUGFif/
+	rq6tYQ56fYvhiBuRgV4J8S7g8UPS9LloTFMB2klWSN9SlWmQ0SR4p0XH9HKJvvndnqfsKgVg==
+X-Received: by 2002:a05:6a00:4309:b0:874:708d:b636 with SMTP id d2e1a72fcca58-874df60bf54mr9495073b3a.34.1789822305666;
+        Sat, 19 Sep 2026 05:51:45 -0700 (PDT)
+Received: from server.lan ([168.138.199.194])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877aa0026b2sm991805b3a.44.2026.09.19.05.51.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 05:46:09 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	linux-input@vger.kernel.org,
+        Sat, 19 Sep 2026 05:51:44 -0700 (PDT)
+From: Coia Prant <coiaprant@gmail.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Vinod Koul <vkoul@kernel.org>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Romain Gantois <romain.gantois@bootlin.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Coia Prant <coiaprant@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Shawn Lin <shawn.lin@rock-chips.com>,
+	David Heidelberg <david@ixit.cz>,
+	netdev@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	syzbot+1075f6dc93f398c1857e@syzkaller.appspotmail.com
-Subject: [PATCH] Input: serio - don't sleep on serio_mutex from drvctl_store()
-Date: Sat, 19 Sep 2026 19:46:04 +0700
-Message-ID: <20260919124604.210505-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	linux-phy@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH net-next v8 00/11] net: pcs: add basic support for RK3568 XPCS
+Date: Sat, 19 Sep 2026 20:51:07 +0800
+Message-ID: <20260919125119.2107089-1-coiaprant@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Writing to the drvctl attribute takes serio_mutex while holding the
-attribute's kernfs active reference. serio_unregister_port() does the
-opposite: it holds serio_mutex and device_del() then waits for active
-references to drain in kernfs_drain(). If a drvctl write is in flight
-when the port is unregistered, the writer waits for serio_mutex and the
-unregistering task waits for the writer, and neither makes progress.
-Interruptibility of the lock does not help, as nothing signals the writer.
+This series adds proper SGMII support for the Rockchip RK3568 SoC
+using the integrated Synopsys DesignWare XPCS, along with necessary
+fixes and refactoring in the stmmac core and XPCS driver.
 
-lockdep reports it as:
+Motivation
+==========
+The RK3568 integrates a DW XPCS accessed via APB3 and connected to
+a Naneng Combo SerDes PHY.  Several boards (e.g., Ariaboard
+Photonicat) use this interface for Gigabit Ethernet.  However, the
+current upstream stmmac driver does not support this configuration,
+and the XPCS driver has issues in SGMII poll mode that cause the
+link to be reported incorrectly.
 
-  WARNING: possible circular locking dependency detected
-  repro/4908 is trying to acquire lock:
-   (kn->active){++++}-{0:0}, at: __kernfs_remove+0x34c/0xb90
-  but task is already holding lock:
-   (serio_mutex){+.+.}-{4:4}, at: serio_unregister_port+0x1b/0x40
-   drvctl_store
-   sysfs_kf_write
-   ...
-   kernfs_drain
-   device_del
-   serio_destroy_port
-   serio_unregister_port
-   userio_char_release
+This series addresses these issues by:
+- Refactoring stmmac PCS lifetime management to allow platform drivers
+  full control over PCS creation/destruction
+- Fixing the XPCS driver's SGMII link recovery
+- Adding a Rockchip XPCS platform glue driver and wiring it up in
+  dwmac-rk
 
-Use mutex_trylock() and restart the syscall when the mutex is busy, so
-the active reference is dropped before waiting. Once the port is being
-removed the retried write fails with -ENODEV.
+Series overview
+===============
 
-Reported-by: syzbot+1075f6dc93f398c1857e@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=1075f6dc93f398c1857e
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Generic:
+  Patch 1: move XPCS lifetime management to platform drivers
+
+PHY:
+  Patch 2: DT binding for Naneng Combo PHY SGMII MAC selection
+  Patch 3: implement the PHY SGMII MAC selection in driver
+
+RK3568 XPCS/SGMII:
+  Patch 4: DT binding for Rockchip RK3568 XPCS
+  Patch 5: add XPCS and fixed-clock nodes to rk3568.dtsi
+  Patch 6: add ANRESTART support for SGMII link recovery
+  Patch 7: implement the Rockchip XPCS platform glue driver
+  Patch 8: DT binding for Rockchip DWMAC PCS
+  Patch 9: wire up SGMII support in dwmac-rk
+  Patch 11: update MAINTAINERS
+
+Board enablement:
+  Patch 10: enable SGMII LAN port on Photonicat board
+
+Changelog
+=========
+
+Changes since v7:
+
+Patch 7 (net: pcs: xpcs: add Rockchip RK3568 platform glue driver)
+- Fix a use-after-free window in xpcs_rk_create(): device_link_add()
+  does not fail on a supplier that is unbinding (it creates the link in
+  DL_STATE_SUPPLIER_UNBIND), so the drvdata could be freed between the
+  link creation and the platform_get_drvdata() call. Read the drvdata
+  under the supplier's device_lock with a device_is_bound() check, so
+  a concurrent unbind is detected and the probe defers.
+- Correct the comment above device_link_add(): the link does not keep
+  the supplier alive by itself; device_lock() plus device_is_bound() is
+  what protects the drvdata read.
+- Change the Kconfig select to "select PM_GENERIC_DOMAINS if PM" so a
+  COMPILE_TEST build with CONFIG_PM=n does not force PM_GENERIC_DOMAINS
+  on against its own dependency.
+
+Key design decisions
+====================
+- The stmmac core now delegates XPCS creation entirely to platform
+  drivers via pcs_init/pcs_exit.  This is necessary because the
+  generic XPCS creation logic would override any XPCS set up by the
+  platform driver.
+
+- The Rockchip XPCS driver creates a virtual MDIO bus over the APB3
+  registers and implements address remapping.  The generic XPCS core
+  handles all PCS configuration via phylink_pcs_ops.
+
+- On RK3568 in SGMII mode, the MAC clock is fixed at 125 MHz and
+  cannot be dynamically changed.  In-band mode is used, and the
+  generic stmmac set_clk_tx_rate callback is disabled to prevent
+  incorrect clock updates that would break RX.
+
+- The SerDes and power domain are attached to the XPCS device tree
+  node rather than the MAC node. This reflects the actual hardware
+  topology and simplifies the dwmac-rk driver by keeping all PCS-related
+  resources self-contained. It also prepares for possible future QSGMII
+  support, where a single SerDes serves multiple MACs and would be
+  more naturally managed under the XPCS node.
+
+Testing
+=======
+Board: Ariaboard Photonicat (RK3568)
+OS: Armbian (trixie)
+Kernel: 6.18 (backports)
+Result: The SGMII interface obtains an IP address, SSH works, and
+        ping traffic passes without loss.
+
+Notes
+=====
+- When testing out-band mode with set_clk_tx_rate, only 1000Mbps
+  works on both TX/RX; 10/100Mbps only works on TX side.
+
+Dependencies
+============
+None. All patches apply cleanly on top of torvalds master tree (v7.3).
+
+Acknowledgments
+===============
+This work was inspired by and builds upon the excellent work of others:
+- Serge Semin's Synopsys DesignWare XPCS platform driver (pcs-xpcs-plat.c)
+- Clément Léger's Renesas MIIC driver (pcs-rzn1-miic.c)
+- The Rockchip TRM and downstream OEM drivers
+
+Thanks in advance,
+Coia Prant
 ---
-Root cause: drvctl_store() runs with the attribute's kernfs active reference
-held and then takes serio_mutex. serio_unregister_port() takes serio_mutex and
-then device_del() -> kernfs_drain() waits for all active references to drop.
-A drvctl write that is in flight when the port is unregistered therefore waits
-for serio_mutex while the unregistering task waits for that writer: a real
-AB-BA deadlock, not just a lockdep false positive. mutex_lock_interruptible()
-does not help as nobody signals the writer.
+Coia Prant (11):
+  net: stmmac: move XPCS lifetime management to platform drivers
+  dt-bindings: phy: rockchip: naneng-combphy: add rockchip,sgmii-mac-sel
+    property
+  phy: rockchip: naneng-combphy: add SGMII MAC selection for RK3568
+  dt-bindings: net: pcs: add rockchip,rk3568-xpcs support
+  arm64: dts: rockchip: rk3568: add XPCS and fixed-clock nodes
+  net: pcs: xpcs: add ANRESTART support for SGMII link recovery
+  net: pcs: xpcs: add Rockchip RK3568 platform glue driver
+  dt-bindings: net: rockchip-dwmac: document pcs-handle
+  net: stmmac: dwmac-rk: add SGMII support for RK3568
+  arm64: dts: rockchip: rk3568-photonicat: enable SGMII LAN port
+  MAINTAINERS: add entry for Rockchip XPCS driver
 
-Reproduced in QEMU (x86_64, syzbot config, lockdep): a small program creates
-and closes /dev/userio ports in a loop while 4 threads write "psmouse" to the
-new port's drvctl. Unpatched kernel: the same circular-dependency splat as the
-syzbot report (kn->active <-> serio_mutex, drvctl_store vs
-serio_unregister_port/userio_char_release). An earlier, cruder run also left
-the unregistering task blocked for >143s (hung task). Patched kernel: 20
-create/close rounds complete, no lockdep report, no hang.
+ .../net/pcs/rockchip,rk3568-xpcs.yaml         | 110 ++++
+ .../bindings/net/rockchip-dwmac.yaml          |  18 +
+ .../phy/phy-rockchip-naneng-combphy.yaml      |  13 +
+ MAINTAINERS                                   |   9 +
+ .../boot/dts/rockchip/rk3568-photonicat.dts   |  74 ++-
+ arch/arm64/boot/dts/rockchip/rk3568.dtsi      |  45 ++
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   |   1 +
+ .../net/ethernet/stmicro/stmmac/dwmac-intel.c |  44 +-
+ .../stmicro/stmmac/dwmac-renesas-gbeth.c      |   7 +-
+ .../net/ethernet/stmicro/stmmac/dwmac-rk.c    | 130 +++-
+ .../net/ethernet/stmicro/stmmac/dwmac-rzn1.c  |   7 +-
+ .../ethernet/stmicro/stmmac/dwmac-socfpga.c   |   7 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_mdio.c |  39 +-
+ drivers/net/pcs/Kconfig                       |  25 +
+ drivers/net/pcs/Makefile                      |   5 +-
+ drivers/net/pcs/pcs-xpcs-rk.c                 | 599 ++++++++++++++++++
+ drivers/net/pcs/pcs-xpcs.c                    |  35 +-
+ .../rockchip/phy-rockchip-naneng-combphy.c    |   8 +
+ include/linux/pcs/pcs-xpcs-rk.h               |  11 +
+ 19 files changed, 1115 insertions(+), 72 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/pcs/rockchip,rk3568-xpcs.yaml
+ create mode 100644 drivers/net/pcs/pcs-xpcs-rk.c
+ create mode 100644 include/linux/pcs/pcs-xpcs-rk.h
 
-Fix: take serio_mutex with mutex_trylock() and restart_syscall() if busy, so
-the active reference is dropped before waiting; once removal has begun the
-retried write fails with -ENODEV. The only former failure, -EINTR on a signal,
-is now covered by the normal syscall restart path.
-
-The Fixes tag points at the original import: the lock order predates git
-history (serio_sem) and I could not find a narrower commit.
-
- drivers/input/serio/serio.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/input/serio/serio.c b/drivers/input/serio/serio.c
-index 54dd26249b02..811e65fd4eb3 100644
---- a/drivers/input/serio/serio.c
-+++ b/drivers/input/serio/serio.c
-@@ -357,7 +357,8 @@ static ssize_t drvctl_store(struct device *dev, struct device_attribute *attr, c
- 	struct device_driver *drv;
- 	int error;
- 
--	scoped_cond_guard(mutex_intr, return -EINTR, &serio_mutex) {
-+	/* Port removal holds serio_mutex and drains us: don't wait for it. */
-+	scoped_cond_guard(mutex_try, return restart_syscall(), &serio_mutex) {
- 		if (!strncmp(buf, "none", count)) {
- 			serio_disconnect_port(serio);
- 		} else if (!strncmp(buf, "reconnect", count)) {
 -- 
-2.43.0
+2.47.3
 
