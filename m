@@ -1,88 +1,121 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97049547043;
-	Sat, 19 Sep 2026 03:55:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADADA1C3F0C
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 04:02:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789790122; cv=none; b=XvDsqzwQ2A2kBziJprjoyBfi1PQ6Hhz22OsusCx4jgV4fuQQ4Mt8tG73xdc2HyUieXzymVrOSJIwY48yWul1uNxfPCW72HG1I89HjtsLLcFJavE6cc21SQSmzkER8POj8rIpMvRmAZHIDaSEM7roxV18A625UCyDZG8jIQVdhWw=
+	t=1789790534; cv=none; b=K0wkkk24jzAxO3QjdJYAEdIq1k83blbuMjfLm430dhpVSRF1kPvtBpm4tdy63+5b79SsDJ5S37VZfm78K1j4AgmkNVrJjRwlfbqlJwzllTyMejLBX/fZdNlo1s3Ld086njFOVVAg1NcHCna/CpLB0zv27fHSscy+FNSyWAQxbhc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789790122; c=relaxed/simple;
-	bh=1ll195WckDHrXyPFiLac0cby9lDyHZ3EGH1jDnMXp4U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iqBh013SeNdxO9B2Dbl6LtJYYQj3yHa7pFsVSGSmFpvKE+9Q7qsOsKuj838WHvHZ0ghJCDqJ7JjVaQZ938Ht+wBQgit65OXWCWGaY8HoVK5nMJ54rd/e2nHAYJaFD96skktrZcHgwWNiaylSE96dlhg2tTXq3HKgMmr1aCTTztI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=NBudhYfd; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1789790534; c=relaxed/simple;
+	bh=VZ+WmxgKkDvmA4uZcbggik3cdU4NCyqauBDtLBHYpIw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fi1+vp2IjzyP2hfDBHL6pXcXf3eGGY2aLURJIolGiKh9i2ymrTesXMU4yiNG/zlhChBzFYKXcvpZgAgNcmgG2nWUAlX/Iwib4H/HMlk7DCTjYmBS4MJ/OscSu/AwoHArGTJqkd1B/T1XML5lvPwH8dyaFlYKn3KRo5untQDU6gI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Mxsgy84h; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="NBudhYfd"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 801C040E0173;
-	Sat, 19 Sep 2026 03:55:17 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id MbMYMLuPhy0y; Sat, 19 Sep 2026 03:55:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1789790106; bh=/oATnop6oW5Rg3jwJOG9cPSskKWFDp8stnrJSw6b3+I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=NBudhYfdSL6HooG/x8KRJbi6NzBbkQPB4unp/N1h24sM9QUtuzQG8BR2743tE3Ghv
-	 POuqX1yB/z26Yq2/CKhqjZChchK0+itI60MPW307Szogpthsgw/4RnFeuy99huejMk
-	 cF83QmlrNjvZ3ORvGnBqqBIAIll3hpUkAsxDX98TCL8NfArTGUCHOAA2K0DG8kE2vO
-	 kf7nG3EGPKZT43QdQv/+kiPlMZHoEkHff0sXcHbY6sZECjmkYUcGimaQOADTly8i52
-	 80UvrZjlWIJMruYTkyjmxCHPjztedmS72qQ15GDXUf47oZ34j4seZ7M8+52QPkrPyF
-	 iu8xNYa9UGIgDhNH2E1bn8xAoIw24qucKqdCX3OOa8VYNOl2f7hsnu3fIBdD6Wy/Eu
-	 Z6xX6LhA+mx9cCPzDul7zlKN+xixpCEXLXPk+RuZo0iDHjghMu5v8+icwqt2NbVwkb
-	 KJgMSqfYXDDyOTUCfdiYn8pjH3SYD1l1j68iW7mgAV7Mpqx8nPsGDgsxU4OoamOO4W
-	 pZQY7+D+0An0RQjpzDXvoYc+AKfSclny3c/sBotQAYx5XHt7LT4Wqq+JdP3NFPQMhv
-	 OEGC+xYgdhsHTy8vd/3ROHQlWXAZGw8WaUQDa6/cakH34EZlGPXxPKE7w82kllLzz8
-	 22M3AhhHBkZncqiAYX1LbJ40=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::48])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 4CDE540E015B;
-	Sat, 19 Sep 2026 03:55:01 +0000 (UTC)
-Date: Fri, 18 Sep 2026 20:54:57 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Yazen Ghannam <yazen.ghannam@amd.com>
-Cc: Rosen Penev <rosenp@gmail.com>, linux-edac@vger.kernel.org,
-	Tony Luck <tony.luck@intel.com>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] RAS/AMD/FMPM: use struct_size_t
-Message-ID: <20260919035457.GCaq4HkXYv5VYfBtoe@fat_crate.local>
-References: <20260317031650.93712-1-rosenp@gmail.com>
- <20260319162818.GC1666212@yaz-khff2.amd.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Mxsgy84h"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=K2
+	0DC3fRPWJ/nksRsIeJefCHZPC3eftROuOPD+nwp+Y=; b=Mxsgy84hrDohBmI/ke
+	XyqdaQOKbO6jfTj7UWhCVhmQZvdogqLMGxV4yifAVyFR5ZttsVQCYpLsxWwrt2Sj
+	e+Sj3sN3zwg2VHqcODA0T6zZYkuolHePIlZaXQaHv1zzxrwxGvtODdbNCZYghJkM
+	675blHOFbgQbJWvzALEmPT8LM=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp5 (Coremail) with SMTP id QCgvCgB3vmu4CK5qh0bIAA--.37484S2;
+	Sat, 19 Sep 2026 11:59:53 +0800 (CST)
+From: albin_yang@163.com
+To: peterz@infradead.org,
+	mingo@redhat.com,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org
+Cc: dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] sched/stats: Fix run_delay over-count for migrated sched_delayed tasks
+Date: Sat, 19 Sep 2026 11:59:51 +0800
+Message-ID: <20260919035951.509665-1-albin_yang@163.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20260909133345.1572954-1-albin_yang@163.com>
+References: <20260909133345.1572954-1-albin_yang@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260319162818.GC1666212@yaz-khff2.amd.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:QCgvCgB3vmu4CK5qh0bIAA--.37484S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Kr4DKr4rtw4UGrWDuFy5XFb_yoW8Zw18pF
+	WrK34Ygws2qrykJFnFy3ykuryrurWfC3y2qF95JFy2v395Xr4ak34Iqr1Yvr18WrykuFyx
+	Zr4jg3ZFvFWqy3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UxgA7UUUUU=
+X-CM-SenderInfo: pdoex0xb1d0wi6rwjhhfrp/xtbCzht2GWquCLuBhAAA3I
 
-On Thu, Mar 19, 2026 at 12:28:18PM -0400, Yazen Ghannam wrote:
-> On Mon, Mar 16, 2026 at 08:16:50PM -0700, Rosen Penev wrote:
-> > Avoids manual size calculation with the proper helper.
-> > 
-> > Also use kzalloc_flex for the same reason.
-> > 
-> > Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> 
-> Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
+Hi,
 
-https://sashiko.dev/#/patchset/20260317031650.93712-1-rosenp%40gmail.com
+To make the bug more concrete, I wrote a userspace reproducer
+(available on request) that exercises exactly the path described in the
+commit.
 
-Yazen, there are funnies for you too in there.
+Setup: the system needs enough CPU pressure for the worker to become
+!entity_eligible and take the delayed-dequeue path. In my runs I first
+start background load, e.g.:
 
-:-)
+    stress-ng --cpu $(( $(nproc) - 1 )) &
 
--- 
-Regards/Gruss,
-    Boris.
+The reproducer itself also pins a busy competitor thread to CPU0 for the
+same reason.
 
-https://people.kernel.org/tglx/notes-about-netiquette
+What the reproducer does:
+
+  - A worker thread burns ~80 ms of CPU on CPU0 then usleep()s for
+    150 ms. With the background load keeping min_vruntime ahead, when
+    the worker sleeps it is !entity_eligible and is kept on the rq with
+    se.sched_delayed set (delayed dequeue) - still "sleeping" but not
+    really runnable.
+  - A separate thread migrates the worker to CPU1 with
+    sched_setaffinity(worker_tid, cpu1) ~2 ms after it goes to sleep.
+    This takes the plain migration path (activate_task(dst, 0)), which
+    re-arms last_queued at the migration time while the task is still
+    sleeping.
+  - run_delay is read from /proc/<tid>/schedstat right before the
+    migration and again after the worker actually wakes up and is
+    scheduled.
+
+Observed result (20 iterations; run_delay delta in ms):
+
+    iter   run_delay   expected_err   verdict
+      1      148.03      148.12        BUG
+      4      148.88      148.93        BUG
+      6      148.05      148.12        BUG
+      9      148.88      148.93        BUG
+     11      148.06      148.12        BUG
+     14      148.89      148.93        BUG
+     16      148.03      148.08        BUG
+     17      148.89      148.94        BUG
+   (others)     0.00      148.00        ok
+
+Every migration that lands during the sched_delayed sleep charges
+~148 ms of phantom wait into run_delay - i.e. the *entire* sleep
+duration between migration and wakeup. With the patch, run_delay
+delta stays ~0 in all iterations.
+
+So this is a real, user-visible run_delay over-count, not just a
+theoretical one. The fix is the single-line change in
+sched_info_enqueue().
+
+Would appreciate a review / any feedback. Happy to share the full
+reproducer if that helps.
+
+Original patch:
+https://lore.kernel.org/all/20260909133345.1572954-1-albin_yang@163.com/
+
+Thanks,
+Wei Yang
+
