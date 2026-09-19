@@ -1,173 +1,97 @@
-Received: from mx01.bremer-it.com (mx01.bremer-it.com [85.215.132.167])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B64AD323416;
-	Sat, 19 Sep 2026 14:46:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.215.132.167
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0804D43AB0;
+	Sat, 19 Sep 2026 14:48:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789829169; cv=none; b=VNPZxI14MBEW9ANy/onuFKC7+N7VeXYGP6xEol0L9S9JyUZHOfaNZcwZyjUIW7sun2lEDwoEBLIWjQEjct8K5QqVSg3u9aGh+oZ/VHsk9xfI1CUAuuRkWXryrvYCn5hhRls+8EQ44DK5figZA2bpPCv1fCRneZMJm+DMnQnvRx8=
+	t=1789829307; cv=none; b=Z4nrSEIBpb9HV1A5hxGshe22qPKwSJyE/dQ0tj+qAzmBWe3U8Hjoyra/vADevOodxmGA/dwsdnCEBkdDHQVrW40DTFLEU5HnQg65kH4Z7zLE+tRNWJUPiIi7DGYlXBnSunxUcaZmUhqr3EUP9JUlzYeR1IEAhhXChw2WNIX8Jz8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789829169; c=relaxed/simple;
-	bh=ywPs7uRsJtG72xMwxi2u3pqbatu6MNgLiO0EYm3JaJY=;
+	s=arc-20240116; t=1789829307; c=relaxed/simple;
+	bh=o1ZQ7MH5wDXQsKPIVArWrFcpJvDeJlfsiVlJBRwpoXM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZUc8R6s5YsFBupnTnf0v0SiQz/zJdO6UU8F91Zr4sFRzEgpEfALDOV51sZ6t7Gyb2/B48VbGQPOFmXeNMv6DYa5R/TVBytzXgoDYUtxls0Rh/YWGgyM0Ii5fTen4HQsRs0clle/f3RBiResatpwm/5pzX6w8UuxMLBTFiQWAd2g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=barelysecure.org; spf=pass smtp.mailfrom=barelysecure.org; dkim=pass (2048-bit key) header.d=barelysecure.org header.i=@barelysecure.org header.b=oSsDvW5T; arc=none smtp.client-ip=85.215.132.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=barelysecure.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=barelysecure.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=O1232K40fN2AYWFNXK+6AdwkcprhFBCXN5vODrtcb8VM9N0iksjzkl/RE2sHdjD7ofRVcMGt64BAH6pAOxy8F7dmdTU/IjizWTJHf2E7enYUoBloPA0SDCv1EkmNgnw4akzpEjuVEvPWNb42BrlLKMISqdoJyIgVQcTfpKwJ+PI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lm2k/vQk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=barelysecure.org header.i=@barelysecure.org header.b="oSsDvW5T"
-Received: from cashel.logfs.org (c-98-33-96-243.hsd1.ca.comcast.net [98.33.96.243])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (secp384r1) server-digest SHA384)
-	(No client certificate requested)
-	by mx01.bremer-it.com (Postfix) with ESMTPSA id BFC9220B84;
-	Sat, 19 Sep 2026 16:46:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=barelysecure.org;
-	s=dkim68; t=1789829164;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PetF/HLtIXChJE/5lpvDpFt7S49VsIiNWMkHshV1HaY=;
-	b=oSsDvW5TF97ZZ9SnJGDIBbSGmG9SYHbOrFq+VSbGmrePOTEHKHsqqcWT/fhckAQ1hl/0/D
-	2gfMAXc7nSL/8MClT3/UnrcqluXvDV43r6SAzwdilS54yLVmImhYtVU6yIEbAbIlyWa6mR
-	vhN66J01SeQbEYnRIps5+agFORN8FNAppZNLYe9mk4su5s0PNJ9Q827xMV24sXWA2bL5qj
-	I7dKwSE4f4oSGNftf0LyIiYFjbKZWvpG3s+U+F25ijGHrGlxc0BUkLAv3DsqmFhG/pkRKc
-	2gDNXt/7p6xwyi0YG+RiuT7dJcEbe/4gl5cUY3i8WhNrFQ+Pgf5JCdA/Y382iQ==
-Authentication-Results: ORIGINATING;
-	auth=pass smtp.auth=joern@lazybastard.org smtp.mailfrom=joern@barelysecure.org
-Date: Sat, 19 Sep 2026 07:45:57 -0700
-From: =?iso-8859-1?Q?J=F6rn?= Engel <joern@barelysecure.org>
-To: Chris Roy <iam@thechris.in>
-Cc: Richard Weinberger <richard@nod.at>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	syzbot <syzbot+7cab6a19619f1b8efc00@syzkaller.appspotmail.com>,
-	dakr@kernel.org, driver-core@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	rafael@kernel.org, syzkaller-bugs@googlegroups.com,
-	linux-mtd@lists.infradead.org, miquel.raynal@bootlin.com,
-	vigneshr@ti.com, Adarsh Das <adarshdas950@gmail.com>
-Subject: Re: [syzbot] [fs?] possible deadlock in ovl_create_object (2)
-Message-ID: <aq6gJTYTpTr8sYPj@cashel.logfs.org>
-References: <CAE2Bdm3NuEHshrG6K2boKAnCQUvT5SX79cP9nPgS2s1afzY1hg@mail.gmail.com>
- <6aab0f82.e91c2013.3bdb06.0009.GAE@google.com>
- <CAE2Bdm2wzxj-J0TM8F+3SVnu0W3HeiROW97U4qvBeyHKdHJFmg@mail.gmail.com>
- <2026091753-broadness-bootie-b683@gregkh>
- <CAE2Bdm14hif17B8RTAE+PhWEps5Fzh=WPurZeSNp9C6TqCKumg@mail.gmail.com>
- <aqwuWWMwdIcx3704@cashel.logfs.org>
- <mu82xsi6.76ee613a-07fb-48b1-9336-99e8780e8b6e@nod.at>
- <CAE2Bdm3FqBPAMxqKoz_h1cw+OXpm=LJHdJjsME_Jy966tqhq_A@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lm2k/vQk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F34C71F000FF;
+	Sat, 19 Sep 2026 14:48:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789829305;
+	bh=o1ZQ7MH5wDXQsKPIVArWrFcpJvDeJlfsiVlJBRwpoXM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lm2k/vQkpX7W0rWLi5B6K5eTJR1tZUnSWZJ1Ng+jIx3YZF9kLqPaBrTmlJSsCX9nh
+	 EuvRaBKJEEywI1N9lA1+7Ys7i3UdEigSw0oiv6tq1drO2Ro5ZD/N6xNN/PdGENyiry
+	 OQze/hFxIhrCHYmcl3+sCa2wi/yoXq0DmLmIj16j+oHTE4uRFAk74RVtHyd4ldYTZf
+	 IvdGdbPsJQiKDu0USoB8Ug/yRfNtvtJou/1NlysRZYAbRYTkXoHFZkW/B/7TV1HbsP
+	 RKA2Vfq/eOWP6HnxXeDQnh98UFWvAUENLTjQPoGih+Xd6pZ8oFkDU/0ix1EBwESNRN
+	 EJSaX1urbuaAw==
+Date: Sat, 19 Sep 2026 15:48:11 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Nicolas Schier <n.schier@fritz.com>
+Cc: Kees Cook <kees@kernel.org>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Nathan Chancellor <nathan@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Masahiro Yamada <masahiroy@kernel.org>, 
+	Alexey Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
+	Randy Dunlap <rdunlap@infradead.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
+	linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
+	Jens Axboe <axboe@kernel.dk>, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v3 08/20] kbuild: cache list, composite object state per
+ object
+Message-ID: <aq6gjULjd5uP-AVA@gremlin>
+References: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
+ <20260917-build-speedup-v3-8-9ecf4163ff36@kernel.org>
+ <202609171110.438BC7477A@keescook>
+ <20260918-godlike-devious-perch-707bf6@l-nschier-aarch64>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAE2Bdm3FqBPAMxqKoz_h1cw+OXpm=LJHdJjsME_Jy966tqhq_A@mail.gmail.com>
-X-Spam-Level: *
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [1.40 / 14.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MIME_GOOD(-0.10)[text/plain];
-	BAYES_SPAM(0.00)[40.45%];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	TAGGED_RCPT(0.00)[7cab6a19619f1b8efc00];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	ASN(0.00)[asn:7922, ipnet:98.32.0.0/11, country:US];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_COUNT_ZERO(0.00)[0];
-	MISSING_XM_UA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[barelysecure.org:s=dkim68];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
-	LOCAL_OUTBOUND(0.00)[];
-	FREEMAIL_CC(0.00)[nod.at,linuxfoundation.org,syzkaller.appspotmail.com,kernel.org,lists.linux.dev,vger.kernel.org,googlegroups.com,lists.infradead.org,bootlin.com,ti.com,gmail.com];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	URIBL_BLOCKED(0.00)[barelysecure.org:from_smtp,barelysecure.org:from_mime];
-	SUBJECT_HAS_QUESTION(0.00)[]
-X-Rspamd-Server: server01
-X-Rspamd-Queue-Id: BFC9220B84
-X-Spamd-Bar: +
+In-Reply-To: <20260918-godlike-devious-perch-707bf6@l-nschier-aarch64>
 
-On Sat, Sep 19, 2026 at 02:22:15PM +0530, Chris Roy wrote:
-> 
-> +struct block2mtd_setup_work {
-> +	struct work_struct work;
-> +	struct completion done;
-> +	char *val;
-> +	int ret;
-> +};
+On Fri, Sep 18, 2026 at 09:51:26PM +0200, Nicolas Schier wrote:
+> On Thu, Sep 17, 2026 at 11:11:41AM -0700, Kees Cook wrote:
+> > On Thu, Sep 17, 2026 at 05:06:18PM +0100, Lorenzo Stoakes (ARM) wrote:
+> > > Fix the issue by caching this data and looking it up instead of getting it
+> > > over and over again.
+> >
+> > Nit: I would describe this as "calculate these once". It _is_ caching,
+> > but I think with Makefiles there is an implication the "caching" means
+> > "write to disk". But maybe that's just me.
 
-Finding good names is probably a fetish of mine, so "val" is mildly
-disturbing to me.  It's not an objectively bad name, just something
-where I'd spend another five minutes trying to come up with something
-better.
+Ack!
 
-> +/* Runs block2mtd_setup2() on setup_wq, blocking until it completes */
-> +static int block2mtd_setup_defer(const char *val)
-> +{
-> +	struct block2mtd_setup_work *w;
-> +	int ret;
-> +
-> +	w = kzalloc(sizeof(*w), GFP_KERNEL);
-> +	if (!w)
-> +		return -ENOMEM;
+>
+> +1
+>
+> Reviewed-by: Nicolas Schier <n.schier@fritz.com>
 
-Is this check necessary?  I'm in the camp of "malloc should never return
-NULL".  That condition is so rare that it is effectively impossible to
-trust callers with error handling.  So the right approach is to crash
-(or kernel panic here) instead of returning an error.
+And thanks! (also to Kees :)
 
-Looking into sources I see this:
-static inline void *kzalloc(size_t s, gfp_t gfp)
-> {
-> 	void *p = kmalloc(s, gfp);
-> 
-> 	memset(p, 0, s);
-> 	return p;
-> }
-
-We have at least one example of explicitly not checking the return
-value.  But we have other prominent examples of checking as well.  Looks
-like the kernel is still undecided whether checks are necessary or not.
-
-> -	return block2mtd_setup2(val);
-...
-> -		return block2mtd_setup2(val);
-...
-> +		ret = block2mtd_setup2(val);
-...
->  		ret = block2mtd_setup2(block2mtd_paramline);
-
-That's quite a few calls to the same function.  If setup gets that
-complicated, that's a strong indication that we're doing things wrong.
-Typically we get into such a mess one well-intentioned change at a time.
-Find a bug, fix it by adding another caller, repeat.
-
-It isn't obvious how we could improve things.  Sometimes it's lack of
-infrastructure and the entire complicated setup-dance should be moved to
-common code.  Driver can then call a single function to deal with
-everything.
-
-But if there's only a single driver using such infrastructure, maybe the
-driver is doing things wrong and should copy whatever other drivers are
-doing.  The problem shouldn't be unique to a single driver, so we should
-find the best solution and then use it everywhere.
-
-I don't know the correct answer here.  If you feel motivated to dig
-deeper, please do!  If not, I'd rather leave the mess in place than come
-up with a half-hearted attempt of a solution.
-
-Jörn
+>
+> --
+> Nicolas
 
 --
-You cannot suppose that Moliere ever troubled himself to be original in the
-matter of ideas. You cannot suppose that the stories he tells in his plays
-have never been told before. They were culled, as you very well know.
--- Andre-Louis Moreau in Scarabouche
+Cheers, Lorenzo
