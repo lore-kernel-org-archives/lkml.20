@@ -1,64 +1,111 @@
-Received: from arkamax.eu (128-116-240-228.dyn.eolo.it [128.116.240.228])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-186.mta0.migadu.com [91.218.175.186])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE2E31B83B
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 07:58:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.116.240.228
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB455361666
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 07:58:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.186
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789804683; cv=none; b=YTMDwyG2B7v7XCwqREkhU1xOKbLbdBzM46sd8zJoMZ9xApmAKkj0lQ6x8GYldeABOlx2d8TuzZ7VydFclNNAToZvxcit1IvOhlfMqhnXejOVZu4nWVGBizstTVlUqiSd/dkK+WpnrDybvxZYtEpNxrAVuLEFrXDTJgqd9hMER64=
+	t=1789804699; cv=none; b=uh/9x2tgM+aOiq5Q1XzhBUd2YFnQl12hlo7970jobldeQTiJ0gOYmIJxn2av5/34m+3LwlHuJk4Np51kdZ0NUkWL7e+0ULWASFD278zSkHjr3YqaSFcvFE45aRzrD1fAbpB5SXXHD4EMUiSGEfFrd5eeuSj2npKYr9YkNVYnHVM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789804683; c=relaxed/simple;
-	bh=0HqoWMrXdNO5OfQgnTTPtNIXED40IV8fU6rDuuYARqI=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=VE/W5NZ0cAwwYhiP62l95tP4EO2vgA7E42j6qkpZRuezFKjQSGRzvC+aaD/1pFBchfxDSSr/VRXyvNIvAZbNYZxJmoTCv9mWNI8mNAB45BjwXyB6eknudn//TPqtOdwmvouYLHGKHZxTsBRezPDlPSy0HI+8hpAeMEX/qNZ07Bw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=arkamax.eu; spf=pass smtp.mailfrom=arkamax.eu; dkim=pass (2048-bit key) header.d=arkamax.eu header.i=@arkamax.eu header.b=dyeQMdac; arc=none smtp.client-ip=128.116.240.228
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=arkamax.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arkamax.eu
+	s=arc-20240116; t=1789804699; c=relaxed/simple;
+	bh=vxdy9qtL8Iw/0qYgNuNxt/3jsmrIDEf3IspObO+lOmE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rKUgiibpN9v7UowjxyQhirVbleNShjxuJJdv6Jjk0B0rbDb4LBS22D9YBomy0sOjTzZ0f72Mwwtly7HbAmJDvjxBQNJy3kTaI1Px35q5yMWYq43KRf8/GBvEEhoCcocHqxvH86tGglxy6CBWPewCUIJabYYUkebi/PzVsOZhsIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=uJWDWwJR; arc=none smtp.client-ip=91.218.175.186
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arkamax.eu header.i=@arkamax.eu header.b="dyeQMdac"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; s=mail1; bh=0HqoWMrXdNO5Of
-	QgnTTPtNIXED40IV8fU6rDuuYARqI=; h=in-reply-to:references:to:from:
-	subject:cc:date; d=arkamax.eu; b=dyeQMdacFdNOkNT3Q+GqDPR/AfxG96L3SIDuX
-	xYuEouDjAdGBjBDnQ/S7PcPSRDci0dDce6PWljneC89Wtqh8WVEB2U8QSLggQVxrr2JoZ6
-	cKqx4Qn64itO89S1+kqM/0yGT/Mk4rIlJ8AUP6nBxoluudCn8OnLXQNbhbNxc/JiDJNjMY
-	q18Hj8PxSWUy124OVpPyufssRMwchD3NKHnB44wZF8DcqWYu3Ocec4CMRSpKfk73l7jeKK
-	kQs6lDT8DQ0JvNVptYepomm6jZ8M4nDCihJzqI5Qh7PnHWBrSrSmfcEFFvBRUJ3tmSSCws
-	6NvIdCSzV1ozV/pZmER3Y3Fow==
-Received: from localhost (128-116-240-228.dyn.eolo.it [128.116.240.228])
-	by arkamax.eu (OpenSMTPD) with ESMTPSA id 0d7dc368 (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
-	Sat, 19 Sep 2026 09:57:58 +0200 (CEST)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="uJWDWwJR"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=vxdy9qtL8Iw/0qYgNuNxt/3jsmrIDEf3IspObO+lOmE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789804694; v=1; x=1790409494;
+ b=uJWDWwJRHL3Ncv9HWlp2j3oZpHzwzE9yqdnI6HVUEQqC4w+5HMapSv47ZyqyvEAE3PlosmVi
+ 0K3H7GdabBwsW5ecxWtOPZU5UP1gUj8vmGiQIjsok665zbIXkoofCkumo9rTmbItBAYjQ64CwUd
+ 5OorlY7/i7yOUFyfQlFLRguw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id eb1e4559383463a5;
+	Sat, 19 Sep 2026 07:58:04 +0000
+X-Mizu-Trace-ID: eb1e4559383463a5
+X-Migadu-Flow: FLOW_OUT
+Date: Sat, 19 Sep 2026 15:58:09 +0800
+From: Chen Yu <chen.yu@linux.dev>
+To: albin_yang@163.com
+Cc: peterz@infradead.org, mingo@redhat.com, juri.lelli@redhat.com,
+	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
+	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
+	vschneid@redhat.com, kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org, albinwyang@tencent.com
+Subject: Re: [PATCH] sched/stats: Fix run_delay over-count for migrated
+ sched_delayed tasks
+Message-ID: <aq5AkZq396xkL4LW@three-body>
+References: <20260909133345.1572954-1-albin_yang@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 19 Sep 2026 09:57:58 +0200
-Message-Id: <DLJ4T2GRQSA7.1NN9YA9M8XUDK@arkamax.eu>
-Cc: <hch@lst.de>, <sagi@grimberg.me>, <kch@nvidia.com>,
- <linux-nvme@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3] nvmet-tcp: report a bounded MDTS instead of "no
- limit"
-From: "Maurizio Lombardi" <mlombard@arkamax.eu>
-To: "Maurizio Lombardi" <mlombard@arkamax.eu>, "Ing. Alfonso Kuen Arroyo"
- <gerencia@idkmanager.com>
-X-Mailer: aerc 0.22.0
-References: <DL41D2NGEUHW.2UUHTZ6LLM9X7@arkamax.eu>
- <178978683646.43804.6940923486189370705@idkmanager.com>
- <DLJ4POIDTYXQ.2AOJP9BJAWEOX@arkamax.eu>
-In-Reply-To: <DLJ4POIDTYXQ.2AOJP9BJAWEOX@arkamax.eu>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909133345.1572954-1-albin_yang@163.com>
 
-On Sat Sep 19, 2026 at 9:53 AM CEST, Maurizio Lombardi wrote:
->
-> Yes, but your patch sets NVMET_RDMA_MAX_MDTS to 8, which means 1MiB, not
-> 4MiB, so a 2MiB command should be rejected, even if it's under the MAXH2C=
-DATA
-> limit of 4MiB; or am I missing something?
->
+On Wed, Sep 09, 2026 at 09:33:45PM +0800, albin_yang@163.com wrote:
+> Date: Wed,  9 Sep 2026 21:33:45 +0800
+> From: albin_yang@163.com
+> To: peterz@infradead.org, mingo@redhat.com, juri.lelli@redhat.com,
+>  vincent.guittot@linaro.org
+> Cc: dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
+>  mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
+>  linux-kernel@vger.kernel.org, albinwyang@tencent.com
+> Subject: [PATCH] sched/stats: Fix run_delay over-count for migrated
+>  sched_delayed tasks
+> X-Mailer: git-send-email 2.43.7
+> 
+> From: Wei Yang <albinwyang@tencent.com>
+> 
+> With DELAY_DEQUEUE, a blocked task stays on the runqueue with
+> se.sched_delayed set and its sched_info.last_queued is cleared, so the sleep
+> is not counted into run_delay.
 
-Typo, I meant NVMET_TCP_MAX_MDTS, not NVMET_RDMA_MAX_MDTS.
+Agree.
+The sched_info.last_queued was cleared when that blocked task
+switched in on the CPU, its last_queued was cleared in sched_info_arrive(),
+because the task did not have to wait/delay anymore, it seems to be me that
+the "delayed status" has nothing to do with "run_delay". The issue is what is
+the realy timestamp of the task starts to wait.
 
-Maurizio
+> 
+> When such a delayed (sleeping) task is migrated across CPUs via the plain
+> migration paths (move_queued_task / move_queued_task_locked, the latter used
+> by __migrate_swap_task), 
 
+Right, for all the migration caused by passive/active load balance(attach_task,
+with migrate_load type, see can_migrate_task()), NUMA balancing, CPU affinity changes
+via sched_setaffinity(move_queued_task), etc, we should not update the "delayed"
+task's last_queued field when enqueuing it on a new CPU - afterall it is not ready
+for running.
+
+> activate_task(dst, 0) calls enqueue_task() without
+> ENQUEUE_RESTORE, re-arming last_queued to the migration timestamp while the
+> task is still sleeping. The later real wakeup (ENQUEUE_DELAYED) tries to
+> re-arm last_queued at wakeup time but is suppressed because last_queued is
+> already non-zero, so sched_info_arrive() folds the whole sleep duration
+> between migration and wakeup into run_delay.
+> 
+> Fix by not re-arming last_queued for a sched_delayed task in
+> sched_info_enqueue(). The wakeup path clears sched_delayed before reaching
+> sched_info_enqueue(), so it still re-arms at the real wakeup time. Plain
+> runnable tasks and load-balance migrations are unaffected (sched_delayed
+> tasks are excluded from active load balancing).
+> 
+> Fixes: 152e11f6df29 ("sched/fair: Implement delayed dequeue")
+> Signed-off-by: Wei Yang <albinwyang@tencent.com>
+
+Per my understanding, it looks good to me,
+
+Reviewed-by: Chen Yu <yu.c.chen@intel.com>
+
+thanks,
+Chenyu
