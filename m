@@ -1,75 +1,72 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DA2927603F
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 17:34:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0152C2D5432
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 17:37:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789839292; cv=none; b=TdfSiIb5FEuVRQ5KmadJeNguGICDVAOnkKqLPfzA0+6tdqkO5tvaMIpWRM7Avjp/Gv1J9BKzVbtpoFT4gDKUpCXmxKdz8CH2Nq26kwHTAlK7JSMMoSpfcdPWpCTMFkW5VuCaDwV0TAFVKuzYpQLy4Fz9TPpKPqxLn3i3Bcve7HM=
+	t=1789839475; cv=none; b=LYQhsmOfTsTyzm8omM5UPxrK7+Mb9aZ5F1Y13p0vK2ULIh5amJYN5RDCUpp2yyJiPIxFQJnV8IimGH0JeVHBL+LtbP+x/DwP6TBuYgxf+PtZs/H4i0452mldnLyxn4Xdfw6YsH6KyFX2b+RTWiPAlmkuvlCCQ493MrQUT5x/S9Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789839292; c=relaxed/simple;
-	bh=tXPMv/Z528AzLwHoqZJSLZNkBxU0ltXfHPgB+kUGM0I=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TKYBMJL6BSXFS7pg8YPGStFDpZAoxVJhyTDCMNno6naEqApJzqXWh5oGvWt7Iyuk/luqV9V0v2qSO0KDm8G5aYQpAArdrTqEIZ0ZTw+s35sQ3agTURAm/ZbWla8divv69a2NSon2GTXgZVkmWfOJK2Wzo2zwC4lPXb3g4/++KkM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aCoFo3lF; arc=none smtp.client-ip=74.125.227.140
+	s=arc-20240116; t=1789839475; c=relaxed/simple;
+	bh=A+LU2lOUO2STiPMwRjdZHK8qHreRR1b/wRLSvRu1GUc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kVEImVRHRg4KpHkN4Jb3AMm9npbE1hN5ctpdG8V8yCuYVd0KDl+hvX+kuCI/cZBDY39Ui1Mq493m/5sMcc6Iyne/I2fXxRgmaEdbP81nOp05x2nLO7NZ2qFwqet3cflxIBVITCf3wjnSLg9TFQ0shE8JjtxMxXC3hFU8Vif8xxY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lXm18EzX; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aCoFo3lF"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b5b07ec78so1228145a91.3
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 10:34:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lXm18EzX"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccda24afso1328470a91.3
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 10:37:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789839291; x=1790444091; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789839473; x=1790444273; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=E3sjbzhb8LLlJu3Xq4nSK1HUp2gy9IN+rCu4DEVUfQU=;
-        b=aCoFo3lFTKMrg7PIcA1ejGDI13I3vmHJBmZnC8El2K/sCTwSTghub9PQNrVm3hIzPH
-         zE91qUQTHGt+8hP1wjX0wJ6p02E6neQ4IActu8nvkh50uU44QbP7FN3ApDSpIDUH5QgJ
-         n8ReyfqBrdL0GMSrmXp4my3nW6LGdKXxuXC2ttTnT8VD9B1dCEHXj4cpGxW7XFZnfz/O
-         kIMAr9bqHrz1WQ0sy0//sk/uumvk0YjDluST7jUh95HELb/m4lTa0UGAUrqG81uoVlHe
-         BJtDY8BbuSBo9aL1o80wIQLCeEkVbUNc0MvIhuMmAGR467maNOrQk3JeFPL8osGhgGYw
-         08TA==
+        bh=/+svSdwCuLzAYpRiv4o3QatmA9OQccLmNnyQlBGEnHs=;
+        b=lXm18EzXukKphl5k9+Dn+6udG91k5TXMhIR4pJsUQ5/k2xnN4UHaCvuMAjuV9CEMaM
+         HwPR0auwyovE4C532CA9+ShiKUolXzNdJehuMnl4p5vZqWpQPqbNTwzLD0c4Bi8SB4qV
+         4rJTM5tm7y6hTJJk+Zpf3W8KWys0bHEzYAF+vEUeU9UR5NfcbG3vfDNI2lwz93W7b91g
+         RmQ+6RPUnjTODCAvP9mCf7j7VXUdlgbSi8QLmHNCf5eB8hVfiGwo+jgr47K8kVABWUHW
+         mBDua7HgN2pTe/TSQvfdFm+xmy5NiXmUQPW7PAWOTH9bEuyvpOI/thhD9bzWkNLUL5EU
+         CGGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789839291; x=1790444091;
+        d=1e100.net; s=20260707; t=1789839473; x=1790444273;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=E3sjbzhb8LLlJu3Xq4nSK1HUp2gy9IN+rCu4DEVUfQU=;
-        b=AjBrtq6qNaAS0YoocX1wW9OizlcgN03QC7Nki46Xaayw43j4N6cQX7IYIXefsrDKWt
-         eMoPcR2+mx4V5mQpo351ot9yKdfHE2cvrLRhEE5J61++qly3PpjNCkTpHuE6qYvlgCDg
-         PyGtAkd1tUIt8nms6hEpAp0YgyCxFByGIeLvjL/7WyDE8tbnAqGO9ImosljYRtIm6yDD
-         Yeo+/ZVvvc8OOBW4cn8UZjmxynaO3otl6TpTDU4RIDY2laea4/m/K8FK6R3N1vfgPBFs
-         V9jnw+He5sPYBv7V7cw6URh0qTmnxXGZyHzNY1sm0D5P6tWHDJ0gqIwdl6k1oS79higQ
-         SEbA==
-X-Forwarded-Encrypted: i=1; AKwUvBxCeNZwVLxraKXPT1rd6EVMTQ/a0OhRW8NvpODa62T4nQIajmHANt6hmOkpLvYyJoyarNIedP6wN8Ffr0M=@vger.kernel.org
-X-Gm-Message-State: AFuF++lfnAGvltZfcxDC0B8udMz+fXJhrbW1fmphj2K5VcQbKDnsowel
-	yKnppNhoDKYltNyOsdk7KHgTgbZ9Raa3F5cnu7jlM0Uav0We36rdR221
-X-Gm-Gg: AYBFou0yEZHvgnRH/hZHtVwWM7S5Llh1WnDYxihoYKwcd4f4QqpewdvJ1S0Ff5TjVm8
-	kFa7MeB+f0UQlZJXMs/0E2zIHtUNB91OYNH79QI7PoKF7fKuTCW+EaNXf5LI9nhHL0auXIXhQlE
-	DAjb+phmzmm+hMFazSQouhTV8Xzu/vyTABmPp2BbcpMkXvwWTad+FTZhlovFeW82WVlYPPjtOBn
-	Ba/7POmsSuF+BP9J35U6+81esp1kTgrtxc5+ZNMPr/82q1Y+nLiCKFS/A3bswCU3x1v1lIyccVX
-	L30d+NVSmzAFChVPkGJFbNy3Vx48YxgYEW7Tce5+UnJXgF4DiXswEsSZv7K68vSorkJxH9iQfEy
-	a44YP2r2JHsCEVBGKkNnYsBkzfNnMdJc/grpk8FxImshuyGmhraZVTtbbbojYkDJvxAqmf8uuti
-	suDVpMuVI6UUfvGVl5cj6Cu3u3DHxy2RYWMEZI8my35K8cgyVlxVo+rQ==
-X-Received: by 2002:a17:90b:1dce:b0:39e:6a80:dda3 with SMTP id 98e67ed59e1d1-39e6a810c76mr4792250a91.42.1789839290805;
-        Sat, 19 Sep 2026 10:34:50 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a026898b76sm3234229a91.16.2026.09.19.10.34.45
+        bh=/+svSdwCuLzAYpRiv4o3QatmA9OQccLmNnyQlBGEnHs=;
+        b=geGu912UhuKuRl8GN/mJvunMYe4t/VYdCeJ/QhOR1skTMJwJcAGofhp0/386/9O9WJ
+         7IaxuB6UWfTPZL/YQJcFWB9AkIXxdcpwWowJ7+Hma+LOWHnVYZljxD9Bez6o2jic8uQp
+         n/uP9+S7+WBFdiiYCFOdxYO0HLYpCoGDQvgjyG4tpNQz08hMyr2P2Qezk3Mq5Vd6qxgF
+         ZDPAGKya+cmYn4qighX+hxwS4koEF10CMmfOqPQhtPQTDa2nkITrFM2vyRbHbtZBdxeW
+         c7r6MFyZw3HHf9jsfhRpXs79ifOOsLbtbjbMdkwMfQAz2lRCay9j9ViucnS7m2D7bSdw
+         JrpA==
+X-Forwarded-Encrypted: i=1; AKwUvBz7UIccsDXrZuV9bbp4WBT4mysbsxsY8Y8Oa8og+YXK0gfw3tF0lp/CBpGj+pqKyiVirJ7LlE0nULe+Q3k=@vger.kernel.org
+X-Gm-Message-State: AFuF++mstA0xPdmr3BBCPoTjOEucWv5whVn9XormtGwSQORsl6sEatE/
+	h5MeCf8tGxq/VsUWrw1TaWY+2bv2clwVmciyIOZ3iskWCWy92W8xOKQz
+X-Gm-Gg: AYBFou2ZgkYn5YNmv3vheI3p1RUFUDNNv6DZqAEkXgJjFm2V2oafuwTo9uZWx/6acOi
+	drh1eQ0szItbcWvptuPiIrdt+wP0jGVd3fk0xgSohQlLrCJPvZ1GDJvzbe3ERrSonSrLdOLR6hy
+	snkQfxracyKJxCQQ1DbxFQL3qZRNZg4ytjC8r1Sfg98ItlMoLKOGKCs03G1a0OXqiqhknsf1KH3
+	wpSFgooNoscdqnnzZIA2eZoq3IDXhKY5fuInmBxFhtukAB31ZiOMhMKwWp0fC56jeskIqXDCOje
+	UNDHJBiyTsNCPAYNWNVg30a6H8euRdwP4vINvVQcIJ+RWqnHNDZlklGEQJn6yfYvyX6sx5RQQep
+	BJqbhUaK0mAuOl5WdKhClamG2mSM83UgQB+tPg6IL7KhQ0wAQQaljc5KC0947un1vXMlsb18d84
+	43jOtruqgow9+jR1ucgW4l7opkOQlo9yfNhQ/NPe3uhJR1tE1TnAcjFuEK2CpktQi8VkKlwORdd
+	e/2o0Fg7FGaAwVM
+X-Received: by 2002:a17:90b:2b8e:b0:39d:efa9:cd25 with SMTP id 98e67ed59e1d1-39e54c59c74mr17536897a91.2.1789839473321;
+        Sat, 19 Sep 2026 10:37:53 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:814e:e9d3:767e:9a2a])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c3145e5sm5820981a91.5.2026.09.19.10.37.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 10:34:50 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Hannes Reinecke <hare@suse.de>,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	Robert Love <robert.w.love@intel.com>,
-	James Bottomley <James.Bottomley@suse.de>,
-	Joe Eykholt <jeykholt@cisco.com>,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] scsi: libfc: fix directory server rport memory leak
-Date: Sun, 20 Sep 2026 01:34:05 +0800
-Message-ID: <20260919173405.3718408-1-lgs201920130244@gmail.com>
+        Sat, 19 Sep 2026 10:37:52 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Alexander Aring <aahringo@redhat.com>,
+	David Teigland <teigland@redhat.com>
+Cc: gfs2@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+	syzbot+b114bbe890d76037877c@syzkaller.appspotmail.com
+Subject: [PATCH] dlm: make lockspace join wait killable
+Date: Sun, 20 Sep 2026 00:37:47 +0700
+Message-ID: <20260919173747.327963-1-ngocthang2710.1999@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -79,65 +76,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-fc_rport_recv_plogi_req() creates an rport before allocating the frame
-used for the PLOGI LS_ACC response.
+do_uevent() sleeps uninterruptibly until dlm_controld answers the
+ONLINE uevent via sysfs. If the daemon is absent or stuck, a task
+creating a lockspace through /dev/dlm-control blocks forever in D
+state, cannot be killed and trips the hung task detector.
 
-fc_rport_create() does not add FC_FID_DIR_SERV rports to the discovery
-rport list. If fc_frame_alloc() fails while handling a PLOGI from the
-directory server, the function returns without starting the rport state
-machine or dropping the initial rport reference.
+Use wait_event_killable() for the join event and return the error to
+new_lockspace(), which already unwinds through out_recoverd. The
+leave path is left alone as it must not skip teardown.
 
-Since the directory server rport is not present in the discovery list,
-there is no later teardown path that can find the object and release
-that reference. The allocated fc_rport_priv is therefore leaked.
-
-Record when the failed frame allocation leaves an unlisted directory
-server rport behind and drop its initial reference after releasing the
-rport mutex. Keep the existing lifetime unchanged for ordinary rports,
-which remain owned by the discovery list.
-
-The issue was identified by a static analysis tool I developed and
-confirmed by manual review.
-
-Fixes: 3ac6f98f4113 ("[SCSI] libfc: correctly handle incoming PLOGI request.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Reported-by: syzbot+b114bbe890d76037877c@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=b114bbe890d76037877c
+Fixes: e7fd41792fc0 ("[DLM] The core of the DLM for GFS2/CLVM")
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 ---
- drivers/scsi/libfc/fc_rport.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+Problem: syzbot reports "INFO: task hung in do_uevent"
+(https://syzkaller.appspot.com/bug?extid=b114bbe890d76037877c).
 
-diff --git a/drivers/scsi/libfc/fc_rport.c b/drivers/scsi/libfc/fc_rport.c
-index c25979d96808..884b233c2f72 100644
---- a/drivers/scsi/libfc/fc_rport.c
-+++ b/drivers/scsi/libfc/fc_rport.c
-@@ -1848,6 +1848,7 @@ static void fc_rport_recv_plogi_req(struct fc_lport *lport,
- 	struct fc_els_flogi *pl;
- 	struct fc_seq_els_data rjt_data;
- 	u32 sid;
-+	bool drop_rdata = false;
+Cause: creating a lockspace through /dev/dlm-control ends in do_uevent(),
+which sends the ONLINE uevent and then sleeps in wait_event() until
+dlm_controld writes the result to the sysfs "event_done" file. With no
+daemon (or a stuck one) the writer sleeps in TASK_UNINTERRUPTIBLE forever:
+SIGKILL has no effect and khungtaskd fires after the timeout.
+
+Fix: use wait_event_killable() for the join event only and return the
+error to new_lockspace(), which already unwinds through out_recoverd. The
+leave path is unchanged, since it must complete teardown.
+
+Testing (x86_64 QEMU/KVM, lockdep+KASAN, hung_task_timeout=20s): a static
+repro configures a local comm in configfs and writes DLM_USER_CREATE_LOCKSPACE
+to /dev/dlm-control with no dlm_controld.
+ before: task stuck in D, hung task splat, still D after SIGKILL.
+ after:  no splat, task exits on SIGKILL, no KASAN/lockdep reports.
+
+Open question: a late "event_done" write racing with the error unwind is
+safe because kobject_put() removes the sysfs entry (waiting for active
+users) before the lockspace is freed; happy to add an explicit kobject_del()
+if you prefer.
+
+ fs/dlm/lockspace.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/fs/dlm/lockspace.c b/fs/dlm/lockspace.c
+index a9c98b4f378f..5d6a752e6650 100644
+--- a/fs/dlm/lockspace.c
++++ b/fs/dlm/lockspace.c
+@@ -190,6 +190,7 @@ static int do_uevent(struct dlm_ls *ls, int in, unsigned int release_recover)
+ {
+ 	char message[512] = {};
+ 	char *envp[] = { message, NULL };
++	int error;
  
- 	lockdep_assert_held(&lport->lp_mutex);
+ 	if (in) {
+ 		kobject_uevent(&ls->ls_kobj, KOBJ_ONLINE);
+@@ -203,8 +204,16 @@ static int do_uevent(struct dlm_ls *ls, int in, unsigned int release_recover)
+ 	/* dlm_controld will see the uevent, do the necessary group management
+ 	   and then write to sysfs to wake us */
  
-@@ -1940,8 +1941,10 @@ static void fc_rport_recv_plogi_req(struct fc_lport *lport,
- 	 * Send LS_ACC.	 If this fails, the originator should retry.
- 	 */
- 	fp = fc_frame_alloc(lport, sizeof(*pl));
--	if (!fp)
-+	if (!fp) {
-+		drop_rdata = sid == FC_FID_DIR_SERV;
- 		goto out;
+-	wait_event(ls->ls_uevent_wait,
+-		   test_and_clear_bit(LSFL_UEVENT_WAIT, &ls->ls_flags));
++	if (in) {
++		/* don't hang forever if dlm_controld never answers */
++		error = wait_event_killable(ls->ls_uevent_wait,
++			test_and_clear_bit(LSFL_UEVENT_WAIT, &ls->ls_flags));
++		if (error)
++			return error;
++	} else {
++		wait_event(ls->ls_uevent_wait,
++			   test_and_clear_bit(LSFL_UEVENT_WAIT, &ls->ls_flags));
 +	}
  
- 	fc_plogi_fill(lport, fp, ELS_LS_ACC);
- 	fc_fill_reply_hdr(fp, rx_fp, FC_RCTL_ELS_REP, 0);
-@@ -1949,6 +1952,8 @@ static void fc_rport_recv_plogi_req(struct fc_lport *lport,
- 	fc_rport_enter_prli(rdata);
- out:
- 	mutex_unlock(&rdata->rp_mutex);
-+	if (drop_rdata)
-+		kref_put(&rdata->kref, fc_rport_destroy);
- 	fc_frame_free(rx_fp);
- 	return;
+ 	log_rinfo(ls, "group event done %d", ls->ls_uevent_result);
  
 -- 
 2.43.0
