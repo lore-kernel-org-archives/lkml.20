@@ -1,30 +1,29 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C3C83CBE79;
-	Sat, 19 Sep 2026 09:44:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B75A7379ED4;
+	Sat, 19 Sep 2026 09:44:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789811101; cv=none; b=Ku7gK04ciiQKUnfqWWP+6TJ9OkoSz3AIerG7mVZ9P6f1EmKzJHh9K7qWOpZy6PlwurO6ksUNiNC7HBkc+d2ITZKTVijcU6LSExTo4j2A6/qwIdWO/3TBZMpJvY0c0/6WJz7D2hIk0WNIFCCiI0i+TwxQLxGVw9BYfGfZeT4ovsc=
+	t=1789811101; cv=none; b=XGuWzt8XJFHxOWp2YPjd/f61rmDwGKzNcGop8M0D5X/COWVvjL3UwI3Wk5ghGU3+uXudkQRTw5mIJ9VVo1Tjah9Vy0CmAs10iuWDCdRN6jl7Tpmm3aMtZbtK0NImp6XA5VbjnSHptD5+A+REP7YX+x8ddvXkQjGbo0XHDluOgXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789811101; c=relaxed/simple;
-	bh=J0VzSDZQmuR/ny4xw4pcK0QXPE0s4hb51DZx21HbVTc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JBceb/bYKmI526E1uiqpd0W/X74HImP2merw8HUGSGSe5Mwok3h6zEWUIzaEJmHGpG+LJt4KstkroMpYoDrgRbhlEkS/cxqQEogTPwn+2GZJdh+yZFg3poGZ73DJgLp+54qXVu/3mSIym5OyY/ErC1YrVDxyp/6ub/Wvn2nuPDE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=hJzQBPlb; arc=none smtp.client-ip=117.135.210.4
+	bh=LBXWLT6zpmOvJBVjpiGlVWsXd1BU+jaESa/VoO4WcBM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CJe3/c/frWSkNbV83ikwIDj+JNS13tp+oyTFDHV1nLfLn+onpLQrGWetdLWScHKWd4GvcfaJgdNZICz6a95g0jn7TDONaGM30KcX9V8DjDeDwVXltf9BNU3uC+PpCrX0GA4tjVtcggr3EZJTS84/4qzmPagbRv+NIT4yVopWZXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=grl20je9; arc=none smtp.client-ip=117.135.210.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="hJzQBPlb"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="grl20je9"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Il
-	rQt5VrdhD9gIkiQAfFKZQskxVSv6LD4qqQfdMNGgw=; b=hJzQBPlbFV1h4tRMDn
-	gaoNsMuib3Ca4eU4Ndo9DPfetlMSphMfYEJEzm1cNvpLRKT51VJcEnqV6BKxsgys
-	LHmdfkizEfKsAHtWZSUHT1Jzfe9UiitPbtVEM78NeuJ3RndOak5/TzByOcuaVmC6
-	VU6LkyWbT+ZES0M9cFWOFmXDY=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=+K
+	xGjC8dWEgeGk9sMimmqqU0ygs8py1rnPREC6LRd/o=; b=grl20je9Ce4VU2pk27
+	yToVB/Gy8a8f2j2x65LZKOHzvjo07lqQN6cfM9rQso9osoOAoYpUHeg6nqY/SEE0
+	bt/c3UxBp5SieZCQ7DkoRA7hYcObpvpHkqvWwltXa7IKZqym4xcVq9f1VMW4khtG
+	w+9Lqt+0kikqS92P3IGfFJjEQ=
 Received: from localhost (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wAn5MxhWa5qaUAsBg--.43112S2;
-	Sat, 19 Sep 2026 17:44:02 +0800 (CST)
+	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wA3_p9gWa5q3POmBQ--.726S2;
+	Sat, 19 Sep 2026 17:44:01 +0800 (CST)
 From: Hui Su <sh_def@163.com>
 To: bpf@vger.kernel.org,
 	Alexei Starovoitov <ast@kernel.org>,
@@ -43,12 +42,10 @@ Cc: Yonghong Song <yonghong.song@linux.dev>,
 	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Hui Su <sh_def@163.com>
-Subject: [PATCH bpf-next v2 1/3] bpf: Report BPF_F_PREORDER in cgroup program queries
-Date: Sat, 19 Sep 2026 18:43:58 +0900
-Message-ID: <20260919094400.600585-2-sh_def@163.com>
+Subject: [PATCH bpf-next v2 0/3] bpf: expose cgroup preorder attachment state to userspace
+Date: Sat, 19 Sep 2026 18:43:57 +0900
+Message-ID: <20260919094400.600585-1-sh_def@163.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260919094400.600585-1-sh_def@163.com>
-References: <20260919094400.600585-1-sh_def@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,76 +53,65 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wAn5MxhWa5qaUAsBg--.43112S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tr1rXr17uF1rJFyxZrWxtFb_yoW8Kw4kpF
-	4vqFW7C3W7Zr1aqa18t3yFvFW0g3Z3XF1UCF9xJw15uay7Wr1xtr92yFW5uFy5ArW7Ar10
-	vF90vrn8WF1jvF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zioq2tUUUUU=
+X-CM-TRANSID:_____wA3_p9gWa5q3POmBQ--.726S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxWryDuw1rWw4xZF4DJw1rtFb_yoW5Gr4UpF
+	WkurZxWw18Xw13AF1xA3y09rZYkFs3XF4UCFy3t34UXF4xXry0yrWSkF15Zr43X39xJr17
+	Zr9Yvr9xW3WjvFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zi75r7UUUUU=
 X-CM-SenderInfo: xvkbvvri6rljoofrz/
 
 Commit 4b82b181a26c ("bpf: Allow pre-ordering for bpf cgroup progs")
-introduced BPF_F_PREORDER to request pre-order execution across the
-cgroup hierarchy, altering the effective prog array ordering.
+introduced BPF_F_PREORDER to request top-down (ancestor to descendant)
+execution ordering across the cgroup hierarchy. While this flag is stored
+in struct bpf_prog_list::flags and affects the effective program ordering,
+direct BPF_PROG_QUERY currently reports only the cgroup-wide flags and
+omits BPF_F_PREORDER from prog_attach_flags[].
 
-While pl->flags stores BPF_F_PREORDER for each attached program,
-__cgroup_bpf_query() currently does not report it. When querying
-attached programs (!effective_query), __cgroup_bpf_query() fills
-prog_attach_flags[] with cgrp->bpf.flags[atype] for all entries,
-omitting the per-program BPF_F_PREORDER attribute.
+This series extends direct cgroup program queries to expose the per-program
+BPF_F_PREORDER state, adds selftests to validate the reported flags, and
+updates bpftool to support inspection, attachment, documentation, and bash
+completion.
 
-Extend direct cgroup program queries to merge (pl->flags & BPF_F_PREORDER)
-with the cgroup-wide flags when copying prog_attach_flags to user space.
-Only BPF_F_PREORDER is extracted from pl->flags to ensure transient
-positioning flags (such as BPF_F_BEFORE, BPF_F_AFTER, BPF_F_ID, or
-BPF_F_REPLACE) are not leaked to user space. Also perform both ID and
-attach flags copies within the same hlist iteration.
+Structure of the series:
+- Patch 1 extends __cgroup_bpf_query() so that prog_attach_flags[] includes
+  BPF_F_PREORDER for direct queries.
+- Patch 2 adds query verification to cgroup_mprog_opts selftests for both
+  direct program and bpf_link attachments.
+- Patch 3 updates bpftool with bitmask attach flag formatting, preorder
+  attachment CLI support, bash completion for valid flag combinations,
+  and documentation.
 
-This extends prog_attach_flags[] with the per-program BPF_F_PREORDER bit.
-This can introduce new prog_attach_flags[] values with BPF_F_PREORDER set,
-for example 0x40 (BPF_F_PREORDER), 0x41 (BPF_F_ALLOW_OVERRIDE |
-BPF_F_PREORDER), or 0x42 (BPF_F_ALLOW_MULTI | BPF_F_PREORDER) depending
-on the cgroup-wide attachment mode.
+Testing:
+- Verified that baseline kernel reports 0x2 for PREORDER multi-attachments
+  through BPF_PROG_QUERY.
+- Verified that the patched kernel reports 0x42 (BPF_F_ALLOW_MULTI |
+  BPF_F_PREORDER).
+- Selftests cgroup_mprog_opts (all subtests) and cgroup_preorder pass in an
+  x86_64 QEMU/KVM guest.
+- bpftool and its documentation build cleanly without warnings or errors.
+- Bash completion verified for standalone and composite flag combinations.
+- checkpatch.pl reports 0 errors and 0 warnings across all patches.
 
-Older bpftool versions treat such combinations as unknown flags; bpftool
-support is updated later in this series.
+Changes in v2:
+- Rebase onto bpf-next and drop the Fixes tag, as requested by
+  Alexei Starovoitov.
+- Document the userspace-visible BPF_PROG_QUERY flag extension.
+- Factor the duplicated PREORDER query checks and fix comment style.
+- Clarify PREORDER ordering and single/multi attachment semantics.
+- Fix bash completion for valid PREORDER flag combinations.
 
-Signed-off-by: Hui Su <sh_def@163.com>
----
- kernel/bpf/cgroup.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+Hui Su (3):
+  bpf: Report BPF_F_PREORDER in cgroup program queries
+  selftests/bpf: Test querying BPF_F_PREORDER cgroup attachments
+  bpftool: Add support for BPF_F_PREORDER cgroup attach flag
 
-diff --git a/kernel/bpf/cgroup.c b/kernel/bpf/cgroup.c
-index 696b27383974..eb9e0985ac43 100644
---- a/kernel/bpf/cgroup.c
-+++ b/kernel/bpf/cgroup.c
-@@ -1515,19 +1515,19 @@ static int __cgroup_bpf_query(struct cgroup *cgrp, const union bpf_attr *attr,
- 				id = prog_list_id(pl);
- 				if (copy_to_user(prog_ids + i, &id, sizeof(id)))
- 					return -EFAULT;
-+				if (prog_attach_flags) {
-+					flags = cgrp->bpf.flags[atype] |
-+						(pl->flags & BPF_F_PREORDER);
-+					if (copy_to_user(prog_attach_flags + i,
-+							 &flags, sizeof(flags)))
-+						return -EFAULT;
-+				}
- 				if (++i == cnt)
- 					break;
- 			}
- 
--			if (prog_attach_flags) {
--				flags = cgrp->bpf.flags[atype];
--
--				for (i = 0; i < cnt; i++)
--					if (copy_to_user(prog_attach_flags + i,
--							 &flags, sizeof(flags)))
--						return -EFAULT;
-+			if (prog_attach_flags)
- 				prog_attach_flags += cnt;
--			}
- 		}
- 
- 		prog_ids += cnt;
+ kernel/bpf/cgroup.c                           | 16 ++---
+ .../bpftool/Documentation/bpftool-cgroup.rst  | 25 ++++---
+ tools/bpf/bpftool/bash-completion/bpftool     |  4 +-
+ tools/bpf/bpftool/cgroup.c                    | 55 +++++++++-----
+ .../bpf/prog_tests/cgroup_mprog_opts.c        | 72 ++++++++++++++++++-
+ 5 files changed, 134 insertions(+), 38 deletions(-)
+
 -- 
 2.55.0
 
