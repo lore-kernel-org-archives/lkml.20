@@ -1,100 +1,180 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9784437CD20
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 06:50:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66E9F3403E8
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 06:52:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789800632; cv=none; b=TKNFsIJ0PE8AEAF2IDzlYAcCcTSjjoZjZ7xqLrhG47hJsuKr9CNpOGfvRAsjLz4woC0Nlot2mFDOziBoWOfdRutB12kBm0eI3mtB6RCHg8aKPyiiSd9/UsPnQGeKhR13iWvBlPiw7aKdH6asTETFCNaUkiXfCM+kVLrWSk9N1PA=
+	t=1789800739; cv=none; b=Sfgxol8SUPr0TCY2L/2NR9pe5hNiCcDYdQSKhIaw30ba1FBLCvvyTTlgqTbMbo9dOnTbT6nX/aRP+QNKP1tvbRH7W3TRE9p3toxXn1uvxcbpbypTNtw5dwy0qnD5C4F4c4AYy4HlEb5GxuuitQUtLDW+toFdtxiZMBIuCakBXBc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789800632; c=relaxed/simple;
-	bh=Fy0hcrpc8gMaop8QcMQpaxARuL214HEekfRBW/zK9rY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Cv0Eeojx0sMUsnHOechDxVaTZfdZG/w4rTBuIW9+AldDOUKCdWQ80xuBDABjJlObGjV/fcP8P24e4HhrmC6QYURZHFDI6WIPjfugyZzktIeyOLmQaqdAEsIj7ZZqyvPscLchKP3rv3esfRwcvXTsJXmQTSJr+QJ7dkRWWKi0K6E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MIPvq99o; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789800739; c=relaxed/simple;
+	bh=WZ0ZRhan8lsrqK8t27uFdghXGLPk3AZWuDzdY70eeCQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XvMAzEcOrQQiFCQLnlfWpgPMUHvb+0qNz2GEsWoDxh0Fo3eYQisgjlInMG9Ohwt+1k2ofhlzpUkaauwyfvm3K7AxjMWMy0cyfU/ZYbP/0KaR+8tC8poLzgANHFDBPytOks+0svCb06Ht6DpG9ZaPm42pRAsFXolaAdWCn3b1rRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RoYNJa7g; arc=none smtp.client-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MIPvq99o"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69C411F00901
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 06:50:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789800631;
-	bh=Fy0hcrpc8gMaop8QcMQpaxARuL214HEekfRBW/zK9rY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=MIPvq99olCRTHkZm1a4B8dnyivpeG0vonLr8KVJro7Umjvj9r0UHj8ViaTpLGli81
-	 7F6VI1ERxQQ9TsQUsQ9qCudOMvh8Fk1oS07eNXTxn4buUuVhd8rszx4HuBGEFEnJhB
-	 VjNFJjUT7d9mur+Simr0L5yO/ENwKxrpJTgO7iajCPeSZxc01krhauFJF6BKaOpsTB
-	 TYe8xj1URdMs/kzH3QOQrF5L8Wa4FxwiFNyiDSND5OIAJMAYpGqyZN1rnwdRUf8WWL
-	 66IyqD4hve/foAj8TIbwOXbjECgNfO8jwsJZ/WnjKdwLrLZ2KrnYROiRXvSq5YJ5m4
-	 bMElivfCyeDOA==
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66fabb1a601so1300673d50.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 23:50:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwAa5tS2vHgJIftYLHV5IafzqymDmSEGl55+4zrqTN4rhi8RZce9BRLiEAVfyxW52cTzjR8PQgBEodOocM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lOfHETxxxz/3y1CXfLHWWFH/gWnqDKJljmyKw7oV+eGhOerZRe
-	87mFyg/1OTf7UZKrc04W2mOufhq2aKI6pYVrZN07wUaCVJeDnJBK66m0lLNRQyqX9Af3XjLM4YL
-	1wEJ07+GEx1AM1cgCCbXAp78b2aal6XwCCY+Hm6RK/g==
-X-Received: by 2002:a05:690e:80a:20b0:66f:c1bc:c085 with SMTP id
- 956f58d0204a3-6717fdf9ab7mr1037245d50.77.1789800630447; Fri, 18 Sep 2026
- 23:50:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RoYNJa7g"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-86ec25cf7ecso2379838b3a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 23:52:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789800738; x=1790405538; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DhDYniwbZK/cLIuF0+kBZ9daKL8rPuxnkEwAZ8qtlXY=;
+        b=RoYNJa7gqWJwFbv9/xLXnL7aq0q+LOGxD3H4MsrAuxzY+KTENQvvEOD3l2OG1YtVDc
+         +MBTjKbmLFl7UwkfIf9fiTAo9qpd1+7ou5ZyoH652IgcR8rBzeL4YcPAYp7+/qrpJ99k
+         lq3/BGoRR974nSk/+xYCCaMX7SFdjAYz+9wMrabqWuUbxklrkCxqjb+rP6GMLPOK/sb7
+         Pjj+rLWWuFsguTMmEE+OqF/cIt7wp82i7CZCF6Uf9YgBj15mtnZaOGBYrMKEwxMHEBwd
+         t6XAbfgTdN9D+dSpQV7AHzBeIeOwQ927xMmfip/EiEqdRUr6ZQuw6FJHomqp/Yoj/pCF
+         oNvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789800738; x=1790405538;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DhDYniwbZK/cLIuF0+kBZ9daKL8rPuxnkEwAZ8qtlXY=;
+        b=RJpOYgsTPPmPu6mXjMXCwZoFxqVhL0a+glFNPOC6RNpLLmRZ/edMd+iKTFJH3Pcs/J
+         5Ggrye5klI1ok8fS85W21QWxUOHuQIq8/sU8zsV9QL12rGvXL7EG9MIKtO0+fhfOkOrJ
+         7vczItGEPufJp1WNZoDeqf7HEJFfXgyKCUAgOeVLhAc0Zbhaq981gAzl1YjodHXut++S
+         ECsJLqSu9+o8VjmQHjdd/0T174DF9ZwOiQ2VLGnV29jJQ8iMrNou7dcQyg7Cof9UpHKv
+         ObtiWD9qHZohENRlKjjd246w9viHrB/+i4En6aujunZUOrPMkVRHRdgscMmGHDWh8CJ6
+         WmWA==
+X-Forwarded-Encrypted: i=1; AKwUvBwTVGYZivf928cl2/u3dcmV2EHAIoHxPKwnWwYUIh1G2Wxz/QKbIZQ+h0wcY8w1u4YLNNAEdaIb/SUcwK0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nJ89BLCtytfqCOqWMWJ+dob4p9DtJhoVlJNC5eHKc1X4KTK8+s
+	Ox+RWF3yK/G2a8DHWQxDfh6nMiWIrJ/aQcKqt47gTZ7qSgCbzAUfM4WO
+X-Gm-Gg: AYBFou0b5nbFLhQPMYybKiQ63zz4BLbzxfj1PLwe6/1HsvAjDVaKIHebaoCeKh9VJCJ
+	YhlLaqxEETZ5RydXBdvwlXZH4WMya16D5Muz3scWlSuv6wKAveJaPBrg5UGD2r1K+AAHfZPMnPL
+	LirsfeRhSEjgEUr6/y3HDC+iBZ+ld9tsnqL2pwGIK3M2xILu+WYdUGT5H85pMuFfIsODVR1vOgH
+	dOEEIsNnLTgj5MrlNntyU2ppmAq5gUVEjSvQVlJjpPPfrvHu6IFUAt+vYZk0QmALfAc/uCNJHni
+	Gcz1D+ZBvyREK+HkrhipXYbob6B9K2nOFsOf7MhMnKakivgNeEagPw5VPm9rH6v9KCMl+kwkfUe
+	uwLYGGIiQu5tX1wkpahpCk+kXpXpH7V3Uz4FBsHwRCWbEA0u5n4rZQtgcUTtaBp22klL53Ha62o
+	WhUdciRXjMd6TWe/wTAMDQncmDjyt0+wjjavK04GpSMCnNdbaGuOlStls0MP/2eHkEEc6o0Hoop
+	0/4VUIiq0Egbc+h5DwXEJNUeycaGS43uQ==
+X-Received: by 2002:a05:6a00:3905:b0:874:72b6:7da4 with SMTP id d2e1a72fcca58-87472b680f6mr7159549b3a.31.1789800737620;
+        Fri, 18 Sep 2026 23:52:17 -0700 (PDT)
+Received: from abs.sf.dndws.com ([50.35.86.68])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a94f5464sm678077b3a.27.2026.09.18.23.52.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 23:52:17 -0700 (PDT)
+From: Tao <gongtao0607@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Tao <gongtao0607@gmail.com>,
+	"Chester A. Unal" <chester.a.unal@arinc9.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH net 1/2] net: dsa: mt7530: use consistent egress tag for trapped link-local frames
+Date: Sat, 19 Sep 2026 06:52:11 +0000
+Message-ID: <20260919065214.31604-2-gongtao0607@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260919065214.31604-1-gongtao0607@gmail.com>
+References: <20260919065214.31604-1-gongtao0607@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
- <5fdb3777-95a2-48f9-bb38-aa4ba3c96a81@kernel.org> <CAKEwX=MuW6q354nB3tyFTM8d3ox7LRaqcSfUxeATR=Sop5mZPw@mail.gmail.com>
- <5ca344de-bc34-4a9b-ab85-f553811a1d9c@kernel.org> <CAKEwX=N05iOC4hmiyTt5OxjAsOfU7_V8xGfmK_RgUyrKtuyUTA@mail.gmail.com>
- <CAMgjq7DJwGCHCAchcfi2Kcu+XHx2YnKXDj53e0t2kpG_GSejkQ@mail.gmail.com> <aqgMCIOFi0dKx_6L@fedora>
-In-Reply-To: <aqgMCIOFi0dKx_6L@fedora>
-From: Chris Li <chrisl@kernel.org>
-Date: Sat, 19 Sep 2026 01:50:18 -0500
-X-Gmail-Original-Message-ID: <CACePvbVMFA9N0nQers=sOnSXGbNhtNE0ewq47AJEH5Cr8imQXA@mail.gmail.com>
-X-Gm-Features: AcwNN1UsCayhu6qSBcp0NCeBygOCBz7cKHDcf9ihkAi9fMFOHSellJ6quiD_7YE
-Message-ID: <CACePvbVMFA9N0nQers=sOnSXGbNhtNE0ewq47AJEH5Cr8imQXA@mail.gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-To: Baoquan He <baoquan.he@linux.dev>
-Cc: Kairui Song <ryncsn@gmail.com>, "David Hildenbrand (Arm)" <david@kernel.org>, Nhat Pham <nphamcs@gmail.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Yosry Ahmed <yosry@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
-	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Rik van Riel <riel@surriel.com>, 
-	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 14, 2026 at 10:00=E2=80=AFAM Baoquan He <baoquan.he@linux.dev> =
-wrote:
->
-> >
-> > Is 9AM PDT fixed, or can it be adjusted? 9AM PDT is midnight for the
-> > UTC+8 folks.
-> >
-> > The time is still fine for me, though, I tend to stay up quite late
-> > anyway ;) so that time works fine on my end if the slot is fixed.
-> >
-> > Is there a calendar invite or something, please send me one, I'm happy
-> > to do a swap sync discussion there.
->
-> Thanks for opening this up for discussion. While the time slot is a
-> little late for me, I am not very sure if I can attend, will see.
+commit 3ac85bcfd404 ("net: dsa: mt7530: preserve VLAN tags on trapped
+link-local frames") changed the egress VLAN tag attribute for trapped
+link-local frames in BPC, RGAC1, and RGAC2 from MT7530_VLAN_EG_UNTAGGED
+to MT7530_VLAN_EG_DISABLED, with the intention of passing frames
+through without VLAN tag modification.
 
-No that time slot is too late for Asia developers. I don't think we
-should use that time slot for swap alignment.
+However, in MT7530 hardware, MT7530_VLAN_EG_DISABLED disables the
+protocol-level egress tagging override, causing trapped frames to
+fall back to the egress port's active VLAN table (VAWD2) rule. When a
+bridge with VLAN filtering is active, the CPU port is configured with
+stack mode, causing the switch to insert a VLAN tag into incoming
+untagged BPDUs (01:80:C2:00:00:00) and other link-local frames before
+delivering them to the CPU conduit.
 
-We should find a time slot more friendly to Asia.
+Because BPDUs arrive at the CPU with a VLAN tag (EtherType 0x8100
+at offset 12 instead of 802.3 length <= 1500), userspace STP daemons
+(such as ustpd) and the kernel bridge drop or ignore them, breaking
+STP convergence.
 
-Chris
+Use MT7530_VLAN_EG_CONSISTENT instead. This instructs the hardware to
+keep egress tagging consistent with the ingress wire format: frames
+received untagged on the wire remain untagged when forwarded to the
+CPU, while VLAN-tagged frames preserve their original VLAN tag.
+
+Fixes: 3ac85bcfd404 ("net: dsa: mt7530: preserve VLAN tags on trapped link-local frames")
+Signed-off-by: Tao <gongtao0607@gmail.com>
+---
+ drivers/net/dsa/mt7530.c | 24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/net/dsa/mt7530.c b/drivers/net/dsa/mt7530.c
+index 14692497e1a6..863f2079833f 100644
+--- a/drivers/net/dsa/mt7530.c
++++ b/drivers/net/dsa/mt7530.c
+@@ -1245,39 +1245,39 @@ static void
+ mt753x_trap_frames(struct mt7530_priv *priv)
+ {
+ 	/* Trap 802.1X PAE frames and BPDUs to the CPU port(s) and egress
+-	 * them with the EG_TAG attribute set to disabled (system default)
+-	 * so that any VLAN tags in the frame are not modified by the
+-	 * switch egress VLAN tag processing. This preserves VLAN tags
+-	 * for reception on VLAN sub-interfaces.
++	 * them with the EG_TAG attribute set to consistent so that any
++	 * VLAN tags in the frame are not modified by the switch egress
++	 * VLAN tag processing. This preserves VLAN tags for reception
++	 * on VLAN sub-interfaces.
+ 	 */
+ 	regmap_update_bits(priv->regmap, MT753X_BPC,
+ 			   PAE_BPDU_FR | PAE_EG_TAG_MASK | PAE_PORT_FW_MASK |
+ 				   BPDU_EG_TAG_MASK | BPDU_PORT_FW_MASK,
+-			   PAE_BPDU_FR | PAE_EG_TAG(MT7530_VLAN_EG_DISABLED) |
++			   PAE_BPDU_FR | PAE_EG_TAG(MT7530_VLAN_EG_CONSISTENT) |
+ 				   PAE_PORT_FW(TO_CPU_FW_CPU_ONLY) |
+-				   BPDU_EG_TAG(MT7530_VLAN_EG_DISABLED) |
++				   BPDU_EG_TAG(MT7530_VLAN_EG_CONSISTENT) |
+ 				   TO_CPU_FW_CPU_ONLY);
+ 
+ 	/* Trap frames with :01 and :02 MAC DAs to the CPU port(s) and
+-	 * egress them with EG_TAG disabled.
++	 * egress them with EG_TAG consistent.
+ 	 */
+ 	regmap_update_bits(priv->regmap, MT753X_RGAC1,
+ 			   R02_BPDU_FR | R02_EG_TAG_MASK | R02_PORT_FW_MASK |
+ 				   R01_BPDU_FR | R01_EG_TAG_MASK | R01_PORT_FW_MASK,
+-			   R02_BPDU_FR | R02_EG_TAG(MT7530_VLAN_EG_DISABLED) |
++			   R02_BPDU_FR | R02_EG_TAG(MT7530_VLAN_EG_CONSISTENT) |
+ 				   R02_PORT_FW(TO_CPU_FW_CPU_ONLY) | R01_BPDU_FR |
+-				   R01_EG_TAG(MT7530_VLAN_EG_DISABLED) |
++				   R01_EG_TAG(MT7530_VLAN_EG_CONSISTENT) |
+ 				   TO_CPU_FW_CPU_ONLY);
+ 
+ 	/* Trap frames with :03 and :0E MAC DAs to the CPU port(s) and
+-	 * egress them with EG_TAG disabled.
++	 * egress them with EG_TAG consistent.
+ 	 */
+ 	regmap_update_bits(priv->regmap, MT753X_RGAC2,
+ 			   R0E_BPDU_FR | R0E_EG_TAG_MASK | R0E_PORT_FW_MASK |
+ 				   R03_BPDU_FR | R03_EG_TAG_MASK | R03_PORT_FW_MASK,
+-			   R0E_BPDU_FR | R0E_EG_TAG(MT7530_VLAN_EG_DISABLED) |
++			   R0E_BPDU_FR | R0E_EG_TAG(MT7530_VLAN_EG_CONSISTENT) |
+ 				   R0E_PORT_FW(TO_CPU_FW_CPU_ONLY) | R03_BPDU_FR |
+-				   R03_EG_TAG(MT7530_VLAN_EG_DISABLED) |
++				   R03_EG_TAG(MT7530_VLAN_EG_CONSISTENT) |
+ 				   TO_CPU_FW_CPU_ONLY);
+ }
+ 
+-- 
+2.55.0
+
