@@ -1,158 +1,174 @@
-Received: from mail-oi2-f0.google.com (mail-oi2-f0.google.com [74.125.231.192])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9765B2EFD9B
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 05:07:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.192
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CD121AA797
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 05:13:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789794446; cv=none; b=FZdXTdgv3K2YcrNrg3JflFwLOBco5E5dYdiY0H2NUXXJBByb9ER2jIuY5RQ8/xzH2Asi7yP6gicaUCE1XbE5iFRbWH2q964fs6A2+YEmYfjnFZxFf9OlqJizH9GUt6Vbrs40V/E119gJIBShbYZ6G5Yp96EWiXuV3HE0gqH+RwM=
+	t=1789794838; cv=none; b=HFd6aecLdluGl2v5z/6yN2zlz/YVpZNUzn3tbwie9bItcWBbgV5AxQl5+STvfqMlmQxXOgACQCEy/NME9xj1nSr1gX7LDA0fFz8UtNRCbfQeDr3Yx/KdBjkkDX7rMLAAIYdo4s8q6mU3XynkudmdZdHCSOLK9KUICW9fLDSwpIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789794446; c=relaxed/simple;
-	bh=v18GxUnEeRxhSOHGS9h6egoTxw8jBvg2dyiZLgRddUo=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=LSFyAsEFBSxhvosiWDcSb5+4ZC4zMRM7qtaEhJihP6sC+M05681i+3Ugg8pkF0Al2aeq4tzrP7QuqrO2MnkQcAOgDOTWlh1Jnhi+WR9HCVmUGdgXrwGIotuld/t7tWC9vSU8xUiF/Hk6wyJWVWSmrPkxvO7dg4vTE794MaRYo3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.192
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f0.google.com with SMTP id 5614622812f47-4a4492f5cd1so260996b6e.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 22:07:24 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789794443; x=1790399243;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+	s=arc-20240116; t=1789794838; c=relaxed/simple;
+	bh=lHMtQlPa3byL8jNAGsmF9r4ihqPLoroI7pVk3f2IUP8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QP0u7LOIPn0zZV9OEfINzeCjGPTIpMdHoK9rLmO6wwWFxNDiVN3p7z+oGulrSfDjP9zDQUt2rWNAkeh0B5OwxFLtQZJzIO+u5Zqa4OhNf8BVLoHu87j/HbtzcKm94c1zj5ifmy0AN1u519O/6aGuvGgjX+ZfuQntdntyMM0duIk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=irCZIzt7; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=QQOq7q2f; arc=none smtp.client-ip=148.163.135.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="irCZIzt7";
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="QQOq7q2f"
+Received: from pps.filterd (m0167068.ppops.net [127.0.0.1])
+	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68J4rodw997125
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 01:13:50 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pps01; bh=Z4Q4
+	0DsBVvRwmAo7kP6nqyDzh2DHzkNABJPrQkBYyR0=; b=irCZIzt7QN2OGKSHeBqJ
+	IBAc5wsheklaKYWUf9ZRRqSrMikIoqLwyqRpFdvRt6zDh7Glmk6sUygNHOisQDqu
+	MEPlyKrEiWzDUv+ZeBQrWfP/oGA/6dWpboLDEuuPvMoZ+B7jiRFhimRCrKrWosv0
+	kD3L7j47n5sX8JoaOvmOfSH6iZO8hD202h9vGmX1NDH6UKc0L2pqI9puGLNJqkg9
+	IwB7/F/YWmDTZmLRyuKo/Lz6EwRzMOKGw2otj18J7N9Nn/CA5F4DyWCYqqHrpxnQ
+	YP0LUM4MnU6pJfOmgUQks8nKgYcJuVfsfuhX+aTGNcOtdriuBOuGWzKI9o8X+8D1
+	rw==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
+	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4gsbyha64w-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 01:13:49 -0400 (EDT)
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-90e8472ee1eso29686706d6.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 22:13:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=columbia.edu; s=lionmail; t=1789794829; x=1790399629; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XxzdYtFKH/Wd1tPRHa/P6bYgy1e4uRMJUfNAlpzw3sA=;
-        b=kmBMxxYlhJdOR0Px0gEPZDx9nqwj8JrUpXd1v2dK7+GMbv6R85l/ylJbirnOR7Z43E
-         yfguA/n8m8VUCoHSWGC32ot7csIV5sPhijelk+kNvWy8Yz4JQP5e4NyOXV5vhwtD+PuU
-         qoxydc5RUZ4tZ96VKvdW5Tu9y9W5w6rc1d+qKKKuW8xbqgQHTaWnu5gCZFIcQaozLvJJ
-         wHVeFKzMXTbfocOJ7wAkeAFFj01egfeJaDr1C7DkJMj3fPwGqM+G+LE9w/DNiHbMpqqX
-         dCVg7LM8WEPxzrCgjKTp2Wv0zp2cqOsgy7lI8AdbklsgmGuF8iahLzYxu7BLnkpOXubg
-         ac3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxBM2kf0y2TYHTb0vR00TTVU/cfCJmCkG5X2XJ6eoVpWesUK128duyAqPYlduooGC7N1dmxXS9Ny7oEVHI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kTOBZKopPSs3qZThtB0IuutqA0ewGA/Hxfyw45eFy58uEWY5+b
-	zsUrsOFyx7F0AnLWW6Q+lIyG8bO5PLXXTucXRzaTkCLf4907T6pE0mYsZBBFAM6jcykKjLfVcCd
-	MkS5UQaL2hOkTfEieaXXwjL+a4TOZcd+1B9lcEabnOo8abdx0DNNH8H0+4tc=
+        bh=Z4Q40DsBVvRwmAo7kP6nqyDzh2DHzkNABJPrQkBYyR0=;
+        b=QQOq7q2flh6g7HYf1GbjYxpu7SHJqFCZj25RyEGd45yRpLwylD0WORT/jsPqLm8a3m
+         7v7dQ+EyY2pOgQQDa4M/BgNyYjavp4BevTiKyIE4X/kFXpD+iUDdOjmpHxW1Zw8PidnI
+         jFYdqoAsjDoK3pB6nl3Cm5cXhrthpyNPZliGJQSlS8JusMV0TZBbl3tzIMytLzY496LG
+         VXjZ4bLztXD0ZfpvGPdH9JRfz99dQpr1OFWdu3dH5ChDsdz718Oxyrhkb4QU+yALR5bj
+         OW6snlKGesXDcEta0/vOrfeaV6oFngqiLTBFvFgyA/jGk4/7MzIJmbtkbOlsROIKvgpY
+         JosA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789794829; x=1790399629;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Z4Q40DsBVvRwmAo7kP6nqyDzh2DHzkNABJPrQkBYyR0=;
+        b=azOoCgIH17oVtbh5WVdiFaFp3mu36QUC4TXXz9G+mprrMjcEctEMMo1PP+AZiJ6f7b
+         MG25luYywr8VOewdi12oyB/E+93ZWQUElwecJcfe9hYUy7PxKkdQbwPQr6vHGV3obuHA
+         l3CDPiF1kAMYWSZefSNyQJrUmsy3dl5D93mJBIUE4WLTvahxkDwsRp6umT0iWE4Ng2nJ
+         Qn+Ak5S7X+eJ1Hl/dHU2xUxv2WEi7ZPfYBN8gDYaY9Gl/LKvLBTxYAQ8HkwMLZ0DNRXP
+         JDdc7Y9b2kQSPVdiwaIc5y7+KeUMI+RfAytpoBpdxy+c6ErY16Q23MzLg9rsQWQvvH7f
+         PEkQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwGrPMSoINus+nPKzSnzmkwkG/wdZkN4IlueHeNEV6AzSW+C3EPYU1T+fzkgNNRWQDisTLFsaxvssj4zaI=@vger.kernel.org
+X-Gm-Message-State: AFuF++npC0YEsHWYX7VOoyKPMgBRKqnHgnMvzw5DIpJRLsCmj2A4S8Z+
+	Zt4Ao/6l7pxF635OlXI8YPybuRBNvbspYsswTCEzX9RDYP37h9pfxxkw5SwDnLYWT3FNFof565o
+	j5IFsc9j4IikYHL5hZ26HohUCPvam/tgGPChZIZC9dwYIipCWB2JGB+/IGCGBTQ==
+X-Gm-Gg: AYBFou1IsTmpCvD5ODFnb/VIU1Hh6nkLVMbjHdLA/heOf9ik8ox54eSR/g6Cn8Jb+g9
+	PqaLv4tlo192757nv332NMih11xKa68U/eNvtR8OF91A/gWMqPk2OrBC09PSFplfDw2rr6FFxRh
+	lIDlOVMtNAj+LA8oQQ0DWk6ALktq6AB/x6nFne2qk6zl5xsg44axSuYM5GOlxm+MZ8ssZoh7QWF
+	jwTqQeHDeGo2pnintzaAAY7srmOZz0a2PX3E8v69Y3f63boDAvbV4FNcXCUbfj6e4UUwo+q6sec
+	aAWAJPjuWK0cqLv3AxsPjY5FTF0Ow5h7W24rW0W706LgIeVT+dtJB3fzqqhRyOwsQohXssZbKT1
+	7lG9nYl5yZpIDToqoPSvJF4Yts2qLCrgxCfcQOPxVT98UTnQT
+X-Received: by 2002:ad4:5762:0:b0:912:3dbe:9ca9 with SMTP id 6a1803df08f44-912a8065566mr1513756d6.26.1789794828574;
+        Fri, 18 Sep 2026 22:13:48 -0700 (PDT)
+X-Received: by 2002:ad4:5762:0:b0:912:3dbe:9ca9 with SMTP id 6a1803df08f44-912a8065566mr1513456d6.26.1789794828108;
+        Fri, 18 Sep 2026 22:13:48 -0700 (PDT)
+Received: from [192.168.1.62] (dyn-160-39-33-242.dyn.columbia.edu. [160.39.33.242])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91260a309bdsm13061686d6.12.2026.09.18.22.13.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 18 Sep 2026 22:13:47 -0700 (PDT)
+Message-ID: <30714db4-6c6a-4189-8872-e7866ad53de4@columbia.edu>
+Date: Sat, 19 Sep 2026 01:13:46 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:4b09:b0:6b4:c316:6fdd with SMTP id
- 006d021491bc7-6ca9aa41fcbmr4126293eaf.19.1789794443460; Fri, 18 Sep 2026
- 22:07:23 -0700 (PDT)
-Date: Fri, 18 Sep 2026 22:07:23 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aae188b.71f81b7d.15fa6d.0004.GAE@google.com>
-Subject: [syzbot] [mm?] WARNING in v9fs_fid_get_acl (2)
-From: syzbot <syzbot+de6fd6789748a8aa64a0@syzkaller.appspotmail.com>
-To: akpm@linux-foundation.org, apopple@nvidia.com, byungchul@sk.com, 
-	david@kernel.org, gourry@gourry.net, joshua.hahnjy@gmail.com, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, matthew.brost@intel.com, 
-	rakie.kim@sk.com, syzkaller-bugs@googlegroups.com, 
-	ying.huang@linux.alibaba.com, ziy@nvidia.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 6/7] block: unpin all pages of a bvec in
+ bio_iov_iter_align_down()
+To: Christoph Hellwig <hch@lst.de>
+Cc: Jens Axboe <axboe@kernel.dk>,
+        Johannes Thumshirn <johannes.thumshirn@wdc.com>,
+        Luis Chamberlain <mcgrof@kernel.org>,
+        Hannes Reinecke <hare@kernel.org>,
+        "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+        John Garry <john.g.garry@oracle.com>,
+        Christian Brauner
+ <brauner@kernel.org>,
+        "Darrick J. Wong" <djwong@kernel.org>, Keith Busch <kbusch@kernel.org>,
+        "Martin K. Petersen" <martin.petersen@oracle.com>,
+        linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Sashiko <sashiko-bot@kernel.org>
+References: <20260909-blkdev-fixes-v3-0-1a5222c6e8ad@columbia.edu>
+ <20260909-blkdev-fixes-v3-6-1a5222c6e8ad@columbia.edu>
+ <20260918084315.GA12283@lst.de>
+Content-Language: en-US
+From: Tal Zussman <tz2294@columbia.edu>
+In-Reply-To: <20260918084315.GA12283@lst.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: DMrNMd2tZWZgj7lGynIvNRySaYKi-0Y4
+X-Authority-Analysis: v=2.4 cv=WJPqzXsR c=1 sm=1 tr=0 ts=6aae1a0d cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=GaPK54s0Se3oFqK5NkZy0g==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=usPcmh10W0ubT8QP8_c3:22
+ a=QINKK4dj0_nbEauUZSwA:9 a=QEXdDO2ut3YA:10 a=iYH6xdkBrDN1Jqds4HTS:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE5MDA3MSBTYWx0ZWRfX8MeBpEqsZzXW
+ EZHK0wOya6+oACtNp54IV5P7ayigeAWNae7RjTLXZge8nHZaI8UlE5ViJwBOLcaQje7eXGNjc7+
+ /2IPFf5iAGaD5zWJ4LcwO5t/EXymCIg/UMsrXMSQQcx+rmTo0KoK
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE5MDA3MSBTYWx0ZWRfXyx/ijNbTsuPS
+ 70aCSpodqR9CfrNUxoWDbRWhc6ElLcWMKTLx05DoeEZZj3moLnVHRAsep5uJXDKy2MLl32CjvUg
+ 27J6SuVG1wD3c/XyuLo0HmhlxwC7DZDBRvCxaPlgkJq4GoLC9I1t/Dmhr5OnQgeEIxmJw9No20b
+ 1xOxX2eI2IZYScyLFxcRQgZYczmEd3zT9ZocDCVis/V5XT3zCivERfJDnj9Momis9EtOmbbYpBb
+ T6gAakYuycKGJ1MJs3fi7wYEU6RpjKz0Elnr27RK0N8WPtJCdqY+D3q0LAJ/1LuJeC64NavXw8g
+ 87JCa1hxqg9Qkl8DYdUsN+QIwRLa/Cx8CswSogTAwUr1DqgytUcH2+RzPzsE6YCz1cVjnqH3DSS
+ VAFxAL5REW+zKAPL/djFYQCUH5zt8vhhh6707YAYcfMj3OmLeka+EXgiN7wZeDcBcxqxtAkNGDW
+ gsE+EilQ4Ve8FyYkSQA==
+X-Proofpoint-GUID: DMrNMd2tZWZgj7lGynIvNRySaYKi-0Y4
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11909
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 bulkscore=10 adultscore=0 malwarescore=0 suspectscore=0
+ spamscore=0 impostorscore=10 lowpriorityscore=10 phishscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609190071
 
-Hello,
+On 9/18/26 4:43 AM, Christoph Hellwig wrote:
+>> +
+>> +	/*
+>> +	 * __bio_release_pages() only unpins the pages still covered by
+>> +	 * bv_len, so drop the pins for the pages trimmed off here.
+>> +	 */
+>> +	npages = bvec_nr_pages(bv);
+>>  	bv->bv_len -= nbytes;
+>> +	npages -= bvec_nr_pages(bv);
+> 
+> Wouldn't it make more sense to calculate npages once after the
+> decrement here, or am I missing something?
+> 
 
-syzbot found the following issue on:
+The first bvec_nr_pages() computes the number of pages originally in the
+bvec. Then we subtract the number of bytes trimmed off, and subtract
+the number of pages still left in the bvec from the original page count,
+giving us the number of pages trimmed off, which is then how many pins
+we need to drop.
 
-HEAD commit:    587858367581 Merge tag 'nfsd-7.3-1' of git://git.kernel.or..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=1361a115580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=de6fd6789748a8aa64a0
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=11f64df9580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=10e1a115580000
+If we just calculate after the decrement we would only know how many pages
+are currently in the bvec, and wouldn't know how many were dropped.
+We could open-code this calculation as:
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-58785836.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/f8460d7438eb/vmlinux-58785836.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/551bf08b9af2/bzImage-58785836.xz
+	size_t old_end = bv->bv_offset + bv->bv_len;
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+de6fd6789748a8aa64a0@syzkaller.appspotmail.com
+	bv->bv_len -= nbytes;
+	npages = (old_end - 1) / PAGE_SIZE -
+		(bv->bv_offset + bv->bv_len - 1) / PAGE_SIZE;
 
-------------[ cut here ]------------
-1
-WARNING: mm/page_alloc.c:5340 at alloc_order_allowed mm/page_alloc.c:5340 [inline], CPU#0: syz.1.357/7872
-WARNING: mm/page_alloc.c:5340 at __alloc_frozen_pages_noprof+0x2137/0x3300 mm/page_alloc.c:5397, CPU#0: syz.1.357/7872
-Modules linked in:
-CPU: 0 UID: 0 PID: 7872 Comm: syz.1.357 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:alloc_order_allowed mm/page_alloc.c:5340 [inline]
-RIP: 0010:__alloc_frozen_pages_noprof+0x2137/0x3300 mm/page_alloc.c:5397
-Code: 13 00 00 39 84 24 98 00 00 00 0f 85 4a fa ff ff e9 91 f6 ff ff 80 3d e2 93 bb 0e 00 0f 85 9d e2 ff ff c6 05 d5 93 bb 0e 01 90 <0f> 0b 90 e9 8d e2 ff ff 31 c0 e9 5f ec ff ff 48 8b 7c 24 08 48 c7
-RSP: 0018:ffffc90004df7758 EFLAGS: 00010246
-RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000000
-RDX: 0000000000000000 RSI: 0000000000000029 RDI: 0000000000040d40
-RBP: 0000000000000029 R08: 0000000000000000 R09: 0000000000000009
-R10: 0000000000000029 R11: 0000000000000000 R12: 0000000000040d40
-R13: 1ffff920009bef47 R14: 0000000000000000 R15: 1ffff920009bef05
-FS:  00007fc8804026c0(0000) GS:ffff8880d5b59000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fc88037dff8 CR3: 0000000037685000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- alloc_pages_mpol+0x201/0x550 mm/mempolicy.c:2486
- ___kmalloc_large_node+0xe8/0x130 mm/slub.c:5353
- __kmalloc_large_node_noprof+0x1c/0x70 mm/slub.c:5385
- __do_kmalloc_node mm/slub.c:5402 [inline]
- __kmalloc_noprof+0x5a8/0x840 mm/slub.c:5439
- _kmalloc_noprof include/linux/slab.h:995 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- v9fs_fid_get_acl+0x7a/0x120 fs/9p/acl.c:33
- __v9fs_get_acl fs/9p/acl.c:67 [inline]
- v9fs_get_acl+0xe8/0x480 fs/9p/acl.c:93
- v9fs_qid_iget_dotl fs/9p/vfs_inode_dotl.c:131 [inline]
- v9fs_inode_from_fid_dotl+0x26d/0x300 fs/9p/vfs_inode_dotl.c:154
- v9fs_get_new_inode_from_fid fs/9p/v9fs.h:264 [inline]
- v9fs_get_tree+0x55c/0xb50 fs/9p/vfs_super.c:120
- vfs_get_tree+0x92/0x320 fs/super.c:1933
- fc_mount fs/namespace.c:1198 [inline]
- do_new_mount_fc fs/namespace.c:3772 [inline]
- do_new_mount fs/namespace.c:3848 [inline]
- path_mount+0x7d0/0x24c0 fs/namespace.c:4168
- do_mount fs/namespace.c:4181 [inline]
- __do_sys_mount fs/namespace.c:4397 [inline]
- __se_sys_mount fs/namespace.c:4374 [inline]
- __x64_sys_mount+0x293/0x310 fs/namespace.c:4374
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fc87f59e159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fc880402028 EFLAGS: 00000246 ORIG_RAX: 00000000000000a5
-RAX: ffffffffffffffda RBX: 00007fc87f825fa0 RCX: 00007fc87f59e159
-RDX: 0000200000000240 RSI: 0000200000000200 RDI: 0000000000000000
-RBP: 00007fc87f63503b R08: 0000200000000180 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007fc87f826038 R14: 00007fc87f825fa0 R15: 00007ffeeb3b2c38
- </TASK>
+but both expressions end up compiling to the same thing in my testing.
 
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+But maybe I'm missing something... Perhaps this needs a bit of a
+longer comment?
