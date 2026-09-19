@@ -1,99 +1,148 @@
-Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+Received: from avas.easytechitalia.it (avas.easytechitalia.it [213.217.29.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E00D34B1B0
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 18:43:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.126.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64A542D73B6
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 18:45:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.217.29.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789843440; cv=none; b=lpn19mU0m/5N4TLH6cXFEMj7rR399O+TSEqQAl3x8ltTnGJcvX+YCaYC9TyG633U2lYKuCsFHB0c7Jry483NpAXcOJL0HtQ+5zqVc406Qx4HxwN+z5C/FgDp1SN82OqsRoEBQAqB9Ub0apBSanPogomLdes8pv9APCtkBKJk+5o=
+	t=1789843548; cv=none; b=h/XHEChNoHFvFLOT0oHRhvBmqIIfzAGNNwO7P40lNi/4ermvwD9M6xuZN4keQEgCmMuU+VIFe86y5hwYDyL7rqYf5g+2anYIItRCNCz/U25R/zZ6bB3PIn59glWUnkKsb6qAGsAuqtLfvSRh60WO9Ws9TFM9yQA7aBvpY6EX1TU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789843440; c=relaxed/simple;
-	bh=WD9JpeX3r9WZaeEq9cuddMM+CU5KeObSyAyGIJelpjQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=IQuJOD1qvW6zjggJ0TNqTrBB5kQeVzPFh3K/K3YyRLfeW3r+95KXdjyNG1xrgRh63Omdcod97gC6DgzuCTvk03Wec05/GySNnbbsAiBmRcfATngpJ+XWaPCeSkV60v1V8IN1Q4xK1rpmirMWAKtQsSET+HUW8stHaf83uUfS18Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net; spf=pass smtp.mailfrom=weissschuh.net; dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b=OeJHlrPz; arc=none smtp.client-ip=159.69.126.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=weissschuh.net
+	s=arc-20240116; t=1789843548; c=relaxed/simple;
+	bh=R2Mo+UgBqV0dWzbulE+3yjKN4Ntmw2os42k+rkFPXAI=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=liTARRPEA6qi80fo90E6Dj3txjPynDo1I6RxJ68jbfQyfHZgJnk+SqAkHSeqiP5vzlOy+GaJlP8sDfMyXYn2t9Y4VsvJ3ABOBZ8+TnsBjaEZ7oZeUJLuX6LStsvBogNEl8g13Erb4xXnNyQqIaJ1D9uE1kegnxNS9IDNIAP7fxA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mtsistemi.it; spf=pass smtp.mailfrom=mtsistemi.it; dkim=fail (0-bit key) header.d=mtsistemi.it header.i=@mtsistemi.it header.b=rQxOyugW reason="key not found in DNS"; arc=none smtp.client-ip=213.217.29.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mtsistemi.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mtsistemi.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b="OeJHlrPz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
-	s=mail; t=1789843430;
-	bh=WD9JpeX3r9WZaeEq9cuddMM+CU5KeObSyAyGIJelpjQ=;
-	h=From:Date:Subject:To:Cc:From;
-	b=OeJHlrPzk8lOP4dxUpXL4Jxa3m5CMeJ+yA2kIAGHw0O4trydIdeJIQCmokAhmOnvO
-	 EBI0KeZb/kBIFA8TEyA5SDYVfc6T26TfxuNxZaLgx+rB4bnVZFS0XFl1oI8/wGqKfL
-	 8wcGS5oyA0/p9jj+2FJyiSSLkpk4QW8JOCxgb29I=
-From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Date: Sat, 19 Sep 2026 20:43:24 +0200
-Subject: [PATCH] microblaze: Build userprogs for the correct endianness
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=mtsistemi.it header.i=@mtsistemi.it header.b="rQxOyugW"
+X-Envelope-From: <info@mtsistemi.it>
+Received: from ngmx.easytechitalia.it (unknown [185.76.140.216])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by avas.easytechitalia.it (Postfix) with ESMTPS id 4hnJ7d5rP8zGnv5;
+	Sat, 19 Sep 2026 20:34:53 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+	by ngmx.easytechitalia.it (Postfix) with ESMTP id 33E4017E25E;
+	Sat, 19 Sep 2026 20:33:25 +0200 (CEST)
+Received: from ngmx.easytechitalia.it ([127.0.0.1])
+ by localhost (ngmx.easytechitalia.it [127.0.0.1]) (amavis, port 10032)
+ with ESMTP id MMTqyVLzRtdD; Sat, 19 Sep 2026 20:33:24 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+	by ngmx.easytechitalia.it (Postfix) with ESMTP id 9BF1B17ABF9;
+	Sat, 19 Sep 2026 20:33:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.10.3 ngmx.easytechitalia.it 9BF1B17ABF9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mtsistemi.it;
+	s=AD82E3E6-03E3-11EF-83D2-AF8217D6D3C6; t=1789842804;
+	bh=o+KwHlOthShvmiCl3k6m4C5GiY5wjp/+Zq9ttfn+FWQ=;
+	h=From:To:Date:Message-ID:MIME-Version;
+	b=rQxOyugWxwLJQpoEwAvxg6/HJXu2hTHe8X0UOwNcxTi09BCo1DvSX2ufKn58lhws4
+	 p8/MOPhLqSH2ExUQCDkWb4K2tNEVwrLTVx6cOCm56vRFUU0Xp3hQ+Nl7wdSB+uBBEB
+	 9l++IvR7cIg+pf7DP+ouS00OMlAOczjvSa6pfrAuOMnEVQIWQIs3Q7Y3PWlJvN2E8f
+	 lfCJbvLeN2Y4FK3MqTqGE99O7pWwoi6VKmpyndW9YKjCtv5mhl1S1GqBGMJXWzmRj9
+	 hzx6loenW5+T70tN2jsA4qtSK1ISp2kPnST4D0LDGyWRs7CeRBIHWBqO1zWi9b6yn2
+	 JMNBZQApJPZEQ==
+X-Virus-Scanned: amavis at ngmx.easytechitalia.it
+Received: from ngmx.easytechitalia.it ([127.0.0.1])
+ by localhost (ngmx.easytechitalia.it [127.0.0.1]) (amavis, port 10026)
+ with ESMTP id cvm2jRk9SHgF; Sat, 19 Sep 2026 20:33:24 +0200 (CEST)
+Received: from [192.168.56.1] (93-38-124-109.ip70.fastwebnet.it [93.38.124.109])
+	by ngmx.easytechitalia.it (Postfix) with ESMTPSA id 2134717C481;
+	Sat, 19 Sep 2026 20:33:24 +0200 (CEST)
+From: Mattia Tadini <info@mtsistemi.it>
+To: Tom Lendacky <thomas.lendacky@amd.com>, John Allen <john.allen@amd.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ David S. Miller <davem@davemloft.net>
+Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 0/3] crypto: ccp - two PSP init fixes, and the AMD BC-250
+Date: Sat, 19 Sep 2026 20:34:50 +0200
+Message-ID: <178984289056.12336.17662860552012704364@mtsistemi.it>
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260919-microblaze-cc-can-link-v1-1-01da67e75ebb@weissschuh.net>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2NQQ6CMBBFr0Jm7SSlGEi9inHRDqOOYpEpGAPh7
- lZl+ZL3318gsQonOBQLKL8kSR8zlLsC6OrjhVHazGCNrY0rHT6EtA+dnxmJkHzETuId98FS7aq
- maoyBPH4qn+X9Cx9Pf05TuDGN39pmKA9Tfhw3bV0/9XNVKo8AAAA=
-X-Change-ID: 20260919-microblaze-cc-can-link-4b2c69373700
-To: Michal Simek <monstr@monstr.eu>
-Cc: linux-kernel@vger.kernel.org, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789843429; l=1489;
- i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
- bh=WD9JpeX3r9WZaeEq9cuddMM+CU5KeObSyAyGIJelpjQ=;
- b=Lt1CWZHseVtJqu8A2sBDNNyWxNLcKWmR8dfcw56rCtf8Ystk9j0hDh37JJP283/WJel2MVcJX
- TtipA/uSP1wCKxcPw5cVqisbeyD+5rLvmUPfAWQiRUm530Fc72FNprq
-X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
- pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
+Content-Transfer-Encoding: quoted-printable
+X-Easytech-Libra-ESVA-Information: Please contact Easytech S.r.l. for more information
+X-Easytech-Libra-ESVA-ID: 4hnJ7d5rP8zGnv5
+X-Easytech-Libra-ESVA: No virus found
+X-Easytech-Libra-ESVA-From: info@mtsistemi.it
+X-Easytech-Libra-ESVA-Watermark: 1790447694.54802@OjOy4rxSYV1m75hqwSwamA
 
-Currently microblaze userprogs are built for whichever endianness is the
-default for the use toolchain. They may not be the correct one for the
-actually built kernel.
+The AMD BC-250 is a Zen 2 APU board (Cyan Skillfish) sold as surplus mini=
+ng
+hardware and now used as a small desktop by a fair number of people. It c=
+arries
+an AMD Secure Processor at PCI 1022:143e that sp_pci_table[] does not mat=
+ch, so
+the device has always been left unbound with its memory windows disabled.
 
-Implement the correct hooks to build userprogs so they can run on the
-built kernel. Also test the endianness in CC_CAN_LINK.
+Adding the ID turned out to need two fixes first, both of the same shape:=
+ the
+driver decides what to bring up from the hardware capability register alo=
+ne,
+and then uses the psp_vdata pointers for those features without checking =
+that
+this device has them. On this board the two disagree, because the firmwar=
+e
+advertises a TEE whose ring never comes up.
 
-Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
----
- arch/microblaze/Kconfig | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+Patch 1 is a NULL pointer dereference in the sysfs is_visible callback. I=
+t
+oopses during probe. It needs no new hardware to be reachable in principl=
+e:
+any device whose firmware sets the TEE capability bit while its psp_vdata
+carries no tee data hits it, which today means pspv1 and pspv2 parts. I h=
+ave
+only observed it on the BC-250, so I have not added a stable tag - please=
+ add
+one if you think it deserves it.
 
-diff --git a/arch/microblaze/Kconfig b/arch/microblaze/Kconfig
-index 0ca8999dd770..9063a91cfb41 100644
---- a/arch/microblaze/Kconfig
-+++ b/arch/microblaze/Kconfig
-@@ -3,6 +3,7 @@ config MICROBLAZE
- 	def_bool y
- 	select ARCH_32BIT_OFF_T
- 	select ARCH_NO_SWAP
-+	select ARCH_HAS_CC_CAN_LINK
- 	select ARCH_HAS_DMA_PREP_COHERENT
- 	select ARCH_HAS_GCOV_PROFILE_ALL
- 	select ARCH_HAS_SYNC_DMA_FOR_CPU
-@@ -225,3 +226,13 @@ config MB_POWER_OFF_THROUGH_UNALIGNED_PC
- 	  petalogix-s3adsp1800 QEMU machine.
- 
- 	  Say N here unless you know what you are doing.
-+
-+config ARCH_CC_CAN_LINK
-+	bool
-+	default $(cc_can_link_user,-mlittle-endian) if CPU_LITTLE_ENDIAN
-+	default $(cc_can_link_user,-mbig-endian) if CPU_BIG_ENDIAN
-+
-+config ARCH_USERFLAGS
-+	string
-+	default "-mlittle-endian" if CPU_LITTLE_ENDIAN
-+	default "-mbig-endian" if CPU_BIG_ENDIAN
+Patch 2 stops a failed optional sub-device from taking down the rest of t=
+he
+PSP. Without it, a psp_vdata that deliberately omits TEE gets nothing at =
+all,
+platform access included.
 
----
-base-commit: 7396bcfc05046e779d255c6af57cd7838f30d41c
-change-id: 20260919-microblaze-cc-can-link-4b2c69373700
+Patch 3 adds the board. The register layout was read off the device rathe=
+r
+than assumed, and the numbers are in the commit message.
 
-Best regards,
---  
-Thomas Weißschuh <linux@weissschuh.net>
+Tested on a BC-250 running 7.2.6. Before:
+
+  01:00.2 Encryption controller: AMD Device 143e
+          Memory at fe700000 [disabled] [size=3D1M]
+          Memory at fe884000 [disabled] [size=3D8K]
+          (no driver)
+
+After:
+
+  ccp 0000:01:00.2: enabling device (0000 -> 0002)
+  ccp 0000:01:00.2: platform access enabled
+  ccp 0000:01:00.2: psp enabled
+  # cat /sys/bus/pci/devices/0000:01:00.2/bootloader_version
+  00.1c.01.02
+
+with the platform mailbox answering commands. Dynamic boost control is pr=
+obed
+and cleanly rejected by this firmware, and HSTI reports nothing because t=
+he
+security reporting capability bit is clear. There is no CCP crypto engine
+behind this function: the version register at 0x100 reads back all ones.
+
+The series is against v7.2.6 and touches only drivers/crypto/ccp/.
+
+Mattia Tadini (3):
+  crypto: ccp - fix NULL dereference in psp_firmware_is_visible()
+  crypto: ccp - do not start PSP sub-devices without their vdata
+  crypto: ccp - add support for the AMD BC-250 secure processor
+
+ drivers/crypto/ccp/psp-dev.c |  8 ++++++--
+ drivers/crypto/ccp/sp-pci.c  | 24 +++++++++++++++++++++++-
+ 2 files changed, 29 insertions(+), 3 deletions(-)
+
+--=20
+2.55.0
 
