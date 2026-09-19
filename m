@@ -1,30 +1,29 @@
 Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63BEC376BD9
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:33:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF3ED35E1BC
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:33:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789832005; cv=none; b=jw9FPw4fwGZYR3bUAGFPWcwASpm1met0L6eT3g1WEZ19JjS2i9wyZxOkD32Xt6ulEqwk7S3u3r5gMcj3f7BF5GptwD078OA5GlLSWzl7fxQJ0xDVgcdmHTiLgohetxCffBriUB8QXuI5r9DZo1P8e+RpC80XjZA7T8kFZNgnohE=
+	t=1789832007; cv=none; b=ApVJaBbvYoitEsd96HH9KFl1lKgX9T0vmtNZqHmO3FYc39h6Xg8WNw1a9HfS0ZC5ZnTORNwpcK2JmgPzq9m/APcvvSzj+IzHVKgek53xFc6+6CutjWicPX6byOp4zJu3EhkDoHg/WHRX5SQU8ZCbJrOsjZTLbPFLskIBNPZRjtg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789832005; c=relaxed/simple;
-	bh=fSLjp9PCAeeWI5fi/xmCC4mmKJpQyCbjPZDGivwgKbw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VNYSs+Adj63+w1X3dOG7zo2W+x0wYfy56vUbUESUaj8Rnj2RUkdBvayvZ9H0EjRRQkAp26AVzL3t09eVewbW1mbsPogXiHb/fBIFBE2J7U5w5ifV/6bxZvUPMRVw1vmkLdHpdlFaeIVP7JJ639SA70K3xmIAgkWOZ0v74cA8DMo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=hLw3i2WZ; arc=none smtp.client-ip=117.135.210.2
+	s=arc-20240116; t=1789832007; c=relaxed/simple;
+	bh=tnyvlgVfMTCqXQRSuxE4ccJ7ZERb/YFR+1kcZBsxHc0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TWLoXDdk+WuYQRGAJwthdcMaMUi8+MTWuliG1/550ngPXodL+VQa51gF6QPUYatjnkPdytJZznvOXo3o8II2EPqIl4fbS7aTSGPfVjfM56l6XRP1UsAMbPBr7nZqFOalTWaiBXwCHiBqxsrMf+1cx2PK8rdNJPcm+b3qC1pC6k8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=YHAVfXS8; arc=none smtp.client-ip=117.135.210.2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="hLw3i2WZ"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="YHAVfXS8"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=5x
-	If1mA/UAJH4l3O47PGY2+xpGPAj2H8pvknPUuvApw=; b=hLw3i2WZi7j6cKyUTE
-	Cvg0KABEY3dWXqNAxt4JpPZc8PRBE+nrKgHFxPP00RV66yacvaY+KzC0OtiGdQx8
-	BJp2uklEu55zz8dEiodwXgOw6EKmIK6n7E0YMpbk6jinFshW+dpSdb592ZpfV28+
-	wwmktifrx7hgcTEPJJS9My13I=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Ji
+	BZQvfRIoXjlSkwoC7QLZ8NuzwJpdxqfXaQMSP4mJc=; b=YHAVfXS8w+cB97zWGY
+	4nivfCCUHl9Y0KMz9rJZ5R4POY0oWJD53oC3W1gTFfocFd/XoTKbh2UNsGPgICGJ
+	rRuKo0ffOjcWzFZos8c0X0IlVUyV6Wr+Z5Izkw9pK7K7Knq+GX2T8Ynt1TpAiDQm
+	k2Bina5rRhsXNTQlMBmhck7RY=
 Received: from localhost (unknown [])
-	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wCnAW7oqq5qTSbRBQ--.10319S2;
-	Sat, 19 Sep 2026 23:31:52 +0800 (CST)
+	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wAXJInmqq5qoyXRBQ--.6014S2;
+	Sat, 19 Sep 2026 23:31:51 +0800 (CST)
 From: Hui Su <sh_def@163.com>
 To: Ingo Molnar <mingo@redhat.com>,
 	Peter Zijlstra <peterz@infradead.org>,
@@ -40,12 +39,10 @@ Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
 	Luca Abeni <luca.abeni@santannapisa.it>,
 	Daniel Bristot de Oliveira <bristot@kernel.org>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/2] sched/deadline: Fix divide-by-zero in DL bandwidth accounting
-Date: Sun, 20 Sep 2026 00:31:49 +0900
-Message-ID: <20260919153150.2618403-2-sh_def@163.com>
+Subject: [PATCH v2 0/2] sched/deadline: Fix zero-CPU DL bandwidth handling
+Date: Sun, 20 Sep 2026 00:31:48 +0900
+Message-ID: <20260919153150.2618403-1-sh_def@163.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260919153150.2618403-1-sh_def@163.com>
-References: <20260919153150.2618403-1-sh_def@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,65 +50,65 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wCnAW7oqq5qTSbRBQ--.10319S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ur1xKF4rAw43JrWUJF13urg_yoW8ZFWxpF
-	ykGa4UJw4qv348Xa95Aw47GFyFv3yktayaqrnxGws3uF1Fyw18K3Z0kw4Sqrn5t3s5CF4a
-	yr4jvr4xKa90yw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07US0PDUUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwgorimququo3-QAA3n
+X-CM-TRANSID:_____wAXJInmqq5qoyXRBQ--.6014S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxJr43XFWkJw43Gr1xAF4kXrb_yoW5Jr15pF
+	98Wr1Yqr4Dtry2ya1UAr4Fqa409an7tay7Wr97JryDZF15A34Iva4Yk3yjgrW7Gwna93W2
+	yw4Yga9xuF4jk3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Uha9fUUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6QcqiWququfKNAAA36
 
-During CPU hot-unplug, a CPU can be cleared from cpu_active_mask before it
-is marked offline. This can leave a window where dl_bw_cpus() returns zero
-for a root domain with no remaining active CPU.
+During CPU hot-unplug, a CPU is removed from cpu_active_mask before it
+becomes offline. If it is the last active CPU in a root domain,
+dl_bw_cpus() can therefore return zero while paths associated with the CPU
+are still reachable.
 
-DL bandwidth paths can pass this zero CPU count to __dl_sub() and
-__dl_add(), which then divide by zero while distributing the bandwidth
-update to active runqueues.
+v1 addressed this in the DL server parameter-update path. Mikhail Zaslonko
+reported the same divide-by-zero on s390x through sched_setscheduler(),
+showing that the problem is more general, and pointed out several other
+callers of __dl_sub() and __dl_add().
 
-This is not specific to the DL server debugfs path. Mikhail Zaslonko
-reported the same failure on s390x through sched_setscheduler(), where
-task_non_contending() reached __dl_sub() with no active CPU in the root
-domain. Other DL bandwidth paths use the same helpers.
+This version moves the zero-CPU handling into those common helpers. The
+debugfs cpu_active() check is kept as a separate follow-up because it
+completes the offline-CPU check added by 4043f5498416, while the generic
+helper issue dates back much further. Keeping them separate also gives the
+two fixes the appropriate stable backport scopes.
 
-Keep updating dl_bw::total_bw when the CPU count is zero, but skip
-__dl_update(), since there are no active runqueues to receive an extra_bw
-adjustment. This avoids the division by zero in all callers while retaining
-the existing total_bw update.
+Patch 1 fixes the generic divide-by-zero while retaining the existing
+total_bw update when no active CPU remains.
 
-Fixes: daec57983670 ("sched/deadline: Reclaim bandwidth not used by dl tasks")
-Reported-by: Mikhail Zaslonko <zaslonko@linux.ibm.com>
-Link: https://lore.kernel.org/r/c52c9e8c-260e-49a4-a88e-229e0795d07b@linux.ibm.com
-Suggested-by: Mikhail Zaslonko <zaslonko@linux.ibm.com>
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Hui Su <sh_def@163.com>
----
+Patch 2 rejects per-CPU DL server debugfs writes once the CPU becomes
+inactive instead of waiting until it is fully offline.
+
+Validation on x86_64 included:
+- cpus=0/1/2/4 DL bandwidth accounting
+- targeted task_non_contending() and inactive_task_timer() zero-CPU paths
+- 100 root-domain rebuild/offline-online cycles with accounting checks
+- 200 cross-root-domain SCHED_DEADLINE cpuset moves
+- SCHED_FLAG_RECLAIM policy transitions
+- concurrent SCHED_DEADLINE/SCHED_OTHER transitions and CPU hotplug
+- 100 CPU hotplug/debugfs update cycles
+- A/B validation of the inactive-but-online debugfs window: the write was
+  accepted and changed runtime with patch 1 only, but was rejected and left
+  runtime unchanged with both patches
+
+The final series was also built and boot-smoke-tested from its exact HEAD.
+
+Changes since v1:
+- Handle cpus == 0 in __dl_sub() and __dl_add(), as suggested by Mikhail.
+- Split the generic bandwidth fix from the DL server debugfs check.
+- Add the s390x sched_setscheduler() report.
+- Extend validation to the other DL bandwidth paths and accounting cases.
+
+Hui Su (2):
+  sched/deadline: Fix divide-by-zero in DL bandwidth accounting
+  sched/deadline: Reject debugfs dl_server writes for inactive CPUs
+
  kernel/sched/deadline.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ kernel/sched/debug.c    | 2 +-
+ 2 files changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index 0663c00c41c0..840240cff7b9 100644
---- a/kernel/sched/deadline.c
-+++ b/kernel/sched/deadline.c
-@@ -193,14 +193,16 @@ static inline
- void __dl_sub(struct dl_bw *dl_b, u64 tsk_bw, int cpus)
- {
- 	dl_b->total_bw -= tsk_bw;
--	__dl_update(dl_b, (s32)tsk_bw / cpus);
-+	if (cpus)
-+		__dl_update(dl_b, (s32)tsk_bw / cpus);
- }
- 
- static inline
- void __dl_add(struct dl_bw *dl_b, u64 tsk_bw, int cpus)
- {
- 	dl_b->total_bw += tsk_bw;
--	__dl_update(dl_b, -((s32)tsk_bw / cpus));
-+	if (cpus)
-+		__dl_update(dl_b, -((s32)tsk_bw / cpus));
- }
- 
- static inline bool
+
+base-commit: f259f446f5198d98e13756d2cd531812a0ad3064
 -- 
 2.55.0
 
