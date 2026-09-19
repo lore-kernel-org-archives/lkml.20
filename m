@@ -1,164 +1,158 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15A1835E936
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 06:00:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB77C361DD5
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 06:01:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789797658; cv=none; b=EyexMhUQNTd5TIzhHLw2w+sSYTLOzrna2wiUjD4pe0eATIOsVbrTbPBH9Qm2caJgCEYewtkzV7cdxZ9iyqyB6+d7Dl9tEB4zKFdiq1D9hATbpCpjXYeqQWnXKEsL+X01/rFLic6dZkQ296QQuHcYmL7yT/onUtjzSySdYsyOar8=
+	t=1789797707; cv=none; b=TRy8Y5FjUnpodNwYWAAUfiCNRWY8de6DII45MJ7eaRkYZfcTIcMtAO9BWFZ8ByYLhDiL9Py+d1oiImQNjmtkSG+oMhXY3pUzymcBgKOEUG73nDJlGkOUVc3t8XfTm9uLPqym0PRuon4RHngQJidr4bLq3Iks4ugX31yT7S64jZ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789797658; c=relaxed/simple;
-	bh=Jy5TaLrwRqkwt1UO+ssRNusHMelPmB+dJLFY0YgEd2w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=u2lxTcKxTyZwv+syGr/vFQyhkFjQMW0Ige2gdgQmr3+eYBJErUq3mWX/a6Nuv/8S+sfHL4C33bUwrKE+A3hCD+erkzr9aIqES4f8oYgRq5Rh3U3K7XpqqLAOVaWKfbjBdY9SAq7uCMiRBML4ZrEmzYoj8DeclLCJQFgWKnGTWao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R1xGSEwq; arc=none smtp.client-ip=74.125.225.76
+	s=arc-20240116; t=1789797707; c=relaxed/simple;
+	bh=hUeiMWsfR0bATJZ4paz6Mb39RCA51W43m3tcsCOn5pM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=rbEPecVmBzIitO0InYQ/03JIYNVjPQoYOgvizJSwCyry2pi7iRggm79j/GJwk7thRGaGbf2pEWz8LvO2Fq3hbm+N3NKeJ6Hm5UpIU6FU7nolAyCfG4Da99xgSGGxOqzDeUJjTKYGeACdq4A4TI7zurIAAGh0lKIbiI+sd8bhlbQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Od1H3gSv; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R1xGSEwq"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485933b2522so971680f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 23:00:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Od1H3gSv"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747eb79f6so9681605ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 23:01:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789797655; x=1790402455; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pMviqo4XEkPwNRzdFDIqATmDkxn/o8ifOVjJBWoYCzQ=;
-        b=R1xGSEwq2VEZ8A9e+m6LrHHkVkkR0ZsdGuZZ/jOQNKibDBXBKT1rKQhXfBJuTgHp3R
-         IyWmj9+fsRzTaoMjeLY1Sfpjjsz7hztfvgGPjHiIBvPD9IuMRiiZchgWz6xp/vEspDZN
-         B/+JGvJYBPiFsxhVqPNZLJwRHHVAe1ZiItrRGCQIBPC/bPOZm8/ctaSYrtKa0COk9fPQ
-         3lJN7i6KFuDnmQYWhWXiRGwxcBgg48Suh2kLK6t5PZZVi1qrRptQXNueRJ1KyHFGTScJ
-         Bt7Klo5Jq8Bnf/mATPeGQzutF6OIuWox/oI8YWzKyylKtYUHnKwyiCyCgHPd5O41txyL
-         MZrA==
+        d=gmail.com; s=20251104; t=1789797705; x=1790402505; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/Yv+Xvj7YTL81QyfNkbhiu6Y+qyJIuCpgzlKFyNsHtY=;
+        b=Od1H3gSvRliTw3NzaPiretDlucdWr6i/JkP8dQgbWAUIiRPyUXySSHo1gxsDWheA0h
+         qtnhkiqyDcXUAKtrhlc8WdXyJPQ396ETWO6Ernj9s77YsLfIIaPdQ0ZDnW9ZL68x1lDT
+         FpVHk2i35cNTtlG4PJPHY5wSBZ4G4QaT6vyl82nF61ciKCgbUNudw+Eo808zx/PDJBWQ
+         HdFUV3Uqj39WqYEzrFvEZxKdWT61IvzEd6CH82GpXMFrAl+V7U/iZU59WnkfY86kvx7h
+         hWa74eMDJvuOKm6/XPXnfEnPxwqFrol6NfV4KYGskpzYxB+tjPMqbj6L66ZNFdes5oZp
+         E2vw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789797655; x=1790402455;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pMviqo4XEkPwNRzdFDIqATmDkxn/o8ifOVjJBWoYCzQ=;
-        b=PDijIa9T5oU0EuH7t3vCIgU1Djru+Id6U3ccxMFITKcTCEner/8rWPv8xEII6StDjn
-         xdX9dt9GTuxSyi+ql5lUbkcdwtWOGiJFgC19PD7TL8Cr2f+aR3rKKRfCXVEWUfhw4Gwr
-         RBmXDrEDrE3z5TEpb50Gu7X+kqDkObqzHzzENxnim+nMFMvbgbApZmA7jGNb5vfJzh/s
-         4SRPvr8M/8ij1R+Nc3rS/N/zS+UWDEEC2m5v6LfRICZHG308fLbUxsCo0lVn9DKcnjXO
-         Ah8sDrZ01JzyGx6azAf9xWKXVEMwHA+qLw1rZ24OQo+QpJLJfsYZy8wIC88DIjypuNkq
-         yfYw==
-X-Forwarded-Encrypted: i=1; AKwUvBwbpvoAkd72yqc4vOb5QdWgsvfjhWZZDfQElWOU84HWlcjMGBlkRVyUQOOOPSKRonIt3dxPN4dt+0qmV5I=@vger.kernel.org
-X-Gm-Message-State: AFuF++lUEefP28I0/BnMBues2FLwVCyprQS12pGJ1T/ubI4S89iqxRXP
-	DpDFsZZX0kGnXmg6VHOG61qKFAqBKT7Q85anHt4+fJTFF1wiYRqh1rbDD091Z1C7yS2nsA==
-X-Gm-Gg: AYBFou1EilI8eoiHoxdlSeYiClLUz9zgIOGnF7onm23FmPLYq41xwrwWY9HkKiJVhhE
-	MMDSvpINq2Mu0I4RKtshobSi101UEGTD6jJ269cVPSObUAPpkcMMuEnZlQbXh4pHgWb0rk6gXQV
-	bcayWfRfdijTf1OSKa6+lQX9z4id3AGB7bNgycrjJxXpR5G7wwlBzdk4ZUGvDCEoXWb7+RyM1U6
-	64vTgTmgGy497D2eqW3lqRPfsAR6hKWsRAPsZA7S30t8BRGjZJPtz607YhgGA+O5VLnGspjSbo8
-	lpBV0TWzzu3QreKq1cQ76sVsftDEoL1lqFGhyu0+dRcIbVkfs4jhxHJh2X90tgSKbEJNkU3d4X7
-	358wvh5pMdZ4NzMZBA2e6m0D8k0eyKw7/6rz0zH7iDZnbZebrvImWXbirkFp3OZpEyCrkArO0Ko
-	gygn7L0nXwdOEy392IRkeVa0HWN3kTLnSBsEQlxRXo+HqDeQKNRtndQZvbhSmbV2ngmIxiIrUVD
-	qyJv3d6TmZSaaugFoM81gPUhaOKNbVHw3EChFrSng0snisbW6Y=
-X-Received: by 2002:a05:6000:2010:b0:487:27f9:82b with SMTP id ffacd0b85a97d-48727f90b71mr525893f8f.32.1789797655106;
-        Fri, 18 Sep 2026 23:00:55 -0700 (PDT)
-Received: from fedora ([202.47.63.86])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4872456301dsm4891022f8f.18.2026.09.18.23.00.52
+        d=1e100.net; s=20260707; t=1789797705; x=1790402505;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/Yv+Xvj7YTL81QyfNkbhiu6Y+qyJIuCpgzlKFyNsHtY=;
+        b=ie6oI6J5XrnQAHO4t+V71rDsW3X/1HUc3pRccHPjWhosRbxX+MgqG0Ffs0LCG6ONem
+         hAsT7A7qljXTrsZVl5YGP0M53IzAnhjqJfUFFeExfbnNZ5TJbKCvMYphvYXB72cRqROk
+         E53KeW1nW/756JsPiTSyHe4tckjJYKe+IexF77Ec9e4jbdzfJDsTa92EiFza1VF9khAi
+         pqBmVgLxoMJsB9xK65r9BMaFEHef3hFO/cYVIcZcbilKt/Wtb/90Q/ifE1/rXOxGjn67
+         X2sx5x5FHK+C5CUS75XrhtlXEhBN18ezbIik12qLbFouCMPROFujPgQgi70/9oAZFMtO
+         0BOA==
+X-Forwarded-Encrypted: i=1; AKwUvBxiza0N8N/Qf2CW0f9+jT8P0ZURi8e201kGP3b7+FT6GaVRcWZdzc8gyjErUN3nFuDhUdDgIYcHTUtUhaE=@vger.kernel.org
+X-Gm-Message-State: AFuF++n+N8ZaonKJWEfuEhfyvrf8lVnoYL/NhuETCXavIT5ejKDoBQir
+	cPb4rJ4LSz580GQn/zfP8Hnxy/wwe/0HxKBFB7o3gTKzsqdez5gUgDOm
+X-Gm-Gg: AYBFou0mIbBDuB2HGbbS3qfvTnTXrvw25oXZ9eHd9JqjsIY/x1TKDKzOt3LcDinGjdZ
+	IxMynJ19xB4EI+MoEA8+k75FKojpnzY+Q6y60B5C0Te+KTy1kyPTThpsvQnx5v97shlJrnHStcC
+	MF6S9hMMrhB0utxFKO1tsGYS9ZAzSdon0sA8Wy0viqpuShkyAhDIHxRVW+QXof71P3BuXBAE9i0
+	mvP8hF0JBU3GgE1/i8vytgwgH/g4l9xAKSI+PMDNbGmtoaeiw7z0V6sTQ60YHKN8vz8KMwjYaVA
+	s7pS+SNLKGX2I0QsLl3wBOczPAnVCScdqFPqrnys0wYGf3o1yVpEHwkIU3eSqlpl0odPUqNb1xf
+	G9JAB0tGDBvM36S+KStJ6NMgsaeqVjQKfomYvag40ivKOYyVXDiF8bRA/8gsVCqTScD7VAfWEMc
+	nKFvWZWDVMiK2mZH4efU91I/TEC9I6wJOiDqg/7KpnPpr68zVQg9d0gPYjhz3v+fsuSp0Pbl2zi
+	YsW+JDacMTmPs1Sog1/H5Fq8XAQ5kJflI+9FQ9d9FdfkUZEFaaxCcdfIxMM8Eb3f4s82g9+UkI=
+X-Received: by 2002:a17:903:3246:b0:2d6:fec3:bd57 with SMTP id d9443c01a7336-2ddb1af3398mr80521885ad.14.1789797705112;
+        Fri, 18 Sep 2026 23:01:45 -0700 (PDT)
+Received: from Inspiron-14-5420.. ([2402:e280:21c6:671:d11b:773b:fa83:c49a])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c33140f7fsm3658321eec.13.2026.09.18.23.01.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 23:00:54 -0700 (PDT)
-From: Muhammad Bilal <meatuni001@gmail.com>
-To: Jorge Lopez <jorge.lopez2@hp.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: =?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
-	platform-driver-x86@vger.kernel.org,
+        Fri, 18 Sep 2026 23:01:44 -0700 (PDT)
+From: "Hemendra M. Naik" <hemendranaik@gmail.com>
+To: netdev@vger.kernel.org
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	jiri@resnulli.us,
+	jhs@mojatatu.com,
+	shuah@kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Muhammad Bilal <meatuni001@gmail.com>,
-	Josh Snyder <josh@code406.com>
-Subject: [PATCH v4] platform/x86: hp-bioscfg: fix 16-byte heap overflow for empty auth token
-Date: Sat, 19 Sep 2026 11:00:37 +0500
-Message-ID: <20260919060037.84602-1-meatuni001@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <9d60ef62-a53c-bb13-ff6a-0a195cf2f6f3@linux.intel.com>
-References: <9d60ef62-a53c-bb13-ff6a-0a195cf2f6f3@linux.intel.com>
+	linux-kselftest@vger.kernel.org,
+	vishy0777@gmail.com,
+	tahiliani@nitk.edu.in,
+	"Hemendra M. Naik" <hemendranaik@gmail.com>
+Subject: [PATCH net-next v7 0/3] net/sched: sch_fq_pie: add per-flow class statistics
+Date: Sat, 19 Sep 2026 11:31:22 +0530
+Message-Id: <20260919060125.38063-1-hemendranaik@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-hp_calculate_security_buffer() special-cases an empty authentication
-string and returns a fixed 4 bytes (sizeof(u16) * 2). But
-hp_populate_security_buffer() does not special-case that same input:
-for any authentication string that does not start with BEAM_PREFIX,
-including the empty string, it always builds "UTF_PREFIX +
-authentication" and converts the result to UTF-16, writing a 2-byte
-length header plus 2 bytes per character of "<utf-16/>" (9 characters),
-20 bytes total, regardless of how long "authentication" itself is.
+FQ-PIE runs an independent PIE controller per flow but exposes no
+per-flow statistics. This series wires up fq_pie_class_ops to expose
+per-flow AQM state (prob, delay, deficit, avg_dq_rate) via
+'tc -s class show', following a similar pattern as FQ-CoDel.
 
-The caller, hp_set_attribute(), sizes its kmalloc() buffer using
-hp_calculate_security_buffer()'s return value, so for an empty
-authentication token it allocates 4 bytes for the security area but
-hp_populate_security_buffer() then writes 20 bytes into it, causing a
-16-byte heap buffer overflow.
+This patch series is accompanied by a companion iproute2 patch series that
+will be posted on net-dev mailing list as well.
 
-The authentication token used here is the current admin/setup
-password, which is an empty string by default until one is
-configured. Any write to a writable BIOS attribute while no admin
-password has been set reaches this path.
+Both the kernel and iproute2 patches can also be found in GitHub:
+- https://github.com/H-N41K/linux-net-next/commits/fq_pie_class_stats/
+- https://github.com/H-N41K/iproute2-next/tree/fq_pie_class_stats
 
-Fix by removing the special-case early return for an empty string in
-hp_calculate_security_buffer(). The generic calculation that follows
-already accounts for the UTF_PREFIX correctly, which naturally yields
-the same 20 bytes that hp_populate_security_buffer() writes for an empty
-string, avoiding duplicate logic for special cases.
-
-Fixes: b2715aa2e135 ("platform/x86: hp-bioscfg: spmobj-attributes")
-Reported-by: Josh Snyder <josh@code406.com>
-Closes: https://lore.kernel.org/platform-driver-x86/20260402-hp-bioscfg-overflow-v1-1-6985f8c9e67c@code406.com/
-Cc: stable@vger.kernel.org
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
 ---
-Changes in v4:
-  - Straight re-generation against current mainline: v3 was written
-    against a tree state that had a duplicate "authlen = strlen(...)"
-    assignment (one copy meant to be removed, one meant to survive),
-    which current mainline does not have. That mismatch is why Ilpo
-    needed "special trickery" to apply v3, and why the manually-applied
-    result ended up with no authlen assignment at all (reported by
-    kernel test robot). The v3 diff itself was fine, as Ilpo confirmed
-    ("authlen is not uninitialized, so only the early return should be
-    dropped"); this is that same one change, regenerated from scratch
-    against the actual current tree so it applies cleanly without manual
-    intervention.
+Changelog:
+v7:
+- No code changes since v6.
+- Rebased over the latest net-next tree and re-submitted patch.
 
-Changes in v3:
-  - Remove the special-case return entirely instead of adjusting its
-    formula, avoiding code duplication as suggested by Ilpo Järvinen.
-  - Credit Josh Snyder who previously noted this approach.
+v6: https://lore.kernel.org/netdev/20260917204225.275251-1-hemendranaik@gmail.com/
+- Address Sashiko review comments:
+  - Revert the fq_pie flows range to [1..65536]. 
+  - Also drop the accompanying selftest 83be change.
+  - Compute the per-flow delay with div_u64() on the full 64-bit
+    nanosecond value.
+  - Widen avg_dq_rate to u64 before scaling it by PSCHED_TICKS_PER_SEC.
+  - Document the 36 to 64 byte xstats growth in the patch 1 commit message.
+  - Fix selftest 83c0. The ping payload exceeded the TBF burst so no
+    packet ever reached fq_pie, and the missing -W left the run waiting
+    out ping's default timeout.
 
-Changes in v2:
-  - None for this patch; resubmitted as part of the v2 series.
+v5: https://lore.kernel.org/netdev/20260902035231.81866-1-hemendranaik@gmail.com/
+- Addressed Sashiko review comments:
+ - Omitted .tcf_block / .bind_tcf / .unbind_tcf from cl_ops (statistics
+   only being exported; filter attach to fq_pie is now disabled).
+ - Dropped empty tc_fq_pie_xqd_stats placeholder; class_stats is a direct
+   struct member.
+ - Limited flows to [1..65535] so per-flow class handles fit in a 16-bit
+   TC minor.
+ - Rewrote selftest 83c0 with TBF + fq_pie, ping traffic, and
+   matchCount 1 on per-flow stats output.
+ - Updated selftest 83be for the new flows limit.
+ - Dropped the tools/include UAPI mirror changes from patch 3/3.
 
-Link: https://lore.kernel.org/r/20260803143037.93105-1-meatuni001@gmail.com [v1]
-Link: https://lore.kernel.org/r/20260812111829.172273-1-meatuni001@gmail.com [v2]
-Link: https://lore.kernel.org/r/20260818191120.38556-2-meatuni001@gmail.com [v3]
----
- drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c | 3 ---
- 1 file changed, 3 deletions(-)
+v4: https://lore.kernel.org/netdev/20260727164056.106203-1-hemendranaik@gmail.com/
+- Fixed unaligned commit message; moved typo fixes to another patch.
 
-diff --git a/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
-index 4d94e48..abf8ce2 100644
---- a/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
-+++ b/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
-@@ -47,9 +47,6 @@ size_t hp_calculate_security_buffer(const char *authentication)
- 		return sizeof(u16) * 2;
- 
- 	authlen = strlen(authentication);
--	if (!authlen)
--		return sizeof(u16) * 2;
--
- 	size = sizeof(u16) + authlen * sizeof(u16);
- 	if (!strstarts(authentication, BEAM_PREFIX))
- 		size += strlen(UTF_PREFIX) * sizeof(u16);
+v3: https://lore.kernel.org/netdev/20260630183702.170798-1-hemendranaik@gmail.com/
+- No changes since v2.
+- Resent after the previous submission was deferred due to the
+  net-next tree closing during review.
+- Updated corresponding iproute2 patch in response to review comments;
+  kernel patches unchanged.
+
+v2: https://lore.kernel.org/netdev/20260614125000.6058-1-hemendranaik@gmail.com/
+- Addressed ABI backward compatibility issue for tc_fq_pie_xstats.
+
+v1: https://lore.kernel.org/netdev/20260531125314.22492-1-hemendranaik@gmail.com/
+- Initial submission
+
+Hemendra M. Naik (3):
+  net/sched: sch_fq_pie: add per-flow statistics via class ops
+  selftests: tc-testing: add fq_pie per-flow class stats test
+  net/sched: pie: correct tc_pie_xstats field documentation
+
+ include/uapi/linux/pkt_sched.h                | 20 ++++-
+ net/sched/sch_fq_pie.c                        | 86 ++++++++++++++++++-
+ .../tc-testing/tc-tests/qdiscs/fq_pie.json    | 27 ++++++
+ 3 files changed, 130 insertions(+), 3 deletions(-)
+
 -- 
-2.43.0
+2.34.1
 
