@@ -1,65 +1,66 @@
 Received: from avas.easytechitalia.it (avas.easytechitalia.it [213.217.29.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F9DF2DEA68
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 20:25:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C278353A82
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 20:25:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.217.29.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789849541; cv=none; b=KLVxKyBPwD8PZVzJNeJIrARZjCt0arjZPWNSxx62BHyhQF3p1tn0R95jhrH4CWJ7hm7qQAKFOpPjlmR1YjGHcJYVpis1JDB5hzRz7z2HZEoApBfQKcx39hV8JgWjk96oMDw70Po1UNWx5CZOukgGpBOT8iVNqlx8UmtxXrPdlps=
+	t=1789849545; cv=none; b=hlgbExC+yr/iPfyug1RSqUZMkuoiprflzTrRwrBreXiNhyBcC7V0yy7QWSPdcAzboyNDmwpcjVgV8RT8m1zcKKhYDPft5wrD45GI5798vOG+3D2GcM4IEv5ysiYKVpRBj9Hx0Kijgfi7whf6gC4pTjf61xDi6u8ID120jo892Lk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789849541; c=relaxed/simple;
-	bh=zvJaODsEWlml20YBQ/akatO5bk0cP5pHXBMhFVKnGmg=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=fPz+DcBW5zCxAauoYN1u+XVGHvPEZKkYrJpFs9imjJ/jQYr5vQPj6EEgFuNR7VgWakYWj7pmAiTHsTHoLH9I91TGmBtmSUWpnFAYxNYqqKsxjC2oux+hocQrkspBoDTtbD70uXZaGP+go/q0jD53/z9bAfa7Y5Z3Vjbgx9MB0iY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mtsistemi.it; spf=pass smtp.mailfrom=mtsistemi.it; dkim=fail (0-bit key) header.d=mtsistemi.it header.i=@mtsistemi.it header.b=XoJNJtZm reason="key not found in DNS"; arc=none smtp.client-ip=213.217.29.81
+	s=arc-20240116; t=1789849545; c=relaxed/simple;
+	bh=yOXeJJd/b20XDxghZTOz2Fqv/7LDR/U58cmsUId4Bz4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=DnZx9ysk/+IhbJ1MCFTKtJkGyozCB37J6RPIiLxuUsOK9aloaqw3Z9ZnFSUeSTUiwOkG0bk0U0B/DRGGLdYaQMxq3/MZhKsU0GzhXT/RB3rTDsRIj9GbQ+B7pdhKLcnOvzinbHgI849nCuKpFQL+YyvcYNr3Ua52I+rySvPxleU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mtsistemi.it; spf=pass smtp.mailfrom=mtsistemi.it; dkim=fail (0-bit key) header.d=mtsistemi.it header.i=@mtsistemi.it header.b=NlcchfCd reason="key not found in DNS"; arc=none smtp.client-ip=213.217.29.81
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mtsistemi.it
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mtsistemi.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=mtsistemi.it header.i=@mtsistemi.it header.b="XoJNJtZm"
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=mtsistemi.it header.i=@mtsistemi.it header.b="NlcchfCd"
 X-Envelope-From: <info@mtsistemi.it>
 Received: from ngmx.easytechitalia.it (unknown [185.76.140.216])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by avas.easytechitalia.it (Postfix) with ESMTPS id 4hnLbL0jJVzGnv4;
+	by avas.easytechitalia.it (Postfix) with ESMTPS id 4hnLbL1zcVzGnvV;
 	Sat, 19 Sep 2026 22:25:34 +0200 (CEST)
 Received: from localhost (localhost [127.0.0.1])
-	by ngmx.easytechitalia.it (Postfix) with ESMTP id 2CAA417DC3B;
+	by ngmx.easytechitalia.it (Postfix) with ESMTP id 6113717ABF9;
 	Sat, 19 Sep 2026 22:24:05 +0200 (CEST)
 Received: from ngmx.easytechitalia.it ([127.0.0.1])
  by localhost (ngmx.easytechitalia.it [127.0.0.1]) (amavis, port 10032)
- with ESMTP id mvXQdpZtw0BS; Sat, 19 Sep 2026 22:24:04 +0200 (CEST)
+ with ESMTP id UsflyHODju7j; Sat, 19 Sep 2026 22:24:05 +0200 (CEST)
 Received: from localhost (localhost [127.0.0.1])
-	by ngmx.easytechitalia.it (Postfix) with ESMTP id 9734217ABF9;
+	by ngmx.easytechitalia.it (Postfix) with ESMTP id D973F17C481;
 	Sat, 19 Sep 2026 22:24:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.10.3 ngmx.easytechitalia.it 9734217ABF9
+DKIM-Filter: OpenDKIM Filter v2.10.3 ngmx.easytechitalia.it D973F17C481
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mtsistemi.it;
 	s=AD82E3E6-03E3-11EF-83D2-AF8217D6D3C6; t=1789849444;
-	bh=qh+LkBDWAWYteqY1+iA7cYyeIzXITpVVk/o5US/PUwI=;
+	bh=YUZUkggZdipMz4WTH81mS0qxWx3Tl+mExRDMQGKjwWc=;
 	h=From:To:Date:Message-ID:MIME-Version;
-	b=XoJNJtZmE4f2GX31b6v8ylJZ0qdr5oQw4O8txSuzGiYl57oAAED002thdF7fejWIw
-	 El/oT4TWgUktELSINogImyhn4Iu9LoqMxAORc5Q4NEMV1f6qs+y3301PHmEEK6Hst+
-	 EIrnXWImgSBRrSB5PY/XIGVMRfbTzafaDpGJgTjIZH8zgrTOdivqjqNyVfydLnx4U1
-	 fs8ENXEeSEhRwcxAzpS+BPUyUcJaTzyYFROXZ6UKVk7JrSH3RUHFzApbBXvZLskh+S
-	 UmNO8LwoZYdnysPmdMKQPLQsuiJG5WbeKyiItrrNQaD1jZk4kYfVS/6p5Au9zV9W8h
-	 RPo2FqMfLN/4Q==
+	b=NlcchfCdOOqqIsA/xhVIBBfZ7ARvUzaoHq8HF+xiRMIp2noKktkp0LFsLQMHA8eta
+	 jWTkHtlsLWCh95RzPAr0cI8CflEGA3LrbzUHbt2yIqEUcjoLZ6kwr1gj2fCvlXo9Tq
+	 tF+69WpSrnZ0LxgrIdMVLPydsbfS4i6ORlHH9XPxxjDuJaykUXji2DQwh6A3tXLcNB
+	 Zm1FA6Tr+aX7c3IEwCzGN8uYha12jn2EmGSYMgHSwXkwArrnVDMwlskDhar8H2p8C1
+	 F2+BA7A5V+/Le9a6n/hI0TO05s/WqTGLhjhhZUYBvjM6Wm/gJORh478F+0J+Iuc9zd
+	 MyNei1j3Z1o7Q==
 X-Virus-Scanned: amavis at ngmx.easytechitalia.it
 Received: from ngmx.easytechitalia.it ([127.0.0.1])
  by localhost (ngmx.easytechitalia.it [127.0.0.1]) (amavis, port 10026)
- with ESMTP id IWRJJgZ4NUlv; Sat, 19 Sep 2026 22:24:04 +0200 (CEST)
+ with ESMTP id Onk0wWTobQEm; Sat, 19 Sep 2026 22:24:04 +0200 (CEST)
 Received: from [192.168.56.1] (93-38-124-109.ip70.fastwebnet.it [93.38.124.109])
-	by ngmx.easytechitalia.it (Postfix) with ESMTPSA id EFEDB17C481;
-	Sat, 19 Sep 2026 22:24:03 +0200 (CEST)
+	by ngmx.easytechitalia.it (Postfix) with ESMTPSA id 79BB317DC3B;
+	Sat, 19 Sep 2026 22:24:04 +0200 (CEST)
 From: Mattia Tadini <info@mtsistemi.it>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?q?K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amd/display: only clear the hotplug sources the ASIC has
+To: Tom Lendacky <thomas.lendacky@amd.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ David S. Miller <davem@davemloft.net>
+Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] crypto: ccp - fix NULL dereference in
+ psp_firmware_is_visible()
 Date: Sat, 19 Sep 2026 22:25:30 +0200
-Message-ID: <178984953065.33228.16670066468362794046@mtsistemi.it>
+Message-ID: <178984953065.33228.16836522994898001211@mtsistemi.it>
+In-Reply-To: <178984289056.12336.3953267527334867198@mtsistemi.it>
+References: <178984289056.12336.3953267527334867198@mtsistemi.it>
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -69,104 +70,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 X-Easytech-Libra-ESVA-Information: Please contact Easytech S.r.l. for more information
-X-Easytech-Libra-ESVA-ID: 4hnLbL0jJVzGnv4
+X-Easytech-Libra-ESVA-ID: 4hnLbL1zcVzGnvV
 X-Easytech-Libra-ESVA: No virus found
+X-Easytech-Libra-ESVA-SpamScore: s
 X-Easytech-Libra-ESVA-From: info@mtsistemi.it
-X-Easytech-Libra-ESVA-Watermark: 1790454334.27482@xkkN514nVSsrS/HD37UEOQ
+X-Easytech-Libra-ESVA-Watermark: 1790454335.91928@OJ9BPvnsyIGy6eW0Q8JD9Q
 
-amdgpu_dm_hpd_init() clears every hotplug source in the enum before
-enabling the ones it needs:
+The cover letter for this series did not reach the list: the three
+patches are in the archive, [PATCH 0/3] is not, and no bounce came back. =
+Resent
+here so the series context is in the thread rather than nowhere.
 
-	for (i =3D DC_IRQ_SOURCE_HPD1; i <=3D DC_IRQ_SOURCE_HPD6RX; i++)
+The AMD BC-250 is a Zen 2 APU board (Cyan Skillfish) sold as surplus mini=
+ng
+hardware and now used as a small desktop by a fair number of people. It c=
+arries
+an AMD Secure Processor at PCI 1022:143e that sp_pci_table[] does not mat=
+ch, so
+the device has always been left unbound with its memory windows disabled.
 
-DC fills the unused slots of its interrupt table with dummy handlers
-that assert when touched, so on an ASIC with fewer than six HPD lines
-that sweep warns and taints the kernel. DCN 2.0.1 has two:
-mmHPD0_DC_HPD_INT_CONTROL and mmHPD1_DC_HPD_INT_CONTROL are the only
-hotplug registers in dcn_2_0_1_offset.h, against five in
-dcn_2_1_0_offset.h, and irq_service_dcn201.c defines hpd_int_entry(0)
-and (1) accordingly.
+Adding the ID turned out to need two fixes first, both of the same shape:=
+ the
+driver decides what to bring up from the hardware capability register alo=
+ne,
+and then uses the psp_vdata pointers for those features without checking =
+that
+this device has them. On this board the two disagree, because the firmwar=
+e
+advertises a TEE whose ring never comes up.
 
-On an AMD BC-250, which appears to be the only GPU using DCN 201, every
-boot produces this for sources 3 to 6:
+Patch 1 is a NULL pointer dereference in the sysfs is_visible callback. I=
+t
+oopses during probe. It needs no new hardware to be reachable in principl=
+e:
+any device whose firmware sets the TEE capability bit while its psp_vdata
+carries no tee data hits it, which today means pspv1 and pspv2 parts. I h=
+ave
+only observed it on the BC-250, so I have not added a stable tag - please=
+ add
+one if you think it deserves it.
 
-  [drm] *ERROR* dal_irq_service_dummy_ack: called for
-      non-implemented irq source, src_id=3D0, ext_id=3D0
-  [drm] dal_irq_service_set: src: 3, st: 0
-  WARNING: .../display/dc/irq/irq_service.c:129
-      at dal_irq_service_set.cold+0x2d/0x76 [amdgpu]
-   dal_irq_service_set+0x4c/0x100 [amdgpu]
-   amdgpu_dm_hpd_init.cold+0x15/0x12e [amdgpu]
-   dm_hw_init+0x4c/0x170 [amdgpu]
-   amdgpu_device_init.cold+0x1727/0x1ec0 [amdgpu]
+Patch 2 stops a failed optional sub-device from taking down the rest of t=
+he
+PSP. Without it, a psp_vdata that deliberately omits TEE gets nothing at =
+all,
+platform access included.
 
-and the machine comes up tainted W, which makes every unrelated bug
-report from it harder to read.
+Patch 3 adds the board. The register layout was read off the device rathe=
+r
+than assumed, and the numbers are in the commit message.
 
-Walk the links this ASIC has instead of the whole enum, and skip a link
-with no hotplug line of its own, which is the same guard the enable loop
-further down already applies. A source owned by a real link is
-implemented by definition, so the dummy handlers are no longer reached.
-Parts with six HPD lines are unaffected.
+Tested on a BC-250 running 7.2.6. Before:
 
-Signed-off-by: Mattia Tadini <info@mtsistemi.it>
----
+  01:00.2 Encryption controller: AMD Device 143e
+          Memory at fe700000 [disabled] [size=3D1M]
+          Memory at fe884000 [disabled] [size=3D8K]
+          (no driver)
 
-Tested on an ASRock AMD BC-250 (Cyan Skillfish, DCN 2.0.1, two HPD lines)=
-,
-kernel 7.2.6, across reboots before and after the change:
+After:
 
-  before:  2 WARN splats and 8 error lines per boot, for sources 3 to 6
-           /proc/sys/kernel/tainted =3D 12864
-  after:   no dummy_ack, no irq_service warning, no call trace at all
-           /proc/sys/kernel/tainted =3D 12352
+  ccp 0000:01:00.2: enabling device (0000 -> 0002)
+  ccp 0000:01:00.2: platform access enabled
+  ccp 0000:01:00.2: psp enabled
+  # cat /sys/bus/pci/devices/0000:01:00.2/bootloader_version
+  00.1c.01.02
 
-The 512 that goes away is the W bit. What is left comes from an unrelated
-out-of-tree module on that machine.
+with the platform mailbox answering commands. Dynamic boost control is pr=
+obed
+and cleanly rejected by this firmware, and HSTI reports nothing because t=
+he
+security reporting capability bit is clear. There is no CCP crypto engine
+behind this function: the version register at 0x100 reads back all ones.
 
-Nothing regressed: both DisplayPort connectors still report the right sta=
-tus,
-the driver logs no HPD failure, and amdgpu keeps servicing interrupts
-normally.
+The series is against v7.2.6 and touches only drivers/crypto/ccp/.
 
-I do not have an ASIC with six HPD lines to test the unchanged path on.
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c | 22 ++++++++++++++-----
- 1 file changed, 17 insertions(+), 5 deletions(-)
+Mattia Tadini (3):
+  crypto: ccp - fix NULL dereference in psp_firmware_is_visible()
+  crypto: ccp - do not start PSP sub-devices without their vdata
+  crypto: ccp - add support for the AMD BC-250 secure processor
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c b/driv=
-ers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-index e49803a..b0ede5d 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-@@ -903,11 +903,23 @@ void amdgpu_dm_hpd_init(struct amdgpu_device *adev)
- 	int i;
- 	bool use_polling =3D false;
-=20
--	/* First, clear all hpd and hpdrx interrupts */
--	for (i =3D DC_IRQ_SOURCE_HPD1; i <=3D DC_IRQ_SOURCE_HPD6RX; i++) {
--		if (!dc_interrupt_set(adev->dm.dc, i, false))
--			drm_err(dev, "Failed to clear hpd(rx) source=3D%d on init\n",
--				i);
-+	/*
-+	 * First, clear all hpd and hpdrx interrupts, over the links this ASIC
-+	 * has rather than over the whole enum: the unused slots of the DC
-+	 * interrupt table hold dummy handlers that assert when touched.
-+	 */
-+	for (i =3D 0; i < adev->dm.dc->link_count; i++) {
-+		const struct dc_link *link =3D adev->dm.dc->links[i];
-+
-+		if (link->irq_source_hpd !=3D DC_IRQ_SOURCE_INVALID &&
-+		    !dc_interrupt_set(adev->dm.dc, link->irq_source_hpd, false))
-+			drm_err(dev, "Failed to clear hpd source=3D%d on init\n",
-+				link->irq_source_hpd);
-+
-+		if (link->irq_source_hpd_rx !=3D DC_IRQ_SOURCE_INVALID &&
-+		    !dc_interrupt_set(adev->dm.dc, link->irq_source_hpd_rx, false))
-+			drm_err(dev, "Failed to clear hpdrx source=3D%d on init\n",
-+				link->irq_source_hpd_rx);
- 	}
-=20
- 	drm_connector_list_iter_begin(dev, &iter);
+ drivers/crypto/ccp/psp-dev.c |  8 ++++++--
+ drivers/crypto/ccp/sp-pci.c  | 24 +++++++++++++++++++++++-
+ 2 files changed, 29 insertions(+), 3 deletions(-)
+
 --=20
 2.55.0
 
