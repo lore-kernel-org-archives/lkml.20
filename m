@@ -1,72 +1,72 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85550391E57
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:26:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E58FE38DC50
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:26:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789856764; cv=none; b=s3CqmkeIsqmiSqd42ngmM30o5WlLC9K4lj/qgWKu2eZqHsysnN1pbwrVVTXr3Vl3iVx4A5vvZJFIqyTEaF0Ljw68y2So0AYKZETmedT2gU9cwKIVGcB43lEgUOyM6irEmonW4qcp6CrC8X092mKqCGTBi/CXr6oIJyPvLNXOFnQ=
+	t=1789856763; cv=none; b=MriIDacpOYNAxzuS46JkR+b/LNoHcYjBKakBQ28UaRnKccjirAkvvFdTZq5cR5UlyAzpWZDKDpkjwhFEpw0Xy/NDR7GsnWvDOk9q93lyuuxqzvpUu0t3ojrQVFJEvnrvjRhGM8FjN6Pl1C7hsMNOzZrZRzvSTQEkX2OULmWvcJ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789856764; c=relaxed/simple;
-	bh=On7nT1+UD5RkfkNRUFPhkk0A9cf/HTVYnuSICtWWV7w=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ezRZVlUj7p4oiP7/zFmwfbjGVOjeEMyVFoQnl75CLp67iYnX6UUQUaJQ+MCytnTozbYdanr1rxW0dMs/hIHXFK6YmVeV0COSgOV8PdMWYV5beAZn+nIGm5JhNzu0C3pmLCWfk0Vix4pHe5GPknNfyN/AWbg6WrKIoAfxPIPFlGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b45qmjUt; arc=none smtp.client-ip=74.125.227.171
+	s=arc-20240116; t=1789856763; c=relaxed/simple;
+	bh=60mSr7VmLncSpBLK0V49HhhYVT+MiALOWI330LNHscA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EpjneoyosvpKfA6v698HwejAe75aHnrqqdrkXj7t655eg/Cm67vTG+Y9CCN/cU3kaJLuzB4aEmGCGf7LyuYoACmCltcKoO8U4SyjDXmTdzyZCpkPKukydCHCsTASkWCRmF9kW3M01GcMajj5vohWK1Odr8Ja42V8eAo2nGrcNWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RHPHE1yF; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b45qmjUt"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccafb752so1554704a91.0
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:26:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RHPHE1yF"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebcb8d7so573049a12.0
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:25:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789856760; x=1790461560; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789856759; x=1790461559; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8ruoN6IwDeYMkJLCbc5KiLZHVo6kh43xiZeYEpvlWRA=;
-        b=b45qmjUtH0sgzwaVNJgMJvwty2kP6Zpg/SvDzjik6zKGouwMQUFvcjmm0m0+2KQ1RD
-         55gBoMfHDf2YQxx5dRr/G8s+CWEZEu8UNfVXcvAmEsEVXA6Qxz1GUocvyLmdbaqIltiA
-         vJg/j243pnsDz5nvMxWIBjRCd4p+J5Ox6j6XbNAoS5BWo53galOJGBoidU8xnFVSHL7P
-         SlZBUVbfEuFRf6jJl+nzP3CNrT2Ojr28iSSBywvw1a8z6o8qiUzolTSJ5EcTd764qzKy
-         VSuF37k0WnVZKdolJqgoUEsYNS/oswNLSAkwFLp1mOdsiwrd7mV4C1712KXWRJ3Icylq
-         LDOA==
+        bh=cFtD2Fqt5nkn8b39jheUImgKcDaYIWTzHGAKFQwaEGE=;
+        b=RHPHE1yFP1wo/rAUf3rCMOtmb02CgbFjC2Do+fVDuQiTIdaCPxEZ9OG30o5Ykzr+jG
+         lar/jHUZOcoViCoVwvwkZcJX9OE+4rmcDnJlarxolXDz7GNKmv14EUJmqvrJkdXlGbAJ
+         4RaRVJ4ZMnwdkpuTSlKNGH+6PtFGxTh4SBwOjzymy4ACEfnROuFmCnm5b/AiJ6kNCJN4
+         8df5wv8255EPwRABMz+hmR5ubGjTCGD9qKpoX6S+GJaz6sfeJBbTNxinzudYO+5O3iYq
+         x/M7e5zY5XHtds6lWFd7HrmCyynbup9poupldFG+qZUB1hkZXuF6SjmOwyXRpMgBR6pv
+         BHIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789856760; x=1790461560;
+        d=1e100.net; s=20260707; t=1789856759; x=1790461559;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8ruoN6IwDeYMkJLCbc5KiLZHVo6kh43xiZeYEpvlWRA=;
-        b=t2ngxxJhkkoVRbCvoq4vicGVV6Xxhq9qbwMAk+O9HUrjXgasHnzlyeeAxLS1zo6GsY
-         2EQX9v8YEaLx1G8zBjkDF7wcBdGE9YGz6adThmr5XxC3PI7ov5w1UVbMZpSnlZpFk6pS
-         zTnnVID1lNuGRuU10Fnb83NIleBrg8aZf7CSlQQ3ExyOOKLwIiTUc4Gp+h2zTigGpXFY
-         Xqucaitd/bHWXfH7FBLlX8KgYiBtNBFax9z6mLnWQlV3E7aV5l/xz13HT8X/UGJyjDJu
-         f1DR9W9uq4LhPdYna71eZl/p9PiMoFxbVqnMgHQXb6MIqmcYWAAwyqCQoITG9tWz9r3V
-         IwHw==
-X-Forwarded-Encrypted: i=1; AKwUvBz001GUllU6ohDT8crxjyVYMIFo8u1Zqb4KQw1NQZj6AhxkFGH880MxqOdFkUfAoQxlF0S8toO3U/Ftw4A=@vger.kernel.org
-X-Gm-Message-State: AFuF++m3YPHqRofjCRbptAOIeBbhnn/dx2lfkgZo4BpaiGky98LUEdTL
-	tTjdAX9vx01ohdLYUTN8SJFCK3Ae4uCdVkzULO63wkPwkS4v1xHAeVN5eq0S6JAK
-X-Gm-Gg: AYBFou3Q0xJKuYMQPlm5F0zbZI5tbYQlHLEz4BF16BcZQdqw5qVcyaHHSOJ7xKLTDUP
-	igsx5baQ4yX6FFMG4Rm1iyJYJUWQZG2A9K6D5v7ik1p1dcO7l9xKy4TDF3R3hKDM2qhR5YSpFtc
-	Va7+GOeaCX0zAScpKUotUilSULZkbkEDWnBh7SASuG3w6pHM0P018ylZkv+Of6l/GUVP5kkzGkC
-	SRYkOLiqqXufoXE4EdJ5inLHARdSRCJq0yGoi7lWtqHFxLqbTsiRuWn35gqT5p+78oYElxa7GsM
-	/saozpH72i+NTa77Z8KdMHOmmnfrJx4mgzWGMr526jXldfaRTbsv8pWg303luQyzfn6cf6hSxrA
-	VDqsgRXiiZSqHV/BHzFRNVRiiON8B/475RIdXjVt7RecBtPXRUhrm55eLxZA7PwJJlmoCOyRyMB
-	XZs3BwUzLBnqnCMpF528WqIN8w/FR5JRX3sw19Mjc9rJEhpZacSosNyC5bNCOfUAZ8W/YBED8Vh
-	PWo5nlv8w8pMI4oVHyPvJjqySmZ3KtFPFNhCmssVNwMwIScysACSxTAqNfIhbOnM7zOxR/6gWdO
-	bWQ2R/FCtg==
-X-Received: by 2002:a17:90b:5251:b0:39e:6a7f:eeef with SMTP id 98e67ed59e1d1-39e6a7ff09amr6705396a91.20.1789856760014;
-        Sat, 19 Sep 2026 15:26:00 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6ca50694sm7118589a91.2.2026.09.19.15.25.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        bh=cFtD2Fqt5nkn8b39jheUImgKcDaYIWTzHGAKFQwaEGE=;
+        b=0XQpj+kSH+yiMKZCn56AwcTlcCJSPOBgzNlPxjkfP9xE+g8PNQ5E/OC9/3rqHnqvv+
+         bvUuA4GMjJ5IfWxd+ABBAjiJDwHSj7rJQp0euPaOnDm34dSHo/h/b5QQUz+q3JtuMKE1
+         zIUspURZMCCDE5OV97beYdKvz9+Pw51nPFuXlVICyT8Icy7YifItuOVaGdcQshmICslN
+         Quweg11ruZ580UbhpdhEdi++uz9F1M7BmYJW85VySrOn4tJpbEtbNCFTSMXET4VtONC6
+         W4oCYLekCZ2osoZoZeECtiIuL5YLfwRRq9WswBwEPWCR/hE3QQfOAyrhOsdK67IONqEM
+         PHzQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy168kAqFDd1wAP2e4UHDBeM4jsToR3EXJMb5UxIE6/azFwu8BR4Tht4QyxDnkvBr9xfosxJbrPwCqo+GY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mao4paanToN5hGYTgf+HdX7jrHCt/2ppjkBgl4mROVohli1sip
+	9ax62iEle4sdZNv1Wu0vwOzs8gcX5EiqVHzOzygPNGn6AFNJEIQDal3v
+X-Gm-Gg: AYBFou1DIgLVNQvEcB/xrqMp8sVevtlPx6vl1Moyzu8ft0cZqKP18wbjIa/hdmwq9SX
+	zhm9i4zbjubIF/P3kdFocqLfk0NGyVzEpQ6ambWtuWeNDiYXpLlQFr7MN3ympoyzuG2tc2x3z3n
+	aRLDiHa/fVzsxETxDF22uJN4MtZsB9ariD/cMp9lCqGHT1Y2gD2TSX+Fc2NKWGXm7KHgtLRLu1q
+	SXy9ERQVgzxA2uRB3iLxFD4/048uhpJFlmR19/A+GBjk6Py/4apAjGDYwag8BMB13QyjA7GtWL6
+	clVi1qSo9MT/PW1pJ7xjvg3bxM/xTM+6JnoSg0ZCpHDBponLJClV8Zo14LGv761GuKQo1x2GY+I
+	CsEXwAoOCicHhk6kJmXf3kWk9SKIpYZfZJSaRgVtj6+LVO6542RX6l6igYfU+AT+BJNx+E2Gy3Q
+	sVKPpfcuxuCCFRS+Mj+j4Tmyq3tm5RLGrjCnnkEA0BvKK44Xjb/Gry4fWlXXWmSsbwMi5eFN+L5
+	78HxkZbx/ymVDke14+BovQ7poRtZxxFJlhnsCKReVT172BHmhjSgLQHrPk6jp5/zB2kVy0IK15T
+	2vxUWsm2cw==
+X-Received: by 2002:a05:6a21:9086:b0:3dd:a196:ffd1 with SMTP id adf61e73a8af0-3dda1970073mr3971679637.33.1789856759099;
         Sat, 19 Sep 2026 15:25:59 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc72aefc0a6sm1360139a12.28.2026.09.19.15.25.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Sep 2026 15:25:58 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
-To: aivazian.tigran@gmail.com,
-	brauner@kernel.org,
-	viro@zeniv.linux.org.uk
+To: brauner@kernel.org,
+	jack@suse.cz,
+	kees@kernel.org
 Cc: linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] bfs: fix destination block offset in bfs_move_blocks() and check sb_getblk()
-Date: Sat, 19 Sep 2026 22:25:59 +0000
-Message-ID: <20260919222559.3793249-1-benquike@gmail.com>
+Subject: [PATCH] ufs: fix cylinder structures slab-OOB write, div-by-zero, and error cleanup
+Date: Sat, 19 Sep 2026 22:25:57 +0000
+Message-ID: <20260919222558.3792924-1-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -76,39 +76,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In bfs_move_blocks() (fs/bfs/file.c), compute the destination block
-number as start + i (instead of start + dblock, which shifts the
-destination past the allocated extent when dblock > 0) and check for
-NULL return from sb_getblk() before memcpy().
+Fix three superblock validation bugs in fs/ufs/super.c:
+
+1. In ufs_read_cylinder_structures(), allocate u_space according to the
+   actual cylinder group summary size and bounds-check s_ncg and
+   s_cssize to prevent a 1024..4096-byte memcpy into a kmalloc-16
+   buffer.
+2. In ufs_fill_super(), validate uspi->s_inopf, uspi->s_ipg, and
+   uspi->s_fpg against zero to prevent hardware divide-by-zero (#DE)
+   traps.
+3. On the ufs_fill_super() failure path after d_make_root(), clear or
+   avoid leaving sb->s_root populated when sbi is freed so
+   ufs_put_super() does not dereference NULL sb->s_fs_info.
 
 Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
-diff --git a/fs/bfs/file.c b/fs/bfs/file.c
-index d33d6bde992b..e6916c2b2671 100644
---- a/fs/bfs/file.c
-+++ b/fs/bfs/file.c
-@@ -40,6 +40,10 @@ static int bfs_move_block(unsigned long from, unsigned long to,
- 	if (!bh)
- 		return -EIO;
- 	new = sb_getblk(sb, to);
-+	if (!new) {
-+		brelse(bh);
-+		return -EIO;
-+	}
- 	memcpy(new->b_data, bh->b_data, bh->b_size);
- 	mark_buffer_dirty(new);
- 	bforget(bh);
-@@ -54,9 +58,9 @@ static int bfs_move_blocks(struct super_block *sb, unsigned long start,
+diff --git a/fs/ufs/super.c b/fs/ufs/super.c
+index 3569ac92b065..7d2eb3cbdcf0 100644
+--- a/fs/ufs/super.c
++++ b/fs/ufs/super.c
+@@ -455,7 +455,7 @@ static int ufs_read_cylinder_structures(struct super_block *sb)
+ {
+ 	struct ufs_sb_info *sbi = UFS_SB(sb);
+ 	struct ufs_sb_private_info *uspi = sbi->s_uspi;
+-	unsigned char * base, * space;
++	unsigned char *base = NULL, *space;
+ 	unsigned size, blks, i;
  
- 	dprintf("%08lx-%08lx->%08lx\n", start, end, where);
- 	for (i = start; i <= end; i++)
--		if(bfs_move_block(i, where + i, sb)) {
-+		if (bfs_move_block(i, where + i - start, sb)) {
- 			dprintf("failed to move block %08lx -> %08lx\n", i,
--								where + i);
-+							where + i - start);
- 			return -EIO;
+ 	UFSD("ENTER\n");
+@@ -465,17 +465,21 @@ static int ufs_read_cylinder_structures(struct super_block *sb)
+ 	 * on the device. 
+ 	 */
+ 	size = uspi->s_cssize;
++	if (!size || size < (size_t)uspi->s_ncg * sizeof(struct ufs_csum))
++		goto failed;
+ 	blks = (size + uspi->s_fsize - 1) >> uspi->s_fshift;
+ 	base = space = kmalloc(size, GFP_NOFS);
+ 	if (!base)
+ 		goto failed; 
+ 	sbi->s_csp = (struct ufs_csum *)space;
+ 	for (i = 0; i < blks; i++) {
++		size_t copy_len = min_t(size_t, size - (space - base),
++					uspi->s_fsize);
+ 		struct buffer_head *bh = sb_bread(sb, uspi->s_csaddr + i);
+ 		if (!bh)
+ 			goto failed;
+-		memcpy(space, bh->b_data, uspi->s_fsize);
+-		space += uspi->s_fsize;
++		memcpy(space, bh->b_data, copy_len);
++		space += copy_len;
+ 		brelse (bh);
+ 	}
+ 
+@@ -595,15 +599,19 @@ static void ufs_put_super_internal(struct super_block *sb)
+ 	size = uspi->s_cssize;
+ 	blks = (size + uspi->s_fsize - 1) >> uspi->s_fshift;
+ 	base = space = (char*) sbi->s_csp;
+-	for (i = 0; i < blks; i++, space += uspi->s_fsize) {
++	for (i = 0; i < blks; i++) {
++		size_t copy_len = min_t(size_t, size - (space - base),
++					uspi->s_fsize);
+ 		struct buffer_head *bh = sb_bread(sb, uspi->s_csaddr + i);
+ 
+ 		if (unlikely(!bh)) { // better than an oops...
+ 			ufs_panic(sb, __func__,
+ 				"can't write part of cylinder group summary");
++			space += copy_len;
+ 			continue;
  		}
+-		memcpy(bh->b_data, space, uspi->s_fsize);
++		memcpy(bh->b_data, space, copy_len);
++		space += copy_len;
+ 		mark_buffer_dirty(bh);
+ 		brelse(bh);
+ 	}
+@@ -1179,6 +1187,11 @@ static int ufs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	uspi->s_nspfshift = uspi->s_fshift - UFS_SECTOR_BITS;
+ 	uspi->s_nspb = uspi->s_nspf << uspi->s_fpbshift;
+ 	uspi->s_inopf = uspi->s_inopb >> uspi->s_fpbshift;
++	if (!uspi->s_inopf || !uspi->s_ipg) {
++		ufs_error(sb, __func__, "invalid fs_inopb (%u) or fs_ipg (%u)\n",
++			  uspi->s_inopb, uspi->s_ipg);
++		goto failed;
++	}
+ 	uspi->s_bpf = uspi->s_fsize << 3;
+ 	uspi->s_bpfshift = uspi->s_fshift + 3;
+ 	uspi->s_bpfmask = uspi->s_bpf - 1;
+@@ -1211,18 +1224,23 @@ static int ufs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	inode = ufs_iget(sb, UFS_ROOTINO);
+ 	if (IS_ERR(inode)) {
+ 		ret = PTR_ERR(inode);
+-		goto failed;
++		goto failed_put_cyl;
+ 	}
+ 	sb->s_root = d_make_root(inode);
+ 	if (!sb->s_root) {
+ 		ret = -ENOMEM;
+-		goto failed;
++		goto failed_put_cyl;
+ 	}
+ 
+ 	UFSD("EXIT\n");
  	return 0;
+ 
++failed_put_cyl:
++	if (!sb_rdonly(sb))
++		ufs_put_super_internal(sb);
+ failed:
++	dput(sb->s_root);
++	sb->s_root = NULL;
+ 	if (ubh)
+ 		ubh_brelse_uspi (uspi);
+ 	kfree (uspi);
