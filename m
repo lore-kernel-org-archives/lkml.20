@@ -1,178 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7793E35674A;
-	Sat, 19 Sep 2026 16:57:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38BAF2D97B7;
+	Sat, 19 Sep 2026 16:59:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789837073; cv=none; b=TLG/SJod9FpQL5jrwQDu38s+NEAlhxfHIKUu4dCHLNC3hmSkXvvBfyF4Zdc8HAWV9z+C+Vt8mm3uhaYKz+wnbHqLmmolGCURsU/h5CmKNyJ3jhlLFZS5N8l/Kjfgtx/bVlWr1PIKZNnNA26Z7xmiNcqedKJL7bWdqRNFI64HrKw=
+	t=1789837179; cv=none; b=UHWuxm0ZlJj9vGHAztk8Hth5jDt9tJzSK8Ma3UsM9MAmF++g3s26A5hCic7rTPI5haJNqUC3bcoyOqy31iA9VnPjFLRQNQ0yZsVSB4vlyt6f9W7Rwj6rnw/+sHXSgREKpEBREo4JcWfdcfkdUwUJxBJwQaOiagZJoe29z83JIXw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789837073; c=relaxed/simple;
-	bh=vvoDJ8lKYiIMuCHfLSf7JsyJGemVUit67i4+MUQiqmQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JRoN3WNDlQ0ClPlP/4K87CjeSXeVnLFpARouC0NNn8hhdSV18CLZymqDI1oJDM66xIz3eCqNQMJHPe/7SYZq3VCoN3uRedSAjo6FX/0X3E047hYAjrvBX+YaTthRM7iIO4Izrw3Ljo44cpXN2fiS2RZEF9fNX5M3ChZUiOCPBlI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ib+jARSJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789837179; c=relaxed/simple;
+	bh=5Al95Vq3AWaglLWATD0mG/bxgxndiPRMDmAY7/PQG9s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=D/fMON3r5Pd7wKfXF7pgd848Gy9x2NdjIBMn8aUnizTSFvREBazzbb97bxaMJ4GGUarPYuIxObpNMNkpVLkt5ODBhoBv8BRLGxqG8iiQeIMcdpI1s7EkG0k0DB7YRetVyzSK7X2HzR9aEA9K8aOLOAX9DBWyMqgwqq/UOzrhUIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=c0KCrDLf; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ib+jARSJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA83C1F000FF;
-	Sat, 19 Sep 2026 16:57:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789837070;
-	bh=KM2tgM0uGCVk8XtquigocG7Ha/ITFid2M5zaQUDm4hQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ib+jARSJmLUOsDlTIv6OHj4xq4E/O4XHgfSasYMyRp+ithI4n9jSi9LfO7VSVfVzq
-	 fAEwEVs6MPaOZa0p6cJPeyyCIQs3Ltp4Ib1xghu0J0zwWP/aDQfem9610HBBpogQ19
-	 9pAze5bqN3TKajzH/HiMyUzWsJKDwmpJHciJzkoWJ5XB+KrR+SATdwTFbhKQGzHDz7
-	 gEVt5gieTXgYhfd1fhpInIP5tVos/meaA3Ie61J31lGNHoa23r5N6Xa1cYy9EU4k15
-	 +EWis+F9CWyyXLXiHQ9NLpyLfNxa1acVucTWZR2ydIsoeVu0JVzUIAwfvwiJz+lJoT
-	 LFgHHDsyIyt8Q==
-Date: Sat, 19 Sep 2026 17:57:36 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Kees Cook <kees@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Masahiro Yamada <masahiroy@kernel.org>, 
-	Alexey Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
-	Randy Dunlap <rdunlap@infradead.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
-	linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
-	Jens Axboe <axboe@kernel.dk>, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v3 09/20] kbuild: implement and use depcheck to check
- dependency timestamps
-Message-ID: <aq6-KMkAx7q_xLO4@gremlin>
-References: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
- <20260917-build-speedup-v3-9-9ecf4163ff36@kernel.org>
- <202609171117.35BFDCC13@keescook>
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="c0KCrDLf"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=PC8nBWYH0Iq7vpvdPWc52um2m35Kp0+jqL/05Xe6Ym8=; b=c0KCrDLfUQSiJSZDNpgnoBiI1G
+	zd55MvyybnjliVrYh1pBplIEh4WwWCBqiW7VTJv3kszlpBznHHKqV8ifzEg55RyYOX+X4bUAsDMxO
+	0S9pEVtR+emoK/5MHoJEkGkTTluFKuzj2fMUyuPt+gyr42COKForaYn5sblKnt4b0h52+1ZzxGqmN
+	FV949+LU62NWqYfZ+ny5xpmMN3foc7a95itrbb4BOLVrho84pfsz+vxdfoh8LLXqaU2XEjTySP6Yo
+	sqjbSunA6jNCyUVuun5ep6pqZMsMFu1xwjhVWvyJ/nlWT8J+W4WCXoi4RaB0sH/rU9Nk8rRt7htQ5
+	AJT+aRgQ==;
+Received: from [151.115.150.205] (port=58906 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1x7yPT-000000000Zy-24Bl;
+	Sat, 19 Sep 2026 18:59:29 +0200
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: linkinjeon@kernel.org
+Cc: senozhatsky@chromium.org,
+	tom@talpey.com,
+	chenxiaosong@chenxiaosong.com,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+Subject: [PATCH] ksmbd: fix SMB2 CREATE response buffer overflow
+Date: Sat, 19 Sep 2026 16:58:29 +0000
+Message-ID: <20260919165828.2230488-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <202609171117.35BFDCC13@keescook>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On Thu, Sep 17, 2026 at 11:42:50AM -0700, Kees Cook wrote:
-> On Thu, Sep 17, 2026 at 05:06:19PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > This can be done faster in C, so implement scripts/basic/depcheck to do so.
-> >
-> > It does as little work as possible, reading the .cmd files from a
-> > directory's targets and running stat on each dependency only a single time.
->
-> Doesn't this run the risk of missing transitive deps?
->
-> C.cmd:	C.o depends on A.c and B.c and B.h
-> B.cmd:	B.h depends on B.data and B.script
->
-> depcheck looks at C.o and B.h's times and is happy so it drops C.cmd file,
-> but then see B.script has changed compared to B.h, so it keeps B.cmd,
-> and then the build runs and doesn't have the C.o dep list any more,
-> and C.o goes unbuilt?
+smb2_allocate_rsp_buf() uses the MAX_CIFS_SMALL_BUFFER_SIZE
+(448-byte) buffer for a single SMB2_CREATE response. That buffer also
+holds a 4-byte length field, which only leaves 444 bytes for the SMB2
+body.
 
-No, B.h's .cmd file is still in the fragment with the full dependency list, so
-make remakes B.h from B.script and C.o's saved command line is there too.
+The AAPL response made this buffer too small. After 8f1b796ff113, a
+request with AAPL response contexts may need at least 456 bytes. In
+the 456-byte case, create_aapl_rsp_buf() is appended last, clears 128
+bytes, and writes 12 bytes past the allocation.
 
-But, as you mention in the follow up :), it screws up on next bit - C.o
-depending on B.h with B.h just remade. Will reply to your follow-up on that!
+KASAN reports:
 
->
-> Also, I don't think this handles if_changed commands at all? The kbuild
-> rebuild condition is timestamps plus if_changed's command-line check.
+    BUG: KASAN: slab-out-of-bounds in create_aapl_rsp_buf+0x31/0x6e0
+    Write of size 128 at addr ffff88800370954c by task kworker/0:0/9
+    ...
+    create_aapl_rsp_buf+0x31/0x6e0
+    smb2_open+0x58f9/0xef10
+    ...
+    smb2_allocate_rsp_buf+0x19d/0x370
+    ...
+    The buggy address is located 332 bytes inside of
+     allocated 448-byte region [ffff888003709400, ffff8880037095c0)
 
-It does, the fragment always has the saved command line, only the dependency
-list is dropped, so if_changed compares the same as before.
+Reserve enough space for any fixed CREATE response KSMBD can build. This
+keeps the small buffer for other commands and avoids using the max
+transaction buffer for every CREATE.
 
->
-> > diff --git a/scripts/basic/depcheck.c b/scripts/basic/depcheck.c
-> > new file mode 100644
-> > index 000000000000..622101c33650
-> > --- /dev/null
-> > +++ b/scripts/basic/depcheck.c
-> > @@ -0,0 +1,441 @@
-> > [...]
-> > +/* What fixdep writes, see above. */
-> > +#define DEPS_PREFIX		"deps_"
-> > +#define DEPS_RULE_PREFIX	"$(" DEPS_PREFIX
-> > +#define RULE_SUFFIX		":"
-> > +#define LINE_CONTINUATION	" \\"
-> > +#define WILDCARD_OPEN		"$(wildcard "
-> > +#define WILDCARD_CLOSE		")"
-> > +#define CMD_SUFFIX		".cmd"
-> > [...]
-> > +static bool is_blank(char chr)
-> > [...]
-> > +static bool str_ends_with(const char *str, const char *suffix)
-> > [...]
-> > +static bool line_starts_with(const struct line *line, const char *prefix)
-> > [...]
-> > +static bool line_ends_with(const struct line *line, const char *suffix)
-> > [...]
-> > +static bool line_is_blank(const struct line *line)
-> > [...]
-> > +static bool line_is_continued(const struct line *line)
-> > [...]
-> > +static void line_strip_continuation(struct line *line)
-> > [...]
-> > +static void line_trim(struct line *line)
-> > [...]
-> > +static bool next_line(const char **pos, const char *end, struct line *line)
->
-> There is a lot of sting handling in here. I know you're going for speed,
-> but it just feels like a python script doing all this would be much more
-> readable without wrecking speed compared to C much. Yes, C will win out,
-> but the maintainability of this helper does not fill me with joy. :P
+Fixes: 8f1b796ff113 ("ksmbd: add AAPL kAAPL_SERVER_QUERY create context support")
+Assisted-by: Codex:gpt-5
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+---
+ fs/smb/server/smb2pdu.c | 25 ++++++++++++++++++++++++-
+ 1 file changed, 24 insertions(+), 1 deletion(-)
 
-Well I had the LLM look at that and for an allmodconfig python's startup time
-would take 40s of CPU time _alone_ and it'd kill the no op improvement. So C it
-has to be :)
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index b7ce67094626..24a3fd463be0 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -860,14 +860,37 @@ static void smb2_update_lock_sequence(struct ksmbd_work *work,
+ int smb2_allocate_rsp_buf(struct ksmbd_work *work)
+ {
+ 	struct smb2_hdr *hdr = smb_get_msg(work->request_buf);
++	struct smb_version_values *vals = work->conn->vals;
+ 	size_t small_sz = MAX_CIFS_SMALL_BUFFER_SIZE;
+-	size_t large_sz = small_sz + work->conn->vals->max_trans_size;
++	size_t large_sz = small_sz + vals->max_trans_size;
+ 	size_t sz = small_sz;
+ 	int cmd = le16_to_cpu(hdr->Command);
+ 
+ 	if (cmd == SMB2_IOCTL_HE || cmd == SMB2_QUERY_DIRECTORY_HE)
+ 		sz = large_sz;
+ 
++	if (cmd == SMB2_CREATE_HE) {
++		size_t create_sz;
++
++		/*
++		 * A CREATE response may contain any combination of fixed
++		 * response contexts. Account for the 4-byte length field
++		 * because work->response_sz includes it while smb_get_msg()
++		 * skips over it.
++		 */
++		create_sz = sizeof(__be32) +
++			    offsetof(struct smb2_create_rsp, Buffer);
++		create_sz += vals->create_lease_size;
++		create_sz += max_t(size_t,
++				   vals->create_durable_size,
++				   vals->create_durable_v2_size);
++		create_sz += vals->create_mxac_size;
++		create_sz += vals->create_disk_id_size;
++		create_sz += vals->create_posix_size;
++		create_sz += vals->create_aapl_size;
++		sz = max_t(size_t, sz, create_sz);
++	}
++
+ 	if (cmd == SMB2_QUERY_INFO_HE) {
+ 		struct smb2_query_info_req *req;
+ 
+-- 
+2.47.3
 
->
-> > [...]
-> > +static const struct dep *lookup_dep(const char *path)
-> > +{
-> > +	const unsigned int key = hash_str(path);
-> > +	struct dep *dep;
-> > +	struct stat st;
-> > +
-> > +	hash_for_each_possible(dep_table, dep, hnode, key) {
-> > +		if (!strcmp(dep->path, path))
-> > +			return dep;
-> > +	}
-> > +
-> > +	dep = xmalloc(sizeof(*dep) + strlen(path) + 1);
-> > +	strcpy(dep->path, path);
-> > +	dep->exists = !stat(path, &st);
-> > +	if (dep->exists)
-> > +		dep->mtime = st.st_mtim;
->
-> I realize you only check "mtime" after an "exists" check, but I bristle
-> at leaving a time-stamp uninitialized. Can we just add an "else
-> dep->mtime = 0" here?
-
-Ack, done for v4!
-
->
-> -Kees
->
-> --
-> Kees Cook
-
---
-Cheers, Lorenzo
