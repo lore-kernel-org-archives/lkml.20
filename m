@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5190330F7FB;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C527325495;
 	Sat, 19 Sep 2026 00:35:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789778144; cv=none; b=szh36iMrmhzpddz9wGJ0FHIvYj3kYbd3inJFDcEY5Se7CQhRl/ruh05/Z7gpYwaRFQH/72+4FKYoPGiV7q4vYBcrQjvwb7eQjNJ9cAernEqVPNom3AKcwrkLTkJ3oK7iI/3RbJ9ctgDyprnYrVsnZgX2t0MgBjNZrKxwfBHRTzs=
+	t=1789778146; cv=none; b=rY6QjVnXoeTHsKyLJqUSIwPmKGHUTSmfsYOnB3rg/R+OGyBScB9CiWYCOHMh2rtVvw26zpjV8//QZVFlvBsT65bqd1T2Fp3GZ8VQY/1nOVxzSmGwKFVrRPJfiFlitc9Ks4nVRmEm7fMQOPmbv8a4pwV/kMVenNAmu/TZpu22SvI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789778144; c=relaxed/simple;
-	bh=e7jkUh+A7HynrbIIM434c25BwDym5L11ALJNVJFKl4g=;
+	s=arc-20240116; t=1789778146; c=relaxed/simple;
+	bh=Z3Hq8MB7MC2CdIL5t0qKx/Nb3myEZ+NYT4GuUzOm40o=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=VQUXAwTjg7qvNlk3R7S8Zk9OwbIWkELc0azVRwopyYD4DYx4jdf+0JvHPKkY4rV1b0QMuvTNErZg/brH5duMEsjGOqDPC21E7zvkZLgAJopF3nqNXTupny/5YfYX+6Z8gT3a936b2wey55RU1qGf3a7tqYTYFB3EOMJuoQu81yo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RmUeCtbp; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=s7XHUJWii6jyZkqu1mKcUBwcXNbT6aqITWGXxLoCo6LKu0jsfLnc+3lmfwa0fkV5XNt1s12FeiJHhlZIlMphUo4iogU45O91JhdY1neCsvqPBPnPVAhD7WX6jhOaIoFKakCSXleSmi4aynXS9SUPibvzetn5kKchWIxXHUsnIvo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k2sYhXgM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RmUeCtbp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54DB31F008BE;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k2sYhXgM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 397C11F008BC;
 	Sat, 19 Sep 2026 00:35:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789778123;
-	bh=6pq7VquZ+VbmZ/kNLwHzh1Y+rigLbMnLqxyYRhFn5Pk=;
+	bh=xQi3LexBdeioHlPsYw6/EfTg9lM9UCcZ8R/HVZsUByI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RmUeCtbp/cGZcbOivG51bM7/FjXekmsU5838Vr0oEVvj8zf/4vgZvYNvV/oVnkpAI
-	 9PbphcD+fSkGpH/rN5Bqdfn8kFsY/ZTMKCOMwjEgY70Eaxz5DvJ+nCPzftXwbKY/V/
-	 HNGUPjjvpMWCYx3sNtYWL2h8ar6u2oS6t6itCEa9tE85EDvqmYFAq7THjzGdf0Q4Px
-	 FCZ9EHzMqsy7StO0iX5ilsSTz7LMGALNyW4Lg4xt8dcI2XiVaOvZjajsyTggKQ17sx
-	 dg+SYHX5lAGbJm6DiqQZUqdPA1oEiWGde5AVvNcVYe2gQE1vEbCMecM3/2eh7JikJu
-	 aySBmUPHzg61w==
+	b=k2sYhXgMqK2OGib4oC4MU8wIVv8SzPAiVQR/iNR5kcDR1HzzJF9nzrLbrIVfBBKhl
+	 h8QwLPPMOhEf2aWP7mie+uS8VnpW1xs+M5OAlUF9JB0e+zmO6jOJcwt2Ub5b9PhQQ5
+	 zBfNt1Z5Hcr5NFe88A1jAhUXvhqmPm6gmnLL3Ni7MvlQ+hCqxL0I8RFH4GufVaMYo9
+	 n09SHttPmvRRCPYSxNyBsitdy6vZDgPpTzd22HPUI+cRkysuWH7MfuyN2Jb+TV+eum
+	 McKNH6DUIucQP0Ogb7iyOf3HDZ0yy4GikPY/FqHrJOlCt5eWMDpkiyqetGsQe6KP5w
+	 yq8i2NFfB19Bg==
 Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id BAB01CE1D5F; Fri, 18 Sep 2026 17:35:22 -0700 (PDT)
+	id B02A6CE18B5; Fri, 18 Sep 2026 17:35:22 -0700 (PDT)
 From: "Paul E. McKenney" <paulmck@kernel.org>
 To: rcu@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
@@ -35,9 +35,9 @@ Cc: linux-kernel@vger.kernel.org,
 	rostedt@goodmis.org,
 	Kunwu Chan <kunwu.chan@gmail.com>,
 	"Paul E . McKenney" <paulmck@kernel.org>
-Subject: [PATCH 16/19] srcu: Restrict atomic-SRCU non_block annotation to task context
-Date: Fri, 18 Sep 2026 17:35:18 -0700
-Message-Id: <20260919003521.3134552-16-paulmck@kernel.org>
+Subject: [PATCH 12/19] rcutorture: Add atomic-SRCU support to torture.sh
+Date: Fri, 18 Sep 2026 17:35:14 -0700
+Message-Id: <20260919003521.3134552-12-paulmck@kernel.org>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <13d6be93-8d9d-47a2-beb0-99c8a90938d4@paulmck-laptop>
 References: <13d6be93-8d9d-47a2-beb0-99c8a90938d4@paulmck-laptop>
@@ -51,68 +51,95 @@ Content-Transfer-Encoding: 8bit
 
 From: Kunwu Chan <kunwu.chan@gmail.com>
 
-srcu_read_lock_atomic() and srcu_read_unlock_atomic() arm and disarm
-might_sleep() checks via non_block_start()/non_block_end(), skipping
-hardirq so the update does not land on the interrupted task's
-->non_block_count.
+Add the --do-atomic-srcu argument to torture.sh, which runs the
+SRCU-N, SRCU-P, and SRCU-T scenarios, thus covering both Tree SRCU
+(SRCU-N and SRCU-P) and Tiny SRCU (SRCU-T), with
+rcutorture.reader_flavor=0x10 appended to the boot parameters so
+that it takes precedence over each scenario's own reader-flavor
+setting.  This exercises srcu_read_lock_atomic(),
+srcu_read_unlock_atomic(), and synchronize_srcu_atomic().
 
-Inline softirqs run on the interrupted task's stack as well, so a
-timer callback running atomic-SRCU readers races with the interrupted
-task's own ->non_block_count updates, as KCSAN reports:
+As with other torture.sh tests, the --do-kcsan argument runs a
+KCSAN+PROVE_LOCKING variant of this test.
 
-	BUG: KCSAN: data-race in srcu_torture_read_lock / srcu_torture_read_unlock
-
-	write to 0xffffa00f818ea418 of 4 bytes by interrupt on cpu 0:
-		srcu_torture_read_lock+0x422/0x470
-		rcutorture_one_extend+0xdc/0x600
-		rcu_torture_one_read+0xd1/0x330
-		rcu_torture_timer+0x75/0x140
-		call_timer_fn+0xe6/0x2f0
-		...
-		run_timer_softirq+0xb7/0x130
-		handle_softirqs+0xfc/0x3f0
-		__irq_exit_rcu+0x8e/0x100
-
-Use in_task() so the annotation is applied only in task context; it
-is redundant elsewhere because might_sleep() already warns about
-sleeping from atomic context.
+[ paulmck: Make --do-atomic-srcu be default-on. ]
 
 Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
 Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
 ---
- include/linux/srcu.h | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ .../selftests/rcutorture/bin/torture.sh       | 24 +++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-diff --git a/include/linux/srcu.h b/include/linux/srcu.h
-index 3f232f2e0524..1a8a465a5650 100644
---- a/include/linux/srcu.h
-+++ b/include/linux/srcu.h
-@@ -346,11 +346,13 @@ static inline int srcu_read_lock_atomic(struct srcu_struct *ssp)
- 	/*
- 	 * Arm might_sleep() to catch even a *potentially* sleeping call
- 	 * in the section, not just an actual schedule: the atomic-domain
--	 * promise must hold on every path, contended or not. In hardirq
--	 * the annotation would land on the interrupted task; it is also
-+	 * promise must hold on every path, contended or not. In hardirq,
-+	 * softirq, or NMI the annotation would land on the interrupted
-+	 * task, and can also result in data races against that task's
-+	 * own non_block_start()/non_block_end() invocations; it is also
- 	 * redundant there, so skip it.
- 	 */
--	if (!in_hardirq())
-+	if (in_task())
- 		non_block_start();
- 	srcu_check_read_flavor(ssp, SRCU_READ_FLAVOR_ATOMIC);
- 	retval = __srcu_read_lock(ssp);
-@@ -562,7 +564,7 @@ static inline void srcu_read_unlock_atomic(struct srcu_struct *ssp, int idx)
- 	srcu_check_read_flavor(ssp, SRCU_READ_FLAVOR_ATOMIC);
- 	srcu_lock_release(&ssp->dep_map);
- 	__srcu_read_unlock(ssp, idx);
--	if (!in_hardirq())
-+	if (in_task())
- 		non_block_end();
- 	preempt_enable();
- }
+diff --git a/tools/testing/selftests/rcutorture/bin/torture.sh b/tools/testing/selftests/rcutorture/bin/torture.sh
+index f0083891ee81..e7b578ec152f 100755
+--- a/tools/testing/selftests/rcutorture/bin/torture.sh
++++ b/tools/testing/selftests/rcutorture/bin/torture.sh
+@@ -68,6 +68,7 @@ do_clocksourcewd="${ifnotaarch64}"
+ do_rt=yes
+ do_rcutasksflavors="${ifnotaarch64}" # FIXME: Back to "yes" when SMP=n auto-avoided
+ do_srcu_lockdep=yes
++do_atomic_srcu=yes
+ do_rcu_rust=no
+ 
+ # doyesno - Helper function for yes/no arguments
+@@ -103,6 +104,7 @@ usage () {
+ 	echo "       --do-rcu-rust / --do-no-rcu-rust / --no-rcu-rust"
+ 	echo "       --do-scftorture / --do-no-scftorture / --no-scftorture"
+ 	echo "       --do-srcu-lockdep / --do-no-srcu-lockdep / --no-srcu-lockdep"
++	echo "       --do-atomic-srcu / --do-no-atomic-srcu / --no-atomic-srcu"
+ 	echo "       --duration [ <minutes> | <hours>h | <days>d ]"
+ 	echo "       --guest-cpu-limit N"
+ 	echo "       --kcsan-kmake-arg kernel-make-arguments"
+@@ -148,6 +150,7 @@ do
+ 		do_kcsan=yes
+ 		do_clocksourcewd="${ifnotaarch64}"
+ 		do_srcu_lockdep=yes
++		do_atomic_srcu=yes
+ 		;;
+ 	--do-allmodconfig|--do-no-allmodconfig|--no-allmodconfig)
+ 		do_allmodconfig=`doyesno "$1" --do-allmodconfig`
+@@ -183,6 +186,7 @@ do
+ 		do_kcsan=no
+ 		do_clocksourcewd=no
+ 		do_srcu_lockdep=no
++		do_atomic_srcu=no
+ 		;;
+ 	--do-normal|--do-norm|--do-no-normal|--do-no-norm|--no-normal|--no-norm)
+ 		do_normal=`doyesno "$1" --do-normal`
+@@ -212,6 +216,9 @@ do
+ 	--do-srcu-lockdep|--do-no-srcu-lockdep|--no-srcu-lockdep)
+ 		do_srcu_lockdep=`doyesno "$1" --do-srcu-lockdep`
+ 		;;
++	--do-atomic-srcu|--do-no-atomic-srcu|--no-atomic-srcu)
++		do_atomic_srcu=`doyesno "$1" --do-atomic-srcu`
++		;;
+ 	--duration)
+ 		checkarg --duration "(minutes)" $# "$2" '^[0-9][0-9]*\(m\|h\|d\|\)$' '^error'
+ 		mult=1
+@@ -497,6 +504,23 @@ then
+ 	torture_set "rcutorture" tools/testing/selftests/rcutorture/bin/kvm.sh --allcpus --duration "$duration_rcutorture" --configs "$configs_rcutorture" --trust-make
+ fi
+ 
++# Test atomic SRCU across Tree SRCU (SRCU-N and SRCU-P) and Tiny SRCU
++# (SRCU-T).  The reader flavor selects srcu_read_lock_atomic() and
++# synchronize_srcu_atomic().  Tiny SRCU requires SMP=n, which aarch64
++# does not support.
++if test "$do_atomic_srcu" = "yes"
++then
++	torture_bootargs="rcutorture.reader_flavor=0x10"
++	configs_atomic_srcu="SRCU-N SRCU-P"
++	if test "$ifnotaarch64" = yes
++	then
++		configs_atomic_srcu="$configs_atomic_srcu SRCU-T"
++	fi
++	torture_set "atomic-srcu" tools/testing/selftests/rcutorture/bin/kvm.sh \
++		--allcpus --duration "$duration_rcutorture" \
++		--configs "$configs_atomic_srcu" --trust-make
++fi
++
+ if test "$do_locktorture" = "yes"
+ then
+ 	torture_bootargs="torture.disable_onoff_at_boot"
 -- 
 2.40.1
 
