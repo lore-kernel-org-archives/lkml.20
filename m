@@ -1,114 +1,150 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C102E229F
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 21:22:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789852932; cv=none; b=dYmbw4GTm0D32OFgFmxGhNPWVeUk5N2ekO2a1uMR9PYyd6uX2vicxtbzKbcLWfw5K0IS9/3nnVSHh6/KHTcwFuJ/o3RiXt7dlPLXaLlQAn24tOghflDvh4POXbm8bDJ+HUEqbZNugBY5atcw4IJLt2Uq4i1gowH8/F2DJSswLZ8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789852932; c=relaxed/simple;
-	bh=9KE5aURhmFeQqffPNpopHGYL3hq2scKvdY2jkmvGLyo=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10BA830C164
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 21:26:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.235
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789853188; cv=pass; b=dFLS8bagkf4SJbNPV5+pUsIEertiJgeFYzau6kf/7mCjnvYHGu1mtEegaqxjv04B6766TlGaSZz7piYYYKQUStqW6OA7lOk2B0ZStVD0H3Sad0i1EdqfdVkB/npChIz1oPTmcxUXVjl6i0jcdiRxo+ASD2H+PmffB5V5OQFVEBw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789853188; c=relaxed/simple;
+	bh=W82cP2eM7LOKZLRzXX4bEVLA8ivt1Vz2Z6PZnWSs15Q=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EfnCFN9oRneP8lqYbtpUUWR+tOfDHSR1LmGl3AzMfhbUeX9sGoukTW+YYZ0lilnyQ0Iv9na7YwU02C3PomN2bESDacgetJh9wDVUMvjgPf6+r3FpZms2/LODuwEtetS8Njx1Nm/OQLskVq78syxgku4vn5mBW1kPL0Hx5pX0GNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dvxvYiL3; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=JJX/3jMgF519+Aza5TK3Ekc8rhuAzyrOzjxB4n24mUrNunVcPyQh4FYSX5D6HaUg1MbpySRA7I1+BMo9KFeNtrGXYZ9w0bgvKv5N8E9vaecB7Iq6QclyQDAQSGk+Z9FtrKEjxdxBHIFnk0uOv46xBu4Hz0eSzIe4rLa4Ga05DwA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bXeEmSz5; arc=pass smtp.client-ip=74.125.230.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dvxvYiL3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6E101F00899
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 21:22:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789852931;
-	bh=9KE5aURhmFeQqffPNpopHGYL3hq2scKvdY2jkmvGLyo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=dvxvYiL3h4r8ovEqY5Mh4f6NhdN7+bguAVTX4+urpf3GoZamkP+ErBEtKFU4bHQmN
-	 H68Wtp6494+yz30jy/m5d/RagA2pKfWwJkhqA7emGBXMdCN2ZrErMQhbcwngaZpAE5
-	 Q8vwzHr8pmXA7IIVBZXC/U05n4OxzxVbxq/4AEBYKJcGv21tMp4NC7VWPsAkM2DZQ4
-	 nRU+TKvcRokByfRcQddCmKVnGVAxA2MPHZnugbTe2PQjpV/u1CNfDmFUJfe8stKdW+
-	 Dewl9VykVXDI6pXLrW5sA7fWZVAW7SMzPc22GVHslUWFFbF0bCks4NqF+9nAStVy18
-	 qmCnUcgEbkYhw==
-Received: by mail-yx2-f42.google.com with SMTP id 00721157ae682-89666eea29cso12580517b3.2
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:22:11 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz5MurZFdqH1Tadtltg9kBm2n/XjokNHQIPaIFFg51zOlKqwP0gNwKuVCE/yPfDkwE9QdX5Jp/UmrkX71Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++mk+kV33vU9jHtFNmOxM6Dc6FhzW2bJiZY6lPdQhBupMJnofiQa
-	dww1gjfVuk7lqgrjgcwY1bP5MaxgDuUOMlEJYL9QhcVKjEJjaHUhV7SjkyivfKQ9jclqYqGwTPi
-	W9z9fBwQySiRtVCjBnZOUcBbInvZITsJuoDadgHER+Q==
-X-Received: by 2002:a05:690e:4888:10b0:66f:c1bc:87ef with SMTP id
- 956f58d0204a3-6717fde9f96mr1259997d50.72.1789852930667; Sat, 19 Sep 2026
- 14:22:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bXeEmSz5"
+Received: by mail-qk2-f43.google.com with SMTP id af79cd13be357-93910cadeafso128427485a.3
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:26:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789853186; cv=none;
+        d=google.com; s=arc-20260327;
+        b=sYBy3Pr0KefqpjKDE01D99FNEZnqmsycDd7YNp3KBNafZ5BZTfhR44l7V0y01hhP7V
+         LgnlA8aKh11jUe9GNJPAIQkW7/92E+aTDao0tpR2XTVAitddoPBMSNuEePr8OWAYPdnv
+         rs5mw5b0N8VjkQFPLdLD1Rmh41GN4IwjtFT3ztCzlgMgggBj0D8UE8/VwOy0ToGiKzif
+         cR1CnzSocJKmLF0UI5ZzQ8n5gvmbzWP0wZNZK1DhB5RxyTlcmnA0XU+SgijCmi6o9Jd5
+         TSO6p7onqAIywTSXyXPc0FYhR9xgIxipZWUNtNkexp8GVT1kTNpuOdBsjZaXkclQ9lj5
+         NgKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=W82cP2eM7LOKZLRzXX4bEVLA8ivt1Vz2Z6PZnWSs15Q=;
+        fh=t/BOQ4vNNxtBznXhP0O40MLMjIIjsr/fqxez+exh0ik=;
+        b=kJr9oEt8xCGslzAnwGtVKTPIqIZ+yP7cXsMbdpVaYnjoRv7ZilLNNSeW0cfYCI5AiN
+         2HAfNn4d0FBzYc4uXHa5YWuk/3aKfPNYHL1l5HMScn3OJHIj7b4PIEUl7J+vYrHwztxP
+         cmvY6wai2gsQ6ZhNM07AMClnf2xthlBXRQMbPnIdtkPDwl2N8rhI35hSteN3+rTOEn4j
+         7Sx3DHQopqIW16gbmwmG98I/9CxL1wr8MwJun9VjdRPUdiSalFJdGc+IUZ3nAoOVZYOb
+         RN8wKgIBKB5MMaXB8Q0wap88iM5nVU0y9Rfv8KxRiDrqhLlGfT6isfdN0dF6UyDc3wE8
+         SiLw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789853186; x=1790457986; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=W82cP2eM7LOKZLRzXX4bEVLA8ivt1Vz2Z6PZnWSs15Q=;
+        b=bXeEmSz5HxXwLfaedgvnv7MhxO/VY3MNqpIzYfd7oISCSrLMZMBeVZ4eBPbEI0KPEQ
+         NJ/lUSHOWdt1CkVull13i/SgtQbTvXcuJSuokjPI0nB9dG3BL+nim32/uhsYhhy75mcK
+         tDXDkYTzMmLvcHSzOSHJMsbPpPJCkYpUZNNKGTh+dI/PVEuuc04ELlMvUdRDJsH0x5Ey
+         JctJje3USDlbNi9LMb090GjeQlAPl3mGH/HFxq86eGvgDTTjujqa5aUGRAMlkrjZ0X20
+         xc95JJXpte4Ii/pf9DVPMTW+fcxqoWlzkvMMnK2pzf4kgsGFSjzVuDpvDLs0B++mQ7AS
+         8KLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789853186; x=1790457986;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=W82cP2eM7LOKZLRzXX4bEVLA8ivt1Vz2Z6PZnWSs15Q=;
+        b=eWm6/LR4TDqRcUinjeqi6LLJdtrZiTYR7slrdsPTZJOl4qA7p/uKv1wTVr7OwZ4WIh
+         ODkl8B825WsBeTjr1tUavi1/PbZisYwDD1EG7jscpp4FBH9wRMca7NjVjL6C4WI1+4mc
+         HY2S2q07GpZ1U18ur/Txhcjz8emec+YyJwMVp0VW+3PKfFyfSrtj1Iwz3yvwSRyopzlA
+         n0Pqjo9/JCYBNzY2Krm//gdDoHTTZutZWQOxx2g++VlqGnPVfQr+X+sKFI6l2FGp7qbM
+         EidgtO91tOfbEmcuZXS1GZHkwIhEQrNuzsfkQmQERSKZm22dI6F6tJbDN50Sxwhj/DgT
+         vYkQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzIAmeIuocXuSjO12BxUf6TgjJ+ivN1IUX63ixQPWH6XpkG/UCKOzzxApXMNZ2f0GDzvT1UznItivroukw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kkNUwhyhutQgNUCYVmZnxuiPF4s71zD3KRw/8EwpUSVvyDbSkb
+	Znyy2C84b2qpYx9CR1tfkmGRutdd1zeKYjndsI0VNNusNzJwUFREUwhXyyWgyjHPRLP1PgnUaTx
+	5yu7DMu3ZZPL7EibthwlvFHjFHDiKppo=
+X-Gm-Gg: AYBFou2Z8Uwot+ncFXyF0UFr7TV7k+h0Eq1m8tu8jsTtg93O3mdO9AsnZca8pefe4xh
+	6LQQNCFCc9qVw74NlG8psISY4RqGjGhGnpJwe3l4PjDchgEKxIxuwrNLKassLzxWXPEusiynVLN
+	YP+1HDSQEe2Btb6BiYlGubOOxYgMqJrXeaRaI1uTe5TOM/VEUQ/TpZISkYYo9vXZJk5d512a4ka
+	eNG3C1x1JZ2hWUXVhI+vcuJlGhFePga086wa8QxhC1mfVVU/3JNCocVbBU1Qis8qcUsdwZG6AwW
+	rakixMrpi1g5NfKSfpxnsV2uSm7e9BGg/ydXDryXKFoNfbZQ2QXC9n6RunFVIXJQ3APergFtlME
+	8LpJgBZzz9X22AKDL1rxbdTLUzorT/yt4QRWG2nr5XnVYN4OXiRY=
+X-Received: by 2002:a05:620a:1d03:b0:939:6df7:73f0 with SMTP id
+ af79cd13be357-93bf5761513mr301041185a.50.1789853185944; Sat, 19 Sep 2026
+ 14:26:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
- <aqJXx2vtbKaRLt3x@fedora> <aqLZ5TVDAqEbIeMN@linux.dev> <aqP81aqNbwAbs2P0@fedora>
- <aqQrPLPXHXiuKup0@linux.dev> <aqjcFb6MFNiA6n4V@fedora> <aqjpYHbZ14A8xRtK@fedora>
- <CACePvbUwTxcMPVK_1GAz5gPDdh0BV9JZSnKXaUFLqDHBzBmPQg@mail.gmail.com> <7ee199ddee81bf8026688def82f78ad9db09be9e.camel@surriel.com>
-In-Reply-To: <7ee199ddee81bf8026688def82f78ad9db09be9e.camel@surriel.com>
-From: Chris Li <chrisl@kernel.org>
-Date: Sat, 19 Sep 2026 11:21:59 -1000
-X-Gmail-Original-Message-ID: <CACePvbVA+DnDJprMx3qOrGb98y1ORQ-LfaENy_Btfx3uW=E4eQ@mail.gmail.com>
-X-Gm-Features: AcwNN1V3fN8BiarqwCTVlFEX0OtGz4WToCWoAzNrsMF1T-3gjKneuvYzb3JnUKQ
-Message-ID: <CACePvbVA+DnDJprMx3qOrGb98y1ORQ-LfaENy_Btfx3uW=E4eQ@mail.gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-To: Rik van Riel <riel@surriel.com>
-Cc: Baoquan He <baoquan.he@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Nhat Pham <nphamcs@gmail.com>, Kairui Song <kasong@tencent.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
-	David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
-	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Kairui Song <ryncsn@gmail.com>, Joshua Hahn <joshua.hahnjy@gmail.com>
+References: <20260909-mmrebase-v1-0-8dd5d4225d2e@nvidia.com>
+ <20260909-mmrebase-v1-15-8dd5d4225d2e@nvidia.com> <CAPM=9tweFRWWjCrkBKvR03BaRVs=N+-qw2ju0g-dgMj+S7Q=ZA@mail.gmail.com>
+ <DLJDV72PBGVA.1M0RZ780ZPJR0@nvidia.com> <165ab493-9de9-43bb-a53b-3fa82f8013cf@nvidia.com>
+In-Reply-To: <165ab493-9de9-43bb-a53b-3fa82f8013cf@nvidia.com>
+From: Dave Airlie <airlied@gmail.com>
+Date: Sun, 20 Sep 2026 07:26:13 +1000
+X-Gm-Features: AcwNN1UIoSlXyTA_I5dOxTH1mKYz8_NXz8Pq7spnjuOWiDNpvrhOSQYr0h3NdB0
+Message-ID: <CAPM=9tzFaYp6=3nJ3yxEhjaHzUOnyQT0eV884eKR7ma2sHp73w@mail.gmail.com>
+Subject: Re: [PATCH 15/16] gpu: nova-core: mm: Add BAR1 user interface
+To: John Hubbard <jhubbard@nvidia.com>
+Cc: Alexandre Courbot <acourbot@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>, 
+	Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, nova-gpu@lists.linux.dev, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	Joel Fernandes <joelagnelf@nvidia.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sat, Sep 19, 2026 at 6:16=E2=80=AFAM Rik van Riel <riel@surriel.com> wro=
-te:
+On Sun, 20 Sept 2026 at 06:13, John Hubbard <jhubbard@nvidia.com> wrote:
 >
-> On Sat, 2026-09-19 at 01:55 -0500, Chris Li wrote:
+> On 9/19/26 8:03 AM, Alexandre Courbot wrote:
+> > On Fri Sep 18, 2026 at 12:38 PM JST, Dave Airlie wrote:
+> >> On Wed, 9 Sept 2026 at 14:25, Eliot Courtney <ecourtney@nvidia.com> wrote:
+> >>>
+> >>> From: Joel Fernandes <joelagnelf@nvidia.com>
+> >>>
+> >>> Add the BAR1 user interface for CPU access to GPU virtual memory through
+> >>> the BAR1 aperture.
+> >>>
+> >>> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+> >>> [ecourtney: map BAR1 in NovaCore, borrow it in Gpu and BarUser, no Devres]
+> >>> [ecourtney: update for the VramAddress raw API and gsp_resources chipset]
+> >>> [ecourtney: drop the owned GpuMm, pass it mutably through map and release]
+> >>> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+> >>> ---
+> >>
+> >> BAR 1 and 2 need to be optionally detected and used. At least on SPARK
+> >> there is only BAR0.
+> >>
+> >> I've been playing with John's branch on spark and had to rework this
+> >> code to make BAR 1 optional.
 > >
-> > We don't have to address all issues in one series. I actually advise
-> > against lump too many patches into one series.
+> > Thanks Dave - indeed we also hit an issue on a device where the FB
+> > console was enabled (?), which preventing BAR1 from being used.
 > >
-> There are two things here.
 >
-> I totally agree that we can merge things piecemeal,
-> and not aim for perfection at the start.
+> That's different: another device driver was using the GPU. People
+> should Kconfig their system to avoid having two device drivers
+> trying to claim the same hardware.
 
-Agree.
+At some point nova-core needs to call the remove_conflicting interface
+to make sure we kick off the overlapping drivers properly.
 
-> However, I believe we do need to take care that
-> whatever design we go with is actually able to
-> support the end user functionality we want.
+>
+> Once Nova get a bit further along, it will be a non-issue too,
+> because Nova can drive either an fbdev, or whatever the modern
+> alternative to that is.
+>
+>
+> > I know Eliot has a bunch of follow-ups in the pipe, Eliot can we make
+> > sure to dynamically detect and enable BAR1?
 
-Agree. I want to add that we should support new functionality without
-sacrificing existing user functionality.
+Also I'm asking for this now as it it might be easier to make that
+sort of design decision earlier, rather than trying to revisit it
+later.
 
-> We have to make sure that the path we pick does
-> allow us to very easily add the user visible
-> functionality that people need.
-
-Agree.
-
-> We can always swap out technical details behind
-> the scenes later, but user interfaces are supposed
-> to be stable.
-
-I think we agree on all aspects.
-
-Chris
+Dave.
