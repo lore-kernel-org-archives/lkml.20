@@ -1,145 +1,133 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17DD23AA1A9
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 01:10:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789780246; cv=none; b=uJAh961dt3T6mMfU6q9bBnlngE+NCiLL+YbcNNdYzy3pJENFZgSSOwkePPgGHh5+nSuvQtKGDFu3OybESTK8I1Reaq6v3nC6O/uHQ+yauvCzr419gMipEcfsjuCPqWTv/GjgNHHBm38ewwDY/VGbrmMAATTl6fHCaFuKDXGpv+s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789780246; c=relaxed/simple;
-	bh=PD17Y3XeERkph6rr6sHZAKy4DsdPrdxQEx/QDmuRqzo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TLoSed2GwcHMGYq4lI26Hyf6qtX7DmYIAPKjKBxelpH1IaqAL+XVsT3HebUYwj2feRGzAgxaJCLfFtz8ZVNelkpZu1IZPGGhS8FcOFz9bpxFTyzDV1gj2qj8exiWxDLhXdEF2mJPpc08MGJ6KVOzcGBXYWp/QTqgkCAuw5URoEs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=ZepgU0e/; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8308D39A048
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 01:10:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.205
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789780252; cv=pass; b=Hk17zToxEd8pi03o4qQejR/wyfAaZSUCG1ZaxrnF/L0U4nAjd5tY7o6Dt15JOy5NT+emrzYzVMdYd8xCWcK7VHwxwx832wzWFyYa45Zlf13scadwRo93bmzNMOJ0pR1IYGOx/uF+BsuWuXBQxKvzp7USYyAPUyV4At8kQKu/U6c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789780252; c=relaxed/simple;
+	bh=iGzdbSllr8QjJeo+SoUN85/5fREjJOEUukH1vTN+KoM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gDt6jynaqLQd8p6N+R2QER408tdgmqk84mJNrtSEEynXKMO4dZFA7vQyDdFMI+/GgUuALjCOEt4ZQWNLlZgURsiBYv20XeQuvLg5jjBSPE1zxRTrIzgBg4mmQHQkqbJCl3ztCdzi2xdoQrglEfUjO79r8FgS9cH05Q6rXl/WUnc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ku5ZZPbI; arc=pass smtp.client-ip=74.125.229.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="ZepgU0e/"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2dd88a115ebso11513455ad.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:10:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ku5ZZPbI"
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b7be8dbabfso1267718e87.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:10:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789780247; cv=none;
+        d=google.com; s=arc-20260327;
+        b=D8awSJmsId0R4iMYWsIUR2vrXIRh4DuByZSE78SIz7BjrQXzYDf4mcmomlzYBBpdvC
+         XUZAoYy6u7knNHhxHVluOoVNyvZtlLIbEK1o/COPSButJ7Ev++Sx73hOpfrkrf7IYOVK
+         0aCaWluvLBajheWmQCvX0vVeroq1IQM+7Ud0pHFZykCDN8LrKkTvaxhYZ/Ud6NZgJdAU
+         mf/mx/9u+Ipq+qC/cgudAnEk3MbgcEn8cnfrn+hQS/EltSIN8uqqKkNbU1LQO1YQukd7
+         KgnaoEw3I1rJMdvbAK35hApMuHMNjo5I+EQVcPa9NqO4q7YcUadhYmqliYCGIy6n2plp
+         UQDA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=DGdaTY1YJtwZ1uBv2RCa5jny+whMo/kcQ9jtBIf3Fls=;
+        fh=/ACIaCAxyudzAa/aTQeQI3zNEt+v9VKAFVBimXEhZXk=;
+        b=UwdPcH0QnMXbcsSTZL82rj1tzWErVVAXO192YOvHDsJ3GMkfmKh0zyMYpcFNQHGO0u
+         vj4Aclb56dBk8JOMLdTOVybyCjRKkKG1eW7BS5xi09QFEaVHeTxPlyXww3ym30osxnFf
+         vsLyhjn+X6NV2cIfal5R5YMZPRLMzuu3IN0zFXTN+/QMNcLibiXtKTs6YXGzOb5eEdj7
+         KAaI+Nv4BFnP16cKkg3ja660dBD6pUSXfRZdoplxM2EUq+Vh0k730wumEu2D/d/OBRJj
+         gLWL6sbouFVHyQaJWMjz/8ZEEYUxN8vsluijcDQyXFnH3epCQRbwh1GnB9r7sKexwwmt
+         mgTA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1789780241; x=1790385041; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=a49yaJ/GGjwIg6ibC7aTwVaBRLcdBDhKbI1sakT8d8k=;
-        b=ZepgU0e/N1D6q0ctVm6zTa7r3afmQs8d3DOKLGauufQCKMaRNxOwS47dKxRCHL4ExQ
-         JWAZJAzsca+tVJWUIzv3Rtdxq6osoiHWf5OQJzsbtP4akf+RLEXaXblEaVDkvCFJBODF
-         c4u6nvTmRHajn5SjNfiJbJWBfXyXHKaDNHlU4vMtMBq0Q1efUOIaGTxGsYbIilsQR9YY
-         0Ji/x/W4fwOBadlAgMRSuVceYYYvGk9QdqljvRDDtTxTRQYkSoKtrwaM4q1AebkqaMVO
-         4DUS0K1nG0rEVJgE/AATkQnmxzG1fOn+W7t8LQ/EzE95h3BfmOq3KZ+bErQWSVHVU+CK
-         FgUg==
+        d=gmail.com; s=20251104; t=1789780247; x=1790385047; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DGdaTY1YJtwZ1uBv2RCa5jny+whMo/kcQ9jtBIf3Fls=;
+        b=Ku5ZZPbIm91w7kzyXvKcmdkfmlSKPDj+ikn3KeiK/GwOGSBJ9mpq3nBJSMHiNnbYPt
+         jyvMl0IoC8odxWRjDmCAXDRycZmZ2CocvDLMlm/tWUGO4AnE8jyB5KrDg5qKVYyPBfiU
+         QBncdpuJhP0zSi2lsJUhfKphm6zsyLbw4MEMCOh9wqzNGEACdz+tpekBeMPb75WaHsx7
+         8ZZFNBJKwmZUsjroh7HXTWscFxfrrfdphl+Z/Z2WCEDAvozgjb5q/9IcVtadvjAfTykn
+         azh900vhnQ2ZhpP9jPgu6C5PG3g0TSRClPqhk0iKVbKXwsuBY9nAOVj6P6+h6SMSUJYa
+         vxWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789780241; x=1790385041;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=a49yaJ/GGjwIg6ibC7aTwVaBRLcdBDhKbI1sakT8d8k=;
-        b=n7piD/sUzI7HmqdXo1C4vcgfgdUJ5ViACNL02PKC6do6MqsJJacWznkCD0XS+thk6t
-         2shqqE/ujeoAU0OsHHyDrxkyC9nOiWiEBqtXhk4aIH+XtnCGWqbeJV0+l+VKXN059azc
-         I7ZId9+hU/NpLLlG3EcezqdMrj5boJBLakKGQcc83wlA0TY73iNIWGMvydPtHwu2NmDP
-         VTXcjeadtp0fCbtVpR3kyM1FkclEGNYRsMFvLDou+YybGxaZAlGhnQkXlV7ADMCnz4ko
-         VYgDIhYdaY7ToeYwo7rZ6k6pLvvRvcx/AAwyCoWxzL0ar5NlQpcLwk/UzV1cvoJkPKYf
-         /k4g==
-X-Forwarded-Encrypted: i=1; AKwUvBwXplbykl1Rol5ZRKv6AKHgTGsSvptrjGRSskoxMpcIycpjmZRA3+DeZz4jPsF9/N7zM9Mk+z4FUIhcejY=@vger.kernel.org
-X-Gm-Message-State: AFuF++m0EDzk6343QYibq7a44xzJmubMmlgs8w5pDUSWlIzkmlfETmvK
-	UNe/4nJpmhvSdV7xTVg3wAGG5gROJou7Llc6yPf8E6NOmRpO+Q55LLKHjF5p7w2n/90=
-X-Gm-Gg: AYBFou27VIx77FHZqSk2YWj9vl71ew6A4U0MSDGIc99zFR08WRUo9gWDScTv1j3X1YT
-	MznlN4sZEJ3g7Ih4OOAMUWtDtnPzKcs4HFxNFnA1sHOME4ayYq3M2pKzFCZZrddDCrTq3hguXqw
-	QQyDeuW5HFUEfrD3PxLYdbicnyJ3AKlWPzDywKvZjYgYw8Gyz48CItIyGDdtgUuj3CfRNwbdKRI
-	ViMcGlOLkFgi4Yp+eeTY1j3+0XmQv3ZxcXV35YznIG6lc6zQsz/hVPETezpDQaBVlicqkkfQAsX
-	BzhEY4P+AkNQBR8p/Hz2eKMMXaK0v2U/nC1a+xVMGUVyDxMChi2uchMq0rhVeyXO0G4PckWl5h6
-	c2L3hITHcsgub7mmKf/Xk1FkhRtDxM3mw6oBqdWAP6riFSuIX74LsndQMq/fZNCNlkxSNfNBqLs
-	nFRVBK2WfmgTBc2Tghx8KlLQOrLNy5v3AWPEEMUpUpEzHYMKOmi+CO
-X-Received: by 2002:a17:90b:57d0:b0:39e:6c69:f470 with SMTP id 98e67ed59e1d1-39e6c69f4d2mr1917003a91.47.1789780240973;
-        Fri, 18 Sep 2026 18:10:40 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:40::])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c6dd585sm1680612a91.0.2026.09.18.18.10.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 18:10:40 -0700 (PDT)
-Date: Fri, 18 Sep 2026 18:10:39 -0700
-From: Joe Damato <joe@dama.to>
-To: Koichiro Den <den@valinux.co.jp>
-Cc: Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>,
-	Allen Hubbe <allenbh@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	ntb@lists.linux.dev, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v4 03/10] NTB: ntb_transport: Order RX entry
- completion
-Message-ID: <aq3hD4D+VfMUd7vq@devvm20253.cco0.facebook.com>
-Mail-Followup-To: Joe Damato <joe@dama.to>,
-	Koichiro Den <den@valinux.co.jp>, Jon Mason <jdmason@kudzu.us>,
-	Dave Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	ntb@lists.linux.dev, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-References: <20260914084838.2158249-1-den@valinux.co.jp>
- <20260914084838.2158249-4-den@valinux.co.jp>
+        d=1e100.net; s=20260707; t=1789780247; x=1790385047;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DGdaTY1YJtwZ1uBv2RCa5jny+whMo/kcQ9jtBIf3Fls=;
+        b=RRcvpltmKP/pzi6gsY1Mxjx1XaiMbio7QWCixoNN3BA0H9HV81swLt8WKZa08LKeUL
+         TJWBhH8448xpXNjNuQFPyV3vN81VuDnIXXfQhS7iIWkhoZdppWgBtgNz0a3mAwzlhMG4
+         00E8Hu/25LeeWmqyBJqSFpbbZXckdboEru/Rad/f7dB4CFU0gnyS4rL0EUZkD5y2nkm4
+         HsBUUc6/yw7Rpg8Kh7qQZu9yKFqIr0Stt76SmA3DgziH3aZnWCwNetx56az1AQQvuGSf
+         lFelvpA1E9ik6pjk3vC3ggLlU62lUUiuR25hhKUhDIpKGfygRcjTv9iyVnRGSNrndUwE
+         fs2Q==
+X-Forwarded-Encrypted: i=1; AKwUvByRWgPV9VhEkAA4qo2JLxQgeCUYLrODcM83RDc9zEHQx/6hTkAASyzWteRffr6R+rjEvP2rQ9jim1rLY9Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++m84PZo5g0BLzmWfaSKjYen8jqf4h0QD9oIF0v/3oTuMflmO6Nv
+	jH/9Et1RYfaSVGovTMD4a+z1SVYUX8jVfggJJywGZ5QqMJX+6hnV9gSVoyJqwlPiXnx5XLWIAze
+	oPFxZnoFXw+LGTwT8fa9obodH5vkZ/R4=
+X-Gm-Gg: AYBFou06Qx+W21nHwhSBVHfpMg6jbpif9zMjs0lAFoSF8he07S/Cz0Ztj/4WcKbw/m2
+	CNJD/3F/sgujtmJjjcT3B3hhjne9cIMIDKibToZ5J4x/8Xi3//K4zSwwDsRXWBNo/kOVf357ipP
+	FKPFZR2AwLA2wSPoAUla9tK6RP20aOR6UFf6uWYO4vQELiaPoxedOTRRXdaZAkoW6tYQVZxsdRb
+	Ij4KceXT50RQ0gff0+gurA3BpWW8M86zSO3jyGQKKd4X0RgRc6GjLp2hR19LvL51u06ewDPReOc
+	zEN0Tg1s1IeKewL2Bh0O20xBqaOd0Y5n0vi2ee3sPMJ30G5qXy5prQ/iltOTKQJIAKUxABSaGhH
+	7LBkDiqzTxNNhjD5cES1UOAnSpT3RSNJdECD0dB4fKkmxjQGEaWu2SjM=
+X-Received: by 2002:a05:6512:3e14:b0:5b4:a8c3:d26f with SMTP id
+ 2adb3069b0e04-5b8c1809b8cmr1360063e87.23.1789780246375; Fri, 18 Sep 2026
+ 18:10:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260914084838.2158249-4-den@valinux.co.jp>
+References: <20260914014539.5015-1-sigefriedhyy@gmail.com> <20260914014539.5015-5-sigefriedhyy@gmail.com>
+ <20260916185405.2ccc6aa3@kernel.org>
+In-Reply-To: <20260916185405.2ccc6aa3@kernel.org>
+From: Yuyang Huang <sigefriedhyy@gmail.com>
+Date: Sat, 19 Sep 2026 10:10:36 +0900
+X-Gm-Features: AcwNN1V9shfXHkJcE1WXlFxXnTZCibrBttUB3lePMBgN9N4dGzTVVWcdAubNumo
+Message-ID: <CA+7S2vJXBAz61SOu+rUt5aqbnsZ-_G_KYt8wXXbqzD0FCSh5eQ@mail.gmail.com>
+Subject: Re: [PATCH net-next v5 4/4] selftests: net: test AF_PACKET multicast dumps
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	David Ahern <dsahern@kernel.org>, Donald Hunter <donald.hunter@gmail.com>, 
+	Eric Dumazet <edumazet@google.com>, Ido Schimmel <idosch@nvidia.com>, 
+	Jacob Keller <jacob.e.keller@intel.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
+	Nicolas Dichtel <nicolas.dichtel@6wind.com>, Nikolaos Gkarlis <nickgarlis@gmail.com>, 
+	Paolo Abeni <pabeni@redhat.com>, Sabrina Dubroca <sd@queasysnail.net>, Shuah Khan <shuah@kernel.org>, 
+	Simon Horman <horms@kernel.org>, Stanislav Fomichev <sdf.kernel@gmail.com>, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, netdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 14, 2026 at 05:48:31PM +0900, Koichiro Den wrote:
-> RX entries are added to rx_post_q before their fields are filled in.
-> The overflow path sets DONE without a write barrier, and
-> ntb_complete_rxc() has no read barrier after checking DONE. A concurrent
-> completion can therefore consume stale entry fields.
-> 
-> Publish DONE with release ordering and check it with acquire ordering in
-> ntb_complete_rxc(). Use the same publication rule in the copy callback.
-> 
-> Fixes: da2e5ae56164 ("NTB: Fix ntb_transport out-of-order RX update")
-> Cc: stable@vger.kernel.org
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260904052134.2970111-1-den%40valinux.co.jp?part=3
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> ---
-> Changes in v4:
->   - New patch (Sashiko)
-> 
->  drivers/ntb/ntb_transport.c | 9 ++++++---
->  1 file changed, 6 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
-> index 3f497a62673f..b69e8ac8047d 100644
-> --- a/drivers/ntb/ntb_transport.c
-> +++ b/drivers/ntb/ntb_transport.c
+On Thu, Sep 17, 2026 at 10:54=E2=80=AFAM Jakub Kicinski <kuba@kernel.org> w=
+rote:
+>
+> On Mon, 14 Sep 2026 10:45:39 +0900 Yuyang Huang wrote:
+> > +        try:
+> > +            addresses =3D rtnl.getmulticast(
+> > +                {"ifa-family": socket.AF_PACKET, "ifa-index": dev_idx}=
+,
+> > +                dump=3DTrue)
+> > +        except NlError as e:
+> > +            if e.error =3D=3D errno.EOPNOTSUPP:
+> > +                raise KsftSkipEx(
+> > +                    "kernel does not support AF_PACKET multicast dump"=
+)
+>
+> What's the point of catching this exception?
+> The error for ENOPNOTSUPP will be both very rare (not sure I understand
+> where you expect it to come from TBH), and also about as meaningful as
+> the skip. Just let the exception propagate, it's fine.
+>
+> Otherwise Pylint complains:
+> W0707: Consider explicitly re-raising using 'raise KsftSkipEx('kernel doe=
+s not support AF_PACKET multicast dump') from e' (raise-missing-from)
+>
+>
+> > +            raise
 
-[...]
-
-> -	entry->flags |= DESC_DONE_FLAG;
-> +	/* Pair with the acquire load in ntb_complete_rxc(). */
-> +	smp_store_release(&entry->flags, entry->flags | DESC_DONE_FLAG);
-                                          ^^^^^^^^^^^
-
-
->  
->  	ntb_complete_rxc(entry->qp);
->  }
-> @@ -1664,7 +1666,8 @@ static int ntb_process_rxc(struct ntb_transport_qp *qp)
->  		qp->rx_err_oflow++;
->  
->  		entry->len = -EIO;
-> -		entry->flags |= DESC_DONE_FLAG;
-> +		/* Pair with the acquire load in ntb_complete_rxc(). */
-> +		smp_store_release(&entry->flags, entry->flags | DESC_DONE_FLAG);
-                                                 ^^^^^^^^^^^^
-
-are these two smp_store_release lines right? i am asking because it looks like
-they do a load ? i honestly have no idea if there is a race here but it looks
-sus to me
+Thanks for the review, I will fix it in the next patchset.
