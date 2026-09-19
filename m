@@ -1,132 +1,144 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEDBF22D7A1
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 06:52:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76CA13812DE;
+	Sat, 19 Sep 2026 06:54:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789800740; cv=none; b=AYxyaii/v5Q+Uq8XBbcUszuZFrB+DTDfGKCVd4X8QChbRTEJ93stY2LeP6qnrj9Tb06f6Tg+w9rWHAx9Y6coMNBAoh+fuBdI+TxozA89ZOoR1yVE8ew73vxOgnYmUMOYdGU6gsIGpet324w6HOgq7sM8z2Hj8kVv7+9LRkYpSFU=
+	t=1789800882; cv=none; b=uNSDjgkG8ajZgiuBvH8KvNeLNF0rKaM12z/CZ9G4nmlLZ+7RBezW9LbhNmOMhkotZ+nZZJ9jZZyD3gaDYGGF+jZRHwsRmWmvDW84QgAXZcpdqeBpUR+hGhZkOlxcJcB3IjZ43mYAhXDMmb5Y8Vv40I+SOiAODOG1Dd3s7zAYigo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789800740; c=relaxed/simple;
-	bh=xIacHn5f4ZLdoUT+AHk7QKDEnIui8s82/68l1Pivobo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Yzqxm70OHYvTi71yovm8d6NAueRX47zU2iy8PPd3xc9KepzWN1LwMjRNyhuOlzFTF+U5KeHUZj/aCWEYOgyKaHwyBAYBaEt1FOzCMzVljbOVH/WcDDs7aik78OUFSG6r7PlNoHPoGtQffF4rdqJqUvb06HNCxxCaN/QnyUgj4bE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TazIoc9l; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789800882; c=relaxed/simple;
+	bh=IYXx/zE+2n46PXRVXSdn5ENzV8RoPWwU25GLFYvhJZw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=jPOHynd7a4lSjK+vvRUt7jTFfA4BaebF2Am+24uPDD2MDWc8KyQ4zQHN34Z5rgzehAR03df7tnatkBnu2e7TRH9f1uyL1M8zysCk2gDPnEuTHSTATg0djnwWheCFZiOQilFLPhWivjLlTwcmBQMIEAHfovzOiW/J9bncHlJ1gGo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JkWY/VW0; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TazIoc9l"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469b35601so895473b3a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 23:52:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789800739; x=1790405539; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=K14gEIiwRJ26lA+Mkn6qqcGlhkPWo02FPF9k8+47c18=;
-        b=TazIoc9lqAxRxK5U6qO1Vcgn9ReoWfYqCs+c8a9YueCFILgq4P9JtZhxe4Tt1ouS2w
-         SQvZqF2BZsthPraEgW6DnuxO5lixpg2jmFoFlQi5bKVASozKu+oG2pyy3xBf2kUf5g47
-         YFdsUmlTnEh2ZIUNx2cDw66zxlP5YeBIQcPDxEkKvq7JQq8wNRUqg23BH2luy6GwiHJe
-         uquI3yjpjj6o/yyZoQ8RyC1E2V8s0qujO9EATYvU7wkoDhSD70l1XmhNzYHiSCvxDeWQ
-         e1jgENAVtZYT1iOuRcaM1zld/wgK2V2qioBID1qFd1NOQXPdCCTklF9iArNajOBnG6Gg
-         Movw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789800739; x=1790405539;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=K14gEIiwRJ26lA+Mkn6qqcGlhkPWo02FPF9k8+47c18=;
-        b=MtAOuiwmxI52GL+HuB/CaNS+qU9nLdbhAM+Cg+RhGpV3H8lHAFqW8dvRkeAcuLO8vS
-         GqchSClyInmmP85yhg8TP58oStyJTDfDv6XAL38cc9HLzDTAaF2UPGNSfa9H4r1ucAip
-         R19sQEATPOhd290W5Gme8omhKQDpJEVCgF0TDZn3jhJAB6XyaeEMWC3fMw38RRck79nG
-         pUq1wn2cwSwIgDAERqLupSb6YOYCEQ4WoosPvtbqwW/5VisKbkAmPuG0yukFrMJ2jSIw
-         9djy6UvAEIoNVRQ8zRkA9NpsilHSMOFaa+3jzoMKPjyP7D26yfsF56c/I9+mwk/96r29
-         zFyQ==
-X-Forwarded-Encrypted: i=1; AKwUvByuX1hOvWVtt3rMWNiBySHrL3YV+0e0nZJe0nDHy0QR8lOMvkrYTcLmVMvPIZVLr/x3KMUtP0WPjdbCBLs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nnQZbT+BYyeD0TGo2aETlEKmYQiIprCz0CDcX6/kV3dtikNPbE
-	hYuKaOXPfIv9kg9B02ep8pNNjfbx9IpQhwwHebBB86eguD9X+PT7nd+f
-X-Gm-Gg: AYBFou3BKX5YUFhPqnXxetslDOvSGL6CJ1e3O1LqSc4QPi/eb09319YpToZiL8YQTpJ
-	jTEAMjJSvgJxT7dfy9THKoQZAVTnNUtSfZ0KocmXhBDOTIBb76uwefNzn83f2eGueUrLY7lkBLI
-	LVt3EI6UK+UISa0Iedux2l3KjPnVm0ewKUIZlk5VCXSwMFA8n2Zz5o4tD1anDXwSRd6SHso3Puc
-	rV2FYiUXVSNIoGOToHsxibOL3vzV7y/Rk//iaNwaDPx29SIl20uJnxbeDGDqClwLuodHtRiRLYr
-	RN9QGc1TP86PiFwDYATVYj9FWZ5FJiquDAH4XEP9sKkUBr01cqj0aOnvpf0aUGU46drXysdFwvv
-	EGkXNjuyy7gQQDLaqAeAmPKFxeT1FCcZq4IJBqFFB5debIm6ijYFFmSaclm1HZXiFxpjJ66Jvmb
-	+RCHvL7p6NAT0+q0npSn9t2XlMVIUthnvZfNqPmIp/hoZF+yNhlgFVmSdfumtQtVdJEJEjZunqD
-	0XsKoE2oM+D3DMdeblaRZ2xAVMlt1CeSg==
-X-Received: by 2002:a05:6a00:2e11:b0:878:34d7:6995 with SMTP id d2e1a72fcca58-87834d76d70mr625344b3a.37.1789800738978;
-        Fri, 18 Sep 2026 23:52:18 -0700 (PDT)
-Received: from abs.sf.dndws.com ([50.35.86.68])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a94f5464sm678077b3a.27.2026.09.18.23.52.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 23:52:18 -0700 (PDT)
-From: Tao <gongtao0607@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Tao <gongtao0607@gmail.com>,
-	"Chester A. Unal" <chester.a.unal@arinc9.com>,
-	Daniel Golle <daniel@makrotopia.org>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	=?UTF-8?q?Ar=C4=B1n=C3=A7=20=C3=9CNAL?= <arinc.unal@arinc9.com>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: [PATCH net 2/2] net: dsa: mt7530: trap frames to conduit in MFC on EN7581 and AN7583
-Date: Sat, 19 Sep 2026 06:52:12 +0000
-Message-ID: <20260919065214.31604-3-gongtao0607@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260919065214.31604-1-gongtao0607@gmail.com>
-References: <20260919065214.31604-1-gongtao0607@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JkWY/VW0"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 01062C2BCFA;
+	Sat, 19 Sep 2026 06:54:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789800882;
+	bh=IYXx/zE+2n46PXRVXSdn5ENzV8RoPWwU25GLFYvhJZw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=JkWY/VW0Yjf56u5xK00OvqQhyLf7M6+JkITBURcFCTBXeR5iz1rQAceg8P7eVJLhK
+	 ZO1QbrLZoumu4ynlD1N7CQ21PVmTIoRKHXVhfRQoIzDpTXCKXLsg3tDfKd/JuoIKDr
+	 52UqcqEtpysq3VPBsKuceDs74jK4pxPC9Y8EPfDhjaKVxOMZ+5rCwU1DBO2W4kxWdI
+	 F2Zkp5Yyc0a/JDYE52slefltrMMH7GblzUOVkQTEdcc+7TAeJo85Oap9RrILyzsnjU
+	 8zzcLvLs9cW/Gbzc5NK+U1hUWtOYe69KaLT2cxLU8N3n1sVfmJIH52nKuzvYO0h4Fz
+	 Y0xufq3FRFDuQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D843CC982E0;
+	Sat, 19 Sep 2026 06:54:41 +0000 (UTC)
+From: Jan Petrous via B4 Relay <devnull+jan.petrous.oss.nxp.com@kernel.org>
+Date: Sat, 19 Sep 2026 08:54:31 +0200
+Subject: [PATCH RFC v3 03/12] dt-bindings: PCI: nxp,s32g-pcie: Fix SerDes
+ PHY phandle in example
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260919-s32g_serdes-v3-3-9d68868c1e89@oss.nxp.com>
+References: <20260919-s32g_serdes-v3-0-9d68868c1e89@oss.nxp.com>
+In-Reply-To: <20260919-s32g_serdes-v3-0-9d68868c1e89@oss.nxp.com>
+To: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>, 
+ NXP S32 Linux Team <s32@nxp.com>, Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ Bogdan Hamciuc <bogdan.hamciuc@nxp.com>, 
+ Ionut Vicovan <ionut.vicovan@nxp.com>, Andrew Lunn <andrew@lunn.ch>, 
+ Heiner Kallweit <hkallweit1@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>, Clark Wang <xiaoning.wang@nxp.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Chester Lin <chester62515@gmail.com>, Matthias Brugger <mbrugger@suse.com>, 
+ Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>, 
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, 
+ Richard Cochran <richardcochran@gmail.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org, 
+ netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+ imx@lists.linux.dev, linux-pci@vger.kernel.org, 
+ linux-stm32@st-md-mailman.stormreply.com, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
+X-Mailer: b4 0.14.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789800879; l=1567;
+ i=jan.petrous@oss.nxp.com; s=20240922; h=from:subject:message-id;
+ bh=Na+zOsB+scHEU/5Sa34th6CSnJzMvXvCSt2p2AdpCXQ=;
+ b=/FnXnC/g0lwE3bBZfsHmeuSK3HZ8ktdkgjTKjNTxtKu0Q/fQ5SAhUZEF4Nb9zaMQU4VnaVGa6
+ SLEjPNq1l4hASGuJYsX8216FYqHW50IOjDFp9fLyn7qYumfxSZVSywN
+X-Developer-Key: i=jan.petrous@oss.nxp.com; a=ed25519;
+ pk=Ke3wwK7rb2Me9UQRf6vR8AsfJZfhTyoDaxkUCqmSWYY=
+X-Endpoint-Received: by B4 Relay for jan.petrous@oss.nxp.com/20240922 with
+ auth_id=217
+X-Original-From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
+Reply-To: jan.petrous@oss.nxp.com
 
-On MT7531 and MT7988 switches, trapped frames forwarding is directed to
-CPU ports specified in the MT7531_CFC (0x04) CPU_PMAP bitmap. When support
-for EN7581 was introduced, it was assumed to follow the MT7531 model.
+From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
 
-However, on Airoha EN7581 and AN7583 switch IP, setting MT7531_CFC alone
-is not sufficient for trapped control frames (such as STP BPDUs) to exit
-towards the CPU port. The switch forwarding hardware also requires the
-MT7530_CPU_EN bit and MT7530_CPU_PORT field to be enabled in MT753X_MFC
-(0x10). Without this, trapped frames are dropped by the switch forwarding
-logic and never reach the CPU conduit.
+The example references the SerDes PHY as
 
-Include ID_EN7581 and ID_AN7583 in mt753x_conduit_state_change() to set
-MT7530_CPU_EN and MT7530_CPU_PORT in MT753X_MFC when the conduit becomes
-operational, matching the handling for MT7530, MT7621, and EN7528.
+  phys = <&serdes0 PHY_TYPE_PCIE 0 0>;
 
-Fixes: 2b0229f67932 ("net: dsa: mt7530: Add EN7581 support")
-Signed-off-by: Tao <gongtao0607@gmail.com>
+i.e. the SerDes node itself with three PHY cells. That does not match
+the SerDes binding: the per-lane child node is the generic PHY
+provider and carries '#phy-cells = <0>', while the SerDes node itself
+has no '#phy-cells' at all.
+
+Point the example at the PCIe lane child instead, which is also what
+the S32G3 board device trees use. The dt-bindings/phy/phy.h include is
+dropped along with the now-unused PHY_TYPE_PCIE constant.
+
+The schema itself is unchanged; 'phys: maxItems: 1' already describes
+the corrected form.
+
+Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
 ---
- drivers/net/dsa/mt7530.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ Documentation/devicetree/bindings/pci/nxp,s32g-pcie.yaml | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/net/dsa/mt7530.c b/drivers/net/dsa/mt7530.c
-index 863f2079833f..9693a55f553e 100644
---- a/drivers/net/dsa/mt7530.c
-+++ b/drivers/net/dsa/mt7530.c
-@@ -3309,7 +3309,8 @@ mt753x_conduit_state_change(struct dsa_switch *ds,
- 	 * interface is up.
- 	 */
- 	if (priv->id != ID_MT7530 && priv->id != ID_MT7621 &&
--	    priv->id != ID_EN7528)
-+	    priv->id != ID_EN7528 &&
-+	    priv->id != ID_EN7581 && priv->id != ID_AN7583)
- 		return;
+diff --git a/Documentation/devicetree/bindings/pci/nxp,s32g-pcie.yaml b/Documentation/devicetree/bindings/pci/nxp,s32g-pcie.yaml
+index 66a050028278..29323e50bd8b 100644
+--- a/Documentation/devicetree/bindings/pci/nxp,s32g-pcie.yaml
++++ b/Documentation/devicetree/bindings/pci/nxp,s32g-pcie.yaml
+@@ -82,7 +82,6 @@ unevaluatedProperties: false
+ examples:
+   - |
+     #include <dt-bindings/interrupt-controller/arm-gic.h>
+-    #include <dt-bindings/phy/phy.h>
  
- 	mask = BIT(cpu_dp->index);
+     bus {
+         #address-cells = <2>;
+@@ -124,7 +123,7 @@ examples:
+                 ranges;
+ 
+                 device_type = "pci";
+-                phys = <&serdes0 PHY_TYPE_PCIE 0 0>;
++                phys = <&serdes0_pcie0>;
+             };
+         };
+     };
+
 -- 
 2.55.0
+
 
