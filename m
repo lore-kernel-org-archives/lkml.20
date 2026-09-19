@@ -1,348 +1,176 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2A74345ED4;
-	Sat, 19 Sep 2026 04:46:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9993388E74
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 04:46:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789793211; cv=none; b=YaDcOYupX4fFNFIrOmvcRT4d6jm9KujC9MhnJpJS747d6mEsgJQ5YkIW6x2WLz3xGAnKEYwWkfEWScoryGPjn4mvNIcYChciLgoiczhkkaVQo6nI6quRxjYOllrMp+dNQ5764fqATwuErTNQvfKhAUW3zQz8cXQOhDG9uBSlDww=
+	t=1789793221; cv=none; b=AZVoSEHN/eYQ9vtyevjcQ6tNNZfvdiexeHFJc71V1m3ynhBlbuSHi0bwC6aUqQCFyf9N0z66BP1j2qHu/ulRSYX/P2AskkfieQNcTokxdW1cn3z0ruYyzKYbjEeprBA4t5XpE2EpDTi+NfpoTVKGkziv2H2l4/wwCmPo87sAJXw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789793211; c=relaxed/simple;
-	bh=W8SAPPdqw4YCsVvfIwyA/7OkYBwG12OYtiawoOVsYSI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kqS3IGqBWWy+YToMXvSBge1qgrx2RUjtiqjj6+XXI9Bg+mfMcXFLucYY7Gk6Y4DhV662AyUNXI2b0qp7uSXcvWKoBWa9ypp2piGsr2uOraS6EcM7MsZ7HXbUdyFIkpqCyVyf0AgtlQVmcgMl35Ql2OQWWA7kPKvZgNw0IeWDByw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au; spf=pass smtp.mailfrom=gandalf.ozlabs.org; dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b=Qyl7Qyk1; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	s=arc-20240116; t=1789793221; c=relaxed/simple;
+	bh=e91GCqlvcUlMbFlsj0lGXM4SjotkKNP7xTOL1aANvcA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=WM1Ax1v+6w16MvxKAQUKXPiVErwfK83Mb6F6Oy25CGcKCdtoE0NSHqRjet/mbBD2kPTZQTK0B26AMXudsYlokqmKKmB8kbfpEN6nhkD5w6dxvAFwQk7fL96wzyWIzfnPsjamd0X9ItyGV+wlsFnEydZuzEyPTmIX7WytzbOQzZs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=H8ZWVrfW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SPDwvHQo; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b="Qyl7Qyk1"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="H8ZWVrfW";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SPDwvHQo"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68J3K9fQ2562527
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 04:46:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	0QwybzD7szdii2yuz7xU3HjYAu6yDSNYu0ipmDX6Ltg=; b=H8ZWVrfWRk20RPm+
+	nowfsn07nncdCIV1BOgN/tFQbt2O9GiXwJjDBletXPPGBK6eLDaxbFgJqkOfJItI
+	osgy6FdFV7MmKbyUV2Mn7nPV39AfQJqaqOm+CcZcFMtCObn1aziz6/1MuMLQuiiG
+	0e+uU5UVdqy1k/q56F1ASA+nreMMm82ufEl5rbgL7cFO3xOR9ttKEG4Z6aBzXTTr
+	Gd9VtSOeQhEOMON6YzhRqgaqpWtzDm13TjV+Cz0+LPPG3Vscb98MZKueC1cMxKDW
+	ztxFOk4yWkuqt6hrVr2fVejnfYxmdDeZc1InTLO8z3qcxBFIUVzuqn6VsnH4P/5W
+	kc5gMw==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gsfrnrgeb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 04:46:52 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc11b5dd54dso2820697a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 21:46:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202608; t=1789793181;
-	bh=+5m4LCAHcYlMgj2HDZt+gXuNtnMkJokc6tCPC/OH1jk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Qyl7Qyk1vPdluXvW75ggddpsOocU2pb3C9R/LwgwmH2dUKh3QXG7rRYm2Q5CgZMf0
-	 qgUK0wzwI7IXicQpUXiTJwgvm4rCwtcMQBYquIUdoaSqxMz8zKXzbYk5eJu4P3wKph
-	 2O/BG2DIcHIsWayAHq+knPeUpheuOGkFx75RIj7xzjh5eejXAbHFkxmoOKSMu21wKW
-	 d3ipkAmLXHS5fvjfAvfzEbhq+8ee/uuJmv0mrM4h5x9qXJNEoZLdmVqYh3ycS9QCvx
-	 VwLQ3EbUCgt9RA636VFN54wyFnaWZQZn4bBqe/XzNlxAltTvdhzRqH+TvMM9q752Lq
-	 i3hM08m7kirFQ==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4hmxld2Hphz4wTN; Sat, 19 Sep 2026 14:46:21 +1000 (AEST)
-Date: Sat, 19 Sep 2026 14:22:09 +1000
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Ayush Singh <ayush@beagleboard.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
-	Hui Pu <hui.pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 06/15] Introduce structured tag value definition
-Message-ID: <aq4N5zbuCVZ4e6-C@gractus.seuss>
-References: <aqI3KnnQnUytqkEc@gractus.seuss>
- <20260910094126.4bf4cae6@bootlin.com>
- <aqJ5OhJcv4k-ZAj8@gractus.seuss>
- <20260911091653.37b22b0f@bootlin.com>
- <aqS6HmkaVYbrePtN@gractus.seuss>
- <20260914121937.5b7fa2bb@bootlin.com>
- <aqonNkbVqW9tf6Bg@gractus.seuss>
- <20260917090450.770c107a@bootlin.com>
- <aqzA11pFzN_3_Nhf@gractus.seuss>
- <20260918101617.46b3477e@bootlin.com>
+        d=oss.qualcomm.com; s=google; t=1789793212; x=1790398012; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0QwybzD7szdii2yuz7xU3HjYAu6yDSNYu0ipmDX6Ltg=;
+        b=SPDwvHQo+j4M5YyRzWRZBslDIDkmXg3NgDtIzqPqg+NAri7t/D4ZiXLpLoC1wbcA0j
+         f7PVPjHquLr9+sc8UpBpp6Ut0luk+R51nabfXtfJFqx2c5HUfKHk9rBsDXAa85lpAp+s
+         5glED6QiXzpu6nHj5JT0ggipT8pAiMjj9Nj9WjKCqESn2V/Ct71JIsSp/vADgIS9xSvc
+         W589SKeygwalCgfi4opB2kUEY5x3Ci5epPfYOKGEDJuT3C8JdP+rOPae4q+ClVv3ZZ6M
+         SKx26J/uI14p8q/C68wqS1A6Mf3vVV0rg/ezXftVQ/8LwnUXBcYkyPhvDBpko57cL6eM
+         /L2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789793212; x=1790398012;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0QwybzD7szdii2yuz7xU3HjYAu6yDSNYu0ipmDX6Ltg=;
+        b=2zq0z2TAwIrhQA8dIBokTySGIEkG/EOaLPoobQdXDjknHShJiVx31QBlCDm0pHGgr/
+         DSk7RnkVumKSHQuAnyh9XSAY3ar3SKtANliLDJUG6XLRRu4aheKycVOnAkZcebJpkcBd
+         WdxZw5dSf9JmDOPA6DyIUPUqDhJAAS8gv32YZ2LmSa9zeeHFiRedcJOvO/Mi6XpvaCC0
+         txuIrl92UFXhsZygbuIl2U8EjQqidxTFYaPpHqUVbvE92cgLJTt38IS8xLzTJLWi0Z8c
+         oRFDDQaj6SQlV9nYLodh9IRlk9yvSsnz/4eowIvT4dGg6eX4kwg5KhU2OGY+HC1ILkUz
+         a/7w==
+X-Forwarded-Encrypted: i=1; AKwUvBygyQg0FGWcNAqKZvIicwsjJXBnxh4ROJQSrLLispWuM+jtYb0HXBzuBSEwrqAf6r1Y+EVr8PeeZsJV9MQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mdA1Ti+bNvkfymYIbWaJGJHstcjwdSYASiGGDB65W2NAE2mtPI
+	Ryclvb/GDO4nTKEtLW8ZPhW7MHS+ZkD7Q6LDzyHTylSFXA/0RtZszV67+xF9ZHjaWLrXsEMhoNU
+	BOznw3DVLNQiapQzP7eJymx2sPltJlwiQna7mlAhp5DAngA8M6lV87jFzAgfQObR96E4=
+X-Gm-Gg: AYBFou3OwE2ISw8R/D47KpMIBDvFjKUhoMOfxLYBjHZmBTK3gaefWchgKyiY9qkqFdW
+	reD9Mh/rcOrgq0yTJrVIKWCWaqpzBy7dC/eq4IVFmyCmsQ8XdNJw3MCun9m5X6ypCCdpIfP2I1t
+	M3Lc1577PTOrzy50hDZqOZUv1TQIEZu3FwN6RFhLst2uE5qOXqSxItIoU/TVlo/1C/fRq5/FhJ+
+	E0dcxWNp4nXQmreawTqc4nho7zk5BHhYyhFJ/ad/yOhKRLsXXkweoJgh62vuO0AyluDGkyc5Afi
+	qIcB4oT4TZvJzP8ToqSNq+GsRcrKZ2X5bZcujnfmvH6N45RRIEpJtgG2Ry2jgtrCSGAjDTlI+Dd
+	sEpAcjjo5cdSjfwwWMTJAAumHPMYQV9UC
+X-Received: by 2002:a05:6a20:a11f:b0:3dd:a197:eded with SMTP id adf61e73a8af0-3dda197f7d0mr2506823637.60.1789793211815;
+        Fri, 18 Sep 2026 21:46:51 -0700 (PDT)
+X-Received: by 2002:a05:6a20:a11f:b0:3dd:a197:eded with SMTP id adf61e73a8af0-3dda197f7d0mr2506798637.60.1789793211451;
+        Fri, 18 Sep 2026 21:46:51 -0700 (PDT)
+Received: from hu-bvisredd-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144d55bfec0sm3839771c88.7.2026.09.18.21.46.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 21:46:51 -0700 (PDT)
+From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Date: Sat, 19 Sep 2026 10:14:58 +0530
+Subject: [PATCH 4/4] arm64: dts: qcom: nord-rrd: Enable iris video codec
+ node
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="uDe01GDI3ttlNJjJ"
-Content-Disposition: inline
-In-Reply-To: <20260918101617.46b3477e@bootlin.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260919-nord-iris-v1-4-94428761ec06@oss.qualcomm.com>
+References: <20260919-nord-iris-v1-0-94428761ec06@oss.qualcomm.com>
+In-Reply-To: <20260919-nord-iris-v1-0-94428761ec06@oss.qualcomm.com>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789793184; l=722;
+ i=busanna.reddy@oss.qualcomm.com; s=20260216; h=from:subject:message-id;
+ bh=e91GCqlvcUlMbFlsj0lGXM4SjotkKNP7xTOL1aANvcA=;
+ b=D0ZjnZIo+eVMA1MLgdiKSpQUDOrmVryJMUpspf+xga7RikKcNGirtO9wKIPfOGFKgHaJOUf56
+ qYnvLzjH1fXBtsOb1JoTogm0F9rzWujrlTINgCFm37rxz0M48TbRwZD
+X-Developer-Key: i=busanna.reddy@oss.qualcomm.com; a=ed25519;
+ pk=9vmy9HahBKVAa+GBFj1yHVbz0ey/ucIs1hrlfx+qtok=
+X-Authority-Analysis: v=2.4 cv=W9mtxhWk c=1 sm=1 tr=0 ts=6aae13bc cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=HtMBSpEu5xi8YlTHYloA:9 a=QEXdDO2ut3YA:10
+ a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE5MDA2NSBTYWx0ZWRfX7cahTDQRc9/P
+ p22MHLq27KwkLhukhSMPETLgD/Zo/5IoE9E0NBYpZksNvK4eVmk8IOWFI1Qr0Bj0VQrE97ewY8O
+ +SLQDbJ5YmKD+llheEZga0g8V0si2No=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE5MDA2NSBTYWx0ZWRfXytsoFlDnWHej
+ Q1XgcGewULFGJL6G55d2ALkdc5CdwaPM7zo/ZKlbQsElRRXBBCR+oYKxMCDlnYYIHDsTF7Wj/12
+ H1SBumDV0m8+EpR+5E6kDjp3YwH63daQJWkmcUGP9zjEW7MOhC+F93OasBR4ybIzxFJn2LbA8az
+ 8tFtyrixq5+27u2HImRRnDhiIHml1hl+tNj/6j8XU/a2ZAkcOvue91ld2d8zahiR14veK7ZwAPY
+ +Cm/otWjfju8anjaqo7aJqGCnQU09kBmVTX9pV/2yEFmdVxiVc4NNpaVt/b7cT1b4zKu9dgWjxY
+ TdBRtshB2t7qoJtIxecn0+358LBnFhIRdhKBlKSpqL+531cx06J/sZgP1mKBvDqF51o42/F/OW/
+ 9AJq/KAe+XIU1ebpRsuWXlXYCiEPKuEtl6zAZh/f8kPskqIlkMJ01iOdCOxykAUJErpbFibOjqV
+ msJU7THu0LAOwYM5DTA==
+X-Proofpoint-ORIG-GUID: 7jdsajt9-veJD4Q59v1Coq1BmbqTvuce
+X-Proofpoint-GUID: 7jdsajt9-veJD4Q59v1Coq1BmbqTvuce
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-19_01,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 clxscore=1015 priorityscore=1501 spamscore=0 suspectscore=0
+ impostorscore=0 lowpriorityscore=0 phishscore=0 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609190065
 
---uDe01GDI3ttlNJjJ
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+The iris hardware block is described in the nord SoC DTSI, and enabling
+it here allows the media iris driver to probe and use the video codec
+functionality.
 
-On Fri, Sep 18, 2026 at 10:16:17AM +0200, Herve Codina wrote:
-> Hi David,
->=20
-> On Fri, 18 Sep 2026 14:41:11 +1000
-> David Gibson <david@gibson.dropbear.id.au> wrote:
->=20
-> > On Thu, Sep 17, 2026 at 09:04:50AM +0200, Herve Codina wrote:
-> > > Hi David,
-> > >=20
-> > > On Wed, 16 Sep 2026 15:21:15 +1000
-> > > David Gibson <david@gibson.dropbear.id.au> wrote:
-> > >  =20
-> > > > On Mon, Sep 14, 2026 at 12:19:37PM +0200, Herve Codina wrote: =20
-> > > > > Hi David,
-> > > > >=20
-> > > > > On Sat, 12 Sep 2026 12:34:24 +1000
-> > > > > David Gibson <david@gibson.dropbear.id.au> wrote:
-> > > > >=20
-> > > > > ...
-> > > > >    =20
-> > > > > > > Do you mean that we should avoid the DATA_LEN_ENCODING and al=
-ways have the
-> > > > > > > 32-bit value right after the tag to give the size for all "sk=
-ippable" tags?     =20
-> > > > > >=20
-> > > > > > Yes.
-> > > > > >    =20
-> > > > >=20
-> > > > > I did a test using a dts file available in kernel sources. I used=
- (arbitrary
-> > > > > choice) juno.dts [0].
-> > > > >=20
-> > > > > Without any new tags, the size of the compiled dtb is 27067 bytes.
-> > > > >=20
-> > > > > With new metadata tags identifying phandles in properties (FDT_PR=
-OPDATA_PHANDLE),
-> > > > > the size of the dtb becomes 29027 bytes and so 29027 - 27067 =3D =
-1960 bytes for
-> > > > > those FDT_PROPDATA_PHANDLE tags (+7.2%).
-> > > > >=20
-> > > > > The tags used are composed of:
-> > > > > 32-bit: FDT_PROPDATA_PHANDLE value encoding 1 x 32-bit for data
-> > > > > 32-bit: offset in the property where a phandle is present.
-> > > > >=20
-> > > > > Removing the '1 x 32-bit' information from the tag value and addi=
-ng a 32-bit
-> > > > > 'length' in all cases will lead 3 x 32-bit values for a FDT_PROPD=
-ATA_PHANDLE
-> > > > > tag (tag + length + offset) instead of the 2 x 32-bit (tag + offs=
-et).
-> > > > >=20
-> > > > > Back to juno.dts instead of 1960 bytes, the FDT_PROPDATA_PHANDLE =
-will need
-> > > > > 1960 * 3 / 2 =3D 2640 bytes (+9.7%). This leads to around +2.5% o=
-f the whole
-> > > > > dtb just to have the 32-bit for length. This +2.5% can be easily =
-avoided.
-> > > > >=20
-> > > > > Also, I will not be surprised to see more tags in the future addi=
-ng some more
-> > > > > metadata information and so increasing dtb sizes.
-> > > > >=20
-> > > > > Quite often you have mentioned memory constraints system where li=
-bfdt should
-> > > > > be as small as possible. On those system, the dtb itself is embed=
-ded in the
-> > > > > binary close to libfdt. The size of dtb should be taken into acco=
-unt.   =20
-> > > >=20
-> > > > Yeah, those proportions are high enough that I think it's worth it.
-> > > >  =20
-> > > > > If the SAFE_SKIP bit is removed, I even plan to use this now free=
- bit in the
-> > > > > length encoding part:
-> > > > >   0b000: No data
-> > > > >   0b001: 1 fdt32
-> > > > >   0b010: 2 fdt32
-> > > > >   ...
-> > > > >   0b110: 6 fdt32
-> > > > >   0b111: On additional fdt32 to encode the length of data.
-> > > > >=20
-> > > > > IHMO, length encoding bits in tag value definition should be kept=
- and used
-> > > > > for all tags where the length is fixed and can be encoded using
-> > > > > these bits.   =20
-> > > >=20
-> > > > Well, I'm convinced we want some sort of compact encoding of the
-> > > > length, but I think we can do better than the current proposal.  It
-> > > > seems implausible to me that we'll need 2^29 different metadata tag=
-s,
-> > > > so I think we can spend some more of the tag bits on the length.  H=
-ow about:
-> > > >=20
-> > > >    0x80000000		structured tag bit
-> > > >    0x7fff0000		tag type
-> > > >    0x0000ffff		tag length
-> > > >=20
-> > > > So we have up to 2^15 (32k) different structured tags each with a
-> > > > length of [0..65534] bytes (length=3D=3D65535 reserved for those th=
-at need
-> > > > a full 32-bit length word).
-> > > >=20
-> > > > I believe that will avoid the extra length word for everything you
-> > > > have currently drafted.
-> > > >  =20
-> > >=20
-> > > Yes, this will avoid the extra length field. The drawback is the that=
- the
-> > > tag value is no more a well fixed value. Each time we have to check t=
-he tag
-> > > value we have to filter out the tag length.
-> > >=20
-> > > For instance:
-> > > - FDT_PROPDATA_PHANDLE
-> > >   fixed data size 4 bytes for offset
-> > >   tag value: 0x80010004
-> > >=20
-> > > - FDT_PROPDATA_PHANDLE_REF
-> > >   data: 4 bytes for offset + N bytes for a string
-> > >   tag value 0x8002ssss with ssss for the size
-> > >=20
-> > > This will lead to code like this:
-> > >   tag =3D fdt_next_tag();
-> > >   if (tag =3D=3D FDT_PROPDATA_PHANDLE)
-> > >     /* Do something */
-> > >     =20
-> > >   if (TAG_GET_ID(tag) =3D=3D FDT_PROPDATA_PHANDLE_REF)
-> > >     /* Do something */ =20
-> >=20
-> > True.  But.. a similar problem kind of exists with the original
-> > proposed encoding too: we *expect* a tag with fixed 4-byte contents to
-> > use the "1 cell" flags, but we need to consider the case of encoding
-> > it as VARLEN with a length field of 4.  We could choose to make that
-> > forbidden, but we'd still need to consider who's responsible for
-> > enforcing that.
-> >=20
-> > Similarly, if a variable length metadata tag happens to have length 4
-> > or 8 in a particular place, is it valid to encode it with the 1-cell
-> > or 2-cell flag?
->=20
-> My position was: if we expect a tag with "1-cell" flag, using varlen
-> field encoding is considered as an other tag and so either an error
-> or a skippable unknown tag.
+Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+---
+ arch/arm64/boot/dts/qcom/nord-rrd.dts | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-So essentially tags of different (fixed) length live in different
-namespaces.  Ok, that makes good sense to me, but wasn't initially
-obvious to me.  So, I think we need to spell this out a bit better.
+diff --git a/arch/arm64/boot/dts/qcom/nord-rrd.dts b/arch/arm64/boot/dts/qcom/nord-rrd.dts
+index 802987da3cfd..6e0b7a54523f 100644
+--- a/arch/arm64/boot/dts/qcom/nord-rrd.dts
++++ b/arch/arm64/boot/dts/qcom/nord-rrd.dts
+@@ -415,6 +415,12 @@ rtc@32 {
+ 	};
+ };
+ 
++&iris {
++	firmware-name = "qcom/vpu/vpu36_p4_s7.mbn";
++
++	status = "okay";
++};
++
+ &mdss {
+ 	status = "okay";
+ };
 
-> The same apply for varlen defined tag. Even if the data is, let's
-> say 8 bytes, the tag cannot be moved to a "2-cells" tag.
->=20
-> The kind of data length encoding (1-cell, 2-cells, varlength) is done
-> when the tag is defined and cannot be changed.
->=20
-> Who is responsible for enforcing that ?
-> I would say the documentation of the tag should clearly set the data
-> encoding used for the tag and the documentation of the "skippable"
-> format should say that data encoding is fixed for a given tag. It is
-> set when the tag is defined and any changes at runtime should be
-> considered as a different tag.
->=20
-> Of course we can introduce dynamic length encoding to set the data length
-> encoding in the tag according to the exact data length found at runtime.
->=20
-> > As a variant on my proposal, I'd also be fine with dividing the
-> > structed tags into several classes with bits indicating which is
-> > which.  Either:
-> >=20
-> >  * "short" vs "long": "short" always has the length within the tag
-> >    word (and so cannot exceed 64k, or however many bits we set aside)
-> >    whereas long always has a length word
-> >  * "fixed" vs "variable", fixed length tag types always have the same
-> >    length, so the length can be considered part of the tag.  Variable
-> >    would have a length word.
->=20
-> Well, only strings, or more generally arrays, need a varlen. For those
-> item, I would use the varlen word and so "long" in your definition.
->=20
-> For all others where the sizeof(data) is well known when the tag is
-> defined, I would use "fixed" and "long" only if sizeof(data) cannot
-> be encoded by "fixed" (lengh > limit of dedicated bits).
+-- 
+2.34.1
 
-Right, now understanding your thoughts on the originally proposed
-encoding, the "fixed" versus "variable" distinction makes more sense I
-think.  I do see the advantage of never having a variable length
-encoded within the tag word.
-
-> Without any additional bits for any category, all of these fit with the
-> following length encoding:
->   000...00: No data
->   000...01: 1 x 32-bit
->   111...10: N x 32-bit
->   111...11: varlen word
-
-Right, so revising my suggestions in light of a better understanding
-of what you had in mind originally, it comes down to:
-
- * I think adding more bits to the size field would be worthwhile to
-   allow a wider variety of future fixed length metadata tags.
-
- * Originally I was thinking that having a length in bytes rather than
-   just a length in 32-bit words would be worth it.  But thinking
-   further, there's probably no benefit.  The length rounded up to
-   32-bit words is all we need for skipping over it when unknown.
-   Even if we want a fixed length tag with, say, 3 bytes of data, we
-   can pad that out to a 1-word tag with a reserved byte.
-
-Ok, so more length bits and better documentation of the fixed
-vs. variable distinction are the only remaming suggestions.
-
-> > Not sure if that makes things any easier, but they might, and I'd be
-> > fine with either option (or some combination).  In any of these cases
-> > we do need to spell out what the requirements are: for dtb writers,
-> > for dtb readers and for whoever defines a new tag.
-> >=20
-> > > Further more, in the code you will both a mix of both construction:
-> > >   while (tag =3D=3D FDT_NOP || tag =3D=3D FDT_BEGIN_NODE ||
-> > >          TAG_GET_ID(tag) =3D=3D FDT_BEGIN_NODE_REF);
-> > > =20
-> > > with #define TAG_GET_ID(tag) ((tag) & 0xffff0000)
-> > >=20
-> > > Also when we write dtbs either in libfdt or dtc, tags value
-> > > have to be built with the length when needed.
-> > > #define TAG_VALUE(tag_id, length) (((tag_id) & 0xffff0000) || \
-> > >                                    ((length) & 0x0000ffff))
-> > >=20
-> > > I am totally fine with that but we need to have it in mind. =20
-> >=20
-> > Right, that's not a deal breaker for me - especially since I think
-> > we'll need some similar stuff even with the original proposal.
-> >=20
-> > > Of course, I can encode FDT_PROPDATA_PHANDLE_REF with 0x8002ffff + le=
-ngth
-> > > field but we lose all the benefits
-> > >=20
-> > > Ready to see TAG_GET_ID(tag) and TAG_VALUE(tag_id, length) when neede=
-d in
-> > > the code? =20
-> >=20
-> > I think so, though that could change depending on what it ends up
-> > looking like in practice.
-> >=20
->=20
-> Best regards,
-> Herv=E9
->=20
-
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
-
---uDe01GDI3ttlNJjJ
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmquDecACgkQzQJF27ox
-2Gc9Gw/+Kaw5IQukwQudU1tdZ2Il606I5lf7bwpZ9+f6GQN1I0ExhYzc63nWF6KU
-Rr6lDUIep+t6rhO4j5V43+qvXsRtkxKhbshwT+Jcg3Wno6QcT6jBq6WlV7CdkwWQ
-4zsA51MCrcvUQiaqL2BUCbfig7OML2RI2fng5v0NtAAaJf/tK+Mmo7+Il4/wIftV
-5npuW9orJUJ1rz0vksIVcHLmMFsXUUGcaqUFNsZVuEZ/4mgHietQD7dUipDqfksi
-nRStt7OocLMQowxLOBsUVeYWn1SKnsvTCiR12qMDC6nc3HTkIVz1P048z0o22tX4
-GA5RC18Xs+vy0T8fu7QZOhV4iFYWDFZA5MiODyKaJ2NvaFNaZg+kO6r3jMmxsfex
-lBZbd90Wt79iYytNwSFiZAOYlGm4nccwD3cQk8ZmOEOvOS6uqge9MClWSV5fFCgM
-3oFIXnYtGLx4x2LtLYrKga484KqQf7LZOr4UCEBM2DzX5MPjiljWdSy6sI7zmS5j
-p9hX374UMie3iGk7Wd74kJY0oN769n2RgDW2zXytc2p+Zhgt9a+D5JbxLJjpuPjx
-UzbykDbSEivvo3a04ZXg83EqjurbgecBNON2EKiE40dCXoTllAWuEwKP+eIrqIuq
-S9zW3ALTqqsSk4bVcMQmpX6fxqkjtFG5e7MOe9Le1C1rLQadQN8=
-=WoIK
------END PGP SIGNATURE-----
-
---uDe01GDI3ttlNJjJ--
