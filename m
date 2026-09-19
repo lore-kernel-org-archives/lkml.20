@@ -1,175 +1,125 @@
-Received: from out30-124.freemail.mail.aliyun.com (out30-124.freemail.mail.aliyun.com [115.124.30.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50F8F369D5D
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:11:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.124
+Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0263F36196A;
+	Sat, 19 Sep 2026 15:14:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.133.224.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789830682; cv=none; b=dIpQWrU/PgU6DOwf5LB6/xQX6e+zdo4cOW2L3FgEmSM5gDtm2/ZMzMUZQeOf4Rr+cfc/9TRX9A5m1dITo/TCNPW1n7VwPfHbd6D5fTpijFkdyCbnnl5IkMXpFgZ6l9VHv/eD+zQPUIRzdqz4dHQcwfAZKUocu1ke10O+HQXKnBs=
+	t=1789830857; cv=none; b=ax+KPU74RuYjZSjlyhjc4qT95NUVlraNLjPMZfy+OayslxGewHtkqrRuCXent6IzqnXDffq/6YOCfLLV5ovI4d23oTbURiwfVPwS+SoOPRZnnv3K+ZGpOWGMgAqAHWRnETGfaNY9wLER5n8hLT5jHlM6MxNwXz9u43Cqkqt76Fw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789830682; c=relaxed/simple;
-	bh=8wZJqZSzSHRygup1Zu7f1TDpbL+IqHKmSLFho4jUrjc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ggGVsK/qmSOyaPD5RTiOUY8+Z6Jj7q3kg/lQEZeem0sAi53M+RR7QizA2DEGKX4O8nh04Qq4y6B6gKYC9eTDo/b7fqSZubQL6s+WMi6X15fOqroH61tMp0A3F1CDG0V1BghlSwzjtxJFjhPb8e/OujwUiYpgJYITBhLS/fDQVII=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=tEuXy1CH; arc=none smtp.client-ip=115.124.30.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="tEuXy1CH"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1789830669; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=DGcNQVeXU9W3ier1CRk2vDl7OEviBed1e4AAP6u7S3w=;
-	b=tEuXy1CHEDNRK/dbaaZUtxQv23RwA7CKLxPZLPi1q/TNI64dPOayEZYJC2IGquNyT0GyF3fFSbD9qAU+6cu+hPXTjMxwNGB/GtB4kDC5pF6+Yhx/YvL5aKD7YLSw5Vz3IrR+/nGUFM0xhg9Md30wo2FqdzQyQ1EJXwtmPAt+kaM=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R121e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=guanghuifeng@linux.alibaba.com;NM=1;PH=DS;RN=22;SR=0;TI=SMTPD_---0XBDlcBm_1789830666;
-Received: from 30.42.81.123(mailfrom:guanghuifeng@linux.alibaba.com fp:SMTPD_---0XBDlcBm_1789830666 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Sat, 19 Sep 2026 23:11:08 +0800
-Message-ID: <d1f568a0-a273-4e4b-853d-5c826b2af50c@linux.alibaba.com>
-Date: Sat, 19 Sep 2026 23:11:06 +0800
+	s=arc-20240116; t=1789830857; c=relaxed/simple;
+	bh=KmZBJ3WBMfqLyTJcdQQFnIaZRnJUQmiakgbndXJ2Sv0=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=q2otEjBfZvvCuk/nWHetaVHfwIC2QQu9K4FjEqp4FOdUmmxXSPKUj2Uu3YUzUm88j4k7wiMTZrjboqcXIwrGArVJ4fb/yNWv4TMH6ivXugw4EbyEoEuvRMcP32AIHeHVZ2ZiYU0Ncc/IrtCxhxo+boTrVxfJom8I3PVaXVJL5ig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk; spf=none smtp.mailfrom=orcam.me.uk; arc=none smtp.client-ip=78.133.224.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
+Received: by angie.orcam.me.uk (Postfix, from userid 500)
+	id 47ECD92009E; Sat, 19 Sep 2026 17:14:13 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+	by angie.orcam.me.uk (Postfix) with ESMTP id 42CBB92009D;
+	Sat, 19 Sep 2026 16:14:13 +0100 (BST)
+Date: Sat, 19 Sep 2026 16:14:13 +0100 (BST)
+From: "Maciej W. Rozycki" <macro@orcam.me.uk>
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+cc: WangYuli <wangyuli@aosc.io>, Chen Linxuan <chenlinxuan@uniontech.com>, 
+    linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v3 1/7] MIPS: Only check -msym32 when need-compiler
+In-Reply-To: <alpine.DEB.2.21.2609191504030.27665@angie.orcam.me.uk>
+Message-ID: <alpine.DEB.2.21.2609191513020.27665@angie.orcam.me.uk>
+References: <alpine.DEB.2.21.2609191504030.27665@angie.orcam.me.uk>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 08/24] iommu/amd: Introduce Reset vMMIO Command
-To: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev, joro@8bytes.org,
- jgg@nvidia.com
-Cc: yi.l.liu@intel.com, kevin.tian@intel.com, nicolinc@nvidia.com,
- vasant.hegde@amd.com, jon.grimm@amd.com, santosh.shukla@amd.com,
- Sairaj.K@amd.com, jay.chen@amd.com, Ming.Shu@amd.com, SooJin.Tan@amd.com,
- wvw@google.com, wnliu@google.com, dantuluris@google.com,
- chriscli@google.com, kpsingh@google.com, alejandro.j.jimenez@oracle.com,
- joao.m.martins@oracle.com
-References: <20260914184750.222939-1-suravee.suthikulpanit@amd.com>
- <20260914184750.222939-9-suravee.suthikulpanit@amd.com>
-From: "guanghuifeng@linux.alibaba.com" <guanghuifeng@linux.alibaba.com>
-In-Reply-To: <20260914184750.222939-9-suravee.suthikulpanit@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
+From: WangYuli <wangyuli@uniontech.com>
 
+During 'make modules_install', the need-compiler variable is null, so 
+Makefile.compiler isn't included.  This results in call cc-option-yn 
+returning nothing and consequently an error is issued:
 
-在 2026/9/15 2:47, Suravee Suthikulpanit 写道:
-> Introduce new IOMMU commands for vIOMMU to reset
-> virtualized MMIO registers of a particular guest.
-> 
-> Always program RESET_MMIO_ALL_FLAG and RESET_MMIO_VCMD_FLAG.
-> Propagate iommu_completion_wait() errors to the caller.
-> 
-> Reviewed-by: Weinan Liu <wnliu@google.com>
-> Signed-off-by: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
-> ---
->   drivers/iommu/amd/amd_iommu.h       |  1 +
->   drivers/iommu/amd/amd_iommu_types.h |  3 +++
->   drivers/iommu/amd/iommu.c           | 21 +++++++++++++++++++++
->   drivers/iommu/amd/iommufd.c         |  5 +++++
->   4 files changed, 30 insertions(+)
-> 
-> diff --git a/drivers/iommu/amd/amd_iommu.h b/drivers/iommu/amd/amd_iommu.h
-> index 51e4364e8564..8c298e090889 100644
-> --- a/drivers/iommu/amd/amd_iommu.h
-> +++ b/drivers/iommu/amd/amd_iommu.h
-> @@ -233,4 +233,5 @@ amd_iommu_alloc_domain_nested(struct iommufd_viommu *viommu, u32 flags,
->   /* Guest ID for vIOMMU */
->   int amd_iommu_gid_alloc(struct amd_iommu *iommu);
->   void amd_iommu_gid_free(struct amd_iommu *iommu, int gid);
-> +int amd_iommu_reset_vmmio(struct amd_iommu *iommu, u16 gid);
->   #endif /* AMD_IOMMU_H */
-> diff --git a/drivers/iommu/amd/amd_iommu_types.h b/drivers/iommu/amd/amd_iommu_types.h
-> index 3aaaf69a1e7d..9eb9a0c190de 100644
-> --- a/drivers/iommu/amd/amd_iommu_types.h
-> +++ b/drivers/iommu/amd/amd_iommu_types.h
-> @@ -209,6 +209,9 @@
->   #define CMD_INV_IRT		0x05
->   #define CMD_COMPLETE_PPR	0x07
->   #define CMD_INV_ALL		0x08
-> +#define CMD_RESET_VMMIO		0x0A
-> +#define RESET_MMIO_ALL_FLAG	BIT(28)
+*** CONFIG_CPU_DADDI_WORKAROUNDS unsupported without -msym32.  Stop.
 
-RESET_MMIO_ALL_FLAG is defined at the wrong bit position?
+and the invocation terminated for configurations that set the Kconfig 
+option named.
 
-Per spec Section 2.4.10 (RESET_VMMIO Command), the data[0] dword layout is:
-Bit 31     : VCmd  - Reset virtual command buffer for the specific Guest
-Bits 30:28 : Reserved
-Bit 27     : All (IAll) - Reset the whole virtual IOMMU for the specific 
-Guest
-Bits 26:16 : Reserved
-Bits 15:0  : GuestID
+Previously commit a79a404e6c22 ("MIPS: Fix CONFIG_CPU_DADDI_WORKAROUNDS 
+`modules_install' regression") addressed the same issue for GCC versions 
+now supported for Linux compilation, but caused a build error with Clang 
+because it doesn't support '-msym32'.  Then commit 18ca63a2e23c ("MIPS: 
+Probe toolchain support of -msym32") fixed the issue with Clang, but 
+reintroduced the 'make modules_install' error listed above.
 
-The "All" bit is at position 27, not 28. Bit 28 falls within the 
-Reserved field (30:28).As currently coded, build_reset_vmmio() sets bit 
-28 (Reserved) and leaves bit 27 (All) clear. This means:
-The intended "reset the whole virtual IOMMU" semantics (including 
-clearing VMVld in VF Control MMIO Offset 10h) is never actually triggered.
-Writing 1 to a Reserved bit has undefined behavior per the spec - it may 
-be silently ignored or trigger an ILLEGAL_COMMAND_ERROR event depending 
-on the implementation.
+Wrap the handling of the '-msym32' option then with ifdef need-compiler, 
+fixing said error for 'make modules_install'.
 
--#define RESET_MMIO_ALL_FLAG    BIT(28)
-+#define RESET_MMIO_ALL_FLAG    BIT(27)
+For more technical details on why need-compiler is null during 'make 
+modules_install' and why no compiler invocation is actually needed at 
+this point, please refer to commit 4fe4a6374c4d ("MIPS: Only fiddle with 
+CHECKFLAGS if need-compiler") and commit 805b2e1d427a ("kbuild: include 
+Makefile.compiler only when compiler is needed").
 
+NB leading 8 spaces rather than tabs required due to `make' syntax.
 
-> +#define RESET_MMIO_VCMD_FLAG	BIT(31)
->   
->   #define CMD_COMPL_WAIT_STORE_MASK	0x01
->   #define CMD_COMPL_WAIT_INT_MASK		0x02
-> diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
-> index fa9708af258e..94c59f503662 100644
-> --- a/drivers/iommu/amd/iommu.c
-> +++ b/drivers/iommu/amd/iommu.c
-> @@ -1517,6 +1517,13 @@ static void build_inv_irt(struct iommu_cmd *cmd, u16 devid)
->   	CMD_SET_TYPE(cmd, CMD_INV_IRT);
->   }
->   
-> +static void build_reset_vmmio(struct iommu_cmd *cmd, u16 gid)
-> +{
-> +	memset(cmd, 0, sizeof(*cmd));
-> +	cmd->data[0] = gid | RESET_MMIO_ALL_FLAG | RESET_MMIO_VCMD_FLAG;
-> +	CMD_SET_TYPE(cmd, CMD_RESET_VMMIO);
-> +}
-> +
->   /*
->    * Writes the command to the IOMMUs command buffer and informs the
->    * hardware about the new command.
-> @@ -1770,6 +1777,20 @@ void amd_iommu_flush_all_caches(struct amd_iommu *iommu)
->   	}
->   }
->   
-> +int amd_iommu_reset_vmmio(struct amd_iommu *iommu, u16 gid)
-> +{
-> +	int ret;
-> +	struct iommu_cmd cmd;
-> +
-> +	build_reset_vmmio(&cmd, gid);
-> +
-> +	ret = iommu_queue_command(iommu, &cmd);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return iommu_completion_wait(iommu);
-> +}
-> +
->   /*
->    * Command send function for flushing on-device TLB
->    */
-> diff --git a/drivers/iommu/amd/iommufd.c b/drivers/iommu/amd/iommufd.c
-> index 7f358e57efde..2e34491e3cf7 100644
-> --- a/drivers/iommu/amd/iommufd.c
-> +++ b/drivers/iommu/amd/iommufd.c
-> @@ -92,6 +92,11 @@ int amd_iommufd_viommu_init(struct iommufd_viommu *viommu, struct iommu_domain *
->   
->   	data.out_vfmmio_mmap_offset = aviommu->vfmmio_mmap_offset;
->   
-> +	/* Reset vIOMMU MMIOs to initialize the vIOMMU */
-> +	ret = amd_iommu_reset_vmmio(iommu, aviommu->gid);
-> +	if (ret)
-> +		goto err_init;
-> +
->   	ret = iommu_copy_struct_to_user(user_data, &data,
->   					IOMMU_VIOMMU_TYPE_AMD,
->   					out_vfmmio_mmap_offset);
+Link: https://lore.kernel.org/all/alpine.DEB.2.21.2502120612000.65342@angie.orcam.me.uk/
+Link: https://lore.kernel.org/all/alpine.DEB.2.21.2307180025120.62448@angie.orcam.me.uk/
+Fixes: a79a404e6c22 ("MIPS: Fix CONFIG_CPU_DADDI_WORKAROUNDS `modules_install' regression")
+Reported-by: Maciej W. Rozycki <macro@orcam.me.uk>
+Closes: https://lore.kernel.org/all/alpine.DEB.2.21.2501030535080.49841@angie.orcam.me.uk/
+Co-developed-by: Chen Linxuan <chenlinxuan@uniontech.com>
+Signed-off-by: Chen Linxuan <chenlinxuan@uniontech.com>
+Signed-off-by: WangYuli <wangyuli@uniontech.com>
+Signed-off-by: Maciej W. Rozycki <macro@orcam.me.uk>
+---
+Changes from v2 (1/6),
+<https://lore.kernel.org/r/C7DB555D3895DE54+20250422102253.137944-1-wangyuli@uniontech.com/>:
 
+- Fix indentation/nesting of Makefile conditionals.
+
+- Drop "dec: " from the commit heading; the feature is generic even if
+  only used by DEC platforms right now.
+
+- Rewrite commit description for clarity.
+---
+ arch/mips/Makefile |   22 ++++++++++++----------
+ 1 file changed, 12 insertions(+), 10 deletions(-)
+
+linux-wangyuli-mips-msym32-need-compiler.diff
+Index: linux-macro/arch/mips/Makefile
+===================================================================
+--- linux-macro.orig/arch/mips/Makefile
++++ linux-macro/arch/mips/Makefile
+@@ -290,18 +290,20 @@ drivers-$(CONFIG_PCI)		+= arch/mips/pci/
+ # We can always force a build with a 64-bits symbol format by
+ # passing 'KBUILD_SYM32=no' option to the make's command line.
+ #
+-ifdef CONFIG_64BIT
+-  ifndef KBUILD_SYM32
+-    ifeq ($(shell expr $(load-y) \< 0xffffffff80000000), 0)
+-      KBUILD_SYM32 = $(call cc-option-yn, -msym32)
++ifdef need-compiler
++  ifdef CONFIG_64BIT
++    ifndef KBUILD_SYM32
++      ifeq ($(shell expr $(load-y) \< 0xffffffff80000000), 0)
++        KBUILD_SYM32 = $(call cc-option-yn, -msym32)
++      endif
+     endif
+-  endif
+ 
+-  ifeq ($(KBUILD_SYM32), y)
+-    cflags-$(KBUILD_SYM32) += -msym32 -DKBUILD_64BIT_SYM32
+-  else
+-    ifeq ($(CONFIG_CPU_DADDI_WORKAROUNDS), y)
+-      $(error CONFIG_CPU_DADDI_WORKAROUNDS unsupported without -msym32)
++    ifeq ($(KBUILD_SYM32), y)
++      cflags-$(KBUILD_SYM32) += -msym32 -DKBUILD_64BIT_SYM32
++    else
++      ifeq ($(CONFIG_CPU_DADDI_WORKAROUNDS), y)
++        $(error CONFIG_CPU_DADDI_WORKAROUNDS unsupported without -msym32)
++      endif
+     endif
+   endif
+ endif
