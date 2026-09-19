@@ -1,181 +1,198 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011045.outbound.protection.outlook.com [52.101.62.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E04C33EB1B;
-	Sat, 19 Sep 2026 14:29:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789828180; cv=fail; b=uIw+OpbTn/GfrQGFho6LCJ7GBVed3QP5uD3fJx+7bkL4bZ6TW8tZeNauNnEgnmHhxgzRQjWNb5ThX2KDcJY6YUBY3wlmMpI0pLap2X6hPcvaquOU8AvmMlizlgeH6ube7N404OzS3dvDlBfBu/Bhr9cfbWF4g6UNBvJaaPbj/xI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789828180; c=relaxed/simple;
-	bh=LSEWyAkviuNcAhoACchZrgP2aUm2te3hAvHahNpsn+c=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=Dljqq1EQO3MZwBSK4qb2lep9lNP/Fbc8UenDntw5BYnX4jsQRUMLmbGi+fI6XsXGhU5cRb9eonUNmeMXI1QVjwYfenyidPea07FXZruJ6Z+zc8v0mivBAtqhJVg1abyed4E8uZFh3KqaGxXExW9JpKLmR2U1kiazzCmRqXWSg1w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=GqAYNGqc; arc=fail smtp.client-ip=52.101.62.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6CC2257435
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:35:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789828519; cv=none; b=th3Kjs1zUCbSH39aCvWPHFUCUr/8b6csS9T/CoJ252/mTlr8nhy2KFzHhxhbRFelFMD2KPO7WnrCSGsrshnazfXnvWtw8uGSMFaWBH+QAIqwCQEj0XIWKlTQDDrJ3gbhr9fHPlIvnkfoSzNl4yUlVZjcZu5OJwRVLQgaRoo87jU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789828519; c=relaxed/simple;
+	bh=lTprQ5pzR9M5XIs/pNaILaDZk2lSUXDIybRyIblq6+0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pl6t8LgyG6TEcwgS7zjd4wLWLrFkdFCF9dI8ES41pue1ouxl+DFtCVmMsvoISUcVtEtPJFXgVq5RH8WLq/pJWJZPIRXyN2yWuY2L0DgxiRiAlP1q9WSYFhGSi042M4OMu7WZxSMOQYuQ2CLDv96qymvt0eFeiwyLdwFArL/8AUw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KIKKfuqu; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="GqAYNGqc"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=swtQBQxVFEUdsIfJheE/5OME4ij+nv4URS0jdP6k2VomiRWqfId/zkZXyXPkg8ltZdzsuCAhT9dOz46sE7AkW/dVVjkx5jsSgBL1m/frPQxhEWTrro8nL9WzKG2N/31PuGGTIIEwrgvtWwLTuX3o/XEixmY+2HkKezdrOeZYVZ0QYFCWqwQdMsUp483QJE7OriarVM5IyDhr3jorjVGPXdAt4c14oSyljVZE+DEovpP9nuqIUDjjKaFY7KSjzRdJ/1XTrtu8y8IqYcRoWN11VABto4oyVJ+1PjNqvLneVX/RgGaqxZIiG9CIaWTgqqb/J2M+QDb3k8Cy1wI8pqgIoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=I2PBkNRANm13qDTknfT3WStUl0xbCTjRopOQy+l6mGg=;
- b=rGKzkDusibd45PJAdt/vh8BDf7BhOvaVh86vbumGCQWrtKbf6kFf27y66Qs7PHL2S9JQAMyv7Grko2VDqOW5ZlP63cdr79wuGiVlbcDEdIMiEilX7NxrVZuZDOJcmOj9Mgbm2BfpsoHt6VcSAVDnYQy/W2iukNKTrG1br7xc7PKS4GArShCKCxXSg1Bmm7HAvmzvhXgYmANarwY1yRaEuzTGEy3gj3tjJDlzVB/vNU0kXIMErABxkqXUDEGG6Py8g+s67L4aGx0teC7dYpMuZTOio2bYHC9zpBrjEmAvVYpXMwWQrHwHd0T7G3Ccn9/5F4GAGmdMaSbxYdtG7fS2Sg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I2PBkNRANm13qDTknfT3WStUl0xbCTjRopOQy+l6mGg=;
- b=GqAYNGqcrbjKQgNAP6H2Ui+OfRbCUPVsu80Z8PTkGIi3sPNflkP9Oo4THI+TIRWv8q0q22JRHR3GMvzKkgzAgOJhK4RvPPzM3v7MtwOequ/i1gqJEGJdIlHftArwJzIjf1SEYjFks9YUdWSE1eLPKXP1u3AjuVXhEp+hN0zI+UA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5712.namprd12.prod.outlook.com (2603:10b6:510:1e3::13)
- by DS2PR12MB9711.namprd12.prod.outlook.com (2603:10b6:8:275::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Sat, 19 Sep
- 2026 14:29:13 +0000
-Received: from PH7PR12MB5712.namprd12.prod.outlook.com
- ([fe80::afe1:7dd0:ea71:b7e7]) by PH7PR12MB5712.namprd12.prod.outlook.com
- ([fe80::afe1:7dd0:ea71:b7e7%4]) with mapi id 15.21.0428.014; Sat, 19 Sep 2026
- 14:29:12 +0000
-Message-ID: <c86b2d33-28a8-4d62-9604-658ab3a5c12f@amd.com>
-Date: Sat, 19 Sep 2026 19:59:05 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] KVM: x86/pmu: Don't retry a counter whose config was
- rejected
-To: Sean Christopherson <seanjc@google.com>,
- Luka Absandze <absandze@amazon.de>
-Cc: "pbonzini@redhat.com" <pbonzini@redhat.com>,
- "tglx@kernel.org" <tglx@kernel.org>, "mingo@redhat.com" <mingo@redhat.com>,
- "bp@alien8.de" <bp@alien8.de>,
- "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
- "x86@kernel.org" <x86@kernel.org>, "hpa@zytor.com" <hpa@zytor.com>,
- "dwmw2@infradead.org" <dwmw2@infradead.org>,
- "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
- "linux-perf-users@vger.kernel.org" <linux-perf-users@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20260918160006.61816-1-absandze@amazon.de>
- <aq1j0aUKpr15AiqS@google.com>
- <aq2ZCFXMDnUWwCuY@dev-dsk-absandze-1c-663c31a8.eu-west-1.amazon.com>
- <aq2vrDkgfPGeJ-wD@google.com>
-Content-Language: en-US
-From: Sandipan Das <sandipan.das@amd.com>
-In-Reply-To: <aq2vrDkgfPGeJ-wD@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA0P287CA0015.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:d9::10) To PH7PR12MB5712.namprd12.prod.outlook.com
- (2603:10b6:510:1e3::13)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KIKKfuqu"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d8239so11961945e9.0
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 07:35:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789828516; x=1790433316; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3RUlp8CtLqjLZ6uUUxbQEeBN0fgm/yTb3PqHif4KFkE=;
+        b=KIKKfuqu0CUw/yyJfX8nfOZ5veAysJWNu0vkHTjOPtp+GWYwND+rHId1qH2iYWqM2W
+         5SScn/TDL6+LkuQluqvQTDPz6X/Wg+BM3uvz8mukMTV+E9gjEjinIkYMB3nmiq4xxA6t
+         jlaICP92xeZuZ0TSAAn9OY32hjcdeAU2r3+ENa/RW0KUsx8wDODcI0BVddHc/k65hNB1
+         mHogcMEvnPxPWbZdrzsFgNmTbDTn/kxJIuDPyTWEDY/A/5DUmdM05hocdsYWi95ZqPNp
+         kZx5XzDaBc3PEr3FETGUJY6Z9edJyjPaGdIwYbeuVYh3TmsIZvhWjphbUpgLUK6V+k0F
+         jTcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789828516; x=1790433316;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3RUlp8CtLqjLZ6uUUxbQEeBN0fgm/yTb3PqHif4KFkE=;
+        b=WHPFdNJEVxiOD8q0eFkpGM7ft1nKvmrtaLkEYo9gHXWUHP1R3wjqc53aj81blSY3zf
+         m9AWy/UoQNCV3Lw4ON4yitOX7U9Gf+0QUxGWkGKIMM509sKDpr+HgVMf6cKFDvrLWk16
+         pSoyexDj2zDi5X0kvh5C9ZmSirWfdkHaq67CxAtGHIIyx11DDHB4IPJmeTAU4d1VGVF7
+         qn8owW/ir+JdXgKNLsZeoPfpKTkY/YvE0wAtm4H4R9QefsW7RkeWbZA9K8rVLXPTQ9B/
+         mfAa4ko9j/8eMr7wLH8EJSKPIIxY2DyBH4t7Dp7KuDJDR0cR4+Xyr0nEhpdYl2A6Eqt8
+         UhYw==
+X-Forwarded-Encrypted: i=1; AKwUvByDtrqbucVDTQlxED7SA7zVf/XFmBEL4WWvxyh/hzOs54zyCgdkFeK5o5mhwzBWZi/u/Vd8PEk6yIHnCG8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nQ49Zf5M0wPUZmHfoDX1NcCochIonNT/69A7DlmoTfiW3IaKUg
+	LG2IKdBuENWNgwhJo6qs+4Ji00PwlsZNk5mJslNUxT8OEs1FFgOxTIPk
+X-Gm-Gg: AYBFou0XvDQA8FMGLQozdx0PqyxA0q+zZ/Fu1cVgmZdaPvocc+C82//u3CT2upeuRB6
+	+29r6dt9LPLklHv2n4yA6k3iZqQngkh2o8g71Dzbm4f58MuNGx3WlZMQy9CBClCuRX3ACsRIyA4
+	IvQFWS7Brd9Btey/wwvEnCSdtxUTr+BmA3edA0RWSXAUePtyDHcaEztxR4YBezOueGO/ej0E6be
+	sM0itaCu1Ds2Rndn1aVc1K18SarHFzJaEMs08f2QiXSCRL/cSGCHuxwlm+qLMQAbaCnJAh1FLnj
+	EcrjQo+QxCRkd+2h6ifH2dFYabZq9RqAUM5x4VK+6ML4P8HyQIaPcJhZns/WG99O4s1vi8r8OGK
+	o6HXh+qMlnlArRccGfHrCR+n3DQfBkI0pv9Kyva4LbESNc0HZKWExedw9pzGyi8tS7qo0Sw8xm1
+	k46RJU+pa7f5ogg2py+5AAB5FHvigIK/4MY/eGmpxcZbVdrb0zFewtrTuDcPwrbnUmpEAxxIfNd
+	J1/qa+RWj8glneCnWcvXRRvQfhndv2j05APXSEAjdskR1qc0tyN8ZnHCyUlYQoS6G3iTwvE6nrq
+	SeoMZDNV7jlEbHP1poPc322SC51FLLxUOGbh0iWHRB15+46VGjbhdiIqZWi4qH6H4XZQCbVYCen
+	+7RZZTV88QO4=
+X-Received: by 2002:a05:600c:1f87:b0:49d:99:1d98 with SMTP id 5b1f17b1804b1-49fc56ae924mr86459395e9.9.1789828515746;
+        Sat, 19 Sep 2026 07:35:15 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-a017-2b01-05fe-203b-7cd2-a640.310.pool.telefonica.de. [2a02:3100:a017:2b01:5fe:203b:7cd2:a640])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc59286b6sm114282115e9.4.2026.09.19.07.35.14
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 19 Sep 2026 07:35:14 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Nick Terrell <terrelln@fb.com>,
+	David Sterba <dsterba@suse.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] lib: zstd: Fix dictionary lifetime and parameter documentation
+Date: Sat, 19 Sep 2026 16:35:03 +0200
+Message-Id: <20260919143504.69254-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5712:EE_|DS2PR12MB9711:EE_
-X-MS-Office365-Filtering-Correlation-Id: 639c7bef-a933-459b-7b12-08df165a6005
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|366016|23010399003|4143699003|10067099003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	W2ILYx/fQ11nsc+Ihl+iv2Az/zyRct1nLJ07XQGI58wSt1MXRUd1IE7qq9KlMAMYZzZjtsVFWWtMVv/zllZ6tQmNuWqWHO0rGKroCswmbv4znEO5dcSNvhsMYUtM70K8TZLjHRNRgH7f7joUKK4uMNRz3cL1adsxPK5neTahOEz4KUzhiwsMUDNC60y1MBIA6JuNJFAHwTWrqQpQHn4lazU00mNnm1DNXiL/TAXh5ybNsFlWjp9dw/Z5tU9e1u5jsmD93yv+2uQ12i4HFlU4UGJZezOM8mpA9Wwe8ygQIZXQ1y92CWXKjtE10r+Mf9koWgqzC+ge5zv3RXAAMS+uSJgqeSJxi98Ll1BQnSgOk5MrouCSmWowY1NsX8zsgwd14NQV4NzH/8ybE4lQ0R0yM+D+Qb8upuBZ5bh9vc1AaMoCfL38XD47kPlrxmxfPfenFd8ir1IeHBC9dZkVWWfrX+mGwNR8qrrqHgTt+tK/zKpxPKLaLZxYknWM3IF+qKku/NngCDD497SMADgRh2kEfq2QIwyjAeYRoR+whcQ7xr9FDWN80F69kgp7Vo5B7hz200rJCQ9z7k11YX2wgia5gug8g0RpT4JZRis2yCpcZwATY3XV/0Y/HD1+5Bk4pzeJ+SrIdnJwaGnm/rQfa4LpIKyP4PN7qvLZhkpWqUpsHPU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5712.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(23010399003)(4143699003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?S1FVYko2NEFYZitsRlk5NTkrR0lUWGNSTnpmZ1BFMWFmR0YxdW5JMlhFRDdz?=
- =?utf-8?B?blE0N01SMXF6RzNEelJuNUJ4ekFwbEMwdVhmcWJtOVI2V2FBdVI0d0c4L1Ni?=
- =?utf-8?B?S2tBWisxc0JDbXptYVhzSlpCSXhDdTlyZVdLdEFSZ0RQVjdobTBYYTh4UTdp?=
- =?utf-8?B?WlNNamx4SmlZamE1SHA4YytOL0RCZDBlMmM0NFpFbkdMRFV2bG1pYVJLSFph?=
- =?utf-8?B?eXpBaG9XUTBLTGNyd3p0emtWNmRmamVnR0F2ZzNNQzZQb0Y5Q0h4c1ZuT0pz?=
- =?utf-8?B?UWJ4ZU5BME4xMnZoNEtObFRuQW50aWpZZkg4RFFXdXJxN241c1pKQjBUb3Iz?=
- =?utf-8?B?T1kwRkpPVy9ZRmRHZ3h6akM0QU1MR1JRN25xL0gvVW9tUVBjWWVNQUoycjNp?=
- =?utf-8?B?VGhQODRNVm0zTEQ4M3Ywa1FJZlJpZ2htM3NvMSs3YURmMVVUT1ZaRWxGNlFW?=
- =?utf-8?B?NTZNbGhLaHlXT01mUXp6S3BhWGYxTS85V0JZWTFYNHFyZG9uQStYbG9LR2Vo?=
- =?utf-8?B?TmFQQVBRWUN2enUvVHhoMk9sVUVrYzJQd2JXME9XSHhKUSt6THJsWGlKcnVG?=
- =?utf-8?B?Z1FJSUxuMk1UbkJ1a1piYWVtQmt0VTd3WHR3dmlFZTVKdUtWeVpqalIxU1p3?=
- =?utf-8?B?b1hiVWpHZlJpZHN2WXBsNDdXODVIWmtBRWtnSW1ob3c2SGx6aTN4eXRIZldW?=
- =?utf-8?B?T1lRbFZnTDhtNk9TZzJqbjMya3lTZlJPYVVJbkFJVGIyYXQ5ZElzMkR5c3VO?=
- =?utf-8?B?UDlqSWdJQ253citIeDNvR1hJWVlJRGk1VmtRczdpNGc0R1Q1MkpZcVU3eUFL?=
- =?utf-8?B?ZDBBQXRHaFJ4V3VCU0o4dFhRR1dEelpzVjJpOFk3d2dVbnQ2bENNejRUMU9o?=
- =?utf-8?B?ZjVyS2xzcjZERFJkYitRMkY2c3FEVXQ3YUMyZ0o5aEpmNktCR3p0bXhsRTkz?=
- =?utf-8?B?ZFFrNmt6TGpjaFBXZUJ3SzdJbFBkaTdmSWdKZ2R0YjkxUjI1NXppL3U4ZWFh?=
- =?utf-8?B?TCt6UTljcy9DSjVPckZKZWM5aEIzRVRnLzNJSVdvWFpqbnJDcVdJUjBORmhG?=
- =?utf-8?B?Wng2a3R2b0d1aHUwUUhoK3I3Q012ZFBYSDh3aGlVR1BobkUvMHkvZHdSWVpS?=
- =?utf-8?B?cGJNWW5ZZ09GWmJhdVZKNWFmaC93S1J0bjI2aXp6L29nMDZDenFVd3Z2VkhP?=
- =?utf-8?B?bGFTeWNpaUJDNmgwNW5HYTQ1R3p4S0JVdHVwUFNoN1R2bDFzQys5djhWc3R2?=
- =?utf-8?B?YUxoSjVPV3V5d3I2U2I1KzY4TkF2RWkwYUxEemRjWjhtUzlaUGVob09wMFBk?=
- =?utf-8?B?Mm41c0ZZMFZITDFlTHM4SytKNmpwbFc1SFRxNExkOHBYaUZtTC9lUW5DZkRE?=
- =?utf-8?B?QUlYZHRaUUJuaHF0N0xZSTJDV1lLQWl3VkVRb1J3SlVTNUF1ZmduNzA1aXRu?=
- =?utf-8?B?c3ZyMVUzUkdTeE92YWZ0cjdxanAzTDBObzFUQVlWZlNDWjl2TEdHOUNPc1g2?=
- =?utf-8?B?cHp4cmtYa2xPdUxXR1VZZFlrVlZFK2hhZm5wb1FXK0ZyTWNZcFEwTmdkQ1RR?=
- =?utf-8?B?YWpyS0hjOFRWKzFtekNmcDZuSDk0aTI4UHliMFBScjFiRWsxQXFEZng0MzZP?=
- =?utf-8?B?RGsyalZBYVNPZWxJbVRyMk9VUUJLMERWMTFadElzSWh6VE5Bb282S1NGUlI5?=
- =?utf-8?B?UWU3UjdGUmYxbjFUMy92dVRzZHFFaVdyQ0ZaWVFsck9FM2RUcUIwbjFJRE5t?=
- =?utf-8?B?dGZEK0h2Q21GcnM1SHBvTU5JUWE3YzlLM2FLU1BPODZtUFN6bk8yZkFrNlpZ?=
- =?utf-8?B?dFk3ekdBeTZ3MU1aTzJ1MnlSZHJWUHlManF5Vm5wSGl0cUZPT3phSkdMYnBj?=
- =?utf-8?B?b0N3eU8zdTArZ3VEMHpXanN0N1hxR1FJY2RDbkFRMTVaT2pqRW1EQitWYk9G?=
- =?utf-8?B?clpCQ3RONHhUWGRWbVZuRERqcWJzbmMzT2ZtaERWRkVtSkJ4UExpUFdscnQ4?=
- =?utf-8?B?YWR2dW1tZUtzeW5IMkl3M2tYNW9mTUJDbFdZTENJNG1jcUh4a2NhZVlDb1p4?=
- =?utf-8?B?Z2VPQUt4NXdXeGZiZndEeGhGdmhOcHZmbkJOeUNpUWpsS01nZGtUMWpYZnhV?=
- =?utf-8?B?eDdCNFIvSEVickk2R1Erb0NBSE12VjBGdGpNVUxuYTIvOFc2bm92QVR2eStn?=
- =?utf-8?B?ZStvZ1pVSGNkdm44L250dDlCTTlvanVYZXdlYTEzT1BKZkJ3bzQ5Rjc4M3VH?=
- =?utf-8?B?TjNyalpLMWRtODl3SHpPLzV0bnZ1eWpCeEJzNGVBeXpkSVNmZWVPNkVDRjFM?=
- =?utf-8?Q?z2LG2JrU/mVXMMuDdc?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 639c7bef-a933-459b-7b12-08df165a6005
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5712.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Sep 2026 14:29:12.8796
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Gng9+yKOgZsFpXj3rv0czNBNpnEHY2YfNQIOvoLhZfMAz6AHLEhjzcbXUaS9y3HEK8FV+qj1uNpSHf7yChJSWA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9711
+Content-Transfer-Encoding: 8bit
 
-On 19-09-2026 03:09, Sean Christopherson wrote:
-> On Fri, Sep 18, 2026, Luka Absandze wrote:
->> On 2026-09-18 09:16, Sean Christopherson wrote:
->>> Hmm, would it instead make more sense to explicitly check for -EBUSY?  -EINVAL
->>> isn't the only fatal error code.
->>>
->>> diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
->>> index a7d60c8785cd..5296ee8f32af 100644
->>> --- a/arch/x86/kvm/pmu.c
->>> +++ b/arch/x86/kvm/pmu.c
->>> @@ -681,7 +681,7 @@ void kvm_pmu_handle_event(struct kvm_vcpu *vcpu)
->>>                  * PMU refresh.  Don't make a new request as doing so can stall
->>>                  * the guest if reprogramming repeatedly fails.
->>>                  */
->>> -               if (reprogram_counter(pmc))
->>> +               if (reprogram_counter(pmc) == -EBUSY)
->>>                         set_bit(pmc->idx, pmu->reprogram_pmi);
->>>         }
->>>
->>> Though I guess one could argue -ENOMEM is also transient?
->>
->> I had contemplated this, but could not convince myself at a glance that
->> perf and KVM agreed on what constituted a transient error.
->> I have now concluded I was seeing ghosts :)
->>
->>> E.g. this? (completely untested)
->>> [diff]
->>
->> Tested against the fault described in the linked patch and selftests on
->> AMD Zen 3 (although I don't think there's much coverage in this regard).
->>
->> If no other objections, would you be fine with taking the diff you
->> provided into the tree or would you prefer a v2?
-> 
-> Go ahead and send a v2, I want to see what Sashiko thinks.
+The by-reference dictionary constructors say the dictionary buffer should
+be freed before the dictionary object is destroyed. Both wrappers use
+ZSTD_dlm_byRef, which requires the buffer to outlive the dictionary object.
 
-From a quick glance, it seems EBUSY and ENOMEM might just be sufficient.
-The former occurs when a pinned event cannot be created cause all counters
-are exhausted and the latter due to various event and context struct
-related alloc failures.
+Their comments also describe load-method and content-type arguments that
+the wrappers hard-code, and omit the compression parameters argument.
+The context and decompression dictionary destructors have mismatched
+parameter names. The new allocator and dictionary typedefs are also
+incorrectly documented as structures.
+
+Document the buffer lifetime, typedefs and parameters the wrappers accept.
+
+Fixes: 4fc4187984e5 ("lib: zstd: export API needed for dictionary support")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+ include/linux/zstd.h | 31 ++++++++++++++-----------------
+ 1 file changed, 14 insertions(+), 17 deletions(-)
+
+diff --git a/include/linux/zstd.h b/include/linux/zstd.h
+index 2f2a3c8b8a33..4f0e2890a5bd 100644
+--- a/include/linux/zstd.h
++++ b/include/linux/zstd.h
+@@ -85,18 +85,18 @@ int zstd_max_clevel(void);
+ int zstd_default_clevel(void);
+ 
+ /**
+- * struct zstd_custom_mem - custom memory allocation
++ * typedef zstd_custom_mem - custom memory allocation
+  */
+ typedef ZSTD_customMem zstd_custom_mem;
+ 
+ /**
+- * struct zstd_dict_load_method - Dictionary load method.
++ * typedef zstd_dict_load_method - Dictionary load method.
+  * See zstd_lib.h.
+  */
+ typedef ZSTD_dictLoadMethod_e zstd_dict_load_method;
+ 
+ /**
+- * struct zstd_dict_content_type - Dictionary context type.
++ * typedef zstd_dict_content_type - Dictionary content type.
+  * See zstd_lib.h.
+  */
+ typedef ZSTD_dictContentType_e zstd_dict_content_type;
+@@ -251,14 +251,14 @@ zstd_cctx *zstd_create_cctx_advanced(zstd_custom_mem custom_mem);
+ 
+ /**
+  * zstd_free_cctx() - Free compression context
+- * @cdict:        Pointer to compression context.
++ * @cctx:         Pointer to compression context.
+  *
+  * Return:        Always 0.
+  */
+ size_t zstd_free_cctx(zstd_cctx* cctx);
+ 
+ /**
+- * struct zstd_cdict - Compression dictionary.
++ * typedef zstd_cdict - Compression dictionary.
+  * See zstd_lib.h.
+  */
+ typedef ZSTD_CDict zstd_cdict;
+@@ -267,12 +267,11 @@ typedef ZSTD_CDict zstd_cdict;
+  * zstd_create_cdict_byreference() - Create compression dictionary
+  * @dict:              Pointer to dictionary buffer.
+  * @dict_size:         Size of the dictionary buffer.
+- * @dict_load_method:  Dictionary load method.
+- * @dict_content_type: Dictionary content type.
+- * @custom_mem:        Memory allocator.
++ * @cparams:          Compression parameters.
++ * @custom_mem:       Memory allocator.
+  *
+- * Note, this uses @dict by reference (ZSTD_dlm_byRef), so it should be
+- * free before zstd_cdict is destroyed.
++ * This uses @dict by reference. The buffer must remain accessible and
++ * unmodified until the returned zstd_cdict is destroyed.
+  *
+  * Return:             NULL on error, pointer to compression dictionary
+  *                     otherwise.
+@@ -347,7 +346,7 @@ size_t zstd_decompress_dctx(zstd_dctx *dctx, void *dst, size_t dst_capacity,
+ 	const void *src, size_t src_size);
+ 
+ /**
+- * struct zstd_ddict - Decompression dictionary.
++ * typedef zstd_ddict - Decompression dictionary.
+  * See zstd_lib.h.
+  */
+ typedef ZSTD_DDict zstd_ddict;
+@@ -356,12 +355,10 @@ typedef ZSTD_DDict zstd_ddict;
+  * zstd_create_ddict_byreference() - Create decompression dictionary
+  * @dict:              Pointer to dictionary buffer.
+  * @dict_size:         Size of the dictionary buffer.
+- * @dict_load_method:  Dictionary load method.
+- * @dict_content_type: Dictionary content type.
+- * @custom_mem:        Memory allocator.
++ * @custom_mem:       Memory allocator.
+  *
+- * Note, this uses @dict by reference (ZSTD_dlm_byRef), so it should be
+- * free before zstd_ddict is destroyed.
++ * This uses @dict by reference. The buffer must remain accessible and
++ * unmodified until the returned zstd_ddict is destroyed.
+  *
+  * Return:             NULL on error, pointer to decompression dictionary
+  *                     otherwise.
+@@ -370,7 +367,7 @@ zstd_ddict *zstd_create_ddict_byreference(const void *dict, size_t dict_size,
+ 					  zstd_custom_mem custom_mem);
+ /**
+  * zstd_free_ddict() - Free decompression dictionary
+- * @dict:         Pointer to the dictionary.
++ * @ddict:        Pointer to the dictionary.
+  *
+  * Return:        Always 0.
+  */
+
+base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
+-- 
+2.39.5 (Apple Git-154)
+
+
