@@ -1,72 +1,71 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6F4E39E17C
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:26:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B5D9390985
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:26:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789856792; cv=none; b=bNmsC352AvrjByHy2JUWFPpgxdEpLOHxrtkHUOMyXxYfCq7XHGBN85ipFr3GaVeBpL6VE3jsl6VCkDQDf6Ia5RV+U8J1v2ul+WcfeHcPl930mnbVDxZKvqkrlLL5Jrp6TF/Hv0CknIQQR+JfHO2hO7Y+2DzdWpfM10tS3xe6By4=
+	t=1789856794; cv=none; b=HmBmZvBXHHe+pOoADsLwuDVYMK+xBx4rC98Q7dQSxoZD6QTHK7dSfTxxPnpUEXUV/Er1M0IhzBwoaEui1g8MX0OeDYpgEh2NcHJTW1fcweLoZ7s2wiBLoLjM1mtWvo9+igLyivvPqOSLy74juaSNgrOSI6jQkSbkQUzau2oGC1k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789856792; c=relaxed/simple;
-	bh=H4IosnsmrbIdD2WnNrn/Jl69BS84apXNa6SmRDl/rRM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZPLi0cyluqeyIbCDZnIVWiX5VNwXES6aY7FXsgq/q/8Wn/GSKuEfob0HcTDEa1/bth+baAKrrnmJkaegZeHnwhDpf/hakwXKAV5m4u0H6u6K0GDJuYJJwtTVPrLnoX5cfGlqJR9EYtf9bJtUbLn0WdOgNh0Hiykf1L25GeVAIuc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KhIR2u4c; arc=none smtp.client-ip=74.125.227.171
+	s=arc-20240116; t=1789856794; c=relaxed/simple;
+	bh=9LiXDkmYDVdB90kAVKrjVcXDHxIIpsoMoAoGDYQ+58Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NpzPdVdqCNS+kuvaUDY4IEZb1eKpMOl8aJo1X371RJM4dF3dxrNcKVK0mXS1/+0iza/Bb4mtkI3tolCH8/ky2MAXOiR6lcoYUrLWd5ZeMFAssT9g+oUSzK4UUQNh6GS5HulL3nQ6hTtaUj/WwbhbZAk8Lcmkyo1DLN+orupJvq4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i+/DgmxK; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KhIR2u4c"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396cccbba92so1716269a91.0
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:26:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i+/DgmxK"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccafb751so1548595a91.2
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:26:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789856790; x=1790461590; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789856791; x=1790461591; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6R3voHmBzh4lvqv8peZSsVk4sFxcqioiBA0aCjPm9Mc=;
-        b=KhIR2u4cBTBfmxauLrScUr14LarTQtuOGJt1vo8tu940A2qyyHcTt/YqkJsVP0BkkM
-         UVMYB+eJ3M/Q2bN11fkdqoEZmJsFVwbZFX2jtvgSWqPzgf6bcBILmLsKhrIlF5jUglis
-         DF/pmg4CsK4YgHJC9i5rItGiUbFHzOnV/ux1aiPFxnfk6gVzHJTBazNMkm0IKpvKibhd
-         1xkb4yfZtZM3t48tG1paNBUjTkKtb/nY7gSE10fRAeOL+6xHenOx2ph7DhUCM9TlJsgC
-         tMHrWGI2llZFv27rQjhK0eMGNydH27S14PT43R6pQAbwdt9Cbb5toU3rCS8gPd/U8BeU
-         l6EA==
+        bh=UmMKh/aeg8bACEW7HZInwh5u8Ule0MiW9EMCmiARcII=;
+        b=i+/DgmxKUSkbPvYHQdCKwPFbHQJqTJRtfO/3AwGs1BuBXXfHH3nI1AHY9jVuavuE6U
+         Pm+g4/bu5pxBD5V3nF6Njcli+Zc2h9yRgLGfqd8l4ToR91MERcden+QZkyD34ey/Tl6A
+         3avkbAWjmpspz1bby9Zu1SQz4z8nPh3L6RwtUiVK7bxmMd4LPAuehjeAZXnOxWMNZuPD
+         3DRczq8Yw9y6vYfcm89OhUFFTI6jsPov2WgtCRcQwU97/99Qb8avxJ36j7MqluxSKhEf
+         9IgwY550OcZ67dITOaI3B+G16/WWhDQLUhQNA6o+xAiZkWd1L0VG4Fs8vjjg9lDItEmu
+         jDvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789856790; x=1790461590;
+        d=1e100.net; s=20260707; t=1789856791; x=1790461591;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6R3voHmBzh4lvqv8peZSsVk4sFxcqioiBA0aCjPm9Mc=;
-        b=RF5r5wbgKim/ofFkR4SJeHWInZGohk0+/1eTTdjB2+hqoENDMvvo39rIq+Oq7IEk0t
-         qBmqNzsAnZmqMQEvxPV/7gVnRvZwev4sHj4Cw0ZLibJ9Jpd2SIoJrF51/xuQqlyPhDAB
-         Vj9PsdxZoZ3Ql43xht9wHIApIe/MMBWpDHxoa4ERuJ0pqnFML8pLmhSwzPB1Lm34yGE/
-         tVzk4pkY22l93sBlieqZLMrDL6LsCKB4932p1QVVHw/B1qtGO32YKK59Nk2/xg3YViNg
-         HKBp4+uhGuUTA4v0G6CEan2f/r1x/CTmziL7IsinLjxGdsjZva+aND985bIbjoNc8Dt0
-         WUBg==
-X-Forwarded-Encrypted: i=1; AKwUvBykio3RYEBsP95jWYTDq5cG+/OsJ6BLLyj5KR/SPZSdbByUOhwl6LSqwegaN0RwwCRAvNt+MEUlCHMSVlc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mFIW3D8XkSumoXsZFCJBQvp29sEsQi/m5lJfODur0OYWFzVpUN
-	NUZbnDleUD03g92+V+M/xE8Afn86rBSBeeD1z5+GHkgK1DImKLkykxvgagaknSZd
-X-Gm-Gg: AYBFou0Of6HMK5PsDgeHhmpH7ZaHX8Sz8Daw0I9ru9uowVdyNsyeDW9Wlblean6a9Ez
-	m2gYWOPSda40sB4DOcVM4mt6ozgsbm2qgitvXYOsX+GII8lSLhhXuFrzvWJGeB63fah6bVAZdt9
-	5fypIxc+1SN+fjrfSwUUgOdn5TcXddlAs9TN0vx3vtvs3RET0rU/CvR+X1+GfBM4U5m9aMHd95b
-	y92p8WDBz7CRoV5FFr6OV78dmXaCxBedvmd+hG0aoNpiuHIsASxdlKCeESDJZcZKuVJ2Nt7NKwz
-	G2CCkSg+bKq28tSzryHUBFMyJATxBg3/QtBxKA+bdrkNY10uEiqZhJUeod1cXZdrLFhMz9CMav1
-	Rx5jcF4zZj1IiMcbqrltrK1w6lV8HStIkKCNAj3gxVTwI6R3q08Q1UXtWSG92AYF5j7mqnezKwX
-	QWfd67xOXpjrns13ZSNa0AH4Sy6homKGcMQa0LElEPabESiaA/+WsnahHpTssx5AkJT2ftrSQXh
-	1f9GlFm4w+mjm7ZIhhzQ0Hm3aJ4ThnPh5oILcaOMEjd7lT1185RHlqaiON1aKIcOFn93Xdqz6T4
-	v+5CcsXoPg==
-X-Received: by 2002:a17:90a:cf0c:b0:39e:6c6a:20a1 with SMTP id 98e67ed59e1d1-39e6c6a22aamr3921834a91.66.1789856790138;
-        Sat, 19 Sep 2026 15:26:30 -0700 (PDT)
+        bh=UmMKh/aeg8bACEW7HZInwh5u8Ule0MiW9EMCmiARcII=;
+        b=xxFn4rfpsk2cJroAV14hj18TOHDM1CQjsyUviKyO8r+nWaGBx0K1bQyw95+mcgzi7l
+         bFA+NOzLa37NCr64tiaA5c1/LQ48NNuR5aJQ1iImkIZhteRwtxj3PER7XZCjjQTNRF+1
+         jC3jHf4BnvdArxasSmNpfKbSvSN3p408or3ENFD9T9+yGEj1dIjNptS26TMHp8j+8VEQ
+         EKa83vA6udtF345Qn/L9fUtmaApwn9qxQljYleGp7IXivyLjIkzvzCXhOqokrPYUNd/G
+         ITaDEu6zgrn2T412bQ04YabjMbj3DgpJdYXxiVw5ATLoL2oOirxEsiKlESEhRYmHaefe
+         3wng==
+X-Forwarded-Encrypted: i=1; AKwUvBy8+G8NSyOjCfE/lrHKU+J3DdE3wXjGI7AgSgMnli0mQ/mQDBy9Ps7oUF27WEJ1UQP+vxa0j1/Pafv/Jeg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lFjUCXbdomOplR0t4BtDQyv/vcOJGEHuvfjt6BDzqZexrlrQ4w
+	SZW+PgjgRU0Lok5gWtMJWEtSMXaCBmQzCRaC1lSN7/vW0QdtabOGD5QOxsXpt512
+X-Gm-Gg: AYBFou1mNGTfncujmX/gIcUueqin2FGALySCMTnH9hteDAW0EI0L9SZCMPMTsihC77b
+	qijuBU7Wvom0a5X6v+F4UzrapYfO+XtfDwzsonY4kymMKyJ0P/8i52kervevSOgXQI4QfEQB7XN
+	BbqMvXYkvdm4pc+zOJ5Lbd793rupich/2Xelmo/SgndlWcnc3i9ht7ajBaDzUhSlpq+TgTxLYOC
+	xhNmHozfgQjjw9EKttNpaFY3v/HDE7lJGKHdLjm1c+JfhGa+PbEYOxYmm3zh+BEYlDNgGCKhuaF
+	FEUkBjQA1lidHIxbf7BdH+UyEtPukqEiygYVhvMjiNDOZYAmI2MTa/MrkJlgWs24xzB/6NNeEsw
+	b56KSDsmNoDdBr55OqAQVcIXGySYxmzaXmndafwxon2Wg0ksvJOltl05sdWad+ro022LYYdzcvg
+	FJ0OkwC/ZL2Z095Jg5es+SAJiPP34oqhk7dS39bxLwmYa1xiic8VykYNL6itEiH5/F6iAX85ivb
+	S+i14baxyOoswXowFPrn5Y6nPztYYMAWNgoBw0ar2xuF/1fntnR6UayjgYqrzEkuorIgeyesimH
+	FnAQULZd5w==
+X-Received: by 2002:a17:90b:5305:b0:381:6c5:3f63 with SMTP id 98e67ed59e1d1-39e54dcd917mr17566941a91.6.1789856791293;
+        Sat, 19 Sep 2026 15:26:31 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6ca4ef3esm6351460a91.1.2026.09.19.15.26.29
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6cabb771sm6318908a91.9.2026.09.19.15.26.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 15:26:29 -0700 (PDT)
+        Sat, 19 Sep 2026 15:26:30 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
-To: bhelgaas@google.com,
-	airlied@redhat.com
-Cc: linux-pci@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
+To: jikos@kernel.org,
+	bentiss@kernel.org
+Cc: linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] PCI/VGA: fix inverted vga_tryget() return check and clear removed pci_dev
-Date: Sat, 19 Sep 2026 22:26:29 +0000
-Message-ID: <20260919222629.3798073-1-benquike@gmail.com>
+Subject: [PATCH] HID: fix sony Rock Band 3 IRQ sleep and hid_debug_events_read() UAF
+Date: Sat, 19 Sep 2026 22:26:30 +0000
+Message-ID: <20260919222630.3798292-1-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -76,166 +75,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix two issues in drivers/pci/vgaarb.c:
+Fix two issues in drivers/hid/:
 
-1. In vga_arb_device_init() / vga_arbiter_From_pci_dev(), vga_tryget()
-   returns 0 on success and a negative errno on failure, so checking if
-   (!vga_tryget(...)) is inverted and skips unlocking on success.
-2. In vga_arbiter_del_pci_device(), clear any open vga_arb_user_init
-   priv->target references pointing to the removed pci_dev so subsequent
-   writes or close() on /dev/vga_arbiter do not dereference a freed
-   pci_dev.
+1. In sony_raw_event() (drivers/hid/hid-sony.c), defer the Rock Band 3
+   Pro controller full-report feature request to sony_state_worker()
+   instead of calling hid_hw_raw_request() synchronously from interrupt
+   context.
+2. In hid_debug_events_read() and hid_debug_events_release()
+   (drivers/hid/hid-debug.c), remove list->node from hdev->debug_list
+   under hdev->debug_list_lock before freeing or when hdev is unbound so
+   hid_dump_input() cannot access a freed debug list entry.
 
-Fixes: 1d38fe6ee6a8 ("PCI/VGA: Move vgaarb to drivers/pci")
+Fixes: bd28ce008bdc ("HID: move sony quirks")
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
-diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
-index 3de05aee7859..4f13e542505a 100644
---- a/drivers/pci/vgaarb.c
-+++ b/drivers/pci/vgaarb.c
-@@ -818,11 +818,33 @@ static bool vga_arbiter_add_pci_device(struct pci_dev *pdev)
- 	return false;
- }
+diff --git a/drivers/hid/hid-debug.c b/drivers/hid/hid-debug.c
+index f44e6e708404..edc45ca9e024 100644
+--- a/drivers/hid/hid-debug.c
++++ b/drivers/hid/hid-debug.c
+@@ -3728,15 +3728,14 @@ static ssize_t hid_debug_events_read(struct file *file, char __user *buffer,
+ 				break;
+ 			}
  
-+#define MAX_USER_CARDS         CONFIG_VGA_ARB_MAX_GPUS
-+#define PCI_INVALID_CARD       ((struct pci_dev *)-1UL)
-+
-+/* Each user has an array of these, tracking which cards have locks */
-+struct vga_arb_user_card {
-+	struct pci_dev *pdev;
-+	unsigned int mem_cnt;
-+	unsigned int io_cnt;
-+};
-+
-+struct vga_arb_private {
-+	struct list_head list;
-+	struct pci_dev *target;
-+	struct vga_arb_user_card cards[MAX_USER_CARDS];
-+	spinlock_t lock;
-+};
-+
-+static LIST_HEAD(vga_user_list);
-+static DEFINE_SPINLOCK(vga_user_lock);
-+
- static bool vga_arbiter_del_pci_device(struct pci_dev *pdev)
- {
- 	struct vga_device *vgadev;
-+	struct vga_arb_private *priv;
- 	unsigned long flags;
- 	bool ret = true;
-+	int i;
+-			/* if list->hdev is NULL we cannot remove_wait_queue().
+-			 * if list->hdev->debug is 0 then hid_debug_unregister()
+-			 * was already called and list->hdev is being destroyed.
+-			 * if we add remove_wait_queue() here we can hit a race.
++			/* if list->hdev->debug is 0 then hid_debug_unregister()
++			 * was already called; break out of the wait loop so
++			 * remove_wait_queue() is unconditionally called before
++			 * returning.
+ 			 */
+ 			if (!list->hdev || !list->hdev->debug) {
+ 				ret = -EIO;
+-				__set_current_state(TASK_RUNNING);
+-				goto out;
++				break;
+ 			}
  
- 	spin_lock_irqsave(&vga_lock, flags);
- 	vgadev = vgadev_find(pdev);
-@@ -845,6 +867,21 @@ static bool vga_arbiter_del_pci_device(struct pci_dev *pdev)
- 	wake_up_all(&vga_wait_queue);
- bail:
- 	spin_unlock_irqrestore(&vga_lock, flags);
-+	if (ret) {
-+		spin_lock_irqsave(&vga_user_lock, flags);
-+		list_for_each_entry(priv, &vga_user_list, list) {
-+			if (priv->target == pdev)
-+				priv->target = PCI_INVALID_CARD;
-+			for (i = 0; i < MAX_USER_CARDS; i++) {
-+				if (priv->cards[i].pdev == pdev) {
-+					priv->cards[i].pdev = PCI_INVALID_CARD;
-+					priv->cards[i].io_cnt = 0;
-+					priv->cards[i].mem_cnt = 0;
-+				}
-+			}
-+		}
-+		spin_unlock_irqrestore(&vga_user_lock, flags);
-+	}
- 	kfree(vgadev);
+ 			if (file->f_flags & O_NONBLOCK) {
+diff --git a/drivers/hid/hid-sony.c b/drivers/hid/hid-sony.c
+index 50f5ad6bbeb4..d3862ddf68c9 100644
+--- a/drivers/hid/hid-sony.c
++++ b/drivers/hid/hid-sony.c
+@@ -561,6 +561,7 @@ struct sony_sc {
+ 
+ 	/* Rock Band 3 Pro Instruments */
+ 	unsigned long rb3_pro_poke_jiffies;
++	struct work_struct rb3_pro_poke_work;
+ };
+ 
+ static void sony_set_leds(struct sony_sc *sc);
+@@ -657,6 +658,14 @@ static int rb3_pro_instrument_enable_full_report(struct sony_sc *sc)
  	return ret;
  }
-@@ -1025,27 +1062,6 @@ EXPORT_SYMBOL(vga_client_register);
-  * the arbiter.
-  */
  
--#define MAX_USER_CARDS         CONFIG_VGA_ARB_MAX_GPUS
--#define PCI_INVALID_CARD       ((struct pci_dev *)-1UL)
--
--/* Each user has an array of these, tracking which cards have locks */
--struct vga_arb_user_card {
--	struct pci_dev *pdev;
--	unsigned int mem_cnt;
--	unsigned int io_cnt;
--};
--
--struct vga_arb_private {
--	struct list_head list;
--	struct pci_dev *target;
--	struct vga_arb_user_card cards[MAX_USER_CARDS];
--	spinlock_t lock;
--};
--
--static LIST_HEAD(vga_user_list);
--static DEFINE_SPINLOCK(vga_user_lock);
--
--
- /*
-  * Take a string in the format: "PCI:domain:bus:dev.fn" and return the
-  * respective values. If the string is not in this format, return 0.
-@@ -1168,7 +1184,7 @@ static ssize_t vga_arb_write(struct file *file, const char __user *buf,
- 		}
++static void rb3_pro_poke_worker(struct work_struct *work)
++{
++	struct sony_sc *sc = container_of(work, struct sony_sc,
++					  rb3_pro_poke_work);
++
++	rb3_pro_instrument_enable_full_report(sc);
++}
++
+ static int djh_turntable_mapping(struct hid_device *hdev, struct hid_input *hi,
+ 			  struct hid_field *field, struct hid_usage *usage,
+ 			  unsigned long **bit, int *max)
+@@ -1101,7 +1110,7 @@ static int rb3_pro_instrument_raw_event(struct sony_sc *sc, u8 *rd, int size)
+ 	/* Only attempt to enable full report every 8 seconds */
+ 	if (time_after(jiffies, sc->rb3_pro_poke_jiffies)) {
+ 		sc->rb3_pro_poke_jiffies = jiffies + secs_to_jiffies(8);
+-		rb3_pro_instrument_enable_full_report(sc);
++		schedule_work(&sc->rb3_pro_poke_work);
+ 	}
  
- 		pdev = priv->target;
--		if (priv->target == NULL) {
-+		if (priv->target == NULL || priv->target == PCI_INVALID_CARD) {
- 			ret_val = -ENODEV;
- 			goto done;
+ 	return 0;
+@@ -2124,6 +2133,8 @@ static inline void sony_cancel_work_sync(struct sony_sc *sc)
  		}
-@@ -1215,7 +1231,7 @@ static ssize_t vga_arb_write(struct file *file, const char __user *buf,
- 		}
+ 		cancel_work_sync(&sc->state_worker);
+ 	}
++	if (sc->quirks & RB3_PRO_INSTRUMENT)
++		cancel_work_sync(&sc->rb3_pro_poke_work);
+ }
  
- 		pdev = priv->target;
--		if (priv->target == NULL) {
-+		if (priv->target == NULL || priv->target == PCI_INVALID_CARD) {
- 			ret_val = -ENODEV;
- 			goto done;
- 		}
-@@ -1266,12 +1282,12 @@ static ssize_t vga_arb_write(struct file *file, const char __user *buf,
- 		 */
+ static void sony_cleanup(struct sony_sc *sc)
+@@ -2350,6 +2361,11 @@ static int sony_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 	hid_set_drvdata(hdev, sc);
+ 	sc->hdev = hdev;
  
- 		pdev = priv->target;
--		if (priv->target == NULL) {
-+		if (priv->target == NULL || priv->target == PCI_INVALID_CARD) {
- 			ret_val = -ENODEV;
- 			goto done;
- 		}
++	if (sc->quirks & RB3_PRO_INSTRUMENT) {
++		sc->rb3_pro_poke_jiffies = 0;
++		INIT_WORK(&sc->rb3_pro_poke_work, rb3_pro_poke_worker);
++	}
++
+ 	ret = hid_parse(hdev);
+ 	if (ret) {
+ 		hid_err(hdev, "parse failed\n");
+@@ -2391,9 +2407,6 @@ static int sony_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 		goto err;
+ 	}
  
--		if (vga_tryget(pdev, io_state)) {
-+		if (vga_tryget(pdev, io_state) == 0) {
- 			/* Update the client's locks lists... */
- 			for (i = 0; i < MAX_USER_CARDS; i++) {
- 				if (priv->cards[i].pdev == pdev) {
-@@ -1335,7 +1351,8 @@ static ssize_t vga_arb_write(struct file *file, const char __user *buf,
- 		for (i = 0; i < MAX_USER_CARDS; i++) {
- 			if (priv->cards[i].pdev == pdev)
- 				break;
--			if (priv->cards[i].pdev == NULL) {
-+			if (priv->cards[i].pdev == NULL ||
-+			    priv->cards[i].pdev == PCI_INVALID_CARD) {
- 				priv->cards[i].pdev = pdev;
- 				priv->cards[i].io_cnt = 0;
- 				priv->cards[i].mem_cnt = 0;
-@@ -1366,7 +1383,7 @@ static ssize_t vga_arb_write(struct file *file, const char __user *buf,
- 			goto done;
- 		}
- 		pdev = priv->target;
--		if (priv->target == NULL) {
-+		if (priv->target == NULL || priv->target == PCI_INVALID_CARD) {
- 			ret_val = -ENODEV;
- 			goto done;
- 		}
-@@ -1429,7 +1446,7 @@ static int vga_arb_release(struct inode *inode, struct file *file)
- 	list_del(&priv->list);
- 	for (i = 0; i < MAX_USER_CARDS; i++) {
- 		uc = &priv->cards[i];
--		if (uc->pdev == NULL)
-+		if (uc->pdev == NULL || uc->pdev == PCI_INVALID_CARD)
- 			continue;
- 		vgaarb_dbg(&uc->pdev->dev, "uc->io_cnt == %d, uc->mem_cnt == %d\n",
- 			uc->io_cnt, uc->mem_cnt);
+-	if (sc->quirks & RB3_PRO_INSTRUMENT)
+-		sc->rb3_pro_poke_jiffies = 0;
+-
+ 	if (sc->quirks & (GHL_GUITAR_PS3WIIU | GHL_GUITAR_PS4)) {
+ 		if (!hid_is_usb(hdev)) {
+ 			ret = -EINVAL;
