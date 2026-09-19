@@ -1,192 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sonic.asd.mail.yahoo.com (sonic-asso1-0020.asd.mail.yahoo.com [34.2.90.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95A5836B91D
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:36:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D109339395
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:39:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.2.90.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789857391; cv=none; b=NCOY6bKxtOvgqa6X3u1MahNq8/J/L98v6caqVMmmy4rgwzosCOg74NzNI+cmFCfZtRFM+qa+smtU4/M8aCorCfix7mXEkPNjkuak35sRSvVp2Z26hYL9u1sLMZWol+jGYsCQhdgDBgKpjwLmBAtOh/TWDMDAFcUYX/spHVWhoUg=
+	t=1789857581; cv=none; b=ReuXDaMu15zSujgenbpQjrijggcGx8qQD2ot/y9HuOUNqLttW1U5fdMRg/hdVEdlCuDdUZfeTTheRt3sQ+Wl5vl+nzAdmnpcPcvAMgmDvvMsZMU1yJqLmbR/xqLrZ1LyUKrzA1dzZuMIBu52Ojim6TJ6tRDTGydWU00mZ25WYC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789857391; c=relaxed/simple;
-	bh=bPEvA2A4ZpKwIHJPbmB+FxxnRtX8BqDaGq2Qwt6JLK8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=B7KlrYb3xMsxRbJmtmfvt1i7gLwiGhA8kJQuNs5db3ErKgdphyEgIIbN6/hQFYU10TDi88P4fXvrhhbnylbxYJO7mx3Kkv1gQa6O8uTtQGAMmELh6ikL7vW22tEX0KesT1s+5IGz2FZdbaFeLGnFFrEinLWx+NTVyFTt1xIPxTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ilHVXshj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789857581; c=relaxed/simple;
+	bh=aGEqPSMKq9Ug9q9GtOUHDLnF14Sv0G6I6VV/2Q1PsDs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:References; b=hVLzpR23fmIRMQd+9p9i/ae6f0BlaZlff36ZqyYpc5/Lt2ofU+KuwLkQ4on4c1G/DYYjbrzk+ah8Z3RPDXfc34mMD4dJttiMK+eQTTPCuztllZV6+KqcQW9fXcrGcHo20pqhonO7nKpiN6yZayBYM5RpPuSenNLrkEM5O+NoKS8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=mE0brt0+; arc=none smtp.client-ip=34.2.90.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ilHVXshj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 478391F008A5
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:36:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789857389;
-	bh=fOnejZtZ70+DKIPLXePAGmfZNKSXLHPlt3aY/hwoAA0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ilHVXshjQfbUx4z8E+/LSAwQAGYONhpJwcU2y94p+xhWI+S9srA5RD3Z/M1lzZ5De
-	 hyHwqkDMea+fm6m3E/2400AFZe0VFVbPdFN72ZMN8+mvJENkIoT9wC6fiVamLAwkJv
-	 f2Bb4Zt/ntOosM2gdEQpY6S8MVKUspGkkWAK6r+RDUZS/zQ1KJDx/9ApM59rRmpDur
-	 a11yTkmo0BR3DL1pt8QSOyUr8mP8whSOqsB2ICPI2Y1SElNBf8A9zVqOtfd0u172nR
-	 CEYXa9W1b8gWr+bUlp/B8yvYWsmju0Km/kWvl5b8XjyzhUh8pn/LqLURHlsdHYV3gi
-	 0u8yBYAqOMsNA==
-Received: by mail-qk2-f43.google.com with SMTP id af79cd13be357-93910cc46c7so171445685a.3
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:36:29 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBygkIJdNguQ0t4Xi1o8Hhw+v09VN9PnGjxxtVlE5AHRQS5AKmtIf7N/NwzYGbDi5VKDzM+9qifzzzk26p0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kZzgtqeVe2IaLYHew2DwQsdcUNtl2jLPEu35fxral9Y1vg+xFD
-	rGDhDz2d33x5Fn7KHkVOjg1WD0msdJea44hTFcsG8XmNZ3FKp8Qv2nXS+hEnnF3K1R8j/aux3L0
-	b5M7PaXciQ6f+pHZGowu4DcG1j0yINYk=
-X-Received: by 2002:a05:620a:1d03:b0:939:a199:45b4 with SMTP id
- af79cd13be357-93bf5731ad3mr305110885a.39.1789857388560; Sat, 19 Sep 2026
- 15:36:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="mE0brt0+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1789857573; bh=wG5swQbFXOftM7oGzmmIuu3TPfByChBW7CwVYmmmeA8=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=mE0brt0+ry0+JlfOTsI0P311Z1IK+KIvT2/wTQpazAEy8nH4NWVxR5/Cx9eHqWJda7fWSF87lXM1qfsAJuhIDVVpRNFuplfyKJioG7owH57xuBy3WjGNQYSKQqP67HJEu5yLE9YHPFdS+9cmpI8KKOf5iiZIgQDtKxA4EdCD7wz/lKYWpmdxqw8CR4++kdvZSW7gGeGVyHxEdc9Ssh3AVLtQ+DKGtlzt/wozFE9lujwqGybDhd2Cb4hsOJhcyXMPza0mHlfnjQJl/JqWq4GQ/OX0VhwlirGe+f2tgd+7oggXkNOy7dg+YcEkHzESv46VzZRwuL58I4Y6pFS1JZCYrw==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1789857573; bh=TVgyjgweDKsCS9rHPvimi6WUBMJQGrhiQHcFVxQIq7U=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=gS+QOgtiTJqplyz4zvxRwxtZePGBsrOd+Cuv6XniSSxDN+XynavOxhU5+soqyIBkmdTm1ezU0fMDyHuzVsE94Q/5e2a4lZxGxBE8Cm7AGu8jMcPo6fx+IOx4TWnt/QfgkD4EvbfiEpcKXzSKVgRkeVs785cIeamnSY+mEAMshn9f0lMJr0RmOnhSFejr1qfQMnk3QP4IK5HayJyb/kFPIjcvDVpGwBepIgR0mI3ppZ6zgg0yNLr/6wo4bEpdnDcOXw+Hk2s5C91D3E/bkKNAP6MNwNCLBosKafwZQx/ZbHA7DaskEGw4H7LzPmsVE6af0LYy0F6Y/jbzNh/S341N1g==
+X-YMail-OSG: TUYuVe4VM1kqzbZ3okIy5GipMvX.WFRo9Jw9ij9MwFEEX1RwNIR1IAacCqLF.ot
+ e2S79cU3nv_bYLOBSBhYpdnzY6rvgUmQ6JzX6Mcj_YMxDca3Ep8w1dGDREjju2Sthqh3KYDJNhhP
+ DbBdDJGKcXvIeZwGWzw8NdhhRo2RxjWv_DuOYCgZxLv3UwQk1DplQDR0jejBVVv3HNbu0fTRBpfY
+ JM_0rXQGu6o.vr_NxAvbZQR0nAcOyF2fO4vaXgZ83gaVWD1JAM2sHkrGEABjzgkMCBAZmMWaUHxx
+ .w2XYBdKxHDBGBn22.YDBK2ChkJ.jg_fRAOLf9FBzTdtPTVYftGfO7c8OSSr2JaU4WIErhcBFQ9K
+ K3OhpfY5RdYqYh8DI5yq.AzUbW1tPTlQNobDB13ZL2bDRsI8vEySdswsh6ZfWS2ki57Gp97.4XaU
+ xVQopgxLNa77YCCvjIP3T70TrVpoTwGReq8owoQrO9jrBRA_LhuRbEYZQhWXCvVohXFYTY2B9p4d
+ nphlzTtWOOaA_RObwBzZIhAYEGBDiJpSIn2InNli7OOgWgqeSsPw8cSRZ1Cvdio.Eg3zOKWZr5eM
+ PSDoT0ckYpVDJNZYOmRJpq_0FV0kv_ueRy6P6dvunR3TihkUo83LsV85x09FQhjyGbuJ_phLU_4h
+ lIVQ70.eiuAxBDeGyPrrjajQZjL__F66EfKlPpsDcKufjWSFxK4LweCBuMyxWRIfLiMxEBI5cL.T
+ lYCr6S9FMTOsUcTiZkYI40nYjHDg7ZHPGLOgj1MbplwwqR8wsnY1iFw7bnKG.GmkJmowoEgzVY9Q
+ 1ZlA389RMmxwRidF9Uxvaw7ZNDsEJ7KR5S5c3MhGsZ0HcDicFOBJS.ZT7tEz3HxWUc11V_gkU46z
+ OWGLklel2dgh8GOVGA7aIFctLFM1ymdgR_NlHI4Ao6oEh_FxpO.LKiZRusRCOQcIXV3Dk9EXG0zl
+ kR7OV.5MWHa8pyxE4XdlMlam_QRpWzwREGBdvyOZfyMWmeEjfRBJ28IoBLHh7WNAFslMerHB6_Mb
+ r3kd1h.APulBvyEJBJ4CbLNeIIHoix2JjCScrbLdlItOluDnHWwV192A8WYFmX8pgTAfE8dNBT.A
+ ziKJGWR5q9CA7c7SdOYV.Zj9wHICCxyBl8peElYVTf56CRrWUQrcHxUuHYNH7DJnvmosJg4hxw.s
+ Vs0_63MP5CeeqLx07Mm5L63I.yhf8WCixAqc9ESUyRx8BLgCY3nNTcvDeA3s.XAN35.wj3OC9Gv2
+ f5CDE3FIJ7odfHIm9wS.oEkHi8A8Bas0ZiGwB80bD3KFijeISTSbQp_gIOhehzwKROe3WiJpAOXE
+ x46LZAKTp4mSHn1Frmva65YdSNc7QgcJ2wlEl80NtxPKZ41Rli8KF9F8xuL7c4_9JMsGYpVFRdJP
+ PyZT6lzmsqDFeGhEZTtEgR421Dpi5RONvyBtdaYWUoby5u.KASFy2qGgko45H6eeOq2HSWg1mNQ.
+ z7CSJ8KDCh6Ckr9LJqFCi0YQfRmiVSU6OKJn2PJytht.Zy62tdPlfOYyu.FUxZXnq2xCRfbL3Wrc
+ cBD3KXyFckXFfmDWW456FNmSj6aCpxym6Z8DeQodZqM9kFybmYsr4SANstfFYbipl6E010YJ0c72
+ ek7dVYX9LAubr9yCucCmmbwi.Jvf0Tt_AimCOEc7s.xRwFpfWvVdFoOCAYjaKstwNuvGJG4Xh4w2
+ lgjwWa1iQyxA7LOfgdwLx6_zWKpG0Oh_.UvhxjJX4sCCNSddUmeOJQsrYwr6QXyYmgQ_Xiv13a8C
+ V3KcO1UIDx7fY4tY8p9PG_I3yn0zmOc2sy91GKd85l0.DnoYDT5ADjPlLExo4xQTXUA63yogG1gZ
+ CNJmmDVhPtXKHeGDMOVYvJW7XXuUya511q_12uwjSvT7JMK81tv1fl7yynJCgkbOCAA1Ayb4Kr4Z
+ QeTwVMRXamcYOpyEQu1fhFkVBERxNbFGhydg4MVGRwvftgP0wPsbtLMSAwHrmPgbpAK5.BvlGigo
+ H.IcmizWS78X1h1KQXPetGlWIIrVmMlUBCbQmL8MM_hj0OMd3PyMrvg--
+X-Sonic-MF: <m.abubakar365@yahoo.com>
+X-Sonic-ID: 5ba691ae-ecac-417a-b622-9f35f7fe833a
+Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-asso1-prod-sonicconsumer-svc-101 with HTTP; Sat, 19 Sep 2026 22:39:33 +0000
+Received: from dip84.lsn.bf1.yahoo.com ([67.195.177.93])
+          by hello (SMTP) with SMTP ID be03fa672c94bb6c952363286c379f38;
+          Sat, 19 Sep 2026 22:39:27 +0000 (UTC)
+From: Muhammad Abu Bakar <m.abubakar365@yahoo.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Muhammad Abu Bakar <m.abubakar365@yahoo.com>
+Subject: [PATCH 0/2] iio: pressure: add Sensirion SDP31 driver
+Date: Sun, 20 Sep 2026 03:38:52 +0500
+Message-ID: <20260919223854.13437-1-m.abubakar365@yahoo.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1789714023.git.zhuhui@kylinos.cn> <02f0a8dc45a840d7801ec17e0c1168f7dacf9b73.1789714023.git.zhuhui@kylinos.cn>
- <b115ece2-33a1-412e-ac25-38f339a13599@gmail.com> <aq2bo5Q-YUj7lkxn@linux.dev>
-In-Reply-To: <aq2bo5Q-YUj7lkxn@linux.dev>
-From: Barry Song <baohua@kernel.org>
-Date: Sun, 20 Sep 2026 06:36:17 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4wauwY1-xRdM4aVb7FkSttKYzsKsWH4pF4i=Sspri0-jw@mail.gmail.com>
-X-Gm-Features: AcwNN1VZWalfWGDIaTagEHYpKVctjCpRyPqfufx6tRrX4Dk2SxYyw4KLGYnYEYE
-Message-ID: <CAGsJ_4wauwY1-xRdM4aVb7FkSttKYzsKsWH4pF4i=Sspri0-jw@mail.gmail.com>
-Subject: Re: [PATCH bpf-next v12 1/2] mm/bpf: Add bpf_proactive_reclaim kfunc
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: JP Kobryn <inwardvessel@gmail.com>, Hui Zhu <hui.zhu@linux.dev>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Ihor Solodrai <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>, 
-	David Hildenbrand <david@kernel.org>, Geliang Tang <geliang@kernel.org>, linux-kernel@vger.kernel.org, 
-	bpf@vger.kernel.org, linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
-	Hui Zhu <zhuhui@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+References: <20260919223854.13437-1-m.abubakar365.ref@yahoo.com>
 
-On Sat, Sep 19, 2026 at 4:15=E2=80=AFAM Shakeel Butt <shakeel.butt@linux.de=
-v> wrote:
->
-> On Fri, Sep 18, 2026 at 12:45:01PM -0700, JP Kobryn wrote:
-> > On 9/17/26 11:58 PM, Hui Zhu wrote:
-> > > From: Hui Zhu <zhuhui@kylinos.cn>
-> > >
-> > > BPF programs can observe memory pressure on a cgroup, e.g. refault
-> > > stats via bpf_mem_cgroup_page_state(), but cannot act on it:
-> > > triggering reclaim requires writing to memory.reclaim, which BPF
-> > > cannot do.
-> > >
-> > > Add bpf_proactive_reclaim(), a sleepable kfunc performing one
-> > > proactive reclaim pass on a memcg, like a write to memory.reclaim
-> > > but without retrying until the target is reached, so that when and
-> > > how hard to reclaim is BPF policy rather than hard-coded thresholds.
-> > > The reclaim target of a single call is capped at MEMCG_CHARGE_BATCH,
-> > > as high_work_func() does for memory.high; reclaiming more is left to
-> > > the program, which can call the kfunc once per bpf_wq callback and
-> > > stop at any point. It is limited to BPF_PROG_TYPE_SYSCALL, because
-> > > other sleepable programs may run with filesystem locks held, on
-> > > which the reclaim path could deadlock via filesystem shrinkers.
-> > >
-> > > Convert MIN_SWAPPINESS, MAX_SWAPPINESS and SWAPPINESS_ANON_ONLY from
-> > > macros to an enum so that they are emitted into BTF and usable from
-> > > BPF programs via vmlinux.h.
-> > >
-> > > Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
-> > > Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
-> > > ---
-> > >   mm/bpf_memcontrol.c | 62 ++++++++++++++++++++++++++++++++++++++++++=
-++-
-> > >   mm/internal.h       | 10 +++++---
-> > >   2 files changed, 67 insertions(+), 5 deletions(-)
-> > >
-> > > diff --git a/mm/bpf_memcontrol.c b/mm/bpf_memcontrol.c
-> > > index 716df49d7647..c5d7f29ade85 100644
-> > > --- a/mm/bpf_memcontrol.c
-> > > +++ b/mm/bpf_memcontrol.c
-> > > @@ -8,6 +8,8 @@
-> > >   #include <linux/memcontrol.h>
-> > >   #include <linux/bpf.h>
-> > > +#include "internal.h"
-> > > +
-> > >   __bpf_kfunc_start_defs();
-> > >   /**
-> > > @@ -159,6 +161,48 @@ __bpf_kfunc void bpf_mem_cgroup_flush_stats(stru=
-ct mem_cgroup *memcg)
-> > >     mem_cgroup_flush_stats(memcg);
-> > >   }
-> > > +/**
-> > > + * bpf_proactive_reclaim - proactively reclaim memory from a memory =
-cgroup
-> > > + * @memcg: the target memory cgroup to reclaim from.
-> > > + * @size: the amount of memory to reclaim, in bytes, clamped to
-> > > + *        MEMCG_CHARGE_BATCH.
-> > > + * @swappiness: the reclaim swappiness, in the range [MIN_SWAPPINESS=
-,
-> > > + *              SWAPPINESS_ANON_ONLY], or -1 to use the memcg's own
-> > > + *              swappiness.
-> >
-> > The ANON_ONLY enumerator shouldn't be included as part of the range. I
-> > would change this to [MIN_SWAPPINESS, MAX_SWAPPINESS] and then specify
-> > that ANON_ONLY is a special mode like -1 is.
-> >
-> > > + *
-> > > + * Performs one proactive reclaim pass on @memcg, like a write to
-> > > + * memory.reclaim but without retrying until @size is reached. Call =
-it
-> > > + * repeatedly to reclaim more than one batch.
-> > > + *
-> > > + * Only available to BPF_PROG_TYPE_SYSCALL, because other sleepable =
-programs
-> > > + * may run with filesystem locks held, which the reclaim path can de=
-adlock
-> > > + * on via filesystem shrinkers.
-> > > + *
-> > > + * Return: The amount of memory reclaimed, in bytes, or a negative e=
-rror.
-> > > + */
-> > > +__bpf_kfunc long bpf_proactive_reclaim(struct mem_cgroup *memcg,
-> > > +                                  unsigned long size,
-> > > +                                  int swappiness)
-> > > +{
-> > > +   unsigned long nr_reclaimed;
-> > > +   unsigned long nr_pages;
-> > > +
-> > > +   if (swappiness < -1 || swappiness > SWAPPINESS_ANON_ONLY)
-> > > +           return -EINVAL;
-> >
-> > Related to the previous comment, you treat the special values as part o=
-f
-> > the range. It works currently, but creates a layout dependency on the
-> > enum. I think it would be more future-proof if you did:
-> >
-> > if (swappiness !=3D -1 && swappiness !=3D SWAPPINESS_ANON_ONLY) {
-> >       if (swappiness < MIN_SWAPPINESS || swappiness > MAX_SWAPPINESS)
-> >               return -EINVAL;
-> > }
-> >
-> > The previous comments I brought up are now resolved, so assuming you'll
-> > make the changes above you can include:
-> >
-> > Reviewed-by: JP Kobryn <jp.kobryn@linux.dev>
->
-> Hui, please make these changes and just send this patch in next version.
+This series adds support for the Sensirion SDP31 differential pressure
+sensor, an I2C device that also reports temperature.
 
-Hi JP and Shakeel,
+Patch 1 adds the device tree binding.
+Patch 2 adds the IIO driver, which exposes differential pressure and
+temperature channels and validates each measurement using the sensor's
+CRC-8 checksum.
 
-This feels a bit weird to me, since 0=E2=80=93201 are all valid
-swappiness values.
+The driver was developed and tested on an SDP31 wired to the I2C bus of
+a Raspberry Pi 4.
 
-201 (`SWAPPINESS_ANON_ONLY`) is just as valid a swappiness value
-as 200. In contrast, -1 is a different story, as it indicates
-completely different semantics.
+Muhammad Abu Bakar (2):
+  dt-bindings: iio: pressure: add Sensirion SDP31
+  iio: pressure: add Sensirion SDP31 driver
 
-If 201 is treated as a special value, then 0 (`MIN_SWAPPINESS`)
-should be treated the same way for MGLRU, since 0 means file-only
-reclaim there. This isn't the case for CLRU, where swappiness 0
-can still reclaim anon folios.
+ .../iio/pressure/sensirion,sdp31.yaml         |  40 ++++
+ MAINTAINERS                                   |   6 +
+ drivers/iio/pressure/Kconfig                  |  11 +
+ drivers/iio/pressure/Makefile                 |   1 +
+ drivers/iio/pressure/sdp31.c                  | 194 ++++++++++++++++++
+ 5 files changed, 252 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/pressure/sensirion,sdp31.yaml
+ create mode 100644 drivers/iio/pressure/sdp31.c
 
-If possible, I'd vote for keeping Hui's current code :-)
+-- 
+2.43.0
 
-Best Regards
-Barry
