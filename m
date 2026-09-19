@@ -1,266 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F4E72E0B5C;
-	Sat, 19 Sep 2026 20:41:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F75A375AB5;
+	Sat, 19 Sep 2026 20:44:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789850475; cv=none; b=HvpzKi3ziQ0fFN0FOs9R1o39AOhdWxlcIgSibnHm7GJZMfuRAXZIXPfqYtXXx9OLeRjZuNNSFvwR3i7iBRJ/A2tH4C/oLEpwvxOLRJY2rDp4YMxKKB9mhuvCKKV4hMvQ5CKmW17lE2B41WZ2x4bmHVXaG7c4zYklDKbOXwzVwNs=
+	t=1789850645; cv=none; b=M43OXN/Wiug4BPANUfSme9qw4Yjrh+yON6mdnVV0ykGPB8R43CYi2+Lc9xPZbsoF7dTmpAn0WunTxLm1jqLrwkAYSyqdv6cMi5qOfZgKMNM+Ok1Q4Ybg8CuMmrPTtnN+8vfCIveLrXfUFJ7UKr5oeOmxVna5eZGsDU0MW/Lbn1I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789850475; c=relaxed/simple;
-	bh=NX5IbQBC9tvW32ED0IkNvx5/a3Fl6E4GFGAoGst6Clw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=arU4n3E4g48Y2IVKhaFS86XHBXgLh3I14Ln7skws87UsHaReBM8pwYX4NDnYCPNJzQhBpJWZOIFnMjYiHwM9JuSElGD3hQoppTJj+CyscE4SjHPzItIcgbqRRxEj8Up/wcydNR/0z485HfuqSENupEAiB28Emf3J5m2GShc5zy8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iOzxflG1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789850645; c=relaxed/simple;
+	bh=O4jHspC2Q+PMYWXP+lpP2UpLmRNt60AedDGYqXHhhl4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ci1vRKmaci2KLTi4HwahVM4UG22hE8RSiAkmVEqQWdh1fq/CS/3TmrUyMh3VJ1Wym+ouldqslai93peG2eT2amI14rZnS9o2URbMmq7AY4TNAVF163YaC4aBSYDcdmj9EMcmCVtwba25J0LylX+tZVGtoZ8X3JogzXauz26EQ8k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DJB3PdTu; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iOzxflG1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2A931F00899;
-	Sat, 19 Sep 2026 20:41:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789850474;
-	bh=MHL0Zm9FExTTcnRuFH4KvXCWMqeeqIFgEGVtpkRNCVk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iOzxflG1QP4GXe4iA1fJPjSumtF73V0MQ8eMI+uLknBI07xmSPJSRqIH3BzUHDDJA
-	 xl7mveZm/4XEqMUzsKXhxJZiEM+3rCRFiihTxJ0j7TDGnHU+gpl7HTbyWrmAphEqlj
-	 DuvAlWUyHO4Qoi4etRJhwEqeu+iK0/pbdbPZs9yEgcKABVmO3OwlsXFeXP7dj5qDka
-	 np03f3khR6F0XmuuwvAaFlgiIdy3Kj93LobEhLvyZPeNyPMpUU44zUr/nHAi7PHZUU
-	 Welmy38ZUHvsCLzfMQ06NZez+GTHRgQe3gsQW3rcz7VElpvYDVjTYJPNZPK/uaJCUp
-	 RQR5XmyQJUScw==
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Ingo Molnar <mingo@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	James Clark <james.clark@linaro.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Clark Williams <williams@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>,
-	Ravi Bangoria <ravi.bangoria@amd.com>
-Subject: [PATCH 7/7] perf mem record: Use the IBS swfilt filter when available
-Date: Sat, 19 Sep 2026 17:40:27 -0300
-Message-ID: <20260919204027.8504-8-acme@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260919204027.8504-1-acme@kernel.org>
-References: <20260919204027.8504-1-acme@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DJB3PdTu"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D8392C2BCF6;
+	Sat, 19 Sep 2026 20:44:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789850644;
+	bh=O4jHspC2Q+PMYWXP+lpP2UpLmRNt60AedDGYqXHhhl4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=DJB3PdTu91CDnL+nJfDGAZlmNb4hM/prcsUXbLIQwoHPnVA9emSQnOnNzywgc31Bv
+	 9WZ34gBuDoz83eTebm1tVXIGrPC7mL4NvGVCVx9MvRwc8cQ94hxxbWqHdV+/NUvD7i
+	 eUMkV97VSGwCGZpXB+GT3eha+lXFEwbcOVSiIoOv5VZPy1Fu8axP/ueuUJ3dL8X6cY
+	 Np7V1mU8NqwjcQDUsf5lIjCyWNYGGdnPD73d+4pl/3Vkt0RPip9n2UWOZNAMvnVGbr
+	 tJ4USZYZ+/JkT3RwxrpFa6DF5C8K6aacif8gGf52C6DmlE6KVIyZu2fItuJoorOHM4
+	 lRiy+D7UjVsQg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B97E5C982CC;
+	Sat, 19 Sep 2026 20:44:04 +0000 (UTC)
+From: Kim Wooseok via B4 Relay <devnull+5mghybrid.khu.ac.kr@kernel.org>
+Date: Sun, 20 Sep 2026 05:44:04 +0900
+Subject: [PATCH rtw-next v3 1/3] wifi: rtl8xxxu: free RX skb when URB
+ submission fails
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260920-codex-rtl-rx-v3-submit-v3-1-883d11351963@khu.ac.kr>
+References: <20260920-codex-rtl-rx-v3-submit-v3-0-883d11351963@khu.ac.kr>
+In-Reply-To: <20260920-codex-rtl-rx-v3-submit-v3-0-883d11351963@khu.ac.kr>
+To: linux-wireless@vger.kernel.org
+Cc: pkshih@realtek.com, kvalo@kernel.org, linux-kernel@vger.kernel.org, 
+ Jes.Sorensen@gmail.com
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789850643; l=2896;
+ i=5mghybrid@khu.ac.kr; s=kernel-20260913; h=from:subject:message-id;
+ bh=v2NnvT75DMsgHtN+8TES4Q5i+B5ih9gWoiLYF9i+R38=;
+ b=h0UorFHxgw9YQh1jMuFlj1/Q60jdD1CohOrRCrh/RRwWjWDvvdl6vAGo11wragppHxOkdahJc
+ gy4jF4SF3NuBDcSpAuOxwmV+BKXmuVz2XqWflvjlaosMCy0B9WFiScF
+X-Developer-Key: i=5mghybrid@khu.ac.kr; a=ed25519;
+ pk=1az/6lC8Tmd6BcvyarPc8FWoSxsV/WRr5NLs1v+kjlE=
+X-Endpoint-Received: by B4 Relay for 5mghybrid@khu.ac.kr/kernel-20260913
+ with auth_id=1028
+X-Original-From: Kim Wooseok <5mghybrid@khu.ac.kr>
+Reply-To: 5mghybrid@khu.ac.kr
 
-From: Arnaldo Carvalho de Melo <acme@redhat.com>
+From: Kim Wooseok <5mghybrid@khu.ac.kr>
 
-IBS events with exclude_{user,kernel} bits, as used for per-thread
-recording when kernel samples are not allowed, are rejected by the
-kernel on hardware without the privilege filter, so per-thread 'perf mem
-record' fails on AMD:
+When usb_submit_urb() fails, rtl8xxxu_submit_rx_urb() unanchors the URB
+but leaves the newly allocated skb in urb.context. For ENOMEM/EAGAIN,
+the RX worker puts the request back on the pending list. The next
+submission allocates another skb and overwrites that pointer, leaking
+the previous buffer. Stopping before the retry also leaks it, because
+pending-list cleanup frees only the URB.
 
-  $ perf mem record -o /dev/null -- true
-  Error:
-  Failure to open event 'ibs_op/ldlat=0/u' on PMU 'ibs_op' which will be removed.
-  Invalid event (ibs_op/ldlat=0/u) in per-thread mode, enable system wide with '-a'.
+Free the skb and clear urb.context in rtl8xxxu_submit_rx_urb() when
+submission fails. This keeps buffer allocation and failure cleanup in
+the same function, so a request returned for retry or teardown no longer
+owns an skb. Remove the corresponding cleanup from start and the RX
+worker; they only need to decide whether to retry or free the URB.
 
-Kernel v6.14 added swfilt, a software privilege filter exposed as the
-'swfilt' format term, making those events usable per-thread:
-
-  $ perf record -e ibs_op/ldlat=0,swfilt=1/ -- true
-
-Give the ibs_op memory events extra tables with the swfilt term in the
-event names, selected in perf_pmu__arch_init() when the PMU exposes the
-term, keeping the names that need system wide mode otherwise, with the
-knowledge that IBS needs this staying in the arch code: the generic
-mem-events table and name builder don't know about it.  The variant is
-used even for records that end up without exclude bits: 'perf record'
-adds those bits itself when the first open fails, after the name was
-built, and that retry needs the term.  With the term in the event name,
-the per-thread 'perf mem record' done by the 'data type profiling' shell
-test works on AMD kernels with swfilt, so the skip 29f320d2 added to it
-no longer triggers there, and the 'Test data symbol' shell test adjusts
-its event regex for the added term.
-
-Suggested-by: Namhyung Kim <namhyung@kernel.org>
-Suggested-by: Ravi Bangoria <ravi.bangoria@amd.com>
-Assisted-by: LLM
-Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+Fixes: 26f1fad29ad9 ("New driver: rtl8xxxu (mac80211)")
+Reviewed-by: Ping-Ke Shih <pkshih@realtek.com>
+Assisted-by: GPT-6 Astra
+Signed-off-by: Kim Wooseok <5mghybrid@khu.ac.kr>
 ---
- tools/perf/arch/x86/util/mem-events.c      | 24 ++++++++++++++++++++++
- tools/perf/arch/x86/util/mem-events.h      |  2 ++
- tools/perf/arch/x86/util/pmu.c             | 10 +++++++--
- tools/perf/tests/shell/test_data_symbol.sh |  6 ++++--
- tools/perf/util/mem-events.c               | 11 ++++++----
- 5 files changed, 45 insertions(+), 8 deletions(-)
+ drivers/net/wireless/realtek/rtl8xxxu/core.c | 16 +++++-----------
+ 1 file changed, 5 insertions(+), 11 deletions(-)
 
-diff --git a/tools/perf/arch/x86/util/mem-events.c b/tools/perf/arch/x86/util/mem-events.c
-index b38f519020ff8c6f..2052750cd707c7e5 100644
---- a/tools/perf/arch/x86/util/mem-events.c
-+++ b/tools/perf/arch/x86/util/mem-events.c
-@@ -21,14 +21,38 @@ struct perf_mem_event perf_mem_events_intel_aux[PERF_MEM_EVENTS__MAX] = {
- 	E(NULL,			NULL,				NULL,		false,	0),
- };
+diff --git a/drivers/net/wireless/realtek/rtl8xxxu/core.c b/drivers/net/wireless/realtek/rtl8xxxu/core.c
+index bddbd0990de72..795a5ec2f8cd4 100644
+--- a/drivers/net/wireless/realtek/rtl8xxxu/core.c
++++ b/drivers/net/wireless/realtek/rtl8xxxu/core.c
+@@ -5864,7 +5864,6 @@ static void rtl8xxxu_rx_urb_work(struct work_struct *work)
+ 	struct rtl8xxxu_priv *priv;
+ 	struct rtl8xxxu_rx_urb *rx_urb, *tmp;
+ 	struct list_head local;
+-	struct sk_buff *skb;
+ 	unsigned long flags;
+ 	int ret;
  
-+/*
-+ * IBS events with exclude_{user,kernel} bits set, as used by perf to
-+ * record per-thread when kernel samples are not allowed, are rejected
-+ * by the kernel on hardware without the privilege filter unless the
-+ * swfilt software filter is used, so there are extra sets of tables
-+ * with the swfilt term in the event names, selected in
-+ * perf_pmu__arch_init() when the PMU exposes the term.  The term is not
-+ * conditional on the event already having exclude bits: perf record
-+ * adds those bits itself when the first open fails with EACCES on an
-+ * unprivileged setup, after the name was built, and that retry only
-+ * succeeds with the term in it.
-+ */
- struct perf_mem_event perf_mem_events_amd[PERF_MEM_EVENTS__MAX] = {
- 	E(NULL,		NULL,		NULL,	false,	0),
- 	E(NULL,		NULL,		NULL,	false,	0),
- 	E("mem-ldst",	"%s//",		NULL,	false,	0),
- };
+@@ -5896,8 +5895,6 @@ static void rtl8xxxu_rx_urb_work(struct work_struct *work)
+ 		default:
+ 			dev_warn(&priv->udev->dev,
+ 				 "failed to requeue urb with error %i\n", ret);
+-			skb = (struct sk_buff *)rx_urb->urb.context;
+-			dev_kfree_skb(skb);
+ 			usb_free_urb(&rx_urb->urb);
+ 		}
+ 	}
+@@ -6596,8 +6593,11 @@ static int rtl8xxxu_submit_rx_urb(struct rtl8xxxu_priv *priv,
+ 			  skb_size, rtl8xxxu_rx_complete, skb);
+ 	usb_anchor_urb(&rx_urb->urb, &priv->rx_anchor);
+ 	ret = usb_submit_urb(&rx_urb->urb, GFP_ATOMIC);
+-	if (ret)
++	if (ret) {
+ 		usb_unanchor_urb(&rx_urb->urb);
++		dev_kfree_skb(skb);
++		rx_urb->urb.context = NULL;
++	}
+ 	return ret;
+ }
  
-+struct perf_mem_event perf_mem_events_amd_swfilt[PERF_MEM_EVENTS__MAX] = {
-+	E(NULL,		NULL,		NULL,	false,	0),
-+	E(NULL,		NULL,		NULL,	false,	0),
-+	E("mem-ldst",	"%s/swfilt=1/",	NULL,	false,	0),
-+};
-+
- struct perf_mem_event perf_mem_events_amd_ldlat[PERF_MEM_EVENTS__MAX] = {
- 	E(NULL,		NULL,		NULL,	false,	0),
- 	E(NULL,		NULL,		NULL,	false,	0),
- 	E("mem-ldst",	"%s/ldlat=%u/",	NULL,	true,	0),
- };
-+
-+struct perf_mem_event perf_mem_events_amd_ldlat_swfilt[PERF_MEM_EVENTS__MAX] = {
-+	E(NULL,		NULL,			NULL,	false,	0),
-+	E(NULL,		NULL,			NULL,	false,	0),
-+	E("mem-ldst",	"%s/ldlat=%u,swfilt=1/",	NULL,	true,	0),
-+};
-diff --git a/tools/perf/arch/x86/util/mem-events.h b/tools/perf/arch/x86/util/mem-events.h
-index 11e09a256f5bb084..f707de38037017c1 100644
---- a/tools/perf/arch/x86/util/mem-events.h
-+++ b/tools/perf/arch/x86/util/mem-events.h
-@@ -6,6 +6,8 @@ extern struct perf_mem_event perf_mem_events_intel[PERF_MEM_EVENTS__MAX];
- extern struct perf_mem_event perf_mem_events_intel_aux[PERF_MEM_EVENTS__MAX];
+@@ -7410,7 +7410,6 @@ static int rtl8xxxu_start(struct ieee80211_hw *hw)
+ 	struct rtl8xxxu_priv *priv = hw->priv;
+ 	struct rtl8xxxu_rx_urb *rx_urb;
+ 	struct rtl8xxxu_tx_urb *tx_urb;
+-	struct sk_buff *skb;
+ 	unsigned long flags;
+ 	int ret, i;
  
- extern struct perf_mem_event perf_mem_events_amd[PERF_MEM_EVENTS__MAX];
-+extern struct perf_mem_event perf_mem_events_amd_swfilt[PERF_MEM_EVENTS__MAX];
- extern struct perf_mem_event perf_mem_events_amd_ldlat[PERF_MEM_EVENTS__MAX];
-+extern struct perf_mem_event perf_mem_events_amd_ldlat_swfilt[PERF_MEM_EVENTS__MAX];
+@@ -7461,13 +7460,8 @@ static int rtl8xxxu_start(struct ieee80211_hw *hw)
+ 		rx_urb->hw = hw;
  
- #endif /* _X86_MEM_EVENTS_H */
-diff --git a/tools/perf/arch/x86/util/pmu.c b/tools/perf/arch/x86/util/pmu.c
-index 2c24ef3140da5e9b..fd4491fda117e51a 100644
---- a/tools/perf/arch/x86/util/pmu.c
-+++ b/tools/perf/arch/x86/util/pmu.c
-@@ -333,6 +333,7 @@ static void uncore_cha_imc_adjust_cpumask_for_snc(struct perf_pmu *pmu, bool cha
- void perf_pmu__arch_init(struct perf_pmu *pmu)
- {
- 	struct perf_pmu_caps *ldlat_cap;
-+	bool swfilt_format;
- 
- 	if (!strcmp(pmu->name, INTEL_PT_PMU_NAME)) {
- 		pmu->auxtrace = true;
-@@ -348,7 +349,10 @@ void perf_pmu__arch_init(struct perf_pmu *pmu)
- 		if (strcmp(pmu->name, "ibs_op"))
- 			return;
- 
--		pmu->mem_events = perf_mem_events_amd;
-+		swfilt_format = perf_pmu__has_format(pmu, "swfilt");
-+		pmu->mem_events = swfilt_format ?
-+				  perf_mem_events_amd_swfilt :
-+				  perf_mem_events_amd;
- 
- 		if (!perf_pmu__caps_parse(pmu))
- 			return;
-@@ -358,7 +362,9 @@ void perf_pmu__arch_init(struct perf_pmu *pmu)
- 			return;
- 
- 		perf_mem_events__loads_ldlat = 0;
--		pmu->mem_events = perf_mem_events_amd_ldlat;
-+		pmu->mem_events = swfilt_format ?
-+				  perf_mem_events_amd_ldlat_swfilt :
-+				  perf_mem_events_amd_ldlat;
- 	} else {
- 		if (pmu->is_core) {
- 			if (perf_pmu__have_event(pmu, "mem-loads-aux"))
-diff --git a/tools/perf/tests/shell/test_data_symbol.sh b/tools/perf/tests/shell/test_data_symbol.sh
-index d61b5659a46d9a77..52c837fddb639595 100755
---- a/tools/perf/tests/shell/test_data_symbol.sh
-+++ b/tools/perf/tests/shell/test_data_symbol.sh
-@@ -65,15 +65,17 @@ if (($is_amd >= 1)); then
- 	# --ldlat on AMD:
- 	# o Zen4 and earlier uarch does not support ldlat
- 	# o Even on supported platforms, it's disabled (--ldlat=0) by default.
-+	# o Kernels with the swfilt term add it even when ldlat is not
-+	#   supported, so only check ldlat when the term is present.
- 	ldlat=${BASH_REMATCH[1]}
--	if [[ -n $ldlat ]]; then
-+	if [[ $ldlat == *ldlat=* ]]; then
- 		if ! [[ "$ldlat" =~ ldlat=0 ]]; then
- 			echo "ERROR: ldlat not initialized to 0?"
- 			exit 1
- 		fi
- 
- 		mem_events="$(perf mem record -v --ldlat=150 -e list 2>&1)"
--		if ! [[ "$mem_events" =~ ^mem-ldst.*ibs_op/ldlat=150/.*available ]]; then
-+		if ! [[ "$mem_events" =~ ^mem-ldst.*ibs_op/ldlat=150[,/].*available ]]; then
- 			echo "ERROR: --ldlat not honored?"
- 			exit 1
- 		fi
-diff --git a/tools/perf/util/mem-events.c b/tools/perf/util/mem-events.c
-index 0b49fce251fcc184..0b07011939d7d7c3 100644
---- a/tools/perf/util/mem-events.c
-+++ b/tools/perf/util/mem-events.c
-@@ -82,6 +82,7 @@ static const char *perf_pmu__mem_events_name(struct perf_pmu *pmu, int i,
- 					     char *buf, size_t buf_size)
- {
- 	struct perf_mem_event *e;
-+	const char *name;
- 
- 	if (i >= PERF_MEM_EVENTS__MAX || !pmu)
- 		return NULL;
-@@ -90,24 +91,26 @@ static const char *perf_pmu__mem_events_name(struct perf_pmu *pmu, int i,
- 	if (!e || !e->name)
- 		return NULL;
- 
-+	name = e->name;
-+
- 	if (i == PERF_MEM_EVENTS__LOAD || i == PERF_MEM_EVENTS__LOAD_STORE) {
- 		if (e->ldlat) {
- 			if (!e->aux_event) {
- 				/* ARM and Most of Intel */
- 				scnprintf(buf, buf_size,
--					  e->name, pmu->name,
-+					  name, pmu->name,
- 					  perf_mem_events__loads_ldlat);
- 			} else {
- 				/* Intel with mem-loads-aux event */
- 				scnprintf(buf, buf_size,
--					  e->name, pmu->name, pmu->name,
-+					  name, pmu->name, pmu->name,
- 					  perf_mem_events__loads_ldlat);
- 			}
- 		} else {
- 			if (!e->aux_event) {
- 				/* AMD and POWER */
- 				scnprintf(buf, buf_size,
--					  e->name, pmu->name);
-+					  name, pmu->name);
- 			} else {
- 				return NULL;
- 			}
-@@ -117,7 +120,7 @@ static const char *perf_pmu__mem_events_name(struct perf_pmu *pmu, int i,
- 
- 	if (i == PERF_MEM_EVENTS__STORE) {
- 		scnprintf(buf, buf_size,
--			  e->name, pmu->name);
-+			  name, pmu->name);
- 		return buf;
+ 		ret = rtl8xxxu_submit_rx_urb(priv, rx_urb);
+-		if (ret) {
+-			if (ret != -ENOMEM) {
+-				skb = (struct sk_buff *)rx_urb->urb.context;
+-				dev_kfree_skb(skb);
+-			}
++		if (ret)
+ 			rtl8xxxu_queue_rx_urb(priv, rx_urb);
+-		}
  	}
  
+ 	schedule_delayed_work(&priv->ra_watchdog, 2 * HZ);
+
 -- 
 2.53.0
+
 
