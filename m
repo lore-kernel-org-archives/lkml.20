@@ -1,427 +1,220 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A23D5331A5B;
-	Sat, 19 Sep 2026 15:27:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789831650; cv=none; b=k+5Y08Ca0ItIIkD/oLl3n8E7h3saZhvjOk11aHyfbi4Z+IlSAcR/AK4egZgOvQAQmUfplMeWPRi3AqEylejDSPJReidqvpUeQAzH23M7NHNsfVa+Hj3BTY38d82DM1rd6MXLyHFqLruyxJeSQljOjGIyn80Rp4agDcOPCQmIeuU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789831650; c=relaxed/simple;
-	bh=LaFptG8u1fDasWAdrbrl/o4MxF50OpJx609eQR4CYm0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iA/pKjuzO2IUuqOnoX2XRzEBPOXBAwurSaAeuVsrmxl89proYaMPGEmd+SL6Wa2vyYXagY8emmn7STxv4IQAbZ65vg9Xrev3T0QZ6GvK92aG+qs4n53MizWTkK76WIPFpcTzM3DswubtRQhsCiEw6GArWddkb6rpO9RgaGUjqnY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=LNowP5FA; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1695125B08A
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:29:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789831744; cv=pass; b=Cmj7srBF8FNp+nIJv/DLVJ+xHC/T3+5xTHG9zHFJ9dNkyxbUsrPtNK0kZFZxdDI+PipN/lfPmBcobKFJtDjKQ6fLldgWjdt1EdmHqRnsLLzDz2Umkv+8tt0CCXUCRSz4vU5d94aMsrSkRIN6plIAg5FaLP366u8IqyZkU5BLg0M=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789831744; c=relaxed/simple;
+	bh=jOLtCA5xBCMN+IeZjOlru0hQ1zFhY1Y2MZjJga/2kjw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pD1B/H/faSVwosOY4FiWQqS+qdxsefrbndjI1PSBoHu4nR0SAGb9g+zp4ryUCfwy2XU2IFMTT/ucN32zF3aHtovONeFbUR2Xoz+Us+5z5jUFIezlqvFvMN8QLbTrvQlaI/aB6Aci4sSoLbMhHiuw1SXn2qadw/pzDJsnKQIEOjc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thechris.in; spf=pass smtp.mailfrom=thechris.in; dkim=pass (2048-bit key) header.d=thechris.in header.i=@thechris.in header.b=llYmP40x; arc=pass smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thechris.in
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thechris.in
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="LNowP5FA"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id E9AD24E406D3;
-	Sat, 19 Sep 2026 15:27:17 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 81392606CA;
-	Sat, 19 Sep 2026 15:27:17 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D250510328325;
-	Sat, 19 Sep 2026 17:27:01 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789831635; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=5jQoTITZBemOLjk7Ud0MHWlrFyo2Xd2UPLX1phND9tk=;
-	b=LNowP5FAcSYglPQUAc7pzK0ZGvGiL2r05WAbCYHxDWgkHUuQgnwFdcQ3TuUeRRv5r19sS+
-	VEW+zZAGkfQKeY2BbCtj+AGce9bzJnGbuqRy8ui8m2kAjvyn6E0J0d+JWU551pW7BPwY3L
-	TvlWFZtXCQTCG8tgra972l27kKl15LcRvaDcK41jUdLHYHlJzf3dUxpScPT1VhT5do4idP
-	Ugzxy/srfDxWXCqQ5jaqNw3AbkL2DF3WlX1Bvpz8HXExDj/+mmXZORrXaG/0P3xwkwmYix
-	r+HBmd9x+w+B/wGx4x1mH/+lYmt2PWRfw0n2iVMNTAXJ+QUXRMbUboHHuqMV5g==
-Message-ID: <fd6612bc-a7fd-407a-869a-8660f8fcc3a7@bootlin.com>
-Date: Sat, 19 Sep 2026 17:27:00 +0200
+	dkim=pass (2048-bit key) header.d=thechris.in header.i=@thechris.in header.b="llYmP40x"
+Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e4ab2029eso1579130d50.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 08:29:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789831742; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MEwW0tjR9zBPjH/iq8cdgpudii+wGLAiusz5S+w0Gj/L60ZkVci4T4PJ7ibxA8wFD2
+         7tNRslUoWqpJQX6UU/Q/SMmWCbpVD8Hqw2xTw6PATzWYRykUpyStrLF7xiHNHYmESUs4
+         CU8U+umTATBE9NxFcDCpKsqjyqJRvJn7Znh4JLHwFwOZBpy+jSx04O+0cxqs2IGDNkIy
+         9QIQoEIPi4MFHRskFId4veLhqUpUr/M5pKSEnP8MUiPwaMvBeX5Zt12jN5W98Ch7CjUH
+         LklEp3SiE+zczrmOo1yAwA0P7yXWTXXRvp+h9LOOZGv+90lRmeoMgcT4GifptubXnlKZ
+         Pzxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=l0TpZBfQv1YVfjKqwYzlR7A5wrn37+yIqc+S/AtQHiQ=;
+        fh=46IHVBnU+WrXJyDYRvu37Y22VrJJJ8lZ79fC8xPcoJs=;
+        b=MJKpYfkXBZ6WT+fP2JVJBl0Du+Dt6aQkqkG44ztz2DfdpPTN1VI16xLswfQIZsG/2g
+         9XOgq8SUxPiuWmN8t11pAGk7dIqs2HrbGQUrQ3FnqGtWHcEgqWFu7JdfqJ3RkaODcLn+
+         QXYbnJu6TWfEi+/Vf9v0i7Ap7VZcAKj9P6tsoAfi2lC0nXKt7PRS97/EUm97DMX1ivDu
+         2SR0rO5tluTtDlumPUllpOOmfdrL1LcB2ofuDKsdHY1P2AwBkYMZi7pM+agNiSU5274j
+         VfHNnaWdNcrWvYuFxvNurZkQpwZ2txql+W3vxLWKENftybNGpr7WGvksFXXlImkg+WpZ
+         M7xA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=thechris.in; s=google; t=1789831742; x=1790436542; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=l0TpZBfQv1YVfjKqwYzlR7A5wrn37+yIqc+S/AtQHiQ=;
+        b=llYmP40xKNZ20aSxEgnhNtwj1+wy3vaq5lPD2Tt/ZyII/AvdiIJwc/JGC9RkG3JXTm
+         4mA4yToVzsQ1wmc5igc5U1i2AKJosL9Cb4+qKNnv6X5MidIgMMgdZ+OQVrvA/dgHqzY1
+         ctRXPjxtO+QLd4Y1+W86ql5qlEUHcuxC67F529VvweGnpwpQ6zeosnLXTRsZaeoll+tZ
+         qppfVA2mnFiptpFqROVI6ON/upCOT8wOIwLrwKjTzoJ1foSda+InGQl+MmqTjkxOgZCi
+         yyrecMNsEAh7qnesnNb2McSeBKzb6y3T3gY2712X3tJ4553gPwMcsOjhupIopI2Qu1XC
+         5T2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789831742; x=1790436542;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=l0TpZBfQv1YVfjKqwYzlR7A5wrn37+yIqc+S/AtQHiQ=;
+        b=SN/S27RQUAw8IsxvTF2hozQyJQlaoaRNvg+cTpi+qMwgskskKa5hEfgZ3M4gODqBYO
+         uSxVUUe//WnbKDQMYqAbx78IMN+SKTzijBdpnWhCVeIriApvn2zihN0WJ+HoukgPYzzw
+         +CnXvqt6LcOuZmh4cIqSqoJoY7+t6qb2PUFu6fykNGUU+x9cL8KyGmmLWizjJq/My4VP
+         B2AOyJNmC3ua38t1kYQ7rMeniK1J18O9oFvWSX0UijfrFJfIbpTeDQNbyGfNwqpuPTq1
+         M+LiwXclj5UA1EqvpM5hkQTzDwLN96UuFBnen+LBSTMGqeOER1YwNc15e0qospuf/jHf
+         Htzw==
+X-Forwarded-Encrypted: i=1; AKwUvBwXpPudGdjlveVOgUQWWrKFjknzkQTVDkKtgILTwqVBGwyGjTbI6XDIFfmZQtA+Q1EWyclH4wq3IXlyitg=@vger.kernel.org
+X-Gm-Message-State: AFuF++msBK5NgshsxgXkb7J7t9OQqUzVDhZH2qC09CYjBFjt8jKlXkn5
+	Y1UEbM/KUoouGrEG8OpEVDOyzoQD48dPbWsJp8Rq29to1gzhJ13NPUPYllXEJFQjLhMPTjyysXC
+	WiS56EjJ96tOfKEEZM/jVSXVlV8JzwfvG4UixnsJ+u4o=
+X-Gm-Gg: AYBFou2MgE40UC+bI1kPDAbI4iKG2H7q0Y6qX7bkmTDtf7XD2QV3KlUofRKhfg4A4r7
+	4+VVISWg7IuCo72mOVqPOuITRYEUBYxsU7Z8kgYV0v2nx9Y6a9yrHNHwijUwjnUoIG4EpgTxUUF
+	T3E4q5n/Rt7vBTqFHWulR5EVgzBcWjVFxRxJrbbxlSvy9AevZQb44URVUbPmSxv1TN4TO8vcNe1
+	Hdmj76tJSI8CVPD4feosq8cKM8iuogXyBWepSgZ0+EY+uyhcO75od8KuX7qrC7m8csw1xTUluwZ
+	2Zr6omC99chamh8Nat0FDdDR4EpeNdDO4F9rAoJLdXXjoGr8B0NNMukEGSsd2e+i2y01simGGOU
+	rj3FM2x7x107Ndh+ZIJJWxoOgqJnvzMjt8LAlWf7qTHhiM6x6fkKOSXVhDim3rsXQD/+z3KEs2H
+	8t43nDMHlhi1WrQfo=
+X-Received: by 2002:a05:690e:4511:20b0:672:99e1:11e8 with SMTP id
+ 956f58d0204a3-67299e11752mr455363d50.133.1789831742087; Sat, 19 Sep 2026
+ 08:29:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v8 09/11] net: stmmac: dwmac-rk: add SGMII
- support for RK3568
-To: Coia Prant <coiaprant@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Romain Gantois <romain.gantois@bootlin.com>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Russell King <linux@armlinux.org.uk>, Shawn Lin <shawn.lin@rock-chips.com>,
- David Heidelberg <david@ixit.cz>, netdev@vger.kernel.org,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-renesas-soc@vger.kernel.org
-References: <20260919125119.2107089-1-coiaprant@gmail.com>
- <20260919125119.2107089-10-coiaprant@gmail.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20260919125119.2107089-10-coiaprant@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+References: <CAE2Bdm3NuEHshrG6K2boKAnCQUvT5SX79cP9nPgS2s1afzY1hg@mail.gmail.com>
+ <6aab0f82.e91c2013.3bdb06.0009.GAE@google.com> <CAE2Bdm2wzxj-J0TM8F+3SVnu0W3HeiROW97U4qvBeyHKdHJFmg@mail.gmail.com>
+ <2026091753-broadness-bootie-b683@gregkh> <CAE2Bdm14hif17B8RTAE+PhWEps5Fzh=WPurZeSNp9C6TqCKumg@mail.gmail.com>
+ <aqwuWWMwdIcx3704@cashel.logfs.org> <mu82xsi6.76ee613a-07fb-48b1-9336-99e8780e8b6e@nod.at>
+ <CAE2Bdm3FqBPAMxqKoz_h1cw+OXpm=LJHdJjsME_Jy966tqhq_A@mail.gmail.com> <aq6gJTYTpTr8sYPj@cashel.logfs.org>
+In-Reply-To: <aq6gJTYTpTr8sYPj@cashel.logfs.org>
+From: Chris Roy <iam@thechris.in>
+Date: Sat, 19 Sep 2026 20:58:51 +0530
+X-Gm-Features: AcwNN1WmuQ-yAJK_L0Mqu0n7bynCj_HJ7gLPmHLdxL6kt8_egR93r-O600_Qqss
+Message-ID: <CAE2Bdm3K+ZnrfB7xzkg=2fzMs7AmJzdF3aYCpN00h90TR6FMog@mail.gmail.com>
+Subject: Re: [syzbot] [fs?] possible deadlock in ovl_create_object (2)
+To: =?UTF-8?Q?J=C3=B6rn_Engel?= <joern@barelysecure.org>
+Cc: Richard Weinberger <richard@nod.at>, Greg KH <gregkh@linuxfoundation.org>, 
+	syzbot <syzbot+7cab6a19619f1b8efc00@syzkaller.appspotmail.com>, dakr@kernel.org, 
+	driver-core@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, rafael@kernel.org, 
+	syzkaller-bugs@googlegroups.com, linux-mtd@lists.infradead.org, 
+	miquel.raynal@bootlin.com, vigneshr@ti.com, 
+	Adarsh Das <adarshdas950@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Sat, Sep 19, 2026, J=C3=B6rn Engel wrote:
+> Finding good names is probably a fetish of mine, so "val" is mildly
+> disturbing to me. [...]
 
-On 9/19/26 14:51, Coia Prant wrote:
-> The RK3568 SoC integrates a Synopsys DesignWare XPCS that can be
-> connected to GMAC0 or GMAC1 in SGMII mode.  Add the necessary glue
-> logic to support this configuration.
-> 
-> The current dwmac-rk driver does not support SGMII mode.  SGMII
-> requires a PCS to handle auto-negotiation and link state reporting,
-> but the existing driver only supports RGMII and RMII.
-> 
-> Add a set_to_sgmii() callback to configure the GMAC GRF register for
-> SGMII mode (bit 7 set, interface selection bits 4:6 ignored when set).
-> Also add a set_to_rmii() callback for rk3568 to explicitly clear bit 7,
-> since the new SGMII path leaves it set and the RMII branch previously
-> relied on the SoC reset value.
-> 
-> Provide pcs_init/pcs_exit callbacks to create/destroy the XPCS via
-> xpcs_rk_create() from the Rockchip XPCS platform driver, and a
-> select_pcs callback to return the XPCS to phylink. SGMII is not added
-> to rk_get_interfaces(): it comes from the XPCS's own
-> supported_interfaces, merged by stmmac_phylink_setup().
-> 
-> The SerDes PHY and the PD_PIPE power domain are owned by the XPCS
-> driver rather than managed through the stmmac
-> serdes_poweron/serdes_poweroff callbacks, which are legacy and meant
-> for single-MAC platforms. On RK3568 the XPCS is the natural owner of
-> the shared SerDes.
-> 
-> DWMAC_ROCKCHIP selects PCS_XPCS_ROCKCHIP. PCS_XPCS itself is already
-> selected by STMMAC_ETH, and PM is selected by ARCH_ROCKCHIP, so no
-> further selects are needed.
-> 
-> Reorder rk_gmac_powerup() so that gmac_clk_enable() is called before
-> the SGMII check.  The SGMII path skips rk_get_phy_intf_sel(), so the
-> clock must be enabled earlier to cover all register accesses in that
-> path.  While at it, unify the error unwinding into a single
-> clk_disable label and add error handling for the default (unhandled
-> interface) case.
-> 
-> SGMII In-band vs Out-of-band
-> ============================
-> On RK3568, the MAC clock is fixed at 125 MHz and cannot be dynamically
-> changed by the stmmac core's set_clk_tx_rate callback.  In-band mode
-> works because the PCS handles rate adaptation internally.  Out-of-band
-> mode does not work because the MAC would need to change the clock rate
-> to 125/12.5/1.25 MHz for 1000/100/10 Mbps respectively, and the clock
-> is fixed.
-> 
-> Enable default_an_inband for SGMII and disable the generic stmmac
-> set_clk_tx_rate callback.  This forces phylink to use in-band mode,
-> where the PCS is responsible for speed/duplex negotiation.
-> 
-> Note that default_an_inband can be overridden by a fixed-link node,
-> and phylink may also fall back to out-of-band if the PHY does not
-> support in-band signalling.  Out-of-band SGMII is not supported by
-> this driver: the MAC clock would stay at 125 MHz for 10/100 Mbps,
-> giving working TX but failing RX.  Boards must use in-band mode
-> (managed = "in-band-status" or an in-band capable PHY).
-> 
-> Link: https://dl.radxa.com/rock3/docs/hw/datasheet/Rockchip%20RK3568%20TRM%20Part1%20V1.1-20210301.pdf (Page 386)
-> Signed-off-by: Coia Prant <coiaprant@gmail.com>
+I have a similar pet peeve in my domain. I kept "val" since
+it mirrors block2mtd_setup2()'s own "val" parameter
+(the raw <dev>[,[<erasesize>][,<label>]]), so I kept it for
+consistency with the existing call chain. I had considered
+"spec" but probably it would have been similarly unimaginative.
 
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com
+> Is this check necessary? [...] Looks like the kernel is still
+> undecided whether checks are necessary or not.
 
-Maxime
+I will keep it. kzalloc()/kstrdup() under plain GFP_KERNEL can still
+return NULL under real memory pressure (no __GFP_NOFAIL here), and
+dropping it would be inconsistent with the kstrdup() check two lines
+below.
 
-> ---
->  drivers/net/ethernet/stmicro/stmmac/Kconfig   |   1 +
->  .../net/ethernet/stmicro/stmmac/dwmac-rk.c    | 130 +++++++++++++++---
->  2 files changed, 111 insertions(+), 20 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> index e3dd5adda5aca..5088acc06982e 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> +++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> @@ -170,6 +170,7 @@ config DWMAC_ROCKCHIP
->  	default ARCH_ROCKCHIP
->  	depends on OF && (ARCH_ROCKCHIP || COMPILE_TEST)
->  	select MFD_SYSCON
-> +	select PCS_XPCS_ROCKCHIP
->  	help
->  	  Support for Ethernet controller on Rockchip RK3288 SoC.
->  
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> index 8d7042e689261..88f09014e3a69 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> @@ -20,6 +20,7 @@
->  #include <linux/delay.h>
->  #include <linux/mfd/syscon.h>
->  #include <linux/regmap.h>
-> +#include <linux/pcs/pcs-xpcs-rk.h>
->  #include <linux/pm_runtime.h>
->  
->  #include "stmmac_platform.h"
-> @@ -47,6 +48,7 @@ struct rk_gmac_ops {
->  	void (*set_to_rgmii)(struct rk_priv_data *bsp_priv,
->  			     int tx_delay, int rx_delay);
->  	void (*set_to_rmii)(struct rk_priv_data *bsp_priv);
-> +	void (*set_to_sgmii)(struct rk_priv_data *bsp_priv);
->  	int (*set_speed)(struct rk_priv_data *bsp_priv,
->  			 phy_interface_t interface, int speed);
->  	void (*integrated_phy_powerup)(struct rk_priv_data *bsp_priv);
-> @@ -63,6 +65,7 @@ struct rk_gmac_ops {
->  	bool clock_grf_reg_in_php;
->  	bool supports_rgmii;
->  	bool supports_rmii;
-> +	bool supports_sgmii;
->  	bool php_grf_required;
->  	bool regs_valid;
->  	u32 regs[];
-> @@ -98,6 +101,7 @@ struct rk_priv_data {
->  	bool integrated_phy;
->  	bool supports_rgmii;
->  	bool supports_rmii;
-> +	bool supports_sgmii;
->  
->  	struct clk_bulk_data *clks;
->  	int num_clks;
-> @@ -809,6 +813,8 @@ static const struct rk_gmac_ops rk3528_ops = {
->  #define RK3568_GRF_GMAC1_CON1		0x038c
->  
->  /* RK3568_GRF_GMAC0_CON1 && RK3568_GRF_GMAC1_CON1 */
-> +#define RK3568_GMAC_MODE_RMII_RGMII		GRF_CLR_BIT(7)
-> +#define RK3568_GMAC_MODE_SGMII_QSGMII		GRF_BIT(7)
->  #define RK3568_GMAC_FLOW_CTRL			GRF_BIT(3)
->  #define RK3568_GMAC_FLOW_CTRL_CLR		GRF_CLR_BIT(3)
->  #define RK3568_GMAC_RXCLK_DLY_ENABLE		GRF_BIT(1)
-> @@ -836,6 +842,16 @@ static int rk3568_init(struct rk_priv_data *bsp_priv)
->  	}
->  }
->  
-> +static void rk3568_set_to_rmii(struct rk_priv_data *bsp_priv)
-> +{
-> +	u32 con1;
-> +
-> +	con1 = (bsp_priv->id == 1) ? RK3568_GRF_GMAC1_CON1 :
-> +				     RK3568_GRF_GMAC0_CON1;
-> +
-> +	regmap_write(bsp_priv->grf, con1, RK3568_GMAC_MODE_RMII_RGMII);
-> +}
-> +
->  static void rk3568_set_to_rgmii(struct rk_priv_data *bsp_priv,
->  				int tx_delay, int rx_delay)
->  {
-> @@ -851,19 +867,31 @@ static void rk3568_set_to_rgmii(struct rk_priv_data *bsp_priv,
->  		     RK3568_GMAC_CLK_TX_DL_CFG(tx_delay));
->  
->  	regmap_write(bsp_priv->grf, con1,
-> +		     RK3568_GMAC_MODE_RMII_RGMII |
->  		     RK3568_GMAC_RXCLK_DLY_ENABLE |
->  		     RK3568_GMAC_TXCLK_DLY_ENABLE);
->  }
->  
-> +static void rk3568_set_to_sgmii(struct rk_priv_data *bsp_priv)
-> +{
-> +	u32 con1;
-> +
-> +	con1 = (bsp_priv->id == 1) ? RK3568_GRF_GMAC1_CON1 :
-> +				     RK3568_GRF_GMAC0_CON1;
-> +
-> +	regmap_write(bsp_priv->grf, con1, RK3568_GMAC_MODE_SGMII_QSGMII);
-> +}
-> +
->  static const struct rk_gmac_ops rk3568_ops = {
->  	.init = rk3568_init,
-> +	.set_to_rmii = rk3568_set_to_rmii,
->  	.set_to_rgmii = rk3568_set_to_rgmii,
-> +	.set_to_sgmii = rk3568_set_to_sgmii,
-> +
->  	.set_speed = rk_set_clk_mac_speed,
->  
->  	.gmac_phy_intf_sel_mask = GENMASK_U16(6, 4),
->  
-> -	.supports_rmii = true,
-> -
->  	.regs_valid = true,
->  	.regs = {
->  		0xfe2a0000, /* gmac0 */
-> @@ -1208,6 +1236,43 @@ static void rk_phy_powerdown(struct rk_priv_data *bsp_priv)
->  		dev_err(bsp_priv->dev, "fail to disable phy-supply\n");
->  }
->  
-> +static int rk_pcs_init(struct stmmac_priv *priv)
-> +{
-> +	struct device_node *np = priv->device->of_node;
-> +	struct device_node *pcs_node;
-> +	struct dw_xpcs *xpcs;
-> +
-> +	pcs_node = of_parse_phandle(np, "pcs-handle", 0);
-> +	if (!pcs_node)
-> +		return -ENODEV;
-> +
-> +	xpcs = xpcs_rk_create(priv->device, pcs_node);
-> +	of_node_put(pcs_node);
-> +	if (IS_ERR(xpcs))
-> +		return PTR_ERR(xpcs);
-> +
-> +	priv->hw->xpcs = xpcs;
-> +	return 0;
-> +}
-> +
-> +static void rk_pcs_exit(struct stmmac_priv *priv)
-> +{
-> +	if (!priv->hw->xpcs)
-> +		return;
-> +
-> +	xpcs_destroy(priv->hw->xpcs);
-> +	priv->hw->xpcs = NULL;
-> +}
-> +
-> +static struct phylink_pcs *rk_select_pcs(struct stmmac_priv *priv,
-> +					 phy_interface_t interface)
-> +{
-> +	if (!priv->hw->xpcs)
-> +		return NULL;
-> +
-> +	return xpcs_to_phylink_pcs(priv->hw->xpcs);
-> +}
-> +
->  static struct rk_priv_data *rk_gmac_setup(struct platform_device *pdev,
->  					  struct plat_stmmacenet_data *plat,
->  					  const struct rk_gmac_ops *ops)
-> @@ -1330,6 +1395,7 @@ static struct rk_priv_data *rk_gmac_setup(struct platform_device *pdev,
->  
->  	bsp_priv->supports_rgmii = ops->supports_rgmii || !!ops->set_to_rgmii;
->  	bsp_priv->supports_rmii = ops->supports_rmii || !!ops->set_to_rmii;
-> +	bsp_priv->supports_sgmii = ops->supports_sgmii || !!ops->set_to_sgmii;
->  
->  	if (ops->init) {
->  		ret = ops->init(bsp_priv);
-> @@ -1361,6 +1427,10 @@ static int rk_gmac_check_ops(struct rk_priv_data *bsp_priv)
->  		if (!bsp_priv->supports_rmii)
->  			return -EINVAL;
->  		break;
-> +	case PHY_INTERFACE_MODE_SGMII:
-> +		if (!bsp_priv->supports_sgmii)
-> +			return -EINVAL;
-> +		break;
->  	default:
->  		dev_err(bsp_priv->dev,
->  			"unsupported interface %d", bsp_priv->phy_iface);
-> @@ -1379,16 +1449,19 @@ static int rk_gmac_powerup(struct rk_priv_data *bsp_priv)
->  	if (ret)
->  		return ret;
->  
-> +	ret = gmac_clk_enable(bsp_priv, true);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (bsp_priv->phy_iface == PHY_INTERFACE_MODE_SGMII)
-> +		goto set_mode;
-> +
->  	ret = rk_get_phy_intf_sel(bsp_priv->phy_iface);
->  	if (ret < 0)
-> -		return ret;
-> +		goto clk_disable;
->  
->  	intf = ret;
->  
-> -	ret = gmac_clk_enable(bsp_priv, true);
-> -	if (ret)
-> -		return ret;
-> -
->  	if (bsp_priv->gmac_phy_intf_sel_mask ||
->  	    bsp_priv->gmac_rmii_mode_mask) {
->  		/* If defined, encode the phy_intf_sel value */
-> @@ -1399,10 +1472,8 @@ static int rk_gmac_powerup(struct rk_priv_data *bsp_priv)
->  				      bsp_priv->gmac_rmii_mode_mask);
->  
->  		ret = rk_write_gmac_grf_reg(bsp_priv, val);
-> -		if (ret < 0) {
-> -			gmac_clk_enable(bsp_priv, false);
-> -			return ret;
-> -		}
-> +		if (ret < 0)
-> +			goto clk_disable;
->  	}
->  
->  	if (bsp_priv->clock.rmii_mode_mask) {
-> @@ -1410,13 +1481,12 @@ static int rk_gmac_powerup(struct rk_priv_data *bsp_priv)
->  				     bsp_priv->clock.rmii_mode_mask);
->  
->  		ret = rk_write_clock_grf_reg(bsp_priv, val);
-> -		if (ret < 0) {
-> -			gmac_clk_enable(bsp_priv, false);
-> -			return ret;
-> -		}
-> +		if (ret < 0)
-> +			goto clk_disable;
->  	}
->  
-> -	/*rmii or rgmii*/
-> +set_mode:
-> +	/* rmii, rgmii, sgmii */
->  	switch (bsp_priv->phy_iface) {
->  	case PHY_INTERFACE_MODE_RGMII:
->  		dev_info(dev, "init for RGMII\n");
-> @@ -1447,15 +1517,20 @@ static int rk_gmac_powerup(struct rk_priv_data *bsp_priv)
->  		if (bsp_priv->ops->set_to_rmii)
->  			bsp_priv->ops->set_to_rmii(bsp_priv);
->  		break;
-> +	case PHY_INTERFACE_MODE_SGMII:
-> +		dev_info(dev, "init for SGMII\n");
-> +		if (bsp_priv->ops->set_to_sgmii)
-> +			bsp_priv->ops->set_to_sgmii(bsp_priv);
-> +		break;
->  	default:
->  		dev_err(dev, "NO interface defined!\n");
-> +		ret = -EINVAL;
-> +		goto clk_disable;
->  	}
->  
->  	ret = rk_phy_powerup(bsp_priv);
-> -	if (ret) {
-> -		gmac_clk_enable(bsp_priv, false);
-> -		return ret;
-> -	}
-> +	if (ret)
-> +		goto clk_disable;
->  
->  	pm_runtime_get_sync(dev);
->  
-> @@ -1463,6 +1538,10 @@ static int rk_gmac_powerup(struct rk_priv_data *bsp_priv)
->  		bsp_priv->ops->integrated_phy_powerup(bsp_priv);
->  
->  	return 0;
-> +
-> +clk_disable:
-> +	gmac_clk_enable(bsp_priv, false);
-> +	return ret;
->  }
->  
->  static void rk_gmac_powerdown(struct rk_priv_data *gmac)
-> @@ -1602,6 +1681,17 @@ static int rk_gmac_probe(struct platform_device *pdev)
->  	plat_dat->suspend = rk_gmac_suspend;
->  	plat_dat->resume = rk_gmac_resume;
->  
-> +	if (plat_dat->phy_interface == PHY_INTERFACE_MODE_SGMII) {
-> +		/* SGMII clock always runs at 125 MHz */
-> +		plat_dat->set_clk_tx_rate = NULL;
-> +
-> +		/* SGMII requires a PCS */
-> +		plat_dat->default_an_inband = true;
-> +		plat_dat->pcs_init = rk_pcs_init;
-> +		plat_dat->pcs_exit = rk_pcs_exit;
-> +		plat_dat->select_pcs = rk_select_pcs;
-> +	}
-> +
->  	plat_dat->bsp_priv = rk_gmac_setup(pdev, plat_dat, data);
->  	if (IS_ERR(plat_dat->bsp_priv))
->  		return PTR_ERR(plat_dat->bsp_priv);
+> That's quite a few calls to the same function. [...] If you feel
+> motivated to dig deeper, please do! If not, I'd rather leave the
+> mess in place than come up with a half-hearted attempt of a
+> solution.
 
+True. It is accretion. I'd rather not bolt a redesign onto this fix.
+However, I can look at setup2()'s callers as a separate effort.
+
+Regards,
+- Chris
+
+"But how could you live and have no story to tell?"
+
+On Sat, 19 Sept 2026 at 20:16, J=C3=B6rn Engel <joern@barelysecure.org> wro=
+te:
+>
+> On Sat, Sep 19, 2026 at 02:22:15PM +0530, Chris Roy wrote:
+> >
+> > +struct block2mtd_setup_work {
+> > +     struct work_struct work;
+> > +     struct completion done;
+> > +     char *val;
+> > +     int ret;
+> > +};
+>
+> Finding good names is probably a fetish of mine, so "val" is mildly
+> disturbing to me.  It's not an objectively bad name, just something
+> where I'd spend another five minutes trying to come up with something
+> better.
+>
+> > +/* Runs block2mtd_setup2() on setup_wq, blocking until it completes */
+> > +static int block2mtd_setup_defer(const char *val)
+> > +{
+> > +     struct block2mtd_setup_work *w;
+> > +     int ret;
+> > +
+> > +     w =3D kzalloc(sizeof(*w), GFP_KERNEL);
+> > +     if (!w)
+> > +             return -ENOMEM;
+>
+> Is this check necessary?  I'm in the camp of "malloc should never return
+> NULL".  That condition is so rare that it is effectively impossible to
+> trust callers with error handling.  So the right approach is to crash
+> (or kernel panic here) instead of returning an error.
+>
+> Looking into sources I see this:
+> static inline void *kzalloc(size_t s, gfp_t gfp)
+> > {
+> >       void *p =3D kmalloc(s, gfp);
+> >
+> >       memset(p, 0, s);
+> >       return p;
+> > }
+>
+> We have at least one example of explicitly not checking the return
+> value.  But we have other prominent examples of checking as well.  Looks
+> like the kernel is still undecided whether checks are necessary or not.
+>
+> > -     return block2mtd_setup2(val);
+> ...
+> > -             return block2mtd_setup2(val);
+> ...
+> > +             ret =3D block2mtd_setup2(val);
+> ...
+> >               ret =3D block2mtd_setup2(block2mtd_paramline);
+>
+> That's quite a few calls to the same function.  If setup gets that
+> complicated, that's a strong indication that we're doing things wrong.
+> Typically we get into such a mess one well-intentioned change at a time.
+> Find a bug, fix it by adding another caller, repeat.
+>
+> It isn't obvious how we could improve things.  Sometimes it's lack of
+> infrastructure and the entire complicated setup-dance should be moved to
+> common code.  Driver can then call a single function to deal with
+> everything.
+>
+> But if there's only a single driver using such infrastructure, maybe the
+> driver is doing things wrong and should copy whatever other drivers are
+> doing.  The problem shouldn't be unique to a single driver, so we should
+> find the best solution and then use it everywhere.
+>
+> I don't know the correct answer here.  If you feel motivated to dig
+> deeper, please do!  If not, I'd rather leave the mess in place than come
+> up with a half-hearted attempt of a solution.
+>
+> J=C3=B6rn
+>
+> --
+> You cannot suppose that Moliere ever troubled himself to be original in t=
+he
+> matter of ideas. You cannot suppose that the stories he tells in his play=
+s
+> have never been told before. They were culled, as you very well know.
+> -- Andre-Louis Moreau in Scarabouche
