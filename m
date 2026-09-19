@@ -1,128 +1,207 @@
-Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+Received: from pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.42.203.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A76E92D9ECA;
-	Sat, 19 Sep 2026 17:11:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F447377023;
+	Sat, 19 Sep 2026 17:12:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.42.203.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789837908; cv=none; b=VNsESIXN0tgYI5en5+kUZtFk3yzhkCgX96GlNt2rq34b3HX3F9F1nf4HSgNeYw4q3Hv0lxWE6Q+rcpO+lDBOPk2uHzbUOQKQd7jYkLuYhqC2/OAZ4St51LSUa+KftZ+JtGXJNQ1w4YJH4UjCYzmJaIDxj1o4K1a8ARRkxANOt3M=
+	t=1789837929; cv=none; b=JR7GRFU39LbM8Q4hikv3kzKnY2Y8lKlwBqQpVeFm7oOY6cMWmJsK191HgOQAz69XPJmPJMpJMnmshVhV2cv+jXKcui3P/7Fw7E+oplWj7u534fZbO0e1h4oK8vW095IHLRGMhOrXMqehZyRh8Ll4sHgbEjMZvoxi2HgWiXf5vNA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789837908; c=relaxed/simple;
-	bh=Oe3N+uS0QPFJ/FFJyoZURZ9yar/4u8esXnbjRjNR7NI=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ty4QSD/UpPz5gdegKEu8OIr3KW+5IcI2cylNxZ169uokDNyUEL8HHDSxQvueVrLJuw4A642n+OJuckV2MKtNjOHal/0QcL1IPnJKCxeyBFKDk47dzn8JsCWYyIy/ti+3aACyg5qUuTk1ngHGvf54uva1msSdO4ncfV2WPBUEfm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=arcLEb2C; arc=none smtp.client-ip=96.67.55.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
+	s=arc-20240116; t=1789837929; c=relaxed/simple;
+	bh=YKZin5QxfewXSYMIhfYSZoq62qqHbGB19BPh2rZv7/4=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=e6xALO9o46CrjoR99JaVup2N6kcz4GvY3GYnqpJ7+DajZ5sElSU5cPeGjDPOG9KqEoovykzzhX7V0BDe/dNYq1KxEF5S/RrXxKe7x1ORBxrqi9s51Ko9odBofQ9/WL09rOT0Nf62srbHvPxaauF5cwvudhG2L9vwUlGGGPBKQhQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=R/5dX5Vp; arc=none smtp.client-ip=52.42.203.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="arcLEb2C"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
-	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID; bh=Oe3N+uS0QPFJ/FFJyoZURZ9yar/4u8esXnbjRjNR7NI=; b=arcLEb
-	2CeUUpzCxBoMZbPq+6APyrTcjBmjWSdDoMptbEDMAUYH5nO3Ps7esFPKfvynXY8q/B2PY1vs7BQFh
-	x6cWtTCbVAMhocYl9K+/oaS22wp7w4Gi3ZxhioGDvwv3mWKOdJ9kNnfBPVTu6qfnQUk4ewadO4GI2
-	XreMzsokA78ZVO32BkujrFWECY/RJLt6Ll9mtePsMqLWpmqiePaYmMSmU4r4GCSERTMEoQaLWZ5Ve
-	zpP6cNBJkB4WEacr4ebnSJFkGFAg8TUEn7NKJ+4vc2LhXMmx42HyGl8kf707O3wY5JBgX/lbmKm11
-	IH/9e0V+V7zPwfcu7/BPIMrCHwbg==;
-Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708]
-	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <riel@surriel.com>)
-	id 1x7xjJ-0000000CHJQ-2RY1;
-	Sat, 19 Sep 2026 16:15:57 +0000
-Message-ID: <7ee199ddee81bf8026688def82f78ad9db09be9e.camel@surriel.com>
-Subject: Re: Path forward for Virtualized Swap?
-From: Rik van Riel <riel@surriel.com>
-To: Chris Li <chrisl@kernel.org>, Baoquan He <baoquan.he@linux.dev>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>, Nhat Pham <nphamcs@gmail.com>, 
- Kairui Song <kasong@tencent.com>, Johannes Weiner <hannes@cmpxchg.org>,
- Michal Hocko <mhocko@kernel.org>,  Roman Gushchin
- <roman.gushchin@linux.dev>, Yosry Ahmed <yosry@kernel.org>, David
- Hildenbrand <david@kernel.org>,  Muchun Song <muchun.song@linux.dev>,
- Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
- YoungJun Park <youngjun.park@lge.com>, Chengming Zhou
- <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)"	 <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)"
- <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren
- =?UTF-8?Q?Baghdasaryan=EF=BF=BC?=	 <surenb@google.com>, Qi Zheng
- <qi.zheng@linux.dev>, Axel Rasmussen	 <axelrasmussen@google.com>, Yuanchu
- Xie <yuanchu@google.com>, Wei Xu	 <weixugc@google.com>, Gregory Price
- <gourry@gourry.net>, Wenchao Hao	 <haowenchao22@gmail.com>, Jonathan Corbet
- <corbet@lwn.net>, Hugh Dickins	 <hughd@google.com>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, Tejun Heo	 <tj@kernel.org>, Michal
- =?ISO-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>, Shuah Khan
- <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, Meta kernel
- team	 <kernel-team@meta.com>, Linux Memory Management List
- <linux-mm@kvack.org>,  Linux Kernel Mailing List
- <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, "open
- list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
- <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Kairui Song <ryncsn@gmail.com>,  Joshua Hahn <joshua.hahnjy@gmail.com>
-Date: Sat, 19 Sep 2026 12:15:57 -0400
-In-Reply-To: <CACePvbUwTxcMPVK_1GAz5gPDdh0BV9JZSnKXaUFLqDHBzBmPQg@mail.gmail.com>
-References: 
-	<CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
-	 <aqJXx2vtbKaRLt3x@fedora> <aqLZ5TVDAqEbIeMN@linux.dev>
-	 <aqP81aqNbwAbs2P0@fedora> <aqQrPLPXHXiuKup0@linux.dev>
-	 <aqjcFb6MFNiA6n4V@fedora> <aqjpYHbZ14A8xRtK@fedora>
-	 <CACePvbUwTxcMPVK_1GAz5gPDdh0BV9JZSnKXaUFLqDHBzBmPQg@mail.gmail.com>
-Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
- keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
- eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
- Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
- lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
- dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
- mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
- gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
- r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
- WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
- 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
- Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
- +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
- g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
- KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
- fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
- 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
- G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
- okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
- TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
- cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
- omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
- QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
- c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="R/5dX5Vp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1789837928; x=1821373928;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=jl/UmkuU1Kk2puKbD9FgSHPvWH0KYxx8quuxvr6bGs4=;
+  b=R/5dX5VpBGAx9GskHEiVVNf/WikDIklbnIwUr4Eo5RghBU56y8YHQd6G
+   oa+aUmryqseNCSml/eqyi91q8jtu4ZpTiISgswKELVszCn5fFh3f5YArB
+   WDSe2/3lYXm59inJj3vLA7LCdwOZj+U2/TTXubU7vHj0vYShhZSNNra2p
+   hQ8R/jdGZ+z8qzq0kbFNVHsIlceXDvckS6e29dtykT9q+I2IWrRnt1Gpb
+   kHPV5DE1HdIa32QNCQy7CfYc93RE2wBYI7YXcHtEnLdsvg/w75JvaDgFN
+   RJLDpdzfyy/AfdeO9nwrtkmSxIY1nSpcMjV8M3KIo1ASFn4geeY0UfhG7
+   Q==;
+X-CSE-ConnectionGUID: rG/1sQX7RaiOtY+Ebxmtmw==
+X-CSE-MsgGUID: +hvfO1qeRj2YWGs/wMcNpg==
+X-IronPort-AV: E=Sophos;i="6.27,111,1787011200"; 
+   d="scan'208";a="29146811"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+  by internal-pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2026 17:12:06 +0000
+Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.51:25178]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.16.195:2525] with esmtp (Farcaster)
+ id aedfb6b3-42fb-4df0-ade6-458558e1be8e; Sat, 19 Sep 2026 17:12:05 +0000 (UTC)
+X-Farcaster-Flow-ID: aedfb6b3-42fb-4df0-ade6-458558e1be8e
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
+ Sat, 19 Sep 2026 17:12:05 +0000
+Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
+ (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49; Sat, 19 Sep 2026
+ 17:12:03 +0000
+From: Eliav Farber <farbere@amazon.com>
+To: Rodolfo Giometti <giometti@enneenne.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+CC: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+	Fabio Estevam <festevam@gmail.com>, Andrew Morton
+	<akpm@linux-foundation.org>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+	Eliav Farber <farbere@amazon.com>, <devicetree@vger.kernel.org>,
+	<linux-gpio@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH v4 0/3] pps-gpio: restore pin mux on unbind and shutdown
+Date: Sat, 19 Sep 2026 17:11:54 +0000
+Message-ID: <20260919171157.5502-1-farbere@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260917075611.47881-1-farbere@amazon.com>
+References: <20260917075611.47881-1-farbere@amazon.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D035UWA002.ant.amazon.com (10.13.139.60) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On Sat, 2026-09-19 at 01:55 -0500, Chris Li wrote:
->=20
-> We don't have to address all issues in one series. I actually advise
-> against lump too many patches into one series.
->=20
-There are two things here.
+Some boards route the PPS input GPIO through a pin controller and mux the
+pins to a different function when the pps-gpio driver is not active.
 
-I totally agree that we can merge things piecemeal,
-and not aim for perfection at the start.
+The driver core already selects the "default" pinctrl state before probe,
+so the pins can be muxed for GPIO/PPS use while the driver is bound without
+any driver change. Nothing, however, hands the pins back when the driver
+is unbound or the system is shut down (for example before kexec), leaving
+them stuck in the GPIO mux for the next kernel.
 
-However, I believe we do need to take care that
-whatever design we go with is actually able to
-support the end user functionality we want.
+This series lets pps-gpio select an optional "inactive" pinctrl state in
+remove() and shutdown(), so a board can describe the alternate mux there
+and have it restored. The state is looked up and selected by the driver
+itself (devm_pinctrl_get() + pinctrl_lookup_state() + pinctrl_select_
+state()), so its meaning is unambiguous and it does not depend on
+CONFIG_PM. It is a no-op for boards that do not describe an "inactive"
+state.
 
-We have to make sure that the path we pick does
-allow us to very easily add the user visible
-functionality that people need.
+Patch 1 is a small preparatory fix to propagate the gpiod_to_irq() and
+request_threaded_irq() error codes (rather than a hardcoded -EINVAL) on
+the probe error paths that patch 3 then converts to gotos. Patch 2
+documents the optional "default"/"inactive" pinctrl-names in the binding;
+patch 3 implements the driver side.
 
-We can always swap out technical details behind
-the scenes later, but user interfaces are supposed
-to be stable.
+Tested on an AL11 K2V6 JRD10 board: binding/unbinding each pps-gpio device
+toggles the corresponding PBS pin-mux register between the GPIO function
+and the alternate ec_ptp_trigger_in function as expected, and re-binding
+restores the GPIO function via the core-applied "default" state. Reading
+the mux register with the devices left unbound confirms the "inactive"
+mux persists. Also tested with a pps-gpio node that describes no pinctrl
+at all, where probe, remove and shutdown behave as before.
 
---=20
-All Rights Reversed.
+Open question for the maintainers (patch 3): a probe that fails before
+pps_gpio_get_pins() has run -- devm_kzalloc() or pps_gpio_setup() -- returns
+without going through err_release_pins, so the pins are left in the
+core-applied "default" state rather than "inactive". I did not change this
+in v4 as I would like your guidance on the preferred approach; the trade-offs
+are laid out at the end of patch 3's changelog. In short:
+
+  A. Move pps_gpio_get_pins() to the top of probe and route the
+     pps_gpio_setup() failure through err_release_pins too, so every path
+     the driver can act on restores "inactive". (The devm_kzalloc() failure
+     is inherently before the driver holds any pinctrl handle, so it cannot
+     be covered by the driver in any option.)
+  B. Keep v4 as-is and treat "inactive" as a successful-ownership concern:
+     a probe that never looked up the state never took the pins, so leaving
+     the core-applied "default" (long-standing behaviour) is acceptable.
+  C. As A, but keep the release helper's existing NULL guard so it is robust
+     regardless of ordering (belt and braces).
+
+I lean towards B (the restore is meaningful only once the driver has taken
+ownership), but I am happy to implement A/C if you prefer uniform failure
+paths.
+
+Changes in v4:
+- Patch 1: add "Fixes: 161520451dfa (\"pps: new client driver using
+  GPIO\")" and Bartosz Golaszewski's Reviewed-by. See the reply on the v3
+  1/3 thread for why the tag points at the original driver rather than the
+  descriptor conversion (4461d65176b4) Rodolfo suggested: the hardcoded
+  -EINVAL on both error paths predates 4461d65176b4, which only switched
+  gpio_to_irq() to gpiod_to_irq() and left those returns as context
+- Patch 2: rework the binding per Rob Herring. Do not express the
+  ordering in prose; use an ordered "items" list ("default" then
+  "inactive") with minItems: 1, since pinctrl-0 is already implicitly
+  "default" and its position is fixed. This also fixes the
+  "['default', 'inactive'] is too long" dt_binding_check error seen on v3.
+  Reword the commit message accordingly
+- Patch 3: unchanged from v3
+
+Changes in v3 (addressing Sashiko's and Rodolfo Giometti's
+review):
+- New preparatory patch 1: propagate the gpiod_to_irq() and
+  request_threaded_irq() error codes instead of overwriting them with
+  -EINVAL, and log the errno on the request_threaded_irq() failure. The
+  pinctrl patch only converts those returns into gotos, so fixing the
+  discarded errors separately keeps them out of the pinctrl change
+- Do not constrain pinctrl-names to a fixed ["default", "inactive"] tuple
+  in the binding. The driver looks the states up by name, so "inactive"
+  may appear in any position and other states may coexist; the binding
+  now only requires that a "default" state exists
+- Treat -ENODEV from devm_pinctrl_get() as "no pinctrl described" rather
+  than a probe failure. A DT device without a "pinctrl-0" property gets
+  -ENODEV from the pinctrl core; that is expected, not an error. Real
+  errors, including -EPROBE_DEFER, are still propagated
+- Restore the "inactive" mux on probe failure too. The error paths after
+  pps_gpio_get_pins() now go through a new err_release_pins label, so a
+  probe that fails in gpiod_to_irq(), pps_register_source() or
+  request_threaded_irq() no longer leaves the pins stuck in the
+  core-applied "default" state
+- Warn if applying the "inactive" state fails rather than ignoring the
+  pinctrl_select_state() return silently
+- Trim and de-duplicate the comments added in v2
+
+Changes in v2 (all addressing Rodolfo Giometti's review):
+- Rename the released state from "idle" to "inactive". "idle" is the
+  runtime-PM state in pinctrl-state.h; overloading it for "driver not
+  active" would clash with any future runtime PM or .suspend() and was
+  being baked into the binding as ABI. "inactive" is not a well-known
+  state, so no generic PM helper will ever auto-select it -- the driver
+  drives it explicitly
+- Look the state up in the driver (devm_pinctrl_get() +
+  pinctrl_lookup_state() + pinctrl_select_state()) instead of
+  pinctrl_pm_select_idle_state(), removing the CONFIG_PM dependency so a
+  CONFIG_PM=n kernel that describes an "inactive" state now honors it
+  instead of silently doing nothing
+- Fix shutdown(): tear down in the same order as remove() -- free_irq()
+  and timer_delete_sync() first, the mux change last -- so no IRQ or echo
+  timer callback can drive a pin after it has been handed back to another
+  function; shutdown() no longer changes the mux while the hardware is
+  still live
+- Require a "default" state whenever "inactive" is present and reject the
+  mismatch, rather than releasing pins that were never put into a defined
+  PPS state
+
+Link: https://lore.kernel.org/all/20260916134744.46354-1-farbere@amazon.com/ [v1]
+Link: https://lore.kernel.org/all/20260916182641.9768-1-farbere@amazon.com/ [v2]
+Link: https://lore.kernel.org/all/20260917075611.47881-1-farbere@amazon.com/ [v3]
+
+Eliav Farber (3):
+  pps: clients: gpio: propagate probe error codes
+  dt-bindings: pps: pps-gpio: document optional pinctrl states
+  pps: clients: gpio: release pins to an inactive state on remove and
+    shutdown
+
+ .../devicetree/bindings/pps/pps-gpio.yaml     |  14 ++-
+ drivers/pps/clients/pps-gpio.c                | 102 +++++++++++++++++-
+ 2 files changed, 111 insertions(+), 5 deletions(-)
+
+
+base-commit: 4982d3552a3bf94de503acf93433277d08421de6
+-- 
+2.47.3
+
