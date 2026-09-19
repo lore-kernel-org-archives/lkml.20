@@ -1,121 +1,157 @@
-Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com [74.125.231.205])
+Received: from mail-wr2-f17.google.com (mail-wr2-f17.google.com [74.125.225.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95F672DB785
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 17:37:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.205
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789839475; cv=pass; b=l61GpeBTI6q1seAP0YbuXSu5u9jYQ1dmRAvhr48Iy+1p8fdt9NMtbUv9JR7oySF6sDM0Ihj9mFckMN6yBPx0TU0SAM+zNlZ+4nxEx6xIXxen5MEhf4u0C2UbmOKgbH+gxNvCxjhWNtpZWdYt7bLAjPvyC/yFOE3R1H5OSxkmYhI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789839475; c=relaxed/simple;
-	bh=3M3Ly8PtfuuDQudfR3+28sw5EfN2/wDbZ9K6hoePcXE=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=azZBO0LyQRavaspsX7JXYAU49F1GtiHI3s5hj+rF1G1gFAzpj6unNLdFj1jI2ApCFh7ZeyVdeyQmurRwz22j1HnqUsGHBOA4wmjmI9ovLE0iZROFluaDFzGgAc6CQ6ZY9B8AdI22AQI6hrpdaTj3IP9wF8gHorsbj0rTM1aNeR0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J3cqfnVL; arc=pass smtp.client-ip=74.125.231.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F003230BD5
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 17:39:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.81
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789839547; cv=none; b=VeDLx0D8cmBweCO4lUmFuSo79ZGQXV3HWpew8YybQJ4DSLqIk9EedRaYLqeqYqSGWSBOmSibtUJp/yeNstNpBkzO+tbE8ofqVhQ6vfm3GbUuAis7I516ARwZB6WlH3sY42/C5vCAq1Msuh7lejlGqF7CoaSpepzc+5GuXeUH1d0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789839547; c=relaxed/simple;
+	bh=aDvLfzrRHVzY7Tr9+WJLzfUguQi3Vufm2HiQHBwcIPM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MDzUH3o2b42uWigb+WWoNYwv8xe+yNgAnu69I6mMoKZjZGcSfoeMFXJvXXJ0FcPxvo6c88FA2z352gEFT8EUE+2AtYeeKs3+rLdwvxg6wRKrfb7Y/gvsIpNyKuEJD4kS4COXUwRrrKBjEPMGHkdttb9cdCRcBys8JR+zMOW0l5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eer6wxSY; arc=none smtp.client-ip=74.125.225.81
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J3cqfnVL"
-Received: by mail-oi2-f13.google.com with SMTP id 5614622812f47-4c13f2685f2so1063019b6e.1
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 10:37:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789839473; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WZumdBORTcSHLG3vEG3m2GvdBx84f1/UzW0kYXArSmrnM78kv8KfTzAq35IqmeLdml
-         tjHTg0yekKYVGqysDFUepDLTPIhK4btJRxpz0TL1jwPuat9pJNC3BOPCd98yxZVpxGcs
-         eYq4F/E9+dHUiHS9ujGIopWHdMwOazwIf9HWrEl1O32cHf5WOv2s+Jv/BzVqKxRA8tgX
-         ADlkVu6QwJ7S/Eol/IaYcO6PYYI9HWdkTvCjZIgo//dRx5FYNR0hVpkCNr7pPSlrv5Ip
-         uRcDmmeTfeia4Qw84nomwTiiC2aNRZO40ElKn54G1MpZFzHVXGy3KSCNCQA+yBiTE9se
-         UWIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=urXzmInWVRHneRjWpEj4c3oyfAKdN4ZIpc92YRdUpZI=;
-        fh=LB6TI/6jEqRFs+6WQK/7pZQKg+yG/s5iuNbHhDQmbm4=;
-        b=pJC33MYr99zLttgrUGwboTfnsYAurk8p9MSaGh3hPulkNkA/qLBP8pxotaxbFAA5j9
-         jW2ZDsboG24oLyZNFC4jkMbmxewOrQvkwZ4XdipGBbOsUhaZxPLxxUSq/SaJHlO8+YNa
-         aio19x/QAPOI938ZPtqDMNsiEpk4f0GizgHuFqqmIA8cJ/QlHpLhV9FN7yfcLeMV/P2w
-         nRwEA0y842W2dcIIP3UDI3zWPWR/48Sqv1B85bFsYgaDZkFXpGj7q6BiyZsH53licxSD
-         JJkcb6cP0lHvaa+gP/H3pyhJFUUeLmi4aYA74xTfYGxiT1duKnElsLKUFhBFtUI1dG77
-         vQ+Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eer6wxSY"
+Received: by mail-wr2-f17.google.com with SMTP id ffacd0b85a97d-484366874b0so970569f8f.2
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 10:39:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789839473; x=1790444273; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=urXzmInWVRHneRjWpEj4c3oyfAKdN4ZIpc92YRdUpZI=;
-        b=J3cqfnVL9RD+0cki21EAZttOH10vGBFnFvC/DByMmpIXEt2A0kRoMYRbTRrxYskD5b
-         61kSYjS4J6uitlRBYgN9Ol6s9egI/FcujXizg7FHkx1F0yCP5zU19rEY+rpgAvsdcc9T
-         dl0jmmAGCm45L+PPd2lBIlVNnYHyFWGHLDWmvnntivrnT3m4sawxy+7htB6LqMIG2PoX
-         E2O+ZD8RySmGIoXNDTOsvf4C/a1c4xRO2rg9EJLzdjVckbMm5o0QxbKEXSM1ajT9G6uq
-         SaYBPaYvlGDGvZFKSKdifpRoZr3cJI84TgM3k5x1uQD049F4v1rkXNk1yiSvGyZr6Y5o
-         Mlhg==
+        d=gmail.com; s=20251104; t=1789839544; x=1790444344; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Kb3NePwhd8h9g2zyqPYSNTvlvzKmxXhHsFrfj1sSN/c=;
+        b=eer6wxSYmUpW4J+eYMG9skTYNtAZ3f/lBie8PKtRcjCssfGMUUNYzXrnkdbwQ7QTE9
+         RAeb07R6p3tAQisOEHb9CRLu/U4maygk0w5wg2ZmBKnKQ5+sRbby1tn3nLpopbiGr83n
+         r2VlxTQ3vkZTV/InTnwK31KrxlpNmsUBDj8VpwHnGtGAJkzpO76IK9HBNtXuj4oqKDRX
+         6uIS4X+Lwql/iJjrKA4NLPmkZ7uV37W/AOsm8544qhOHtKZlHjfbeRXP4Ykv7jbBXurI
+         X+kpPAHO4j7lXgGnOkMQX6JhwGmXAvN0jf8bOco7Mkp79u9Gkbrg/DfcnPZOgsqaAI40
+         YD9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789839473; x=1790444273;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=urXzmInWVRHneRjWpEj4c3oyfAKdN4ZIpc92YRdUpZI=;
-        b=vPxjWOASanujm3Zug7TShWBnl41sU3t7RNMA0IFPoCAG9gNpuEGIR/xTgq64iY7B5K
-         tlvvLGJ5X1SWzJbLYb0iPmK+P8ozgphR5uMAQWuqGrdw0ff1X4gdNX/qxZKIdtSlruh/
-         OafOTdDfyrFmOZHeVDM8/stMraQ6xPzTvzqbGeIRT5NCo9QIC0LfqCVSwxsAhvQaTU98
-         iZ4bChls4DJOZReGBiFflbDVQCGyz8CRP2K2AGUVtckirhuCcFpmdj0TGEg/6wrCz2Ak
-         3V3l7s9Agw8Gzx4cD04fFX/JG6wlIlPg+U5HeiCD9eJ0DyX/pfwbI+9YVSCvjdySloLe
-         ic6g==
-X-Forwarded-Encrypted: i=1; AKwUvBwG97CSwTwp/y+tnW8ccVEy4XPzA34/1OgDeCMpv/r9m4Yj2jSCnZVFijDHTlm6/vFqCz5RUvmqYAjkMM4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kTgRDEYA3im3OiZVMmJHn8veni5qFv8A60B2sbTezB0WkNl+xO
-	clb4Zt2LBzn1Dv/cC8e7h4FTanFPKqxd9amHwspdwqArPt5RXgNhyjGztt6E4im+6d4HhWUYqaF
-	TiPQ/scFMZNCU3+JK92QUrIQWerUn4uo=
-X-Gm-Gg: AYBFou3LNWB3r0q0/C2ui24Cquw4FZDhCeWWdAecCcZyPBOh8ikS47y1tPEeYdmbk8Z
-	UzBF4EEqJa5QgoeyCm9rpaIZXXovcpBBK6xo6RE2GdBeWw2BGE4xqud0IPh69hT190jlXZyjkNA
-	P7ONGfB5jhGEvJXumSvJCzyzxbW6M0PZh+5oxx4QmRx8I3TXkWife14FGTxSCgLAwB1WohDSm+i
-	72ZUZBP+sm57MqbjAQWDkMCepT/LN2WaHs0GlxCB5eXdEk4TRpoW1Up/Pp9cQ2AdVFhQBNQtZ+9
-	qwhoKmrS4syuwxM+vZ1HQOfSLOkeZJK6u71BhqjcktGSRncIZ5b0h6/FhCjoJ0ZN3w4jFc1niX4
-	RPhZOgmwlJMUAPSG2MksulOAko3OjDujt76djQSeGlsAOlIgtfjgHw36X0XV6tAvVUE7V/PM6yq
-	GF+UdVBL8+W+NO2mbDSLffiQ3aU0mpdDM=
-X-Received: by 2002:a05:6820:188f:b0:6a3:1dc5:3570 with SMTP id
- 006d021491bc7-6ca9be4ff96mr5127192eaf.31.1789839473388; Sat, 19 Sep 2026
- 10:37:53 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789839544; x=1790444344;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Kb3NePwhd8h9g2zyqPYSNTvlvzKmxXhHsFrfj1sSN/c=;
+        b=Y6EjuiwVxvVnMfRh4GczuOfDRqjzZMT5ufr9ZnS5G4wUFZgzZ/wosGrkkNBSaJqaFP
+         flc6hkrPRoP3fYI2YAq+/xnix4GrkCYs3fEgwOrlgxsWeZo6qTsecjjvSq/mkhlBseaN
+         axWwdgq+j2dXDTnQBE9cbgxi4Kvdoth2OuI/uC0bJd3XosQyQ9l9aMPGiHhZkeuucYZW
+         2GTm7cJodDKhpXjQDt0MuWA5lAea5N/t9demR0Kuk+HbyWOZez8TptR8x2+8PtsgjmvO
+         5RSnvtfoQKC7vmqbJdauL+0Q+xNyrGf6iq9pZimSxR7BScdHjO3N0INCxUrwu60THA4h
+         Fq0g==
+X-Forwarded-Encrypted: i=1; AKwUvBzqUqeb6g9lP+fn/GW1LH3MmWGRRTZfEF8ykk4ytGMcg9qYAU0K4D/L0TthDtIgz3CVqb7k8r0ab+6NKe4=@vger.kernel.org
+X-Gm-Message-State: AFuF++m1axZTSxJVvFMl6VLvUeDz/dhMhpfEOG9KQo/MTswk1enk2pNg
+	nghvu5XepkhWNAlEpyOV1idmk9hCRi8g+D/Qp9LI2e9zOwmXBRQXZFX3
+X-Gm-Gg: AYBFou3NIKRXSUx62TZ87Y4mAkTfoXDFniAjaiUaQixUYiGJ7yLbkFBrQ9LyzZ2UPuO
+	MPpB/SdjGUhDzJaVmZgCPfIoT9sqsyltRwONCrPhx3MN71rxRFFSQY4Qq82UKcx/AVpoNWKzdjP
+	Ny8xkso08ZEfun2H2a7mxhQ5e85DB/1CD+sRrB5WT/qPgh706KFFX/pwhrMGywyv5iVlO3BSAxU
+	53F+yYafIB13JcTY549KjCWb5m4KoENT4ni8nfJUE8PjFBHEu8j9TfR0l0CZiS26O+rYRQjegTw
+	+UPs9cwsOL6EyCKMBlrm+93cDcpcIyN1VkH0kUgqJVhpuwjbaxvyIAe6kdnDNH3DKWEXlR18ylJ
+	HlJzk5c/Mjk2t+LEi5PSr1dRwQ6i880iMTtVcQNp7lxz3TztmBk+2EVPCz8bgAmG6RMWwz1/2HV
+	QAUayJ2WgrAe7wv2XF289kMqJHrVVS8jtEGZCU4lnwVCcH0iDqA6tUaWYNmXt9kIKpke/QlAk7/
+	Qw7LQ==
+X-Received: by 2002:a5d:5d0e:0:b0:487:27f6:a4da with SMTP id ffacd0b85a97d-48727f6a725mr2724663f8f.42.1789839544149;
+        Sat, 19 Sep 2026 10:39:04 -0700 (PDT)
+Received: from [192.168.1.50] ([81.196.40.70])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48724460753sm8886436f8f.10.2026.09.19.10.39.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 19 Sep 2026 10:39:03 -0700 (PDT)
+Message-ID: <2f2f2366-bf64-45d1-911d-6a769be9d7aa@gmail.com>
+Date: Sat, 19 Sep 2026 20:39:01 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Bartosz Brom <bartosz.brom06@gmail.com>
-Date: Sat, 19 Sep 2026 19:37:14 +0200
-X-Gm-Features: AcwNN1VoogZIq0FCgYpuaMQJlESNWEeYCUSCBaNQtgaYhZ4PzJxlUMUv0QsqjvE
-Message-ID: <CAN3WbsSrR_gXGO2Dco4kBuPOw5LGAzHFJgeTW6rXYYvvjkC6Rg@mail.gmail.com>
-Subject: [PATCH] ALSA: hda/realtek: Add mute LED quirk for HP Laptop 15-dw1xxx
-To: perex@perex.cz, tiwai@suse.de
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH rtw-next] wifi: rtw88: 8821c: disable deep LPS on PCIe
+ devices
+To: Paolo Lazzaroni <eexto@aol.com>, Ping-Ke Shih <pkshih@realtek.com>,
+ Kalle Valo <kvalo@kernel.org>, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: Oleksandr Havrylov <goainwo@gmail.com>,
+ Gabriel Maia <gabrielvinicius.damaia@gmail.com>,
+ Rahul Kumar Rai <learn.rahul.rai@gmail.com>,
+ Mihail Dimoski <mihaildimoski@gmail.com>,
+ =?UTF-8?B?QXRhIMSwbGhhbiBLw7ZrdMO8cms=?= <atailhan2006@gmail.com>
+References: <20260918232801.119348-1-eexto.ref@aol.com>
+ <20260918232801.119348-1-eexto@aol.com>
+Content-Language: en-US
+From: Bitterblue Smith <rtl8821cerfe2@gmail.com>
+In-Reply-To: <20260918232801.119348-1-eexto@aol.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The HP Laptop 15-dw1xxx with an ALC236 codec requires the
-ALC236_FIXUP_HP_MUTE_LED_MICMUTE_GPIO fixup for its mute LED to work correctly.
+On 19/09/2026 02:28, Paolo Lazzaroni wrote:
+> On RTL8821CE PCIe adapters, entering 32kHz low-power clock deep sleep
+> (LPS_DEEP_MODE_LCLK) causes recurrent PCIe completion timeouts,
+> "firmware failed to leave lps state", "failed to send h2c command",
+> and hard system freezes when transitioning out of low power states with
+> PCIe ASPM enabled.
+> 
+> To work around this, a DMI quirk list (rtw_pci_quirks[]) was introduced
+> and has grown across HP, ASUS, Dell, and Lenovo machines. However, DMI
+> matching is unsustainable: minor sub-model variances (such as ASUS
+> FA506II vs FA506IH) or unlisted models (such as ASUS VivoBook X515JA,
+> Bmax Y14, or modern Alder Lake-N mini PCs) leave users experiencing bus
+> lockups or firmware drops unless they manually turn off power saving via
+> iw.
+> 
+> Examination of official OEM Windows driver INF files for RTL8821CE
+> (HP and ASUS netrtwlane.inf) reveals that vendor drivers explicitly
+> disable deep power saving (WoWLANPSMode = 0, bLPS_PG_En = 0) and enable
 
-Add subsystem ID 0x103c:0x85f1 to the quirk table to apply the existing fixup.
+Disabling LPS_PG doesn't mean disabling LCLK, I think.
 
-Tested on an HP Laptop 15-dw1xxx; the mute LED now follows the speaker
-mute state.
----
-Signed-off-by: Bartosz Brom <bartosz.brom06@gmail.com>
----
-diff --git a/sound/hda/codecs/realtek/alc269.c
-b/sound/hda/codecs/realtek/alc269.c
-index 5127a111c59c..bf7a20404233 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -7388,6 +7388,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
-        SND_PCI_QUIRK(0x103c, 0x85c6, "HP Pavilion x360 Convertible
-14-dy1xxx", ALC295_FIXUP_HP_MUTE_LED_COEFBIT11),
-        SND_PCI_QUIRK(0x103c, 0x85de, "HP Envy x360 13-ar0xxx",
-ALC285_FIXUP_HP_ENVY_X360),
-        SND_PCI_QUIRK(0x103c, 0x85f0, "HP Laptop 15-dw0xxx",
-ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
-+       SND_PCI_QUIRK(0x103c, 0x85f1, "HP Laptop 15-dw1xxx",
-ALC236_FIXUP_HP_MUTE_LED_MICMUTE_GPIO),
-        SND_PCI_QUIRK(0x103c, 0x85f3, "HP 250 G8 Notebook PC",
-ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
-        SND_PCI_QUIRK(0x103c, 0x8603, "HP Omen 17-cb0xxx",
-ALC285_FIXUP_HP_MUTE_LED),
-        SND_PCI_QUIRK(0x103c, 0x860c, "HP ZBook 17 G6",
-ALC285_FIXUP_HP_GPIO_AMP_INIT),
+> firmware PCIe recovery, while keeping standard PCIe ASPM enabled.
+> Furthermore, other chips in rtw88 (RTL8723DE, RTL8812AE, RTL8821AE)
+> already set lps_deep_mode_supported = 0 by default.
+
+What those other chips are doing is not relevant. RTL8812AE and
+RTL8821AE are not officially supported in rtw88. (Not yet?)
+lps_deep_mode_supported is zero in rtw8812a.c and rtw8821a.c because
+rtw88_usb doesn't implement deep PS and I didn't research which
+modes they could support if deep PS was implemented for USB.
+
+> 
+> Conservatively disable LPS_DEEP_MODE_LCLK specifically for RTL8821C on
+> PCIe interfaces in rtw_update_lps_deep_mode(). Standard 802.11 LPS
+> power saving and PCIe ASPM remain functional, preventing system lockups
+> and firmware failures without affecting SDIO or USB variants.
+> 
+> Signed-off-by: Paolo Lazzaroni <eexto@aol.com>
+> ---
+>  drivers/net/wireless/realtek/rtw88/main.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/drivers/net/wireless/realtek/rtw88/main.c b/drivers/net/wireless/realtek/rtw88/main.c
+> index 0f23498b5..5bd854223 100644
+> --- a/drivers/net/wireless/realtek/rtw88/main.c
+> +++ b/drivers/net/wireless/realtek/rtw88/main.c
+> @@ -1360,6 +1360,14 @@ static enum rtw_lps_deep_mode rtw_update_lps_deep_mode(struct rtw_dev *rtwdev,
+>  	    !fw->feature)
+>  		return LPS_DEEP_MODE_NONE;
+>  
+> +	/* RTL8821CE PCIe devices fail to wake up from 32kHz LCLK deep sleep
+> +	 * in time for PCIe completion deadlines, leading to PCIe bus freeze
+
+Completion timeout is already disabled for this chip.
+
+> +	 * and communication timeouts.
+> +	 */
+> +	if (rtw_hci_type(rtwdev) == RTW_HCI_TYPE_PCIE &&
+> +	    chip->id == RTW_CHIP_TYPE_8821C)
+> +		return LPS_DEEP_MODE_NONE;
+> +
+>  	if ((chip->lps_deep_mode_supported & BIT(LPS_DEEP_MODE_PG)) &&
+>  	    rtw_fw_feature_check(fw, FW_FEATURE_PG))
+>  		return LPS_DEEP_MODE_PG;
+
+However, I'm not saying it's necessarily wrong to disable deep PS for
+this chip completely. I'm just objecting to your LLM's conclusions.
