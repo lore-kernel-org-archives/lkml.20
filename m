@@ -1,282 +1,191 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F6CF374E48;
-	Sat, 19 Sep 2026 20:44:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789850645; cv=none; b=H3lBRhoaffk40i/l6vJfUG9efagDP6mhRFlbvmL1xdMc4na7UJJHNvZ3Tocgz9SE65dDNphtXxy7OaIA+5vrqXC/Hbrp79uQbpjqLc5GY4T+s7iCLJj9BNBOzZkJ4ii2j+XpCapRF6aw2rM5FSQ9xc3tDQvSnBdFzHwqsDqY7+A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789850645; c=relaxed/simple;
-	bh=4W78FwMWh4CkJw7GIiqqdH7RuAbrFba5NTIWdCi/LyU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Kh6mcRPmTi9HRAW+5q/QkMNa509h/ZsHYYoFsHlon9lzjsunR6nzfLexoQgu8xgXVS182VDp5vk3xE4RDv0vqmX1C+/vURxnS/SXl00pRggzJHpm25TTJ1neC9xzcgr4Dkw/8qhVgvb53a0XSZbN15+75EzTzxbUmfWA2aPT4uQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F8vfZUvY; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B935638DC4C
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 20:44:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789850667; cv=pass; b=L76H6GjP0dyMK3wQ96GF0fhQQb+tQaddZ78O0hmoMcpnOTlWN3/0X9NTz8SWu7g1vYhlVkC/luKTCljO7iGeMFHpPioC2SEFdsCESiw0xzdUbSk9Q8flCyX1Z8fkbzjVGJC9DB6pUojOqONAwO4W2e6vyb2VtiJV7QuVP7iPIH4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789850667; c=relaxed/simple;
+	bh=fG9smriL9Avld9eCP1TXKVywUYOjUPJA2/+J1iN2yo4=;
+	h=MIME-Version:From:In-Reply-To:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lnuOr4Pd0gQTR5RqMxagHqvt5bHLpoqRpQxTvbNUMQ5QtaqNd935x0bG6RRiEUzAzRoOIaDzMC/sI6CQXl3oaX7PhojGnXyTP2WaNTAFi4cr+RBY76Dkn8SeaYatYxU+M2tIuZxfwv4BDPBnnBV5WP/ZkLQe6pRgIVRejCqhcow=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=khu.ac.kr; spf=pass smtp.mailfrom=khu.ac.kr; dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b=PKmufmWN; arc=pass smtp.client-ip=74.125.229.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=khu.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=khu.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F8vfZUvY"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E44C8C2BCFA;
-	Sat, 19 Sep 2026 20:44:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789850645;
-	bh=4W78FwMWh4CkJw7GIiqqdH7RuAbrFba5NTIWdCi/LyU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=F8vfZUvYre9WAhv6mYfyJR5ReD5xJWJSRVVkeDNYQys8vy53VjmNSt3DRt3DMOQj1
-	 XFzD/6QOE4j6AnJN5bZsUTaUjae9lnQ/RRfBu48Zua7DvfQm7xCv+D0rF0NHlfZw5B
-	 kc5/wqsyOfY/W7uCeGNpFEah2h6Vy7Ub7GwgG1rBZI3gMOaBXICqE2W5f0YF7fYgSt
-	 0W+mYaruMZkfviJZX6ShEhuGtgF0xhhr8mFHgdcSML9zvyJsy2uh++8oy1gXBmtijU
-	 V4kmDypBCnTOkLUWXjWlB0kfLqMZJx4i/UkYNv0zxX4m+ZUyqqM+4wYMiGIYHe3QMO
-	 7GmJkgSh1l5TQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C7805C982DF;
-	Sat, 19 Sep 2026 20:44:04 +0000 (UTC)
-From: Kim Wooseok via B4 Relay <devnull+5mghybrid.khu.ac.kr@kernel.org>
-Date: Sun, 20 Sep 2026 05:44:05 +0900
-Subject: [PATCH rtw-next v3 2/3] wifi: rtl8xxxu: unwind incomplete receive
- startup
+	dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b="PKmufmWN"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f16c72so1486904e87.0
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 13:44:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789850660; cv=none;
+        d=google.com; s=arc-20260327;
+        b=p8A7/Yo6rcoW6xtSlnej3ERyAEadB/3QUNLw+BTwTQSty+/vco7JlLKr6SA5tuEEOe
+         8LRwAyLm7hD35h+vYAqUz90yI/IoHtSyEqpIMxLFo9nQWDOwf1Itha2uTdcWYMf7LLK8
+         2RREaVI1/A7vNWVwPv47LDC/QNEAOauCxv86HKHHkT6PN2Ewz1F6ei7WYyFJXL23hPKU
+         c3Cz5VcK9DXepwV6i290J/cYxRfqfqqtvBWvRNrm9kVQgU9JEmcZS39snkpOX/l6SRNK
+         l7sGQ6jsNh98ml0Xsxo2dtuafk0jWU8WAqhQT54e0RnGtlI243AO7OApR+uo0vzd6upn
+         MdTA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:references:in-reply-to:from
+         :mime-version:dkim-signature;
+        bh=/eAHbyiob+ZcoG2VDBo0Mr54QnNvtez/xnycfesyT/I=;
+        fh=C6U/+4iUboKVnRtbKzBRkoCRN0mUag8TU8VXIH74YY4=;
+        b=AOvNXAnpjNIZXsHHhFpJR9C6XEYRcg6j0MqvS4z7wAL1fAZkD792k9yZjIlPDt/qgZ
+         fepHD/feMbSf1bmqy7+fHuR78OmBEvMNpGP3vBR2vFjFwd88giinbzrJ+IhXFvyJ+FJn
+         gPHH1cQOtlZclMt8qfcmRwRmAZYqLsnXw+U5oN1cEX8La9Ku/O0WgfDAWG3ClGSvSbkR
+         NajQGI+1Tb5+gcHHAhXQYWzK/NLuuEs3Xy/ys6/ywb3Oqw6axdKsZ4Q0Az2GLdIcqjVp
+         iv9KUkif4T3NZXSoyS67ruheuSuDRTSpwCCHlnJ/4KWogdvA18PE0cCZ+fwTQvq7yRx5
+         j+Jw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=khu.ac.kr; s=google; t=1789850660; x=1790455460; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
+         :from:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/eAHbyiob+ZcoG2VDBo0Mr54QnNvtez/xnycfesyT/I=;
+        b=PKmufmWNhHdeQrpoRwPoNWE2m3XxCk2td6ONe8CwZF/Io6lLaA1q8Ua7LWEG86SSrL
+         s8N0GH/XiGjQGnp5zBYG9y1zATK5utuJ/L09FTNnvaLs2jsrjzyGeai5X+CES2GqA5oj
+         fiuGRkP+bNNbwmEwzb4ImNBSscPKCXb2IvZrI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789850660; x=1790455460;
+        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
+         :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/eAHbyiob+ZcoG2VDBo0Mr54QnNvtez/xnycfesyT/I=;
+        b=C5h1U/O29xbYfxv9TOACVw6Qv61bsvUihvG61zc0tNtScPsfOln112RKpJ/Uwrea7Y
+         TkL29cphAJiHzGGpvfK6tEHsO9d+nMfZ4F3jEtn7vXP2Sr4t6NC1R2DJYVzBmwOVLCHv
+         5CVWbi+LHiGWXawVBJBkL9EPpHkcK4ryRclkXMGCNwO+z0No6t06GcYAPUafBr84AQHL
+         hkwvdCoY+jB9bleyXZmjPuwaWs9x3xIjMpga+euT/lvVaL5Yh4RzJvvgM6b59hP8LR7T
+         QiSwg8cvr5yrUcbVN5a73jWTA1oyT4uXaZym6utXc2kkjWhs4/110Mcb4Dsm9t8crroH
+         eFIg==
+X-Forwarded-Encrypted: i=1; AKwUvBzWvZe/Xh7P10iTBzKtrKucHlSmSBndRyGBF4ZvFEzfr4ktxTpW2YixQ0hTV2iFWMJIJKXheXxJeHP1ZlM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lg8N2T8BcrMPrxllpCeyklXdBw4aU/b/LM7dWxuT/WBRzX59NW
+	CXk98xkWohb8OClw83bPLd7DF0cZCORqUUHGmhrZUau5VXvN3iYwVbP1mivLyTnHS/MdtxqxH5Y
+	orlbw3K6weHfkE+qTHDccdrJ7ysA6ZEwxJ2bAIXNmQKRhQp+gs34x
+X-Gm-Gg: AYBFou2UHDS2+GYGgvA4qb85ebobUCQwPi6y+9gCEoYOJ7b2eqzKoj3RLYd9vJfcjZk
+	JnjUaUTJTIzkTuwTZlic8UT98qpJqmr7Ltbr2/T7Ibjuo8L4UigXGvdHPjAUrMRK/fZEcxjcifG
+	bn4weU3CCNQCpcpYfpKm+RLnNHGWj5YJWFUzqqhuFswwBebis60qtH7Kw30L3qF0fbdd2/GejOj
+	8M4DuDHEcuoItsQbOXDBIqxSvaJWblGxU1ljxa0Ts+sB7C/hMf2ZdCSm+Sd65VauTBrM9KF0pvW
+	3+6DYfbRI1kbOJrvVF7c0VW52hMKFyjZj7WxilUBLbvBGOsjlaU=
+X-Received: by 2002:a05:6512:3d1d:b0:5ae:c8da:6254 with SMTP id
+ 2adb3069b0e04-5b8c18298d5mr1778890e87.22.1789850659945; Sat, 19 Sep 2026
+ 13:44:19 -0700 (PDT)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Sat, 19 Sep 2026 15:44:19 -0500
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Sat, 19 Sep 2026 15:43:33 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260920-codex-rtl-rx-v3-submit-v3-2-883d11351963@khu.ac.kr>
-References: <20260920-codex-rtl-rx-v3-submit-v3-0-883d11351963@khu.ac.kr>
-In-Reply-To: <20260920-codex-rtl-rx-v3-submit-v3-0-883d11351963@khu.ac.kr>
-To: linux-wireless@vger.kernel.org
-Cc: pkshih@realtek.com, kvalo@kernel.org, linux-kernel@vger.kernel.org, 
- Jes.Sorensen@gmail.com
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789850643; l=6605;
- i=5mghybrid@khu.ac.kr; s=kernel-20260913; h=from:subject:message-id;
- bh=OyDx5rqQosEORE8l/erZWFaYVL1RAiawqnAc+isUD8g=;
- b=AyIU/A7O/gd25EvcDw8HcPXZvk2amnaZxTQiI8/QUnLjF1+cdS8aa2Igk2w7J6cq0qe9YozoV
- ERUJ/87p5VfBJSWw7dRp39BX6dFeDVxX5l0FYtV/yCCWGoaodwc1X+A
-X-Developer-Key: i=5mghybrid@khu.ac.kr; a=ed25519;
- pk=1az/6lC8Tmd6BcvyarPc8FWoSxsV/WRr5NLs1v+kjlE=
-X-Endpoint-Received: by B4 Relay for 5mghybrid@khu.ac.kr/kernel-20260913
- with auth_id=1028
-X-Original-From: Kim Wooseok <5mghybrid@khu.ac.kr>
-Reply-To: 5mghybrid@khu.ac.kr
-
+Received: from 77377267392	named unknown	by gmailapi.google.com	with HTTPREST;
+ Sat, 19 Sep 2026 14:52:09 -0500
+Received: from 77377267392	named unknown	by gmailapi.google.com	with HTTPREST;
+ Sat, 19 Sep 2026 14:50:50 -0500
 From: Kim Wooseok <5mghybrid@khu.ac.kr>
+In-Reply-To: <ca51eb88df7b4e83993af73c2f1e26bb@realtek.com>
+References: <20260913-codex-rtw-rx-v2-v2-0-f09c964e0b96@khu.ac.kr> <ca51eb88df7b4e83993af73c2f1e26bb@realtek.com>
+Date: Sat, 19 Sep 2026 15:44:19 -0500
+X-Gm-Features: AcwNN1XkXEzzYMBLWTykZJpCaY-PNLdTMEUvL7yvSz-NLAkhRJllSBnH9toq11w
+Message-ID: <CAH1Bc_wo3PqWiqFcWZX9xB_+99=zHOdCD1VUg0R287Z2B4ESrw@mail.gmail.com>
+Subject: Re: [PATCH rtw-next v2 0/4] wifi: rtl8xxxu: keep RX requests
+ available across transient errors
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: linux-wireless@vger.kernel.org, Jes Sorensen <Jes.Sorensen@gmail.com>, 
+	Kalle Valo <kvalo@kernel.org>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-rtl8xxxu_start() allocates and submits RX URBs one at a time. If a later
-allocation fails, the error path frees the TX pool but leaves earlier RX
-requests active. A partial TX or RX allocation failure can also leave
-ret at zero, so start reports success despite the incomplete setup.
+Hi Ping-Ke,
 
-Allocate the RX pool before submitting any of it, and return ENOMEM
-whenever a pool allocation fails. Pass start errors through
-rtl8xxxu_stop(), including interrupt URB submission failures, so the
-existing stop path cancels work and releases both active requests and
-partially allocated pools.
+Here are the test conditions and results to help with the v3 review. I
+have listed the 13 tests reported previously first, followed by the v3
+results.
 
-Share the submission loop with the RX worker. Both callers keep requests
-that fail with ENOMEM/EAGAIN. For a fatal error during startup, free the
-rest of the unsubmitted batch and return the error so start can unwind.
-In the worker, free only the failed request and continue with the rest
-of the batch.
+The tests used an RTL8192EU USB adapter on a Raspberry Pi. I adapted the
+RX changes to the Pi's existing Linux 6.18.46 RT kernel so they could be
+tested on the device.
 
-Keep the allocation loop in a small helper so the setup and error paths
-in start remain easy to follow.
+For the recovery tests below, I checked that all 32 URBs were retained,
+reception resumed without restarting the interface, and stop freed the
+URBs. The RX completion counts are from after the injected errors ended.
 
-Fixes: 26f1fad29ad9 ("New driver: rtl8xxxu (mac80211)")
-Assisted-by: GPT-6 Astra
-Signed-off-by: Kim Wooseok <5mghybrid@khu.ac.kr>
----
- drivers/net/wireless/realtek/rtl8xxxu/core.c | 96 ++++++++++++++++++++++++++++++++++++++++++++++++++++++------------------------------------------
- 1 file changed, 54 insertions(+), 42 deletions(-)
+1. clean-fixed-regression
+   No faults: receive for 3 seconds, down/up, then receive for another 3
+   seconds. PASS: 581 and 246 packets received, with no RX errors.
 
-diff --git a/drivers/net/wireless/realtek/rtl8xxxu/core.c b/drivers/net/wireless/realtek/rtl8xxxu/core.c
-index 795a5ec2f8cd4..5ae3dbf5034ac 100644
---- a/drivers/net/wireless/realtek/rtl8xxxu/core.c
-+++ b/drivers/net/wireless/realtek/rtl8xxxu/core.c
-@@ -58,6 +58,7 @@ MODULE_PARM_DESC(dma_agg_pages, "Set DMA aggregation pages (range 1-127, 0 to di
- #define RTL8XXXU_TX_URB_LOW_WATER	25
- #define RTL8XXXU_TX_URB_HIGH_WATER	32
- 
-+static void rtl8xxxu_stop(struct ieee80211_hw *hw, bool suspend);
- static int rtl8xxxu_submit_rx_urb(struct rtl8xxxu_priv *priv,
- 				  struct rtl8xxxu_rx_urb *rx_urb);
- 
-@@ -5832,6 +5833,27 @@ static void rtl8xxxu_free_rx_resources(struct rtl8xxxu_priv *priv)
- 	spin_unlock_irqrestore(&priv->rx_urb_lock, flags);
- }
- 
-+static int rtl8xxxu_alloc_rx_urbs(struct rtl8xxxu_priv *priv)
-+{
-+	struct rtl8xxxu_rx_urb *rx_urb;
-+	int i;
-+
-+	/* No RX work is active until the complete pool has been allocated. */
-+	for (i = 0; i < RTL8XXXU_RX_URBS; i++) {
-+		rx_urb = kmalloc_obj(struct rtl8xxxu_rx_urb);
-+		if (!rx_urb)
-+			return -ENOMEM;
-+
-+		usb_init_urb(&rx_urb->urb);
-+		INIT_LIST_HEAD(&rx_urb->list);
-+		rx_urb->hw = priv->hw;
-+		list_add_tail(&rx_urb->list, &priv->rx_urb_pending_list);
-+		priv->rx_urb_pending_count++;
-+	}
-+
-+	return 0;
-+}
-+
- static void rtl8xxxu_queue_rx_urb(struct rtl8xxxu_priv *priv,
- 				  struct rtl8xxxu_rx_urb *rx_urb)
- {
-@@ -5859,32 +5881,21 @@ static void rtl8xxxu_queue_rx_urb(struct rtl8xxxu_priv *priv,
- 	spin_unlock_irqrestore(&priv->rx_urb_lock, flags);
- }
- 
--static void rtl8xxxu_rx_urb_work(struct work_struct *work)
-+static int rtl8xxxu_submit_rx_urbs(struct rtl8xxxu_priv *priv, bool startup)
- {
--	struct rtl8xxxu_priv *priv;
- 	struct rtl8xxxu_rx_urb *rx_urb, *tmp;
--	struct list_head local;
- 	unsigned long flags;
-+	LIST_HEAD(local);
- 	int ret;
- 
--	priv = container_of(work, struct rtl8xxxu_priv, rx_urb_wq);
--	INIT_LIST_HEAD(&local);
--
- 	spin_lock_irqsave(&priv->rx_urb_lock, flags);
--
- 	list_splice_init(&priv->rx_urb_pending_list, &local);
- 	priv->rx_urb_pending_count = 0;
--
- 	spin_unlock_irqrestore(&priv->rx_urb_lock, flags);
- 
- 	list_for_each_entry_safe(rx_urb, tmp, &local, list) {
- 		list_del_init(&rx_urb->list);
- 		ret = rtl8xxxu_submit_rx_urb(priv, rx_urb);
--		/*
--		 * If out of memory or temporary error, put it back on the
--		 * queue and try again. Otherwise the device is dead/gone
--		 * and we should drop it.
--		 */
- 		switch (ret) {
- 		case 0:
- 			break;
-@@ -5893,11 +5904,30 @@ static void rtl8xxxu_rx_urb_work(struct work_struct *work)
- 			rtl8xxxu_queue_rx_urb(priv, rx_urb);
- 			break;
- 		default:
-+			usb_free_urb(&rx_urb->urb);
-+			if (startup)
-+				goto free_remaining;
- 			dev_warn(&priv->udev->dev,
- 				 "failed to requeue urb with error %i\n", ret);
--			usb_free_urb(&rx_urb->urb);
- 		}
- 	}
-+
-+	return 0;
-+
-+free_remaining:
-+	list_for_each_entry_safe(rx_urb, tmp, &local, list) {
-+		list_del(&rx_urb->list);
-+		usb_free_urb(&rx_urb->urb);
-+	}
-+	return ret;
-+}
-+
-+static void rtl8xxxu_rx_urb_work(struct work_struct *work)
-+{
-+	struct rtl8xxxu_priv *priv;
-+
-+	priv = container_of(work, struct rtl8xxxu_priv, rx_urb_wq);
-+	rtl8xxxu_submit_rx_urbs(priv, false);
- }
- 
- /*
-@@ -7408,7 +7438,6 @@ static void rtl8xxxu_watchdog_callback(struct work_struct *work)
- static int rtl8xxxu_start(struct ieee80211_hw *hw)
- {
- 	struct rtl8xxxu_priv *priv = hw->priv;
--	struct rtl8xxxu_rx_urb *rx_urb;
- 	struct rtl8xxxu_tx_urb *tx_urb;
- 	unsigned long flags;
- 	int ret, i;
-@@ -7423,14 +7452,13 @@ static int rtl8xxxu_start(struct ieee80211_hw *hw)
- 	if (priv->usb_interrupts) {
- 		ret = rtl8xxxu_submit_int_urb(hw);
- 		if (ret)
--			goto exit;
-+			goto error_out;
- 	}
- 
- 	for (i = 0; i < RTL8XXXU_TX_URBS; i++) {
- 		tx_urb = kmalloc_obj(struct rtl8xxxu_tx_urb);
- 		if (!tx_urb) {
--			if (!i)
--				ret = -ENOMEM;
-+			ret = -ENOMEM;
- 
- 			goto error_out;
- 		}
-@@ -7441,31 +7469,21 @@ static int rtl8xxxu_start(struct ieee80211_hw *hw)
- 		priv->tx_urb_free_count++;
- 	}
- 
-+	ret = rtl8xxxu_alloc_rx_urbs(priv);
-+	if (ret)
-+		goto error_out;
-+
- 	priv->tx_stopped = false;
- 
- 	spin_lock_irqsave(&priv->rx_urb_lock, flags);
- 	priv->shutdown = false;
- 	spin_unlock_irqrestore(&priv->rx_urb_lock, flags);
- 
--	for (i = 0; i < RTL8XXXU_RX_URBS; i++) {
--		rx_urb = kmalloc_obj(struct rtl8xxxu_rx_urb);
--		if (!rx_urb) {
--			if (!i)
--				ret = -ENOMEM;
--
--			goto error_out;
--		}
--		usb_init_urb(&rx_urb->urb);
--		INIT_LIST_HEAD(&rx_urb->list);
--		rx_urb->hw = hw;
--
--		ret = rtl8xxxu_submit_rx_urb(priv, rx_urb);
--		if (ret)
--			rtl8xxxu_queue_rx_urb(priv, rx_urb);
--	}
-+	ret = rtl8xxxu_submit_rx_urbs(priv, true);
-+	if (ret)
-+		goto error_out;
- 
- 	schedule_delayed_work(&priv->ra_watchdog, 2 * HZ);
--exit:
- 	/*
- 	 * Accept all data and mgmt frames
- 	 */
-@@ -7478,13 +7496,7 @@ static int rtl8xxxu_start(struct ieee80211_hw *hw)
- 	return ret;
- 
- error_out:
--	rtl8xxxu_free_tx_resources(priv);
--	/*
--	 * Disable all data and mgmt frames
--	 */
--	rtl8xxxu_write16(priv, REG_RXFLTMAP2, 0x0000);
--	rtl8xxxu_write16(priv, REG_RXFLTMAP0, 0x0000);
--
-+	rtl8xxxu_stop(hw, false);
- 	return ret;
- }
- 
+2. fixed-submit11-errno63-finite
+   ENOSR completion errors x32 and EAGAIN submission failures x96. PASS:
+   all faults were injected; RX then made 4,699 successful completions.
 
--- 
-2.53.0
+3. fixed-submit11-errno71-window
+   EPROTO for 2 seconds (maximum 1,024), with up to 256 EAGAIN
+   submission failures. PASS: 126 completion and 256 submission faults
+   were injected; RX then made 5,227 successful completions.
 
+4. fixed-submit11-errno75-finite
+   EOVERFLOW completion errors x32 and EAGAIN submission failures x96.
+   PASS: all faults were injected; RX then made 3,420 successful
+   completions.
 
+5. fixed-submit11-errno84-finite
+   EILSEQ completion errors x32 and EAGAIN submission failures x96.
+   PASS: all faults were injected; RX then made 4,243 successful
+   completions.
+
+6. fixed-submit12-errno62-finite
+   ETIME completion errors x32 and ENOMEM submission failures x96. PASS:
+   all faults were injected; RX then made 5,340 successful completions.
+
+7. fixed-submit12-errno70-finite
+   ECOMM completion errors x32 and ENOMEM submission failures x96. PASS:
+   all faults were injected; RX then made 2,848 successful completions.
+
+8. fixed-submit12-errno71-finite
+   EPROTO completion errors x32 and ENOMEM submission failures x96.
+   PASS: all faults were injected; RX then made 5,321 successful
+   completions.
+
+9. fixed-submit12-errno71-finite-control24
+   EPROTO completion errors x24, with no submission faults. PASS: RX
+   then made 4,921 successful completions.
+
+10. fixed-submit12-errno71-finite-stop
+   EPROTO budget 32 and ENOMEM budget 256; stop as soon as a retry is
+   pending. PASS: stop saw two retry URBs after two completion faults
+   and no submission faults; all RX URBs were released.
+
+11. start-alloc8
+   Fail the eighth RX URB allocation with ENOMEM. PASS: start returned
+   failure and released its resources; the next start restored the pool
+   and reception.
+
+12. start-fatal8
+   Fail the eighth RX submission with ENODEV. PASS: start returned
+   failure and released its resources; the next start restored the pool
+   and reception.
+
+13. start-temporary
+   Fail 64 RX submissions with ENOMEM beginning at startup. PASS: start
+   succeeded, two delayed retry runs restored the pool and reception,
+   and stop released the URBs.
+
+V3 passed 52 tests: 42 from the main test plan, one matched-input
+comparison, and nine first-start failure tests after a fresh module
+load. Two interrupt-URB tests were not run because the RTL8192EU does
+not use that path.
+
+With the same 32-URB pool and 24 injected EPROTO completion errors, the
+unpatched driver stalled with eight pending URBs and none in flight. V3
+retained all 32 URBs and received 1,225 packets over 30 seconds without
+restarting the interface.
+
+Each of the nine first-start tests began before the driver had ever
+started after probe. The first start failed and cleaned up; the next
+start received packets normally.
+
+Thanks,
+Kim Wooseok
