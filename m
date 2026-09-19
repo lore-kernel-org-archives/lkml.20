@@ -1,127 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 666BF2E040D
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 07:24:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D951F281503
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 07:24:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789802647; cv=none; b=c6xu5xf5KqCKGxXL0oNJi1QsPhXritjTq9v8Prb7kgUbnnZUn6HEDo36D7lIBZ52xaTde6/yXC8KkV1xCzLYwkf6NGVM3RwPHbOB1MWc/3/nb5v2FA7sfFvlDWyWuDW0O4SyVXWKRh35p5XbSAAqkCEWl1I8qIclGb/EwSJESaE=
+	t=1789802694; cv=none; b=JMrqTWEkLGAVjfgfnLQEpDgkbXevSZ7J06wSPfw5mIQKF0R8CZOHxwdhyBgheqgfcXcyNlB67FxtkFIRk1anP34vFuAKxFJK2CTuYN4JGYZ3OiWbkUrgLoOLJ590ddH56SpIg5Qh4oqvZrvrrn8BjR+Y4Dyu1L2Q87wTiGzmwiU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789802647; c=relaxed/simple;
-	bh=CcwKFo/x3d7KIrwrdSc6FIvo/aUmSvp1opSXGURZ5hk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Eb6Q/ODxmqJf1l2u40Q6IzwTycCal1MowfeGyaB7VH4ATl9kGOH63sEuEw6iX2wcOnisCTabgxIEaHSG7C6tsLmhGhKskdVPOEDwbqllRvaR6X+hmcsJ8q6/ZFVN0LvLFw2hxtjEDXD+FrY1eCNcLmJr/hZThT/xl2W5GmN7HaQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UL7fUD1R; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789802694; c=relaxed/simple;
+	bh=QfKdEkms96+QNG5ZIMZeNtPBTMWisJBPBVANMBJcQKo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Mbb8XAxKSr9nFHYTT+9mcCrpS6pVSpE+RopsVdoSL0ofB4FZuv4+2SszkpYipBLuyWDVRn+kzC004cflSyTl8FAkY+eHFy/tHyVGXap8yPmuTF3BDzFIv7Kpungxb/HOv3wpTl5mCtGwIo3WXacSgE/oJ8AcLtgGSkO6CxThQcQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=klO/KrvN; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UL7fUD1R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 208541F008A7
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 07:24:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789802646;
-	bh=CcwKFo/x3d7KIrwrdSc6FIvo/aUmSvp1opSXGURZ5hk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=UL7fUD1R+LFfRdNyW3BYbQT13vuIzvV9VwxPU0lGVypZMMtFBwv8hMGA3f6+g2jXc
-	 FSMv7385C4wyeX31P82/p8Vlsqz0rbOTA/FwhmYef7KLB2CqBkic40zrVshI6+7iKb
-	 /8PLo5AiSkgoXdsC+XuO5IC92XdJaQVs1ffGGXfl55qM53lVC47M9hlEsTtFwxmj4j
-	 /No8o+O4Bb4IJ9QUh3IZsORNIlcw62NrjY0wS1Vz0LPicbigMk1SWE9LG9DB6tfDEH
-	 KAd6OZYR2KzufTieJL2FIDnOKJxNuBN+7dIryv3mm8+96VrfroaeZ4II1SPsJ1TkAa
-	 6E4CmL3ENNGrg==
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4ab1ef11so1319526d50.0
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 00:24:06 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzdLEYDukrJww+cgbg2VOv9wR9me6jTBI2PpnNC66t+gZru5vcglBqwuUFMpmHCVqc3+nix5Afqu4cTE+I=@vger.kernel.org
-X-Gm-Message-State: AFuF++lxtd9Zbk5o65r7lMwIHSckpEFzKuxIloryVEGgoS5r3R0Zz7vy
-	iWzUKOJ0C2WlonFYajbOm3wPjsZI4Es3IycWQoY1lP+NnNgKVHRVgb5AfTb0b76CSMfFjaschv2
-	zWnUYGOmGnYBG6OHPt0o6QGoueNUhkOd7pEwkOIM0rg==
-X-Received: by 2002:a05:690e:4504:10b0:66b:14e5:d226 with SMTP id
- 956f58d0204a3-6717fcca387mr1086959d50.34.1789802645443; Sat, 19 Sep 2026
- 00:24:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="klO/KrvN"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccd4f99cso1582872a91.0
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 00:24:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789802692; x=1790407492; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MiPpyhYUHVGgWlDeIMWaxS+8sb4pPZWGuCdQapYVZwk=;
+        b=klO/KrvNxDOl7R676bnMkEDGyYZwBusp/1BPqBjUeeBgqN12V7tzzgBYOG0Ge6i9tY
+         1LHb4WWbkjQRDCQzlyTUZkVcU1oETU8t3J5Rk7ga8I+/zPy2GIjguOTCyg20em+BLQzA
+         hYFQs0xuIZSj3otsPde/NWsJUav1QFIeMvRsmSZWxrF8QJnz83vFYcWrOgjOms+VCQXp
+         dDaZ6cNDzti5ntWIhLTQttbz+XvXfzguIBcCwq9gWsza+11WT2ixL4MGv0dA7SDVV6f8
+         AZHlcIN97vfNnvvQlrvcCHlBK9qMtn0hzgUAjUocosjLjtDxCDL8SZdUUfxVbDsCWFHb
+         WTNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789802692; x=1790407492;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MiPpyhYUHVGgWlDeIMWaxS+8sb4pPZWGuCdQapYVZwk=;
+        b=1FJDC6YbIQNGXsMRW3A0ahQeTB4FSOzIFQMiAw+i4t+RoQNfcJ/kZQuDhM3Q9S175C
+         97oY5zOFUhWQVj+ylm8egQms+njSWFRVFb+u2Mds4FjKJTC7+n82nj/eU6ba4yNa/K4l
+         mwsLtEoUFgkkSRYezu/LYJpTeVIXxpwUSM44G+iV7D3qVJR5wIeYSnqc/rfUJUbeFgoo
+         5FeZpOZ/AIg/0iK+IFF//kaSyrL1vQ7ZK4EV683G6sFypHIkppcjZCyktzEEebTQXvfy
+         x4/VtCj+UI6Val9IQVxeK9IRmi0GrZgBvTLqPeYUOrjsupwobsw63RA2uYVmxaWbecr+
+         HBpg==
+X-Forwarded-Encrypted: i=1; AKwUvBwEKRbwoiEemAgGSRqMzBsDcJd/56yI7DvUoi4DNmZmR3g3NMUIfSNRmlRKV4aeih00chFvOVOnCsD5w0Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++nEqLcP6L8/35RQBNcYDNPgqGFmZ5VdKyzMsU0QETKlxpsdLFib
+	+HiB5B2n7+NGXVKQ4dhyCuI2GMFtZmaTXVhiAItlGWk85OVArGJ8L5gY
+X-Gm-Gg: AYBFou0F1qISsK26HjQL3E6egoaVZ6FfVFW4wfYUZF/HflJQhQaXQ+BdVDAORe17N7x
+	rjv5gEzWTpC+0dOHBfq9WC8Mgb86n5rdPBWEnm1L5Z60rB1miWwipL4h7bt13lqxo2bJD6DSMeS
+	JlpfQawWHMFxTp7KFRnOiXcvyIRekhgjj5V3xIYWjbf3W+SOiCV+jNHDlAwv5NEDnzBXX4FOs9+
+	9gebEZzofPkLUMAg/64UOSWjfH/DFGiHWBRnMZ1QxaB2wJuty3LPUOlTtVxBF57PTgxusuTsupK
+	wNEFlZnHNN1kHFtR2nuP8jUE5p6tpoYe5TD807amaj+xeUQZKWZcy13rQYgJXxEGDP/Gu2k4yLL
+	0yantvO9/3ygZ6DmMw4S0FbRmbX11YgPyanDNrPajMeBV2HMXsPeezu8LPtOkjUlkFV4mzDf3HG
+	YaHk5YiywMlHtFNP/s0fQqFCLobO2PnrunPCRfoFSjDW/uQU8tiq2VD8ssdsrGaYmQ1qJxVSOCH
+	Ixp369ZWeV5ehiKmhr52Mx7oawsKRzWa0d7LqRlR52gfr/bwCMQ7YbZeM55elV4WErpGiX0L18f
+	XzotOPib6NtkEGPV3jeL1Cl6XA==
+X-Received: by 2002:a17:90b:5705:b0:39e:2faa:2e83 with SMTP id 98e67ed59e1d1-39e54d1e044mr9225583a91.10.1789802691950;
+        Sat, 19 Sep 2026 00:24:51 -0700 (PDT)
+Received: from DESKTOP-TJS95SS.tail460ce2.ts.net (36-232-198-121.dynamic-ip.hinet.net. [36.232.198.121])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6cae997csm3150642a91.11.2026.09.19.00.24.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Sep 2026 00:24:51 -0700 (PDT)
+From: Yuan-Hao Hsu <aa9736195201@gmail.com>
+To: Barry Song <baohua@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	liam@infradead.org,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Dev Jain <dev.jain@arm.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/memory: reuse the whole exclusive large folio on a write fault
+Date: Sat, 19 Sep 2026 15:24:45 +0800
+Message-ID: <20260919072445.542-1-aa9736195201@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <CAGsJ_4wTYLds56=iyra5FKmgnNACN9QKJH-XJ=q62G7fMvd9iA@mail.gmail.com>
+References: <CAGsJ_4wTYLds56=iyra5FKmgnNACN9QKJH-XJ=q62G7fMvd9iA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
- <CAMgjq7AHRzBsbmGOx0s=TQFBwcn=DEU1naR443sO6x+pJd6hAg@mail.gmail.com>
- <aqBT_35E-eSoN_zj@cmpxchg.org> <CAKEwX=N4aaq_oD2agTUNrUNXhaYGeQ9vxu+dywFvEFgWFi4uQg@mail.gmail.com>
- <CAMgjq7AfNBUpMamcv29JFzpX=7ApNYVLtPjWT4Sm8cXjSLYL9g@mail.gmail.com> <aqU81l1oqGItb-0C@cmpxchg.org>
-In-Reply-To: <aqU81l1oqGItb-0C@cmpxchg.org>
-From: Chris Li <chrisl@kernel.org>
-Date: Sat, 19 Sep 2026 02:23:53 -0500
-X-Gmail-Original-Message-ID: <CACePvbWLHAT5DjC=HidzN10XF5_cnkpxXXDR_yfEJjTY_uDvDQ@mail.gmail.com>
-X-Gm-Features: AcwNN1Ugv2uKjDvI3UlN6yWV2c11EGmbN_5p9iXtBCp6zavSXduB5hlfoQJWQ5A
-Message-ID: <CACePvbWLHAT5DjC=HidzN10XF5_cnkpxXXDR_yfEJjTY_uDvDQ@mail.gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-To: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Kairui Song <ryncsn@gmail.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
-	David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Barry Song <baohua@kernel.org>, YoungJun Park <youngjun.park@lge.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Rik van Riel <riel@surriel.com>, 
-	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 12, 2026 at 6:52=E2=80=AFAM Johannes Weiner <hannes@cmpxchg.org=
-> wrote:
->
-> >
-> > Is the limit, the heuristic exists only to make "a seriously wild
-> > allocation fail" (as documented). But on a vswap-only machine,
-> > reasonable allocations fail. Common swap devices, zram, or xswap don't
-> > have this problem. One could argue that the size there is just an
-> > optimistic guess, the compression ratio is not controllable. But that
-> > heuristic is a guess by design, and a plausible number serves it fine.
-> > "Unlimited" seems break that.
->
-> That cuts both ways, though. If the configured compression space is
-> large and compression ratio is poor, it lets through allocations that
-> can be considered "seriously wild" for this machine.
->
-> It's a filter. I wouldn't say that letting things through is evidence
-> that it's working.
->
-> Since compression space is backed by memory, it still makes sense to
-> me to reference this heuristic to RAM. Cut it off at 2xRAM or 3xRAM
-> tops if compression space is available.
+On Sat, 19 Sep 2026 07:48:00 +0800, Barry Song wrote:
+> I'm fine with your follow-up work, but I'd appreciate it if you could
+> mention the previous work and include the link in your changelog, along
+> with an explanation of how you address David's concerns.
 
-What is this "compression space"? Isn't it just a swap entry allocated
-by vswap or xswap?
+Will do in v2.
 
-For our deployment, we only compress about 7-10% of the system memory
-before performance starts to suffer. The feedback loop will scale it
-back. I am very curious do you have actual work load to swap out 100%
-of the RAM. I find that very hard to imagine on servers with huge
-amounts of memory. I would love to learn more about your swap fault
-latency history in those cases.
+> I think a major concern is that we may spend too much time scanning
+> PTEs to determine whether we can batch them. If we don't support
+> CONT-PTE, we may simply scan fewer PTEs; if we do support CONT-PTE, we
+> may end up scanning more PTEs. So we need to show that the scanning
+> cost is controlled and explain how it is bounded.
 
-8PB discussed in other threads seems way too excessive.
+The walk stays within the folio, the VMA and the page table, so it
+touches at most the PTEs that map this folio in this page table: 16
+for a 64K folio, PTRS_PER_PTE (512 with 4K pages) at the most.  Each
+PTE is read once by folio_pte_batch_flags(), the same scan fork() and
+mprotect() already run over these PTEs.
 
-> That all being said, I've laid out implications and concerns around
-> limiting compression space in this thread, too. Collecting pros and
-> cons is fine, but if you bring up cons for the unlimited case, it's
-> fair to ask that you engage with cons brought up on the limited case,
-> too, so that we can weigh the tradeoffs.
+Measured, that is 14-20 ns per PTE.  For 512 PTEs the fault takes
+10 us, 1 us of it the scan, the rest marking the pages exclusive and
+writing the PTEs.  Those are PTEs that would otherwise each take a
+420 ns fault.  The pattern where the work is wasted, one store per
+folio, is the one the description gives the numbers for.
 
-I think having a kernel config with a default that works for most
-cases is good enough; maybe add a commandline to override it.. e.g.
-200% RAM. If you worry about overflow, you can set yours to MAX which
-is ridiculously big. I don't understand why you force others aren't
-allowed to set a reasonable default. I do want to have a reasonable
-default config. It should be configurable.
+> I also personally feel that both the changelog and the code are too
+> long to read. Could we somehow split the changes into smaller pieces
+> and describe how each of those concerns is addressed at a finer
+> granularity?
 
-Chris
+Yes, and sorry for the wall of text.  v2 is two patches: 1/2 handles
+an aligned block of 16 PTEs, the contpte-sized version David was fine
+with in 2024; 2/2 lifts that to the folio.  Each has its own numbers,
+the earlier discussion is linked, and the changelogs are cut to what
+is needed to judge the change.
