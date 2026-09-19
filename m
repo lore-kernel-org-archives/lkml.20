@@ -1,101 +1,140 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04E9638D3ED;
-	Sat, 19 Sep 2026 20:45:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A25B381EAD;
+	Sat, 19 Sep 2026 20:46:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789850714; cv=none; b=srAuUDvM3PNOPRkBDT1rGU7ytS1JV61dFk8i+alqnpTk0C6xEVEW9bVt88hlTVyaUiDfsnbRpV7LFhnGJo9qZKAoHymasGH51ICoR59G2F6+E7tNu1qnpEVZr5ZHWQ1wZRwNQ0SCwvMHv/V/NgzEo23O4iv5wVsisUVGXuDwoIA=
+	t=1789850795; cv=none; b=LO9XTcv1OMDu2QLP//zUNBVd6chhRIlMEuJnqcToirECX0zxodBzP0xPvl6sNRoZA9gt9V7SMv9af7ttMycopbMbJ3cyELJPPQgUkPiJmeEvPSzFbjK9/j0o7bBOta/60aEdN8R/B1Hw3okiguRCwJWhWTKpz4/C/KEOjRYUeqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789850714; c=relaxed/simple;
-	bh=bkVSBssyKDQPsLkjNwmK2HUH36/oKB9tOVZk+FTbg10=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bAF3AiU3M6jG4SV3j/ibZCsqadmcwzJ4Klva2ut7ysH6HWYKcXmi0exvSfO5XWJ1Qlk7eT0Db2JAmSONDGueEd/RJTBvVVuEVdOlYZyvNR067zggtoT0r73jTPdzj6McBEfQwuzZJt1eFtQVw9mlKnDVFU8+2+vcBiWMB2+xbKI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ijUdkmj7; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789850795; c=relaxed/simple;
+	bh=nlJiER+kDXS3d2daiPSvVpFIPEQ+6sw6rHJaRPpLD6M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QbZedXHO2Lj5y4N3TDw4EHHSceJOZRaQ0SyEqHxkYIb1eniBHx1TlJbhPj6/i0v9x8qd1yj6fOI55I4aNDliDgg3FC1IklrBfU3Qvx34UVjcHo+AEI4ZwRokp/j1LDwwFL7mElb/HF8QDU/zogpfosjVwVKBavKQZ9npL0nLjDc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=F19q3Kq6; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=3htMDqVN; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=UiApHGCb; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=KKCvQmaH; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ijUdkmj7"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 13298C51463;
-	Sat, 19 Sep 2026 20:45:53 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 81DFD606CA;
-	Sat, 19 Sep 2026 20:45:07 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C5CF410328D5B;
-	Sat, 19 Sep 2026 22:45:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789850706; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=+8cETlr2q3PyJ3g9Jr0Py+3JGqk7+/bLEsejFMbYS4E=;
-	b=ijUdkmj7VNvlxYbA3WVTHJY/7SdGCalNBcu7HIyXxCiRBe7vE2Z67CPyT/4UYskHTrcRaf
-	OTgkg/aDFO0FsMm8ndO1Kb6TnMHAo8dDYPe0gQOIatFJ8epID1ATAkYTWI5YEXLue2stex
-	2YcTJfg1qFNCiZT2q9zDQAoDaDYovtp4SInkogEKNonlIHoV59cow/FmscsUWfDgeRWe0K
-	zAKZVRTweuAW5ljAmAFC4nZIKh7GhQ8FSE1lC53EwEqoCiyQ2eZEAVJ1koRFLtzpLwTeSE
-	mmCV3jEAvaU//AqMoJimj4v8ZlXyGmcMJrPqth1vJ7kqImrgUCH2hH8yVGjQLA==
-Message-ID: <00953149-df16-4d60-b180-2a80ba49e518@bootlin.com>
-Date: Sat, 19 Sep 2026 22:44:59 +0200
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="F19q3Kq6";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="3htMDqVN";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="UiApHGCb";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="KKCvQmaH"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 6B85221D72;
+	Sat, 19 Sep 2026 20:46:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1789850784;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UJMe82CQ3Djnx2A8rPKycYLGgzecxoVzpCYmqYJA/Gk=;
+	b=F19q3Kq61Uc2yaXnjoEtjooK49h5azwAWOVghKOIZiI4TFYEJhTlmHMikmMM6c7FU/MLid
+	EUW1/AD/kftYRr+TuLFQhR241dxbSB0HJ7DloCn5TbbGBfLjjEC/UrnHqcFVWl0XSIvBiC
+	YpcRzMv//MlXRba6y3vttkCRQygMarI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1789850784;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UJMe82CQ3Djnx2A8rPKycYLGgzecxoVzpCYmqYJA/Gk=;
+	b=3htMDqVNwXfBqjZJD7Lzxz2hhQv/IuauJ+9YqkspWgEuy4UnfjEcIquxF1U6wOiRDVieaS
+	70Vvv6tKuJPT6QDw==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=UiApHGCb;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=KKCvQmaH
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1789850780;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UJMe82CQ3Djnx2A8rPKycYLGgzecxoVzpCYmqYJA/Gk=;
+	b=UiApHGCbDA7I98fMcOJAhQgxcrWYKpXo2jgP4ns6A8DzAfHgULruzAJPqW8CTw9woHsNqc
+	GUH1ceGHSS0++w6VZcInWlZLI/7Ukznln1Gly1rtAQbKrbvI9HJ1PB5lkkNuNudiQdQetw
+	+UzNSRYZ9whvMHDJEtywg1FOCqaITQA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1789850780;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UJMe82CQ3Djnx2A8rPKycYLGgzecxoVzpCYmqYJA/Gk=;
+	b=KKCvQmaHHoHm7v+Nw0pNd5NOvzSQmggDDPpl3W0cT7oUttCmabSohbvilq5ucCcBwAG33U
+	+bEiZKHi93jiYBDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3EB8D13331;
+	Sat, 19 Sep 2026 20:46:20 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 3ljlBpz0rmoSPQAAD6G6ig
+	(envelope-from <dsterba@suse.cz>); Sat, 19 Sep 2026 20:46:20 +0000
+Date: Sat, 19 Sep 2026 22:46:14 +0200
+From: David Sterba <dsterba@suse.cz>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: David Sterba <dsterba@suse.com>, linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [GIT PULL] Btrfs fixes for 7.3-rc4
+Message-ID: <20260919204614.GY54722@suse.cz>
+Reply-To: dsterba@suse.cz
+References: <cover.1789845496.git.dsterba@suse.com>
+ <CAHk-=wjwehxF3wP-vj23RXYH8RmK-Crmnq0g2wr6wNDet87S6g@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net: ethernet: stmmac: dwmac-rk: fix bulk clock leak
- when the PHY clock fails
-To: Coia Prant <coiaprant@gmail.com>, Heiko Stuebner <heiko@sntech.de>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
- netdev@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260919174223.2356964-1-coiaprant@gmail.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20260919174223.2356964-1-coiaprant@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAHk-=wjwehxF3wP-vj23RXYH8RmK-Crmnq0g2wr6wNDet87S6g@mail.gmail.com>
+User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
+X-Spam-Score: -4.21
+X-Rspamd-Queue-Id: 6B85221D72
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.21 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	HAS_REPLYTO(0.30)[dsterba@suse.cz];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	RCVD_COUNT_TWO(0.00)[2];
+	REPLYTO_ADDR_EQ_FROM(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email,suse.cz:dkim,suse.cz:replyto,suse.cz:mid]
+X-Spam-Flag: NO
 
-Hi;
-
-On 9/19/26 19:42, Coia Prant wrote:
-> gmac_clk_enable() enables the bulk clocks first and then the optional
-> PHY clock. If clk_prepare_enable() on the PHY clock fails, the function
-> returns without rolling back the bulk clocks, and bsp_priv->clk_enabled
-> stays false, so the later gmac_clk_enable(bsp_priv, false) becomes a
-> no-op and the bulk clock references are leaked.
+On Sat, Sep 19, 2026 at 12:53:08PM -0700, Linus Torvalds wrote:
+> On Sat, 19 Sept 2026 at 12:44, David Sterba <dsterba@suse.com> wrote:
+> >
+> >   git://git.kernel.org/pub/scm/linux/kernel/git/kdave/linux.git tags/for-7.3-rc3-tag
 > 
-> Add the missing clk_bulk_disable_unprepare() on that failure path.
+> -ENOSUCHTAG.
 > 
-> Fixes: ea449f7fa0bf ("net: ethernet: stmmac: dwmac-rk: rework optional clock handling")
-> Signed-off-by: Coia Prant <coiaprant@gmail.com>
+> I see a 'for-7.3-rc3' branch that has that top commit in it, but no
+> signed tags. Forgot to push?
 
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-
-Thank you,
-
-Maxime
-
-> ---
->  drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> index 8d7042e689261..f3a98bd9d6ead 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> @@ -1163,7 +1163,10 @@ static int gmac_clk_enable(struct rk_priv_data *bsp_priv, bool enable)
->  
->  			ret = clk_prepare_enable(bsp_priv->clk_phy);
->  			if (ret)
-> +				clk_bulk_disable_unprepare(bsp_priv->num_clks,
-> +							   bsp_priv->clks);
->  				return ret;
-> +			}
->  
->  			rk_configure_io_clksel(bsp_priv);
->  			rk_ungate_rmii_clock(bsp_priv);
-
+Yes, sorry, now pushed.
