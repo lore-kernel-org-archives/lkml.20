@@ -1,248 +1,244 @@
-Received: from mail-yx2-f43.google.com (mail-yx2-f43.google.com [74.125.224.171])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CA84547041
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 08:52:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789807951; cv=pass; b=SAht9RriGirK3L5qZI97Ohi+X2WjDE52oySO81vYd5HCpnjqw6K4mRja1FwYG7qrOgI8hU1UpGd7Q1/Q52PAi0likOB5UoR+jK6nP6nj7BDL1Dn/zLF29YrmZ5RjxNwNxDguBPdJM1v4L+P1ZAOKagSNgwv4y2v/WeMJIsHO8G8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789807951; c=relaxed/simple;
-	bh=eIASrJ4q0I1mq+Kw06DMoJfTnKjVuEJFQVJvSpbwOb0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MpGmLwjjJRCWHJ++HcnJV9ccEoufGJaavz77m2X3J6NiMuBj3rXA8LRizzjWHZ2vIqP8JotvbY8U1ofQS18U7pryssC4vmN+WII7G10D0vxnYUeXT3kqydNvh2bViCYrcHS3+0BvkvB1t3BjRtKFWePYfoIExZby9T6UN7PRV8U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thechris.in; spf=pass smtp.mailfrom=thechris.in; dkim=pass (2048-bit key) header.d=thechris.in header.i=@thechris.in header.b=JuDN8XkO; arc=pass smtp.client-ip=74.125.224.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thechris.in
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thechris.in
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A822D371CF4
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 08:54:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789808062; cv=none; b=kcpGNohu7H7wJFbOgLblCF1CmTz3pdEr/J4Dp2Up7NZJrcch4SVJLV8FykunciE2fHHX/8gNZH2dFKzFW9itIVkz6iVe1KVK6Np44epf7Qcy0dsJaKit3NGwdufzZwrfZ2INtZRLGGEtheSN1GOXi+lovNrYkyhML47JqSHpbow=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789808062; c=relaxed/simple;
+	bh=c34bA274rDOkL+YzQsrkmI4B6CAXTcZ3HUERhawzQJ0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SfzSXOf2YIErNlJ+xhsDlzB5zaQbBK324l/e6jNF/2tXbqaUbsTxPRfahmru2QYY2Wcr/OLvSl/N1vf5WnwBawH8bJ7X3obM2JpNluiNFG9qXhvGFjM2w87ynTXN7kflX0VV8iZiGkUd+a4hW8dPvsc++c4Y6B563OiM/wBkHQc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L2UJKo3O; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=thechris.in header.i=@thechris.in header.b="JuDN8XkO"
-Received: by mail-yx2-f43.google.com with SMTP id 00721157ae682-85d43f9b120so13653847b3.3
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 01:52:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789807947; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ihuikXeV/OxBr0nlYfeHHJjIMAChqpUx2WG1K8tDbsETl+lA4sbdr7VM/6nDkjjpCH
-         nFeSp+mDbMAHvQfoCsBXePwU1lkdYfh7fyy2WRngOzx2+L95yBI4NY69ISRnrYFO4QeT
-         sIPs7HTHIOaKoZvNxJTslZ9ynPIC9WqbZX5o6cp6ZqYHRJwgYNH6oJLlJFIgMf1+aCWs
-         3+saiaVp3+Lyn9Xfa4gPDBh+aub8prTwJXH2kBo29v0o6o7l3Vq6dmt7b7EDwQEXKu3K
-         Ef6rwgxPdAYwhN5Eim9CF4Xgmj1GBOuxxvxESj1DHVdbp8O8DyF2zs9UmVKPKX3DIvDs
-         7IUg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=k8DYe9oKK5aIG2dHcrCA+rI5R1dlrHFb8Xd46TnuYuY=;
-        fh=cVQBcoHKkrBlo9Qu9VlCKFrTTTsA/dYs18ZvVaGUE7Q=;
-        b=GPc4rt6MOLRih6vgqFWvrgV5yiI1amlhw+9qZnwwbkkIdOWX3+IH3rpzlkpy44q5xs
-         1FVXwkNiqhMqgTqMbf0kFJSz+ZyqlGz6toYTtL0db6D1Ufwh6SJQJGItrWWCsBfLyjtC
-         MQTpXHZAVxeIoKmGvNWZFyeX6f0jR4PHJ5Pd0TqePCA1GIKKnonzCYn4wyPGUSBb7xYQ
-         ekoSsrlOBBy8wfK0G+X5Wla3yQIlCyU3yPMtfgyRHSW8e2AqBRh1LaM8nhXa9AW1eYA6
-         v+weI0Too+sfT5eRTIu70JaOV4Ex5nmNagNu7bdsBb5c+wlAJ/n4mfAjulW6eJhtj3uH
-         vxzA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L2UJKo3O"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c29d50b7cf9so243560266b.2
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 01:54:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thechris.in; s=google; t=1789807947; x=1790412747; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=k8DYe9oKK5aIG2dHcrCA+rI5R1dlrHFb8Xd46TnuYuY=;
-        b=JuDN8XkOtlTPt+P3eR7QzGEIWs6/pogUeJgf7Zl3OggQppJc3CiM/ieRgNnSTcMF8G
-         +vOpzW4UesF8lxptC4IuqPtpUvzTjfJuF+7NHBPEP8oAPcXtCtCmhN6gvPNauWtTeqtX
-         OOBA1fHBPZfVi+IuzXrF2dyveJi7GxzUt/DFM/4OOJ7QS++9uv3HVJe/I8aceqOK7Fgn
-         Kort5Z9Yjd1thVb5r9k+yQAVUWKoYsqXLAVxDqqlg0+QftX3Q5hTPPFnMCyhbobZ8Y78
-         nC7kJhBp0lMxi5Cbd+yOGXBMmNDJtUafqD8G4OFR1ZQbbc8uWFj1CZC3N1Vce+uVhuik
-         ynwA==
+        d=gmail.com; s=20251104; t=1789808058; x=1790412858; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OfnLSG5yNDxYZ/H/GH7hb4ofWQcWDQyvGNAStGIjNUk=;
+        b=L2UJKo3O29Tqp2YumXyJcVzLYPMS968qcO/z7RE5EonqHqLUKjOnT0vHssRS6inAye
+         wOZXNiP7K+I9b5pZe32k6SxpIwhjA+qOvYlMSqpvizmhsNVS9qpTGumCWubbyRcM4SSh
+         fmEesHCvkXWhBKsUnllF3EsW9kFwYKC69nNhu2/lKPGML7e32I3/OGKToj/xKBoA8Hl9
+         8Gc5j0IS5w+buvO8vJ64tntBGInvjz3qZPga0Y7t2mOV2S1hBIaoHnaLeC3ZlyGolfJ9
+         zed6kYhcJoYO7KZZS9seF4ickvxbzC3xgJgrwUlA+6CyaTvY4HH2499OgT+G88YNxkat
+         8rdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789807947; x=1790412747;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=k8DYe9oKK5aIG2dHcrCA+rI5R1dlrHFb8Xd46TnuYuY=;
-        b=p0f4LQ/DssjcVi7IU3d7KKlSmLrbPkICsylIdNxrHfDW0mYjJGEl8hxogG1L+xox69
-         roHRVRJ4emjHogERU5iqOfzPlRNAVtG/e/3zWzIKnpk33n7ypqFSKCtnJ/E/ywbYbG+b
-         FAJeYzW0kisAtAMu6aN6BeaVojCYOT1hoHBkJwbGl++zBxJadWTm5foyeSmaOIPIAJsC
-         UIpPJmvide4HCDy+uEBfSvQ8EIKe5yk8IGc6O6a/3if3amfq5Crj3hjKXIhmTI75FQTt
-         1twUupPQgnZNHgfBvLmzYhfg1HYxf9XyZ9Xc0Nbco2yQB8t2JlCuP+2kI4ID1ssvi7M9
-         B6mQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwQC3e1s86YQyvZurZiwE/KGt/NaEzX0aHmeCZvFdRdu70ijmh843Z6WMuSaX3nKAW9m6YbVH5rRhayo6c=@vger.kernel.org
-X-Gm-Message-State: AFuF++ntsbFpKAmDz/1ds60rp7MVscbqbZgD5vuFdnB2NsmFeloUzMTD
-	Q66g3XWWkshxdz86xyrvOYyJtQcOMMdEhEDFJdvclMvEE2ANHVi6xnWybFh2K0gkQLzB8/nw5bf
-	oZhnUOruA+sKznA4lTn4NmFab6rFt/Bx+9kEzs/cgt5s=
-X-Gm-Gg: AYBFou2nLg+t7fj2J7LaptG/oSNhlgFuGJe37aRXDRoybJqTkOQBzOd2s6OGX/lKbU6
-	tm4Eb7H2E5zMlMUv9XoqObXJcjIiYX6x95nVyBz+npdVJjES2oNcvGN73F5VlRXGtKJb+kzPdlU
-	36yFuuZZUZ1C/HUZ89ADAcHJbLb7agZw5VMg3N0PiOCJwQVI+stl8yginC+EIGvXgv+0q3T/skj
-	0QkJEwdu6//MggrLt4IvffQnc/NCJyMv8QyFKHWzFe6l5h4hqiHEJZsnkJRCKK+SYfdyE/nVx/o
-	Ux1qVSkm31fVl5gUfZfq7pQSQ/sAikEfaXhKtaAzQE+6JyrRXbLIeg5Uc4oet5Wv4APsHFvbPf0
-	dEQvJ0zSoqLFBpoa2JGKLxbDMjMLSigUAH9ImyoKEOAbf4wDxesoErwnieq3ZxUHPHUfBUbvfV7
-	yapdztXra5iWLWbGk=
-X-Received: by 2002:a05:690c:ec9:b0:873:5ddf:d86a with SMTP id
- 00721157ae682-89735890a04mr17921557b3.53.1789807947280; Sat, 19 Sep 2026
- 01:52:27 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789808058; x=1790412858;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OfnLSG5yNDxYZ/H/GH7hb4ofWQcWDQyvGNAStGIjNUk=;
+        b=SU+o2MOQKAjuGGVc5IoV1bIKuFUGJlZFMLW/8H3wQq5ZFBsizOwoIGQ2kuivOkiAgw
+         8cVWf0F5mPH2dmdsu14awVohvcF+LPh9fP2gt/WSorNL4Hpaxh8kWJtAQoKEJS12jBQ9
+         6sosBbqH+ZctDx9bBLm9PGRblS0UVCe5qC+I/+2ZVf28bPowSRvUUNSvL5vm+QNqwm4m
+         0vsOHDXKUrESYD+ZT/icX9MK3+pK0X15TtBW5yfuzMnVomvNoJ8nBJaLZRV/mYFjeV0T
+         n+tD+c77lImlMiQH8lzEUwWmLLRal4C+zC8NkAnSW0EorhQLQ1xIKGqRvhpyuEESnn9V
+         qhKw==
+X-Forwarded-Encrypted: i=1; AKwUvBz2/VLSXYG0lvrTLObCOzxhs/H2hG8X3LH36Rlz5mIrGWRHgzRpcvBVjwBrrOlCNP2SuEep1gmjaK4ZTj8=@vger.kernel.org
+X-Gm-Message-State: AFuF++luZ2cSTi+0Z+GQiLxKBPNaVndc13UN+pJF1+wrGAnH6hfibOsf
+	udEYx95IhZUBLq4C8Og6Gh7yjce/R2G2S8ulpV46EYftjUv2bRI0Y/lX
+X-Gm-Gg: AYBFou1SRerEWQ0s/tjgKTs/JcS1JLqw67ig5xIrQ9oPqqiTYtFJZRBfa161/SeZVOT
+	Gc8S9UB1zZhx5Fm6H0csl/lXrobFzwnwSEA4I5BEk0lfirABtq9GsxSGM4fDe8GZMMaqbXfGGcm
+	D4YP+Md9t0QfyMdFph1xdHNppCdGrm+wynfusuZm8kYKilJ5JyVuVB/Jvvjl84JzeGyZ0ah5/YF
+	6mRjdXINvroKXDLosMJxpz3SaayO6TZoStr1tJkdgf4NpUWuuD4mypD0gDid5UDEbOlGpnR7imP
+	dctIxOUzvD1VfNZrFOb/ojIlpR/GVwMt7s2Nm1tWfxd5/cHo6xggYS+PyRCfA/LGfasQOF063Tv
+	JWx8ZABpebSgr6mWVA1WwcsPO9ECHcpTtSZMzHEqAn/QSObIh8JNSyLYYzdPRhUATPiePqFcRI0
+	8kfpxWSy/f3t1r5AQVdtxJCoWmFn/WXCaXfO2eaKkFi4LTF7XLK1OchkyJALBROPiHFTXrI8RdH
+	W+SjHrmRFwGfWbr3C5VMnMP06Tcls2qcFFpVVaHFVuAME9EC9vcRMNZNtHJyUoVejOTVlvVAwp6
+	yEa7cIsTZRjTdN2gCcmH
+X-Received: by 2002:a17:906:6a1c:b0:c29:6184:5e13 with SMTP id a640c23a62f3a-c2a15cd5b73mr428764966b.40.1789808057658;
+        Sat, 19 Sep 2026 01:54:17 -0700 (PDT)
+Received: from localhost.localdomain (83-233-130-25.cust.bredband2.com. [83.233.130.25])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a3572d4d5sm64731766b.33.2026.09.19.01.54.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Sep 2026 01:54:17 -0700 (PDT)
+From: Yongzhao Chen <yongzhao.derek@gmail.com>
+To: netdev@vger.kernel.org
+Cc: andrew@lunn.ch,
+	olteanv@gmail.com,
+	florian.fainelli@broadcom.com,
+	jonas.gorski@gmail.com,
+	woojung.huh@microchip.com,
+	UNGLinuxDriver@microchip.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	linux@armlinux.org.uk,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC net-next] net: dsa: pass PHY flags when connecting shared ports
+Date: Sat, 19 Sep 2026 10:54:06 +0200
+Message-ID: <20260919085406.1395-1-yongzhao.derek@gmail.com>
+X-Mailer: git-send-email 2.45.2.windows.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAE2Bdm3NuEHshrG6K2boKAnCQUvT5SX79cP9nPgS2s1afzY1hg@mail.gmail.com>
- <6aab0f82.e91c2013.3bdb06.0009.GAE@google.com> <CAE2Bdm2wzxj-J0TM8F+3SVnu0W3HeiROW97U4qvBeyHKdHJFmg@mail.gmail.com>
- <2026091753-broadness-bootie-b683@gregkh> <CAE2Bdm14hif17B8RTAE+PhWEps5Fzh=WPurZeSNp9C6TqCKumg@mail.gmail.com>
- <aqwuWWMwdIcx3704@cashel.logfs.org> <mu82xsi6.76ee613a-07fb-48b1-9336-99e8780e8b6e@nod.at>
-In-Reply-To: <mu82xsi6.76ee613a-07fb-48b1-9336-99e8780e8b6e@nod.at>
-From: Chris Roy <iam@thechris.in>
-Date: Sat, 19 Sep 2026 14:22:15 +0530
-X-Gm-Features: AcwNN1WEOecPIuGbYcd9wxGzHaLC6FdKCU6cgPiJq4iHyUwvDt6WX2KcSk-6_Xw
-Message-ID: <CAE2Bdm3FqBPAMxqKoz_h1cw+OXpm=LJHdJjsME_Jy966tqhq_A@mail.gmail.com>
-Subject: Re: [syzbot] [fs?] possible deadlock in ovl_create_object (2)
-To: Richard Weinberger <richard@nod.at>
-Cc: =?UTF-8?Q?J=C3=B6rn_Engel?= <joern@barelysecure.org>, 
-	Greg KH <gregkh@linuxfoundation.org>, 
-	syzbot <syzbot+7cab6a19619f1b8efc00@syzkaller.appspotmail.com>, dakr@kernel.org, 
-	driver-core@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, rafael@kernel.org, 
-	syzkaller-bugs@googlegroups.com, linux-mtd@lists.infradead.org, 
-	miquel.raynal@bootlin.com, vigneshr@ti.com, joern@lazybastard.org
-Content-Type: multipart/mixed; boundary="000000000000ea36f6065bd222a0"
+Content-Transfer-Encoding: 8bit
 
---000000000000ea36f6065bd222a0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+DSA calls get_phy_flags() when attaching user-port PHYs, but passes zero
+when connecting shared (CPU and DSA) ports. Shared ports backed by PHYs
+can also need switch-specific initialization data. The motivating case is
+qca8k PHY-to-PHY CPU-port support carried by OpenWrt, where the internal
+PHY driver needs the switch revision. That support is absent from this
+net-next baseline.
 
-On Sat, Sep 19, 2026, J=C3=B6rn Engel wrote:
-> This is just awful taste. You are inside a file called "block2mtd".
-> The prefix to the mutex an workqueue add absolutely nothing.
-> [...]
-> Pick a name that gives us some information like that, please!
+Call the existing callback before connecting shared-port PHYs and document
+its expanded scope. Drivers without the callback continue to pass zero.
+Preserve the existing PHY connection error handling.
 
-Agreed. v4 renames to list_mutex and setup_wq. Additionally, I fixed
-tag formatting and removed a redundant if-guard.
+Make bcm_sf2 and ksz88xx return zero for non-user ports. This avoids newly
+passing their PHY power-management and erratum flags to shared ports,
+while retaining their existing user-port values.
 
-On Sat, Sep 19, 2026, Richard Weinberger wrote:
-> While we're here, maybe it's time to add a decent configfs interface
-> to this driver instead of configuring through module parameters.
+Link: https://github.com/openwrt/openwrt/pull/25225
+Assisted-by: LLM
+Signed-off-by: Yongzhao Chen <yongzhao.derek@gmail.com>
+---
+This RFC proposes using get_phy_flags() for PHY-backed shared DSA ports,
+with bcm_sf2 and ksz88xx guards to preserve their existing behavior.
+The callback already carries switch-specific initialization data to PHYs;
+the shared-port path should provide it before PHY initialization too.
 
-I will look at a configfs interface as a follow up once this
-lockdep fix lands.
+The use case comes from qca8k PHY-to-PHY CPU-port support carried by
+OpenWrt. That support is absent from this net-next baseline. The downstream
+PHY driver needs the switch revision and a flag for a QCA8337 CPU-link
+SmartSpeed quirk. This patch covers the generic flag propagation and
+compatibility guards; the PHY-to-PHY support and quirk are outside its
+scope. The complete RA74 fix would need those changes as well.
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-master
+Reusing the callback keeps one interface for switch-to-PHY information.
+The guards make bcm_sf2 and ksz88xx return zero for non-user ports,
+preserving their previous contribution on those paths. They do not clear
+flags already held by the PHY. qca8k continues to supply its revision for
+internal PHYs. The pinned tree has no other callback implementations.
 
-Regards,
-Chris
+The patch is based on net-next
+26ee8cd69d46a14b37ba5e512084fe80d730127a. Validation:
 
---000000000000ea36f6065bd222a0
-Content-Type: text/x-patch; charset="US-ASCII"; 
-	name="0001-mtd-block2mtd-defer-device-open-out-of-param-sysfs-w.patch"
-Content-Disposition: attachment; 
-	filename="0001-mtd-block2mtd-defer-device-open-out-of-param-sysfs-w.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mu855l5m0>
-X-Attachment-Id: f_mu855l5m0
+- Four fresh x86_64 builds compare baseline and candidate allyesconfig
+  and allmodconfig with GCC 13.3.0, W=1 and KCFLAGS=-Wno-error. All builds
+  produce vmlinux, bzImage and every expected module: 66 for allyesconfig
+  and 11,173 for allmodconfig. Paired configurations are byte-identical;
+  source, configuration and toolchain checks remain stable throughout.
+  Complete warning/note comparisons, including repetition counts and
+  compiler targets, show no new code diagnostics. Allmodconfig matches
+  exactly. Allyesconfig differs only by four baseline make clock-skew
+  diagnostics. Their two empty module lists were checked, and full-target
+  replays reached stable dependencies with no new diagnostics. Raw logs
+  and the review are retained. The default CONFIG_WERROR=y builds had
+  stopped on warnings reproduced in the unpatched baseline: all 48 and
+  12 initial error diagnostics, respectively. The common -Wno-error
+  setting enables the complete comparison; these are not warning-free
+  builds. Earlier affected-object COMPILE_TEST/W=1 builds also passed.
+- A standalone C harness compiles actual DSA and driver function bodies
+  with stubbed PHY/phylink operations under ASan/UBSan. All 52 cases pass,
+  covering BCM/KSZ compatibility, qca8k revision propagation, all flag
+  bits, callback arguments and call count, missing callbacks, and
+  attachment errors. Removing either guard or disabling propagation
+  makes the corresponding assertion fail. Earlier compiled-function
+  checks also cover the OpenWrt 6.12 and 6.18 adaptations.
+- Runtime testing used an OpenWrt 6.18 image on Redmi AX5400 (RA74), with
+  the PHY-to-PHY support and QCA quirk. It passed sysupgrade and warm
+  reboots, a physical 20-second power cycle, WAN/LAN DHCP, wired traffic
+  and LAN VLAN isolation. These results cover the combined downstream
+  changes. This net-next patch has not been runtime-tested on hardware;
+  BCM SF2 and KSZ hardware have not been tested.
 
-RnJvbSAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBDaHJpcyBSb3kgPGlhbUB0aGVjaHJpcy5pbj4KRGF0ZTogU2F0
-LCAxOSBTZXAgMjAyNiAwMDowMDowMCArMDAwMApTdWJqZWN0OiBbUEFUQ0ggdjRdIG10ZDogYmxv
-Y2sybXRkOiBkZWZlciBkZXZpY2Ugb3BlbiBvdXQgb2YgcGFyYW0vc3lzZnMgd3JpdGUKCmJsb2Nr
-Mm10ZF9zZXR1cCgpIG9wZW5zIHRoZSBuYW1lZCBibG9jayBkZXZpY2Ugd2hpbGUgc3RpbGwgdW5k
-ZXIKcGFyYW1fbG9jaywgYW5kIG9uIHRoZSBzeXNmcyB3cml0ZSBwYXRoIHVuZGVyIGtlcm5mcyAo
-YW5kIHBvc3NpYmx5IGEKc3BsaWNlIHBpcGUgbG9jaykuIFRoYXQgbmVzdHMgVkZTIGxvY2tpbmcg
-dGhlIHdyb25nIHdheSByZWxhdGl2ZSB0bwpvdmVybGF5ZnMgYW5kIHRyaXBzIGxvY2tkZXAuCgpE
-cm9wIHBhcmFtX2xvY2sgYW5kIHJ1biBzZXR1cCBvbiBhIGRlZGljYXRlZCBvcmRlcmVkIHdvcmtx
-dWV1ZS4gS2VlcAp0aGUgY2FsbCBzeW5jaHJvbm91cyB3aXRoIHdhaXRfZm9yX2NvbXBsZXRpb24o
-KS4gQWxsb2NhdGUgdGhlIHdvcmsgb24KdGhlIGhlYXAgc28gREVCVUdfT0JKRUNUU19XT1JLIHN0
-YXlzIHF1aWV0LgoKQ2hhbmdlcyBzaW5jZSB2MzoKLSByZW5hbWUgbGlzdF9tdXRleCAvIHNldHVw
-X3dxIHRvIHNheSB3aGF0IHRoZXkgYXJlIGZvcgotIHRpZHkgbmV3IGNvbW1lbnRzCi0gZml4IEFz
-c2lzdGVkLWJ5IHRhZyBmb3JtYXQgKGNoZWNrcGF0Y2g6IEFHRU5UX05BTUU6TU9ERUxfVkVSU0lP
-TikKLSBkcm9wIHJlZHVuZGFudCBzZXR1cF93cSBjaGVjayBpbiBibG9jazJtdGRfc2V0dXBfZGVm
-ZXIoKSAodGhlCiAgc29sZSBjYWxsZXIgYWxyZWFkeSBnYXRlcyBvbiBpdCkKCkNoYW5nZXMgc2lu
-Y2UgdjI6Ci0gcmV3cml0ZSB0aGUgbmV3IGNvbW1lbnRzIHRvIG1hdGNoIHRoZSByZXN0IG9mIHRo
-ZSBmaWxlCi0gYWRkIEFzc2lzdGVkLWJ5CgpDaGFuZ2VzIHNpbmNlIHYxOgotIGhlYXAtYWxsb2Nh
-dGVkIHdvcmsgKHYxIHRyaXBwZWQgREVCVUdfT0JKRUNUU19XT1JLKQotIGRlZGljYXRlZCBvcmRl
-cmVkIHdvcmtxdWV1ZSBpbnN0ZWFkIG9mIHN5c3RlbV93cQotIG1vZHVsZSByZWZlcmVuY2UgYWNy
-b3NzIHRoZSBkZWZlcnJlZCBvcGVuCi0gZmx1c2gvZGVzdHJveSB0aGUgd29ya3F1ZXVlIGJlZm9y
-ZSBleGl0IHRlYXJkb3duCi0gc2VyaWFsaXplIHNldHVwMiBvbiB0aGUgd29ya2VyIHVuZGVyIGxp
-c3RfbXV0ZXgKLSBlYXJseS1ib290IHBhcmFtbGluZSB1cGRhdGVzIHVuZGVyIHRoYXQgbXV0ZXgK
-ClJlcG9ydGVkLWJ5OiBzeXpib3QrN2NhYjZhMTk2MTlmMWI4ZWZjMDBAc3l6a2FsbGVyLmFwcHNw
-b3RtYWlsLmNvbQpDbG9zZXM6IGh0dHBzOi8vc3l6a2FsbGVyLmFwcHNwb3QuY29tL2J1Zz9leHRp
-ZD03Y2FiNmExOTYxOWYxYjhlZmMwMApBc3Npc3RlZC1ieTogQ2xhdWRlOmNsYXVkZS1zb25uZXQt
-NQpTaWduZWQtb2ZmLWJ5OiBDaHJpcyBSb3kgPGlhbUB0aGVjaHJpcy5pbj4KLS0tCiBkcml2ZXJz
-L210ZC9kZXZpY2VzL2Jsb2NrMm10ZC5jIHwgMTE2ICsrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrLS0tLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCA5NSBpbnNlcnRpb25zKCspLCAyMSBkZWxl
-dGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL210ZC9kZXZpY2VzL2Jsb2NrMm10ZC5jIGIv
-ZHJpdmVycy9tdGQvZGV2aWNlcy9ibG9jazJtdGQuYwppbmRleCAwM2U4MGIyLi5hNTQwMDg5IDEw
-MDY0NAotLS0gYS9kcml2ZXJzL210ZC9kZXZpY2VzL2Jsb2NrMm10ZC5jCisrKyBiL2RyaXZlcnMv
-bXRkL2RldmljZXMvYmxvY2sybXRkLmMKQEAgLTI3LDYgKzI3LDggQEAKICNpbmNsdWRlIDxsaW51
-eC9pbml0Lmg+CiAjaW5jbHVkZSA8bGludXgvbXRkL210ZC5oPgogI2luY2x1ZGUgPGxpbnV4L211
-dGV4Lmg+CisjaW5jbHVkZSA8bGludXgvd29ya3F1ZXVlLmg+CisjaW5jbHVkZSA8bGludXgvY29t
-cGxldGlvbi5oPgogI2luY2x1ZGUgPGxpbnV4L21vdW50Lmg+CiAjaW5jbHVkZSA8bGludXgvc2xh
-Yi5oPgogI2luY2x1ZGUgPGxpbnV4L21ham9yLmg+CkBAIC00NSw2ICs0Nyw5IEBAIHN0cnVjdCBi
-bG9jazJtdGRfZGV2IHsKCiAvKiBTdGF0aWMgaW5mbyBhYm91dCB0aGUgTVRELCB1c2VkIGluIGNs
-ZWFudXBfbW9kdWxlICovCiBzdGF0aWMgTElTVF9IRUFEKGJsa210ZF9kZXZpY2VfbGlzdCk7Cisv
-KiBQcm90ZWN0cyBibGttdGRfZGV2aWNlX2xpc3QgYW5kIGVhcmx5LWJvb3QgcGFyYW1saW5lIHVw
-ZGF0ZXMgKi8KK3N0YXRpYyBERUZJTkVfTVVURVgobGlzdF9tdXRleCk7CitzdGF0aWMgc3RydWN0
-IHdvcmtxdWV1ZV9zdHJ1Y3QgKnNldHVwX3dxOwoKCiBzdGF0aWMgc3RydWN0IHBhZ2UgKnBhZ2Vf
-cmVhZChzdHJ1Y3QgYWRkcmVzc19zcGFjZSAqbWFwcGluZywgcGdvZmZfdCBpbmRleCkKQEAgLTQ2
-MSwzMSArNDY2LDg1IEBAIHN0YXRpYyBpbnQgYmxvY2sybXRkX3NldHVwMihjb25zdCBjaGFyICp2
-YWwpCiAJcmV0dXJuIDA7CiB9Cgorc3RydWN0IGJsb2NrMm10ZF9zZXR1cF93b3JrIHsKKwlzdHJ1
-Y3Qgd29ya19zdHJ1Y3Qgd29yazsKKwlzdHJ1Y3QgY29tcGxldGlvbiBkb25lOworCWNoYXIgKnZh
-bDsKKwlpbnQgcmV0OworfTsKKworc3RhdGljIHZvaWQgYmxvY2sybXRkX3NldHVwX3dvcmtmbihz
-dHJ1Y3Qgd29ya19zdHJ1Y3QgKndvcmspCit7CisJc3RydWN0IGJsb2NrMm10ZF9zZXR1cF93b3Jr
-ICp3ID0KKwkJY29udGFpbmVyX29mKHdvcmssIHN0cnVjdCBibG9jazJtdGRfc2V0dXBfd29yaywg
-d29yayk7CisKKwltdXRleF9sb2NrKCZsaXN0X211dGV4KTsKKwl3LT5yZXQgPSBibG9jazJtdGRf
-c2V0dXAyKHctPnZhbCk7CisJbXV0ZXhfdW5sb2NrKCZsaXN0X211dGV4KTsKKwljb21wbGV0ZSgm
-dy0+ZG9uZSk7Cit9CisKKy8qIFJ1bnMgYmxvY2sybXRkX3NldHVwMigpIG9uIHNldHVwX3dxLCBi
-bG9ja2luZyB1bnRpbCBpdCBjb21wbGV0ZXMgKi8KK3N0YXRpYyBpbnQgYmxvY2sybXRkX3NldHVw
-X2RlZmVyKGNvbnN0IGNoYXIgKnZhbCkKK3sKKwlzdHJ1Y3QgYmxvY2sybXRkX3NldHVwX3dvcmsg
-Knc7CisJaW50IHJldDsKKworCXcgPSBremFsbG9jKHNpemVvZigqdyksIEdGUF9LRVJORUwpOwor
-CWlmICghdykKKwkJcmV0dXJuIC1FTk9NRU07CisKKwl3LT52YWwgPSBrc3RyZHVwKHZhbCwgR0ZQ
-X0tFUk5FTCk7CisJaWYgKCF3LT52YWwpIHsKKwkJa2ZyZWUodyk7CisJCXJldHVybiAtRU5PTUVN
-OworCX0KKworCWluaXRfY29tcGxldGlvbigmdy0+ZG9uZSk7CisJSU5JVF9XT1JLKCZ3LT53b3Jr
-LCBibG9jazJtdGRfc2V0dXBfd29ya2ZuKTsKKwlxdWV1ZV93b3JrKHNldHVwX3dxLCAmdy0+d29y
-ayk7CisJd2FpdF9mb3JfY29tcGxldGlvbigmdy0+ZG9uZSk7CisKKwlyZXQgPSB3LT5yZXQ7CisJ
-a2ZyZWUody0+dmFsKTsKKwlrZnJlZSh3KTsKKwlyZXR1cm4gcmV0OworfQoKIHN0YXRpYyBpbnQg
-YmxvY2sybXRkX3NldHVwKGNvbnN0IGNoYXIgKnZhbCwgY29uc3Qgc3RydWN0IGtlcm5lbF9wYXJh
-bSAqa3ApCiB7Ci0jaWZkZWYgTU9EVUxFCi0JcmV0dXJuIGJsb2NrMm10ZF9zZXR1cDIodmFsKTsK
-LSNlbHNlCi0JLyogSWYgbW9yZSBwYXJhbWV0ZXJzIGFyZSBsYXRlciBwYXNzZWQgaW4gdmlhCi0J
-ICAgL3N5cy9tb2R1bGUvYmxvY2sybXRkL3BhcmFtZXRlcnMvYmxvY2sybXRkCi0JICAgYW5kIGJs
-b2NrMm10ZF9pbml0KCkgaGFzIGFscmVhZHkgYmVlbiBjYWxsZWQsCi0JICAgd2UgY2FuIHBhcnNl
-IHRoZSBhcmd1bWVudCBub3cuICovCi0KLQlpZiAoYmxvY2sybXRkX2luaXRfY2FsbGVkKQotCQly
-ZXR1cm4gYmxvY2sybXRkX3NldHVwMih2YWwpOwotCi0JLyogRHVyaW5nIGVhcmx5IGJvb3Qgc3Rh
-Z2UsIHdlIG9ubHkgc2F2ZSB0aGUgcGFyYW1ldGVycwotCSAgIGhlcmUuIFdlIG11c3QgcGFyc2Ug
-dGhlbSBsYXRlcjogaWYgdGhlIHBhcmFtIHBhc3NlZAotCSAgIGZyb20ga2VybmVsIGJvb3QgY29t
-bWFuZCBsaW5lLCBibG9jazJtdGRfc2V0dXAoKSBpcwotCSAgIGNhbGxlZCBzbyBlYXJseSB0aGF0
-IGl0IGlzIG5vdCBwb3NzaWJsZSB0byByZXNvbHZlCi0JICAgdGhlIGRldmljZSAoZXZlbiBrbWFs
-bG9jKCkgZmFpbHMpLiBEZXRlciB0aGF0IHdvcmsgdG8KLQkgICBibG9jazJtdGRfc2V0dXAyKCku
-ICovCisJaW50IHJldCA9IDA7CgotCXN0cnNjcHkoYmxvY2sybXRkX3BhcmFtbGluZSwgdmFsLCBz
-aXplb2YoYmxvY2sybXRkX3BhcmFtbGluZSkpOworCWlmICghdHJ5X21vZHVsZV9nZXQoa3AtPm1v
-ZCkpCisJCXJldHVybiAtRU5PREVWOwoKLQlyZXR1cm4gMDsKKwlrZXJuZWxfcGFyYW1fdW5sb2Nr
-KGtwLT5tb2QpOworCisjaWZuZGVmIE1PRFVMRQorCW11dGV4X2xvY2soJmxpc3RfbXV0ZXgpOwor
-CWlmICghYmxvY2sybXRkX2luaXRfY2FsbGVkKSB7CisJCS8qIENhbm5vdCByZXNvbHZlIGJsb2Nr
-IGRldmljZXMgdGhpcyBlYXJseSAqLworCQlzdHJzY3B5KGJsb2NrMm10ZF9wYXJhbWxpbmUsIHZh
-bCwgc2l6ZW9mKGJsb2NrMm10ZF9wYXJhbWxpbmUpKTsKKwkJbXV0ZXhfdW5sb2NrKCZsaXN0X211
-dGV4KTsKKwkJa2VybmVsX3BhcmFtX2xvY2soa3AtPm1vZCk7CisJCW1vZHVsZV9wdXQoa3AtPm1v
-ZCk7CisJCXJldHVybiAwOworCX0KKwltdXRleF91bmxvY2soJmxpc3RfbXV0ZXgpOwogI2VuZGlm
-CisKKwlpZiAoc2V0dXBfd3EpIHsKKwkJcmV0ID0gYmxvY2sybXRkX3NldHVwX2RlZmVyKHZhbCk7
-CisJfSBlbHNlIHsKKwkJLyogTm90IHlldCBkZWZlcnJlZCB0byBzZXR1cF93cTsgc2FmZSB0byBj
-YWxsIHNldHVwMiBkaXJlY3RseSAqLworCQltdXRleF9sb2NrKCZsaXN0X211dGV4KTsKKwkJcmV0
-ID0gYmxvY2sybXRkX3NldHVwMih2YWwpOworCQltdXRleF91bmxvY2soJmxpc3RfbXV0ZXgpOwor
-CX0KKworCWtlcm5lbF9wYXJhbV9sb2NrKGtwLT5tb2QpOworCW1vZHVsZV9wdXQoa3AtPm1vZCk7
-CisJcmV0dXJuIHJldDsKIH0KCgpAQCAtNDk2LDEwICs1NTUsMTcgQEAgc3RhdGljIGludCBfX2lu
-aXQgYmxvY2sybXRkX2luaXQodm9pZCkKIHsKIAlpbnQgcmV0ID0gMDsKCisJc2V0dXBfd3EgPSBh
-bGxvY19vcmRlcmVkX3dvcmtxdWV1ZSgiYmxvY2sybXRkIiwgMCk7CisJaWYgKCFzZXR1cF93cSkK
-KwkJcmV0dXJuIC1FTk9NRU07CisKICNpZm5kZWYgTU9EVUxFCisJbXV0ZXhfbG9jaygmbGlzdF9t
-dXRleCk7CiAJaWYgKHN0cmxlbihibG9jazJtdGRfcGFyYW1saW5lKSkKIAkJcmV0ID0gYmxvY2sy
-bXRkX3NldHVwMihibG9jazJtdGRfcGFyYW1saW5lKTsKKwkvKiBBdm9pZCByYWNpbmcgc3lzZnMg
-d2l0aCB0aGUgZWFybHkgcGFyYW1saW5lICovCiAJYmxvY2sybXRkX2luaXRfY2FsbGVkID0gMTsK
-KwltdXRleF91bmxvY2soJmxpc3RfbXV0ZXgpOwogI2VuZGlmCgogCXJldHVybiByZXQ7CkBAIC01
-MTAsOSArNTc2LDE2IEBAIHN0YXRpYyB2b2lkIGJsb2NrMm10ZF9leGl0KHZvaWQpCiB7CiAJc3Ry
-dWN0IGxpc3RfaGVhZCAqcG9zLCAqbmV4dDsKCi0JLyogUmVtb3ZlIHRoZSBNVEQgZGV2aWNlcyAq
-LworCWlmIChzZXR1cF93cSkgeworCQlmbHVzaF93b3JrcXVldWUoc2V0dXBfd3EpOworCQlkZXN0
-cm95X3dvcmtxdWV1ZShzZXR1cF93cSk7CisJCXNldHVwX3dxID0gTlVMTDsKKwl9CisKKwltdXRl
-eF9sb2NrKCZsaXN0X211dGV4KTsKIAlsaXN0X2Zvcl9lYWNoX3NhZmUocG9zLCBuZXh0LCAmYmxr
-bXRkX2RldmljZV9saXN0KSB7CiAJCXN0cnVjdCBibG9jazJtdGRfZGV2ICpkZXYgPSBsaXN0X2Vu
-dHJ5KHBvcywgdHlwZW9mKCpkZXYpLCBsaXN0KTsKKwogCQlibG9jazJtdGRfc3luYygmZGV2LT5t
-dGQpOwogCQltdGRfZGV2aWNlX3VucmVnaXN0ZXIoJmRldi0+bXRkKTsKIAkJbXV0ZXhfZGVzdHJv
-eSgmZGV2LT53cml0ZV9tdXRleCk7CkBAIC01MjIsNiArNTk1LDcgQEAgc3RhdGljIHZvaWQgYmxv
-Y2sybXRkX2V4aXQodm9pZCkKIAkJbGlzdF9kZWwoJmRldi0+bGlzdCk7CiAJCWJsb2NrMm10ZF9m
-cmVlX2RldmljZShkZXYpOwogCX0KKwltdXRleF91bmxvY2soJmxpc3RfbXV0ZXgpOwogfQoKIGxh
-dGVfaW5pdGNhbGwoYmxvY2sybXRkX2luaXQpOwotLQoyLjQzLjAK
---000000000000ea36f6065bd222a0--
+Codex assisted with the implementation, test harnesses and draft text.
+The work addressed OpenWrt PR 25225 review, preserving other drivers'
+behavior and preparing the generic change for upstream discussion.
+Gemini 3.8 Flash, through agy, reviewed the design and an earlier draft.
+The paired whole-tree build experiment was completed after those reviews.
+
+ Documentation/networking/dsa/dsa.rst | 2 ++
+ drivers/net/dsa/bcm_sf2.c            | 4 ++++
+ drivers/net/dsa/microchip/ksz8.c     | 4 ++++
+ net/dsa/port.c                       | 6 +++++-
+ 4 files changed, 15 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/networking/dsa/dsa.rst b/Documentation/networking/dsa/dsa.rst
+index 42a99f5df..9bb7a8f75 100644
+--- a/Documentation/networking/dsa/dsa.rst
++++ b/Documentation/networking/dsa/dsa.rst
+@@ -668,6 +668,8 @@ PHY devices and link management
+   on its own (e.g.: coming from switch memory mapped registers), this function
+   should return a 32-bit bitmask of "flags" that is private between the switch
+   driver and the Ethernet PHY driver in ``drivers/net/phy/\*``.
++  It is called when connecting PHYs for user, CPU and DSA ports. Drivers
++  should return zero for ports that do not need switch-specific PHY flags.
+ 
+ - ``phy_read``: Function invoked by the DSA user MDIO bus when attempting to read
+   the switch port MDIO registers. If unavailable, return 0xffff for each read.
+diff --git a/drivers/net/dsa/bcm_sf2.c b/drivers/net/dsa/bcm_sf2.c
+index 9e5713015..f516fc396 100644
+--- a/drivers/net/dsa/bcm_sf2.c
++++ b/drivers/net/dsa/bcm_sf2.c
+@@ -709,6 +709,10 @@ static u32 bcm_sf2_sw_get_phy_flags(struct dsa_switch *ds, int port)
+ {
+ 	struct bcm_sf2_priv *priv = bcm_sf2_to_priv(ds);
+ 
++	/* Shared ports previously received no PHY flags. */
++	if (!dsa_is_user_port(ds, port))
++		return 0;
++
+ 	/* The BCM7xxx PHY driver expects to find the integrated PHY revision
+ 	 * in bits 15:8 and the patch level in bits 7:0 which is exactly what
+ 	 * the REG_PHY_REVISION register layout is.
+diff --git a/drivers/net/dsa/microchip/ksz8.c b/drivers/net/dsa/microchip/ksz8.c
+index 941ae9f66..d284c199f 100644
+--- a/drivers/net/dsa/microchip/ksz8.c
++++ b/drivers/net/dsa/microchip/ksz8.c
+@@ -2953,6 +2953,10 @@ static u32 ksz88xx_get_phy_flags(struct dsa_switch *ds, int port)
+ {
+ 	struct ksz_device *dev = ds->priv;
+ 
++	/* Shared ports previously received no PHY flags. */
++	if (!dsa_is_user_port(ds, port))
++		return 0;
++
+ 	switch (dev->chip_id) {
+ 	case KSZ88X3_CHIP_ID:
+ 		/* Silicon Errata Sheet (DS80000830A):
+diff --git a/net/dsa/port.c b/net/dsa/port.c
+index 1f5536c0d..4db7e6f9c 100644
+--- a/net/dsa/port.c
++++ b/net/dsa/port.c
+@@ -1666,6 +1666,7 @@ static int dsa_shared_port_phylink_register(struct dsa_port *dp)
+ {
+ 	struct dsa_switch *ds = dp->ds;
+ 	struct device_node *port_dn = dp->dn;
++	u32 phy_flags = 0;
+ 	int err;
+ 
+ 	dp->pl_config.dev = ds->dev;
+@@ -1675,7 +1676,10 @@ static int dsa_shared_port_phylink_register(struct dsa_port *dp)
+ 	if (err)
+ 		return err;
+ 
+-	err = phylink_of_phy_connect(dp->pl, port_dn, 0);
++	if (ds->ops->get_phy_flags)
++		phy_flags = ds->ops->get_phy_flags(ds, dp->index);
++
++	err = phylink_of_phy_connect(dp->pl, port_dn, phy_flags);
+ 	if (err && err != -ENODEV) {
+ 		pr_err("could not attach to PHY: %d\n", err);
+ 		goto err_phy_connect;
+
+base-commit: 26ee8cd69d46a14b37ba5e512084fe80d730127a
+-- 
+2.43.0
+
