@@ -1,95 +1,114 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CC9D36AB61
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 05:32:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90B9D296BD2;
+	Sat, 19 Sep 2026 05:32:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789795955; cv=none; b=X2TW/Vr12bWClBMzPz+0xKE+EUNjx30z+HFBmJZVX4SeYdZq0UfdyWq8KvwOa3j1OgqVLg4qy6fLfUQUeJiTIMABHcuTjS6egG/tkvT20PEKwp89XbGcSNqDyvgx2LqWyYJHjn0kSqbS0kD3w2x5bcFkg+zh93WgRpjF8BSXQwo=
+	t=1789795973; cv=none; b=u8/FJV8zInaJOOWz65qJ1fZeRIeIl9YRJSZKxfdX5yQ5F13j595OSsROSzugWHPpvM5E+mODhl4lYUQnkGQxb1k4bwWBw26tO31uayFh02JkfcEfmcEAOY4u5sMu5DtQigCx+Vsow4ap9pdRITlcjBu/bYfgCGU4NUvKq6ClH1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789795955; c=relaxed/simple;
-	bh=Z7Vrqhz4zZTyEAjiYZc5R2ZjTYR1ZaAGalKcjp8AZGQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JgN6KWRlsl7iMjk6fPMiCeERROMXn3zmVxozIn4KjUEmCePlS+VHriLDQ1MkzP8ZB6nttnS9jCzUHQ06UjeikTUht6+cna5k96VqCj38O3H2xCFASwD5WAcwZ01FMU5HZ7PAddb9u8vkTHVIkUuqkrcg4wDb8Jo+g5jlgNl78/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JPeXe53u; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789795973; c=relaxed/simple;
+	bh=jVCJCUYTQa8rV2LmuddgI8qQewIHG7uwDF2ztBf6Ckg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HLTSoYr5W0MChW22dIEElEM8+CxBX97KkQZ2AHyIRiyhSKiERPLYZtIyjIATU086wZd50+A6v2EF6IUL8lDSQzZnwAwul+S3HMeyNJMp1drD8qCZyWtlZlxT9QP2eGqdK1v0fx7bpII2H4e6TLoBdocsFvBKg6YHkhZlX2HLGXM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=ZHxhM3+r; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JPeXe53u"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7bcb94d3so9687145e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 22:32:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789795952; x=1790400752; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Z7Vrqhz4zZTyEAjiYZc5R2ZjTYR1ZaAGalKcjp8AZGQ=;
-        b=JPeXe53uo9G+uAj2RQGc2oGkSUmoP5E4RvydCiqXTpgEZ39zTtYDeHt8LzdQpNUjPu
-         MEBX3MeIeTZk3ihePLJZdmdDsGmRRly7nIaD9QJtD98CpReLfJSqK05E4inmeNLeQpsz
-         +gZsp91vfn2ceCWoCvUlWu9ZfKcFlngGmiT1WLGlt5YD0TUlY/eHhrqKDyQSvfFQPEC8
-         whge6LPjMDvRlcBRIJ82UXcpzeN63MpSI5wf0RQjZ1SJxNkbB92a4dVXaIpwTSL1gYIy
-         pBp4Ra1RzioxpPfXJrp79hj3ScXJmsXQXbvo0kmcpeJJOOik/I9MbyuC2Jp3ADoXu71k
-         04Cw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789795952; x=1790400752;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Z7Vrqhz4zZTyEAjiYZc5R2ZjTYR1ZaAGalKcjp8AZGQ=;
-        b=vL8GKD/juNjRzAx7U7wKS2oHDIR7z7PaQzLirkdP/ss9xl7g6PA0fbQ1RyN6wq53u+
-         9/o6wb5dRzG+21dbtWICVLcjeTfjBOL+O7LWeRYCe+ct2TA8EfZUXmv4mUpq734BUyeC
-         8dGt6ZuVbk7jClne11Hte51NgkupDiorxp3joBV8FzFTtW3VPLATFiFXD9D53d5BX+N9
-         SUxrW5a+gQvTyhLDgSjagV6dXdEWceWG7jXqH32Ji+8AESx6327vIy5j+EMwNPj9tydr
-         qim96hqbExPHkrNTmY30OvvRF8PGTv4dD2pibxIE8Vjz01Er+AaiMQmFsFajDF0izTZO
-         ioCQ==
-X-Forwarded-Encrypted: i=1; AKwUvByjpDTPnF9fkHf67PCYwl4ItLjREU76LhbYj1ypNLrhsK6goV9z9e3Fwx90glEd9QpVAI7vydHw3qBNmW4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kjPS9st9uRg2dZfQwogeMrvEvXZo1X7tM4ZslEJEJHAW1lHwIn
-	Oxx4jWzj56TfxgV/ZawD8PriSszxcNMMsBqsktfrX+bRFJaQZx84xttH
-X-Gm-Gg: AYBFou2haD9kWsSuEH6fz5gf0cADCz8uh0oh1gcdXecztmjMoGu6KOJadNKH9YSdWY1
-	ArgSPRj/GNiA8L/ywpri8DKFhsY3f0FgOtO+NNcL+YgeD4rCkqVGHXvERUL+nUEYKFiAKXMHunC
-	3E6BgFUYe70kUawja3fbqHji5U+m5obJmOt9WqlqjR2czOpffBHUEkozpQVN1NFSjipZTDOUXc0
-	RCk8Ld370Lmeg7vPMljFJtGQmq6m7otrf8XTS7WRMXfksds+Jd8Kgw+luOxU9j16smh7AaL7/SR
-	qnuky25xyPSX0GvaluSzuDgrAVzEmmNWgM0Jv6PBp395gRGR9JcYbMT0IHGa06gFjM5nLmXSJeX
-	mjSy4K2O0epbJuKyuSdDo3fa8g2dd/lis8YEvgG6D7AWoUCqOhaQGAxxibPqJ0UsCt10X7jqXrT
-	n4x4LwWngKHVB9HpKjeZwYZ/GH1QKiD2PWLJVeoysR92MBcc9JzM5g5KMsjnqIeTOkWz/iUwzGh
-	wfWkBsqIk3xPDEefQmzPkBxexhMcHB6MYqddJZOd3uNX5KKnrXyHyJQH5TtLz1RPSAL6/B4oMTT
-	QHw7V6DzdEC5sSXSD0Y1/UfJXMKycp/cTVh8wfNMhCU4zcrnPFcJZNCTTYNhJlCt+y4KaWuLhEy
-	M5JODx5HYrGGRGeaZ
-X-Received: by 2002:a05:600c:310e:b0:49c:f4ff:e872 with SMTP id 5b1f17b1804b1-49fc5681249mr61632675e9.5.1789795952410;
-        Fri, 18 Sep 2026 22:32:32 -0700 (PDT)
-Received: from MacBook-Pro-von-Karl.localdomain (dynamic-2a02-3100-a017-2b01-05fe-203b-7cd2-a640.310.pool.telefonica.de. [2a02:3100:a017:2b01:5fe:203b:7cd2:a640])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd2f7ef3sm40674185e9.0.2026.09.18.22.32.31
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 18 Sep 2026 22:32:32 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Sylwester Nawrocki <s.nawrocki@samsung.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: docs: fimc: Update module build options
-Date: Sat, 19 Sep 2026 07:32:30 +0200
-Message-Id: <20260919053230.26339-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20260822090647.98016-1-kmehltretter@gmail.com>
-References: <20260822090647.98016-1-kmehltretter@gmail.com>
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="ZHxhM3+r"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 6800F40E01DD;
+	Sat, 19 Sep 2026 05:32:49 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id 4rzDwpKcnbv1; Sat, 19 Sep 2026 05:32:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1789795962; bh=Jp347S+tUf4NrCs21r22Wb4cHWwaVrLnTpDkB8ZMX0g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ZHxhM3+r3yt0P5oLEP0eAKFABDknErakkfox4mBN7yUso40/66WKmZEc5GzkcYe0l
+	 uo1/3/B0umPnR8aU2Qdoe//G/yZQFn/Mm1UpbfWFsMX9uFdryPk4GrC6P3uSHfQHH/
+	 UwlMzr4Hs6ilsWaK8qEXuiXX1D4BuRR9ko9EmhlIFNxjy2t8zMIbHJLi9Ksuh+FXyF
+	 Xg8NxFzB4SgWNs7CYJWmAbt9xlYn9hJ8tWbCR/l4S5Egvh0YXr7K2/tiHvgqwDDLDv
+	 Yg6eFVgK26yvM2vAax9rYWm5Th0cLZl2rdPBBJy8vM61K4Ld9+yJlhcWla9aCJHTxp
+	 /1tFtBQoduJkOOND7iAR/cKqGrzILmsyuiW+S0Sbir70Jte4fUTg7mwxBA+TEyGiqR
+	 5cn/0tRqJ6+6Hx9B6i9q/r2zfMRIGj4R1Ypqe9NckIO76Z92AgBsjI+pwvwhr3Ylp2
+	 qzPd64IpQGWB0DYVkprvJmDdnhmNYpbHRZkeWT7FTT3L4YNz2tRh+FvfeeW98/mzFt
+	 /uGO+vf+ANiEsOWOCqU3BGhTACvtoMO+TNE4NC3d+3X5pPu9SHFCyaq+Ymz1hmSTbp
+	 wvpXgsbJtkuP4CCYR2nTruJgatxitY0n3ygHS7IerlI4nOk17cqfsxGJsK+8tjzxFK
+	 jaSbXY7NYU7yf9JkVR25Qxzc=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::48])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 50F0D40E015B;
+	Sat, 19 Sep 2026 05:32:34 +0000 (UTC)
+Date: Fri, 18 Sep 2026 22:32:30 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: akpm@linux-foundation.org, dougthompson@xmission.com,
+	linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org,
+	mitake@clustcom.com, tony.luck@intel.com, stable@vger.kernel.org
+Subject: Re: [PATCH] EDAC/x38: Fix mci_pdev reference leak in x38_init_one()
+Message-ID: <20260919053230.GDaq4eblgO_HsGHXQ8@fat_crate.local>
+References: <20260916092121.2000892-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260916092121.2000892-1-vulab@iscas.ac.cn>
 
-On Sat, 22 Aug 2026 11:06:47 +0200, I wrote:
-> s5p-csis.ko has always been controlled separately by
-> VIDEO_S5P_MIPI_CSIS, so building FIMC as a module does not produce
-> both modules. Describe each module with its own option.
+On Wed, Sep 16, 2026 at 09:21:21AM +0000, Wentao Liang wrote:
+> In x38_init_one(), a reference to the PCI device is taken with
+> pci_dev_get() and stored in the global mci_pdev even when x38_probe1()
+> fails.  On that path x38_registered keeps its initial value of 1, so
+> x38_exit() skips the pci_dev_put() and the reference is leaked.
+> 
+> Only take the reference after x38_probe1() succeeds.
+> 
+> Fixes: df8bc08c192f ("edac x38: new MC driver module")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>  drivers/edac/x38_edac.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/edac/x38_edac.c b/drivers/edac/x38_edac.c
+> index 292dda754c23..9c6542c4e3ee 100644
+> --- a/drivers/edac/x38_edac.c
+> +++ b/drivers/edac/x38_edac.c
+> @@ -423,10 +423,13 @@ static int x38_init_one(struct pci_dev *pdev, const struct pci_device_id *ent)
+>  		return -EIO;
+>  
+>  	rc = x38_probe1(pdev, ent->driver_data);
+> +	if (rc)
+> +		return rc;
+> +
+>  	if (!mci_pdev)
+>  		mci_pdev = pci_dev_get(pdev);
+>  
+> -	return rc;
+> +	return 0;
+>  }
+>  
+>  static void x38_remove_one(struct pci_dev *pdev)
+> -- 
 
-Friendly ping on this documentation fix. Is anything else needed
-from my side?
+We just orphaned this driver but it has been practically an orphan a long time
+ago already.
 
-Thanks,
-Karl
+No need to send fixes for it.
+
+Thx.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
