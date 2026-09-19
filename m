@@ -1,118 +1,142 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5C5D37CD47
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 10:10:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9138B455630
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 10:11:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789812646; cv=none; b=tPFj1mdpZZgJqhlGBkYoLL1DB9BW//oY+cEDDERNNS8j12Y2LwKugXTB0LkoiIZKJ4dLcakWt5o9vJgq4Q5U4KkBQXzv3jClaspV1KnBxmmaPUu2nSJmtMz4ddguE/zutit/0TWvs2cFj5KGGmNkGdIFS48Rtwc6xillYmsRsPk=
+	t=1789812667; cv=none; b=bgBiqN9KZWblghB2z6PhxlJoQipQJRcDExSnB0LuQPYO4wqXyl1YNLgfSvzituoQzw1mKBPOcoLuRV+qmy95VrMIBIyevFQdudy3T3VAkQ1hHx6wcGHKXU1gDtnHXI7gBmTSQS8ZzwbU1CDWK0Mwunql7/pyf4Ry9EaSh/6h1rY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789812646; c=relaxed/simple;
-	bh=AgeA2/0yaAie1oxugGl0NMqzpkSnjs2feCS1fA7m8Cs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TG7i9IzgZq/KAb/s2IYzkax70SnRhfXOCBS1f23kTxq5WohBC/LnnyYuBq6fOTheXlMNpAlQhgGC2VJ4htLGnVtkU/s6ZYZJBDqOXNx+b1PghzZK6tQoK6krGO1w1sm6AS7rmw6e3M8qSqYqeMQ22jxI6fkvhVcrSSooCs9PegE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IEau9zNN; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789812667; c=relaxed/simple;
+	bh=u6nMCYLRnxIInvBZMpdqR+U1ioovOqHCrQzmWVyEInY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gN6VrI8iy77DKM7KF5KW7yJORDsA28rANnEMJxIANCyVdgZf7nlCxK1o9ewzs6naV46MKnLLitpBLgWfE86+lYDplKn4yEVoxARfKr0xMEkvf0Fv4wD4OhRHWw6pnwGLGG6wOzb8cluENeBPSJ6ju4YlXJaKO6DZxPAOj2I1Nyw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l+5S651U; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IEau9zNN"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso11238095e9.3
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 03:10:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789812643; x=1790417443; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZbPnqDvacY/gcigjjJwdEfY3Aaa8wSWZwr6l1HMTaHM=;
-        b=IEau9zNN7oAv97HX3l59OIeZFoLFFhPaO4pvl9fG0nzaAZ51BTh7Y8c8NUaRAd5wTF
-         HQ4QYIYyLMxbTkfF8RpWHCfMWfsuH5g23MO6W0YFe/4OgA80GkqPxOViJkZ1mXyk0CY8
-         QYFMciieJRyGQNRdf3oHmGkpv3t5fcy38rkDaLCir4fCQxv7osewk0d0yefPg726abFu
-         ENykopOu4hzQIzjN8cMXYmn9c12YPByz6CPJRUxH0nIGOvZ8IqHMnLidHVxeVVOT/UGR
-         ONFWspl4PYH7WoA7BzsogNgirGVY9sMkJm9QBEqQ+MYeXStR4d3aHneGMQ7/h9AsJ2OU
-         8pUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789812643; x=1790417443;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZbPnqDvacY/gcigjjJwdEfY3Aaa8wSWZwr6l1HMTaHM=;
-        b=2jMozUkC/Dc8OdK2UhrNVzlxkLGX1TXnNpCRm3rCQkPYChylhrsppi1ux0JJCXGI2y
-         0X2jjN08Iql6MXrBPMOXjkpS7279ZfjSP+BSsgx56W4XHi5aqYN7x6HvN00n6QYJUidc
-         BHXPZ4oz74SgmuHuX7UQTelb2JXC4csc/NKQvx9UjnplKrK7BW79tbKKA/4UJcd1THZH
-         D54OEUScQFt2eV4/JbkHzgU9Mw2XknAakHL2YbsUB7onZ9WmSO35NyQfTVYLLJKBX9W8
-         3lKaX7YPLbXOs4Y7DwyKAYngI6lWmgPotiMqVjLvaShfQ+8TgFIVattsAYKAWBZVY8Gq
-         gBsQ==
-X-Gm-Message-State: AFuF++m9uINQsg8z82PHY//B3Gym11Cy7a33coFtayyKnVIgT4MIwVkK
-	tRsKnWc/AoIZsaVW9ZcQxeTR87LoxkuNEgC0vG7Z4NgVo0VG/HkLdwKs
-X-Gm-Gg: AYBFou1LOATfcgT6Y03CQ8a8Oocu8m3iy1DfMXKD6LZdL8RVN3Ftu+jFESifTwD8aiF
-	h9udy7zxalrj5s5J188hsHCXGkkSPnKxyZylnTpqQ0qIwZumgL+YNXxOVqzeUvFb6MM2A+NEpIy
-	7b6PR85PgeCqC5uvOxghqE7F83TyPf0lBcBrBNcw1V4qcWA78rrbuRBYVs6QiDVt+VzvLT64qH5
-	nWVgM7GEnETpoHd0BjYGbKqxfhif5FptEMD25J4C8tFzWXz85h//92xVVTnIOUjKII26/RBfym/
-	OKkYrNTNvBnEUEVCrDpJ9ghvwgz58hebYFft3i+dAK9idhW9A1pHKKyDvyAmL8R8K4bEfXDzyz5
-	0FmCm64LZbK04Pwg/Z34r5TuvD12iO41esZOBut6zUtWUY6pJ1yhhToZjY6gFNC+Sdwt77IItV+
-	Lb7LMOQtQtb85PSisocMX7d6+0U0/+CuV13EUgRhe/gdJ1S4pDGdCpxOdv3ZbnGh6O+/SzFPSHw
-	gEoX0Vki5YRdoLBx/PJHEiPlvptTDEGb3CXdgNtZeTz87mVAUSXBVXN
-X-Received: by 2002:a05:600c:138b:b0:49c:f89b:f82 with SMTP id 5b1f17b1804b1-49fc568f8dcmr63857195e9.12.1789812643037;
-        Sat, 19 Sep 2026 03:10:43 -0700 (PDT)
-Received: from julian.home (193-248-207-30.ftth.fr.orangecustomers.net. [193.248.207.30])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd2f7ef3sm58499105e9.0.2026.09.19.03.10.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 03:10:42 -0700 (PDT)
-From: User <julianpoulainpro@gmail.com>
-To: gregkh@linuxfoundation.org,
-	linux-staging@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org,
-	User <julianpoulainpro@gmail.com>
-Subject: [PATCH] staging: axis-fifo: validate tx_fifo_depth in axis_fifo_parse_dt()
-Date: Sat, 19 Sep 2026 12:05:11 +0200
-Message-ID: <20260919100511.16032-1-julianpoulainpro@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l+5S651U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E73241F000FF;
+	Sat, 19 Sep 2026 10:11:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789812666;
+	bh=T6rLf9agDMyARwXvYrMSOSIy5jRBMFJCc5XZwhlIScw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=l+5S651UOr8S1vO1bGledRyKS7GVLLbQpEy8lMv6ldvYtkMWP5Ze0XUgkcqYdSyCR
+	 0ya401ohT1jtFdfAvPQjqs7+2oF71svgvlRCBIXRlHNTFcNSfPMtp98fR4uWffdHTY
+	 xDGGk5PyVUHwY2QOzMfqrj/DTJJR9mfmwTS0V1lB+DGEBUgureD9MmCdThXorMwTfC
+	 uRcldTNp9FbPeG+pG/oy+L/gJsuoFJ49auy+m4Kw0hz/VMTxpWTb9holgN+K3bjCDD
+	 fsG3oPLdi4iKvouNiOD4PvbeM1BPduGrcO9rIQgox6vSRBG30hqnXx2XiUqPSk3xVj
+	 ElPtZvU5oLD1Q==
+Message-ID: <0c0c19d0-997a-4c8d-a103-2b3d153f4e32@kernel.org>
+Date: Sat, 19 Sep 2026 12:10:56 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] mm/memory: reuse the whole exclusive large folio
+ on a write fault
+To: Yuan-Hao Hsu <aa9736195201@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, liam@infradead.org,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Barry Song <baohua@kernel.org>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20260918064238.868-1-aa9736195201@gmail.com>
+ <20260919073134.639-1-aa9736195201@gmail.com>
+ <20260919073134.639-3-aa9736195201@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <20260919073134.639-3-aa9736195201@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-tx_fifo_depth is read from the device tree as an unsigned int and
-later used in axis_fifo_write() as:
+On 9/19/26 09:31, Yuan-Hao Hsu wrote:
+> With blocks of 16 PTEs a PTE-mapped 2M THP still takes 32 reuse faults
+> and a 1M folio 16.  Lift the bound to the page table: the walk then
+> covers the PTEs that map the folio in this page table, at most
+> PTRS_PER_PTE of them, and one fault does the work for the folio.
+> 
+> Its cost, measured as the time of the store that takes it, against
+> 420 ns for a reuse fault today (x86-64, i7-12700KF, medians, ns):
+> 
+>                           reuse fault   fault that     COW fault that
+>                           (patched)     allocated it   copies 4K
+>       1M mTHP            5,400- 5,700   63,000-68,000          1,500
+>       2M THP, PTE-mapped  10,000-10,500         126,000          1,500
+> 
+> That is 14-20 ns per PTE, about 2 ns of it the scan.  Builds that
+> differ only by NOPs in front of the function take either 10,100 or
+> 7,500 ns for the 2M folio, with a period of 32 bytes: the loop of
+> modify_prot_commit_ptes() changes speed with its address.
+> 
+> What it buys, 256 MiB after fork() and the child's exit, medians of 15
+> runs, two boots of each kernel:
+> 
+>                                    16 PTEs         whole folio
+>   one byte per page, seq
+>       1M mTHP                     5.7 /  5.8 ms    4.1 /  4.0 ms
+>       2M THP, PTE-mapped          5.7 /  5.8 ms    3.9 /  3.9 ms
+>   one byte per page, random order
+>       2M THP, PTE-mapped          7.4 /  7.5 ms    4.9 /  5.1 ms
+>   memset()
+>       2M THP, PTE-mapped         40.2 / 39.4 ms   38.1 / 37.2 ms
+>   8 threads, random order
+>       2M THP, PTE-mapped          0.9 /  1.0 ms    0.7 /  0.7 ms
+>   one store per 64K, 2M folios    3.3 /  3.3 ms    1.5 /  1.6 ms
+>   one store per 2M, 2M folios     0.1 /  0.1 ms    1.4 /  1.4 ms
+> 
 
-    words_to_write > (fifo->tx_fifo_depth - 4)
+Are you measuring the worst-case latency of a single write fault or only the
+average over all writes?
 
-If tx_fifo_depth is <= 4, the unsigned subtraction wraps around to
-a very large value, making the bounds check ineffective. This can
-cause the calling process to block indefinitely waiting for a FIFO
-vacancy that will never be reached.
-
-Add a validation check in axis_fifo_parse_dt() to reject invalid
-values at probe time with a clear error message.
-
-Compile-tested with:
-  make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- \
-       drivers/staging/axis-fifo/axis-fifo.o
-
-Signed-off-by: User <julianpoulainpro@gmail.com>
----
- drivers/staging/axis-fifo/axis-fifo.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/staging/axis-fifo/axis-fifo.c b/drivers/staging/axis-fifo/axis-fifo.c
-index 3d358f919..bc8a380ae 100644
---- a/drivers/staging/axis-fifo/axis-fifo.c
-+++ b/drivers/staging/axis-fifo/axis-fifo.c
-@@ -413,6 +413,13 @@ static int axis_fifo_parse_dt(struct axis_fifo *fifo)
- 	if (ret)
- 		return ret;
- 
-+	if (fifo->tx_fifo_depth <= 4) {
-+		dev_err(fifo->dt_device,
-+			"invalid xlnx,tx-fifo-depth (%u), must be > 4\n",
-+			fifo->tx_fifo_depth);
-+		return -EINVAL;
-+	}
-+
- 	ret = of_property_read_u32(node, "xlnx,use-rx-data",
- 				   &fifo->has_rx_fifo);
- 	if (ret)
 -- 
-2.53.0
+Cheers,
 
+David
