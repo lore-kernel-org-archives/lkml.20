@@ -1,48 +1,39 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADADA1C3F0C
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 04:02:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1820625228D;
+	Sat, 19 Sep 2026 04:03:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789790534; cv=none; b=K0wkkk24jzAxO3QjdJYAEdIq1k83blbuMjfLm430dhpVSRF1kPvtBpm4tdy63+5b79SsDJ5S37VZfm78K1j4AgmkNVrJjRwlfbqlJwzllTyMejLBX/fZdNlo1s3Ld086njFOVVAg1NcHCna/CpLB0zv27fHSscy+FNSyWAQxbhc=
+	t=1789790640; cv=none; b=Z8qGOTTBBxPEBvvPvY1Qj1n1JrQJsdFalPL0jUCLcgIxU/5re7bhEAxAoE+6xiBVOMh5yJO3k3ab5vsmQ9kknEjZV47EXEy62S9C7kKdBCz++BtbtqDQwzi606BYBPGWO1bPkBS0VGxd/yyZQTCYwghwbDf3vYR0sI4oc1FwqsM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789790534; c=relaxed/simple;
-	bh=VZ+WmxgKkDvmA4uZcbggik3cdU4NCyqauBDtLBHYpIw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fi1+vp2IjzyP2hfDBHL6pXcXf3eGGY2aLURJIolGiKh9i2ymrTesXMU4yiNG/zlhChBzFYKXcvpZgAgNcmgG2nWUAlX/Iwib4H/HMlk7DCTjYmBS4MJ/OscSu/AwoHArGTJqkd1B/T1XML5lvPwH8dyaFlYKn3KRo5untQDU6gI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Mxsgy84h; arc=none smtp.client-ip=220.197.31.2
+	s=arc-20240116; t=1789790640; c=relaxed/simple;
+	bh=b8PGEp53iLDpRBWrkSewl4eG633K5VkhYEgvg9FZ7V8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UQE3p+bPmS2Sep9bFz7f+Q6upOF/+TbYNuXd0hV+17VqZKUnNYp1DfyI+6nf/J1Dd4AHt2OlqdNM+AFNabh8AZ07WrHhJW5YYlf/AbTQISJep7JRb5YOa/6x+bB1xYOxi0eJD7qSHJ5RPRzyz9CjrsexYGe9Z2mDE0BCLhqZa9Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Fhvwv0Fu; arc=none smtp.client-ip=117.135.210.2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Mxsgy84h"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Fhvwv0Fu"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=K2
-	0DC3fRPWJ/nksRsIeJefCHZPC3eftROuOPD+nwp+Y=; b=Mxsgy84hrDohBmI/ke
-	XyqdaQOKbO6jfTj7UWhCVhmQZvdogqLMGxV4yifAVyFR5ZttsVQCYpLsxWwrt2Sj
-	e+Sj3sN3zwg2VHqcODA0T6zZYkuolHePIlZaXQaHv1zzxrwxGvtODdbNCZYghJkM
-	675blHOFbgQbJWvzALEmPT8LM=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgB3vmu4CK5qh0bIAA--.37484S2;
-	Sat, 19 Sep 2026 11:59:53 +0800 (CST)
-From: albin_yang@163.com
-To: peterz@infradead.org,
-	mingo@redhat.com,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org
-Cc: dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Nk
+	TvpKMZ0Uo0K5UsWcfV+vu68SowmtvV0zwRBYT+4Fs=; b=Fhvwv0FucYcg/W5bZD
+	emY3Sqhg9kmWYfgY/WbmyIqhmPhLEmZ673IR38HZrrIHaC/pHPlHxadONerBeUhc
+	BhdR4VY63ZgaIO/EpNv1lPOf79pyMyU8JWBqyt0tpTktjkB0GXCb3YAYToB6ChFY
+	F9msgvL2fm/inPg0CfgobR8v8=
+Received: from LAPTOP-BJS5C4G0 (unknown [])
+	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wAXD3qTCa5qcskdBg--.16979S2;
+	Sat, 19 Sep 2026 12:03:34 +0800 (CST)
+From: Heyang Tan <thy15333007817@163.com>
+To: jeff.chen_1@nxp.com
+Cc: francesco@dolcini.it,
+	johannes@sipsolutions.net,
+	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] sched/stats: Fix run_delay over-count for migrated sched_delayed tasks
-Date: Sat, 19 Sep 2026 11:59:51 +0800
-Message-ID: <20260919035951.509665-1-albin_yang@163.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20260909133345.1572954-1-albin_yang@163.com>
-References: <20260909133345.1572954-1-albin_yang@163.com>
+Subject: [PATCH v3 0/2] wifi: nxpwifi: bound debugfs output
+Date: Sat, 19 Sep 2026 12:02:51 +0800
+Message-ID: <20260919040253.590-1-thy15333007817@163.com>
+X-Mailer: git-send-email 2.51.0.windows.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,72 +41,34 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCgvCgB3vmu4CK5qh0bIAA--.37484S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Kr4DKr4rtw4UGrWDuFy5XFb_yoW8Zw18pF
-	WrK34Ygws2qrykJFnFy3ykuryrurWfC3y2qF95JFy2v395Xr4ak34Iqr1Yvr18WrykuFyx
-	Zr4jg3ZFvFWqy3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UxgA7UUUUU=
-X-CM-SenderInfo: pdoex0xb1d0wi6rwjhhfrp/xtbCzht2GWquCLuBhAAA3I
+X-CM-TRANSID:_____wAXD3qTCa5qcskdBg--.16979S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWruF13Wryrtw13WF1xAF48Crg_yoW3ZFc_WF
+	ykKFy5JryUWasFgFy7CF4kZ3y3AFWkW34Sga429rW5Cw43ZFZ8Jrs5urZ7Xr1a9r4jyFyx
+	C34qyFy8Aa90vjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUbQ6ptUUUUU==
+X-CM-SenderInfo: 5wk1ikatttiiixyrlqqrwthudrp/xtbC4RatV2quCZbIGQAA3H
 
-Hi,
+Bound two nxpwifi debugfs formatting paths to their output buffers.
 
-To make the bug more concrete, I wrote a userspace reproducer
-(available on request) that exercises exactly the path described in the
-commit.
+Changes in v3:
+- Split the histogram and debug-info fixes into separate patches.
+- Rewrite the commit messages following the feedback from Francesco Dolcini.
+- Move test results out of the commit messages.
 
-Setup: the system needs enough CPU pressure for the worker to become
-!entity_eligible and take the delayed-dequeue path. In my runs I first
-start background load, e.g.:
+Testing:
+- x86_64 kernel build with CONFIG_NXPWIFI=m, CONFIG_CFG80211=m, and
+  CONFIG_DEBUG_FS=y
 
-    stress-ng --cpu $(( $(nproc) - 1 )) &
+Heyang Tan (2):
+  wifi: nxpwifi: bound histogram debugfs output
+  wifi: nxpwifi: bound debug info output
 
-The reproducer itself also pins a busy competitor thread to CPU0 for the
-same reason.
+ drivers/net/wireless/nxp/nxpwifi/debugfs.c | 31 +++++++++-------
+ drivers/net/wireless/nxp/nxpwifi/main.c    |  5 ++-
+ drivers/net/wireless/nxp/nxpwifi/util.c    | 43 +++++++++++++---------
+ drivers/net/wireless/nxp/nxpwifi/util.h    |  1 +
+ 4 files changed, 48 insertions(+), 32 deletions(-)
 
-What the reproducer does:
-
-  - A worker thread burns ~80 ms of CPU on CPU0 then usleep()s for
-    150 ms. With the background load keeping min_vruntime ahead, when
-    the worker sleeps it is !entity_eligible and is kept on the rq with
-    se.sched_delayed set (delayed dequeue) - still "sleeping" but not
-    really runnable.
-  - A separate thread migrates the worker to CPU1 with
-    sched_setaffinity(worker_tid, cpu1) ~2 ms after it goes to sleep.
-    This takes the plain migration path (activate_task(dst, 0)), which
-    re-arms last_queued at the migration time while the task is still
-    sleeping.
-  - run_delay is read from /proc/<tid>/schedstat right before the
-    migration and again after the worker actually wakes up and is
-    scheduled.
-
-Observed result (20 iterations; run_delay delta in ms):
-
-    iter   run_delay   expected_err   verdict
-      1      148.03      148.12        BUG
-      4      148.88      148.93        BUG
-      6      148.05      148.12        BUG
-      9      148.88      148.93        BUG
-     11      148.06      148.12        BUG
-     14      148.89      148.93        BUG
-     16      148.03      148.08        BUG
-     17      148.89      148.94        BUG
-   (others)     0.00      148.00        ok
-
-Every migration that lands during the sched_delayed sleep charges
-~148 ms of phantom wait into run_delay - i.e. the *entire* sleep
-duration between migration and wakeup. With the patch, run_delay
-delta stays ~0 in all iterations.
-
-So this is a real, user-visible run_delay over-count, not just a
-theoretical one. The fix is the single-line change in
-sched_info_enqueue().
-
-Would appreciate a review / any feedback. Happy to share the full
-reproducer if that helps.
-
-Original patch:
-https://lore.kernel.org/all/20260909133345.1572954-1-albin_yang@163.com/
-
-Thanks,
-Wei Yang
+-- 
+2.34.1
 
