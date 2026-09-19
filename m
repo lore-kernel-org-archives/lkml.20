@@ -1,195 +1,77 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4776D34AB1D
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 21:14:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78654547041;
+	Sat, 19 Sep 2026 21:15:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789852487; cv=none; b=hFwNKITHFcNPhX8yPRzIlkqYjeSqbO43IyShXtqbbNDq1prg3uCq5cxkiAwY2FmwdDrEeOmYFx24evcQm8+pECCB6bgvXSch6cquOghcLqHSs4EJBZ4SR0CYszZy2qn0tcagb9D5zIpRYvCubKX2Q+Lmbk6olXvEFZ0QrusQL7k=
+	t=1789852560; cv=none; b=i7Qd9d6HgSe+yoh2aOHUoyf2wQiJ1mZCJ7iSIsmcS2FDloyaWjf7Eis/6QOcWPaH+yC6vgEMvCwo8KXQk5xJTVLcPPPkgbVu2slYF3DPoI2SIgvqunjV1YxALszAhnw888NYLVnlmgxjjti0OcgiaCViKVb0m8r4YwSPP2l3nTM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789852487; c=relaxed/simple;
-	bh=BugfzPWQEksi5N7qv6dtW/MfPONRAIDUp9+0wR8ULXc=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=eHiGhmTlzu0kbLXd3EbDhM5zETikM4sGdvT5mhVZ1/6mzb5UGL6PgDPHU/s6n+DPjLli/IIshZXTLvVyUFM1lnq9Y1HeDlW/WUuaZtKWoZSMrmZMEycOsWJ/z6ipbXeRLriD1c1OwJd1KdONgHgell5UrM4Cw+giQcLShqxmC4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TgHvVESh; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789852560; c=relaxed/simple;
+	bh=cEdSOf1pN9s3a5nXY6SQmc4jltxGf8gEPjI7mYGpqMw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LjxHv8OEft/BBu3XjE0cVCJ0FF/Mn+TTo2l6Zo1mYvzo8rzI6HQRRtXPFsNWoou+WN0OyQxaMJSnA2kmHI8W009FiTL0ECk3BU6xH9PIYuqVMWXtnSb2LBzdDmUhqP8LVfxVK0moQ/FTc6odezqA2Ja65aZLJ7mkieP/eMMJUIA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CWuU2MHC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TgHvVESh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789852484; x=1821388484;
-  h=date:from:to:cc:subject:message-id;
-  bh=BugfzPWQEksi5N7qv6dtW/MfPONRAIDUp9+0wR8ULXc=;
-  b=TgHvVEShbKxj7EFTOk8Z55NSEkMKTBy6qzo6nscQ0Gt/dqcjGGjqHswV
-   Vzp+gAZ9dDGLtgbhC9zTGn0EB1w52EEfprVZXtbi6RgB8TE9QfhkIuoRx
-   eNseoUdxV3rolWjCZo4QEprC4AccQkQgEC5cSlSHvlCVV2ccDxDpVFpHv
-   FTgcYxFy/ZtWBuybNE5fKmz+wL49NHsXcgeZlZGH9lilY6yfrGx2p2+HC
-   9Qhlw6ya8vj5NkLtR5Z/RgBN19+KsbYfYGGqAmDAkrnKSUWeFiel5L9QC
-   FG6kk6IDSaOjnIgVXxMky8qaXZG+OJ16Q8Vlwh0CLCqLw/8br/iUtn/f0
-   w==;
-X-CSE-ConnectionGUID: y57orFzgTcWZgeDF6OIEOw==
-X-CSE-MsgGUID: 96XFwFP8SGaDUoKqDkLhqA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11910"; a="90386652"
-X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; 
-   d="scan'208";a="90386652"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2026 14:14:44 -0700
-X-CSE-ConnectionGUID: a4AY7yr8R+qgjKeOEaDsqQ==
-X-CSE-MsgGUID: BmFzEaKaSOyj39wLDxbiEg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; 
-   d="scan'208";a="3105927"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa012.fm.intel.com with ESMTP; 19 Sep 2026 14:14:42 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x82ON-00000000BNR-1xYV;
-	Sat, 19 Sep 2026 21:14:39 +0000
-Date: Sun, 20 Sep 2026 05:13:59 +0800
-From: kernel test robot <lkp@intel.com>
-To: Florian Westphal <fw@strlen.de>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Pablo Neira Ayuso <pablo@netfilter.org>
-Subject: net/netfilter/ipset/ip_set_hash_netiface.c:163:25: sparse:
- sparse: cast to non-scalar
-Message-ID: <202609200503.KbHsIjIf-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CWuU2MHC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2416F1F000FF;
+	Sat, 19 Sep 2026 21:15:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789852559;
+	bh=gOO2tP8ftUjE3x4/lc4Otb+Klg9G3L1qMfx0A48x1M4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CWuU2MHCZejlhWrsLLxrqJKBoSJQE8GYDnLNaTwLEChUmjlCUaHzHjsoAIhfeuSc6
+	 SgMx0mNJifJYLUo1mSIrBDg1GsTByuH6kQ3Zw4ljj8vkb4UMVAlIAfCOs7FFhXlf01
+	 mkXISTx/r7mI6FkFG+Ph7RIEXu1vrUqUjyblenbXSNAwTF/54Jnj4IhnrpW3EWvdlP
+	 7wsLZznscO7DmjAqE7+b0V1oS7e25Bshuck9rxl6IiWhQUlrlgma3umvEOchy9r1Ve
+	 0mPE/C76HF1ez5o3dkYwWDpjmLg9P7NVmybW+vokhbLxy+6d2B6x8eYsJ6VOe5xiCA
+	 U/zNdFa70tMhw==
+Date: Sat, 19 Sep 2026 14:15:58 -0700
+From: Kees Cook <kees@kernel.org>
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: Bill Wendling <morbo@google.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Gow <david@davidgow.net>, Petr Mladek <pmladek@suse.com>,
+	Shuvam Pandey <shuvampandey1@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>, nikitash.mariiaw@gmail.com,
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v2 5/9] seq_buf: Add seq_buf_strlen()
+Message-ID: <202609191326.4042FC4@keescook>
+References: <20260919002658.stay.929-kees@kernel.org>
+ <20260919002714.4060307-5-kees@kernel.org>
+ <2026091953-cherub-empty-ef35@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2026091953-cherub-empty-ef35@gregkh>
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   f259f446f5198d98e13756d2cd531812a0ad3064
-commit: e80456d79ec83b00a6bd44c377684b1632ccc3c7 netfilter: ipset: remove need to allocate memory on delete operations
-date:   5 weeks ago
-config: alpha-randconfig-r1306-20260919 (https://download.01.org/0day-ci/archive/20260920/202609200503.KbHsIjIf-lkp@intel.com/config)
-compiler: alpha-linux-gcc (GCC) 8.5.0
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260920/202609200503.KbHsIjIf-lkp@intel.com/reproduce)
+On Sat, Sep 19, 2026 at 08:38:37AM +0100, Greg KH wrote:
+> On Fri, Sep 18, 2026 at 05:27:03PM -0700, Kees Cook wrote:
+> > +static inline size_t seq_buf_strlen(struct seq_buf *s)
+> > +{
+> > +	if (WARN_ON(s->size == 0))
+> > +		return 0;
+> 
+> Why WARN_ON()?  Are you wanting to just mint new CVEs with this code
+> path, do we not give out enough already?  :)
+> 
+> I can see returning 0, if it's empty, but isn't that a valid check for
+> people to wish to know at times?  Why crash the box?  (remember about
+> panic-on-warn being enabled in a few billion Linux instances...)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: e80456d79ec8 ("netfilter: ipset: remove need to allocate memory on delete operations")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609200503.KbHsIjIf-lkp@intel.com/
+We have to figure out a line somewhere. :P Making a seq_buf with size 0
+is a nonsense construction, but seq_buf_init is non-allocating, so
+there's no feedback about setting it to size 0. We could move the WARN
+to the init? I was just following the existing style here.
 
-sparse warnings: (new ones prefixed by >>)
-   net/netfilter/ipset/ip_set_hash_netiface.c: note: in included file:
-   net/netfilter/ipset/ip_set_hash_gen.h:368:22: sparse: sparse: cast to non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:368:22: sparse: sparse: cast from non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:440:22: sparse: sparse: cast to non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:440:22: sparse: sparse: cast from non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:460:22: sparse: sparse: cast to non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:460:22: sparse: sparse: cast from non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:1333:40: sparse: sparse: cast to non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:1333:40: sparse: sparse: cast from non-scalar
->> net/netfilter/ipset/ip_set_hash_netiface.c:163:25: sparse: sparse: cast to non-scalar
->> net/netfilter/ipset/ip_set_hash_netiface.c:163:25: sparse: sparse: cast from non-scalar
-   net/netfilter/ipset/ip_set_hash_netiface.c: note: in included file:
-   net/netfilter/ipset/ip_set_hash_gen.h:368:22: sparse: sparse: cast to non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:368:22: sparse: sparse: cast from non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:440:22: sparse: sparse: cast to non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:440:22: sparse: sparse: cast from non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:460:22: sparse: sparse: cast to non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:460:22: sparse: sparse: cast from non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:1333:40: sparse: sparse: cast to non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:1333:40: sparse: sparse: cast from non-scalar
-   net/netfilter/ipset/ip_set_hash_netiface.c:384:25: sparse: sparse: cast to non-scalar
-   net/netfilter/ipset/ip_set_hash_netiface.c:384:25: sparse: sparse: cast from non-scalar
---
-   net/netfilter/ipset/ip_set_hash_netnet.c: note: in included file:
-   net/netfilter/ipset/ip_set_hash_gen.h:368:22: sparse: sparse: cast to non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:368:22: sparse: sparse: cast from non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:440:22: sparse: sparse: cast to non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:440:22: sparse: sparse: cast from non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:460:22: sparse: sparse: cast to non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:460:22: sparse: sparse: cast from non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:1333:40: sparse: sparse: cast to non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:1333:40: sparse: sparse: cast from non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:1341:48: sparse: sparse: cast to non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:1341:48: sparse: sparse: cast from non-scalar
->> net/netfilter/ipset/ip_set_hash_netnet.c:153:21: sparse: sparse: cast to non-scalar
->> net/netfilter/ipset/ip_set_hash_netnet.c:153:21: sparse: sparse: cast from non-scalar
-   net/netfilter/ipset/ip_set_hash_netnet.c:154:21: sparse: sparse: cast to non-scalar
-   net/netfilter/ipset/ip_set_hash_netnet.c:154:21: sparse: sparse: cast from non-scalar
-   net/netfilter/ipset/ip_set_hash_netnet.c: note: in included file:
-   net/netfilter/ipset/ip_set_hash_gen.h:368:22: sparse: sparse: cast to non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:368:22: sparse: sparse: cast from non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:440:22: sparse: sparse: cast to non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:440:22: sparse: sparse: cast from non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:460:22: sparse: sparse: cast to non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:460:22: sparse: sparse: cast from non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:1333:40: sparse: sparse: cast to non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:1333:40: sparse: sparse: cast from non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:1341:48: sparse: sparse: cast to non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:1341:48: sparse: sparse: cast from non-scalar
-   net/netfilter/ipset/ip_set_hash_netnet.c:394:21: sparse: sparse: cast to non-scalar
-   net/netfilter/ipset/ip_set_hash_netnet.c:394:21: sparse: sparse: cast from non-scalar
-   net/netfilter/ipset/ip_set_hash_netnet.c:395:21: sparse: sparse: cast to non-scalar
-   net/netfilter/ipset/ip_set_hash_netnet.c:395:21: sparse: sparse: cast from non-scalar
---
-   net/netfilter/ipset/ip_set_hash_netportnet.c: note: in included file:
-   net/netfilter/ipset/ip_set_hash_gen.h:368:22: sparse: sparse: cast to non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:368:22: sparse: sparse: cast from non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:440:22: sparse: sparse: cast to non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:440:22: sparse: sparse: cast from non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:460:22: sparse: sparse: cast to non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:460:22: sparse: sparse: cast from non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:1333:40: sparse: sparse: cast to non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:1333:40: sparse: sparse: cast from non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:1341:48: sparse: sparse: cast to non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:1341:48: sparse: sparse: cast from non-scalar
->> net/netfilter/ipset/ip_set_hash_netportnet.c:160:21: sparse: sparse: cast to non-scalar
->> net/netfilter/ipset/ip_set_hash_netportnet.c:160:21: sparse: sparse: cast from non-scalar
-   net/netfilter/ipset/ip_set_hash_netportnet.c:161:21: sparse: sparse: cast to non-scalar
-   net/netfilter/ipset/ip_set_hash_netportnet.c:161:21: sparse: sparse: cast from non-scalar
-   net/netfilter/ipset/ip_set_hash_netportnet.c: note: in included file:
-   net/netfilter/ipset/ip_set_hash_gen.h:368:22: sparse: sparse: cast to non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:368:22: sparse: sparse: cast from non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:440:22: sparse: sparse: cast to non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:440:22: sparse: sparse: cast from non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:460:22: sparse: sparse: cast to non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:460:22: sparse: sparse: cast from non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:1333:40: sparse: sparse: cast to non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:1333:40: sparse: sparse: cast from non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:1341:48: sparse: sparse: cast to non-scalar
-   net/netfilter/ipset/ip_set_hash_gen.h:1341:48: sparse: sparse: cast from non-scalar
-   net/netfilter/ipset/ip_set_hash_netportnet.c:457:21: sparse: sparse: cast to non-scalar
-   net/netfilter/ipset/ip_set_hash_netportnet.c:457:21: sparse: sparse: cast from non-scalar
-   net/netfilter/ipset/ip_set_hash_netportnet.c:458:21: sparse: sparse: cast to non-scalar
-   net/netfilter/ipset/ip_set_hash_netportnet.c:458:21: sparse: sparse: cast from non-scalar
+I'm happy to remove it.
 
-vim +163 net/netfilter/ipset/ip_set_hash_netiface.c
-
-c737b7c4510026 Florian Westphal 2015-04-02  154  
-e385357a2f214e Jozsef Kadlecsik 2011-06-16  155  static int
-e385357a2f214e Jozsef Kadlecsik 2011-06-16  156  hash_netiface4_kadt(struct ip_set *set, const struct sk_buff *skb,
-e385357a2f214e Jozsef Kadlecsik 2011-06-16  157  		    const struct xt_action_param *par,
-5d50e1d88336a9 Jozsef Kadlecsik 2013-04-08  158  		    enum ipset_adt adt, struct ip_set_adt_opt *opt)
-e385357a2f214e Jozsef Kadlecsik 2011-06-16  159  {
-21956ab290f7f3 Jozsef Kadlecsik 2015-06-26  160  	struct hash_netiface4 *h = set->data;
-e385357a2f214e Jozsef Kadlecsik 2011-06-16  161  	ipset_adtfn adtfn = set->variant->adt[adt];
-5d50e1d88336a9 Jozsef Kadlecsik 2013-04-08  162  	struct hash_netiface4_elem e = {
-8e5fd2a55e2468 Jozsef Kadlecsik 2026-07-30 @163  		.cidr = INIT_CIDR(h->rnets[0], HOST_MASK),
-bd9087e0407bfb Jozsef Kadlecsik 2012-09-10  164  		.elem = 1,
-e385357a2f214e Jozsef Kadlecsik 2011-06-16  165  	};
-ca134ce86451f3 Jozsef Kadlecsik 2013-09-07  166  	struct ip_set_ext ext = IP_SET_INIT_KEXT(skb, opt, set);
-e385357a2f214e Jozsef Kadlecsik 2011-06-16  167  
-e385357a2f214e Jozsef Kadlecsik 2011-06-16  168  	if (adt == IPSET_TEST)
-5d50e1d88336a9 Jozsef Kadlecsik 2013-04-08  169  		e.cidr = HOST_MASK;
-e385357a2f214e Jozsef Kadlecsik 2011-06-16  170  
-5d50e1d88336a9 Jozsef Kadlecsik 2013-04-08  171  	ip4addrptr(skb, opt->flags & IPSET_DIM_ONE_SRC, &e.ip);
-5d50e1d88336a9 Jozsef Kadlecsik 2013-04-08  172  	e.ip &= ip_set_netmask(e.cidr);
-e385357a2f214e Jozsef Kadlecsik 2011-06-16  173  
-
-:::::: The code at line 163 was first introduced by commit
-:::::: 8e5fd2a55e2468f6225ef5af01ae58cdbcbae8cf netfilter: ipset: rework cidr bookkeeping
-
-:::::: TO: Jozsef Kadlecsik <kadlec@netfilter.org>
-:::::: CC: Pablo Neira Ayuso <pablo@netfilter.org>
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+-- 
+Kees Cook
