@@ -1,72 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 404783BA24F;
-	Sat, 19 Sep 2026 01:21:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08A283BED0C;
+	Sat, 19 Sep 2026 01:25:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789780891; cv=none; b=kncQOaXqNpkRXUsJ1RU65D6iT+/7eoBN16Xu3tug8cGSuRdbU4JOf8pwDKonzi+l6ErLUEcIKA/xmQpYukTGevxu8BJDYKyoaXx5jvhVklLlhVYdsKs7AMnGmiR2wY4VcEqr4v3l3CN9mZARE1y2ma9MT/ab5WbCjJ3gxrWswWU=
+	t=1789781119; cv=none; b=sjI8JFPHhw4TlXaQFIAALTyZuliLLuKDusb6tvOZR0ccsGTa8Skcw7Q3q+5+C9mot08UDeZI9RD1A9N5aRIqwkSZIjGnB0/QhK6/hZrs5zvWoUXRWpP3jrP74obiOiNyoM+/uKoWWZzpnMvaKeiUz2HYKBslb1Up4Ksm5WzeVO8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789780891; c=relaxed/simple;
-	bh=5wOoMLm7pxOnW4MJKxhQIqxE0QcNBnQJUFbLZqyxf6U=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=k/EBQtuIjRXGmGRo32PUUoPLWVKns13LNRA40Dp4vV+y3lrAgBMz3nScvkiXJF4YIgfC1pDNTcNmQPmRdDoZB/4/Du8YIWAKYQb2ctqnfChraOCm8rArfwvH7wKxqlU0CM2MjCbvx6PxSmn+U9GimWVqERvlIksfG1hWH1hdFJg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RnGENrMT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789781119; c=relaxed/simple;
+	bh=sW8LAabRtMi7YjGwCMGPwg2ShjK5jkGqa8EGtT86epM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DJzeJOPP/Zp7LgTq+HKT2XIR96Rmrb/LQQXrBOP98WcSgTwSqnZcQAw/HlZK70bgkMnK2J3QPOvNO43bxI6snYFVwQo19exRZ6DnEe0KefFPYtdljbxE8LcjTnZ4JgqDXLlbdvUiPlnpqAJnYBFT9OjMfE3wtw02p8bI2ykbF6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NEf2Ol6L; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RnGENrMT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07FF11F00899;
-	Sat, 19 Sep 2026 01:21:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NEf2Ol6L"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3C7E1F00898;
+	Sat, 19 Sep 2026 01:25:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789780885;
-	bh=ieA0vBcbiVBxr29OQUyABbcNUgGCgwjWyA87ulocPqI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=RnGENrMTk0qCgmLbaEVzq9tUOk3Ndc9B9jebc5huYdKe6UCfJj/vg9M8OliSAGVNq
-	 v8xWRYZNoI2rd/YNiLQmWNKZBQBd2BS+O3uHk1YXAYfmsNAfxHwMrWshoYeyjUsFiE
-	 heAAktrJpot7Z5li6KzdUjRtsJ3ExrQXZFTVP0Sn1dukFVDY41BksWEv6Dbp/H/w70
-	 Mybysu2tqe3W4hFfWnkq96wCTzXVLCv/T75t3kd4bW4ZHHEGlRcud0E/zr8K097V2Y
-	 O+uaUA/C2LO6lbRSOBcOYQ0ATc5rzy2K8h1RAhtOexko4UflMvQij3WlA4rPo/0Iyq
-	 1aqmbC5puqZsA==
-Date: Fri, 18 Sep 2026 18:21:24 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Sergey Shtylyov <s.shtylyov@auroraos.dev>
-Cc: <netdev-bot+sashiko@kernel.org>, <andrew+netdev@lunn.ch>,
- <davem@davemloft.net>, <edumazet@google.com>, <pabeni@redhat.com>,
- <linux-usb@vger.kernel.org>, <netdev@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net-next v2] ch9200: do return USB errors from
- control_write()
-Message-ID: <20260918182124.487edd13@kernel.org>
-In-Reply-To: <b43350d5-09d7-4fc4-9791-16bb4322d794@auroraos.dev>
-References: <20260915185805.38712-1-s.shtylyov@auroraos.dev>
-	<178954341078.22033.8722936070498955076@kernel.org>
-	<b43350d5-09d7-4fc4-9791-16bb4322d794@auroraos.dev>
+	s=k20260515; t=1789781116;
+	bh=AbYCY2WgHSC4hbcqAXOJT5LHiyRzS/vszkU3nmsXVuo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NEf2Ol6L07Mcxykp28FXba/Qsk6fnNBABrt5KBs4PLBujFi1qoyjHH6moLgkGLgCZ
+	 kq2VtnXwqe8a58OxYDP65yxW33W7XKtOLEA4tQgfoPkfRD7/cIdlF2304aAZDd2lu7
+	 Qpr6mYBdukg4aA+hRd0wu4hoCbV0cuMgOTpJIO5QBiXec19zXAIrAZZA9k2eWs9SaA
+	 WWESZVTp0gFpKyCzI0pdnMAaYjj3WBa1ErwoW+iZXVKmXKwRxHWGgZqQawJH9nLggv
+	 nI9TgH2pKYDrFYcDROemk4l5pcsLBnqLJZmiI+xTmKjUYNvDi7dJC3JHYWfmzHeF65
+	 O7T9f2mJIFUCg==
+Date: Fri, 18 Sep 2026 18:25:08 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Kees Cook <kees@kernel.org>
+Cc: Nicolas Schier <nsc@kernel.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Julian Braha <julianbraha@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Vegard Nossum <vegard.nossum@oracle.com>,
+	Nauman Sabir <officialnaumansabir@gmail.com>,
+	Tejun Heo <tj@kernel.org>, Nicolas Pitre <nico@fluxnic.net>,
+	Thomas =?iso-8859-1?Q?Wei=DFschuh?= <thomas.weissschuh@linutronix.de>,
+	Matthew Maurer <mmaurer@google.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Andrew Jones <andrew.jones@linux.dev>,
+	Graham Roff <grahamr@qti.qualcomm.com>,
+	Masahiro Yamada <masahiroy@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	"Borislav Petkov (AMD)" <bp@alien8.de>, Gary Guo <gary@garyguo.net>,
+	linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH 0/3] kconfig: Introduce cc-option-str
+Message-ID: <20260919012508.GA3573999@ax162>
+References: <20260919005923.i.879-kees@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260919005923.i.879-kees@kernel.org>
 
-On Wed, 16 Sep 2026 19:21:04 +0300 Sergey Shtylyov wrote:
-> > There is a second point about the resulting contract.  On success
-> > usb_control_msg() returns the transferred length, so control_write() now
-> > returns a positive value (2 for these register writes) rather than 0:
-> > 
-> >         err = usb_control_msg(dev->udev, ...);
-> >         if (err >= 0 && err < size)
-> >                 err = -EINVAL;
-> > 
-> > Would the obvious caller-side follow-up "if (retval) return retval;" then
-> > treat every successful 2-byte register write as a failure?  Would it be
-> > better to normalize success to 0 in control_write(), or to check
-> > "retval < 0" in each caller and update the callers in the same patch so
-> > the errors being returned are actually acted upon?  
->    That's what the patch I linked to does...
+On Fri, Sep 18, 2026 at 05:59:24PM -0700, Kees Cook wrote:
+> Hi,
+> 
+> While reviewing the recent build speedup series[1], it became clear
+> that we needed a general solution in kconfig to avoid repeating detected
+> toolchain options. Implement cc-option-str and ld-option-str, and while
+> at it, create "def_string" and friends to match "def_bool".
+> 
+> -Kees
+> 
+> [1] https://lore.kernel.org/all/20260918054058.GA384222@ax162/
+> 
+> Kees Cook (3):
+>   kconfig: Add "def_string", "def_int" and "def_hex"
+>   kconfig: Replace "cc-option-bit" with "cc-option-str"
+>   kconfig: Add "ld-option-str"
 
-Please fix the issues in one series or not at all.
-We have too many patches in flight these days to be chasing people's
-linked series. Too many LLM-happy "helpers".
+Thanks, exactly what I had in mind. This seems reasonable to me and
+passes my basic testing. I will let folks chime in for a few days then
+apply this to kbuild-next so that Lorenzo can use it as part of the
+speed up series.
 
-Please explain how you discovered the issue and how you tested the fix.
+-- 
+Cheers,
+Nathan
