@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94E742FC876
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94F83306779
 	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 00:25:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789777533; cv=none; b=YNr27vMeQqdZYeFsBlw1ItQOqx7UsryVPcCdeHyVIw5kaG5yXDGDW9fIu6OV8JMduM9cReq/E9su+S6nqszfPtLTmxvczjTxd7oYbq1AA9i54UUcZAblGPgxYKCylGHOQmoBxFM2JRrXXuYSEtPWN3p957dY4raNdUaSgDEde3E=
+	t=1789777534; cv=none; b=WeKMsgmHuutB5pfq/M9Jlr0T5iPcI5tR9s9QGPEX7ZakR0u5qc6imR4tG55UpTzqyYdMHy25OwQKePggTPVDS0m3dbJAgUMm9tqA3zQ1turDgZnUuzfHE0XZkL3hDX10OJ01fdt/oSG4D32O2cY/hYQ12+LNB2v+hoG5sIIV8h0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789777533; c=relaxed/simple;
-	bh=x+yg26v7Yx1hVuz9jsdjD4vsNkA5lMOLxsM2BNyRhlY=;
+	s=arc-20240116; t=1789777534; c=relaxed/simple;
+	bh=vPl/P5pCELiuRusxxVinBhBrLxisgd3V0mzkgoPCc8g=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=EONZtNlPj9I+8RSi/TWbhEogRzMBy7Id+pLPgFobqrp5wRUK43TLA0zLYxqZOWGi9DaB6HY0qzBYhQGqciyd/aHfutSoKpa1vsM7C6a/hC/4k9HEYuaQ8oGEUYQ0ZP0PdCHHQiox5z+xPSfL3kIkP/QVrgtoDJJwQ6WJAbdnJuU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eIg8pI2g; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=JxCKixrb44OG+HXSlR2McoZetKaSdmMS87pWVOpvnxk3lACTu98ReOH5T/XG3g0L2EZkFa9rWoB9C3dk2+ILsh1CVOHXjAyplrU2U2ND+VRKaUjxAFapGby72vnUbQdn9VsL66uonLcEqjKUvbjwm+kKlLgpETfvUENQ2a5FUeo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LawWBopM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eIg8pI2g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9295F1F000FF;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LawWBopM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E9541F00898;
 	Sat, 19 Sep 2026 00:25:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789777526;
-	bh=tGQ9hlMFSAhhj6Pqt58SgIgl+joG1AKFvjL7l6x3tt8=;
+	bh=h/1tymZAv5rjqCfr8zFms3PGcORRWST8nwCnweEjC1M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eIg8pI2gt3hGgJAAUitQ6OTZOETQkx386IwoZyKKv6T3j4Z25C4BXQjVMLPuZ7aZD
-	 n7+Avgq0JbVaY1ZPHwliSZ/FFzV03SEX3GUHIDhyvIgDk9m3tt54uEGYzeyN0q0siF
-	 nRh1WB2hwdcEyvLaxUFPtmfmcLAl7EPvPAQj+xmW7/x1ltckg9xzQrMR2LzR/gar22
-	 C7R5cyZ0L7BPu0+XKyWC9hw6bhqxEGMv9hof9Y6MxnQbuKuaN2mnUuDtQcTGEawWem
-	 QfenTvAAm6g0T0sygSgJ7+5jHjfEqLTuqoSUyNV86xLt17nRDXpEBJmp/6ievmOaEi
-	 j4FthWc0SjS5A==
+	b=LawWBopMAtl1qL88lLjM6pfBwHp2vv6p/969dyxASRYxVjka5btMggYglG+gjVOyp
+	 kxck1xDdsRRXU8nL9yrRyR8FQLYYQDnx4MhTFTHcupKuXr2PS7YJ/juWq4we2UDZsN
+	 3G6SqYAvW5Z5SqutoGo+wG2nKhxMN0698t0O6Ag18kfSZjMraSjHRa3CoSv0fMBuv1
+	 NVGyNg7INJLy+2GgewBY9HgqPqfiwqCvNUN1BCDh8MK+iYZH4MiluuS7GyBPG4WL4j
+	 sypjr0VCvapH7DV54iDmN4tW5e5Q5jMKTT4PiPyrAlxNeIhNFXVM6COGIZz5nQgIA3
+	 ojQeMNx1N2n5Q==
 Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 6081CCE1775; Fri, 18 Sep 2026 17:25:26 -0700 (PDT)
+	id 639FCCE178A; Fri, 18 Sep 2026 17:25:26 -0700 (PDT)
 From: "Paul E. McKenney" <paulmck@kernel.org>
 To: Anna-Maria Behnsen <anna-maria@linutronix.de>,
 	Frederic Weisbecker <frederic@kernel.org>,
@@ -36,9 +36,9 @@ To: Anna-Maria Behnsen <anna-maria@linutronix.de>,
 Cc: linux-kernel@vger.kernel.org,
 	kernel-team@meta.com,
 	"Paul E. McKenney" <paulmck@kernel.org>
-Subject: [PATCH 1/2] timers: Mark updates to hlist_node ->pprev field
-Date: Fri, 18 Sep 2026 17:25:22 -0700
-Message-Id: <20260919002523.3133928-1-paulmck@kernel.org>
+Subject: [PATCH 2/2] timers/migration: Mark updates to tmigr_event ->field
+Date: Fri, 18 Sep 2026 17:25:23 -0700
+Message-Id: <20260919002523.3133928-2-paulmck@kernel.org>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <d432e78f-1d1b-422a-8622-8d3145cecbfd@paulmck-laptop>
 References: <d432e78f-1d1b-422a-8622-8d3145cecbfd@paulmck-laptop>
@@ -50,14 +50,13 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The hlist_unhashed_lockless() function locklessly samples the hlist_node
-structure's ->pprev field, but detach_timer(), hlist_move_list(), and
-hlist_splice_init() all use plain C-language stores to update this field,
-despite the "The READ_ONCE() is paired with the various WRITE_ONCE() in
-hlist helpers that are defined below" in the hlist_unhashed_lockless()
-header comment.
+The tmigr_event structure's ->ignore field are sometimes accessed
+locklessly, but the __tmigr_cpu_activate(), tmigr_cpu_new_timer(),
+and __tmigr_cpu_deactivate() functions do not mark accesses to this field.
 
-Therefore use WRITE_ONCE() for these ->pprev updates.
+Therefore, use READ_ONCE() for the tmigr_cpu_new_timer() function's
+lockless load and WRITE_ONCE() for the __tmigr_cpu_activate() and
+__tmigr_cpu_deactivate() functions' stores.
 
 KCSAN located this issue.
 
@@ -65,51 +64,41 @@ Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
 Cc: Anna-Maria Behnsen <anna-maria@linutronix.de>
 Cc: Frederic Weisbecker <frederic@kernel.org>
 Cc: Thomas Gleixner <tglx@kernel.org>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- include/linux/list.h | 6 +++---
- kernel/time/timer.c  | 2 +-
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ kernel/time/timer_migration.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/list.h b/include/linux/list.h
-index 77fb62f79928..e3753695e76c 100644
---- a/include/linux/list.h
-+++ b/include/linux/list.h
-@@ -1172,7 +1172,7 @@ static inline void hlist_move_list(struct hlist_head *old,
- {
- 	new->first = old->first;
- 	if (new->first)
--		new->first->pprev = &new->first;
-+		WRITE_ONCE(new->first->pprev, &new->first);
- 	old->first = NULL;
- }
+diff --git a/kernel/time/timer_migration.c b/kernel/time/timer_migration.c
+index 059d43355e65..f920e73fff51 100644
+--- a/kernel/time/timer_migration.c
++++ b/kernel/time/timer_migration.c
+@@ -715,7 +715,7 @@ static void __tmigr_cpu_activate(struct tmigr_cpu *tmc)
  
-@@ -1189,10 +1189,10 @@ static inline void hlist_splice_init(struct hlist_head *from,
- 				     struct hlist_head *to)
- {
- 	if (to->first)
--		to->first->pprev = &last->next;
-+		WRITE_ONCE(to->first->pprev, &last->next);
- 	last->next = to->first;
- 	to->first = from->first;
--	from->first->pprev = &to->first;
-+	WRITE_ONCE(from->first->pprev, &to->first);
- 	from->first = NULL;
- }
+ 	trace_tmigr_cpu_active(tmc);
  
-diff --git a/kernel/time/timer.c b/kernel/time/timer.c
-index ae9abf14688e..42afdcb229d8 100644
---- a/kernel/time/timer.c
-+++ b/kernel/time/timer.c
-@@ -890,7 +890,7 @@ static inline void detach_timer(struct timer_list *timer, bool clear_pending)
+-	tmc->cpuevt.ignore = true;
++	WRITE_ONCE(tmc->cpuevt.ignore, true);
+ 	WRITE_ONCE(tmc->wakeup, KTIME_MAX);
  
- 	__hlist_del(entry);
- 	if (clear_pending)
--		entry->pprev = NULL;
-+		WRITE_ONCE(entry->pprev, NULL);
- 	entry->next = LIST_POISON2;
- }
+ 	walk_groups(&tmigr_active_up, &data, tmc);
+@@ -1258,7 +1258,7 @@ u64 tmigr_cpu_new_timer(u64 nextexp)
+ 	ret = READ_ONCE(tmc->wakeup);
+ 	if (nextexp != KTIME_MAX) {
+ 		if (nextexp != tmc->cpuevt.nextevt.expires ||
+-		    tmc->cpuevt.ignore) {
++		    READ_ONCE(tmc->cpuevt.ignore)) {
+ 			ret = tmigr_new_timer(tmc, nextexp);
+ 			/*
+ 			 * Make sure the reevaluation of timers in idle path
+@@ -1362,7 +1362,7 @@ static u64 __tmigr_cpu_deactivate(struct tmigr_cpu *tmc, u64 nextexp)
+ 	 * or CPU goes offline.
+ 	 */
+ 	if (nextexp != KTIME_MAX)
+-		tmc->cpuevt.ignore = false;
++		WRITE_ONCE(tmc->cpuevt.ignore, false);
  
+ 	walk_groups(&tmigr_inactive_up, &data, tmc);
+ 	return data.firstexp;
 -- 
 2.40.1
 
