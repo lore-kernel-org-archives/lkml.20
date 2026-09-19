@@ -1,159 +1,113 @@
-Received: from sender6-op-o12.zoho.com (sender6-op-o12.zoho.com [165.173.180.12])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F5E778F2B;
-	Sat, 19 Sep 2026 13:56:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789826195; cv=pass; b=bEZnB6+ZzFtK/xoGlYCWaPWSdroZbRY8m3rjlR1RqDmdtPmOdigBrvDhysWDpTOZE7dwSlJYLk8+weuGVnLtHBhmEDuyATPYv92IKdiPU308nYODybk84Zs+SYVMPuTa+UXkmrPw6Ir0Vhc1tHuZMR57fUwiZe4kJkBLMLthvfQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789826195; c=relaxed/simple;
-	bh=yhX14Zjrs1T1LKc/UQ3XM5yVsTmDWG/q39PuOw4fZkw=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=MXReRyciGZaeMTnWzbjgo9h6HYnL4zMPpALLRky8cg3cQVKFQ2yHUyjs6DsOSxiu8/HBohUb9PwNGCIbbsClIlYTj/EtiJPMh8z3Tw9fYPy9n2SD4ooZONdNcH3QuZ4C8nB3UpSQKD4+ZLRnq01raL8V8/7RsFavFkzesJ62xBY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me; spf=pass smtp.mailfrom=icenowy.me; dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b=e8k+DUqK; arc=pass smtp.client-ip=165.173.180.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE4253290B9;
+	Sat, 19 Sep 2026 13:57:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789826230; cv=none; b=pFzOMQbXxv1MDG2E/a3zwVSEaZsqci6IsalOxmLUebF7BlFqgeaXnkwCpTAhVKo2H+658D+00Eq2JVcuyzp6x/RQiTnqmXr7knKXbUjsTQk80b34GNUO5BUYN7+mMFhMlYU+Ak1lppbiv67MnfPzjK9odQSU70hm4Vqz+phHdpc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789826230; c=relaxed/simple;
+	bh=XNAAz2y1hQI1jpd/UD1AKmVlqfxjbi/3Ibab7fxF58U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oxcLbWHmjlJtyqgZtfoEGGEIBT96DMpXfPT910KDmHwIgULhPEKImR0Pp0uEAb6oHxH1B8rEmo8JbhU+NqiIxGeYDxpQ+9KATArrCTvPj61CROnfL1slwItFd4ZbuVfskvLkaKQUO6Tq0zyL7MBwaw3k1N9CeCnz5ZFd1cNo86E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lf4b02pp; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b="e8k+DUqK"
-ARC-Seal: i=1; a=rsa-sha256; t=1789826181; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=lxJtI0f5J52eBI0jkXF+fCjjktZihnJal+2wxXAFeJeMr7hA4MNnFTo6o7kTkRNxQ9sqToreVpEPJMb6lDHMXWiWt/Sn5mBpdBc1J3gk9PEdZSjUnBDNXPKWHqFzKw9omeR5d/bUaRiFN5/hABtXZ21lbuaepN05CPHYQk65/9E=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1789826181; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=yhX14Zjrs1T1LKc/UQ3XM5yVsTmDWG/q39PuOw4fZkw=; 
-	b=Ni5XsT26yJfRAbsYM5mTkdiCmtEN0MPSyQgGGYkdqtjQGGnc21MbM+O/BVfJ3jYagernbGAQeD5YURO+kitKwVeKiAdJOWWxpUWNo0BSW+8gwsx6A+7EjkikN+lXDdsHV+sOMpr3r5h6Bo0wRXt5s3mFiZ8tvVdKSL1M8n5IrQA=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=icenowy.me;
-	spf=pass  smtp.mailfrom=uwu@icenowy.me;
-	dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789826181;
-	s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
-	bh=yhX14Zjrs1T1LKc/UQ3XM5yVsTmDWG/q39PuOw4fZkw=;
-	b=e8k+DUqK8L0f/XjRqQOdi0HQ/UI5S1Gu7O3c6Lg1eNJdymP25Cp1kkckNIXJ4pr1
-	qQueD0jICa932JYSArNLhRFepAzNl6pGdZTXd3w6qJMMSm78hNB94PTGtRILf0Ca2WW
-	6Vs7//Uin5WcuhlDsPpYPyp4iteilNXakZ5/Tq/wyJL1wjJl0K9NoM0w2PRem4k8kYg
-	Jd04Owgb8RpA96d6og4yDllg9edyQhblplh/pBgVE0Q9/B1Qvio9RdwKVhrUGVSpZGY
-	AfLA55XW4Ak/PiTIhfoHKjyxKa5zdkMrzrYRe4/laVg/IN4ov9FipAwjd6YPLxBdP45
-	ZL2yKzRZRA==
-Received: by smtp.zohomail.com with SMTPS id 1789826179625358.0297920384029;
-	Sat, 19 Sep 2026 06:56:19 -0700 (PDT)
-Message-ID: <8301abce221e33d827053c54a64aed05f3227f7f.camel@icenowy.me>
-Subject: Re: [PATCH 2/3] pmdomain: spacemit: Add power domain driver
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Yixun Lan <dlan@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, Paul
- Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
- <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org
-Date: Sat, 19 Sep 2026 21:56:12 +0800
-In-Reply-To: <20260919095936-GKA322102@kernel.org>
-References: <20260918-04-k3-pm-support-v1-0-0acd2b36b96f@kernel.org>
-	 <20260918-04-k3-pm-support-v1-2-0acd2b36b96f@kernel.org>
-	 <a4359efeee2220903a05a2383a651ec8ec7284b7.camel@icenowy.me>
-	 <20260918230107-GKC297024@kernel.org>
-	 <33b33b2b79763d410bc2e5b4ef46c305aaf6f7c8.camel@icenowy.me>
-	 <20260919095936-GKA322102@kernel.org>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lf4b02pp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789826228; x=1821362228;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=XNAAz2y1hQI1jpd/UD1AKmVlqfxjbi/3Ibab7fxF58U=;
+  b=lf4b02ppZXpsKF52EsAjfqxWz5FTkBDe60S3xB7zRPRIsmfa02owQfvO
+   yIIY3SCwUbBMJxxbiHqSr61lXQ3S28c8D87OB3OBpvgNw8cXR5JNjifY0
+   5IC3Fnu4Vn5OKz8DqIbDlEBnTPcu58t7D3n12R4RLKZ7dAIv81esH+U91
+   2MODBi+HKg//QV9mwrrx5p4aayLcGuQis2mh86XryKKekXcUChM5GdeDk
+   YlML10gqbg+QFKbkiig7GWnq+nLhe9LAkEpWL28EJPH+YW5HNcz8nCpph
+   psAhnO004AtlrygWz3WKwCs4+4VTRm2bOZFQx/+eokGkiXWbtAdqwPWW6
+   A==;
+X-CSE-ConnectionGUID: d2ii0WABR3GNUcyXfov3Xw==
+X-CSE-MsgGUID: MwlqoC8iS9u5Gz6Q1QyM+g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11909"; a="92856446"
+X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; 
+   d="scan'208";a="92856446"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2026 06:57:07 -0700
+X-CSE-ConnectionGUID: sOAvjBjpTLqXtcDgmqC3/Q==
+X-CSE-MsgGUID: iJhVdkZTRsGRyU1tFZqjug==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; 
+   d="scan'208";a="276781262"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.50])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2026 06:56:55 -0700
+Date: Sat, 19 Sep 2026 16:56:53 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Vinod Koul <vkoul@kernel.org>
+Cc: Frank Li <Frank.Li@nxp.com>, Mark Brown <broonie@kernel.org>,
+	Shengjiu Wang <shengjiu.wang@nxp.com>,
+	bui duc phuc <phucduc.bui@gmail.com>, linux-kernel@vger.kernel.org,
+	dmaengine@vger.kernel.org, linux-sound@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	Dave Penkler <dpenkler@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	Shengjiu Wang <shengjiu.wang@gmail.com>,
+	Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+	Nicolin Chen <nicoleotsuka@gmail.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Daniel Mack <daniel@zonque.org>,
+	Haojian Zhuang <haojian.zhuang@gmail.com>,
+	Robert Jarzmik <robert.jarzmik@free.fr>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Orson Zhai <orsonzhai@gmail.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Chunyan Zhang <zhang.lyra@gmail.com>,
+	Olivier Moysan <olivier.moysan@foss.st.com>,
+	Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>
+Subject: Re: [PATCH v2 7/7] dmaengine: Remove deprecated
+ dma_request_slave_channel()
+Message-ID: <aq6UpdBvXV6qnj3G@ashevche-desk.local>
+References: <20260918113727.1898998-1-andriy.shevchenko@linux.intel.com>
+ <20260918113727.1898998-8-andriy.shevchenko@linux.intel.com>
+ <aq17qvmxF6nwclkR@parshuram>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aq17qvmxF6nwclkR@parshuram>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-=E5=9C=A8 2026-09-19=E5=85=AD=E7=9A=84 09:59 +0000=EF=BC=8CYixun Lan=E5=86=
-=99=E9=81=93=EF=BC=9A
-> Hi Icenowy,
->=20
-> On 14:57 Sat 19 Sep=C2=A0=C2=A0=C2=A0=C2=A0 , Icenowy Zheng wrote:
-> > =E5=9C=A8 2026-09-18=E4=BA=94=E7=9A=84 23:01 +0000=EF=BC=8CYixun Lan=E5=
-=86=99=E9=81=93=EF=BC=9A
-> > > Hi Icenowy,=20
-> > >=20
-> > > On 17:00 Fri 18 Sep=C2=A0=C2=A0=C2=A0=C2=A0 , Icenowy Zheng wrote:
-> > > > =E5=9C=A8 2026-09-18=E4=BA=94=E7=9A=84 02:40 +0000=EF=BC=8CYixun La=
-n=E5=86=99=E9=81=93=EF=BC=9A
-> > > > > =C2=A0 SpacemiT's PMU (Power Management Unit) consist of several
-> > > > > power
-> > > > > domains
-> > > > > which can be managed independently, depending on different
-> > > > > application
-> > > > > scenario, each domain can be powered on/off for saving power.
-> > > > >=20
-> > > > > =C2=A0 The driver is implemented based on Linux Generic PM Domain
-> > > > > framework.
-> > > > > From a hardware perspective, either of two distinct power-on
-> > > > > sequences
-> > > > > are supported, in software mode (SW mode), the driver is
-> > > > > responsible
-> > > > > for
-> > > > > controlling the states of bits such as sleep1, sleep2,
-> > > > > isolation
-> > > > > and
-> > > > > pwr_state, while in hardware mode (HW mode), the PMU hardware
-> > > > > will
-> > > > > complete
-> > > > > the sequence automatically without requiring software
-> > > > > intervention.
-> > > >=20
-> > > > I think there also exists solutions for K3 that uses RPMI power
-> > > > domains, and let their ESOS firmware to access the hardware.
-> > > >=20
-> > > Yes, I'm aware of that
-> > >=20
-> > > > What's the relationship of this implementation with the ESOS
-> > > > implementation? Should the ESOS part be disabled to use this
-> > > > implementation?
-> > > >=20
-> > > I should say, it's a mutually exclusive solution, so yes, the
-> > > ESOS
-> > > part
-> > > should be disabled in order to use this version
-> > >=20
-> > > The motivation of this patch is trying to support drm/display
-> > > driver's
-> > > PM requirement, while avoid going with vendor's complicated RPMI
-> > > solution
-> > > which isn't mainline ready
-> >=20
-> > Is this a long-term solution, or a temporary one?
-> >=20
-> For upstream, I'd say we probably will stick to this solution for
-> long time, won't say it 'forever', see comment below..
->=20
-> > If it's a temporary conflicting one, I don't think it's worth
-> > picking
-> > at all.
-> >=20
-> Well, checked current Linux kernel status, there is no RPMI PM
-> solution=20
-> implemented although there is documentation in riscv-rpmi spec[1]
+On Fri, Sep 18, 2026 at 11:28:02PM +0530, Vinod Koul wrote:
+> On 18-09-26, 13:34, Andy Shevchenko wrote:
+> > No more users.
+> > 
+> > Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> > Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> 
+> I thought I had acked earlier one. Here is it again
 
-I have seen pending patch for it with multiple revisions [1], the dt
-binding is even already ACKed by Conor, so I think it's not a big
-problem here.
+This is strange. I used `b4 am` to collect tags, most likely it was an old
+version (before you sent that email). I will anyway issue a v3 and I double
+check that all new tags are added.
 
-Thanks,
-Icenowy
+> Acked-by: Vinod Koul <vkoul@kernel.org>
 
-[1] 20260903092347.620060-1-joshua.yeong@starfivetech.com
+Thank you!
 
->=20
-> On the other hand, I see no problem to switch to RPMI solution once
-> it
-> became mature, it's very similar to two solution of clock CLK_CCU vs
-> CLK_RPMI..=20
->=20
-> Link:
-> https://github.com/riscv-non-isa/riscv-rpmi/blob/main/src/srvgrp-device-p=
-ower.adoc
-> =C2=A0[1]
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
