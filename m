@@ -1,135 +1,176 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 905C21E9919
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 18:17:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78B9B37F8BA;
+	Sat, 19 Sep 2026 18:18:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789841853; cv=none; b=Fl3rTzmWBTqLDz3CwodQHIIjf69L/evRlzZKLewq3XhAlWafvIdm6WMrtB1xicDoGJRaPCEZn0biwiscyqTEbEo1DhO0Vc/3nvGVSIALB5MK2qnrZvnfnF2x+oFQi/ZWJ3GtatsWqGBd6cRZr0c8nelkYHMu8hVzGN5ULH5+Ulg=
+	t=1789841913; cv=none; b=HvbPQ4LlywA9VXZ+m4j522zob5hzDkSt/uHnUpjBrWxMQ1ZTFXo/pJ9HM32C+CF0HTqeyQkyY5zmhB9Yd1WgC5jV3nDlx4LVzBIa+nKqSfsJEmcZj6v7wRDFg4ou4MU1JICvFp3nARoVePDzGIM1hPteEQ7j28fqmqHlTQy3pQ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789841853; c=relaxed/simple;
-	bh=UcqyNHXZvx2r6WjOFg4/qjzvwa+voeCemJ2lL0pUUTo=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
-	 References:MIME-Version; b=DEmOKHpino+XYH9Ofv1oHM2v/0seSJRnNiuld0Hjocp1fYFDynL0wgVbV169W/XVFKHxcu0oq5A/TY8KaenM+HkFo3ZOdeknIj/y36HIkXoTFG8vfp0wfhnIx9+VVV1/uAcL7lrF/ixuMA3Bu37OWg26yFKb9o8kTyKAAQSv5kY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iZGOIzqV; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789841913; c=relaxed/simple;
+	bh=hJ3wA6wLwUK3w8BKiqUYmor+iYzZ9BPed8AZHsmu54M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hg1UA8iOLq3skaU2NhVTxzic37pp7oMRMgR1I8hRhp+9DZ201pprwH3yYBukXK7pNf3jU8dVryL/sLcHutVTGZCPbgwZdjm/7OQ+7bceCeDo5o2kvJe2mFPiX0F8PFHlYHip5D+BSuWD+gBliA4sPT9nWyFg0FmQPM1UwBEkBgU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C/8IJ+cP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iZGOIzqV"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b31b4281eso1822388a91.2
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 11:17:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789841852; x=1790446652; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CXlL+5LiPO2Gr9S8btdNT0yhev55DeOp6fa7hhJR9YM=;
-        b=iZGOIzqVjH3KpgRpSYo4htAvx6vnlXJB+5uicB07fMADM3UWjWyD51s8PeF7W6XOPa
-         PcNjDMkqBqakhq8iNuW30ueylE8qP4Ki+ZEpVfkgFfLe+uxJvzR7EV5pYza4xoqCHL3B
-         Qf0XtBJsaGcsc3ILJhWG+aBa2ThnUbB8Ex7FVOLrKZOnz7irLgvdG3Y2R/Jhzu2Dgif7
-         rkPScs2pgv6x4o9ku5qv56MP07RmZVjRb+7O71KYQLZigrx+X0BkH2cVSB5YLLbRbw95
-         9btNpI5xE8Uf4wuz6NIve8n0eA/LdhNgPmVKE7Cva4qHtxR72maDh8jd/UV4TCMWrvVr
-         KXHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789841852; x=1790446652;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CXlL+5LiPO2Gr9S8btdNT0yhev55DeOp6fa7hhJR9YM=;
-        b=pprThpKwDBKGe+V+BX7odOtXmdnWhOULnoiV42Dx5nPXPosU/hACYr16nLa6jGgXg+
-         ILRepjpgWI539PaV8lk3htb6V1g7fzMV8u2wpQnv5qwfEjuVYhSrFgJCFpk5knIoICmp
-         v1LO5izLKoxZvnC/FRlDy3XWoKZVSJY9DYl4z82WQTD/1qXDSeaSbsydbsJu3ZY+7YP5
-         6I3Onvvp5iRriAz00uX1dC9Q/E0B28ZpOb4xsdxySH9EIchYUd+64xSnSqjTp+6ZABvd
-         0SDA3RN72CZmvmIZPE1fgFzWddWizPybYXajMpKu1Jr4h/EE9/qavQ3pzuVF/R0t2eNn
-         uslA==
-X-Forwarded-Encrypted: i=1; AKwUvBwzrlMKXfvxqwCmU1szAfxnU9y0Skeor2MZ/l8UR3gNU3ovz8/R/teoBzJkLWuxJDqmsoOjcIq/3Gv9zy4=@vger.kernel.org
-X-Gm-Message-State: AFuF++keom65RI/AvS8JJzdSyjsivCJmwoCrgNSVMFG1dFBga62rRyDj
-	EeuzX/90jgHtQk3y3n/wAvmqFxtO/0nRJbB+re7SBZ02einLAxrUCrwy
-X-Gm-Gg: AYBFou244tge0gDBClK6DYa1OwyQCAhz1VBF1wsi/mzW4CAHpFNNd6mCKnetm2e6cN/
-	/uVK6sMhF5u8fITs8oRcBiVPCXitd2DXpzWX0TkMOcU/J3BR/f4KMmABw2CjL7LzOJsBMmCUavO
-	XRp/zz6qLMVfB9acMjTcvBXHpIuPlH2a6SJDIfWW8EiqHNEGQpBqDQR/RAWYHlr+cmRdFEkMNCL
-	BDIH4z30eXDVlydvcVJq8v/pPwjihTMw2HsMFq+sGwUOsUMDin/tfING7bF8K/hl/k5ZHFcWeat
-	szMlWn6mRiL0BV3B2cqi0yUo/c2K1y7wR36tcRDpkAC5pBmuGbojndxqzCPXQvpkla2ix8oWGQ6
-	KTFaVTIK/sg8m2v1LAvL/b5zPcxr+EkLQH29qGT1M95TzIftdVsILe+0HkQi/kcbbODa+7XYIMm
-	zf+lUkQNPWUXS2v0Ald02MeQTAs0f0bpZbbf8MsRKvZDyBTUpag68dWf0lRhVaOn2AvcEWO4SWL
-	S79EPTnUhQEeBHj7FYXPZ2vzsAVEH+LmQJJW5765hr4JfiXZVdOAm2CFeXUBY6vdboyImhwPMYa
-	bL0=
-X-Received: by 2002:a17:90a:d005:b0:39d:f731:e5f3 with SMTP id 98e67ed59e1d1-39e54f0e839mr11355351a91.24.1789841851709;
-        Sat, 19 Sep 2026 11:17:31 -0700 (PDT)
-Received: from localhost ([153.61.198.244])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e55b83602sm4333791a91.1.2026.09.19.11.17.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 19 Sep 2026 11:17:31 -0700 (PDT)
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 19 Sep 2026 18:17:30 +0000
-Message-Id: <DLJHZEZMLW0F.27OPPS218CX9Q@gmail.com>
-Cc: "Andrew Morton" <akpm@linux-foundation.org>, "Hao Li"
- <hao.li@linux.dev>, "Suren Baghdasaryan" <surenb@google.com>, "Michal
- Hocko" <mhocko@suse.com>, "Brendan Jackman" <jackmanb@google.com>, "Amery
- Hung" <ameryhung@gmail.com>, "Swaraj Gaikwad"
- <swarajgaikwad1925@gmail.com>, "Clark Williams" <clrkwllms@kernel.org>,
- "Steven Rostedt" <rostedt@goodmis.org>, <linux-mm@kvack.org>,
- <bpf@vger.kernel.org>, <linux-rt-devel@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [RFC PATCH] mm: restrict can_spin_trylock() to preemptible
- context on PREEMPT_RT
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Karl Mehltretter" <kmehltretter@gmail.com>, "Vlastimil Babka"
- <vbabka@kernel.org>, "Harry Yoo" <harry@kernel.org>, "Sebastian Andrzej
- Siewior" <bigeasy@linutronix.de>
-In-Reply-To: <20260919171443.90512-1-kmehltretter@gmail.com>
-References: <20260919171443.90512-1-kmehltretter@gmail.com>
-X-Mailer: mkdraft (claude review draft; edit before sending)
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C/8IJ+cP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3508B1F000FF;
+	Sat, 19 Sep 2026 18:18:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789841909;
+	bh=pyIemgWwjEQt3L+L8axqzmGHSvJ7AdeLk598yESsBGI=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=C/8IJ+cPchuSvWh2/MxbtZPVyL1SjYKc4WXhx6R5cZ8sO849empy9OJwygnCknBX9
+	 LS0Iqqfn6V5Z1h0JG1qUVKf9ea2HYVT30qIGRHdnP1XZ8UWHJ4YpkgHmC2HkV5s0gX
+	 mx0/oSOBh7QA3iOZ0E/hOerVDWNOt+SOJUGUJsSea826IzlwZFx6EKFYhiXVOWrygb
+	 dFgoRw90kA2b19NGTt6Z1+i6jE++aYpKXWkfZJmT3MCxltSlIRdRsx4YKWYg7FmUUl
+	 v57bGYi8C3acUYW1teyDCheNQDUiXJTOBLdtqRjHN/XWQW65fUQ6bmgFxOj15iYWL/
+	 ai9pfvIYdXxCw==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id E6C70CE1579; Sat, 19 Sep 2026 11:18:28 -0700 (PDT)
+Date: Sat, 19 Sep 2026 11:18:28 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Bradley Morgan <brads@mainlining.org>, rcu@vger.kernel.org,
+	linux-kernel@vger.kernel.org, kernel-team@meta.com,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Boqun Feng <boqun@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
+	lkmm@lists.linux.dev, Zqiang <qiang.zhang@linux.dev>,
+	Wang Lian <lianux.mm@gmail.com>, Kunwu Chan <kunwu.chan@gmail.com>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Will Deacon <will@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	John Stultz <jstultz@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Joel Fernandes <joel@joelfernandes.org>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang1211@gmail.com>, Ingo Molnar <mingo@redhat.com>,
+	Waiman Long <longman@redhat.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Vlastimil Babka <vbabka@suse.cz>, maged.michael@gmail.com,
+	Mateusz Guzik <mjguzik@gmail.com>,
+	Jonas Oberhauser <jonas.oberhauser@huaweicloud.com>,
+	linux-mm@kvack.org
+Subject: Re: [PATCH 01/28] hazptr: Implement Hazard Pointers
+Message-ID: <c67ddf7a-6f79-4145-858a-291df86e5274@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <e9669b34-12c2-4cf2-a887-315f581f0789@paulmck-laptop>
+ <20260919000056.3132131-1-paulmck@kernel.org>
+ <CAHk-=wj9knmxXD01=top1DQ9_aqrN2a3kpWRS5DQv6QLwLOztg@mail.gmail.com>
+ <6B1FC39D-6EB0-433A-8E49-E5EFC9379AD7@mainlining.org>
+ <CAHk-=wjyniJy-CX1muCrsZp-i-sLGRYeRYEPN7sw9orRZUCwag@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAHk-=wjyniJy-CX1muCrsZp-i-sLGRYeRYEPN7sw9orRZUCwag@mail.gmail.com>
 
-On Sat, Sep 19, 2026 at 07:14 PM Karl Mehltretter <kmehltretter@gmail.com> wrote:
-> Allow preemptible context only, as v6.19 did. A held raw spinlock
-> implies !preemptible(), so the locks of the caller do not have to be
-> known. With this change both machines pass 10 of 10 boots.
->
-> The nolock allocations then fail on PREEMPT_RT from every context with
-> preemption or interrupts disabled, also where no scheduler lock is
-> held. Creation of BPF local storage from such a context fails, as it
-> did in v6.19.
+On Sat, Sep 19, 2026 at 10:00:06AM -0700, Linus Torvalds wrote:
+> On Sat, 19 Sept 2026 at 09:35, Bradley Morgan <brads@mainlining.org> wrote:
+> >
+> > I think hazard pointers are good, what test do YOU suggest we do here?
+> 
+> I want to see a single real-world example of "look, this speeds this
+> real load up by 10%, and the kernel code was actually cleaned up in
+> the process because hazard pointers are great".
+> 
+> Not a microbenchmark that tests just the hazard pointers themselves,
+> but a real kernel feature that has been converted to hazard pointers,
+> and in the process actually shows improvement.
+> 
+> The ONLY reason for hazard pointers to ever be merged is if they
+> actually buy us something real.
+> 
+> So I want to see that 'real" thing.
+> 
+> I want to see how easy/hard it is to actually convert a real current
+> user, and I want to see how it actually results in measurable
+> improvements in performance.
+> 
+> Something *core*. Something that everybody uses. Because I'm not in
+> the least interested in a new subtle feature that interacts with the
+> scheduler and is only used for some random driver or (to pick the only
+> example I have ever seen) AppArmor.
 
-6.19 had this check in kmalloc_nolock() only. alloc_pages_nolock() and
-free_pages_nolock() allowed irqs disabled since they were introduced,
-and arena was sleepable only under a mutex back then.
+Just a historical note for those who were not around at the time.
 
-[...]
+Linus had a similar healthy skepticism of RCU back in the day, and
+we (well, mostly Dipankar Sarma) did deliver the required use cases
+and performance results.  It took about two years, with the earliest
+discussions at OLS 2000.
 
-> diff --git a/mm/internal.h b/mm/internal.h
-> index 38b1165212c94..29646c4afb419 100644
-> --- a/mm/internal.h
-> +++ b/mm/internal.h
-> @@ -1641,10 +1641,14 @@ static inline bool can_spin_trylock(void)
+And I won't be sending a hazard-pointer pull request to Linus unless and
+until we have something convincing.  And if I turn out to be easier to
+convince than Linus is, I am sure that he will let me know.  ;-)
 
-[...]
+> Now, obviously, the thing that would impress me is something like the
+> dcache. If *that* can be converted, and it shows real improvements on
+> some real benchmark, then I'm sold.
 
-> -	if (IS_ENABLED(CONFIG_PREEMPT_RT) && (in_nmi()
- || in_hardirq()))
-> +	if (IS_ENABLED(CONFIG_PREEMPT_RT) && !preemptible())
->  		return false;
+And yes, the reason that I am pushing this is that some corner cases are
+stressing RCU a bit, and perhaps hazard pointers can do a better job of
+addressing these situations.  And maybe dcache is one of those corner
+cases, but it would not be first on my list, in part because hazard
+pointers tends to have a bit higher read-side overhead than does RCU.
+And I don't see a way that hazard pointers could eliminate dcache's use
+of seqlock.
 
-No. This kills bpf arena on RT.
-Since 7.0 arena_alloc_pages() and arena_vm_fault() take
-raw_res_spin_lock_irqsave(&arena->spinlock) and call
-alloc_pages_nolock() and kmalloc_nolock() (from range_tree) under it.
-With !preemptible() here bpf_arena_alloc_pages() returns NULL for every
-prog, sleepable included, and a user space fault in arena gets SIGSEGV.
+The most obvious potential hazard-pointers use case is where someone
+wanted to use per-CPU reference counts, but couldn't due to the high
+memory footprint of all those per-CPU counters.  With a key word being
+"potential" because I don't know of such a use case.
 
-As Sebastian said in
-https://lore.kernel.org/r/20260831143500.x-saxdAs@linutronix.de
-raw_spinlock_t is fine in general. pi_lock is special. rq lock too,
-I think, since rt_spin_unlock() can end up in try_to_wake_up().
-The check has to be about those and not about every irq/preempt
-disabled section.
+But if one shows up on an emergency basis, I want at least a prototype
+of a ready solution.  After all, the Linux kernel is a *lot* less
+bug-tolerant than it was in the early RCU days.
 
-pw-bot: cr
+> Now, I don't really expect that kind of major test-case, but I do
+> expect *something* meaningful. Not a driver. Not a test module. Real
+> code.
+> 
+> IOW: "Show me the money".
+> 
+> Because the kernel is *not* some kind of acadmic project. Never has been.
+> 
+> I simply don't want to merge something that is touted as an
+> alterantive to RCU - which we obviously depend on very very heavily -
+> without something *major* that actually uses it and shows the
+> real-world advantages.
+> 
+> The discussion about hazard pointers in the kernel has been around for
+> a few years by now. If there isn't some real core feature that was
+> converted to show that, then I think that's already a failure
+> indication.
+
+That is of course completely fair.
+
+And there are a couple of potential hazard-pointers use cases that have a
+reasonable chance of working out.  If something compelling does show up,
+you will of course see a pull request.  If not, maybe I maintain hazard
+pointers out of tree for a few more years and then drop it.  (At which
+point, Murphy being who he is, a use case would promptly appear.)
+
+> I'm hoping that those patches and numbers already exist, and I just
+> haven't seen them.
+
+There are some, but not yet compelling.  This is still a work in progress.
+
+So why bother you with premature hazard-pointer patches?
+
+Because if a hazard-pointers-shaped problem does show up in the kernel
+somewhere outside of my admittedly narrow field of view, it would be
+good if you were aware.
+
+							Thanx, Paul
