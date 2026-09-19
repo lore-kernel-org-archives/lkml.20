@@ -1,121 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66453342151
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:19:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 444032BE02C
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:21:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789827567; cv=none; b=EvozOqUSUHw7s971AmYKUuqdRRHBqIkRvIPU+YlETuUGIJPpyDm0l+gMMTEyfT0JE6zOOCP1zNJTxkbZxHm5gTOeCCqozrUWfEFeoXnmSFap9/0TYKaHaIlx3YHyndDccpOx9ko65yEIp4Uku4YxKwPh3eFfO5+CszFA5CUpbBg=
+	t=1789827710; cv=none; b=eaN5LRnHMeCsug34nKa0v+2Y7wMB9nENlg8nFzftZk1rOGa/JSjv0AobqVDtfhltQAV8pKW+eF2+dp+7mG9H2/3r/jtijfX9V7UYc12mdJYhhivF2AvsDkiGWo7Py5PK308EEfaF5SVudMXy/9g2RMEcSyzHRhCgY0DAl9c8F/k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789827567; c=relaxed/simple;
-	bh=/uQ99vUQtjbQarfdJLlDAvWZrnwsEPm4Ad8wyjZcGDs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hDxn25FsXeqPoYCTERYmoVliRnOMEO50wnNwqi0DHC7FlSP0hDEJo3xborBsgfFR8k+jxulRykr8QhY4OpLWyc6t7OsOpY5vjXZVt898sqrPLlmOdq4egVV699ZIJfH1JJwPCV+Mo+z8uIHGaECZdMASJ6igoyXh3F8cEdUx1Jc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kXKlfFdZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789827710; c=relaxed/simple;
+	bh=I684RhGEQ7GNTrfaUnWsiWap+/NtauQEM0FxfaZeSKA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GjAjMRFaSG0IddqvOaVYJMKEAXaxW+GUkHiR+ZFNaksiNtYLCnpZ40jcQ72jUn7GJM77arADwWdVACHWUjXzrO3LcLpO6XkhTvyBg7Z215BwMEcM+I4qSWv8UWyDLZo9F+c29+lKBrydhPpWZiUiMPHp4op06eeuhKu+TEG1kFA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev; spf=pass smtp.mailfrom=tuxon.dev; dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b=E+a9Wp2G; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxon.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kXKlfFdZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CC151F0089D
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:19:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789827565;
-	bh=0xY1KKBPrXrqE6vxKVzmss2EmA6q2njOUlJk68SzIKk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=kXKlfFdZBQZdw3ZJ40yUP+1qzuW6JHxO/cAXzUSnlw8n6PWT36ek3vV9u1TQzhpaq
-	 TcwGHd8Lri16UlRjQyQTnHL8VfftFAJ2KHHAH9gQF7J2fxcLioKjd/A59U0SUlZX8w
-	 gCHfuBc7uaYeqdYYu72kEffhVyhisC2vsmQEisOlv4waSDkusqz6XV8ZU1FKquFDup
-	 uJkTz/6gGt8YXxnHG3r5L70Zsq3SBPcZPLPA4IGw2UzAZwDgtTYIPc4QtiLc/f/6QJ
-	 dvN7ykt7bXfTA65WDT7X30nuI0EGw9Lype5uLhEuCNFTsh833vUGpy1o0x5imozAyr
-	 pEiXADRRE63Qw==
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a9984f9a59so2347214a12.0
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 07:19:25 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxamFH/Cf/88X09xSKR9dv8BqfF89L0YtQqE7vxANB/xVkh6qzHQSPJP55QlFSq473/Lw94IwGQtPZltIY=@vger.kernel.org
-X-Gm-Message-State: AFuF++n3YoImPIQcmLAq/MQisrgTy6Puh+bh46Efdk1QylH5dw2MygIM
-	G08tY29aQlJGHmtDZG2FtAr0NRS1qen9KPy8eLr6ltG3/aQUtvM5Ygj/j3SV+ULiMa2cq7wGtoe
-	Vir+iZecPks1yjvBzi0nR45mMhDIgVjg=
-X-Received: by 2002:a05:6402:46c6:b0:6aa:96f:bb2f with SMTP id
- 4fb4d7f45d1cf-6aa5312510emr3704633a12.12.1789827563834; Sat, 19 Sep 2026
- 07:19:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b="E+a9Wp2G"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso21523175e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 07:21:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=tuxon.dev; s=google; t=1789827706; x=1790432506; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=e2R+4kjVw0MIjcDwbj4ulbwDY6d2MGtIJTjtocSZokg=;
+        b=E+a9Wp2Gn+WuJKH2RXUaNpJ8OlFyFn5hEJRSW7Hu0XtxOoAx6pn9hD0nxJeToIJyIg
+         u84FLHZ7j47tyNTh9TcOtman28oVBNi8DE4ARUd949pcKEeWNTit6lhYjbLze/tQaSXg
+         q9gQ2NqL4w4YpP8kVFGcMXfQBW1wIaX+i78obvXnqaudk18jScbRvjpXtMloOvo3Z1kN
+         Cu8vIVgbaW0ycuZNzODYCcGpMlcdZlaE46Q5GkQd5G/3CZXi/N7PVg2hhKAW7n7O+9UL
+         s/DYYdqMQ41OpnSzSURDrEeBqyE9FDeEgfHjdxU2vXjQdEhUiB3GnZuGF3jUtkO+SSnL
+         fYpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789827706; x=1790432506;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=e2R+4kjVw0MIjcDwbj4ulbwDY6d2MGtIJTjtocSZokg=;
+        b=hiLYEcHTxj+RsB2GhxwqmtyeNISCfZo9yiRU6s46ADszFq+7PZeUeKtIW5pWQaeSdn
+         moQQ9zIU5NEiBXu97C82uo5qd9Y7U1Qu+f7jEIWXpHcKvhRV2C1Da8hPpIupskjuo7Vb
+         TgYaL6vtxBcDRG2jMYZhi3ms87MREe/q4BhelAmQbK7Jbqe19X9Qdoeowk6miDWNwBND
+         c6Ep/HlwQchWM34hQ2whE8a5NLQw20N31l41euQRaWQ1wMO3aXuruwEC6p/KaKMdEqgJ
+         jkXAvD5TudhXQAFs40s8IQYhCrMVTIQpDxb1tiFR0NPWcSuzNZkMgTlLs4ScZEIkGC1i
+         TdpA==
+X-Forwarded-Encrypted: i=1; AKwUvBw9o/Og+ZuHrXCDt63QO01v2pqnGy61YElHGRmOOZVAeKVPXoYYTtJtRMiq9YP9plG/jba0GSjd8jfRlPM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lmZ4XNntocxWs7HNh8irSQr+GqlNMuMUD9UBJxdtneCjfIkpnF
+	Ir5+NmgNxx8+yv8U9+ay2gLbLq564NS6F173izA+wFOr+MFsX7k0vDGfafd2QtSZ/i8=
+X-Gm-Gg: AYBFou2IZJ5Ep2HblJxCya1jTc3AbmmjAnVqQ1QvfbNeoDIrLeFiXvx8VUxMEiuzRBq
+	0rhvrs64cdXvC2DdYgZNDXUXbIUWvc25TpQXqkPCZKSPAnpSQNXE9+kvr9NhzJzLw05yDnvkZrr
+	dWhlMPsCJ9cNM3QTx8hOJnmaw8ySGnOAVehpZ4BSWcXnq/6Kwa0WgaV8lWN9dLs5Y7O1U1secDO
+	c3+YDKgUCyQajeiw+BV5bB1z8mHKnids4Kx13gIrT16QIJZN1ldNeW0978utKCZ01OFFMivnsMR
+	wzlPjM3/izb8PuDJbLybWy+jJ8lXT9Uh41rylhwz5HhiXv+2RuazPpmvtgj/pMSjfshWhRn+IWq
+	PfDtYV6PeXji77tySywrUgknWNVMNIphRCzLu1Ez/f8W7OiedibbDEeHgsI7bYjUtfs7MBVS3AP
+	In5WN2NMMiUleuZBcHXhLAnbJi5dXU8XvZH2MOK3i3D7ss1W6hjRdI55AX5ZqzJrsEJ7hwVBG3P
+	LMczV6VdCQplr2GqcQqGmvZw1aTb0aO/JcuBzQq3kBTYb0pa6b+CJg=
+X-Received: by 2002:a05:600c:474c:b0:49c:f512:2361 with SMTP id 5b1f17b1804b1-49fc569587bmr82361065e9.14.1789827706512;
+        Sat, 19 Sep 2026 07:21:46 -0700 (PDT)
+Received: from ?IPV6:2a02:2f05:1204:e000:2cf7:c250:64a9:ae77? ([2a02:2f05:1204:e000:2cf7:c250:64a9:ae77])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc521f5d9sm38646635e9.2.2026.09.19.07.21.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 19 Sep 2026 07:21:44 -0700 (PDT)
+Message-ID: <06eac2e8-183a-4108-9eb5-8e141902e4bb@tuxon.dev>
+Date: Sat, 19 Sep 2026 17:21:42 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915032627.2796747-1-maobibo@loongson.cn> <20260915032627.2796747-5-maobibo@loongson.cn>
-In-Reply-To: <20260915032627.2796747-5-maobibo@loongson.cn>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Sat, 19 Sep 2026 22:19:15 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H5TEPKXjZNDzObDJmpa=GHeeVZv+1ry0=uZHiWCXCqL5Q@mail.gmail.com>
-X-Gm-Features: AcwNN1VrM5r2Ez9d6qSwRfJyq-pHPMNjcZBLi5imstkm5cd_5EE3eqBzArPuVB8
-Message-ID: <CAAhV-H5TEPKXjZNDzObDJmpa=GHeeVZv+1ry0=uZHiWCXCqL5Q@mail.gmail.com>
-Subject: Re: [PATCH v3 4/4] MAINTAINERS: Add entry for drivers/acpi/loongarch
-To: Bibo Mao <maobibo@loongson.cn>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>, 
-	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>, 
-	Pawel Chmielewski <pawel.chmielewski@intel.com>, Len Brown <lenb@kernel.org>, 
-	linux-kernel@vger.kernel.org, loongarch@lists.linux.dev, 
-	linux-acpi@vger.kernel.org, acpica-devel@lists.linux.dev, 
-	lixianglai@loongson.cn
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi, Bibo,
-
-On Tue, Sep 15, 2026 at 11:34=E2=80=AFAM Bibo Mao <maobibo@loongson.cn> wro=
-te:
->
-> ACPI defines few LoongArch specific tables which need parsing code
-> added in drivers/acpi/loongarch. Add maintainer entries for this newly
-> created folder.
->
-> Signed-off-by: Bibo Mao <maobibo@loongson.cn>
-> ---
->  MAINTAINERS            | 9 +++++++++
->  arch/loongarch/Kconfig | 1 +
->  2 files changed, 10 insertions(+)
->
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index c2414447892c..e19be0c1654e 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -347,6 +347,15 @@ S: Maintained
->  F:     drivers/acpi/riscv/
->  F:     include/linux/acpi_rimt.h
->
-> +ACPI FOR LoongArch (ACPI/LoongArch)
-Similar to others, I think this should be: ACPI FOR LOONGARCH (ACPI/LoongAr=
-ch).
-
-> +M:     Bibo Mao <maobibo@loongson.cn>
-> +R:     Huacai Chen <chenhuacai@kernel.org>
-If this series can be merged to the loongarch tree, then it is better
-to mark me as M.
-
-> +L:     linux-acpi@vger.kernel.org
-> +L:     loongarch@lists.linux.dev
-> +S:     Maintained
-> +F:     drivers/acpi/loongarch/
-> +F:     include/linux/acpi_iovt.h
-> +
->  ACPI PCC(Platform Communication Channel) MAILBOX DRIVER
->  M:     Sudeep Holla <sudeep.holla@kernel.org>
->  L:     linux-acpi@vger.kernel.org
-> diff --git a/arch/loongarch/Kconfig b/arch/loongarch/Kconfig
-> index 2067d1f2ad7a..d7f8e4fec952 100644
-> --- a/arch/loongarch/Kconfig
-> +++ b/arch/loongarch/Kconfig
-> @@ -6,6 +6,7 @@ config LOONGARCH
->         select ACPI_GENERIC_GSI if ACPI
->         select ACPI_MCFG if ACPI
->         select ACPI_HOTPLUG_CPU if ACPI_PROCESSOR && HOTPLUG_CPU
-> +       select ACPI_IOVT if ACPI
->         select ACPI_PPTT if ACPI
->         select ACPI_SYSTEM_POWER_STATES_SUPPORT if ACPI
->         select ARCH_BINFMT_ELF_STATE
-I think this part should be in Patch#2.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH resend] soc: atmel: Convert to of_machine_device_match()
+To: Geert Uytterhoeven <geert+renesas@glider.be>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <c3b4f8aceb5f0bc95fa10e6fa469574cfdaa8ee6.1788429505.git.geert+renesas@glider.be>
+Content-Language: en-US
+From: claudiu beznea <claudiu.beznea@tuxon.dev>
+In-Reply-To: <c3b4f8aceb5f0bc95fa10e6fa469574cfdaa8ee6.1788429505.git.geert+renesas@glider.be>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
-Huacai
-> --
-> 2.39.3
->
+
+On 9/3/26 12:59, Geert Uytterhoeven wrote:
+> Use the of_machine_device_match() helper instead of open-coding the same
+> operation.
+> 
+> Signed-off-by: Geert Uytterhoeven<geert+renesas@glider.be>
+
+Reviewed-by: Claudiu Beznea <claudiu.beznea@tuxon.dev>
