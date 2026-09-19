@@ -1,117 +1,79 @@
-Received: from mail-wr2-f27.google.com (mail-wr2-f27.google.com [74.125.225.91])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mxout3.routing.net (mxout3.routing.net [134.0.28.8])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58E397081A
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 11:47:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.91
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 797BF33E360;
+	Sat, 19 Sep 2026 11:47:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=134.0.28.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789818423; cv=none; b=hci0F1FtCY1QMJkYYGpeNH9Xd6PiI79A8nwaXquhWdkzo/9V+WunL0twVfRb2QdmYnlL6AxExd5uBXmlucdvgzdNLYYfCk15ErikfWoXpJIpj8JfcuKU0+ZgETqpwNGH4lQw/EkdySQSd+wfIQzccGeOxmtS5TwI+CDbI+55PJ0=
+	t=1789818480; cv=none; b=o1OWM+dnHikiZyFakN4z8IZdtDREXRE5CcdgXdxyXKgKcy7ANkloS5g+wXDgooaTjI40FffQvIkouUos+sXg1CY87i5BoZbKulpHH2TTvHHMtDdhfQuXlMGP2/1KdUur4GccxNCa0spFL8El//eJ2bX74XHCCkRs5Cjc3avuq28=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789818423; c=relaxed/simple;
-	bh=5/be281ZQD53yG9ylgU/R8rXnCdN/BCUnoqRoANjqpo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KxYbUCA6BHeBEC+5xgcY0acnV3aYMk8+sjaCEaJ7A1WbzZnMI/zYWFZTpFaCLx+RCDoZitTOxbknix2fgwqJLzDCOt9V7S0rSBrNTsn7r6vR8rhkWviHqbjtCRhGtWjet4vz5jhkKFb/0NoauMa1C3c/CoFptrct9jeo13kSaMU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IpzYHOte; arc=none smtp.client-ip=74.125.225.91
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789818480; c=relaxed/simple;
+	bh=jeLNFpvlK9hkCaWDMFHhysZdee1DdwAbYN73gmDTox4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TTbopLGBugy3rQ2cMN6qg7n5nFjwrDtHDz2OJ0aUGp6dYEUxoB/r+UR3egLnfv4qHXb1C5GtFf+Hu1clu3zDvtOsOzU6lPu5cxSxq6Ky1FzearDnlEDKZ+qj9C2xldeHsoW9vaIeqmo6fHx28QXHjt+Ay7xuNLpyrX5/MgQ5ilg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fw-web.de; spf=pass smtp.mailfrom=fw-web.de; dkim=pass (1024-bit key) header.d=mailerdienst.de header.i=@mailerdienst.de header.b=MWvMKCPl; arc=none smtp.client-ip=134.0.28.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fw-web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fw-web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IpzYHOte"
-Received: by mail-wr2-f27.google.com with SMTP id ffacd0b85a97d-4843796e373so853804f8f.1
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 04:47:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789818420; x=1790423220; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9ZZo/bO8FaeKZufIlk6aWKDCilZFtBs5IDhS4usmAPk=;
-        b=IpzYHOteFMpyOiXD2+gCx/yTW4XFuMlQangK0MJTUFpF9jU1qdPCJezToDUZ3p2T7c
-         kiwlgdQo+qfeMyhw/KkZgJpmPgySSL7gwg+W4EPVgcfqVV786ExhOzWtsESK6uUuKpvm
-         KcnDb+zyMqFIeIaWIbUsXHYWa1IdYZhpojuFDxM3xs+gsgeW9QAjgreUfkitz4b6LdQ2
-         q0ApfvC5lJwcsmw6PjjlNT3/nbnK+iVEMChIAukC5CgfgB4KSI3GiVpe6idE2lhbPhoZ
-         xUzhVD63o1GGv8aE9CDv9LqcrHD2QXqfiRCssitck2G4OG64UIfddLUf297BPVTAinEN
-         67PQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789818420; x=1790423220;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=9ZZo/bO8FaeKZufIlk6aWKDCilZFtBs5IDhS4usmAPk=;
-        b=Hj2POkOZnFF8NTo7uqkNhSDocsFUKsgAkvqHmMkaFvqK8vlPvWYxebnP6wHeb9GjKr
-         mHwl0wWb1VoUc1ARLenURfoUUj3vMg9OTkJeMSBMCKw6SulpRLHfp+UidchWwJb6EGlj
-         fFWQmnbhxE6ekg1C3PoSY8DYggJETbimkwx+FUchqNdAxUgQo06NRQJ0XkL54dihlaKL
-         kWK9iOAqaaRtiRwwjDVyV/fO8WWIqe1WHD7+ew5Z9qr2+V8IIls792mocV0XIIoIPdFC
-         yPE4ec39mOgQjmNSPGXSKMsf1hVEGxKzvbkQkUrTxtCS82e3PqzAylIKUuFoMzADlZr/
-         e7VQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwsUmijdg/YB2a6P3Y72sxDuSUTA8raGr9lSgVMYf2rq7SYwUhHaemUkuWiLMgiMWZeTu2iYrbK8wh9UQ0=@vger.kernel.org
-X-Gm-Message-State: AFuF++n/KnOCd0Ej9wQxfRV0LtvsW0Vx/vvVKdTF/tMo8b+nRBulHxFm
-	+gQiu9RdtN1oaGtj9iLSqmq/QN3KYgtOqeXoqVnwvYfVDbEpyIbMlSYE
-X-Gm-Gg: AYBFou14hp2P4Tkt1u2tUoOAPehcUyjhTuPvtCAY5bFzCStwshXlIXx5PStIZibH9+T
-	VkX704aI4hfnrNTw5iQYx34OEAESnfzqyq0ibHAFWIEanLnlm13bwQ0FwyKsN3L/k5gRuGjcJiG
-	X0eEnQamBMLg0Mrun3PpeZ+ilzuJyVboSFMLgUZE/c+8MZp/v4YYQhNsVQajjmRzbmqUSJzjvUb
-	cm3jgox+SLqK9Icu/a48V0tIPbRZOA1LEMGs8qN0+uyWdqWY8/CN70sPQs3iT8sDIVZiZz8/IcW
-	cGtCiipBFW1f+jEwW5I6TqEz9wbrJkvol0X+Rl+EW70luy0oJijb71a/ZnrG3ipe2i4ZJsIPKal
-	LPnXFCLrL2c8ZLgd2oi14/A1iNagpousbIA82wD5psSTc1IL5o78IgYkSb9R6NVgtfDuS4Go+Jb
-	DIyUs6Adv6NgxKRoLi/JhXhq0apHdhapDl49l+hVJ0n77uXk1h/H0i4AHnH6YQcHDjgfOHbagkr
-	qVReKhBP4BboAAvRyeGzihzNw2A3janiZ4bx4qR57ZnuRG6geLs39EqztU9CGBNbCw=
-X-Received: by 2002:adf:e00e:0:20b0:487:2329:9d0a with SMTP id ffacd0b85a97d-4872329a02bmr2732830f8f.33.1789818420344;
-        Sat, 19 Sep 2026 04:47:00 -0700 (PDT)
-Received: from [10.128.10.232] (195-23-151-163.net.novis.pt. [195.23.151.163])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48724460898sm6168114f8f.9.2026.09.19.04.46.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 19 Sep 2026 04:46:59 -0700 (PDT)
-Sender: Julian Braha <julian.braha@gmail.com>
-Message-ID: <4d1eee3a-a5f9-467e-880e-4f2815851b09@gmail.com>
-Date: Sat, 19 Sep 2026 12:46:58 +0100
+	dkim=pass (1024-bit key) header.d=mailerdienst.de header.i=@mailerdienst.de header.b="MWvMKCPl"
+Received: from mxbulk.masterlogin.de (unknown [192.168.10.85])
+	by mxout3.routing.net (Postfix) with ESMTP id 8176F606C4;
+	Sat, 19 Sep 2026 11:47:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailerdienst.de;
+	s=routing; t=1789818473;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=0OCTyA7s/r9aQUp6Mw8/8jVPFE4DEknKW9HCUStOOjc=;
+	b=MWvMKCPlr11NeW/bYzee3d+HGfxrg/HP6EmFopACA3PF4gDHDkD10G/jeQJFRg1s4LGI2z
+	4o0qKn9pelV0/EkFtBTrEZCE5u6EmCpfowXY8+TmVpefjyPRrMdiZsRy4cSIRgevBAAZ0X
+	cENQgALFqYaNFpp+vDBEBHgO7yn938E=
+Received: from frank-G5-5590 (fttx-pool-194.15.85.231.bambit.de [194.15.85.231])
+	by mxbulk.masterlogin.de (Postfix) with ESMTPSA id 360F41200CB;
+	Sat, 19 Sep 2026 11:47:53 +0000 (UTC)
+From: Frank Wunderlich <linux@fw-web.de>
+To: Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Mathias Nyman <mathias.nyman@intel.com>,
+	Chunfeng Yun <chunfeng.yun@mediatek.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: "Frank Wunderlich" <frank.wunderlich@linux.dev>,
+	Frank Wunderlich <frank-w@public-files.de>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Mihai Ordean <research@mihaiordean.com>,
+	Chen-Yu Tsai <wenst@chromium.org>,
+	linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	linux-usb@vger.kernel.org
+Subject: [RFC PATCH 0/2] Fix mt7988 usb with shared phy
+Date: Sat, 19 Sep 2026 13:47:39 +0200
+Message-ID: <20260919114744.46777-1-linux@fw-web.de>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6] kconfig: warn about malformed KCONFIG_PROBABILITY
- values
-To: Dmitrii Tulnov <tulnov.dl@gmail.com>,
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>
-Cc: Peter Korsgaard <jacmet@uclibc.org>,
- "Yann E. MORIN" <yann.morin.1998@free.fr>, linux-kbuild@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <9ceb2ab6-f532-49a2-b30b-ecdb4eb4b7b0@gmail.com>
- <20260918213430.3-1-tulnov.dl@gmail.com>
-Content-Language: en-US
-From: Julian Braha <julianbraha@gmail.com>
-In-Reply-To: <20260918213430.3-1-tulnov.dl@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/18/26 22:34, Dmitrii Tulnov wrote:
-> randconfig checks the numeric range of each probability but does not
-> validate where strtol() stops. For example, KCONFIG_PROBABILITY=50% is
-> accepted as 50:0:0: the '%' is parsed repeatedly as zero. For the
-> documented value 50, tristate y/m/n probabilities are 25%/25%/50%.
-> With 50%, both y/m probabilities silently become zero, reducing the
-> coverage of random configuration builds. Empty fields and extra fields
-> are also accepted.
-> 
-> Warn when the value does not follow the documented decimal format. For
-> malformed inputs whose parsed probabilities are in range, preserve the
-> existing interpretation unless KCONFIG_WERROR is set. In that case, exit
-> with an error before writing the configuration. Leading whitespace and
-> signs are accepted by strtol(), but also trigger the warning because they
-> are outside the documented format.
-> 
-> Keep the strtol() result as long until the range check. This rejects
-> out-of-range values that narrowing to int previously made valid, such as
-> 4294967296 becoming zero on a 64-bit host, regardless of KCONFIG_WERROR.
-> 
-> Add regression tests for one warning per malformed input, preserved
-> configurations, KCONFIG_WERROR, out-of-range values, the supported
-> probability formats, and the documented empty-value default.
-> 
-> Fixes: e43956e60769 ("kconfig: implement KCONFIG_PROBABILITY for randconfig")
-> Assisted-by: LLM
-> Signed-off-by: Dmitrii Tulnov <tulnov.dl@gmail.com>
-Tested-by: Julian Braha <julianbraha@gmail.com>
-Reviewed-by: Julian Braha <julianbraha@gmail.com>
+From: Frank Wunderlich <frank-w@public-files.de>
+
+One usb-port (ssusb0) on the mt7988 shares its phy with pcie and here 
+sometimes it happens that a trace is printed while bootup.
+
+Mihai Ordean (2):
+  clk: mediatek: mt7988: keep combo-lane U3 PHY ref clock enabled
+  usb: xhci-mtk: power down u3 ports skipped by u3p-dis-msk
+
+ drivers/clk/mediatek/clk-mt7988-infracfg.c | 12 +++++++++++-
+ drivers/usb/host/xhci-mtk.c                | 13 +++++++++++++
+ 2 files changed, 24 insertions(+), 1 deletion(-)
+
+-- 
+2.53.0
+
