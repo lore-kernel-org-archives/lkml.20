@@ -1,203 +1,522 @@
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E987A2F8EA3
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 16:19:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.179
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789834751; cv=pass; b=E9nQ2zFyD2nP+fdoCh/TAKrmqpOmtu5HDX2Y/x7mADCDQKHv7KI2IuB7M6jFe2U7XI8/p6wZDyA1Zhg2sJ9z4uvLJcY2SDuFJNbSf4opyoRp0WjiLb1HJdgQJTKrySzpS0+u9z3iEQzQRf5Xvcvx3OMMhxmBstc8mk2VVl3chuE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789834751; c=relaxed/simple;
-	bh=BzrMUNDYPj80iybGRN5GMtONkf6AbcxkplnCnvbZ21k=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Ab6fHRP0TNWEdQ9GIWKxZ3Z8LgJNKyEex60y/0j6OIusSWoUCEXMnvuq422ndmWjPMk37QeRAA3gYvTIvXd2phiukDECS/5hdOu3oRL6OD5FtA5RWQFDfg88KKJfrHnoC1lpN1s8tzcVF30htmDKar3KQp6bYfOG2AoTQXxu9MA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=AxZd4Nst; arc=pass smtp.client-ip=209.85.160.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3350933D6FD;
+	Sat, 19 Sep 2026 16:24:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789835062; cv=none; b=iZYYZG8cchLPHLcS9L5VRxeIB/YZ8jTm8cwvADmH+s459hGL13QbrN1oODsJHyT/+Vi4AcnPTzkx9H32c+jh3QtnDH4yGP1QTzWjXaWmWJNb8lFckdZSyA4IyZniBuGcz23J3Ih7UVIkBVB2rR+FqyB2UiSq52mHqxT5YGJrqbc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789835062; c=relaxed/simple;
+	bh=KYo3PDJDdxuswr8Pqu8HX+pePR0/EIUGKt59uIxGLFk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=by+kS7MMxtf2pESfkGgJen3tG4FeoU4LI2NpllIM3fXjmBJUI2ZF66U9PHJbJXJpunT/0LoWIqvN38x4Rka6qMIoEXTjLfS9YXCmbNnjH2lbhyYy1rt+/6i7XQ7+hu+T/9/LTTZM2syOqHBKiYIdhO3QIjPh04hoZnrJYstBk00=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kE9RYjXF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="AxZd4Nst"
-Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-52faa58bff5so160601cf.0
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 09:19:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789834748; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GBIolGsMLKRh1X4QuMGLLH5bYu2Ok3VugJpL1xrqtP3PUj8QovUnzPIOpt1R6nOCEj
-         WSd017aXbogLwTzQw4Anh7gUrQgTlzGpza428RQGpjbKO/X24HMr4Y6PoV7ym3SOxaWm
-         zPh9hqtZhnul/WcsUY9wrRLWcbjwDT0sLiTKSb3B5HiQrKHxrYlEFqiXMY3pV6ZJVVw/
-         CfdX4tYeCQ46limis/TDQftMFR3QIQGKnX3z3OZ0hIhziBFegDF1EnKXe4VpxVpFylbp
-         hUFy7EbicdceL+fGcmZZpp9N7sCqI5BdIARp+K8LyH8ap3KsaAP3kWgWVl1suF3qgwu2
-         IMZg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=xh+7X6sXCfesaHvraYzlE9MQtsqcfmtlPZC6XvJ+WDI=;
-        fh=fbIGKv1s4TD1sI+RffoZoR2UeYZqd98/jS5wUeYghCo=;
-        b=LR2SGE5ZSJgkt+eOU/DNXEjwuEscKmcSZE1c4YmD5AyVTPTl403K3K4yNHf0tenM8H
-         jSUKMCTO5lCFDLxl8aI3FZrnqcymWfHv9CZCuMe62F4aNUlVXWk6vuLQPviMUrKzlbII
-         LoOOdbmOknWW6GHovVB5HPGDz10p/M5vjmCFtAaEBFcUkhhVU8OpzqS4mn349Zw2kwAt
-         XoMufb1ymlw12W/2qfqnOQcKDxdIzJ+fYsP970BXTgllfnIeXbTGA6zIcnZD14rRDT6u
-         k6UX8L2D0yCP++OIpBQCd+K0fdloD0Z/51GOrxfjoebk6W5ZG8abgkcwMS0YglkMdF6q
-         DFtA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789834748; x=1790439548; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xh+7X6sXCfesaHvraYzlE9MQtsqcfmtlPZC6XvJ+WDI=;
-        b=AxZd4NstcPkWbrgDqK/s5WDnS9KuFMb/3ZiYxPcRiR73NyLh71nJf2bT41lRiAbUql
-         JabZ4LqOOye2NNo/1QND2w2kgB0GBjEqQ/jXc68Mv1l64WKlSfG6tzHjeVLvAk6MMKWN
-         4ACmVKuL/KZwIhyFsb5Y1GCTZBqNQ/Z5+uhxw1fftsbaHXP6hbi+5sPD/8sCK5Jnaaat
-         PsZmcBvz6lSXiJ3Mh2Jjwf3W1qpX8CSnNpJFZ23QUPWegDNsBDGW8b6tEKY3mRdeOJy8
-         ETE9pJOCykhN2zEe4PFQtey69IxGF8zu1zii8LdCAELDWHtRyHMJtjuTM+Zzstc1/mQ/
-         aj+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789834748; x=1790439548;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xh+7X6sXCfesaHvraYzlE9MQtsqcfmtlPZC6XvJ+WDI=;
-        b=CTZsjYoaldafIFnFQtAEC53W1d3eZqlfkyLBN0NcPMCxCEayU8qhHDbBG3f2waBkID
-         uehlSJ9X2wFUX+xXID3TMRErNo20XMh901MSbEll0U7ZQwSXguwPG9XVoGcPzetNCI0T
-         V8kfIl+7XEJrAbG3aNn+ZcHsxJg0Y2GosVbgq/cIggYqQn+We7RDyqB4ap/34d1N4IXa
-         5A/XR9IHze34FhQOIoFFyvcelGJN5TgQgInxoCWTgketwvZbaUfGdaRqN/9UAP7nGA6A
-         YTlUGIqM7u9bdR1pag8K2I6hJxReI1TOF9yw5QsctDhblaeo5HtCuPsj/AUCwZqX4uUL
-         YHcA==
-X-Forwarded-Encrypted: i=1; AKwUvByEQbtZRSyeqJqySXlfelqVNt5RP++ZnK+CHIZk9lm0tRpCnrnGchLr9heG3Ln08/6K87dOr5lsa6hyil4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nO9sA8a4Dj5Jd3WpGLCgvyfRQSb/cial5jLYovuYMjrQanXAIL
-	ja46I3FZtDsXW9tmjfeWAjcg+8skTugdm0Qlx4a0XjpSwwwb4SqjKL7gZETC99uvqwv/Z0+pdaq
-	Qot24KILciqnA/6NZCi6BBCyS6hgbaUETEOInz9wt
-X-Gm-Gg: AYBFou3B5fO8kwtY/FFBalHwEpRzPGyfGcoWHg9zyFeRIqXvdehQ6vKmH1h+jcFYzVZ
-	vlTJEGqgTSr1zdMzw21TNthtMF4PIY7IQnS9kfQP0m7Uy0iIlGUi685MvC4r9qZwqvn4il8mDsL
-	Ck5+CKkBnBlGoaUFzzKGJagJSF4qpvRCxQEGV+T7/T2JNYlo2UJgOiSYBE3TP5MG0sQosHBIscZ
-	snZkUlbQjRqNxXbogbTZ6Ef8q5AKSj7AqbueInnganTdMG2XPc7XSszixPYWTOYOjEqhwByNuPU
-	BZ87nx6QpM/DNmCYnGcqHJa76HL5D0ugQLtoRMUFFt2V2Wo3u1dHq1k=
-X-Received: by 2002:a05:622a:2c6:b0:52f:9ed4:8d76 with SMTP id
- d75a77b69052e-532b74745c2mr4345361cf.14.1789834747062; Sat, 19 Sep 2026
- 09:19:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kE9RYjXF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F33B1F000FF;
+	Sat, 19 Sep 2026 16:24:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789835060;
+	bh=sk1uiA0a3uJ6Mh7cOavRLqQqvYzmfEooA+BMJDeb3vA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kE9RYjXFkYKOrnh9EFwiMwo0P5krC4j9biK6rNG6z10jldKfON6pzXrEk3KWR5MOy
+	 EFwCSkBWdZ+yWNgpSqRCMJnezINNnDqV5DpOPbo6kWNK/nRr4DmQP31RgHW75DXW9A
+	 E9gQriwoo4WnXNgMC0SCg2Upmh1Ipk51mPV5Q8OlODKolgzgVAfrfW7h7p15JHQulG
+	 58Mby4tgH3oD1vkvQOaV4+fkkxH30Ilgm8b4ytgNoSe4zEENF1cYKguWQLOVM4hzS3
+	 81MeFEGe7Tro3lAUItvsm+kq5s4dlY+yelHdEpMF9b70rcWG1ju2Z2nJDtfJRpmons
+	 TX4vv5x4ywAuQ==
+Date: Sat, 19 Sep 2026 17:24:06 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Kees Cook <kees@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Masahiro Yamada <masahiroy@kernel.org>, 
+	Alexey Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
+	Randy Dunlap <rdunlap@infradead.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
+	linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
+	Jens Axboe <axboe@kernel.dk>, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v3 07/20] kallsyms: reimplement mksysmap in C
+Message-ID: <aq6zQng28spcTD88@gremlin>
+References: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
+ <20260917-build-speedup-v3-7-9ecf4163ff36@kernel.org>
+ <202609171046.146CAE972B@keescook>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260919063745.48444-1-namhyung@kernel.org>
-In-Reply-To: <20260919063745.48444-1-namhyung@kernel.org>
-From: Ian Rogers <irogers@google.com>
-Date: Sat, 19 Sep 2026 09:18:55 -0700
-X-Gm-Features: AcwNN1WQC-Rm6OzY1guSOIIS0q-0qgLy5a5dVXEVUsRU9fEFsTJ71sWSPbEY2nU
-Message-ID: <CAP-5=fUt43_08GcNV3bz-SFmRjBN+NoNZ7zEJyBDa+tZiN0vdA@mail.gmail.com>
-Subject: Re: [PATCH v5 0/4] perf annotate-data: Support flexible array types
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Arnaldo Carvalho de Melo <acme@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>, 
-	LKML <linux-kernel@vger.kernel.org>, linux-perf-users@vger.kernel.org, 
-	Zecheng Li <zli94@ncsu.edu>, Yanbo Zhao <yzhao62@ncsu.edu>, Tengda Wu <wutengda@huaweicloud.com>, 
-	Shuai Xue <xueshuai@linux.alibaba.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <202609171046.146CAE972B@keescook>
 
-On Fri, Sep 18, 2026 at 11:37=E2=80=AFPM Namhyung Kim <namhyung@kernel.org>=
- wrote:
+On Thu, Sep 17, 2026 at 11:07:31AM -0700, Kees Cook wrote:
+> On Thu, Sep 17, 2026 at 05:06:17PM +0100, Lorenzo Stoakes (ARM) wrote:
+> > mksysmap is a sed script consisting of 30 patterns which link-vmlinux.sh
+> > uses to generate *.syms files, and which kallsyms is then called against to
+> > generate *.kallsyms files, with the final vmlinux build ultimately
+> > generating System.map.
+> >
+> > For an x86-64 allmodconfig build, this involves three nm runs over a 250
+> > MiB file and half a million lines written and read each time - 0.5s per
+> > pass for llvm-nm, and 0.2s for GNU nm, with parsing on top of that.
+> >
+> > This is unnecessary, instead have kallsyms simply read the ELF file
+> > directly making use of the existing elf-parse library in scripts/.
+> >
+> > This changes kallsyms such that its input is no longer the output from nm,
+> > but rather an ELF file.
+> >
+> > However, if the input file is empty, it outputs an empty table, which
+> > retains the same behaviour on first pass that the build system expects.
+> >
+> > System.map is byte-identical to nm | mksysmap for GNU nm and llvm-nm on
+> > two x86 configurations each, and for llvm-nm on arm64, arm, s390 and
+> > loongarch defconfigs, so are the kallsyms tables of every pass.
+> >
+> > Relinking vmlinux, link steps included:
+> >
+> >                         before    after
+> >   allmodconfig clang     9.1s     7.9s
+> >   allmodconfig gcc       7.8s     7.6s
+> >   defconfig clang        3.7s     3.0s
+> >   defconfig gcc          3.5s     3.4s
+> >
+> > Whole build, 128-thread Threadripper 9980X, best of N runs:
+> >
+> >                                          before   after     delta
+> >                                          -------------------------------
+> >   x86 defconfig, touch mm/vma.c, gcc        9.1s     8.6s    -0.43s (-5%)
+> >   x86 defconfig, touch mm/vma.c, clang      9.0s     8.0s     -1.1s (-12%)
+> >   x86 defconfig, clean, gcc                29.5s    28.9s    -0.64s (-2%)
+> >   x86 defconfig, clean, clang              31.2s    29.8s     -1.4s (-5%)
+> >   x86 allmodconfig, touch mm/vma.c, gcc    35.8s    35.0s    -0.77s (-2%)
+> >   x86 allmodconfig, touch mm/vma.c, clang  35.8s    33.7s     -2.0s (-6%)
+> >
+> > Assisted-by: LLM
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > ---
+> >  scripts/Makefile          |   4 +-
+> >  scripts/kallsyms-sysmap.c | 269 ++++++++++++++++++++++++++++++++++++++++++++++
+> >  scripts/kallsyms.c        | 162 ++++++++++++++++------------
+> >  scripts/kallsyms.h        |  44 ++++++++
+> >  scripts/link-vmlinux.sh   |  15 +--
+> >  scripts/mksysmap          |  94 ----------------
+> >  6 files changed, 415 insertions(+), 173 deletions(-)
+> >
+> > diff --git a/scripts/Makefile b/scripts/Makefile
+> > index 3434a82a119f..d46932113b5f 100644
+> > --- a/scripts/Makefile
+> > +++ b/scripts/Makefile
+> > @@ -3,7 +3,7 @@
+> >  # scripts contains sources for various helper programs used throughout
+> >  # the kernel for the build process.
+> >
+> > -hostprogs-always-$(CONFIG_KALLSYMS)			+= kallsyms
+> > +hostprogs-always-y				+= kallsyms
+> >  hostprogs-always-$(BUILD_C_RECORDMCOUNT)		+= recordmcount
+> >  hostprogs-always-$(CONFIG_BUILDTIME_TABLE_SORT)		+= sorttable
+> >  hostprogs-always-$(CONFIG_ASN1)				+= asn1_compiler
+> > @@ -13,6 +13,7 @@ hostprogs-always-$(CONFIG_RUST_KERNEL_DOCTESTS)		+= rustdoc_test_builder
+> >  hostprogs-always-$(CONFIG_RUST_KERNEL_DOCTESTS)		+= rustdoc_test_gen
+> >  hostprogs-always-$(CONFIG_TRACEPOINTS)			+= tracepoint-update
+> >
+> > +kallsyms-objs := kallsyms.o kallsyms-sysmap.o elf-parse.o
+> >  sorttable-objs := sorttable.o elf-parse.o
+> >  tracepoint-update-objs := tracepoint-update.o elf-parse.o
+> >
+> > @@ -30,6 +31,7 @@ rustdoc_test_builder-rust := y
+> >  rustdoc_test_gen-rust := y
+> >
+> >  HOSTCFLAGS_tracepoint-update.o = -I$(srctree)/tools/include
+> > +HOSTCFLAGS_kallsyms-sysmap.o = -I$(srctree)/tools/include
+> >  HOSTCFLAGS_elf-parse.o = -I$(srctree)/tools/include
+> >  HOSTCFLAGS_sorttable.o = -I$(srctree)/tools/include
+> >  HOSTLDLIBS_sorttable = -lpthread
+> > diff --git a/scripts/kallsyms-sysmap.c b/scripts/kallsyms-sysmap.c
+> > new file mode 100644
+> > index 000000000000..64b2e11d0344
+> > --- /dev/null
+> > +++ b/scripts/kallsyms-sysmap.c
+> > @@ -0,0 +1,269 @@
+> > +// SPDX-License-Identifier: GPL-2.0
+> > +/*
+> > + * Obtain symbols from vmlinux for usage by kallsyms. Replaces mksysmap.
+> > + *
+> > + * To retain compatibility, it provides the same output as nm, only faster.
+> > + */
+> > +
+> > +#include <ctype.h>
+> > +#include <stdio.h>
+> > +#include <stdlib.h>
+> > +#include <string.h>
+> > +#include <xalloc.h>
+> > +
+> > +#include "elf-parse.h"
+> > +#include "kallsyms.h"
+> > +
+> > +/* The mapped file and its symbol table. */
+> > +struct elf_file {
+> > +	void *base;
+> > +	size_t size;
+> > +	const char *shdrs;
+> > +	unsigned int shnum, shentsize;
+> > +	const char *shstrtab;
+> > +	Elf_Shdr *symtab;
+> > +	const char *strtab;
+> > +	size_t nr_syms;
+> > +};
+> > +
+> > +/* What mksysmap dropped from System.map, by name. */
+> > +static const char *const sysmap_omit_prefixes[] = {
+> > +	"$", ".L", "__efistub_", "__pi_$", "__pi_.L", "__kvm_nvhe_$",
+> > +	"__kvm_nvhe_.L", "__kcfi_typeid_", "__kvm_nvhe___kcfi_typeid_",
+> > +	"__pi___kcfi_typeid_", "__crc_", "__kstrtab_", "__kstrtabns_",
+> > +	"__mod_device_table__",
+> > +};
 >
-> Hello,
->
-> The flexible arrays are dynamically allocated with different size.  So ch=
-ecking
-> with the original type size won't match and cannot find the type if the o=
-ffset
-> is bigger than the size.  This patch series detects those flex-arrays and=
- allows
-> accesses beyong the original size.
->
-> I'm not sure what's the best way to add test codes for data type profilin=
-g as it
-> seems we need to add a lot more workloads for different cases.  Probably =
-we may
-> want to split the workloads as separate binaries.
+> I really think these need to be 1 per line with the comments from
+> scripts/mksysmap retained. It's going to be changed over time, and we
+> want to be able to review the rationale for entries without having to
+> dig through commit history.
 
-We have tools/perf/tests/shell/data_type_profiling.sh, I wonder can we
-not just have some workload with a:
-```
-struct flex_array {
-   int len;
-   int vals[];
-};
-```
-then create a randomly sized flex array and access  it in a loop something =
-like:
-```
-struct flex_array *a =3D calloc(sizeof(*a) + random_number * sizeof(int));
-a->len =3D random_number;
-while (!done) { /* done is set by an alarm like with noploop */
-   for (int i =3D 0; i < a->len; i++) {
-       a[i]++; /* Expect blame on struct flex_array here */
-   }
-}
-```
-ensuring the type profile blames the struct flex_array?
+Ack, done for v4.
 
-Thanks,
-Ian
+>
+> > +static const char *const sysmap_omit_suffixes[] = {
+> > +	"_from_arm", "_from_thumb", "_veneer",
+> > +};
+> > +static const char *const sysmap_omit_names[] = {
+> > +	"L0", "_SDA_BASE_", "_SDA2_BASE_",
+> > +};
+>
+> Same for these 2 tables.
 
-> v5 changes)
+Ack, done for v4.
+
 >
->  * add a cleanup patch
->  * add is_union and is_flex_array fields to find member correctly
+> > +
+> > +/* __<alnum>*Thunk_: the linker's range extension thunks on arm. */
+> > +static bool is_range_thunk(const char *name)
+> > +{
+> > +	const char *p;
+> > +
+> > +	if (!string_starts_with(name, "__"))
+> > +		return false;
+> > +	for (p = name + 2; isalnum((unsigned char)*p); p++)
+> > +		;
+> > +	return p - name >= 7 && *p == '_' && strncmp(p - 5, "Thunk", 5) == 0;
+> > +}
+> > +
+> > +/* __UNIQUE_ID_modinfo_<n>: the MODULE_INFO() strings of built-in code. */
+> > +static bool is_modinfo_id(const char *name)
+> > +{
+> > +	static const char prefix[] = "__UNIQUE_ID_modinfo_";
+> > +	const char *p;
+> > +
+> > +	if (!string_starts_with(name, prefix))
+> > +		return false;
+> > +	for (p = name + strlen(prefix); isdigit((unsigned char)*p); p++)
+> > +		;
+> > +	return !*p;
+> > +}
 >
-> v4: https://lore.kernel.org/r/20260916061926.2224222-1-namhyung@kernel.or=
-g/
+> I'm less excited about these "open coded" regular expression matches.
+> Having to do this feels like it'll make future exceptions annoying to
+> add. Can't there be another class of table that is just regular
+> expressions? It is probably faster to keep the prefix/suffix/exact
+> tables as-is, but is_range_thunk() and is_modinfo_id() just feel clunky
+> compared to the more expressive re, e.g. r'^__UNIQUE_ID_modinfo[0-9]*$'
+
+I don't think it's too much of an issue, the two cases like this aren't too
+many lines of code, it seems a bit overkill, and I think that'd be the only
+use of regex here?
+
+If a new pattern like this turns up it's easy enough to revisit it.
+
 >
->  * update last member even if the offset is same
->  * handle type qualifiers in die_has_flex_array()
->  * add zero-length array members as flexible arrays
->  * check return value of strbuf_init() for type name
+> > +static bool sysmap_omits(const char *name, char type)
+> > +{
+> > +	size_t i;
+> > +
+> > +	/* Absolute, undefined and debugging symbols. */
+> > +	if (type == 'a' || type == 'N' || type == 'U' || type == 'w')
+> > +		return true;
+> > +
+> > +	for (i = 0; i < ARRAY_SIZE(sysmap_omit_prefixes); i++)
+> > +		if (string_starts_with(name, sysmap_omit_prefixes[i]))
+> > +			return true;
+> > +	for (i = 0; i < ARRAY_SIZE(sysmap_omit_suffixes); i++)
+> > +		if (string_ends_with(name, sysmap_omit_suffixes[i]))
+> > +			return true;
+> > +	for (i = 0; i < ARRAY_SIZE(sysmap_omit_names); i++)
+> > +		if (strcmp(name, sysmap_omit_names[i]) == 0)
+> > +			return true;
+> > +
+> > +	return is_range_thunk(name) || is_modinfo_id(name) ||
+> > +	       strstr(name, ".long_branch.") || strstr(name, ".plt_branch.");
 >
-> v3: https://lore.kernel.org/r/20260915064035.1970175-1-namhyung@kernel.or=
-g
+> And then mixing data-driven search with in-line patterns I don't like.
+> The .long_branch. and .plt_branch. matches should be in a new "any
+> position" table, IMO.
+
+Ack done for v4 in sysmap_omit_patterns[].
+
 >
->  * patch 1 was merged!
->  * check if last member is found
->  * check member location when finding flex-array
->  * ensure member typename is initiailized
->  * fix a bug to pass a wrong type in check_variable()
->  * fix a typo in a comment
+> > +/* nm's letter for a symbol defined in a section, as BFD classifies it. */
+> > +static char section_symbol_type(Elf_Shdr *shdr, const char *secname)
+> > +{
+> > +	static const char *const debug_prefixes[] = {
+> > +		".debug", ".zdebug", ".gnu.debuglto_.debug_",
+> > +		".gnu.linkonce.wi.", ".line", ".stab",
+> > +	};
 >
-> v2: https://lore.kernel.org/r/20260914064535.1671939-1-namhyung@kernel.or=
-g
+> I worry about maintenance overhead on this: are we going to have to
+> chase changes to "nm" when other debug prefixes get added here?
+
+It mirrors what BFD has and it hasn't changed for years so I think it's
+fine :)
+
 >
->  * fix missing index increment in the histogram
->  * support flex array in union types
->  * add recursion check in die_has_flex_array()
->  * check negative index arrays properly
->  * avoid divide-by-zero when the size is unknown
+> > +	const uint64_t flags = shdr_flags(shdr);
+> > +	size_t i;
+> > +
+> > +	if (flags & SHF_EXECINSTR)
+> > +		return 't';
+> > +	if (flags & SHF_ALLOC) {
+> > +		if (shdr_type(shdr) == SHT_NOBITS)
+> > +			return 'b';
+> > +		return flags & SHF_WRITE ? 'd' : 'r';
+> > +	}
+> > +	for (i = 0; i < ARRAY_SIZE(debug_prefixes); i++)
+> > +		if (string_starts_with(secname, debug_prefixes[i]))
+> > +			return 'N';
+> > +	if (shdr_type(shdr) != SHT_NOBITS && !(flags & SHF_WRITE))
+> > +		return 'n';
+> > +	return '?';
 >
-> v1: https://lore.kernel.org/r/20260912054706.1475583-1-namhyung@kernel.or=
-g
+> And to that end: instead of "?" shouldn't this fail hard when a section
+> symbol type is unknown to the tool?
+
+It mirrors what nm does (as with the rest of the code obv.) which prints
+'?' rather than failing, and that's never caused an issue, failling hard
+here would turn what wasn't a build failure into one so I think best to
+leave as-is?
+
 >
-> Thanks,
-> Namhyung
+> > +}
+> > +
+> > +/* The letter nm prints for a symbol, or 0 for one it leaves out. */
+> > +static char elf_symbol_type(const struct elf_file *elf, Elf_Sym *sym)
+> > +{
+> > +	unsigned int bind = sym_bind(sym), type = sym_type(sym);
+> > +	unsigned int shndx = sym_shndx(sym);
+> > +	Elf_Shdr *shdr;
+> > +	char c;
+> > +
+> > +	if (type == STT_SECTION || type == STT_FILE)
+> > +		return 0;
+> > +	if (shndx == SHN_COMMON)
+> > +		return 'C';
+> > +	if (shndx == SHN_UNDEF) {
+> > +		if (bind == STB_WEAK)
+> > +			return type == STT_OBJECT ? 'v' : 'w';
+> > +		return 'U';
+> > +	}
+> > +	if (type == STT_GNU_IFUNC)
+> > +		return 'i';
+> > +	if (bind == STB_WEAK)
+> > +		return type == STT_OBJECT ? 'V' : 'W';
+> > +	if (bind == STB_GNU_UNIQUE)
+> > +		return 'u';
+> > +	if (bind != STB_GLOBAL && bind != STB_LOCAL)
+> > +		return '?';
+> > +
+> > +	if (shndx == SHN_ABS) {
+> > +		c = 'a';
+> > +	} else if (shndx < elf->shnum) {
+> > +		shdr = elf_section(elf, shndx);
+> > +		c = section_symbol_type(shdr, elf_section_name(elf, shdr));
+> > +	} else {
+> > +		return '?';
+>
+> Same concerns...
+
+See above
+
+>
+> > +	}
+> > +
+> > +	return bind == STB_GLOBAL ? toupper(c) : c;
+> > +}
+> > +
+> > +/* nm -n order: by address, then by name. */
+> > +static int compare_symbols(const void *a, const void *b)
+> > +{
+> > +	const struct sysmap_symbol *sa = a, *sb = b;
+> > +
+> > +	if (sa->addr != sb->addr)
+> > +		return sa->addr < sb->addr ? -1 : 1;
+> > +	return strcmp(sa->name, sb->name);
+> > +}
+> > +
+> > +static void elf_open(struct elf_file *elf, const char *path)
+> > +{
+> > +	Elf_Ehdr *ehdr;
+> > +	unsigned int i;
+> > +
+> > +	elf->base = elf_map_ro(path, &elf->size, (1 << ET_EXEC) | (1 << ET_DYN));
+> > +	if (!elf->base)
+> > +		exit(EXIT_FAILURE);
+> > +
+> > +	ehdr = elf->base;
+> > +	elf->shdrs = (const char *)elf->base + ehdr_shoff(ehdr);
+> > +	elf->shnum = ehdr_shnum(ehdr);
+> > +	elf->shentsize = ehdr_shentsize(ehdr);
+> > +	elf->shstrtab = (const char *)elf->base +
+> > +			shdr_offset(elf_section(elf, ehdr_shstrndx(ehdr)));
+> > +
+> > +	for (i = 0; i < elf->shnum && !elf->symtab; i++)
+> > +		if (shdr_type(elf_section(elf, i)) == SHT_SYMTAB)
+> > +			elf->symtab = elf_section(elf, i);
+> > +
+> > +	if (!elf->symtab) {
+> > +		fprintf(stderr, "%s: no symbol table\n", path);
+> > +		exit(EXIT_FAILURE);
+> > +	}
+> > +
+> > +	elf->strtab = (const char *)elf->base +
+> > +		      shdr_offset(elf_section(elf, shdr_link(elf->symtab)));
+> > +	elf->nr_syms = shdr_size(elf->symtab) / shdr_entsize(elf->symtab);
+> > +}
+>
+> These 2 functions kind of feel like they should live in elfparse instead?
+
+Ack, updated this and patch 4 to share code for v4!
+
+>
+> > +
+> > +/* The symbols "nm -n | mksysmap" would list, in that order. */
+> > +static struct sysmap_symbol *elf_read_symbols(const struct elf_file *elf,
+> > +					   size_t *nr_kept)
+> > +{
+> > +	struct sysmap_symbol *syms = xmalloc(elf->nr_syms * sizeof(*syms));
+> > +	size_t i, n = 0;
+> > +
+> > +	for (i = 1; i < elf->nr_syms; i++) {
+> > +		Elf_Sym *sym = elf_symbol(elf, i);
+> > +		const char *name = elf->strtab + sym_name(sym);
+> > +		char type = elf_symbol_type(elf, sym);
+> > +
+> > +		if (!type || sysmap_omits(name, type))
+> > +			continue;
+> > +
+> > +		syms[n].addr = sym_value(sym);
+> > +		syms[n].name = name;
+> > +		syms[n].type = type;
+> > +		n++;
+> > +	}
+> > +
+> > +	qsort(syms, n, sizeof(*syms), compare_symbols);
+> > +	*nr_kept = n;
+> > +	return syms;
+> > +}
+>
+> And this one too, with maybe a "maybe_omit" callback passed in so this
+> mksysmap could pass sysmap_omits in as?
+
+This is pretty specific to this code so I think makes less sense to port
+this.
+
+>
+> > -static void read_map(const char *in)
+> > +static void add_table_entry(struct sym_entry *sym)
+> >  {
+> > -	FILE *fp;
+> > -	struct sym_entry *sym;
+> > -	char *buf = NULL;
+> > -	size_t buflen = 0;
+> > +	sym->seq = table_cnt;
+> >
+> > -	fp = fopen(in, "r");
+> > -	if (!fp) {
+> > -		perror(in);
+> > -		exit(1);
+> > +	if (table_cnt >= table_size) {
+> > +		table_size += 10000;
+> > +		table = xrealloc(table, sizeof(*table) * table_size);
+>
+> I realize this is just moving logic around, but traditional xrealloc
+> loop uses doubling. I think this was linear only because it wanted to
+> jump-start the initial allocation size to 10000 entries. Could be:
+>
+> 	table_size = table_size ? table_size * 2 : 10000;
+
+Ack, done for v4!
+
+>
+> But maybe even that initial allocation number should be bumped up?
+
+Not sure it's really worth it with doubling in place, better to assume less
+and use more I think, and the time taken for the realloc should be minimal
+in comparison to the run as a whole.
+
+>
+> > [...]
+> > +	if (optind + 1 == argc) {
+> > +		read_elf(in, sysmap_out);
+> > +		if (fclose(sysmap_out)) {
+>
+> This needs to check ferror() too.
+
+Ack, done for v4!
+
+>
+> > +			perror(sysmap);
+> > +			exit(EXIT_FAILURE);
+> > +		}
+> > +		return 0;
+> > +	}
+> > +
+> >  	out_bin_name = argv[optind + 1];
+> >  	out_bin_file = fopen(out_bin_name, "w");
+> >  	if (!out_bin_file) {
+> > @@ -852,7 +868,11 @@ int main(int argc, char **argv)
+> >  		exit(EXIT_FAILURE);
+> >  	}
+> >
+> > -	read_map(argv[optind]);
+> > +	read_elf(in, sysmap_out);
+> > +	if (sysmap_out && fclose(sysmap_out)) {
+>
+> Same: this needs to check ferror() too.
+
+Ack, done for v4!
+
 >
 >
-> Cc: Zecheng Li <zli94@ncsu.edu>
-> Cc: Yanbo Zhao <yzhao62@ncsu.edu>
-> Cc: Tengda Wu <wutengda@huaweicloud.com>
-> Cc: Shuai Xue <xueshuai@linux.alibaba.com>
->
-> Namhyung Kim (4):
->   perf dwarf-aux: Add die_has_flex_array() helper
->   perf annotate-data: A small cleanup in __add_member_cb()
->   perf annotate-data: Allow out-of-size access for flex-array types
->   perf annotate-data: Adjust type offset for flex-array
->
->  tools/perf/util/annotate-data.c | 192 ++++++++++++++++++++++++--------
->  tools/perf/util/annotate-data.h |   6 +
->  tools/perf/util/dwarf-aux.c     | 107 ++++++++++++++++++
->  tools/perf/util/dwarf-aux.h     |   3 +
->  4 files changed, 262 insertions(+), 46 deletions(-)
+> -Kees
 >
 > --
-> 2.55.0
->
+> Kees Cook
+
+--
+Cheers, Lorenzo
