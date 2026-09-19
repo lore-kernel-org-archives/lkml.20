@@ -1,184 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D7BF4718C2;
-	Sat, 19 Sep 2026 10:58:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3AEA1FD4
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 11:00:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789815487; cv=none; b=Yw+QrO5ST733C6s9WSVubxod3RbxNfGflQOLIkLULxqBcvPyISD7F/toytCoZl1NXaUiAr6H/+dUjRwQKzw730xH0QxDOxbma72AqE/vpfrn1qol3V18cqRr2v+5Qn1XNPoM66orhEg/e+qgnMVyHFTzrJmKjkbJg/LVslJBukQ=
+	t=1789815646; cv=none; b=sovjKIMPMeqXBNFnmUhqYiOXyxH0+IRFsZmPCDyE/r9YGeeuPX5OsRPrqU50MS5QlGUvyuveguP7U08u0hLBfXJkO4sank0ibeKxAaELAj9U1nUtZWf+WxrZkUf6kJpfSFwm65Hdvvjm1KEYVfD/H7JdVyG19KzBcwBM/kdsUNc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789815487; c=relaxed/simple;
-	bh=TaVj+3b14vT6k0Ii5z+03MFmQXVfMnls5tg9LOf7NIk=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=UtG3Kj83xTF00fa2knrZrjnrdNZxt4jkLjpKoQaoL4nfNDn9PMHpvaauXuJLGBG+qC2feIhk9tejHy8RTCtFnx7bNVUB0545yEQDOcMK2Z+bdO7X5u+ZKFsocFiw82SimNJ+/Bk51IOHgr/yGyx/dVVF65CKeKMG9+wuV4KZgDI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F21au6lc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789815646; c=relaxed/simple;
+	bh=DNkK5lxW6BJbRZck3d0se7pQehLyw7oBHWT8qVoDdjs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=CiK3pa4fJJ6yLkiJIQoTzgoVc30BFiwmeGHZ+A4O1J/TpT3tfpXGfz08VX10fkzfee91/yXjQbKSQqywTIxqwxBS33CJpdfCQ3tGaPMZMzEs0tfbxAc/tH+O89K15oGBrrEO/dN8OPM8hXCWypvjjWFOQcmSRFbCOcKKOjoYKtg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZwHE7XCn; arc=none smtp.client-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F21au6lc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EE9F1F000FF;
-	Sat, 19 Sep 2026 10:58:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789815485;
-	bh=G3Q9JVNPeVatCTin9yOa9ai9BXWQ8jKY4rKL0xwmaWY=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=F21au6lcrZGNmtRqXyyiO3WGHwd1pVNAYESr3vIBk0/uQaKSrpHe30tP8sREgpEBz
-	 Lj8kVoCY7ihQBdvi/4asm2jcknTug9uIP+qG3ycKPqAGP8toc2KxdoaINLSCtvZmEt
-	 LgEwvKQ2gFdEZqfefloTInsMlEp+xuW5FKc+ef8b3ygZ4nFS3KD2RYeVuklBqmPO/e
-	 e2WqWPj1tW9iKcWhUHZxFvCfS8M9UFQpNOWDuTM0kDXGKLE2bXB01+1P7oPROic/aW
-	 UaVpzf9vAn7gkcBeqp4xWDvcYN0V180SHd5t8grHKPSoGO3HTsq+K/+Lxv4t/+cTL3
-	 Qn2d/gNesLpxw==
-Content-Type: multipart/mixed; boundary="===============3854488706741688450=="
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZwHE7XCn"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-86ec25cf7ecso2451775b3a.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 04:00:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789815644; x=1790420444; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=P4U+Su5olDyDmLov0j40b3fkb86q795927TVcmkINSU=;
+        b=ZwHE7XCnq54HF54WBmMZaXKDfyMw/6yWcMFOp3rSxeDNWf6XnTxH7J7nHPlXcexy48
+         ZmxhAzAkqIsZxXQz5ZzqpV9PafeyIjXYwviE5h1MvgybDrF4A5s6M6gz0fd/RNDOKTda
+         s9dGPronhhDP9OgI4L3GesHHWJV8mRPyMlGv36UhuVIDdXTSjXjEEVpuIpxmZFPWNTmr
+         ElBhTjnBzDROgwsZGfuOt1V/0rfwqoQOXdLd2Sjqarz996uSIPqhE89Pyjbdl9gNfu1M
+         GIUNXDJ54chBQsBWxq8zBbG8c06ncjT3jut4f3BdlQNSr41F4VKcOshg9pEKZtGWVntZ
+         K6gg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789815644; x=1790420444;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=P4U+Su5olDyDmLov0j40b3fkb86q795927TVcmkINSU=;
+        b=bpPg4HwdfxOC4VqCLfAdkzdHDP18DjNUitrlxm5lRljt+woxDUIZSfiEXaedG6Ptcn
+         CypU4ZuH8ZlPdH3MMfNakjI7toSNvtm3mWuT2R7mOvZxVFn1BYV4mYSTJE4Iohr+i6fX
+         9mVJnO5gCvzSvjh0IaG5Ca8YmlUKRpx2QrGYBrdq++NhE+OK8oZ8gXB7sC9g+GvexSB8
+         h9Ix3eGiY5y6LsJ9vI/o0xvKiXn8wXtU6M1zrZQCJ8++RJqnGtu+PLLQz/ZnSqkrjGwB
+         DtnaBlKHqkwaOmak3Di5xUlLPZP4pfIhT4+jOxhEVNAV+RrQ6bLIj+HF2PQ8ARCMaZld
+         7nSA==
+X-Forwarded-Encrypted: i=1; AKwUvBxF0pbtb615FlCh6feErHYn4+VyoLdacgpJtTF/H4qisrJPKlB9NZcHQsCVKWrJ/xrPp4HA5FUeKKbUyfs=@vger.kernel.org
+X-Gm-Message-State: AFuF++mJPRAX/u4XqDt/z+3rvR3P9iEqWqd/kZ+GAeh+Gqy3egZNmjFG
+	d5LB8fucnRLKcN2g02fPezhXEVmmtl4rX6dZfj4us6m6MfEW/KFsdknd
+X-Gm-Gg: AYBFou282yyevLDHxeJ2KyWndRidLjokFb3TKXY3fJ292liSl/RzcXDf7GOKePR4mY/
+	ag626wnG/LCjNCGruaKxVz547QNASK/om6TpU62B24EZfSeU720P7WP2GE9DJYpO1QmFgjYjSw3
+	iR1drrNt3ItlhajAg9aVhGSUwa5OmDY3n57WbiXF9SlPU7rnIIXKDP+IRjs7RDKY7nfv7bnF89W
+	xP18vZ4FB4Omt47sIh0fY96ZJ1j6ivVq1P2sxrk1/p2YuPmCed8Q83GI9ifIhLMSRYYA4y4rQv/
+	6pZo0o7HvBpSFR7Y/yRGuNOBXqmnjHUnwAHQzTCKFiBvZnOhPDQdI9sxWMJjMeevOUFejRTMtNm
+	anKjTf0tkUlcWfZ1hZ48dJCoJ2Jwd4sPBUWH46dKImvxLbDFoJ7E4hlb2HQ9ahI6CcGRCc1pA3M
+	Hbt+flUv9e5VKUp3K3lYSOy7iP8fHmJGXB/LszrCFtVe3Z5kq9DrDmxCIiu7XfMbtqdPLglJucJ
+	0kNt/sFC+nh1bI7F/To1bAoRBi3NcUtLs9yF6JMyGieo7ILw07OcWzfqcXTYWtZII93CXVcAOLL
+	t+s5DKyPpg==
+X-Received: by 2002:a05:6a00:c350:20b0:874:72b6:7daa with SMTP id d2e1a72fcca58-87472b6811cmr4827302b3a.37.1789815643955;
+        Sat, 19 Sep 2026 04:00:43 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a6ae7d71sm938073b3a.2.2026.09.19.04.00.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Sep 2026 04:00:43 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: gregkh@linuxfoundation.org,
+	jirislaby@kernel.org,
+	johan@kernel.org
+Cc: linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] vt: selection: Fix unsigned underflow and slab-out-of-bounds read in paste_selection()
+Date: Sat, 19 Sep 2026 11:00:41 +0000
+Message-ID: <20260919110041.3763078-1-benquike@gmail.com>
+In-Reply-To: <aq5hK-fxgPUCe4cr@hovoldconsulting.com>
+References: <aq5hK-fxgPUCe4cr@hovoldconsulting.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <ae4fd719188ae85855405378e066df2483b55a1d9667a65defa410f2f295681e@mail.kernel.org>
-In-Reply-To: <20260919094400.600585-4-sh_def@163.com>
-References: <20260919094400.600585-4-sh_def@163.com>
-Subject: Re: [PATCH bpf-next v2 3/3] bpftool: Add support for BPF_F_PREORDER cgroup attach flag
-From: bot+bpf-ci@kernel.org
-To: sh_def@163.com,bpf@vger.kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com
-Cc: yonghong.song@linux.dev,qmo@kernel.org,martin.lau@linux.dev,song@kernel.org,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,shuah@kernel.org,linux-kselftest@vger.kernel.org,linux-kernel@vger.kernel.org,sh_def@163.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Sat, 19 Sep 2026 10:58:03 +0000 (UTC)
+Content-Transfer-Encoding: 8bit
 
---===============3854488706741688450==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+In paste_selection(), the loop copies min_t(unsigned int,
+vc_sel.buf_len - pasted,tty->receive_room) bytes per iteration into
+tty_ldisc_receive_buf() and increments pasted += count.
 
-> diff --git a/tools/bpf/bpftool/Documentation/bpftool-cgroup.rst b/tools/bpf/bpftool/Documentation/bpftool-cgroup.rst
-> index e8185596a759b..f8408ed44d748 100644
-> --- a/tools/bpf/bpftool/Documentation/bpftool-cgroup.rst
-> +++ b/tools/bpf/bpftool/Documentation/bpftool-cgroup.rst
+Because the selection mutex (vc_sel.lock) is dropped inside the loop
+Whenever the line discipline buffer fills up and paste_selection()
+sleeps on tty->write_wait, a concurrent TIOCLINUX (TIOCL_SETSEL) ioctl
+can replace vc_sel.buffer with a shorter selection and reduce
+vc_sel.buf_len below pasted.
 
-[ ... ]
+When paste_selection() resumes, vc_sel.buf_len - pasted underflows as an
+unsigned integer to a large positive value, causing
+tty_ldisc_receive_buf(ld, vc_sel.buffer + pasted, NULL, count) to read
+up to 4094 bytes out-of-bounds past the newly allocated vc_sel.buffer.
 
-> diff --git a/tools/bpf/bpftool/bash-completion/bpftool b/tools/bpf/bpftool/bash-completion/bpftool
-> index 75cbcb512ebae..a51c68029e16f 100644
-> --- a/tools/bpf/bpftool/bash-completion/bpftool
-> +++ b/tools/bpf/bpftool/bash-completion/bpftool
+Fix this by terminating the loop when pasted >= vc_sel.buf_len.
 
-[ ... ]
+Kernel stack trace (Linux 7.3.0-rc3):
+ ==================================================================
+ BUG: KASAN: slab-out-of-bounds in n_tty_receive_buf_common+0xa01/0x1650
+ Read of size 4094 at addr ffff888101c58010 by task kworker/u17:1/65
+ Workqueue: events_unbound flush_to_ldisc
+ Call Trace:
+  <TASK>
+  dump_stack_lvl+0x70/0xa0
+  print_report+0x153/0x4c6
+  kasan_report+0xf1/0x120
+  kasan_check_range+0x11c/0x200
+  __asan_memcpy+0x29/0x70
+  n_tty_receive_buf_common+0xa01/0x1650
+  tty_ldisc_receive_buf+0x66/0x110
+  tty_port_default_receive_buf+0x6b/0xb0
+  flush_to_ldisc+0x1b4/0x410
+  process_one_work+0x6ff/0x1110
+  worker_thread+0x4a8/0xb70
+  kthread+0x307/0x3e0
+  ret_from_fork+0x3ed/0x680
+  </TASK>
+ ==================================================================
 
-> diff --git a/tools/bpf/bpftool/cgroup.c b/tools/bpf/bpftool/cgroup.c
-> index ce69d1e5468e3..6ea0492ea5327 100644
-> --- a/tools/bpf/bpftool/cgroup.c
-> +++ b/tools/bpf/bpftool/cgroup.c
-> @@ -56,7 +56,7 @@ static const int cgroup_attach_types[] = {
->  };
->
->  #define HELP_SPEC_ATTACH_FLAGS						\
-> -	"ATTACH_FLAGS := { multi | override }"
-> +	"ATTACH_FLAGS := { multi [ preorder ] | override [ preorder ] | preorder }"
-
-[ ... ]
-
-> @@ -269,6 +269,39 @@ static int show_effective_bpf_progs(int cgroup_fd, enum bpf_attach_type type,
->  	return 0;
->  }
->
-> +static const char *format_attach_flags(__u32 attach_flags, char *buf, size_t sz)
-> +{
-> +	static const struct {
-> +		__u32 flag;
-> +		const char *name;
-> +	} flags[] = {
-> +		{ BPF_F_ALLOW_MULTI, "multi" },
-> +		{ BPF_F_ALLOW_OVERRIDE, "override" },
-> +		{ BPF_F_PREORDER, "preorder" },
-> +	};
-> +	size_t len = 0;
-> +	size_t i;
-> +	int n;
-> +
-> +	buf[0] = '\0';
-> +	for (i = 0; i < ARRAY_SIZE(flags); i++) {
-> +		if (attach_flags & flags[i].flag) {
-> +			n = snprintf(buf + len, sz - len, "%s%s",
-> +				     len ? "," : "", flags[i].name);
-> +			if (n < 0 || (size_t)n >= sz - len)
-> +				return buf;
-> +			len += n;
-> +			attach_flags &= ~flags[i].flag;
-> +		}
-> +	}
-> +
-> +	if (attach_flags)
-> +		snprintf(buf + len, sz - len, "%sunknown(%x)",
-> +			 len ? "," : "", attach_flags);
-> +
-> +	return buf;
-> +}
-> +
->  static int show_attached_bpf_progs(int cgroup_fd, enum bpf_attach_type type,
->  				   int level)
->  {
-> @@ -276,7 +309,7 @@ static int show_attached_bpf_progs(int cgroup_fd, enum bpf_attach_type type,
->  	__u32 prog_attach_flags[1024] = {0};
->  	const char *attach_flags_str;
->  	__u32 prog_ids[1024] = {0};
-> -	char buf[32];
-> +	char buf[64];
->  	__u32 iter;
->  	int ret;
->
-> @@ -296,21 +329,7 @@ static int show_attached_bpf_progs(int cgroup_fd, enum bpf_attach_type type,
->  		__u32 attach_flags;
->
->  		attach_flags = prog_attach_flags[iter] ?: p.attach_flags;
-> -
-> -		switch (attach_flags) {
-> -		case BPF_F_ALLOW_MULTI:
-> -			attach_flags_str = "multi";
-> -			break;
-> -		case BPF_F_ALLOW_OVERRIDE:
-> -			attach_flags_str = "override";
-> -			break;
-> -		case 0:
-> -			attach_flags_str = "";
-> -			break;
-> -		default:
-> -			snprintf(buf, sizeof(buf), "unknown(%x)", attach_flags);
-> -			attach_flags_str = buf;
-> -		}
-> +		attach_flags_str = format_attach_flags(attach_flags, buf, sizeof(buf));
->
->  		show_bpf_prog(prog_ids[iter], type,
->  			      attach_flags_str, level);
-
-Can the comma-separated flag strings here misalign the Name column?
-
-The new formatter produces strings like "override,preorder" (17 chars) and
-"multi,override,preorder" (23 chars), but the plain-text output table in
-do_show() and do_show_tree() formats the AttachFlags column with %-15s:
-
-    printf("%-8s %-15s %-15s %-15s\n", "ID", "AttachType",
-           "AttachFlags", "Name");
-
-and show_bpf_prog() uses the same width:
-
-    printf(" %-15s %-15s", attach_flags_str, prog_name);
-
-Since %-15s doesn't truncate, strings exceeding 15 characters will push
-the Name column to the right for those rows. Before this patch, the same
-attachments displayed as "unknown(41)" or "unknown(42)", which fit within
-15 characters.
-
-> @@ -593,6 +612,8 @@ static int do_attach(int argc, char **argv)
->  			attach_flags |= BPF_F_ALLOW_MULTI;
->  		} else if (is_prefix(argv[i], "override")) {
->  			attach_flags |= BPF_F_ALLOW_OVERRIDE;
-> +		} else if (is_prefix(argv[i], "preorder")) {
-> +			attach_flags |= BPF_F_PREORDER;
->  		} else {
->  			p_err("unknown option: %s", argv[i]);
->  			goto exit_cgroup;
-
-
+Fixes: e8c75a30a23c ("vt: selection, push sel_lock up")
+Assisted-by: LLM
+Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+v3: Correct the Fixes: tag. v2 cited 2f89e2299c58, which does not exist
+in mainline; the commit that moved the sel_lock acquire/release pair and
+created the window where the lock is dropped inside the paste loop is
+e8c75a30a23c. Thanks to Johan Hovold for catching this.
 
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/35436378806
---===============3854488706741688450==--
+Note that git blame on the two lines being changed points at
+9256d09f1da1 ("vt: selection, create struct from console selection
+globals"), but that commit only renames sel_buffer/sel_buffer_lth to
+vc_sel.buffer/vc_sel.buf_len and leaves the locking untouched, so
+e8c75a30a23c is the correct tag.
+
+v2: Resend via git send-email with intact tab formatting and the
+Assisted-by: LLM tag.
+
+ drivers/tty/vt/selection.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/tty/vt/selection.c b/drivers/tty/vt/selection.c
+index 13f4e48b4..f1a3bc5b5 100644
+--- a/drivers/tty/vt/selection.c
++++ b/drivers/tty/vt/selection.c
+@@ -434,8 +434,8 @@ int paste_selection(struct tty_struct *tty)
+ 			bps = NULL;
+ 		}
+ 
+-		count = vc_sel.buf_len - pasted;
+-		if (count) {
++		if (vc_sel.buf_len > pasted) {
++			count = vc_sel.buf_len - pasted;
+ 			pasted += tty_ldisc_receive_buf(ld, vc_sel.buffer + pasted,
+ 							NULL, count);
+ 			if (vc_sel.buf_len > pasted)
+-- 
+2.55.0.1082.g2b9226bbc0-goog
+
