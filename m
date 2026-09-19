@@ -1,122 +1,119 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0A3B3F4138
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 10:24:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5BC945D5E3;
+	Sat, 19 Sep 2026 10:28:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789813466; cv=none; b=YyUsVjHfbLfiS2VyVjEyOCF8HeftIMGGz02gRBk0QfdMenDs7FYOMIVyylm0/Kry4kD+Vx+G2lLGR75+Mpezf34V37FjKSCd3u0y2hr1OPHxt7wMLbqTjoHTPr0TlBUS4E9n9aDTORsZaCkK8lf86V7tuJZ7Qm3m+P9bZKaqnz0=
+	t=1789813705; cv=none; b=dbunBR/gBHP8WhV7/XvT60fDA2U7JLpwdzbYWXzamAG2K1KzAk1SypTCMigThnUudzMTY+PxSlD7daHQzIptGgh9Pnr05IcbAZgey3mhfr02lXcuQ2r002SP939PXaMYFHi62hG1a3uYvgKFUClhEynOp8tvOBzekjjjiO6oVx8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789813466; c=relaxed/simple;
-	bh=Xv+FRzctZJl/t8SrBpNQEBEjzqAX+HYWlxzXu8WOHmE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AQoDL7ouXlMZ39uPz0Z/JbxSxBreXDC5hBhvAODHy6DSJkCp2VJOqf0/zZL/iWkUNDBHZ4xK3KjFsHgLPew5Vuomj5GWMOhiovYBs3U9g/Fp5PoTVBWfPl8FSuNF7xqu22bfmAZJHFazCWyIlBLG4YNsC7D7hf6c1n5gLQuxnco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=itTcH74w; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789813705; c=relaxed/simple;
+	bh=tuo9FTC9trpH9PTGtyXsmxAlQQNcjXaX7nP/LygpwVE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=fzuVCb5hb51cggYKaFoOUIsn99BxpzKQcD08cK8iq2lwOYQGmGLZFvxH8lW3BhoGu9KU74478riz5pSm6aLZHCdxitRrrwrUQDam04GnmUdYuhka0Vth6HuYjL+OalIGLhOQ2LF8XlimglxYCXCdhlK20fKKdWgV0ZbheSEggfg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jwFvZTGR; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="itTcH74w"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7c6dbc60so1042875e9.3
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 03:24:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789813463; x=1790418263; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zO/pRduGdl1VmozSVkt24+GElAcDrPuwrHDdaP+xhcA=;
-        b=itTcH74wC85TzBa1NTT/dTXkjASC8SnSpdI516xgCiFZULxJA8CQqhKhOtUgvKamAr
-         g/P/8iQNrQe/nIs1mDZmtZcnPql3JvFWk+BKOfjHLho5hdMEGccUHoy0IVMTBx8micA7
-         Z3kyZHsVBQnI/8hZT8TJw81DNY8imOB5xSBwCrQgJ23aTZTHRMJq2qT9uaKxKeb1HQsN
-         aA8hK+OXap9q0yBvkLN9XI41khgmJHzeZf6fVUP5SCZwawwAb00xevxK9wZoZcy3tj2J
-         lf6DtPkkGwFGphjVI+oBDDeyuxx5exg2YXZB+PyqiwgbkS1RtUy+iSQ7TssjgG0hkOuM
-         s6hg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789813463; x=1790418263;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zO/pRduGdl1VmozSVkt24+GElAcDrPuwrHDdaP+xhcA=;
-        b=dVK+jcvHk7rctb9cNmEOVrwyLBRkDj8Tw8MFTU2ImcOT2Geb0yahJFFbefesBoLJAz
-         bhcBgwFuOmukvEXctIVeoXxis9c/mE1QCfUfe9DbTcoCfy3vgkRfyN1bmSREd3lHGiZm
-         vv0qiaSxZEaTd+e4ODHUBt5vFcv+7T2qdMfPVDN5PqpUk7L87O+4dSXxJxHiqQVm1DTq
-         RzTAkdyCoUNOIT8I40R5rdIqGgPhbR3Cdxt8Slar9mqQ7Eo++3SeaNFhnL4AnCcxxojL
-         MAK95Vu2YYabt4ULZdAD8fs6hVz1wX/uq/QpP2U7Umx5dMnA8175TRaHy4yXiLeo7NiT
-         U55A==
-X-Forwarded-Encrypted: i=1; AKwUvBwEjWAaZnaCkei71MeIb9LgNMG8Rq3XB2KDlY7pXWtbg1RBbLVQxAt8oPZeBLo9+wZBZ28+68JZ+5GcOaU=@vger.kernel.org
-X-Gm-Message-State: AFuF++m+EziMbxfo2YSk+gBhfD/+emmnPc1sKR1Eqdpau8C9mYw5pHCH
-	gB9thkisbQHlZTT3haDf2v/T7jXMHImbxRFXO5DxtHlX1Z13mcs32CwI
-X-Gm-Gg: AYBFou1smJGlD7owQhcIDoCO6+YVl3H0C+eg7wX8gouKgLpoHgIxF/wofIXUOKM1sjT
-	oaPxVHBo1TkF3d7rOaBfZf7+hNLWrX6DMwjqPYpqhJNBgb/w3AmRwOycvfu0SN9+f5vCAZOBlje
-	Z3JLYQZkZmocRUxUGOImVqQBzJEl4zhfU36nnatg6sdolTugF6PVT+H63YxQj2cpkD9VOFdciX/
-	+OK+vY7u7TKXYVF0wsHeBGqT88iFrAeD+upP7CG9us4J7Gcx8L6OJRklk8HLFslARFBCfELIY39
-	51B39Q/zouy3LBDQuio5eA2FeaBgz3PS4CFNjmxTRN48q5CVhM/LpeI+RlS5X4QOyjUGJ95XmCM
-	7uZ5XR3ctsI31N2SMLPtbOr2nF+R8dbu5rSCS+bFkc3G3WJ1H8A7k50DRju1nM3W36GUPS08m7h
-	clp8loak6pmeCPGjEWQSymFOWP+GiL7+BZyJXI8CJRx/YB5Q6WNUgzMp5JJI76kd5Jw9ZIwJjOq
-	Aq1JL8SJIn+ph9HPBqQmw==
-X-Received: by 2002:a05:600c:4708:b0:49e:745d:5768 with SMTP id 5b1f17b1804b1-49fc7b9a4f8mr55379335e9.0.1789813463150;
-        Sat, 19 Sep 2026 03:24:23 -0700 (PDT)
-Received: from lima-kdev.local ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd068124sm62462245e9.3.2026.09.19.03.24.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 03:24:22 -0700 (PDT)
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: albin_yang@163.com
-Cc: albinwyang@tencent.com,
-	bsegall@google.com,
-	dietmar.eggemann@arm.com,
-	juri.lelli@redhat.com,
-	kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org,
-	mgorman@suse.de,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	rostedt@goodmis.org,
-	vincent.guittot@linaro.org,
-	vschneid@redhat.com
-Subject: Re: [PATCH] sched/stats: Fix run_delay over-count for migrated sched_delayed tasks
-Date: Sat, 19 Sep 2026 13:24:20 +0300
-Message-ID: <20260919102420.108000-1-kayracizmeci@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909133345.1572954-1-albin_yang@163.com>
-References: <20260909133345.1572954-1-albin_yang@163.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jwFvZTGR"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5951DC2BCF7;
+	Sat, 19 Sep 2026 10:28:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789813705;
+	bh=tuo9FTC9trpH9PTGtyXsmxAlQQNcjXaX7nP/LygpwVE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=jwFvZTGRmUC+k+oN6aF/64mcm5/dTwrKKBO4BmG2zNjSHm1VvKoi2Vd2yB2wwvhWJ
+	 fBAA6YDspa84ZI8iy7uM9uwtxcLziZh21sK7o6+eNm8l5MLRPnUiuehzwnJdP1JNyz
+	 cyEl+CSxfrCLYARIJUeFExL9HZpSIR+oZ7EVOdNQ7ttEjQQrrGME86neXXaKd1VFZ5
+	 N+lZNfKNlyryi8LIo6uesEQeRI3pIyKs9pX+gnGPqJ8eywT/hEp/1IGTxef/MSDtNI
+	 ui+LOUSdfy66yhx15sA9dJ0Kw+NOURIrOpA46LY7/LRzsBJDFsPtkbcxxMwysTDIw/
+	 U8ylbA4LqWHnQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 36CCEC982CC;
+	Sat, 19 Sep 2026 10:28:25 +0000 (UTC)
+From: =?utf-8?q?=E5=AE=89=E5=AE=B9_via_B4_Relay?= <devnull+HystericalDragons.proton.me@kernel.org>
+Date: Sat, 19 Sep 2026 18:28:17 +0800
+Subject: [PATCH v7 1/3] dt-bindings: arm: rockchip: Add FriendlyElec NanoPi
+ R28S
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20260919-r28s-upstream-v7-1-e80a6f8ef521@proton.me>
+References: <20260919-r28s-upstream-v7-0-e80a6f8ef521@proton.me>
+In-Reply-To: <20260919-r28s-upstream-v7-0-e80a6f8ef521@proton.me>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Chukun Pan <amadeus@jmu.edu.cn>, Jonas Karlman <jonas@kwiboo.se>, 
+ jensen <jensenhuang@friendlyarm.com>, 
+ Andrey Korshunov <razor1702@gmail.com>, 
+ Diederik de Haas <diederik@cknow-tech.com>, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ =?utf-8?q?=E5=AE=89=E5=AE=B9?= <HystericalDragons@proton.me>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1622;
+ i=HystericalDragons@proton.me; h=from:subject:message-id;
+ bh=GjgiG/CwrGYA6nG9hPXid2MYCUCClI7qpstAQn8fUNs=;
+ b=owGbwMvMwCUmepz3XUtTHjvjabUkhqx1ycdlp/poMgdu33paPfj0iRvdTS61+64sX2JaLHfRf
+ 7qgVW9rRykLgxgXg6yYIovspupIoVXRM4tYpI7DzGFlAhnCwMUpABM5Uc/wT/lQ1nMphfCFHz/z
+ G5yNNl24NULE+t3uKE+JlFqpjthpfxgZfl6zswvNaqm3W872/J/n4y2q7z8Kb4l453N7C6fu/+Y
+ adgA=
+X-Developer-Key: i=HystericalDragons@proton.me; a=openpgp;
+ fpr=1DB27B5912AA5B9972041AC715C70DEE84826E07
+X-Endpoint-Received: by B4 Relay for HystericalDragons@proton.me/default
+ with auth_id=1004
+X-Original-From: =?utf-8?q?=E5=AE=89=E5=AE=B9?= <HystericalDragons@proton.me>
+Reply-To: HystericalDragons@proton.me
 
-> With DELAY_DEQUEUE, a blocked task stays on the runqueue with
-> se.sched_delayed set and its sched_info.last_queued is cleared, so the sleep
-> is not counted into run_delay.
+From: 安容 <HystericalDragons@proton.me>
 
-> When such a delayed (sleeping) task is migrated across CPUs via the plain
-> migration paths (move_queued_task / move_queued_task_locked, the latter used
-> by __migrate_swap_task), activate_task(dst, 0) calls enqueue_task() without
-> ENQUEUE_RESTORE, re-arming last_queued to the migration timestamp while the
-> task is still sleeping. The later real wakeup (ENQUEUE_DELAYED) tries to
-> re-arm last_queued at wakeup time but is suppressed because last_queued is
-> already non-zero, so sched_info_arrive() folds the whole sleep duration
-> between migration and wakeup into run_delay.
+The NanoPi R28S is a dual gigabit Ethernet router board based on the
+Rockchip RK3528 SoC. It shares its base devicetree with the NanoPi
+Zero2, so fold both boards into a single RK3528 series entry, which
+further RK3528 based NanoPi boards can join without renaming it.
 
-> Fix by not re-arming last_queued for a sched_delayed task in
-> sched_info_enqueue(). The wakeup path clears sched_delayed before reaching
-> sched_info_enqueue(), so it still re-arms at the real wakeup time. Plain
-> runnable tasks and load-balance migrations are unaffected (sched_delayed
-> tasks are excluded from active load balancing).
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: 安容 <HystericalDragons@proton.me>
+---
+ Documentation/devicetree/bindings/arm/rockchip.yaml | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
-No? can_migrate_task() skips delayed tasks unless they are both delayed and 
-migration_type not equals migrate_load. 
+diff --git a/Documentation/devicetree/bindings/arm/rockchip.yaml b/Documentation/devicetree/bindings/arm/rockchip.yaml
+index 81744fbee9..dc69999862 100644
+--- a/Documentation/devicetree/bindings/arm/rockchip.yaml
++++ b/Documentation/devicetree/bindings/arm/rockchip.yaml
+@@ -347,6 +347,13 @@ properties:
+               - friendlyarm,nanopi-r2s-plus
+           - const: rockchip,rk3328
+ 
++      - description: FriendlyElec NanoPi RK3528 series boards
++        items:
++          - enum:
++              - friendlyarm,nanopi-r28s
++              - friendlyarm,nanopi-zero2
++          - const: rockchip,rk3528
++
+       - description: FriendlyElec NanoPi R3S
+         items:
+           - const: friendlyarm,nanopi-r3s
+@@ -388,11 +395,6 @@ properties:
+           - const: friendlyarm,nanopi-r76s
+           - const: rockchip,rk3576
+ 
+-      - description: FriendlyElec NanoPi Zero2
+-        items:
+-          - const: friendlyarm,nanopi-zero2
+-          - const: rockchip,rk3528
+-
+       - description: FriendlyElec NanoPC T6 series boards
+         items:
+           - enum:
 
-And can_migrate_task() is called from detach_one_task() which
-gets called from active_load_balance_cpu_stop(), with a custom
-env where the migration type is not set. That means, the migration
-type is migrate_load, and can_migrate_task() can return 1 for delayed
-tasks on this path. 
+-- 
+2.55.0
 
-> Fixes: 152e11f6df29 ("sched/fair: Implement delayed dequeue")
-> Signed-off-by: Wei Yang <albinwyang@tencent.com>
 
-Thanks,
-Kayra :>
