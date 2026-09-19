@@ -1,76 +1,46 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF47137C911
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 20:35:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E23162E0B5C;
+	Sat, 19 Sep 2026 20:40:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789850121; cv=none; b=sQaoAoNW+EDeL+O7bqke/wh8VJzVLt5KzX2tCOZQ2oO4cZO5K4sAti2vLuNp6YaXeSLUoE3QGkjSKaQTP2W5bsqklrGtlSiJAbSSjY0fp84MSY3F5n3Kj5lWQnbsx09ZqcIN2QPuQI7oQwSNgCq+hTlJWlVzdHPLxtmdMahDwU4=
+	t=1789850444; cv=none; b=iG5EdW+ev4ubGyqvsyKvHFPOw+5C7y0I14zJYbEj87akygI4/da3eStvuWHrq5CTbpa+RF7P2/jflaV6TPy7FlbiUrrGv41UQNJNfdv7UKujDWejzW8YDb2QFAEQnW5puwTMC1b2MixPq+taZyKn3Ss+hxfoc/IwmgrgY6/chAY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789850121; c=relaxed/simple;
-	bh=OfksTvPub9kNIDxmVS42dElSISmp30hXX4Hjtet0m/E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EjM6GONlLlI+iJ4HKlsJavvjjQTd+bzIlO++/2ww+r35Dz6EiHP0Z4RCYYsvp+Ukh9AlTYXkV1mGjWY17Zf7m89Ssa4D/UFqRwxSUH6oWbTuXGKHzYmGeltoshs5U5xodamnAgs8/fYOKKB9qb0TFI9lz2Hs+FQZ2rpgY1dZ5JU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kXMmC6MO; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789850444; c=relaxed/simple;
+	bh=t0QEehI+e/J8lbn6HrAOnRvDcMpKBsYx/wA/rHZYryM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pN1o7rUD5pMS+vMxjHN2wgO2Q2rXsoWKjRNrH8hvfooBEL43PkqrRDb/6ZGd4C5+ztfB27VuZ2pSvONWPJEg1AFYw9mTT4EtrVlp2p9CgmNQofWk2iVexNKudlvgPWjJqddIqxK4FEfN4xiPwW2hDGvoUk3ELmZwHZdxy5BCs8M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bkgZVBJ5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kXMmC6MO"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2dd77300825so18684775ad.1
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 13:35:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789850119; x=1790454919; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/G/e4ACavZZMwX4fe/povvUI6kdfCcPdqxB1SDfaHUI=;
-        b=kXMmC6MOyRJtiKT0vyaCkxzHDJ30Vr5OirCzlXLueoC1bsznt+qSCq3RJ4DvN1rftj
-         SBoozeiQJaYn2HikXQVTmj5ZwpBWfRBmaW9jNE4V7NOArNwxvtAf7KG9TXOso62FXIZo
-         5s89jfoWM72wZI37gVK3sZ7cGuDUmvQGfnC9fZSWFpGUraFTcCiviQcasPZyZFWKuMLf
-         it3jM1sdrTp83SG1hw4+IXjZc87QKeyx+jjkgAjMrh7fgYIQ5b/QhheMzogfOUH/rDn8
-         F2IowNZ5DeAp1FLnU1WPpu/E70mGSnEUWToMbtBdMR/cXSotsPs4xuTch26o0w6jwBVV
-         Kw6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789850119; x=1790454919;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/G/e4ACavZZMwX4fe/povvUI6kdfCcPdqxB1SDfaHUI=;
-        b=aZ0bewKDWJy3ypJVxMPumHgYxofUO3x/LCQOvbDg0QWWACA1U9nJCu7j9tnywqrEgr
-         qaXfLBvu52wJZ/s+dFYtK0A8MC6yOHFkn13VQAHasPmmKz4kJMXqkjFBVxzl/kjGadg+
-         bi8GhdqKpDJCeVqKN6XkdsrQ0klQSSgrK2YquVCIlh0dVQqWe0p8L35ErlTktPLR9wUy
-         4gZJIlm0qLlb+IYwOO0hFBitf91UIPy2wdsIzsVu+aWT+oC+a+pXS7cNq1V82kxg2eOX
-         JOFb1yT/Wse9LU6pZBZIKrjlGBMhnhikuPH1/XZ2YwAf716PwpRGzlFUj6LZ0kyIHD5B
-         vOUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzbYtZCZAlcsnz3Bj2zF4f8O+rjjY18ZSaWoLS655EYHK2tD+CUKiFZV+WVO64ZuCCRZnMrJokk7gpS5D8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lkPpUI07SzWjIAQFlaqGFT0cL/q1Gx20pNbcFLfHnVOwz/SreQ
-	03w8vGs6zXU3MgNZyirgsxT7YdaAbWkMOBInLLiOWHJC8LCWx+MKYMWY
-X-Gm-Gg: AYBFou1WEgyJj9GLDV5ojBPDUdsf7rXYPuaZ7M6yotiRI5GxoukN+JVZG4OtUZ18KLF
-	AAp+NNzB6hD6/vQwneXJM4P0Pwz/n1vKY17OfU2Xo9zQrkN04+vkns5YGFhfREA6rX2wvHIe22q
-	DfiFdp7tahTwOymR1Yi/nsM/DQ+J3MjOiXChPCtgtGP6fTaGljl2pgR8n7D5QYoa/S0KExxvpTG
-	1UTMUaByvkglSmp/3HBfVUFMM2X5fmcqE6tMXETsxfMxQWDAzS8E1HgxXgcPAUEQ76taFHhdePR
-	A48MVLkQ3bTWiXKCdCEFMeIe3/BK2BgcWDtB5/KPVeQzOdK/jNwhMsttxE0CR2wWRH+FpVb+SCK
-	55ZD+Ys8nhQjHv5hYsiLllMmgUcg6OnV/kyASTcn+yEplS9cAe8EZM7w+w/LM30gJIHogqn6ZZW
-	rgsdw6OTrJFMn9X+0azybm53GgHPbrX5OM5ALe7qaz02GsWC1mHmmlLoJ9Babo7Tz2/GNSHAspw
-	j9NnyuDyTBA0PSpOcAu5UA7IHtUe5S5PNZhf9N5eRdERW8NM7EF5bC5IRmx3EpczlWXBsNj2Pk8
-	lsCM/0lM9w==
-X-Received: by 2002:a17:903:19ed:b0:2db:3d84:effc with SMTP id d9443c01a7336-2ddb1ab3ccamr105266095ad.6.1789850118925;
-        Sat, 19 Sep 2026 13:35:18 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17ba54dsm12550755ad.54.2026.09.19.13.35.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 13:35:18 -0700 (PDT)
-From: Hui Peng <benquike@gmail.com>
-To: Daniel Borkmann <daniel@iogearbox.net>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Andrii Nakryiko <andrii@kernel.org>
-Cc: Willem de Bruijn <willemb@google.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	bpf@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] bpf: reject unset network_header for SKF_NET_OFF in cBPF load helper
-Date: Sat, 19 Sep 2026 20:35:17 +0000
-Message-ID: <20260919203517.2581484-1-benquike@gmail.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bkgZVBJ5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBA721F000FF;
+	Sat, 19 Sep 2026 20:40:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789850442;
+	bh=IsD/mW/05Vk0gPxkXk04e1AFOyLide5/uBY7gqXwquY=;
+	h=From:To:Cc:Subject:Date;
+	b=bkgZVBJ56AS0C0aXBpNwFwhkJH+Kh8n2SqA2oL/Xoh2uS+GWnrnIH1mShsJezlaxX
+	 3yUsLCFS3UwHXfFxr09wyErN7r8ZmeRQjIi6TGZoir71EUE5IeinZErrITAM8pOnt5
+	 g1k8Zp+ZjuDRBEjwrKRF/tzEKYW/Wbdun2uIXT4rUVVtQDr6chIReMa3bpSXhhLI1W
+	 xssrZbhakJHT/k9fP6xztHc/Uf7TzsX4tXocNE3CH2hgOLSloMDnDMiF969ojBym+u
+	 Pc8CeMCnTO5rUttYM1XIssr/jGSeeiKKN9b482Kk3ctRm4/pUo5PdAqZBPA6HNIjiL
+	 w5ea2Pm77DC1g==
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: Ingo Molnar <mingo@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	James Clark <james.clark@linaro.org>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Clark Williams <williams@redhat.com>,
+	linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@redhat.com>
+Subject: [PATCH 0/7] perf annotate-data: Fix hangs on broken debug info, data type browser sample count, AMD mem record
+Date: Sat, 19 Sep 2026 17:40:20 -0300
+Message-ID: <20260919204027.8504-1-acme@kernel.org>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,53 +49,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In bpf_skb_load_helper_convert_offset(), SKF_LL_OFF checks
-skb_mac_header_was_set(skb), whereas SKF_NET_OFF unconditionally returns:
+From: Arnaldo Carvalho de Melo <acme@redhat.com>
 
-        offset - SKF_NET_OFF + skb_network_offset(skb);
+Hi,
 
-Unlike skb->mac_header (which __alloc_skb() initializes to ~0U),
-skb->network_header is zero-initialized to 0. On sockets that reserve
-headroom via skb_reserve() without setting a network header (such as
-AF_UNIX sockets), skb->network_header remains 0, so
-skb_network_offset(skb) evaluates to (skb->head - skb->data) = -headroom.
+This originated in another patch series, 'perf tools: Annotate fixes,
+stdio progress indication, debuginfo-client in more places', and is
+being split off so that these fixes can be reviewed right away; the
+debuginfod download feature work from it will come later, separately,
+based on this series.
 
-When bpf_skb_load_helper_(8, 16, 32)() then checks:
+  - 'perf report -s type' spins forever on the dwz compressed debug info of
+    zlib-ng (libz.so.1): die_collect_vars() saves a type DIE offset that is
+    relative to the file the DIE lives in, the dwz alt file for types shared
+    by several CUs, and resolving it in the main file parses whatever is at
+    that offset, here a typedef whose DW_AT_type refers to itself, making the
+    typedef/qualifier chase spin (patch 3), with the chases bounded so that
+    other kinds of broken debug info don't hang perf either (patches 1, 2
+    and 4);
 
-        if (headlen - offset >= len)
-                return *(u8 *)(data + offset);
+  - the data type browser's samples view (-n) prints a local count that is
+    initialized to zero and never updated, so every member has no samples
+    (patch 5);
 
-a negative converted offset (-headroom) satisfies `headlen - offset >= len`
-and reads uninitialized skb->head headroom before skb->data (or before
-skb_mac_header(skb) if mac_header was set without setting network_header).
+  - 'perf mem record' requests PERF_SAMPLE_CPU (patch 6) and uses the IBS
+    swfilt filter when the kernel exposes it (patch 7), with the tables
+    carrying the term kept in the arch/x86 code, where the knowledge that
+    IBS needs it stays, as Ravi Bangoria suggested reviewing Namhyung
+    Kim's v6 review remark on this patch
+    (<4349c387-5b8a-4e8d-932a-5175a7598e1e@amd.com>, replying to
+    <aqsRVABj23jaaiSq@google.com>).
 
-Validate that skb->network_header is >= skb->mac_header when the MAC
-header is set, or that skb_network_offset(skb) >= 0 and a network
-protocol/header is present otherwise, returning INT_MIN (-EFAULT) when
-the network header is unset.
+About PATCH 6, answering Namhyung Kim's v6 review question
+(<aqsPKGVUkWk6wvYA@google.com>) about the --sample-cpu default: the
+data source field is about the memory hierarchy level of the access,
+it has no record of which CPU issued it, and while the TID is in
+every sample and in the CTF stream, a thread time-sliced on one CPU
+or moved between SMT siblings is not told apart by it from cross-core
+contention, so it is the CPU id that keys it, and it is what the
+false-sharing detector in pahole needs.  The TID is recorded as well.
 
-Fixes: d4bac0288a2b ("bpf: support SKF_NET_OFF and SKF_LL_OFF on skb frags")
+Requires elfutils 0.160 for dwarf_cu_getdwarf(), so the libdw feature test
+probes for it and Makefile.config says 0.160: older versions now disable
+dwarf support with that message instead of failing to link.
+
+Best regards,
+
+- Arnaldo
+
+tools/build/feature/test-libdw.c           |  13 ++-
+tools/perf/Documentation/perf-mem.txt      |   4 +
+tools/perf/Makefile.config                 |   2 +-
+tools/perf/arch/x86/util/mem-events.c      |  24 +++++
+tools/perf/arch/x86/util/mem-events.h      |   2 +
+tools/perf/arch/x86/util/pmu.c             |  10 +-
+tools/perf/builtin-mem.c                   |  11 ++-
+tools/perf/tests/shell/test_data_symbol.sh |   6 +-
+tools/perf/ui/browsers/annotate-data.c     |   2 +-
+tools/perf/util/annotate-data.c            |  53 +++++++---
+tools/perf/util/annotate-data.h            |   3 +
+tools/perf/util/dwarf-aux.c                | 150 ++++++++++++++++++++++++-----
+tools/perf/util/dwarf-aux.h                |  17 ++++
+tools/perf/util/mem-events.c               |  11 ++-
+14 files changed, 261 insertions(+), 47 deletions(-)
+
+base-commit: 29f320d221c1c4c082c7eafb2251fedf8a4868ec
+--
 Assisted-by: LLM
-Signed-off-by: Hui Peng <benquike@gmail.com>
----
-diff --git a/net/core/filter.c b/net/core/filter.c
---- a/net/core/filter.c
-+++ b/net/core/filter.c
-@@ -231,8 +231,14 @@ static int bpf_skb_load_helper_convert_offset(const struct sk_buff *skb, int off
- 	if (likely(offset >= 0))
- 		return offset;
- 
--	if (offset >= SKF_NET_OFF)
-+	if (offset >= SKF_NET_OFF) {
-+		if (skb_mac_header_was_set(skb) ?
-+		    skb->network_header < skb->mac_header :
-+		    (skb_network_offset(skb) < 0 ||
-+		     (!skb->protocol && !skb->network_header)))
-+			return INT_MIN;
- 		return offset - SKF_NET_OFF + skb_network_offset(skb);
-+	}
- 
- 	if (offset >= SKF_LL_OFF && skb_mac_header_was_set(skb))
- 		return offset - SKF_LL_OFF + skb_mac_offset(skb);
--- 
-2.43.0
