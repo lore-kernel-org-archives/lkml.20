@@ -1,284 +1,110 @@
-Received: from mail-oi2-f4.google.com (mail-oi2-f4.google.com [74.125.231.196])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B134E2F851
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 02:15:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.196
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3ACD29408;
+	Sat, 19 Sep 2026 02:19:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789784138; cv=none; b=Nb1KLQXwBSS1ZCixnPSe2T4k5s0c7SvCaYPV5ZaC91sq8Vz3LS983HW7I9OumsmgXHGJRTMtt1IWwGxpHIfr1tfaB1yXAfj8Q7T047VbjYGvRIwfKczZ/HW0Rrmux24bHWiiFSdiQNEeJwTIpIH6H+n5oBHVawPIBMDqrUGsaiU=
+	t=1789784378; cv=none; b=jD1DAgie2jCyEDXO+4mXUO9jKckmt/hF+8OCWchXF0ZDqksrh21dPF2RB1Ml36xUeJv1hnbsZDhApJMfpMatpUuN600vXCdqNx3XvluJXaXPhCq/WAeIOkuz1sbRNLTPAz04x4OM/rkKpkL/2LUu+EpYM4UT0aWvh2Bn4e683xc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789784138; c=relaxed/simple;
-	bh=Wy8+Pw1gQmFFBV9FC2byyz/R2RAkHytLCIqgfgJNq/8=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=m8fSHgRO6c4GRU+XPw+R2V9dUOEQH2wrj0J+O1lYom0IKUk2uodo8Zt+NdgWUIZpel/ilM22Co8C1XL25hlOmin/8BczjjEde7SUJYSmbxRQRbuFrj+C8ZQkSf4u+N2zJZsmonU9lcUC4czSUQWXrfw2ma9FjCX29Jcr9vk9XFc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.196
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f4.google.com with SMTP id 5614622812f47-4ab2d8e7e4cso503726b6e.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 19:15:36 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789784135; x=1790388935;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WcNyjs+p1qdhWL9OvECznb7Rg039M9i00b1BFMLdAOY=;
-        b=ePPAt7bexKe1qdGfuhJoOn0EcjRgrhOt6sKcKf/4oxzT6urTIaOmcajSHERxSA4MZv
-         DjEhwkB/qmkBOdEvD8RhoRXF5KyYMJt/oAYUqIXfB1TtHOSwRUo4pHhX2ur3l1nMfBJA
-         dPdnxXQdaUr678bKiqGrVDVJOv8P2rtKlK4ws5cRDfu1vLG7E0IP3ujFrBUGYhgYhCM6
-         nhQ1gCA5NVHl0lmZusibo0Un5s0DkdlLURLbT0hIdAEwIrz8aWL0+jjsgShQ3pTSmZpD
-         q9Lg5161oEerzR7K2FMIpCQfQrXMJDreetMcJ/9yjFPt/b2UMbQdhQIN75oS70couL1z
-         1ZBA==
-X-Forwarded-Encrypted: i=1; AKwUvBwXs3vfd+e5eJ5ogA7NpU7LzO5cqASTj9rduufg8SpSDbKVcllfJxw2zvB+rjZlva3TqjyGJ6K4qlSWSPg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kVLjNAVpjKm1CWSU+TJZddjVrnx4kzrQJAQ1oJYO3qg8djoi7H
-	UDMYHkGkpzKks+B/k4Ty6gaAkBHTANK7H3kXxITjR8ppMFe/quILZcjr6lfsQFPjWzsWj5pkjCn
-	PFqEMRdyI/vSIEoxsNPKTfGFecLljNIExvEzUJ4z9jqe/ZIM52Zad7Ac1xaA=
+	s=arc-20240116; t=1789784378; c=relaxed/simple;
+	bh=tIcyqnTz9C5q73h/9R0oqd0NquYa0bopkiAtCDv3jqc=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=WJsdYIc0apGW2MOWBhN+mtLLJxi6w7ifg+y6Hxpe3tPI2kHHYQZijqBpOASSD/KxIKYH1FyVrP5WLNDlgUDHiTARNcnHI3aqbOGZw47msGtj/9+GK7FNRtQJPV1MvaGMK5UHRUQrBOhME1MyN2vC9pKZ0PzRF/3wD0OcmTVxrCU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mails.ucas.ac.cn; spf=pass smtp.mailfrom=mails.ucas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mails.ucas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.ucas.ac.cn
+Received: from fric.. (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowADH+EIg8a1qEGujCA--.21748S2;
+	Sat, 19 Sep 2026 10:19:12 +0800 (CST)
+From: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
+To: akpm@linux-foundation.org
+Cc: gregkh@linuxfoundation.org,
+	kees@kernel.org,
+	linux-kernel@vger.kernel.org,
+	petr.pavlu@suse.com,
+	samitolvanen@google.com,
+	shyamsaini@linux.microsoft.com,
+	stable@vger.kernel.org,
+	xujiakai24@mails.ucas.ac.cn
+Subject: Re: [PATCH v2] params: serialize lookup_or_create_module_kobject()
+Date: Sat, 19 Sep 2026 02:19:10 +0000
+Message-Id: <20260919021910.211375-1-xujiakai24@mails.ucas.ac.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260918135735.678bac31c1771e0226c00822@linux-foundation.org>
+References: <20260918100712.3124994-1-xujiakai24@mails.ucas.ac.cn> <20260918135735.678bac31c1771e0226c00822@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:2915:b0:6b7:46fa:16af with SMTP id
- 006d021491bc7-6ca9d14e709mr3706311eaf.68.1789784135476; Fri, 18 Sep 2026
- 19:15:35 -0700 (PDT)
-Date: Fri, 18 Sep 2026 19:15:35 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aadf047.71f81b7d.15fa6d.0002.GAE@google.com>
-Subject: [syzbot] [fs?] KASAN: slab-use-after-free Read in seq_printf
-From: syzbot <syzbot+bc6b37960b1d13f68f9f@syzkaller.appspotmail.com>
-To: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowADH+EIg8a1qEGujCA--.21748S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Ar1kWF15uF15Xw4fAF43ZFb_yoW8Zr43pr
+	ZxXr13W3yDWrWkAa1kZFs8Wr1rCr93ZFs0gFna9ry3Cw15ur1SyFyftw15KF4UGrs3Jr40
+	qF15tr15KFWDuFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
+	1j6F4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40E
+	FcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr
+	0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8v
+	x2IErcIFxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
+	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
+	67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
+	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
+	MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIda
+	VFxhVjvjDU0xZFpf9x0JUQvtAUUUUU=
+X-CM-SenderInfo: 50xmxthndljko6pdxz3voxutnvoduhdfq/
 
-Hello,
+Hi Andrew,
 
-syzbot found the following issue on:
+Thanks for the review.
 
-HEAD commit:    c3d85c669d09 Merge tag 'ksmbd-for-7.3-rc4' of git://git.ke..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=134fb7f9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=84649d3ff8d550cb
-dashboard link: https://syzkaller.appspot.com/bug?extid=bc6b37960b1d13f68f9f
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+> You're sure we there's no race with module removal as well?
 
-Unfortunately, I don't have any reproducer for this issue yet.
+Yes.  The two kobject populations in module_kset have different
+lifecycles, and neither can race with the serialized lookup-and-create
+in a harmful way:
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/ca331c4b913d/disk-c3d85c66.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/f92fda9de386/vmlinux-c3d85c66.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/cab83c4f0b39/bzImage-c3d85c66.xz
+1. The kobjects this patch serializes belong to built-in modules.
+   lookup_or_create_module_kobject() has three callers:
+   kernel_add_sysfs_param() and the boot cmdline paths, which are all
+   __init and run before concurrency exists, and module_add_driver()
+   at runtime.  Once created, a built-in module kobject is never
+   deleted: nothing in this path ever calls kobject_del(), and
+   module_kobj_release() only completes ->kobj_completion (it does not
+   even free the object).  So there is no removal side for these
+   kobjects at all.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+bc6b37960b1d13f68f9f@syzkaller.appspotmail.com
+2. Loadable modules create a separate kobject per module
+   (mod->mkobj, in mod_sysfs_init()).  A loadable module cannot
+   collide with the lookup either: mod_sysfs_init() itself does
+   kset_find_obj() first and refuses to load when a kobject with the
+   same name already exists ("module is already loaded"), and
+   add_unformed_module() checks for name collisions again under
+   module_mutex via module_patient_check_exists().  So a loadable
+   module never registers a same-named kobject while a driver
+   registration holds our mutex, and free_module()/mod_sysfs_teardown()
+   only ever kobject_put() their own mkobj.
 
-==================================================================
-BUG: KASAN: slab-use-after-free in string_nocheck lib/vsprintf.c:648 [inline]
-BUG: KASAN: slab-use-after-free in string+0x471/0x4d0 lib/vsprintf.c:730
-Read of size 1 at addr ffff88807ec60758 by task syz.2.6295/19648
+3. Even if a concurrent kobject were being removed from module_kset,
+   kset_find_obj() uses kobject_get_unless_zero(), so a dying kobject
+   whose reference count has already dropped to zero is simply not
+   found and we would create a fresh one.
 
-CPU: 0 UID: 0 PID: 19648 Comm: syz.2.6295 Tainted: G             L      syzkaller #0 PREEMPT(full) 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/26/2026
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0x13d/0x4b0 mm/kasan/report.c:482
- kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
- string_nocheck lib/vsprintf.c:648 [inline]
- string+0x471/0x4d0 lib/vsprintf.c:730
- vsnprintf+0x422/0x1300 lib/vsprintf.c:2949
- seq_vprintf fs/seq_file.c:392 [inline]
- seq_printf+0x1a4/0x250 fs/seq_file.c:407
- input_devices_seq_show+0x1bf/0x1130 drivers/input/input.c:1178
- seq_read_iter+0xbce/0x1270 fs/seq_file.c:273
- seq_read+0x344/0x4d0 fs/seq_file.c:163
- pde_read fs/proc/inode.c:308 [inline]
- proc_reg_read+0x240/0x330 fs/proc/inode.c:320
- vfs_read+0x1e4/0xb40 fs/read_write.c:572
- ksys_read+0x12a/0x250 fs/read_write.c:716
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f585059e159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f5851388028 EFLAGS: 00000246 ORIG_RAX: 0000000000000000
-RAX: ffffffffffffffda RBX: 00007f5850825fa0 RCX: 00007f585059e159
-RDX: 0000000000002020 RSI: 00002000000028c0 RDI: 0000000000000003
-RBP: 00007f585063506b R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f5850826038 R14: 00007f5850825fa0 R15: 00007fff7b0fc418
- </TASK>
+The only remaining window I can see is within kobject core itself
+(between kobject_get_unless_zero() and release), which is not this
+code's responsibility to serialize.
 
-Allocated by task 18319:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
- __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __do_kmalloc_node mm/slub.c:5414 [inline]
- __kmalloc_noprof+0x32f/0x840 mm/slub.c:5439
- _kmalloc_noprof include/linux/slab.h:995 [inline]
- sk_prot_alloc+0x10b/0x2a0 net/core/sock.c:2252
- sk_alloc+0x36/0xe80 net/core/sock.c:2308
- __netlink_create+0x5e/0x2c0 net/netlink/af_netlink.c:627
- netlink_create+0x29b/0x610 net/netlink/af_netlink.c:685
- __sock_create+0x339/0x860 net/socket.c:1676
- sock_create net/socket.c:1734 [inline]
- __sys_socket_create net/socket.c:1771 [inline]
- __sys_socket+0x14d/0x260 net/socket.c:1818
- __do_sys_socket net/socket.c:1832 [inline]
- __se_sys_socket net/socket.c:1830 [inline]
- __x64_sys_socket+0x72/0xb0 net/socket.c:1830
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> minor: this could be static inside lookup_or_create_module_kobject().
 
-Freed by task 5650:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:253 [inline]
- __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2748 [inline]
- slab_free mm/slub.c:6508 [inline]
- kfree+0x22b/0x6d0 mm/slub.c:6801
- sk_prot_free net/core/sock.c:2291 [inline]
- __sk_destruct+0x88c/0xab0 net/core/sock.c:2391
- sk_destruct+0xc8/0xf0 net/core/sock.c:2419
- __sk_free+0xf4/0x3e0 net/core/sock.c:2430
- sk_free+0x61/0x90 net/core/sock.c:2441
- deferred_put_nlk_sk+0xbe/0x110 net/netlink/af_netlink.c:715
- rcu_do_batch kernel/rcu/tree.c:2650 [inline]
- rcu_core+0x5f0/0x1260 kernel/rcu/tree.c:2919
- handle_softirqs+0x1e6/0x9d0 kernel/softirq.c:645
- __do_softirq kernel/softirq.c:679 [inline]
- invoke_softirq kernel/softirq.c:519 [inline]
- __irq_exit_rcu+0x16a/0x210 kernel/softirq.c:758
- irq_exit_rcu+0x9/0x30 kernel/softirq.c:775
- instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
- sysvec_apic_timer_interrupt+0xa3/0xc0 arch/x86/kernel/apic/apic.c:1062
- asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
+Sure, will do in v3.
 
-Last potentially related work creation:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_record_aux_stack+0xa7/0xc0 mm/kasan/generic.c:556
- __call_rcu_common.constprop.0+0xa5/0x9b0 kernel/rcu/tree.c:3181
- netlink_release+0xb3b/0x2000 net/netlink/af_netlink.c:797
- __sock_release+0xb3/0x260 net/socket.c:735
- sock_close+0x1c/0x30 net/socket.c:1526
- __fput+0x3ff/0xb50 fs/file_table.c:512
- task_work_run+0x150/0x240 kernel/task_work.c:233
- resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
- __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
- exit_to_user_mode_loop+0x1d8/0x700 kernel/entry/common.c:101
- __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
- syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
- syscall_exit_to_user_mode include/linux/entry-common.h:343 [inline]
- do_syscall_64+0x661/0x790 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+Thanks,
 
-The buggy address belongs to the object at ffff88807ec60000
- which belongs to the cache kmalloc-2k of size 2048
-The buggy address is located 1880 bytes inside of
- freed 2048-byte region [ffff88807ec60000, ffff88807ec60800)
+--
+Jiakai Xu
 
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff88807ec63000 pfn:0x7ec60
-head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-flags: 0xfff00000000240(workingset|head|node=0|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 00fff00000000240 ffff88801c035000 ffffea0000ab6010 ffffea000091a410
-raw: ffff88807ec63000 0000000000080006 00000000f5000000 0000000000000000
-head: 00fff00000000240 ffff88801c035000 ffffea0000ab6010 ffffea000091a410
-head: ffff88807ec63000 0000000000080006 00000000f5000000 0000000000000000
-head: 00fff00000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
-head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000008
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 3, migratetype Unmovable, gfp_mask 0xd2820(GFP_ATOMIC|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 13, tgid 13 (kworker/u8:1), ts 67461498561
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x110d/0x35d0 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3347 [inline]
- allocate_slab mm/slub.c:3462 [inline]
- new_slab+0xa9/0x6e0 mm/slub.c:3513
- refill_objects+0xe3/0x410 mm/slub.c:7417
- refill_sheaf mm/slub.c:2885 [inline]
- __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4774
- alloc_from_pcs mm/slub.c:4850 [inline]
- slab_alloc_node mm/slub.c:4984 [inline]
- __do_kmalloc_node mm/slub.c:5413 [inline]
- __kmalloc_node_track_caller_noprof+0x6a8/0x870 mm/slub.c:5545
- kmalloc_reserve+0xe8/0x350 net/core/skbuff.c:637
- __alloc_skb+0x185/0x710 net/core/skbuff.c:715
- alloc_skb include/linux/skbuff.h:1384 [inline]
- nlmsg_new include/net/netlink.h:1055 [inline]
- inet6_ifinfo_notify+0x77/0x140 net/ipv6/addrconf.c:6216
- addrconf_notify+0xb54/0x1ba0 net/ipv6/addrconf.c:3796
- notifier_call_chain+0x99/0x3f0 kernel/notifier.c:85
- call_netdevice_notifiers_info+0xbe/0x110 net/core/dev.c:2275
- netif_state_change+0x165/0x380 net/core/dev.c:1625
- linkwatch_do_dev net/core/link_watch.c:186 [inline]
- linkwatch_do_dev+0xe0/0x120 net/core/link_watch.c:166
- __linkwatch_run_queue+0x3a9/0x900 net/core/link_watch.c:240
-page last free pid 25 tgid 25 ts 67435951267 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1418 [inline]
- __free_frozen_pages+0x79f/0x10f0 mm/page_alloc.c:2962
- qlink_free mm/kasan/quarantine.c:163 [inline]
- qlist_free_all+0x47/0xf0 mm/kasan/quarantine.c:179
- kasan_quarantine_reduce+0x1a0/0x1f0 mm/kasan/quarantine.c:286
- __kasan_slab_alloc+0x69/0x90 mm/kasan/common.c:350
- kasan_slab_alloc include/linux/kasan.h:253 [inline]
- slab_post_alloc_hook mm/slub.c:4683 [inline]
- slab_alloc_node mm/slub.c:4996 [inline]
- __kmalloc_cache_noprof+0x278/0x6d0 mm/slub.c:5559
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- nsim_fib6_rt_create drivers/net/netdevsim/fib.c:547 [inline]
- nsim_fib6_rt_insert drivers/net/netdevsim/fib.c:752 [inline]
- nsim_fib6_event drivers/net/netdevsim/fib.c:856 [inline]
- nsim_fib_event drivers/net/netdevsim/fib.c:889 [inline]
- nsim_fib_event_work+0x1573/0x6330 drivers/net/netdevsim/fib.c:1493
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-Memory state around the buggy address:
- ffff88807ec60600: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff88807ec60680: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->ffff88807ec60700: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                                                    ^
- ffff88807ec60780: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff88807ec60800: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-==================================================================
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
