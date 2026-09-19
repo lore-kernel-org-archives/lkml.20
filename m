@@ -1,77 +1,74 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B806833F8CA
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 08:08:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9618C3B71A5
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 08:08:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789805332; cv=none; b=IWHqFlrwepRIzLITwaZ9m9L6rk/+FC6Kl5vnMkUpf80En5HisLX3jKQttJ8OadWk8Hpn8f/4pbA0L07ztJ2u1cDqL2XHl/LWVWCyu5xfYqz8czafU31vlOg+N44HdPzlBvqiT3yAtJLlgoQARnbSPT35ajXEvEKiE4lhNbVOFrw=
+	t=1789805333; cv=none; b=b8jsk9DnDNiaS/G+xHSHbGGJ+y9d59/3keCnuzXWa9U+y+mmbGjvTIbd5E362poGV1oAFpw+WGKZyzvgNvTNQX2lmbUM1aXphYga1FKM8c+7t1EN6DJIFhL0wRLET7XFWf5ODoWnFLNIIY0gsT4cE5TMFwIRmje1BN8SFjgdC7k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789805332; c=relaxed/simple;
-	bh=P5q84maMhhS72A+V8J8qdH4IkwfTRnPbblV5YcqpoTo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sEyDP0PrlqRcJD/q36aPBAyTXZu5hZr3QmzciHx0swG+O2IJ1lt+slljRSZimnCbzZ84fNeie44emTUEw2fRyfHOL5c0jjWTRbZZGOQwf1Xz1yv6B2zEburmg+o3Dd9lJ6Pn4CqVBb9FPnfwPhYiIv6m5e0CA80cv/jYBqDWjnM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WwKfuPx+; arc=none smtp.client-ip=74.125.228.41
+	s=arc-20240116; t=1789805333; c=relaxed/simple;
+	bh=dTNAEuPJ8Cfj4AVL82cdwPejSDCCghSuTtIgvnu09B0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=myjesu/MAFrWmWAivpXXVketvPoo1LjLoNBL4T4fjw/33r4kV0SAeB64U8MnKUQ57pET0A+ZlEfTxcJB+01sdBjtgffE7I4blZqBpp1aKjDY+FHvX1wQgKd/tIvtBvmJaAyk33ttbKNEdvop6NNihIzcdMbkUIPhCk528UvpEFA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jHI9roA9; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WwKfuPx+"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-868b2e5be4eso794011b3a.3
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 01:08:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jHI9roA9"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccc02279so1228350a91.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 01:08:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789805330; x=1790410130; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FHNH7g42yLoSXOJ1h0G1wxmaKln1gDZJRy2SUTb5nfw=;
-        b=WwKfuPx+CQNPc/ywyDYTYDDr28GWZIF1ZtnjJRv6fRxXS1Qv+kUhRQO6PzHpAMNsvW
-         YdGa2au47TWlgIGnzheWO4nUmfYjeSsqp838QfyJEQwmmA1CXSCXmuUUgL9Ewi/4jQ5t
-         c40REs1PWTVRjvHw+UAoFoI5gO2v6lNtltbCCkUEu04q4SHC0rMciglpCZj3AGpQYmGx
-         8dRIw/0qdfvCDJ2asn7vXlFszB7V562AUVeTdMyB4pSCCLZimUywxae80QpipTGBJaBE
-         wcNelEVanQd033itvabgItgXsJ46LppjXi2dwdjafpkiexBh/p5T6qAidEH+saKROTJp
-         qY/w==
+        d=gmail.com; s=20251104; t=1789805331; x=1790410131; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3PggIYArUeIeB9ay9PFvKCxhV1IQ6cldWN/lD2KST7g=;
+        b=jHI9roA9vmGrKXi/m/Ieu4XQox0uAVKgsiHvFnDdpkCXcDDBasH2GIsMQaOuzytmfR
+         97TuMpNClN+q7ZcJ563lLb5hc5ucdGw4Er/n47olKJY7xwqg7xbL3N7dJwJpaxZiSkon
+         hCP2SpSduFkKrNHJbBLvI0ZzBKIlPjTjhqVu7TEu09cG25ojWaApzYJrO4JYe2hRqz3G
+         L0cH21qUKv9nR/Vr9tTE8CQk9YpNT+oTDoAvw9gX5e5C+EeAMJMkCyAMuyAb03ad0qOk
+         0vqk57Q91qJ/DAXsX4+sk7OLgSjdvM0c9O5MH/plVxjkRWaFQLZit7wF7fjrtksszrxM
+         7MVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789805330; x=1790410130;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FHNH7g42yLoSXOJ1h0G1wxmaKln1gDZJRy2SUTb5nfw=;
-        b=t2eyTx8tjRDkwo3deePBkcnPcSJAp19mLnLEYneGrbu1IjhZ//Esmeyk2qonb+Uuz7
-         oFI65iR2z6yfqAN/34qKFP79/okhWcf5bsgKWGyZlSZXBK99IzoUIBoIDr1TfR8UsQv9
-         8YdEHrnig2xh1D34vFYyQye3NoxpTH8YRiQXm+Es+vNOfIIAfJJM5gA1njvVWdq8o1mA
-         E60z3AZm1lJ6buORg6nPHD3P8HLTYc9OMyp8Cmidp7m7n4JoPEpor22rp4OX/fnCHpcE
-         gduyFppB2wo5PPMHqrJSFqGJuJSD55vTboKB7+E6cXH5Ep0Dbev6qpTc5wd486qEgWrQ
-         1FIQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzFoLsE68S694tPALkK7fwHQ/PPj4I+1Nivizzw+1ExJVyguBNHpypvLjJgq1ct3hmd5FcBrftpuaIj8sI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mEdrIiuQEhfPjzE4dLNXTj5ltw7kbyEL7VSNmH6/GUsZRzgkDN
-	pW9FR8JHPfxJjIRJPMGdIWSJWEge8EDp6WPyA6iXHhTSJD4sgGn1VyJj
-X-Gm-Gg: AYBFou2YEpezN0YVwwkz5u7I4xizXFqudeqzUSNpeq/sdKTZSWYSR8OVOj1WXLl/ttO
-	lj/Ee3XNfCkr0S1uUrE4u4f6TKmL0CfHXeki1Ph/gQJvIN7U6r6YHAdiUxuMWM/PCwRn1ay8jmg
-	HHv0DDiKqBPINBfpK1lKESiyqfq/4Hwph1Tg1yxCqbJJNn3vWr9aJJFw1IU6D4/bWA+cCx8ceBC
-	2/mZH7qiql5tr5p+t/pKYwZAn6YEdwsgOUGZJhEGkK3a27ytO6K5x6kTjRZbEA+mQpQY5Ks2xRb
-	V0AZ+f9ZzKVzVEjMG26CprqKZAREMmPfYNkoI0TMoJvWGYPegUlAeeXDBjU92ItNieXx8FVCvkY
-	2JrnVKFud8Muix2RxGe+tpqsEQ0woBOyttY+0J7oEHihG1+vCusQdEU1Ra3xt17IQRFEqyYZBpp
-	fw7BPR7al6sDHsfKXJuSTdNCtlZqbZgbW1iNmfTxVh7rAMcGbfc+ysDkiBozj4cjagUV723oBKN
-	NIQ8Ji7CXytIXLsaALrZNmKHPiJzazQnKJ4AYW0P3PlMiflOnwNNqQsK4Ew6oatHN9dcsIie2J1
-	osNhrqyfNg==
-X-Received: by 2002:a05:6a00:4654:b0:878:3507:8d63 with SMTP id d2e1a72fcca58-87835078ed5mr787527b3a.42.1789805330066;
+        d=1e100.net; s=20260707; t=1789805331; x=1790410131;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3PggIYArUeIeB9ay9PFvKCxhV1IQ6cldWN/lD2KST7g=;
+        b=UOR00fZCI3zIQjGsyxGFSzey6tjqYRPnSnLtlFJV0qXi099GowAn1a/x1ziTeG13I4
+         XtR4T0z8xMQvUGisEc4cvE4sUxivQ0fzryJFtVtKlqG2fhXKzsJB/fGfGwr84ekiM0Nr
+         UvmWiydnzcLoovLB/at4nBwGuih5cPd9csgsCKv3SV+scUhEOsjn54Zz7t/TAoPOJjP9
+         PPCEv643bvoo3q9pyL8LhjC8bY+u99tte4MwXqoAwj/nMi/5Aupjki2AVjFUOaM3yICq
+         h/kIVzX+NUaH7vZyhynUQOBknI2amkEEO61IKUhAOcplJWk7UMnH11hsVM5sFEqSUaoM
+         qIUA==
+X-Forwarded-Encrypted: i=1; AKwUvBy2Vw4gM/0P9jpKT5KQokLU5cpn8WoLbswoBLC/bxXNxW2Gg77dfveEtRCATaA81hQVVMDh6NDI3K3kQi4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nEP0es/eRJwne/l6mBq28FRdFypCttzEz01qX3sdX8gEMNhQqA
+	gt+WJYEFJwAZPTxhEvrtflPQrUbpXmfOPD7UQFBw96QiGLCbw0wUaG0B
+X-Gm-Gg: AYBFou2iPODRqoZ/ZouaVba5PP8E7o+trSgQRdHvF4uOz1u4vu92PhQLWo9NEzorq38
+	JQC9d7PbgeYee+TOY7g89jce01glWRZAplmJpAYzhcWzUQYe+jF5FYjrglYY1BwqggG7r3ZC1Ny
+	pL9QbBUGBLQxYS+TXbb0gXzbI5kSuVCUfNcxc9xsERM+VFo/UqDSBkl0C75lm0frQPqxcyK3DTu
+	09WOdXuq2qquv1P+hcOtcLEdwqGxCdGlwzEz+U7WRCyrB1uVfQsg70/Q0rJEpxP6qq9KDr5l2kl
+	UoibKh4MycNTjAINgELv8ozEMrfUgOboaOwzEE7W3ksF4nBzYh5+zi8nVXG5X39EuxxXAjRF8Zf
+	n6fu5rsXvFOtw/7TvPGPaU9n2+bdVhe/qLWMs4xAaIvMt/Gqtopg0kFzqhQo/jKquSvwpWPUJI+
+	fvESzuPPAVlPMIKPoU4RoCsyfh9YoMz8EWUThcC8+XyBsmhSW/ewCL+l9FYle3XrEMi6eTDg7lO
+	nKbU2Gegb66tbRR9KkfRcK0+f3d3jFExxUtl75A2TztsE6YIz+1//wS2AbXpUnQfzTkLHnMGDfA
+	655/1bJlww==
+X-Received: by 2002:a17:90a:149:b0:3a0:27ce:38ae with SMTP id 98e67ed59e1d1-3a027ce61damr424099a91.32.1789805330935;
         Sat, 19 Sep 2026 01:08:50 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a6bec901sm767203b3a.4.2026.09.19.01.08.49
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6f1835adsm2998296a91.6.2026.09.19.01.08.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 01:08:49 -0700 (PDT)
+        Sat, 19 Sep 2026 01:08:50 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
-To: Johan Hovold <johan@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org,
+To: Christian Brauner <brauner@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>
+Cc: Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Hui Peng <benquike@gmail.com>
-Subject: [PATCH v2] [USB][serial/garmin_gps] Fix signed integer underflow and OOB read on packet length
+Subject: [PATCH 1/2] nsfs: fix u32-vs-bytes unit mismatch in nsfs_fh_to_dentry()
 Date: Sat, 19 Sep 2026 08:08:49 +0000
-Message-ID: <20260919080849.3005763-1-benquike@gmail.com>
+Message-ID: <20260919080850.3005810-1-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-In-Reply-To: <2026091908-imprint-rejoicing-6933@gregkh>
-References: <2026091908-imprint-rejoicing-6933@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,120 +77,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-getDataLength() returns a signed int from __le32_to_cpup((__le32
-*)(garmin_data_p + 8)). When bit 31 is set (e.g. 0x80000004), len is
-negative (-2147483644), bypassing the upper bound check (GSP_INITIAL_OFFSET
-+ len > GSP_MAX_BUFSIZ) in gsp_send() and triggering a KASAN slab-out-of-
-bounds read in garmin_write_bulk() when GARMIN_PKTHDR_LENGTH + len wraps
-around to 16.
+In nsfs_fh_to_dentry(), both fh_len and NSFS_FID_SIZE_U32_LATEST (4) are
+expressed in units of 4-byte u32 words rather than bytes, whereas
+pointer arithmetic on (void *)fid and the byte count passed to
+memchr_inv() are in bytes (NSFS_FILE_HANDLE_SIZE_LATEST = 16).
 
-Kernel stack trace:
-BUG: KASAN: slab-out-of-bounds in garmin_write_bulk+0x164/0x3b0
-Read of size 16 at addr ffff88800791400c by task poc_verify/188
-Call Trace:
- <TASK>
- dump_stack_lvl+0x4d/0x70
- print_report+0xc4/0x610
- kasan_report+0xb8/0xf0
- kasan_check_range+0x118/0x190
- memcpy+0x24/0x60
- garmin_write_bulk+0x164/0x3b0
- gsp_send+0x218/0x490
- garmin_write+0x142/0x2c0
- tty_write+0x294/0x540
- vfs_write+0x412/0x640
- </TASK>
+Passing (void *)fid + NSFS_FID_SIZE_U32_LATEST and
+fh_len - NSFS_FID_SIZE_U32_LATEST to memchr_inv() inspects bytes
+[4 .. fh_len) inside struct nsfs_file_handle (fid->ns_id and
+fid->ns_type) instead of the trailing bytes [16 .. fh_len * 4) after
+struct nsfs_file_handle. Consequently:
+1. Valid zero-padded handles with handle_bytes >= 36 (fh_len >= 9) where
+   fid->ns_type != 0 (at byte offset 8) are falsely rejected with
+   -ESTALE.
+2. Non-zero trailing garbage in bytes [16 .. fh_len * 4) is ignored when
+   the upper 32 bits of fid->ns_id (bytes [4..7]) are zero.
 
+Fix this by offsetting (void *)fid by NSFS_FILE_HANDLE_SIZE_LATEST (16)
+and multiplying (fh_len - NSFS_FID_SIZE_U32_LATEST) by sizeof(u32).
 
-Note that garmin_write_bulk() and garmin_write_bulk_callback() are
-triggered from local userspace calling write(fd, ...) on /dev/ttyUSB0
-(even with a normal USB device attached) by writing a 12-byte packet
-with a negative 32-bit length field (e.g. 0x80ffffff) at byte offset 4.
-
-Kernel stack trace (Linux 7.3.0-rc3):
- ==================================================================
- BUG: KASAN: slab-out-of-bounds in garmin_write_bulk+0x922/0xbf0
- Read of size 12 at addr ffff88800f8ef958 by task usb_poc_verify/162
- Call Trace:
-  <TASK>
-  dump_stack_lvl+0x70/0xa0
-  print_report+0x153/0x4c6
-  kasan_report+0xf1/0x120
-  kasan_check_range+0x11c/0x200
-  __asan_memcpy+0x29/0x70
-  garmin_write_bulk+0x922/0xbf0
-  garmin_write+0x3e6/0x770
-  serial_write+0x167/0x2b0
-  n_tty_write+0x5f4/0x1020
-  file_tty_write.isra.0+0x411/0x760
-  vfs_write+0x671/0xd20
-  ksys_write+0x1bb/0x210
-  do_syscall_64+0xda/0x4b0
-  </TASK>
- ==================================================================
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
-v2: Send to linux-usb@vger.kernel.org via git send-email with Assisted-by: LLM tag and clarify local userspace write() trigger.
- drivers/usb/serial/garmin_gps.c | 20 +++++++++++++++-----
- 1 file changed, 15 insertions(+), 5 deletions(-)
+ fs/nsfs.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/usb/serial/garmin_gps.c b/drivers/usb/serial/garmin_gps.c
-index 8020149f5..ea10af159 100644
---- a/drivers/usb/serial/garmin_gps.c
-+++ b/drivers/usb/serial/garmin_gps.c
-@@ -208,12 +208,12 @@ static inline int getLayerId(const __u8 *usbPacket)
- 	return __le32_to_cpup((__le32 *)(usbPacket));
- }
+diff --git a/fs/nsfs.c b/fs/nsfs.c
+index c3b6ae765..a1842e12f 100644
+--- a/fs/nsfs.c
++++ b/fs/nsfs.c
+@@ -529,8 +529,8 @@
  
--static inline int getPacketId(const __u8 *usbPacket)
-+static inline __u32 getPacketId(const __u8 *usbPacket)
- {
- 	return __le32_to_cpup((__le32 *)(usbPacket+4));
- }
+ 	/* Check that any trailing bytes are zero. */
+ 	if ((fh_len > NSFS_FID_SIZE_U32_LATEST) &&
+-	    memchr_inv((void *)fid + NSFS_FID_SIZE_U32_LATEST, 0,
+-		       fh_len - NSFS_FID_SIZE_U32_LATEST))
++	    memchr_inv((void *)fid + NSFS_FILE_HANDLE_SIZE_LATEST, 0,
++		       (fh_len - NSFS_FID_SIZE_U32_LATEST) * sizeof(u32)))
+ 		return NULL;
  
--static inline int getDataLength(const __u8 *usbPacket)
-+static inline __u32 getDataLength(const __u8 *usbPacket)
- {
- 	return __le32_to_cpup((__le32 *)(usbPacket+8));
- }
-@@ -607,6 +607,10 @@ static int gsp_send(struct garmin_data *garmin_data_p,
- 	if (k >= GARMIN_PKTHDR_LENGTH) {
- 		pktid  = getPacketId(garmin_data_p->outbuffer);
- 		datalen = getDataLength(garmin_data_p->outbuffer);
-+		if (datalen < 0 || datalen > GPS_OUT_BUFSIZ - GARMIN_PKTHDR_LENGTH) {
-+			garmin_data_p->outsize = 0;
-+			return -3;
-+		}
- 		i = GARMIN_PKTHDR_LENGTH + datalen;
- 		if (k < i)
- 			return 0;
-@@ -769,8 +773,13 @@ static int nat_receive(struct garmin_data *garmin_data_p,
- 
- 		/* do we have a complete packet ? */
- 		if (garmin_data_p->insize >= GARMIN_PKTHDR_LENGTH) {
--			len = GARMIN_PKTHDR_LENGTH+
--			   getDataLength(garmin_data_p->inbuffer);
-+			__u32 dlen = getDataLength(garmin_data_p->inbuffer);
-+
-+			if (dlen > GPS_IN_BUFSIZ - GARMIN_PKTHDR_LENGTH) {
-+				garmin_data_p->insize = 0;
-+				break;
-+			}
-+			len = GARMIN_PKTHDR_LENGTH + dlen;
- 			if (garmin_data_p->insize >= len) {
- 				garmin_write_bulk(garmin_data_p->port,
- 						   garmin_data_p->inbuffer,
-@@ -951,7 +960,8 @@ static void garmin_write_bulk_callback(struct urb *urb)
- 		struct garmin_data *garmin_data_p =
- 					usb_get_serial_port_data(port);
- 
--		if (getLayerId(urb->transfer_buffer) == GARMIN_LAYERID_APPL) {
-+		if (urb->transfer_buffer_length >= 5 &&
-+		    getLayerId(urb->transfer_buffer) == GARMIN_LAYERID_APPL) {
- 
- 			if (garmin_data_p->mode == MODE_GARMIN_SERIAL) {
- 				gsp_send_ack(garmin_data_p,
+ 	switch (fh_type) {
 -- 
-2.55.0.1082.g2b9226bbc0-goog
-
+2.43.0
