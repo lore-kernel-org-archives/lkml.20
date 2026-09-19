@@ -1,158 +1,143 @@
-Received: from avas.easytechitalia.it (avas.easytechitalia.it [213.217.29.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C278353A82
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 20:25:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.217.29.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2F8D3749F0
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 20:35:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789849545; cv=none; b=hlgbExC+yr/iPfyug1RSqUZMkuoiprflzTrRwrBreXiNhyBcC7V0yy7QWSPdcAzboyNDmwpcjVgV8RT8m1zcKKhYDPft5wrD45GI5798vOG+3D2GcM4IEv5ysiYKVpRBj9Hx0Kijgfi7whf6gC4pTjf61xDi6u8ID120jo892Lk=
+	t=1789850116; cv=none; b=Wxti77AlNtpbDZWw2rSZC6d/0JnJAB4ubpmqveYc1p/ogOmc1vgDlNLURUChrsPXzvjod0ugMdUUye2qFFkSMxAY/1+1U2ul8R5OJSe40Re+MdeeVkaHRX4pvpU8QCc6lQqrxLQTd5kwpwgjW3zY6g8JO+d4boFBWYic6cidXTg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789849545; c=relaxed/simple;
-	bh=yOXeJJd/b20XDxghZTOz2Fqv/7LDR/U58cmsUId4Bz4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=DnZx9ysk/+IhbJ1MCFTKtJkGyozCB37J6RPIiLxuUsOK9aloaqw3Z9ZnFSUeSTUiwOkG0bk0U0B/DRGGLdYaQMxq3/MZhKsU0GzhXT/RB3rTDsRIj9GbQ+B7pdhKLcnOvzinbHgI849nCuKpFQL+YyvcYNr3Ua52I+rySvPxleU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mtsistemi.it; spf=pass smtp.mailfrom=mtsistemi.it; dkim=fail (0-bit key) header.d=mtsistemi.it header.i=@mtsistemi.it header.b=NlcchfCd reason="key not found in DNS"; arc=none smtp.client-ip=213.217.29.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mtsistemi.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mtsistemi.it
+	s=arc-20240116; t=1789850116; c=relaxed/simple;
+	bh=6Dt0U3Nv3UU/hUnJU6VCs7akUfdBnup8mEUblwSfJH0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=X53FMPULDlX5/Sw2gAXAf77482hT5uHNR+5T138sZ+Sn88z9L7BI6NDOXeIpRy0F7xhyk0mxXXJUf7h/NyjjW9GIWJJV9zNXMzl1d05belXQiWR4YU7DH+pV7s9WCiH1b5KBel10Shmg8otba5rym3exUa6yLJNHT9zSD63/yxE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gjdEI/D7; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=mtsistemi.it header.i=@mtsistemi.it header.b="NlcchfCd"
-X-Envelope-From: <info@mtsistemi.it>
-Received: from ngmx.easytechitalia.it (unknown [185.76.140.216])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by avas.easytechitalia.it (Postfix) with ESMTPS id 4hnLbL1zcVzGnvV;
-	Sat, 19 Sep 2026 22:25:34 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
-	by ngmx.easytechitalia.it (Postfix) with ESMTP id 6113717ABF9;
-	Sat, 19 Sep 2026 22:24:05 +0200 (CEST)
-Received: from ngmx.easytechitalia.it ([127.0.0.1])
- by localhost (ngmx.easytechitalia.it [127.0.0.1]) (amavis, port 10032)
- with ESMTP id UsflyHODju7j; Sat, 19 Sep 2026 22:24:05 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
-	by ngmx.easytechitalia.it (Postfix) with ESMTP id D973F17C481;
-	Sat, 19 Sep 2026 22:24:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.10.3 ngmx.easytechitalia.it D973F17C481
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mtsistemi.it;
-	s=AD82E3E6-03E3-11EF-83D2-AF8217D6D3C6; t=1789849444;
-	bh=YUZUkggZdipMz4WTH81mS0qxWx3Tl+mExRDMQGKjwWc=;
-	h=From:To:Date:Message-ID:MIME-Version;
-	b=NlcchfCdOOqqIsA/xhVIBBfZ7ARvUzaoHq8HF+xiRMIp2noKktkp0LFsLQMHA8eta
-	 jWTkHtlsLWCh95RzPAr0cI8CflEGA3LrbzUHbt2yIqEUcjoLZ6kwr1gj2fCvlXo9Tq
-	 tF+69WpSrnZ0LxgrIdMVLPydsbfS4i6ORlHH9XPxxjDuJaykUXji2DQwh6A3tXLcNB
-	 Zm1FA6Tr+aX7c3IEwCzGN8uYha12jn2EmGSYMgHSwXkwArrnVDMwlskDhar8H2p8C1
-	 F2+BA7A5V+/Le9a6n/hI0TO05s/WqTGLhjhhZUYBvjM6Wm/gJORh478F+0J+Iuc9zd
-	 MyNei1j3Z1o7Q==
-X-Virus-Scanned: amavis at ngmx.easytechitalia.it
-Received: from ngmx.easytechitalia.it ([127.0.0.1])
- by localhost (ngmx.easytechitalia.it [127.0.0.1]) (amavis, port 10026)
- with ESMTP id Onk0wWTobQEm; Sat, 19 Sep 2026 22:24:04 +0200 (CEST)
-Received: from [192.168.56.1] (93-38-124-109.ip70.fastwebnet.it [93.38.124.109])
-	by ngmx.easytechitalia.it (Postfix) with ESMTPSA id 79BB317DC3B;
-	Sat, 19 Sep 2026 22:24:04 +0200 (CEST)
-From: Mattia Tadini <info@mtsistemi.it>
-To: Tom Lendacky <thomas.lendacky@amd.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- David S. Miller <davem@davemloft.net>
-Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] crypto: ccp - fix NULL dereference in
- psp_firmware_is_visible()
-Date: Sat, 19 Sep 2026 22:25:30 +0200
-Message-ID: <178984953065.33228.16836522994898001211@mtsistemi.it>
-In-Reply-To: <178984289056.12336.3953267527334867198@mtsistemi.it>
-References: <178984289056.12336.3953267527334867198@mtsistemi.it>
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gjdEI/D7"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747eb79f6so11670435ad.0
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 13:35:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789850114; x=1790454914; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sp+3MfHIef17t9guG27n3yYy5IMEoS4o2YkTC2fwCC8=;
+        b=gjdEI/D7ejwEfIP57Q2RqSvTjh9zUVxZ/v1WQQLDawyy2eDEcq/afrD+zsuWZRckr/
+         NrlwFlmk7sIcODlDIEP5HuBtQvCZaRvfhfgcx7USBmNLcKbe9e3nyX2K5mkHM/bqtosR
+         X4Fc4o44crgF9N8MAqkM1gfjhL26vkjdfi6XYA+LO3ebAbNyZD33BCbLfRLHiFjdU3EP
+         MTZyeb2BI0ad3uu6uN24DqgvzMafadSqqJXvOyL1PpuKl8/aOH00TEa6OW84XiySufpE
+         vdvc1+Jnae6Cldt2YQiJz4/jUGc+ojaiy1UoKH3oJ67hSCpERD8TElBqho3/gIyVrQCR
+         cr6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789850114; x=1790454914;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sp+3MfHIef17t9guG27n3yYy5IMEoS4o2YkTC2fwCC8=;
+        b=kCKOL8+g7oziEtFmdLKdTsPEExOUCz8jIXUaTun3yY5k7GXE9MNuax1xjaega1HVW3
+         TkNFmJhQ/cf0vlQKMIW5/JWlMIrY9X+Nty4dngehAS679rTqJ7/cvO5I5yhAFFYTNSaJ
+         +7N1AyD1qGdytLSQ3ajYiUtVv/ll4t7VYZx7GcHojCSiMpEAHOew5JkZNFZOrpQ4c7lB
+         VHjBAZbif+dJlGAA9jgPiTt4eQ5syCKqgKP4wI5zAtYMlfksaEjE7YdbvasJ4Tii03SP
+         lP+Xn4p5wV/dgJNbNS8oQVVeqYRGNu7Mxghw6tCthCyu2O0okA5eu/rg9+FHE9RpLUQI
+         nXvQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwuAZEWlCQMl1eo/CDm2WCWQlL1+9g8AsSyU5hsu/LOiN9JOjc8+CPnpFf1ooM3g/WNmhZwURo/TwmQ3Rg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kyUw7PlwAvUPsBscXGbSW82GYVdXxNXQAX3FiWxmFM8BNRBulX
+	bwMzBMWe3LaNkdknXwMxZ373cc/fPyBe5B/alUQz3oG2RzHk0o8ho0RpWlzOadEP
+X-Gm-Gg: AYBFou1lHKJV3QGACCGMYgqFpdUL9fZ0dD9ID4RcrG6C1bTmgzWDzGuzq6WR9Y46IwG
+	Q0RuVzz5cdgAyxugr8FUI4QpgRNVIJTHGNbH5WbltrULIVlULbdGj9FRXpOY/iZDU4FuaoTYoTB
+	c1VsepmnIuvNyayT7+jKykHQ3YYliNOPMj3PbbgOg2Uq29zQiwiKBXskrn2EaFb4ry8oeqnMUCM
+	SSuKZ3yhJrEemrw3jZ7A593pNzR0VnSUp0EBiH7dVgVbKCLSGPVo4DF3CKMM2huEq1BBLVGuxY/
+	1kmwRxoaqJihE88IOphJlmg573J3tKJhntELv7YgiPn3eEW8IcVNcbT92XHjDEli4agl8IZCYsP
+	hj/zY1itGUFWX6eqGWgVB7509CNM62zPOZgrGdA0uDAHPIOgS2KaXgIk2A3wSXrWlR/V0ik5mnL
+	NH6vezqF+BZRFsAH/+ugjsYG2w435HsTRBh2aHQ7qQsjD6MfwV1Vg4+fXz4KTJq+wnYDdlcM06s
+	bZaYu+n3a2h6vahYVUEsYBjpJ4wVZgHY0HVZoMHAwBy3C6zf4D8nwrbu96lylx518uZnsM6aGeK
+	4AxHIJ21Qw==
+X-Received: by 2002:a17:902:f608:b0:2dd:c0ff:e724 with SMTP id d9443c01a7336-2ddc0ffe92dmr39228325ad.54.1789850113925;
+        Sat, 19 Sep 2026 13:35:13 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (67.51.127.34.bc.googleusercontent.com. [34.127.51.67])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17ff4d7sm12700145ad.74.2026.09.19.13.35.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Sep 2026 13:35:13 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: David Howells <dhowells@redhat.com>,
+	Jarkko Sakkinen <jarkko@kernel.org>
+Cc: Paul Moore <paul@paul-moore.com>,
+	keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] KEYS: reject descriptions exceeding U16_MAX in __key_create_or_update()
+Date: Sat, 19 Sep 2026 20:35:11 +0000
+Message-ID: <20260919203511.2580732-1-benquike@gmail.com>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Easytech-Libra-ESVA-Information: Please contact Easytech S.r.l. for more information
-X-Easytech-Libra-ESVA-ID: 4hnLbL1zcVzGnvV
-X-Easytech-Libra-ESVA: No virus found
-X-Easytech-Libra-ESVA-SpamScore: s
-X-Easytech-Libra-ESVA-From: info@mtsistemi.it
-X-Easytech-Libra-ESVA-Watermark: 1790454335.91928@OJ9BPvnsyIGy6eW0Q8JD9Q
+Content-Transfer-Encoding: 8bit
 
-The cover letter for this series did not reach the list: the three
-patches are in the archive, [PATCH 0/3] is not, and no bounce came back. =
-Resent
-here so the series context is in the thread rather than nowhere.
+struct keyring_index_key stores the key description length in a 16-bit
+field (u16 desc_len), and __key_link_begin() enforces
+BUG_ON(index_key->desc_len == 0).
 
-The AMD BC-250 is a Zen 2 APU board (Cyan Skillfish) sold as surplus mini=
-ng
-hardware and now used as a small desktop by a fair number of people. It c=
-arries
-an AMD Secure Processor at PCI 1022:143e that sp_pci_table[] does not mat=
-ch, so
-the device has always been left unbound with its memory windows disabled.
+While add_key() bounds explicit userspace description strings to
+KEY_MAX_DESC_SIZE (4096), when the userspace description is NULL or
+empty __key_create_or_update() delegates description generation to
+index_key.type->preparse(&prep) on the payload (up to 1 MiB). Key types
+such as "asymmetric" (x509_key_preparse()) construct prep.description
+from the certificate issuer, subject, and hex-encoded serial number,
+which can exceed 65535 bytes.
 
-Adding the ID turned out to need two fixes first, both of the same shape:=
- the
-driver decides what to bring up from the hardware capability register alo=
-ne,
-and then uses the psp_vdata pointers for those features without checking =
-that
-this device has them. On this board the two disagree, because the firmwar=
-e
-advertises a TEE whose ring never comes up.
+__key_create_or_update() then assigns:
 
-Patch 1 is a NULL pointer dereference in the sysfs is_visible callback. I=
-t
-oopses during probe. It needs no new hardware to be reachable in principl=
-e:
-any device whose firmware sets the TEE capability bit while its psp_vdata
-carries no tee data hits it, which today means pspv1 and pspv2 parts. I h=
-ave
-only observed it on the BC-250, so I have not added a stable tag - please=
- add
-one if you think it deserves it.
+        index_key.desc_len = strlen(index_key.description);
 
-Patch 2 stops a failed optional sub-device from taking down the rest of t=
-he
-PSP. Without it, a psp_vdata that deliberately omits TEE gets nothing at =
-all,
-platform access included.
+without checking whether the length fits in u16. When
+strlen(index_key.description) is 65536 (0x10000), index_key.desc_len
+truncates to 0 and immediately triggers BUG_ON(index_key->desc_len == 0)
+in __key_link_begin(). Lengths above 65536 truncate modulo 65536,
+corrupting keyring hash and comparison lengths.
 
-Patch 3 adds the board. The register layout was read off the device rathe=
-r
-than assumed, and the numbers are in the commit message.
+Reject empty descriptions or descriptions longer than U16_MAX with
+-EINVAL in __key_create_or_update() and key_alloc().
 
-Tested on a BC-250 running 7.2.6. Before:
-
-  01:00.2 Encryption controller: AMD Device 143e
-          Memory at fe700000 [disabled] [size=3D1M]
-          Memory at fe884000 [disabled] [size=3D8K]
-          (no driver)
-
-After:
-
-  ccp 0000:01:00.2: enabling device (0000 -> 0002)
-  ccp 0000:01:00.2: platform access enabled
-  ccp 0000:01:00.2: psp enabled
-  # cat /sys/bus/pci/devices/0000:01:00.2/bootloader_version
-  00.1c.01.02
-
-with the platform mailbox answering commands. Dynamic boost control is pr=
-obed
-and cleanly rejected by this firmware, and HSTI reports nothing because t=
-he
-security reporting capability bit is clear. There is no CCP crypto engine
-behind this function: the version register at 0x100 reads back all ones.
-
-The series is against v7.2.6 and touches only drivers/crypto/ccp/.
-
-Mattia Tadini (3):
-  crypto: ccp - fix NULL dereference in psp_firmware_is_visible()
-  crypto: ccp - do not start PSP sub-devices without their vdata
-  crypto: ccp - add support for the AMD BC-250 secure processor
-
- drivers/crypto/ccp/psp-dev.c |  8 ++++++--
- drivers/crypto/ccp/sp-pci.c  | 24 +++++++++++++++++++++++-
- 2 files changed, 29 insertions(+), 3 deletions(-)
-
---=20
-2.55.0
-
+Fixes: 16feef434017 ("KEYS: Consolidate the concept of an 'index key' for key access")
+Assisted-by: LLM
+Signed-off-by: Hui Peng <benquike@gmail.com>
+---
+diff --git a/security/keys/key.c b/security/keys/key.c
+--- a/security/keys/key.c
++++ b/security/keys/key.c
+@@ -245,6 +245,8 @@ struct key *key_alloc(struct key_type *type, const char *desc,
+ 	}
+ 
+ 	desclen = strlen(desc);
++	if (desclen > U16_MAX)
++		goto error;
+ 	quotalen = desclen + 1 + type->def_datalen;
+ 
+ 	/* get hold of the key tracking for this user */
+@@ -820,6 +822,7 @@ static key_ref_t __key_create_or_update(key_ref_t keyring_ref,
+ 	const struct cred *cred = current_cred();
+ 	struct key *keyring, *key = NULL;
+ 	key_ref_t key_ref;
++	size_t desc_len;
+ 	int ret;
+ 	struct key_restriction *restrict_link = NULL;
+ 
+@@ -865,7 +868,11 @@ static key_ref_t __key_create_or_update(key_ref_t keyring_ref,
+ 		if (!index_key.description)
+ 			goto error_free_prep;
+ 	}
+-	index_key.desc_len = strlen(index_key.description);
++	desc_len = strlen(index_key.description);
++	key_ref = ERR_PTR(-EINVAL);
++	if (!desc_len || desc_len > U16_MAX)
++		goto error_free_prep;
++	index_key.desc_len = desc_len;
+ 	key_set_index_key(&index_key);
+ 
+ 	ret = __key_link_lock(keyring, &index_key);
+-- 
+2.43.0
