@@ -1,153 +1,121 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com [74.125.231.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0152C2D5432
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 17:37:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789839475; cv=none; b=LYQhsmOfTsTyzm8omM5UPxrK7+Mb9aZ5F1Y13p0vK2ULIh5amJYN5RDCUpp2yyJiPIxFQJnV8IimGH0JeVHBL+LtbP+x/DwP6TBuYgxf+PtZs/H4i0452mldnLyxn4Xdfw6YsH6KyFX2b+RTWiPAlmkuvlCCQ493MrQUT5x/S9Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95F672DB785
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 17:37:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.205
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789839475; cv=pass; b=l61GpeBTI6q1seAP0YbuXSu5u9jYQ1dmRAvhr48Iy+1p8fdt9NMtbUv9JR7oySF6sDM0Ihj9mFckMN6yBPx0TU0SAM+zNlZ+4nxEx6xIXxen5MEhf4u0C2UbmOKgbH+gxNvCxjhWNtpZWdYt7bLAjPvyC/yFOE3R1H5OSxkmYhI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789839475; c=relaxed/simple;
-	bh=A+LU2lOUO2STiPMwRjdZHK8qHreRR1b/wRLSvRu1GUc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kVEImVRHRg4KpHkN4Jb3AMm9npbE1hN5ctpdG8V8yCuYVd0KDl+hvX+kuCI/cZBDY39Ui1Mq493m/5sMcc6Iyne/I2fXxRgmaEdbP81nOp05x2nLO7NZ2qFwqet3cflxIBVITCf3wjnSLg9TFQ0shE8JjtxMxXC3hFU8Vif8xxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lXm18EzX; arc=none smtp.client-ip=74.125.227.141
+	bh=3M3Ly8PtfuuDQudfR3+28sw5EfN2/wDbZ9K6hoePcXE=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=azZBO0LyQRavaspsX7JXYAU49F1GtiHI3s5hj+rF1G1gFAzpj6unNLdFj1jI2ApCFh7ZeyVdeyQmurRwz22j1HnqUsGHBOA4wmjmI9ovLE0iZROFluaDFzGgAc6CQ6ZY9B8AdI22AQI6hrpdaTj3IP9wF8gHorsbj0rTM1aNeR0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J3cqfnVL; arc=pass smtp.client-ip=74.125.231.205
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lXm18EzX"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccda24afso1328470a91.3
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 10:37:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J3cqfnVL"
+Received: by mail-oi2-f13.google.com with SMTP id 5614622812f47-4c13f2685f2so1063019b6e.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 10:37:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789839473; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WZumdBORTcSHLG3vEG3m2GvdBx84f1/UzW0kYXArSmrnM78kv8KfTzAq35IqmeLdml
+         tjHTg0yekKYVGqysDFUepDLTPIhK4btJRxpz0TL1jwPuat9pJNC3BOPCd98yxZVpxGcs
+         eYq4F/E9+dHUiHS9ujGIopWHdMwOazwIf9HWrEl1O32cHf5WOv2s+Jv/BzVqKxRA8tgX
+         ADlkVu6QwJ7S/Eol/IaYcO6PYYI9HWdkTvCjZIgo//dRx5FYNR0hVpkCNr7pPSlrv5Ip
+         uRcDmmeTfeia4Qw84nomwTiiC2aNRZO40ElKn54G1MpZFzHVXGy3KSCNCQA+yBiTE9se
+         UWIw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=urXzmInWVRHneRjWpEj4c3oyfAKdN4ZIpc92YRdUpZI=;
+        fh=LB6TI/6jEqRFs+6WQK/7pZQKg+yG/s5iuNbHhDQmbm4=;
+        b=pJC33MYr99zLttgrUGwboTfnsYAurk8p9MSaGh3hPulkNkA/qLBP8pxotaxbFAA5j9
+         jW2ZDsboG24oLyZNFC4jkMbmxewOrQvkwZ4XdipGBbOsUhaZxPLxxUSq/SaJHlO8+YNa
+         aio19x/QAPOI938ZPtqDMNsiEpk4f0GizgHuFqqmIA8cJ/QlHpLhV9FN7yfcLeMV/P2w
+         nRwEA0y842W2dcIIP3UDI3zWPWR/48Sqv1B85bFsYgaDZkFXpGj7q6BiyZsH53licxSD
+         JJkcb6cP0lHvaa+gP/H3pyhJFUUeLmi4aYA74xTfYGxiT1duKnElsLKUFhBFtUI1dG77
+         vQ+Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1789839473; x=1790444273; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/+svSdwCuLzAYpRiv4o3QatmA9OQccLmNnyQlBGEnHs=;
-        b=lXm18EzXukKphl5k9+Dn+6udG91k5TXMhIR4pJsUQ5/k2xnN4UHaCvuMAjuV9CEMaM
-         HwPR0auwyovE4C532CA9+ShiKUolXzNdJehuMnl4p5vZqWpQPqbNTwzLD0c4Bi8SB4qV
-         4rJTM5tm7y6hTJJk+Zpf3W8KWys0bHEzYAF+vEUeU9UR5NfcbG3vfDNI2lwz93W7b91g
-         RmQ+6RPUnjTODCAvP9mCf7j7VXUdlgbSi8QLmHNCf5eB8hVfiGwo+jgr47K8kVABWUHW
-         mBDua7HgN2pTe/TSQvfdFm+xmy5NiXmUQPW7PAWOTH9bEuyvpOI/thhD9bzWkNLUL5EU
-         CGGQ==
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=urXzmInWVRHneRjWpEj4c3oyfAKdN4ZIpc92YRdUpZI=;
+        b=J3cqfnVL9RD+0cki21EAZttOH10vGBFnFvC/DByMmpIXEt2A0kRoMYRbTRrxYskD5b
+         61kSYjS4J6uitlRBYgN9Ol6s9egI/FcujXizg7FHkx1F0yCP5zU19rEY+rpgAvsdcc9T
+         dl0jmmAGCm45L+PPd2lBIlVNnYHyFWGHLDWmvnntivrnT3m4sawxy+7htB6LqMIG2PoX
+         E2O+ZD8RySmGIoXNDTOsvf4C/a1c4xRO2rg9EJLzdjVckbMm5o0QxbKEXSM1ajT9G6uq
+         SaYBPaYvlGDGvZFKSKdifpRoZr3cJI84TgM3k5x1uQD049F4v1rkXNk1yiSvGyZr6Y5o
+         Mlhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1789839473; x=1790444273;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/+svSdwCuLzAYpRiv4o3QatmA9OQccLmNnyQlBGEnHs=;
-        b=geGu912UhuKuRl8GN/mJvunMYe4t/VYdCeJ/QhOR1skTMJwJcAGofhp0/386/9O9WJ
-         7IaxuB6UWfTPZL/YQJcFWB9AkIXxdcpwWowJ7+Hma+LOWHnVYZljxD9Bez6o2jic8uQp
-         n/uP9+S7+WBFdiiYCFOdxYO0HLYpCoGDQvgjyG4tpNQz08hMyr2P2Qezk3Mq5Vd6qxgF
-         ZDPAGKya+cmYn4qighX+hxwS4koEF10CMmfOqPQhtPQTDa2nkITrFM2vyRbHbtZBdxeW
-         c7r6MFyZw3HHf9jsfhRpXs79ifOOsLbtbjbMdkwMfQAz2lRCay9j9ViucnS7m2D7bSdw
-         JrpA==
-X-Forwarded-Encrypted: i=1; AKwUvBz7UIccsDXrZuV9bbp4WBT4mysbsxsY8Y8Oa8og+YXK0gfw3tF0lp/CBpGj+pqKyiVirJ7LlE0nULe+Q3k=@vger.kernel.org
-X-Gm-Message-State: AFuF++mstA0xPdmr3BBCPoTjOEucWv5whVn9XormtGwSQORsl6sEatE/
-	h5MeCf8tGxq/VsUWrw1TaWY+2bv2clwVmciyIOZ3iskWCWy92W8xOKQz
-X-Gm-Gg: AYBFou2ZgkYn5YNmv3vheI3p1RUFUDNNv6DZqAEkXgJjFm2V2oafuwTo9uZWx/6acOi
-	drh1eQ0szItbcWvptuPiIrdt+wP0jGVd3fk0xgSohQlLrCJPvZ1GDJvzbe3ERrSonSrLdOLR6hy
-	snkQfxracyKJxCQQ1DbxFQL3qZRNZg4ytjC8r1Sfg98ItlMoLKOGKCs03G1a0OXqiqhknsf1KH3
-	wpSFgooNoscdqnnzZIA2eZoq3IDXhKY5fuInmBxFhtukAB31ZiOMhMKwWp0fC56jeskIqXDCOje
-	UNDHJBiyTsNCPAYNWNVg30a6H8euRdwP4vINvVQcIJ+RWqnHNDZlklGEQJn6yfYvyX6sx5RQQep
-	BJqbhUaK0mAuOl5WdKhClamG2mSM83UgQB+tPg6IL7KhQ0wAQQaljc5KC0947un1vXMlsb18d84
-	43jOtruqgow9+jR1ucgW4l7opkOQlo9yfNhQ/NPe3uhJR1tE1TnAcjFuEK2CpktQi8VkKlwORdd
-	e/2o0Fg7FGaAwVM
-X-Received: by 2002:a17:90b:2b8e:b0:39d:efa9:cd25 with SMTP id 98e67ed59e1d1-39e54c59c74mr17536897a91.2.1789839473321;
-        Sat, 19 Sep 2026 10:37:53 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:814e:e9d3:767e:9a2a])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c3145e5sm5820981a91.5.2026.09.19.10.37.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 10:37:52 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: Alexander Aring <aahringo@redhat.com>,
-	David Teigland <teigland@redhat.com>
-Cc: gfs2@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	syzbot+b114bbe890d76037877c@syzkaller.appspotmail.com
-Subject: [PATCH] dlm: make lockspace join wait killable
-Date: Sun, 20 Sep 2026 00:37:47 +0700
-Message-ID: <20260919173747.327963-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=urXzmInWVRHneRjWpEj4c3oyfAKdN4ZIpc92YRdUpZI=;
+        b=vPxjWOASanujm3Zug7TShWBnl41sU3t7RNMA0IFPoCAG9gNpuEGIR/xTgq64iY7B5K
+         tlvvLGJ5X1SWzJbLYb0iPmK+P8ozgphR5uMAQWuqGrdw0ff1X4gdNX/qxZKIdtSlruh/
+         OafOTdDfyrFmOZHeVDM8/stMraQ6xPzTvzqbGeIRT5NCo9QIC0LfqCVSwxsAhvQaTU98
+         iZ4bChls4DJOZReGBiFflbDVQCGyz8CRP2K2AGUVtckirhuCcFpmdj0TGEg/6wrCz2Ak
+         3V3l7s9Agw8Gzx4cD04fFX/JG6wlIlPg+U5HeiCD9eJ0DyX/pfwbI+9YVSCvjdySloLe
+         ic6g==
+X-Forwarded-Encrypted: i=1; AKwUvBwG97CSwTwp/y+tnW8ccVEy4XPzA34/1OgDeCMpv/r9m4Yj2jSCnZVFijDHTlm6/vFqCz5RUvmqYAjkMM4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kTgRDEYA3im3OiZVMmJHn8veni5qFv8A60B2sbTezB0WkNl+xO
+	clb4Zt2LBzn1Dv/cC8e7h4FTanFPKqxd9amHwspdwqArPt5RXgNhyjGztt6E4im+6d4HhWUYqaF
+	TiPQ/scFMZNCU3+JK92QUrIQWerUn4uo=
+X-Gm-Gg: AYBFou3LNWB3r0q0/C2ui24Cquw4FZDhCeWWdAecCcZyPBOh8ikS47y1tPEeYdmbk8Z
+	UzBF4EEqJa5QgoeyCm9rpaIZXXovcpBBK6xo6RE2GdBeWw2BGE4xqud0IPh69hT190jlXZyjkNA
+	P7ONGfB5jhGEvJXumSvJCzyzxbW6M0PZh+5oxx4QmRx8I3TXkWife14FGTxSCgLAwB1WohDSm+i
+	72ZUZBP+sm57MqbjAQWDkMCepT/LN2WaHs0GlxCB5eXdEk4TRpoW1Up/Pp9cQ2AdVFhQBNQtZ+9
+	qwhoKmrS4syuwxM+vZ1HQOfSLOkeZJK6u71BhqjcktGSRncIZ5b0h6/FhCjoJ0ZN3w4jFc1niX4
+	RPhZOgmwlJMUAPSG2MksulOAko3OjDujt76djQSeGlsAOlIgtfjgHw36X0XV6tAvVUE7V/PM6yq
+	GF+UdVBL8+W+NO2mbDSLffiQ3aU0mpdDM=
+X-Received: by 2002:a05:6820:188f:b0:6a3:1dc5:3570 with SMTP id
+ 006d021491bc7-6ca9be4ff96mr5127192eaf.31.1789839473388; Sat, 19 Sep 2026
+ 10:37:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Bartosz Brom <bartosz.brom06@gmail.com>
+Date: Sat, 19 Sep 2026 19:37:14 +0200
+X-Gm-Features: AcwNN1VoogZIq0FCgYpuaMQJlESNWEeYCUSCBaNQtgaYhZ4PzJxlUMUv0QsqjvE
+Message-ID: <CAN3WbsSrR_gXGO2Dco4kBuPOw5LGAzHFJgeTW6rXYYvvjkC6Rg@mail.gmail.com>
+Subject: [PATCH] ALSA: hda/realtek: Add mute LED quirk for HP Laptop 15-dw1xxx
+To: perex@perex.cz, tiwai@suse.de
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-do_uevent() sleeps uninterruptibly until dlm_controld answers the
-ONLINE uevent via sysfs. If the daemon is absent or stuck, a task
-creating a lockspace through /dev/dlm-control blocks forever in D
-state, cannot be killed and trips the hung task detector.
+The HP Laptop 15-dw1xxx with an ALC236 codec requires the
+ALC236_FIXUP_HP_MUTE_LED_MICMUTE_GPIO fixup for its mute LED to work correctly.
 
-Use wait_event_killable() for the join event and return the error to
-new_lockspace(), which already unwinds through out_recoverd. The
-leave path is left alone as it must not skip teardown.
+Add subsystem ID 0x103c:0x85f1 to the quirk table to apply the existing fixup.
 
-Reported-by: syzbot+b114bbe890d76037877c@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=b114bbe890d76037877c
-Fixes: e7fd41792fc0 ("[DLM] The core of the DLM for GFS2/CLVM")
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Tested on an HP Laptop 15-dw1xxx; the mute LED now follows the speaker
+mute state.
 ---
-Problem: syzbot reports "INFO: task hung in do_uevent"
-(https://syzkaller.appspot.com/bug?extid=b114bbe890d76037877c).
-
-Cause: creating a lockspace through /dev/dlm-control ends in do_uevent(),
-which sends the ONLINE uevent and then sleeps in wait_event() until
-dlm_controld writes the result to the sysfs "event_done" file. With no
-daemon (or a stuck one) the writer sleeps in TASK_UNINTERRUPTIBLE forever:
-SIGKILL has no effect and khungtaskd fires after the timeout.
-
-Fix: use wait_event_killable() for the join event only and return the
-error to new_lockspace(), which already unwinds through out_recoverd. The
-leave path is unchanged, since it must complete teardown.
-
-Testing (x86_64 QEMU/KVM, lockdep+KASAN, hung_task_timeout=20s): a static
-repro configures a local comm in configfs and writes DLM_USER_CREATE_LOCKSPACE
-to /dev/dlm-control with no dlm_controld.
- before: task stuck in D, hung task splat, still D after SIGKILL.
- after:  no splat, task exits on SIGKILL, no KASAN/lockdep reports.
-
-Open question: a late "event_done" write racing with the error unwind is
-safe because kobject_put() removes the sysfs entry (waiting for active
-users) before the lockspace is freed; happy to add an explicit kobject_del()
-if you prefer.
-
- fs/dlm/lockspace.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
-
-diff --git a/fs/dlm/lockspace.c b/fs/dlm/lockspace.c
-index a9c98b4f378f..5d6a752e6650 100644
---- a/fs/dlm/lockspace.c
-+++ b/fs/dlm/lockspace.c
-@@ -190,6 +190,7 @@ static int do_uevent(struct dlm_ls *ls, int in, unsigned int release_recover)
- {
- 	char message[512] = {};
- 	char *envp[] = { message, NULL };
-+	int error;
- 
- 	if (in) {
- 		kobject_uevent(&ls->ls_kobj, KOBJ_ONLINE);
-@@ -203,8 +204,16 @@ static int do_uevent(struct dlm_ls *ls, int in, unsigned int release_recover)
- 	/* dlm_controld will see the uevent, do the necessary group management
- 	   and then write to sysfs to wake us */
- 
--	wait_event(ls->ls_uevent_wait,
--		   test_and_clear_bit(LSFL_UEVENT_WAIT, &ls->ls_flags));
-+	if (in) {
-+		/* don't hang forever if dlm_controld never answers */
-+		error = wait_event_killable(ls->ls_uevent_wait,
-+			test_and_clear_bit(LSFL_UEVENT_WAIT, &ls->ls_flags));
-+		if (error)
-+			return error;
-+	} else {
-+		wait_event(ls->ls_uevent_wait,
-+			   test_and_clear_bit(LSFL_UEVENT_WAIT, &ls->ls_flags));
-+	}
- 
- 	log_rinfo(ls, "group event done %d", ls->ls_uevent_result);
- 
--- 
-2.43.0
-
+Signed-off-by: Bartosz Brom <bartosz.brom06@gmail.com>
+---
+diff --git a/sound/hda/codecs/realtek/alc269.c
+b/sound/hda/codecs/realtek/alc269.c
+index 5127a111c59c..bf7a20404233 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -7388,6 +7388,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+        SND_PCI_QUIRK(0x103c, 0x85c6, "HP Pavilion x360 Convertible
+14-dy1xxx", ALC295_FIXUP_HP_MUTE_LED_COEFBIT11),
+        SND_PCI_QUIRK(0x103c, 0x85de, "HP Envy x360 13-ar0xxx",
+ALC285_FIXUP_HP_ENVY_X360),
+        SND_PCI_QUIRK(0x103c, 0x85f0, "HP Laptop 15-dw0xxx",
+ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
++       SND_PCI_QUIRK(0x103c, 0x85f1, "HP Laptop 15-dw1xxx",
+ALC236_FIXUP_HP_MUTE_LED_MICMUTE_GPIO),
+        SND_PCI_QUIRK(0x103c, 0x85f3, "HP 250 G8 Notebook PC",
+ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
+        SND_PCI_QUIRK(0x103c, 0x8603, "HP Omen 17-cb0xxx",
+ALC285_FIXUP_HP_MUTE_LED),
+        SND_PCI_QUIRK(0x103c, 0x860c, "HP ZBook 17 G6",
+ALC285_FIXUP_HP_GPIO_AMP_INIT),
