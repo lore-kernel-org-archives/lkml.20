@@ -1,72 +1,72 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04C6B3A4F23
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:35:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A614E3AC0E6
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:35:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789857321; cv=none; b=iQbNHDKtuIYP/5ihFh0LiU+nsYuY8UJCnJLTbHq4J20u2BLSv7c0pXp4rkjAqpY5zatLGu9tqlIA1NLmBi6kXI4ciObpzuLPgbdRR5Dxfn+v59guea4ntQ2TYDKwVnkzRg78L+ctu5gBa7eT5sFrFyA7yV2rJY+jzGrbuPS4CuU=
+	t=1789857322; cv=none; b=B0iXFUmGMSVAfIWv1HlcxYea8bBV+AR2JIHUmogOBE0Ti++iVgtF0xrH3XU6a9+nXit19531oWRSa4xN/0goyv1taogIchQ7gfigfT3uge2cCjHusN3j91W0Hvrv9/4s1JpFQF5Oce4cUBO9CrDJf2E4y+2ovphUicpuc/UDcQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789857321; c=relaxed/simple;
-	bh=8uJdeYmWQJkZy+W3syV+U+iiTNe6FVKJYYlvHmtu2XU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lhE3nizKzfn3z1cfV5oHG6i1v86oCBBzGW5DAjjSCdPYowbzCKUyefZ/2J/uTLs4JmdaanlTNZMs3vwoN2pbKlTIcYgLOBaZcfF7P8wnJVzGivLQvmjgKlj7zyiloJ+hPoDcOm/E0NkMFsTqK1CZQ6UKBOHWgw0QhtIN3CdeO28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ltfA7A49; arc=none smtp.client-ip=74.125.227.141
+	s=arc-20240116; t=1789857322; c=relaxed/simple;
+	bh=cS8iDhlFDsCfdLI2+2GVi8GfbEugUndHRep9h0Xdjxo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=agjBKUUCoyMDtXBJxyYU7KwFQaIiO/SesmldA2AsK8ZF8YnH21cXpKOEp2J5NuqiQQs5TvzShyt+8zKVBiVrMeWzxgtt9E2dFhnE+dqshU1VELhJz1cGeI/S1+5loFfXYgqwQ/C8qHlV6v164ME4dUDiAIgfua2zHV6Oi3Via/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eCmW/0Js; arc=none smtp.client-ip=74.125.228.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ltfA7A49"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ed6d6eso18633145ad.2
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:35:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eCmW/0Js"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469b2e1d5so1980712b3a.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:35:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789857319; x=1790462119; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789857321; x=1790462121; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CBsZVQ7pQ+mQdybWEes03pmUYFCJXqocJTzbrDNI7+k=;
-        b=ltfA7A49zxW/G6KME02CpDktyDm4NjoFemmpeFHzAF92RILMtBKQFuuWOrMIG/LTFr
-         VS+DuKLBC7gb6rsHIbkmPApmtxa98kjFqm82gyLcQ8zQi71E1XKHB5m4pX3kSbXKXYD9
-         ds1CtvJxZYvoxz65RAMxLyuUSG656jVJcfRKR8i288kFwLZ+goXKPxjD5N3xGIwFPcig
-         X0vHbh4DOGJkvF+dne+Pw5I4mDQIaZUIw4uj9Hc4iuExSpti0E7J7biTPvLOHaSM5bSY
-         C2dqMAxh1QI25FL4iK6eOzWpYmOmyN4NyTxUxZt1cwC9am2vzr+npbwqlHolAj+NpE3I
-         BBHA==
+        bh=XNNmBC5JGyAoAwI5upAxEEGlhFHFY8AchPlTKIODuq4=;
+        b=eCmW/0JsKfBaGpPadFF/IZm+H8TI5xOm2rlmCUDexF93Xc8h04oI1835yz1x0HcAy0
+         K1kNzpziOC6e3V8b6J+53ktPlBS7ppjrel3ZuOdLM2qNXuTklLcSIVf2ELE0qdyyn09U
+         r0QDQUHDmRlK7oFsV3bEGXKqFNObTp+UGwkDNKMCyde1CqrTt8izUbGP0lX4R32N2n88
+         O8yHa0Cqsd5kcNR41fTxAJmQVyvJgYPDuEo6U3jx5KUMuWTv6G6TcmyvV0T75dqmYRS7
+         0Ol6bJe/VyBvaEug7vspIR4wAR/RZFmzm7FjudvC0tldInThcZKtogtTCOe/uI1xcf4A
+         Wvkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789857319; x=1790462119;
+        d=1e100.net; s=20260707; t=1789857321; x=1790462121;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=CBsZVQ7pQ+mQdybWEes03pmUYFCJXqocJTzbrDNI7+k=;
-        b=rFqRB34+asiwhr5XrvNZZje9NJY1StWkbUcVO9MHFh7W6hQyxfxLnea+z5E6ZmfNpJ
-         HoR8qZPSy3FvDXkV/QNYNL+aglvkRFzePmU10SDBYDxy4sjkjAFDJOHoNs3aTmt7Np+G
-         BfHJcQVBcDGlpCedpgaDeyea5AxYaD9JJFmtDParG9CUZ99vLD8iGpjKJLvbO9p2FIfC
-         Co4VbIqK0RfvFkvWmcaF9gnkbRqjZKcL1pjnKQ9VsSVxsC4OH6/mxSCCOnnIJkgDq3ai
-         L4RfOHziM+SUCmlj6imx6i1fWtCxFBmtmXjlu8j/PlLN/Qa/NoThd0c9cx+UDMdwwZS6
-         LHQQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwSv38omnnmm1K2knTm385y7vcRXWxf2gA1gAuADju8fHANx5N8hXEL6p4PWsVabtF8meXYbF0lxcoI3/0=@vger.kernel.org
-X-Gm-Message-State: AFuF++niPBNOulcojFWwKZiRF0vCkFDZFNEMJFX45xl68uJ4TN3bQXL4
-	AUlShQQR/vlbSlzbpC5zeNHNt5VoZQRElEEbc6UUqJsDgrAVoT7Z5DFr
-X-Gm-Gg: AYBFou0qJRKxE4xA/OLFcDGrIsUfmF1pBM1fiqU8TaLalveASsVDBNg3mp6tQ3id/QT
-	VYS8TlkNWEiVAcm884MvWnXFNa37vCJy4eSeprkVTWhzlAlDtzyaQPdlGbkyRRHNvu0XmvQf443
-	SnZW8URUWFWgJFi02FvpwDjvpHMjh2zSmi4pQfcGnWvJYQzW2jeW+aDfF698Z4UIkR0pyl9cl5X
-	cUHxGeZzqlCz7TC2hUEypWZrVp0BRnu61WBEF3h/kmMh2IKfGH+CjsRL0+xMJSY0cNVkHkSnefb
-	vUGw2MF2pNKKrdImhAmqyVc3UYwdEbDD8VZKbdciFqojKcxMYGraKLcOUZ33kmK1FqXoUlSxcZ6
-	v/Iiel0ujZDPPZpMgOaLo+VQSJ755AKFEP5OvbITobrdkDJfYsFP3TE1D32CrGijYkgZp4spIey
-	5lKL1r/wW7T6LsupjPMWgvKekTbrHeuEFciSwGQt/jinOhG7hQMavtEYrQ1BsQm0xcantnp8qgp
-	VpsbUY7XL+ZZ+Mvlh2WYgYW6dkbuHwb/Ko5rOCRGFZD9LKzljS8tc64BcIp7JnnkLQett/LWst8
-	TnfmrSp1Og==
-X-Received: by 2002:a17:903:298e:b0:2dd:c100:4b7d with SMTP id d9443c01a7336-2ddc1005fa7mr49396385ad.52.1789857319312;
-        Sat, 19 Sep 2026 15:35:19 -0700 (PDT)
+        bh=XNNmBC5JGyAoAwI5upAxEEGlhFHFY8AchPlTKIODuq4=;
+        b=YvQ9+e6jgKUdHBS4Ga9FRKnyx0ifdxk3ZXiu3lrwnuW5ClBqaZMnURUo8MQIUEZRJS
+         iUuFGi5G0sg8EwfYqdPUTH9MWlXrWSPJ414kjGqxMM5PNQZFkp5Ux8wLRMzXf/DYgcVe
+         VBUZiId/vvQXKcCDw8WypqWIONbkaUhhwa6suJpz9knzWgsLMLI84uVnu7vFh7iGxyi5
+         FvMrKYTyAp+Y9LR04hqpnfeyp4VwGruWzazNzQxH83UD8OOCD4GAgrFlq5iMmC0B1x7h
+         iu2Zo4vDM5If2UaRXsZuXa/ZjFJZ4WuFP7fhTKmztFfcQNGkw7oePBPbN99P15U2POkM
+         dfRQ==
+X-Forwarded-Encrypted: i=1; AKwUvBztWDpWVL2LjcYINCkxU5MhaRZY1+h2qZW7RsnbU7afRZtyBO7n1pfC86w8Z8LwDNkgI7MrIAtdo3rbGks=@vger.kernel.org
+X-Gm-Message-State: AFuF++lpkPCPqyIBjsbLkiVZEs/+YHQ2s3n4XB2wh62EHxH9m/Xs4c+n
+	J2RNuIahq+ymIGjPLmjYokFe+Etd50XSACd1kaZTgxNM35xXBNz/NSOyQ4IPesTw
+X-Gm-Gg: AYBFou1wfTCRjz3nHUvTJtXKl1ck2Hf8zIR+WTWYfXyfLZPykGrSfvGjFk7wrwJ5Gwy
+	gkWEdVK+a+xzIoHjewfuF1MTUeV86gKjNmZfcjQCIpa0862hPuYMLJjbw1lRdf8zZYmW1AWveOA
+	V0TZrsk8KKLCoSgS/q58atREFjaiG6NxIDHDKxdvpf4TcYdboNp9futXm8trxFC06K+aLQ4EE0b
+	4uU0ZcLnTKKcwPMls1RATmLDb5Oi5Iv2Sjaqkqcq+oaEeFO2h/2iVcPcODu2xz6eMLfXVO2Jbph
+	Eyr+vXIyBb2B76MbKwmfpZdCmhs7uEVmwcXhGtQc4jS7OOhDoTQ+np/DS/8YTUrcf6J4hEVOOvU
+	wgTytwdFPWCpWab4nY8KU0/Cu43aLv3r+HbPcovosnwnRh9gwPBaauHjeFyCYA/I4LxS5paKCg7
+	pCMNGf292uYAe7R0n98EqYvUC/jsKppMpFYHFV+qAsyoCjqQZnMMvQa9HfPWwuCdKpMQNF3jHSF
+	pXwWXCasV5NJ5tK3O0BKsmxLceyCqk8HLgflX06JwmvxoJxndaNe0SXuc/+bHI1IWwUsdR7AJ85
+	useOX/fB2A==
+X-Received: by 2002:a05:6a00:1702:b0:874:705d:f65b with SMTP id d2e1a72fcca58-874df609d88mr9194535b3a.41.1789857320876;
+        Sat, 19 Sep 2026 15:35:20 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17c4d58sm13007015ad.58.2026.09.19.15.35.18
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877aa4fd913sm1355998b3a.55.2026.09.19.15.35.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 15:35:18 -0700 (PDT)
+        Sat, 19 Sep 2026 15:35:20 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
-To: gregkh@linuxfoundation.org,
-	stern@rowland.harvard.edu,
-	michal.pecio@gmail.com
+To: valentina.manea.m@gmail.com,
+	shuah@kernel.org,
+	gregkh@linuxfoundation.org
 Cc: linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] usb: core: fix descriptor parsing OOB, port/bos locking, and devio/ledtrig races
-Date: Sat, 19 Sep 2026 22:35:18 +0000
-Message-ID: <20260919223518.3890208-1-benquike@gmail.com>
+Subject: [PATCH] usbip: validate ISO packet descriptors and URB lengths in vhci, vudc, and usbip_common
+Date: Sat, 19 Sep 2026 22:35:19 +0000
+Message-ID: <20260919223519.3890269-1-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -76,214 +76,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix multiple memory safety and locking bugs in drivers/usb/core/:
-
-1. In usb_parse_ssp_isoc_endpoint_companion() and
-   usb_parse_ss_endpoint_companion() (config.c), check remaining
-   descriptor size before dereferencing desc->bDescriptorType or
-   subtracting desc->bLength.
-2. In bos_descriptors_read() (sysfs.c) and usb3_lpm_permit_store()
-   (port.c), hold usb_lock_device() and verify udev->bos /
-   port_dev->child pointers.
-3. In usbport_trig_deactivate() (ledtrig-usbport.c), unregister the USB
-   notifier before freeing port list entries.
-4. In devio.c, message.c, and devices.c, validate transfer lengths and
-   string descriptor buffers.
+In drivers/usb/usbip/ (usbip_common.c, vhci_rx.c, vudc_dev.c), validate
+actual_length, number_of_packets, and isochronous packet descriptor
+offsets against the transfer buffer capacity before copying payload
+data.
 
 Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
-diff --git a/drivers/usb/core/config.c b/drivers/usb/core/config.c
-index 0e79b7f8a73d..6762e97371c6 100644
---- a/drivers/usb/core/config.c
-+++ b/drivers/usb/core/config.c
-@@ -106,7 +106,9 @@ static void usb_parse_ss_endpoint_companion(struct device *ddev, int cfgno,
+diff --git a/drivers/usb/usbip/usbip_common.c b/drivers/usb/usbip/usbip_common.c
+index 100f8920624b..8bd9af7ebfc8 100644
+--- a/drivers/usb/usbip/usbip_common.c
++++ b/drivers/usb/usbip/usbip_common.c
+@@ -482,7 +482,6 @@ static void usbip_pack_ret_submit(struct usbip_header *pdu, struct urb *urb,
+ 		if (rpdu->number_of_packets < 0 ||
+ 		    rpdu->number_of_packets > urb->number_of_packets)
+ 			rpdu->number_of_packets = 0;
+-		urb->number_of_packets = rpdu->number_of_packets;
+ 		urb->error_count	= rpdu->error_count;
+ 	}
+ }
+@@ -702,8 +701,9 @@ int usbip_recv_iso(struct usbip_device *ud, struct urb *urb)
+ 
+ 	ret = usbip_recv(ud->tcp_socket, buff, size);
+ 	if (ret != size) {
+-		dev_err(&urb->dev->dev, "recv iso_frame_descriptor, %d\n",
+-			ret);
++		if (urb->dev)
++			dev_err(&urb->dev->dev,
++				"recv iso_frame_descriptor, %d\n", ret);
+ 		kfree(buff);
+ 
+ 		if (ud->side == USBIP_STUB || ud->side == USBIP_VUDC)
+@@ -781,6 +781,8 @@ void usbip_pad_iso(struct usbip_device *ud, struct urb *urb)
+ 	 * memory when padding) and move them into the proper place
  	 */
- 	desc = (struct usb_ss_ep_comp_descriptor *) buffer;
+ 	for (i = np-1; i > 0; i--) {
++		if (actualoffset < urb->iso_frame_desc[i].actual_length)
++			return;
+ 		actualoffset -= urb->iso_frame_desc[i].actual_length;
  
--	if (size < USB_DT_SS_EP_COMP_SIZE) {
-+	if (size < USB_DT_SS_EP_COMP_SIZE ||
-+	    desc->bLength < USB_DT_SS_EP_COMP_SIZE ||
-+	    desc->bLength > size) {
- 		dev_notice(ddev,
- 			   "invalid SuperSpeed endpoint companion descriptor "
- 			   "of length %d, skipping\n", size);
-diff --git a/drivers/usb/core/devices.c b/drivers/usb/core/devices.c
-index 6f0354aba38b..771996a8c995 100644
---- a/drivers/usb/core/devices.c
-+++ b/drivers/usb/core/devices.c
-@@ -500,8 +500,8 @@ static ssize_t usb_device_dump(char __user **buffer, size_t *nbytes,
- 				      file_offset, childdev, bus,
- 				      level + 1, chix - 1, ++cnt);
- 		usb_unlock_device(childdev);
--		if (ret == -EFAULT)
--			return total_written;
-+		if (ret < 0)
-+			return total_written ? total_written : ret;
- 		total_written += ret;
- 	}
- 	return total_written;
-diff --git a/drivers/usb/core/devio.c b/drivers/usb/core/devio.c
-index 101cb9425480..ecd96e249260 100644
---- a/drivers/usb/core/devio.c
-+++ b/drivers/usb/core/devio.c
-@@ -602,7 +602,7 @@ __acquires(ps->lock)
- 			as->bulk_addr = 0;
- 		}
- 	}
--	ps->disabled_bulk_eps |= (1 << bulk_addr);
-+	ps->disabled_bulk_eps |= (1U << bulk_addr);
- 
- 	/* Now carefully unlink all the marked pending URBs */
-  rescan:
-@@ -1600,6 +1600,8 @@ find_memory_area(struct usb_dev_state *ps, const struct usbdevfs_urb *uurb)
- 
- 	spin_lock_irqsave(&ps->lock, flags);
- 	list_for_each_entry(iter, &ps->memory_list, memlist) {
-+		if (!iter->vma_use_count)
-+			continue;
- 		if (uurb_start >= iter->vm_start &&
- 				uurb_start < iter->vm_start + iter->size) {
- 			if (uurb->buffer_length > iter->vm_start + iter->size -
-@@ -1937,10 +1939,9 @@ static int proc_do_submiturb(struct usb_dev_state *ps, struct usbdevfs_urb *uurb
- 	if (!is_in)
- 		snoop_urb_data(as->urb, as->urb->transfer_buffer_length);
- 
--	async_newpending(as);
--
- 	if (usb_endpoint_xfer_bulk(&ep->desc)) {
- 		spin_lock_irq(&ps->lock);
-+		list_add_tail(&as->asynclist, &ps->async_pending);
- 
- 		/* Not exactly the endpoint address; the direction bit is
- 		 * shifted to the 0x10 position so that the value will be
-@@ -1956,17 +1957,18 @@ static int proc_do_submiturb(struct usb_dev_state *ps, struct usbdevfs_urb *uurb
- 		if (uurb->flags & USBDEVFS_URB_BULK_CONTINUATION)
- 			as->bulk_status = AS_CONTINUATION;
- 		else
--			ps->disabled_bulk_eps &= ~(1 << as->bulk_addr);
-+			ps->disabled_bulk_eps &= ~(1U << as->bulk_addr);
- 
- 		/* Don't accept continuation URBs if the endpoint is
- 		 * disabled because of an earlier error.
- 		 */
--		if (ps->disabled_bulk_eps & (1 << as->bulk_addr))
-+		if (ps->disabled_bulk_eps & (1U << as->bulk_addr))
- 			ret = -EREMOTEIO;
- 		else
- 			ret = usb_submit_urb(as->urb, GFP_ATOMIC);
- 		spin_unlock_irq(&ps->lock);
- 	} else {
-+		async_newpending(as);
- 		ret = usb_submit_urb(as->urb, GFP_KERNEL);
+ 		/*
+diff --git a/drivers/usb/usbip/vhci_rx.c b/drivers/usb/usbip/vhci_rx.c
+index a678e7c89837..7ef646095408 100644
+--- a/drivers/usb/usbip/vhci_rx.c
++++ b/drivers/usb/usbip/vhci_rx.c
+@@ -73,6 +73,13 @@ static void vhci_recv_ret_submit(struct vhci_device *vdev,
+ 		return;
  	}
  
-diff --git a/drivers/usb/core/ledtrig-usbport.c b/drivers/usb/core/ledtrig-usbport.c
-index 8881644777a7..c472b2cf1e50 100644
---- a/drivers/usb/core/ledtrig-usbport.c
-+++ b/drivers/usb/core/ledtrig-usbport.c
-@@ -88,7 +88,7 @@ static ssize_t usbport_trig_port_show(struct device *dev,
- 						      struct usbport_trig_port,
- 						      attr);
- 
--	return sysfs_emit(buf, "%d\n", port->observed) + 1;
-+	return sysfs_emit(buf, "%d\n", port->observed);
- }
- 
- static ssize_t usbport_trig_port_store(struct device *dev,
-@@ -334,14 +334,14 @@ static void usbport_trig_deactivate(struct led_classdev *led_cdev)
- 	struct usbport_trig_data *usbport_data = led_get_trigger_data(led_cdev);
- 	struct usbport_trig_port *port, *tmp;
- 
-+	usb_unregister_notify(&usbport_data->nb);
-+
- 	list_for_each_entry_safe(port, tmp, &usbport_data->ports, list) {
- 		usbport_trig_remove_port(usbport_data, port);
- 	}
- 
- 	sysfs_remove_group(&led_cdev->dev->kobj, &ports_group);
- 
--	usb_unregister_notify(&usbport_data->nb);
--
- 	kfree(usbport_data);
- }
- 
-diff --git a/drivers/usb/core/message.c b/drivers/usb/core/message.c
-index 75e2bfd744a9..c16827d16b78 100644
---- a/drivers/usb/core/message.c
-+++ b/drivers/usb/core/message.c
-@@ -1358,6 +1358,11 @@ void usb_disable_endpoint(struct usb_device *dev, unsigned int epaddr,
- 			dev->ep_in[epnum] = NULL;
- 	}
- 	if (ep) {
-+		if (reset_hardware && epnum != 0 &&
-+		    usb_endpoint_xfer_control(&ep->desc)) {
-+			dev->ep_out[epnum] = NULL;
-+			dev->ep_in[epnum] = NULL;
-+		}
- 		ep->enabled = 0;
- 		usb_hcd_flush_endpoint(dev, ep);
- 		if (reset_hardware)
-diff --git a/drivers/usb/core/port.c b/drivers/usb/core/port.c
-index b4452b665f59..32ab63627c82 100644
---- a/drivers/usb/core/port.c
-+++ b/drivers/usb/core/port.c
-@@ -279,9 +279,10 @@ static ssize_t usb3_lpm_permit_store(struct device *dev,
- 			       const char *buf, size_t count)
- {
- 	struct usb_port *port_dev = to_usb_port(dev);
--	struct usb_device *udev = port_dev->child;
-+	struct usb_device *udev;
- 	struct usb_hcd *hcd;
- 
-+	device_lock(dev);
- 	if (!strncmp(buf, "u1_u2", 5)) {
- 		port_dev->usb3_lpm_u1_permit = 1;
- 		port_dev->usb3_lpm_u2_permit = 1;
-@@ -297,22 +298,30 @@ static ssize_t usb3_lpm_permit_store(struct device *dev,
- 	} else if (!strncmp(buf, "0", 1)) {
- 		port_dev->usb3_lpm_u1_permit = 0;
- 		port_dev->usb3_lpm_u2_permit = 0;
--	} else
-+	} else {
-+		device_unlock(dev);
- 		return -EINVAL;
++	if (usb_pipeisoc(urb->pipe) &&
++	    pdu->u.ret_submit.number_of_packets != urb->number_of_packets) {
++		usbip_event_add(ud, VDEV_EVENT_ERROR_TCP);
++		urb->status = -EPROTO;
++		goto error;
 +	}
 +
-+	udev = usb_get_dev(port_dev->child);
-+	device_unlock(dev);
+ 	/* unpack the pdu to a urb */
+ 	usbip_pack_pdu(pdu, urb, USBIP_RET_SUBMIT, 0);
  
- 	/* If device is connected to the port, disable or enable lpm
- 	 * to make new u1 u2 setting take effect immediately.
- 	 */
- 	if (udev) {
- 		hcd = bus_to_hcd(udev->bus);
--		if (!hcd)
-+		if (!hcd) {
-+			usb_put_dev(udev);
- 			return -EINVAL;
-+		}
- 		usb_lock_device(udev);
- 		mutex_lock(hcd->bandwidth_mutex);
- 		if (!usb_disable_lpm(udev))
- 			usb_enable_lpm(udev);
- 		mutex_unlock(hcd->bandwidth_mutex);
- 		usb_unlock_device(udev);
-+		usb_put_dev(udev);
- 	}
- 
- 	return count;
-diff --git a/drivers/usb/core/sysfs.c b/drivers/usb/core/sysfs.c
-index d22dc78457d7..da6dc2713ffd 100644
---- a/drivers/usb/core/sysfs.c
-+++ b/drivers/usb/core/sysfs.c
-@@ -908,7 +908,7 @@ bos_descriptors_read(struct file *filp, struct kobject *kobj,
- 	if (rc < 0)
- 		return -EINTR;
- 	bos = udev->bos;
--	if (bos) {
-+	if (bos && bos->desc) {
- 		desc = bos->desc;
- 		desclen = le16_to_cpu(desc->wTotalLength);
- 		if (off < desclen) {
