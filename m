@@ -1,76 +1,76 @@
-Received: from mail-pj2-f16.google.com (mail-pj2-f16.google.com [74.125.227.144])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C887376A07
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 21:28:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.144
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AA26388899
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 21:28:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789853333; cv=none; b=H6B/N0jjuMX55AoaWt46CDtn/jj9NbjkcHyktYB1ed9pLUemBej6caCzPAhRKnl1eYu/MRENw07uidjLJOSRvrV6VWY+V9W1/xxceMub+k2YKBULPfQ5bTqPaqi8BJV6j0LppNlrpcq3k5xOPlv3vD+cPbtPp6D/BBupStOXDds=
+	t=1789853334; cv=none; b=Kx39lW58KGV6+HXVC4az2dI8wY24hCCISBO3G7k34hoD9FKwFabBPvdWBsRbDw2Pzol79dNa/rVkJQLf4DaDx56YcZLjxFQTNAYxn7aw2urbh7T6+afIFBK2MqAiDUSqXmDo7rr1M2O257RcT/WCgA5d+TMKBVwjykWFQgeNTVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789853333; c=relaxed/simple;
-	bh=qi+8UfjOHnuyvfYtoqMX/7Q8LuPSKEg1QIzac8Ia9Ko=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=X8kz20x4/qwgnEqitFTBL2/JoUo5aaeIRKnQYYrxI82d9C+wr64hGzBr0ea9IEN+UvfVg24pozhNt03iP5jDmoZN4rvcck49v4qZU6bbO0b2xPquDMuSmEZIEYwu7xnEQIQwdAzmaF+tV5cX8rpnbW6k0IhHe4ddaqZc+M2EKkA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U9q2cbN6; arc=none smtp.client-ip=74.125.227.144
+	s=arc-20240116; t=1789853334; c=relaxed/simple;
+	bh=GqV5Tydl3LPYKVJViJEcI+2HDXlD6WG5Df2m4/J8E28=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FrX/FfVxCw1YSYCgYLVO8y8L+HKX/kjtFX/ZghFnVzbVr8xEw3vMGyuQH2R2w7CEQRGwNdx4xOMyf2B+8tRhNcnG+kF0HjhUXAyvZd8U/iMllvfUhs3upGrqnpNq88BSXpNYvPrXAaXe5KoGZciy0nM5mE9YYx2dd5A8dPQLtAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ko56Urlo; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U9q2cbN6"
-Received: by mail-pj2-f16.google.com with SMTP id 98e67ed59e1d1-396ccd78e6eso714056a91.0
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:28:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ko56Urlo"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398a147688bso1929635a91.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:28:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789853331; x=1790458131; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789853332; x=1790458132; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AV643nCtB/hqzvQNISm7doHVXi7iv2eQBCiZ3N3vJaE=;
-        b=U9q2cbN6xDeijWvU4MSlyLbavSnMLfP1I/ryc16wfW9CjoVZ812oQUoSbeQiBYRkWh
-         hnssi6huPOjxR74pa61XWbST8DdNOueEgQbZFQ4n2/OSl8Ca5uB0hH3GC8H0oqxyb9Ba
-         5dWBr8lC/J1GDezpPYMjdttOu9g32FmNI0gpGE6rSe7TT3gZz2pdDY3QGvvkJS5q9tdV
-         ZfY392Kctre4OVzRNEonhdu/xe+8/+Os1Kl+5YExz8geqEQTdlVlsLfH6l0oWkEYX+2s
-         jjRyUE5lHOg0eDPH0kmUIVj1oq/cQYImyKfy4WBuY/IqpHkz0YQZZWsog49KE/CdZXWE
-         Ow8g==
+        bh=fOBLndiHTILxWCu+KMp+/nYLqNdqp9uqdVWKAPhjT7A=;
+        b=ko56UrlooRB+GlYTjSJf43+JDfXBc62w3xfUZjhzqevLZGPAXNq2/aG2p06xOB1oEY
+         0C2MPB//BSutUnYn8pT/L6VO2gBS78+GMMOUIWlkjAxZtdfhGEUY0k3dRxTzzBWwTasC
+         zI/8zjsgyJ17I0pnBgorpb86ylbvgTXwVozPyAGqLBQne8WvtHfNKLqcW1aBuYAoc84/
+         K/1mx5jfJGlpOZ0vdneanEo7G5G3J3RQ0eYJMzfwIXlY6I3XIKRMAqQaWpkIkV3J6Zan
+         0y9ApoUSFoH2218W7DwIEUXsrZ+w7uODePL7C5ZfNoaVMq8g6qbGPFBwKVHlW51THF7K
+         s6Aw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789853331; x=1790458131;
+        d=1e100.net; s=20260707; t=1789853332; x=1790458132;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=AV643nCtB/hqzvQNISm7doHVXi7iv2eQBCiZ3N3vJaE=;
-        b=X1Y8yjfkzVdUISLvaComPNl1hIBnBqfb9pAERXD0oMjqCs/ftNr7FdiVVSMH7Sy1c1
-         2mMYXb6QdYqWPniaWCZu+lXzfh3Fh1hI5IDdF5nmQAxJvYrpvx4syo80K065XLXDO5d0
-         oP8yxbjZlXqXVKVHbQ2nFdjhiVHlT2mevCTGf69fvT62KSSxqXQjn3GUOdNGMyB3fKIY
-         LRuK884SSqX2xijNy1AM0E0k9mHdnEDbSV0F0e1CHf6p8u9LHBpB9kUNkEF5i1XSTg5T
-         ngVi2jnEcW5mbL3bCnZIYft95zWpz5vaDSQ5KVo3nXpBexE3hqM4sb+bQEJQAH5L8BQt
-         lhDQ==
-X-Forwarded-Encrypted: i=1; AKwUvByXEE+OJNPGunQN7sDfqVctqQJ9cQ/9WPd9TW1r4qnG3IX1l6AXWeO1cZEtKceMck23KSaBMq04UQ/cfww=@vger.kernel.org
-X-Gm-Message-State: AFuF++mW4qcTnmZLZ7U6eqTWjFRbNvzoXXW5vkZYsWyrHIMRBKpdQlc3
-	b29yejyf6Heo6NRkZrPA0pfvgtreZUIvbvVyU676sSVYV8MlG5M5n82c
-X-Gm-Gg: AYBFou0p4UMmQXuLjBG3ppKesO3TH6EJEspcgAMQAPUknTOIiN6L49TBH1szx60VIAI
-	7G8zYCpjFQbCnhXdnob/7Myk9/NlYFNXcdDNiqnfrzPGDxQo5+mD/JAEGcK74jZ82zzxSv60UUR
-	xB/XXs+H3ozI8LEdDVabtCD4t/GPgx6lsiqDELozcFV8RVZWCh18wOlXkk4O1buAPNw2FmeBkla
-	8Iq7dltAjv0vxqZxpNrPm0MhviJSNPppg4w7OiIjeItyktzPiJ3cDr7hiQVzc0Smee3jssaZSko
-	rc7MzExIemJ4x9uayV6Dwh01X8sR5r9bkURei2ZHYSJgl5Dr8LLaygQIxyctmSJLQmzvdB8i9wF
-	mCO9DOsSePYaPJbvdaXV+o3RIZ5iggBlJBlwWkpxnkiDQjNUZb2GCd5UWnjPofMd8myi1kWEbxD
-	5FOqLbr4RaZXgsruJ6FdIE7tjWYBLw6Z0Xy/1QaufhEu/dEDi2kS60YTu5/oN1b9zMtokz+ccjB
-	nQnaUp9elXLkVsVIKS8gcKNgjw8kmdOd4t1N0BC21lx9Re6KkP7RKJdKP99hx8UNN45Ys8bkAaF
-	7U6J1TNfkQ==
-X-Received: by 2002:a17:90b:2b8e:b0:39e:4c7e:bc5 with SMTP id 98e67ed59e1d1-39e5572d5a2mr6755750a91.19.1789853330851;
-        Sat, 19 Sep 2026 14:28:50 -0700 (PDT)
+        bh=fOBLndiHTILxWCu+KMp+/nYLqNdqp9uqdVWKAPhjT7A=;
+        b=2y3CvDJZylApyMads6Ie/+oEa1yy3WJE60TgjhZPtz8I3xU6ByRo4Mi7eyAB+s22Pa
+         PDRw5Kus8yknuq5EdferCUW0VDUVK5Msu1Y+Ipp6ROeRp1D5qupDlhjz5/77BE8qOnKc
+         f5xNt4WXKFNsWw67+CEJcNsEK2a+FQ+SJl1w0nP4yWSFDlsDz6D9jHRz/hXgT5UNP8nE
+         x5G6f0s2pD5QezFZiuxCZEtvZqlmBcYWgmIQwYM5DuBLLoVsQ0gKV2ddFBn+iDd3yrT8
+         F1irw4hnLuuk2tsD+l7sOr5K3zKQe5z3e9ggwlGMMyHEOwHKU8HhDoPenHFdA/B974SU
+         CyOQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz1W0xlVkCULT6idwBElJ06/nE/kdtHHLslVTtZV8xmBsIsqxW3ZDHYG33YXT2392fb361Q4bAPDshi64M=@vger.kernel.org
+X-Gm-Message-State: AFuF++lOSD9xaAmF3zqaDEz5p4Sbgb88QLNYAzQ3XUPOr2s6IAT0MIwS
+	yCYb3ifrhk5SAcgV7lSzjdlqFQ2tL8XwEhDNfes9gvkbElAjQbO+ftmE
+X-Gm-Gg: AYBFou0j+HaHncp5Q77Qs/4NO+uw2MgKZM7e7L0meGayAzsStddoHTqO5ylXxH9xgNZ
+	OBZ6H22iMQ6yor7dv63VjxBA8wfUR0TkHXltoRd3KvRopVvhdZpKcRd7HymFoUsbrGU9ic91Dz1
+	wCm6IAR2QLQBV7t+HDrfWX2lSps8JsUUJk85sPBpY2GXed1svg61rmK/WrYnUdctbiegwodgfOs
+	wbCxhESQWwPy9twt7f2GBzaY6rsIziBmbXZzyZprpRReEY8+s/G4F7eCt0gTMeVsOw8MN/yv7rE
+	79W3960HBPNFgcwwp49/lIMqN+5eUyEjEq+t2Bfw/gXsru+6WJisQUDEECzZ8yB1uNVyYm7uewD
+	m+yQel/vswiB/ahkn+or1duD6VsR7Hz1c+YC1A/Whj5vfpLq0vlUdMG/W3HLBPTQThNJ47zFY7U
+	QxS+Hdwp5YiSuAZ3rDezQ+rk+9Fc487n0wrHB+UcnqJWAGvXtN3n5eiId8F43ZfTO99ImWpFdRF
+	KXqvG7Tp9eNIRxlUaqPoHmy7cfe5lmgSOuKuQgoBuM32JALTcGE1hp9D3CqWf+Lex0qukzE6d0U
+	KzvjzGHWtG/0cK2k/abT
+X-Received: by 2002:a17:90a:d40f:b0:39e:6c69:9b8c with SMTP id 98e67ed59e1d1-39e6c69b291mr5170268a91.49.1789853331817;
+        Sat, 19 Sep 2026 14:28:51 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6cb3284asm6107715a91.14.2026.09.19.14.28.50
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a023cf10bbsm1950956a91.3.2026.09.19.14.28.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 14:28:50 -0700 (PDT)
+        Sat, 19 Sep 2026 14:28:51 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
-To: mani@kernel.org,
+To: jk@codeconstruct.com.au,
+	matt@codeconstruct.com.au,
 	davem@davemloft.net,
 	edumazet@google.com,
 	kuba@kernel.org,
 	pabeni@redhat.com
 Cc: horms@kernel.org,
-	linux-arm-msm@vger.kernel.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] net: qrtr: ns: validate msglen and sq_port in qrtr_ns_worker() and ctrl_cmd_bye()
-Date: Sat, 19 Sep 2026 21:28:50 +0000
-Message-ID: <20260919212850.3240353-1-benquike@gmail.com>
+Subject: [PATCH] mctp: route: verify socket ownership in mctp_lookup_prealloc_tag()
+Date: Sat, 19 Sep 2026 21:28:51 +0000
+Message-ID: <20260919212851.3240598-1-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -80,55 +80,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Two validation checks are missing in the QRTR in-kernel nameservice
-(`net/qrtr/ns.c`):
+When a socket transmits a packet with `MCTP_TAG_PREALLOC` set,
+mctp_lookup_prealloc_tag() iterates over the per-netns `&mns->keys` list
+and matches `netid`, `req_tag`, `peer_addr`, and `manual_alloc`, but
+omits checking whether `tmp->sk == &msk->sk`.
 
-1. `qrtr_ns_worker()` receives control packets into a single reused
-   4096-byte `recv_buf` via `kernel_recvmsg()` without checking that
-   `msglen >= sizeof(*pkt)` (20 bytes). If a short packet arrives on
-   `qrtr_ns.sock`, `qrtr_ns_worker()` reads stale bytes from previous
-   control messages (or uninitialized heap memory on the first packet)
-   when parsing `pkt->cmd` and its union fields.
-2. Unlike `ctrl_cmd_del_client()`, `ctrl_cmd_bye()` does not verify that
-   `from->sq_port == QRTR_PORT_CTRL`, allowing any unprivileged local
-   `AF_QIPCRTR` socket to send a `QRTR_TYPE_BYE` packet and purge all
-   registered services for the local node.
+Because all preallocated tags (`0..7`) reside in the shared per-netns
+`&mns->keys` list, any local `AF_MCTP` socket can specify another
+socket's preallocated tag and cause incoming replies to be matched
+against the victim socket's `mctp_sk_key` or reset its expiry state.
 
-Check `msglen < sizeof(*pkt)` in `qrtr_ns_worker()` and require
-`from->sq_port == QRTR_PORT_CTRL` in `ctrl_cmd_bye()`.
+Verify `tmp->sk == &msk->sk` in `mctp_lookup_prealloc_tag()`.
 
-Fixes: 0c2204a4ad71 ("net: qrtr: Migrate nameservice to kernel from userspace")
+Fixes: 63ed1aab3d40 ("mctp: Add SIOCMCTP{ALLOC,DROP}TAG ioctls for tag control")
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 
 ---
- net/qrtr/ns.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ net/mctp/route.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/net/qrtr/ns.c b/net/qrtr/ns.c
-index bcb090ee79d4..d7e1a37f0717 100644
---- a/net/qrtr/ns.c
-+++ b/net/qrtr/ns.c
-@@ -347,6 +347,9 @@ static int ctrl_cmd_bye(struct sockaddr_qrtr *from)
- 	iv.iov_base = &pkt;
- 	iv.iov_len = sizeof(pkt);
+diff --git a/net/mctp/route.c b/net/mctp/route.c
+index a2c1517ff447..e411ebeca631 100644
+--- a/net/mctp/route.c
++++ b/net/mctp/route.c
+@@ -826,6 +826,9 @@ static struct mctp_sk_key *mctp_lookup_prealloc_tag(struct mctp_sock *msk,
+ 	spin_lock_irqsave(&mns->keys_lock, flags);
  
-+	if (from->sq_port != QRTR_PORT_CTRL)
-+		return -EINVAL;
-+
- 	node = node_get(from->sq_node);
- 	if (!node)
- 		return 0;
-@@ -639,6 +642,9 @@ static void qrtr_ns_worker(struct work_struct *work)
- 			break;
- 		}
- 
-+		if (msglen < sizeof(*pkt))
+ 	hlist_for_each_entry(tmp, &mns->keys, hlist) {
++		if (tmp->sk != &msk->sk)
 +			continue;
 +
- 		pkt = recv_buf;
- 		cmd = le32_to_cpu(pkt->cmd);
- 		if (cmd < ARRAY_SIZE(qrtr_ctrl_pkt_strings) &&
+ 		if (tmp->net != netid)
+ 			continue;
+ 
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
