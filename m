@@ -1,72 +1,72 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BCC039CCE4
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:26:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6F4E39E17C
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:26:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789856791; cv=none; b=hzUvEF5KixJYasweNgu/9F89sZheT5x6SNVZVSUymFTZNf33GhjdtRW7MVZ8yMeqVVei2Q2H//gen8jbaYdCrh0ChpeV0NoAPj/vNPEwRNQdNOt5jtkclTPYDF9g7cSVq0BHwDgT1jyDWCRdx71dUro6b3kMZnFMgORYTQGzeHo=
+	t=1789856792; cv=none; b=bNmsC352AvrjByHy2JUWFPpgxdEpLOHxrtkHUOMyXxYfCq7XHGBN85ipFr3GaVeBpL6VE3jsl6VCkDQDf6Ia5RV+U8J1v2ul+WcfeHcPl930mnbVDxZKvqkrlLL5Jrp6TF/Hv0CknIQQR+JfHO2hO7Y+2DzdWpfM10tS3xe6By4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789856791; c=relaxed/simple;
-	bh=bKmQjDO7xOd0syALACTYy/o5iBLTBBmStjTLuJ58dQQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MUbssbm5Mxhh2RbPo5jPOL6w9GELNpNUsmK0JMGRlzqI63oljr25pL5SnbuTTyXquaLfLAT8gmQfOdEHqOVHVGNDIK/fz4JYCIrF84rz3jP2yePPhjMbRSS9JrNBJDJKyxlushCxgwW6b0LrwjnVpHKzytx07cB76f9F6c8rwqM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ee10MDwo; arc=none smtp.client-ip=74.125.228.12
+	s=arc-20240116; t=1789856792; c=relaxed/simple;
+	bh=H4IosnsmrbIdD2WnNrn/Jl69BS84apXNa6SmRDl/rRM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZPLi0cyluqeyIbCDZnIVWiX5VNwXES6aY7FXsgq/q/8Wn/GSKuEfob0HcTDEa1/bth+baAKrrnmJkaegZeHnwhDpf/hakwXKAV5m4u0H6u6K0GDJuYJJwtTVPrLnoX5cfGlqJR9EYtf9bJtUbLn0WdOgNh0Hiykf1L25GeVAIuc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KhIR2u4c; arc=none smtp.client-ip=74.125.227.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ee10MDwo"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85a4329731cso1448930b3a.3
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:26:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KhIR2u4c"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396cccbba92so1716269a91.0
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:26:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789856789; x=1790461589; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789856790; x=1790461590; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=V9Y/SVxm8MOmqJvVl1qnXFoqmvLC78rd9Cv4PArFdCA=;
-        b=Ee10MDwor725T37Cj10NUKdaLvJofCD+zWGsJp+ns1L7a9/Qx36I5as1qOrDHMZikb
-         Z/UayuZShLR1NWmcJKtGMg6cdBkygWNbtg/kfDI+yGvbbzsM1ikGkcvwHdQKGkS3FU3I
-         z6bBd+7ULRrQJYHbLcDQXorNXFkeuC/zpj2tZpub6lkZXy5wmclbLZt+XZ/5K1Cp8+iL
-         qONmuSZweJYbkmrrfzB/JcinmcCLqFrpLxIrhbqrMpzbIES3aU9lM/KeTv6JqncLcpse
-         Mf/HrHqKqxEuiCo7YnvC1yAfEB43Gu3KZEJbyfn6ca92o6veVUc4L1xNwdBgoVoIM7Tj
-         i20g==
+        bh=6R3voHmBzh4lvqv8peZSsVk4sFxcqioiBA0aCjPm9Mc=;
+        b=KhIR2u4cBTBfmxauLrScUr14LarTQtuOGJt1vo8tu940A2qyyHcTt/YqkJsVP0BkkM
+         UVMYB+eJ3M/Q2bN11fkdqoEZmJsFVwbZFX2jtvgSWqPzgf6bcBILmLsKhrIlF5jUglis
+         DF/pmg4CsK4YgHJC9i5rItGiUbFHzOnV/ux1aiPFxnfk6gVzHJTBazNMkm0IKpvKibhd
+         1xkb4yfZtZM3t48tG1paNBUjTkKtb/nY7gSE10fRAeOL+6xHenOx2ph7DhUCM9TlJsgC
+         tMHrWGI2llZFv27rQjhK0eMGNydH27S14PT43R6pQAbwdt9Cbb5toU3rCS8gPd/U8BeU
+         l6EA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789856789; x=1790461589;
+        d=1e100.net; s=20260707; t=1789856790; x=1790461590;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=V9Y/SVxm8MOmqJvVl1qnXFoqmvLC78rd9Cv4PArFdCA=;
-        b=GUb4eZ+39T2d4BA6smvKEHqsRijqea7ZyvdbaOrjkyjw/gAKi1qp2U1pP4K82NP5j9
-         mDUvjBSi5HwSssQzl72Y1BIfclw0RXMxEbx95MqQUZOtj/oNGReo5kcD3hO9UJqjfeG7
-         p5oKPx1nWMtP+iKbKmtQsPfXpUBlntV6oCd5ARhQYeMmppzKbTm45544YookjXwTu6/Y
-         U9x+fapwSqygiYSPccqejAxIm4ekZN5O61IzWI+p+4qyVmfh1nFLyhihMYRCcF0cvD6c
-         Z7V/nBwpv/BmtnYXPGdiMp1O7U0BOcei6XA5pVf67sZFWREvLRGnSmu5F4zBImC2OAMM
-         Y89A==
-X-Forwarded-Encrypted: i=1; AKwUvBzR/dQ3HR8vnPH7vDYvrxDEeQ0zmfmo8Ph6E60FcG9G0t3s1JSCfed6soJxlxepfDSZlCIIZ2PpnlCmKgA=@vger.kernel.org
-X-Gm-Message-State: AFuF++llPtlu47je2Y8vzWLATWEth6j8RLMa4iEUYkik0PmMVyQzUjtr
-	NTBbvHDVUbOVn22Ob8Oc4KKo+fQgNLD7POglJGpFWWUZVm0UK/mpD3DQ
-X-Gm-Gg: AYBFou3jD4emyfWCVrR26fpn7CX98fMRTMp2RpHnquPuQpHRFpmzsQBYf/CNaT6Bm/r
-	cTiomQEntMaz9gmz/Q/+F9fnTuOhiCoFhtg1/9xEZKxQy0s3L1czpBF/Lye+atQp4IG/XDGDmBX
-	XnwZxK/I4GtNIJNXVFDggjhhszzzxmIje2PJEu2W/+PzJfJCw3V6IVvTN/OCgW30oFhmAqa5LIK
-	tpeTMiKHRH+7UFwhBjUxRxjtCPmi591V/ZN1tVopYxrN+7fO1Y3EgRllYJ31N06u5MsmBmgpIel
-	etegDF5tZnz0cWoTd2UJ4GenA/wBdY5Sis0yMrqe4JsECWu0g2OB2dY+ZV82/1d9/3WeKPOSfWK
-	U+6ZLCJhStUz6nv1KQaYSZn6vkUG5+q5N7RogfDGCFEVXSexm443upSX+PrYvptkTW+aVz2lGcS
-	W6Km4TNbaGz2SpvSG7WotnjXmPVxbKV7E/NQvnnJxoE5cxhtCsvxQsazGDkpDlS5eaG65/3CI0E
-	6OEnQQGztbCcJX6wypRoqpgQxqh8on4XaAq9rp0Yepg1kxU7Z5rd/A7StoYGBk75yJ1/PcXUiO6
-	IJtSqumDYQ==
-X-Received: by 2002:a05:6a00:94d6:b0:857:7317:cff5 with SMTP id d2e1a72fcca58-874decf4e9emr10344836b3a.22.1789856789222;
-        Sat, 19 Sep 2026 15:26:29 -0700 (PDT)
+        bh=6R3voHmBzh4lvqv8peZSsVk4sFxcqioiBA0aCjPm9Mc=;
+        b=RF5r5wbgKim/ofFkR4SJeHWInZGohk0+/1eTTdjB2+hqoENDMvvo39rIq+Oq7IEk0t
+         qBmqNzsAnZmqMQEvxPV/7gVnRvZwev4sHj4Cw0ZLibJ9Jpd2SIoJrF51/xuQqlyPhDAB
+         Vj9PsdxZoZ3Ql43xht9wHIApIe/MMBWpDHxoa4ERuJ0pqnFML8pLmhSwzPB1Lm34yGE/
+         tVzk4pkY22l93sBlieqZLMrDL6LsCKB4932p1QVVHw/B1qtGO32YKK59Nk2/xg3YViNg
+         HKBp4+uhGuUTA4v0G6CEan2f/r1x/CTmziL7IsinLjxGdsjZva+aND985bIbjoNc8Dt0
+         WUBg==
+X-Forwarded-Encrypted: i=1; AKwUvBykio3RYEBsP95jWYTDq5cG+/OsJ6BLLyj5KR/SPZSdbByUOhwl6LSqwegaN0RwwCRAvNt+MEUlCHMSVlc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mFIW3D8XkSumoXsZFCJBQvp29sEsQi/m5lJfODur0OYWFzVpUN
+	NUZbnDleUD03g92+V+M/xE8Afn86rBSBeeD1z5+GHkgK1DImKLkykxvgagaknSZd
+X-Gm-Gg: AYBFou0Of6HMK5PsDgeHhmpH7ZaHX8Sz8Daw0I9ru9uowVdyNsyeDW9Wlblean6a9Ez
+	m2gYWOPSda40sB4DOcVM4mt6ozgsbm2qgitvXYOsX+GII8lSLhhXuFrzvWJGeB63fah6bVAZdt9
+	5fypIxc+1SN+fjrfSwUUgOdn5TcXddlAs9TN0vx3vtvs3RET0rU/CvR+X1+GfBM4U5m9aMHd95b
+	y92p8WDBz7CRoV5FFr6OV78dmXaCxBedvmd+hG0aoNpiuHIsASxdlKCeESDJZcZKuVJ2Nt7NKwz
+	G2CCkSg+bKq28tSzryHUBFMyJATxBg3/QtBxKA+bdrkNY10uEiqZhJUeod1cXZdrLFhMz9CMav1
+	Rx5jcF4zZj1IiMcbqrltrK1w6lV8HStIkKCNAj3gxVTwI6R3q08Q1UXtWSG92AYF5j7mqnezKwX
+	QWfd67xOXpjrns13ZSNa0AH4Sy6homKGcMQa0LElEPabESiaA/+WsnahHpTssx5AkJT2ftrSQXh
+	1f9GlFm4w+mjm7ZIhhzQ0Hm3aJ4ThnPh5oILcaOMEjd7lT1185RHlqaiON1aKIcOFn93Xdqz6T4
+	v+5CcsXoPg==
+X-Received: by 2002:a17:90a:cf0c:b0:39e:6c6a:20a1 with SMTP id 98e67ed59e1d1-39e6c6a22aamr3921834a91.66.1789856790138;
+        Sat, 19 Sep 2026 15:26:30 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a6ae7d71sm1352690b3a.2.2026.09.19.15.26.28
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6ca4ef3esm6351460a91.1.2026.09.19.15.26.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 15:26:28 -0700 (PDT)
+        Sat, 19 Sep 2026 15:26:29 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
-To: gregkh@linuxfoundation.org,
-	jirislaby@kernel.org,
-	john.ogness@linutronix.de
-Cc: linux-serial@vger.kernel.org,
+To: bhelgaas@google.com,
+	airlied@redhat.com
+Cc: linux-pci@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] serial: fix 8250 hash_mutex race and uart_get_baud_rate() divide-by-zero
-Date: Sat, 19 Sep 2026 22:26:27 +0000
-Message-ID: <20260919222627.3797854-1-benquike@gmail.com>
+Subject: [PATCH] PCI/VGA: fix inverted vga_tryget() return check and clear removed pci_dev
+Date: Sat, 19 Sep 2026 22:26:29 +0000
+Message-ID: <20260919222629.3798073-1-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -76,64 +76,166 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix two bugs in the serial subsystem:
+Fix two issues in drivers/pci/vgaarb.c:
 
-1. In serial8250_Label / serial_link_irq_chain() and
-   serial_unlink_irq_chain() (drivers/tty/serial/8250/8250_core.c), hold
-   hash_mutex across the entire IRQ list manipulation and
-   request_irq()/free_irq() sequence to prevent racing IRQ chain
-   insertions/removals.
-2. In uart_get_baud_rate() and uart_set_info()
-   (drivers/tty/serial/serial_core.c), avoid unsigned overflow in
-   port->uartclk = new_info->baud_base * 16 and ensure the fallback
-   retry in uart_get_baud_rate() terminates cleanly when no baud rate
-   lies in [min, max].
+1. In vga_arb_device_init() / vga_arbiter_From_pci_dev(), vga_tryget()
+   returns 0 on success and a negative errno on failure, so checking if
+   (!vga_tryget(...)) is inverted and skips unlocking on success.
+2. In vga_arbiter_del_pci_device(), clear any open vga_arb_user_init
+   priv->target references pointing to the removed pci_dev so subsequent
+   writes or close() on /dev/vga_arbiter do not dereference a freed
+   pci_dev.
 
-Fixes: ab4382d27412 ("tty: move drivers/serial/ to drivers/tty/serial/")
+Fixes: 1d38fe6ee6a8 ("PCI/VGA: Move vgaarb to drivers/pci")
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
-diff --git a/drivers/tty/serial/8250/8250_core.c b/drivers/tty/serial/8250/8250_core.c
-index b875d394796f..0bc810f285a4 100644
---- a/drivers/tty/serial/8250/8250_core.c
-+++ b/drivers/tty/serial/8250/8250_core.c
-@@ -134,8 +134,6 @@ static struct irq_info *serial_get_or_create_irq_info(const struct uart_8250_por
- {
- 	struct irq_info *i;
+diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
+index 3de05aee7859..4f13e542505a 100644
+--- a/drivers/pci/vgaarb.c
++++ b/drivers/pci/vgaarb.c
+@@ -818,11 +818,33 @@ static bool vga_arbiter_add_pci_device(struct pci_dev *pdev)
+ 	return false;
+ }
  
--	guard(mutex)(&hash_mutex);
--
- 	hash_for_each_possible(irq_lists, i, node, up->port.irq)
- 		if (i->irq == up->port.irq)
- 			return i;
-@@ -156,6 +154,8 @@ static int serial_link_irq_chain(struct uart_8250_port *up)
- 	struct irq_info *i;
- 	int ret;
- 
-+	guard(mutex)(&hash_mutex);
++#define MAX_USER_CARDS         CONFIG_VGA_ARB_MAX_GPUS
++#define PCI_INVALID_CARD       ((struct pci_dev *)-1UL)
 +
- 	i = serial_get_or_create_irq_info(up);
- 	if (IS_ERR(i))
- 		return PTR_ERR(i);
-diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
-index 95774b0f1484..4cd4fb0f7ee3 100644
---- a/drivers/tty/serial/serial_core.c
-+++ b/drivers/tty/serial/serial_core.c
-@@ -501,7 +501,7 @@ uart_get_baud_rate(struct uart_port *port, struct ktermios *termios,
- 		break;
- 	}
++/* Each user has an array of these, tracking which cards have locks */
++struct vga_arb_user_card {
++	struct pci_dev *pdev;
++	unsigned int mem_cnt;
++	unsigned int io_cnt;
++};
++
++struct vga_arb_private {
++	struct list_head list;
++	struct pci_dev *target;
++	struct vga_arb_user_card cards[MAX_USER_CARDS];
++	spinlock_t lock;
++};
++
++static LIST_HEAD(vga_user_list);
++static DEFINE_SPINLOCK(vga_user_lock);
++
+ static bool vga_arbiter_del_pci_device(struct pci_dev *pdev)
+ {
+ 	struct vga_device *vgadev;
++	struct vga_arb_private *priv;
+ 	unsigned long flags;
+ 	bool ret = true;
++	int i;
  
--	for (try = 0; try < 2; try++) {
-+	for (try = 0; try < 3; try++) {
- 		baud = tty_termios_baud_rate(termios);
+ 	spin_lock_irqsave(&vga_lock, flags);
+ 	vgadev = vgadev_find(pdev);
+@@ -845,6 +867,21 @@ static bool vga_arbiter_del_pci_device(struct pci_dev *pdev)
+ 	wake_up_all(&vga_wait_queue);
+ bail:
+ 	spin_unlock_irqrestore(&vga_lock, flags);
++	if (ret) {
++		spin_lock_irqsave(&vga_user_lock, flags);
++		list_for_each_entry(priv, &vga_user_list, list) {
++			if (priv->target == pdev)
++				priv->target = PCI_INVALID_CARD;
++			for (i = 0; i < MAX_USER_CARDS; i++) {
++				if (priv->cards[i].pdev == pdev) {
++					priv->cards[i].pdev = PCI_INVALID_CARD;
++					priv->cards[i].io_cnt = 0;
++					priv->cards[i].mem_cnt = 0;
++				}
++			}
++		}
++		spin_unlock_irqrestore(&vga_user_lock, flags);
++	}
+ 	kfree(vgadev);
+ 	return ret;
+ }
+@@ -1025,27 +1062,6 @@ EXPORT_SYMBOL(vga_client_register);
+  * the arbiter.
+  */
  
- 		/*
-@@ -965,7 +965,7 @@ static int uart_set_info(struct tty_struct *tty, struct tty_port *port,
- 	}
+-#define MAX_USER_CARDS         CONFIG_VGA_ARB_MAX_GPUS
+-#define PCI_INVALID_CARD       ((struct pci_dev *)-1UL)
+-
+-/* Each user has an array of these, tracking which cards have locks */
+-struct vga_arb_user_card {
+-	struct pci_dev *pdev;
+-	unsigned int mem_cnt;
+-	unsigned int io_cnt;
+-};
+-
+-struct vga_arb_private {
+-	struct list_head list;
+-	struct pci_dev *target;
+-	struct vga_arb_user_card cards[MAX_USER_CARDS];
+-	spinlock_t lock;
+-};
+-
+-static LIST_HEAD(vga_user_list);
+-static DEFINE_SPINLOCK(vga_user_lock);
+-
+-
+ /*
+  * Take a string in the format: "PCI:domain:bus:dev.fn" and return the
+  * respective values. If the string is not in this format, return 0.
+@@ -1168,7 +1184,7 @@ static ssize_t vga_arb_write(struct file *file, const char __user *buf,
+ 		}
  
- 	if ((new_info->irq >= irq_get_nr_irqs()) || (new_info->irq < 0) ||
--	    (new_info->baud_base < 9600))
-+	    (new_info->baud_base < 9600) || (new_info->baud_base > UINT_MAX / 16))
- 		return -EINVAL;
+ 		pdev = priv->target;
+-		if (priv->target == NULL) {
++		if (priv->target == NULL || priv->target == PCI_INVALID_CARD) {
+ 			ret_val = -ENODEV;
+ 			goto done;
+ 		}
+@@ -1215,7 +1231,7 @@ static ssize_t vga_arb_write(struct file *file, const char __user *buf,
+ 		}
  
- 	if (change_port || change_irq) {
+ 		pdev = priv->target;
+-		if (priv->target == NULL) {
++		if (priv->target == NULL || priv->target == PCI_INVALID_CARD) {
+ 			ret_val = -ENODEV;
+ 			goto done;
+ 		}
+@@ -1266,12 +1282,12 @@ static ssize_t vga_arb_write(struct file *file, const char __user *buf,
+ 		 */
+ 
+ 		pdev = priv->target;
+-		if (priv->target == NULL) {
++		if (priv->target == NULL || priv->target == PCI_INVALID_CARD) {
+ 			ret_val = -ENODEV;
+ 			goto done;
+ 		}
+ 
+-		if (vga_tryget(pdev, io_state)) {
++		if (vga_tryget(pdev, io_state) == 0) {
+ 			/* Update the client's locks lists... */
+ 			for (i = 0; i < MAX_USER_CARDS; i++) {
+ 				if (priv->cards[i].pdev == pdev) {
+@@ -1335,7 +1351,8 @@ static ssize_t vga_arb_write(struct file *file, const char __user *buf,
+ 		for (i = 0; i < MAX_USER_CARDS; i++) {
+ 			if (priv->cards[i].pdev == pdev)
+ 				break;
+-			if (priv->cards[i].pdev == NULL) {
++			if (priv->cards[i].pdev == NULL ||
++			    priv->cards[i].pdev == PCI_INVALID_CARD) {
+ 				priv->cards[i].pdev = pdev;
+ 				priv->cards[i].io_cnt = 0;
+ 				priv->cards[i].mem_cnt = 0;
+@@ -1366,7 +1383,7 @@ static ssize_t vga_arb_write(struct file *file, const char __user *buf,
+ 			goto done;
+ 		}
+ 		pdev = priv->target;
+-		if (priv->target == NULL) {
++		if (priv->target == NULL || priv->target == PCI_INVALID_CARD) {
+ 			ret_val = -ENODEV;
+ 			goto done;
+ 		}
+@@ -1429,7 +1446,7 @@ static int vga_arb_release(struct inode *inode, struct file *file)
+ 	list_del(&priv->list);
+ 	for (i = 0; i < MAX_USER_CARDS; i++) {
+ 		uc = &priv->cards[i];
+-		if (uc->pdev == NULL)
++		if (uc->pdev == NULL || uc->pdev == PCI_INVALID_CARD)
+ 			continue;
+ 		vgaarb_dbg(&uc->pdev->dev, "uc->io_cnt == %d, uc->mem_cnt == %d\n",
+ 			uc->io_cnt, uc->mem_cnt);
