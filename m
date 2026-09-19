@@ -1,63 +1,63 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B09B37F8D3
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:35:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB03839E9BF
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:35:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789857317; cv=none; b=sG1ElLPfPf6+GdZvuvUukPt0RhV1YujZFTapdbLpiICt0DqYLWe0uPDAepd2qxKNrbL16VDg48H56IR0TcDkCuzKCy74+qYIJjki8AhGU5hpMFMdBbHeu7ZlACXSZfu8pfk5yOOMWxV3qhVb+vQDJDmehq3JtuquPbDDMMtRSpo=
+	t=1789857319; cv=none; b=EIjUkhgz45788m3mSJ4Phdt46LPLDRQ4jW/eM1VT5hS8XlmUaDlGJhq1CO+Z6UNuuPFn5hz+XTdHojHL9F2GdwHLzNi10LgzZIZr1fVALKj8PLuOVwy38G1IpcLuC8H1THALy8flipK3fsRvkw8rOeU3iN7GtUW3Dzt1xwlQN+E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789857317; c=relaxed/simple;
-	bh=2YhY/u18axsGTIqWP/fCRTaKGAGm242Rh/xebAH2QvI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CD46k37wkAytPIrszrewRUhiASL6OZTBzKhqVycDHalLYNGVYpMcfyFoXNdYmX1UtktCHkfShWItlANKZ8mnI2K0old+kBYaMEBOU+LS7d4SZGvl54ACiLBdGZi0lJXT4Bg5YpGuFviKb9naBLCxHE4AIVoBVnb7pVaSJsyRzB8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=boe1K7FT; arc=none smtp.client-ip=74.125.227.140
+	s=arc-20240116; t=1789857319; c=relaxed/simple;
+	bh=NNcvquNZeteRFC+x1bptk99f2y9uQ1gnzV0ubJNxqIo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Jo9APPqh2VhIYQRlblQgzDaFzyXJWdSxN0vkmxsiM1+a3AyC/+bqhKXcWan1O7qqbXab5uhX0W25wjyfKJ+ykD3co0uN4i+i14Mf3svb5QtDTJIwIVLv+8pioMyMYFAObQMptqn23zJ0vtcwWA6EN4oRUjjSmakl1sYVa83XcgM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JD2bzCU8; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="boe1K7FT"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccb1a98fso1702954a91.1
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:35:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JD2bzCU8"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea34ef4so2091306a12.3
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:35:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789857316; x=1790462116; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789857317; x=1790462117; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IxqUXVNAFu/lNiJ42A0NWtfZcrliflvc5eUvqHrWqjg=;
-        b=boe1K7FTD0tbYqj9qjaLkvrGhER1k+JBsdzsAa+CQQu3oA5HHPOwkrlCJXU607dCgq
-         ln2CL0to+IesNeGwSKisRfiDA8kpPAElmA5TjQFtKQzMp1nQ1sD75pQ9daT5nzNmbT6v
-         FyQG81o+HcpeMp0VkJNwFx+jkb1ulCGUqoSeurZZgp5209zQ5Wb52U8L7jZMaN6GOl7Y
-         swVULpX/j040d7ogElROsUOJhEq925gzOtt1aWEOY8w0p+WfGqlU0tNgeTUGMiMbnYX6
-         ZxPao+DUf40+lV9zSojVWT8PbuN1rmfgeGnxh5e6AVb7nPx5i1LHrD5IZ0XtUh766n9e
-         UQrA==
+        bh=sWVtXHvtsUvayjaRC+3RJzYPnLIstthkOPPeTp9RMJw=;
+        b=JD2bzCU8iOni8CZ04nsG+mewREkdpDf+W6O7SsUa8sffrRqUXhf44vlv/4Ons9vfA9
+         H0labByiuXd42RHEhohGH4Q1qjVpa0/82B05x+E5MkJ10DDWZM9WQx/ClELpT1hRip5Z
+         vTaOSCsJaCi5pId8Kyx5EttYGb7tHYVMyu09tCyhKnLMsQnt8v8N041M5yJhnE9Nk6mm
+         Y+kCnC7qvepR9/CrQ8I6R7NNIkKnEvVGd1oNJFUjPxIC2yIOXf9d3AoYHXiKLqM04u2n
+         K8hn8TM0v6naHgZ3iojTuzTccWR7YBNJWj5XUeOxIS2jp3mxPNb6V2xw6BQbAYMI4Zd+
+         IEGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789857316; x=1790462116;
+        d=1e100.net; s=20260707; t=1789857317; x=1790462117;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=IxqUXVNAFu/lNiJ42A0NWtfZcrliflvc5eUvqHrWqjg=;
-        b=G+yp2UVL+oCTnsswsgUO9TY4be9O7mhqJEUoW8xdANeVLY7G7+acu8eCZ7xJ65eB3V
-         aFPKZB6ea0kHkvpnjg2bBzhLZOCI2o7sJDL9KAXlmV/3ryGgqA9o/Ute85zHchqY6FQh
-         OgYTl4l6yAuGCVessfUOicjkKNkLIXFRjli1ZfhQSbLXOWI+fiI1P4Ct6iXKt4aPusy+
-         emcpt77QwtSF3vAeGU8fIXgYJysMMJUhwa+So+gyf4Fp/yWhLWAvfd0XUjKHWPLlJBlf
-         fVKA7K7SAggkqJ3iOKWiv+Pz+j3AnjvE35SdzHO6LbpcvdjTTj2c7Z3aNbfBiLX3SlCu
-         3wAA==
-X-Forwarded-Encrypted: i=1; AKwUvBwHlm0sdKDLXEcJ0w3aVWZj2IwMbsmtbSf/uDPV6ef7uy+lSzeb4gOc0EH3fvOU3l6sPNkmE6vP7Sp1oOk=@vger.kernel.org
-X-Gm-Message-State: AFuF++l3reRmIIavnGzypRXJGVuRnsupAu4JLEXiA3YsFn6gNxRkZd8C
-	v5CyFxIGSr6oR0FbVVA9eiMnOCzykss4Em2v2taO9GeB7ZlYKQuDHiRB
-X-Gm-Gg: AYBFou0GHZORyTiqwicx78oeTNkR26B6ftA/clSGkv0kyc4ct27NJemuu/4fa0C0k4x
-	4Ten4tG+yOTIeTc29hSOEVvXZKDj8A92lyown2swTc5KFyB+6PZILWt7zm3P3ATNQF4tvyJM43e
-	M8L6Zz9/dgkrSsArUgvyh2/Oqt6grSGnVDdPMBYO9yN1jegYjrzi+6eFCnZArqx/TE5pS/leisv
-	bY7pg34Dui6YDIrx7Tgk83kzofPRJZFPYTrSb7gBBczgMq9nOpB9BBBS84P4GqddGDthUZdOyPK
-	dOpjYY/pgDUjp6BLGK7q3kG/rlk62WPL8FuVBkMPJ03pksXd++vL7TQWXaC0ISwWm1VBDNQ/Bnc
-	CHYhbMYOXdAk4hKBk79raB6XXa/zEQkDCMLVIpnNP/CF6KHLs3/ntcU5fM1rje7AsDIDdVqvyji
-	+o/duMJuZCKkDiPEw2OyVP2bwhG1U44TeNj6GS5r0X6QKU/9YkEIPdn1GN0P2R5R17VBKeal+wg
-	VFOlMawPTjuK1K6et+jbAa+GJzW3/gPzy0D+LzNiDoxUmsmG1gyEX4CjEdY93V+mNOL0RrYBpvH
-	6/qY4H+Evg==
-X-Received: by 2002:a17:90b:3909:b0:39e:3558:f925 with SMTP id 98e67ed59e1d1-39e54d86a97mr10901965a91.24.1789857315829;
-        Sat, 19 Sep 2026 15:35:15 -0700 (PDT)
+        bh=sWVtXHvtsUvayjaRC+3RJzYPnLIstthkOPPeTp9RMJw=;
+        b=OhNHXZycHEOYQqRT73JYTkMTpdDQybmat4+U28KRvI2bICfpzsNDBnDPJc6wIHK1xn
+         GcMq2tLB44BSm/MOTeeH4FLBn1bl1N4npPPYwYqXeo+DkvRRj7c9ATAInTrKcxYDfFsf
+         ckX/9cqvc/oRkzJ3gtC9U0Wew8d8Nv//P2xnb5npN84YKS4ytI+OQmZjPIFp2l8IQrCb
+         aeJhqQM/TixweyKQur4xhm5Jign5fM46UKIbypWdDTKLN4NyfLkPUkUrkPMYxAZ0f/xu
+         VyzrzyIotu6HZddjMJcoe9wruzIX5XmiGUewLIviGoOPMf8AElLPWNn/jxcXFzSygK74
+         E07Q==
+X-Forwarded-Encrypted: i=1; AKwUvBy+LgwRPNY3Mjrg2ff3nbdGSFQxqQiFnGdRt4mDW+4xtVcfuDJnm5wGttlbEPPb2YJnICk6augRR/aMiY0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mWo+PlkH1swoOMsdytBn1O9B4eFRcVK27f+V+x42ptCLGMpwIz
+	Xc/2aL1aN6Ucx/leohJ+wLMVUKrwl1T+5NTf6G1teqji/Xf3dQYE7aJ5
+X-Gm-Gg: AYBFou2MeeLIOYISLkVgDO1JgcGgxT4k/eule4o2IIh+9wdTMspZU+85Eq57t7iOdgy
+	B40AIrXWcMyLCT3NCf2Gz0ZqvZGk+nCiP38RyunYvA/vRVVpRqdwQX8ieWU8pX9ydEDRN/pa+9F
+	73OO/BddZmkjiiM41bAlYzNqWgPEt97csMfqaRgPxt/481RM6FOs1RfJpV0XSHBchwzrbgx1DP2
+	09gZsq1CEWfvbVqmvStZoQSn6zr6x0YRG1bI9bwx+eoLu3vO9QGBeZ0b3FpsYNS1AZ1b4EjZrdP
+	9ODF91K97NuCNVvkZvDj2B2R+tDV8wwm+2QJN8CvA5/lmX6y+SkMtP1+PfLsZyhWRmqYAvPgdhJ
+	1BSXmmfIxMLWL85HKN22ORBs/phu1+Lu7+4jfsXY3L1mbpF+rmlUTpxyW+2y4t3PPHdlI/g244d
+	tZsYgPoONNki3ZEttUo6/RVt8Q+SLoHHYNNig5kAOwaa9Oc+HrigSQ6DQrMKb9+3L7HH0RGFB/W
+	DNGwTt8ZPSGz5xOre6gLnZLkh5/xXNO49VmL9UkuxzDy/NOyNXMP+D/xEKiE2NfDGJU6gPYuQG6
+	dDePY6Oixg==
+X-Received: by 2002:a17:90a:c88d:b0:39e:4c81:6c94 with SMTP id 98e67ed59e1d1-39e54f24890mr11527341a91.26.1789857317078;
+        Sat, 19 Sep 2026 15:35:17 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c37c64csm6092871a91.10.2026.09.19.15.35.14
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6cb400c3sm6307621a91.17.2026.09.19.15.35.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 15:35:15 -0700 (PDT)
+        Sat, 19 Sep 2026 15:35:16 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
 To: tzimmermann@suse.de,
 	jfalempe@redhat.com,
@@ -65,9 +65,9 @@ To: tzimmermann@suse.de,
 	airlied@redhat.com
 Cc: dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/mgag200: prevent PLL divide-by-zero and validate framebuffer pitch/size
-Date: Sat, 19 Sep 2026 22:35:14 +0000
-Message-ID: <20260919223514.3889611-1-benquike@gmail.com>
+Subject: [PATCH] drm/ast: validate framebuffer VRAM size in ast_mode.c and DP501 firmware bounds
+Date: Sat, 19 Sep 2026 22:35:16 +0000
+Message-ID: <20260919223516.3889946-1-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -77,59 +77,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In drivers/gpu/drm/mgag200/ (mgag200_mode.c, mgag200_g200se.c), validate
-clock/PLL parameters and verify framebuffer pitch * height fits in VRAM.
+In drivers/gpu/drm/ast/ (ast_mode.c, ast_dp501.c), verify that the
+primary plane framebuffer fits within ast->vram_size and bounds-check
+DP501 firmware headers.
 
-Fixes: 414c45310625 ("mgag200: initial g200se driver (v2)")
+Fixes: 312fec1405dd ("drm: Initial KMS driver for AST (ASpeed Technologies) 2000 series (v2)")
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
-diff --git a/drivers/gpu/drm/mgag200/mgag200_g200se.c b/drivers/gpu/drm/mgag200/mgag200_g200se.c
-index 349ec36f6d49..d24af3bb5029 100644
---- a/drivers/gpu/drm/mgag200/mgag200_g200se.c
-+++ b/drivers/gpu/drm/mgag200/mgag200_g200se.c
-@@ -257,17 +257,17 @@ static int mgag200_g200se_04_pixpllc_atomic_check(struct drm_crtc *crtc,
+diff --git a/drivers/gpu/drm/ast/ast_dp501.c b/drivers/gpu/drm/ast/ast_dp501.c
+index 6d6ccfad1415..d9ca8760e5b5 100644
+--- a/drivers/gpu/drm/ast/ast_dp501.c
++++ b/drivers/gpu/drm/ast/ast_dp501.c
+@@ -250,7 +250,8 @@ static bool ast_launch_m68k(struct ast_device *ast)
+ 
+ 		/* copy image to buffer */
+ 		for (i = 0; i < len; i += 4) {
+-			data = *(u32 *)(fw_addr + i);
++			data = 0;
++			memcpy(&data, fw_addr + i, min_t(u32, len - i, 4));
+ 			ast_moutdwm(ast, boot_address + i, data);
  		}
+ 
+diff --git a/drivers/gpu/drm/ast/ast_mode.c b/drivers/gpu/drm/ast/ast_mode.c
+index d5ed8c5c7925..bde9dcbbc32b 100644
+--- a/drivers/gpu/drm/ast/ast_mode.c
++++ b/drivers/gpu/drm/ast/ast_mode.c
+@@ -510,6 +510,7 @@ static int ast_primary_plane_helper_atomic_check(struct drm_plane *plane,
+ 						 struct drm_atomic_commit *state)
+ {
+ 	struct drm_device *dev = plane->dev;
++	struct ast_plane *ast_plane = to_ast_plane(plane);
+ 	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state, plane);
+ 	struct drm_crtc_state *new_crtc_state = NULL;
+ 	struct ast_crtc_state *new_ast_crtc_state;
+@@ -531,6 +532,11 @@ static int ast_primary_plane_helper_atomic_check(struct drm_plane *plane,
+ 			return 0;
  	}
  
-+	if (delta > permitteddelta || !m) {
-+		pr_warn("PLL delta too large\n");
++	if (new_plane_state->fb->pitches[0] > AST_PRIMARY_PLANE_MAX_OFFSET)
 +		return -EINVAL;
-+	}
++	if ((u64)new_plane_state->fb->pitches[0] * new_plane_state->fb->height > ast_plane->size)
++		return -ENOSPC;
 +
- 	fvv = pllreffreq * n / m;
- 	fvv = (fvv - 800000) / 50000;
- 	if (fvv > 15)
- 		fvv = 15;
- 	s = fvv << 1;
+ 	new_ast_crtc_state = to_ast_crtc_state(new_crtc_state);
  
--	if (delta > permitteddelta) {
--		pr_warn("PLL delta too large\n");
--		return -EINVAL;
--	}
--
- 	pixpllc->m = m;
- 	pixpllc->n = n;
- 	pixpllc->p = p;
-diff --git a/drivers/gpu/drm/mgag200/mgag200_mode.c b/drivers/gpu/drm/mgag200/mgag200_mode.c
-index 7e07fc3f1a60..a881d85e6f39 100644
---- a/drivers/gpu/drm/mgag200/mgag200_mode.c
-+++ b/drivers/gpu/drm/mgag200/mgag200_mode.c
-@@ -468,6 +468,7 @@ int mgag200_primary_plane_helper_atomic_check(struct drm_plane *plane,
- 	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(new_state, plane);
- 	struct drm_framebuffer *new_fb = new_plane_state->fb;
- 	struct drm_framebuffer *fb = NULL;
-+	struct mga_device *mdev = to_mga_device(plane->dev);
- 	struct drm_crtc *new_crtc = new_plane_state->crtc;
- 	struct drm_crtc_state *new_crtc_state = NULL;
- 	struct mgag200_crtc_state *new_mgag200_crtc_state;
-@@ -485,6 +486,9 @@ int mgag200_primary_plane_helper_atomic_check(struct drm_plane *plane,
- 	else if (!new_plane_state->visible)
- 		return 0;
- 
-+	if ((u64)new_fb->pitches[0] * new_fb->height > mdev->vram_available)
-+		return -EINVAL;
-+
- 	if (plane->state)
- 		fb = plane->state->fb;
- 
+ 	new_ast_crtc_state->format = new_plane_state->fb->format;
