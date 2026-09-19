@@ -1,71 +1,74 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B5D9390985
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:26:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DE10396D13
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:26:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789856794; cv=none; b=HmBmZvBXHHe+pOoADsLwuDVYMK+xBx4rC98Q7dQSxoZD6QTHK7dSfTxxPnpUEXUV/Er1M0IhzBwoaEui1g8MX0OeDYpgEh2NcHJTW1fcweLoZ7s2wiBLoLjM1mtWvo9+igLyivvPqOSLy74juaSNgrOSI6jQkSbkQUzau2oGC1k=
+	t=1789856795; cv=none; b=c3dJ3y0BmfuvGr1wkHCPBbWF9YgU0na5rH29oIP39K4Rx7nJO2xI0bB3RndAlqlW8Bbo1mT7Cf/4Hij8yeZMC6W+HHHPiz8cR+7D6/KMJThRnr8bug8AKUbe4/IStkso65UHr83n3uZa37AQk29H+E6oHzHTmKvpZx5v0wTii5k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789856794; c=relaxed/simple;
-	bh=9LiXDkmYDVdB90kAVKrjVcXDHxIIpsoMoAoGDYQ+58Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NpzPdVdqCNS+kuvaUDY4IEZb1eKpMOl8aJo1X371RJM4dF3dxrNcKVK0mXS1/+0iza/Bb4mtkI3tolCH8/ky2MAXOiR6lcoYUrLWd5ZeMFAssT9g+oUSzK4UUQNh6GS5HulL3nQ6hTtaUj/WwbhbZAk8Lcmkyo1DLN+orupJvq4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i+/DgmxK; arc=none smtp.client-ip=74.125.227.141
+	s=arc-20240116; t=1789856795; c=relaxed/simple;
+	bh=T1GmWOtBmVov9KDW6oK6eMhl6C3eIUI16bTC/bmkQ6I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NPnMlHh/A4ImmjRTF7UPT78aXyY7GOOGdoKOwTdQ+4FrOeyO1ZDTs6LG68OnFr/ARpxqJVszyFu0jfEnZm7q5M0rCXmr5hFu/mcm14RpRXvNbxxciy4uqkiCx8a+5iPCm4GZTXPlgStZgO3to6ZLh1pjSvW5lJNrll1MXX7W4c4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bqr+9BDs; arc=none smtp.client-ip=74.125.228.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i+/DgmxK"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccafb751so1548595a91.2
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:26:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bqr+9BDs"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469d20963so1207907b3a.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:26:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789856791; x=1790461591; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789856792; x=1790461592; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UmMKh/aeg8bACEW7HZInwh5u8Ule0MiW9EMCmiARcII=;
-        b=i+/DgmxKUSkbPvYHQdCKwPFbHQJqTJRtfO/3AwGs1BuBXXfHH3nI1AHY9jVuavuE6U
-         Pm+g4/bu5pxBD5V3nF6Njcli+Zc2h9yRgLGfqd8l4ToR91MERcden+QZkyD34ey/Tl6A
-         3avkbAWjmpspz1bby9Zu1SQz4z8nPh3L6RwtUiVK7bxmMd4LPAuehjeAZXnOxWMNZuPD
-         3DRczq8Yw9y6vYfcm89OhUFFTI6jsPov2WgtCRcQwU97/99Qb8avxJ36j7MqluxSKhEf
-         9IgwY550OcZ67dITOaI3B+G16/WWhDQLUhQNA6o+xAiZkWd1L0VG4Fs8vjjg9lDItEmu
-         jDvw==
+        bh=4XdLW6/h6dqj2ofldOtryaRDZTEFxtubsYMu+/kbzlA=;
+        b=bqr+9BDszlPVekou9cuvrtoXo0fcvFSE+osbCmxtnF1/pma8SnuMnKzTSTVevA7y2y
+         8r4ZxxodGNEufBkclxZcX0iyTc9us+bfKLiT5dQOgHG0gG9Fy+eAp056glkl8gw6yosp
+         gaaPfjoKzMKWwFRCsuHIXypszmFMZXJKoc/bC9uXfG521a6lwftU0lMkxuFS6IExpJL3
+         FLmJ54VzaRbSoHA44pROrS7MTi8ecd2FH+v0xzHiltZdN4z5Wc3Uf/EGMCBgZq4wtGLQ
+         H4Jrzj75AgwpvvmUUBPCUSqNtlB5jEu11Wxi6Ce3qoled42RAOAPDtQclzpCDQyv0YDk
+         e0bQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789856791; x=1790461591;
+        d=1e100.net; s=20260707; t=1789856792; x=1790461592;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UmMKh/aeg8bACEW7HZInwh5u8Ule0MiW9EMCmiARcII=;
-        b=xxFn4rfpsk2cJroAV14hj18TOHDM1CQjsyUviKyO8r+nWaGBx0K1bQyw95+mcgzi7l
-         bFA+NOzLa37NCr64tiaA5c1/LQ48NNuR5aJQ1iImkIZhteRwtxj3PER7XZCjjQTNRF+1
-         jC3jHf4BnvdArxasSmNpfKbSvSN3p408or3ENFD9T9+yGEj1dIjNptS26TMHp8j+8VEQ
-         EKa83vA6udtF345Qn/L9fUtmaApwn9qxQljYleGp7IXivyLjIkzvzCXhOqokrPYUNd/G
-         ITaDEu6zgrn2T412bQ04YabjMbj3DgpJdYXxiVw5ATLoL2oOirxEsiKlESEhRYmHaefe
-         3wng==
-X-Forwarded-Encrypted: i=1; AKwUvBy8+G8NSyOjCfE/lrHKU+J3DdE3wXjGI7AgSgMnli0mQ/mQDBy9Ps7oUF27WEJ1UQP+vxa0j1/Pafv/Jeg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lFjUCXbdomOplR0t4BtDQyv/vcOJGEHuvfjt6BDzqZexrlrQ4w
-	SZW+PgjgRU0Lok5gWtMJWEtSMXaCBmQzCRaC1lSN7/vW0QdtabOGD5QOxsXpt512
-X-Gm-Gg: AYBFou1mNGTfncujmX/gIcUueqin2FGALySCMTnH9hteDAW0EI0L9SZCMPMTsihC77b
-	qijuBU7Wvom0a5X6v+F4UzrapYfO+XtfDwzsonY4kymMKyJ0P/8i52kervevSOgXQI4QfEQB7XN
-	BbqMvXYkvdm4pc+zOJ5Lbd793rupich/2Xelmo/SgndlWcnc3i9ht7ajBaDzUhSlpq+TgTxLYOC
-	xhNmHozfgQjjw9EKttNpaFY3v/HDE7lJGKHdLjm1c+JfhGa+PbEYOxYmm3zh+BEYlDNgGCKhuaF
-	FEUkBjQA1lidHIxbf7BdH+UyEtPukqEiygYVhvMjiNDOZYAmI2MTa/MrkJlgWs24xzB/6NNeEsw
-	b56KSDsmNoDdBr55OqAQVcIXGySYxmzaXmndafwxon2Wg0ksvJOltl05sdWad+ro022LYYdzcvg
-	FJ0OkwC/ZL2Z095Jg5es+SAJiPP34oqhk7dS39bxLwmYa1xiic8VykYNL6itEiH5/F6iAX85ivb
-	S+i14baxyOoswXowFPrn5Y6nPztYYMAWNgoBw0ar2xuF/1fntnR6UayjgYqrzEkuorIgeyesimH
-	FnAQULZd5w==
-X-Received: by 2002:a17:90b:5305:b0:381:6c5:3f63 with SMTP id 98e67ed59e1d1-39e54dcd917mr17566941a91.6.1789856791293;
-        Sat, 19 Sep 2026 15:26:31 -0700 (PDT)
+        bh=4XdLW6/h6dqj2ofldOtryaRDZTEFxtubsYMu+/kbzlA=;
+        b=KqPszhhJUdXoPuhBQn+3h5qE8lk27zJlV8sbB9hEgGKLfJxsovSrMFq+iS+2lEj8fz
+         oAnE7gwdxM04kBOJTiChDAaiKz3dH/WtnfvRft6b5uj1LG0hUj0x7lRaSrY2B6hoPdKj
+         vNWsV9jKjbc4NmXiFQGq0kfqB1Ewbdn3rJiWAE7P9+/tFcC1DrHhsK024Wy4nfVvuv+c
+         NzItUEmaVOZOyTwD+8CVWwCb7rkXLG5CX7VRHodao/t6voj/amNHVRyZbV7sJ4zi4zDX
+         oc/3xHmISlWE1O9eJqqYmGiUj06GrcElxzd1j+XGY+bQFUceK2IYidhKymf6eosH+nn2
+         zU+w==
+X-Forwarded-Encrypted: i=1; AKwUvBzefezsPsneH6ZQ0r+glYDNVQC3BnGspM+a6P71+mjnfDqg4t5m1W3dvhBVNEqL1V7YinGgGunUwMYpaVs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nQWlCOHj0Hf718OXt3j1yOZWhfBgpHcHQ0pYmdMhRsRa0gLIrY
+	tThyNdsz13nNbvX/nIiM2S0S6FxED0qyuQrO6Rup8cK3HctsrlNou4yU
+X-Gm-Gg: AYBFou0JgHCozZm7GufojcMcOXlmYGIJe9nn3kF4SQn9w7PW8EjpLkJrWkd/V77dTKt
+	ZgwuTW62dg/heT75i24woGKcEFyyEaHlc7ufLrohtyIWzb134dqSDSeE9BLemwzKgIlDHc5pBB6
+	c72WbuJN9iGNyk5T873/9XdeYn9zX/yrKZKG/hDi7P8oB24M8rrxrPYTJe0yuYiPpLqMEZMbVXm
+	RJvoYBy6mEBJGfL8k20Andyp3GvthOHeV1xYZfymdC90oz7qbGs7TLH8/2uRordAlb/mMBoNRWz
+	u7SZ1dB9U2FZZttZKaoX5YLErr5uHyZJHUcMozbkF8TA2z3xH+DLdcwKDxdImPvhMEs73ZDl9W0
+	miLpJb4bSuSi6VP5sZuFzZuJ0GQEf866AmRTt+on6LaNyBFJjHsurnBjjfxoM8bWJv4qnKcwJ2T
+	o8nheYimAR7/aRcurf8bi2T+frpemBRMdICeXkW5ZYBwX0EWEGkjx9i7RyNb7sVROcYAgQuKhh/
+	MEuzeBSOSYJ1WeTU4JdKkQ6GIkPB3Mn5fLaxjlYVAvQfmN0pqSDJvNOL4peHyB0PWE8+quolFyV
+	4Ykbce3ZzQ==
+X-Received: by 2002:a05:6a00:c24f:10b0:878:3507:8d6a with SMTP id d2e1a72fcca58-87835078e60mr1766414b3a.49.1789856792547;
+        Sat, 19 Sep 2026 15:26:32 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6cabb771sm6318908a91.9.2026.09.19.15.26.30
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc72aefc0a6sm1360519a12.28.2026.09.19.15.26.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 15:26:30 -0700 (PDT)
+        Sat, 19 Sep 2026 15:26:32 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
-To: jikos@kernel.org,
-	bentiss@kernel.org
-Cc: linux-input@vger.kernel.org,
+To: marcus.folkesson@gmail.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] HID: fix sony Rock Band 3 IRQ sleep and hid_debug_events_read() UAF
-Date: Sat, 19 Sep 2026 22:26:30 +0000
-Message-ID: <20260919222630.3798292-1-benquike@gmail.com>
+Subject: [PATCH] drm/sitronix: st7571: fix hwbuf heap buffer overflow from unaligned nlines
+Date: Sat, 19 Sep 2026 22:26:31 +0000
+Message-ID: <20260919222631.3798442-1-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -75,110 +78,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix two issues in drivers/hid/:
+In st7571_fb_blit_rect() (drivers/gpu/drm/sitronix/st7571.c), align y1
+down and y2 up to multiples of 8 rows before computing nlines so the
+byte count written into st7571->hwbuf matches the allocated page-aligned
+buffer capacity and cannot overflow st7571->hwbuf.
 
-1. In sony_raw_event() (drivers/hid/hid-sony.c), defer the Rock Band 3
-   Pro controller full-report feature request to sony_state_worker()
-   instead of calling hid_hw_raw_request() synchronously from interrupt
-   context.
-2. In hid_debug_events_read() and hid_debug_events_release()
-   (drivers/hid/hid-debug.c), remove list->node from hdev->debug_list
-   under hdev->debug_list_lock before freeing or when hdev is unbound so
-   hid_dump_input() cannot access a freed debug list entry.
-
-Fixes: bd28ce008bdc ("HID: move sony quirks")
+Fixes: b362de167daf ("drm/sitronix/st7571: split up the driver into a common and an i2c part")
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
-diff --git a/drivers/hid/hid-debug.c b/drivers/hid/hid-debug.c
-index f44e6e708404..edc45ca9e024 100644
---- a/drivers/hid/hid-debug.c
-+++ b/drivers/hid/hid-debug.c
-@@ -3728,15 +3728,14 @@ static ssize_t hid_debug_events_read(struct file *file, char __user *buffer,
- 				break;
- 			}
+diff --git a/drivers/gpu/drm/sitronix/st7571.c b/drivers/gpu/drm/sitronix/st7571.c
+index 20954c33eca9..e1e95b360255 100644
+--- a/drivers/gpu/drm/sitronix/st7571.c
++++ b/drivers/gpu/drm/sitronix/st7571.c
+@@ -827,7 +827,8 @@ struct st7571_device *st7571_probe(struct device *dev,
+ 	st7571->regmap = regmap;
  
--			/* if list->hdev is NULL we cannot remove_wait_queue().
--			 * if list->hdev->debug is 0 then hid_debug_unregister()
--			 * was already called and list->hdev is being destroyed.
--			 * if we add remove_wait_queue() here we can hit a race.
-+			/* if list->hdev->debug is 0 then hid_debug_unregister()
-+			 * was already called; break out of the wait loop so
-+			 * remove_wait_queue() is unconditionally called before
-+			 * returning.
- 			 */
- 			if (!list->hdev || !list->hdev->debug) {
- 				ret = -EIO;
--				__set_current_state(TASK_RUNNING);
--				goto out;
-+				break;
- 			}
- 
- 			if (file->f_flags & O_NONBLOCK) {
-diff --git a/drivers/hid/hid-sony.c b/drivers/hid/hid-sony.c
-index 50f5ad6bbeb4..d3862ddf68c9 100644
---- a/drivers/hid/hid-sony.c
-+++ b/drivers/hid/hid-sony.c
-@@ -561,6 +561,7 @@ struct sony_sc {
- 
- 	/* Rock Band 3 Pro Instruments */
- 	unsigned long rb3_pro_poke_jiffies;
-+	struct work_struct rb3_pro_poke_work;
- };
- 
- static void sony_set_leds(struct sony_sc *sc);
-@@ -657,6 +658,14 @@ static int rb3_pro_instrument_enable_full_report(struct sony_sc *sc)
- 	return ret;
- }
- 
-+static void rb3_pro_poke_worker(struct work_struct *work)
-+{
-+	struct sony_sc *sc = container_of(work, struct sony_sc,
-+					  rb3_pro_poke_work);
-+
-+	rb3_pro_instrument_enable_full_report(sc);
-+}
-+
- static int djh_turntable_mapping(struct hid_device *hdev, struct hid_input *hi,
- 			  struct hid_field *field, struct hid_usage *usage,
- 			  unsigned long **bit, int *max)
-@@ -1101,7 +1110,7 @@ static int rb3_pro_instrument_raw_event(struct sony_sc *sc, u8 *rd, int size)
- 	/* Only attempt to enable full report every 8 seconds */
- 	if (time_after(jiffies, sc->rb3_pro_poke_jiffies)) {
- 		sc->rb3_pro_poke_jiffies = jiffies + secs_to_jiffies(8);
--		rb3_pro_instrument_enable_full_report(sc);
-+		schedule_work(&sc->rb3_pro_poke_work);
- 	}
- 
- 	return 0;
-@@ -2124,6 +2133,8 @@ static inline void sony_cancel_work_sync(struct sony_sc *sc)
- 		}
- 		cancel_work_sync(&sc->state_worker);
- 	}
-+	if (sc->quirks & RB3_PRO_INSTRUMENT)
-+		cancel_work_sync(&sc->rb3_pro_poke_work);
- }
- 
- static void sony_cleanup(struct sony_sc *sc)
-@@ -2350,6 +2361,11 @@ static int sony_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 	hid_set_drvdata(hdev, sc);
- 	sc->hdev = hdev;
- 
-+	if (sc->quirks & RB3_PRO_INSTRUMENT) {
-+		sc->rb3_pro_poke_jiffies = 0;
-+		INIT_WORK(&sc->rb3_pro_poke_work, rb3_pro_poke_worker);
-+	}
-+
- 	ret = hid_parse(hdev);
- 	if (ret) {
- 		hid_err(hdev, "parse failed\n");
-@@ -2391,9 +2407,6 @@ static int sony_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 		goto err;
- 	}
- 
--	if (sc->quirks & RB3_PRO_INSTRUMENT)
--		sc->rb3_pro_poke_jiffies = 0;
--
- 	if (sc->quirks & (GHL_GUITAR_PS3WIIU | GHL_GUITAR_PS4)) {
- 		if (!hid_is_usb(hdev)) {
- 			ret = -EINVAL;
+ 	st7571->hwbuf = devm_kzalloc(st7571->dev,
+-				     (st7571->nlines * st7571->ncols * st7571->bpp) / 8,
++				     (round_up(st7571->nlines, 8) *
++				      st7571->ncols * st7571->bpp) / 8,
+ 				     GFP_KERNEL);
+ 	if (!st7571->hwbuf)
+ 		return ERR_PTR(-ENOMEM);
