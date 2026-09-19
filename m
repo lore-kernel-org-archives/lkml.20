@@ -1,124 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10F7E2E040D;
-	Sat, 19 Sep 2026 07:25:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D1E82F8EA6
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 07:31:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789802726; cv=none; b=Meb2relDuZHq4Gjj61zNZD8BGBnFwiDaV9yqFhNRQF/Hp7qW4TT75qlSV5V+NAW7BA4D2DvgWNDxPDtOaxxJVVqi/S2+Rot1tWMzVxBfSvVrg5Y8L+PiW5BD+lL479uc2RzPiElOndEko6Ejnn1G/B3VccmBEABlXqnFI+X8+/o=
+	t=1789803101; cv=none; b=NQp74bLVtEPBh6UCqjCDeZyNB06fbKdOEfEEjjPu9MLyYfiihXJyvmANrWOrvVPnpYQN0EXB8VSpHTLeHpCA9rUs7joiW+4EQBvw6QpejhFPMfGDlhjARuh5qcNa9Na3bLjZ3VUjN9nkarnsu4ryukHCGnnq04fTZASjVDgjtDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789802726; c=relaxed/simple;
-	bh=dZUeROihmHBFdkbPDVuhMmWdYMvUMfvtMDaVHHDnscw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=gsM1Gd18Og1rNW3TtJx/PVKBAxWyDMv8SIINy2sMnJ4u6G2uv7cwYWoe0xgKzcR0NUccxryRBzucgNZPpCnRgk7e5BD4zXzp49xG4zcVO0vnkK7fpC6B6hJV3c8XwxWzKHmxqtqbzHiLaevstEHv5dEhQkexI+GVQ214TeBRKI4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HoNoCvkv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789803101; c=relaxed/simple;
+	bh=2MYchSZcJC+1dhKB7VGNheMMau7V9rlozpiUxImzcTk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZoiQScDcgI5Z+xk6ceHZaZkQXHdPkp5s2AOTDKqu4W51aOW2HcLIUMRy4UPcaKnwD1qzdsNFL+8jsNgMApaTN0+wvafJEbtD9ZaB/lMy2oHNXVUE6xwk4OCT+aR3445ruth/0lSEb/V08OozNfUPdK+pWMrTqMb7riQrbyuXL/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LvV31kXA; arc=none smtp.client-ip=74.125.228.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HoNoCvkv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE8BE1F000FF;
-	Sat, 19 Sep 2026 07:25:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789802724;
-	bh=fAD6GbG/00mvVvJ/4iMpR9akbfBBXwDJ9dBrI57N/Qg=;
-	h=Date:Subject:To:References:From:In-Reply-To;
-	b=HoNoCvkv0GrWiliCtbLtqZZGme1pfStF/olhW/47guAXcMB8XnKa3Sh07a+mqlA6m
-	 5MTEXnHesA9Aab6th5cv0EJtMAHnoI1KvzryYAREHixC5mQKvhz2RW/uV4+75H89gg
-	 trPRt5Fm45TWpqqvFlxyg/OKDnEh3gzQoKDJTBH+IOQQZsmysQuRoInJwqPnfPQ9HX
-	 V4S31Htc2fn25ZBLkLAXyIIEFjFExdfJoYDuIkmT/QZKYYTGNRYoYBDEy/70bWUf8B
-	 qUCuSXQjdzUjn7QcMMQMywN1DTQcCZ8y1gYb6Ccd1CnniXc+HmjtdS07D3s0K2SxGA
-	 +6d9/xrns//Gw==
-Message-ID: <b787a787-5011-4f14-9332-4cca098b374d@kernel.org>
-Date: Sat, 19 Sep 2026 09:25:17 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LvV31kXA"
+Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc1cea34ef4so1630660a12.3
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 00:31:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789803100; x=1790407900; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hgex21lQm0G61YS9FJDDkISfh7R3E5d66BHmejgp1dg=;
+        b=LvV31kXARXFVH3wlFkzwizP4uJ0307/P+OYM92o8RmrD8/drLkdtTfsEDRo5wsDVPM
+         fl6WKoNzWaIRkEto5P41Oq7DXOaSmyZCPAtF5AEgUGc0FD5E9MUMs+T2pTEVTtJ6+M28
+         ocEzObT8EYAZ11ohmzxgFNS0AqWZ8j96EmuYhNiN/sfwsinZxQpdwU8k61awFEwMMabo
+         MNcqXVG62XOAs2/8zF7yUHPdajOIahWvrJDNO9ArEbtoFxCNY1TFiFzj1UmM3XzIOwXp
+         WqRCYH+KJvHuNR9GMgN2N8JRXG711Kjyn9HXTfu3bMuxCVSAaBy1lhsQJNP3U7436YAS
+         ncoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789803100; x=1790407900;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hgex21lQm0G61YS9FJDDkISfh7R3E5d66BHmejgp1dg=;
+        b=hjyG0fqRS2A+ooD5ocvoj/Uek6JJ/zg6M44PRvQ1zPBQpM4mqSfZZ8oGR9YV6EFiLk
+         zDRk2qCAAFQeDkXEVbJIFl5opAJOI0qGz+DzbOJpTQEZos9Dr9BjOXP4ARo6HyNoxhMj
+         jtw9c/FLZtD+YR5JtXN5lwKldPmMDResPgNu34B88Ytd40cUQQdZ8hSJVZHjDfJhK5dS
+         GNZfGPt9C65SsM+yY1Z/uGR30cESnzOUblup8vbhsDre5LhkyHKs++op2+loLpzFeIjj
+         v0FKbOU7nOQcGGd848+hbyw8mQw856Wn2wLTEBWeCDe52k0srxnw8wynvBU2GH8KN9qI
+         i2og==
+X-Forwarded-Encrypted: i=1; AKwUvBwmCs7V6JDrPQsrJN1u5Yl3qiy3a+G9yKbE57WNN2+4uBvjZt5GKFQchvRxp+zkqfaJXCwAtefATeet38o=@vger.kernel.org
+X-Gm-Message-State: AFuF++lABqdJJUJC/v6t7lpQrZX9XJJcRERSpLjb/qd+fc5tHWZIEmhg
+	sIj4e2jr7FwbYTerkWT/qb3xpCL/Bb4NuY+5YDvtrWlaGtRK4PoTITBK
+X-Gm-Gg: AYBFou0ZJfPjJ4FN1tvOnA4LjiY5r1xzT7KREHW2GSabiIz7vDYtTzsxgUfYoVBup18
+	1BBxV9jEwaJu+V2DJJEPvZSsdFHBD/IWpCq5ofIKCOBoux57aOcQ5uh3UEzsmLq5ZY6Uhj1r5Yi
+	BosB7o2bCqnGaMx4k9f1zaEjwGFxMVHZl5QpOQSudxkHbq9LpCfPZXzXtvmfeHrl7F2Vvvro42t
+	Ny4ripIiDuEVT55D9rCtnP5vUIXDvbIyp8n5gajBE1unJhouHMJliSMlGEyLthKCwhw/0QyhNPj
+	UzPJhUIY22QNpG7ce5XsQfgGlRqvjm8rdJzX7hM1vwMguiY+XLdBQVjxw83uwpDd3RFlKXzliCC
+	AF2wKjDK/3P1+Ejw7qIyvuN3m6YFExFX18/07J67DLLYAWpP8GAlWIfMC874uHUoUJ0d1FYGYL9
+	aVwZwFgsi6NhDbDjS/GI/wuTwxf+CUGZNn/+LJ/Iondt7h1fjMV2SqOY5B1nZ6NWX2M6CgErrgx
+	OC1gf4NOM2RS4BYlGihhJz26FrvaI2Aycp7XF/QieVe7v+wdV+aB0pYY4WWP0HiylDEvU0EmOsZ
+	6hagppnkqDMA2F6uGMjk0IlmdA==
+X-Received: by 2002:a05:6a20:c901:b0:3dd:a197:edee with SMTP id adf61e73a8af0-3dda197f7b9mr2964150637.61.1789803099724;
+        Sat, 19 Sep 2026 00:31:39 -0700 (PDT)
+Received: from DESKTOP-TJS95SS.tail460ce2.ts.net (36-232-198-121.dynamic-ip.hinet.net. [36.232.198.121])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc72ae9e9c8sm654498a12.17.2026.09.19.00.31.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Sep 2026 00:31:39 -0700 (PDT)
+From: Yuan-Hao Hsu <aa9736195201@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>,
+	liam@infradead.org,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Barry Song <baohua@kernel.org>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Dev Jain <dev.jain@arm.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] mm/memory: reuse the whole exclusive large folio on a write fault
+Date: Sat, 19 Sep 2026 15:31:31 +0800
+Message-ID: <20260919073134.639-1-aa9736195201@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260918064238.868-1-aa9736195201@gmail.com>
+References: <20260918064238.868-1-aa9736195201@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5] dt-bindings: iio: adc: Add dt binding to xlnx,xadc
-To: Omer PALA <palaomer100@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
- David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Michal Simek <michal.simek@amd.com>,
- "open list:IIO SUBSYSTEM AND DRIVERS" <linux-iio@vger.kernel.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>,
- "moderated list:ARM/ZYNQ ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>,
- open list <linux-kernel@vger.kernel.org>
-References: <20260918194434.9240-1-palaomer100@gmail.com>
- <20260918203257.6034-1-palaomer100@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260918203257.6034-1-palaomer100@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 18/09/2026 22:32, Omer PALA wrote:
-> Add yaml devicetree binding for xlnx,zynq-xadc-1.00.a,
-> xlnx,axi-xadc-1.00.a and xlnx,system-management-wiz-1.3 from
-> xilinx-xadc.txt file.
-> 
-> Signed-off-by: Omer PALA <palaomer100@gmail.com>
-> ---
->  Changes in v5:
->   Fix validation bypass: xlnx,external-mux-channel could be set even
->   when xlnx,external-mux was omitted entirely, due to "not: properties:"
->   being vacuously true when the key is absent. Now uses required +
->   properties with if/else.
+After fork() and the child's exit, the parent's write faults reuse a
+large anonymous folio one PTE at a time, although
+wp_can_reuse_anon_folio() has already found the whole folio exclusive.
 
-How many versions are you going to send one day? If you only used search:
-https://lore.kernel.org/all/?q=dfn%3ADocumentation%2Fdevicetree%2Fbindings%2Fiio%2Fadc%2Fxilinx-xadc.txt
+v2, after the comments on v1 [1]:
+- Split in two.  1/2 handles an aligned block of 16 PTEs around the
+  fault, the contpte-sized version David was fine with in the 2024
+  discussion of Barry's RFC [2].  2/2 lifts that to the folio.
+- The earlier discussion is linked; the changelogs say how its two
+  reservations, the latency of the individual fault and how far to go
+  around it, are answered.
+- The bound of the walk is spelled out (Barry): folio, VMA and block or
+  page table, each PTE read once by folio_pte_batch_flags().
+- Changelogs cut to what is needed to judge the change.
+- Same base as v1; 1/2 + 2/2 is the code of v1.
 
-I asked for this indirectly in your staging patch. I pointed previous
-discussion where I said work was already done and received comments.
+Two points from the AI review of v1, both done as mprotect() does them:
+change_pte_range() does not flush_cache_range() before making PTEs
+writable, and it makes clean exclusive anonymous PTEs writable without
+pte_mkdirty() (the dirty rule is for shared file mappings, see
+can_change_shared_pte_writable()).
 
-The lesson to take from that was to CHECK for existing work and READ
-existing comments.
+Controls, unchanged: order-0 pages, PMD-mapped THPs, the COW copy path
+and the order-0 and cow/fork/write-fault modes of David's
+pte-mapped-folio-benchmarks.
 
-Best regards,
-Krzysztof
+What does not get faster on x86: stores to pages this CPU still holds
+a read-only TLB entry for.  The fault makes the PTEs writable but, like
+mprotect(), does not flush, so such a page takes one spurious fault,
+about the cost of the reuse fault it replaces.  That is the case for
+pages read since fork(), and for a loop that only stores one byte per
+page in ascending order (David's reuse-byte mode): the CPU runs the
+next stores speculatively while the first one faults and caches their
+read-only translations.  Shown with kprobes (135,687 handle_mm_fault()
+for 8,457 do_wp_page()) and an LFENCE after every store (4,100 faults
+instead of 65,400); the untouched PMD-mapped case behaves the same.  A
+flush_tlb_local() in the helper would fix it (that loop 28 -> 4 ms,
+memset() 38 -> 21 ms, +140 ns per fault), but generic code has no way
+to ask x86 for a flush that stays on this CPU, so that is for later.
+
+Tested with DEBUG_VM, DEBUG_VM_PGTABLE, PROVE_LOCKING and
+PAGE_TABLE_CHECK_ENFORCED: the mm selftests, a 12-scenario COW test
+(child alive, vmsplice, PROT_READ VMA inside the folio, soft-dirty and
+uffd-wp counts, mremap, holes, pageout, FOLL_FORCE), a
+fork/pageout/mprotect/vmsplice stress, NUMA balancing on numa=fake=2
+(protnone PTEs left alone), and arm64 under QEMU for the counters.
+Cross-built for arm64 4K/16K/64K, i386 with and without PAE, x86
+without THP, arm, arm nommu, riscv64, powerpc64le and s390x.
+
+[1] https://lore.kernel.org/r/20260918064238.868-1-aa9736195201@gmail.com
+[2] https://lore.kernel.org/r/20240831092339.66085-1-21cnbao@gmail.com
+
+Yuan-Hao Hsu (2):
+  mm/memory: reuse 16 PTEs of an exclusive large folio on a write fault
+  mm/memory: reuse the whole exclusive large folio on a write fault
+
+ mm/memory.c | 68 +++++++++++++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 66 insertions(+), 2 deletions(-)
+
+
+base-commit: 238650ef6c7c7cca08e032527329424c9fbd70e5
+-- 
+2.43.0
+
