@@ -1,117 +1,201 @@
-Received: from mail-pj2-f7.google.com (mail-pj2-f7.google.com [74.125.227.135])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A126318BB5
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 17:42:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.135
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D06C1A262A;
+	Sat, 19 Sep 2026 17:42:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789839756; cv=none; b=M931mw193wexSj9B8Fn6W8ECTWZj+OOToEU7Sa6UyM8guPeSL6JOaTzI0CQgnmawFmmV0+sFYpcAgCxRgLNRlsT7DsTCO2vry9MOj3DUUmBkBm667lnaz7gzko/8n5QK+HlerCh00lSr/+ri/AEd8oY24OBlm4PzdABarSdbsgE=
+	t=1789839776; cv=none; b=LX5JyS/mVKatbkbkeNdg9mkm6lqsPgaa48t1OOy/cLxHC2tXRhipF2QZCGDCTcHGc/WZpRXBK/kFzgk814qfTsrIPaxi1wX+ET8NAH6Z0dsVP3ZyYi3xyUoHy0CBDFAfNjXR9l04NT7flsJuze/jfR4VCRIEqBbUypf0pMYA6Fs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789839756; c=relaxed/simple;
-	bh=ERVYNPfubS1lL7XJj8hGOUw4uQFg9cuUwbGKdJsaNUQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MaTVLgApAvBfDaPokuKxjZeQRTFJJNoJoVTPuVmuNyWbsmUL/MJvfliJTEj+wxaZ+fg2iGuJLI2oZXZ63Jge8hkG4PP4aMQhZ2o204lWkeyYvcaB79zFNapF1TST/IR4Xy630ZtIcNoBuwZexM1Gc8vRyqNb06D0km7pZZOjh2U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Yr89mYWe; arc=none smtp.client-ip=74.125.227.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789839776; c=relaxed/simple;
+	bh=gX6kP0uYz6vCcANyl/YmCbeJHsGjeKSgylWNMLy9yew=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iiF1KE5amVO+HuW3VIW9Dmxyh+RJapmG1anSdBzwps9ebdTl8n57vRqCpiqeY02buUuJ5JBY5rKOTerXZICpiH6iljVHBkoZYLo4YVOW2inp9m1qWnyIFmrvjXMUcVKIN48ahLU/IyBJvhNxKLmq+bjgFiXrHJC/K1kuj9F/OsQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ggnnBtdi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Yr89mYWe"
-Received: by mail-pj2-f7.google.com with SMTP id 98e67ed59e1d1-39e501442e2so1224387a91.0
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 10:42:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789839754; x=1790444554; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wqtGKu4ehtoV9DVHcDQz0i0Wul1TLpZRrMxi7IKUvp4=;
-        b=Yr89mYWeUB8aXyJmU5tGNiLWRx6H40u++exYmhiCcYrJwHhbyNYK1HyulcZkr/KT4E
-         9gfnJ9tDMZsxgAe68BIBmvqGCR8FyAC5+SKSY9so48H+1Xrl6qOizQGLdF//bv5Wlqzz
-         PWVjlIRWZgGGtJL6OUAe9cAHFiBjeUwgMyiKKObogYt6spPf73A8VKwuKaueEYMUKCae
-         LwlTBftCVR4CgQewFA1qK7zRnqkZmHbHqnE/rkakhKujIQmUVsOUz44kzyXujxDxt1US
-         hnFHOgCJaTwjbx4bD98Mo+lh7qVw39ncO3uiUBH90GtC2XdW51cX4ClFzEtPT91lgxBO
-         P+pA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789839754; x=1790444554;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wqtGKu4ehtoV9DVHcDQz0i0Wul1TLpZRrMxi7IKUvp4=;
-        b=xIYshooHiBF0JGWsTvjn4U0yoXsVD9WHcVu9Eet+w1asFIjh3qGqrKPiGxWvFjWs/B
-         Ou/fXlmdBAG6NPOAViW9uVGa53tux3z7H0vVBLPBycgACgVTlDcJer67WUrauB8kn6Mj
-         eIoCdp8uu9noHnS0P0oj0gGSheZGe4GT29pw+fEsBk1CoXqTpbTFiq4T3ylGBde3zXsO
-         E5EjpTbY3SHBJM0siYYQBLV3EfkvHnjDBnzuT1ImvAoWVy4Qr2Bzad5Vi8ng6S+RBVXT
-         GvZ9SHyuHGhr00JC9s3tFE9oRwgk9Y3BP20g5qqy3APbrnqXbti4lK12pRQyXJK46kIQ
-         MWrg==
-X-Forwarded-Encrypted: i=1; AKwUvBxAVGAegvu1u6t7iKbHlk2sVQKbPxPcuMeHT9zzv3/iFadVpxTwR6+apoCZ/i/6HKk6BFGuqXEjJrEtMSE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lu2FySSPuJGOYcCgIxLhrQQOXGsTuTOhksQpXNTW1JyhzGyIup
-	o1or97w0s73tl7GCcrOyu/YKt2zOa1OiOYXYDbsvEGEnEHQYt/fW8m7q
-X-Gm-Gg: AYBFou19gAyq5DYxE6fkdT//C5uOt3b3Ss88CArZ+Gl7GofxBL6oTadTbDkrxm5yhNC
-	3U3Q3YvKCuFhA8PQPahn8EecNT9F3jZVbIqPjwddvV9bYXbjT8dbaHh+1hIU7zaUuZNYAT+uvDh
-	ZtD822jENvcsN4TUfSLoLL51QO8f9LK1ttZGOUdlcoZ4+KeXKDkMj2zR8siNslWmn1GiAQe5w3B
-	mKhtoEcOxBa6o9TN8QcO+gonEO6TTCSi3w0Lgd60J3lxxwxliuZEgJXyKyJpQ8CfT05VYXmlWXa
-	kxbjpi6SjtWyV48nhZudRWzc+nPiNpePRZzNcKXGEPp00mqBMpLBVU4/22f1F41OjBxKw1hhF9H
-	LcPhMoqY4MkwK1Bty9zWDplgy9pKQFivQLg2ONwYnR/Arx2PAHhVoEIYj4JiUFqSyQBCJdUzMix
-	vIyRWu7fyuNKq6KOGZHkbMzwMSRAC8LiKoS1WwAfnEIBZjtld1qkBOKKmzstdRZE85cG5Pz7U1c
-	PXGeze/
-X-Received: by 2002:a17:90b:384d:b0:39e:6c6a:656d with SMTP id 98e67ed59e1d1-39e6c6a6757mr4257438a91.48.1789839754436;
-        Sat, 19 Sep 2026 10:42:34 -0700 (PDT)
-Received: from server.lan ([168.138.199.194])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6f1835adsm5144018a91.6.2026.09.19.10.42.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 10:42:32 -0700 (PDT)
-From: Coia Prant <coiaprant@gmail.com>
-To: Heiko Stuebner <heiko@sntech.de>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
-	netdev@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Coia Prant <coiaprant@gmail.com>
-Subject: [PATCH net] net: ethernet: stmmac: dwmac-rk: fix bulk clock leak when the PHY clock fails
-Date: Sun, 20 Sep 2026 01:42:23 +0800
-Message-ID: <20260919174223.2356964-1-coiaprant@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ggnnBtdi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83AA21F000FF;
+	Sat, 19 Sep 2026 17:42:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789839775;
+	bh=EmKMaNISpoD+G1Wl72W0nnHSvdTJBbpXkv1m5kyJz2A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ggnnBtdi6oPvTc6LR8VCsrfY7orLsXOlCoJnnxw13VrUFRrRVhWMt5OAF2Opcj4ZB
+	 YcIj4CllvKnSlvek+Z3wchBQHqdTiimX32aDKEaeVtMBpKvttmHxupE66jvcdbZsDs
+	 LBKKyRaP+EZtC9uNq49fUEONC+dlrc+drK6RLUfOspsQKYhlEZ8fYPdjr2D3RUX7BE
+	 dG9EDgFG4VB868oRySp7/V9e7xeDOTmKtslQFScCq8nE7IzwsTtsZJNjWCYbxKXMcI
+	 AM6G1OmVdI7U9BlXwceEYSQcUcvmGvRTGTSUgpHsIMbGLxJBna3mI5nOv4Lu47rPgT
+	 Lizsy0etFY2yg==
+Date: Sat, 19 Sep 2026 18:42:40 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Manuel Ebner <manuelebnerli@mailbox.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Masahiro Yamada <masahiroy@kernel.org>, 
+	Alexey Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
+	Randy Dunlap <rdunlap@infradead.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	llvm@lists.linux.dev, linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v3 20/20] kbuild: compress the kernel with pigz if
+ available
+Message-ID: <aq7JTyKVMljWOxer@gremlin>
+References: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
+ <20260917-build-speedup-v3-20-9ecf4163ff36@kernel.org>
+ <3be3dca3bee5695972e5419a1198bfee40a1ede7.camel@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <3be3dca3bee5695972e5419a1198bfee40a1ede7.camel@mailbox.org>
 
-gmac_clk_enable() enables the bulk clocks first and then the optional
-PHY clock. If clk_prepare_enable() on the PHY clock fails, the function
-returns without rolling back the bulk clocks, and bsp_priv->clk_enabled
-stays false, so the later gmac_clk_enable(bsp_priv, false) becomes a
-no-op and the bulk clock references are leaked.
+On Fri, Sep 18, 2026 at 04:27:39PM +0200, Manuel Ebner wrote:
+> Hi Lorenzo,
+>
+> On Thu, 2026-09-17 at 17:06 +0100, Lorenzo Stoakes (ARM) wrote:
+> > The gzip step of a kernel build is very lengthy, especially for larger
+> > builds such as allmodconfig.
+> >
+> > ...
+> >
+> > Whole build, 128-thread Threadripper 9980X, best of N runs:
+> >
+> >                                          before   after     delta
+> >                                          -------------------------------
+> >   x86 defconfig, touch mm/vma.c, gcc        7.7s     6.0s     -1.7s (-22%)
+> >   x86 defconfig, touch mm/vma.c, clang      6.9s     5.4s     -1.5s (-21%)
+> >   x86 defconfig, clean, gcc                28.2s    26.3s     -1.8s (-6%)
+> >   x86 defconfig, clean, clang              28.7s    27.2s     -1.5s (-5%)
+> >   x86 allmodconfig, touch mm/vma.c, gcc    23.7s    15.4s     -8.3s (-35%)
+> >   x86 allmodconfig, touch mm/vma.c, clang  22.5s    15.6s     -7.0s (-31%)
+> >   x86 allmodconfig, clean, gcc            294.1s   278.6s     -15.5s (-5%)
+> >   x86 allmodconfig, clean, clang          283.9s   266.8s     -17.1s (-6%)
+>
+> That's good to hear.
 
-Add the missing clk_bulk_disable_unprepare() on that failure path.
+:)
 
-Fixes: ea449f7fa0bf ("net: ethernet: stmmac: dwmac-rk: rework optional clock handling")
-Signed-off-by: Coia Prant <coiaprant@gmail.com>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c | 3 +++
- 1 file changed, 3 insertions(+)
+>
+>
+> > Suggested-by: Kees Cook <kees@kernel.org>
+> > Link: https://zlib.net/pigz/
+> > Assisted-by: LLM
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > ---
+> >  Documentation/kbuild/kbuild.rst   | 17 +++++++++++++++++
+> >  Documentation/process/changes.rst |  8 ++++++++
+> >  Makefile                          |  5 ++++-
+> >  kernel/Makefile                   |  6 +++++-
+> >  scripts/Makefile.lib              |  4 ++--
+>
+> Please add a line to
+> scripts/ver_linux
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-index 8d7042e689261..f3a98bd9d6ead 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-@@ -1163,7 +1163,10 @@ static int gmac_clk_enable(struct rk_priv_data *bsp_priv, bool enable)
- 
- 			ret = clk_prepare_enable(bsp_priv->clk_phy);
- 			if (ret)
-+				clk_bulk_disable_unprepare(bsp_priv->num_clks,
-+							   bsp_priv->clks);
- 				return ret;
-+			}
- 
- 			rk_configure_io_clksel(bsp_priv);
- 			rk_ungate_rmii_clock(bsp_priv);
--- 
-2.47.3
+Ack, done for v4!
 
+>
+> >  scripts/jobserver-exec            |  3 ++-
+> >  tools/lib/python/jobserver.py     | 13 +++++++++++++
+> >  7 files changed, 51 insertions(+), 5 deletions(-)
+> >
+> > diff --git a/Documentation/kbuild/kbuild.rst b/Documentation/kbuild/kbuild.rst
+> > index 5a9013bacfb7..e71a692a559a 100644
+> > --- a/Documentation/kbuild/kbuild.rst
+> > +++ b/Documentation/kbuild/kbuild.rst
+> > @@ -110,6 +110,23 @@ HOSTLDLIBS
+> >  ----------
+> >  Additional libraries to link against when building host programs.
+> >
+> > +KGZIP
+> > +-----
+> > +The gzip program used for compressed modules, packaging and the embedded
+>
+> Could you also add gzip to changes.rst and ver_linux while you are at it?
+> Rest looks good to me.
+
+I'd rather leave that out of this series tbh, if I listed it then I have to
+choose a minimum version that and feels out of scope.
+
+One for a follow-up?
+
+> Reviewed-by: Manuel Ebner <manuelebnerli@mailbox.org>
+
+Thanks!
+
+>
+> Thanks
+>  Manuel
+>
+> > +kernel configuration. Defaults to gzip.
+> > +
+> > +KPGZIP
+> > +------
+> > +The gzip program used for the compressed kernel image. Defaults to pigz (a
+> > +parallel implementation of gzip), run under scripts/jobserver-exec so that it
+> > +uses the job slots make has free, if pigz is installed, otherwise to
+> > +``KGZIP``. Set ``KPGZIP=`` on the make command line to use another program.
+> > +
+> > +KBZIP2, KLZOP, LZMA, LZ4, XZ, ZSTD
+> > +----------------------------------
+> > +The compressor programs for the other formats. Each defaults to the program
+> > +of the same name.
+> > +
+> >  .. _userkbuildflags:
+> >
+> >  USERCFLAGS
+> > diff --git a/Documentation/process/changes.rst b/Documentation/process/changes.rst
+> > index 0aa232b117b5..28f2ca63318e 100644
+> > --- a/Documentation/process/changes.rst
+> > +++ b/Documentation/process/changes.rst
+> > @@ -55,6 +55,7 @@ nfs-utils              1.0.5            showmount --version
+>
+> + gzip
+>
+> >  openssl & libcrypto    1.0.0            openssl version
+> >  pahole                 1.26             pahole --version
+> >  pcmciautils            004              pccardctl -V
+> > +pigz (optional)        2.4              pigz --version
+> >  PPP                    2.4.0            pppd --version
+> >  procps                 3.2.0            ps --version
+> >  Python                 3.9.x            python3 --version
+> > @@ -206,6 +207,13 @@ GNU AWK
+> >  GNU AWK is needed if you want kernel builds to generate address range data for
+> >  builtin modules (CONFIG_BUILTIN_MODULE_RANGES).
+> >
+> > +pigz (optional)
+> > +---------------
+> > +
+> > +pigz is a parallel implementation of gzip. If it is installed the compressed
+> > +kernel image is produced with it rather than with gzip, see ``KPGZIP`` in
+> > +Documentation/kbuild/kbuild.rst.
+> > +
+> >  System utilities
+> >  ****************
+> >
+> > diff --git a/Makefile b/Makefile
+> > ...
+>
+
+--
+Cheers, Lorenzo
