@@ -1,139 +1,215 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6F9B348C7B;
-	Sat, 19 Sep 2026 23:13:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 497A42DC76A
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 23:14:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789859617; cv=none; b=k1u4LfNHM8uz9SUU6nY12iqab1o5qS53yEWfkiVXdimnDVND5lHsntLS6F1S9dOD+o+wIjq6OJqWuRM1OJGLA5YAuzOrV5auypH66fimR9HZwnOHZHx6h+BFdI0nTXxtlOUlMB/BaTTBM8ZyvGstN0hFSGOmzfT597wQH0rjrAs=
+	t=1789859680; cv=none; b=Xa+bEnaunHlyED1rmQbVW0yxW95cqI+PrOPS9AUq0/aLSy0mgxcKePeAMH8SQgdLqz8cjQ5YBc4C9WT6pMZgOAPqQZIq3yuDVHC0hW4W3Tkd+4JF4AJCfm0t6Yr5The60b0LG6DuWU+LA7BTfkMxC65AQI8lOpJcEBjPXPgJ9P0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789859617; c=relaxed/simple;
-	bh=sK2yacM6Q3NGD6pgtUu/ouaNBLyacVN5mFpthK3M0EE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Eo+2g1bZBJEDqv0mCtw2MokV1q1X6LQnhTiYiw0KOI1sJU8Fd6zmkDRAzj6RsIlv/n96zRKg2ITYKc2ZhjoK/V+0T/rIU2G906xXIB98mlQLzKs3/2yffeDDTT4oTEaw0kMS5jJ8j/4/1988y0ITvxStn5sAC0fL+Doies0m834=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=agsW2GL4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789859680; c=relaxed/simple;
+	bh=bhJyXL/SvI0lYtYcRsi+mhyZA8OzMuLIb2xFOy/nwac=;
+	h=From:Content-Type:Mime-Version:Subject:Message-Id:Date:Cc:To; b=WowxsbujQE/wiYhH0Cm7bRZ9Cu79Mk9CKx6NGxJ/FjveMD+gSF7mYv22Hu8TgH0pbnVPu0AxJJy5+1eKizU3ZzesyOCkGxRj1gu9v2TTAycYjgIjs/m1MklTvpAuialgIs7kfDjewNQ16X5Ook2lelboF4kMvoYJjwyOOBoNYG8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HYqpdpJZ; arc=none smtp.client-ip=74.125.229.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="agsW2GL4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E960B1F000FF;
-	Sat, 19 Sep 2026 23:13:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789859615;
-	bh=2Sef/0wxyMwTpjYCRnlB9CgtNUDrbK2hMY8qeX5WdGA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=agsW2GL4vTTRqpy7+o1jwke4n1/xbLd5GX9CLNxEpk/J+J6CA5r6gJkG1jKju+NPm
-	 wMOwUqTa8PrIQ5wkmYvByON9AH34njGzQIckoWUQPP6lfYsVH1JubRrXOdrW/fDw1f
-	 J2KFvOBBVO/gh08nduHOQAzcOQ9ftbLQRO7OVHCnjhE6vE1wWWV93XFIHgu/NnTaQy
-	 bwWdMoTMk2f5hcq3K2BvqZN+6n8vMasxFKOUFPoOB/yX3n73ayxbMRHE+cQ9UhK+Rg
-	 2as9+UFbBD1l4QEoqvsNfhlrtSmWN6j5jQbj2zLUJ0MnCtSxGzVIQUE/LcE7liMVkP
-	 JWzwOrSYgSyVg==
-Date: Sat, 19 Sep 2026 23:13:33 +0000
-From: Yixun Lan <dlan@kernel.org>
-To: Icenowy Zheng <uwu@icenowy.me>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org
-Subject: Re: [PATCH 2/3] pmdomain: spacemit: Add power domain driver
-Message-ID: <20260919231333-GKB322102@kernel.org>
-References: <20260918-04-k3-pm-support-v1-0-0acd2b36b96f@kernel.org>
- <20260918-04-k3-pm-support-v1-2-0acd2b36b96f@kernel.org>
- <a4359efeee2220903a05a2383a651ec8ec7284b7.camel@icenowy.me>
- <20260918230107-GKC297024@kernel.org>
- <33b33b2b79763d410bc2e5b4ef46c305aaf6f7c8.camel@icenowy.me>
- <20260919095936-GKA322102@kernel.org>
- <8301abce221e33d827053c54a64aed05f3227f7f.camel@icenowy.me>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HYqpdpJZ"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f16c72so1520394e87.0
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 16:14:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789859677; x=1790464477; darn=vger.kernel.org;
+        h=to:cc:date:message-id:subject:mime-version
+         :content-transfer-encoding:content-type:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/ZeC3/tBtXG1lvkhCzkqLAhG3qjfPpfCCgMkPkewIEs=;
+        b=HYqpdpJZBC/Meuvqau7w/TbBkcU4Dwj9l8OyV3DezwLCHdGkmIqfOhVVU8U6dJXYeh
+         pHIl9GnAv4yWvYSy8tTZ9Y5rXZwBGi/0+GfCdkcyHsiNJiXpaAikYPEm5WxlfRLN4Weo
+         xqdf5T9EL3zfEZEt4sinRHH3tU5z4ZD9/x1Jf6X/fI1EyuJmES+02TEZ5ThcyZG7ZKl6
+         qVjzJds6LlMg7pf4fZ1uvwUnmI1xugilC2TkcOsyobp9rv1cNNY4JwYgILWp84DPZNj/
+         +QPh/Wpq0GoSEX7tWUPwKipOc+LTbXGjgh7WPnPjr2CeEbsgyRWHI4ooWaIeFu4zSuiD
+         p4KQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789859677; x=1790464477;
+        h=to:cc:date:message-id:subject:mime-version
+         :content-transfer-encoding:content-type:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/ZeC3/tBtXG1lvkhCzkqLAhG3qjfPpfCCgMkPkewIEs=;
+        b=BoLh6CkU1W/L9E5Dvp/rbNwpss1KI3xNugAjdq/ZmLIgdfjieVdm7ud3tkrWHCb+hk
+         OZiAU4uTxmJ/It9ahAM1TpYiGF5uIgAnQ9ap5r5V1jjCibRoqMkbnFw1n06kL5bLp14u
+         oXaeV3QSjjh811TcrqcP+DonOgqMN3hRnOPDKpC1SlPNIuhqQjQpQNtuVARUxhJfjsfS
+         e2IkTztpEHkc9PSzQ1OpnhFbP3BSi3b2zWAXwroHG2Tydohij64P5gv6hMdTf5TDYr5X
+         jq57cTgqPsmttBbllvity/PBUUpVeLWhB7rq7tm7tqrdo5+G9yYKP2iQAe9jC/4kAjgI
+         yC+g==
+X-Gm-Message-State: AFuF++k5o7BbghDsloL10LYdy7O0xTg5vaCZLML82MDnN4jZXFoSsKda
+	szOsao5F/+95VKpJaq6jCdNMsgS469S2tK0akQXCVlRfRl+02IMCP3a+
+X-Gm-Gg: AYBFou0N04Lnv6BrRp5BkT3BkD7K+OMh6CjAx2mzIV1fP6RiazodZR6miKv8Du6a+4+
+	WGFad74c/W0VkceRsU36+H5JaEI9hX+sPCfQIX1gnKGq3u5hdW5A8gSR89ZPPpL/Lo0hBaWsJSH
+	V0BqzxsehIXXKXhTyQrXTbtbZsf1fYqGzfqlAyx0a/cSmajk0UbPjwakxjiWcOx/G/+5nBValuP
+	F1Ui/vXIkGStjX/2yfr9KpDHzlpIF3M3nDV7GGF7DTyB+zBA+RzhuGN4Ar8Y7COyiaGD+GaYa1w
+	wsDzjowXymnM9b7ShnUoT/4S+Tr814N+P5g5gOf0J9di7/xtUgV0iQZmcvYimrzEJ+DGyCp3qdT
+	66nR2AVlbwDE7Z8g67iO8V94SXKZpoGIV2uvXK+N4ELA20kXKQ5VfiNbdVnQfxx4le7W8CLgPCJ
+	b8yzIdw8v/sJ9k5xdDxHuCEne2hX3iT/H4DvMZ7NowyrHF9yEK6/8B92cZB44gG+O8UnA0YhTdq
+	gk=
+X-Received: by 2002:a05:6512:3dab:b0:5b8:c147:f370 with SMTP id 2adb3069b0e04-5b8c196c475mr2199355e87.52.1789859676838;
+        Sat, 19 Sep 2026 16:14:36 -0700 (PDT)
+Received: from smtpclient.apple ([2a09:bac5:1c:987::f3:16])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8c94a53d2sm649416e87.14.2026.09.19.16.14.34
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sat, 19 Sep 2026 16:14:36 -0700 (PDT)
+From: Ahmed Shaltout <ahmedshaltout.payment@gmail.com>
+Content-Type: text/plain;
+	charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <8301abce221e33d827053c54a64aed05f3227f7f.camel@icenowy.me>
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
+Subject: [REGRESSION] /proc/stat idle time exceeds wall clock since v7.2
+Message-Id: <E76BE609-83E4-4FB6-88B8-191F7816EFD6@gmail.com>
+Date: Sun, 20 Sep 2026 03:14:22 +0400
+Cc: linux-kernel@vger.kernel.org
+To: frederic@kernel.org,
+ tglx@kernel.org
+X-Mailer: Apple Mail (2.3901.100.1.1.11)
 
-Hi Icenowy,
+Hello,
 
-On 21:56 Sat 19 Sep     , Icenowy Zheng wrote:
-> 在 2026-09-19六的 09:59 +0000，Yixun Lan写道：
-> > Hi Icenowy,
-> > 
-> > On 14:57 Sat 19 Sep     , Icenowy Zheng wrote:
-> > > 在 2026-09-18五的 23:01 +0000，Yixun Lan写道：
-> > > > Hi Icenowy, 
-> > > > 
-> > > > On 17:00 Fri 18 Sep     , Icenowy Zheng wrote:
-> > > > > 在 2026-09-18五的 02:40 +0000，Yixun Lan写道：
-> > > > > >   SpacemiT's PMU (Power Management Unit) consist of several
-> > > > > > power
-> > > > > > domains
-> > > > > > which can be managed independently, depending on different
-> > > > > > application
-> > > > > > scenario, each domain can be powered on/off for saving power.
-> > > > > > 
-> > > > > >   The driver is implemented based on Linux Generic PM Domain
-> > > > > > framework.
-> > > > > > From a hardware perspective, either of two distinct power-on
-> > > > > > sequences
-> > > > > > are supported, in software mode (SW mode), the driver is
-> > > > > > responsible
-> > > > > > for
-> > > > > > controlling the states of bits such as sleep1, sleep2,
-> > > > > > isolation
-> > > > > > and
-> > > > > > pwr_state, while in hardware mode (HW mode), the PMU hardware
-> > > > > > will
-> > > > > > complete
-> > > > > > the sequence automatically without requiring software
-> > > > > > intervention.
-> > > > > 
-> > > > > I think there also exists solutions for K3 that uses RPMI power
-> > > > > domains, and let their ESOS firmware to access the hardware.
-> > > > > 
-> > > > Yes, I'm aware of that
-> > > > 
-> > > > > What's the relationship of this implementation with the ESOS
-> > > > > implementation? Should the ESOS part be disabled to use this
-> > > > > implementation?
-> > > > > 
-> > > > I should say, it's a mutually exclusive solution, so yes, the
-> > > > ESOS
-> > > > part
-> > > > should be disabled in order to use this version
-> > > > 
-> > > > The motivation of this patch is trying to support drm/display
-> > > > driver's
-> > > > PM requirement, while avoid going with vendor's complicated RPMI
-> > > > solution
-> > > > which isn't mainline ready
-> > > 
-> > > Is this a long-term solution, or a temporary one?
-> > > 
-> > For upstream, I'd say we probably will stick to this solution for
-> > long time, won't say it 'forever', see comment below..
-> > 
-> > > If it's a temporary conflicting one, I don't think it's worth
-> > > picking
-> > > at all.
-> > > 
-> > Well, checked current Linux kernel status, there is no RPMI PM
-> > solution 
-> > implemented although there is documentation in riscv-rpmi spec[1]
-> 
-> I have seen pending patch for it with multiple revisions [1], the dt
-> binding is even already ACKed by Conor, so I think it's not a big
-> problem here.
-> 
-That's exactly what I said - it's not mature, not saying it's pending
-patch for review, but for whole solution that involve Linux driver,
-opensbi and underlying fimware (ESOS) - which not upstream-ed..
+Since moving from 7.1.8 to 7.2.5 (openSUSE MicroOS kernel-default), the =
+idle
+time reported in /proc/stat exceeds the wall-clock time the CPUs have =
+been up
+for. Idle alone accrues ~103% of the ceiling, and =
+user+nice+system+idle+iowait
++irq+softirq+steal sums to ~108% of it.
 
-To make it clear, I'm not going to pursue the RPMI solution, but if
-someone insist and willing to spend the effort, please feel free to push
+This breaks the common `100 - rate(idle)` derivation of CPU utilisation, =
+which
+goes negative on an idle-but-working machine. node_exporter, and =
+anything built
+on it, is affected.
 
--- 
-Yixun Lan (dlan)
+#regzbot introduced: v7.1..v7.2
+
+Reproducer
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+No tooling needed; /proc/uptime shows it directly, since its second =
+field is
+idle time and cannot legitimately exceed uptime x nr_cpus:
+
+  read -r up idle < /proc/uptime && awk -v u=3D"$up" -v i=3D"$idle" -v =
+c=3D"$(nproc)" \
+    'BEGIN{printf "idle %.2f%% of ceiling\n", 100*i/(u*c)}'
+
+  7.2.5:  idle 103.10% of ceiling
+  7.1.8:  idle  89.13% of ceiling
+
+A 60-second delta over the per-CPU lines of /proc/stat, on 7.2.5, 8 =
+CPUs,
+ceiling 480.04 CPU-seconds:
+
+  user      	9.95     	2.07%
+  nice    	0.00    	0.00%
+  system 	6.56     	1.37%
+  idle       	495.44  	103.21%
+  iowait   	2.40     	0.50%
+  irq          0.00     	0.00%
+  softirq   	2.83     	0.59%
+  steal    	0.00     	0.00%
+
+  BUSY 	21.74     	4.53%
+  IDLE 	495.44   	103.21%
+  TOTAL  	517.18   	107.74%   excess 37.14 CPU-seconds
+
+The busy modes are consistent with the machine's actual load; the entire
+excess is in the idle column. The same measurement on 7.1.8 gives
+478.49 / 480.07 =3D 0.9967.
+
+/proc/stat and /proc/uptime agree with each other exactly on both =
+kernels
+(stat_idle / uptime_idle =3D 1.0000), so proc_stat(5)'s equality clause =
+holds.
+What is violated is wall clock alone. That appears to place the problem =
+in
+the counter both files read rather than in the /proc plumbing.
+
+Environment
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+  AMD EPYC-Rome, KVM guest (Hetzner Cloud), 8 vCPUs
+  clocksource: kvm-clock
+  CONFIG_HZ=3D1000, CONFIG_HZ_1000=3Dy
+  CONFIG_NO_HZ_COMMON=3Dy, CONFIG_NO_HZ_FULL=3Dy, CONFIG_NO_HZ=3Dy
+  CONFIG_VIRT_CPU_ACCOUNTING_GEN=3Dy, CONFIG_VIRT_CPU_ACCOUNTING=3Dy
+  CONFIG_SCHED_HRTICK=3Dy
+  CONFIG_TICK_CPU_ACCOUNTING, CONFIG_IRQ_TIME_ACCOUNTING and
+  CONFIG_PARAVIRT_TIME_ACCOUNTING are all unset
+  no nohz_full=3D on the command line; /sys/devices/system/cpu/nohz_full =
+is empty
+  cmdline is otherwise identical between the two kernels (psi=3D1, =
+selinux=3D1)
+
+The kernel configuration above is byte-identical between 7.1.8 and 7.2.5 =
+for
+every option listed.
+
+Already ruled out
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+  - Userspace: the raw /proc/stat and /proc/uptime numbers show it; no
+    exporter involved.
+  - Clocksource: kvm-clock on both.
+  - NTP: offset 0, sync_status 1.
+  - nohz_full: compiled in but not enabled; the cpumask is empty on =
+both.
+  - Possible-vs-online CPU miscount: possible =3D=3D online =3D=3D nproc =
+=3D=3D 8. The
+    measurement above uses the per-CPU cpuN lines only, and the =
+aggregate-
+    versus-per-CPU deltas were 14, 7 and 18 jiffies.
+  - Since-boot accumulation: the figures are deltas over a fresh 60s =
+window.
+  - Steal deferral: kcpustat_idle_stop() defers steal subtraction by one
+    window by design, but steal is 0.00 here and that deviation is =
+bounded
+    and self-cancelling in any case.
+
+Suspected origin
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+This is a distro-kernel comparison, not a mainline bisect -- I have not
+bisected and cannot currently do so on these machines, so please treat =
+the
+attribution below as a guess rather than a finding.
+
+The only v7.2 change I can find touching this path is the tick/nohz =
+series
+merged as timers-nohz-2026-06-13 ("tick/sched: Refactor idle cputime
+accounting"). The behaviour matches the version boundary exactly: absent =
+in
+7.1.8, present in 7.2.5. I note the series was motivated by idle going
+*backwards*, i.e. the opposite direction from what I am seeing, so this =
+may
+well be an unrelated interaction.
+
+I also checked whether this might be an intended change in what =
+/proc/stat
+promises, and could not find evidence that it is: =
+Documentation/filesystems/
+proc.rst is unchanged between v7.1 and v7.2, the series touches no
+Documentation/ file, and proc_stat(5) carries no "since Linux 7.2" note. =
+If
+the semantics did change deliberately, a pointer to where that is =
+recorded
+would be welcome and I will adjust our side instead.
+
+Happy to test patches or gather more data -- these are long-running =
+machines
+and the effect is present continuously, so it is easy to measure.
+
+Thanks,
+Shaltout,=
