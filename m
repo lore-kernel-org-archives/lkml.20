@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D32522D7DC6;
-	Sat, 19 Sep 2026 00:35:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4163330F540;
+	Sat, 19 Sep 2026 00:35:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789778128; cv=none; b=KiaD7XkngAluIWEo7lvnFA0zx+ozNwjhleRZ3s1xskHVPFiqswSME0DJhERGc0rPuW8GPP957RomvVKzkM2j9oGfm4cDyEUsunB1XUP19oP0ygDJhXmK1LVaskr2kTnJpL/3veRm7GQkOwl1Y8MczL8Q6o+xeHpzeUAd0YTuwoU=
+	t=1789778132; cv=none; b=QRgFlYdmV1K73zcPv76WPY5bH2Ur4RALsTSnSsUY4aCgVzlDOqPH+QsWyPADbiQ4zBKD1/RcB5NT/Ayp7jAvuDGmvgO99SmKzmcUxGCILvDfqPN6Ioff+1tYODd7Ogr7d6CbtqqN5vdqjgk6jO2khx4O+vEBfPkH930FHmQ3szo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789778128; c=relaxed/simple;
-	bh=689wI1HDv4/PsD9e46Ei853dPZ1hkg9mXwm+9n7glPs=;
+	s=arc-20240116; t=1789778132; c=relaxed/simple;
+	bh=d4j09ruRw/K4F9/TxKJfNLBZqsAZxaVIe1N9gTmganU=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=YBOQHyORL/eiqmt0ee8pMpevTazmTPQIHhvkOwnPcw18jB1ctz/y05ZnAadFJscAs8PMa7FFqLe0h0O776X3wNZiTlTkRTXN8IQrXoGakMcu/A/maqzOvHpFnhNt5xOWKSOTZ1aLnPwm62B/oD9A1doZ4UqijxAtavJEIy2rl1w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PmEIudNI; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ctbaZMo8pl7wgP7Zbstz3SyAiY06fB9Y5hVQIz5bG4jvmGNTRVmDwqmXSUJNdgCDg5VTybGk3oGN9ZkKKQAdVlUXwZ36NZd9LHHb6n3BkUELjFAtiWYvaaXLoRRjfVWZW4SixT9Hu4I7WjhkPzu9peP6zgybDar5VQza9sFsHm0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rty5pnLJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PmEIudNI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C16691F000FF;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rty5pnLJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D06F61F00898;
 	Sat, 19 Sep 2026 00:35:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789778122;
-	bh=MhwN3/p0t4+Gd9zRj3mfPFqdYVncauhubyS4he6CO9w=;
+	bh=5X3n3SbL6yjfY7i0kjbW990bAjkk+TLx5g/Sy6/tvxA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PmEIudNIT4TnQKXuHbMlVsOaO2aC4osSneh+5P4hcvqZ1JsQJtkKPOrbQPOyG5NQL
-	 C6nHHS0eC/LTzxhCOe58OfZsrx6JbBGGxF+9g8twQCxpzMATzz0YT/inwYNMZBRtHa
-	 wEcdS8gB+L2h5IByah36K9b8hSLiyAZKMNn/DP+0frHF9HAKonRPZjV5xWT8mxzVaL
-	 xRUmEax/EQUuydW3/xVIceqW2UXygkzERfRgx19VK/QTA6d3YkNV7bJcOPjkl9s39w
-	 HT25Acj2aCAl9MTajxocwvu/M1J3HHLRD58Ufs9OLnHSMbPJTxsldMTXo6VdHZ232u
-	 Fe3ZtbHU/dInQ==
+	b=Rty5pnLJFVAaJKVuP5cwQPPwRZtjTi9/fdtQs3nnswFMvtSGjg/MNoMVHlChohH+n
+	 Vvl2ViG7/cKh8GJeHWl//SMoX9TygZPHj/kZOcNE3epHtsS0CXaxjS1u/s5Ttfvy1g
+	 TN8WQnyd/LJ7zIiaUF2aNAVf8nC1gbep1iCZXWaE9A3h9JgZq8z3zmpbCz+yZQN1F8
+	 /qonuBpRnDx6ULysfQTAVGGsDI0JhoMWoC7Vj2fytn/RpdhAc5Y/rsmOK3khnIiiOO
+	 G0PtLJUhG14l8VkVkGDvmRSGozzodj1rpP10UzPYvn2UF5ach8+b/qKivM8GLXuvnd
+	 zQMDnEpGjV6FQ==
 Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 92498CE1775; Fri, 18 Sep 2026 17:35:22 -0700 (PDT)
+	id 954D4CE178A; Fri, 18 Sep 2026 17:35:22 -0700 (PDT)
 From: "Paul E. McKenney" <paulmck@kernel.org>
 To: rcu@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
 	kernel-team@meta.com,
 	rostedt@goodmis.org,
 	"Paul E. McKenney" <paulmck@kernel.org>
-Subject: [PATCH 01/19] srcutiny: Make a Tiny SRCU grace period imply an RCU grace period
-Date: Fri, 18 Sep 2026 17:35:03 -0700
-Message-Id: <20260919003521.3134552-1-paulmck@kernel.org>
+Subject: [PATCH 02/19] srcutree: Suppress srcu_advance_state() mutex_lock in atomic
+Date: Fri, 18 Sep 2026 17:35:04 -0700
+Message-Id: <20260919003521.3134552-2-paulmck@kernel.org>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <13d6be93-8d9d-47a2-beb0-99c8a90938d4@paulmck-laptop>
 References: <13d6be93-8d9d-47a2-beb0-99c8a90938d4@paulmck-laptop>
@@ -48,42 +48,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In non-preemptible kernels, a Tiny SRCU grace period implies an RCU
-grace period because any context switch suffices.  But in preemptible
-kernels, it is possible for a Tiny SRCU grace period to elapse without
-a corresponding RCU grace period.
+The new SRCU_READ_FLAVOR_ATOMIC prohibits sleeping in both readers and
+grace-period waits in order to permit waiting on an SRCU grace period
+within an OOM notifier.  This means that srcu_advance_state() cannot
+acquire ->srcu_gp_mutex in this case, because mutex_lock() can sleep.
 
-Which was OK until RCU Tasks Trace was re-implemented in terms
-of SRCU-fast, which in Tiny SRCU is implemented as SRCU, which is
-already fast.  And RCU Tasks Trace grace periods are required to imply
-RCU grace periods.  This commit therefore adds a synchronize_rcu(),
-but only in preemptible kernels.
-
-Because preemptible Tiny SRCU is not in mainline, this added call to
-synchronize_rcu() will not slow anything down:  The comparison would
-instead be with TREE SRCU.  But if this added call ever becomes a problem,
-the Tiny SRCU srcu_struct structure could track whether or not this is for
-SRCU-fast, and to add the synchronize_rcu() only in the SRCU-fast case.
-However, at the moment, this is seen as unnecessary complexity.
+This commit therefore adds an is_atomic parameter to srcu_advance_state().
+When this parameter is false, current behavior is maintained, in other
+words, ->srcu_gp_mutex is acquired and released as before.  But when this
+is_atomic parameter is false, the caller is responsible for excluding
+other callers.
 
 Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
 ---
- kernel/rcu/srcutiny.c | 2 ++
- 1 file changed, 2 insertions(+)
+ kernel/rcu/srcutree.c | 23 +++++++++++++++--------
+ 1 file changed, 15 insertions(+), 8 deletions(-)
 
-diff --git a/kernel/rcu/srcutiny.c b/kernel/rcu/srcutiny.c
-index 5de9a6905838..32b37d63d58a 100644
---- a/kernel/rcu/srcutiny.c
-+++ b/kernel/rcu/srcutiny.c
-@@ -159,6 +159,8 @@ void srcu_drive_gp(struct work_struct *wp)
- 	WRITE_ONCE(ssp->srcu_idx, ssp->srcu_idx + 1);
- 	WRITE_ONCE(ssp->srcu_gp_waiting, true);  /* srcu_read_unlock() wakes! */
- 	preempt_enable();
-+	if (IS_ENABLED(CONFIG_PREEMPTION))
-+		synchronize_rcu(); // Needed for RCU Tasks Trace to imply RCU grace period
- 	do {
- 		// Deadlock issues prevent __srcu_read_unlock() from
- 		// doing an unconditional wakeup, so polling is required.
+diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
+index d32c374ee72a..dc063eb49b0d 100644
+--- a/kernel/rcu/srcutree.c
++++ b/kernel/rcu/srcutree.c
+@@ -1941,13 +1941,16 @@ EXPORT_SYMBOL_GPL(srcu_batches_completed);
+ /*
+  * Core SRCU state machine.  Push state bits of ->srcu_gp_seq
+  * to SRCU_STATE_SCAN2, and invoke srcu_gp_end() when scan has
+- * completed in that state.
++ * completed in that state.  Set is_atomic to indicate that
++ * the caller is excluding other calls so that ->srcu_gp_mutex
++ * is not needed, and to indicate that blocking is forbidden.
+  */
+-static void srcu_advance_state(struct srcu_struct *ssp)
++static void srcu_advance_state(struct srcu_struct *ssp, bool is_atomic)
+ {
+ 	int idx;
+ 
+-	mutex_lock(&ssp->srcu_sup->srcu_gp_mutex);
++	if (!is_atomic)
++		mutex_lock(&ssp->srcu_sup->srcu_gp_mutex);
+ 
+ 	/*
+ 	 * Because readers might be delayed for an extended period after
+@@ -1965,7 +1968,8 @@ static void srcu_advance_state(struct srcu_struct *ssp)
+ 		if (ULONG_CMP_GE(ssp->srcu_sup->srcu_gp_seq, ssp->srcu_sup->srcu_gp_seq_needed)) {
+ 			WARN_ON_ONCE(rcu_seq_state(ssp->srcu_sup->srcu_gp_seq));
+ 			raw_spin_unlock_irq_rcu_node(ssp->srcu_sup);
+-			mutex_unlock(&ssp->srcu_sup->srcu_gp_mutex);
++			if (!is_atomic)
++				mutex_unlock(&ssp->srcu_sup->srcu_gp_mutex);
+ 			return;
+ 		}
+ 		idx = rcu_seq_state(READ_ONCE(ssp->srcu_sup->srcu_gp_seq));
+@@ -1973,7 +1977,8 @@ static void srcu_advance_state(struct srcu_struct *ssp)
+ 			srcu_gp_start(ssp);
+ 		raw_spin_unlock_irq_rcu_node(ssp->srcu_sup);
+ 		if (idx != SRCU_STATE_IDLE) {
+-			mutex_unlock(&ssp->srcu_sup->srcu_gp_mutex);
++			if (!is_atomic)
++				mutex_unlock(&ssp->srcu_sup->srcu_gp_mutex);
+ 			return; /* Someone else started the grace period. */
+ 		}
+ 	}
+@@ -1981,7 +1986,8 @@ static void srcu_advance_state(struct srcu_struct *ssp)
+ 	if (rcu_seq_state(READ_ONCE(ssp->srcu_sup->srcu_gp_seq)) == SRCU_STATE_SCAN1) {
+ 		idx = !(ssp->srcu_ctrp - &ssp->sda->srcu_ctrs[0]);
+ 		if (!try_check_zero(ssp, idx, 1)) {
+-			mutex_unlock(&ssp->srcu_sup->srcu_gp_mutex);
++			if (!is_atomic)
++				mutex_unlock(&ssp->srcu_sup->srcu_gp_mutex);
+ 			return; /* readers present, retry later. */
+ 		}
+ 		srcu_flip(ssp);
+@@ -1999,7 +2005,8 @@ static void srcu_advance_state(struct srcu_struct *ssp)
+ 		 */
+ 		idx = !(ssp->srcu_ctrp - &ssp->sda->srcu_ctrs[0]);
+ 		if (!try_check_zero(ssp, idx, 2)) {
+-			mutex_unlock(&ssp->srcu_sup->srcu_gp_mutex);
++			if (!is_atomic)
++				mutex_unlock(&ssp->srcu_sup->srcu_gp_mutex);
+ 			return; /* readers present, retry later. */
+ 		}
+ 		ssp->srcu_sup->srcu_n_exp_nodelay = 0;
+@@ -2107,7 +2114,7 @@ static void process_srcu(struct work_struct *work)
+ 	sup = container_of(work, struct srcu_usage, work.work);
+ 	ssp = sup->srcu_ssp;
+ 
+-	srcu_advance_state(ssp);
++	srcu_advance_state(ssp, false);
+ 	raw_spin_lock_irq_rcu_node(ssp->srcu_sup);
+ 	curdelay = srcu_get_delay(ssp);
+ 	raw_spin_unlock_irq_rcu_node(ssp->srcu_sup);
 -- 
 2.40.1
 
