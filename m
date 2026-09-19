@@ -1,97 +1,173 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx01.bremer-it.com (mx01.bremer-it.com [85.215.132.167])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27F8C343D63
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:46:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B64AD323416;
+	Sat, 19 Sep 2026 14:46:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.215.132.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789829164; cv=none; b=HktNwfwX4AdBDmSnV1TBuTTWQ6XgsAnmAcRd+4KlO/iy+WyQI+RN6k/Zn6OnmOUA7LMIJwU6xUEsg4Fyss0ovQ8hwmpSBrh9ZFc/+AjVwp41daGAujLfvP1U1PtC+V0u9kpOPVvzRsz7eUUHAMKwGbYtaIgniYS+radlW+rBvQc=
+	t=1789829169; cv=none; b=VNPZxI14MBEW9ANy/onuFKC7+N7VeXYGP6xEol0L9S9JyUZHOfaNZcwZyjUIW7sun2lEDwoEBLIWjQEjct8K5QqVSg3u9aGh+oZ/VHsk9xfI1CUAuuRkWXryrvYCn5hhRls+8EQ44DK5figZA2bpPCv1fCRneZMJm+DMnQnvRx8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789829164; c=relaxed/simple;
-	bh=xkgfgdpk+/vsK5QSucIqCE/yvWybMftePUw2mMAbAWw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Anz1zP41paGQ7Vii3tO06ikpKJnbpmQ5yN39rEzegr46oxQzzQ4ph3bAnkQSl6hh1i7fCwup+BTSNGoMtVvM1FYuwp4eWX/B06r9FPoUYQza4s2HTjdRHqx3GcdLQWt+BRe/vqEdxzjH/rxLWvB2o0BaEYEy/cvLtE4PTXvegSk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev; spf=pass smtp.mailfrom=tuxon.dev; dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b=BUCIWhrJ; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxon.dev
+	s=arc-20240116; t=1789829169; c=relaxed/simple;
+	bh=ywPs7uRsJtG72xMwxi2u3pqbatu6MNgLiO0EYm3JaJY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZUc8R6s5YsFBupnTnf0v0SiQz/zJdO6UU8F91Zr4sFRzEgpEfALDOV51sZ6t7Gyb2/B48VbGQPOFmXeNMv6DYa5R/TVBytzXgoDYUtxls0Rh/YWGgyM0Ii5fTen4HQsRs0clle/f3RBiResatpwm/5pzX6w8UuxMLBTFiQWAd2g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=barelysecure.org; spf=pass smtp.mailfrom=barelysecure.org; dkim=pass (2048-bit key) header.d=barelysecure.org header.i=@barelysecure.org header.b=oSsDvW5T; arc=none smtp.client-ip=85.215.132.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=barelysecure.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=barelysecure.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b="BUCIWhrJ"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d3931so12131855e9.3
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 07:46:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tuxon.dev; s=google; t=1789829160; x=1790433960; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1UcMBG13q7TO7qzdipxuscmR1WJ+KOa+mjW/lgeob0U=;
-        b=BUCIWhrJ1w1xov/GjTgiuf8w/bpZz0MKFo9Ja/ZFFiKzYhxPwmU7eWfUuI37GLzGPN
-         K9otEuOMywtu3JTWiTHrwCH74TmQzNVrhN4VaUJsAcwsMAr6lcAtv7XEw3zx2u2XtnpJ
-         x/+BuvzI0a/cVUF4RYde/v9lzIxOcWDtnEePf066pBtvhuUEza50QZvfLHc75x8jiR/V
-         mcL7wjZRI5WKDQPO9mxtLKDRhneMWofVoP+IF5a9Smdv53LtbE54+J0QLqM+dKmBai/G
-         pM718hLM8P1561jjZVrQNDFofGzJggVFAGZwYAW095EIt0oyLaK4Aq/hQrgOSo3q1f2U
-         jJPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789829160; x=1790433960;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1UcMBG13q7TO7qzdipxuscmR1WJ+KOa+mjW/lgeob0U=;
-        b=xIjLecak4ZR4sYz/5y6zWgPJy/HaHuzFMtSPLTHzY1l8QCZmcx2XpzzVj74sTWmMJ9
-         Bx2hbFoo7NjiWE3JJhUPf7/7khfMEUCblu3OWlzRbHGLXi5SN9teNsKnfX0TpeRN/KVW
-         PJqA12y2Nk78HvKdQSkrvVauVMekL1Asi7LzO8FsUJF/nXH25dTfw+9wIG/P0UvPQym/
-         ajv601qmShVl6cA0hzEmiOSOuzpo209FT/0SNhF92HKWAlQZVA3sDwW9nWkUbzU6zSbG
-         g+ZL5+rXuY0W6uwf7Lyl5KasHT7ROZh9kmDdVuNK/Io63t6bdEM5BjE3JTJW8lEhStX3
-         cCtA==
-X-Forwarded-Encrypted: i=1; AKwUvBzm9u+rcsWoSkyrb9THINJQdbJ/9E2M39Fu0sf0AgJv6vCY0BSkcIQa5Qz2DAr48B9KJ7A0G9SwNsRU9m0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nPgTbXkGonqqxAjudE7lX4BhA5GAnLSKCw326e2nFcJivEiP5t
-	fFUDnoI38Iw/EG+y+7yr6v6q4/hg2LZrANWH9DKjEHr8GR7McqmcFT37YII65X9rPIo=
-X-Gm-Gg: AYBFou1a6vflpcmaY2oucsJaFekwG0xVYAh5KSZy1+jBoej+5y2WpwoeI/YizMbTetG
-	Fyua629KWEXMQFW9d6O0FPlU66s8uvzwSKB9c35nFx0cRBaOxAly3/xCIOUpnGsu43GQdkV/bPK
-	WE7YzSrQ2dTz3grsuEhtrbeYJGO/a99pwZ4j2M4oIlEHP4eYqCn2iO9d9qVgf0biofxi5M9p87F
-	NCsp7V1Q8DsEpxBkcoICcsJ0Kbqt2VF5fytIxdjR2WwbjCfl8Dfnv0Unfcip+Dm8RLlDkzUFI1P
-	269OqJo6ePmQMQdEVC8TaIqjTUCp26e6nibmwFqowgUqJNwDVV9ZELVye9niv8ivPDH9ySN8fLZ
-	MqjTfXY5i3NLZHU6+NZUSljOe6QfMkBfMbSvvESXFSiN6UQt2FJtykvZB6hrZzJ5xs6563EGsjr
-	nEZto6m7B5aF5UqxKVcIVarxCEvzSD+Bo6ksFmppcIZPUMRr1/9YZzlsH2AN0lOw4gw5COBLxAw
-	MX65nwJyE/n76VC1zNuhdp/9+VdKyFwBqX9uOalYpmW2IvZv5ppT9VY
-X-Received: by 2002:a05:600c:1f8f:b0:49e:8354:26fb with SMTP id 5b1f17b1804b1-49fc574c729mr81926275e9.32.1789829160140;
-        Sat, 19 Sep 2026 07:46:00 -0700 (PDT)
-Received: from ?IPV6:2a02:2f05:1204:e000:2cf7:c250:64a9:ae77? ([2a02:2f05:1204:e000:2cf7:c250:64a9:ae77])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48724589c02sm6931200f8f.24.2026.09.19.07.45.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 19 Sep 2026 07:45:58 -0700 (PDT)
-Message-ID: <77b1f993-141d-4d85-aaeb-0ff48d379f7e@tuxon.dev>
-Date: Sat, 19 Sep 2026 17:45:57 +0300
+	dkim=pass (2048-bit key) header.d=barelysecure.org header.i=@barelysecure.org header.b="oSsDvW5T"
+Received: from cashel.logfs.org (c-98-33-96-243.hsd1.ca.comcast.net [98.33.96.243])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (secp384r1) server-digest SHA384)
+	(No client certificate requested)
+	by mx01.bremer-it.com (Postfix) with ESMTPSA id BFC9220B84;
+	Sat, 19 Sep 2026 16:46:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=barelysecure.org;
+	s=dkim68; t=1789829164;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PetF/HLtIXChJE/5lpvDpFt7S49VsIiNWMkHshV1HaY=;
+	b=oSsDvW5TF97ZZ9SnJGDIBbSGmG9SYHbOrFq+VSbGmrePOTEHKHsqqcWT/fhckAQ1hl/0/D
+	2gfMAXc7nSL/8MClT3/UnrcqluXvDV43r6SAzwdilS54yLVmImhYtVU6yIEbAbIlyWa6mR
+	vhN66J01SeQbEYnRIps5+agFORN8FNAppZNLYe9mk4su5s0PNJ9Q827xMV24sXWA2bL5qj
+	I7dKwSE4f4oSGNftf0LyIiYFjbKZWvpG3s+U+F25ijGHrGlxc0BUkLAv3DsqmFhG/pkRKc
+	2gDNXt/7p6xwyi0YG+RiuT7dJcEbe/4gl5cUY3i8WhNrFQ+Pgf5JCdA/Y382iQ==
+Authentication-Results: ORIGINATING;
+	auth=pass smtp.auth=joern@lazybastard.org smtp.mailfrom=joern@barelysecure.org
+Date: Sat, 19 Sep 2026 07:45:57 -0700
+From: =?iso-8859-1?Q?J=F6rn?= Engel <joern@barelysecure.org>
+To: Chris Roy <iam@thechris.in>
+Cc: Richard Weinberger <richard@nod.at>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	syzbot <syzbot+7cab6a19619f1b8efc00@syzkaller.appspotmail.com>,
+	dakr@kernel.org, driver-core@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	rafael@kernel.org, syzkaller-bugs@googlegroups.com,
+	linux-mtd@lists.infradead.org, miquel.raynal@bootlin.com,
+	vigneshr@ti.com, Adarsh Das <adarshdas950@gmail.com>
+Subject: Re: [syzbot] [fs?] possible deadlock in ovl_create_object (2)
+Message-ID: <aq6gJTYTpTr8sYPj@cashel.logfs.org>
+References: <CAE2Bdm3NuEHshrG6K2boKAnCQUvT5SX79cP9nPgS2s1afzY1hg@mail.gmail.com>
+ <6aab0f82.e91c2013.3bdb06.0009.GAE@google.com>
+ <CAE2Bdm2wzxj-J0TM8F+3SVnu0W3HeiROW97U4qvBeyHKdHJFmg@mail.gmail.com>
+ <2026091753-broadness-bootie-b683@gregkh>
+ <CAE2Bdm14hif17B8RTAE+PhWEps5Fzh=WPurZeSNp9C6TqCKumg@mail.gmail.com>
+ <aqwuWWMwdIcx3704@cashel.logfs.org>
+ <mu82xsi6.76ee613a-07fb-48b1-9336-99e8780e8b6e@nod.at>
+ <CAE2Bdm3FqBPAMxqKoz_h1cw+OXpm=LJHdJjsME_Jy966tqhq_A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ARM: at91: Replace __ASSEMBLY__ with __ASSEMBLER__
-To: Thomas Huth <thuth@redhat.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260821083645.200344-1-thuth@redhat.com>
-Content-Language: en-US
-From: claudiu beznea <claudiu.beznea@tuxon.dev>
-In-Reply-To: <20260821083645.200344-1-thuth@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAE2Bdm3FqBPAMxqKoz_h1cw+OXpm=LJHdJjsME_Jy966tqhq_A@mail.gmail.com>
+X-Spam-Level: *
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [1.40 / 14.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MIME_GOOD(-0.10)[text/plain];
+	BAYES_SPAM(0.00)[40.45%];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	TAGGED_RCPT(0.00)[7cab6a19619f1b8efc00];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	ASN(0.00)[asn:7922, ipnet:98.32.0.0/11, country:US];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_ZERO(0.00)[0];
+	MISSING_XM_UA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[barelysecure.org:s=dkim68];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
+	LOCAL_OUTBOUND(0.00)[];
+	FREEMAIL_CC(0.00)[nod.at,linuxfoundation.org,syzkaller.appspotmail.com,kernel.org,lists.linux.dev,vger.kernel.org,googlegroups.com,lists.infradead.org,bootlin.com,ti.com,gmail.com];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	URIBL_BLOCKED(0.00)[barelysecure.org:from_smtp,barelysecure.org:from_mime];
+	SUBJECT_HAS_QUESTION(0.00)[]
+X-Rspamd-Server: server01
+X-Rspamd-Queue-Id: BFC9220B84
+X-Spamd-Bar: +
 
-
-
-On 8/21/26 11:36, Thomas Huth wrote:
-> While the GCC and Clang compilers already define __ASSEMBLER__ auto-
-> matically when compiling assembly code, __ASSEMBLY__ is a macro that
-> only gets defined by the Makefiles in the kernel. This can be very
-> confusing when switching between userspace and kernelspace coding, or
-> when dealing with uapi headers that rather should use __ASSEMBLER__
-> instead. Let's standardize now on the __ASSEMBLER__ macro to avoid
-> this confusion.
+On Sat, Sep 19, 2026 at 02:22:15PM +0530, Chris Roy wrote:
 > 
-> Signed-off-by: Thomas Huth <thuth@redhat.com>
-Reviewed-by: Claudiu Beznea <claudiu.beznea@tuxon.dev>
+> +struct block2mtd_setup_work {
+> +	struct work_struct work;
+> +	struct completion done;
+> +	char *val;
+> +	int ret;
+> +};
+
+Finding good names is probably a fetish of mine, so "val" is mildly
+disturbing to me.  It's not an objectively bad name, just something
+where I'd spend another five minutes trying to come up with something
+better.
+
+> +/* Runs block2mtd_setup2() on setup_wq, blocking until it completes */
+> +static int block2mtd_setup_defer(const char *val)
+> +{
+> +	struct block2mtd_setup_work *w;
+> +	int ret;
+> +
+> +	w = kzalloc(sizeof(*w), GFP_KERNEL);
+> +	if (!w)
+> +		return -ENOMEM;
+
+Is this check necessary?  I'm in the camp of "malloc should never return
+NULL".  That condition is so rare that it is effectively impossible to
+trust callers with error handling.  So the right approach is to crash
+(or kernel panic here) instead of returning an error.
+
+Looking into sources I see this:
+static inline void *kzalloc(size_t s, gfp_t gfp)
+> {
+> 	void *p = kmalloc(s, gfp);
+> 
+> 	memset(p, 0, s);
+> 	return p;
+> }
+
+We have at least one example of explicitly not checking the return
+value.  But we have other prominent examples of checking as well.  Looks
+like the kernel is still undecided whether checks are necessary or not.
+
+> -	return block2mtd_setup2(val);
+...
+> -		return block2mtd_setup2(val);
+...
+> +		ret = block2mtd_setup2(val);
+...
+>  		ret = block2mtd_setup2(block2mtd_paramline);
+
+That's quite a few calls to the same function.  If setup gets that
+complicated, that's a strong indication that we're doing things wrong.
+Typically we get into such a mess one well-intentioned change at a time.
+Find a bug, fix it by adding another caller, repeat.
+
+It isn't obvious how we could improve things.  Sometimes it's lack of
+infrastructure and the entire complicated setup-dance should be moved to
+common code.  Driver can then call a single function to deal with
+everything.
+
+But if there's only a single driver using such infrastructure, maybe the
+driver is doing things wrong and should copy whatever other drivers are
+doing.  The problem shouldn't be unique to a single driver, so we should
+find the best solution and then use it everywhere.
+
+I don't know the correct answer here.  If you feel motivated to dig
+deeper, please do!  If not, I'd rather leave the mess in place than come
+up with a half-hearted attempt of a solution.
+
+Jörn
+
+--
+You cannot suppose that Moliere ever troubled himself to be original in the
+matter of ideas. You cannot suppose that the stories he tells in his plays
+have never been told before. They were culled, as you very well know.
+-- Andre-Louis Moreau in Scarabouche
