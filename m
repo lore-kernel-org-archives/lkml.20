@@ -1,77 +1,74 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F583839A9
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 21:28:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5CDF391E76
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 21:29:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789853343; cv=none; b=ERDs+cKTU79GVV0vBC4Ki9ZN1H+3DM8a+P5bLom0NiBqZEHbTmhfuNMXoji1Hfo5uiZdBqly2/0Tb7lLlwQ+BNa0f1CO2uSTcNlQfBBdpMtYgmIHdHGQlzk9kTuTJKQ/XsgOq+vcGYGR0w+YQlu3SZmpmeWemHITJ7ZREYvTmeg=
+	t=1789853344; cv=none; b=MOpN9v+x0LB6O/n+aZccVB8jOZ738sbp+67tGrTkBfE1f3MOaqGwjnsdJv1PA9cM2aiFTbcFoqPB246O8MQmuak1bv67ySa9a0YejK31SqZ9uGzDurrXbCgbOvBN+Kx5eRxEwJbWERnJ6ziEei9e5vtGNy/mhtU8kkxiXkOv7co=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789853343; c=relaxed/simple;
-	bh=KcQIxrjjYKOPt7VPc3GR8Ypvb9JGlM8cc1l2/4kyu9A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fSCJh+mCOvLEo7rGJ2UbN+Hu1JqL6QMk0jJqwtpOoj1sVmt2SzHD+s7O7yTlrOSDlCGvOccMsj6weOui+826ikJjZBhbmjbPu5VdG/cRri8hZjLjupDeMeAIGEYdFlTGK29oONZ1NtKl7rqfqgwIZ8Y+NrVv70USQAnJPmakdgU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eZaOoANm; arc=none smtp.client-ip=74.125.227.171
+	s=arc-20240116; t=1789853344; c=relaxed/simple;
+	bh=+ZgBa5oxplc/pfhnwtyr03hcEQg5St2PAAKUz0F4xNg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=d+kcx3Uya/axHn4lS4SduXy1rPEG3SC8r/9zijV94W1t3n1d39dJ7c83RVxv8mlNaMOF3N40ZH6lubAHQQYo7l+3igTr9Jy9u229rhCBj06BsA0dzqw/+uGcwd65XSRFXzFBv1IxUPr/iqOX3nf7Q2j3S/WlLoT3ZjJQFl9p52E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RnQuKF0E; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eZaOoANm"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccb1a98fso1683151a91.1
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:28:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RnQuKF0E"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccd4f99cso1999535a91.0
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:29:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789853338; x=1790458138; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789853339; x=1790458139; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yGJIKW1WUZIXfYGv7StzLwvHtFQ/N+sc5vtFtFfdCwo=;
-        b=eZaOoANmYxN02/Ll3CCd7mzVhr9nww8WmS0ZZ75M1wzB1ltuDQa1AFBFAmo5J6RQET
-         w1EATVXGQ2ny0UWhc7BGp4WEvzWRdIDgtRF4jBjkN2+BVtyg7GF6jUESvHVq7zC/uraa
-         hlMYtNFQUrFV8WFiaen0CHuFzDW5nVDmyiZ2c3QIpcazPJqKB+Squ+uCG+hJzP6DCtrB
-         8AaJFOqM6CaXhUunTA4FL/pSfpITuGja+lB84TVAPDv+q97/Axlu89H9VGLzpLOQxRvk
-         69GZ4H6mRCPZCuyTLiCbS96C/hZlpYMVwrzOk4kAMpFJ+oQtQW3oq/L9C+Q+WG2ag+L3
-         u2oQ==
+        bh=jfuK4sNLwi6LLkfdWONjv/BG3p1tIa4X/0S+wLmRAsY=;
+        b=RnQuKF0EB6Rv02TnMoW1tZ7aquz6j8uifZ+Dwo5I0A1WC58lnU6DvBxEGf3RjtQaqV
+         294L1S9X4iuklCu7ytPj7VJGwedTUICzqBUcMDdjshAvlRcAIZnRqFZGd+gs8XoBDWpc
+         5lk5tKlgM9hG4pq5aTghUYMlzz+xjKEEZKWmWpVJYGfPE6Xgf257lKHw61QUMCwFdK62
+         aVaO+8lU3CQhoy8YPT7GEmFnXmf5v10BxLIGJJS/IOdK0fe1leMvIPMtMfx96II1SQ8U
+         S5QnCrv1OPiVXoNIagFc/YvA0RrephRhGGauKaZnLB0zwr3Eva9UplY00ukI72gtpJos
+         5p+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789853338; x=1790458138;
+        d=1e100.net; s=20260707; t=1789853339; x=1790458139;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=yGJIKW1WUZIXfYGv7StzLwvHtFQ/N+sc5vtFtFfdCwo=;
-        b=wigG6tJctatMh9H3hN9cqSErJWqc02CtPskk1tr9FRE2OOmv0K1k8v0JitcKQMsOHb
-         kqoTXAAQZbreT10xE8ERy2KKCqakSHwJbbl8iKdxr7b4t1Ujy/2sUjpxmZ0vpBXWhQxq
-         A/n85BdX7+RqxXfg+7gT0d6PIZ3fvop9V9H/0491Ff32DEsBDKm0jDka8bsJ/jWbc2Qc
-         xw5vfRORTetNKAsrowv8WuwFa9FCJ1I7XaFmmirH4td4R5NwRmuUL01ED1YxFYVwZvSD
-         yOFfA8TUciFqs1zv5n36CU1GDPfOhEn9y1TN0JFUTWjvNe1a4VGZspkmyW+qZNN1fC3b
-         ZufQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzdxuW1d0aGzyPWnCxbjeXXjttLg5mzR3wrhHk18SvlZ5/5Myl+AsaffUqQSv/fhyNPbCKjQ8TNQL/us2A=@vger.kernel.org
-X-Gm-Message-State: AFuF++m6F0MhTMHYsjUrd/vgZzm2vDQ2AW/p43ln0GcpJHkALWT7XjPb
-	Qp2arKmkwxTd9/afRu7M3EaPZh3YQPCxeMGc1UkUzwqwdXn2vUBktF2T
-X-Gm-Gg: AYBFou3Q2390C50CZF9Y+PysmV9sEbInbEpjERS57fbip9+aL+biXO34KBo5N+k00qh
-	ezDJ6KF2eDuiIxaA7UsyuTO0TVbcq6fodrXZJvUtsPWkz6b5MWjqn0RKjdc467ntHJ0Q3FFWXz4
-	tNqxmJFO6hEcFqEm4tR6w5+8+lVsWcTa6ZFeCpFKvh1iir2ZvlWeo4RQG4bI4bo5YVHiopSHGdX
-	ZkxP4h9Nyj3n/2Tvaam9squqrrXgIAvsT5rlBslr853gzQ4WPUnk0luaUFEDJkBpDMwzzhM3yzc
-	yv9JLMeH0W8o8XMHx6/JPoJztY+7NsEUsk1c6tkmGa7PooC6KGtRYyM36YNPnUJ8sC14sfqX4+L
-	r5obwDVW0aEijhitSVdsCELqR8dGEUJrlCij9oPtT3zcNtveT+LdwOsOor/npKBfGW+6PNbu4yU
-	KVAETDVms7N+PIRtjs6OUU8gkT0sHnKwYfXhGABbu2n2t5F1HGywTKeGktkdMlbmU1IYcd8F8Cz
-	sn7IloJfFHHWUneUQiSjSGW5Gle/jPg2+kHVVWrPRlS0UtcwNE+QF7Bhw129quTfXGrtHiVMQoG
-	SHqygH+GZQ==
-X-Received: by 2002:a17:90b:56c5:b0:39d:f247:bab with SMTP id 98e67ed59e1d1-39e54b66f85mr12104378a91.6.1789853337992;
-        Sat, 19 Sep 2026 14:28:57 -0700 (PDT)
+        bh=jfuK4sNLwi6LLkfdWONjv/BG3p1tIa4X/0S+wLmRAsY=;
+        b=fU2fZJX895uzCZ0aw1RQ4lliGmOvhZBNkwCq9mbLZ9cSJbM/nD8r4xjSuwMne/kDS4
+         FPQxDnQ70m94ia65z/znMYg53Gjnup7nr0645wbNy7yYG97t2AmMgYsfpSxFnifvSmE3
+         QliShOua68qpg4Z22Fwl9bq+kV/xJpdsBgwI354d7uo21ZhfsuSbwZ1FzQ3cetabWY/Q
+         8PckLC9loidjzozE5BxRjldCCG4Fb9SBMf/DuiRpkFNQLn09RyTdbORO8Z34n4IScHGK
+         hWGrBXwXF0x9U+a0qXbAKyjnTVVwm/KchZpcFvMsYOgqPl1289/+zgMfZlmFEX4OCccD
+         c6Tg==
+X-Forwarded-Encrypted: i=1; AKwUvBx7a2r8r/erQjw/V0GsHqYVMQp3Oj4ii/swiHWNTcTmQSmu6M74RlGhal7yWJHr53uq0DJss2mJjgtbivI=@vger.kernel.org
+X-Gm-Message-State: AFuF++n+8+G0WPfmH5MWoPnuSNYaw/Tv7ilpAIei8lkXVp5QLRa+YA8s
+	552pzNExfoPcRONLZ2ySEYM3H0M2W+SkbnRK1qsx9KtlF3qUuPt8Scgb
+X-Gm-Gg: AYBFou3sahTbPslQneQPOmjBoYSsLqjLhGcA7OeBo4ekQBVOMEBf8/WJ7qNQgXyfqcd
+	SEZr+FlN1Z35+w6jcLuT848Yz1PpRCdRESk/trQ2mmXsvjHkNlonzpkxWBnEqAlVm5pin2iljRn
+	vDtpAxq7d+TbFdKmLX1O4zG+TBxivGdqjwjQUvSGGrdpNsCl1iRjjqVRlu4CrKLN7v/O8KZOEVc
+	MYh5n4JPbkfyAqx/nEGOFuZaPFnoNj0I+r+h/Y2TkaV0bsVDMbLlRDcfC7b98r2eQ8nuGOxNDmn
+	lR9nQpm/d18KmTfwqETC63jYFiVMxXHs6c17XIwQrEZopc/+OyK2pGlETYabiSTW0qfJPI9bkrR
+	TCiTE4+lAz+IhaZilyRNJbSMYDKLrMYM8JZpaqmMcMApO/8xXbUo/S2Ze2oUqdZuQ8GSleV9/4T
+	RHNDv2NYQw4F8SjbZ9Yi5ngEMSs7G8r/9nTnJEtgENYt31K2+/+S2XWsB2dIZPRYCKJb+NAEUQo
+	RQ5z2eu241FbIhN5WtmhPkqFPHBvfkucke9LoP6wheGDQrcUZQBk6BAL9s0LUYtyEwlBXoPID6E
+	cNHS9zCIWA==
+X-Received: by 2002:a17:90b:544e:b0:39e:6a82:afd0 with SMTP id 98e67ed59e1d1-39e6a82bbabmr5629083a91.34.1789853339125;
+        Sat, 19 Sep 2026 14:28:59 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6caefa5esm6021149a91.12.2026.09.19.14.28.57
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a031d63ca9sm1487914a91.14.2026.09.19.14.28.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 14:28:57 -0700 (PDT)
+        Sat, 19 Sep 2026 14:28:58 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
-To: jmaloy@redhat.com,
-	tung.quang.nguyen@est.tech,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: horms@kernel.org,
-	netdev@vger.kernel.org,
-	tipc-discussion@lists.sourceforge.net,
+To: maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] tipc: fix TLV out-of-bounds read in tipc_nl_compat_net_set() and depth mask
-Date: Sat, 19 Sep 2026 21:28:57 +0000
-Message-ID: <20260919212857.3241483-1-benquike@gmail.com>
+Subject: [PATCH] drm/vgem: fix IDR slot and xa_node memory leak in vgem_fence_signal_ioctl()
+Date: Sat, 19 Sep 2026 21:28:58 +0000
+Message-ID: <20260919212858.3241545-1-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -81,63 +78,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix two validation flaws in `net/tipc/netlink_compat.c`:
+In `vgem_fence_signal_ioctl()`, `idr_replace(&vfile->fence_idr, NULL,
+arg->fence)` is called instead of `idr_remove(&vfile->fence_idr,
+arg->fence)`.
 
-1. `tipc_nl_compat_net_set()` (`TIPC_CMD_SET_NETID` /
-   `TIPC_CMD_SET_NODE_ADDR`) unconditionally dereferences `*(__be32
-   *)TLV_DATA(msg->req)` without verifying that
-   `TLV_GET_DATA_LEN(msg->req) >= sizeof(__be32)` (4 bytes), reading 4
-   bytes past the end of a 0-byte TLV payload (`tlv_len == 4`).
-2. In `tipc_nl_compat_name_table_dump_header()` and
-   `tipc_nl_compat_name_table_dump()`, `ntq->depth` can contain the high
-   flag bit `TIPC_NTQ_ALLTYPES` (`0x80000000`).
-   `tipc_nl_compat_name_table_dump_header()` compares `depth > 4`
-   without masking off `TIPC_NTQ_ALLTYPES` first (always clamping
-   `depth` to 4 whenever `TIPC_NTQ_ALLTYPES` is set, even if the low
-   depth bits are `1`), and `tipc_nl_compat_name_table_dump()` checks
-   `depth > 1` and `depth > 2` with `TIPC_NTQ_ALLTYPES` still set in
-   `depth`. Mask off `TIPC_NTQ_ALLTYPES` after testing it.
+Because `idr_replace()` replaces the slot's pointer with `NULL` in the
+underlying XArray without freeing the IDR slot (`xa_erase()`), the ID
+remains allocated until the vgem file descriptor is closed. Repeated
+`DRM_IOCTL_VGEM_FENCE_ATTACH` + `DRM_IOCTL_VGEM_FENCE_SIGNAL` cycles on
+a long-lived vgem fd permanently accumulate `xa_node` slab allocations
+in the kernel and exhaust the per-fd IDR space.
 
-Fixes: d7cc75d3cb6b ("tipc: convert legacy nl node addr set to nl compat")
-Fixes: 44a8ae94fd55 ("tipc: convert legacy nl name table dump to nl compat")
+Replace `idr_replace(&vfile->fence_idr, NULL, arg->fence)` with
+`idr_remove(&vfile->fence_idr, arg->fence)`.
+
+Fixes: 407779848445 ("drm/vgem: Attach sw fences to exported vGEM dma-buf (ioctl)")
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 
 ---
- net/tipc/netlink_compat.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/vgem/vgem_fence.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/net/tipc/netlink_compat.c b/net/tipc/netlink_compat.c
-index d9a4f94ea2d4..9b2d93704e23 100644
---- a/net/tipc/netlink_compat.c
-+++ b/net/tipc/netlink_compat.c
-@@ -881,7 +881,7 @@ static int tipc_nl_compat_name_table_dump_header(struct tipc_nl_compat_msg *msg)
- 	if (TLV_GET_DATA_LEN(msg->req) < (int)sizeof(struct tipc_name_table_query))
+diff --git a/drivers/gpu/drm/vgem/vgem_fence.c b/drivers/gpu/drm/vgem/vgem_fence.c
+index 0e53ba7db629..5793be469b3c 100644
+--- a/drivers/gpu/drm/vgem/vgem_fence.c
++++ b/drivers/gpu/drm/vgem/vgem_fence.c
+@@ -200,12 +200,10 @@ int vgem_fence_signal_ioctl(struct drm_device *dev,
  		return -EINVAL;
  
--	depth = ntohl(ntq->depth);
-+	depth = ntohl(ntq->depth) & ~TIPC_NTQ_ALLTYPES;
+ 	mutex_lock(&vfile->fence_mutex);
+-	fence = idr_replace(&vfile->fence_idr, NULL, arg->fence);
++	fence = idr_remove(&vfile->fence_idr, arg->fence);
+ 	mutex_unlock(&vfile->fence_mutex);
+ 	if (!fence)
+ 		return -ENOENT;
+-	if (IS_ERR(fence))
+-		return PTR_ERR(fence);
  
- 	if (depth > 4)
- 		depth = 4;
-@@ -932,6 +932,7 @@ static int tipc_nl_compat_name_table_dump(struct tipc_nl_compat_msg *msg,
- 	if (!(depth & TIPC_NTQ_ALLTYPES) &&
- 	    (type != nla_get_u32(publ[TIPC_NLA_PUBL_TYPE])))
- 		return 0;
-+	depth &= ~TIPC_NTQ_ALLTYPES;
- 	if (lowbound && (lowbound > nla_get_u32(publ[TIPC_NLA_PUBL_UPPER])))
- 		return 0;
- 	if (upbound && (upbound < nla_get_u32(publ[TIPC_NLA_PUBL_LOWER])))
-@@ -1139,6 +1140,9 @@ static int tipc_nl_compat_net_set(struct tipc_nl_compat_cmd_doit *cmd,
- 	u32 val;
- 	struct nlattr *net;
- 
-+	if (TLV_GET_DATA_LEN(msg->req) < (int)sizeof(__be32))
-+		return -EINVAL;
-+
- 	val = ntohl(*(__be32 *)TLV_DATA(msg->req));
- 
- 	net = nla_nest_start_noflag(skb, TIPC_NLA_NET);
+ 	if (dma_fence_is_signaled(fence))
+ 		ret = -ETIMEDOUT;
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
