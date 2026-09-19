@@ -1,32 +1,40 @@
-Received: from out30-112.freemail.mail.aliyun.com (out30-112.freemail.mail.aliyun.com [115.124.30.112])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 889DE1A680C
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:26:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A23D5331A5B;
+	Sat, 19 Sep 2026 15:27:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789831600; cv=none; b=msnuSCMEC/RHGj7lSYMRWUGIOWYt3EngyuYTHjU3aFufKe1ZetlP+gxdvgmKekcTN8Rk301hisaIzK53U4x8uZLLaYI/HbV7SLEg/qmI7dOecCZrsA5w0VSAxkbkIbNE4dEy02XtNLhWkyuWBGbmhguRl4CP3dyvBX5RrhZCpLw=
+	t=1789831650; cv=none; b=k+5Y08Ca0ItIIkD/oLl3n8E7h3saZhvjOk11aHyfbi4Z+IlSAcR/AK4egZgOvQAQmUfplMeWPRi3AqEylejDSPJReidqvpUeQAzH23M7NHNsfVa+Hj3BTY38d82DM1rd6MXLyHFqLruyxJeSQljOjGIyn80Rp4agDcOPCQmIeuU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789831600; c=relaxed/simple;
-	bh=Xme5IqFQt0v+HKW+fMSkZR09ysliBJtqsmirwLioyA0=;
+	s=arc-20240116; t=1789831650; c=relaxed/simple;
+	bh=LaFptG8u1fDasWAdrbrl/o4MxF50OpJx609eQR4CYm0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Enhbgj4kZBtyGo50phrZM3BvChmA5u+2Ubr1TIdXW52UcwZQ6aS4kjG84kXApmiON88zMHn+m1aPQjpGSeiTH8jaxUg5mL7c0JlhdAeuYGywkVfZ3wRcytSuqVFYEv0irn2yLy7g5/h6nMN8dU6tHz8mORR4h0rEUUEzSgSf9KI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=n0c5rH6n; arc=none smtp.client-ip=115.124.30.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	 In-Reply-To:Content-Type; b=iA/pKjuzO2IUuqOnoX2XRzEBPOXBAwurSaAeuVsrmxl89proYaMPGEmd+SL6Wa2vyYXagY8emmn7STxv4IQAbZ65vg9Xrev3T0QZ6GvK92aG+qs4n53MizWTkK76WIPFpcTzM3DswubtRQhsCiEw6GArWddkb6rpO9RgaGUjqnY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=LNowP5FA; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="n0c5rH6n"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1789831587; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=hWrPeQr7rR39NPygy9wVAzVoRwxOJYX5y0HkT7j6HJo=;
-	b=n0c5rH6nghvgsS5EXPSPGY4KQGTCFKuPe8wabQ+Zner9StzcXLmmjM0ZBi6G7E+Kv7LlwIZqggEpJmoBYa9SmpEX2YH84rTaYZZWHU7QMeaZLyBTxHUr1OIcD4iUygvgFdd61DJ7n2NX5EuYw67ml0GQxjknFjFeYmU34AK+Ouo=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R401e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=guanghuifeng@linux.alibaba.com;NM=1;PH=DS;RN=22;SR=0;TI=SMTPD_---0XBDlfdg_1789831585;
-Received: from 30.42.81.123(mailfrom:guanghuifeng@linux.alibaba.com fp:SMTPD_---0XBDlfdg_1789831585 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Sat, 19 Sep 2026 23:26:26 +0800
-Message-ID: <6198fec2-05c2-4627-978d-d9e7348364dd@linux.alibaba.com>
-Date: Sat, 19 Sep 2026 23:26:25 +0800
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="LNowP5FA"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id E9AD24E406D3;
+	Sat, 19 Sep 2026 15:27:17 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 81392606CA;
+	Sat, 19 Sep 2026 15:27:17 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D250510328325;
+	Sat, 19 Sep 2026 17:27:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789831635; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=5jQoTITZBemOLjk7Ud0MHWlrFyo2Xd2UPLX1phND9tk=;
+	b=LNowP5FAcSYglPQUAc7pzK0ZGvGiL2r05WAbCYHxDWgkHUuQgnwFdcQ3TuUeRRv5r19sS+
+	VEW+zZAGkfQKeY2BbCtj+AGce9bzJnGbuqRy8ui8m2kAjvyn6E0J0d+JWU551pW7BPwY3L
+	TvlWFZtXCQTCG8tgra972l27kKl15LcRvaDcK41jUdLHYHlJzf3dUxpScPT1VhT5do4idP
+	Ugzxy/srfDxWXCqQ5jaqNw3AbkL2DF3WlX1Bvpz8HXExDj/+mmXZORrXaG/0P3xwkwmYix
+	r+HBmd9x+w+B/wGx4x1mH/+lYmt2PWRfw0n2iVMNTAXJ+QUXRMbUboHHuqMV5g==
+Message-ID: <fd6612bc-a7fd-407a-869a-8660f8fcc3a7@bootlin.com>
+Date: Sat, 19 Sep 2026 17:27:00 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -34,322 +42,386 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 13/24] iommu/amd: Program IOMMU DTE with the private
- IPA domain
-To: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev, joro@8bytes.org,
- jgg@nvidia.com
-Cc: yi.l.liu@intel.com, kevin.tian@intel.com, nicolinc@nvidia.com,
- vasant.hegde@amd.com, jon.grimm@amd.com, santosh.shukla@amd.com,
- Sairaj.K@amd.com, jay.chen@amd.com, Ming.Shu@amd.com, SooJin.Tan@amd.com,
- wvw@google.com, wnliu@google.com, dantuluris@google.com,
- chriscli@google.com, kpsingh@google.com, alejandro.j.jimenez@oracle.com,
- joao.m.martins@oracle.com
-References: <20260914184750.222939-1-suravee.suthikulpanit@amd.com>
- <20260914184750.222939-14-suravee.suthikulpanit@amd.com>
-From: "guanghuifeng@linux.alibaba.com" <guanghuifeng@linux.alibaba.com>
-In-Reply-To: <20260914184750.222939-14-suravee.suthikulpanit@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next v8 09/11] net: stmmac: dwmac-rk: add SGMII
+ support for RK3568
+To: Coia Prant <coiaprant@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Romain Gantois <romain.gantois@bootlin.com>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Russell King <linux@armlinux.org.uk>, Shawn Lin <shawn.lin@rock-chips.com>,
+ David Heidelberg <david@ixit.cz>, netdev@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-renesas-soc@vger.kernel.org
+References: <20260919125119.2107089-1-coiaprant@gmail.com>
+ <20260919125119.2107089-10-coiaprant@gmail.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20260919125119.2107089-10-coiaprant@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
+Hi,
 
+On 9/19/26 14:51, Coia Prant wrote:
+> The RK3568 SoC integrates a Synopsys DesignWare XPCS that can be
+> connected to GMAC0 or GMAC1 in SGMII mode.  Add the necessary glue
+> logic to support this configuration.
+> 
+> The current dwmac-rk driver does not support SGMII mode.  SGMII
+> requires a PCS to handle auto-negotiation and link state reporting,
+> but the existing driver only supports RGMII and RMII.
+> 
+> Add a set_to_sgmii() callback to configure the GMAC GRF register for
+> SGMII mode (bit 7 set, interface selection bits 4:6 ignored when set).
+> Also add a set_to_rmii() callback for rk3568 to explicitly clear bit 7,
+> since the new SGMII path leaves it set and the RMII branch previously
+> relied on the SoC reset value.
+> 
+> Provide pcs_init/pcs_exit callbacks to create/destroy the XPCS via
+> xpcs_rk_create() from the Rockchip XPCS platform driver, and a
+> select_pcs callback to return the XPCS to phylink. SGMII is not added
+> to rk_get_interfaces(): it comes from the XPCS's own
+> supported_interfaces, merged by stmmac_phylink_setup().
+> 
+> The SerDes PHY and the PD_PIPE power domain are owned by the XPCS
+> driver rather than managed through the stmmac
+> serdes_poweron/serdes_poweroff callbacks, which are legacy and meant
+> for single-MAC platforms. On RK3568 the XPCS is the natural owner of
+> the shared SerDes.
+> 
+> DWMAC_ROCKCHIP selects PCS_XPCS_ROCKCHIP. PCS_XPCS itself is already
+> selected by STMMAC_ETH, and PM is selected by ARCH_ROCKCHIP, so no
+> further selects are needed.
+> 
+> Reorder rk_gmac_powerup() so that gmac_clk_enable() is called before
+> the SGMII check.  The SGMII path skips rk_get_phy_intf_sel(), so the
+> clock must be enabled earlier to cover all register accesses in that
+> path.  While at it, unify the error unwinding into a single
+> clk_disable label and add error handling for the default (unhandled
+> interface) case.
+> 
+> SGMII In-band vs Out-of-band
+> ============================
+> On RK3568, the MAC clock is fixed at 125 MHz and cannot be dynamically
+> changed by the stmmac core's set_clk_tx_rate callback.  In-band mode
+> works because the PCS handles rate adaptation internally.  Out-of-band
+> mode does not work because the MAC would need to change the clock rate
+> to 125/12.5/1.25 MHz for 1000/100/10 Mbps respectively, and the clock
+> is fixed.
+> 
+> Enable default_an_inband for SGMII and disable the generic stmmac
+> set_clk_tx_rate callback.  This forces phylink to use in-band mode,
+> where the PCS is responsible for speed/duplex negotiation.
+> 
+> Note that default_an_inband can be overridden by a fixed-link node,
+> and phylink may also fall back to out-of-band if the PHY does not
+> support in-band signalling.  Out-of-band SGMII is not supported by
+> this driver: the MAC clock would stay at 125 MHz for 10/100 Mbps,
+> giving working TX but failing RX.  Boards must use in-band mode
+> (managed = "in-band-status" or an in-band capable PHY).
+> 
+> Link: https://dl.radxa.com/rock3/docs/hw/datasheet/Rockchip%20RK3568%20TRM%20Part1%20V1.1-20210301.pdf (Page 386)
+> Signed-off-by: Coia Prant <coiaprant@gmail.com>
 
-在 2026/9/15 2:47, Suravee Suthikulpanit 写道:
-> The IOMMU PCI function does not go through the normal device attach
-> path, so it has no iommu_dev_data. Add amd_iommu_alloc_dev_data()
-> and amd_iommu_free_dev_data() for a synthetic object that is not
-> interned in pci_seg->dev_data_xa. Program that DTE with the private
-> IPA domain's v1 page table so the IOMMU can DMA to its own vIOMMU
-> backing store.
-> 
-> Leave the synthetic DTE off pdom->dev_list and with no struct
-> device so clone_aliases() is skipped; it is only iommu->devid.
-> Rewrite it from amd_iommu_change_top() when the IPA table grows
-> so later high maps remain reachable.
-> 
-> Do this after viommu_private_space_init() so viommu_pdom exists.
-> Clear the DTE and free the object on teardown. Failed self DTE
-> allocation unwinds through amd_viommu_uninit().
-> 
-> Signed-off-by: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com
+
+Maxime
+
 > ---
->   drivers/iommu/amd/amd_iommu.h       |   4 ++
->   drivers/iommu/amd/amd_iommu_types.h |   2 +
->   drivers/iommu/amd/iommu.c           | 102 +++++++++++++++++++++++++---
->   drivers/iommu/amd/viommu.c          |  48 +++++++++++++
->   4 files changed, 148 insertions(+), 8 deletions(-)
+>  drivers/net/ethernet/stmicro/stmmac/Kconfig   |   1 +
+>  .../net/ethernet/stmicro/stmmac/dwmac-rk.c    | 130 +++++++++++++++---
+>  2 files changed, 111 insertions(+), 20 deletions(-)
 > 
-> diff --git a/drivers/iommu/amd/amd_iommu.h b/drivers/iommu/amd/amd_iommu.h
-> index 9cc5da745a73..6ac64524208b 100644
-> --- a/drivers/iommu/amd/amd_iommu.h
-> +++ b/drivers/iommu/amd/amd_iommu.h
-> @@ -50,6 +50,10 @@ extern u8 amd_iommu_hpt_vasize;
->   extern unsigned long amd_iommu_pgsize_bitmap;
->   extern bool amd_iommu_hatdis;
->   
-> +struct iommu_dev_data *amd_iommu_alloc_dev_data(u16 devid);
-> +void amd_iommu_free_dev_data(struct amd_iommu *iommu,
-> +			     struct iommu_dev_data *dev_data);
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> index e3dd5adda5aca..5088acc06982e 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> +++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> @@ -170,6 +170,7 @@ config DWMAC_ROCKCHIP
+>  	default ARCH_ROCKCHIP
+>  	depends on OF && (ARCH_ROCKCHIP || COMPILE_TEST)
+>  	select MFD_SYSCON
+> +	select PCS_XPCS_ROCKCHIP
+>  	help
+>  	  Support for Ethernet controller on Rockchip RK3288 SoC.
+>  
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+> index 8d7042e689261..88f09014e3a69 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+> @@ -20,6 +20,7 @@
+>  #include <linux/delay.h>
+>  #include <linux/mfd/syscon.h>
+>  #include <linux/regmap.h>
+> +#include <linux/pcs/pcs-xpcs-rk.h>
+>  #include <linux/pm_runtime.h>
+>  
+>  #include "stmmac_platform.h"
+> @@ -47,6 +48,7 @@ struct rk_gmac_ops {
+>  	void (*set_to_rgmii)(struct rk_priv_data *bsp_priv,
+>  			     int tx_delay, int rx_delay);
+>  	void (*set_to_rmii)(struct rk_priv_data *bsp_priv);
+> +	void (*set_to_sgmii)(struct rk_priv_data *bsp_priv);
+>  	int (*set_speed)(struct rk_priv_data *bsp_priv,
+>  			 phy_interface_t interface, int speed);
+>  	void (*integrated_phy_powerup)(struct rk_priv_data *bsp_priv);
+> @@ -63,6 +65,7 @@ struct rk_gmac_ops {
+>  	bool clock_grf_reg_in_php;
+>  	bool supports_rgmii;
+>  	bool supports_rmii;
+> +	bool supports_sgmii;
+>  	bool php_grf_required;
+>  	bool regs_valid;
+>  	u32 regs[];
+> @@ -98,6 +101,7 @@ struct rk_priv_data {
+>  	bool integrated_phy;
+>  	bool supports_rgmii;
+>  	bool supports_rmii;
+> +	bool supports_sgmii;
+>  
+>  	struct clk_bulk_data *clks;
+>  	int num_clks;
+> @@ -809,6 +813,8 @@ static const struct rk_gmac_ops rk3528_ops = {
+>  #define RK3568_GRF_GMAC1_CON1		0x038c
+>  
+>  /* RK3568_GRF_GMAC0_CON1 && RK3568_GRF_GMAC1_CON1 */
+> +#define RK3568_GMAC_MODE_RMII_RGMII		GRF_CLR_BIT(7)
+> +#define RK3568_GMAC_MODE_SGMII_QSGMII		GRF_BIT(7)
+>  #define RK3568_GMAC_FLOW_CTRL			GRF_BIT(3)
+>  #define RK3568_GMAC_FLOW_CTRL_CLR		GRF_CLR_BIT(3)
+>  #define RK3568_GMAC_RXCLK_DLY_ENABLE		GRF_BIT(1)
+> @@ -836,6 +842,16 @@ static int rk3568_init(struct rk_priv_data *bsp_priv)
+>  	}
+>  }
+>  
+> +static void rk3568_set_to_rmii(struct rk_priv_data *bsp_priv)
+> +{
+> +	u32 con1;
 > +
->   /* Protection domain ops */
->   void amd_iommu_init_identity_domain(void);
->   struct protection_domain *protection_domain_alloc(void);
-> diff --git a/drivers/iommu/amd/amd_iommu_types.h b/drivers/iommu/amd/amd_iommu_types.h
-> index d02f49a39a90..4b48ec8bacd6 100644
-> --- a/drivers/iommu/amd/amd_iommu_types.h
-> +++ b/drivers/iommu/amd/amd_iommu_types.h
-> @@ -814,6 +814,8 @@ struct amd_iommu {
->   	struct ida gid_ida;		 /* guest IDs for this IOMMU */
->   
->   	/* HW vIOMMU support */
-> +	/* Synthetic IOMMU-self DTE; not in pci_seg->dev_data_xa or pdom->dev_list */
-> +	struct iommu_dev_data *viommu_dev_data;
->   	struct protection_domain *viommu_pdom;
->   	void *viommu_priv_region[VIOMMU_PRIV_SUBREGION_CNT];
->   };
-> diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
-> index 2b039f38f9ef..bcbd5af75d00 100644
-> --- a/drivers/iommu/amd/iommu.c
-> +++ b/drivers/iommu/amd/iommu.c
-> @@ -217,7 +217,12 @@ void amd_iommu_update_dte(struct amd_iommu *iommu,
->   			     struct dev_table_entry *new)
->   {
->   	update_dte256(iommu, dev_data, new);
-> -	clone_aliases(iommu, dev_data->dev);
-> +	/*
-> +	 * Synthetic DTEs (vIOMMU self, translate-device-id) leave
-> +	 * dev_data->dev NULL so clone_aliases() is skipped.
-> +	 */
-> +	if (dev_data->dev)
-> +		clone_aliases(iommu, dev_data->dev);
->   	device_flush_dte(iommu, dev_data);
->   	iommu_completion_wait(iommu);
->   }
-> @@ -391,14 +396,13 @@ static struct amd_iommu *rlookup_amd_iommu(struct device *dev)
->   }
->   
->   /*
-> - * Allocate an immortal per-devid object stored in pci_seg->dev_data_xa.
-> - * These are never erased: amd_iommu_release_device() keeps them for
-> - * replug, and IRQ/DTE paths look them up locklessly via xa_load().
-> + * Allocate a synthetic DTE object that is not inserted into
-> + * pci_seg->dev_data_xa. Lifetime is owned by the caller (vIOMMU
-> + * self DTE or translate-device-id).
->    */
-> -static struct iommu_dev_data *alloc_dev_data(struct amd_iommu *iommu, u16 devid)
-> +struct iommu_dev_data *amd_iommu_alloc_dev_data(u16 devid)
->   {
-> -	struct iommu_dev_data *dev_data, *old;
-> -	struct amd_iommu_pci_seg *pci_seg = iommu->pci_seg;
-> +	struct iommu_dev_data *dev_data;
->   
->   	dev_data = kzalloc_obj(*dev_data);
->   	if (!dev_data)
-> @@ -408,6 +412,22 @@ static struct iommu_dev_data *alloc_dev_data(struct amd_iommu *iommu, u16 devid)
->   	spin_lock_init(&dev_data->dte_lock);
->   	dev_data->devid = devid;
->   	ratelimit_default_init(&dev_data->rs);
-> +	return dev_data;
+> +	con1 = (bsp_priv->id == 1) ? RK3568_GRF_GMAC1_CON1 :
+> +				     RK3568_GRF_GMAC0_CON1;
+> +
+> +	regmap_write(bsp_priv->grf, con1, RK3568_GMAC_MODE_RMII_RGMII);
 > +}
 > +
-> +/*
-> + * Allocate an immortal per-devid object stored in pci_seg->dev_data_xa.
-> + * These are never erased: amd_iommu_release_device() keeps them for
-> + * replug, and IRQ/DTE paths look them up locklessly via xa_load().
-> + */
-> +static struct iommu_dev_data *alloc_dev_data(struct amd_iommu *iommu, u16 devid)
+>  static void rk3568_set_to_rgmii(struct rk_priv_data *bsp_priv,
+>  				int tx_delay, int rx_delay)
+>  {
+> @@ -851,19 +867,31 @@ static void rk3568_set_to_rgmii(struct rk_priv_data *bsp_priv,
+>  		     RK3568_GMAC_CLK_TX_DL_CFG(tx_delay));
+>  
+>  	regmap_write(bsp_priv->grf, con1,
+> +		     RK3568_GMAC_MODE_RMII_RGMII |
+>  		     RK3568_GMAC_RXCLK_DLY_ENABLE |
+>  		     RK3568_GMAC_TXCLK_DLY_ENABLE);
+>  }
+>  
+> +static void rk3568_set_to_sgmii(struct rk_priv_data *bsp_priv)
 > +{
-> +	struct iommu_dev_data *dev_data, *old;
-> +	struct amd_iommu_pci_seg *pci_seg = iommu->pci_seg;
+> +	u32 con1;
 > +
-> +	dev_data = amd_iommu_alloc_dev_data(devid);
-> +	if (!dev_data)
-> +		return NULL;
->   
->   	old = xa_cmpxchg(&pci_seg->dev_data_xa, devid, NULL, dev_data,
->   			 GFP_KERNEL);
-> @@ -428,6 +448,22 @@ struct iommu_dev_data *search_dev_data(struct amd_iommu *iommu, u16 devid)
->   	return xa_load(&iommu->pci_seg->dev_data_xa, devid);
->   }
->   
-> +void amd_iommu_free_dev_data(struct amd_iommu *iommu,
-> +			     struct iommu_dev_data *dev_data)
-> +{
-> +	if (!dev_data)
-> +		return;
+> +	con1 = (bsp_priv->id == 1) ? RK3568_GRF_GMAC1_CON1 :
+> +				     RK3568_GRF_GMAC0_CON1;
 > +
-> +	/*
-> +	 * PCI/alias objects in the xarray are immortal. Never kfree
-> +	 * those; synthetics must not be stored there.
-> +	 */
-> +	if (WARN_ON_ONCE(search_dev_data(iommu, dev_data->devid) == dev_data))
-> +		return;
-> +
-> +	kfree(dev_data);
+> +	regmap_write(bsp_priv->grf, con1, RK3568_GMAC_MODE_SGMII_QSGMII);
 > +}
 > +
->   static int clone_alias(struct pci_dev *pdev_origin, u16 alias, void *data)
->   {
->   	struct dev_table_entry new;
-> @@ -1826,7 +1862,11 @@ static int device_flush_dte(struct amd_iommu *iommu, struct iommu_dev_data *dev_
->   	u16 alias;
->   	int ret;
->   
-> -	if (dev_is_pci(dev_data->dev))
-> +	/*
-> +	 * Synthetic DTEs leave dev_data->dev NULL; flush iommu->devid
-> +	 * rather than walking PCI DMA aliases.
-> +	 */
-> +	if (dev_data->dev && dev_is_pci(dev_data->dev))
->   		pdev = to_pci_dev(dev_data->dev);
->   
->   	if (pdev)
-> @@ -2770,6 +2810,51 @@ static spinlock_t *amd_iommu_get_top_lock(struct pt_iommu *iommupt)
->   	return &pdom->lock;
->   }
->   
-> +#if IS_ENABLED(CONFIG_AMD_IOMMU_IOMMUFD)
-> +/*
-> + * The vIOMMU private IPA domain programs a synthetic DTE for the
-> + * IOMMU's own requester ID so hardware can DMA to backing store.
-> + * That object is not on pdom->dev_list: it is not an IOMMU-API
-> + * attach, and walkers such as rlookup and clone_aliases assume a
-> + * real struct device.
-> + *
-> + * amd_iommu_change_top() therefore misses it. Early maps fit under
-> + * the initial page-table top (PT_FEAT_DYNAMIC_TOP). Later DevID and
-> + * DomID maps at high IPA call increase_top(); the old root stays
-> + * live as a child of the new one, but the self DTE still holds the
-> + * old MODE and would not translate those IOVAs.
-> + *
-> + * Walk iommu_array (from amd_iommu_pdom_bind_iommu()) and rewrite
-> + * iommu->viommu_dev_data when this domain is that IOMMU's private
-> + * IPA table. set_dte_entry() skips clone_aliases() because the
-> + * synthetic DTE has no struct device.
-> + */
-> +static void update_viommu_self_dte(struct protection_domain *pdom,
-> +				   phys_addr_t top_paddr,
-> +				   unsigned int top_level)
+>  static const struct rk_gmac_ops rk3568_ops = {
+>  	.init = rk3568_init,
+> +	.set_to_rmii = rk3568_set_to_rmii,
+>  	.set_to_rgmii = rk3568_set_to_rgmii,
+> +	.set_to_sgmii = rk3568_set_to_sgmii,
+> +
+>  	.set_speed = rk_set_clk_mac_speed,
+>  
+>  	.gmac_phy_intf_sel_mask = GENMASK_U16(6, 4),
+>  
+> -	.supports_rmii = true,
+> -
+>  	.regs_valid = true,
+>  	.regs = {
+>  		0xfe2a0000, /* gmac0 */
+> @@ -1208,6 +1236,43 @@ static void rk_phy_powerdown(struct rk_priv_data *bsp_priv)
+>  		dev_err(bsp_priv->dev, "fail to disable phy-supply\n");
+>  }
+>  
+> +static int rk_pcs_init(struct stmmac_priv *priv)
 > +{
-> +	struct pdom_iommu_info *pdom_iommu_info;
-> +	unsigned long i;
+> +	struct device_node *np = priv->device->of_node;
+> +	struct device_node *pcs_node;
+> +	struct dw_xpcs *xpcs;
 > +
-> +	lockdep_assert_held(&pdom->lock);
+> +	pcs_node = of_parse_phandle(np, "pcs-handle", 0);
+> +	if (!pcs_node)
+> +		return -ENODEV;
 > +
-> +	xa_for_each(&pdom->iommu_array, i, pdom_iommu_info) {
-> +		struct amd_iommu *iommu = pdom_iommu_info->iommu;
+> +	xpcs = xpcs_rk_create(priv->device, pcs_node);
+> +	of_node_put(pcs_node);
+> +	if (IS_ERR(xpcs))
+> +		return PTR_ERR(xpcs);
 > +
-> +		if (iommu->viommu_pdom != pdom || !iommu->viommu_dev_data)
-> +			continue;
-> +		set_dte_entry(iommu, iommu->viommu_dev_data, top_paddr,
-> +			      top_level);
-> +	}
-> +}
-
-Self DTE Mode maybe does not comply with spec requirement of Mode=100b
-
-At initialization time, only the 8MB General Backing Storage region (IPA 
-0x0 - 0x800000) is mapped, so the page table top is likely level 1 or 2, 
-resulting in Mode = 010b or 011b.
-
-However, spec Section 2.10.1 states explicitly:
-"The DTE for the IOMMU's DeviceID must be set with V=1, TV=1, GV=0, 
-Mode=100b."
-
-This is a hard requirement ("must"), not a recommendation. Mode=100b 
-means 4-level page table (48-bit address space), which is necessary 
-because the private IPA address map extends up to 48'h0050_0000_0000 
-(~5TB), well beyond the 39-bit limit of a 3-level table.
-
-
-> +#else
-> +static inline void update_viommu_self_dte(struct protection_domain *pdom,
-> +					  phys_addr_t top_paddr,
-> +					  unsigned int top_level)
-> +{
-> +}
-> +#endif
-> +
->   /*
->    * Update all HW references to the domain with a new pgtable configuration.
->    */
-> @@ -2792,6 +2877,7 @@ static void amd_iommu_change_top(struct pt_iommu *iommu_table,
->   		device_flush_dte(iommu, dev_data);
->   	}
->   
-> +	update_viommu_self_dte(pdom, top_paddr, top_level);
->   	domain_flush_complete(pdom);
->   }
->   
-> diff --git a/drivers/iommu/amd/viommu.c b/drivers/iommu/amd/viommu.c
-> index 89d6dc520b2c..3ec907a498c2 100644
-> --- a/drivers/iommu/amd/viommu.c
-> +++ b/drivers/iommu/amd/viommu.c
-> @@ -40,11 +40,55 @@ static void __init amd_viommu_vf_vfcntl_unmap(struct amd_iommu *iommu)
->   	}
->   }
->   
-> +
-> +static void viommu_free_self_dev_data(struct amd_iommu *iommu)
-> +{
-> +	struct iommu_dev_data *dev_data = iommu->viommu_dev_data;
-> +	struct dev_table_entry new = {};
-> +
-> +	if (!dev_data)
-> +		return;
-> +
-> +	amd_iommu_make_clear_dte(iommu, dev_data->devid, &new);
-> +	amd_iommu_update_dte(iommu, dev_data, &new);
-> +	amd_iommu_free_dev_data(iommu, dev_data);
-> +	iommu->viommu_dev_data = NULL;
-> +}
-> +
-> +static int viommu_alloc_self_dev_data(struct amd_iommu *iommu)
-> +{
-> +	struct protection_domain *pdom = iommu->viommu_pdom;
-> +	struct pt_iommu_amdv1_hw_info pt_info;
-> +	struct iommu_dev_data *dev_data;
-> +	struct dev_table_entry new = {};
-> +
-> +	dev_data = amd_iommu_alloc_dev_data(iommu->devid);
-> +	if (!dev_data) {
-> +		pr_err("%s: Failed to allocate dev_data\n", __func__);
-> +		return -ENOMEM;
-> +	}
-> +	/*
-> +	 * Synthetic DTE for iommu->devid only: no struct device, so
-> +	 * amd_iommu_update_dte() skips clone_aliases(), and not on
-> +	 * pdom->dev_list (not an IOMMU-API attach).
-> +	 */
-> +	dev_data->dev = NULL;
-> +	dev_data->domain = pdom;
-> +	iommu->viommu_dev_data = dev_data;
-> +
-> +	amd_iommu_make_clear_dte(iommu, iommu->devid, &new);
-> +	pt_iommu_amdv1_hw_info(&pdom->amdv1, &pt_info);
-> +	amd_iommu_set_dte_v1(dev_data, pdom, pdom->id, &pt_info, &new);
-> +	amd_iommu_update_dte(iommu, dev_data, &new);
+> +	priv->hw->xpcs = xpcs;
 > +	return 0;
 > +}
 > +
->   static void viommu_private_space_uninit(struct amd_iommu *iommu);
->   
->   void __init amd_viommu_uninit(struct amd_iommu *iommu)
->   {
->   	iommu->flags &= ~AMD_IOMMU_FLAG_VIOMMU_EN;
-> +	viommu_free_self_dev_data(iommu);
->   	viommu_private_space_uninit(iommu);
->   	amd_viommu_vf_vfcntl_unmap(iommu);
->   }
-> @@ -319,6 +363,10 @@ int __init amd_viommu_init(struct amd_iommu *iommu)
->   	if (ret)
->   		goto err;
->   
-> +	ret = viommu_alloc_self_dev_data(iommu);
-> +	if (ret)
-> +		goto err;
+> +static void rk_pcs_exit(struct stmmac_priv *priv)
+> +{
+> +	if (!priv->hw->xpcs)
+> +		return;
 > +
->   	iommu->flags |= AMD_IOMMU_FLAG_VIOMMU_EN;
->   	return 0;
->   err:
+> +	xpcs_destroy(priv->hw->xpcs);
+> +	priv->hw->xpcs = NULL;
+> +}
+> +
+> +static struct phylink_pcs *rk_select_pcs(struct stmmac_priv *priv,
+> +					 phy_interface_t interface)
+> +{
+> +	if (!priv->hw->xpcs)
+> +		return NULL;
+> +
+> +	return xpcs_to_phylink_pcs(priv->hw->xpcs);
+> +}
+> +
+>  static struct rk_priv_data *rk_gmac_setup(struct platform_device *pdev,
+>  					  struct plat_stmmacenet_data *plat,
+>  					  const struct rk_gmac_ops *ops)
+> @@ -1330,6 +1395,7 @@ static struct rk_priv_data *rk_gmac_setup(struct platform_device *pdev,
+>  
+>  	bsp_priv->supports_rgmii = ops->supports_rgmii || !!ops->set_to_rgmii;
+>  	bsp_priv->supports_rmii = ops->supports_rmii || !!ops->set_to_rmii;
+> +	bsp_priv->supports_sgmii = ops->supports_sgmii || !!ops->set_to_sgmii;
+>  
+>  	if (ops->init) {
+>  		ret = ops->init(bsp_priv);
+> @@ -1361,6 +1427,10 @@ static int rk_gmac_check_ops(struct rk_priv_data *bsp_priv)
+>  		if (!bsp_priv->supports_rmii)
+>  			return -EINVAL;
+>  		break;
+> +	case PHY_INTERFACE_MODE_SGMII:
+> +		if (!bsp_priv->supports_sgmii)
+> +			return -EINVAL;
+> +		break;
+>  	default:
+>  		dev_err(bsp_priv->dev,
+>  			"unsupported interface %d", bsp_priv->phy_iface);
+> @@ -1379,16 +1449,19 @@ static int rk_gmac_powerup(struct rk_priv_data *bsp_priv)
+>  	if (ret)
+>  		return ret;
+>  
+> +	ret = gmac_clk_enable(bsp_priv, true);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (bsp_priv->phy_iface == PHY_INTERFACE_MODE_SGMII)
+> +		goto set_mode;
+> +
+>  	ret = rk_get_phy_intf_sel(bsp_priv->phy_iface);
+>  	if (ret < 0)
+> -		return ret;
+> +		goto clk_disable;
+>  
+>  	intf = ret;
+>  
+> -	ret = gmac_clk_enable(bsp_priv, true);
+> -	if (ret)
+> -		return ret;
+> -
+>  	if (bsp_priv->gmac_phy_intf_sel_mask ||
+>  	    bsp_priv->gmac_rmii_mode_mask) {
+>  		/* If defined, encode the phy_intf_sel value */
+> @@ -1399,10 +1472,8 @@ static int rk_gmac_powerup(struct rk_priv_data *bsp_priv)
+>  				      bsp_priv->gmac_rmii_mode_mask);
+>  
+>  		ret = rk_write_gmac_grf_reg(bsp_priv, val);
+> -		if (ret < 0) {
+> -			gmac_clk_enable(bsp_priv, false);
+> -			return ret;
+> -		}
+> +		if (ret < 0)
+> +			goto clk_disable;
+>  	}
+>  
+>  	if (bsp_priv->clock.rmii_mode_mask) {
+> @@ -1410,13 +1481,12 @@ static int rk_gmac_powerup(struct rk_priv_data *bsp_priv)
+>  				     bsp_priv->clock.rmii_mode_mask);
+>  
+>  		ret = rk_write_clock_grf_reg(bsp_priv, val);
+> -		if (ret < 0) {
+> -			gmac_clk_enable(bsp_priv, false);
+> -			return ret;
+> -		}
+> +		if (ret < 0)
+> +			goto clk_disable;
+>  	}
+>  
+> -	/*rmii or rgmii*/
+> +set_mode:
+> +	/* rmii, rgmii, sgmii */
+>  	switch (bsp_priv->phy_iface) {
+>  	case PHY_INTERFACE_MODE_RGMII:
+>  		dev_info(dev, "init for RGMII\n");
+> @@ -1447,15 +1517,20 @@ static int rk_gmac_powerup(struct rk_priv_data *bsp_priv)
+>  		if (bsp_priv->ops->set_to_rmii)
+>  			bsp_priv->ops->set_to_rmii(bsp_priv);
+>  		break;
+> +	case PHY_INTERFACE_MODE_SGMII:
+> +		dev_info(dev, "init for SGMII\n");
+> +		if (bsp_priv->ops->set_to_sgmii)
+> +			bsp_priv->ops->set_to_sgmii(bsp_priv);
+> +		break;
+>  	default:
+>  		dev_err(dev, "NO interface defined!\n");
+> +		ret = -EINVAL;
+> +		goto clk_disable;
+>  	}
+>  
+>  	ret = rk_phy_powerup(bsp_priv);
+> -	if (ret) {
+> -		gmac_clk_enable(bsp_priv, false);
+> -		return ret;
+> -	}
+> +	if (ret)
+> +		goto clk_disable;
+>  
+>  	pm_runtime_get_sync(dev);
+>  
+> @@ -1463,6 +1538,10 @@ static int rk_gmac_powerup(struct rk_priv_data *bsp_priv)
+>  		bsp_priv->ops->integrated_phy_powerup(bsp_priv);
+>  
+>  	return 0;
+> +
+> +clk_disable:
+> +	gmac_clk_enable(bsp_priv, false);
+> +	return ret;
+>  }
+>  
+>  static void rk_gmac_powerdown(struct rk_priv_data *gmac)
+> @@ -1602,6 +1681,17 @@ static int rk_gmac_probe(struct platform_device *pdev)
+>  	plat_dat->suspend = rk_gmac_suspend;
+>  	plat_dat->resume = rk_gmac_resume;
+>  
+> +	if (plat_dat->phy_interface == PHY_INTERFACE_MODE_SGMII) {
+> +		/* SGMII clock always runs at 125 MHz */
+> +		plat_dat->set_clk_tx_rate = NULL;
+> +
+> +		/* SGMII requires a PCS */
+> +		plat_dat->default_an_inband = true;
+> +		plat_dat->pcs_init = rk_pcs_init;
+> +		plat_dat->pcs_exit = rk_pcs_exit;
+> +		plat_dat->select_pcs = rk_select_pcs;
+> +	}
+> +
+>  	plat_dat->bsp_priv = rk_gmac_setup(pdev, plat_dat, data);
+>  	if (IS_ERR(plat_dat->bsp_priv))
+>  		return PTR_ERR(plat_dat->bsp_priv);
 
