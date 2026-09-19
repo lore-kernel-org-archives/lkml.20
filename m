@@ -1,71 +1,70 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+Received: from mail-pj2-f14.google.com (mail-pj2-f14.google.com [74.125.227.142])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA18C38D3E2
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 20:48:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0555A3921CE
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 20:48:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.142
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789850898; cv=none; b=FcHBUrli7VQZ19Azho1Xad7AM3EqW2yv6AUhuSPtqm4EC7hCQx945KmHYbp4u04gZ3eFaqUllu3BCqmrmFqDRQSIGatKIlPmhJOy4+iSWZQCqf7btNfTM8I7uLhh3/2ZimHu82sqtFFZzZbQsHahw7IWmv6kA71R60vnfIergm8=
+	t=1789850899; cv=none; b=u9KJb+I2Jh/tIJIuPRxuk1sG68vs0jJ8gyYZ0ugRI2K1vVAqz5Old4piqoyk4IU/v7dg36MCgNLIgVmMVpnFI7YOSrjMiRwy/lLF0ApdJ7hEIBP/kD6CrV5GLM+ralsjalKW+DkeTBstKDJIXZjBZ+grsrRdV6RxNRZRMIklJow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789850898; c=relaxed/simple;
-	bh=Xb6YmybDYOpffDEcr8Qpz3o3baljqAvw1OLCUNDOILc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SG0HnQLaETrACD5FRcJfw0qtBcktH6OHupuC82B6qI9kfLvKFF1RpbjlaAoa2dfR/Q/1Gn7sf7bPHDo/qMwMl3PcjSCPKgaB0lv3ZKme2dMQLGPDYbvT5L/Ya368HGCpJKcB6jbjghGOBDyPEyvMyxK/0ys6kMb1qMAfLudqKTg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AuWKQ04+; arc=none smtp.client-ip=74.125.228.41
+	s=arc-20240116; t=1789850899; c=relaxed/simple;
+	bh=kliTvICRH0Fcd6Vd2aAXvpTk/pzziOHkHnc3NS+KfaA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uQqMcmnzvxOD0Qlx/p8Ux1CFjMzTHmmdEaNaaXDP0zchFKIousWoTk7yGHv9Mn6CMZ3x0ZZigD3l1k3TcuHwfq9SRv88/zKYzZfGDJtaMS6ugsPkxRFtdf6ocylpeUOJjEhtlmRZI94TEsLyOJ3W7H6+pM19DDpqNfg3UhxepVg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tF8Ph803; arc=none smtp.client-ip=74.125.227.142
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AuWKQ04+"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-868cfc5c244so1008420b3a.3
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 13:48:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tF8Ph803"
+Received: by mail-pj2-f14.google.com with SMTP id d9443c01a7336-2d747f05ffcso14049715ad.0
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 13:48:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789850892; x=1790455692; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789850897; x=1790455697; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=G8coy9Idjf1Xbt6E4H3MvvQY7vOxDVZhrZENv3R8zOc=;
-        b=AuWKQ04+RdJ1Ccrl2bfOx/J6pBmZwjkvWyVFE2lCtBa0Kmwqc5Li7Q0uTAHPGLTn42
-         0ZPVphfxoPP7+Bz7aXPoFBUeFYubdUtpSKhgGsQQ5r0hrpH/KZf5HbpTKydSQ/hsMIoy
-         YGNvLBqjOpiDoUVq/qU751zsPPkTmIGrN7jFaj23e7S0y70BoW9GoVQWTFx+xq/s5jcV
-         5thcgj1uthL4XK1AFYvjR33SX+rWJKSc3S3CK3/UJRGcu1aM49RM4wCdiIoVbQnZJxwo
-         IXHqzcMURdTzpWtdQPfOKGN1M9xR93ucFGRGcH2HJcw0N0tpZLNYJrdGxU5T0isB48xA
-         4zdA==
+        bh=8ao07vO5WCBmMaWfKvIi66w+Y2+Y6qk8tpF9eVXkWu4=;
+        b=tF8Ph803eh7T7j7Cyz9qiWffS/mfG3olxCZG0MysENHKol2tKXQCwpQo51mVx0wCR9
+         oPkp8AkHiINBNAfpVY7QX/R1KrCBFm60Z90wA2KlV3r8st5jnJV4ZhG6oy0WzJbXvy1I
+         uDKkbD79rNmAJSLzXsMXz0l5Dcu4QGKT4oOUrbYyReFPMULHlSos8dRGt2kLoqciVJ7y
+         79g45uqw7YcuhYSFf7gvZV/ocNTM/UUibuvKvfAxfnOyj9XEuan93OEmGa8iqmyQFQ0u
+         lkQrVmNn18v2UI6XNx1he/HqFnjRD5tHbfewc59I1widnrLMab3STzXf0Vyt+X+x+6u2
+         yDtg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789850892; x=1790455692;
+        d=1e100.net; s=20260707; t=1789850897; x=1790455697;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=G8coy9Idjf1Xbt6E4H3MvvQY7vOxDVZhrZENv3R8zOc=;
-        b=bEiLsQkN6IYXxag66bvJ9ep/asIY/O8be9yOGH1anHNv4WLxVaBTadRgNGPpJn5KY+
-         RN6Xn7tzSLAN1gp3g/Kx2uNEhVyIt1P81w05jJ7TzV1ule9z86H5v12HMbPdKdi1X3nK
-         hUpQeZQKR3oVP58Xiw1XStd7fpjbENyMikzFbXY200SlfI43Cz5NB0tGQcJ9jkvalxBB
-         HMR7wGi+n1+F+siW3T3DA4x9DreFmAlfojgfpYntuY44u6hd/39PoMo7LXqTSEzsbKSY
-         zNLHhso0I0fIfEm3o/Y4JS9BZgs/ZzuimSomx4LLI3IE6IoACi0fEZ5RD/SbYFL8QP+S
-         WaAg==
-X-Forwarded-Encrypted: i=1; AKwUvBzZYWg83fwigh86WLpTBLZvwE5/lVDrLsA1nkwdFgalnqKR+kqnAY1s614UfYugmWX7NEgviM2rigEZe04=@vger.kernel.org
-X-Gm-Message-State: AFuF++nhGl/PLTmSYf76F1h9YA48DX96ETYtgSc2TZtHI3O4Lm7L2Hbo
-	QFsxT9Aug4YysNlZ2uL0rJA932lnFoB5w64SszilYV5rtdxnmsp86N2u
-X-Gm-Gg: AYBFou3akN8r5xnJKDCXI6HHsdF9n1un8+uGSyd+7kWR6e2jNQZxBVmqFMNXJtCaoVB
-	u00a5BulD5Xr0cuX3FCQNCaD3P6PRHSC33nA1YMZ5K/jD+g3CO/fBbK6hU6Z4nry6sqT+JEnOQe
-	+ihJMsvoULQwmMC3YeuCmwW213inigSUh8Cm/y76QNBFM+5Nhvi47CJwGVFE0wwwd0aULibNiMI
-	tzTy6mxoL/ZVQvUVLH+SYPIxHNoMzqZr6VomxG8fGO73Ur09Fimnh7v1/BVPu3ejuYsRovxluXK
-	FTq2WRsUKi6WGQobhA6HG6e1ZIPQTXuUTI3tjN5aFV0s9S9mosFrDmHoU3OI0N9j0nUnuu4Xe5a
-	VQhU0UyG9sHYova4u/0nideKCarBP7KQshVY0bmMSCbAMDA9I9S8muHgZJiOc8Lv8MEUJy8kZcq
-	o+3cFVBG0LunvzOhmQXB1CSnJF2/IM+dgGLfq7dVxEvcMiqTR6K2xyHjIBmmepod1NbOUfJkptD
-	LNXFBpBgm7HbUviaA27HX4AZVglIe5Ag0u9IVYaC9RkQzaUucy+UvI10YC9wPjovLnK1oAOhKEN
-	Y+YWuoaM9Q==
-X-Received: by 2002:a05:6a00:1a0f:b0:877:b053:2e12 with SMTP id d2e1a72fcca58-877b05337a5mr2996714b3a.10.1789850892092;
-        Sat, 19 Sep 2026 13:48:12 -0700 (PDT)
+        bh=8ao07vO5WCBmMaWfKvIi66w+Y2+Y6qk8tpF9eVXkWu4=;
+        b=2ERyMfY4bNdtfdPKTod4wHFnsuFMx8nB6N9i95DY8n12kbTOfAX7bAZ9q4sGEIuYoK
+         MfM9HJ9Z7jDqGosJXo9sBGP5phLL0U3yeysGP5eABSgUlCkxXd0ODzQWtoqAhVj37EyH
+         KmXe/t5Dw7vjZaDSY8uQ4yDf3lfG1vzfZP+6HnIYGP87UZXvVZ+Fv82cxEQcbRiS6tIO
+         sZpAJ7IxT7f/CM6r8dFav7vhGVd9ey0XmoiaX1TGWmaW6a8YKFjj9K15FJji6BhyozCx
+         DzaaGRggFz25fRAkQV19o2hdPcNTYUPDlb1TF48nCdSe8i4U3yFgC202A/3UBoW8EPmS
+         mP2A==
+X-Forwarded-Encrypted: i=1; AKwUvByy5AhiE4kZ6Oz7V6RljXBsHhbmCq8MtqR2INXWAqsUiwutNZQIaWLkUX1mZmTdlYed4Vf0XVeFkjWiB3o=@vger.kernel.org
+X-Gm-Message-State: AFuF++mD8DqSaBYFqBBHNyMGqP7do4koQ4/tq+SxD+Ks04XFd6Ps+XnY
+	brbh+7u3G/lnr4cTiAp6EANSB1yVL5Qyz0s0G7faI2oBhOflMlv7Lqn2
+X-Gm-Gg: AYBFou0XrQpI3v+IrXXd3ieZYfFsOzPeJRT1hUnH2sRU3s0PAMKgRhT5dh9F0afbpX9
+	4arn7W6tgR4xsPzvXtkS49LjCqpRrcSr+rcVCtSnpotgIFhP+SGSpJAszJEb1s37ReolmjS7PxO
+	DRFVEOQAugkqCFoLswbRr78SUlKJVlhcOjQibmnRBTY+fOm8izqUqUZlEZDaF2td0mQXuSqWLYs
+	ngk2QAqjNHd9RZzcGmuqf6z0/fsOl0bxeWOFIa4zq4B9BqEmXXutFyzw+xu8vy7Px7wB2jbOuo8
+	i9R+fQlcOE0INVv3+SGfSl0iOZ7wMeKhMN6naD9wK4IB2qpkNjLTZDy4e0g9aiGyXR+nvdbipF4
+	4GbvHGl9tOv9RDyWRhv7RUpC3MhnnbjHpuuC3YFa4C4XepN5hlj8cL1NVVnZkVJ3tXRgkkggrKS
+	FWA134NTNGtRvO9xCMosDkTmYtHTFraI8zgluhIpPcP5utg53abRVDs44JAPQ+HO0P49C5NLeo0
+	KdT1zULXXAkv/mWBZ9edxP85nLyjpnukCDCUuxpx7iHs1msLMkB2bU4A7QqOatJHzSvaa5JFRoR
+	SVjW00eZSw==
+X-Received: by 2002:a17:90b:4b85:b0:39e:6c6a:2096 with SMTP id 98e67ed59e1d1-39e6c6a22e1mr4411473a91.55.1789850897297;
+        Sat, 19 Sep 2026 13:48:17 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a9b18689sm1299910b3a.40.2026.09.19.13.48.11
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e5ccf8634sm3957373a91.2.2026.09.19.13.48.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 13:48:11 -0700 (PDT)
+        Sat, 19 Sep 2026 13:48:17 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
-To: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-Cc: Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org,
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] fat: avoid freeing clusters on failed directory validation or read-only mounts
-Date: Sat, 19 Sep 2026 20:48:10 +0000
-Message-ID: <20260919204810.2813594-1-benquike@gmail.com>
+Subject: [PATCH] Input: serio - acquire device_lock(&serio->dev) in serio_bind_driver()
+Date: Sat, 19 Sep 2026 20:48:16 +0000
+Message-ID: <20260919204816.2815952-1-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -75,72 +74,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In fat_fill_inode(), set_nlink(inode, fat_subdirs(inode)) is called
-before fat_validate_dir(inode). If a directory has zero valid
-subdirectories (so fat_subdirs(inode) returns 0) and fat_validate_dir()
-subsequently returns -EIO (due to a missing or malformed '.'/'..'
-entry), fat_build_inode() calls iput(inode) with inode->i_nlink == 0 and
-inode->i_start still populated.
+drvctl_store() calls serio_bind_driver(serio, drv) under serio_mutex
+without holding device_lock(&serio->dev). Because sysfs driver bind and
+unbind attributes (/sys/bus/serio/drivers/<drv>/bind and unbind)
+serialize via device_lock(&serio->dev) without acquiring serio_mutex,
+serio_bind_driver() can race concurrently with bind_store() or
+unbind_store(), causing duplicate sysfs link creation warnings
+(sysfs_warn_dup / -EEXIST) or NULL pointer dereferences in klist_put().
 
-fat_evict_inode() then checks !inode->i_nlink without checking
-is_bad_inode(inode) or sb_rdonly(inode->i_sb) and calls
-fat_truncate_blocks(inode, 0), freeing the cluster chain on disk even on
-a read-only (MS_RDONLY) mount.
+Acquire guard(device)(&serio->dev) in serio_bind_driver() and check
+serio->dev.driver before binding.
 
-Validate the directory before setting i_nlink in fat_fill_inode(), mark
-the inode bad on error in fat_build_inode(), and guard cluster
-truncation and metadata writeback in fat_evict_inode() with
-!is_bad_inode(inode) && !sb_rdonly(inode->i_sb).
-
-Fixes: a3082d526f2d ("fat: add simple validation for directory inode")
+Fixes: 0a66045bcfd3 ("Input: serio core - handle errors returned by device_bind_driver()")
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
-diff --git a/fs/fat/inode.c b/fs/fat/inode.c
---- a/fs/fat/inode.c
-+++ b/fs/fat/inode.c
-@@ -535,11 +535,11 @@ int fat_fill_inode(struct inode *inode, struct msdos_dir_entry *de)
- 			return error;
- 		MSDOS_I(inode)->mmu_private = inode->i_size;
- 
--		set_nlink(inode, fat_subdirs(inode));
--
- 		error = fat_validate_dir(inode);
- 		if (error < 0)
- 			return error;
-+
-+		set_nlink(inode, fat_subdirs(inode));
- 	} else { /* not a directory */
- 		inode->i_generation |= 1;
- 		inode->i_mode = fat_make_mode(sbi, de->attr,
-@@ -610,6 +610,7 @@ struct inode *fat_build_inode(struct super_block *sb,
- 	inode_set_iversion(inode, 1);
- 	err = fat_fill_inode(inode, de);
- 	if (err) {
-+		make_bad_inode(inode);
- 		iput(inode);
- 		inode = ERR_PTR(err);
- 		goto out;
-@@ -688,12 +689,14 @@ static void fat_free_eofblocks(struct inode *inode)
- static void fat_evict_inode(struct inode *inode)
+diff --git a/drivers/input/serio/serio.c b/drivers/input/serio/serio.c
+--- a/drivers/input/serio/serio.c
++++ b/drivers/input/serio/serio.c
+@@ -83,6 +83,11 @@ static int serio_bind_driver(struct serio *serio, struct serio_driver *drv)
  {
- 	truncate_inode_pages_final(&inode->i_data);
--	if (!inode->i_nlink) {
--		inode->i_size = 0;
--		fat_truncate_blocks(inode, 0);
--	} else {
--		mmb_sync(&MSDOS_I(inode)->i_metadata_bhs);
--		fat_free_eofblocks(inode);
-+	if (!is_bad_inode(inode) && !sb_rdonly(inode->i_sb)) {
-+		if (!inode->i_nlink) {
-+			inode->i_size = 0;
-+			fat_truncate_blocks(inode, 0);
-+		} else {
-+			mmb_sync(&MSDOS_I(inode)->i_metadata_bhs);
-+			fat_free_eofblocks(inode);
-+		}
- 	}
+ 	int error;
  
- 	mmb_invalidate(&MSDOS_I(inode)->i_metadata_bhs);
++	guard(device)(&serio->dev);
++
++	if (serio->dev.driver)
++		return serio->dev.driver == &drv->driver ? 0 : -EBUSY;
++
+ 	if (serio_match_port(drv->id_table, serio)) {
+ 
+ 		serio->dev.driver = &drv->driver;
 -- 
 2.43.0
