@@ -1,252 +1,142 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB0AE2C3255;
-	Sat, 19 Sep 2026 11:24:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3E4447C101
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 11:25:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789817086; cv=none; b=AqCMOdIn3y7Mi9uyB++4lXfNP8pWlItTPtQx210NokvLx2TeJ6Anp2/pjWKJS6DqFkK5vSQosctWX7cEHwIIkLZMF6gXZrgWhYRMXRyv2r/FgV7fRfx3rHaZTUgW/ERAFDsjk7z8t6oz0v5Nb8LzKZlTurYIuR6LHF96Sv5c/3c=
+	t=1789817119; cv=none; b=ASli4x1cKC0hHwW8FlTHxjtW364AZNAy6LRtlYhbSxxPJrSH7+vPWS80bL1XIpimovY9xWF6521E05ipBXWcRGb1A6ivCxjOIdkCJbyKIRdBWI/nHE49UMwxMmQ4Iaspb6WSfoK0vdRAI2anejmzsm/+l/mgTJFJn4EyiIAFYJs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789817086; c=relaxed/simple;
-	bh=Z8wkPmQUbHgQBu1B/ph7jlE+wdo/SOJNVn6V4NgjmD0=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:To:
-	 Cc:Date:Message-ID; b=DwJo8ZaA7uvitTqQE6UzeTmSWeA4tmV6ydsoCKZqwJ4pbKrJ8bpD1T0PxbvRI6hetY/aibEuLEIAFzrG9mbfXsWKnOkYx9pq/8dM1B5yZOKK15wT0zqemCLB2dumYy/i/LRFpQj4h8IR/0+fHENn1NFmOE0rx8nZ5U9VW4Gcj8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=E54UYq9R; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1789817119; c=relaxed/simple;
+	bh=dJJB6/BdV7/ypHadf92Y/zPWc61GpbUUbHljnw4SybU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=WCy/JYNZGb6dviNw6jBKDeYBAjMnywGombti9/DAll5RxJj+WF280ZKO63BLOXI7rtDjOTAAwHYQQhxvGax9e+9aRIucH20QR1LSTDm25h6I4gIi97mzaymjEw4Xpd3jqW2Y9YT0F3WkiK3Sk5IRfzNoGqq0Oz/kqPFhn66EaYw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=foSqugei; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="E54UYq9R"
-Received: from monstersaurus.ideasonboard.com (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B9A561CF5;
-	Sat, 19 Sep 2026 13:22:57 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1789816977;
-	bh=Z8wkPmQUbHgQBu1B/ph7jlE+wdo/SOJNVn6V4NgjmD0=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date:From;
-	b=E54UYq9RUqmFHOocoYsZKlZvDH7Nbztbu9QniuXOze6Pmwl2qh/MSaUbG+hg9/O6C
-	 p+Amtq/VmdsBU/NaCNpo2P7WPLWQPqbBXoEy2sXATTTPe8CSggBRmLqFE7XV0Ov9/d
-	 YgcIvT2PQZrrwwjZHyjz/rFHxkBAp2oDAxg3kCvM=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="foSqugei"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccdaea75so519163a91.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 04:25:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789817117; x=1790421917; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jHGttpk3OiKS8m1dDVvKx2gO19FWdtH1Vw9wND10/ZI=;
+        b=foSqugeixIsmafnl0j5O3dGNpNi12xdNls3J9bD40WCOZCrPvPArhKW/jhpWxI/AFi
+         Yp4YO4EskLf3lGfmhpzv0D8xlk/iNztO+5d9ECwDMz0gj00XM/mEQfTIKr3GNQcu2W/j
+         SrhKdfMQ+2uy5mLU6Wpxc3qRpZI+q4i/YvXOQSWvcO8tG4LVIOV9pF2e/Nd9Srt33OKP
+         8pyWCAH1xRmZt3WZTF19PCecjW8rUaGua+DDqngVvBI0g19SakYufc0/Lde+ktcGBhkF
+         QJshOsHGXgrIN9HyeDiXB90UtNxgalxl3pnKn2fTRiTdaQ0Q6KNENcnzd82J+SKGh5hc
+         CZLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789817117; x=1790421917;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jHGttpk3OiKS8m1dDVvKx2gO19FWdtH1Vw9wND10/ZI=;
+        b=U1URMfwCSeEEQU+KLDM92hDmA+u6tmksGbXp+W1soE77ocJB3xgDzzZXVTzNesX/9F
+         9phf8pDRCt6Bu3X5za+09xfPpgo/szUWcM6HSbyYt4QNbjBzGWuMQIdxIb+8PC9g2XLL
+         dupMaJFJzaZuA4DJTzSejWxHUFAsoT6uzNymRBRjoFfqWJzDDXtaBFYtHzTJ0iIqH5nH
+         NjlGARAE19JTrDrne8oOgvSYc6XpFPUrHWMnS/p8TMQSeFn6LMRwXZy0KP1VfbV98yAu
+         srrVq/fF9AqDj6tRP7nqYowgDmpV86Q3bncyrUXanwNfGplTuGEuNb3iNix6/k2az6gZ
+         Clsw==
+X-Forwarded-Encrypted: i=1; AKwUvBy6bU3J+bU7wHMCfugSfmcF7icNlAGtBMaINK2PxQ7InpWTmnYdRnQBWK+3zYj4tmHYa0+3ZBTvtPmHQ3s=@vger.kernel.org
+X-Gm-Message-State: AFuF++mQeUciSXw5VUeb3kO/knzD5unfhdr/2ZRzMWEHtVhC5c7JopGn
+	TpWjYDQuhhu7txfuDaw2uZa+RFCwcUk/yYdhn2dOk86u9GyE52rUEazP
+X-Gm-Gg: AYBFou3OIKaoafC1OH9ZMMo6eFMKF/XzO/54CUj+y4wieFpCoqtXPMPlifajVI0aab9
+	q8ySU+rr3IiHyU+10hNqs0EVX3fnvrmSzb+7vbmsDdYN0/7eDnGwPMTMOnVhiPEUZChYNH2WkMH
+	1ZgrLdzGeGOiDbyosnh4wujnkEY1QD16tSi2nlVJlgx94reoTY8nLmfErgO10QvHhtDQg+uus0c
+	ci8xkFiwmP8Mf4hrmNREis0Y1gIe1CPNfP6ZffVcBYEQIeUeWh2TFO1OIJp9pPpsQ/UgORNdjpx
+	H9CG0YMGp67RGK6sFI00lFpEb9e9HBoRJZ6+4aLCW6HyOojuhEtbMkoIaMOVvvq2Ej34hlQ+FSF
+	28K+t99YW8JVR8RTQVm3re3Zd6hm53t/QvfqnMU/yfz+I0q3FSrdPfPXQCTZ5hCObhX2pBKAbP9
+	AiNOuD2OpeEPeefd7/I7R+lLc1k1tuGDi184Wuy8cVYOs3vJgNHWzczSVxc3QsBXZR5yuk7upOm
+	aw3JwrMztiOvIA9tsYTkCgvk2vGY2faVhydLFcreU8pK/BUJGK1+PghRqPxgq3vqSdWchbNOTlp
+	IhcqV31Rtw==
+X-Received: by 2002:a17:90b:57d0:b0:39e:4c7e:bc3 with SMTP id 98e67ed59e1d1-39e556e00c5mr5825456a91.17.1789817116925;
+        Sat, 19 Sep 2026 04:25:16 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6cb400c3sm4207228a91.17.2026.09.19.04.25.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Sep 2026 04:25:16 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: marcel@holtmann.org,
+	luiz.dentz@gmail.com
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] Bluetooth: RFCOMM: Reject short EA=0 frames in rfcomm_recv_frame()
+Date: Sat, 19 Sep 2026 11:25:14 +0000
+Message-ID: <20260919112514.3871857-1-benquike@gmail.com>
+In-Reply-To: <20260918075829.2203887-1-benquike@gmail.com>
+References: <20260918075829.2203887-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260918192447.GB1465432-robh@kernel.org>
-References: <20260910-verdin-imx8mp-hmp-camera-ready-v1-0-3c9349ecdb9f@toradex.com> <20260910-verdin-imx8mp-hmp-camera-ready-v1-3-3c9349ecdb9f@toradex.com> <aqLaLmz7n31P6igy@SMW015318> <prwghb3ftrz5xd3hapxtlv2o2gm5xmuapnpz2h7fqulf75phqz@lk4yiaepormb> <aqLif2zrrsbYd5sM@SMW015318> <aqLk5UAv-j39Jxd3@francesco-nb> <20260918192447.GB1465432-robh@kernel.org>
-Subject: Re: [PATCH 3/6] dt-bindings: connector: Add Toradex camera connector
-From: Kieran Bingham <kieran.bingham@ideasonboard.com>
-To: Francesco Dolcini <francesco.dolcini@toradex.com>, Rob Herring <robh@kernel.org>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
-Cc: Frank Li <Frank.li@oss.nxp.com>, Ernest Van Hoecke <ernestvanhoecke@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
-Date: Sat, 19 Sep 2026 12:24:38 +0100
-Message-ID: <178981707848.1761404.17065871878122418287@ping.linuxembedded.co.uk>
-User-Agent: alot/0.9.1
+Content-Transfer-Encoding: 8bit
 
-Hi all,
+While rfcomm_recv_frame() verifies that skb->len is at least
+sizeof(*hdr) + 1 (4 bytes: 3-byte header + 1-byte FCS), an RFCOMM frame
+with an extended 2-byte length field (!__test_ea(hdr->len)) has a 4-byte
+header plus a 1-byte FCS (5 bytes minimum, sizeof(*hdr) + 2).
 
-+Dave @ Rpi
+When a 4-byte RFCOMM frame with EA == 0 arrives:
+1. The initial skb->len < sizeof(*hdr) + 1 check passes (4 < 4 is false).
+2. Trimming the FCS byte decrements skb->len to 3.
+3. If __check_fcs() succeeds, skb_pull(skb, 4) fails (4 > 3) and returns
+   NULL without advancing skb->data.
+4. Because the return value of skb_pull() is ignored, the un-pulled
+   3-byte struct rfcomm_hdr remains at skb->data and is either queued as
+   application payload via rfcomm_recv_data() or parsed as a multiplexer
+   control command via rfcomm_recv_mcc() on DLCI 0.
 
-Quoting Rob Herring (2026-09-18 20:24:47)
-> On Thu, Sep 10, 2026 at 07:12:05PM +0200, Francesco Dolcini wrote:
-> > On Thu, Sep 10, 2026 at 12:01:51PM -0500, Frank Li wrote:
-> > > On Thu, Sep 10, 2026 at 06:39:30PM +0200, Ernest Van Hoecke wrote:
-> > > > Hi Frank,
-> > > >
-> > > > Thanks for reviewing this so quickly.
-> > > >
-> > > > On Thu, Sep 10, 2026 at 11:26:22AM -0500, Frank Li wrote:
-> > > > > On Thu, Sep 10, 2026 at 05:37:59PM +0200, Ernest Van Hoecke wrote:
-> > > > > > From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> > > > > >
-> > > > > > Toradex boards route the sideband signals of their 24-pin camera
-> > > > > > connectors to different GPIO controllers. Camera overlays which=
- name
-> > > > > > those controllers directly must therefore be duplicated for eac=
-h host
-> > > > > > board.
-> > > > > >
-> > > > > > Describe reset, power-down, detection and power-control as
-> > > > > > connector-local GPIO functions. This lets an accessory overlay =
-remain
-> > > > > > independent of the host wiring. MIPI CSI-2, I2C, clocks and sup=
-plies
-> > > > > > remain described separately because the GPIO nexus does not abs=
-tract
-> > > > > > them.
-> > > > > >
-> > > > > > Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> > > > > > ---
-> > > > > >  .../connector/toradex,camera-connector.yaml        | 86 ++++++=
-++++++++++++++++
-> > > > > >  1 file changed, 86 insertions(+)
-> > > > > >
-> > > > > > diff --git a/Documentation/devicetree/bindings/connector/torade=
-x,camera-connector.yaml b/Documentation/devicetree/bindings/connector/torad=
-ex,camera-connector.yaml
-> > > > > > new file mode 100644
-> > > > > > index 000000000000..06e6836e1aa6
-> > > > > > --- /dev/null
-> > > > > > +++ b/Documentation/devicetree/bindings/connector/toradex,camer=
-a-connector.yaml
-> > > > > > @@ -0,0 +1,86 @@
-> > > > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > > > > > +%YAML 1.2
-> > > > > > +---
-> > > > > > +$id: http://devicetree.org/schemas/connector/toradex,camera-co=
-nnector.yaml#
-> > > > > > +$schema: http://devicetree.org/meta-schemas/base.yaml#
-> > > > > > +
-> > > > > > +title: Toradex camera connector GPIO nexus
-> > > > > > +
-> > > > > > +maintainers:
-> > > > > > +  - Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> > > > > > +  - Toradex Linux BSP Team <linux-bsp@toradex.com>
-> > > > > > +
-> > > > > > +description: |
-> > > > > > +  Toradex boards provide 24-pin camera connectors carrying MIP=
-I CSI-2, I2C,
-> > > > > > +  clock, power, and sideband GPIO signals. This binding descri=
-bes the sideband
-> > > > > > +  signals as a GPIO nexus. The other connector resources remai=
-n described by
-> > > > > > +  the surrounding board device tree.
-> > > > > > +
-> > > > > > +  The nexus exposes connector-local GPIO function numbers to c=
-amera overlays
-> > > > > > +  and maps the functions wired by a carrier board to their GPI=
-O controllers.
-> > > > > > +  GPIO specifiers contain a function number followed by standa=
-rd GPIO flags.
-> > > > > > +  A board may omit functions which it does not wire.
-> > > > > > +
-> > > > > > +  The function numbers are:
-> > > > > > +    - 0: Camera reset, connector pin 11
-> > > > > > +    - 1: Camera power-down, connector pin 22
-> > > > > > +    - 2: Camera identification, connector pin 23
-> > > > > > +    - 3: Camera power control, connector pin 24
-> > > > > > +
-> > > > > > +properties:
-> > > > > > +  compatible:
-> > > > > > +    const: toradex,camera-connector
-> > > > >
-> > > > > Name is too generally, suggest use board name, we got similar com=
-ments at
-> > > > >
-> > > > > https://lore.kernel.org/imx/20260629074734.3643227-2-chancel.liu@=
-oss.nxp.com/
-> > > >
-> > > > I saw that and it made me reconsider this name.
-> > > >
-> > > > However, I believe that in our case it is specific enough. It is re=
-ally
-> > > > the same on all our carrier boards, and Toradex specific. It's also=
- only
-> > > > for cameras, which is more defined than just "io". Curious to see if
-> > > > others agree or if we should come up with a name for this.
-> > >=20
-> > > If some days later, you update hardware connector to 30pin from 24pin=
-s.
-> >=20
-> > That connector is there since years, not days.
-> >=20
-> > We have multiple cameras, designed to mate with it.
-> >=20
-> > If tomorrow we will define a new camera connector (that is absolutely
-> > possible), the new connector will get its name, maybe
-> > toradex,camera-connector-v2, or toradex,camera-connector-22pin or
-> > whatever that connector would be named, not just in the DT, but also as
-> > a product and on the actual HW.
->=20
+Fix this by extending the length check in rfcomm_recv_frame() to also
+require skb->len >= sizeof(*hdr) + 2 when !__test_ea(hdr->len).
 
-Diving in because, cameras :D
+Fixes: b230e5bf501c ("Bluetooth: RFCOMM: validate skb length in rfcomm_recv_frame")
+Assisted-by: LLM
+Signed-off-by: Hui Peng <benquike@gmail.com>
+---
+v2: Add a Fixes: tag, and add the Assisted-by: LLM tag that v1 was
+missing - apologies, v1 predated my reading of
+Documentation/process/coding-assistants.rst.
 
+The tag points at b230e5bf501c ("Bluetooth: RFCOMM: validate skb length
+in rfcomm_recv_frame"), which added the skb->len < sizeof(*hdr) + 1
+bound that this patch widens. Its changelog justifies the bound as "the
+minimum frame must have a 3-byte header and a 1-byte FCS", which holds
+only for EA=1; an EA=0 frame has a 4-byte header plus the FCS.
 
-> I for one hate 'v2' naming.
->=20
+To be upfront: b230e5bf501c is not where the underlying exposure began.
+Before it there was no length check at all, so a 4-byte EA=0 frame
+already reached skb_pull(skb, 4) with skb->len == 3 and the ignored
+return value already left the un-pulled header to be parsed. That goes
+back to the initial Bluetooth stack import, 1da177e4c3f4
+("Linux-2.6.12-rc2"). I have tagged b230e5bf501c instead because it is
+the commit that introduced the insufficient bound this patch corrects,
+and because the single line of context this hunk relies on does not
+exist in any tree older than v7.2 - pointing stable at 2.6.12 would be
+actively unhelpful.
 
-Me too. I wouldn't ever call it v2, but a future
-toradex,camera-connector-24pin might be appropriate.
+ net/bluetooth/rfcomm/core.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Note that I specifically said 24 as an example because there is already
-a 22 pin Raspberry Pi connector.
-
-If Toradex were to produce boards with a 22 pin connector, I would
-anticipate it to be the same pinout as the Raspberry Pi connector.
-
-Raspberry Pi camera connectors have already somewhat become a defacto
-standard (albeit for both positives and negatives there).
-
-So I would imagine if a 22 pin layout were ever made it would be
-compatible with RPi 22. And if Toradex ever make a 22 pin connector
-which is not RPi compatible ... well I might scream into the void ;-)
-but then it would have a toradex prefix I guess!
-
-
-Equally we have other vendors who have 30 pin connectors (There are
-quite a few, so I have myself a research project to go find out how
-{in,}compatible they all are here ...)
-
-So, I would imagine if we're giong to name connectors we should set out
-an expectation to start with
-
-  toradex,camera-connector-30pin
-  raspberrypi,camera-connector-15pin
-  raspberrypi,camera-connector-22pin
-
-And if Toradex were to make a *different* 22 pin connector then it would
-be:
-
-  toradex,camera-connector-22pin,
-
-But if it's RPi layout, then it would be defined as such.
-
-
-All that to say - I think Toradex certainly warrant a specific
-
-  toradex,camera-connector
-
-But I think specifiying the pin count already could be useful (but not
-essential).
-
-It's a bit like Raspberry Pi's original 15 pin connector. If we wound
-the clock back 15 years and tried this with RPi we'd have:
-
-  raspberrypi,camera-connector
-  raspberrypi,camera-connector-22pin
-
-I mean that's fine too - but if we're specifying the pin in one we may
-as well do it in all...
-
-
-> I agree the name seems a bit generic, but if you really can't come up=20
-> with something better, then fine. The next connector name just has to be =
-
-> something different.
-
-Indeed.
-
-I'm very happy that we have actual progress on how we might handle
-camera connectors though!
-
-I'm going to have to try to do the same proposal for RPi connectors
-aren't I ;-)
-
-If I post patches, I'll use the full form:
-
-=20
-  raspberrypi,camera-connector-15pin
-  raspberrypi,camera-connector-22pin
-
-
-I'm curious if anyone at RPi has any opinion, given it's 'their' standard.
-
-Dave? any thoughts here ?
-
---
-Kieran
-
-
->=20
-> Rob
+diff --git a/net/bluetooth/rfcomm/core.c b/net/bluetooth/rfcomm/core.c
+index f7463f092..d91e2a6ee 100644
+--- a/net/bluetooth/rfcomm/core.c
++++ b/net/bluetooth/rfcomm/core.c
+@@ -1817,7 +1817,8 @@ static struct rfcomm_session *rfcomm_recv_frame(struct rfcomm_session *s,
+ 		return s;
+ 	}
+ 
+-	if (skb->len < sizeof(*hdr) + 1) {
++	if (skb->len < sizeof(*hdr) + 1 ||
++	    (!__test_ea(hdr->len) && skb->len < sizeof(*hdr) + 2)) {
+ 		kfree_skb(skb);
+ 		return s;
+ 	}
+-- 
+2.55.0.1082.g2b9226bbc0-goog
