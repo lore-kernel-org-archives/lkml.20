@@ -1,75 +1,76 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A53F393DFB
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 21:52:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D8853932D8
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 21:52:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789854764; cv=none; b=OK+49SQPJUtB7R09UY83ZBxccN2IXqJEnNMZjniQazr7aGH76Jf/jGlHS1Kqw1zYYrq3g8uouyZZ8LS/V5lVeVDQegXfK884IfgfGstzN6KcNuynr2kw8OUsHEoNCeesJ2kNLDLwu99LXTpwT+UnN5CI+vJB46U0QY9bn8ZaxQo=
+	t=1789854766; cv=none; b=R7wpqPqGGnkw/G3gI1nlJ1vCQINJzJPQFom+ZiKYuyoz8EhLBliygq1h3ITZdPLxBiq8X7a37gxFIvIWlahBXEJsZ65hKJo9UUWS57lKMFvLYea3Ud3flt0kIw55IQKkZK3WwsW8BybNBW1bHhi6oBdOPzIzIXiTN/eBpxMhHUY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789854764; c=relaxed/simple;
-	bh=txCbpLWgUyKMe1eisI8zkvSlDjx+EpTGDcG1tTJR0yw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=E/XpMoOeGw5q/fn8BvDFr4LsCawgnW4a7IDB97xqb70Mu9baYuVWP9Uh0D2nt2A7NAZU12/UnAUd8Ne4WIz94cGS+MWDgBTI+cgVsjvvMuJ/VNzB51WBe5BmelghvQSRSQAWM13CsQoZJJ4BUWo/tu3eShlP0duNofro8rE8FkI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OxOY1E0V; arc=none smtp.client-ip=74.125.227.141
+	s=arc-20240116; t=1789854766; c=relaxed/simple;
+	bh=SSPkRM0WzfBTi0eIJHbJXjPIs6gJOKdjQWdjuukdecA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HSIEvFk5DL53cMyKaIRaKjTILVopB5/MQiCPYwOvIGzamp1QO4b2AWzQh8m5gx/sTVBZPvPVapeasvD7x/uTcu5RKySYD17oHLzI8mGsP6YG4r+S/WOiDb2VwC6uiSnUxo5i7hWFqFFCddFn6J8XcWPNoR2/55ljDKrHb+Yblnw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z+eV4opM; arc=none smtp.client-ip=74.125.227.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OxOY1E0V"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39dbdfaef3cso1661750a91.1
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:52:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z+eV4opM"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccd66bb4so1644572a91.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:52:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789854758; x=1790459558; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789854759; x=1790459559; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wNcubwPDgIsMpA+wtWjaJ/Im3UMGanOHTCSqrN3twUo=;
-        b=OxOY1E0Vzx+dDQO5c/GkfrmwXmh4Mrzz0twaKb6pWRX0zajbf3PHNbvkTtZH6Igep+
-         yszl7z9S8dIDu6oOUM9wwiXpPK/Y1CUMPz9dwZVdYPjhvgKSSk+lD8T36xqSN0scpklD
-         bzOrP31Yjh1ewAYVv7sG6JoYRx+C1pfH2RxTBVuuXEnuv0WZbDM67SywlkBFFH3u8m7Y
-         aLWux/g7Pr1ULwiqaOu/br5SNqqMVDiOeyJF8NQAAjRE6j3onHLEDNkF51AnwAI/gAKt
-         NV5gNrrpny4vEXJ5dkomoF/RDLqquSsEmUv274gM+V723OMWdh8xvDWGdr0cmrmD7GKX
-         vJbA==
+        bh=FiIS2HG9Xt+NjPTHwM6X6IVVzmDXuxKrK9MYOq1fq70=;
+        b=Z+eV4opMXp4wzh7l1hVsNLYidrXkGzoZSrV/zvM27yW8ktr9MKiSXD2zXH4Py5DWB0
+         XnZxAIC5y1jB+GyIpiynlfIsoDG4hDCZcZ5RKP+29ArF2eXS9tLIxuyBLISThpnySmWa
+         ZbmIYgkCJkYtnY26vp+PhN9o5ica0Kk02YqiqYG/A2HJbdMyZvOJJrJABPOZ0E24X3t4
+         LvuodhNKEIXeJwyBfkLEmvIvyFza0LM1MC5/3MomOAa8oLvISXu4Yyq0yzAIyGBrxf3z
+         G5paFMujPvmzG9Mbh8htkGRjs1q2sjJaRunLDKd8mSI6gtVjmdbOsXC05VpzWEpPrbqk
+         nrUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789854758; x=1790459558;
+        d=1e100.net; s=20260707; t=1789854759; x=1790459559;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=wNcubwPDgIsMpA+wtWjaJ/Im3UMGanOHTCSqrN3twUo=;
-        b=D25BjKXtBprMLqPLskKcecdvEsRrdUyROwtKvfhDHxnbs8IfzwH2eSqluD5CQhzJWI
-         wN5GyrJLWmPivODo2rmYR8txzwwqTPhmLdgKnjTKO9bxRvbYHW0ePFFU3OSpe1PUp+/9
-         u4MPQlDbdChf7xV60ayqm2MbKt9ZZrmDsuiK6r0oQZIrqsew8yvh6ufowh4ae+GUP1Qo
-         E8uyM5nRamrgxAgL+RNXki8FMOVnXA72jVSeNJBtz5hiZyDXiIi6TCNLYmXO/1H/WCdf
-         EUdF8J/AWpW6KMogApiUnbaV0n5Nk1biBegxy96irwlgCcjcpApW/j8R1qz4pSR09QGZ
-         +miQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx45biFqouGkFarNKUWTSrMhlCnTmuL3Zex1yapiPj5Hz0+Z6rKRPC2QNzBuNBQ3m2hZ89qK3EIb7VI17o=@vger.kernel.org
-X-Gm-Message-State: AFuF++m//dwuN1n7jj0Juajhz5HIbGgUgx8PwMaOuVoGkV5eFQuEhk4R
-	iM3dnbTr+gW2hsbrS+jnoGt1lD15RCwKRcpkz5qj0Ei2S+Lfsshc325m
-X-Gm-Gg: AYBFou07xONsKUY9koZyZP2WSxa8BOLuL8zG6IY89C278Omv8MmVuWnkNsYOZY9JuhF
-	wK8qbgKoMYuTAJQpTLnWXRDCQ/i5RwP9Y2Td6tW1vcspQJwVbakTGECKlhuGdZhnMlsjlasDWBG
-	44kyueJDAKxNMSz1pkJvPCeN1fR1y6S3gnHBAWvUjJ8XeZ9MuKsyLM7DC9kEoaUksX2zKeBzVbx
-	1JribZlI27JhKQhZSSk8Fi7KuSRF8v8rQQPxG12ltRUvIhPGC9Ie2Xm2dMZjnHQddQNXHsoMveG
-	sTUFHumgYXfiizANNQvzR9xNJXersJtL7N1ttPKWRX7hbt6Mzam5Mh4BsCHBe51OxpQt4ImxnPH
-	cm0ED2hYbGid1xP9oMeF62OFcdGzemgsqyydsHKB2+4rqi+IWObF2SE2wb+r5p06P7xSUaPisQd
-	Mw7b4mOZkg3dWKxiXYvSxrp2T7wihMDpGdDdqr7Y+vhzvl7g+Vv3dFE6TCcDh4gBxy+xm8uO7VU
-	Eytw1bo/7l9pVmRXdjHblvOUub1/X9rm1F16kjmSfZLZUoHsIy4L1D4RisLk9vJ3AJhrX2thv1n
-	GMVRiVsHghI=
-X-Received: by 2002:a17:90b:2fce:b0:3a0:3888:a3f with SMTP id 98e67ed59e1d1-3a038880bd4mr190678a91.16.1789854758222;
-        Sat, 19 Sep 2026 14:52:38 -0700 (PDT)
+        bh=FiIS2HG9Xt+NjPTHwM6X6IVVzmDXuxKrK9MYOq1fq70=;
+        b=omOgDQZ/Wi7tFmrp7HkYrJ0Jahg5DlD/Vgk/nmgBPmAjUVwZu8JNWPDdcJr2EatZdK
+         IuUlIn4la6rDSLCHrSsohFW5zg18QsK/Mf1OvR/RaWYUYYAh7yPwq3Jvf0quSm8QB8nC
+         LNGBE2t/Z2WfCRR+0hWb6iow+cmnuGq3Kz/RKhGsLHATWqWUpdn/uRKyXoNnBx7/PRhP
+         qFIH1ndjY/HaNZK1dKrJJZcdOuoS25Rb+/mWfsjeSgjbSD0Yr/Nnvha5NuyFZRXdk7Ow
+         m+vDh0saDRIQ8mXXdKD49HXV5XNJnYkYkM3wQO+01V+m3jWLC1Q40Je/bhq9LT/iTX7M
+         BsQA==
+X-Forwarded-Encrypted: i=1; AKwUvBxOJDDw/qI08E83zM7dfAGRquZLUTlA03oTHOUpKERzmSX3cc+x8BYWAAWWg2pVYYrQHUxD1ajTutuZJeI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nBNkPqdj0M1T7lwsSfTDDvrjfHz6dvZHfO4faxrwPIdKcecW+g
+	lACuMHJhp885BeSaIeVDV49JS63QVKd8UDfIGl/oC0/E6SQGBl5R+Q0w
+X-Gm-Gg: AYBFou3PvYFJlOtqRpHsd+ZFb3N1w08TEFpAPEfw4SYYaruWCnVEzAzZCr1bBsK2NE3
+	DsOdQMFTofq8QPmggN2jhXsnUoRfQr1rvQvdFC0WIQov6u4DIT/bl1nqInWuHpORmoC2rNjN9yp
+	891RGu3U2ZIlQadPBiXlTWp1KU355+q9XsFadSXZIbKER2jdpt2/6PBc+SItlOvgB2mBdV2QwCE
+	NoqViZbQR1mT4ysKrIL5AS7J6/lURct+qj9P1guwHMhzDT85X/4aMmGQRJODySuLQ36vlzdxbry
+	3zKx0OdBmKPEXbFUx1qNnWrGWpJpxrPEPRf/8f0PsbGljCnTX3EKGqTzSQmePSMK75TS4plR4DP
+	GaLAOWzIdSMRER0od5hNo8MkBuc3unsyJT2f2NutpfyiEfrHbcveIYalnpIEFQQUCExE9bxc7bz
+	dMdGBzBJbmjUO1gb7+ghb1nLCU6O08nfnTbjf0jtdGATfIdFNuWQxCluQ/Y3072ZqtDwgmeyX1B
+	Pfaab9GyPxO/18Azo0sqc4RpE7XpgkGRaPjq7uN5+YJDqpsWA27irw2pVYNSzQKq5YXb1/VwwCs
+	w7IiyYITyw==
+X-Received: by 2002:a17:90a:1c96:b0:39e:6bec:9eee with SMTP id 98e67ed59e1d1-39e6beca109mr3160708a91.12.1789854759475;
+        Sat, 19 Sep 2026 14:52:39 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a027ce61cfsm4277091a91.8.2026.09.19.14.52.37
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a023e44854sm1830886a91.4.2026.09.19.14.52.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 14:52:37 -0700 (PDT)
+        Sat, 19 Sep 2026 14:52:39 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
-To: willemdebruijn.kernel@gmail.com,
-	davem@davemloft.net,
+To: davem@davemloft.net,
 	edumazet@google.com,
 	kuba@kernel.org,
 	pabeni@redhat.com,
-	horms@kernel.org
+	horms@kernel.org,
+	kuniyu@google.com,
+	willemb@google.com
 Cc: netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] net/packet: zero-pad spkt_device and preserve sa.origlen across MSG_PEEK
-Date: Sat, 19 Sep 2026 21:52:37 +0000
-Message-ID: <20260919215237.3470987-1-benquike@gmail.com>
+Subject: [PATCH] fou: reject FOU_ENCAP_DIRECT with protocol 0 to prevent sk_buff leak
+Date: Sat, 19 Sep 2026 21:52:38 +0000
+Message-ID: <20260919215238.3471141-1-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -79,63 +80,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix two issues in net/packet/af_packet.c:
+In fou_udp_recv(), returning -fou->protocol to udp_queue_rcv_one_skb()
+triggers IP protocol resubmission when fou->protocol > 0, whereas returning
+0 tells the UDP tunnel layer that the skb was consumed without freeing it.
+When a FOU_ENCAP_DIRECT socket is configured with FOU_ATTR_IPPROTO == 0,
+every received packet returns 0 from fou_udp_recv() and leaks the sk_buff.
 
-1. In packet_rcv_spkt(), use strscpy_pad() instead of strscpy() when
-   populating spkt->spkt_device so trailing bytes after dev->name's NUL
-   terminator in the 14-byte buffer are zeroed.
-2. In packet_recvmsg(), PACKET_SKB_CB(skb)->sa.origlen aliases
-   sll->sll_family and sll->sll_protocol inside the union. Overwriting
-   sll->sll_family and sll->sll_protocol in PACKET_SKB_CB(skb) directly
-   clobbers sa.origlen for subsequent recvmsg(MSG_PEEK | MSG_TRUNC) calls
-   on the same skb. Instead, write sll_family and sll_protocol into the
-   destination msg->msg_name buffer after copying PACKET_SKB_CB(skb)->sa.
+Reject FOU_ENCAP_DIRECT configurations with protocol 0 in parse_nl_config()
+and drop packets if !fou->protocol in fou_udp_recv().
 
-Fixes: 2472d7613bd3 ("net: packet: use sockaddr_ll fields as storage for skb original length in recvmsg path")
+Fixes: 08d323234d10 ("net: fou: rename the source for linking")
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
-diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-index 50cae32ae269..15def2d16806 100644
---- a/net/packet/af_packet.c
-+++ b/net/packet/af_packet.c
-@@ -1918,7 +1918,7 @@ static int packet_rcv_spkt(struct sk_buff *skb, struct net_device *dev,
- 	 */
+diff --git a/net/ipv4/fou_core.c b/net/ipv4/fou_core.c
+index 5e867f1b5c1d..3fc087c808bc 100644
+--- a/net/ipv4/fou_core.c
++++ b/net/ipv4/fou_core.c
+@@ -77,6 +77,9 @@ static int fou_udp_recv(struct sock *sk, struct sk_buff *skb)
+ 	if (!fou)
+ 		return 1;
  
- 	spkt->spkt_family = dev->type;
--	strscpy(spkt->spkt_device, dev->name, sizeof(spkt->spkt_device));
-+	strscpy_pad(spkt->spkt_device, dev->name, sizeof(spkt->spkt_device));
- 	spkt->spkt_protocol = skb->protocol;
- 
- 	/*
-@@ -3510,15 +3510,8 @@ static int packet_recvmsg(struct socket *sock, struct msghdr *msg, size_t len,
- 	if (err)
- 		goto out_free;
- 
--	if (sock->type != SOCK_PACKET) {
--		struct sockaddr_ll *sll = &PACKET_SKB_CB(skb)->sa.ll;
--
--		/* Original length was stored in sockaddr_ll fields */
-+	if (sock->type != SOCK_PACKET)
- 		origlen = PACKET_SKB_CB(skb)->sa.origlen;
--		sll->sll_family = AF_PACKET;
--		sll->sll_protocol = (sock->type == SOCK_DGRAM) ?
--			vlan_get_protocol_dgram(skb) : skb->protocol;
--	}
- 
- 	sock_recv_cmsgs(msg, sk, skb);
- 
-@@ -3552,6 +3545,13 @@ static int packet_recvmsg(struct socket *sock, struct msghdr *msg, size_t len,
- 			msg->msg_namelen = copy_len;
- 		}
- 		memcpy(msg->msg_name, &PACKET_SKB_CB(skb)->sa, copy_len);
-+		if (sock->type != SOCK_PACKET) {
-+			struct sockaddr_ll *u_sll = msg->msg_name;
++	if (unlikely(!fou->protocol))
++		goto drop;
 +
-+			u_sll->sll_family = AF_PACKET;
-+			u_sll->sll_protocol = (sock->type == SOCK_DGRAM) ?
-+				vlan_get_protocol_dgram(skb) : skb->protocol;
-+		}
- 	}
+ 	if (fou_recv_pull(skb, fou, sizeof(struct udphdr)))
+ 		goto drop;
  
- 	if (packet_sock_flag(pkt_sk(sk), PACKET_SOCK_AUXDATA)) {
+@@ -696,6 +699,9 @@ static int parse_nl_config(struct genl_info *info,
+ 	if (info->attrs[FOU_ATTR_TYPE])
+ 		cfg->type = nla_get_u8(info->attrs[FOU_ATTR_TYPE]);
+ 
++	if (cfg->type == FOU_ENCAP_DIRECT && !cfg->protocol)
++		return -EINVAL;
++
+ 	if (info->attrs[FOU_ATTR_REMCSUM_NOPARTIAL])
+ 		cfg->flags |= FOU_F_REMCSUM_NOPARTIAL;
+ 
