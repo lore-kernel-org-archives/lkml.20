@@ -1,144 +1,127 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E06C2EBB8C;
-	Sat, 19 Sep 2026 04:03:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B1BE3054C7;
+	Sat, 19 Sep 2026 04:04:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789790641; cv=none; b=j/Yoji/wzRzM196j+jy+FvIXbHD66slrASVojRcZGK6OmDii+QyB2dy+5DQWz1g27+8wDW6zUUMzxoHGKil5bB2JCtNTJqd/GId+B5js8m2zafJHrgdG2AoVG3r0e889oPk16lkLR4tbMnEixfsaum7tLGzSQqiqMqEWptltEhM=
+	t=1789790675; cv=none; b=Wvs9Dqv0bxelpRyTWMx812kS8sY7J2OOVW2RtVAcuu636ewVrZT8OYQ25yEJergJGUQXahl7vEkdV/ImFdKgHP7zjSJHE4ZWlKxkdOc33e+wNLivmcTZwssRmVcvwLkGENVZhYLleO1FRX/KIXEyRHZmpIuilSh8ue0egCKvxLs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789790641; c=relaxed/simple;
-	bh=jIXpMWMqTfNbjfAnNvppdVl1w6ONaTpFaoUPTzfyVzY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AQANF0ykfvmI0xLjwNvDWxPZ2HUeonJ3Ibqjj3KRe3oYUd9RzW3UxF6vzvkzrgTlSIZX6AhjixYePedJC52qWa3IPyi/j9xPn5mSo7vzMYv5BjLYDSViKmPGoN6DMKeWTyKp75mj99EfzYSFDUFxjtsKV66lCXLWHuzE2sH2QIQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=OYG+AYYk; arc=none smtp.client-ip=117.135.210.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789790675; c=relaxed/simple;
+	bh=nZJBvPIh95jUAFnRv6ZrsC/RbI3DEcyGbYX5M7J1+5U=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=Wzqe6ktAr9n2FX2JrYgXGgy7tH1xz1+OuO0ITXEOqWt5ePG4BMAnsrbRsMKpMHV4GML38zLywkpFsVgyJFq6aLbNu2Z/XE84FXiopmV8FMzGho1aY7eJ0jFdZsNH1uHnRazF/aHbqn5P1V2Vz/w0yy2WUVL/1LXoHcF+PMNhijs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bcD3Enh1; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="OYG+AYYk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Ht
-	WSZWRMNX4bhHyHSQu4ttdFncL0psClFgEKMCNRY70=; b=OYG+AYYk953tdFH2NC
-	6wiyrn4POGVoBRuxel/0JR/diD4Nwf8qjD0wCbva1JL9j3WOfvwnEzgOyCI4XAFb
-	yRglavcV2kstxLF0H6cyrMeZ2eoJDnPUaM8VXTLX/W+ZCkUUGzXLrckUEqX2l4zf
-	OHXpr3rIbgkxuziSmND08mIFs=
-Received: from LAPTOP-BJS5C4G0 (unknown [])
-	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wAXD3qTCa5qcskdBg--.16979S3;
-	Sat, 19 Sep 2026 12:03:39 +0800 (CST)
-From: Heyang Tan <thy15333007817@163.com>
-To: jeff.chen_1@nxp.com
-Cc: francesco@dolcini.it,
-	johannes@sipsolutions.net,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 1/2] wifi: nxpwifi: bound histogram debugfs output
-Date: Sat, 19 Sep 2026 12:02:52 +0800
-Message-ID: <20260919040253.590-2-thy15333007817@163.com>
-X-Mailer: git-send-email 2.51.0.windows.1
-In-Reply-To: <20260919040253.590-1-thy15333007817@163.com>
-References: <20260919040253.590-1-thy15333007817@163.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bcD3Enh1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789790674; x=1821326674;
+  h=message-id:date:mime-version:cc:subject:to:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=nZJBvPIh95jUAFnRv6ZrsC/RbI3DEcyGbYX5M7J1+5U=;
+  b=bcD3Enh1pUm/mGYwR0Tbk/NqFoNSN78FvHvJGmwh/Ppu4YYPIzuj8qNV
+   W5CocJyznyeXyGrBgm9AhTxlrg508VBEu2huWr4OQwhQOYODbG+LuX7AT
+   wq4Jt4IGAvCnU0bAmhLfR4fu9kjX6gL0yBYrI+0zG9QmRVylextiwEx31
+   5POWJA9w5rp43zEQfgKvpzu5QvlqQqAq89tEsR73M8RbNNKCsNlj2IoTW
+   FEA9WuSW+BRt7n11q63OgG9xylv/N34c/x9rkGuoUVteuolgR6v1ThxBI
+   v01StGr8GqniiwJdHURrhJFtvirU7gzRR/PfuBwmhszhvuabDhskQfdq4
+   Q==;
+X-CSE-ConnectionGUID: a8kLQKSUS+mpMz7LD+vXzw==
+X-CSE-MsgGUID: ETAcHml6Tum1Y1k9zDSq6A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11909"; a="100926605"
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
+   d="scan'208";a="100926605"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 21:04:33 -0700
+X-CSE-ConnectionGUID: mKrWvurVSxqw55S/Q6751w==
+X-CSE-MsgGUID: l1N3vmyUSQ2LY2XhlDkSmQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
+   d="scan'208";a="270403709"
+Received: from unknown (HELO [10.238.1.188]) ([10.238.1.188])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 21:04:29 -0700
+Message-ID: <48f71e6e-7240-428d-a8a7-31542a880a18@linux.intel.com>
+Date: Sat, 19 Sep 2026 12:04:27 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wAXD3qTCa5qcskdBg--.16979S3
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZr4DKr48GrWfKry5Ww1DAwb_yoW5Cr4Upr
-	W3J3srZws7urnxJryDta1UAw1Fgayvva15Ww1kK3y7ZFnFk3s0qw10gayrJFy3CrWxKr13
-	Zr90q34Yka4UXFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j289tUUUUU=
-X-CM-SenderInfo: 5wk1ikatttiiixyrlqqrwthudrp/xtbC-huuWGquCZujwQAA3n
+User-Agent: Mozilla Thunderbird
+Cc: baolu.lu@linux.intel.com, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Dave Hansen <dave.hansen@linux.intel.com>,
+ Kiryl Shutsemau <kas@kernel.org>,
+ "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
+ "yilun.xu@linux.intel.com" <yilun.xu@linux.intel.com>,
+ "Li, Xiaoyao" <xiaoyao.li@intel.com>, "Gao, Chao" <chao.gao@intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 0/5] iommu/vt-d: Introduce trusted DMA initialization
+ support
+To: "Tian, Kevin" <kevin.tian@intel.com>,
+ "iommu@lists.linux.dev" <iommu@lists.linux.dev>,
+ "x86@kernel.org" <x86@kernel.org>,
+ "linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>
+References: <20260915074235.1219183-1-baolu.lu@linux.intel.com>
+ <CO1PR11MB48351B13F0143DE043EF15378C872@CO1PR11MB4835.namprd11.prod.outlook.com>
+Content-Language: en-US
+From: Baolu Lu <baolu.lu@linux.intel.com>
+In-Reply-To: <CO1PR11MB48351B13F0143DE043EF15378C872@CO1PR11MB4835.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-nxpwifi_histogram_read() writes histogram entries to a PAGE_SIZE buffer.
-Each entry is formatted with sprintf(), so enough populated buckets can
-write past the allocation.
+On 9/18/2026 10:30 AM, Tian, Kevin wrote:
+>> From: Lu Baolu <baolu.lu@linux.intel.com>
+>> Sent: Tuesday, September 15, 2026 3:42 PM
+>>
+>> Hi,
+>>
+>> This series adds Intel VT-d trusted extension support to the host Intel
+>> IOMMU driver as groundwork for TEE I/O trusted DMA (e.g. TDX Connect).
+>>
+>> The trusted extension introduces a parallel, extension-specific path for
+>> trusted DMA assets used by confidential device assignment. Existing VT-d
+>> functionality remains unchanged for regular host DMA paths.
+>>
+>>  From the TDX Connect architecture perspective, VT-d is enhanced with:
+>>
+>>    1) Trusted DMA translation root table
+>>       - A second root-table address register, restricted to SEAM SAI.
+>>       - Programmed by the TDX module with the root of TDX-managed DMA
+>>         translation tables for TD-assigned devices.
+>>
+>>    2) Trusted invalidation queue
+>>       - A second invalidation-queue address register plus dedicated
+>>         head/tail registers, also restricted to SEAM SAI.
+>>
+>>    3) IOTLB / DID isolation
+>>       - When TDX Connect is enabled, VT-d restricts VMM DID usage and
+>>         reserves the DID MSB namespace bit for TDX-module use.
+>>
+>> This posting focuses on VT-d-side enablement only: it enables those
+>> extension-defined resources and control points while preserving existing
+>> host VT-d behavior for non-trusted flows. Higher-layer integration
+>> (TDX guest/device flows) will be posted separately.
+>>
+> 
+> Jason had a comment on this from another thread [1]:
+> 
+> "
+> Okay, so I saw the driver posting for basic iommu support, can we try
+> to rework that to be split out like Aneesh is doing so everything
+> about TDX calls lives in tsm and intel iommu only provides a small API
+> surface to exchange whatever details are needed to bootstrap TDX
+> module?
+> "
+> 
+> [1] https://lore.kernel.org/all/20260916123954.GC3196566@ziepe.ca/
 
-Use scnprintf() with the remaining buffer space when formatting the
-histogram.
+Yes, I will head in this direction in the next version.
 
-Assisted-by: LLM
-Signed-off-by: Heyang Tan <thy15333007817@163.com>
----
- drivers/net/wireless/nxp/nxpwifi/debugfs.c | 29 +++++++++++++---------
- 1 file changed, 17 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/net/wireless/nxp/nxpwifi/debugfs.c b/drivers/net/wireless/nxp/nxpwifi/debugfs.c
-index ccaf0eae3..fd738a811 100644
---- a/drivers/net/wireless/nxp/nxpwifi/debugfs.c
-+++ b/drivers/net/wireless/nxp/nxpwifi/debugfs.c
-@@ -211,25 +211,26 @@ nxpwifi_histogram_read(struct file *file, char __user *ubuf,
- 
- 	phist_data = priv->hist_data;
- 
--	p += sprintf(p, "\n"
-+	p += scnprintf(p, PAGE_SIZE - (p - (char *)page), "\n"
- 		     "total samples = %d\n",
- 		     atomic_read(&phist_data->num_samples));
- 
--	p += sprintf(p,
-+	p += scnprintf(p, PAGE_SIZE - (p - (char *)page),
- 		     "rx rates (in Mbps): 0=1M   1=2M 2=5.5M  3=11M   4=6M   5=9M  6=12M\n"
- 		     "7=18M  8=24M  9=36M  10=48M  11=54M 12-27=MCS0-15(BW20) 28-43=MCS0-15(BW40)\n");
- 
- 	if (ISSUPP_11ACENABLED(priv->adapter->fw_cap_info)) {
--		p += sprintf(p,
-+		p += scnprintf(p, PAGE_SIZE - (p - (char *)page),
- 			     "44-53=MCS0-9(VHT:BW20) 54-63=MCS0-9(VHT:BW40) 64-73=MCS0-9(VHT:BW80)\n\n");
- 	} else {
--		p += sprintf(p, "\n");
-+		p += scnprintf(p, PAGE_SIZE - (p - (char *)page), "\n");
- 	}
- 
- 	for (i = 0; i < NXPWIFI_MAX_RX_RATES; i++) {
- 		value = atomic_read(&phist_data->rx_rate[i]);
- 		if (value)
--			p += sprintf(p, "rx_rate[%02d] = %d\n", i, value);
-+			p += scnprintf(p, PAGE_SIZE - (p - (char *)page),
-+				       "rx_rate[%02d] = %d\n", i, value);
- 	}
- 
- 	if (ISSUPP_11ACENABLED(priv->adapter->fw_cap_info)) {
-@@ -237,27 +238,31 @@ nxpwifi_histogram_read(struct file *file, char __user *ubuf,
- 		     i++) {
- 			value = atomic_read(&phist_data->rx_rate[i]);
- 			if (value)
--				p += sprintf(p, "rx_rate[%02d] = %d\n",
--					   i, value);
-+				p += scnprintf(p, PAGE_SIZE - (p - (char *)page),
-+					       "rx_rate[%02d] = %d\n",
-+					       i, value);
- 		}
- 	}
- 
- 	for (i = 0; i < NXPWIFI_MAX_SNR; i++) {
- 		value =  atomic_read(&phist_data->snr[i]);
- 		if (value)
--			p += sprintf(p, "snr[%02ddB] = %d\n", i, value);
-+			p += scnprintf(p, PAGE_SIZE - (p - (char *)page),
-+				       "snr[%02ddB] = %d\n", i, value);
- 	}
- 	for (i = 0; i < NXPWIFI_MAX_NOISE_FLR; i++) {
- 		value = atomic_read(&phist_data->noise_flr[i]);
- 		if (value)
--			p += sprintf(p, "noise_flr[%02ddBm] = %d\n",
--				     (int)(i - 128), value);
-+			p += scnprintf(p, PAGE_SIZE - (p - (char *)page),
-+				       "noise_flr[%02ddBm] = %d\n",
-+				       (int)(i - 128), value);
- 	}
- 	for (i = 0; i < NXPWIFI_MAX_SIG_STRENGTH; i++) {
- 		value = atomic_read(&phist_data->sig_str[i]);
- 		if (value)
--			p += sprintf(p, "sig_strength[-%02ddBm] = %d\n",
--				i, value);
-+			p += scnprintf(p, PAGE_SIZE - (p - (char *)page),
-+				       "sig_strength[-%02ddBm] = %d\n",
-+				       i, value);
- 	}
- 
- 	ret = simple_read_from_buffer(ubuf, count, ppos, (char *)page,
--- 
-2.34.1
-
+Thanks,
+baolu
