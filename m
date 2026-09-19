@@ -1,128 +1,368 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6736348C4C;
-	Sat, 19 Sep 2026 07:10:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01166238C1A;
+	Sat, 19 Sep 2026 07:10:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789801851; cv=none; b=L14221W92nLp4iKF0HDOsdefqKyAwMKmNJxvz+EzVgu/BGIExsFlYV4umpWJKwREr8Lxa+JspMVa/K8mkQnZBi4NllCX44twEctKdvvsaKlmaYpsY2MWDvi0ZNCumWt5CL4BosFbPFTYYJ3sZTWnB+5GUu0Z89k+pYi/3vfUXOA=
+	t=1789801850; cv=none; b=T9COhgCMkretshn/V9uNAGyzJ5C/j0/sKvzNGk2amlz6RgUHsPCRDFVvHjUQUw5dh16F1btCM/l1mKDey9vraPNhsBiENjHQqQEV4qzcd+Z9gqk11LnbDZew1QStmi6CR4gCulMb5wH051QEhIG7MCM5yAaHJ7nCVmmcRDLzX9g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789801851; c=relaxed/simple;
-	bh=twx0/aiJ+i7sWobA326//IIaMkNC/MrQxHpNphyRvxw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sv2E306zyA/jA+wPuqdcDoyzyS9cb93yAkbLguQgYJXg9NPWBwrBD86F05rqi9VZC5iboZtjxLPN3MgrZkJP8l4LiUUPmWhWaHtvDGg1I8ahZzb/JOvhiEZpkT0QHO+ZmzPNhUEQSxVCWn6BcP+6r3OsJpVYthTDo7Wy8KWvPJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=USdRR2+p; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789801850; c=relaxed/simple;
+	bh=lWO7F8KUIK2gdV8EcNgvNfvH8tIBH0AxDnZJViUOQ1E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fTKQUG5/XxVd0xRyE4M5FQNYY+PHGzGYTxYxfWBqlBxUDNfyhN9FTl2SbDEGfy4eCrWV6Op/ZfLYFIr4uK+V6ItgAzQLT8a0thRxeo2HJ6XIG8DOM9bPQu0gLNf9tzhH3yXLuWlD9JX96rDxkF0jT1hyjjB0R9c7Nh3OhWs7DoY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K+6mSAUR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="USdRR2+p"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28F371F000FF;
-	Sat, 19 Sep 2026 07:10:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K+6mSAUR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB7961F00898;
+	Sat, 19 Sep 2026 07:10:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789801850;
-	bh=1Xko9VPFILsIKFRtknUu5Sx/9/JaWUqswYKCJpV+0hs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=USdRR2+pduPF0P7s+UzOkruqa3Ehe9RaSBY3nFYwauOpX7GbMUaUufRegLl2lHDj1
-	 9di/InnTURqH94I3URtt1pcA6JFQMaeZz5F0rzgyuRY3TiYHfL+zmJQjg+9D+nvqrM
-	 xH3qHg10PxqxFtZWMLMXLZaVhILZinHv3RwWmvg3tWXT1X5PClV0++Ld9dtKv6BarF
-	 jGV79JKBoCeyqJgx9SRj/FhEHT0FfIetqddVBB5vsZf8kW/iUwmvx/AsCipU/+JWv2
-	 PiUnwHrdKf3oDPdDt+jOPXJaSGGobBRFEWuYVqkNEi8cwWSrHtFTb0s8gN4GBpPboi
-	 ZV7h1l8/P3JOg==
-Message-ID: <77606157-1d09-45a9-bf1c-b8c1d921cee3@kernel.org>
-Date: Sat, 19 Sep 2026 09:10:43 +0200
+	s=k20260515; t=1789801848;
+	bh=YKGqj+TDsNHE2cPf0wWAuCBTMccJpGB3KdGTBiexiVg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=K+6mSAURVwK4XLGEeWC8e/7HZSegFQxlw1p7RJtH8yKt4YvljJSsxis6rA7tRLnpu
+	 rpblI97QfueR7v8Wv5mmaAqxT0RakXtxbbnmeLGaw6eorcuL/6CpsT60lj/Q04pplp
+	 wKx7moH5rNcs3sbFDiCEzaxtsChMaxAppQ8KEurmS9L9xIaZctLdQgSXsYWglH2V3e
+	 ho/7w9UcVMXOSk7ddUw9P7nFvCfS6VQu091qQCIR1vkx1iJq7fPFTmlbH9Euxiyxss
+	 i+bsi2qHCfAWcQ0eN8mhO1ZJzVk31dWNODLegU5excHHpymPk8ONvFGksuTyDvGnyV
+	 cMRC56I6tyFRA==
+Date: Sat, 19 Sep 2026 00:10:46 -0700
+From: Namhyung Kim <namhyung@kernel.org>
+To: Tengda Wu <wutengda@huaweicloud.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>
+Cc: james.clark@linaro.org, xueshuai@linux.alibaba.com,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Peter Zijlstra <peterz@infradead.org>, leo.yan@linux.dev,
+	Li Huafei <lihuafei1@huawei.com>,
+	Kim Phillips <kim.phillips@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>, Ingo Molnar <mingo@redhat.com>,
+	Bill Wendling <morbo@google.com>,
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Zecheng Li <zli94@ncsu.edu>, linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev
+Subject: Re: [PATCH v6 00/26] perf arm64: Support data type profiling
+Message-ID: <aq41dlDILyJlw-77@z2>
+References: <cover.1789521520.git.wutengda@huaweicloud.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] arm64: dts: imx8mp: add Olimex i.MX8MP-SOM-EVB kit
-To: Zoltan HERPAI <wigyori@uid0.hu>, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, Frank.Li@nxp.com, s.hauer@pengutronix.de,
- festevam@gmail.com, kernel@pengutronix.de
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260918195559.130443-1-wigyori@uid0.hu>
- <20260918195559.130443-3-wigyori@uid0.hu>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260918195559.130443-3-wigyori@uid0.hu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <cover.1789521520.git.wutengda@huaweicloud.com>
 
-On 18/09/2026 21:55, Zoltan HERPAI wrote:
-> This adds support for an i.MX8-based system-on-module + EVB board. The
+Hello,
 
-Please do not use "This commit/patch/change", but imperative mood. See
-longer explanation here:
-https://elixir.bootlin.com/linux/v6.16/source/Documentation/process/submitting-patches.rst#L94
-
-> product pages are here [1] and here [2] respectively.
+On Wed, Sep 16, 2026 at 01:29:14AM +0000, Tengda Wu wrote:
+> This patch series implements data type profiling support for arm64,
+> enabling 'perf annotate --data-type' to resolve memory locations and
+> variable types on arm64 platforms.
 > 
-> There are two new files, one dts for the EVB and one dtsi for the SoM.
+> The main changes since v5 include:
+> v5: https://lore.kernel.org/all/cover.1788872630.git.wutengda@huaweicloud.com/
 > 
+> * __get_dwarf_regnum_arm64 optimization: compute directly based on character
+>   judgment, avoiding strtol calls. (Ian Rogers)
+> 
+> * extract_op_location_arm64 issue fix: support parsing instructions such as
+>   'cmp x0, x1, lsl #3'.
+> 
+> * Instruction tracking part, fixing issues pointed out by Sashiko, including:
+>   - adding TSR_KIND_POINTER handling for ldr.
+>   - premature returns in add and ldr causing percpu handling to be skipped.
+>   - adding a reg != -1 check for stack type propagation, etc.
+> 
+> Patch organization
+> ==================
+> 
+> The series is organized as follows:
+> 
+> 1. Fix disassembly mismatches (Patches 01-02)
+>    Current perf annotate supports three disassembly backends: llvm,
+>    capstone, and objdump. On arm64, inconsistencies between the output
+>    of these backends (specifically llvm/capstone vs. objdump) often
+>    prevent the tracker from correctly identifying registers and offsets.
+>    These patches resolve these mismatches, ensuring consistent instruction
+>    parsing across all supported backends.
+> 
+> 2. Infrastructure for arm64 operand parsing (Patches 03-09)
+>    These patches establish the necessary infrastructure for arm64-specific
+>    operand handling. This includes implementing new callbacks and data
+>    structures to manage arm64's unique addressing modes and register sets.
+>    This foundation is essential for the subsequent type-tracking logic.
+> 
+> 3. ARM SPE event handling (Patches 10-11)
+>    Patch 10 automatically deduplicates overlapping ARM SPE events (e.g.,
+>    l1d-miss, tlb-access) in 'perf annotate' by retaining only the
+>    "instructions" event when data type profiling is enabled. Patch 11
+>    defaults  the synthesized event period to 1 for ARM SPE to fix zero
+>    'Percent' values in annotate output.
 
+Thanks for working on this!
 
-...
+I think it's ready to merge up to this point.  The instruction tracking
+part needs more review.  I'll do that later but it'd be nice if ARM
+folks and Shuai could review it too.
 
+Thanks,
+Namhyung
 
-> +&ecspi2 {
-> +	#address-cells = <1>;
-> +	#size-cells = <0>;
-> +	cs-gpios = <&gpio5 13 GPIO_ACTIVE_LOW>;
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_ecspi2 &pinctrl_ecspi2_cs>;
-> +
-> +	status = "okay";
-> +
-> +	spidev1: spi@0 {
-> +		reg = <0>;
-> +		compatible = "rohm,dh2228fv";
-
-No, strong no. This does not exist. Don't invent fake devices on your board.
-
-
-Best regards,
-Krzysztof
+> 
+> 4. Core instruction tracking (Patches 12-26)
+>    These patches implement the core logic for type tracking on arm64,
+>    covering several key types of instructions, including:
+>    * Memory Access: ldr/str variants (including stack-based access).
+>    * Arithmetic & Data Processing: mov, add, and adrp.
+>    * Special Access: System register access (mrs) and per-cpu variable
+>      tracking.
+> 
+> The implementation draws inspiration from the existing x86 logic while
+> adapting it to the nuances of the AArch64 ISA [2][3]. With these changes,
+> perf annotate can successfully resolve memory locations and register types,
+> providing basic support for data type profiling on arm64 platforms.
+> 
+> Example Result
+> ==============
+> 
+> # perf mem record -a -K -- sleep 1
+> # perf annotate --data-type --stdio --type-stat
+> Annotate data type stats:
+> total 1138, ok 852 (74.9%), bad 286 (25.1%)
+> -----------------------------------------------------------
+>          6 : no_sym
+>         42 : no_var
+>        230 : no_typeinfo
+>          8 : bad_offset
+>        213 : insn_track
+> 
+> Annotate type: 'struct page' in [kernel.kallsyms] (66948 samples):
+> ============================================================================
+>  Percent     offset       size  field
+>   100.00          0       0x40  struct page      {
+>     9.01          0        0x8      long unsigned int   flags;
+>    57.99        0x8       0x28      union        {
+>    57.99        0x8       0x28          struct   {
+>    33.00        0x8       0x10              union        {
+>    33.00        0x8       0x10                  struct list_head        lru {
+>    33.00        0x8        0x8                      struct list_head*   next;
+>     0.00       0x10        0x8                      struct list_head*   prev;
+>                                                 };
+>    33.00        0x8       0x10                  struct   {
+>    33.00        0x8        0x8                      void*       __filler;
+>     0.00       0x10        0x4                      unsigned int        mlock_count;
+>    ...
+> 
+> Each patch's type profiling results are as follows:
+> 
+> Patch | Feature                    | no_sym | no_var | no_typeinfo | bad_offset | insn_track | ok(%)
+> ------+----------------------------+--------+--------+-------------+------------+------------+------
+> 0011  | base (default spe period)  | 6      | 493    | -           | -          | -          | 56.2%
+> 0013  | enable insn tracking       | 6      | 42     | 437         | 2          | 12         | 57.2%
+> 0016  | support 'load' insn        | 6      | 42     | 398         | 1          | 52         | 60.7%
+> 0017  | support 'store' insn       | 6      | 42     | 398         | 1          | 52         | 60.7%
+> 0021  | support stack variable     | 6      | 42     | 391         | 1          | 59         | 61.3%
+> 0022  | support 'mov' insn         | 6      | 42     | 372         | 3          | 76         | 62.8%
+> 0023  | support 'add' insn         | 6      | 42     | 318         | 7          | 126        | 67.2%
+> 0024  | support 'adrp' insn        | 6      | 42     | 238         | 8          | 205        | 74.2%
+> 0025  | support per-cpu variable   | 6      | 42     | 233         | 8          | 210        | 74.6%
+> 0026  | support 'mrs' insn         | 6      | 42     | 230         | 8          | 213        | 74.9%
+> 
+> Limitations
+> ===========
+> 
+> * SIMD/FP & SVE Vector Support:
+>   Data type profiling currently focuses on General-Purpose (GP) register
+>   operations. Vector/SIMD registers (v0-v31, d0-d31, q0-q31) and Scalable
+>   Vector Extension (SVE/SME) instructions are not tracked yet.
+> 
+> * Regular Instructions Only:
+>   Only regular instructions are currently supported. Instructions following
+>   special rules or non-standard patterns are not supported yet. For example,
+>   load/store tracking only matches standard variants (ldr/ldur/ldar/ldp and
+>   str/stur/stlr/stp) with straightforward semantics; exclusive loads/stores
+>   (ldxr, stxr, etc.) and acquire/exclusive combination variants are excluded.
+> 
+> * Compiler Prologue/Epilogue Code:
+>   As shown by the previous test results, approximately 14% of the failed
+>   type profiling results originate from compiler-generated prologue or
+>   epilogue code (e.g., ldp  x19, x20, [sp, #16]). These instructions manage
+>   callee-saved registers across function boundaries, propagating type
+>   context through these operations requires inter-procedural (cross-function)
+>   instruction analysis, which is currently unsupported by the local backward
+>   instruction tracker.
+> 
+> Testing
+> =======
+> 
+> Tested on arm64 (all passed):
+> 
+>   # perf test -v "perf data type profiling tests"
+>   81: perf data type profiling tests                                                                  : Ok
+> 
+>   === Test Summary ===
+>   Passed main tests : 1
+>   Passed subtests   : 0
+>   Skipped tests     : 0
+>   Failed tests      : 0
+> 
+> Tested on x86. The profiling results show no change before/after applying
+> this patch series:
+> 
+>   before : total 880, ok 711 (80.8%), bad 169 (19.2%)
+>   after  : total 880, ok 711 (80.8%), bad 169 (19.2%)
+> 
+> Changelog
+> =========
+> v5 -> v6:
+>   - v5: https://lore.kernel.org/all/cover.1788872630.git.wutengda@huaweicloud.com/
+>   - Fix a potential UAF issue with capstone sym_name.
+>   - Optimize __get_dwarf_regnum_arm64 to compute directly based on character
+>     judgment, avoiding strtol calls. (Ian Rogers)
+>   - Fix an issue in extract_op_location_arm64 when parsing instructions such as
+>     'cmp x0, x1, lsl #3'.
+>   - Fix several minor issues in instruction tracking. (Sashiko)
+> v4 -> v5:
+>   - v4: https://lore.kernel.org/all/20260808122400.2961238-1-wutengda@huaweicloud.com/
+>   - Introduce arch_get_reg_offset() to uniformly handle reg offset.
+>   - Add support for parsing extension type and shift amount in arm64 instructions.
+>   - Refine which instructions to track or skip. (Shuai Xue)
+>   - Rename dont_overlap to default_single_event_per_ip and use it in
+>     itrace_synth_opts__set_default(). (Adrian Hunter)
+>   - Introduce delete_stack_state() to clean up obsolete stack state. (Shuai Xue)
+>   - Normalize arch__dwarf_regnum() error return values. (Shuai Xue)
+>   - Drop canary support due to unresolved bugs.
+>   - Fix various minor issues, such as name memory leaks and header includes.
+> v3 -> v4:
+>   - v3: https://lore.kernel.org/all/20260701035355.752944-1-wutengda@huaweicloud.com/
+>   - Fix Capstone compilation failure.
+>   - Stop adding new pcrel_adrp_addr in LLVM; reuse pcrel_load_addr instead.
+>   - Fix parsing issue in arm64_mov__parse.
+>   - Add PC-relative load instruction parsing logic to arm64_ldst__parse,
+>     and introduce rstrip_space_and_comment to strip comments.
+>   - Remove wzr/xzr register parsing (not planning to handle this yet).
+>   - Add post-index addressing mode parsing for the '[base], reg' format.
+>   - Update built-in implementation of --itrace=i1i to deduplicate early
+>     during arm_spe_process_auxtrace_info.
+>   - Restrict the "default period to 1" behavior to ARM SPE, instead of
+>     applying it to all architectures.
+>   - Add register type tracking for function call instructions.
+>   - Add dual-register type tracking for load pair and store pair instructions.
+>   - Correct stack variable offset calculations.
+>   - Add type invalidation upon retry failure.
+>   - Reuse imm_value instead of introducing addr for 'adrp' instruction tracking.
+>   - Fix potential stale type resolution errors caused by TSR_KIND_GLOBAL_ADDR
+>     and TSR_KIND_CONST during stack passing.
+>   - Fix a strbuf memory leak during 'mrs' instruction tracking.
+>   - Fix stale dieoff issue when debug info changes.
+>   - Simplify add type propagation: only propagate offset/imm updates, leave
+>     type parsing to chk.
+> v2 -> v3:
+>   - v2: https://lore.kernel.org/all/20260403094800.1418825-1-wutengda@huaweicloud.com/
+>   - Instead of always parsing the left operand as src and the right operand as
+>     dst, set them based on the actual instruction definition. (Namhyung Kim)
+>   - Fix refcount leak in print_capstone_detail().
+>   - Remove useless '<' check when parsing 'addr <symbol>' in arm64_mov__parse().
+>   - Add example comments in arm64_ldst__parse().
+>   - Split arch__dwarf_regnum() changes into a separate commit.
+>   - Rename annotated_addr_mode enum: INSN_ADDR_* -> PERF_ADDR_MODE_*.
+>   - Set caller-saved registers in init_type_state().
+>   - For instructions with addressing mode, always goto adjust_reg_index_state()
+>     at the end to update the src register state.
+>   - Handle TSR_KIND_CONST registers for 'mov' and 'add' instructions.
+>   - Invalidate dst register for all other unsupported instructions.
+>   - Verify type DIE is task_struct pointer before caching globally.
+>   - Enable --itrace=i1i by default for ARM SPE data type profiling in 'perf annotate'
+>     to avoid overlapping event counting for the same instruction. (James Clark)
+>   - Fix global variable type resolving error in check_matching_type(). (James Clark)
+>   - Address review comments from sashiko [1]:
+>     - Fix unconditional call to arch->extract_op_location()
+>     - Handle multi_regs correctly
+>     - Fix invalid register state in error path
+>     - Other misc fixes
+> v1 -> v2:
+>   - v1: https://lore.kernel.org/all/20250314162137.528204-1-lihuafei1@huawei.com/
+>   - Fix inconsistencies in arm64 instruction output across llvm, capstone,
+>     and objdump disassembly backends.
+>   - Support arm64-specific addressing modes and operand formats. (Leo Yan)
+>   - Extend instruction tracking to support mov and add instructions,
+>     along with per-cpu and stack variables.
+>   - Include real-world examples in commit messages to demonstrate
+>     practical effects. (Namhyung Kim)
+>   - Improve type-tracking success rate (type stat) from 64.2% to 82.1%.
+> 
+> Please let me know if you have any feedback.
+> 
+> Thanks,
+> Tengda
+> 
+> [1] https://sashiko.dev/#/patchset/20260403094800.1418825-1-wutengda%40huaweicloud.com
+> [2] https://developer.arm.com/documentation/102374/0103
+> [3] https://github.com/flynd/asmsheets/releases/tag/v8
+> 
+> 
+> Tengda Wu (26):
+>   perf capstone: Symbolize address operands to match objdump on arm64
+>   perf llvm: Fix arm64 adrp instruction disassembly mismatch with
+>     objdump
+>   perf annotate-arm64: Generalize arm64_mov__parse to support more
+>     instructions
+>   perf annotate-arm64: Handle load and store instructions
+>   perf annotate: Normalize arch__dwarf_regnum() error return values
+>   perf annotate: Introduce extract_op_location callback for
+>     arch-specific parsing
+>   perf dwarf-regs: Adapt get_dwarf_regnum() for arm64
+>   perf annotate: Adapt arch__dwarf_regnum() for arm64
+>   perf annotate-arm64: Implement extract_op_location() callback
+>   perf annotate: Default to --itrace=i1i for data type profiling
+>   perf arm-spe: Set default synthesized event period to 1
+>   perf annotate-data: Extract invalidate_reg_state() as a common helper
+>   perf annotate-arm64: Enable instruction tracking support
+>   perf annotate-data: Add arch_get_reg_offset helper
+>   perf annotate-arm64: Track return type after call instructions
+>   perf annotate-arm64: Support load instruction tracking
+>   perf annotate-arm64: Support store instruction tracking
+>   perf annotate-data: Expand type_state_reg imm_value to u64
+>   perf annotate-data: Track imm_value for stack variables
+>   perf annotate-x86: Delete stale stack state on store of untracked
+>     register
+>   perf annotate-arm64: Support stack variable tracking
+>   perf annotate-arm64: Support 'mov' instruction tracking
+>   perf annotate-arm64: Support 'add' instruction tracking
+>   perf annotate-arm64: Support 'adrp' instruction to track global
+>     variables
+>   perf annotate-arm64: Support per-cpu variable access tracking
+>   perf annotate-arm64: Support 'mrs' instruction to track 'current'
+>     pointer
+> 
+>  tools/perf/builtin-annotate.c                 |    8 +
+>  .../perf/util/annotate-arch/annotate-arm64.c  | 1211 ++++++++++++++++-
+>  .../util/annotate-arch/annotate-powerpc.c     |    9 +
+>  tools/perf/util/annotate-arch/annotate-x86.c  |  117 +-
+>  tools/perf/util/annotate-data.c               |  205 ++-
+>  tools/perf/util/annotate-data.h               |   14 +-
+>  tools/perf/util/annotate.c                    |  108 +-
+>  tools/perf/util/annotate.h                    |   63 +
+>  tools/perf/util/arm-spe.c                     |   16 +-
+>  tools/perf/util/auxtrace.c                    |   12 +-
+>  tools/perf/util/auxtrace.h                    |    7 +-
+>  tools/perf/util/capstone.c                    |  186 ++-
+>  tools/perf/util/cs-etm.c                      |    2 +-
+>  tools/perf/util/disasm.c                      |    5 +
+>  tools/perf/util/disasm.h                      |    5 +
+>  .../util/dwarf-regs-arch/dwarf-regs-arm64.c   |   25 +
+>  tools/perf/util/dwarf-regs.c                  |    2 +-
+>  tools/perf/util/include/dwarf-regs.h          |    1 +
+>  tools/perf/util/intel-bts.c                   |    2 +-
+>  tools/perf/util/intel-pt.c                    |    3 +-
+>  tools/perf/util/llvm.c                        |   52 +-
+>  21 files changed, 1831 insertions(+), 222 deletions(-)
+> 
+> 
+> base-commit: e6e35979777d646fe3c7c94dca7dd32fb25d45f4
+> -- 
+> 2.34.1
+> 
