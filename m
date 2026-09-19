@@ -1,76 +1,76 @@
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3AEA1FD4
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 11:00:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E627A328B56
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 11:00:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789815646; cv=none; b=sovjKIMPMeqXBNFnmUhqYiOXyxH0+IRFsZmPCDyE/r9YGeeuPX5OsRPrqU50MS5QlGUvyuveguP7U08u0hLBfXJkO4sank0ibeKxAaELAj9U1nUtZWf+WxrZkUf6kJpfSFwm65Hdvvjm1KEYVfD/H7JdVyG19KzBcwBM/kdsUNc=
+	t=1789815653; cv=none; b=IAMu+eiCVbn1ZNcl2g5NfaP0Yp+LpNoserR2TSVzW/q4mUxAhzm+QwpN2Pc6KwKrqDprJmCwJ39Du9pGbhfr8nsIdrJt/tJEZV5E0KR1l52ZbGOQc9kNXNOb1SOxuIDeZwZX9nCvEIYoqQ6GHNeu5cJh12kPaq7VihVTEkS024o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789815646; c=relaxed/simple;
-	bh=DNkK5lxW6BJbRZck3d0se7pQehLyw7oBHWT8qVoDdjs=;
+	s=arc-20240116; t=1789815653; c=relaxed/simple;
+	bh=GaNsUI6mLKnZnKPZDTu4pKadGE4T2gyK26dsZnV3ZqE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CiK3pa4fJJ6yLkiJIQoTzgoVc30BFiwmeGHZ+A4O1J/TpT3tfpXGfz08VX10fkzfee91/yXjQbKSQqywTIxqwxBS33CJpdfCQ3tGaPMZMzEs0tfbxAc/tH+O89K15oGBrrEO/dN8OPM8hXCWypvjjWFOQcmSRFbCOcKKOjoYKtg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZwHE7XCn; arc=none smtp.client-ip=209.85.210.181
+	 MIME-Version; b=Hx7x1aAH1N2EylCsOWNcerS9BTS17BKtCOHNCSJhcVzFHKgU/q/SY0zerLFaE1uXVJokv4LsAUU11a1bkhkN9nUS0VyfvOYMQ7YB+OqYqlDKmMvZ+KyV6hPFaiaioOQ6mWf725l9aa6ozvKRp/erOx6kot56li92v8kmTcbxJcE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Oar8Zv3n; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZwHE7XCn"
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-86ec25cf7ecso2451775b3a.1
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 04:00:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Oar8Zv3n"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-398c066106cso1301257a91.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 04:00:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789815644; x=1790420444; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789815651; x=1790420451; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=P4U+Su5olDyDmLov0j40b3fkb86q795927TVcmkINSU=;
-        b=ZwHE7XCnq54HF54WBmMZaXKDfyMw/6yWcMFOp3rSxeDNWf6XnTxH7J7nHPlXcexy48
-         ZmxhAzAkqIsZxXQz5ZzqpV9PafeyIjXYwviE5h1MvgybDrF4A5s6M6gz0fd/RNDOKTda
-         s9dGPronhhDP9OgI4L3GesHHWJV8mRPyMlGv36UhuVIDdXTSjXjEEVpuIpxmZFPWNTmr
-         ElBhTjnBzDROgwsZGfuOt1V/0rfwqoQOXdLd2Sjqarz996uSIPqhE89Pyjbdl9gNfu1M
-         GIUNXDJ54chBQsBWxq8zBbG8c06ncjT3jut4f3BdlQNSr41F4VKcOshg9pEKZtGWVntZ
-         K6gg==
+        bh=mksE0wAvqIYvQmkvPZ3MVjaliUGSBIc9rXg00mvzn3o=;
+        b=Oar8Zv3nf79P6rmHbd/Ge6B21eyTeEy1EYUlLAfVDdzlrX4PWVU8wzj10Rf0oVGN2m
+         MHKest1NloP9zsU1g1UpN4atfC+SjlUh5qQsmuktckYCtguyMogHBEGCFLQyPFQ5p/3H
+         Il8hWjKz0uRUjmUabcN6XzubTCJhDGJRPjapwD1EZ3+QMN+kkWP6ikljKs5ouWEIZEd5
+         qOxY0jOWkp0luRNnPWRe70SFTL5RlJGZD2UhlYC8I3k2RpMOomPqRTdZv29w5AJHppjY
+         JRPA+XjTwk1zO5uobHpqvSQk2aVxoP692hAtqSdauNS1KmLbEsVChfqrMalkh/uqV6MP
+         FZ0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789815644; x=1790420444;
+        d=1e100.net; s=20260707; t=1789815651; x=1790420451;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=P4U+Su5olDyDmLov0j40b3fkb86q795927TVcmkINSU=;
-        b=bpPg4HwdfxOC4VqCLfAdkzdHDP18DjNUitrlxm5lRljt+woxDUIZSfiEXaedG6Ptcn
-         CypU4ZuH8ZlPdH3MMfNakjI7toSNvtm3mWuT2R7mOvZxVFn1BYV4mYSTJE4Iohr+i6fX
-         9mVJnO5gCvzSvjh0IaG5Ca8YmlUKRpx2QrGYBrdq++NhE+OK8oZ8gXB7sC9g+GvexSB8
-         h9Ix3eGiY5y6LsJ9vI/o0xvKiXn8wXtU6M1zrZQCJ8++RJqnGtu+PLLQz/ZnSqkrjGwB
-         DtnaBlKHqkwaOmak3Di5xUlLPZP4pfIhT4+jOxhEVNAV+RrQ6bLIj+HF2PQ8ARCMaZld
-         7nSA==
-X-Forwarded-Encrypted: i=1; AKwUvBxF0pbtb615FlCh6feErHYn4+VyoLdacgpJtTF/H4qisrJPKlB9NZcHQsCVKWrJ/xrPp4HA5FUeKKbUyfs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mJPRAX/u4XqDt/z+3rvR3P9iEqWqd/kZ+GAeh+Gqy3egZNmjFG
-	d5LB8fucnRLKcN2g02fPezhXEVmmtl4rX6dZfj4us6m6MfEW/KFsdknd
-X-Gm-Gg: AYBFou282yyevLDHxeJ2KyWndRidLjokFb3TKXY3fJ292liSl/RzcXDf7GOKePR4mY/
-	ag626wnG/LCjNCGruaKxVz547QNASK/om6TpU62B24EZfSeU720P7WP2GE9DJYpO1QmFgjYjSw3
-	iR1drrNt3ItlhajAg9aVhGSUwa5OmDY3n57WbiXF9SlPU7rnIIXKDP+IRjs7RDKY7nfv7bnF89W
-	xP18vZ4FB4Omt47sIh0fY96ZJ1j6ivVq1P2sxrk1/p2YuPmCed8Q83GI9ifIhLMSRYYA4y4rQv/
-	6pZo0o7HvBpSFR7Y/yRGuNOBXqmnjHUnwAHQzTCKFiBvZnOhPDQdI9sxWMJjMeevOUFejRTMtNm
-	anKjTf0tkUlcWfZ1hZ48dJCoJ2Jwd4sPBUWH46dKImvxLbDFoJ7E4hlb2HQ9ahI6CcGRCc1pA3M
-	Hbt+flUv9e5VKUp3K3lYSOy7iP8fHmJGXB/LszrCFtVe3Z5kq9DrDmxCIiu7XfMbtqdPLglJucJ
-	0kNt/sFC+nh1bI7F/To1bAoRBi3NcUtLs9yF6JMyGieo7ILw07OcWzfqcXTYWtZII93CXVcAOLL
-	t+s5DKyPpg==
-X-Received: by 2002:a05:6a00:c350:20b0:874:72b6:7daa with SMTP id d2e1a72fcca58-87472b6811cmr4827302b3a.37.1789815643955;
-        Sat, 19 Sep 2026 04:00:43 -0700 (PDT)
+        bh=mksE0wAvqIYvQmkvPZ3MVjaliUGSBIc9rXg00mvzn3o=;
+        b=vYWCP8ySMFCYXLioLMWflz7ikcyENB7OYJNQsjtA5EvtkRZrokzc73abOhsGQuDMXW
+         Nrxnz/twbsp3qegShbpcxblKQoT5tpv0qPAvqXVBdyGIpiXNeyo+8G5Spz/+AqwHyaGW
+         jeXKNvTuwkPgUoRVKscHzgYoHl/WyzrOzS0vstqSlAQ7uWflN3CEQ4gz6RXhAo+jSVvT
+         04279F3Snzr7dQbKjDamSbcAJ93ArHTuW+v5fKYN/jsSIUMBA702ioaHJrG7UNzNLKG2
+         TYzM4xtEjgraIw3GlKhCCi6VHxJhS9y1tP9X58WMVYJiK+YMhmZWyT13U0f8lFMw8RUX
+         VPsQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzDKKOGIjFRWFbS+c/jvjSgQGygbkYnJ1ajUOWrgDrzJNGDfBF+pnblqhhfqVfq+U4EvpLw1LuA/Bz4GB4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nLoeSUzZwSRq15+YmNHynLyXJdX4TPsaOmNx3YznG6QpSHYHcY
+	dtEeI87PNr2sAY0R8XF4pLcWL9VKGdPEmWM7JPbFEoLxEUtgYVoq+0Tj
+X-Gm-Gg: AYBFou0659SchSMh5ZVcLXvQXGjiouERx3xPJt087h/8Ok4czInnT3+JxkVK1c6fMAW
+	0iy/7KzSim0Pboi0ZCEVo5OxYi/L5G1U5H3KYFKEHhNs0tnWcw7xxXC0CD3FdJvJLAcSkORVyra
+	9ZVyw8IfV1J7uShvmTEY9KKUwFu+YUxfbJMT/87fRzQJnuaZ9ZW4/NA58SpcenxnCTND3upVYYm
+	EpN5tx6zPgimEx3wDvdguDsKY6mrq8y38fuc+/GVygf5zczlgOSwgxvwopiSOWGMpE9qqk4oc45
+	knbUggLCWyq+Ze+A5pgfSSzLNOkR9WPgbD3b7ClvK8iisYOGtnDjoyUe2Zl6wVhSjgVbsgHzmXs
+	XW/VkEwxg+5kA871VTmH5V1CaKBrusj7B37A/YGttWITKSDqIHtcPtjEXpmWQye3h+b0ekN5Uou
+	zh23EwMrTc5s0FAXugjgQETLz5iTqfsFfPzJIM0RBecU2tR3GlfPc17UELWg1AzG304kxpxQpww
+	PeLBL8F43sm6GEoW7QXMiqNoBwAzStGv8cBcEq6ERUEfB/P2bVqU+dj0gTY4ovQ4yXns6RdHt7Q
+	6y7OBkSlkQ==
+X-Received: by 2002:a17:90b:4a03:b0:36d:9e0b:3801 with SMTP id 98e67ed59e1d1-39e54d38c48mr14713773a91.8.1789815650997;
+        Sat, 19 Sep 2026 04:00:50 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a6ae7d71sm938073b3a.2.2026.09.19.04.00.43
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6cb427casm4105972a91.17.2026.09.19.04.00.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 04:00:43 -0700 (PDT)
+        Sat, 19 Sep 2026 04:00:50 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
 To: gregkh@linuxfoundation.org,
-	jirislaby@kernel.org,
-	johan@kernel.org
-Cc: linux-serial@vger.kernel.org,
+	Chris.Wulff@biamp.com,
+	david.sands@biamp.com
+Cc: linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3] vt: selection: Fix unsigned underflow and slab-out-of-bounds read in paste_selection()
-Date: Sat, 19 Sep 2026 11:00:41 +0000
-Message-ID: <20260919110041.3763078-1-benquike@gmail.com>
-In-Reply-To: <aq5hK-fxgPUCe4cr@hovoldconsulting.com>
-References: <aq5hK-fxgPUCe4cr@hovoldconsulting.com>
+Subject: [PATCH v2 1/2] usb: gadget: f_hid: don't call copy_from_user() under get_report_spinlock
+Date: Sat, 19 Sep 2026 11:00:49 +0000
+Message-ID: <20260919110050.3764064-1-benquike@gmail.com>
+In-Reply-To: <2026091905-humbling-swooned-c371@gregkh>
+References: <2026091905-humbling-swooned-c371@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,82 +79,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In paste_selection(), the loop copies min_t(unsigned int,
-vc_sel.buf_len - pasted,tty->receive_room) bytes per iteration into
-tty_ldisc_receive_buf() and increments pasted += count.
+f_hidg_get_report() already copies the incoming struct usb_hidg_report
+from userspace into the freshly allocated 'entry' before acquiring
+hidg->get_report_spinlock.
 
-Because the selection mutex (vc_sel.lock) is dropped inside the loop
-Whenever the line discipline buffer fills up and paste_selection()
-sleeps on tty->write_wait, a concurrent TIOCLINUX (TIOCL_SETSEL) ioctl
-can replace vc_sel.buffer with a shorter selection and reduce
-vc_sel.buf_len below pasted.
+When a report with the same report_id is already present in
+hidg->report_list, the update path copies from userspace a second time,
+this time directly into ptr->report_data while the spinlock is held with
+interrupts disabled:
 
-When paste_selection() resumes, vc_sel.buf_len - pasted underflows as an
-unsigned integer to a large positive value, causing
-tty_ldisc_receive_buf(ld, vc_sel.buffer + pasted, NULL, count) to read
-up to 4094 bytes out-of-bounds past the newly allocated vc_sel.buffer.
+	spin_lock_irqsave(&hidg->get_report_spinlock, flags);
+	ptr = f_hidg_search_for_report(hidg, report_id);
+	if (ptr) {
+		if (copy_from_user(&ptr->report_data, buffer,
+				sizeof(struct usb_hidg_report))) {
 
-Fix this by terminating the loop when pasted >= vc_sel.buf_len.
+copy_from_user() may fault and sleep, so this is a sleeping function
+called from atomic context, reported by CONFIG_DEBUG_ATOMIC_SLEEP as
+"BUG: sleeping function called from invalid context". Userspace can
+reach it at will by issuing GADGET_HID_WRITE_GET_REPORT twice with the
+same report_id on /dev/hidgN.
 
-Kernel stack trace (Linux 7.3.0-rc3):
- ==================================================================
- BUG: KASAN: slab-out-of-bounds in n_tty_receive_buf_common+0xa01/0x1650
- Read of size 4094 at addr ffff888101c58010 by task kworker/u17:1/65
- Workqueue: events_unbound flush_to_ldisc
- Call Trace:
-  <TASK>
-  dump_stack_lvl+0x70/0xa0
-  print_report+0x153/0x4c6
-  kasan_report+0xf1/0x120
-  kasan_check_range+0x11c/0x200
-  __asan_memcpy+0x29/0x70
-  n_tty_receive_buf_common+0xa01/0x1650
-  tty_ldisc_receive_buf+0x66/0x110
-  tty_port_default_receive_buf+0x6b/0xb0
-  flush_to_ldisc+0x1b4/0x410
-  process_one_work+0x6ff/0x1110
-  worker_thread+0x4a8/0xb70
-  kthread+0x307/0x3e0
-  ret_from_fork+0x3ed/0x680
-  </TASK>
- ==================================================================
+The second copy is also redundant: the same user buffer has already been
+copied into entry->report_data a few lines above, and report_id was
+derived from that copy. Assign from the already copied data instead,
+which removes the fault from the critical section and makes the update
+atomic with respect to the list lookup.
 
-Fixes: e8c75a30a23c ("vt: selection, push sel_lock up")
+Fixes: a139c98f760e ("USB: gadget: f_hid: Add GET_REPORT via userspace IOCTL")
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
-v3: Correct the Fixes: tag. v2 cited 2f89e2299c58, which does not exist
-in mainline; the commit that moved the sel_lock acquire/release pair and
-created the window where the lock is dropped inside the paste loop is
-e8c75a30a23c. Thanks to Johan Hovold for catching this.
+v2: Add the Fixes: tag Greg asked for.
 
-Note that git blame on the two lines being changed points at
-9256d09f1da1 ("vt: selection, create struct from console selection
-globals"), but that commit only renames sel_buffer/sel_buffer_lth to
-vc_sel.buffer/vc_sel.buf_len and leaves the locking untouched, so
-e8c75a30a23c is the correct tag.
+    f_hidg_get_report(), the spinlock and the copy_from_user() call under
+    it were all added together by a139c98f760e ("USB: gadget: f_hid: Add
+    GET_REPORT via userspace IOCTL"), first released in v6.12, so that is
+    where this starts. git blame on the removed lines agrees.
 
-v2: Resend via git send-email with intact tab formatting and the
-Assisted-by: LLM tag.
+Found by inspection while investigating the use-after-free fixed in
+patch 2/2, and build tested only; I do not have HID gadget hardware,
+but the path is reachable from /dev/hidgN with dummy_hcd.
 
- drivers/tty/vt/selection.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/usb/gadget/function/f_hid.c | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
 
-diff --git a/drivers/tty/vt/selection.c b/drivers/tty/vt/selection.c
-index 13f4e48b4..f1a3bc5b5 100644
---- a/drivers/tty/vt/selection.c
-+++ b/drivers/tty/vt/selection.c
-@@ -434,8 +434,8 @@ int paste_selection(struct tty_struct *tty)
- 			bps = NULL;
- 		}
+--- a/drivers/usb/gadget/function/f_hid.c
++++ b/drivers/usb/gadget/function/f_hid.c
+@@ -668,13 +668,7 @@ static int f_hidg_get_report(struct file
  
--		count = vc_sel.buf_len - pasted;
--		if (count) {
-+		if (vc_sel.buf_len > pasted) {
-+			count = vc_sel.buf_len - pasted;
- 			pasted += tty_ldisc_receive_buf(ld, vc_sel.buffer + pasted,
- 							NULL, count);
- 			if (vc_sel.buf_len > pasted)
+ 	if (ptr) {
+ 		/* Report already exists in list - update it */
+-		if (copy_from_user(&ptr->report_data, buffer,
+-				sizeof(struct usb_hidg_report))) {
+-			spin_unlock_irqrestore(&hidg->get_report_spinlock, flags);
+-			ERROR(cdev, "copy_from_user error\n");
+-			kfree(entry);
+-			return -EINVAL;
+-		}
++		ptr->report_data = entry->report_data;
+ 		kfree(entry);
+ 	} else {
+ 		/* Report does not exist in list - add it */
 -- 
-2.55.0.1082.g2b9226bbc0-goog
-
+2.43.0
