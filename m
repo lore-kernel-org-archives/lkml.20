@@ -1,481 +1,137 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11D7F282F3A
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 00:16:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B464547078
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 00:17:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789776992; cv=none; b=osstRexxmV2/Pn230emJEhCKEBB6B4B2WJ4Dsk+VxUrx/vtgp4mHkipJcOqpUS9i3urmsW2PqSrtIMeCSBMgOliNO/bw0ZX1SvU+3j4lVugU2Th/H4qn0Abpghxa0gXSEctquXL3L6lIhm3KNK7j0QaFbJMnrBktAToMeMyxzUA=
+	t=1789777063; cv=none; b=QHQP4wcWfzzCWsW7BS45nTcBdDb7oeEyZzo1PcfJilGMPZ7eKQSO7B3Ay41uT5q2nQ49iRmYabFwZNKoyqfbHn9V0y1iWnNcV4Zb1Tb6II6qvCIuTfV2QZfdroxhg9TQhSLAvsvc9CHoxoK0YVI19QtdM0+O9s5jrnnWuFlVzd4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789776992; c=relaxed/simple;
-	bh=lA5D8uGD+rdpJRB6BHWOqauw7eQS19GqjnoOeakpZIg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pt43Q8nqNS3ov7Bm0z/xwcVLqP870O0lQACi142JDUPezTZk7bhnwMAi6iBt8cjk9mn5CEluGHAPy1PqCkWzJCYk567/D3m9BakZtYz0NYq9PIatapjwNm/aodrb5ImH1j63zpTlcFJPmk86ExBAsRVu8XDVwXvpgWHUpO4lIVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=i4a5Osy6; arc=none smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	s=arc-20240116; t=1789777063; c=relaxed/simple;
+	bh=4vhU9fIfIFQef/kcc2WPuuUigvQpCXn4brIcCvyJOx0=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=OMcOtFGNsOuXryC3bzVTFfj7C4dOaFnurR4GCKeXqORlo8xGC6kbIR3i0OKBsPGaDEQRBzJN7oXmXiGZS4sdI83VlyBiZAn2W2R244c8haaQNRCgumX1y/3CTfkxX8OxWTctl3Kb95BrL0EY280Wn3YkbklfsjnkDnQG7bp3on0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UJO0PlEo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="i4a5Osy6"
-Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e4aa8d881so1443306d50.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 17:16:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1789776989; x=1790381789; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xDMeg6wMw9Amy2mQeG1YV9PkoyHZTDfQZnNcipdMNwk=;
-        b=i4a5Osy6UODNqQ9gteRg06JUIDfVWHZKOcY6I0RcJUUt7BuiEbSe76GTpSjavEg+dg
-         4k9Oue47bK9zuPuuIqVQbigFrM2qCjI16YybPRCiUJ0OUpkTyjqSTGXW/v15r0ey0Dog
-         RKPY1vNR4O59uw7JaLWfi1IcwLMFpyEO4Lq0DuTAZTOE0Cysts7NZGJEj/EY9SmGfALN
-         BL4pML1oHXtEM1DxphyZ2zSpJny5aqDpB5vFbSNG/ArQq1QmM8ZnN5OOX6yheTYtme99
-         IOWHMJafrcqlzc7cxb6RJoY0TzScXgUEE4rVjUyD3PhyJZAeEXdn2bRX7qDGMIbtvEcX
-         S6MQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789776989; x=1790381789;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xDMeg6wMw9Amy2mQeG1YV9PkoyHZTDfQZnNcipdMNwk=;
-        b=1xRAGENKYgaCfaSCxa3ee48kgM1Aa6OJhThD6+rmV3D1QccEgBqER+tzt0VDsxhr5a
-         MZNEQE/vvAQPs+pkwDGjOqVKJDl7ceUVD9srkObh3WIIU5wBfBLLBh0k7iQs5qCAruTi
-         ++9SXWYX7aUNkUh+OtQUqG7vw093kwCW76dGPrcunV/e5gC8mtUcDZ4wW2OYbhFdjkmT
-         NLFZYeLxzUeu3+F2pgEEr28LQ3PxJPXTR6edf8Q+P3oNlZ04XNTwbxrqcu5MD1PlZGmI
-         8bewJfdhEtyiQE5lvMhieH4Cfl/w6nOOlYYZyej0IyUY2ol0b1sD+y97Jrem18dSO6Fg
-         mFog==
-X-Forwarded-Encrypted: i=1; AKwUvBw9tTzVwmqKre9/BVaxCbCFlo6vuynC97p3Q1HkTnKvRQaL13e44DVselczS0Zw1oEuGaADVFEKIGn9vu8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nIAwXQew7+tC0g/4TpGKRAqFVdug62GWT/vx+tEylzn/gJIpSE
-	5X6vxdcUeuG4jDn8ht0Q4WGcFVxpMz7Rd0iWLYbLm7qP8cvw+i4G8KxujicMncOoUxY=
-X-Gm-Gg: AYBFou3Rqv9QduNyFTq97WwGAbiuent4wOyVqOogvaykolzmU8U2oLCpCUhtAEaTB9X
-	vRMcYHKqbOgzW6EZbWejaz9xJ+xPno04/wiJ0GWa9egg2B9Alnao21bcO19Tirr7LGVj+XCBNuG
-	hBpuhjbvAsaYDLvrdl7RoFoUpeKEOZo0fT6HreifxhOv2p93oz50BYIUcOmEQJ75yJamcUzXlQm
-	NdVeGhRBFp48NNkwTx7ydys6ZYwBBBuMfScOMTH02CEt7AHfFp6bKDUStPHenQFCtPhvDBuLrE/
-	5t7VoiiZZihd4ynBdhKCIFLU5t6tiwak+mB9btWQgIwNdqqoRi8ndBdFe6C2VGvk+9+oPuFzibo
-	VaEacHMA8hGYtvCVXsO3Z8Co5Usso+F0hFdUytMmNeln6JWtg5/weHbCclgmhUNYo30dd10xSZ9
-	GraI+cSjJZmXUlsZSrL3PTaRF8RgCQmFFChUcNj2xFj29SRLJPL4RySxaUH0bp/Dn6+zRTAkVVX
-	SAY/fNq+pXYGV3jyxwOdu1p17XJL+PcjdaxaEc+AVGjCwaP109TYJhS2OzoE725Z/JA6c5Fko7d
-	zQ9vaf+XVhxVwrag0zrt2rEp7tMH
-X-Received: by 2002:a05:690e:4508:10b0:66f:9cdc:2b09 with SMTP id 956f58d0204a3-6717fd9080emr1039698d50.47.1789776988986;
-        Fri, 18 Sep 2026 17:16:28 -0700 (PDT)
-Received: from pop-os.attlocal.net ([2600:1700:6476:1430:f1ff:bb02:6c7c:6979])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-672990ab5desm642471d50.8.2026.09.18.17.16.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 17:16:28 -0700 (PDT)
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: glaubitz@physik.fu-berlin.de,
-	frank.li@vivo.com
-Cc: linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	vdubeyko@coreweave.com,
-	Viacheslav Dubeyko <slava@dubeyko.com>
-Subject: [PATCH 3/3] hfsplus: add KUnit coverage for canonical reordering and legacy fixups
-Date: Fri, 18 Sep 2026 17:16:07 -0700
-Message-ID: <20260919001607.2777138-4-slava@dubeyko.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260919001607.2777138-1-slava@dubeyko.com>
-References: <20260919001607.2777138-1-slava@dubeyko.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UJO0PlEo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4C761F000FF;
+	Sat, 19 Sep 2026 00:17:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789777061;
+	bh=jHu4xu88/hwPT46tOKW11XMIx4gU3z1z3ihxG0qTg3U=;
+	h=Date:From:To:Cc:Subject:Reply-To;
+	b=UJO0PlEowYH86KfuuOwws40t1Xn9piCi9PtU3FTG8gEGkjsREi/+vkoJyK+tKcZUW
+	 5tX9uJlT4fF5uTh9ONJvOfvMSMTlKi4VK+XgrrXCVKX8wguPNSU+PrW9bo7wqKQuGl
+	 DMNN3GRu8w2/PR1d0cICAizxZz+mQ5jJDfmsYfQHHRz/PHwu/KRasLCohrHATBA5sQ
+	 Hb56YdCuEgDCCE0W3S9loOQy1hFTtKFXNdRHL5CaOnQ8MFYaHyFSbX4EkUXxFPAadp
+	 KCKzW9ammkueO1QrJDpKtDt995A8xQTtVQQFvKLT/g2E/ekuj8fzb9Q/WQuLgld3cn
+	 S37vS3ske6h/A==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 79205CE1775; Fri, 18 Sep 2026 17:17:41 -0700 (PDT)
+Date: Fri, 18 Sep 2026 17:17:41 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>
+Cc: x86@kernel.org, linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: [PATCH] x86/nmi: Enable panic() when NMI handler runs too long
+Message-ID: <53ff8d29-b7ce-4b3f-bdcf-9ac1f31f0a9f@paulmck-laptop>
+Reply-To: paulmck@kernel.org
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Add regression tests for checking that decomposed catalog names
-get canonically reordered and legacy-decomposition corrected
-before storage, matching what macOS's own fsck_hfs requires and
-previously flagged as "Illegal name" (reproducible via xfstests
-generic/339).
+Firmware, device-driver, and configuration issues can result in
+long-running NMI handlers, for example, nmi_cpu_backtrace_handler()
+running for more than two seconds, and with no console issues.  In this
+case, this is not the fault of nmi_cpu_backtrace_handler(), but it is
+the first symptom of the underlying problem.  These NMI handlers result
+in various other problems, including CSD-lock warnings, clocksource
+watchdog false positives, scheduler frequency invariance wobbliness,
+systemd excessive-CPU complaints, and even the occasional RCU CPU
+stall warning.  Eventually, the automation will take the system out of
+service, but with quite a bit of noise obscuring the underlying issue,
+and thus confusing both automation and human beings.
 
-Two small helpers, test_char2uni_utf8()/test_uni2char_utf8(), wrap the
-real utf8_to_utf32()/utf32_to_utf8() codec: the existing
-test_char2uni()/test_uni2char() stand-ins only handle one raw byte per
-character and can't represent the multi-byte combining marks (U+0301,
-U+0323, ...) these tests need.
+Therefore, provide a toolong_nmi_panic __setup() parameter that makes
+nmi_check_duration() invoke nmi_panic() if the just-completed NMI handler
+ran for more than the specified number of milliseconds.  This parameter
+defaults to zero, which disables the nmi_panic().  As in, by default
+you get the same behavior that you get today.
 
-New cases:
+[ paulmck: Apply kernel test robot feedback. ]
 
- - hfsplus_asc2uni_combining_reorder_test: two independently-typed
-   combining marks (U+0301 class 230, U+0323 class 220) end up stored
-   in ascending combining-class order regardless of typed order, are
-   left alone when already canonical, and keep their relative order
-   when their classes are equal (the sort must be stable).
- - hfsplus_unicode_combining_reorder_roundtrip_test: a name stored with
-   marks reordered still reads back as the same, valid UTF-8.
- - hfsplus_asc2uni_legacy_decomp_test: U+01F8 decomposes to "N" +
-   U+0300 even though Apple Technote #1150's table has no entry for it.
- - hfsplus_asc2uni_legacy_seq_fixup_test: a Greek letter + U+030D
-   becomes that letter + U+0301, and Bengali BA + NUKTA collapses to
-   the single letter RA WITH MIDDLE DIAGONAL.
- - hfsplus_hash_dentry_combining_reorder_test: two names differing only
-   in typed mark order hash identically, since both canonicalize to the
-   same stored form.
- - hfsplus_compare_dentry_combining_reorder_test and
-   hfsplus_compare_dentry_legacy_decomp_test: likewise, both compare
-   equal - a precomposed U+01F8 and its already-decomposed "N" + U+0300
-   spelling must be found as the same catalog entry.
+Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
+Cc: Thomas Gleixner <tglx@kernel.org>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Borislav Petkov <bp@alien8.de>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: "H. Peter Anvin" <hpa@zytor.com>
+Cc: <x86@kernel.org>
 
-All 34 cases in the hfsplus_unicode KUnit suite (27 existing + 7 new)
-pass under tools/testing/kunit/kunit.py.
-
-Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
----
- fs/hfsplus/unicode_test.c | 308 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 308 insertions(+)
-
-diff --git a/fs/hfsplus/unicode_test.c b/fs/hfsplus/unicode_test.c
-index 32a64029d77b..a683c6d5fc22 100644
---- a/fs/hfsplus/unicode_test.c
-+++ b/fs/hfsplus/unicode_test.c
-@@ -948,6 +948,223 @@ static void hfsplus_asc2uni_decompose_test(struct kunit *test)
- 	free_mock_sb(mock_sb);
+diff --git a/arch/x86/kernel/nmi.c b/arch/x86/kernel/nmi.c
+index 3c9f60d6ca5a..aae725477468 100644
+--- a/arch/x86/kernel/nmi.c
++++ b/arch/x86/kernel/nmi.c
+@@ -85,6 +85,7 @@ static DEFINE_PER_CPU(struct nmi_stats, nmi_stats);
+ static int ignore_nmis __read_mostly;
+ 
+ int unknown_nmi_panic;
++static unsigned long toolong_nmi_panic;
+ int panic_on_unrecovered_nmi;
+ int panic_on_io_nmi;
+ 
+@@ -101,6 +102,20 @@ static int __init setup_unknown_nmi_panic(char *str)
  }
+ __setup("unknown_nmi_panic", setup_unknown_nmi_panic);
  
-+/*
-+ * Real UTF-8 <-> wchar_t conversion, mirroring what the "utf8" NLS table
-+ * actually does (see char2uni()/uni2char() in fs/nls/nls_utf8.c). The
-+ * test_char2uni()/test_uni2char() stand-ins above only handle one raw
-+ * byte per character, which cannot represent the combining marks (e.g.
-+ * U+0301, U+0323) the canonical-reordering tests below need.
-+ */
-+static int test_char2uni_utf8(const unsigned char *rawstring, int boundlen,
-+			      wchar_t *uni)
++static int __init setup_toolong_nmi_panic(char *str)
 +{
-+	unicode_t u;
-+	int n = utf8_to_utf32(rawstring, boundlen, &u);
++	int ret;
 +
-+	if (n < 0 || u > MAX_WCHAR_T) {
-+		*uni = 0x3f; /* ? */
-+		return -EINVAL;
++	ret = kstrtoul(str, 0, &toolong_nmi_panic);
++	if (ret) {
++		pr_alert("%s: %s on '%s', disabling to zero.\n",
++			 __func__, ret == -ERANGE ? "Overflow" : "Parse error", str);
++		toolong_nmi_panic = 0;
 +	}
-+	*uni = (wchar_t)u;
-+	return n;
++	return 1;
 +}
++__setup("toolong_nmi_panic=", setup_toolong_nmi_panic);
 +
-+static int test_uni2char_utf8(wchar_t uni, unsigned char *out, int boundlen)
-+{
-+	int n = utf32_to_utf8(uni, out, boundlen);
-+
-+	if (n < 0) {
-+		*out = '?';
-+		return -EINVAL;
-+	}
-+	return n;
-+}
-+
-+/*
-+ * Test that hfsplus_asc2uni() brings combining marks contributed by
-+ * different source characters into Unicode canonical (combining-class)
-+ * order, instead of just storing them in whatever order they were typed.
-+ *
-+ * U+0301 (COMBINING ACUTE ACCENT) has combining class 230; U+0323
-+ * (COMBINING DOT BELOW) has combining class 220. Since 220 < 230,
-+ * canonical order requires the dot-below before the acute. A name
-+ * created with them typed in the "wrong" order must still end up stored
-+ * in canonical order - this is exactly what macOS's own fsck_hfs
-+ * (FixDecomps() in CatalogCheck.c) requires and flags as "Illegal name"
-+ * when it isn't true.
-+ */
-+static void hfsplus_asc2uni_combining_reorder_test(struct kunit *test)
-+{
-+	struct test_mock_sb *mock_sb;
-+	struct hfsplus_unistr ustr;
-+	/* "e" + COMBINING ACUTE ACCENT (U+0301) + COMBINING DOT BELOW (U+0323) */
-+	static const char wrong_order[] = "e\xcc\x81\xcc\xa3";
-+	/* "e" + COMBINING DOT BELOW (U+0323) + COMBINING ACUTE ACCENT (U+0301) */
-+	static const char canonical_order[] = "e\xcc\xa3\xcc\x81";
-+	/* Two class-230 marks: GRAVE (U+0300) then ACUTE (U+0301) */
-+	static const char same_class[] = "e\xcc\x80\xcc\x81";
-+	int result;
-+
-+	mock_sb = setup_mock_sb();
-+	KUNIT_ASSERT_NOT_NULL(test, mock_sb);
-+
-+	mock_sb->nls.char2uni = test_char2uni_utf8;
-+
-+	/* Typed out of canonical order: must be reordered on storage. */
-+	result = hfsplus_asc2uni(&mock_sb->sb, &ustr, HFSPLUS_MAX_STRLEN,
-+				 wrong_order, strlen(wrong_order),
-+				 HFS_REGULAR_NAME);
-+
-+	KUNIT_EXPECT_EQ(test, 0, result);
-+	KUNIT_EXPECT_EQ(test, 3, be16_to_cpu(ustr.length));
-+	KUNIT_EXPECT_EQ(test, 'e', be16_to_cpu(ustr.unicode[0]));
-+	KUNIT_EXPECT_EQ(test, 0x0323, be16_to_cpu(ustr.unicode[1]));
-+	KUNIT_EXPECT_EQ(test, 0x0301, be16_to_cpu(ustr.unicode[2]));
-+
-+	/* Already in canonical order: must come out unchanged. */
-+	result = hfsplus_asc2uni(&mock_sb->sb, &ustr, HFSPLUS_MAX_STRLEN,
-+				 canonical_order, strlen(canonical_order),
-+				 HFS_REGULAR_NAME);
-+
-+	KUNIT_EXPECT_EQ(test, 0, result);
-+	KUNIT_EXPECT_EQ(test, 3, be16_to_cpu(ustr.length));
-+	KUNIT_EXPECT_EQ(test, 'e', be16_to_cpu(ustr.unicode[0]));
-+	KUNIT_EXPECT_EQ(test, 0x0323, be16_to_cpu(ustr.unicode[1]));
-+	KUNIT_EXPECT_EQ(test, 0x0301, be16_to_cpu(ustr.unicode[2]));
-+
-+	/* Two marks of equal combining class must keep their relative
-+	 * (input) order - the sort must be stable, not just "sorted".
-+	 */
-+	result = hfsplus_asc2uni(&mock_sb->sb, &ustr, HFSPLUS_MAX_STRLEN,
-+				 same_class, strlen(same_class),
-+				 HFS_REGULAR_NAME);
-+
-+	KUNIT_EXPECT_EQ(test, 0, result);
-+	KUNIT_EXPECT_EQ(test, 3, be16_to_cpu(ustr.length));
-+	KUNIT_EXPECT_EQ(test, 'e', be16_to_cpu(ustr.unicode[0]));
-+	KUNIT_EXPECT_EQ(test, 0x0300, be16_to_cpu(ustr.unicode[1]));
-+	KUNIT_EXPECT_EQ(test, 0x0301, be16_to_cpu(ustr.unicode[2]));
-+
-+	free_mock_sb(mock_sb);
-+}
-+
-+/*
-+ * Test that a name written with combining marks in non-canonical order
-+ * still reads back as valid, correct UTF-8 once reordered - i.e. that
-+ * hfsplus_asc2uni() and hfsplus_uni2asc_str() stay consistent with each
-+ * other across the reordering.
-+ *
-+ * NODECOMPOSE is set so hfsplus_uni2asc_str() doesn't also recompose
-+ * "e" + COMBINING DOT BELOW back into the precomposed U+1EB9 ("e"): that
-+ * composition behavior is real (and already covered elsewhere), but it
-+ * would obscure what this test is actually checking.
-+ */
-+static void hfsplus_unicode_combining_reorder_roundtrip_test(struct kunit *test)
-+{
-+	struct test_mock_sb *mock_sb;
-+	struct hfsplus_unistr ustr;
-+	static const char wrong_order[] = "e\xcc\x81\xcc\xa3";
-+	static const char expected[] = "e\xcc\xa3\xcc\x81"; /* canonical order */
-+	char buf[32];
-+	int len = sizeof(buf);
-+	int result;
-+
-+	mock_sb = setup_mock_sb();
-+	KUNIT_ASSERT_NOT_NULL(test, mock_sb);
-+
-+	set_bit(HFSPLUS_SB_NODECOMPOSE, &mock_sb->sb_info.flags);
-+	mock_sb->nls.char2uni = test_char2uni_utf8;
-+	mock_sb->nls.uni2char = test_uni2char_utf8;
-+
-+	result = hfsplus_asc2uni(&mock_sb->sb, &ustr, HFSPLUS_MAX_STRLEN,
-+				 wrong_order, strlen(wrong_order),
-+				 HFS_REGULAR_NAME);
-+	KUNIT_EXPECT_EQ(test, 0, result);
-+
-+	result = hfsplus_uni2asc_str(&mock_sb->sb, &ustr, buf, &len);
-+
-+	KUNIT_EXPECT_EQ(test, 0, result);
-+	KUNIT_EXPECT_EQ(test, (int)strlen(expected), len);
-+	KUNIT_EXPECT_MEMEQ(test, expected, buf, len);
-+
-+	free_mock_sb(mock_sb);
-+}
-+
-+/*
-+ * Test that hfsplus_asc2uni() decomposes a character using the corrected
-+ * (post-2002/"Jaguar") canonical decomposition even when Apple Technote
-+ * #1150's own decomposition table doesn't have an entry for it.
-+ *
-+ * U+01F8 (LATIN CAPITAL LETTER N WITH GRAVE) is exactly one of the
-+ * characters macOS's own fsck_hfs (FixDecomps() in CatalogCheck.c) has
-+ * flagged "Illegal name" for since 2002 when found stored undecomposed.
-+ */
-+static void hfsplus_asc2uni_legacy_decomp_test(struct kunit *test)
-+{
-+	struct test_mock_sb *mock_sb;
-+	struct hfsplus_unistr ustr;
-+	static const char input[] = "\xc7\xb8"; /* U+01F8 */
-+	int result;
-+
-+	mock_sb = setup_mock_sb();
-+	KUNIT_ASSERT_NOT_NULL(test, mock_sb);
-+
-+	mock_sb->nls.char2uni = test_char2uni_utf8;
-+
-+	result = hfsplus_asc2uni(&mock_sb->sb, &ustr, HFSPLUS_MAX_STRLEN,
-+				 input, strlen(input), HFS_REGULAR_NAME);
-+
-+	KUNIT_EXPECT_EQ(test, 0, result);
-+	KUNIT_EXPECT_EQ(test, 2, be16_to_cpu(ustr.length));
-+	KUNIT_EXPECT_EQ(test, 'N', be16_to_cpu(ustr.unicode[0]));
-+	KUNIT_EXPECT_EQ(test, 0x0300, be16_to_cpu(ustr.unicode[1]));
-+
-+	free_mock_sb(mock_sb);
-+}
-+
-+/*
-+ * Test that hfsplus_asc2uni() corrects two more of fsck_hfs's known
-+ * legacy decomposition sequences once combining marks from independently
-+ * typed characters end up adjacent:
-+ *
-+ *  - GREEK SMALL LETTER ALPHA (U+03B1) + COMBINING VERTICAL LINE ABOVE
-+ *    (U+030D) must become U+03B1 + COMBINING ACUTE ACCENT (U+0301).
-+ *  - BENGALI LETTER BA (U+09AC) + BENGALI SIGN NUKTA (U+09BC) must become
-+ *    the single character BENGALI LETTER RA WITH MIDDLE DIAGONAL (U+09B0).
-+ */
-+static void hfsplus_asc2uni_legacy_seq_fixup_test(struct kunit *test)
-+{
-+	struct test_mock_sb *mock_sb;
-+	struct hfsplus_unistr ustr;
-+	static const char greek_input[] = "\xce\xb1\xcc\x8d"; /* U+03B1 U+030D */
-+	static const char bengali_input[] = "\xe0\xa6\xac\xe0\xa6\xbc"; /* U+09AC U+09BC */
-+	int result;
-+
-+	mock_sb = setup_mock_sb();
-+	KUNIT_ASSERT_NOT_NULL(test, mock_sb);
-+
-+	mock_sb->nls.char2uni = test_char2uni_utf8;
-+
-+	result = hfsplus_asc2uni(&mock_sb->sb, &ustr, HFSPLUS_MAX_STRLEN,
-+				 greek_input, strlen(greek_input),
-+				 HFS_REGULAR_NAME);
-+
-+	KUNIT_EXPECT_EQ(test, 0, result);
-+	KUNIT_EXPECT_EQ(test, 2, be16_to_cpu(ustr.length));
-+	KUNIT_EXPECT_EQ(test, 0x03b1, be16_to_cpu(ustr.unicode[0]));
-+	KUNIT_EXPECT_EQ(test, 0x0301, be16_to_cpu(ustr.unicode[1]));
-+
-+	result = hfsplus_asc2uni(&mock_sb->sb, &ustr, HFSPLUS_MAX_STRLEN,
-+				 bengali_input, strlen(bengali_input),
-+				 HFS_REGULAR_NAME);
-+
-+	KUNIT_EXPECT_EQ(test, 0, result);
-+	KUNIT_EXPECT_EQ(test, 1, be16_to_cpu(ustr.length));
-+	KUNIT_EXPECT_EQ(test, 0x09b0, be16_to_cpu(ustr.unicode[0]));
-+
-+	free_mock_sb(mock_sb);
-+}
-+
- /* Mock dentry for testing hfsplus_hash_dentry */
- static struct dentry test_dentry;
+ static u64 nmi_longest_ns = 1 * NSEC_PER_MSEC;
  
-@@ -1231,6 +1448,37 @@ static void hfsplus_hash_dentry_edge_cases_test(struct kunit *test)
- 	free_mock_sb(mock_sb);
+ static int __init nmi_warning_debugfs(void)
+@@ -111,7 +126,7 @@ static int __init nmi_warning_debugfs(void)
  }
+ fs_initcall(nmi_warning_debugfs);
  
-+/*
-+ * Test that hfsplus_hash_dentry() hashes two names identically when they
-+ * differ only in the (non-canonical) typed order of the same combining
-+ * marks - both must canonicalize to the same stored form, so they must
-+ * hash the same or dcache lookups would spuriously miss.
-+ */
-+static void hfsplus_hash_dentry_combining_reorder_test(struct kunit *test)
-+{
-+	struct test_mock_sb *mock_sb;
-+	struct qstr str1, str2;
-+	int result;
-+
-+	mock_sb = setup_mock_sb();
-+	KUNIT_ASSERT_NOT_NULL(test, mock_sb);
-+
-+	setup_mock_dentry(&mock_sb->sb);
-+	mock_sb->nls.char2uni = test_char2uni_utf8;
-+
-+	create_qstr(&str1, "e\xcc\x81\xcc\xa3"); /* acute, then dot-below */
-+	result = hfsplus_hash_dentry(&test_dentry, &str1);
-+	KUNIT_EXPECT_EQ(test, 0, result);
-+
-+	create_qstr(&str2, "e\xcc\xa3\xcc\x81"); /* dot-below, then acute */
-+	result = hfsplus_hash_dentry(&test_dentry, &str2);
-+	KUNIT_EXPECT_EQ(test, 0, result);
-+
-+	KUNIT_EXPECT_EQ(test, str1.hash, str2.hash);
-+
-+	free_mock_sb(mock_sb);
-+}
-+
- /* Test hfsplus_compare_dentry basic functionality */
- static void hfsplus_compare_dentry_basic_test(struct kunit *test)
+-static void nmi_check_duration(struct nmiaction *action, u64 duration)
++static void nmi_check_duration(struct nmiaction *action, u64 duration, struct pt_regs *regs)
  {
-@@ -1553,6 +1801,59 @@ static void hfsplus_compare_dentry_combined_flags_test(struct kunit *test)
- 	free_mock_sb(mock_sb);
+ 	int remainder_ns, decimal_msecs;
+ 
+@@ -126,6 +141,8 @@ static void nmi_check_duration(struct nmiaction *action, u64 duration)
+ 
+ 	pr_info_ratelimited("INFO: NMI handler (%ps) took too long to run: %lld.%03d msecs\n",
+ 			    action->handler, duration, decimal_msecs);
++	if (toolong_nmi_panic && duration >= toolong_nmi_panic)
++		nmi_panic(regs, "Panic per toolong_nmi_panic");
  }
  
-+/*
-+ * Test that hfsplus_compare_dentry() treats two names as equal when they
-+ * differ only in the (non-canonical) typed order of the same combining
-+ * marks, since both refer to the same canonically-ordered catalog entry.
-+ */
-+static void hfsplus_compare_dentry_combining_reorder_test(struct kunit *test)
-+{
-+	struct test_mock_sb *mock_sb;
-+	struct qstr name;
-+	int result;
-+
-+	mock_sb = setup_mock_sb();
-+	KUNIT_ASSERT_NOT_NULL(test, mock_sb);
-+
-+	setup_mock_dentry(&mock_sb->sb);
-+	mock_sb->nls.char2uni = test_char2uni_utf8;
-+
-+	create_qstr(&name, "e\xcc\xa3\xcc\x81"); /* dot-below, then acute */
-+	result = hfsplus_compare_dentry(&test_dentry, 5, "e\xcc\x81\xcc\xa3",
-+					&name); /* acute, then dot-below */
-+	KUNIT_EXPECT_EQ(test, 0, result);
-+
-+	free_mock_sb(mock_sb);
-+}
-+
-+/*
-+ * Test that a precomposed character using one of fsck_hfs's known legacy
-+ * decompositions compares equal to the already-decomposed form of the
-+ * same character - i.e. that hfsplus_compare_dentry() applies the same
-+ * legacy-decomposition correction as hfsplus_asc2uni() does on storage,
-+ * so a lookup finds the entry regardless of which form was typed.
-+ */
-+static void hfsplus_compare_dentry_legacy_decomp_test(struct kunit *test)
-+{
-+	struct test_mock_sb *mock_sb;
-+	struct qstr name;
-+	int result;
-+
-+	mock_sb = setup_mock_sb();
-+	KUNIT_ASSERT_NOT_NULL(test, mock_sb);
-+
-+	setup_mock_dentry(&mock_sb->sb);
-+	mock_sb->nls.char2uni = test_char2uni_utf8;
-+
-+	/* "N" + COMBINING GRAVE ACCENT (U+0300), already decomposed */
-+	create_qstr(&name, "N\xcc\x80");
-+	/* U+01F8, precomposed */
-+	result = hfsplus_compare_dentry(&test_dentry, 2, "\xc7\xb8", &name);
-+	KUNIT_EXPECT_EQ(test, 0, result);
-+
-+	free_mock_sb(mock_sb);
-+}
-+
- static struct kunit_case hfsplus_unicode_test_cases[] = {
- 	KUNIT_CASE(hfsplus_strcasecmp_test),
- 	KUNIT_CASE(hfsplus_strcmp_test),
-@@ -1568,12 +1869,17 @@ static struct kunit_case hfsplus_unicode_test_cases[] = {
- 	KUNIT_CASE(hfsplus_asc2uni_buffer_limits_test),
- 	KUNIT_CASE(hfsplus_asc2uni_edge_cases_test),
- 	KUNIT_CASE(hfsplus_asc2uni_decompose_test),
-+	KUNIT_CASE(hfsplus_asc2uni_combining_reorder_test),
-+	KUNIT_CASE(hfsplus_unicode_combining_reorder_roundtrip_test),
-+	KUNIT_CASE(hfsplus_asc2uni_legacy_decomp_test),
-+	KUNIT_CASE(hfsplus_asc2uni_legacy_seq_fixup_test),
- 	KUNIT_CASE(hfsplus_hash_dentry_basic_test),
- 	KUNIT_CASE(hfsplus_hash_dentry_casefold_test),
- 	KUNIT_CASE(hfsplus_hash_dentry_special_chars_test),
- 	KUNIT_CASE(hfsplus_hash_dentry_decompose_test),
- 	KUNIT_CASE(hfsplus_hash_dentry_consistency_test),
- 	KUNIT_CASE(hfsplus_hash_dentry_edge_cases_test),
-+	KUNIT_CASE(hfsplus_hash_dentry_combining_reorder_test),
- 	KUNIT_CASE(hfsplus_compare_dentry_basic_test),
- 	KUNIT_CASE(hfsplus_compare_dentry_casefold_test),
- 	KUNIT_CASE(hfsplus_compare_dentry_special_chars_test),
-@@ -1581,6 +1887,8 @@ static struct kunit_case hfsplus_unicode_test_cases[] = {
- 	KUNIT_CASE(hfsplus_compare_dentry_decompose_test),
- 	KUNIT_CASE(hfsplus_compare_dentry_edge_cases_test),
- 	KUNIT_CASE(hfsplus_compare_dentry_combined_flags_test),
-+	KUNIT_CASE(hfsplus_compare_dentry_combining_reorder_test),
-+	KUNIT_CASE(hfsplus_compare_dentry_legacy_decomp_test),
- 	{}
- };
+ static int nmi_handle(unsigned int type, struct pt_regs *regs)
+@@ -165,7 +182,7 @@ static int nmi_handle(unsigned int type, struct pt_regs *regs)
+ 		delta = sched_clock() - delta;
+ 		trace_nmi_handler(a->handler, (int)delta, thishandled);
  
--- 
-2.43.0
-
+-		nmi_check_duration(a, delta);
++		nmi_check_duration(a, delta, regs);
+ 	}
+ 
+ 	rcu_read_unlock();
