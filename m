@@ -1,117 +1,147 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32BAC361670
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 19:24:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38303335555
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 19:24:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789845866; cv=none; b=KN/GMX+Pdsft52C1PXEqZYnOMAvaLLlfI5yrSG+y3u1HJ44M3lgakfzJy6g+hiiouv0+hGYnkppl0jAYlagRq+AFcBrUmlvFmcs7dMxZfFgPLnKo1AoKxeuUbUo8vDhgj4f4FLhiyYmJEZCKSo4v4gPKPrh1OmMwLXL18O6sx+o=
+	t=1789845885; cv=none; b=QGZuCPFu3rO4d/uwzAdCP2GF156b2MLX0JDfmMQRrbkppyJAe6g1Nifh4LFD+K+NuRUL5UmhgoVOs24Nwb5mqjRxFsKg6WcfgX7sJWxm/HzuepVKm9Rdf9dnZwXEcmfithE2iFaROYB3C+tTgam/AdeWTXTZk/VHX9zmKes0L9E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789845866; c=relaxed/simple;
-	bh=VVnhsfm3As+sMznpo73TbHUDuc6zMzaiuu2csJA8JAI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=o/FGDCMKxBP2J3gMprrIyH77TwQqqqmICdn3pgrKQlN0Y9l6aphtWfOaTNcdrF9deIBTjdIO3v8FBXi94Sn/aSwV63oX25tXCyIczL6k6+fJvnGkjFh5GjtfDJ81hll+H6IZlW00fCQ00DCYSrkN7iC6/+5czmV+9VFnn8P2ivc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OoTH/dgy; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789845885; c=relaxed/simple;
+	bh=NeHshQNFCGwJF2ysi+RWsWuwph5Ge0ieMHHyeUv2SS0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fOoibsptVOcBztKSA4a4q7j2+GI2A8gNnXrTjpH2BSCjidTk5IKLug3CG+kU77nqvYge4+CWHpMRmBwgjgzrOfz8Ej4xd0RjQNAF8s3T0orqGBIxqSIjgchV1yxmgRJlTMBI4myOpfrwxLCJrj0fseJWnN+BqmLQhqTyi3dIS8w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=VGzD+gLl; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=YD5FrD8L; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OoTH/dgy"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d8239so12826335e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 12:24:25 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="VGzD+gLl";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="YD5FrD8L"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789845882;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kjyUSthyZu35KpQeM9B/0jd7CF9c0bVVky2/qXbbeS4=;
+	b=VGzD+gLlsQrMifF3+CMMRFj6AhU9LHFoULnB0WVC6DkdNAAilC57HBfz/M3b7/4ea449qV
+	eTu2ubozrffDgvbJ5ZVP4hem0peLofHY5AaxfAnZZdSH1hSMaPMBF4l9w0xN3M2k4ws1m0
+	pFcGiKatmM92Gfb22eiWpO7YEHJvcio=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-695-qpdBeUJLM6iU3QfeOU10Hw-1; Sat, 19 Sep 2026 15:24:40 -0400
+X-MC-Unique: qpdBeUJLM6iU3QfeOU10Hw-1
+X-Mimecast-MFC-AGG-ID: qpdBeUJLM6iU3QfeOU10Hw_1789845880
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49cd74fc1aaso11715075e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 12:24:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789845863; x=1790450663; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zCBYukoxlIjOQo0Rl4nFIpPvgCBBr+Fx+MuYyRfGWBg=;
-        b=OoTH/dgyo4HBXuPL+vCIvony8Q0Y7KWL2bwFFWxSIxoW6Vkv5M0eodMXk3mKl123ht
-         fGphbHxjBls36cnT7NSXgmSR8TxmJyFEik8+Nfr7zAvWhxSIiB33KSXZM13H5baeyvlR
-         E1B9PCBlZYy6qv8qLUkI5brbYehV+zaOrxb0iX6iUTSm5YOTrhsKLGfi5FYJ1WbeE5m6
-         nz5Dsbp9r7z9ZKNMFjZjJvio8Xds+SAHVznema/5+MJuY9SNofNeunmYl64TXmZHjt5u
-         7r4uhDFQ8MXc0/GxQgSXEgz7La8xe/ZsZb4QEdOiSWu8Iz8/Vp9Z/qVvZLW9R6tzvfIQ
-         5Cpw==
+        d=redhat.com; s=google; t=1789845879; x=1790450679; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kjyUSthyZu35KpQeM9B/0jd7CF9c0bVVky2/qXbbeS4=;
+        b=YD5FrD8L8ro6jkww6Zaehi5NslkKMNn5fdErK2+YRYDdiZGDijDXGu2dWZQbpOnf6L
+         l6vFvEUCbL9tXggZRuinaZKPr/0AcEZWwD71mcOZzlfBxirqyPXBAMWrbLG0sfj/zn0l
+         U5dcgZlX1dzIo6EHiKSNRSBTR9taTopsHkCgVCOKfUngynr7+Uj4+PaRNeCZAA7VQO2v
+         Fw7VBCFNwa2mDatKaWOgGBkv6w8WNBziNrSwqV4kTrHS2I61iZwieu+LFgMvw8+4uUAY
+         YK0BvW56/M+lH/vt6HBqJl1yrRNawiaJpunUl6VfHvxeJZC9OzVKPXAXYThBPY6XOO/7
+         iNmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789845863; x=1790450663;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zCBYukoxlIjOQo0Rl4nFIpPvgCBBr+Fx+MuYyRfGWBg=;
-        b=bH/OMux8gv80PUSgmJzfCwpS++7dsQrNnRI80dTLsjEbwtWr4xnOWPtJBysAiRglAO
-         EcPskArOzD/KW34g+GYrP+5Pg92Na+S+NFDVDcQO9hRPom0dfYt3Um9cTWcdrq/GXBWf
-         TWbZhax0HYZu0xxfV3IbUMnC8cYG21JMMWPWFjYYG+azdstTJQhynb7kvkwZenDnM5hM
-         pS72Zf8F/8iNvkSdesWijujCANrEu0T/a6qzovTmd2cpV/lW41/c/yNzQ/aIwplAtUQF
-         RacF1Kdx/58x7zWuEBDQVXD1vS8dSzPZ50q3/afRKGeok7amBB+7ksX4iF0n1rQ+TZOb
-         kRww==
-X-Forwarded-Encrypted: i=1; AKwUvBzRajGBGnQFDXHiIvs86IzShlzTbgD3B5O4bB3CQNbfLu/ihmSVYl2O0S5M0oFaG+OwdMGnAuY7E8v4Qv8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kayHjWS3MIhHl3uE60W+8x3/rSoROfYBtLe45jlrC34GJg4cno
-	F9WblCVLiTg6uRTqYp01Ns1oLKsPX6JEiZ8pPnEc8sqEGd8VnB7cKG7T
-X-Gm-Gg: AYBFou2JbhRMoVFDDUh0BM5HKIhsnikSlUYZMB5pWADIIHo3NOGnqeGH50IwNIDEXxb
-	O03iictbfryY281gPdKQyGQT6I7a4T9zA/3HVJE2pHzOp1lQqjIVqPS6JSnCEKThUKb9hbOHTkJ
-	ckPiKzCt8qkMjGCZT3SCGj5xivYIL7hmL9iQpnltPykrOEliQibKAlC64Py0sr77kYXl0IF5YDo
-	8r1nTPOWGM3yCun/U3dcBIaMGaSk3dqIHL144nrMQSN685jHANTH7AVVyA5+Dwn98MEW3VG7xeb
-	4ZjmsfPDtbhrdWsZBULb/HOec7poQgDKY6qTHIfm9PajWUfdNjirK6QD1ywBMRqnihNCTn/T13L
-	YcbOXBUYeMPh4vpUSWj13AsXnIjEyGp+mU5Jnj3mXQoPkjU3l3+s2qLHzrOWGWXNueBQ1Zspz+F
-	9SwxF2D5lAGh3oQh6CbIvXFig3J62SVSBTAr66frso61R79jE8XoKL+s4c+zROIMP5LLTNwaBAr
-	eoiyHh95qcoS1sWLEp+l9UH56lcv8Zd7+ko0yqDvIM2u10kb/+L
-X-Received: by 2002:a05:600c:3547:b0:49d:2562:d670 with SMTP id 5b1f17b1804b1-49fc56aef66mr88814505e9.14.1789845863475;
-        Sat, 19 Sep 2026 12:24:23 -0700 (PDT)
-Received: from fedora ([202.47.63.86])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc5748e56sm152023445e9.2.2026.09.19.12.24.20
+        d=1e100.net; s=20260707; t=1789845879; x=1790450679;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kjyUSthyZu35KpQeM9B/0jd7CF9c0bVVky2/qXbbeS4=;
+        b=xSvME4vvn48byk2QpI5tZ7YKt+qz1UOA8Y01XUqg5bb6cyfR0NIAlrj+rC4hgxizIM
+         plJ3/qUoSjn33DnGj+RBy282lph3WulX4UTvm+67k2q8HJcUROOmdGdjAyZwncZoaFFo
+         0cMUCGq6dRHpPiTla9JbeOAQqxzyumE1CV/jjCVwdYYkCkODIaItaUfOO5lKeEX+5WSB
+         sR/qnCzyGggxtGyhBYkB4lSLb2X27G5i3GoRRU1ffbuEnf5eQzs5BxCss9YtjkZP15gz
+         oBNsgc4q7iL0cTqOxHRyjqWsUVMN0ABAE3D46+bWrtiRYbUshBNQeQsqfNxgAlG09dhc
+         IdrQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzDWOWgIRKnz0i5/vsmLMhlY5Ld/aNu8ZISLkP+pW27CWwNssFtgChGd3fuZXl/f6A4jLqu22DIsmxhv2A=@vger.kernel.org
+X-Gm-Message-State: AFuF++l/McvGKgev2PwNjSktKnUu7ZtIPVd4+6BHpY31yGbrzfo/l1zl
+	LlRznNwyseuFLAjVNxcnGbBeN7sydHZvUBUShgBnlqIxAB22voQ+Gxbunsesv52Y28pBDn8AmhL
+	jO+SSpQadVnHF7GIL6WyElGuWdte7MS9OHoigyOyNDu+tbCk6oTSPwVwfBH1USfwcxw==
+X-Gm-Gg: AYBFou1nJ681thZBtuULtYsQNmOJOyOYQ0LJdYzhNSpZ0wtkKI/EXGXMSxO0MfO1Pvj
+	4hYU/jL65Ja6mO5eMix2QhGPa4BhWjc1pw84iC0np5v+kancelEzux+10aJE+WJeGmrk1JlUk6p
+	N0ovJu0bw5q0ujl5yNJf4jN5tD/nLagjNolCDVGRdMWX4QcvtJsSnD8mmBo4CGz31cCcQJyQfoq
+	gA5ibbUgvxeTuYHBEPm7jMhpIoFbuS5IoBIlT6JXY2w8pZ5SWtBW2KRmBZGiK1eRjXRlGQ22nt2
+	wKTpul3aL5TvsLsbaLSl0uVBPR97fUL6vMO6EniDK39BXm5u7guBvkhkgtNRfEb2eJyJnYh/D/a
+	2RC+23xtZ4m3gx8CGQidwQJ8=
+X-Received: by 2002:a05:600c:5251:b0:49c:fa20:cc00 with SMTP id 5b1f17b1804b1-49fc5736898mr78443165e9.23.1789845879497;
+        Sat, 19 Sep 2026 12:24:39 -0700 (PDT)
+X-Received: by 2002:a05:600c:5251:b0:49c:fa20:cc00 with SMTP id 5b1f17b1804b1-49fc5736898mr78442915e9.23.1789845879068;
+        Sat, 19 Sep 2026 12:24:39 -0700 (PDT)
+Received: from redhat.com (IGLD-80-230-79-236.inter.net.il. [80.230.79.236])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd0874c3sm138399065e9.14.2026.09.19.12.24.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 12:24:23 -0700 (PDT)
-From: Muhammad Bilal <meatuni001@gmail.com>
-To: ardb@kernel.org
-Cc: ivan.hu@canonical.com,
-	ilias.apalodimas@linaro.org,
-	mingo@kernel.org,
-	matt@codeblueprint.co.uk,
-	error27@gmail.com,
-	linux-efi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Muhammad Bilal <meatuni001@gmail.com>
-Subject: [PATCH] efi/efi_test: bound capsule_count to what the int loop index can hold
-Date: Sun, 20 Sep 2026 00:24:10 +0500
-Message-ID: <20260919192410.272516-1-meatuni001@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        Sat, 19 Sep 2026 12:24:38 -0700 (PDT)
+Date: Sat, 19 Sep 2026 15:24:35 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Jia Jia <physicalmtea@gmail.com>
+Cc: Jason Wang <jasowangio@gmail.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Nicholas Bellinger <nab@linux-iscsi.org>, kvm@vger.kernel.org,
+	virtualization@lists.linux.dev, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] vhost: keep vring addresses stable while the backend is
+ attached
+Message-ID: <20260919152336-mutt-send-email-mst@kernel.org>
+References: <20260919131744.131030-1-physicalmtea@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260919131744.131030-1-physicalmtea@gmail.com>
 
-efi_runtime_query_capsulecaps() only rejects capsule_count == ULONG_MAX
-(to stop "capsule_count + 1" wrapping the kzalloc_objs() count to
-zero), but then walks the array with
-"for (i = 0; i < qcaps.capsule_count; i++)"
-using a plain int i against an unsigned long bound. A capsule_count
-between INT_MAX and ULONG_MAX - 1 lets i wrap through INT_MIN instead
-of ever reaching the loop bound, and capsules[i] with a negative i
-indexes before the allocation.
+On Sat, Sep 19, 2026 at 09:17:44PM +0800, Jia Jia wrote:
+> vhost-scsi keeps the response and bounce-buffer iovecs until the backend
+> completes the command.  If userspace changes the vring addresses while the
+> command is in flight, the completion data is copied through the old iovecs
+> while vhost_add_used() updates the new used ring.  The guest then no longer
+> sees the completion.
 
-kzalloc_objs() would have to succeed at that size for the loop to be
-reached at all, which bounds this in practice, but the check should
-not rely on the allocator failing first. Reject any capsule_count
-that would not fit in the int index up front.
+I do not get what all this is trying to say. if you break it you get to
+keep both pieces. when is this a real problem?
 
-Fixes: 092e72c9edab ("efi/efi_test: Prevent an Oops in efi_runtime_query_capsulecaps()")
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
----
- drivers/firmware/efi/test/efi_test.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> Reject changes to the vring addresses while a backend is attached to the
+> queue.  Keep accepting the current addresses so userspace can update
+> VHOST_VRING_F_LOG or log_guest_addr without stopping the backend.  Queues
+> that have not been attached retain the existing setup behavior; userspace
+> must detach the backend before changing their addresses.
+> 
+> Fixes: 057cbf49a1f0 ("tcm_vhost: Initial merge for vhost level target fabric driver")
+> Signed-off-by: Jia Jia <physicalmtea@gmail.com>
+> ---
+>  drivers/vhost/vhost.c | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+> 
+> diff --git a/drivers/vhost/vhost.c b/drivers/vhost/vhost.c
+> index 44cac11b68d2..074590838de5 100644
+> --- a/drivers/vhost/vhost.c
+> +++ b/drivers/vhost/vhost.c
+> @@ -2150,6 +2150,17 @@ static long vhost_vring_set_addr(struct vhost_dev *d,
+>  				a.flags & (0x1 << VHOST_VRING_F_LOG),
+>  				a.log_guest_addr))
+>  			return -EINVAL;
+> +
+> +		/*
+> +		 * Commands may retain iovecs derived from the current ring
+> +		 * addresses.  Keep the addresses unchanged while the backend
+> +		 * is attached.
+> +		 */
+> +		if ((vq->desc || vq->avail || vq->used) &&
+> +		    (vq->desc != (void __user *)(unsigned long)a.desc_user_addr ||
+> +		     vq->avail != (void __user *)(unsigned long)a.avail_user_addr ||
+> +		     vq->used != (void __user *)(unsigned long)a.used_user_addr))
+> +			return -EBUSY;
+>  	}
+>  
+>  	vq->log_used = !!(a.flags & (0x1 << VHOST_VRING_F_LOG));
 
-diff --git a/drivers/firmware/efi/test/efi_test.c b/drivers/firmware/efi/test/efi_test.c
-index d54d6a671326..683a0524dd31 100644
---- a/drivers/firmware/efi/test/efi_test.c
-+++ b/drivers/firmware/efi/test/efi_test.c
-@@ -611,7 +611,8 @@ static long efi_runtime_query_capsulecaps(unsigned long arg)
- 	if (copy_from_user(&qcaps, qcaps_user, sizeof(qcaps)))
- 		return -EFAULT;
- 
--	if (qcaps.capsule_count == ULONG_MAX)
-+	/* capsule_count is iterated over with a signed int index below */
-+	if (qcaps.capsule_count >= INT_MAX)
- 		return -EINVAL;
- 
- 	capsules = kzalloc_objs(efi_capsule_header_t, qcaps.capsule_count + 1);
--- 
-2.55.0
