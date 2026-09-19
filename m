@@ -1,89 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7F0E1A6820;
-	Sat, 19 Sep 2026 00:28:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 414D32D7DE9;
+	Sat, 19 Sep 2026 00:28:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789777732; cv=none; b=eZjvKolLFtRTajD0wu531n0fndfjlpe9glYNwOpX3fe35tdmdI275npST9AxNkI2qJfZ9/Qj3D5KGJd7BUms/IzKcdsbbjrK2gtQU5onO8E5tLMXlhSf2hOQG4a1iducpsvKrS8q1paoy5o8n9BEWgUlTTibvmi1PPkq2dk0lXg=
+	t=1789777737; cv=none; b=pLMxk1KDW9y51SqmvHG1VQr3z7FaZomNYSL2g4d+5uI8hExODie0E8K2ZS1PTU+GqLqPYVRouBz8aNAsPe+ClDC+02K5LXrOEb5Z9Kgmv9kw1nNRpHRm7yqbXHtYK0LWjpjsfXpaCpqsnTnzRKhFTsnQvSskt3dUPrK71pvEY08=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789777732; c=relaxed/simple;
-	bh=4+7bB1JEJSCjlPrSvfmw+wM70mjBaQYN6C5E0BgT+V8=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=C1aS9lIwobf7KWShpR/MwZTRYlbGW+ZhXZOu27nH9jUY1jCoNsWqR2yHyx8ekJ+SXP/OLX3aqYyMN6k/quoXpjDga9tkBKdbgQlA7GbM//2IGSyeWQvFmFtuINswxmCaFTmzT2IgMn2XxgcLhOlI9RMch6ihEiuHneqg+/ublaM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FGtwozRV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789777737; c=relaxed/simple;
+	bh=Nmn82MR463k7b2+mDKNQfB8h/RZcFumlnFlb8aHP4j8=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=l29HTN9InRnFJ5LpdzqQ14O1j2GN7nsHkcHyZq/PGVjCh8DfJVAlc+gK64yOnkP1dsyON5k5qj+KrEuGY2wBLEg4ydtahhGkuqVAnlI4guEFIRYRwSF5Q6/5umyX9AJF2SIVATpe/LEop0RakpBe/SRgu4tcgvpSPK4UqcZGfEw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NO6EbT/a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FGtwozRV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 727BC1F000FF;
-	Sat, 19 Sep 2026 00:28:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NO6EbT/a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9473A1F000FF;
+	Sat, 19 Sep 2026 00:28:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789777731;
-	bh=liTVGDWlvTrLkJeJGF1OTeub1iYUwJ40uxnM3WV6mXI=;
-	h=Date:From:To:Cc:Subject:Reply-To;
-	b=FGtwozRV+emtIWUK8ePGpiovvpMwlqUN5C0NHEI+fqlWkUvBZiw5rFoz6whbVYLVU
-	 XlUYkcN7/eqcQW4TMeIalxVyArsjErbKvhbApOCGhTgRKtWarGn6xvNPMrGYxYNtjt
-	 5tMC2MmuF1IcI+smMM176Oht5r+pL/OI34N6Ly8R2lo5iziV+VCjdjOKe8nZ48x3tr
-	 0m6KNVkL0PFdhmmxzbVVThZxW4/gDayCVldOKrvIWkIN6PG5RSHki7mXx5f1yFWqsB
-	 XD/s+hATdWDyDC0YtiQ6RUppC+lhekzq/E3UhYC0SFth6Wmy1s5MV/fM38nysPrM6l
-	 a2zkImdA5vl5g==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 3659DCE1775; Fri, 18 Sep 2026 17:28:51 -0700 (PDT)
-Date: Fri, 18 Sep 2026 17:28:51 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: rcu@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com, rostedt@goodmis.org
-Subject: [PATCH 0/9] Miscellaneous RCU updates for v7.4
-Message-ID: <7dc2d858-44cc-4efa-8e94-1fe27d691f2b@paulmck-laptop>
-Reply-To: paulmck@kernel.org
+	s=k20260515; t=1789777735;
+	bh=Nmn82MR463k7b2+mDKNQfB8h/RZcFumlnFlb8aHP4j8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=NO6EbT/atUqyelYwyNQMtfPtiAae9DdkjeM3IpLxYELd4sb9u2o1lbMo8tqVJ4e8n
+	 EboD66wZWCHWgOdQUg26q/pbw9sSi1iPIuWFHYosrF1D3WfVGGs/YsmUxU/SUM9tbN
+	 qrkKkv93Q43ygtlpskgTH2BprS5WgITkV4r02ZQz7n+96tQRRktyPD9PWvfkTU5lKT
+	 xFqdB/o1J7rwqnLsCqorfti0Dvk61QOqMJD8bTrp6Oq1Rw0HzQOfgS/bkrWSjIEoBp
+	 5RzTYwXCH4HYUk8pJn2m5/o1JmBA+yrY5rRyeByG/xxmpP6qZyw3LGfZCZpiRN0ltF
+	 eUzg8tD+NAjkA==
+Date: Fri, 18 Sep 2026 14:28:54 -1000
+Message-ID: <6e56532df8297554f3f76ad8748e84c9@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Andrea Righi <arighi@nvidia.com>
+Cc: Tejun Heo <tj@kernel.org>,
+	David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	David Dai <david.dai@linux.dev>,
+	sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH sched_ext/for-7.3-fixes] sched_ext: Pass the initial cmask
+ to cid-form ops.enable()
+In-Reply-To: <aq2vjD_eTI3sMK91@gpd4>
+References: <c8343c2e457508a6cd3fcab66b0823b6@kernel.org>
+ <aq2vjD_eTI3sMK91@gpd4>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-Hello!
+Hello,
 
-This series provides miscellaneous RCU updates for v7.4:
+On Fri, Sep 18, 2026 at 11:39:24PM +0200, Andrea Righi wrote:
+> Can we deliver the initial ops.set_cmask() before ops.set_weight()? Otherwise
+> set_weight() can observe an empty or stale saved mask during the initial enable.
+> This can matter if ops.set_weight() derives per-domain state from both the
+> task's weight and its allowed cids.
 
-1.	Update stallwarn.rst based on RCU Tasks Trace as SRCU.
+Yeah, makes sense. Moved ahead of set_weight() in v3.
 
-2.	fix shrink budget underflow in lazy_rcu_shrink_scan, courtesy
-	of Longlong Xia.
+> Does this break existing cid-form scheduler that implements ops.enable()?
+> If an existent scheduler moves the new prototype, does it load both with old and
+> new kernels? In theory if the new args isn't used, LLVM should eliminate it, so
+> existent BPF schedulers just need to use the new prototype and should be fine,
+> but I haven't tested it.
 
-3.	Don't panic on already-ended RCU CPU stalls.
+The cid form is still considered unreleased, so compat isn't a concern there
+yet and breaking an existing enable() is fine at this point. FWIW, I did test
+it: a two-argument enable() that doesn't touch @args never reads the second
+ctx slot and loads on the old kernel, one that reads it is rejected there
+("func 'enable' doesn't have 3-th argument"), and an old one-argument
+enable() loads fine on the new kernel.
 
-4.	Add running and boosted indications to RCU task stall dump.
+> Can we also add a small selftest comparing the mask received by enable() with
+> the immediately following set_cmask()? That would cover arena-pointer rebasing,
+> mask contents, and callback ordering.
 
-5.	Fix typo "upto" in comment, courtesy of Hemanth Selam.
+Added in v3.
 
-6.	Drop the private tick-internal.h include from tree.c, courtesy
-	of Bradley Morgan.
+Thanks.
 
-7.	Make userspace barrier hook drain kvfree_rcu work, courtesy of
-	Matthias Goergens.
-
-8.	Fix the rcuread_is_dead reference in rcuref_read() kernel-doc,
-	courtesy of Karl Mehltretter.
-
-9.	Disable callback contend/collapse messages by default.
-
-						Thanx, Paul
-
-------------------------------------------------------------------------
-
- Documentation/admin-guide/kernel-parameters.txt   |    7 +++++
- b/Documentation/RCU/stallwarn.rst                 |   22 ++++++----------
- b/Documentation/admin-guide/kernel-parameters.txt |    9 ++++--
- b/include/linux/rcuref.h                          |    2 -
- b/kernel/rcu/srcutree.c                           |    2 -
- b/kernel/rcu/tasks.h                              |   15 ++++++++---
- b/kernel/rcu/tree.c                               |    1 
- b/kernel/rcu/tree_exp.h                           |    2 -
- b/kernel/rcu/tree_nocb.h                          |    3 --
- b/kernel/rcu/tree_stall.h                         |   12 ++++++--
- kernel/rcu/tree.c                                 |   30 ++++++++++++++--------
- kernel/rcu/tree_stall.h                           |   23 +++++++++++++++-
- 12 files changed, 88 insertions(+), 40 deletions(-)
+--
+tejun
