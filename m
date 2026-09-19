@@ -1,249 +1,262 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF14938886B
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 17:12:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789837946; cv=pass; b=IRL/mwmRdZ4/QmyTcUkluyqSlc+QjG8VANcpAhL3djmthCwr7bEan30sqVeM+MiUx2vQ8BykadOEpP8Ie6JX2Qn4o1s7CJ4ga5LafAaWivM8IDjqaUAOY2EgPuPEQeuEgGAw4sTOWOKObIavzoH/eMtBQwak644smG4GuBo/5MQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789837946; c=relaxed/simple;
-	bh=cRaq2vEhqIJg0D3zpc578gLi83aQfa/KOMz4IOlLK0I=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CVjWbXm8K0pNDAXfdi3jfgQMYm9PuSt0SdZ5r4sGvnWIMMsi0j98cc6nQg5G5lvDkUECZtCRAz1cZhfZe5ys8G9Gh44p5isZc9GjXv2LK0GFIE7OM65D5sK4mgjPVwDHvA6+uY6gNg1fNz1Kp9pq7Ozpc8nMYnX2lMtNwo6A5gQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Kh9xk6aw; arc=pass smtp.client-ip=74.125.228.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D29F034107F
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 17:14:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789838095; cv=none; b=rqp0cinh36HRIrLFqU253ARIEGi9EUJoNleKX6D+bo3wcEuftKCiLFuJunoA7hogNK+s1m+e2WHzpQlYWd7jFtFOvXNXG5q2c/wwHIgl4HuhNhhxuDVW7kkpxrlX9zmwkLjLw/gkc3+9urbMg0mETXq5BDdJdLO+V0FHpP9dzcs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789838095; c=relaxed/simple;
+	bh=PGZzHUHFHYTXrrUg2O+WQoA1hsv6kLUB3pqq1Y2X5Ww=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ZyQZsEwkZhBx+Izg4edQWECXkYrrHMyIGmz4OG9ZKJYudlztW+WZIBvGfPXFFcd+n8PqU8v9TPMeko5I7VUFBRmf9vPy3SS/uwzyjTuQmtelU8HH0HKRyd/G7qcOFQOsMvQm2uDc44soXEvdCyC8i9Va27RA9/dL4wCSU+N1KJI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JXsKlzUi; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Kh9xk6aw"
-Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc1cea34ef4so1951660a12.3
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 10:12:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789837943; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OxUd1GAZ8+d6faFLM1H7YlzoMMdPV21uy+c3214zcMrWZyb6IQdkDlFaFScjhSM6+6
-         qKE0YG8Iyl7F7FmKI4zXLW10vqf7Md63E586oGmpafQMSKrArXHk2NFcM09zfnhAeaxV
-         TF85VBV90LEhRBqI2GYiARamyqXbcf3vcbWBaJLkek2FbRWVpMR+1VqhVdz1H3sYa8Zg
-         syI8VtbAvNGHVUGVG7kfQyjEdBfnq0GbEJBDrx/VlRy0U+jPVAviQs+n/ke8mYutq/Bv
-         mHQzs76q72Mxjy6fh1H+i6bO48PHdMSOxm/BgrlZrTZ+71Ufvkf8FbFtIXmeC0HlRhlY
-         xFrA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Zkr+gHgVsQMqSsPQMn8TPthwWqA+8VwSm0BAWBHSiiY=;
-        fh=un7IpUmWLMQ1fEtKUwajASTbjdWGhP/HPNHYyioCAuE=;
-        b=n4FF1NSpCRsyp0ozCI236CnT5u5SnhbgnAPyzbFFLigPGeOwgF9IWSVNewRLeMQdcv
-         DGo5QngmlFlmkcTOq1PRm6ing/JWqJECAplRT7pQDzpyp6GKISV/DvaQxJWVsVRzsuPR
-         l/TL0t2y0JCHbIvMaeFWjkIsv8PK9q7MvWA4qEsgtuU0Qb0NTtrDRXZb2MI+0oRsVMl5
-         0Yj/Gx18gkfWoqcnMmNOLadr9VOw3g7npBBBXHJYSm/iM/XOjVex4vUdTeu5ZtBq/s2k
-         U+KcfIF3JMaRFRyoP/ECCZ5cbS7LN9ymtz29YFH7+rp3imXwy0Vjl9pdYbEVIG2xsK+u
-         XXyQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JXsKlzUi"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d391aso11700275e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 10:14:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789837943; x=1790442743; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Zkr+gHgVsQMqSsPQMn8TPthwWqA+8VwSm0BAWBHSiiY=;
-        b=Kh9xk6awMQdz/8fQhuFSrok2nK81H6OrPbcIibZpn+r7sy24SnOoEsjB7QCWFnSPLq
-         0hsa+zwOFL6D2aA+5asofouYIgWpq3QrTPw7Yymat0O3NAdBvGD++XKhDoNZJ/dAkZCZ
-         YdjsxwjheA0viSEQ4w3tJfXGSZdvOW31TcdTP2dEdn2m/0an9w+Z+ScnIuGx3xHk1b3T
-         FOSc3ORg+Mox1cPRl8dRuTup5NNpvd9aodGG/lDBm30VcUmCkTxLnwRweMhFEnBKTSaM
-         02BVD26LyLdVlbwOARZD3BIvwI64aCaFySSiwGnbnlypdnnhdmd1Olfpc8BwrZtIYuWJ
-         CMaw==
+        d=gmail.com; s=20251104; t=1789838090; x=1790442890; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PO9QkOcRvzbwAD+Es+kdxYQwQzMtVSQSyoVPRMtp9qc=;
+        b=JXsKlzUiuVQ70d3qjdMMHWK2F1U5S58ajPbDMSohtnfWFbtCJYYCaZ72UjXsKIyzCo
+         0q12iZIfHv60FK6yB/rMcd79FHSLSzwL83awh9uU+QwFDhQIJ/bCIU3cXrxywPdqSPnM
+         b/olPA6H8fMEvOo3nHJderxkzxf6qaW5POrO0uO0wxrRYTgTbr3ESTXE9GQ6s3bpkkx2
+         2i1nVAWJLsx2NRwSKspdaZM4fEheb2jZ+lLwgEFuaQ2lXb8gI+qmyPTlrFOlUp9xp3ib
+         B0vLkkFd3qbnXG65SWnwmPTRYE4pGHNaoutWKFBuAM7GvYySQJC60rhuYB/ZTVfLaLt9
+         lT4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789837943; x=1790442743;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Zkr+gHgVsQMqSsPQMn8TPthwWqA+8VwSm0BAWBHSiiY=;
-        b=oyzxlJiIY9da7ViX1bO4X/xmu7oSr4PouRnyq8OGZmlqoFC+cQOQwllMcv/IJNXDQs
-         HEdfuP1+CHtVtmXQC9y3UEPGs6S/mc/ZRdwNeBdGTHXRcOb2ucSMNexEvRgbmmV0Phne
-         VHVhqbcXTfZhy0SQbQqj7AUB22OthHZNzW4Orh3tbHAIbRHTJKdGph7mhICd8yA4J+S5
-         IX3tLehPKPMtENHmfy+r23zaDatjPDqXYd8Rl/rxUXudLOZE/1EsUs3GqJj9kJHhLph+
-         1LpHafST5xkcWtMQy5YJQXq3uT0rp2PmYgwzPVTf+5dn+9Gw9xcIuZsNr4VAsnIO1zJf
-         b6QQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzzl/G383d+1rm4JoP/8gzGfWFBCP1DLlEMDgvS+5HtoanU+5gpwU94Bv9rULPXTLeMHKgr4UXpISVxnV0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nLraS6UPsNIjX9306J0PyEPX0z3j4/3MTO6//0uMFUS8Js45Y/
-	Lo9eHkHGsJvipodKxutFlpaZZCpTozR9hQi4SbeL+cm7Akx97j85SpS6HYfe2O8PTx5s3iUle+Y
-	B15WkAVwKeMJotObGuVezAQIgR0FduPM=
-X-Gm-Gg: AYBFou2sZl+fk/gP7iBhJVqyo4Rf2dCRhFBa/oGI+XoPJs0dSYNCi/wg9lHnBiMNARF
-	ekhJn39faWkZ0xrRf3Iw34DIkIyJxZ0frr2WuN+fPGzDGo+4bkz/vEojO8MxjHTFbdu13jgIFny
-	55BDEY6c6UXwoq0bfwNY6zTd9tsCbauSL0FNgK/NzxrNvFsg4r5Z1AEZ3Yaf+nKIScWrc9fs27C
-	N/jh4CxvgHUHYIpQYXSwkth7Vu3NWWAQVDMoJp1JswByVP17aqFELkaQjmU817oZQh1Lq70bTzS
-	prrqkDnbdRTXMKIlzaJl6+YUnkFdLK5CrpziSTwSOIFqxwFOQWeweBvlOmyt5WOThEfHTFNdSC7
-	DdJkny1BmU+df
-X-Received: by 2002:a05:6300:6d86:20b0:3dd:a197:edfb with SMTP id
- adf61e73a8af0-3dda197f7f5mr2879544637.74.1789837942974; Sat, 19 Sep 2026
- 10:12:22 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789838090; x=1790442890;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PO9QkOcRvzbwAD+Es+kdxYQwQzMtVSQSyoVPRMtp9qc=;
+        b=dQb11+J4hdSF5Q8Z020bqh8+0aQ9ncaCH9Rab3iXsyIU/1xKYfmNfHTv3BCfdySZnu
+         jjiuTy4aMsNu/o7c6CPoYhadiihvPxj/rIdWWKwL2ipJE9yiMA5I53W0GzZgRUEee39V
+         RBXRUEiz3dqAFMNRB5pc04vCmjarRKWmRU2NJ6aRsPFt83cNRajBJrOyxazcpLbTT88y
+         0OOHN79lq2IRQVSZ9gd+1aZ9yfkVtvYT3EPhAgkYemtmVfD4RSaEiIIBSKgL5hLt/f82
+         JzBGhb0H9dNLzMN/mNsjib2ntNQOPfjwCypEIkeHWfmU/1T7XApV/viT0ur9YjaADa8t
+         S2Dg==
+X-Forwarded-Encrypted: i=1; AKwUvBwuIZiCZ2UmF/pMpTDy3GN3lQcYjbHDvT6hY+r9ecIWWiDi0qbB9/jzT/E8jUIu7WT0zh08A6x68jVqdv8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mdiHANwwTWWe74FbX/uPzGWbHrFdD1pQCkSXSTKz70MBQ587No
+	3PbViyxQZr1hF0OwRaeNIHlRwWWO+RunXJnEh9F+V+V3JV5xROQImrqR
+X-Gm-Gg: AYBFou0ld/OMajwEkCj98WWw6zoPsB6WM6T2nMBqw9Tf8WQjXfvs4HaqXqFgiWBsq0T
+	1GqLV8TXt56LbOYiVzw21jjiy2r62BHoUSD6xj3/6bylRKEqYh/K4OIrNKsLWhDgFJbmAZnVdyH
+	AF1D+mgQvOQQxoO2/tx+0OaZyIKQPXPH4hlv/a71EY7LUjLaR56xD17VtWqN6CTjzT8mtN7g44H
+	uknwr8jPrMm/GLjnsq67Eku9sql93NsvU+xfULfBz2IypQ8oNhrKd1juRAX1UyXySslmPwUsoJi
+	5rdaA3acd/jGhOviixcBtaN5rMUfygS4bXnnP5Gojmaw60usDqKchz0htbWQHT7X9uoRREQWtx+
+	rx2+trtJbeCDwwNRU+C26E8JJRUy5kcaejUuSJIbRdxrFFGMQriMmjOin4KdVnpq9cROLPHgAfH
+	BcGE6tduZ0JeyWMZalEKOdWi9U8jAugsWYiCC4SZKPg9nC93miBG0YzNrj7ZTGat5pjSq8Mr5ob
+	E+7YGwsfCOIxO0k8wMRlNKgjXR2zimbe72Ixiw/yiMfU4NBU3Mb5O7lkVTweQaEDfn49fe+fWvd
+	81LvKCBmFjEmqbma7xbQRWiQhzabx42aaR9pEtcvL57Jn2tWhAo45DgUFHHFYQRwVZA8IFVZNWK
+	NCdC9c9wj8J0DLMk=
+X-Received: by 2002:a05:600c:468c:b0:49f:c331:39e4 with SMTP id 5b1f17b1804b1-49fc5671095mr87272955e9.7.1789838089820;
+        Sat, 19 Sep 2026 10:14:49 -0700 (PDT)
+Received: from MacBook-Pro-von-Karl.localdomain (dynamic-2a02-3100-a017-2b01-05fe-203b-7cd2-a640.310.pool.telefonica.de. [2a02:3100:a017:2b01:5fe:203b:7cd2:a640])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-487244608e7sm8986486f8f.6.2026.09.19.10.14.48
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 19 Sep 2026 10:14:49 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Vlastimil Babka <vbabka@kernel.org>,
+	Harry Yoo <harry@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Alexei Starovoitov <ast@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Hao Li <hao.li@linux.dev>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Brendan Jackman <jackmanb@google.com>,
+	Amery Hung <ameryhung@gmail.com>,
+	Swaraj Gaikwad <swarajgaikwad1925@gmail.com>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	linux-mm@kvack.org,
+	bpf@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH] mm: restrict can_spin_trylock() to preemptible context on PREEMPT_RT
+Date: Sat, 19 Sep 2026 19:14:43 +0200
+Message-Id: <20260919171443.90512-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260919162709.314464-1-ngocthang2710.1999@gmail.com> <20260919170212.GE1124359@killaraus.ideasonboard.com>
-In-Reply-To: <20260919170212.GE1124359@killaraus.ideasonboard.com>
-From: =?UTF-8?B?Tmfhu41jIFRo4bqvbmcgTmd1eeG7hW4=?= <ngocthang2710.1999@gmail.com>
-Date: Sun, 20 Sep 2026 00:12:11 +0700
-X-Gm-Features: AcwNN1W-B3cTpGZCyYckGIVLyhbtuqqArj7ZLsBYFmrIcOznLZNL1MJHrookzjk
-Message-ID: <CANfSzAtc0O0qfa0GmzdpnuT6Dn0sxGjhfpW333asYS=Le553sg@mail.gmail.com>
-Subject: Re: [PATCH] media: v4l2-subdev: fix NULL deref in subdev_open()
- racing with unbind
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	syzbot+74de6401dbdd377b5746@syzkaller.appspotmail.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Laurent,
+On PREEMPT_RT kmalloc_nolock() deadlocks the machine when the caller
+holds a pi_lock. A BPF program which creates task local storage from
+the sched_waking tracepoint is enough. With it mainline hangs in 10 of
+10 boots on a Raspberry Pi 500+ and in 7 of 28 boots in a 4 CPU x86-64
+QEMU guest. The CPUs spin on raw locks with interrupts disabled and
+there is no output.
 
-Fair point. The patch only narrows the window: sd can still be
-unregistered right after the mdev check, before internal_ops->open() runs,
-so the race between v4l2_open() and v4l2_device_unregister_subdev() is not
-actually closed.
+sched_waking fires in try_to_wake_up() with p->pi_lock held.
+can_spin_trylock() refuses only NMI and hard interrupt context on
+PREEMPT_RT, so kmalloc_nolock() does spin_trylock_irqsave() on
+n->list_lock, which is a sleeping lock. Two things go wrong:
 
-What I see (syzbot repro, vimc bind/unbind vs. open of /dev/v4l-subdevN):
-v4l2_device_unregister_subdev() clears sd->v4l2_dev and the entity's mdev
-before video_unregister_device() on the node, while v4l2_open() only checks
-video_is_registered() without any lock held across fops->open().
+ - rt_spin_trylock() takes the rtmutex wait_lock under the pi_lock. A
+   regular kmalloc() on another CPU holds wait_lock and takes a
+   pi_lock in try_to_take_rt_mutex().
 
-How would you prefer this to be fixed? For example:
-  a) unregister the devnode first in v4l2_device_unregister_subdev(),
-     and make open/unregister mutually exclusive somehow, or
-  b) something else you have in mind.
+ - If the trylock succeeded and a waiter arrived, rt_spin_unlock() has
+   to wake it. That is a try_to_wake_up() inside try_to_wake_up():
 
-Happy to rework it and test with the reproducer.
+     try_to_wake_up               raw_spin_lock_irqsave(&p->pi_lock)
+     rt_mutex_slowunlock
+     rt_spin_unlock
+     spin_unlock_irqrestore(&n->list_lock)
+     get_from_partial_node
+     ___slab_alloc
+     __kmalloc_nolock_noprof
+     bpf_local_storage_alloc
+     ...
+     bpf_trace_run1
+     try_to_wake_up               sched_waking, a pi_lock is held
 
-Thanks,
-Nguyen Ngoc Thang
+   The pi_lock held there belongs to the woken task, not to current.
 
-V=C3=A0o CN, 20 thg 9, 2026 va=CC=80o lu=CC=81c 00:02 Laurent Pinchart
-<laurent.pinchart@ideasonboard.com> =C4=91=C3=A3 vi=E1=BA=BFt:
->
-> On Sat, Sep 19, 2026 at 11:27:09PM +0700, Nguyen Ngoc Thang wrote:
-> > subdev_open() dereferences sd->v4l2_dev->mdev and then
-> > sd->entity.graph_obj.mdev->dev->driver->owner. v4l2_open() only checks
-> > that the node is still registered, while
-> > v4l2_device_unregister_subdev() clears sd->v4l2_dev and the entity's md=
-ev
-> > before it unregisters the node. Opening a sub-device node while the
-> > driver is being unbound (e.g. vimc through sysfs) can therefore see a
-> > NULL entity mdev, or a NULL dev->driver once remove() has finished, and
-> > oops:
-> >
-> >   Oops: general protection fault, probably for non-canonical address 0x=
-dffffc0000000000
-> >   KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007=
-]
-> >   RIP: 0010:subdev_open+0x193/0x510 drivers/media/v4l2-core/v4l2-subdev=
-.c:115
-> >   Call Trace:
-> >    v4l2_open+0x1d2/0x490 drivers/media/v4l2-core/v4l2-dev.c:433
-> >    chrdev_open+0x234/0x6a0 fs/char_dev.c:411
-> >
-> > Read the entity's mdev once and treat NULL as "no media device". Take
-> > the driver module reference under device_lock(), which is what unbind
-> > holds while it clears dev->driver, and fail with -ENODEV if the driver
-> > is already gone.
-> >
-> > Reported-by: syzbot+74de6401dbdd377b5746@syzkaller.appspotmail.com
-> > Closes: https://syzkaller.appspot.com/bug?extid=3D74de6401dbdd377b5746
-> > Fixes: 218bf10e39ed ("media: v4l2-subdev: handle module refcounting her=
-e")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-> > ---
-> > Root cause
-> >   v4l2_open() checks video_is_registered() and then calls subdev_open()=
-.
-> >   v4l2_device_unregister_subdev() clears sd->v4l2_dev and the entity's
-> >   graph_obj.mdev *before* video_unregister_device() on the node, so an =
-open
-> >   in that window sees a NULL mdev. After remove() returns, dev->driver =
-is
-> >   also NULL. subdev_open() dereferences both unchecked (v4l2-subdev.c:1=
-15).
-> >
-> > Fix
-> >   Snapshot entity mdev once (NULL =3D=3D no media device), and take the=
- driver
-> >   module reference under device_lock(dev), the lock unbind holds while =
-it
-> >   clears dev->driver; return -ENODEV if the driver is gone. Errors go
-> >   through the existing "err" label.
-> >
-> > Testing (QEMU x86_64, KASAN, vimc built in, syzbot's C reproducer:
-> > 16 threads opening /dev/v4l-subdevN vs. one thread doing vimc bind/unbi=
-nd,
-> > vivid.n_devs=3D1 to avoid minor exhaustion at boot):
-> >   before: 32 x "RIP: subdev_open+0x193/0x510" GPF (same as syzbot repor=
-t)
-> >   after : 0 oopses, 0 KASAN reports, reproducer runs to completion
-> >   (checked with 1 ms and 30 ms bind/unbind period)
-> >
-> > Unrelated finding (not addressed here)
-> >   If the sub-device node registration in vimc_probe() fails (e.g.
-> >   "videodev: could not get a free minor"), the error path in
-> >   vimc_register_devices() frees the entities and then
-> >   v4l2_device_unregister() hits a slab-use-after-free. Easy to trigger
-> >   with the same reproducer if minors are exhausted. I'll look at it
-> >   separately.
-> >
-> >  drivers/media/v4l2-core/v4l2-subdev.c | 20 ++++++++++++++------
-> >  1 file changed, 14 insertions(+), 6 deletions(-)
-> >
-> > diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2=
--core/v4l2-subdev.c
-> > index e9f81b9be9e2..cec63694a658 100644
-> > --- a/drivers/media/v4l2-core/v4l2-subdev.c
-> > +++ b/drivers/media/v4l2-core/v4l2-subdev.c
-> > @@ -97,6 +97,7 @@ static int subdev_open(struct file *file)
-> >       struct video_device *vdev =3D video_devdata(file);
-> >       struct v4l2_subdev *sd =3D vdev_to_v4l2_subdev(vdev);
-> >       struct v4l2_subdev_fh *subdev_fh;
-> > +     struct media_device *mdev;
-> >       int ret;
-> >
-> >       subdev_fh =3D kzalloc_obj(*subdev_fh);
-> > @@ -112,15 +113,22 @@ static int subdev_open(struct file *file)
-> >       v4l2_fh_init(&subdev_fh->vfh, vdev);
-> >       v4l2_fh_add(&subdev_fh->vfh, file);
-> >
-> > -     if (sd->v4l2_dev->mdev && sd->entity.graph_obj.mdev->dev) {
-> > -             struct module *owner;
-> > +     /* Unregistration clears the entity's mdev without waiting for op=
-en. */
-> > +     mdev =3D READ_ONCE(sd->entity.graph_obj.mdev);
-> > +     if (mdev && mdev->dev) {
-> > +             struct device *dev =3D mdev->dev;
-> >
-> > -             owner =3D sd->entity.graph_obj.mdev->dev->driver->owner;
-> > -             if (!try_module_get(owner)) {
-> > +             /* Unbind clears dev->driver under the device lock. */
-> > +             device_lock(dev);
-> > +             if (!dev->driver)
-> > +                     ret =3D -ENODEV;
-> > +             else if (!try_module_get(dev->driver->owner))
-> >                       ret =3D -EBUSY;
-> > +             else
-> > +                     subdev_fh->owner =3D dev->driver->owner;
-> > +             device_unlock(dev);
-> > +             if (ret)
-> >                       goto err;
-> > -             }
-> > -             subdev_fh->owner =3D owner;
-> >       }
->
-> This seems the kind of completely wrong fix that would be generated by
-> an LLM.
->
-> >
-> >       if (sd->internal_ops && sd->internal_ops->open) {
->
-> --
-> Regards,
->
-> Laurent Pinchart
+Commit 99a3e3a1cfc9 ("slab: fix kmalloc_nolock() context check for
+PREEMPT_RT") closed this for v6.19 with a !preemptible() check.
+v7.0-rc1 relaxed it again, see the Fixes tag.
+
+Allow preemptible context only, as v6.19 did. A held raw spinlock
+implies !preemptible(), so the locks of the caller do not have to be
+known. With this change both machines pass 10 of 10 boots.
+
+The nolock allocations then fail on PREEMPT_RT from every context with
+preemption or interrupts disabled, also where no scheduler lock is
+held. Creation of BPF local storage from such a context fails, as it
+did in v6.19.
+
+Fixes: 073d5f156292 ("slab: simplify kmalloc_nolock()")
+Assisted-by: LLM
+---
+
+Notes:
+    RFC because I do not know if that last paragraph is acceptable for
+    BPF. 073d5f156292 relaxed the check on purpose.
+    
+    Harry wrote that the _nolock() helpers can be called under pi_lock at
+    least in theory, that it was tough to reproduce, and proposed a check
+    of current's pi_lock:
+    https://lore.kernel.org/r/apfwshahN_C6jBSn@nixos
+    https://lore.kernel.org/r/apfyeYF8IE03aazT@nixos
+    That check would not see the pi_lock in the stack above. Sebastian
+    described the wait_lock and pi_lock order here:
+    https://lore.kernel.org/r/20260831143500.x-saxdAs@linutronix.de
+    
+    Same config, program and load for all rows. x86-64 QEMU (TCG), 4 CPUs,
+    PREEMPT_RT, no lockdep, 60 seconds of load per boot:
+    
+      v6.18                                  10 pass,  0 hang
+      parent of f484f4a3e058                 10 pass,  0 hang
+      f484f4a3e058                            0 pass, 10 hang
+      v6.19                                  10 pass,  0 hang
+      parent of 073d5f156292                 10 pass,  0 hang
+      073d5f156292                            0 pass, 10 hang
+      mainline 40288c9206c1 (v7.3-rc3)       21 pass,  7 hang
+      mainline with this change              10 pass,  0 hang
+    
+    f484f4a3e058 ("bpf: Replace bpf memory allocator with kmalloc_nolock()
+    in local storage") made the path reachable.
+    
+    Raspberry Pi 500+, arm64 defconfig plus PREEMPT_RT, same mainline
+    commit: the output stops 1 to 2 seconds after the load starts. 4 of the
+    10 boots were then reset by the hardware watchdog. The other 6 made no
+    more progress but still answered ping.
+    
+    The stacks are from gdb on the hung QEMU guests, I have none from the
+    Pi. gdb does not unwind through the JITed program. The frames below it
+    are from a raw dump of the stacks. In that capture three of four CPUs
+    wait like this for the pi_lock of the same task. The first case looks
+    like this, two CPUs from the BPF program against one regular kmalloc():
+    
+      rt_mutex_slowtrylock           raw_spin_lock(&lock->wait_lock)
+      rt_spin_trylock
+      spin_trylock_irqsave(&n->list_lock)
+      get_from_partial_node
+      ___slab_alloc
+      __kmalloc_nolock_noprof
+    
+      try_to_take_rt_mutex           raw_spin_lock(&task->pi_lock)
+      rtlock_slowlock_locked
+      rtlock_slowlock
+      rt_spin_lock
+      spin_lock(&n->list_lock)
+      get_from_partial_node
+      ___slab_alloc
+    
+    With lockdep and DEBUG_RT_MUTEXES the same program gives "possible
+    circular locking dependency detected" for wait_lock and pi_lock on the
+    first event.
+    
+    The program:
+    
+      struct {
+    	__uint(type, BPF_MAP_TYPE_TASK_STORAGE);
+    	__uint(map_flags, BPF_F_NO_PREALLOC);
+    	__type(key, int);
+    	__type(value, long);
+      } per_task SEC(".maps");
+    
+      SEC("tp_btf/sched_waking")
+      int BPF_PROG(on_waking, struct task_struct *p)
+      {
+    	struct task_struct *cur = bpf_get_current_task_btf();
+    	long *v;
+    
+    	v = bpf_task_storage_get(&per_task, cur, 0,
+    				 BPF_LOCAL_STORAGE_GET_F_CREATE);
+    	if (v)
+    		bpf_task_storage_delete(&per_task, cur);
+    	return 0;
+      }
+    
+    The delete only makes every event allocate again. The load is a few
+    loopback ping floods, tmpfs and block writes, /proc walks and fork/pipe
+    loops, so that list_lock sees contention. The program is more
+    aggressive than a real tool and the load is synthetic.
+    
+    can_spin_trylock() is also used by the page allocator. Its nolock free
+    paths fall back to their deferred lists. I did not test those
+    separately. Kernels before v7.3-rc1 have no can_spin_trylock() and need
+    the check in kmalloc_nolock() instead.
+
+ mm/internal.h | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/mm/internal.h b/mm/internal.h
+index 38b1165212c94..29646c4afb419 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -1641,10 +1641,14 @@ static inline bool can_spin_trylock(void)
+ 	 * confuse PI logic, so return immediately if called from hard IRQ or
+ 	 * NMI.
+ 	 *
+-	 * Note, irqs_disabled() case is ok. spin_trylock() can be called
+-	 * from raw_spin_lock_irqsave region.
++	 * Task context with a raw spinlock held is not safe either. The
++	 * caller may hold a pi_lock, like a BPF program on a tracepoint in
++	 * try_to_wake_up(). rt_spin_trylock() takes the rtmutex wait_lock
++	 * and can take a pi_lock under it. rt_spin_unlock() wakes a waiter
++	 * if there is one, which takes a pi_lock again. The locks held by
++	 * the caller are not known here, so allow preemptible context only.
+ 	 */
+-	if (IS_ENABLED(CONFIG_PREEMPT_RT) && (in_nmi() || in_hardirq()))
++	if (IS_ENABLED(CONFIG_PREEMPT_RT) && !preemptible())
+ 		return false;
+ 
+ 	/* On UP, spin_trylock() always succeeds even when it is locked */
+
+base-commit: 40288c9206c17eb66a603262e06a58d300d0f279
+-- 
+2.53.0
+
