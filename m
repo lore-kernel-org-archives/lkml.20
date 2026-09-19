@@ -1,256 +1,173 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A44B3DE452;
-	Sat, 19 Sep 2026 09:00:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78CE63F4122
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 09:03:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789808426; cv=none; b=ZewrZ5K3R5KSd6H40LrJKw3GX6TKX84TwblThzFacJBx6DnbxiHqle9A2ffWCbTs+9kXpEvo3uxYteDh1UwDyynGgBq8f8OUBCv3dnGUdEhAScekJ8n9cJZ54kjcDbNwhkynPlzwQKvQAaxWNGxpdq5mbYAPBH6uXAFHh+rxXK0=
+	t=1789808604; cv=none; b=VPC7XUvCF5so5ghsnpVdHKIsvkG4TSlP+fB7dFbQ74wJXSaEpL0nP5SIt8359/OaX5BeDxgpvF3DUYBAWNiDVhjokp0O20QsUagWMK44SNk0XqcTN4fJdnrBSWwoVdDPdit4TUnIjb6My8JaF3A8vyIMFfRcgOEFIr11wBwLhMY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789808426; c=relaxed/simple;
-	bh=eX+GuCEFGKiX/c+pP02QMS4DJeiqukE1iYZOhakal7w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nRwy+w4QP6QK39i8c5oT3YtCAfNWAVXElcElxpR8PaQiATLUd01XpbMQE0QhTp42U+vyueHjTuI44cq6Bcwuzx0QznUD0s9vYKOD07n24mDrOd4MewUcoG+c/Sgg4cDOOMCIAmoTrdEOq5fwL9e2DKIiku6z+/CtOE9I7RFQeiE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ibm.com; spf=pass smtp.mailfrom=ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=rFzzeqAh; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ibm.com
+	s=arc-20240116; t=1789808604; c=relaxed/simple;
+	bh=melq5UXdrQWJJ2k0jZPaqw8rThkFHS1ZvrDkkHIBXg0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=a+dIlMtl5ubtIxr9NKItwkKuQnRXRpBj0VNOGChPQmzx6Y7Tv1tYv0SHnWKQQ7p1zJ7ZcVB2VdP6COWqaHim++TsQApBXtAw3TDH6JJAOtln6A54wOzgXz86HziwdYZaMWLIX1fHXiW9z+2nFgPncaQM4l8MCAjLPU6yF3pifU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fnopmVHm; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="rFzzeqAh"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68J75VL63331651;
-	Sat, 19 Sep 2026 09:00:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=0Xaks4
-	xNJdIstXbVmfi6R5OkPxFifTAt3YNQLEMR7iQ=; b=rFzzeqAhEAsq2zl0U1TWkk
-	4GaeqjlbXuApmGmaiT/f7osX2kA5Af2BRqpEPFOojof2rRSPzAo3xgtfFGBMbbVK
-	J+omGGTRH5pzmTWfsZv969FIssg7HXocKzb5UwWBZ7qIZ+9TTcvpAP0Ca0gKeUNh
-	dpgwCXentca7k7pvclX7HJXU6HR0A17gkM3u7yEBXmRrlclTfPBhT3u74hrGEEnG
-	ihJ4lOYucOTv3cs/+IVNyr9ft5xzo0+eGEycOwHiPZVaMoZGkX96TKRdd6q1sB6H
-	Tw7u3OQtEw6XpD69GKch+Mx1SKIOUQpaCQIh50hiGS8qZLHEFQuzPph7DevtyeQA
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gske10n4j-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Sat, 19 Sep 2026 09:00:00 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68J6lZok2008179;
-	Sat, 19 Sep 2026 09:00:00 GMT
-Received: from smtprelay03.dal12v.mail.ibm.com ([172.16.1.5])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gsk3ggpqs-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sat, 19 Sep 2026 09:00:00 +0000 (GMT)
-Received: from smtpav02.wdc07v.mail.ibm.com (smtpav02.wdc07v.mail.ibm.com [10.39.53.229])
-	by smtprelay03.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68J8xxfu17957610
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Sat, 19 Sep 2026 08:59:59 GMT
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E6A685805C;
-	Sat, 19 Sep 2026 08:59:58 +0000 (GMT)
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 4CB5D58058;
-	Sat, 19 Sep 2026 08:59:54 +0000 (GMT)
-Received: from [9.61.240.148] (unknown [9.61.240.148])
-	by smtpav02.wdc07v.mail.ibm.com (Postfix) with ESMTPS;
-	Sat, 19 Sep 2026 08:59:53 +0000 (GMT)
-Message-ID: <edbbfb46-53c7-4fc2-b9ea-c0676479fc47@ibm.com>
-Date: Sat, 19 Sep 2026 14:29:51 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fnopmVHm"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccda24afso1178355a91.3
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 02:03:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789808601; x=1790413401; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5QaSNMO0uUfr1zM6qLt8sUm63zuw2vovwqSO29roHTM=;
+        b=fnopmVHmakt4o7P5cYEQt9v9bfEFoC/xmCkEwMkpgb7YQw1v6jr1FFyK5stczEETDn
+         /bMp2eHc8aI4BzKaRG+5XFLk1NeSzNcZLyDv2bmIUWZ/1K85eB969wEW3AknO8bUoxI2
+         ZJds3DCKE7MXZfE3y1DQqRviEaVwppM06cDi0ZBqQx2ZJRb2deeCye+BxKTSTIHfPeCd
+         9Obs4Pgaxj1ura1WYsyuImTUpLjLklKkr+7FAoTLdgruIZJ8No+funLRmaPrOPnuRiHF
+         Xu9mNfcJ8+XWtYXSJT/MITBsFbpWpbNTXIPRSBYIwBhL+PVP2f4dfxCRR2D0sf54cu1l
+         I+QA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789808601; x=1790413401;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5QaSNMO0uUfr1zM6qLt8sUm63zuw2vovwqSO29roHTM=;
+        b=CfmSRScSuuJ6dbLV+hTK0I2V1yREnyM/j+7qiXAa1oUMk7sy40GH+Vu9DANBcqdgbp
+         xX2Cfb2EFrXaKErL6hN6IFudoIoANvPQNN5GxZ3yqfynVmbjRIJTEwH7YNFeHx4hnHaW
+         2rlnSELqaWfr3bAexoNyLdlt7qkSqV7n5TA//VkMgjx3LRwSPMDw4mU2gMk2Ruln+3RA
+         uNEnzHo3M7iKo7R1MC6H7S5qcxVJD2aZXxPo/CO+7E3PigqSLvZJVmKQy7aw+V1DfaYa
+         BB1CkaEx8aFVF6cUg9S6ydGl2SqDQYfEVfZ1Mt+x/YHZSmuyQUIGU48O0jxEnmJW/g0j
+         4K6g==
+X-Forwarded-Encrypted: i=1; AKwUvByZILsUzyx8hjty0ksrVRIZ+Hfj1zNq691NABG2QQ9fuHUbojnGgU8DugWNKSDrohJf7AcxP+DcbxN2TTc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lnotX8018YCSQFc8y5bpDQTtDw22cQu7lx+PU4bXYfFmtDzM5M
+	auUT3e5HR0Yzjru+OWDrLQx2x3Vp1APF4wDM7Xphkg0mQdfPM5OtuYai
+X-Gm-Gg: AYBFou0BEyKz7PFjOXvWWr3vbCFaql73EMhvgqxw+ETIz3KZBsPQ1StCdJwNGixvdmp
+	QxCLzF520GQLIR7CY8W3dBwoLtOdQAHFi8w0g9y7a4zO5nBt/KOU78n/+FJniXSwDVABqeLtNWL
+	VJkLc18dOJqlNslAQ+kxzD2mr467QHFOetQqGrzr0WqJq7lavUW05fpxc0BPFmoLCUrdP6O8jDj
+	a7MMhheSqn9C/VYIsNz2oTepPExOTRRmISbL2iSM3Yv2lzt062Au5gzptioUwhTleNpaDimbHu0
+	TDy64V1wZVsUIgW7IwQK8b9nDGkVC2vtGJ0pRlNcztKW82gVz6MyxQrTyRen62JDjqaW6nj6MGG
+	+BC7NM2VexMkgHQm7vemmv3yZc5BtgMFOOOk0Hwgab8YhevvGd+4cK+EXnlPnprKTMPNczov3mi
+	kZO22URk464Y3VebxD5rKh+KzF+aeGmxMkWIKD1MUm6wtOiR8fuCTNtMG9+qIXmTNAXyOV4gaHK
+	929CHe2VbJKZ1uEeHKRrhesH1KImHLfDVBJO1AE6yBQ7ylONvWdGXaNwmfJMEbdKqqaDt0HqScA
+	zkmBYdhlc/E=
+X-Received: by 2002:a17:90b:2686:b0:39e:6a81:c91e with SMTP id 98e67ed59e1d1-39e6a81c997mr5758631a91.17.1789808601184;
+        Sat, 19 Sep 2026 02:03:21 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6cae997csm3563781a91.11.2026.09.19.02.03.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Sep 2026 02:03:20 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: Christian Brauner <brauner@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Russell King <linux@armlinux.org.uk>
+Cc: Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hui Peng <benquike@gmail.com>
+Subject: [PATCH] adfs: validate bigdirobnamelen in adfs_fplus_getnext()
+Date: Sat, 19 Sep 2026 09:03:19 +0000
+Message-ID: <20260919090319.3238583-1-benquike@gmail.com>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/3] KVM: selftests: add powerpc support
-To: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, kvm@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>,
-        Paolo Bonzini <pbonzini@redhat.com>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        Christophe Leroy <chleroy@kernel.org>,
-        Anushree Mathur <anushree.mathur@linux.ibm.com>,
-        Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
-        Harsh Prateek Bora <harshpb@linux.ibm.com>,
-        Claudio Imbrenda <imbrenda@linux.ibm.com>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Shrikanth Hegde <sshegde@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
-        linux-kernel@vger.kernel.org
-References: <cover.1789097569.git.ritesh.list@gmail.com>
-Content-Language: en-US
-From: Anushree Mathur <anushree.mathur2@ibm.com>
-In-Reply-To: <cover.1789097569.git.ritesh.list@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: nbyZhj10j4HSmrVirrZNE6vYozTVfAlN
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE5MDEyMiBTYWx0ZWRfXxHeZ/+jmKAxM
- TnHQO+FYUGAQisd8y/YAHMCF+AnkWE/Hn3MYQOlLLQ/0fNJmZs7zzkYc54A0y9xoYQs+5DJBAHo
- t/Fx48Qk9J8zM7F6kNdSGQ5JqCDs7xiR96NMkJgLvTikLJka8PHvu6EXp1L8GZgO8zR98m2cgTX
- raOh09zdwtzxRvS6hdCKBAXCjfWsU/h1AbvrgXY4oPkR5wrRkKM6fE0fdUMWF1lMi0kKhBDDKVv
- r7bVE78ZCGn+oq/E6Osov7skyp1pLhpA1qRgcSiwm7I0e17VWKslyDyvWEcTdMwPpQjGa81VU1w
- I/2AvDjza84607aNlslcnNhYHLWXXxA7kStfk+OIoCDbIfZMu3BcjgTYrmdOu06aXcGR4NZRZyy
- jkj2smXFtu5BQn3q232wTc2gnrfCG0UuZdK5RBq3ce8o9a3V3uxeAoCc1suyYD6NMz49fZ0+PQn
- M88URShiUyFA9IlQePw==
-X-Authority-Analysis: v=2.4 cv=O/KsLx9W c=1 sm=1 tr=0 ts=6aae4f11 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8
- a=1XWaLZrsAAAA:8 a=pGLkceISAAAA:8 a=VnNF1IyMAAAA:8 a=slw3on1wiaYrNECQpKkA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE5MDEyMiBTYWx0ZWRfX9+bf4muBJ1HJ
- u7hAP0Qz9BFYBzr8+Qd6F6QBXyuVoRIM/PyXz1mxxI6LUCGYcKg9hsxX9i+cDWzKUJO9epQ4Olq
- VcJnLlIGu9WM1dDLwVbD+/DxYtmdLf8=
-X-Proofpoint-GUID: BlFKGXdZLDZzyN2VUSB3kEmvHnNTbQy8
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-19_02,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 malwarescore=0 phishscore=0 impostorscore=0 suspectscore=0
- bulkscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609190122
 
+adfs_fplus_getnext() reads the directory entry name length straight from
+the on-disk F+ big directory entry:
 
-On 11/09/26 10:18 AM, Ritesh Harjani (IBM) wrote:
-> PATCH v3 -> PATCH v4:
-> ==================
-> - Rebased on top of Sean's new page allocator patch series v2 [1]
->    This allowed to drop and patch-2 since it will now come from Sean's
->    v2.
-> - Addressed review comments from Sean - squashed patches 6-10 in patch-1 of
->    this.
-> - Dropped patch-5 to print vcpu_id when KVM_CREATE_VCPU ioctl fails.
-> - Added additional patch-3 to this series to allow dirty_log_test to run on all
->    big-endian machines.
->
-> [1]: https://lore.kernel.org/kvm/20260902164123.2546762-1-seanjc@google.com/
-> [v3]: https://lore.kernel.org/linuxppc-dev/2d2c46be7f051c7f1c645afaec67f57067d37a81.1781093720.git.ritesh.list@gmail.com/
->
-> Testing updates:
-> ================
-> I have done some fair amount of testing of the selftests both on real HW and
-> using various combinations on qemu (powernv+LE (default), pseries+cap-nested-hv,
-> pseries+cap-nested-papr, powernv+BE). There were few powerpc kvm kernel fixes
-> which were identified as part of this work. I will send those patches separately
-> as those anyway needs to go in separately.
->
-> <pasted snippet of cover letter from previous versions>
-> =======================================================
->
-> Hi All,
->
-> This series primarly adds KVM selftests support for powerpc (64-bit, BookS,
-> radix MMU).
->
-> This patch series is originally Nick's work. I have mainly only rebased it on
-> the latest upstream tree. Since the rebase required few changes to all the four
-> patches (Patch 1-4), I have dropped the earlier Acked-by from Michael Ellerman.
->
-> Since the last series was posted three years ago [1], I am resetting the version
-> to RFC. This rebase was done as part of a larger effort to improve the selftests
-> infrastructure for Linux on PowerPC tree. Thanks to Harsh and Maddy for their
-> help on this.
->
-> Nicholas Piggin (1):
->    KVM: PPC: selftests: add support for powerpc
->
-> Ritesh Harjani (IBM) (2):
->    KVM: PPC: selftests: powerpc enable kvm_create_max_vcpus test
->    KVM: selftests: Use LE bitops for dirty bitmaps on all big-endian
->      hosts
->
->   MAINTAINERS                                   |   2 +
->   tools/testing/selftests/kvm/Makefile          |   2 +-
->   tools/testing/selftests/kvm/Makefile.kvm      |  10 +
->   tools/testing/selftests/kvm/dirty_log_test.c  |  12 +-
->   .../testing/selftests/kvm/include/kvm_util.h  |   9 +
->   .../selftests/kvm/include/powerpc/hcall.h     |  17 +
->   .../kvm/include/powerpc/kvm_util_arch.h       |  22 +
->   .../selftests/kvm/include/powerpc/ppc_asm.h   |  32 ++
->   .../selftests/kvm/include/powerpc/processor.h |  39 ++
->   .../selftests/kvm/include/powerpc/ucall.h     |  21 +
->   .../selftests/kvm/kvm_create_max_vcpus.c      |   8 +-
->   tools/testing/selftests/kvm/lib/guest_modes.c |  20 +-
->   tools/testing/selftests/kvm/lib/kvm_util.c    |   8 +
->   .../selftests/kvm/lib/powerpc/handlers.S      |  93 ++++
->   .../testing/selftests/kvm/lib/powerpc/hcall.c |  45 ++
->   .../selftests/kvm/lib/powerpc/processor.c     | 512 ++++++++++++++++++
->   .../testing/selftests/kvm/lib/powerpc/ucall.c |  22 +
->   17 files changed, 862 insertions(+), 12 deletions(-)
->   create mode 100644 tools/testing/selftests/kvm/include/powerpc/hcall.h
->   create mode 100644 tools/testing/selftests/kvm/include/powerpc/kvm_util_arch.h
->   create mode 100644 tools/testing/selftests/kvm/include/powerpc/ppc_asm.h
->   create mode 100644 tools/testing/selftests/kvm/include/powerpc/processor.h
->   create mode 100644 tools/testing/selftests/kvm/include/powerpc/ucall.h
->   create mode 100644 tools/testing/selftests/kvm/lib/powerpc/handlers.S
->   create mode 100644 tools/testing/selftests/kvm/lib/powerpc/hcall.c
->   create mode 100644 tools/testing/selftests/kvm/lib/powerpc/processor.c
->   create mode 100644 tools/testing/selftests/kvm/lib/powerpc/ucall.c
->
-> --
-> 2.39.5
->
-Hi Ritesh,
-Thanks for working on this enablement. I have tested kvm selftests after 
-applying this patch on top of Sean's patch as mentioned and even I 
-applied this patch for the kvm_create_max_vcpus issue as rc=-56 
-"https://lore.kernel.org/linuxppc-dev/cover.1789099725.git.ritesh.list@gmail.com/" 
-But still few tests got failed. Providing a summary below:
+	obj->name_len = le32_to_cpu(bde.bigdirobnamelen);
+	...
+	ret = adfs_dir_copyfrom(obj->name, dir, offset, obj->name_len);
 
-System details where I tested this : PowerVM P11 (ppc64le) KVM enabled lpar!
+obj->name is a fixed size array of ADFS_MAX_NAME_LEN (260) bytes inside
+the on-stack struct object_info of adfs_fplus_iterate(), but
+bigdirobnamelen is fully attacker controlled and never validated.
 
-Test Results:
-=============
+Mounting a crafted ADFS image whose big directory entry declares
+bigdirobnamelen = 264 and then calling getdents64() on the directory
+makes adfs_dir_copyfrom() write 264 bytes into the 260 byte obj->name,
+smashing the stack frame of adfs_fplus_iterate(), and the subsequent
+dir_emit(ctx, obj.name, obj.name_len, ...) reads the same out of bounds
+range again in filldir64(). adfs_object_fixup() may then append up to
+four more bytes for the ",xyz" filetype suffix, extending the overflow.
 
-PASS: demand_paging_test
-PASS: dirty_log_test (dirty-log mode, 4K + 64K pages, 32 iterations)
-PASS: guest_print_test
-PASS: kvm_binary_stats_test (4/4 subtests)
-PASS: kvm_page_table_test (4K + 64K pages)
-PASS: set_memory_region_test
-PASS: memslot_modification_stress_test (4K + 64K pages)
-PASS: memslot_perf_test
-PASS: dirty_log_perf_test (4K + 64K pages)
+Reject entries whose name length exceeds ADFS_FPLUS_NAME_LEN (255).
+That is the maximum the F+ format can represent, and it also leaves
+room for the four byte filetype suffix appended by adfs_object_fixup()
+(255 + 4 = 259 <= ADFS_MAX_NAME_LEN).
 
-SKIP: irqfd_test
-   - kvm_arch_has_default_irqchip() not yet implemented for PowerPC
+Reproduced on Linux 7.3.0-rc3 (5dd1818b15d9) with KASAN by mounting a
+64 KiB ADFS image (loop, MS_RDONLY) containing a single F+ directory
+entry with bigdirobnamelen = 264 and calling readdir() on the mount
+point:
 
-SKIP: vm_types_test
-   - KVM_CAP_VM_TYPES not supported on PowerPC
+ ==================================================================
+ BUG: KASAN: stack-out-of-bounds in memchr+0x82/0xb0
+ Read of size 1 at addr ffff88810099fcac by task init/1
 
-Failures seen for the following tests
+ CPU: 3 UID: 0 PID: 1 Comm: init Tainted: G    B D    7.3.0-rc3-g5dd1818b15d9 #1 PREEMPT(lazy)
+ Hardware name: QEMU Standard PC (i440FX + PIIX, 1996)
+ Call Trace:
+  <TASK>
+  dump_stack_lvl+0x70/0xa0
+  print_report+0x153/0x4c6
+  kasan_report+0xf1/0x120
+  memchr+0x82/0xb0
+  filldir64+0x56/0x5a0
+  adfs_fplus_iterate+0x1a6/0x2c0
+  adfs_iterate+0x1bf/0x4f0
+  iterate_dir+0x1c1/0x560
+  __x64_sys_getdents64+0x13a/0x260
+  do_syscall_64+0xda/0x4b0
+  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+  </TASK>
 
-FAIL: kvm_create_max_vcpus
-   - RFC patch-3 partially helps: KVM_CAP_MAX_VCPU_ID correctly
-     capped from 16384 to 2048.
-   - But vCPU creation still fails with rc=-44 below the 2048 limit.
-   - dmesg: KVM: Create Guest vcpu hcall failed, rc=-44
+ The buggy address belongs to stack of task init/1
+  and is located at offset 380 in frame:
+  adfs_fplus_iterate+0x0/0x2c0
 
-for the above test in dmesg I saw the following error everytime I ran 
-this test
+ This frame has 1 object:
+  [32, 320) 'obj'
+ ==================================================================
 
-dmesg -w
-[ 2640.213798] KVM: Create Guest vcpu hcall failed, rc=-44
-[ 2923.048989] KVM: Create Guest hcall failed, rc=-44
-[ 3650.642771] KVM: Create Guest vcpu hcall failed, rc=-44
+A matching splat is also produced from adfs_object_fixup+0x3f5/0x480
+for the write side of the overflow.
 
-FAIL: hardware_disable_test
-   - KVM_CREATE_VM fails with ENOMEM
-   - dmesg: KVM: Create Guest vcpu hcall failed, rc=-44
-   - Likely the same underlying hcall issue as kvm_create_max_vcpus.
+With the check in place the same image is rejected with -EIO and no
+KASAN splat is produced.
 
-FAIL: access_tracking_perf_test
-   - Too many idle pages (245385 out of 262144)
-   - errno=4 (Interrupted system call)
-   - page_idle tracking may not be fully supported on PowerPC yet.
+Assisted-by: LLM
+Signed-off-by: Hui Peng <benquike@gmail.com>
+---
+No Fixes: tag: the missing bound check has been present since F+ big
+directory support was introduced in fs/adfs/dir_fplus.c, predating the
+later refactoring of that file, so there is no single commit to point at.
 
+Found and verified with a QEMU + KASAN reproducer (crafted ADFS image
+mounted over loop); the fix was rebuilt and re-run against the same
+reproducer, which then reports no KASAN splat.
 
-I believe these issues might be real kernel issue. If you plan to send 
-fixed please feel free to add my Reported-by:
+ fs/adfs/dir_fplus.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Reported-by: Anushree Mathur <anushree.mathur@linux.ibm.com>
-
-Thank you,
-Anushree Mathur
-
+diff --git a/fs/adfs/dir_fplus.c b/fs/adfs/dir_fplus.c
+index 4a1592401..517ffcc91 100644
+--- a/fs/adfs/dir_fplus.c
++++ b/fs/adfs/dir_fplus.c
+@@ -192,6 +192,8 @@ adfs_fplus_getnext(struct adfs_dir *dir, struct object_info *obj)
+ 	obj->indaddr  = le32_to_cpu(bde.bigdirindaddr);
+ 	obj->attr     = le32_to_cpu(bde.bigdirattr);
+ 	obj->name_len = le32_to_cpu(bde.bigdirobnamelen);
++	if (obj->name_len > ADFS_FPLUS_NAME_LEN)
++		return -EIO;
+ 
+ 	offset = adfs_fplus_offset(h, le32_to_cpu(h->bigdirentries));
+ 	offset += le32_to_cpu(bde.bigdirobnameptr);
+-- 
+2.43.0
