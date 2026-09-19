@@ -1,73 +1,71 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77B1F39CD0D
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:26:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29D773911C1
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:26:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789856769; cv=none; b=LpfadIlkedvPX61U3jHcLpb+7TXjFxsyeC6XYEpk2ButtFnWbagwSwO6uWGIiuqz+JOdThsOcCxJRoA1PHy0/Jj4j+P8DpBf63CQprDyo7cAFrQ5FaIrXCrw52aBd7MgYxrbVHNrKOCoEn+GoTK7S1eZ0tWykTaDAgrc83a/Mnk=
+	t=1789856771; cv=none; b=AggICKqGQbPWbLBCfc1+3hxQpbGYRkP+IBZ9et4EmII6p/G+HumbkyELELDD2qJLdztpnFNsNBOKUbQfFb6jt1mm7gaRbbY2hu9wFfTxzybCSCFDPGu64K8ILufVmU4Ay1sKan2jvKHuTJQQDBiB8pciPivUeDpnRueePGF9fTg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789856769; c=relaxed/simple;
-	bh=dS+6K47RdU7JCOyZhcqLZCz+MyMVwLXxGjunz4dnTJA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sSaA5wxAFyXmlFe3IapWSEknLQ7zKqovC2lsnb2HOk2VKBXSr25wnojWJxElMWR8GGk+qp9JwQdrHJw82toNBj8w+wjQccT9qtShKICOArwimeXeC6FAHRg/S1fU6fFjWU5p4dK0jC0LLGXz5/yJZ149ZgzcX2AOC2BzeskKBQY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gCeXS/IK; arc=none smtp.client-ip=74.125.227.171
+	s=arc-20240116; t=1789856771; c=relaxed/simple;
+	bh=ynDCyRyx0YRpfYn7EZwrTZMMdTMxmFqgMrh96xitSRI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=asI6VQUKtpb0chzg+RHOK/oGokTUIweypGmhus94Yr4EsnW7Wdm5oblJ4aQYBETr3bMviecLFBLaUTMOdEnrC7+crkCFTOZEh/BKPS99NYEJXIe5MpGOlaVL8fXLfDf6QWqAdu5cNmlx2EQoBpL/zfamUUP//gVrWeL2ZwVosgY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U3zUN0KA; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gCeXS/IK"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccda24a3so1443742a91.0
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:26:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U3zUN0KA"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747f05ffcso14219785ad.0
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:26:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789856767; x=1790461567; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789856768; x=1790461568; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6vWO+urElYoH8T/pGFCPoNzRf+th4w0q5P1g3714HYQ=;
-        b=gCeXS/IKXaQ+myAL+6QfPbRCbAUtUYuvD6R/+9ow/eVvVKsNl2X0Z8cYqnO+5CFr1U
-         k8+vB1dxQ5SSl79WP/prRGJX25yF0UcB6k78B5f5Wgrp4B1N49iPDXfupK3c1YaNv7Dw
-         9zmgTxfxPKEkdS/5TNYRQDs/NHF52q4ZYA54Uel6TjV4OXLwvtoVdhaxOXM2a3mT2EIr
-         sDoy2OgQQn09cs33wl/wPt6rkcNqC1fvH1ytDNCyhjdnc5/DAw5XQqCgfMS7WIwfsgFP
-         iBBaOkhzSy9yjPSJnj3j/s+M1eLtmXUHtayvaQamYqdzCgkpQ+l59ZZRuzbhi38Yn/wQ
-         1ARw==
+        bh=mhVtdGz2dTM2a2C4ypaH/vqNyNg6K2RZqdkAXsZ+5po=;
+        b=U3zUN0KAzuyV9bLFAHZJ3Oje3kt8QjTYTxwBYIvxQWvwCk66nRTYSLbfKJdT3WuEtx
+         +ZWFqCSM0rkrAPhaQhILO1PE3jvI5m9qSRrNU7/C5V8du/ZAXVaabWm+OXmLOl4FNCkl
+         QIpyZuEwHlRClA/OQAc86RiaoLQv6GIoPLUePsgb65bKXLhwanBNoDXZmiu3tZK7MTTn
+         8Sie1xqRRZo6+hcxrxm3HfGh3xbwnX+Al3IMGWB8ExIpN/4vO2SwJFm7bvAc+gM7xp8q
+         b7XgPjcO+vV8pdUY38wsIcNDUy10jpJ4rP2USCOUJ59aw1gkEd/j56kUtbUab7EZzNfA
+         eghA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789856767; x=1790461567;
+        d=1e100.net; s=20260707; t=1789856768; x=1790461568;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6vWO+urElYoH8T/pGFCPoNzRf+th4w0q5P1g3714HYQ=;
-        b=qVFT29n6oW3WRoCXFOD7OQQRrPb8T6YbFZCHokOObIVEFPIe1TpQ0qAGxTlgtXp4kv
-         lwYfbBRwInABGw7J2RG0ExwwFHJkFjT7zetxoouvEPrhYIOpSRiS4pnjrJcvw92+vSDE
-         3A2RrQa1OstwC1BOZJqDrcH+0XLr3BCXvtmZDLgtHNsvkcGuaMjKBoRSSy8J9mkwKIPC
-         oefdOaBRaV8f0zBSHIH1/gj3T37e/Xi4JvCgioV08kMaBpp4UskojbPmikV2OrshtJLq
-         39LVjzJCID1yup0KFyVxJG+AcCkuj9ngRDO/jJqMspYxhvTAp1E5JjGBrUifFYxycIFx
-         Ckmw==
-X-Forwarded-Encrypted: i=1; AKwUvBz+rjJUwrjF/hzWVomsXqqLJssB/7qDYik/HpHe5ClT1H8hfZ4PphNHwa6l6I4DADSpni1wYT50138k2Xk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lakqb1nq+PgYrpXLxLFO34RS17XPtwD+kNMRdga1rr5ugADH+a
-	rP0pvL8KCJMJLdkG8wsoHd0RgB2un1vMmRkD1OFjOh10sgmN02CWyUOTRou47wP8
-X-Gm-Gg: AYBFou3IuaYEuJehq4OP+1ZL7CpoWQdDziWxety9TFIHqLT/+8r7FpCP6vlHnPLy33X
-	zMTE1kJQJtNhB9vDZzC6dlYslsDxH8heSsZHPNzHmJLCO9kchUH9GQmgYDDUyjTT68kYzghIe5i
-	uthHWwWj+gzkjpDaz4/TPfmr9/tFUSrG9xiHjZIvZyLrZoDs1bE8rHsggtxHHsDU2etW/+J3Fqq
-	dI+keWlU7PUCfhbelo6qM0lCTpftWQ87PzpHXsgPR+UEqsrKY6+n+H/+v8X05qIOnDTDbwZs+dq
-	z95m766do8d/uVCumiWm8Otwc23OSEJc13PLsNpSfTNECPb/KVj8OsS+1abB2CBxl8qsQW8aGpu
-	Icn8/kUC1p6hdPC3YqFj+mpO4xfSdcSN4I5e1WVpY5FEzmnECU6MxXqRbF/QHnH/ydm6YHW8rSj
-	lEY07nL57KZLb1KmU5e491IylvQzUyCUbOq2wkMn/q1pOpHWEJdZd1xFCPIikysXJR0NLrYLOnE
-	U84ana571Ckn1N53SPBreYm/6oIkHdBXbDG/IX4Xo6Fw38b7Eou3uwuG63boCLLKjZBEGSL2Yo7
-	P1iw8PeZnClwpJUgzRLZ
-X-Received: by 2002:a17:90b:2d47:b0:39d:eac2:7bb1 with SMTP id 98e67ed59e1d1-39e54ce1695mr17837962a91.4.1789856766869;
-        Sat, 19 Sep 2026 15:26:06 -0700 (PDT)
+        bh=mhVtdGz2dTM2a2C4ypaH/vqNyNg6K2RZqdkAXsZ+5po=;
+        b=h2iaYViKWv3uXV98UjNI8dDlJpoFSihdrmDkNlgh+zgaebYwNxWwZboLxZ4ndkXpX1
+         083bl4jnKjItVWFzswrtb1oEmfrT6Few5hQNFKIELQq4Tctf1zno8FxfZcgE+hpeJxCs
+         8EwPin0X45RsGcSddKs8eC3vvsjy9X2UtrCTUDxB0tgvTrIigNvWMNMz9r72YUX0IhFY
+         ZIYFAO6RPX/ygn2Ss4KiFCMqUhR5a2DsYwAOh8JCbG826sGFAvEMc1QUrqk56ft2bcNA
+         tFT4SkJrkE9Czw33qpBVXYre1NgbTF+CDI2u+9o3IudLqsiAy54gme0U6uD13xEsliyJ
+         pz8A==
+X-Forwarded-Encrypted: i=1; AKwUvBxyCyRJT+35MchnUtWsL3uJuYQqeRHTOBrkA1voLbaAmvsaJWGUcAJy+ZHrdtOoaAB8qi92EjHZRCWXCxs=@vger.kernel.org
+X-Gm-Message-State: AFuF++k2doeUe4/yuufz0MJLD9BzzDMtaoc5Bych4JierQkPu+68RwIy
+	S5hRkaSdyDM5YbWF+ZrOZx+vOahJYnAByYQtPLeZGkqCDXFSj7Yy6ooTdIcrp058
+X-Gm-Gg: AYBFou3c3bvczajHqiQ2biq2yVZOBlkAICRwA6H29OjvvNh+gyZdQPswRDY8DYSVeDf
+	WvQlHc7bG6iVakHOE++4iAnwvF7e3YPOV7AGTiiYi7s65cTWklWgUeCAFT5DtytQdN3VopBa4F0
+	Ge4e76lalh8qDrt4PoPWZzcDwYkXNrWEktbloDCGSDRvKMYTkBLvIsBtbMrkIApRtgT2rEnv//T
+	LfuSkGmPhQ4/OFgUraM5X6SWeCa4Yh+MLKMkjBd3HQTUbpo9VUagfh7dWA+OK7XXzE6hpfnxXd3
+	skrq3Qv0196AzbRWyPnTzDCYRLP7PVBsXL/UzDBU9I2mwHUrrGs6ycOPiKPKxZ0GB9sgwmPec/v
+	ObZx7pPKqGZcpFF1KIimOuHgzHqbd3p6TXzuy7pPaJlOWmlbFlt8uW9DlqOUtkqcxEsWof4VqSG
+	reCBcQ7o9BcYjtF0L3wUdJPyhqNnNwJPsZ6/HVd5dOoFf5jvgHMrjv+aS5fxwUdlltZrlL9xvcw
+	HBN3sTsB28PVBHzuVsyglLY9PcYuwgnrxqPf0SKIKYaj5Bzw/TwjoubMtbyEqx04c+APLx6IHdj
+	dAI61FAt+g==
+X-Received: by 2002:a17:903:32c6:b0:2dd:ad74:ac29 with SMTP id d9443c01a7336-2ddb1bae2b9mr101877825ad.27.1789856768286;
+        Sat, 19 Sep 2026 15:26:08 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a023cf10bbsm2034432a91.3.2026.09.19.15.26.05
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df378440f4sm7398615ad.59.2026.09.19.15.26.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 15:26:06 -0700 (PDT)
+        Sat, 19 Sep 2026 15:26:07 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
-To: slava@dubeyko.com,
-	glaubitz@physik.fu-berlin.de,
-	frank.li@vivo.com,
-	brauner@kernel.org
+To: brauner@kernel.org,
+	jack@suse.cz
 Cc: linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] hfs: validate drAlBlkSiz and fs_ablocks in hfs_mdb_get()
-Date: Sat, 19 Sep 2026 22:26:05 +0000
-Message-ID: <20260919222605.3794529-1-benquike@gmail.com>
+Subject: [PATCH] romfs: reject non-advancing nextfh offsets in romfs_lookup() and romfs_readdir()
+Date: Sat, 19 Sep 2026 22:26:07 +0000
+Message-ID: <20260919222607.3794829-1-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -77,28 +75,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In hfs_mdb_get() (fs/hfs/mdb.c), reject images with allocation block
-size (drAlBlkSiz) of 0 or not a multiple of HFS_SECTOR_SIZE (512), or
-with fs_ablocks == 0, preventing a divide-by-zero trap and out-of-bounds
-bitmap scans on crafted HFS images.
+In romfs_lookup() and romfs_readdir() (fs/romfs/super.c), verify that
+the masked nextfh offset strictly advances (or is 0 to terminate the
+directory) so a self-referential or backward nextfh link in a corrupted
+RomFS image cannot cause an infinite loop in the kernel.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: da4458bda237 ("NOMMU: Make it possible for RomFS to use MTD devices directly")
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
-diff --git a/fs/hfs/mdb.c b/fs/hfs/mdb.c
-index 277de712f9d4..9e78c561a3f1 100644
---- a/fs/hfs/mdb.c
-+++ b/fs/hfs/mdb.c
-@@ -204,6 +204,11 @@ int hfs_mdb_get(struct super_block *sb)
- 	/* These parameters are read from the MDB, and never written */
- 	HFS_SB(sb)->part_start = part_start;
- 	HFS_SB(sb)->fs_ablocks = be16_to_cpu(mdb->drNmAlBlks);
-+	if (!HFS_SB(sb)->fs_ablocks) {
-+		brelse(bh);
-+		HFS_SB(sb)->mdb_bh = NULL;
-+		return -EINVAL;
-+	}
- 	HFS_SB(sb)->fs_div = HFS_SB(sb)->alloc_blksz >> sb->s_blocksize_bits;
- 	HFS_SB(sb)->clumpablks = be32_to_cpu(mdb->drClpSiz) /
- 				 HFS_SB(sb)->alloc_blksz;
+diff --git a/fs/romfs/super.c b/fs/romfs/super.c
+index 7f783d6173e8..4d787ee06d4a 100644
+--- a/fs/romfs/super.c
++++ b/fs/romfs/super.c
+@@ -191,6 +191,8 @@ static int romfs_readdir(struct file *file, struct dir_context *ctx)
+ 			    romfs_dtype_table[nextfh & ROMFH_TYPE]))
+ 			goto out;
+ 
++		if ((nextfh & ROMFH_MASK) && (nextfh & ROMFH_MASK) <= offset)
++			goto out;
+ 		offset = nextfh & ROMFH_MASK;
+ 	}
+ out:
+@@ -223,6 +225,8 @@ static struct dentry *romfs_lookup(struct inode *dir, struct dentry *dentry,
+ 	len = dentry->d_name.len;
+ 
+ 	for (;;) {
++		unsigned long next_offset;
++
+ 		if (!offset || offset >= maxoff)
+ 			break;
+ 
+@@ -246,7 +250,12 @@ static struct dentry *romfs_lookup(struct inode *dir, struct dentry *dentry,
+ 		}
+ 
+ 		/* next entry */
+-		offset = be32_to_cpu(ri.next) & ROMFH_MASK;
++		next_offset = be32_to_cpu(ri.next) & ROMFH_MASK;
++		if (next_offset && next_offset <= offset) {
++			ret = -EIO;
++			goto error;
++		}
++		offset = next_offset;
+ 	}
+ 
+ 	return d_splice_alias(inode, dentry);
