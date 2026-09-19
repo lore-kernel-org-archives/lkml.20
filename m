@@ -1,63 +1,63 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pj2-f16.google.com (mail-pj2-f16.google.com [74.125.227.144])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CA00363C72
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 21:28:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C887376A07
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 21:28:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789853332; cv=none; b=imXpEg1QjNOsffmN9eQX76kzdcvMzu/XFfCeZHBNo4HQe2GeAHg+2XOQs462dLA3m6NBs/+dLt5bVKmfvqTOv6xodmkbzp+SxOTA/4HDB2snvLBJYYs36WldoOt20nZRTBcejAfRiUc1fY0e3cgfUlmQWXxl29LjHy7BqKy9+0w=
+	t=1789853333; cv=none; b=H6B/N0jjuMX55AoaWt46CDtn/jj9NbjkcHyktYB1ed9pLUemBej6caCzPAhRKnl1eYu/MRENw07uidjLJOSRvrV6VWY+V9W1/xxceMub+k2YKBULPfQ5bTqPaqi8BJV6j0LppNlrpcq3k5xOPlv3vD+cPbtPp6D/BBupStOXDds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789853332; c=relaxed/simple;
-	bh=txBOqJNUqUZdel+9yUNyCOiCDqWDPLD8LNB84oXPLPY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=C9qjo6euL8JMc5XmVD4Ra6G6cjev11g7RW9S1rZKe+M6rbv7y6JJQZePwUC94jjhfT9gSdjrcsrvWirt5OJcxypClEUlUEXDRkwdGkQtTzhShhUthbubefyfH8XgJcEKdOS5aM1lJ70itG7M0eQaJzHpAEZ6+ejUJ3lqMgUNksw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rIXvWwE9; arc=none smtp.client-ip=74.125.227.141
+	s=arc-20240116; t=1789853333; c=relaxed/simple;
+	bh=qi+8UfjOHnuyvfYtoqMX/7Q8LuPSKEg1QIzac8Ia9Ko=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=X8kz20x4/qwgnEqitFTBL2/JoUo5aaeIRKnQYYrxI82d9C+wr64hGzBr0ea9IEN+UvfVg24pozhNt03iP5jDmoZN4rvcck49v4qZU6bbO0b2xPquDMuSmEZIEYwu7xnEQIQwdAzmaF+tV5cX8rpnbW6k0IhHe4ddaqZc+M2EKkA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U9q2cbN6; arc=none smtp.client-ip=74.125.227.144
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rIXvWwE9"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccc02279so1481946a91.1
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:28:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U9q2cbN6"
+Received: by mail-pj2-f16.google.com with SMTP id 98e67ed59e1d1-396ccd78e6eso714056a91.0
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:28:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789853329; x=1790458129; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789853331; x=1790458131; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eGfBY0P65oH7gmD1rjRA1pJgtFrGgNFWTZNcEsIhx08=;
-        b=rIXvWwE9MJ8ClY7NHE0LoGMHaCwYyQFBbP62Yi5a/dygd/DbiGFoaUyl6mw4CT0uhi
-         3kXKgsBo6swtb6ZYlXENiGdHzyv2WvR9xVFBdzfPgdGi+6rnDopzzwqHNOAc0jyQpEtv
-         qHhFccSeqP3LXA1sPZ+y0gtapUbgn/nT8YvxKMparIc+f3JNjBbw5yxM2i0qJYdqgHu1
-         IXh1Hf6hsZZgMweFq5RwjpFHdMdHWi19JpRFpFfJmCLReUoI4ou0JYXktu9zzmUUQH8K
-         qm/PqFYC90UUw5a9OVm0rU3+Axe/XGytal6l7wFnZPQp9Yw+YfGuyJ+c7HmXlWCa9Klu
-         4Kqw==
+        bh=AV643nCtB/hqzvQNISm7doHVXi7iv2eQBCiZ3N3vJaE=;
+        b=U9q2cbN6xDeijWvU4MSlyLbavSnMLfP1I/ryc16wfW9CjoVZ812oQUoSbeQiBYRkWh
+         hnssi6huPOjxR74pa61XWbST8DdNOueEgQbZFQ4n2/OSl8Ca5uB0hH3GC8H0oqxyb9Ba
+         5dWBr8lC/J1GDezpPYMjdttOu9g32FmNI0gpGE6rSe7TT3gZz2pdDY3QGvvkJS5q9tdV
+         ZfY392Kctre4OVzRNEonhdu/xe+8/+Os1Kl+5YExz8geqEQTdlVlsLfH6l0oWkEYX+2s
+         jjRyUE5lHOg0eDPH0kmUIVj1oq/cQYImyKfy4WBuY/IqpHkz0YQZZWsog49KE/CdZXWE
+         Ow8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789853329; x=1790458129;
+        d=1e100.net; s=20260707; t=1789853331; x=1790458131;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=eGfBY0P65oH7gmD1rjRA1pJgtFrGgNFWTZNcEsIhx08=;
-        b=bo/7jf0/HTevrKfOJHg8VjLA995/lbW8grsUvpIqTJHtpmSUQIba1IQHS3mqraQsSP
-         qcleBihPgJ7p9Z4Yh1IgLno3pOHS5Tquaz4MbdSP9iBja/CwAQ13NNNOWeON70W+xNTy
-         8TfsVIDhCc/JA9svvvw/joVoQHx0oXQhEik1kKwfSzPLTDf+l8FSS69CHVybbY/37YGw
-         loBqKJ16F76QCy5GEWJt6cba8KaA54phl/AtiVzu4FLTEIihAut+dzxxY3aLtac9/rI+
-         ehWLPjHCS+jkIjXShws7L5e9aqb01IZgVzxWLcWyTYoaQ3aA+xtyk0A9vMtHI7+k02Bh
-         cORQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzs4r1kO6gtI0C0Pz6QAADVT4eDA8nU6Q3J/xNkzgmKmQWaANOOPwag1s1G5/eLZ9UKEhtBjXre81Trx9c=@vger.kernel.org
-X-Gm-Message-State: AFuF++lr6FQ9wOf/Z8kDF4CHH5K21c5y19NW0borYe/O35YoheGActc+
-	mMESPPt92+4gKFPI2n7x6C5xdiAipp7TbweZWfQ+BZsbl5MdJnKdfjYX
-X-Gm-Gg: AYBFou09Nxme4dDz4VJy1E0+tcON8EhrjpKh08uynDsUvzNDojjgdlL3QkpxnFPOLU4
-	TS/MuZP+wQCXgyqueVKxxFJVH+TP310cjnJFLIy8BYku+Uin7hj/PLUR6psGn/CXPQZvA1YVi6R
-	942CpfjsJS1+tulqogDgNWiaqN+QxksQvvMQfkbpoS7X84+x4nS+GCcFnpsCHUobxmFbQ8kpC9u
-	r+s2Anb+BRdMOknM+yGidas9Hct47dFU5rrJDRvBOMFrylHVOsjGUWLbBTsrcMFIsCOMkBrsTSp
-	T1D18tsJWC6Vs3liGuXwHbvdAC51+HNbdLP6Vn7D3Tsh/2GyNLfQp4q0TcoYJGa3iOnZMiOrWpA
-	MV8HmX5HF27fnYphRaoBxdpLsV+dA/VIUQ1aTKvE90MdBwIPORnlfIPxb0TDXqe+mnj7q+cLR72
-	LAd7ruCXk2/UAjw05UM+HjoXscJ7H7yCeAdBQ9kv1GPJmv5v01Me/30KZ1r4wRupahL0S4/4h7x
-	QxBF6UA2/XuYpeu6AMjckjFWAFyoYoHSTvOp9ZHAg9ziMLcf6ukvEV7Dqrc79WbQkGX2FR60alS
-	1o/Ynz/aSQ==
-X-Received: by 2002:a17:90b:2e0b:b0:39e:6c68:c78a with SMTP id 98e67ed59e1d1-39e6c68ca60mr4787983a91.64.1789853328817;
-        Sat, 19 Sep 2026 14:28:48 -0700 (PDT)
+        bh=AV643nCtB/hqzvQNISm7doHVXi7iv2eQBCiZ3N3vJaE=;
+        b=X1Y8yjfkzVdUISLvaComPNl1hIBnBqfb9pAERXD0oMjqCs/ftNr7FdiVVSMH7Sy1c1
+         2mMYXb6QdYqWPniaWCZu+lXzfh3Fh1hI5IDdF5nmQAxJvYrpvx4syo80K065XLXDO5d0
+         oP8yxbjZlXqXVKVHbQ2nFdjhiVHlT2mevCTGf69fvT62KSSxqXQjn3GUOdNGMyB3fKIY
+         LRuK884SSqX2xijNy1AM0E0k9mHdnEDbSV0F0e1CHf6p8u9LHBpB9kUNkEF5i1XSTg5T
+         ngVi2jnEcW5mbL3bCnZIYft95zWpz5vaDSQ5KVo3nXpBexE3hqM4sb+bQEJQAH5L8BQt
+         lhDQ==
+X-Forwarded-Encrypted: i=1; AKwUvByXEE+OJNPGunQN7sDfqVctqQJ9cQ/9WPd9TW1r4qnG3IX1l6AXWeO1cZEtKceMck23KSaBMq04UQ/cfww=@vger.kernel.org
+X-Gm-Message-State: AFuF++mW4qcTnmZLZ7U6eqTWjFRbNvzoXXW5vkZYsWyrHIMRBKpdQlc3
+	b29yejyf6Heo6NRkZrPA0pfvgtreZUIvbvVyU676sSVYV8MlG5M5n82c
+X-Gm-Gg: AYBFou0p4UMmQXuLjBG3ppKesO3TH6EJEspcgAMQAPUknTOIiN6L49TBH1szx60VIAI
+	7G8zYCpjFQbCnhXdnob/7Myk9/NlYFNXcdDNiqnfrzPGDxQo5+mD/JAEGcK74jZ82zzxSv60UUR
+	xB/XXs+H3ozI8LEdDVabtCD4t/GPgx6lsiqDELozcFV8RVZWCh18wOlXkk4O1buAPNw2FmeBkla
+	8Iq7dltAjv0vxqZxpNrPm0MhviJSNPppg4w7OiIjeItyktzPiJ3cDr7hiQVzc0Smee3jssaZSko
+	rc7MzExIemJ4x9uayV6Dwh01X8sR5r9bkURei2ZHYSJgl5Dr8LLaygQIxyctmSJLQmzvdB8i9wF
+	mCO9DOsSePYaPJbvdaXV+o3RIZ5iggBlJBlwWkpxnkiDQjNUZb2GCd5UWnjPofMd8myi1kWEbxD
+	5FOqLbr4RaZXgsruJ6FdIE7tjWYBLw6Z0Xy/1QaufhEu/dEDi2kS60YTu5/oN1b9zMtokz+ccjB
+	nQnaUp9elXLkVsVIKS8gcKNgjw8kmdOd4t1N0BC21lx9Re6KkP7RKJdKP99hx8UNN45Ys8bkAaF
+	7U6J1TNfkQ==
+X-Received: by 2002:a17:90b:2b8e:b0:39e:4c7e:bc5 with SMTP id 98e67ed59e1d1-39e5572d5a2mr6755750a91.19.1789853330851;
+        Sat, 19 Sep 2026 14:28:50 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a026898b76sm3869604a91.16.2026.09.19.14.28.48
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6cb3284asm6107715a91.14.2026.09.19.14.28.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 14:28:48 -0700 (PDT)
+        Sat, 19 Sep 2026 14:28:50 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
 To: mani@kernel.org,
 	davem@davemloft.net,
@@ -68,9 +68,9 @@ Cc: horms@kernel.org,
 	linux-arm-msm@vger.kernel.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] net: qrtr: use u32 for port in qrtr_port_assign() and __qrtr_bind()
-Date: Sat, 19 Sep 2026 21:28:47 +0000
-Message-ID: <20260919212847.3239934-1-benquike@gmail.com>
+Subject: [PATCH] net: qrtr: ns: validate msglen and sq_port in qrtr_ns_worker() and ctrl_cmd_bye()
+Date: Sat, 19 Sep 2026 21:28:50 +0000
+Message-ID: <20260919212850.3240353-1-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -80,52 +80,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In __qrtr_bind() and qrtr_port_assign(), the port number copied from the
-unsigned `u32 addr->sq_port` field is stored in a signed `int port`
-variable.
+Two validation checks are missing in the QRTR in-kernel nameservice
+(`net/qrtr/ns.c`):
 
-When a user supplies a port number with bit 31 set (`addr->sq_port >=
-0x80000000`), `*port` becomes negative:
+1. `qrtr_ns_worker()` receives control packets into a single reused
+   4096-byte `recv_buf` via `kernel_recvmsg()` without checking that
+   `msglen >= sizeof(*pkt)` (20 bytes). If a short packet arrives on
+   `qrtr_ns.sock`, `qrtr_ns_worker()` reads stale bytes from previous
+   control messages (or uninitialized heap memory on the first packet)
+   when parsing `pkt->cmd` and its union fields.
+2. Unlike `ctrl_cmd_del_client()`, `ctrl_cmd_bye()` does not verify that
+   `from->sq_port == QRTR_PORT_CTRL`, allowing any unprivileged local
+   `AF_QIPCRTR` socket to send a `QRTR_TYPE_BYE` packet and purge all
+   registered services for the local node.
 
-1. The privileged port check `*port < QRTR_MIN_EPH_SOCKET` (`0x4000`)
-   evaluates to true for any negative `int`, requiring `CAP_NET_ADMIN`,
-   or conversely in `idr_alloc_u32(&qrtr_ports, ipc, port, *port,
-   GFP_ATOMIC)`, passing a `int *` cast to `u32 *` risks signed/unsigned
-   mismatch.
-2. Changing `port` in `__qrtr_bind()` and `qrtr_port_assign()` from
-   `int` to `u32` matches `struct sockaddr_qrtr`'s `u32 sq_port` and
-   `idr_alloc_u32()`'s `u32 *` parameter.
+Check `msglen < sizeof(*pkt)` in `qrtr_ns_worker()` and require
+`from->sq_port == QRTR_PORT_CTRL` in `ctrl_cmd_bye()`.
 
-Fixes: bdabad3e363d ("net: Add Qualcomm IPC router")
+Fixes: 0c2204a4ad71 ("net: qrtr: Migrate nameservice to kernel from userspace")
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 
 ---
- net/qrtr/af_qrtr.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ net/qrtr/ns.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/net/qrtr/af_qrtr.c b/net/qrtr/af_qrtr.c
-index 78347c937af7..cae7af5b9229 100644
---- a/net/qrtr/af_qrtr.c
-+++ b/net/qrtr/af_qrtr.c
-@@ -785,7 +785,7 @@ static void qrtr_port_remove(struct qrtr_sock *ipc)
-  *   <QRTR_MIN_EPH_SOCKET: Specified; requires CAP_NET_ADMIN
-  *   >QRTR_MIN_EPH_SOCKET: Specified; available to all
-  */
--static int qrtr_port_assign(struct qrtr_sock *ipc, int *port)
-+static int qrtr_port_assign(struct qrtr_sock *ipc, u32 *port)
- {
- 	int rc;
+diff --git a/net/qrtr/ns.c b/net/qrtr/ns.c
+index bcb090ee79d4..d7e1a37f0717 100644
+--- a/net/qrtr/ns.c
++++ b/net/qrtr/ns.c
+@@ -347,6 +347,9 @@ static int ctrl_cmd_bye(struct sockaddr_qrtr *from)
+ 	iv.iov_base = &pkt;
+ 	iv.iov_len = sizeof(pkt);
  
-@@ -835,7 +835,7 @@ static int __qrtr_bind(struct socket *sock,
- {
- 	struct qrtr_sock *ipc = qrtr_sk(sock->sk);
- 	struct sock *sk = sock->sk;
--	int port;
-+	u32 port;
- 	int rc;
++	if (from->sq_port != QRTR_PORT_CTRL)
++		return -EINVAL;
++
+ 	node = node_get(from->sq_node);
+ 	if (!node)
+ 		return 0;
+@@ -639,6 +642,9 @@ static void qrtr_ns_worker(struct work_struct *work)
+ 			break;
+ 		}
  
- 	/* rebinding ok */
++		if (msglen < sizeof(*pkt))
++			continue;
++
+ 		pkt = recv_buf;
+ 		cmd = le32_to_cpu(pkt->cmd);
+ 		if (cmd < ARRAY_SIZE(qrtr_ctrl_pkt_strings) &&
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
