@@ -1,330 +1,253 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16EDE2DFA2F;
-	Sat, 19 Sep 2026 08:21:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F396D36166A
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 08:23:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789806079; cv=fail; b=A/Ww9VcoOC1ybYp6KWJYR5xngSY8npoVXERdR7PsIqBfo2mIGwFxLyFgeuDRnaC30IedYCRk3kmR21YhuslOjM4kEwSNcVHwsTPBRbWyPR2tnHyfSoyAtzs+JxU/0EYT5fVH60VkWRGHtL+fKm8S/RjVm/9s38vmYBimfTt9GBM=
+	t=1789806199; cv=pass; b=e++tC1vPt1byepnZoeRC1XvMUcwnENRBZ9Frn5e5gaIrErfjdLUi7s04Ji5isb+/q42X7QqvnuUEnhCfKziGNY9KFWmf9Bcy5TQ3/LXCGSsVS9NW6J98ge31eVHa+5kCRctobPefC06dxX1DUQqQGHhrFi8PLdTpQcacZNsI9UU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789806079; c=relaxed/simple;
-	bh=59x2eElp7kN6AWrT2S4RoIxG8OhpiM29Blz47ycUfn8=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=r45N9/VJDW7Ioe+EADfYi9bH32Ft6MsiWFIpNc8pox4U9vJSe+eMz3T8TPXBKC+7zxxulVlv0P8T1jwyylKKjLEMDxxSsbEvX/QXqnKhSCwhb1AdoP/CthTaBu4na5loW+YNZpI4jg/eVLO4MI5oH2Vao7aZiTvbXrms6ddp3Jg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BZRLuC3v; arc=fail smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789806199; c=relaxed/simple;
+	bh=kk4x1LYc907tCEo0ovqTiZfCVDl9FyDlgEWQ0QccuFY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Tx8APR4fVJHAu6VEoUJORdeWzzOsn6zrLVOjWTO/p5jp1bG2nND2FfjTzCxiE0BoPmHD3CmcHxKaiBB9+kXVnuEIQSbZAItg9wbFnmZSuFalxqM5BrCD3mUuEJPFKq42fSPFWWFsyeAFzaTMcMxwZkCzR93ak/Mic8mXTe1s4yw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Fa1ATDn5; arc=pass smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BZRLuC3v"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789806076; x=1821342076;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=59x2eElp7kN6AWrT2S4RoIxG8OhpiM29Blz47ycUfn8=;
-  b=BZRLuC3v9xDtpK2bVvclZdVV50n70nRW16JIAPXAjenM+EKfzRVTZAGs
-   pVBCGFj6SAbbir1rc3K/2NkjVG093iHWYi1690DQ/6IqyXqgkF4b1AuGn
-   Sk1nlDYP+99vyUYh/sTdqoq+gJtJGoCbqVZWUlJctM5cucqa1P5DFXkT5
-   CMJtUsUDOMWSEGOHQQVMxe4yWfwdtBgWs65Km04ENPlNNBYF7DZeHi2CG
-   pt0BXqeQSAzbT8euQqM66sXdmF1pMzkWJqA5CI/jBBCGjEAdqEgeMCgdD
-   mbGIYfITAd0lOnb/IYkFRR+ef5IfptyY9mWoXAyK1igsnS1uTjXiOSdOq
-   A==;
-X-CSE-ConnectionGUID: 9jTQ9I2ISSCGvdtkMMcAZw==
-X-CSE-MsgGUID: WY8I8wm0Ss6ZHuNJYv+olA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11909"; a="100938193"
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="100938193"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2026 01:21:15 -0700
-X-CSE-ConnectionGUID: 6kJqhRcHQGCChYVSLauMWg==
-X-CSE-MsgGUID: G9/ygdDFSwK+hqAuW24B2A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="272084680"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
-  by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2026 01:21:15 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Sat, 19 Sep 2026 01:21:14 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Sat, 19 Sep 2026 01:21:14 -0700
-Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.54) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Sat, 19 Sep 2026 01:21:14 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=s8IlXpZ/XXfhqd742iMKO8niKwaRfqn22J0TQ9FDLCtfo3nKS9oSbfGmmemOsBxy1LvXkNHfSM+z8anwv0nSjovmSIvl+l56dlETRH5axlxt+i+asg45a8U4pwNLH1xKGNH9+rZzul+T1J8JRnydIxx5B1Rh+h4tayoTdVkrNljVg6zy5XuRErICf6qh86GkhYBF7+LQv7TBm92u/Pj/+d6gau6L4I1NJj3Kev52wZC+f1z5nrxYaLRUEWalwobyiiI4gYTStWAEmW4PPNnO3S4VeGiImfHwdCOABND/a/EnVwIWIuGMvO+BBjW8lVmOZGF05Eu/Y6OmtJTrlKiTwg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=B4X1Vj33YXdxUHoLRBSQTeEMcDCI07icBiGFBxcMuUk=;
- b=hfGi6CgJZMCmZEFqvnesq9OdnVyJ6MwEhnwS522NVeVfE43wIEpjCzFjfA9zY0lrW64803mtruQF1Ga9xGE2zhcB2RROdQGEXTo10lUT58QbqLQQybZVsgaC0iSX0IEwL+/EevY1JlNLPejnw8RPHyZ+wZzsy3tXvIE+2jbTlYbL2iADrDu8wwwwqUv/SBaidRlLAMGaRKXsKOqUIR5q3FcxCNVUyw8GaaCJjGTvASUp+6uRMdIosk+DeYasVIN/wZK6JXwVHuNIi5Ly7g4uO6yABKtFG8Ys6fKyr1jE1tJzPR97/5GhLNMPx/al17zkcNqA/jQMTOT1G0RPNjnDDg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from IA0PR11MB7185.namprd11.prod.outlook.com (2603:10b6:208:432::20)
- by SA1PR11MB6822.namprd11.prod.outlook.com (2603:10b6:806:29f::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Sat, 19 Sep
- 2026 08:21:04 +0000
-Received: from IA0PR11MB7185.namprd11.prod.outlook.com
- ([fe80::9f37:cb81:5463:300e]) by IA0PR11MB7185.namprd11.prod.outlook.com
- ([fe80::9f37:cb81:5463:300e%4]) with mapi id 15.21.0428.011; Sat, 19 Sep 2026
- 08:21:04 +0000
-From: "Kasireddy, Vivek" <vivek.kasireddy@intel.com>
-To: =?iso-8859-1?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, Jiakai Xu
-	<xujiakai24@mails.ucas.ac.cn>, Gerd Hoffmann <kraxel@redhat.com>, "Sumit
- Semwal" <sumit.semwal@linaro.org>, "dri-devel@lists.freedesktop.org"
-	<dri-devel@lists.freedesktop.org>
-CC: Huan Yang <link@vivo.com>, Robert Mader <robert.mader@collabora.com>,
-	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	"linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH] dma-buf/udmabuf: avoid oversized kvmalloc in
- init_udmabuf()
-Thread-Topic: [PATCH] dma-buf/udmabuf: avoid oversized kvmalloc in
- init_udmabuf()
-Thread-Index: AQHdRw38C2rXPPBhcUK8npGL/GDyXLbUH7QAgACOLIA=
-Date: Sat, 19 Sep 2026 08:21:04 +0000
-Message-ID: <IA0PR11MB7185B77735CA17E4C4B62947F8862@IA0PR11MB7185.namprd11.prod.outlook.com>
-References: <20260918013434.1849135-1-xujiakai24@mails.ucas.ac.cn>
- <a35cd398-4e98-4d19-bd6a-3c7ec0feeebe@amd.com>
-In-Reply-To: <a35cd398-4e98-4d19-bd6a-3c7ec0feeebe@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA0PR11MB7185:EE_|SA1PR11MB6822:EE_
-x-ms-office365-filtering-correlation-id: 2b17e90d-a390-44e7-a8e6-08df1626f273
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|7416014|38070700021|6133799003|56012099006|10067099003|11063799006|4143699003|18002099003|22082099003;
-x-microsoft-antispam-message-info: YtJwrY0yvUOWUPDNsnKoCG0TN5FXTXlonNit+Ycr+RkrhfKPB4gI/r+yzAmNC2bGfUFWiN7DG9ESxS2bWJoi90CTRiDCxj/zZZTJhajGbiCB9upyymXCbKiwYCEvhd6Qf8+8BdRuivfDH9cdqVHqaE358056H6vIWD65OQik9vZmsJJbHu1fOsOyrEAPCyEOn0TbMmY7IBi0W+Prto8a1oayXzu+lD2xO5RaRNgr8Oq5/J1u92lvizHPqGQzpqK7QIhs9DO8Og25nULlQDrBEBE95Kcw2sj0tJtk7+pqCDc6XFydGZJY6PI+cr6OsH68dmSsVIx87eh0BfPf9iicaDrcOYLsC23Iy3di2ptG78CJ37kiNJ4pNZj55dbaYVCjm5BVK6F6WYkJBtfz1l2prXSkfm2EYSgIhGndADvQvQjnff1h5ExTOWBIgkz3z/yJGCS0iPL5X5SLC2V7oDi3Z7vZ8Pr4XpBXu383wc6s0gCIRBVsIcJXZvxV2aZamrfE22rzVrtYJXaMxMLjZj/TWVG6NRqCv0PQO+Batad98LRV9EEdpgjf75iB/4eu+wOpN3BeZfAFAR6b8zfgiORWcTg1xUuKb334FDWyJdZyKixroxqbfi7sm+T7URjAcC5jGcE6t/HPDZBqzf3hUSFGolDsxIOD2YEJWeux+L49cg3/m/e6BiRlsD4AgoGRWcO6kPT01qXrja89y4Wxq/dnm9ejvlCXS4XjGoL8cALu24M=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR11MB7185.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(38070700021)(6133799003)(56012099006)(10067099003)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?OBkUkMlUJPYBZTnqLdQ8w41Y4q4rIRkcAJYnZ9tDvJglprYN98R/oeT20Z?=
- =?iso-8859-1?Q?ktFS8wuZ8DYyhpSq9kWoO7S2ixlOQBT00/jL2eIPd5mMyDO5BYXcI6fZ9W?=
- =?iso-8859-1?Q?VFLejiSoo8D2eq6Uk6FJGED2HrCTknYU/rcLw//ytvgQJhCqDtG20k83tX?=
- =?iso-8859-1?Q?0eACFdS9tkuLP03sB3NQCILlN4QYuzsJIQUYLKGZr3UQ7dxdW4OWTDqF3c?=
- =?iso-8859-1?Q?i4EZ9fSqMg87/zNPNT5tFrKPr1nm0mmZiHrYlZYBTnltErEmK4IbkeQSP1?=
- =?iso-8859-1?Q?DVA9LyVu/DC5c5tUwq+VXS0iD2hLUB+NaEOofxz4cPe1NC31AwiEeaQlOp?=
- =?iso-8859-1?Q?tp1iqjrq017Vp/EtGTPwLHbZ9s5QqYdHJqemTfcOewsVxsZF+i2Zuy59lB?=
- =?iso-8859-1?Q?Fm1b5Coem+aoQy7gHD2Pmy01xqvi0juR1Fdtwa76lQBeI6dJSGBNbGTL0M?=
- =?iso-8859-1?Q?Uevvp7qmUG+OvtzZVHiNPA2lEbSaop+/l8gn7yLoMUI59DdSaor1t5zaE2?=
- =?iso-8859-1?Q?/Sb+d0LwAQsLbutd49s4oz1NY1AHhWjp17trsXjwUlstoBrTJutja5HowH?=
- =?iso-8859-1?Q?zcde1Ydg1yS+Sr1ICoOmTBUl5JycVJ5XN9UcFHlrfAiRac5IjPxbocHT90?=
- =?iso-8859-1?Q?jo/iDiknnrlVpTj2ouMf+CE2QeTS83xu3+iP+f/xuOTdYGPkAWXyM5BnTi?=
- =?iso-8859-1?Q?AqLXzAAJK7Zj4k469ryDLxhVLZ9x5En9RQxxGvOI0dwt8QYDB1oNeEsxmG?=
- =?iso-8859-1?Q?LwYfwji1hLYHLT6CVRC33XOYPKv5yOIYKfO76VXF7A5rR1SX5lxsOBdiXx?=
- =?iso-8859-1?Q?HItshdLpKvK3AcZjIM3zcgjnwUuUu9NN90oDUYRNkUvIxNXGke6r9iHlUj?=
- =?iso-8859-1?Q?1GZXRGaU/Z/+W2jvJ+KRMlQ+mCEgKaU+5o22uhLj7FjZkmuP8P1LmiFlFv?=
- =?iso-8859-1?Q?0rGYaYHq7fDOV1hVHssMknccw8h0OG5laRIejt6qn09fPq0EqZXCh3IIWj?=
- =?iso-8859-1?Q?32rM+3XnH9UCL0mPxMgla/f0y8kbJrmpM9YDuNSOwE4Qjr/1nImbMcE5xw?=
- =?iso-8859-1?Q?X+eE9a7bE/Njk+sF7kP1pn7Jb7xsVPkzW8jLpu0cLhbnwxa/rz+zXLL8nL?=
- =?iso-8859-1?Q?N+FvJKxVMS/wAG0EYBDP4sDQNRofKV7QqlU14LvaO7kateQuO1dEIK0ADU?=
- =?iso-8859-1?Q?efF9DzDwq15uus8nmKMFGUiJ0FN0Iv+OIo6S4Zd4GibZ//aiV4DJzOVc1E?=
- =?iso-8859-1?Q?O1KOzEilAAEWhaYrcZOyZXym14ZcrSYXqNgHVyhYvIcm2+Y+appsZ3g34e?=
- =?iso-8859-1?Q?ELDH73QNOVC74bCaseo04p23F77mB0HIPpD10Aby3XCeeGsq0yYubIShwi?=
- =?iso-8859-1?Q?2WwFMCZAWII1xsvnvrnh2+l0lwsjPIopy7pq53gV9pgE2mlqPrf8m6Tuht?=
- =?iso-8859-1?Q?33i0B1r/1jEzNI0Nw+jc28Wc5hW+X0t8FuqPQoo5CyLkr5gNGW0L7T/SmW?=
- =?iso-8859-1?Q?iWXkRJaAL3WuKwkwpxXiEYMaQjM+9r9Ykemkte+bpLketqmGr+3FkBgY0P?=
- =?iso-8859-1?Q?D6aP3J+ZcTyPxQJuFo59LjqZxxk1S4vRmMFqQgTKcKtlaADHQJsOT/kW4P?=
- =?iso-8859-1?Q?+yN+wm5oVMiogInjASfGSNSJbKS8LDwSHyksIRjbS7nrWH8aKm293hm62k?=
- =?iso-8859-1?Q?wq6cZoBTpzedOLvfTDiXi+PrMJvw39svxED/4RT0JGX0CvId4T0usP0dSj?=
- =?iso-8859-1?Q?veoDbEGDM+qqAYU0onSBa+wMNp2A0kS6Jspr343YKuq4hoqr+7x41a8KQ2?=
- =?iso-8859-1?Q?AivqlE5+Uw=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Fa1ATDn5"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a9984f9a59so2123954a12.0
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 01:23:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789806196; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Be+gtB49W5o4Q3RrC8GC8a6CPFDmg2JndFc7cDxqvvXJGpdPKJaDqIKaMwbbX7ZLTU
+         9o/eNLzmYKfcCyPE3MLT9Fqo7UYN7+uz9WKr8Xpv1AKvqzgqn0ZZpaUhg803sOwJQTzo
+         YhE6j3qDOa2hkb+fmAQUqjz+tyP361Rk3OKl6XQHw9d9x4UIgozYD1IPbQCWRcFGr8qh
+         3unNnc49sWcJl70W/zNrwEmUUz4mmLspUrvCaz87DC2UQyt5p7+6a34uxVWtu6huCUCD
+         6rbWW82pWsEAcg1U1ErK3oPZ6CVOala6cSAFb8S/GWMS1mP+BVLYGiVYYYrVdQ1UQ7Bp
+         +RUg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=vhlRYBu557OkzNkvBXKWSwkb6fE3+wI2R2RMdVzmiUI=;
+        fh=0d990oJfRd/umUnJl/6UXtHrhkLOC9jNREaOIeXVyWE=;
+        b=mjITCsTY47XtKJBKKZe7eSTcPpi6vcGqgSN48F6Tklt9w3uXdSIocYclxTcr3WrLGk
+         JtMusjru8RgoNCILLN1Es1EClH/X9YzkhbTSntydRpk4x1RhJyVsTTNRVe8lQfksLFJJ
+         W6xbS3fbcNs8L0qXKA+P7eERPvUAb9VpvUZgc/FNBB3ZVkv7v+yA4JeVnUL6isRCg3lM
+         4MauQuWpEK8XKrgQ56rytWzoc3i3Wsc8+PiqJ1nnAcacmrdZoovrGEtIxiBKo4dT9IDL
+         RO5SY0370U0RFZ0hE+6u9tfy/ufjLiHoweiugUr118K8SeWKPGQk/9DOUTXOJoErfPgr
+         gYqQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789806196; x=1790410996; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vhlRYBu557OkzNkvBXKWSwkb6fE3+wI2R2RMdVzmiUI=;
+        b=Fa1ATDn5/hpo3E3bZ3UJDa26K7g9kNssTiX4Ia8+sElZIZcbH/J+IP1vSBax9E/W5L
+         tEUcTfM+Nf7JIpnlMhk8dvE/hGhfHbQSw9RdRYrGF4SmbpUCP31mcMPzYUajQi3w4a1O
+         PI3ouqVq7EYWAlPLvj5PQhQLSoFAhLmkcTAHpDwvzPXXaR7DdaMRZPOkUw3APGuc0lDA
+         KM0lIZ0W9UVChnbn4Qbibvpj4OPBW29FuGQ5EqjBh9gk31yRhpyWGRYuvhDpGcJfDiiu
+         /uZEKiy6BieqZIBadSAKiIyPMUclebG5rwRhiD7QB/zbrK++h12E3WVxMmKTc66P9HrR
+         +tqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789806196; x=1790410996;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vhlRYBu557OkzNkvBXKWSwkb6fE3+wI2R2RMdVzmiUI=;
+        b=Jb+sU9mtCqQKpxz7TS2Tc3yiy2Fvgp43f75ph7GYzkyJkG9PQy+cZ9rlTACJti6XiF
+         Wm1cerroucQTCojFxa8Xhx4PUImusU7PXYdb2HazFHziIzwduiOZF079UR9dABBSD5/1
+         gfN+yVxsFt5CjKqnHbGjeWjssnWgV+Uf3hLxiGEnwvjJ7ZMyosUQWwbShS+CgY0IpdIx
+         S+etkqy/jefCXHxhO/np0VKRjmEHhe9p+MlHKhKZ3yn7dURRqScm5DrbmzBoepZaaVZ5
+         xdqg+IvSJGzNmreAv+15MiKOuKpMJ1uG+fUV1+N75O1DFeLWUImjjGNAhO5Bp4hN1Z07
+         nSfQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxnckLh64E4JxIuohWkTlM5832GeLn7a0itrB4y+yUCpWbaB6Db1PWd0vvax/2cR53pSnYN7OLqDjuQhtM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mJ+NGEjCaQUX8vJ/mU+QUN1RGPlKuGCw/fTIfvIK7/qqq2INtU
+	KeGYoD2iB6gn6VjxIlsjPxuaM3WkojqnxDfpf2/AFAy34rvK3ZQeo/VfJV70E3ka018b2gd/Gsw
+	P6eK0ReXk4BzEDHPNwmHvHfCHb+O3lto=
+X-Gm-Gg: AYBFou3F/+S081rFS3/56/UacEKaui5X6TAEcW8y1BlOFwuAS2F3XdH8PhXKqCpoHT6
+	ZOpBSdA5TqrXanpo9ubFPD21HYMDu2AYHJWaDqHBxdAYS4m2ansSfMkAp4SUa5Y12PsBgcbFTeL
+	AnY2hTX5LO7LP4gfCv2ZbATLwJ+JYIxdhNTcgAokUtPZ/HbPs5I1iUKxgLtptk1u/jTjnT+orbQ
+	gytJB3ahxPmJNG/Z8kHdRHEjEPnsK7/6QV6cDl9qdfl4/xm35lhgIFYpKpumk80pkm8l5W47tq9
+	h9grmLqJvLcvnFQZQbvjA1SmSCFKEjw7Q7NmD/ImGA5WDdctKT0268vjz0s5oyH00+oi8H55hn2
+	GccQy7WDjpwp+
+X-Received: by 2002:a05:6402:5111:b0:6a9:ab6a:640f with SMTP id
+ 4fb4d7f45d1cf-6aa531c28c8mr3352559a12.37.1789806195879; Sat, 19 Sep 2026
+ 01:23:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: KKONxybY82yeVSbNAr5FdAREevR7scyMcQTcy4rIvAUlKp/AiQuBKVVX+4Gm4GFGQ/LgNQ2W2kdOwLxboeejvbCBES+YD56uB7fvtIHJrA+hXQ1IqfY7S17locixgeMnkLfDAbtKSPBPp7NEXPIT5JZCSBsV3q5ZPtDmT4wJAu/POkO8dSlSHCiJ5hpQwtKRxKC2lFLYEnEmoQ20bk+reKcqmSP3nfl1kyRU5zmBqybGY0epQFi8TB4UygVeXKP2ww7P97kl6ACi3Xkk/onoP0ZYV2Cu2XiStguJkV4SSZE2tXqTwO6l8ZKE2fzgDFg0ZKlr+ydSwxNZm1wtzNjzlQ==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB7185.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2b17e90d-a390-44e7-a8e6-08df1626f273
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Sep 2026 08:21:04.1948
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Kt4yXu5HbRIAQsSA1QEKvmwC0TzIvm18aDvE7aoWB/UN2vlRmW4Ss1MdUbMtSbxcd1GKhD4bRdDFrv49gvvD9iMm1loP8Zgh13R71OiIZCc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR11MB6822
-X-OriginatorOrg: intel.com
+References: <20260916170406.1280954-2-bestswngs@gmail.com> <48990076-414c-4196-99b9-86fce41b8054@iogearbox.net>
+ <97695bef-507a-403a-84ae-c2e222b3dc65@iogearbox.net>
+In-Reply-To: <97695bef-507a-403a-84ae-c2e222b3dc65@iogearbox.net>
+From: Weiming Shi <bestswngs@gmail.com>
+Date: Sat, 19 Sep 2026 16:22:39 +0800
+X-Gm-Features: AcwNN1U6CAvWtS7Q9Hn-LstPLSzG1EhMZ9wcKAF-zq7_4r0l3w8GEVySnFsv_ws
+Message-ID: <CANgPUi2g4HiCi1dVw+Xpoed7UJJakSiuaFLxToTNO595osed6w@mail.gmail.com>
+Subject: Re: [PATCH v2] bpf: clear stale IPv4 options after LWT encapsulation
+To: Daniel Borkmann <daniel@iogearbox.net>
+Cc: Alexei Starovoitov <ast@kernel.org>, Andrii Nakryiko <andrii@kernel.org>, 
+	Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+	John Fastabend <john.fastabend@gmail.com>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	netdev@vger.kernel.org, Peter Oskolkov <posk@google.com>, Xiang Mei <xmei5@asu.edu>, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Christian,
-
-> Subject: Re: [PATCH] dma-buf/udmabuf: avoid oversized kvmalloc in
-> init_udmabuf()
->=20
-> On 9/18/26 03:34, Jiakai Xu wrote:
-> > init_udmabuf() allocates two pointer arrays with one entry per page
-> of
-> > the created buffer.  Since commit 1c0844c6184e ("udmabuf: change
-> folios
-> > array from kmalloc to kvmalloc") these arrays are allocated with
-> > kvmalloc(), which warns and fails when the requested size exceeds
-> > INT_MAX bytes.
+Daniel Borkmann <daniel@iogearbox.net> =E4=BA=8E2026=E5=B9=B49=E6=9C=8818=
+=E6=97=A5=E5=91=A8=E4=BA=94 02:54=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On 9/17/26 8:24 PM, Daniel Borkmann wrote:
+> > On 9/16/26 7:04 PM, Weiming Shi wrote:
+> >> bpf_lwt_push_ip_encap() rebases the network header after prepending an=
+ IP
+> >> header, but leaves IPCB(skb)->opt describing the inner IPv4 header.  A=
+n
+> >> ingress LWT route can consequently make an ICMP error interpret an
+> >> inner-header byte as an option length and copy 255 bytes into 40 bytes=
+ of
+> >> stack storage.  The trace decoded with scripts/decode_stacktrace.sh is=
+:
+> >>
+> >>    BUG: KASAN: stack-out-of-bounds in __ip_options_echo
+> >>    Write of size 255
+> >>    Call Trace:
+> >>     <IRQ>
+> >>     __asan_memcpy (mm/kasan/shadow.c:106)
+> >>     __ip_options_echo (net/ipv4/ip_options.c:96)
+> >>     __icmp_send (net/ipv4/icmp.c:949)
+> >>     ip_forward (net/ipv4/ip_forward.c:176)
+> >>     lwtunnel_input (net/core/lwtunnel.c:465)
+> >>     ip_rcv (net/ipv4/ip_input.c:612)
+> >>     __netif_receive_skb_one_core (net/core/dev.c:6264)
+> >>     process_backlog (net/core/dev.c:6728)
+> >>     __napi_poll (net/core/dev.c:7787)
+> >>     net_rx_action (net/core/dev.c:8007)
+> >>     handle_softirqs (kernel/softirq.c:645)
+> >>     do_softirq.part.0 (kernel/softirq.c:546)
+> >>     </IRQ>
+> >>     <TASK>
+> >>     __local_bh_enable_ip (kernel/softirq.c:473)
+> >>     __dev_queue_xmit (net/core/dev.c:4961)
+> >>     packet_sendmsg (net/packet/af_packet.c:3143)
+> >>     __sys_sendto (net/socket.c:2281)
+> >>     __x64_sys_sendto (net/socket.c:2288)
+> >>     do_syscall_64 (arch/x86/entry/syscall_64.c:84)
+> >>     entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+> >>     </TASK>
+> >>
+> >> A helper-only reset can be restored by bpf_prog_run_save_cb(), while a
+> >> program without ctx->cb[] access can clone-redirect the skb before a
+> >> return-only reset.  Track active LWT runs and their control-block fami=
+ly
+> >> in the BPF network context.  When the control block is not BPF scratch
+> >> space, save its original contents and reset it immediately so clones s=
+ee
+> >> the new-family layout.  After the program returns, restore that snapsh=
+ot
+> >> when the verdict continues through the original protocol callback, the=
+n
+> >> invalidate the stale header metadata.  Verdicts that reroute or redire=
+ct
+> >> keep the new-family layout.
+> >>
+> >> Preserve the state across nested runs and retain the ingress interface=
+ and
+> >> L3-slave state when the protocol family changes.
+> >>
+> >> Cc: stable@vger.kernel.org
+> >> Fixes: 52f278774e79 ("bpf: implement BPF_LWT_ENCAP_IP mode in bpf_lwt_=
+push_encap")
+> >> Reported-by: Xiang Mei <xmei5@asu.edu>
+> >> Assisted-by: LLM
+> >> Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+> >> ---
+> >> v2:
+> >> - Save the incoming protocol control block for programs without ctx->c=
+b[]
+> >>    access.
+> >> - Restore that snapshot before a verdict continues through the origina=
+l
+> >>    protocol callback, then invalidate the rebased header metadata.
+> >> - Keep the eager new-family reset for clones and final reroute/redirec=
+t
+> >>    consumers.
+> >> - Add Cc: stable@vger.kernel.org.
+> >> - Correct the patch author and reporter attribution.
+> >> v1:
+> >> - https://lore.kernel.org/bpf/20260915170147.3943392-2-bestswngs@gmail=
+.com/
 > >
-> > With the default size limit of 64 MB the largest possible request was
-> > far below that threshold, but commit 44e9eb5a7621 ("dma-
-> buf/udmabuf:
-> > Disable the size limit by default") raised the limit to INT_MAX MB.
-> > With 4K pages, creating a buffer of more than INT_MAX / 8 pages
-> (about
-> > 1 TB of pinned memory) now makes kvmalloc() hit its "crazy size"
-> > WARN_ON_ONCE(), which is trivially triggerable from unprivileged
-> users
-> > through the UDMABUF_CREATE ioctls:
+> > Hm, this is way too much fragile churn for a feature which I'm not sure=
+ is much
+> > used (?). Can't we just save/restore the skb->cb when the BPF prog runs=
+? Roughly
+> > sth along these lines (untested) :
 > >
-> >   WARNING: CPU: 0 PID: 412 at mm/slub.c:7021
-> __kvmalloc_node_noprof
-> >   Call Trace:
-> >    udmabuf_create
-> >    udmabuf_ioctl_create_list
+> > diff --git a/net/core/lwt_bpf.c b/net/core/lwt_bpf.c
+> > index da49364ec63d..9cf04b44ecc1 100644
+> > --- a/net/core/lwt_bpf.c
+> > +++ b/net/core/lwt_bpf.c
+> > @@ -36,10 +36,24 @@ static inline struct bpf_lwt *bpf_lwt_lwtunnel(stru=
+ct lwtunnel_state *lwt)
+> >   #define NO_REDIRECT false
+> >   #define CAN_REDIRECT true
 > >
-> > Fix it by rejecting buffers whose page count exceeds what the pointer
-> > arrays can address before calling init_udmabuf(), returning -EINVAL.
->=20
-> I was already wondering if we won't hit some allocation limit when we
-> drop the general limit.
->=20
-> Please don't add any new check, but rather give a reasonable default
-> size limit.
-My preferred solution to address this issue is to add mlock accounting:
-https://lore.kernel.org/dri-devel/20260831060210.1713177-1-vivek.kasireddy@=
-intel.com/
-
-Do you think this approach (mlock accounting) makes sense?
-
-Thanks,
-Vivek
-
->=20
-> >
-> > Fixes: 1c0844c6184e ("udmabuf: change folios array from kmalloc to
-> kvmalloc")
-> > Fixes: 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by
-> default")
->=20
-> Two fixes tags usually doesn't make much sense.
->=20
-> Regards,
-> Christian.
->=20
-> > Signed-off-by: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
-> > ---
-> >  drivers/dma-buf/udmabuf.c | 8 ++++++++
-> >  1 file changed, 8 insertions(+)
-> >
-> > diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-> > index df6dd00462423..25984e75d7ff3 100644
-> > --- a/drivers/dma-buf/udmabuf.c
-> > +++ b/drivers/dma-buf/udmabuf.c
-> > @@ -383,6 +383,14 @@ static long udmabuf_create(struct miscdevice
-> *device,
-> >         if (!pgcnt)
-> >                 goto err_noinit;
-> >
-> > +       /*
-> > +        * init_udmabuf() allocates two arrays of pointers, one entry p=
-er
-> > +        * page, with kvmalloc(), which cannot handle sizes larger than
-> > +        * INT_MAX bytes.
-> > +        */
-> > +       if (pgcnt > INT_MAX / sizeof(struct page *))
-> > +               goto err_noinit;
+> > +static void bpf_lwt_reset_cb(struct sk_buff *skb)
+> > +{
+> > +    if (skb->protocol =3D=3D htons(ETH_P_IP)) {
+> > +        memset(IPCB(skb), 0, sizeof(*IPCB(skb)));
+> > +        IPCB(skb)->iif =3D skb->skb_iif;
+> > +    } else if (skb->protocol =3D=3D htons(ETH_P_IPV6)) {
+> > +        memset(IP6CB(skb), 0, sizeof(*IP6CB(skb)));
+> > +        IP6CB(skb)->iif =3D skb->skb_iif;
+> > +        IP6CB(skb)->nhoff =3D offsetof(struct ipv6hdr, nexthdr);
+> > +    }
+> > +}
 > > +
-> >         ret =3D init_udmabuf(ubuf, pgcnt);
-> >         if (ret)
-> >                 goto err;
-> > --
-> > 2.34.1
+> >   static int run_lwt_bpf(struct sk_buff *skb, struct bpf_lwt_prog *lwt,
+> >                  struct dst_entry *dst, bool can_redirect)
+> >   {
+> >       struct bpf_net_context __bpf_net_ctx, *bpf_net_ctx;
+> > +    bool encap =3D skb->encapsulation;
+> > +    u8 cb_saved[BPF_SKB_CB_LEN];
+> >       int ret;
 > >
+> >       /* Disabling BH is needed to protect per-CPU bpf_redirect_info be=
+tween
+> > @@ -48,7 +62,12 @@ static int run_lwt_bpf(struct sk_buff *skb, struct b=
+pf_lwt_prog *lwt,
+> >       local_bh_disable();
+> >       bpf_net_ctx =3D bpf_net_ctx_set(&__bpf_net_ctx);
+> >       bpf_compute_data_pointers(skb);
+> > +
+> > +    memcpy(cb_saved, bpf_skb_cb(skb), sizeof(cb_saved));
+> >       ret =3D bpf_prog_run_save_cb(lwt->prog, skb);
+> > +    memcpy(bpf_skb_cb(skb), cb_saved, sizeof(cb_saved));
+>
+> ... also needs BPF selftests obviously; dropping the memcpy and a closer =
+look wrt
+> freplace, whether we should reuse & propagate ->cb_access=3D1 also from t=
+here.
+>
+> > +    if (!encap && skb->encapsulation)
+> > +        bpf_lwt_reset_cb(skb);
 > >
-> > --
-> > Below is the crash report:
-> > ------------[ cut here ]------------
-> > WARNING: mm/slub.c:7013 at __kvmalloc_node_noprof+0x516/0x5d0
-> home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:7013, CPU#0:
-> syz.5.27938/167363
-> > Modules linked in:
-> > CPU: 0 UID: 0 PID: 167363 Comm: syz.5.27938 Tainted: G        W    L
-> 7.3.0-rc2 #1 PREEMPT(full)
-> > Tainted: [W]=3DWARN, [L]=3DSOFTLOCKUP
-> > Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-
-> 1 04/01/2014
-> > RIP: 0010:__kvmalloc_node_noprof+0x516/0x5d0
-> home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:7013
-> > Code: 05 bf fa 2d 08 49 8b 0f c6 04 08 00 65 48 ff 0d 90 fa 2d 08 0f 85
-> 4c fd ff ff e8 05 43 8c ff e9 42 fd ff ff e8 9b 86 0e 04 90 <0f> 0b 90 31=
- db
-> e9 d2 fe ff ff f3 0f 1e fa 65 8b 05 8d fa 2d 08 89
-> > RSP: 0018:ffffc90002bc3cf8 EFLAGS: 00010246
-> > RAX: 0000000000000100 RBX: 0000000000000000 RCX:
-> 0000008000000000
-> > RDX: 0000008000000000 RSI: 0000000000000000 RDI: ffffffff835e3226
-> > RBP: 00000000ffffffff R08: 00000000000028c0 R09: 00000000ffffffff
-> > R10: 0000000000000006 R11: 0000000000000002 R12:
-> 0000008000000000
-> > R13: 00000000000028c0 R14: 0000001000000000 R15:
-> 0000008000000000
-> > FS:  00007fc89ae45640(0000) GS:ffff8880f3de4000(0000)
-> knlGS:0000000000000000
-> > CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> > CR2: 000000110c2ff305 CR3: 000000002b3d4000 CR4:
-> 0000000000752ef0
-> > DR0: 0000000000000000 DR1: 0000000000000000 DR2:
-> 0000000000006000
-> > DR3: 0000000000000000 DR6: 00000000ffff0ff0 DR7:
-> 0000000000000400
-> > PKRU: 80000000
-> > Call Trace:
-> >  <TASK>
-> >  init_udmabuf home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-
-> buf/udmabuf.c:193 [inline]
-> >  udmabuf_create+0x1b6/0x750 home/zzzrrll/tmp/kf_src/linux-7.3-
-> rc2/drivers/dma-buf/udmabuf.c:386
-> >  udmabuf_ioctl_create home/zzzrrll/tmp/kf_src/linux-7.3-
-> rc2/drivers/dma-buf/udmabuf.c:465 [inline]
-> >  udmabuf_ioctl+0x132/0x1d0 home/zzzrrll/tmp/kf_src/linux-7.3-
-> rc2/drivers/dma-buf/udmabuf.c:496
-> >  vfs_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:51 [inline]
-> >  __do_sys_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:597
-> [inline]
-> >  __se_sys_ioctl+0xbc/0x130 home/zzzrrll/tmp/kf_src/linux-7.3-
-> rc2/fs/ioctl.c:583
-> >  do_syscall_x64 home/zzzrrll/tmp/kf_src/linux-7.3-
-> rc2/arch/x86/entry/syscall_64.c:61 [inline]
-> >  do_syscall_64+0x12b/0x350 home/zzzrrll/tmp/kf_src/linux-7.3-
-> rc2/arch/x86/entry/syscall_64.c:84
-> >  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> > RIP: 0033:0x590d6d
-> > Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89=
- f7 48
-> 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff
-> 73 01 c3 48 c7 c1 a8 ff ff ff f7 d8 64 89 01 48
-> > RSP: 002b:00007fc89ae44fd8 EFLAGS: 00000216 ORIG_RAX:
-> 0000000000000010
-> > RAX: ffffffffffffffda RBX: 0000000000611e7f RCX: 0000000000590d6d
-> > RDX: 00002000000023c0 RSI: 0000000040187542 RDI:
-> 000000000000000a
-> > RBP: 00007fc89ae45010 R08: 0000000000000000 R09:
-> 0000000000000000
-> > R10: 0000000000000000 R11: 0000000000000216 R12:
-> 00007fc89ae45640
-> > R13: 000000000000000b R14: 0000000000528d40 R15:
-> 00007fc89ae25000
-> >  </TASK>
-> > ---[ end trace 0000000000000000 ]---
-> > ---
-> >
+> >       switch (ret) {
+> >       case BPF_OK:
+>
 
+Hi,
+Thanks for the suggestion. I'll simplify the fix, handle cb_access for
+freplace, add BPF selftests, and send a v3.
