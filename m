@@ -1,206 +1,252 @@
-Received: from sender6-op-o12.zoho.com (sender6-op-o12.zoho.com [165.173.180.12])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B552A394497
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 11:23:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789816999; cv=pass; b=n+MwQqqivJ4Z5AKvrH663bmnRxVQ6sYsVZI9bvtC/9Nn2y6G605EK3KR7bubZSgyFswfBf5tRkTIXKPxXZ/SvAdfFlZrrzd4E3QECIclVG2xSyjVbeAUiAzrwPif2719f/CPY6kGBQZwExSiwGpCzh4MJMvY2daYPcaRgWXj8vk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789816999; c=relaxed/simple;
-	bh=/tNjxEyNZLVJeOKDwh+VypPY5j7xuhRn5UqU+gNinkE=;
-	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
-	 Date:MIME-Version; b=odXYbJQp97csJZeNgcrRUYqBiXCGhpSWP3etZNOOX+CksFnu52rroTNgGi0Q3KgpgE0PEDljS37iqnco5/Pwna0plX2IrW/PHDS5m4jNXrgXytGUErEUbgnjFiT8BPzLrfw++E1lokAVFQvcrPYicPkYztidTX7ZWai+3ijQTJM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=Mh5N90TC; arc=pass smtp.client-ip=165.173.180.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB0AE2C3255;
+	Sat, 19 Sep 2026 11:24:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789817086; cv=none; b=AqCMOdIn3y7Mi9uyB++4lXfNP8pWlItTPtQx210NokvLx2TeJ6Anp2/pjWKJS6DqFkK5vSQosctWX7cEHwIIkLZMF6gXZrgWhYRMXRyv2r/FgV7fRfx3rHaZTUgW/ERAFDsjk7z8t6oz0v5Nb8LzKZlTurYIuR6LHF96Sv5c/3c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789817086; c=relaxed/simple;
+	bh=Z8wkPmQUbHgQBu1B/ph7jlE+wdo/SOJNVn6V4NgjmD0=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:To:
+	 Cc:Date:Message-ID; b=DwJo8ZaA7uvitTqQE6UzeTmSWeA4tmV6ydsoCKZqwJ4pbKrJ8bpD1T0PxbvRI6hetY/aibEuLEIAFzrG9mbfXsWKnOkYx9pq/8dM1B5yZOKK15wT0zqemCLB2dumYy/i/LRFpQj4h8IR/0+fHENn1NFmOE0rx8nZ5U9VW4Gcj8w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=E54UYq9R; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="Mh5N90TC"
-ARC-Seal: i=1; a=rsa-sha256; t=1789816986; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=lEIGtGAgWsYQaLVQyvz2gnw+JFOfeab6IZnG5LIot1bM5j2Oe1cXHPMN1sssd6cZLmF/9s5lVcAVE2UZ7br3rX3nCKiSe7rjTnGZIMmbrrxaHdCexB13wFXN6DratC9fW3HZqPIIAj8un8HV87RUFBX9BIGzz6pccmZLD+bJ7/I=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1789816986; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=MnBpje23BPtC5ZDdSbHc5BeKiFBt06m/9TBlaQpP79E=; 
-	b=nKi6/0CRSFBFG4TOaUXGhrnJLStVvQHk6q7POVU/RXYXOiw+l1CVtkw17GKoBhSt/vVz+4OHgbT0kLBngwXdnVtidsud6bxZ0sdvo7WqFS6u8fYyKle4N87TNYhmx+FfC0Hf/DuDWS5WyVMvGwWTkM/6JDIwloWBTvXuqaJJlgk=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789816986;
-	s=zmail2048; d=rong.moe; i=i@rong.moe;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Content-Type:Content-Transfer-Encoding:Date:Date:MIME-Version:Message-Id:Reply-To;
-	bh=MnBpje23BPtC5ZDdSbHc5BeKiFBt06m/9TBlaQpP79E=;
-	b=Mh5N90TCYKD26raqCzJXpeHx1j51MwLPEJoK7AcLYHk/DA4QBT8w/Ko78bgZMjmD
-	9a+6K/TOmURfT1CdRlas61dbK3mCvmFN/g5izFqU+Z61yzYo8I5NIRaspYSDjO9s+3z
-	Bh14WGLOMY9utidxvtdUzkj4kb8FxPDeZ21QRhXVl7OKevV9IsC98xHagA9BPsHV8w7
-	/hknuuGAlwIFqJciw2svLkeZk48OOHxM55VjbBc6kJVFHWLvoojK999BRCaJNj/JA9c
-	EeV1Obcr8nD6NuEZWZ9Qt8KsnF3XbVUTGHtYT5Fksz86rtsBamkDHSqYx6Cp2DTcAvq
-	BMlhpy/5Gw==
-Received: by smtp.zohomail.com with SMTPS id 1789816984782821.5513919164255;
-	Sat, 19 Sep 2026 04:23:04 -0700 (PDT)
-Message-ID: <bf0217334a0f895d49e520b4a78f0a3fe686218c.camel@rong.moe>
-Subject: Re: [PATCH v3 0/3] iommu/amd: Do not request ACS when IOMMU is not
- going to be initialized
-From: Rong Zhang <i@rong.moe>
-To: "Joerg Roedel (AMD)" <joro@8bytes.org>, Suravee Suthikulpanit	
- <suravee.suthikulpanit@amd.com>, Vasant Hegde <vasant.hegde@amd.com>, Will
- Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, Huang Rui
- <ray.huang@amd.com>
-Cc: Ankit Soni <Ankit.Soni@amd.com>, Sairaj Kodilkar <sarunkod@amd.com>, 
-	iommu@lists.linux.dev, linux-kernel@vger.kernel.org
-In-Reply-To: <20260823-amd-iommu-fix-acs-v3-0-dd768e09d771@rong.moe>
-References: <20260823-amd-iommu-fix-acs-v3-0-dd768e09d771@rong.moe>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 19 Sep 2026 19:17:58 +0800
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="E54UYq9R"
+Received: from monstersaurus.ideasonboard.com (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B9A561CF5;
+	Sat, 19 Sep 2026 13:22:57 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789816977;
+	bh=Z8wkPmQUbHgQBu1B/ph7jlE+wdo/SOJNVn6V4NgjmD0=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date:From;
+	b=E54UYq9RUqmFHOocoYsZKlZvDH7Nbztbu9QniuXOze6Pmwl2qh/MSaUbG+hg9/O6C
+	 p+Amtq/VmdsBU/NaCNpo2P7WPLWQPqbBXoEy2sXATTTPe8CSggBRmLqFE7XV0Ov9/d
+	 YgcIvT2PQZrrwwjZHyjz/rFHxkBAp2oDAxg3kCvM=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Evolution 3.56.2-10+b1 
-X-ZohoMailClient: External
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260918192447.GB1465432-robh@kernel.org>
+References: <20260910-verdin-imx8mp-hmp-camera-ready-v1-0-3c9349ecdb9f@toradex.com> <20260910-verdin-imx8mp-hmp-camera-ready-v1-3-3c9349ecdb9f@toradex.com> <aqLaLmz7n31P6igy@SMW015318> <prwghb3ftrz5xd3hapxtlv2o2gm5xmuapnpz2h7fqulf75phqz@lk4yiaepormb> <aqLif2zrrsbYd5sM@SMW015318> <aqLk5UAv-j39Jxd3@francesco-nb> <20260918192447.GB1465432-robh@kernel.org>
+Subject: Re: [PATCH 3/6] dt-bindings: connector: Add Toradex camera connector
+From: Kieran Bingham <kieran.bingham@ideasonboard.com>
+To: Francesco Dolcini <francesco.dolcini@toradex.com>, Rob Herring <robh@kernel.org>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
+Cc: Frank Li <Frank.li@oss.nxp.com>, Ernest Van Hoecke <ernestvanhoecke@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
+Date: Sat, 19 Sep 2026 12:24:38 +0100
+Message-ID: <178981707848.1761404.17065871878122418287@ping.linuxembedded.co.uk>
+User-Agent: alot/0.9.1
 
-Hi All,
+Hi all,
 
-On Sun, 2026-08-23 at 06:20 +0800, Rong Zhang wrote:
-> The AMD IOMMU Initialization State Machine has the following state
-> transition diagram (only the very first states are showed, and the
-> `IOMMU_' prefix is omitted):
->=20
->    START_STATE
->         |
->         v
-> [0] detect_ivrs() --> NOT_FOUND
->         | ok
->         v
->   IVRS_DETECTED
->         |
->         v
-> [1] amd_iommu_disabled? (amd_iommu=3Doff) --> IOMMU_CMDLINE_DISABLED
->         | no
->         v
-> [2] early_amd_iommu_init()
->         |
->         +-- [3] amd_iommu_detected? (!iommu=3Doff && ...) -+
->         | yes                                            |
->         +-- ... --> IOMMU_INIT_ERROR <-------------------+
->         | ok
->         v
-> IOMMU_ACPI_FINISHED
->         |
->         v
->        ...
->=20
-> [0] always calls pci_request_acs() as long as there's a valid IVRS table
-> and no Stoney Ridge graphics. This is not optimal as ACS is not required
-> in an [amd_]iommu=3Doff boot.
->=20
-> In a normal boot, ACS is requested due to amd_iommu_detect() requesting
-> IVRS_DETECTED.
->=20
->     pci_request_acs+0x9/0x18
->     iommu_go_to_state+0x106/0x1a20
->     amd_iommu_detect+0x1c/0x50
->     pci_iommu_alloc+0x26/0x40
->     mm_core_init+0xa/0x120
->     start_kernel+0x527/0x7a0
->     x86_64_start_reservations+0x24/0x30
->     x86_64_start_kernel+0xd1/0xe0
->     common_startup_64+0x13e/0x158
->=20
-> This is intended to ensure ACS is requested before the PCI core
-> initialization, or else a !CONFIG_IRQ_REMAP, nointremap or intremap=3Doff
-> boot would be broken.
->=20
-> However, in an amd_iommu=3Doff boot, the state machine still requests ACS
-> at the exact same time, as amd_iommu_detect() has nothing to do with
-> amd_iommu_disabled.
->=20
-> Even worse, in an iommu=3Doff boot, though amd_iommu_detect() bails out
-> early, ACS is still requested due to amd_iommu_prepare() requesting
-> IOMMU_ACPI_FINISHED, which is called by irq_remapping_prepare() thanks
-> to CONFIG_X86_LOCAL_APIC (always set on X86_64) and CONFIG_IRQ_REMAP
-> (enabled by defconfig), unless nointremap or intremap=3Doff is also passe=
-d
-> to cmdline.
->=20
->     pci_request_acs+0x9/0x18
->     iommu_go_to_state+0x106/0x1a20
->     amd_iommu_prepare+0x15/0x40
->     irq_remapping_prepare+0x43/0x60
->     enable_IR_x2apic+0x22/0x190
->     x86_64_probe_apic+0xa/0x50
->     apic_intr_mode_init+0x70/0xd0
->     x86_late_time_init+0x28/0x40
->     start_kernel+0x6f9/0x7a0
->     ...
->=20
-> In both cases, [2] is still gated due to the [1] or [3] check, so that
-> IOMMU can be disabled per cmdline.
->=20
-> Technically, it makes no sense to detect IVRS at all in an
-> [amd_]iommu=3Doff boot or if IOMMU is not supported due to platform
-> settings. This is probably why amd_iommu_detect() bails out before
-> requesting IVRS_DETECTED. Apparently only bailing out there is not
-> sufficient, and the bailing-out paths should really have been parts of
-> the state machine.
->=20
-> PATCH 1 cleans up the initialization routines by moving the bailing-out
-> paths and [1] to the right place in the state machine (i.e., before
-> [0]), and always requesting IVRS_DETECTED in amd_iommu_detect() to
-> initialize the state machine early and properly.
->=20
-> PATCH 2 disallows implicit START_STATE =3D> IVRS_DETECTED transition, so
-> that amd_iommu_prepare() and other paths no longer progress the state
-> machine accidentally. This should also help prevent potential bugs if
-> more housekeeping work is added to amd_iommu_detect() in the future.
->=20
-> PATCH 3 removes all redundant ad-hoc checks, as they are now covered by
-> the state machine itself.
->=20
-> Signed-off-by: Rong Zhang <i@rong.moe>
++Dave @ Rpi
 
-Gentle ping.
+Quoting Rob Herring (2026-09-18 20:24:47)
+> On Thu, Sep 10, 2026 at 07:12:05PM +0200, Francesco Dolcini wrote:
+> > On Thu, Sep 10, 2026 at 12:01:51PM -0500, Frank Li wrote:
+> > > On Thu, Sep 10, 2026 at 06:39:30PM +0200, Ernest Van Hoecke wrote:
+> > > > Hi Frank,
+> > > >
+> > > > Thanks for reviewing this so quickly.
+> > > >
+> > > > On Thu, Sep 10, 2026 at 11:26:22AM -0500, Frank Li wrote:
+> > > > > On Thu, Sep 10, 2026 at 05:37:59PM +0200, Ernest Van Hoecke wrote:
+> > > > > > From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> > > > > >
+> > > > > > Toradex boards route the sideband signals of their 24-pin camera
+> > > > > > connectors to different GPIO controllers. Camera overlays which=
+ name
+> > > > > > those controllers directly must therefore be duplicated for eac=
+h host
+> > > > > > board.
+> > > > > >
+> > > > > > Describe reset, power-down, detection and power-control as
+> > > > > > connector-local GPIO functions. This lets an accessory overlay =
+remain
+> > > > > > independent of the host wiring. MIPI CSI-2, I2C, clocks and sup=
+plies
+> > > > > > remain described separately because the GPIO nexus does not abs=
+tract
+> > > > > > them.
+> > > > > >
+> > > > > > Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> > > > > > ---
+> > > > > >  .../connector/toradex,camera-connector.yaml        | 86 ++++++=
+++++++++++++++++
+> > > > > >  1 file changed, 86 insertions(+)
+> > > > > >
+> > > > > > diff --git a/Documentation/devicetree/bindings/connector/torade=
+x,camera-connector.yaml b/Documentation/devicetree/bindings/connector/torad=
+ex,camera-connector.yaml
+> > > > > > new file mode 100644
+> > > > > > index 000000000000..06e6836e1aa6
+> > > > > > --- /dev/null
+> > > > > > +++ b/Documentation/devicetree/bindings/connector/toradex,camer=
+a-connector.yaml
+> > > > > > @@ -0,0 +1,86 @@
+> > > > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > > > > +%YAML 1.2
+> > > > > > +---
+> > > > > > +$id: http://devicetree.org/schemas/connector/toradex,camera-co=
+nnector.yaml#
+> > > > > > +$schema: http://devicetree.org/meta-schemas/base.yaml#
+> > > > > > +
+> > > > > > +title: Toradex camera connector GPIO nexus
+> > > > > > +
+> > > > > > +maintainers:
+> > > > > > +  - Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> > > > > > +  - Toradex Linux BSP Team <linux-bsp@toradex.com>
+> > > > > > +
+> > > > > > +description: |
+> > > > > > +  Toradex boards provide 24-pin camera connectors carrying MIP=
+I CSI-2, I2C,
+> > > > > > +  clock, power, and sideband GPIO signals. This binding descri=
+bes the sideband
+> > > > > > +  signals as a GPIO nexus. The other connector resources remai=
+n described by
+> > > > > > +  the surrounding board device tree.
+> > > > > > +
+> > > > > > +  The nexus exposes connector-local GPIO function numbers to c=
+amera overlays
+> > > > > > +  and maps the functions wired by a carrier board to their GPI=
+O controllers.
+> > > > > > +  GPIO specifiers contain a function number followed by standa=
+rd GPIO flags.
+> > > > > > +  A board may omit functions which it does not wire.
+> > > > > > +
+> > > > > > +  The function numbers are:
+> > > > > > +    - 0: Camera reset, connector pin 11
+> > > > > > +    - 1: Camera power-down, connector pin 22
+> > > > > > +    - 2: Camera identification, connector pin 23
+> > > > > > +    - 3: Camera power control, connector pin 24
+> > > > > > +
+> > > > > > +properties:
+> > > > > > +  compatible:
+> > > > > > +    const: toradex,camera-connector
+> > > > >
+> > > > > Name is too generally, suggest use board name, we got similar com=
+ments at
+> > > > >
+> > > > > https://lore.kernel.org/imx/20260629074734.3643227-2-chancel.liu@=
+oss.nxp.com/
+> > > >
+> > > > I saw that and it made me reconsider this name.
+> > > >
+> > > > However, I believe that in our case it is specific enough. It is re=
+ally
+> > > > the same on all our carrier boards, and Toradex specific. It's also=
+ only
+> > > > for cameras, which is more defined than just "io". Curious to see if
+> > > > others agree or if we should come up with a name for this.
+> > >=20
+> > > If some days later, you update hardware connector to 30pin from 24pin=
+s.
+> >=20
+> > That connector is there since years, not days.
+> >=20
+> > We have multiple cameras, designed to mate with it.
+> >=20
+> > If tomorrow we will define a new camera connector (that is absolutely
+> > possible), the new connector will get its name, maybe
+> > toradex,camera-connector-v2, or toradex,camera-connector-22pin or
+> > whatever that connector would be named, not just in the DT, but also as
+> > a product and on the actual HW.
+>=20
 
-Thanks,
-Rong
+Diving in because, cameras :D
 
-> ---
-> Changes in v3:
-> - Drop the dead condition (iommu_detected && !gart_iommu_aperture) as
->   now we always have iommu_detected =3D=3D gart_iommu_aperture (thanks
->   Sairaj Kodilkar)
-> - Link to v2: https://patch.msgid.link/20260821-amd-iommu-fix-acs-v2-0-98=
-2472452638@rong.moe
+
+> I for one hate 'v2' naming.
 >=20
-> Changes in v2:
-> - New patch in the series
->   - PATCH 2 ("iommu/amd: Disallow implicit START_STATE =3D> IVRS_DETECTED
->     transition")
->   - Prevent PATCH 3 from accidentally allowing AMD IOMMU to probe in Xen
->     PV (thanks Ankit Soni)
-> - Drop Fixes: and Cc: stable (ditto)
-> - Rebase on top of the lastest changes
-> - Link to v1: https://patch.msgid.link/20260811-amd-iommu-fix-acs-v1-0-d6=
-4e2172408d@rong.moe
+
+Me too. I wouldn't ever call it v2, but a future
+toradex,camera-connector-24pin might be appropriate.
+
+Note that I specifically said 24 as an example because there is already
+a 22 pin Raspberry Pi connector.
+
+If Toradex were to produce boards with a 22 pin connector, I would
+anticipate it to be the same pinout as the Raspberry Pi connector.
+
+Raspberry Pi camera connectors have already somewhat become a defacto
+standard (albeit for both positives and negatives there).
+
+So I would imagine if a 22 pin layout were ever made it would be
+compatible with RPi 22. And if Toradex ever make a 22 pin connector
+which is not RPi compatible ... well I might scream into the void ;-)
+but then it would have a toradex prefix I guess!
+
+
+Equally we have other vendors who have 30 pin connectors (There are
+quite a few, so I have myself a research project to go find out how
+{in,}compatible they all are here ...)
+
+So, I would imagine if we're giong to name connectors we should set out
+an expectation to start with
+
+  toradex,camera-connector-30pin
+  raspberrypi,camera-connector-15pin
+  raspberrypi,camera-connector-22pin
+
+And if Toradex were to make a *different* 22 pin connector then it would
+be:
+
+  toradex,camera-connector-22pin,
+
+But if it's RPi layout, then it would be defined as such.
+
+
+All that to say - I think Toradex certainly warrant a specific
+
+  toradex,camera-connector
+
+But I think specifiying the pin count already could be useful (but not
+essential).
+
+It's a bit like Raspberry Pi's original 15 pin connector. If we wound
+the clock back 15 years and tried this with RPi we'd have:
+
+  raspberrypi,camera-connector
+  raspberrypi,camera-connector-22pin
+
+I mean that's fine too - but if we're specifying the pin in one we may
+as well do it in all...
+
+
+> I agree the name seems a bit generic, but if you really can't come up=20
+> with something better, then fine. The next connector name just has to be =
+
+> something different.
+
+Indeed.
+
+I'm very happy that we have actual progress on how we might handle
+camera connectors though!
+
+I'm going to have to try to do the same proposal for RPi connectors
+aren't I ;-)
+
+If I post patches, I'll use the full form:
+
+=20
+  raspberrypi,camera-connector-15pin
+  raspberrypi,camera-connector-22pin
+
+
+I'm curious if anyone at RPi has any opinion, given it's 'their' standard.
+
+Dave? any thoughts here ?
+
+--
+Kieran
+
+
 >=20
-> ---
-> Rong Zhang (3):
->       iommu/amd: Do not request ACS when IOMMU is not going to be initial=
-ized
->       iommu/amd: Disallow implicit START_STATE =3D> IVRS_DETECTED transit=
-ion
->       iommu/amd: Remove ad-hoc checks that are never true
->=20
->  drivers/iommu/amd/init.c | 52 ++++++++++++++++++++++++------------------=
-------
->  1 file changed, 26 insertions(+), 26 deletions(-)
-> ---
-> base-commit: 26260251022fbc2f248a3d747a9b2b961b18d2d8
-> change-id: d58d0f31-amd-iommu-fix-acs-8f3d4aba8183
->=20
-> Thanks,
-> Rong
+> Rob
