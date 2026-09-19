@@ -1,37 +1,37 @@
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEF913164B7;
-	Sat, 19 Sep 2026 00:31:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EF4A318ED6;
+	Sat, 19 Sep 2026 00:31:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789777896; cv=none; b=BDYthPFJAqqwsSxDc/Vd4TGJMezG0hQvoZiT21U3INK8WYtF7BGJEScvyg6k4DJOzsv7V6hohzvTKZWDhXhcXhkstjY7Ps40F7agcerZSFaUv7Jf/Kc/+JR0YL6uDBHhKQdDRHrQkUIk+ll3NLe1hhvsW/kb5pKDZqjQPmlARYc=
+	t=1789777903; cv=none; b=rhXXu7tiDzCWpc4SRCTnUk4ns/7ucIxHf14cbggWtQxEpP79uruAxZnMTBpwebh4lQdvc6UOprPYG3nWnN5kDBKpQ11AjexuE+oJ/kHVUrfQtTssqDRHS/wpuTW2wM0lk3rr9EPtt9Ac58gLDB/QJ270WMIm0h0c1r3Ism4WxEw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789777896; c=relaxed/simple;
-	bh=KVSBkQWeVrGgCOG3ZYT7N8gDfDvgIxAMqwY9XT7dGX4=;
+	s=arc-20240116; t=1789777903; c=relaxed/simple;
+	bh=ybF6Ms6l/dxe6GtLLJw248A2fjQTDCBXHT5t10+zAjc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hHLBD0P8juYEKC9QfWqPwbrE3zoBknw9zj17IQsqcl6UWHfVf2np6JX6fX1Kww66Ky2zAL1XSssubMxhxLXtMmTVM8laO17AvReyEuUIDPawM4xs0NaMtqEcTPd6VfQ+qTMwNtH4axLWLtWIKlt5fK9QfRJDUsiD3YWBJql2sQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=X1uB9bU2; arc=none smtp.client-ip=213.97.179.56
+	 In-Reply-To:To:Cc; b=KEDzhuDGYe0HGzlIP/lYAUdSAKKtx1W3ObSsBXvMYR3Bghcg+GPoAlOz23O9a+yRBgu3bstVIr2TFgYp7cwmx2FNgRIel/MtgjbS4oO4Nuz+HN00dERpN2kSDAX2UGrYNhZnt2hmgIY40rHoqt7xK0HZ8f42DkGwZmOJaTPsJi4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=AFWZkOMZ; arc=none smtp.client-ip=213.97.179.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="X1uB9bU2"
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="AFWZkOMZ"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
 	s=20170329; h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
 	MIME-Version:Subject:Date:From:From:Reply-To;
-	bh=0ijnDX5jPGfK+6Qj2wv+eFayvJzrjohi8rsTeb0nu1g=; b=X1uB9bU25iHLz51DG3e1iUR5CI
-	Y5Jh7scLMNqKVEoySaVsd6HAEFEi7I8mI1XE40X7r8dgBKVUeOEriLpMmNqErvpKFfXOkXscOd7JO
-	RpK1Qf1jTFI3+mtAZ6C+7Nqjvnli9MAqqsPR/z7iLUPxJvOLzlJl9+/gXi27xc7+8HOzP6sRF9lUY
-	G0uMB8o64Fh8k92jpRqje6SYRrotUqE+mXrm3NPxStIsB0LWrl7rYuUUFTeDO5h4LOj63OzokAXeI
-	Dp+RlAe7HtyzSxysPyUPtUGpbULspxYYG8UaiqVD0E+IbjsYFbdKmv9LJc+2qhqd91Vb+aakyeFnj
-	6ZSycjSA==;
+	bh=4woeKBq94StRBWQOlx29oSEhrI6HXyHnkC3tl4QTEwA=; b=AFWZkOMZ9aOYNzsTW3YPn8I0F2
+	sHkxGrK4LUCpImEHN92eTu9hJJ3ND1lP1LCdGgnglL/CMG1H7aVVZvAWifVEEYUlLiPTieAUdUpoG
+	Cl/GPCw5K/HCwWjrRIlN8bz4ZzT85Hgt5L/rPTZ/DsedgC30/Y0bmAEINynQ8F2rVVZELcVQ3TfoV
+	LORyu3R+GD0cXhH4q5wmsLkCmBNYRO0NKeFZFwm+LmRUf+yiXtF8qwZGThZ4aRSwtmEMLCX9utN4w
+	JNlHtQX1NJJrqqBeZ/Z+eXQWE6Hhiqv+RVv2o1CZOXdFLtDN2BcL0UIq4hjxN6inZXU2zR+dsESaj
+	XdFCwQQw==;
 Received: from [177.172.123.214] (helo=[192.168.15.100])
 	by fanzine2.igalia.com with esmtpsa 
 	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1x7izC-004Bwz-B4; Sat, 19 Sep 2026 02:31:22 +0200
+	id 1x7izM-004Bwz-I2; Sat, 19 Sep 2026 02:31:32 +0200
 From: =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-Date: Fri, 18 Sep 2026 21:31:10 -0300
-Subject: [PATCH v8 03/12] scripts/syscall.tbl: Use the common table
+Date: Fri, 18 Sep 2026 21:31:13 -0300
+Subject: [PATCH v8 06/12] mips: Remove duplicated syscallnr.sh
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260918-tonyk-syscall_table-v8-3-0e2d60cad13e@igalia.com>
+Message-Id: <20260918-tonyk-syscall_table-v8-6-0e2d60cad13e@igalia.com>
 References: <20260918-tonyk-syscall_table-v8-0-0e2d60cad13e@igalia.com>
 In-Reply-To: <20260918-tonyk-syscall_table-v8-0-0e2d60cad13e@igalia.com>
 To: Masami Hiramatsu <mhiramat@kernel.org>, Arnd Bergmanon <arnd@arndb.de>
@@ -53,331 +53,71 @@ Cc: Christian Brauner <brauner@kernel.org>, linux-kernel@vger.kernel.org,
  =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
 X-Mailer: b4 0.15.2
 
-Remove some of the duplicated code by using the common syscall number
-table.
+The common scripts/ already have a script for generating the numbers of
+syscalls file. Use it and drop the custom script.
 
 Signed-off-by: André Almeida <andrealmeid@igalia.com>
 ---
- arch/arc/kernel/Makefile.syscalls       |  2 +-
- arch/arm64/kernel/Makefile.syscalls     |  2 +-
- arch/arm64/tools/syscall_32.tbl         | 69 ---------------------------------
- arch/csky/kernel/Makefile.syscalls      |  3 +-
- arch/hexagon/kernel/Makefile.syscalls   |  2 +-
- arch/loongarch/kernel/Makefile.syscalls |  4 +-
- arch/nios2/kernel/Makefile.syscalls     |  2 +-
- arch/nios2/kernel/syscall_table.c       |  1 -
- arch/openrisc/kernel/Makefile.syscalls  |  2 +-
- arch/openrisc/kernel/sys_call_table.c   |  1 -
- arch/riscv/kernel/Makefile.syscalls     |  4 +-
- scripts/Makefile.asm-headers            | 11 +++---
- scripts/syscall.tbl                     | 69 ---------------------------------
- 13 files changed, 16 insertions(+), 156 deletions(-)
+ arch/mips/kernel/syscalls/Makefile     |  7 +++----
+ arch/mips/kernel/syscalls/syscallnr.sh | 26 --------------------------
+ 2 files changed, 3 insertions(+), 30 deletions(-)
 
-diff --git a/arch/arc/kernel/Makefile.syscalls b/arch/arc/kernel/Makefile.syscalls
-index 391d30ab7a83..507c4fff3f6b 100644
---- a/arch/arc/kernel/Makefile.syscalls
-+++ b/arch/arc/kernel/Makefile.syscalls
-@@ -1,3 +1,3 @@
- # SPDX-License-Identifier: GPL-2.0
+diff --git a/arch/mips/kernel/syscalls/Makefile b/arch/mips/kernel/syscalls/Makefile
+index 56f6f093bb88..1bfc2346d100 100644
+--- a/arch/mips/kernel/syscalls/Makefile
++++ b/arch/mips/kernel/syscalls/Makefile
+@@ -5,16 +5,15 @@ uapi := arch/$(SRCARCH)/include/generated/uapi/asm
+ $(shell mkdir -p $(uapi) $(kapi))
  
--syscall_abis_32 += arc time32 renameat stat64 rlimit
-+syscall_abis_32 += arc time32 renameat stat64 rlimit clone3
-diff --git a/arch/arm64/kernel/Makefile.syscalls b/arch/arm64/kernel/Makefile.syscalls
-index 0542a718871a..2a5d8b51f647 100644
---- a/arch/arm64/kernel/Makefile.syscalls
-+++ b/arch/arm64/kernel/Makefile.syscalls
-@@ -1,6 +1,6 @@
- # SPDX-License-Identifier: GPL-2.0
- 
- syscall_abis_32 +=
--syscall_abis_64 += renameat rlimit memfd_secret
-+syscall_abis_64 += renameat rlimit memfd_secret clone3
- 
- syscalltbl = arch/arm64/tools/syscall_%.tbl
-diff --git a/arch/arm64/tools/syscall_32.tbl b/arch/arm64/tools/syscall_32.tbl
-index df2d1d82fb3c..957cb7d59443 100644
---- a/arch/arm64/tools/syscall_32.tbl
-+++ b/arch/arm64/tools/syscall_32.tbl
-@@ -415,72 +415,3 @@
- 400	common	migrate_pages		sys_migrate_pages
- 401	common	kexec_file_load		sys_kexec_file_load
- # 402 is unused
--403	common	clock_gettime64			sys_clock_gettime
--404	common	clock_settime64			sys_clock_settime
--405	common	clock_adjtime64			sys_clock_adjtime
--406	common	clock_getres_time64		sys_clock_getres
--407	common	clock_nanosleep_time64		sys_clock_nanosleep
--408	common	timer_gettime64			sys_timer_gettime
--409	common	timer_settime64			sys_timer_settime
--410	common	timerfd_gettime64		sys_timerfd_gettime
--411	common	timerfd_settime64		sys_timerfd_settime
--412	common	utimensat_time64		sys_utimensat
--413	common	pselect6_time64			sys_pselect6			compat_sys_pselect6_time64
--414	common	ppoll_time64			sys_ppoll			compat_sys_ppoll_time64
--416	common	io_pgetevents_time64		sys_io_pgetevents		compat_sys_io_pgetevents_time64
--417	common	recvmmsg_time64			sys_recvmmsg			compat_sys_recvmmsg_time64
--418	common	mq_timedsend_time64		sys_mq_timedsend
--419	common	mq_timedreceive_time64		sys_mq_timedreceive
--420	common	semtimedop_time64		sys_semtimedop
--421	common	rt_sigtimedwait_time64		sys_rt_sigtimedwait		compat_sys_rt_sigtimedwait_time64
--422	common	futex_time64			sys_futex
--423	common	sched_rr_get_interval_time64	sys_sched_rr_get_interval
--424	common	pidfd_send_signal		sys_pidfd_send_signal
--425	common	io_uring_setup			sys_io_uring_setup
--426	common	io_uring_enter			sys_io_uring_enter
--427	common	io_uring_register		sys_io_uring_register
--428	common	open_tree			sys_open_tree
--429	common	move_mount			sys_move_mount
--430	common	fsopen				sys_fsopen
--431	common	fsconfig			sys_fsconfig
--432	common	fsmount				sys_fsmount
--433	common	fspick				sys_fspick
--434	common	pidfd_open			sys_pidfd_open
--435	common	clone3				sys_clone3
--436	common	close_range			sys_close_range
--437	common	openat2				sys_openat2
--438	common	pidfd_getfd			sys_pidfd_getfd
--439	common	faccessat2			sys_faccessat2
--440	common	process_madvise			sys_process_madvise
--441	common	epoll_pwait2			sys_epoll_pwait2		compat_sys_epoll_pwait2
--442	common	mount_setattr			sys_mount_setattr
--443	common	quotactl_fd			sys_quotactl_fd
--444	common	landlock_create_ruleset		sys_landlock_create_ruleset
--445	common	landlock_add_rule		sys_landlock_add_rule
--446	common	landlock_restrict_self		sys_landlock_restrict_self
--# 447 reserved for memfd_secret
--448	common	process_mrelease		sys_process_mrelease
--449	common	futex_waitv			sys_futex_waitv
--450	common	set_mempolicy_home_node		sys_set_mempolicy_home_node
--451	common	cachestat			sys_cachestat
--452	common	fchmodat2			sys_fchmodat2
--453	common	map_shadow_stack		sys_map_shadow_stack
--454	common	futex_wake			sys_futex_wake
--455	common	futex_wait			sys_futex_wait
--456	common	futex_requeue			sys_futex_requeue
--457	common	statmount			sys_statmount
--458	common	listmount			sys_listmount
--459	common	lsm_get_self_attr		sys_lsm_get_self_attr
--460	common	lsm_set_self_attr		sys_lsm_set_self_attr
--461	common	lsm_list_modules		sys_lsm_list_modules
--462	common	mseal				sys_mseal
--463	common	setxattrat			sys_setxattrat
--464	common	getxattrat			sys_getxattrat
--465	common	listxattrat			sys_listxattrat
--466	common	removexattrat			sys_removexattrat
--467	common	open_tree_attr			sys_open_tree_attr
--468	common	file_getattr			sys_file_getattr
--469	common	file_setattr			sys_file_setattr
--470	common	listns				sys_listns
--471	common	rseq_slice_yield		sys_rseq_slice_yield
--472	common	fchroot				sys_fchroot
-diff --git a/arch/csky/kernel/Makefile.syscalls b/arch/csky/kernel/Makefile.syscalls
-index 3df3b5822fce..15783a984619 100644
---- a/arch/csky/kernel/Makefile.syscalls
-+++ b/arch/csky/kernel/Makefile.syscalls
-@@ -1,4 +1,3 @@
- # SPDX-License-Identifier: GPL-2.0
- 
--syscall_abis_32 += csky time32 stat64 rlimit
--
-+syscall_abis_32 += csky time32 stat64 rlimit clone3
-diff --git a/arch/hexagon/kernel/Makefile.syscalls b/arch/hexagon/kernel/Makefile.syscalls
-index d2b7c5d44d95..d164b9728d23 100644
---- a/arch/hexagon/kernel/Makefile.syscalls
-+++ b/arch/hexagon/kernel/Makefile.syscalls
-@@ -1,3 +1,3 @@
- # SPDX-License-Identifier: GPL-2.0
- 
--syscall_abis_32 += hexagon time32 stat64 rlimit renameat
-+syscall_abis_32 += hexagon time32 stat64 rlimit renameat clone3
-diff --git a/arch/loongarch/kernel/Makefile.syscalls b/arch/loongarch/kernel/Makefile.syscalls
-index 06f160502537..dbfddf37b329 100644
---- a/arch/loongarch/kernel/Makefile.syscalls
-+++ b/arch/loongarch/kernel/Makefile.syscalls
-@@ -1,4 +1,4 @@
- # SPDX-License-Identifier: GPL-2.0
- 
--syscall_abis_32 += memfd_secret
--syscall_abis_64 += memfd_secret
-+syscall_abis_32 += memfd_secret clone3
-+syscall_abis_64 += memfd_secret clone3
-diff --git a/arch/nios2/kernel/Makefile.syscalls b/arch/nios2/kernel/Makefile.syscalls
-index 579a9daec272..cf68c3e82d5e 100644
---- a/arch/nios2/kernel/Makefile.syscalls
-+++ b/arch/nios2/kernel/Makefile.syscalls
-@@ -1,3 +1,3 @@
- # SPDX-License-Identifier: GPL-2.0
- 
--syscall_abis_32 += nios2 time32 stat64 renameat rlimit
-+syscall_abis_32 += nios2 time32 stat64 renameat rlimit __clone3
-diff --git a/arch/nios2/kernel/syscall_table.c b/arch/nios2/kernel/syscall_table.c
-index c99818aac9e1..434694067d8f 100644
---- a/arch/nios2/kernel/syscall_table.c
-+++ b/arch/nios2/kernel/syscall_table.c
-@@ -13,7 +13,6 @@
- #define __SYSCALL_WITH_COMPAT(nr, native, compat)        __SYSCALL(nr, native)
- 
- #define sys_mmap2 sys_mmap_pgoff
--#define sys_clone3 __sys_clone3
- 
- void *sys_call_table[__NR_syscalls] = {
- 	[0 ... __NR_syscalls-1] = sys_ni_syscall,
-diff --git a/arch/openrisc/kernel/Makefile.syscalls b/arch/openrisc/kernel/Makefile.syscalls
-index 525a1e7e7fc9..85306750e03c 100644
---- a/arch/openrisc/kernel/Makefile.syscalls
-+++ b/arch/openrisc/kernel/Makefile.syscalls
-@@ -1,3 +1,3 @@
- # SPDX-License-Identifier: GPL-2.0
- 
--syscall_abis_32 += or1k time32 stat64 rlimit renameat
-+syscall_abis_32 += or1k time32 stat64 rlimit renameat __clone3
-diff --git a/arch/openrisc/kernel/sys_call_table.c b/arch/openrisc/kernel/sys_call_table.c
-index b2f57e2538f7..7dda255db7d9 100644
---- a/arch/openrisc/kernel/sys_call_table.c
-+++ b/arch/openrisc/kernel/sys_call_table.c
-@@ -21,7 +21,6 @@
- 
- #define sys_mmap2 sys_mmap_pgoff
- #define sys_clone __sys_clone
--#define sys_clone3 __sys_clone3
- #define sys_fork __sys_fork
- 
- void *sys_call_table[__NR_syscalls] = {
-diff --git a/arch/riscv/kernel/Makefile.syscalls b/arch/riscv/kernel/Makefile.syscalls
-index 9668fd1faf60..436123cf0ee5 100644
---- a/arch/riscv/kernel/Makefile.syscalls
-+++ b/arch/riscv/kernel/Makefile.syscalls
-@@ -1,4 +1,4 @@
- # SPDX-License-Identifier: GPL-2.0
- 
--syscall_abis_32 += riscv memfd_secret
--syscall_abis_64 += riscv rlimit memfd_secret
-+syscall_abis_32 += riscv memfd_secret clone3
-+syscall_abis_64 += riscv rlimit memfd_secret clone3
-diff --git a/scripts/Makefile.asm-headers b/scripts/Makefile.asm-headers
-index f1c3d287c14b..89706d20f896 100644
---- a/scripts/Makefile.asm-headers
-+++ b/scripts/Makefile.asm-headers
-@@ -18,6 +18,7 @@ src := $(srctree)/$(subst /generated,,$(obj))
- syscall_abis_32  += common,32
- syscall_abis_64  += common,64
- syscalltbl := $(srctree)/scripts/syscall.tbl
-+syscalltbl_common := $(srctree)/scripts/syscall_common.tbl
- syshdr-args := --emit-nr
- 
- # let architectures override $(syscall_abis_%) and $(syscalltbl)
-@@ -57,14 +58,14 @@ quiet_cmd_remove = REMOVE  $(unwanted)
-       cmd_remove = rm -f $(unwanted); find $(obj) -type d -empty -delete
+ syshdr := $(srctree)/scripts/syscallhdr.sh
+-sysnr := $(src)/syscallnr.sh
++sysnr := $(srctree)/scripts/syscallnr.sh
+ systbl := $(srctree)/scripts/syscalltbl.sh
  
  quiet_cmd_syshdr = SYSHDR  $@
--      cmd_syshdr = $(CONFIG_SHELL) $(syshdr) \
-+      cmd_syshdr = $(CONFIG_SHELL) $(syshdr) --common-tbl $(syscalltbl_common) \
- 		   $(if $(syshdr-args-$*),$(syshdr-args-$*),$(syshdr-args)) \
- 		   $(if $(syscall_compat),--prefix "compat$*_") \
- 		   --abis $(subst $(space),$(comma),$(strip $(syscall_abis_$*))) \
- 		   $< $@
+       cmd_syshdr = $(CONFIG_SHELL) $(syshdr) --offset __NR_Linux $< $@
+ 
+ quiet_cmd_sysnr = SYSNR   $@
+-      cmd_sysnr = $(CONFIG_SHELL) '$(sysnr)' '$<' '$@'		\
+-		  '$(sysnr_abis_$(basetarget))'			\
+-		  '$(sysnr_pfx_$(basetarget))'
++      cmd_sysnr = $(CONFIG_SHELL) $(sysnr) \
++		  --prefix $(sysnr_pfx_$(basetarget))_Linux_ $< $@
  
  quiet_cmd_systbl = SYSTBL  $@
--      cmd_systbl = $(CONFIG_SHELL) $(systbl) \
-+      cmd_systbl = $(CONFIG_SHELL) $(systbl) --common-tbl $(syscalltbl_common) \
- 		   $(if $(systbl-args-$*),$(systbl-args-$*),$(systbl-args)) \
- 		   --abis $(subst $(space),$(comma),$(strip $(syscall_abis_$*))) \
- 		   $< $@
-@@ -76,14 +77,14 @@ all: $(generic-y) $(syscall-y)
- $(obj)/%.h: $(srctree)/$(generic)/%.h FORCE
- 	$(call filechk,wrap)
- 
--$(obj)/unistd_%.h: $(syscalltbl) $(syshdr) FORCE
-+$(obj)/unistd_%.h: $(syscalltbl) $(syscalltbl_common) $(syshdr) FORCE
- 	$(call if_changed,syshdr)
- 
- $(obj)/unistd_compat_%.h: syscall_compat:=1
--$(obj)/unistd_compat_%.h: $(syscalltbl) $(syshdr) FORCE
-+$(obj)/unistd_compat_%.h: $(syscalltbl) $(syscalltbl_common) $(syshdr) FORCE
- 	$(call if_changed,syshdr)
- 
--$(obj)/syscall_table_%.h: $(syscalltbl) $(systbl) FORCE
-+$(obj)/syscall_table_%.h: $(syscalltbl) $(syscalltbl_common) $(systbl) FORCE
- 	$(call if_changed,systbl)
- 
- targets := $(syscall-y)
-diff --git a/scripts/syscall.tbl b/scripts/syscall.tbl
-index 0ab531605120..ee828d03094e 100644
---- a/scripts/syscall.tbl
-+++ b/scripts/syscall.tbl
-@@ -344,72 +344,3 @@
- 293	common	rseq				sys_rseq
- 294	common	kexec_file_load			sys_kexec_file_load
- # 295 through 402 are unassigned to sync up with generic numbers don't use
--403	32	clock_gettime64			sys_clock_gettime
--404	32	clock_settime64			sys_clock_settime
--405	32	clock_adjtime64			sys_clock_adjtime
--406	32	clock_getres_time64		sys_clock_getres
--407	32	clock_nanosleep_time64		sys_clock_nanosleep
--408	32	timer_gettime64			sys_timer_gettime
--409	32	timer_settime64			sys_timer_settime
--410	32	timerfd_gettime64		sys_timerfd_gettime
--411	32	timerfd_settime64		sys_timerfd_settime
--412	32	utimensat_time64		sys_utimensat
--413	32	pselect6_time64			sys_pselect6			compat_sys_pselect6_time64
--414	32	ppoll_time64			sys_ppoll			compat_sys_ppoll_time64
--416	32	io_pgetevents_time64		sys_io_pgetevents		compat_sys_io_pgetevents_time64
--417	32	recvmmsg_time64			sys_recvmmsg			compat_sys_recvmmsg_time64
--418	32	mq_timedsend_time64		sys_mq_timedsend
--419	32	mq_timedreceive_time64		sys_mq_timedreceive
--420	32	semtimedop_time64		sys_semtimedop
--421	32	rt_sigtimedwait_time64		sys_rt_sigtimedwait		compat_sys_rt_sigtimedwait_time64
--422	32	futex_time64			sys_futex
--423	32	sched_rr_get_interval_time64	sys_sched_rr_get_interval
--424	common	pidfd_send_signal		sys_pidfd_send_signal
--425	common	io_uring_setup			sys_io_uring_setup
--426	common	io_uring_enter			sys_io_uring_enter
--427	common	io_uring_register		sys_io_uring_register
--428	common	open_tree			sys_open_tree
--429	common	move_mount			sys_move_mount
--430	common	fsopen				sys_fsopen
--431	common	fsconfig			sys_fsconfig
--432	common	fsmount				sys_fsmount
--433	common	fspick				sys_fspick
--434	common	pidfd_open			sys_pidfd_open
--435	common	clone3				sys_clone3
--436	common	close_range			sys_close_range
--437	common	openat2				sys_openat2
--438	common	pidfd_getfd			sys_pidfd_getfd
--439	common	faccessat2			sys_faccessat2
--440	common	process_madvise			sys_process_madvise
--441	common	epoll_pwait2			sys_epoll_pwait2		compat_sys_epoll_pwait2
--442	common	mount_setattr			sys_mount_setattr
--443	common	quotactl_fd			sys_quotactl_fd
--444	common	landlock_create_ruleset		sys_landlock_create_ruleset
--445	common	landlock_add_rule		sys_landlock_add_rule
--446	common	landlock_restrict_self		sys_landlock_restrict_self
--447	memfd_secret	memfd_secret		sys_memfd_secret
--448	common	process_mrelease		sys_process_mrelease
--449	common	futex_waitv			sys_futex_waitv
--450	common	set_mempolicy_home_node		sys_set_mempolicy_home_node
--451	common	cachestat			sys_cachestat
--452	common	fchmodat2			sys_fchmodat2
--453	common	map_shadow_stack		sys_map_shadow_stack
--454	common	futex_wake			sys_futex_wake
--455	common	futex_wait			sys_futex_wait
--456	common	futex_requeue			sys_futex_requeue
--457	common	statmount			sys_statmount
--458	common	listmount			sys_listmount
--459	common	lsm_get_self_attr		sys_lsm_get_self_attr
--460	common	lsm_set_self_attr		sys_lsm_set_self_attr
--461	common	lsm_list_modules		sys_lsm_list_modules
--462	common	mseal				sys_mseal
--463	common	setxattrat			sys_setxattrat
--464	common	getxattrat			sys_getxattrat
--465	common	listxattrat			sys_listxattrat
--466	common	removexattrat			sys_removexattrat
--467	common	open_tree_attr			sys_open_tree_attr
--468	common	file_getattr			sys_file_getattr
--469	common	file_setattr			sys_file_setattr
--470	common	listns				sys_listns
--471	common	rseq_slice_yield		sys_rseq_slice_yield
--472	common	fchroot				sys_fchroot
+       cmd_systbl = $(CONFIG_SHELL) $(systbl) $< $@
+diff --git a/arch/mips/kernel/syscalls/syscallnr.sh b/arch/mips/kernel/syscalls/syscallnr.sh
+deleted file mode 100644
+index c190bbefbfc2..000000000000
+--- a/arch/mips/kernel/syscalls/syscallnr.sh
++++ /dev/null
+@@ -1,26 +0,0 @@
+-#!/bin/sh
+-# SPDX-License-Identifier: GPL-2.0
+-
+-in="$1"
+-out="$2"
+-my_abis=`echo "($3)" | tr ',' '|'`
+-prefix="$4"
+-
+-fileguard=_UAPI_ASM_MIPS_`basename "$out" | sed \
+-	-e 'y/abcdefghijklmnopqrstuvwxyz/ABCDEFGHIJKLMNOPQRSTUVWXYZ/' \
+-	-e 's/[^A-Z0-9_]/_/g' -e 's/__/_/g'`
+-grep -E "^[0-9A-Fa-fXx]+[[:space:]]+${my_abis}" "$in" | sort -n | (
+-	printf "#ifndef %s\n" "${fileguard}"
+-	printf "#define %s\n" "${fileguard}"
+-	printf "\n"
+-
+-	nxt=0
+-	while read nr abi name entry compat ; do
+-		nxt=$((nr+1))
+-	done
+-
+-	printf "#define __NR_%s_Linux_syscalls\t%s\n" "${prefix}" "${nxt}"
+-	printf "\n"
+-	printf "#endif /* %s */" "${fileguard}"
+-	printf "\n"
+-) > "$out"
 
 -- 
 2.55.0
