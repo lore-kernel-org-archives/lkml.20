@@ -1,74 +1,79 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B92D2DA749
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 19:14:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14BFB481DD
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 19:15:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789845293; cv=none; b=Cql+GtvEpmmMBYJEG8vK4a5nAIu8E7a+kIPP1VZTtMlR4ZRi4sIFasp2yc38G5seTsJ/Esd0LSRFLh88M+dUx5WuXyY5HbJrZHuhzZsY8HzVHHYuHhAXSq2u9EJOvIR4ReV7CsJpRkCoDTyuQtyryavG7WDB8jSL16kbqbqHXbQ=
+	t=1789845339; cv=none; b=kfr4n7vxfEjdizFgubCxzMZUZbHVLLbB2+3nOh/cLgyWPqw/14RnBoTLfe7phJ6Owq68wuAZSUprNg5Ipbb3e/7nyGUrn8N/qVZ63ZKCoi328WOwfk8sIzpixZrRxSNbMWc5qXCTnEGb+E4qZbrHjte7F5Ayckqx+YuLWXrZaic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789845293; c=relaxed/simple;
-	bh=S93x5lRbBHs3Jz5fgHUjioUkgHAUFDpBhn8VahZYgYc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bbru3wFcZQjw3uAa/cjQ2E5RLOKlJIi2oa05C3Gy3DHtVrky7nKdIDxGEcE5UtLkFZ0hg8zFg2EKSkdA6MAU5an017JXjNtFAyTD4QqXwGJ5/QUJysjHdDlZzGx93/9QcXvEgITggDKikbOa/DgfiY5nAgUqEfx3j+cgTnZoMdA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mHkiyqpO; arc=none smtp.client-ip=74.125.228.43
+	s=arc-20240116; t=1789845339; c=relaxed/simple;
+	bh=vZGBjZO+3pK6P6r+j1Br2A8tEHTya3afTzlQC352TVg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qK76vi4i3mfinI3OqUq0wGD0+UsO2oPNf1HzmcE9cxtVtjydOWpFCeoW6oCVA33ONW4a7jxPpqLqMnknyLK7dIOcsn6iVDeLy5WrUarJqXemZxQuUTniqeTtuaOF24YORdeKL0QRblYJYG+nsH+OziuKAgri+0fGaU7QbQpAk80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YYQT2uRw; arc=none smtp.client-ip=209.85.221.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mHkiyqpO"
-Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-868a9c48f9eso2263431b3a.3
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 12:14:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YYQT2uRw"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48442ea8f59so1165902f8f.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 12:15:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789845291; x=1790450091; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789845336; x=1790450136; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fAqeDikABbbTxXlk49pMk54KvpCy8asTCN/omRY6bwY=;
-        b=mHkiyqpOBa712/RntifQWD329IsWCjVsRmJvnW/0pNekWavIYl2o16c8mwi4GECEtu
-         Ukr8sppjEw01w1moAK+W4RfI5N6lATcClOl+yJuN/wV+7OqaUKlXuREE5Q2wZF1D4py1
-         tGLQPtRtXI10NgEJK1WIXMjvpJo5JUhRXd4SEbLU8m6+Nez0girLxErKpLv0WVR/3D2/
-         E5ui0+zBo21zpyrJxiEXfetjG8Yl4IBz+KS3BGOqlJA74CJ1Ryku/TXdMpHF1hktiLZU
-         lctZt+UL9mTx4D6x7KKIkG4uoUb6IDAAu2YLDlFExWa5KE2cwW1GolGnkUNJ11O/BOJC
-         Ji6g==
+        bh=TYG31FNdE+jTjB9/DDoxQaNK7idCKtZmhwSMIq4k/44=;
+        b=YYQT2uRwk2WVmGwAzs4bRf8V6lu0LEgT+argTljooI1ga2NlMxCds7Z/1XDGSMGqN6
+         1ygd2nP4ISMN+VUPGDbLRm4G/j4Kc9uwW+kIVsiFWTXTGAU1OIIf8/OSjS7aoJu5+SrO
+         lAp1K+dETzsu3B8e9bKxYTc1dgRrcSnxvZ2LDYmZePDw4nnyU8Bu0q9Nz9nHL7IovVjr
+         s3xwmBRC0L4XL2ha7QAoF7cG4SWaLbzbSfOPoKfgtDfteAQJsOxfQjZIr49SRKERxH01
+         K2ddBNFLeKO7A4Fd9jEhc4of4H8hAMBotlrbJJ15sbT1/Lge6xijrIkn2ze88uWY8XWG
+         Nx0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789845291; x=1790450091;
+        d=1e100.net; s=20260707; t=1789845336; x=1790450136;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fAqeDikABbbTxXlk49pMk54KvpCy8asTCN/omRY6bwY=;
-        b=Uew/IkEX3sTPv++EhS7Pi3gIH2Bqw2g2VBgNC79anCgOLBhxM0pM//C6LjATCZBah6
-         5LRCza0he4ykxx3MmFaM60CA2vZNvShK4MKayR2Ku69jrtTXwLldOAog5xWg84ZKeu9j
-         m2bf+CSoVem8XfWehQ872Q53n8BAeUK4ELTkclbGosqNhfJevugR7uqjeZyQmZyzyX4U
-         q+fOg20BmFETx1Bsev2w9pjMpWTm7lB+RAcZ7jaKGjui2bZsQKwunVeIFVb5NaCf3ZRo
-         e4G/MleSE2YO+Do1fIqihiA+bcxUYKKx/qQ8fBuSHQag1NRGnyNbUxVOFPoauAdU2ft9
-         e3Hw==
-X-Forwarded-Encrypted: i=1; AKwUvBx1Aaj3SfDEcAHCABuSnRJu4groxsYE/EVbBcvagzyvzWxTzq+/MVLmqVbvU/bs5afzM9u2owhU8cEvmQ0=@vger.kernel.org
-X-Gm-Message-State: AFuF++liBCT0tMuygGq7Rfd+GYoeMttB4yK7zla559nI/J7kjTnUeSF5
-	c4HKlFDr4PJcYuvPVl3aE41XkaVIFAKTcocrm+rG7ibDxAP+4wlTi9UaewqmoUIx01Q=
-X-Gm-Gg: AYBFou0gPaTaWFHEPtqvzVlWqo4ppvvHAa5oWdT0zHtyBYpMHbh4xXhcGn8/9WRTkrM
-	fVmle1DyzhTmuVznMk1u4PkMHDvyZBH72YJDXToZGJGpVqfMQ1zTQupKokIhRPRmARVFRTxZx+p
-	mScpijBPzEG31KaTVaSuXWTPTYaziow7/5tEic5Knh/6vpYCRAD/vAbteh0rUeTUEHWmfil7JVv
-	9rmNrlyWK8wAnmfrKda5vNSPBREGSvIwoLNRrCmmNneV72I1jliwV2ZdtPaPfcesIuJ4zZ2Q4XK
-	sLdumzyd38LfdDNw36kEE6xrmjScLMwqymaVwkXM7la/m3lpzClAPRmuy5L4aTGAYRMjENkRFzR
-	TmCC93yyzfKouobA8Su80hXk1kEBRW/plGnwAQaLfhUoNd+iNIEqz7y34T6IbCnTb/h0gCQfV2E
-	wCqctrRf1YLTdxZBYKxiwrP6wUZlI52stDaGVTIgZDxfrGrh6kD24Oqxja7JnyBUPcCpzdj+Ni
-X-Received: by 2002:a05:6a20:72a1:b0:3dd:85aa:4530 with SMTP id adf61e73a8af0-3dd8c5c8675mr11309860637.34.1789845291233;
-        Sat, 19 Sep 2026 12:14:51 -0700 (PDT)
-Received: from G15-5520 ([103.206.144.242])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c3311a716sm8440128eec.8.2026.09.19.12.14.47
+        bh=TYG31FNdE+jTjB9/DDoxQaNK7idCKtZmhwSMIq4k/44=;
+        b=tH8oETVJKNBi8R9pfsw9GEBYHOFo8QN0ZcovzGvPgZQBTh/Q1A/IE8tAtLw2b01X/o
+         FQmQrNnKceFES0z3z5XIKFR/zBPSrHUd0TYv8PQExlFvL3/WJDmFt+uvWvK58VJjfL85
+         eMINv0dHnS1nMDMdFwDW3sBOff6u79L2GQeO74uW2+vCfIm2j56LJnfXvVZrRDcK+CTD
+         4tBovdrq9cjtsgGJ54KTt18mkjYIsM6N8cbHocNHTrdccn1arkhsCvM+fIYRBFqbNFDu
+         4G34uC93NlLK8+MK4b8B1EFweHRK1ekAtp66C7r7KOtaK3byMZUd3AtUFhthrl/m+oUU
+         L2Yg==
+X-Forwarded-Encrypted: i=1; AKwUvBwJePMlw2SUlE+iiMPxpVKLOcLkcx1gdqGEEukvN+K33b59WS4TZh5D4GrauPgGKSRy5puWinbc7JoDKnk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mNFFWSjIvZoRgQvrTVhLmKgFsi0RD0VoxU/OYNKA9ewuPBCf3P
+	EE99gk9ScWqGtiU8PBz7ek8nx5gOUlWg5quvgdkNPZxYRm5p95RxbQJE
+X-Gm-Gg: AYBFou0/RyNItaJENX9p4+KuhQAjyGT0vEVkXY9Nr5EuhrT7GaEVkgqGboL5qH86d0L
+	WwVzabi9S6W3ETt4asNecIpO/WhUqyUJ/0fUZeSqIhP1AcbQfTSLDQptu1CRdy7RNtNOZCCy2Sh
+	kEDTqzwUKiRU9QxolWI+onb9VnStHajqzLNxEKBvqw+4DYk/behwHSkUAviKcw8h768N57abZvK
+	kw5/lLCPBJRdeeqLWQuYMWWPKsmCitE+i7HRlX/vl8zmDpLS4hv4qIYfdbV43XUq/DlafEE+C9q
+	eao/Pz4v7OH2/1d1qz14/aWacyyU3csZyt7t7rsZLR44VnnfRzAyKkiwyp0WaPkqV8XHloZ3eaJ
+	XMGnbfqZT5oGViEh7fS8XutMloKk/r3miHYZY+OPhYExBI+DJzy6FiBxEThdlCP5z2VneYZagJe
+	/qOEx2aph8Y8lASlOFR5jH0wSMo4gQNMTEf32XPsN77hjkC/oiVi7XQeKVn2rNltPQnVQpywDRy
+	HEz0INFjVZzwKljMHY7/5Q9FtspObEkxXcjTWEwvtukQCSCpJAG
+X-Received: by 2002:a05:600c:81c5:b0:49d:28fc:d6a0 with SMTP id 5b1f17b1804b1-49fbd200256mr159837415e9.18.1789845336038;
+        Sat, 19 Sep 2026 12:15:36 -0700 (PDT)
+Received: from fedora ([202.47.63.86])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4872458f7e3sm8932380f8f.25.2026.09.19.12.15.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 12:14:50 -0700 (PDT)
-From: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
-	dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
-	linux-kernel@vger.kernel.org (open list)
-Cc: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
-Subject: [PATCH] drm/amdgpu: replace kcalloc() with kzalloc_objs()
-Date: Sat, 19 Sep 2026 19:14:30 +0000
-Message-ID: <20260919191432.99342-1-lalitshankarch@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Sat, 19 Sep 2026 12:15:35 -0700 (PDT)
+From: Muhammad Bilal <meatuni001@gmail.com>
+To: neil.armstrong@linaro.org
+Cc: jesszhan0024@gmail.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	sam@ravnborg.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Muhammad Bilal <meatuni001@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/panel: tdo-tl070wsh30: Remove panel on attach failure
+Date: Sun, 20 Sep 2026 00:15:23 +0500
+Message-ID: <20260919191524.268810-1-meatuni001@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,371 +82,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Use kzalloc_objs() instead of kcalloc() to simplify object allocations.
+tdo_tl070wsh30_panel_add() calls drm_panel_add() to link the panel
+into the global panel_list before tdo_tl070wsh30_panel_probe() calls
+mipi_dsi_attach(). The panel object itself is allocated with
+devm_drm_panel_alloc(), which only arranges for an automatic
+drm_panel_put() (via devm_add_action_or_reset()) when the DSI device
+is torn down; unlike devm_drm_panel_add(), it does not call
+drm_panel_remove() for you.
 
-No functional change.
+If mipi_dsi_attach() fails, probe() returns the error directly:
 
-Signed-off-by: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
+	return mipi_dsi_attach(dsi);
+
+Once probe() returns an error, the driver core releases devres
+resources for the device, which drops the allocation's own
+reference. But drm_panel_add() had already taken its own reference
+and linked panel->list into the global panel_list, and nothing
+undoes that. The panel is left registered in panel_list pointing at
+a device that failed to bind, where it can still be found and
+dereferenced by later lookups/iterations such as
+of_drm_find_panel() or find_panel_by_fwnode().
+
+Call drm_panel_remove() when mipi_dsi_attach() fails, mirroring what
+tdo_tl070wsh30_panel_remove() already does on the normal teardown
+path, and matching the pattern used by other MIPI-DSI panel drivers
+that pair a manual drm_panel_add() with mipi_dsi_attach().
+
+Fixes: cf40c6600592 ("drm: panel: add TDO tl070wsh30 panel driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 6 +++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c   | 4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c    | 4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c     | 4 ++--
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c      | 6 +++---
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c      | 6 +++---
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c      | 6 +++---
- drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c      | 4 ++--
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c       | 4 ++--
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c     | 4 ++--
- drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c      | 2 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c    | 2 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c      | 2 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c      | 2 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c      | 2 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c      | 2 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c      | 2 +-
- drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c       | 2 +-
- 18 files changed, 32 insertions(+), 32 deletions(-)
+ drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-index 132d054900b5..3ffb0f5f7574 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -420,7 +420,7 @@ static ssize_t amdgpu_debugfs_gprwave_read(struct file *f, char __user *buf, siz
- 		return r;
- 	}
+diff --git a/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c b/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c
+index fa961abdd2d7..32f2dd2bcee7 100644
+--- a/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c
++++ b/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c
+@@ -179,7 +179,11 @@ static int tdo_tl070wsh30_panel_probe(struct mipi_dsi_device *dsi)
+ 	if (err < 0)
+ 		return err;
  
--	data = kcalloc(1024, sizeof(*data), GFP_KERNEL);
-+	data = kzalloc_objs(*data, 1024);
- 	if (!data) {
- 		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
- 		amdgpu_virt_disable_access_debugfs(adev);
-@@ -1267,7 +1267,7 @@ static ssize_t amdgpu_debugfs_gpr_read(struct file *f, char __user *buf,
- 	thread = (*pos & GENMASK_ULL(59, 52)) >> 52;
- 	bank = (*pos & GENMASK_ULL(61, 60)) >> 60;
+-	return mipi_dsi_attach(dsi);
++	err = mipi_dsi_attach(dsi);
++	if (err < 0)
++		drm_panel_remove(&tdo_tl070wsh30->base);
++
++	return err;
+ }
  
--	data = kcalloc(1024, sizeof(*data), GFP_KERNEL);
-+	data = kzalloc_objs(*data, 1024);
- 	if (!data)
- 		return -ENOMEM;
- 
-@@ -2035,7 +2035,7 @@ static int amdgpu_debugfs_ib_preempt(void *data, u64 val)
- 		return -EBUSY;
- 
- 	length = ring->fence_drv.num_fences_mask + 1;
--	fences = kcalloc(length, sizeof(void *), GFP_KERNEL);
-+	fences = kzalloc_objs(*fences, length);
- 	if (!fences)
- 		return -ENOMEM;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-index 3043ad041bb4..017638dd5491 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-@@ -460,8 +460,8 @@ int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring)
- 
- 	ring->fence_drv.num_fences_mask = ring->num_hw_submission * 2 - 1;
- 	spin_lock_init(&ring->fence_drv.lock);
--	ring->fence_drv.fences = kcalloc(ring->num_hw_submission * 2, sizeof(void *),
--					 GFP_KERNEL);
-+	ring->fence_drv.fences = kzalloc_objs(*ring->fence_drv.fences,
-+					      ring->num_hw_submission * 2);
- 
- 	if (!ring->fence_drv.fences)
- 		return -ENOMEM;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
-index 363b99168478..94e39c486128 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
-@@ -465,8 +465,8 @@ void amdgpu_jpeg_sysfs_reset_mask_fini(struct amdgpu_device *adev)
- int amdgpu_jpeg_reg_dump_init(struct amdgpu_device *adev,
- 			       const struct amdgpu_hwip_reg_entry *reg, u32 count)
- {
--	adev->jpeg.ip_dump = kcalloc(adev->jpeg.num_jpeg_inst * count,
--				     sizeof(uint32_t), GFP_KERNEL);
-+	adev->jpeg.ip_dump = kzalloc_objs(*adev->jpeg.ip_dump,
-+					  adev->jpeg.num_jpeg_inst * count);
- 	if (!adev->jpeg.ip_dump) {
- 		dev_err(adev->dev,
- 			"Failed to allocate memory for JPEG IP Dump\n");
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-index 1a86a47406b1..f257df1c39c3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-@@ -252,8 +252,8 @@ int amdgpu_mes_init(struct amdgpu_device *adev)
- 		}
- 
- 		adev->gfx.mec.mes_hung_db_array =
--			kcalloc(amdgpu_mes_get_hung_queue_db_array_size(adev),
--				sizeof(u32), GFP_KERNEL);
-+			kzalloc_objs(*adev->gfx.mec.mes_hung_db_array,
-+				     amdgpu_mes_get_hung_queue_db_array_size(adev));
- 
- 		if (!adev->gfx.mec.mes_hung_db_array) {
- 			r = -ENOMEM;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index 00798d80479f..6e8a0cf23d6d 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -4716,7 +4716,7 @@ static void gfx_v10_0_alloc_ip_dump(struct amdgpu_device *adev)
- 	uint32_t *ptr;
- 	uint32_t inst;
- 
--	ptr = kcalloc(reg_count, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, reg_count);
- 	if (!ptr) {
- 		DRM_ERROR("Failed to allocate memory for GFX IP Dump\n");
- 		adev->gfx.ip_dump_core = NULL;
-@@ -4729,7 +4729,7 @@ static void gfx_v10_0_alloc_ip_dump(struct amdgpu_device *adev)
- 	inst = adev->gfx.mec.num_mec * adev->gfx.mec.num_pipe_per_mec *
- 		adev->gfx.mec.num_queue_per_pipe;
- 
--	ptr = kcalloc(reg_count * inst, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, reg_count * inst);
- 	if (!ptr) {
- 		DRM_ERROR("Failed to allocate memory for Compute Queues IP Dump\n");
- 		adev->gfx.ip_dump_compute_queues = NULL;
-@@ -4742,7 +4742,7 @@ static void gfx_v10_0_alloc_ip_dump(struct amdgpu_device *adev)
- 	inst = adev->gfx.me.num_me * adev->gfx.me.num_pipe_per_me *
- 		adev->gfx.me.num_queue_per_pipe;
- 
--	ptr = kcalloc(reg_count * inst, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, reg_count * inst);
- 	if (!ptr) {
- 		DRM_ERROR("Failed to allocate memory for GFX Queues IP Dump\n");
- 		adev->gfx.ip_dump_gfx_queues = NULL;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-index 0ff5a80aa918..92ff34e38e74 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -1568,7 +1568,7 @@ static void gfx_v11_0_alloc_ip_dump(struct amdgpu_device *adev)
- 	uint32_t *ptr;
- 	uint32_t inst;
- 
--	ptr = kcalloc(reg_count, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, reg_count);
- 	if (!ptr) {
- 		DRM_ERROR("Failed to allocate memory for GFX IP Dump\n");
- 		adev->gfx.ip_dump_core = NULL;
-@@ -1581,7 +1581,7 @@ static void gfx_v11_0_alloc_ip_dump(struct amdgpu_device *adev)
- 	inst = adev->gfx.mec.num_mec * adev->gfx.mec.num_pipe_per_mec *
- 		adev->gfx.mec.num_queue_per_pipe;
- 
--	ptr = kcalloc(reg_count * inst, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, reg_count * inst);
- 	if (!ptr) {
- 		DRM_ERROR("Failed to allocate memory for Compute Queues IP Dump\n");
- 		adev->gfx.ip_dump_compute_queues = NULL;
-@@ -1594,7 +1594,7 @@ static void gfx_v11_0_alloc_ip_dump(struct amdgpu_device *adev)
- 	inst = adev->gfx.me.num_me * adev->gfx.me.num_pipe_per_me *
- 		adev->gfx.me.num_queue_per_pipe;
- 
--	ptr = kcalloc(reg_count * inst, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, reg_count * inst);
- 	if (!ptr) {
- 		DRM_ERROR("Failed to allocate memory for GFX Queues IP Dump\n");
- 		adev->gfx.ip_dump_gfx_queues = NULL;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-index e2a81a55c63b..59b99dd37c58 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-@@ -1367,7 +1367,7 @@ static void gfx_v12_0_alloc_ip_dump(struct amdgpu_device *adev)
- 	uint32_t *ptr;
- 	uint32_t inst;
- 
--	ptr = kcalloc(reg_count, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, reg_count);
- 	if (!ptr) {
- 		DRM_ERROR("Failed to allocate memory for GFX IP Dump\n");
- 		adev->gfx.ip_dump_core = NULL;
-@@ -1380,7 +1380,7 @@ static void gfx_v12_0_alloc_ip_dump(struct amdgpu_device *adev)
- 	inst = adev->gfx.mec.num_mec * adev->gfx.mec.num_pipe_per_mec *
- 		adev->gfx.mec.num_queue_per_pipe;
- 
--	ptr = kcalloc(reg_count * inst, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, reg_count * inst);
- 	if (!ptr) {
- 		DRM_ERROR("Failed to allocate memory for Compute Queues IP Dump\n");
- 		adev->gfx.ip_dump_compute_queues = NULL;
-@@ -1393,7 +1393,7 @@ static void gfx_v12_0_alloc_ip_dump(struct amdgpu_device *adev)
- 	inst = adev->gfx.me.num_me * adev->gfx.me.num_pipe_per_me *
- 		adev->gfx.me.num_queue_per_pipe;
- 
--	ptr = kcalloc(reg_count * inst, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, reg_count * inst);
- 	if (!ptr) {
- 		DRM_ERROR("Failed to allocate memory for GFX Queues IP Dump\n");
- 		adev->gfx.ip_dump_gfx_queues = NULL;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-index e49d8a79045c..db6b8d18bfab 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
-@@ -1278,7 +1278,7 @@ static void gfx_v12_1_alloc_ip_dump(struct amdgpu_device *adev)
- 
- 	num_xcc = NUM_XCC(adev->gfx.xcc_mask);
- 
--	ptr = kcalloc(reg_count * num_xcc, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, reg_count * num_xcc);
- 	if (!ptr) {
- 		DRM_ERROR("Failed to allocate memory for GFX IP Dump\n");
- 		adev->gfx.ip_dump_core = NULL;
-@@ -1291,7 +1291,7 @@ static void gfx_v12_1_alloc_ip_dump(struct amdgpu_device *adev)
- 	inst = adev->gfx.mec.num_mec * adev->gfx.mec.num_pipe_per_mec *
- 		adev->gfx.mec.num_queue_per_pipe;
- 
--	ptr = kcalloc(reg_count * inst * num_xcc, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, reg_count * inst * num_xcc);
- 	if (!ptr) {
- 		DRM_ERROR("Failed to allocate memory for Compute Queues IP Dump\n");
- 		adev->gfx.ip_dump_compute_queues = NULL;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index c3322058720f..2accca6552e2 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -2190,7 +2190,7 @@ static void gfx_v9_0_alloc_ip_dump(struct amdgpu_device *adev)
- 	uint32_t *ptr;
- 	uint32_t inst;
- 
--	ptr = kcalloc(reg_count, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, reg_count);
- 	if (!ptr) {
- 		DRM_ERROR("Failed to allocate memory for GFX IP Dump\n");
- 		adev->gfx.ip_dump_core = NULL;
-@@ -2203,7 +2203,7 @@ static void gfx_v9_0_alloc_ip_dump(struct amdgpu_device *adev)
- 	inst = adev->gfx.mec.num_mec * adev->gfx.mec.num_pipe_per_mec *
- 		adev->gfx.mec.num_queue_per_pipe;
- 
--	ptr = kcalloc(reg_count * inst, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, reg_count * inst);
- 	if (!ptr) {
- 		DRM_ERROR("Failed to allocate memory for Compute Queues IP Dump\n");
- 		adev->gfx.ip_dump_compute_queues = NULL;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-index 522981fa182d..edf36e5a3b9f 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-@@ -946,7 +946,7 @@ static void gfx_v9_4_3_alloc_ip_dump(struct amdgpu_device *adev)
- 
- 	num_xcc = NUM_XCC(adev->gfx.xcc_mask);
- 
--	ptr = kcalloc(reg_count * num_xcc, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, reg_count * num_xcc);
- 	if (!ptr) {
- 		DRM_ERROR("Failed to allocate memory for GFX IP Dump\n");
- 		adev->gfx.ip_dump_core = NULL;
-@@ -959,7 +959,7 @@ static void gfx_v9_4_3_alloc_ip_dump(struct amdgpu_device *adev)
- 	inst = adev->gfx.mec.num_mec * adev->gfx.mec.num_pipe_per_mec *
- 		adev->gfx.mec.num_queue_per_pipe;
- 
--	ptr = kcalloc(reg_count * inst * num_xcc, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, reg_count * inst * num_xcc);
- 	if (!ptr) {
- 		DRM_ERROR("Failed to allocate memory for Compute Queues IP Dump\n");
- 		adev->gfx.ip_dump_compute_queues = NULL;
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-index 20c8ebf0e159..0160e0b05bf7 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-@@ -1926,7 +1926,7 @@ static int sdma_v4_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	}
- 
- 	/* Allocate memory for SDMA IP Dump buffer */
--	ptr = kcalloc(adev->sdma.num_instances * reg_count, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, adev->sdma.num_instances * reg_count);
- 	if (ptr)
- 		adev->sdma.ip_dump = ptr;
- 	else
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-index 6fe3d3d56c40..144280dc7583 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-@@ -1531,7 +1531,7 @@ static int sdma_v4_4_2_sw_init(struct amdgpu_ip_block *ip_block)
- 	}
- 
- 	/* Allocate memory for SDMA IP Dump buffer */
--	ptr = kcalloc(adev->sdma.num_instances * reg_count, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, adev->sdma.num_instances * reg_count);
- 	if (ptr)
- 		adev->sdma.ip_dump = ptr;
- 	else
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-index 1ca0e7f65442..0a2acd7a5f2e 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-@@ -1434,7 +1434,7 @@ static int sdma_v5_0_sw_init(struct amdgpu_ip_block *ip_block)
- 		adev->sdma.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
- 
- 	/* Allocate memory for SDMA IP Dump buffer */
--	ptr = kcalloc(adev->sdma.num_instances * reg_count, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, adev->sdma.num_instances * reg_count);
- 	if (ptr)
- 		adev->sdma.ip_dump = ptr;
- 	else
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-index 81f1e9882177..43aab715a061 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-@@ -1352,7 +1352,7 @@ static int sdma_v5_2_sw_init(struct amdgpu_ip_block *ip_block)
- 		adev->sdma.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
- 
- 	/* Allocate memory for SDMA IP Dump buffer */
--	ptr = kcalloc(adev->sdma.num_instances * reg_count, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, adev->sdma.num_instances * reg_count);
- 	if (ptr)
- 		adev->sdma.ip_dump = ptr;
- 	else
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-index cf3d2997fff8..92f5243e4a7f 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-@@ -1363,7 +1363,7 @@ static int sdma_v6_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	}
- 
- 	/* Allocate memory for SDMA IP Dump buffer */
--	ptr = kcalloc(adev->sdma.num_instances * reg_count, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, adev->sdma.num_instances * reg_count);
- 	if (ptr)
- 		adev->sdma.ip_dump = ptr;
- 	else
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
-index 69cb89298a3e..2bf783422ec2 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
-@@ -1345,7 +1345,7 @@ static int sdma_v7_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	if (r)
- 		return r;
- 	/* Allocate memory for SDMA IP Dump buffer */
--	ptr = kcalloc(adev->sdma.num_instances * reg_count, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, adev->sdma.num_instances * reg_count);
- 	if (ptr)
- 		adev->sdma.ip_dump = ptr;
- 	else
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
-index 18366e16ef3f..2d97fc9e0d66 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
-@@ -1333,7 +1333,7 @@ static int sdma_v7_1_sw_init(struct amdgpu_ip_block *ip_block)
- 	if (r)
- 		return r;
- 	/* Allocate memory for SDMA IP Dump buffer */
--	ptr = kcalloc(adev->sdma.num_instances * reg_count, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, adev->sdma.num_instances * reg_count);
- 	if (ptr)
- 		adev->sdma.ip_dump = ptr;
- 	else
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-index e9d790914761..393de1399328 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-@@ -202,7 +202,7 @@ static int vcn_v1_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	r = jpeg_v1_0_sw_init(ip_block);
- 
- 	/* Allocate memory for VCN IP Dump buffer */
--	ptr = kcalloc(adev->vcn.num_vcn_inst * reg_count, sizeof(uint32_t), GFP_KERNEL);
-+	ptr = kzalloc_objs(*ptr, adev->vcn.num_vcn_inst * reg_count);
- 	if (!ptr) {
- 		DRM_ERROR("Failed to allocate memory for VCN IP Dump\n");
- 		adev->vcn.ip_dump = NULL;
+ static void tdo_tl070wsh30_panel_remove(struct mipi_dsi_device *dsi)
 -- 
-2.53.0
+2.55.0
 
