@@ -1,119 +1,124 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22DB2312837
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 03:49:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789789744; cv=none; b=LKEv1u0uohWKjwh2G06KfTsQW310+SvPM+SzqAGnIqgK/1jI+s6QEtnPn4K8aQEmdsw4rzYrY+GLgWSLpBgWHmJn+s7Sz6ey0jXf5QBrBEvAvP9m2htpq/qzNeUmU2JwXBXFnDs72tEKUsYwhid5v1Z+/em9EEiiMwHOqLLraqQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789789744; c=relaxed/simple;
-	bh=6dqE8fqyhH00SZerAyTZ9y7PeNvn3AJoLcDr/g+eAEE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lxDcsK+M/k9+NqK8v3v/5l6JqVHLB8pxNoIg26OGAsuAQ0SazPX5s1K/tsV3bkoTgyR5P1cFUT3XPEUjbGk8Jd2fxxw7hvlE4SdfiB29sQTf5TOfM/B2QBqqbr9oDMtNG2se2yo/lTKK9oW/512+xz/5vou/JhVOU1wJ0kYFxmI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kXv/8Qmz; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 890012E7387
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 03:51:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789789912; cv=pass; b=ia3hyq1vsPM4T7sG2YC6Glrd+5YkQbQTBrSYHtUy6LNPXjmeAbUmRt4qu4aAdFVSaiWrY+8BflCGi71/OVv6O/FjkrejqD8k+dMSkcAWrbvYwhsx7YqW3/PKFJy7328QmoVbLLqObCi4H1RAkFXGRDpOa/07zx741s4vYBeApTM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789789912; c=relaxed/simple;
+	bh=hTa0cJ+wIISdMRyCZeKr42I5DMGv9YFDWO/5UDkL5yk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DiDZHB6+luscVEVuZl0fAGjeCWJRLDg1fpa6DHiXBCJ2U9BHQ2Wv5ui8dhdLkuF9dd1QYfoaGC1QF+eQaW905XCxf08a0w/1ADBMCCMLjskMigPwrMt5aaqX5jy2q3lBtzD+VVQ/ssXXQL7Jk7iIxSG0392TJ5rRXDipwDXtLyQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SE0sPFU+; arc=pass smtp.client-ip=74.125.230.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kXv/8Qmz"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccd5cf03so1458390a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 20:49:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SE0sPFU+"
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff16c0e6so9819981fa.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 20:51:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789789908; cv=none;
+        d=google.com; s=arc-20260327;
+        b=sJTvjB1aSrypd2Y6uIDDWIqWV9ZuLCCF5mimRDfj7cguMqJKoIExYbIDnYAovAxDpc
+         z4x1Gev4xG/V1oVhTCkmPNbZjHJtJTNudfHwCsG2VhlIg9sf7/nloTJeHU6v6N6DewCR
+         jvDi4yKtvctqrB3uW3aPw5Yvp3xrMIbVDk39JJDV7atnVBDN3f/uFw9b5DRyD6aYZdR/
+         yCrb2zBY4UF7+BDUNlgisSiA3OVfbHDPvvHfnqFozgaq7sF1U6Pd0y2flNyUj0pkuVBS
+         WJ0LHYqigqIyr+Ce3LEuDjHFXzGiBktlht8qx0wB4JpfpGGREDCzAjAWEhxwCioR51mN
+         RYJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=U8IHx8ZPAeKtnfGboiRf2eSbCOa6mdkGIwjEr3hxwU0=;
+        fh=IEuuKPrZIwG1DMKY2dHcJPM5o5C7yq4BbYMvwc+8n9c=;
+        b=gwkQ0HnNZhU3p53qblIlW9JZ9FaSiCFSOcN5I7eEYyYZ9vg1ebR3h6fwHkN1bVhS1R
+         pzQWeomY+QfsNvrEeshbsDVqD8vPzi0yagUHgk8t0IqvVVVVhTgxA+whIdHnWi6P96T8
+         n81xj3r8SW8tzfgcXRecipLmHquNZORKazDZcY4/mgeQQZWehT//3+4Bk9N1H1elVn06
+         Xjar/EfhNs8xMSfNGgrIwWx/RklR8WHZHis+54WkAYpxIBDVwloJcRW7uG3tsw3nFRY8
+         sbhgQdefya7g2Wb7MwIFSBO8G7ummVExnoN32KNT3M15zt8HbL57vFq5Y3z9XWmiNYB3
+         7hPg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789789742; x=1790394542; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ewk+C2Dr+NeNykXYcfbBUgSsghNQhbXTW4j8zHUNmfs=;
-        b=kXv/8Qmz4JebvTzdLuSwLi/CjjMfCwkuN83FKT4R0TwhcEskjNw94un487sBeik2js
-         x00Ox4Sz2r/v6CYHcVtksRofs3O5D4T/jnkKCNhSZU8Z5YKI5aqL3jk5PdoTUalNLGvU
-         FIO4Fs8F/VlOLtpmmw4mOngv3vAg/Gkz2zUjzMvENgenWa57FJW04wKPT/23xSrvOIal
-         +Xykqt5aA97/BWOylCtvry76d7fLolFhQ8yHy4hvfnlVeIWVEtMjH9DrxovdAlAJok/R
-         dV8QndCXVKYLIQFl8PxWG9h4kL/gpCYotzlaFi7vqHCPhdIF9vIgvTjOaMb1BHQ8Xpoy
-         GlFQ==
+        d=gmail.com; s=20251104; t=1789789908; x=1790394708; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=U8IHx8ZPAeKtnfGboiRf2eSbCOa6mdkGIwjEr3hxwU0=;
+        b=SE0sPFU+pO3mTQhHf9uiqW2UeedlYBwWgy8bF5AmtJ5ZRe+fcxsQ/taGTlByMsSgck
+         0GPZBloD/ibEGEDFaDbh3haX29tvyWXB9PZShIOHVpuGdbIp6A8X9B9zJ/BKz/h/YEb5
+         OYFzk5thtO266BJY3AfFKtR6TndIru0lS0E5pfD/f7sc97G4ifLlw/2Gbj26ugiQCB1U
+         IS4X9IZlZsV5AhEi6iwLztiGZP3T8PW1IpJ6M2S5QYZigu8R1KP3+EITNK8oqhwfsAqO
+         mgfeFyWROM4p1FPKBr9Vmsr/SX60Ab0KPJMr8dmwpwV5T6O/fTBIpyNa0pPBiLaZDHLt
+         e4gg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789789742; x=1790394542;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ewk+C2Dr+NeNykXYcfbBUgSsghNQhbXTW4j8zHUNmfs=;
-        b=kz2wxrSgLSVJVCAAhCoJlJ2H9lDV3cW4AX7Ls6ypkXC5R4bgLKD2GEKYn2aWVQi65A
-         ACsG94C41sJ7OMqO83wrM6DazI59YJhRxH88pru4gOGzwUJuTBe827+WdrjwXUUXRu8l
-         RkTuK4JB74lUpnvrgjAsQX5gdIkF85ulhiLogFwk78BRJft6KXPV3bZwMviKpdINVrLu
-         dIyGX0NQv7N0vQI4IT1SuFBg5llD+M9AJ7XCZsyas6ptOIeS78M7PuQXz5OJmQ5beAOn
-         hgAdM09XRSI7TXzLTkN+e6xDHeE9+5yV/Oi8rntmy63YtxxKRH4q6lCfVIIOloXtS0SQ
-         YYJw==
-X-Forwarded-Encrypted: i=1; AKwUvBzj2ZbYUVsex4qC1642UR+TJbBOOf7Em58QJ6G3om9ogaa0RSw8OwaiOzfaFJwnuSsDB6pfTX3Q/xZHNS4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nO/HnjbUxTc8fstK5wT4ongucg6H/4NmO5UcUUN+mcGU1Pqi56
-	MPBUXadtN8IJGPSyWkZQVQHWDzNAjhMhNK/NqoYf5oPt/y3KZtPMfNY=
-X-Gm-Gg: AYBFou2KCeP7qEXlKCbnSwAzSgbhRoqvSdbKUu5fNME4b0iQbwiUU+EZj5IPKGPVA4c
-	Ue704hWv3t4GLPnvduaT4CeklWYW7oAt0pA1bjEosOCQM+rREdfeswIyWfQgnIylMfvaAZ/up9d
-	wusDtrLmle2SvXoL0KNs+jvZ33PpCkAdiFHmklGJT0y4U/9L/Q2IXB/hzAJ/DcKci3hcTdFHgs+
-	ifXzNZtslLQrju2icya74a2fMP3mrf69uq6hGLGgN0psUjG8O0eHI9mSvKbUYtDZdRVeTZjw0bm
-	1yOTfDNfZ2C/nLH3HZgrqlKFbMYStnH8PJKS72fBez5Y/U7nH7dAYMv7A1F92e5ildUvJHRgCVN
-	7jI8IAwF26inAL/p6jQ45R7ULRwtrgOOz6JMsDxWEVBBQVWOdYnMXsWCKg8JqPcTXqukqvH6abP
-	5rymVnhPgMZ5PH52cBZLBBgZuIIsBabmxfgnZFVET3Z89PykYAaYDMt+GdFwtX8dB25Lm+ltFva
-	FrodGxWAOxPlpb4s0BSUuCKlHwnmXMHJK5vJ/VN/UKSmjA8+KPMLbNq47AWhzwAK94gQ8vs2u3o
-	vUmyvrMPNpWtHA==
-X-Received: by 2002:a17:90b:48c6:b0:39e:131d:4510 with SMTP id 98e67ed59e1d1-39e54ce5062mr9390976a91.13.1789789742457;
-        Fri, 18 Sep 2026 20:49:02 -0700 (PDT)
-Received: from codespaces-2db70c.ktkhmpmw22vebpok31ngjx2qsb.ix.internal.cloudapp.net ([23.97.62.118])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c4ba12csm2305479a91.11.2026.09.18.20.48.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 20:49:02 -0700 (PDT)
-From: Triet Hoang <triet.hoang.dev@gmail.com>
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Stefan Wahren <wahrenst@gmx.net>,
-	Triet Hoang <triet.hoang.dev@gmail.com>
-Subject: [PATCH 2/2] firmware: raspberrypi: Clean up local formatting
-Date: Sat, 19 Sep 2026 03:48:40 +0000
-Message-ID: <20260919034840.28593-3-triet.hoang.dev@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260919034840.28593-1-triet.hoang.dev@gmail.com>
-References: <20260919034840.28593-1-triet.hoang.dev@gmail.com>
+        d=1e100.net; s=20260707; t=1789789908; x=1790394708;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=U8IHx8ZPAeKtnfGboiRf2eSbCOa6mdkGIwjEr3hxwU0=;
+        b=ECEXCWEE4/JACsdFk1YpheWMPn1arUw57zviHxiIQhTnPMDrWVog+rblJp1363VMFe
+         I0fzbEDqHPUEiGMO/GaJRHdJJbN8aPJHjxI3EqUw2WSVjjEqbGmWZwifgaECWqCivPEG
+         xKf4svC95bvWb62rYeF07o33833h8gZ9DYCHGzvL66kJWAns7GIoMxcTHvA4Gt65rlPL
+         RwvQB7FS7Sn/7QCt/o6c8LdkdLW6P5U+UCS1E4MhOGlfHqE/7ZS5JOfdiO/KqODyW/RF
+         /Nux3MC2Rb8KddG1T2tRf1uKh3kmAWdpmdTtsru89B8N+NahiKorc4YKkBZykvte3Xv6
+         pxFw==
+X-Forwarded-Encrypted: i=1; AKwUvBzSDjW9jVpmOfCvo2hFwiNr29e4MJaZ9Yr+ule+BXCE0FLdAE+Ro/j4QaRJK6JTItcOxuOqTa8eJSRdwt0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kg+AAUx1QCjEzA3QwSsJDHXf18sBFVgpZsu8EBOksHlI9nUTLs
+	gAEcMxRn5Ei0klmHyRq+/Pia4bQHeOXvdZBekUJz+JN1Gw8IMVLRmKtQjDkZilGpYc1gqGDRict
+	fJewGgRGrdoXKJcO31CMW1yRQiuaZny8=
+X-Gm-Gg: AYBFou1OwQIYB00GYhOHrk0MoAmigEtbMxItbK6RQyeGK1+UbzbDk9KXcQ7sBc55R9K
+	TMcnDDyfpyZatAgAPEBvtv7I/Js6y+L5jjGbg6xkqYruiONaJU4Z99gh4OrIIZV8muo4Dh//oGh
+	YVsE3QrBQpwl3iqFhJBw3CvOMvjhoVTFsFIG5DTeFSBM96YQcRw3fq2br4hUVVNBvxJvFbW/CrV
+	hc7UZKEPPb7Wuk1MCisk2UmPg21ETrPrtRmmoxve4iwCUm0pCU3xz4f8O8rAOi60n1LJk/rn3bR
+	qmHjs4bI2fQPEqQ0zrYpvNkUNaYeiwGMZqPz9eIsIHeWimqWN88IjOz8gqPoWA9tXCbVW7ZGEkF
+	4iPKKcGktXtotTF0FIruwZKz7SlQFMU0Ep3PF0mqdCkJbwQ==
+X-Received: by 2002:a05:651c:a164:b0:3a3:74b7:fc09 with SMTP id
+ 38308e7fff4ca-3a5fbfd82ffmr9833281fa.21.1789789908286; Fri, 18 Sep 2026
+ 20:51:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260914014539.5015-1-sigefriedhyy@gmail.com> <20260914014539.5015-3-sigefriedhyy@gmail.com>
+ <20260916184909.279f5cac@kernel.org>
+In-Reply-To: <20260916184909.279f5cac@kernel.org>
+From: Yuyang Huang <sigefriedhyy@gmail.com>
+Date: Sat, 19 Sep 2026 12:51:37 +0900
+X-Gm-Features: AcwNN1UgzoXHsJ_bxhh-rzhr-yWoPfk627Dv6gK26WB-RKglakSDcOZfeNpQwmE
+Message-ID: <CA+7S2vLLNCQ=+rcGUyd-jt8ErtaVWgSxt3Ctoq=pJz+KZE62QA@mail.gmail.com>
+Subject: Re: [PATCH net-next v5 2/4] rtnetlink: add AF_PACKET multicast dumps
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	David Ahern <dsahern@kernel.org>, Donald Hunter <donald.hunter@gmail.com>, 
+	Eric Dumazet <edumazet@google.com>, Ido Schimmel <idosch@nvidia.com>, 
+	Jacob Keller <jacob.e.keller@intel.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
+	Nicolas Dichtel <nicolas.dichtel@6wind.com>, Nikolaos Gkarlis <nickgarlis@gmail.com>, 
+	Paolo Abeni <pabeni@redhat.com>, Sabrina Dubroca <sd@queasysnail.net>, Shuah Khan <shuah@kernel.org>, 
+	Simon Horman <horms@kernel.org>, Stanislav Fomichev <sdf.kernel@gmail.com>, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, netdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add a blank line after the local variable declaration in
-response_callback() and fix the indentation of the UINT_MAX return in
-rpi_firmware_clk_get_max_rate().
+On Thu, Sep 17, 2026 at 10:49=E2=80=AFAM Jakub Kicinski <kuba@kernel.org> w=
+rote:
+>
+> On Mon, 14 Sep 2026 10:45:37 +0900 Yuyang Huang wrote:
+> >  net/core/rtnetlink.c         | 174 +++++++++++++++++++++++++++++++++++
+> >  2 files changed, 175 insertions(+)
+>
+> I don't think we need another 200 LoC in rtnetlink.c ?
+> Especially if we make a precedent for AF_PACKET and someone decides
+> to even add more code later.
 
-No functional change intended.
+Agreed the logic doesn't belong to rtnetlink.c, I plan to move it to
+net/core/dev_addr_lists.c in patchset v6. It seems the dump logic
+should sit next to the dev->mc helpers it walks.
 
-Signed-off-by: Triet Hoang <triet.hoang.dev@gmail.com>
----
- drivers/firmware/raspberrypi.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+> The AI report about consistency check is probably good to act on as
+> well?
 
-diff --git a/drivers/firmware/raspberrypi.c b/drivers/firmware/raspberrypi.c
-index 88c3de9ce67a..1e98fc1457d1 100644
---- a/drivers/firmware/raspberrypi.c
-+++ b/drivers/firmware/raspberrypi.c
-@@ -39,6 +39,7 @@ static DEFINE_MUTEX(transaction_lock);
- static void response_callback(struct mbox_client *cl, void *msg)
- {
- 	struct rpi_firmware *fw = container_of(cl, struct rpi_firmware, cl);
-+
- 	complete(&fw->c);
- }
- 
-@@ -260,7 +261,7 @@ unsigned int rpi_firmware_clk_get_max_rate(struct rpi_firmware *fw, unsigned int
- 		 * assume the maximum clock rate is absolute maximum we can
- 		 * store over our type.
- 		 */
--		 return UINT_MAX;
-+		return UINT_MAX;
- 
- 	return le32_to_cpu(msg.rate);
- }
--- 
-2.53.0
-
+Will fix it in patchset v6.
