@@ -1,75 +1,77 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 016D33164B7
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 21:06:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C792361962
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 21:06:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789851980; cv=none; b=Q1Ha8Zdwg1IfDhQpOSCIOsJGaPhAYv/Cv/ba660fNxaZCcReOkq0ZC8MjCzSQ0wJjupsGvKfBXPBoky4XkHvD7pxZ7zRexNJAVAlrQ3KzWpNetYq9r6qXfcR8v9vZX2MvPW9vY33MUlnFgWy/LLitU9li0veWOIitqrSnzXpXbA=
+	t=1789851981; cv=none; b=Gsju05u+4cv9BwFfCZyeQxKn/a46QZbmnMqTNhWKYfhmOhZO558j0Lb5dlAFuAbIQ8LASi1I3ADFtIJc8KtKL39PG1ZW7QTHCre3ATVQxwHezu9jQ69TcFduYNsjPw38hN2U53n1iiiJ7wqvgT2Kg0z268PHfHzJyII0bFx6jaw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789851980; c=relaxed/simple;
-	bh=hyohMFDPXJj/bTGIv3VYpFFLZFYM24WkV44sc7f+myY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=puy/yGiMWIjKrITyR/zXBGAP0Bi7z1qyWlFO7AR8q4dSCD24Crj4xnMH+/9VEi362NLK7B2ckk8PcXiJwIC2rI3tDHebptDaYADYAQz9UsQWuU2GVNqoa4vV4Czr3jVNHClTgzwL4LJMIliG9clnIaFKVOdwyal8RuDou/7LJcw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SW8CmPgC; arc=none smtp.client-ip=74.125.227.171
+	s=arc-20240116; t=1789851981; c=relaxed/simple;
+	bh=K01J0+xXVljADFYTWuPYsLRrU5TV1hYkYJj++ll833U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=m6o+ihOiX0pG3Xg0FHk6Tqdlcmf10azaINM94RBsHmS8FQcvyWlHptxOWM6e5yIdzfLv4zDhPaHoAszQkT7Y6gbxjyFu/Cd5kB1R3+REQJs2kOs32r0C4fcoTpvm7eCooTKvaDfoURNXJg7vnUZ1xj1csWgFrgyuw0RHKCbln/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IQN0F7N1; arc=none smtp.client-ip=74.125.228.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SW8CmPgC"
-Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2db18fe459dso10776115ad.3
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:06:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IQN0F7N1"
+Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469a3490bso1986951b3a.3
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:06:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789851978; x=1790456778; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789851979; x=1790456779; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EzucT7q6zHC86vSqtMKbjtU4XqPVAJVIZbXQxy7cJtw=;
-        b=SW8CmPgCxgBDuT+cuc7s88lC68NILuicI4M+Nis9hZByR1TNLCd6ram/jGZAh7edhi
-         w1OpWmxq1u20d7EKXHbw2ZEASGezLOPMI5rl5GH2ZZ5XFh+6VAuRiAKJYeElF+xvPh7s
-         H3+KmkJRjnE6sm7JUS0onzCkgpaHHgR5DqhQhthMjRWztmetdC/FoMGUlfbASPFjHCtQ
-         hRFW1EunbbzmXWmqN3RQb9WVAv6bG8skUnZHkiq5bg0aIAu87njrqfdXm046z8VCQCtl
-         WndIF47pfQWM/5z9uoBCMwRr24eiH0nWmNNwTcDAEuSYaBtwhIAj8WN2SWUL19GE0DEd
-         uORw==
+        bh=ABiIkd49zAAyEbZWTZaaVGNz6idHB4ipKkUPNXeBUPQ=;
+        b=IQN0F7N1rTHK8sh3Ckk4/FTmYqzslcYNA4eDWihzc/J2srgqEqmSseEfLThPPWh034
+         tzWwZoS0yydmawvol9R7N7vk5DX6RpeVSfJhW586M2+5gqeN+rIRSbiJJDheiiYxZXH7
+         CT6ixci60xa6ocNkA25EfZpJxbKilgWEc7N++F57cLDzDv624sgXJC0HAJKdfvAEqYK8
+         7DN+oDv4jVJr2PZNZBk/t33lYvLvO1xnTswASspeUW58c5WKZUnmZgLzLpIzLzGCiX2o
+         QCeXTxp4LCNKcIpj1Fz5je9lHamx/HR2f/lVLYx3khZGG1RPsMwQ5rRYZKrEGcXWb3ak
+         gO8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789851978; x=1790456778;
+        d=1e100.net; s=20260707; t=1789851979; x=1790456779;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=EzucT7q6zHC86vSqtMKbjtU4XqPVAJVIZbXQxy7cJtw=;
-        b=m9HFa202geWFnkXuPSz7lUqcYELkCpl00kU65Brq5yTbWDlgCOFuKcTPNqYRPnxpuQ
-         L0MCpo9uYk8xTFryY9LBiKQN6nv1X+eTqzeIB4kYU6LxGbqcNqAOgAeFBw08cla9Wztu
-         hNwbrVdagI2QflYeGNSNxo2Fwy9NV8dFkXgy7LKXipPrl3WlHNjQy9awIVFB6GKkUz+o
-         7bkEApljaD0+6g7UFBi3KhXHTVQUTMvy/2V7nii5L5AWqhTubtVIF1BG+CLs7C3A4SZ+
-         P1IkSvk1lfknaNy5sNprH7K2EE+IoTJHurvGjcjlNy4ZUIXhZS3IorymArIbNF8IBBvd
-         f/IA==
-X-Forwarded-Encrypted: i=1; AKwUvBzNll5QLPgiLod0BZpytafoBSLVmK5ZKOTVjK2MvmQZwT9iP9KcKLHgs6Ww8BjItqb2ZoJU244clCtgGbs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mY1hSySReNHnCgouskCQPQ6pFuC0GNunxwMnE+Shl3GkThJQNP
-	Tuy0in0Sd1xwvuPgMrNCQwD6f+xsXmetR1+nKQnEBNBRytpYQdFCqgRU
-X-Gm-Gg: AYBFou1mnRCBye4I838Ni7jTIW3bYMFSQ4ivDtXp630GqxCmDHYjFEttCnWcQez4sD9
-	2NP5gWCkVb9If11um38JGRUI73EgN0lNmaRM8ONbhLQ+yPiWvL9bNr46oGx2i8I3VPse/+gF8ei
-	ry2+sL6DU8RAxJBQW3DAoEqD+UYEB3r3njS3CdCv762tPcaRTvrOVB6Y1u6xE0G/wrRP8+0A8vg
-	8BwzdcI6/VX93G0qA/czAp4/b55VvTUpsi9YZjZfqFWbszOe/1astiGAQeFL/Hg7y4Zxl5ruy/0
-	N/egL7WPlAKut6Y+nT5+XRZbZzhMlM6Gg2C0QU2mLPQzTAt8cwh4R+u5BgZJVH+nVQBmKQF6HkK
-	fL2fp2W7wk3Yo/bAulL3LE1tS8R+mklODqBbKVaWVzPS7U3ghgnd6dbOUs/9XvDW9N3O2gmOLzX
-	ATUjwz8eEyKLixAU1aOB/9l3GDklhNMgk8FP4GZiJG84AnP6A5rjpyKs+pcMbb2Z6eG6GYLjpmh
-	hSMVwBpKartBpzmuZKnf/CuMckIDT4UYAxoKuRCIADqfJIED5gHCdt725PQ3mnhSDu2S25tl15i
-	9GsSUqqx9+DtfmRxcUm3
-X-Received: by 2002:a17:903:1a8d:b0:2dd:c100:4b83 with SMTP id d9443c01a7336-2ddc1005f81mr51236095ad.58.1789851978170;
-        Sat, 19 Sep 2026 14:06:18 -0700 (PDT)
+        bh=ABiIkd49zAAyEbZWTZaaVGNz6idHB4ipKkUPNXeBUPQ=;
+        b=ra112u1r/ynRfbU//sfHVKcl/oWYWlM0T7Z97HrSJexixocbjdzXsQrm3a6zVRedmh
+         0k5YTO2XG62G0SgsW23einPGmvhoNmTvhQy9Uze9QYB4m4rtnrJfQUawI+STGrws4BWa
+         o4ONqjbHClVRrleOJh41PupMngjiTXXmhc97E4Ah1B+MoWKxH739jxL+TXw22g86tW0g
+         6MzJnSiqglZ36/gIRk2gg2JR36UozD28VGqFgd5wZmhv7QhOUFIu7k90wm2+g5Wb/bHk
+         bBpI/pl3PW7IPhTEMrdLxlmckF3rC5ervHFrS9hA4cjM6lPKHYASEhC4cUBHItnD5tht
+         gVWQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwujkn5QGap0uVXncp+GBotCFcRkRir9GQC04c3ZjmIcFa2Ofc0M0Ep1zasmpN2C3sbh6DVH384/sE4gFo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mXoRnSguZQKXWG76Ct8w0ttSiX9REBO+IdtKNG6xdweov2m7ht
+	iDbRB1PWS3p0az61BuhsVOYPnJFtModucu07XtsYT8LtgjY9TvosrGrL
+X-Gm-Gg: AYBFou1BDKxovhruwJEZMJhbj9YZKnhcEj7e9AItWq0L4kRP9PJy1AW4GrRH8sYOgNM
+	iq5CvUBvqY+Er0wO8bD89fpGeITpsF0aB4x/z+R3uld11P8q8jvuZ/Ee702LKI4bWRoFeycUZRz
+	EoMicjpPsroPjMwA1eOmUPXg86KVd5gJC1vAAYoEOxxliICsKn/j5tlG/p70kFt7O686Fo85IMw
+	s/YkW5Qbxgzya/lvrantSRj5x4NhniehPr0WBJmPHpKuyjQJ+6ML6R4HE/7BZTV/GM0m0Qur+E9
+	eSHAWBcidoF1SGVPN+guD3hecGL3MP0E/bNW/7sLihwDu8BCOORwuvxbxCJXxhETMeEG2pOuAlF
+	Zag5HMfPn2Df/DmnJPiwHUG2pTbDIJ4vEfNC/6adgHvorCnxu8KQXm8M2ejMrJgYGRERX/Ek58K
+	PP6QgXVUuvJzSkVXfk9WnFO2+btMgl0C7QmkNA6jRC3RDq9YX41kV1eHLzm3a9NUpihMZ9KRL3r
+	kUZBC78WRE9U7PYI7sOldYUcAJBEtshQ6KSuSA7wWUmPzkFBzNpDrRb2waT/frI/069t8dwTVID
+	UEwYClD7Gg==
+X-Received: by 2002:a05:6a00:4b14:b0:857:7337:5db6 with SMTP id d2e1a72fcca58-874dd9f2458mr9704543b3a.20.1789851979438;
+        Sat, 19 Sep 2026 14:06:19 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17888b9sm12985705ad.23.2026.09.19.14.06.17
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a95f2500sm1277466b3a.30.2026.09.19.14.06.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 14:06:17 -0700 (PDT)
+        Sat, 19 Sep 2026 14:06:18 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
-To: jlayton@kernel.org,
-	cel@kernel.org,
-	viro@zeniv.linux.org.uk,
-	brauner@kernel.org
+To: dsahern@kernel.org,
+	idosch@nvidia.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
 Cc: alex.aring@gmail.com,
-	jack@suse.cz,
-	linux-fsdevel@vger.kernel.org,
+	horms@kernel.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] filelock: prevent FL_LEASE and FL_DELEG flavor confusion in generic_add_lease()
-Date: Sat, 19 Sep 2026 21:06:17 +0000
-Message-ID: <20260919210617.3028917-1-benquike@gmail.com>
+Subject: [PATCH] ipv6: exthdrs: copy old IPv6 header before skb_mac_header_rebuild() in ipv6_rpl_srh_rcv()
+Date: Sat, 19 Sep 2026 21:06:18 +0000
+Message-ID: <20260919210618.3028986-1-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -79,46 +81,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-generic_add_lease() searches ctx->flc_lease for an existing entry
-matching (flc_file == filp && flc_owner == lease->c.flc_owner) in order
-to modify an existing lease in place via lease_modify(). However, it
-does not verify that the existing entry's flavor (FL_LEASE vs FL_DELEG)
-matches the newly requested lease's flavor in flc_flags.
+In ipv6_rpl_srh_rcv(), after pulling the compressed RPL SRH and calling
+skb_push(skb, chdr_len) to expand the buffer for the decompressed SRH,
+the function calls skb_mac_header_rebuild(skb) BEFORE copying the saved
+IPv6 header from oldhdr to ipv6_hdr(skb).
 
-Since both F_SETLEASE and F_SETDELEG pass filp as flc_owner from
-userland (fcntl_setlease() and fcntl_setdeleg()), calling F_SETDELEG on
-a file descriptor that already holds an FL_LEASE modifies flc_type in
-place and returns 0 without setting FL_DELEG in flc_flags. Conversely,
-calling F_SETLEASE on a file descriptor that holds an active FL_DELEG
-modifies the delegation in place without holding inode_lock() (which
-vfs_setlease() only acquires when is_deleg is true).
+When chdr_len - pull_len < skb->mac_len (for example, an 8-byte
+expansion with a 14-byte Ethernet MAC header), the newly rebuilt MAC
+header at [skb->data - skb->mac_len, skb->data) overlaps with the old
+IPv6 header at [oldhdr, oldhdr + 40). Calling
+skb_mac_header_rebuild(skb) first overwrites the beginning of oldhdr
+(version, traffic class, flow label, payload_len, nexthdr, hop_limit,
+and the start of saddr) with the Ethernet header bytes, and the
+subsequent memmove(ipv6_hdr(skb), oldhdr, sizeof(struct ipv6hdr)) copies
+those corrupted bytes into the new IPv6 header. Moreover, oldhdr's
+nexthdr is only updated to NEXTHDR_ROUTING before the pull, which also
+gets clobbered by the overlapping MAC rebuild.
 
-Reject cross-flavor modifications in generic_add_lease() when the
-existing entry on ctx->flc_lease has a different (FL_LEASE | FL_DELEG)
-flag mask from the requested lease.
+Fix this by copying the 40-byte IPv6 header from oldhdr to skb->data
+immediately after skb_push(skb, chdr_len) and before calling
+skb_reset_network_header(skb) and skb_mac_header_rebuild(skb), and
+explicitly setting ipv6_hdr(skb)->nexthdr = NEXTHDR_ROUTING.
 
-Fixes: 1602bad16d7d ("vfs: expose delegation support to userland")
+Fixes: 8610c7c6e3bd ("net: ipv6: add support for rpl sr exthdr")
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 
 ---
- fs/locks.c | 3 +++
- 1 file changed, 3 insertions(+)
+ net/ipv6/exthdrs.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/fs/locks.c b/fs/locks.c
-index 6e4ff7fcec05..15d73f8f48cd 100644
---- a/fs/locks.c
-+++ b/fs/locks.c
-@@ -1938,6 +1938,9 @@ generic_add_lease(struct file *filp, int arg, struct file_lease **flp, void **pr
- 	list_for_each_entry(fl, &ctx->flc_lease, c.flc_list) {
- 		if (fl->c.flc_file == filp &&
- 		    fl->c.flc_owner == lease->c.flc_owner) {
-+			if ((fl->c.flc_flags & (FL_LEASE | FL_DELEG)) !=
-+			    (lease->c.flc_flags & (FL_LEASE | FL_DELEG)))
-+				goto out;
- 			my_fl = fl;
- 			continue;
- 		}
+diff --git a/net/ipv6/exthdrs.c b/net/ipv6/exthdrs.c
+index 09a4552f7f08..f9563294c5b9 100644
+--- a/net/ipv6/exthdrs.c
++++ b/net/ipv6/exthdrs.c
+@@ -598,11 +598,12 @@ static int ipv6_rpl_srh_rcv(struct sk_buff *skb, struct inet6_dev *idev)
+ 		oldhdr = ipv6_hdr(skb);
+ 	}
+ 	skb_push(skb, chdr_len);
++	memmove(skb->data, oldhdr, sizeof(struct ipv6hdr));
+ 	skb_reset_network_header(skb);
+ 	skb_mac_header_rebuild(skb);
+ 	skb_set_transport_header(skb, sizeof(struct ipv6hdr));
++	ipv6_hdr(skb)->nexthdr = NEXTHDR_ROUTING;
+ 
+-	memmove(ipv6_hdr(skb), oldhdr, sizeof(struct ipv6hdr));
+ 	memcpy(skb_transport_header(skb), chdr, (chdr->hdrlen + 1) << 3);
+ 
+ 	ipv6_hdr(skb)->payload_len = htons(skb->len - sizeof(struct ipv6hdr));
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
