@@ -1,97 +1,171 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f38.google.com (mail-qv2-f38.google.com [74.125.230.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2906C27703;
-	Sat, 19 Sep 2026 00:06:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789776375; cv=none; b=TCOQzfQaEVVBnTCNgwbeDy04ihidnedueYzC0QC5YZzdR9mNufXFkhlOXMf6OPuZe6kEpTWIQyRGPQATwD2vOkOH6J7L4YxILc6Di4QL8ruxHe/eD/cXT2nWNy4/qoJG6z1E6pw61fsXcgQdVvQL1YNHiBuQZg7Jeba2UClmuYI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789776375; c=relaxed/simple;
-	bh=PZjxDqdtreqBoxW0dc9Qwx0T2try/rmxITdlGAT/wEw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lrE8ehJDoLcznNWl8xbBhF1Aozo0ZXU5G7SlaKbgHtugEKkIA9/25LEbbbUP91YV2JzWXg4hXWQO0OeG8NbYInv+HcwkJWRWK55x+Z095fyh31WSgwHvfyUJDz1uGkgXGk4BlJV8QoAN1EMRxpNy+GqKssKmFHDmvj3oHa1lsnY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WHt/yal8; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E3B72C87F
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 00:09:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.166
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789776559; cv=pass; b=G/53nLgi1r9xJt1IN05NBu5bAVznTmbclFse2XRcfSu3TE8Q07P2FYw2UleKh2kVAgZMNrbGx8XWHa44N9/2a6/67iEhyasaGiKi+uqCdLzD1xf/b6y7nElPvSvfrMjizhNaej/dFdZ3bAMTAyFy+xcaTZe8joLHv7GAuSPBH2I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789776559; c=relaxed/simple;
+	bh=PU+L/CdtC8xOCmRNhBf0E5me78uniQkeih3uFXRDgt4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=aO7akbtVb5nWXQZlTNiuLBi1fp8JlCaGKxALZnFUThqGpdQWVjMC08YVJ6SecsXDiSRuHQcN/qKZJQK2qdkfLRCPhI6yKW9ZiZcKAtuA34+JmAbG2f1PGUh2HeRvIv4sCpACQSIxWk9IQxu6wVoeZyBj31UPwhdjtBZrqn+UQpM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=D6ZZ6QdG; arc=pass smtp.client-ip=74.125.230.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WHt/yal8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24DD11F000FF;
-	Sat, 19 Sep 2026 00:06:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789776373;
-	bh=K0LdpFbLfSrouSaQWx1WxcGgOL0IJnEb3kf1PZZgOz4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WHt/yal8851lJexzW7Zy1gfBoxenPxj+oanpo5DnIn0n4Oos8HUsmE9MfIR3dsQcE
-	 K58rNv0O+N3L7LHXmDecDWZoSAHhDLc+blEDv4Y5Etsr8OmkRFldnxLM5QMgIMV+ve
-	 dKErdN+nziQzGs0QVUoYVvCql5PSIY33Gf/GvL2mGdBkAtjUCzj5219XQxBT41xgBk
-	 KXjAQiJ/AsVEqAXW9C8IeIGHK1B7BS6FBZRXmfoQiBGktfsYyV5QEk9cJajBXA60AA
-	 pBLi29QnIR3q+RwCILttXqBKCWTVLTz9pLrJjWaiJU0nzyM/NYbN3XzaruSGTac8Um
-	 u4UEtm1cJDdcA==
-Date: Sat, 19 Sep 2026 00:06:11 +0000
-From: Yixun Lan <dlan@kernel.org>
-To: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>
-Cc: Junhui Liu <junhui.liu@pigmoral.tech>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Inochi Amaoto <inochiama@outlook.com>,
-	Paul Walmsley <pjw@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Anup Patel <anup@brainfault.org>, Guodong Xu <docular.xu@gmail.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Bo Gan <ganboing@gmail.com>
-Subject: Re: [PATCH v3 5/6] irqchip/aclint-sswi: Add support for SpacemiT K3
-Message-ID: <20260919000611-GKF297024@kernel.org>
-References: <20260918-k3-aclint-v3-0-cf4fd4050e14@pigmoral.tech>
- <20260918-k3-aclint-v3-5-cf4fd4050e14@pigmoral.tech>
+	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="D6ZZ6QdG"
+Received: by mail-qv2-f38.google.com with SMTP id 6a1803df08f44-9107051ba26so9189166d6.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 17:09:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789776556; cv=none;
+        d=google.com; s=arc-20260327;
+        b=fDt6Q08fOBiPLYPTV4DrDku/QwWJeUgI7f259aISGU1IIAyKISCatlHrbjuZNOtQxL
+         whHz0LWwoXO0M179U80BET+xTUcjuOW2IooaZNONj8Eb0vKPOIqlpy7xAunTwB9H+GWS
+         VUyKsrVFKAVJYgX5sJaC/wbOX4HnINJJWfSiPA6rtMpzsAkI/ms7tseKOJ4w2m1xraqF
+         pC1zgVuQNnR/dnRohLTOcuTonz+K9wmhctL5T6SuXzwgcKIXPVWGXZKZr5cHOkOFINnx
+         19XsIrYNlbcNs5d08brvBHNrQVFlb0qjPNMPw4MP6PhHVeOtSNfowl04Qy3ujiyVrsQB
+         7gKA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=gVNibac69RIusTZEUWTx905GNnSCni+ehiSaDallFpI=;
+        fh=FtB4PYZu57suAhozNfGhqUHczgv42NafWqdzbcCAe30=;
+        b=WwhdZH/6wMsR+B018hALzlhJYHLfohm3th2b8IIl6Naaq1Ss0mkGTEBJMx7EOAle42
+         oubNsRepHKziNY3MXbU5L6D9fyN+9ByLATm3UtHtrkuliknOU8ZCCktPtZ3eyDKCPVqP
+         Icl0ST8n50PhwTWcLFiP3Ggs8p3+56ok4SmzQ+07xC3tzALHBPefZ2uRiyI2ZHojzRB2
+         eYgLpCvrHdUU2l3A/ij8TqHj+3ZZC6e0+FYWPRkVn8ivsLEObS2p6JISSMbowscWfDiE
+         +nPnPMJKcw6Ae0m6SvOV8qkPJlPdFl3ZGP/3fiSkQfEnWnzMeTCTri96nhcWR5BF0sXm
+         sZ9g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=asu.edu; s=google; t=1789776556; x=1790381356; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gVNibac69RIusTZEUWTx905GNnSCni+ehiSaDallFpI=;
+        b=D6ZZ6QdG2JAgYwEEX/SLW1Iv3TC3qoqNr0ZpUCcUdQT1CbZxHzsHEidgy63BvwJri6
+         AkbSD5K3Cg88r40G4X70eRGGJrm/ThIk17HI6jyCfpjuKtMxma2UU93xGZjlBYruIsEG
+         VN/ZYCvU/kD7oep01vdqnvAzsDGnZNDgLJ50fDVIoZ/4R/nWqYYspF7gyAuleCGx9oTA
+         dCldyLfR5wODDvO49AU8FLEJe9M0m5/UDkFSiTcn5K3xebt8orerp6Scxj3VKt6BOU9p
+         /vxZQ4UprImXC57ejg+wdkGSKWSgm3ylrSIGRo8QNK4/UH9XZdhjvll7tykwbBDyX0sY
+         g5ZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789776556; x=1790381356;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gVNibac69RIusTZEUWTx905GNnSCni+ehiSaDallFpI=;
+        b=MYlQpc/5hK3uh8Ue2HLEo2R4014Q96UsvHPtcgJFlZZeZsWqEZulz7mxLDs75muDj9
+         mzyQl3ovIy/hHgtuWaL7vcxAh7y2fkXKw8awFKXuA+s2LkI3kf+EyaE8/cuP82y1uBMR
+         JsnTpI2sL32zaZ60TqTC5rx87fgjOAR52RhXNQO8t3XSGk8/iz+qf7e1WhSTg+hqyz/d
+         BR3kpc8I9K7QkyfJ8sBgwQy7XPVYx2FYVKqiabMSX+0RQrTea9ci17wZyH6Kv8SEXZjB
+         0Sw7ET8hkyW4460ZvpoM2+Q5cx8fT1amPbU4vrdNGe/oX0cxTRT7fARUiKsRWBQAo+Ar
+         R3Ag==
+X-Forwarded-Encrypted: i=1; AKwUvBxa8NjbYVpYjQED5Fqcf7r+YmdyhTF2TG/b6qJtIST110Rc4AYR6/GXFRa/UsKR07EBYuYKAykoKXHLn+A=@vger.kernel.org
+X-Gm-Message-State: AFuF++midPh32m7neyG4yg0TQ/oZ9liP5UfgJvw9HQWkVw7yh/F2R4PB
+	EyPNSGizXHs+3XAr/rH/QtlCGRHy089WidBxoVgMQRgAfz+yJ2aHuFgeFTW0IgZy1pElC7Ffr3l
+	4gDNV0erPonDezxHvmEUYw6sDDbGzE0yGZjZULDAcDovZfIbnU/L7zpCd
+X-Gm-Gg: AYBFou1AtrDYBp4RlUEwPWI+X37gIt6sSwl01BRj10YsTWA5X9Xv7JaxcclL8DccdFE
+	f1KSfDUDzwCwjRwULB9xo8kM09X++UopP83RAFOXw2W0hbpXhwJDziV2wgkzAGXwdw4SE4uD2zO
+	uMe0faUDhmH/2UMgYix2FtzeGgfQzr6G+aC4oLT61uEvpGJyWFL0SKRoaFBPSNsuGpsUVMgB8/g
+	fhBenPqovQNOM+lGIEO7onEZ6YJITswpVJ/uSKkTpbrNpy0feG2CTCABvy5w10DDJkxAzoaRqUk
+	eNZxx4QmbSm/ATmtpy7g5E5CVNd9PV8egbpZyHH7uNHsVgYcI4xspbrYetSOyZQp0K9fNUoWZHP
+	K8RFjRGbe/MQ44xds/RbvqA==
+X-Received: by 2002:a05:6214:3982:b0:912:59f5:7178 with SMTP id
+ 6a1803df08f44-91259f572b9mr51296146d6.31.1789776555939; Fri, 18 Sep 2026
+ 17:09:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260918-k3-aclint-v3-5-cf4fd4050e14@pigmoral.tech>
+References: <20260918212231.1193758-1-xmei5@asu.edu>
+In-Reply-To: <20260918212231.1193758-1-xmei5@asu.edu>
+From: Xiang Mei <xmei5@asu.edu>
+Date: Fri, 18 Sep 2026 17:09:02 -0700
+X-Gm-Features: AcwNN1VEk0TFmo665Y4k-d2dWdC5cPVRtdRowVAey1-mRjtQf5TJXnzVkPticXg
+Message-ID: <CAPpSM+TuDm2GRg=JTn_Qb6GzWQfik1j2iVt6AO9Ooa3HyvsD2w@mail.gmail.com>
+Subject: Re: [PATCH] ALSA: line6: Clamp the playback URB size to the OUT
+ endpoint packet size
+To: perex@perex.cz, tiwai@suse.com, linux-sound@vger.kernel.org
+Cc: dev@andree.sk, co+f595d33a1b0a565b@bugs.sh, stable@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Thomas Gleixner, Radu Rendec
-
-On 00:29 Fri 18 Sep     , Junhui Liu wrote:
-> Add a match entry for the spacemit,k3-aclint-sswi compatible. The K3
-> SSWI device requires no special handling and can use the existing
-> generic ACLINT SSWI initialization function.
-> 
-> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
+On Fri, Sep 18, 2026 at 2:22=E2=80=AFPM Xiang Mei <xmei5@asu.edu> wrote:
+>
+> The playback buffer is sized from the OUT endpoint's max_packet_size_out,
+> but submit_audio_out_urb() takes the length to write into it from
+> prev_fsize, which audio_in_callback() derived from the IN endpoint.  Both
+> come from the device's own descriptors and nothing relates them, so a
+> device declaring a large iso IN and a small iso OUT wMaxPacketSize
+> overflows the buffer.  usb_submit_urb() rejects the oversized URB, but
+> only after the write has run.
+>
+> Attaching the device is the whole trigger: toneport_startup() acquires th=
+e
+> monitor stream and starts both URB streams on its own, so the overflow
+> happens in the URB completion handler with no local process involved.
+>
+> Clamp the length to max_packet_size_out.  A device whose OUT endpoint
+> matches the audio format it announces never reaches the limit.
+>
+> BUG: KASAN: slab-out-of-bounds in submit_audio_out_urb (sound/usb/line6/p=
+layback.c:242)
+> Write of size 1024 at addr ffff88801b94bc00 by task vhci_rx/183
+>
+> Call Trace:
+>  kasan_report (mm/kasan/report.c:595)
+>  kasan_check_range (mm/kasan/generic.c:186 mm/kasan/generic.c:200)
+>  __asan_memset (mm/kasan/shadow.c:84)
+>  submit_audio_out_urb (sound/usb/line6/playback.c:242)
+>  audio_out_callback (sound/usb/line6/playback.c:354)
+>  __usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1657)
+>  usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1741)
+>  vhci_rx_loop (drivers/usb/usbip/vhci_rx.c:107)
+>  kthread (kernel/kthread.c:436)
+>  ret_from_fork (arch/x86/kernel/process.c:158)
+>  ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+>
+> The buggy address belongs to the object at ffff88801b94bc00
+>  which belongs to the cache kmalloc-512 of size 512
+>
+> Cc: stable@vger.kernel.org
+> Fixes: 7a0f55aeeb8f ("ALSA: line6: Support assymetrical in/out configurat=
+ions")
+> Reported-by: <co+f595d33a1b0a565b@bugs.sh>
+> Assisted-by: LLM
+> Signed-off-by: Xiang Mei <xmei5@asu.edu>
 > ---
->  drivers/irqchip/irq-aclint-sswi.c | 1 +
+>  sound/usb/line6/playback.c | 1 +
 >  1 file changed, 1 insertion(+)
-> 
-Ping irqchip subsystem maintainer, how do you expect to handle this patch?
-There are some dependencies between dt-binding, the driver and DTS file..
+>
+> diff --git a/sound/usb/line6/playback.c b/sound/usb/line6/playback.c
+> index 7ebaf125f969..cfb20585c5ea 100644
+> --- a/sound/usb/line6/playback.c
+> +++ b/sound/usb/line6/playback.c
+> @@ -181,6 +181,7 @@ static int submit_audio_out_urb(struct snd_line6_pcm =
+*line6pcm)
+>                 }
+>
+>                 fsize *=3D bytes_per_frame;
+> +               fsize =3D min(fsize, line6pcm->max_packet_size_out);
+>
+>                 fout->offset =3D urb_size;
+>                 fout->length =3D fsize;
+> --
+> 2.43.0
+>
 
-Would it be ok if I take it together via SpacemiT SoC tree? and probably with
-your Acked-by? Thanks
+Please disregard this patch. It duplicates my other submission
+addressing the same out-of-bounds write in submit_audio_out_urb().
 
-> diff --git a/drivers/irqchip/irq-aclint-sswi.c b/drivers/irqchip/irq-aclint-sswi.c
-> index ca06efd86fa1..d3ef2cd3b5c5 100644
-> --- a/drivers/irqchip/irq-aclint-sswi.c
-> +++ b/drivers/irqchip/irq-aclint-sswi.c
-> @@ -179,6 +179,7 @@ static int __init generic_aclint_sswi_early_probe(struct device_node *node,
->  }
->  IRQCHIP_DECLARE(mips_p8700_sswi, "mips,p8700-aclint-sswi", generic_aclint_sswi_early_probe);
->  IRQCHIP_DECLARE(nuclei_ux900_sswi, "nuclei,ux900-aclint-sswi", generic_aclint_sswi_early_probe);
-> +IRQCHIP_DECLARE(spacemit_k3_sswi, "spacemit,k3-aclint-sswi", generic_aclint_sswi_early_probe);
->  
->  /* THEAD variant */
->  #define THEAD_C9XX_CSR_SXSTATUS			0x5c0
-> 
-> -- 
-> 2.55.0
-> 
+Sorry for the duplicate submission and noise.
 
--- 
-Yixun Lan (dlan)
+Thanks,
+Xiang
