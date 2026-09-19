@@ -1,71 +1,71 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDE22396D13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC403397928
 	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:26:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789856789; cv=none; b=mcXeFhihOTfEBz9spbf8N0YCEYDxE6oPk692P5E9RSz6pMHBETsrteSr0sT/QKv3nISFeVARwtUesMgahoy6lQWmSDL4ykQ2mQWS9gPOgpEF0qQP7mAa4Bw7MXSunS0fDMMxX2XfJCc0dqNtXNb754BIVkcJvR4gloivjccJmRU=
+	t=1789856788; cv=none; b=nCSTffxAPtnlllAOnLjz63o4+GpdRuXznah76Tbvts3gTzbp0hjNRKKnU7o5pev5rMQ9VVoT2MTAyVWQuJ5LeSt38TXSQdXvjCSw9Y/5MAHHLYIoXxPzpxWL54pEZChAJrlBw5VkMs9OwDRS9tMKmH4N0sIwxYHRLV7i2sOvyY4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789856789; c=relaxed/simple;
-	bh=l+cZ5RnQezSJqBE/UyFFt7hxjbdQOSwBbQXYOdjohsk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dRbd3WxVjhX1Y1lnEJdTXJX2n0P1Ib4maJ9SM09/3LP/X5nBl+5sE9OSqz2tc5SMdMkOrQ0E3MOg2/Q6KKHT/IM0NvE4ShhW5MMpgJjXlUZLMaXfw5PYCwqfoc6h/Fuk7qSIn/1DbidU7ld4xaNbXzv97VLj57WlT6LbVmiuMMU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TomsMDiA; arc=none smtp.client-ip=74.125.228.12
+	s=arc-20240116; t=1789856788; c=relaxed/simple;
+	bh=EhdLnzzAc5TdUIMAqbDDPh8BUtueMtNVdBdFvcaW01Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aJo9jdHHdZUBwDedTM06k2l4W39zM/38EDyVPYEHL+BGVmUe1Bys5GWaxQ2sR5qjDTGJx6lVWAoWF2Kl9v/HCM8mvm7yBz9cA6ZV1O6XF1y3a5+T4l/ACrbnNWe3JM3qYgTWzEHhZ6bBxBg6dxlyJ1CoUIH2xfWFNkRm11czZjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qlUXIYWl; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TomsMDiA"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-8686f46e4adso1594840b3a.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qlUXIYWl"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-398a147688bso1949897a91.1
         for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:26:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789856784; x=1790461584; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789856786; x=1790461586; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SJTdXVhPRFNVOuFEoF0cnUAxxkqxs0nKM5uVJ7VwjD0=;
-        b=TomsMDiAC/w6OOQW/s8+XG04BoWE5+lZLVMpXuzovAc4NIczIH9mOxFAZw97Pmp3JF
-         TT5eTJ0lSf7ewhSJq4UXr4+GHkH+YDZYQWNXT2wCD9QVaj15vhWQEgTCU1aX8NUrQaGA
-         +yjZcsMGAuaA6BFLzj3e1fBiJt0X4RxN6z/1F5aIG5DDZEme7uwHcwfKpeT+xvad4xQl
-         gXQjO4WuCwqDvMo/VIwKcsqT4jBBJqkwyj/+8BQDAkK/Zktyt1Ngan7zMv3lCkT+rLB3
-         B8YkvHUTHf/bqk3Jp/zG19KAwTNLWtquX4nkPDDh0ZRQoT9MiKvUlC9kmeIZm5FlpIwY
-         6VqA==
+        bh=UROJ2rA2pOTAq0U11/K+a+sFTni9M+0S8RdMLsEoDQ0=;
+        b=qlUXIYWlFm8eZNYW3MZ9sT4OpbJBe8Emc75urx6VDQLq7fRMnuyOIcrjkUQhlu24xG
+         XJLCyYCw2MJJL1Og066jkhbiokDL5dLU5vqErvqrJeWfe2Oz2azdiYEtzV21w92q4sLZ
+         BUo6iJYblQ2qljR3nVeub07Aib92L1z5+trlj/21wZHYv2PCAuI9Y1w1HfvF21IfBn02
+         dez6ddKhkpoyE2N284lOLwVz17EeVDQsl+LfbZD+DxyyTQ09vZjSns1rABSkTusWOM5A
+         9WIcuD7uGp2n2kcRzbiZ6WPM8MW5kr0CPiGWrW2GIpmYVOKQbRgPkjvpZrI3U7oFroZh
+         sKmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789856784; x=1790461584;
+        d=1e100.net; s=20260707; t=1789856786; x=1790461586;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SJTdXVhPRFNVOuFEoF0cnUAxxkqxs0nKM5uVJ7VwjD0=;
-        b=jRw56zuq976LXrL8drd+QpJKtNPZkkqCydb4sl5kB7aC0WKZHmE+zgwMavddxCgMnW
-         FLU8WL+qtFBmMoCd52rjg1t8KC2ZluN4bg/ig5qDDQsmwjd3P0IE5LKwA2PKPAf410/h
-         ZdNU1yb87lQgmpTK6HQleFyNpWJZywYwTYP9fL2ZXyxReYrHWBeEctxyc/yrC7fOnnmo
-         t9jYZEEe9wjmcQ5p6CB586srUL3IF4cV6R9I7ediCfrk9jeg1bnxnPMKoEiuDtrKqbtH
-         vbwruHOyFlwiqW92umNjFBKL5LZkTjUybxaZDki6ByEZF6qeyFynSug/aZArdU33c8f3
-         /Neg==
-X-Forwarded-Encrypted: i=1; AKwUvBwb9k6UmB+wCQadq121/r69jEsYOdcECi/ihFQ8+2/Ne9G3IDd4YLhlQdHgJW7d3VZCv1nzCJGx2WO+RP4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mK2r9DW23R83dB7orslFA3G+8Pr8GFyhU+5bCKofn8yeaI5xKW
-	C+eeV8NRS+IjfAfo8wRItZFrF7wq8bCZIsaYTcKqFu5sEJEzV/7HvMTd
-X-Gm-Gg: AYBFou1Q6zKWSYDYgKLJqyqFwlArQiMarS+F6DnMVfHja5JLX421jsncSBkw1PqA8T3
-	SzNpYXHxSaoPrzipYnA8kKS+3tZ+o9gEkBc3eIuOAg4JMPaPuFxsdmz6dmCZEszqcw9YrM7XX21
-	wxWMr/S+ozgT7dr2syyBzqYGczTV0tho4qgEhMhP84986ZH9s/QJCthNOMoKzmCjcaO7/jJlsgT
-	A5pSH7Hn4noZbF/QCO5spXK2U/H6xIFkboXSCdg4ERhjSA0QfnTMWoEaNwUoA5MygNDjPsptGN8
-	E+ML4okibExAYIUzj+a42MaQSBtXkBRYRLRIAtslzKgLMaCCg/opBwdKF6aAEXfNOppEboGoWuW
-	/YAxfntOLAi1ncinvnlCyBt8rTuOw8HLOnm9xFr80NNOBonxw8vl4hmuQt8Stnp93jB5CPzIwtb
-	sFhOuKqpnL7BYyWYSoVz3X/BvSi1G5Hcu6gFQ8mHXZqUfc7FZtybVzkEy+UcDk08Lptr+ZkgiKi
-	mnFgvqL1v58798732xCWihxn1+59+WW+n9KOOZgRXZFWHB3SvKnX32IWuqaM7F6tm0QrDFvUugu
-	kNP153sx5otWA9AIhQTz
-X-Received: by 2002:a05:6300:278b:10b0:3dd:a196:53a8 with SMTP id adf61e73a8af0-3dda19654d7mr3108334637.74.1789856784240;
-        Sat, 19 Sep 2026 15:26:24 -0700 (PDT)
+        bh=UROJ2rA2pOTAq0U11/K+a+sFTni9M+0S8RdMLsEoDQ0=;
+        b=e8aRyEHapR1ALcac+a8ydoQ+MQeHrStsuVwvbkoHPuoORK4GZA0tEEsoLj7OTt0grN
+         EPYNb0fIbnh953Bbwu+8Gb9MGALWhVvkOwDaEtGj6cJniJ3g0m1aiH+KiVnKLCkoS/Xf
+         8CPGHzH7PZ/LYPVBGXRm+d63B82HCfALeTmgvOldNfXToEWsXt8Dr0VjZ+ZBLIZg9wVk
+         Ftw/tGy+dYUyFq6ADgu6z0rgGDX6x7Q7Rg6b7vZh7KFtfv0Nu+KTvxfWWVVzpU3mjUog
+         CtsgeKftfmoVHoNdOf2KqsIVFMvryuwgCSGfrCSI2rStR2oQgdTADegXFMg8k3Pl53aB
+         s/iQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwLXV4K07ngcTJuNuQykaXzSEFMgUruTDsumSXrU6iOH6XaQNs1WWy2tccYX18bGoxrQxAMM+Pv+bcLSfw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lL15MzAsnqiOtV/YWpwfUZdMMYgxwCw7dUKkGLsyhA1Yf9+H4o
+	QeOhH6mx3Xp9CLpws5KsKajhCaR4avWZjiLSKDoG3rHm1lVUNryG8uQ/
+X-Gm-Gg: AYBFou1F4N4h1fei6kj6jUYev0KoIU8ouh5gp9KrjBG6wj9npryETLfFifFtTGdnpNZ
+	hpro4fT7nOPQuT5Iytw2bi23TP0a2VmPk16Ogvs5+UqkxdmioS96Wn3udY1AgEhVa6i1B/b7YZ+
+	bc/JQLMmfpl5jCzF8f+gPHWSXp9i/8BMuTZFVCZD7aSZEOrL0LynB21BHJ40X1e02Iz+xfEBB+w
+	y36gW0/kXDFef5WOibU7pEXCr8iAMKjPrl0VWzhaVfP2iAHEax5Mb3qV47qJT0jgLMArxdSU/rW
+	IAoyZiU8BEJ58DTGzRJXXaIiCPF7C6GQwLU9YEopuZ1lbj5zk0KUjvn8ji44MvvtiBvkxCw8+/v
+	PJyEdze8krabgwN9h+k3sCczDErbLnf8E/zp9I3QuyfZ0LC3wudFAqeOEDhJmzsi+AblmWJvlsT
+	AV7g9plxFvEnPjQhBPe38FHSO/O6bZeyp2lNOEY8NyK/L/r/sI9ZNM8ZN94v0UQEFmuxZ2zRo9y
+	7vaTNc5UQonmigQD9b7cpqNpJJONdiQU83yYhBbdck15mCfYg5D/OvI8Q9NSgTrXxgpEhqDlBlr
+	6378D4CekA==
+X-Received: by 2002:a17:90b:2709:b0:39e:6c69:9b8e with SMTP id 98e67ed59e1d1-39e6c69b257mr4682971a91.51.1789856786307;
+        Sat, 19 Sep 2026 15:26:26 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc72ae8bf29sm1346750a12.12.2026.09.19.15.26.23
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6cb0190bsm6166605a91.13.2026.09.19.15.26.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 15:26:23 -0700 (PDT)
+        Sat, 19 Sep 2026 15:26:26 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
-To: al@alarsen.net,
-	brauner@kernel.org
-Cc: linux-fsdevel@vger.kernel.org,
+To: dlemoal@kernel.org,
+	cassel@kernel.org
+Cc: linux-ide@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] qnx4: validate xblk_num_xtnts and rootdir size in qnx4_block_map() and mount
-Date: Sat, 19 Sep 2026 22:26:23 +0000
-Message-ID: <20260919222623.3797296-1-benquike@gmail.com>
+Subject: [PATCH] ata: libata-scsi: reject multi-sector taskfile commands when dev->multi_count is 0
+Date: Sat, 19 Sep 2026 22:26:25 +0000
+Message-ID: <20260919222625.3797581-1-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -75,36 +75,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In qnx4_block_map() and qnx4_fill_super() (fs/qnx4/inode.c), check that
-xblk->xblk_num_xtnts is between 1 and QNX4_MAX_XTNTS_PER_XBLK (60),
-return 0 instead of (unsigned long)-EIO on error, and validate the root
-directory inode size on mount to prevent out-of-bounds reads past the
-512-byte buffer_head.
+In ata_scsi_pass_thru() (drivers/ata/libata-scsi.c), issuing
+ATA_CMD_READ_MULTI / ATA_CMD_WRITE_MULTI / ATA_CMD_READ_MULTI_EXT /
+ATA_CMD_WRITE_MULTI_EXT / ATA_CMD_WRITE_MULTI_FUA_EXT via SG_IO when
+dev->multi_count == 0 sets qc->sect_size = 0 and triggers a divide-by-
+zero or WARN_ON in the ATA PIO/taskfile path. Reject ATA_PROT_PIO multi-
+sector commands with -EINVAL when dev->multi_count == 0.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: c6fd280766a0 ("Move libata to drivers/ata.")
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
-diff --git a/fs/qnx4/inode.c b/fs/qnx4/inode.c
-index 42fcd500fad2..f6eb08cac09b 100644
---- a/fs/qnx4/inode.c
-+++ b/fs/qnx4/inode.c
-@@ -104,12 +104,15 @@ unsigned long qnx4_block_map( struct inode *inode, long iblock )
- 				bh = sb_bread(inode->i_sb, i_xblk - 1);
- 				if ( !bh ) {
- 					QNX4DEBUG((KERN_ERR "qnx4: I/O error reading xtnt block [%ld])\n", i_xblk - 1));
--					return -EIO;
-+					return 0;
- 				}
- 				xblk = (struct qnx4_xblk*)bh->b_data;
--				if ( memcmp( xblk->xblk_signature, "IamXblk", 7 ) ) {
-+				if (memcmp(xblk->xblk_signature, "IamXblk", 7) ||
-+				    xblk->xblk_num_xtnts == 0 ||
-+				    xblk->xblk_num_xtnts > QNX4_MAX_XTNTS_PER_XBLK) {
- 					QNX4DEBUG((KERN_ERR "qnx4: block at %ld is not a valid xtnt\n", qnx4_inode->i_xblk));
--					return -EIO;
-+					brelse(bh);
-+					return 0;
- 				}
- 			}
- 			block = try_extent(&xblk->xblk_xtnts[ix], &offset);
+diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
+index b3666519b648..c99f2845d09b 100644
+--- a/drivers/ata/libata-scsi.c
++++ b/drivers/ata/libata-scsi.c
+@@ -3507,6 +3507,11 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
+ 	if (is_multi_taskfile(tf)) {
+ 		unsigned int multi_count = 1 << (cdb[1] >> 5);
+ 
++		if (!dev->multi_count) {
++			fp = (cdb[0] == ATA_16) ? 14 : 9;
++			goto invalid_fld;
++		}
++
+ 		/* compare the passed through multi_count
+ 		 * with the cached multi_count of libata
+ 		 */
