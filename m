@@ -1,102 +1,178 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DF0F25B0BE
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 18:09:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 040C926F2A0
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 18:09:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789841356; cv=none; b=Iet1dbcw2o0i9AeJ6e6ognoY5DkkS1HMcw2BeQ0r0rspS9AP4ys6JqMoT+k6enDqdB1GYY/Drn0sGSCJwnbXMAS6Pgf1bi/xugjDKMcRQh3bevYRJQ61COM3fZcDgyOPQxI+g3jN/LqQytgrG5Wyj1C+9M57aecUuENOYPjn8bc=
+	t=1789841382; cv=none; b=NoTK/apT7b56Rey0P4WZB54coCFvr9pa74BtT0AfCY1AxdxIuAfmiF/GpJL/QWRnthhmSTRfrxfp0HrJm5AG3DnzQtOtUPpr04CHpdxCcmUsrKf+XizSjMzsddblu4sqCoqKdGECwIsbN0sZLWR3TXR4xINqRZagtfgcq7H7jJU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789841356; c=relaxed/simple;
-	bh=GNQgwpsmu+MroGLaEFGUtpm8ba9OaOuFh9h6nC5SlSM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GCD1QXHwDAk61r85p1LvR4FXb8V3l1SxBFwopp+e5Ed61Zua6MGiF6Pnd7Q/rbGiuKM+61VTtHRf+yzrNkFsoqQuOUM23ZFe9BzHVHUQFO/jl8DMdnFRUhq4kOSLs7RalkmN9KScq0IXQBcIfdSs5vaonSiB+UN4qjnBfBWCUz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DzzPF2AZ; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789841382; c=relaxed/simple;
+	bh=nzrPoy2aSo8Rg+S+rEM2UaTaCM46de/cfEGGM7scxIA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aJgIdwwD9Bn9D8Y5zWyTi74NAU5+np1xIqqDy/Cv9HtJnY/UDtzKfosxbyj8rC8iTQCSkCp66dHJnAw7m3SYrjpidTgxZx/UksJ9u/x89mH5Eqyiw9x4t5mSg0CvAJKW27Hyh4MvYbgAxewCXI2IM03Gv7eRh9JIa1PT7dhniuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jSkB5Lc9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DzzPF2AZ"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6c0fce17so8854995e9.1
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 11:09:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789841353; x=1790446153; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xpY6V415b91DqiPof+7OhChgdgeSAFqb9K0yJJZu+s4=;
-        b=DzzPF2AZPKpE51ySP1tACySPkP8WN31g/nfyiAnY34dbtvGwzwG+aIPUDQcn1Co3Ef
-         nX7DTIVCzuY1Bd7SdrAnocJFHYovxImDIZE5j560j8UNql04pPrqUDhHBe85QlX9U/Pm
-         w0u90Am5Qok8Lnso8FrnMnpdWEJgbt2iRiu92oYBCpR1Gs/z0yW2MNlwjdJ3YY50Z2cI
-         i2YTlhj7eHiQGO8fWSxYhiVKtnyN8YPkJwCpR2BQpAdAScDeatSNBwatMcjo1WspdnGs
-         RFKxILtze2h4qcN7z5VmdM+0OLwrsKU3nl8ic0jx6rODuFKE8OIOSAZ6AxeMXdPuG+Mk
-         qg/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789841353; x=1790446153;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=xpY6V415b91DqiPof+7OhChgdgeSAFqb9K0yJJZu+s4=;
-        b=ZVKn9RMyF7P6S9ZKfPfMeNNssVQCe52F+WZ9h2pjZThwjcU9b/JIUuxHLMueqaxH0i
-         LyL0pFIPM319fLaZYPdQCZs3C+NWhoMwZ4uX0OPrGEBHR7FMlLTNoK+RLC6kKX9aY8dD
-         4QvZr53DYw2jUoCQCfJgFbcNDW+4jocRrHMuuNy7/JRPNY5PVLIyP+oPeVayf8MwmHr8
-         QvdTN3R4aZQuF+2rIyGrQi6ovpXpv90+ZJu88LaJcKSTjym0DLQjRd3UeSIjlxZGphUC
-         E1QPQbWOiy9BoPFlu1KeYS1TyIt+GvtBbUFMKzSqK2vfQHGKQntX6ywbLDHJjMzbIcm3
-         TH9w==
-X-Forwarded-Encrypted: i=1; AKwUvBy/JWIv1uwRIgYGj/zVvl73RN4esCmdWrAAdk0JCgPHUzH6NNuJvM7w5MPu0oOzFnjkcAuTG2/DvdjqTVU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lfFoHpnqSxtFrPoiF67IaYBbj1eTb7ojTbuILoA+xuOGY19LUM
-	MQQuPpGpE467O0AsbweHBThBwN84tzzH0AZFrUdwZTXFD0dtC7UxCAqOUsuu/11G
-X-Gm-Gg: AYBFou3PnK+vQHnouu/VqcLvCdHBQzPcIp//sdN3PqNxf0w7RRdKz4XFVANg5a5tpHh
-	bLzWSWGFv+P2noIbbjZBVPDiuep3CQNRiHB4TRw2tcrkynazbU6svJBbtb+RbktuWo5Bx7cfBNG
-	1YaqsAwleTz2+7yJ0TUSC4yR3hCU7ubIuLQ/QaAjSpucxBSQzKdHYLUDHqrrtDKcIT4yvKwMe4F
-	0B+YT3qHmIJNRwePl9XUyc8GnwAwZyxkrPGMXv1gGAqzHW999ViuCnl6J1+2pOif+W0n1xT0jRS
-	Zr1hsUq/smqOX5o68NRORh5HebJKJag+EmEQqqIVLQSs0J/KhsGCawBTfPaiukO96NNO35fW7wB
-	VIAatc9XnEoRVHn4Me9KqF6j6fV72cew5Ez12CDg6IzqkBz9s/w/8AiMvxGmw4O7oQizCqK319L
-	mHtKwwyE5VNEcHqCL+/kuwPCcejnBydi2Qcf3a/efT+NEtuiVXUtTYWS4EwRsAiU4JBF3g6uXSp
-	DnR9/2rjmZ46fTTwMa9Qfe4nU09prS/M3jTbYs9dzj4U2Omd1Z+6WuHHqJAZMIl3b8=
-X-Received: by 2002:a05:600c:3584:b0:49b:96a0:5c00 with SMTP id 5b1f17b1804b1-49fc57227b7mr111630595e9.13.1789841353464;
-        Sat, 19 Sep 2026 11:09:13 -0700 (PDT)
-Received: from [10.128.10.232] (195-23-151-163.net.novis.pt. [195.23.151.163])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd115d78sm87499995e9.14.2026.09.19.11.09.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 19 Sep 2026 11:09:13 -0700 (PDT)
-Sender: Julian Braha <julian.braha@gmail.com>
-Message-ID: <24810830-b625-4219-818e-c3f9bcbbe41b@gmail.com>
-Date: Sat, 19 Sep 2026 19:09:12 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jSkB5Lc9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01A8F1F00898;
+	Sat, 19 Sep 2026 18:09:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789841380;
+	bh=pRkKN54/lEpILJ2Lc3rIPCovoIruayWHBPFvaiFZSfg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jSkB5Lc9+CorTFT5giaa6PovfuT3C9FlCn8dm0b+TDP7lsairb0CV5Cgn4gwITAqV
+	 QXpgGzktDyPCJ4nbbjRAHNObBHswYpYVabVgrL23Bl3iuzYZOGyNVDDGxvTi7ZlPes
+	 vnR5A2EiirGgWpeMazc6HxyDBX2BWikLiMh8KGFLIURelNwDGFyfbROohIzLaxw5AE
+	 mDuzMUxvfmlyzK5nopD7JoF1yNjhrRr/J4LB8fRKV3wrWA3njuOzlwNTdWBB98Jjeo
+	 ywHMl7vU1D9OUML4rb+8WuTnOSc5nKUHlPjFVvELhuO9rM+MW/Xz//KU13sq83cwyp
+	 SGgtBAxpJk5DQ==
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 1AF8AF40067;
+	Sat, 19 Sep 2026 14:09:39 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-01.internal (MEProxy); Sat, 19 Sep 2026 14:09:39 -0400
+X-ME-Sender: <xms:48-uaj03fZEj7cHpDWORJbyQPbpM96eqi3yckBVPvXmAMTh0iUKvcg>
+    <xme:48-uahX0KaNHfxdjAFUI-eGl79_eHiYORDtpmExPDJWpoVoC8-qCe5z9Pcw9kGm7K
+    _O7CBQg_VzzakRHxjlV8hIBvV4dwGMCfkIhutAaXc97LdyKSxpLmw>
+X-ME-Received: <xmr:48-uagFg5KGN_N0j3RUZMEwwK2VEDFa0gAcoMD7jqA1fkex0018SNFkmDrcX>
+X-ME-Proxy-Cause: dmFkZTGOMHCFM13kMXhSuxN+36n1aHNShRaReTqrePSRKG4sq5ma7+YBTXTUakJSy0zQLM
+    e7xl+opaW4Eklevv6jRqJbW6Ywolp4n2PLcr7z/kaFXF/JfmFMj42KNPrSbAy7BXxgXzKi
+    K4Sf05jy08LVD0d/b1J3hn9fSSOeAwDxxhF1N6NgIYS5pxn06yIyU1et2HdSGwkwcXGE4i
+    MkaDamDvlYs8CbIfaCWEJZfxMLEbM4jNoxyPEVb/dusx2FueAsQu218naoj+uCejFkf0gZ
+    0vYG0lXFuDvS4tBfEB5M9pQQx6pvb0gUCQVXBb+ThkiDYPQir7M3OLR/P59q2sABs//mH8
+    j9hsOWIHebLFbWTuuJePNyDqBriGyy6d/HcNofBWa9p99Z+Sml24G4SHR3qrMwDVhvKlaE
+    wvYpp/p3L/t1CwR12MkQWvyCTcZtnvb5M9AojI42S3EkUafdT5Gkm9/OrC3ZgJAUGgfCaJ
+    rl0qLVJo/mjhZ65KxURcNR42IhwuCvrN2mQHcR3BA0e4YRCNpCvwHEPmp0/K7JhOAPXNbm
+    FZvDwo6b7d5c2sle6FZSI042g5+Uud+HZasRlgd5pM+QWrZD6qduHhCKKGCX9Mxb5RleqH
+    WfuLDhk2yZTzIS6HMJ4PMorpBl+Z8liW7G58uEKydyqW98XrqeN00SygaH5A
+X-ME-Proxy: <xmx:48-uajn_Whc5-eia00WIRXUd6GjcVIpOpqC-uG_gWU6S1ZclEt5JHw>
+    <xmx:48-uapGN3GadguAI3fAx8RCw2-ssIQFR9PoWpQ9eKAKXwRJYUTg9Qw>
+    <xmx:48-uapurA1ETP5KWKlcHPoEvrIWmA-a4K0tVn5Av0WYKlLtgIEG6pA>
+    <xmx:48-uakhZUpTK8dS_zOmc5xiaZvK-f4pbjQvNRIuUA_1VKyA4_dAKbw>
+    <xmx:48-uam37EVW_RTtA8S3tGycD3SLOkHcLTEGYnsOYXnBjlrb1OV8kfmdO>
+Feedback-ID: i8dbe485b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 19 Sep 2026 14:09:38 -0400 (EDT)
+Date: Sat, 19 Sep 2026 19:09:36 +0100
+From: Boqun Feng <boqun@kernel.org>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Bradley Morgan <brads@mainlining.org>,
+	"Paul E. McKenney" <paulmck@kernel.org>, rcu@vger.kernel.org,
+	linux-kernel@vger.kernel.org, kernel-team@meta.com,
+	Steven Rostedt <rostedt@goodmis.org>, lkmm@lists.linux.dev,
+	Zqiang <qiang.zhang@linux.dev>, Wang Lian <lianux.mm@gmail.com>,
+	Kunwu Chan <kunwu.chan@gmail.com>,	Nicholas Piggin <npiggin@gmail.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Will Deacon <will@kernel.org>,	Peter Zijlstra <peterz@infradead.org>,
+	Alan Stern <stern@rowland.harvard.edu>,	John Stultz <jstultz@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Joel Fernandes <joel@joelfernandes.org>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang1211@gmail.com>, Ingo Molnar <mingo@redhat.com>,
+	Waiman Long <longman@redhat.com>,	Mark Rutland <mark.rutland@arm.com>,
+	Thomas Gleixner <tglx@linutronix.de>,	Vlastimil Babka <vbabka@suse.cz>,
+ maged.michael@gmail.com,	Mateusz Guzik <mjguzik@gmail.com>,
+	Jonas Oberhauser <jonas.oberhauser@huaweicloud.com>,	linux-mm@kvack.org
+Subject: Re: [PATCH 01/28] hazptr: Implement Hazard Pointers
+Message-ID: <aq7P4LUkXsJmB2h4@MacBook-0RXW5>
+References: <e9669b34-12c2-4cf2-a887-315f581f0789@paulmck-laptop>
+ <20260919000056.3132131-1-paulmck@kernel.org>
+ <CAHk-=wj9knmxXD01=top1DQ9_aqrN2a3kpWRS5DQv6QLwLOztg@mail.gmail.com>
+ <6B1FC39D-6EB0-433A-8E49-E5EFC9379AD7@mainlining.org>
+ <CAHk-=wjyniJy-CX1muCrsZp-i-sLGRYeRYEPN7sw9orRZUCwag@mail.gmail.com>
+ <e6177659-ee74-4dad-8fb8-ac2a755c5c1f@efficios.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] kconfig: tests: {old,save}defconfig: Forward dynamic
- keyword arguments
-To: Nicolas Schier <n.schier@fritz.com>, Nathan Chancellor
- <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
- Pengpeng Hou <pengpeng@iscas.ac.cn>, Ulf Magnusson <ulfalizer@gmail.com>,
- Masahiro Yamada <yamada.masahiro@socionext.com>
-Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260917-kconfig-tests-minor-updates-v1-0-286e5c985244@fritz.com>
- <20260917-kconfig-tests-minor-updates-v1-4-286e5c985244@fritz.com>
-Content-Language: en-US
-From: Julian Braha <julianbraha@gmail.com>
-In-Reply-To: <20260917-kconfig-tests-minor-updates-v1-4-286e5c985244@fritz.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e6177659-ee74-4dad-8fb8-ac2a755c5c1f@efficios.com>
 
-On 9/17/26 14:38, Nicolas Schier wrote:
-> Let kconfig test framework forward dynamic keyword arguments for
-> 'olddefconfig' and 'savedefconfig' and update the _run_conf() calls in
-> warn_changed_input to use the corrsponding wrappers instead.
-> 
-> The warn_changed_input test needed to use _run_conf() as the
-> {old,save}defconfig wrapper did not provide the necessary flexibility
-> for common calls.  With dynamic keyword arguments, there is no need to
-> use the framework-internal _run_conf() any more.
-> 
-> Signed-off-by: Nicolas Schier <n.schier@fritz.com>
-This is certainly more readable, nice cleanup.
+On Sat, Sep 19, 2026 at 01:09:15PM -0400, Mathieu Desnoyers wrote:
+> On 2026-09-19 13:00, Linus Torvalds wrote:
+> > On Sat, 19 Sept 2026 at 09:35, Bradley Morgan <brads@mainlining.org> wrote:
+> > > 
+> > > I think hazard pointers are good, what test do YOU suggest we do here?
+> > 
+> > I want to see a single real-world example of "look, this speeds this
+> > real load up by 10%, and the kernel code was actually cleaned up in
+> > the process because hazard pointers are great".
+> > 
+> > Not a microbenchmark that tests just the hazard pointers themselves,
+> > but a real kernel feature that has been converted to hazard pointers,
+> > and in the process actually shows improvement.
+> > 
+> > The ONLY reason for hazard pointers to ever be merged is if they
+> > actually buy us something real.
+> > 
+> > So I want to see that 'real" thing.
+> AFAIR, Boqun wanted to use hazard pointers to cleanup/speed up an
 
-Reviewed-by: Julian Braha <julianbraha@gmail.com>
+Right, that's why I send this series:
+
+	https://lore.kernel.org/lkml/20250625031101.12555-1-boqun.feng@gmail.com/
+
+The gist of that work is basically:
+
+	On my system (a 96-cpu VMs), the results of:
+
+		time /usr/sbin/tc qdisc replace dev eth0 root handle 0x1: mq
+
+	are (with lockdep enabled):
+
+		(without the patchset, i.e. using RCU)
+		real    0m1.039s
+		user    0m0.001s
+		sys     0m0.069s
+
+		(with the patchset, i.e. using hazptr)
+		real    0m0.053s
+		user    0m0.000s
+		sys     0m0.051s
+
+i.e. almost 20x speed-up.
+
+One important thing that I want to point out is in that series, I
+avoided the busy-waiting in hazptr_synchronize() and made multiple
+hazptr_synchronize()s share the same scan. And I do want to see this in
+the new code. But unfortunately with the new implementation, we don't
+have that part yet. And that's what holds me from trying lockdep
+integration for this new implementation.
+
+I could have improved my skill of time management, because I know at
+certain point I said "I will finish the scan thread work for your
+implementation", but it'll be helpful if you or someone can help get
+that done.
+
+> hot lockdep reclaim path. Boqun, Paul, how is this effort going ?
+> 
+> I suspect we should wait until that lockdep user of hazptr is ready for
+> upstreaming and propose both at the same time, because a synchronization
+> infrastructure without any significant in tree user is not really
+> relevant, right ?
+> 
+
+The other thing we could also do is what I did in shazptr, getting the
+numbers with rcuscale, that can tell use the actual waiting time for a
+hazptr_synchronize().
+
+Regards,
+Boqun
+
+> Thanks,
+> 
+> Mathieu
+> 
+> -- 
+> Mathieu Desnoyers
+> EfficiOS Inc.
+> https://www.efficios.com
