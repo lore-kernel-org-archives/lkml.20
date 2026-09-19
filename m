@@ -1,329 +1,650 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.6])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74BB93FC5A5
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 11:09:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAE7C1AC45D;
+	Sat, 19 Sep 2026 11:13:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789816184; cv=none; b=rk/MRpoTgmDOXPlzGflmC5nfJygBExMGCcFQ3cVXrBnx+yplQ+lJRv3mwy2zWIRTFxRzQVQntLAVlMf/jRGLYid6gGIE7ddKWgcCU6zh8OJIpf2oTyfjWFwRzgah+I9wV32Fu4ag4ZtDNGuHGFp3ctVO6SM5gKBLsWubnqIK2D8=
+	t=1789816428; cv=none; b=O194tsqh1S2ovR4WZLbiGeYCZoxobljo44JI7xPHtXhrViCXJKyF9YqO5GAPUF8xPFql7gIkD0qbFuy7W1BaY2WFpScSGB1aBopTLEg4jBsgvmX5O3rAHz/gLNg2jMq5rxbwqSZviy2j7Xbm1t1Jgtk4y3FzLlxd7xWqIdFH2d8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789816184; c=relaxed/simple;
-	bh=4P2aFyZp128S9F0EheZMEykdWrYFj0pDO3Hc9M7VWns=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=gsQsJGD7+W4Qhu87TXe5vw+rnc03zbss5pdIVsnSOKXNej8yAexksfBD0Yl8hF/5ivdGHqBDAFp35CVOkK15LPwwZ0Q6mw/3sjvLYIvVY9/biZOfArGn8Nob18Af01LsW7eFYLtLGGM62rKyvKRhZBlk/wuaDS8/SYwKwFJqy0Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Qv1JQrOk; arc=none smtp.client-ip=192.198.163.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789816428; c=relaxed/simple;
+	bh=M3mUGm4v2KRpWjL4/pRD+832nDkI/PFIBfvcqFi2014=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=Mg3ms8k1buVnvadsbihfH3v0ge5NwLUo2FLmzmWRVVuisPVdoAcL9s4N11441enKFpdTvwBDXdeZG7OYY9Y2IqmKJ27MuPRF7Q9XhCe6K5qUc9WzMIx40vhLcIHls0P6zU/xZcIC9r9CaLNbzMwJNT+tgv6dq4h0QuW8lfTL90k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=iQT1lm0T; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=jH3tVQ0I; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Qv1JQrOk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789816181; x=1821352181;
-  h=date:from:to:cc:subject:message-id;
-  bh=4P2aFyZp128S9F0EheZMEykdWrYFj0pDO3Hc9M7VWns=;
-  b=Qv1JQrOkYPsJ8AhxskLXP6ONpZTOWLZYNJ+w1hYWkw2M+6f3Qtx3tuSb
-   kZ40S+vw33cJBYdVQtY/voIwNIYYCc79UaeiCET9+uFfqX6lz0nN1poQ5
-   H7ZhCYimoa93++0+v10YM8EhrSAHoThKO//lZ44guK/V56jTfIHtWSVNl
-   +P0MhTRv3iGLn+hHhWvinsiQ6Yu+qfp7pHR+1wPkKYdVjUQ0FyPaTj2pV
-   ursRWtMKS9/p45seKJv9OTYvc8wKTZR5i8rGn6CLm06XWJZbAog7obOXS
-   1BVUrDJxw8nEYOA2ustLo7PKLxQ1fE9t6JGlL9qm0M3I6EodrWT1PM+ZP
-   Q==;
-X-CSE-ConnectionGUID: OA4tCZiyTemKw1G3dDb9uQ==
-X-CSE-MsgGUID: kI9cD/9FTieZaPuFBxVlGA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11909"; a="858826"
-X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; 
-   d="scan'208";a="858826"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa116.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2026 04:09:40 -0700
-X-CSE-ConnectionGUID: 6yY7nOSWTgiRvQGM9dnFGQ==
-X-CSE-MsgGUID: thh0N/ndSnmeOXc7CpptyQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; 
-   d="scan'208";a="272119195"
-Received: from igk-lkp-server01.igk.intel.com (HELO fe5626a770c0) ([10.211.93.152])
-  by fmviesa008.fm.intel.com with ESMTP; 19 Sep 2026 04:09:38 -0700
-Received: from kbuild by fe5626a770c0 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x7swq-000000001RE-0xJK;
-	Sat, 19 Sep 2026 11:09:36 +0000
-Date: Sat, 19 Sep 2026 13:08:58 +0200
-From: kernel test robot <lkp@intel.com>
-To: Christian Brauner <brauner@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: arch/riscv/include/asm/syscall_wrapper.h:39:14: warning:
- '__se_sys_fchroot' alias between functions of incompatible types 'long
- int(ulong,  ulong,  ulong,  ulong,  ulong,  ulong,  ulong)' {aka 'long
- int(long unsigned int,  long unsigned int,  long unsigne...
-Message-ID: <202609191311.YMMsWkbk-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="iQT1lm0T";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="jH3tVQ0I"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1789816321; bh=2ozZqxYt0zj86HyHFpk2lsb
+	NyjDODjlLt4d3XvAUuWo=; b=iQT1lm0TJoX+h5TfdGExoUrwR3v3NHWL3c+QiQPnftCOnkm74O
+	gK6cSRCMI682GBmpjWnu/M6hcMryp9AXTtgZ5RZd7KFM8zDpCVgZkH1tv281QyzoVhdvTGC3O0F
+	8nVjPwXQaeIP69CyR+SXSp5HG8KLAyBumrVwbJfjU7Wx0Rs2sYKtMllk1dUta55PSJOBcDcidFU
+	RHq6cZMjpvXrDCIiBvaA4DSXLewRrkTS6BpF84lGdEXQ+KXAydUCx4+g6K0ZKKGd7wjg320whkW
+	3rnZSWlu+OtvJTUmtwKJuXjkWeJDjWb7Wc1pM+0zUKfRDH5iHN2oSUy6B5dr0bQ0x4A==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1789816322; bh=2ozZqxYt0zj86HyHFpk2lsb
+	NyjDODjlLt4d3XvAUuWo=; b=jH3tVQ0I2wxZe8pGylesroBQtPDqRVcZ0nKl3roTny+UsxEoNS
+	TFrf7QjrGQJK9E2l0xuz543RT6E6/n81+0DA==;
+Date: Sat, 19 Sep 2026 12:12:02 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: "Paul E. McKenney" <paulmck@kernel.org>, rcu@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+CC: kernel-team@meta.com, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Boqun Feng <boqun@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
+ lkmm@lists.linux.dev, Zqiang <qiang.zhang@linux.dev>,
+ Wang Lian <lianux.mm@gmail.com>, Kunwu Chan <kunwu.chan@gmail.com>,
+ Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Will Deacon <will@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Alan Stern <stern@rowland.harvard.edu>, John Stultz <jstultz@google.com>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Frederic Weisbecker <frederic@kernel.org>,
+ Joel Fernandes <joel@joelfernandes.org>,
+ Josh Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>,
+ Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang1211@gmail.com>,
+ Ingo Molnar <mingo@redhat.com>, Waiman Long <longman@redhat.com>,
+ Mark Rutland <mark.rutland@arm.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Vlastimil Babka <vbabka@suse.cz>, maged.michael@gmail.com,
+ Mateusz Guzik <mjguzik@gmail.com>,
+ Jonas Oberhauser <jonas.oberhauser@huaweicloud.com>, linux-mm@kvack.org
+Subject: Re: [PATCH 01/28] hazptr: Implement Hazard Pointers
+In-Reply-To: <20260919000056.3132131-1-paulmck@kernel.org>
+References: <e9669b34-12c2-4cf2-a887-315f581f0789@paulmck-laptop> <20260919000056.3132131-1-paulmck@kernel.org>
+Message-ID: <65321E46-473C-48B6-922C-122E14FB745D@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-Hi Christian,
+On 19 September 2026 01:00:29 BST, "Paul E. McKenney" <paulmck@kernel.org>
+wrote:
+>From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+>
+>This API provides existence guarantees of objects through Hazard
+>Pointers [1] (hazptr).
+>
 
-FYI, the error/warning still remains.
+Hi, could I add my tag here?
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   40288c9206c17eb66a603262e06a58d300d0f279
-commit: 20370a5f5d9b1549ab3bf10a898b4e024b8841fa fs: add fchroot()
-date:   8 weeks ago
-config: riscv-randconfig-r2106-20260919 (https://download.01.org/0day-ci/archive/20260919/202609191311.YMMsWkbk-lkp@intel.com/config)
-compiler: riscv32-linux-gcc (GCC) 8.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260919/202609191311.YMMsWkbk-lkp@intel.com/reproduce)
+>Its main benefit over RCU is that it allows fast reclaim of
+>HP-protected pointers without needing to wait for a grace period.
+>
+>This implementation has 4 statically allocated hazard pointer slots per
+>cpu for the fast path, and relies on a on-stack backup slot allocated by
+>the hazard pointer user as fallback in case no per-cpu slot is
+>available.
+>
+>It integrates with the scheduler to migrate per-CPU slots to the backup
+>slot on context switch. This ensures that the per-CPU slots won't be
+>used by blocked or preempted tasks holding on hazard pointers for a long
+>time.
+>
+>References:
+>
+>[1]: M. M. Michael, "Hazard pointers: safe memory reclamation for
+>     lock-free objects," in IEEE Transactions on Parallel and
+>     Distributed Systems, vol. 15, no. 6, pp. 491-504, June 2004
+>
+>Link: https://lpc.events/event/19/contributions/2082/
+>Link: https://lore.kernel.org/lkml/j3scdl5iymjlxavomgc6u5ndg3svhab6ga23dr36o4f5mt333w@7xslvq6b6hmv/
+>Link: https://lpc.events/event/18/contributions/1731/
+>Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+>Cc: Nicholas Piggin <npiggin@gmail.com>
+>Cc: Michael Ellerman <mpe@ellerman.id.au>
+>Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+>Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+>Cc: "Paul E. McKenney" <paulmck@kernel.org>
+>Cc: Will Deacon <will@kernel.org>
+>Cc: Peter Zijlstra <peterz@infradead.org>
+>Cc: Boqun Feng <boqun@kernel.org>
+>Cc: Alan Stern <stern@rowland.harvard.edu>
+>Cc: John Stultz <jstultz@google.com>
+>Cc: Linus Torvalds <torvalds@linux-foundation.org>
+>Cc: Andrew Morton <akpm@linux-foundation.org>
+>Cc: Frederic Weisbecker <frederic@kernel.org>
+>Cc: Joel Fernandes <joel@joelfernandes.org>
+>Cc: Josh Triplett <josh@joshtriplett.org>
+>Cc: Uladzislau Rezki <urezki@gmail.com>
+>Cc: Steven Rostedt <rostedt@goodmis.org>
+>Cc: Lai Jiangshan <jiangshanlai@gmail.com>
+>Cc: Zqiang <qiang.zhang1211@gmail.com>
+>Cc: Ingo Molnar <mingo@redhat.com>
+>Cc: Waiman Long <longman@redhat.com>
+>Cc: Mark Rutland <mark.rutland@arm.com>
+>Cc: Thomas Gleixner <tglx@linutronix.de>
+>Cc: Vlastimil Babka <vbabka@suse.cz>
+>Cc: maged.michael@gmail.com
+>Cc: Mateusz Guzik <mjguzik@gmail.com>
+>Cc: Jonas Oberhauser <jonas.oberhauser@huaweicloud.com>
+>Cc: <rcu@vger.kernel.org>
+>Cc: <linux-mm@kvack.org>
+>Cc: <lkmm@lists.linux.dev>
+>Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
+>---
+> include/linux/hazptr.h | 197 +++++++++++++++++++++++++++++++++
+> init/main.c            |   2 +
+> kernel/Makefile        |   2 +-
+> kernel/hazptr.c        | 242 +++++++++++++++++++++++++++++++++++++++++
+> kernel/sched/core.c    |   2 +
+> 5 files changed, 444 insertions(+), 1 deletion(-)
+> create mode 100644 include/linux/hazptr.h
+> create mode 100644 kernel/hazptr.c
+>
+>diff --git a/include/linux/hazptr.h b/include/linux/hazptr.h
+>new file mode 100644
+>index 000000000000..b121f7779cda
+>--- /dev/null
+>+++ b/include/linux/hazptr.h
+>@@ -0,0 +1,197 @@
+>+// SPDX-License-Identifier: LGPL-2.1-or-later
+>+//
+>+// SPDX-FileCopyrightText: 2024 Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+>+
+>+#ifndef _LINUX_HAZPTR_H
+>+#define _LINUX_HAZPTR_H
+>+
+>+/*
+>+ * hazptr: Hazard Pointers
+>+ *
+>+ * This API provides existence guarantees of objects through hazard
+>+ * pointers.
+>+ *
+>+ * Its main benefit over RCU is that it allows fast reclaim of
+>+ * HP-protected pointers without needing to wait for a grace period.
+>+ *
+>+ * References:
+>+ *
+>+ * [1]: M. M. Michael, "Hazard pointers: safe memory reclamation for
+>+ *      lock-free objects," in IEEE Transactions on Parallel and
+>+ *      Distributed Systems, vol. 15, no. 6, pp. 491-504, June 2004
+>+ */
+>+
+>+#include <linux/percpu.h>
+>+#include <linux/types.h>
+>+#include <linux/cleanup.h>
+>+#include <linux/sched.h>
+>+
+>+/* 4 slots (each sizeof(hazptr_slot_item)) fit in a single 64-byte cache line. */
+>+#define NR_HAZPTR_PERCPU_SLOTS	4
+>+#define HAZPTR_WILDCARD		((void *) 0x1UL)
+>+
+>+/*
+>+ * Hazard pointer slot.
+>+ */
+>+struct hazptr_slot {
+>+	void *addr;
+>+};
+>+
+>+struct hazptr_overflow_list;
+>+
+>+struct hazptr_backup_slot {
+>+	struct hlist_node overflow_node;
+>+	struct hazptr_slot slot;
+>+	/* Overflow list where the backup slot is added. */
+>+	struct hazptr_overflow_list *overflow_list;
+>+};
+>+
+>+struct hazptr_ctx {
+>+	struct hazptr_slot *slot;
+>+	/* Backup slot in case all per-CPU slots are used. */
+>+	struct hazptr_backup_slot backup_slot;
+>+	struct hlist_node preempt_node;
+>+};
+>+
+>+struct hazptr_slot_ctx {
+>+	struct hazptr_ctx *ctx;
+>+};
+>+
+>+struct hazptr_slot_item {
+>+	struct hazptr_slot slot;
+>+	struct hazptr_slot_ctx ctx;
+>+};
+>+
+>+struct hazptr_percpu_slots {
+>+	struct hazptr_slot_item items[NR_HAZPTR_PERCPU_SLOTS];
+>+} ____cacheline_aligned;
+>+
+>+DECLARE_PER_CPU(struct hazptr_percpu_slots, hazptr_percpu_slots);
+>+
+>+void *__hazptr_acquire(struct hazptr_ctx *ctx, void * const *addr_p);
+>+
+>+/*
+>+ * hazptr_synchronize: Wait until @addr is released from all slots.
+>+ *
+>+ * Wait to observe that each slot contains a value that differs from
+>+ * @addr before returning.
+>+ * Should be called from preemptible context.
+>+ */
+>+void hazptr_synchronize(void *addr);
+>+
+>+/*
+>+ * hazptr_chain_backup_slot: Chain backup slot into overflow list.
+>+ *
+>+ * Set backup slot address to @addr, and chain it into the overflow
+>+ * list.
+>+ */
+>+struct hazptr_slot *hazptr_chain_backup_slot(struct hazptr_ctx *ctx);
+>+
+>+/*
+>+ * hazptr_unchain_backup_slot: Unchain backup slot from overflow list.
+>+ */
+>+void hazptr_unchain_backup_slot(struct hazptr_ctx *ctx);
+>+
+>+static inline
+>+bool hazptr_slot_is_backup(struct hazptr_ctx *ctx, struct hazptr_slot *slot)
+>+{
+>+	return slot == &ctx->backup_slot.slot;
+>+}
+>+
+>+static inline
+>+void hazptr_note_context_switch(void)
+>+{
+>+	struct hazptr_percpu_slots *percpu_slots = this_cpu_ptr(&hazptr_percpu_slots);
+>+	unsigned int idx;
+>+
+>+	for (idx = 0; idx < NR_HAZPTR_PERCPU_SLOTS; idx++) {
+>+		struct hazptr_slot_item *item = &percpu_slots->items[idx];
+>+		struct hazptr_slot *slot = &item->slot, *backup_slot;
+>+		struct hazptr_ctx *ctx;
+>+
+>+		if (!slot->addr)
+>+			continue;
+>+		ctx = item->ctx.ctx;
+>+		backup_slot = hazptr_chain_backup_slot(ctx);
+>+		/*
+>+		 * Move hazard pointer from the per-CPU slot to the
+>+		 * backup slot. This requires hazard pointer
+>+		 * synchronize to iterate on per-CPU slots with
+>+		 * load-acquire before iterating on the overflow list.
+>+		 */
+>+		WRITE_ONCE(backup_slot->addr, slot->addr);
+>+		/*
+>+		 * store-release orders store to backup slot addr before
+>+		 * store to per-CPU slot addr.
+>+		 */
+>+		smp_store_release(&slot->addr, NULL);
+>+		/* Use the backup slot for context. */
+>+		ctx->slot = backup_slot;
+>+	}
+>+}
+>+
+>+/*
+>+ * hazptr_acquire: Load pointer at address and protect with hazard pointer.
+>+ *
+>+ * Load @addr_p, and protect the loaded pointer with hazard pointer.
+>+ * When using hazptr_acquire from interrupt handlers, the acquired slots
+>+ * need to be released before returning from the interrupt handler.
+>+ *
+>+ * Returns a non-NULL protected address if the loaded pointer is non-NULL.
+>+ * Returns NULL if the loaded pointer is NULL.
+>+ *
+>+ * On success the protected hazptr slot is stored in @ctx->slot.
+>+ */
+>+static inline
+>+void *hazptr_acquire(struct hazptr_ctx *ctx, void * const *addr_p)
+>+{
+>+	struct hazptr_percpu_slots *percpu_slots;
+>+	struct hazptr_slot_item *slot_item;
+>+	struct hazptr_slot *slot;
+>+	void *addr;
+>+
+>+	guard(preempt)();
+>+	percpu_slots = this_cpu_ptr(&hazptr_percpu_slots);
+>+	slot_item = &percpu_slots->items[0];
+>+	slot = &slot_item->slot;
+>+	if (unlikely(slot->addr))
+>+		return __hazptr_acquire(ctx, addr_p);
+>+	WRITE_ONCE(slot->addr, HAZPTR_WILDCARD);	/* Store B */
+>+
+>+	/* Memory ordering: Store B before Load A. */
+>+	smp_mb();
+>+
+>+	/*
+>+	 * Load @addr_p after storing wildcard to the hazard pointer slot.
+>+	 */
+>+	addr = READ_ONCE(*addr_p);	/* Load A */
+>+
+>+	/*
+>+	 * We don't care about ordering of Store C. It will simply
+>+	 * replace the wildcard by a more specific address. If addr is
+>+	 * NULL, we simply store NULL into the slot.
+>+	 */
+>+	WRITE_ONCE(slot->addr, addr);	/* Store C */
+>+	slot_item->ctx.ctx = ctx;
+>+	ctx->slot = slot;
+>+	return addr;
+>+}
+>+
+>+/* Release the protected hazard pointer from @slot. */
+>+static inline
+>+void hazptr_release(struct hazptr_ctx *ctx, void *addr)
+>+{
+>+	struct hazptr_slot *slot;
+>+
+>+	if (!addr)
+>+		return;
+>+	guard(preempt)();
+>+	slot = ctx->slot;
+>+	smp_store_release(&slot->addr, NULL);
+>+	if (unlikely(hazptr_slot_is_backup(ctx, slot)))
+>+		hazptr_unchain_backup_slot(ctx);
+>+}
+>+
+>+void hazptr_init(void);
+>+
+>+#endif /* _LINUX_HAZPTR_H */
+>diff --git a/init/main.c b/init/main.c
+>index 2613d3f9b3ce..d9d936707c19 100644
+>--- a/init/main.c
+>+++ b/init/main.c
+>@@ -108,6 +108,7 @@
+> #include <linux/time_namespace.h>
+> #include <linux/unaligned.h>
+> #include <linux/vdso_datastore.h>
+>+#include <linux/hazptr.h>
+> #include <net/net_namespace.h>
+> 
+> #include <asm/io.h>
+>@@ -1075,6 +1076,7 @@ void start_kernel(void)
+> 	workqueue_init_early();
+> 
+> 	rcu_init();
+>+	hazptr_init();
+> 	kvfree_rcu_init();
+> 
+> 	/* Trace events are available after this */
+>diff --git a/kernel/Makefile b/kernel/Makefile
+>index 1e1a31673577..8961c8660d0d 100644
+>--- a/kernel/Makefile
+>+++ b/kernel/Makefile
+>@@ -7,7 +7,7 @@ obj-y     = fork.o exec_domain.o exec_state.o panic.o \
+> 	    cpu.o exit.o softirq.o resource.o \
+> 	    sysctl.o capability.o ptrace.o user.o \
+> 	    signal.o sys.o umh.o workqueue.o pid.o task_work.o \
+>-	    extable.o params.o \
+>+	    extable.o params.o hazptr.o \
+> 	    kthread.o sys_ni.o nsproxy.o nstree.o nscommon.o \
+> 	    notifier.o ksysfs.o cred.o reboot.o \
+> 	    async.o range.o smpboot.o ucount.o regset.o ksyms_common.o
+>diff --git a/kernel/hazptr.c b/kernel/hazptr.c
+>new file mode 100644
+>index 000000000000..a9d3d68a1525
+>--- /dev/null
+>+++ b/kernel/hazptr.c
+>@@ -0,0 +1,242 @@
+>+// SPDX-License-Identifier: LGPL-2.1-or-later
+>+//
+>+// SPDX-FileCopyrightText: 2024 Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+>+
+>+/*
+>+ * hazptr: Hazard Pointers
+>+ */
+>+
+>+#include <linux/hazptr.h>
+>+#include <linux/percpu.h>
+>+#include <linux/spinlock.h>
+>+#include <linux/mutex.h>
+>+#include <linux/list.h>
+>+#include <linux/export.h>
+>+
+>+struct hazptr_overflow_list {
+>+	raw_spinlock_t lock;		/* Lock protecting overflow list and list generation. */
+>+	struct hlist_head head;		/* Overflow list head. */
+>+	uint64_t gen;			/* Overflow list generation. */
+>+};
+>+
+>+/*
+>+ * Flip between two lists to guarantee list scan forward progress even
+>+ * with frequent generation counter increments. The list additions are
+>+ * always done on a different list than the one used for scan. The scan
+>+ * successively iterates on both lists. Therefore, only list removals
+>+ * can cause the iteration to retry, and the number of removals is
+>+ * limited to the number of list elements.
+>+ */
+>+struct hazptr_overflow_list_flip {
+>+	struct mutex lock;		/* Mutex protecting add_idx from concurrent updates. */
+>+	unsigned int add_idx;		/* Index of current flip-list to add to. */
+>+	struct hazptr_overflow_list array[2];
+>+};
+>+
+>+static DEFINE_PER_CPU(struct hazptr_overflow_list_flip, percpu_overflow_list_flip);
+>+
+>+DEFINE_PER_CPU(struct hazptr_percpu_slots, hazptr_percpu_slots);
+>+EXPORT_PER_CPU_SYMBOL_GPL(hazptr_percpu_slots);
+>+
+>+static
+>+struct hazptr_slot *hazptr_get_free_percpu_slot(struct hazptr_ctx *ctx)
+>+{
+>+	struct hazptr_percpu_slots *percpu_slots = this_cpu_ptr(&hazptr_percpu_slots);
+>+	unsigned int idx;
+>+
+>+	for (idx = 0; idx < NR_HAZPTR_PERCPU_SLOTS; idx++) {
+>+		struct hazptr_slot_item *item = &percpu_slots->items[idx];
+>+		struct hazptr_slot *slot = &item->slot;
+>+
+>+		if (!slot->addr) {
+>+			item->ctx.ctx = ctx;
+>+			return slot;
+>+		}
+>+	}
+>+	/* All slots are in use. */
+>+	return NULL;
+>+}
+>+
+>+/*
+>+ * Hazard pointer acquire slow path.
+>+ * Called with preemption disabled.
+>+ */
+>+void *__hazptr_acquire(struct hazptr_ctx *ctx, void * const *addr_p)
+>+{
+>+	struct hazptr_slot *slot = hazptr_get_free_percpu_slot(ctx);
+>+	void *addr;
+>+
+>+	/*
+>+	 * If all the per-CPU slots are already in use, fallback
+>+	 * to the backup slot.
+>+	 */
+>+	if (unlikely(!slot))
+>+		slot = hazptr_chain_backup_slot(ctx);
+>+	WRITE_ONCE(slot->addr, HAZPTR_WILDCARD);	/* Store B */
+>+
+>+	/* Memory ordering: Store B before Load A. */
+>+	smp_mb();
+>+
+>+	/*
+>+	 * Load @addr_p after storing wildcard to the hazard pointer slot.
+>+	 */
+>+	addr = READ_ONCE(*addr_p);	/* Load A */
+>+
+>+	/*
+>+	 * We don't care about ordering of Store C. It will simply
+>+	 * replace the wildcard by a more specific address. If addr is
+>+	 * NULL, we simply store NULL into the slot.
+>+	 */
+>+	WRITE_ONCE(slot->addr, addr);	/* Store C */
+>+	ctx->slot = slot;
+>+	if (!addr && hazptr_slot_is_backup(ctx, slot))
+>+		hazptr_unchain_backup_slot(ctx);
+>+	return addr;
+>+}
+>+EXPORT_SYMBOL_GPL(__hazptr_acquire);
+>+
+>+/*
+>+ * Perform piecewise iteration on overflow list waiting until "addr" is
+>+ * not present. Raw spinlock is released and taken between each list
+>+ * item and busy loop iteration. The overflow list generation is checked
+>+ * each time the lock is taken to validate that the list has not changed
+>+ * before resuming iteration or busy wait. If the generation has
+>+ * changed, retry the entire list traversal.
+>+ */
+>+static
+>+void hazptr_synchronize_overflow_list(struct hazptr_overflow_list *overflow_list, void *addr)
+>+{
+>+	struct hazptr_backup_slot *backup_slot;
+>+	uint64_t snapshot_gen;
+>+	unsigned long flags;
+>+
+>+	raw_spin_lock_irqsave(&overflow_list->lock, flags);
+>+retry:
+>+	snapshot_gen = overflow_list->gen;
+>+	hlist_for_each_entry(backup_slot, &overflow_list->head, overflow_node) {
+>+		/* Busy-wait if node is found. */
+>+		for (;;) {
+>+			void *load_addr = smp_load_acquire(&backup_slot->slot.addr);	/* Load B */
+>+
+>+			if (load_addr != addr && load_addr != HAZPTR_WILDCARD)
+>+				break;
+>+			raw_spin_unlock_irqrestore(&overflow_list->lock, flags);
+>+			cpu_relax();
+>+			raw_spin_lock_irqsave(&overflow_list->lock, flags);
+>+			if (overflow_list->gen != snapshot_gen)
+>+				goto retry;
+>+		}
+>+		raw_spin_unlock_irqrestore(&overflow_list->lock, flags);
+>+		/*
+>+		 * Release raw spinlock, validate generation after
+>+		 * re-acquiring the lock.
+>+		 */
+>+		raw_spin_lock_irqsave(&overflow_list->lock, flags);
+>+		if (overflow_list->gen != snapshot_gen)
+>+			goto retry;
+>+	}
+>+	raw_spin_unlock_irqrestore(&overflow_list->lock, flags);
+>+}
+>+
+>+static
+>+void hazptr_synchronize_cpu_slots(int cpu, void *addr)
+>+{
+>+	struct hazptr_percpu_slots *percpu_slots = per_cpu_ptr(&hazptr_percpu_slots, cpu);
+>+	unsigned int idx;
+>+
+>+	for (idx = 0; idx < NR_HAZPTR_PERCPU_SLOTS; idx++) {
+>+		struct hazptr_slot_item *item = &percpu_slots->items[idx];
+>+
+>+		/* Busy-wait if node is found. */
+>+		smp_cond_load_acquire(&item->slot.addr, VAL != addr && VAL != HAZPTR_WILDCARD); /* Load B */
+>+	}
+>+}
+>+
+>+/*
+>+ * hazptr_synchronize: Wait until @addr is released from all slots.
+>+ *
+>+ * Wait to observe that each slot contains a value that differs from
+>+ * @addr before returning.
+>+ * Should be called from preemptible context.
+>+ */
+>+void hazptr_synchronize(void *addr)
+>+{
+>+	int cpu;
+>+
+>+	/*
+>+	 * Busy-wait should only be done from preemptible context.
+>+	 */
+>+	lockdep_assert_preemption_enabled();
+>+
+>+	/*
+>+	 * Store A precedes hazptr_scan(): it unpublishes addr (sets it to
+>+	 * NULL or to a different value), and thus hides it from hazard
+>+	 * pointer readers.
+>+	 */
+>+	if (!addr)
+>+		return;
+>+	/* Memory ordering: Store A before Load B. */
+>+	smp_mb();
+>+	/* Scan all CPUs slots. */
+>+	for_each_possible_cpu(cpu) {
+>+		struct hazptr_overflow_list_flip *overflow_list_flip = per_cpu_ptr(&percpu_overflow_list_flip, cpu);
+>+		unsigned int scan_idx;
+>+
+>+		/* Scan CPU slots. */
+>+		hazptr_synchronize_cpu_slots(cpu, addr);
+>+
+>+		/*
+>+		 * Scan backup slots in percpu overflow lists.
+>+		 * Forward progress is guaranteed by scanning one list
+>+		 * while new elements are added into the other list.
+>+		 */
+>+		guard(mutex)(&overflow_list_flip->lock);
+>+		scan_idx = overflow_list_flip->add_idx ^ 1;
+>+		hazptr_synchronize_overflow_list(&overflow_list_flip->array[scan_idx], addr);
+>+		/* Flip current list. */
+>+		WRITE_ONCE(overflow_list_flip->add_idx, scan_idx);
+>+		hazptr_synchronize_overflow_list(&overflow_list_flip->array[scan_idx ^ 1], addr);
+>+	}
+>+}
+>+EXPORT_SYMBOL_GPL(hazptr_synchronize);
+>+
+>+struct hazptr_slot *hazptr_chain_backup_slot(struct hazptr_ctx *ctx)
+>+{
+>+	struct hazptr_overflow_list_flip *overflow_list_flip = this_cpu_ptr(&percpu_overflow_list_flip);
+>+	unsigned int list_idx = READ_ONCE(overflow_list_flip->add_idx);
+>+	struct hazptr_overflow_list *overflow_list = &overflow_list_flip->array[list_idx];
+>+	struct hazptr_slot *slot = &ctx->backup_slot.slot;
+>+
+>+	slot->addr = NULL;
+>+	guard(raw_spinlock_irqsave)(&overflow_list->lock);
+>+	overflow_list->gen++;
+>+	hlist_add_head(&ctx->backup_slot.overflow_node, &overflow_list->head);
+>+	ctx->backup_slot.overflow_list = overflow_list;
+>+	return slot;
+>+}
+>+EXPORT_SYMBOL_GPL(hazptr_chain_backup_slot);
+>+
+>+void hazptr_unchain_backup_slot(struct hazptr_ctx *ctx)
+>+{
+>+	struct hazptr_overflow_list *overflow_list = ctx->backup_slot.overflow_list;
+>+
+>+	guard(raw_spinlock_irqsave)(&overflow_list->lock);
+>+	overflow_list->gen++;
+>+	hlist_del(&ctx->backup_slot.overflow_node);
+>+}
+>+EXPORT_SYMBOL_GPL(hazptr_unchain_backup_slot);
+>+
+>+void __init hazptr_init(void)
+>+{
+>+	int cpu;
+>+
+>+	for_each_possible_cpu(cpu) {
+>+		struct hazptr_overflow_list_flip *overflow_list_flip = per_cpu_ptr(&percpu_overflow_list_flip, cpu);
+>+
+>+		mutex_init(&overflow_list_flip->lock);
+>+		for (int i = 0; i < 2; i++) {
+>+			raw_spin_lock_init(&overflow_list_flip->array[i].lock);
+>+			INIT_HLIST_HEAD(&overflow_list_flip->array[i].head);
+>+		}
+>+	}
+>+}
+>diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+>index f78275192036..b77152edafd9 100644
+>--- a/kernel/sched/core.c
+>+++ b/kernel/sched/core.c
+>@@ -59,6 +59,7 @@
+> #include <linux/profile.h>
+> #include <linux/psi.h>
+> #include <linux/rcuwait_api.h>
+>+#include <linux/hazptr.h>
+> #include <linux/rseq.h>
+> #include <linux/sched/wake_q.h>
+> #include <linux/scs.h>
+>@@ -7123,6 +7124,7 @@ static void __sched notrace __schedule(int sched_mode)
+> 	local_irq_disable();
+> 	rcu_note_context_switch(preempt);
+> 	migrate_disable_switch(rq, prev);
+>+	hazptr_note_context_switch();
+> 
+> 	/*
+> 	 * Make sure that signal_pending_state()->signal_pending() below
+>
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 20370a5f5d9b ("fs: add fchroot()")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609191311.YMMsWkbk-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-     ^~~~~~~~~~~~~~~~~~~~
-   include/linux/syscalls.h:236:2: note: in expansion of macro '__SYSCALL_DEFINEx'
-     __SYSCALL_DEFINEx(x, sname, __VA_ARGS__)
-     ^~~~~~~~~~~~~~~~~
-   include/linux/syscalls.h:226:36: note: in expansion of macro 'SYSCALL_DEFINEx'
-    #define SYSCALL_DEFINE2(name, ...) SYSCALL_DEFINEx(2, _##name, __VA_ARGS__)
-                                       ^~~~~~~~~~~~~~~
-   fs/open.c:736:1: note: in expansion of macro 'SYSCALL_DEFINE2'
-    SYSCALL_DEFINE2(chmod, const char __user *, filename, umode_t, mode)
-    ^~~~~~~~~~~~~~~
-   arch/riscv/include/asm/syscall_wrapper.h:39:14: warning: '__se_sys_fchmodat' alias between functions of incompatible types 'long int(ulong,  ulong,  ulong,  ulong,  ulong,  ulong,  ulong)' {aka 'long int(long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int)'} and 'long int(long int,  long int,  long int)' [-Wattribute-alias]
-     static long __se_##prefix##name(ulong, ulong, ulong, ulong, ulong, ulong,  \
-                 ^~~~~
-   arch/riscv/include/asm/syscall_wrapper.h:86:2: note: in expansion of macro '__SYSCALL_SE_DEFINEx'
-     __SYSCALL_SE_DEFINEx(x, sys, name, __VA_ARGS__)    \
-     ^~~~~~~~~~~~~~~~~~~~
-   include/linux/syscalls.h:236:2: note: in expansion of macro '__SYSCALL_DEFINEx'
-     __SYSCALL_DEFINEx(x, sname, __VA_ARGS__)
-     ^~~~~~~~~~~~~~~~~
-   include/linux/syscalls.h:227:36: note: in expansion of macro 'SYSCALL_DEFINEx'
-    #define SYSCALL_DEFINE3(name, ...) SYSCALL_DEFINEx(3, _##name, __VA_ARGS__)
-                                       ^~~~~~~~~~~~~~~
-   fs/open.c:730:1: note: in expansion of macro 'SYSCALL_DEFINE3'
-    SYSCALL_DEFINE3(fchmodat, int, dfd, const char __user *, filename,
-    ^~~~~~~~~~~~~~~
-   arch/riscv/include/asm/syscall_wrapper.h:45:14: note: aliased declaration here
-     static long ___se_##prefix##name(__MAP(x,__SC_LONG,__VA_ARGS__))
-                 ^~~~~~
-   arch/riscv/include/asm/syscall_wrapper.h:86:2: note: in expansion of macro '__SYSCALL_SE_DEFINEx'
-     __SYSCALL_SE_DEFINEx(x, sys, name, __VA_ARGS__)    \
-     ^~~~~~~~~~~~~~~~~~~~
-   include/linux/syscalls.h:236:2: note: in expansion of macro '__SYSCALL_DEFINEx'
-     __SYSCALL_DEFINEx(x, sname, __VA_ARGS__)
-     ^~~~~~~~~~~~~~~~~
-   include/linux/syscalls.h:227:36: note: in expansion of macro 'SYSCALL_DEFINEx'
-    #define SYSCALL_DEFINE3(name, ...) SYSCALL_DEFINEx(3, _##name, __VA_ARGS__)
-                                       ^~~~~~~~~~~~~~~
-   fs/open.c:730:1: note: in expansion of macro 'SYSCALL_DEFINE3'
-    SYSCALL_DEFINE3(fchmodat, int, dfd, const char __user *, filename,
-    ^~~~~~~~~~~~~~~
-   arch/riscv/include/asm/syscall_wrapper.h:39:14: warning: '__se_sys_fchmodat2' alias between functions of incompatible types 'long int(ulong,  ulong,  ulong,  ulong,  ulong,  ulong,  ulong)' {aka 'long int(long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int)'} and 'long int(long int,  long int,  long int,  long int)' [-Wattribute-alias]
-     static long __se_##prefix##name(ulong, ulong, ulong, ulong, ulong, ulong,  \
-                 ^~~~~
-   arch/riscv/include/asm/syscall_wrapper.h:86:2: note: in expansion of macro '__SYSCALL_SE_DEFINEx'
-     __SYSCALL_SE_DEFINEx(x, sys, name, __VA_ARGS__)    \
-     ^~~~~~~~~~~~~~~~~~~~
-   include/linux/syscalls.h:236:2: note: in expansion of macro '__SYSCALL_DEFINEx'
-     __SYSCALL_DEFINEx(x, sname, __VA_ARGS__)
-     ^~~~~~~~~~~~~~~~~
-   include/linux/syscalls.h:228:36: note: in expansion of macro 'SYSCALL_DEFINEx'
-    #define SYSCALL_DEFINE4(name, ...) SYSCALL_DEFINEx(4, _##name, __VA_ARGS__)
-                                       ^~~~~~~~~~~~~~~
-   fs/open.c:724:1: note: in expansion of macro 'SYSCALL_DEFINE4'
-    SYSCALL_DEFINE4(fchmodat2, int, dfd, const char __user *, filename,
-    ^~~~~~~~~~~~~~~
-   arch/riscv/include/asm/syscall_wrapper.h:45:14: note: aliased declaration here
-     static long ___se_##prefix##name(__MAP(x,__SC_LONG,__VA_ARGS__))
-                 ^~~~~~
-   arch/riscv/include/asm/syscall_wrapper.h:86:2: note: in expansion of macro '__SYSCALL_SE_DEFINEx'
-     __SYSCALL_SE_DEFINEx(x, sys, name, __VA_ARGS__)    \
-     ^~~~~~~~~~~~~~~~~~~~
-   include/linux/syscalls.h:236:2: note: in expansion of macro '__SYSCALL_DEFINEx'
-     __SYSCALL_DEFINEx(x, sname, __VA_ARGS__)
-     ^~~~~~~~~~~~~~~~~
-   include/linux/syscalls.h:228:36: note: in expansion of macro 'SYSCALL_DEFINEx'
-    #define SYSCALL_DEFINE4(name, ...) SYSCALL_DEFINEx(4, _##name, __VA_ARGS__)
-                                       ^~~~~~~~~~~~~~~
-   fs/open.c:724:1: note: in expansion of macro 'SYSCALL_DEFINE4'
-    SYSCALL_DEFINE4(fchmodat2, int, dfd, const char __user *, filename,
-    ^~~~~~~~~~~~~~~
-   arch/riscv/include/asm/syscall_wrapper.h:39:14: warning: '__se_sys_fchmod' alias between functions of incompatible types 'long int(ulong,  ulong,  ulong,  ulong,  ulong,  ulong,  ulong)' {aka 'long int(long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int)'} and 'long int(long int,  long int)' [-Wattribute-alias]
-     static long __se_##prefix##name(ulong, ulong, ulong, ulong, ulong, ulong,  \
-                 ^~~~~
-   arch/riscv/include/asm/syscall_wrapper.h:86:2: note: in expansion of macro '__SYSCALL_SE_DEFINEx'
-     __SYSCALL_SE_DEFINEx(x, sys, name, __VA_ARGS__)    \
-     ^~~~~~~~~~~~~~~~~~~~
-   include/linux/syscalls.h:236:2: note: in expansion of macro '__SYSCALL_DEFINEx'
-     __SYSCALL_DEFINEx(x, sname, __VA_ARGS__)
-     ^~~~~~~~~~~~~~~~~
-   include/linux/syscalls.h:226:36: note: in expansion of macro 'SYSCALL_DEFINEx'
-    #define SYSCALL_DEFINE2(name, ...) SYSCALL_DEFINEx(2, _##name, __VA_ARGS__)
-                                       ^~~~~~~~~~~~~~~
-   fs/open.c:689:1: note: in expansion of macro 'SYSCALL_DEFINE2'
-    SYSCALL_DEFINE2(fchmod, unsigned int, fd, umode_t, mode)
-    ^~~~~~~~~~~~~~~
-   arch/riscv/include/asm/syscall_wrapper.h:45:14: note: aliased declaration here
-     static long ___se_##prefix##name(__MAP(x,__SC_LONG,__VA_ARGS__))
-                 ^~~~~~
-   arch/riscv/include/asm/syscall_wrapper.h:86:2: note: in expansion of macro '__SYSCALL_SE_DEFINEx'
-     __SYSCALL_SE_DEFINEx(x, sys, name, __VA_ARGS__)    \
-     ^~~~~~~~~~~~~~~~~~~~
-   include/linux/syscalls.h:236:2: note: in expansion of macro '__SYSCALL_DEFINEx'
-     __SYSCALL_DEFINEx(x, sname, __VA_ARGS__)
-     ^~~~~~~~~~~~~~~~~
-   include/linux/syscalls.h:226:36: note: in expansion of macro 'SYSCALL_DEFINEx'
-    #define SYSCALL_DEFINE2(name, ...) SYSCALL_DEFINEx(2, _##name, __VA_ARGS__)
-                                       ^~~~~~~~~~~~~~~
-   fs/open.c:689:1: note: in expansion of macro 'SYSCALL_DEFINE2'
-    SYSCALL_DEFINE2(fchmod, unsigned int, fd, umode_t, mode)
-    ^~~~~~~~~~~~~~~
->> arch/riscv/include/asm/syscall_wrapper.h:39:14: warning: '__se_sys_fchroot' alias between functions of incompatible types 'long int(ulong,  ulong,  ulong,  ulong,  ulong,  ulong,  ulong)' {aka 'long int(long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int)'} and 'long int(long int,  long int)' [-Wattribute-alias]
-     static long __se_##prefix##name(ulong, ulong, ulong, ulong, ulong, ulong,  \
-                 ^~~~~
-   arch/riscv/include/asm/syscall_wrapper.h:86:2: note: in expansion of macro '__SYSCALL_SE_DEFINEx'
-     __SYSCALL_SE_DEFINEx(x, sys, name, __VA_ARGS__)    \
-     ^~~~~~~~~~~~~~~~~~~~
-   include/linux/syscalls.h:236:2: note: in expansion of macro '__SYSCALL_DEFINEx'
-     __SYSCALL_DEFINEx(x, sname, __VA_ARGS__)
-     ^~~~~~~~~~~~~~~~~
-   include/linux/syscalls.h:226:36: note: in expansion of macro 'SYSCALL_DEFINEx'
-    #define SYSCALL_DEFINE2(name, ...) SYSCALL_DEFINEx(2, _##name, __VA_ARGS__)
-                                       ^~~~~~~~~~~~~~~
-   fs/open.c:621:1: note: in expansion of macro 'SYSCALL_DEFINE2'
-    SYSCALL_DEFINE2(fchroot, int, fd, unsigned int, flags)
-    ^~~~~~~~~~~~~~~
-   arch/riscv/include/asm/syscall_wrapper.h:45:14: note: aliased declaration here
-     static long ___se_##prefix##name(__MAP(x,__SC_LONG,__VA_ARGS__))
-                 ^~~~~~
-   arch/riscv/include/asm/syscall_wrapper.h:86:2: note: in expansion of macro '__SYSCALL_SE_DEFINEx'
-     __SYSCALL_SE_DEFINEx(x, sys, name, __VA_ARGS__)    \
-     ^~~~~~~~~~~~~~~~~~~~
-   include/linux/syscalls.h:236:2: note: in expansion of macro '__SYSCALL_DEFINEx'
-     __SYSCALL_DEFINEx(x, sname, __VA_ARGS__)
-     ^~~~~~~~~~~~~~~~~
-   include/linux/syscalls.h:226:36: note: in expansion of macro 'SYSCALL_DEFINEx'
-    #define SYSCALL_DEFINE2(name, ...) SYSCALL_DEFINEx(2, _##name, __VA_ARGS__)
-                                       ^~~~~~~~~~~~~~~
-   fs/open.c:621:1: note: in expansion of macro 'SYSCALL_DEFINE2'
-    SYSCALL_DEFINE2(fchroot, int, fd, unsigned int, flags)
-    ^~~~~~~~~~~~~~~
-   arch/riscv/include/asm/syscall_wrapper.h:39:14: warning: '__se_sys_chroot' alias between functions of incompatible types 'long int(ulong,  ulong,  ulong,  ulong,  ulong,  ulong,  ulong)' {aka 'long int(long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int)'} and 'long int(long int)' [-Wattribute-alias]
-     static long __se_##prefix##name(ulong, ulong, ulong, ulong, ulong, ulong,  \
-                 ^~~~~
-   arch/riscv/include/asm/syscall_wrapper.h:86:2: note: in expansion of macro '__SYSCALL_SE_DEFINEx'
-     __SYSCALL_SE_DEFINEx(x, sys, name, __VA_ARGS__)    \
-     ^~~~~~~~~~~~~~~~~~~~
-   include/linux/syscalls.h:236:2: note: in expansion of macro '__SYSCALL_DEFINEx'
-     __SYSCALL_DEFINEx(x, sname, __VA_ARGS__)
-     ^~~~~~~~~~~~~~~~~
-   include/linux/syscalls.h:225:36: note: in expansion of macro 'SYSCALL_DEFINEx'
-    #define SYSCALL_DEFINE1(name, ...) SYSCALL_DEFINEx(1, _##name, __VA_ARGS__)
-                                       ^~~~~~~~~~~~~~~
-   fs/open.c:591:1: note: in expansion of macro 'SYSCALL_DEFINE1'
-    SYSCALL_DEFINE1(chroot, const char __user *, filename)
-    ^~~~~~~~~~~~~~~
-   arch/riscv/include/asm/syscall_wrapper.h:45:14: note: aliased declaration here
-     static long ___se_##prefix##name(__MAP(x,__SC_LONG,__VA_ARGS__))
-                 ^~~~~~
-   arch/riscv/include/asm/syscall_wrapper.h:86:2: note: in expansion of macro '__SYSCALL_SE_DEFINEx'
-     __SYSCALL_SE_DEFINEx(x, sys, name, __VA_ARGS__)    \
-     ^~~~~~~~~~~~~~~~~~~~
-   include/linux/syscalls.h:236:2: note: in expansion of macro '__SYSCALL_DEFINEx'
-     __SYSCALL_DEFINEx(x, sname, __VA_ARGS__)
-     ^~~~~~~~~~~~~~~~~
-   include/linux/syscalls.h:225:36: note: in expansion of macro 'SYSCALL_DEFINEx'
-    #define SYSCALL_DEFINE1(name, ...) SYSCALL_DEFINEx(1, _##name, __VA_ARGS__)
-                                       ^~~~~~~~~~~~~~~
-   fs/open.c:591:1: note: in expansion of macro 'SYSCALL_DEFINE1'
-    SYSCALL_DEFINE1(chroot, const char __user *, filename)
-    ^~~~~~~~~~~~~~~
-   arch/riscv/include/asm/syscall_wrapper.h:39:14: warning: '__se_sys_fchdir' alias between functions of incompatible types 'long int(ulong,  ulong,  ulong,  ulong,  ulong,  ulong,  ulong)' {aka 'long int(long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int)'} and 'long int(long int)' [-Wattribute-alias]
-     static long __se_##prefix##name(ulong, ulong, ulong, ulong, ulong, ulong,  \
-                 ^~~~~
-   arch/riscv/include/asm/syscall_wrapper.h:86:2: note: in expansion of macro '__SYSCALL_SE_DEFINEx'
-     __SYSCALL_SE_DEFINEx(x, sys, name, __VA_ARGS__)    \
-     ^~~~~~~~~~~~~~~~~~~~
-   include/linux/syscalls.h:236:2: note: in expansion of macro '__SYSCALL_DEFINEx'
-     __SYSCALL_DEFINEx(x, sname, __VA_ARGS__)
-     ^~~~~~~~~~~~~~~~~
-   include/linux/syscalls.h:225:36: note: in expansion of macro 'SYSCALL_DEFINEx'
-    #define SYSCALL_DEFINE1(name, ...) SYSCALL_DEFINEx(1, _##name, __VA_ARGS__)
-                                       ^~~~~~~~~~~~~~~
-   fs/open.c:571:1: note: in expansion of macro 'SYSCALL_DEFINE1'
-    SYSCALL_DEFINE1(fchdir, unsigned int, fd)
-    ^~~~~~~~~~~~~~~
-   arch/riscv/include/asm/syscall_wrapper.h:45:14: note: aliased declaration here
-     static long ___se_##prefix##name(__MAP(x,__SC_LONG,__VA_ARGS__))
-                 ^~~~~~
-   arch/riscv/include/asm/syscall_wrapper.h:86:2: note: in expansion of macro '__SYSCALL_SE_DEFINEx'
-     __SYSCALL_SE_DEFINEx(x, sys, name, __VA_ARGS__)    \
-     ^~~~~~~~~~~~~~~~~~~~
-   include/linux/syscalls.h:236:2: note: in expansion of macro '__SYSCALL_DEFINEx'
-     __SYSCALL_DEFINEx(x, sname, __VA_ARGS__)
-     ^~~~~~~~~~~~~~~~~
-   include/linux/syscalls.h:225:36: note: in expansion of macro 'SYSCALL_DEFINEx'
-    #define SYSCALL_DEFINE1(name, ...) SYSCALL_DEFINEx(1, _##name, __VA_ARGS__)
-                                       ^~~~~~~~~~~~~~~
-   fs/open.c:571:1: note: in expansion of macro 'SYSCALL_DEFINE1'
-    SYSCALL_DEFINE1(fchdir, unsigned int, fd)
-    ^~~~~~~~~~~~~~~
-   arch/riscv/include/asm/syscall_wrapper.h:39:14: warning: '__se_sys_chdir' alias between functions of incompatible types 'long int(ulong,  ulong,  ulong,  ulong,  ulong,  ulong,  ulong)' {aka 'long int(long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int)'} and 'long int(long int)' [-Wattribute-alias]
-     static long __se_##prefix##name(ulong, ulong, ulong, ulong, ulong, ulong,  \
-                 ^~~~~
-   arch/riscv/include/asm/syscall_wrapper.h:86:2: note: in expansion of macro '__SYSCALL_SE_DEFINEx'
-     __SYSCALL_SE_DEFINEx(x, sys, name, __VA_ARGS__)    \
-     ^~~~~~~~~~~~~~~~~~~~
-   include/linux/syscalls.h:236:2: note: in expansion of macro '__SYSCALL_DEFINEx'
-     __SYSCALL_DEFINEx(x, sname, __VA_ARGS__)
-     ^~~~~~~~~~~~~~~~~
-   include/linux/syscalls.h:225:36: note: in expansion of macro 'SYSCALL_DEFINEx'
-    #define SYSCALL_DEFINE1(name, ...) SYSCALL_DEFINEx(1, _##name, __VA_ARGS__)
-
-
-vim +39 arch/riscv/include/asm/syscall_wrapper.h
-
-a9ad73295cc1e3 Sami Tolvanen     2024-03-11  16  
-a9ad73295cc1e3 Sami Tolvanen     2024-03-11  17  #define __SYSCALL_SE_DEFINEx(x, prefix, name, ...)					\
-a9ad73295cc1e3 Sami Tolvanen     2024-03-11  18  	static long __se_##prefix##name(__MAP(x,__SC_LONG,__VA_ARGS__));		\
-a9ad73295cc1e3 Sami Tolvanen     2024-03-11  19  	static long __se_##prefix##name(__MAP(x,__SC_LONG,__VA_ARGS__))
-a9ad73295cc1e3 Sami Tolvanen     2024-03-11  20  
-08d0ce30e0e4fc Sami Tolvanen     2023-07-10  21  #define SC_RISCV_REGS_TO_ARGS(x, ...)							\
-08d0ce30e0e4fc Sami Tolvanen     2023-07-10  22  	__MAP(x,__SC_ARGS								\
-08d0ce30e0e4fc Sami Tolvanen     2023-07-10  23  	      ,,regs->orig_a0,,regs->a1,,regs->a2					\
-08d0ce30e0e4fc Sami Tolvanen     2023-07-10  24  	      ,,regs->a3,,regs->a4,,regs->a5,,regs->a6)
-08d0ce30e0e4fc Sami Tolvanen     2023-07-10  25  
-a9ad73295cc1e3 Sami Tolvanen     2024-03-11  26  #else
-a9ad73295cc1e3 Sami Tolvanen     2024-03-11  27  /*
-a9ad73295cc1e3 Sami Tolvanen     2024-03-11  28   * Use type aliasing to ensure registers a0-a6 are correctly passed to the syscall
-a9ad73295cc1e3 Sami Tolvanen     2024-03-11  29   * implementation when >word-size arguments are used.
-a9ad73295cc1e3 Sami Tolvanen     2024-03-11  30   */
-a9ad73295cc1e3 Sami Tolvanen     2024-03-11  31  #define __SYSCALL_SE_DEFINEx(x, prefix, name, ...)					\
-a9ad73295cc1e3 Sami Tolvanen     2024-03-11  32  	__diag_push();									\
-a9ad73295cc1e3 Sami Tolvanen     2024-03-11  33  	__diag_ignore(GCC, 8, "-Wattribute-alias",					\
-175db11786bde9 Nathan Chancellor 2026-05-16  34  			"Type aliasing is used to sanitize syscall arguments");		\
-175db11786bde9 Nathan Chancellor 2026-05-16  35  	__diag_ignore(clang, 23, "-Wunknown-warning-option",				\
-175db11786bde9 Nathan Chancellor 2026-05-16  36  		      "Avoid breaking versions without -Wattribute-alias");		\
-175db11786bde9 Nathan Chancellor 2026-05-16  37  	__diag_ignore(clang, 23, "-Wattribute-alias",					\
-a9ad73295cc1e3 Sami Tolvanen     2024-03-11  38  			"Type aliasing is used to sanitize syscall arguments");		\
-a9ad73295cc1e3 Sami Tolvanen     2024-03-11 @39  	static long __se_##prefix##name(ulong, ulong, ulong, ulong, ulong, ulong, 	\
-a9ad73295cc1e3 Sami Tolvanen     2024-03-11  40  					ulong)						\
-a9ad73295cc1e3 Sami Tolvanen     2024-03-11  41  			__attribute__((alias(__stringify(___se_##prefix##name))));	\
-a9ad73295cc1e3 Sami Tolvanen     2024-03-11  42  	__diag_pop();									\
-653650c468be21 Sami Tolvanen     2024-03-26  43  	static long noinline ___se_##prefix##name(__MAP(x,__SC_LONG,__VA_ARGS__))	\
-653650c468be21 Sami Tolvanen     2024-03-26  44  			__used;								\
-a9ad73295cc1e3 Sami Tolvanen     2024-03-11  45  	static long ___se_##prefix##name(__MAP(x,__SC_LONG,__VA_ARGS__))
-a9ad73295cc1e3 Sami Tolvanen     2024-03-11  46  
-
-:::::: The code at line 39 was first introduced by commit
-:::::: a9ad73295cc1e3af0253eee7d08943b2419444c4 riscv: Fix syscall wrapper for >word-size arguments
-
-:::::: TO: Sami Tolvanen <samitolvanen@google.com>
-:::::: CC: Palmer Dabbelt <palmer@rivosinc.com>
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+--- Thanks!
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
