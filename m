@@ -1,153 +1,119 @@
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9975522F767
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 17:06:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B9D82E8DEB;
+	Sat, 19 Sep 2026 17:07:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789837615; cv=none; b=SLF1bx+xVig2WAj+OG7xZyK4wL46kGt/uuKuB4rs72QCAegum5qfHB5oECVt6ksKr9FnF68TZrXtwxvvbLT3TjZbAVphhhi2fYAH8/8k36U89j2vbhC+xwOwXLjo0T5NCdkj/QZqJIu8nlEZyukH83Y8wAG/oFOWkpjzzlJWDck=
+	t=1789837644; cv=none; b=FB4qyiqeQ48URXkJ3OVwhBJFTBcdtFKoLcyNFw6Ul1Wa0S0/DmZeTgvaU2NfDkzljC43MhxCUohfecD1wrU1+W/j3mevNTCP+04ylwS4IYchrCUVpMPE8927U55+JrYvoLioFNd1Nk1imEgHhTToNjUt6xKLV4Y2Gp28x6Xg+4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789837615; c=relaxed/simple;
-	bh=u36MjiEqXs39fNOYa7M2eitiO4tZva/VUMm3woA92yg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oWvLlaEPk1+jQzX3NZVfM6qoFls3wLrvC2qUlBGvg7t3QzlAUI++P9Pr9gOBlXRCYmq+2PNlpN7SngqNa73sr7C3TmJxekcwGre2H+wH06+Uf37p4KIxgWNTkks09ts+32w5vJIBVAXWCZDsrw9U1UZSYfAtjfroO0lH3bNSqus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=eFm0qGot; arc=none smtp.client-ip=74.125.229.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1789837644; c=relaxed/simple;
+	bh=8rBsJdt96krUf8mZ3ofhFwaD0Oj6wvryd53TwKn+rmY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=fu/NDbMgObBn8sxXaL4NjrfeqSdMyCWPezL9usoO/emM+CQiRRX9/j1+R7Dh9wiP/ATPu/OqOkw4pClD1y9bxv9ssowbEv4cw9gjVilomOR38YX1DAu+Z7vNjXFBcvsrWGN3B7mHr2cbhkgOswtl1zuCKqYw5LtdsP9tsh36o4E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OH18l8d7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="eFm0qGot"
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f1744fso3040958e87.2
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 10:06:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1789837610; x=1790442410; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=R4EVCCJGMVi/Jgl5olIITsEJ4O030sdS93t+4GDKvrY=;
-        b=eFm0qGotWc1FLCi+mlEvspx3dvaYCv/fBLgKJnL1XlV8/OxKbLF5rKRaawhubqm4cV
-         xaW5MMjYDe2PLKw+7ElMG5/18vHTutUzhvPomexwl0FOUNH6RWZz0GFd+qvLh1x6bWsR
-         EnHPP90w309hq2JvOhMgc4av180XdBJERflKw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789837610; x=1790442410;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=R4EVCCJGMVi/Jgl5olIITsEJ4O030sdS93t+4GDKvrY=;
-        b=QDMyUkoWvhEM+wofjxZJ5Lih8UTLp0G94917g2i6KxIqgYVCZVBupkwJE5fRQUk/2H
-         5gMcCUKuJ4iMVCSy56/XiMqnYcItDIVMSvYhpyVcWepJE7Idhsvtkikt6ruPyzaQl7Sn
-         f7bd6R9xEYnKz3KaWPja/i5IOmN6zgOXLfGvum/AQXyDTp6jMpw79sq8Utj4OVVAoq9x
-         sL/wHQEjZkHphFSY+eTltrlqk74soDVPHjunvcElAaMeVbckyBPmx3d2TQepr1517Djq
-         QGHfg6nsmL5c9TrTldla5MaIhmEETXVJdOcyNx8xrlQEz1MMdICoLMjJB8odPYC0xKQB
-         5K0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxvt9iikXyttsthE71I29TO6AtLrjU0tB9aWZl4I7kGWK7WkXrPGg4ZOyui9/XO9Nr9EK3cascrUwpoeWM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lCUVrvCAPFbdlnUc5pJFuCaoLsa9kwxKJrBCrCOz7UK53TaKgn
-	Vm4uiyadw3AqhmCJukv1/pyo3Un9N8z0oe0/hxQU7MEcg7tutXiPK2d9TlWuM/3jgT7yXcbqoEL
-	lBUxluDjuEA==
-X-Gm-Gg: AYBFou1/FaokImWZvWp/LKvQGDEnHiFqWiWX03Vr1gACOgExWFIW8DxL1xq6/T25/ms
-	eOT5Zz/7v/qfr4y1V/zAWZU6tkyNG8Phlp429/FVPstv4urCbDpbVDa6d4nLEIBrhZg2gVhBIWB
-	viq0JG0uM4TI72HDmUe26lyOGve/DT3PaZ4X3xPqAju+I9h42qDOWTz42HOMIMDiufrMrkfq1OU
-	RYWnkli4GX50BYvT4rpTLNCTTiWr4aoqyd5Dft8EOxN4eM9Lfrg6Zx/jmG79IKt1w2IPUKXFlgA
-	fdzgH9gy+Up4k9I7vQops7DPx+lDwkj/tsP+U1lHuX/v+uAPvh4jqVxp45oAZD/BmouJKjLi6pd
-	UvOfYVLopPqR7zgjQNRgA4afGs0YP5l/aUaGgZ6zX1AkF2rEtRbd0QKEGs8vdbe6EOsHK5lox4W
-	fion7nX978qvbi/YNCINmVHj6vEKW9ecZXX6y2tpzYDTBFpG/bsbEKagfOpEAv+rYTke6Ls0F6U
-	n++SD87dwc9s0uQ+oNSVXSjH3YwM6hBKf2Lf4g8CiSpKOMaK5c=
-X-Received: by 2002:a05:6512:3b24:b0:5b6:183c:5c95 with SMTP id 2adb3069b0e04-5b8c18598damr2000189e87.51.1789837610306;
-        Sat, 19 Sep 2026 10:06:50 -0700 (PDT)
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com. [74.125.229.205])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8c796f20csm678616e87.83.2026.09.19.10.06.49
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 19 Sep 2026 10:06:50 -0700 (PDT)
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f1744fso3040940e87.2
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 10:06:49 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzWcRJ7FzyzKbxqm4tt2ASDjbpGpunQWCChsF+X2RFZu/9HQ0uiXVZZuJuczYvHG8q0GqDLEao28yvEj0o=@vger.kernel.org
-X-Received: by 2002:a17:907:3f17:b0:c26:1649:47ab with SMTP id
- a640c23a62f3a-c2a15b4bca3mr522411266b.33.1789837224119; Sat, 19 Sep 2026
- 10:00:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OH18l8d7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63AC91F000FF;
+	Sat, 19 Sep 2026 17:07:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789837642;
+	bh=oPt6k1SU2rZ5GUciEked3ObqN8vGIC3bKt2iePvZ4ec=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=OH18l8d76tvib9jY4wRTNxx2/Jto2mRnBazas4Cod9TUf/6Aor9FgRpd9vTFwNQaj
+	 WRaJKG6WlpReMNWjBp+Oh4I7K5O2SRvtrJOEEKwaHJI7mnfhrXAh+tedR9gDL7fJte
+	 llku0Okd2vuFnQxq/UyefLQv4wKA0xNT6lDy+TCRCEZUKqkvyScwPYb2PmNpyzCUns
+	 E1CKRv3MBScyOzN8dk044SQ6XiYvOV713f+yS46frW9gsMx2gW+UBMlycnTblLZzNO
+	 pyNC45nQ5CkVBA0VOnKzlkfQ41lqmU2I4BIIkFjy/Mj3Yo+AzmtUbVx3ckIdwQcRNI
+	 pdFiFTDEVlGow==
+From: Sasha Levin <sashal@kernel.org>
+To: "Barry K. Nathan" <barryn@pobox.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	stable@vger.kernel.org,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Eric Dumazet <edumazet@google.com>
+Cc: Sasha Levin <sashal@kernel.org>,
+	patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	torvalds@linux-foundation.org,
+	akpm@linux-foundation.org,
+	linux@roeck-us.net,
+	shuah@kernel.org,
+	patches@kernelci.org,
+	lkft-triage@lists.linaro.org,
+	pavel@nabladev.com,
+	jonathanh@nvidia.com,
+	f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com,
+	rwarsow@gmx.de,
+	conor@kernel.org,
+	hargar@microsoft.com,
+	broonie@kernel.org,
+	achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.12 0000/1102] 6.12.111-rc1 review
+Date: Sat, 19 Sep 2026 13:07:17 -0400
+Message-ID: <ce4ba85b47cf4c2e8f7def41@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <49dc2e4f-7a94-430c-8b02-6f3d422222f3@pobox.com>
+References: <20260917151539.408551884@linuxfoundation.org> <be8641ad-ed0c-4e6e-a915-0874076159d3@pobox.com> <49dc2e4f-7a94-430c-8b02-6f3d422222f3@pobox.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <e9669b34-12c2-4cf2-a887-315f581f0789@paulmck-laptop>
- <20260919000056.3132131-1-paulmck@kernel.org> <CAHk-=wj9knmxXD01=top1DQ9_aqrN2a3kpWRS5DQv6QLwLOztg@mail.gmail.com>
- <6B1FC39D-6EB0-433A-8E49-E5EFC9379AD7@mainlining.org>
-In-Reply-To: <6B1FC39D-6EB0-433A-8E49-E5EFC9379AD7@mainlining.org>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Sat, 19 Sep 2026 10:00:06 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wjyniJy-CX1muCrsZp-i-sLGRYeRYEPN7sw9orRZUCwag@mail.gmail.com>
-X-Gm-Features: AcwNN1WCbh_CXATf-FMT8x_ZS8yd9pmRtrkzEOhM9i8GXxqTrntEHha57Im_sMA
-Message-ID: <CAHk-=wjyniJy-CX1muCrsZp-i-sLGRYeRYEPN7sw9orRZUCwag@mail.gmail.com>
-Subject: Re: [PATCH 01/28] hazptr: Implement Hazard Pointers
-To: Bradley Morgan <brads@mainlining.org>
-Cc: "Paul E. McKenney" <paulmck@kernel.org>, rcu@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	kernel-team@meta.com, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Boqun Feng <boqun@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, lkmm@lists.linux.dev, 
-	Zqiang <qiang.zhang@linux.dev>, Wang Lian <lianux.mm@gmail.com>, 
-	Kunwu Chan <kunwu.chan@gmail.com>, Nicholas Piggin <npiggin@gmail.com>, 
-	Michael Ellerman <mpe@ellerman.id.au>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Will Deacon <will@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Alan Stern <stern@rowland.harvard.edu>, 
-	John Stultz <jstultz@google.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	Frederic Weisbecker <frederic@kernel.org>, Joel Fernandes <joel@joelfernandes.org>, 
-	Josh Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>, 
-	Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang1211@gmail.com>, 
-	Ingo Molnar <mingo@redhat.com>, Waiman Long <longman@redhat.com>, 
-	Mark Rutland <mark.rutland@arm.com>, Thomas Gleixner <tglx@linutronix.de>, 
-	Vlastimil Babka <vbabka@suse.cz>, maged.michael@gmail.com, Mateusz Guzik <mjguzik@gmail.com>, 
-	Jonas Oberhauser <jonas.oberhauser@huaweicloud.com>, linux-mm@kvack.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Sat, 19 Sept 2026 at 09:35, Bradley Morgan <brads@mainlining.org> wrote:
+On Sat, Sep 19, 2026 at 03:54:25AM -0700, Barry K. Nathan wrote:
+>> [   98.363843] RTNL: assertion failed at net/ipv6/mcast.c (1014)
+>> [   98.363896] WARNING: CPU: 6 PID: 961 at net/ipv6/mcast.c:1014 __ipv6_dev_mc_dec+0x17b/0x190 [ipv6]
+
+> I bisected it to this patch:
+> ipv6-mcast-don-t-hold-rtnl-for-ipv6_drop_membership-.patch.
+
+Your bisect is right, and thanks for chasing it all the way down --
+the splat is real and the patch you landed on is the trigger.
+
+I've dropped the ipv6 mcast RTNL conversion patches from the 6.12, 6.6
+and 5.15 queues.
+
+> If I take 6.12.110, apply the current stable-queue (as of commit
+> 01b20bb84b994fdcda64fd07a66ba84c85d0168f), then revert the
+> following patches:
 >
-> I think hazard pointers are good, what test do YOU suggest we do here?
+> ipv6-mcast-don-t-hold-rtnl-for-ipv6_drop_membership-.patch
+> ipv6-mcast-don-t-hold-rtnl-for-mcast_-socket-options.patch
+> ipv6-mcast-use-copy-on-write-rcu-updates-in-ip6_mc_s.patch
+>
+> then the resulting kernel no longer shows these warnings at all.
 
-I want to see a single real-world example of "look, this speeds this
-real load up by 10%, and the kernel code was actually cleaned up in
-the process because hazard pointers are great".
+The root cause is a prerequisite we never picked up, rather than anything wrong
+with the patches themselves. Upstream commit e01b193e0b50a ("ipv6: mcast: Use
+in6_dev_get() in ipv6_dev_mc_dec().") is the commit in that series which
+deletes the now-stale ASSERT_RTNL() from __ipv6_dev_mc_dec(), and it was never
+backported to 6.12.y, 6.6.y or 5.15.y. So we took the patches that stop holding
+RTNL across the setsockopt paths while the assertion they were meant to retire
+was still sitting there -- hence net/ipv6/mcast.c:1014 firing on every
+IPV6_DROP_MEMBERSHIP. The queued patches are byte-identical cherry-picks of the
+upstream commits; this is a series-ordering gap on our side, not a botched
+backport.
 
-Not a microbenchmark that tests just the hazard pointers themselves,
-but a real kernel feature that has been converted to hazard pointers,
-and in the process actually shows improvement.
+7.2 and 6.18 carry the whole series, including e01b193e0b50a, so they
+are not affected and keep their copies.
 
-The ONLY reason for hazard pointers to ever be merged is if they
-actually buy us something real.
+One difference from your experiment: I removed four patches rather than the
+three you reverted. The extra one is 1767bb2d47b7 ("ipv6: mcast: Don't hold
+RTNL for IPV6_ADD_MEMBERSHIP and MCAST_JOIN_GROUP."), which is a pure refactor
+of the join path and was only ever queued as a dependency of the others. It is
+harmless on its own so consistent with you not needing to revert it, but with
+the rest gone there is no reason to keep it, and dropping it keeps the series
+intact for a clean requeue.
 
-So I want to see that 'real" thing.
+The plan is to requeue the complete ordered set, e01b193e0b50a included,
+once this RC is out.
 
-I want to see how easy/hard it is to actually convert a real current
-user, and I want to see how it actually results in measurable
-improvements in performance.
-
-Something *core*. Something that everybody uses. Because I'm not in
-the least interested in a new subtle feature that interacts with the
-scheduler and is only used for some random driver or (to pick the only
-example I have ever seen) AppArmor.
-
-Now, obviously, the thing that would impress me is something like the
-dcache. If *that* can be converted, and it shows real improvements on
-some real benchmark, then I'm sold.
-
-Now, I don't really expect that kind of major test-case, but I do
-expect *something* meaningful. Not a driver. Not a test module. Real
-code.
-
-IOW: "Show me the money".
-
-Because the kernel is *not* some kind of acadmic project. Never has been.
-
-I simply don't want to merge something that is touted as an
-alterantive to RCU - which we obviously depend on very very heavily -
-without something *major* that actually uses it and shows the
-real-world advantages.
-
-The discussion about hazard pointers in the kernel has been around for
-a few years by now. If there isn't some real core feature that was
-converted to show that, then I think that's already a failure
-indication.
-
-I'm hoping that those patches and numbers already exist, and I just
-haven't seen them.
-
-                  Linus
+-- 
+Thanks,
+Sasha
