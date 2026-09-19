@@ -1,165 +1,77 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D530349CD8;
-	Sat, 19 Sep 2026 18:16:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC94D3655ED;
+	Sat, 19 Sep 2026 18:16:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789841765; cv=none; b=Sw3xs4rZaonOJaGhrlGo501dS8ztv1rnsPSGh76e9GLqwTKshsexaoWNlSG45RikRKRORVzPND1sTg9R/OhCn/rnqaBR3lHrzzBSJ9oPKRDzxr5VetRtvSnhP0KO9xkufteoH57YltLnLUDxj2PVE4lHy1vzJ1bR+6VLbRSuWeM=
+	t=1789841788; cv=none; b=CLVJ1+FCK28H4CWWbZUat0thDjW+fn1IaBFsTBwLcZIIWJCFm8ai6WAOYjOXDjUlpFHxq5wsppiSQxDiabiIdRtmjONBqdiKCDoooj5sIXpEXufnehM0l1xkfmtlFLMYJdvTnYBJ9cjFFRYJtUUxX6C6Nbe2VbXqo5RoQhpgcVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789841765; c=relaxed/simple;
-	bh=wH8Tb4KqRc4VOh6/dbLrwuxzssZnUUFHkjcWJvCsIAE=;
+	s=arc-20240116; t=1789841788; c=relaxed/simple;
+	bh=1WKORpw1j+na2uFRuaHzOZ3HamX2x2ZK00DhqXRzgUM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pm8c+p+fiSXDWN8m5gRLK6nG+JvtwRDNUQUS/vCwaDn2q/vFaZPJLlcha8LYsmMg86ZX+dww6qkn85m7+NSi6FjHO5yZIg6h6r7UMehhCUYTQLznJkD/RCuE85osBpBm3rGmfKMbPVhRLPFbX8oaES7MbLUYebsLe+fE+YYQeZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=uZ10c8pz; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=OX5lXl879zSwTVodiXbH2Y1tSk9F1OPYt5j0RiKQco7sR54JKtLlSdL0pKp/vX3aC78lp21SEy4t28ym2EI9cudDatRvBhPwmRtRM7zZ+4zs+86dl+86olp6bqnj35CmwvSpLW5gKSJFDBv2f63EGsFsaNUYYR1q0pWqsPhIt4I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ENHB77X3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="uZ10c8pz"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3C502C36;
-	Sat, 19 Sep 2026 20:14:15 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1789841655;
-	bh=wH8Tb4KqRc4VOh6/dbLrwuxzssZnUUFHkjcWJvCsIAE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=uZ10c8pz/N2zzU7AqCtcuG4Y5uHw/9SgQOpCgF8n0ljm9CDLNkZ1AhCdncdud52hj
-	 nOjGc5OsfdA4Ia5olYwgqz6CgKHItk5HnBnjXZiYQnWY4i6kX42wWMGO1J5hGiEFX1
-	 4NEr+BuZns3VgYrdr4GsV0GBd2zzU4bDGcMbbuFI=
-Date: Sat, 19 Sep 2026 21:15:57 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Paul Elder <paul.elder+renesas@ideasonboard.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-media@vger.kernel.org
-Subject: Re: [PATCH v2 10/11] media: rcar-fcp: Handle resets
-Message-ID: <20260919181557.GK1124359@killaraus.ideasonboard.com>
-References: <20260919-epaul-v7-3-rc1-x5h-vsp-fcp-v2-0-dbe9236bfd22@ideasonboard.com>
- <20260919-epaul-v7-3-rc1-x5h-vsp-fcp-v2-10-dbe9236bfd22@ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ENHB77X3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 280241F000FF;
+	Sat, 19 Sep 2026 18:16:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789841783;
+	bh=8uqyZbYFjivdSJP0aMKKIEPMrtOqIr8aCoIxoeOYNsA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ENHB77X3aUbsDqyvI1CoPjMBuwQZMSMFu1h+acmovvPzxMXxPe+dNgXbATWtMjBeh
+	 KiICsrUSkrsAFRHzcfZ10WBgEhU2KM+sDkooqe34615pc9g1lboPNpBxdM7Qe4pKM6
+	 NbHrRlX+WCJ8wgu8vvxpOh33Pi8BBA5sypjSSRGhJCzFntygX05h22SjTJn0pNSxX3
+	 is1kqpjuLNXIU/z74djRdfY6ZrB96EW9UiLPHT4gv/3SrynG6rqIZwKjQVEQDLsMNl
+	 qotje6z2g6NAGTrnmBWukovQuJgXrmwMYrQPfHRraCDb+7EYfqk/grtrXRpPxHDdgl
+	 rGDAusNVQm0iQ==
+Date: Sat, 19 Sep 2026 11:16:21 -0700
+From: Oliver Upton <oupton@kernel.org>
+To: Marc Zyngier <maz@kernel.org>, kvmarm@lists.linux.dev,
+	Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Fuad Tabba <fuad.tabba@linux.dev>
+Subject: Re: [PATCH] KVM: arm64: Fix AArch32 DBGBXVR<n> handling
+Message-ID: <aq7RdZqJNNtqmaQ7@kernel.org>
+References: <20260810005616.13227-1-kmehltretter@gmail.com>
+ <178984145401.38162.12449211285441501967.b4-ty@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260919-epaul-v7-3-rc1-x5h-vsp-fcp-v2-10-dbe9236bfd22@ideasonboard.com>
+In-Reply-To: <178984145401.38162.12449211285441501967.b4-ty@kernel.org>
 
-Hi Paul,
-
-Thank you for the patch.
-
-On Sat, Sep 19, 2026 at 02:07:07AM +0900, Paul Elder wrote:
-> On some versions of the FCP, such as the one on the X5H, reset control
-> is required to operate the FCP. Add support for handling resets
-> optionally, to continue supporting versions that do not require it.
+On Sat, Sep 19, 2026 at 11:11:14AM -0700, Oliver Upton wrote:
+> On Mon, 10 Aug 2026 02:56:16 +0200, Karl Mehltretter wrote:
+> > The consolidation of the breakpoint and watchpoint register accessors
+> > switched DBGBXVR<n> from trap_bvr() to trap_dbg_wb_reg(). The latter
+> > selects backing storage with demux_wb_reg(), which only handles Op2 values
+> > 4 through 7. Since DBGBXVR<n> uses Op2 1, an AArch32 guest access hits
+> > KVM_BUG_ON() and marks the VM dead.
+> > 
+> > DBGBXVR<n> aliases DBGBVR<n>_EL1[63:32], and its AA32(HI) descriptor
+> > already selects the upper half. Map Op2 1 to dbg_bvr[] alongside Op2 4,
+> > restoring the pre-regression behavior.
+> > 
+> > [...]
 > 
-> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
-
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-
-> ---
-> Changes in v2:
-> - handle errors
-> ---
->  drivers/media/platform/renesas/rcar-fcp.c | 30 ++++++++++++++++++++++++++++--
->  1 file changed, 28 insertions(+), 2 deletions(-)
+> Thanks for pinging, this slipped between the cracks.
 > 
-> diff --git a/drivers/media/platform/renesas/rcar-fcp.c b/drivers/media/platform/renesas/rcar-fcp.c
-> index dfb0ca93e854dd0bb8aedfb757fd786ef6e45542..76d4c250b30815d9eac58f9b54ad923748df79f6 100644
-> --- a/drivers/media/platform/renesas/rcar-fcp.c
-> +++ b/drivers/media/platform/renesas/rcar-fcp.c
-> @@ -16,6 +16,7 @@
->  #include <linux/mutex.h>
->  #include <linux/platform_device.h>
->  #include <linux/pm_runtime.h>
-> +#include <linux/reset.h>
->  #include <linux/slab.h>
->  
->  #include <media/rcar-fcp.h>
-> @@ -29,6 +30,7 @@ struct rcar_fcp_device {
->  	struct list_head list;
->  	struct device *dev;
->  	void __iomem *base;
-> +	struct reset_control *rstc;
->  };
->  
->  static LIST_HEAD(fcp_devices);
-> @@ -162,20 +164,25 @@ static int rcar_fcp_probe(struct platform_device *pdev)
->  
->  	fcp->dev = &pdev->dev;
->  
-> +	platform_set_drvdata(pdev, fcp);
-> +
->  	fcp->base = devm_platform_ioremap_resource(pdev, 0);
->  	if (IS_ERR(fcp->base))
->  		return PTR_ERR(fcp->base);
->  
->  	dma_set_max_seg_size(fcp->dev, UINT_MAX);
->  
-> +	fcp->rstc = devm_reset_control_get_optional(&pdev->dev, NULL);
-> +	if (IS_ERR(fcp->rstc))
-> +		return dev_err_probe(&pdev->dev, PTR_ERR(fcp->rstc),
-> +				     "failed to get reset control\n");
-> +
->  	pm_runtime_enable(&pdev->dev);
->  
->  	mutex_lock(&fcp_lock);
->  	list_add_tail(&fcp->list, &fcp_devices);
->  	mutex_unlock(&fcp_lock);
->  
-> -	platform_set_drvdata(pdev, fcp);
-> -
->  	return 0;
->  }
->  
-> @@ -190,6 +197,24 @@ static void rcar_fcp_remove(struct platform_device *pdev)
->  	pm_runtime_disable(&pdev->dev);
->  }
->  
-> +static int fcp_pm_runtime_suspend(struct device *dev)
-> +{
-> +	struct rcar_fcp_device *fcp = dev_get_drvdata(dev);
-> +
-> +	return reset_control_assert(fcp->rstc);
-> +}
-> +
-> +static int fcp_pm_runtime_resume(struct device *dev)
-> +{
-> +	struct rcar_fcp_device *fcp = dev_get_drvdata(dev);
-> +
-> +	return reset_control_deassert(fcp->rstc);
-> +}
-> +
-> +static const struct dev_pm_ops fcp_pm_ops = {
-> +	RUNTIME_PM_OPS(fcp_pm_runtime_suspend, fcp_pm_runtime_resume, NULL)
-> +};
-> +
->  static const struct of_device_id rcar_fcp_of_match[] = {
->  	{ .compatible = "renesas,fcpf" },
->  	{ .compatible = "renesas,fcpv" },
-> @@ -202,6 +227,7 @@ static struct platform_driver rcar_fcp_platform_driver = {
->  	.remove		= rcar_fcp_remove,
->  	.driver		= {
->  		.name	= "rcar-fcp",
-> +		.pm = pm_ptr(&fcp_pm_ops),
->  		.of_match_table = rcar_fcp_of_match,
->  		.suppress_bind_attrs = true,
->  	},
+> Applied to fixes, thanks!
+> 
+> [1/1] KVM: arm64: Fix AArch32 DBGBXVR<n> handling
+>       https://git.kernel.org/kvmarm/kvmarm/c/239763bda716
 
--- 
-Regards,
+This is now 6b1bca1b1ab7, didn't grab the Cc: stable in the first pass.
 
-Laurent Pinchart
+Thanks,
+Oliver
