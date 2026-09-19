@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC1042F363F;
-	Sat, 19 Sep 2026 00:29:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D39D2F7EE9;
+	Sat, 19 Sep 2026 00:29:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789777743; cv=none; b=mJY7sGa/aofiXqAQApLNhdAb7q4akFV6ePFRqC0qlNk6SX5tvhVynxR5/An1EyCZkQ0Qnb57S8+Pa244eljiZGS6Ttq9/lmPCUya43xRD2RVXv8P3LsMIjSjNWv5ZI/5/W8qR90J8DMVGkwnkoHyyXNGkLQhge1kPXUY3NCtyow=
+	t=1789777746; cv=none; b=CwA0zqyc1NvuzUPnuA8r7AWsa01hyyp8cg4eNuwFvrUkInkdTRfLifOp8fiq4r8/aWFJOmUyPK5sL3PqgFaEnHm/vW0K5gfAFrbEr6b1EikVclz4jieJnL/H97ynaigCDl0CGJ4IEM+kx2/pP135GVH7XGnAnLUfdFuQuipWUD0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789777743; c=relaxed/simple;
-	bh=nvQoIx6gQv7E8qFHeuFQhcavJagoOVl+wEtK788m0n4=;
+	s=arc-20240116; t=1789777746; c=relaxed/simple;
+	bh=fLALTx4M9S9CVaAKkup4u/TZSyLZ1BEF/G9ECyv8Y4c=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=fiO2fdPzQNwmnKxhPqkjJIvxCqO/i3ryczjdobEf9ftu+Yajn7eKmLuW9Yw70VC9NKzFqLrHDIBTW7fMwTYdjLJiSU5ycoUm8yaJLcjYSkEw6+YF3Duhx0RSoccvGBNC6TNxVmME1uUi+gVlCtB1hLSLH4ULrR21H0ugvBg0KXs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L6sB1J4b; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=FASkE5c7MiVoR8Rp1dhNPy7jwDYiZ6S7ziaW41xl8Mn9nQdxe44onO8btnXGV46v7lSsngQb22vZIuvHo8vh584hyeUQRNNfqTjFXTdKPlVTzOJR8551WXpD7FEDG+BV/tvdL/cWZj8c9hKkqCKOhDbFRUusZ8+Z6YRGJP5NWew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RyuyYi1C; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L6sB1J4b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97C441F0089B;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RyuyYi1C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C26801F0089F;
 	Sat, 19 Sep 2026 00:29:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789777741;
-	bh=vi8oZSe+Z3oE+eSrcJD3Q70KafHoa5cA6muPToPn83w=;
+	bh=TACMRejCPDhtXToM+8XpnHSGuigYkCvPM7LCQenAW/s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=L6sB1J4bLtWEk1CrZvQgwgTsL5sJyaJisGISas1lm0FceIIWrTMFwyxcu0UO0PBtU
-	 DJHApWG9e894jYf9vvA4DYxiWxNeABnQ0DhYmrp8FGqummXpFe28yb1Qo81gk9eF8r
-	 Zv8ZWDQqH70N6zV7q3+TwhSjxVwMfCccw5sH8ZJrIqADovLRgf4K7VLzlZwdmOo8wf
-	 gxNpDiNCk9Y+q2wiHwm1jT/GrDdfkYyNIoM3WueMeGa/L0GCWXuzmxlri/Ml4u2E1m
-	 dgdcWOGureWkSeYfMyoGUHXBP0fVXRshFbWkGQ6+QPZzAe1bBFP42lu6Fs2Y1JDEft
-	 n5fN+d6ZGcwXg==
+	b=RyuyYi1Cat4GQjsH/xcmDmZVOJPzy8P2GRGtS9jW/zgx/lyZbXIjoMqK1v4r7So34
+	 9hGy3uHeBhHtoRezHUiCgQ+23tZK7UCOGHS8KagaY5i6T5Gaj56xLat4YC4Cx+4PAu
+	 crexQ+Cp59zVne2kqtYieKjzKPxYbb39xX57m9uRIruStOztOLauVhJmbuZ3RZQZAz
+	 liVtarJfnecZVRZwcaPw2AEw/PFTOXjv5RZdkUg9MGH4pQlemCTmYwZDWaXMQWvU9E
+	 emu/rm5wEKZq+oOo4ldBpWbYmmwigMI18TTugH2ClNiLERK5Lyy1BXuB0tC20IY+6/
+	 QSGbyXoIC7Ydw==
 Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 4FF6CCE17C1; Fri, 18 Sep 2026 17:29:01 -0700 (PDT)
+	id 5530DCE1854; Fri, 18 Sep 2026 17:29:01 -0700 (PDT)
 From: "Paul E. McKenney" <paulmck@kernel.org>
 To: rcu@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
 	kernel-team@meta.com,
 	rostedt@goodmis.org,
-	"Paul E. McKenney" <paulmck@kernel.org>
-Subject: [PATCH 4/9] rcu: Add running and boosted indications to RCU task stall dump
-Date: Fri, 18 Sep 2026 17:28:55 -0700
-Message-Id: <20260919002900.3134117-4-paulmck@kernel.org>
+	Bradley Morgan <brads@mainlining.org>,
+	"Paul E . McKenney" <paulmck@kernel.org>
+Subject: [PATCH 6/9] rcu: Drop the private tick-internal.h include from tree.c
+Date: Fri, 18 Sep 2026 17:28:57 -0700
+Message-Id: <20260919002900.3134117-6-paulmck@kernel.org>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <7dc2d858-44cc-4efa-8e94-1fe27d691f2b@paulmck-laptop>
 References: <7dc2d858-44cc-4efa-8e94-1fe27d691f2b@paulmck-laptop>
@@ -48,86 +49,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Currently, rcu_print_task_stall() will dump out the PID, RCU reader
-nesting level, the rcu_special structure's flags, and whether or not
-that reader is on the ->blkd_tasks list.  When debugging RCU priority
-boosting, it is also good to know whether the stalled RCU reader is
-currently running and whether it is currently being RCU priority boosted.
-This commit therefore adds this information to the output.
+From: Bradley Morgan <brads@mainlining.org>
 
-[ paulmck: Apply kernel test robot feedback. ]
+Nothing in the tree.c translation unit uses anything from the
+private timekeeping header ../time/tick-internal.h, included
+since commit 48d07c04b4cc ("rcu: Enable elimination of
+Tree-RCU softirq processing"). The tick symbols RCU uses,
+tick_dep_set(), tick_dep_clear(), their _cpu and _task
+variants, tick_nohz_full_cpu() and TICK_DEP_BIT_RCU, are all
+declared in the public linux/tick.h, which tree.c already
+includes.
 
+Drop the include.
+
+Signed-off-by: Bradley Morgan <brads@mainlining.org>
 Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
 ---
- kernel/rcu/tree_stall.h | 23 +++++++++++++++++++++--
- 1 file changed, 21 insertions(+), 2 deletions(-)
+ kernel/rcu/tree.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/kernel/rcu/tree_stall.h b/kernel/rcu/tree_stall.h
-index 93ba31a619b6..5dded1e89197 100644
---- a/kernel/rcu/tree_stall.h
-+++ b/kernel/rcu/tree_stall.h
-@@ -11,6 +11,7 @@
- #include <linux/kvm_para.h>
- #include <linux/rcu_notifier.h>
- #include <linux/smp.h>
-+#include <linux/rtmutex.h>
+diff --git a/kernel/rcu/tree.c b/kernel/rcu/tree.c
+index 96848fc1f02b..338737b9781c 100644
+--- a/kernel/rcu/tree.c
++++ b/kernel/rcu/tree.c
+@@ -64,7 +64,6 @@
+ #include <linux/mm.h>
+ #include <linux/kasan.h>
+ #include <linux/context_tracking.h>
+-#include "../time/tick-internal.h"
  
- //////////////////////////////////////////////////////////////////////////////
- //
-@@ -305,6 +306,8 @@ struct rcu_stall_chk_rdr {
- 	int nesting;
- 	union rcu_special rs;
- 	bool on_blkd_list;
-+	bool rcu_rdr_running;
-+	int rcu_rdr_boosted;
- };
- 
- /*
-@@ -313,6 +316,7 @@ struct rcu_stall_chk_rdr {
-  */
- static int check_slow_task(struct task_struct *t, void *arg)
- {
-+	struct rcu_node *rnp;
- 	struct rcu_stall_chk_rdr *rscrp = arg;
- 
- 	if (task_curr(t))
-@@ -320,6 +324,19 @@ static int check_slow_task(struct task_struct *t, void *arg)
- 	rscrp->nesting = t->rcu_read_lock_nesting;
- 	rscrp->rs = t->rcu_read_unlock_special;
- 	rscrp->on_blkd_list = !list_empty(&t->rcu_node_entry);
-+	rscrp->rcu_rdr_running = task_curr(t);
-+	rscrp->rcu_rdr_boosted = 0;
-+	if (rscrp->on_blkd_list) {
-+		rnp = READ_ONCE(t->rcu_blocked_node);
-+		raw_spin_lock_rcu_node(rnp); /* irqs already disabled. */
-+		if (rnp == READ_ONCE(t->rcu_blocked_node)) {
-+			if (rt_mutex_owner(&rnp->boost_mtx.rtmutex) == t)
-+				rscrp->rcu_rdr_boosted = 1;
-+		} else {
-+			rscrp->rcu_rdr_boosted = 2;
-+		}
-+		raw_spin_unlock_rcu_node(rnp); /* irqs remain disabled. */
-+	}
- 	return 0;
- }
- 
-@@ -357,12 +374,14 @@ static int rcu_print_task_stall(struct rcu_node *rnp, unsigned long flags)
- 		if (task_call_func(t, check_slow_task, &rscr))
- 			pr_cont(" P%d", t->pid);
- 		else
--			pr_cont(" P%d/%d:%c%c%c%c",
-+			pr_cont(" P%d/%d:%c%c%c%c%c%c",
- 				t->pid, rscr.nesting,
- 				".b"[rscr.rs.b.blocked],
- 				".q"[rscr.rs.b.need_qs],
- 				".e"[rscr.rs.b.exp_hint],
--				".l"[rscr.on_blkd_list]);
-+				".l"[rscr.on_blkd_list],
-+				".R"[rscr.rcu_rdr_running],
-+				".B?"[rscr.rcu_rdr_boosted]);
- 		lockdep_assert_irqs_disabled();
- 		put_task_struct(t);
- 		ndetected++;
+ #include "tree.h"
+ #include "rcu.h"
 -- 
 2.40.1
 
