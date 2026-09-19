@@ -1,67 +1,67 @@
 Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16A95156C6A
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 13:17:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A382D2472A6
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 13:18:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789823844; cv=none; b=tKQ+oWjL7lcotm7KMpYqQao3paUpoBGL5RRSmgA6oqsgYdIMxCwhJYD8Mg6GwFKfpLXQYovewDpxOTHR0U90ia78S7vIKN7r6f+w8+3SrR6JU9AKzYz5ry7N3q6TpsSTkn04GWxrRPBAMkNCKpeDf28zoY0d7J3ZUI4emQy6Gak=
+	t=1789823887; cv=none; b=h+243yQxnU6je23UjTNDQPBvwG89UcuuqHqL2fnNS6YXQuXFuqoRje+otOJ11sZtodhS+9hCVLe0+dQ+vIb65aK0+0JVxd6NJaH5f8qZ8RG6y5JEVxEivwLIvR9czx+nHdVUzD5Rf+sMo+N//KYqYFWX39CfmhRpaQkLucYpbkE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789823844; c=relaxed/simple;
-	bh=aqylDhL4FHnDrafOW29rnfMJpBekGNDUuBZoAIIACQs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=sm7H2x019UCppVeFz/Z3uEmgs1m4nGKAJCiumlgUu/r6kH6wxpZZXAelNITya1yAOsPKd8L7kq8bwQV6SxzZa/ScojYIdwFszNQxYwYjbilC0RtwEzpG5gvS9ZadSOWN8V8qZ4eGAF07+Xuiw1Kn7K3vKMn8xGqSAfug2cCGylc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev; spf=pass smtp.mailfrom=tuxon.dev; dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b=qp4RYIFs; arc=none smtp.client-ip=74.125.225.140
+	s=arc-20240116; t=1789823887; c=relaxed/simple;
+	bh=mB6gjqFVNYugWLU6vwXbHJZfq1pD9ilhYpAc/8L5b3s=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=ZIYZfQyARDj6mm7pvbsSUTjHSWEyGEAw5uv0hx0KEofCkq0QCJRrNXc4V6TXsC6L6V/wqk5B+LcER/qn2tED6XIve++r+rSM1c+ntF0r1jp4F7FxMFvuzngBbsO6tAIeX3Y6rtH1YGx8iN0mlNsxUUfFyiSgI8EXCWZ8TljaTZE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev; spf=pass smtp.mailfrom=tuxon.dev; dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b=dsERdrM8; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxon.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b="qp4RYIFs"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d391aso10995005e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 06:17:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b="dsERdrM8"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd4ba9f68so22163825e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 06:18:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tuxon.dev; s=google; t=1789823840; x=1790428640; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:to:subject:user-agent:mime-version:date
+        d=tuxon.dev; s=google; t=1789823884; x=1790428684; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=arsuenBaXtBMqazzptjgRYvEzzXZ3cFNtGq2cAJLhn8=;
-        b=qp4RYIFsV8Umw5i3fqlPg4JnILifOvcqa/qLUkCMna8koIoTwHC7emvsJN1KKgTUzM
-         TR8cMJw/3co4vkIkGRLIJDOZH8dIuJDemZMiimLHxTrztiKeq9g8dF7fzNmQKCFAPH+C
-         wAY9yA+R2iRuURvBGOEIG2qob9kiDdpuXDgez1od6cE/fKeOzQCpTFGw3E+JgOFCGzFj
-         DBo4ZK6yq9qnWGsayK34Kbhfxv0EYyUGFTQFgS8eW1G4zhxCFixjNGT29c3CbFH3xbNd
-         zJKd2uqkggHPqbOnB2hs8k6opbxXUiFMT4KAOcqaMdXrHhwHyoaj7POUqhF6Z2vCULTD
-         kFlQ==
+        bh=ynO7gNGl3+DgbWqmrpV3fne3h6bOndWTZo/kOSRwgfY=;
+        b=dsERdrM8wrzDZbd9rXNU3oCESGOofGLcz6iOubTex+qe39SL58qh49bFfR1DZ7eIX9
+         Ng9lpFI7U54dH+tPW93s1HVi/OZtiSGUR6t9+xhv5tccEiQTTOFMST/x3Hgv8vr9vT/Q
+         C546bYIXv7o0hRsmnRuPosOs/9pWFfkiZE0mj0PWQlkoqGxKw/c2C8dWL8CbGLG/ZLPe
+         Vrf4pGCZCKWqfN4b0OGdZZzBLK0eQe8Oiux5h/I18I+Y8yePLLrKmHgwu/P0TPbIzIS5
+         /IlptPZyJzwkCDs+ihKKcw7TBID7gXwwNlJCVCY924uDpjhgEp+u/FuUfzz0GQhveycm
+         GXdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789823840; x=1790428640;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:to:subject:user-agent:mime-version:date
+        d=1e100.net; s=20260707; t=1789823884; x=1790428684;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=arsuenBaXtBMqazzptjgRYvEzzXZ3cFNtGq2cAJLhn8=;
-        b=BblbYb0gMRqjo0yY+LOlN9g22Mql3L2oZ65GIs5SXKKGWdULHIsRZrDEja9nsNHij0
-         5ugjqbjeXy9YzZE5ZRj7/bMohv1IX5mlrfYBxgWc1akO74yQPkdDG/artQTraeK+Nbkf
-         G/K8XBCikCsSCpm1PnV6dSx3XdkCLU0vmzyrTlf2Mz1u+pV5tINQ+qN6VUD+LYcjXHHn
-         +RY1S1jS2KS58Bx/0JVVsjJvGuG7ssnAGv5XMn7HQh6XeZeTVDiyRBFD4zuv44rOos2N
-         GA8ilrp0WOJ4CNt1cFb4JUE1wH9wyzdf4QjrU7k1cT4j83x2ogqwvhJBZ7NUyigm0tnE
-         kOEQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxzdmkW2FmHXZAFoxtZtO2pgFBO3mtCpmsrf5jK8HCds7tw1UxcZ23tjS8CttUSO3ddt8eNniMwPjMgCac=@vger.kernel.org
-X-Gm-Message-State: AFuF++kMcSZO2XevM4dH7SDF5AL3b1XLqSNvhmE3iNZQojZ6lq3CZrH0
-	De002mAP8D0cfvYLqQ/Rq8DyEdKs3NMdurhy0Az+EDd6LI+CEM/4A+rSOO/QH4EBw2g=
-X-Gm-Gg: AYBFou1ywLruC7Hbv15ktSIC3Q0kZcN4twKDc6YljCxZ2Lu5B5eT08vDBdNmLkRSsk4
-	ZyArmLsQ8c28uN7jaS414O0iQ43CVX9/gbQnMx1Ryu/C9t0VjY+FoVx/slHlYdvOLtQIn3x5wtV
-	4ka2gFz4NFUk01gtN8zyQkQOMsXHaAxqAN9ez7P+JPO7r1VKj6OIdcZ4z03MNuW/jO2wmlwwUVM
-	gMw73H+ZljLJrQe/iuj54K4yg2ovLOyWd39QtQErzkCzKoJi2Oro/Qh53a43RwgiILyv1Kjx2ja
-	OaoTq/DJwXzOVprO5SvxdYapPtDagFLfty5cQYdjhmMeThiKFl3ItelMqEu2UpFxgCoiENfgBUU
-	ej03tjwt5FlbMGETA+AtwsbEvwpF5gVDCfbMg8czre1wNfrb4W+AEbhNax9RSj1nfDuK40JYDAc
-	RpqZeYcDB+N6vXzTF1PC806WQFss0SPsQX8gz4ScEIr0L1m1Qorelb0uFxg6p4FyIhuu74BAeFC
-	OtfGpoDDsN8vYlivb3d40nRUIRSGblqK/Wt1FlnxScmIpXh2hMvQjT/C/WNJH2WxDYN
-X-Received: by 2002:a05:600c:3f0b:b0:49b:d45:703e with SMTP id 5b1f17b1804b1-49fc56aa68amr77388855e9.8.1789823839836;
-        Sat, 19 Sep 2026 06:17:19 -0700 (PDT)
+        bh=ynO7gNGl3+DgbWqmrpV3fne3h6bOndWTZo/kOSRwgfY=;
+        b=sGmkqcaACPYEiwB8tBfPOcsMkSzIBzUrqWa7+JTTIksCOmnGcAzw4XxABKj1bjsm5w
+         nQ/vgIzWaVUZH3M/YrJpMr/JxL02jP53ThpI3vvhMc3nrncKQpS3ZqBsy11wu1GS/UE5
+         LlSovGuUhiY5kPg8CCV8QgOxF8FZdA41knBKe7lxDyn+tGcGXMRAGLoj1pY21iQaB7dS
+         fDqDzMcOyID9dSxqKe8CkT5DZ6zb2kxFJS2+YPMKAqhC+sLUkCtSizwesKiI73i+C4Je
+         4PHyaqcE6g+F7ph2g2GBtX1CAKhGG05td+yna5klsTs1tWZcVYErRYGc74Dl1SA478MB
+         XKtw==
+X-Forwarded-Encrypted: i=1; AKwUvByGNlIJUeze5y155+zmD/njBn4tIoLHtCEVt44cutdQI3A14E9tPV4v4uV/5elzO8wY63qCXJ0DVlqc7FA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lkAtwQMHmQO5Q6wXYfl+ysqMzuYvQI3OVcrAR4CJPnvXnhctdO
+	lKJ4vCGXthNf8WFjz/1yvCJ4K6qEF0u0N9itz4HR83v16obSzEi+GkgAm1fFLot30W8=
+X-Gm-Gg: AYBFou2CC2RnFHIM62ArVAcIqA5ZsqoxPGj9mGABlkKT2hfCDlvjeBu6jLumFeSAiqF
+	6k0KktILS6ZRQ//CPM/MvDf1q3pVbeIlZtiZ0uyfjadQE2G1Hst/PFLlzP+tJpQwbimzkCripu2
+	DO8xSBmzWfkLePDb30KmvFVcF8WjuY0fAwG+3pSsXmIeQ9EkE+nwi0dSOibqoBmT6eZvH+ucwx3
+	o1xrau3Ir+FOvo6tcvjJZR6ePFZus+ObrgtCpB+IpW81j2rWLuUXXFU8uE0Ht5dw4ANcfx7ZyWf
+	CLKkkPDBFdslF0SRFyjMrorSTDITOAtEOtBaktC0n+qfYWdZ5Za16vMYWhKQ0Y87LmKtIzCzFhZ
+	z25lkygdDKSeuzuzdoPSTzLUhQIKAhQw1b/b4OQXf63fzzH8Kj3NxyAXsznATsYUu/5dhQ/eq/b
+	ahfqpjVwxxoBno0LmhQrsvsoR+RYnMSGSMkb34bVp5XhvYTiZVU9e3RRUftPwMBOF3M3TBG2oAb
+	+lRoK2OxQ+HyavJ9Jt+ntgxR71AK3KHJXAArrmcwA/mEtFXdnUzj6sOLtYuYy6yEw==
+X-Received: by 2002:a05:600c:474e:b0:49e:7cff:f8ca with SMTP id 5b1f17b1804b1-49fc5743c69mr71850835e9.29.1789823883840;
+        Sat, 19 Sep 2026 06:18:03 -0700 (PDT)
 Received: from ?IPV6:2a02:2f05:1204:e000:2cf7:c250:64a9:ae77? ([2a02:2f05:1204:e000:2cf7:c250:64a9:ae77])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd0ece6esm103469825e9.2.2026.09.19.06.17.17
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd2f7ef3sm70658255e9.0.2026.09.19.06.18.00
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 19 Sep 2026 06:17:18 -0700 (PDT)
-Message-ID: <a5f22eff-5d5f-405d-86fe-471e522ce602@tuxon.dev>
-Date: Sat, 19 Sep 2026 16:17:16 +0300
+        Sat, 19 Sep 2026 06:18:02 -0700 (PDT)
+Message-ID: <275bb967-21f9-429d-89fb-efb8a498f388@tuxon.dev>
+Date: Sat, 19 Sep 2026 16:17:59 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,8 +69,9 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 09/17] nvmem: microchip-otpc: nvmem: microchip-otpc:
- add tag-based packet lookup
+From: claudiu beznea <claudiu.beznea@tuxon.dev>
+Subject: Re: [PATCH v6 08/17] dt-bindings: nvmem: microchip,sama7g5-otpc: add
+ sama7d65 and dt node example
 To: Varshini Rajendran <varshini.rajendran@microchip.com>,
  ehristev@kernel.org, jic23@kernel.org, dlechner@baylibre.com,
  nuno.sa@analog.com, andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
@@ -82,256 +83,21 @@ To: Varshini Rajendran <varshini.rajendran@microchip.com>,
  mazziesaccount@gmail.com, linux-iio@vger.kernel.org,
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org
+Cc: Conor Dooley <conor.dooley@microchip.com>
 References: <20260806074024.531259-1-varshini.rajendran@microchip.com>
- <20260806074024.531259-10-varshini.rajendran@microchip.com>
+ <20260806074024.531259-9-varshini.rajendran@microchip.com>
 Content-Language: en-US
-From: claudiu beznea <claudiu.beznea@tuxon.dev>
-In-Reply-To: <20260806074024.531259-10-varshini.rajendran@microchip.com>
+In-Reply-To: <20260806074024.531259-9-varshini.rajendran@microchip.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi, Varshini,
+
 
 On 8/6/26 10:40, Varshini Rajendran wrote:
-> Add support for accessing OTP packets by their tag which is a FourCC
-> while preserving backward compatibility with the existing ID-based
-> lookup.
+> Add support for sama7d65 and a dt node example that shows tag can be used
+> to reference a packet stored in the OTP memory.
 > 
-> The OTP memory layout can vary across devices and may change over time,
-> making the packet ID approach unreliable when the memory map is not
-> known in advance. The packet tag provides a reliable way to identify
-> and access packets without prior knowledge of the OTP memory layout.
-> 
-> Two offset encodings are now supported:
->    1. Legacy ID-based: offset = OTP_PKT(id) = id * 4
->       Used in DT as: reg = <OTP_PKT(1) 76>;
->    2. TAG-based: offset = 4-byte ASCII packet tag (FourCC)
->       Used in DT as: reg = <0x41435354 0x4c>; (tag "ACST")
-> 
-> The driver resolves offsets matching valid legacy selectors (multiples
-> of 4 within the packet count) through ID lookup, falling back to tag
-> lookup for other valid values. This ensures existing device trees
-> continue to work while enabling new tag-based access. During probe,
-> packet meta data including the tag is read and cached.
-> 
-> The stride of the nvmem memory is set to 1 in order to support tag based
-> offsets, comment in the header file is updated accordingly.
-> 
-> Signed-off-by: Varshini Rajendran <varshini.rajendran@microchip.com>
-> ---
->   drivers/nvmem/microchip-otpc.c                | 117 ++++++++++++++++--
->   .../nvmem/microchip,sama7g5-otpc.h            |   4 +-
->   2 files changed, 110 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/nvmem/microchip-otpc.c b/drivers/nvmem/microchip-otpc.c
-> index df979e8549fd..a17f82afdc37 100644
-> --- a/drivers/nvmem/microchip-otpc.c
-> +++ b/drivers/nvmem/microchip-otpc.c
-> @@ -23,6 +23,8 @@
->   #define MCHP_OTPC_SR_READ		BIT(6)
->   #define MCHP_OTPC_HR			(0x20)
->   #define MCHP_OTPC_HR_SIZE		GENMASK(15, 8)
-> +#define MCHP_OTPC_HR_PACKET		GENMASK(2, 0)
-> +#define MCHP_OTPC_HR_PACKET_REGULAR	1
->   #define MCHP_OTPC_DR			(0x24)
->   
->   #define MCHP_OTPC_NAME			"mchp-otpc"
-> @@ -47,11 +49,13 @@ struct mchp_otpc {
->    * @list: list head
->    * @id: packet ID
->    * @offset: packet offset (in words) in OTP memory
-> + * @tag: 4-byte ASCII (FourCC) tag of the packet
->    */
->   struct mchp_otpc_packet {
->   	struct list_head list;
->   	u32 id;
->   	u32 offset;
-> +	u32 tag;
->   };
->   
->   static struct mchp_otpc_packet *mchp_otpc_id_to_packet(struct mchp_otpc *otpc,
-> @@ -70,6 +74,52 @@ static struct mchp_otpc_packet *mchp_otpc_id_to_packet(struct mchp_otpc *otpc,
->   	return NULL;
->   }
->   
-> +static struct mchp_otpc_packet *mchp_otpc_tag_to_packet(struct mchp_otpc *otpc, u32 tag)
-> +{
-> +	struct mchp_otpc_packet *packet;
-> +
-> +	list_for_each_entry(packet, &otpc->packets, list) {
-> +		if (packet->tag == tag)
-> +			return packet;
-> +	}
-> +
-> +	return NULL;
-> +}
-> +
-> +static bool mchp_otpc_is_valid_fourcc(u32 tag)
-> +{
-> +	int i;
-> +	u8 c;
-> +
-> +	for (i = 0; i < 4; i++) {
-> +		c = (tag >> (i * 8)) & 0xff;
-> +		if (c < 0x20 || c > 0x7e)
-> +			return false;
-> +	}
-> +
-> +	return true;
-> +}
-> +
-> +static struct mchp_otpc_packet *mchp_otpc_resolve_packet(struct mchp_otpc *otpc, u32 off)
-> +{
-> +	/*
-> +	 * Legacy id based packet access: offset = id * 4
-> +	 * Inside the driver we use continuous unsigned integer numbers
-> +	 * for packet id, thus divide off by 4 before passing it to
-> +	 * mchp_otpc_id_to_packet().
-> +	 */
-> +	u32 remainder = off % 4;
-> +	u32 id = off / 4;
-> +
-> +	if (!remainder && id < otpc->npackets)
-> +		return mchp_otpc_id_to_packet(otpc, id);
-> +
-> +	/*
-> +	 * TAG-based packet access: offset is a 4-byte ASCII tag (FourCC)
-> +	 */
-> +	return mchp_otpc_tag_to_packet(otpc, off);
-> +}
-> +
->   static int mchp_otpc_prepare_read(struct mchp_otpc *otpc,
->   				  unsigned int offset)
->   {
-> @@ -140,8 +190,29 @@ static int mchp_otpc_prepare_read(struct mchp_otpc *otpc,
->    * offset returned by hardware.
->    *
->    * For this, the read function will return the first requested bytes in the
-> - * packet. The user will have to be aware of the memory footprint before doing
-> - * the read request.
-> + * packet.
-> + *
-> + * Two offset encodings are supported:
-> + *
-> + * 1. Legacy ID-based: offset = OTP_PKT(id) = id * 4
-> + *    Used in DT as: reg = <OTP_PKT(1) 76>;
-> + * 2. TAG-based: offset = 4-byte ASCII packet tag (FourCC)
-> + *    Used in DT as: reg = <0x41435354 0x4c>; (tag "ACST")
-> + *
-> + * To use the legacy ID based packet lookup the user will have to be aware of
-> + * the memory footprint before doing the read request.
-> + *
-> + * But by using the TAG based packet lookup, the user won't have to be aware
-> + * of the memory footprint before doing the read request since this driver has
-> + * it abstracted and taken care of.
-> + *
-> + * Practically, there is no way of knowing the mapping of the OTP memory table
-> + * in advance for every device. But by using the packet tag - the identifier
-> + * ASCII value (FourCC), the packets can be recognized without being aware of the
-> + * flashed OTP memory map table and the payload can be acquired reliably.
-> + *
-> + * While the legacy ID based lookup is still supported, TAG based approach is
-> + * recommended.
->    */
->   static int mchp_otpc_read(void *priv, unsigned int off, void *val,
->   			  size_t bytes)
-> @@ -154,12 +225,11 @@ static int mchp_otpc_read(void *priv, unsigned int off, void *val,
->   	int ret, payload_size;
->   
->   	/*
-> -	 * We reach this point with off being multiple of stride = 4 to
-> -	 * be able to cross the subsystem. Inside the driver we use continuous
-> -	 * unsigned integer numbers for packet id, thus divide off by 4
-> -	 * before passing it to mchp_otpc_id_to_packet().
-> +	 * From this point the offset has to be translated into the actual
-> +	 * packet. For this we traverse the table of contents stored in a list
-> +	 * "packet" based on the access type - packet id or tag.
->   	 */
-> -	packet = mchp_otpc_id_to_packet(otpc, off / 4);
-> +	packet = mchp_otpc_resolve_packet(otpc, off);
->   	if (!packet)
->   		return -EINVAL;
->   	offset = packet->offset;
-> @@ -190,10 +260,25 @@ static int mchp_otpc_read(void *priv, unsigned int off, void *val,
->   	return 0;
->   }
->   
-> +static int mchp_otpc_read_packet_tag(struct mchp_otpc *otpc, unsigned int offset,
-> +				     unsigned int *tag)
-> +{
-> +	int ret;
-> +
-> +	ret = mchp_otpc_prepare_read(otpc, offset);
+> Signed-off-by: Varshini Rajendran<varshini.rajendran@microchip.com>
+> Acked-by: Conor Dooley<conor.dooley@microchip.com>
 
-Is this needed? At the moment this function is called a prepared was already 
-done (in mchp_otpc_init_packets_list()). The header was read. As of the current 
-code from mchp_otpc_read(), after that, writing 0 (for DR increment) to AR and 
-then reading DR leads to successfully reading the DR.
-
-However, the manual [1] mentions the following on step 4 from chapter 37.5.3.5. 
-Read:
-
-4/ Read the header of the packet in the OTPC_HR register. To read each payload
-    word, the *address of the payload* word must be written in OTPC_AR.DADDR. The
-    payload word is then available in OTPC_DR. If OTPC_AR.INCRT is set to
-    AFTER_READ, any read in the OTPC_DR increments the DADDR field.
-
-So, maybe there is a bug in the current code, in the mcp_otpc_read() and this 
-function, and instead of writing 0 to AR, after reading the header we need to 
-write the AR.ADDR and INCR=0 and after that read the DR? And the HW happens to 
-behave correctly even with the current implemented approach?
-
-[1] 
-https://ww1.microchip.com/downloads/aemDocuments/documents/MPU32/ProductDocuments/DataSheets/SAMA7D6-Series-Data-Sheet-DS60001851.pdf
-> +	if (ret)
-> +		return ret;
-> +
-> +	writel_relaxed(0, otpc->base + MCHP_OTPC_AR);
-> +	*tag = readl_relaxed(otpc->base + MCHP_OTPC_DR);
-> +
-> +	return 0;
-> +}
-> +
->   static int mchp_otpc_init_packets_list(struct mchp_otpc *otpc, u32 *size)
->   {
->   	struct mchp_otpc_packet *packet;
-> -	u32 word, word_pos = 0, id = 0, npackets = 0, payload_size;
-> +	u32 word, word_pos = 0, id = 0, npackets = 0, payload_size, type;
->   	int ret;
->   
->   	INIT_LIST_HEAD(&otpc->packets);
-> @@ -215,6 +300,20 @@ static int mchp_otpc_init_packets_list(struct mchp_otpc *otpc, u32 *size)
->   
->   		packet->id = id++;
->   		packet->offset = word_pos;
-> +		type = FIELD_GET(MCHP_OTPC_HR_PACKET, word);
-> +
-> +		if (type == MCHP_OTPC_HR_PACKET_REGULAR) {
-> +			ret = mchp_otpc_read_packet_tag(otpc, packet->offset,
-> +							&packet->tag);
-> +			if (ret)
-> +				return ret;
-> +
-> +			if (!mchp_otpc_is_valid_fourcc(packet->tag))
-> +				packet->tag = 0;
-> +		} else {
-> +			packet->tag = 0;
-> +		}
-
-The else path is not needed since packet is allocated with devm_kzalloc(). With 
-that, if the above is true this section could be written as:
-
-if (type == MCHP_OTPC_HR_PACKET_REGULAR) {
-	u32 tag;
-
-	writel_relaxed(packet->offset + 4, otpc->base + MCHP_OTPC_AR);
-	// or if the manual is wrong:
-	// writel_relaxed(0, otpc->base + MCHP_OTPC_AR);
-	tag = readl_relaxed(otpc->base + MCHP_OTPC_DR);
-
-	if (mchp_otpc_is_valid_fourcc(tag))
-		packet->tag = tag;
-}
-
-Thank you,
-Claudiu
+Reviewed-by: Claudiu Beznea <claudiu.beznea@tuxon.dev>
