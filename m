@@ -1,169 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B16318DB2A;
-	Fri, 18 Sep 2026 23:59:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ECCD13FEE;
+	Sat, 19 Sep 2026 00:00:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789775995; cv=none; b=HPzPfDvC+hQp45pmLzQ2wQT+xpna6ugXcPD1Ius0gI0+kxjLY1cpPCECFqWQ6uknUbWTz0WDGC01vzbCqUl3iVmiOW6APAGYWPUKxCiVMFPgpilchcT94ChpQCH+tajtgid8WkuPlvaFAoBD647+Ju27k4lKtB+lzOlyFT2ZuJo=
+	t=1789776053; cv=none; b=cHc78nBcX15j4GIYKRDLyf0aAnF5qUlH16XOk2zCp1/AremcySGGmEqUAkvxD+s0xLltW8S4hEW4b1Yb2WBRzf/mwxTvwSopRGAHyLNjoaI0Z3TGMjzGqMrqUCFta23tM64M3sQStT3GESIgBD3VRUfbx6MmooIWPAhbm1JGL4M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789775995; c=relaxed/simple;
-	bh=uUPo3bg41LYjl6i8gcYXwqKCVHxhJ7D3DFoymfCr/oc=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=pV2oFDQ5h02nL7Hz+RyL6P/6OVUJ5dHYfm9ovLZw2eDlBIWQXlho999Uj9fNsRkiGxkHDdtwTA1bjjX/QKF4Vj752l0UJeKYE/2v/UAKm4F1QUdqLspwuiElPqzB8QXSNkm0Pw6j2+sJUgDBo9bAC48DFMFs/zL1YGFozIkQEsU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kCaOsS2Z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789776053; c=relaxed/simple;
+	bh=CM8t/2r5zpvxP/TIw1rxFeeqDSqqeTNRP2efP52Gg54=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=MXczwAdht7Rm5jHgRyK6nduEn4H05eaLXB7jzo6hG3U2PtvCbSZo24wpg59LNTsrkb1g9RT0nchCZmp4hWmYcSxglOZx18oC7U6eAOPH+Qp4aaUoIf1h5eqVLaUcpGZ/amLQkZVXGyO3VqBsWP2n13qH3lGBz23llcR4GEMNonE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=TGbO5qwl; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=gAYQyGe9; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kCaOsS2Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 191131F000FF;
-	Fri, 18 Sep 2026 23:59:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789775994;
-	bh=hixHftmhu/BMvA0tKlvZJ9Sam55uFQBRdpxnFP5oMCU=;
-	h=Date:From:To:Cc:Subject:Reply-To;
-	b=kCaOsS2ZYOv8w3Yqk9RZBN2l5n7gMp9meJ25auvtTPgvNhtseAP9sCYM1pqSOP2Bp
-	 +bpY0/L57ix72XpFZxbj0CDbnkRl+pIOzpEF5+Jso4t4p/OGLr7qwxnUrg2yZ7iuw2
-	 TZC8sG1M0UFty60La17ybQu4cqJoVMDE1go6KFsrgexbN5WkqiL7ojNUYbykaVJe5U
-	 5g8myjovNBxzwsPWdjCdJz8LtFIVi/sbv40DvIye4ovVGGAzR/okLcakhjT66SAQTn
-	 18Rwhl/WARskXH74LFqNMbLuOmnvyPAOS9jZd3LNJXv3rRxuL+ZMrMd2SInc8mkCV7
-	 PAl7y73DaedlQ==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id D4D73CE09DC; Fri, 18 Sep 2026 16:59:53 -0700 (PDT)
-Date: Fri, 18 Sep 2026 16:59:53 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: rcu@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: kernel-team@meta.com,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Boqun Feng <boqun@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
-	lkmm@lists.linux.dev, Zqiang <qiang.zhang@linux.dev>,
-	Wang Lian <lianux.mm@gmail.com>, Kunwu Chan <kunwu.chan@gmail.com>,
-	Bradley Morgan <brads@mainlining.org>
-Subject: [PATCH RFC v3 0/28] Simple hazard-pointer implementation and torture
- tests
-Message-ID: <e9669b34-12c2-4cf2-a887-315f581f0789@paulmck-laptop>
-Reply-To: paulmck@kernel.org
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="TGbO5qwl";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="gAYQyGe9"
+Date: Sat, 19 Sep 2026 00:00:47 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1789776049;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jaY4U1vV0TkgZKNx+cRGNSvgFxonKFr8F+Cm/+H8PtU=;
+	b=TGbO5qwlHCncJhpMAcc0mZmt+FKwhFE8mW7UzpeOOxyoBuwEVzAxNFCS4uN45hTM0+4M8y
+	eSUoPNQAJIOtUQHpg3cxBfnA31qIo94b3kINtIrKbjflehPixAX6X1Enxtk/4TlGbwhd9/
+	EY77X7kc6msDJlfp9wAXMaL+pAvxxJnl+Dziprbo/y+z+kqRYSGepQGc1iA9/DGBOboovq
+	vUpJIVcFnfpNoXlW7FivM9lSsKwL+uorsWkzRUYKPQNouq/bzPQArjRgcUIQsPuRydLME1
+	jhPWFUK6g90RlDBkFB9leg3ujiElhvtUl7Ji1jYsXRR6/mFutEzCsLFnM8Yjjw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1789776049;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jaY4U1vV0TkgZKNx+cRGNSvgFxonKFr8F+Cm/+H8PtU=;
+	b=gAYQyGe9pLScYDGkGAcc/t3TbwXB7BZNjWA1ElWRTSbK7WEcZTM5YP+jwczucGQghHnycd
+	CCSlMNg8T8jnAYCg==
+From: "tip-bot2 for Mauricio Faria de Oliveira" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: x86/cleanups] x86/asm/string_64: Remove unused
+ linux/jump_label.h include
+Cc: Mauricio Faria de Oliveira <mfo@igalia.com>,
+ "Borislav Petkov (AMD)" <bp@alien8.de>, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260824-x86-inc-asm-str64-jmplbl-v2-1-df4d7bec9616@igalia.com>
+References: <20260824-x86-inc-asm-str64-jmplbl-v2-1-df4d7bec9616@igalia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Message-ID: <178977604769.1720534.8867204559032824916.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello!
+The following commit has been merged into the x86/cleanups branch of tip:
 
-This series contains a simple hazard-pointer implementation and associated
-torture tests:
-1.	Implement Hazard Pointers, courtesy of Mathieu Desnoyers.
+Commit-ID:     975809caf4b0e07330110b56ca2d8a3fa7e16ff5
+Gitweb:        https://git.kernel.org/tip/975809caf4b0e07330110b56ca2d8a3fa7e=
+16ff5
+Author:        Mauricio Faria de Oliveira <mfo@igalia.com>
+AuthorDate:    Mon, 24 Aug 2026 16:27:23 -03:00
+Committer:     Borislav Petkov (AMD) <bp@alien8.de>
+CommitterDate: Fri, 18 Sep 2026 15:54:44 -07:00
 
-2.	Add refscale test, courtesy of Mathieu Desnoyers.
+x86/asm/string_64: Remove unused linux/jump_label.h include
 
-3.	Add a hazptrtorture.c torture test.
+Remove the <linux/jump_label.h> include from <asm/string_64.h> since it is
+no longer required.
 
-4.	Add testing of on-stack hazptr_ctx structures.
+This include was introduced for the static key declaration first added by
 
-5.	Add microsecond-scale sleep in readers.
+  3637efb00864 ("x86/mce: Add PCI quirks to identify Xeons with machine check=
+ recovery").
 
-6.	Enable system-independent CPU overcommit.
+However, it was left when the static key declaration was later removed by
 
-7.	Add a stutter_will_wait() function.
+  ec6347bb4339 ("x86, powerpc: Rename memcpy_mcsafe() to copy_mc_to_{user, ke=
+rnel}()").
 
-8.	Use mnemonic local variables for context information.
+Signed-off-by: Mauricio Faria de Oliveira <mfo@igalia.com>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Link: https://patch.msgid.link/20260824-x86-inc-asm-str64-jmplbl-v2-1-df4d7be=
+c9616@igalia.com
+---
+ arch/x86/include/asm/string_64.h | 1 -
+ 1 file changed, 1 deletion(-)
 
-9.	Split hazptr_torture_reader_tail() from hazptr_torture_reader().
-
-10.	Add kthread to release deferred hazard pointers.
-
-11.	Defer release of hazard pointers.
-
-12.	Add irq_acquire to acquire hazptr from irq.
-
-13.	Use task_state_to_char() for task-state reporting, courtesy of
-	Kunwu Chan.
-
-14.	Pass hazptr_pending to hazptr_torture_reader_tail().
-
-15.	Add the ability to disable the writer kthread.
-
-16.	Add irq_release to release hazptr from irq.
-
-17.	Accumulate operation statistics.
-
-18.	Add hazptrtorture module parameters.
-
-19.	Permit detaching hazard pointers from contexts, courtesy of
-	Mathieu Desnoyers.
-
-20.	Detach deferred and IPIed hazard pointers, courtesy of Mathieu
-	Desnoyers.
-
-21.	Introduce CONFIG_HAZPTR_DEBUG misuse detection, courtesy of
-	Mathieu Desnoyers.
-
-22.	Fix hazptr ownership issue, courtesy of Mathieu Desnoyers.
-
-23.	Enable CONFIG_HAZPTR_DEBUG.
-
-24.	Upgrade kernel-doc headers.
-
-25.	Fix inverted sleep condition in do_pending kthread, courtesy of
-	Bradley Morgan.
-
-26.	Implement two-phase wildcard scan, courtesy of Mathieu Desnoyers.
-
-27.	handle NULL address in hazptr_detach, courtesy of Mathieu
-	Desnoyers.
-
-28.	torture.sh: Add hazptr torturing.
-
-						Thanx, Paul
-
-Changes since RFC v2:
-
-o	Add bug-fix patches 25-27.
-
-o	Add patch 28 to automatically test hazptr from torture.sh.
-
-o	Apply tags.
-
-Changes since RFC v1:
-
-o	Added a hazptr_detach() function to allow hazptr_acquire()
-	and the corresponding hazptr_release() to be in different
-	execution contexts.
-
-o	Torture testing of execution-context migration.
-
-------------------------------------------------------------------------
-
- b/Documentation/admin-guide/kernel-parameters.txt                    |   96 +
- b/include/linux/hazptr.h                                             |  197 ++
- b/include/linux/torture.h                                            |    2 
- b/init/main.c                                                        |    2 
- b/kernel/Makefile                                                    |    2 
- b/kernel/hazptr.c                                                    |  242 +++
- b/kernel/rcu/Kconfig.debug                                           |   12 
- b/kernel/rcu/Makefile                                                |    1 
- b/kernel/rcu/hazptrtorture.c                                         |  681 ++++++++++
- b/kernel/rcu/refscale.c                                              |   43 
- b/kernel/rcu/update.c                                                |    3 
- b/kernel/sched/core.c                                                |    2 
- b/kernel/torture.c                                                   |   23 
- b/tools/testing/selftests/rcutorture/bin/kvm.sh                      |    6 
- b/tools/testing/selftests/rcutorture/bin/torture.sh                  |   26 
- b/tools/testing/selftests/rcutorture/configs/hazptr/CFLIST           |    2 
- b/tools/testing/selftests/rcutorture/configs/hazptr/CFcommon         |    2 
- b/tools/testing/selftests/rcutorture/configs/hazptr/NOPREEMPT        |   17 
- b/tools/testing/selftests/rcutorture/configs/hazptr/NOPREEMPT.boot   |    1 
- b/tools/testing/selftests/rcutorture/configs/hazptr/PREEMPT          |   14 
- b/tools/testing/selftests/rcutorture/configs/hazptr/ver_functions.sh |   40 
- include/linux/hazptr.h                                               |  190 ++
- include/linux/torture.h                                              |    4 
- kernel/hazptr.c                                                      |   98 +
- kernel/rcu/Kconfig.debug                                             |   14 
- kernel/rcu/hazptrtorture.c                                           |  423 +++++-
- kernel/torture.c                                                     |   15 
- tools/testing/selftests/rcutorture/bin/kvm.sh                        |    4 
- tools/testing/selftests/rcutorture/configs/hazptr/NOPREEMPT          |    2 
- tools/testing/selftests/rcutorture/configs/hazptr/PREEMPT            |    2 
- 30 files changed, 2019 insertions(+), 147 deletions(-)
+diff --git a/arch/x86/include/asm/string_64.h b/arch/x86/include/asm/string_6=
+4.h
+index 4635616..0ea680b 100644
+--- a/arch/x86/include/asm/string_64.h
++++ b/arch/x86/include/asm/string_64.h
+@@ -3,7 +3,6 @@
+ #define _ASM_X86_STRING_64_H
+=20
+ #ifdef __KERNEL__
+-#include <linux/jump_label.h>
+=20
+ /* Written 2002 by Andi Kleen */
+=20
