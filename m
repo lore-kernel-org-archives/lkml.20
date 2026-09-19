@@ -1,179 +1,215 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f42.google.com (mail-yx2-f42.google.com [74.125.224.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BCF5175A62;
-	Sat, 19 Sep 2026 01:54:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0FD8344DB9
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 01:55:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789782856; cv=none; b=Vd7PenWPOGo68za6MzKo/WIwI4Q6EZ9pitQJXzdGNL+0vsYv1LTHpryjkLLL4Mnh4AEkuBKKc5AlMfULXwBIuyY4h2I4JXakL6UCkG3XcsklMTZH0EVn18wDqN+UpLrXTm2szQ1TFURo1fVnnjpN4mnDyjZXKzKH3baE+fLnkpQ=
+	t=1789782908; cv=none; b=tc4qfbW0KRW3a82MrpLENPe9mDrt9rtL47eQZ7aqeXi6dsVW/H2EU4t8DTJbwST6nIbJWwzWbdFZci4B9m5jpT12MLExgfGpYz4Z+HUBNwc3QJht3NVWAVbLFJZ6/3uFu/8evqo1tICAiDyw+Jw2cTpFdSQUspjHR1AJeOr8Zws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789782856; c=relaxed/simple;
-	bh=XXFTJNzgjE8QEiteFx7dAHw0+oJlD4NKJQ4hDNMVcaY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CKyRjuU6c+iZxf+311TQhAE/IzzFldDJPAMgIQV2d7815tEHF0uhbWT3kR5QHbS1qITyL+fvOCnZSvjN42juyE8zAfg4UWqVnvhrzXt+hRbkE5m2HR2/YZ83Qejd00YxhRvaYe+nkN3ATYuuJykuvk+0N2qvX8EmYUQ+4MQIZGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=JmE7Sz/I; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1789782908; c=relaxed/simple;
+	bh=xiyGdQ++U1UtqkatYJgGm/qOcY3HlzvZUVAL6dPWzuE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jCEMgRvnxahFjpGHkO3DonL/HcjuLKLDFPEWXwD11z4kJUUs5kyguwXXX9o7MuyFdcRn8Go+8XGAdbsnghpQfwpuKqL82UsYDW0V1e8kgkz88nVTs1U9bpZobAlHxRliOt4ryjp3dt6Eb2OLe/j4rNekb8eyptFPYF+GrIs6PP4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kzW/vyoa; arc=none smtp.client-ip=74.125.224.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="JmE7Sz/I"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=ukPoAa7Sd+4obDEOdcgJlnjsn89RPHdhafZAiE+Afqc=; b=JmE7Sz/IAxIAkQigaiBzirpZ19
-	7iWXFTBthgq62bTQGlC6AEvVDAveqSX5HnAISWjKH/UqiCgrQbyxSyuFRmCcCLV39Sd4pQzXs3J3R
-	1vXD6XMW/qiQAnRZCwnJgK6xgoNlQlGTqrzEX9Ki2gIfbWEfmSIEMHsU6i5efsAaTPSQbhkJmI906
-	S4FQ0Go05Ie0mkca5McFeEBHCUuN8czin1tku00Lz71wxEdphbi9ZbGAqoTZnEdHavxLdKl4bvC5s
-	Ihpr38edzTMPPUNWOaidRw5utrH+bOX7EWC691B1wGmRkZ2ve9LlHIpA/29EAa6olYmPmkkYfF/e0
-	na1qahjw==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x7kHG-0000000FrMW-2RKh;
-	Sat, 19 Sep 2026 01:54:06 +0000
-Message-ID: <187dff38-1235-4478-8b31-d4894c90969d@infradead.org>
-Date: Fri, 18 Sep 2026 18:54:05 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kzW/vyoa"
+Received: by mail-yx2-f42.google.com with SMTP id 00721157ae682-89666ee9b3bso9117207b3.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:55:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789782905; x=1790387705; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5yG1RrdsL5LeS0VTnmrMa/hvpkQZLLQkLYZHcn7XLtk=;
+        b=kzW/vyoaxSIxOIcZB/PMhwIb8x1091jiRNZ4yDhr+Q1Ug52ulLDE+0obzw88nbfLbZ
+         ubiIgmBNpO0QOqnQCt7dUYQAVhNIzUF4CQ8p1Yok0ImclafL5W0eOD34QYJa6aZn2jWX
+         FuMOjSkqH7kexXO/d1ewIwJDUxDTtseV37Z6VxImFmnpzUNFoKd2NS8EYL8GJ7p67mVx
+         IwRhEMXjKqKmnNpNVaAA/teL+m/wW8mYWFOP1W9FjoPc2pdXpPynrQ5wqy//VaLBnQW9
+         sGZu5Cg2irotiZgXGy98SsOYqqYLMWJH9HNQQlA8DCIB1KG4VSBKnuywVz2EfaDx7TVG
+         o5mQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789782905; x=1790387705;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5yG1RrdsL5LeS0VTnmrMa/hvpkQZLLQkLYZHcn7XLtk=;
+        b=r5C2/Tkz+XgjJWOjJYp6HVEr5ikWSUBy8n8iFznWffiHmncEWEh+De3x0ersf+1yJ5
+         oAn5OCdO7lkuUq3kv0k4z+fmmOhuy5ve75FTCTaTexFM4nei1nUtv7VrEHdvOXSpqToY
+         knAcSi+7HUueQnv+4oIcH9HI1L+b2AiYYM1iYO8E8IhXgJLx//sIkkeT/Gnjjl+/NVbt
+         A7IbVKCk7X/LzgYawhAqcwmW62WK+QwmkhGY28Diba/1PVaHSSTxEfJGOhMmE9gMbnqx
+         T6kdgPibvXwpPHXEBKJRHw1sCdLUp3tGaS3d/s8WZXiklXuJSuI/VlCG70BRB8fc+4xM
+         t2fw==
+X-Forwarded-Encrypted: i=1; AKwUvBxi+F7uxD+RZYd34GjANlpE+ti2Gc0NlyvjX0OPxTOdidf6iISGccs476BXzijoqs7I3QTsc4xz431L4/c=@vger.kernel.org
+X-Gm-Message-State: AFuF++kB4EFoCQ8gfcZFyblOG88gEi6FNcxT0H5PetXwOosolB3pyCBt
+	vWUlcTfKJPl7pOUeDG9/oTeb8D4E88gDFWNboSyOipiiSoHBqskGE+P6
+X-Gm-Gg: AYBFou0yz0grumdxTjQci4764sR6XODRMBSP4zDGF1C2wLbCgkV9aK9p4hhUbsefKou
+	Pt+90W+a8wQZpKh5jXpvhrdWV9g+HEMZm/gUCsNnqjz7BoY8NvfUyivlNLFKBNGSCJt6SyQeurg
+	3cV2EcO6zlbD2KzEVpo5d1DM+GiJaWczOVqvdzxaqp0293rHi48mi/Bq9UWlaRSCS8EKWgbKpPI
+	Uri/y2iI5hacj+tCOHcu8wwD814WHt+VbtvcgDYjuVSRWLTWl0lcWs+ZN0I/CnpXA0o8eFT2Orb
+	6EkbzgAAYa9OqfMoypMi9d2hVNUqC5rTIBTPBg1WEg0gs9tsH6qUo24+ycVGcTQcInBVNigxY2U
+	dcruhkfpR57rJGpI66+sSs0pYw+w416+4g6c4VmGyOvOPA8xYB/0K2RnVyVp5osufsIXVPM78mI
+	6y+wy3LdJ+oovvs6ikFcUTYENyTHwWbbs0hc63wcUQXS0rj09JSLOWFg==
+X-Received: by 2002:a05:690e:1919:b0:671:70e4:5181 with SMTP id 956f58d0204a3-6717fe00f0dmr1107824d50.107.1789782904827;
+        Fri, 18 Sep 2026 18:55:04 -0700 (PDT)
+Received: from gmail.com ([2600:1700:5431:250::3e])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67299071d4dsm710656d50.4.2026.09.18.18.55.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 18:55:04 -0700 (PDT)
+Date: Fri, 18 Sep 2026 18:55:00 -0700
+From: Chang Yu <marcus.yu.56@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Conor Dooley <conor@kernel.org>, Chang Yu <marcus.yu.56@gmail.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Shi Hao <i.shihao.999@gmail.com>,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: iio: light: add as7343
+Message-ID: <aq3rdBcMw1XcHnkL@gmail.com>
+References: <20260907210042.32552-1-marcus.yu.56@gmail.com>
+ <20260907210042.32552-2-marcus.yu.56@gmail.com>
+ <20260908-dinner-shelve-1d61e19ee3b7@spud>
+ <20260913014203.2bae2222@jic23-hlaptop>
+ <20260915-gleeful-jester-c8114edf28ff@spud>
+ <20260917034823.03940ac4@jic23-hlaptop>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 9/9] docs: core-api: Document the seq_buf API
-To: Kees Cook <kees@kernel.org>, Bill Wendling <morbo@google.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Petr Mladek <pmladek@suse.com>, Shuah Khan <skhan@linuxfoundation.org>,
- Steven Rostedt <rostedt@goodmis.org>, nikitash.mariiaw@gmail.com,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-References: <20260919002658.stay.929-kees@kernel.org>
- <20260919002714.4060307-9-kees@kernel.org>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260919002714.4060307-9-kees@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917034823.03940ac4@jic23-hlaptop>
 
-
-
-On 9/18/26 5:27 PM, Kees Cook wrote:
-> The kernel-doc in include/linux/seq_buf.h and lib/seq_buf.c documents
-> the seq_buf interface, but no .rst file pulls either of them in, so none
-> of it reaches the generated documentation.
+On Thu, Sep 17, 2026 at 03:48:23AM +0100, Jonathan Cameron wrote:
+> On Tue, 15 Sep 2026 18:11:17 +0100
+> Conor Dooley <conor@kernel.org> wrote:
 > 
-> Add the missing kernel-doc for seq_buf_clear() and seq_buf_init(), and a
-> Sequence Buffers section to the kernel API documentation. The static
-> internal helper seq_buf_can_fit() is left out. Additionally fix
-> seq_buf_hex_dump() indentation to avoid the reported Sphinx error:
+> > On Sun, Sep 13, 2026 at 01:42:03AM +0100, Jonathan Cameron wrote:
+> > > On Tue, 8 Sep 2026 19:13:55 +0100
+> > > Conor Dooley <conor@kernel.org> wrote:
+> > >   
+> > > > On Mon, Sep 07, 2026 at 02:00:41PM -0700, Chang Yu wrote:  
+> > > > > Add binding for AMS AS7343 which is a 14-channel multi-spectral sensor
+> > > > > with i2c address of 0x39.
+> > > > > 
+> > > > > The GPIO pin is described as a generic GPIO for now. Binding design for the
+> > > > > more advanced measurement/LED synchronization use cases are deferred to
+> > > > > future patches.    
+> > > > 
+> > > > Unfortunately, you can't change what you document, so picking something
+> > > > correct now is needed - even if the driver doesn't use it yet.  
+> > > 
+> > > Definitely needs an outline of how it would be backwards compatible and
+> > > an explanation of why not now.  Sometimes a portion of the binding is
+> > > so uncertain that we do kick it back from initial version but we 'must'
+> > > be sure we can extend the binding to new configurations.  Normally this
+> > > is one of those we are fairly sure, but not entirely sure cases - or
+> > > picking between two options where consensus isn't being reached.
+> > > 
+> > > Chang Yu: This sort of things needs discussion and is one of the reasons to
+> > > go slowly.  
+> > 
+> > Ye, I note that there are 2 more versions of this since I left this
+> > comment, but you seem to be on top of that.
+> > 
+> > > > > Datasheet: https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
+> > > > > Signed-off-by: Chang Yu <marcus.yu.56@gmail.com>
+> > > > > ---
+> > > > > Changes in v2:
+> > > > >   - Add the LDR, the interrupt pin, and the GPIO pin to the bindings.
+> > > > >   - Fix node name and unit address mismatch.
+> > > > >   - Include MAINTAINERS changes.
+> > > > > 
+> > > > >  .../bindings/iio/light/ams,as7343.yaml        | 69 +++++++++++++++++++
+> > > > >  MAINTAINERS                                   |  6 ++
+> > > > >  2 files changed, 75 insertions(+)
+> > > > >  create mode 100644 Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
+> > > > > 
+> > > > > diff --git a/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml b/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
+> > > > > new file mode 100644
+> > > > > index 000000000000..b06d445b92b3
+> > > > > --- /dev/null
+> > > > > +++ b/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
+> > > > > @@ -0,0 +1,69 @@
+> > > > > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> > > > > +%YAML 1.2
+> > > > > +---
+> > > > > +$id: http://devicetree.org/schemas/iio/light/ams,as7343.yaml#
+> > > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > > > +
+> > > > > +title: AMS AS7343 14-Channel Multi-Spectral Sensor
+> > > > > +
+> > > > > +maintainers:
+> > > > > +  - Chang Yu <marcus.yu.56@gmail.com>
+> > > > > +
+> > > > > +description: |
+> > > > > +  The AMS AS7343 is a 14-channel multi-spectral sensor with i2c address of 0x39.
+> > > > > +  https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
+> > > > > +
+> > > > > +properties:
+> > > > > +  compatible:
+> > > > > +    enum:
+> > > > > +      - ams,as7343
+> > > > > +
+> > > > > +  reg:
+> > > > > +    description:
+> > > > > +      I2C address of the device (0x39).
+> > > > > +    maxItems: 1
+> > > > > +
+> > > > > +  interrupts:
+> > > > > +    description:
+> > > > > +      Open drain output active low interrupt pin.
+> > > > > +    maxItems: 1
+> > > > > +
+> > > > > +  vdd-supply: true
+> > > > > +
+> > > > > +  ams,led-current-microamp:
+> > > > > +    description:
+> > > > > +      The driver current for the external LED connected to the LDR pin.
+> > > > > +    minimum: 4000
+> > > > > +    maximum: 258000
+> > > > > +    multipleOf: 2000
+> > > > > +    default: 12000    
+> > > > 
+> > > > Rather than a custom property, the tsl2772 uses led-max-microamp:
+> > > > tsl2772.yaml
+> > > > 46:  led-max-microamp:
+> > > > 81:                led-max-microamp = <100000>;
+> > > > 
+> > > > I wonder if the same should be done here, or if there should be an leds
+> > > > subnode? Perhaps the IIO folks can comment on that.  
+> > > 
+> > > I don't think we've ever bothered with a subnode as there only tends
+> > > to be one of them.  Given the enabling etc is all hardware controlled
+> > > I'm not sure a more generic LED binding makes sense. I don't know that
+> > > much about the led bindings though so maybe it is worth doing a subnode
+> > > just to use the leds/common.yaml definition of led-max-microamp?  
+> > 
+> > Could always just put a ref in to leds/common.yaml and not bother with a
+> > child node. I'd stick with the additionalProperties: false, since
+> > there's lots of leds properties that probably don't apply to a device
+> > like this.
+> > 
+> Sounds good to me.
 > 
->   ERROR: Unexpected indentation.
->   WARNING: Block quote ends without a blank line; unexpected unindent.
+> > Cheers,
+> > Conor.
 > 
-> Verified with "make SPHINXDIRS=core-api htmldocs", which rendered
-> happily into core-api/kernel-api.html.
-> 
-> Assisted-by: LLM
-> Co-developed-by: Bill Wendling <morbo@google.com>
-> Signed-off-by: Bill Wendling <morbo@google.com>
-> Signed-off-by: Kees Cook <kees@kernel.org>
+A quick heads up, adding a ref produces the following error when running
+dt_binding_check:
 
-Looks good. Thanks.
+properties:led-max-microamp: '$ref' should not be valid under {'const': '$ref'}
+	hint: Standard unit suffix properties don't need a type $ref
+	from schema $id: http://devicetree.org/meta-schemas/core.yaml
 
-Tested-by: Randy Dunlap <rdunlap@infradead.org>
-Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
-
-> ---
-> Cc: Jonathan Corbet <corbet@lwn.net>
-> Cc: <linux-doc@vger.kernel.org>
-> Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Cc: Petr Mladek <pmladek@suse.com>
-> Cc: Randy Dunlap <rdunlap@infradead.org>
-> Cc: Shuah Khan <skhan@linuxfoundation.org>
-> Cc: Steven Rostedt <rostedt@goodmis.org>
-> ---
->  Documentation/core-api/kernel-api.rst |  9 +++++++++
->  include/linux/seq_buf.h               | 12 ++++++++++++
->  lib/seq_buf.c                         | 13 +++++++------
->  3 files changed, 28 insertions(+), 6 deletions(-)
-> 
-> diff --git a/Documentation/core-api/kernel-api.rst b/Documentation/core-api/kernel-api.rst
-> index 4c4a57c1c094..f5a0aedbbb48 100644
-> --- a/Documentation/core-api/kernel-api.rst
-> +++ b/Documentation/core-api/kernel-api.rst
-> @@ -96,6 +96,15 @@ Error Pointers
->  .. kernel-doc:: include/linux/err.h
->     :internal:
->  
-> +Sequence Buffers
-> +----------------
-> +
-> +.. kernel-doc:: include/linux/seq_buf.h
-> +   :internal:
-> +
-> +.. kernel-doc:: lib/seq_buf.c
-> +   :no-identifiers: seq_buf_can_fit
-> +
->  Sorting
->  -------
->  
-> diff --git a/include/linux/seq_buf.h b/include/linux/seq_buf.h
-> index 89d847d40626..416a8b67b9ad 100644
-> --- a/include/linux/seq_buf.h
-> +++ b/include/linux/seq_buf.h
-> @@ -31,6 +31,10 @@ struct seq_buf {
->  		.size = SIZE,				\
->  	}
->  
-> +/**
-> + * seq_buf_clear - reset the seq_buf to be read / appended from the beginning
-> + * @s: the seq_buf handle
-> + */
->  static inline void seq_buf_clear(struct seq_buf *s)
->  {
->  	s->len = 0;
-> @@ -38,6 +42,14 @@ static inline void seq_buf_clear(struct seq_buf *s)
->  		s->buffer[0] = '\0';
->  }
->  
-> +/**
-> + * seq_buf_init - initialize a seq_buf
-> + * @s: the seq_buf handle
-> + * @buf: pointer to the buffer
-> + * @size: total size of @buf
-> + *
-> + * The contents of the buffer are ignored.
-> + */
->  static inline void
->  seq_buf_init(struct seq_buf *s, char *buf, unsigned int size)
->  {
-> diff --git a/lib/seq_buf.c b/lib/seq_buf.c
-> index 7e3bf837da01..1c86eae9e188 100644
-> --- a/lib/seq_buf.c
-> +++ b/lib/seq_buf.c
-> @@ -407,12 +407,13 @@ int seq_buf_to_user(struct seq_buf *s, char __user *ubuf, size_t start, int cnt)
->   *
->   * Function is an analogue of print_hex_dump() and thus has similar interface.
->   *
-> - * linebuf size is maximal length for one line.
-> - * 32 * 3 - maximum bytes per line, each printed into 2 chars + 1 for
-> - *	separating space
-> - * 2 - spaces separating hex dump and ASCII representation
-> - * 32 - ASCII representation
-> - * 1 - terminating '\0'
-> + * linebuf size is maximal length for one line::
-> + *
-> + *	32 * 3 - maximum bytes per line, each printed into 2 chars + 1 for
-> + *		 separating space
-> + *	2 - spaces separating hex dump and ASCII representation
-> + *	32 - ASCII representation
-> + *	1 - terminating '\0'
->   *
->   * Returns: zero on success, -1 on overflow.
->   */
-
--- 
-~Randy
+So it looks like we can just put led-max-microamp, and not add the $ref.
