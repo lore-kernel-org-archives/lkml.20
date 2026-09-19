@@ -1,76 +1,77 @@
 Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBB4C47ECD0
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 11:25:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8231747FAF9
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 11:25:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789817122; cv=none; b=oVBF6nY3XU47B3GClbrFo7Di2DdSY5yiHmv1oAMDBVIPQO6Dw2z/5xi097vNHbVghsBgtmFd7qbKQvoK9D3ef/9iz5S+qmU65r/wCxmbA0xn1NDNgBTy3MW3V4xdCQaAuQfY9I7OzC4ieER6BUs4CWgfiYc0FqMGyFwJra4SAS0=
+	t=1789817122; cv=none; b=sFJfZfc3nW23nR5tCxc3v4jKitVhTadkCvRQS13NzgzQO8dbSkYreASMB9O6OqgG+rqgV7BotyNAXwwiAjeGzHdVpNacqTFjj+xDR1EZlN3y++gePoE0e7cDj6VykRMeOS5SP+wZyGCLEWZKlkn8bvys3XHAQqW9X4pclC3hPwQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789817122; c=relaxed/simple;
-	bh=WYVmuKHJkf0XxI5S9mwVnzGt7j/jxkgSXCWwYipENBE=;
+	bh=o8qYnC0iodB6i5JYex5NwbUYoqmBX7ZvIJfjLF28bDg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=S4OO+juBSdV8EuGWTKoJpgawn7ZrTDPCJOpCrCLzrB/X2AlDAV3ch65SNWRDeeIDxDLxBZ2QC3+GkibCY1DC0z74SBxmkGJRJv6B+I8PhhXKd/05toU52na8zolug0/N6hLZZQjxkxBLITqBzFS/AGR+A/avNZFsoXkmVyCqGMo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nLfb1vqu; arc=none smtp.client-ip=74.125.228.12
+	 MIME-Version; b=P36nl7eDSrVvNWZU7GuFQo2igQVeOgLHHqLD9/Yr2RMDPlZ450cazCrYoX+VnEk4frDGAV3Akl3SNt0sz41pu4fX1lQokDLWZhO+x37w3UOvxPVZZFkPgrRru+sqkryjM7kcFSQL8OpFdWRWP8/LlpFxZ4fx5gCdh1w4hjuxy5s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HUEmySLY; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nLfb1vqu"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469b35601so958054b3a.3
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 04:25:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HUEmySLY"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-86b90133ae8so1157691b3a.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 04:25:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789817120; x=1790421920; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789817121; x=1790421921; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ptXq5DUVT3K9Jwo/D1LNkcuXeWLTL0CSUgmwhJadvLU=;
-        b=nLfb1vquVfOpm1AQpCDBbKFr36pguSeCTUbiDmvlukXT7n2DATjPLawW26RE4xmAIG
-         evQe+j0AAHcbzOm3Q9Q/9swjf0woksyrtzIkRz7hj7VOrMgoa38iazeT/6z+nU4A6fKW
-         yY7C+2joifqRJy5XxL2A/C3hSw+eaKRLcsoaS5pCnELCc/kYkaXQhETMA2HnXQtnMp+W
-         dnqXeV7N3b8/OhOIaGI4XbiP8C1dWpaVEzQW+/zqM28g63GU3tDIz8r0aS3AuZEDj3Fm
-         uzojMSqW0Nw0E8YVUsAjJzKlyDbB+V17kT/G4g5bqalzehA1cMHH1LItzUg0HhHyhV+S
-         VOmg==
+        bh=Fz45Uiv+rMZz4ewexv5U1L2m2XZjVKu0OOwOAru4fI4=;
+        b=HUEmySLYuiW6CBntMnADpaurgOpUg381KDxu3JAv3/kChmMRrXr4wX1l2bRpgFmo8E
+         B0UWx8WyxttxK0tY6fSNqmsk0vPDF6Rcm1mzcUKvfnQCePMt+fmDiJMHPMn3y2+ppm88
+         lrITtaUd7Z/L0Fe4jDbnwy8fjplvMWnwN+nSi3omyMUleYjJX3dHitUbdBqifu2qPoj8
+         iycybrLfTa8aqxjldyc4/Nl3W9pSOAifkWpaxRxITm6Tgs0+3QnteJEu0sSoHC6nKs+m
+         th3ZawGDDDdiJRtBfU9ZI6KmGLzCUpcRH1/uaJriEuu0USVOHmhkRRUKkPyZ22HUBj35
+         JAsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789817120; x=1790421920;
+        d=1e100.net; s=20260707; t=1789817121; x=1790421921;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ptXq5DUVT3K9Jwo/D1LNkcuXeWLTL0CSUgmwhJadvLU=;
-        b=R8drUEOTapvUQQ/zv3QbyE1/Fb8o6I4sVr3AahqRkxsxaSC7/9RAeL5gHaIigozRUS
-         cKHFJcrnGIIo/eCPTJG4uN78LJPSgfxu51l8aS9dGSdqTZ3DG+yy+LzSkP+WXGcu7eKY
-         q/Rz7f60odRmpRA7HixHUtVzw/HUNRjPi0epzHE8AnIJYmMDdKmtbwjZn7T8Q58hoK7R
-         IQEv1cTtdAblEeq4soIcbzYExlvXsTDxiadmPHkBniX2qgt3E7A9CSSPwBOE7Q2Sg9lf
-         nyxC1j1j11foq/SwbjhCa7cGmWAPHD7HN2UY1aHILYzYs5PLXc4mEmIow1SwZ6E7KBlT
-         n2YA==
-X-Forwarded-Encrypted: i=1; AKwUvBxQsJ2wvmXojMVKk0qveTpH7XgH6GMdgh6iHW6d6dWXDb6UkyPdoG9eRz2dtZI+CTOoi3wrwlhXmAS9vls=@vger.kernel.org
-X-Gm-Message-State: AFuF++mV5JpaPR/+KNTBeEz1+nEapqj60zEjMC8/hQhgOP6pl9ZxKoqQ
-	uX+pHZC3Fvvw2XqwENc0gCROX6adESKjHTTJVyKbYktsECoqk7UyqWYK
-X-Gm-Gg: AYBFou19f+pOf5oSKD2FkeubRMQPlX2yY6HAX0c10kfqt+AF5l6dt2OxuOg4c1VKkib
-	E4UoalKq9qYnNMFEGpp/FsdL67Kk1lPQ4mHcyGtPdE4b9Ae5C4wyRAdjph06UokjGNEqkMfykxJ
-	ZzIym5m+28UbBPyQ4F6Y+6wZEiyVDedc4qTKWWGOeFq6JpG8HD7oQoeZSD3iQ7Wb625/nxbnPun
-	WAuwKqZoku9ZaMUrQTVuuveCI4hE2QM8ifulN0R0A4MMR2gdmII89a3emQMY2Um4BegQIjJI9V2
-	pFx2XbZnGwNVjK8SB6N6x7EgMh5s6WWyiWYPQyVsPDH0TXjhlbx0v3Wh9Gao1RHaEOpu2Tx4W9+
-	nHMpBOtm5sV7naSCdE6bRNyWCa9v5cZNougmp7pHr0C9ge2UY/oeuVfN5fZ6J48aGag50zu7Pwm
-	PnoJBB9ztMudcNrOsiJM3FkR9+jjo6venxthx5qAKrsEKx0MFTDYJevSykhqvv3XAujk6Be5D2y
-	znyS8Uk8F8gSNJ4U5wpF2p1bkaWsrEo1mYbVJhcKWZc4sEW89EmmcBrdMcInEL5+tEso2oLzn5d
-	cE/siUQo4Q==
-X-Received: by 2002:a05:6a00:3cd6:b0:86e:8deb:fbd4 with SMTP id d2e1a72fcca58-874dbde4f90mr9348313b3a.11.1789817120159;
+        bh=Fz45Uiv+rMZz4ewexv5U1L2m2XZjVKu0OOwOAru4fI4=;
+        b=vjn7LSMbEz3hI/i7VS78+g2MiWnQ8UH2bvOMfLJj6B1qbmGiv5scvpJOyMOWc9dEIK
+         4MmCZD1joFLtU5vakN8O711qHvoUJx6Vq2E2S7pnwCSycUPgapbSYWSSdARcxKD2AWGB
+         3+57U12Tz1MbBYwFmoRsM+kRDmijaVTRvwUausf2swgJLi5Nly/MkXksSVUiVHAadYDB
+         EmXj0LzUlmEIHbAVdd7yvhY3ZZ0TztVwE0GPmndVO/nGBRolYzgJ42N1EAjzL++Vu4S4
+         i6+AXVfx0SqQeD30gMlGOGd2lcqC7A7XdESErGywy8lJHNFHB3176nlm48SP1nKDDHdG
+         FaJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzzU/vDGb+dSBXJGNq9LsJGXdm8zMFbVGDxAgSfB05vY/f/3y3sNcylq4F79L9gLXE959/2vn+lneyl+eU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mkIMuO964HhCbhpdBPGK23zfTKw6jFQ6ZSN6HM8gjt2LCaidde
+	wjLCnxVNoOg2TlNKcLXwac4xjYa1AXBVbj/dkgWYOejf3IgJsE6D5RqeBVhzpl7v
+X-Gm-Gg: AYBFou0dVEN+gDtOp4WIC1ZWc5E7+nzZsfR5mFICtOH8QJ9NR6OwNiCb3Qzh+JZEiB9
+	G0jVggxdSIWl/fofLpHYF/FYBDoCI/i4DSGOg/ti0drLf9rEPnZ7a918kISWgFabv0Y6a7pFEvU
+	MiuU8TR6m1mRdcf+raHdYqoAdtr2s4fIDZdonKb+CVley46pUkgPxairLEBD+kfUKvtQbYx1hYH
+	AHLETxef68y/1plthJRyzCa1f/7RHgR+2kk7bdLsZTTrlGza4Y5NLS4LgpXoO4yKBOOtVH3A8LN
+	c/DoMXASw8T1VX7wTuqImoLdfIz/qEqugGWwnblGy7ENkkCUIKcUSPcPLK20YzCuvru7SwVjbbc
+	QQD/3B9UJbPr+5H3yRcT7DjfmS404cAx67pTcPz/yPIGcXfnd/6jQCCjSQuLCy2GHTkjJS1AXf8
+	FxoKAdqzMGMfMYMoNF5VkgxAyNvmwL+pgne+m0QJo+UNNsRoKMKG87MMCK2ZbzAFv2TEDvdlRAh
+	UFi0mOaGjaJ8BFwuWejkozZJUx2bo6t1oEszKmj/3kV2FlF3FwJaiQdm7m35lW2WItyaUJE8JkU
+	PnUnd+r/qA==
+X-Received: by 2002:a05:6a00:9291:b0:874:705d:f649 with SMTP id d2e1a72fcca58-874deced9c5mr7653377b3a.43.1789817120928;
         Sat, 19 Sep 2026 04:25:20 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a9d07425sm949957b3a.42.2026.09.19.04.25.19
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a9d07425sm949957b3a.42.2026.09.19.04.25.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 04:25:19 -0700 (PDT)
+        Sat, 19 Sep 2026 04:25:20 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
 To: brauner@kernel.org,
 	viro@zeniv.linux.org.uk
 Cc: jack@suse.cz,
 	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/2] nsfs: fix u32-vs-bytes unit mismatch in nsfs_fh_to_dentry()
-Date: Sat, 19 Sep 2026 11:25:18 +0000
-Message-ID: <20260919112519.3872163-1-benquike@gmail.com>
-In-Reply-To: <20260919080850.3005810-1-benquike@gmail.com>
+Subject: [PATCH v2 2/2] nsfs: fix namespace reference leak on unsupported ns_type in nsfs_fh_to_dentry()
+Date: Sat, 19 Sep 2026 11:25:19 +0000
+Message-ID: <20260919112519.3872163-2-benquike@gmail.com>
+In-Reply-To: <20260919112519.3872163-1-benquike@gmail.com>
 References: <20260919080850.3005810-1-benquike@gmail.com>
+ <20260919112519.3872163-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,58 +80,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In nsfs_fh_to_dentry(), both fh_len and NSFS_FID_SIZE_U32_LATEST (4) are
-expressed in units of 4-byte u32 words rather than bytes, whereas
-pointer arithmetic on (void *)fid and the byte count passed to
-memchr_inv() are in bytes (NSFS_FILE_HANDLE_SIZE_LATEST = 16).
+In nsfs_fh_to_dentry(), ns_get_unless_inactive(ns) acquires an active
+reference to ns before switching on ns->ns_type. Unlike the CLONE_NEWPID
+error path and the owning_ns permission error path, the default: branch
+returns ERR_PTR(-EOPNOTSUPP) without calling ns->ops->put(ns), leaking
+the namespace reference.
 
-Passing (void *)fid + NSFS_FID_SIZE_U32_LATEST and
-fh_len - NSFS_FID_SIZE_U32_LATEST to memchr_inv() inspects bytes
-[4 .. fh_len) inside struct nsfs_file_handle (fid->ns_id and
-fid->ns_type) instead of the trailing bytes [16 .. fh_len * 4) after
-struct nsfs_file_handle. Consequently:
-1. Valid zero-padded handles with handle_bytes >= 36 (fh_len >= 9) where
-   fid->ns_type != 0 (at byte offset 8) are falsely rejected with
-   -ESTALE.
-2. Non-zero trailing garbage in bytes [16 .. fh_len * 4) is ignored when
-   the upper 32 bits of fid->ns_id (bytes [4..7]) are zero.
-
-Fix this by offsetting (void *)fid by NSFS_FILE_HANDLE_SIZE_LATEST (16)
-and multiplying (fh_len - NSFS_FID_SIZE_U32_LATEST) by sizeof(u32).
+Call ns->ops->put(ns) before returning ERR_PTR(-EOPNOTSUPP) in the
+default: branch.
 
 Fixes: 5222470b2fbb ("nsfs: support file handles")
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
-v2: Add a Fixes: tag. nsfs_fh_to_dentry(), both NSFS_FID_SIZE_U32_*
-constants and this comparison were all added together by 5222470b2fbb
-("nsfs: support file handles"), first released in v6.18.
+v2: Add a Fixes: tag. I blamed the default: label and its return
+separately from patch 1/2 to be sure: both come from 5222470b2fbb
+("nsfs: support file handles"), and the asymmetry is present in the
+original version - the sibling CLONE_NEWPID and ns_capable() error paths
+both call ns->ops->put(ns), only default: does not. The two later
+commits touching this switch, 4055526d3574 ("ns: move ns type into
+struct ns_common") and 3a18f809184b ("ns: add active reference count"),
+only change the switch expression and how the reference is taken; they
+do not add or remove a put.
 
-To be explicit about the impact, since a Fixes: tag will get this picked
-up for stable: this is NOT a memory-safety bug. (void *)fid + 4 stays
-well inside the 16-byte struct nsfs_file_handle, and fh_len - 4 is
-smaller than the intended (fh_len - 4) * 4, so the existing scan is
-strictly narrower than it should be. The consequences are a spurious
--ESTALE for handles with handle_bytes >= 36, and trailing non-zero bytes
-not being rejected as intended.
+Please note I have no reproducer for this one and I am not claiming it
+is currently reachable: ns comes from ns_tree_lookup_rcu(), which only
+returns namespaces present in the ns tree, and every namespace type that
+can exist in a given config has a matching case, gated by the same
+CONFIG_* symbols. So default: looks dead today and this is really an
+error-path-symmetry / future-proofing fix rather than a live leak.
+Treat it accordingly for stable - I would not object to dropping the
+Fixes: tag to keep AUTOSEL away from it, or to folding the three error
+paths into a common goto out_put; if you prefer that shape.
 
- fs/nsfs.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/nsfs.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/fs/nsfs.c b/fs/nsfs.c
-index c3b6ae765..a1842e12f 100644
+index a1842e12f..e9cc09583 100644
 --- a/fs/nsfs.c
 +++ b/fs/nsfs.c
-@@ -529,8 +529,8 @@
+@@ -624,6 +624,7 @@
+ 		break;
+ #endif
+ 	default:
++		ns->ops->put(ns);
+ 		return ERR_PTR(-EOPNOTSUPP);
+ 	}
  
- 	/* Check that any trailing bytes are zero. */
- 	if ((fh_len > NSFS_FID_SIZE_U32_LATEST) &&
--	    memchr_inv((void *)fid + NSFS_FID_SIZE_U32_LATEST, 0,
--		       fh_len - NSFS_FID_SIZE_U32_LATEST))
-+	    memchr_inv((void *)fid + NSFS_FILE_HANDLE_SIZE_LATEST, 0,
-+		       (fh_len - NSFS_FID_SIZE_U32_LATEST) * sizeof(u32)))
- 		return NULL;
- 
- 	switch (fh_type) {
 -- 
 2.43.0
