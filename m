@@ -1,333 +1,183 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31C81366575;
-	Sat, 19 Sep 2026 19:44:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE4933815E3;
+	Sat, 19 Sep 2026 19:44:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789847059; cv=none; b=MgvrbNcO8/Wn3g4Zz7kXJ1S4n0/65WIPQlnniBvP+eCkcS3amxn9iSz/icnqLQFGawkw0FMgY7I5ae0i/Fjk7DGY4UMT6v+cYI2YBuP6wpXZHXSuQ9rnFVNeMIJf5BAEPpnuWEGRPBDFpj59RbY1OK/9NCKMFZt9wjkWR08KYjQ=
+	t=1789847091; cv=none; b=pFF/Np0i1vKrZdkWD7ZGvdz1JHnLsTEJiTzZgfqtmMi/Dg+G/gVwNqciz6a/gpsS4B73pVPXKpsUWUZlZ57QgGF/9Srgg6x4EvcstyaohDdaXJiMiO27F8/Tsdk9q1MNndQw5IVUs3JadFEQyLWfdv4avVIncentUUA37DD15VU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789847059; c=relaxed/simple;
-	bh=r77sIn49Lrr2a0v+bk8OJsZiqcGMnZs+bQDLle5pZFQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=oy8Cc4ZitBnrqBcDrwlw+J+TlPTnGuLqQ+wK+3bCMh5iME4fkBgkakueHl3Cf39zgYYuG+5rbFfdUm7r9V9yQa66du2MajOhr3IYCIs/DMiKc52srPhbUUhKvGvB3tbsCdeYsG7v+GzOBUxmj/BtmhwH6u4dKTq+GL78084DIQk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l3NFDR/w; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789847091; c=relaxed/simple;
+	bh=Ixu3UO9lZvjmGvkxIbVOSuDtQAsLTQwkWpcCBbb2pKg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RpPPvUczn5tVRR0HPeYtrtCTHLja2G3HyTDdrCWC6Yo9IUEs6yQ8FDqHDxYo+5PynDm8q48oCV7Wf2LNzYo+1EVtsyF3o9UQR4qsp5qywaCnLDOn5oeTocj585bTwFLx43vi2cjmXo3NhLNqj1Sg5bwb10QpsspST0DrQYA52Ms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=mdKST0QH; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=mMnbP0Kh; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l3NFDR/w"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CAB1DC2BCFB;
-	Sat, 19 Sep 2026 19:44:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789847058;
-	bh=r77sIn49Lrr2a0v+bk8OJsZiqcGMnZs+bQDLle5pZFQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=l3NFDR/wKRDw+pu35YYKXns2b90KaTGqDfWuVLZiIyt9AtXZcSm67p76Xq80RxCVe
-	 bJIcXTdze9wA87bOooQPFLAI9q0A+SF28NmtXIgCFzfHcLWUicJ4Y5kNJN30llWE+t
-	 1ZWL/ZRp/vgdYvk76Q2h7kJO/qy+SKFi6SN1fH/UHEiqzV2cCwDa6z5lqxZpen2Efz
-	 j78PGIzf8MtM4P2I3eVK1IZ4uZduwCxugSYsekXv74lzoo1l3/Qe5BU1QIVCXP1HdY
-	 PlIlmpTMfmvzb4mFr1CjvWJ6Tc195DuCVI7yLNg9NqOlbwcayQTOeK2qxXvAMHO366
-	 JDEZImPGkCQfw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AB08BC982D7;
-	Sat, 19 Sep 2026 19:44:18 +0000 (UTC)
-From: Nicolo Giuliani via B4 Relay <devnull+nicolo.giuliani6.studio.unibo.it@kernel.org>
-Date: Sat, 19 Sep 2026 21:44:19 +0200
-Subject: [PATCH 3/3] arm64: dts: marvell: Add Sophos XGS 107w NPU board
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="mdKST0QH";
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="mMnbP0Kh"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 1836621DA7;
+	Sat, 19 Sep 2026 19:44:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1789847082; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=vMnIzq0jeVhj82nzM1btMxW/JCXfgOB67xDr2BdpXgs=;
+	b=mdKST0QHR7gRFw1P6PjTLwjijesQYymAIn54kCttGfTsguA4LCghzSnhQUSOKZgCWh6Ybh
+	p11NYjNCa+aT7M7/DTq7/T3GIAkhSFaEp9AqGkXYJ6T/bEDO5v03A7JT4y3iJHjbNxZ8+1
+	XNU3QbgtW4WGoU7O47CHSw1FRG3yw8Y=
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=mMnbP0Kh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1789847078; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=vMnIzq0jeVhj82nzM1btMxW/JCXfgOB67xDr2BdpXgs=;
+	b=mMnbP0Kh+8yWRAD0GDG5PiHlCGAtIlspy74y0LgqWui4rvpUyLuWWAXeL4zCHgfpyPBY6R
+	IiC3Hf8dotx2Jg2iX6GimJOMtEt/YxP/NKLfCrz3UTM3Ae3A41CzJvp6gbN8k0wsAbmgYO
+	/LKopzvdyA9PzZ+Bq/RqRsvhyUtLv/c=
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B914D133CF;
+	Sat, 19 Sep 2026 19:44:37 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 6M/vIyXmrmpMfgAAD6G6ig
+	(envelope-from <dsterba@suse.com>); Sat, 19 Sep 2026 19:44:37 +0000
+From: David Sterba <dsterba@suse.com>
+To: torvalds@linux-foundation.org
+Cc: David Sterba <dsterba@suse.com>,
+	linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [GIT PULL] Btrfs fixes for 7.3-rc4
+Date: Sat, 19 Sep 2026 21:44:31 +0200
+Message-ID: <cover.1789845496.git.dsterba@suse.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260919-send-dt-v1-3-365615a74ef3@studio.unibo.it>
-References: <20260919-send-dt-v1-0-365615a74ef3@studio.unibo.it>
-In-Reply-To: <20260919-send-dt-v1-0-365615a74ef3@studio.unibo.it>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
- Gregory Clement <gregory.clement@bootlin.com>, 
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, 
- Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789847056; l=6691;
- i=nicolo.giuliani6@studio.unibo.it; s=20260919; h=from:subject:message-id;
- bh=cIld08OYfIFoE2gYQn26s1yqlTESE8txLhhnKZ8Q8Do=;
- b=irq2DjZt92s3gqXtY4NG/t2J0ny6CpKXo0bhcgmgQnq30P68soK44PkumnTQT6PRPCDQz8vgj
- MYJVulk1BRDAHliu8J5XS14QpKdHCUTS+16advJuMiU/5HoPc1XVO9I
-X-Developer-Key: i=nicolo.giuliani6@studio.unibo.it; a=ed25519;
- pk=D652ecdT01GkA1eoFWNFNX85xIg5ZnFwUWyjfestgQw=
-X-Endpoint-Received: by B4 Relay for
- nicolo.giuliani6@studio.unibo.it/20260919 with auth_id=1040
-X-Original-From: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
-Reply-To: nicolo.giuliani6@studio.unibo.it
+Content-Transfer-Encoding: 8bit
+X-Spam-Score: -3.01
+X-Rspamd-Queue-Id: 1836621DA7
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_COUNT_TWO(0.00)[2];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:dkim,suse.com:mid];
+	RCVD_TLS_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	RCPT_COUNT_THREE(0.00)[4];
+	DKIM_TRACE(0.00)[suse.com:+]
+X-Spam-Flag: NO
 
-From: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
+Hi,
 
-Add a device tree for the network processing unit (NPU) of the Sophos
-XGS 87/107 desktop firewalls. The appliance pairs an AMD x86 host with the
-NPU, a Marvell Armada CN9130 SoC with its own eMMC and SPI NOR flash that
-runs independently of the host and serves the front panel ports.
+please pull the following fixes. Among the regular fixes, there are two
+that were reported recently and have user impact:
 
-The eight RJ45 ports and the SFP cage are connected through a Marvell
-88E6193X switch on the MDIO bus of the SoC, at address 2. Switch port 0
-is the CPU port, a 10GBASE-R link to the first mvpp2 port. Ports 1 to 8
-are the RJ45 ports, which use the internal PHYs of the switch, and
-port 9 is the SFP cage, connected over 1000BASE-X.
+- filesystem id is now stable again on the default and common case (it
+  broke openconnect key derivation, while this is not secure, it's still
+  in use), the intention was to change id for the temp_fsid use case
 
-Describe the UART console, the eMMC, the SPI NOR flash that holds the boot
-loader and its environment (read-only), the PCA9555 GPIO expander that
-drives the port LEDs, the SFP cage and the switch with its ports. The LEDs
-themselves, the PCIe link to the x86 host and the USB ports are not
-described.
+- fix detection of /dev/root and rename it after device scan, this broke
+  booting of initramdisk-less system with grub2 as the probe needs the
+  real device
 
-The reset line of the switch (CP GPIO2 pin 17) is deliberately not given
-to the mv88e6xxx driver as reset-gpios. The 88E6193X needs about two
-seconds after a reset before it can be used, much longer than the driver
-waits, so the probe would time out. The boot loader resets the switch
-before it starts the kernel.
+Regular fixes:
 
-Tested on an XGS 107w with Linux 6.18: boot from eMMC, eMMC and SPI NOR
-access, the mvpp2 link to the switch at 10 Gb/s, the 88E6193X probing with
-its eight user ports, and 936 Mbit/s through a front port. The SFP cage
-and the PCA9555 outputs are untested.
+- don't store compressed inline extent if the size is larger than
+  uncompressed
 
-Assisted-by: LLM
-Signed-off-by: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
----
- arch/arm64/boot/dts/marvell/Makefile               |   1 +
- .../boot/dts/marvell/cn9130-sophos-xgs107w.dts     | 209 +++++++++++++++++++++
- 2 files changed, 210 insertions(+)
+- in zoned mode, handle activation of zones for all supported block
+  group profiles in case there are still free ones left
 
-diff --git a/arch/arm64/boot/dts/marvell/Makefile b/arch/arm64/boot/dts/marvell/Makefile
-index 09d1544041..81f892715b 100644
---- a/arch/arm64/boot/dts/marvell/Makefile
-+++ b/arch/arm64/boot/dts/marvell/Makefile
-@@ -34,5 +34,6 @@ dtb-$(CONFIG_ARCH_MVEBU) += cn9130-cf-base.dtb
- dtb-$(CONFIG_ARCH_MVEBU) += cn9130-cf-pro.dtb
- dtb-$(CONFIG_ARCH_MVEBU) += cn9131-cf-solidwan.dtb
- dtb-$(CONFIG_ARCH_MVEBU) += cn9132-clearfog.dtb
-+dtb-$(CONFIG_ARCH_MVEBU) += cn9130-sophos-xgs107w.dtb
- 
- subdir-y	+= mmp
-diff --git a/arch/arm64/boot/dts/marvell/cn9130-sophos-xgs107w.dts b/arch/arm64/boot/dts/marvell/cn9130-sophos-xgs107w.dts
-new file mode 100644
-index 0000000000..d98d8da10e
---- /dev/null
-+++ b/arch/arm64/boot/dts/marvell/cn9130-sophos-xgs107w.dts
-@@ -0,0 +1,209 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Device tree for the network processing unit (NPU) of the Sophos XGS 87/107
-+ * firewalls: a Marvell CN9130 SoC with a Marvell 88E6193X switch.
-+ *
-+ * The x86 host on the same board is not described here.
-+ */
-+
-+/dts-v1/;
-+
-+#include "cn9130.dtsi"
-+#include <dt-bindings/gpio/gpio.h>
-+
-+/ {
-+	model = "Sophos XGS 107w (CN9130 NPU)";
-+	compatible = "sophos,xgs107w-npu", "marvell,cn9130",
-+		     "marvell,armada-ap807-quad", "marvell,armada-ap807";
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	aliases {
-+		ethernet0 = &cp0_eth0;
-+		i2c0 = &cp0_i2c0;
-+		i2c1 = &cp0_i2c1;
-+	};
-+
-+	memory@0 {
-+		device_type = "memory";
-+		reg = <0x0 0x0 0x0 0x80000000>;
-+	};
-+
-+	reserved-memory {
-+		/* OP-TEE, reserved by the firmware */
-+		tee@4400000 {
-+			reg = <0x0 0x4400000 0x0 0x1000000>;
-+			no-map;
-+		};
-+	};
-+
-+	/* Front-panel SFP cage "F1", wired to switch port 9 */
-+	sfp: sfp {
-+		compatible = "sff,sfp";
-+		i2c-bus = <&cp0_i2c1>;
-+		los-gpios = <&cp0_gpio1 1 GPIO_ACTIVE_HIGH>;
-+		tx-fault-gpios = <&cp0_gpio1 2 GPIO_ACTIVE_HIGH>;
-+		mod-def0-gpios = <&cp0_gpio1 3 GPIO_ACTIVE_LOW>;
-+		tx-disable-gpios = <&cp0_gpio1 7 GPIO_ACTIVE_HIGH>;
-+	};
-+};
-+
-+&uart0 {
-+	status = "okay";
-+};
-+
-+/* eMMC on the AP */
-+&ap_sdhci0 {
-+	bus-width = <8>;
-+	non-removable;
-+	mmc-ddr-1_8v;
-+	status = "okay";
-+};
-+
-+/*
-+ * The MPP pin muxing is left as configured by the boot loader; the pin
-+ * controller node only exists to back the GPIO banks.
-+ */
-+&cp0_syscon0 {
-+	cp0_pinctrl: pinctrl {
-+		compatible = "marvell,cp115-standalone-pinctrl";
-+	};
-+};
-+
-+&cp0_i2c0 {
-+	clock-frequency = <100000>;
-+	status = "okay";
-+
-+	/* Drives the port speed LEDs, which are not described yet */
-+	gpio@20 {
-+		compatible = "nxp,pca9555";
-+		reg = <0x20>;
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+	};
-+};
-+
-+&cp0_i2c1 {
-+	/* SFP EEPROM (0x50/0x51) */
-+	clock-frequency = <100000>;
-+	status = "okay";
-+};
-+
-+/* 4 MB SPI NOR with U-Boot and its environment, read-only on purpose */
-+&cp0_spi0 {
-+	status = "okay";
-+
-+	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
-+		spi-max-frequency = <40000000>;
-+
-+		partitions {
-+			compatible = "fixed-partitions";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			partition@0 {
-+				label = "u-boot";
-+				reg = <0x0 0x3f0000>;
-+				read-only;
-+			};
-+
-+			partition@3f0000 {
-+				label = "u-boot-env";
-+				reg = <0x3f0000 0x10000>;
-+				read-only;
-+			};
-+		};
-+	};
-+};
-+
-+&cp0_ethernet {
-+	status = "okay";
-+};
-+
-+/* 10G link to switch port 0 */
-+&cp0_eth0 {
-+	phy-mode = "10gbase-r";
-+	phys = <&cp0_comphy4 0>;
-+	managed = "in-band-status";
-+	status = "okay";
-+};
-+
-+&cp0_mdio {
-+	status = "okay";
-+
-+	switch@2 {
-+		compatible = "marvell,mv88e6190";
-+		reg = <2>;
-+		/*
-+		 * The reset line of the switch is CP GPIO2 pin 17. It is not
-+		 * described as reset-gpios: the 88E6193X needs about two
-+		 * seconds after a reset before it can be used, much longer
-+		 * than the driver waits, and the probe would time out. The
-+		 * boot loader resets the switch before starting the kernel.
-+		 */
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+				ethernet = <&cp0_eth0>;
-+				phy-mode = "10gbase-r";
-+				managed = "in-band-status";
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+				label = "p1";
-+			};
-+
-+			port@2 {
-+				reg = <2>;
-+				label = "p2";
-+			};
-+
-+			port@3 {
-+				reg = <3>;
-+				label = "p3";
-+			};
-+
-+			port@4 {
-+				reg = <4>;
-+				label = "p4";
-+			};
-+
-+			port@5 {
-+				reg = <5>;
-+				label = "p5";
-+			};
-+
-+			port@6 {
-+				reg = <6>;
-+				label = "p6";
-+			};
-+
-+			port@7 {
-+				reg = <7>;
-+				label = "p7";
-+			};
-+
-+			port@8 {
-+				reg = <8>;
-+				label = "p8";
-+			};
-+
-+			port@9 {
-+				reg = <9>;
-+				label = "sfp";
-+				phy-mode = "1000base-x";
-+				managed = "in-band-status";
-+				sfp = <&sfp>;
-+			};
-+		};
-+	};
-+};
+- check space for a chunk item when reading sys array from superblock
 
--- 
-2.48.1
+- allow using space reserves when removing verity items fails
 
+- fix error handling after free space tree rebuild fails
 
+- abort transaction if reflink or hole punching fails and it's not
+  possible to update the inode
+
+- properly protect block group iteration during device replace start
+
+- error message fixups
+
+----------------------------------------------------------------
+The following changes since commit 09f1294ee2abee7fe1c2d600671498b7642e0fe0:
+
+  btrfs: tree-checker: validate name length for extref items (2026-09-07 18:36:38 +0200)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/kdave/linux.git tags/for-7.3-rc3-tag
+
+for you to fetch changes up to 72de4807ba84da485dda1a91572d66da9149e95a:
+
+  btrfs: derive f_fsid with dev_t only when temp_fsid is active (2026-09-17 19:45:12 +0200)
+
+----------------------------------------------------------------
+Anand Jain (1):
+      btrfs: derive f_fsid with dev_t only when temp_fsid is active
+
+Daniel Linjama (1):
+      btrfs: handle lack of space when cleaning up verity items
+
+Filipe Manana (5):
+      btrfs: tree-checker: print dev extent offset in error message
+      btrfs: tree-checker: fix error message regarding free space extent items
+      btrfs: fix creation of compressed inline extents that don't save space
+      btrfs: abort transaction on failure to update inode for hole punching and reflinking
+      btrfs: check if there is space for chunk item when validating sys chunk array
+
+Guanghui Yang (1):
+      btrfs: clear free space tree creation state on rebuild failure
+
+Hongling Zeng (1):
+      btrfs: take commit root semaphore when iterating in mark_block_group_to_copy()
+
+Johannes Thumshirn (1):
+      btrfs: zoned: handle RAID profiles in btrfs_can_activate_zone()
+
+Qu Wenruo (1):
+      btrfs: add "/dev/root" exception for device path update
+
+ fs/btrfs/dev-replace.c     |  1 +
+ fs/btrfs/disk-io.c         |  4 ++++
+ fs/btrfs/file.c            |  4 +++-
+ fs/btrfs/free-space-tree.c | 14 ++++++++++----
+ fs/btrfs/inode.c           | 18 +++++++++++++++++-
+ fs/btrfs/super.c           |  8 ++++++--
+ fs/btrfs/tree-checker.c    |  4 ++--
+ fs/btrfs/verity.c          | 18 ++++++++++++++++--
+ fs/btrfs/volumes.c         | 33 ++++++++++++++++++++++++++++++++-
+ fs/btrfs/zoned.c           |  5 +++++
+ 10 files changed, 96 insertions(+), 13 deletions(-)
