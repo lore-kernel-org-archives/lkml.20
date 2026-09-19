@@ -1,71 +1,45 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F23334CFDE
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 16:52:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3992F30D3ED;
+	Sat, 19 Sep 2026 16:55:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789836738; cv=none; b=qk6oN0Xcku8UjVZ3CDzn/p7dxN06ApWm+qRrVO0XyCH0MLmNRT5GiTMHc52nMrBwGEp1DItqrPRud37G/SrTwxzPnZjEocGViffHr60gAAtDuzTRBUpvi9u7QEscqb3/JGyrMrZCEKeVPHkXcYUP83R6DA6lKNFZD8Prw2q9UsA=
+	t=1789836918; cv=none; b=cClCRtw6Om2DwLr7ucBMNgUec1yg+4p1GQae5aOYfU6rzQzRc1f/NEpBcTwHo1j2+oPTevyQGdxavwxbvO2q9BG8S0vlgMygmkx9O14zSyqa46/Mb4wnDUsZzo2i3f22BiPSmQTtlm34TjrvPMNri8B/Bx4q+U6uo7WeDUeS5F4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789836738; c=relaxed/simple;
-	bh=FKmT0sInzGZ8xglTcpDpC+2cWv5nRkUqMW5XaUUWFgE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XzYVldQv2Ve8DbDhIxXnjLkx0YEawld5eJ36iGDQy82/gZuJWRYoVVIIdlbj9jCX6o9gAiDDAr6Ig0UX7qV0F3OGxE1vYrrYKW89y+bQxoWmxo0m0SEs0gpDXddu/kcblccCZTwDYbxJ340L0yAZdmoy3KLcK1pdZxfWFB/DqJA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qaYGOQ7c; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789836918; c=relaxed/simple;
+	bh=JMxX7EtsFQwTAdZjXVzjjAmHiuYA+8HCeTcJVAn3wEw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qchmXB5Vl3QElWonArClGgx75qF0HAoMVARHdNuyAdV3Rgnu0P3l1jM9uu8iK23x7Tc5vNlpfTnBlEd9b9pNGCyQp7AMSjNJPAoRHNGvp0Hff9V+4Ehfg8WBkQQ76QHfxEG8bpr8IjehEfUiGrbwWcb5eS82T7dOEwxzWyG1jQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MX2TRb5V; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qaYGOQ7c"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccd4f99dso1886403a91.2
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 09:52:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789836737; x=1790441537; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=efPfDfh6WJd7P8cYHSc3/SVG8GD/7sjcKyH8NOMuMCc=;
-        b=qaYGOQ7ciDfc8O8eNUKja2SQFez72tcJYQUtPE47c/mLRqYuBJpGJHJZcnU7ve7aBq
-         Di5QrMH0cWP6aSrhKhbH5vjR/b//CxaFol1+5TRLFgpH8qnqxPfx+VTFsbLOHu5tJ3kB
-         GwMOrFJRX9DtorKfmopDaNVDK1kZqAKr1Qj/kX01wl6cMN+CTmIZAlUTwK/rSjTipFUn
-         2f4VfKruTeAjOqZZt1peknPkkZZyAD96Hw0OzLC+qjHsCuRqmlJEOOEuN0zwr8o/09Hk
-         wg7p5o/e4WJs+cagJkaSe3OtkaG2veEWh1taKfupJkI11xlY2BjHs7rQ35+9+ESbx9TS
-         mv7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789836737; x=1790441537;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=efPfDfh6WJd7P8cYHSc3/SVG8GD/7sjcKyH8NOMuMCc=;
-        b=KClFh5uUVaS8CwIgSIYtc/9vO6NDXg7oBqfT3IHMpwOS9bL9rhaagAXWsxj35EzIIQ
-         zt3YVj7GULpod3IRKi/jXUed7UNJ6aL69/H2bRfvtMlePWV1YwvCFqRraKSDiB0k/LEd
-         w2NE0ri3quNjdgvdf2n+MueA2NtUjaQqqhYs68aWeM1+4x8o/B2GRfKItYdLQNnzIQE1
-         DIK9HP2b95ZI+5UfViX8vg+082DSjQ09af8mxrYlybwlp3LkuLDaVfW+zoqrWECzgPJp
-         9g9NpjzelN9KIpMoSEJxpXO2o5VYo7g2tmjD+KzrmysW+F0177Pni9Ohp40CpjDd7cFf
-         Jrkg==
-X-Forwarded-Encrypted: i=1; AKwUvBxUk//2bTqMeCst1LCGvhtKv8Aon99sB0HKS4JoeHac/X+wubAIZ8TpyGcdyCld76f4ClV8HdHTA/SjrrE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mb78BE+CNs4FMjEQKrgAt1zCqWlpilSKNtf1MqjmfRfwMETGSm
-	AWibK56ycGUPd9eEFe2hqiid6olr8Yf+lJRVNtUzGRUcnUjWRlSnvo5h
-X-Gm-Gg: AYBFou3cnGyy4CEsTxNnQaL9Ncj3Al+07H7WeTQsEu0YtpyMI6TX9sjiV5WNWrxEaz8
-	QPWH+ldLwnwc1vh70gXGVvEIltD2k0JnWGzEfNEI8C6zi1vuduTvcXpi8M2AkySaS9neLs1M5rK
-	r7cigOS25SbDpOA9NCjRkJlbK68w9kgMLWkMF9gC5q90VW1nU7Iwo/rMGAny7ewWkN0k3hXenHN
-	twbIxImgBRdN9VmR0dmilgOaMy+su5p/y7rrRS1Lil9VR7ubBP0gipt+TGL90NBRPy0LV9arIxc
-	y3lohwO+wrf3pDsBYv5F6a+FqzwsYLVEknv+oB2LuX9rlO/QEzItVW1Fi0a7CFyBU1dNrmLsUNB
-	JCzyG+xxgnJpd5GGfV7YqsM1NtLT2WZSbgsDSAJKLTDBg/QjajanwfOkGaIkrxewYk07aopoXcy
-	SVbM9QHY9Ese7POcDJVpsnk26DlIdF5t/hJbC8h1bjyJLlJ7PC6L2a7G/zcqfGuZzjf42VtIbDW
-	b9JFb3VdCvuzklInbj5Qw==
-X-Received: by 2002:a17:90a:d40f:b0:39e:6c69:9b8c with SMTP id 98e67ed59e1d1-39e6c69b291mr4591077a91.49.1789836736571;
-        Sat, 19 Sep 2026 09:52:16 -0700 (PDT)
-Received: from shaym ([223.181.116.106])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144d55e8954sm13966859c88.14.2026.09.19.09.52.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 09:52:16 -0700 (PDT)
-From: Shyam Sunder Reddy Padira <shyamsunderreddypadira@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: linux-staging@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MX2TRb5V"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7799E1F000FF;
+	Sat, 19 Sep 2026 16:55:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789836916;
+	bh=XTL+OmPRLFphC0ptL3M6yHVhta+LC8O4dSAbgUBWAxc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=MX2TRb5V8MCuV0MdsY0f55GswqhuxVjZrY5ZCRsgUwYSrKjqkxWgiD5qbky7Jgxhi
+	 l3MAzNdb2gHtJGYdZQF5YKUvL/HH79uhGg7cGPfcD43nr1T48CLSrqlrFjZMGHcExI
+	 OI5X4PUc0+4OjGrmzK64ITPH/eWDvALyQIZjWmAvMghY1Wte3VIiHqS1SVX/eLdMyI
+	 hgo/wkxudwZC4KhYUcd4d+yekTHSYoZOIXGu+GexePxKEHWN2Hpcnc+ux8mYfigLL1
+	 NFGCREMqU/83Acmn4qKjMpRpMhEOTEASAYDLiaUgoVgPrg0wQBnntAZlnMrkIxa/ch
+	 Bt++zhanM8jeg==
+From: SJ Park <sj@kernel.org>
+To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Cc: SJ Park <sj@kernel.org>,
+	akpm@linux-foundation.org,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	Shyam Sunder Reddy Padira <shyamsunderreddypadira@gmail.com>
-Subject: [PATCH] staging: rtl8723bs: Remove redundant else block
-Date: Sat, 19 Sep 2026 16:52:04 +0000
-Message-ID: <20260919165205.9896-1-shyamsunderreddypadira@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	stable@vger.kernel.org
+Subject: Re: [PATCH v1 1/2] mm/damon/core: prevent size quota overflow in the temporal goal tuner
+Date: Sat, 19 Sep 2026 09:55:08 -0700
+Message-ID: <20260919165509.86678-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260919071324.1583280-2-donggeunyoo.kernel@gmail.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,33 +48,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When the if branch returns directly, the following else block is
-unnecessary. Remove the redundant else block to improve readability.
+Hi Donggeun,
 
-No functional change.
 
-Signed-off-by: Shyam Sunder Reddy Padira <shyamsunderreddypadira@gmail.com>
----
- drivers/staging/rtl8723bs/hal/odm.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+Thank you for this patch.
 
-diff --git a/drivers/staging/rtl8723bs/hal/odm.c b/drivers/staging/rtl8723bs/hal/odm.c
-index d18df407e365..cd178ddfbd00 100644
---- a/drivers/staging/rtl8723bs/hal/odm.c
-+++ b/drivers/staging/rtl8723bs/hal/odm.c
-@@ -552,10 +552,9 @@ void ODM_TXPowerTrackingCheck(struct dm_odm_t *pDM_Odm)
- 
- 		pDM_Odm->RFCalibrateInfo.TM_Trigger = 1;
- 		return;
--	} else {
--		ODM_TXPowerTrackingCallback_ThermalMeter(Adapter);
--		pDM_Odm->RFCalibrateInfo.TM_Trigger = 0;
- 	}
-+	ODM_TXPowerTrackingCallback_ThermalMeter(Adapter);
-+	pDM_Odm->RFCalibrateInfo.TM_Trigger = 0;
- }
- 
- /*  */
--- 
-2.53.0
+On Sat, 19 Sep 2026 16:13:23 +0900 Donggeun Yoo <donggeunyoo.kernel@gmail.com> wrote:
 
+> damos_goal_tune_esz_bp_temporal() converts the scheme's size quota into
+> basis points with "quota->esz_bp = quota->sz * 10000", both unsigned long,
+> and damos_set_effective_quota() divides the result back by 10000.
+> quotas/bytes is unbounded; bytes_store() hands it to kstrtoul() as is.
+> 
+> On 32-bit the product wraps for any size quota above ULONG_MAX / 10000,
+> that is 429496 bytes.  Documentation/admin-guide/mm/damon/usage.rst
+> instructs "echo $((1024*1024*1024)) > quotas/bytes", and 1 GiB * 10000 is
+> 2500 * 2^32, so that documented value wraps to exactly zero; 256 MiB and
+> every multiple of it do the same.  quota->esz then becomes zero while the
+> goal is not achieved, the trailing "if (quota->sz && quota->sz < esz)" can
+> only lower esz further, and damos_quota_is_full() is true on the first test
+> of every charge window, so the scheme applies nothing and the goal is never
+> approached.  Other sizes are wrong without being zero: 500000 yields 70503.
+
+For 32-bit machines, we have addr_unit parameter.  I believe use of it could
+effectively solve this kind of issues.  Correct me if I'm wrong.
+
+There could be cases that addr_unit cannot help, though.  Particularly, if I
+remember correctly, 'addr_unit' works for only paddr.  Also it doesn't fix all
+theoretical corner cases.  Even on 64 bit machines, same problem exists in
+theory.  So I think this change is worthy to have.  But I think it is better to
+mention existence of addr_unit and why it is not the perfect solution in the
+commit message.
+
+Maybe it is worthy to add the comment on the user documents, too.
+
+> 
+> Saturate to ULONG_MAX, which is what the same function already writes for a
+> scheme with no size quota.  Widening esz_bp instead would reach the consist
+> tuner, which runs the same field through damon_feed_loop_next_input(),
+> unsigned long in and out; bounding the multiply keeps the change to this
+> branch.  On 32-bit a large size quota then behaves like no size quota
+> rather than like a dead scheme.
+> 
+> Fixes: af738a6a00c1 ("mm/damon/core: introduce DAMOS_QUOTA_GOAL_TUNER_TEMPORAL")
+> Cc: <stable@vger.kernel.org> # 7.1.x
+> Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+> ---
+> Measured on i386 under QEMU: one paddr context with a stat scheme, the
+> temporal goal tuner, and one unachieved user_input goal.  Each size is
+> written to quotas/bytes, the kdamond is started, and
+> quotas/effective_bytes is read back after
+> update_schemes_effective_quotas.
+> 
+>   quotas/bytes    effective_bytes    effective_bytes
+>                   before             after
+>   4096            4096               4096
+>   429496          429496             429496
+>   429497          0                  429496
+>   268435456       0                  429496
+>   1073741824      0                  429496
+>   500000          70503              429496
+>   4294967295      429495             429496
+>   0               429496             429496
+> 
+> Everything the conversion can hold is unchanged, and 429496 is what the
+> no-size-quota row already produced before the patch.
+> 
+> Patch 2 pins the same boundary at ULONG_MAX / 10000 and so runs on any
+> word size.  Without this patch it fails on x86_64:
+> 
+>   # damos_test_esz_goal_temporal: EXPECTATION FAILED at mm/damon/tests/core-kunit.h:1959
+>   Expected s.quota.esz == max_sz, but
+>       s.quota.esz == 0 (0x0)
+>       max_sz == 1844674407370955 (0x68db8bac710cb)
+> 
+>  mm/damon/core.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/mm/damon/core.c b/mm/damon/core.c
+> index 2258b72da7a7..5ec476cef4db 100644
+> --- a/mm/damon/core.c
+> +++ b/mm/damon/core.c
+> @@ -3274,10 +3274,10 @@ static void damos_goal_tune_esz_bp_temporal(struct damon_ctx *c,
+>  
+>  	if (score >= 10000)
+>  		quota->esz_bp = 0;
+> -	else if (quota->sz)
+> -		quota->esz_bp = quota->sz * 10000;
+> -	else
+> +	else if (!quota->sz || quota->sz > ULONG_MAX / 10000)
+>  		quota->esz_bp = ULONG_MAX;
+> +	else
+> +		quota->esz_bp = quota->sz * 10000;
+>  }
+
+In my humble opinion, this could be easier to read in below way:
+
+'''
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -3524,7 +3524,7 @@ static void damos_goal_tune_esz_bp_temporal(struct damon_ctx *c,
+
+        if (score >= 10000)
+                quota->esz_bp = 0;
+-       else if (quota->sz)
++       else if (quota->sz && quota->sz <= ULONG_MAX / 10000)
+                quota->esz_bp = quota->sz * 10000;
+        else
+                quota->esz_bp = ULONG_MAX;
+'''
+
+What do you think?
+
+
+Thanks,
+SJ
+
+[...]
