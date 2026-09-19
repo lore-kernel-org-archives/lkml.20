@@ -1,75 +1,77 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1933D47F764
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 11:25:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC86848033E
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 11:25:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789817122; cv=none; b=cUpknu5vvLnEA2emJ3EJskxYn1xR95l1ioxZw1RNdBaM4nsIAoZlH4Sa5wJLHUZkeP6axkFgYoTh8CJt7s/8dEAxbJP/j1swHZWD6pacA24DZaPYDptqmHbQGws2+NN8tZe8WCj/vGz4THA0ytFmhnV2lrAVuM+h/cQJXuJX+1A=
+	t=1789817124; cv=none; b=n2yhx2t87RGq4d+oP4ntl9biwEK2r2fAgpeioJO7E1kMgPOc5U8DpqQ4MsFuIBNOVCKsYgW49mkWzvdkAQ1BaMgxafTA4d09lEE7yylmbhH6XtOlyUBbvQlySeJhHdZsSz25aZ+W99G+7AqtvGJ0N6n0XkExOmdmnIq5+WmLuZo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789817122; c=relaxed/simple;
-	bh=Ixb6cmMvU+LTEqMJJk5Ke8XqUwLJgxrw4wJOd073H70=;
+	s=arc-20240116; t=1789817124; c=relaxed/simple;
+	bh=S0Ql9ytONkuw+Z5WVaoo3b5wAdX6Cm4FEOlh6Gz8VaY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Bu2AxurFTRgQu3tVdW5n51lKIcOLYhl3pprff9tIOts5cOKF/1dYrcUoVHHiI5//Y4+9tGgAd3aA2fstUzj+Sj8rKK5DqzJbBneZod+XhA1Mj4RwOk01xgHQOOeRvJBwk6yDw6w3pKNKZP4bPeR3OvQfbnTkyyWWtvdXAY3JW1k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rHLTbpt0; arc=none smtp.client-ip=74.125.227.140
+	 MIME-Version; b=PZmHXqVTHOLRNj1BLArhj635IFghKXdWbHJPmERRZ8xVR+Tz0HO8f/oAPIwxomy/K7r1yAbZnwgyGz2xFsLSyccGIK8Z20bASyNbJS9a4MzluW7mghirbdIANBhyurfY6rYz+z+fOieQbPOYrmACJI5HUhD0tEG9w+biFJ7UTFA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f2mzPoML; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rHLTbpt0"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ed6d6eso16286675ad.2
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 04:25:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f2mzPoML"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccdaea76so671653a91.0
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 04:25:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789817119; x=1790421919; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789817122; x=1790421922; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=LDwLwQAewal+PyLIhiDnDta3QTEMBb3CNRkINRzkcs8=;
-        b=rHLTbpt0Dq06+5LPfIN7VQuwSF5dD5+zXUTk36r3bTogpccc9otHAUZB1QCT57ifi1
-         gRGs9UBlFcYgpox1/NE8u9Txm3ICAC/0HGdseebXhjMqQsS7lqKO/cu+dDcebPwCpAfB
-         2F/7LYw+G+dLWfflWld3eMq3BgoHA+MZZ5uiOGuUc7yapfsFw90Ps+qjXps+iT6oSHyx
-         A4Cq75CrOK/9n5wFS82hpTzFWhu+JcvfSDLSjsxM+2fuiYeZkXcMXfmC83OZc4lhWEUh
-         yZC/uwXz1xrO4uaD1FZLrnvfaslCiS5A6xW1fAufbEKhuTOnxJsbRMp8G4siDXqmUtGG
-         RmIA==
+        bh=1NPj5CHhCIqadQUJC108X0zWB709uEAZIyAJtf3Zc+c=;
+        b=f2mzPoMLVTd0YPT0zLDgpqOuA4aTv0pUtB27aEX5jr2M90r/pwpjZLaW1wKZ9Xj7r7
+         DPYbLxyWliJ2gqgbNcDalYxusTDjBWowmT0ec4gtFyVhvHXA5GXWfRnbgiodl/VY4wdc
+         EsZmpL+qkR1Eyu6kcLXiZ8bI1pl8x9G26bfV41UdWk5CcaXjaYLtUbWQ5MpxIf2Lv61e
+         FM62KUt94wjD1tTcMAlIgy6SbwwNtzQZ9eYRKKuPB/HOJW7Qt2ANysJhHLXI501br/ZG
+         GJuuLF8mj4NwHtUgCzg7K2mPyCDbrrl7h43GRCJ8DwHJ0YT2NrxU0928ujqdG0hfEvbO
+         i4SQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789817119; x=1790421919;
+        d=1e100.net; s=20260707; t=1789817122; x=1790421922;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LDwLwQAewal+PyLIhiDnDta3QTEMBb3CNRkINRzkcs8=;
-        b=JN5ApNTwsxjMrFmtxXSpvgobRf7R0slyOILQfNDli682acddC8B6RGB0n47r3iCSCv
-         nAs1xpi1J4Zv4foLMp7eMidmr3DtzMq8KnO8F626KHWnWcnm+aN3w+/8Dwg8TNLeIVSQ
-         0jy4y8T/w70qU8wDc5ky6dORJnLwMmpuccE48K6sarBos2nxTeLuwCjMvICLIuu288Cu
-         p4qKzAPvGkqmzcIodsnHYWd/MLV8L3Mw72YZRVu4SS9BB7F6Rt998ykLtgbpb7dRqmaR
-         DffQ3Jphn/Uh1f6uwhFsw9VTY7kTa/LYDgfD1qrYAw+6+HvsTzYU+XeiDMmQzbjGh8Qo
-         MhHA==
-X-Forwarded-Encrypted: i=1; AKwUvByCMPcaX6THzW+dsz8GMuJIrV7MMN4pUBXw7baEBbW1CDYYptxYDPtyptx5GwjjM5fpbVh8tJZjuZLzOWU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mt4KlBI7saG2pQ6DWgWgdmlgisAiX3BxM/BELtqmtFtGA7PVdI
-	Ghcghm9vinfu0gI8NBOXAzBmgS1HH+XUfGItlt1Jy+Yq2sr/Jr841Q4E/R8DOF1z
-X-Gm-Gg: AYBFou1Rkzzj9h7utpZNh2mxebQ0mlHAtWK6gSi4v3PSG8J3Kv1bd90FlA9DXshiiaM
-	L6QSVN9Zr9cATIzZ3QoSHFB+tHGsEj96GI8WR881qNv6en3DORKVhgPOmR9xiggSRBdDH+A9BoG
-	D6Tb6Jzb/Dh6a9Xz0eifQjuSas3bX2YeYfqvLQ0iOd9A/e027pfdWbXLVHU3uYZc06dcsofQ2Tz
-	5V91fq8nnwtWWs3Pjo//6TWe4zyg7J2WYTq53t40xMQYyRUhn6RNUbtlGocWJibKr6bkkmW4Rhl
-	MlaVop7V2j+oPxxZpU5dIdX2YXL7ENL0s5do7rUEL6xMIjgU4b2MR1YGaOXw6s5fYpeLZuSYByU
-	5PhVvOqosrV/HoeYpfsDNvQd8kPWnEFvpH/cIABCbpultZ9Sd3gDjFkGp3omAoJ1YOgQx+fgI9p
-	eGcOflpgvZIgiVBkLWCC7AXO0T9q0PNDTjN8t08kksHDFN4ipr4C94HoJVvRvFIyuZiCI7wMGJ0
-	aC6Kpgq6R5Uf7htCpyDmYJ2s/bHO8j//L6rNnMZavXFcXGmuKuWFz97JzgyUgPwLXHYVr44eDq2
-	mxbNI3uJrg==
-X-Received: by 2002:a17:903:46d0:b0:2d6:3c2f:6a4 with SMTP id d9443c01a7336-2ddb1b04363mr98475925ad.13.1789817119229;
-        Sat, 19 Sep 2026 04:25:19 -0700 (PDT)
+        bh=1NPj5CHhCIqadQUJC108X0zWB709uEAZIyAJtf3Zc+c=;
+        b=J7s/y+9ouK1isPqMYSv0TsGz8noFWiTE37U2xqOnOr9XJm2QguLMvU+n/7y41t7R+p
+         mQL3DFA/zElBxQE2zuZXTtE3T4OxnP+g64mH6D7/rKaQ2epbhZ5UZMb+jBOC7IWqW1WG
+         Rx0CSnpg9dYp+EXvI3t9Ju3CZEMJO4Nbayh8+gRFbEcWzBNbHojSZdXV71Q9JupSU2Im
+         gaPDEuVYr+5gnh7T0pkJ4YGtTD23iBbXYcQYsuvZqIQAdlfag4ZNynvYnc9SbXIjBvPD
+         icPgc9IWF8ELkG1akeGGxTw5q4dLlCs/mfHquJzoNKPpD0ChTw1q91racR5aT6vqf7Vs
+         im+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBytPUYfMW6m9m0wap9iWDF1k8MEFaBFWsdjFDKoFAMWAzSck5+K74jbvHhDE06iuCeEZAcB/ToM4nNatV8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mg/e8VisBcblDqP5OFIhDrVuFAP2hSjkl5ct3L8DUrQD2gYBvB
+	K48MuhPHVxowyj11FhrIdOh/e36lcyf98hKdbzOARtvzsmceSC1zNqeik/GL9MOZ
+X-Gm-Gg: AYBFou3DV+qnjfi6hHakkiKIPLnpO1JdnA1aAePNS1RygfAyunr4RqHCt62N1f4hnRa
+	FyCVfELxS/uOOevO9xnWzd4zcG18koYPwGsrmZ8eHkF3F/VUjEhqhfzjLqdwqnYLD+pVaNcpwGo
+	TH2IliB/2cQGEfyb96oOGAAIq0dbr2EeJUvLmqEGjs7C913St0A+Nu5xf8a/cQuPaZvkj+qdvp4
+	49WmTa1WLN6eQAexBmpt1L/5IDBFhopUypBTB6CxO8ugjF+qM1ipZmt28sjMODRUGGk26x8iXPI
+	1N2JP1kfzOZ01bd1EcxL5qmLbpZUkBvx63xFFR5ZvFPa4sLvPl9mpbdhkZ3OFc34oMmjBjDVbb6
+	hj4BoyErT5M74RRmoUyt0m8TaLFSmh6HB+CHgUPpiBaULNNnYp5yW5+yRSnUFetivuxUO9QVssp
+	y6w8n8eWUhHVnvih4SYNJoWTDnYtURG/5JyPdz2le1Bz/Wqgh6mCiBqZSefGZLLDks/7AdkbTUH
+	8OSOZ/nVjr8XJylH2ByOguLD7FdHugiJ0JzhHl2OjfSdEYPfZUtzT8vzt+FEoA0+DZpoDCd3W4i
+	YCFXtdzAeFNlSyqjScHp
+X-Received: by 2002:a17:90a:fc4b:b0:3a0:2900:f55e with SMTP id 98e67ed59e1d1-3a02900f85dmr588594a91.29.1789817122024;
+        Sat, 19 Sep 2026 04:25:22 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2de217b3a97sm8365665ad.31.2026.09.19.04.25.18
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a02900f84fsm2048195a91.2.2026.09.19.04.25.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 04:25:18 -0700 (PDT)
+        Sat, 19 Sep 2026 04:25:21 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
-To: marcel@holtmann.org,
-	luiz.dentz@gmail.com
-Cc: linux-bluetooth@vger.kernel.org,
+To: brauner@kernel.org,
+	viro@zeniv.linux.org.uk,
+	linux@armlinux.org.uk
+Cc: jack@suse.cz,
+	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] Bluetooth: RFCOMM: fix NULL dereference of dlc->session in RFCOMM_CONNINFO
-Date: Sat, 19 Sep 2026 11:25:18 +0000
-Message-ID: <20260919112518.3872094-1-benquike@gmail.com>
-In-Reply-To: <20260919091120.3273038-1-benquike@gmail.com>
-References: <20260919091120.3273038-1-benquike@gmail.com>
+Subject: [PATCH v2] adfs: validate bigdirobnamelen in adfs_fplus_getnext()
+Date: Sat, 19 Sep 2026 11:25:21 +0000
+Message-ID: <20260919112521.3872252-1-benquike@gmail.com>
+In-Reply-To: <20260919090319.3238583-1-benquike@gmail.com>
+References: <20260919090319.3238583-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,109 +80,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The RFCOMM_CONNINFO getsockopt handler accepts a socket that is not
-connected as long as deferred setup is enabled:
+adfs_fplus_getnext() reads the directory entry name length straight from
+the on-disk F+ big directory entry:
 
-	if (sk->sk_state != BT_CONNECTED &&
-				!rfcomm_pi(sk)->dlc->defer_setup) {
-		err = -ENOTCONN;
-		break;
-	}
-	l2cap_sk = rfcomm_pi(sk)->dlc->session->sock->sk;
+	obj->name_len = le32_to_cpu(bde.bigdirobnamelen);
+	...
+	ret = adfs_dir_copyfrom(obj->name, dir, offset, obj->name_len);
 
-dlc->defer_setup is set in rfcomm_sock_init() when rfcomm_connect_ind()
-creates a child socket for an incoming connection on a listening socket
-that has BT_DEFER_SETUP enabled. It is never cleared afterwards. The
-session, however, can go away underneath it.
+obj->name is a fixed size array of ADFS_MAX_NAME_LEN (260) bytes inside
+the on-stack struct object_info of adfs_fplus_iterate(), but
+bigdirobnamelen is fully attacker controlled and never validated.
 
-rfcomm_recv_disc() forces the dlc state before tearing it down:
+Mounting a crafted ADFS image whose big directory entry declares
+bigdirobnamelen = 264 and then calling getdents64() on the directory
+makes adfs_dir_copyfrom() write 264 bytes into the 260 byte obj->name,
+smashing the stack frame of adfs_fplus_iterate(), and the subsequent
+dir_emit(ctx, obj.name, obj.name_len, ...) reads the same out of bounds
+range again in filldir64(). adfs_object_fixup() may then append up to
+four more bytes for the ",xyz" filetype suffix, extending the overflow.
 
-	d->state = BT_CLOSED;
-	__rfcomm_dlc_close(d, err);
+Reject entries whose name length exceeds ADFS_FPLUS_NAME_LEN (255).
+That is the maximum the F+ format can represent, and it also leaves
+room for the four byte filetype suffix appended by adfs_object_fixup()
+(255 + 4 = 259 <= ADFS_MAX_NAME_LEN).
 
-The RFCOMM_DEFER_SETUP early return in __rfcomm_dlc_close() only covers
-BT_CONNECT, BT_CONFIG, BT_OPEN and BT_CONNECT2, so with the state
-already BT_CLOSED that switch does not match and the function falls
-through to rfcomm_dlc_unlink(), which sets d->session = NULL, while
-d->defer_setup stays 1.
+Reproduced on Linux 7.3.0-rc3 (5dd1818b15d9) with KASAN by mounting a
+64 KiB ADFS image (loop, MS_RDONLY) containing a single F+ directory
+entry with bigdirobnamelen = 264 and calling readdir() on the mount
+point:
 
-A getsockopt(SOL_RFCOMM, RFCOMM_CONNINFO) on the accepted socket after
-that point therefore skips the -ENOTCONN path -- sk->sk_state is
-BT_CLOSED, but dlc->defer_setup is still set -- and dereferences the
-NULL session. No race is needed: once the DISC has been processed, the
-dereference is unconditional.
+ ==================================================================
+ BUG: KASAN: stack-out-of-bounds in memchr+0x82/0xb0
+ Read of size 1 at addr ffff88810099fcac by task init/1
 
-Reproduced on a KASAN kernel under QEMU with a BR/EDR peer emulated over
-/dev/vhci: the peer brings up an ACL link, opens L2CAP on the RFCOMM
-PSM, starts a session and sends SABM for a channel bound with
-BT_DEFER_SETUP, and sends DISC for that dlci after the socket has been
-accepted. getsockopt(SOL_RFCOMM, RFCOMM_CONNINFO) on the accepted
-socket then hits:
-
- Oops: general protection fault, probably for non-canonical address
- 0xdffffc0000000002: 0000 [#1] SMP KASAN PTI
- KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
- CPU: 1 UID: 0 PID: 150 Comm: init Tainted: G B 7.3.0-rc3-g5dd1818b15d9
+ CPU: 3 UID: 0 PID: 1 Comm: init Tainted: G    B D    7.3.0-rc3-g5dd1818b15d9 #1 PREEMPT(lazy)
  Hardware name: QEMU Standard PC (i440FX + PIIX, 1996)
- RIP: 0010:rfcomm_sock_getsockopt+0x529/0x780
  Call Trace:
   <TASK>
-  do_sock_getsockopt+0x3ad/0x7d0
-  __sys_getsockopt+0x10e/0x1b0
-  __x64_sys_getsockopt+0xc2/0x160
+  dump_stack_lvl+0x70/0xa0
+  print_report+0x153/0x4c6
+  kasan_report+0xf1/0x120
+  memchr+0x82/0xb0
+  filldir64+0x56/0x5a0
+  adfs_fplus_iterate+0x1a6/0x2c0
+  adfs_iterate+0x1bf/0x4f0
+  iterate_dir+0x1c1/0x560
+  __x64_sys_getdents64+0x13a/0x260
   do_syscall_64+0xda/0x4b0
   entry_SYSCALL_64_after_hwframe+0x77/0x7f
   </TASK>
 
-0x10 is the offset of sock in struct rfcomm_session;
-rfcomm_sock_getsockopt_old() is inlined into rfcomm_sock_getsockopt().
+ The buggy address belongs to stack of task init/1
+  and is located at offset 380 in frame:
+  adfs_fplus_iterate+0x0/0x2c0
 
-Commit 43a556b2fd43 ("Bluetooth: RFCOMM: take rfcomm_mutex for the
-deferred setup accept") fixed the same "a remote DISC clears the session
-while deferred setup is still flagged" problem in rfcomm_dlc_accept();
-this is the remaining instance of it, in the getsockopt path.
+ This frame has 1 object:
+  [32, 320) 'obj'
+ ==================================================================
 
-Deferred setup only leaves a socket usable here once it has reached
-BT_CONNECT2, so restrict the exception to that state and check that a
-session is actually present before following it.
+A matching splat is also produced from adfs_object_fixup+0x3f5/0x480
+for the write side of the overflow.
 
-Fixes: bb23c0ab8246 ("Bluetooth: Add support for deferring RFCOMM connection setup")
-Cc: stable@vger.kernel.org
+With the check in place the same image is rejected with -EIO and no
+KASAN splat is produced.
+
+Fixes: da23ef0549d4 ("adfs: add hexadecimal filetype suffix option")
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
-
 ---
-v2: Corrected the changelog. v1 claimed BT_DEFER_SETUP on a listening
-socket stores into dlc->defer_setup; it does not - it sets
-BT_SK_DEFER_SETUP in bt_sk(sk)->flags, and dlc->defer_setup is only set
-on the child socket created by rfcomm_connect_ind(). The three-line
-"reproducer" in v1 (socket/listen/setsockopt/getsockopt) consequently
-could not have triggered anything and has been dropped. The real
-trigger is a remote DISC unlinking the session of an already accepted
-deferred-setup dlc, which is what the reproducer actually did. Also
-added the Fixes: and Cc: stable tags. Apologies for the noise on v1.
+v2: Add a Fixes: tag. v1 claimed there was no single commit to point
+at; that was wrong, so here is the reasoning.
 
-Behaviour change worth noting: deferred-setup sockets whose session has
-gone away now get -ENOTCONN instead of crashing, and deferred-setup
-sockets outside BT_CONNECT2 also get -ENOTCONN.
+The missing validation itself does date back to the initial git import,
+but it was not exploitable then. Before da23ef0549d4, struct
+object_info::name_len was an unsigned char and ADFS_MAX_NAME_LEN was
+256, so truncating the attacker-controlled 32-bit bigdirobnamelen to
+0..255 clamped the copy to within obj->name. da23ef0549d4 widened
+name_len to unsigned int (to make room for the ",xyz" filetype suffix)
+and grew the buffer only to 256 + 4. That removed the implicit &0xff
+clamp, so the full 32-bit on-disk value now reaches
+adfs_dir_copyfrom(), which bounds only the source and not the
+destination. That is the commit that made the overflow reachable.
 
- net/bluetooth/rfcomm/sock.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+For completeness, git blame on the copy points at a317120bf7f8
+("fs/adfs: dir: add generic copy functions"), but that commit only
+replaces dir_memcpy() with adfs_dir_copyfrom() - same destination, same
+unvalidated length - so it is not the right tag.
 
---- a/net/bluetooth/rfcomm/sock.c
-+++ b/net/bluetooth/rfcomm/sock.c
-@@ -786,8 +786,10 @@ static int rfcomm_sock_getsockopt_old(st
- 		break;
+Backporting: the surrounding context (obj->indaddr, adfs_fplus_offset())
+only exists from v5.6, so this will not apply verbatim to older trees.
+The added check itself is unchanged; a pre-v5.6 backport just needs the
+context adjusted.
+
+ADFS_FPLUS_NAME_LEN (255) rather than ADFS_MAX_NAME_LEN (260) is the
+right bound: 255 is the on-disk format maximum and what super.c reports
+as s_namelen, and it leaves room for the up-to-4-byte suffix that
+adfs_object_fixup() appends (255 + 4 = 259 <= 260).
+
+Found and verified with a QEMU + KASAN reproducer (crafted ADFS image
+mounted over loop); the fix was rebuilt and re-run against the same
+reproducer, which then reports no KASAN splat.
+
+ fs/adfs/dir_fplus.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/fs/adfs/dir_fplus.c b/fs/adfs/dir_fplus.c
+index 4a1592401..517ffcc91 100644
+--- a/fs/adfs/dir_fplus.c
++++ b/fs/adfs/dir_fplus.c
+@@ -192,6 +192,8 @@ adfs_fplus_getnext(struct adfs_dir *dir, struct object_info *obj)
+ 	obj->indaddr  = le32_to_cpu(bde.bigdirindaddr);
+ 	obj->attr     = le32_to_cpu(bde.bigdirattr);
+ 	obj->name_len = le32_to_cpu(bde.bigdirobnamelen);
++	if (obj->name_len > ADFS_FPLUS_NAME_LEN)
++		return -EIO;
  
- 	case RFCOMM_CONNINFO:
--		if (sk->sk_state != BT_CONNECTED &&
--					!rfcomm_pi(sk)->dlc->defer_setup) {
-+		if ((sk->sk_state != BT_CONNECTED &&
-+		     !(sk->sk_state == BT_CONNECT2 &&
-+		       rfcomm_pi(sk)->dlc->defer_setup)) ||
-+		    !rfcomm_pi(sk)->dlc->session) {
- 			err = -ENOTCONN;
- 			break;
- 		}
+ 	offset = adfs_fplus_offset(h, le32_to_cpu(h->bigdirentries));
+ 	offset += le32_to_cpu(bde.bigdirobnameptr);
 -- 
 2.43.0
