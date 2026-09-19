@@ -1,72 +1,75 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DABA42EEE96
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 19:24:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32BAC361670
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 19:24:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789845844; cv=none; b=rVlK4QAdcnmFW5+QzcuPve9kZyaB+FC7j/c3fRyr5+uKgwZB7Q3cihh4D+ZuMfGEYO5HNfzE2HPPyyvVYHXhhON/K3EJNeg6JBA7is41eN+4JAZFmfoEk3Lch3yv8B9L1JJ942TYPIqI2bW02sEC5UbemdvZKoJ8SwmMsinsW0w=
+	t=1789845866; cv=none; b=KN/GMX+Pdsft52C1PXEqZYnOMAvaLLlfI5yrSG+y3u1HJ44M3lgakfzJy6g+hiiouv0+hGYnkppl0jAYlagRq+AFcBrUmlvFmcs7dMxZfFgPLnKo1AoKxeuUbUo8vDhgj4f4FLhiyYmJEZCKSo4v4gPKPrh1OmMwLXL18O6sx+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789845844; c=relaxed/simple;
-	bh=Zy7ASpqhFt5c+INfQRNFAal3t298cDaPiH4RumhTKTA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TNlc1SKsdCL7yy5HEmBYG5TN6G3kdk7SVTvQpOk4ll7u5HEMJrPRG9UtM05xuFkmU6h2QSatq41icpvhyB9nNRLrVlkgH5sibE0vu0Pt8w7zz+N0bB1z64BgeUy1QUYrEibL4TrJxc43TgX3bkG4WyW+Ay06NHekpRtS6kz6460=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eqkx4KAS; arc=none smtp.client-ip=74.125.225.141
+	s=arc-20240116; t=1789845866; c=relaxed/simple;
+	bh=VVnhsfm3As+sMznpo73TbHUDuc6zMzaiuu2csJA8JAI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=o/FGDCMKxBP2J3gMprrIyH77TwQqqqmICdn3pgrKQlN0Y9l6aphtWfOaTNcdrF9deIBTjdIO3v8FBXi94Sn/aSwV63oX25tXCyIczL6k6+fJvnGkjFh5GjtfDJ81hll+H6IZlW00fCQ00DCYSrkN7iC6/+5czmV+9VFnn8P2ivc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OoTH/dgy; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eqkx4KAS"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cc9f581c4so6875335e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 12:24:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OoTH/dgy"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d8239so12826335e9.0
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 12:24:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789845841; x=1790450641; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789845863; x=1790450663; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8VITylu1cym2OHkrOqz+VmhrGBWx+8zb7FdhaZzSZCQ=;
-        b=eqkx4KAScUMwDBSTbTemYTsTVLtFSLogB+L+4euztImj/ane+s7h0JVhKN06RA4IQK
-         410p34af8oKIHO5EVQy2Duze12Rm4+rtoH4CmCjzG292mqe+8Dfj9P/E98dvXz0+2Mrj
-         k9bLcLrI3Hc1LBkB1LKFhTBS1DVnKNl/f8laBPdGnHBZIazUIzHO41QEI/BbVKC8U2nx
-         I0X3vZLCIP9g1TDXuWKwWo6wwvv03QmFkBKhw+SNKtaQAFBHgXLNYk62dl0Xnz6qEanm
-         vOM4Hyk9YI4VGVQj1V+vGPtjLuSjM/rFPQ/6Smi6FvHRbNrpWi/Bu8zzo5FpPiLeiUn/
-         432Q==
+        bh=zCBYukoxlIjOQo0Rl4nFIpPvgCBBr+Fx+MuYyRfGWBg=;
+        b=OoTH/dgyo4HBXuPL+vCIvony8Q0Y7KWL2bwFFWxSIxoW6Vkv5M0eodMXk3mKl123ht
+         fGphbHxjBls36cnT7NSXgmSR8TxmJyFEik8+Nfr7zAvWhxSIiB33KSXZM13H5baeyvlR
+         E1B9PCBlZYy6qv8qLUkI5brbYehV+zaOrxb0iX6iUTSm5YOTrhsKLGfi5FYJ1WbeE5m6
+         nz5Dsbp9r7z9ZKNMFjZjJvio8Xds+SAHVznema/5+MJuY9SNofNeunmYl64TXmZHjt5u
+         7r4uhDFQ8MXc0/GxQgSXEgz7La8xe/ZsZb4QEdOiSWu8Iz8/Vp9Z/qVvZLW9R6tzvfIQ
+         5Cpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789845841; x=1790450641;
+        d=1e100.net; s=20260707; t=1789845863; x=1790450663;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8VITylu1cym2OHkrOqz+VmhrGBWx+8zb7FdhaZzSZCQ=;
-        b=StvE0cW4Dp2VP8o7XVP6RA+mDFo7oEqI65wFT2btqJIwUZXPIm0vUwjZ7mvOtNLG6I
-         FdixagHPP60PXPiIyhIG3tnjecQvggvzBQ5T0VXmr1wR2gqeYTzjjsjkpHJWnHdULyWT
-         xrlyufR9BGnrqVE57Ypkwz0knSMMp2M1m1h6cthMELsBd/DjxNBC1oXdbs6Q2TEBKLXu
-         DujQSIMWmzajBPAYLEHFZa1st/t7va2hnrr/fFBbf8SPeqNKgczhPygCA5FQv3NDRocx
-         UjA/aZri7i3E6sftZFnqjjoWiTJUu2xhUuZgXHYAKA4Idhqe3rBrkbKeZ7NbOK+mrzcU
-         O1/A==
-X-Forwarded-Encrypted: i=1; AKwUvBzgYWOOiCAZYjkJz5nIK9xttwVVDSJ7apJBx3hnqg3kH3LW5wwr0l4kFWetm4GTFNHykJnLQicb06FfCr4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kWw2K1ckf4HfUhZLKNhekQI0RjOOx3C/uhLWQTU5iptw8OFFck
-	VSXaq316TWueCpLb7C37XJsjZCRCPYB7Nr/1AnXY0Dg7zfkoZTnIgr3T
-X-Gm-Gg: AYBFou0EI9H4ATmV6Nn6A85J4BUqgQ51ewrCwSHNeDZFw9DokNHt7Vxg+uiO70BcYpF
-	IX1o1YqJAzVbwQSFA68aF+kZmYKi7s29QThFajRcekWWblkdbUUwV81VI0e242OaZzgvuTSTo+M
-	fIBk+XoxTiETdvNOt0noQ8E0I2+86wL10MpTbLV7QrEonf07Pf+b3hOTMOoD7Zr58JZt2SrWCaE
-	yHVy1Ake2Tt9IF0x7X7fHQ/pcEL83d6VEwp4KS4wXHMLvuJdxKciE5R7U6qbQnujE8Zj15cWr3U
-	6m++87DaupD3GbYUeAEU5ROaL5pDiIBZQRY3ExkRIsrlYOQ/37MgimLXSGFkW8SsjAO3c5OFj4P
-	k8mYW9x3ri+4rLVpNYl0npvGdiaeRxF4ESPiBw4A/UcHryhZ4CoLN4tTiTZJMJb9gTEx76Lo/fe
-	OXMpC8s2oZz1EsDzJ2H+8qxjZtFByoKAyh7hluePF/IW4gT+H5JC4XPEUH7uL//KurfcV8KDI21
-	yaEGpovrUdgxRGnV22kl7V2r31aTPfAE5zEdAeYVSSiaiFpHDr8
-X-Received: by 2002:a05:600c:83c9:b0:49c:f13e:e4d with SMTP id 5b1f17b1804b1-49fc4ff402cmr91842905e9.10.1789845841098;
-        Sat, 19 Sep 2026 12:24:01 -0700 (PDT)
+        bh=zCBYukoxlIjOQo0Rl4nFIpPvgCBBr+Fx+MuYyRfGWBg=;
+        b=bH/OMux8gv80PUSgmJzfCwpS++7dsQrNnRI80dTLsjEbwtWr4xnOWPtJBysAiRglAO
+         EcPskArOzD/KW34g+GYrP+5Pg92Na+S+NFDVDcQO9hRPom0dfYt3Um9cTWcdrq/GXBWf
+         TWbZhax0HYZu0xxfV3IbUMnC8cYG21JMMWPWFjYYG+azdstTJQhynb7kvkwZenDnM5hM
+         pS72Zf8F/8iNvkSdesWijujCANrEu0T/a6qzovTmd2cpV/lW41/c/yNzQ/aIwplAtUQF
+         RacF1Kdx/58x7zWuEBDQVXD1vS8dSzPZ50q3/afRKGeok7amBB+7ksX4iF0n1rQ+TZOb
+         kRww==
+X-Forwarded-Encrypted: i=1; AKwUvBzRajGBGnQFDXHiIvs86IzShlzTbgD3B5O4bB3CQNbfLu/ihmSVYl2O0S5M0oFaG+OwdMGnAuY7E8v4Qv8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kayHjWS3MIhHl3uE60W+8x3/rSoROfYBtLe45jlrC34GJg4cno
+	F9WblCVLiTg6uRTqYp01Ns1oLKsPX6JEiZ8pPnEc8sqEGd8VnB7cKG7T
+X-Gm-Gg: AYBFou2JbhRMoVFDDUh0BM5HKIhsnikSlUYZMB5pWADIIHo3NOGnqeGH50IwNIDEXxb
+	O03iictbfryY281gPdKQyGQT6I7a4T9zA/3HVJE2pHzOp1lQqjIVqPS6JSnCEKThUKb9hbOHTkJ
+	ckPiKzCt8qkMjGCZT3SCGj5xivYIL7hmL9iQpnltPykrOEliQibKAlC64Py0sr77kYXl0IF5YDo
+	8r1nTPOWGM3yCun/U3dcBIaMGaSk3dqIHL144nrMQSN685jHANTH7AVVyA5+Dwn98MEW3VG7xeb
+	4ZjmsfPDtbhrdWsZBULb/HOec7poQgDKY6qTHIfm9PajWUfdNjirK6QD1ywBMRqnihNCTn/T13L
+	YcbOXBUYeMPh4vpUSWj13AsXnIjEyGp+mU5Jnj3mXQoPkjU3l3+s2qLHzrOWGWXNueBQ1Zspz+F
+	9SwxF2D5lAGh3oQh6CbIvXFig3J62SVSBTAr66frso61R79jE8XoKL+s4c+zROIMP5LLTNwaBAr
+	eoiyHh95qcoS1sWLEp+l9UH56lcv8Zd7+ko0yqDvIM2u10kb/+L
+X-Received: by 2002:a05:600c:3547:b0:49d:2562:d670 with SMTP id 5b1f17b1804b1-49fc56aef66mr88814505e9.14.1789845863475;
+        Sat, 19 Sep 2026 12:24:23 -0700 (PDT)
 Received: from fedora ([202.47.63.86])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd0f7e05sm100096265e9.4.2026.09.19.12.23.58
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc5748e56sm152023445e9.2.2026.09.19.12.24.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 12:24:00 -0700 (PDT)
+        Sat, 19 Sep 2026 12:24:23 -0700 (PDT)
 From: Muhammad Bilal <meatuni001@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: jirislaby@kernel.org,
-	fseidel@suse.de,
-	linux-serial@vger.kernel.org,
+To: ardb@kernel.org
+Cc: ivan.hu@canonical.com,
+	ilias.apalodimas@linaro.org,
+	mingo@kernel.org,
+	matt@codeblueprint.co.uk,
+	error27@gmail.com,
+	linux-efi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Muhammad Bilal <meatuni001@gmail.com>
-Subject: [PATCH] tty: nozomi: lock tty_icount reads against the IRQ update path
-Date: Sun, 20 Sep 2026 00:23:49 +0500
-Message-ID: <20260919192349.272409-1-meatuni001@gmail.com>
+Subject: [PATCH] efi/efi_test: bound capsule_count to what the int loop index can hold
+Date: Sun, 20 Sep 2026 00:24:10 +0500
+Message-ID: <20260919192410.272516-1-meatuni001@gmail.com>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -76,70 +79,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-receive_flow_control() updates port->tty_icount.{cts,dsr,rng,dcd}
-while interrupt_handler() holds dc->spin_mutex, but ntty_tiocgicount()
-and the TIOCMIWAIT snapshot/compare loop in ntty_ioctl()/
-ntty_cflags_changed() read the same multi-field struct with no lock
-at all. A concurrent update can be observed mid-copy, and KCSAN flags
-the unlocked access.
+efi_runtime_query_capsulecaps() only rejects capsule_count == ULONG_MAX
+(to stop "capsule_count + 1" wrapping the kzalloc_objs() count to
+zero), but then walks the array with
+"for (i = 0; i < qcaps.capsule_count; i++)"
+using a plain int i against an unsigned long bound. A capsule_count
+between INT_MAX and ULONG_MAX - 1 lets i wrap through INT_MIN instead
+of ever reaching the loop bound, and capsules[i] with a negative i
+indexes before the allocation.
 
-Add ntty_get_icount() to snapshot port->tty_icount under
-dc->spin_mutex and use it at all three read sites, matching the lock
-already used on the update side.
+kzalloc_objs() would have to succeed at that size for the loop to be
+reached at all, which bounds this in practice, but the check should
+not rely on the allocator failing first. Reject any capsule_count
+that would not fit in the int index up front.
 
-Fixes: 20fd1e3bea55 ("nozomi driver")
+Fixes: 092e72c9edab ("efi/efi_test: Prevent an Oops in efi_runtime_query_capsulecaps()")
 Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
 ---
- drivers/tty/nozomi.c | 19 ++++++++++++++++---
- 1 file changed, 16 insertions(+), 3 deletions(-)
+ drivers/firmware/efi/test/efi_test.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/tty/nozomi.c b/drivers/tty/nozomi.c
-index ed99dbc9f990..4b2e224c0aa2 100644
---- a/drivers/tty/nozomi.c
-+++ b/drivers/tty/nozomi.c
-@@ -1671,10 +1671,23 @@ static int ntty_tiocmset(struct tty_struct *tty,
- 	return 0;
- }
+diff --git a/drivers/firmware/efi/test/efi_test.c b/drivers/firmware/efi/test/efi_test.c
+index d54d6a671326..683a0524dd31 100644
+--- a/drivers/firmware/efi/test/efi_test.c
++++ b/drivers/firmware/efi/test/efi_test.c
+@@ -611,7 +611,8 @@ static long efi_runtime_query_capsulecaps(unsigned long arg)
+ 	if (copy_from_user(&qcaps, qcaps_user, sizeof(qcaps)))
+ 		return -EFAULT;
  
-+static struct async_icount ntty_get_icount(struct port *port)
-+{
-+	struct nozomi *dc = port->dc;
-+	struct async_icount cnow;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&dc->spin_mutex, flags);
-+	cnow = port->tty_icount;
-+	spin_unlock_irqrestore(&dc->spin_mutex, flags);
-+
-+	return cnow;
-+}
-+
- static int ntty_cflags_changed(struct port *port, unsigned long flags,
- 		struct async_icount *cprev)
- {
--	const struct async_icount cnow = port->tty_icount;
-+	const struct async_icount cnow = ntty_get_icount(port);
- 	int ret;
+-	if (qcaps.capsule_count == ULONG_MAX)
++	/* capsule_count is iterated over with a signed int index below */
++	if (qcaps.capsule_count >= INT_MAX)
+ 		return -EINVAL;
  
- 	ret = ((flags & TIOCM_RNG) && (cnow.rng != cprev->rng))
-@@ -1691,7 +1704,7 @@ static int ntty_tiocgicount(struct tty_struct *tty,
- 				struct serial_icounter_struct *icount)
- {
- 	struct port *port = tty->driver_data;
--	const struct async_icount cnow = port->tty_icount;
-+	const struct async_icount cnow = ntty_get_icount(port);
- 
- 	icount->cts = cnow.cts;
- 	icount->dsr = cnow.dsr;
-@@ -1715,7 +1728,7 @@ static int ntty_ioctl(struct tty_struct *tty,
- 
- 	switch (cmd) {
- 	case TIOCMIWAIT: {
--		struct async_icount cprev = port->tty_icount;
-+		struct async_icount cprev = ntty_get_icount(port);
- 
- 		rval = wait_event_interruptible(port->tty_wait,
- 				ntty_cflags_changed(port, arg, &cprev));
+ 	capsules = kzalloc_objs(efi_capsule_header_t, qcaps.capsule_count + 1);
 -- 
 2.55.0
-
