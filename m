@@ -1,99 +1,169 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2D1E456DFB
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 11:36:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E6CB330307
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 11:40:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789817786; cv=none; b=cEC+ii2WiP/DETuHLZzfgjqx/0U9A+iiq61BtAL2gXrjI1gfuAF7ZpGBlNOyNFw4Ur37acsqvurfGxqJx3mWE9DhCEyRNW1xoetTpkvuR1e1Qb+ZMZsByfH7BsTyCCf+sTOHeqxHREZ8BdZsEVe869Hqd2eMqRhsomOqH3PhbNs=
+	t=1789818003; cv=none; b=Q1NZkPKnP0BJRKsaA/xTXsdMRKB81+8FEfBdELfsb/AB8UsZvLhjyG9pmPPQbFzcDgiWLmpPtsay94hf0XjLtwV2A2Cjdtcdpu7q1U5j6qEWc8lWNga33Vj2GintG8dfZvzmMFWgUM3JliTsf3UcqjRv9q+Vx/a5jj6K45OlkQ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789817786; c=relaxed/simple;
-	bh=kTqY5qpGtIvvRtxQ8u/RwVAIS2ddmQFY14gCuYLRjts=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DjWLgcQaqT7zNjxWi83PLWzIVrY/dx8ZvCPFBxWEahx6VLc4YC3+iireqQEcUoppmrTyt00aU1HX6S+0vEzwz8km8vWUWNb4p+wmDyCIEUKU0fGvhu88u3NsnX2lBNhWPclXaV+mFyYc91vS+JWdN8OW+VhE34bkYAQyn95Qf4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h1l/0OE8; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+	s=arc-20240116; t=1789818003; c=relaxed/simple;
+	bh=EvOJG+8Pl4ielrPZXBMTsv+Ae+YdDXMfiQGv0B2VxL8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pWXALRZ4XFYtGNQc/cGU+lTHopm8NwrgxRRqyaqc/htpjieLCPMajGhyw7ASJPvpByIrE+6FV7334qIUiXyE17WSNgFXcoCgSq/oEIxZlI7s5X7zFCmWBPd7hCmXBwwvctfBUkcZRAPTFfkOn02Y/WK4dUayvypOK2PeRn2kPOY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KTWynX0T; arc=none smtp.client-ip=74.125.228.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h1l/0OE8"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccafb751so1337090a91.2
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 04:36:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KTWynX0T"
+Received: by mail-pz2-f42.google.com with SMTP id d2e1a72fcca58-86e6d007703so1408880b3a.0
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 04:40:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789817784; x=1790422584; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=LOwTThtG1uC730wD4kNwwPDkUEg5WgY1ESba7svXy3A=;
-        b=h1l/0OE89T5QSpqSUrK8D8cD7BmZJ3g+b5j/xSfioKtWOBSdN4sV+iG8jsT6NFAT7v
-         3O74B+oRIvJykfxya8/cllh6mYhvZIPc4UB0NH8F2oLVoTkyjMDpBI17wh8MAD+OAzwk
-         AURPUCxTJWnwtURY058H/niIvNgo4UWBSvo5lxZFu6ljEOqPb5Ota+FYyj3ZeJOth8zW
-         AlJKMoQCoLswrOAgDWDBNHDnOUeP+B2aqAbVKAQ3RDEKYnRkRNWECuYNbezZrw9wJ6h1
-         /+fzdGWIeIDuzLhLLks0dLuHnZHb9THkYKA8FyBf7LXuDz4R8G92BuJKDjbZJoRP4+C6
-         SpOQ==
+        d=gmail.com; s=20251104; t=1789818002; x=1790422802; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NPmuBQ9EGkU1scMbe6c8dUYzaaf0Kac0wlnce9t1ryI=;
+        b=KTWynX0TPpODpaXm2RCLsjDQ1cOJbcRpOuQGq2AK1rmTImeyLKcV+3//UXDVb62MFY
+         IuDN/Fpp4oAUTZklbUDrHqY9ALOASzzwSg5b+VrTqfaCNTIR+FM8rdBcRP5AKsdqk/Z4
+         pKLhUx5VylCrhsGoMtxo2jEms5Pa63P9HAqHZ4Ndj0tcp4lzBQHRnH8BXr3SdjitSOHb
+         w+9NKMIT4wf73eThwzd+ZIBClrpAM5Sel2bjUrifqvU3Xk4BTqVZv1k0vHcgRk+8znjX
+         /La4767KBnLAUdH1+BIBiLdwDaErYqUyN69NaFTtgXM3kyDZlJ3Jq9BSwYQLwe8P7HaZ
+         U7wQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789817784; x=1790422584;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LOwTThtG1uC730wD4kNwwPDkUEg5WgY1ESba7svXy3A=;
-        b=ox984lJv3QxtD3bN0eQo72Y3GeB9YRYIvfub1DVCRNForbpzSBHvB57bSQYA5JIwuH
-         OIiDN+zPhWeMf7iG+I+7U67m6cfhBDdH4yLq9j9LPPNxK42K8A/dNp6ftM4h5iXM2Lfe
-         lGL//ga0V+/TZMiu/a1U8wMR1WBzW05l41hZZZIJ0KCFPNtVtYvspaMdT0IdycW2b/KU
-         JTmsjQQuYPhxcv+BpfLk21kHddXzFU0jEuEjNvGFNFNJRA8qoS7yB6Gl5qx+Hj6HgvQ7
-         kNs0tltmwgdAowA0nZl6PCWMlFeedY5H5GkWCQE4zFCF7I4pp6ckRWsH3ZrOg5AX151u
-         /4lA==
-X-Forwarded-Encrypted: i=1; AKwUvBw/vm+ZR2C8QgtocY5FFz1TRAVLN+pMNh0hthr1G3CfhO/C/qjR6aqQrYWsrcSNGh7LXpVsU3AFcD7QFdU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lfbruSczHea+mnNpcFgbjIJufq/lLyDVVlwocyrgv5lV3GFRh/
-	d4grQO9zzYoazg/EZoO9FbfRZ4h9ZS6LdysrZrvoF6d9O2aPdyXhqzah
-X-Gm-Gg: AYBFou1c5Gdg5X950bKldgyLL/2YD/2fUzapd51d//oQBv/Z32hyAu/qWHIvILStlB0
-	flbRTk9cpxyE2UVkKG6bWujrTTsV/d/aUqdUX0U+OO/8Icsr21h5c1MyQaeGF635c0qceJ/Pazk
-	UdOHf7VhVMSAomDLbyyQlN5ZEgDY61h8Wx+dqOzuixgg5bqTTi34xMw+k6XNpdIWFoUSllIR97Q
-	N7lMHisRSSeZXCtLxyb1WMyRXgHJyhbIMzLy8ebZxsnU3sGHdzaJ3b79+XTEPiECrPcSwWAo1pO
-	8V4vqZqBOm3e5L779CeJwCtM8DCTwI85Go7Rn+Je1dFjojd6DAFskjK0Kzdm0ZAz45nfoBOCL+n
-	aiOgrSPFcoPIxku30+F9SRrg11o88Zx9S9Fv2bRiB8vTzXKTryucInXSko2/5nbXcItvgqchQIo
-	Kuk6aKhmvRR4ncsgU+oeuWCz2XGdx+Uw3o0HqQfK3qEElJviN6v7L4uFYAJF26wz8TZbXuMDLQc
-	auRHjgcGzPw
-X-Received: by 2002:a17:90b:2686:b0:39e:6c69:7772 with SMTP id 98e67ed59e1d1-39e6c69791bmr5107806a91.27.1789817783850;
-        Sat, 19 Sep 2026 04:36:23 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c3313d96esm5532111eec.12.2026.09.19.04.36.23
+        d=1e100.net; s=20260707; t=1789818002; x=1790422802;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NPmuBQ9EGkU1scMbe6c8dUYzaaf0Kac0wlnce9t1ryI=;
+        b=Wzy0sUyXVFLL3Xn0qmmj1eZMSZ8VhOLx15iP+6tm+u4tS9aGNjnToPlwracOx2aaF8
+         TFbkt5WQY/QrqIJp+DHAqCkIfYDRcj6efZCj0vMyCKgek8O93dkMS531nrVInq34ONwL
+         c0Q5/+qfr9Ng4FQKrDbctsh48JY7MlT+gEOES0MF2Cc1Ivf4Bx2ce1VDdE27P/M/Mq4W
+         Hl7r9MHBO/uI/NEQmshBjYwywzdvtjjP0m8AzBZO7VOyq/vY6UlqGAPZPtP5wONLTgiU
+         BOAf0oxayS+pRJU2pADJ+g6UxGrmp6ZcqGqD1leGT+XzuQTSMK0uzDR4G02xTSqBxPfj
+         ywHA==
+X-Forwarded-Encrypted: i=1; AKwUvBwULDxt4MuDK/Nzu79DMan6006W+PA8QR5Xhh/lmWpBQDVwGDw3xqPPOaVdUy8UzxVECYzbt3oNL8AP4dY=@vger.kernel.org
+X-Gm-Message-State: AFuF++k6rJhONIDAqY5N0Ziqlu+RatVRQ1GGhZ9HvtcRlp8LLuEqyM69
+	/XMxBnmkTE0p6f816yFIfvCaG2gmAZNR1KD3i+oT2U/Y2rTLT+GwLhP+
+X-Gm-Gg: AYBFou202puC42eFoCZFwSxIqbUdL+ICSHmiKh0xUooTHictK1YsNYmV7hKGhWDE+A0
+	AAmBM5NU1Otr/FR8vtrd7hGV0bb9ZyYRbnbwMew+Hqx2mFCEvbtFevbkzSV/SoBke+47aDjq2u+
+	ssKDeo2mFOK3oqMYmdsZ3lEl25LIflep5ypueKT4vFdhI/RmxifXww7d4aMlal2mVqVwx4aVL1t
+	ytoJYd5KBlFjJ73LniKrUoWyO9jbVxyPAoPpzEsbUBxlB9tYBl3FkuREUiA6FabfML1JziRjmnX
+	7aPkDWeZl97sUqlGVzlUbe+IbxprWnaNlA09rYGDsc3RL89JdNB7DSpsCjMY+VMHlErrBShmDoU
+	jxGYn26w5lUT/iz8YGD/BJOZ2esZmdJl+w08xtxY4BYEzY7i3VKv092b852d4duRTUfSBdt9zYm
+	K9lrnMIm3OGPllQe4FKKREs4TYaC8z1L4ve4Ad75IZ5TZxQnDobX+jt2vxcxQkOpwcFvqMB8b70
+	1BxeGoJIW8ze9/M35662ui5q+u5Q/O8C0q+
+X-Received: by 2002:a05:6a00:1788:b0:878:3811:23a with SMTP id d2e1a72fcca58-878381109aamr1195454b3a.54.1789818001831;
+        Sat, 19 Sep 2026 04:40:01 -0700 (PDT)
+Received: from csl-conti-dell7859.ntu.edu.sg ([155.69.199.57])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a94f4ab3sm968471b3a.23.2026.09.19.04.39.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 04:36:23 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Sat, 19 Sep 2026 04:36:22 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Colin Huang <u8813345@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	colin.huang2@amd.com, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v6 2/2] hwmon: (pmbus/tda38740) Add driver for Infineon
- TDA38740/TDA38725
-Message-ID: <a31a41b7-10e6-443c-8386-71d6a4cc953a@roeck-us.net>
-References: <20260918-add-tda38740-and-tda38725-v6-0-a8b11018d850@gmail.com>
- <20260918-add-tda38740-and-tda38725-v6-2-a8b11018d850@gmail.com>
+        Sat, 19 Sep 2026 04:40:00 -0700 (PDT)
+From: Kaixuan Li <kaixuanli0131@gmail.com>
+To: "Theodore Ts'o" <tytso@mit.edu>,
+	Andreas Dilger <adilger.kernel@dilger.ca>
+Cc: Baokun Li <libaokun@linux.alibaba.com>,
+	Jan Kara <jack@suse.cz>,
+	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
+	Ritesh Harjani <ritesh.list@gmail.com>,
+	Zhang Yi <yi.zhang@huawei.com>,
+	Kaixuan Li <kaixuanli0131@gmail.com>,
+	linux-ext4@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ext4: stop verify_reserved_gdb() one entry short of the block
+Date: Sat, 19 Sep 2026 19:39:40 +0800
+Message-Id: <20260919113940.1823559-1-kaixuanli0131@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918-add-tda38740-and-tda38725-v6-2-a8b11018d850@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 18, 2026 at 06:23:55PM +0800, Colin Huang wrote:
-> Add a PMBus driver for Infineon TDA38740 and TDA38725
-> single-voltage synchronous buck regulators.
-> 
-> Signed-off-by: Colin Huang <u8813345@gmail.com>
-> Reviewed-by: Guenter Roeck <linux@roeck-us.net>
+verify_reserved_gdb() walks the backup group list, reading one __le32 from
+the reserved GDT block per iteration, and bounds the walk after the read:
 
-Applied.
+	if (le32_to_cpu(*p++) !=
+	    grp * EXT4_BLOCKS_PER_GROUP(sb) + blk){
+		...
+		return -EINVAL;
+	}
+	if (++gdbackups > EXT4_ADDR_PER_BLOCK(sb))
+		return -EFBIG;
 
-Thanks,
-Guenter
+The block holds exactly EXT4_ADDR_PER_BLOCK(sb) entries, so when gdbackups
+reaches that value the test is false, the loop runs once more, and *p++
+reads one entry past the block before -EFBIG is returned. The same value is
+also the largest gdbackups the function can return, and
+reserve_backup_gdb() then uses it as an index into a block of exactly that
+many entries:
+
+	data = (__le32 *)primary[i]->b_data;
+	data[gdbackups] = cpu_to_le32(blk + primary[i]->b_blocknr);
+
+which writes one entry past. Comparing with >= stops the walk before the
+read and caps the return value one lower, which closes both.
+
+The walk enumerates the groups ext4_list_backups() produces -- the powers
+of 3, 5 and 7 below the group being added -- so EXT4_ADDR_PER_BLOCK of
+them, 256 at a 1K block size and 1024 at 4K, cannot occur within a 32-bit
+group number. The entry the old bound went on to read was therefore never a
+real backup.
+
+Signed-off-by: Kaixuan Li <kaixuanli0131@gmail.com>
+---
+Reproduced on v7.2.4 x86_64 with KASAN enabled, and on v6.12.9 before that.
+Three images, one reproducer, the resize target passed on the kernel
+command line:
+
+	case                     stock                  patched
+	A plain, 8 -> 32 groups  0, 65537 -> 262145     0, 65537 -> 262145
+	B group 257 (APB + 1)    0, 2105345 -> 2113537  -EFBIG, no growth
+	C ^sparse_super walk     -EINVAL                -EFBIG
+
+	(APB is EXT4_ADDR_PER_BLOCK, 256 at the 1K block size used here.)
+
+B is the write, and the thing to notice is that the resize SUCCEEDS on the
+stock kernel -- this is not an operation that aborts after the access:
+
+	BUG: KASAN: slab-use-after-free in ext4_flex_group_add+0x50f0/0x5680
+
+C is the read:
+
+	BUG: KASAN: slab-use-after-free in verify_reserved_gdb.isra.0+0x270/0x290
+
+A is the control that matters for a one-character change: an ordinary
+online resize goes through reserve_backup_gdb() -> verify_reserved_gdb()
+and is unchanged by the patch, same return value and same resulting block
+count.
+
+Building B needs the group being added to be exactly EXT4_ADDR_PER_BLOCK+1:
+below that the index is in bounds, above it the read defect trips -EFBIG
+first and the call aborts before the write. At a 1K block size that is
+group 257, so the image is built with groups 0..256 already present and the
+resize adds only 257. sparse_super is cleared with debugfs so the walk runs
+end-1 times rather than skipping most groups.
+
+Mounting a crafted image is not a Linux kernel vulnerability
+(Documentation/process/threat-model.rst), and I am not reporting it as one.
+I have not attached a Fixes: tag: the bound reads the same in v2.6.32, so
+it predates the git history I can bisect over.
+---
+ fs/ext4/resize.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/fs/ext4/resize.c
++++ b/fs/ext4/resize.c
+@@ -794,11 +794,11 @@ static int verify_reserved_gdb(struct super_block *sb,
+ 				     grp *
+ 				     (ext4_fsblk_t)EXT4_BLOCKS_PER_GROUP(sb) +
+ 				     blk);
+ 			return -EINVAL;
+ 		}
+-		if (++gdbackups > EXT4_ADDR_PER_BLOCK(sb))
++		if (++gdbackups >= EXT4_ADDR_PER_BLOCK(sb))
+ 			return -EFBIG;
+ 	}
+ 
+ 	return gdbackups;
+ }
