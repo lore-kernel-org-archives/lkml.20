@@ -1,72 +1,73 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+Received: from mail-pj2-f36.google.com (mail-pj2-f36.google.com [74.125.227.164])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C10FE394EBD
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:26:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58346390985
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:26:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.164
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789856767; cv=none; b=sMOyxfP2H8NmlJiCc8tTLqLCXwPMdpx/tyFc9Kj2bHIm+5g2UzrcaLDf8NuIRhxwdLFafdL3EojoGHYeLDZ4Iu2z0n3N8TLaSYrit/BAHpmC7Uk71ofam2ambRfKQnP/ejABdL/QYAqxWgEafSoVbAsvrKNfFwKgkF3rjfQ47b8=
+	t=1789856768; cv=none; b=h82QMJYEg1bGGKd83cWCgq7wXxFbk/PVywRWSJIhyYEwz2PiNCko1+xW82JrsWkPlewrb4+KcPu50UfnAdLiIhervdBAIOU/RxwN/1XecOwLu3uggJLhvwqTXv3u+SoBwgFP7sO0eg2eZ7cMzR15rFzK69n2bPICq6O8x5V+u8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789856767; c=relaxed/simple;
-	bh=cNWi1UGDMqPAMRURqi9VV4kv7Ya0+OolMMjPRtbcc+o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r7kfAkuLL/Zo7NGpX4K2GvAi6/4WJWENMgqdSAfZwIlSc7QN2DfeUaTmLkTK+euTOhyncCkAiFvoBIDhB7EzoiFJJCezhTnholiSBrZrT1uF8Tv14JtJxqSDVnpeSpN95jrSiOI0JAM/qyWTu3Lfznv+C9zp18Sisgpywk9IlHw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LL7iwu5B; arc=none smtp.client-ip=74.125.227.171
+	s=arc-20240116; t=1789856768; c=relaxed/simple;
+	bh=adBUT2nmNglPUkKlvmjnKrXglU3lwnGtt0jix4H4r1I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ALEFrGmfncDmM2WH/AnetoY9Kkc0MSQFVHFeydBLIecwkFdXfJgYqUCZgULoudhDcB6TESohKEqfzS4NzAZyk+8hxaVu9dKPBLSztIm07MsKzswLCuoRf2PrWZuuhRk4VWv0DxBAigYRUUmLhg4zaEPYqwD+erUffky2QQ5pf8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qO7rc5lX; arc=none smtp.client-ip=74.125.227.164
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LL7iwu5B"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccd5cf03so1862379a91.1
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:26:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qO7rc5lX"
+Received: by mail-pj2-f36.google.com with SMTP id d9443c01a7336-2d8fdc579daso21160975ad.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:26:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789856764; x=1790461564; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789856765; x=1790461565; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ohwZyrLifCQ5xETf8llfhYAktD3IRGB/Lnr7Rd8UdU4=;
-        b=LL7iwu5BVCJKm13ZkaB1HzmrpKhrg0mnAl6zyRaFgr8DU+Bx8v/NnBrO7U+dWSRebZ
-         W45YtNZBJaoUqyHO2zjoh7UovJ8ERcihJx1p21cCblmVZuV62KCokU2Dw4EDnghkRy0b
-         gkJatd2XONYTwji5HjZ8v5owzKO0vDVxn8dGLbEh0ncncKdRf8ay6xqg8rA7DyS0V2T6
-         eYCoz0SV3q5GABt6wfOtz36QV4uwRgBzbtBw+cLAg0Ycrb4bbpecvGfj3GuQsOhRvTEb
-         SbTBAOHDK+qKMKE67IJbTccGGol3I/qJKCAIXP9f5CZavGq3WzrR3WQ0JZOmkFXobfOQ
-         180g==
+        bh=aWyXbkuQ0HZAmotwmU2zrx1ovfV3t19guYefN28Ku4Y=;
+        b=qO7rc5lXinGNm8f8Ty+ScZL91SeSAeWzVc5ACCK46C2L4htOVZw0fimUV3GU1PViHY
+         vl2jMChQ0vEhgquJVnLofVr/6/zs4QtsOTwvKNT1SmbNLKVgVOkiC7SS4bT5+I/7XMGr
+         0QTlJczQqWPAN2ATXRtYVmeFj+1Sc1ZqFhFqlXijs8hZq8J0UoQjlEdVlywCS5JsIkE8
+         dDNq8sNMDA0CQX9y/Nve+GNr08wUdWIBmFPAxd+azoqTQAmq4QPgYxCjGdF1pEeGbIfM
+         dBLQqkggqxJliSFX7EiMOBNlrzqg0ga8264b6UT7vlc+gl+qxsKaCufrwOl6plxIX1FT
+         yrzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789856764; x=1790461564;
+        d=1e100.net; s=20260707; t=1789856765; x=1790461565;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ohwZyrLifCQ5xETf8llfhYAktD3IRGB/Lnr7Rd8UdU4=;
-        b=h2NdKnuXwZQBAAMU2P/At/DEYuoBpHNVZFfb5QKLnUXDRxscX0oMJUIZV1ghH46etA
-         u48snGKe+EZPNhqEt5ykp7IJG4I9go4mHmABJnZrNVoE5XWpAMGQDmRj5eX/mHPjN9aM
-         mgb7IFvOdnZhs+Qy0OoRuylarqcSw1ClE8USTCH7zbVq5DcWcev5kEUNb3lDeDjEKO6V
-         qmaH2rqn+eOL1Xi6q5rCQKoYjzN0DiCJSkSOtoFE+0DUvaDSyId3JfX7THrMVPh2kBUd
-         1K/2faAp1na1CWP7yJ2bWf+xNLDY90Qpt5Ckl/f+yghlhS9kPrEvvBOhCWavjEfWzXpM
-         eLlw==
-X-Forwarded-Encrypted: i=1; AKwUvBw+ytC1hS15W762XpH5I54m9/2XO3Hf68ZcDeg4bR8V2RPtyKyUQPiU0kgfAycJq6uBKI3wrfqedKTetZw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kU1gTxkCwN535z+sHxlGAwJiPICQFMGKVKeH18E5fbfvZjY8LW
-	d3TyRJ8vveptt/efhEN+cT7VxejTFpc+O+y1/0sTt0WHVUKLkpqwu19o
-X-Gm-Gg: AYBFou3H5xgGotpL8lCMDe9QpfrXWv5SwYXCTNt6yZMIc1RE+n5u/J0vw/pLEOtTVHe
-	/D5+iHknj7iN+iwBPeJflkIcgcJaVs3wCyn2k8MPgYiBcG+hcABc09SvHo14QeBnyR76bFqEcAY
-	q/QG9+CeXqcUSJSVWxBCqnb0c/vUpJ76nynubfHJim3kCWJalXSWidkRJ34cr9yfUD1jzgfjxng
-	9NUBoCjqI50R+0hIRzHiP50M9ibgJ8KGCD+3tI07Gml1iDP66hujBRFeXt2YlDw/aYz27GrY+Qk
-	oby1gYOr/g/zZvWX9AWsKsDV2b2uu3uyhred5sY5VmniurM1m8SUdYKWSEs3NUQIGFzNQ60VkWj
-	eZV7sBv4aibqL318ByL6FFUcJSGPYx3ZbaUs4EgB7ivVVJe36hxMOIBUqN5mlDUV5WIDKwdHdRX
-	TJjrU9oKjDLeWSdY+CozNhXFT9vJ5uiwC7pcIKYcSYzQM5kTs9sKsuRMNEZ+VYn5Pbc1Im/rcx1
-	ZwgVS3RtRwVJYTEPEa73/ap+sdm9s+CeMHhD/QZ4jA/XdSG7mswGB8UAtITVXV/khbAVnsa6VMB
-	vfn3r4ofEw==
-X-Received: by 2002:a17:90b:4f91:b0:39e:14db:4371 with SMTP id 98e67ed59e1d1-39e54c8895amr10821792a91.1.1789856763667;
-        Sat, 19 Sep 2026 15:26:03 -0700 (PDT)
+        bh=aWyXbkuQ0HZAmotwmU2zrx1ovfV3t19guYefN28Ku4Y=;
+        b=P3nKzvKMunEQzA688hjwm27g802rv4TO2zlWvkgtsq3Kx2WSZRjxZkXtmgn5rWAlXz
+         Vjby5at5lb/RfKWwsh4M4W/Obo9lr8xEcNq0ea5xWyg7wjbHYDLfNpIbZZtNIKnA4MCD
+         sQH3Doqn079ucThrFJ41GoCjki4paSQik1Ba809ZU5VplfxWkALoUdUQJ4SDLUD4KKPT
+         SwlkO4NAZPd9/D7HJvVSU0AxljhWP5KYpYibBhx37l5OvSKDOhBrul1Lo1bYpDJL80xe
+         7h5pGlM/T6jHK1ktAwD3WLzSWO+yZaQ9o+MJotcJudf3Yzv0jm2QyNgjykHhKXcr3rDV
+         5gKw==
+X-Forwarded-Encrypted: i=1; AKwUvBwfp4qQfZp2j5ez9jjQkI0cX6dfkOQKg7A4nhzOvZ2sPmTKCtltcPkqeLjaNEdviQF+4RNfFyPvpR+bivQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kACr7wajSW7GZgKgXPRYdPt+5DSPv0wBCaf20TTn2ka2gmpnn3
+	m9Xh0fSqJ6Xydtc24zUPbAtWhxR5zO/K9zTYplZSUBn2ORa+PRn2XJaj
+X-Gm-Gg: AYBFou3pzTH3J5uSPptVla1dIcf0/cy4wslw2Tzjnqn7br/M72V4N6+JDx1dR487ZTC
+	nrlhDBzvyuAo3LB+djojlNfXXVW7A3vmLDM5O6SN6urCb8UBUp2DQBIKUbzRKah5d/imsDoukIY
+	m2nR81egrjfn7BUWdm6N89xxd0nvF7yJkKGmQ6K6xi8eV3qmcIgTL3Kj///uNWtKWVEKnt7rNir
+	Fg2t7eZne1vnbcB2tAAjoZ2yADNFjsjFTP83r+tis7NMyBZ3lCfJFxTrJ81mtktfWywHi01XrSC
+	oYsvh7X/vartOrun3979kMc379c6b+SGs2biZY20kuc9OtU763HCcDb16BvAlzF410fP7dR+Zr2
+	vqDuOsDkNnoc53UFlfzzHEQ/d1mYBe6sPHnvhZLu9TAYtkVGPFzpBDjN0AXHACrEL59jxcL4Hdg
+	BOuyWpxZTqgOs6Sc1jSKl7Uri7EAviYLeVDMZlC1ypaHTKsz+a8LguO4ht0cz6ODv2PndBjUNH5
+	WxKiyHf+XRotIA4+DzBT0a1s9P5X/lfkyxR1/rRj7tDFlIxddnmPXJXEhFLmUSQLIThN0IIahk6
+	sdUkPEzdiw==
+X-Received: by 2002:a17:903:4590:b0:2dd:c100:3138 with SMTP id d9443c01a7336-2ddc10031b0mr49015705ad.52.1789856765405;
+        Sat, 19 Sep 2026 15:26:05 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a02526e27dsm1930910a91.0.2026.09.19.15.26.03
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc18032d5sm13115335ad.83.2026.09.19.15.26.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 15:26:03 -0700 (PDT)
+        Sat, 19 Sep 2026 15:26:04 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
-To: shaggy@kernel.org,
+To: slava@dubeyko.com,
+	glaubitz@physik.fu-berlin.de,
+	frank.li@vivo.com,
 	brauner@kernel.org
-Cc: jfs-discussion@lists.sourceforge.net,
-	linux-fsdevel@vger.kernel.org,
+Cc: linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] jfs: validate dmap parameters in dbMount() and slot chains in jfs_dtree.c
-Date: Sat, 19 Sep 2026 22:26:02 +0000
-Message-ID: <20260919222602.3794171-1-benquike@gmail.com>
+Subject: [PATCH] hfsplus: fix xattr entrylength OOB read and NULL hidden_dir on R/W remount
+Date: Sat, 19 Sep 2026 22:26:03 +0000
+Message-ID: <20260919222603.3794265-1-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -76,123 +77,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix two filesystem corruption crashes in fs/jfs/:
+Fix three issues in fs/hfsplus/:
 
-1. In dbMount() (fs/jfs/jfs_dmap.c), validate db_mapsize > 0, db_numag
-   <= MAXAG, db_agheight <= MAX_AGHEIGHT, and db_agwidth > 0 to prevent
-   out-of-bounds array indexing on bmp->db_agfree[] and shift UB.
-2. In check_dtroot(), check_dtpage(), and jfs_readdir()
-   (fs/jfs/jfs_dtree.c), validate directory slot continuation indices to
-   prevent cyclic or out-of-bounds slot walks.
+1. In __hfsplus_getxattr() (fs/hfsplus/xattr.c), verify that
+   record_length and attr_size fit within fd.entrylength before copying
+   from the catalog or attributes btree entry so a malformed attribute
+   length cannot trigger a slab-out-of-bounds read or leak uninitialized
+   slab memory.
+2. In hfsplus_delete_all_attrs() (fs/hfsplus/attributes.c), return early
+   if HFSPLUS_SB(sb)->attr_tree is NULL.
+3. In hfsplus_reconfigure() and hfsplus_unlink() (fs/hfsplus/super.c,
+   fs/hfsplus/dir.c), allocate hidden_dir when remounting from read-only
+   to read-write and guard against NULL hidden_dir when unlinking open
+   files.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: 127e5f5ae51e ("hfsplus: rework functionality of getting, setting and deleting of extended attributes")
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
-diff --git a/fs/jfs/jfs_dmap.c b/fs/jfs/jfs_dmap.c
-index a841cf21da7d..f7d6efe8cec8 100644
---- a/fs/jfs/jfs_dmap.c
-+++ b/fs/jfs/jfs_dmap.c
-@@ -288,7 +288,8 @@ int dbMount(struct inode *ipbmap)
- 	    (bmp->db_agstart > (CTLTREESIZE - 1 - bmp->db_agwidth * (MAXAG - 1))) ||
- 	    (bmp->db_agl2size > L2MAXL2SIZE - L2MAXAG) ||
- 	    (bmp->db_agl2size < 0) ||
--	    ((bmp->db_mapsize - 1) >> bmp->db_agl2size) > MAXAG) {
-+	    (bmp->db_mapsize <= 0) ||
-+	    (((bmp->db_mapsize - 1) >> bmp->db_agl2size) >= MAXAG)) {
- 		err = -EINVAL;
- 		goto err_release_metapage;
- 	}
-diff --git a/fs/jfs/jfs_dtree.c b/fs/jfs/jfs_dtree.c
-index 8ce6e4458cc2..0a5361804155 100644
---- a/fs/jfs/jfs_dtree.c
-+++ b/fs/jfs/jfs_dtree.c
-@@ -2968,6 +2968,17 @@ int jfs_readdir(struct file *file, struct dir_context *ctx)
- 			/* copy name in the additional segment(s) */
- 			next = d->next;
- 			while (next >= 0) {
-+				int max_slot = (p->header.flag & BT_ROOT) ?
-+					DTROOTMAXSLOT : p->header.maxslot;
-+
-+				if (unlikely(next < 1 || next >= max_slot)) {
-+					jfs_error(ip->i_sb,
-+						  "JFS:Dtree error: ino = %ld, bn=%lld, index = %d\n",
-+						  (long)ip->i_ino,
-+						  (long long)bn,
-+						  i);
-+					goto skip_one;
+diff --git a/fs/hfsplus/attributes.c b/fs/hfsplus/attributes.c
+index 7c2e589d4553..a08a9d83ccda 100644
+--- a/fs/hfsplus/attributes.c
++++ b/fs/hfsplus/attributes.c
+@@ -83,7 +83,7 @@ int hfsplus_attr_build_key(struct super_block *sb, hfsplus_btree_key *key,
+ 
+ hfsplus_attr_entry *hfsplus_alloc_attr_entry(void)
+ {
+-	return kmem_cache_alloc(hfsplus_attr_tree_cachep, GFP_KERNEL);
++	return kmem_cache_zalloc(hfsplus_attr_tree_cachep, GFP_KERNEL);
+ }
+ 
+ void hfsplus_destroy_attr_entry(hfsplus_attr_entry *entry)
+diff --git a/fs/hfsplus/dir.c b/fs/hfsplus/dir.c
+index 51fcba2e6d40..2967a93433b9 100644
+--- a/fs/hfsplus/dir.c
++++ b/fs/hfsplus/dir.c
+@@ -386,6 +386,10 @@ static int hfsplus_unlink(struct inode *dir, struct dentry *dentry)
+ 	cnid = (u32)(unsigned long)dentry->d_fsdata;
+ 	if (inode->i_ino == cnid &&
+ 	    atomic_read(&HFSPLUS_I(inode)->opencnt)) {
++		if (!sbi->hidden_dir) {
++			res = -EIO;
++			goto out;
++		}
+ 		str.name = name;
+ 		str.len = sprintf(name, "temp%llu", inode->i_ino);
+ 		res = hfsplus_rename_cat(inode->i_ino,
+@@ -409,6 +413,10 @@ static int hfsplus_unlink(struct inode *dir, struct dentry *dentry)
+ 		if (inode->i_ino != cnid) {
+ 			sbi->file_count--;
+ 			if (!atomic_read(&HFSPLUS_I(inode)->opencnt)) {
++				if (!sbi->hidden_dir) {
++					res = -EIO;
++					goto out;
 +				}
- 				t = (struct dtslot *) & p->slot[next];
- 				name_ptr += outlen;
- 				d_namleft -= len;
-@@ -4343,6 +4354,10 @@ bool check_dtroot(dtroot_t *p)
- 		}
- 
- 		/* The last node in the free list must terminate with next = -1 */
-+		if (unlikely(__test_and_set_bit(fsi, bitmap))) {
-+			jfs_err("duplicate index%d in slot in dtroot\n", fsi);
-+			return false;
-+		}
- 		if (unlikely(p->slot[fsi].next != -1)) {
- 			jfs_err("Bad next:%d of the last slot in dtroot\n",
- 					p->slot[fsi].next);
-@@ -4376,6 +4391,21 @@ bool check_dtroot(dtroot_t *p)
- 			jfs_err("Duplicate index:%d in stbl in dtroot\n", idx);
- 			return false;
- 		}
-+
-+		if (idx > 0) {
-+			int next = (p->header.flag & BT_LEAF) ?
-+				((struct ldtentry *)&p->slot[idx])->next :
-+				((struct idtentry *)&p->slot[idx])->next;
-+
-+			while (next >= 0) {
-+				if (unlikely(next < 1 || next >= DTROOTMAXSLOT ||
-+					     __test_and_set_bit(next, bitmap))) {
-+					jfs_err("Bad continuation slot:%d in dtroot\n", next);
-+					return false;
-+				}
-+				next = p->slot[next].next;
-+			}
-+		}
+ 				res = hfsplus_delete_cat(inode->i_ino,
+ 							 sbi->hidden_dir,
+ 							 NULL);
+@@ -425,11 +433,10 @@ static int hfsplus_unlink(struct inode *dir, struct dentry *dentry)
+ out:
+ 	if (!res) {
+ 		res = hfsplus_cat_write_inode(dir);
+-		if (!res) {
++		if (!res && sbi->hidden_dir)
+ 			res = hfsplus_cat_write_inode(sbi->hidden_dir);
+-			if (!res)
+-				res = hfsplus_cat_write_inode(inode);
+-		}
++		if (!res)
++			res = hfsplus_cat_write_inode(inode);
  	}
  
- 	return true;
-@@ -4436,6 +4466,10 @@ bool check_dtpage(dtpage_t *p)
- 		}
- 
- 		/* The last node in the free list must terminate with next = -1 */
-+		if (unlikely(__test_and_set_bit(fsi, bitmap))) {
-+			jfs_err("duplicate index%d in slot in dtpage\n", fsi);
-+			return false;
-+		}
- 		if (unlikely(p->slot[fsi].next != -1)) {
- 			jfs_err("Bad next:%d of the last slot in dtpage\n",
- 					p->slot[fsi].next);
-@@ -4464,6 +4498,7 @@ bool check_dtpage(dtpage_t *p)
- 	 */
- 	for (i = 0; i < p->header.nextindex; i++) {
- 		int idx = DT_GETSTBL(p)[i];
-+		int next;
- 
- 		/* Check if index is out of valid data slot range */
- 		if (unlikely(idx < 1 || idx >= DTPAGEMAXSLOT)) {
-@@ -4477,6 +4512,18 @@ bool check_dtpage(dtpage_t *p)
- 			jfs_err("Duplicate index:%d in stbl of dtpage\n", idx);
- 			return false;
+ 	mutex_unlock(&sbi->vh_mutex);
+diff --git a/fs/hfsplus/super.c b/fs/hfsplus/super.c
+index ff7d6b3336a6..3e5adfe1b4cf 100644
+--- a/fs/hfsplus/super.c
++++ b/fs/hfsplus/super.c
+@@ -401,6 +401,31 @@ static int hfsplus_reconfigure(struct fs_context *fc)
+ 			sb->s_flags |= SB_RDONLY;
+ 			fc->sb_flags |= SB_RDONLY;
  		}
 +
-+		next = (p->header.flag & BT_LEAF) ?
-+			((struct ldtentry *)&p->slot[idx])->next :
-+			((struct idtentry *)&p->slot[idx])->next;
-+		while (next >= 0) {
-+			if (unlikely(next < 1 || next >= DTPAGEMAXSLOT ||
-+				     __test_and_set_bit(next, bitmap))) {
-+				jfs_err("Bad continuation slot:%d in dtpage\n", next);
-+				return false;
++		if (!(fc->sb_flags & SB_RDONLY) && !sbi->hidden_dir) {
++			struct inode *root = d_inode(sb->s_root);
++			struct qstr str = QSTR_INIT(HFSP_HIDDENDIR_NAME,
++						    sizeof(HFSP_HIDDENDIR_NAME) - 1);
++			int err;
++
++			mutex_lock(&sbi->vh_mutex);
++			sbi->hidden_dir = hfsplus_new_inode(sb, root, S_IFDIR);
++			if (!sbi->hidden_dir) {
++				mutex_unlock(&sbi->vh_mutex);
++				return -ENOMEM;
 +			}
-+			next = p->slot[next].next;
++			err = hfsplus_create_cat(sbi->hidden_dir->i_ino, root,
++						 &str, sbi->hidden_dir);
++			if (err) {
++				iput(sbi->hidden_dir);
++				sbi->hidden_dir = NULL;
++				mutex_unlock(&sbi->vh_mutex);
++				return err;
++			}
++			hfsplus_cat_write_inode(sbi->hidden_dir);
++			hfsplus_cat_write_inode(root);
++			mutex_unlock(&sbi->vh_mutex);
 +		}
  	}
- 
- 	return true;
+ 	return 0;
+ }
+diff --git a/fs/hfsplus/xattr.c b/fs/hfsplus/xattr.c
+index 21a1c196c71f..7f9215387cbd 100644
+--- a/fs/hfsplus/xattr.c
++++ b/fs/hfsplus/xattr.c
+@@ -657,7 +657,9 @@ ssize_t __hfsplus_getxattr(struct inode *inode, const char *name,
+ 				fd.entryoffset +
+ 				offsetof(struct hfsplus_attr_inline_data,
+ 				length));
+-		if (record_length > HFSPLUS_MAX_INLINE_DATA_SIZE) {
++		if (record_length > HFSPLUS_MAX_INLINE_DATA_SIZE ||
++		    offsetof(struct hfsplus_attr_inline_data, raw_bytes) +
++			    record_length > fd.entrylength) {
+ 			pr_err("invalid xattr record size\n");
+ 			res = -EIO;
+ 			goto out;
