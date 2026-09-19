@@ -1,33 +1,33 @@
-Received: from mta1.migadu.com (out-171.mta1.migadu.com [95.215.58.171])
+Received: from mta1.migadu.com (out-178.mta1.migadu.com [95.215.58.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0416D2248AF
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 13:53:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E706D2D6E5A
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 13:54:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789826036; cv=none; b=roW3ayBsVdVIcBCMZRWPpE2oh2mjfO3vBZE9dQUvMECFUJNN9Qk4Hun0KiywBKzDXNoBRSmvfo7LgZTzzSleB2rsyedg1uqgELr/Y6Ci1ek0efvV5RKolEasVWFQmS3+3L1znLBiJFR66Zd4LJdkjkbE0eG7Yi1J2bXL1SlVSmA=
+	t=1789826049; cv=none; b=ZYQ4JIe+rElDrdWqHyH5BIRAyP08KozjNerqfTsJE4lAjHMUb4CQg2M/JdoofOKse4gubIyPrwr9vFTOu2AYwQ0JsqlniWWom+gk+gERmAy0PTxwh0lGIT7FhPCSoLFvs7J+2fa35lyXBRk6fq+GNeB5lYxu8Pu+LCHoIlq/U8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789826036; c=relaxed/simple;
-	bh=ulFUDD8oGZETsKoDZVeS8UP/2Tko9UtaPMINXvCETkE=;
+	s=arc-20240116; t=1789826049; c=relaxed/simple;
+	bh=f8XLjDDRDprhZX8DUAElzZf6KZ+YOj4wp6B2faOPI5s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=De0R9Exam/Zyu/MsPuWRPzM7MIYVg85KiRJFIxVtHSlJfv6HsCg1NACrktHAZSm7tYoAh7biANHEgvoLLMZcjwRs0xnkmGMm2m24lf87usz2Ok26sAspQIy+ZeH77qaVtXePdw20FRyE7aPdjg3qOv+tUWT+jgs1zOtoQQNh3jI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=AAud+wk9; arc=none smtp.client-ip=95.215.58.171
+	 MIME-Version; b=BVCuB+EO0avBDNG4eiXurV1oBI3eSady9M7eN6qtfLNDUeFFQ457nEnhMqOV4rrPYGqPE3D37kRzUvgoqH/lcofE8vco9X3kJGY/1i/Zu33/aSi/lhz2qDGnRfbcU4OjetdPPZb6d7vvImQTfancXk66C1QzfqsyA0qYVc51P1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cYmErVfx; arc=none smtp.client-ip=95.215.58.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="AAud+wk9"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cYmErVfx"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ulFUDD8oGZETsKoDZVeS8UP/2Tko9UtaPMINXvCETkE=;
+DKIM-Signature: a=rsa-sha256; bh=f8XLjDDRDprhZX8DUAElzZf6KZ+YOj4wp6B2faOPI5s=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789826032; v=1; x=1790430832;
- b=AAud+wk9BYaenQoL/FFK9pNb5yYL+wdD3itOwNh0fu+/foyQnSwPo90CtGCy/x3Yr6aW8L9Y
- MQ/8m4163aGeDpMrYA6hE1z6P+HrHaZL+OvfnLGgMLJFojq57JDaiAAs6mFfQF49ZHDO47Xptk2
- Ym47octg/p003kFy1g0wVyDk=
+ t=1789826043; v=1; x=1790430843;
+ b=cYmErVfxbWmFKMtqK4GmCOVhvpV0tQJwQ7pvBozY5YCzvdO2PGc/qy5TljyutmATaLdiJpaK
+ vQKzxjcwdn2NjJ4dRKc4TUeVzhzzcyX9zwget7RoYEANynjGrB+RR2X7INFVAJkHch5+FSZCqix
+ L+zn1NnG3OSWf9czffsTZSLU=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f6f7a880625134d2;
-	Sat, 19 Sep 2026 13:53:52 +0000
-X-Mizu-Trace-ID: f6f7a880625134d2
+Received: by smtp.migadu.com with ESMTPS id cdcfe7b929a8dca0;
+	Sat, 19 Sep 2026 13:54:03 +0000
+X-Mizu-Trace-ID: cdcfe7b929a8dca0
 X-Migadu-Flow: FLOW_OUT
 From: Kaitao Cheng <kaitao.cheng@linux.dev>
 To: Mike Rapoport <rppt@kernel.org>,
@@ -43,9 +43,9 @@ Cc: Priyanshu Kumar <priyanshukumarpu@gmail.com>,
 	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
 	Kaitao Cheng <chengkaitao@kylinos.cn>
-Subject: [PATCH v2 1/3] mm: Remove unused exact_nid parameter from memmap_alloc()
-Date: Sat, 19 Sep 2026 21:53:25 +0800
-Message-ID: <20260919135327.74089-2-kaitao.cheng@linux.dev>
+Subject: [PATCH v2 2/3] memblock tests: Move exact nid tests to memblock_alloc_range_nid()
+Date: Sat, 19 Sep 2026 21:53:26 +0800
+Message-ID: <20260919135327.74089-3-kaitao.cheng@linux.dev>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260919135327.74089-1-kaitao.cheng@linux.dev>
 References: <20260919135327.74089-1-kaitao.cheng@linux.dev>
@@ -59,104 +59,686 @@ Content-Transfer-Encoding: 8bit
 
 From: Kaitao Cheng <chengkaitao@kylinos.cn>
 
-Commit ffe55393137c ("mm/sparse: remove sparse buffer pre-allocation
-mechanism") removed sparse_buffer_init(), which was the only caller of
-memmap_alloc() that passed true for exact_nid.
+After memmap_alloc() stopped requesting allocations from an exact NUMA
+node, memblock_alloc_exact_nid_raw() no longer has any in-kernel users
+and is being removed.
 
-All remaining callers pass false, leaving the exact-node allocation
-branch unreachable. Remove the exact_nid parameter and unconditionally
-use memblock_alloc_try_nid_raw().
+Preserve coverage of exact-node allocation by converting the applicable
+NUMA tests to call memblock_alloc_range_nid() with exact_nid set. Remove
+the tests that depend on memblock_alloc_internal() retrying below
+min_addr, as memblock_alloc_range_nid() treats its address range as a
+hard constraint.
 
-This has no functional impact.
+Remove the now-unused TEST_F_EXACT support from the shared allocation
+tests.
 
+Suggested-by: Lorenzo Stoakes <ljs@kernel.org>
 Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
 ---
- mm/mm_init.c        | 14 ++++----------
- mm/mm_init.h        |  4 ++--
- mm/sparse-vmemmap.c |  2 +-
- mm/sparse.c         |  2 +-
- 4 files changed, 8 insertions(+), 14 deletions(-)
+ .../memblock/tests/alloc_exact_nid_api.c      | 454 ++----------------
+ tools/testing/memblock/tests/alloc_nid_api.c  |  20 -
+ tools/testing/memblock/tests/alloc_nid_api.h  |   1 -
+ tools/testing/memblock/tests/common.h         |   2 -
+ 4 files changed, 37 insertions(+), 440 deletions(-)
 
-diff --git a/mm/mm_init.c b/mm/mm_init.c
-index 9ce6060de06d..af3c8a2cc91b 100644
---- a/mm/mm_init.c
-+++ b/mm/mm_init.c
-@@ -1596,7 +1596,7 @@ static void __init free_area_init_core(struct pglist_data *pgdat)
+diff --git a/tools/testing/memblock/tests/alloc_exact_nid_api.c b/tools/testing/memblock/tests/alloc_exact_nid_api.c
+index 0c46c73b5e04..52c63d011870 100644
+--- a/tools/testing/memblock/tests/alloc_exact_nid_api.c
++++ b/tools/testing/memblock/tests/alloc_exact_nid_api.c
+@@ -1,8 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ #include "alloc_exact_nid_api.h"
+-#include "alloc_nid_api.h"
+ 
+-#define FUNC_NAME			"memblock_alloc_exact_nid_raw"
++#define FUNC_NAME			"memblock_alloc_range_nid(exact)"
+ 
+ /*
+  * contains the fraction of MEM_SIZE contained in each node in basis point
+@@ -19,6 +18,18 @@ static const unsigned int node_fractions[] = {
+ 	 625, /* 1/16 */
+ };
+ 
++static void *alloc_range_exact_nid(phys_addr_t size, phys_addr_t align,
++				   phys_addr_t min_addr,
++				   phys_addr_t max_addr, int nid)
++{
++	phys_addr_t addr;
++
++	addr = memblock_alloc_range_nid(size, align, min_addr, max_addr, nid,
++					true);
++
++	return addr ? phys_to_virt(addr) : NULL;
++}
++
+ /*
+  * A test that tries to allocate a memory region in a specific NUMA node that
+  * has enough memory to allocate a region of the requested size.
+@@ -42,9 +53,8 @@ static int alloc_exact_nid_top_down_numa_simple_check(void)
+ 	min_addr = memblock_start_of_DRAM();
+ 	max_addr = memblock_end_of_DRAM();
+ 
+-	allocated_ptr = memblock_alloc_exact_nid_raw(size, SMP_CACHE_BYTES,
+-						     min_addr, max_addr,
+-						     nid_req);
++	allocated_ptr = alloc_range_exact_nid(size, SMP_CACHE_BYTES,
++					      min_addr, max_addr, nid_req);
+ 
+ 	ASSERT_NE(allocated_ptr, NULL);
+ 	ASSERT_MEM_NE(allocated_ptr, 0, size);
+@@ -98,9 +108,8 @@ static int alloc_exact_nid_top_down_numa_part_reserved_check(void)
+ 	max_addr = memblock_end_of_DRAM();
+ 
+ 	memblock_reserve(r1.base, r1.size);
+-	allocated_ptr = memblock_alloc_exact_nid_raw(size, SMP_CACHE_BYTES,
+-						     min_addr, max_addr,
+-						     nid_req);
++	allocated_ptr = alloc_range_exact_nid(size, SMP_CACHE_BYTES,
++					      min_addr, max_addr, nid_req);
+ 
+ 	ASSERT_NE(allocated_ptr, NULL);
+ 	ASSERT_MEM_NE(allocated_ptr, 0, size);
+@@ -117,177 +126,6 @@ static int alloc_exact_nid_top_down_numa_part_reserved_check(void)
+ 	return 0;
  }
  
- void __init *memmap_alloc(phys_addr_t size, phys_addr_t align,
--			  phys_addr_t min_addr, int nid, bool exact_nid)
-+			  phys_addr_t min_addr, int nid)
+-/*
+- * A test that tries to allocate a memory region that spans over the min_addr
+- * and max_addr range and overlaps with two different nodes, where the first
+- * node is the requested node:
+- *
+- *                                min_addr
+- *                                |           max_addr
+- *                                |           |
+- *                                v           v
+- *  |           +-----------------------+-----------+              |
+- *  |           |       requested       |   node3   |              |
+- *  +-----------+-----------------------+-----------+--------------+
+- *                                +           +
+- *  |                       +-----------+                          |
+- *  |                       |    rgn    |                          |
+- *  +-----------------------+-----------+--------------------------+
+- *
+- * Expect to drop the lower limit and allocate a memory region that ends at
+- * the end of the requested node.
+- */
+-static int alloc_exact_nid_top_down_numa_split_range_low_check(void)
+-{
+-	int nid_req = 2;
+-	struct memblock_region *new_rgn = &memblock.reserved.regions[0];
+-	struct memblock_region *req_node = &memblock.memory.regions[nid_req];
+-	void *allocated_ptr = NULL;
+-	phys_addr_t size = SZ_512;
+-	phys_addr_t min_addr;
+-	phys_addr_t max_addr;
+-	phys_addr_t req_node_end;
+-
+-	PREFIX_PUSH();
+-	setup_numa_memblock(node_fractions);
+-
+-	req_node_end = region_end(req_node);
+-	min_addr = req_node_end - SZ_256;
+-	max_addr = min_addr + size;
+-
+-	allocated_ptr = memblock_alloc_exact_nid_raw(size, SMP_CACHE_BYTES,
+-						     min_addr, max_addr,
+-						     nid_req);
+-
+-	ASSERT_NE(allocated_ptr, NULL);
+-	ASSERT_MEM_NE(allocated_ptr, 0, size);
+-
+-	ASSERT_EQ(new_rgn->size, size);
+-	ASSERT_EQ(new_rgn->base, req_node_end - size);
+-	ASSERT_LE(req_node->base, new_rgn->base);
+-
+-	ASSERT_EQ(memblock.reserved.cnt, 1);
+-	ASSERT_EQ(memblock.reserved.total_size, size);
+-
+-	test_pass_pop();
+-
+-	return 0;
+-}
+-
+-/*
+- * A test that tries to allocate a memory region that spans over the min_addr
+- * and max_addr range and overlaps with two different nodes, where the requested
+- * node ends before min_addr:
+- *
+- *                                         min_addr
+- *                                         |         max_addr
+- *                                         |         |
+- *                                         v         v
+- *  |    +---------------+        +-------------+---------+          |
+- *  |    |   requested   |        |    node1    |  node2  |          |
+- *  +----+---------------+--------+-------------+---------+----------+
+- *                                         +         +
+- *  |          +---------+                                           |
+- *  |          |   rgn   |                                           |
+- *  +----------+---------+-------------------------------------------+
+- *
+- * Expect to drop the lower limit and allocate a memory region that ends at
+- * the end of the requested node.
+- */
+-static int alloc_exact_nid_top_down_numa_no_overlap_split_check(void)
+-{
+-	int nid_req = 2;
+-	struct memblock_region *new_rgn = &memblock.reserved.regions[0];
+-	struct memblock_region *req_node = &memblock.memory.regions[nid_req];
+-	struct memblock_region *node2 = &memblock.memory.regions[6];
+-	void *allocated_ptr = NULL;
+-	phys_addr_t size;
+-	phys_addr_t min_addr;
+-	phys_addr_t max_addr;
+-
+-	PREFIX_PUSH();
+-	setup_numa_memblock(node_fractions);
+-
+-	size = SZ_512;
+-	min_addr = node2->base - SZ_256;
+-	max_addr = min_addr + size;
+-
+-	allocated_ptr = memblock_alloc_exact_nid_raw(size, SMP_CACHE_BYTES,
+-						     min_addr, max_addr,
+-						     nid_req);
+-
+-	ASSERT_NE(allocated_ptr, NULL);
+-	ASSERT_MEM_NE(allocated_ptr, 0, size);
+-
+-	ASSERT_EQ(new_rgn->size, size);
+-	ASSERT_EQ(new_rgn->base, region_end(req_node) - size);
+-	ASSERT_LE(req_node->base, new_rgn->base);
+-
+-	ASSERT_EQ(memblock.reserved.cnt, 1);
+-	ASSERT_EQ(memblock.reserved.total_size, size);
+-
+-	test_pass_pop();
+-
+-	return 0;
+-}
+-
+-/*
+- * A test that tries to allocate memory within min_addr and max_add range when
+- * the requested node and the range do not overlap, and requested node ends
+- * before min_addr. The range overlaps with multiple nodes along node
+- * boundaries:
+- *
+- *                          min_addr
+- *                          |                                 max_addr
+- *                          |                                 |
+- *                          v                                 v
+- *  |-----------+           +----------+----...----+----------+      |
+- *  | requested |           | min node |    ...    | max node |      |
+- *  +-----------+-----------+----------+----...----+----------+------+
+- *                          +                                 +
+- *  |     +-----+                                                    |
+- *  |     | rgn |                                                    |
+- *  +-----+-----+----------------------------------------------------+
+- *
+- * Expect to drop the lower limit and allocate a memory region that ends at
+- * the end of the requested node.
+- */
+-static int alloc_exact_nid_top_down_numa_no_overlap_low_check(void)
+-{
+-	int nid_req = 0;
+-	struct memblock_region *new_rgn = &memblock.reserved.regions[0];
+-	struct memblock_region *req_node = &memblock.memory.regions[nid_req];
+-	struct memblock_region *min_node = &memblock.memory.regions[2];
+-	struct memblock_region *max_node = &memblock.memory.regions[5];
+-	void *allocated_ptr = NULL;
+-	phys_addr_t size = SZ_64;
+-	phys_addr_t max_addr;
+-	phys_addr_t min_addr;
+-
+-	PREFIX_PUSH();
+-	setup_numa_memblock(node_fractions);
+-
+-	min_addr = min_node->base;
+-	max_addr = region_end(max_node);
+-
+-	allocated_ptr = memblock_alloc_exact_nid_raw(size, SMP_CACHE_BYTES,
+-						     min_addr, max_addr,
+-						     nid_req);
+-
+-	ASSERT_NE(allocated_ptr, NULL);
+-	ASSERT_MEM_NE(allocated_ptr, 0, size);
+-
+-	ASSERT_EQ(new_rgn->size, size);
+-	ASSERT_EQ(new_rgn->base, region_end(req_node) - size);
+-
+-	ASSERT_EQ(memblock.reserved.cnt, 1);
+-	ASSERT_EQ(memblock.reserved.total_size, size);
+-
+-	test_pass_pop();
+-
+-	return 0;
+-}
+-
+ /*
+  * A test that tries to allocate a memory region in a specific NUMA node that
+  * has enough memory to allocate a region of the requested size.
+@@ -311,9 +149,8 @@ static int alloc_exact_nid_bottom_up_numa_simple_check(void)
+ 	min_addr = memblock_start_of_DRAM();
+ 	max_addr = memblock_end_of_DRAM();
+ 
+-	allocated_ptr = memblock_alloc_exact_nid_raw(size, SMP_CACHE_BYTES,
+-						     min_addr, max_addr,
+-						     nid_req);
++	allocated_ptr = alloc_range_exact_nid(size, SMP_CACHE_BYTES,
++					      min_addr, max_addr, nid_req);
+ 
+ 	ASSERT_NE(allocated_ptr, NULL);
+ 	ASSERT_MEM_NE(allocated_ptr, 0, size);
+@@ -369,9 +206,8 @@ static int alloc_exact_nid_bottom_up_numa_part_reserved_check(void)
+ 	total_size = size + r1.size;
+ 
+ 	__memblock_reserve(r1.base, r1.size, nid_req, MEMBLOCK_RSRV_KERN);
+-	allocated_ptr = memblock_alloc_exact_nid_raw(size, SMP_CACHE_BYTES,
+-						     min_addr, max_addr,
+-						     nid_req);
++	allocated_ptr = alloc_range_exact_nid(size, SMP_CACHE_BYTES,
++					      min_addr, max_addr, nid_req);
+ 
+ 	ASSERT_NE(allocated_ptr, NULL);
+ 	ASSERT_MEM_NE(allocated_ptr, 0, size);
+@@ -388,178 +224,6 @@ static int alloc_exact_nid_bottom_up_numa_part_reserved_check(void)
+ 	return 0;
+ }
+ 
+-/*
+- * A test that tries to allocate a memory region that spans over the min_addr
+- * and max_addr range and overlaps with two different nodes, where the first
+- * node is the requested node:
+- *
+- *                                min_addr
+- *                                |           max_addr
+- *                                |           |
+- *                                v           v
+- *  |           +-----------------------+-----------+              |
+- *  |           |       requested       |   node3   |              |
+- *  +-----------+-----------------------+-----------+--------------+
+- *                                +           +
+- *  |           +-----------+                                      |
+- *  |           |    rgn    |                                      |
+- *  +-----------+-----------+--------------------------------------+
+- *
+- * Expect to drop the lower limit and allocate a memory region at the beginning
+- * of the requested node.
+- */
+-static int alloc_exact_nid_bottom_up_numa_split_range_low_check(void)
+-{
+-	int nid_req = 2;
+-	struct memblock_region *new_rgn = &memblock.reserved.regions[0];
+-	struct memblock_region *req_node = &memblock.memory.regions[nid_req];
+-	void *allocated_ptr = NULL;
+-	phys_addr_t size = SZ_512;
+-	phys_addr_t min_addr;
+-	phys_addr_t max_addr;
+-	phys_addr_t req_node_end;
+-
+-	PREFIX_PUSH();
+-	setup_numa_memblock(node_fractions);
+-
+-	req_node_end = region_end(req_node);
+-	min_addr = req_node_end - SZ_256;
+-	max_addr = min_addr + size;
+-
+-	allocated_ptr = memblock_alloc_exact_nid_raw(size, SMP_CACHE_BYTES,
+-						     min_addr, max_addr,
+-						     nid_req);
+-
+-	ASSERT_NE(allocated_ptr, NULL);
+-	ASSERT_MEM_NE(allocated_ptr, 0, size);
+-
+-	ASSERT_EQ(new_rgn->size, size);
+-	ASSERT_EQ(new_rgn->base, req_node->base);
+-	ASSERT_LE(region_end(new_rgn), req_node_end);
+-
+-	ASSERT_EQ(memblock.reserved.cnt, 1);
+-	ASSERT_EQ(memblock.reserved.total_size, size);
+-
+-	test_pass_pop();
+-
+-	return 0;
+-}
+-
+-/*
+- * A test that tries to allocate a memory region that spans over the min_addr
+- * and max_addr range and overlaps with two different nodes, where the requested
+- * node ends before min_addr:
+- *
+- *                                          min_addr
+- *                                         |         max_addr
+- *                                         |         |
+- *                                         v         v
+- *  |    +---------------+        +-------------+---------+         |
+- *  |    |   requested   |        |    node1    |  node2  |         |
+- *  +----+---------------+--------+-------------+---------+---------+
+- *                                         +         +
+- *  |    +---------+                                                |
+- *  |    |   rgn   |                                                |
+- *  +----+---------+------------------------------------------------+
+- *
+- * Expect to drop the lower limit and allocate a memory region that starts at
+- * the beginning of the requested node.
+- */
+-static int alloc_exact_nid_bottom_up_numa_no_overlap_split_check(void)
+-{
+-	int nid_req = 2;
+-	struct memblock_region *new_rgn = &memblock.reserved.regions[0];
+-	struct memblock_region *req_node = &memblock.memory.regions[nid_req];
+-	struct memblock_region *node2 = &memblock.memory.regions[6];
+-	void *allocated_ptr = NULL;
+-	phys_addr_t size;
+-	phys_addr_t min_addr;
+-	phys_addr_t max_addr;
+-
+-	PREFIX_PUSH();
+-	setup_numa_memblock(node_fractions);
+-
+-	size = SZ_512;
+-	min_addr = node2->base - SZ_256;
+-	max_addr = min_addr + size;
+-
+-	allocated_ptr = memblock_alloc_exact_nid_raw(size, SMP_CACHE_BYTES,
+-						     min_addr, max_addr,
+-						     nid_req);
+-
+-	ASSERT_NE(allocated_ptr, NULL);
+-	ASSERT_MEM_NE(allocated_ptr, 0, size);
+-
+-	ASSERT_EQ(new_rgn->size, size);
+-	ASSERT_EQ(new_rgn->base, req_node->base);
+-	ASSERT_LE(region_end(new_rgn), region_end(req_node));
+-
+-	ASSERT_EQ(memblock.reserved.cnt, 1);
+-	ASSERT_EQ(memblock.reserved.total_size, size);
+-
+-	test_pass_pop();
+-
+-	return 0;
+-}
+-
+-/*
+- * A test that tries to allocate memory within min_addr and max_add range when
+- * the requested node and the range do not overlap, and requested node ends
+- * before min_addr. The range overlaps with multiple nodes along node
+- * boundaries:
+- *
+- *                          min_addr
+- *                          |                                 max_addr
+- *                          |                                 |
+- *                          v                                 v
+- *  |-----------+           +----------+----...----+----------+      |
+- *  | requested |           | min node |    ...    | max node |      |
+- *  +-----------+-----------+----------+----...----+----------+------+
+- *                          +                                 +
+- *  |-----+                                                          |
+- *  | rgn |                                                          |
+- *  +-----+----------------------------------------------------------+
+- *
+- * Expect to drop the lower limit and allocate a memory region that starts at
+- * the beginning of the requested node.
+- */
+-static int alloc_exact_nid_bottom_up_numa_no_overlap_low_check(void)
+-{
+-	int nid_req = 0;
+-	struct memblock_region *new_rgn = &memblock.reserved.regions[0];
+-	struct memblock_region *req_node = &memblock.memory.regions[nid_req];
+-	struct memblock_region *min_node = &memblock.memory.regions[2];
+-	struct memblock_region *max_node = &memblock.memory.regions[5];
+-	void *allocated_ptr = NULL;
+-	phys_addr_t size = SZ_64;
+-	phys_addr_t max_addr;
+-	phys_addr_t min_addr;
+-
+-	PREFIX_PUSH();
+-	setup_numa_memblock(node_fractions);
+-
+-	min_addr = min_node->base;
+-	max_addr = region_end(max_node);
+-
+-	allocated_ptr = memblock_alloc_exact_nid_raw(size, SMP_CACHE_BYTES,
+-						     min_addr, max_addr,
+-						     nid_req);
+-
+-	ASSERT_NE(allocated_ptr, NULL);
+-	ASSERT_MEM_NE(allocated_ptr, 0, size);
+-
+-	ASSERT_EQ(new_rgn->size, size);
+-	ASSERT_EQ(new_rgn->base, req_node->base);
+-	ASSERT_LE(region_end(new_rgn), region_end(req_node));
+-
+-	ASSERT_EQ(memblock.reserved.cnt, 1);
+-	ASSERT_EQ(memblock.reserved.total_size, size);
+-
+-	test_pass_pop();
+-
+-	return 0;
+-}
+-
+ /*
+  * A test that tries to allocate a memory region in a specific NUMA node that
+  * does not have enough memory to allocate a region of the requested size:
+@@ -590,9 +254,8 @@ static int alloc_exact_nid_numa_small_node_generic_check(void)
+ 	min_addr = memblock_start_of_DRAM();
+ 	max_addr = memblock_end_of_DRAM();
+ 
+-	allocated_ptr = memblock_alloc_exact_nid_raw(size, SMP_CACHE_BYTES,
+-						     min_addr, max_addr,
+-						     nid_req);
++	allocated_ptr = alloc_range_exact_nid(size, SMP_CACHE_BYTES,
++					      min_addr, max_addr, nid_req);
+ 
+ 	ASSERT_EQ(allocated_ptr, NULL);
+ 
+@@ -632,9 +295,8 @@ static int alloc_exact_nid_numa_node_reserved_generic_check(void)
+ 	max_addr = memblock_end_of_DRAM();
+ 
+ 	memblock_reserve(req_node->base, req_node->size);
+-	allocated_ptr = memblock_alloc_exact_nid_raw(size, SMP_CACHE_BYTES,
+-						     min_addr, max_addr,
+-						     nid_req);
++	allocated_ptr = alloc_range_exact_nid(size, SMP_CACHE_BYTES,
++					      min_addr, max_addr, nid_req);
+ 
+ 	ASSERT_EQ(allocated_ptr, NULL);
+ 
+@@ -680,9 +342,8 @@ static int alloc_exact_nid_numa_part_reserved_fail_generic_check(void)
+ 	max_addr = memblock_end_of_DRAM();
+ 
+ 	memblock_reserve(r1.base, r1.size);
+-	allocated_ptr = memblock_alloc_exact_nid_raw(size, SMP_CACHE_BYTES,
+-						     min_addr, max_addr,
+-						     nid_req);
++	allocated_ptr = alloc_range_exact_nid(size, SMP_CACHE_BYTES,
++					      min_addr, max_addr, nid_req);
+ 
+ 	ASSERT_EQ(allocated_ptr, NULL);
+ 
+@@ -721,9 +382,8 @@ static int alloc_exact_nid_numa_split_range_high_generic_check(void)
+ 	min_addr = req_node->base - SZ_256;
+ 	max_addr = min_addr + size;
+ 
+-	allocated_ptr = memblock_alloc_exact_nid_raw(size, SMP_CACHE_BYTES,
+-						     min_addr, max_addr,
+-						     nid_req);
++	allocated_ptr = alloc_range_exact_nid(size, SMP_CACHE_BYTES,
++					      min_addr, max_addr, nid_req);
+ 
+ 	ASSERT_EQ(allocated_ptr, NULL);
+ 
+@@ -764,9 +424,8 @@ static int alloc_exact_nid_numa_no_overlap_high_generic_check(void)
+ 	min_addr = min_node->base;
+ 	max_addr = region_end(max_node);
+ 
+-	allocated_ptr = memblock_alloc_exact_nid_raw(size, SMP_CACHE_BYTES,
+-						     min_addr, max_addr,
+-						     nid_req);
++	allocated_ptr = alloc_range_exact_nid(size, SMP_CACHE_BYTES,
++					      min_addr, max_addr, nid_req);
+ 
+ 	ASSERT_EQ(allocated_ptr, NULL);
+ 
+@@ -803,9 +462,8 @@ static int alloc_exact_nid_numa_large_region_generic_check(void)
+ 	min_addr = memblock_start_of_DRAM();
+ 	max_addr = memblock_end_of_DRAM();
+ 
+-	allocated_ptr = memblock_alloc_exact_nid_raw(size, SMP_CACHE_BYTES,
+-						     min_addr, max_addr,
+-						     nid_req);
++	allocated_ptr = alloc_range_exact_nid(size, SMP_CACHE_BYTES,
++					      min_addr, max_addr, nid_req);
+ 	ASSERT_EQ(allocated_ptr, NULL);
+ 
+ 	test_pass_pop();
+@@ -864,9 +522,8 @@ static int alloc_exact_nid_numa_reserved_full_merge_generic_check(void)
+ 	__memblock_reserve(r1.base, r1.size, nid_req, MEMBLOCK_RSRV_KERN);
+ 	__memblock_reserve(r2.base, r2.size, nid_req, MEMBLOCK_RSRV_KERN);
+ 
+-	allocated_ptr = memblock_alloc_exact_nid_raw(size, SMP_CACHE_BYTES,
+-						     min_addr, max_addr,
+-						     nid_req);
++	allocated_ptr = alloc_range_exact_nid(size, SMP_CACHE_BYTES,
++					      min_addr, max_addr, nid_req);
+ 
+ 	ASSERT_NE(allocated_ptr, NULL);
+ 	ASSERT_MEM_NE(allocated_ptr, 0, size);
+@@ -933,9 +590,8 @@ static int alloc_exact_nid_numa_split_all_reserved_generic_check(void)
+ 	memblock_reserve(r1.base, r1.size);
+ 	memblock_reserve(r2.base, r2.size);
+ 
+-	allocated_ptr = memblock_alloc_exact_nid_raw(size, SMP_CACHE_BYTES,
+-						     min_addr, max_addr,
+-						     NUMA_NO_NODE);
++	allocated_ptr = alloc_range_exact_nid(size, SMP_CACHE_BYTES,
++					      min_addr, max_addr, NUMA_NO_NODE);
+ 
+ 	ASSERT_EQ(allocated_ptr, NULL);
+ 
+@@ -967,38 +623,6 @@ static int alloc_exact_nid_numa_part_reserved_check(void)
+ 	return 0;
+ }
+ 
+-static int alloc_exact_nid_numa_split_range_low_check(void)
+-{
+-	test_print("\tRunning %s...\n", __func__);
+-	memblock_set_bottom_up(false);
+-	alloc_exact_nid_top_down_numa_split_range_low_check();
+-	memblock_set_bottom_up(true);
+-	alloc_exact_nid_bottom_up_numa_split_range_low_check();
+-
+-	return 0;
+-}
+-
+-static int alloc_exact_nid_numa_no_overlap_split_check(void)
+-{
+-	test_print("\tRunning %s...\n", __func__);
+-	memblock_set_bottom_up(false);
+-	alloc_exact_nid_top_down_numa_no_overlap_split_check();
+-	memblock_set_bottom_up(true);
+-	alloc_exact_nid_bottom_up_numa_no_overlap_split_check();
+-
+-	return 0;
+-}
+-
+-static int alloc_exact_nid_numa_no_overlap_low_check(void)
+-{
+-	test_print("\tRunning %s...\n", __func__);
+-	memblock_set_bottom_up(false);
+-	alloc_exact_nid_top_down_numa_no_overlap_low_check();
+-	memblock_set_bottom_up(true);
+-	alloc_exact_nid_bottom_up_numa_no_overlap_low_check();
+-
+-	return 0;
+-}
+ 
+ static int alloc_exact_nid_numa_small_node_check(void)
  {
- 	void *ptr;
+@@ -1078,9 +702,6 @@ int __memblock_alloc_exact_nid_numa_checks(void)
  
-@@ -1604,14 +1604,8 @@ void __init *memmap_alloc(phys_addr_t size, phys_addr_t align,
- 	 * Kmemleak will explicitly scan mem_map by traversing all valid
- 	 * `struct *page`,so memblock does not need to be added to the scan list.
- 	 */
--	if (exact_nid)
--		ptr = memblock_alloc_exact_nid_raw(size, align, min_addr,
--						   MEMBLOCK_ALLOC_NOLEAKTRACE,
--						   nid);
--	else
--		ptr = memblock_alloc_try_nid_raw(size, align, min_addr,
--						 MEMBLOCK_ALLOC_NOLEAKTRACE,
--						 nid);
-+	ptr = memblock_alloc_try_nid_raw(size, align, min_addr,
-+					 MEMBLOCK_ALLOC_NOLEAKTRACE, nid);
+ 	alloc_exact_nid_numa_simple_check();
+ 	alloc_exact_nid_numa_part_reserved_check();
+-	alloc_exact_nid_numa_split_range_low_check();
+-	alloc_exact_nid_numa_no_overlap_split_check();
+-	alloc_exact_nid_numa_no_overlap_low_check();
  
- 	if (ptr && size > 0)
- 		page_init_poison(ptr, size);
-@@ -1639,7 +1633,7 @@ static void __init alloc_node_mem_map(struct pglist_data *pgdat)
- 	end = ALIGN(pgdat_end_pfn(pgdat), MAX_ORDER_NR_PAGES);
- 	size =  (end - start) * sizeof(struct page);
- 	map = memmap_alloc(size, SMP_CACHE_BYTES, MEMBLOCK_LOW_LIMIT,
--			   pgdat->node_id, false);
-+			   pgdat->node_id);
- 	if (!map)
- 		panic("Failed to allocate %ld bytes for node %d memory map\n",
- 		      size, pgdat->node_id);
-diff --git a/mm/mm_init.h b/mm/mm_init.h
-index c9fc35e7e9f1..a8ed5c20851b 100644
---- a/mm/mm_init.h
-+++ b/mm/mm_init.h
-@@ -31,8 +31,8 @@ static inline void clear_zone_contiguous(struct zone *zone)
+ 	alloc_exact_nid_numa_small_node_check();
+ 	alloc_exact_nid_numa_node_reserved_check();
+@@ -1102,7 +723,6 @@ int memblock_alloc_exact_nid_checks(void)
+ 	reset_memblock_attributes();
+ 	dummy_physical_memory_init();
  
- void memblock_free_pages(unsigned long pfn, unsigned int order);
+-	memblock_alloc_exact_nid_range_checks();
+ 	memblock_alloc_exact_nid_numa_checks();
  
--void *memmap_alloc(phys_addr_t size, phys_addr_t align, phys_addr_t min_addr,
--		int nid, bool exact_nid);
-+void *memmap_alloc(phys_addr_t size, phys_addr_t align,
-+		   phys_addr_t min_addr, int nid);
+ 	dummy_physical_memory_cleanup();
+diff --git a/tools/testing/memblock/tests/alloc_nid_api.c b/tools/testing/memblock/tests/alloc_nid_api.c
+index c04923532159..3dd4c0bebc41 100644
+--- a/tools/testing/memblock/tests/alloc_nid_api.c
++++ b/tools/testing/memblock/tests/alloc_nid_api.c
+@@ -20,8 +20,6 @@ static const unsigned int node_fractions[] = {
  
- void memmap_init_range(unsigned long size, int nid, unsigned long zone,
- 		unsigned long start_pfn, unsigned long zone_end_pfn,
-diff --git a/mm/sparse-vmemmap.c b/mm/sparse-vmemmap.c
-index 96506f594924..dbd1ebe93fe9 100644
---- a/mm/sparse-vmemmap.c
-+++ b/mm/sparse-vmemmap.c
-@@ -62,7 +62,7 @@ void __ref *vmemmap_alloc_block(unsigned long size, int node)
- 		}
- 		return NULL;
- 	} else
--		return memmap_alloc(size, size, __pa(MAX_DMA_ADDRESS), node, false);
-+		return memmap_alloc(size, size, __pa(MAX_DMA_ADDRESS), node);
- }
- 
- static void * __meminit altmap_alloc_block_buf(unsigned long size,
-diff --git a/mm/sparse.c b/mm/sparse.c
-index b75921c622ed..36692b1dd733 100644
---- a/mm/sparse.c
-+++ b/mm/sparse.c
-@@ -215,7 +215,7 @@ struct page __init *__populate_section_memmap(unsigned long pfn,
+ static inline const char * const get_memblock_alloc_nid_name(int flags)
  {
- 	const unsigned long size = PAGE_ALIGN(sizeof(struct page) * PAGES_PER_SECTION);
+-	if (flags & TEST_F_EXACT)
+-		return "memblock_alloc_exact_nid_raw";
+ 	if (flags & TEST_F_RAW)
+ 		return "memblock_alloc_try_nid_raw";
+ 	return "memblock_alloc_try_nid";
+@@ -32,15 +30,6 @@ static inline void *run_memblock_alloc_nid(phys_addr_t size,
+ 					   phys_addr_t min_addr,
+ 					   phys_addr_t max_addr, int nid)
+ {
+-	assert(!(alloc_nid_test_flags & TEST_F_EXACT) ||
+-	       (alloc_nid_test_flags & TEST_F_RAW));
+-	/*
+-	 * TEST_F_EXACT should be checked before TEST_F_RAW since
+-	 * memblock_alloc_exact_nid_raw() performs raw allocations.
+-	 */
+-	if (alloc_nid_test_flags & TEST_F_EXACT)
+-		return memblock_alloc_exact_nid_raw(size, align, min_addr,
+-						    max_addr, nid);
+ 	if (alloc_nid_test_flags & TEST_F_RAW)
+ 		return memblock_alloc_try_nid_raw(size, align, min_addr,
+ 						  max_addr, nid);
+@@ -2722,12 +2711,3 @@ int memblock_alloc_nid_checks(void)
  
--	return memmap_alloc(size, size, __pa(MAX_DMA_ADDRESS), nid, false);
-+	return memmap_alloc(size, size, __pa(MAX_DMA_ADDRESS), nid);
+ 	return 0;
  }
- #endif /* !CONFIG_SPARSEMEM_VMEMMAP */
+-
+-int memblock_alloc_exact_nid_range_checks(void)
+-{
+-	alloc_nid_test_flags = (TEST_F_RAW | TEST_F_EXACT);
+-
+-	memblock_alloc_nid_range_checks();
+-
+-	return 0;
+-}
+diff --git a/tools/testing/memblock/tests/alloc_nid_api.h b/tools/testing/memblock/tests/alloc_nid_api.h
+index 2b8cabacacb8..92d07d230e18 100644
+--- a/tools/testing/memblock/tests/alloc_nid_api.h
++++ b/tools/testing/memblock/tests/alloc_nid_api.h
+@@ -5,7 +5,6 @@
+ #include "common.h"
  
+ int memblock_alloc_nid_checks(void);
+-int memblock_alloc_exact_nid_range_checks(void);
+ int __memblock_alloc_nid_numa_checks(void);
+ 
+ #ifdef CONFIG_NUMA
+diff --git a/tools/testing/memblock/tests/common.h b/tools/testing/memblock/tests/common.h
+index e1138e06c903..c3cca972dcca 100644
+--- a/tools/testing/memblock/tests/common.h
++++ b/tools/testing/memblock/tests/common.h
+@@ -23,8 +23,6 @@ enum test_flags {
+ 	TEST_F_NONE = 0x0,
+ 	/* Perform raw allocations (no zeroing of memory). */
+ 	TEST_F_RAW = 0x1,
+-	/* Perform allocations on the exact node specified. */
+-	TEST_F_EXACT = 0x2
+ };
+ 
+ /**
 -- 
 2.54.0 (Apple Git-157)
 
