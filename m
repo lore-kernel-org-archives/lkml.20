@@ -1,129 +1,171 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E56C5248896;
-	Sat, 19 Sep 2026 07:21:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEBC4281503
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 07:21:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789802474; cv=none; b=A8ArqFex4a0exyKs3OIu7YqxqZU/dN3qoNNXUrFEfjJ9Opc+OZPS7tLvdQ/MkOfUJ2vY6wf7s464Bf2icBH3ArG8gH7VowJxszBlOwOLR1z7/f5WTNikbh7y7RiRUcVlIVyKnpdIdMwL41Pn/HGBpMSS8rdWj+ebyGUgxf/eBYo=
+	t=1789802511; cv=none; b=YvM2X8m+TIJfRPYWkQWVhBFo+yRsQow5VAi0yqZV34qLkIi301ZVXP6ik0F/xNiBSb/qSD0waSRKJwikR2URz7OICnTpT3b5NaSvArTMtF7bU+nwNw+m7DpzHj5AtCbm1J1iJkm+kD9L4Lrkg9UbJ4OtnGgOqg6EePFMj5GNpQI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789802474; c=relaxed/simple;
-	bh=yQ8LiHbSa+FZuD5nzS5wh+J04mbtHEpk//ywjSpHHBk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=rWZyZMB/SykqI6CslFVj2Kq65xh1NQgjXStcwi5V+9dZFziHgVVFLKcFGlV0ojQ1oNMuXAKo2cj7VpHx54VhI3eWz7qiJTye79QNSFDL/2U0MAw24NPM0/+7ZQRLwOiXc/mmShz5ropI/YkQBfv3kZbMGAo99sb7gQxnUmurLe0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XodjoFyw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789802511; c=relaxed/simple;
+	bh=ji22rS31Wtsj6DidSjKjGSzzURIi+KmCray6A2YY64U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TB5AmkuaYMVJJn/1STYoGs0ghnaAu9vUi2TpzfNd2coTQK7Pj4PqgNbYFAMljF76f8BDwJzOZRCYHc2xiBB7CO2Lzr68MnSFeWRgiRZlJ6X5lJHizwMbDXvt8XxVhDSGcLSwkLfP9WYdFyWH86Kr+PAB4stU9WqPva15cJpcovs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LCiTW36p; arc=none smtp.client-ip=74.125.228.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XodjoFyw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECC481F000FF;
-	Sat, 19 Sep 2026 07:21:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789802472;
-	bh=gcV1cifYYEXR5fN/PvDPz+mSKLKnhoe7/UY0t5C/g0g=;
-	h=Date:Subject:To:References:From:In-Reply-To;
-	b=XodjoFyw/WkTK6ApM2c9k9l5PiICFSTKrE/CQ/x2nTjfqo+YZSIJWJ6Zwp3Tn5CKU
-	 obt3PzPksSqSJ+PH7u3BJREuUCjt4hIDmCVin5Looew8yNWI81TyB/RV+VjwBmHuR4
-	 3zxRzys3ay13ePvU+IV+jonRxfzTVQmB/9tajhfpSpOMVS9/4eQVW42UkRLamWaBWB
-	 mCRlm0DpJbk5ATFEHKFsU8u0kWHAdmPtH2xfOlLOXjuXF1p/ZuSCVL9lj2QETOFu8n
-	 O/rJDehmCn3zXEW2o6n95UxH+iG1HO4e1h8B03PLt2+9DAbhu+R3/+dJtaqUkWdCnC
-	 DTBmWJaKmon5g==
-Message-ID: <cbe7cdd7-e225-4432-b4f2-2146c31e9656@kernel.org>
-Date: Sat, 19 Sep 2026 09:21:05 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LCiTW36p"
+Received: by mail-pz2-f42.google.com with SMTP id d2e1a72fcca58-86dd69a1b15so520620b3a.0
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 00:21:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789802509; x=1790407309; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ji22rS31Wtsj6DidSjKjGSzzURIi+KmCray6A2YY64U=;
+        b=LCiTW36plUjchw0gpgphKVmgp7jbg9VS+gHTtqmHh/JtFTWoo7/Q6RPEmnAW3l+bkm
+         /aUmS+Xuxdcthkj1s6o36LWsLFetX+xL/NdMr8+V5+6ft9eIgGMI6X2R0+bHiOVq3FxS
+         JmFvISjto99fU8aK8ar6GSgtplh9VvTB0Pxus8wSZbjd6i8WDyLU1j1TpsaD8hciL0j9
+         BYUUi1OXHUT6tZqVc8gbgtjM0NwtSM0jctaWVXMEebl7praNsqCi86PRe/ciiBJCrqc/
+         6FKcfFEH4ShpFoBvIlvIbsGKJdVNV/3VhR7hUBrZD/O0We80F5Wn+uyibZbOnKMX1Ecr
+         opyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789802509; x=1790407309;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ji22rS31Wtsj6DidSjKjGSzzURIi+KmCray6A2YY64U=;
+        b=V8EkuMQVWbLmE9U5EBAmAXxPkBlOxl/f7IztrQrxBmVvQ4rxPA8ZK5K9PjpE7DeJue
+         ZeDICmhx8TKN7tTduHdgQWjh7pDTMFDxbgz/EmY+DovXth0X7CCILFek07Wk/3iBN3/l
+         arp+nJPuUuDkOeNkSjmWi742jfjBJwy+M3nDty3NOVZIayuwTL96CT5BVQSe97CZwQPo
+         IqkUNF5Lgo0dU3PmYIFiE2J6POft2gRp2t/K+JKIjIPMP1QWa4afbcdcLvKCSK4kniig
+         GB74s3AGuhm/G+bFbi3WuMPlS4IGnn+z0YLv23WIC5K6s0XW21IqFNhADKKMf/LVubln
+         kF/Q==
+X-Forwarded-Encrypted: i=1; AKwUvByhnM49zmYsnYscQinN8TY03R3s1PkXQqnipI/yQ+RCSK6hDRkj35MeRbuq8NkkxJD0+EGh0VKhk/vHi+A=@vger.kernel.org
+X-Gm-Message-State: AFuF++lOI9HEa1bHpkUh+9Qw9HhoDxQhAaXG2nGtUF01+W1UziP33jrV
+	N94tS7m4lbFlfa438tXtGcztwPY/w3fRqra9LWZFC5p4JnmNoqt2QPWH
+X-Gm-Gg: AYBFou3/P3Y87Y121EqfUzhXuKaJnr5WyyquRNc+L4enTWp15CbclX5F7wMYgx+I0V1
+	wdqFwXo1HxUMNCA6qpg7G03lI3TIVNMSoP2AKmV8oPBycZv2XDaLM02NKpVxhZ9bI8ttj1m+50E
+	hpIxOcP7TEGiAfbrhk0u36/jb8viDMN7YxqnTRq44QLswjveAMRb/I9QOLzEcIRRrtqwJ19ZQcn
+	/O5eLvgalYfDMhu94RpO4fC4VYAFjg134IWSarcg6GA9Fh/YZvtGYFheu9aU1tXGzsUIcCVbFUm
+	Fk0pgNsgI46Lu/HO4sGHQ0viyve89o4Lbxaav/Nuw+7DS0OVOC8ZFVAeDDaBQ0/dDcOYrCDcWcW
+	3dXf+qm+U7hZHYPok0CbTnA9qVRInDOx0YUUirknuYu7VWjFThyQDDEbiS+WhwAihpgzvAUSxeN
+	IW7sNiiPQCTjsx9vg4kRbHERNx5Bq/hzxPeaiGpCnpsNCGFqYoT5Yco6FM19XumowCjxrhGMrnl
+	W3HG3lRY9IhUr8=
+X-Received: by 2002:a05:6a00:b94:b0:874:705d:f636 with SMTP id d2e1a72fcca58-874d5e29565mr5203732b3a.16.1789802508998;
+        Sat, 19 Sep 2026 00:21:48 -0700 (PDT)
+Received: from localhost.localdomain ([240e:b8f:1df9:a600:c693:b19f:ada0:748])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a6ae905fsm742901b3a.3.2026.09.19.00.21.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Sep 2026 00:21:48 -0700 (PDT)
+Date: Sat, 19 Sep 2026 15:21:41 +0800
+From: Vernon Yang <vernon2gm@gmail.com>
+To: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+Cc: "linux-mm@kvack.org" <linux-mm@kvack.org>, 
+	LKML <linux-kernel@vger.kernel.org>, linuxppc-dev <linuxppc-dev@lists.ozlabs.org>, 
+	Madhavan Srinivasan <maddy@linux.ibm.com>, Ritesh Harjani <riteshh@linux.ibm.com>, 
+	Shrikanth Hegde <sshegde@linux.ibm.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Liam.Howlett@oracle.com
+Subject: Re: [linux-next20260917] BUG: Bad page map in process
+Message-ID: <b9d78e0b-c301-4910-9b3c-3cace29cced8@gmail.com>
+References: <d0d04df2-8d69-4155-81b1-3d3ea2fca14e@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 1/2] arm64: dts: intel: agilex5: add USB3.1 controller
- node
-To: adrian.ho.yin.ng@altera.com, Dinh Nguyen <dinguyen@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <cover.1789114403.git.adrian.ho.yin.ng@altera.com>
- <dba41aa636c6db86be9e0e2a3e2ae1a03095e1cb.1789114403.git.adrian.ho.yin.ng@altera.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <dba41aa636c6db86be9e0e2a3e2ae1a03095e1cb.1789114403.git.adrian.ho.yin.ng@altera.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <d0d04df2-8d69-4155-81b1-3d3ea2fca14e@linux.ibm.com>
 
-On 11/09/2026 11:09, adrian.ho.yin.ng@altera.com wrote:
-> From: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
-> 
-> Add a DTS node for the Synopsys DWC3 USB3.1 controller on the Agilex5 SoC.
-> Place it under a simple-bus with a 40-bit dma-ranges window (#address-cells
-> = 2) to match the USB DMA address width of the interconnect. Enable it in
-> host mode on the SoCDK board.
-> 
-> ref and suspend both use AGILEX5_USB31_SUSPEND_CLK because they share the
-> same hardware clock source on this SoC.
-> 
-> Signed-off-by: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
-> ---
->  .../arm64/boot/dts/intel/socfpga_agilex5.dtsi | 35 +++++++++++++++++++
->  .../boot/dts/intel/socfpga_agilex5_socdk.dts  |  5 +++
->  2 files changed, 40 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
-> index f54767d1526e..523f722a2a64 100644
-> --- a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
-> +++ b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
-> @@ -493,6 +493,41 @@ usb0: usb@10b00000 {
->  			status = "disabled";
->  		};
->  
-> +		usb31_bus: usb-bus@11000000 {
+On Fri, Sep 18, 2026 at 12:38:29PM +0530, Venkat Rao Bagalkote wrote:
+> Greetings!!!
+>
+> IBM CI has reported following boot warning on Power11 pseries machine
+> running linux-next 7.3.0-rc3-next-20260917.
+>
+>
+> Traces:
+>
+> [    4.944846] BUG: Bad page map in process rtas_errd pte:c00000001fff0786
+> [    4.944850] pgd:8000000064e76009 p4d:8000000064e76009
+> pud:8000000064013009 pmd:8000000064011009
+> [    4.944858] addr:00003fffa9382000 vm_flags:080000fb
+> anon_vma:0000000000000000 mapping:c0000000054443a0 index:1fff0
+> [    4.944865] file:mem fault:0x0 mmap:0x0 mmap_prepare: mmap_mem_prepare
+> read_folio:0x0
+> [    4.944875] CPU: 17 UID: 0 PID: 773 Comm: rtas_errd Not tainted
+> 7.3.0-rc3-next-20260917 #1 PREEMPT(lazy)
+> [    4.944877] Hardware name: IBM,9080-HEX Power11 (architected) 0x820200
+> 0xf000007 of:IBM,FW1110.01 (NH1110_069) hv:phyp pSeries
+> [    4.944879] Call Trace:
+> [    4.944879] [c00000001791b4e0] [c00000000135a92c]
+> dump_stack_lvl+0x8c/0xf0 (unreliable)
+> [    4.944885] [c00000001791b510] [c0000000006708c0]
+> print_bad_page_map.part.0.constprop.0+0x18c/0x260
+> [    4.944887] [c00000001791b5f0] [c000000000674fa4]
+> vm_normal_page+0x140/0x17c
+> [    4.944890] [c00000001791b630] [c00000000067648c]
+> zap_present_ptes.constprop.0+0x9c/0x9ac
+> [    4.944893] [c00000001791b700] [c000000000677038]
+> zap_pte_range+0x29c/0x5f4
+> [    4.944895] [c00000001791b840] [c000000000677500]
+> zap_pmd_range.isra.0+0x170/0x310
+> [    4.944898] [c00000001791b8d0] [c000000000677a00]
+> __zap_vma_range+0x360/0x4cc
+> [    4.944900] [c00000001791b980] [c0000000006780e0] unmap_vmas+0x98/0x1a0
+> [    4.944903] [c00000001791ba10] [c0000000006b0f68] unmap_region+0x94/0x108
+> [    4.944905] [c00000001791bad0] [c0000000006b1c7c]
+> vms_complete_munmap_vmas+0x11c/0x2c8
+> [    4.944907] [c00000001791bb60] [c0000000006b273c]
+> do_vmi_align_munmap+0x1ac/0x1f8
+> [    4.944909] [c00000001791bca0] [c0000000006b52c0] __vm_munmap+0xdc/0x1fc
+> [    4.944911] [c00000001791bd60] [c00000000068b154] sys_munmap+0x28/0x3c
+> [    4.944913] [c00000001791bd80] [c000000000032150]
+> system_call_exception+0x190/0x4b0
+> [    4.944916] [c00000001791be50] [c00000000000d05c]
+> system_call_vectored_common+0x15c/0x2ec
+> [    4.944919] ---- interrupt: 3000 at 0x3fffa9143754
+> [    4.944920] NIP:  00003fffa9143754 LR: 00003fffa9143754 CTR:
+> 0000000000000000
+> [    4.944922] REGS: c00000001791be80 TRAP: 3000   Not tainted
+> (7.3.0-rc3-next-20260917)
+> [    4.944923] MSR:  800000000280f033 <SF,VEC,VSX,EE,PR,FP,ME,IR,DR,RI,LE> 
+> CR: 44002408  XER: 00000000
+> [    4.944928] IRQMASK: 0
+> [    4.944928] GPR00: 000000000000005b 00003fffc0a69a20 00003fffa9237d00
+> 00003fffa9382000
+> [    4.944928] GPR04: 0000000000001000 0000000000000002 0000000000000000
+> 0000000000000001
+> [    4.944928] GPR08: 000000000000001b 0000000000000000 0000000000000000
+> 0000000000000000
+> [    4.944928] GPR12: 0000000000000000 00003fffa937f860 0000000000000000
+> 00003fffa9383550
+> [    4.944928] GPR16: 0000000000000000 00003fffc0a69cd8 00003fffc0a69ca0
+> 68746150706d7544
+> [    4.944928] GPR20: 00003fffc0a69c10 0068746150706d75 636170614364656c
+> 747365526f747541
+> [    4.944928] GPR24: 000000013ad9e130 00003fffc0a6a0d8 6d726f6674616c50
+> 00003fffa92f5ee0
+> [    4.944928] GPR28: 00003fffa9382000 000000001fff0000 0000000000000009
+> 0000000000100000
+> [    4.944945] NIP [00003fffa9143754] 0x3fffa9143754
+> [    4.944946] LR [00003fffa9143754] 0x3fffa9143754
+> [    4.944947] ---- interrupt: 3000
 
-No, USB bus is not a simple bus. You probably wanted simple bus or any
-other approved, but not discouraged names from simple-bus.
+Hi Venkat,
 
-Don't come up with own naming.
+Thanks for reporting this bug. I also reproduced this phenomenon on my
+local machine and found that Lorenzo[1] has already fixed the bug, and
+Mike[2] also provided a detailed analysis.
 
+[1] https://lore.kernel.org/linux-mm/aq06hcheI4OGi_3A@gremlin/
+[2] https://lore.kernel.org/linux-mm/aquz9Z9JrK_H_E0g@kernel.org/
 
-Best regards,
-Krzysztof
+--
+Cheers,
+Vernon
