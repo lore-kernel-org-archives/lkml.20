@@ -1,146 +1,97 @@
-Received: from www571.your-server.de (www571.your-server.de [78.46.3.230])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 182B4B67E;
-	Sat, 19 Sep 2026 00:05:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.46.3.230
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2906C27703;
+	Sat, 19 Sep 2026 00:06:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789776334; cv=none; b=OwNe+Vld6yfdItrSYnRNMPPXKW4WH/teQ586Po1cyvwfk9YK/YI182fGSXZN1H8TWHMqIW1L51f2TRUYXaMmp7w7lharJS38kEbG+5abe0ntxVYnzfeKvBWwssQpghgoFKaw3gUPnJzK3Gp8C9Yo/bxmcy6KIX30jrDWyYK3oz4=
+	t=1789776375; cv=none; b=TCOQzfQaEVVBnTCNgwbeDy04ihidnedueYzC0QC5YZzdR9mNufXFkhlOXMf6OPuZe6kEpTWIQyRGPQATwD2vOkOH6J7L4YxILc6Di4QL8ruxHe/eD/cXT2nWNy4/qoJG6z1E6pw61fsXcgQdVvQL1YNHiBuQZg7Jeba2UClmuYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789776334; c=relaxed/simple;
-	bh=m5QLi4MU9IhXJ43JuLn4ROAP1d4tOZmrlGm/EzX/kks=;
+	s=arc-20240116; t=1789776375; c=relaxed/simple;
+	bh=PZjxDqdtreqBoxW0dc9Qwx0T2try/rmxITdlGAT/wEw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nph9lX16GHeEolqLKKdcVVscJiAJGhIXPNN9/+8IVcuJBAfHJGpdGMCPLhuGe0vJiyxRumPGXrhKk1L1LRztHf5JMUbIbWlTui8YSfMkLcQbxqinMmCyBFg799loN5ZSsN5E2F9pgXyDeWaGZ7DzSVtgHGcJc/dw/MyYXseVABU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=it-klinger.de; spf=pass smtp.mailfrom=it-klinger.de; dkim=pass (2048-bit key) header.d=it-klinger.de header.i=@it-klinger.de header.b=uLnAEoZC; arc=none smtp.client-ip=78.46.3.230
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=it-klinger.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=it-klinger.de
+	 Content-Type:Content-Disposition:In-Reply-To; b=lrE8ehJDoLcznNWl8xbBhF1Aozo0ZXU5G7SlaKbgHtugEKkIA9/25LEbbbUP91YV2JzWXg4hXWQO0OeG8NbYInv+HcwkJWRWK55x+Z095fyh31WSgwHvfyUJDz1uGkgXGk4BlJV8QoAN1EMRxpNy+GqKssKmFHDmvj3oHa1lsnY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WHt/yal8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=it-klinger.de header.i=@it-klinger.de header.b="uLnAEoZC"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=it-klinger.de; s=default2502; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
-	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=cuK36tX0w1oMWbj8Rduwto0JXT198crApPvx3gSSjl4=; b=uLnAEoZCMjwph1DwNSAwvZ7gRs
-	f5pbK2stK3gOPVJ0OMkckXTrDa71LrxFXuy45/PFFueIhHB1kcwjBlMaqvN3L7GlE8RG+J0zFlc6c
-	110ikvA6lW6HBEkjwI9zNbz2fdcNTLrg/39XqzmQhaw00kRVEZ08RjCRkTfVMXrEWvksNZcQcVFNM
-	LmPwJ7+PFZOescAKNRyOhxzRJIowtyqLFZ6wCnhkkV71JYIQDwwH8AWL3w/Zi4WCAmgLgQtsBMitn
-	PeHlxqPMMkfcZ7cowC/kOyoquTpYlWKcob+QbFfGGS3s6fpaaCuGCP36wLDaapQ4D0ML5v1nQ74Of
-	xkehn1QQ==;
-Received: from sslproxy08.your-server.de ([78.47.166.52])
-	by www571.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <ak@it-klinger.de>)
-	id 1x7i8N-000FDN-2w;
-	Sat, 19 Sep 2026 01:36:47 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy08.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ak@it-klinger.de>)
-	id 1x7i7p-000Pto-38;
-	Sat, 19 Sep 2026 01:36:47 +0200
-Date: Sat, 19 Sep 2026 01:36:45 +0200
-From: Andreas Klinger <ak@it-klinger.de>
-To: Jaakko Koivisto <jmatko@utu.fi>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] iio: chemical: sgp40: Implement
- turn_heater_off-command
-Message-ID: <aq3LDTnLuJm6vjFt@mail.your-server.de>
-References: <20260918134019.1101308-1-jmatko@utu.fi>
- <20260918134019.1101308-4-jmatko@utu.fi>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WHt/yal8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24DD11F000FF;
+	Sat, 19 Sep 2026 00:06:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789776373;
+	bh=K0LdpFbLfSrouSaQWx1WxcGgOL0IJnEb3kf1PZZgOz4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WHt/yal8851lJexzW7Zy1gfBoxenPxj+oanpo5DnIn0n4Oos8HUsmE9MfIR3dsQcE
+	 K58rNv0O+N3L7LHXmDecDWZoSAHhDLc+blEDv4Y5Etsr8OmkRFldnxLM5QMgIMV+ve
+	 dKErdN+nziQzGs0QVUoYVvCql5PSIY33Gf/GvL2mGdBkAtjUCzj5219XQxBT41xgBk
+	 KXjAQiJ/AsVEqAXW9C8IeIGHK1B7BS6FBZRXmfoQiBGktfsYyV5QEk9cJajBXA60AA
+	 pBLi29QnIR3q+RwCILttXqBKCWTVLTz9pLrJjWaiJU0nzyM/NYbN3XzaruSGTac8Um
+	 u4UEtm1cJDdcA==
+Date: Sat, 19 Sep 2026 00:06:11 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>
+Cc: Junhui Liu <junhui.liu@pigmoral.tech>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Inochi Amaoto <inochiama@outlook.com>,
+	Paul Walmsley <pjw@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Anup Patel <anup@brainfault.org>, Guodong Xu <docular.xu@gmail.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Bo Gan <ganboing@gmail.com>
+Subject: Re: [PATCH v3 5/6] irqchip/aclint-sswi: Add support for SpacemiT K3
+Message-ID: <20260919000611-GKF297024@kernel.org>
+References: <20260918-k3-aclint-v3-0-cf4fd4050e14@pigmoral.tech>
+ <20260918-k3-aclint-v3-5-cf4fd4050e14@pigmoral.tech>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260918134019.1101308-4-jmatko@utu.fi>
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28127/Fri Sep 18 08:25:28 2026)
+In-Reply-To: <20260918-k3-aclint-v3-5-cf4fd4050e14@pigmoral.tech>
 
-Hi Jaakko,
+Hi Thomas Gleixner, Radu Rendec
 
-Jaakko Koivisto <jmatko@utu.fi> schrieb am Fr, 18. Sep 16:40:
-> -Turn the heating element off and enter idle mode.
-> -Present the functionality as device attribute,
->  'echo 1 > turn_heater_off'.
-
-Instead of introducing a device specific attribute couldn't this be implemented
-as standard power management operations (RUNTIME_PM_OPS)?
-
-Andreas
-
-> Saves approx. 2.5 mA compared to regular operation. The heating element
-> is automatically turned back on when measurement is performed.
+On 00:29 Fri 18 Sep     , Junhui Liu wrote:
+> Add a match entry for the spacemit,k3-aclint-sswi compatible. The K3
+> SSWI device requires no special handling and can use the existing
+> generic ACLINT SSWI initialization function.
 > 
-> Signed-off-by: Jaakko Koivisto <jmatko@utu.fi>
+> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
 > ---
->  drivers/iio/chemical/sgp40.c | 28 ++++++++++++++++++++++++++++
->  1 file changed, 28 insertions(+)
+>  drivers/irqchip/irq-aclint-sswi.c | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-> diff --git a/drivers/iio/chemical/sgp40.c b/drivers/iio/chemical/sgp40.c
-> index 28d5e737d1dc..a4fc5c778303 100644
-> --- a/drivers/iio/chemical/sgp40.c
-> +++ b/drivers/iio/chemical/sgp40.c
-> @@ -29,6 +29,7 @@
->   * by writing to the out values of temp and humidityrelative.
->   */
->  
-> +#include "linux/device.h"
->  #include <linux/delay.h>
->  #include <linux/crc8.h>
->  #include <linux/module.h>
-> @@ -259,6 +260,21 @@ static int sgp40_execute_self_test(struct sgp40_data *data)
->  	}
+Ping irqchip subsystem maintainer, how do you expect to handle this patch?
+There are some dependencies between dt-binding, the driver and DTS file..
+
+Would it be ok if I take it together via SpacemiT SoC tree? and probably with
+your Acked-by? Thanks
+
+> diff --git a/drivers/irqchip/irq-aclint-sswi.c b/drivers/irqchip/irq-aclint-sswi.c
+> index ca06efd86fa1..d3ef2cd3b5c5 100644
+> --- a/drivers/irqchip/irq-aclint-sswi.c
+> +++ b/drivers/irqchip/irq-aclint-sswi.c
+> @@ -179,6 +179,7 @@ static int __init generic_aclint_sswi_early_probe(struct device_node *node,
 >  }
+>  IRQCHIP_DECLARE(mips_p8700_sswi, "mips,p8700-aclint-sswi", generic_aclint_sswi_early_probe);
+>  IRQCHIP_DECLARE(nuclei_ux900_sswi, "nuclei,ux900-aclint-sswi", generic_aclint_sswi_early_probe);
+> +IRQCHIP_DECLARE(spacemit_k3_sswi, "spacemit,k3-aclint-sswi", generic_aclint_sswi_early_probe);
 >  
-> +static int sgp40_turn_heater_off(struct sgp40_data *data)
-> +{
-> +	int ret;
-> +	struct i2c_client *client = data->client;
-> +	struct sgp40_command turn_off = {.command = {0x36, 0x15}};
-> +
-> +	ret = i2c_master_send(client, (char*)&turn_off, sizeof(turn_off.command));
-> +	if (ret != sizeof(turn_off.command)) {
-> +		dev_err(data->dev, "i2c_master_send ret: %d, expected %zu", ret, sizeof(turn_off.command));
-> +		return -EIO;
-> +	}
-> +	msleep(1);
-> +	return 0;
-> +}
-> +
->  static int sgp40_measure_resistance_raw(struct sgp40_data *data, u16 *resistance_raw)
->  {
->  	int ret;
-> @@ -417,10 +433,22 @@ static ssize_t serial_number_show(struct device *dev,
->  	return sysfs_emit_at(buf, 0, "%llu\n", data->serial_number);
->  }
->  
-> +static ssize_t turn_heater_off_store(struct device *dev,
-> +				     struct device_attribute *attr,
-> +				     const char *buf, size_t len)
-> +{
-> +	struct sgp40_data *data = iio_priv(dev_to_iio_dev(dev));
-> +	sgp40_turn_heater_off(data);
-> +
-> +	return len;
-> +}
-> +
->  static IIO_DEVICE_ATTR_RO(serial_number, 0);
-> +static IIO_DEVICE_ATTR_WO(turn_heater_off, 0);
->  
->  static struct attribute *sgp40_attributes[] = {
->  	&iio_dev_attr_serial_number.dev_attr.attr,
-> +	&iio_dev_attr_turn_heater_off.dev_attr.attr,
->  	NULL
->  };
->  
+>  /* THEAD variant */
+>  #define THEAD_C9XX_CSR_SXSTATUS			0x5c0
+> 
 > -- 
 > 2.55.0
 > 
 
+-- 
+Yixun Lan (dlan)
