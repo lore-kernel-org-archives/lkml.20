@@ -1,82 +1,61 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D306A199FB0
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 00:48:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF1BB331ECE
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 00:49:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789778932; cv=none; b=YeS8r2ZOAggepHhVGCTGT96SI6+rnQfb1Bm7YkbiOhUwtAdckwwrE/qC6YOpZNrtI+49syIif+0sqQm7CPkHNjfxW9LIMwAm3QI2symsR1XgMXahMT8sbCU7x1ovPz/NhdL6mwGvlD8Unjl+6yaRHFhx6Onq3NsvQqN0eQO4MiY=
+	t=1789778958; cv=none; b=nAYsLmpK9n8JdhNTMWRbM/eGft1DoEiHowhjgoBT0UwKSBh40svCyR+/RdzcKJFhZCdzBsUMOuSiMaSUbPGyn0ON4SPWgz4Hqhf/iOBESXRN6+2IaTIn6uFZO3elwqjKhSsZTZ5+ypYtg5du6a0iezPfC9iXNWtenSAECgeC3Ic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789778932; c=relaxed/simple;
-	bh=aplyFlzLOY0x0RFJ7FwTf+yiQ+mBUa3wBc2JeAeoi7M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=a5rMxLT9bYli/RVSPzVNw57I68JMwh90wTp0kLHMJWV7SolhrfLFSBxKY9lMv1s37ok0eO/UWnjrl1fQBWlZcvS/dKa3rDkQn68FC870dVb8khWZVS7djVRIN7K6jNfTs+WS5Gn9raVHwaIPNsBTGxP1lzI+NiL51qpy/Z0eSOU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L+pS3UQG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789778958; c=relaxed/simple;
+	bh=cgA5xtiTah00EI8VPV5MgX5nPkycfXvIic65XlPW51k=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=sru1eQ6u4YHnpiyBy6CbilU8wnqR7b99ECJ0NB1rR8t9KvJNmoXoyIZ0isVHwgIp0xTMtNCODoeD6/vNXYm65V4WfXvTivCXWyhqJK9U96/GISumVOEtOHSatEYAaE7XalWF+RkboMJAp4+VZsN3r/Nq4B9/NN/syAPQJgaQ3gk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z1452jYh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L+pS3UQG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA2D31F000FF;
-	Sat, 19 Sep 2026 00:48:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z1452jYh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 044FC1F000FF;
+	Sat, 19 Sep 2026 00:49:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789778920;
-	bh=ZbvHpq3rRQao+6B+WCd17X6MEA3IqdvdmjyHc+s+Fjk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=L+pS3UQGRU0NBDuFFFnKco6mwe7nk92sCxn80IkjG0FpROgRtIiOvtUSUi/ryt6TV
-	 6DRz6tz2R6/HerFUZCnbReYFR6vdpuC75qq12ImULwhtutj8AWHAk1HF4RNKYyA9hD
-	 2ea+3q0xWg3swO6+mGxD384Bxx0dNEM/QiPrNdXU5/TGOuUYjEO0v9JGU5t66yQ57k
-	 tD5QABx1O47yOULqmje4qs9lUpBoQ2INzfLxTekZNuTP8VeEAOPvB5TrueFUg2qNOn
-	 1vN2vIDd5N+8DtM85uRib0QHtyyl/SeQF2lv5Rt2OSrEXo/BM2IbBc82F7u/aHE5Ho
-	 bhaHpcyfgnbKw==
-From: SJ Park <sj@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: SJ Park <sj@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Byungchul Park <byungchul@sk.com>,
-	Gregory Price <gourry@gourry.net>,
-	Ying Huang <ying.huang@linux.alibaba.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	Rakie Kim <rakie.kim@sk.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>
-Subject: Re: [PATCH 1/3] MAINTAINERS: split up MEMORY MANAGEMENT - MEMORY POLICY AND MIGRATION
-Date: Fri, 18 Sep 2026 17:48:32 -0700
-Message-ID: <20260919004832.87058-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260918-maintainers-mempolicy-v1-1-9a94cac6d135@kernel.org>
-References: 
+	s=k20260515; t=1789778945;
+	bh=eojZnvOcSsz8LvMhoUSOyuMtKiOL0VubQ9yJAzFiREQ=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=Z1452jYhpo+Z+sNqjAFdqu3auX7mTqJcsOMMzCz8MaXJKlgoTqOvu5k+6o2p0kHST
+	 4vNVoqDYwi6617OP9l9SwN6zIK4sRuWRDz89kS75Y5bbYzEYVOdaxOMZoB7zZKFjJ7
+	 o+pjiMwvSvbbglMvyPVXLbUU6fg6HwUu2f5vASLh+GQfAujpTKTTWO5G911rP0iopQ
+	 sfBnS+JHy4im5nPuZT/ijpaiozrb94iZYdwWM4u/L6lEOjPyBRdlhqaWDg4vxf+E8o
+	 LSPP/8sW3tXEBt/VrJgCHZeQjBLSCOi0BAqX8D3fMtGrCbLhtth6GF+QM/P/t9FuXr
+	 uE7FIhMaImWSA==
+Date: Fri, 18 Sep 2026 18:49:04 -0600 (MDT)
+From: Paul Walmsley <pjw@kernel.org>
+To: Aurelien Jarno <aurelien@aurel32.net>
+cc: linux-kernel@vger.kernel.org, Paul Walmsley <pjw@kernel.org>, 
+    Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+    Alexandre Ghiti <alex@ghiti.fr>, Conor Dooley <conor.dooley@microchip.com>, 
+    Charlie Jenkins <thecharlesjenkins@gmail.com>, 
+    "open list:RISC-V ARCHITECTURE" <linux-riscv@lists.infradead.org>
+Subject: Re: [PATCH] riscv: vector: Fix output operands in context save
+In-Reply-To: <20260911194218.3379486-1-aurelien@aurel32.net>
+Message-ID: <d925bd35-2b26-a0c6-6a81-3a886b5f368e@kernel.org>
+References: <20260911194218.3379486-1-aurelien@aurel32.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-On Fri, 18 Sep 2026 18:34:24 +0200 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
+On Fri, 11 Sep 2026, Aurelien Jarno wrote:
 
-> Let's split it up into MIGRATION and NUMA PLACEMENT. The latter is a
-> better fitting description for mempolicy.c.
+> The __vstate_csr_save() inline assembly declares vcsr as an output
+> operand while the assembly only writes vstart, vtype, and vl. Remove it
+> as it is later saved by the C code.
 > 
-> Make a best guess about which pieces existing reviewers are interested
-> in. Move the split sections to keep alphabetical order.
+> Fixes: d863910eabaf ("riscv: vector: Support xtheadvector save/restore")
+> Signed-off-by: Aurelien Jarno <aurelien@aurel32.net>
 
-Makes sense to me.
-
-> 
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-
-Reviewed-by: SJ Park <sj@kernel.org>
+Thanks, queued for v7.3-rc.
 
 
-Thanks,
-SJ
-
-[...]
+- Paul
