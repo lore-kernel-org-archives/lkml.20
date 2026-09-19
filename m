@@ -1,94 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10CA233B6F4;
-	Sat, 19 Sep 2026 09:04:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10F0E28315D;
+	Sat, 19 Sep 2026 09:04:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789808650; cv=none; b=S7bh2PL18Osn2u7HTybchRCXLPTLITH2w5xzQduFy0dghBwC/WnkwdzQ/1EO1X6UIa+M47DIv+lXSAHbrVIZpbadHMhbb3KMBMrPFbrv7kVZmvcQmDQrJEOGx0njLpCdG7MB8IU6aiXVzyDPRoTlEp31QjWFPDdy6OIyRGleqcA=
+	t=1789808675; cv=none; b=i2fX2Msp0cSlk7AJU+Z6eAX/GD5cF29gbYjAC38MM40FqJTX/Kxe03GxLquBxX5NjyKedtI7tOZDW3XkXErITrltP+UXW7dBVtuTZpMjrkMuIAVuoc3c+yJqu6RbJF4WEFMZiaX7B2Ibw6r2dBIf8c1E7HF7VrPMKEIt2spEw3o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789808650; c=relaxed/simple;
-	bh=07mMyxMsaP6e9rVOkNiufgr3Dwg5HIHOcIaZCo5Ccuo=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=PfXWDTEdUmNZyg235uK6P5ffW6G2yXX3TVNE0nZ16o5OlJvownmlh11CyDE6fE4To9pW2Kh6qOtQaTRfB4OmyYNG0ChOBXDcr3FJhvMr+v8GVJSFpJsNvurm2CuFOFU5cXJgnO+JE0iIi2VHfJtEPrXTBky2nfb/3AfCP6FsaUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gtY9+36Q; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gtY9+36Q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10EA21F000FF;
-	Sat, 19 Sep 2026 09:04:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789808648;
-	bh=BBnavKyXduBDgDup2hJbOMSKrWBCyILhm4SU8REE7oQ=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=gtY9+36QQDLOAjld+dnCg2da7Sh9sWyFs4r67/H0RiQLIeaozrHAoxUgjK4bNHK/b
-	 WHUY279yatJ16otcvxSYTH3X9vF7qie7F1Jz4ooSeCRggZjL620zpTWftDGIJ9vLY0
-	 Z4a9mQfh9XjTtzwOG8xjbYjamL6yHzuS1wq/fwE1+qZfWpbYm7ZrcSCm/XBNN4I0gx
-	 7iGzdI8Cgee7Yx9zVGoMiok/dqno+gP/API9OwzaBctQAlJj//BYgEGpA/52W7iT6D
-	 IusCUOcKAhks32oGIV7CwmgEkyo/hj2ICPUdx3EV707q8UzIa2RCpiGbma05VZKETk
-	 FAKcq0x9hhtYw==
-From: Mark Brown <broonie@kernel.org>
-To: Gabor Juhos <j4g8y7@gmail.com>
-Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>, 
- Sricharan Ramabadhran <quic_srichara@quicinc.com>, 
- Md Sadre Alam <md.alam@oss.qualcomm.com>, linux-spi@vger.kernel.org, 
- linux-mtd@lists.infradead.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260918-qpic-snand-config_page_read-v1-1-a686c4657857@gmail.com>
-References: <20260918-qpic-snand-config_page_read-v1-1-a686c4657857@gmail.com>
-Subject: Re: [PATCH] spi: spi-qpic-snand: add qcom_spi_config_page_read()
- helper
-Message-Id: <178976719898.1863384.8556438564232843245.b4-ty@b4>
-Date: Fri, 18 Sep 2026 23:33:18 +0200
+	s=arc-20240116; t=1789808675; c=relaxed/simple;
+	bh=SzYwxn01SsB6ztVJAUDOdcGw1j3zMFGEBYfOS3NOm+Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=H5taPBziJi90zaRn42ZlPoxpfdOSdcLmQKrs+e+A9hmh9pmRBZopbNKsv5Zo1eHpJ+mMhYCZBHFjx7ilathPUR1UH3wyX2et97kgMAJgpavVpsa2bYMaIyFFcc0RazgPsYTZpjxZPUmUP0zQy2SyAYLjSO3vykGFfzMVH05FN80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
+Received: from local
+	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
+	 (Exim 4.100)
+	(envelope-from <daniel@makrotopia.org>)
+	id 1x7qzZ-000000003cO-2VU7;
+	Sat, 19 Sep 2026 09:04:17 +0000
+Date: Sat, 19 Sep 2026 10:04:14 +0100
+From: Daniel Golle <daniel@makrotopia.org>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Jiri Pirko <jiri@resnulli.us>, "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>, netdev@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	driver-core@lists.linux.dev
+Subject: Re: [PATCH net-next v16 0/6] net: dsa: mxl862xx: devlink flash and
+ rescue
+Message-ID: <aq5QDmuQnqQTudca@makrotopia.org>
+References: <cover.1789477568.git.daniel@makrotopia.org>
+ <20260918180709.2fe12c2c@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1131; i=broonie@kernel.org;
- h=from:subject:message-id; bh=07mMyxMsaP6e9rVOkNiufgr3Dwg5HIHOcIaZCo5Ccuo=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqrlAECYDY8bpS7oTqenf0plXibSOVh5r1YS6tJ
- sdPOdx2ek6JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaq5QBAAKCRAk1otyXVSH
- 0MXOCACGtIGO3qeCu0E8ocf6s0p8J5odLs/IVePHyKBnpef5RXVxGqvDE/HFGV92BLthlnT36JZ
- tQGvsD3bzMl+T81bEinbr8pU3e4PxStdW+odHzGfM0C0u3kh41OTQ9t7EPHp7/gnurNN1SlaoIi
- 0kGNTCBAC1Q9D+memFbzOq60THq72YkABcg4z15Zin26WGc/BiPaN3QnukH9jQtEJduN4dsOM+A
- 5YEMNCuYkONxc3JjXt25ZOvrS/FKzBbMFgpMrRWB0sBIzu3lEqie3JrMYijDMRUHegzduPihmyX
- baJ/XEZsTRbCNzE+5XUBGEsdY9t4lilkVkizdasm3qrn409u
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918180709.2fe12c2c@kernel.org>
 
-On Fri, 18 Sep 2026 21:53:08 +0200, Gabor Juhos wrote:
-> spi: spi-qpic-snand: add qcom_spi_config_page_read() helper
+On Fri, 18 Sep 2026 18:07:09 -0700 Jakub Kicinski wrote:
+> Having the "rescue mode" which only allows flashing a better / working
+> FW is fairly common these days. Did you consider driving the operation
+> more from user space. Let the user devlink reload into flashing mode,
+> and devlink reload back into normal operation mode?
 
-Applied to
+The reload plumbing itself would look much like the flash_update hook
+this series adds: reload_up/reload_down trampolines in the shared
+dsa_devlink_ops forwarding to new dsa_switch_ops callbacks, plus
+reload_actions. So "DSA has no reload" is not really the obstacle.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
+The difference is what the callbacks have to do. flash_update is a
+pure forward to the driver. reload_* has to reinitialise the switch
+while its devlink instance stays alive, since the reload command runs
+through it. In DSA that instance is allocated and freed inside
+dsa_switch_setup() and dsa_switch_teardown(), bracketing
+ops->setup()/ops->teardown(), and the ports, tagger and user netdevs
+come up a level higher in dsa_tree_setup(). So reload would need a new
+DSA-core path that reinitialises a switch, and its ports, without
+tearing down its devlink instance, and in a multi-switch tree touches
+only the one switch.
 
-Thanks!
+The deferred re-probe avoids all of that by reusing the existing
+unbind/register path, which rebuilds everything, a fresh devlink
+instance included, so it needs nothing new in the DSA core. And the
+helper it uses, device_schedule_reprobe(), is not something this
+series invents just to sidestep reload: it should also replace the
+open-coded deferred self-reprobe that iwlwifi, hci_h5 and btintel_pcie
+already carry[1], where the work function ends by freeing its own
+module text from under a racing rmmod. It is worth having on that
+merit alone, with mxl862xx its first user and those conversions to
+follow. So the re-probe leans on driver-core infrastructure that is
+useful regardless; driving this through devlink reload instead would
+add the DSA-core reinit path in addition to that helper, which those
+three drivers still want, so it is more new code overall than a swap.
 
-[1/1] spi: spi-qpic-snand: add qcom_spi_config_page_read() helper
-      https://git.kernel.org/broonie/spi/c/001cdc434aa8
+For that reason, and because the re-probe is what I have tested, I would
+rather keep it, but I will add the DSA reload path if you feel firmware
+activation on DSA should go through devlink reload. Either way the
+rescue-mode detection at probe stays, since a switch found in MCUboot
+has to register something for devlink to be reachable at all.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Cheers,
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Daniel
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+[1]: https://lore.kernel.org/all/cover.1787281239.git.daniel@makrotopia.org/
