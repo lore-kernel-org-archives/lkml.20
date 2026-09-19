@@ -1,188 +1,244 @@
-Received: from fhigh-a3-smtp.messagingengine.com (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
+Received: from flow-a1-smtp.messagingengine.com (flow-a1-smtp.messagingengine.com [103.168.172.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 777DD3D669F;
-	Sat, 19 Sep 2026 09:17:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8195432695F;
+	Sat, 19 Sep 2026 09:21:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789809426; cv=none; b=Z1KPO2Q4J0W15AWWWhl3C4UMvPg+H/nzGDWG/2e97ie/GkdwBsx5tBchK2EzsxT5hgvGiCt0WvxMSK301me0lx20nbVkDfIcdSNReYU8yxD8WhGsjMpzt/ibs7mGU+zRhS0iXYamsgfhWLzlFXvPnUlLtE/SBk66BNTnM6GVroI=
+	t=1789809668; cv=none; b=CMa+4Dj6y9mLZaEJfwLDi2C2cBs9sLvKD31FZtSWhuWHv6DOucCwrwnbPlb4KnHrUhvclT5dn/MRLF8cpXAD9ic2mle8fPHvfgMTBIFpw69orE4rDL0LtFK4fXvnHfEBNsHA6wPdY7VfvHRpTBkg5JScwWTAuzGHgGaA/y/u9CE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789809426; c=relaxed/simple;
-	bh=cYORSXUuqD65c95GY1/n/DazfXF+Xhi5Ptoc+KjPJl8=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=soYgohrH5HTWUEwLD6T2f8bFsHfoycEdU6ej4BwjgIfx09txOJAZ99Yrj6rZTId97LCu1y5Vf+mXDBWDh5kPZ3yPN6u5/18X7YKT4aIdTFWBBJnorp8t0anoAjiSKhrKDAipevTK+t97ZMQYVcKG11tgI0Xy/MJIl+6NMBw86ec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=fd7vQLhw; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=rOf28EPd; arc=none smtp.client-ip=103.168.172.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1789809668; c=relaxed/simple;
+	bh=pzApuuerjL8qD/Zos8LlmaW4d6yJGkOH9sOp2iu4cVY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gWHKSQYNLvS0iYHnr6n6piK8dj1SEFbAj09nmtYOfgHiGMWw5Ye0+g1MN1fkdh+K6JhDbblQhb4EQTBqxU/x6dkFFqnSyHgeLsQgfSy6orqyikLtcUZA4h8E1JLoHsm8BK5NNWHZBbxS6SzwhXdADIE9PAKeaxY1CyxN8Cr/FvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=KKJxgAPq; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=wLA7xh2o; arc=none smtp.client-ip=103.168.172.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="fd7vQLhw";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="rOf28EPd"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id C029214000A1;
-	Sat, 19 Sep 2026 05:17:02 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Sat, 19 Sep 2026 05:17:03 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
+	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="KKJxgAPq";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="wLA7xh2o"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailflow.phl.internal (Postfix) with ESMTP id 7A4A71380CC3;
+	Sat, 19 Sep 2026 05:21:04 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Sat, 19 Sep 2026 05:21:04 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
 	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789809422;
-	 x=1789895822; bh=TVGm/Byj3e+AhQkHso7bisUdHCmm5Mg4iVX1NG0/Mrs=; b=
-	fd7vQLhwyiBHxxSzBltEX2iDGxTikqqRm5fv25y6SM0LgNn51X0kjD4E2AEvyZx8
-	dANDDRyUJdW22PBMUvj9xJDgKUiH0CK3NzO9G4dLp0o10NVMLaCFcOIQ+wIb/jtr
-	+JNFQ9AzH8CDLU79b6PlGOvDBQ45vfMoVeAw2Iv1MFXfiqDEv2Le96OXqfzK4dyl
-	PcOHaFGBz7MAACBcqMje92N9PuUsow57XfXjMEP78YxrmfcoimJyV5KiB5C+henm
-	7JYSb4b1jbEjanf6S5QDjKe+vm2efM2zo0knPRmogPpmwk7eMQMmm+VxkX9qfxhH
-	C/hSP08F1ntCgGqdfMF++Q==
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1789809664;
+	 x=1789816864; bh=MGYptzQitBqvlBeqfLUR1pvxKBwqhA+k9O947J2Uzs4=; b=
+	KKJxgAPqGf8ffn9cEzGN/lmRPaI84KnadpYFXzKCX9hE2ejUIq68mi4u49PvWfgc
+	Itlb19ZH3qr7BojbMyQRo+ba2NPVuxshKxNHPNc1n0WoFm2P82SdvXVe/ozusaqU
+	UUuNFmN3pT+MAIOXefE4Sv9U8sKTnAH69sCP1ZzXN2aKc8adbqjGCZ5y3vHL5yUn
+	DebvNQKunanNCX2bmcP83jS/V3bgaOaMTSMerlAWCQ2EgFBXQ1ZRTTrcYTU71eEv
+	lbzAJDJUW1lP7r0QDdMJOaObYpwLv8jsh3ZCwwwsKuWBDf/iXMBIEia/Vxnb/8S7
+	nxGJsoWmFpCeajtr5MutCw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
 	:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789809422; x=
-	1789895822; bh=TVGm/Byj3e+AhQkHso7bisUdHCmm5Mg4iVX1NG0/Mrs=; b=r
-	Of28EPdtrX+7VUeUSOKn7+ap6F/OoWEs9KZWGfUX6M3jghxTAd4MrvDUFuRIN1US
-	zAD1v/nLGTHP6i/gU+s1PI4RQmTwsU+T43bcVa8GssrJwLzy/D6gNemkKM7fhVCz
-	0eqbAebszCps59ORyCGJ53s13Bhp4bL6L2vI0CKHIl4md4P8s4OWIjKZUveIiISE
-	z73qKrFbqn8tKNsvULWRHQrU5wonQIvHgOPoStjV/qBTs/HlogZ148Fn9QoIxZSp
-	dFpjHyKOAt1TR6BJYbISY0tNtcZP/RUpyqqqQtE5sw2eAHX5rpbS2ZbCAxSHiwu5
-	u1Y2DtN/IPPm5WWSfxqTQ==
-X-ME-Sender: <xms:DFOuajmdIy3skBeDg3c80dUvbqjNS56Jcmb45vBTd4WL8acNErQIrQ>
-    <xme:DFOuahr7hXG08GcX3xYbver4vKcXNMXr2THf5-X417Eqe2-QRvwQtu3F_fg8Wp70H
-    ZHEjZSjYPKoeCal7MSSu8ITFeg4v7B9lYBO8LqHjfDteZdXpfkQIQ>
-X-ME-Proxy-Cause: dmFkZTExHf1X7OumjBwuK2pkmw/F3OmI/Rh5w17UJ360JwlWT0zd8dDj4wSfKK6qtf9DXV
-    QULra5QczBVRwKg2ZvVtAKEutL5kNNUFEr7ZdYCp7o4DrzzVF4cfGcKMXfNLNvzbd9oBR0
-    x+EHuZbNjMlWAHWYWGO86RbjEA4tvBvxH4GxTWSRAi+YMU47k9ZvndFvZo0r3yCJ0CQ9Hf
-    TKbTVPg3HFxVBZ2lFIecqfbjyvcfJ8FEiixc2h5eZrZtDuADneWIPiYLHcmHHQgrnUSO9u
-    suI9/xmCMZAJsX5x9GHxwM0fAT6KpTM5yv0GIGCbpDQLCgXejRUHLUed81WmZI56xY9yK0
-    5ScHrwWLHiBvmAVNJJco/j3oTOIToAsvphvWzERGVcQyjDFnkMNWpGlsZj4FieNsQBgeWE
-    QUG/BHBQzaN8P5NKpxDB2s4hxf7io7TazR9sD6+l87qEgKumBP6rV+yYCB2ulkL4+895Z5
-    5UwTsX8x0oF2t2MwD7lypBXiXtIudoejaxXp0LjBYYsBQHD+snIJAmZxDgbTIy0K1DXgGB
-    QLUXCDmK1sIg/J7BvU2YBxzQTT/Uwcbp4lWA94k/JDEz8J4HcOGeuWwoepEfvCQh1i/D90
-    WExckfg27f+bmsB6R8W3Dab7+xNOQvHYYy1kGMSV4ON7l8lcIQNKX9P5BQPg
-X-ME-Proxy: <xmx:DFOuamvxkpWoBPkTAIFD48t-W2mmRutnQc2EjAz_N5PkJo6ZFLgxLQ>
-    <xmx:DFOuam46sVstmzXjUWHHI_NbJmIGF44ubL969F91dSknUPXD0a3_Sw>
-    <xmx:DFOualTIRw5-Yfj0K4aI0yImOF4czpOxCtmqx_HX_Z_m19EXySKYlQ>
-    <xmx:DFOualqqKDOHxOs1drCVxd567lndPMRIaFAyJpcVaM0O_2cyoZNzAg>
-    <xmx:DlOuaqanCGBRigPn6WnPoUfKv_shbuRjELoXRjdxQrd82B7O6-sYq2GQ>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id F115D32A0087; Sat, 19 Sep 2026 05:16:59 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789809664; x=
+	1789816864; bh=MGYptzQitBqvlBeqfLUR1pvxKBwqhA+k9O947J2Uzs4=; b=w
+	LA7xh2o3RY19SYTpHtjFoN2bWuBr9Jl0X822TEzfg09UxehR9IxivJ/PPDbEq5vh
+	xknj+g7mVbq0BrIyxwjz7mQPl76Es0GLU76nsl2Jc5PWQZ2aYnu4tSWX2U+CEbOU
+	duXnb8byYslI35rhb9G1P41C+PXcxQA0LTyXYnfwnUdPfuutf27xS+i0HNDcYlJc
+	mgqWClJS3odJaqniOPApq6NW3P2YBAq8VK9RlSsIgQ3yQUFHVbKCGOJnK9XiOEZD
+	XKwatuiR9o5xSppMVRA8v/P+uFKq6qikqTrSgLJnHtuSO/CDe3DZZJW23Dy/fkvD
+	ZW547r14CEX+ogHG402fg==
+X-ME-Sender: <xms:_VOuaoMc3T-ITDLbcqgHBdCUnJzWxvJ2B31OHOBqLt2R6J_GHk_kgg>
+    <xme:_VOuaqs_CdaHWRrECVh8zBB_Oyed8sjnn2zi8cyFPVs8HxgcW-AM-CDenZ6BvPCg9
+    zlQ4TZCJOVtaZNgCLdbweoHYhCfqfMC5hHqD0aLFaBIweeaNQUjKTmY>
+X-ME-Received: <xmr:_VOuan099myfjV70XEVtLI9rCteLcp3wwc72aBYnA1KSo0aM_0JVaFlzyhM1LK5r-Kar73jmByYogctH37tNWYeVENTK3UI>
+X-ME-Proxy-Cause: dmFkZTEHzaPBOkzhEZKtlcJiHuaR/8A9YwcvLFmST50NgBICej+vTp5vMhNNvAsQoG90/2
+    Jm0kDSLPlHjTl32jVWjbcwmLDSqw4GyHFeDhV0053Ev7hF2r8HtYhx1OQFrcFYUvp22zhD
+    bwa3p77dJnCDUtHCllEbqhJvrcmU7/C1lASmVI5bvK/T4qtdpnBur25H1DkP7UkKXPQC/j
+    elUdagyi5wVvBIc8Nks2/9BjgcJJqa08jQYX7fGyZhY2tU8D8FNMzrqNvQRW4UOnqv29DO
+    Z3Z15oIGz+UspWal/6k8HrhYZj+XVKhxeKCuy8RhfhaOSuu8zlDB0q69H/9Oe3rv7hs/Wn
+    ZGWF+6lY0YfPnQu0pkLeDFn6uVWRwRv3tWt2cnBI8Mig3THTVbziWZT3hx0FavRU1Rblw2
+    5GJ1NCrct8YFcaHTUsLESEIG9dn4bGZyc3OuX6C4ucocsN5peK2laUn1i/p649xuZe4yDu
+    V9gsVPzHsvP7DCumtstJA6KfKFLICxe7Ru/+RiSUSIleLOGD4tyf6+IMKgLo2rk4eyaZo+
+    A7NyVb8ONLKLmtm+YaDKnf1kykpl1RplpJr0gIHd9q1fENpv+FWekqgFQI2/j8Oy2+G7o+
+    pftD3dpMRQhb9hVe3tAsXetfhuC7wxDXeMfAKz0fypwUl3oZ3oPUXI0wHjNg
+X-ME-Proxy: <xmx:_VOuah2y4LFz1PpadpumYBxfc98D0-tdHUeGo910UPdHnB2MAwoLcw>
+    <xmx:_VOuaqq125S6Unzcn9Y0ECrr5LgGIJIXBZEy27KqgbK5ukiGRB_g-w>
+    <xmx:_VOuai0UYZvkkFR3qjdiC9hpdOm_mE8nabOFF-wFotoZzh3c314HmA>
+    <xmx:_VOuaj0j1IjBEGZ5neb_ubNG80H_nWXeTS--3M-4wyMouLo54xV9WA>
+    <xmx:AFSuakOZvT35vQTN-w2q-qm0NMqiAOAQOnWSEbPNjOLlAV8dYkNEXA1S>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 19 Sep 2026 05:21:00 -0400 (EDT)
+Date: Sat, 19 Sep 2026 11:20:57 +0200
+From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
+To: Kieran Bingham <kieran.bingham@ideasonboard.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,	Jacopo Mondi <jacopo@jmondi.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Jimmy Su <jimmy.su@intel.com>,	Matthias Fend <matthias.fend@emfend.at>,
+	Mikhail Rudenko <mike.rudenko@gmail.com>,
+	Daniel Scally <dan.scally@ideasonboard.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Michael Riesch <michael.riesch@collabora.com>,
+	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Paul Elder <paul.elder@ideasonboard.com>,
+	Martin Kepplinger <martin.kepplinger@puri.sm>,
+	Quentin Schulz <quentin.schulz@theobroma-systems.com>,
+	Tommaso Merciai <tomm.merciai@gmail.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>,
+	Richard Acayan <mailingradian@gmail.com>,	Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,	Heiko Stuebner <heiko@sntech.de>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>, linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux@ew.tq-group.com, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,	linux-rockchip@lists.infradead.org,
+ linux-tegra@vger.kernel.org,
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+	David Heidelberg <david@ixit.cz>
+Subject: Re: [PATCH v6 3/6] arm64: dts: renesas: Convert to new media
+ orientation definitions
+Message-ID: <20260919092057.GA1099675@ragnatech.se>
+References: <20260918-kbingham-orientation-v6-0-5e8b1f01be29@ideasonboard.com>
+ <20260918-kbingham-orientation-v6-3-5e8b1f01be29@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: ApDcdGHCsDIN
-Date: Sat, 19 Sep 2026 11:16:29 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Karl Mehltretter" <kmehltretter@gmail.com>
-Cc: "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
- linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org
-Message-Id: <5515c266-f9cd-405f-b7a8-1ec45d9d902a@app.fastmail.com>
-In-Reply-To: <aq3R5QnCpu_fOq8g@gmail.com>
-References: <20260914212537.1452-1-kmehltretter@gmail.com>
- <7c020979-cf03-4ece-a7d4-b1475d1400c3@app.fastmail.com>
- <aqnHDxRIBncNH6qr@gmail.com>
- <59ba6707-c5d5-4fd8-9200-f910e61d9232@app.fastmail.com>
- <aq3R5QnCpu_fOq8g@gmail.com>
-Subject: Re: [PATCH] rtc: class: Make the time32 hctosys limit configurable
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260918-kbingham-orientation-v6-3-5e8b1f01be29@ideasonboard.com>
 
-On Sat, Sep 19, 2026, at 02:10, Karl Mehltretter wrote:
-> On Wed, Sep 16, 2026 at 08:56:02AM +0100, Arnd Bergmann wrote:
->> > existing safeguard automatically and prevent restoring it without
->> > re-enabling the legacy ABI.
->> 
->> I'm not following your logic here, what is the safeguard?
->
-> I meant the existing RTC cutoff. In my glibc test, accepting the
-> 2040 RTC date changes time32 clock_gettime() from success to
-> EOVERFLOW.
+Hi Kieran,
 
-I see. I would just not call that a safeguard, it's more of a
-time bomb ;-)
+Thanks for your work.
 
-Note that the cutoff was never meant to help systems actually
-run beyond 2038, but instead is only needed on very rare systems
-with a broken RTC implementation that have a random reset
-value if the RTC is enabled in devicetree but the backup battery
-is absent or depleted.
+On 2026-09-18 11:44:15 +0100, Kieran Bingham wrote:
+> From: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+> 
+> The orientation property for video interface devices now has definitions
+> to prevent hardcoded integer values for the enum options.
+> 
+> Update the users throughout the renesas device trees to use the new
+> definitions.
+> 
+> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> Reviewed-by: David Heidelberg <david@ixit.cz>
+> Signed-off-by: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
 
->> With a fixed C library, COMPAT_32BIT_TIME=n should act as a safeguard
->> to ensure that no interfaces can be used that limit time to y2038
->> and break unexpectedly in the future. The RTC_HCTOSYS interface
->
-> Should we try adding an option to build glibc and other libcs without
-> time32 interfaces? Looking at musl's source, its time32 clock_gettime()
-> wrapper also calls the time64 implementation and checks whether the
-> result fits [1].
+Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
 
-I think that would be great, we can certainly try again, at least
-with glibc, where at the time the concern was more about the timing
-of behavior changes.
+> ---
+>  .../arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j1-imx219.dtso | 3 ++-
+>  .../arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j1-imx462.dtso | 3 ++-
+>  .../arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j2-imx219.dtso | 3 ++-
+>  .../arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j2-imx462.dtso | 3 ++-
+>  4 files changed, 8 insertions(+), 4 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j1-imx219.dtso b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j1-imx219.dtso
+> index 3acaf714cf24..b816382bba0a 100644
+> --- a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j1-imx219.dtso
+> +++ b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j1-imx219.dtso
+> @@ -12,6 +12,7 @@
+>  
+>  #include <dt-bindings/gpio/gpio.h>
+>  #include <dt-bindings/media/video-interfaces.h>
+> +#include <dt-bindings/media/video-interface-devices.h>
+>  
+>  &{/} {
+>  	clk_cam_j1: clk-cam-j1 {
+> @@ -44,7 +45,7 @@ cam@10 {
+>  		VDIG-supply = <&reg_cam_j1>;
+>  		VDDL-supply = <&reg_cam_j1>;
+>  
+> -		orientation = <2>;
+> +		orientation = <MEDIA_ORIENTATION_EXTERNAL>;
+>  		rotation = <0>;
+>  
+>  		port {
+> diff --git a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j1-imx462.dtso b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j1-imx462.dtso
+> index a19bc0840392..4019b80a88b7 100644
+> --- a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j1-imx462.dtso
+> +++ b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j1-imx462.dtso
+> @@ -12,6 +12,7 @@
+>  
+>  #include <dt-bindings/gpio/gpio.h>
+>  #include <dt-bindings/media/video-interfaces.h>
+> +#include <dt-bindings/media/video-interface-devices.h>
+>  
+>  &{/} {
+>  	clk_cam_j1: clk-cam-j1 {
+> @@ -46,7 +47,7 @@ cam@1a {
+>  		vdda-supply = <&reg_cam_j1>;
+>  		vddd-supply = <&reg_cam_j1>;
+>  
+> -		orientation = <2>;
+> +		orientation = <MEDIA_ORIENTATION_EXTERNAL>;
+>  		rotation = <0>;
+>  
+>  		port {
+> diff --git a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j2-imx219.dtso b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j2-imx219.dtso
+> index 512810b861aa..fea1ef4a1178 100644
+> --- a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j2-imx219.dtso
+> +++ b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j2-imx219.dtso
+> @@ -12,6 +12,7 @@
+>  
+>  #include <dt-bindings/gpio/gpio.h>
+>  #include <dt-bindings/media/video-interfaces.h>
+> +#include <dt-bindings/media/video-interface-devices.h>
+>  
+>  &{/} {
+>  	clk_cam_j2: clk-cam-j2 {
+> @@ -44,7 +45,7 @@ cam@10 {
+>  		VDIG-supply = <&reg_cam_j2>;
+>  		VDDL-supply = <&reg_cam_j2>;
+>  
+> -		orientation = <2>;
+> +		orientation = <MEDIA_ORIENTATION_EXTERNAL>;
+>  		rotation = <0>;
+>  
+>  		port {
+> diff --git a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j2-imx462.dtso b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j2-imx462.dtso
+> index a31524b59834..177201a8a6d2 100644
+> --- a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j2-imx462.dtso
+> +++ b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j2-imx462.dtso
+> @@ -12,6 +12,7 @@
+>  
+>  #include <dt-bindings/gpio/gpio.h>
+>  #include <dt-bindings/media/video-interfaces.h>
+> +#include <dt-bindings/media/video-interface-devices.h>
+>  
+>  &{/} {
+>  	clk_cam_j2: clk-cam-j2 {
+> @@ -46,7 +47,7 @@ cam@1a {
+>  		vdda-supply = <&reg_cam_j2>;
+>  		vddd-supply = <&reg_cam_j2>;
+>  
+> -		orientation = <2>;
+> +		orientation = <MEDIA_ORIENTATION_EXTERNAL>;
+>  		rotation = <0>;
+>  
+>  		port {
+> 
+> -- 
+> 2.52.0
+> 
+> 
 
-There are two separate questions here:
-
-a) Having a libc build only against the time64 interfaces. As far
-   as I understand, glibc has used linux-3.2 headers as the
-   baseline for kernel compatibility for a long time but one can
-   choose a later version. Building with 5.10+ as the minimum
-   should already avoid the time32 syscalls, but that could at
-   some point be made the minimum header version for 32-bit targets
-   or everything.
-   musl does not specify a minimum kernel version at all and tries
-   to go back as far as possible, so the fallback code is likely
-   to stay indefinitely. Rich also does not like the idea of setting
-   CONFIG_COMPAT_32BIT_TIME=n (ever), and an unpatched musl
-   build will fail in that configuration.
-   
-b) providing 32-bit interfaces to applications: both libraries
-   already provide these as wrappers around the 64-bit internal
-   functions, which is part of the problem here but does mean that
-   it should be possible to just leave those out. On musl this
-   should be very easy (just skip building the compat/time32/
-   directory), on glibc I expect this to be much harder as it
-   interferes with their idea of having __TIMESIZE=64 vs
-   __TIMESIZE=32 as a hardcoded per-architecture setting.
-
->> actually make it work. Since we have COMPAT_32BIT_TIME as a global
->> option already, it makes a lot of sense to actually use it here
->> as well.
->
-> Could we use COMPAT_32BIT_TIME for the default, but still allow the
-> limit to be enabled? I could split the update into two patches:
->
-> 1. Add RTC_HCTOSYS_TIME32_LIMIT with default y, as posted. This keeps
->    the existing RTC date acceptance by default.
->
-> 2. Change the default, keeping the dependency unchanged:
->
->        depends on RTC_HCTOSYS && !64BIT
->        default COMPAT_32BIT_TIME
->
-> With RTC_HCTOSYS=y on a 32-bit kernel, the default would allow
-> post-2038 RTC dates when COMPAT_32BIT_TIME=n. Integrators could still
-> enable the limit without re-enabling legacy syscalls.
->
-> I suggest nominating the first patch for stable. Would default
-> COMPAT_32BIT_TIME also be suitable for stable?
-
-I think the 'default COMPAT_32BIT_TIME' would absolutely make
-sense for stable, since that can only really be set by users that
-have a fully 64-bit userspace already and the limit will
-cause problems for them.
-I would still go one step further and make this
-
-config RTC_HCTOSYS_TIME32_LIMIT
-	bool "Reject RTC dates after the 2038 cutoff"
-	depends on RTC_HCTOSYS && !64BIT && COMPAT_32BIT_TIME
-	default y
-
-to completely disallow it. I think we should wait for Alexandre
-to comment here, as it's his subsystem in the end and I'm sure
-he has an opinion on the matter.
-
-     Arnd
+-- 
+Kind Regards,
+Niklas Söderlund
