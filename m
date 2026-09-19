@@ -1,60 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE8B0342515;
-	Sat, 19 Sep 2026 14:25:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F7B4257827
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:25:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789827927; cv=none; b=qtYcAdmvzYzTGax1J8GC12gDrglHRfdGli7MGLvU8XvegN1a41SwP5lN4G6uY1V8siCTih81yviHhlb//HBh/wx0xSWx0vV6NNZ0cYlku04IYA2FRjWAzfSbBYnXWjOOj9LSj/ngCqfxgSmse5H41KlM6/gxjCAIdb6sFilr7H0=
+	t=1789827942; cv=none; b=Xa3PkdrxbSOX8ycY0pjOq//RGhasQbs7giYG5XDeksTzP93cq0lnYfEjEovnCcKVx5/UDauqdiVWQ/b9asdQpJSeKL+iTIZa/a4Wmj1+K6INiEf+//f5bZFxgUIBzmZhL/Hs10K0tsVpAn4d3f86trcHcbQ/6nGHmF/++x9LaAU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789827927; c=relaxed/simple;
-	bh=6bpPVbnCKun8WuOU3fyP/bwp9od0wrS5JFzp7ohu7Yg=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=uT1kWieCg8ghKIPc0CpW+mWyeyIfwRTh3sc4oDohhDYrfmlAWQyVMZE2Cz7ZRkcXUIRk/Zo4U1v7agYwwS5ni60nKKmH33Aybwm/4VBB7J6VWVldKtOGaY+SR6cD3hqbONws7AbPtJeOGc/RcYEc20mePdQ1x5nF42O1+PfjOBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BKBk1wIh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789827942; c=relaxed/simple;
+	bh=MXiWKKMga59CYgjF+JX/HuYbRMF4SIgIjBhzB9KdFlQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XihM3NFE6EhswRO9jZzcPSsqTXgCMnIKFoPC4W9rOr9VJT1MwzMXEUY4m1r24H7iqoK+BTICyyqaE+zg8zs/4CWiC6HBSmYN4QCP6AkN8CtXelGixZBLyE8+RTLRFqc5QPRn5rX6YU+pOH6vcPtQqhTbycmXkkAegMDC/fOH2Vg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev; spf=pass smtp.mailfrom=tuxon.dev; dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b=WUJOE8Yz; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxon.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BKBk1wIh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E7AD1F000FF;
-	Sat, 19 Sep 2026 14:25:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789827926;
-	bh=KbsYxcwmnAuUk0iHPsVLX+cDJzBgycs4Jf7Suixck8U=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=BKBk1wIhB6WeRIhtwwvKWm0f8LlIpOMlzpA/jUNd5UOvsuW4TflxMMgJevhwat9P6
-	 mFwKVscptKoKPwLMFNZGf+oa1B5TURjR4FfGNL7TmHThJv0i8ecmx9UjPsCkT+HvU0
-	 B/7jhxjCv7XyrHHevFtHXCSZVdbF0YYXqnCxIEEbx0swLY/Latbro4vbNR76XOPBzw
-	 Zznf5StMoL+s5JnR4BLQXSHHDWRqLmgyBc3KfwL0VLyTEOTgXI+Y1qaVjPziPd9Em6
-	 1q8UBD9SqT82SF+3hO1ozgw3ykg8pMz0K3F/Qu0i70Cah+BxZyeemeeWslJPjP4w1D
-	 SGvkBK+4HjsuQ==
-Date: Sat, 19 Sep 2026 04:25:25 -1000
-Message-ID: <a15b9c3af22b59ef8080cfa09907aecb@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>,
- Changwoo Min <changwoo@igalia.com>
-Cc: Tejun Heo <tj@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>,
- David Dai <david.dai@linux.dev>, sched-ext@lists.linux.dev,
- linux-kernel@vger.kernel.org, sashiko-bot@kernel.org
-Subject: Re: [PATCHSET v3 sched_ext/for-7.3-fixes] sched_ext: Pass the initial
- cmask to cid-form ops.enable()
-In-Reply-To: <20260919002838.1960071-1-tj@kernel.org>
-References: <20260919002838.1960071-1-tj@kernel.org>
+	dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b="WUJOE8Yz"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912e64ccso12209535e9.0
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 07:25:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=tuxon.dev; s=google; t=1789827937; x=1790432737; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7shCbBzL3NxDtg4fCdmbNM7nlS/zl4e99x1q/nsZ2so=;
+        b=WUJOE8YzyYqKoC0lgK1BYOOiRGFAVM6djLmzvzy4l65wej8x7yFTexCLN57n2qgfRd
+         qzN6rjDEZuB0DAf1UXGMlWt1v0Gn9sBcF9qCgUXmJIWq36oS5Bcu3CsiTARMYK4dUWq+
+         IKIrv0ekJV7nKA65Gy2xyBabd+dUwx3rTgplUTGLrcUHZyhVOklVjzSRgRX/sAIEk8A4
+         1mQwIAB6vvlqD79OFH4aT+uI0XwPKRwNlYQAz0cxIqE+TL/wYUubgfXFsh3v9qTYYp7n
+         42KZJKu5ns1lZp0rFJkAIxzNfFSD4rlPRlbXPWrwihkGksDJJreMkfv2Yr3lPnxPsxQc
+         aQxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789827937; x=1790432737;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7shCbBzL3NxDtg4fCdmbNM7nlS/zl4e99x1q/nsZ2so=;
+        b=rGBURe0YDdZ7DsqNmi/3wrXJbTFq9g5zUrjw3icus7mqpzJafXNgAx/7GSAtPtvaeA
+         sw8YwesFq8ITWsi/BLvXeuoItLA1lVXgtGrCUMadllqzuJ8tBLMozcN+iOXRDmweFua0
+         YewEY9Br46TtDMb06YrRGagY7JJwIKHI5RPQxrk3SFm1GKwNs1NHz+Ig/2JVc21Ums0s
+         gWUATikahrVbAkB8GjKzCduFEAVXbXSrAfv8T38S76zSblqE2o09Jdb28RwAIiM6ZlSc
+         V3DkIUO23WZndbQyUalNMCaFkSkA12ra2/U/vYeOSskKHakBfPW/EeQGAY1CdIdZunE2
+         Rsyw==
+X-Forwarded-Encrypted: i=1; AKwUvBzaQOctuz3xXIxTwzXbPR0Rk2MYaOF27fSPKPkj5OtqaoSFeh0L5qp7YUAmItTXE208eT1tbcpEATDmfdU=@vger.kernel.org
+X-Gm-Message-State: AFuF++n+FHe0/2EcMCgQYwIZieqpsCfd0a5ZhEfVInvzzRgWyJd5IwTC
+	iiWy273qA3J9gMWNyQ9bmqJHVz9dhO5eBC/47sgYZapxnpotlygtzIA7nHNfd8m5BoE=
+X-Gm-Gg: AYBFou10BY0uYgUrOi/WhrlU5G2K1OzpeXzymLfy99IbvvMvHX7FHAJB/5QZFaSULhf
+	ZVtoEZufcp0yW3QVHro89SzjtjEuc1eY0BnLMfxEMnk8sWof+bkpmMxxPbpxhyLfsS2bpO09tC+
+	LpUwEQgV3O91yEoagQyD1P9jS2tQ9Oe0HDcU8b4z2w6v5I6dQ7dKS2YDJxvT4u9OyKiGCK1iJ41
+	5mDvKMzMyAkkttaDuMpwRqhLNcqFymI1qGt0LdwAmPKkWVt1LsIGkYvp7l5tKZjNKdS/fRfV5Js
+	CKV7hwc2gEC2s8l70IkdGR80WXnIbpMavOFatvn8K2qhMPG/c22uQCvutry9XZmbL0r85MF36ua
+	Jp9cse0J44MP4svp4IhTHV1KUvwrlzSTGvlkmVIBQWhvN9a25UE204Wh/XZkBNoxskw217hoEn4
+	SQ5iHcbhN5pjmR+WWQSAUQ8NamnLFd5ur5gogJznNQ85iBF4nALvwe+1qxZLcZoEIX+6rgTBdD/
+	rrXSOJSsMcb26GTBYDU2BKMJtUjzaNU2kTuanxM+prmS3dMsUrBscRVnlnBqTqmdw==
+X-Received: by 2002:a05:600c:8b35:b0:49f:bd3c:bc18 with SMTP id 5b1f17b1804b1-49fc572f15dmr69026285e9.19.1789827937433;
+        Sat, 19 Sep 2026 07:25:37 -0700 (PDT)
+Received: from ?IPV6:2a02:2f05:1204:e000:2cf7:c250:64a9:ae77? ([2a02:2f05:1204:e000:2cf7:c250:64a9:ae77])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd8bc15esm53940005e9.1.2026.09.19.07.25.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 19 Sep 2026 07:25:36 -0700 (PDT)
+Message-ID: <c173168c-f3a1-4712-b093-b49b5f798e13@tuxon.dev>
+Date: Sat, 19 Sep 2026 17:25:35 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 5/5] ARM: configs: at91_dt_defconfig: enable GFX2D
+ driver
+To: Cyrille Pitchen <cyrille.pitchen@microchip.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Russell King <linux@armlinux.org.uk>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+References: <20260828-cpitchen-mainline_gfx2d-v8-0-378374559738@microchip.com>
+ <20260828-cpitchen-mainline_gfx2d-v8-5-378374559738@microchip.com>
+Content-Language: en-US
+From: claudiu beznea <claudiu.beznea@tuxon.dev>
+In-Reply-To: <20260828-cpitchen-mainline_gfx2d-v8-5-378374559738@microchip.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hello,
 
-On Fri, Sep 18, 2026 at 02:28:36PM -1000, Tejun Heo wrote:
-> This patchset contains the following 2 patches.
->
->  0001 sched_ext: Pass the initial cmask to cid-form ops.enable()
->  0002 selftests/sched_ext: Check the cmask cid-form ops.enable() receives
 
-Applied 1-2 to sched_ext/for-7.3-fixes, 1 with Andrea's Reviewed-by added and 2
-as the v2 posted in reply to it.
+On 8/28/26 18:52, Cyrille Pitchen wrote:
+> The GFX2D GPU is embedded in both SAM9X60 and SAM9X75; enable the
+> driver to use it.
+> 
+> Acked-by: Nicolas Ferre<nicolas.ferre@microchip.com>
+> Signed-off-by: Cyrille Pitchen<cyrille.pitchen@microchip.com>
 
-Thanks.
-
---
-tejun
+Reviewed-by: Claudiu Beznea <claudiu.beznea@tuxon.dev>
