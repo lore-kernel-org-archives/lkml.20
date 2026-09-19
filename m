@@ -1,121 +1,133 @@
-Received: from fout-a6-smtp.messagingengine.com (fout-a6-smtp.messagingengine.com [103.168.172.149])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D57E5225403;
-	Sat, 19 Sep 2026 04:49:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.149
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEBDB2571DA;
+	Sat, 19 Sep 2026 04:50:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789793349; cv=none; b=dFBLQQwaudf0BEKyaOqavb38Nk4oBrz4JrvPO7H31+GlCkBvUzgud0BXrp5WoIrc21DPkmcshIuHBu30OHI0XrFiWFcNN55rf7Zaxh7mhopHnpGTabwDAKj4e27weJWdwTaFfIIs7w6imIp61vjxRYpgvUFmMbDUcuKVIQF2qfg=
+	t=1789793406; cv=none; b=GU0D2YDj3dU2QVrsmgLz3wyLiRfHaXeS+9IHy2h7upWMbcPfijIZdiEawq8CDNvfRTv7Y9sLld2xYuAiyZP+uPoGR3YmCg5yvjOmpYTcmI8tiYdyU2M0WStsMD1vXkrbz9CQwVLOFO+xHfEQqlpF05V8a7qQOANwrOgKsuGw/qY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789793349; c=relaxed/simple;
-	bh=k4r68afq6hyUxZs7ajqElMYcuJO4Q2v9bYqx1d2Wn5M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PgMAvTSlzYbPOOL6TaClfwp/ZlQAq9wbVJQshBbqpuMSzInjlem0CVw54BikKT32dDFdG5HWhzBIejUm//449qTy0VH02+5wfM0Ix8qUehgB3xCAJTBOA4QapO+RmgeuVsT6hZeRC8fsWd5+YdMIdjUFnaP4aeO8Qkpdm/fnhKs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=g4qjmJfh; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=YIRo3927; arc=none smtp.client-ip=103.168.172.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	s=arc-20240116; t=1789793406; c=relaxed/simple;
+	bh=DFuR8A/Zeo1+CXjLwjwvmtqoZRAs7Moh1J7VcXQJ9Wg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=c2LoknE1b0IHX0EUL9rpK8Lr9Awo63nvTrUAetkVSVYPFo6KP2IHpBRk+q5WBlBYa+7SONvobbAZDSJzx7+IRAcRTTMNS16C8LtKctj0izCs0sWiDNogl0YbTSZBxEXXD9srUCCg9GIAC+q9SmoqSwpSMHJTJiykBo6e9aKbhoo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gircg6UF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="g4qjmJfh";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="YIRo3927"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.phl.internal (Postfix) with ESMTP id E7172EC01FF;
-	Sat, 19 Sep 2026 00:49:06 -0400 (EDT)
-Received: from phl-frontend-01 ([10.202.2.160])
-  by phl-compute-04.internal (MEProxy); Sat, 19 Sep 2026 00:49:06 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789793346;
-	 x=1789879746; bh=Cdmab0n4jYt37Kqta2KSUpk0MbgPi+pANQeQwzXiufA=; b=
-	g4qjmJfhok4pGO38SPBX9Kf8qLA+uzywQ01u1C8FqCBFfYjRcSBcDCVsssX0w36F
-	IhRPm6+Lpz77jzr504tc3ta7wYfTIpyYbo8CbVjguEL6rOVaGXSpX23JghjmENaf
-	6XuyJccx+ecKuYILRjNNHVaJhUCzjFwkP0pq9ZmZICi4vamrKb5q5h8xBkKA2qBc
-	H2CShqhGRIThE6+ulsEccLi610gbETjyVOrqYgXkcFxll05ogn/KKvBCVV5gIct+
-	S3tjFEM8UOH6q096jYXLosnVAU2JlGP5njjuOp4vSUjeyDOEt9vwLzlePjvABtxw
-	kuBUxlLlcSfjGQf1t1r8bA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789793346; x=
-	1789879746; bh=Cdmab0n4jYt37Kqta2KSUpk0MbgPi+pANQeQwzXiufA=; b=Y
-	IRo3927fviYoc9Vae/pGzRqI41aiotYg6KzqD4lx+/b9FolSOOqy+/QMTRVfTK/L
-	evLnu17OVqjf1NESMOg/G33dk0tAEZnXN5Hmn5D03JzTjCT8dMEbhWpldyIyzDfY
-	wch8U8i95ZQ5pReMaW0OOieYKwrbX9bmob5imnJ0yqImsARaNKYgfIUIcFEnQvkV
-	e7tQk9VsKUmV5LBrarOAx5c3jKBeSc294L/qX2YkdfjsRRmYjnQPz4t+zMH2Y0ci
-	Bl1hL5agQ7BBA4Y3fAJVVHPRY+C46O7aN3OXsFM2kNx5L1iYubDjeGSIShxboMPz
-	GRX0vCQj4dVTp4EKwst6w==
-X-ME-Sender: <xms:QhSuarlvr3JngImMbVlFO2H05pVTsJ7ZtNY6BGD1JCDPsD0Ls8SRuA>
-    <xme:QhSuaqsWors7QTfOA7bQAMbt9oBrFoN01yzQnrNeX9hIHq46zjCjM7KY3peSpBOp_
-    UxCXoPulwQrEbTjSaj2dfv5JyoEaRhe2BFfYl1680M3nwxjhS70fUk>
-X-ME-Received: <xmr:QhSuatIvGb0Gva8cmCtXQnb12LhakwSkm-V2nfPFyR7Z1o7rbVwkHXfD5dCzirQfVW8HwhxObh_BGY874fwn0AGYVTU6BHc0>
-X-ME-Proxy-Cause: dmFkZTEmPDgo12bE/rZK7Jply7ERprqgnefXmqY0zJIzCAOcmHsAXwErDtVK0xJOEWQ/+x
-    oqADmOlOZOFG7OuUjtHfmCtVlQPJ9IFqB6f5Ea7TSyHMyEm1cgepgTkqf2Knt+TNNOI/MM
-    tI65HZrG8jLtwxTjhcejNyfsykIePq1DZ4VcFT0QL1xiT/Zrog5racKF08XsxvjcSQN4Oa
-    tI1G+g0LT/Gyyp3iMK4RWiBdjk+6Qc2v5moUTM1OGFiEZ5WWFvblctZoSg+wZVkGuLgu2m
-    VmVfKb5jC7mT1NQvPrJZoOcYoOQMvV0/IaPz/7FfDCfLyMp8h9Gh8+azqgzMc1ZlTfcfst
-    zSCbouR8X9g0hfdDIExXMJqG0ocUJGQ03pVA6z6MJiZQtPaSNrFUVvhdI9on2xQkGAn6UZ
-    Wl0ZG3J6hbfLhvjWQ+KlyXUCch8TEsVD4GtJCmjPZSotQ5VJ8NzHihZF+qZW6c6JIYtldf
-    t6szrTQDD1qB/ziS1wgrWxla+iShRPEEZjesk0u5DFBHUgtBty0tG9XMAio85TxOT+0RxT
-    8w4+5BEInOE22NDg58dQdNAvlOGYJlgk2jORg4575YDRiMv4op7Vh2eOtCVrh7ZQloiVkO
-    /2tf8Kld2qZPhKN0Q8crM/qHJBiqWDkyjXMI8fA2OiNlWSdOHPb4s/nDU0gw
-X-ME-Proxy: <xmx:QhSuanjyuqn6nd6UwnFzIXaZ_YQmHouCK6Nj5u6IML6jpxyN9OTBBg>
-    <xmx:QhSuahvGfEzOUMsi8WQpbh4RDOrSVVavyTRywOZv3LEQstN4ZZWfpw>
-    <xmx:QhSuahgyXHYyaG8a8JKmPWEUsVc95yMqFWdB4_8cM1hzJ-ZZBIVDzA>
-    <xmx:QhSuascFLUJBRchN1rR24SND5XSoU7dEnoFBsWWLOaWzIXMpCf_5Wg>
-    <xmx:QhSuaj6KDAfpkfOpS848UpQw2nKZKyxjdwx3Tzj-MKnt-YNLp7RP0wGN>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 19 Sep 2026 00:49:03 -0400 (EDT)
-Message-ID: <7fc82ef5-8daf-4f3b-b747-600231e702ab@pobox.com>
-Date: Fri, 18 Sep 2026 21:49:02 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gircg6UF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D72D1F000FF;
+	Sat, 19 Sep 2026 04:50:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789793405;
+	bh=zf2e8IiHUj+K0o7bYRKKt+/cYJ93DQqEMSctgrbc/Qo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Gircg6UFgrs63cjVPWRNLpkEKMIf6q3Mk+KbEsoXlyTBcMVDYabphrN8gZPWoKigd
+	 Lfzdi86EJ5neV65uWnt011hXNyoE4zKd64wjgic6z66nCRvldnIVWayNGURKN/xySE
+	 btNoeBye2L7o7Uoqxgl5tPDO+mxNTxSJfVq/7Yl7CjQsiAHN4R0HXkW63YZACQ2jkj
+	 mjjXXcDcxZ0eX59DFi+BIVWkjqHedGityJ02m8uJ7UogMB1Yuzwwe06zQ0/Fw2+LsH
+	 E2P+C3eYLIgI0Y2Ypkc1ugcaJGmNuGDRL7ZyENxIilg3gkfFIGUmSMwzwg6psYxzZ2
+	 BLIKEcW7odP+g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] efivarfs: add nostatfs mount option to skip
+ QueryVariableInfo()
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Prashant Singh" <singhpra@juniper.net>
+Cc: linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+In-Reply-To: <20260919044124.8268-1-singhpra@juniper.net>
+References: <20260919044124.8268-1-singhpra@juniper.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 19 Sep 2026 04:50:04 +0000
+Message-Id: <20260919045005.1D72D1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 0000/1250] 6.18.53-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260917151551.901433442@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260917151551.901433442@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 9/17/26 7:56 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.53 release.
-> There are 1250 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sat, 19 Sep 2026 15:13:46 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.53-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] efivarfs: cannot disable nostatfs on PREEMPT_RT kernels
+--
 
-Tested on 3 different amd64 systems and an arm64 virtual machine.
-Working well, no regressions observed.
+commit d9f40eeab38e7ccb1227aacdbea972e4b143d97c
+Author: Prashant Singh <singhpra@juniper.net>
+Subject: efivarfs: add nostatfs mount option to skip QueryVariableInfo()
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+This commit introduces a "nostatfs" mount option to efivarfs to skip calling
+the slow QueryVariableInfo() EFI runtime service during statfs(). On kernels
+built with CONFIG_PREEMPT_RT, this option is enabled by default to avoid
+stalling the CPU.
 
--- 
--Barry K. Nathan  <barryn@pobox.com>
+Link: https://lore.kernel.org/all/20260917071600.5587-1-singhpra@juniper.ne=
+t/
+
+> diff --git a/fs/efivarfs/super.c b/fs/efivarfs/super.c
+> index 8d33f11db2a1b..fbdaa4915d303 100644
+> --- a/fs/efivarfs/super.c
+> +++ b/fs/efivarfs/super.c
+[ ... ]
+> @@ -323,12 +331,13 @@ static int efivarfs_callback(efi_char16_t *name16, =
+efi_guid_t vendor,
+>  enum {
+> -	Opt_uid, Opt_gid,
+> +	Opt_uid, Opt_gid, Opt_nostatfs,
+>  };
+> =20
+>  static const struct fs_parameter_spec efivarfs_parameters[] =3D {
+>  	fsparam_uid("uid", Opt_uid),
+>  	fsparam_gid("gid", Opt_gid),
+> +	fsparam_flag("nostatfs", Opt_nostatfs),
+>  	{},
+>  };
+
+[Severity: Medium]
+Does this omit the ability to specify the inverse of the option?
+
+Only the positive flag is registered with the parser here in
+efivarfs_parameters, which means there is no way to explicitly pass a
+negated option during mount.
+
+[ ... ]
+> @@ -350,6 +359,9 @@ static int efivarfs_parse_param(struct fs_context *fc=
+, struct fs_parameter *para
+>  	case Opt_gid:
+>  		opts->gid =3D result.gid;
+>  		break;
+> +	case Opt_nostatfs:
+> +		opts->nostatfs =3D true;
+> +		break;
+>  	default:
+>  		return -EINVAL;
+>  	}
+
+[Severity: Medium]
+Is there a way for users to explicitly request statfs to be enabled?
+
+There is no corresponding case in efivarfs_parse_param() to set
+opts->nostatfs =3D false (for example, via a "statfs" option).
+
+[ ... ]
+> @@ -526,6 +538,8 @@ static int efivarfs_init_fs_context(struct fs_context=
+ *fc)
+> =20
+>  	sfi->mount_opts.uid =3D GLOBAL_ROOT_UID;
+>  	sfi->mount_opts.gid =3D GLOBAL_ROOT_GID;
+> +	/* QueryVariableInfo() stalls the CPU; default nostatfs on PREEMPT_RT. =
+*/
+> +	sfi->mount_opts.nostatfs =3D IS_ENABLED(CONFIG_PREEMPT_RT);
+> =20
+>  	fc->s_fs_info =3D sfi;
+
+[Severity: Medium]
+Since the flag is enabled by default in efivarfs_init_fs_context() on
+PREEMPT_RT kernels, and the parser has no mechanism to clear it, does this
+permanently lock administrators out of checking EFI variable capacity
+via statfs() on those systems?
+
+Would it make sense to define a negative flag using fsparam_flag_no() so
+administrators can override the CONFIG_PREEMPT_RT default if they need to
+monitor the capacity and are willing to accept the stall?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260919044124.8268=
+-1-singhpra@juniper.net?part=3D1
