@@ -1,30 +1,30 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7338735DA77;
-	Sat, 19 Sep 2026 09:44:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70CB13DBD51;
+	Sat, 19 Sep 2026 09:44:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789811101; cv=none; b=IJmmm+ivL+2pXCoOxf3HqAdLwMwfzfjMtc8oY6WXWHz44tHe+V0Mg8y2VUweI/KxVvONZaOEsJlwHxbdt89xoyNTq6n4IS3bAc8QTTUpRqkUcFdnPDqqrn6oVB0MGfZMTkh+Sy1s26/OGroVKW904klP1kAd9/PHuGiXhhjCOP8=
+	t=1789811102; cv=none; b=ZOvo1faTarpvfyOY2alzihs9/wMokTnn9ttsWIkg3D0r0RLYZ77SNemEaDL5r9BDUUrSet6wYinUXyqUnUJRwAJjRJqrunREsUftjf8ZlpvdNFRb1txkuKsQ+V2umVpo7L6IY2ulyKHJZtah0j1iVp77ac1vKFJ6AOk0ZDzcQWY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789811101; c=relaxed/simple;
-	bh=LwOWq9QPxtsRQtxbFsLiH7RZhIUDiSm+vvTkQdiPlU8=;
+	s=arc-20240116; t=1789811102; c=relaxed/simple;
+	bh=+iTPtHhXFLpNLFSrCJ6AuAEaQE7cWgRQaOmbSw0D3SA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VgBfLTqSxy2D3YCfBQiIY7qAySXIwGVox47JuEqmapgjAsCf1pW4BVvtAXF2Ndr+3/zh0BXsdvMW7tPuu5ZNB7H+I7PNr/WEHYQSzATG7xXtU4STw13y4aBgGxxByCaLSR2uWsBpJfvJ8zTqIIQ1CCLGsH/2HOLB9TQzPP++9a0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=QPBUscG5; arc=none smtp.client-ip=117.135.210.5
+	 MIME-Version; b=LVS/EPWc+EzqdmkfYYOCEP62ihcG8YB1gxF3ambErmQ6TFDojzm8Y+/qiVB/jGZANJfkq9WVNrLToXdiMI9xO27uc1mzGRb2EW2E/4oaVQQ558fpO7jTYuGJ7P9P72kAxS2eC1q/wobXtMzdkCigwZJ8aS91zFgZkdSQm9O2Pgg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=OYkqKlYu; arc=none smtp.client-ip=220.197.31.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="QPBUscG5"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="OYkqKlYu"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=zU
-	/00/tzxww2ujK7d1gbH8wggaYDHsH0B/eSJgVKv5U=; b=QPBUscG5f7KALFfLCA
-	IOTqR8l31JHm+eFFsrEUgyQPr/6Fz23ApGX4FMcNsZvMHQqMumIkGvdtkOkzdwo1
-	nJxEtblfP5Ovq+Rth9DavNiKd6d0mVm7pnJAQ86DfPG+ykhW5LyQsA28ffDwyUDY
-	EQ3r1DPeg3mwusbSN6E3hcpyU=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=55
+	BoGi74ePHASJVCmwzImkQ2kTcsZ/Sjhe0iuZ8tlWE=; b=OYkqKlYuvbLWhskmvi
+	hRKtf7ZLEbh7JQ8Yh44fs7ZP1FOUKlDNbmc/7lgtxehMLYIAfd20s7t39PPQDpjM
+	RoQn7jmEIzvRWWKG/me323MbL1oaNAu4IYVAo7hiwaZECB5YxraSHFV2JJsPrvK+
+	E+xMptNrnqIHYQHf6myrVzm8A=
 Received: from localhost (unknown [])
-	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD3I59jWa5qffWmBQ--.3979S2;
-	Sat, 19 Sep 2026 17:44:04 +0800 (CST)
+	by gzsmtp2 (Coremail) with SMTP id PSgvCgDnT8tkWa5qKXLbAA--.28129S2;
+	Sat, 19 Sep 2026 17:44:05 +0800 (CST)
 From: Hui Su <sh_def@163.com>
 To: bpf@vger.kernel.org,
 	Alexei Starovoitov <ast@kernel.org>,
@@ -43,9 +43,9 @@ Cc: Yonghong Song <yonghong.song@linux.dev>,
 	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Hui Su <sh_def@163.com>
-Subject: [PATCH bpf-next v2 2/3] selftests/bpf: Test querying BPF_F_PREORDER cgroup attachments
-Date: Sat, 19 Sep 2026 18:43:59 +0900
-Message-ID: <20260919094400.600585-3-sh_def@163.com>
+Subject: [PATCH bpf-next v2 3/3] bpftool: Add support for BPF_F_PREORDER cgroup attach flag
+Date: Sat, 19 Sep 2026 18:44:00 +0900
+Message-ID: <20260919094400.600585-4-sh_def@163.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260919094400.600585-1-sh_def@163.com>
 References: <20260919094400.600585-1-sh_def@163.com>
@@ -56,158 +56,217 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3I59jWa5qffWmBQ--.3979S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxtF4UCr1xKryfAr48AF1rXrb_yoW7XrWDpF
-	ykXFy2qF15Xa4UXa15t347Zr4agFn7X3W2krZ0qw1Y9FWUWFy0vry0kF4YyF1ftrWkZw1I
-	vwn0vrsxXr4qgF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pi5CzJUUUUU=
+X-CM-TRANSID:PSgvCgDnT8tkWa5qKXLbAA--.28129S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxKr1rAr4fCw43KF4UXFW5Jrb_yoW3Zr1UpF
+	WkXFyUK3W8Wr9xW3yxC3yqgFWFgrs3WFWUCF98JryY9FW3Ww1vkrWfKFWF9rn8XF4xAw40
+	vrWYvr4UWF1jvFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pixu4UUUUUU=
 X-CM-SenderInfo: xvkbvvri6rljoofrz/
 
-Extend cgroup_mprog_opts selftests to verify that BPF_PROG_QUERY reports
-BPF_F_PREORDER in prog_attach_flags for both direct program and link
-attachments.
+Commit 4b82b181a26c ("bpf: Allow pre-ordering for bpf cgroup progs")
+introduced BPF_F_PREORDER to request pre-order execution across the
+cgroup hierarchy. Furthermore, attachments legitimately use combinations
+such as BPF_F_ALLOW_MULTI | BPF_F_PREORDER or
+BPF_F_ALLOW_OVERRIDE | BPF_F_PREORDER.
 
-Specifically, add assert_preorder_query_flags() and use it from
-test_preorder_prog_attach_detach() and
-test_preorder_link_attach_detach() to verify that:
-- Programs attached with BPF_F_PREORDER report
-  BPF_F_ALLOW_MULTI | BPF_F_PREORDER (0x42) in prog_attach_flags.
-- Programs attached without BPF_F_PREORDER report BPF_F_ALLOW_MULTI (0x2).
-- Transient flags such as BPF_F_AFTER or BPF_F_LINK are not present in
-  prog_attach_flags.
-- Per-program attach flags are validated by matching each attached prog_id
-  via a query helper, avoiding fragile assumptions on the internal slot
-  order of the direct query list.
-- Failures during prog_id lookup are guarded so uninitialized flag values
-  do not trigger secondary assertion failures.
+With BPF_PROG_QUERY reporting the per-program BPF_F_PREORDER attribute,
+bpftool's exact-match formatter falls back to "unknown(40)" when
+BPF_F_PREORDER is present alone, or "unknown(41)" / "unknown(42)" when
+combined with BPF_F_ALLOW_OVERRIDE or BPF_F_ALLOW_MULTI. Additionally,
+do_attach() only accepts "multi" and "override", rejecting "preorder" with
+"unknown option".
+
+Before:
+  $ bpftool cgroup show <cg>
+  1234  cgroup_inet_ingress  unknown(42)  test_prog
+  $ bpftool cgroup attach <cg> cgroup_inet_ingress id 5678 multi preorder
+  Error: unknown option: preorder
+
+After:
+  $ bpftool cgroup show <cg>
+  1234  cgroup_inet_ingress  multi,preorder  test_prog
+  $ bpftool cgroup attach <cg> cgroup_inet_ingress id 5678 multi preorder
+  (attaches successfully)
+
+Refactor the attach flags formatter into a bitmask formatter that outputs
+comma-separated flag names while preserving unrecognized bits as
+"unknown(...)". Accept "preorder" in do_attach(), update the cgroup
+documentation and synopsis to express valid flag combinations, and teach
+bash completion about them ("multi" or "override" optionally combined with
+"preorder").
 
 Signed-off-by: Hui Su <sh_def@163.com>
 ---
- .../bpf/prog_tests/cgroup_mprog_opts.c        | 72 ++++++++++++++++++-
- 1 file changed, 70 insertions(+), 2 deletions(-)
+ .../bpftool/Documentation/bpftool-cgroup.rst  | 25 ++++++---
+ tools/bpf/bpftool/bash-completion/bpftool     |  4 +-
+ tools/bpf/bpftool/cgroup.c                    | 55 +++++++++++++------
+ 3 files changed, 56 insertions(+), 28 deletions(-)
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/cgroup_mprog_opts.c b/tools/testing/selftests/bpf/prog_tests/cgroup_mprog_opts.c
-index bb60704a3ef9..9c706d2e61db 100644
---- a/tools/testing/selftests/bpf/prog_tests/cgroup_mprog_opts.c
-+++ b/tools/testing/selftests/bpf/prog_tests/cgroup_mprog_opts.c
-@@ -273,11 +273,65 @@ static void test_link_attach_detach(int atype)
- 	close(cg);
+diff --git a/tools/bpf/bpftool/Documentation/bpftool-cgroup.rst b/tools/bpf/bpftool/Documentation/bpftool-cgroup.rst
+index e8185596a759..f8408ed44d74 100644
+--- a/tools/bpf/bpftool/Documentation/bpftool-cgroup.rst
++++ b/tools/bpf/bpftool/Documentation/bpftool-cgroup.rst
+@@ -45,7 +45,7 @@ CGROUP COMMANDS
+ |     **cgroup_unix_recvmsg** | **cgroup_sysctl** |
+ |     **cgroup_getsockopt** | **cgroup_setsockopt** |
+ |     **cgroup_inet_sock_release** }
+-| *ATTACH_FLAGS* := { **multi** | **override** }
++| *ATTACH_FLAGS* := { **multi** [ **preorder** ] | **override** [ **preorder** ] | **preorder** }
+ 
+ DESCRIPTION
+ ===========
+@@ -75,20 +75,27 @@ bpftool cgroup attach *CGROUP* *ATTACH_TYPE* *PROG* [*ATTACH_FLAGS*]
+     Attach program *PROG* to the cgroup *CGROUP* with attach type *ATTACH_TYPE*
+     and optional *ATTACH_FLAGS*.
+ 
+-    *ATTACH_FLAGS* can be one of: **override** if a sub-cgroup installs some
++    *ATTACH_FLAGS* can include: **override** if a sub-cgroup installs some
+     bpf program, the program in this cgroup yields to sub-cgroup program;
+     **multi** if a sub-cgroup installs some bpf program, that cgroup program
+-    gets run in addition to the program in this cgroup.
++    gets run in addition to the program in this cgroup;
++    **preorder** requests that this program executes in ancestor-to-descendant
++    order before non-preorder descendants-to-ancestors programs during evaluation
++    across the cgroup hierarchy. Note that **preorder** alone does not enable
++    multi-program attachment; specify **multi** together with **preorder** to
++    attach multiple programs.
+ 
+-    Only one program is allowed to be attached to a cgroup with no attach flags
+-    or the **override** flag. Attaching another program will release old
+-    program and attach the new one.
++    Only one program is allowed to be attached to a cgroup unless the
++    **multi** flag is specified. Without **multi**, attaching another program
++    replaces the existing program, provided the **override** setting matches.
+ 
+     Multiple programs are allowed to be attached to a cgroup with **multi**.
+-    They are executed in FIFO order (those that were attached first, run
+-    first).
++    Programs marked with **preorder** are placed before non-preorder programs
++    in the effective program array. Within each ordering class at the same
++    cgroup level, attachment order is preserved.
+ 
+-    Non-default *ATTACH_FLAGS* are supported by kernel version 4.14 and later.
++    **multi** and **override** are supported by kernel version 4.14 and later.
++    **preorder** was introduced upstream in Linux 6.15.
+ 
+     *ATTACH_TYPE* can be one of:
+ 
+diff --git a/tools/bpf/bpftool/bash-completion/bpftool b/tools/bpf/bpftool/bash-completion/bpftool
+index 75cbcb512eba..a51c68029e16 100644
+--- a/tools/bpf/bpftool/bash-completion/bpftool
++++ b/tools/bpf/bpftool/bash-completion/bpftool
+@@ -1057,7 +1057,6 @@ _bpftool()
+                 attach|detach)
+                     local BPFTOOL_CGROUP_ATTACH_TYPES="$(bpftool feature list_builtins attach_types 2>/dev/null | \
+                         grep '^cgroup_')"
+-                    local ATTACH_FLAGS='multi override'
+                     # Check for $prev = $command first
+                     if [ $prev = $command ]; then
+                         _filedir
+@@ -1087,7 +1086,8 @@ _bpftool()
+                                 # "id|pinned|tag|name" (we already checked for
+                                 # that). This should only leave the case when
+                                 # we need attach flags for "attach" commamnd.
+-                                _bpftool_one_of_list "$ATTACH_FLAGS"
++                                _bpftool_one_of_list 'multi override'
++                                _bpftool_once_attr 'preorder'
+                             fi
+                             return 0
+                             ;;
+diff --git a/tools/bpf/bpftool/cgroup.c b/tools/bpf/bpftool/cgroup.c
+index ce69d1e5468e..6ea0492ea532 100644
+--- a/tools/bpf/bpftool/cgroup.c
++++ b/tools/bpf/bpftool/cgroup.c
+@@ -56,7 +56,7 @@ static const int cgroup_attach_types[] = {
+ };
+ 
+ #define HELP_SPEC_ATTACH_FLAGS						\
+-	"ATTACH_FLAGS := { multi | override }"
++	"ATTACH_FLAGS := { multi [ preorder ] | override [ preorder ] | preorder }"
+ 
+ #define HELP_SPEC_ATTACH_TYPES						\
+ 	"       ATTACH_TYPE := { cgroup_inet_ingress | cgroup_inet_egress |\n" \
+@@ -269,6 +269,39 @@ static int show_effective_bpf_progs(int cgroup_fd, enum bpf_attach_type type,
+ 	return 0;
  }
  
-+static int find_prog_attach_flags(const struct bpf_prog_query_opts *opts,
-+				  __u32 prog_id, __u32 *flags)
++static const char *format_attach_flags(__u32 attach_flags, char *buf, size_t sz)
 +{
-+	__u32 i;
++	static const struct {
++		__u32 flag;
++		const char *name;
++	} flags[] = {
++		{ BPF_F_ALLOW_MULTI, "multi" },
++		{ BPF_F_ALLOW_OVERRIDE, "override" },
++		{ BPF_F_PREORDER, "preorder" },
++	};
++	size_t len = 0;
++	size_t i;
++	int n;
 +
-+	for (i = 0; i < opts->count; i++) {
-+		if (opts->prog_ids[i] == prog_id) {
-+			*flags = opts->prog_attach_flags[i];
-+			return 0;
++	buf[0] = '\0';
++	for (i = 0; i < ARRAY_SIZE(flags); i++) {
++		if (attach_flags & flags[i].flag) {
++			n = snprintf(buf + len, sz - len, "%s%s",
++				     len ? "," : "", flags[i].name);
++			if (n < 0 || (size_t)n >= sz - len)
++				return buf;
++			len += n;
++			attach_flags &= ~flags[i].flag;
 +		}
 +	}
-+	return -ENOENT;
++
++	if (attach_flags)
++		snprintf(buf + len, sz - len, "%sunknown(%x)",
++			 len ? "," : "", attach_flags);
++
++	return buf;
 +}
 +
-+static void assert_preorder_query_flags(int cg, int atype,
-+					__u32 id1, __u32 id2,
-+					__u32 id3, __u32 id4)
-+{
-+	LIBBPF_OPTS(bpf_prog_query_opts, optq);
-+	__u32 prog_attach_flags[10] = {};
-+	__u32 prog_ids[10] = {};
-+	__u32 flags;
-+	int err;
-+
-+	optq.prog_ids = prog_ids;
-+	optq.prog_attach_flags = prog_attach_flags;
-+	optq.count = 10;
-+	err = bpf_prog_query_opts(cg, atype, &optq);
-+	if (!ASSERT_OK(err, "prog_query"))
-+		return;
-+
-+	ASSERT_EQ(optq.count, 4, "count");
-+
-+	/*
-+	 * Direct query reports attached programs in cgroup list order.
-+	 * Lookup by prog_id to verify per-program flags independently of slot index.
-+	 */
-+	err = find_prog_attach_flags(&optq, id1, &flags);
-+	if (ASSERT_OK(err, "find id1"))
-+		ASSERT_EQ(flags, BPF_F_ALLOW_MULTI, "flags id1");
-+
-+	err = find_prog_attach_flags(&optq, id2, &flags);
-+	if (ASSERT_OK(err, "find id2"))
-+		ASSERT_EQ(flags, BPF_F_ALLOW_MULTI | BPF_F_PREORDER, "flags id2");
-+
-+	err = find_prog_attach_flags(&optq, id3, &flags);
-+	if (ASSERT_OK(err, "find id3"))
-+		ASSERT_EQ(flags, BPF_F_ALLOW_MULTI | BPF_F_PREORDER, "flags id3");
-+
-+	err = find_prog_attach_flags(&optq, id4, &flags);
-+	if (ASSERT_OK(err, "find id4"))
-+		ASSERT_EQ(flags, BPF_F_ALLOW_MULTI, "flags id4");
-+}
-+
- static void test_preorder_prog_attach_detach(int atype)
+ static int show_attached_bpf_progs(int cgroup_fd, enum bpf_attach_type type,
+ 				   int level)
  {
- 	LIBBPF_OPTS(bpf_prog_attach_opts, opta);
- 	LIBBPF_OPTS(bpf_prog_detach_opts, optd);
--	__u32 fd1, fd2, fd3, fd4;
-+	__u32 fd1, fd2, fd3, fd4, id1, id2, id3, id4;
- 	struct cgroup_mprog *skel;
- 	int cg, err;
+@@ -276,7 +309,7 @@ static int show_attached_bpf_progs(int cgroup_fd, enum bpf_attach_type type,
+ 	__u32 prog_attach_flags[1024] = {0};
+ 	const char *attach_flags_str;
+ 	__u32 prog_ids[1024] = {0};
+-	char buf[32];
++	char buf[64];
+ 	__u32 iter;
+ 	int ret;
  
-@@ -294,6 +348,11 @@ static void test_preorder_prog_attach_detach(int atype)
- 	fd3 = bpf_program__fd(skel->progs.getsockopt_3);
- 	fd4 = bpf_program__fd(skel->progs.getsockopt_4);
+@@ -296,21 +329,7 @@ static int show_attached_bpf_progs(int cgroup_fd, enum bpf_attach_type type,
+ 		__u32 attach_flags;
  
-+	id1 = id_from_prog_fd(fd1);
-+	id2 = id_from_prog_fd(fd2);
-+	id3 = id_from_prog_fd(fd3);
-+	id4 = id_from_prog_fd(fd4);
-+
- 	assert_mprog_count(cg, atype, 0);
+ 		attach_flags = prog_attach_flags[iter] ?: p.attach_flags;
+-
+-		switch (attach_flags) {
+-		case BPF_F_ALLOW_MULTI:
+-			attach_flags_str = "multi";
+-			break;
+-		case BPF_F_ALLOW_OVERRIDE:
+-			attach_flags_str = "override";
+-			break;
+-		case 0:
+-			attach_flags_str = "";
+-			break;
+-		default:
+-			snprintf(buf, sizeof(buf), "unknown(%x)", attach_flags);
+-			attach_flags_str = buf;
+-		}
++		attach_flags_str = format_attach_flags(attach_flags, buf, sizeof(buf));
  
- 	LIBBPF_OPTS_RESET(opta,
-@@ -357,6 +416,8 @@ static void test_preorder_prog_attach_detach(int atype)
- 
- 	assert_mprog_count(cg, atype, 4);
- 
-+	assert_preorder_query_flags(cg, atype, id1, id2, id3, id4);
-+
- 	err = bpf_prog_detach_opts(fd4, cg, atype, &optd);
- 	ASSERT_OK(err, "prog_detach");
- 	assert_mprog_count(cg, atype, 3);
-@@ -386,7 +447,7 @@ static void test_preorder_link_attach_detach(int atype)
- 	LIBBPF_OPTS(bpf_cgroup_opts, opta);
- 	struct bpf_link *link1, *link2, *link3, *link4;
- 	struct cgroup_mprog *skel;
--	__u32 fd2;
-+	__u32 fd2, id1, id2, id3, id4;
- 	int cg;
- 
- 	cg = test__join_cgroup("/preorder_link_attach_detach");
-@@ -399,6 +460,11 @@ static void test_preorder_link_attach_detach(int atype)
- 
- 	fd2 = bpf_program__fd(skel->progs.getsockopt_2);
- 
-+	id1 = id_from_prog_fd(bpf_program__fd(skel->progs.getsockopt_1));
-+	id2 = id_from_prog_fd(fd2);
-+	id3 = id_from_prog_fd(bpf_program__fd(skel->progs.getsockopt_3));
-+	id4 = id_from_prog_fd(bpf_program__fd(skel->progs.getsockopt_4));
-+
- 	assert_mprog_count(cg, atype, 0);
- 
- 	LIBBPF_OPTS_RESET(opta,
-@@ -460,6 +526,8 @@ static void test_preorder_link_attach_detach(int atype)
- 
- 	assert_mprog_count(cg, atype, 4);
- 
-+	assert_preorder_query_flags(cg, atype, id1, id2, id3, id4);
-+
- 	bpf_link__destroy(link4);
- 	assert_mprog_count(cg, atype, 3);
- 
+ 		show_bpf_prog(prog_ids[iter], type,
+ 			      attach_flags_str, level);
+@@ -593,6 +612,8 @@ static int do_attach(int argc, char **argv)
+ 			attach_flags |= BPF_F_ALLOW_MULTI;
+ 		} else if (is_prefix(argv[i], "override")) {
+ 			attach_flags |= BPF_F_ALLOW_OVERRIDE;
++		} else if (is_prefix(argv[i], "preorder")) {
++			attach_flags |= BPF_F_PREORDER;
+ 		} else {
+ 			p_err("unknown option: %s", argv[i]);
+ 			goto exit_cgroup;
 -- 
 2.55.0
 
