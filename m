@@ -1,105 +1,101 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44612547055
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 05:47:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7871547055;
+	Sat, 19 Sep 2026 05:47:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789796835; cv=none; b=YISZRvdjx6hHKhXw0TjElOItmc8Hp1AWKJXRXr1zm5nN2E2/RJnzz2BtI2rtTrUxjLUW1vk1BJeNplnFiix0MJuWZySmZrj6lAAIPWxiC7M0qyU36a+0jxmH/8K3MvXpfxo1kMt75jETKI0RfiVqbOG60ropTGXpD07NmwIXWtQ=
+	t=1789796843; cv=none; b=BzLSiI2Lhzg89YJf5ZIrM0vSdWa3h9P01EPJudc1vz9rtKrXfcBGfty+3kwdt8vW4x7JpP1iWsQ9Bc817FkeU0UxFgVwi0I/UWrbrItvfZq/fYjh5Dc4zuIjGK9u4HF0gcmrGbSzsX7j3r0w5V0oiuHhBOZVrP8yWJ3aKtW5PMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789796835; c=relaxed/simple;
-	bh=v1XP5r41bgS5MWfSnZiNwpjz+p6BfN1AlYJ8Ofbd0pc=;
+	s=arc-20240116; t=1789796843; c=relaxed/simple;
+	bh=RRIl8sMQlRfyu8YbG566xd7xhFA9ef6gL5NMFdV0Zkk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mV4TLdDCGK830PcOOQUeVCwhe9qaTl93RLxAMHn0JgY3wK+tSHSyAM2qi+fJw3dQJFC3mbb/WCuwhD/33uAog+I+8txaWwoobAjZ4tO/5U4IULo90zEhLmjFPEhXWIPzRt685C6PzspAFifQz2gXng5YWVqHkDOitz84+jBy8GQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=By0pRn1A; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=LRZlqcotZ1RGRtgi/rF0qKp6eDVnMmOpJdmwSjrgMe4TJ5UJT96wfAxWj56v+bJr/gsmO2+qOGr0LVVncFtwx9w+6Nm6ABHEEzpyCyDUjrsPqcCJR2vDsKrBa4T9CBok9z66eu4sbSpvEF8QecyBZlOPpiiDxNHTL7TYlAzkgcU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=hUuLDpVN; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="By0pRn1A"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d8239so10166085e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 22:47:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789796833; x=1790401633; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=COKKaSNh5aTClL3pM4Jpjuvdb7nWPK0iDVawAIP9M/0=;
-        b=By0pRn1AMBtlgtDeMoMX3IFpmCbKx7YFIl3YdUQD3AFTB7DhTdYAn/ezvf55aKnEsS
-         lbL0alUkTlQ+tSRPE0eeH2CHOe1Iew32SB2dYEEWNn6t3VfNpuk9ieUlYjJp0TYGAaW/
-         7DS0EDzfuFfKRQ377my/WdodhD1fCbIqt4U+pTYnfkowf059v5AgjNHyfuTAb4Kxjp2d
-         YhTr9NqENXUWgaTrAiMQXKOyGLBS/CBsjxhbphpnxzRYuJlCYDrKQ76MSBoWLqsv2Mt+
-         6GL6NdRECU8AIl/+OMpbmDiRFTKsT+nOY0xdui6WObiF0GcuDW5NpXIxP1Mz4hX6jhKK
-         HQQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789796833; x=1790401633;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=COKKaSNh5aTClL3pM4Jpjuvdb7nWPK0iDVawAIP9M/0=;
-        b=ofvoej6u2siMM+T12tAJnOL1mMjE4cvYvYbo5R/Zhy5g05+ezIY7nfZKTcf6ijF7Cy
-         zD8uGj86BKpEBqYnkfTjx8r2gCbiMsBkYKViUIKhoHlgseBVBDGRYxEMBoT6ODoKkZpd
-         B30nwtMYLO22wqcN/oFJXT59mauZHtkt/HT+E/kWT9SZOulF/oriTJRxgsG+FzYlGu8O
-         WY1RFNCdh8ErfICvKDmQvN0q+zdujnPuLl/3iarpAfwiTY2LojyJD6f4tzqSCSBLGS+N
-         RSAtKRuGi0GLVB1/DLLvjhTdEJ9qe8wSzzoQQZEiik2GGHPBwfoNEtDK5AhMupPc3vB+
-         Uefw==
-X-Forwarded-Encrypted: i=1; AKwUvBxRJKqvgBvJWITth0YDuFYZgd9hQfQsPfKpTIwNXKF+XvnOslDrryYvYvC6PmN6Set75Bsq1GqPYF6adQM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lNRlMp7/FtdPkFWtadyIaAjWcE7aBhKk9mXU745wFF3IvCYGck
-	q0/Bws+/1nmRPzUb9cUd9xe/k6gj23HIIVhY0D7RSivLIJZ1JVXJF6WiuTRAciKL
-X-Gm-Gg: AYBFou17pULKyqt9OlMZb+ayDJKffsZ1aq1wpGl8pQYvT9Jp/dYMWRiAYiz0JmQE8A/
-	rrUc6BUVrlkXK87mqqXlidAHrb0IhRRCKDB1i4NkbPpzWSab+rMLeCzXohGIK1wVfTCRKRmVHWe
-	PWxp1eOy1zUYBNCVVLaGyr71Kf7AkRJDRS3zZHqjeXDAHs7HH3/Mu0FXnlDT9Z0nb6zu26VmhEY
-	8UXMSpFLvB2pO5oK0VNsZXzsf3r7+/ePFVaS4bOuOsyoM4G0Ipt7NGgODuDIiR2YZFAwW/pz62F
-	a7+Zxun6LRUiUoawdwlPBTKprHQaiAMx8/WxMKEUB3VDrmuVi/y6o9HoW8e4p1tcm+QhlQhY9G7
-	i7NayLzJvB4DvR/QIdpDAU1aI5ZlV0pHctaH4/2tlRaj32HT7t4Ks0HwBIZJuJoOBDz7nHEBzy8
-	bm8b9xw505McN7J15YkiiAGO0hKxBNX0mHAmlCS0rzCqLnG0PxfLtNR25De8jrh6QOGYHEJqtRG
-	GOOwj34RVtpjbR+L+B2BEWIjg1G8W2YNyBDSX1MY5CCXwKing4jh62fR0T+QpjjJiJVjYlxxjYQ
-	Ee3H4uiLwdlnqlx5PrUMTENbkwN5oI9tPDSpfW3PVibiHkjqujdOvK0d+1ntQa6/y8eWxr18jqU
-	T1s9sb5uO0zyPTMlH
-X-Received: by 2002:a05:600c:8b61:b0:49e:69ff:c6b1 with SMTP id 5b1f17b1804b1-49fc5749edemr70586425e9.31.1789796832402;
-        Fri, 18 Sep 2026 22:47:12 -0700 (PDT)
-Received: from MacBook-Pro-von-Karl.localdomain (dynamic-2a02-3100-a017-2b01-05fe-203b-7cd2-a640.310.pool.telefonica.de. [2a02:3100:a017:2b01:5fe:203b:7cd2:a640])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd068059sm46003715e9.5.2026.09.18.22.47.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 22:47:11 -0700 (PDT)
-Date: Sat, 19 Sep 2026 07:47:11 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: SJ Park <sj@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Lian Wang <lianux.mm@gmail.com>, Kunwu Chan <kunwu.chan@gmail.com>, damon@lists.linux.dev, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] mm/damon/tests/core-kunit: test PSI goal rounds
- under the temporal tuner
-Message-ID: <aq4hU5DNjnGELpUT@gmail.com>
-References: <20260915060937.3423-3-kmehltretter@gmail.com>
- <20260916002137.101195-1-sj@kernel.org>
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="hUuLDpVN"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 9217240E015B;
+	Sat, 19 Sep 2026 05:47:19 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id 83_6iID6HQ9m; Sat, 19 Sep 2026 05:47:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1789796828; bh=IW3Y7rhrODpufhyVRDMLa+KK+0Ki2euZiglo3ZIp4mI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=hUuLDpVN7QcPVGINbV2ILrhrpsy/jJVbkt9g9EPd44Mv2w65/D8OyS00KSjvWFOzy
+	 9mj9fEGMWBZ70AQYfBWbmtpcvrZ2+vHtMqcoA5gjkmqLtXE6DeIpOfSpAYMITNSq98
+	 nZ7E/V9J+AMsKPFzCGomwuN+ykEN0TnBFlFADu/HcfsGm7GiAwz9efl/JfuWGvSe4V
+	 66F883bjqUs2qeXjTyB5kM49GoT0ocq/gD2A0aiVuhcGDobQ0CYkgNTGOFBDYINTSK
+	 M1tz1LPoPqubQdsrtArojBNmIZ8Pqqi8rxvkWJJ9ydZVxCRX/r0ljg5eY8jEyBhEhM
+	 H6YvEf6jm4+NgiHkCEw8Q0L9/xAD9zMFodC8TrnY5Uhb3nmnXZBEO6mLAVXnD5JBPw
+	 5QpWTcYFSl7UX6SHlVJsDGx66rXVqbrwKEwrQBggjvXxgBZ+B29HBDPrfQiSVFjhmD
+	 sBYwPuvGs8s/03zBeZv1tbvQIpEZwLCu1ofOuUVoHl/mlfBuggylcDAO6bpChnAxSt
+	 K6P8TUNhlhAFPwnA5nmLUX1SRSlE0hgPQZVOQV+oDHkAznlh0UFmXej5Tds7VALQO/
+	 ihQXi6nxyw09aUimqQTXcv+qLwcRYWEBiLcfughcPvqt02nL/r+hdVg6SzZCH7rigk
+	 GPD9/Q32DVfzhvR8O1M3r1Og=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::48])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 3916740E00B9;
+	Sat, 19 Sep 2026 05:47:00 +0000 (UTC)
+Date: Fri, 18 Sep 2026 22:46:56 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: akpm@linux-foundation.org, dougthompson@xmission.com,
+	juhlenko@akamai.com, linux-edac@vger.kernel.org,
+	linux-kernel@vger.kernel.org, tony.luck@intel.com,
+	stable@vger.kernel.org
+Subject: [PATCH] MAINTAINERS: Orphan drivers/edac/i3200_edac.c
+Message-ID: <20260919054656.GGaq4h0KqIx5E0tne3@fat_crate.local>
+References: <20260916091554.1998750-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260916002137.101195-1-sj@kernel.org>
+In-Reply-To: <20260916091554.1998750-1-vulab@iscas.ac.cn>
 
-On Tue, Sep 15, 2026 at 05:21:36PM +0100, SJ Park wrote:
-> So, this test depends on the memory pressure level of the testing system?  I
-> concern if that could make the test result not very reliable.  Maybe we could
-> split out the corner case handling logic to explicitly receive the current
-> memory PSI total time.  For example, like what I suggested in the reply to the
-> first patch of this series.  With it, we could build a kunit test for only the
-> target logic, without depending on the test system's status.
-> 
+From: "Borislav Petkov (AMD)" <bp@alien8.de>
+Date: Fri, 18 Sep 2026 22:43:31 -0700
 
-Yes, the second round reads the real PSI total. I used ULONG_MAX as
-the target to make it unreachable, but I agree that a test which
-does not read system state is better.
+It hasn't received any care and testing for a looong time now, and it
+doesn't look like it would anymore. Orphan it.
 
-For v2 I can test only the helper from your reply to patch 1,
-with explicit PSI totals. It would cover both tuners, zero and
-non-zero esz for the temporal one, and the last_psi_total value after
-each call as Kunwu asked.
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+---
+ MAINTAINERS | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-Thanks,
-Karl
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 1461ac362c6b..b00c20ade1eb 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -9447,6 +9447,11 @@ L:	linux-edac@vger.kernel.org
+ S:	Orphan
+ F:	drivers/edac/i3000_edac.c
+ 
++EDAC-I3200
++L:	linux-edac@vger.kernel.org
++S:	Orphan
++F:	drivers/edac/i3200_edac.c
++
+ EDAC-I5000
+ L:	linux-edac@vger.kernel.org
+ S:	Maintained
+-- 
+2.53.0
+
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
