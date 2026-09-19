@@ -1,63 +1,65 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23CA6175A86
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 12:32:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E153136729C
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 12:32:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789821137; cv=none; b=ViOOoHDreS1dfXN9Z2d7LXq9fug2OHp41UrFvzquNtk87144v/pL4W9ouaii3cfSblkCdUS/rVxVCQv1UcGiyDQi/3YAAZdCkE45iwKLeF7GHwf7A6xx/gCr51ABG7knt6W9b65EILt5qvxsrworWXRHSn6JimYDmLCrzJIcRKo=
+	t=1789821142; cv=none; b=uFWmqnneFtfxpkqouJRAKmbrBUa+75Sc60SNW8V3zAaKPzDYRtmDxE6JoI4Lc8mxSK0e4JoFuMPSd6SaZntNRvSWj5AZwXGi1iNojYI6cAOmre/6BOgFjD4GQv/m12q+IkPWH+3wLu476sb+AYrZ02Jgupe1L8VoW+gN+L/htUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789821137; c=relaxed/simple;
-	bh=GctKM9XXg+GnjqNzLj1lvNyHmnB2fVlViSak70gmUOc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=jgaU6jLeMssfaw0UoD79lelY9a+xLs0/ti8lO/9yBzttiP5i2za1f++LMhV2YR2nD6MpKarWX3kbnyAsiY355HqsXDhG4JxuQxn5Zr7LGk9O1sSXpYGUEe4xEyxuyVnTxnoJryw+9rLiEOYKBSeVntUvVcwCsI3z61oYi0MBkew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=isec.pl; spf=pass smtp.mailfrom=isec.pl; dkim=pass (2048-bit key) header.d=isec.pl header.i=@isec.pl header.b=QZvhvfH9; arc=none smtp.client-ip=74.125.225.140
+	s=arc-20240116; t=1789821142; c=relaxed/simple;
+	bh=ohMLhoHsIhyrQR++saiVhSXMuKOsrbcqrQpd5HS7woc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UlwA81nsuZoydg+UMnLiIw6GySqY3t2ZJlwn5r5v6WUDSG4KTsbmn4U5nInYBqlmunjovJXzErwlzqF4uyYnGpdpoMvy49yBD9540pnmcryDSq4tVrvEz49emNC4+nwS+jljK9YJQai64M3kp8sWI99U+K5LIZ9e6CJ08W8JfpQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=isec.pl; spf=pass smtp.mailfrom=isec.pl; dkim=pass (2048-bit key) header.d=isec.pl header.i=@isec.pl header.b=VEHKZ/ei; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=isec.pl
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=isec.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isec.pl header.i=@isec.pl header.b="QZvhvfH9"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e69b9e16aso16781255e9.1
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 05:32:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=isec.pl header.i=@isec.pl header.b="VEHKZ/ei"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6598dd44so8317085e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 05:32:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isec.pl; s=google; t=1789821133; x=1790425933; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kkEY4SkyoeMcPychhtr9Y2+YjnfNMNOmheDASLiNUiM=;
-        b=QZvhvfH9C8xUdqk0f9haA5h458B3Vtvsygf7lq6bLLpZjK7RMKMGWGaWS5FlutTA4Q
-         WbmLKEteD4vzKv7LsDLfXmaTpxNSo4OhPa3VhiaaUcwh1IyNOGM00cq+8Rsz7LPm/AR/
-         2ytFMNv1zNNBdd2e2j5Uen9VvJ7wG6WNj74Otn2Zd7OHXJ2/JoBWtlSLp4mjVHWNzyXz
-         sy2TMztWTiZFK5IFoay6loApyBQJTQOHoeZ0ALZWQMGvgJeeujLvuiP+C6vQ8fWlSJMd
-         wGnp6779RdM5zBUVb0G/KtDaZmXMz5fJi7SwpqfB4jVc8kzf/eBDnknmh8d2LJPX/LfN
-         dK+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789821133; x=1790425933;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=isec.pl; s=google; t=1789821138; x=1790425938; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=kkEY4SkyoeMcPychhtr9Y2+YjnfNMNOmheDASLiNUiM=;
-        b=SpvYgFMxDMyNoofw8AOuAmWaodl70qM8nyp9MkSPn4lU65CoIFsvXPgD4iPxTC7j/E
-         b8jhLEw391UdWzCRyxXqAqEd3xyAyD50DznZUaN37Fd+XvxqpiboQveThr8vYBodmNkr
-         ygKTmx9lhSWtBz7RVQ+Dn8CVKt9IRTTBMpq+Yw167LEDqME+3eT5QtUdSkmuRn4CFfTN
-         TLTKqj+iZbBzDyfgsjl7AcLI9g+4qKMlgzL78zHm0aVQf1bqzm7UEVUE3gIQEJ09y7LZ
-         uTVHuQN1ms0Qzwn1z+Xo80GCczPkp7K+6KWrJHJUCXdA4031XP9pa5LFwF6dZmQ1698F
-         lhIw==
-X-Forwarded-Encrypted: i=1; AKwUvBycMZK+QwvQt4/nfnLbnoY429rKIEp+cRf1Zu8w+3agcNprrs2i5rJiwybMDjFZDkKV/IA2aawQ1hOIczE=@vger.kernel.org
-X-Gm-Message-State: AFuF++k7a1sv7ToEnXdtFoadoK8wVpjODI/oMDHmvZbjVNoKJam1jAZZ
-	/7aMWClrt8It81+9qACpNTCmasuI0y6HScSwb3FfwKCrugO7LfBPRGt+8tO8e87eQak=
-X-Gm-Gg: AYBFou3gqK4Tn+GDu64Ps3INg747ZDVsCMwXoewp1d4orI0YdLW2UzzMsD69dsadL/t
-	sA+zBIIwMMuc9DXr78V6nsVBtrmuFlA42AQVk0pw6MaddBGGX64+tXExwFMnnvYuuXF3C2/qxld
-	86JHT94sNoblnZvnCa1V4JqHr3EOe7kFyM531g6CcAegHZRQAWSkWDxbXZYgCp2X6lh38mokdhB
-	Xuqis9+DwdqRkE2dcPPG8qrvDUZouSu7jIWk5cqE4Frx9F2Ot/vQmHq2ENAWT0CiYswDkzuwa6R
-	ZCYcA8zuj87cMQzfxYui1qiyuhoEegojxhPgd+v150H87E4j9xcCz3er6TFhFyiIWfR+ZkQZM8x
-	znBm9XK8Cjjq6+RM2k0FXvA3bwpdSWEwIqKfdq99HfUlUSuN547q23TCQ8tw/Hjk8gmcHlyYEWx
-	Xrg1GHoKqAW7nCYO0Yq92StPMzTpzh3YrxsB0moEDcm2J0xIGpBb94QV+vjEA2BZoKy/uHP4Y89
-	i/KnIzFe+JVzHFZ00zneM2yclrz7u7UFOqxZstn33ifoXJ9eGyimnYs1g==
-X-Received: by 2002:a05:600c:a013:b0:49c:fa21:1c81 with SMTP id 5b1f17b1804b1-49fc57378a2mr67846385e9.22.1789821132994;
-        Sat, 19 Sep 2026 05:32:12 -0700 (PDT)
+        bh=UwlcS9+bFUXKkO5ovoMUYQeBuvELj6Lvx0WboaUWawc=;
+        b=VEHKZ/eirlNE3GqF6ljgbufpC1whZ7Ox06fewUk23pQGYZulQ5419SF3E1i+tYTLFt
+         IIgeZNUjZR9StsPxqAvhYTMxd4omBw84doRKzizA75mlvt/5nx397opG0u+CtBTK54dZ
+         PJRQEZEv6A5OY2PGyBViaxOQ5zey2/zKFt5gdJILTD7LZXggjV48ZjEhsJFVXGbFBKQP
+         4LiTcahUy75vtiLr0hv8D+ulJNlXFoIkzQgMqOs/S72ajV13612e2tNNmkrl3mjgKfN7
+         1BHcKVTL8CH0G1v2BPpsHKWsYyXPq6PWaMO7xj0CZj2u2cTnp+RMU7RDjSmxxWwAdkDz
+         KLoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789821138; x=1790425938;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UwlcS9+bFUXKkO5ovoMUYQeBuvELj6Lvx0WboaUWawc=;
+        b=E1d9bOgO7+wFEkonWxmQohVgVsxgWyoszMCRX1nhRxhONCUm2g1MqKcLY2zJl+R1nG
+         LeafcB6yRdOkdqP+xY8clgEd3L4Hd03/c6ofczPbOlERPfuKAIow483XUhU9PEMV45W4
+         tnrWTzjSM92pMSORp7uuL6bJ645XkZnqrYo/8G7OkXIwMDaeeSwiSIUchYX0stGP9/b5
+         3LX4goCHdpCew0MYeIXSlvzC+05w5ZZVFcgYQjxZY3iykin/vyeCph/AVsVXK2AvOhgu
+         Pkqxkng/KQ+O8NiVE1IchIULMt20B1GEcQK25HzgsbOi6s15VWiDPg7XqNPc4ZiOb03w
+         /HcA==
+X-Forwarded-Encrypted: i=1; AKwUvByLxvkWQBwl0RPFKpoUdCyXZxiz0KHd0LBz9/z2/IyssRrUsSkbtYfePfrHxZG0vJuHMTXnQvC9H5mXfXg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kzuCAKvKavasgu/YGJJB/iJ0CG/aXXPk6TI444UmL9Lpben0Zr
+	Dk8rAj6YTdlFelT1iOqlKEv5WA2Dnu4xvi5nRKtJ9xqN1xwQ6RgSAe5YobXWlWahPq8=
+X-Gm-Gg: AYBFou2JL16T/ioNcKQP0Mc0brHRwTmJ+MeP5FP758xn8cm7/jp4pukKYWZJlpBgrg3
+	48x6sBe3GisJw0nUDB5Kskl1sMXRpx0pAkukIcEegk2v5ANCb8ZAAFkJOneanZ3DPHUe0IyQidO
+	IyWxVZ5+R45meL6Y47I5Y33uabZ8VMG9YOQX1hFUZMSP6BqUEFEyz+uyggyd5Pon4DIZNk53M/n
+	l6fLjM5DEaW6Z9rtcd6oNJkj8GuFMQNrfBGxiZb/tPUHohAaZ/atuLfIwd5jbnZiV7v5vNj1a76
+	NXjpn7mlEk8KXUoMehtIG+Vp3dX178IChWMefF2JN5tXqhDAzEDbxOt1O0h/Bj7qrJMgWbn0kUF
+	DyMlYgm07BV/ax7ZvPhK94Htd+eOBCDhfGBgCOpiWGUbqBQM4iw5CIhvFODm77urKnQRVj5x+hW
+	KzDCUIBd8ZsBLOOtqmZ/KQQyr98xeGj7XTR5uY36bz4IZad9fqzL3WbWZaPGFvAfIcg9EJ7ZuwC
+	NIFolOXwUBOiyl96Ttr2PQqQgqHTXXp088YdX5DQKSdYL0=
+X-Received: by 2002:a05:600c:5251:b0:49c:fa20:cc00 with SMTP id 5b1f17b1804b1-49fc5736898mr67615405e9.23.1789821138247;
+        Sat, 19 Sep 2026 05:32:18 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a318:80b3:9080:dcd8:ca10:f229:8aed])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd10d21asm88593265e9.12.2026.09.19.05.32.11
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd10d21asm88593265e9.12.2026.09.19.05.32.17
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 19 Sep 2026 05:32:12 -0700 (PDT)
+        Sat, 19 Sep 2026 05:32:18 -0700 (PDT)
 From: =?UTF-8?q?Bart=C5=82omiej=20Dmitruk?= <bartlomiej.dmitruk@isec.pl>
 To: Bryan Tan <bryan-bt.tan@broadcom.com>,
 	Vishnu Dasa <vishnu.dasa@broadcom.com>,
@@ -72,10 +74,12 @@ Cc: bcm-kernel-feedback-list@broadcom.com,
 	virtualization@lists.linux.dev,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/2] vsock/vmci: make the cached_peer dgram decision race-safe
-Date: Sat, 19 Sep 2026 14:31:56 +0200
-Message-ID: <20260919123208.29032-1-bartlomiej.dmitruk@isec.pl>
+Subject: [PATCH v2 2/2] vsock/vmci: enforce per-netns mode on the datagram receive path
+Date: Sat, 19 Sep 2026 14:31:57 +0200
+Message-ID: <20260919123208.29032-2-bartlomiej.dmitruk@isec.pl>
 X-Mailer: git-send-email 2.46.2
+In-Reply-To: <20260919123208.29032-1-bartlomiej.dmitruk@isec.pl>
+References: <20260919123208.29032-1-bartlomiej.dmitruk@isec.pl>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -85,105 +89,43 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-vmci_transport_allow_dgram() cached its result in vsock->cached_peer and
-vsock->cached_peer_allow_dgram with an unsynchronized check-then-set. The
-function runs both in the lockless receive tasklet
-(vmci_transport_recv_dgram_cb(), no socket lock) and in the lock_sock() send
-path; lock_sock() does not exclude bottom halves, so the two contexts race on
-those fields and can return a stale 'allow' for a VMCI_PRIVILEGE_FLAG_RESTRICTED
-peer. It is also a plain data race. The in-code comment claiming the fields
-are never modified outside create/destruct is contradicted by the send path.
+The send hook vmci_transport_dgram_allow() refuses datagrams when the socket's
+netns is not in global mode (vsock_net_mode_global()), but the receive path
+(vmci_transport_recv_dgram_cb() -> vmci_transport_allow_dgram()) did not, so a
+socket bound in a non-global (local) netns received datagrams from peers it
+could never send to, defeating namespace isolation.
 
-Keep the O(1) cache -- it avoids an O(N) vmci_ctx_get() lookup on every
-datagram in the bottom-half receive path -- but pack the peer CID and the
-decision into a single word accessed with READ_ONCE()/WRITE_ONCE(). A race
-then only forces a recompute and can never return a stale allow.
+Add the check at the start of the receive decision, before the
+VMADDR_CID_HYPERVISOR short-circuit, so the hypervisor CID is covered too
+(matching the send side).
 
 This was found by code inspection; I do not have VMCI hardware to test on
 (compile-tested only).
 
-Fixes: d021c344051a ("VSOCK: Introduce VM Sockets")
+Fixes: eafb64f40ca4 ("vsock: add netns to vsock core")
 Signed-off-by: Bartłomiej Dmitruk <bartlomiej.dmitruk@isec.pl>
 Assisted-by: Claude (Anthropic)
 ---
-v2: keep an O(1) cache made race-safe rather than dropping it entirely; an
-    earlier revision removed the cache, which the Sashiko AI review flagged as
-    an O(N)-per-datagram fast-path regression. Split out per Stefano
-    Garzarella; independent of namespace support.
+v2: perform the netns check first (before the hypervisor early return) so
+    hypervisor datagrams are also gated in local mode -- the Sashiko AI review
+    noted v1 left that path partially bypassed.
 v1: https://lore.kernel.org/netdev/20260917220225.56200-1-bartlomiej.dmitruk@isec.pl/
 
-diff --git a/include/net/af_vsock.h b/include/net/af_vsock.h
-index 5549298c1..97968ac53 100644
---- a/include/net/af_vsock.h
-+++ b/include/net/af_vsock.h
-@@ -39,10 +39,13 @@ struct vsock_sock {
- 	 * modified outsided of socket create or destruct.
- 	 */
- 	bool trusted;
--	bool cached_peer_allow_dgram;	/* Dgram communication allowed to
--					 * cached peer?
--					 */
--	u32 cached_peer;  /* Context ID of last dgram destination check. */
-+	/* Cached dgram access decision for the last peer, packed as
-+	 * (cid << 32) | VALID | ALLOW and accessed via READ_ONCE()/
-+	 * WRITE_ONCE() so the lockless receive tasklet and the
-+	 * lock_sock() send path cannot race to a stale decision.
-+	 * See vmci_transport_allow_dgram().
-+	 */
-+	u64 cached_peer_access;
- 	const struct cred *owner;
- 	/* Rest are SOCK_STREAM only. */
- 	long connect_timeout;
 diff --git a/net/vmw_vsock/vmci_transport.c b/net/vmw_vsock/vmci_transport.c
 --- a/net/vmw_vsock/vmci_transport.c
 +++ b/net/vmw_vsock/vmci_transport.c
-@@ -524,23 +524,38 @@
-  * only if it is trusted as described in vmci_transport_is_trusted.
-  */
- 
-+/* Packing for vsk->cached_peer_access. */
-+#define VMCI_DGRAM_ACCESS_VALID		BIT_ULL(0)
-+#define VMCI_DGRAM_ACCESS_ALLOW		BIT_ULL(1)
-+#define VMCI_DGRAM_ACCESS_CID_SHIFT	32
-+
+@@ -532,6 +532,14 @@
  static bool vmci_transport_allow_dgram(struct vsock_sock *vsock, u32 peer_cid)
  {
-+	u64 access;
+ 	u64 access;
 +
++	/* Enforce the per-netns mode first, symmetrically with the send hook
++	 * vmci_transport_dgram_allow(): a socket in a non-global (local) netns
++	 * must not receive datagrams it could never send (this also covers the
++	 * hypervisor CID).
++	 */
++	if (!vsock_net_mode_global(vsock))
++		return false;
+ 
  	if (VMADDR_CID_HYPERVISOR == peer_cid)
  		return true;
- 
--	if (vsock->cached_peer != peer_cid) {
--		vsock->cached_peer = peer_cid;
--		if (!vmci_transport_is_trusted(vsock, peer_cid) &&
--		    (vmci_context_get_priv_flags(peer_cid) &
--		     VMCI_PRIVILEGE_FLAG_RESTRICTED)) {
--			vsock->cached_peer_allow_dgram = false;
--		} else {
--			vsock->cached_peer_allow_dgram = true;
--		}
--	}
-+	/* Cache the trusted/restricted decision for the last peer to avoid the
-+	 * O(N) vmci_ctx_get() lookup on every datagram.  Read/update it through
-+	 * a single word so a race between the lockless receive tasklet and the
-+	 * lock_sock() send path only forces a recompute -- it can never return a
-+	 * stale allow for a restricted peer.
-+	 */
-+	access = READ_ONCE(vsock->cached_peer_access);
-+	if ((access & VMCI_DGRAM_ACCESS_VALID) &&
-+	    (u32)(access >> VMCI_DGRAM_ACCESS_CID_SHIFT) == peer_cid)
-+		return !!(access & VMCI_DGRAM_ACCESS_ALLOW);
- 
--	return vsock->cached_peer_allow_dgram;
-+	access = VMCI_DGRAM_ACCESS_VALID |
-+		 ((u64)peer_cid << VMCI_DGRAM_ACCESS_CID_SHIFT);
-+	if (vmci_transport_is_trusted(vsock, peer_cid) ||
-+	    !(vmci_context_get_priv_flags(peer_cid) &
-+	      VMCI_PRIVILEGE_FLAG_RESTRICTED))
-+		access |= VMCI_DGRAM_ACCESS_ALLOW;
-+
-+	WRITE_ONCE(vsock->cached_peer_access, access);
-+	return !!(access & VMCI_DGRAM_ACCESS_ALLOW);
- }
- 
- static int
