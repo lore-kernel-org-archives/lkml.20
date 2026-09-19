@@ -1,169 +1,134 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05F86238C1A;
-	Sat, 19 Sep 2026 07:11:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 074A43911C0;
+	Sat, 19 Sep 2026 07:11:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789801897; cv=none; b=fvT//CZMjxvpoqjcrkzErzPXVh9dEWrxhWBNRObQHiv9Svx+o3HysJNgMCWikNG23X0anTEmlWHwR533PAnY1xi4qQWFsj8vvKdU0in1ZwE2+2kUAleNFROcwlshG9TmIqQf644YxJaggBNS7xBCdQH9XZ2hs7ZLKDHPASPE3Rs=
+	t=1789801915; cv=none; b=B7pCBl1/seqwjECm4X3icOYqxfP17DVgHOlva9z/0HJCY8aTim9gufXA7efQXBQtK+3z9+viaZEAHcYjyUBvbCXYZz6WUkNUK/ot7ekMLj+Hn+x+iHxdNBOhf4l8L8U7GBPwULez/07ORH1bQUUi5WmI4CGNujiErRA19ZBWRpA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789801897; c=relaxed/simple;
-	bh=/2N3uvbIbDkxyC4wzUUbQ69EypzM5/Q2LWe/nHYww5c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qlBvGyOG/yZBw+PykLoocWlZyZm1Q3c5kFz4ZTAEEynN5nKJbPWXEzjDy1y+SeXkv+a4OGlTVCMOSF8SpwtHg9eESurPbUa7M6gIUIaKT7iPzUsddiCBMjAvrBLO6lAS59oJADWe/3FHqWaY/6moTU/K+VmPfyCL8fy6UcWFz6g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F4W1bQei; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789801915; c=relaxed/simple;
+	bh=1jPNvLGEey7fTgWAQdTwXGSH5thuoWwouG9TZPMNQKI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JmfWjtX5xCYMnz2huu9WP6YdEiMSfw4MD9LNaXIblp9M+VnYmObwPC6lVZvyykbl+lbRPygxjndTiVhhhTSmtWX+5fpmhrdjlD2ffjFHw11NlQ8P4cvpdbuxdJe1omjBOI5lkxNJGjzI1428EKNdTZ17PhJQSvuoBjr5pKotYTo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DeKOumKj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F4W1bQei"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F3261F000FF;
-	Sat, 19 Sep 2026 07:11:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DeKOumKj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D20141F000FF;
+	Sat, 19 Sep 2026 07:11:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789801895;
-	bh=bEP94n9v3wLAo85N51UgdrheAoXFz2CprleV4BZJMM8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=F4W1bQei0WbJqW4r8EVplbGGhiwx7NXzD9fjTAJz1nnroqL5YVOgqQUiArkdtmHyr
-	 W9CUxLppulp2QWgWTUWbd/dAehRrSW/lkzZ8oqUe3f2GoaBZ9mxErL6fLMqXM7hUoW
-	 pflbnHmqkcZuRmlsQGGEHcLyopvAXc13ZfvUKI6JKD4iUk+a26j861qNbyRs7NwWAe
-	 5rxSiPFeIPanXD5TpncL4/J1QB4XlrZSZXGeFurkupyx3dvKksXmU0uWgTWfiWByEt
-	 kIY5KOkGCC+OaHU6gMgpAmJdMdOpQb8sI62v9yK0E5VZLKYJBnSZK7nFcRXx41rwCe
-	 CYxurd2l460hw==
-Date: Sat, 19 Sep 2026 10:11:24 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: Baoquan He <baoquan.he@linux.dev>
-Cc: Wandun Chen <chenwandun1@gmail.com>, catalin.marinas@arm.com,
-	will@kernel.org, chenhuacai@kernel.org, pjw@kernel.org,
-	palmer@dabbelt.com, aou@eecs.berkeley.edu, tglx@kernel.org,
-	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
-	x86@kernel.org, robh@kernel.org, saravanak@kernel.org,
-	akpm@linux-foundation.org, pasha.tatashin@soleen.com,
-	pratyush@kernel.org, m.szyprowski@samsung.com, mark.rutland@arm.com,
-	kernel@xen0n.name, alex@ghiti.fr, hpa@zytor.com,
-	ruirui.yang@linux.dev, robin.murphy@arm.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org, kexec@lists.infradead.org,
-	linux-mm@kvack.org, iommu@lists.linux.dev
-Subject: Re: [PATCH v6 06/10] memblock: introduce MEMBLOCK_NODUMP flag
-Message-ID: <aq41nFRPtRWTQ7cK@kernel.org>
-References: <20260902073116.802752-1-chenwandun1@gmail.com>
- <20260902073116.802752-7-chenwandun1@gmail.com>
- <aqzxavL91icLw-Xv@fedora>
+	s=k20260515; t=1789801913;
+	bh=5adUzaqKrOWyxyKNm2ZBcSKvXsebzcb4Tupqu4Fr0E0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=DeKOumKjzggsNSLCvpCh6cVSXAOHanCdLiaWPs+3F8b4w0OA8FCwYpMI+Bamq2gAB
+	 KMouNnRTKUPtsOuxt+7lAmzZ/hnAfIR++72Cy7hzN5dqUPb56130PJL8zN31G70afE
+	 LIZL3scrpl7T6JvT1Q3urZj3O8eb3YuGONgkzWrQi36PV7rjAqLvKMhyjrmZHMHliD
+	 H77MIyY0+aIuyilm0D0M2ThefPyG7GPvUMjJg0NeuOmWPHEJHBOYfgAqvuQ4tva7Ph
+	 ASMM2AhnNPYZU3/JcpZtIjQ12B0Z8qsmcBrxF9Er9uL7o7Gf+ByLqqICvuyddSU1mR
+	 UtlbYkuPD56Ow==
+Message-ID: <080744ba-b9fd-4d5d-a64d-b20eee045c4c@kernel.org>
+Date: Sat, 19 Sep 2026 09:11:46 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqzxavL91icLw-Xv@fedora>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: arm64: fsl: add Olimex i.MX8MP boards
+To: Zoltan HERPAI <wigyori@uid0.hu>, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, Frank.Li@nxp.com, s.hauer@pengutronix.de,
+ festevam@gmail.com, kernel@pengutronix.de
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260918195559.130443-1-wigyori@uid0.hu>
+ <20260918195559.130443-2-wigyori@uid0.hu>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260918195559.130443-2-wigyori@uid0.hu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 18, 2026 at 04:08:10PM +0800, Baoquan He wrote:
-> On 09/02/26 at 03:31pm, Wandun Chen wrote:
-> > From: Wandun Chen <chenwandun@lixiang.com>
-> > 
-> > Add MEMBLOCK_NODUMP to mark regions that should be excluded from
-> > kdump vmcores.
-> > 
-> > The flag is meant for reserved memory that carries no data useful for
-> > crash analysis. Reusable reserved regions such as CMA may hold useful
-> > data, so these regions must not be marked MEMBLOCK_NODUMP. Subsequent
-> > patches wire this up for /reserved-memory and /memreserve/ entries.
-> > 
-> > Suggested-by: Rob Herring <robh@kernel.org>
-> > Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
-> > Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
-> > ---
-> >  include/linux/memblock.h |  9 +++++++++
-> >  mm/memblock.c            | 16 ++++++++++++++++
-> >  2 files changed, 25 insertions(+)
-> > 
-> > diff --git a/include/linux/memblock.h b/include/linux/memblock.h
-> > index d62db9e776cf..b2fcf11fba2b 100644
-> > --- a/include/linux/memblock.h
-> > +++ b/include/linux/memblock.h
-> > @@ -52,6 +52,8 @@ extern unsigned long long max_possible_pfn;
-> >   * kernel that we know is good to use. It is the only memory that
-> >   * allocations may happen from in this phase.
-> >   * @MEMBLOCK_RSRV_HUGETLB: memory is reserved for hugetlb pages
-> > + * @MEMBLOCK_NODUMP: exclude from kdump vmcore. It carries no data useful
-> > + * for crash analysis (e.g. firmware carveouts).
-> >   */
-> >  enum memblock_flags {
-> >  	MEMBLOCK_NONE		= 0x0,	/* No special request */
-> > @@ -63,6 +65,7 @@ enum memblock_flags {
-> >  	MEMBLOCK_RSRV_KERN	= 0x20,	/* memory reserved for kernel use */
-> >  	MEMBLOCK_KHO_SCRATCH	= 0x40,	/* scratch memory for kexec handover */
-> >  	MEMBLOCK_RSRV_HUGETLB	= 0x80, /* memory reserved for hugetlb pages */
-> > +	MEMBLOCK_NODUMP		= 0x100,/* exclude from kdump vmcore */
-> >  };
-> >  
-> >  /**
-> > @@ -160,6 +163,7 @@ int memblock_reserved_mark_noinit(phys_addr_t base, phys_addr_t size);
-> >  int memblock_reserved_mark_kern(phys_addr_t base, phys_addr_t size);
-> >  int memblock_mark_kho_scratch(phys_addr_t base, phys_addr_t size);
-> >  int memblock_clear_kho_scratch(phys_addr_t base, phys_addr_t size);
-> > +int memblock_mark_nodump(phys_addr_t base, phys_addr_t size);
-> >  
-> >  void memblock_free(void *ptr, size_t size);
-> >  void reset_all_zones_managed_pages(void);
-> > @@ -306,6 +310,11 @@ static inline bool memblock_is_kho_scratch(struct memblock_region *m)
-> >  	return m->flags & MEMBLOCK_KHO_SCRATCH;
-> >  }
-> >  
-> > +static inline bool memblock_is_nodump(struct memblock_region *m)
-> > +{
-> > +	return m->flags & MEMBLOCK_NODUMP;
-> > +}
-> > +
-> >  int memblock_search_pfn_nid(unsigned long pfn, unsigned long *start_pfn,
-> >  			    unsigned long  *end_pfn);
-> >  void __next_mem_pfn_range(int *idx, int nid, unsigned long *out_start_pfn,
-> > diff --git a/mm/memblock.c b/mm/memblock.c
-> > index f2952d725c10..2e87f39826dd 100644
-> > --- a/mm/memblock.c
-> > +++ b/mm/memblock.c
-> > @@ -1204,6 +1204,21 @@ __init int memblock_clear_kho_scratch(phys_addr_t base, phys_addr_t size)
-> >  				    MEMBLOCK_KHO_SCRATCH);
-> >  }
-> >  
-> > +/**
-> > + * memblock_mark_nodump - Mark a memory region with flag MEMBLOCK_NODUMP.
-> > + * @base: the base phys addr of the region
-> > + * @size: the size of the region
-> > + *
-> > + * Mark the region as not to be included in crash dumps.
-> > + *
-> > + * Return: 0 on success, -errno on failure.
-> > + */
-> > +int __init_memblock memblock_mark_nodump(phys_addr_t base, phys_addr_t size)
->       ~~~~~~~~~~~~~~^
-> Is it impossible to use at runtime even thought it claims to be generic?
+On 18/09/2026 21:55, Zoltan HERPAI wrote:
+> Document board compatible bindings for the Olimex i.MX8MP-SOM and
+> -EVB boards.
+> 
+> Signed-off-by: Zoltan HERPAI <wigyori@uid0.hu>
+> ---
+>  Documentation/devicetree/bindings/arm/fsl.yaml | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
+> index 656f2596e..aef153222 100644
+> --- a/Documentation/devicetree/bindings/arm/fsl.yaml
+> +++ b/Documentation/devicetree/bindings/arm/fsl.yaml
+> @@ -1146,6 +1146,8 @@ properties:
+>                - gateworks,imx8mp-gw74xx   # i.MX8MP Gateworks Board
+>                - gateworks,imx8mp-gw75xx-2x # i.MX8MP Gateworks Board
+>                - gateworks,imx8mp-gw82xx-2x # i.MX8MP Gateworks Board
+> +              - olimex,imx8mp-som      # Olimex i.MX8MP-SOM
+> +              - olimex,imx8mp-som-evb  # Olimex i.MX8MP-SOM-EVB
 
-This should only happen at boot.
+How som can be used alone?
 
-Allowing modifications of memblock properties in runtime is a can of worms
-I don't want to open.
- 
-> > +{
-> > +	return memblock_setclr_flag(&memblock.memory, base, size, 1,
-> > +				    MEMBLOCK_NODUMP);
-> > +}
-> > +
-> >  static bool should_skip_region(struct memblock_type *type,
-> >  			       struct memblock_region *m,
-> >  			       int nid, int flags)
-> > @@ -2887,6 +2902,7 @@ static const char * const flagname[] = {
-> >  	[ilog2(MEMBLOCK_RSRV_KERN)] = "RSV_KERN",
-> >  	[ilog2(MEMBLOCK_KHO_SCRATCH)] = "KHO_SCRATCH",
-> >  	[ilog2(MEMBLOCK_RSRV_HUGETLB)] = "RSV_HUGETLB",
-> > +	[ilog2(MEMBLOCK_NODUMP)] = "NODUMP",
-> >  };
-> >  
-> >  static int memblock_debug_show(struct seq_file *m, void *private)
-> > -- 
-> > 2.43.0
-> > 
+>                - prt,prt8ml             # Protonic PRT8ML
+>                - skov,imx8mp-skov-basic # SKOV i.MX8MP baseboard without frontplate
+>                - skov,imx8mp-skov-revb-hdmi # SKOV i.MX8MP climate control without panel
+> @@ -1225,6 +1227,11 @@ properties:
+>            - const: kontron,imx8mp-osm-s               # Kontron i.MX8MP OSM-S SoM
+>            - const: fsl,imx8mp
+>  
+> +      - description: Olimex i.MX8MP boards
+> +        items:
+> +          - const: olimex,imx8mp-som     # Olimex i.MX8MP-SOM
+> +          - const: olimex,imx8mp-som-evb # Olimex i.MX8MP-SOM-EVB
 
--- 
-Sincerely yours,
-Mike.
+This makes no sense. Why duplicated? And where is fallback? Why are you
+doing it completely different than everybody else?
+
+
+Best regards,
+Krzysztof
