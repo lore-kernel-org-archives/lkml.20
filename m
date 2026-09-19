@@ -1,126 +1,59 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+Received: from mail-vs2-f41.google.com (mail-vs2-f41.google.com [74.125.227.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F8E33438A6
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 03:01:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24B3C23BCF7
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 03:02:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789786893; cv=none; b=naSqRFrvHC31eKTi/gwS3YJ2Dn5xG6ObRQnxbz7FKxsYGr2Xyhw6sC9O++5u1KQFH5Ol7urm+MzjY5OTGEv0Kh1QHA3eOHH3Oiea1S2/EQUVWIS/impTKkxiC+Smr0da9auqZZe5W5GVhfsBaJctTHho6R6CMmTxQKDSxpF0DpY=
+	t=1789786956; cv=none; b=ZsV/cWTly0fwPy2iJcrjoko9EOMOwXBTcC4z3y9A4hzSDFslK93C3wGmIO4NG5pD2qptBezdD37YLxIz7OCE89rKcpcQXPd1E4+ybwTM4TGyrbc43Q9kjWCnvzEnwD37YDPaeBbOnVde3PApQ+8g8H5QtBk2m7VRERdvgX1iByw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789786893; c=relaxed/simple;
-	bh=Z3xfdok/MjLW7iYsOLwOg962uzXBF28qhYl9orh4Ijs=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=lr2/GkozznwSqjZ+ZghnLb20hmmJ/RfvHkwm+Ru5rjrTab/T27/QKjvFPYB+aqcS3l19FhBrmOhs9esb5hwPhffNsv0ipJWAl10x33+ywkXIodwpSiy1TkiaFUyYdx6lsznqiT7rYMsxT+S7KU3bgFw9LmwGdSQJVFB3lAVuvBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=pUfzyrIA; arc=none smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="pUfzyrIA"
-Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d43ac6072so13630617b3.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 20:01:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1789786891; x=1790391691; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Z3xfdok/MjLW7iYsOLwOg962uzXBF28qhYl9orh4Ijs=;
-        b=pUfzyrIA9GpnzJQxw5erLIqQh8rgUg+6ktNEDIzL5YK9f9uxGB5/XD9bZAAVDXswsk
-         jl+mii9EtEmaq4qU++UaqbE7UQ6Hui9jLb8ekcFA8M6X/nfGqkR0wEcBzkxiVYFXwUWA
-         RnyZ7mx7sP6N15LVwNv96zlk7oi0e+e39JDXHwEDff7Jlt5pCAW/lb6ZYNBwdbZG67Ox
-         +y4ZH9J+hQSJyV5N1pmLZZhk6upzF3m/B86IAFJs66HOMEVlp4I01JtybkpXXzZI0Yaf
-         KWmelOW2aDDSCWp/j1dqZE6jqP6gv99Ikll5dVoowGlBWpuUrfg/qBs9CcpfbK1ONjrU
-         ymYg==
+	s=arc-20240116; t=1789786956; c=relaxed/simple;
+	bh=CYNVK6YC3aZr1149C7YVsi5REhaaHK56J2QkT3Vltk0=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=qo2qH0vZW1HtgDN672nOq8druagst6fhSuvhT6XqLf7aYcKMawd9WAaCFO2M7yipPQDVJ9FsLrkkDda1w6BE22/1jZwN5P/Kp3AqcgouRS7ZbqsMUzqJyf2/kWUhFSsxt9kx2qsk+ZctDlf8cK9JhqPOOHPNuO4oOiZMekkmU6E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=idkmanager.com; spf=pass smtp.mailfrom=idkmanager.com; arc=none smtp.client-ip=74.125.227.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=idkmanager.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=idkmanager.com
+Received: by mail-vs2-f41.google.com with SMTP id 71dfb90a1353d-5c67e512ee5so440016e0c.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 20:02:34 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789786891; x=1790391691;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Z3xfdok/MjLW7iYsOLwOg962uzXBF28qhYl9orh4Ijs=;
-        b=VPm36sEhTLukZQN+U6ZOkI48qzt4YVCALEdqDbsDyNolnfIV0TcGPYDCAdUc9vayuR
-         +WNWoP/iMjjPu9qBztgicHdXNJxrbkAwTKBK75TJnj2qXR6Ebc8Ac93tj4d4+uK8QsC3
-         Vk1yp9SLa8hBtViztqeqCei3FLXwjrtw2qplRvEBpTAPu/gm/uU4gw8jctT52UmSLJ37
-         i2iJgC8W/NZFDNk+G/w9PpAUngqQ3pjBf1eigrYRL7X5rEMxrzZv4OoK7aBw6y3gcuWQ
-         yJPtfxhAd1HJL1JuYWqhS5fA46plm7kO5UmoJ8PlkJlySoAVnDs8e5XXhZA4NkiIEDv2
-         ELBQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy9HUFftkt7IX/FtlDX22f70W5ArfnCpxh6Q8eQhcpI2VZK1I+p2h3PpdgU9FhHe5ZvTVbqTpQurcSBysI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kZGAP94Tfu6D0169e2TALncZQlwi3loRo9OjKfbfGdmrr3faMV
-	6Driid843gIXIulqwJ24uS+1me0nlCE+tfBGq1KnEZdewYQgHWWjQDdiqun7ijWvqHQ=
-X-Gm-Gg: AYBFou3vnkl7C1jnvn9AdHjLtQNZumQTkoEOglLzjmgsKXHOLD9x6t/aB3XnfABftiq
-	Q+m0TEh2c2tXbjGkMxopsbrtxq1q93XAZiGgcLgBo8Z3co/CiRUnHoi6svNZH2JV8gLqg/QSM1c
-	9AMUvJPoWGxTKJS4jHMnhUkZJ+QqkEmtkNJ5bZ6lum76WWLy+P7VXqZYVnrwMsTO6ohFgcap4an
-	/XTGvZ6fGpQJKY3YFjlauFRUU/CVuXQRS5IbrjYx2kWUSuQBRCo0MEHRMPlJ28fipFebCPzmFhz
-	xZ13q5hv99k5FCPJvC2PKS/oBMEV58+z3Tmpoh6kf1TLSOVrtPMBIqCQ/peaONHEZrGgqbw6pMT
-	vOEQQAizdzcm+1kYBoRyg2omy5MXNFHCrNJ79TbcPp4s1pkXeAenPraR9zV2PQt1rUnWizswfsI
-	9lJKOLk+VLFcnvzFvx0Ird416DZCFc2HjVf6mD1NZgOy5S9DQEgOYK8GvT4SMNUJEOUxf74tGvd
-	pA3GP+x10r2e4ctjbyDPMK/Itm8gHob3GlJj8IRhPU7iaFLKQew/j0wxjvh27CaVeSiKHVeUkz8
-	XJAsHm9odtNvZ4RfVxlmHHrfwb2ov7hi+wfrEbGrI36HnEG5Hb+Fk8MVG7QfUKxjSGaBnC57z5I
-	=
-X-Received: by 2002:a05:690c:a5d8:b0:87d:8d6f:b579 with SMTP id 00721157ae682-897353aba4dmr10924147b3.40.1789786890894;
-        Fri, 18 Sep 2026 20:01:30 -0700 (PDT)
-Received: from ?IPv6:2600:1700:6476:1430:bcb1:f9f4:6193:b412? ([2600:1700:6476:1430:bcb1:f9f4:6193:b412])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-89a46e47e87sm5729537b3.23.2026.09.18.20.01.27
+        d=1e100.net; s=20260707; t=1789786954; x=1790391754;
+        h=mime-version:content-transfer-encoding:content-type:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5fzJtigo/7t3PwS7P5np8F8Yh6nRyXPfgoaV8isKaaE=;
+        b=vlSOvN1wib0VlRHLOF5jldV44t28kd/EfmsqdqLoxvEkwRKVKUb2d8K6VMLuxiVV6Z
+         LPgxyUX8eHcJN5Q3GNaHf7iPQlamUAS9wdb2ZGHiq7u7QzrK0S5+sbXoFbYZQ9VjUySx
+         RWTlvLDZh3Wl4ZwVDMEAvKMY62BYn4v4mSduA2cXMlGBMpOMjbcrLAnsvQx2F2erxAVb
+         vjk31Giye5YWGcz5Ol7QcISXREvefvKExGhEbRbR4keVmY4ovcMVqg2TFyq8h0yK3MYl
+         keMYGZGqdpmMSS45lya70l1ONacJZmIlJC6PvjvvzSsEJFqv8WOZTvDQ8/FbdaCt8PP1
+         1Szw==
+X-Forwarded-Encrypted: i=1; AKwUvByqSRIxOPeIL+2c+BaOtD4HX8cbdIEzpJj2gK8mPRrboJM6mvp4eyb0Ie5sDQSr1mokOBDmHRM31rkpofk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lxECCmIJsJURPa8KLaTmOV6xDUEW7GNkfYliuaNKwEkA10MO3I
+	VL2+0xP3r5ckaAzVIL5DUZfcDkb0Z5lnuvSCsa1pOdX0TpLQRPpFyOQZnKAlbr2w1lDO2DJ4UOS
+	dw6SoagPyng==
+X-Gm-Gg: AYBFou00MIpPA7Yykz9oywIEKdCFqFUugVBByudr3jxLFXwsBciQCmEfH/Ql3DJmJYi
+	gEwitf0pxc6QcQfc0BAiEM4fPXZjbfBBYm4apzrkE/dyEVzXTHfsRiH/nrU5Yn56xAN79DLqh8p
+	D1b4SHPou9WnadOLytECjMObjR5cBYSnPb6RH084EOx/Knh05DnwE/N0rZWADfCBCeq6GE55VZg
+	QdWCjNSPUp6YJaUjCjptvQ2CScw7bhogk9fqPNHBXE9VmrRu5R8hXuR8OhVaFTF/NC/L9tkFKiN
+	EPpzlYcXH0st4dSc3qYOOeOMl/i0sl46ScK1gbleVtj1acNzrldCxKYk3PgFekz/grwBbwXGXam
+	qvgU2CTKqnH+1hnnZJjwIYvkSeqZC4j6vf98a9+3P7y4xiGFiSn428n5DDoeg1DvLOWXz4+jAqS
+	4epsyP2siAyapCwFoBo8/Z33sfpx0PGDrYgNdI0rl0YCDXjdw+PGH/K//kd62pqN8ON4SK4/1ie
+	xmdpj5CnIiRWIH2ebpPnWHiPi63zjft0dgyaD+LdbeKnNZoRvtooGc=
+X-Received: by 2002:a05:6102:419f:b0:7a7:198a:c2c6 with SMTP id ada2fe7eead31-7a7198ad3f4mr32603137.36.1789786954039;
+        Fri, 18 Sep 2026 20:02:34 -0700 (PDT)
+Received: from [100.96.0.25] (corp-190-12-36-222.uio.puntonet.ec. [190.12.36.222])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7a6aa41d7e6sm1385924137.1.2026.09.18.20.02.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 20:01:28 -0700 (PDT)
-Message-ID: <2f638ff0568a55233899b2a7ef4dba3ed945bc51.camel@dubeyko.com>
-Subject: Re: [PATCH] nilfs2: validate file block counts during recovery
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, linux-nilfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Fri, 18 Sep 2026 20:01:26 -0700
-In-Reply-To: <CAKFNMo=0-rxN0BKG1v+KhrGwnh2ZL_Hn2Jbcqc9sWRV8cwxPrQ@mail.gmail.com>
-References: <20260915111351.2726334-1-qwe.aldo@gmail.com>
-	 <CAKFNMo=0hDANOd+DxxvKA=RNbiG-zygkWh6EUC6Vr2MYe4npLQ@mail.gmail.com>
-	 <e197037b70377be78b296380bcb31b8c3e8f8d74.camel@dubeyko.com>
-	 <CAKFNMo=0-rxN0BKG1v+KhrGwnh2ZL_Hn2Jbcqc9sWRV8cwxPrQ@mail.gmail.com>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+        Fri, 18 Sep 2026 20:02:33 -0700 (PDT)
+From: Ing. Alfonso Kuen Arroyo <gerencia@idkmanager.com>
+To: hch@lst.de, sagi@grimberg.me, kch@nvidia.com
+Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
+ mlombard@arkamax.eu
+Subject: [PATCH] nvmet-tcp: fix stale comment on NVMET_TCP_MAXH2CDATA
+Date: Fri, 18 Sep 2026 22:02:33 -0500
+Message-ID: <178978695312.43804.1554581215424967584@idkmanager.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -128,43 +61,27 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-On Sat, 2026-09-19 at 09:46 +0900, Ryusuke Konishi wrote:
-> On Sat, Sep 19, 2026 at 4:33=E2=80=AFAM Viacheslav Dubeyko wrote:
-> >=20
-> > On Sat, 2026-09-19 at 00:44 +0900, Ryusuke Konishi wrote:
-> > > Also, please replace the 'Cc: stable' tag with the following tag,
-> > > as
-> > > with the previous patch:
-> > >=20
-> > > Cc: stable+noautosel@kernel.org=C2=A0# Non-fatal bug fix; defer
-> > > backport
-> > > until a real issue is reported
-> >=20
-> > Damn! I missed this request. I already pushed the commit. Are you
-> > OK
-> > with that? :)
->=20
-> Viacheslav,
->=20
-> Since we haven't hit the merge window yet, and linux-next (the
-> destination where your for-next branch is integrated) is a daily
-> integration tree intended to be rebased before being pulled into
-> Linus's tree, updating the commit message on your branch now should
-> be
-> completely fine.
->=20
-> As documented in Documentation/maintainer/rebasing-and-merging.rst:
-> "Some trees (linux-next being a significant example) are frequently
-> rebased by their nature..."
->=20
-> I think it would be better to fix the tag and overwrite-push it now
-> rather than leaving it as is, though of course it will need to be
-> frozen once we hit the merge window (or after the official release).
->=20
+The constant is 0x400000, 4 MiB, but the comment next to it still says
+16M. Noticed by Maurizio Lombardi while reviewing "nvmet-tcp: report a
+bounded MDTS instead of "no limit"".
 
-Sorry, I have too busy day.
+Signed-off-by: Alfonso Kuen <gerencia@idkmanager.com>
+---
+ drivers/nvme/target/tcp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-The commit message has been updated and pushed.
-
-Thanks,
-Slava.
+diff --git a/drivers/nvme/target/tcp.c b/drivers/nvme/target/tcp.c
+index e598101..726e05b 100644
+--- a/drivers/nvme/target/tcp.c
++++ b/drivers/nvme/target/tcp.c
+@@ -23,7 +23,7 @@
+ #include "nvmet.h"
+ 
+ #define NVMET_TCP_DEF_INLINE_DATA_SIZE	(4 * PAGE_SIZE)
+-#define NVMET_TCP_MAXH2CDATA		0x400000 /* 16M arbitrary limit */
++#define NVMET_TCP_MAXH2CDATA		0x400000 /* 4M arbitrary limit */
+ #define NVMET_TCP_BACKLOG 128
+ 
+ static int param_store_val(const char *str, int *val, int min, int max)
+--
+2.53.0
