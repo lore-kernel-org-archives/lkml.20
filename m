@@ -1,173 +1,213 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx.ssi.bg (mx.ssi.bg [193.238.174.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FAEE45519D
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 10:04:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FBEF281530;
+	Sat, 19 Sep 2026 10:06:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.238.174.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789812296; cv=none; b=RI2DV6Hgcjb/nb3siPmjblpk3vKvyyGUYfn8eknn0tjDU9eI+R+sdVqiHETmbbOjWlsEMGEgIuvIHjAy/ArxJjVZ8nlG4gnWGXg9QJ/Qkdbs5tnomW/OmrlattFYBzsoSt5pmjlEd4iHST8KE9Mi0TzhZlybBV/9eU0O24f3PpY=
+	t=1789812411; cv=none; b=K3/qBDo4oXFByESqK1BDAdl3N8sRGbyCAc4pewZ+C67P6SEa+mmVOdmu4cUC5zq8eK69neQqhFmz5c7nRAz2KXgiLCcN8dNR/XN3vfns1WxKWVdUhcXS53a2YpboZ4J66qeagBBslKT62CkxSh5E5nhBTJJV4SpeU8hCp7yYDqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789812296; c=relaxed/simple;
-	bh=8cFFxo0x0XbGwbAaZrohisApoCmfuDSixKKdRyjOp5Y=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=N7eo4wl3KRw4up6VuKrx+fcxB9LusEF9T01GddDp7AkN7H5UwI77YN621H/4QVuHXRzGsoIu+g0sI2Lu975+n/VXcOAXbOQGO7ZsBEv6CChq8tvNms+Eg2p/O9T4ndOjW5U5xgFmoCAjlvnaUgdM1wKxQkAc2KhznewrrSiOT7U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AB+P+Dbo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789812411; c=relaxed/simple;
+	bh=lz23xqOnfjK6hXIDMVyhpj3d8PiKZsDI4+InqbqJK3E=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=pQsAvRddowM9gmr83rch4dIcwdVlSsvS7vAy5lVX9iTWf1oVWg/4Fhv/HlNlIeB+FzBKmTyGjoU2Ng5tZSAlb2wRLub27tuo0eKhRAycB0NKOrK3VWoA6iz8h8+QZeJF7x+Y1tlzYGm310ugx7zUxF/WBuUraAcvytr27qmzLCw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg; spf=pass smtp.mailfrom=ssi.bg; dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b=OVsL+GWk; arc=none smtp.client-ip=193.238.174.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ssi.bg
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AB+P+Dbo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 757831F000FF;
-	Sat, 19 Sep 2026 10:04:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789812291;
-	bh=HUNU8WlYTvz53+Q8M4jOiz4WEBDp0YF3dUQql82MWfI=;
-	h=From:Date:Subject:To:Cc;
-	b=AB+P+DbohSA5vF//USDAePxj2u8qkSxK1aZEhzVQsWNxGfugWfltgjTBtIsbaxVlP
-	 pGAR241LXaIPfTlPQcSD8SvBkmmoZpwIL0XOqgFXl8vASk9DIde9yWLwxI2tmAHPIq
-	 N7BZKFGjsv3HXAO6RxH+211b+ggm4zUD1va6ZjnHolKmbNrH/58L31nkQb6+PzER25
-	 yXICDgioK0IULDjdR0YeZ1Z1QqrnH0j/4oJVic5QH8V70s5VStJe4uUju6WkLrdovB
-	 IeJiiqCB3TUQ1QxRXaQy+jiPsee2hHE+fUL09b3k/REM0fN2w7opVer9H2tHSl2twF
-	 znBdj5Lqoxc5w==
-From: "David Hildenbrand (arm)" <david@kernel.org>
-Date: Sat, 19 Sep 2026 12:04:36 +0200
-Subject: [PATCH v3] mm/gup: honour FOLL_PIN in NOMMU
- __get_user_pages_locked()
+	dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b="OVsL+GWk"
+Received: from mx.ssi.bg (localhost [127.0.0.1])
+	by mx.ssi.bg (Potsfix) with ESMTP id 80645213A3;
+	Sat, 19 Sep 2026 13:06:35 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ssi.bg; h=cc:cc
+	:content-type:content-type:date:from:from:in-reply-to:message-id
+	:mime-version:references:reply-to:subject:subject:to:to; s=ssi;
+	 bh=TI6KQVFy9rs3rUV5oFMqAw05s51sLh5J806913aCVYU=; b=OVsL+GWkG1zt
+	2c3bKa4gnrSR77t6UHg5W5z4zzJdyNeIl91AJXuYrrviR0zylV5iI97RLYK7mW6d
+	wEK5XN84V9vphAAo7Kml3v9FcfCeJSbILkIewxRScqVrrSqzhGHBYK9qfNYx9PV/
+	pvxdW7tU67LSQW3spd7/M/awoGoa4EeNhopQm9RJCpGeGltlnARTBeX6Ei2PREmX
+	xD4MdE5JmOrDDNLAlOEkleNtgSYbRLSdUIo2IEtofyapLS9YKtQ5APka6pxDt2ea
+	R3n6nUYh2CaV8EluvBZsvNHIewqiHeJh6bwDVtts4bCudUvCkCGfXzizNdAedE/L
+	dO0BfssvLa3zDtFtDEkhnd2oyqn7nNmfiEFwpTGk77EetOJInjXvu8sT9aBLcdX3
+	5VSpPNs4NSRzbKjmh8HJ8VOU4aK/Pjzz/Wb3drLA9LUEuK6w5ETCXe58UWYH9Hoh
+	VPc7LWLXg3SxIXM68x9il+jTtJE1MRM+hWydDhsk8rPuiNoEvPLrj+2HY612mnDn
+	UWbwA88q3wfP9J5n+0SN0KdsnsikeWrESqvUGvQwJ9/1TdYiM5TUKVbM3VNbaAEo
+	ZPSLfsbnsi+MmSwoMqVi78xHXH5X/KGfetLXcpg7cmvn+1tVVxaWCnQRVlh+I6/y
+	0OZrdQSqnLxv+mLPuvnoMQ0hO+TGsoU=
+Received: from box.ssi.bg (box.ssi.bg [193.238.174.46])
+	by mx.ssi.bg (Potsfix) with ESMTPS;
+	Sat, 19 Sep 2026 13:06:35 +0300 (EEST)
+Received: from ja.ssi.bg (unknown [213.16.62.126])
+	by box.ssi.bg (Potsfix) with ESMTPSA id 79F3D61E26;
+	Sat, 19 Sep 2026 13:06:37 +0300 (EEST)
+Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
+	by ja.ssi.bg (8.18.2/8.18.2) with ESMTP id 68JA6NRO021632;
+	Sat, 19 Sep 2026 13:06:24 +0300
+Date: Sat, 19 Sep 2026 13:06:23 +0300 (EEST)
+From: Julian Anastasov <ja@ssi.bg>
+To: Zihan Xi <zihanx@nebusec.ai>
+cc: Simon Horman <horms@verge.net.au>, Pablo Neira Ayuso <pablo@netfilter.org>,
+        Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+        lvs-devel@vger.kernel.org, netfilter-devel@vger.kernel.org,
+        coreteam@netfilter.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v2 1/2] ipvs: avoid stack overflow from recursive
+ connection expiration
+In-Reply-To: <c104a8ee-eebc-1e80-c685-3e22f23ffbc8@ssi.bg>
+Message-ID: <1233faca-355c-b1b6-5c8d-9b36b4cc427a@ssi.bg>
+References: <cover.1789435989.git.zihanx@nebusec.ai> <20260917030301.5502-1-zihanx@nebusec.ai> <c104a8ee-eebc-1e80-c685-3e22f23ffbc8@ssi.bg>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260919-nommu_gup_pin-v3-1-3660a8851243@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0QpAMBSA4VfRubayKcyrSIs5OMqszaTk3Q2X3
- 8X/X+DREXqokwscHuRpMxF5moCeOzMhoyEaRCaKTHLJzLauQU3BKkuGDWORS17qilcCYmMdjnR
- +v6b97UO/oN7fCdz3A/tEjEJxAAAA
-X-Change-ID: 20260919-nommu_gup_pin-df63917c8182
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Peter Xu <peterx@redhat.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- David Hildenbrand <david@kernel.org>, 
- "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3893; i=david@kernel.org;
- h=from:subject:message-id; bh=jGLrYmctqoehyGtKEy83+Rhs7HUTE97IKGKEz5l+j4M=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLWxVn62VzpXMdlnF75NadYadca83kGfxZXZF5tTftna
- vn4oeyLjlIWBjEOBlkxRZag4PsGL1+uq61242OGmcPKBDKEgYtTACYS9I/hf8HB7s0O3TlGX7la
- Fil+42e6/DOfY0e2Z+SepNqbZ6JXezAytNTf4K+1rljfq9THb2uz0PSdse9u1wcvTxj+l57M8Go
- qCwA=
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+Content-Type: text/plain; charset=US-ASCII
 
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-The !CONFIG_MMU implementation of __get_user_pages_locked() takes a bare
-get_page() reference for each page regardless of foll_flags:
-	if (pages[i])
-		get_page(pages[i]);
+	Hello,
 
-This is reached from pin_user_pages*() with FOLL_PIN set.
-unpin_user_page() is shared between MMU and NOMMU configurations and
-unconditionally calls gup_put_folio(..., FOLL_PIN), which subtracts
-GUP_PIN_COUNTING_BIAS (1024) from the folio refcount.
+On Fri, 18 Sep 2026, Julian Anastasov wrote:
 
-This means that pin adds 1, and then unpin will subtract 1024.
+> On Thu, 17 Sep 2026, Zihan Xi wrote:
+> 
+> > When a controlled IPVS connection expires, its controller may be expired
+> > synchronously if it has no remaining controlled connections. A chain of
+> > controlled connections can then cause recursive calls to
+> > ip_vs_conn_expire() and exhaust the kernel stack during namespace cleanup.
+> > 
+> > Make ip_vs_conn_del_put() report whether it deleted the controller timer.
+> > When it succeeds, continue expiration with the controller instead of
+> > calling ip_vs_conn_expire() recursively. This keeps chain cleanup
+> > synchronous while using one stack frame for the whole chain.
+> > 
+> > Fixes: f9200a52eedf ("ipvs: avoid expiring many connections from timer")
+> > Cc: stable@vger.kernel.org
+> > Reported-by: Vega <vega@nebusec.ai>
+> > Assisted-by: LLM
+> > Co-developed-by: Luxing Yin <root@tr0jan.top>
+> > Signed-off-by: Luxing Yin <root@tr0jan.top>
+> > Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+> 
+> 	Patch looks good to me for the nf tree, thanks!
+> 
+> Acked-by: Julian Anastasov <ja@ssi.bg>
 
-If a user maps a page (refcount 1), registers it 1023 times as an
-io_uring fixed buffer (1023 pin_user_pages calls -> refcount 1024), then
-unregisters: the first unpin_user_page subtracts 1024, refcount hits 0,
-the page is freed and returned to the buddy allocator.  The remaining
-1022 unpins write into whatever was reallocated, and the user's VMA
-still maps the freed page (NOMMU has no MMU to invalidate it).
-Reallocating the page for an io_uring pbuf_ring then lets userspace
-corrupt the new owner's data through the stale mapping.
+	In fact, Sashiko detects problem with connections
+that are deleted and traffic that can restart the timer and
+its callback deleteing the connection:
 
-Use try_grab_folio() which adds GUP_PIN_COUNTING_BIAS for FOLL_PIN and 1
-for FOLL_GET, mirroring the CONFIG_MMU path so pin and unpin are
-symmetric. Keep supporting the traditional behavior where users specify
-a pages array but don't set FOLL_GET.
+https://sashiko.dev/#/patchset/cover.1789435989.git.zihanx%40nebusec.ai
 
-While at it, don't return NULL pointers in the page array,
-as this is really not expected for GUP users; instead, just fail and return
--EFAULT.
+	Events are in this order:
 
-[ david: support traditional behavior with no FOLL_GET, extend
-  description ]
+CPU 1                   CPU 2
+timer_delete,
+refcnt is 1
+                        find conn, get refcnt
+                        mod_timer, put refcnt => 1
 
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: John Hubbard <jhubbard@nvidia.com>
-Cc: Peter Xu <peterx@redhat.com>
-Reported-by: Anthropic
-Fixes: 3faa52c03f44 ("mm/gup: track FOLL_PIN pages")
-Assisted-by: gkh_clanker_t1000
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
-I added a best-guess fixes tag. Given that this has been around for a
-while ... and it's nommu, I think this is fine just going into the next
-merge window. In that case, I will pick this up myself. If we want this
-as a hotfix, Andrew please pick it up.
----
- mm/gup.c | 17 ++++++++++++++---
- 1 file changed, 14 insertions(+), 3 deletions(-)
+                        run timer callback
+			and expire the conn,
+			refcnt=0
 
-diff --git a/mm/gup.c b/mm/gup.c
-index eb898ea1ee22e..1681bea8eed7e 100644
---- a/mm/gup.c
-+++ b/mm/gup.c
-@@ -1659,6 +1659,10 @@ static __always_inline long __get_user_pages_locked(struct mm_struct *mm,
- 	if (!nr_pages)
- 		return 0;
- 
-+	/* See the MMU variant: support the traditional behavior. */
-+	if (pages && !(flags & FOLL_PIN))
-+		flags |= FOLL_GET;
-+
- 	/*
- 	 * The internal caller expects GUP to manage the lock internally and the
- 	 * lock must be released when this returns.
-@@ -1983,6 +1987,7 @@ static long __get_user_pages_locked(struct mm_struct *mm, unsigned long start,
- 	struct vm_area_struct *vma;
- 	bool must_unlock = false;
- 	vm_flags_t vm_flags;
-+	int ret, err = -EFAULT;
- 	long i;
- 
- 	if (!nr_pages)
-@@ -2019,8 +2024,14 @@ static long __get_user_pages_locked(struct mm_struct *mm, unsigned long start,
- 
- 		if (pages) {
- 			pages[i] = virt_to_page((void *)start);
--			if (pages[i])
--				get_page(pages[i]);
-+			if (!pages[i])
-+				break;
-+			ret = try_grab_folio(page_folio(pages[i]), 1, foll_flags);
-+			if (unlikely(ret)) {
-+				pages[i] = NULL;
-+				err = ret;
-+				break;
-+			}
- 		}
- 
- 		start = (start + PAGE_SIZE) & PAGE_MASK;
-@@ -2031,7 +2042,7 @@ static long __get_user_pages_locked(struct mm_struct *mm, unsigned long start,
- 		*locked = 0;
- 	}
- 
--	return i ? : -EFAULT;
-+	return i ? : err;
- }
- #endif /* !CONFIG_MMU */
- 
+touching cp->control is
+safe under RCU,
+but we mod_timer
+with refcnt=0
 
----
-base-commit: 40288c9206c17eb66a603262e06a58d300d0f279
-change-id: 20260919-nommu_gup_pin-df63917c8182
+	The problem is that the timer callback runs without
+conn reference and not under RCU lock. OTOH, we delete the
+connection only under RCU read lock and can take measures
+if the callback removed the connection before us.
 
-Best regards,
---  
-David Hildenbrand (Arm) <david@kernel.org>
+	Dropping conns only via timer callback is something we try
+to avoid, we have to rethink this change.
+
+pw-bot: changes-requested
+
+> 	Next time use "nf"/"nf-next" tag for the IPVS patches.
+> 
+> > ---
+> > changes in v2:
+> >   - Use a repeat path for controller cleanup so expiration stays
+> >     synchronous without recursive calls or extra timer ticks.
+> >   - v1 Link:
+> >     https://lore.kernel.org/all/cover.1789110326.git.zihanx@nebusec.ai/
+> > 
+> >  net/netfilter/ipvs/ip_vs_conn.c | 17 ++++++++++++-----
+> >  1 file changed, 12 insertions(+), 5 deletions(-)
+> > 
+> > diff --git a/net/netfilter/ipvs/ip_vs_conn.c b/net/netfilter/ipvs/ip_vs_conn.c
+> > index 6fa3e1dc534c3..c7b88ce1765dc 100644
+> > --- a/net/netfilter/ipvs/ip_vs_conn.c
+> > +++ b/net/netfilter/ipvs/ip_vs_conn.c
+> > @@ -1331,17 +1331,18 @@ static void ip_vs_conn_del(struct ip_vs_conn *cp)
+> >  }
+> >  
+> >  /* Try to delete connection while holding reference */
+> > -static void ip_vs_conn_del_put(struct ip_vs_conn *cp)
+> > +static bool ip_vs_conn_del_put(struct ip_vs_conn *cp)
+> >  {
+> >  	if (timer_delete(&cp->timer)) {
+> >  		/* Drop cp->control chain too */
+> >  		if (cp->control)
+> >  			cp->timeout = 0;
+> >  		__ip_vs_conn_put(cp);
+> > -		ip_vs_conn_expire(&cp->timer);
+> > -	} else {
+> > -		__ip_vs_conn_put(cp);
+> > +		return true;
+> >  	}
+> > +
+> > +	__ip_vs_conn_put(cp);
+> > +	return false;
+> >  }
+> >  
+> >  static void ip_vs_conn_expire(struct timer_list *t)
+> > @@ -1349,6 +1350,7 @@ static void ip_vs_conn_expire(struct timer_list *t)
+> >  	struct ip_vs_conn *cp = timer_container_of(cp, t, timer);
+> >  	struct netns_ipvs *ipvs = cp->ipvs;
+> >  
+> > +repeat:
+> >  	/*
+> >  	 *	do I control anybody?
+> >  	 */
+> > @@ -1358,6 +1360,7 @@ static void ip_vs_conn_expire(struct timer_list *t)
+> >  	/* Unlink conn if not referenced anymore */
+> >  	if (likely(ip_vs_conn_unlink(cp))) {
+> >  		struct ip_vs_conn *ct = cp->control;
+> > +		bool next = false;
+> >  
+> >  		/* delete the timer if it is activated by other users */
+> >  		timer_delete(&cp->timer);
+> > @@ -1372,7 +1375,7 @@ static void ip_vs_conn_expire(struct timer_list *t)
+> >  			    (!(ct->flags & IP_VS_CONN_F_TEMPLATE) ||
+> >  			     !(ct->state & IP_VS_CTPL_S_ASSURED))) {
+> >  				IP_VS_DBG(4, "drop controlling connection\n");
+> > -				ip_vs_conn_del_put(ct);
+> > +				next = ip_vs_conn_del_put(ct);
+> >  			} else if (has_ref) {
+> >  				__ip_vs_conn_put(ct);
+> >  			}
+> > @@ -1402,6 +1405,10 @@ static void ip_vs_conn_expire(struct timer_list *t)
+> >  		else
+> >  			call_rcu(&cp->rcu_head, ip_vs_conn_rcu_free);
+> >  		atomic_dec(&ipvs->conn_count);
+> > +		if (next) {
+> > +			cp = ct;
+> > +			goto repeat;
+> > +		}
+> >  		return;
+> >  	}
+> >  
+> > -- 
+> > 2.43.0
+
+Regards
+
+--
+Julian Anastasov <ja@ssi.bg>
 
