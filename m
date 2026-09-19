@@ -1,139 +1,106 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF13634D3BE
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 16:35:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 769F7367B7E;
+	Sat, 19 Sep 2026 16:35:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789835740; cv=none; b=d7NLT7OzGWLXrPP/Xmg5Cw8g6CZEzBV3Voxgb9NXwLsEVAenLNuG4YhBn1XAdkrbjKG/jr5IW1/HpRkJiQaBozJ+DdjaFMciDc/ypx+FVkXeONVPGNvE/FZvm3XSdiqB1cxQRlE55sSTZfSkY2FdJH8WbCYm6jCOnqAd36k2ZlY=
+	t=1789835743; cv=none; b=jHODURQsFqnWyMlAt0+w5sjxJ9Li5F4y5eyAE5RXviZE6ANBRgswWd7rDBJSpP9FS6ciRk2UDIY4kpMp3m2MQfScWuoTDfy5uOPCC3x+ffqvPmzJKdseugOv/5uE6H42J+QPWiJCBimVxpKOoMN+zwdoNSitH/wvHjpkoR7lLGg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789835740; c=relaxed/simple;
-	bh=ca6cD2antANdPP0+LuiTiDQj5Y6rfhU3wEwzskCDFpQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fXIttv8IURFQKY66Ak/QKgKiX7Z62iOWWVa43vBFX8VzyJ9dW1yt+LakfKYyo6Kv34Xq8WtstnZpYBdGkKlcoTJTI8thUDSvdVuFYtZ6duAMeKR5QsSPGYpr6HzU4x+y7ZoobDXNuop7hzNiiQiGM++ev5zjc4fQ3C23mHtAohY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cxnWD58U; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789835743; c=relaxed/simple;
+	bh=83G8wP1wEtWoW0cUFLtn11NPBN+2XzI+CsyuJfeyx+0=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=Kc7TO5sDuUezAJfpjgb5+kN+XLK6Qgh1tNk/II23IX7htfvA180UMt8c2EsyDayFTOi8xUv0ld4h9SbbishYP8n+ddmvM1vZWZJ7/mLezxeLr7rFCd1aWGNfI9ejzC9/AKlxKCtzpS4F7lZNyiT360XaEDP+mtvTzysmnhsqUBc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=RkimT5Bk; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=6ysdKn0Z; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cxnWD58U"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747eb79f7so11914835ad.1
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 09:35:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789835739; x=1790440539; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HXW/sZxGz1J/1Aqn+pjRkP+au/CIATITWeBYnhNEPd8=;
-        b=cxnWD58ULaZpXEmNYkI4iyENl4gt/0BUDd0YWtbR56AVd7PwskDURPe5COg/xgzfOd
-         /w5dKmZQpp5dOmK4C20JUZeVnxSvKxly9k+Qg7V4OsA7aI4S9bEk7kdp7oDd2DqtA5g/
-         RdoEiXGphGc5kx8yxEelki7JVhXX52Sp9mpq/4c10fMWhr/CwFc681xEjSn7ikOOWy1M
-         cu/ThEUF30DFk+chsdfksfESATp8LeBarvB8ZRJbUY5JGLRJzz6LRMYmbKK3a1ZWf+8O
-         xjfthLKiaocQm41e1eRT9zjvz0G1E866EzMe6cDj/HFf0RNZu/ykAvm4M6h2xUoUpZi8
-         v+4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789835739; x=1790440539;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HXW/sZxGz1J/1Aqn+pjRkP+au/CIATITWeBYnhNEPd8=;
-        b=Klb/il4X+cE8SaoKgYYNMXHS0KGzuzOJjML7r+dEPVv204Z+J5H5zZC2kF81wSHW08
-         A/m5axM/quHXpE/rB2K7gzm2S23PvQga5vc8zRvTc9Rgj/bHZMZkmHtdB7akPShK4IfT
-         KO0GN93A1aPG+cYI/hQrdPrFlRgiB5ITOBld0gKlQGGHI4JasB5vccKenI8Du3iaf/hA
-         WpQe5PGoapapX+uqRybmBO5cFRcaPVRbRqJeGrwyPyueAuvr9KcuFss5Rj0AqHrBt3t3
-         N13MezUt8fPdT2HOgLppyh96yBEEJGQMNSuOBJ8B2lBQj7tNQ61vU1pttiv0z14/S/W1
-         YKew==
-X-Forwarded-Encrypted: i=1; AKwUvBz+cyiVUlOfoUNuqURLrYwjVyfc+LjfC3IcMSUVNQpNfWtT9ISHZLpCF38JRjb79ZsHPC3BNTrnSzcFv2M=@vger.kernel.org
-X-Gm-Message-State: AFuF++kVICvIowNbnczpklT8grCZ6PRAff+kSgjpi/9tEIzXQ/Lxb+Uq
-	vEQbrXjROmvzDMvuwp91p3Kxq72Oqq5JTuECib0wMH5gBGsvEwWsQYvC
-X-Gm-Gg: AYBFou2lqlESYUq7GolTYZnRtLrx+VLo+NbxovoAQXZ13mUQVPaoyHytWxkU4/J5P3q
-	ogSeT6iDbqEH6KBZVrEoeqxVkOP/2Hd19Ss7bCclmnNp7cmCj4rVOfVyarrAkqxMLLlBa30SoRV
-	i7BagEb3Hwx56qklDVer0m+HHSkYGcBFbJVC5k+P9B+0mxvf+srqevfLRdMtx6QaK30SWYWcxVV
-	7yQqVdhI78z7oHWC31+7iaVz/ElYGYwAFPY4B9KqsvOnZ/IEydbz2sps1RJD0ehzjfETdhMZ5Zq
-	Nnh9y4vTN4qJ6rjL+f2OplMwITfu5UfmnGoXCCg33M+vph/sR6VAixaNY9rNGnrpOZWaI0PEsXh
-	nuFrQS+nxLK6IactgaMqPmgN4Hrvcq9+XbK8F7usLtFWvAlRtROvfZrHebDRcZARMVto0vf0dp/
-	e9FCSc+0ok33jP9GNLlBb68cWakFOYzsyvtqrz6AHtXX1PlEvuca0cAE67bpwiiHxf
-X-Received: by 2002:a17:903:1b03:b0:2dd:c0ff:e725 with SMTP id d9443c01a7336-2ddc0ffe981mr37455165ad.55.1789835738990;
-        Sat, 19 Sep 2026 09:35:38 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17f75c2sm11236085ad.73.2026.09.19.09.35.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 09:35:38 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Eddie James <eajames@linux.ibm.com>,
-	Ninad Palsule <ninad@linux.ibm.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jeremy Kerr <jk@ozlabs.org>,
-	Joel Stanley <joel@jms.id.au>,
-	linux-fsi@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] fsi: master-hub: fix memory leak on registration failure
-Date: Sun, 20 Sep 2026 00:35:26 +0800
-Message-ID: <20260919163526.3667566-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="RkimT5Bk";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="6ysdKn0Z"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1789835686; bh=ss08+m6Ho9dtJTXVBqY3w5Z
+	xBXwOCMfnNt1YuIpmHGs=; b=RkimT5BkBTiAaZt96v8HUbIATDIlAJLAunUMzSNZIDzk9bPrVn
+	GDg6ukzcJtXjd7XQaTG/kpIGy54G06dpI5caJNZpfoyN/OFsc//5rFicIO597d+OG34hfjYJplg
+	fYIsbIc7dPfSJXLQLxzf61IAHFcSebtFnJ2+pKT87v0p0qq8HmRwFs8TLqlGtaeeYB9RQbbbf5v
+	KokwkRsGtkM+qKYYAq2XiVQ24YQvHAgx/SZEY+MnprN8oHGPGwteEueNQ8Aa5HgxCBLhaYIUsbj
+	RzaA9+kTbtkFoxKEkn2sBvZLGaghMwqcDJBAzp1q5R+GuO+bsiQc/lCIqOWm2YBQwtQ==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1789835686; bh=ss08+m6Ho9dtJTXVBqY3w5Z
+	xBXwOCMfnNt1YuIpmHGs=; b=6ysdKn0ZyB1iJMq/zpPI1XK39XVC7xlLiBElhdUCPQ4AVd3HI2
+	IMLjLff0iUlHgoSDPSjl9nR+oqlFqf9lLfAQ==;
+Date: Sat, 19 Sep 2026 17:34:47 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+ "Paul E. McKenney" <paulmck@kernel.org>
+CC: rcu@vger.kernel.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Boqun Feng <boqun@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
+ lkmm@lists.linux.dev, Zqiang <qiang.zhang@linux.dev>,
+ Wang Lian <lianux.mm@gmail.com>, Kunwu Chan <kunwu.chan@gmail.com>,
+ Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Will Deacon <will@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Alan Stern <stern@rowland.harvard.edu>, John Stultz <jstultz@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Frederic Weisbecker <frederic@kernel.org>,
+ Joel Fernandes <joel@joelfernandes.org>,
+ Josh Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>,
+ Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang1211@gmail.com>,
+ Ingo Molnar <mingo@redhat.com>, Waiman Long <longman@redhat.com>,
+ Mark Rutland <mark.rutland@arm.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Vlastimil Babka <vbabka@suse.cz>, maged.michael@gmail.com,
+ Mateusz Guzik <mjguzik@gmail.com>,
+ Jonas Oberhauser <jonas.oberhauser@huaweicloud.com>, linux-mm@kvack.org
+Subject: Re: [PATCH 01/28] hazptr: Implement Hazard Pointers
+In-Reply-To: <CAHk-=wj9knmxXD01=top1DQ9_aqrN2a3kpWRS5DQv6QLwLOztg@mail.gmail.com>
+References: <e9669b34-12c2-4cf2-a887-315f581f0789@paulmck-laptop> <20260919000056.3132131-1-paulmck@kernel.org> <CAHk-=wj9knmxXD01=top1DQ9_aqrN2a3kpWRS5DQv6QLwLOztg@mail.gmail.com>
+Message-ID: <6B1FC39D-6EB0-433A-8E49-E5EFC9379AD7@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-hub_master_probe() allocates hub with kzalloc_obj(), but the probe
-failure path does not free it when fsi_master_register() returns an
-error.
+On 19 September 2026 17:30:26 BST, Linus Torvalds
+<torvalds@linux-foundation.org> wrote:
+>On Fri, 18 Sept 2026 at 17:01, Paul E. McKenney <paulmck@kernel.org>
+>wrote:
+>>
+>> Its main benefit over RCU is that it allows fast reclaim of
+>> HP-protected pointers without needing to wait for a grace period.
+>
+>So last time I looked at this was some time ago, but the thing I was
+>missing then seems to still be missing: actual real numbers.
+>
+>And no, I most *definitely* do not mean the pointless "do this in a tight
+>loop".
+>
+>That's just garbage. Honestly, when I see those numbers it just makes
+>me go "I don't want to merge things that even mention this kind of
+>stupid load". It's worse than irrelevant - it's an actively
+>misleading.
+>
+>So I want to see a real load where this is actually visible not a
+>"loop a billion times on a hot-cache thing that doesn't do anything".
 
-If master index allocation fails, fsi_master_register() returns before
-master.dev is initialized. The current error path only releases the
-claimed slave address range, leaving the allocated hub unreachable and
-causing a memory leak.
+I wanna be a fanboy so bad here but I need to breathe and say something
+technical 
 
-If device registration fails after the master index has been allocated,
-device_register() has already initialized master.dev and holds its
-initial reference. hub_master_release() is responsible for freeing hub,
-but the probe failure path does not drop this reference, so the release
-callback is never invoked and the allocated hub is leaked.
+I think hazard pointers are good, what test do YOU suggest we do here?
 
-Free hub directly when master index allocation fails. When registration
-fails after master.dev has been initialized, use put_device() to drop
-the device reference and invoke hub_master_release(), which frees hub.
+Once I get that PowerPC grant I'm happy to run it.
 
-This issue was found by manual code inspection.
+God I wanted to be a fanboy and say omg Linus hi, but I'm sure I'll be
+flamed, sigh. Sigh.
 
-Fixes: e0c24bddf07c ("fsi: master: Clarify master lifetimes & fix use-after-free in hub master")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/fsi/fsi-master-hub.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+>
+>               Linus
+>
 
-diff --git a/drivers/fsi/fsi-master-hub.c b/drivers/fsi/fsi-master-hub.c
-index e5ac9025762e..2cc0c40717fe 100644
---- a/drivers/fsi/fsi-master-hub.c
-+++ b/drivers/fsi/fsi-master-hub.c
-@@ -240,8 +240,13 @@ static int hub_master_probe(struct fsi_device *fsi_dev)
- 	hub_master_init(hub);
- 
- 	rc = fsi_master_register(&hub->master);
--	if (rc)
-+	if (rc) {
-+		if (hub->master.idx < 0)
-+			goto err_free_hub;
-+
-+		put_device(&hub->master.dev);
- 		goto err_release;
-+	}
- 
- 	/* At this point, fsi_master_register performs the device_initialize(),
- 	 * and holds the sole reference on master.dev. This means the device
-@@ -253,6 +258,8 @@ static int hub_master_probe(struct fsi_device *fsi_dev)
- 	get_device(&hub->master.dev);
- 	return 0;
- 
-+err_free_hub:
-+	kfree(hub);
- err_release:
- 	fsi_slave_release_range(fsi_dev->slave, FSI_HUB_LINK_OFFSET,
- 			FSI_HUB_LINK_SIZE * links);
--- 
-2.43.0
-
+--- Thanks!
+"I'm not a very positive person" - Linus torvalds
