@@ -1,127 +1,337 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB198376A03;
-	Sat, 19 Sep 2026 13:13:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16A95156C6A
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 13:17:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789823621; cv=none; b=HJvMcqPS09aDS/xyotL3VoraNqgnoA80ZThdtl8LwlDK4p5emBEDx+2rKJ5IzWnP6cuxU85oPOikBDABLuZRBGYLhu2wUCOpwmN79qZ/8snLqjX9a1N2yMA+En89hlE9lYjJ0L/fmiNcyiQz4tGlm8gabrH458GEVqjD4VQeMZc=
+	t=1789823844; cv=none; b=tKQ+oWjL7lcotm7KMpYqQao3paUpoBGL5RRSmgA6oqsgYdIMxCwhJYD8Mg6GwFKfpLXQYovewDpxOTHR0U90ia78S7vIKN7r6f+w8+3SrR6JU9AKzYz5ry7N3q6TpsSTkn04GWxrRPBAMkNCKpeDf28zoY0d7J3ZUI4emQy6Gak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789823621; c=relaxed/simple;
-	bh=K016Xuspy0+i4gvt1BjSnZ/7rNHp4XWw8iWjdQD++EY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mGZ4FI/nR1Be9vecLEkgR28UqDSVJVnhimA5h5btIdoOmPlR269DqmnlJzoZp5exSrqvPs3ANseWM7v+yp2LmHM4DrbEmZjFk/NJb6mdLBSuRbDtjpHimjmm6jNdxB0j3B2w0EB/WY1LVVICRu8ANbR9yPm3NTn17qQkNpe9R+Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aXD6mpca; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789823844; c=relaxed/simple;
+	bh=aqylDhL4FHnDrafOW29rnfMJpBekGNDUuBZoAIIACQs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=sm7H2x019UCppVeFz/Z3uEmgs1m4nGKAJCiumlgUu/r6kH6wxpZZXAelNITya1yAOsPKd8L7kq8bwQV6SxzZa/ScojYIdwFszNQxYwYjbilC0RtwEzpG5gvS9ZadSOWN8V8qZ4eGAF07+Xuiw1Kn7K3vKMn8xGqSAfug2cCGylc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev; spf=pass smtp.mailfrom=tuxon.dev; dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b=qp4RYIFs; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxon.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aXD6mpca"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789823620; x=1821359620;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=K016Xuspy0+i4gvt1BjSnZ/7rNHp4XWw8iWjdQD++EY=;
-  b=aXD6mpcagrWDyT4Eyhidxz2yYEKb2w2a2LCYiudvPJc7HpQu2edZyVnh
-   sGmcIYu0px9SpAg8HIM6Waf0mlrOG9P0uecyZ97A8kHwDrDBreY5+YnQ2
-   /vykwXnqLsnM3PFY7hPpA3aHmWFQvHERm+gYVSPr9I2ldU8CaQXLivkjk
-   m9SehQ917AH1TBx79Wpfeo/DAsn8h7W06SoRNooTWPpE5sTWWN8b/jrHF
-   VPcmYzSz4FcJvspHur2u6KLmgbHVTSELtgWndqM/WYjqjeUxoPO1X8+Q4
-   LXNeyqh6YF0xdY/OKp2mC4W/gmdPkBlcZdWxxsvWG5yvoBJsSSYHjhVPQ
-   w==;
-X-CSE-ConnectionGUID: TrYM4lyXTl6TIhpwEPWemg==
-X-CSE-MsgGUID: wvBhi80VQb+STLjWgD/4pA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11909"; a="90478348"
-X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; 
-   d="scan'208";a="90478348"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2026 06:13:39 -0700
-X-CSE-ConnectionGUID: FXgk4xsOTbyvnrr1GehSDQ==
-X-CSE-MsgGUID: WhW5rkOxRee7qkVSAOOVjw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; 
-   d="scan'208";a="270519051"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa006.fm.intel.com with ESMTP; 19 Sep 2026 06:13:37 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x7usn-00000000Aw9-4374;
-	Sat, 19 Sep 2026 13:13:33 +0000
-Date: Sat, 19 Sep 2026 21:13:19 +0800
-From: kernel test robot <lkp@intel.com>
-To: Guangshuo Li <lgs201920130244@gmail.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Sivaprakash Murugesan <sivaprak@codeaurora.org>,
-	Gokul Sriram Palanisamy <quic_gokulsri@quicinc.com>,
-	Govind Singh <govinds@codeaurora.org>,
-	linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: oe-kbuild-all@lists.linux.dev, Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] remoteproc: qcom: q6v5-wcss: remove all subdevices on
- unbind
-Message-ID: <202609192136.6T6AV8Dt-lkp@intel.com>
-References: <20260918041321.3532355-1-lgs201920130244@gmail.com>
+	dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b="qp4RYIFs"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d391aso10995005e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 06:17:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=tuxon.dev; s=google; t=1789823840; x=1790428640; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=arsuenBaXtBMqazzptjgRYvEzzXZ3cFNtGq2cAJLhn8=;
+        b=qp4RYIFsV8Umw5i3fqlPg4JnILifOvcqa/qLUkCMna8koIoTwHC7emvsJN1KKgTUzM
+         TR8cMJw/3co4vkIkGRLIJDOZH8dIuJDemZMiimLHxTrztiKeq9g8dF7fzNmQKCFAPH+C
+         wAY9yA+R2iRuURvBGOEIG2qob9kiDdpuXDgez1od6cE/fKeOzQCpTFGw3E+JgOFCGzFj
+         DBo4ZK6yq9qnWGsayK34Kbhfxv0EYyUGFTQFgS8eW1G4zhxCFixjNGT29c3CbFH3xbNd
+         zJKd2uqkggHPqbOnB2hs8k6opbxXUiFMT4KAOcqaMdXrHhwHyoaj7POUqhF6Z2vCULTD
+         kFlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789823840; x=1790428640;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=arsuenBaXtBMqazzptjgRYvEzzXZ3cFNtGq2cAJLhn8=;
+        b=BblbYb0gMRqjo0yY+LOlN9g22Mql3L2oZ65GIs5SXKKGWdULHIsRZrDEja9nsNHij0
+         5ugjqbjeXy9YzZE5ZRj7/bMohv1IX5mlrfYBxgWc1akO74yQPkdDG/artQTraeK+Nbkf
+         G/K8XBCikCsSCpm1PnV6dSx3XdkCLU0vmzyrTlf2Mz1u+pV5tINQ+qN6VUD+LYcjXHHn
+         +RY1S1jS2KS58Bx/0JVVsjJvGuG7ssnAGv5XMn7HQh6XeZeTVDiyRBFD4zuv44rOos2N
+         GA8ilrp0WOJ4CNt1cFb4JUE1wH9wyzdf4QjrU7k1cT4j83x2ogqwvhJBZ7NUyigm0tnE
+         kOEQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxzdmkW2FmHXZAFoxtZtO2pgFBO3mtCpmsrf5jK8HCds7tw1UxcZ23tjS8CttUSO3ddt8eNniMwPjMgCac=@vger.kernel.org
+X-Gm-Message-State: AFuF++kMcSZO2XevM4dH7SDF5AL3b1XLqSNvhmE3iNZQojZ6lq3CZrH0
+	De002mAP8D0cfvYLqQ/Rq8DyEdKs3NMdurhy0Az+EDd6LI+CEM/4A+rSOO/QH4EBw2g=
+X-Gm-Gg: AYBFou1ywLruC7Hbv15ktSIC3Q0kZcN4twKDc6YljCxZ2Lu5B5eT08vDBdNmLkRSsk4
+	ZyArmLsQ8c28uN7jaS414O0iQ43CVX9/gbQnMx1Ryu/C9t0VjY+FoVx/slHlYdvOLtQIn3x5wtV
+	4ka2gFz4NFUk01gtN8zyQkQOMsXHaAxqAN9ez7P+JPO7r1VKj6OIdcZ4z03MNuW/jO2wmlwwUVM
+	gMw73H+ZljLJrQe/iuj54K4yg2ovLOyWd39QtQErzkCzKoJi2Oro/Qh53a43RwgiILyv1Kjx2ja
+	OaoTq/DJwXzOVprO5SvxdYapPtDagFLfty5cQYdjhmMeThiKFl3ItelMqEu2UpFxgCoiENfgBUU
+	ej03tjwt5FlbMGETA+AtwsbEvwpF5gVDCfbMg8czre1wNfrb4W+AEbhNax9RSj1nfDuK40JYDAc
+	RpqZeYcDB+N6vXzTF1PC806WQFss0SPsQX8gz4ScEIr0L1m1Qorelb0uFxg6p4FyIhuu74BAeFC
+	OtfGpoDDsN8vYlivb3d40nRUIRSGblqK/Wt1FlnxScmIpXh2hMvQjT/C/WNJH2WxDYN
+X-Received: by 2002:a05:600c:3f0b:b0:49b:d45:703e with SMTP id 5b1f17b1804b1-49fc56aa68amr77388855e9.8.1789823839836;
+        Sat, 19 Sep 2026 06:17:19 -0700 (PDT)
+Received: from ?IPV6:2a02:2f05:1204:e000:2cf7:c250:64a9:ae77? ([2a02:2f05:1204:e000:2cf7:c250:64a9:ae77])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd0ece6esm103469825e9.2.2026.09.19.06.17.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 19 Sep 2026 06:17:18 -0700 (PDT)
+Message-ID: <a5f22eff-5d5f-405d-86fe-471e522ce602@tuxon.dev>
+Date: Sat, 19 Sep 2026 16:17:16 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918041321.3532355-1-lgs201920130244@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 09/17] nvmem: microchip-otpc: nvmem: microchip-otpc:
+ add tag-based packet lookup
+To: Varshini Rajendran <varshini.rajendran@microchip.com>,
+ ehristev@kernel.org, jic23@kernel.org, dlechner@baylibre.com,
+ nuno.sa@analog.com, andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, nicolas.ferre@microchip.com,
+ alexandre.belloni@bootlin.com, srini@kernel.org, marcelo.schmitt@analog.com,
+ radu.sabau@analog.com, joshua.crofts1@gmail.com, jorge.marques@analog.com,
+ Jonathan.Santos@analog.com, jishnu.prakash@oss.qualcomm.com,
+ antoniu.miclaus@analog.com, duje@dujemihanovic.xyz,
+ mazziesaccount@gmail.com, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260806074024.531259-1-varshini.rajendran@microchip.com>
+ <20260806074024.531259-10-varshini.rajendran@microchip.com>
+Content-Language: en-US
+From: claudiu beznea <claudiu.beznea@tuxon.dev>
+In-Reply-To: <20260806074024.531259-10-varshini.rajendran@microchip.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Guangshuo,
+Hi, Varshini,
 
-kernel test robot noticed the following build errors:
+On 8/6/26 10:40, Varshini Rajendran wrote:
+> Add support for accessing OTP packets by their tag which is a FourCC
+> while preserving backward compatibility with the existing ID-based
+> lookup.
+> 
+> The OTP memory layout can vary across devices and may change over time,
+> making the packet ID approach unreliable when the memory map is not
+> known in advance. The packet tag provides a reliable way to identify
+> and access packets without prior knowledge of the OTP memory layout.
+> 
+> Two offset encodings are now supported:
+>    1. Legacy ID-based: offset = OTP_PKT(id) = id * 4
+>       Used in DT as: reg = <OTP_PKT(1) 76>;
+>    2. TAG-based: offset = 4-byte ASCII packet tag (FourCC)
+>       Used in DT as: reg = <0x41435354 0x4c>; (tag "ACST")
+> 
+> The driver resolves offsets matching valid legacy selectors (multiples
+> of 4 within the packet count) through ID lookup, falling back to tag
+> lookup for other valid values. This ensures existing device trees
+> continue to work while enabling new tag-based access. During probe,
+> packet meta data including the tag is read and cached.
+> 
+> The stride of the nvmem memory is set to 1 in order to support tag based
+> offsets, comment in the header file is updated accordingly.
+> 
+> Signed-off-by: Varshini Rajendran <varshini.rajendran@microchip.com>
+> ---
+>   drivers/nvmem/microchip-otpc.c                | 117 ++++++++++++++++--
+>   .../nvmem/microchip,sama7g5-otpc.h            |   4 +-
+>   2 files changed, 110 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/nvmem/microchip-otpc.c b/drivers/nvmem/microchip-otpc.c
+> index df979e8549fd..a17f82afdc37 100644
+> --- a/drivers/nvmem/microchip-otpc.c
+> +++ b/drivers/nvmem/microchip-otpc.c
+> @@ -23,6 +23,8 @@
+>   #define MCHP_OTPC_SR_READ		BIT(6)
+>   #define MCHP_OTPC_HR			(0x20)
+>   #define MCHP_OTPC_HR_SIZE		GENMASK(15, 8)
+> +#define MCHP_OTPC_HR_PACKET		GENMASK(2, 0)
+> +#define MCHP_OTPC_HR_PACKET_REGULAR	1
+>   #define MCHP_OTPC_DR			(0x24)
+>   
+>   #define MCHP_OTPC_NAME			"mchp-otpc"
+> @@ -47,11 +49,13 @@ struct mchp_otpc {
+>    * @list: list head
+>    * @id: packet ID
+>    * @offset: packet offset (in words) in OTP memory
+> + * @tag: 4-byte ASCII (FourCC) tag of the packet
+>    */
+>   struct mchp_otpc_packet {
+>   	struct list_head list;
+>   	u32 id;
+>   	u32 offset;
+> +	u32 tag;
+>   };
+>   
+>   static struct mchp_otpc_packet *mchp_otpc_id_to_packet(struct mchp_otpc *otpc,
+> @@ -70,6 +74,52 @@ static struct mchp_otpc_packet *mchp_otpc_id_to_packet(struct mchp_otpc *otpc,
+>   	return NULL;
+>   }
+>   
+> +static struct mchp_otpc_packet *mchp_otpc_tag_to_packet(struct mchp_otpc *otpc, u32 tag)
+> +{
+> +	struct mchp_otpc_packet *packet;
+> +
+> +	list_for_each_entry(packet, &otpc->packets, list) {
+> +		if (packet->tag == tag)
+> +			return packet;
+> +	}
+> +
+> +	return NULL;
+> +}
+> +
+> +static bool mchp_otpc_is_valid_fourcc(u32 tag)
+> +{
+> +	int i;
+> +	u8 c;
+> +
+> +	for (i = 0; i < 4; i++) {
+> +		c = (tag >> (i * 8)) & 0xff;
+> +		if (c < 0x20 || c > 0x7e)
+> +			return false;
+> +	}
+> +
+> +	return true;
+> +}
+> +
+> +static struct mchp_otpc_packet *mchp_otpc_resolve_packet(struct mchp_otpc *otpc, u32 off)
+> +{
+> +	/*
+> +	 * Legacy id based packet access: offset = id * 4
+> +	 * Inside the driver we use continuous unsigned integer numbers
+> +	 * for packet id, thus divide off by 4 before passing it to
+> +	 * mchp_otpc_id_to_packet().
+> +	 */
+> +	u32 remainder = off % 4;
+> +	u32 id = off / 4;
+> +
+> +	if (!remainder && id < otpc->npackets)
+> +		return mchp_otpc_id_to_packet(otpc, id);
+> +
+> +	/*
+> +	 * TAG-based packet access: offset is a 4-byte ASCII tag (FourCC)
+> +	 */
+> +	return mchp_otpc_tag_to_packet(otpc, off);
+> +}
+> +
+>   static int mchp_otpc_prepare_read(struct mchp_otpc *otpc,
+>   				  unsigned int offset)
+>   {
+> @@ -140,8 +190,29 @@ static int mchp_otpc_prepare_read(struct mchp_otpc *otpc,
+>    * offset returned by hardware.
+>    *
+>    * For this, the read function will return the first requested bytes in the
+> - * packet. The user will have to be aware of the memory footprint before doing
+> - * the read request.
+> + * packet.
+> + *
+> + * Two offset encodings are supported:
+> + *
+> + * 1. Legacy ID-based: offset = OTP_PKT(id) = id * 4
+> + *    Used in DT as: reg = <OTP_PKT(1) 76>;
+> + * 2. TAG-based: offset = 4-byte ASCII packet tag (FourCC)
+> + *    Used in DT as: reg = <0x41435354 0x4c>; (tag "ACST")
+> + *
+> + * To use the legacy ID based packet lookup the user will have to be aware of
+> + * the memory footprint before doing the read request.
+> + *
+> + * But by using the TAG based packet lookup, the user won't have to be aware
+> + * of the memory footprint before doing the read request since this driver has
+> + * it abstracted and taken care of.
+> + *
+> + * Practically, there is no way of knowing the mapping of the OTP memory table
+> + * in advance for every device. But by using the packet tag - the identifier
+> + * ASCII value (FourCC), the packets can be recognized without being aware of the
+> + * flashed OTP memory map table and the payload can be acquired reliably.
+> + *
+> + * While the legacy ID based lookup is still supported, TAG based approach is
+> + * recommended.
+>    */
+>   static int mchp_otpc_read(void *priv, unsigned int off, void *val,
+>   			  size_t bytes)
+> @@ -154,12 +225,11 @@ static int mchp_otpc_read(void *priv, unsigned int off, void *val,
+>   	int ret, payload_size;
+>   
+>   	/*
+> -	 * We reach this point with off being multiple of stride = 4 to
+> -	 * be able to cross the subsystem. Inside the driver we use continuous
+> -	 * unsigned integer numbers for packet id, thus divide off by 4
+> -	 * before passing it to mchp_otpc_id_to_packet().
+> +	 * From this point the offset has to be translated into the actual
+> +	 * packet. For this we traverse the table of contents stored in a list
+> +	 * "packet" based on the access type - packet id or tag.
+>   	 */
+> -	packet = mchp_otpc_id_to_packet(otpc, off / 4);
+> +	packet = mchp_otpc_resolve_packet(otpc, off);
+>   	if (!packet)
+>   		return -EINVAL;
+>   	offset = packet->offset;
+> @@ -190,10 +260,25 @@ static int mchp_otpc_read(void *priv, unsigned int off, void *val,
+>   	return 0;
+>   }
+>   
+> +static int mchp_otpc_read_packet_tag(struct mchp_otpc *otpc, unsigned int offset,
+> +				     unsigned int *tag)
+> +{
+> +	int ret;
+> +
+> +	ret = mchp_otpc_prepare_read(otpc, offset);
 
-[auto build test ERROR on remoteproc/rproc-next]
-[also build test ERROR on linus/master v7.3-rc3 next-20260918]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Is this needed? At the moment this function is called a prepared was already 
+done (in mchp_otpc_init_packets_list()). The header was read. As of the current 
+code from mchp_otpc_read(), after that, writing 0 (for DR increment) to AR and 
+then reading DR leads to successfully reading the DR.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Guangshuo-Li/remoteproc-qcom-q6v5-wcss-remove-all-subdevices-on-unbind/20260918-121321
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/remoteproc/linux.git rproc-next
-patch link:    https://lore.kernel.org/r/20260918041321.3532355-1-lgs201920130244%40gmail.com
-patch subject: [PATCH] remoteproc: qcom: q6v5-wcss: remove all subdevices on unbind
-config: arm-allyesconfig (https://download.01.org/0day-ci/archive/20260919/202609192136.6T6AV8Dt-lkp@intel.com/config)
-compiler: arm-linux-gnueabi-gcc (GCC) 16.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260919/202609192136.6T6AV8Dt-lkp@intel.com/reproduce)
+However, the manual [1] mentions the following on step 4 from chapter 37.5.3.5. 
+Read:
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609192136.6T6AV8Dt-lkp@intel.com/
+4/ Read the header of the packet in the OTPC_HR register. To read each payload
+    word, the *address of the payload* word must be written in OTPC_AR.DADDR. The
+    payload word is then available in OTPC_DR. If OTPC_AR.INCRT is set to
+    AFTER_READ, any read in the OTPC_DR increments the DADDR field.
 
-All errors (new ones prefixed by >>):
+So, maybe there is a bug in the current code, in the mcp_otpc_read() and this 
+function, and instead of writing 0 to AR, after reading the header we need to 
+write the AR.ADDR and INCR=0 and after that read the DR? And the HW happens to 
+behave correctly even with the current implemented approach?
 
-   drivers/remoteproc/qcom_q6v5_wcss.c: In function 'q6v5_wcss_remove':
->> drivers/remoteproc/qcom_q6v5_wcss.c:1051:1: error: invalid use of void expression
-    1051 | +       qcom_remove_ssr_subdev(rproc, &wcss->ssr_subdev);
-         | ^
+[1] 
+https://ww1.microchip.com/downloads/aemDocuments/documents/MPU32/ProductDocuments/DataSheets/SAMA7D6-Series-Data-Sheet-DS60001851.pdf
+> +	if (ret)
+> +		return ret;
+> +
+> +	writel_relaxed(0, otpc->base + MCHP_OTPC_AR);
+> +	*tag = readl_relaxed(otpc->base + MCHP_OTPC_DR);
+> +
+> +	return 0;
+> +}
+> +
+>   static int mchp_otpc_init_packets_list(struct mchp_otpc *otpc, u32 *size)
+>   {
+>   	struct mchp_otpc_packet *packet;
+> -	u32 word, word_pos = 0, id = 0, npackets = 0, payload_size;
+> +	u32 word, word_pos = 0, id = 0, npackets = 0, payload_size, type;
+>   	int ret;
+>   
+>   	INIT_LIST_HEAD(&otpc->packets);
+> @@ -215,6 +300,20 @@ static int mchp_otpc_init_packets_list(struct mchp_otpc *otpc, u32 *size)
+>   
+>   		packet->id = id++;
+>   		packet->offset = word_pos;
+> +		type = FIELD_GET(MCHP_OTPC_HR_PACKET, word);
+> +
+> +		if (type == MCHP_OTPC_HR_PACKET_REGULAR) {
+> +			ret = mchp_otpc_read_packet_tag(otpc, packet->offset,
+> +							&packet->tag);
+> +			if (ret)
+> +				return ret;
+> +
+> +			if (!mchp_otpc_is_valid_fourcc(packet->tag))
+> +				packet->tag = 0;
+> +		} else {
+> +			packet->tag = 0;
+> +		}
 
+The else path is not needed since packet is allocated with devm_kzalloc(). With 
+that, if the above is true this section could be written as:
 
-vim +1051 drivers/remoteproc/qcom_q6v5_wcss.c
+if (type == MCHP_OTPC_HR_PACKET_REGULAR) {
+	u32 tag;
 
-  1039	
-  1040	static void q6v5_wcss_remove(struct platform_device *pdev)
-  1041	{
-  1042		struct rproc *rproc = platform_get_drvdata(pdev);
-  1043		struct q6v5_wcss *wcss = rproc->priv;
-  1044	
-  1045		rproc_del(rproc);
-  1046	
-  1047		qcom_q6v5_deinit(&wcss->q6v5);
-  1048		qcom_remove_glink_subdev(rproc, &wcss->glink_subdev);
-  1049		qcom_remove_pdm_subdev(rproc, &wcss->pdm_subdev);
-  1050		qcom_remove_sysmon_subdev(wcss->sysmon);
-> 1051	+	qcom_remove_ssr_subdev(rproc, &wcss->ssr_subdev);
-  1052	}
-  1053	
+	writel_relaxed(packet->offset + 4, otpc->base + MCHP_OTPC_AR);
+	// or if the manual is wrong:
+	// writel_relaxed(0, otpc->base + MCHP_OTPC_AR);
+	tag = readl_relaxed(otpc->base + MCHP_OTPC_DR);
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+	if (mchp_otpc_is_valid_fourcc(tag))
+		packet->tag = tag;
+}
+
+Thank you,
+Claudiu
