@@ -1,165 +1,170 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 838B930D413;
-	Sat, 19 Sep 2026 00:42:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B0D519CCF5
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 00:43:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789778568; cv=none; b=GfQ05Wk6LgrQJdIzbxi93JBNFF0GzKBU24+Dcu3vBv0q3M3nT67y8hBeuNHhGsf6GyJifn0G4HJvlbboVaEiei7iLOmMxzgj5xieKw6p3b5/sx6QkkPQy1owrB/O0uoo4ld6WUDRDNSzbQxLLnwRbv8Pz2oPHhwokcwCZuWQdfk=
+	t=1789778634; cv=none; b=ZvE3I1Vm+8kGgYGMj13b6soU8vuUPcLA6reweh2mTGGiqrVJL4IbblneCd+XdXgSSWkHXo4HISERIulsK5rRfgQJE1c33pmz+2aViKjl82a/kS9uQTwe+BZpn0f4m0YZD1WfsEJw1RystQLRPp8iN/gwufUzZXhXAEhrl491eeA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789778568; c=relaxed/simple;
-	bh=m3KXePJklgGQwGY4AmfcwI4Hy1N/b/Emxp++b8tIAxE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=ZR+YK29FnJn7LifYb+D4BiDSY5wSbcnSfEDJmS4Vn2yDwenzgUWyOU33vpzuLMkd86TwLgCTUxXf8+GZFXSKWRR53FAhcvtnwnBMWopxLXDrbyIFVlolf4rV5opeBmmNWd8IpUIVC4TdtUVFd29dwFAScvOFXM9VPpawLw9uE9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mails.ucas.ac.cn; spf=pass smtp.mailfrom=mails.ucas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mails.ucas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.ucas.ac.cn
-Received: from fric.. (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAC3wT9v2q1qBkoVCA--.19233S2;
-	Sat, 19 Sep 2026 08:42:23 +0800 (CST)
-From: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
-To: kraxel@redhat.com,
-	vivek.kasireddy@intel.com,
-	sumit.semwal@linaro.org,
-	christian.koenig@amd.com
-Cc: robert.mader@collabora.com,
-	dri-devel@lists.freedesktop.org,
-	linux-media@vger.kernel.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org,
-	Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
-Subject: [PATCH v2] dma-buf/udmabuf: reinstate a reasonable default size limit
-Date: Sat, 19 Sep 2026 00:42:22 +0000
-Message-Id: <20260919004222.4141024-1-xujiakai24@mails.ucas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789778634; c=relaxed/simple;
+	bh=D+hAw/Uh09Q82SlEbERV57F3KoJyZOGCwE/LuwiDuzE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=V3Keilyqkwizu01ASkdRWp348mYHB6RD/YoMrCtOguZrsjs5R6jMmYWN43cKnCacxsUV1WqaXJN65/09iNXezu/CPaiSvavfto9PBmhvBVdviyZt1HubBexqBR7Z0veioQrF9PqutzupF5ErEnKmftc6akzy5ZXj5KcdD83k5R4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mzRbAPWe; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mzRbAPWe"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398a147688bso1350510a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 17:43:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789778632; x=1790383432; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mkPeQNnq/YaoNWX48WK/qwCx8TOwAW8sXHVfmaoWgp0=;
+        b=mzRbAPWe+ZSQLAUmh0cWrz0+9enOzBEehuc/RJfMjUt3lfQ4hOnjR8FpGna87gcV6q
+         /1fgd4i+0XTdja72cTgCj/lqHq1Y/VCWPc4gOecgaJhera/n/hfeR+EeLYACO6VDQs1h
+         +NpJNGyijKWo94KzhvmfxXBKYr5pq3m6eB95pohdKAu90ER+w40V9SxqL6gDTqo+q2TH
+         Hd0uL1C3qnuNrtme3/O4agMD5U2Gn5P9fWxe0pQJmyWXowOKQpLTrlNZbTvQUzx5I8qE
+         lvhSNcTbW9vS9f9SBZBoFEdtOc+wZmB2ImooIY/BNZJEwNTb9ukowTDfbkKYxUPqExTh
+         ACvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789778632; x=1790383432;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mkPeQNnq/YaoNWX48WK/qwCx8TOwAW8sXHVfmaoWgp0=;
+        b=W+GOmMQUxs5xxH1WMszZPFGkXcrqdwu6A13U5z7+dt8SdG3G3mznuwe/Xor9r+cSER
+         UJEQBfD4PTOnLddLKLN9dT0uXyAlgTAUw/EGy61wOgcTR7GG6xIyzqhGaxo4gSpmSjzJ
+         RiKBBCniJ9KaFzy/Pv3enhry0Qekl5ntNo3+64mpC2wP/rQwtUsGesT3Zc2MMV9YDlF5
+         Fh5wUv107uO0mCKeoHEnOd9IpuvQD0bd5EaoXg8kyYCXhsJ/NGtjOWwWEvAmZvYRKGUq
+         p0gGL05i0lMvjND+zO5iRQp4KCEEE5kCUIyS4mDUl/grEoaqqIrHliuBzDCcwj5fz9Pl
+         pj/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzg/akeKmu26tLROJNUWYjvSh7RMUYgK/DqLmeENzN4fDxGzINI1TeJ4EXQx5y7uqHxXvRcGTxLmAto25I=@vger.kernel.org
+X-Gm-Message-State: AFuF++lFdZX4OR6bzjmCNGQu22WLtaoWPoI/0ugpESqy5D/6YwZX53Tu
+	Xwy1UwQ9SC9DXoDfbHTmpgJIg09FbMTxaDefMrLSLlIgUfxZhuZX2Q8G
+X-Gm-Gg: AYBFou1klnaxw1Ko+PR//eIann/LYyULOFiHK9hzrpj1d6f0z1bIdo70exDgTMw+Ssa
+	mfSRjFRgX9adQ7xK09D4wCouBKYFfCt1jsFSwr7KB5yBqeGH2GY5GZfxz4cByraD/ziUcZpxVox
+	9LDl0CGy8yP3e16jyuiwIMWMVce5qVC2ftNS6GAL75+VIARIX73aKp7pkKya8geaXmCnaSUiwkf
+	zi6vTfr7aBKyLX4O9WY7nqpNS5YVeUjDW+MJ1e9KM4dnR8A1eQv4YIKMWYgaRlT2syWcaZDICTl
+	4G6TXhfP8JWWh5zXw4Q+trRqqZrGELiDlnpfjhUWnpiJEASDoZXnL3V7EbqpiHcfdzwNRxpNI1R
+	mKf35V4YykvPlf39+E1vR9WpF29j9+dNz8Q+hK+s3890EFAHHHtcMPxLhn6tvTB9oGzUyn7PAjo
+	0QLV7A0Xh93o5hExAG6Fs+l94m3buRp/MVYyjOc8YrDZmZ06jJa+YQ7qbpo640N12NYxeeRDlyo
+	S0rrFEG0epK3NPEWy+uaLqTcWxmlbmRtpbyGJxiLSrN4GHIilXK3IXRSWwJs62b95+RlswJJV4t
+	jHfolNF+50F/NcPwXSAJJTUoc8H6C9HUcac+B4KCGce0gZ24
+X-Received: by 2002:a17:90b:57e8:b0:39e:6c69:9b8b with SMTP id 98e67ed59e1d1-39e6c69b27bmr1827870a91.48.1789778631767;
+        Fri, 18 Sep 2026 17:43:51 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c3145e5sm1768797a91.5.2026.09.18.17.43.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 17:43:51 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: dmaengine@vger.kernel.org
+Cc: Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	Harninder Rai <harninder.rai@freescale.com>,
+	Xuelin Shi <xuelin.shi@freescale.com>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCHv7] dmaengine: fsl_raid: check fsl_re_chan_probe() return value
+Date: Fri, 18 Sep 2026 17:43:49 -0700
+Message-ID: <20260919004349.736044-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAC3wT9v2q1qBkoVCA--.19233S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3Gw4fWr1UAw1fAFW5Gr4UJwb_yoW7urW3pr
-	43Xr4UCr40qF1UAF18Jrn8Ar1UAa1UAFW7XrW7Gr1kZF1UCw1UAFn7GryFqryDG34jv3W7
-	t3WDAw1vqr1UAaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBI14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40E
-	FcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr
-	0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8v
-	x2IErcIFxwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20x
-	vY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I
-	3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIx
-	AIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAI
-	cVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2js
-	IEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7VUbQVy7UUUUU==
-X-CM-SenderInfo: 50xmxthndljko6pdxz3voxutnvoduhdfq/
 
-Commit 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by
-default") raised the default size_limit_mb from 64 to INT_MAX.  With
-4K pages, creating a buffer of more than INT_MAX / 8 pages (about 1 TB
-of pinned memory) now makes the two per-page pointer arrays in
-init_udmabuf() exceed what kvmalloc() can handle: kvmalloc() warns and
-fails when the requested size exceeds INT_MAX bytes (WARN_ON_ONCE in
-__kvmalloc_node_noprof), which is trivially triggerable from
-unprivileged users through the UDMABUF_CREATE ioctls:
+fsl_re_probe() ignores the return value of fsl_re_chan_probe() and
+unconditionally increments total_chans. When a channel fails to probe
+(for example, an IRQ mapping failure) its re_jrs[] slot is left NULL, yet
+total_chans still advances, so fsl_re_remove_chan() later dereferences the
+NULL pointer during device removal.
 
-  WARNING: CPU: 0 PID: 412 at mm/slub.c:7021 __kvmalloc_node_noprof
-  Call Trace:
-   udmabuf_create
-   udmabuf_ioctl_create_list
+Check return value and guard fsl_re_remove() against NULL entries.
 
-Restore a reasonable default limit of 256 MB, which is the value
-proposed in the RFC discussion that led to commit 44e9eb5a7621
-("dma-buf/udmabuf: Disable the size limit by default") and comfortably
-covers the 8K video use cases cited there, while keeping the
-kvmalloc() request far below its threshold.  The limit remains
-runtime-tunable via the size_limit_mb module parameter for setups
-that need more.
-
-Fixes: 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by default")
-Assisted-by: OpenCode:DeepSeek-V4-Flash
-Signed-off-by: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
+Fixes: ad80da658bbc ("dmaengine: Driver support for FSL RaidEngine device.")
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
-V1 -> V2:
-- Instead of adding a pgcnt check in udmabuf_create(), restore a
-  reasonable default size limit (256 MB), as suggested by Christian
-  König.
-- Drop the second Fixes tag; the regression is solely due to
-  44e9eb5a7621.
-- Drop the "Cc: stable" tag; 44e9eb5a7621 is only in v7.3-rc1 and has
-  not shipped in any released kernel yet.
+ v7: handle differently based on sashiko review
+ v6: increment ridx before continue;
+ v5: put some stuff on one line for easier readability.
+ v4: use break;
+ v3: fix sashiko review
+ v2: fix description
+ drivers/dma/fsl_raid.c | 31 +++++++++++++++++++++----------
+ 1 file changed, 21 insertions(+), 10 deletions(-)
 
-V1: https://lore.kernel.org/all/20260918013434.1849135-1-xujiakai24@mails.ucas.ac.cn/
----
- drivers/dma-buf/udmabuf.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-index df6dd00462423..4d90c2cb14225 100644
---- a/drivers/dma-buf/udmabuf.c
-+++ b/drivers/dma-buf/udmabuf.c
-@@ -20,9 +20,9 @@ static int list_limit = 1024;
- module_param(list_limit, int, 0644);
- MODULE_PARM_DESC(list_limit, "udmabuf_create_list->count limit. Default is 1024.");
+diff --git a/drivers/dma/fsl_raid.c b/drivers/dma/fsl_raid.c
+index 9cc289f7129e..f269fe9df795 100644
+--- a/drivers/dma/fsl_raid.c
++++ b/drivers/dma/fsl_raid.c
+@@ -687,7 +687,6 @@ static int fsl_re_chan_probe(struct platform_device *ofdev,
+ 		goto err_free;
+ 	}
  
--static int size_limit_mb = INT_MAX;
-+static int size_limit_mb = 256;
- module_param(size_limit_mb, int, 0644);
--MODULE_PARM_DESC(size_limit_mb, "Max size of a dmabuf, in megabytes. Default is INT_MAX.");
-+MODULE_PARM_DESC(size_limit_mb, "Max size of a dmabuf, in megabytes. Default is 256.");
+-	re_priv->re_jrs[q] = chan;
+ 	chan->chan.device = dma_dev;
+ 	chan->chan.private = chan;
+ 	chan->dev = chandev;
+@@ -741,6 +740,11 @@ static int fsl_re_chan_probe(struct platform_device *ofdev,
+ 	/* Enable RE/CHAN */
+ 	out_be32(&chan->jrregs->jr_command, FSL_RE_ENABLE);
  
- struct udmabuf {
- 	pgoff_t pagecount;
++	/* Only record the channel once it is fully initialized, so the
++	 * cleanup paths never touch a partially-probed ring.
++	 */
++	re_priv->re_jrs[q] = chan;
++
+ 	return 0;
+ 
+ err_free_1:
+@@ -836,18 +840,24 @@ static int fsl_re_probe(struct platform_device *ofdev)
+ 		}
+ 		/* Find out the Job Rings present under each JQ */
+ 		for_each_child_of_node(np, child) {
+-			rc = of_device_is_compatible(child,
+-					     "fsl,raideng-v1.0-job-ring");
+-			if (rc) {
+-				fsl_re_chan_probe(ofdev, child, ridx++, off);
+-				re_priv->total_chans++;
++			if (!of_device_is_compatible(child, "fsl,raideng-v1.0-job-ring"))
++				continue;
++
++			if (ridx >= FSL_RE_MAX_CHANS) {
++				dev_warn(dev, "too many job rings, max %d\n", FSL_RE_MAX_CHANS);
++				of_node_put(child);
++				break;
+ 			}
++
++			rc = fsl_re_chan_probe(ofdev, child, ridx, off);
++			if (rc)
++				dev_err(dev, "job ring %d probe failed: %d\n", ridx, rc);
++			re_priv->total_chans++;
++			ridx++;
+ 		}
+ 	}
+ 
+-	dma_async_device_register(dma_dev);
+-
+-	return 0;
++	return dma_async_device_register(dma_dev);
+ }
+ 
+ static void fsl_re_remove_chan(struct fsl_re_chan *chan)
+@@ -872,7 +882,8 @@ static void fsl_re_remove(struct platform_device *ofdev)
+ 
+ 	/* Cleanup chan related memory areas */
+ 	for (i = 0; i < re_priv->total_chans; i++)
+-		fsl_re_remove_chan(re_priv->re_jrs[i]);
++		if (re_priv->re_jrs[i])
++			fsl_re_remove_chan(re_priv->re_jrs[i]);
+ 
+ 	/* Unregister the driver */
+ 	dma_async_device_unregister(&re_priv->dma_dev);
 -- 
-2.34.1
-
--- 
-Below is the crash report:
-------------[ cut here ]------------
-WARNING: mm/slub.c:7013 at __kvmalloc_node_noprof+0x516/0x5d0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:7013, CPU#0: syz.5.27938/167363
-Modules linked in:
-CPU: 0 UID: 0 PID: 167363 Comm: syz.5.27938 Tainted: G        W    L      7.3.0-rc2 #1 PREEMPT(full) 
-Tainted: [W]=WARN, [L]=SOFTLOCKUP
-Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1 04/01/2014
-RIP: 0010:__kvmalloc_node_noprof+0x516/0x5d0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:7013
-Code: 05 bf fa 2d 08 49 8b 0f c6 04 08 00 65 48 ff 0d 90 fa 2d 08 0f 85 4c fd ff ff e8 05 43 8c ff e9 42 fd ff ff e8 9b 86 0e 04 90 <0f> 0b 90 31 db e9 d2 fe ff ff f3 0f 1e fa 65 8b 05 8d fa 2d 08 89
-RSP: 0018:ffffc90002bc3cf8 EFLAGS: 00010246
-RAX: 0000000000000100 RBX: 0000000000000000 RCX: 0000008000000000
-RDX: 0000008000000000 RSI: 0000000000000000 RDI: ffffffff835e3226
-RBP: 00000000ffffffff R08: 00000000000028c0 R09: 00000000ffffffff
-R10: 0000000000000006 R11: 0000000000000002 R12: 0000008000000000
-R13: 00000000000028c0 R14: 0000001000000000 R15: 0000008000000000
-FS:  00007fc89ae45640(0000) GS:ffff8880f3de4000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000000110c2ff305 CR3: 000000002b3d4000 CR4: 0000000000752ef0
-DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000006000
-DR3: 0000000000000000 DR6: 00000000ffff0ff0 DR7: 0000000000000400
-PKRU: 80000000
-Call Trace:
- <TASK>
- init_udmabuf home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:193 [inline]
- udmabuf_create+0x1b6/0x750 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:386
- udmabuf_ioctl_create home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:465 [inline]
- udmabuf_ioctl+0x132/0x1d0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:496
- vfs_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:51 [inline]
- __do_sys_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xbc/0x130 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:583
- do_syscall_x64 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x12b/0x350 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x590d6d
-Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 a8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fc89ae44fd8 EFLAGS: 00000216 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 0000000000611e7f RCX: 0000000000590d6d
-RDX: 00002000000023c0 RSI: 0000000040187542 RDI: 000000000000000a
-RBP: 00007fc89ae45010 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000216 R12: 00007fc89ae45640
-R13: 000000000000000b R14: 0000000000528d40 R15: 00007fc89ae25000
- </TASK>
----[ end trace 0000000000000000 ]---
----
+2.55.0
 
