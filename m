@@ -1,104 +1,81 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D56A30B521
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:22:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6D5738424C;
+	Sat, 19 Sep 2026 22:23:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789856548; cv=none; b=CPTnqt69IIBKTjDz580kjYngmgQho+Uig/bkh/ERf6tlMgfFW/zAYmJBQzCCF0ICD17nB8cb65UwEcfG8sisadDhAX5dwLhmY1tyctIfkrdutVN7ZQX1yv6LhR7zyCqm6QYXnKSqZ8AAUozqTvRfTvxWA5TrWK4WGNhG3TfLKZ4=
+	t=1789856607; cv=none; b=LxZxjUsqosdXw07+8bptvqVK1EnB9NaE7cTQtnESltqk0lKENPldd6xRWAMrPd7jl/urWy1e5zNxaOHOY9FKlxF+q9x3oWH1IwnRvW60N/AeUZRyU3g+pfPcimNVJwbrzNXfOP+96yGwF7ZreBiU10/1t8JSegOIAjFgtp8d/Mg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789856548; c=relaxed/simple;
-	bh=JjH8eBLmjco3rYzqCwCMPGFgVCakNE3ALpV89xjsfMA=;
-	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
-	 Content-Type; b=Qnhnp93mPleWPDKoF1U4IB8+4yessA69cyAAtkuyYc4xPxZcZY0X8l7PGMvLaA7mR/22OS3FBJ1Vqvf8U5+IZU7LM3B1DcAlVfCugn9RE5rzDE1Do4DiWlx92C+kwHDQQnxESvWqVG6odaCA+ZGQQklAnQO/QCiWIrBBl18Edso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=kRRgKLKl; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=W5GtNkjw; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1789856607; c=relaxed/simple;
+	bh=CYm3bn/G5CpHxowBhxlW6qnGcwW3HcH/BkAvjjtC3KY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MUCsHqNC8YAsxv7fOA6AKu7vOg0oSqs3gJQQNwsUwvs1JcjP2tIOdhqspfWaVo5fL/42Y5YWSK0q4Cucfaq9mMuEXGbhVreHHjGYVrWoPcZCwFju14EuVV9Um/YX7Ehv21EsQHTUiS9bQ2JXb9oqztmXwrOJYcO1Mey9Roqg/Og=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=JO7uCzMx; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="kRRgKLKl";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="W5GtNkjw"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1789856539; bh=vu/c9lbdUaplWASsv9Bqcw1
-	HWKPmI2P/dA5pwa5VVDA=; b=kRRgKLKlVEMzSWT2T4UKo3GhvLkn1Qy2hHLvBUJg1O2+LtjxyL
-	PVBfT/MgglDv1A61XNbF0vHhrm3qUvSVaZFK8PfCuznC3Z33RCVHus039Pgs0/ySmRVNF+dKeut
-	ESSbwnWG4AAX3ndRzlC0Qpl59XD+v/c0LAouLUb4eMr3+i/5GUJvoEf4KejHM4NRtZNTyJUM4tg
-	7b7WLOgcH11i9jVRcmyNhqp3IClXYPwgXV72q3l55LfQ9d9Fwd/JWNZOes5oyHto3YydsUaE4rE
-	BR7W9QpWrPDPtJPeOn+UXt0gJvkCeR93W5yUuHydW6ddpSlcKIZYxbQEp1gaNu2AstA==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1789856539; bh=vu/c9lbdUaplWASsv9Bqcw1
-	HWKPmI2P/dA5pwa5VVDA=; b=W5GtNkjwEksRj5KoZNq32Km+0wbEPiExP5XZr8hfaR70svPXsx
-	I+eyZARsdddORFicz1hxqkLqEgfzsjXkwUDQ==;
-Date: Sat, 19 Sep 2026 23:22:20 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: benquike@gmail.com
-CC: kees@kernel.org, linux-kernel@vger.kernel.org, luto@amacapital.net,
- wad@chromium.org, akpm@linux-foundation.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_seccomp=3A_restore_knotif-=3Estate_?=
- =?US-ASCII?Q?when_SECCOMP=5FADDFD=5FFLAG=5FSEND_is_interrupted?=
-In-Reply-To: <20260919203514.2580997-1-benquike@gmail.com>
-Message-ID: <83420D4E-147D-454D-A41D-DCDCFCB4B531@mainlining.org>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="JO7uCzMx"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=arYgjoTvtYvhRB29W6paCuPe7hqmom9kFaLIHBHqv2A=; b=JO7uCzMxsydPkVLkbgcnKZFjMj
+	XAJHq1dQXW2QiII1JYziYfM5VVRJ3GEkKavpHODazyctZrruCe47AeCAOSRkwArylp+dQIZYtN0nb
+	lNLJKIDwSkUg4ysOjyV+IWhPJVBYosObU9eu7rwgiFQS4Avla6qugnhavyXloTI1WwJw=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x83Sg-0064Ku-7H; Sun, 20 Sep 2026 00:23:10 +0200
+Date: Sun, 20 Sep 2026 00:23:10 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: nicolo.giuliani6@studio.unibo.it
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Gregory Clement <gregory.clement@bootlin.com>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 3/3] arm64: dts: marvell: Add Sophos XGS 107w NPU board
+Message-ID: <6b935e31-169a-4cd1-b385-62dc659c1256@lunn.ch>
+References: <20260919-send-dt-v1-0-365615a74ef3@studio.unibo.it>
+ <20260919-send-dt-v1-3-365615a74ef3@studio.unibo.it>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260919-send-dt-v1-3-365615a74ef3@studio.unibo.it>
 
-On 19 September 2026 21:35:14 BST, Hui Peng <benquike@gmail.com> wrote:
->In seccomp_notify_addfd(), when SECCOMP_ADDFD_FLAG_SEND is set,
->knotif->state is transitioned from SECCOMP_NOTIFY_SENT to
->SECCOMP_NOTIFY_REPLIED before dropping filter->notify_lock and waiting
->in wait_for_completion_interruptible(&kaddfd.completion).
->
->If wait_for_completion_interruptible() is interrupted by a signal before
->the target task processes the kaddfd entry, seccomp_notify_addfd()
->removes kaddfd.list from knotif->addfd via list_del(&kaddfd.list), but
->leaves knotif->state set to SECCOMP_NOTIFY_REPLIED.
->
->As a consequence:
->1. When the target task wakes in seccomp_do_user_notification(), it
->   observes knotif->state == SECCOMP_NOTIFY_REPLIED with an empty addfd
->   list and zeroed knotif->val / knotif->error / knotif->flags, causing
->   the supervised syscall to prematurely complete with return value 0
->   without installing the file descriptor.
->2. Any subsequent retry of SECCOMP_IOCTL_NOTIF_SEND or
->   SECCOMP_IOCTL_NOTIF_ADDFD by the supervisor fails with -EINPROGRESS
->   because knotif->state is no longer SECCOMP_NOTIFY_SENT.
->
->Restore knotif->state = SECCOMP_NOTIFY_SENT when removing an unhandled
->SECCOMP_ADDFD_FLAG_SEND request from knotif->addfd.
->
->Fixes: 7cf97b125455 ("seccomp: Introduce addfd ioctl to seccomp user notifier")
->Assisted-by: LLM
->Signed-off-by: Hui Peng <benquike@gmail.com>
->---
->diff --git a/kernel/seccomp.c b/kernel/seccomp.c
->--- a/kernel/seccomp.c
->+++ b/kernel/seccomp.c
->@@ -1808,10 +1808,13 @@ static long seccomp_notify_addfd(struct seccomp_filter *filter,
-> 	 * We need to check again if the addfd request has been handled,
-> 	 * and if not, we will remove it from the queue.
-> 	 */
->-	if (list_empty(&kaddfd.list))
->+	if (list_empty(&kaddfd.list)) {
-> 		ret = kaddfd.ret;
->-	else
->+	} else {
-> 		list_del(&kaddfd.list);
->+		if (addfd.flags & SECCOMP_ADDFD_FLAG_SEND)
->+			knotif->state = SECCOMP_NOTIFY_SENT;
->+	}
-> 
-> out_unlock:
-> 	mutex_unlock(&filter->notify_lock);
->
-Akpm?
+> The reset line of the switch (CP GPIO2 pin 17) is deliberately not given
+> to the mv88e6xxx driver as reset-gpios. The 88E6193X needs about two
+> seconds after a reset before it can be used, much longer than the driver
+> waits, so the probe would time out.
 
-Also, Reviewed-by: Bradley Morgan <brads@mainlining.org>
+The obvious question is, why is your 88E6193X special?
+
+I've seen issues when there is an EEPROM attached and it has a lot of
+content to setup the switch. But that goes against using DSA, where
+you want Linux to control the switch, not a fixed configuration.
+
+> +&cp0_i2c0 {
+> +	clock-frequency = <100000>;
+> +	status = "okay";
+> +
+> +	/* Drives the port speed LEDs, which are not described yet */
+> +	gpio@20 {
+
+Which port?
+
+> +&cp0_i2c1 {
+> +	/* SFP EEPROM (0x50/0x51) */
+
+The addresses are not that simple. When a copper module is inserted,
+other addresses are used. The SFP driver assumes it has access to all
+addresses on the bus.
 
 
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
+  Andrew
