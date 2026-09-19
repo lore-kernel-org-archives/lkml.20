@@ -1,68 +1,116 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56DB23B2FF6
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 07:45:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DE462E229F
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 07:45:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789803905; cv=none; b=YEdOTAAO03CTUxGsq9gcB15EtFBLGaetCm4TGnsTiL8qgxncWTJpnaobZORWFWybOd6OCvz7R2HEkJMGCpqtl/dR6Vr0owfqPvDOmytD8T5D2RxV9UxCeX3uOV9xoOW5CyVZI0h0i3zvNZo2qnvMIPiLzXI4GGtUf7vPL2SnEe8=
+	t=1789803914; cv=none; b=bA0KLft/0ty9LXMD863QwQE+vHua/SCAhqKV2QZCyDuYm6kFRtvrXEJvdZ5Y5xkVT6uZtZgwAmo2w5pRN2OXCG7jC1TOygBcFAaEms2FPOPQcGDnBP8zJQVLyZI7HR0U5gEqn3x0TBFM2jCL053fFNkcF6NCMU3vArKW+Ss+Qjw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789803905; c=relaxed/simple;
-	bh=Q1nUjk9VuBCM7ULANZtpDZsdAc2C3fd8JSuzKbgnvQ4=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=suIkpomWoEADibjaG1FnJPMMgdZhrCjKSiZ4A0fAhFDPy5IXUfYzxSi1J+TAu23lPJXpa4kWgEbe+pQDraNSyvIJx3sbunLzvhOnDax9Z+QXv0hioBL5PO4RQD5vQZ6EJgxTS4bgI+9KCGTEzEIQItvBuR/wqKYsvIllffPrpko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=jHPYmXIC; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789803914; c=relaxed/simple;
+	bh=Q+zCiKser7bCWIbP78SoG0/m+GiWQMGnDLfmB3/UOP8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dNIMMpL6mCPCroGeA7q4JUKdSUDvhNWuGKjyL8jwlzrfQYePOJTdLGuoehluTlKM6vWTJcLKznxEBFUhaUzpjQTW7Zj2qq9tUwSKkHpi3Vs1h53u46fiuJiYMMlizIoBWDSuYIdEdmfxNwW4g+7K1SFsnZEg0zmhGyPCsz4R9Uo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g+Hgmmm0; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="jHPYmXIC"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 75AAB4E408AC;
-	Sat, 19 Sep 2026 07:45:00 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id BB066606CA;
-	Sat, 19 Sep 2026 07:44:59 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EA9C31032907B;
-	Sat, 19 Sep 2026 09:44:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789803898; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=Q1nUjk9VuBCM7ULANZtpDZsdAc2C3fd8JSuzKbgnvQ4=;
-	b=jHPYmXICISt0CBNQjPTDTCC2qeZGvMsEMJrbnwLOm3YogxWf3b761RqRUgHk4k/qiSDy7e
-	W/YLodLm8ONW3xTvS2dp3x/JSSjNy3k/Q9BQKZFU0WRIc7/gEPd3koACUfo2mPE6HKqVOb
-	cPZMjC4/1pc4R+u/YZUQXVgi615GFpnT1TbLF/cbrIE9PftbtkKQTrQL0tidZO5ZvryMYE
-	we+X/a+wBLsMrbDUD9Vaw9ZOeLPWg7gxzcA3DJ5VBlUFDUMPbtXyRUr/IEYmQPcRG5qsQu
-	O0uSGkuHhtt8p51XvVvFo4mUEqAyuhWx2UDpVn4VdsiKCih4gqaTshLp7R82Ow==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: sashiko-bot@kernel.org
-Cc: "Wentao Liang" <vulab@iscas.ac.cn>,  alexandre.belloni@bootlin.com,
-  sashiko-reviews@lists.linux.dev,  linux-mtd@lists.infradead.org,
-  linux-kernel@vger.kernel.org,  vigneshr@ti.com,
-  claudiu.beznea@tuxon.dev,  stable@vger.kernel.org,
-  linux-arm-kernel@lists.infradead.org,  nicolas.ferre@microchip.com,
-  bbrezillon@kernel.org,  richard@nod.at
-Subject: Re: [PATCH] mtd: rawnand: atmel: Fix HSMC clock leak in legacy
- controller init
-In-Reply-To: <20260917103855.934A81F000FF@smtp.kernel.org>
-	(sashiko-bot@kernel.org's message of "Thu, 17 Sep 2026 10:38:55
-	+0000")
-References: <20260917102804.2146887-1-vulab@iscas.ac.cn>
-	<20260917103855.934A81F000FF@smtp.kernel.org>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Sat, 19 Sep 2026 09:44:51 +0200
-Message-ID: <87se35elcc.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g+Hgmmm0"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398a1676000so1293433a91.2
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 00:45:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789803913; x=1790408713; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nzhIw8jPRNxoB8iVaoAn3LrVYY24GoK7KU38cNUcsNA=;
+        b=g+Hgmmm00OCJCpR1hbzuOF0V/LzxwntqZ8J1xelH5x+pVUelEzy3bRGE0Z53mrfaWV
+         TRef0vk5kGl1KMYh4vZbNEh+gTYq06/SW6S8qR3eVh8R48h7L2OUWujjXkKFo7Anljj1
+         KJkCxVH8EE1fjByZpCRrn+tPjcZ277FL1wpTV+PDUN4SvTu6I91oi8SVUihcV7vnu+TM
+         hOo2yjnT7+gMRPhcvNYtAISy48zpx7VjxhRKS4UvPWyHYPKLW1nAFasbRyT/Ilre+XYG
+         bhd2KOtlJIxvevjSuXnaDscVbHKFZp78GqNSGmPPirbVkZqJeyh5cqz23j2VgStwygVP
+         IDkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789803913; x=1790408713;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nzhIw8jPRNxoB8iVaoAn3LrVYY24GoK7KU38cNUcsNA=;
+        b=DX5lCQ8dgFyDpoaE0nQI7HakjEcrysgi2H7ErO78lJPgDt/LjWCfOvD4BexrpC8llp
+         4DQt7cdYf0ZzJ0X4WPUn+eQzBWU4XNI31iCm0//I3ZmIEjg8ZfKxJF5m2y2ZTTvNsBKP
+         4D9AQ2MNVX99tHyVEfdZCY4DQBxcR0eqh3HJ3ZOjvYQA7CWuFvaWqiQnNigfpc3ESI/K
+         VfUNjfWWOdX7l7gqXKdBK8qg9tOgDRzWJJfSs26NjtV2vYmgOK2hY7PwLhGT1QwjNj/y
+         fdAyghWxOMIDkg7ZfSs/1Y5MNaEuXpB+F66WbtzwaCha6MYM8tWUjzi57KqAefG1FF1Q
+         xEPA==
+X-Forwarded-Encrypted: i=1; AKwUvBwv+iAhHelEt+I5x8wGx9zZpVrEAh6EIQSTIIyNUSAtQ78Yc/63N8JFhtLa7fX2QQkQZ5R1C735jbT05d8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lmisqVOuockg9iNQ01MSMP4Pgh6DirxwtudkZ7DJJApS41ReOX
+	3iYC5ird3WivvMrOfDm2pI1swxlSPHi8QMaoHqfJLL01wYj40e7E/4hb
+X-Gm-Gg: AYBFou32ch3aT5qFgUisEhAOOfY1OTnxfZuL8OYITXUq0jhaOwI12KrM0nAOeGo4wjP
+	dVnAXjbihyOandPnrAhBz80diW+urr5yUArxgXvXPP8gNBSsqjUWCyteHtE92YPV5WFDk11PXM4
+	Ssul6kbxNng2y8y/nKFPHLtWGYNxkuf6DH5WJ4jSFbDEks1u/8KhMSZne3gprr8/vRjBlnUwqbh
+	dehZPWEvYe77UM0MTODZNCKcjWY5DisJusI2mCb+NvyTmYM9ks4kfVJuxKNKLLxLlx65ZdmzhY9
+	8oGds/nG0ce7v8qCNU2ev01Buz4IUgsx2rhKzi1I2nLqVGjMhJToB1EzF8t45UGO+lZ/QzfgoqC
+	6RVC5fs+aVbFGsSCb+HsPUo9up58bzDiuYnDmk1jC+0uiHPLsV277/aWKS5QdKusfkeipy63lsT
+	SGEB/fuXaZPAiqImn2Libzv0eC314gKfPaVdyKShOPOFvn8Tnv+pnYmvvQNgk/Kd2dahnV45ff9
+	A==
+X-Received: by 2002:a17:90a:c88d:b0:39e:4c80:f67f with SMTP id 98e67ed59e1d1-39e54f3aa58mr9006171a91.30.1789803912686;
+        Sat, 19 Sep 2026 00:45:12 -0700 (PDT)
+Received: from [192.168.101.188] ([207.90.239.231])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144d55f299fsm6860122c88.15.2026.09.19.00.45.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 19 Sep 2026 00:45:12 -0700 (PDT)
+Message-ID: <aeb5b8a8-e01e-404f-9788-b4770ecdd9ef@gmail.com>
+Date: Sat, 19 Sep 2026 15:44:54 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6/7] arm64: dts: allwinner: a523: add DWC3 USB3.0 node
+To: Per Larsson <per@palvencia.se>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Andre Przywara
+ <andre.przywara@arm.com>, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-phy@lists.infradead.org, linux-clk@vger.kernel.org,
+ linux-sunxi@lists.linux.dev
+References: <20250816084700.569524-1-iuncuim@gmail.com>
+ <20250816084700.569524-7-iuncuim@gmail.com> <20260915013336.68ee3611@rpi>
+Content-Language: en-US
+From: Mikhail Kalashnikov <iuncuim@gmail.com>
+In-Reply-To: <20260915013336.68ee3611@rpi>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 17/09/2026 at 10:38:55 GMT, sashiko-bot@kernel.org wrote:
-
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Low] mtd: backward goto in error handling path violates kernel
-> style
-
-Yes, it is strange, can you please fix this?
+On 9/15/26 07:33, Per Larsson wrote:
+> On Sat, 16 Aug 2025 16:46:59 +0800
+> iuncuim <iuncuim@gmail.com> wrote:
+> 
+>> +			interrupts = <GIC_SPI 35 IRQ_TYPE_LEVEL_HIGH>;
+> 
+> (Sorry for the more-or-less necroposting)
+> 
+> This is the only mention of irq or interrupt in the entire series,
+> which at first led me to believe there was something missing given that
+> there's a "Nobody cared" message appearing when the port first detects
+> something connected to it followed by something about the irq
+> being disabled.
+> 
+> Now I read in the text of another patch (adding a TrimUi dts) that this
+> message comes when an interrupt storm is detected, and given that the
+> value in /proc/interrupts goes from zero to 100K in no time, that seems
+> likely to be the case here as well.
+> 
+Yes.> What is this interrupt supposed to be about, and can it be handled
+> better?
+This inerrupt should be disabled in host mode, I'll do it in v2.
+But except this message it doesn't affect functionality.
