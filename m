@@ -1,132 +1,102 @@
-Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-100.mta0.migadu.com [91.218.175.100])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F05F43B4E95;
-	Sat, 19 Sep 2026 07:34:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.56.87.2
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789803259; cv=pass; b=padjqNC3uxe8rdlaBw9Qr1Lbrsgl6OXUSzTnK8XvLKir+f3QiG8goiNzEp/raG7N1Ue1/Vll1XuUn/W6y7qcBGPC3ZB5bSe/QylDWiNplKUFJ+xB81u6PDE5RNhEl5lYbYYIRA/2Cee5E/4ex19VFjx1M+98eI98gfALg2mzUuA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789803259; c=relaxed/simple;
-	bh=llg/PF8nMnnpezaHPpy9KBWeZf3PiiHR8A/GPkRQCtQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ASjBJxtbHyce6I9RDWhKy+3a9Rj9Daamt34clL+LspOkyuN00BO7KuGg5rFYhV8DKMKNUyk9pYx0y8TrCgZ2MPSyyk1en9LUGGn6V49iemWPHfdKjQmWEj4Sf4iTwyjjRpWqxe7geUB2gZJksDJ2/jWXiqrUcpGSXxcFb50+Nds=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it; spf=pass smtp.mailfrom=valla.it; dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b=vmDl3blU; dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b=UpO1qiOn; arc=pass smtp.client-ip=185.56.87.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1BC5374E42
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 07:35:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.100
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789803306; cv=none; b=ZX2wWoAoW37HTUrnm3zW+123p55A4Enk2Qu/Mn2CmjwOXjJeTgLyH+N4Vy3j9y1TK/szZbcLh3TIGanFjnHE2IlAqJqlB++s00nVtuQJXnMbd0OLuajEqT6kaAutniEGWrMknK9rvQpOoGJBZpCI9+I8Nrfya1+cTd77Vjs53Ik=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789803306; c=relaxed/simple;
+	bh=bwTHF6NnPL2Nf6L0KvSVWduTuK3JmVHwj2sjNly6dPo=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=e9SCtOGpM5EssfPLlXT432aIASxPPrk11my9ZrzGn2R5HRTc0XyJU6UyRNBn9hyA0uldqD0OVDtJfrvY3tYQsC6PlAQWIP34G6KFf40/c/b9vXG0cRTkKQnCI4O1PYnsNxBTE3RpFfQcdbyIZGnO8GoXn2N/idsLmXDnGLBd1rI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=jrkY5f59; arc=none smtp.client-ip=91.218.175.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b="vmDl3blU";
-	dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b="UpO1qiOn"
-ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-h0bm.prod.antispam.mailspamprotection.com; s=arckey; t=1789803256;
-	 b=eBn+xMPZWsM1o/HNsgNgXYeZSYY3oZUJvD8KhN3/mxc2ku6JRFNYokoUv3YF/R3+rSzokrSrg2
-	  zNB9yyEDrH2I8WAGhNWyr1cxgljiwf2NYQdF9YxGkSDw/HvmlBsjZmNeeHsKhAA9HDflr6A5ST
-	  urKATI05qtqW7102UzdGcPHEmXV9H1vFmQVVfwM4N4pXiCYolwrvNt1PpI2v+YwCd1kRhfRUQG
-	  8qjloH457nM2K/eySLKdl6MqspQKJB0XZmRVUT4ojy48O9a3Sl6cU1vz8jptAU8m8KzmrTSbQP
-	  /l4nyVyHdLxoDohnLjYtGbGdw6v0Z+kF+Qc/81/XjD9H4g==;
-ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-h0bm.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-h0bm.prod.antispam.mailspamprotection.com; s=arckey; t=1789803256;
-	bh=llg/PF8nMnnpezaHPpy9KBWeZf3PiiHR8A/GPkRQCtQ=;
-	h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:
-	  From:Date:DKIM-Signature:DKIM-Signature;
-	b=NqaNR07IvGyjneb+o9l3TxXzXr7Pw5GS1W0sr3WnBsYJ0JCUzb0UVCXBvfZQoRMpIWVLG7hjG9
-	  x4gMs2smY97iY82gO+9o1FdJWte25+1qWhx5Z9ydYU4b3lJ51VoaUvs0Mt+mGZycQkta4KRFgO
-	  6Dm8IqWYt7v/KXRmitR3qQ4GTA9f7m5iwN3sJHR9AEEdPQVevNDZg1wtA2Hd4u74n+XYUE59yl
-	  Z+ShecXvPZLdCOEGqntsEQDO1LsPrpa1ezkrpfDee21zfKJ4VDWVbViLeYi2hgi9jtNywxLS85
-	  jKeYrewiP0PbFXDRXPSzFzEkalXco/EtqnSD2Lcs0fRLDQ==;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
-	:Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	List-Unsubscribe:Content-Transfer-Encoding;
-	bh=1CgMYzN7u/XA+bnop2JDgsNdowKH5ww277Ab2jeFzYI=; b=vmDl3blUtrxlreVSwjC4zi2qOJ
-	TwjCHnZAHzqDVUUypijxRLygjfCBdVWwqPfTflaCsd+WSBEuTo5cTU+Y0BkGBgFr/A6909k1F2jFs
-	q6iQ3zdiKNgcfBB7HaUgri9hkf5aFwP6ZK+tfmh+3JU2/XQq7hpz1LkhrGVLrxF/yT0s=;
-Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
-	by instance-europe-west4-h0bm.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <francesco@valla.it>)
-	id 1x7pa8-00000005bxT-3Rgn;
-	Sat, 19 Sep 2026 07:34:12 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
-	s=default; h=Subject:Cc:To:From:Date:list-help:list-unsubscribe:
-	list-subscribe:list-post:list-owner:list-archive;
-	bh=1CgMYzN7u/XA+bnop2JDgsNdowKH5ww277Ab2jeFzYI=; b=UpO1qiOnq7xdcWjgHZmVoz6PH6
-	qnX8EWkbIbCQnHos0YlsXjQrPVX98//3jAxv0fogZLwImFWx8HL4sgPGe3Cd6N7yD0LUfSxLJvPzr
-	CCHTUlfULmZRgWrMaDWDzF0qYbREJFaOi177rp4/VFmpRK+nl7GD9XvXkPWjmtJwzthc=;
-Received: from [95.75.45.71] (port=45394 helo=bywater)
-	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <francesco@valla.it>)
-	id 1x7pZp-000000006o5-4BDY;
-	Sat, 19 Sep 2026 07:33:38 +0000
-Date: Sat, 19 Sep 2026 09:33:36 +0200
-From: Francesco Valla <francesco@valla.it>
-To: Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, 
-	Robin Murphy <robin.murphy@arm.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Peng Fan <peng.fan@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	virtualization@lists.linux.dev, imx@lists.linux.dev, iommu@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH RFC 00/12] remoteproc: add support for any virtio device
-Message-ID: <aq453yukMHiNb1jp@bywater>
-References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
- <aq1sooGCYUiWbhMH@p14s>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="jrkY5f59"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=bwTHF6NnPL2Nf6L0KvSVWduTuK3JmVHwj2sjNly6dPo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789803301; v=1; x=1790408101;
+ b=jrkY5f59AO1rrkbeDGnUAJiQsf+UARwOfR38Ih2pV3qCG2BVedCN66sS6Xh0Jrj/JMBRBcvS
+ eHgCAPTBrTtqIzGAGLootoakKC2dk4qpdIGe79VYB5ro4Dc2C7AaFKdiQP/QKyj2gbstDh8/Jt7
+ juo3vlu9A57wjuDarjhlfKMA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 95f1a4aad28e81c8;
+	Sat, 19 Sep 2026 07:35:01 +0000
+X-Mizu-Trace-ID: 95f1a4aad28e81c8
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <748ca00e-61af-4698-86a9-cb28a41c7471@linux.dev>
+Date: Sat, 19 Sep 2026 15:34:52 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aq1sooGCYUiWbhMH@p14s>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - esm19.siteground.biz
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - valla.it
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-SGantispam-id: 96599686283de8ba6277d57333ca4895
-X-AntiAbuse: ID - 96599686283de8ba6277d57333ca4895
-AntiSpam-DLS: false
-AntiSpam-DLSP: 
-AntiSpam-DLSRS: 
-AntiSpam-TS: 1.0
-CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
-CFBL-Feedback-ID: 1x7pa8-00000005bxT-3Rgn-feedback@antispam.mailspamprotection.com
-Authentication-Results: outgoing.instance-europe-west4-h0bm.prod.antispam.mailspamprotection.com;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
+User-Agent: Mozilla Thunderbird
+Cc: cui.tao@linux.dev, cgroups@vger.kernel.org, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, andrii@kernel.org,
+ eddyz87@gmail.com, daniel@iogearbox.net, linux-kselftest@vger.kernel.org,
+ cuitao@kylinos.cn
+Subject: Re: [RFC PATCH v5 1/5] blk-iocost: add BPF struct_ops cost model
+ support
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>, tj@kernel.org,
+ josef@toxicopanda.com, axboe@kernel.dk, ameryhung@gmail.com
+References: <20260918031751.1255420-1-cui.tao@linux.dev>
+ <20260918031751.1255420-2-cui.tao@linux.dev>
+ <DLIK37JYD35X.3NZ4ZHTHDKAFX@gmail.com>
+From: Tao Cui <cui.tao@linux.dev>
+In-Reply-To: <DLIK37JYD35X.3NZ4ZHTHDKAFX@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Mathieu,
+Hi Alexei,
 
-On Fri, Sep 18, 2026 at 10:53:54AM -0600, Mathieu Poirier wrote:
-> Hi Francesco,
+在 2026/9/18 23:43, Alexei Starovoitov 写道:
+> On Fri, Sep 18, 2026 at 11:17 AM Tao Cui <cui.tao@linux.dev> wrote:
+>> The registration and binding model follows the TCP congestion
+>> model registration pattern: registering a struct_ops makes the model
+>> available by its name (char name[IOCOST_MODEL_NAME_LEN], validated at
+>> init_member), while
+>> io.cost.model binds one registered model to a device with
+>> "model=<name>" and unbinds with "model=linear" or "ctrl=auto/user".
+>> Unregistering a model removes it from the registry, but its name
 > 
-> I have started reviewing this set but given the size and implications, it will
-> take me a few days to get through.
-
-I'm going through the review done by sashiko - would you prefer me
-sending a v2 with the trivial errors already ironed out before doing
-a complete review?
-
-> 
-> Thanks,
-> Mathieu
+> I don't think it's what Tejun asked for in v1. He asked for a per-device
+> struct_ops instance where attaching switches the device to bpf and
+> detaching switches it back. Instead there is a global name registry,
+> a lifecycle list, an "unregistered but still bound" state and a
+> refcount_t on top of bpf_struct_ops_get(), and every version since v3
+> had a lifetime bug in exactly that code.
+> Do it like hid_bpf_ops does with hid_id: device in the struct_ops,
+> bind in .reg, unbind in .unreg, and le
+> t struct_ops own the lifetime.
 > 
 
-Thank you!
+Thanks for pointing this out.
 
-Regards,
-Francesco
+You are right. I misunderstood Tejun's comment from v1. I took
+"per-device" as selecting a registered model by name for each device,
+which led to the current registry/lifecycle design.
+
+My original implementation followed the tcp-cc style named model
+approach, but that was not what Tejun was suggesting. The intended
+model should be a per-device struct_ops instance, with attach/detach
+controlling the switch between the BPF model and the builtin model,
+and the struct_ops core owning the lifetime.
+
+> pls wait for Tejun's feedback before respinning.
+> 
+
+I'll rework the design in that direction and wait for Tejun's feedback
+before sending another revision.
+
+Thanks,
+Tao
+
+> pw-bot: cr
 
