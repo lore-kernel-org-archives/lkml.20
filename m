@@ -1,258 +1,203 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.lysator.liu.se (mail.lysator.liu.se [130.236.254.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73CC137C92A
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 06:13:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAA772E040D;
+	Sat, 19 Sep 2026 06:13:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.236.254.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789798398; cv=none; b=NiddXk4C08SyzmRldl+//vw1+JtDMlrZ5yN21lRkCIp8uomAO0Ypdmbn+XBF2GCgIhIAjQbqWS7AR4EnyraMmtR4EuGv6qBsFVIhrDeTdZk7wQRXt+utPMthlJt5WRxRbZBit23Xnlol5b2bakfQKS4EmWy0PehpAn5reIlZ5pI=
+	t=1789798399; cv=none; b=I1L3ql4ZGorurz1ssHqkmOCn2FXELpwogSuunHRjeSRho3JwZcngUAbGl5H8NrMuMyvNq5QJNPuDd+4z9RyPvnAXhV0oKpDrGbUk4bzPdpBZKUQGJIScIDphst5iSFPNN5HTmyp9xV9E5wGJ95PScLyQZEF7gAwje28L5sgublw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789798398; c=relaxed/simple;
-	bh=y61k6gZOnEK28c4elLqVh4jmqgYX1qNkC+5TeBcNnvs=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=XyVW7nrr3BuYb2YwAHXBId1f2el1yZR07YluKMwaIsBz/nUOiNjUxK9N+A2zGiTSCRtaElsYqYepGajcmVi7kSjao0hnzx7fwCFGYmM0WkhgoSHS9R8q9bXiImPsO5I67mSYaY0BT3J69oRCZwTmdvGw80nOMhzUYFNBaA+KR28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TyMe7cBl; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789798399; c=relaxed/simple;
+	bh=r0rIJEbTCjPraoleaNid+5e/bfwSclqT21BbxtXocGw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dKiAozHn3neVnfbyL3/tye1YaXUvfsIGfJjAXb+TI2hlKbKNitX6PBET7YhrDUKpfZHG0tluI662zwTDqa9vG3hjV7xIRQdsFtP0fFQQmfdj1M/Qyx+zuSUKN6HxOhcVZmrp5mWwia5+tyIzGAzI4dnSfBvSIjrfWKYmv2cJ4bI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lysator.liu.se; spf=pass smtp.mailfrom=lysator.liu.se; dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b=Ojlk2QbJ; dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b=BowDxEo1; arc=none smtp.client-ip=130.236.254.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lysator.liu.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lysator.liu.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TyMe7cBl"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39dacf053eeso1100403a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 23:13:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789798397; x=1790403197; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VrD9gQVR4gBczVkX17GB94+S3KMBMN9yoFZXXeZXVNY=;
-        b=TyMe7cBljiPEUQDYcipv0nOGMD6sAPnmVegeWQN1D6eGQhrgOoQyEza22hROXbRnTQ
-         ltC7nbi5pGNT4AtCsievskGMt8cq9lne0GEWeQiSoJfzSinYLJEL8yw3j5dmhcLpReP/
-         k/iiwEMrHgGWA8Z130By5wXkJzB5VYZyc4Ap1L3jI7AE0PSe6oioRmecThaecm7Sf2br
-         QK1bTbY8dkLjy8WykvyvaTeRv5Jrq72eqijeIropzQB8Oy+yX7z2Y/Ty5Lx5qVXkmxGi
-         Y4KS4BfLPGiX8Vio8TGSD8vo5hsw5XUbCtRzKRdEtbEnkJZtWW+sjGVoG9x3Up8INmPr
-         98PQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789798397; x=1790403197;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VrD9gQVR4gBczVkX17GB94+S3KMBMN9yoFZXXeZXVNY=;
-        b=hRWEYjsnKyFlPVHwJjwBCQcyrEMcqC77H7+oHznu3hiruxae26eFoAEqUejVwn4344
-         sG2q57TDK61K+ryipFMiVnYC/cT/hd+1G5fwWC85ULWn8mLy75n+0z2mlPRs1H6/H7SK
-         R036mLpTsD/C2FwSc3qST2iGMoetYoXqXme0UIk0fEVDqTWWoyCu+VkJJK7DJ+WbKjBS
-         8Gp4e2GmypyvBlmF9QsEkf2E7ZeADhQLhroZkNdtUo/q6OYtg9jJCaTv4A5SbvihsZME
-         VXQAbGjvxbSatkiAyu3i0jl53Ll3ejs1Y14OroeN6v1X2ujJAfOns2qF+7/7kRQ74s43
-         tnUA==
-X-Forwarded-Encrypted: i=1; AKwUvBwNQNEiHce99xWNynjxMLQikyjQVyfnuV0sZQ0BV5RDmqwQJYyj8pYRtr9EUF2v4ooUqpcTfp4BDSg/dkM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lYPcIgKY7V2ArbmTW4rklRGrR+YLLWNIjC8MSQm3Wg3WJtdMTi
-	xfnjc/zUXiPzGPyR70OS5+Iykvj9qRrVwR9koiDhB/NxShYuNmkaw7Zf
-X-Gm-Gg: AYBFou2CYZWVWlhvQChzxVWQHlAL30lcDsp7uvovmYb8ZfM/XYIal7Ifbm9y/1WV2Xs
-	AiEhSOtrgqaAaG3x3UP9HCoz2FhqJOQRhzhVHzYM+xDdx20huCkdNKooMAwiK9ilPp9vAiCIRgT
-	r1VZvRgk9lvv1jl28QagPyen2HpEGotmkCT4h6i6Bnu6V7D1rY5Gm8AsnrI9lnDHa1AyCVD+7kz
-	dx0MJ7//c42GFxzSe42HDB7RO+tCXozhtiM7Rj2+x7pqSuSjzEE3E/XGP0NBfHZgJboG5HK6HeF
-	olDfzd+xvVHDzBHaPKrCnrzykW1Z9lHtKsfTyQM8CP2XlOXT7Pn97OkxrB0ZyS7pV86Celfmfsr
-	xIjfJQMnUTqHEdID2RcWPn0tRvgowyJQj1ET2AR8UkXMprtdNnOar5ZcecTqD8irvgsduBdFEvo
-	dcrNbbyoYJChdjHFdp0nQRXcp8qE+0Rh/JT3aUqE7kddTnpeG1RW3QOiqpyazGA1U/0j7+0zSGB
-	Sh69idTHaOxl+FryJGDVcMBTQX8Nph/9pVJeh/IPOKaRhP9GgD+7GZwfWGGQaFeHwmL115DEyBB
-	6v9Xj6X+fQ==
-X-Received: by 2002:a17:90b:2ccf:b0:39e:6a7e:ee1d with SMTP id 98e67ed59e1d1-39e6a7eef8amr3450727a91.41.1789798396697;
-        Fri, 18 Sep 2026 23:13:16 -0700 (PDT)
-Received: from Inspiron-14-5420.. ([2402:e280:21c6:671:d11b:773b:fa83:c49a])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144d55f299fsm5781280c88.15.2026.09.18.23.13.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 23:13:16 -0700 (PDT)
-From: "Hemendra M. Naik" <hemendranaik@gmail.com>
-To: netdev@vger.kernel.org
-Cc: jiri@resnulli.us,
-	jhs@mojatatu.com,
-	kuba@kernel.org,
-	linux-kernel@vger.kernel.org,
-	vishy0777@gmail.com,
-	tahiliani@nitk.edu.in,
-	"Hemendra M. Naik" <hemendranaik@gmail.com>
-Subject: [PATCH iproute2-next v6 1/3] tc: fq_pie: add support for printing per-flow PIE statistics
-Date: Sat, 19 Sep 2026 11:42:52 +0530
-Message-Id: <20260919061254.39678-2-hemendranaik@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260919061254.39678-1-hemendranaik@gmail.com>
-References: <20260919061254.39678-1-hemendranaik@gmail.com>
+	dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b="Ojlk2QbJ";
+	dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b="BowDxEo1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lysator.liu.se;
+	s=2026; t=1789797884;
+	bh=r0rIJEbTCjPraoleaNid+5e/bfwSclqT21BbxtXocGw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Ojlk2QbJS0JUarWklSMSJ78+j5a71qmswe8chR1dJdN+aTR5/sSk29crtQq5602SV
+	 SCv+TTGO2K1wyLOO7hQUDTI0wxnn8xbaefYYBIvi2oSq5iOFN9lS7mcpqDpmfGwkgD
+	 gAHAWS7BMDl5leryc5LAVPDkajfwlvr5Gbv7nVJMtOGO1kkXMZ3QC/e4F46vkuNmoi
+	 BSiHtT467Tm+Mmkii3sjrTQnN3sJEp5ggqGBB/OnaqaXQmOlGRkZ3kJS0im67f0lQx
+	 VTPi5trNSnLglycJuHr2BI92wP0SE0Wms11Sp0UJiVWSYTkwUpKbMwQz99iuvH7+cZ
+	 rsZZ4+ZiBLv4w==
+Received: from mail.lysator.liu.se (localhost [127.0.0.1])
+	by mail.lysator.liu.se (Postfix) with ESMTP id 05DCD1E1B4;
+	Sat, 19 Sep 2026 08:04:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lysator.liu.se;
+	s=2026; t=1789797883;
+	bh=r0rIJEbTCjPraoleaNid+5e/bfwSclqT21BbxtXocGw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=BowDxEo1IYdb6rY/WL1w01+BTaocQ0docKjrTzMsulIOGKgEg7Md2IQCVLhDuu514
+	 LD+gxsW5mJIh6HpP/gSHkspFypatATxpjJHTbKMB716oAaWtsi9sOIGZthZwLN91/O
+	 s7RVjmUyAIpLVnK7OxcE+XxOUuiOtk5HCPcMcQmt/9pG6C3UGhKCoyAm7Fr81ZlSmx
+	 Th2uxUZcEhuHCDS3bPZAfCUZsuD9XIeiEgd481tJQdz2u5NffhfI4Y8Aah4pFGYZTs
+	 b8xhVIe1Gw8Ggeexq4Y/99B66pmWhmEr5JnqPdOPKCt3Qqvcrh5M+p/xP3tKYVVtwH
+	 A1fgzZ7txQRdQ==
+Received: from gryt (81-225-28-11-no2391.tbcn.telia.com [81.225.28.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by mail.lysator.liu.se (Postfix) with ESMTPSA id 54E541E212;
+	Sat, 19 Sep 2026 08:04:43 +0200 (CEST)
+Date: Sat, 19 Sep 2026 08:04:41 +0200
+From: Peter Rosin <peda@lysator.liu.se>
+To: rahul sharma <r-sharma3@ti.com>
+Cc: Conor <mail@conchuod.ie>, Conor Dooley <conor@kernel.org>,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	vigneshr@ti.com
+Subject: Re: Re: Re: Re: [PATCH 1/2] dt-bindings: mux-controller: ti: add
+ binding for event mux router
+Message-ID: <aq4l-dCW_dqvisj_@gryt>
+References: <20260828100615.1700223-1-r-sharma3@ti.com>
+ <20260828100615.1700223-2-r-sharma3@ti.com>
+ <20260828-goes-scrawny-a5cf40c9514d@spud>
+ <bacf61ea-91b1-454c-97aa-8c6e4ca07b16@ti.com>
+ <20260915-shredder-liver-219bbc18dd18@spud>
+ <62194a7f-5b7e-419a-8235-9eb46f2f2e7d@ti.com>
+ <8724E360-7B38-48E2-8A5D-9BBAA69EAD06@conchuod.ie>
+ <1cd03e37-a9bb-4c21-b8f6-557a1fcacc5b@ti.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <1cd03e37-a9bb-4c21-b8f6-557a1fcacc5b@ti.com>
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-`tc -s class show` for an fq_pie qdisc now prints the following
-per-flow PIE statistics:
+Den Fri, Sep 18, 2026 at 11:35:28PM +0530, skrev rahul sharma:
+> Hi Conor,
+> 
+> On 18/09/26 03:40, Conor wrote:
+> > On 17 September 2026 17: 44: 21 GMT+02: 00, rahul sharma <r-sharma3@ ti. com>
+> > wrote: >Hi Conor, > >On 15/09/26 19: 19, Conor Dooley wrote: >> On Tue, Sep 15,
+> > 2026 at 06: 10: 45PM +0530, rahul sharma wrote: >>> Hi Conor,
+> > 
+> > 
+> > 
+> > On 17 September 2026 17:44:21 GMT+02:00, rahul sharma <r-sharma3@ti.com> wrote:
+> > > Hi Conor,
+> > > 
+> > > On 15/09/26 19:19, Conor Dooley wrote:
+> > > > On Tue, Sep 15, 2026 at 06:10:45PM +0530, rahul sharma wrote:
+> > > > > Hi Conor,
+> > > > > 
+> > > > > Thanks for reviewing.
+> > > > > Apologies for the delay in responding.
+> > > > > 
+> > > > > On 28/08/26 21:57, Conor Dooley wrote:
+> > > > > > On Fri, Aug 28, 2026 at 03:36:14PM +0530, Rahul Sharma wrote:
+> > > > > > > Add binding for the event mux router of TI's K3 based SoC AM62L.
+> > > > > > > 
+> > > > > > > The TI K3 mux routers which route the GPIO input events or Time-Sync
+> > > > > > > events b/w peripherals instead of routing to a CPU.
+> > > > > > > 
+> > > > > > > Refer Section 10.2 and 10.2.1 of
+> > > > > > > https://www.ti.com/lit/pdf/sprujb4
+> > > > > > > 
+> > > > > > > Signed-off-by: Rahul Sharma <r-sharma3@ti.com>
+> > > > > > > ---
+> > > > > > >    .../mux/ti,am62l-event-mux-router.yaml        | 79 +++++++++++++++++++
+> > > > > > >    1 file changed, 79 insertions(+)
+> > > > > > >    create mode 100644 Documentation/devicetree/bindings/mux/ti,am62l-event-mux-router.yaml
+> > > > > > > 
+> > > > > > > diff --git a/Documentation/devicetree/bindings/mux/ti,am62l-event-mux-router.yaml b/Documentation/devicetree/bindings/mux/ti,am62l-event-mux-router.yaml
+> > > > > > > new file mode 100644
+> > > > > > > index 000000000000..a5ba7f78a156
+> > > > > > > --- /dev/null
+> > > > > > > +++ b/Documentation/devicetree/bindings/mux/ti,am62l-event-mux-router.yaml
+> > > > > > > @@ -0,0 +1,79 @@
+> > > > > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > > > > > +%YAML 1.2
+> > > > > > > +---
+> > > > > > > +$id: https://urldefense.com/v3/__http://devicetree.org/schemas/mux/ti,am62l-event-
+> > mux-router.yaml*__;Iw!!G3vK!VJUh5A8cDCko1ZAGtTQ8V-
+> > LL1vTj1BNr5NNBonzfy5GnFCQkP4Oc-0Kkq4xVdCcEA5bQcDckFu6UyA$ <https://urldefense.com/v3/__http://devicetree.org/schemas/mux/ti,am62l-event-mux-router.yaml*__;Iw!!G3vK!VJUh5A8cDCko1ZAGtTQ8V-LL1vTj1BNr5NNBonzfy5GnFCQkP4Oc-0Kkq4xVdCcEA5bQcDckFu6UyA$>
+> > > > > > > +$schema: https://urldefense.com/v3/__http://devicetree.org/meta-schemas/core.yaml*__;Iw!!
+> > G3vK!VJUh5A8cDCko1ZAGtTQ8V-LL1vTj1BNr5NNBonzfy5GnFCQkP4Oc-0Kkq4xVdCcEA5bQcDdyRJuLcg$ <https://urldefense.com/v3/__http://devicetree.org/meta-schemas/core.yaml*__;Iw!!G3vK!VJUh5A8cDCko1ZAGtTQ8V-LL1vTj1BNr5NNBonzfy5GnFCQkP4Oc-0Kkq4xVdCcEA5bQcDdyRJuLcg$>
+> > > > > > > +
+> > > > > > > +title: TI Event Multiplexer on K3 SoCs
+> > > > > > > +
+> > > > > > > +maintainers:
+> > > > > > > +  - Rahul Sharma <r-sharma3@ti.com>
+> > > > > > > +
+> > > > > > > +description:
+> > > > > > > +  The TI K3 mux routers routes the GPIO input events or Time
+> > > > > > > +  Sync events between peripherals instead of routing to a CPU.
+> > > > > > > +
+> > > > > > > +allOf:
+> > > > > > > +  - $ref: mux-controller.yaml#
+> > > > > > > +
+> > > > > > > +properties:
+> > > > > > > +  compatible:
+> > > > > > > +    const: ti,am62l-event-mux-router
+> > > > > > > +
+> > > > > > > +  reg:
+> > > > > > > +    description: Register base address and size.
+> > > > > > > +    maxItems: 1
+> > > > > > > +
+> > > > > > > +  '#mux-control-cells':
+> > > > > > > +    const: 1
+> > > > > > > +    description:
+> > > > > > > +      Number of cells in a mux control specifier. This should be 1.
+> > > > > > > +      The cell specifies which mux control to use (0-based index).
+> > > > > > > +
+> > > > > > > +  ti,reg-mask-val:
+> > > > > > > +    $ref: /schemas/types.yaml#/definitions/uint32-matrix
+> > > > > > > +    items:
+> > > > > > > +      items:
+> > > > > > > +        - description: Register offset (relative to reg base)
+> > > > > > > +        - description: Bit mask for the mux control bits
+> > > > > > > +        - description: Value to write when mux is active (state 1)
+> > > > > > > +    minItems: 1
+> > > > > > > +    description: |
+> > > > > > > +      Array of triplets specifying register offset, mask, and value for each
+> > > > > > > +      mux control. Each triplet contains:
+> > > > > > > +      - register offset (relative to reg base)
+> > > > > > > +      - bit mask for the mux control bits
+> > > > > > > +      - value to write when mux is active (state 1)
+> > > > > > 
+> > > > > > You have a device-specific compatible, why do you need this? If the
+> > > > > > active setting depends on the device or w/e, why can that not come from
+> > > > > > a mux-control-cell?
+> > > > > 
+> > > > > This is a boot-time/board-fixed routing decision, not a runtime-selectable
+> > > > > mux that any driver ever calls mux_control_select() on.
+> > > > 
+> > > > 2/3 of this property appears to describe the register layout of the
+> > > > device, that's not affected by the board or some boot time decision.
+> > > > 
+> > > 
+> > > You are right about the mask element; I will move the mask into the driver since it is constant across all entries. However, the reg-offset must remain in the DT, as it is specific to each BCDMA channel's trigger line configuration. This allows the DT to define the unique routing offsets required for the hardware.
+> > 
+> > The reason you cite here for needing reg offset is exactly what using mux-controls from a consumer node provides.
+> 
+> I will refactor this to use mux-control-cells. I will drop ti,reg-mask-val
+> from the bindings and instead source the reg-offset and value from the
+> consumer node.
 
- prob           drop probability for the flow
- delay          per-flow queue sojourn time (microseconds)
- deficit        remaining DRR byte credits (signed integer)
- avg_dq_rate    dequeue rate estimate in bytes/second
-                (dq_rate_estimator mode only)
+Since you have this ti,reg-mask-val in the binding I assume you have 
+different setups needing different values. But, since it is obviously OK 
+to handle the variation in the mux-controller DT node, it should also be 
+possible to simply enumerate the different setups as different 
+compatibles. Then all needed compatibles could be handled by this driver 
+which would use the compatible to look up the needed values in a table.
 
-avg_dq_rate is formatted using tc_print_rate(), which converts the
-kernel's bytes/second value to a human-readable bits/second string
-(e.g. 3906Kbit), consistent with how other tc schedulers display
-rate fields.
+The relevant tqble can surely not be all that large?
 
-Update the UAPI header to mirror tc_fq_pie_cl_stats from the kernel.
-class_stats is a direct struct member (no empty qdisc placeholder).
+I prefer that over passing values in the cells, whixh seems a bit 
+convoluted to me.
 
-Add `tc -s class show` examples to tc-fq_pie(8) demonstrating the new
-per-flow statistics with and without dq_rate_estimator enabled.
-
-Signed-off-by: Hemendra M. Naik <hemendranaik@gmail.com>
-Signed-off-by: Vishal Kamath <vishy0777@gmail.com>
-Signed-off-by: Mohit P. Tahiliani <tahiliani@nitk.edu.in>
----
- include/uapi/linux/pkt_sched.h | 17 ++++++++++
- man/man8/tc-fq_pie.8           | 18 +++++++++++
- tc/q_fq_pie.c                  | 59 +++++++++++++++++++++++-----------
- 3 files changed, 75 insertions(+), 19 deletions(-)
-
-diff --git a/include/uapi/linux/pkt_sched.h b/include/uapi/linux/pkt_sched.h
-index d1f67ef8..b03ee5f7 100644
---- a/include/uapi/linux/pkt_sched.h
-+++ b/include/uapi/linux/pkt_sched.h
-@@ -953,6 +953,21 @@ enum {
- };
- #define TCA_FQ_PIE_MAX   (__TCA_FQ_PIE_MAX - 1)
- 
-+enum {
-+	TCA_FQ_PIE_XSTATS_QDISC,
-+	TCA_FQ_PIE_XSTATS_CLASS,
-+};
-+
-+struct tc_fq_pie_cl_stats {
-+	__u64 prob;			/* current probability */
-+	__u32 delay;			/* current delay in microseconds */
-+	__s32 deficit;			/* number of remaining byte credits */
-+	__u32 avg_dq_rate;		/* current average dq_rate in
-+					 * bytes/second
-+					 */
-+	__u32 dq_rate_estimating;	/* is avg_dq_rate being calculated? */
-+};
-+
- struct tc_fq_pie_xstats {
- 	__u32 packets_in;	/* total number of packets enqueued */
- 	__u32 dropped;		/* packets dropped due to fq_pie_action */
-@@ -963,6 +978,8 @@ struct tc_fq_pie_xstats {
- 	__u32 new_flows_len;	/* count of flows in new list */
- 	__u32 old_flows_len;	/* count of flows in old list */
- 	__u32 memory_usage;	/* total memory across all queues */
-+	__u32 type;
-+	struct tc_fq_pie_cl_stats class_stats;
- };
- 
- /* CBS */
-diff --git a/man/man8/tc-fq_pie.8 b/man/man8/tc-fq_pie.8
-index 457a56bb..8027783c 100644
---- a/man/man8/tc-fq_pie.8
-+++ b/man/man8/tc-fq_pie.8
-@@ -153,6 +153,24 @@ dq_rate_estimator
-   pkts_in 6082 overlimit 0 overmemory 0 dropped 4 ecn_mark 0
-   new_flow_count 94 new_flows_len 0 old_flows_len 8 memory_used 1157632
- 
-+# tc qdisc add dev eth0 parent 100:1 handle 200: fq_pie target 2ms flows 3
-+.br
-+# tc -s class show dev eth0
-+.br
-+class fq_pie 200:2 parent 200:
-+ Sent 0 bytes 0 pkt (dropped 0, overlimits 0 requeues 0)
-+ backlog 22800b 2p requeues 0
-+  prob 0.57679 delay 2.38ms deficit -52
-+
-+# tc qdisc add dev eth0 parent 100:1 handle 200: fq_pie target 2ms flows 3 dq_rate_estimator
-+.br
-+# tc -s class show dev eth0
-+.br
-+class fq_pie 200:2 parent 200:
-+ Sent 0 bytes 0 pkt (dropped 0, overlimits 0 requeues 0)
-+ backlog 22800b 2p requeues 0
-+  prob 0.57679 delay 2.38ms deficit -52 avg_dq_rate 10742Kbit
-+
- .SH SEE ALSO
- .BR tc (8),
- .BR tc-pie (8),
-diff --git a/tc/q_fq_pie.c b/tc/q_fq_pie.c
-index dc2710cd..0c85e17f 100644
---- a/tc/q_fq_pie.c
-+++ b/tc/q_fq_pie.c
-@@ -274,6 +274,8 @@ static int fq_pie_print_xstats(const struct qdisc_util *qu, FILE *f,
- {
- 	struct tc_fq_pie_xstats _st = {}, *st;
- 
-+	SPRINT_BUF(b1);
-+
- 	if (xstats == NULL)
- 		return 0;
- 
-@@ -283,25 +285,44 @@ static int fq_pie_print_xstats(const struct qdisc_util *qu, FILE *f,
- 		st = &_st;
- 	}
- 
--	print_uint(PRINT_ANY, "pkts_in", "  pkts_in %u",
--		   st->packets_in);
--	print_uint(PRINT_ANY, "overlimit", " overlimit %u",
--		   st->overlimit);
--	print_uint(PRINT_ANY, "overmemory", " overmemory %u",
--		   st->overmemory);
--	print_uint(PRINT_ANY, "dropped", " dropped %u",
--		   st->dropped);
--	print_uint(PRINT_ANY, "ecn_mark", " ecn_mark %u",
--		   st->ecn_mark);
--	print_nl();
--	print_uint(PRINT_ANY, "new_flow_count", "  new_flow_count %u",
--		   st->new_flow_count);
--	print_uint(PRINT_ANY, "new_flows_len", " new_flows_len %u",
--		   st->new_flows_len);
--	print_uint(PRINT_ANY, "old_flows_len", " old_flows_len %u",
--		   st->old_flows_len);
--	print_uint(PRINT_ANY, "memory_used", " memory_used %u",
--		   st->memory_usage);
-+	if (!st->type || st->type == TCA_FQ_PIE_XSTATS_QDISC) {
-+		print_uint(PRINT_ANY, "pkts_in", "  pkts_in %u",
-+			   st->packets_in);
-+		print_uint(PRINT_ANY, "overlimit", " overlimit %u",
-+			   st->overlimit);
-+		print_uint(PRINT_ANY, "overmemory", " overmemory %u",
-+			   st->overmemory);
-+		print_uint(PRINT_ANY, "dropped", " dropped %u",
-+			   st->dropped);
-+		print_uint(PRINT_ANY, "ecn_mark", " ecn_mark %u",
-+			   st->ecn_mark);
-+		print_nl();
-+		print_uint(PRINT_ANY, "new_flow_count", "  new_flow_count %u",
-+			   st->new_flow_count);
-+		print_uint(PRINT_ANY, "new_flows_len", " new_flows_len %u",
-+			   st->new_flows_len);
-+		print_uint(PRINT_ANY, "old_flows_len", " old_flows_len %u",
-+			   st->old_flows_len);
-+		print_uint(PRINT_ANY, "memory_used", " memory_used %u",
-+			   st->memory_usage);
-+		print_nl();
-+	}
-+
-+	if (st->type == TCA_FQ_PIE_XSTATS_CLASS) {
-+		print_float(PRINT_ANY, "prob", " prob %lg",
-+			    (double)st->class_stats.prob / (double)UINT64_MAX);
-+		print_uint(PRINT_JSON, "delay", NULL, st->class_stats.delay);
-+		print_string(PRINT_FP, NULL, " delay %s",
-+			     sprint_time(st->class_stats.delay, b1));
-+		print_int(PRINT_ANY, "deficit", " deficit %d",
-+			  st->class_stats.deficit);
-+
-+		if (st->class_stats.dq_rate_estimating) {
-+			tc_print_rate(PRINT_ANY, "avg_dq_rate", " avg_dq_rate %s",
-+				      st->class_stats.avg_dq_rate);
-+		}
-+		print_nl();
-+	}
- 
- 	return 0;
- 
--- 
-2.34.1
-
+Cheers,
+Peter
