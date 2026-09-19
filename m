@@ -1,178 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 040C926F2A0
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 18:09:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BF1F332EBC
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 18:10:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789841382; cv=none; b=NoTK/apT7b56Rey0P4WZB54coCFvr9pa74BtT0AfCY1AxdxIuAfmiF/GpJL/QWRnthhmSTRfrxfp0HrJm5AG3DnzQtOtUPpr04CHpdxCcmUsrKf+XizSjMzsddblu4sqCoqKdGECwIsbN0sZLWR3TXR4xINqRZagtfgcq7H7jJU=
+	t=1789841402; cv=none; b=MAvOYeGlrZy1XaFYkUhNxEzZnIQ21gbrvfRMBOUpoLdfmc8EvpoaAX4W3aVu/75FL3jw3vjVlUUSXb3joE0lvWcWj5gj9oiAroWRjSr0Civ30jjofsc5DZ1UgqbO0xZFgZVOKAJrL9BeXcvp7JDDq2mKFfeBghW449935vN9Eiw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789841382; c=relaxed/simple;
-	bh=nzrPoy2aSo8Rg+S+rEM2UaTaCM46de/cfEGGM7scxIA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aJgIdwwD9Bn9D8Y5zWyTi74NAU5+np1xIqqDy/Cv9HtJnY/UDtzKfosxbyj8rC8iTQCSkCp66dHJnAw7m3SYrjpidTgxZx/UksJ9u/x89mH5Eqyiw9x4t5mSg0CvAJKW27Hyh4MvYbgAxewCXI2IM03Gv7eRh9JIa1PT7dhniuE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jSkB5Lc9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789841402; c=relaxed/simple;
+	bh=gHqFe6eGXXFB8sKeBRGQ/axF1hls+iHKOBOScQ/BUUo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=vBvOZHP7d4FjkqgVZ4ai7VtpT/EcGcYg9zqQXXwu1NHHe22j4mtodNejpCJzHNE3WYRde+lm4ABgttrqfwpwM7Bsj3gjXAzqUZtXzN05Tbp9dIXZF1YZMJejc1cgfZKkVO42N8uLaU+kUBi3HPMWXEW4td4fvoHy9KqITDyK/Wk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DTmS+qsc; arc=none smtp.client-ip=74.125.228.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jSkB5Lc9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01A8F1F00898;
-	Sat, 19 Sep 2026 18:09:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789841380;
-	bh=pRkKN54/lEpILJ2Lc3rIPCovoIruayWHBPFvaiFZSfg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jSkB5Lc9+CorTFT5giaa6PovfuT3C9FlCn8dm0b+TDP7lsairb0CV5Cgn4gwITAqV
-	 QXpgGzktDyPCJ4nbbjRAHNObBHswYpYVabVgrL23Bl3iuzYZOGyNVDDGxvTi7ZlPes
-	 vnR5A2EiirGgWpeMazc6HxyDBX2BWikLiMh8KGFLIURelNwDGFyfbROohIzLaxw5AE
-	 mDuzMUxvfmlyzK5nopD7JoF1yNjhrRr/J4LB8fRKV3wrWA3njuOzlwNTdWBB98Jjeo
-	 ywHMl7vU1D9OUML4rb+8WuTnOSc5nKUHlPjFVvELhuO9rM+MW/Xz//KU13sq83cwyp
-	 SGgtBAxpJk5DQ==
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 1AF8AF40067;
-	Sat, 19 Sep 2026 14:09:39 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Sat, 19 Sep 2026 14:09:39 -0400
-X-ME-Sender: <xms:48-uaj03fZEj7cHpDWORJbyQPbpM96eqi3yckBVPvXmAMTh0iUKvcg>
-    <xme:48-uahX0KaNHfxdjAFUI-eGl79_eHiYORDtpmExPDJWpoVoC8-qCe5z9Pcw9kGm7K
-    _O7CBQg_VzzakRHxjlV8hIBvV4dwGMCfkIhutAaXc97LdyKSxpLmw>
-X-ME-Received: <xmr:48-uagFg5KGN_N0j3RUZMEwwK2VEDFa0gAcoMD7jqA1fkex0018SNFkmDrcX>
-X-ME-Proxy-Cause: dmFkZTGOMHCFM13kMXhSuxN+36n1aHNShRaReTqrePSRKG4sq5ma7+YBTXTUakJSy0zQLM
-    e7xl+opaW4Eklevv6jRqJbW6Ywolp4n2PLcr7z/kaFXF/JfmFMj42KNPrSbAy7BXxgXzKi
-    K4Sf05jy08LVD0d/b1J3hn9fSSOeAwDxxhF1N6NgIYS5pxn06yIyU1et2HdSGwkwcXGE4i
-    MkaDamDvlYs8CbIfaCWEJZfxMLEbM4jNoxyPEVb/dusx2FueAsQu218naoj+uCejFkf0gZ
-    0vYG0lXFuDvS4tBfEB5M9pQQx6pvb0gUCQVXBb+ThkiDYPQir7M3OLR/P59q2sABs//mH8
-    j9hsOWIHebLFbWTuuJePNyDqBriGyy6d/HcNofBWa9p99Z+Sml24G4SHR3qrMwDVhvKlaE
-    wvYpp/p3L/t1CwR12MkQWvyCTcZtnvb5M9AojI42S3EkUafdT5Gkm9/OrC3ZgJAUGgfCaJ
-    rl0qLVJo/mjhZ65KxURcNR42IhwuCvrN2mQHcR3BA0e4YRCNpCvwHEPmp0/K7JhOAPXNbm
-    FZvDwo6b7d5c2sle6FZSI042g5+Uud+HZasRlgd5pM+QWrZD6qduHhCKKGCX9Mxb5RleqH
-    WfuLDhk2yZTzIS6HMJ4PMorpBl+Z8liW7G58uEKydyqW98XrqeN00SygaH5A
-X-ME-Proxy: <xmx:48-uajn_Whc5-eia00WIRXUd6GjcVIpOpqC-uG_gWU6S1ZclEt5JHw>
-    <xmx:48-uapGN3GadguAI3fAx8RCw2-ssIQFR9PoWpQ9eKAKXwRJYUTg9Qw>
-    <xmx:48-uapurA1ETP5KWKlcHPoEvrIWmA-a4K0tVn5Av0WYKlLtgIEG6pA>
-    <xmx:48-uakhZUpTK8dS_zOmc5xiaZvK-f4pbjQvNRIuUA_1VKyA4_dAKbw>
-    <xmx:48-uam37EVW_RTtA8S3tGycD3SLOkHcLTEGYnsOYXnBjlrb1OV8kfmdO>
-Feedback-ID: i8dbe485b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 19 Sep 2026 14:09:38 -0400 (EDT)
-Date: Sat, 19 Sep 2026 19:09:36 +0100
-From: Boqun Feng <boqun@kernel.org>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Bradley Morgan <brads@mainlining.org>,
-	"Paul E. McKenney" <paulmck@kernel.org>, rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org, kernel-team@meta.com,
-	Steven Rostedt <rostedt@goodmis.org>, lkmm@lists.linux.dev,
-	Zqiang <qiang.zhang@linux.dev>, Wang Lian <lianux.mm@gmail.com>,
-	Kunwu Chan <kunwu.chan@gmail.com>,	Nicholas Piggin <npiggin@gmail.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Will Deacon <will@kernel.org>,	Peter Zijlstra <peterz@infradead.org>,
-	Alan Stern <stern@rowland.harvard.edu>,	John Stultz <jstultz@google.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Joel Fernandes <joel@joelfernandes.org>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang1211@gmail.com>, Ingo Molnar <mingo@redhat.com>,
-	Waiman Long <longman@redhat.com>,	Mark Rutland <mark.rutland@arm.com>,
-	Thomas Gleixner <tglx@linutronix.de>,	Vlastimil Babka <vbabka@suse.cz>,
- maged.michael@gmail.com,	Mateusz Guzik <mjguzik@gmail.com>,
-	Jonas Oberhauser <jonas.oberhauser@huaweicloud.com>,	linux-mm@kvack.org
-Subject: Re: [PATCH 01/28] hazptr: Implement Hazard Pointers
-Message-ID: <aq7P4LUkXsJmB2h4@MacBook-0RXW5>
-References: <e9669b34-12c2-4cf2-a887-315f581f0789@paulmck-laptop>
- <20260919000056.3132131-1-paulmck@kernel.org>
- <CAHk-=wj9knmxXD01=top1DQ9_aqrN2a3kpWRS5DQv6QLwLOztg@mail.gmail.com>
- <6B1FC39D-6EB0-433A-8E49-E5EFC9379AD7@mainlining.org>
- <CAHk-=wjyniJy-CX1muCrsZp-i-sLGRYeRYEPN7sw9orRZUCwag@mail.gmail.com>
- <e6177659-ee74-4dad-8fb8-ac2a755c5c1f@efficios.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DTmS+qsc"
+Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-86212a185dcso2096413b3a.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 11:10:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789841400; x=1790446200; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+leKu+1qBvaX9SQAflmbpFDOda53LtTnr+DkqjC8UBo=;
+        b=DTmS+qscF21PdkVlYwgnWOn8fZRCur/iLWteTYa1MIfMOHIe1pW9GV0UI4AQQ3WPtb
+         //MUHEjkkLvPPcX7AmrCj3LFX8kg+KPaVcxKwCLJN2HmMRCEZwyVFaDFVvGxIBTGZEY3
+         QksaXQ8wLF25Uv6I1b+TcpLAeQU29HXQmgcCqn21EstvqJH41fVnSyBOqU48TGYfuCcI
+         p8YZVXQBddX7aYOXmGqeGaqqtAFKlslS/5yVj6dzB91ZIWEoZFlFQNLSFzK7YgWZDn9E
+         v+k1qUglOSmIG20fXlAqdMFRNYhIJa3sco6+94Fx4tCAdHZzSoMeC2sp19qiqUPzHXfM
+         mkYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789841400; x=1790446200;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+leKu+1qBvaX9SQAflmbpFDOda53LtTnr+DkqjC8UBo=;
+        b=P88lAZLEE4O6QdhgzA1OKZwD/dhe/fc/xPLPD2dqDQoh1ZtLPlnRmFcjVsGTJ9k5+0
+         GIB4XhEYb7UX1e1FvPmrrWLR25VvZS0Tp64fM6uhlgSckQ6J2YHWl6wRcPpcLUCVv24r
+         T1JEk3HqhOFbp1OjoOzAJDR8BoG+k8JgyJ45NjM5LC6SeEb8dMCOkMx5ajwXWPFxbrhR
+         hgWAenaNE49P64lVlGZq097vdTacanSL65HuTr/YK3m/DcmjzBqLsfQjTzwleit3FKhS
+         VAHGFxVDeLc9lpQjvz+pVMfztOw/P/lJOiBlIKCAu9Cgjx7yycoeGur8M/qiGshXfoJH
+         /JVg==
+X-Forwarded-Encrypted: i=1; AKwUvBzQeE1rjiFZqloW0nGoRhjm48G9WqdTz/6fVMSbnp5AQ+qaPDG+P+3n3HNq6RTdbvTc9bb/bIDhDQ5DSYc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kOZG0Q58gyyZ40yk86chowyYz+8ZGjGPeJ/YmYiwj4KQD6yaIc
+	xaxwlFOmresmWv7eJ7oU/OjDOIV0UDIjDSXwgSN9hq3eu+Ht0+FPoJZnJuD58EHB
+X-Gm-Gg: AYBFou2zGe8AKkPrQcGAXi8PNP0CcimY2iLb0jutMwOXmpkVd1lm9+X5rdsnSoxikLt
+	CMWIJrdlVzZikwS1E6tRInoNSr2uO1pFLGMZiI27n0HznZLnGU6QFGi2Q8XZd2GnatGncE0sqIA
+	rdiDzcM36RK2KMd/CUoi4C8k1r9JOEcMuXdBTzi5L26kBILZkJAzljDn/23fkJwZ05S9QIUFmHp
+	sENuAhng3hrPIRQ6AeL0wL+fTeltWxBPdrchcb+C5ONaAsPWHUdDU9BvMXMzxHA5csMQ+pLt/8x
+	q/VUqPSFomdHp+aOAkTTZQ1nWAWygnapkebu3bCM/Le7ZHpffSeIT9B6bEUZokZn/6N7h24K0i6
+	IP5vit/sWdULN1m10HKxvy+lPt8UsHeyJFzhCgGd6FXP310fZdi00wAuuxR20N6ZDXHZdVY3hfi
+	1Fr90cWgzjMHW32wgCm0zpcLJiofnus0PKcz1V+e//SiuwrbHcupzka+j6mXDmFDpBdz3FZEcuQ
+	3IHIiip5gqFbm1mq6IlGB2umbhEJIbE85SByigZPokwlxqQOtFAvmruLGymTia8Spu2pgnnObrX
+	3FWHD2K6ig==
+X-Received: by 2002:a05:6a00:856:b0:869:d8e5:dc01 with SMTP id d2e1a72fcca58-874dbde4f84mr9919960b3a.4.1789841400356;
+        Sat, 19 Sep 2026 11:10:00 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (67.51.127.34.bc.googleusercontent.com. [34.127.51.67])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a94f8c39sm1190168b3a.28.2026.09.19.11.09.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Sep 2026 11:09:59 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: David Sterba <dsterba@suse.com>
+Cc: linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/3] affs: fix out-of-bounds bitmap access on crafted images
+Date: Sat, 19 Sep 2026 18:09:54 +0000
+Message-ID: <20260919180958.1362943-1-benquike@gmail.com>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e6177659-ee74-4dad-8fb8-ac2a755c5c1f@efficios.com>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 19, 2026 at 01:09:15PM -0400, Mathieu Desnoyers wrote:
-> On 2026-09-19 13:00, Linus Torvalds wrote:
-> > On Sat, 19 Sept 2026 at 09:35, Bradley Morgan <brads@mainlining.org> wrote:
-> > > 
-> > > I think hazard pointers are good, what test do YOU suggest we do here?
-> > 
-> > I want to see a single real-world example of "look, this speeds this
-> > real load up by 10%, and the kernel code was actually cleaned up in
-> > the process because hazard pointers are great".
-> > 
-> > Not a microbenchmark that tests just the hazard pointers themselves,
-> > but a real kernel feature that has been converted to hazard pointers,
-> > and in the process actually shows improvement.
-> > 
-> > The ONLY reason for hazard pointers to ever be merged is if they
-> > actually buy us something real.
-> > 
-> > So I want to see that 'real" thing.
-> AFAIR, Boqun wanted to use hazard pointers to cleanup/speed up an
+While fuzzing AFFS with KASAN I hit an out-of-bounds read roughly 8.45 MB
+past sbi->s_bitmap, triggered by truncating a file on a crafted image.
+Tracking it down turned up three separate problems, all dating back to
+the start of git history.
 
-Right, that's why I send this series:
+The root cause is that affs_free_block() and affs_alloc_block() each
+open code their own block range test, and both get it wrong in the same
+two ways: neither rejects a block below s_reserved, so the subsequent
+`block - s_reserved` underflows, and both use `> s_partition_size` where
+the last valid block is s_partition_size - 1.
 
-	https://lore.kernel.org/lkml/20250625031101.12555-1-boqun.feng@gmail.com/
+AFFS already has affs_validblock() expressing the correct range, and
+affs_bread() and friends have gated on it since 2005 - so these two
+functions were happily operating on blocks the rest of the filesystem
+has always refused to touch. Patches 1 and 3 simply make them use it.
+Patch 2 is unrelated except that I found it on the same path: the
+extension block walk in affs_truncate() never checks affs_bread() for
+NULL, which a crafted extension chain turns into a NULL dereference.
 
-The gist of that work is basically:
+  1/3 is the one with the reproducer and the KASAN splat.
+  2/3 is a straightforward missing NULL check.
+  3/3 is the sibling of 1/3 with no reproducer - closer to hardening.
 
-	On my system (a 96-cpu VMs), the results of:
+I kept them separate rather than folding 3/3 into 1/3 because the
+reachability stories are quite different and I did not want the
+unreproducible one to hold up the other. Equally happy to squash if you
+would rather have one patch.
 
-		time /usr/sbin/tc qdisc replace dev eth0 root handle 0x1: mq
+I also deliberately left out two extra defensive checks I had written
+(a post-division `bmap >= s_bmap_count` test, and an early return when
+sbi->s_bitmap is NULL); both are provably unreachable once 1/3 lands.
+The reasoning is spelled out under the --- in 1/3.
 
-	are (with lockdep enabled):
+Per Documentation/process/threat-model.rst these are regular bugs rather
+than vulnerabilities, since mounting an image is privileged, so there is
+no stable Cc and I have posted in the open.
 
-		(without the patchset, i.e. using RCU)
-		real    0m1.039s
-		user    0m0.001s
-		sys     0m0.069s
+Built with CONFIG_AFFS_FS=y, no new warnings; checkpatch clean.
 
-		(with the patchset, i.e. using hazptr)
-		real    0m0.053s
-		user    0m0.000s
-		sys     0m0.051s
+Hui Peng (3):
+  affs: reject out-of-range blocks in affs_free_block()
+  affs: check affs_bread() return value in affs_truncate()
+  affs: validate the allocation goal in affs_alloc_block()
 
-i.e. almost 20x speed-up.
+ fs/affs/bitmap.c | 4 ++--
+ fs/affs/file.c   | 5 +++++
+ 2 files changed, 7 insertions(+), 2 deletions(-)
 
-One important thing that I want to point out is in that series, I
-avoided the busy-waiting in hazptr_synchronize() and made multiple
-hazptr_synchronize()s share the same scan. And I do want to see this in
-the new code. But unfortunately with the new implementation, we don't
-have that part yet. And that's what holds me from trying lockdep
-integration for this new implementation.
-
-I could have improved my skill of time management, because I know at
-certain point I said "I will finish the scan thread work for your
-implementation", but it'll be helpful if you or someone can help get
-that done.
-
-> hot lockdep reclaim path. Boqun, Paul, how is this effort going ?
-> 
-> I suspect we should wait until that lockdep user of hazptr is ready for
-> upstreaming and propose both at the same time, because a synchronization
-> infrastructure without any significant in tree user is not really
-> relevant, right ?
-> 
-
-The other thing we could also do is what I did in shazptr, getting the
-numbers with rcuscale, that can tell use the actual waiting time for a
-hazptr_synchronize().
-
-Regards,
-Boqun
-
-> Thanks,
-> 
-> Mathieu
-> 
-> -- 
-> Mathieu Desnoyers
-> EfficiOS Inc.
-> https://www.efficios.com
+-- 
+2.43.0
