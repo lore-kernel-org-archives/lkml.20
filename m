@@ -1,46 +1,78 @@
-Received: from mta0.migadu.com (out-186.mta0.migadu.com [91.218.175.186])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB455361666
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 07:58:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.186
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5AAC1A3A80
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 08:00:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789804699; cv=none; b=uh/9x2tgM+aOiq5Q1XzhBUd2YFnQl12hlo7970jobldeQTiJ0gOYmIJxn2av5/34m+3LwlHuJk4Np51kdZ0NUkWL7e+0ULWASFD278zSkHjr3YqaSFcvFE45aRzrD1fAbpB5SXXHD4EMUiSGEfFrd5eeuSj2npKYr9YkNVYnHVM=
+	t=1789804860; cv=none; b=dQT92gFn0XHtd1ON3ckLbHuzB0ZyO3lfOYeZHHVHJ7oO0Wd/mbeKAhjoFsNWkFYDa7WMBplHNoSyZXirUdXnyJX0TubkdDIbqSbI6NUwoEQmhM3Yvlcxx3p73qPSiKmX21ffKesyYQwWD3v7c5ureswNl658ZXbyFUSbBEYcCBA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789804699; c=relaxed/simple;
-	bh=vxdy9qtL8Iw/0qYgNuNxt/3jsmrIDEf3IspObO+lOmE=;
+	s=arc-20240116; t=1789804860; c=relaxed/simple;
+	bh=Vld0YZFMQv2DScUht5PLSH+ObPRiMoUbQEi+3IeApQQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rKUgiibpN9v7UowjxyQhirVbleNShjxuJJdv6Jjk0B0rbDb4LBS22D9YBomy0sOjTzZ0f72Mwwtly7HbAmJDvjxBQNJy3kTaI1Px35q5yMWYq43KRf8/GBvEEhoCcocHqxvH86tGglxy6CBWPewCUIJabYYUkebi/PzVsOZhsIg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=uJWDWwJR; arc=none smtp.client-ip=91.218.175.186
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 Content-Type:Content-Disposition:In-Reply-To; b=lhb2EJCWMzfqxtjtfZuUtMYdgGLfjIMVweXDSbYGJVC+SDqjecHmixzwdmzDxQkKC/pyAOi+xOpSKWbzwelH56v+nxdBDpOqs+p6MrswDRVvTMbQA8elye9xBvgyoft+C51uHLcL9m4TqxWk6fr9C29RczWiFjezzILGkxUvF1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O455z1O1; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="uJWDWwJR"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=vxdy9qtL8Iw/0qYgNuNxt/3jsmrIDEf3IspObO+lOmE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789804694; v=1; x=1790409494;
- b=uJWDWwJRHL3Ncv9HWlp2j3oZpHzwzE9yqdnI6HVUEQqC4w+5HMapSv47ZyqyvEAE3PlosmVi
- 0K3H7GdabBwsW5ecxWtOPZU5UP1gUj8vmGiQIjsok665zbIXkoofCkumo9rTmbItBAYjQ64CwUd
- 5OorlY7/i7yOUFyfQlFLRguw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id eb1e4559383463a5;
-	Sat, 19 Sep 2026 07:58:04 +0000
-X-Mizu-Trace-ID: eb1e4559383463a5
-X-Migadu-Flow: FLOW_OUT
-Date: Sat, 19 Sep 2026 15:58:09 +0800
-From: Chen Yu <chen.yu@linux.dev>
-To: albin_yang@163.com
-Cc: peterz@infradead.org, mingo@redhat.com, juri.lelli@redhat.com,
-	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
-	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
-	vschneid@redhat.com, kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org, albinwyang@tencent.com
-Subject: Re: [PATCH] sched/stats: Fix run_delay over-count for migrated
- sched_delayed tasks
-Message-ID: <aq5AkZq396xkL4LW@three-body>
-References: <20260909133345.1572954-1-albin_yang@163.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O455z1O1"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccfd61ecaso12741615e9.3
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 01:00:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789804857; x=1790409657; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KAQVumWq+31x1qLZdih23QpZgQOdhcS6BODfuZt06y4=;
+        b=O455z1O12Bk1xP+3hjQGv7x/ZuUD2q1oKUQtpthdNCD0JJOSgP/QNzobsFHS+wdy9I
+         Gm1EoG9duaLPzdLBm/SI+xCyoe93pVtO31UFCR4qJRhTYqcvLZxIR2Z9gS5qU4d13Oij
+         +6xhx4jEnRYv1VxeYw2wGbYIL4aWFU1zcLTXRJuyin1k8vZLE3C8FX0+AQsU5LhJ13G2
+         y2iw6JzYrl0L4qxWQX575RypgwumulrjOmFEk9o7Tua4jsLP3ACaPvyPxiRrZ+s4LAGp
+         wYUnCxmbBIXol+qoQH+1olFjo5ykZh46wL8g9pqLNNMtd9teLB4VBqmQ6cuMcbHcJgD+
+         SNHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789804857; x=1790409657;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KAQVumWq+31x1qLZdih23QpZgQOdhcS6BODfuZt06y4=;
+        b=GmkMEq5plsnS/rfgZmMZMBi2+dHIF0RORBX1mhXK+32CQ9cMuJoTnxJUO3N5arXV+P
+         wpSoCAh1VB1ao5Ko8+UjHqmbtFQ9JqRfw/0YzUvQTyhdPBJNs9m5uHcczk9D9sXWvMWL
+         L+Lf5KQTuZtq13H/6m+you2X5cLRRM33TF5A8lOuxvMgf+H6IO0cSVlYs89tgbqQ4iu7
+         moRCTYtb7/zL7llCV/qlBqXwS7oGsh18ZVkiKjwVfc+JmIKN8jwLOz1BXdOJylGVCGWL
+         xmyxH9ZEnxhOrrLKLTRU+54Cj4TR3wSSv+F/Vk8kQUFtR8I7xFEYIgA7kPTSQVUV01pi
+         uf3w==
+X-Forwarded-Encrypted: i=1; AKwUvByUKW3sTU1847wAecaJzhIw8Fr93wXgs3lX9cojf2G5lP7102RJyyDUcmnGtB6Hm6AmlHadXoH1sd6RiuQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nLQs7bO0an2jmlzpgDWgUfvi010hCsoogdaAnJH5HmqYtko4Jp
+	okxP5wAC2/MoU/VEK7xTlkN0zUesfBZv6BPAmTbRo8bQd74+sUgtHIgwpbCyNgkb
+X-Gm-Gg: AYBFou3IHhBMGYuDOilGkiaOiLb4X3SUY49w/tZD5uyraVQmbAnS4JzzzzVFil65bn4
+	LxmfNFEGtzdYCCqvsPoEb2da7o3AuE8R9JwJbEfIX5+wWwVJ4a2zQAWdMehiN44Rxi7CUA05jCz
+	wSEssmjV4hiCHgJ4rSI15eW732ybUqXRVN/EHxxEFKgzav1JDkTVcY/QaABHL/v0aIuq1GVPOy6
+	yWUc2X3X4SHn6xgGwUGItowvkgfkpqYL9HPfm8O/ZjxpZwfUhQF5H/08rcHAUBSGaI7+FhXR3Lg
+	/vuu+QEznL69AdRZehhbZecGA3rvQ+xJCj9qePOZ0dZ6axJdc2M6hc4PLicSBYcwN7t4xhUlFaI
+	3uFMI0Wqtc1HoFudxkLxWjGBwxfEUcO+oePiKfpii1yo7HFIEPDNaZnuwOCoz3ijvRClOwxQX59
+	R3T6M/P+FwUAMes1XXHpgomQd6XITomBPqRwjSHnSgSzAKKZRa0nPKkz85q8WvkGL99jzQ9TugT
+	3WcT3e7uAjGc8HOoL+js4adthjQWdoTc5pktXXM3+mzq71a85WTj2FiRFpC81lEzVYugo7eJljy
+	DVizH6+mYIXWmOCl9g+hurlLh24jfHSqhZvYcIIGqiRFBc5CeYLAWLMza5kKLvyh3qcIyXTP3Lg
+	Ne9h6VUVA8A==
+X-Received: by 2002:a05:600c:6212:b0:499:9240:9a1c with SMTP id 5b1f17b1804b1-49fc56f8327mr55591515e9.15.1789804856813;
+        Sat, 19 Sep 2026 01:00:56 -0700 (PDT)
+Received: from MacBook-Pro-von-Karl (dynamic-2a02-3100-a017-2b01-05fe-203b-7cd2-a640.310.pool.telefonica.de. [2a02:3100:a017:2b01:5fe:203b:7cd2:a640])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd103325sm64149215e9.9.2026.09.19.01.00.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Sep 2026 01:00:56 -0700 (PDT)
+Date: Sat, 19 Sep 2026 10:00:54 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Alexander Potapenko <glider@google.com>
+Cc: Andrey Konovalov <andreyknvl@gmail.com>, 
+	Dmitry Vyukov <dvyukov@google.com>, Marco Elver <elver@google.com>, 
+	Bradley Morgan <include@grrlz.net>, kasan-dev@googlegroups.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] kcov: report the first spurious PC in the interrupt
+ selftest
+Message-ID: <aq44VWaVBpRvWtmF@gmail.com>
+References: <20260724192122.73080-1-kmehltretter@gmail.com>
+ <CAG_fn=VTpkAUHUqWgcqigQ8UaLDtikZJmOE-VozemA+RbyJVnw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,63 +81,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260909133345.1572954-1-albin_yang@163.com>
+In-Reply-To: <CAG_fn=VTpkAUHUqWgcqigQ8UaLDtikZJmOE-VozemA+RbyJVnw@mail.gmail.com>
 
-On Wed, Sep 09, 2026 at 09:33:45PM +0800, albin_yang@163.com wrote:
-> Date: Wed,  9 Sep 2026 21:33:45 +0800
-> From: albin_yang@163.com
-> To: peterz@infradead.org, mingo@redhat.com, juri.lelli@redhat.com,
->  vincent.guittot@linaro.org
-> Cc: dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
->  mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
->  linux-kernel@vger.kernel.org, albinwyang@tencent.com
-> Subject: [PATCH] sched/stats: Fix run_delay over-count for migrated
->  sched_delayed tasks
-> X-Mailer: git-send-email 2.43.7
+On Mon, Sep 14, 2026 at 12:21:38PM +0100, Alexander Potapenko wrote:
+> What do you think of increasing the buffer size to, say, 16 elements?
+> This way we'll be able to detect more than one spurious coverage event
+> without needing to rebuild the kernel.
+
+Good idea. v3 uses 16 elements, the count plus up to 15 PCs, and no
+longer stops at the first PC: KCOV stays enabled for the full 300 ms,
+then is disabled. If any PCs were recorded, it prints them all and
+panics.
+
+> > +       if (selftest_area[0]) {
+> > +               ip = decanonicalize_ip(selftest_area[1]);
+> > +               pr_err("spurious coverage detected during interrupt selftest: %pS\n",
 > 
-> From: Wei Yang <albinwyang@tencent.com>
-> 
-> With DELAY_DEQUEUE, a blocked task stays on the runqueue with
-> se.sched_delayed set and its sched_info.last_queued is cleared, so the sleep
-> is not counted into run_delay.
+> Nit: should this be %pB?
 
-Agree.
-The sched_info.last_queued was cleared when that blocked task
-switched in on the CPU, its last_queued was cleared in sched_info_arrive(),
-because the task did not have to wait/delay anymore, it seems to be me that
-the "delayed status" has nothing to do with "run_delay". The issue is what is
-the realy timestamp of the task starts to wait.
+Agreed. KCOV records return addresses, so %pB handles function-boundary
+cases. I'll also change the trailer to the new Assisted-by: LLM.
 
-> 
-> When such a delayed (sleeping) task is migrated across CPUs via the plain
-> migration paths (move_queued_task / move_queued_task_locked, the latter used
-> by __migrate_swap_task), 
+Thanks for the review!
 
-Right, for all the migration caused by passive/active load balance(attach_task,
-with migrate_load type, see can_migrate_task()), NUMA balancing, CPU affinity changes
-via sched_setaffinity(move_queued_task), etc, we should not update the "delayed"
-task's last_queued field when enqueuing it on a new CPU - afterall it is not ready
-for running.
-
-> activate_task(dst, 0) calls enqueue_task() without
-> ENQUEUE_RESTORE, re-arming last_queued to the migration timestamp while the
-> task is still sleeping. The later real wakeup (ENQUEUE_DELAYED) tries to
-> re-arm last_queued at wakeup time but is suppressed because last_queued is
-> already non-zero, so sched_info_arrive() folds the whole sleep duration
-> between migration and wakeup into run_delay.
-> 
-> Fix by not re-arming last_queued for a sched_delayed task in
-> sched_info_enqueue(). The wakeup path clears sched_delayed before reaching
-> sched_info_enqueue(), so it still re-arms at the real wakeup time. Plain
-> runnable tasks and load-balance migrations are unaffected (sched_delayed
-> tasks are excluded from active load balancing).
-> 
-> Fixes: 152e11f6df29 ("sched/fair: Implement delayed dequeue")
-> Signed-off-by: Wei Yang <albinwyang@tencent.com>
-
-Per my understanding, it looks good to me,
-
-Reviewed-by: Chen Yu <yu.c.chen@intel.com>
-
-thanks,
-Chenyu
+Karl
