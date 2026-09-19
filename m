@@ -1,213 +1,120 @@
-Received: from mx.ssi.bg (mx.ssi.bg [193.238.174.39])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FBEF281530;
-	Sat, 19 Sep 2026 10:06:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.238.174.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91BA03BFE50
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 10:06:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789812411; cv=none; b=K3/qBDo4oXFByESqK1BDAdl3N8sRGbyCAc4pewZ+C67P6SEa+mmVOdmu4cUC5zq8eK69neQqhFmz5c7nRAz2KXgiLCcN8dNR/XN3vfns1WxKWVdUhcXS53a2YpboZ4J66qeagBBslKT62CkxSh5E5nhBTJJV4SpeU8hCp7yYDqs=
+	t=1789812419; cv=none; b=ZURzFgWRF96DVNHymAe42ICEHYg5wUEBeg99krIfWsL+HPwNVVKXOMHE52ZtHJpzCfVuEg4jZ8cEmfsRjR/JcfsLsXS7HuZ2TCIAHiOMrkxYQ1jVg8RKYRxvjo2zvONfpOkRBc2WTG9nDpWAN/shvqNqEA51MGK35UGXy1YNXfc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789812411; c=relaxed/simple;
-	bh=lz23xqOnfjK6hXIDMVyhpj3d8PiKZsDI4+InqbqJK3E=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=pQsAvRddowM9gmr83rch4dIcwdVlSsvS7vAy5lVX9iTWf1oVWg/4Fhv/HlNlIeB+FzBKmTyGjoU2Ng5tZSAlb2wRLub27tuo0eKhRAycB0NKOrK3VWoA6iz8h8+QZeJF7x+Y1tlzYGm310ugx7zUxF/WBuUraAcvytr27qmzLCw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg; spf=pass smtp.mailfrom=ssi.bg; dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b=OVsL+GWk; arc=none smtp.client-ip=193.238.174.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ssi.bg
+	s=arc-20240116; t=1789812419; c=relaxed/simple;
+	bh=d5bivI/NnaX21XV599963Zowx2AMw/Zhn80pBgtmXX0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=c2jVSml8d3/FSzNSaT7PynlPXgX9W9EB94ok4b9BkYx/qlqou7zyC8eddT9Jindu694Hu6oe4vKvVjOJjwEwjgZrGDxE1sJ1BTTmhePwmMKfJB7iuvVISodK5UeapziacyMTwVb4cV3Ja6aUmlWgKiyI28k7jblSrI1QzXwzWSo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NGBtwUNg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b="OVsL+GWk"
-Received: from mx.ssi.bg (localhost [127.0.0.1])
-	by mx.ssi.bg (Potsfix) with ESMTP id 80645213A3;
-	Sat, 19 Sep 2026 13:06:35 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ssi.bg; h=cc:cc
-	:content-type:content-type:date:from:from:in-reply-to:message-id
-	:mime-version:references:reply-to:subject:subject:to:to; s=ssi;
-	 bh=TI6KQVFy9rs3rUV5oFMqAw05s51sLh5J806913aCVYU=; b=OVsL+GWkG1zt
-	2c3bKa4gnrSR77t6UHg5W5z4zzJdyNeIl91AJXuYrrviR0zylV5iI97RLYK7mW6d
-	wEK5XN84V9vphAAo7Kml3v9FcfCeJSbILkIewxRScqVrrSqzhGHBYK9qfNYx9PV/
-	pvxdW7tU67LSQW3spd7/M/awoGoa4EeNhopQm9RJCpGeGltlnARTBeX6Ei2PREmX
-	xD4MdE5JmOrDDNLAlOEkleNtgSYbRLSdUIo2IEtofyapLS9YKtQ5APka6pxDt2ea
-	R3n6nUYh2CaV8EluvBZsvNHIewqiHeJh6bwDVtts4bCudUvCkCGfXzizNdAedE/L
-	dO0BfssvLa3zDtFtDEkhnd2oyqn7nNmfiEFwpTGk77EetOJInjXvu8sT9aBLcdX3
-	5VSpPNs4NSRzbKjmh8HJ8VOU4aK/Pjzz/Wb3drLA9LUEuK6w5ETCXe58UWYH9Hoh
-	VPc7LWLXg3SxIXM68x9il+jTtJE1MRM+hWydDhsk8rPuiNoEvPLrj+2HY612mnDn
-	UWbwA88q3wfP9J5n+0SN0KdsnsikeWrESqvUGvQwJ9/1TdYiM5TUKVbM3VNbaAEo
-	ZPSLfsbnsi+MmSwoMqVi78xHXH5X/KGfetLXcpg7cmvn+1tVVxaWCnQRVlh+I6/y
-	0OZrdQSqnLxv+mLPuvnoMQ0hO+TGsoU=
-Received: from box.ssi.bg (box.ssi.bg [193.238.174.46])
-	by mx.ssi.bg (Potsfix) with ESMTPS;
-	Sat, 19 Sep 2026 13:06:35 +0300 (EEST)
-Received: from ja.ssi.bg (unknown [213.16.62.126])
-	by box.ssi.bg (Potsfix) with ESMTPSA id 79F3D61E26;
-	Sat, 19 Sep 2026 13:06:37 +0300 (EEST)
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by ja.ssi.bg (8.18.2/8.18.2) with ESMTP id 68JA6NRO021632;
-	Sat, 19 Sep 2026 13:06:24 +0300
-Date: Sat, 19 Sep 2026 13:06:23 +0300 (EEST)
-From: Julian Anastasov <ja@ssi.bg>
-To: Zihan Xi <zihanx@nebusec.ai>
-cc: Simon Horman <horms@verge.net.au>, Pablo Neira Ayuso <pablo@netfilter.org>,
-        Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
-        lvs-devel@vger.kernel.org, netfilter-devel@vger.kernel.org,
-        coreteam@netfilter.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2 1/2] ipvs: avoid stack overflow from recursive
- connection expiration
-In-Reply-To: <c104a8ee-eebc-1e80-c685-3e22f23ffbc8@ssi.bg>
-Message-ID: <1233faca-355c-b1b6-5c8d-9b36b4cc427a@ssi.bg>
-References: <cover.1789435989.git.zihanx@nebusec.ai> <20260917030301.5502-1-zihanx@nebusec.ai> <c104a8ee-eebc-1e80-c685-3e22f23ffbc8@ssi.bg>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NGBtwUNg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 882FC1F000FF;
+	Sat, 19 Sep 2026 10:06:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789812418;
+	bh=wmYQfGFlr0gkUuVaDtz5C4O++lg0LHkym0LC5utx1xQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=NGBtwUNgww8qarfWiEsbE16y4T3wnfzKTb/Jg3NsXGsCGZdUq2UeOCROEeZm4TGCs
+	 w8jNxAkkeLbGhzYLdJw7f472pbJZhRYMQc4TVOQY75Bh8AWaQCKdcCcr5N1r05AX+L
+	 s4pzxBvCF2ehQIio3S3bNklJbxLLX50gPwtw+lplUGFPA4dxhHs8wNi4HO6tUei8eO
+	 1tmeiOOoZrvja1PaEbOWQio3lWAg2kd4W+bbiQJ18WqcFA450+V6EhtINSWqj2ySuX
+	 ZQpUggufkJ5HkEfBCdRRL1SXy8AVZYS1Gg7D8svXg7yArAQu1b8GGap3ld8k5aT+mL
+	 eL4ROWHtjqSEQ==
+Message-ID: <d939eacc-8019-4954-b1f5-71d601db96a6@kernel.org>
+Date: Sat, 19 Sep 2026 12:06:50 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] MAINTAINERS: make Gregory a co-maintainer of MEMORY
+ MANAGEMENT - NUMA PLACEMENT
+To: Gregory Price <gourry@gourry.net>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Alistair Popple <apopple@nvidia.com>, Rakie Kim <rakie.kim@sk.com>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>
+References: <20260918-maintainers-mempolicy-v1-0-9a94cac6d135@kernel.org>
+ <20260918-maintainers-mempolicy-v1-3-9a94cac6d135@kernel.org>
+ <aq1pO6KRR2CMov8D@gourry-fedora-PF4VCD3F>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <aq1pO6KRR2CMov8D@gourry-fedora-PF4VCD3F>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-
-	Hello,
-
-On Fri, 18 Sep 2026, Julian Anastasov wrote:
-
-> On Thu, 17 Sep 2026, Zihan Xi wrote:
+On 9/18/26 18:41, Gregory Price wrote:
+> On Fri, Sep 18, 2026 at 06:34:26PM +0200, David Hildenbrand (Arm) wrote:
+>> Gregory is extremely familiar with NUMA placement handling and volunteer
+>> to help co-maintain the numa placement bits. So add him as a
+>> co-maintainer.
+>>
+>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 > 
-> > When a controlled IPVS connection expires, its controller may be expired
-> > synchronously if it has no remaining controlled connections. A chain of
-> > controlled connections can then cause recursive calls to
-> > ip_vs_conn_expire() and exhaust the kernel stack during namespace cleanup.
-> > 
-> > Make ip_vs_conn_del_put() report whether it deleted the controller timer.
-> > When it succeeds, continue expiration with the controller instead of
-> > calling ip_vs_conn_expire() recursively. This keeps chain cleanup
-> > synchronous while using one stack frame for the whole chain.
-> > 
-> > Fixes: f9200a52eedf ("ipvs: avoid expiring many connections from timer")
-> > Cc: stable@vger.kernel.org
-> > Reported-by: Vega <vega@nebusec.ai>
-> > Assisted-by: LLM
-> > Co-developed-by: Luxing Yin <root@tr0jan.top>
-> > Signed-off-by: Luxing Yin <root@tr0jan.top>
-> > Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+> Acked-by: Gregory Price (Meta) <gourry@gourry.net>
 > 
-> 	Patch looks good to me for the nf tree, thanks!
-> 
-> Acked-by: Julian Anastasov <ja@ssi.bg>
+> going to take me a second to get used to that.
 
-	In fact, Sashiko detects problem with connections
-that are deleted and traffic that can restart the timer and
-its callback deleteing the connection:
+Don't be scared it only hurts a little ( ... initially ;) )
 
-https://sashiko.dev/#/patchset/cover.1789435989.git.zihanx%40nebusec.ai
+-- 
+Cheers,
 
-	Events are in this order:
-
-CPU 1                   CPU 2
-timer_delete,
-refcnt is 1
-                        find conn, get refcnt
-                        mod_timer, put refcnt => 1
-
-                        run timer callback
-			and expire the conn,
-			refcnt=0
-
-touching cp->control is
-safe under RCU,
-but we mod_timer
-with refcnt=0
-
-	The problem is that the timer callback runs without
-conn reference and not under RCU lock. OTOH, we delete the
-connection only under RCU read lock and can take measures
-if the callback removed the connection before us.
-
-	Dropping conns only via timer callback is something we try
-to avoid, we have to rethink this change.
-
-pw-bot: changes-requested
-
-> 	Next time use "nf"/"nf-next" tag for the IPVS patches.
-> 
-> > ---
-> > changes in v2:
-> >   - Use a repeat path for controller cleanup so expiration stays
-> >     synchronous without recursive calls or extra timer ticks.
-> >   - v1 Link:
-> >     https://lore.kernel.org/all/cover.1789110326.git.zihanx@nebusec.ai/
-> > 
-> >  net/netfilter/ipvs/ip_vs_conn.c | 17 ++++++++++++-----
-> >  1 file changed, 12 insertions(+), 5 deletions(-)
-> > 
-> > diff --git a/net/netfilter/ipvs/ip_vs_conn.c b/net/netfilter/ipvs/ip_vs_conn.c
-> > index 6fa3e1dc534c3..c7b88ce1765dc 100644
-> > --- a/net/netfilter/ipvs/ip_vs_conn.c
-> > +++ b/net/netfilter/ipvs/ip_vs_conn.c
-> > @@ -1331,17 +1331,18 @@ static void ip_vs_conn_del(struct ip_vs_conn *cp)
-> >  }
-> >  
-> >  /* Try to delete connection while holding reference */
-> > -static void ip_vs_conn_del_put(struct ip_vs_conn *cp)
-> > +static bool ip_vs_conn_del_put(struct ip_vs_conn *cp)
-> >  {
-> >  	if (timer_delete(&cp->timer)) {
-> >  		/* Drop cp->control chain too */
-> >  		if (cp->control)
-> >  			cp->timeout = 0;
-> >  		__ip_vs_conn_put(cp);
-> > -		ip_vs_conn_expire(&cp->timer);
-> > -	} else {
-> > -		__ip_vs_conn_put(cp);
-> > +		return true;
-> >  	}
-> > +
-> > +	__ip_vs_conn_put(cp);
-> > +	return false;
-> >  }
-> >  
-> >  static void ip_vs_conn_expire(struct timer_list *t)
-> > @@ -1349,6 +1350,7 @@ static void ip_vs_conn_expire(struct timer_list *t)
-> >  	struct ip_vs_conn *cp = timer_container_of(cp, t, timer);
-> >  	struct netns_ipvs *ipvs = cp->ipvs;
-> >  
-> > +repeat:
-> >  	/*
-> >  	 *	do I control anybody?
-> >  	 */
-> > @@ -1358,6 +1360,7 @@ static void ip_vs_conn_expire(struct timer_list *t)
-> >  	/* Unlink conn if not referenced anymore */
-> >  	if (likely(ip_vs_conn_unlink(cp))) {
-> >  		struct ip_vs_conn *ct = cp->control;
-> > +		bool next = false;
-> >  
-> >  		/* delete the timer if it is activated by other users */
-> >  		timer_delete(&cp->timer);
-> > @@ -1372,7 +1375,7 @@ static void ip_vs_conn_expire(struct timer_list *t)
-> >  			    (!(ct->flags & IP_VS_CONN_F_TEMPLATE) ||
-> >  			     !(ct->state & IP_VS_CTPL_S_ASSURED))) {
-> >  				IP_VS_DBG(4, "drop controlling connection\n");
-> > -				ip_vs_conn_del_put(ct);
-> > +				next = ip_vs_conn_del_put(ct);
-> >  			} else if (has_ref) {
-> >  				__ip_vs_conn_put(ct);
-> >  			}
-> > @@ -1402,6 +1405,10 @@ static void ip_vs_conn_expire(struct timer_list *t)
-> >  		else
-> >  			call_rcu(&cp->rcu_head, ip_vs_conn_rcu_free);
-> >  		atomic_dec(&ipvs->conn_count);
-> > +		if (next) {
-> > +			cp = ct;
-> > +			goto repeat;
-> > +		}
-> >  		return;
-> >  	}
-> >  
-> > -- 
-> > 2.43.0
-
-Regards
-
---
-Julian Anastasov <ja@ssi.bg>
-
+David
