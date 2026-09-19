@@ -1,75 +1,76 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B05F6470E85
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 11:25:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBB4C47ECD0
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 11:25:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789817121; cv=none; b=gBZDEr7w8PZ3ZNu8EaKon+ou0AyQg62tjRF5sP7ByBL5blXqVWwSG+KDplYU+KGWlaNrK5E9OwbAk5lKWY9qNGDfAtWSYevR4ujaQEoCm28Va1fbOi5ttzIfXA0CqtpziVHFORV3nokmCDQDfduDOLwC5wpWKRGGghqLUnL9ijc=
+	t=1789817122; cv=none; b=oVBF6nY3XU47B3GClbrFo7Di2DdSY5yiHmv1oAMDBVIPQO6Dw2z/5xi097vNHbVghsBgtmFd7qbKQvoK9D3ef/9iz5S+qmU65r/wCxmbA0xn1NDNgBTy3MW3V4xdCQaAuQfY9I7OzC4ieER6BUs4CWgfiYc0FqMGyFwJra4SAS0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789817121; c=relaxed/simple;
-	bh=SQivD/ji4K2R5qTspKfekb7FmiWTNsMmyU8BWBAt8e8=;
+	s=arc-20240116; t=1789817122; c=relaxed/simple;
+	bh=WYVmuKHJkf0XxI5S9mwVnzGt7j/jxkgSXCWwYipENBE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ftps32J9pfxa91pxK9IirQ+6IeK4zETsYc6cKhJ0ICu8b7UlzMzrHs+nx7eYrUfUzwe3XfNEmzO5swl85Lmc4wcOKuvwPmQ/nGn/hWXEqre2AmcrLeEJriDSBH4k4Ru3Ye8pn5tlabnqekQWKs1hr4b2cafdsrpoEAJRKLdLNbo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dpevQ1/P; arc=none smtp.client-ip=74.125.227.141
+	 MIME-Version; b=S4OO+juBSdV8EuGWTKoJpgawn7ZrTDPCJOpCrCLzrB/X2AlDAV3ch65SNWRDeeIDxDLxBZ2QC3+GkibCY1DC0z74SBxmkGJRJv6B+I8PhhXKd/05toU52na8zolug0/N6hLZZQjxkxBLITqBzFS/AGR+A/avNZFsoXkmVyCqGMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nLfb1vqu; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dpevQ1/P"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39b31b4281eso1651778a91.2
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 04:25:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nLfb1vqu"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469b35601so958054b3a.3
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 04:25:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789817118; x=1790421918; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789817120; x=1790421920; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+5aC3Kgohlow4wcl0VhHJG+JEyeeGtfUQaYksvod4tg=;
-        b=dpevQ1/PAqDm+Y8tRZNs2EAo5cx5zfs6nIrWbtU7RRJJlcSX1KZwf9JKS32hLIhZ4y
-         lRpEhpmUXr1G/3m4UlYE0BCOciTOxVhHmqRFSGHq8HwHLciwkmxxA97j5kv2uNaPy701
-         mNLWSYaFo/qRo1asfHOPM3u5zDecurZymB0lQKz8ZOXeoFuwNpuRxzsfgBclP067/CXC
-         W6w5Eak0nkeOtq0Tbsapps8kvercwvWAS6PwHh0ouiaBay9d0FsNE+BdBsf9uGUYT4zq
-         C/1i0imiQT5wJvTcLmWPnlHzp3gLNdbpjw41p5E5zfeuQIZvXsq3ln5cjH/8oi+X8Kzb
-         lP2g==
+        bh=ptXq5DUVT3K9Jwo/D1LNkcuXeWLTL0CSUgmwhJadvLU=;
+        b=nLfb1vquVfOpm1AQpCDBbKFr36pguSeCTUbiDmvlukXT7n2DATjPLawW26RE4xmAIG
+         evQe+j0AAHcbzOm3Q9Q/9swjf0woksyrtzIkRz7hj7VOrMgoa38iazeT/6z+nU4A6fKW
+         yY7C+2joifqRJy5XxL2A/C3hSw+eaKRLcsoaS5pCnELCc/kYkaXQhETMA2HnXQtnMp+W
+         dnqXeV7N3b8/OhOIaGI4XbiP8C1dWpaVEzQW+/zqM28g63GU3tDIz8r0aS3AuZEDj3Fm
+         uzojMSqW0Nw0E8YVUsAjJzKlyDbB+V17kT/G4g5bqalzehA1cMHH1LItzUg0HhHyhV+S
+         VOmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789817118; x=1790421918;
+        d=1e100.net; s=20260707; t=1789817120; x=1790421920;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+5aC3Kgohlow4wcl0VhHJG+JEyeeGtfUQaYksvod4tg=;
-        b=v88L0gjs0Um2x63jojwQR5Mbnw/9JBZzLKUIcXWMHAOi6owoqmLy3yR4n4+y08ivIa
-         5d01NZHwfZOYybW/h+W1hybfPDQPs6YtRo3YlCBaM2PUKImVt5NI7J9/la0mzlZB3VPk
-         9kDm+FiH7DaMmffd4H8F3W3LcN5x6hoiLTpevK7HWlAc+nAwuuQ6ynK3NL32TjXpK2rC
-         ttI6m+21XwAMA/vN0ZjE3CzjVV5zdu7sPHFjFWgFVE0h4xNOg1ushpA1Bj7DBb0Vx5x6
-         l+tXBf+HlLsSB+K2yRuF8BYsbdSx4MY2a3uPJQJy2jooCB6ToUxC6g7UNj/3qSMsOeZu
-         z/2w==
-X-Forwarded-Encrypted: i=1; AKwUvBx/Cw12X5EASpoCwejXskCR835Xjh2De9hR+ucWhBuie+W9UhFv2KDewDg8ygOEh6tRa3ep4U5is4Yc61c=@vger.kernel.org
-X-Gm-Message-State: AFuF++kvcFcCPqVuVu1o34p4fu+b7GiiXmISioxJtpI6Gd+w07XEaUrf
-	V2CiGru+IM9Jm9XVrHFUulkFo7qGNpJ3TYsB3LWinIeFXgVmb+79IvPw
-X-Gm-Gg: AYBFou3faIsmtimRd8ClPIxQpGV0MQyaA/NL3rSw7BxBitTk5NREsKZmoGUamj7jz0w
-	qVacvm64Oc5/1EbozUa2QgQ/mEiNbg4oS66OmD6lHGp+HfPwTkewABypRZOb9O3qV4HYEAUQhb+
-	+qC/LR3ifhcL/iCnMBSJ2SQqf4pfut2X5VIGTUeiINxRknfLgL57OQ2kuJ0hgqd9u7e3dcbpcOr
-	EmXZ6pRYYY1wak4ivm4r9Dzb+a1avFdH/BBdVfTmwTTrZhpSvzNs0DYYEo54xZ5eNTDdfEvHu0O
-	l5jcX5z5QUDbq4DMV74i3cPYx4cLMObDqLAw1wbygM1evHt0X71jBx4rWkFJ8zg6S5o+//maw5U
-	8piQ0qnGuFg31ZSzYXG75CSXLpvGtoGkcKD3BPeoXI3hTVtEQIO6WjIBiM9Ng/90wfMcmdTQ/c1
-	EmmS7FtfPUqgWHFwsPNvSF/TWJPY5Kc5i2qBOFH2DefXO3/xlzYkytDEoUN221nuyQvUPgQMR5B
-	G0TThshaWTb013VMXLi5fGSpazNfshV7WMhs7wMB/7GtPUao5z4zdYuztGgS0Wn3EX27C6xqBBL
-	93aV64VD+g==
-X-Received: by 2002:a17:90b:2f85:b0:39d:84af:a0b3 with SMTP id 98e67ed59e1d1-39e54e7657fmr10074872a91.18.1789817117952;
-        Sat, 19 Sep 2026 04:25:17 -0700 (PDT)
+        bh=ptXq5DUVT3K9Jwo/D1LNkcuXeWLTL0CSUgmwhJadvLU=;
+        b=R8drUEOTapvUQQ/zv3QbyE1/Fb8o6I4sVr3AahqRkxsxaSC7/9RAeL5gHaIigozRUS
+         cKHFJcrnGIIo/eCPTJG4uN78LJPSgfxu51l8aS9dGSdqTZ3DG+yy+LzSkP+WXGcu7eKY
+         q/Rz7f60odRmpRA7HixHUtVzw/HUNRjPi0epzHE8AnIJYmMDdKmtbwjZn7T8Q58hoK7R
+         IQEv1cTtdAblEeq4soIcbzYExlvXsTDxiadmPHkBniX2qgt3E7A9CSSPwBOE7Q2Sg9lf
+         nyxC1j1j11foq/SwbjhCa7cGmWAPHD7HN2UY1aHILYzYs5PLXc4mEmIow1SwZ6E7KBlT
+         n2YA==
+X-Forwarded-Encrypted: i=1; AKwUvBxQsJ2wvmXojMVKk0qveTpH7XgH6GMdgh6iHW6d6dWXDb6UkyPdoG9eRz2dtZI+CTOoi3wrwlhXmAS9vls=@vger.kernel.org
+X-Gm-Message-State: AFuF++mV5JpaPR/+KNTBeEz1+nEapqj60zEjMC8/hQhgOP6pl9ZxKoqQ
+	uX+pHZC3Fvvw2XqwENc0gCROX6adESKjHTTJVyKbYktsECoqk7UyqWYK
+X-Gm-Gg: AYBFou19f+pOf5oSKD2FkeubRMQPlX2yY6HAX0c10kfqt+AF5l6dt2OxuOg4c1VKkib
+	E4UoalKq9qYnNMFEGpp/FsdL67Kk1lPQ4mHcyGtPdE4b9Ae5C4wyRAdjph06UokjGNEqkMfykxJ
+	ZzIym5m+28UbBPyQ4F6Y+6wZEiyVDedc4qTKWWGOeFq6JpG8HD7oQoeZSD3iQ7Wb625/nxbnPun
+	WAuwKqZoku9ZaMUrQTVuuveCI4hE2QM8ifulN0R0A4MMR2gdmII89a3emQMY2Um4BegQIjJI9V2
+	pFx2XbZnGwNVjK8SB6N6x7EgMh5s6WWyiWYPQyVsPDH0TXjhlbx0v3Wh9Gao1RHaEOpu2Tx4W9+
+	nHMpBOtm5sV7naSCdE6bRNyWCa9v5cZNougmp7pHr0C9ge2UY/oeuVfN5fZ6J48aGag50zu7Pwm
+	PnoJBB9ztMudcNrOsiJM3FkR9+jjo6venxthx5qAKrsEKx0MFTDYJevSykhqvv3XAujk6Be5D2y
+	znyS8Uk8F8gSNJ4U5wpF2p1bkaWsrEo1mYbVJhcKWZc4sEW89EmmcBrdMcInEL5+tEso2oLzn5d
+	cE/siUQo4Q==
+X-Received: by 2002:a05:6a00:3cd6:b0:86e:8deb:fbd4 with SMTP id d2e1a72fcca58-874dbde4f90mr9348313b3a.11.1789817120159;
+        Sat, 19 Sep 2026 04:25:20 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e5647c151sm3087498a91.4.2026.09.19.04.25.17
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a9d07425sm949957b3a.42.2026.09.19.04.25.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 04:25:17 -0700 (PDT)
+        Sat, 19 Sep 2026 04:25:19 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
-To: marcel@holtmann.org,
-	luiz.dentz@gmail.com
-Cc: linux-bluetooth@vger.kernel.org,
+To: brauner@kernel.org,
+	viro@zeniv.linux.org.uk
+Cc: jack@suse.cz,
+	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3] Bluetooth: MGMT: Fix mesh_tx Use-After-Free and leak in mesh_send()
-Date: Sat, 19 Sep 2026 11:25:17 +0000
-Message-ID: <20260919112517.3871992-1-benquike@gmail.com>
-In-Reply-To: <20260919080846.3005471-1-benquike@gmail.com>
-References: <20260919080846.3005471-1-benquike@gmail.com>
+Subject: [PATCH v2 1/2] nsfs: fix u32-vs-bytes unit mismatch in nsfs_fh_to_dentry()
+Date: Sat, 19 Sep 2026 11:25:18 +0000
+Message-ID: <20260919112519.3872163-1-benquike@gmail.com>
+In-Reply-To: <20260919080850.3005810-1-benquike@gmail.com>
+References: <20260919080850.3005810-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,213 +79,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In mesh_send(), a struct mgmt_mesh_tx entry is allocated and added to
-hdev->mesh_pending via mgmt_mesh_add(sk, hdev, send, len) before queuing
-mesh_send_sync() and mesh_send_start_complete() onto hdev->req_workqueue
-with mesh_tx as the callback data pointer.
+In nsfs_fh_to_dentry(), both fh_len and NSFS_FID_SIZE_U32_LATEST (4) are
+expressed in units of 4-byte u32 words rather than bytes, whereas
+pointer arithmetic on (void *)fid and the byte count passed to
+memchr_inv() are in bytes (NSFS_FILE_HANDLE_SIZE_LATEST = 16).
 
-Before or while the workqueue executes mesh_send_sync() and
-mesh_send_start_complete(), mesh_tx can be removed from
-hdev->mesh_pending and freed via mgmt_mesh_remove():
-1. If an earlier MGMT_OP_MESH_SEND_CANCEL (send_cancel()) item runs on
-   hdev->req_workqueue, send_cancel() calls mesh_send_complete(), which
-   removes and frees mesh_tx.
-2. If the management socket is closed, mgmt_cleanup() removes and frees
-   all mesh_tx entries matching sk under hci_dev_lock(hdev).
+Passing (void *)fid + NSFS_FID_SIZE_U32_LATEST and
+fh_len - NSFS_FID_SIZE_U32_LATEST to memchr_inv() inspects bytes
+[4 .. fh_len) inside struct nsfs_file_handle (fid->ns_id and
+fid->ns_type) instead of the trailing bytes [16 .. fh_len * 4) after
+struct nsfs_file_handle. Consequently:
+1. Valid zero-padded handles with handle_bytes >= 36 (fh_len >= 9) where
+   fid->ns_type != 0 (at byte offset 8) are falsely rejected with
+   -ESTALE.
+2. Non-zero trailing garbage in bytes [16 .. fh_len * 4) is ignored when
+   the upper 32 bits of fid->ns_id (bytes [4..7]) are zero.
 
-When mesh_send_sync() and mesh_send_start_complete() subsequently run,
-they dereference the dangling mesh_tx pointer (mesh_tx->param,
-mesh_tx->handle, mesh_tx->instance), and mesh_send_start_complete()
-frees mesh_tx a second time via mesh_send_complete() on error.
+Fix this by offsetting (void *)fid by NSFS_FILE_HANDLE_SIZE_LATEST (16)
+and multiplying (fh_len - NSFS_FID_SIZE_U32_LATEST) by sizeof(u32).
 
-Furthermore, if hci_cmd_sync_queue() fails in mesh_send() (which can
-only happen in the !sending branch), mesh_send() only called
-mgmt_mesh_remove(mesh_tx) when if (sending) was true (an inverted
-condition), leaking mesh_tx on hdev->mesh_pending.
-
-Fix this by holding hci_dev_lock(hdev) and verifying
-mesh_tx == mgmt_mesh_next(hdev, NULL) across all mesh_tx and send
-dereferences in mesh_send_sync() and mesh_send_start_complete(), and
-unconditionally calling mgmt_mesh_remove(mesh_tx) on
-hci_cmd_sync_queue() error in mesh_send().
-
-Kernel stack trace (Linux 7.3.0-rc3):
- ==================================================================
- BUG: KASAN: slab-use-after-free in mesh_send_sync+0x39a/0x410
- Read of size 1 at addr ffff8880132fe53b by task kworker/u9:1/143
-
- CPU: 1 UID: 0 PID: 143 Comm: kworker/u9:1 Not tainted 7.3.0-rc3-g5dd1818b15d9 #1 PREEMPT(lazy)
- Workqueue: hci0 hci_cmd_sync_work
- Call Trace:
-  <TASK>
-  dump_stack_lvl+0x70/0xa0
-  print_report+0x153/0x4c6
-  kasan_report+0xf1/0x120
-  mesh_send_sync+0x39a/0x410
-  hci_cmd_sync_work+0x14e/0x2a0
-  process_one_work+0x6ff/0x1110
-  worker_thread+0x4a8/0xb70
-  kthread+0x307/0x3e0
-  ret_from_fork+0x3ed/0x680
-  ret_from_fork_asm+0x1a/0x30
-  </TASK>
-
- Allocated by task 1:
-  kasan_save_stack+0x30/0x50
-  kasan_save_track+0x14/0x30
-  __kasan_kmalloc+0x7f/0x90
-  __kmalloc_cache_noprof+0x16a/0x380
-  mgmt_mesh_add+0x5b/0x340
-  mesh_send+0x22b/0x690
-  hci_sock_sendmsg+0x1155/0x2040
-  sock_write_iter+0x492/0x520
-  vfs_write+0x671/0xd20
-  ksys_write+0x1bb/0x210
-  do_syscall_64+0xda/0x4b0
-  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
- Freed by task 143:
-  kasan_save_stack+0x30/0x50
-  kasan_save_track+0x14/0x30
-  kasan_save_free_info+0x3b/0x70
-  __kasan_slab_free+0x47/0x70
-  kfree+0x159/0x420
-  send_cancel+0x14e/0x360
-  hci_cmd_sync_work+0x14e/0x2a0
-  process_one_work+0x6ff/0x1110
-  worker_thread+0x4a8/0xb70
-  kthread+0x307/0x3e0
-  ret_from_fork+0x3ed/0x680
-  ret_from_fork_asm+0x1a/0x30
-
- The buggy address belongs to the object at 0xffff8880132fe500
-  which belongs to the cache kmalloc-96 of size 96
- The buggy address is located 59 bytes inside of
-  freed 96-byte region [ffff8880132fe500, ffff8880132fe560)
- ==================================================================
-
-Fixes: b338d91703fa ("Bluetooth: Implement support for Mesh")
+Fixes: 5222470b2fbb ("nsfs: support file handles")
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
-v3: Add a Fixes: tag. The allocator (mgmt_mesh_add() in mesh_send()),
-the freeing path (mesh_send_complete() from send_cancel()), the racing
-dereference (mesh_send_sync()), the unlocked hci_add_adv_instance()
-call and the missing mgmt_mesh_remove() on the !sending path all came
-in together with b338d91703fa ("Bluetooth: Implement support for
-Mesh"), first released in v6.1. No later commit touched any of the
-lines this patch changes.
+v2: Add a Fixes: tag. nsfs_fh_to_dentry(), both NSFS_FID_SIZE_U32_*
+constants and this comparison were all added together by 5222470b2fbb
+("nsfs: support file handles"), first released in v6.18.
 
-This patch fixes two things that share that one origin: the
-UAF/locking race, and the leak when the send is not queued. Happy to
-split it into two patches if you prefer - both halves would carry the
-same tag.
+To be explicit about the impact, since a Fixes: tag will get this picked
+up for stable: this is NOT a memory-safety bug. (void *)fid + 4 stays
+well inside the 16-byte struct nsfs_file_handle, and fh_len - 4 is
+smaller than the intended (fh_len - 4) * 4, so the existing scan is
+strictly narrower than it should be. The consequences are a spurious
+-ESTALE for handles with handle_bytes >= 36, and trailing non-zero bytes
+not being rejected as intended.
 
-Backporting: the hunks apply back to v6.1, but mesh_send() picked up
-extra validation in bda93eec78cd, so older stable branches may need a
-trivial context fixup.
+ fs/nsfs.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-v2: Resend via git send-email with intact tab formatting and Assisted-by: LLM tag.
-Reproducer (triggers KASAN slab-use-after-free in mesh_send_sync() on
-Linux 7.3.0-rc3 via /dev/vhci and MGMT_OP_MESH_SEND_CANCEL +
-MGMT_OP_MESH_SEND):
-
-  /* 1. Enable Mesh experimental feature (UUID 766ef3e8-245f-05bf-8d4d-037ad763e42c)
-   *    and LE on hci0 via MGMT_OP_SET_EXP_FEATURE (0x004a) and MGMT_OP_SET_LE (0x000d).
-   * 2. Hold hdev->req_workqueue briefly in set_name_sync (MGMT_OP_SET_LOCAL_NAME 0x000f).
-   * 3. Queue MGMT_OP_MESH_SEND_CANCEL (0x005a, handle = 0) followed immediately by
-   *    MGMT_OP_MESH_SEND (0x0059) on a second MGMT control socket.
-   * 4. MGMT_OP_MESH_SEND synchronously adds mesh_tx to hdev->mesh_pending (assigning
-   *    handle = 1, or matching handle = 0 cancel) and queues mesh_send_sync(mesh_tx).
-   *    When send_cancel() runs first on hdev->req_workqueue, it frees mesh_tx, and
-   *    mesh_send_sync() immediately dereferences the freed mesh_tx. */
-
- net/bluetooth/mgmt.c | 25 ++++++++++++++++++-------
- 1 file changed, 18 insertions(+), 7 deletions(-)
-
-diff --git a/net/bluetooth/mgmt.c b/net/bluetooth/mgmt.c
-index ac4864e56..fbf85e791 100644
---- a/net/bluetooth/mgmt.c
-+++ b/net/bluetooth/mgmt.c
-@@ -2306,36 +2306,53 @@ static int set_mesh(struct sock *sk, struct hci_dev *hdev, void *data, u16 len)
- static void mesh_send_start_complete(struct hci_dev *hdev, void *data, int err)
- {
- 	struct mgmt_mesh_tx *mesh_tx = data;
--	struct mgmt_cp_mesh_send *send = (void *)mesh_tx->param;
-+	struct mgmt_cp_mesh_send *send;
- 	unsigned long mesh_send_interval;
- 	u8 mgmt_err = mgmt_status(err);
+diff --git a/fs/nsfs.c b/fs/nsfs.c
+index c3b6ae765..a1842e12f 100644
+--- a/fs/nsfs.c
++++ b/fs/nsfs.c
+@@ -529,8 +529,8 @@
  
--	/* Report any errors here, but don't report completion */
-+	hci_dev_lock(hdev);
-+	if (mesh_tx != mgmt_mesh_next(hdev, NULL)) {
-+		hci_dev_unlock(hdev);
-+		return;
-+	}
+ 	/* Check that any trailing bytes are zero. */
+ 	if ((fh_len > NSFS_FID_SIZE_U32_LATEST) &&
+-	    memchr_inv((void *)fid + NSFS_FID_SIZE_U32_LATEST, 0,
+-		       fh_len - NSFS_FID_SIZE_U32_LATEST))
++	    memchr_inv((void *)fid + NSFS_FILE_HANDLE_SIZE_LATEST, 0,
++		       (fh_len - NSFS_FID_SIZE_U32_LATEST) * sizeof(u32)))
+ 		return NULL;
  
-+	/* Report any errors here, but don't report completion */
- 	if (mgmt_err) {
- 		hci_dev_clear_flag(hdev, HCI_MESH_SENDING);
- 		/* Send Complete Error Code for handle */
- 		mesh_send_complete(hdev, mesh_tx, false);
-+		hci_dev_unlock(hdev);
- 		return;
- 	}
- 
-+	send = (void *)mesh_tx->param;
- 	mesh_send_interval = msecs_to_jiffies((send->cnt) * 25);
- 	queue_delayed_work(hdev->req_workqueue, &hdev->mesh_send_done,
- 			   mesh_send_interval);
-+	hci_dev_unlock(hdev);
- }
- 
- static int mesh_send_sync(struct hci_dev *hdev, void *data)
- {
- 	struct mgmt_mesh_tx *mesh_tx = data;
--	struct mgmt_cp_mesh_send *send = (void *)mesh_tx->param;
-+	struct mgmt_cp_mesh_send *send;
- 	struct adv_info *adv, *next_instance;
- 	u8 instance = hdev->le_num_of_adv_sets + 1;
- 	u16 timeout, duration;
- 	int err = 0;
- 
--	if (hdev->le_num_of_adv_sets <= hdev->adv_instance_cnt)
-+	hci_dev_lock(hdev);
-+	if (mesh_tx != mgmt_mesh_next(hdev, NULL)) {
-+		hci_dev_unlock(hdev);
-+		return MGMT_STATUS_FAILED;
-+	}
-+
-+	if (hdev->le_num_of_adv_sets <= hdev->adv_instance_cnt) {
-+		hci_dev_unlock(hdev);
- 		return MGMT_STATUS_BUSY;
-+	}
- 
-+	send = (void *)mesh_tx->param;
- 	timeout = 1000;
- 	duration = send->cnt * INTERVAL_TO_MS(hdev->le_adv_max_interval);
- 	adv = hci_add_adv_instance(hdev, instance, 0,
-@@ -2372,6 +2389,8 @@ static int mesh_send_sync(struct hci_dev *hdev, void *data)
- 		instance = 0;
- 	}
- 
-+	hci_dev_unlock(hdev);
-+
- 	if (instance)
- 		return hci_schedule_adv_instance_sync(hdev, instance, true);
- 
-@@ -2534,10 +2553,8 @@ static int mesh_send(struct sock *sk, struct hci_dev *hdev, void *data, u16 len)
- 		err = mgmt_cmd_status(sk, hdev->id, MGMT_OP_MESH_SEND,
- 				      MGMT_STATUS_FAILED);
- 
--		if (mesh_tx) {
--			if (sending)
--				mgmt_mesh_remove(mesh_tx);
--		}
-+		if (mesh_tx)
-+			mgmt_mesh_remove(mesh_tx);
- 	} else {
- 		hci_dev_set_flag(hdev, HCI_MESH_SENDING);
- 
+ 	switch (fh_type) {
 -- 
 2.43.0
