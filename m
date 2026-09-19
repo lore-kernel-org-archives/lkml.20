@@ -1,73 +1,71 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2F8D3749F0
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 20:35:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7A9D37C10C
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 20:35:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789850116; cv=none; b=Wxti77AlNtpbDZWw2rSZC6d/0JnJAB4ubpmqveYc1p/ogOmc1vgDlNLURUChrsPXzvjod0ugMdUUye2qFFkSMxAY/1+1U2ul8R5OJSe40Re+MdeeVkaHRX4pvpU8QCc6lQqrxLQTd5kwpwgjW3zY6g8JO+d4boFBWYic6cidXTg=
+	t=1789850117; cv=none; b=EfCEvRHdMXBDflZ0uckCeya4DLk1YL4ydOI2m5fpZYWTlI/Jq2CQY6mIy6pjnmh7x5bZLvLeCrelcPLkiAtKDXNxF3LiiYpbGDCWj6nevT2JMR7UnYlT5oNVJYlKnyIFxFO9sxLnrxS7i1CydeVbcJP9CQL41OvSRcxquKFYPVQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789850116; c=relaxed/simple;
-	bh=6Dt0U3Nv3UU/hUnJU6VCs7akUfdBnup8mEUblwSfJH0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=X53FMPULDlX5/Sw2gAXAf77482hT5uHNR+5T138sZ+Sn88z9L7BI6NDOXeIpRy0F7xhyk0mxXXJUf7h/NyjjW9GIWJJV9zNXMzl1d05belXQiWR4YU7DH+pV7s9WCiH1b5KBel10Shmg8otba5rym3exUa6yLJNHT9zSD63/yxE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gjdEI/D7; arc=none smtp.client-ip=74.125.227.141
+	s=arc-20240116; t=1789850117; c=relaxed/simple;
+	bh=hvFzpIVLAHgH2LJY2R8rbdYRjXjs88o1IJ5582M20lE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RZVzRURU75ignjzzVzwh5np7ei/t7UJj514A89zMG6gpfPCickVvucz029ObJUpNh7hZPJ+GFCPMuW7TUA9VYj8bAZ3FxvLQ8CeFqD5oOHbEV86ck+B8ckfI8eUesLX8harAYlLT8q3bT3kgBl3U1IQhdY37IXqbQt5LeuKeRlU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dt0ak8n0; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gjdEI/D7"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747eb79f6so11670435ad.0
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 13:35:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dt0ak8n0"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b9184fa80so1687048a91.2
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 13:35:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789850114; x=1790454914; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789850115; x=1790454915; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sp+3MfHIef17t9guG27n3yYy5IMEoS4o2YkTC2fwCC8=;
-        b=gjdEI/D7ejwEfIP57Q2RqSvTjh9zUVxZ/v1WQQLDawyy2eDEcq/afrD+zsuWZRckr/
-         NrlwFlmk7sIcODlDIEP5HuBtQvCZaRvfhfgcx7USBmNLcKbe9e3nyX2K5mkHM/bqtosR
-         X4Fc4o44crgF9N8MAqkM1gfjhL26vkjdfi6XYA+LO3ebAbNyZD33BCbLfRLHiFjdU3EP
-         MTZyeb2BI0ad3uu6uN24DqgvzMafadSqqJXvOyL1PpuKl8/aOH00TEa6OW84XiySufpE
-         vdvc1+Jnae6Cldt2YQiJz4/jUGc+ojaiy1UoKH3oJ67hSCpERD8TElBqho3/gIyVrQCR
-         cr6w==
+        bh=2QymwKalUenhtwvxSaf2H9k+Rhswa27Psp1ry8l1hIE=;
+        b=dt0ak8n0xm20CPTcrVSYq46XmgUXUu9QwpVBy28gKY709ZrSGWhrZjugXbHuCoqpMy
+         L/XTKxwh1bM44ds3YFqvXDQpxbo4O5vQlhEx4uCy0aLdQwxo4kQiw3pnYyaRuP4O23UD
+         G+qnL+J9kA7ysJ9+U7cIYu0REznAG2tLMGpFACeF7BzZRZA7RiM+1NK8x5lB54EZ+X7S
+         eBeqJAQP5NvonjHr8Dxb7xDTRt+ChXUAWzrEWq/QaO0d1o0JQ3fwHBctt44Rw2W+S1Gu
+         K2Sh3Mj4+L3SdSPkMt1GygbXb3c5X5JWt5o9Wf3bZvKxiuOenZBGCx2DaUkcYcGnSfRb
+         oaPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789850114; x=1790454914;
+        d=1e100.net; s=20260707; t=1789850115; x=1790454915;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sp+3MfHIef17t9guG27n3yYy5IMEoS4o2YkTC2fwCC8=;
-        b=kCKOL8+g7oziEtFmdLKdTsPEExOUCz8jIXUaTun3yY5k7GXE9MNuax1xjaega1HVW3
-         TkNFmJhQ/cf0vlQKMIW5/JWlMIrY9X+Nty4dngehAS679rTqJ7/cvO5I5yhAFFYTNSaJ
-         +7N1AyD1qGdytLSQ3ajYiUtVv/ll4t7VYZx7GcHojCSiMpEAHOew5JkZNFZOrpQ4c7lB
-         VHjBAZbif+dJlGAA9jgPiTt4eQ5syCKqgKP4wI5zAtYMlfksaEjE7YdbvasJ4Tii03SP
-         lP+Xn4p5wV/dgJNbNS8oQVVeqYRGNu7Mxghw6tCthCyu2O0okA5eu/rg9+FHE9RpLUQI
-         nXvQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwuAZEWlCQMl1eo/CDm2WCWQlL1+9g8AsSyU5hsu/LOiN9JOjc8+CPnpFf1ooM3g/WNmhZwURo/TwmQ3Rg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kyUw7PlwAvUPsBscXGbSW82GYVdXxNXQAX3FiWxmFM8BNRBulX
-	bwMzBMWe3LaNkdknXwMxZ373cc/fPyBe5B/alUQz3oG2RzHk0o8ho0RpWlzOadEP
-X-Gm-Gg: AYBFou1lHKJV3QGACCGMYgqFpdUL9fZ0dD9ID4RcrG6C1bTmgzWDzGuzq6WR9Y46IwG
-	Q0RuVzz5cdgAyxugr8FUI4QpgRNVIJTHGNbH5WbltrULIVlULbdGj9FRXpOY/iZDU4FuaoTYoTB
-	c1VsepmnIuvNyayT7+jKykHQ3YYliNOPMj3PbbgOg2Uq29zQiwiKBXskrn2EaFb4ry8oeqnMUCM
-	SSuKZ3yhJrEemrw3jZ7A593pNzR0VnSUp0EBiH7dVgVbKCLSGPVo4DF3CKMM2huEq1BBLVGuxY/
-	1kmwRxoaqJihE88IOphJlmg573J3tKJhntELv7YgiPn3eEW8IcVNcbT92XHjDEli4agl8IZCYsP
-	hj/zY1itGUFWX6eqGWgVB7509CNM62zPOZgrGdA0uDAHPIOgS2KaXgIk2A3wSXrWlR/V0ik5mnL
-	NH6vezqF+BZRFsAH/+ugjsYG2w435HsTRBh2aHQ7qQsjD6MfwV1Vg4+fXz4KTJq+wnYDdlcM06s
-	bZaYu+n3a2h6vahYVUEsYBjpJ4wVZgHY0HVZoMHAwBy3C6zf4D8nwrbu96lylx518uZnsM6aGeK
-	4AxHIJ21Qw==
-X-Received: by 2002:a17:902:f608:b0:2dd:c0ff:e724 with SMTP id d9443c01a7336-2ddc0ffe92dmr39228325ad.54.1789850113925;
-        Sat, 19 Sep 2026 13:35:13 -0700 (PDT)
+        bh=2QymwKalUenhtwvxSaf2H9k+Rhswa27Psp1ry8l1hIE=;
+        b=GRwbfEpBrq7yBVpZHeCz7jU2bDPhOZWOdamYr1qAit8DGx0he47NqO+QzpqQRJ6eZ5
+         jPuO78zBo2iFjdZzAZef/LD1KuWOfKda+d3mKHNUh6yMmNnAMA4QUv9VAq7JVX74+XyB
+         Itg54XCm86l83qM1P5VTSmZPdRabl/a6Yd4do2qUCHzUMKY2swQkdCz2WWUly7OOxLoa
+         mDJsnCWEUOgBT0CVj/KZNG8ykvZyCVrBY3SiV36guw18DwHZALks0zife2WyuL3OwUwx
+         50kwmq4nNx+xCgpMuZpCCLho6btI9c0H/73I6jeBzpkbj3F6t8AQWLkg0xvgyfQY6Eke
+         xGsg==
+X-Forwarded-Encrypted: i=1; AKwUvBw3xjiNO5TgGfvx4zvAbDLMlJ9bhqs3AVNBOyrJCLkdxv+QBejFakkLPWWxdq56fl5rp3F8D7zFVaGERnY=@vger.kernel.org
+X-Gm-Message-State: AFuF++myJLO4OolBg7LmfhdEcI5sAVHW4ALYODHzhrgVpyGLfE4E6qVB
+	eLcnme87rfxaZFLNNxEFO9pri7cUHuhFq2+qr5Y1GajTDpsZ09Oozwro
+X-Gm-Gg: AYBFou0bKpcZ42jOm+9KSFCT5XXrFEg8eEti+pyDZ9fhOQoY1snd8Ut+7KWPPbX0kfp
+	01Gra8oaIWWyeWuOMrQOhOwYeDVMLmp1Pa1ZcDwDSWR0NShLp7+1cMczqnT7QS07jkuHxpATK3x
+	+HS/KfvYZCI9KpYrPbn8giIGDbYgGmlrQMTHLZ8Acil1xSsPMecPyp1EtbCe/QWNvIACwmx/vSp
+	SMoyvBWOc1uVSFwkpYKytLUWo8mFXZbKYHqjhkw3/ha6wEQLmGybDytWEZ/pIgJC4CKfsHVkgbe
+	GfG8l5XvX/phpwX3FwAmRIIwRYwGruTx+gaSCDKWbQnRm7ZF+aMPZoeg39Mn85JxY7OiTtKgYEg
+	vdzSZwS/cFElVrFLeuaQDa4fTNInf9tp/LEa9RJc+ZP4p4ahiwBcImD/3MBMukVZFWzpjgbMCbH
+	o8HSBaFKUfjSrZuabBfbHbE4KeVT6NyQjaTG2VHWuFQzPQp+V8e6VWvVOVktTro4FhNHRn4dgjJ
+	KkLx43EfvqfkMBDY/iAZJSID/IsKCY3J4XPJoZtcUhKRYo91y/c2p2Xy3IWJpqMaYSmS+ADb8qS
+	05je/cvwww==
+X-Received: by 2002:a17:90a:6c82:b0:39e:6a81:c923 with SMTP id 98e67ed59e1d1-39e6a81c9admr4093999a91.22.1789850115133;
+        Sat, 19 Sep 2026 13:35:15 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (67.51.127.34.bc.googleusercontent.com. [34.127.51.67])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17ff4d7sm12700145ad.74.2026.09.19.13.35.13
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c4ba12csm5990780a91.11.2026.09.19.13.35.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 13:35:13 -0700 (PDT)
+        Sat, 19 Sep 2026 13:35:14 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
-To: David Howells <dhowells@redhat.com>,
-	Jarkko Sakkinen <jarkko@kernel.org>
-Cc: Paul Moore <paul@paul-moore.com>,
-	keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
+To: Kees Cook <kees@kernel.org>
+Cc: Andy Lutomirski <luto@amacapital.net>,
+	Will Drewry <wad@chromium.org>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] KEYS: reject descriptions exceeding U16_MAX in __key_create_or_update()
-Date: Sat, 19 Sep 2026 20:35:11 +0000
-Message-ID: <20260919203511.2580732-1-benquike@gmail.com>
+Subject: [PATCH] seccomp: restore knotif->state when SECCOMP_ADDFD_FLAG_SEND is interrupted
+Date: Sat, 19 Sep 2026 20:35:14 +0000
+Message-ID: <20260919203514.2580997-1-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -77,67 +75,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-struct keyring_index_key stores the key description length in a 16-bit
-field (u16 desc_len), and __key_link_begin() enforces
-BUG_ON(index_key->desc_len == 0).
+In seccomp_notify_addfd(), when SECCOMP_ADDFD_FLAG_SEND is set,
+knotif->state is transitioned from SECCOMP_NOTIFY_SENT to
+SECCOMP_NOTIFY_REPLIED before dropping filter->notify_lock and waiting
+in wait_for_completion_interruptible(&kaddfd.completion).
 
-While add_key() bounds explicit userspace description strings to
-KEY_MAX_DESC_SIZE (4096), when the userspace description is NULL or
-empty __key_create_or_update() delegates description generation to
-index_key.type->preparse(&prep) on the payload (up to 1 MiB). Key types
-such as "asymmetric" (x509_key_preparse()) construct prep.description
-from the certificate issuer, subject, and hex-encoded serial number,
-which can exceed 65535 bytes.
+If wait_for_completion_interruptible() is interrupted by a signal before
+the target task processes the kaddfd entry, seccomp_notify_addfd()
+removes kaddfd.list from knotif->addfd via list_del(&kaddfd.list), but
+leaves knotif->state set to SECCOMP_NOTIFY_REPLIED.
 
-__key_create_or_update() then assigns:
+As a consequence:
+1. When the target task wakes in seccomp_do_user_notification(), it
+   observes knotif->state == SECCOMP_NOTIFY_REPLIED with an empty addfd
+   list and zeroed knotif->val / knotif->error / knotif->flags, causing
+   the supervised syscall to prematurely complete with return value 0
+   without installing the file descriptor.
+2. Any subsequent retry of SECCOMP_IOCTL_NOTIF_SEND or
+   SECCOMP_IOCTL_NOTIF_ADDFD by the supervisor fails with -EINPROGRESS
+   because knotif->state is no longer SECCOMP_NOTIFY_SENT.
 
-        index_key.desc_len = strlen(index_key.description);
+Restore knotif->state = SECCOMP_NOTIFY_SENT when removing an unhandled
+SECCOMP_ADDFD_FLAG_SEND request from knotif->addfd.
 
-without checking whether the length fits in u16. When
-strlen(index_key.description) is 65536 (0x10000), index_key.desc_len
-truncates to 0 and immediately triggers BUG_ON(index_key->desc_len == 0)
-in __key_link_begin(). Lengths above 65536 truncate modulo 65536,
-corrupting keyring hash and comparison lengths.
-
-Reject empty descriptions or descriptions longer than U16_MAX with
--EINVAL in __key_create_or_update() and key_alloc().
-
-Fixes: 16feef434017 ("KEYS: Consolidate the concept of an 'index key' for key access")
+Fixes: 7cf97b125455 ("seccomp: Introduce addfd ioctl to seccomp user notifier")
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
-diff --git a/security/keys/key.c b/security/keys/key.c
---- a/security/keys/key.c
-+++ b/security/keys/key.c
-@@ -245,6 +245,8 @@ struct key *key_alloc(struct key_type *type, const char *desc,
- 	}
+diff --git a/kernel/seccomp.c b/kernel/seccomp.c
+--- a/kernel/seccomp.c
++++ b/kernel/seccomp.c
+@@ -1808,10 +1808,13 @@ static long seccomp_notify_addfd(struct seccomp_filter *filter,
+ 	 * We need to check again if the addfd request has been handled,
+ 	 * and if not, we will remove it from the queue.
+ 	 */
+-	if (list_empty(&kaddfd.list))
++	if (list_empty(&kaddfd.list)) {
+ 		ret = kaddfd.ret;
+-	else
++	} else {
+ 		list_del(&kaddfd.list);
++		if (addfd.flags & SECCOMP_ADDFD_FLAG_SEND)
++			knotif->state = SECCOMP_NOTIFY_SENT;
++	}
  
- 	desclen = strlen(desc);
-+	if (desclen > U16_MAX)
-+		goto error;
- 	quotalen = desclen + 1 + type->def_datalen;
- 
- 	/* get hold of the key tracking for this user */
-@@ -820,6 +822,7 @@ static key_ref_t __key_create_or_update(key_ref_t keyring_ref,
- 	const struct cred *cred = current_cred();
- 	struct key *keyring, *key = NULL;
- 	key_ref_t key_ref;
-+	size_t desc_len;
- 	int ret;
- 	struct key_restriction *restrict_link = NULL;
- 
-@@ -865,7 +868,11 @@ static key_ref_t __key_create_or_update(key_ref_t keyring_ref,
- 		if (!index_key.description)
- 			goto error_free_prep;
- 	}
--	index_key.desc_len = strlen(index_key.description);
-+	desc_len = strlen(index_key.description);
-+	key_ref = ERR_PTR(-EINVAL);
-+	if (!desc_len || desc_len > U16_MAX)
-+		goto error_free_prep;
-+	index_key.desc_len = desc_len;
- 	key_set_index_key(&index_key);
- 
- 	ret = __key_link_lock(keyring, &index_key);
+ out_unlock:
+ 	mutex_unlock(&filter->notify_lock);
 -- 
 2.43.0
