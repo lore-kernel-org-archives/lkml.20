@@ -1,123 +1,184 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4572C472F87
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 10:58:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D7BF4718C2;
+	Sat, 19 Sep 2026 10:58:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789815486; cv=none; b=CyO1D7S0osFzo9FkikKPaicvxhE3t/8zkDanHzh6ssR3v4rwmXAzGg1cAPpkGadj+K3PRWpGFMoIhThOqQttkIlVsO8f6HfiTm6Ojunc0fMXbwBfkbzsfr/ys7iCcRO+6WY/VFDdkfTH3ydsR5P2Gq/2aGO9978XXLhZ0c24B/Q=
+	t=1789815487; cv=none; b=Yw+QrO5ST733C6s9WSVubxod3RbxNfGflQOLIkLULxqBcvPyISD7F/toytCoZl1NXaUiAr6H/+dUjRwQKzw730xH0QxDOxbma72AqE/vpfrn1qol3V18cqRr2v+5Qn1XNPoM66orhEg/e+qgnMVyHFTzrJmKjkbJg/LVslJBukQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789815486; c=relaxed/simple;
-	bh=ZDmz1ciF8gjUH2neEdwENHdnfpeP6eI6ELZpEKaijzM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=A2gHnNsPdDPmjIvCLRIkCpW1xa7/NrkxAtf2ZIGwDnTLwHC8N9DQmGUeOGLHgFraVAlTYoNV6yEIHFhgSYpI8eC9+dLV/aunDpUBYKP7N49GHCkobBDtfBcc4t5k3F9OH0ZsL4YRPDiZ/4rmiWyVXMXzRM6TkRCxKlZxFwHl9V8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LPJtyBR6; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789815487; c=relaxed/simple;
+	bh=TaVj+3b14vT6k0Ii5z+03MFmQXVfMnls5tg9LOf7NIk=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=UtG3Kj83xTF00fa2knrZrjnrdNZxt4jkLjpKoQaoL4nfNDn9PMHpvaauXuJLGBG+qC2feIhk9tejHy8RTCtFnx7bNVUB0545yEQDOcMK2Z+bdO7X5u+ZKFsocFiw82SimNJ+/Bk51IOHgr/yGyx/dVVF65CKeKMG9+wuV4KZgDI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F21au6lc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LPJtyBR6"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccd5cf03so1626535a91.1
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 03:58:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789815484; x=1790420284; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=T7/TbC35mvVX9Tsj/V9b/0eBQFX1WnM70lzVe7sM0Pc=;
-        b=LPJtyBR665M3imMBXWzW7gwNMxKJyS8wte1xpsCPVo713dGQ2JqqDdBR9YNyWPnNUt
-         p4lLzgE0cRd6zrAXRMcqtBpfJGzevtE4D5cJwR9chlphEJu3d8M1UcY5Ts9IbtIVxJMF
-         QfHTApsStkUpmO2f+19q5U9EdbVXBm71//2QNY3ELuwIqr0zm1qVVXyvWNJ9YqNV8iG2
-         WTpmC+KX+JtTGOVXa2VaORM7CtyUrJrKVwl5v3s7CB4VszEo3Z4Vb9PKCeu+RH5mpGBk
-         CQtA+7LecALRhZjpl39rCz53y7c/rBotg9NIf8LGD3mTQ0iN/l3qF+nnEsJu8U6nMJR/
-         Y6RQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789815484; x=1790420284;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=T7/TbC35mvVX9Tsj/V9b/0eBQFX1WnM70lzVe7sM0Pc=;
-        b=pN3/GXQIiAiQ3wblyxQYQkFFeImQ+ystf+wsUV9y9dAR0AFh8golCJDf5cjDRFR3m+
-         NN0UQtuuxBfBJcUzz9gqGwis7x0qyILvJo3nbWBZBC7XBQ4RJGjfyy1Su24vY7RMsJC0
-         QTS6BF9LodLiATrjnqFGruRUrFYkzcgzTzZGc/ZU/5ryf8yvzRXAbT6rIyV2dt3j0EBR
-         QSr7ukDfuUQmbpZn+BP4ivTEcxdHxHgVgeYbZovuOgHVPFmxIcvYIDW5Nx65dP1gIWIn
-         /jAXfc1lqOf/rCqOWpQBraCPGaClnBCQdn7YmrHXjZThTwBmJsGigZLPP4b7FqagPXbU
-         KiIQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw4wHPc2WWW2U5S2nwsewLX2I/eSe3i3xl3gOaU78tnp0Rz7rZTmT23kWr36Ztb8eZAQ/hyWJOxe0Px7HM=@vger.kernel.org
-X-Gm-Message-State: AFuF++npUJnKto8WJuExoQLNZbq1CLRxbx2KalodsKYMTEx+IEMY2CLp
-	3NBzZeqOvn7iLTXkSA6dP7milDrGYsLPn2riSTsvvTPTSaQvDvb/LZag
-X-Gm-Gg: AYBFou3AqpZkZCClu6se+Blv/i9c+XEaIf6jaUm7Gxeskn8YUWPqUtve7LKh3i07Q33
-	vCK95Z0GCUXt3p+nAEmA0xT+voEAy5IrIU8eS/EJCl5WFeepekIDYO12z7QyVlWCOLKlCCQPdHH
-	2px+tXuCKYG671lS/OIFoH0XyUDrD2lj4rHkM3TQ/slk0dzR0QVAR19gSbfMaI3+6J83/ySUAs4
-	Tfh28c28lRaBBRMfuupLdfMXw0bad25JX8C0jtF6eEcaqbmvHHUNaOLuxn93wxDVptyc/nrHzVK
-	QVbX5CdV8eCNUl71O95ZbYqGreWf8LDRh4N5Iw5utKETseZLu0vFzOeWbGo7jfRaHNO5eM6g+rk
-	r7nES+8qwZ+kbyehywlX46U5ubhhES+Rl6HR61iG/2PQNFeFqj43VscnIuo+HZQsq0yMozTrDGx
-	AdlUUS9XpJwGfQZ9WrHFeLEl3eNAkg4O0G+Smy8vX3O/5G1CYA7uj7PHLm5KoAyRU73trIq4G47
-	Bk=
-X-Received: by 2002:a17:90b:280c:b0:39e:6c69:f480 with SMTP id 98e67ed59e1d1-39e6c69f575mr3186557a91.63.1789815484305;
-        Sat, 19 Sep 2026 03:58:04 -0700 (PDT)
-Received: from archlinux ([2402:e280:411b:ec:aa93:b1ec:5a6b:5fce])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a02738654csm2057152a91.3.2026.09.19.03.57.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 03:58:03 -0700 (PDT)
-From: Adarsh Das <adarshdas950@gmail.com>
-To: linux-cifs@vger.kernel.org
-Cc: pc@manguebit.org,
-	linkinjeon@kernel.org,
-	ronniesahlberg@gmail.com,
-	sprasad@microsoft.com,
-	tom@talpey.com,
-	bharathsm@microsoft.com,
-	samba-technical@lists.samba.org,
-	linux-kernel@vger.kernel.org,
-	Adarsh Das <adarshdas950@gmail.com>,
-	syzbot+eeb58d2197d88720a228@syzkaller.appspotmail.com
-Subject: [PATCH] smb: client: delete compound mids on send failure before unlock
-Date: Sat, 19 Sep 2026 16:27:32 +0530
-Message-ID: <20260919105732.3041-1-adarshdas950@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F21au6lc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EE9F1F000FF;
+	Sat, 19 Sep 2026 10:58:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789815485;
+	bh=G3Q9JVNPeVatCTin9yOa9ai9BXWQ8jKY4rKL0xwmaWY=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=F21au6lcrZGNmtRqXyyiO3WGHwd1pVNAYESr3vIBk0/uQaKSrpHe30tP8sREgpEBz
+	 Lj8kVoCY7ihQBdvi/4asm2jcknTug9uIP+qG3ycKPqAGP8toc2KxdoaINLSCtvZmEt
+	 LgEwvKQ2gFdEZqfefloTInsMlEp+xuW5FKc+ef8b3ygZ4nFS3KD2RYeVuklBqmPO/e
+	 e2WqWPj1tW9iKcWhUHZxFvCfS8M9UFQpNOWDuTM0kDXGKLE2bXB01+1P7oPROic/aW
+	 UaVpzf9vAn7gkcBeqp4xWDvcYN0V180SHd5t8grHKPSoGO3HTsq+K/+Lxv4t/+cTL3
+	 Qn2d/gNesLpxw==
+Content-Type: multipart/mixed; boundary="===============3854488706741688450=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-Id: <ae4fd719188ae85855405378e066df2483b55a1d9667a65defa410f2f295681e@mail.kernel.org>
+In-Reply-To: <20260919094400.600585-4-sh_def@163.com>
+References: <20260919094400.600585-4-sh_def@163.com>
+Subject: Re: [PATCH bpf-next v2 3/3] bpftool: Add support for BPF_F_PREORDER cgroup attach flag
+From: bot+bpf-ci@kernel.org
+To: sh_def@163.com,bpf@vger.kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com
+Cc: yonghong.song@linux.dev,qmo@kernel.org,martin.lau@linux.dev,song@kernel.org,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,shuah@kernel.org,linux-kselftest@vger.kernel.org,linux-kernel@vger.kernel.org,sh_def@163.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Sat, 19 Sep 2026 10:58:03 +0000 (UTC)
 
-When sending a compound request fails, smb_send_rqst() kicks off a
-reconnect. compound_send_recv() still has those mids on pending_mid_q,
-but it unlocks the server without removing them first.
+--===============3854488706741688450==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-During reconnect, cifs_abort_connection() walks pending_mid_q and runs
-each mid callback. With no response yet, those callbacks return credits
-and drop in_flight. Then compound_send_recv()'s send-error path returns
-the same credits again. in_flight ends up decremented twice and
-smb2_add_credits() WARNs.
+> diff --git a/tools/bpf/bpftool/Documentation/bpftool-cgroup.rst b/tools/bpf/bpftool/Documentation/bpftool-cgroup.rst
+> index e8185596a759b..f8408ed44d748 100644
+> --- a/tools/bpf/bpftool/Documentation/bpftool-cgroup.rst
+> +++ b/tools/bpf/bpftool/Documentation/bpftool-cgroup.rst
 
-syzbot hits this during SMB2_negotiate when the socket send fails.
+[ ... ]
 
-cifs_call_async() already calls delete_mid() before unlock on send
-failure. Do the same for compound chains and set cancelled_mid[] so the
-out: path does not delete them again.
+> diff --git a/tools/bpf/bpftool/bash-completion/bpftool b/tools/bpf/bpftool/bash-completion/bpftool
+> index 75cbcb512ebae..a51c68029e16f 100644
+> --- a/tools/bpf/bpftool/bash-completion/bpftool
+> +++ b/tools/bpf/bpftool/bash-completion/bpftool
 
-Reported-by: syzbot+eeb58d2197d88720a228@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/r/6a727d22.40259c87.584f4.04ce.GAE@google.com
-Tested-by: syzbot+eeb58d2197d88720a228@syzkaller.appspotmail.com
-Assisted-by: LLM
-Signed-off-by: Adarsh Das <adarshdas950@gmail.com>
+[ ... ]
+
+> diff --git a/tools/bpf/bpftool/cgroup.c b/tools/bpf/bpftool/cgroup.c
+> index ce69d1e5468e3..6ea0492ea5327 100644
+> --- a/tools/bpf/bpftool/cgroup.c
+> +++ b/tools/bpf/bpftool/cgroup.c
+> @@ -56,7 +56,7 @@ static const int cgroup_attach_types[] = {
+>  };
+>
+>  #define HELP_SPEC_ATTACH_FLAGS						\
+> -	"ATTACH_FLAGS := { multi | override }"
+> +	"ATTACH_FLAGS := { multi [ preorder ] | override [ preorder ] | preorder }"
+
+[ ... ]
+
+> @@ -269,6 +269,39 @@ static int show_effective_bpf_progs(int cgroup_fd, enum bpf_attach_type type,
+>  	return 0;
+>  }
+>
+> +static const char *format_attach_flags(__u32 attach_flags, char *buf, size_t sz)
+> +{
+> +	static const struct {
+> +		__u32 flag;
+> +		const char *name;
+> +	} flags[] = {
+> +		{ BPF_F_ALLOW_MULTI, "multi" },
+> +		{ BPF_F_ALLOW_OVERRIDE, "override" },
+> +		{ BPF_F_PREORDER, "preorder" },
+> +	};
+> +	size_t len = 0;
+> +	size_t i;
+> +	int n;
+> +
+> +	buf[0] = '\0';
+> +	for (i = 0; i < ARRAY_SIZE(flags); i++) {
+> +		if (attach_flags & flags[i].flag) {
+> +			n = snprintf(buf + len, sz - len, "%s%s",
+> +				     len ? "," : "", flags[i].name);
+> +			if (n < 0 || (size_t)n >= sz - len)
+> +				return buf;
+> +			len += n;
+> +			attach_flags &= ~flags[i].flag;
+> +		}
+> +	}
+> +
+> +	if (attach_flags)
+> +		snprintf(buf + len, sz - len, "%sunknown(%x)",
+> +			 len ? "," : "", attach_flags);
+> +
+> +	return buf;
+> +}
+> +
+>  static int show_attached_bpf_progs(int cgroup_fd, enum bpf_attach_type type,
+>  				   int level)
+>  {
+> @@ -276,7 +309,7 @@ static int show_attached_bpf_progs(int cgroup_fd, enum bpf_attach_type type,
+>  	__u32 prog_attach_flags[1024] = {0};
+>  	const char *attach_flags_str;
+>  	__u32 prog_ids[1024] = {0};
+> -	char buf[32];
+> +	char buf[64];
+>  	__u32 iter;
+>  	int ret;
+>
+> @@ -296,21 +329,7 @@ static int show_attached_bpf_progs(int cgroup_fd, enum bpf_attach_type type,
+>  		__u32 attach_flags;
+>
+>  		attach_flags = prog_attach_flags[iter] ?: p.attach_flags;
+> -
+> -		switch (attach_flags) {
+> -		case BPF_F_ALLOW_MULTI:
+> -			attach_flags_str = "multi";
+> -			break;
+> -		case BPF_F_ALLOW_OVERRIDE:
+> -			attach_flags_str = "override";
+> -			break;
+> -		case 0:
+> -			attach_flags_str = "";
+> -			break;
+> -		default:
+> -			snprintf(buf, sizeof(buf), "unknown(%x)", attach_flags);
+> -			attach_flags_str = buf;
+> -		}
+> +		attach_flags_str = format_attach_flags(attach_flags, buf, sizeof(buf));
+>
+>  		show_bpf_prog(prog_ids[iter], type,
+>  			      attach_flags_str, level);
+
+Can the comma-separated flag strings here misalign the Name column?
+
+The new formatter produces strings like "override,preorder" (17 chars) and
+"multi,override,preorder" (23 chars), but the plain-text output table in
+do_show() and do_show_tree() formats the AttachFlags column with %-15s:
+
+    printf("%-8s %-15s %-15s %-15s\n", "ID", "AttachType",
+           "AttachFlags", "Name");
+
+and show_bpf_prog() uses the same width:
+
+    printf(" %-15s %-15s", attach_flags_str, prog_name);
+
+Since %-15s doesn't truncate, strings exceeding 15 characters will push
+the Name column to the right for those rows. Before this patch, the same
+attachments displayed as "unknown(41)" or "unknown(42)", which fit within
+15 characters.
+
+> @@ -593,6 +612,8 @@ static int do_attach(int argc, char **argv)
+>  			attach_flags |= BPF_F_ALLOW_MULTI;
+>  		} else if (is_prefix(argv[i], "override")) {
+>  			attach_flags |= BPF_F_ALLOW_OVERRIDE;
+> +		} else if (is_prefix(argv[i], "preorder")) {
+> +			attach_flags |= BPF_F_PREORDER;
+>  		} else {
+>  			p_err("unknown option: %s", argv[i]);
+>  			goto exit_cgroup;
+
+
 ---
- fs/smb/client/transport.c | 4 ++++
- 1 file changed, 4 insertions(+)
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-diff --git a/fs/smb/client/transport.c b/fs/smb/client/transport.c
-index e266859818a4..7df5b3447aea 100644
---- a/fs/smb/client/transport.c
-+++ b/fs/smb/client/transport.c
-@@ -965,6 +965,10 @@ compound_send_recv(const unsigned int xid, struct cifs_ses *ses,
- 	if (rc < 0) {
- 		revert_current_mid(server, num_rqst);
- 		server->sequence_number -= 2;
-+		for (i = 0; i < num_rqst; i++) {
-+			delete_mid(server, mid[i]);
-+			cancelled_mid[i] = true;
-+		}
- 	}
- 
- 	cifs_server_unlock(server);
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/35436378806
+--===============3854488706741688450==--
