@@ -1,133 +1,86 @@
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8308D39A048
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 01:10:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.205
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789780252; cv=pass; b=Hk17zToxEd8pi03o4qQejR/wyfAaZSUCG1ZaxrnF/L0U4nAjd5tY7o6Dt15JOy5NT+emrzYzVMdYd8xCWcK7VHwxwx832wzWFyYa45Zlf13scadwRo93bmzNMOJ0pR1IYGOx/uF+BsuWuXBQxKvzp7USYyAPUyV4At8kQKu/U6c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789780252; c=relaxed/simple;
-	bh=iGzdbSllr8QjJeo+SoUN85/5fREjJOEUukH1vTN+KoM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gDt6jynaqLQd8p6N+R2QER408tdgmqk84mJNrtSEEynXKMO4dZFA7vQyDdFMI+/GgUuALjCOEt4ZQWNLlZgURsiBYv20XeQuvLg5jjBSPE1zxRTrIzgBg4mmQHQkqbJCl3ztCdzi2xdoQrglEfUjO79r8FgS9cH05Q6rXl/WUnc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ku5ZZPbI; arc=pass smtp.client-ip=74.125.229.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 712EE3AEF2E;
+	Sat, 19 Sep 2026 01:10:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789780261; cv=none; b=fVBCMmhOQrRdHvyxVmM7krGVcsT3dsGEu9HFNBFtLfeiBoo4icREpUHWNU9WunJNNnt/clGI8zC0Yx2rggVyHOhSc0xKmfc3nAGZN1RqjP380fMeVhAj7xLxgPLujLQjqXbHGF9vYFnwFyn08d3HzqpwWGwl1t5dyLL0/MTUduA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789780261; c=relaxed/simple;
+	bh=/uFvDU0eh29LSha4tX/8NfQlZ8H3dSXMwwqga3OqBNw=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Sby5lu5B8/cj6HoJKrzCPpW6lbnQV6op8PlWjCALSLa9IapD9Y152tiR6zMJeu/VXjWhWvKHwPM9yZ92YaaUJByuvSOfpnCjh40jRYoALdsL9u1pD8pA8FCv58rLYU/1ca2bw7XU6c/a2FdlT8kfcHNEJDYWtepZ0vsN5wu498A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=WW1fcCZ/; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ku5ZZPbI"
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b7be8dbabfso1267718e87.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:10:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789780247; cv=none;
-        d=google.com; s=arc-20260327;
-        b=D8awSJmsId0R4iMYWsIUR2vrXIRh4DuByZSE78SIz7BjrQXzYDf4mcmomlzYBBpdvC
-         XUZAoYy6u7knNHhxHVluOoVNyvZtlLIbEK1o/COPSButJ7Ev++Sx73hOpfrkrf7IYOVK
-         0aCaWluvLBajheWmQCvX0vVeroq1IQM+7Ud0pHFZykCDN8LrKkTvaxhYZ/Ud6NZgJdAU
-         mf/mx/9u+Ipq+qC/cgudAnEk3MbgcEn8cnfrn+hQS/EltSIN8uqqKkNbU1LQO1YQukd7
-         KgnaoEw3I1rJMdvbAK35hApMuHMNjo5I+EQVcPa9NqO4q7YcUadhYmqliYCGIy6n2plp
-         UQDA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=DGdaTY1YJtwZ1uBv2RCa5jny+whMo/kcQ9jtBIf3Fls=;
-        fh=/ACIaCAxyudzAa/aTQeQI3zNEt+v9VKAFVBimXEhZXk=;
-        b=UwdPcH0QnMXbcsSTZL82rj1tzWErVVAXO192YOvHDsJ3GMkfmKh0zyMYpcFNQHGO0u
-         vj4Aclb56dBk8JOMLdTOVybyCjRKkKG1eW7BS5xi09QFEaVHeTxPlyXww3ym30osxnFf
-         vsLyhjn+X6NV2cIfal5R5YMZPRLMzuu3IN0zFXTN+/QMNcLibiXtKTs6YXGzOb5eEdj7
-         KAaI+Nv4BFnP16cKkg3ja660dBD6pUSXfRZdoplxM2EUq+Vh0k730wumEu2D/d/OBRJj
-         gLWL6sbouFVHyQaJWMjz/8ZEEYUxN8vsluijcDQyXFnH3epCQRbwh1GnB9r7sKexwwmt
-         mgTA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789780247; x=1790385047; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DGdaTY1YJtwZ1uBv2RCa5jny+whMo/kcQ9jtBIf3Fls=;
-        b=Ku5ZZPbIm91w7kzyXvKcmdkfmlSKPDj+ikn3KeiK/GwOGSBJ9mpq3nBJSMHiNnbYPt
-         jyvMl0IoC8odxWRjDmCAXDRycZmZ2CocvDLMlm/tWUGO4AnE8jyB5KrDg5qKVYyPBfiU
-         QBncdpuJhP0zSi2lsJUhfKphm6zsyLbw4MEMCOh9wqzNGEACdz+tpekBeMPb75WaHsx7
-         8ZZFNBJKwmZUsjroh7HXTWscFxfrrfdphl+Z/Z2WCEDAvozgjb5q/9IcVtadvjAfTykn
-         azh900vhnQ2ZhpP9jPgu6C5PG3g0TSRClPqhk0iKVbKXwsuBY9nAOVj6P6+h6SMSUJYa
-         vxWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789780247; x=1790385047;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DGdaTY1YJtwZ1uBv2RCa5jny+whMo/kcQ9jtBIf3Fls=;
-        b=RRcvpltmKP/pzi6gsY1Mxjx1XaiMbio7QWCixoNN3BA0H9HV81swLt8WKZa08LKeUL
-         TJWBhH8448xpXNjNuQFPyV3vN81VuDnIXXfQhS7iIWkhoZdppWgBtgNz0a3mAwzlhMG4
-         00E8Hu/25LeeWmqyBJqSFpbbZXckdboEru/Rad/f7dB4CFU0gnyS4rL0EUZkD5y2nkm4
-         HsBUUc6/yw7Rpg8Kh7qQZu9yKFqIr0Stt76SmA3DgziH3aZnWCwNetx56az1AQQvuGSf
-         lFelvpA1E9ik6pjk3vC3ggLlU62lUUiuR25hhKUhDIpKGfygRcjTv9iyVnRGSNrndUwE
-         fs2Q==
-X-Forwarded-Encrypted: i=1; AKwUvByRWgPV9VhEkAA4qo2JLxQgeCUYLrODcM83RDc9zEHQx/6hTkAASyzWteRffr6R+rjEvP2rQ9jim1rLY9Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++m84PZo5g0BLzmWfaSKjYen8jqf4h0QD9oIF0v/3oTuMflmO6Nv
-	jH/9Et1RYfaSVGovTMD4a+z1SVYUX8jVfggJJywGZ5QqMJX+6hnV9gSVoyJqwlPiXnx5XLWIAze
-	oPFxZnoFXw+LGTwT8fa9obodH5vkZ/R4=
-X-Gm-Gg: AYBFou06Qx+W21nHwhSBVHfpMg6jbpif9zMjs0lAFoSF8he07S/Cz0Ztj/4WcKbw/m2
-	CNJD/3F/sgujtmJjjcT3B3hhjne9cIMIDKibToZ5J4x/8Xi3//K4zSwwDsRXWBNo/kOVf357ipP
-	FKPFZR2AwLA2wSPoAUla9tK6RP20aOR6UFf6uWYO4vQELiaPoxedOTRRXdaZAkoW6tYQVZxsdRb
-	Ij4KceXT50RQ0gff0+gurA3BpWW8M86zSO3jyGQKKd4X0RgRc6GjLp2hR19LvL51u06ewDPReOc
-	zEN0Tg1s1IeKewL2Bh0O20xBqaOd0Y5n0vi2ee3sPMJ30G5qXy5prQ/iltOTKQJIAKUxABSaGhH
-	7LBkDiqzTxNNhjD5cES1UOAnSpT3RSNJdECD0dB4fKkmxjQGEaWu2SjM=
-X-Received: by 2002:a05:6512:3e14:b0:5b4:a8c3:d26f with SMTP id
- 2adb3069b0e04-5b8c1809b8cmr1360063e87.23.1789780246375; Fri, 18 Sep 2026
- 18:10:46 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="WW1fcCZ/"
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4e57bef79;
+	Sat, 19 Sep 2026 09:10:42 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Eugen Hristev <ehristev@kernel.org>
+Cc: mchehab@kernel.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: Re: [PATCH] media: microchip: isc: Initialize DMA lock before requesting IRQ
+Date: Sat, 19 Sep 2026 09:10:13 +0800
+Message-Id: <20260919011013.3383669-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <77440bae-7381-451f-861d-1399bac4d925@kernel.org>
+References: <20260830023228.2054498-1-runyu.xiao@seu.edu.cn> <77440bae-7381-451f-861d-1399bac4d925@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914014539.5015-1-sigefriedhyy@gmail.com> <20260914014539.5015-5-sigefriedhyy@gmail.com>
- <20260916185405.2ccc6aa3@kernel.org>
-In-Reply-To: <20260916185405.2ccc6aa3@kernel.org>
-From: Yuyang Huang <sigefriedhyy@gmail.com>
-Date: Sat, 19 Sep 2026 10:10:36 +0900
-X-Gm-Features: AcwNN1V9shfXHkJcE1WXlFxXnTZCibrBttUB3lePMBgN9N4dGzTVVWcdAubNumo
-Message-ID: <CA+7S2vJXBAz61SOu+rUt5aqbnsZ-_G_KYt8wXXbqzD0FCSh5eQ@mail.gmail.com>
-Subject: Re: [PATCH net-next v5 4/4] selftests: net: test AF_PACKET multicast dumps
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	David Ahern <dsahern@kernel.org>, Donald Hunter <donald.hunter@gmail.com>, 
-	Eric Dumazet <edumazet@google.com>, Ido Schimmel <idosch@nvidia.com>, 
-	Jacob Keller <jacob.e.keller@intel.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
-	Nicolas Dichtel <nicolas.dichtel@6wind.com>, Nikolaos Gkarlis <nickgarlis@gmail.com>, 
-	Paolo Abeni <pabeni@redhat.com>, Sabrina Dubroca <sd@queasysnail.net>, Shuah Khan <shuah@kernel.org>, 
-	Simon Horman <horms@kernel.org>, Stanislav Fomichev <sdf.kernel@gmail.com>, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, netdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0b7372f1f03a1kunm3e30bd173c544d
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaHU5JVhhKTEhNTk5DH0kdSVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUJCSU
+	5LVUpLS1VKQktCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=WW1fcCZ/BhtAK9Thi5+jeYyF6SRlRv2/jTmkwr1+L0aAEHVRBq+c//Oe3hXsLcdDH0+kIk7b/9V9VfRXCys4RwsDqkPO8DaDZISwHF0kOtvnC873DlOssV0IWprxPC+5b/49nTeMuWrGh95Bg3qxzKFWAKgkZgfjN7Ga8b1ng4g=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=/uFvDU0eh29LSha4tX/8NfQlZ8H3dSXMwwqga3OqBNw=;
+	h=date:mime-version:subject:message-id:from;
 
-On Thu, Sep 17, 2026 at 10:54=E2=80=AFAM Jakub Kicinski <kuba@kernel.org> w=
-rote:
->
-> On Mon, 14 Sep 2026 10:45:39 +0900 Yuyang Huang wrote:
-> > +        try:
-> > +            addresses =3D rtnl.getmulticast(
-> > +                {"ifa-family": socket.AF_PACKET, "ifa-index": dev_idx}=
-,
-> > +                dump=3DTrue)
-> > +        except NlError as e:
-> > +            if e.error =3D=3D errno.EOPNOTSUPP:
-> > +                raise KsftSkipEx(
-> > +                    "kernel does not support AF_PACKET multicast dump"=
-)
->
-> What's the point of catching this exception?
-> The error for ENOPNOTSUPP will be both very rare (not sure I understand
-> where you expect it to come from TBH), and also about as meaningful as
-> the skip. Just let the exception propagate, it's fine.
->
-> Otherwise Pylint complains:
-> W0707: Consider explicitly re-raising using 'raise KsftSkipEx('kernel doe=
-s not support AF_PACKET multicast dump') from e' (raise-missing-from)
->
->
-> > +            raise
+Hi Hans and Eugen,
 
-Thanks for the review, I will fix it in the next patchset.
+Thanks for taking a look at this.
+
+On Sun, 30 Aug 2026, I wrote:
+> The ISC interrupt can run before asynchronous subdevice completion,
+> but the DMA queue lock was initialized from isc_async_complete().
+> Initialize it in each SoC probe before requesting the auto-enabled IRQ.
+
+On Thu, 10 Sep 2026, Hans Verkuil wrote:
+> It's dubious to just init dma_queue_lock here but not
+> INIT_LIST_HEAD(&isc->dma_queue);
+>
+> I think Eugen needs to look at this as well to see if this is actually
+> a valid issue at all.
+>
+> In any case, this patch doesn't look right to me.
+
+You're right that moving dma_queue_lock alone is not enough. The interrupt
+handler also accesses dma_queue, comp, and awb_work, which are initialized
+later from isc_async_complete(). I also need to confirm whether an interrupt
+can actually be pending at this point, and whether the required clocks and
+hardware state are ready during probe.
+
+I have not established that yet, so I'll drop this version for now rather
+than send a v2 that only moves another initialization. Eugen, could you
+please confirm the expected reset and interrupt state during probe? If there
+is a real probe-time path, I'll revisit this with the complete ordering.
+
+Thanks,
+Runyu
