@@ -1,317 +1,284 @@
-Received: from mail-ej2-f14.google.com (mail-ej2-f14.google.com [74.125.228.142])
+Received: from mail-oi2-f4.google.com (mail-oi2-f4.google.com [74.125.231.196])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 902992749DC
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 02:14:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.142
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789784085; cv=pass; b=Nbv1PJ10E1Sq6BM5Rjho3+dKHMkXJcp/FSjPIiXEprAKK5GrQHrlVT5Uhr+Y6CINWUgsGAdH17zSkn4HvVfF0taVHWCkMd7iYauCug73audttZHu5F7k55xhkr7FnNI1aiHMNXlXuzrWv500iErTZ8eUKMxnpGcZE1ey4g9gKlA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789784085; c=relaxed/simple;
-	bh=+udBOB/099zLSIn0RVVCikLAGqqVuALV2319TfK+33E=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pJozUh59VJq1jWL/zXOhpFb1Yfe9e0LY6X6I94MOOHscL/C2EPXQhe8+8f+GpowFv3ZzGsQi4JBdfBdSZ54H4aDvA8jIp1mYc8cnkrALLgzVTtqAkkplfhu8rkJkmrOm54eMlEJ1/oUk6p+/Txf+agnj16GqQKyYrntfq+OX+tA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=SM4q8fC5; arc=pass smtp.client-ip=74.125.228.142
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="SM4q8fC5"
-Received: by mail-ej2-f14.google.com with SMTP id a640c23a62f3a-c254f9f0b1fso205907666b.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 19:14:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789784082; cv=none;
-        d=google.com; s=arc-20260327;
-        b=X4v8E5vwks3aQJ+1LtELFvHJfYQi21va72pI61dAc1ZfOru7EocC9F5wSuAvRzgyg1
-         35H1ZQBAY9SpvnsvRmdGvraPBqkrXNkJ2jwVaYnfKXBur0KYntGXE1ZO8yctYPqDva1R
-         UsMy5Ay5nQdjbZBpG3cbFBS1APkffXzLUidsX6rIPOZOgvZSpK+qsSvsJSexHsHq4PVk
-         IEwQX0i5HNt6/tvKW5tCEuEaEeVYpRF4Zm3MzHWcSEOUXgM9FAst/hxoVTqwW28pyfmT
-         PjLvBHWgtZhW7PSuGxbO95Sfyxqsw+6ccWdHRv6HBPc6XiE3XYu54iD9BmNXFu5rBevM
-         /JtA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=5zGaKOqggX7/M6YY/y+fLgAWLcYBkEYrYfOYckgshdU=;
-        fh=9ND115sXj24iOLJo49BBWoPsblpLOB+gGC75keVH0lI=;
-        b=hRu+3aVBpYlomuHEbjPzuCLQRk6tBq2U/hKrTaSMWd/Tqk7cZwCvN+SFWSmjT9pXTs
-         Rs33FPMcBce95z5T3xu0WEQMq2v3g4v0XnG/mfLhLxXJVQC894P7mTRLkaKiDMF0BmRD
-         ETyWUZ2b+d00TfSdi5AYMOBBVwXM0h1YrNjpQ2KbLVvZ/fWnYpeC+IUGN0ehjzkDdd4n
-         wxAhs4RkDPj0gxksMSirfwaz4phry5mlRzTJv3eGRVoU45Il5UNrvjutRL0OUAbsrOKB
-         R99jGR9zchgzlBCktq673srwd0792rY7Ir9QRpKOctMeIVtQZrhKVikeYX2Kmm30sTIa
-         w0og==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789784082; x=1790388882; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5zGaKOqggX7/M6YY/y+fLgAWLcYBkEYrYfOYckgshdU=;
-        b=SM4q8fC5x1r5g2EoOZs2AFcltAF4TIFdPMHeokjR5o5ah/vyC/Qzq3JRbfL4Nb0mLO
-         pDVjecszPQVR+rWbaNs/qZnMYz34mxPWlslvKscSAB1dRRMfkf0dVYpcpqufNlz/FruS
-         gJ1jDIexVDYLEcy8nr7uGYlm7o3sryfKleA3N4HqWJ/0vLr6Bm0LRhnaUNsWE8oboSjE
-         oRj93/5rLae5kzv/UqPH6CZwmDRUI2wx/CZAFHb/ohTeJV9AvMXRxZ0gphGbqss+NWjM
-         QMOxSZFBTbfP/3XETcvLFsvLjuAIF7ddxvCCMoXlrNmnTtYwWbK5P4R1K2u/QTOa2GT8
-         BQEg==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B134E2F851
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 02:15:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.196
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789784138; cv=none; b=Nb1KLQXwBSS1ZCixnPSe2T4k5s0c7SvCaYPV5ZaC91sq8Vz3LS983HW7I9OumsmgXHGJRTMtt1IWwGxpHIfr1tfaB1yXAfj8Q7T047VbjYGvRIwfKczZ/HW0Rrmux24bHWiiFSdiQNEeJwTIpIH6H+n5oBHVawPIBMDqrUGsaiU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789784138; c=relaxed/simple;
+	bh=Wy8+Pw1gQmFFBV9FC2byyz/R2RAkHytLCIqgfgJNq/8=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=m8fSHgRO6c4GRU+XPw+R2V9dUOEQH2wrj0J+O1lYom0IKUk2uodo8Zt+NdgWUIZpel/ilM22Co8C1XL25hlOmin/8BczjjEde7SUJYSmbxRQRbuFrj+C8ZQkSf4u+N2zJZsmonU9lcUC4czSUQWXrfw2ma9FjCX29Jcr9vk9XFc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.196
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi2-f4.google.com with SMTP id 5614622812f47-4ab2d8e7e4cso503726b6e.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 19:15:36 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789784082; x=1790388882;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1789784135; x=1790388935;
+        h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=5zGaKOqggX7/M6YY/y+fLgAWLcYBkEYrYfOYckgshdU=;
-        b=jh5o0fgDd0l5KutPgRkqhVqBa/OwzAT/VwrcjX8+o//lKYLZXIjhgcMLwZZqTGMcCY
-         ct37hNuIW3g7XQt7hWInq4FsZUGWekChzD1pTjhWUMYaGQvPcV45pUqpHVyMlWY8z/4E
-         n9Mf/+7khHrfR91Syks6bhtj8A/3kFmO7x6mSesnyCed0WsZxm/eCaMAdtTxnZah8MN9
-         xZ0z2TpE6I94XTJu9xZdThddEuVZLaYogiJlKsJvgWOV+dBiCvZHizkuNam3AOgj01ZQ
-         WDqlsBAftx2wnc7zA/HuG6FGxqILmZ4zweQhNVO4uOo9HKoAvjqzyeqViiTHqSEQZN4Z
-         Y8Wg==
-X-Forwarded-Encrypted: i=1; AKwUvBz/cGHwB2WXU/hwa35qEFJ7+0GruB+tIa0J4qHfFMszwSXFNMFe9NfIzA2BfVbzgAD5ktJJdNS47FI2YKo=@vger.kernel.org
-X-Gm-Message-State: AFuF++l09QTMDPU33J4KdzN6nxm1cHgiPZCamvjdbjBGCfkBsORWUhPj
-	9ICo4Vimf8gZGP32VYDMkd4k1fqBP1pZTZlVTWf0tqr5MTR8k/Xwj23ST5Xg8F3eUXQWZYxuXKd
-	88JGP3JAGYPhCZuqR4LcWD2kudLY2jVnaax+34lG3
-X-Gm-Gg: AYBFou3UwcHXp9LVsF3driLaJjCXFDWyqXQdMP4pf059wfg4Zf1YI+QhDBfEy+WOBDp
-	wsHxOBzvzxhbSaokSdAVrDT7KkfaKtZru4lXUT6P9K4B2+6BXYy/RxQ3/EldSDxhultPZ6WlDye
-	0hscpIYzLFpGrZGFA3pEUdlvsQ2JYh4MNvPdb1zalUS73NABYH2aFnbBPQi7SVg+WnmOWrr8k8z
-	ARXMAAhqKxrtxQVjmn/ce4Q5Ycvm6h8fhBn+9Dgvl5aZ4rrZor+M/0dUuPymrNvF86GXpnk4NmI
-	gWPi0fcMon0O4WL98jQ1TIfHrPxjkGr8ZoIohPw+Vh6aFi294Pod6ine+A==
-X-Received: by 2002:a17:907:c319:b0:c29:f5d8:9c7b with SMTP id
- a640c23a62f3a-c2a158847a8mr397278266b.42.1789782590535; Fri, 18 Sep 2026
- 18:49:50 -0700 (PDT)
+        bh=WcNyjs+p1qdhWL9OvECznb7Rg039M9i00b1BFMLdAOY=;
+        b=ePPAt7bexKe1qdGfuhJoOn0EcjRgrhOt6sKcKf/4oxzT6urTIaOmcajSHERxSA4MZv
+         DjEhwkB/qmkBOdEvD8RhoRXF5KyYMJt/oAYUqIXfB1TtHOSwRUo4pHhX2ur3l1nMfBJA
+         dPdnxXQdaUr678bKiqGrVDVJOv8P2rtKlK4ws5cRDfu1vLG7E0IP3ujFrBUGYhgYhCM6
+         nhQ1gCA5NVHl0lmZusibo0Un5s0DkdlLURLbT0hIdAEwIrz8aWL0+jjsgShQ3pTSmZpD
+         q9Lg5161oEerzR7K2FMIpCQfQrXMJDreetMcJ/9yjFPt/b2UMbQdhQIN75oS70couL1z
+         1ZBA==
+X-Forwarded-Encrypted: i=1; AKwUvBwXs3vfd+e5eJ5ogA7NpU7LzO5cqASTj9rduufg8SpSDbKVcllfJxw2zvB+rjZlva3TqjyGJ6K4qlSWSPg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kVLjNAVpjKm1CWSU+TJZddjVrnx4kzrQJAQ1oJYO3qg8djoi7H
+	UDMYHkGkpzKks+B/k4Ty6gaAkBHTANK7H3kXxITjR8ppMFe/quILZcjr6lfsQFPjWzsWj5pkjCn
+	PFqEMRdyI/vSIEoxsNPKTfGFecLljNIExvEzUJ4z9jqe/ZIM52Zad7Ac1xaA=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916165533.2187434-9-hramamurthy@google.com> <178971826826.22033.2672059641817523646@kernel.org>
-In-Reply-To: <178971826826.22033.2672059641817523646@kernel.org>
-From: Joshua Washington <joshwash@google.com>
-Date: Fri, 18 Sep 2026 18:49:38 -0700
-X-Gm-Features: AcwNN1Wfk4307RGqBof636MRL4Klv81dHnD6LLRK4SSg3N-jEuzD0p3ieyDgH2Y
-Message-ID: <CALuQH+ULMqdAsUCGUd0MeVy21y_jP-b_fS_4pc501g4O3Q23Kg@mail.gmail.com>
-Subject: Re: [PATCH net-next v7 08/12] gve: split up notify block allocation
- and setup paths
-To: netdev-bot+sashiko@kernel.org
-Cc: hramamurthy@google.com, netdev@vger.kernel.org, andrew+netdev@lunn.ch, 
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
-	ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org, 
-	john.fastabend@gmail.com, sdf@fomichev.me, jordanrhee@google.com, 
-	willemb@google.com, nktgrg@google.com, maolson@google.com, thostet@google.com, 
-	jacob.e.keller@intel.com, debarghyak@google.com, kees@kernel.org, 
-	bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	przemyslaw.kitszel@intel.com
+X-Received: by 2002:a05:6820:2915:b0:6b7:46fa:16af with SMTP id
+ 006d021491bc7-6ca9d14e709mr3706311eaf.68.1789784135476; Fri, 18 Sep 2026
+ 19:15:35 -0700 (PDT)
+Date: Fri, 18 Sep 2026 19:15:35 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aadf047.71f81b7d.15fa6d.0002.GAE@google.com>
+Subject: [syzbot] [fs?] KASAN: slab-use-after-free Read in seq_printf
+From: syzbot <syzbot+bc6b37960b1d13f68f9f@syzkaller.appspotmail.com>
+To: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 18, 2026 at 12:57=E2=80=AFAM <netdev-bot+sashiko@kernel.org> wr=
-ote:
->
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider:
->
-> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 0 =C2=B7 Low: 1
->
-> - [High] Reset path now frees the notify-block MSI-X IRQs and zeroes
->   block->irq *before* the NAPI/queue teardown that consumes block->irq,=
-=E2=80=A6
-> - [Low] Reported for completeness, but I could not confirm a functional
->   defect: the concern claims the new alloc/setup/teardown/free split=E2=
-=80=A6
->
-> --
->
-> gve: split up notify block allocation and setup paths
->
-> This splits gve_alloc_notify_blocks() into an allocation half and a new
-> gve_setup_notify_blocks()/gve_teardown_notify_blocks() pair so that MSI-X
-> vectors can be requested after the IRQ doorbell offsets are known. New
-> irq_requested and mgmt_irq_requested flags track which irqs were taken, a=
-nd
-> gve_reset_device() now tears the notify blocks down.
->
-> > diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/e=
-thernet/google/gve/gve_main.c
-> > index 8cd82d92d3b09..7119b5a9ae41b 100644
-> > --- a/drivers/net/ethernet/google/gve/gve_main.c
-> > +++ b/drivers/net/ethernet/google/gve/gve_main.c
-> > @@ -429,6 +429,24 @@ int gve_napi_poll_dqo(struct napi_struct *napi, in=
-t budget)
-> >       return work_done;
-> >  }
-> >
-> > +static void gve_free_notify_blocks(struct gve_priv *priv)
-> > +{
-> > +     pci_disable_msix(priv->pdev);
-> > +     if (priv->irq_db_indices) {
-> > +             dma_free_coherent(&priv->pdev->dev,
-> > +                               priv->num_ntfy_blks *
-> > +                               sizeof(*priv->irq_db_indices),
-> > +                               priv->irq_db_indices,
-> > +                               priv->irq_db_indices_bus);
-> > +             priv->irq_db_indices =3D NULL;
-> > +     }
-> > +
-> > +     kvfree(priv->ntfy_blocks);
-> > +     priv->ntfy_blocks =3D NULL;
-> > +     kvfree(priv->msix_vectors);
-> > +     priv->msix_vectors =3D NULL;
-> > +}
-> > +
-> >  static const struct cpumask *gve_get_node_mask(struct gve_priv *priv)
-> >  {
-> >       if (priv->numa_node =3D=3D NUMA_NO_NODE)
->
-> [ ... ]
->
-> > @@ -497,15 +504,65 @@ static int gve_alloc_notify_blocks(struct gve_pri=
-v *priv)
->
-> [ ... ]
->
-> > +static void gve_teardown_notify_blocks(struct gve_priv *priv)
-> > +{
-> > +     int i;
-> > +
-> > +     if (!priv->ntfy_blocks)
-> > +             return;
->
-> [Severity: Low]
->
-> This isn't a bug in the current tree, but the early return here keys on
-> priv->ntfy_blocks while the management vector release further down depend=
-s
-> only on priv->msix_vectors and priv->mgmt_irq_requested:
->
->         if (priv->mgmt_irq_requested) {
->                 free_irq(priv->msix_vectors[priv->mgmt_msix_idx].vector, =
-priv);
->                 priv->mgmt_irq_requested =3D false;
->         }
->
-> All three gve_free_notify_blocks() call sites currently run after
-> gve_teardown_notify_blocks() (or before any request_irq()), so
-> priv->ntfy_blocks and priv->msix_vectors are still valid whenever the
-> teardown runs and nothing is leaked.
->
-> Would it be worth guarding each resource with the flag that describes it,
-> so the ordering contract is expressed in the code rather than left to the
-> callers, given the mailbox mode is meant to reuse this skeleton?
+Hello,
 
-The early return was a naive attempt to keep the indent levels down.
-Will reorder the code to check for mgmt interrupt first.
+syzbot found the following issue on:
 
->
-> > +
-> > +     for (i =3D 0; i < priv->num_ntfy_blks; i++) {
-> > +             struct gve_notify_block *block =3D &priv->ntfy_blocks[i];
-> > +
-> > +             if (!block->irq_requested)
-> > +                     continue;
-> > +
-> > +             irq_set_affinity_hint(priv->msix_vectors[i].vector,
-> > +                                   NULL);
-> > +             free_irq(priv->msix_vectors[i].vector, block);
-> > +             block->irq =3D 0;
-> > +             block->irq_requested =3D false;
-> > +     }
-> > +
-> > +     if (priv->mgmt_irq_requested) {
-> > +             free_irq(priv->msix_vectors[priv->mgmt_msix_idx].vector, =
-priv);
-> > +             priv->mgmt_irq_requested =3D false;
-> > +     }
-> > +}
->
-> [ ... ]
->
-> > @@ -761,6 +770,7 @@ static void gve_teardown_control_plane_resources(st=
-ruct gve_priv *priv)
-> >   */
-> >  static void gve_reset_device(struct gve_priv *priv)
-> >  {
-> > +     gve_teardown_notify_blocks(priv);
-> >       gve_teardown_control_plane_resources(priv);
-> >       gve_adminq_free(priv);
-> >  }
->
-> [Severity: High]
->
-> Can this end up calling disable_irq(0) on the reset path?
->
-> gve_reset() has this ordering:
->
->         disable_work(&priv->service_task);
->         gve_reset_device(priv);
->         gve_queues_stop(priv);
->         gve_queues_mem_remove(priv);
->         gve_free_control_plane_resources(priv);
->
-> With the new first statement in gve_reset_device(), the vectors are
-> released and block->irq is cleared before gve_queues_stop() runs:
->
->                 free_irq(priv->msix_vectors[i].vector, block);
->                 block->irq =3D 0;
->                 block->irq_requested =3D false;
->
-> gve_queues_stop() then walks gve_tx_stop_rings()/gve_rx_stop_rings(), and
-> the per-ring stop only checks that the ring is still attached to a block,
-> which gve_turndown() does not clear:
->
-> drivers/net/ethernet/google/gve/gve_rx.c:gve_rx_stop_ring_gqi() {
->         if (!gve_rx_was_added_to_block(priv, idx))
->                 return;
->
->         gve_remove_napi(priv, ntfy_idx);
->         ...
-> }
->
-> and gve_remove_napi() uses block->irq without validating it:
->
-> drivers/net/ethernet/google/gve/gve_utils.c:gve_remove_napi() {
->         struct gve_notify_block *block =3D &priv->ntfy_blocks[ntfy_idx];
->
->         disable_irq(block->irq);
->         netif_napi_del_locked(&block->napi);
-> }
->
-> gve_rx_stop_ring_dqo(), gve_tx_stop_ring_gqi() and gve_tx_stop_ring_dqo()
-> reach gve_remove_napi() the same way.
->
-> Before this patch the irqs were freed in gve_free_notify_blocks(), reache=
-d
-> from gve_free_control_plane_resources(), which gve_reset() calls after
-> gve_queues_stop(), so block->irq was still the real vector at that point.
->
-> On x86 virq 0 has a descriptor created during early boot, so disable_irq(=
-0)
-> would mask that unrelated line and increment its disable depth once per
-> still-attached queue with no matching enable_irq(); where no descriptor
-> exists the call returns -EINVAL and the intended synchronization against
-> the driver's own vector is simply skipped.
->
-> The reset path is reachable from the service task on a device-requested
-> reset and from gve_tx_timeout() -> gve_schedule_reset(), so it can be
-> driven by ordinary queue stalls rather than only by administrative action=
-.
->
-> Would keeping gve_teardown_notify_blocks() after gve_queues_stop(), or
-> skipping the disable_irq() when block->irq is 0, address this?
->
-> The same ordering is still in place at the end of the series, so it does
-> not look like a later patch fixes it.
+HEAD commit:    c3d85c669d09 Merge tag 'ksmbd-for-7.3-rc4' of git://git.ke..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=134fb7f9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=84649d3ff8d550cb
+dashboard link: https://syzkaller.appspot.com/bug?extid=bc6b37960b1d13f68f9f
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
 
-A few things that need to be changed here:
+Unfortunately, I don't have any reproducer for this issue yet.
 
-1) gve_teardown_notify_blocks() does not need to happen as part of
-gve_reset_device(). It should be in gve_teardown_device() instead,
-after the device reset occurs.
-2) gve_remove_napi() should guard against block->irq_reuqested
-3) block->irq =3D 0 should be removed
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/ca331c4b913d/disk-c3d85c66.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/f92fda9de386/vmlinux-c3d85c66.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/cab83c4f0b39/bzImage-c3d85c66.xz
 
-Will make these changes in v8.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+bc6b37960b1d13f68f9f@syzkaller.appspotmail.com
 
->
-> --
-> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
-set/20260916165533.2187434-1-hramamurthy%40google.com
+==================================================================
+BUG: KASAN: slab-use-after-free in string_nocheck lib/vsprintf.c:648 [inline]
+BUG: KASAN: slab-use-after-free in string+0x471/0x4d0 lib/vsprintf.c:730
+Read of size 1 at addr ffff88807ec60758 by task syz.2.6295/19648
 
--- Josh
+CPU: 0 UID: 0 PID: 19648 Comm: syz.2.6295 Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/26/2026
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0x13d/0x4b0 mm/kasan/report.c:482
+ kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
+ string_nocheck lib/vsprintf.c:648 [inline]
+ string+0x471/0x4d0 lib/vsprintf.c:730
+ vsnprintf+0x422/0x1300 lib/vsprintf.c:2949
+ seq_vprintf fs/seq_file.c:392 [inline]
+ seq_printf+0x1a4/0x250 fs/seq_file.c:407
+ input_devices_seq_show+0x1bf/0x1130 drivers/input/input.c:1178
+ seq_read_iter+0xbce/0x1270 fs/seq_file.c:273
+ seq_read+0x344/0x4d0 fs/seq_file.c:163
+ pde_read fs/proc/inode.c:308 [inline]
+ proc_reg_read+0x240/0x330 fs/proc/inode.c:320
+ vfs_read+0x1e4/0xb40 fs/read_write.c:572
+ ksys_read+0x12a/0x250 fs/read_write.c:716
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f585059e159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f5851388028 EFLAGS: 00000246 ORIG_RAX: 0000000000000000
+RAX: ffffffffffffffda RBX: 00007f5850825fa0 RCX: 00007f585059e159
+RDX: 0000000000002020 RSI: 00002000000028c0 RDI: 0000000000000003
+RBP: 00007f585063506b R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f5850826038 R14: 00007f5850825fa0 R15: 00007fff7b0fc418
+ </TASK>
+
+Allocated by task 18319:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
+ __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __do_kmalloc_node mm/slub.c:5414 [inline]
+ __kmalloc_noprof+0x32f/0x840 mm/slub.c:5439
+ _kmalloc_noprof include/linux/slab.h:995 [inline]
+ sk_prot_alloc+0x10b/0x2a0 net/core/sock.c:2252
+ sk_alloc+0x36/0xe80 net/core/sock.c:2308
+ __netlink_create+0x5e/0x2c0 net/netlink/af_netlink.c:627
+ netlink_create+0x29b/0x610 net/netlink/af_netlink.c:685
+ __sock_create+0x339/0x860 net/socket.c:1676
+ sock_create net/socket.c:1734 [inline]
+ __sys_socket_create net/socket.c:1771 [inline]
+ __sys_socket+0x14d/0x260 net/socket.c:1818
+ __do_sys_socket net/socket.c:1832 [inline]
+ __se_sys_socket net/socket.c:1830 [inline]
+ __x64_sys_socket+0x72/0xb0 net/socket.c:1830
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Freed by task 5650:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:253 [inline]
+ __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2748 [inline]
+ slab_free mm/slub.c:6508 [inline]
+ kfree+0x22b/0x6d0 mm/slub.c:6801
+ sk_prot_free net/core/sock.c:2291 [inline]
+ __sk_destruct+0x88c/0xab0 net/core/sock.c:2391
+ sk_destruct+0xc8/0xf0 net/core/sock.c:2419
+ __sk_free+0xf4/0x3e0 net/core/sock.c:2430
+ sk_free+0x61/0x90 net/core/sock.c:2441
+ deferred_put_nlk_sk+0xbe/0x110 net/netlink/af_netlink.c:715
+ rcu_do_batch kernel/rcu/tree.c:2650 [inline]
+ rcu_core+0x5f0/0x1260 kernel/rcu/tree.c:2919
+ handle_softirqs+0x1e6/0x9d0 kernel/softirq.c:645
+ __do_softirq kernel/softirq.c:679 [inline]
+ invoke_softirq kernel/softirq.c:519 [inline]
+ __irq_exit_rcu+0x16a/0x210 kernel/softirq.c:758
+ irq_exit_rcu+0x9/0x30 kernel/softirq.c:775
+ instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
+ sysvec_apic_timer_interrupt+0xa3/0xc0 arch/x86/kernel/apic/apic.c:1062
+ asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
+
+Last potentially related work creation:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_record_aux_stack+0xa7/0xc0 mm/kasan/generic.c:556
+ __call_rcu_common.constprop.0+0xa5/0x9b0 kernel/rcu/tree.c:3181
+ netlink_release+0xb3b/0x2000 net/netlink/af_netlink.c:797
+ __sock_release+0xb3/0x260 net/socket.c:735
+ sock_close+0x1c/0x30 net/socket.c:1526
+ __fput+0x3ff/0xb50 fs/file_table.c:512
+ task_work_run+0x150/0x240 kernel/task_work.c:233
+ resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
+ __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
+ exit_to_user_mode_loop+0x1d8/0x700 kernel/entry/common.c:101
+ __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
+ syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
+ syscall_exit_to_user_mode include/linux/entry-common.h:343 [inline]
+ do_syscall_64+0x661/0x790 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+The buggy address belongs to the object at ffff88807ec60000
+ which belongs to the cache kmalloc-2k of size 2048
+The buggy address is located 1880 bytes inside of
+ freed 2048-byte region [ffff88807ec60000, ffff88807ec60800)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff88807ec63000 pfn:0x7ec60
+head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+flags: 0xfff00000000240(workingset|head|node=0|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 00fff00000000240 ffff88801c035000 ffffea0000ab6010 ffffea000091a410
+raw: ffff88807ec63000 0000000000080006 00000000f5000000 0000000000000000
+head: 00fff00000000240 ffff88801c035000 ffffea0000ab6010 ffffea000091a410
+head: ffff88807ec63000 0000000000080006 00000000f5000000 0000000000000000
+head: 00fff00000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
+head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000008
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 3, migratetype Unmovable, gfp_mask 0xd2820(GFP_ATOMIC|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 13, tgid 13 (kworker/u8:1), ts 67461498561
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
+ prep_new_page mm/page_alloc.c:1879 [inline]
+ get_page_from_freelist+0x110d/0x35d0 mm/page_alloc.c:3943
+ __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
+ alloc_slab_page mm/slub.c:3347 [inline]
+ allocate_slab mm/slub.c:3462 [inline]
+ new_slab+0xa9/0x6e0 mm/slub.c:3513
+ refill_objects+0xe3/0x410 mm/slub.c:7417
+ refill_sheaf mm/slub.c:2885 [inline]
+ __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4774
+ alloc_from_pcs mm/slub.c:4850 [inline]
+ slab_alloc_node mm/slub.c:4984 [inline]
+ __do_kmalloc_node mm/slub.c:5413 [inline]
+ __kmalloc_node_track_caller_noprof+0x6a8/0x870 mm/slub.c:5545
+ kmalloc_reserve+0xe8/0x350 net/core/skbuff.c:637
+ __alloc_skb+0x185/0x710 net/core/skbuff.c:715
+ alloc_skb include/linux/skbuff.h:1384 [inline]
+ nlmsg_new include/net/netlink.h:1055 [inline]
+ inet6_ifinfo_notify+0x77/0x140 net/ipv6/addrconf.c:6216
+ addrconf_notify+0xb54/0x1ba0 net/ipv6/addrconf.c:3796
+ notifier_call_chain+0x99/0x3f0 kernel/notifier.c:85
+ call_netdevice_notifiers_info+0xbe/0x110 net/core/dev.c:2275
+ netif_state_change+0x165/0x380 net/core/dev.c:1625
+ linkwatch_do_dev net/core/link_watch.c:186 [inline]
+ linkwatch_do_dev+0xe0/0x120 net/core/link_watch.c:166
+ __linkwatch_run_queue+0x3a9/0x900 net/core/link_watch.c:240
+page last free pid 25 tgid 25 ts 67435951267 stack trace:
+ reset_page_owner include/linux/page_owner.h:26 [inline]
+ __free_pages_prepare mm/page_alloc.c:1418 [inline]
+ __free_frozen_pages+0x79f/0x10f0 mm/page_alloc.c:2962
+ qlink_free mm/kasan/quarantine.c:163 [inline]
+ qlist_free_all+0x47/0xf0 mm/kasan/quarantine.c:179
+ kasan_quarantine_reduce+0x1a0/0x1f0 mm/kasan/quarantine.c:286
+ __kasan_slab_alloc+0x69/0x90 mm/kasan/common.c:350
+ kasan_slab_alloc include/linux/kasan.h:253 [inline]
+ slab_post_alloc_hook mm/slub.c:4683 [inline]
+ slab_alloc_node mm/slub.c:4996 [inline]
+ __kmalloc_cache_noprof+0x278/0x6d0 mm/slub.c:5559
+ _kmalloc_noprof include/linux/slab.h:991 [inline]
+ _kzalloc_noprof include/linux/slab.h:1312 [inline]
+ nsim_fib6_rt_create drivers/net/netdevsim/fib.c:547 [inline]
+ nsim_fib6_rt_insert drivers/net/netdevsim/fib.c:752 [inline]
+ nsim_fib6_event drivers/net/netdevsim/fib.c:856 [inline]
+ nsim_fib_event drivers/net/netdevsim/fib.c:889 [inline]
+ nsim_fib_event_work+0x1573/0x6330 drivers/net/netdevsim/fib.c:1493
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+ process_scheduled_works kernel/workqueue.c:3479 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+Memory state around the buggy address:
+ ffff88807ec60600: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff88807ec60680: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>ffff88807ec60700: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                                                    ^
+ ffff88807ec60780: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff88807ec60800: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+==================================================================
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
