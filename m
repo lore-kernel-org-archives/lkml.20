@@ -1,76 +1,76 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05785393DC0
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 21:52:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB4BD38D3FD
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 21:52:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789854763; cv=none; b=i8L0NivQ94wSbL1LzFa8nlLLarsG6G2+8i1pJwUJInw/x2e6y3vcWpBIlHaOWqKN3EUSrXpiO4gQuBg50iDnguIUCM4Uy7UkX/QnKPfnwc2xA27dMmbh1QU1Vjv1+CrprlflDkj/O/Vh5M0miS6urdoYUzS8S5lAyExRcTd0eSU=
+	t=1789854759; cv=none; b=Sx1Ve0mjYGFsE796C0vmEfI1uFICvtdJFAp9Dc5rZg0tQ5Sar5QTxMtiPeWM4RRoplJR6jNpABMCTdkPGPPDSe71MYgJQBhdG6VKyZ8XnvlqYJ5C9P6iwLHBHevW2o4F7Bl43NI2AiiZAznkA0sbKSWRgBw/eDLqdfiHEEk+QRE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789854763; c=relaxed/simple;
-	bh=4xTEqjENj8W0AbFeRvCf4WTp2q0CqRG4Z36EfYgUrtw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NEDZNuNed+GrsB17VBmNhPajW8DT33ORIMxRGwGB3OPePnpzAtMWXP4GRRg7ybK+YnfFgrDmVPwtOUJLlMy4FINMsDQGf9N8ZtWQC79VkVsFPWbtbRldALtME/kMdpO3aVCCAi69H+g5HC2BAP+Z7UKM9iqyYKrpfNFLUVdy7zo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SitnLXH7; arc=none smtp.client-ip=74.125.227.140
+	s=arc-20240116; t=1789854759; c=relaxed/simple;
+	bh=NE6kyRSM9D9+ObNWClCJeHTHbyuytLFmTKruJmNdFlc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZhwQjbd8rIM5PU9E58cO3FL1OF0wjfHdfZLdZqtcETWsHA5lcz2vTBBhOHBsUyiRIeiv3PSjCAHtobgflKcYuUaBnIIufFNcqzI0yhJJ9spBIRPtSQgD8OaeYOXem/Tuzm6JyjaD/7Op0mh0m2siEsY+w0kCviS2c5Nj7TFEGao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XFOLFGTl; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SitnLXH7"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b350c69b4so1640060a91.2
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:52:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XFOLFGTl"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747f05ffcso14157585ad.0
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:52:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789854756; x=1790459556; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789854753; x=1790459553; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=964xTJiqd48XXXm2a84vCQd27k8HJCQdSNXcIUxtnYc=;
-        b=SitnLXH7Ct76/pDoXWbVLauz0Evy4s6I3nvUnQZZfNV1BRWmjYLjM5HU40crPwME63
-         iimqiMi0XxkEElcVSoz/d7/WyWIkeO3j+iq8q3yFp2U5+K2r6EtyqjBxPU+0U3fSuY+k
-         frNoi43ood7y6dR1BfEQtNhMFxTnuU0bHrJOwRZrGL02jTTu9DArquKM6IWbhEJr/umo
-         5Sh3kmD7yXU0raEMn4zKD4ayLvaruzr/+ONOf1dL0nHspCt+YT0y2uwz2VBWFppoQvGi
-         Gr4BM/ykaVREDIfjD8j6kkUTGFDF6RO//WrOoAQtBr8BBcy4V3FWsBmUO7izmwmdeBlT
-         Uc4g==
+        bh=4UB+obLd5sZwu+zoy2b+DbkHvLbMMvfZd67jH6/qC/s=;
+        b=XFOLFGTlN/MqkJjULLZyEiOITrl8CrIt1RTvky9eLkzCpWW77zggBwV0Gd55u2YaVk
+         dBD6bEY4c2RQ4aHsm05YGhiY7mImvxdmZAmRb+WoFBIrkFvmW/PjWEQbe3eX3iHq0URU
+         nCHtZY4NKPd+/UxfHhWvE2Bud9g7oVHQAwWLlH25YnO0+0iCoNU40fx0h3CXY8YpTh8L
+         WF6oQR9Ru/7DRObAHvT5iWwy1lyJTIUkOTpaqQKUMpNvRGmXOW3Rr5ETxMmBuQGz6A7c
+         amV4kXrG5gLNPE/3UtRWPZHSjjQQ89lGxfFhBtnQF3gHEJItIXhxDGSGfsjgV87FfBRW
+         6THw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789854756; x=1790459556;
+        d=1e100.net; s=20260707; t=1789854753; x=1790459553;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=964xTJiqd48XXXm2a84vCQd27k8HJCQdSNXcIUxtnYc=;
-        b=Bx/7c1HLOB2/A0SEksDwz/rlwESeJdccx4cmTfc4cVeTR3pfeLJ0s5W9G3W3Hox3CW
-         JDlvC6oqJRdopUcV3Y6jDNmbGxhKGJRKbswkLgMylD6/GUchvij0nT2HU1unx+zaKojj
-         GkKtIdjHY/686xegv1kTqljc536LTWyKJDxOM0AEu30mRX8NiTLs4+bitgN8ILiKt6Tb
-         9VZ/LY6x9F0bcnJMYJ2+uqKTJhC9UsVymyhF1qRvyDZWEkgpnpu6GwRPuUYEQiHTNTOj
-         Jv1tX2jxqp6lZ6Qh+3tH5AJNcfExfIIF9yGQ1EuyP3GwLKvdofgJALN7yS6YcNNVkSvQ
-         hiXw==
-X-Forwarded-Encrypted: i=1; AKwUvBzPodaTCT8GB/W6Px55jA/zai1WVZl7L0a4IfaRtuNbWdgm3AmUy3tSp+/HD5Pb+/OUeaoMFIvo4Sn5dp0=@vger.kernel.org
-X-Gm-Message-State: AFuF++naTkNWiJ8DSZzY/JXphVjhb8TPW+SL8NNnpZtIj7vxvN7p0J9G
-	1Z+DKhd+gG3xf2H/8dqpn6FGvM2gkbzHSLwUlTiqe0xoUgQAPwa6vwm7
-X-Gm-Gg: AYBFou1hQrqIJUUE5iZvUMPMzIA22pWYKUBaI30DGmlV17BT5pepzycyaz2VcqGWnQ3
-	WKcUJP5/s/Qwh4W90/lEF2ei4mM6DmIbue2Soauh+aRIzDj3enj2KWTk/my5XdlpjSwJ9JabQk7
-	fbuoafMsblIDM1cShvwsD1XtdM9ExP6Qz7sm/YgJi3UtfSNsz5NgpvIARkmiAUcYiVJrom27rJg
-	6zfopPCLzU9O7MxJmh8TwTzT0ueqjzMVx4QZ95AIeTBnavMNTol9eUid7UDrOF2DxHtmuXKRkHv
-	0axQHS41dgbb9Z3X4TiC0scTaEQVrBnfFYn+lqpIe5y6w5kHq1U61p/iM/hNumNrbyBp/AYXzK6
-	kCuDivetO8SslXvet3NkqBo3ZxZ827vQvthBSlD+tcqjC3B1iLSkPWfW5XH8JyWD3yxiXE753NV
-	eucL985t86vDZbSln1ixso3Hq9DZhA2fpt/XQnT/xaCEvflARTBDu7jEl4BZwOP+qv5QfbfK2cw
-	x7INN9q+vspYFnRTtTogA1AqwjxJyWNULhe5duTctaNYstS+vZWEBCnGfGEbAqA7ZD20z6lTkIa
-	FxBSlupwsA==
-X-Received: by 2002:a17:90a:602:b0:39e:6c6a:657f with SMTP id 98e67ed59e1d1-39e6c6a67edmr3341928a91.66.1789854755924;
-        Sat, 19 Sep 2026 14:52:35 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0320b6ad5sm621499a91.0.2026.09.19.14.52.35
+        bh=4UB+obLd5sZwu+zoy2b+DbkHvLbMMvfZd67jH6/qC/s=;
+        b=LCpYvmixUjUT0n6+jrnVuHifvX/JEd821Xa32wImM2/YtVCdIswSCdMqSKrXX4hziG
+         OiXN/lr4uFEr8KKwCHhUadIGVGstBEMcLl3iYdYf+fH4D40yGmMO1sFdNe0kEvk3BB41
+         63pmPFYpAF7S5aRQ13uqZps/3ejl/uvrl7N6I2t2kLrfuxFZrh/Dx5HdXpL1k/XAWDD+
+         aoyt73lUtgwcM8KbUGWPRgJUREMV+/2wj2yG21PjV1pTy0jIISeZpq/F+AUiCKcbWGV/
+         cZQV9fFrmarzFWYdTKQn2yRexKy6GDki90+cT7kOYOWD75NOrhHRdeUboVlCiOJALuS+
+         NidQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzWVSFZlh9c/SPNw5s1QLjQy5CS8RFoLkPDH2gU9IRfyoIhdNWGHfu0NorJSBUpRMfX100demQm+On2UQs=@vger.kernel.org
+X-Gm-Message-State: AFuF++n9DEVzVm9JlSg0XlcoFZEdTaL4VApTjpUVhVn79hhjlZsXvlWt
+	psa2VQJepVv6MPpL448yaSHUY9PSEdzNs2vifpJAtFkbmrhM0PdX8cCE
+X-Gm-Gg: AYBFou2PYfiyINpH3ZnGJKpWBdo+jW1fAWWR6DlDI4uQu93UvwP7oZgpycrdTll2Y5B
+	bTjQYAC5FahvqRhCKveAKzmjt+8GTv9U6kufWL//c5aIJAYwqWIfzSXOX1DLp4c9ppYMdifpt87
+	CmDQK9Ewft8qAVuIatxKmUiVpif0KbQr49SS5wHSj0l6NB7A8YhRoob0+sQl3BXQJzECGPEwkco
+	iVZt1tCRc/4MooCkyisay3nHC2lQHLN16SRS2AAJajEtpk52IzP3a26RaHDVMSLLL1zZthP85pt
+	uBrn4pqjfHz0V0tUJaI16/vJR6usevlF4N+63dmSS5wb2hEh0vXFaZ5coJyrujSYIiNiOTrh9fo
+	pHktz0VTJFoJWqfiuVnWyRos+WIk2imY3MC8HIY/XtoyJnipBN9IbWyP4CqxprHjMk7d3kt9n4d
+	A+3rZiXd/8oaF0FlZuXeKJubIXHZcyKnA2eLBBiK6Ef36D//3++9xB0hcA17mY/GnUvfscn9tTR
+	0URDOGGo78ODN2JtkGd/QLWAoK4Gma4SqIITv/IJ4HZoJAV57ABCdL9DdfJM+7RsnAMuA46RHVk
+	BwbcTGzVpQ==
+X-Received: by 2002:a17:902:fc45:b0:2dd:c100:80b1 with SMTP id d9443c01a7336-2ddc100811dmr48563035ad.44.1789854753097;
+        Sat, 19 Sep 2026 14:52:33 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (67.51.127.34.bc.googleusercontent.com. [34.127.51.67])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc180395fsm12881915ad.81.2026.09.19.14.52.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 14:52:35 -0700 (PDT)
+        Sat, 19 Sep 2026 14:52:32 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
-To: edumazet@google.com,
-	ncardwell@google.com,
-	kuniyu@google.com,
-	davem@davemloft.net,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org
-Cc: netdev@vger.kernel.org,
+To: airlied@redhat.com,
+	kraxel@redhat.com,
+	dmitry.osipenko@collabora.com,
+	gurchetansingh@chromium.org,
+	olvaffe@gmail.com,
+	tzimmermann@suse.de
+Cc: dri-devel@lists.freedesktop.org,
+	virtualization@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] ipv6: tcp: restore ipv6_specific icsk_af_ops when reconnecting IPv6 after v4-mapped
-Date: Sat, 19 Sep 2026 21:52:34 +0000
-Message-ID: <20260919215234.3470646-1-benquike@gmail.com>
+Subject: [PATCH] drm/virtio: fix 0-byte blob ZERO_SIZE_PTR, GEM leak, and context_init rollback
+Date: Sat, 19 Sep 2026 21:52:32 +0000
+Message-ID: <20260919215232.3470178-1-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -80,43 +80,202 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When an AF_INET6 TCP socket connects to an IPv4-mapped IPv6 address
-(::ffff:a.b.c.d), tcp_v6_connect() switches icsk->icsk_af_ops to
-&ipv6_mapped, sk->sk_backlog_rcv to tcp_v4_do_rcv, and tp->af_specific to
-&tcp_sock_ipv4_specific. If the connection fails or is disconnected with
-AF_UNSPEC and the socket subsequently connects to a native IPv6 address,
-tcp_v6_connect() leaves icsk_af_ops set to &ipv6_mapped, causing IPv4
-operations (such as ip_queue_xmit() and IPv4 setsockopt handlers) to run on
-an IPv6 flow and corrupt the socket/routing state.
+Fix multiple issues in virtio-gpu VRAM mapping, blob creation, and context
+initialization:
 
-Restore icsk_af_ops to &ipv6_specific, sk_backlog_rcv to tcp_v6_do_rcv,
-tp->af_specific to &tcp_sock_ipv6_specific, and notify MPTCP when
-tcp_v6_connect() connects to a native IPv6 destination after ipv6_mapped.
+1. In virtio_gpu_vram_mmap(), set vram->map_state = STATE_ERR if deferred
+   virtio_gpu_vram_map() fails so callers do not treat an unmapped VRAM
+   node as valid.
+2. In verify_blob(), reject rc_blob->size == 0 or size values that wrap
+   PAGE_ALIGN() to prevent kvmalloc_array(0, ...) from returning
+   ZERO_SIZE_PTR.
+3. In virtio_gpu_gem_create(), virtio_gpu_resource_create_ioctl(), and
+   virtio_gpu_resource_create_blob_ioctl(), use drm_gem_object_put()
+   instead of drm_gem_object_release() on error so the BO's free callback
+   is properly invoked.
+4. In virtio_gpu_context_init_ioctl(), stage context parameters into local
+   variables and only commit them to vfpriv after all parameters and
+   ring_idx_mask have been validated.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Fixes: 31484d56ca95 ("mptcp: Fix undefined mptcp_handle_ipv6_mapped for modular IPV6")
+Fixes: 16845c5d5409 ("drm/virtio: implement blob resources: implement vram object")
+Fixes: 85c83ea915ed ("drm/virtio: implement context init: allocate an array of fence contexts")
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
-diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
-index 7fa4ed2fd4f1..49a6f89481cb 100644
---- a/net/ipv6/tcp_ipv6.c
-+++ b/net/ipv6/tcp_ipv6.c
-@@ -255,6 +255,17 @@ static int tcp_v6_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
- 		return err;
+diff --git a/drivers/gpu/drm/virtio/virtgpu_gem.c b/drivers/gpu/drm/virtio/virtgpu_gem.c
+index 66c3f6f74e9c..d2f0b8a3f172 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_gem.c
++++ b/drivers/gpu/drm/virtio/virtgpu_gem.c
+@@ -45,7 +45,7 @@ static int virtio_gpu_gem_create(struct drm_file *file,
+ 
+ 	ret = drm_gem_handle_create(file, &obj->base.base, &handle);
+ 	if (ret) {
+-		drm_gem_object_release(&obj->base.base);
++		drm_gem_object_put(&obj->base.base);
+ 		return ret;
  	}
  
-+	if (icsk->icsk_af_ops == &ipv6_mapped) {
-+		/* Paired with READ_ONCE() in tcp_(get|set)sockopt() */
-+		WRITE_ONCE(icsk->icsk_af_ops, &ipv6_specific);
-+		if (sk_is_mptcp(sk))
-+			mptcpv6_handle_mapped(sk, false);
-+		sk->sk_backlog_rcv = tcp_v6_do_rcv;
-+#if defined(CONFIG_TCP_MD5SIG) || defined(CONFIG_TCP_AO)
-+		tp->af_specific = &tcp_sock_ipv6_specific;
-+#endif
+diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+index 3d8e4ccdb7c1..fb7225d91752 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
++++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+@@ -185,7 +185,7 @@ static int virtio_gpu_resource_create_ioctl(struct drm_device *dev, void *data,
+ 
+ 	ret = drm_gem_handle_create(file, obj, &handle);
+ 	if (ret) {
+-		drm_gem_object_release(obj);
++		drm_gem_object_put(obj);
+ 		return ret;
+ 	}
+ 
+@@ -490,6 +490,9 @@ static int verify_blob(struct virtio_gpu_device *vgdev,
+ 			return -EINVAL;
+ 	}
+ 
++	if (rc_blob->size == 0 || rc_blob->size > ULONG_MAX - PAGE_SIZE + 1)
++		return -EINVAL;
++
+ 	params->blob_mem = rc_blob->blob_mem;
+ 	params->size = rc_blob->size;
+ 	params->blob = true;
+@@ -557,14 +560,14 @@ static int virtio_gpu_resource_create_blob_ioctl(struct drm_device *dev,
+ 	if (params.blob_flags & VIRTGPU_BLOB_FLAG_USE_CROSS_DEVICE) {
+ 		ret = virtio_gpu_resource_assign_uuid(vgdev, bo);
+ 		if (ret) {
+-			drm_gem_object_release(obj);
++			drm_gem_object_put(obj);
+ 			return ret;
+ 		}
+ 	}
+ 
+ 	ret = drm_gem_handle_create(file, obj, &handle);
+ 	if (ret) {
+-		drm_gem_object_release(obj);
++		drm_gem_object_put(obj);
+ 		return ret;
+ 	}
+ 
+@@ -616,6 +619,15 @@ static int virtio_gpu_context_init_ioctl(struct drm_device *dev,
+ 		goto out_unlock;
+ 	}
+ 
++	u32 context_init = vfpriv->context_init;
++	u32 num_rings = vfpriv->num_rings;
++	u64 ring_idx_mask = vfpriv->ring_idx_mask;
++	bool explicit_debug_name = vfpriv->explicit_debug_name;
++	bool num_rings_set = (vfpriv->base_fence_ctx != 0);
++	char debug_name[DEBUG_NAME_MAX_LEN];
++
++	memcpy(debug_name, vfpriv->debug_name, sizeof(debug_name));
++
+ 	for (i = 0; i < num_params; i++) {
+ 		param = ctx_set_params[i].param;
+ 		value = ctx_set_params[i].value;
+@@ -633,16 +645,16 @@ static int virtio_gpu_context_init_ioctl(struct drm_device *dev,
+ 			}
+ 
+ 			/* Context capset ID already set */
+-			if (vfpriv->context_init &
++			if (context_init &
+ 			    VIRTIO_GPU_CONTEXT_INIT_CAPSET_ID_MASK) {
+ 				ret = -EINVAL;
+ 				goto out_unlock;
+ 			}
+ 
+-			vfpriv->context_init |= value;
++			context_init |= value;
+ 			break;
+ 		case VIRTGPU_CONTEXT_PARAM_NUM_RINGS:
+-			if (vfpriv->base_fence_ctx) {
++			if (num_rings_set) {
+ 				ret = -EINVAL;
+ 				goto out_unlock;
+ 			}
+@@ -652,30 +664,31 @@ static int virtio_gpu_context_init_ioctl(struct drm_device *dev,
+ 				goto out_unlock;
+ 			}
+ 
+-			vfpriv->base_fence_ctx = dma_fence_context_alloc(value);
+-			vfpriv->num_rings = value;
++			num_rings = value;
++			num_rings_set = true;
+ 			break;
+ 		case VIRTGPU_CONTEXT_PARAM_POLL_RINGS_MASK:
+-			if (vfpriv->ring_idx_mask) {
++			if (ring_idx_mask) {
+ 				ret = -EINVAL;
+ 				goto out_unlock;
+ 			}
+ 
+-			vfpriv->ring_idx_mask = value;
++			ring_idx_mask = value;
+ 			break;
+ 		case VIRTGPU_CONTEXT_PARAM_DEBUG_NAME:
+-			if (vfpriv->explicit_debug_name) {
++			if (explicit_debug_name) {
+ 				ret = -EINVAL;
+ 				goto out_unlock;
+ 			}
+ 
+-			ret = strncpy_from_user(vfpriv->debug_name,
++			memset(debug_name, 0, sizeof(debug_name));
++			ret = strncpy_from_user(debug_name,
+ 						u64_to_user_ptr(value),
+ 						DEBUG_NAME_MAX_LEN - 1);
+ 			if (ret < 0)
+ 				goto out_unlock;
+ 
+-			vfpriv->explicit_debug_name = true;
++			explicit_debug_name = true;
+ 			ret = 0;
+ 			break;
+ 		default:
+@@ -684,17 +697,28 @@ static int virtio_gpu_context_init_ioctl(struct drm_device *dev,
+ 		}
+ 	}
+ 
+-	if (vfpriv->ring_idx_mask) {
++	if (ring_idx_mask) {
+ 		valid_ring_mask = 0;
+-		for (i = 0; i < vfpriv->num_rings; i++)
++		for (i = 0; i < num_rings; i++)
+ 			valid_ring_mask |= 1ULL << i;
+ 
+-		if (~valid_ring_mask & vfpriv->ring_idx_mask) {
++		if (~valid_ring_mask & ring_idx_mask) {
+ 			ret = -EINVAL;
+ 			goto out_unlock;
+ 		}
+ 	}
+ 
++	vfpriv->context_init = context_init;
++	if (num_rings_set && !vfpriv->base_fence_ctx) {
++		vfpriv->base_fence_ctx = dma_fence_context_alloc(num_rings);
++		vfpriv->num_rings = num_rings;
++	}
++	vfpriv->ring_idx_mask = ring_idx_mask;
++	if (explicit_debug_name && !vfpriv->explicit_debug_name) {
++		memcpy(vfpriv->debug_name, debug_name, sizeof(vfpriv->debug_name));
++		vfpriv->explicit_debug_name = true;
 +	}
 +
- 	if (!ipv6_addr_any(&sk->sk_v6_rcv_saddr))
- 		saddr = &sk->sk_v6_rcv_saddr;
+ 	virtio_gpu_create_context_locked(vgdev, vfpriv);
+ 	virtio_gpu_notify(vgdev);
  
+diff --git a/drivers/gpu/drm/virtio/virtgpu_vram.c b/drivers/gpu/drm/virtio/virtgpu_vram.c
+index 5b4a3ab81cd5..aaeae38afc0e 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_vram.c
++++ b/drivers/gpu/drm/virtio/virtgpu_vram.c
+@@ -248,7 +248,10 @@ void virtio_gpu_vram_map_deferred(struct virtio_gpu_object_vram *vram)
+ 		return;
+ 
+ 	mutex_lock(&map_lock);
+-	if (!drm_mm_node_allocated(&vram->vram_node))
+-		virtio_gpu_vram_map(&vram->base);
++	if (!drm_mm_node_allocated(&vram->vram_node)) {
++		vram->map_state = STATE_INITIALIZING;
++		if (virtio_gpu_vram_map(&vram->base))
++			vram->map_state = STATE_ERR;
++	}
+ 	mutex_unlock(&map_lock);
+ }
