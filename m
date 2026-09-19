@@ -1,160 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f40.google.com (mail-vs2-f40.google.com [74.125.227.40])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B75F3344DB7;
-	Sat, 19 Sep 2026 14:38:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46FE23242B2
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:39:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.40
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789828723; cv=none; b=rYjc4OR/BlzC952CCuoShru45zk235ta3U1DVbZUavEGbVa83UuyRQReGUkFfcKf86lGYwTq4kzCwTFA4OKxRVte9cJfemRyHDmvGTvlH+E3SCQ8GyCocfX0Nw22W/gjrDBjR2QW02PDeCpt3xUJwErwmEjWeaZV1KIW6U2M2Dg=
+	t=1789828754; cv=none; b=R+PlV+MVYerb0wEoq3bYQKmB5NfFt4lWl+BdKnzqT1C5X1ma3HPTDKlK+cMabur9R5aNK6OpqrHkZbgXEwGvA4+hr0EoX32xCgnKIvEoPs5dQ6JQGJu/pwoK+HHJzTEE7FkAKw7GE7qZLjWq9q4jub3qD/7yQxFsYrL2cL8AnMg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789828723; c=relaxed/simple;
-	bh=0sTUHdTBguf9D+ODJqdIL5b6eL2ZzSqEDwWf8Ns29CY=;
+	s=arc-20240116; t=1789828754; c=relaxed/simple;
+	bh=J7n75dlxtos3+ITb9g8BdRmQ8irhbat1c12Yu0oiLPQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QzXqhW5tS2qTsJ8VDrHKgs8JuFc4zkALSiHXnjwPaO345rd6xCDGVl3+CouNtXoe1Zvojjg0rUSKQyq9GUDQB6Ts5HpkcszTUVGhtyspFNDemO+n4FPfwGk4b7ZaaVJgd4g0H71a9tffF48+0fkOFEUMD+gVxgUqV3G2q+QnjUk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eiVEdh/z; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eiVEdh/z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 327E11F000FF;
-	Sat, 19 Sep 2026 14:38:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789828721;
-	bh=b7dMkdKwVdOPUbRXbSR/ZpGWRKdnGU2o7/s4+tCrt7E=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eiVEdh/z+DIpaYbhrF/Sf96pO066THwbfh3exO7y6wf9CvboZaTpuRsJcQoAsZje+
-	 EwscWzfRg0/jrBO4Ey2G8SmLpEaaFw/MKP04Tjeoo8M5+nSAZhYffTv5LgKktvr1WH
-	 wLQb0fF+BLMCQAcI+7b0b7gdk4QE6hxoLxcoZbEFrWuU5YFrphzrQBfm8nYfHUvumv
-	 eqXneLzfMmbOBz25nd/9Gt18iHULw7xN2tj3rHFK2gz6oInmBWfo4iasoQSbsmKNXx
-	 ukyjSuie9mpbrVxXHdquQ2h0ZiHisy4wtr1+gihTMidmTxGyNowjs9JYlZSfVaJBkU
-	 XMrp3lwlD/o9Q==
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: Jonathan Corbet <corbet@lwn.net>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Shuah Khan <shuah@kernel.org>
-Cc: Shuah Khan <skhan@linuxfoundation.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH 2/2] selftests/ftrace: Add test case for overriding trace_instance parameter
-Date: Sat, 19 Sep 2026 23:38:36 +0900
-Message-ID: <178982871684.289221.11881705926508561494.stgit@devnote2>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <178982869661.289221.2143320719673148321.stgit@devnote2>
-References: <178982869661.289221.2143320719673148321.stgit@devnote2>
-User-Agent: StGit/0.19
+	 Content-Type:MIME-Version; b=OFb6r38tbqppeVA8MUSgFCK2zxI6arZnGeLUXTFR2nIdIPwXQLBdTe69JFz2mm/q8PDodlbIIewZVZT2geB3UILNZb2LonorlZGWLGYZ1l8l0ZgVryeyGZyo6fS7Y8tLNViwWklexTmYgEOHcyVPxq+l70QCItOQ49qTR0D0NXU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=idkmanager.com; spf=pass smtp.mailfrom=idkmanager.com; arc=none smtp.client-ip=74.125.227.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=idkmanager.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=idkmanager.com
+Received: by mail-vs2-f40.google.com with SMTP id ada2fe7eead31-7a4fb331cc0so555670137.3
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 07:39:13 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789828752; x=1790433552;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=J7n75dlxtos3+ITb9g8BdRmQ8irhbat1c12Yu0oiLPQ=;
+        b=x6jqRCTAfSxFodohYiX69GEpSeSyEMlqCSwWvmxzGKJu0ltYytztl76SEGw25F1oo9
+         aGcUCRU3hfHLFOlTPnUwLnFWYrWrbFKRs9rfsvWqEzvuzpRTAyMCKmH7aafaDJ1lhq6+
+         eLgQrWTRjc/MmTdJvZ3hPh1giMH9Q7T5GRhveLxmTSbvxabQ+ZQ4DVM3RAovY+A99CYO
+         8GVezcUVX0GwflI1aUn5a8Co90SFJWmwPYSIoHJOOWaRPf51TgIE6TJwmNcIXE8fB02S
+         UsQOSyEldHQ11LhM0FfZ8XsIRnLm8qxgkAFQLpkqz2I0fPQ0FUcnCpCnq5qzftMOwzVV
+         EbcA==
+X-Forwarded-Encrypted: i=1; AKwUvBzCNmDxUlKCRWQM0usjAJ2l4n9B7l5QwEnnNvOUYvjSA+pyKeB+oCCp1YRHXCQ5EDTzu3X6L1v5eU9xxlQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++m37mq4C0Fl6A1PX3dics4WvpW2fghKcfKCNc8qnUV2GDorM5T8
+	y2i+4jTms0iawud6gYMBp4Z5Io6gyNzC+ndlezMDiDpbSaVIYtp3ugQEsBLMlREBGzGcqOrgNMK
+	HyMq3oUVtTw==
+X-Gm-Gg: AYBFou3ozo8ymlryK5fhsqeMORyorBGO4jsgRShasDuQ98hmdIx59Mn098zyVdbXgTC
+	Lcx0EGS47VB+LBnyRRvxZknSnqhXH73w4yhEjtMdGS70+dAQE93Bk3JbNO/nTDXrvCH6Nt/5wfq
+	spofxbySzA9GdZqHcvrFCm1dNV/KWJqsXowCyddopJygY6ONe2A1mI/SmgXK8ARXvn0lGOfbsFQ
+	NHIC+WNw2zyEx9L1gLL20wMGkPg8zhYUDsL1j3m8FD1hCPlG/ZG0hFHWdShIWgJjtXij48AEXjX
+	afg+CxBnPKjtSCTvlVmGN0PPhQp8zZCBkW1sJmrrKqbLw5YAX2KO1IF9Qm5yGpmUBx7hfRqww4x
+	1QspOFyLTVpNDmupehozVU2oQbfOFfrnYUDC4jXJOl2s48uLC+Y2AvJ6LcT+RB/pOltYQrjDkKv
+	p9rDsqVOCL4lx8DKgBApe3huuLmsyfuHN2JWzdDTucrp+5kOZe50RMw58Eu3Ixqj5CIQmMtFvaM
+	VKgthkOkL0btt64DUZEqizMkAv4Qs6qj+UZlWpu7fy3zFjGHvufGmU=
+X-Received: by 2002:a05:6102:5e86:b0:7a7:195a:1b29 with SMTP id ada2fe7eead31-7a7195a1f70mr420888137.35.1789828752044;
+        Sat, 19 Sep 2026 07:39:12 -0700 (PDT)
+Received: from [100.96.0.25] (corp-190-12-36-222.uio.puntonet.ec. [190.12.36.222])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-984b4ed2880sm2969614241.0.2026.09.19.07.39.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Sep 2026 07:39:11 -0700 (PDT)
+From: Ing. Alfonso Kuen Arroyo <gerencia@idkmanager.com>
+To: Maurizio Lombardi <mlombard@arkamax.eu>
+Cc: Maurizio Lombardi <mlombard@arkamax.eu>, hch@lst.de, sagi@grimberg.me,
+ kch@nvidia.com, linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] nvmet-tcp: report a bounded MDTS instead of "no limit"
+Date: Sat, 19 Sep 2026 09:39:10 -0500
+Message-ID: <178982875024.43804.2680537645505838340@idkmanager.com>
+In-Reply-To: <DLJ4T2GRQSA7.1NN9YA9M8XUDK@arkamax.eu>
+References: DL41D2NGEUHW.2UUHTZ6LLM9X7@arkamax.eu,
+ 178978683646.43804.6940923486189370705@idkmanager.com,
+ DLJ4POIDTYXQ.2AOJP9BJAWEOX@arkamax.eu <DLJ4T2GRQSA7.1NN9YA9M8XUDK@arkamax.eu>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
 
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+On Sat Sep 19, 2026, Maurizio Lombardi wrote:
+> Yes, but your patch sets NVMET_TCP_MAX_MDTS to 8, which means 1MiB, not
+> 4MiB, so a 2MiB command should be rejected, even if it's under the
+> MAXH2CDATA limit of 4MiB; or am I missing something?
 
-Add a boot-time tracing test case to verify that specifying multiple
-trace_instance= parameters with the same instance name overrides earlier
-definitions:
+You are not missing anything - I mixed the two numbers up in my previous
+mail. The patch advertises MDTS = 8, i.e. 2^8 * 4 KiB = 1 MiB, the same
+value nvmet-rdma reports, not the 4 MiB of NVMET_TCP_MAXH2CDATA. So with
+the patch a 2 MiB command does exceed the advertised MDTS, and today the
+target would still serve it: nothing in nvmet compares a command's
+transfer length against MDTS, the only rejection is the 4 MiB bound in
+nvmet_tcp_map_data(). Sorry for the confusion.
 
-   - Verifies that a kernel command-line trace_instance= parameter
-     overrides an earlier trace instance defined via bootconfig
-     (kernel.trace_instance).
-   - Verifies that a latter kernel command-line trace_instance=
-     parameter overrides an earlier trace_instance= on the same
-     command line.
-   - Confirms that the overridden instance has its previous events
-     disabled, new events enabled, and flags (such as traceoff)
-     properly applied.
+> And indeed this is what's missing, because the specification
+> explicitely says that "if a command is submitted that exceeds [MDTS],
+> then the command is aborted with a status code of Invalid Field in
+> Command."
+>
+> Maybe it can be added separatedly with a dedicated patch.
 
-Assisted-by: Antigravity:gemini-3.8-flash
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
----
- .../cmdline-07-trace-instance-override.bconf       |    2 +
- .../cmdline-07-trace-instance-override.cmdline     |    1 
- .../tests/cmdline-07-trace-instance-override.sh    |   56 ++++++++++++++++++++
- 3 files changed, 59 insertions(+)
- create mode 100644 tools/testing/selftests/ftrace/boottime/bootconfigs/cmdline-07-trace-instance-override.bconf
- create mode 100644 tools/testing/selftests/ftrace/boottime/cmdlines/cmdline-07-trace-instance-override.cmdline
- create mode 100644 tools/testing/selftests/ftrace/boottime/tests/cmdline-07-trace-instance-override.sh
+Agreed on both counts. The enforcement belongs in the core rather than in
+a transport - a transfer-length check against nvmet_ctrl_mdts() when the
+request is initialised, returning NVME_SC_INVALID_FIELD | NVME_STATUS_DNR -
+so that every transport with a get_mdts gets it for free. It is a separate
+change with its own blast radius (it turns a currently-served oversized
+command into a failed one for non-compliant hosts), so I would rather keep
+this patch as the "advertise what we can serve" step and send the
+enforcement as a follow-up on top of it. I can prepare that follow-up if
+you and the maintainers think it is the right direction; otherwise I am
+happy to leave it to whoever prefers to shape it.
 
-diff --git a/tools/testing/selftests/ftrace/boottime/bootconfigs/cmdline-07-trace-instance-override.bconf b/tools/testing/selftests/ftrace/boottime/bootconfigs/cmdline-07-trace-instance-override.bconf
-new file mode 100644
-index 000000000000..2551da39f722
---- /dev/null
-+++ b/tools/testing/selftests/ftrace/boottime/bootconfigs/cmdline-07-trace-instance-override.bconf
-@@ -0,0 +1,2 @@
-+kernel.trace_instance = "foo,sched:sched_switch"
-+
-diff --git a/tools/testing/selftests/ftrace/boottime/cmdlines/cmdline-07-trace-instance-override.cmdline b/tools/testing/selftests/ftrace/boottime/cmdlines/cmdline-07-trace-instance-override.cmdline
-new file mode 100644
-index 000000000000..1953eb5d6f80
---- /dev/null
-+++ b/tools/testing/selftests/ftrace/boottime/cmdlines/cmdline-07-trace-instance-override.cmdline
-@@ -0,0 +1 @@
-+trace_instance=foo^traceoff,sched:sched_waking trace_instance=bar,sched:sched_switch trace_instance=bar^traceoff,irq:irq_handler_entry
-diff --git a/tools/testing/selftests/ftrace/boottime/tests/cmdline-07-trace-instance-override.sh b/tools/testing/selftests/ftrace/boottime/tests/cmdline-07-trace-instance-override.sh
-new file mode 100644
-index 000000000000..a13b7deb6735
---- /dev/null
-+++ b/tools/testing/selftests/ftrace/boottime/tests/cmdline-07-trace-instance-override.sh
-@@ -0,0 +1,56 @@
-+#!/bin/sh
-+# SPDX-License-Identifier: GPL-2.0
-+# Copyright (C) 2026, Google LLC.
-+# Check trace_instance= override with bootconfig and kernel command-line
-+TRACEDIR="/sys/kernel/tracing"
-+
-+if [ -f /proc/bootconfig ] && grep -q "dump_bconf" /proc/cmdline 2>/dev/null; then
-+	echo "=== /proc/bootconfig ==="
-+	cat /proc/bootconfig
-+	echo "========================"
-+fi
-+
-+check_instance() {
-+	instance="$1"
-+	old_event="$2"
-+	new_event="$3"
-+
-+	if [ ! -d "$TRACEDIR/instances/$instance" ]; then
-+		echo "FAIL: trace instance $instance does not exist"
-+		exit 1
-+	fi
-+
-+	if [ -f "$TRACEDIR/instances/$instance/events/$old_event/enable" ]; then
-+		ENABLE=$(cat "$TRACEDIR/instances/$instance/events/$old_event/enable")
-+		if [ "$ENABLE" = "1" ]; then
-+			echo "FAIL: overridden event $old_event is still enabled in instance $instance"
-+			exit 1
-+		fi
-+	fi
-+
-+	if [ ! -d "$TRACEDIR/instances/$instance/events/$new_event" ]; then
-+		echo "FAIL: event $new_event does not exist in instance $instance"
-+		exit 1
-+	fi
-+
-+	ENABLE=$(cat "$TRACEDIR/instances/$instance/events/$new_event/enable")
-+	if [ "$ENABLE" != "1" ]; then
-+		echo "FAIL: event $new_event is not enabled in instance $instance ($ENABLE)"
-+		exit 1
-+	fi
-+
-+	TRACING_ON=$(cat "$TRACEDIR/instances/$instance/tracing_on")
-+	if [ "$TRACING_ON" != "0" ]; then
-+		echo "FAIL: tracing_on is not 0 in instance $instance ($TRACING_ON)"
-+		exit 1
-+	fi
-+}
-+
-+# Test 1: bootconfig trace_instance overridden by cmdline parameter
-+check_instance "foo" "sched/sched_switch" "sched/sched_waking"
-+
-+# Test 2: cmdline trace_instance overridden by subsequent cmdline parameter
-+check_instance "bar" "sched/sched_switch" "irq/irq_handler_entry"
-+
-+echo "PASS: cmdline-07-trace-instance-override"
-+exit 0
-
+Alfonso
