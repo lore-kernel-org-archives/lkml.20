@@ -1,131 +1,186 @@
-Received: from mx01.bremer-it.com (mx01.bremer-it.com [85.215.132.167])
+Received: from out28-52.mail.aliyun.com (out28-52.mail.aliyun.com [115.124.28.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BB0133D6FD;
-	Sat, 19 Sep 2026 15:38:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.215.132.167
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF17E43AB0;
+	Sat, 19 Sep 2026 15:41:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789832326; cv=none; b=c5KKWcabG3DDXVJsIl7b1N3PGZZFo4ZYD8RIH79ISxSZj4205m8zgo4ihbHDMQhuJr4le2e6C4X21nPQmuPfGXuHbYwFhib18+T4DBHjDuKTOH17532p6P6GM/CxuZlOvrdarlQLW29iLMDIRx+AY0iJdFrw76O/KuXDGkWDJR0=
+	t=1789832520; cv=none; b=ME+HrFRBxUhZqTOD6Ey6RYmTs+3Yy2hrqsJXKOI2oLFmdCKXWTjgt3oOV3eHhQB9HF6Di85+FcpKuRZDaR7BExHy8riGbu2xghz8Rgq1P99WM7FxcwoxACUePyeyaKAiE3YCFqsd1+vx+RbgrhojEAbaKNPYRJSo6syVZrlyMQ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789832326; c=relaxed/simple;
-	bh=BF8pL6nodpXg5IJe53MWqpHT0WPpO6V2L/EhWOWVsoM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O1+FI85tcHvTnQJMZKftMO7saZZaHbzgvz7vSlElZLiAgd5TedV2+9AEL80CLF9EELCfZTEfErhZN3r82hE7KuB7NX1lTXPOLEDEvS7ElirjStLoCilt+C3KAZAEI655XNqv8D1vSp4j2lOH9bd6ePHB/bx8JuWlguv5sbe0Pwk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=barelysecure.org; spf=pass smtp.mailfrom=barelysecure.org; dkim=pass (2048-bit key) header.d=barelysecure.org header.i=@barelysecure.org header.b=XlHzrTiw; arc=none smtp.client-ip=85.215.132.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=barelysecure.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=barelysecure.org
+	s=arc-20240116; t=1789832520; c=relaxed/simple;
+	bh=LYiZl+WOHNSO4n6Gc8EKV7X5LB2Z4F9TAU5gRUGvOKE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Men+KAWJCPOwAe6Uzd8754hiW+HunFpn4Ac9j2T+tviYYVqCs4K153XW8swhWhABou11OApZXpIaQktKQNsF0476iQ7MFoi7TMpZyRR9ZAF/97Yw+tu9tI7SDNtnDs+u7O4PPgwyOm0C46XcsdmN/2v+dsfUZh1Cfb4phPDl450=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=rVAQtq3X; arc=none smtp.client-ip=115.124.28.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=barelysecure.org header.i=@barelysecure.org header.b="XlHzrTiw"
-Received: from cashel.logfs.org (c-98-33-96-243.hsd1.ca.comcast.net [98.33.96.243])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (secp384r1) server-digest SHA384)
-	(No client certificate requested)
-	by mx01.bremer-it.com (Postfix) with ESMTPSA id E311520C1B;
-	Sat, 19 Sep 2026 17:38:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=barelysecure.org;
-	s=dkim68; t=1789832318;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6aw+V5r2LHIE5oFHzmqB4KZ1PpJUZDTMqnLQbkowUUc=;
-	b=XlHzrTiwzZ9IFzbTcCAHxMd+6nyZjyXkIaxyhFGWvrAyqyugbWnoKMPmkET5mGk7/2xdp/
-	0lS3aNJGcNLFaqUbveZ7dS8gwb70QxD/U1cFStoIg/LYfpNa9ItVJfHCLoszX3k9VzZGpi
-	cgPbQvJ3DcSYjlgxGxTiS+WRZ+NtuP7MUXHQPPnuHrUZW+wlfhMg/5br3SJP7lPgNwcCS2
-	TJ7u81vimKlc2o14zthGmnlQQqHQKNp5WsKf4tfYkTqx5wcDu63bmn1VuzjcPJRBFCEW0b
-	PkGWZ875smpAbx3Jyxlwy4KER2Fn1fnIVOos5ElVbspvGaUoN5Qu62EKvULWog==
-Authentication-Results: ORIGINATING;
-	auth=pass smtp.auth=joern@lazybastard.org smtp.mailfrom=joern@barelysecure.org
-Date: Sat, 19 Sep 2026 08:38:31 -0700
-From: =?iso-8859-1?Q?J=F6rn?= Engel <joern@barelysecure.org>
-To: Chris Roy <iam@thechris.in>
-Cc: Richard Weinberger <richard@nod.at>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	syzbot <syzbot+7cab6a19619f1b8efc00@syzkaller.appspotmail.com>,
-	dakr@kernel.org, driver-core@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	rafael@kernel.org, syzkaller-bugs@googlegroups.com,
-	linux-mtd@lists.infradead.org, miquel.raynal@bootlin.com,
-	vigneshr@ti.com, Adarsh Das <adarshdas950@gmail.com>
-Subject: Re: [syzbot] [fs?] possible deadlock in ovl_create_object (2)
-Message-ID: <aq6sd2Z3nZuAYbMG@cashel.logfs.org>
-References: <CAE2Bdm3NuEHshrG6K2boKAnCQUvT5SX79cP9nPgS2s1afzY1hg@mail.gmail.com>
- <6aab0f82.e91c2013.3bdb06.0009.GAE@google.com>
- <CAE2Bdm2wzxj-J0TM8F+3SVnu0W3HeiROW97U4qvBeyHKdHJFmg@mail.gmail.com>
- <2026091753-broadness-bootie-b683@gregkh>
- <CAE2Bdm14hif17B8RTAE+PhWEps5Fzh=WPurZeSNp9C6TqCKumg@mail.gmail.com>
- <aqwuWWMwdIcx3704@cashel.logfs.org>
- <mu82xsi6.76ee613a-07fb-48b1-9336-99e8780e8b6e@nod.at>
- <CAE2Bdm3FqBPAMxqKoz_h1cw+OXpm=LJHdJjsME_Jy966tqhq_A@mail.gmail.com>
- <aq6gJTYTpTr8sYPj@cashel.logfs.org>
- <CAE2Bdm3K+ZnrfB7xzkg=2fzMs7AmJzdF3aYCpN00h90TR6FMog@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="rVAQtq3X"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1789832502; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=OJ2hAYWcDFc6IElR3pmiBTTlx6KjakHAb7QlNaS0XAQ=;
+	b=rVAQtq3XwIdilf4iEIgKzdKUY8Cs3vSLa8eL97t0Mkjzfa1UuRwHPsUR14eu7UyuCV6maRPThVGtCM45L/2UK1i/gwm3gkDTJCl5zDi5am2qKeBtca2eEOChRIexADWMN+LBrFaW3DWeJ90626aK18ORxTszcV0NcN/1UR4Ge90=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.04436259|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0547553-0.000500871-0.944744;FP=5598000967577699419|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037021217;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=10;RT=10;SR=0;TI=SMTPD_---.jHWy4NM_1789832500;
+Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.jHWy4NM_1789832500 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Sat, 19 Sep 2026 23:41:41 +0800
+From: Fang Xieyan <fangxy@xiaopeng.com>
+To: mcgrof@kernel.org,
+	petr.pavlu@suse.com,
+	da.gomez@kernel.org,
+	samitolvanen@google.com,
+	atomlin@atomlin.com
+Cc: mmaurer@google.com,
+	masahiroy@kernel.org,
+	linux-modules@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v3] module: Validate the __version_ext_names section type
+Date: Sat, 19 Sep 2026 23:41:39 +0800
+Message-ID: <20260919154139.52904-1-fangxy@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAE2Bdm3K+ZnrfB7xzkg=2fzMs7AmJzdF3aYCpN00h90TR6FMog@mail.gmail.com>
-X-Spam-Level: **
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [2.27 / 14.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	BAYES_SPAM(0.87)[80.13%];
-	MIME_GOOD(-0.10)[text/plain];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	TAGGED_RCPT(0.00)[7cab6a19619f1b8efc00];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	ASN(0.00)[asn:7922, ipnet:98.32.0.0/11, country:US];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_COUNT_ZERO(0.00)[0];
-	MISSING_XM_UA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[barelysecure.org:s=dkim68];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
-	LOCAL_OUTBOUND(0.00)[];
-	FREEMAIL_CC(0.00)[nod.at,linuxfoundation.org,syzkaller.appspotmail.com,kernel.org,lists.linux.dev,vger.kernel.org,googlegroups.com,lists.infradead.org,bootlin.com,ti.com,gmail.com];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	URIBL_BLOCKED(0.00)[c-98-33-96-243.hsd1.ca.comcast.net:rdns,barelysecure.org:from_smtp,barelysecure.org:from_mime];
-	SUBJECT_HAS_QUESTION(0.00)[]
-X-Rspamd-Server: server01
-X-Rspamd-Queue-Id: E311520C1B
-X-Spamd-Bar: ++
 
-On Sat, Sep 19, 2026 at 08:58:51PM +0530, Chris Roy wrote:
-> 
-> I'd rather not bolt a redesign onto this fix.
+elf_validity_cache_sechdrs() validates the size and offset of
+every section, unless its type is SHT_NULL or SHT_NOBITS:
 
-Good decision!
+		switch (shdr->sh_type) {
+		case SHT_NULL:
+		case SHT_NOBITS:
+			/* No contents, offset/size don't mean anything */
+			continue;
+		default:
+			err = validate_section_offset(info, shdr);
 
-> > Is this check necessary? [...] Looks like the kernel is still
-> > undecided whether checks are necessary or not.
-> 
-> I will keep it. kzalloc()/kstrdup() under plain GFP_KERNEL can still
-> return NULL under real memory pressure (no __GFP_NOFAIL here), and
-> dropping it would be inconsistent with the kstrdup() check two lines
-> below.
+elf_validity_cache_index_versions() then reads the extended version
+names by their sh_offset, without checking that the section holds
+data:
 
-My foggy mind is slowly waking up.  GFP_ATOMIC can return NULL.  If
-you're trying to allocate memory from an interrupt handler or similar,
-you cannot afford to wait for memory reclaim to happen.  Those calls
-definitely need a check and a reasonable plan what to do in case of
-failure.
+	if (vers_ext_crc) {
+		crc_count = info->sechdrs[vers_ext_crc].sh_size / sizeof(u32);
+		name = (void *)info->hdr +
+			info->sechdrs[vers_ext_name].sh_offset;
+		remaining_len = info->sechdrs[vers_ext_name].sh_size;
+		while (crc_count--) {
+			name_size = strnlen(name, remaining_len) + 1;
 
-GFP_KERNEL should be able to block and wait, so there really is no
-excuse for kmalloc to return NULL or for the callers to need a check.
+A SHT_NOBITS __version_ext_names reaches here with an sh_offset the
+validator never bounded; past the end of the module the name lookup
+reads out of bounds:
 
-But your decision of not pulling too many decisions into a single patch
-is still a good decision.  Even if my logic is sound, removing checks
-from kmalloc callers should be a separate effort.
+  BUG: KASAN: vmalloc-out-of-bounds in strnlen+0x73/0x80
+  Read of size 1 at addr ffa00000005534ff by task insmod/79
+  ...
+   strnlen+0x73/0x80
+   load_module+0xef6/0x8600
+  The buggy address belongs to a 43-page vmalloc region starting at
+  0xffa0000000529000 allocated at kernel_read_file+0x7b4/0x9f0
 
-Jörn
+This runs after module_sig_check() but before the blacklist check in
+early_mod_check(). Commit 9a5ff4568932 ("module: validate string table
+section types") closed the same class for .shstrtab and .strtab, but
+not this section.
 
---
-I don't understand it. Nobody does.
--- Richard P. Feynman
+Bounding the offset is not enough: an in-bounds SHT_NOBITS section
+still passes it, and the walk reads unrelated file data as a version
+name. A real __version_ext_names is SHT_PROGBITS, already offset-bounded
+by elf_validity_cache_sechdrs(), so require that type, matching the
+string-table checks.
+
+Fixes: 54ac1ac8edeb ("modules: Support extended MODVERSIONS info")
+Cc: stable@vger.kernel.org
+Assisted-by: Hawkeye:GLM-5.3-flash
+Assisted-by: Qoder:Qwen3.8-Max
+Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
+---
+
+Standalone resubmission of the __version_ext_names fix that was patch 2/2 of
+"[PATCH v2 0/2] module: close two ELF section-validation gaps" (Message-ID
+20260917190618.94759-1-fangxy@xiaopeng.com). The series is split: patch 1/2
+(the SHT_NULL sh_name fix) is withdrawn because Liu Chao posted a cleaner
+fail-closed fix for the same bug ("[PATCH] module: validate sh_name for
+SHT_NULL sections", 20260905110813.150411-1-liuc63@xiaopeng.com), which drops
+the SHT_NULL special case entirely instead of sanitizing sh_name to 0. This
+patch does not depend on it and stands alone.
+
+Changes in v3:
+  - Split from the two-patch series and rebased onto mainline; sent as a
+    single patch with no cover letter.
+  - Corrected the function name in the changelog and the in-code comment:
+    elf_validity_check_sectionheaders() does not exist in the tree, the
+    validator is elf_validity_cache_sechdrs().
+  - Noted where the read sits in load_module(): after module_sig_check() and
+    before the blacklist check in early_mod_check(), matching the rationale
+    for commit 9a5ff4568932 ("module: validate string table section types"),
+    which closed the same class for .shstrtab and .strtab but not this
+    section.
+  - No change to the check itself: still reject sh_type != SHT_PROGBITS.
+
+v1 bounded the offset with validate_section_offset(). Review pointed out that
+is narrower than the bug: a SHT_NOBITS section whose sh_offset is in bounds
+still passes the bound, and the walk then reads whatever file bytes sit there
+as a version name, which violates ELF semantics (SHT_NOBITS holds no file
+data). v2 requires the section to be SHT_PROGBITS instead, so both the
+out-of-bounds and the in-bounds SHT_NOBITS cases are rejected, while a real
+names section (SHT_PROGBITS, already offset-checked) is unaffected.
+
+Reproducer, two variants of a .ko carrying __version_ext_crcs and a
+__version_ext_names of type SHT_NOBITS:
+  - sh_offset past the end of the module image. Before: the name walk reads
+    out of bounds (KASAN vmalloc-out-of-bounds in strnlen). After: rejected.
+  - sh_offset in bounds, aimed at other file data (the harness points it at
+    the relocated .shstrtab). Before: the walk silently consumes those bytes
+    as a version name and the module is accepted; no splat fires, so a
+    crash-only check scores it clean. After: rejected.
+Both variants fail insmod with -ENOEXEC (rc=8, "invalid module format") on the
+patched kernel, which is what a module with a malformed version section should
+do.
+
+Both cases ran on 704340f1cd0d (9 commits past v7.3-rc3): x86_64 defconfig plus
+CONFIG_KASAN_GENERIC and CONFIG_KASAN_VMALLOC, gcc 13.2.0, QEMU under TCG. The
+unpatched and patched kernels are built from byte-identical .config files and
+differ only by this patch.
+
+LOCALVERSION is pinned so the patched kernel's release string matches the
+payload and the loader reaches the version walk instead of stopping at the
+version magic check.
+
+ kernel/module/main.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/kernel/module/main.c b/kernel/module/main.c
+index d0e1e0b..183e3e2 100644
+--- a/kernel/module/main.c
++++ b/kernel/module/main.c
+@@ -2287,6 +2287,22 @@ static int elf_validity_cache_index_versions(struct load_info *info, int flags)
+ 	 * number of entries in every section.
+ 	 */
+ 	if (vers_ext_crc) {
++		/*
++		 * The names section is read below as hdr + sh_offset, so it
++		 * must hold file data. A real one is SHT_PROGBITS.
++		 * elf_validity_cache_sechdrs() exempts SHT_NULL and
++		 * SHT_NOBITS from validate_section_offset() on the assumption
++		 * they have no contents, so a SHT_NOBITS __version_ext_names
++		 * would reach the walk with an offset that was never bounded.
++		 * Require the type; a SHT_PROGBITS section is already bounded
++		 * there, so its sh_offset is safe to dereference.
++		 */
++		if (info->sechdrs[vers_ext_name].sh_type != SHT_PROGBITS) {
++			pr_err("Invalid ELF __version_ext_names type: %u\n",
++			       info->sechdrs[vers_ext_name].sh_type);
++			return -ENOEXEC;
++		}
++
+ 		crc_count = info->sechdrs[vers_ext_crc].sh_size / sizeof(u32);
+ 		name = (void *)info->hdr +
+ 			info->sechdrs[vers_ext_name].sh_offset;
+-- 
+2.50.1 (Apple Git-155)
+
