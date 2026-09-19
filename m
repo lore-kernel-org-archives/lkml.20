@@ -1,166 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 219F047208E;
-	Sat, 19 Sep 2026 10:36:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6588B44F563
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 10:40:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789814202; cv=none; b=J2+eDQPdxa/SbgSX9OtgLaVWoNSez4uoeU89KcvJDgM71WwSJdW0Fmz1P+oh6lq9NNHap/FxjtUq0298AWjOts6eNl509nbnnUSEkvWNyDClHvaaFKnn9bncDcN6gVjsMyKUfsBzbB6ACMFOJA/N6MyPo06yyKF/94p+PLRophE=
+	t=1789814433; cv=none; b=d13eSUaQiHtgc1fhbZEvdP3FNtEAVEvM1fLxQ0qMW5YSjz/VCy+jDjfcVvkz3Srf1mPbP+l2z7fUSXvSvT7kgBOB9cuTNQAGCGNnpAEw8eWb3uZY5H/jBKCokpL11TyXeWJjwm1uUcPP3XFOhJWTtLNfdjUjs5e59+usS/w5LpA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789814202; c=relaxed/simple;
-	bh=HIza9tj31a3mKUDaV4RrpZ7yKRed7YCVQhRCqLix2bc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=BITr1c4FiCXD+t17BqcS11i7BCFmSAIVKstj99afru3Cigy8gI22m4nxmEcX9ZXcFBIWmOil8k18oJamkzsUXFl01jPZnn37GC2mhMSZrpc5P1eFe2DLtbaDXAvPtpiKWY1ZJyql3+Z61pANeXRDXtO1/1yJpJdWl3sBav5+ZA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sc8lthaK; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789814433; c=relaxed/simple;
+	bh=VIlPKBVlHgmbaZc9Wtvv51Izc2ziBzHYlBLpPbDty5E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FyoGSpPWnnZvGRdKm3Ato/SCMPaQLWP2j9cKTq+x5oM0yqFmhN3AkH0O+4QEZmPjzxCQ4SNvDAOpViZTGNla1owy0anj0VFYwOjA/kOVBVKfGNmzQn7atIKeUw57LCfeY98o2noBeYfVpcoQ39uZGZ7INgmuZTgAonlaCLcABBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fyW93Gj5; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sc8lthaK"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 053CCC2BCF6;
-	Sat, 19 Sep 2026 10:36:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789814202;
-	bh=HIza9tj31a3mKUDaV4RrpZ7yKRed7YCVQhRCqLix2bc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Sc8lthaKvDCc0By/h1wU8OpEhU9gxMhwRlDFjhvF9i2k1Kg7m42X8b54Zqfm2EwOc
-	 ewdogsMBrI+saB6SMI02FQQ7WwNZOqmRjSgJnPqRJFsJlaadB9V7tdKCJIs8roWfKE
-	 vSHUyE9OK4a64hK0JVR6GTN7ep4AXTz2VFSpeAexC60+eTAjm4270SCoXBXnm1dsT6
-	 IxM+nC8oH9Uq90V0E6luISRYTnIpRLwN6uHBBAP0LX4cpL9DPx2l9h54qJ/BggSCIQ
-	 j3NRQ9ETZRA4QTRUutdwATu5/y9kEUWAMSV8zi9pSHCQPZywOQfePEjuT8UJrAw3Ea
-	 lci12z65ZQLUQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E7A99C982E1;
-	Sat, 19 Sep 2026 10:36:41 +0000 (UTC)
-From: Sanjay Chitroda via B4 Relay <devnull+sanjayembeddedse.gmail.com@kernel.org>
-Date: Sat, 19 Sep 2026 16:06:36 +0530
-Subject: [PATCH v6 13/14] iio: pressure: hid-sensor-press: convert probe
- and teardown to devm-managed resources
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fyW93Gj5"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843c2790ccso881060f8f.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 03:40:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789814431; x=1790419231; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kfnsloL/wCnbrkfyDwFsxsv9htsOG10LpVReejUHfY8=;
+        b=fyW93Gj5AK6aa6iMyOVHGp9qIJjok0L+CNlw/J9wq57OFdUoaxBdNmtKMVz2AvZgt0
+         8eL6UVSJg9xGSD3lHdxDFF1PRmO0obsvBVHi+MTjVSt2ShZDNbcIbYlFR5+vdNXZD6Mg
+         fsNFphFJrGmPqBhvVG9G0OdE4EAdNWZRdgl/EW1gqGj79zGKm4iRRoBeVy0o6c/n8/5c
+         8P5ucUa49EgcYLQme4F0Opge82YCyehoOL6HavxtZ4GjPSZlCGKPtKBWJ0CB+Ez2LCLo
+         ouNglJ2pmJBJR+RCJyEZsmQjlrabejMFtHMwfg3x8Zni152kZkKZ+jVA3bwggiY+g2ec
+         YvQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789814431; x=1790419231;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=kfnsloL/wCnbrkfyDwFsxsv9htsOG10LpVReejUHfY8=;
+        b=sfdjNWCLmTTG5OYDJHQJd75R5z2OOcb4NpRR89DGn14wQAXelLjRZPDMg9Eyzu+q/W
+         mCgY3VN4+hVb1S8AEbs2xihViyBgeC8UDeguAA2TN0lJWnh9fGKEOlddUqd64okh8Ssm
+         LGALvaSrSyIqnHKnGHBvhnuIY11rboMYxM39eNIOfH0g3HuQtjf4wk9KzI4fv/zv+TpY
+         vbrYSi02OfBaGVLf/XBVAxPRUdc50am/jILaXEl+vGvOA7wX+q/uppWvum7FZDi5cTyd
+         tlu0vPXW+LsEg4WtZ/T5RAvApCWxPXwyIdyEmot8e7ttvZI+ZSGQljtbZSgg9If7h3kA
+         LAag==
+X-Forwarded-Encrypted: i=1; AKwUvBziQfGbmun2Bz04axiSuRoXw6fTUO6x57ZnBQTdxz1rf+2SFhD3DvomxmCKLsye7aDgzjF9NkS+gCQKYTQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lELIyVThOgQa+YtKacf6kSnnxANik/njj8Qh8a+SGEawD/oq5J
+	u2uPuyMK8eSEmR8SbRhprSjsH6O/FVPxnndfXOxIPBPAq8WcqvrT4a0e
+X-Gm-Gg: AYBFou3fw044ErTr/jSZ2LfA6f9bz2YFBwkkdsGYa7XdyKQlaYVhGXwnmJ9d62nRodB
+	adNhYfqIN1JLDgzFLgx0sU4D2ziTpKGs8qP72y04DCj/+2xavJ0KCRSu2G5CJLqi1+oWdW9bmtK
+	jZnCS0/UpWaC5xAccPSqv2Eal6WkCmGQRPLqXNs+yswyMIAHj7uxJywmL/rnsfT5sVf0nO+5wG6
+	lDSYXaHb82LUivr9kv9tC5sGjcO/HR3Dnsh7VuWnVLknHmcqQQt6ElykMnpAauS1YKtcCEkMuIl
+	eYtRBRDUTMgaKikSiurCGwnYIr6WVjS7DXUZAdGYNild8IKYLv9ymVhvd91TkthswxhneSUgICY
+	BzK/E0vJ+OjLwzVbBixq/d0QvjSSfftSrvAjpWUAjfOgFJJIYcZMhkrBVEeGLSoDiBokNpGAWXJ
+	jGncS7cBzw/Oi+3i0osZlhpTmOjxWa34RCKCrh7XAc3LxNDgmsOU2IcJbA4gEXSxZ6sIy2eEeha
+	g4+Zg==
+X-Received: by 2002:a05:6000:178b:b0:487:27f6:a4d9 with SMTP id ffacd0b85a97d-48727f6a70fmr1482923f8f.41.1789814430518;
+        Sat, 19 Sep 2026 03:40:30 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-487244229d5sm6576617f8f.2.2026.09.19.03.40.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Sep 2026 03:40:29 -0700 (PDT)
+Date: Sat, 19 Sep 2026 13:40:25 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: =?utf-8?Q?Rare=C8=99-Mihai?= Vladu <vladurares@gmail.com>
+Cc: andy@kernel.org, hansg@kernel.org, mchehab@kernel.org,
+	gregkh@linuxfoundation.org, sakari.ailus@linux.intel.com,
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev
+Subject: Re: [PATCH] staging: media: atomisp: remove ia_css_circbuf_t typedef
+Message-ID: <aq5mmSZeWXYBrs0o@stanley.mountain>
+References: <20260918214132.1135549-1-vladurares@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260919-28-apr-iio-redundant-argument-v5-temp-v6-13-d577b2371b3c@gmail.com>
-References: <20260919-28-apr-iio-redundant-argument-v5-temp-v6-0-d577b2371b3c@gmail.com>
-In-Reply-To: <20260919-28-apr-iio-redundant-argument-v5-temp-v6-0-d577b2371b3c@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Jiri Kosina <jikos@kernel.org>, 
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
- Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-input@vger.kernel.org, Sanjay Chitroda <sanjayembeddedse@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789814199; l=3567;
- i=sanjayembeddedse@gmail.com; s=20260702; h=from:subject:message-id;
- bh=7y381boWRDonXbz69DqfU+M5uO8NaOORx2X9lVUSvzQ=;
- b=boHZOdTP205iq0Sc5GfBv0JdTSA7g3A2vSBVSIW5WmF/tYpw8TDepd/PoJg8Sy48SnspR5gUB
- U3eKxUFLPVtCjNS15vaS7wcIpvENqsw/OC11ToHBZc+7gs3rShj63zR
-X-Developer-Key: i=sanjayembeddedse@gmail.com; a=ed25519;
- pk=PcneEFtkmY+Ldl+KmOTpB/Q/HDsqko6Fb0/Z/5cuycI=
-X-Endpoint-Received: by B4 Relay for sanjayembeddedse@gmail.com/20260702
- with auth_id=848
-X-Original-From: Sanjay Chitroda <sanjayembeddedse@gmail.com>
-Reply-To: sanjayembeddedse@gmail.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260918214132.1135549-1-vladurares@gmail.com>
 
-From: Sanjay Chitroda <sanjayembeddedse@gmail.com>
+On Fri, Sep 18, 2026 at 09:41:32PM +0000, Rareș-Mihai Vladu wrote:
+> @@ -320,24 +319,24 @@ static inline uint32_t ia_css_circbuf_get_free_elems(
+>   * @brief Peek an element in Circular Buffer.
+>   *
+>   * @param cb	 The pointer to the circular buffer.
+> - * @param offset Offset to the element.
+> + * @param offset to the element.
 
-Convert HID IIO driver resource management to use devm-managed helpers,
-tying the lifetime of all resources to the device.
+Don't make unrelated changes like this.  Also it's not really
+correct.  It's trying to describe "offset" using a sentence.
+"Offset to the element." is a sentence but "to the element."
+is not a sentence.
 
-HID trigger setup, IIO registration, and sensor hub callback resource
-are now managed using devm APIs. Cleanup logic previously handled
-explicitly in probe error and teardown paths.
+>   *
+>   * @return the elements value.
+>   */
+>  uint32_t ia_css_circbuf_peek(
+> -    ia_css_circbuf_t *cb,
+> +	struct ia_css_circbuf_s *cb,
+>      int offset);
+>  
+>  /*
+>   * @brief Get an element in Circular Buffer.
+>   *
+>   * @param cb	 The pointer to the circular buffer.
+> - * @param offset Offset to the element.
+> + * @param offset to the element.
+>   *
 
-This simplifies the probe path by removing goto-based error handling,
-eliminates the remove callback entirely.
+Same.
 
-Signed-off-by: Sanjay Chitroda <sanjayembeddedse@gmail.com>
----
- drivers/iio/pressure/hid-sensor-press.c | 41 ++++++++-------------------------
- 1 file changed, 9 insertions(+), 32 deletions(-)
-
-diff --git a/drivers/iio/pressure/hid-sensor-press.c b/drivers/iio/pressure/hid-sensor-press.c
-index 4e0f42fefd6b..8ebb8f54a0cb 100644
---- a/drivers/iio/pressure/hid-sensor-press.c
-+++ b/drivers/iio/pressure/hid-sensor-press.c
-@@ -230,7 +230,8 @@ static int press_parse_report(struct platform_device *pdev,
- /* Function to initialize the processing for usage id */
- static int hid_press_probe(struct platform_device *pdev)
- {
--	struct hid_sensor_hub_device *hsdev = dev_get_platdata(&pdev->dev);
-+	struct device *dev = &pdev->dev;
-+	struct hid_sensor_hub_device *hsdev = dev_get_platdata(dev);
- 	int ret = 0;
- 	static const char *name = "press";
- 	struct iio_dev *indio_dev;
-@@ -278,8 +279,8 @@ static int hid_press_probe(struct platform_device *pdev)
- 
- 	atomic_set(&press_state->common_attributes.data_ready, 0);
- 
--	ret = hid_sensor_setup_trigger(indio_dev, name,
--				       &press_state->common_attributes);
-+	ret = devm_hid_sensor_setup_trigger(dev, indio_dev, name,
-+					    &press_state->common_attributes);
- 	if (ret) {
- 		dev_err(&pdev->dev, "trigger setup failed\n");
- 		return ret;
-@@ -288,38 +289,15 @@ static int hid_press_probe(struct platform_device *pdev)
- 	press_state->callbacks.send_event = press_proc_event;
- 	press_state->callbacks.capture_sample = press_capture_sample;
- 	press_state->callbacks.pdev = pdev;
--	ret = sensor_hub_register_callback(hsdev, HID_USAGE_SENSOR_PRESSURE,
--					   &press_state->callbacks);
-+	ret = devm_sensor_hub_register_callback(dev, hsdev,
-+						HID_USAGE_SENSOR_PRESSURE,
-+						&press_state->callbacks);
- 	if (ret < 0) {
- 		dev_err(&pdev->dev, "callback reg failed\n");
--		goto error_remove_trigger;
--	}
--
--	ret = iio_device_register(indio_dev);
--	if (ret) {
--		dev_err(&pdev->dev, "device register failed\n");
--		goto error_remove_callback;
-+		return ret;
- 	}
- 
--	return ret;
--
--error_remove_callback:
--	sensor_hub_remove_callback(hsdev, HID_USAGE_SENSOR_PRESSURE);
--error_remove_trigger:
--	hid_sensor_remove_trigger(&press_state->common_attributes);
--	return ret;
--}
--
--/* Function to deinitialize the processing for usage id */
--static void hid_press_remove(struct platform_device *pdev)
--{
--	struct hid_sensor_hub_device *hsdev = dev_get_platdata(&pdev->dev);
--	struct iio_dev *indio_dev = platform_get_drvdata(pdev);
--	struct press_state *press_state = iio_priv(indio_dev);
--
--	iio_device_unregister(indio_dev);
--	sensor_hub_remove_callback(hsdev, HID_USAGE_SENSOR_PRESSURE);
--	hid_sensor_remove_trigger(&press_state->common_attributes);
-+	return devm_iio_device_register(dev, indio_dev);
- }
- 
- static const struct platform_device_id hid_press_ids[] = {
-@@ -338,7 +316,6 @@ static struct platform_driver hid_press_platform_driver = {
- 		.pm	= &hid_sensor_pm_ops,
- 	},
- 	.probe		= hid_press_probe,
--	.remove		= hid_press_remove,
- };
- module_platform_driver(hid_press_platform_driver);
- 
-
--- 
-2.34.1
-
+regards,
+dan carpenter
 
