@@ -1,89 +1,971 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58AEE2CCC6
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 20:00:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B077547058
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 20:00:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789848022; cv=none; b=PVY2QlNBhvrVvvv4Y9fU+QO+GNHy78zzQJp7K3eknYaPZI3OBUa1HNH9yge22weywesvywLa/kp3fIBMWgfXqnC3tLckP4WoDrpwx7UPzVdBVc11Wgx5YU6JghnAI38LR7sLg9mdcefbP1T76Rl3OlHMkVq1oXmHNkQ249ZdJAk=
+	t=1789848038; cv=none; b=FYrJna1/DmAhOYzzZW8xcbeczhrlYfbHSoCtZD9hGO3F/B/ZLe3ApYS9FuwgDsKqfK47ti0IbVS7BZZbkPEPdnyDf6Smtx8gxqYXV8IfREIeJ1Ug7DegbWuytQ2xMc+PjZp6WAdsKPPtwxThHeS8/C2mcx46qb9AbsNgkoi473Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789848022; c=relaxed/simple;
-	bh=0LvVTEutIoYjhJnrj9l91SyQV/qP1qzm2TUFWejUpEU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=feqGAOG7HdSVKiNRHpPGbmJneFm8x5WTOw1AHexkCNvc6KLYH/0yE6gD82VOSk7LGFphB0otjfFs1ZMpKLsQnAWFiYp5YmKKNFqy23CO53RTPXR/WSQ3OByPa5W12wZ+WoU9mvHeGz7zaCbey7WW2fuQnEJgiO7MhS0UauOtm1I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gIZNqq8R; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789848038; c=relaxed/simple;
+	bh=oryWQKDyLP63QWLKAKcgw3mj5K33rWTTpUotICAr3Qo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FuHCMC6h747UJhSdsRf3FBB9UTUrT95189c/8esGBNe+ZkRos/VSzznYuL0usMLc6FSgiJSGcuhJrYGx+Aie+Q2zOAYmYOLKYG/dojRC5bXwK3XEcVi8wUZOgdn1BJl1mX70SagzU1Da66xgG5nyj7Qu1O8vwtqp3+Jz0iP+K1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=I6zkpWGA; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=CgdQxuYW; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gIZNqq8R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A57CC1F000FF;
-	Sat, 19 Sep 2026 20:00:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789848020;
-	bh=bVfBFCmbKliEeVR2O90Bd2VG3Mye0fRiwIGadK6jWE8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=gIZNqq8RsuPT0gWMEhRJIsZ/Jlu9GJlW2yZuPYSc3DNPkPp4ZS3uUsDWuo5+5aiZb
-	 9zfUxo6pmoxMVT3TGmpQN735oUvHVmn9g3lbnTYvAH72SqR4AW6LTbEWt/7Ltpxu8C
-	 cJNAEt73IJl4LMxZPa++Q/L8x1xEqh+ao+RmqZxhjXvfeGb/DsEOkwYiNklp0EpiOf
-	 z2eeDYYakS3ABqWwaRJtWt6BcfLvigWm5kBRONzTfKlbMJm1O2mq+puG05TIKAUfQ5
-	 D24iQjYP4r+ybbztvCVmpkbSOYFWv6u9tfmbYQvDT08tYmimj/dllXA6JlpC8ZmNGb
-	 cCD8IeVbK5vmw==
-From: David Hildenbrand <david@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Peter Xu <peterx@redhat.com>, "David Hildenbrand (arm)" <david@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260919-nommu_gup_pin-v3-1-3660a8851243@kernel.org>
-References: <20260919-nommu_gup_pin-v3-1-3660a8851243@kernel.org>
-Subject: Re: [PATCH v3] mm/gup: honour FOLL_PIN in NOMMU
- __get_user_pages_locked()
-Message-Id: <178984802063.1919131.12249420688270261597.b4-ty@b4>
-Date: Sat, 19 Sep 2026 20:00:20 +0000
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="I6zkpWGA";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="CgdQxuYW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789848034;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ivR+jxK4v5mtyS5Y1sYGUnIjI1i0BnR/LKGTU9cfZ0Y=;
+	b=I6zkpWGAn0s71W7gFMuhihY5fxAe003jPQd9ZwHUDULSW4kdjrQs4mJLs5bxrNdHqbwMkC
+	7oHB3OqArccRhiRUnWWWciAyu9zGP5LQUP9bdmd7z5FXqTQPKr43a8FDoPEiu0vvhteU6D
+	UgraQvRh5l9GA41du9G7/J47jXeAvUw=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-8-ignzb_OKPMe5vz-TidKxQA-1; Sat, 19 Sep 2026 16:00:30 -0400
+X-MC-Unique: ignzb_OKPMe5vz-TidKxQA-1
+X-Mimecast-MFC-AGG-ID: ignzb_OKPMe5vz-TidKxQA_1789848029
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49e6b5c5f44so18278575e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 13:00:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1789848029; x=1790452829; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ivR+jxK4v5mtyS5Y1sYGUnIjI1i0BnR/LKGTU9cfZ0Y=;
+        b=CgdQxuYWRMhNwHVixSCNV919tCYu6sjSt+dueqCqwNhDVcXlMfXeSeR5N8DIfQEyxm
+         IVnifJXkkbwHdy5vK/FdQ8r09P2P52qWYSnVOiLvY8Hp785BXh+1y22FgL+OWE3Pyt3/
+         h1cRb73y6GAAXJFhtQhajCG0sFZk7BMQlX2Xd5Y4eMsZwSYfUfN+0oe6xFzuK/RbHoDz
+         IdqA95y0LmRPOrRqMq+aoEqEnyvuL4Pav9Y6C2WOlSPXB5hmWnm2LJCp5hd5/rv+diFc
+         G+ybk+Sb+/IbZLWpVWzJVncGdqS/FXW0OmGBpL9EvaHsUI1uaRCICdlfiRROTGSTisUr
+         ZnFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789848029; x=1790452829;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ivR+jxK4v5mtyS5Y1sYGUnIjI1i0BnR/LKGTU9cfZ0Y=;
+        b=N2iGDOvapUa28V43PAJrsYI3HKF2FmBB0lYT0kIB7qN4Gd0oKTKthcbt6T3iDqaRQk
+         oAWPuhOSipBbCpVkzIaUpnNjvYymFZMr3ixZdSh1pMWumNgQteAZ7A644+urK0LLprfK
+         YYXuTJXK9Umqs77nQoz7CT+fZDVFWSMAN1Tv/k3bETGlm8hLpzzz0jv6pGapO/pLvjIQ
+         vn6eE9FztDewtWHnBd1QQmoJyoNqqZs5cD3tv3yuWkg+ubaCU07236libpV+mDTPrqIz
+         1ROsrc9smPuWdovdWDppPUw6RD1rWE8HfLCi/KTjWpoKvwgojm9lUUXpBewYEBKqGBA1
+         UOIQ==
+X-Forwarded-Encrypted: i=1; AKwUvByVI5SNXMScyGBHWSCq13/CLVrLvAfCX38QOlmhgu4HkRzMojynYjFBUOODGfm4smazhQpZ//ULCDQa1pg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nRjvHw0xH9q/TlMtdSevlyOkqCpql+rOrMF5R84KCHRHZ5pZ7C
+	cWMtorBVx55Qv9Hxn8p7xnrqL45yhe6BTzwf0II2p0RNPMQNnRTESOp5ckY5HiSTIXRgftiCCR8
+	2fsDr1godIIlCuaXFP3afepjWRwMVaQrCT7t+MTQmm+sDmbHJS8pGoqmE2bqAoWV4Aw==
+X-Gm-Gg: AYBFou2T5WDeuqTi7Cr2KY+2kEP5fYzmsnnljp9Zh9joiqbAbyMOn3fFOqS8dgg8Q4l
+	fCBG63A3vW11ThGK9WvA0jt0k6paY0ttDHt7ffcLG1o1UQ0imMiAEWH0WjTWIbNy6n3bakIglAo
+	USSFg8qUcecwOuAZ12v0dPLHsRbfDrcUg17yv3PPfuYNN6lRuYDXMLOEXtxfQD9F2/tSCScOgsZ
+	X+v38772v292qEbR+g0Zm09JBsxYjwCMIn3C4vx/actTmwzIWQiHjS1zYuFmCrMwLXfMJZLXj5H
+	oSgKuOcNb7SkejXzxyObjOtzkpNEV52UI+S36FNe89+obQlI7ne6GXCuMzYKxp7bMNWKD5lMVqg
+	VCcL28Uknaa03ybKc+Atgzxo=
+X-Received: by 2002:a05:600d:848f:10b0:49d:827:e5b6 with SMTP id 5b1f17b1804b1-49fc5735351mr60038455e9.20.1789848028890;
+        Sat, 19 Sep 2026 13:00:28 -0700 (PDT)
+X-Received: by 2002:a05:600d:848f:10b0:49d:827:e5b6 with SMTP id 5b1f17b1804b1-49fc5735351mr60038155e9.20.1789848028237;
+        Sat, 19 Sep 2026 13:00:28 -0700 (PDT)
+Received: from redhat.com (IGLD-80-230-79-236.inter.net.il. [80.230.79.236])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4872442263fsm9259248f8f.1.2026.09.19.13.00.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Sep 2026 13:00:27 -0700 (PDT)
+Date: Sat, 19 Sep 2026 16:00:24 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Albert Esteve <aesteve@redhat.com>
+Cc: Brian Daniels <briandaniels@google.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>, adelva@google.com,
+	changyeon@google.com, daniel.almeida@collabora.com,
+	eperezma@redhat.com, gnurou@gmail.com, gurchetansingh@google.com,
+	hverkuil@xs4all.nl, linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org, nicolas.dufresne@collabora.com,
+	virtualization@lists.linux.dev, xuanzhuo@linux.alibaba.com,
+	dbassey@redhat.com, laurent.pinchart@ideasonboard.com
+Subject: Re: [PATCH v9 2/4] media: virtio: Add session management
+Message-ID: <20260919155719-mutt-send-email-mst@kernel.org>
+References: <20260917171921.2810550-1-briandaniels@google.com>
+ <20260917171921.2810550-3-briandaniels@google.com>
+ <CADSE00LepQLECJcs2JhvM1gjx_VWdoaizyBCw=4OoYr6W1ti0g@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CADSE00LepQLECJcs2JhvM1gjx_VWdoaizyBCw=4OoYr6W1ti0g@mail.gmail.com>
 
-On Sat, 19 Sep 2026 12:04:36 +0200, David Hildenbrand (arm) wrote:
-> The !CONFIG_MMU implementation of __get_user_pages_locked() takes a bare
-> get_page() reference for each page regardless of foll_flags:
-> 	if (pages[i])
-> 		get_page(pages[i]);
+On Fri, Sep 18, 2026 at 05:12:53PM +0200, Albert Esteve wrote:
+> On Thu, Sep 17, 2026 at 7:19 PM Brian Daniels <briandaniels@google.com> wrote:
+> >
+> > From: Alexandre Courbot <gnurou@gmail.com>
+> >
+> > This patch adds session management to the virtio-media driver.
+> > A session is created when the /dev/videoX device is opened, and
+> > destroyed when it is closed.
+> >
+> > Opening a session sends VIRTIO_MEDIA_CMD_OPEN to the host, and closing
+> > it sends VIRTIO_MEDIA_CMD_CLOSE.
+> >
+> > It adds drivers/media/virtio/session.h and implements the open and
+> > release fops.
+> >
+> > Signed-off-by: Alexandre Courbot <gnurou@gmail.com>
+> > Assisted-by: Antigravity:gemini-3.5-flash
+> > Co-developed-by: Brian Daniels <briandaniels@google.com>
+> > Signed-off-by: Brian Daniels <briandaniels@google.com>
+> > ---
+> >  drivers/media/virtio/session.h             | 132 +++++
+> >  drivers/media/virtio/virtio_media_driver.c | 604 ++++++++++++++++++++-
+> >  2 files changed, 732 insertions(+), 4 deletions(-)
+> >  create mode 100644 drivers/media/virtio/session.h
+> >
+> > diff --git a/drivers/media/virtio/session.h b/drivers/media/virtio/session.h
+> > new file mode 100644
+> > index 000000000..d523c8171
+> > --- /dev/null
+> > +++ b/drivers/media/virtio/session.h
+> > @@ -0,0 +1,132 @@
+> > +/* SPDX-License-Identifier: BSD-3-Clause OR GPL-2.0+ */
+> > +
+> > +/*
+> > + * Definitions of virtio-media session related structures.
+> > + *
+> > + * Copyright (c) 2024-2026 Google LLC.
+> > + */
+> > +
+> > +#ifndef __VIRTIO_MEDIA_SESSION_H
+> > +#define __VIRTIO_MEDIA_SESSION_H
+> > +
+> > +#include <linux/scatterlist.h>
+> > +#include <media/v4l2-fh.h>
+> > +
+> > +#include "uapi/linux/virtio_media.h"
+> > +
+> > +#define VIRTIO_MEDIA_LAST_QUEUE (V4L2_BUF_TYPE_META_OUTPUT)
+> > +
+> > +/*
+> > + * Size of the per-session virtio shadow and event buffers. 16K should be
+> > + * enough to contain everything we need.
+> > + */
+> > +#define VIRTIO_SHADOW_BUF_SIZE 0x4000
+> > +
+> > +/**
+> > + * struct virtio_media_buffer - Current state of a buffer.
+> > + * @buffer: &struct v4l2_buffer with current information about the buffer.
+> > + * @planes: backing planes array for @buffer.
+> > + * @list: link into the list of buffers pending dequeue.
+> > + */
+> > +struct virtio_media_buffer {
+> > +       struct v4l2_buffer buffer;
+> > +       struct v4l2_plane planes[VIDEO_MAX_PLANES];
+> > +       struct list_head list;
+> > +};
+> > +
+> > +/**
+> > + * struct virtio_media_queue_state - Represents the state of a V4L2 queue.
+> > + * @streaming: Whether the queue is currently streaming.
+> > + * @allocated_bufs: How many buffers are currently allocated.
+> > + * @is_capture_last: set to true when the last buffer has been received on a
+> > + *                   capture queue, so we can return %-EPIPE on subsequent
+> > + *                   DQBUF requests.
+> > + * @buffers: Buffer state array of size @allocated_bufs.
+> > + * @queued_bufs: How many buffers are currently queued on the device.
+> > + * @pending_dqbufs: Buffers that are available for being dequeued.
+> > + */
+> > +struct virtio_media_queue_state {
+> > +       bool streaming;
+> > +       size_t allocated_bufs;
+> > +       bool is_capture_last;
+> > +
+> > +       struct virtio_media_buffer *buffers;
+> > +       size_t queued_bufs;
+> > +       struct list_head pending_dqbufs;
+> > +};
+> > +
+> > +/**
+> > + * struct virtio_media_session - A session on a virtio_media device.
+> > + * @fh: file handler for the session.
+> > + * @file: file pointer associated with the session's file handler.
+> > + * @id: session ID used to communicate with the device.
+> > + * @nonblocking_dequeue: whether dequeue should block or not (nonblocking if
+> > + *                       file opened with O_NONBLOCK).
+> > + * @uses_mplane: whether the queues for this session use the MPLANE API or not.
+> > + * @cmd: union of session commands ``close``, ``ioctl``, and ``mmap``. A
+> > + *       session can have one command currently running. The rest of the
+> > + *       commands are handled by &struct virtio_media.
+> > + * @resp: union of responses to session commands ``close``, ``ioctl``, and
+> > + *        ``mmap``. A session can wait on one command only. The rest of the
+> > + *        responses are handled by &struct virtio_media.
+> > + * @shadow_buf: shadow buffer where data to be added to the descriptor chain can
+> > + *              be staged before being sent to the device.
+> > + * @command_sgs: SG table gathering descriptors for a given command and its
+> > + *               response.
+> > + * @queues: state of all the queues for this session.
+> > + * @queues_lock: protects all members for the queues for this session.
+> > + * @dqbuf_wait: waitqueue for dequeued buffers, if ``VIDIOC_DQBUF`` needs to
+> > + *              block or when polling.
+> > + * @list: link into the list of sessions for the device.
+> > + */
+> > +struct virtio_media_session {
+> > +       struct v4l2_fh fh;
+> > +       struct file *file;
+> > +       u32 id;
+> > +       bool nonblocking_dequeue;
+> > +       bool uses_mplane;
+> > +
+> > +       __dma_from_device_group_begin();
+> > +       union {
+> > +               struct virtio_media_cmd_close close;
+> > +               struct virtio_media_cmd_ioctl ioctl;
+> > +               struct virtio_media_cmd_mmap mmap;
+> > +       } cmd;
+> > +
+> > +       union {
+> > +               struct virtio_media_resp_ioctl ioctl;
+> > +               struct virtio_media_resp_mmap mmap;
+> > +       } resp;
+> > +       __dma_from_device_group_end();
+> > +
+> > +       void *shadow_buf;
+> > +
+> > +       struct sg_table command_sgs;
+> > +
+> > +       struct virtio_media_queue_state queues[VIRTIO_MEDIA_LAST_QUEUE + 1];
+> > +       struct mutex queues_lock; /* protects queues array and states */
+> > +       wait_queue_head_t dqbuf_wait;
+> > +
+> > +       struct list_head list;
+> > +};
+> > +
+> > +static inline struct virtio_media_session *fh_to_session(struct v4l2_fh *fh)
+> > +{
+> > +       return container_of(fh, struct virtio_media_session, fh);
+> > +}
+> > +
+> > +static inline void
+> > +virtio_media_session_fh_add(struct virtio_media_session *session,
+> > +                           struct file *file)
+> > +{
+> > +       v4l2_fh_add(&session->fh, file);
+> > +       session->file = file;
+> > +}
+> > +
+> > +static inline void
+> > +virtio_media_session_fh_del(struct virtio_media_session *session)
+> > +{
+> > +       v4l2_fh_del(&session->fh, session->file);
+> > +}
+> > +
+> > +#endif // __VIRTIO_MEDIA_SESSION_H
+> > diff --git a/drivers/media/virtio/virtio_media_driver.c b/drivers/media/virtio/virtio_media_driver.c
+> > index 25f2ceaa6..ef8065e34 100644
+> > --- a/drivers/media/virtio/virtio_media_driver.c
+> > +++ b/drivers/media/virtio/virtio_media_driver.c
+> > @@ -14,25 +14,589 @@
+> >  #include <linux/virtio.h>
+> >  #include <linux/virtio_config.h>
+> >  #include <linux/virtio_ids.h>
+> > +#include <linux/slab.h>
+> > +#include <linux/scatterlist.h>
+> > +#include <linux/vmalloc.h>
+> > +#include <linux/workqueue.h>
+> > +#include <linux/dma-mapping.h>
+> >
+> >  #include <media/v4l2-dev.h>
+> >  #include <media/v4l2-device.h>
+> > +#include <media/v4l2-fh.h>
+> > +#include <media/v4l2-event.h>
+> >
+> >  #include "uapi/linux/virtio_media.h"
+> > +#include "session.h"
+> >  #include "virtio_media.h"
+> >
+> > -static void commandq_callback(struct virtqueue *vq)
+> > +#define VIRTIO_MEDIA_NUM_EVENT_BUFS 16
+> > +
+> > +/**
+> > + * virtio_media_session_alloc() - Allocate a new session.
+> > + * @vv: virtio-media device the session belongs to.
+> > + * @id: ID of the session.
+> > + * @file: file associated with the session.
+> > + */
+> > +static struct virtio_media_session *
+> > +virtio_media_session_alloc(struct virtio_media *vv, u32 id,
+> > +                          struct file *file)
+> > +{
+> > +       struct virtio_media_session *session;
+> > +       int i;
+> > +       int ret;
+> > +
+> > +       session = kzalloc_obj(*session, GFP_KERNEL);
+> > +       if (!session)
+> > +               goto err_session;
+> > +
+> > +       session->shadow_buf = kzalloc(VIRTIO_SHADOW_BUF_SIZE, GFP_KERNEL);
+> > +       if (!session->shadow_buf)
+> > +               goto err_shadow_buf;
+> > +
+> > +       ret = sg_alloc_table(&session->command_sgs, DESC_CHAIN_MAX_LEN,
+> > +                            GFP_KERNEL);
+> > +       if (ret)
+> > +               goto err_payload_sgs;
+> > +
+> > +       session->id = id;
+> > +       session->nonblocking_dequeue = file->f_flags & O_NONBLOCK;
+> > +
+> > +       INIT_LIST_HEAD(&session->list);
+> > +       v4l2_fh_init(&session->fh, &vv->video_dev);
+> > +       virtio_media_session_fh_add(session, file);
+> > +
+> > +       for (i = 0; i <= VIRTIO_MEDIA_LAST_QUEUE; i++)
+> > +               INIT_LIST_HEAD(&session->queues[i].pending_dqbufs);
+> > +       mutex_init(&session->queues_lock);
+> > +
+> > +       init_waitqueue_head(&session->dqbuf_wait);
+> > +
+> > +       mutex_lock(&vv->sessions_lock);
+> > +       list_add_tail(&session->list, &vv->sessions);
+> > +       mutex_unlock(&vv->sessions_lock);
+> > +
+> > +       return session;
+> > +
+> > +err_payload_sgs:
+> > +       kfree(session->shadow_buf);
+> > +err_shadow_buf:
+> > +       kfree(session);
+> > +err_session:
+> > +       return ERR_PTR(-ENOMEM);
+> > +}
+> > +
+> > +/**
+> > + * virtio_media_session_free() - Free all resources of a session.
+> > + * @vv: virtio-media device the session belongs to.
+> > + * @session: session to destroy.
+> > + *
+> > + * All the resources of @session, as well as the backing memory of @session
+> > + * itself, are freed.
+> > + */
+> > +static void virtio_media_session_free(struct virtio_media *vv,
+> > +                                     struct virtio_media_session *session)
+> > +{
+> > +       int i;
+> > +
+> > +       mutex_lock(&vv->sessions_lock);
+> > +       list_del(&session->list);
+> > +       mutex_unlock(&vv->sessions_lock);
+> > +
+> > +       virtio_media_session_fh_del(session);
+> > +       v4l2_fh_exit(&session->fh);
+> > +
+> > +       sg_free_table(&session->command_sgs);
+> > +
+> > +       for (i = 0; i <= VIRTIO_MEDIA_LAST_QUEUE; i++)
+> > +               vfree(session->queues[i].buffers);
+> > +
+> > +       kfree(session->shadow_buf);
+> > +       kfree(session);
+> > +}
+> > +
+> > +/**
+> > + * virtio_media_session_close() - Close and free a session.
+> > + * @vv: virtio-media device the session belongs to.
+> > + * @session: session to close and destroy.
+> > + *
+> > + * This sends the ``VIRTIO_MEDIA_CMD_CLOSE`` command to the device, and frees
+> > + * all resources used by @session.
+> > + */
+> > +static int virtio_media_session_close(struct virtio_media *vv,
+> > +                                     struct virtio_media_session *session)
+> > +{
+> > +       struct virtio_media_cmd_close *cmd_close = &session->cmd.close;
+> > +       struct scatterlist cmd_sg = {};
+> > +       struct scatterlist *sgs[1] = { &cmd_sg };
+> > +       int ret;
+> > +
+> > +       mutex_lock(&vv->vlock);
+> > +
+> > +       cmd_close->hdr.cmd = VIRTIO_MEDIA_CMD_CLOSE;
+> > +       cmd_close->session_id = session->id;
+
+rest of fields left uninitialized. doesn't the spec ask reserved
+is 0?
+
+> > +
+> > +       sg_set_buf(&cmd_sg, cmd_close, sizeof(*cmd_close));
+> > +       sg_mark_end(&cmd_sg);
+> > +
+> > +       ret = virtio_media_send_command(vv, sgs, 1, 0, 0, NULL);
+> > +       mutex_unlock(&vv->vlock);
+> > +       if (ret < 0)
+> > +               return ret;
+> > +
+> > +       virtio_media_session_free(vv, session);
+> > +
+> > +       return 0;
+> > +}
+> > +
+> > +/**
+> > + * virtio_media_find_session() - Look up a session with a given ID.
+> > + * @vv: virtio-media device to lookup the session from.
+> > + * @id: ID of the session to lookup.
+> > + */
+> > +static struct virtio_media_session *
+> > +virtio_media_find_session(struct virtio_media *vv, u32 id)
+> > +{
+> > +       struct list_head *p;
+> > +       struct virtio_media_session *session = NULL;
+> > +
+> > +       mutex_lock(&vv->sessions_lock);
+> > +       list_for_each(p, &vv->sessions) {
+> > +               struct virtio_media_session *s =
+> > +                       list_entry(p, struct virtio_media_session, list);
+> > +               if (s->id == id) {
+> > +                       session = s;
+> > +                       break;
+> > +               }
+> > +       }
+> > +       mutex_unlock(&vv->sessions_lock);
+> > +
+> > +       return session;
+> > +}
+> > +
+> > +/**
+> > + * struct virtio_media_cmd_callback_param - Callback parameters to the virtio
+> > + *                                          command queue.
+> > + * @vv: virtio-media device in use.
+> > + * @done: flag to be switched once the command is completed.
+> > + * @resp_len: length of the received response from the command. Only valid
+> > + *            after @done flag has switched to %true.
+> > + */
+> > +struct virtio_media_cmd_callback_param {
+> > +       struct virtio_media *vv;
+> > +       bool done;
+> > +       size_t resp_len;
+> > +};
+> > +
+> > +/**
+> > + * commandq_callback() - Callback for the command queue.
+> > + * @queue: command virtqueue.
+> > + *
+> > + * This just wakes up the thread that was waiting on the command to complete.
+> > + */
+> > +static void commandq_callback(struct virtqueue *queue)
+> > +{
+> > +       unsigned int len;
+> > +       struct virtio_media_cmd_callback_param *param;
+> > +
+> > +process_bufs:
+> > +       while ((param = virtqueue_get_buf(queue, &len))) {
+> > +               param->done = true;
+> > +               param->resp_len = len;
+> > +               wake_up(&param->vv->wq);
+> > +       }
+> > +
+> > +       if (!virtqueue_enable_cb(queue)) {
+> > +               virtqueue_disable_cb(queue);
+> > +               goto process_bufs;
+> > +       }
+> > +}
+> > +
+> > +/**
+> > + * virtio_media_kick_command() - send a command to the commandq.
+> > + * @vv: virtio-media device in use.
+> > + * @sgs: descriptor chain to send.
+> > + * @out_sgs: number of device-readable descriptors in @sgs.
+> > + * @in_sgs: number of device-writable descriptors in @sgs.
+> > + * @resp_len: output parameter. Upon success, contains the size of the response
+> > + *            in bytes.
+> > + */
+> > +static int virtio_media_kick_command(struct virtio_media *vv,
+> > +                                    struct scatterlist **sgs,
+> > +                                    const size_t out_sgs, const size_t in_sgs,
+> > +                                    size_t *resp_len)
+> > +{
+> > +       struct virtio_media_cmd_callback_param cb_param = {
+> > +               .vv = vv,
+> > +               .done = false,
+> > +               .resp_len = 0,
+> > +       };
+> > +       struct virtio_media_resp_header *resp_header;
+> > +       int ret = virtqueue_add_sgs(vv->commandq, sgs, out_sgs, in_sgs,
+> > +                 &cb_param, GFP_ATOMIC);
+> > +       if (ret) {
+> > +               v4l2_err(&vv->v4l2_dev,
+> > +                        "failed to add sgs to command virtqueue\n");
+> > +               return ret;
+> > +       }
+> > +
+> > +       if (!virtqueue_kick(vv->commandq)) {
+> > +               v4l2_err(&vv->v4l2_dev, "failed to kick command virtqueue\n");
+> > +               return -EINVAL;
+> > +       }
+> > +
+> > +       /* Wait for the response. */
+> > +       ret = wait_event_timeout(vv->wq, cb_param.done, 5 * HZ);
+> > +       if (ret == 0) {
+> > +               v4l2_err(&vv->v4l2_dev,
+> > +                        "timed out waiting for response to command\n");
+> > +               return -ETIMEDOUT;
 > 
-> This is reached from pin_user_pages*() with FOLL_PIN set.
-> unpin_user_page() is shared between MMU and NOMMU configurations and
-> unconditionally calls gup_put_folio(..., FOLL_PIN), which subtracts
-> GUP_PIN_COUNTING_BIAS (1024) from the folio refcount.
+> In https://sashiko.dev/#/message/20260917175228.D2AAB1F00893%40smtp.kernel.org
+> there is a UAF comment on this part that looks legit (returning
+> -ETIMEDOUT while the vq still owns &cb_param). It would be better to
+> wait_for_completion as virtio_scsi does?
 > 
-> [...]
-
-Applied, thanks!
-
-tree: mm/core.git
-branch: gup-7.4.misc
-
-Applied patches will appear soon in mm-next, followed by linux-next.
-
-Please report any outstanding bugs that were missed during review, so we
-can either drop the patch series or decide how to fix it up.
-
-It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
-though the patches have already been applied. If possible, patch trailers
-will be updated.
-
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. Further, this is not a guarantee that the
-patches will go upstream. If in doubt, please check the listed branch.
-
-[1/1] mm/gup: honour FOLL_PIN in NOMMU __get_user_pages_locked()
-      https://git.kernel.org/mm/core/c/8ad0454e
-
--- 
-Cheers,
-
-David
+> It is not the only issue from sashiko that sounds like a real problem
+> in the series. Please take a look.
+> 
+> > +       }
+> > +
+> > +       if (resp_len)
+> > +               *resp_len = cb_param.resp_len;
+> > +
+> > +       if (in_sgs > 0) {
+> > +               /*
+> > +                * If we expect a response, make sure we have at least a
+> > +                * response header - anything shorter is invalid.
+> > +                */
+> > +               if (cb_param.resp_len < sizeof(*resp_header)) {
+> > +                       v4l2_err(&vv->v4l2_dev,
+> > +                                "received response header is too short\n");
+> > +                       return -EINVAL;
+> > +               }
+> > +
+> > +               resp_header = sg_virt(sgs[out_sgs]);
+> > +               if (resp_header->status)
+> > +                       /* Host returns a positive error code. */
+> > +                       return -resp_header->status;
+> > +       }
+> > +
+> > +       return 0;
+> > +}
+> > +
+> > +/**
+> > + * virtio_media_send_command() - Send a command to the device and wait for its
+> > + * response.
+> > + * @vv: virtio-media device in use.
+> > + * @sgs: descriptor chain to send.
+> > + * @out_sgs: number of device-readable descriptors in @sgs.
+> > + * @in_sgs: number of device-writable descriptors in @sgs.
+> > + * @minimum_resp_len: minimum length of the response expected by the caller
+> > + *                    when the command is successful. Anything shorter than
+> > + *                    that will result in %-EINVAL being returned.
+> > + * @resp_len: output parameter. Upon success, contains the size of the response
+> > + *            in bytes.
+> > + */
+> > +int virtio_media_send_command(struct virtio_media *vv, struct scatterlist **sgs,
+> > +                             const size_t out_sgs, const size_t in_sgs,
+> > +                             size_t minimum_resp_len, size_t *resp_len)
+> > +{
+> > +       size_t local_resp_len = resp_len ? *resp_len : 0;
+> > +       int ret = virtio_media_kick_command(vv, sgs, out_sgs, in_sgs,
+> > +                                           &local_resp_len);
+> > +       if (resp_len)
+> > +               *resp_len = local_resp_len;
+> > +
+> > +       /*
+> > +        * If the host could not process the command, there is no valid
+> > +        * response.
+> > +        */
+> > +       if (ret < 0)
+> > +               return ret;
+> > +
+> > +       /* Make sure the host wrote a complete reply. */
+> > +       if (local_resp_len < minimum_resp_len) {
+> > +               v4l2_err(&vv->v4l2_dev,
+> > +                        "received response is too short: received %zu, expected at least %zu\n",
+> > +                        local_resp_len, minimum_resp_len);
+> > +               return -EINVAL;
+> > +       }
+> > +
+> > +       return 0;
+> > +}
+> > +
+> > +/**
+> > + * virtio_media_send_event_buffer() - Sends an event buffer to the host so it
+> > + * can return it with an event.
+> > + * @vv: virtio-media device in use.
+> > + * @event_buffer: pointer to the event buffer to send to the device.
+> > + */
+> > +static int virtio_media_send_event_buffer(struct virtio_media *vv,
+> > +                                         void *event_buffer)
+> > +{
+> > +       struct scatterlist *sgs[1], vresp;
+> > +       int ret;
+> > +
+> > +       sg_init_one(&vresp, event_buffer, VIRTIO_MEDIA_EVENT_MAX_SIZE);
+> > +       sgs[0] = &vresp;
+> > +
+> > +       ret = virtqueue_add_sgs(vv->eventq, sgs, 0, 1, event_buffer,
+> > +                               GFP_ATOMIC);
+> > +       if (ret) {
+> > +               v4l2_err(&vv->v4l2_dev,
+> > +                        "failed to add sgs to event virtqueue\n");
+> > +               return ret;
+> > +       }
+> > +
+> > +       if (!virtqueue_kick(vv->eventq)) {
+> > +               v4l2_err(&vv->v4l2_dev, "failed to kick event virtqueue\n");
+> > +               return -EINVAL;
+> > +       }
+> > +
+> > +       return 0;
+> > +}
+> > +
+> > +/**
+> > + * eventq_callback() - Callback for the event queue.
+> > + * @queue: event virtqueue.
+> > + *
+> > + * This just schedules for event work to be run.
+> > + */
+> > +static void eventq_callback(struct virtqueue *queue)
+> > +{
+> > +       struct virtio_media *vv = queue->vdev->priv;
+> > +
+> > +       schedule_work(&vv->eventq_work);
+> > +}
+> > +
+> > +/**
+> > + * virtio_media_process_dqbuf_event() - Process a dequeued event for a session.
+> > + * @vv: virtio-media device in use.
+> > + * @session: session the event is addressed to.
+> > + * @dqbuf_evt: the dequeued event to process.
+> > + *
+> > + * Invalid events are ignored with an error log.
+> > + */
+> > +static void
+> > +virtio_media_process_dqbuf_event(struct virtio_media *vv,
+> > +                                struct virtio_media_session *session,
+> > +                                struct virtio_media_event_dqbuf *dqbuf_evt)
+> > +{
+> > +       struct virtio_media_buffer *dqbuf;
+> > +       const enum v4l2_buf_type queue_type = dqbuf_evt->buffer.type;
+> > +       struct virtio_media_queue_state *queue;
+> > +       typeof(dqbuf->buffer.m) buffer_m;
+> > +       typeof(dqbuf->buffer.m.planes[0].m) plane_m;
+> > +       int i;
+> > +
+> > +       if (queue_type >= ARRAY_SIZE(session->queues)) {
+> > +               v4l2_err(&vv->v4l2_dev,
+> > +                        "unmanaged queue %d passed to dqbuf event",
+> > +                        dqbuf_evt->buffer.type);
+> > +               return;
+> > +       }
+> > +       queue = &session->queues[queue_type];
+> > +
+> > +       if (dqbuf_evt->buffer.index >= queue->allocated_bufs) {
+> > +               v4l2_err(&vv->v4l2_dev,
+> > +                        "invalid buffer ID %d for queue %d in dqbuf event",
+> > +                        dqbuf_evt->buffer.index, dqbuf_evt->buffer.type);
+> > +               return;
+> > +       }
+> > +
+> > +       dqbuf = &queue->buffers[dqbuf_evt->buffer.index];
+> > +
+> > +       /*
+> > +        * Preserve the 'm' union that was passed to us during QBUF so userspace
+> > +        * gets back the information it submitted.
+> > +        */
+> > +       buffer_m = dqbuf->buffer.m;
+> > +       memcpy(&dqbuf->buffer, &dqbuf_evt->buffer, sizeof(dqbuf->buffer));
+> > +       dqbuf->buffer.m = buffer_m;
+> > +       if (V4L2_TYPE_IS_MULTIPLANAR(dqbuf->buffer.type)) {
+> > +               if (dqbuf->buffer.length > VIDEO_MAX_PLANES) {
+> > +                       v4l2_err(&vv->v4l2_dev,
+> > +                                "invalid number of planes received from host for a multiplanar buffer\n");
+> > +                       return;
+> > +               }
+> > +               for (i = 0; i < dqbuf->buffer.length; i++) {
+> > +                       plane_m = dqbuf->planes[i].m;
+> > +                       memcpy(&dqbuf->planes[i], &dqbuf_evt->planes[i],
+> > +                              sizeof(struct v4l2_plane));
+> > +                       dqbuf->planes[i].m = plane_m;
+> > +               }
+> > +       }
+> > +
+> > +       /* Set the DONE flag as the buffer is waiting to be dequeued. */
+> > +       dqbuf->buffer.flags |= V4L2_BUF_FLAG_DONE;
+> > +
+> > +       mutex_lock(&session->queues_lock);
+> > +       list_add_tail(&dqbuf->list, &queue->pending_dqbufs);
+> > +       queue->queued_bufs -= 1;
+> > +       mutex_unlock(&session->queues_lock);
+> > +
+> > +       wake_up(&session->dqbuf_wait);
+> > +}
+> > +
+> > +/**
+> > + * virtio_media_process_events() - Process all pending events on a device.
+> > + * @vv: device whose pending events we want to process.
+> > + *
+> > + * Retrieves all pending events on @vv's event queue and dispatches them to
+> > + * their corresponding session.
+> > + *
+> > + * Invalid events are ignored with an error log.
+> > + */
+> > +void virtio_media_process_events(struct virtio_media *vv)
+> > +{
+> > +       struct virtio_media_event_error *error_evt;
+> > +       struct virtio_media_event_dqbuf *dqbuf_evt;
+> > +       struct virtio_media_event_event *event_evt;
+> > +       struct virtio_media_session *session;
+> > +       struct virtio_media_event_header *evt;
+> > +       unsigned int len;
+> > +
+> > +       mutex_lock(&vv->events_lock);
+> > +
+> > +process_bufs:
+> > +       while ((evt = virtqueue_get_buf(vv->eventq, &len))) {
+> > +               /* Make sure we received enough data */
+> > +               if (len < sizeof(*evt)) {
+> > +                       v4l2_err(&vv->v4l2_dev,
+> > +                                "event is too short: got %u, expected at least %zu\n",
+> > +                                len, sizeof(*evt));
+> > +                       goto end_of_event;
+> > +               }
+> > +
+> > +               session = virtio_media_find_session(vv, evt->session_id);
+> > +               if (!session) {
+> > +                       v4l2_err(&vv->v4l2_dev, "cannot find session %d\n",
+> > +                                evt->session_id);
+> > +                       goto end_of_event;
+> > +               }
+> > +
+> > +               switch (evt->event) {
+> > +               case VIRTIO_MEDIA_EVT_ERROR:
+> > +                       if (len < sizeof(*error_evt)) {
+> > +                               v4l2_err(&vv->v4l2_dev,
+> > +                                        "error event is too short: got %u, expected %zu\n",
+> > +                                        len, sizeof(*error_evt));
+> > +                               break;
+> > +                       }
+> > +                       error_evt = (struct virtio_media_event_error *)evt;
+> > +                       v4l2_err(&vv->v4l2_dev,
+> > +                                "received error %d for session %d",
+> > +                                error_evt->errno, error_evt->hdr.session_id);
+> > +                       virtio_media_session_close(vv, session);
+> > +                       break;
+> > +
+> > +               /*
+> > +                * Dequeued buffer: put it into the right queue so user-space
+> > +                * can dequeue it.
+> > +                */
+> > +               case VIRTIO_MEDIA_EVT_DQBUF:
+> > +                       if (len < sizeof(*dqbuf_evt)) {
+> > +                               v4l2_err(&vv->v4l2_dev,
+> > +                                        "dqbuf event is too short: got %u, expected %zu\n",
+> > +                                        len, sizeof(*dqbuf_evt));
+> > +                               break;
+> > +                       }
+> > +                       dqbuf_evt = (struct virtio_media_event_dqbuf *)evt;
+> > +                       virtio_media_process_dqbuf_event(vv, session,
+> > +                                                        dqbuf_evt);
+> > +                       break;
+> > +
+> > +               case VIRTIO_MEDIA_EVT_EVENT:
+> > +                       if (len < sizeof(*event_evt)) {
+> > +                               v4l2_err(&vv->v4l2_dev,
+> > +                                        "session event is too short: got %u expected %zu\n",
+> > +                                        len, sizeof(*event_evt));
+> > +                               break;
+> > +                       }
+> > +
+> > +                       event_evt = (struct virtio_media_event_event *)evt;
+> > +                       v4l2_event_queue_fh(&session->fh, &event_evt->event);
+> > +                       break;
+> > +
+> > +               default:
+> > +                       v4l2_err(&vv->v4l2_dev, "unknown event type %d\n",
+> > +                                evt->event);
+> > +                       break;
+> > +               }
+> > +
+> > +end_of_event:
+> > +               virtio_media_send_event_buffer(vv, evt);
+> > +       }
+> > +
+> > +       if (!virtqueue_enable_cb(vv->eventq)) {
+> > +               virtqueue_disable_cb(vv->eventq);
+> > +               goto process_bufs;
+> > +       }
+> > +
+> > +       mutex_unlock(&vv->events_lock);
+> > +}
+> > +
+> > +static void virtio_media_event_work(struct work_struct *work)
+> >  {
+> > +       struct virtio_media *vv =
+> > +               container_of(work, struct virtio_media, eventq_work);
+> > +
+> > +       virtio_media_process_events(vv);
+> > +}
+> > +
+> > +/**
+> > + * virtio_media_device_open() - Create a new session from an opened file.
+> > + * @file: opened file for the session.
+> > + */
+> > +static int virtio_media_device_open(struct file *file)
+> > +{
+> > +       struct video_device *video_dev = video_devdata(file);
+> > +       struct virtio_media *vv = to_virtio_media(video_dev);
+> > +       struct virtio_media_cmd_open *cmd_open = &vv->cmd.open;
+> > +       struct virtio_media_resp_open *resp_open = &vv->resp.open;
+> > +       struct scatterlist cmd_sg = {}, resp_sg = {};
+> > +       struct scatterlist *sgs[2] = { &cmd_sg, &resp_sg };
+> > +       struct virtio_media_session *session;
+> > +       u32 session_id;
+> > +       int ret;
+> > +
+> > +       mutex_lock(&vv->vlock);
+> > +
+> > +       sg_set_buf(&cmd_sg, cmd_open, sizeof(*cmd_open));
+> > +       sg_mark_end(&cmd_sg);
+> > +
+> > +       sg_set_buf(&resp_sg, resp_open, sizeof(*resp_open));
+> > +       sg_mark_end(&resp_sg);
+> > +
+> > +       cmd_open->hdr.cmd = VIRTIO_MEDIA_CMD_OPEN;
+> 
+> cmd_open->hdr.cmd = cpu_to_le32(VIRTIO_MEDIA_CMD_OPEN);
+> 
+> > +       ret = virtio_media_send_command(vv, sgs, 1, 1, sizeof(*resp_open),
+> > +                                       NULL);
+> > +       session_id = resp_open->session_id;
+> 
+> session_id = le32_to_cpu(resp_open->session_id);
+> 
+> There are multiple places where this happens. I think sashiko also
+> commented on this, so there may be a more exhaustive list of
+> occurrences.
+> 
+> 
+> > +       mutex_unlock(&vv->vlock);
+> > +       if (ret < 0)
+> > +               return ret;
+> > +
+> > +       session = virtio_media_session_alloc(vv, session_id, file);
+> > +       if (IS_ERR(session))
+> > +               return PTR_ERR(session);
+> > +
+> > +       file->private_data = &session->fh;
+> > +
+> > +       return 0;
+> >  }
+> >
+> > -static void eventq_callback(struct virtqueue *vq)
+> > +/**
+> > + * virtio_media_device_close() - Close a previously opened session.
+> > + * @file: file of the session to close.
+> > + *
+> > + * This sends the ``VIRTIO_MEDIA_CMD_CLOSE`` command to the device, and closes
+> > + * the session on the driver side.
+> > + */
+> > +static int virtio_media_device_close(struct file *file)
+> >  {
+> > +       struct video_device *video_dev = video_devdata(file);
+> > +       struct virtio_media *vv = to_virtio_media(video_dev);
+> > +       struct virtio_media_session *session =
+> > +               fh_to_session(file->private_data);
+> > +
+> > +       return virtio_media_session_close(vv, session);
+> >  }
+> >
+> >  static const struct v4l2_file_operations virtio_media_fops = {
+> >         .owner = THIS_MODULE,
+> > -       .open = v4l2_fh_open,
+> > -       .release = v4l2_fh_release,
+> > +       .open = virtio_media_device_open,
+> > +       .release = virtio_media_device_close,
+> >  };
+> >
+> >  static int virtio_media_probe(struct virtio_device *virtio_dev)
+> > @@ -51,12 +615,23 @@ static int virtio_media_probe(struct virtio_device *virtio_dev)
+> >         };
+> >         struct virtio_media *vv;
+> >         struct video_device *vd;
+> > +       int i;
+> >         int ret;
+> >
+> >         vv = devm_kzalloc(dev, sizeof(*vv), GFP_KERNEL);
+> >         if (!vv)
+> >                 return -ENOMEM;
+> >
+> > +       const size_t virtio_media_event_aligned_size =
+> > +               ALIGN(VIRTIO_MEDIA_EVENT_MAX_SIZE, dma_get_cache_alignment());
+> > +
+> > +       vv->event_buffer = devm_kzalloc(dev,
+> > +                                       virtio_media_event_aligned_size *
+> > +                                       VIRTIO_MEDIA_NUM_EVENT_BUFS,
+> > +                                       GFP_KERNEL);
+> > +       if (!vv->event_buffer)
+> > +               return -ENOMEM;
+> > +
+> >         INIT_LIST_HEAD(&vv->sessions);
+> >         mutex_init(&vv->sessions_lock);
+> >         mutex_init(&vv->events_lock);
+> > @@ -77,6 +652,7 @@ static int virtio_media_probe(struct virtio_device *virtio_dev)
+> >
+> >         vv->commandq = vqs[0];
+> >         vv->eventq = vqs[1];
+> > +       INIT_WORK(&vv->eventq_work, virtio_media_event_work);
+> >
+> >         vd = &vv->video_dev;
+> >         vd->v4l2_dev = &vv->v4l2_dev;
+> > @@ -100,10 +676,21 @@ static int virtio_media_probe(struct virtio_device *virtio_dev)
+> >         if (ret)
+> >                 goto err_register_device;
+> >
+> > +       for (i = 0; i < VIRTIO_MEDIA_NUM_EVENT_BUFS; i++) {
+> > +               void *ebuf = vv->event_buffer +
+> > +                            virtio_media_event_aligned_size * i;
+> > +
+> > +               ret = virtio_media_send_event_buffer(vv, ebuf);
+> > +               if (ret)
+> > +                       goto err_send_event_buffer;
+> > +       }
+> > +
+> >         virtio_device_ready(virtio_dev);
+> >
+> >         return 0;
+> >
+> > +err_send_event_buffer:
+> > +       video_unregister_device(&vv->video_dev);
+> >  err_register_device:
+> >         virtio_dev->config->del_vqs(virtio_dev);
+> >  err_find_vqs:
+> > @@ -114,11 +701,20 @@ static int virtio_media_probe(struct virtio_device *virtio_dev)
+> >  static void virtio_media_remove(struct virtio_device *virtio_dev)
+> >  {
+> >         struct virtio_media *vv = virtio_dev->priv;
+> > +       struct list_head *p, *n;
+> >
+> > +       cancel_work_sync(&vv->eventq_work);
+> >         virtio_reset_device(virtio_dev);
+> >         v4l2_device_unregister(&vv->v4l2_dev);
+> >         virtio_dev->config->del_vqs(virtio_dev);
+> >         video_unregister_device(&vv->video_dev);
+> > +
+> > +       list_for_each_safe(p, n, &vv->sessions) {
+> > +               struct virtio_media_session *s =
+> > +                       list_entry(p, struct virtio_media_session, list);
+> > +
+> > +               virtio_media_session_free(vv, s);
+> > +       }
+> >  }
+> >
+> >  static struct virtio_device_id id_table[] = {
+> > --
+> > 2.55.0.1082.g2b9226bbc0-goog
+> >
 
