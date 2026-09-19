@@ -1,66 +1,66 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 393AB38886B
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 17:11:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EAE23806BD
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 17:11:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789837872; cv=none; b=ApEbELrqKkVOUiLkVSZM8SEBgHL+5pQQ5x2+dZhvg+sRN93ZXa70eIq9axGhyJJ2Wnjm8ZReeh93g9u22qZadYDYrBnd18gVUp1M39Iiu/WOLzloUI0BK9meoSXMiaIc6kSKqxSYFzvZrKoz1y6GHQJh7EwObQmRAUzawzc+59A=
+	t=1789837876; cv=none; b=S50LSmVoLN/rObDoaDNZ0riyT7UPai/dtofFwQ1ZF8txmMQLFVdinEp8NF1DpTzKEWaWCBXLDm5xu+1pHhY5ivCzpLNZbeSCb1hMyk9OIYU9iPJBTES3QwDmTdXTUdt0vF0NutscbgjC9/w45pl621HEftQvmk9T5JqIKEXsFBQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789837872; c=relaxed/simple;
-	bh=r3SPUIne5J4Oz5owY0VHkq2rzwe/oQWXUFcrXTAfcWY=;
+	s=arc-20240116; t=1789837876; c=relaxed/simple;
+	bh=mWJYfjoWJeRQg0RSy1KWzp8U/jgGnfAzAM3nmAcJAFc=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Ppap3u7Iz0MQUKlWmE7q3tR+Ye59AIRSuUJNVtx33wu0+NnJ1eBHxjNXntWx7o6G39WyIdv2SThfOPtB1IhKb4sdU50Pzh/PkaHKohmbLlZVS0VBkdnDg18MvD/CHqhIUCfVGjHSCL5T7LUdDVWGogghxXHCE4D2Ql2EyheqW9g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VY9xPNDA; arc=none smtp.client-ip=74.125.225.76
+	 MIME-Version; b=l8RoRmL1wEfGcS/ZlSk6R5qJwa0ThlYaPkRuRk1Mg33eKgeTdz4/gZ5EthhSPfgIUe3siwVxenYu8t4ND2nCk7RK03nLq93pqYC2yHbxw6Y/K2djsrp5hnpd1bK4kiqGlc4jULyH2XNqcDNyj1Jd6gpK0m7BO2X4xBFI5Xv+kl4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O6RXmapZ; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VY9xPNDA"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843796e373so939088f8f.1
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 10:11:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O6RXmapZ"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b965f447cso14295375e9.3
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 10:11:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789837868; x=1790442668; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789837870; x=1790442670; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Abh44k+y+UnIpTLO2dWqUzZCllUOsbQmhQCG3AtwbVE=;
-        b=VY9xPNDAXeueLQmes0fYX36r6SBHnLaaP+pbFS91lKzJ7rwE3WTA2C1ut3P+DTfu64
-         yKgk9JkdvkW/hilEWZKNBw1sWIuqfkuGtl+pVjmrjkE8crh2zRoE5Ja1vrUHDTmdE8TC
-         rCLeeDM6dJSnCaRVgktZm/cCSJNoc9MH2aEAoqOOMLHF0vTqqVkq8bkLgIWwVT/vITDr
-         jC8RbhaW19L/VFEaAoNUDQMTwHLdsScZ3yIifJLlNZxleUgcU8aBUETJqikswmfeu1F/
-         urcb5nIX4AFYiFoqTrkLE/zNW6gIpmRP9q8Nv26Id/Uj5RhVF3xPkf0+OZVvGj8PtN5P
-         Xu8A==
+        bh=bdFmbxbENO0f+YbfOMbLsRbUwI3Z1sE3E+vQ+A1a+Ps=;
+        b=O6RXmapZPq9Z29bZ7zP2TVftyb2g865qn3ziLdnteUrU2zCYzz93WwZP+6txu9lveu
+         HFSl3arNgzqjZ4w7DJJrtoOHBBju9x2zLWOqz7pFsdK30ncsWx/bQiDrSZn/Ibfwi+/Q
+         4JI2Es1FmlUtla8XqFATmq8Bg4BQQsBZrsDX3of0HSfMSxwshRsP8mRZo5Aj6k1SKH6A
+         YKzZPm8zWt8Pezem7jNeLiK2NDexiOZDk9ajSa/OUJgSrRhs2iuCssg+kfcOrKCct24K
+         sjn4Zg++ZgH2voszijium27ZF3ioOFmMKHnxuQVHY7f60ARnbLOyrwLQuS1gHqPkCxTG
+         6tWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789837868; x=1790442668;
+        d=1e100.net; s=20260707; t=1789837870; x=1790442670;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Abh44k+y+UnIpTLO2dWqUzZCllUOsbQmhQCG3AtwbVE=;
-        b=YGE8xcFEn0fmP1FjDFTJ2TBlRSzrFJKybhgJr/tXewW+mkyPZT8ezLjyo/6N1kedYx
-         3qmVvkueGFlPp2guGxZc1Dj32dV+4Iwq5O0/5k5F+fbdAfRCEHWxWDi+3IbVNgbAWLdM
-         hzIL2zgMd2kNsuynA5JonoV4Yv+/MSpfK03LvM7C811rYe2Fx1X832EPU+bxNPH1bPxU
-         77+CPrxocuXNNBySEj62mLL+W0BxTeoefesjNUMZH6OTB7IkcWI5R8fClpljDKi/PSk2
-         6kRtV9HwSA0YwZeXJSLlon6t9pvJpIAd9AFPbGdraiEapfmSot9BU+SnNIS8/krYA6EM
-         S84Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzbVFRbDeZT14p537ZVoHfAizmIA7h+QytXXoKcmiftZ5/oIMPdKr70EWerfcvJpCCvmsZjJBH31svny4g=@vger.kernel.org
-X-Gm-Message-State: AFuF++lopIdlj7WmfBG/iDUCuL5Kbfxd55w915bELDZ64vBT+OKaT9kP
-	OGDT8Gasi6j08zyF4dyXVtYoKw5aBmmUPse/3SW6e1cwdxUl2rRMnwV8
-X-Gm-Gg: AYBFou17IazdyNelgv47XjrVVlj+8T2wa7DhKOhJWKECzygAeCzuktj/Av+BtjM7cx9
-	XNVi1xJWKxu4UCdhsC3EyqR9Gsp+2AdxKxaKNA1Waqosyu+CqoD8j+NLCpHCA7hvTa6rnJtFDj+
-	f/MofyxUWuTevxeIZU160OAE08jSm/FOEpvU1D6NgGk/sV5HCLWGraN+YS9YBB7SNo2by0zU/4h
-	e68rjPOFIFHc70xmOfgFwPDXUVX5ZHdhjZrg42dgMYNgLDf3fOY6sdUKC1WqCvVCLzGWnQ/jIim
-	B127faQsMiX+41Sat64r3jX96gho5ZPJzuyFoMzXMSEVrztGXYzO/ns7V9eZ9DfMvRKIwO4+wlv
-	Mvz7o7URg1iTiUa3/Ve2X4cGQo3/f3eIxZnkCxJrv6RBzCoaMpjiPsr6wdKKqRVkhtZRUmqIopy
-	IFR74RTlh9RSlPX/BWnz+PoNzCgdX1s0BzHVw4BfVaF525ZNhyxvqR4Zb7kzmbAFdZjtPRyUDP+
-	E9bx+qrkTE65pE/4cNyEhd6vjruNy5msQ0BSptoOn6YBgdD5VMbO0wwzEmF7Cf4In7I/w6ovuM8
-	nWqu0JtFtVcanVo2DRcuaoR6Iz3p+iH2IwymxNNjkTz9DN46fEa3VQgpdyS+6gQUUTIr/WDxO8p
-	dGA2XzV3eEZFGhdc56oA8b8kugA==
-X-Received: by 2002:a05:600c:19cd:b0:49c:fc6e:a3da with SMTP id 5b1f17b1804b1-49fc584fc7bmr85741365e9.25.1789837868253;
-        Sat, 19 Sep 2026 10:11:08 -0700 (PDT)
+        bh=bdFmbxbENO0f+YbfOMbLsRbUwI3Z1sE3E+vQ+A1a+Ps=;
+        b=a6scKItiX1pezGusESpVuWFqZVuzIsvmfyJVEws2mNuTeNY+LrvhrEqpS/K9Dh0yA7
+         WDamwW9ZWW9SMW2jOD1Q1olHsL+Oj4VLXXp3F/uzCG852Fx5ckEaaOIHuyTpqgtWVeDT
+         ZtL/6cuLJknjKjNjPxWBHhAkjJ/y/dOnKWXL3Gq2Mi5sWkHCR/IBwze6vW627w30X8iQ
+         bWGGymBn8GjOtAcnGt4jqcZT+Ssmtmgtc1t4CWieOXOcUBnMx6NgMC0IEzo04SbPNhU5
+         PMWBtDPeBhYjdB+ymetwaDZR4hGSfISvEOzBhdqEICjdixTMOr2IJYieHDBmqDPurC9S
+         Sv/g==
+X-Forwarded-Encrypted: i=1; AKwUvBy4EPeIof0hRVGj0ZDVQudFn3yKtV6JJQex95r809iYDqWafV1DBN+/DJphi3u+kXzzkptsmROGUFXryW0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kuZUqQEWrMrnXuIGFqC3TxGjuEAU5eBkcP//YvoKz12Q8jdP40
+	gRlyX9JPyl5rAOfEzrIkb5sZ5CwpGfPpKs+x7/V+a/umK4DOk+BJBeac
+X-Gm-Gg: AYBFou2cNOVwa0yd9l61MXRCzzxs8jGbY2WbK1Q6DAZtWXSu0Q9SsMDhy8Gw7QRJeSv
+	ebvG5a+oYse/NGrdQuz08201jr447nfO+gagUXL2uxDh65wrRKamEGJaROcwy+jSt46C5V87vx5
+	1jjz+Gz6TPXBGxGmJTZfno0d4BLk7wz0oW5JX7Ly9+1EviILLBwuYDmGsYvBz5Stn506EH51Y+q
+	s1My2RyS8+G5geAS03JPXMjzc1cl394onTGOrqha5b4OnVvNk6fZwVDdonQt2zNxzn/zA+vlNA0
+	Y65BWrUKzu473Tt30HDcHAVoCWbcq5B+T2z/duL+Yviv0SLZJy4lTtF2RjrJmcj38X7IBqTqMlF
+	RQXpYsMjo4A0qCP8xdv/PD6ki5Zo5wmwIJpsQ4lx2OkSjYCcY4CrzA/iaKholCrCUHJSjk+4q4D
+	2/YBQEXDMhZFxlWofq7FcrEJZlG8PTlLG6Q+rzcqr6aMgcTGCBy0a06j5d/lqNdtgJUu2x3FGRi
+	yPWsGhZ68zhJPJmjT0vhkd1fGH8079mXBptgcFMFdSsl46gNBVlFfxvxqND5K3RhpRSPGYZv/bt
+	YSvY20sRbIfc4eZKib/8w1gaT8/xFnVSOhYEEnR8/rX4cds/+2nfjypHec/ppztrUT0Jm16F8Tw
+	CAAHoZL4PHIB8/zw=
+X-Received: by 2002:a05:600c:a00f:b0:49e:645e:2616 with SMTP id 5b1f17b1804b1-49fc56692e0mr84074825e9.5.1789837869581;
+        Sat, 19 Sep 2026 10:11:09 -0700 (PDT)
 Received: from MacBook-Pro-von-Karl.localdomain (dynamic-2a02-3100-a017-2b01-05fe-203b-7cd2-a640.310.pool.telefonica.de. [2a02:3100:a017:2b01:5fe:203b:7cd2:a640])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd0f8563sm98714425e9.6.2026.09.19.10.11.06
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd0f8563sm98714425e9.6.2026.09.19.10.11.08
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 19 Sep 2026 10:11:07 -0700 (PDT)
+        Sat, 19 Sep 2026 10:11:09 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
 To: Linus Walleij <linusw@kernel.org>,
 	Bartosz Golaszewski <brgl@kernel.org>
@@ -77,9 +77,9 @@ Cc: Karl Mehltretter <kmehltretter@gmail.com>,
 	linux-omap@vger.kernel.org,
 	linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/3] gpio: tps65219: Use the variant-specific direction callback
-Date: Sat, 19 Sep 2026 19:10:59 +0200
-Message-Id: <20260919171100.90430-3-kmehltretter@gmail.com>
+Subject: [PATCH 3/3] gpio: tps65219: Fix TPS65214 GPIO direction programming
+Date: Sat, 19 Sep 2026 19:11:00 +0200
+Message-Id: <20260919171100.90430-4-kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 In-Reply-To: <20260919171100.90430-1-kmehltretter@gmail.com>
 References: <20260919171100.90430-1-kmehltretter@gmail.com>
@@ -91,14 +91,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The TPS65214 template installs its own get_direction callback because
-its direction bit is in GENERAL_CONFIG. The shared get and direction
-callbacks nevertheless call tps65219_gpio_get_direction() directly and
-interpret the unrelated TPS65219 MFP bit.
+GPIO_LINE_DIRECTION_OUT and GPIO_LINE_DIRECTION_IN have the values 0
+and 1, respectively, while the TPS65214 GPIO_CONFIG field is BIT(1).
+regmap_update_bits() masks the supplied value, so passing either
+direction value clears the field and selects input mode.
 
-On TPS65214 this can reject reads from an input and skip the change from
-input to output. Call the callback selected by the gpio_chip template
-instead.
+Translate the GPIO direction to the register encoding used by
+tps65214_gpio_get_direction(), setting GPIO_CONFIG for output and
+clearing it for input.
 
 Fixes: 1b6ab07c0c80 ("gpio: tps65219: Add support for TI TPS65214 PMIC")
 Cc: stable@vger.kernel.org
@@ -107,46 +107,31 @@ Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
 Testing:
 
-  - This callback path was exercised together with patch 3 by a
+  - This register programming was exercised together with patch 2 by a
     temporary KUnit test using a RAM-backed regmap under x86_64 QEMU
     10.2.1.  The TPS65214 direction-output test failed on the base
     commit and passes with this series.
   - This has not been tested on real hardware; testing on affected
     hardware is welcome.
 
- drivers/gpio/gpio-tps65219.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpio/gpio-tps65219.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpio/gpio-tps65219.c b/drivers/gpio/gpio-tps65219.c
-index b25c6f7277680..479a80ef76543 100644
+index 479a80ef76543..6958466455d04 100644
 --- a/drivers/gpio/gpio-tps65219.c
 +++ b/drivers/gpio/gpio-tps65219.c
-@@ -87,7 +87,7 @@ static int tps65219_gpio_get(struct gpio_chip *gc, unsigned int offset)
- 	 * status bit.
- 	 */
+@@ -158,8 +158,10 @@ static int tps65214_gpio_change_direction(struct gpio_chip *gc, unsigned int off
+ 	if (ret)
+ 		dev_err(dev, "GPIO%d configured as VSEL, not GPIO\n", offset);
  
--	if (tps65219_gpio_get_direction(gc, offset) == GPIO_LINE_DIRECTION_OUT)
-+	if (gc->get_direction(gc, offset) == GPIO_LINE_DIRECTION_OUT)
- 		return -ENOTSUPP;
++	val = direction == GPIO_LINE_DIRECTION_OUT ?
++		TPS65214_GPIO0_DIR_MASK : 0;
+ 	ret = regmap_update_bits(gpio->tps->regmap, TPS65219_REG_GENERAL_CONFIG,
+-				 TPS65214_GPIO0_DIR_MASK, direction);
++				 TPS65214_GPIO0_DIR_MASK, val);
+ 	if (ret)
+ 		dev_err(dev, "Fail to change direction to %u for GPIO%d.\n", direction, offset);
  
- 	return ret;
-@@ -176,7 +176,7 @@ static int tps65219_gpio_direction_input(struct gpio_chip *gc, unsigned int offs
- 		return -ENOTSUPP;
- 	}
- 
--	if (tps65219_gpio_get_direction(gc, offset) == GPIO_LINE_DIRECTION_IN)
-+	if (gc->get_direction(gc, offset) == GPIO_LINE_DIRECTION_IN)
- 		return 0;
- 
- 	return gpio->change_dir(gc, offset, GPIO_LINE_DIRECTION_IN);
-@@ -190,7 +190,7 @@ static int tps65219_gpio_direction_output(struct gpio_chip *gc, unsigned int off
- 	if (offset != TPS6521X_GPIO0_IDX)
- 		return 0;
- 
--	if (tps65219_gpio_get_direction(gc, offset) == GPIO_LINE_DIRECTION_OUT)
-+	if (gc->get_direction(gc, offset) == GPIO_LINE_DIRECTION_OUT)
- 		return 0;
- 
- 	return gpio->change_dir(gc, offset, GPIO_LINE_DIRECTION_OUT);
 -- 
 2.53.0
