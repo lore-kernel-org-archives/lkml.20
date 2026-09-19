@@ -1,58 +1,47 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F0121A3029;
-	Sat, 19 Sep 2026 04:13:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B0522236FA;
+	Sat, 19 Sep 2026 04:30:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789791216; cv=none; b=RXit/zT47xG3s5Buk5LtH2pP1L89taIrTlOsLPneH6Q+Atw5Tj57iMYE4KDf8E5WlPFq61ulx8DmPXdEBrhzytkxnfHrtLdoOfHs/vB6TwDpfOkDy7PgnE7SaPUbmjT4kY8FzVbPRUH8DYgvm8CcFIOnqBqS3YnZgny01CiMQB8=
+	t=1789792228; cv=none; b=TGpPcDjf5VMO2iRhSbGguWqnufbdDN5fRHdyTPo1WRYW4lDUZrO+bq6BpwVwKd8qY9HVVDJ6+yEY3Hwkstyd6lXZh/uuDmaCpoPEhOaauKrQhprhp1GK3B3JTkBvLhczdDykTTUlhu/y+8YRY58S9W5uKa6CwW8CJu+0FQwNe4c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789791216; c=relaxed/simple;
-	bh=ACWxgrN/65Ne7snP/KeTGg8vZosn0doazMEAixZT/Oo=;
+	s=arc-20240116; t=1789792228; c=relaxed/simple;
+	bh=9nQfvskgJr6vcesVtX2tFudCYtZ/j45gIDAQHtUfW9c=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U8T02MR+R2acPRKMAaoM2iCtC8wb0QyWYviIAuHd4L0TbnGL2uD/TeEDjzcqiKo+V9SfHIQrWkwWoNdg2Fhg+nwcCxhanslfiM+v9VqUEBflYe+gkKWqIn52lTaekP1Y7h58FAh771pfuBKBDvzNo7jMcWwK1bzsn2uz3KmHofE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=KxkbrE/m; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=P2x26AuNm8v6Jr+v9+lKOe1Ex7PLtme2qDfAEAi3vi67NCb1UhhhyfLhVpHEuEHBThuKPNr0uaM8LsO+O2SPJdMIPWM4ElfPRCrcTIwLeJ/91RuRD0drrT0f83LpOJ3ojwAtMvtMqHYOQGhE83VwN9+7s8TqwBQKwJD/CFwg0FM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=fyQ5cxLw; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="KxkbrE/m"
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="fyQ5cxLw"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=KiO0TWZHHNWwqUMW8uqL6nQVaMHOdCC7NYfz1C+CayY=; b=KxkbrE/mupwUjixXuC/T+0QTHP
-	srTEmVpGo+8KQF1rvUPvCMBhUDd5E8wsBaB+9ZCczfbODXNECvKqZFViCBVOjFlcgfnLtDQvXj4zN
-	V/pFmBx+GB2e3UT7etpgWZxDouLRNogvtXROMDjp+A1cLXu31VhJvCIAo0MzQCr2g3wj4nOu1fKNF
-	m3tsJlryFoxGyWL9XW7Il6NfCGBUixGYuSEqgKIfUnm00oWSyqpxO71m33SjjPkvFZ1lh1DMwgW7Z
-	HnkpuUodJPdTUefimjjWZ0wOdxDJ2+BvJGRjHlvNbwgUnb5cKBTvV1LIt07IxqnyOUyac1fPXHKoM
-	EvP2h+zA==;
-Received: from willy by casper.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x7mRv-0000000BY9m-2fNU;
-	Sat, 19 Sep 2026 04:13:15 +0000
-Date: Sat, 19 Sep 2026 05:13:15 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>,
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	Salvatore Dipietro <dipiets@amazon.it>, abuehaze@amazon.com,
-	alisaidi@amazon.com, blakgeof@amazon.com, brauner@kernel.org,
-	brendan.jackman@linux.dev, david@redhat.com, dgc@kernel.org,
-	dipietro.salvatore@gmail.com, djwong@kernel.org, hch@infradead.org,
-	hch@lst.de, linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	linux-xfs@vger.kernel.org, mhocko@suse.com, ritesh.list@gmail.com,
-	rvvandan@amazon.com, stable@vger.kernel.org, surenb@google.com,
-	ziy@nvidia.com
-Subject: Re: [PATCH v4] mm/page_alloc: avoid direct compaction for costly
- __GFP_NORETRY allocations
-Message-ID: <aq4L29SBCYwvKrw2@casper.infradead.org>
-References: <20260905174239.99e31515fabe220aa7d8e6fa@linux-foundation.org>
- <20260910114602.926944-1-dipiets@amazon.it>
- <aqQlUr-1h07G8JWM@cmpxchg.org>
- <8d6a8a63-4adc-458a-b548-a47bf5ff8eb7@kernel.org>
- <aqq8pWI0u1IZNWHT@cmpxchg.org>
- <20260916153426.3265e2e152cebb6a8d66373d@linux-foundation.org>
- <20260916153540.9a3fb449f5b3fd481ca1b544@linux-foundation.org>
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=w+UeNwv3t+cYqiKhSTr5CY5tQ+ov5hsLoeiCWF/Iu9k=; 
+	b=fyQ5cxLwKL03RWgQHl0Zo2+8zxNLZBDbQrw97S5j5stDtE45dKunhhLpDnm7/N9LLJkv5w4s5UX
+	tTey9O/hQydcF6LXY2HrTrN0MFjZQytq1z2HraG0s59hBGK1FL2HAbfgnWBuoSjjJDkoPZyROts8Q
+	eARst4RyB6lQ5OcG97Fna++vS8u849OYQADx+82UDibGoZtOfwdOUSGxyFsPvKXjrj3dX5s3VShns
+	3wLSNVbiBN2ZQVLPjx0GmpKTJN0S8r4toTBRkL6j1t5iJEZRhvjKiCbut0SBmXhChlQV33K3P6uce
+	IGLwLakUxmsAV2bPICXUS5oz3BZNOZl3EH0w==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1x7miR-0000000Fdga-0xps;
+	Sat, 19 Sep 2026 12:30:20 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Sat, 19 Sep 2026 14:30:19 +1000
+Date: Sat, 19 Sep 2026 14:30:19 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Leonid Ravich <lravich@amazon.com>
+Cc: linux-crypto@vger.kernel.org, dm-devel@lists.linux.dev,
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+	davem@davemloft.net, ebiggers@kernel.org, snitzer@kernel.org,
+	mpatocka@redhat.com, axboe@kernel.dk
+Subject: Re: [PATCH v5 2/5] crypto: dun - data-unit-number dispatch template
+Message-ID: <aq4P2xxmcYLjqKEu@gondor.apana.org.au>
+References: <20260630083431.2772-3-lravich@amazon.com>
+ <alRMn--pY1ELYmBJ@gondor.apana.org.au>
+ <20260715120102.6687-1-lravich@amazon.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,126 +50,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260916153540.9a3fb449f5b3fd481ca1b544@linux-foundation.org>
+In-Reply-To: <20260715120102.6687-1-lravich@amazon.com>
 
-On Wed, Sep 16, 2026 at 03:35:40PM -0700, Andrew Morton wrote:
-> From: Salvatore Dipietro <dipiets@amazon.it>
-> Subject: mm/page_alloc: avoid direct compaction for costly __GFP_NORETRY allocations
-> Date: Fri, 4 Sep 2026 11:56:28 +0000
+On Wed, Jul 15, 2026 at 12:01:02PM +0000, Leonid Ravich wrote:
 > 
-> Commit 5d8edfb900d5 ("iomap: Copy larger chunks from userspace")
-> introduced high-order folio allocations in the iomap buffered write path. 
-> When memory is fragmented, each failed costly-order allocation enters
-> __alloc_pages_slowpath() which runs direct compaction and
-> drain_all_pages(), causing a 0.38x throughput drop on PostgreSQL pgbench
-> (simple-update) with 1024 clients on a 96-vCPU arm64 system.
+> I benchmarked the mid-API split vs the legacy per-sector loop on
+> r7i.metal (VAES-AVX512): dm-crypt shows no measurable throughput or
+> latency regression, but a microbench isolates a fixed ~50 ns per 512B
+> unit.  It's a fixed per-call cost: the split
+> copies the counter IV to a per-unit scratch and re-walks the sglist per
+> unit and is paid only by callers setting unit_size != 0.
+> That gives two directions:
 > 
-> The root issue is that direct compaction is too expensive for hot
-> allocation paths that have fallbacks to smaller allocations. 
-> __filemap_get_folio_mpol() already marks higher-order allocations with
-> __GFP_NORETRY | __GFP_NOWARN, signalling that the caller can handle
-> failure.  However, the page allocator still attempts full direct
-> compaction for costly orders with __GFP_NORETRY, which is unnecessarily
-> aggressive when the caller will simply retry at a lower order.
-> 
-> For costly-order allocations with __GFP_NORETRY, clear
-> __GFP_DIRECT_RECLAIM at the very start of the slowpath, before
-> can_direct_reclaim, can_compact and the nofail checks are evaluated.  This
-> makes the entire slowpath treat the request as non-blocking: no direct
-> reclaim, no direct compaction and no drain_all_pages() IPI across every
-> CPU.  kswapd (and in turn kcompactd) is still woken further down for
-> background defragmentation, so compaction keeps working for long-term
-> system health while being removed from the latency-critical direct
-> allocation path.
-> 
-> Allocations that also request __GFP_THISNODE are exempted.  That flag
-> pairing identifies the local-node-first THP attempt issued by
-> alloc_pages_mpol() (mempolicy.c), which relies on direct compaction to
-> form transparent huge pages.
+>   1. SW batching layer (current v6): mid-API transparently splits when
+>      the alg lacks CRYPTO_ALG_REQ_SEG and unit_size != 0.  
+>      Works today on every existing skcipher at the ~50 ns/unit cost, 
+>      and goes quiet as algs gain native support.
 
-This patch is still piling hack on hack.  We haven't made a serious
-effort to understand what's going on, we're just adjusting flags until
-things stop sucking.
+I think we should be able to eliminate this overhead.  Could you
+send me the patch so I can take a look?
 
-What we know:
- - Doing compaction every time (which is what we currently do)
-   performs badly
- - Doing compaction once at the requested large size and then not
-   again until the smallest size also performs badly.  So it's not
-   that we're doing too much compaction, it's that we're doing
-   compaction at all.
+But going back to the dun template, I think we should still go with
+no templates for plain64.  But the other ones should use a template
+instead of using the cc->iv_gen_ops->generator.
 
-But we don't know why compaction is performing badly.  For example,
-we could specify MIGRATE_ASYNC or MIGRATE_SYNC_LIGHT if __GFP_NORETRY
-is set.  Just as a reminder, here's how __GFP_NORETRY is documented:
+IOW if unit-splitting is in use, dm-crypt should always pass the
+sector number in little-endian format in as the IV.  Then depending
+on which IV generator is configured (which should be done through
+templates, just like essiv), they can generate the final IV.
 
- * %__GFP_NORETRY: The VM implementation will try only very lightweight
- * memory direct reclaim to get some memory under memory pressure (thus
- * it can sleep). It will avoid disruptive actions like OOM killer. The
- * caller must handle the failure which is quite likely to happen under
- * heavy memory pressure. The flag is suitable when failure can easily be
- * handled at small cost, such as reduced throughput.
+With this scheme, there should be no overall increase in indirect
+calls in any case (and with one less for plain64).
 
-So the callers aren't doing anything unreasonable when they say
-__GFP_NORETRY.  It's the page allocator (and apparently the compaction
-side of it) that's not living up to the documented contract.
+This still preserves the ability for optimised implementations to
+eliminate indirect calls for the IV generator by handling it directly
+rather than through the generic template.
 
-So that's one approach which has not, as far as I can tell, been
-investigated.
-
-The other thing that icks me about this patch is how complex the
-condition is:
-
-> +	/*
-> +	 * Costly __GFP_NORETRY callers have a cheap fallback, so don't stall
-> +	 * them in reclaim or compaction. __GFP_THISNODE callers are exempt.
-> +	 */
-> +	if (costly_order && (gfp_mask & __GFP_NORETRY) &&
-> +	    !(gfp_mask & __GFP_THISNODE))
-> +		gfp_mask &= ~__GFP_DIRECT_RECLAIM;
-
-So basically we're saying that __GFP_NORETRY means don't do compaction
-unless __GFP_THISNODE is set, which is just special pleading.  Surely
-the right answer is to remove __GFP_NORETRY from the one caller which
-needs __GFP_THISNODE?
-
-
-A slightly unrelated critique of this patch is that it's far too
-complicated for what it does.  We could achieve the same thing by doing:
-
- static inline bool gfp_compaction_allowed(gfp_t gfp_mask)
- {
--       return IS_ENABLED(CONFIG_COMPACTION) && (gfp_mask & __GFP_IO);
-+       return IS_ENABLED(CONFIG_COMPACTION) && (gfp_mask & __GFP_IO) &&
-+               (!(gfp_mask & __GFP_NORETRY) || (gfp_mask & __GFP_THISNODE));
- }
-
-
-Something I've been noodling on the past day or so is cleaning up the
-GFP flags for "how hard to reclaim".  We currently have five
-possibilities encoded in four bits:
-
-1. No direct reclaim (__GFP_DIRECT_RECLAIM clear)
-2. Light reclaim (__GFP_DIRECT_RECLAIM | __GFP_NORETRY)
-3. Normal reclaim (__GFP_DIRECT_RECLAIM)
-4. Extra reclaim (__GFP_DIRECT_RECLAIM | ___GFP_RETRY_MAYFAIL)
-5. Reclaim forever (__GFP_DIRECT_RECLAIM | __GFP_NOFAIL)
-
-Clearly we can save ourselves a GFP flag bit by encoding those five
-options into three bits.  Some of the code that manipulates "how hard to
-reclaim" will need to be adjusted, but it shouldn't be that many places
-to change.
-
-If we do that, we can insert more options into the mix if they're really
-needed.  Like we could have:
-
-0 - No direct reclaim
-1 - Light reclaim, no compaction
-2 - Light reclaim with compaction
-3 - Normal reclaim
-4 - Extra reclaim
-5 - Reclaim forever
-
-and we'd still have two extra states in case we need to add more
-flavours.
-
+Thanks,
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
