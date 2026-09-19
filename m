@@ -1,75 +1,71 @@
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D862E37C10C
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 20:48:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C915D3939D0
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 20:48:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789850890; cv=none; b=DBqWaRqYpqFLasRnVyMsRSX2waR1uReBKRh/EkPWEGlt+ODs4F7OaFj0reaGXQhMUaqaTqyOmbYGiLhMffNG8jDmE8cktZ+VaoOvs+Ga9GgMKV9WqqetXnnvutk1JZquUBkJgNHbLpq+UCtFZSXltBur8tbFwQNYlPj0IDj2wxc=
+	t=1789850892; cv=none; b=f9B2O7IEwifdlH5nwDeL66Vyws12l8+v3vMaRp9DtcQVsmRne/8pRdiqemelBC2DPdVX1R4RCReXMNNauHWol1Es0d5wLleS8NdwMJ6zGG0jB2ncIWuStbrtdteG0Vg61ivi15sQ6WK5IdRMeQz6gu9qUNOJID9ulsxMV13Gjlo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789850890; c=relaxed/simple;
-	bh=Im9YkV+3OvVvwtDwAZcHgiksUaKgUurDHZ1wGhptx44=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oEfF3iXG2JAOiYfkF1UTckKnb7wR03N/ijHZURCPZr7i8+3/1kQShIZXglSvK4bI0lfZ8Ds+XKCX7b367TcjN+YMtvH5/vfeX+eTLFCWG5Nea2Bxi4tA+Ahv97nQYEc2SaZj/FfdqWau02UJC/umd9DHNSJZM7lrHfTANP4fyA8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bSYzt7Oo; arc=none smtp.client-ip=74.125.227.170
+	s=arc-20240116; t=1789850892; c=relaxed/simple;
+	bh=WHFKCdJIxJZts25V574gufTxt/e+kvWyiWNqWg4+FaI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jku2IwFysjhDc5R7EahepfT6b2W1r24RWlwg/0i+b06M5u3zP0PtXWDRjYacW3dNfaVYkB4CIIUlz9a0F6LxHKHMCd9kPrc++EjnJWv448DOpizyAfJVK69YDbTGP+zdg+L9vOFSE9DZr9alCzqs9LVAOJ9/V3lMo/jCjHTxpdQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cb0SpgOk; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bSYzt7Oo"
-Received: by mail-pj2-f42.google.com with SMTP id d9443c01a7336-2df36461d63so3011995ad.3
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 13:48:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cb0SpgOk"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2db1ca069c8so18618335ad.3
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 13:48:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789850888; x=1790455688; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789850890; x=1790455690; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6Tdip1HpG8zlB55k64vHDsYJWQp4eh/7aeSdWuHA2sY=;
-        b=bSYzt7OolHS6CBVRxayRQB1ZPv1pDKpeRLjzGGti4ZcvvM6MeYNxVy6xdPEcbLfYn7
-         FUnZ2wzQtSYfKY1LiSKzNAm3oPe/PtYGsnm/6erDOwLZHg51/FHJG1YgnAt9njaoMAup
-         lszFdigFmtSSGjESA2ZQu3stoLMltZvNxLi6vSpCk1lGR6V/qf4XbLaFC4oNE3xDL3EF
-         23/TGSIlJE28dEa06JLojrQ5P+dVZdma0gKzN8nDdCxQYuo13djCFMVzj2lhvusdGpH8
-         KE11y9tEvpAjk7B7ucXXqcpLimAS0yng1XZVBL5Xvcu5derDhnvApKmHdyngidgUJKp2
-         5esA==
+        bh=UklQyeMvhqLuej0je0ggi0hTj3VJTG/i2EoA/FxL8jY=;
+        b=cb0SpgOkmSpx4HbI+vXW9P+Sy8sbUPwjOyXOs8dOCOqmceKIRpPDLumdTUjeuMK/Lo
+         EDPOvc2eISYzH0sl8SQ35AGjeSqBz6FIbbKf9xh+Otc5xr7tqoo+HtTtIPIDM2LxK4Ct
+         +J9kLPVG2pOyxFnD8hWZtW3JtY1Wo6t/oddpt2SJJUEWTAko0MKS3KStTcf0mNe4aP3O
+         HHKeAFE+1/3Elb3vT05k0XiHZYHZ568cbiHHPOQER4GljuNlvNPSJEBjSVMktkz2EqjI
+         FVOTyOrTImqq6fUvwB9vTHudhQvhBV+xTJ7sShb0/VrG0pkD1j9n2acXsX6E/tH18XRW
+         e4/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789850888; x=1790455688;
+        d=1e100.net; s=20260707; t=1789850890; x=1790455690;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6Tdip1HpG8zlB55k64vHDsYJWQp4eh/7aeSdWuHA2sY=;
-        b=IuGvZtHEWvrIBD9ptPRLfqWzDNKZLPl4ebe56JdyN1Ks+ZZcEGn78KmVlLmwr611GE
-         TLw4Sj4OqadRFaxKw5dYBh4iCNdddNILJDHMMOuou0QYKIGlkAzxD9sgWRzYn+P51Tfp
-         alSUHRu2OyT1q+m34vRqWqg6zmmbsr593MtT4bPkiEz5fHC05u7C6QEoqNVFwS+u6m1p
-         8MLVedSVFmGv7j6TBADZiiBUQ8ESGWgdUaw/6WMZ4OUiTTiHzBsRLoQZC4bBtpK9Vk4f
-         TOTLZBGNbdK6YHjF7oVRXqiI2YyEJbiMPMYKexO1KDRZKc+lYK5rnCp3G96SnY09HXXv
-         hHOA==
-X-Forwarded-Encrypted: i=1; AKwUvBy7yR/oC1CC7IZqbT3QPTiZYNTRbmIJQH8uX/JY6qhsIos/GUNO+7PuL8oS6pVaXmMv4YdUKZQzFwjTCcs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lZgo+0wbWzMf8RnCCjmewF0Whc8rGWLsmO8zUwbrthQd/AOknq
-	JiL6R4OXg4pO+pN3fHtLPQ3eQJ1Xx33GYRkXX9KGvNA2jcmPlxSIbEeH
-X-Gm-Gg: AYBFou01p5R9djOHM0DhM6+77bJ4opC5iMy4/rrk/SrI8U7VVnKvuqDNZ49ecRobeaq
-	iGqBAbv5lGvrKMri1NK9RSCr84wj+NzCQwCfS61cXhTMlFf91SVi3ZTUc69DLOQBU3Fg306tRN2
-	NwPhTirOXqsrLVZguZR/ijY1KOaawbIqNiKHN65tYo0LFVjzSgLZvreVaiTuiJu706WsqafzSIE
-	5axhYF10MU0mtoeNllem7Xcg/f0gkbXWpM8h77fN9ThGNnMmz80T+fkc3N6fhUxB6OLLK3fIzH8
-	HOErVSgJV7it98qSev6H8adGNWiVa0LoMXup9+eHe7jfVnoDaIu18ykQHpnOmvWGKkbCfLoKuin
-	1lkHPyW1EX8K21T3Xx+4nG/Hpsa2p3MPaFZrd50WGaxuDfpktVVbU5a3+yFveGrikLUoGKXXcOi
-	5F9ctNrpKaOr6jAv7LutH3DLrl+z8kd8Ctjg44mLaUlFEwkjvnZ3h9hD16jcQNTmgOh8PFXGJaY
-	ZN3cnkK1VEFkwK+RhBXjlbdRrY2t7HuEIR5M1GstsykyAM0TjxoXiXSRoUYT1TF4NpuahKHQjSK
-	2+eoHD+lon2wh1kvkXTs
-X-Received: by 2002:a17:903:903:b0:2dd:c0ff:e732 with SMTP id d9443c01a7336-2ddc0ffea16mr40495505ad.68.1789850888216;
-        Sat, 19 Sep 2026 13:48:08 -0700 (PDT)
+        bh=UklQyeMvhqLuej0je0ggi0hTj3VJTG/i2EoA/FxL8jY=;
+        b=ZQywck6bk50fCyxDVf4CWx1HejSWYmIGgipdpZ5mZD0XYMrPciGd+X1EX7cntslJ15
+         KBft/B8ZQsuEfKCrJ2O76tp6bhiQ2fp49UALdn6FcjJlVsru4HvLJy94CwrEM95RYGik
+         2O5S2z5Yzh6DDh77MiCiG4bydj09QNDlpG/tJUrseImsG54FMx8GcHfDuSI/MH+LTTht
+         ehk2FrJbg/Vr9E+ofanEYKrhYTtZUK5yZhmysnup9EyaomZU1zBQw57SQp6TCuSpbkOv
+         ktfmqoDzdYxFZBInbgroIdYTcTzst8cFLk4X/Ag0w6A3FqvEsQLQnHWUht4tw5oaaMjJ
+         ipPg==
+X-Forwarded-Encrypted: i=1; AKwUvByZ5qSg2J38ZaXliO+aOlIdEfns0Ek+6sGD83X5b1CB14BUG/4rrfZq5HAOFOEYNH0qbdT6aARIcrulzYg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kuWD8JStZZkqYGoRn8Ga8jCZ1M3Abi1yPxCZGv1RQTJcMlq8tv
+	xI7/jWqHKKJwExVH3BHSFmzfUPzqxFXb7axQAr6xn5Q0bOcBEG6ml8FE
+X-Gm-Gg: AYBFou1tFpFLKfwUfcZx7wAZr/uHWsAjpqmy62nrKAflk37juaegScV7jrYRVEjtFkv
+	Rt/ajcRF32ViosAe+9EYrzfiHFoxYB9fJqU9IPREaIUUNz7m2KCo6A+h1ZDStM1ercJbH3VfHwk
+	sW8v/+UiwYDiwqy3MbuDa2ozt43S2Zdx9KaUkyeC7pYK9iPR7T3Q2YI1O4y0NBsWV5j+Mzm5wLv
+	Zx+A8TCbv2r3cnLyMCavSIX4OQ+N+tFKWJxPNUn5Dy0+idF/BbHined5Ksk8+toQom+z15aTt59
+	g1qRM/pQ8ACqw7i1oCETuTljmlusV65UJVdKUPiT8noswzWvaRxHelUstLaJdugYhUDJwIHP3+3
+	f9b25ddkt/3hZn67l6UtGF4GtZXibqMr9/0v1IX5MrdOwmPYj8fJpTYj7j6MABIif8FCqXw6wBY
+	QvYntXC0X4MT1OY0S0QNvO1qsZdEYlC+4yJM+kEcOCoQMgTy0ZZOklxDYZwaiDJGG7sNBtAlVaS
+	BOqdNdeUIZUP8XwOsns79yjwvkT3muPqxB83FFoqGUiKgSNsAp/7HjD2THrxp7nxiPLG+N4bdZ5
+	vkHvtx4rAp1C0bHxDarL
+X-Received: by 2002:a17:90b:4b45:b0:39d:f7dc:61e4 with SMTP id 98e67ed59e1d1-39e54b204c5mr10849177a91.9.1789850890079;
+        Sat, 19 Sep 2026 13:48:10 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17888b9sm12897385ad.23.2026.09.19.13.48.07
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6ca50694sm6848858a91.2.2026.09.19.13.48.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 13:48:07 -0700 (PDT)
+        Sat, 19 Sep 2026 13:48:09 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
-To: Andrea Mayer <andrea.mayer@uniroma2.it>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
+To: Ian Kent <raven@themaw.net>
+Cc: autofs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] ipv6: sr: fix 16-byte kernel heap leak in seg6_genl_set_tunsrc()
-Date: Sat, 19 Sep 2026 20:48:06 +0000
-Message-ID: <20260919204807.2812472-1-benquike@gmail.com>
+Subject: [PATCH] autofs: fix sbi->pipe file reference leak in autofs_kill_sb()
+Date: Sat, 19 Sep 2026 20:48:08 +0000
+Message-ID: <20260919204808.2812930-1-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -79,47 +75,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-seg6_genl_policy[SEG6_ATTR_DST] uses NLA_BINARY with
-.len = sizeof(struct in6_addr), which only caps the maximum attribute
-length and allows 0-byte SEG6_ATTR_DST attributes.
+When autofs_fill_super() fails before clearing AUTOFS_SBI_CATATONIC (for
+example, when find_get_pid() fails on an invalid pgrp mount option, or
+when an fs_context is closed before mounting), deactivate_locked_super()
+invokes autofs_kill_sb() -> autofs_catatonic_mode(sbi).
 
-seg6_genl_set_tunsrc() then unconditionally copies
-sizeof(struct in6_addr) (16 bytes) from
-nla_data(info->attrs[SEG6_ATTR_DST]) into sdata->tun_src via kmemdup(),
-reading 16 bytes of uninitialized skb->head heap memory past skb->tail
-and exposing it to userspace via SEG6_CMD_GET_TUNSRC.
+Because AUTOFS_SBI_CATATONIC is still set in sbi->flags,
+autofs_catatonic_mode() returns early without calling fput(sbi->pipe),
+permanently leaking the pipe struct file reference.
 
-Enforce NLA_POLICY_EXACT_LEN(sizeof(struct in6_addr)) in
-seg6_genl_policy and validate nla_len(info->attrs[SEG6_ATTR_DST]) in
-seg6_genl_set_tunsrc().
+Explicitly release sbi->pipe in autofs_kill_sb() if it is still non-NULL
+after autofs_catatonic_mode().
 
-Fixes: 915d7e5e5930 ("ipv6: sr: add code base for control plane support of SR-IPv6")
+Fixes: ebc921ca9b92 ("autofs: copy autofs4 to autofs")
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
-diff --git a/net/ipv6/seg6.c b/net/ipv6/seg6.c
---- a/net/ipv6/seg6.c
-+++ b/net/ipv6/seg6.c
-@@ -138,8 +138,8 @@ out:
- static struct genl_family seg6_genl_family;
+diff --git a/fs/autofs/inode.c b/fs/autofs/inode.c
+--- a/fs/autofs/inode.c
++++ b/fs/autofs/inode.c
+@@ -51,6 +51,10 @@ void autofs_kill_sb(struct super_block *sb)
+ 	if (sbi) {
+ 		/* Free wait queues, close pipe */
+ 		autofs_catatonic_mode(sbi);
++		if (sbi->pipe) {
++			fput(sbi->pipe);
++			sbi->pipe = NULL;
++		}
+ 		put_pid(sbi->oz_pgrp);
+ 	}
  
- static const struct nla_policy seg6_genl_policy[SEG6_ATTR_MAX + 1] = {
--	[SEG6_ATTR_DST]				= { .type = NLA_BINARY,
--		.len = sizeof(struct in6_addr) },
-+	[SEG6_ATTR_DST]				=
-+		NLA_POLICY_EXACT_LEN(sizeof(struct in6_addr)),
- 	[SEG6_ATTR_DSTLEN]			= { .type = NLA_S32, },
- 	[SEG6_ATTR_HMACKEYID]		= { .type = NLA_U32, },
- 	[SEG6_ATTR_SECRET]			= { .type = NLA_BINARY, },
-@@ -242,7 +242,8 @@ static int seg6_genl_set_tunsrc(struct sk_buff *skb, struct genl_info *info)
- 
- 	sdata = seg6_pernet(net);
- 
--	if (!info->attrs[SEG6_ATTR_DST])
-+	if (!info->attrs[SEG6_ATTR_DST] ||
-+	    nla_len(info->attrs[SEG6_ATTR_DST]) != sizeof(struct in6_addr))
- 		return -EINVAL;
- 
- 	val = nla_data(info->attrs[SEG6_ATTR_DST]);
 -- 
 2.43.0
