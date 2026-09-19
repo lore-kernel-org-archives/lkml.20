@@ -1,96 +1,99 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9AD864A8C;
-	Sat, 19 Sep 2026 00:26:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 139DE2848BE;
+	Sat, 19 Sep 2026 00:27:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789777568; cv=none; b=BLkZsxW7Gzu+32+6SJD0GqRORwStb6p8fAjb1l8AfkqwN3vRYLASsv7fFv41LLHK7/GaoD31TBX2R9BIY5yWRPw+E+3eJdts3yCURDsvOhEgHebob7u8M3EXoSR++s9uIkN6KJcYD8ug6twdd5j3rUHzz/an4bY5rQ1BO1cVRM4=
+	t=1789777639; cv=none; b=sI+2CHj90dGF5DX8N9Sgz0wT5XsZkvG6bZJGoP0m3BvHeIQCiDphAjv7gxgUnPF7Nvn8Y0yX10sVjVhAQHOPbKi3OKsSs3UDEZ0WvSlvrnaZ1xqVNqIMfXfMhL3Qczk1jdyWQEPWaGPcKtWl1UJKDZEOwhWA6go74CQWxjChzcM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789777568; c=relaxed/simple;
-	bh=Yoyql3cjZgmbP2RVwcMSapgV6fogC2z04BUy9vju/v0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=U2uCSq6Id3nPBykUEkpJHFVaXTjOd3ktp/1N6EAMJKH/jlCPcQCmUR4F3k5Gl+5bGVq3wDWi7+FtzflRrvfM36UaCqZ4dX0iwU8zTdQarX8NfynAR8b2DMBRAwHPUvOCthRND6lcbaRtRZBVfnhio5iuMpmEr31XdZ+EmV0amkQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TV3bGKNT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789777639; c=relaxed/simple;
+	bh=uRCpFcNsXWaddrapn5SkrIyGKjvHsPU/cznZLzJgIzo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=Gd3+/PdPjyAMLmro7jiy9rWvn089CUMPpuiMVnJd/f71Y9RKtBQh/zCPF/sWNG68iynxFzlMPDSV0r6FMvm9kn4pk6OHmkW8O8yBLgpPM7Xb7KzPVO1uoCC/GK9uX/kNXVPp4QtWV0Fy7TiCw9DR+8aO2E8oeocQG2Ic7t62Vvw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QxGTxZeV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TV3bGKNT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5A801F000FF;
-	Sat, 19 Sep 2026 00:26:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QxGTxZeV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E2411F00899;
+	Sat, 19 Sep 2026 00:27:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789777567;
-	bh=GELPEbFVXKBklHiVlViGJWcS9YhkAO9x07HDRK0Qds4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TV3bGKNTwt+dkaw3NYtbnogRbP7A4Fi+w35zUwtO1TuyPq0NINwHeY5n/wakATuno
-	 uyGjDCfSlS0O1xEFzVIL1rXT7NBO9Jzdqa+SByrG9LvpD8YlE2S914XaajU5ISUpEd
-	 jvFA26hMiyQLQi1o7hSESoH9n0XSesNoLYx1Y7BXRzYfshv06+6JfJVH8vqSeuz1MV
-	 AUgjctXXZk7BV2l9ahtxhEfEN2BfWFHIgHx1F5QUNoMN85fyKiN9BA0aSQ+l0t1hQr
-	 G4ONe9h6qe3s/Oujmq9+uLFdqYPimkS9LC3ayndEFuiaOcqlMj/72pH/rNIE5HwLlB
-	 JFLjCPqxwQsZw==
-From: SJ Park <sj@kernel.org>
-To: Breno Leitao <leitao@debian.org>
-Cc: SJ Park <sj@kernel.org>,
-	Hugh Dickins <hughd@google.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	linux-mm@kvack.org,
+	s=k20260515; t=1789777634;
+	bh=J+x8FFsUkC9iRJGPRIk/B0IV7LAA23MrAgbBTD6/xIs=;
+	h=From:To:Cc:Subject:Date;
+	b=QxGTxZeVZNNDtP6KaTTUM2VNLS7BtJOO2dlpytr/ocwMqQavrpzhtFUmKn/0OBxnJ
+	 K/h5aNHXj5176q1Snl1bxQbu9IbBSzvrU4kSSk7PP8LVHttXtvIorYthw8Q2pn/8vX
+	 d4JM7rgotIJ5HjbE0ORQsts1Pj2CDAyV4ezLt1BsU0vFwt2Po1e15L3hbFY2IfRzgY
+	 6iAOaOad9zC8EFGTTeVBAjkOZ1PvqbXy4qujy9SeAJvDSJZfUMb8pS3pkzVPjyWH1v
+	 PzuBPe4cGlDkwO1PI9uJMWcDKs7OFm2TTo2lLbR0uhhL0inKdfO1d29MVWDP0lP3pH
+	 +u0cXmPgzv8sg==
+From: Kees Cook <kees@kernel.org>
+To: Bill Wendling <morbo@google.com>
+Cc: Kees Cook <kees@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	nikitash.mariiaw@gmail.com,
 	linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/shmem: report RCU-tasks quiescent states while undoing a range
-Date: Fri, 18 Sep 2026 17:25:58 -0700
-Message-ID: <20260919002559.77365-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260918-shmem-tasks-rcu-v1-1-79acf91a2569@debian.org>
-References: 
+	linux-hardening@vger.kernel.org
+Subject: [PATCH v2 0/9] seq_buf: Add seq_buf_strlen()
+Date: Fri, 18 Sep 2026 17:26:58 -0700
+Message-Id: <20260919002658.stay.929-kees@kernel.org>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1823; i=kees@kernel.org; h=from:subject:message-id; bh=uRCpFcNsXWaddrapn5SkrIyGKjvHsPU/cznZLzJgIzo=; b=owGbwMvMwCVmps19z/KJym7G02pJDFlrr11v6Q5ZWdrlF6Wh4SqVc3OaoAXTrZsK9rPP+x1Wq T/XI3C5o5SFQYyLQVZMkSXIzj3OxeNte7j7XEWYOaxMIEMYuDgFYCKKxQz/g/TcNe82TAgwat7q Za95eNeEFws+eDoYxU6a1f0vTsWQl5FhY8XnRWUsH5M+6GqdW3Rp08x7DEL7J5yWDu0+9s5e/fE LVgA=
+X-Developer-Key: i=kees@kernel.org; a=openpgp; fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
 Content-Transfer-Encoding: 8bit
 
-On Fri, 18 Sep 2026 04:24:37 -0700 Breno Leitao <leitao@debian.org> wrote:
+Hi,
 
-> This shows up in the Meta fleet on ftruncate() of large tmpfs files:
-> 
->   INFO: rcu_tasks detected stalls on tasks:
->   00000000752fd185: .. nvcsw: 59455/59455 holdout: 1 idle_cpu: -1/0
->   task:rocksdb:bottom  state:R  running task
->     __folio_split
->     find_get_entry
->     find_get_entries
->     truncate_inode_partial_folio
->     shmem_undo_range
->     shmem_setattr
->     notify_change
->     do_ftruncate
->     __x64_sys_ftruncate
->     do_syscall_64
-> 
-> shmem_undo_range() walks the whole of the requested range in folio_batch
-> sized steps, twice, and its two cond_resched() calls are the only
-> reschedule points in that walk.
-> 
-> cond_resched() is not an RCU-tasks quiescent state.  Use
-> cond_resched_tasks_rcu_qs() at both points so the walk reports an
-> RCU-tasks quiescent state as it proceeds.
+While working on seq_buf conversions, we found there was a need for
+seq_buf_strlen() (since calling strlen(seq_buf_str()) would be a waste of
+time: seq_buf already knows the length), and seq_buf_init_append() (to
+start a seq_buf from an existing string buffer). And while implementing
+that, we found a bunch of other related things that needed fixing. This
+is that series, with tests for each fix.
 
-Makes sense to me.
+ v1: https://lore.kernel.org/all/20260917002312.i.923-kees@kernel.org/
+ v2:
+ - seq_buf_do_printk() simplification and more tests
+ - add seq_buf_init_append() and tests[1]
+ - finish documenting seq_buf[1] and link it to kernel api docs
+ - test improvements throughout
 
-Btw I wonder how many cond_resched() will survive from the Mutphy's machine.
-Just thinking loud.
+-Kees
 
-> 
-> Fixes: 8315f42295d2 ("rcu: Add call_rcu_tasks()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Breno Leitao <leitao@debian.org>
-
-Reviewed-by: SJ Park <sj@kernel.org>
+[1] https://lore.kernel.org/all/20260917011359.1585961-1-morbo@google.com/
 
 
-Thanks,
-SJ
+Bill Wendling (1):
+  seq_buf: Add seq_buf_init_append()
 
-[...]
+Kees Cook (8):
+  seq_buf: Do not print an empty line from an overflowed
+    seq_buf_do_printk()
+  seq_buf: Do not pop from an overflowed seq_buf
+  seq_buf: Copy what fits when seq_buf_puts() and seq_buf_putmem()
+    overflow
+  seq_buf: Clear what a writer did not claim when a seq_buf overflows
+  seq_buf: Add seq_buf_strlen()
+  powerpc/papr_scm: Return the string length from the sysfs show
+    functions
+  nvdimm: ndtest: Return the string length from flags_show()
+  docs: core-api: Document the seq_buf API
+
+ Documentation/core-api/kernel-api.rst     |   9 +
+ include/linux/seq_buf.h                   | 103 ++++-
+ include/linux/trace_seq.h                 |   5 +-
+ arch/powerpc/platforms/pseries/papr_scm.c |   4 +-
+ lib/seq_buf.c                             |  35 +-
+ lib/tests/seq_buf_kunit.c                 | 471 +++++++++++++++++++++-
+ tools/testing/nvdimm/test/ndtest.c        |   2 +-
+ 7 files changed, 607 insertions(+), 22 deletions(-)
+
+-- 
+2.34.1
+
