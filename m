@@ -1,73 +1,73 @@
 Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4154374A0B
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:35:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA2653932E1
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:35:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789857313; cv=none; b=mJjJMmRHFBXIxgDzzacq4fM+aDewIpaPWoPuPtXCJ9CC00oDqmfgrEiXsAJkXzkqtL40H3/FUivo49lK4uOrFAPmLkudom/DiNMvLZ+iOOUp5td3t+1Nh/QnIszuaA4uv9dXmTbi/FkD8fnrtFn//nQCVzMdhqyHZdaM5jCfPIQ=
+	t=1789857315; cv=none; b=OOZQCBgwmSm47RKY3KBZJDigxJp1PI9DrHc5SrINSU69Qb4fH/F38ueU0JJKIr9ObQc6pCYS0RRUiGV112lKpbCT89ppgCPdYRT3wWoTxCWXH6WuwuYfWIpp+d32HG1Kd1tb2UXDhWup2bA74LnZh/w+ZDlsiU9612M5tJqCOpM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789857313; c=relaxed/simple;
-	bh=fBWptGqm922MC1AvQaFfxuRsf+NZ4pzO5Oe+hFw8TAw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OQzpcuTcC8dZS+b6B10OvvyCikLruK85hQW+hGW6D63SJK0mVU9WgmgHnfmW2PY+pB4JK4j84oFo4Ju197re/xq03Iv3HmiS7mfGkrzlpYsfifaN6gIKYZ38DuvH4R5XuZenGxLIpPD+mJyv9hOa6O0A/vubOGxw0AF4uZA6OJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K+f+6Eew; arc=none smtp.client-ip=74.125.227.141
+	s=arc-20240116; t=1789857315; c=relaxed/simple;
+	bh=qoMnAtRxYw/yMDMQw3J+o8UT0NagGzZR4LuWPSf8zKs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BROCwQ3UIzmD1eLrMJToWaVhtXvY6kbdbD1NaASu81G9GVCWz0AhEJmzfpyZCMp21SeSucfB0ooJqxW/W3A5i5/zpAusOb1BSIlFXxfMXr8nbkZ9w6UIGXsqoJSLgA66zgkZsoRrf6qmtf3d0igcIl0a9moQwDeHlZBor6DReJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tchfdf+s; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K+f+6Eew"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d91a931f66so11951735ad.0
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:35:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tchfdf+s"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2dd88a115ebso15451785ad.2
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:35:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789857311; x=1790462111; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789857313; x=1790462113; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7QY4l784EYoqdUGrD39yyvJt2inDbru1rDCO3703wPU=;
-        b=K+f+6EewnXLetxqR1gM3CimAR5dT08uKOYnNre9cY4pgBiAWo9CED6XEGbiLHXFfD8
-         TrqRSvCY+IEil52t1rqWBIHH8PFdvUq1fU9Bp9f944qHpyyyw2xW4pnmxkMh87hEaaJi
-         zDMn4wvzGGG3/4rGGHyZ+N+cDxn7iducF3lUa/0EFgdd/NuglgFNMCCrNB+ydYXURevk
-         z+hUXmJP9xD5nPbKU6XL+yPoxadHzG6VZmeUl8oK9WAzG0a5rBwDjAipd/EUg69Iiwbd
-         rgT1WoTNDfgLtvwX7pwDniT+0EjiiLEmM322LIWeRrppYAyZRHo2uIl4rpGmAuaZiuPV
-         FDnA==
+        bh=9gMeYV87yGYpQQPZASfnk9+aNoHuNYCubc3YIOWvC9o=;
+        b=Tchfdf+s+EfXEzPhsLyZr/ipR2K9+aDqxPN1pyKZ2OroZDlKgsijESxMpSP6bH+8cW
+         LOjIXwB2gbY1ZaPoJzF3tl2+7Hn7F3jC5w/wQ3PzMUlGAce1At1hr8xxfWWEMpBS2/V8
+         UZRIFm3Z5dFfVMAbyCWX71s+CMQSq8u9HJaDDAU+Jg7o9MuknrfHZezVrv2tsp32ufnT
+         pZ3+FxVmbNKdBLHWde0vQt7+YNilMMi8RiBunklsYF8yFB21NNSKZ/eP00TTcEpbbJJB
+         k6e85qBBszRZTS9fK3gi7262CTDOVPsyCUsGdulvdRbgNS5xyTItTQAUN0uhb58cqv0r
+         B3ug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789857311; x=1790462111;
+        d=1e100.net; s=20260707; t=1789857313; x=1790462113;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=7QY4l784EYoqdUGrD39yyvJt2inDbru1rDCO3703wPU=;
-        b=qorsZT3XMmC/sAajsECQ/jepE5j8s9ZXozcRGyO1kV45Js6ymplsPp51aa7M63AlZ3
-         i5e0RXRqdgj1xSdNrny/Zjkem8uqOAjNtMSLdp+A2bV8qQnJDtUcEA3Bx/I3s2eZiG02
-         qxWU74ZrhitDLqlt0RETVgRVGnQpUCqhpZLvEsUjmkNn+v/IAta5td8sh6PUo6jKroB4
-         fK1NjwzSFb21dSvaWfquRgUQd5iFCGIAG+F19aOy+ZSHC9IfWpz02b1OEY4tQqq1l//C
-         1AePkbFgyjUuELjE1hhdvbjo99fIhpR0h/gPDIhrKe8FpHWSEXJklswNsiVZaSyYycJB
-         R6WQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxV8axho6uiZX/YSduoG6QNJHdk6OfzmCWwxwuF5e0Seap4bJvP2oBgQnNo35qq/SbdJIly22tRQTSyhhU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kSvJIgfkH9bzzxOHt7uakbmWKuz3GyaVocErGpYbRTxANW+Ix+
-	Jb6fIyabBJLzwGt2A92/uVNpuk9xVUZMA90KVGTZ1s8RP/67hbORt6Zt
-X-Gm-Gg: AYBFou3c2I2VadovUr1ZCHJYXUyQ9SEMbaCyYBHKik7OSbHhhcMSEEX07GfpgK346sC
-	rgfzdiK1V3NlLu9LQBeVMsMTpMaEnORzh9BQw2Qon4K7yi5KB2IQZG9EvhLUNK9OKKF8H52vnMe
-	TQ+CzJXhbAlSaGAwjgktdgLiXG6x/8IRLfaSKzYUnP7eFSYIDb7GkXasEcD7TmyGU7QkCnUoLdk
-	MK95smHIdj63ulrrXEFpxFT3smr4kkfE2l4M9HRnQD5Zu/r+RXCljJ1mkXTfeKiP+EgX7589sVn
-	QWKpouJYbYOot4cLM6esSdAhD3iqnUTH469c7BpFoklJwDDkg/N8Jkn2tbB4UPtOKpvYCCirseu
-	eZiL/9412Mk84kPDcBrLorRRov8diPAfUckpmdhaijCrXaMh3KVcvYQRExOHf1QIZJaMvgSM0Dq
-	iVoVwkq96/ZKiIqX0ukl+3eGt4X5r2BGs63dFd6zO2vTwJzsSyqiKxaLi9Beff5+6/ve+pIw5Q/
-	I/lVw3emzbdR8LJ+Fx/94Y/6nQ1lPI5xg+/PBE2NNo7/OZqvLEPz/FuhLe8JUJ1pUoeYvQLEcMv
-	VQ0t6ppNB38h7dpH8FHsFg==
-X-Received: by 2002:a17:903:3c4f:b0:2dd:ad74:6d1e with SMTP id d9443c01a7336-2ddbe4726a8mr69623095ad.27.1789857311009;
-        Sat, 19 Sep 2026 15:35:11 -0700 (PDT)
+        bh=9gMeYV87yGYpQQPZASfnk9+aNoHuNYCubc3YIOWvC9o=;
+        b=ylBU7VCBrfon9JB9eaUpmv17kKXh3Q5/UC+TTy1xe+EGKkkRrN6mWNt7ot6P9661dj
+         0j7aj+wK2pKkoqFzJ97fNK9r36ENz+liAyK4u6OFJpz05wOdi7F6tkbXy7RQLGuU41IE
+         8tqLE9rxe9Oq3O/iY1wlKI8Ue5dDQlZYuLu40zsuaoAB0sD7hy8OnvDjBuEL968dxYR6
+         DSIXF8iatDmKIgg+j4RKTl0WjK+JlS3328FmJBpSbryh+BptQEQ0jMQAyXT/1Azjv3R0
+         3dpEn8bAry+KtJxKmz6XXSzowMTVdy77JWFyXlSbthwlIeebGP2qXSEoE7OHu4ZiBg7M
+         J3fg==
+X-Forwarded-Encrypted: i=1; AKwUvBxJ1bhIYhKkf6GinMAl2lPrcqcsVQFQuU0T6IhPVxJvq7mlKSVPOOXggluGEtA1RkPsZwAqEal5SMR//7Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++l1l0mtTKZzqJ5rQIuW6Cws0XM5cf51xGnoYiLGMuPyFvRUTkiM
+	a2I6BGANYEpzcKEu+Jq5Sxb/t+MA8D+EmcOgeL73UtdO4aZHtNe2g5rgHiukZgZh
+X-Gm-Gg: AYBFou0T9DuB1fi/Tt8VsTr+wFg3eRHOh2hmlJpVRfK2SDorvqB2g/7j36mQpz9FiMw
+	42G1ihxp6FznpIH+L/ldBm1YfGP//Q9V9P1slXipkRlZ9gb4GJDYWtRRjmPXXR0m/J3vdZolwI9
+	ydLFc0wPRdaxihPtDevwjFajUr7lcThhphWIVtBuKOTqPLidzKNnvtTvYsEhCClM9FKwEGHHIUh
+	SlHuOvLYnw8Wc42vntSG8l6cA+PMfzREawaDC3sqP22/siTz7bguGDWL2lXrpilQVv1iqYIoT0v
+	wxCG8k/0XFT/JZsdwxJ9fmgXxaEGpMhhFdjnF7Ls544ww5HaNwudDNVy14IbNlqIjn43lqbhVsV
+	49nbhvA9Mh8y2wBAdMRIBWoKPw7Esr+JrhCG4opYf9R0UMdyFAhhLVps9YPS7538LzAUIs40glI
+	BA1aRuDjvT/KfkTI3wkhWvEx4CElDWt6/nAb8wlhTHmpYVQfXopMiE05Q0ob3Ewv+GxdgynX4+s
+	aAgsS6Os0TgRt3BPYt/AktqOGD3vJZ5McCkXzM4KZqOKFN2u9CargZC7OD1gitHHe3DV+1jPe1K
+	MEnqcrKHRHWIU/Di0AFKcw==
+X-Received: by 2002:a17:903:8c8:b0:2dd:c053:ec71 with SMTP id d9443c01a7336-2ddc054099amr55383325ad.36.1789857313346;
+        Sat, 19 Sep 2026 15:35:13 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc16b471fsm13290885ad.3.2026.09.19.15.35.10
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc16b670csm13351275ad.6.2026.09.19.15.35.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 15:35:10 -0700 (PDT)
+        Sat, 19 Sep 2026 15:35:13 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
-To: rubenru09@aol.com,
+To: hansg@kernel.org,
 	tzimmermann@suse.de,
 	simona@ffwll.ch,
 	airlied@redhat.com
 Cc: dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/gud: fix bulk_len divide-by-zero, connector bitmap OOB, and short USB reads
-Date: Sat, 19 Sep 2026 22:35:10 +0000
-Message-ID: <20260919223510.3888975-1-benquike@gmail.com>
+Subject: [PATCH] drm/vboxvideo: validate VBVA ring buffer offsets and cursor dimensions
+Date: Sat, 19 Sep 2026 22:35:12 +0000
+Message-ID: <20260919223512.3889313-1-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -77,177 +77,144 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In drivers/gpu/drm/gud/ (gud_drv.c, gud_pipe.c, gud_connector.c), ensure
-gdrm->bulk_len >= max_pitch so lines = bulk_len / pitch cannot be 0 in
-gud_flush_damage(), cap num_connectors to GUD_CONNECTORS_MAX, and reject
-short USB control transfers in gud_usb_get().
+In drivers/gpu/drm/vboxvideo/ (vbox_main.c, vbox_mode.c, vbva_base.c),
+validate VBVA ring buffer offsets against buffer_length and check cursor
+dimensions before copying cursor data into HGSMI buffers.
 
-Fixes: 40e1a70b4aed ("drm: Add GUD USB Display driver")
+Fixes: 131abc56e1ba ("drm/vboxvideo: Move the vboxvideo driver out of staging")
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
-diff --git a/drivers/gpu/drm/gud/gud_connector.c b/drivers/gpu/drm/gud/gud_connector.c
-index 8141c3a1e30a..1bf0495bf43f 100644
---- a/drivers/gpu/drm/gud/gud_connector.c
-+++ b/drivers/gpu/drm/gud/gud_connector.c
-@@ -569,7 +569,7 @@ static int gud_connector_add_properties(struct gud_device *gdrm, struct gud_conn
- 			continue; /* not a DRM property */
+diff --git a/drivers/gpu/drm/vboxvideo/vbox_main.c b/drivers/gpu/drm/vboxvideo/vbox_main.c
+index aa6664542b20..8cf326661b57 100644
+--- a/drivers/gpu/drm/vboxvideo/vbox_main.c
++++ b/drivers/gpu/drm/vboxvideo/vbox_main.c
+@@ -115,6 +115,10 @@ int vbox_hw_init(struct vbox_private *vbox)
  
- 		property = gud_connector_property_lookup(connector, prop);
--		if (drm_WARN_ON(drm, IS_ERR(property)))
-+		if (drm_WARN_ON(drm, IS_ERR_OR_NULL(property)))
- 			continue;
+ 	DRM_INFO("VRAM %08x\n", vbox->full_vram_size);
  
- 		state_val = gud_connector_tv_state_val(prop, &gconn->initial_tv_state);
-diff --git a/drivers/gpu/drm/gud/gud_drv.c b/drivers/gpu/drm/gud/gud_drv.c
-index 3a1b9e2a2eaa..f69b0e6e2ee0 100644
---- a/drivers/gpu/drm/gud/gud_drv.c
-+++ b/drivers/gpu/drm/gud/gud_drv.c
-@@ -328,7 +328,7 @@ static int gud_stats_debugfs(struct seq_file *m, void *data)
- 		seq_puts(m, " none");
- 	seq_puts(m, "\n");
- 
--	if (gdrm->compression) {
-+	if (gdrm->compression && gdrm->stats_actual_length) {
- 		u64 remainder;
- 		u64 ratio = div64_u64_rem(gdrm->stats_length, gdrm->stats_actual_length,
- 					  &remainder);
-@@ -427,6 +427,8 @@ static void gud_free_buffers_and_mutex(void *data)
- {
- 	struct gud_device *gdrm = data;
- 
-+	vfree(gdrm->shadow_buf);
-+	gdrm->shadow_buf = NULL;
- 	vfree(gdrm->compress_buf);
- 	gdrm->compress_buf = NULL;
- 	sg_free_table(&gdrm->bulk_sgt);
-@@ -443,7 +445,7 @@ static int gud_probe(struct usb_interface *intf, const struct usb_device_id *id)
- 	struct usb_endpoint_descriptor *bulk_out;
- 	struct gud_display_descriptor_req desc;
- 	struct device *dev = &intf->dev;
--	size_t max_buffer_size = 0;
-+	size_t max_buffer_size = 0, max_pitch = 0;
- 	struct gud_device *gdrm;
- 	struct drm_device *drm;
- 	struct device *dma_dev;
-@@ -495,6 +497,10 @@ static int gud_probe(struct usb_interface *intf, const struct usb_device_id *id)
- 		put_device(dma_dev);
- 	} else {
- 		dev_warn(dev, "buffer sharing not supported"); /* not an error */
-+	if (!drm->mode_config.min_width || !drm->mode_config.min_height ||
-+	    drm->mode_config.max_width < drm->mode_config.min_width ||
-+	    drm->mode_config.max_height < drm->mode_config.min_height)
++	if (vbox->full_vram_size < VBVA_ADAPTER_INFORMATION_SIZE +
++				   vbox->num_crtcs * VBVA_MIN_BUFFER_SIZE)
 +		return -EINVAL;
- 	}
- 
- 	/* Mode config init */
-@@ -523,7 +529,7 @@ static int gud_probe(struct usb_interface *intf, const struct usb_device_id *id)
- 	num_formats_dev = ret;
- 	for (i = 0; i < num_formats_dev; i++) {
- 		const struct drm_format_info *info;
--		size_t fmt_buf_size;
-+		size_t fmt_buf_size, fmt_pitch;
- 		u32 format;
- 
- 		format = gud_to_fourcc(formats_dev[i]);
-@@ -562,8 +568,9 @@ static int gud_probe(struct usb_interface *intf, const struct usb_device_id *id)
- 			break;
- 		}
- 
--		fmt_buf_size = drm_format_info_min_pitch(info, 0, drm->mode_config.max_width) *
--			       drm->mode_config.max_height;
-+		fmt_pitch = drm_format_info_min_pitch(info, 0, drm->mode_config.max_width);
-+		fmt_buf_size = fmt_pitch * drm->mode_config.max_height;
-+		max_pitch = max(max_pitch, fmt_pitch);
- 		max_buffer_size = max(max_buffer_size, fmt_buf_size);
- 
- 		if (format == GUD_DRM_FORMAT_R1 || format == GUD_DRM_FORMAT_XRGB1111)
-@@ -588,9 +595,13 @@ static int gud_probe(struct usb_interface *intf, const struct usb_device_id *id)
- 
- 	if (desc.max_buffer_size)
- 		max_buffer_size = le32_to_cpu(desc.max_buffer_size);
-+	if (max_buffer_size < max_pitch)
-+		max_buffer_size = max_pitch;
- 	/* Prevent a misbehaving device from allocating loads of RAM. 4096x4096@XRGB8888 = 64 MB */
- 	if (max_buffer_size > SZ_64M)
- 		max_buffer_size = SZ_64M;
-+	if (max_buffer_size < max_pitch)
-+		return -EINVAL;
- 
- 	gdrm->bulk_pipe = usb_sndbulkpipe(interface_to_usbdev(intf), usb_endpoint_num(bulk_out));
- 	gdrm->bulk_len = max_buffer_size;
-diff --git a/drivers/gpu/drm/gud/gud_pipe.c b/drivers/gpu/drm/gud/gud_pipe.c
-index 5ef887d8485a..1f08226b23b2 100644
---- a/drivers/gpu/drm/gud/gud_pipe.c
-+++ b/drivers/gpu/drm/gud/gud_pipe.c
-@@ -156,10 +156,14 @@ static int gud_prep_flush(struct gud_device *gdrm, struct drm_framebuffer *fb,
- 			  struct drm_format_conv_state *fmtcnv_state)
- {
- 	u8 compression = gdrm->compression;
-+	unsigned int block_width = drm_format_info_block_width(format, 0);
- 	struct iosys_map dst;
- 	void *vaddr, *buf;
- 	size_t pitch, len;
- 
-+	if (block_width > 1)
-+		rect->x1 = ALIGN_DOWN(rect->x1, block_width);
 +
- 	pitch = drm_format_info_min_pitch(format, 0, drm_rect_width(rect));
- 	len = pitch * drm_rect_height(rect);
- 	if (len > gdrm->bulk_len)
-@@ -327,7 +331,7 @@ static void gud_flush_damage(struct gud_device *gdrm, struct drm_framebuffer *fb
+ 	ret = pcim_request_region(pdev, 0, "vboxvideo");
+ 	if (ret)
+ 		return ret;
+diff --git a/drivers/gpu/drm/vboxvideo/vbox_mode.c b/drivers/gpu/drm/vboxvideo/vbox_mode.c
+index 3c41238a8268..9a1d9e1aa92b 100644
+--- a/drivers/gpu/drm/vboxvideo/vbox_mode.c
++++ b/drivers/gpu/drm/vboxvideo/vbox_mode.c
+@@ -141,7 +141,8 @@ static bool vbox_set_up_input_mapping(struct vbox_private *vbox)
+ 
+ 		if (!fb1) {
+ 			fb1 = fb;
+-			if (fb1 == vbox->ddev.fb_helper->fb)
++			if (vbox->ddev.fb_helper &&
++			    fb1 == vbox->ddev.fb_helper->fb)
+ 				break;
+ 		} else if (fb != fb1) {
+ 			single_framebuffer = false;
+@@ -363,7 +364,8 @@ static int vbox_cursor_atomic_check(struct drm_plane *plane,
+ 		return 0;
+ 
+ 	if (width > VBOX_MAX_CURSOR_WIDTH || height > VBOX_MAX_CURSOR_HEIGHT ||
+-	    width == 0 || height == 0)
++	    width == 0 || height == 0 ||
++	    width != new_state->fb->width || height != new_state->fb->height)
+ 		return -EINVAL;
+ 
+ 	return 0;
+@@ -380,6 +382,7 @@ static void copy_cursor_image(u8 *src, u8 *dst, u32 width, u32 height,
+ 	size_t line_size = (width + 7) / 8;
+ 	u32 i, j;
+ 
++	memset(dst, 0, mask_size);
+ 	memcpy(dst + mask_size, src, width * height * 4);
+ 	for (i = 0; i < height; ++i)
+ 		for (j = 0; j < width; ++j)
+diff --git a/drivers/gpu/drm/vboxvideo/vbva_base.c b/drivers/gpu/drm/vboxvideo/vbva_base.c
+index 36bc9824ec3f..3a752be06f4e 100644
+--- a/drivers/gpu/drm/vboxvideo/vbva_base.c
++++ b/drivers/gpu/drm/vboxvideo/vbva_base.c
+@@ -21,18 +21,35 @@
+ 
+ static u32 vbva_buffer_available(const struct vbva_buffer *vbva)
  {
- 	struct drm_format_conv_state fmtcnv_state = DRM_FORMAT_CONV_STATE_INIT;
- 	const struct drm_format_info *format;
--	unsigned int i, lines;
-+	unsigned int i, lines, block_width;
- 	size_t pitch;
- 	int ret;
+-	s32 diff = vbva->data_offset - vbva->free_offset;
++	u32 data_len = READ_ONCE(vbva->data_len);
++	u32 data_offset = READ_ONCE(vbva->data_offset);
++	u32 free_offset = READ_ONCE(vbva->free_offset);
++	s32 diff;
  
-@@ -335,12 +339,21 @@ static void gud_flush_damage(struct gud_device *gdrm, struct drm_framebuffer *fb
- 	if (format->format == DRM_FORMAT_XRGB8888 && gdrm->xrgb8888_emulation_format)
- 		format = gdrm->xrgb8888_emulation_format;
- 
-+	block_width = drm_format_info_block_width(format, 0);
-+	if (block_width > 1)
-+		damage->x1 = ALIGN_DOWN(damage->x1, block_width);
+-	return diff > 0 ? diff : vbva->data_len + diff;
++	if (!data_len || data_offset >= data_len || free_offset >= data_len)
++		return 0;
 +
- 	/* Split update if it's too big */
- 	pitch = drm_format_info_min_pitch(format, 0, drm_rect_width(damage));
- 	lines = drm_rect_height(damage);
++	diff = data_offset - free_offset;
++
++	return diff > 0 ? diff : data_len + diff;
+ }
  
-+	if (!pitch || !lines)
+ static void vbva_buffer_place_data_at(struct vbva_buf_ctx *vbva_ctx,
+ 				      const void *p, u32 len, u32 offset)
+ {
+ 	struct vbva_buffer *vbva = vbva_ctx->vbva;
+-	u32 bytes_till_boundary = vbva->data_len - offset;
+-	u8 *dst = &vbva->data[offset];
+-	s32 diff = len - bytes_till_boundary;
++	u32 data_len = READ_ONCE(vbva->data_len);
++	u32 bytes_till_boundary;
++	u8 *dst;
++	s32 diff;
++
++	if (data_len > vbva_ctx->buffer_length - sizeof(*vbva) ||
++	    offset >= data_len || len > data_len)
 +		return;
 +
- 	if (gdrm->bulk_len < lines * pitch)
- 		lines = gdrm->bulk_len / pitch;
-+	if (!lines)
-+		return;
++	bytes_till_boundary = data_len - offset;
++	dst = &vbva->data[offset];
++	diff = len - bytes_till_boundary;
  
- 	for (i = 0; i < DIV_ROUND_UP(drm_rect_height(damage), lines); i++) {
- 		struct drm_rect rect = *damage;
-@@ -399,6 +412,13 @@ static int gud_fb_queue_damage(struct gud_device *gdrm, struct drm_framebuffer *
+ 	if (diff <= 0) {
+ 		/* Chunk will not cross buffer boundary. */
+@@ -93,6 +110,9 @@ bool vbva_write(struct vbva_buf_ctx *vbva_ctx, struct gen_pool *ctx,
+ 		vbva_buffer_place_data_at(vbva_ctx, p, chunk,
+ 					  vbva->free_offset);
  
- 	mutex_lock(&gdrm->damage_lock);
- 
-+	if (gdrm->shadow_buf && gdrm->fb &&
-+	    (fb->pitches[0] != gdrm->fb->pitches[0] || fb->height != gdrm->fb->height)) {
-+		vfree(gdrm->shadow_buf);
-+		gdrm->shadow_buf = NULL;
-+		gud_clear_damage(gdrm);
-+	}
++		if (!vbva->data_len)
++			return false;
 +
- 	if (!gdrm->shadow_buf) {
- 		gdrm->shadow_buf = vcalloc(fb->pitches[0], fb->height);
- 		if (!gdrm->shadow_buf) {
-@@ -562,8 +582,8 @@ int gud_plane_atomic_check(struct drm_plane *plane,
- 			goto out;
- 		}
+ 		vbva->free_offset = (vbva->free_offset + chunk) %
+ 				    vbva->data_len;
+ 		record->len_and_flags += chunk;
+@@ -165,7 +185,7 @@ bool vbva_buffer_begin_update(struct vbva_buf_ctx *vbva_ctx,
+ 			      struct gen_pool *ctx)
+ {
+ 	struct vbva_record *record;
+-	u32 next;
++	u32 free_idx, next;
  
--		req->properties[num_properties + i].prop = cpu_to_le16(prop);
--		req->properties[num_properties + i].val = cpu_to_le64(val);
-+		req->properties[num_properties].prop = cpu_to_le16(prop);
-+		req->properties[num_properties].val = cpu_to_le64(val);
- 		num_properties++;
- 	}
+ 	if (!vbva_ctx->vbva ||
+ 	    !(vbva_ctx->vbva->host_flags.host_events & VBVA_F_MODE_ENABLED))
+@@ -173,7 +193,11 @@ bool vbva_buffer_begin_update(struct vbva_buf_ctx *vbva_ctx,
  
+ 	WARN_ON(vbva_ctx->buffer_overflow || vbva_ctx->record);
+ 
+-	next = (vbva_ctx->vbva->record_free_index + 1) % VBVA_MAX_RECORDS;
++	free_idx = READ_ONCE(vbva_ctx->vbva->record_free_index);
++	if (free_idx >= VBVA_MAX_RECORDS)
++		return false;
++
++	next = (free_idx + 1) % VBVA_MAX_RECORDS;
+ 
+ 	/* Flush if all slots in the records queue are used */
+ 	if (next == vbva_ctx->vbva->record_first_index)
+@@ -183,7 +207,7 @@ bool vbva_buffer_begin_update(struct vbva_buf_ctx *vbva_ctx,
+ 	if (next == vbva_ctx->vbva->record_first_index)
+ 		return false;
+ 
+-	record = &vbva_ctx->vbva->records[vbva_ctx->vbva->record_free_index];
++	record = &vbva_ctx->vbva->records[free_idx];
+ 	record->len_and_flags = VBVA_F_RECORD_PARTIAL;
+ 	vbva_ctx->vbva->record_free_index = next;
+ 	/* Remember which record we are using. */
