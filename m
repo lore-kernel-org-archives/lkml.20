@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B83C5248896;
-	Sat, 19 Sep 2026 07:18:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E56C5248896;
+	Sat, 19 Sep 2026 07:21:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789802291; cv=none; b=Hqy8d+vXXiJeMNgYJ/HYh4CXXpnYFWFEBdE3Zpglo6o92Fg7G3SXwDhpnKCN6vwc350shN8+VvMG2JTH/FHusvDKvX84+s20AoeM31Ii4RuAtoIfMPydVUKo/W0IQ/36O/k32Rcsh4z8n8/iG9pnZtNBd1durdcl5lZzSxA84yQ=
+	t=1789802474; cv=none; b=A8ArqFex4a0exyKs3OIu7YqxqZU/dN3qoNNXUrFEfjJ9Opc+OZPS7tLvdQ/MkOfUJ2vY6wf7s464Bf2icBH3ArG8gH7VowJxszBlOwOLR1z7/f5WTNikbh7y7RiRUcVlIVyKnpdIdMwL41Pn/HGBpMSS8rdWj+ebyGUgxf/eBYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789802291; c=relaxed/simple;
-	bh=og9oFIsBLTXKtM7j0JBwaE9f8eMA9zwdbswAtUq1aBY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=amJmEAvSjQBtgrbXZsWfFAYYIYqTciRGmZdmsIgvYF63mWJJuj9MzNTNLdWJ3V9gu4Lo3qKBkoc++dh7yNzI5SaWP83DGqWvPnDWYgIbQvb1uc7czQ69ShCH74NVZHlmdi3eM7Phu6tNNyT5ox+QN7pZZArAZ1hff4wvUiOjUqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=St1DgtTu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789802474; c=relaxed/simple;
+	bh=yQ8LiHbSa+FZuD5nzS5wh+J04mbtHEpk//ywjSpHHBk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=rWZyZMB/SykqI6CslFVj2Kq65xh1NQgjXStcwi5V+9dZFziHgVVFLKcFGlV0ojQ1oNMuXAKo2cj7VpHx54VhI3eWz7qiJTye79QNSFDL/2U0MAw24NPM0/+7ZQRLwOiXc/mmShz5ropI/YkQBfv3kZbMGAo99sb7gQxnUmurLe0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XodjoFyw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="St1DgtTu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A9811F000FF;
-	Sat, 19 Sep 2026 07:18:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XodjoFyw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECC481F000FF;
+	Sat, 19 Sep 2026 07:21:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789802290;
-	bh=Q2KJ1GRGgG8/UfjblCq/zPeFtdBEO8EqtBnNzvHL6KI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=St1DgtTuiLhxpCyS5dQyo/g8CNubeNk5hYa+tPtnR0eoNUj9BH9Ha+LcXy587DTTW
-	 9RIbr6IZUrLg4Dc02CKPcbK2QwrYmnG/lnxSdIyS8SSKVKOIktOpPhivww4rjNLHO3
-	 AXCfokDPZ7zCyqewJo2ueM5X6WLGom4HfTiGFW/J8MXFgG9OLyUyg7JUDVNjmAM2La
-	 Sg9rK94YgH4rHFOxz8ZF9PGbrBzlqwA/ndS/CCThrUhD6POCP7HCUvcrHeX01IIrW+
-	 R55xkvOnrrKVphekOiKk/vJioQTQwNcIyLX5NdPu1WrFNsw1GFeCVb7U4ZIFdDHw/+
-	 K65BA8EqJxkFQ==
-Message-ID: <2ea7cbcd-91ba-4f28-a910-428c03cc968c@kernel.org>
-Date: Sat, 19 Sep 2026 09:18:02 +0200
+	s=k20260515; t=1789802472;
+	bh=gcV1cifYYEXR5fN/PvDPz+mSKLKnhoe7/UY0t5C/g0g=;
+	h=Date:Subject:To:References:From:In-Reply-To;
+	b=XodjoFyw/WkTK6ApM2c9k9l5PiICFSTKrE/CQ/x2nTjfqo+YZSIJWJ6Zwp3Tn5CKU
+	 obt3PzPksSqSJ+PH7u3BJREuUCjt4hIDmCVin5Looew8yNWI81TyB/RV+VjwBmHuR4
+	 3zxRzys3ay13ePvU+IV+jonRxfzTVQmB/9tajhfpSpOMVS9/4eQVW42UkRLamWaBWB
+	 mCRlm0DpJbk5ATFEHKFsU8u0kWHAdmPtH2xfOlLOXjuXF1p/ZuSCVL9lj2QETOFu8n
+	 O/rJDehmCn3zXEW2o6n95UxH+iG1HO4e1h8B03PLt2+9DAbhu+R3/+dJtaqUkWdCnC
+	 DTBmWJaKmon5g==
+Message-ID: <cbe7cdd7-e225-4432-b4f2-2146c31e9656@kernel.org>
+Date: Sat, 19 Sep 2026 09:21:05 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,16 +35,14 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/2] dt-bindings: hwmon: pmbus: Add Infineon tda38740
- and tda38725
-To: Colin Huang <u8813345@gmail.com>, Guenter Roeck <linux@roeck-us.net>,
+Subject: Re: [PATCH v7 1/2] arm64: dts: intel: agilex5: add USB3.1 controller
+ node
+To: adrian.ho.yin.ng@altera.com, Dinh Nguyen <dinguyen@kernel.org>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, colin.huang2@amd.com, linux-doc@vger.kernel.org
-References: <20260918-add-tda38740-and-tda38725-v6-0-a8b11018d850@gmail.com>
- <20260918-add-tda38740-and-tda38725-v6-1-a8b11018d850@gmail.com>
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <cover.1789114403.git.adrian.ho.yin.ng@altera.com>
+ <dba41aa636c6db86be9e0e2a3e2ae1a03095e1cb.1789114403.git.adrian.ho.yin.ng@altera.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -90,41 +88,41 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260918-add-tda38740-and-tda38725-v6-1-a8b11018d850@gmail.com>
+In-Reply-To: <dba41aa636c6db86be9e0e2a3e2ae1a03095e1cb.1789114403.git.adrian.ho.yin.ng@altera.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 18/09/2026 12:23, Colin Huang wrote:
-> Add devicetree bindings for the Infineon TDA38740 and TDA38725
-> single-voltage synchronous buck regulators with PMBus interface.
+On 11/09/2026 11:09, adrian.ho.yin.ng@altera.com wrote:
+> From: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
 > 
-> Signed-off-by: Colin Huang <u8813345@gmail.com>
+> Add a DTS node for the Synopsys DWC3 USB3.1 controller on the Agilex5 SoC.
+> Place it under a simple-bus with a 40-bit dma-ranges window (#address-cells
+> = 2) to match the USB DMA address width of the interconnect. Enable it in
+> host mode on the SoCDK board.
+> 
+> ref and suspend both use AGILEX5_USB31_SUSPEND_CLK because they share the
+> same hardware clock source on this SoC.
+> 
+> Signed-off-by: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
 > ---
->  .../bindings/hwmon/pmbus/infineon,tda38740.yaml    | 55 ++++++++++++++++++++++
->  1 file changed, 55 insertions(+)
+>  .../arm64/boot/dts/intel/socfpga_agilex5.dtsi | 35 +++++++++++++++++++
+>  .../boot/dts/intel/socfpga_agilex5_socdk.dts  |  5 +++
+>  2 files changed, 40 insertions(+)
 > 
+> diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
+> index f54767d1526e..523f722a2a64 100644
+> --- a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
+> +++ b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
+> @@ -493,6 +493,41 @@ usb0: usb@10b00000 {
+>  			status = "disabled";
+>  		};
+>  
+> +		usb31_bus: usb-bus@11000000 {
 
+No, USB bus is not a simple bus. You probably wanted simple bus or any
+other approved, but not discouraged names from simple-bus.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-<form letter>
-This is an automated instruction, just in case, because many review tags
-are being ignored. If you know the process, just skip it entirely
-(please do not feel offended by me posting it here - no bad intentions
-intended, no patronizing, I just want to avoid wasted efforts). If you
-do not know the process, here is a short explanation:
-
-Please add Acked-by/Reviewed-by/Tested-by tags when posting new versions
-of patchset, under or above your Signed-off-by tag, unless patch changed
-significantly (e.g. new properties added to the DT bindings). Tag is
-"received", when provided in a message replied to you on the mailing
-list. Tools like b4 can help here ('b4 trailers -u ...'). However,
-there's no need to repost patches *only* to add the tags. The upstream
-maintainer will do that for tags received on the version they apply.
-
-Full context and explanation:
-https://elixir.bootlin.com/linux/v6.15/source/Documentation/process/submitting-patches.rst#L591
-</form letter>
+Don't come up with own naming.
 
 
 Best regards,
