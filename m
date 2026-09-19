@@ -1,532 +1,317 @@
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2124.outbound.protection.partner.outlook.cn [139.219.146.124])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD44913D51E;
-	Sat, 19 Sep 2026 09:50:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789811453; cv=fail; b=Vo86Nx6xK2C3/TzF+VBrvZXMLd6U5kgF9epZYHiPScbwgdfzfEeykp5GMr8tIUpU6jRgsuWsnbnYZh11SZzhch2ZhrLtolNahjvEYE89stsOFJIi9YpAt3UJ9WVXtNfJV11m7kK2Y+JfLmhOz+07IkCuZMs2KRUTSIldIuaaXVs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789811453; c=relaxed/simple;
-	bh=5628H7uG3PgV4wzWxh96MpalpcfqLYrFlXCoArRcFEU=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=UZe9KVKCXd29URCzoC0nC9+96eE/eEjRCn5my3u/w8yF/pztUNS7Jgmg5u8tyBcDEXs4LIuhryso0BonLObHqvZ0TuUWNjd4T36IQQtcye2fV5OiNsqTIy0DlgvpTjMmfg1M000OY1Rn2AzL43wpkO78Qj0/M9a5uJC7aZTsyZ8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JOTePNji6lLF+9eusknmTaZRwo1Kfxql7WYhdElcfGQTddc8kG3OoU1Cj/oIg57RE/ta3kCwrzUzUHZ424ZtUkovzJYCLNTMg994RxiNrkJDrKCVjHLn9a8f/fhJJ5lCkCdK+dcaoQDDnnDQEiLHqMOHl9Nc9NAUkqNKIaalm29636TEPyi/VVbxiySqJ1dGQkx4XQHw7p22LttS5pAtN5sc+B+9CwKVnay9SYyIDQPwMqL4UtimmHCqEqhe65rGRXOMqQIUFLYOSFlPwo/Eoq99bKoWHNKQGmpe7bDb1OXqy4PhudDqq246RhsbT67vjuK1Cm7aiWrzJHSwwVyHGg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TyZaVw9wxLCsApLWkPAEgsUAgtG9AwbscEiaG942Gr4=;
- b=eSShHYT59GaV+lfe8ZPox4xI3vZN1cp2Y57ozUqvhNqoJEErf4+5kwjnBB63+tnHR3rcmwVkWS5yEFdgouv/lUgQ4HQJiRFdeMHZeeRlNUTDHrZoocQBAx0N+I9AB1bunSYEyx1qnZaPYG49TlGRASd2ym7xlTh2vHGPbj1o15PFMTVQrh7OYvS8a4rE0x2HljGu9xsGUZeYDvawyFLQ5uEgaJLZv230rJBkpD2eYB9nQ40udQZ28BsaIBTsMr9fp2sCCksaZ6bW0kLTccSWyzu0YMxVdgyXhBsfdY3W/60NlNAg0xGeSpkQdRUZRJHxzzyEgnp5TyMDgzjXMBf3Uw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1329.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:16::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.14; Sat, 19 Sep
- 2026 09:50:38 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0428.014; Sat, 19 Sep 2026 09:50:38 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Hal Feng <hal.feng@starfivetech.com>, Michael Turquette
-	<mturquette@baylibre.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Stephen Boyd
-	<sboyd@kernel.org>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
-	<palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti
-	<alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing
-	<kernel@esmil.dk>, Kees Cook <kees@kernel.org>, "Gustavo A . R . Silva"
-	<gustavoars@kernel.org>, Richard Cochran <richardcochran@gmail.com>
-CC: "linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
-	"linux-hardening@vger.kernel.org" <linux-hardening@vger.kernel.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>
-Subject: Re: [PATCH v3 06/22] clk: starfive: Add JHB100 System-0 clock
- generator driver
-Thread-Topic: [PATCH v3 06/22] clk: starfive: Add JHB100 System-0 clock
- generator driver
-Thread-Index: AQHdJmAKp/CXNkJMgU61cKgC1AMm37bSWzKAgAOQspA=
-Date: Sat, 19 Sep 2026 09:50:38 +0000
-Message-ID:
- <ZQ4PR01MB12029A0067C12837C502A712F2862@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
-References: <20260807112923.191627-1-changhuang.liang@starfivetech.com>
- <20260807112923.191627-7-changhuang.liang@starfivetech.com>
- <NT0PR01MB110298F21FF8FC06DB4EAE34E6B82@NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn>
-In-Reply-To:
- <NT0PR01MB110298F21FF8FC06DB4EAE34E6B82@NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1329:EE_
-x-ms-office365-filtering-correlation-id: 70059de2-5735-4e1c-36db-08df163375b1
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|1800799024|7416014|376014|366016|56012099006|4143699003|10067099003|3023799007|921020|22082099003|18002099003|38070700021;
-x-microsoft-antispam-message-info:
- XcfhDZGTwUv/p5gjKcXGTHuy9iIUFo6G5DkoCOB9iz0eecC680+5faWyvd/gU2TtXg+tnK9SpMKBa54J7t9S2x/XWOQLsUHiGncAMIWQme7zjbbaX4smKyFuoC6N1W4LydJ3sNXMd1irKiSN0jzAbNR4vUInOx61jqNnLTa0gaV4lFXoOHj5nto1UBEyYd8SSwBvj7BLhS4LiuQJ0Ky734yetmVAyek6bU0x/GVvgJ5+9mHFL+L0G3/FzcITEspCnHfru3XLPBuro0gwIzlOcCMhCKpsasFexwKZRaFnLbAIEvI5QZKAOa9TrALZo/rttyoKmrvDt8ISYckDwpzTBGeeBJyg226eC2NYZXR1rTYOQWD6g2mLgUWO/QoJrTsf79Xusq59fQ8nA2W8hT8WnttBDv9tRfyTaz+ofHsSKFqnYtXVNIWveuYgAw5IY1UdZ14fsGHojkv1NiLtQ1niChkGoJsrpSfPWl55HgsZlQZAfP5+Vlk8W9FP0AngLJosMWRhj4QEezCtdujTbLPaXPN09wji3oClf6MIQ+KG45insTwNSQs7fd8j7bgc1WSZDrdhJ1oiSR5HOQLWVn0nJw==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(366016)(56012099006)(4143699003)(10067099003)(3023799007)(921020)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?JnPg95b7RDrj53trAGDpbPEuWAcuaT4Drhym5xbnaVT3rqj1AfgmI9OWQ8R2?=
- =?us-ascii?Q?ijEqboTNmsb20Mg9ixI9cPnO67kDiugGxBPZpf3Tzf4/ZE34CeUFG33NMdAV?=
- =?us-ascii?Q?+zodSQPGzFVDQN881OxASWZGJfkUbOEd0uFUDDzrlDu1JAc/QzKZnk06h06H?=
- =?us-ascii?Q?1smP2jhd8ile02f4UxlLt7RSRLLonGN+RivTM7rsag0Rtlxx04e13XNkspJr?=
- =?us-ascii?Q?KT3wZtmUEsYRI0jYoxPanJEFnXeCzCZL58nzbPSa+tPBu1Hm4UXN1X1i9oai?=
- =?us-ascii?Q?VHI3Ps1/0jUytCL/uVyN7ysCs6mNilg3uRovN/YV3Kn8JeKFRD4nBfXQfNgB?=
- =?us-ascii?Q?MfLUJBGetDBTVVURKvGBSAHTsHrLHSYVKuBfxYh5jTPu2tkY/g6T/1r9tlIQ?=
- =?us-ascii?Q?BCnDXXbvVSCJWEAfE0AzhMKJbgCIFJMXKI9BsKLJNGCqDbfSkiOBT5FfhMaO?=
- =?us-ascii?Q?pbugIXF4VX6r006PXdInukKMAEJ+dIu2XU+g6TmHjAY02/2z1lPKh13O43uF?=
- =?us-ascii?Q?T5/k0fVit6/6JvMl19BCLTAdDvoZ7OSwx7+5sSgMy7mPCiWRgGzsjAdgD+0T?=
- =?us-ascii?Q?/0JUI4vYuK8SnI8xUUCL1jQtF1uK7gFvYkvDeLa/qVB/4A1rX2Pm5P9WavmT?=
- =?us-ascii?Q?CfeoBJ+sKwj3d9C96kAhYUZKGIj67oeVJ4Ql8/09PFU/XdPXridWw0L7aIAC?=
- =?us-ascii?Q?sNopKmS1GLQo0y5WY7rX21+4y5sBuBTuelfoRFTDuRI+nzYR7q09yioBHKEn?=
- =?us-ascii?Q?ttUMYWYgoLC4bjc3k+n1pt4Dm3cfNolUF7+/LGM/BY5Hjxit9bDKw3Dztjge?=
- =?us-ascii?Q?KgQ+yImhWFNlMwyjy5B1CV6eX11PyClU2lmZEkrYKU6qRmyEBAi826TWQmtR?=
- =?us-ascii?Q?qwys9qVoYxusYmeuehI8VHA3+3BP2PmTbNj/rhu99FdqJUTPKtaXU4Y9uX01?=
- =?us-ascii?Q?pVnK0PI0EUWKK0wHXAIubB5ul1fBujAgjJ1ablG8kV5QdyujsnVprEFxsPxY?=
- =?us-ascii?Q?lixuXmF7B+5aj+/S78fttIDQ7Y46+vmWCJChG3G7gYQRFK/RdviA2wvPL1sB?=
- =?us-ascii?Q?t+lWFMJ9AVxe8Vq37PdvJOcagsYDpKwFFICy2h9+OQhQhzh68gPOMdBwvHpG?=
- =?us-ascii?Q?0SNC0jvcpw9dU6VtURZHr9A6F54VErcUlzXqwYmlnqoNDdPVpgS3FtBd5glT?=
- =?us-ascii?Q?Q1uu2aMDGNIDhPMQij3GOh2i17W8+8q0SB3eSUfHKXTb5Lsx1sfb9rHiJEF4?=
- =?us-ascii?Q?MZL10LhGr8MN1Vlrn4aWnSVMPrf+1h5rqsD54hWx8gjRykRU1Pyzsb6HgD4l?=
- =?us-ascii?Q?17hM5Xemwiiikddc1RfqvmaCjcMyjkobH11jV9j6mHeZzZYEhJ8h8vlaQA6R?=
- =?us-ascii?Q?GOFQOyf9FlvQoHT4+/+kIGZI2/qKbvCS7q/qOCljA9UFtShz4FMtK+n7JUfr?=
- =?us-ascii?Q?TnU3bVPT0zxC7e8wwq9oLdzmLG/JRR563kRcxifPjcC6bylNZgFDXwcQIzpL?=
- =?us-ascii?Q?7HIiEQ4q7d/5LoLcQJAxfq/A+5KHAd74Y8perQR1IITkQVxmE1b9Po8O3hhw?=
- =?us-ascii?Q?mgBNKYLr9yakVIG07IgIrug6lM57Pi4xm7b6/e0OvNYad5xwWfBNCJ4PTHr2?=
- =?us-ascii?Q?0sk4YNytHdBICYPFWRMF73dGW2F5IT1pQCtWVnw4R5ip41vBrMqupcdjw4YE?=
- =?us-ascii?Q?6qCSll278LyXWcCQ3ux060r7st2A2J5V8W1pUMoeqte1JVKdXgPBkhXtxuP4?=
- =?us-ascii?Q?uCJYbPKTtszLKncxuwvy6d/18NHn2Rg=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F94D3E6394
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 09:54:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789811686; cv=none; b=iYIvvErw8nCchlG7qFZiGOoqsfl2ctIQ130eW0KDxgu4iq3kI6iUjrmsM7VfvPQNyV6LZMONdAHiXfHtifMnQsoK758NvWIi11b0luZSEGCZzXZSFxq/nPsizoWvtp+QXkEFKiE3JzzjPHFJKnoteE6TxuXwxnXaYjmptBxB3oI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789811686; c=relaxed/simple;
+	bh=z/qQL0CPK3fkdmYWyHcS9nuOhJqJmsrxtpGJPsiPrxg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tpPXk4x8hBvJ+wgWi40CmqaciFI/f7e994oFx0IObG88wv56QbX59SN00nOuGV3t15oz+G1Ir++B0WtHfh0SAXlBdsflB7LI4SA8p5p/6cG+wtZB4CWXo+jVvYmrpP6k7ZvhtRlRSm4kNDeHXSzB8nbaMOdzIkOSSNLdva14vA8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kHHgbV8X; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=U5IUZO7f; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kHHgbV8X";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="U5IUZO7f"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68J6e29e2256184
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 09:54:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	53ePU/EqYBKQnQJgkF/MFGCIZg32zoI4VYtyTC3M5fU=; b=kHHgbV8XW4BLQhwR
+	zhwf8R2pzBNi0nMPRSWluKnWhOR5SaFGHIaE3NhNxRofWIsnIcqj/efXEKyUwlZu
+	9fGHhf/1rih7ZrN4SjHVVntrX+tnDM/FLVorSEDFA05otRPX0kRz5G4GB/n++5W5
+	G2liyMqDBG5BPG1aiOQyrOYi/cjlYmDnXwpfP/RjGVHtBi0HncuwWTLYTgsS9SGJ
+	XhgxwqRp33OfjqFQ/CTb8Ua+vokjppBzyZtDJL0IC346edBPHiPhTEXGCwIoaSmB
+	wkPzOlpqnTGhNMWINX4pH8yuYT6W1PJCV8p+3aOmpDw3gs7yhqbfE8TAYD1EYyOM
+	Oei6Yg==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gskp9rft8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 09:54:36 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3823dcc1647so2262823a91.3
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 02:54:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789811676; x=1790416476; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=53ePU/EqYBKQnQJgkF/MFGCIZg32zoI4VYtyTC3M5fU=;
+        b=U5IUZO7fTE1AxCC9rKBOG3furOaEcWddXHITeFe2ayPr9JANW4qEuoOoGy6vQP0Ncs
+         4bQIj5QPDgYymUpsUF8xbRuc7GYh2FzLqxady7iMQcHXQg0836fptsZPyb7Y4PDf0FTW
+         rp/7m3bvf/6D+oqMk0GCvGSTIlg0pPjlUBUeQ/sTE8cDxB6n3wme1PTa9uA1GhVItJCP
+         niuoklfLi59IJPa9rbZEK0SLK5F/nxupw4NKW5+lyeB6WBMcxUaCxCGg/9k72P27z5yN
+         jlG/dXaY558UJFKyXtG01iOBUUQLNQymUtLa0I1gK9lBTM5ULf/ZCA271UqM83pvOBp/
+         sHWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789811676; x=1790416476;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=53ePU/EqYBKQnQJgkF/MFGCIZg32zoI4VYtyTC3M5fU=;
+        b=kq9jt+ERN+xp9uNJIZqw92J5sE9RIjOD57Ku4XbrVS5G/EirArRADN0RXwBXCjFv10
+         OMqRQC1RHbyIc1+pRwumLhtEG13t3dm7BjJU3PKG1nZ4ciDnMmrjapnVgonaNU2j7VFz
+         iWHScLGGQK1Q3RZ8DwvgSU4dOrW6ZQs7CfsR0sopuJBCR9ye1nVU+pwdAn5XkKzJp5lJ
+         B/tTxPH5Eat191TxrO/1ufZtStaZ2Wx5DmxvU6IcwIznK7mrn2ryY8kANywOu+4vbJc1
+         HvFsZLYUBqxogEqyY1L37gj4tuO0c7Pc9cmcQi8W4F/hADx+wil2gEk3y17wb3DOuAsd
+         GYGA==
+X-Forwarded-Encrypted: i=1; AKwUvBx/yY7p/0T1uAiakREABEmBNizpTubUsaD9PG0FvOBbioavdbiY9pRpUHr3muHJEBhG9bOf5lxWzXAnaUY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lGE9KCfJ7MMpjYYO8EAVcKYbMHvMBVJKir/WVC+9Y8BM2qkDWo
+	qVVBHNYFsQptiQVt4rdAclk/IB8YdKcwdR0kq/JoCP5NzWR48M+4xiMx7L7I6H8AGJh1/1M9hFN
+	wU/Cv5jqdp81NH/+MDerMoE2drpMSSG+MPR85zA3KDfnY6M9DJXtuOFeUbaAu/hSdxLA=
+X-Gm-Gg: AYBFou0Rv9moueK7W4asUeGzM3As3Zvx2DTVnDiLi30odry1H1E/EAeAbJ1TgD5OGfk
+	Di5mmzTVuxaBxvzKRxt+xaz/csJSnyEPvKZV5w8vIAkt7sTY1iddZdNPhDqIZUtdqRWlJw+5S74
+	SPbvADRkGQ0MFRoI9h8nrq6c05R8eAT95Q2qJ0cGno6xM8vTbs1iHV+EAptjNAlqbGHm/ItuFVr
+	cTT7LY4k0TXCC/N0pcJAB02Vx+OEHY2V24V27gQUHMI3chHEOSQbfjed5KwJIDSEW0pCnVuYfin
+	UYALWV/BdW9eCAGfgAfdi0LHZbsig9sDpj6yANB96KS1OVlWFCFIJ3YZJfvuF8tZo8ApH64dCpM
+	5xGsYvFzTQhNctJcILbn3bl4GU+1Pis0teOhm
+X-Received: by 2002:a17:90a:bd6:b0:39e:6a81:5a97 with SMTP id 98e67ed59e1d1-39e6a815e70mr2667655a91.43.1789811675950;
+        Sat, 19 Sep 2026 02:54:35 -0700 (PDT)
+X-Received: by 2002:a17:90a:bd6:b0:39e:6a81:5a97 with SMTP id 98e67ed59e1d1-39e6a815e70mr2667631a91.43.1789811675424;
+        Sat, 19 Sep 2026 02:54:35 -0700 (PDT)
+Received: from [192.168.0.116] ([124.123.146.251])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144d55d45a6sm4526951c88.9.2026.09.19.02.54.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 19 Sep 2026 02:54:34 -0700 (PDT)
+Message-ID: <697a7c7b-5bf7-4279-898d-a8310f5a0a64@oss.qualcomm.com>
+Date: Sat, 19 Sep 2026 15:24:26 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-Network-Message-Id: 70059de2-5735-4e1c-36db-08df163375b1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Sep 2026 09:50:38.3467
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: O7ZqFEQuSyegMacONDShf+s4VXY+Rc8S6vXuBO7ZLKjgAIGsX/s/e5qDsf0bJhA4yYZFNoPqu+zsDVLtf1QnKET9WgfId49Hd+ZcnoK58Jp+PA6FYUD+kFbe9Hf37LS2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1329
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] net: wwan: qcom_bam_dmux: Alloc RX buffers as a
+ single coherent block
+To: Stephan Gerhold <stephan.gerhold@linaro.org>
+Cc: Stephan Gerhold <stephan@gerhold.net>,
+        Andrew Lunn
+ <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Sergey Ryazanov <ryazanov.s.a@gmail.com>,
+        Johannes Berg <johannes@sipsolutions.net>,
+        linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        chris.lew@oss.qualcomm.com,
+        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+References: <20260714-qcom-bam-dmux-vmid-ext-v1-0-3f29da7cca76@oss.qualcomm.com>
+ <20260714-qcom-bam-dmux-vmid-ext-v1-2-3f29da7cca76@oss.qualcomm.com>
+ <alXm0rp3NK62G3-3@linaro.org>
+ <c8417ff3-db92-446a-acf8-8c73c83b85de@oss.qualcomm.com>
+ <amMxkrW3mu48HIOr@linaro.org>
+ <63bae39b-1256-4e19-a9de-840d8752ec69@oss.qualcomm.com>
+ <an27PVxkCpD09xSR@linaro.org>
+Content-Language: en-US
+From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+In-Reply-To: <an27PVxkCpD09xSR@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: FERDj-T9VqWEYRba_dm_NooFiHAppbNt
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE5MDE0MSBTYWx0ZWRfXxKYsiBrgHeEe
+ oHdrooijLlefCeO4wLygaf/kg5hHcyqYSaIgtfchdOkxBtIrTT0oxc8KOnd65Ee8Z+HMp3Wf5dd
+ neWDArNdx3senxhRi4dUhFm2aja8jLfWXIC/5DoTQNdML49r6nSYE15EuoEuMhBtuip7B95fHj9
+ jshiFsRaD1UNeGDJH9bz2ThxlsJJgWvwzz71wIxOuJJ3S1F++7aW7bQ4Yzdwn4OT8EqKIGKhWjg
+ Ygi3qFUweqtb1pOreHY2E4UdxYUuWhR+frooH7Cyi1zKgc52gPkw0/bc/dRHwBsV0CE31zBEOMu
+ zXynNpG2lylh0vL2x8aDTmPJ26GuySOKXwGVXLmzK92gNoS+MVKvgsLa7gKWYMi8DklCcixz2qN
+ ZMloK8puXfOM8nZ8hxBTe9mka4F7FstghWy51kxPhrecRJoML7RKRgi5r3sZR9AwWz/XsmoPwJY
+ crGnTGFYQBhuFcoHBHg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE5MDE0MSBTYWx0ZWRfX3Kb5KBwH385j
+ v8l1taTo+l8QzNswXssZ5upkTIEPsdpvm9mrAwxo3bfh+Y/OGo7cVLPtlyh07gyEL4qnHeafYrz
+ UQiBjTrQ+ItBu6KMcgw5b/z0dkSBeV4=
+X-Authority-Analysis: v=2.4 cv=BKAmP1QG c=1 sm=1 tr=0 ts=6aae5bdc cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=K/78aEDNEn2Q/Yuv7mVN5Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=07d9gI8wAAAA:8 a=EUspDBNiAAAA:8 a=vzY3hVqx5U8Bfi6rXLEA:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22 a=e2CUPOnPG4QKp8I52DXD:22
+X-Proofpoint-GUID: FERDj-T9VqWEYRba_dm_NooFiHAppbNt
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-19_02,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 suspectscore=0 impostorscore=0 spamscore=0
+ malwarescore=0 bulkscore=0 adultscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609190141
 
-Hi, Hal
 
-> > On 26.08.07 19:29, Changhuang Liang wrote:
-> > Add support for JHB100 System-0 clock generator (SYS0CRG).
-> >
-> > The StarFive JHB100 SoC has multiple CRGs with similar probe flows, so
-> > a generic starfive_crg_probe() function is introduced to facilitate
-> > the registration process of other CRGs in the future.
-> >
-> > Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-> > ---
-> >  MAINTAINERS                                   |   7 +
-> >  drivers/clk/starfive/Kconfig                  |  11 ++
-> >  drivers/clk/starfive/Makefile                 |   2 +
-> >  drivers/clk/starfive/clk-starfive-common.c    | 142
-> ++++++++++++++++-
-> >  drivers/clk/starfive/clk-starfive-common.h    |  12 ++
-> >  .../clk/starfive/clk-starfive-jhb100-sys0.c   | 150 ++++++++++++++++++
-> >  6 files changed, 321 insertions(+), 3 deletions(-)  create mode
-> > 100644 drivers/clk/starfive/clk-starfive-jhb100-sys0.c
-> >
-> > diff --git a/MAINTAINERS b/MAINTAINERS index
-> > ce97de46e610..c48b56d0ab94 100644
-> > --- a/MAINTAINERS
-> > +++ b/MAINTAINERS
-> > @@ -26069,6 +26069,13 @@ F:
-> > 	Documentation/devicetree/bindings/phy/starfive,jh7110-usb-phy.yaml
-> >  F:	drivers/phy/starfive/phy-jh7110-pcie.c
-> >  F:	drivers/phy/starfive/phy-jh7110-usb.c
-> >
-> > +STARFIVE JHB100 CLOCK DRIVERS
-> > +M:	Changhuang Liang <changhuang.liang@starfivetech.com>
-> > +S:	Maintained
-> > +F:	Documentation/devicetree/bindings/clock/starfive,jhb1*.yaml
-> > +F:	drivers/clk/starfive/clk-starfive-jhb1*
-> > +F:	include/dt-bindings/clock/starfive,jhb1*.h
-> > +
-> >  STARFIVE JHB100 DEVICETREES
-> >  M:	Changhuang Liang <changhuang.liang@starfivetech.com>
-> >  L:	linux-riscv@lists.infradead.org
-> > diff --git a/drivers/clk/starfive/Kconfig
-> > b/drivers/clk/starfive/Kconfig index ff8eace36e64..7926e02ccd7d 100644
-> > --- a/drivers/clk/starfive/Kconfig
-> > +++ b/drivers/clk/starfive/Kconfig
-> > @@ -72,3 +72,14 @@ config CLK_STARFIVE_JH7110_VOUT
-> >  	help
-> >  	  Say yes here to support the Video-Output clock controller
-> >  	  on the StarFive JH7110 SoC.
-> > +
-> > +config CLK_STARFIVE_JHB100_SYS0
-> > +	bool "StarFive JHB100 system-0 clock support"
-> > +	depends on ARCH_STARFIVE || COMPILE_TEST
-> > +	select AUXILIARY_BUS
-> > +	select CLK_STARFIVE_COMMON
-> > +	select RESET_STARFIVE_JHB100 if RESET_CONTROLLER
-> > +	default ARCH_STARFIVE
-> > +	help
-> > +	  Say yes here to support the system-0 clock controller on the
-> > +	  StarFive JHB100 SoC.
-> > diff --git a/drivers/clk/starfive/Makefile
-> > b/drivers/clk/starfive/Makefile index 012f7ee83f8e..2c5e66d1d44e
-> > 100644
-> > --- a/drivers/clk/starfive/Makefile
-> > +++ b/drivers/clk/starfive/Makefile
-> > @@ -10,3 +10,5 @@ obj-$(CONFIG_CLK_STARFIVE_JH7110_AON)	+=3D
-> > clk-starfive-jh7110-aon.o
-> >  obj-$(CONFIG_CLK_STARFIVE_JH7110_STG)	+=3D clk-starfive-jh7110-stg.o
-> >  obj-$(CONFIG_CLK_STARFIVE_JH7110_ISP)	+=3D clk-starfive-jh7110-isp.o
-> >  obj-$(CONFIG_CLK_STARFIVE_JH7110_VOUT)	+=3D
-> clk-starfive-jh7110-vout.o
-> > +
-> > +obj-$(CONFIG_CLK_STARFIVE_JHB100_SYS0)		+=3D
-> > clk-starfive-jhb100-sys0.o
-> > diff --git a/drivers/clk/starfive/clk-starfive-common.c
-> > b/drivers/clk/starfive/clk-starfive-common.c
-> > index 9c0eb7a50d1e..1b5e56af4138 100644
-> > --- a/drivers/clk/starfive/clk-starfive-common.c
-> > +++ b/drivers/clk/starfive/clk-starfive-common.c
-> > @@ -9,6 +9,8 @@
-> >  #include <linux/debugfs.h>
-> >  #include <linux/device.h>
-> >  #include <linux/io.h>
-> > +#include <linux/pm_runtime.h>
-> > +#include <soc/starfive/reset-starfive-common.h>
-> >
-> >  #include "clk-starfive-common.h"
-> >
-> > @@ -331,9 +333,143 @@ struct clk_hw *starfive_clk_get(struct
-> > of_phandle_args *clkspec, void *data)
-> >  	struct starfive_clk_priv *priv =3D data;
-> >  	unsigned int idx =3D clkspec->args[0];
-> >
-> > -	if (idx < priv->num_reg)
-> > -		return &priv->reg[idx].hw;
-> > +	if (idx >=3D priv->num_reg)
-> > +		return ERR_PTR(-EINVAL);
-> >
-> > -	return ERR_PTR(-EINVAL);
-> > +	/* Index space is sparse: reject holes that were never registered. */
-> > +	if (priv->info && !priv->info->clk_data[idx].name)
-> > +		return ERR_PTR(-ENOENT);
-> > +
-> > +	return &priv->reg[idx].hw;
-> >  }
-> >  EXPORT_SYMBOL_GPL(starfive_clk_get);
-> > +
-> > +static void starfive_reset_unregister_adev(void *_adev) {
-> > +	struct auxiliary_device *adev =3D _adev;
-> > +
-> > +	auxiliary_device_delete(adev);
-> > +	auxiliary_device_uninit(adev);
-> > +}
-> > +
-> > +static void starfive_reset_adev_release(struct device *dev) {
-> > +	struct auxiliary_device *adev =3D to_auxiliary_dev(dev);
-> > +	struct starfive_reset_adev *rdev =3D to_starfive_reset_adev(adev);
-> > +
-> > +	kfree(rdev);
-> > +}
-> > +
-> > +static int starfive_reset_controller_register(struct starfive_clk_priv=
- *priv,
-> > +					      const char *adev_name,
-> > +					      u32 adev_id)
-> > +{
-> > +	struct starfive_reset_adev *rdev;
-> > +	struct auxiliary_device *adev;
-> > +	int ret;
-> > +
-> > +	rdev =3D kzalloc_obj(*rdev);
-> > +	if (!rdev)
-> > +		return -ENOMEM;
-> > +
-> > +	rdev->base =3D priv->base;
-> > +
-> > +	adev =3D &rdev->adev;
-> > +	adev->name =3D adev_name;
-> > +	adev->dev.parent =3D priv->dev;
-> > +	adev->dev.release =3D starfive_reset_adev_release;
-> > +	adev->id =3D adev_id;
-> > +
-> > +	ret =3D auxiliary_device_init(adev);
-> > +	if (ret) {
-> > +		kfree(rdev);
-> > +		return ret;
-> > +	}
-> > +
-> > +	ret =3D auxiliary_device_add(adev);
-> > +	if (ret) {
-> > +		auxiliary_device_uninit(adev);
-> > +		return ret;
-> > +	}
-> > +
-> > +	return devm_add_action_or_reset(priv->dev,
-> > +					starfive_reset_unregister_adev, adev); }
->=20
-> You add starfive_reset_controller_register() but a most similiar
-> jh7110_reset_controller_register()
-> remains in drivers/clk/starfive/clk-starfive-jh7110-sys.c. Can we merge
-> them?
->=20
+On 13-08-2026 06:10 pm, Stephan Gerhold wrote:
+> On Thu, Aug 13, 2026 at 02:35:01PM +0530, Vishnu Santhosh wrote:
+>> On 24-07-2026 03:04 pm, Stephan Gerhold wrote:
+>>> On Fri, Jul 24, 2026 at 10:16:31AM +0530, Vishnu Santhosh wrote:
+>>>> On 14-07-2026 01:05 pm, Stephan Gerhold wrote:
+>>>>> On Tue, Jul 14, 2026 at 11:02:32AM +0530, Vishnu Santhosh wrote:
+>>>>>> On Qualcomm SoCs where the modem (e.g. the mDSP on Shikra, VMID 43 /
+>>>>>> NAV) is the AXI master for BAM-DMUX RX transfers and the XPU enforces
+>>>>>> per-region access control, each individually DMA-mapped RX buffer
+>>>>>> requires its own XPU resource group (RG). With ~16 RGs available, the
+>>>>>> 32 per-buffer dma_map_single() calls exhaust the table and the first
+>>>>>> inbound transfer faults with an XPU violation.
+>>>>>>
+>>>>>> BAM-DMUX is a singleton (exactly one instance per SoC), so the
+>>>>>> destination VMID does not need to be a DT property; it is looked up
+>>>>>> from the compatible string's match data instead. Add struct
+>>>>>> bam_dmux_data with a single vmid field, and a shikra_data instance
+>>>>>> hardcoding QCOM_SCM_VMID_NAV for qcom,shikra-bam-dmux.
+>>>>>>
+>>>>>> When match data is present, allocate all BAM_DMUX_NUM_SKB RX buffers as
+>>>>>> a single contiguous dma_alloc_coherent() block and SCM-assign that
+>>>>>> block to HLOS plus the VMID once at probe. This reduces RG consumption
+>>>>>> from 32 to 1. The block is never reclaimed across a modem power cycle
+>>>>>> (bam_dmux_power_off() does not touch it), so the probe-time assignment
+>>>>>> covers every subsequent restart without re-assigning or reclaiming. It
+>>>>>> is reclaimed to HLOS only once, at remove or on a probe error, and if
+>>>>>> that reclaim fails it is leaked rather than returned to the page
+>>>>>> allocator.
+>>>>>>
+>>>>>> Each rx_skbs[] slot is pre-assigned its virtual and DMA address from
+>>>>>> the block, so no per-buffer mapping is needed at power-on. Because the
+>>>>>> coherent block is not page-backed, received payload is copied into a
+>>>>>> regular netdev skb before handoff to the network stack; this is an
+>>>>>> unavoidable extra copy on the XPU-enforced RX path.
+>>>>>>
+>>>>>> Platforms without match data are unaffected: rx_virt stays NULL, no
+>>>>>> coherent memory is allocated, and the per-buffer dma_map_single() path
+>>>>>> is unchanged.
+>>>>>>
+>>>>>> Co-developed-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+>>>>>> Signed-off-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+>>>>>> Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+>>>>> So how do you handle TX buffers? Right now, they are just passed on from
+>>>>> the net subsystem. There can be up to 32 TX buffers in progress as well.
+>>>>>
+>>>>> Overall, I have mixed feelings about this patch. It looks reasonably
+>>>>> simple, but fundamentally I don't understand why we need to go back to
+>>>>> the old days of implementing protection using a highly limited MPU (in
+>>>>> your case: the xPU).
+>>>>>
+>>>>> Why does the setup of BAM-DMUX differ e.g. from the setup for the crypto
+>>>>> engine? Crypto is also using bam-dma, but it avoids this inflexibility
+>>>>> by making use of the &apps_smmu. Is BAM-DMUX not covered by the SMMU? Or
+>>>>> did you just decide to bypass the SMMU in this case? (If so: Why?)
+>>>> I checked with secure systems team on this. Crypto BAM is
+>>>> behind apps_smmu, so protection is enforced through the SMMU's Stage-2
+>>>> page tables.
+>>>>
+>>>> A2 BAM (used by BAM-DMUX) is present in secure domain and does not
+>>>> support Stage-2 translation on this SoC, and there is no IOMMU domain
+>>>> that can be attached to it. The only protection mechanism available is
+>>>> the xPU.
+>>>>
+>>> Thanks for investigating this!
+>>>
+>>> So is this a hardware limitation or something you could change with a
+>>> firmware update? Could you move the A2 BAM out of the secure domain and
+>>> protect it via the IOMMU instead of the xPU mechanism? The other modern
+>>> platforms with IPA do not have this limitation, they can use the IOMMU
+>>> for this.
+>>>
+>>> We can try to support the xPU protection mechanism in the BAM-DMUX
+>>> driver, but it's pretty bad from a performance and memory usage point of
+>>> view if you need to copy buffers around multiple times. So if you have
+>>> some way to change this in the firmware (and there is still time to do
+>>> so before production boards ship), I would strongly recommend to
+>>> investigate that.
+>>>
+>> Based on what we confirmed with the Secure Systems team, this is a limitation
+>> of the current Shikra platform rather than something that can be addressed
+>> through a firmware-only update.
+>>
+>> The A2 BAM used by BAM-DMUX is not connected to an SMMU/IOMMU domain on Shikra,
+>> which means Stage-2 translation is not available for this path. As a result,
+>> it is not possible to move this path behind an IOMMU.
+>>
+>> Modern IPA-based platforms differ because their data paths are physically routed
+>> through SMMU interfaces and therefore do not rely on VMID/xPU ownership assignment
+>> for this type of access control. On Shikra, the A2 BAM path is protected using the
+>> xPU3 VM-based access-control model, where DDR memory access is restricted and
+>> granted through the request-based Hypervisor VM assignment framework. In contrast,
+>> older targets relied on the earlier xPU2 resource-sharing model, in which modem
+>> access did not require this type of explicit VM ownership configuration. This
+>> architectural difference explains why the issue does not occur on those older platforms.
+>>
+>> So, for this path on Shikra, SCM-driven VMID assignment remains the only practical solution.
+>>
+> Ok, thanks for looking into this further.
+>
+> Can you please try the following as alternative for the implementation?
+>
+> 1. Make sure that you have CONFIG_DMA_RESTRICTED_POOL=y.
+> 2. Define a restricted DMA pool for BAM-DMUX, e.g.:
+>
+> &{/reserved-memory} {
+>          bam_dmux_pool: restricted-dma-pool {
+> 	    compatible = "restricted-dma-pool";
+>              size = <0x40000>;	/* 32*2K*2 = 128K minimum, but 256K might be safer */
+> 	    alignment = <...>;	/* Check xPU alignment requirements */
+>          };
+> };
+>
+> 3. Assign to BAM-DMUX together with the qcom,vmid:
+>
+> &bam_dmux {
+> 	memory-region = <&bam_dmux_pool>;
+> 	qcom,vmid = <QCOM_SCM_VMID_NAV>;
+> };
+>
+> 4. Extend qcom_bam_dmux.c to look up the DMA pool address and make it
+>     accessible using SCM: Call of_reserved_mem_lookup() to get the
+>     region, then invoke qcom_scm_assign_mem() with that.
+>
+> 5. Keep RX/TX DMA code paths in qcom_bam_dmux.c unchanged.
+>
+> 6. When testing, make sure the kernel log contains
+>     "Reserved memory: created restricted DMA pool at %pa, size %ld MiB"
+>
+> 7. Add memory-region and qcom,vmid as optional in dt-bindings.
+>     Add dependency: if qcom,vmid is specified, memory-region must be
+>     specified.
+>
+> In a quick test (without the VMID stuff) this worked quite well for me,
+> SWIOTLB should handle the copying behind the scenes without further
+> changes to the qcom_bam_dmux driver.
+>
+> I would prefer that over complicating the driver with two separate ways
+> of buffer management. AFAICT, the restricted DMA feature is meant for
+> this kind of setup where there is no IOMMU but the firmware can still
+> restrict memory accesses to a limited amount of regions, see
+> https://lwn.net/Articles/841916/ for a short introduction.
+>
+> Thanks,
+> Stephan
 
-The current series is quite large. To reduce the review burden of the curre=
-nt series,
-I plan to release a separate series later for JH7110 to reduce these simila=
-r interfaces.
+Thanks for the detailed steps. I tested this approach on the Qualcomm Shikra
+platform, and it works as expected.
 
-Same with other comments.
+With CONFIG_DMA_RESTRICTED_POOL enabled, following the approach, the kernel reports:
 
-> > +
-> > +int starfive_crg_probe(struct platform_device *pdev) {
->=20
-> This function name is too generic and we know not all starfive SoCs use i=
-t to
-> probe.
->=20
-> > +	const struct starfive_crg_domain_info *info;
-> > +	struct starfive_clk_priv *priv;
-> > +	unsigned int idx;
-> > +	int ret;
-> > +
-> > +	info =3D of_device_get_match_data(&pdev->dev);
-> > +	if (!info)
-> > +		return -ENODEV;
-> > +
-> > +	priv =3D devm_kzalloc(&pdev->dev, struct_size(priv, reg, info->num_cl=
-k),
-> > +			    GFP_KERNEL);
-> > +	if (!priv)
-> > +		return -ENOMEM;
-> > +
-> > +	spin_lock_init(&priv->rmw_lock);
-> > +	priv->info =3D info;
-> > +	priv->num_reg =3D info->num_clk;
-> > +	priv->dev =3D &pdev->dev;
-> > +	priv->base =3D devm_platform_ioremap_resource(pdev, 0);
-> > +	if (IS_ERR(priv->base))
-> > +		return PTR_ERR(priv->base);
-> > +
-> > +	if (info->power_domain) {
-> > +		ret =3D devm_pm_runtime_enable(priv->dev);
-> > +		if (ret)
-> > +			return dev_err_probe(priv->dev, ret,
-> > +					     "failed to enable runtime PM\n");
-> > +	}
-> > +
-> > +	for (idx =3D 0; idx < info->num_clk; idx++) {
-> > +		u32 max =3D info->clk_data[idx].max;
-> > +		struct clk_parent_data parents[4] =3D {};
-> > +		struct clk_init_data init =3D {
-> > +			.name =3D info->clk_data[idx].name,
-> > +			.ops =3D starfive_clk_ops(max),
-> > +			.parent_data =3D parents,
-> > +			.num_parents =3D
-> > +				((max & STARFIVE_CLK_MUX_MASK) >>
-> > STARFIVE_CLK_MUX_SHIFT) + 1,
-> > +			.flags =3D info->clk_data[idx].flags,
-> > +		};
-> > +		struct starfive_clk *clk =3D &priv->reg[idx];
-> > +		unsigned int i;
-> > +
-> > +		if (!init.name)
-> > +			continue;
-> > +
-> > +		for (i =3D 0; i < init.num_parents; i++) {
-> > +			unsigned int pidx =3D info->clk_data[idx].parents[i];
-> > +
-> > +			if (pidx < info->num_clk) {
-> > +				parents[i].hw =3D &priv->reg[pidx].hw;
-> > +			} else {
-> > +				if (pidx - info->num_clk >=3D info->num_ext_clk)
-> > +					return -EINVAL;
-> > +
-> > +				parents[i].fw_name =3D info->ext_clk[pidx - info->num_clk];
-> > +			}
-> > +		}
-> > +
-> > +		clk->hw.init =3D &init;
-> > +		clk->idx =3D idx;
-> > +		clk->max_div =3D max & STARFIVE_CLK_DIV_MASK;
-> > +
-> > +		ret =3D devm_clk_hw_register(&pdev->dev, &clk->hw);
-> > +		if (ret)
-> > +			return ret;
-> > +	}
-> > +
-> > +	ret =3D devm_of_clk_add_hw_provider(&pdev->dev, starfive_clk_get,
-> priv);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	return starfive_reset_controller_register(priv, info->rst_name, 0);
-> > +} EXPORT_SYMBOL_GPL(starfive_crg_probe);
-> > diff --git a/drivers/clk/starfive/clk-starfive-common.h
-> > b/drivers/clk/starfive/clk-starfive-common.h
-> > index a03824e9e75f..4cd4357f8366 100644
-> > --- a/drivers/clk/starfive/clk-starfive-common.h
-> > +++ b/drivers/clk/starfive/clk-starfive-common.h
-> > @@ -5,6 +5,7 @@
-> >  #include <linux/bits.h>
-> >  #include <linux/clk-provider.h>
-> >  #include <linux/device.h>
-> > +#include <linux/platform_device.h>
-> >  #include <linux/spinlock.h>
-> >
-> >  /* register fields */
-> > @@ -109,6 +110,15 @@ struct starfive_clk {
-> >  	unsigned int max_div;
-> >  };
-> >
-> > +struct starfive_crg_domain_info {
-> > +	const struct starfive_clk_data *clk_data;
-> > +	unsigned int num_clk;
-> > +	const char * const *ext_clk;
-> > +	unsigned int num_ext_clk;
-> > +	const char *rst_name;
-> > +	bool power_domain;
-> > +};
->=20
-> Is the starfive_crg_domain_info struct introduced only for JHB100? Could =
-we
-> also use it for JH7110?
+software IO TLB: Reserved memory: created restricted DMA pool at 0x00000000fffc0000, size 0 MiB
+OF: reserved mem: initialized node restricted-dma-pool, compatible id restricted-dma-pool
+OF: reserved mem: 0x00000000fffc0000..0x00000000ffffffff (256 KiB) map non-reusable restricted-dma-pool
 
-Some domains can reuse it.
 
->=20
-> Best regards,
-> Hal
->=20
-> > +
-> >  struct starfive_clk_priv {
-> >  	/* protect clk enable and set rate/parent from happening at the same
-> > time */
-> >  	spinlock_t rmw_lock;
-> > @@ -116,6 +126,7 @@ struct starfive_clk_priv {
-> >  	void __iomem *base;
-> >  	struct clk *original_clk;
-> >  	struct notifier_block pll_clk_nb;
-> > +	const struct starfive_crg_domain_info *info;
-> >  	struct clk_hw *pll[3];
-> >  	unsigned int num_reg;
-> >  	struct starfive_clk reg[] __counted_by(num_reg); @@ -123,5 +134,6
-> @@
-> > struct starfive_clk_priv {
-> >
-> >  const struct clk_ops *starfive_clk_ops(u32 max);  struct clk_hw
-> > *starfive_clk_get(struct of_phandle_args *clkspec, void *data);
-> > +int starfive_crg_probe(struct platform_device *pdev);
-> >
-> >  #endif
-> > diff --git a/drivers/clk/starfive/clk-starfive-jhb100-sys0.c
-> > b/drivers/clk/starfive/clk-starfive-jhb100-sys0.c
-> > new file mode 100644
-> > index 000000000000..eb3cd33e2309
-> > --- /dev/null
-> > +++ b/drivers/clk/starfive/clk-starfive-jhb100-sys0.c
-> > @@ -0,0 +1,150 @@
-> > +// SPDX-License-Identifier: GPL-2.0
-> > +/*
-> > + * StarFive JHB100 System-0 Clock Driver
-> > + *
-> > + * Copyright (C) 2024 StarFive Technology Co., Ltd.
-> > + *
-> > + * Author: Changhuang Liang <changhuang.liang@starfivetech.com>
-> > + *
-> > + */
-> > +
-> > +#include <dt-bindings/clock/starfive,jhb100-crg.h>
-> > +#include <linux/init.h>
-> > +#include <linux/platform_device.h>
-> > +
-> > +#include "clk-starfive-common.h"
-> > +
-> > +#define JHB100_SYS0CLK_NUM_CLKS
-> > 	(JHB100_SYS0CLK_GPU1_NCNOC_INIT + 1)
-> > +
-> > +/* external clocks */
-> > +#define JHB100_SYS0CLK_OSC
-> 	(JHB100_SYS0CLK_NUM_CLKS +
-> > 0)
-> > +#define JHB100_SYS0CLK_PLL0
-> 	(JHB100_SYS0CLK_NUM_CLKS +
-> > 1)
-> > +#define JHB100_SYS0CLK_PLL1
-> 	(JHB100_SYS0CLK_NUM_CLKS +
-> > 2)
-> > +#define JHB100_SYS0CLK_PLL2
-> 	(JHB100_SYS0CLK_NUM_CLKS +
-> > 3)
-> > +
-> > +static const char * const jhb100_sys0_ext_clk[] =3D {
-> > +	"osc",
-> > +	"pll0",
-> > +	"pll1",
-> > +	"pll2",
-> > +};
-> > +
-> > +static const struct starfive_clk_data jhb100_sys0crg_clk_data[] =3D {
-> > +	/* bmcpcierp */
-> > +	STARFIVE__DIV(JHB100_SYS0CLK_BMCPCIERP_NCNOC_MAIN,
-> > "bmcpcierp_ncnoc_main", 6,
-> > +		      JHB100_SYS0CLK_PLL0),
-> > +	STARFIVE__DIV(JHB100_SYS0CLK_BMCPCIERP_NCNOC_CFG,
-> > "bmcpcierp_ncnoc_cfg", 12,
-> > +		      JHB100_SYS0CLK_PLL1),
-> > +	STARFIVE__DIV(JHB100_SYS0CLK_PCIE_REF_CML, "pcie_ref_cml", 24,
-> ...
-> > +	/* gpu1 */
-> > +	STARFIVE__DIV(JHB100_SYS0CLK_GPU1_NCNOC_INIT,
-> > "gpu1_ncnoc_init", 10,
-> > +		      JHB100_SYS0CLK_PLL0),
-> > +};
-> > +
-> > +static const struct starfive_crg_domain_info jhb100_sys0crg_info =3D {
-> > +	.clk_data	=3D jhb100_sys0crg_clk_data,
-> > +	.num_clk	=3D ARRAY_SIZE(jhb100_sys0crg_clk_data),
-> > +	.ext_clk	=3D jhb100_sys0_ext_clk,
-> > +	.num_ext_clk	=3D ARRAY_SIZE(jhb100_sys0_ext_clk),
-> > +	.rst_name	=3D "jhb100-r-sys0",
-> > +	.power_domain	=3D false,
-> > +};
-> > +
-> > +static const struct of_device_id jhb100_sys0crg_match[] =3D {
-> > +	{
-> > +		.compatible =3D "starfive,jhb100-sys0crg",
-> > +		.data =3D &jhb100_sys0crg_info,
-> > +	},
-> > +	{ /* sentinel */ }
-> > +};
-> > +
-> > +static struct platform_driver jhb100_sys0crg_driver =3D {
-> > +	.probe =3D starfive_crg_probe,
-> > +	.driver =3D {
-> > +		.name =3D "clk-starfive-jhb100-sys0",
-> > +		.of_match_table =3D jhb100_sys0crg_match,
-> > +		.suppress_bind_attrs =3D true,
-> > +	},
-> > +};
-> > +builtin_platform_driver(jhb100_sys0crg_driver);
-> > --
-> > 2.25.1
+The BAM DMA controller also reports:
+
+bam-dma-engine 6044000.dma-controller: assigned reserved memory node restricted-dma-pool
+
+The BAM-DMUX TX/RX DMA paths are working with this configuration. I will update
+v2 to use the restricted DMA pool approach as suggested.
+
+
+Thanks,
+Vishnu
+
