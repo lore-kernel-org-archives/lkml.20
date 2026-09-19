@@ -1,219 +1,179 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E46B3D669A
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 01:53:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BCF5175A62;
+	Sat, 19 Sep 2026 01:54:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789782826; cv=none; b=fXXfjfTa+rXw1J3J5SAgwQxZtRkan2JERtr5+yGGaIXNofDbTiaiPzPHGXRDSAXtFqEUTgAfIVNTzTCCUCMrd9aEzreiBvvktYtPzS9X5lEMjdOJgUNpu2IvgD5yklVODbRETvDEYrRT6pgMC23GP9QJPJGQHmHWoCHGoVQRscc=
+	t=1789782856; cv=none; b=Vd7PenWPOGo68za6MzKo/WIwI4Q6EZ9pitQJXzdGNL+0vsYv1LTHpryjkLLL4Mnh4AEkuBKKc5AlMfULXwBIuyY4h2I4JXakL6UCkG3XcsklMTZH0EVn18wDqN+UpLrXTm2szQ1TFURo1fVnnjpN4mnDyjZXKzKH3baE+fLnkpQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789782826; c=relaxed/simple;
-	bh=Kwd86QxCmwGojb+ohNR3IdwUZ/EoERdirqUaFVO1hek=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DGS4Os2htOfZZFS+BLxaLAfxQTkdZaRW3Vvhou1bO7ZxEcOI9ySw79YYGvbjICxVe2VDOwoJcn/hZPnuRfYqR8m8NtmN15MBcorjI5bL930N5G0WZImD3dCizX/aZ0o5WdCHF9LzsOcWC7dDL2L9v7BpMjo5gmVCzNrGp43OK5A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=hCn1/4a4; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
+	s=arc-20240116; t=1789782856; c=relaxed/simple;
+	bh=XXFTJNzgjE8QEiteFx7dAHw0+oJlD4NKJQ4hDNMVcaY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CKyRjuU6c+iZxf+311TQhAE/IzzFldDJPAMgIQV2d7815tEHF0uhbWT3kR5QHbS1qITyL+fvOCnZSvjN42juyE8zAfg4UWqVnvhrzXt+hRbkE5m2HR2/YZ83Qejd00YxhRvaYe+nkN3ATYuuJykuvk+0N2qvX8EmYUQ+4MQIZGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=JmE7Sz/I; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="hCn1/4a4"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843378fb37so630601f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:53:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1789782823; x=1790387623; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fQ0KOJpw+7J3KKM2Wr5BjFb6P4F9AM9h/vTtc9m1Fsg=;
-        b=hCn1/4a4AwK1r7zqOE6EjbFwg8HWASD6xcE80gQBpiaoQS9aTkuz9qYQZ8rRvBJNJZ
-         hWD3z10O9FVOiZATGyY+MFQ8EhiC8hWsp8vK7GP7GUDzEPouRUInqKBK8eX52X7gY/eY
-         x3h19ZngBE85cScZAxszGLBUSiZU2RJigk2kUCRGfWrVbP+X1AQB4CG8lJm3hb7E/zyB
-         z1AmjOlHNmW8S+umJNIDGOUCqnlqTUlmF6188b1iIlSJmTFNlrUOJb6xU6sLuYaU3WvO
-         Xek6ZgOYhKgRjxBmm6zlCBPJ3Qk2GE+Hrwem65gVrYO+bNzsSgyq1La6lHpH3+uDSIbY
-         sRFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789782823; x=1790387623;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fQ0KOJpw+7J3KKM2Wr5BjFb6P4F9AM9h/vTtc9m1Fsg=;
-        b=h/sz70u70A2kueYLde/i9ju/wTrJCHCyzC/sl+Sq/ee770JDNnqEmg2+xJQ2KkzuTM
-         9JoTF0b7liQ60G5EmGL5Rhy++OfIfaBp78qZ7AP6A1bDj9YYmvZ70znli1F4cBekn57O
-         CwJ/LmIwOLIbafJReAfqI/1p/2aDWJkpQbrwEf9hiEtLhO2NLsP68X3SXoiAs/LT1a0O
-         XTS9zPuHUCXpmIZyH+qdC74u2Wa1DGjLWaVigpxAH10Fhj80HshrrAdnFVIGV6mNdOQl
-         wLlgmdLHuAXxntYidJI4Uskxk5MQQYoBJgkKNOYwAhRT0Ab/1/A/abtp+MqkwK3eQ4sg
-         CdmA==
-X-Forwarded-Encrypted: i=1; AKwUvBzc03Hog4T7qQLrXXPJGuQuRWTVLHsR6WAnrgCNi5IFWLlUUD4nokn4mrKPLKooeCR4hEqa74f5Nh+VLEM=@vger.kernel.org
-X-Gm-Message-State: AFuF++ky6YERD0B0zFUgeD2a39a1y1orKuhMuNYtl6ptGVnt/ahfeL+x
-	UBOmnvJTOCsA8ZrM1hQN5KfJHy3CHdtAh5KPSyV+4CnUuT4wYHm46hxWOMTStQBpSsE=
-X-Gm-Gg: AYBFou1TyVW3Bowb9pBDD4f7Hbwx79MWjj/Hd3+zpyOVJndumZhp70NF+Lg0B6d3ASn
-	yu6JdUWmm5Yg7NjN38yFHqvKSLiZgIhMjpKuOj6vBVRr0vvOe9h1PjrS65JTt3uvLxAwlPRv/mW
-	qA3u49VdkvsfVPbxtDebdYYvlzr6D7NCN0H1Px1WhifQiRXjYmp9khghTNIplAWjeXUeAQCCz43
-	TR4bWLKNw480i3/XiKk7HaEZH13Z0N24DW6JpqKtNpwS+DivkiwZrMY76l+5GT/k0BLF4z5pmlQ
-	DlPX1OnpBbPKAhvHMDbvMhTJgd44XQeucGqSKgCKFoU4Tz4s2qXtY/dTJ0jHoQAtTPhKboCjIpJ
-	BFswelF1sq3ED3p8XecJf/4kjfwEEePHANVfjyGU0P9PpOz/wW6kVg/ZOxFqdXnhBdzqno+N8D1
-	L/MIPTLBbxvjCu16LaAZLihiGFeMHtrEOJsEUTb/2diE2J9XVSwg==
-X-Received: by 2002:adf:e19a:0:b0:486:fba3:b95d with SMTP id ffacd0b85a97d-4871e2161fbmr6029399f8f.7.1789782822675;
-        Fri, 18 Sep 2026 18:53:42 -0700 (PDT)
-Received: from remote-01 ([84.17.55.229])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48724593f5asm2876366f8f.28.2026.09.18.18.53.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 18:53:42 -0700 (PDT)
-From: Aleksei Sviridkin <f@lex.la>
-To: netdev@vger.kernel.org
-Cc: andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux-kernel@vger.kernel.org,
-	maxime.chevallier@bootlin.com,
-	Aleksei Sviridkin <f@lex.la>
-Subject: [PATCH net-next v2] net: phy: refuse to attach a PHY whose driver is being unbound
-Date: Sat, 19 Sep 2026 04:53:40 +0300
-Message-ID: <20260919015340.499675-1-f@lex.la>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="JmE7Sz/I"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=ukPoAa7Sd+4obDEOdcgJlnjsn89RPHdhafZAiE+Afqc=; b=JmE7Sz/IAxIAkQigaiBzirpZ19
+	7iWXFTBthgq62bTQGlC6AEvVDAveqSX5HnAISWjKH/UqiCgrQbyxSyuFRmCcCLV39Sd4pQzXs3J3R
+	1vXD6XMW/qiQAnRZCwnJgK6xgoNlQlGTqrzEX9Ki2gIfbWEfmSIEMHsU6i5efsAaTPSQbhkJmI906
+	S4FQ0Go05Ie0mkca5McFeEBHCUuN8czin1tku00Lz71wxEdphbi9ZbGAqoTZnEdHavxLdKl4bvC5s
+	Ihpr38edzTMPPUNWOaidRw5utrH+bOX7EWC691B1wGmRkZ2ve9LlHIpA/29EAa6olYmPmkkYfF/e0
+	na1qahjw==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x7kHG-0000000FrMW-2RKh;
+	Sat, 19 Sep 2026 01:54:06 +0000
+Message-ID: <187dff38-1235-4478-8b31-d4894c90969d@infradead.org>
+Date: Fri, 18 Sep 2026 18:54:05 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 9/9] docs: core-api: Document the seq_buf API
+To: Kees Cook <kees@kernel.org>, Bill Wendling <morbo@google.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Petr Mladek <pmladek@suse.com>, Shuah Khan <skhan@linuxfoundation.org>,
+ Steven Rostedt <rostedt@goodmis.org>, nikitash.mariiaw@gmail.com,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+References: <20260919002658.stay.929-kees@kernel.org>
+ <20260919002714.4060307-9-kees@kernel.org>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260919002714.4060307-9-kees@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-phy_remove() clears phydev->drv as its last act; the driver core clears
-d->driver only afterwards, in device_unbind_cleanup(). An attach entering
-that window still sees d->driver, so it skips the genphy substitution and
-then dereferences the NULL phydev->drv.
 
-Unbinding a PHY driver under an attached consumer crashes in real life.
-The board that showed it is an MT7981 whose copper PHY driver needs
-firmware from the rootfs, so the driver arrives after DSA has attached
-the PHY. I was testing how a port copes with that driver coming and
-going, on an OpenWrt 6.18 kernel with the distro's backports, local
-patches and the series under test. Racing a sysfs unbind against port
-teardown and bring-up oopsed twice: once in the state machine, and once
-inside a live phy_attach_direct() where phy_init_hw() had already
-entered the driver's config_init(). The second came after a
-one-line NULL check at the state-machine site let the run continue, with
-nothing added to widen the window. Both have this root. Neither is this
-dereference: in one the driver went away under a port close, in the other
-mid-attach, and in neither was phydev->drv already NULL when an attach
-started. That window is the narrow member of the family, and reaching it on
-demand needed a 200 ms msleep() at the end of phy_remove().
 
-Refuse the attach rather than let it complete on a driverless PHY, with
--EBUSY, which this function already returns when the PHY is attached
-elsewhere. Without phylink the netdev would come up on a PHY that never ran
-config_init. Under phylink it does not get that far: phylink_bringup_phy()
-dereferences phy->drv->name as soon as the attach returns.
+On 9/18/26 5:27 PM, Kees Cook wrote:
+> The kernel-doc in include/linux/seq_buf.h and lib/seq_buf.c documents
+> the seq_buf interface, but no .rst file pulls either of them in, so none
+> of it reaches the generated documentation.
+> 
+> Add the missing kernel-doc for seq_buf_clear() and seq_buf_init(), and a
+> Sequence Buffers section to the kernel API documentation. The static
+> internal helper seq_buf_can_fit() is left out. Additionally fix
+> seq_buf_hex_dump() indentation to avoid the reported Sphinx error:
+> 
+>   ERROR: Unexpected indentation.
+>   WARNING: Block quote ends without a blank line; unexpected unindent.
+> 
+> Verified with "make SPHINXDIRS=core-api htmldocs", which rendered
+> happily into core-api/kernel-api.html.
+> 
+> Assisted-by: LLM
+> Co-developed-by: Bill Wendling <morbo@google.com>
+> Signed-off-by: Bill Wendling <morbo@google.com>
+> Signed-off-by: Kees Cook <kees@kernel.org>
 
-The mid-attach case needs serialisation rather than a NULL test.
-phy_init_hw() tests phydev->drv once on entry and then dereferences it
-several more times, and it calls the driver's own config_init(), which is
-where one of those oopses landed, on a dereference made by driver code that
-no test in phylib can reach. The device lock is not available either:
-phy_attach_direct() runs under rtnl from ndo_open, while phy_remove() runs
-under the device lock and calls sfp_bus_del_upstream(), which takes rtnl
-for a PHY with an SFP bus.
+Looks good. Thanks.
 
-Assisted-by: LLM
-Signed-off-by: Aleksei Sviridkin <f@lex.la>
----
+Tested-by: Randy Dunlap <rdunlap@infradead.org>
+Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
 
-Notes:
-    v1: https://lore.kernel.org/netdev/20260914204200.2743251-1-f@lex.la/
-    
-    v2:
-    - Said in the commit message where this was seen. The site in
-      phy_attach_direct() was found by reading the unbind path, but the race it
-      belongs to was not theoretical: it took the same board down twice with no
-      instrumentation in the kernel, while a sysfs unbind of the PHY driver was
-      raced against port teardown and bring-up. v1 opened with "found by
-      reading, not from a crash report", which was true of the site and
-      misleading about the race; that line is gone. The second of those two
-      came after the state-machine site had been given a local NULL test so the
-      run could continue, so the kernel that produced it carried that one extra
-      check; nothing was added to widen the window in either. The traces were
-      read at the time and the dumps were not preserved.
-    - Tree and Fixes: tag follow Maxime Chevallier's reading of how reachable
-      this is in practice:
-      https://lore.kernel.org/netdev/6e82dc04-a68d-4c54-a6f0-a13c04fa2eef@bootlin.com/
-      https://lore.kernel.org/netdev/65b2eff4-6818-4cfa-a0e7-d48729e0cd9e@bootlin.com/
-      and the answer that separates the two windows:
-      https://lore.kernel.org/netdev/20260917210406.1651902-1-f@lex.la/
-    - Kept the guard instead of making phy_drv_supports_irq() NULL-tolerant. A
-      NULL test there moves the fault to the caller rather than removing it:
-      phylink_bringup_phy() dereferences phy->drv->name as soon as the attach
-      returns. phylink is inconsistent about this on its own:
-      phylink_sfp_connect_phy() refuses a PHY with no driver and
-      phylink_bringup_phy() does not, which is an argument for the check living
-      in phylib, where every caller gets it.
-    - The module reference charged on d->driver->owner by phy_attach_direct()
-      and released by phy_detach() re-reading the same field is mispaired
-      whenever that field has moved in between: the put is skipped if the
-      driver is still unbound at detach time, and goes to a module that was
-      never charged if a different driver was bound meanwhile. An unbind
-      followed by a rebind of the same driver balances, which is why an
-      ordinary cycle shows nothing. Separate defect, separate patch.
-    
-    Verified on a Netcraze NC-1012 (MT7981) running OpenWrt 6.18.44, with a
-    200 ms msleep() added at the end of phy_remove() to hold the window open.
-    Two images off one tree, identical except for this patch.
-    
-    Without the patch, backgrounding
-    
-      echo mdio-bus:00 > "/sys/bus/mdio_bus/drivers/MediaTek MT7981 PHY/unbind"
-    
-    and immediately running "ip link set wan up" faults:
-    
-      Unable to handle kernel access to user memory outside uaccess routines
-      at virtual address 0000000000000128
-      CPU: 1 PID: 4487 Comm: ip
-      pc : phy_attach_direct+0x150/0x380
-      x0 : 0000000000000000
-      Call trace:
-       phy_attach_direct+0x150/0x380 (P)
-       phylink_fwnode_phy_connect+0x198/0x27c
-       phylink_of_phy_connect+0x18/0x20
-       mtk_open+0x38/0xb70
-      Kernel panic - not syncing: Oops: Fatal exception
-    
-    0x128 is the offset of config_intr in struct phy_driver in this build,
-    read out of the disassembly of phy_attach_direct(): the inlined
-    phy_drv_supports_irq() is "ldr x1, [x0, #296]" followed by
-    "ldr x0, [x0, #304]". This board has panic_on_oops set, so the kernel
-    panicked and rebooted, and that erased the test log (the run script still
-    wrote to /tmp for this image; it was moved to /root before the patched
-    run). How many attempts it took was therefore not preserved, and the trace
-    above is what pstore kept.
-    
-    With the patch the same sequence fails the attach on the first attempt
-    instead, with no oops: "ip: SIOCSIFFLAGS: Resource busy" from the ioctl,
-    and "wan: mtk_open: could not attach PHY: -16" in the log.
-    Binding the driver back and bringing the interface up afterwards links, so
-    the refusal leaves the phydev reusable. An ordinary bring-up still attaches
-    the driver, and with the driver left unbound the genphy substitution still
-    runs:
-    "PHY [mdio-bus:00] driver [Generic PHY] (irq=POLL)", link up at 1Gbps.
+> ---
+> Cc: Jonathan Corbet <corbet@lwn.net>
+> Cc: <linux-doc@vger.kernel.org>
+> Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+> Cc: Andrew Morton <akpm@linux-foundation.org>
+> Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> Cc: Petr Mladek <pmladek@suse.com>
+> Cc: Randy Dunlap <rdunlap@infradead.org>
+> Cc: Shuah Khan <skhan@linuxfoundation.org>
+> Cc: Steven Rostedt <rostedt@goodmis.org>
+> ---
+>  Documentation/core-api/kernel-api.rst |  9 +++++++++
+>  include/linux/seq_buf.h               | 12 ++++++++++++
+>  lib/seq_buf.c                         | 13 +++++++------
+>  3 files changed, 28 insertions(+), 6 deletions(-)
+> 
+> diff --git a/Documentation/core-api/kernel-api.rst b/Documentation/core-api/kernel-api.rst
+> index 4c4a57c1c094..f5a0aedbbb48 100644
+> --- a/Documentation/core-api/kernel-api.rst
+> +++ b/Documentation/core-api/kernel-api.rst
+> @@ -96,6 +96,15 @@ Error Pointers
+>  .. kernel-doc:: include/linux/err.h
+>     :internal:
+>  
+> +Sequence Buffers
+> +----------------
+> +
+> +.. kernel-doc:: include/linux/seq_buf.h
+> +   :internal:
+> +
+> +.. kernel-doc:: lib/seq_buf.c
+> +   :no-identifiers: seq_buf_can_fit
+> +
+>  Sorting
+>  -------
+>  
+> diff --git a/include/linux/seq_buf.h b/include/linux/seq_buf.h
+> index 89d847d40626..416a8b67b9ad 100644
+> --- a/include/linux/seq_buf.h
+> +++ b/include/linux/seq_buf.h
+> @@ -31,6 +31,10 @@ struct seq_buf {
+>  		.size = SIZE,				\
+>  	}
+>  
+> +/**
+> + * seq_buf_clear - reset the seq_buf to be read / appended from the beginning
+> + * @s: the seq_buf handle
+> + */
+>  static inline void seq_buf_clear(struct seq_buf *s)
+>  {
+>  	s->len = 0;
+> @@ -38,6 +42,14 @@ static inline void seq_buf_clear(struct seq_buf *s)
+>  		s->buffer[0] = '\0';
+>  }
+>  
+> +/**
+> + * seq_buf_init - initialize a seq_buf
+> + * @s: the seq_buf handle
+> + * @buf: pointer to the buffer
+> + * @size: total size of @buf
+> + *
+> + * The contents of the buffer are ignored.
+> + */
+>  static inline void
+>  seq_buf_init(struct seq_buf *s, char *buf, unsigned int size)
+>  {
+> diff --git a/lib/seq_buf.c b/lib/seq_buf.c
+> index 7e3bf837da01..1c86eae9e188 100644
+> --- a/lib/seq_buf.c
+> +++ b/lib/seq_buf.c
+> @@ -407,12 +407,13 @@ int seq_buf_to_user(struct seq_buf *s, char __user *ubuf, size_t start, int cnt)
+>   *
+>   * Function is an analogue of print_hex_dump() and thus has similar interface.
+>   *
+> - * linebuf size is maximal length for one line.
+> - * 32 * 3 - maximum bytes per line, each printed into 2 chars + 1 for
+> - *	separating space
+> - * 2 - spaces separating hex dump and ASCII representation
+> - * 32 - ASCII representation
+> - * 1 - terminating '\0'
+> + * linebuf size is maximal length for one line::
+> + *
+> + *	32 * 3 - maximum bytes per line, each printed into 2 chars + 1 for
+> + *		 separating space
+> + *	2 - spaces separating hex dump and ASCII representation
+> + *	32 - ASCII representation
+> + *	1 - terminating '\0'
+>   *
+>   * Returns: zero on success, -1 on overflow.
+>   */
 
- drivers/net/phy/phy_device.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
-index 41d1b20cde2c..f13c9d7fd47f 100644
---- a/drivers/net/phy/phy_device.c
-+++ b/drivers/net/phy/phy_device.c
-@@ -1908,6 +1908,10 @@ int phy_attach_direct(struct net_device *dev, struct phy_device *phydev,
- 			d->driver = &genphy_driver.mdiodrv.driver;
- 
- 		phydev->is_genphy_driven = 1;
-+	} else if (!phydev->drv) {
-+		/* d->driver outlives phydev->drv on unbind, precedes it on bind */
-+		err = -EBUSY;
-+		goto error_put_device;
- 	}
- 
- 	if (!try_module_get(d->driver->owner)) {
 -- 
-2.53.0
-
+~Randy
