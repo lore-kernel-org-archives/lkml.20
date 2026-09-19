@@ -1,150 +1,99 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2B493806C1
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 18:42:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E00D34B1B0
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 18:43:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.126.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789843371; cv=none; b=PDZ+a7gvfWteWNfKMaAyxewF2gjS7P6H/RC6Jo+Qc0PyRtSEdwDlfHouudRxJTfajwxFTxBt8eAgiTY+29TeQiHZHvLjd5dc4H/dHnT+tJhfan0qjG3HroD1Sa4B4dH7s+XigCHt1HJRMoRry1yKK6b13nQLPV6lOKVgAVrquC4=
+	t=1789843440; cv=none; b=lpn19mU0m/5N4TLH6cXFEMj7rR399O+TSEqQAl3x8ltTnGJcvX+YCaYC9TyG633U2lYKuCsFHB0c7Jry483NpAXcOJL0HtQ+5zqVc406Qx4HxwN+z5C/FgDp1SN82OqsRoEBQAqB9Ub0apBSanPogomLdes8pv9APCtkBKJk+5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789843371; c=relaxed/simple;
-	bh=L0cJg8bEa3JcDAFMwgJ+PXyC/ThA9AhiO5G7soyuk4Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GJHlBK6gmrBfOE8dh2aZeJ2iOxeRZq+5rJIAYUqOJ0NJ/6y7miG9bkMnFeZehNr6qkK193cH6lpo1JY53bBovIGRKfnomK59DWxIZ+vaN0BeVODfnpa+k051R30SQKF5ObII5pYAhP3Ixfr7U/q4knh3nWjYHlqESacbRXoEsG8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L+rhnWa9; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789843440; c=relaxed/simple;
+	bh=WD9JpeX3r9WZaeEq9cuddMM+CU5KeObSyAyGIJelpjQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=IQuJOD1qvW6zjggJ0TNqTrBB5kQeVzPFh3K/K3YyRLfeW3r+95KXdjyNG1xrgRh63Omdcod97gC6DgzuCTvk03Wec05/GySNnbbsAiBmRcfATngpJ+XWaPCeSkV60v1V8IN1Q4xK1rpmirMWAKtQsSET+HUW8stHaf83uUfS18Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net; spf=pass smtp.mailfrom=weissschuh.net; dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b=OeJHlrPz; arc=none smtp.client-ip=159.69.126.157
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=weissschuh.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L+rhnWa9"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e66390995so9337895e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 11:42:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789843368; x=1790448168; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EUaG58XyyXj2IYGxruqsBjrWu0FDpmLYKW3X9EM+9DM=;
-        b=L+rhnWa9nQG2h6Uso3aXhrUb1+pFdsXRFDMx5XcAo69q9fXnDxwpUAnp67jjx05WOh
-         UlHlMf0RCkzMdqFJJyX15kVA7PDcV2cDKzmhkkO3id15YNJF8a3BVbLTlGsK/XPtQM29
-         065odsPEekw6UhF8ik+AQ9gQfRZ/kObO4TrxSbY5+hcsn2cCh3iA11HoNAznCt3ea5HY
-         Fv82E4PjgXTB/1vEy1hauB5j7z+9KyIHJvrA0aEP3zEcl69oTsyDYBZWrNnz+Ggvb/th
-         SYtRL3+ZnGtvfXPzXi81+71BDGhMs0KnxACyG2QGoegKiUDa6P+tUSBBVGabEodUxRWn
-         D/lg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789843368; x=1790448168;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EUaG58XyyXj2IYGxruqsBjrWu0FDpmLYKW3X9EM+9DM=;
-        b=PEPbaHFFSHs5wOM0eAii3XByLsq25dFLeTUsshQHdH+Sre1rbgcnibwbS7DAFxJrrj
-         FgGIW8Oyl6Q+cYURIXOl6XzcQprInVsl/5D+DAo4BvGKx2QWTBF2oSDa7TC0gECyTw4u
-         ennDMOZY2xav8rvyILo7yA76GqM0uaeIGJdUGEItmuhwI7QZGydcHcQZ/gWbivw2Vkmz
-         ASkRDcrDwQo4IWHpGhJyNtwx3qNOSz5uRxOSZcAL2uhS66tzK+4Jb+lhOSKZ2U6fEWVJ
-         MruU1EHq0lkkB+CiclIQ9Zl9Hm277EUAs5EBxIvS/9cPyQUoo6OJPB6FPQ9D6DfxrjFx
-         fQLQ==
-X-Forwarded-Encrypted: i=1; AKwUvByuP0e478I7nAeo9vboDVX0brdDEpHVTYSHh+1it7cbDIXxHUkDRZRK0qQbawqgEamj/DF6Fr3NPHqMCHo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mRKLgQzZSjEkDnrUOZ9WhGjzuM3Oj5uQUSTxjV5bRUABSWLLIS
-	XMJ+aa5/5HHGzd1ind2oh/gE7SqqDAFjYMw5OGKAVrFKm2pOQyb26+y4
-X-Gm-Gg: AYBFou04d5QfxlCOlz2EP6C8lUzpXZeu3YOYue8ltms93lhYwTZn9WYZqmc04IW81ie
-	2flUKfnfVogMKWHCswEs7OT0+NOz3QPS09Pwx1s+fLTw6P0LD7QRY+g/V/nWeaxDmJAYljU692y
-	yZfuiRVrb7YSpyROdeD84ht+wS0goQMeHi6f80e2snH1vziTPy2KvTU5ShJME7HhpU+Q52sNr0g
-	YziM4nxrhKrkTq5V055vJbcOdUcPmg8dZc80H4Fj6wnFC8ZKRaBJbDeQog2rfEy2LmuwYj45K9k
-	170FU8DXEwcI9NW2/S4PEPZ2C4iiTPuntl4X3tZnD5Szerx3avbFFycCmv3VJebjOx91XQ/UZjU
-	usYJKiIm+m2m5Uy2z4x/GSnFd/kZZqhop8Fpwk1JJbPzcHMrV2MmMxn6/w5vYRNME+kjf7UucOA
-	2GqJRB4Ogh8RY4enmFWMvfHHFMjx3Z/s/RpcxJyeKmZFaib0N6HgepuygPLiw+YFhOvrWj/L1Mp
-	CCKoTrYtor5u79yh99/sAOfyVZr
-X-Received: by 2002:a05:600c:4505:b0:49a:a101:4157 with SMTP id 5b1f17b1804b1-49fc56db92fmr86686385e9.7.1789843367901;
-        Sat, 19 Sep 2026 11:42:47 -0700 (PDT)
-Received: from [192.168.1.13] ([185.69.144.71])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd07cca6sm91087395e9.11.2026.09.19.11.42.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 19 Sep 2026 11:42:47 -0700 (PDT)
-Message-ID: <8427de42-2cdf-4acb-a439-d7c99cd249ca@gmail.com>
-Date: Sat, 19 Sep 2026 19:42:43 +0100
+	dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b="OeJHlrPz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+	s=mail; t=1789843430;
+	bh=WD9JpeX3r9WZaeEq9cuddMM+CU5KeObSyAyGIJelpjQ=;
+	h=From:Date:Subject:To:Cc:From;
+	b=OeJHlrPzk8lOP4dxUpXL4Jxa3m5CMeJ+yA2kIAGHw0O4trydIdeJIQCmokAhmOnvO
+	 EBI0KeZb/kBIFA8TEyA5SDYVfc6T26TfxuNxZaLgx+rB4bnVZFS0XFl1oI8/wGqKfL
+	 8wcGS5oyA0/p9jj+2FJyiSSLkpk4QW8JOCxgb29I=
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Date: Sat, 19 Sep 2026 20:43:24 +0200
+Subject: [PATCH] microblaze: Build userprogs for the correct endianness
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 00/11] Add spi-hid transport driver
-To: fQwQf <fqwqf@fqwqf.xyz>, jingyliang@chromium.org, jikos@kernel.org,
- bentiss@kernel.org, corbet@lwn.net, broonie@kernel.org, rostedt@goodmis.org,
- mhiramat@kernel.org, mathieu.desnoyers@efficios.com,
- dmitry.torokhov@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org
-Cc: linux-input@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- hbarnor@chromium.org, tfiga@chromium.org, jaschultz@microsoft.com,
- dmanti@microsoft.com, acz@semihalf.com
-References: <20260609-send-upstream-v4-0-b843d5e6ced3@chromium.org>
- <010601a0b3ff1cf6-944e2ad5-0ad1-49d4-9e89-c8ab03bbc62c-000000@ap-northeast-1.amazonses.com>
-Content-Language: en-US
-From: Dale Whinham <daleyo@gmail.com>
-In-Reply-To: <010601a0b3ff1cf6-944e2ad5-0ad1-49d4-9e89-c8ab03bbc62c-000000@ap-northeast-1.amazonses.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20260919-microblaze-cc-can-link-v1-1-01da67e75ebb@weissschuh.net>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2NQQ6CMBBFr0Jm7SSlGEi9inHRDqOOYpEpGAPh7
+ lZl+ZL3318gsQonOBQLKL8kSR8zlLsC6OrjhVHazGCNrY0rHT6EtA+dnxmJkHzETuId98FS7aq
+ maoyBPH4qn+X9Cx9Pf05TuDGN39pmKA9Tfhw3bV0/9XNVKo8AAAA=
+X-Change-ID: 20260919-microblaze-cc-can-link-4b2c69373700
+To: Michal Simek <monstr@monstr.eu>
+Cc: linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789843429; l=1489;
+ i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
+ bh=WD9JpeX3r9WZaeEq9cuddMM+CU5KeObSyAyGIJelpjQ=;
+ b=Lt1CWZHseVtJqu8A2sBDNNyWxNLcKWmR8dfcw56rCtf8Ystk9j0hDh37JJP283/WJel2MVcJX
+ TtipA/uSP1wCKxcPw5cVqisbeyD+5rLvmUPfAWQiRUm530Fc72FNprq
+X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
+ pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 
-On 18/09/2026 11:10, fQwQf wrote:
-> Hi Jingyuan,
-> 
-> 
->> This series picks up the spi-hid driver work originally started by
->> Microsoft. The patch breakdown has been modified and the implementation
->> has been refactored to address upstream feedback and testing issues. We
->> are submitting this as a new series while keeping the original sign-off
->> chain to reflect the history.
-> 
-> 
-> I am working on Linux support for the Surface Laptop 7 (13.8-inch, Snapdragon X series), whose touchpad is a HID-over-SPI device behind a Qualcomm GENI QSPI controller. I noticed that v4 (June 9) is the
-> latest revision of this series and has so far only seen automated review feedback, so I would like to coordinate before preparing any upstream submission of my own.
-> 
-> Current state on my side:
-> 
-> - I have a working touchpad using a downstream Qualcomm GENI QSPI +  spi-hid stack (originally from scuggo's x1e-nixos work, imported  via ELLX-Kernel). My local adaptations move the transport to spi-mem and add framing, response matching, and DMA/error-path  hardening.
-> - Normal touchpad use works on my machine. The latest hardening currently has only build and software-test coverage; I have not validated s.
-> 2. The SL7 adds a different transport requirement (quad-SPI via GENI, through spi-mem) on topuspend/resume, and I have not yet run your v4 series on this hardware.
-> 
-> I believe our work may complement each other in two ways:
-> 
-> 1. The automated review of the series raised DMA cacheline-alignment concerns for SPI transfer buffers and unchecked reset return values in the init/resume paths. Both overlap with the hardening I have been doing downstream, and I would be glad to contribute fixes there.
-> 2. The SL7 adds a different transport requirement (quad-SPI via GENI, through spi-mem) on top of the same HID-over-SPI protocol, which looks like a natural fit for your generic driver rather than a standalone one.
-> 
-> Questions:
-> 
-> - What tree or series do you recommend working against? Is v4 still your current baseline, or do you have a newer development branch?
-> - Would adding the SL7 quad-SPI transport requirements to your generic driver be the preferred upstream approach? Is anyone already working on this?
-> - Are you waiting on maintainer review before a v5? A second hardware platform may help move things along, and I am happy to provide testing on SL7.
-> 
-> I am also tracing the downstream provenance of the Qualcomm QSPI code with the original authors to ensure a clean sign-off chain; I appreciate that this series handles its own history the same way.
-> 
-> Happy to share technical details or a preliminary diff if useful.
-> 
-> I'm not subscribed to the lists; please keep me in CC.
-> 
-> Best regards,
-> Jizhou Tong
+Currently microblaze userprogs are built for whichever endianness is the
+default for the use toolchain. They may not be the correct one for the
+actually built kernel.
 
-Hi Jizhou, Jingyuan,
+Implement the correct hooks to build userprogs so they can run on the
+built kernel. Also test the endianness in CC_CAN_LINK.
 
-I am working on Surface Pro 11 aka. Denali, Snapdragon X1E80100.
+Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
+---
+ arch/microblaze/Kconfig | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-This series (v4) has enabled successful bringup of touchscreen and pen 
-on the SP11, which also uses QSPI via GENI.
+diff --git a/arch/microblaze/Kconfig b/arch/microblaze/Kconfig
+index 0ca8999dd770..9063a91cfb41 100644
+--- a/arch/microblaze/Kconfig
++++ b/arch/microblaze/Kconfig
+@@ -3,6 +3,7 @@ config MICROBLAZE
+ 	def_bool y
+ 	select ARCH_32BIT_OFF_T
+ 	select ARCH_NO_SWAP
++	select ARCH_HAS_CC_CAN_LINK
+ 	select ARCH_HAS_DMA_PREP_COHERENT
+ 	select ARCH_HAS_GCOV_PROFILE_ALL
+ 	select ARCH_HAS_SYNC_DMA_FOR_CPU
+@@ -225,3 +226,13 @@ config MB_POWER_OFF_THROUGH_UNALIGNED_PC
+ 	  petalogix-s3adsp1800 QEMU machine.
+ 
+ 	  Say N here unless you know what you are doing.
++
++config ARCH_CC_CAN_LINK
++	bool
++	default $(cc_can_link_user,-mlittle-endian) if CPU_LITTLE_ENDIAN
++	default $(cc_can_link_user,-mbig-endian) if CPU_BIG_ENDIAN
++
++config ARCH_USERFLAGS
++	string
++	default "-mlittle-endian" if CPU_LITTLE_ENDIAN
++	default "-mbig-endian" if CPU_BIG_ENDIAN
 
-There is some updated SL7 QSPI 'glue' code at 
-https://github.com/orvitpng/nix1e that reworked the original scuggo nix 
-flake code to work on top of Jingyuan's updated spi-hid series.
+---
+base-commit: 7396bcfc05046e779d255c6af57cd7838f30d41c
+change-id: 20260919-microblaze-cc-can-link-4b2c69373700
 
-With that + some extra pieces to wire it into the Denali devicetree, 
-this series is working well here.
+Best regards,
+--  
+Thomas Weißschuh <linux@weissschuh.net>
 
-I'm keen to help move things along as the tablet functionality is a key 
-feature of the Surface Pro - please feel free to CC me on further 
-discussions.
-
-Tested-by: Dale Whinham <daleyo@gmail.com>
