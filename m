@@ -1,144 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E15D319851
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 18:47:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5287357CF3;
+	Sat, 19 Sep 2026 18:51:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789843662; cv=none; b=mHbqQ9t9wFpIjofNgW7MeFopBgyGo44fyt/vcznX640P3KWgaZhCql02NBvuh6VsLFaCEzNIynih7RL5LfdeEnP4L6U15KNE0qr3oDEVzjIWDVnM1FY/wNvJMhIzHzafnfmKBTtcNVUtK3dLHOKFpKuEFVOwC3hO06GilCp5jNw=
+	t=1789843885; cv=none; b=bvf/gWG/VEbzfr0tGC1lX3OUzxvQR6u75JlUswiEFuMsk/KzkvtSTl7JonTQz7bWnD6YR/8Ez+yBMl80ZDV/xJgAyKV3aIrk6GDbpnHzehxGdpXq0FS3J1Vp9gECV5a12S3FLFXEeYjFw4urrd2cbQgF+qbcuyMnUWRyw8e2sCU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789843662; c=relaxed/simple;
-	bh=4qlImrq9ItnesQl8xeHKpKFTXcuwhXTLGbz4iyz3JrA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VG64lTBhg1TgyopGUhaeWDg5lBFE9g5nAxIpkQuZBzvJO2oFQLhpBrN6pnmNZEeEYFjOuQgm7UQWYaE+kT5G34FsmmCdxG5/AKB8BODpDoi7lxqgLH0NasJIgCLb5/tanyPDdjQKeAedCfqStLCWA0S7eyzWajlC0/SbsnOBDwg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WvDXuB2t; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789843885; c=relaxed/simple;
+	bh=X6Ow5jUfRQoDy6enKi1ug7ydikLkVQ+iKDSqLegmBxQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pwQH8YwjAovaAwVlRyhcAonc9Io9mt3+4ZweMfKPoa/1L1fih7D4dMiafyvKLQwfVERtfUhMMHT+4tT9kZ0idgak3fZ38Qk9/rqYTd/UJTgJ7U/7ZPHFejRj5C6/3SxjJbZXNYq1zu/yKBbqANKNHXGzTe2YsT841zEU1UD3z20=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn; spf=pass smtp.mailfrom=tju.edu.cn; dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b=E6tVxfhU; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WvDXuB2t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 079071F000FF;
-	Sat, 19 Sep 2026 18:47:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789843660;
-	bh=8qyXPxD8WHiPICoNsVWMXf+1EsR7fxX7tJj8XMR1DcU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=WvDXuB2tiAuNcJOSr7UtZpXxQZRovBEsOYzxDU1hrBkwCpGuHM7I+si0qS30gvOCh
-	 J40R+P8OqIVeWnVOJPtu8y0wxucoiBlWWxByDMC46ajsDm4osqMMXfoDRtDgwE/xZa
-	 0XMGrap0LcpPMDdWTEmtIcLSc9+S+Mx1lzmkXQ1ladVleomk+vVkVvMDxLgpqDuw1P
-	 55R006O7elPGojCxCOBQJJCGeO60gWLX8PEyUfXKILIbHnuHeszHM7Q4Qe+GQ0FEsT
-	 AaTQLxmNgP9U95oLQ29tt9xDVJgi+MQKRk7bvx7tag3oW/HPSJqcqsnzd4z9IjZyIz
-	 fsW6YiK3GB+ag==
-Message-ID: <2ba1724b-7b10-4b7d-a9f9-c642bc48d3bf@kernel.org>
-Date: Sat, 19 Sep 2026 20:47:32 +0200
+	dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b="E6tVxfhU"
+Received: from tju.edu.cn (gy-adaptive-ssl-proxy-3-entmail-virt135.gy.ntes [183.242.150.9])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4e625c89d;
+	Sun, 20 Sep 2026 02:51:13 +0800 (GMT+08:00)
+From: Yibo Tan <lhfff@tju.edu.cn>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Kees Cook <kees@kernel.org>,
+	Joel Granados <joel.granados@kernel.org>
+Cc: Luis Chamberlain <mcgrof@kernel.org>,
+	Eric Sandeen <sandeen@sandeen.net>,
+	linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org
+Subject: [PATCH v1] test_sysctl: unregister tables before freeing bitmap
+Date: Sun, 20 Sep 2026 02:51:10 +0800
+Message-Id: <20260919185110.2243068-1-lhfff@tju.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] mm/huge_memory: disallow raw PMD mappings of the huge
- zero page
-To: Lance Yang <lance.yang@linux.dev>
-Cc: kas@kernel.org, akpm@linux-foundation.org, ziy@nvidia.com,
- baolin.wang@linux.alibaba.com, liam@infradead.org, nico.pache@linux.dev,
- ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
- usama.arif@linux.dev, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <c0979ad4-9fec-49f1-8442-d90061b79504@kernel.org>
- <20260919151446.5741-1-lance.yang@linux.dev>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260919151446.5741-1-lance.yang@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0bb021ce703a1kunm16bf57923f5855
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQ0JJVkgeGkxIGBpMSB1DQlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKQ0hVSU9JVUpOS1VCWVdZFhoPEhUdFFlBWUtVS1VLVUtZBg
+	++
+DKIM-Signature: a=rsa-sha256;
+	b=E6tVxfhUWfa3JDNJDYIinNIedkDvQu4OBxRTpwMi7zHE+AV1syz6tbsQfpgqsFevuHGcPIqK3zzqXwOKRJ9OZVtMSyToyKlfDoliT9NxFAMaw1/R7xQchvQcFuLT3dAI12k0Z1YyYxQJzgngbwcHrJDEFIuUaFbGrh9R9HvOQeU=; c=relaxed/relaxed; s=default; d=tju.edu.cn; v=1;
+	bh=FqotAjvbRM2/MPnyx+/q+j4a/Y1qEe/wYMcHqVht+p0=;
+	h=date:mime-version:subject:message-id:from;
 
-On 9/19/26 17:14, Lance Yang wrote:
-> 
-> On Fri, Sep 18, 2026 at 10:37:27PM +0200, David Hildenbrand (Arm) wrote:
->> On 9/18/26 04:52, Lance Yang wrote:
->>>
->>>
->>> No in-tree user inserts the zeropage through vmf_insert_pfn_prot(), so
->>> rejecting it there should be fine.
->>>
->>> Something like:
->>>
->>> ---8<---
->>> The huge zeropage is reclaimable, but a raw PFN mapping does not pin it.
->>> A PMD mapping of huge_zero_pfn can therefore outlive the folio.
->>
->> Well, just with any other folio that we PFNMAP, the mapping would have to hold a
->> reference. mm_get_huge_zero_folio() can be used for that, or just grabbing a
->> folio reference (not so nice, but works; GUP uses that, for example, to keep the
->> huge zero folio alive).
->>
->>>
->>> No in-tree user needs either mapping, so reject both with VM_FAULT_SIGBUS
->>> rather than risk making either shared zero page writable.
->>
->> That is the better reason. You could also just say that handling shared
->> zeropages correctly is more involved (see vm_mixed_ok()), and as there are no
->> users, we can just disallow it instead of trying to fix it.
-> 
-> Ah I see, thanks! obviously, I hadn't fully understood that ...
-> 
-> How about this instead?
-> 
-> "
-> Handling the huge/shared zeropage correctly in vmf_insert_pfn_pmd()
-> and vmf_insert_pfn_prot() is more involved. We would need to check
-> whether the VMA allows it and keep the mapping read-only, similar
-> to the checks in vm_mixed_ok().
-> 
-> No in-tree user needs that support, so reject these mappings with
-> VM_FAULT_SIGBUS rather than complicate the code for now.
-> "
+The table registered for bitmap_0001 retains a pointer to
+test_data.bitmap_0001. unregister_sysctl_table() prevents new handlers
+from starting and waits for active handlers to finish.
 
-Works for me.
+test_sysctl_exit() currently frees the bitmap before unregistering the
+table. A concurrent read during module removal can therefore enter
+proc_do_large_bitmap() while the bitmap is freed. KASAN reports a
+slab-use-after-free in _find_next_bit().
 
+Unregister all tables before freeing the bitmap so the unregister rundown
+provides the required lifetime boundary.
+
+The unmodified module reproduced the use-after-free in three KASAN runs.
+With this change, three runs each completed 100 load, read and unload race
+rounds without a kernel diagnostic.
+
+Fixes: 2ea622b887e7 ("tools/testing/selftests/sysctl/sysctl.sh: add proc_do_large_bitmap() test case")
+Assisted-by: Codex:GPT-5
+Signed-off-by: Yibo Tan <lhfff@tju.edu.cn>
+---
+ lib/test_sysctl.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/test_sysctl.c b/lib/test_sysctl.c
+index 909cfcf76dbfc..dd795979558a2 100644
+--- a/lib/test_sysctl.c
++++ b/lib/test_sysctl.c
+@@ -321,11 +321,11 @@ module_init(test_sysctl_init);
+ 
+ static void __exit test_sysctl_exit(void)
+ {
+-	kfree(test_data.bitmap_0001);
+ 	for (int i = 0; i < TEST_H_SIZE; i++) {
+ 		if (ctl_headers[i])
+ 			unregister_sysctl_table(ctl_headers[i]);
+ 	}
++	kfree(test_data.bitmap_0001);
+ }
+ 
+ module_exit(test_sysctl_exit);
+
+base-commit: 40288c9206c17eb66a603262e06a58d300d0f279
 -- 
-Cheers,
+2.39.5
 
-David
