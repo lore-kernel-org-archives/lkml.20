@@ -1,101 +1,156 @@
-Received: from mail-vs2-f40.google.com (mail-vs2-f40.google.com [74.125.227.40])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46FE23242B2
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:39:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.40
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 546593101C2;
+	Sat, 19 Sep 2026 14:40:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789828754; cv=none; b=R+PlV+MVYerb0wEoq3bYQKmB5NfFt4lWl+BdKnzqT1C5X1ma3HPTDKlK+cMabur9R5aNK6OpqrHkZbgXEwGvA4+hr0EoX32xCgnKIvEoPs5dQ6JQGJu/pwoK+HHJzTEE7FkAKw7GE7qZLjWq9q4jub3qD/7yQxFsYrL2cL8AnMg=
+	t=1789828810; cv=none; b=N87aYBb3ifDKnMtSBQkPj8C4kCTxymw9H1WnubGdnthMrp4y78rHmhXE8tclfp3/94jtTB9slg2xmT7M7HrmyDjS6+ZR+T3+orX1GtkiY78B/B2NPgnID1IyhjlNPhIYi88mekOQ9rYYCkUIauGXEmv9CPozSME3PKM4/4UdJns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789828754; c=relaxed/simple;
-	bh=J7n75dlxtos3+ITb9g8BdRmQ8irhbat1c12Yu0oiLPQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=OFb6r38tbqppeVA8MUSgFCK2zxI6arZnGeLUXTFR2nIdIPwXQLBdTe69JFz2mm/q8PDodlbIIewZVZT2geB3UILNZb2LonorlZGWLGYZ1l8l0ZgVryeyGZyo6fS7Y8tLNViwWklexTmYgEOHcyVPxq+l70QCItOQ49qTR0D0NXU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=idkmanager.com; spf=pass smtp.mailfrom=idkmanager.com; arc=none smtp.client-ip=74.125.227.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=idkmanager.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=idkmanager.com
-Received: by mail-vs2-f40.google.com with SMTP id ada2fe7eead31-7a4fb331cc0so555670137.3
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 07:39:13 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789828752; x=1790433552;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=J7n75dlxtos3+ITb9g8BdRmQ8irhbat1c12Yu0oiLPQ=;
-        b=x6jqRCTAfSxFodohYiX69GEpSeSyEMlqCSwWvmxzGKJu0ltYytztl76SEGw25F1oo9
-         aGcUCRU3hfHLFOlTPnUwLnFWYrWrbFKRs9rfsvWqEzvuzpRTAyMCKmH7aafaDJ1lhq6+
-         eLgQrWTRjc/MmTdJvZ3hPh1giMH9Q7T5GRhveLxmTSbvxabQ+ZQ4DVM3RAovY+A99CYO
-         8GVezcUVX0GwflI1aUn5a8Co90SFJWmwPYSIoHJOOWaRPf51TgIE6TJwmNcIXE8fB02S
-         UsQOSyEldHQ11LhM0FfZ8XsIRnLm8qxgkAFQLpkqz2I0fPQ0FUcnCpCnq5qzftMOwzVV
-         EbcA==
-X-Forwarded-Encrypted: i=1; AKwUvBzCNmDxUlKCRWQM0usjAJ2l4n9B7l5QwEnnNvOUYvjSA+pyKeB+oCCp1YRHXCQ5EDTzu3X6L1v5eU9xxlQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++m37mq4C0Fl6A1PX3dics4WvpW2fghKcfKCNc8qnUV2GDorM5T8
-	y2i+4jTms0iawud6gYMBp4Z5Io6gyNzC+ndlezMDiDpbSaVIYtp3ugQEsBLMlREBGzGcqOrgNMK
-	HyMq3oUVtTw==
-X-Gm-Gg: AYBFou3ozo8ymlryK5fhsqeMORyorBGO4jsgRShasDuQ98hmdIx59Mn098zyVdbXgTC
-	Lcx0EGS47VB+LBnyRRvxZknSnqhXH73w4yhEjtMdGS70+dAQE93Bk3JbNO/nTDXrvCH6Nt/5wfq
-	spofxbySzA9GdZqHcvrFCm1dNV/KWJqsXowCyddopJygY6ONe2A1mI/SmgXK8ARXvn0lGOfbsFQ
-	NHIC+WNw2zyEx9L1gLL20wMGkPg8zhYUDsL1j3m8FD1hCPlG/ZG0hFHWdShIWgJjtXij48AEXjX
-	afg+CxBnPKjtSCTvlVmGN0PPhQp8zZCBkW1sJmrrKqbLw5YAX2KO1IF9Qm5yGpmUBx7hfRqww4x
-	1QspOFyLTVpNDmupehozVU2oQbfOFfrnYUDC4jXJOl2s48uLC+Y2AvJ6LcT+RB/pOltYQrjDkKv
-	p9rDsqVOCL4lx8DKgBApe3huuLmsyfuHN2JWzdDTucrp+5kOZe50RMw58Eu3Ixqj5CIQmMtFvaM
-	VKgthkOkL0btt64DUZEqizMkAv4Qs6qj+UZlWpu7fy3zFjGHvufGmU=
-X-Received: by 2002:a05:6102:5e86:b0:7a7:195a:1b29 with SMTP id ada2fe7eead31-7a7195a1f70mr420888137.35.1789828752044;
-        Sat, 19 Sep 2026 07:39:12 -0700 (PDT)
-Received: from [100.96.0.25] (corp-190-12-36-222.uio.puntonet.ec. [190.12.36.222])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-984b4ed2880sm2969614241.0.2026.09.19.07.39.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 07:39:11 -0700 (PDT)
-From: Ing. Alfonso Kuen Arroyo <gerencia@idkmanager.com>
-To: Maurizio Lombardi <mlombard@arkamax.eu>
-Cc: Maurizio Lombardi <mlombard@arkamax.eu>, hch@lst.de, sagi@grimberg.me,
- kch@nvidia.com, linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] nvmet-tcp: report a bounded MDTS instead of "no limit"
-Date: Sat, 19 Sep 2026 09:39:10 -0500
-Message-ID: <178982875024.43804.2680537645505838340@idkmanager.com>
-In-Reply-To: <DLJ4T2GRQSA7.1NN9YA9M8XUDK@arkamax.eu>
-References: DL41D2NGEUHW.2UUHTZ6LLM9X7@arkamax.eu,
- 178978683646.43804.6940923486189370705@idkmanager.com,
- DLJ4POIDTYXQ.2AOJP9BJAWEOX@arkamax.eu <DLJ4T2GRQSA7.1NN9YA9M8XUDK@arkamax.eu>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	s=arc-20240116; t=1789828810; c=relaxed/simple;
+	bh=5+wsLqNiz1ftRnY/1v6UHJknDM2g9naN/MHmlwTljBQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eZOKpz8QVv/zTgMT+O+t7jT3zAxjUrLcBhCwL20gFwlMUf7oNpXyyS43VSQB1Gt7XSIkcT9Z3X9Cz0IQ3uFyepGXqD5bdZCrikOuE21sc57SoXcd/SHWRPs1K5qs/CH38n+NY9FOr9b8KhlXfJsL/yvVO30vET2B98smRJzkSd0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bmle4uSt; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bmle4uSt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9816A1F000FF;
+	Sat, 19 Sep 2026 14:39:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789828808;
+	bh=wjlxL5aZkP+VxdLu3dOkGnCdnF8bXwL4sZrwxhwgEoI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bmle4uStbjC80tnxl/vjfpvmYYVkjjgMRY8+5/8q3PJtzA+t0bmdendomXHO0ws9H
+	 U7AkZ01hXjF9UNEcQJjw7O9/G4ZVuIuTmE9nQZ3vbmzWCvaO165TT83I/rtJG67Uk8
+	 ZFOFQWbnJPaWf/uRXVtzgN/37w3mP1J0r/35iCXOcKYjsonGbQyJWBByqZl7EDsn8A
+	 AoQzM7VokTP4qPCH98a+dd0vu239lXSc8hrSG3iX73m64ZC18rGxk7qnPGd28l/Jyx
+	 Wc2TmR6JoQ+w2Nml9DQH/pX6LYALY6ZyyxX+/DvfhQiCD1q+q2+EZx1en4Sr/c+Iwd
+	 Sv6mRmehV0F6A==
+Date: Sat, 19 Sep 2026 15:39:53 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Nicolas Schier <n.schier@fritz.com>, Kees Cook <kees@kernel.org>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Nick Desaulniers <ndesaulniers@google.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+	Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
+	Randy Dunlap <rdunlap@infradead.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
+	linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
+	Jens Axboe <axboe@kernel.dk>, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v3 01/20] kbuild: do not allocate .modinfo in vmlinux
+Message-ID: <aq6QwzcyvKp3CB0F@gremlin>
+References: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
+ <20260917-build-speedup-v3-1-9ecf4163ff36@kernel.org>
+ <202609170950.480F90A28@keescook>
+ <20260918005142.GA1585590@ax162>
+ <20260918-meek-spectral-nightingale-53d88d@l-nschier-aarch64>
+ <20260918214445.GA3589065@ax162>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918214445.GA3589065@ax162>
 
-On Sat Sep 19, 2026, Maurizio Lombardi wrote:
-> Yes, but your patch sets NVMET_TCP_MAX_MDTS to 8, which means 1MiB, not
-> 4MiB, so a 2MiB command should be rejected, even if it's under the
-> MAXH2CDATA limit of 4MiB; or am I missing something?
-
-You are not missing anything - I mixed the two numbers up in my previous
-mail. The patch advertises MDTS = 8, i.e. 2^8 * 4 KiB = 1 MiB, the same
-value nvmet-rdma reports, not the 4 MiB of NVMET_TCP_MAXH2CDATA. So with
-the patch a 2 MiB command does exceed the advertised MDTS, and today the
-target would still serve it: nothing in nvmet compares a command's
-transfer length against MDTS, the only rejection is the 4 MiB bound in
-nvmet_tcp_map_data(). Sorry for the confusion.
-
-> And indeed this is what's missing, because the specification
-> explicitely says that "if a command is submitted that exceeds [MDTS],
-> then the command is aborted with a status code of Invalid Field in
-> Command."
+On Fri, Sep 18, 2026 at 02:44:45PM -0700, Nathan Chancellor wrote:
+> On Fri, Sep 18, 2026 at 07:09:30PM +0200, Nicolas Schier wrote:
+> > Yes, thanks.  Looks good to me and I think it's a good idea to apply
+> > that patch first.
+> >
+> > for Nathans patch:  Reviewed-by: Nicolas Schier <n.schier@fritz.com>
 >
-> Maybe it can be added separatedly with a dedicated patch.
+> Thanks, I have pushed this to kbuild-next-speedups as
+>
+>   36d4a11b56aa ("kbuild: Remove alignment on .modinfo section")
+>
+> which Lorenzo can base on. I have also tentatively included the patches
 
-Agreed on both counts. The enforcement belongs in the core rather than in
-a transport - a transfer-length check against nvmet_ctrl_mdts() when the
-request is initialised, returning NVME_SC_INVALID_FIELD | NVME_STATUS_DNR -
-so that every transport with a get_mdts gets it for free. It is a separate
-change with its own blast radius (it turns a currently-served oversized
-command into a failed one for non-compliant hosts), so I would rather keep
-this patch as the "advertise what we can serve" step and send the
-enforcement as a follow-up on top of it. I can prepare that follow-up if
-you and the maintainers think it is the right direction; otherwise I am
-happy to leave it to whoever prefers to shape it.
+Ack, will rebase future revisions on this patch.
 
-Alfonso
+> that are basically ready in my eyes based on consensus and review so far
+> for initial build testing. I do see some comments on some of those
+> patches though, so I will hold off on fully applying them until the next
+> revision. If there are any other changes that we should consider taking
+> quickly on the next revision, please feel free to point them out, it is
+> a bit hard to follow these threads sometimes :)
+
+Thanks :)
+
+>
+> [1]: https://git.kernel.org/kbuild/l/kbuild-next-speedups
+>
+> > [ Lorenzo's patch, updated by Nathan ]
+> > [...]
+> > > diff --git a/scripts/Makefile.vmlinux b/scripts/Makefile.vmlinux
+> > > index 6833b517cacb..95b523fe4f9e 100644
+> > > --- a/scripts/Makefile.vmlinux
+> > > +++ b/scripts/Makefile.vmlinux
+> >
+> > [...]
+> > > @@ -103,10 +100,7 @@ vmlinux: vmlinux.unstripped FORCE
+> > >  # ---------------------------------------------------------------------------
+> > >
+> > >  quiet_cmd_modules_builtin_modinfo = GEN     $@
+> > > -      cmd_modules_builtin_modinfo = $(cmd_objcopy); \
+> > > -                                    chmod -x $@
+> > > -
+> > > -OBJCOPYFLAGS_modules.builtin.modinfo := -j .modinfo -O binary
+> > > +      cmd_modules_builtin_modinfo = $(OBJCOPY) -O binary -j .modinfo --dump-section .modinfo=$@ $< /dev/null
+> >
+> > By shifting from "$(cmd_objcopy)" to "$(OBJCOPY) + args",
+> > $(OBJCOPYFLAGS) is dropped.  It this by intention?
+>
+> I am not sure it matters in this case since I don't think there are
+> global OBJCOPYFLAGS, I only see instances that come from specific rules
+> but I might be missing something.
+
+OBJCOPYFLAGS is exported from the top level Makefile:
+
+655:export KBUILD_CPPFLAGS NOSTDINC_FLAGS LINUXINCLUDE OBJCOPYFLAGS KBUILD_LDFLAGS
+
+And is set by various arches e.g.:
+
+arch/csky/Makefile
+2:OBJCOPYFLAGS		:=-O binary
+
+arch/mips/Makefile
+348:OBJCOPYFLAGS		+= --remove-section=.reginfo
+
+arch/openrisc/Makefile
+20:OBJCOPYFLAGS    := -O binary -R .note -R .comment -S
+
+arch/sh/Makefile
+79:OBJCOPYFLAGS	:= -O binary -R .note -R .note.gnu.build-id -R .comment \
+		   -R .stab -R .stabstr -S
+
+arch/s390/Makefile
+123:OBJCOPYFLAGS	:= -O binary
+
+And none of this should impact .modinfo, and if it did it'd be broken as then
+.modinfo would be different for one arch and not the others.
+
+>
+> --
+> Cheers,
+> Nathan
+
+--
+Cheers, Lorenzo
