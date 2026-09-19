@@ -1,146 +1,217 @@
-Received: from out01.mta.xmission.com (out01.mta.xmission.com [166.70.13.231])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59C0654704A;
-	Sat, 19 Sep 2026 04:53:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=166.70.13.231
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1AF331E838
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 04:56:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789793638; cv=none; b=o+V7mmSTDrxTtcAr/glaHkrp5eyBf6NRTFmDmY9/c24oM1tSiAgJ6lNrae3Se1tGieTQyHqK+1UXwCkVd8UiyGzucOvX/6Ptt7Iv+pGNyRtpCGMLmmwAcMnh/wLzdk4ayiS5DEaq8SazU6RUNXQ6cNNViIXIEnCMMARcGgYzbkk=
+	t=1789793814; cv=none; b=aa5yXywIP58Wnpvfi3wRJlXo/ZRnYs2bYdLDlhKRFv3WCObJhKlRIdXqqCdQQNfneCptWxNOea4GPOdXxc54TOfOBx4VyQN+jhAZURIuhhaU9jGoHte96gd7Pbt9RsY/uUVGR7N9Fz9mheK7mPV3Vg5MrF0FMr6cQtTDmvBapCw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789793638; c=relaxed/simple;
-	bh=RZWen5AgjBWrYZJ5pGQA17J3wafpYMVpmSF7wo7K36U=;
-	h=From:To:Cc:In-Reply-To:References:Date:Message-ID:MIME-Version:
-	 Content-Type:Subject; b=BbgqSBRjpN+l8qCHS+2YOavUi2FtSX1qpO516bhTzT/NBR2YS0C0UyjnyBu2YsY7t9vfpOlzXRYPeAkSUdbH4JymmLJ0LdAlVGZnqP7Gja+q6ETa1y068QP9eCGWC6Ak+QPrb5qX5mplX28kqGfmrVdtNQgqDVCcL9/I2guav3w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xmission.com; spf=pass smtp.mailfrom=xmission.com; dkim=pass (1024-bit key) header.d=xmission.com header.i=@xmission.com header.b=EO2SBL3Q; arc=none smtp.client-ip=166.70.13.231
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xmission.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xmission.com
+	s=arc-20240116; t=1789793814; c=relaxed/simple;
+	bh=IptSlcgDNMgPX65l8P/ng9Wz/P1dZIyMV6wSxZ6f5JE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mTp4vjZ+TMY/GjVBQGvqdzLdRt6gngXknXx2+GILuJULkyAeniV0DeJYiOzRg23alpLBwjDicn8HVNjFx45K7i0FgmhmXBHzQWrnD8G1pj+Y9ZesdGx8jp647IQsQKUGdZEnwey967hiksbMxyNJwbgEIiThcZoFDOW5IqrMbt4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I3ADj2un; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xmission.com header.i=@xmission.com header.b="EO2SBL3Q"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=simple/simple; d=xmission.com;
-	 s=xmission; h=Subject:Content-Type:MIME-Version:Message-ID:Date:References:
-	In-Reply-To:Cc:To:From:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=RZWen5AgjBWrYZJ5pGQA17J3wafpYMVpmSF7wo7K36U=; b=EO2SBL3QH6fRvP2pEmWE8Deu39
-	ubmC1YL9TnUv3xW7YqmVKfV9zQorl7RTbINLcDw4flvs24egWErZPHeInsazuJEOx+wXktgYbOKU2
-	3av3S7hgtZoCWfAKdGk0S/ctKQAa6OX9eVy0sLFq+we8ock9ZbV7V/oJdrJExXclGg6Q=;
-Received: from in01.mta.xmission.com ([166.70.13.51]:60084)
-	by out01.mta.xmission.com with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.93)
-	(envelope-from <ebiederm@xmission.com>)
-	id 1x7mlZ-002Ci8-SB; Fri, 18 Sep 2026 22:33:33 -0600
-Received: from ip72-198-196-98.om.om.cox.net ([72.198.196.98]:59022 helo=email.froward.int.ebiederm.org.xmission.com)
-	by in01.mta.xmission.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.93)
-	(envelope-from <ebiederm@xmission.com>)
-	id 1x7mlX-00H4gm-15; Fri, 18 Sep 2026 22:33:33 -0600
-From: "Eric W. Biederman" <ebiederm@xmission.com>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: io-uring@vger.kernel.org,  linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org,  tglx@kernel.org,  mingo@redhat.com,
- peterz@infradead.org, Oleg Nesterov <oleg@redhat.com> 
-In-Reply-To: <20260911154148.644489-1-axboe@kernel.dk> (Jens Axboe's message
-	of "Fri, 11 Sep 2026 09:40:50 -0600")
-References: <20260911154148.644489-1-axboe@kernel.dk>
-Date: Fri, 18 Sep 2026 23:33:25 -0500
-Message-ID: <87a4pdami2.fsf@email.froward.int.ebiederm.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I3ADj2un"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39b1a806664so234974a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 21:56:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789793811; x=1790398611; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3FaYMWoLtfMpPGm9qJCsSSHWDytmWP7yJQl5baQhbXs=;
+        b=I3ADj2unORZbLGtqeHzRc8fACUbxg9y3V1ae81qf24w7Z9NaGUMXgeooropJuNsrcj
+         L71x/+JZ3jydzSmkaHDGc5hOt7GgiFYeSoHoZxfJEojK009cQM748Zgs2CX7WHb740u2
+         J7lbhC05aZlw5takiHTJ+kI2LrLLe0FfqYN9okD35vXJnDO60ILyixOTNdm1q5wa6X2V
+         kuYGIHd2lEbZhA5SpfuUWMAtYd/8ePSfQcvqbDEdaritc1+WwclUzNLlZUrc3QTk8nAc
+         pOBHMzZscK8sNjsdLYPeBhE2UqVMCRX8GmtmishR6xH+FmfDBybJRb9YysVj73pWHq1A
+         A2LA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789793811; x=1790398611;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3FaYMWoLtfMpPGm9qJCsSSHWDytmWP7yJQl5baQhbXs=;
+        b=UX7oag7zAjDFAkBQQ0nWvIBXc3wbdbyvFpLNZeIJKqZdIdsQB41Ekks29lq/wpptfE
+         nTKByaXURsWFFuABiFs6M7A3nzulDu0eHd76o2oCox7Ee0Cnsf82oxuL7lqsVm6TFrPx
+         rPpAMtWtDayY10bRC45zlKQHMSoCseWGObYADaQ4+4R8lockPwOgsI/w8Bro1Ol6w/GP
+         vqP4sGBk01qccD+PWpdmHkD54BFrILkd9IEo5asb6+xcES5mnk6nIJ5K8V723aKJEwW+
+         nYWJee7JpMDOVTkETL1Q0WhXBE3dgiQU8Mer1XpQdAxNlUh7LU1LHmJ/e5cOuZsi6mQx
+         56+g==
+X-Forwarded-Encrypted: i=1; AKwUvByz7M6uEEKtNl/9kEIM+d07PKTT1Nb7joQjKDr+t7Ul6zk8sLfIOLLpqMgpFKbgOwp0GgNaEhcSOqpc5Oc=@vger.kernel.org
+X-Gm-Message-State: AFuF++klofido4Snc9izjJKD3gcAU12gXPvaHcNBvvXi8rk12LCx/cQg
+	Qvh1nWQ4ib0O84Ll8JBYIlZrZa9i5DEiKrMTGqaqMGb+aiZ4ZkDzHLOl
+X-Gm-Gg: AYBFou0a9Ie3dtg9c3yZHfHrF0wqSzdZsh+UhKLXYKKWBmx/kXGt35oIvRia10K4/S8
+	+lNdALJSwI+VcB4NxBu7wBRaqfsCw1+fIfytIydHf7s5j0EPB+K+vUCTV3Ze4eZnrAdKAvAVnX3
+	LB8ZU/LD9pESKKRsQKrKoQhpK37wJBmOPqxuTi+cPYwwcO9V2rozxPVC4nJISru72KBs2FRdQry
+	xAcbh3k8+02CZHmyWfvq0KOvcXR90Y1aBPUjYe540lyJvEDG3SAiXlVJsWQIfSAc6B27mamYUpp
+	b/TfS6fVcgebE9dGPiXkXQSvCdVMTcx+RyFyc3yUYpQzLcPxG8M/hB0H779o+NxA8lZnnhWgC0x
+	b24atpmPklrf9sm19Yu3OmJxKZLt7Pu/mSbONQdV7cnWjv0DtdVEhZ/B+hLg+GQY4Z/9KcVlmwR
+	XIgZ1lWngHAvXLvm12e4FvcNE5joajpZk28r1U9oixSmgsT02PIAC2yxeeEJQSLzY1K01M7L26h
+	FF8ovBmo5OK1lPfWzig
+X-Received: by 2002:a17:90b:2ccb:b0:39e:2f57:67c8 with SMTP id 98e67ed59e1d1-39e599d6c1dmr8601655a91.4.1789793811182;
+        Fri, 18 Sep 2026 21:56:51 -0700 (PDT)
+Received: from [192.168.1.7] ([134.236.76.17])
+        by smtp.googlemail.com with ESMTPSA id 98e67ed59e1d1-39e6ca871edsm2481133a91.5.2026.09.18.21.56.47
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 18 Sep 2026 21:56:50 -0700 (PDT)
+Message-ID: <aef1ba1a-aa9b-4ba8-9456-6a99d350dde2@gmail.com>
+Date: Sat, 19 Sep 2026 11:56:44 +0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-XM-SPF: eid=1x7mlX-00H4gm-15;;;mid=<87a4pdami2.fsf@email.froward.int.ebiederm.org>;;;hst=in01.mta.xmission.com;;;ip=72.198.196.98;;;frm=ebiederm@xmission.com;;;sPfnum=0;;;sPf=pass
-X-XM-AID: U2FsdGVkX19vXQSjoUfiXnvOr525YQvVO6XmJ8MQ/NI=
-X-Spam-Level: *
-X-Spam-Report: 
-	* -1.0 ALL_TRUSTED Passed through trusted hosts only via SMTP
-	*  0.1 BAYES_50 BODY: Bayes spam probability is 40 to 60%
-	*      [score: 0.4992]
-	*  0.7 XMSubLong Long Subject
-	*  1.5 XMNoVowels Alpha-numberic number with no vowels
-	*  0.0 T_TM2_M_HEADER_IN_MSG BODY: No description available.
-	* -0.0 DCC_CHECK_NEGATIVE Not listed in DCC
-	*      [sa06 1397; Body=1 Fuz1=1 Fuz2=1]
-	*  0.0 T_TooManySym_01 4+ unique symbols in subject
-X-Spam-DCC: XMission; sa06 1397; Body=1 Fuz1=1 Fuz2=1 
-X-Spam-Combo: *;Jens Axboe <axboe@kernel.dk>
-X-Spam-Relay-Country: 
-X-Spam-Timing: total 2340 ms - load_scoreonly_sql: 0.06 (0.0%),
-	signal_user_changed: 16 (0.7%), b_tie_ro: 14 (0.6%), parse: 0.99
-	(0.0%), extract_message_metadata: 13 (0.6%), get_uri_detail_list: 1.59
-	(0.1%), tests_pri_-2000: 4.8 (0.2%), tests_pri_-1000: 2.6 (0.1%),
-	tests_pri_-950: 1.34 (0.1%), tests_pri_-900: 0.98 (0.0%),
-	tests_pri_-90: 82 (3.5%), check_bayes: 80 (3.4%), b_tokenize: 9 (0.4%),
-	 b_tok_get_all: 11 (0.5%), b_comp_prob: 4.3 (0.2%), b_tok_touch_all:
-	49 (2.1%), b_finish: 1.35 (0.1%), tests_pri_0: 289 (12.3%),
-	check_dkim_signature: 0.58 (0.0%), check_dkim_adsp: 3.0 (0.1%),
-	poll_dns_idle: 1906 (81.4%), tests_pri_10: 1.89 (0.1%), tests_pri_500:
-	1923 (82.2%), rewrite_mail: 0.00 (0.0%)
-Subject: Re: [RFC PATCH 00/15] io_uring: thread identity handoff for
- blocking inline issue
-X-SA-Exim-Connect-IP: 166.70.13.51
-X-SA-Exim-Rcpt-To: oleg@redhat.com, peterz@infradead.org, mingo@redhat.com, tglx@kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, io-uring@vger.kernel.org, axboe@kernel.dk
-X-SA-Exim-Mail-From: ebiederm@xmission.com
-X-SA-Exim-Scanned: No (on out01.mta.xmission.com); SAEximRunCond expanded to false
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] net: usb: qmi_wwan: add common Huawei modem IDs
+To: jackyphuti <jackympoka22@gmail.com>, bjorn@mork.no,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com
+Cc: netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Copilot <223556219+Copilot@users.noreply.github.com>
+References: <20260918193645.59374-1-jackympoka22@gmail.com>
+Content-Language: en-US
+From: Lars Melin <larsm17@gmail.com>
+In-Reply-To: <20260918193645.59374-1-jackympoka22@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Jens Axboe <axboe@kernel.dk> writes:
+On 2026-09-19 02:36, jackyphuti wrote:
+> Add common Huawei product IDs to qmi_wwan fixed-interface mappings
+> for broader generic Huawei modem coverage.
+> 
+> Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>
+> Signed-off-by: jackyphuti <jackympoka22@gmail.com>
+> ---
+>   drivers/net/usb/qmi_wwan.c | 38 +++++++++++++++++++++++++-------------
+>   1 file changed, 25 insertions(+), 13 deletions(-)
+> 
+> diff --git a/drivers/net/usb/qmi_wwan.c b/drivers/net/usb/qmi_wwan.c
+> index fdfdcf24ddcf..2809b6985f7a 100644
+> --- a/drivers/net/usb/qmi_wwan.c
+> +++ b/drivers/net/usb/qmi_wwan.c
+> @@ -216,10 +216,10 @@ static int qmimux_rx_fixup(struct usbnet *dev, struct sk_buff *skb)
+>   		if (netif_rx(skbn) != NET_RX_SUCCESS) {
+>   			net->stats.rx_errors++;
+>   			return 0;
+> -		} else {
+> -			dev_sw_netstats_rx_add(net, pkt_len);
+>   		}
+>   
+> +		dev_sw_netstats_rx_add(net, pkt_len);
+> +
+>   skip:
+>   		offset += len + qmimux_hdr_sz;
+>   	}
+> @@ -946,6 +946,13 @@ static const struct driver_info	qmi_wwan_info_quirk_dtr = {
+>   };
+>   
+>   #define HUAWEI_VENDOR_ID	0x12D1
+> +#define HUAWEI_PRODUCT_E1750	0x1406
+> +#define HUAWEI_PRODUCT_E173	0x140c
+> +#define HUAWEI_PRODUCT_K4505	0x1464
+> +#define HUAWEI_PRODUCT_K3765	0x1465
+> +#define HUAWEI_PRODUCT_K4605	0x14c6
+> +#define HUAWEI_PRODUCT_E1820	0x14ac
+> +#define HUAWEI_PRODUCT_E173S6	0x1c07
+>   
+>   /* map QMI/wwan function by a fixed interface number */
+>   #define QMI_FIXED_INTF(vend, prod, num) \
+> @@ -1024,23 +1031,23 @@ static const struct usb_device_id products[] = {
+>   	},
+>   	{	/* Novatel USB551L and MC551 */
+>   		USB_DEVICE_AND_INTERFACE_INFO(0x1410, 0xb001,
+> -		                              USB_CLASS_COMM,
+> -		                              USB_CDC_SUBCLASS_ETHERNET,
+> -		                              USB_CDC_PROTO_NONE),
+> +					      USB_CLASS_COMM,
+> +					      USB_CDC_SUBCLASS_ETHERNET,
+> +					      USB_CDC_PROTO_NONE),
+>   		.driver_info        = (unsigned long)&qmi_wwan_info,
+>   	},
+>   	{	/* Novatel E362 */
+>   		USB_DEVICE_AND_INTERFACE_INFO(0x1410, 0x9010,
+> -		                              USB_CLASS_COMM,
+> -		                              USB_CDC_SUBCLASS_ETHERNET,
+> -		                              USB_CDC_PROTO_NONE),
+> +					      USB_CLASS_COMM,
+> +					      USB_CDC_SUBCLASS_ETHERNET,
+> +					      USB_CDC_PROTO_NONE),
+>   		.driver_info        = (unsigned long)&qmi_wwan_info,
+>   	},
+>   	{	/* Novatel Expedite E371 */
+>   		USB_DEVICE_AND_INTERFACE_INFO(0x1410, 0x9011,
+> -		                              USB_CLASS_COMM,
+> -		                              USB_CDC_SUBCLASS_ETHERNET,
+> -		                              USB_CDC_PROTO_NONE),
+> +					      USB_CLASS_COMM,
+> +					      USB_CDC_SUBCLASS_ETHERNET,
+> +					      USB_CDC_PROTO_NONE),
+>   		.driver_info        = (unsigned long)&qmi_wwan_info,
+>   	},
+>   	{	/* Dell Wireless 5800 (Novatel E362) */
+> @@ -1228,8 +1235,13 @@ static const struct usb_device_id products[] = {
+>   	{QMI_QUIRK_SET_DTR(0x05c6, 0x9625, 4)},	/* YUGA CLM920-NC5 */
+>   	{QMI_FIXED_INTF(0x0846, 0x68a2, 8)},
+>   	{QMI_FIXED_INTF(0x0846, 0x68d3, 8)},	/* Netgear Aircard 779S */
+> -	{QMI_FIXED_INTF(0x12d1, 0x140c, 1)},	/* Huawei E173 */
+> -	{QMI_FIXED_INTF(0x12d1, 0x14ac, 1)},	/* Huawei E1820 */
+> +	{QMI_FIXED_INTF(HUAWEI_VENDOR_ID, HUAWEI_PRODUCT_E1750, 1)},	/* Huawei E1750 */
+> +	{QMI_FIXED_INTF(HUAWEI_VENDOR_ID, HUAWEI_PRODUCT_E173, 1)},	/* Huawei E173 */
+> +	{QMI_FIXED_INTF(HUAWEI_VENDOR_ID, HUAWEI_PRODUCT_K4505, 1)},	/* Huawei K4505 */
+> +	{QMI_FIXED_INTF(HUAWEI_VENDOR_ID, HUAWEI_PRODUCT_K3765, 1)},	/* Huawei K3765 */
+> +	{QMI_FIXED_INTF(HUAWEI_VENDOR_ID, HUAWEI_PRODUCT_K4605, 1)},	/* Huawei K4605 */
+> +	{QMI_FIXED_INTF(HUAWEI_VENDOR_ID, HUAWEI_PRODUCT_E1820, 1)},	/* Huawei E1820 */
+> +	{QMI_FIXED_INTF(HUAWEI_VENDOR_ID, HUAWEI_PRODUCT_E173S6, 1)},	/* Huawei E173s-6 */
+>   	{QMI_FIXED_INTF(0x1435, 0x0918, 3)},	/* Wistron NeWeb D16Q1 */
+>   	{QMI_FIXED_INTF(0x1435, 0x0918, 4)},	/* Wistron NeWeb D16Q1 */
+>   	{QMI_FIXED_INTF(0x1435, 0x0918, 5)},	/* Wistron NeWeb D16Q1 */
 
-> Hi,
->
-> io_uring issues requests inline with IO_URING_F_NONBLOCK and punts to
-> io-wq when that isn't possible. For a range of opcodes it isn't possible
-> at all, as there's no nonblocking path in the kernel for them: fsync,
-> statx, openat, the *at family, xattr, fadvise, splice, etc. Those are
-> punted unconditionally, and the punt costs a thread wakeup, a context
-> switch and a task_work completion round trip per request. io_uring HAS
-> to be cautious to prevent accidental blocking in the kernel, even if the
-> operations predominantly never block. Sad story. Examples of that are
-> things like an fdatasync that doesn't block, statx that hits dcache,
-> openat for O_TMPFILE, etc. All of those would've completed inline just
-> fine, but io_uring just cannot rely on that.
->
-> This series issues those requests inline in blocking mode instead, and
-> only pays for the offload if the request actually blocks. But by the
-> time it blocks, the submitter is deep in the kernel with the request on
-> its stack, so the work can't be moved to another thread. What we can
-> move is the identity. If the submitting task blocks, an idle io-wq
-> worker takes over its user visible identity (tid, signal state,
-> credentials, scheduling attributes, cgroup, user register state),
-> finishes the io_uring_enter() call and returns to userspace as the
-> submitter. The original task finishes the request as an
-> io-wq worker and joins the pool. Userspace is none the wiser, hopefully,
-> the same tid came back from the syscall, it's just on a different
-> task_struct. Folks that have been around a while may remember earlier
-> attempts at this about 20 years ago.
 
-I don't see anything immediately wrong, but I suspect I am just
-not looking hard enough.
+Hi,
 
-In my time working with the kernel I have never seen anyone actually get
-this kind of thing correct.
+The whitelist in qmi_wwan is based on numerical vid and pid,
+redefining them with vendor name and product strings fills
+no function. The driver is not a cross reference list for
+numerical to name lookup.
 
-The handoff that we do during exec has a bug with posix timers that
-I think is 23 years old that we just caught, and still hasn't been
-merged to Linus.
+Which of the products you are adding support for have you
+tested and confirmed working under the qmi_wwan driver?
 
-There was the old daemonize call that got it wrong so often I added
-kthreadd.
+For which of the products do you have a verbose lsusb listing
+so that you can confirm interface attributes before adding
+them to qmi_wwan?
+Please include these lsusb listings in the patch!
+
+Here are my comments by product:
+
+12d1:1406,1 only 2 endpoints, not qmi.
+It is a serial AT cmd port according to the Huawei Windows driver.
+
+12d1:140c,1 already supported, no need to redefine
+
+12d1:1464,1 is qmi, interface already blacklisted in the option driver 
+so can be added to qmi_wwan
+
+12d1:1465,1 interface has ecm attributes, is probably qmi but this must
+be confirmed and the interface must be blacklisted in the cdc_ether 
+driver BEFORE being added to qmi_wwan!
+
+12d1:14ac,1 already supported, no need to redefine
+
+12d1:14c6,1 already supported in qmi_wwan by its interface attributes
+
+12d1:1c07,1 jungo_ecm according to Huawei proprietary driver, may
+well be qmi but that has to be tested on a physical device.
 
 
-Maybe you want something like the old solaris doors, or vfork.
-Perform a synchronous task switch to this other thread, and call this
-function in the other thread.  Then block waiting on the other thread
-until the other thread blocks, or the function you called finishes.
-
-Is there a reason you didn't try and do it that way?
-Just a synchronous switch to and from a thread in your thread pool?
-
-You aren't changing the mm so I really doubt changing the stack pointer
-and a registers will be that expensive.
-
-
-Eric
+thanks
+Lars
