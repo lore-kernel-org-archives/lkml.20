@@ -1,74 +1,77 @@
-Received: from mail-pz2-f13.google.com (mail-pz2-f13.google.com [74.125.228.13])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5455736F41C
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:17:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 763B2383999
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:17:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789856250; cv=none; b=kNVJtZ3xK0mml+VYZL601VdLFbgH28s0tonv4inpxsb7T6S4cIpuD0lGm5qGDbeqRK3/FY2oQI1LVaTGM/KwmbZKeNcx0O1Wwn6BTxT1B87KBQbKb2vu/RZXrQIiexV19dRNQYTAxjbex+34cY8XpiITtDt8KIJIIYTjPUxSbUQ=
+	t=1789856252; cv=none; b=htz1elRTBFpQ8plsZHIx9WXTkFAA9iAWoocPwFc/lAobc0chvGwxNoOg3Za2hzqupF9+ly9yCH7tGyqbxGqzGuCIM/6pDQJWmB72pHXWVnJi+UmsgWBmiTf0iktnAf6jEX4a4l6i1vMG8GneFd5K4hJYg10wu43PjZ4JFOHFY+c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789856250; c=relaxed/simple;
-	bh=PBlYrbUMa8c9n2w8jCK5pWTavFbfpz7iWRc+vhU8O+k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=U65Vx7P5tEBlslXOaSyih7cPWWJHHRMj93LH68Nswm2nyaVysbUlaYgzN1G0ZHb0Qi82GvXOVDGJTX0Q4zQ94pY2oxMigpUsYOMvSzftMIqziMGlMdXYZ70lKniHcIn6NWMs7khBE02j3czODDjXqVaXTW5o/SgB7tlBtn98zxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JlUv+6LJ; arc=none smtp.client-ip=74.125.228.13
+	s=arc-20240116; t=1789856252; c=relaxed/simple;
+	bh=vTqde+jQUkD8nWmPm68T8gS25xyBW9YLSU7qR+8zCw4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aPT/5TVZDlnOLp+ejxFkFjyGRuTYdz3Q9+9D4a1aFxDEHyJx6wz24nu++eftiOzzwYvstJ3HBBAgpJyyFEzc4NoevDFEyddyJ+6PLX+8Q/c/kAo27knKzR4+p9txbl+LO4c0wjkLECjtQgdizbQCWfARbXfDp0IlGOGMBuhs9Ao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pw4leN1e; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JlUv+6LJ"
-Received: by mail-pz2-f13.google.com with SMTP id 41be03b00d2f7-cc4cdc0d663so1183231a12.3
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:17:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pw4leN1e"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4bdf8abaaso1510385a12.2
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:17:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789856249; x=1790461049; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789856250; x=1790461050; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nHjDEI31PmhjL+jQcpe7FJPCDJTSJKQhfDFskj8mPNE=;
-        b=JlUv+6LJhRQOcs562CtY6Wdl47GuDZqmxZRMRuVwmW885sl3UvQBN9cRsEtlVns/53
-         1TWgeH9j5m9S7HvCI7u6Mj2SUq6pbL4iFmCA0lpidEz80K1bWF3vPED9zGB6lw/24yBj
-         Hpfx2Hqy4qLlyOJLfBe8y/pussFBYo0GRsjTLs9Fhprhbciu5TASAH7TdCQaIHjJRF1f
-         kxwgGWK15+Z9AUHbwyh5hT+waW7j2sCMH3rU5FbXxx3fphAd+GwuIThnIZ6UWJPrDka/
-         j1xuesKjLYVEIJLvhcu5/EWeAyepBRDQSf5B1/a3OmzfYQRUQBRIw7G+ReZZrFlFR4Pt
-         qdSQ==
+        bh=gpCsP86xi2oPmXXsXdzzX0b/0jZcnB8+PgHESN6kqeA=;
+        b=pw4leN1e6nde8tNpQ+nYZjyqfFWjNs5FppBBGtL8aPV+v+xAbruIcfEqnxkz4EQ/Yc
+         SebiluAbj2lNF3r1mkZS5AGiS4HO5T4S/xO+I4tY2bAJT8WcAMkTEUE8X491+yXc+NmM
+         SKLclGBPMj6bUG5nwoFxA1Wsmoc01PG2PuZA8aoq7mRGWd2KeGWbUSvBcx7TLQuXWQ8y
+         3qbgwlzk1upXq6O/1BJUbEL4W1bCot0N6vK3gydBR/cSPybiffyROgju/C/HJBCUgKIt
+         RuBkXS9VBlZneUsrjP5aWijhvDQN3YOXrSEsq7UvbfYj0zOjgn9edLfUrt5LS4Ho/PUN
+         ZeBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789856249; x=1790461049;
+        d=1e100.net; s=20260707; t=1789856250; x=1790461050;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=nHjDEI31PmhjL+jQcpe7FJPCDJTSJKQhfDFskj8mPNE=;
-        b=vKHe8auTJyS+CO8QzaGRxPvNNjZ5gu53ER191i05LE/GSH2jhERPS9KkfmSu/3yg/O
-         hiXLCwZzK9vob+IZduLwWnipVkpfNRHzk2a2K0KPs4iYSNN+hyCS+J0kDtG1pRvCRdMK
-         Bb70Dz0/jxjtmzBE3gsCJFPor2p/rLfnZdvFLxVfCLBdkMD4Y6DLUthjFGt4wfrazG0s
-         77n70nhgN6lrop57O9Jv+gF0XdkfoUA6AH9hahgQuxrlfGz5o1LOvTTngczvoU3NipXy
-         TwhgDSIa6L5ALJK0Tor1RzY1+v2jzrF4t04G2B453aqqRFk3E9wwPdblJYDJO17fStBD
-         UZAA==
-X-Forwarded-Encrypted: i=1; AKwUvBwjRXMg0PxIF6nwUqL46qQ1qNVUDJA+Um6ahlAIlkuU12uu4TfR0Y/91VFlAs3z6Bs7kEUrFm4BDUTtFCo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nXTC1mW3ox6TGeW7ikmtxMCE1cjD8iGlAdVU46bvPY9zgSRu9w
-	ih7Isw+3sQTJT3SHarMQ3nosaLbSxqlIkmr8OREv6xM3AkRS8uEpYnkj
-X-Gm-Gg: AYBFou17RcMef7CD/+1d8myd3XB18TtjZ9mrHuCA33+OJOawVXwtL2z62QxJIlQ+Xss
-	KAlnPVKswkzQUe5RPUwheVpNjOPizrSbX37c7m36N4rpup72mk9RAV7mDR3VgogSDdpNszRuW3T
-	ntBGsbJWQ7IwTkzmRknN1CaICGrflkgw5G92kdsk7pi+Ulxi2lxvlC6wL4qRj740jNpfdNKZwL9
-	rKYribaarSgjveb7qWrdZdmoxwDUEcx2V9uFxFkD68eFCh1E+hwg0H0RgvwepI5vzNw9oSg2j9H
-	O5yCAlw0a7LzH68TxweKm7IpSf8AdyxAAAYoIjQZEGE6Mfz56wl/k2K/pCUJuQIgqJMvu1QQ4Jm
-	lfXrYB6FySaETr93f3NfIvjw7lC+2iRO2rsNcD0pkB5OzWv/WlDdXg+C2lYbPfHsLqcg9nb2Nkn
-	T0bk2/S9U071n8m237xIs4nI89Vrp9xPRvvBi+/m8pjcenonq6zPzkZ0uAszhfDAR7fV1DBDqqb
-	o8zgx8iFoiAYwR3kOWJTTcBhLJbO/9nx3zr8xLlq9BrGzp52bs4DWbkfEzYFscUKAR9FbP6xri9
-	k7j83mK/9pztMLJ8ivpu
-X-Received: by 2002:a17:90b:5281:b0:3a0:3673:dbbf with SMTP id 98e67ed59e1d1-3a03673dd7bmr458144a91.59.1789856248664;
-        Sat, 19 Sep 2026 15:17:28 -0700 (PDT)
+        bh=gpCsP86xi2oPmXXsXdzzX0b/0jZcnB8+PgHESN6kqeA=;
+        b=o9zp3kj0A4Ai8Lkt9GgSErppoh103RAl91o9mqx/ZMjbq/JXKZbLdjd57SPqTZ8SxP
+         2YPZzzavZ0CupxLaSgreu54noap93BB6mnHuJojZNAqw4GmgRAYXprl5OE/iecIYZnV8
+         aIpmAA/eKNRga+/1SPy1AYgpJDapQp7w02J/2OC1Aljm5gqPtqPXJLGSDdgF8WDrmmfA
+         zAIL2UAaMl0GEjHglwrRaLpwXUebx3Bnj3hmcCmoLUWXzRdsvJWAfLlVgpisYzp6CNwo
+         2pYBv36XRs1zAjXXiK54lHGO9W9sugzxxEX16colDGXKQKKLTrOED3Y2WK05pZhiZacV
+         d/Mg==
+X-Forwarded-Encrypted: i=1; AKwUvByyaN4KyIwD4ZkjSRUApUqwq1mesofvHNBcNOo8nUY5ntgWSoE6sDd2k4IQHGOpPAKD51IZdcXQWte/O/w=@vger.kernel.org
+X-Gm-Message-State: AFuF++mcPLwlset1j6gR/jU6exNOpP5hu3DftFvTRcDPEF8B82wUJtq3
+	9dFE06k8Re/KlKUyoTL9XZO+3FMSkdEJUagUHUxk/a78ccELobVoIS6w
+X-Gm-Gg: AYBFou3YZhDhSkcqr7Lz7o0c43LVp/gvBkv7zKgxBOolBBgDIr2v/KmtSAK9ZYUW2Rp
+	nW1uh42knbduqHaJd1SG2bPziRjhgSwXV/Zw7Y8VBkmV4NaZM/dsPSS76qpxBpaMx7nPMebkh6S
+	KfBFuKU8E3L9bCpqHEkPg8JdngtcpiBYs7Fy2LCOCnHUmz2TL9QXNsQ7pCtkMSxrYXT1XIFiLhP
+	/BqNucQBXfOcAzWCChIPH0BVnnNDjwUT3r0NjjpLzk2lQU7u4HBgYs0OKZ3WW7uz3ei1B4SfGMe
+	cebE5qmrWUy3aPVKu924BsYj1cT0JrJ+J//AhQp8uJPqphPij1TOfb5ipiKqUzot90nSm2V6QoU
+	XTvesQorw+X6ujl4RMounwsz8IbyVOfieWsepb1qS4rjC4ZrLtdhxseLYUsXSY43NiRk8/8Trsq
+	7sf0W8HxQcuPDQGxJO9jH9x6Df8l75ZJLT9xUyUh02ZDM4hRVniWJAYI/hNsHOGkMLrBKeiJPBE
+	I1Xr/4pcJCBZTBBJeWd0t8+y6spnRrEo856PmshqTM4ZN7EmGGN+rpyZDUPTG9LGAz3JalrJwIL
+	t9nOkZB7Dg==
+X-Received: by 2002:a17:90b:2d0c:b0:39e:6c68:c77d with SMTP id 98e67ed59e1d1-39e6c68ca07mr5314348a91.51.1789856249893;
+        Sat, 19 Sep 2026 15:17:29 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c37a88csm6240077a91.8.2026.09.19.15.17.28
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c4ba12csm6269131a91.11.2026.09.19.15.17.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 15:17:28 -0700 (PDT)
+        Sat, 19 Sep 2026 15:17:29 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
-To: longman@redhat.com,
-	ridong.chen@linux.dev,
-	tj@kernel.org,
-	hannes@cmpxchg.org,
-	mkoutny@suse.com
-Cc: cgroups@vger.kernel.org,
+To: peterz@infradead.org,
+	mingo@redhat.com,
+	acme@kernel.org,
+	namhyung@kernel.org,
+	mark.rutland@arm.com,
+	alexander.shishkin@linux.intel.com,
+	jolsa@kernel.org,
+	irogers@google.com
+Cc: linux-perf-users@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] cgroup/cpuset: prevent overlapping local and remote partition creation
-Date: Sat, 19 Sep 2026 22:17:27 +0000
-Message-ID: <20260919221727.3706964-1-benquike@gmail.com>
+Subject: [PATCH] perf/core: fix locked_vm leak on alias mmap() and cross-MM pinned_vm underflow
+Date: Sat, 19 Sep 2026 22:17:28 +0000
+Message-ID: <20260919221728.3707189-1-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -78,61 +81,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix two partition validation bugs in kernel/cgroup/cpuset.c:
+In perf_mmap(), mapping an output ring buffer onto an event via
+PERF_EVENT_IOC_SET_OUTPUT / alias mmap() increments user->locked_vm and
+mm->pinned_vm without recording the accounting MM on the ring_buffer or
+releasing user_extra onperf_mmap_close(), causing a permanent locked_vm
+leak and a cross-MM pinned_vm underflow when the mapping is closed in a
+different process. Store the accounted mm_struct on struct perf_buffer
+and unaccount against the original mm_struct on close.
 
-1. In remote_partition_enable(), check whether the requested effective
-   xcpus intersect parent->subpartitions_cpus so a remote partition
-   cannot claim CPUs already delegated to a local child partition.
-2. In validate_partition(), verify that enabling a local partition does
-   not overlap CPUs already allocated to an active remote partition.
-
-Fixes: aa7d3a56a20f ("cpuset: fix warning when disabling remote partition")
+Fixes: fae85b7c8bcc ("perf: Start the restructuring")
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
-diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index 2538faac9aba..13fad096c494 100644
---- a/kernel/cgroup/cpuset.c
-+++ b/kernel/cgroup/cpuset.c
-@@ -713,7 +713,10 @@ static inline bool cpus_excl_conflict(struct cpuset *trial, struct cpuset *sibli
- 		return true;
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index fe33fe15689d..2be9301dcd7c 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -7050,7 +7050,11 @@ static void perf_mmap_close(struct vm_area_struct *vma)
  
- 	/* Exclusive_cpus cannot intersect */
--	return cpumask_intersects(trial->exclusive_cpus, sibling->exclusive_cpus);
-+	return cpumask_intersects(trial->exclusive_cpus,
-+				  cpumask_empty(sibling->exclusive_cpus)
-+				  ? sibling->effective_xcpus
-+				  : sibling->exclusive_cpus);
+ 		/* now it's safe to free the pages */
+ 		atomic_long_sub(rb->aux_nr_pages - rb->aux_mmap_locked, &mmap_user->locked_vm);
+-		atomic64_sub(rb->aux_mmap_locked, &vma->vm_mm->pinned_vm);
++		if (rb->aux_mmap_mm) {
++			atomic64_sub(rb->aux_mmap_locked, &rb->aux_mmap_mm->pinned_vm);
++			mmdrop(rb->aux_mmap_mm);
++			rb->aux_mmap_mm = NULL;
++		}
+ 
+ 		/* this has to be the last one */
+ 		rb_free_aux(rb);
+@@ -7272,7 +7276,7 @@ static void perf_mmap_unaccount(struct vm_area_struct *vma, struct perf_buffer *
+ 
+ 	atomic_long_sub((perf_data_size(rb) >> PAGE_SHIFT) + 1 - rb->mmap_locked,
+ 			&user->locked_vm);
+-	atomic64_sub(rb->mmap_locked, &vma->vm_mm->pinned_vm);
++	atomic64_sub(rb->mmap_locked, &rb->mmap_mm->pinned_vm);
  }
  
- static inline bool mems_excl_conflict(struct cpuset *cs1, struct cpuset *cs2)
-@@ -1591,8 +1594,8 @@ static int remote_partition_enable(struct cpuset *cs, int new_prs,
- 	 * above it or remote partition root underneath it is not allowed.
- 	 */
- 	compute_excpus(cs, tmp->new_cpus);
--	WARN_ON_ONCE(cpumask_intersects(tmp->new_cpus, subpartitions_cpus));
- 	if (!cpumask_intersects(tmp->new_cpus, cpu_active_mask) ||
-+	    cpumask_intersects(tmp->new_cpus, subpartitions_cpus) ||
- 	    cpumask_subset(top_cpuset.effective_cpus, tmp->new_cpus))
- 		return PERR_INVCPUS;
- 	if (((new_prs == PRS_ISOLATED) &&
-@@ -2411,6 +2414,10 @@ static enum prs_errcode validate_partition(struct cpuset *cs, struct cpuset *tri
- 	if (cpumask_empty(trialcs->effective_xcpus))
- 		return PERR_INVCPUS;
- 
-+	if ((parent == &top_cpuset) &&
-+	    cpumask_intersects(trialcs->effective_xcpus, subpartitions_cpus))
-+		return PERR_REMOTE;
-+
- 	if (prstate_housekeeping_conflict(trialcs->partition_root_state,
- 					  trialcs->effective_xcpus))
- 		return PERR_HKEEPING;
-@@ -2970,7 +2977,7 @@ static int update_prstate(struct cpuset *cs, int new_prs)
- 		 * local or remote partition.
- 		 */
- 		if ((parent == &top_cpuset) &&
--		    cpumask_intersects(cs->exclusive_cpus, subpartitions_cpus)) {
-+		    cpumask_intersects(user_xcpus(cs), subpartitions_cpus)) {
- 			err = PERR_REMOTE;
- 			goto out;
+ static int perf_mmap_rb(struct vm_area_struct *vma, struct perf_event *event,
+@@ -7311,7 +7315,6 @@ static int perf_mmap_rb(struct vm_area_struct *vma, struct perf_event *event,
+ 			 * Success -- managed to mmap() the same buffer
+ 			 * multiple times.
+ 			 */
+-			perf_mmap_account(vma, user_extra, extra);
+ 			refcount_inc(&event->mmap_count);
+ 			return 0;
  		}
+@@ -7338,6 +7341,8 @@ static int perf_mmap_rb(struct vm_area_struct *vma, struct perf_event *event,
+ 		return -ENOMEM;
+ 
+ 	rb->mmap_locked = extra;
++	rb->mmap_mm = vma->vm_mm;
++	mmgrab(rb->mmap_mm);
+ 
+ 	ring_buffer_attach(event, rb);
+ 
+@@ -7399,7 +7404,8 @@ static int perf_mmap_aux(struct vm_area_struct *vma, struct perf_event *event,
+ 
+ 	if (rb_has_aux(rb)) {
+ 		refcount_inc(&rb->aux_mmap_count);
+-
++		user_extra = 0;
++		extra = 0;
+ 	} else {
+ 		if (!perf_mmap_calc_limits(vma, &user_extra, &extra)) {
+ 			refcount_dec(&rb->mmap_count);
+@@ -7420,6 +7426,8 @@ static int perf_mmap_aux(struct vm_area_struct *vma, struct perf_event *event,
+ 
+ 		refcount_set(&rb->aux_mmap_count, 1);
+ 		rb->aux_mmap_locked = extra;
++		rb->aux_mmap_mm = vma->vm_mm;
++		mmgrab(rb->aux_mmap_mm);
+ 	}
+ 
+ 	perf_mmap_account(vma, user_extra, extra);
+diff --git a/kernel/events/internal.h b/kernel/events/internal.h
+index c03c4f2eea57..f10eacd8b590 100644
+--- a/kernel/events/internal.h
++++ b/kernel/events/internal.h
+@@ -5,6 +5,7 @@
+ #include <linux/hardirq.h>
+ #include <linux/uaccess.h>
+ #include <linux/refcount.h>
++#include <linux/sched/mm.h>
+ 
+ /* Buffer handling */
+ 
+@@ -38,6 +39,8 @@ struct perf_buffer {
+ 	refcount_t			mmap_count;
+ 	unsigned long			mmap_locked;
+ 	struct user_struct		*mmap_user;
++	struct mm_struct		*mmap_mm;
++	struct mm_struct		*aux_mmap_mm;
+ 
+ 	/* AUX area */
+ 	struct mutex			aux_mutex;
+@@ -67,6 +70,10 @@ static inline void rb_free_rcu(struct rcu_head *rcu_head)
+ 	struct perf_buffer *rb;
+ 
+ 	rb = container_of(rcu_head, struct perf_buffer, rcu_head);
++	if (rb->aux_mmap_mm)
++		mmdrop(rb->aux_mmap_mm);
++	if (rb->mmap_mm)
++		mmdrop(rb->mmap_mm);
+ 	free_uid(rb->mmap_user);
+ 	rb_free(rb);
+ }
