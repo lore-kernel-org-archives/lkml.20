@@ -1,83 +1,119 @@
-Received: from mta0.migadu.com (out-168.mta0.migadu.com [91.218.175.168])
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D044737FF54
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 09:34:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D9B735C68C
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 09:38:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.28.215.223
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789810500; cv=none; b=iZo/x61oS+dNswDT5KylFthPAkxjCPyew/efGnhZvNlliwmIDpwepCZkvVAoxIjhYbZBl9vhhO3AzvZZMiwRP1y2N5yy/Ui27fgnG3oBqFRV6S1DsR8qhQZDzeM0sGMM/ZAdAmf4C+LDwaGR4lh1zbNKNrFVahu9llZa3l0F/iA=
+	t=1789810714; cv=none; b=HRwpThme5a424p9mZUnUr/pw74zO+HOfgcxy4B0Pk6wtxK5IqkfG3ZA3+j7qyNgtYD/uxOyepuFQWF9MuOaTpndfyT40iimQqzQtvq8jZX4yFVFEjPojdzFtJ6uSnqLbK7FSOASNn/Mv94Qx3YPbJwZ8LVb9REbQUuVBlbayP5k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789810500; c=relaxed/simple;
-	bh=65mXLx3TuGJ0f/LCFgR008LHs15A4PJ7rCGI0Tetsmw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ArDwPbn6gGZXnBdVgM0QY5Jigl5kUUkjWbK7/T1L/DI9H2lhsTY7ofcsTqKRb7Ex2wc8aBU3KN1eh0NNI0dC7kPKN2Mno0gXqfq4WNKTMcxR1YxY3pqUF0uFqfrsIlSLBaB+g3cLFWn6dPJMqMPfelYM+9ruZA2xBIX0Ols0ecg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=av7NSowY; arc=none smtp.client-ip=91.218.175.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
+	s=arc-20240116; t=1789810714; c=relaxed/simple;
+	bh=FrMvHT1wZFZupgK65Ofd7xRfoF8OXpNBz2uLeNhg/gk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sp8rfgcfioetxnkNUBxBMEfIY6mGa1vtZicEbAMoYceSeMigAhn2WyAzMFWNIfnJihalOrxNPYp2ulx2xki8/4peTsX3iNYDuSLcxxHUNgBQsoJU1ygitP/EId5NTKBzXgFV/Y3XVgCJFVjrWAyCIb8ZlMsuT2chrIB3rlXjP2E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kwiboo.se; spf=pass smtp.mailfrom=fe-bounces.kwiboo.se; dkim=pass (2048-bit key) header.d=kwiboo.se header.i=@kwiboo.se header.b=pKh8JD+N; arc=none smtp.client-ip=149.28.215.223
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kwiboo.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.kwiboo.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="av7NSowY"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=65mXLx3TuGJ0f/LCFgR008LHs15A4PJ7rCGI0Tetsmw=;
- c=simple/simple; d=cknow-tech.com;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789810493; v=1; x=1790415293;
- b=av7NSowYEzYTq5N4jA8AjBAS8IfSKw98JAJBaBGj5b8lD42Jeo3xLgPP3h/2bz+kCORVewJI
- Usf2qlYxGkcY77q5BCk8dmxBCGpoQaYSspZZf2kBoRYnivSAz0L8oleG/0rgPZLhB7HwQlw/HQZ
- /d1wVK8tEHKSFwc8UTPmE0Xo0ooXcZnbrowY+Ef1vyo+MtJxOw7CN/8QTBteG2IuVtSZZfEA37y
- S4v7VuH7++CzxOFYnmPvBIRgFzKnxRtBFW7kyV7scycz971RzXNBTQ51FtUueRCAFn56UppUjY0
- DV6xsKtZF3f3Gor/PPSmyq3bDerKP5bft+k9BbzdF4s0Q==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f2dd4c0c3ee56a6a;
-	Sat, 19 Sep 2026 09:34:53 +0000
-X-Mizu-Trace-ID: f2dd4c0c3ee56a6a
-X-Migadu-Flow: FLOW_OUT
-From: Diederik de Haas <diederik@cknow-tech.com>
-To: Detlev Casanova <detlev.casanova@collabora.com>,
-	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>
-Cc: linux-media@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Diederik de Haas <diederik@cknow-tech.com>
-Subject: [PATCH] media: rkvdec: Remove redundant dev_err()
-Date: Sat, 19 Sep 2026 11:34:43 +0200
-Message-ID: <20260919093449.2534901-1-diederik@cknow-tech.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kwiboo.se header.i=@kwiboo.se header.b="pKh8JD+N"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
+ h=Content-Transfer-Encoding: Content-Type: In-Reply-To: From: References:
+ Cc: To: Subject: MIME-Version: Date: Message-ID; q=dns/txt;
+ s=fe-e1b5cab7be; t=1789810705;
+ bh=zGrl5lrYdWqS+T79tPrrdFjy8nze0T9cQfR/nAnT4sY=;
+ b=pKh8JD+NRtk7JZ6sjk9JQd+dSZMxuXcVAeB4GkmQnsB2zi14Mn1Xc63wgzO6lNHyu5AFXzDTF
+ skdzXDL4jsuW7InzilPqzUy+21dkwA8gV4L3wCacwTD7YzNY8Jpa0H2N9DYo6+eAmlNdFyY9x/z
+ llkHRuEjGYsN5fegXCIf+XtOSWARYEvr7u2rV4OZCJQOXfsOb+lAuNMSu1PHZ3KlKIw/AXivBey
+ v8wRKWGaC6agd4vMYZQmdSAkW36a3Ep8id6guakuYwoVm+II1u3VctOF4VCnytvKMilbTw0+v/T
+ vOcv9/yS4NDbpW5plpLo2aXVWGqQwGBfN3hYwNuqvJQQ==
+X-Forward-Email-ID: 6aae5808a917c0722b3828d9
+X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
+ 149.28.215.223
+X-Forward-Email-Version: 2.14.2
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
+Message-ID: <a558ca88-6981-428c-943d-6fd904d8ef2b@kwiboo.se>
+Date: Sat, 19 Sep 2026 11:38:11 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/3] dt-bindings: arm: rockchip: Add FriendlyElec
+ NanoPi R28S
+To: HystericalDragons@proton.me
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Chukun Pan <amadeus@jmu.edu.cn>, jensen <jensenhuang@friendlyarm.com>,
+ Andrey Korshunov <razor1702@gmail.com>,
+ Diederik de Haas <diederik@cknow-tech.com>,
+ Conor Dooley <conor.dooley@microchip.com>
+References: <20260914-r28s-upstream-v6-0-ea9edd75c126@proton.me>
+ <20260914-r28s-upstream-v6-1-ea9edd75c126@proton.me>
+Content-Language: en-US
+From: Jonas Karlman <jonas@kwiboo.se>
+In-Reply-To: <20260914-r28s-upstream-v6-1-ea9edd75c126@proton.me>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The devm_request_threaded_irq() function already logs detailed error
-messages on failure automatically since commit
-55b48e23f5c4 ("genirq/devres: Add error handling in devm_request_*_irq()")
-So remove the now-redundant driver-specific dev_err() calls.
+Hi,
 
-Signed-off-by: Diederik de Haas <diederik@cknow-tech.com>
----
- drivers/media/platform/rockchip/rkvdec/rkvdec.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+On 9/14/2026 3:35 PM, 安容 via B4 Relay wrote:
+> From: 安容 <HystericalDragons@proton.me>
+> 
+> The NanoPi R28S is a dual gigabit Ethernet router board based on the
+> Rockchip RK3528 SoC. It shares its base devicetree with the NanoPi
+> Zero2, so list both boards in a single entry.
+> 
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> Signed-off-by: 安容 <HystericalDragons@proton.me>
+> ---
+>  Documentation/devicetree/bindings/arm/rockchip.yaml | 12 +++++++-----
+>  1 file changed, 7 insertions(+), 5 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/arm/rockchip.yaml b/Documentation/devicetree/bindings/arm/rockchip.yaml
+> index 81744fbee9..dc04946db0 100644
+> --- a/Documentation/devicetree/bindings/arm/rockchip.yaml
+> +++ b/Documentation/devicetree/bindings/arm/rockchip.yaml
+> @@ -347,6 +347,13 @@ properties:
+>                - friendlyarm,nanopi-r2s-plus
+>            - const: rockchip,rk3328
+>  
+> +      - description: FriendlyElec NanoPi R28S/Zero2
 
-diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.c b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-index 061281f903f3..13d13c041509 100644
---- a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-+++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-@@ -1824,10 +1824,8 @@ static int rkvdec_probe(struct platform_device *pdev)
- 	ret = devm_request_threaded_irq(&pdev->dev, irq, NULL,
- 					rkvdec_irq_handler, IRQF_ONESHOT,
- 					dev_name(&pdev->dev), rkvdec);
--	if (ret) {
--		dev_err(&pdev->dev, "Could not request vdec IRQ\n");
-+	if (ret)
- 		return ret;
--	}
- 
- 	rkvdec->sram_pool = of_gen_pool_get(pdev->dev.of_node, "sram", 0);
- 	if (!rkvdec->sram_pool && rkvdec->variant->num_rcb_sizes > 0)
--- 
-2.55.0
+Maybe name this something like 'FriendlyElec NanoPi RK3528 series boards'
+to closer match other NanoPi/PC entries? That would also prevents
+re-ordering once more when NanoPi NEO3 Plus is added.
+
+Regards,
+Jonas
+
+> +        items:
+> +          - enum:
+> +              - friendlyarm,nanopi-r28s
+> +              - friendlyarm,nanopi-zero2
+> +          - const: rockchip,rk3528
+> +
+>        - description: FriendlyElec NanoPi R3S
+>          items:
+>            - const: friendlyarm,nanopi-r3s
+> @@ -388,11 +395,6 @@ properties:
+>            - const: friendlyarm,nanopi-r76s
+>            - const: rockchip,rk3576
+>  
+> -      - description: FriendlyElec NanoPi Zero2
+> -        items:
+> -          - const: friendlyarm,nanopi-zero2
+> -          - const: rockchip,rk3528
+> -
+>        - description: FriendlyElec NanoPC T6 series boards
+>          items:
+>            - enum:
+> 
 
