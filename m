@@ -1,122 +1,234 @@
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-3.mta0.migadu.com [91.218.175.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49583FC0A;
-	Sat, 19 Sep 2026 13:59:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 402B720D4FF
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:01:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789826350; cv=none; b=QNtja8bjyWgpr89i6Ia8miKd0hkBtmOj9HOS7TJcAHbbNkU5iIwTeure4Q2gWHeYSnxmhGyzPLBeUSB7X3mktu5ziCDo3FNRNBbBMIqXlAkJ4hcBSR92QvFbTeuSIgQGPofRxlZ0vn677IjEkORgdct3leQpCceHsnsH2EvRWfQ=
+	t=1789826481; cv=none; b=Zo2az8YoJ1yn2hCUUlSo3w6RrWindRjknnPuTbd+tqPBpn+HQB+zb2ugrjbU99MyKOHWelENDzZANCBxKnoyzySU8xhQk5F7XCxMIKygHdk+yh2R59hmcSd6xqvrh26X59RfOZV9WqhuRn1VrnkyCpAukpt5RqnIqcURYMSr2sA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789826350; c=relaxed/simple;
-	bh=NI8TmhTxgfe0bz35XyZXN/VH6f5zbdKUAB9DqNj8dF4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qIkc3dnYNbtaPcq9et/2QGcoEzJdRpOVF0dQfddV8v916Jta/Eby9tC3OCwdKzKL576/nQk/NFMEHM7gGOEJpw+AuJLrKXlsnbqMDVw4GBFPEcUSoY9cUgl/kD2x/cDuVHWuDZuZ9iNWMOClOPRTQz10pJy9XJIRsPCiV6nEp08=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn; spf=pass smtp.mailfrom=tju.edu.cn; dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b=s2X8WBov; arc=none smtp.client-ip=45.254.49.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tju.edu.cn
+	s=arc-20240116; t=1789826481; c=relaxed/simple;
+	bh=rYDj48Z/2aku9l9SlVwNnxYms0Re8ox444qqDkUqQQg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Gyk0Kj6s9llqnmn4XuvxHdTP1ZA94JIEdgxNmZxhxVDMFvHW8rQq+4FOPqq4I4FYYINY7Kcq4CMZwVsTGoFntHthdtjttdQR0d/KYFzJqAXpn/y3CPJ/I5I1NAHfeCx3GXZgUmnfa/vb31m/WQUfTbNtKYrUS8T0vjYM5QOPwz8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=eIsV+EbB; arc=none smtp.client-ip=91.218.175.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b="s2X8WBov"
-Received: from tju.edu.cn (gy-adaptive-ssl-proxy-3-entmail-virt135.gy.ntes [183.242.150.9])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4e6038de5;
-	Sat, 19 Sep 2026 21:58:58 +0800 (GMT+08:00)
-From: Yibo Tan <lhfff@tju.edu.cn>
-To: MyungJoo Ham <myungjoo.ham@samsung.com>,
-	Chanwoo Choi <cw00.choi@samsung.com>
-Cc: Stanley Chang <stanley_chang@realtek.com>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v1] extcon: rtk-type-c: Stop IRQ before cancelling delayed work
-Date: Sat, 19 Sep 2026 21:58:49 +0800
-Message-Id: <20260919135849.1761877-1-lhfff@tju.edu.cn>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="eIsV+EbB"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=rYDj48Z/2aku9l9SlVwNnxYms0Re8ox444qqDkUqQQg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789826476; v=1; x=1790431276;
+ b=eIsV+EbBfLzgzTw8ptsZ7hwCnYC0quMp+ykEoo0LCBgIszEKcmbz5l8n6uuvaMzfNOBjk150
+ RvK9a/Wp4ngrAI4QRnqU+R/bRlI5Wu9z1bP5QQpLd8MpfMj4wMgnE2hPHlfm/xYAwCRb71DN7Vn
+ pzFWj5Z8Fn1g8BxacqeRTjjQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 8aee96b0eadcf8c2;
+	Sat, 19 Sep 2026 14:01:16 +0000
+X-Mizu-Trace-ID: 8aee96b0eadcf8c2
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <186ee2ba-daf3-4120-a3e3-101cac1ff5a1@linux.dev>
+Date: Sat, 19 Sep 2026 22:01:06 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0b9f68dd403a1kunm8140e4303eb3e1
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDQkkdVhlIGUgfSkNIHUpDGFYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKQ0hVSU9JVUpOS1VCWVdZFhoPEhUdFFlBWU9LSFVKS0hKTk
-	xOVUpLS1VKQktLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=s2X8WBovyypLUrB49K9WQwzNdsK/eM4oF69zxatZ1HYFa108OyX5NRYV116TxjJfef4Cr0i9qd/CfczktAVbJx39kun6aExXcqcGfK2VqbERvvtUPmShwzh518PBcKsUKBOxtbvxS/gKwvaWy6g2WGqn8pmfbOFbUxzuETUajRc=; c=relaxed/relaxed; s=default; d=tju.edu.cn; v=1;
-	bh=f/YjbZOyMD0ItYjAjcMTYKBJgyj0pH5afSrIkNuBtqI=;
-	h=date:mime-version:subject:message-id:from;
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/6] mm/sparse-vmemmap: drop VMEMMAP_POPULATE_DAX
+To: Muchun Song <songmuchun@bytedance.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Mike Rapoport <rppt@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>
+Cc: Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin
+ <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, linuxppc-dev@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, muchun.song@linux.dev
+References: <20260913083734.86802-1-songmuchun@bytedance.com>
+ <20260913083734.86802-2-songmuchun@bytedance.com>
+From: Qi Zheng <qi.zheng@linux.dev>
+In-Reply-To: <20260913083734.86802-2-songmuchun@bytedance.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-type_c_detect_irq() can cancel and reschedule delayed_work.  The remove
-callback currently cancels the work before disabling and freeing the IRQ,
-so an interrupt can reschedule it after the final drain.  The
-device-managed type_c allocation may then be released while the work is
-still pending.
 
-In three ARM64 KASAN runs, dispatching the real IRQ after the final drain
-made the delayed callback access the freed type_c object.  All three runs
-with the IRQ stopped before the drain completed without a kernel
-diagnostic.
 
-Mask the hardware interrupt source first, release and synchronize the IRQ,
-and only then cancel the delayed work.  Also use devm_free_irq() to match
-the devm_request_irq() allocation and remove its devres entry.
+On 9/13/26 4:37 PM, Muchun Song wrote:
+> VMEMMAP_POPULATE_DAX currently distinguishes DAX vmemmap population in two
+> places: it keeps allocations on the normal path and takes a reference when
+> a backing page is supplied for reuse.
+> 
+> After Device DAX switched to the common per-zone shared tail page, both
+> conditions can be determined locally. DAX supplies ptpfn for every shared
+> tail mapping and requests an allocation only for compound head mappings,
+> whose PFNs are not optimizable. Therefore, vmemmap_optimizable_pfn() alone
+> selects the correct allocation path.
+> 
+> When ptpfn is supplied, the caller is reusing an existing backing page.
+> Once the slab allocator is available, take a reference for each reused
 
-Fixes: 8a590d7371f0 ("extcon: add Realtek DHC RTD SoC Type-C driver")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Yibo Tan <lhfff@tju.edu.cn>
----
- drivers/extcon/extcon-rtk-type-c.c | 25 ++++++++++++-------------
- 1 file changed, 12 insertions(+), 13 deletions(-)
+Does the availability of slab mean the buddy allocator is already being
+used? Could there be a window where the buddy allocator is functional
+but slab hasn't become available yet?
 
-diff --git a/drivers/extcon/extcon-rtk-type-c.c b/drivers/extcon/extcon-rtk-type-c.c
-index 82b60b927e41a..9d77ce5c7ee50 100644
---- a/drivers/extcon/extcon-rtk-type-c.c
-+++ b/drivers/extcon/extcon-rtk-type-c.c
-@@ -1409,17 +1409,6 @@ static void extcon_rtk_type_c_remove(struct platform_device *pdev)
- 	u32 default_ctrl;
- 	unsigned long flags;
- 
--	remove_debug_files(type_c);
--
--	if (type_c->port) {
--		typec_unregister_port(type_c->port);
--		type_c->port = NULL;
--	}
--
--	cancel_delayed_work_sync(&type_c->delayed_work);
--	flush_delayed_work(&type_c->delayed_work);
--	WARN_ON_ONCE(delayed_work_pending(&type_c->delayed_work));
--
- 	spin_lock_irqsave(&type_c->lock, flags);
- 	/* disable interrupt */
- 	default_ctrl = readl(type_c->reg_base + USB_TYPEC_CTRL) &
-@@ -1431,12 +1420,22 @@ static void extcon_rtk_type_c_remove(struct platform_device *pdev)
- 	writel(0, type_c->reg_base + USB_TYPEC_CTRL_CC2_0);
- 
- 	spin_unlock_irqrestore(&type_c->lock, flags);
-+	devm_free_irq(dev, type_c->irq, type_c);
-+
-+	cancel_delayed_work_sync(&type_c->delayed_work);
-+	flush_delayed_work(&type_c->delayed_work);
-+	WARN_ON_ONCE(delayed_work_pending(&type_c->delayed_work));
-+
-+	remove_debug_files(type_c);
-+
-+	if (type_c->port) {
-+		typec_unregister_port(type_c->port);
-+		type_c->port = NULL;
-+	}
- 
- 	if (type_c->rd_ctrl_gpio_desc)
- 		gpiod_put(type_c->rd_ctrl_gpio_desc);
- 	type_c->rd_ctrl_gpio_desc = NULL;
--
--	free_irq(type_c->irq, type_c);
- }
- 
- static const struct type_c_cfg rtd1295_type_c_cfg = {
-
-base-commit: 40288c9206c17eb66a603262e06a58d300d0f279
--- 
-2.39.5
+> mapping to balance the release performed by vmemmap_free(). Early mappings
+> are backed by memblock/reserved memory and do not need page reference
+> accounting.
+> 
+> Remove VMEMMAP_POPULATE_DAX and the flags argument from the vmemmap
+> population helpers.
+> 
+> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+> ---
+>   mm/sparse-vmemmap.c | 36 +++++++++++++-----------------------
+>   1 file changed, 13 insertions(+), 23 deletions(-)
+> 
+> diff --git a/mm/sparse-vmemmap.c b/mm/sparse-vmemmap.c
+> index 96506f594924..878d29a4e862 100644
+> --- a/mm/sparse-vmemmap.c
+> +++ b/mm/sparse-vmemmap.c
+> @@ -32,12 +32,6 @@
+>   #include <asm/dma.h>
+>   #include <asm/tlbflush.h>
+>   
+> -/*
+> - * Flags for vmemmap_populate_range and friends.
+> - */
+> -/* Vmemmap population for ZONE_DEVICE compound pages */
+> -#define VMEMMAP_POPULATE_DAX		0x0001
+> -
+>   #include "internal.h"
+>   #include "mm_init.h"
+>   #include "sparse.h"
+> @@ -208,7 +202,7 @@ struct page __ref *vmemmap_shared_tail_page(unsigned int order, struct zone *zon
+>   }
+>   
+>   static __meminit void *vmemmap_alloc_pte(unsigned long pfn, int node,
+> -		struct vmem_altmap *altmap, unsigned long flags)
+> +		struct vmem_altmap *altmap)
+>   {
+>   	struct zone *zone;
+>   	struct page *page;
+> @@ -218,7 +212,7 @@ static __meminit void *vmemmap_alloc_pte(unsigned long pfn, int node,
+>   	 * Device DAX still relies on vmemmap_populate_compound_pages() for
+>   	 * head/first-tail allocation and tail-page reuse.
+>   	 */
+> -	if (!vmemmap_optimizable_pfn(pfn) || flags & VMEMMAP_POPULATE_DAX)
+> +	if (!vmemmap_optimizable_pfn(pfn))
+>   		return vmemmap_alloc_block_buf(PAGE_SIZE, node, altmap);
+>   
+>   	zone = pfn_to_zone(pfn, node);
+> @@ -230,8 +224,7 @@ static __meminit void *vmemmap_alloc_pte(unsigned long pfn, int node,
+>   }
+>   
+>   static pte_t * __meminit vmemmap_pte_populate(pmd_t *pmd, unsigned long addr, int node,
+> -				       struct vmem_altmap *altmap,
+> -				       unsigned long ptpfn, unsigned long flags)
+> +		struct vmem_altmap *altmap, unsigned long ptpfn)
+>   {
+>   	pte_t *pte = pte_offset_kernel(pmd, addr);
+>   	unsigned long pfn = page_to_pfn((struct page *)addr);
+> @@ -240,7 +233,7 @@ static pte_t * __meminit vmemmap_pte_populate(pmd_t *pmd, unsigned long addr, in
+>   		pte_t entry;
+>   
+>   		if (ptpfn == (unsigned long)-1) {
+> -			void *p = vmemmap_alloc_pte(pfn, node, altmap, flags);
+> +			void *p = vmemmap_alloc_pte(pfn, node, altmap);
+>   
+>   			if (!p)
+>   				return NULL;
+> @@ -255,7 +248,7 @@ static pte_t * __meminit vmemmap_pte_populate(pmd_t *pmd, unsigned long addr, in
+>   			 * and through vmemmap_populate_compound_pages() when
+>   			 * slab is available.
+>   			 */
+> -			if (flags & VMEMMAP_POPULATE_DAX)
+> +			if (slab_is_available())
+>   				get_page(pfn_to_page(ptpfn));
+>   		}
+>   		entry = pfn_pte(ptpfn, PAGE_KERNEL);
+> @@ -318,8 +311,7 @@ static pgd_t * __meminit vmemmap_pgd_populate(unsigned long addr, int node)
+>   
+>   static pte_t * __meminit vmemmap_populate_address(unsigned long addr, int node,
+>   					      struct vmem_altmap *altmap,
+> -					      unsigned long ptpfn,
+> -					      unsigned long flags)
+> +					      unsigned long ptpfn)
+>   {
+>   	pgd_t *pgd;
+>   	p4d_t *p4d;
+> @@ -339,7 +331,7 @@ static pte_t * __meminit vmemmap_populate_address(unsigned long addr, int node,
+>   	pmd = vmemmap_pmd_populate(pud, addr, node);
+>   	if (!pmd)
+>   		return NULL;
+> -	pte = vmemmap_pte_populate(pmd, addr, node, altmap, ptpfn, flags);
+> +	pte = vmemmap_pte_populate(pmd, addr, node, altmap, ptpfn);
+>   	if (!pte)
+>   		return NULL;
+>   	vmemmap_verify(pte, node, addr, addr + PAGE_SIZE);
+> @@ -350,15 +342,14 @@ static pte_t * __meminit vmemmap_populate_address(unsigned long addr, int node,
+>   static int __meminit vmemmap_populate_range(unsigned long start,
+>   					    unsigned long end, int node,
+>   					    struct vmem_altmap *altmap,
+> -					    unsigned long ptpfn,
+> -					    unsigned long flags)
+> +					    unsigned long ptpfn)
+>   {
+>   	unsigned long addr = start;
+>   	pte_t *pte;
+>   
+>   	for (; addr < end; addr += PAGE_SIZE) {
+>   		pte = vmemmap_populate_address(addr, node, altmap,
+> -					       ptpfn, flags);
+> +					       ptpfn);
+>   		if (!pte)
+>   			return -ENOMEM;
+>   	}
+> @@ -369,7 +360,7 @@ static int __meminit vmemmap_populate_range(unsigned long start,
+>   int __meminit vmemmap_populate_basepages(unsigned long start, unsigned long end,
+>   					 int node, struct vmem_altmap *altmap)
+>   {
+> -	return vmemmap_populate_range(start, end, node, altmap, -1, 0);
+> +	return vmemmap_populate_range(start, end, node, altmap, -1);
+>   }
+>   
+>   /*
+> @@ -498,7 +489,6 @@ static int __meminit vmemmap_populate_compound_pages(unsigned long start_pfn,
+>   	unsigned long size, addr;
+>   	pte_t *pte;
+>   	int rc;
+> -	unsigned long flags = VMEMMAP_POPULATE_DAX;
+>   	struct page *page;
+>   	unsigned int order = pfn_to_section_compound_order(start_pfn);
+>   
+> @@ -508,14 +498,14 @@ static int __meminit vmemmap_populate_compound_pages(unsigned long start_pfn,
+>   
+>   	if (reuse_compound_section(start_pfn, pgmap))
+>   		return vmemmap_populate_range(start, end, node, NULL,
+> -					      page_to_pfn(page), flags);
+> +					      page_to_pfn(page));
+>   
+>   	size = min(end - start, (1UL << order) * sizeof(struct page));
+>   	for (addr = start; addr < end; addr += size) {
+>   		unsigned long next, last = addr + size;
+>   
+>   		/* Populate the head page vmemmap page */
+> -		pte = vmemmap_populate_address(addr, node, NULL, -1, flags);
+> +		pte = vmemmap_populate_address(addr, node, NULL, -1);
+>   		if (!pte)
+>   			return -ENOMEM;
+>   
+> @@ -525,7 +515,7 @@ static int __meminit vmemmap_populate_compound_pages(unsigned long start_pfn,
+>   		 */
+>   		next = addr + PAGE_SIZE;
+>   		rc = vmemmap_populate_range(next, last, node, NULL,
+> -					    page_to_pfn(page), flags);
+> +					    page_to_pfn(page));
+>   		if (rc)
+>   			return -ENOMEM;
+>   	}
 
