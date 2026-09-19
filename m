@@ -1,134 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2702E3AE193;
-	Sat, 19 Sep 2026 07:33:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789803190; cv=none; b=ZJuqkCEYNWaQtV5ySYOMcFl9p0L0WB+1qkXnK8L9hkM+8UJ4rp1OrHOj2RkhYpDDyjArWgR3tQdEUDX8qRt2WK1IXLE/GLAiWYtgZpRquq5QFR4uJknwUr+j2pzZhnePSuG+0HZP78kVwJ//K3uwNGEmCo6A7miV6sBbVNZnPy8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789803190; c=relaxed/simple;
-	bh=DY9yCnPcoEN7mwimu5kfuSss0weGJbfhGzh1HordMZU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KfEcBHNAucB+gBKR2bvUuj+EtpNzPp/rXx0q5qg23dhJV1qzHEsfaWDEtnXwa/igC4sVm1i4ndJ6TGs2FzkwRFl4KGGscA+Nt2AHU0Qc2kcIBu0oOBNxWWPcVgkeUvJOmEyIBCkt6DnN2LYCDpPV8Hr7l57XAmpLmFGee2XKMaQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cubiMZhU; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F05F43B4E95;
+	Sat, 19 Sep 2026 07:34:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.56.87.2
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789803259; cv=pass; b=padjqNC3uxe8rdlaBw9Qr1Lbrsgl6OXUSzTnK8XvLKir+f3QiG8goiNzEp/raG7N1Ue1/Vll1XuUn/W6y7qcBGPC3ZB5bSe/QylDWiNplKUFJ+xB81u6PDE5RNhEl5lYbYYIRA/2Cee5E/4ex19VFjx1M+98eI98gfALg2mzUuA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789803259; c=relaxed/simple;
+	bh=llg/PF8nMnnpezaHPpy9KBWeZf3PiiHR8A/GPkRQCtQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ASjBJxtbHyce6I9RDWhKy+3a9Rj9Daamt34clL+LspOkyuN00BO7KuGg5rFYhV8DKMKNUyk9pYx0y8TrCgZ2MPSyyk1en9LUGGn6V49iemWPHfdKjQmWEj4Sf4iTwyjjRpWqxe7geUB2gZJksDJ2/jWXiqrUcpGSXxcFb50+Nds=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it; spf=pass smtp.mailfrom=valla.it; dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b=vmDl3blU; dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b=UpO1qiOn; arc=pass smtp.client-ip=185.56.87.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cubiMZhU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C5DD1F00898;
-	Sat, 19 Sep 2026 07:33:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789803186;
-	bh=+Ead2yNdsi52mLDc8KcMpW95aXpiB+Zjyng05WrtRqo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=cubiMZhU1TuMNW8IzLaWZWEvuq8m792oTlWWfP5IbBux0dufb3v7ZKjSe7vCXAIEI
-	 3A5k8NX2+/L07kkR+g1QSyNtKKO5sSLOe61olCTrmusHGfd8qaTFT5tX891zifRADg
-	 EqiujGJU01UQKGWCVnx5KcgCMpX1bImFApBuITp5SAivKXy1LZgEvIf/KAGftmSH/j
-	 +7EIE0MX5c7hrcu/LdilExtZjByhN4twJAlIGXsUFqGIOQVFRQBcoQMBlZ0XcWVmpa
-	 adps+sioPKFsoiAbxS94kPrFbMEXbHBaCUDFX5V0nWNbjCVlaSAtnugd5wZgCO+R/N
-	 lc3KoBdxElJGA==
-Message-ID: <11af07b8-7833-4729-b981-48d3d74835af@kernel.org>
-Date: Sat, 19 Sep 2026 09:32:59 +0200
+	dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b="vmDl3blU";
+	dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b="UpO1qiOn"
+ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-h0bm.prod.antispam.mailspamprotection.com; s=arckey; t=1789803256;
+	 b=eBn+xMPZWsM1o/HNsgNgXYeZSYY3oZUJvD8KhN3/mxc2ku6JRFNYokoUv3YF/R3+rSzokrSrg2
+	  zNB9yyEDrH2I8WAGhNWyr1cxgljiwf2NYQdF9YxGkSDw/HvmlBsjZmNeeHsKhAA9HDflr6A5ST
+	  urKATI05qtqW7102UzdGcPHEmXV9H1vFmQVVfwM4N4pXiCYolwrvNt1PpI2v+YwCd1kRhfRUQG
+	  8qjloH457nM2K/eySLKdl6MqspQKJB0XZmRVUT4ojy48O9a3Sl6cU1vz8jptAU8m8KzmrTSbQP
+	  /l4nyVyHdLxoDohnLjYtGbGdw6v0Z+kF+Qc/81/XjD9H4g==;
+ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-h0bm.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-h0bm.prod.antispam.mailspamprotection.com; s=arckey; t=1789803256;
+	bh=llg/PF8nMnnpezaHPpy9KBWeZf3PiiHR8A/GPkRQCtQ=;
+	h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:
+	  From:Date:DKIM-Signature:DKIM-Signature;
+	b=NqaNR07IvGyjneb+o9l3TxXzXr7Pw5GS1W0sr3WnBsYJ0JCUzb0UVCXBvfZQoRMpIWVLG7hjG9
+	  x4gMs2smY97iY82gO+9o1FdJWte25+1qWhx5Z9ydYU4b3lJ51VoaUvs0Mt+mGZycQkta4KRFgO
+	  6Dm8IqWYt7v/KXRmitR3qQ4GTA9f7m5iwN3sJHR9AEEdPQVevNDZg1wtA2Hd4u74n+XYUE59yl
+	  Z+ShecXvPZLdCOEGqntsEQDO1LsPrpa1ezkrpfDee21zfKJ4VDWVbViLeYi2hgi9jtNywxLS85
+	  jKeYrewiP0PbFXDRXPSzFzEkalXco/EtqnSD2Lcs0fRLDQ==;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
+	:Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	List-Unsubscribe:Content-Transfer-Encoding;
+	bh=1CgMYzN7u/XA+bnop2JDgsNdowKH5ww277Ab2jeFzYI=; b=vmDl3blUtrxlreVSwjC4zi2qOJ
+	TwjCHnZAHzqDVUUypijxRLygjfCBdVWwqPfTflaCsd+WSBEuTo5cTU+Y0BkGBgFr/A6909k1F2jFs
+	q6iQ3zdiKNgcfBB7HaUgri9hkf5aFwP6ZK+tfmh+3JU2/XQq7hpz1LkhrGVLrxF/yT0s=;
+Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
+	by instance-europe-west4-h0bm.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <francesco@valla.it>)
+	id 1x7pa8-00000005bxT-3Rgn;
+	Sat, 19 Sep 2026 07:34:12 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
+	s=default; h=Subject:Cc:To:From:Date:list-help:list-unsubscribe:
+	list-subscribe:list-post:list-owner:list-archive;
+	bh=1CgMYzN7u/XA+bnop2JDgsNdowKH5ww277Ab2jeFzYI=; b=UpO1qiOnq7xdcWjgHZmVoz6PH6
+	qnX8EWkbIbCQnHos0YlsXjQrPVX98//3jAxv0fogZLwImFWx8HL4sgPGe3Cd6N7yD0LUfSxLJvPzr
+	CCHTUlfULmZRgWrMaDWDzF0qYbREJFaOi177rp4/VFmpRK+nl7GD9XvXkPWjmtJwzthc=;
+Received: from [95.75.45.71] (port=45394 helo=bywater)
+	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <francesco@valla.it>)
+	id 1x7pZp-000000006o5-4BDY;
+	Sat, 19 Sep 2026 07:33:38 +0000
+Date: Sat, 19 Sep 2026 09:33:36 +0200
+From: Francesco Valla <francesco@valla.it>
+To: Mathieu Poirier <mathieu.poirier@linaro.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+	Robin Murphy <robin.murphy@arm.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Peng Fan <peng.fan@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	virtualization@lists.linux.dev, imx@lists.linux.dev, iommu@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH RFC 00/12] remoteproc: add support for any virtio device
+Message-ID: <aq453yukMHiNb1jp@bywater>
+References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
+ <aq1sooGCYUiWbhMH@p14s>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] dt-bindings: iio: adc: Add dt binding to xlnx,xadc
-To: Omer PALA <palaomer100@gmail.com>, jic23@kernel.org,
- dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260918145804.26957-1-palaomer100@gmail.com>
- <20260918174809.17502-1-palaomer100@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260918174809.17502-1-palaomer100@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aq1sooGCYUiWbhMH@p14s>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - esm19.siteground.biz
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - valla.it
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-SGantispam-id: 96599686283de8ba6277d57333ca4895
+X-AntiAbuse: ID - 96599686283de8ba6277d57333ca4895
+AntiSpam-DLS: false
+AntiSpam-DLSP: 
+AntiSpam-DLSRS: 
+AntiSpam-TS: 1.0
+CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
+CFBL-Feedback-ID: 1x7pa8-00000005bxT-3Rgn-feedback@antispam.mailspamprotection.com
+Authentication-Results: outgoing.instance-europe-west4-h0bm.prod.antispam.mailspamprotection.com;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
 
-On 18/09/2026 19:48, Omer PALA wrote:
-> Add yaml devicetree binding for xlnx,zynq-xadc-1.00.a,
-> xlnx,axi-xadc-1.00.a and xlnx,system-management-wiz-1.3 from
-> xilinx-xadc.txt file.
+Hi Mathieu,
+
+On Fri, Sep 18, 2026 at 10:53:54AM -0600, Mathieu Poirier wrote:
+> Hi Francesco,
 > 
-> Signed-off-by: Omer PALA <palaomer100@gmail.com>
->
+> I have started reviewing this set but given the size and implications, it will
+> take me a few days to get through.
 
-...
+I'm going through the review done by sashiko - would you prefer me
+sending a v2 with the trivial errors already ironed out before doing
+a complete review?
 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml b/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
-> new file mode 100644
-> index 000000000..f9b717c29
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
-> @@ -0,0 +1,185 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/adc/xlnx,xadc.yaml#
-> +$schema: http://devicetree.org/schemas/meta-schema.yaml#
+> 
+> Thanks,
+> Mathieu
+> 
 
-It is IMPOSSIBLE to come up with such code. Really impossible. Therefore
-I assume you vibe coded this AI slop.
+Thank you!
 
-AI slop is not acceptable. It is absolute waste of our time. All this
-was converted with LLM ALREADY, so why do we need one more conversion
-with slop-tool? I even explicitly wrote this more than once on GSoC
-guidelines and social.kernel.org.
+Regards,
+Francesco
 
-AI contributions without being marked appropriately (see coding
-assistants doc) are clear sign of violating our trust, although it is
-secondary thing because marking slop as AI-assisted and sending is still
-a work which should never be done.
-
-If you send us AI slop, that's the label your contributions might receive.
-
-Best regards,
-Krzysztof
