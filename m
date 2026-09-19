@@ -1,83 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7492B31F9B5;
-	Sat, 19 Sep 2026 00:35:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C97FB1DF27F
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 00:36:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789778163; cv=none; b=oLAnKzmetpMq/Az/Eqxp+zo/cL3i6+ytoNec9NPuD/R9jBhNiWRsay7ONovlUJN7KQzXoQovCXoiQbjnaujV0svPnf8JbchZvKFF7/2ydddpdJE0k8pmt9q6I8Ij5UsQrPBGqu4iP/FOiFkSrunJXkzQK/EeVrtzPEe6Y47ZT1M=
+	t=1789778207; cv=none; b=OFuVuFBChckw6iPu8J9Kba4/QAMmtX6KBz3Xoh88FLRadq6NRDwNS1UFtSr1gEHJXzTQB7VSf0FsEInIXhFlMt8StISo6s5N0AHON4USaA+QE73TXAH2jDdtQKmykr+j9r9IGcRTh76j4wkhDZTqZR8CAsP0gECV2udKQGb/1p0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789778163; c=relaxed/simple;
-	bh=ZsSFubY/1L7lg3TeE4B8iu4Ois91YjljlBfCXZY8n0M=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=IJ+/HAbRfiRUg0WxIbY2axfwRvJiSzncfgwnODLqben1sWvtKY409927n0ok1CL/ApKB5j5kYVyTiyROfJB8rJPLUACA5DD8Hc4TiLPIccUWUiiEazL2Fgey78nlMzmkvhRKSb/WGa29JH+9TGM9zhDHpRFtPL4IS2TkW6h5/wU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GHGX2Ulj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789778207; c=relaxed/simple;
+	bh=WOR/ls5zxX5sPZGG/HhWRCdfca5hWsTLk1XL54j9bt0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MNOxA1m0WakzTraHvSBU4CVW5RKzniSgRfzqnxSfULF42BnGWNEv5WNEwrZiAjh9Ja6cMO+lm/QyNKosSiAZ+U25o6qPJb3poJmgJxzxKROdsSQW0HtzF5OauLGZYv71+c0kFZIF4ClQ8x0hIK/zJxRq6Y3dCQiScEPb0FZqDjs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=DBO08qOi; arc=none smtp.client-ip=74.125.228.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GHGX2Ulj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63A701F00901;
-	Sat, 19 Sep 2026 00:35:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789778123;
-	bh=OlEdJvExr6Bd5YARe+Zza8eTz6C/rx+OO/RH2C3YfI8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GHGX2Uljq6/9JQw5C0MgFwjxjbFrGeLknOICZL5vUbSfR1ssk4t/iInWukCyEig1O
-	 pfqX2Jpg1Q5W5J4kVhxOkw8PQ1n/RWqFFFq6Dr/y7BXZQyCKM6JuP6IOf5NR1xQeaQ
-	 t14pGeBf5sOU0Gc8IKg8LE/MurUiwkbx5+mas5gMIzvkSRzpAn0ZJvl/4BgbSHCYpj
-	 070tP2XnksziJ/UbDW6r/C8eV2J/3KGkxaU+E1BkKIH+MxCnZRH5+R6wfZvNfck4UQ
-	 YoSjgwr4BJFYZHDA1e1hIr5ET5qb7rDNDZAHrlNbwWd09YhfuNaNe3ZwFJfZxxCdrO
-	 EbOaamuwcyQdQ==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id C2888CE1DD5; Fri, 18 Sep 2026 17:35:22 -0700 (PDT)
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: rcu@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	rostedt@goodmis.org,
-	Kunwu Chan <kunwu.chan@gmail.com>,
-	"Paul E . McKenney" <paulmck@kernel.org>
-Subject: [PATCH 19/19] srcutree: Skip torture to-big transition for atomic SRCU
-Date: Fri, 18 Sep 2026 17:35:21 -0700
-Message-Id: <20260919003521.3134552-19-paulmck@kernel.org>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <13d6be93-8d9d-47a2-beb0-99c8a90938d4@paulmck-laptop>
-References: <13d6be93-8d9d-47a2-beb0-99c8a90938d4@paulmck-laptop>
+	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="DBO08qOi"
+Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469d20963so926560b3a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 17:36:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1789778205; x=1790383005; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=re+BDEbV10G80IR4SJ9J6eVXDiFOVybjLhZAgTxh9Dc=;
+        b=DBO08qOioPDhtsIllkkwTP5r8bq7IMfV4a/xlkmwvOh/TYo0NzNyPkp6RLAF1sCw6K
+         LaXec8GhlAvWr+74qsmGpVhcA54fvra3Y4FHaB7tSEcajyTnG13O9m0IOfQdcQWzDPQh
+         keJtKg60n7n83WXxT5+7uuWRAKH0fTkEScLb87Bkjg5kJjSJDpRt1vgnth+6jp1Dg+3Y
+         YCGvtprSw+YNf3fvoD+wD87qTmQ5fEF4LPlmiCiHaNU1PskizszW+0atlcN2vuv4sxBE
+         XJ0ji5HxHEhzGSoRcowDpi3ii+z8W5+4MFkyB8QpNe6Vq+5IA2oO67qnKB0J2Akdhl1f
+         wkHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789778205; x=1790383005;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=re+BDEbV10G80IR4SJ9J6eVXDiFOVybjLhZAgTxh9Dc=;
+        b=SnUo5aBWeSq5qlZ1jwBJEFbDFvHan6Wb195KLS7kWfF60EXiEJ7+etCcXVErHvSJY+
+         fQUm1VWRlh6B79303TknMnGUyukWFzeQbMeagqvOkoWkN40TQGMDzbO5tL7XD17PPn8J
+         Fo/Qqa7XSlVwiEj3oYTs94eg4KebfWm5HOJ/qYsDa3DbLbrdF2Qwqk9CaNtrAHaiZ8wK
+         CUgUm7Vz+loe68151btHHb2aDRf6GqNLY2EEbqvuNIcs/RZt5M9zikP6pbCxZkkyoveq
+         gUvSd955gsSbTiGm/qIP5ZzR4iKQtsUyCTfyi18HJzyV1r8bgqqo7mJJ2w/mnmR9yrLc
+         PTxQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxK+iAHn2QAZfRPEvA/t7c+dX+8FjWvQu0sKmTBgWgWEJ4sf1ZbDPfCjfA0hpxWHX8fDB6UjqE2XyP0sAU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kfP73NZBObOJFej3XAZ5plWpJDQzEIfttYFWrjK1SaBDmftl/s
+	qdjTS87ClUy8L72pNRWnrolDudhP2PTl4rliVvl0lZ2okZf+UwnEs2hwcleh8nVOxXA=
+X-Gm-Gg: AYBFou0zfEl2FEHJdzJm624LVqZkP5X9QDoo4lI6COwgVy0PUhIYUOot5AgcubzZbqY
+	Bmd+dPTlxyU96n3MQpaM23OB9B0+H8lQzCRmwWsK7BRNFwXrNR9BjRcOXSwUJe0Kqa7jYkI2En6
+	1XO+y+PHKE+D9mbEAZSYLmuAqfo7Ickwjv6/lg5cuhNb5qIMbzo/yWNEISRvmJL3RGQVHpq/2jP
+	KHwRoxGWvEd/MgyxDIEojOVYYowtmfl1lbmYWbP6Ma0Th+zZXnu9Q2S9TxWcv77QmBb8WPnpKUD
+	tdFtmH989Mx86jDhlmh015DJvaaxrDQu+NDPiox4obt2wLvmPdO+UvrNp/iWjuDpei/Bdso5Qu1
+	w45khkkIpHCB167MghizY7z7dVV2/ca4Ch27Z+kw+mbkAg7zcT+yZn1jM+9PBriMr20OZY0cQ1w
+	89C4XlDe/GJRjJNfc5sBweHSiTyyz4pDsc0Y1eGsgfvAdBG/E7zRgM
+X-Received: by 2002:a05:6a00:44cc:b0:874:708d:b634 with SMTP id d2e1a72fcca58-874df300c71mr8701591b3a.32.1789778204975;
+        Fri, 18 Sep 2026 17:36:44 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:73::])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a6ae7d71sm403389b3a.2.2026.09.18.17.36.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 17:36:44 -0700 (PDT)
+Date: Fri, 18 Sep 2026 17:36:43 -0700
+From: Joe Damato <joe@dama.to>
+To: Koichiro Den <den@valinux.co.jp>
+Cc: Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>,
+	Allen Hubbe <allenbh@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	ntb@lists.linux.dev, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v4 01/10] NTB: ntb_transport: Order RX
+ descriptor reads after completion
+Message-ID: <aq3ZG222WqEDp1Je@devvm20253.cco0.facebook.com>
+Mail-Followup-To: Joe Damato <joe@dama.to>,
+	Koichiro Den <den@valinux.co.jp>, Jon Mason <jdmason@kudzu.us>,
+	Dave Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	ntb@lists.linux.dev, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+References: <20260914084838.2158249-1-den@valinux.co.jp>
+ <20260914084838.2158249-2-den@valinux.co.jp>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260914084838.2158249-2-den@valinux.co.jp>
 
-From: Kunwu Chan <kunwu.chan@gmail.com>
+On Mon, Sep 14, 2026 at 05:48:29PM +0900, Koichiro Den wrote:
+> The peer writes payloads and descriptors into a DMA-coherent memory
+> window. ntb_process_rxc() checks DESC_DONE_FLAG before consuming the
+> descriptor and payload, but coherent memory alone does not order those
+> reads on weakly ordered CPUs.
+> 
+> Read the completion word once and issue dma_rmb() after DONE is observed.
+> Use the saved word for subsequent transport flag checks.
+> 
+> Fixes: fce8a7bb5b4b ("PCI-Express Non-Transparent Bridge Support")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Link: https://lore.kernel.org/r/20260815032932.151F11F000E9@smtp.kernel.org/
+> Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+> Signed-off-by: Koichiro Den <den@valinux.co.jp>
+> ---
+> Changes in v4:
+>   - No changes.
+> 
+>  drivers/ntb/ntb_transport.c | 14 +++++++++-----
+>  1 file changed, 9 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
+> index f9caa1a653c5..74f4f8c1c7be 100644
+> --- a/drivers/ntb/ntb_transport.c
+> +++ b/drivers/ntb/ntb_transport.c
+> @@ -1609,21 +1609,25 @@ static int ntb_process_rxc(struct ntb_transport_qp *qp)
+>  {
+>  	struct ntb_payload_header *hdr;
+>  	struct ntb_queue_entry *entry;
+> +	unsigned int flags;
+>  	void *offset;
+>  
+>  	offset = qp->rx_buff + qp->rx_max_frame * qp->rx_index;
+>  	hdr = offset + qp->rx_max_frame - sizeof(struct ntb_payload_header);
+>  
+> -	dev_dbg(&qp->ndev->pdev->dev, "qp %d: RX ver %u len %d flags %x\n",
+> -		qp->qp_num, hdr->ver, hdr->len, hdr->flags);
+> -
+> -	if (!(hdr->flags & DESC_DONE_FLAG)) {
+> +	flags = READ_ONCE(hdr->flags);
+> +	if (!(flags & DESC_DONE_FLAG)) {
+>  		dev_dbg(&qp->ndev->pdev->dev, "done flag not set\n");
 
-Atomic SRCU does not use the srcu_node combining tree. Exclude it
-from the SRCU_SIZING_IS_TORTURE() transition in
-srcu_torture_stats_print(), and warn if such a transition is requested.
+I get why the dev_dbg line above was moved down, but i feel like if this case
+is hit, you lose some of the debugability that the debug line intended?
 
-Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
-Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
----
- kernel/rcu/srcutree.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+idk maybe this dev_dbg should be something like
 
-diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
-index 6a05bd8a6f39..6e37d53b412e 100644
---- a/kernel/rcu/srcutree.c
-+++ b/kernel/rcu/srcutree.c
-@@ -2422,8 +2422,10 @@ void srcu_torture_stats_print(struct srcu_struct *ssp, char *tt, char *tf)
- 		}
- 		pr_cont(" T(%ld,%ld)\n", s0, s1);
- 	}
--	if (SRCU_SIZING_IS_TORTURE())
--		srcu_transition_to_big(ssp);
-+	if (SRCU_SIZING_IS_TORTURE()) {
-+		if (!WARN_ON_ONCE(ssp->srcu_reader_flavor == SRCU_READ_FLAVOR_ATOMIC))
-+			srcu_transition_to_big(ssp);
-+	}
- }
- EXPORT_SYMBOL_GPL(srcu_torture_stats_print);
- 
--- 
-2.40.1
+dev_dbg(blah->dev, "qp %d: done flag not set, flags %x\n", qp->qp_num, flags)
 
+so that some of the debuggability is still preserved when this case is hit ?
+
+>  		qp->rx_ring_empty++;
+>  		return -EAGAIN;
+>  	}
+>  
+> -	if (hdr->flags & LINK_DOWN_FLAG) {
+> +	dma_rmb();
+> +
+> +	dev_dbg(&qp->ndev->pdev->dev, "qp %d: RX ver %u len %d flags %x\n",
+> +		qp->qp_num, hdr->ver, hdr->len, flags);
+
+I guess the above is a nit, so 
+
+Reviewed-by: Joe Damato <joe@dama.to>
