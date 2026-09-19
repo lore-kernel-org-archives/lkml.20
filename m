@@ -1,147 +1,165 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45F273164B7;
-	Sat, 19 Sep 2026 00:37:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 838B930D413;
+	Sat, 19 Sep 2026 00:42:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789778241; cv=none; b=QKbWI3CaCl87SqMaqSJ4vGzQWnKSwg+xpuufn3qQxjdEOgOA4gk6AJJD5/t1wQkyZp8HrMJcXU7GjK5F4YB/1ZpSOSFs3xV6GUgaYwG5jvYDHwLrd3TSa9gFxdejh3caci5ftdX8WImHp7Z8ykUfRtCc9CasljLuXFX8mdePqjI=
+	t=1789778568; cv=none; b=GfQ05Wk6LgrQJdIzbxi93JBNFF0GzKBU24+Dcu3vBv0q3M3nT67y8hBeuNHhGsf6GyJifn0G4HJvlbboVaEiei7iLOmMxzgj5xieKw6p3b5/sx6QkkPQy1owrB/O0uoo4ld6WUDRDNSzbQxLLnwRbv8Pz2oPHhwokcwCZuWQdfk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789778241; c=relaxed/simple;
-	bh=jzYj/9GytYa4D4Xf5PlhYm8fh2+ECkLvvvA9zPeH8Tg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=j1nR5c1WyJ2jH4IKq/GgP58zNpkc9g0mjBFLFoGflMgXRReviiT+79eicnqEcPA2gGTXgj1ZIetjWYOy9F6CDQUlenqbFBM2bDle7X/cLX75QQ4jqpxvs3AQL4a5w0DNb9jIE2c9mnO+4GWJR9ysUzrjNBPSCMSOnu5cpCom8XQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aPzOVgGN; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aPzOVgGN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C228F1F00899;
-	Sat, 19 Sep 2026 00:37:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789778239;
-	bh=+Ze4F/gsALayP+EUcv1giEsWJO6Vr9f7rxAhQt9e9eY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aPzOVgGNciJ1CwqVKOCsHwykbP4nejtMysioW8JsILM5h63qz3QzP1c9oseUHon0z
-	 W7dPk3shCM+2ZDQUEo/JMd+Itd+zrWm8TxKXuxKsSS/TqdYT2S6hkEwo3H6R1qY1w4
-	 OLMR9C+htAy4e93KdhJfjL+FDRJSb+/FaTPpGgzR3CbBzn4YGDOo6ip2Bj7tXI9sA0
-	 CwQdJ/aD2jKlkJlQGfg8FelCE3SHzmIGlh1rwfzZcDVB61gIPWo37QN4XhCXmql0xK
-	 tRULPsD6pbBK+4dK+2HXukf2O745inNZ9XasBw7oFaTeT2t+v3A9bdG9/kEWG3fzLO
-	 fKrE6E/xp/0gQ==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 8228ACE17BD; Fri, 18 Sep 2026 17:37:19 -0700 (PDT)
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: rcu@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	rostedt@goodmis.org,
-	"Paul E. McKenney" <paulmck@kernel.org>
-Subject: [PATCH 3/3] torture:  Allow specifying alternative ssh command to kvm-remote.sh
-Date: Fri, 18 Sep 2026 17:37:17 -0700
-Message-Id: <20260919003717.3134738-3-paulmck@kernel.org>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <860880d0-fb46-4039-a47c-33dd42a215d1@paulmck-laptop>
-References: <860880d0-fb46-4039-a47c-33dd42a215d1@paulmck-laptop>
+	s=arc-20240116; t=1789778568; c=relaxed/simple;
+	bh=m3KXePJklgGQwGY4AmfcwI4Hy1N/b/Emxp++b8tIAxE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=ZR+YK29FnJn7LifYb+D4BiDSY5wSbcnSfEDJmS4Vn2yDwenzgUWyOU33vpzuLMkd86TwLgCTUxXf8+GZFXSKWRR53FAhcvtnwnBMWopxLXDrbyIFVlolf4rV5opeBmmNWd8IpUIVC4TdtUVFd29dwFAScvOFXM9VPpawLw9uE9U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mails.ucas.ac.cn; spf=pass smtp.mailfrom=mails.ucas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mails.ucas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.ucas.ac.cn
+Received: from fric.. (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowAC3wT9v2q1qBkoVCA--.19233S2;
+	Sat, 19 Sep 2026 08:42:23 +0800 (CST)
+From: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
+To: kraxel@redhat.com,
+	vivek.kasireddy@intel.com,
+	sumit.semwal@linaro.org,
+	christian.koenig@amd.com
+Cc: robert.mader@collabora.com,
+	dri-devel@lists.freedesktop.org,
+	linux-media@vger.kernel.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-kernel@vger.kernel.org,
+	Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
+Subject: [PATCH v2] dma-buf/udmabuf: reinstate a reasonable default size limit
+Date: Sat, 19 Sep 2026 00:42:22 +0000
+Message-Id: <20260919004222.4141024-1-xujiakai24@mails.ucas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAC3wT9v2q1qBkoVCA--.19233S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3Gw4fWr1UAw1fAFW5Gr4UJwb_yoW7urW3pr
+	43Xr4UCr40qF1UAF18Jrn8Ar1UAa1UAFW7XrW7Gr1kZF1UCw1UAFn7GryFqryDG34jv3W7
+	t3WDAw1vqr1UAaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBI14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
+	1j6F4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40E
+	FcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr
+	0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8v
+	x2IErcIFxwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20x
+	vY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I
+	3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIx
+	AIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAI
+	cVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2js
+	IEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7VUbQVy7UUUUU==
+X-CM-SenderInfo: 50xmxthndljko6pdxz3voxutnvoduhdfq/
 
-Some environments require use of alternative commands to access the
-test hosts.  This commit therefore adds a KVM_REMOTE_SSH environment
-variable for this purpose.  If this variable is unset, ssh is used.
-Any alternative ssh command must support the usual ssh arguments,
-including the command to be executed remotely.  In some cases, you may
-need a wrapper script to make the alternative ssh-like command look
-enough like ssh to satisfy kvm-remote.sh.
+Commit 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by
+default") raised the default size_limit_mb from 64 to INT_MAX.  With
+4K pages, creating a buffer of more than INT_MAX / 8 pages (about 1 TB
+of pinned memory) now makes the two per-page pointer arrays in
+init_udmabuf() exceed what kvmalloc() can handle: kvmalloc() warns and
+fails when the requested size exceeds INT_MAX bytes (WARN_ON_ONCE in
+__kvmalloc_node_noprof), which is trivially triggerable from
+unprivileged users through the UDMABUF_CREATE ioctls:
 
-Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
+  WARNING: CPU: 0 PID: 412 at mm/slub.c:7021 __kvmalloc_node_noprof
+  Call Trace:
+   udmabuf_create
+   udmabuf_ioctl_create_list
+
+Restore a reasonable default limit of 256 MB, which is the value
+proposed in the RFC discussion that led to commit 44e9eb5a7621
+("dma-buf/udmabuf: Disable the size limit by default") and comfortably
+covers the 8K video use cases cited there, while keeping the
+kvmalloc() request far below its threshold.  The limit remains
+runtime-tunable via the size_limit_mb module parameter for setups
+that need more.
+
+Fixes: 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by default")
+Assisted-by: OpenCode:DeepSeek-V4-Flash
+Signed-off-by: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
 ---
- .../selftests/rcutorture/bin/kvm-remote.sh    | 22 ++++++++++++++-----
- 1 file changed, 16 insertions(+), 6 deletions(-)
+V1 -> V2:
+- Instead of adding a pgcnt check in udmabuf_create(), restore a
+  reasonable default size limit (256 MB), as suggested by Christian
+  König.
+- Drop the second Fixes tag; the regression is solely due to
+  44e9eb5a7621.
+- Drop the "Cc: stable" tag; 44e9eb5a7621 is only in v7.3-rc1 and has
+  not shipped in any released kernel yet.
 
-diff --git a/tools/testing/selftests/rcutorture/bin/kvm-remote.sh b/tools/testing/selftests/rcutorture/bin/kvm-remote.sh
-index 48a8052d5dae..a8397f86e49d 100755
---- a/tools/testing/selftests/rcutorture/bin/kvm-remote.sh
-+++ b/tools/testing/selftests/rcutorture/bin/kvm-remote.sh
-@@ -6,6 +6,11 @@
- # Usage: kvm-remote.sh "systems" [ <kvm.sh args> ]
- #	 kvm-remote.sh "systems" /path/to/old/run [ <kvm-again.sh args> ]
- #
-+# The caller may set the KVM_REMOTE_SSH environment in order to specify
-+# an alternative ssh command, which is necessary in some environments
-+# for authentication purposes.  This alternative ssn command must support
-+# ssh's usual arguments.
-+#
- # Copyright (C) 2021 Facebook, Inc.
- #
- # Authors: Paul E. McKenney <paulmck@kernel.org>
-@@ -13,6 +18,11 @@
- scriptname=$0
- args="$*"
+V1: https://lore.kernel.org/all/20260918013434.1849135-1-xujiakai24@mails.ucas.ac.cn/
+---
+ drivers/dma-buf/udmabuf.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+index df6dd00462423..4d90c2cb14225 100644
+--- a/drivers/dma-buf/udmabuf.c
++++ b/drivers/dma-buf/udmabuf.c
+@@ -20,9 +20,9 @@ static int list_limit = 1024;
+ module_param(list_limit, int, 0644);
+ MODULE_PARM_DESC(list_limit, "udmabuf_create_list->count limit. Default is 1024.");
  
-+if test -z "${KVM_REMOTE_SSH}"
-+then
-+	KVM_REMOTE_SSH=ssh; export KVM_REMOTE_SSH
-+fi
-+
- if ! test -d tools/testing/selftests/rcutorture/bin
- then
- 	echo $scriptname must be run from top-level directory of kernel source tree.
-@@ -137,7 +147,7 @@ chmod +x $T/bin/kvm-remote-*.sh
- # Check first to avoid the need for cleanup for system-name typos
- for i in $systems
- do
--	ssh -o BatchMode=yes $i getconf _NPROCESSORS_ONLN > $T/ssh.stdout 2> $T/ssh.stderr
-+	${KVM_REMOTE_SSH} -o BatchMode=yes $i getconf _NPROCESSORS_ONLN > $T/ssh.stdout 2> $T/ssh.stderr
- 	ret=$?
- 	if test "$ret" -ne 0
- 	then
-@@ -158,14 +168,14 @@ echo Build-products tarball: `du -h $T/binres.tgz` | tee -a "$oldrun/remote-log"
- for i in $systems
- do
- 	echo Downloading tarball to $i `date` | tee -a "$oldrun/remote-log"
--	cat $T/binres.tgz | ssh -o BatchMode=yes $i "cd /tmp; tar -xzf -"
-+	cat $T/binres.tgz | ${KVM_REMOTE_SSH} -o BatchMode=yes $i "cd /tmp; tar -xzf -"
- 	ret=$?
- 	tries=0
- 	while test "$ret" -ne 0
- 	do
- 		echo Unable to download $T/binres.tgz to system $i, waiting and then retrying.  $tries prior retries. | tee -a "$oldrun/remote-log"
- 		sleep 60
--		cat $T/binres.tgz | ssh -o BatchMode=yes $i "cd /tmp; tar -xzf -"
-+		cat $T/binres.tgz | ${KVM_REMOTE_SSH} -o BatchMode=yes $i "cd /tmp; tar -xzf -"
- 		ret=$?
- 		if test "$ret" -ne 0
- 		then
-@@ -191,7 +201,7 @@ checkremotefile () {
+-static int size_limit_mb = INT_MAX;
++static int size_limit_mb = 256;
+ module_param(size_limit_mb, int, 0644);
+-MODULE_PARM_DESC(size_limit_mb, "Max size of a dmabuf, in megabytes. Default is INT_MAX.");
++MODULE_PARM_DESC(size_limit_mb, "Max size of a dmabuf, in megabytes. Default is 256.");
  
- 	while :
- 	do
--		ssh -o BatchMode=yes $1 "test -f \"$2\""
-+		${KVM_REMOTE_SSH} -o BatchMode=yes $1 "test -f \"$2\""
- 		ret=$?
- 		if test "$ret" -eq 255
- 		then
-@@ -239,7 +249,7 @@ startbatches () {
- 		then
- 			continue # System still running last test, skip.
- 		fi
--		ssh -o BatchMode=yes "$i" "cd \"$resdir/$ds\"; touch remote.run; PATH=\"$T/bin:$PATH\" nohup kvm-remote-$curbatch.sh > kvm-remote-$curbatch.sh.out 2>&1 &" 1>&2
-+		${KVM_REMOTE_SSH} -o BatchMode=yes "$i" "cd \"$resdir/$ds\"; touch remote.run; PATH=\"$T/bin:$PATH\" nohup kvm-remote-$curbatch.sh > kvm-remote-$curbatch.sh.out 2>&1 &" 1>&2
- 		ret=$?
- 		if test "$ret" -ne 0
- 		then
-@@ -281,7 +291,7 @@ do
- 		if test "$ret" -eq 1
- 		then
- 			echo " ---" Collecting results from $i `date` | tee -a "$oldrun/remote-log"
--			( cd "$oldrun"; ssh -o BatchMode=yes $i "cd $rundir; tar -czf - kvm-remote-*.sh.out */console.log */kvm-test-1-run*.sh.out */qemu[_-]pid */qemu-retval */qemu-affinity; rm -rf $T > /dev/null 2>&1" | tar -xzf - )
-+			( cd "$oldrun"; ${KVM_REMOTE_SSH} -o BatchMode=yes $i "cd $rundir; tar -czf - kvm-remote-*.sh.out */console.log */kvm-test-1-run*.sh.out */qemu[_-]pid */qemu-retval */qemu-affinity; rm -rf $T > /dev/null 2>&1" | tar -xzf - )
- 			break;
- 		fi
- 		if test "$ret" -eq 255
+ struct udmabuf {
+ 	pgoff_t pagecount;
 -- 
-2.40.1
+2.34.1
+
+-- 
+Below is the crash report:
+------------[ cut here ]------------
+WARNING: mm/slub.c:7013 at __kvmalloc_node_noprof+0x516/0x5d0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:7013, CPU#0: syz.5.27938/167363
+Modules linked in:
+CPU: 0 UID: 0 PID: 167363 Comm: syz.5.27938 Tainted: G        W    L      7.3.0-rc2 #1 PREEMPT(full) 
+Tainted: [W]=WARN, [L]=SOFTLOCKUP
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1 04/01/2014
+RIP: 0010:__kvmalloc_node_noprof+0x516/0x5d0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:7013
+Code: 05 bf fa 2d 08 49 8b 0f c6 04 08 00 65 48 ff 0d 90 fa 2d 08 0f 85 4c fd ff ff e8 05 43 8c ff e9 42 fd ff ff e8 9b 86 0e 04 90 <0f> 0b 90 31 db e9 d2 fe ff ff f3 0f 1e fa 65 8b 05 8d fa 2d 08 89
+RSP: 0018:ffffc90002bc3cf8 EFLAGS: 00010246
+RAX: 0000000000000100 RBX: 0000000000000000 RCX: 0000008000000000
+RDX: 0000008000000000 RSI: 0000000000000000 RDI: ffffffff835e3226
+RBP: 00000000ffffffff R08: 00000000000028c0 R09: 00000000ffffffff
+R10: 0000000000000006 R11: 0000000000000002 R12: 0000008000000000
+R13: 00000000000028c0 R14: 0000001000000000 R15: 0000008000000000
+FS:  00007fc89ae45640(0000) GS:ffff8880f3de4000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000000110c2ff305 CR3: 000000002b3d4000 CR4: 0000000000752ef0
+DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000006000
+DR3: 0000000000000000 DR6: 00000000ffff0ff0 DR7: 0000000000000400
+PKRU: 80000000
+Call Trace:
+ <TASK>
+ init_udmabuf home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:193 [inline]
+ udmabuf_create+0x1b6/0x750 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:386
+ udmabuf_ioctl_create home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:465 [inline]
+ udmabuf_ioctl+0x132/0x1d0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/dma-buf/udmabuf.c:496
+ vfs_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:51 [inline]
+ __do_sys_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xbc/0x130 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:583
+ do_syscall_x64 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x12b/0x350 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x590d6d
+Code: 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 a8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fc89ae44fd8 EFLAGS: 00000216 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 0000000000611e7f RCX: 0000000000590d6d
+RDX: 00002000000023c0 RSI: 0000000040187542 RDI: 000000000000000a
+RBP: 00007fc89ae45010 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000216 R12: 00007fc89ae45640
+R13: 000000000000000b R14: 0000000000528d40 R15: 00007fc89ae25000
+ </TASK>
+---[ end trace 0000000000000000 ]---
+---
 
