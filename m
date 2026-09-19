@@ -1,70 +1,72 @@
 Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D3AA28315D
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:26:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AABF397692
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:26:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789856789; cv=none; b=l6a7UEvQUp8z9G/DuG7K45h6IBGHcB03Kvv5gt5cjp9XRxLY2uUeU0ejnK6myumkmDUJOH5BA+Uynxt6aTV17a/q6uE23w3S/L1SqEvxPJfCIhjzua3h3F8qdoK4AhdZZFEENzhXbh1dN2THquKXf6XX8OHQIC0r3Tjw1D23sm8=
+	t=1789856790; cv=none; b=M0MNvAijcOM6DZjQZ8JKLmUantoBdNZFbmFX75we9y/Hwcst0uBLBB8pMabDjjsPjmmeSZmhsRCDcJS3zihlZwAK6vMso9SxvVQmkUj8IJECFcozLXrD2XajqDF6pdGyeKSFEz8fcOiekr6KQi/ONhIC7QorXYRJCX5ozmflle8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789856789; c=relaxed/simple;
-	bh=+MdI4r6n10gDS+p4YVUaZONpes94VhcY87e85kZMofE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kVQdTrgI/417kZm1bjv8SSy27KTsvatI+nPMvfn6MdrS50F2hliyglCp8OKwfqWcncF07zRVGWVOamwQ9oh9rZAiM3kJVtH93vZ+OegUjYeEoHui2Z8t3dGQokrhDSzpK9GkZscRK2wD9k7AJRVPEIgFJp0mg7driaF0tAWSrgI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S3az9Lf0; arc=none smtp.client-ip=74.125.227.140
+	s=arc-20240116; t=1789856790; c=relaxed/simple;
+	bh=gU93zAzsOoQ1roR6T6OlNqwkUWFuikccQakX9808gFA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Kj6miZqvrld1StKcDKmP3U1DGfxYw/GXciT5WQxnfUPx8cosUtArm/B1Tiub/UD4Hn+vC+/fOp36oRQcTkQTuvWgKSuQ9zGJ/FABos6aiKAl0V2NOsrpfH12UTsZtYce/6gGcpsEqq55IuIhHDNSuEoG2V9EN2X3GlfSFFgmlns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ldAToeH7; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S3az9Lf0"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747f01363so15814275ad.2
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:26:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ldAToeH7"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396cccbba91so1278914a91.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:26:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789856785; x=1790461585; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789856788; x=1790461588; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/g+orwBOaMljS/JJ6ICfCzvcRhieOLrMuJNELTyKpxI=;
-        b=S3az9Lf0TD44ncVbRuSYmGonqLpsANDxcAaKrvYX+5UOOvKbSHpmW2VJZUlXT1iJFX
-         wA84iZrN6KPtOA0tqxX3m3LFfhaucS+zUXda0Mep6RMEXXoVmz5tz1XY+uARI3YvOB95
-         VNZAJ2jpniORc2bt7xJiNCUak/ne1L1CXDVRX573OR458YNzCNU2GtsmZMTve6Lnt7Mz
-         uFHpbo0YOoE0Z6FQOP8P5JTFhrjuvQjUWuHlZ7p8jjdsB3lXtmO5FbG/5KcOe+OqyxNS
-         VrHlftUQ3Dd5uUkFw5LPB/Rx7Zz4JAhZVRANa4PhZZa/sOaRndM+l7mz9MeSU25K4D28
-         jWgw==
+        bh=AHexZoASrrLFUeP2m4HCenY6Z1qSfaQk6YYJHltbZIA=;
+        b=ldAToeH7rvrAqYS/pCUkXqOI0Qmyk8GeEgaYYUkixo3QFHN7Sx2MhcE0CbXnpPBhkI
+         Ypif5eZYRPt+rfG3P9wztKZPAd4c8Rqc1ITZN68JXlVjMBxDkOTBXieD23SvwXep0ZC7
+         qrd6MUQhcnXAZk9QI1uZX+/VdGhdg39lVAXnthtJo2eRmdGFqz+/btK3OqBRaT1q9PkF
+         XqOKo00/XRLYItFKvR4wGx2JwuT7SAYJDNUkk+n3sdkUJTZsnDeR60LOQ6p8bZ9aInMS
+         7rwcW/OQ8Sw0fF/OvWE/baYGv8Q3wso3U/0WHYNBHwKW1cw2Pozcha73UeExAhgunQPc
+         Zzeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789856785; x=1790461585;
+        d=1e100.net; s=20260707; t=1789856788; x=1790461588;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/g+orwBOaMljS/JJ6ICfCzvcRhieOLrMuJNELTyKpxI=;
-        b=iQ2/y6cLc2wLKquComxivUEWaSnfWHM17Cs8iOtl4bDMTdw2Z4Xqum0ZIn3nB2hrSp
-         f3SLLfetQ8Q12c8/o9P6watKlsY3rpRSwpnVKZ4iebW7tbD4IZUWI50ohSVVZHks9sBX
-         Eyzzm8NLwDApNesPvNetizR68BAIZnZ59yyvffzZkfbuIKAUqGZlxf7nJt+QhZY0x3VJ
-         WXXvhS/vshx3/XQZ2EkaRz4X6kyWRQ41gx8DzyQWjFH7q3ZO779Cbn3nqtpGm0QqJ5rZ
-         qfDDMjRmvY2cP6o+Akrx8EURn8MmamSRRK/AhLOme3+pTvpjmD057bMo7ddJpE2/4u0j
-         NH0w==
-X-Forwarded-Encrypted: i=1; AKwUvBzJhDqJhCkU2Ej6CjhvUkAU4xKIEnCiV2aCQ2oHKNyh1ifi1XPQUghfE8/KT103Z4KFDhYGZIrmwxwPBiI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nr42J8Txas+1ybGYQMwmtGujEz2imS3GWMj9dthSV+kSRvDfpV
-	etgc4mqzqqFuGqw4QFjKA2YQkRQC9ZGa/pFQZwLqoXwPKLBXBSV//gqm
-X-Gm-Gg: AYBFou1cmPX3GB5jwl8KGz1dLt+lVJ7mqGBDGMaXoyMGCIBkjJpkgzzJFdNYkNfAYJI
-	5izFflWreVnrngFiidcI6HTG5gPvo2gQ1JVYLKIXM3SxVicdELqePiC2B3Ynfn2kb8IU0mOkEBP
-	L6XbSdJv+XBoXf0mgpaOmbTm5rKxsOc6I40QbhyBlg4ujeFk8CGq8bPa4CijPI/XvjMYH1uGrhd
-	HRKXhtwgah1yOHEKqBj59O4STJ9kEgitniu+ZCX0jEjxtCl8qtBAduFzruRFCVKgs+Y7PdRrn9u
-	FuTOuDPnzEq83UaVM/Dkxo4ihgOwUkdfDrhkGrrd1AgasbN8b8PjRiXuegtdmdyG1zYr+ysLeJN
-	QlnzZ0CUVX2RpIBgM6cS2iF0aDu09G94aEcx7IZzKZJnQepOShMxBHCuzLl8+lJqZV48yxmAHoB
-	U5RIseHg+Dlg1yVH4MVgtzvgIHEqv6Pq0l5VkwVgAZP/RTHqAPwgULERgzpPKBSGAHzJhtCw6rf
-	XUVtWoYSApDDSZtNCk9wyzmH5VpXZxNxPvDB8NDg5eTPZgnFZ0W+SSZT+wZtmMmL35tef3uZreF
-	8dZgcqkSUA==
-X-Received: by 2002:a17:903:2312:b0:2cc:6018:f030 with SMTP id d9443c01a7336-2ddb1b899famr115123815ad.14.1789856785398;
-        Sat, 19 Sep 2026 15:26:25 -0700 (PDT)
+        bh=AHexZoASrrLFUeP2m4HCenY6Z1qSfaQk6YYJHltbZIA=;
+        b=M3Skt2XZfX0ShtIKXBoHdQ4AsNt6xShSZsHARjVaBucFsSv+3agg75bmoI+lUkHuRF
+         LNyO2f91Nuod9V3ylAtEYngmhhzk70q8yBpOO/fz5zlyV1SsNL+Sy5yw26gugXfpw8z7
+         g5pZzURGkHjD6S++N320JndiCZ15QPLCaquZdXPjI+F5V+sx6nTUh9WqvtadyLrzb6aP
+         0nCs1KJwiI0rHUeGbgNY2WSyJeHrIfkjoxvqmRcx+Ps8LX4px5pH5bFKhK7drOxpYi6g
+         mJStztRQibiaESxnxit6eooTVDROLXVHqyLW4PI0ByiqsBCkAWB1AmSLVfb5mcW8amC4
+         /HAg==
+X-Forwarded-Encrypted: i=1; AKwUvByiaY+G+sRn8531+pLJHEfaaa0B1/U5974aMm4M8qBlZnRYsqJavjBwD29brPflZZgvrHU09/Ep/wHETVg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lzu9XxeNGseSSxPVwR59I+jPFIoRwXDE2jy/wDEjKAIsIpPATZ
+	RQZ2jnpYqzaUBBcHdxzMGJN3k4eonf/oa0t8V2WKn++gtARjs4BL5F6O
+X-Gm-Gg: AYBFou3+z3Vqa2gtUV0+KcxMI2SjpQyWldSD0kcS0q3m5KTDRaT9ShfrhLTNefSIck7
+	cz849FvHaNpwiBbt/To2ADB8/+BB4cwahKs6bJibVH2MhR3ey9DQCt94IEhdI8vmqQ6KM8B3BSd
+	lJI2mdjSEi+DVI+su4dP+1LkX9mAJNYyRExGJz6G58HP+yR0/RyPB75tYw/5U6f0O+KFPnxn8kP
+	4GV52skZ9qMWAbpPLmiUfHwk5fwPJ5NeYaCeiGaebX32zUmgWnPsCa+oaZJkVSiWVDQxM/EBERU
+	8fHnXy30Q6Qq9X0M7QcfHPsDgZiFk28TgMaum0XtlfHk/Kpgbc6URFzVMzpAB+h0KgQBPxV9f8m
+	4AgONh/IwAhs2PqI8nNKzp5HKJWoBERPeyj1QzQ1q710LZGwqnWHAqIXqXWdvAHZs4KUxfrtxIx
+	C357TbpRmeEaWFZAVbODY4410X78pwp9Iv7KbCx3W+17PpWI7RC7wFF0m30A9VJwLB8KYMe5Bsd
+	89M3rb5ziVNOfvim+x6ra3oT47eIaeNfId0H9IkcQ4HRkddVUDahY3yJ0LakiMOOEZV014IXxBG
+	48+ux54UGQ==
+X-Received: by 2002:a17:90b:2d03:b0:39e:1c03:14c2 with SMTP id 98e67ed59e1d1-39e54baa3f1mr10887430a91.11.1789856787653;
+        Sat, 19 Sep 2026 15:26:27 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17e17e0sm13208235ad.70.2026.09.19.15.26.24
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c3145e5sm6614629a91.5.2026.09.19.15.26.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 15:26:24 -0700 (PDT)
+        Sat, 19 Sep 2026 15:26:27 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
-To: axboe@kernel.dk
-Cc: linux-block@vger.kernel.org,
+To: dgilbert@interlog.com,
+	James.Bottomley@HansenPartnership.com,
+	mkp@kernel.org
+Cc: linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] loop: restore lo_backing_file, gfp_mask, and uevent_suppress on loop_configure() error
-Date: Sat, 19 Sep 2026 22:26:24 +0000
-Message-ID: <20260919222624.3797511-1-benquike@gmail.com>
+Subject: [PATCH] scsi: sg, sr: fix stale scatter_elem_sz in sg_build_indirect() and OOB read in sr_is_xa()
+Date: Sat, 19 Sep 2026 22:26:26 +0000
+Message-ID: <20260919222626.3797788-1-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -74,36 +76,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In loop_configure() (drivers/block/loop.c), if
-loop_set_status_from_info() or blk_mq_unfreeze_queue() fails after
-lo->lo_backing_file has been assigned, reset lo->lo_backing_file = NULL,
-lo->lo_device = NULL, lo->lo_flags = 0, mapping_set_gfp_mask(mapping,
-lo->old_gfp_mask), and dev_set_uevent_suppress(disk_to_dev(lo->lo_disk),
-0) before calling fput(file) so a dangling struct file * pointer is not
-left in lo->lo_backing_file with lo_state == Lo_unbound.
+Fix two issues in drivers/scsi/sg.c and drivers/scsi/sr_ioctl.c:
+
+1. In sg_build_indirect() (drivers/scsi/sg.c), snapshot scatter_elem_sz
+   into a local variable and clamp it to [PAGE_SIZE, SG_SCATTER_SZ] so a
+   concurrent SG_SET_RESERVED_SIZE ioctl cannot cause inconsistent page
+   order calculations or unbounded order-10 allocations.
+2. In sr_is_xa() (drivers/scsi/sr_ioctl.c), allocate at least 2048 bytes
+   (or CD_FRAMESIZE_RAW) before calling sr_read_sector() so reading
+   sector data at offset + 14 does not read or write past the kmalloc
+   buffer.
 
 Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
-diff --git a/drivers/block/loop.c b/drivers/block/loop.c
-index 758c20678bf6..8fae858c9df7 100644
---- a/drivers/block/loop.c
-+++ b/drivers/block/loop.c
-@@ -1086,8 +1086,15 @@ static int loop_configure(struct loop_device *lo, blk_mode_t mode,
- 	loop_update_limits(lo, &lim, config->block_size);
- 	/* No need to freeze the queue as the device isn't bound yet. */
- 	error = queue_limits_commit_update(lo->lo_queue, &lim);
--	if (error)
-+	if (error) {
-+		mapping_set_gfp_mask(file->f_mapping, lo->old_gfp_mask);
-+		spin_lock_irq(&lo->lo_lock);
-+		lo->lo_backing_file = NULL;
-+		spin_unlock_irq(&lo->lo_lock);
-+		lo->lo_device = NULL;
-+		dev_set_uevent_suppress(disk_to_dev(lo->lo_disk), 0);
- 		goto out_unlock;
+diff --git a/drivers/scsi/sg.c b/drivers/scsi/sg.c
+index 5408f002e6c0..5d635349e06e 100644
+--- a/drivers/scsi/sg.c
++++ b/drivers/scsi/sg.c
+@@ -480,8 +480,10 @@ sg_read(struct file *filp, char __user *buf, size_t count, loff_t * ppos)
+ 
+ 	hp = &srp->header;
+ 	old_hdr = kzalloc(SZ_SG_HEADER, GFP_KERNEL);
+-	if (!old_hdr)
+-		return -ENOMEM;
++	if (!old_hdr) {
++		retval = -ENOMEM;
++		goto free_old_hdr;
 +	}
  
- 	/*
- 	 * We might switch to direct I/O mode for the loop device, write back
+ 	old_hdr->reply_len = (int) hp->timeout;
+ 	old_hdr->pack_len = old_hdr->reply_len; /* old, strange behaviour */
+@@ -543,10 +545,10 @@ sg_read(struct file *filp, char __user *buf, size_t count, loff_t * ppos)
+ 		}
+ 	} else
+ 		count = (old_hdr->result == 0) ? 0 : -EIO;
+-	sg_finish_rem_req(srp);
+-	sg_remove_request(sfp, srp);
+ 	retval = count;
+ free_old_hdr:
++	sg_finish_rem_req(srp);
++	sg_remove_request(sfp, srp);
+ 	kfree(old_hdr);
+ 	return retval;
+ }
+@@ -1667,9 +1669,12 @@ init_sg(void)
+ {
+ 	int rc;
+ 
+-	if (scatter_elem_sz < PAGE_SIZE) {
++	if (scatter_elem_sz < (int)PAGE_SIZE) {
+ 		scatter_elem_sz = PAGE_SIZE;
+ 		scatter_elem_sz_prev = scatter_elem_sz;
++	} else if (scatter_elem_sz > (int)(PAGE_SIZE << MAX_PAGE_ORDER)) {
++		scatter_elem_sz = PAGE_SIZE << MAX_PAGE_ORDER;
++		scatter_elem_sz_prev = scatter_elem_sz;
+ 	}
+ 
+ 	rc = register_chrdev_region(MKDEV(SCSI_GENERIC_MAJOR, 0), 
+@@ -1875,9 +1880,14 @@ sg_build_indirect(Sg_scatter_hold * schp, Sg_fd * sfp, int buff_size)
+ 
+ 	num = scatter_elem_sz;
+ 	if (unlikely(num != scatter_elem_sz_prev)) {
+-		if (num < PAGE_SIZE) {
++		if (num < (int)PAGE_SIZE) {
++			num = PAGE_SIZE;
+ 			scatter_elem_sz = PAGE_SIZE;
+ 			scatter_elem_sz_prev = PAGE_SIZE;
++		} else if (num > (int)(PAGE_SIZE << MAX_PAGE_ORDER)) {
++			num = PAGE_SIZE << MAX_PAGE_ORDER;
++			scatter_elem_sz = PAGE_SIZE << MAX_PAGE_ORDER;
++			scatter_elem_sz_prev = PAGE_SIZE << MAX_PAGE_ORDER;
+ 		} else
+ 			scatter_elem_sz_prev = num;
+ 	}
+diff --git a/drivers/scsi/sr_ioctl.c b/drivers/scsi/sr_ioctl.c
+index 089653018d32..2a3ce6a460ed 100644
+--- a/drivers/scsi/sr_ioctl.c
++++ b/drivers/scsi/sr_ioctl.c
+@@ -582,7 +582,7 @@ int sr_is_xa(Scsi_CD *cd)
+ 	if (!xa_test)
+ 		return 0;
+ 
+-	raw_sector = kmalloc(2048, GFP_KERNEL);
++	raw_sector = kmalloc(CD_FRAMESIZE_RAW1, GFP_KERNEL);
+ 	if (!raw_sector)
+ 		return -ENOMEM;
+ 	if (0 == sr_read_sector(cd, cd->ms_offset + 16,
