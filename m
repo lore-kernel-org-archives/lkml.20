@@ -1,124 +1,122 @@
-Received: from avas.easytechitalia.it (avas.easytechitalia.it [213.217.29.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D92B537CD37
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 18:35:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.217.29.81
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789842918; cv=none; b=db3BjYRnEEVxAncrkhlu12DclBj2//3CEaOlg0Jse+1aEYKho+ZaejGLDo8bN8ZnaZ+fdr2+z+u4GrLD+oghW+q1q142tsdia6gvRcSIuGpxM4r1hwzS1BVQsqKX1u/vzK4ax/pakAzze+PQROArcMc7+kyIplRke2jMbla8y8Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789842918; c=relaxed/simple;
-	bh=iJ8hMfknuRSR1UFxEQdFNe3E1zJLeY/EVwpn7KP2W/M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=MO0J+Z9Mb6604mCkzFwzAkFoYuxoymYre5qJT45m/XHT4Df20LNCHPn+Wnc6tY8L0dmTLolWm3VC0dYkP4sUQpiORv3bT8qELZGm3KhMVugiWAazbigQgVid/7Gd7ArjVstEZ0oBhaymf4BC4uHJSCH0PilmgwQa0q7QO5s5RBw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mtsistemi.it; spf=pass smtp.mailfrom=mtsistemi.it; dkim=fail (0-bit key) header.d=mtsistemi.it header.i=@mtsistemi.it header.b=KfKMJaSR reason="key not found in DNS"; arc=none smtp.client-ip=213.217.29.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mtsistemi.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mtsistemi.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AAAF30C35F
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 18:37:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789843039; cv=pass; b=Ei6jx425Nv0CdMiCfg7dftqknSeZ+YJYLK+9RYZ+DTpFfhJFCpDU0VZtfSJKD8TrHKBOvcDFS5bqs2HPJnCzISXc4O8+8aTjIYj8qrKMB08xs/Zo8CXbS5FeOdpuiti6wGTWisFpbXBqfQA3K62XAsP2BXMDvDLptVe2vHbOmXI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789843039; c=relaxed/simple;
+	bh=lxHFstBQpQ33imEsLlkA3g02TZX06v5LaHxiPA0L27Q=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WE4DuzBUWRrdivrrP0/pSM2v2ThZ2Y1gg1S39i8P6If7CFWVZQBcb/UbYjthk7tWVFySa6La+iw6bjdKARokSn0SQoqkZnFIStuhqFBj8b59pWRXlH7Km24QpI8G9l/9a0PNzhk6I/6mLK76ZK603/83j+biDhJexIHmOCz5GgQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uber.com; spf=fail smtp.mailfrom=uber.com; dkim=pass (1024-bit key) header.d=uber.com header.i=@uber.com header.b=6qt8RmBn; arc=pass smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uber.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=uber.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=mtsistemi.it header.i=@mtsistemi.it header.b="KfKMJaSR"
-X-Envelope-From: <info@mtsistemi.it>
-Received: from ngmx.easytechitalia.it (unknown [185.76.140.216])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by avas.easytechitalia.it (Postfix) with ESMTPS id 4hnJ7d6pyMzGnv7;
-	Sat, 19 Sep 2026 20:34:53 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
-	by ngmx.easytechitalia.it (Postfix) with ESMTP id 584A217C481;
-	Sat, 19 Sep 2026 20:33:25 +0200 (CEST)
-Received: from ngmx.easytechitalia.it ([127.0.0.1])
- by localhost (ngmx.easytechitalia.it [127.0.0.1]) (amavis, port 10032)
- with ESMTP id tYSPIRuwO6ir; Sat, 19 Sep 2026 20:33:24 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
-	by ngmx.easytechitalia.it (Postfix) with ESMTP id D76EB17E253;
-	Sat, 19 Sep 2026 20:33:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.10.3 ngmx.easytechitalia.it D76EB17E253
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mtsistemi.it;
-	s=AD82E3E6-03E3-11EF-83D2-AF8217D6D3C6; t=1789842804;
-	bh=OToAcRMHZPT2zKKJHhISRmvOT/8lcJHrS3an9zrUspk=;
-	h=From:To:Date:Message-ID:MIME-Version;
-	b=KfKMJaSRHNYteqPLakxJ1eSN0Y4NR/+R8noxOd2kbKh9ZSsPTnsu89UH46CcKabWS
-	 TQ39Kvp/O86McxxyJs8lFjo+OImWBPe2H7aUriD4X0qdB6z2Kwv96eR5NhvGdE+rG5
-	 JflY6nTKS34iURqoL7CXJqbQrw9U6286VNws4Ava7kyxLeVrVW7eLmeQaBLSUwCn7z
-	 XKP6pyRk6O6AkYsA7LMKHfutlZdbuzY1bGWqDilIgKjyoYZMVsaNWSDiKYXJ84kSMb
-	 V91ICda5dTRlmANDYT2GCtczDcz2YGaqCm89Uea21/MdLQG+GYl3HLL7QErQ8B8Knp
-	 +In5VPCDMBtNA==
-X-Virus-Scanned: amavis at ngmx.easytechitalia.it
-Received: from ngmx.easytechitalia.it ([127.0.0.1])
- by localhost (ngmx.easytechitalia.it [127.0.0.1]) (amavis, port 10026)
- with ESMTP id N1I3pRVkKX3d; Sat, 19 Sep 2026 20:33:24 +0200 (CEST)
-Received: from [192.168.56.1] (93-38-124-109.ip70.fastwebnet.it [93.38.124.109])
-	by ngmx.easytechitalia.it (Postfix) with ESMTPSA id 71B3217DC3B;
-	Sat, 19 Sep 2026 20:33:24 +0200 (CEST)
-From: Mattia Tadini <info@mtsistemi.it>
-To: Tom Lendacky <thomas.lendacky@amd.com>, John Allen <john.allen@amd.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- David S. Miller <davem@davemloft.net>
-Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject:
- [PATCH 1/3] crypto: ccp - fix NULL dereference in psp_firmware_is_visible()
-Date: Sat, 19 Sep 2026 20:34:50 +0200
-Message-ID: <178984289056.12336.3953267527334867198@mtsistemi.it>
-In-Reply-To: <178984289056.12336.17662860552012704364@mtsistemi.it>
-References: <178984289056.12336.17662860552012704364@mtsistemi.it>
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=uber.com header.i=@uber.com header.b="6qt8RmBn"
+Received: by mail-yx2-f13.google.com with SMTP id 00721157ae682-85d43db0c16so13567067b3.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 11:37:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789843037; cv=none;
+        d=google.com; s=arc-20260327;
+        b=lvVucsXW42GgBdHCbQmVd8swzJqpTszWFgyP1jrikc8QcAeDAh6WrGLR9C0ywMdpkd
+         hciDNr72E7Mk+hiMvovbwMSlBIIFT5Ubld0/udK31YG85vNFZkNTbjlfnkhenhvrFTzp
+         w/alwTDPAj0SuCSfmhEOg2IHZwO0+yIu+FMwrygSiAlD+XhWs5ONu6Zc/9/jYI6VRNef
+         P/i7CHOFKHh4v7pjyZAQoMazFMJQdpvB4OsI0CK5fs684PhRPEn12hkqp6CIeTmEM7Uz
+         SNiqqSqQFZpPlvPyRFV7KDFohbGJAujlO8BiJsNPYdXfrYJepmZXI/Ons2xKQsHz6lGs
+         m/xQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=E59/BUz5Pi6Dr18TnnWWI0RkEyqCowN7qMDJuzGo3+E=;
+        fh=GZq5G18mxV6GWc9mdUf/iMe07ATCAQYoj55g5qHWjlo=;
+        b=WrvCVrewtHIWLyTENtLQbbdIb4U28QIxQWU4hTM+vIFOeRF8S3XdwNXhibbho5HwK9
+         n+r5Aa+oRuDI4ArR+FXCIzOxfVY6orjyO78YhyBhb07FlZgqgrQHx6g0/vziA+mbxe0L
+         sUodNF+0zA3wS/OtOvFPOtCkZ0UrpB/S5aYPXxDiJdseWKsdYSHssaoy9seOp8H1MFUH
+         Tg/rygRVPf1x8HDsMOjCUxXkVOseLN5lV2EQgX1gZdSoRdWJjms/wBdaWgumxzlDx3xg
+         jtViEcepuTSRGseKi3ieccAxAsMD6frlhxlHlmns1zv7GTIq6c8lcKCGcyisTgo/h1N3
+         HvjA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=uber.com; s=google; t=1789843037; x=1790447837; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=E59/BUz5Pi6Dr18TnnWWI0RkEyqCowN7qMDJuzGo3+E=;
+        b=6qt8RmBnZ+P/o5Zl8WXueDMbV3LJUY4gWTLryJP6kokQdBfRY8woZo4pZ21IEgPHeO
+         PTyRIzdngfUDCKZxPdjGnuJTwZr/mws9db4Xrpv0Grw8evXEsNbEU3PPciBpS+1cYJ4O
+         gAYGFxoEKAipwTJmYh1N49zgqz6PHfG5j5ulI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789843037; x=1790447837;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=E59/BUz5Pi6Dr18TnnWWI0RkEyqCowN7qMDJuzGo3+E=;
+        b=gYoqiN9JQ78mqLWeV698/XjEvZl/Gwy3XUS3ehaBFbP/cwdlRa1gCwd7vSSISV4BDA
+         lm1fjmKZbsCoxAsLY/Qwbjd1gTFOIYi0tTCC+5gU8NoAn0cqJNIHtKSXu70tEJ67bIEl
+         RYTP0ZPq2SaualSGfrOnjc4bRqRZ/0gKz/DnKHswuTizmyT24QSUn7Cx5KBM0RLpwPHN
+         qfoK2fIS14ycj5q1X2e4QuL4Hffuz4WhKpVnKOqM+Z6r11hjN86FNhA3uXbsyyBF4Q5z
+         ZlP7R37P3LaZAL7leHHugClITJ4gvmESKQeK57DyOGba0PdhywOFAHG+glDOxC2skcIQ
+         xqsw==
+X-Forwarded-Encrypted: i=1; AKwUvBzVBaKiDtDkAMKIH+Ft1PzdiD4xesBOW3zOLL1laigw3a567Pxqa9AX1fLg/ef13N0mAMJiEwmXFHY3+E0=@vger.kernel.org
+X-Gm-Message-State: AFuF++l7dgleXOFyJyzeBQCN3Ahvfg00109tEKncYM/n2IKjey7IJKGs
+	TlVt6OvV1ZZa3vKDtYZnIjOA4mldNe3B4+xhRHlSwFPHCeKdb1cfXD7sS8S/3CERLJNucyC1KV7
+	/Y+ZB1U7Yu1m5/r5J9nefrMgUH5f/P8TlIQBKy+6OJg==
+X-Gm-Gg: AYBFou1xha9NUjJzAh9dupVHdFTOIiCGDVX7ms4J/hWD1GUMV3v2TlSF3Q7n/sNtqY6
+	Ii4f8ZCuLKi76qF5OPGWcv6JqVQ1/KiG1G95pq9lrENUsV2PThZpZ6KLrzGNrGQhSwP/HIkJVRN
+	fu57Y5ZqpxxnWfD0p5aO8sbgLCzmNyZps5SFu/DTmXDhJyPSGSdscnHZ923oe3K+zYpx9mJVlre
+	oQa8RfxAkc1Y4B5aoo8afOYUnDTMakh9ekxqh8DT8Z4FOZDhk9ix2Go8SAfCW8Wsc8AiJ8vecwf
+	qUOtcsdsny9l6x04WZaRwcYU0t00hlycULuENofaqkmQimXRriNXV4frkcJosbKQ8viPerpmrsF
+	SVqUNE88OT/0=
+X-Received: by 2002:a05:690c:d81:b0:81e:9b09:7210 with SMTP id
+ 00721157ae682-8973314c2ddmr17556017b3.16.1789843036416; Sat, 19 Sep 2026
+ 11:37:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Easytech-Libra-ESVA-Information: Please contact Easytech S.r.l. for more information
-X-Easytech-Libra-ESVA-ID: 4hnJ7d6pyMzGnv7
-X-Easytech-Libra-ESVA: No virus found
-X-Easytech-Libra-ESVA-From: info@mtsistemi.it
-X-Easytech-Libra-ESVA-Watermark: 1790447694.55174@Lxvwa6d2nLCoUGKRwo37fw
+References: <20260915-perf-symbol-memory-send-v1-0-1d3360e21f07@uber.com>
+ <20260915-perf-symbol-memory-send-v1-2-1d3360e21f07@uber.com> <aquOfdBVYlr1QE8Z@z2>
+In-Reply-To: <aquOfdBVYlr1QE8Z@z2>
+From: Alireza Haghdoost <haghdoost@uber.com>
+Date: Sat, 19 Sep 2026 11:37:00 -0700
+X-Gm-Features: AcwNN1U0eFlAdN_d2-mxK1SAeqVRyi_pr7YM7LmMviwb1XyNgrHknNMzgmeM3U4
+Message-ID: <CA+w=M=S9dWAoPyjuqvErYR684E5jE8AX0p+92Abm8mQBQdebxA@mail.gmail.com>
+Subject: Re: [PATCH 2/4] perf script: Add --max-symbol-bytes to bound ELF
+ symbol memory
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, Andrii Nakryiko <andriin@fb.com>, 
+	Alexei Starovoitov <ast@kernel.org>, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-psp_firmware_is_visible() decides whether to publish tee_version by
-testing the TEE capability bit reported by the hardware, and then reads
-through the driver's own tee vdata pointer without checking it:
+> > The counter includes every symbol__new() allocation, but this patch
+> > enforces the limit only in the ELF loader, which is the source of the
+> > unbounded memory growth addressed here. In this path, reaching the limit
+> > can safely produce [unknown] symbols. Other loaders currently treat a
+> > failed symbol allocation as an error. Capping those paths would therefore
+> > require separate changes whose complexity may outweigh the potential
+> > memory savings.
+>
+> What's the other loaders you meant?
+>
+> I don't see it produces [unknown] symbols.  Do you mean it just stops
+> loading symbols when it hits the limit?
+>
 
-	if (attr =3D=3D &dev_attr_tee_version.attr && psp->capability.tee &&
-	    psp->vdata->tee->info_reg)
+The other loaders are kallsyms, JIT/perf-map, and libbfd. Their
+allocations are counted by symbol__new(), but the current patch
+enforces the limit only in the libelf loader. I will name those paths
+explicitly in v2 of this patch series.
 
-The capability register describes the silicon. The vdata describes what
-this driver was given to drive it with. The two can disagree: any device
-whose firmware sets the TEE capability bit while its psp_vdata carries no
-tee data dereferences NULL here. The attribute group is registered from
-probe, so the result is an oops during module init:
-
-	RIP: 0010:psp_firmware_is_visible+0x6c/0x80 [ccp]
-	 ? __pfx_init_module+0x10/0x10 [ccp]
-	 sp_mod_init+0x1a/0xff0 [ccp]
-
-This was hit on an AMD BC-250, whose PSP capability register at 0x109fc
-reads 0x00000002 and so advertises a TEE that the board has no working
-ring for.
-
-Check the pointer before following it.
-
-Fixes: 2e424c33d8e7 ("crypto: ccp - Add support for displaying PSP firmwa=
-re versions")
-Signed-off-by: Mattia Tadini <info@mtsistemi.it>
----
- drivers/crypto/ccp/sp-pci.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/crypto/ccp/sp-pci.c b/drivers/crypto/ccp/sp-pci.c
-index ede6ff9..f79df33 100644
---- a/drivers/crypto/ccp/sp-pci.c
-+++ b/drivers/crypto/ccp/sp-pci.c
-@@ -80,7 +80,7 @@ static umode_t psp_firmware_is_visible(struct kobject *=
-kobj, struct attribute *a
- 		val =3D ioread32(psp->io_regs + psp->vdata->bootloader_info_reg);
-=20
- 	if (attr =3D=3D &dev_attr_tee_version.attr && psp->capability.tee &&
--	    psp->vdata->tee->info_reg)
-+	    psp->vdata->tee && psp->vdata->tee->info_reg)
- 		val =3D ioread32(psp->io_regs + psp->vdata->tee->info_reg);
-=20
- 	/* If platform disallows accessing this register it will be all f's */
---=20
-2.55.0
-
+The loader stops adding ELF symbols once the budget is reached and
+warns once. Later unresolved IPs are printed as [unknown] by
+symbol_fprintf.c:40 when sym is NULL.
