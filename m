@@ -1,122 +1,150 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AAAF30C35F
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 18:37:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789843039; cv=pass; b=Ei6jx425Nv0CdMiCfg7dftqknSeZ+YJYLK+9RYZ+DTpFfhJFCpDU0VZtfSJKD8TrHKBOvcDFS5bqs2HPJnCzISXc4O8+8aTjIYj8qrKMB08xs/Zo8CXbS5FeOdpuiti6wGTWisFpbXBqfQA3K62XAsP2BXMDvDLptVe2vHbOmXI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789843039; c=relaxed/simple;
-	bh=lxHFstBQpQ33imEsLlkA3g02TZX06v5LaHxiPA0L27Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=WE4DuzBUWRrdivrrP0/pSM2v2ThZ2Y1gg1S39i8P6If7CFWVZQBcb/UbYjthk7tWVFySa6La+iw6bjdKARokSn0SQoqkZnFIStuhqFBj8b59pWRXlH7Km24QpI8G9l/9a0PNzhk6I/6mLK76ZK603/83j+biDhJexIHmOCz5GgQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uber.com; spf=fail smtp.mailfrom=uber.com; dkim=pass (1024-bit key) header.d=uber.com header.i=@uber.com header.b=6qt8RmBn; arc=pass smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uber.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=uber.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2B493806C1
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 18:42:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789843371; cv=none; b=PDZ+a7gvfWteWNfKMaAyxewF2gjS7P6H/RC6Jo+Qc0PyRtSEdwDlfHouudRxJTfajwxFTxBt8eAgiTY+29TeQiHZHvLjd5dc4H/dHnT+tJhfan0qjG3HroD1Sa4B4dH7s+XigCHt1HJRMoRry1yKK6b13nQLPV6lOKVgAVrquC4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789843371; c=relaxed/simple;
+	bh=L0cJg8bEa3JcDAFMwgJ+PXyC/ThA9AhiO5G7soyuk4Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GJHlBK6gmrBfOE8dh2aZeJ2iOxeRZq+5rJIAYUqOJ0NJ/6y7miG9bkMnFeZehNr6qkK193cH6lpo1JY53bBovIGRKfnomK59DWxIZ+vaN0BeVODfnpa+k051R30SQKF5ObII5pYAhP3Ixfr7U/q4knh3nWjYHlqESacbRXoEsG8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L+rhnWa9; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uber.com header.i=@uber.com header.b="6qt8RmBn"
-Received: by mail-yx2-f13.google.com with SMTP id 00721157ae682-85d43db0c16so13567067b3.1
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 11:37:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789843037; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lvVucsXW42GgBdHCbQmVd8swzJqpTszWFgyP1jrikc8QcAeDAh6WrGLR9C0ywMdpkd
-         hciDNr72E7Mk+hiMvovbwMSlBIIFT5Ubld0/udK31YG85vNFZkNTbjlfnkhenhvrFTzp
-         w/alwTDPAj0SuCSfmhEOg2IHZwO0+yIu+FMwrygSiAlD+XhWs5ONu6Zc/9/jYI6VRNef
-         P/i7CHOFKHh4v7pjyZAQoMazFMJQdpvB4OsI0CK5fs684PhRPEn12hkqp6CIeTmEM7Uz
-         SNiqqSqQFZpPlvPyRFV7KDFohbGJAujlO8BiJsNPYdXfrYJepmZXI/Ons2xKQsHz6lGs
-         m/xQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=E59/BUz5Pi6Dr18TnnWWI0RkEyqCowN7qMDJuzGo3+E=;
-        fh=GZq5G18mxV6GWc9mdUf/iMe07ATCAQYoj55g5qHWjlo=;
-        b=WrvCVrewtHIWLyTENtLQbbdIb4U28QIxQWU4hTM+vIFOeRF8S3XdwNXhibbho5HwK9
-         n+r5Aa+oRuDI4ArR+FXCIzOxfVY6orjyO78YhyBhb07FlZgqgrQHx6g0/vziA+mbxe0L
-         sUodNF+0zA3wS/OtOvFPOtCkZ0UrpB/S5aYPXxDiJdseWKsdYSHssaoy9seOp8H1MFUH
-         Tg/rygRVPf1x8HDsMOjCUxXkVOseLN5lV2EQgX1gZdSoRdWJjms/wBdaWgumxzlDx3xg
-         jtViEcepuTSRGseKi3ieccAxAsMD6frlhxlHlmns1zv7GTIq6c8lcKCGcyisTgo/h1N3
-         HvjA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L+rhnWa9"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e66390995so9337895e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 11:42:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=uber.com; s=google; t=1789843037; x=1790447837; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1789843368; x=1790448168; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=E59/BUz5Pi6Dr18TnnWWI0RkEyqCowN7qMDJuzGo3+E=;
-        b=6qt8RmBnZ+P/o5Zl8WXueDMbV3LJUY4gWTLryJP6kokQdBfRY8woZo4pZ21IEgPHeO
-         PTyRIzdngfUDCKZxPdjGnuJTwZr/mws9db4Xrpv0Grw8evXEsNbEU3PPciBpS+1cYJ4O
-         gAYGFxoEKAipwTJmYh1N49zgqz6PHfG5j5ulI=
+        bh=EUaG58XyyXj2IYGxruqsBjrWu0FDpmLYKW3X9EM+9DM=;
+        b=L+rhnWa9nQG2h6Uso3aXhrUb1+pFdsXRFDMx5XcAo69q9fXnDxwpUAnp67jjx05WOh
+         UlHlMf0RCkzMdqFJJyX15kVA7PDcV2cDKzmhkkO3id15YNJF8a3BVbLTlGsK/XPtQM29
+         065odsPEekw6UhF8ik+AQ9gQfRZ/kObO4TrxSbY5+hcsn2cCh3iA11HoNAznCt3ea5HY
+         Fv82E4PjgXTB/1vEy1hauB5j7z+9KyIHJvrA0aEP3zEcl69oTsyDYBZWrNnz+Ggvb/th
+         SYtRL3+ZnGtvfXPzXi81+71BDGhMs0KnxACyG2QGoegKiUDa6P+tUSBBVGabEodUxRWn
+         D/lg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789843037; x=1790447837;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=E59/BUz5Pi6Dr18TnnWWI0RkEyqCowN7qMDJuzGo3+E=;
-        b=gYoqiN9JQ78mqLWeV698/XjEvZl/Gwy3XUS3ehaBFbP/cwdlRa1gCwd7vSSISV4BDA
-         lm1fjmKZbsCoxAsLY/Qwbjd1gTFOIYi0tTCC+5gU8NoAn0cqJNIHtKSXu70tEJ67bIEl
-         RYTP0ZPq2SaualSGfrOnjc4bRqRZ/0gKz/DnKHswuTizmyT24QSUn7Cx5KBM0RLpwPHN
-         qfoK2fIS14ycj5q1X2e4QuL4Hffuz4WhKpVnKOqM+Z6r11hjN86FNhA3uXbsyyBF4Q5z
-         ZlP7R37P3LaZAL7leHHugClITJ4gvmESKQeK57DyOGba0PdhywOFAHG+glDOxC2skcIQ
-         xqsw==
-X-Forwarded-Encrypted: i=1; AKwUvBzVBaKiDtDkAMKIH+Ft1PzdiD4xesBOW3zOLL1laigw3a567Pxqa9AX1fLg/ef13N0mAMJiEwmXFHY3+E0=@vger.kernel.org
-X-Gm-Message-State: AFuF++l7dgleXOFyJyzeBQCN3Ahvfg00109tEKncYM/n2IKjey7IJKGs
-	TlVt6OvV1ZZa3vKDtYZnIjOA4mldNe3B4+xhRHlSwFPHCeKdb1cfXD7sS8S/3CERLJNucyC1KV7
-	/Y+ZB1U7Yu1m5/r5J9nefrMgUH5f/P8TlIQBKy+6OJg==
-X-Gm-Gg: AYBFou1xha9NUjJzAh9dupVHdFTOIiCGDVX7ms4J/hWD1GUMV3v2TlSF3Q7n/sNtqY6
-	Ii4f8ZCuLKi76qF5OPGWcv6JqVQ1/KiG1G95pq9lrENUsV2PThZpZ6KLrzGNrGQhSwP/HIkJVRN
-	fu57Y5ZqpxxnWfD0p5aO8sbgLCzmNyZps5SFu/DTmXDhJyPSGSdscnHZ923oe3K+zYpx9mJVlre
-	oQa8RfxAkc1Y4B5aoo8afOYUnDTMakh9ekxqh8DT8Z4FOZDhk9ix2Go8SAfCW8Wsc8AiJ8vecwf
-	qUOtcsdsny9l6x04WZaRwcYU0t00hlycULuENofaqkmQimXRriNXV4frkcJosbKQ8viPerpmrsF
-	SVqUNE88OT/0=
-X-Received: by 2002:a05:690c:d81:b0:81e:9b09:7210 with SMTP id
- 00721157ae682-8973314c2ddmr17556017b3.16.1789843036416; Sat, 19 Sep 2026
- 11:37:16 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789843368; x=1790448168;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EUaG58XyyXj2IYGxruqsBjrWu0FDpmLYKW3X9EM+9DM=;
+        b=PEPbaHFFSHs5wOM0eAii3XByLsq25dFLeTUsshQHdH+Sre1rbgcnibwbS7DAFxJrrj
+         FgGIW8Oyl6Q+cYURIXOl6XzcQprInVsl/5D+DAo4BvGKx2QWTBF2oSDa7TC0gECyTw4u
+         ennDMOZY2xav8rvyILo7yA76GqM0uaeIGJdUGEItmuhwI7QZGydcHcQZ/gWbivw2Vkmz
+         ASkRDcrDwQo4IWHpGhJyNtwx3qNOSz5uRxOSZcAL2uhS66tzK+4Jb+lhOSKZ2U6fEWVJ
+         MruU1EHq0lkkB+CiclIQ9Zl9Hm277EUAs5EBxIvS/9cPyQUoo6OJPB6FPQ9D6DfxrjFx
+         fQLQ==
+X-Forwarded-Encrypted: i=1; AKwUvByuP0e478I7nAeo9vboDVX0brdDEpHVTYSHh+1it7cbDIXxHUkDRZRK0qQbawqgEamj/DF6Fr3NPHqMCHo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mRKLgQzZSjEkDnrUOZ9WhGjzuM3Oj5uQUSTxjV5bRUABSWLLIS
+	XMJ+aa5/5HHGzd1ind2oh/gE7SqqDAFjYMw5OGKAVrFKm2pOQyb26+y4
+X-Gm-Gg: AYBFou04d5QfxlCOlz2EP6C8lUzpXZeu3YOYue8ltms93lhYwTZn9WYZqmc04IW81ie
+	2flUKfnfVogMKWHCswEs7OT0+NOz3QPS09Pwx1s+fLTw6P0LD7QRY+g/V/nWeaxDmJAYljU692y
+	yZfuiRVrb7YSpyROdeD84ht+wS0goQMeHi6f80e2snH1vziTPy2KvTU5ShJME7HhpU+Q52sNr0g
+	YziM4nxrhKrkTq5V055vJbcOdUcPmg8dZc80H4Fj6wnFC8ZKRaBJbDeQog2rfEy2LmuwYj45K9k
+	170FU8DXEwcI9NW2/S4PEPZ2C4iiTPuntl4X3tZnD5Szerx3avbFFycCmv3VJebjOx91XQ/UZjU
+	usYJKiIm+m2m5Uy2z4x/GSnFd/kZZqhop8Fpwk1JJbPzcHMrV2MmMxn6/w5vYRNME+kjf7UucOA
+	2GqJRB4Ogh8RY4enmFWMvfHHFMjx3Z/s/RpcxJyeKmZFaib0N6HgepuygPLiw+YFhOvrWj/L1Mp
+	CCKoTrYtor5u79yh99/sAOfyVZr
+X-Received: by 2002:a05:600c:4505:b0:49a:a101:4157 with SMTP id 5b1f17b1804b1-49fc56db92fmr86686385e9.7.1789843367901;
+        Sat, 19 Sep 2026 11:42:47 -0700 (PDT)
+Received: from [192.168.1.13] ([185.69.144.71])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd07cca6sm91087395e9.11.2026.09.19.11.42.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 19 Sep 2026 11:42:47 -0700 (PDT)
+Message-ID: <8427de42-2cdf-4acb-a439-d7c99cd249ca@gmail.com>
+Date: Sat, 19 Sep 2026 19:42:43 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915-perf-symbol-memory-send-v1-0-1d3360e21f07@uber.com>
- <20260915-perf-symbol-memory-send-v1-2-1d3360e21f07@uber.com> <aquOfdBVYlr1QE8Z@z2>
-In-Reply-To: <aquOfdBVYlr1QE8Z@z2>
-From: Alireza Haghdoost <haghdoost@uber.com>
-Date: Sat, 19 Sep 2026 11:37:00 -0700
-X-Gm-Features: AcwNN1U0eFlAdN_d2-mxK1SAeqVRyi_pr7YM7LmMviwb1XyNgrHknNMzgmeM3U4
-Message-ID: <CA+w=M=S9dWAoPyjuqvErYR684E5jE8AX0p+92Abm8mQBQdebxA@mail.gmail.com>
-Subject: Re: [PATCH 2/4] perf script: Add --max-symbol-bytes to bound ELF
- symbol memory
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, Andrii Nakryiko <andriin@fb.com>, 
-	Alexei Starovoitov <ast@kernel.org>, linux-perf-users@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 00/11] Add spi-hid transport driver
+To: fQwQf <fqwqf@fqwqf.xyz>, jingyliang@chromium.org, jikos@kernel.org,
+ bentiss@kernel.org, corbet@lwn.net, broonie@kernel.org, rostedt@goodmis.org,
+ mhiramat@kernel.org, mathieu.desnoyers@efficios.com,
+ dmitry.torokhov@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org
+Cc: linux-input@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ hbarnor@chromium.org, tfiga@chromium.org, jaschultz@microsoft.com,
+ dmanti@microsoft.com, acz@semihalf.com
+References: <20260609-send-upstream-v4-0-b843d5e6ced3@chromium.org>
+ <010601a0b3ff1cf6-944e2ad5-0ad1-49d4-9e89-c8ab03bbc62c-000000@ap-northeast-1.amazonses.com>
+Content-Language: en-US
+From: Dale Whinham <daleyo@gmail.com>
+In-Reply-To: <010601a0b3ff1cf6-944e2ad5-0ad1-49d4-9e89-c8ab03bbc62c-000000@ap-northeast-1.amazonses.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-> > The counter includes every symbol__new() allocation, but this patch
-> > enforces the limit only in the ELF loader, which is the source of the
-> > unbounded memory growth addressed here. In this path, reaching the limit
-> > can safely produce [unknown] symbols. Other loaders currently treat a
-> > failed symbol allocation as an error. Capping those paths would therefore
-> > require separate changes whose complexity may outweigh the potential
-> > memory savings.
->
-> What's the other loaders you meant?
->
-> I don't see it produces [unknown] symbols.  Do you mean it just stops
-> loading symbols when it hits the limit?
->
+On 18/09/2026 11:10, fQwQf wrote:
+> Hi Jingyuan,
+> 
+> 
+>> This series picks up the spi-hid driver work originally started by
+>> Microsoft. The patch breakdown has been modified and the implementation
+>> has been refactored to address upstream feedback and testing issues. We
+>> are submitting this as a new series while keeping the original sign-off
+>> chain to reflect the history.
+> 
+> 
+> I am working on Linux support for the Surface Laptop 7 (13.8-inch, Snapdragon X series), whose touchpad is a HID-over-SPI device behind a Qualcomm GENI QSPI controller. I noticed that v4 (June 9) is the
+> latest revision of this series and has so far only seen automated review feedback, so I would like to coordinate before preparing any upstream submission of my own.
+> 
+> Current state on my side:
+> 
+> - I have a working touchpad using a downstream Qualcomm GENI QSPI +  spi-hid stack (originally from scuggo's x1e-nixos work, imported  via ELLX-Kernel). My local adaptations move the transport to spi-mem and add framing, response matching, and DMA/error-path  hardening.
+> - Normal touchpad use works on my machine. The latest hardening currently has only build and software-test coverage; I have not validated s.
+> 2. The SL7 adds a different transport requirement (quad-SPI via GENI, through spi-mem) on topuspend/resume, and I have not yet run your v4 series on this hardware.
+> 
+> I believe our work may complement each other in two ways:
+> 
+> 1. The automated review of the series raised DMA cacheline-alignment concerns for SPI transfer buffers and unchecked reset return values in the init/resume paths. Both overlap with the hardening I have been doing downstream, and I would be glad to contribute fixes there.
+> 2. The SL7 adds a different transport requirement (quad-SPI via GENI, through spi-mem) on top of the same HID-over-SPI protocol, which looks like a natural fit for your generic driver rather than a standalone one.
+> 
+> Questions:
+> 
+> - What tree or series do you recommend working against? Is v4 still your current baseline, or do you have a newer development branch?
+> - Would adding the SL7 quad-SPI transport requirements to your generic driver be the preferred upstream approach? Is anyone already working on this?
+> - Are you waiting on maintainer review before a v5? A second hardware platform may help move things along, and I am happy to provide testing on SL7.
+> 
+> I am also tracing the downstream provenance of the Qualcomm QSPI code with the original authors to ensure a clean sign-off chain; I appreciate that this series handles its own history the same way.
+> 
+> Happy to share technical details or a preliminary diff if useful.
+> 
+> I'm not subscribed to the lists; please keep me in CC.
+> 
+> Best regards,
+> Jizhou Tong
 
-The other loaders are kallsyms, JIT/perf-map, and libbfd. Their
-allocations are counted by symbol__new(), but the current patch
-enforces the limit only in the libelf loader. I will name those paths
-explicitly in v2 of this patch series.
+Hi Jizhou, Jingyuan,
 
-The loader stops adding ELF symbols once the budget is reached and
-warns once. Later unresolved IPs are printed as [unknown] by
-symbol_fprintf.c:40 when sym is NULL.
+I am working on Surface Pro 11 aka. Denali, Snapdragon X1E80100.
+
+This series (v4) has enabled successful bringup of touchscreen and pen 
+on the SP11, which also uses QSPI via GENI.
+
+There is some updated SL7 QSPI 'glue' code at 
+https://github.com/orvitpng/nix1e that reworked the original scuggo nix 
+flake code to work on top of Jingyuan's updated spi-hid series.
+
+With that + some extra pieces to wire it into the Denali devicetree, 
+this series is working well here.
+
+I'm keen to help move things along as the tablet functionality is a key 
+feature of the Surface Pro - please feel free to CC me on further 
+discussions.
+
+Tested-by: Dale Whinham <daleyo@gmail.com>
