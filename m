@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F7F8379C2A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F6123749F0;
 	Sat, 19 Sep 2026 20:44:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789850645; cv=none; b=dzKXKNmWOeP+FVK8CS2wwNDrWksTOnL5AudFHp28sI86qvHdTGyxjq2nTb7/7iINJ6kR8SrCHietAVdBDMrm1u4ttKCbB4LWYscvUZoW+ianj1yNO0rPmC5o5Due4ldsNeMyc8RQdqMLzCiOTwGR2HhCGOEbKU2lCFZvtGm3o0c=
+	t=1789850645; cv=none; b=fh59yssGdx2cZWCI3reXIBosaJXNEbSNg5kPLyc83RCq7Nmo2p4ZZDaV48ZcxQ7VzOfoOvNU3Xpbo7JIB7gwmObry1WE5DrTE3FAsEM4lKt2/bt/+AsdLeXT45Bcb8IQVwaIoNHWIKaonhdUsZhHRd85LhflrRpa7BysQ+EmBek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789850645; c=relaxed/simple;
-	bh=d3AcLn4a9qFXJlJjzccqYgcSQqR+1GNbo3HUaZ6Dgyc=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=JqvyAGquQZbhd+uCJQnqzWHRitK7ZB0k0zj/EfxpO+a/riSu/IL2UIR6SN7yyqNYL5cg07X1EY5/DGzw0nfv5DhEbzr8t6Lp/dzBeFdxK0SKQtGVJa3NJ7LfJDJTPOFTn+gLpyLrLrosU9KzWCR9pEfjMWQsMsxp7UXVRWHQtVk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dTyTMIZo; arc=none smtp.client-ip=10.30.226.201
+	bh=A99WF7XgsH2cfI5/e3IDMa/mJv47ybWr6d8kyD1eMI4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=o1DLFyN3YHxsvWDq3T14rn1ceDAbtCdvMCu2uIm4kD07g1KgWMoGHQJNhziDwFlPRAIkldAK5ZpQEIlJoDr3kZPYWNmYeNNHwjwbu3T+8jhahywLBLhpRATAMa1JbiyKLSdEbm+JSU/ppciVGmqIymm9DgwbSA402aqNaIXVjrA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XoUum+sb; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dTyTMIZo"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CC7CEC2BCB9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XoUum+sb"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id F1CD0C2BCFB;
 	Sat, 19 Sep 2026 20:44:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789850644;
-	bh=d3AcLn4a9qFXJlJjzccqYgcSQqR+1GNbo3HUaZ6Dgyc=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=dTyTMIZoHr4JA9ZqlDEyG5opg1kRIwENbtlh6Ln26q/k9Ii2C5lv8EWXG6WKOeGF3
-	 VnW+BoNhOPJruijHBEiPddTMclO/2epA3s5fP477GMeZfleYz/8JgLaoA0d5exSTSU
-	 pbiRQ3pdxN9ITTibRT+4L1UUopehnDhObYjAnVNeBlwt7E2JY+nel5kd7PZH6ab9C1
-	 L0OUljqvnq1/CyARdooit1A1DOj30yJvMWIfVOJb4x6JBzTt9W0jo8nvv58yYbJkme
-	 iy2SE9rFPXG6e8TXcZU7XK/7LyEy+VV+F3a8SJFoUUNaiiZ8H+FdnnID5Tym4EFaka
-	 DueS2dmrdqYVg==
+	s=k20201202; t=1789850645;
+	bh=A99WF7XgsH2cfI5/e3IDMa/mJv47ybWr6d8kyD1eMI4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=XoUum+sbyjnqaOSNY6AUwIN3Lz2TBvGX+J6g1c03PJsqrWDvL5DcYPiBZxyo15+UN
+	 pvwn92HEtm9Bb847YXfekuAKR+mpYpLjyUQvHMr2bx2E0MV50ASzi+miM/BoTI7bMo
+	 avV/9BqkQYjLKlMjFBaruGrxb1Txn1KCgprQ8MyPd9Bt7F02k2AnmTjAR/w7FX68bS
+	 TPuBxc4dzm1Q6hXBTclCFZfjmXPPK0ZFylZ7os3yRt4+CyIYQiCyV8uJPE78236MJi
+	 czxB7lrpG+Nxtj6c6y2c8wpgccJk1EDRw0lAqahumbCpE+/QcBIQ4JG+yRZ/9xQNGF
+	 S22mb4jNVzEIQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A9E40C982D7;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D586DC982D8;
 	Sat, 19 Sep 2026 20:44:04 +0000 (UTC)
 From: Kim Wooseok via B4 Relay <devnull+5mghybrid.khu.ac.kr@kernel.org>
-Subject: [PATCH rtw-next v3 0/3] wifi: rtl8xxxu: keep RX requests available
- across transient errors
-Date: Sun, 20 Sep 2026 05:44:03 +0900
-Message-Id: <20260920-codex-rtl-rx-v3-submit-v3-0-883d11351963@khu.ac.kr>
+Date: Sun, 20 Sep 2026 05:44:06 +0900
+Subject: [PATCH rtw-next v3 3/3] wifi: rtl8xxxu: preserve RX requests
+ across recoverable transfer errors
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,19 +41,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/zWMTQrCMBCFr1Jm7UCaSqFeRVwk6WhHNJXJtAZK7
- 26i+Hbf+9sgkTAlODUbCK2ceI4FukMDYXLxRshjYbDG9mawBsM8UkbRB0rGtcO0+Ccrtv5Irh9
- sWwRl/BK6cv4en0H0jZGywuWXlM2dgtbf2vUuEXpxMUzV+rex+rDvH22yDfOkAAAA
-X-Change-ID: 20260920-codex-rtl-rx-v3-submit-1b4ea6921111
+Message-Id: <20260920-codex-rtl-rx-v3-submit-v3-3-883d11351963@khu.ac.kr>
+References: <20260920-codex-rtl-rx-v3-submit-v3-0-883d11351963@khu.ac.kr>
+In-Reply-To: <20260920-codex-rtl-rx-v3-submit-v3-0-883d11351963@khu.ac.kr>
 To: linux-wireless@vger.kernel.org
 Cc: pkshih@realtek.com, kvalo@kernel.org, linux-kernel@vger.kernel.org, 
  Jes.Sorensen@gmail.com
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789850643; l=3892;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789850643; l=6457;
  i=5mghybrid@khu.ac.kr; s=kernel-20260913; h=from:subject:message-id;
- bh=d3AcLn4a9qFXJlJjzccqYgcSQqR+1GNbo3HUaZ6Dgyc=;
- b=PVDobP5412hrNvkdROl4fhz7cddNWT6/pJNIsO6Hgy8yahYI2/XJT7sZQNi+reDOAJoWAUTs2
- fgoBmASBR3UDpoq7TO6RmEd/Gmv5rpAX6q18sjXn+ZnArcQQLwK1Opn
+ bh=ELcGIj3/1qa+I+rYa4pUTPcIEvRdg4LJVJ6OX7JJaPE=;
+ b=uTxba9X02x6TPEKEvMraKPHDpYmSCZZVbBfHEyNQqaj6HGtwEgU4mEVvLH2CNjwI+uT+7/F3B
+ zPJY7FyWL89D5/gOd1e4l7k4z6Byzyz5oCzbVmkuaAIg5nWyWLo3947
 X-Developer-Key: i=5mghybrid@khu.ac.kr; a=ed25519;
  pk=1az/6lC8Tmd6BcvyarPc8FWoSxsV/WRr5NLs1v+kjlE=
 X-Endpoint-Received: by B4 Relay for 5mghybrid@khu.ac.kr/kernel-20260913
@@ -61,82 +60,166 @@ X-Endpoint-Received: by B4 Relay for 5mghybrid@khu.ac.kr/kernel-20260913
 X-Original-From: Kim Wooseok <5mghybrid@khu.ac.kr>
 Reply-To: 5mghybrid@khu.ac.kr
 
-rtl8xxxu keeps 32 RX URBs in circulation. Completed requests wait on a
-pending list until more than eight are ready to be submitted again.
-Completion errors free their URBs, however, so a finite run of errors
-can leave too few requests to reach that threshold. At that point,
-reception can stay stopped even after the errors end.
+From: Kim Wooseok <5mghybrid@khu.ac.kr>
 
-This series fixes that loss of RX requests, along with two problems in
-the submission and startup paths: a failed submission can leak its skb,
-and a failed start can leave earlier requests active or report success
-after only part of the pool was allocated.
+rtl8xxxu resubmits completed RX requests when more than eight URBs are
+waiting on the pending list. It starts with 32 URBs, but frees them on
+completion errors. After enough errors, the remaining pool can no longer
+reach the submission threshold. Reception then stays stopped even after
+the errors end. Temporary submission failures can leave a small batch
+waiting with no further work scheduled, too.
 
-In v3, normal completions and recoverable failures return requests to
-one pending list, serviced by one delayed work item. An error queues a
-100 ms retry. When a normal completion takes the pending count above
-eight, mod_delayed_work(..., 0) brings the work forward. ENOMEM/EAGAIN
-during submission uses the same retry path.
+Keep the URB when a completion reports EPROTO, EILSEQ, ETIME, EOVERFLOW,
+ECOMM or ENOSR. Free its receive buffer and return the request to the
+same pending list used by normal completions. ENOMEM/EAGAIN from startup
+or worker submission uses this path as well, so a submission failure
+cannot strand a request during recovery.
 
-The delay limits repeated retries when normal reception is not
-progressing; it is not a minimum wait for each URB. During stop, the RX
-lock prevents new reservations once shutdown is set. Stop then cancels
-the delayed work before draining active and pending requests.
+Use one delayed work item to submit the pending requests. An error
+queues a retry after 100 ms without moving an existing reservation back.
+If a normal completion takes the pending count above eight,
+mod_delayed_work(..., 0) brings the work forward. This limits repeated
+retries when reception is not progressing, while allowing normal traffic
+to replenish the pool promptly. The 100 ms delay is therefore not a
+minimum wait for each failed URB.
 
-Changes since v2:
-- Keep patch 1's code unchanged and retain Ping-Ke's Reviewed-by.
-- Share the startup and worker submission loop, preserving their
-  different handling of fatal errors.
-- Replace the separate retry list and worker with one pending list
-  and one delayed work item; normal completions can advance a retry.
-- Remove the shutdown initialization added in probe.
-- Drop the KUnit patch and its test-only hooks from this series.
-- Use the confirmed author name and verify the Fixes references.
+Keep the shutdown check, queue insertion and scheduling under the RX
+lock. Stop sets shutdown under that lock, cancels the delayed work
+synchronously, then drains active and pending requests. Cancellation and
+device removal continue to free their URBs.
 
-I built the driver at baseline and after each patch with W=1 under ARM64
-allmodconfig and allyesconfig. Both full kernel builds also passed, and
-the baseline/final sparse comparisons produced no new diagnostics.
-
-The hardware tests used an RTL8192EU USB adapter on a Raspberry Pi. I
-adapted the RX changes to the Pi's existing Linux 6.18.46 RT kernel to
-run them on the device. V3 passed 52 tests covering allocation and
-submission failures, all six completion errors, repeated failures,
-scheduling, stop and normal RX/down-up. Two interrupt-URB tests were not
-run because this device does not use that path.
-
-Nine of the passing tests failed the first start after a fresh module
-load, at the first, middle or last TX/RX allocation or fatal RX
-submission. Each began with no previous start, cleaned up after the
-injected failure, and received packets after the next start.
-
-For the same 24 injected EPROTO completions in a 32-URB pool, the
-unpatched driver stopped with eight pending requests and none in flight.
-V3 kept all 32 and received 1,225 packets over 30 seconds without
-restarting the interface.
-
-The fault-injection changes are kept outside the series and exercise the
-actual allocation, submission, completion, worker and stop paths.
-
-v2: https://lore.kernel.org/linux-wireless/20260913-codex-rtw-rx-v2-v2-0-f09c964e0b96@khu.ac.kr/
-
+Fixes: 26f1fad29ad9 ("New driver: rtl8xxxu (mac80211)")
 Assisted-by: GPT-6 Astra
 Signed-off-by: Kim Wooseok <5mghybrid@khu.ac.kr>
-
 ---
-Kim Wooseok (3):
-      wifi: rtl8xxxu: free RX skb when URB submission fails
-      wifi: rtl8xxxu: unwind incomplete receive startup
-      wifi: rtl8xxxu: preserve RX requests across recoverable transfer errors
+ drivers/net/wireless/realtek/rtl8xxxu/core.c     | 45 ++++++++++++++++++++++++++++-----------------
+ drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu.h |  2 +-
+ 2 files changed, 29 insertions(+), 18 deletions(-)
 
- drivers/net/wireless/realtek/rtl8xxxu/core.c     | 153 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++--------------------------------------------------------------------
- drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu.h |   2 +-
- 2 files changed, 86 insertions(+), 69 deletions(-)
----
-base-commit: 73e3b1c94c7d5b4a113e7cbb42665dc2fe3b9d78
-change-id: 20260920-codex-rtl-rx-v3-submit-1b4ea6921111
+diff --git a/drivers/net/wireless/realtek/rtl8xxxu/core.c b/drivers/net/wireless/realtek/rtl8xxxu/core.c
+index 5ae3dbf5034ac..8e513a0cb2e24 100644
+--- a/drivers/net/wireless/realtek/rtl8xxxu/core.c
++++ b/drivers/net/wireless/realtek/rtl8xxxu/core.c
+@@ -54,6 +54,7 @@ MODULE_PARM_DESC(dma_agg_pages, "Set DMA aggregation pages (range 1-127, 0 to di
+ #define USB_VENDOR_ID_REALTEK		0x0bda
+ #define RTL8XXXU_RX_URBS		32
+ #define RTL8XXXU_RX_URB_PENDING_WATER	8
++#define RTL8XXXU_RX_URB_RETRY_DELAY_MS	100
+ #define RTL8XXXU_TX_URBS		64
+ #define RTL8XXXU_TX_URB_LOW_WATER	25
+ #define RTL8XXXU_TX_URB_HIGH_WATER	32
+@@ -5855,9 +5856,8 @@ static int rtl8xxxu_alloc_rx_urbs(struct rtl8xxxu_priv *priv)
+ }
+ 
+ static void rtl8xxxu_queue_rx_urb(struct rtl8xxxu_priv *priv,
+-				  struct rtl8xxxu_rx_urb *rx_urb)
++				  struct rtl8xxxu_rx_urb *rx_urb, bool retry)
+ {
+-	struct sk_buff *skb;
+ 	unsigned long flags;
+ 
+ 	spin_lock_irqsave(&priv->rx_urb_lock, flags);
+@@ -5865,16 +5865,13 @@ static void rtl8xxxu_queue_rx_urb(struct rtl8xxxu_priv *priv,
+ 	if (!priv->shutdown) {
+ 		list_add_tail(&rx_urb->list, &priv->rx_urb_pending_list);
+ 		priv->rx_urb_pending_count++;
+-		/*
+-		 * Arm the worker under rx_urb_lock so this is atomic with the
+-		 * shutdown check: moving it out of the lock would let a
+-		 * completion arm the work after rtl8xxxu_stop() canceled it.
+-		 */
+-		if (priv->rx_urb_pending_count > RTL8XXXU_RX_URB_PENDING_WATER)
+-			schedule_work(&priv->rx_urb_wq);
++		/* Serialize scheduling with the shutdown check and cancellation. */
++		if (retry)
++			queue_delayed_work(system_wq, &priv->rx_urb_wq,
++					   msecs_to_jiffies(RTL8XXXU_RX_URB_RETRY_DELAY_MS));
++		else if (priv->rx_urb_pending_count > RTL8XXXU_RX_URB_PENDING_WATER)
++			mod_delayed_work(system_wq, &priv->rx_urb_wq, 0);
+ 	} else {
+-		skb = (struct sk_buff *)rx_urb->urb.context;
+-		dev_kfree_skb_irq(skb);
+ 		usb_free_urb(&rx_urb->urb);
+ 	}
+ 
+@@ -5901,7 +5898,7 @@ static int rtl8xxxu_submit_rx_urbs(struct rtl8xxxu_priv *priv, bool startup)
+ 			break;
+ 		case -ENOMEM:
+ 		case -EAGAIN:
+-			rtl8xxxu_queue_rx_urb(priv, rx_urb);
++			rtl8xxxu_queue_rx_urb(priv, rx_urb, true);
+ 			break;
+ 		default:
+ 			usb_free_urb(&rx_urb->urb);
+@@ -5926,7 +5923,8 @@ static void rtl8xxxu_rx_urb_work(struct work_struct *work)
+ {
+ 	struct rtl8xxxu_priv *priv;
+ 
+-	priv = container_of(work, struct rtl8xxxu_priv, rx_urb_wq);
++	priv = container_of(to_delayed_work(work), struct rtl8xxxu_priv,
++			    rx_urb_wq);
+ 	rtl8xxxu_submit_rx_urbs(priv, false);
+ }
+ 
+@@ -6585,10 +6583,23 @@ static void rtl8xxxu_rx_complete(struct urb *urb)
+ 
+ 		skb = NULL;
+ 		rx_urb->urb.context = NULL;
+-		rtl8xxxu_queue_rx_urb(priv, rx_urb);
++		rtl8xxxu_queue_rx_urb(priv, rx_urb, false);
+ 	} else {
+ 		dev_dbg(dev, "%s: status %i\n",	__func__, urb->status);
+-		goto cleanup;
++		switch (urb->status) {
++		case -EPROTO:
++		case -EILSEQ:
++		case -ETIME:
++		case -EOVERFLOW:
++		case -ECOMM:
++		case -ENOSR:
++			dev_kfree_skb(skb);
++			urb->context = NULL;
++			rtl8xxxu_queue_rx_urb(priv, rx_urb, true);
++			return;
++		default:
++			goto cleanup;
++		}
+ 	}
+ 	return;
+ 
+@@ -7519,7 +7530,7 @@ static void rtl8xxxu_stop(struct ieee80211_hw *hw, bool suspend)
+ 	 * it drained via rtl8xxxu_submit_rx_urb(), so a worker still running
+ 	 * after the kill could submit a URB that escapes it.
+ 	 */
+-	cancel_work_sync(&priv->rx_urb_wq);
++	cancel_delayed_work_sync(&priv->rx_urb_wq);
+ 
+ 	usb_kill_anchored_urbs(&priv->rx_anchor);
+ 	usb_kill_anchored_urbs(&priv->tx_anchor);
+@@ -7832,7 +7843,7 @@ static int rtl8xxxu_probe(struct usb_interface *interface,
+ 	spin_lock_init(&priv->tx_urb_lock);
+ 	INIT_LIST_HEAD(&priv->rx_urb_pending_list);
+ 	spin_lock_init(&priv->rx_urb_lock);
+-	INIT_WORK(&priv->rx_urb_wq, rtl8xxxu_rx_urb_work);
++	INIT_DELAYED_WORK(&priv->rx_urb_wq, rtl8xxxu_rx_urb_work);
+ 	INIT_DELAYED_WORK(&priv->ra_watchdog, rtl8xxxu_watchdog_callback);
+ 	INIT_DELAYED_WORK(&priv->update_beacon_work, rtl8xxxu_update_beacon_work_callback);
+ 	skb_queue_head_init(&priv->c2hcmd_queue);
+diff --git a/drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu.h b/drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu.h
+index eeb18eb0e4c0f..c6953051d9c40 100644
+--- a/drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu.h
++++ b/drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu.h
+@@ -1809,7 +1809,7 @@ struct rtl8xxxu_priv {
+ 	struct list_head rx_urb_pending_list;
+ 	int rx_urb_pending_count;
+ 	bool shutdown;
+-	struct work_struct rx_urb_wq;
++	struct delayed_work rx_urb_wq;
+ 
+ 	u8 mac_addr[ETH_ALEN];
+ 	char chip_name[8];
 
-Best regards,
---  
-Kim Wooseok <5mghybrid@khu.ac.kr>
+-- 
+2.53.0
 
 
