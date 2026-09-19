@@ -1,121 +1,76 @@
-Received: from mail-pz2-f17.google.com (mail-pz2-f17.google.com [74.125.228.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ED5137F74A
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 06:13:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 554BE3515F9
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 06:18:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789798416; cv=none; b=EWuspIkZtPUWl238tOD6vymxTUGs+Es8Gvo/pbZSimWD95GKKfGAihXdSJUHBLhZ9rRs7usWotd3a+QiLOP5wwDDJ8FK37Tqk7KgUB6HhhiLFBF2miwvQknQdVBjuTYQ68lHQZRwwlr+G8BATqYWsX0cDZyT8FPN+Xi7ARkvaUQ=
+	t=1789798700; cv=none; b=au26I5z46Hu6RhPTvi8LvCHcSniBQhAcgnx/+w5XY2d0fvgMT/xt28MBuuSDiDMuVa9iGE4ESxAass/xSpfJxEF5tZes55DElI64OySwfXA15Gd/C2yAdjd+r0TPz1SgecU7w2ajYFPZWrkfM34C5IB+WFZhnuK3nt5c6SvZZes=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789798416; c=relaxed/simple;
-	bh=Qa5b3XVsoTWHxAknW1BfAlXBFihJbD+eYvUvkohTbFE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=pj5ZV8/UZ0NDiJIDm62WuP1vfJ7rxgAusubeZA63pqjmBZHd0J3GFgMUDlKdhhHxHpffcAdja0psAe5SA55Csatd4ENF8PirsyAJqpSjdXMS0DPxYXJ2iwdYRPpPo9qoUyJEK8A46HaNyJCYyHpsT7eXHdZ5/wMboxRxdbw0pUk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dii0N36D; arc=none smtp.client-ip=74.125.228.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789798700; c=relaxed/simple;
+	bh=MuYukX5INqydoTMDALYUszoXPjgDgYIO774EajtmC10=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=R6Fl4hCC7dFacCmex3GhZAessZukH/A8DPnl03pcmyGT7aiPRxneBE4tgO3eZoqL8vaZngKNjJOiG+B16gMT+E2Tt91aRUvY6vE0UgIqpljBgDaAv5H8zUEKpNVIkuw9z7IAmDKU4JRnymsWHvU8lXKIGeJckdpwr8HU7Aq9dz4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WhQhl6ID; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dii0N36D"
-Received: by mail-pz2-f17.google.com with SMTP id 41be03b00d2f7-cc4c3304784so1252334a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 23:13:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789798415; x=1790403215; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4OEXG0DiHhzUIEAeTd7uNBMQiaOXbPFR+3PwuetpWl8=;
-        b=Dii0N36D7kdqHMbKx3PZ/+VleKLobXypihvfw2giRWH5aj2X6IWihwnb84x6M6iTFV
-         Um2N6USQGNgGM6P3qCU87sisfAwp3qpX++9DL2qGh/hkCWtqRHFc7hdo+tUSTLlL8MX2
-         ZMv9c0FJdH7T/yw6yAU2ZhEKGd/LU1KScvA2vTwlatQoOEYpkZ9JURASc5QtcCkU/uJ2
-         2X/2pOemmHxskg9gXtStjo/XlJ8erFOMyiQHasm/c9jP7aSgh9JTGv8eACQjsmSsjYvn
-         xKrCZ7h4bnVQtOrPWYg35ilKFn+zz4Z5VeyCjgU0PsYov1HK1ISfiaV936ahHEmqPpqx
-         4DHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789798415; x=1790403215;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4OEXG0DiHhzUIEAeTd7uNBMQiaOXbPFR+3PwuetpWl8=;
-        b=FdAhS/Yz4YEY2dPfFnwN2pSbXNR8yM2JVQLEGbfCSIhu2eX9DvMW/sUz+mGCuUCqyE
-         ia+gpMJ2CGDhKSqD6zxz5Qed3CfQyvZ16xRrajkNBWIIsLWSrYlekW4HfyG5kXosLxhb
-         GzsCVe3njztkDVYlXtnYOAtvXU/5ZtNZjU9a9fIqPk4blLR+aelYo888lyee8IqE5onr
-         kca3PFkj0lnLza4YWeknl0wXCcv0dCN/rzYpNV9CbUPmus1qcvWVYTO2yQi8vIE1MfDk
-         rQ3L+iMEAxiRESSjDi1anakCvhZ6XcjZluS9J/MJPzPW7Y3R1RW5fJkDtl/A1xELVDbf
-         IqfQ==
-X-Forwarded-Encrypted: i=1; AKwUvByizjAvu4TwQCH6olgSFty5+XibB5m6Oonx3id0P5iCmfr6vkeeEMpKckHuyvKTnI5TrDk9PYW2pej+45w=@vger.kernel.org
-X-Gm-Message-State: AFuF++nth7OoeLe27hRl7XIlsUm0sSIUSAdkt/furbvLCcDW2qJfTmWO
-	YQw5gsH6Q5ZUoh/xk+kSWMCgTf3ahMVNJTKV8YmBMfsB3FLdcvftX1GL
-X-Gm-Gg: AYBFou0cxk6Guu5/N68/ruPWP2N7VPAJTccpWww4AuhYuHqyUp0RUBbUNEcqTNApEhR
-	d4aMv6bsI2Ye94knBxsQLRQnkWtwO6gbbsvpm3dGezn/9WVaF0NnKqBAGv46xXsnDWT6Hq4TFKC
-	wOHxfcMz7XogxqlnWhiJT1lY8b0O/ZzzOXiBhO3st2n63Ai46IRmRsANbbTSnPQ+nQaNBx1qEHf
-	xnvAZj3AXZ1aExexqy0zpgLm9qhnQbXsjwNMl3QwCkgD5RHNlhLhviUWi09UY5Xbl/1fw7ayxo+
-	RE3fWj3bcR4ym4MywqgPdhQS8H736gWj3WXvWytGCOpfuWlf9yNRH8qI0lTuQVJWTEIIMZ6FCif
-	fACZaJ3DBJM+anX2U2D8sLp1QdunhT9UvXhLuo1fwBoGYWCA8J9X1+o0BXIjbmS3BWSFCuiXsd8
-	xqBXy2YsWHrvgTNp6kLEWZBNVi7E2ekxeVQKlLemx41GuYQix3GSCjbkL4J4vq4xArli5g6vV+s
-	ye2IwAKMQub+3x68MNkwUXU3maM2xAvfga41Yb5FY0EeVV3gy0l4p6rn3Swyxl7YU7ONBYpk+I/
-	1HoQlI+s4A==
-X-Received: by 2002:a05:6a20:7f83:b0:3dd:a006:7b31 with SMTP id adf61e73a8af0-3dda006e165mr2838794637.48.1789798414486;
-        Fri, 18 Sep 2026 23:13:34 -0700 (PDT)
-Received: from Inspiron-14-5420.. ([2402:e280:21c6:671:d11b:773b:fa83:c49a])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144d55f299fsm5781280c88.15.2026.09.18.23.13.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 23:13:34 -0700 (PDT)
-From: "Hemendra M. Naik" <hemendranaik@gmail.com>
-To: netdev@vger.kernel.org
-Cc: jiri@resnulli.us,
-	jhs@mojatatu.com,
-	kuba@kernel.org,
-	linux-kernel@vger.kernel.org,
-	vishy0777@gmail.com,
-	tahiliani@nitk.edu.in,
-	"Hemendra M. Naik" <hemendranaik@gmail.com>
-Subject: [PATCH iproute2-next v6 3/3] tc: correct tc_pie_xstats field documentation
-Date: Sat, 19 Sep 2026 11:42:54 +0530
-Message-Id: <20260919061254.39678-4-hemendranaik@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260919061254.39678-1-hemendranaik@gmail.com>
-References: <20260919061254.39678-1-hemendranaik@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WhQhl6ID"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6C1D1F0089C
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 06:18:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789798698;
+	bh=MuYukX5INqydoTMDALYUszoXPjgDgYIO774EajtmC10=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=WhQhl6IDBrdZE5rCZ5I8JzPYQPTtXz0KhEMoVEFaHjSWw1j1eTuG3pFY4ceQydwXs
+	 WHsAl2/Ke4skSl95+T7DCRU0VoQb5zbC31q1cuzLdV0VFccNyeXp9fa+d3owCUPRfB
+	 KoFRg2Iy10GntefKp9jh+zzd9hVQURaB74Uk7C0it1QK7ATtUbe8OhWp+kbzJNpwTX
+	 KKZCSvN0IGaCxEd9qDdJp6wN0NQZXgLCYk53b6Z5q3g0JwIx6bfQzSXs9kpgZPcBW6
+	 qB6wuUlm3+jFpokvyR6ZS6E9XyA0MgFia9RgVNA/B/yOOYFboRiLWwBJpnU1VsWAjQ
+	 y/tF+h5Hsq9Zw==
+Received: by mail-qk2-f37.google.com with SMTP id af79cd13be357-93910cc46c8so160536485a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 23:18:18 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzg3AquJt2vytbmq1aepfkB363uNPw9Dq4byGBTBMeje1GWJUSAPxeiaw7JHn818W9VqPF0UjwV4ipdKSc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kx43ZU6FuLuMmyKHcc14rb5Ok1lPmWcI/k/suf1kEvYDRXNkUt
+	Oeq8AsrosqTHkYyBFet+UOaQIbU08JVz1iGCDPvfmkBs8trQ9k5XNVCXryOPvIyTe1zgJpq4cmw
+	1EC1HNjmPqrMeR5fzbOo+4RJYtU4hqV0=
+X-Received: by 2002:a05:620a:3910:b0:93a:c102:1123 with SMTP id
+ af79cd13be357-93bf554adc1mr27973185a.15.1789798698170; Fri, 18 Sep 2026
+ 23:18:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260918165642.1014988-1-ekffu200098@gmail.com>
+In-Reply-To: <20260918165642.1014988-1-ekffu200098@gmail.com>
+From: Barry Song <baohua@kernel.org>
+Date: Sat, 19 Sep 2026 14:18:06 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4zgZrFXih-+r4-p99rqXS2WLrGK8STkiOQnDANrTP5JXg@mail.gmail.com>
+X-Gm-Features: AcwNN1V_qWtR56zqhRr4dQ7q2dZ6CDwICSFPFUz3g3qe-hpoDFs2u36SIAE_S8Y
+Message-ID: <CAGsJ_4zgZrFXih-+r4-p99rqXS2WLrGK8STkiOQnDANrTP5JXg@mail.gmail.com>
+Subject: Re: [PATCH] mm/swapops: remove unused is_hwpoison_entry()
+To: Sang-Heon Jeon <ekffu200098@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, Nhat Pham <nphamcs@gmail.com>, 
+	Youngjun Park <youngjun.park@lge.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Correct the comments describing the delay and avg_dq_rate fields in
-struct tc_pie_xstats to match the values exported by the kernel.
+On Sat, Sep 19, 2026 at 12:56=E2=80=AFAM Sang-Heon Jeon <ekffu200098@gmail.=
+com> wrote:
+>
+> Since commit 93976a20345b ("mm: eliminate further swapops predicates"),
+> is_hwpoison_entry() has no callers.
+>
+> So remove it.
+>
+> No functional change.
+>
+> Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+> ---
 
-Update the documented units for delay from milliseconds to
-microseconds, and for avg_dq_rate from bits/pie_time to
-bytes/second.
+LGTM,
 
-These are documentation-only changes and do not affect the UAPI or
-runtime behavior.
-
-Signed-off-by: Hemendra M. Naik <hemendranaik@gmail.com>
-Signed-off-by: Vishal Kamath <vishy0777@gmail.com>
-Signed-off-by: Mohit P. Tahiliani <tahiliani@nitk.edu.in>
----
- include/uapi/linux/pkt_sched.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/include/uapi/linux/pkt_sched.h b/include/uapi/linux/pkt_sched.h
-index b03ee5f7..e1e686ac 100644
---- a/include/uapi/linux/pkt_sched.h
-+++ b/include/uapi/linux/pkt_sched.h
-@@ -920,9 +920,9 @@ enum {
- 
- struct tc_pie_xstats {
- 	__u64 prob;			/* current probability */
--	__u32 delay;			/* current delay in ms */
-+	__u32 delay;			/* current delay in microseconds */
- 	__u32 avg_dq_rate;		/* current average dq_rate in
--					 * bits/pie_time
-+					 * bytes/second
- 					 */
- 	__u32 dq_rate_estimating;	/* is avg_dq_rate being calculated? */
- 	__u32 packets_in;		/* total number of packets enqueued */
--- 
-2.34.1
-
+Reviewed-by: Barry Song <baohua@kernel.org>
