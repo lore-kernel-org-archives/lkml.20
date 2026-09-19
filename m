@@ -1,88 +1,115 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E3C41ABEDE
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 01:47:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789782426; cv=none; b=Igrm6ASVXu50wQJzg5YKWzH4QznZ/WawcWyNynMdOVY8HQlJ9psSJmBOblLm3YnvknELih+ME54b2WVIAX4FjaLl3hD1CzjSJcIqyjpN51G5+wRgxDK8bbuk5FHDww6c1kq8J7/CS9A3eUscmOHNstnxSm5gOdpN7tvNhDr0baU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789782426; c=relaxed/simple;
-	bh=g8QfnrEqUcs4vN4eChvt2BeQ3M31SRLU7+CBgJ503Uo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s4CWWLkolsHQ/bNaAqsuiTStYl2Wo4+kIiZ5DwA9aklXNgEPkPpMtbRXQIRQ1BQ5gRkxXU+sw2bim5VysnevOvDdixMeUREMJiq1FjIZthHwoFcIMbyu/SK+2qJJzYlBZBfaoGiuKvVQQz+CZE2sAcj9o6psaF7rofvmmEvre4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=AjWzlTdx; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A07A81ABEDE
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 01:48:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.99
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789782527; cv=pass; b=ePe7xmFb0YgLBV/K01jvP7jiuue8eJP+OXiQC11NhOPARvdEewiD7/vtJZmtYBhoRMX31Cn1/JwOj1Q9Kgdb12o+yAN2czSPZ2t9xeup5QjH/srGUoNcO3qLt+JILlIJIxr2T+nkCbhcAecNrQsMA4VLOWQhnyiYwDOmZBqXyCk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789782527; c=relaxed/simple;
+	bh=XxiyVCurDpLs6gXSr1N6NOajH5tev6m0fK8akbKqDUU=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=UmvYiqyWDddmfY/eBGPm/5qT1bY4yLOLKjTyLn5HzY42cGaISdUHNttnXbBWckhpvKF3IhgM/ppkzmCgpnZKjHugaMPG3BSAUZ2vJqPxpVSDj0O5+ncQoPwVkHiouVMQ6peKqBXrjgJ5CuJi54pPrlWqDS7qE/3RKfrUj9XWpw8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pressgrupdesk.com; spf=pass smtp.mailfrom=pressgrupdesk.com; dkim=pass (2048-bit key) header.d=pressgrupdesk.com header.i=@pressgrupdesk.com header.b=zQdYW9mx; arc=pass smtp.client-ip=74.125.228.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pressgrupdesk.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pressgrupdesk.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="AjWzlTdx"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id BF8C040E01DD;
-	Sat, 19 Sep 2026 01:47:01 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id z7DbkjMpjY5r; Sat, 19 Sep 2026 01:46:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1789782411; bh=vT7h7hIMvAs3SbVeBoKpLslJ082Fylpa/XFlxua848w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=AjWzlTdxQbuLtZhPkmwoxa0IefxQCPAJOUPcJEH6F+LySaFzGk/pzvibzt6T8b/A/
-	 U09IvS3NGcJdBW1jvJZLmdc387JwMpKHC3+PAy9cWGSOAIYS45/z09ur2Ikrg8waiH
-	 BssctBHtCJFWOSItF9qNvyi0tU1FQpWjP3RKHqMQqCGjgfLlYgaIgvqQz0hNMD4VyX
-	 ECoFbfVpdeqcJq+BUivCI7lP2RhOu0HpitoqG8guAsZCcjfh24HSrr5dRriMsesdzN
-	 qLXqA3UEPWa2g+wbOGMR+6O7TF3rSq4AsbJV/Lyrz6LmAb/I2+FAH7eYALN+m2dAKd
-	 UXIPE6vMEYAHjvsWfJZhSHI5m/V/n/8PCx+SfX2jxXChFxIIhxzqed8pSTUQ3PFEcL
-	 QDAEyG74gT5CJ9vD0/FSCjHcAPc/UDWQ/b9N4JusqQonle6mC3+ZSsh8cvGR1jOI6G
-	 BVQiagdadw64mvjhGZ9A6fp4eeivVyKcai7EwKX06ynr6nJR2Q0BVZR2z1YWujx4sC
-	 /hYD0JKN7boqh2tdCDmF1A39g6Gb/rjZnKL9IIN2aicQJlr0xqLaqiNeyVkPXDFiF8
-	 G6StGP+8+owyQsopXi/MqEHfk9A/8EA1qG4Vva32Smgu83mOO17GGhUOzCe6K7s+zd
-	 V4WQN6NDzERq+hlt5/uhvU/Y=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::48])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 38E8940E0173;
-	Sat, 19 Sep 2026 01:46:40 +0000 (UTC)
-Date: Fri, 18 Sep 2026 18:46:36 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Ravi Bangoria <ravi.bangoria@amd.com>
-Cc: "Naveen N Rao (AMD)" <naveen@kernel.org>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	linux-kernel@vger.kernel.org, x86@kernel.org,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, Bharata B Rao <bharata@amd.com>,
-	Manali Shukla <manali.shukla@amd.com>,
-	Nikunj A Dadhania <nikunj@amd.com>,
-	"H. Peter Anvin" <hpa@zytor.com>
-Subject: Re: [PATCH RESEND v4 0/3] x86/apic: Add support for additional AMD
- EILVT registers
-Message-ID: <20260919014636.GCaq3pfAUqGTfIK00d@fat_crate.local>
-References: <cover.1788425679.git.naveen@kernel.org>
- <20260915002940.GDaqiRdNKYpyKgL2_B@fat_crate.local>
- <a064f4fc-51bb-4802-966b-2f09d3009bb2@amd.com>
+	dkim=pass (2048-bit key) header.d=pressgrupdesk.com header.i=@pressgrupdesk.com header.b="zQdYW9mx"
+Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6a60591ae54so2088174a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:48:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789782524; cv=none;
+        d=google.com; s=arc-20260327;
+        b=X/51SYihH3poky23XqiHIHTLZmcZVNByVsPoIdqD3WgErhN22UYusTBE1/kpOSSB77
+         FAL77GMEQ7jv4E3X5yJrYzAGSPTJ/c2VBpwEpmdstOg+tO9MxKzSI//Vka5OxwWWUFDP
+         2h42F3EH8UJkeK98SK0v9+57cMR1vGL9iGTgRTbrqCi6TEn88QISgPHb0Aur6aOHcgOn
+         CGwjAGrrM5F4irgkskUyWISJdYSH4/P9vEsIq7kk0ZZ6KeJVbNeRKxPJHGKuAsZna7pZ
+         O78NLTqxEHkwKEw+bQC8XsA0EqYOp7cp93EvN9+MRDxDTavcAZbZ/5K/phuQ3ToqpKGg
+         9YzQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=to:subject:message-id:date:from:sender:mime-version:dkim-signature;
+        bh=XxiyVCurDpLs6gXSr1N6NOajH5tev6m0fK8akbKqDUU=;
+        fh=V9AeBafJgTW96HdC48wsxGAfd7Fe9P2uAL8tLCjpUN4=;
+        b=SqpkY3wtqJB6qmC4SCHEj5vkN2AFt/HqAlSAHp7k2iK2yJDDqMJ3HLW/nvwHCgwS/K
+         xIfgYm1Ry7auL66cOfyUVjaHgpWK2KDw9xG2q6eoQMFrBqvGbtFnwDAOlTLlSN4W9xUr
+         duf6zedxrovNNLR5p3mTsTaY9Uefy6nOeMXiK9gbtGcQpz3x9dFrU+LeNx60XkB9CmHc
+         pOgQ9yZ7/FO5CTW1DQtYmeXIPPllS62ocD9dH0Z4KrB9yZiCebiMmDyEcgKX1G3Kpq9W
+         kxx/mfmSlH5rSR413MF7AOWgZya0sNFbh0/TvrCiLtQWLgejegFzgDpAYIWU2M2ynNgp
+         EfMg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=pressgrupdesk.com; s=google; t=1789782524; x=1790387324; darn=vger.kernel.org;
+        h=content-type:to:subject:message-id:date:from:sender:mime-version
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XxiyVCurDpLs6gXSr1N6NOajH5tev6m0fK8akbKqDUU=;
+        b=zQdYW9mxoHpj0OOiisFfDPp962j/EbeiT9n+QBK1CK5+UYF9VI2R3wlLo5DMoFj3Zl
+         biB60z9Kd+hZ94H8v2WpLy2uEB6DwL83Q/XYv1y0p3VxP+pz1yacbOl/8zZR10oXi5Yd
+         P+lglzR5dFLik04ccXV83vT+r3KCgqMNPeueC2p0IqTH0TuT2GUJ5bhoH2VPCO8FdCNQ
+         ylJ5kAVxotMIBVLlKn1BbaU/ujEr/wxf4/QLqXNbvYMBiVEBl49ltrnhClMhbMm6C0JQ
+         n948RgwxFxJblq/VfsvKocTRfwFsdYozLpJX1mcdwRn7iEPmxLs+r4xAdxVvXD4gfBf3
+         zl1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789782524; x=1790387324;
+        h=content-type:to:subject:message-id:date:from:sender:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=XxiyVCurDpLs6gXSr1N6NOajH5tev6m0fK8akbKqDUU=;
+        b=BM2okJw4goMLjHXZfSHQqHx3qKNKExJyK1OR6NcwBb9HOdTbjpWXH6Iw4htHu9vd6t
+         BJytDfgO4MQqAfStUtUR7iNj2pYK3Q2FPa0lplrMWBLxv/XcebzArHnmnL453rJDcws7
+         st6f7DYNPP6uVvUi2iPR8ki22WQHpQAhraGoNs9b7p6Q4UEZbKuj5J5Qyu3nkEHsxLRr
+         CPYeONgRQE4wI4Xpx0aDeLDIVjlWudaD6N/BKqBTOBQvmVsSvxazmcwhGMaAk30zhNc8
+         /zLo7/gclwS341xutMImax1fZoQiq7juP8cRxDTkdRGq2KICFzS3hjmkrfB+9td6GD2S
+         QFgA==
+X-Gm-Message-State: AFuF++mSgGFBs6xPMeh5nXvyELxYyS4r1TujpZuZcqm5Ecn7kJUJYwOX
+	4I4iyWlWbOBXhr64eiZSk7R51F9ijmq4YtNbnTeJCU+5od2vcRowXzYTMj7AK2qYlkp2Di7hclp
+	bM7WtH4ixAyWA8VWDEiZO5wqZ6hbA3zyhFHqdk3Y9GCwGtQ/j+pP+9w==
+X-Gm-Gg: AYBFou1CJLB1SbvawEpGHwdWrac5PhJeTAS1TdrII6DJBPmFo4sTdLUM8hG4c1B3AuJ
+	NdOXoYfb3GUDqDPr7kae1vn3BCJVBWX+S44outGNiaRtPj4X54/QQfIcTOrf4PgYuFh5q25twR7
+	Jb/wvjISSZZduYtH2js/hHjahL9gp7Roa/LiZLQEZ/GGTzZEkEQOZVNXQoGW8thMafvbhUGcBGt
+	ae6a4vtDL3qk4lJk4C/1L2e27qHw4UytvfdepqactvUq/mcSkSxlmNj8CSPyeDe3g1/9embYoVh
+	exXM9CVXNA1fWH2V+pgtrxWGNstAbW+Wrea38Jec8pEamzu66bYUurIoGwU4nevMycTz3WaCPnE
+	uKW08BAubUSN9GMjlcaonHGk=
+X-Received: by 2002:a17:907:94d6:b0:c29:f5d8:9c7c with SMTP id
+ a640c23a62f3a-c2a158869b0mr358128266b.43.1789782523761; Fri, 18 Sep 2026
+ 18:48:43 -0700 (PDT)
+Received: from 104313752547 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 18 Sep 2026 18:48:43 -0700
+Received: from 104313752547 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 18 Sep 2026 18:48:43 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <a064f4fc-51bb-4802-966b-2f09d3009bb2@amd.com>
+Sender: Manuscript Submission Desk <admissions@pressgrupdesk.com>
+From: Manuscript Submission Desk <admissions@pressgrupdesk.com>
+Date: Fri, 18 Sep 2026 18:48:43 -0700
+X-Google-Sender-Auth: Yw95g-uFIBCMqfBnCXtTlWHTm0c
+X-Gm-Features: AcwNN1Wcw1M45hxvS0762xJsvrQNF1-cq7XqIKwMBKvPHvVj5r0Iwdb8i0rzEgQ
+Message-ID: <CAF1wJJUvtjH_Ruj3GYnfD+B7Lz95H3e1PvK36b=s71ptibOMog@mail.gmail.com>
+Subject: Invitation for English Manuscript Submission
+To: linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Sep 18, 2026 at 12:33:06PM +0530, Ravi Bangoria wrote:
-> All the preexisting IBS issues reported by Sashiko there are applicable only
-> for the very old family 0x10 AMD processors. Given that, it may not be worth
-> addressing them unless someone is actually running into the issue in practice.
+Dear Researcher,
 
-Yeah, looks like it. Let's ignore them for now.
+We are currently welcoming English-language manuscript submissions
+from researchers, academics, doctoral candidates and independent
+scholars.
 
-Thx.
+Authors working on original research articles, reviews, theoretical
+papers and interdisciplinary studies are invited to submit their
+manuscripts for consideration.
 
--- 
-Regards/Gruss,
-    Boris.
+If you currently have a completed manuscript or research paper, we
+would be pleased to invite you to review our submission information.
 
-https://people.kernel.org/tglx/notes-about-netiquette
+Further details and submission information will be provided through
+our manuscript platform.
+
+Kind regards,
+
+Manuscript Submission Desk
+
+If you do not wish to receive further invitations, simply reply UNSUBSCRIBE.
