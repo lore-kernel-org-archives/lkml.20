@@ -1,75 +1,73 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE05A39023C
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 21:36:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75D4E395ACA
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 21:36:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789853806; cv=none; b=Ty+UC+2d0gby73aOkmkqGKUw2hgOLmieZI/8KfzUn7TgngORDBkBiesKTcMw+enBtwO9GZUtuzEBjMdEKHYKgEiNB3XTs6cW7nkj2IowA05uOTp180T623cr9hKT0agogixUFeOPuFh7t8SdKzaSm03uPvKKLr4xg+MUiZ1Qj9s=
+	t=1789853819; cv=none; b=JBIchmPB8wFXIrZ5WWsbu3eBgpRB58Tyif9yqEOu1duU6X68SceRgURq7ED6F/JnP68Bg4Swwie/vLRjiXi1JUXg2ROIH1FlUNH3NXAxJs1ppwP71smLRV1Qkz3sAH7wKAN5B2Gx+LIiIdZZsBwzB9sUzsUvAvqObzRmIaP0SW4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789853806; c=relaxed/simple;
-	bh=ylIbZgKsiNrIwpSIWxBnwwtC6dQOGngNLUyTzMPDsPM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rdWYHHCERJDMrhYcKcKvQ3GT8hKLHFCjmvsOKiJtVNU3lScv7PucIxNEqn/lql4pv0d3ny3WY6vNSaVPPkADjIZ41NOhtO6iYJhzc5JDlKLElW9JWtMSuQ4WKaWdCaVnQStnzZAmALY0oDZ7sutO9c2MoxSEBo+OPf08MDQ5uD4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dh22EdDh; arc=none smtp.client-ip=74.125.228.12
+	s=arc-20240116; t=1789853819; c=relaxed/simple;
+	bh=zlIJhS2hXizRYUsCOr7wyRGRD5EByvZHR5ySwC4g5Tg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ACn43iju3Q95N0bwQdXDRTRrkWf9R79LnYK5iroyyNtMeubF/BYnz9rLDBfB4j/MzHgaEPZ0LvEHWoTFKDva6MEGbJ9Hg9crhX3IzC87kSiZx97NPVlekrkZg3h+p9qpN/SV5W711dv6ELvep0SkO/HDKaqCnrwoABVtc4gK67U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L+At8Is0; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dh22EdDh"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4cdc0d663so1176341a12.3
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:36:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L+At8Is0"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b5b07ec78so1278128a91.3
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:36:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789853800; x=1790458600; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789853811; x=1790458611; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2j7v0Gfm1mzC7ZOfmDBTrSr3Zc/OVo6Hpw1JferQnEU=;
-        b=Dh22EdDh0UblCqQrVFJlrRnXe5i3GujtQ01GJbijTagJjmQ3fqGBdV1OaZVOVm9F79
-         G0y8fV5JAtFcMpMQZrfEZWpNBbo5uLc+TtfVc7HO/T58uesahn5csB7+fYqAEtuoPIoG
-         aaP49+NasMI0vXt5w/Obmcq/YjRllQ2xvjNPs38TcwRy0R1F65ogE2jKbJqQ0GPMXr6C
-         v8E0daC1woNDY9Ql71lgn8LYFsewPRruf7KoFZ3599qgMGlqHtjvv/0GtrHFlso5Jmow
-         VbA4aa4rSsE1kETBZzCSaGJ+m3JZUwid3e/qRDgHF4w9ipC7pV4IL8AJq3vTad4V+gO8
-         iTiw==
+        bh=XqlgYhk+BRvLe8JtTnk9ft+OC0dYtvMstWRb8cECWOA=;
+        b=L+At8Is0Ty1zeE8fS9FDzIXZLOydGUDE2mhFcnSRK1Tp/n+OFkjejHFAVH56+E+bMl
+         mXPeOMGQPT05+Llo6yIv0gsARO70WGflSIqgv5wz2SoadZD1wBu0chj/wsf/hh9BH4aI
+         Ct3cKj0wgcFPo+yX+BmoDL5vfAQq5y8HKgZVodnloegn+jXFbksbogtV/NZfpLbEreGA
+         Oha2v3UNVAR1hzCbvUS46WKcq09AMH3V1K0QUQ4PG+7wt1wovptOtheNFHcusuOawnG/
+         xtaT21LmNe3FFhSLWhX5FLJonfHWDvNVTqQu2iPnYFOD23B1I1VjKaEN1du3cyaBr4NP
+         HUsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789853800; x=1790458600;
+        d=1e100.net; s=20260707; t=1789853811; x=1790458611;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=2j7v0Gfm1mzC7ZOfmDBTrSr3Zc/OVo6Hpw1JferQnEU=;
-        b=dFkIR6T9Pg3xxLR+ELqCLjaVxEEPEOLAgitZC+wsYfu7Yw9YQl7DshBzPbCWsuATYk
-         AemLWCSVTfHtKeFqhbCNBUe1oZGjqRipvcVoSkxkXWPWeDL+a7hNpwjAmCwupd1gCVxv
-         FRIFb82ZOGGOzOdPrZ7Mzdx+X7Et0x+vwPEocWC6g9aRKIIEQFWYIXzbCbipw+Cs9H5N
-         +OeIC0W7xmgD6GUtxoChhzqZ/8L/uXHXuWAfmcoDzX6yp6kYRxVOL6kdujvWtg4rUrPp
-         T/z0OEUzwQKPOmKNV3CmVYpK9/GkCNF5tQvYmdbD8IDnoPRZ/H/8r+MnYZ4asbHTccDm
-         TVnQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxF/D8aN/3UEGgDqSgnj4+VVVL2GAZEYg5x1NOUDxuO3NCl2mN7vUAC0yHnfSA+1vsD6DuFbi5o2ndRlbo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kEIlEkgITNKWSYZvpzwrSj3Cau4nNlK0w2yY5q7scvWF2VF+v4
-	9UkYY0+wAe5qyTSqlks6laZW2XkJeQZrj8itOLzMInzryeI0KbyuBjd5
-X-Gm-Gg: AYBFou13AV0iZBBNoWpPe4wRG5uTvir08WFgELiM8lf1Dll8Ya99v2LAyT81gMAv3VE
-	KMjQAwWnJHilwB/qYB02A223sIoHEtXLpZNA2uNIlfYRrq+2e5CT/IKxAkfF33VHllTrwePk7CE
-	CU8xweiWT9GpxnlLtKxs3EjDzO247Q+8N+cyYvYoIQHL/BNJ72TiYF2LZ21vbTDAZ/oOkAjmKn/
-	KpKpO7+QuPJXSO1y/788leVQ8xUwJMw2wWx+58oqJ89MW/70EzuARlDbtjBXGlu7/x72GacPHpF
-	5n+bIlBVEWLVOvZu6Ow0CpjTd9I/Wm/DBJCKw6Xpl9vMlPSn7+82+s4czKYcBMBY9bPfAx+Cv3V
-	yEZMaBzqZEBCfY0V60jf50DhICB09ON1rVfXs7DqVrtAcCmRRmwy8RzbGlR+roExa0D7CcbmulC
-	JP3Ksg+sHiRR5bNAYDuMkoWC94B0dahQBcgdLiWOFxXj/2S5MB7GojvhMzfwlIJNcQp/GmJLyZz
-	Np6xUMFIOUQTWIMvrJ1Fbgiiw+PnxIyVAQaUkEt0ADHHOlji9XQJnfEz5WaXySMu0qqWRQUwCod
-	Wk/CgRqd5jzO7HCrqv6d
-X-Received: by 2002:a17:90b:4cce:b0:3a0:2646:7495 with SMTP id 98e67ed59e1d1-3a026467c7cmr2912646a91.53.1789853800393;
-        Sat, 19 Sep 2026 14:36:40 -0700 (PDT)
+        bh=XqlgYhk+BRvLe8JtTnk9ft+OC0dYtvMstWRb8cECWOA=;
+        b=CRPhfjjx2Tz/G+qInWQ1nB+Gp5z7fVPp4aN25kTsARWOZZ2eSGOyeL9sCH5eLSxGGQ
+         qYImRHogfnzGZOk6OUO2m80GmMR7z8Jdw+uyXCq28jTqL8lzWu1eWWhgZup86v6r6Rdm
+         CAg19oxzsV1Sjev5qw6MQET8rRg/y78bsJ7iZKh442HTOTD3UxvYoR7Nq1w33zAucndt
+         6v3GGA3+LcGHxK/xFhMvFNFRE5rm9awX03ztFzwUViA4+zDLMSKscWkvLFs5JdwpB4J+
+         unSkdXbs9Q1lWCtufDD1Y/5Nu4FnQks+IPR7YXdsOFFjLYhXyv2A5HslC6dCU1PbiLue
+         5QoQ==
+X-Gm-Message-State: AFuF++khwWF0hgJPPG4B9wacWHTuvYIYYSgea+j2T8MXuWLlcO9Xm+Wg
+	xGyQsBoM+MJgj3nFZ04l/YuEZiSSdJjQ0ichI8LZ28uR4oLiOl2dXhQO
+X-Gm-Gg: AYBFou3slbXblx/0jbJZUAFksvuVmsLMHKE0c3UpJVcqomIaHK3d0hyAHwfJDuCsqX9
+	WcXpk6LGjuvZgMX2K68EbYG0Jizi4OYysuYJF5CA+sGEr2UptDqLJINI36ua33av0CasAwCXwd8
+	eugyWXRP9eYwP6WQYDHwFz4xJNiATZb6xnaRW3x/X8tzVJ1yz9Vz30qyM9N7s9LwB2qwGgU1S/x
+	gFHc/iHIdqgMW66z5wtvL4mNIlhEwbZetuySnRKdHMw1a1IDpFbZqbHry7u8n6s9N2HqLJ7YOaj
+	7f3lUUnGnGZ7RpBSSImn84IIohaYMH/NZhH3xLFpdC10yvB+2xa2aehlQv1ldjBkDYoWqxP7kwk
+	gqgKSJHTQabqCoGpApwosJMLE38e0eDXOLIQRuRB2r7T3oEeha8jKOApyWAsp+NeiQBbevAKHiv
+	T0JWquwhNX1rHreOF1TBZ3omWbCosbwIRRu0ITFyoV6BnbHM0hAmcgQaBKDRSmyP+BJlqawORwJ
+	LiOvNrg0R3WtgIkZMPq95ROPyO9rKhThOKTJU5Skm4GuZwU4d+2qpjlFkcCTCBsN3i2Sy+4Yfre
+	P9ArKwwPSqy0FEQ5BXlq
+X-Received: by 2002:a17:90b:3a8e:b0:39e:14db:437b with SMTP id 98e67ed59e1d1-39e54afe89fmr10790094a91.7.1789853811032;
+        Sat, 19 Sep 2026 14:36:51 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a038fffaa8sm59595a91.1.2026.09.19.14.36.39
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e563e3e3dsm3565698a91.3.2026.09.19.14.36.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 14:36:39 -0700 (PDT)
+        Sat, 19 Sep 2026 14:36:50 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
-To: ms@dev.tdt.de,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: linux-x25@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] net: lapb: fix uninitialized stack frame fields in lapb_decode()
-Date: Sat, 19 Sep 2026 21:36:39 +0000
-Message-ID: <20260919213639.3314894-1-benquike@gmail.com>
+To: gregkh@linuxfoundation.org,
+	arve@android.com,
+	tkjos@android.com,
+	brauner@kernel.org,
+	cmllamas@google.com,
+	aliceryhl@google.com
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH] binder: fix buffer/node leak and premature fd_install on read -EFAULT
+Date: Sat, 19 Sep 2026 21:36:49 +0000
+Message-ID: <20260919213650.3316812-1-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -79,82 +77,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-`lapb_decode()` populates a caller-allocated `struct lapb_frame frame`
-on the stack of `lapb_data_input()`, but does not zero-initialize
-`*frame`.
+In `binder_thread_read()`, `binder_apply_fd_fixups()` installs
+translated file descriptors into `current->files` via `fd_install()`
+BEFORE `put_user()` and `copy_to_user()` copy the `BR_TRANSACTION` /
+`BR_REPLY` command and `binder_transaction_data` payload to userspace.
 
-1. When `skb->data[0]` is not a valid LAPB address byte (`LAPB_ADDR_A`,
-   `LAPB_ADDR_B`, `LAPB_ADDR_C`, or `LAPB_ADDR_D`), `frame->cr` is left
-   uninitialized on the stack while `lapb_decode()` continues parsing
-   and copies `frame->cr` into `lapb->frmr_data.cr` via
-   `lapb_transmit_frmr()`, leaking 1 bit of kernel stack memory over the
-   network.
-2. When decoding an unnumbered (`LAPB_U`) or illegal frame in
-   `LAPB_EXTENDED` mode, `frame->control[1]` is left uninitialized on
-   the stack and copied into the outgoing `FRMR` frame by
-   `lapb_transmit_frmr()`.
+If `put_user()` or `copy_to_user()` returns `-EFAULT`:
 
-Zero-initialize `*frame` at the start of `lapb_decode()` and return `-1`
-when `skb->data[0]` is not a valid LAPB address byte.
+1. Any file descriptors in `t->fd_fixups` have already been installed
+   into the recipient process's file descriptor table and removed from
+   `t->fd_fixups`, even though the transaction failed and the sender
+   receives `BR_FAILED_REPLY`.
+2. Unlike the `binder_apply_fd_fixups()` failure path immediately above
+   it, the `put_user()` and `copy_to_user()` failure paths call
+   `binder_cleanup_transaction()` without setting
+   `t->buffer->transaction = NULL` or calling `binder_free_buf(proc,
+   thread, buffer, true)`. Because `allow_user_free` is still `0`, the
+   `binder_buffer` and all translated `binder_node`/`binder_ref`
+   references inside it are permanently leaked, and for `TF_ONE_WAY`
+   transactions `node->has_async_transaction` remains `true` forever,
+   wedging all subsequent async transactions to that node.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Split `fd_install()` out of `binder_apply_fd_fixups()` into
+`binder_fd_fixups_install(t)` called only after `put_user()` and
+`copy_to_user()` succeed, and free `t->buffer` via
+`binder_free_buf(proc, thread, buffer, true)` on `-EFAULT`.
+
+Fixes: 44d8047f1d87 ("binder: use standard functions to allocate fds")
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 
 ---
- net/lapb/lapb_subr.c | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
+ drivers/android/binder.c | 30 +++++++++++++++++++++++-------
+ 1 file changed, 23 insertions(+), 7 deletions(-)
 
-diff --git a/net/lapb/lapb_subr.c b/net/lapb/lapb_subr.c
-index 592a22d86a97..8150f3583f15 100644
---- a/net/lapb/lapb_subr.c
-+++ b/net/lapb/lapb_subr.c
-@@ -106,6 +106,7 @@ int lapb_validate_nr(struct lapb_cb *lapb, unsigned short nr)
- int lapb_decode(struct lapb_cb *lapb, struct sk_buff *skb,
- 		struct lapb_frame *frame)
+diff --git a/drivers/android/binder.c b/drivers/android/binder.c
+index fb9ff072bd6c..efff59853752 100644
+--- a/drivers/android/binder.c
++++ b/drivers/android/binder.c
+@@ -4705,7 +4705,7 @@ static int binder_wait_for_work(struct binder_thread *thread,
+ static int binder_apply_fd_fixups(struct binder_proc *proc,
+ 				  struct binder_transaction *t)
  {
-+	memset(frame, 0, sizeof(*frame));
- 	frame->type = LAPB_ILLEGAL;
+-	struct binder_txn_fd_fixup *fixup, *tmp;
++	struct binder_txn_fd_fixup *fixup;
+ 	int ret = 0;
  
- 	lapb_dbg(2, "(%p) S%d RX %3ph\n", lapb->dev, lapb->state, skb->data);
-@@ -120,25 +121,33 @@ int lapb_decode(struct lapb_cb *lapb, struct sk_buff *skb,
- 		if (lapb->mode & LAPB_DCE) {
- 			if (skb->data[0] == LAPB_ADDR_D)
- 				frame->cr = LAPB_COMMAND;
--			if (skb->data[0] == LAPB_ADDR_C)
-+			else if (skb->data[0] == LAPB_ADDR_C)
- 				frame->cr = LAPB_RESPONSE;
-+			else
-+				return -1;
- 		} else {
- 			if (skb->data[0] == LAPB_ADDR_C)
- 				frame->cr = LAPB_COMMAND;
--			if (skb->data[0] == LAPB_ADDR_D)
-+			else if (skb->data[0] == LAPB_ADDR_D)
- 				frame->cr = LAPB_RESPONSE;
-+			else
-+				return -1;
- 		}
- 	} else {
- 		if (lapb->mode & LAPB_DCE) {
- 			if (skb->data[0] == LAPB_ADDR_B)
- 				frame->cr = LAPB_COMMAND;
--			if (skb->data[0] == LAPB_ADDR_A)
-+			else if (skb->data[0] == LAPB_ADDR_A)
- 				frame->cr = LAPB_RESPONSE;
-+			else
-+				return -1;
- 		} else {
- 			if (skb->data[0] == LAPB_ADDR_A)
- 				frame->cr = LAPB_COMMAND;
--			if (skb->data[0] == LAPB_ADDR_B)
-+			else if (skb->data[0] == LAPB_ADDR_B)
- 				frame->cr = LAPB_RESPONSE;
-+			else
-+				return -1;
+ 	list_for_each_entry(fixup, &t->fd_fixups, fixup_entry) {
+@@ -4730,19 +4730,25 @@ static int binder_apply_fd_fixups(struct binder_proc *proc,
+ 			goto err;
  		}
  	}
+-	list_for_each_entry_safe(fixup, tmp, &t->fd_fixups, fixup_entry) {
+-		fd_install(fixup->target_fd, fixup->file);
+-		list_del(&fixup->fixup_entry);
+-		kfree(fixup);
+-	}
  
+-	return ret;
++	return 0;
+ 
+ err:
+ 	binder_free_txn_fixups(t);
+ 	return ret;
+ }
+ 
++static void binder_fd_fixups_install(struct binder_transaction *t)
++{
++	struct binder_txn_fd_fixup *fixup, *tmp;
++
++	list_for_each_entry_safe(fixup, tmp, &t->fd_fixups, fixup_entry) {
++		fd_install(fixup->target_fd, fixup->file);
++		list_del(&fixup->fixup_entry);
++		kfree(fixup);
++	}
++}
++
+ static int binder_thread_read(struct binder_proc *proc,
+ 			      struct binder_thread *thread,
+ 			      binder_uintptr_t binder_buffer, size_t size,
+@@ -5121,26 +5127,36 @@ static int binder_thread_read(struct binder_proc *proc,
+ 			trsize = sizeof(tr);
+ 		}
+ 		if (put_user(cmd, (uint32_t __user *)ptr)) {
++			struct binder_buffer *buffer = t->buffer;
++
+ 			if (t_from)
+ 				binder_thread_dec_tmpref(t_from);
+ 
++			buffer->transaction = NULL;
+ 			binder_cleanup_transaction(t, "put_user failed",
+ 						   BR_FAILED_REPLY);
++			binder_free_buf(proc, thread, buffer, true);
+ 
+ 			return -EFAULT;
+ 		}
+ 		ptr += sizeof(uint32_t);
+ 		if (copy_to_user(ptr, &tr, trsize)) {
++			struct binder_buffer *buffer = t->buffer;
++
+ 			if (t_from)
+ 				binder_thread_dec_tmpref(t_from);
+ 
++			buffer->transaction = NULL;
+ 			binder_cleanup_transaction(t, "copy_to_user failed",
+ 						   BR_FAILED_REPLY);
++			binder_free_buf(proc, thread, buffer, true);
+ 
+ 			return -EFAULT;
+ 		}
+ 		ptr += trsize;
+ 
++		binder_fd_fixups_install(t);
++
+ 		trace_binder_transaction_received(t);
+ 		binder_stat_br(proc, thread, cmd);
+ 		binder_debug(BINDER_DEBUG_TRANSACTION,
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
