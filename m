@@ -1,132 +1,132 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sv14987.xserver.jp (sv14987.xserver.jp [162.43.101.188])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDD462BDC1C
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 17:45:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 980EC78F2B;
+	Sat, 19 Sep 2026 17:47:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.43.101.188
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789839938; cv=none; b=RrRI3ilw+ZDZoSl0f+AFsSUq932JuoEoXCcHZF1NH6eUaI7tQW2olZMGmgN320AKR/OFaZYzLBg+GwbYkLkbhyPELHR+H3gOSHU94LUo4ExWZKHvyW/nvBhreKxcJ2EeUSja/K1kuFBosYoMh1eTo7m0nciqYWninq3IzFjgS2w=
+	t=1789840071; cv=none; b=pRfNnhyYsKDrLCu0VxGp4RXxwgY7YrMoYOsqie9ilaLCcID9HP1P29wH4hK8uouj6iS7h9Rw0VmBWmOdg0Ihf8hksBygSqGiLsDu7wX2M5x36Pw7y05H6SNGH1BOREsBQPKSGUOVG8OGZDJ2d13JZ+Wwu+r1IGQta+vh9Wu0HII=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789839938; c=relaxed/simple;
-	bh=azESh/JV6Pb2f75p0EzGHpKKs0EkaTJ3JGj8Dfwaces=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kUpVWmw5xBOfrDFDWzX3QHaAA8x2Ly/FIl3+3hkywKfEYARuSS/5iHpGJaFl4gjecihc0NJNgbUU3ZoeK6gD8OxPiVT8eY19LlI2pu0S/ZG5Gp9v7mHsIa31itRfnsMrbGfFtGpOR38D75ZZs8/Iassixt2HKuS09aMWcseeFGU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HbtBExr5; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789840071; c=relaxed/simple;
+	bh=IjtqJVHej9Q7q5narzFGBuBI/BqMfvda4QeRXnnbbHg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Tu2GsBSBsz6jsVxsH4PHXJWoWfipFhWTDLfNaoDVggF9uPHPARfkjH4vXoKurOF2V7oQQI9QvF882E42HmuP3NpuTtAvnEyJLDvdvbqBzykv/SdVfy3lN2bxbLdPgGudtaUAFK8auGv5LKMZ80XGcKwHZN4ZVaFIvQi67QVVSeE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=techhowto.blog; spf=pass smtp.mailfrom=techhowto.blog; dkim=pass (2048-bit key) header.d=techhowto.blog header.i=@techhowto.blog header.b=mgb58gvz; arc=none smtp.client-ip=162.43.101.188
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=techhowto.blog
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=techhowto.blog
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HbtBExr5"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d3920so11855465e9.1
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 10:45:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789839935; x=1790444735; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/Ig1f3Zcw7CjBqDjG/O5PoGpNUpdsG5zg3iVGnS62sg=;
-        b=HbtBExr5JdvhLdHD9NvWMHSsNkyNZeK+yI6iOm+4Jt+ZK0xtiaiEZkuQbudzT1a4t8
-         hXYmLvRlt5yIeVkD9skxsQNTKsJ0MeOworFIwul+ttNdxFiuz5/mjJITJj/0MCFK6i+u
-         tT9cQ+gEcLm0OMFJuaayNd2/4gpaepwEl0VbrUz6pKIyNDZzU42cjxbKrMiUoykLVtu5
-         suxoJMrleIcdZLbGrIoStLWI8WKHWmLo+lRZXHMsqHSTJdjPGZdk15WBpYuNZ7911Hb5
-         5h1lMOKMI6GF/aS1x3NZze1tlIbY6Hi0khI8eHp6B2OhERkeihSTZDCzrX+FTDj5o2UT
-         TgJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789839935; x=1790444735;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/Ig1f3Zcw7CjBqDjG/O5PoGpNUpdsG5zg3iVGnS62sg=;
-        b=0ol7F2ZgxO9AiiqtoaG9FnSth68jUu1yp4J2qAR/Q3TFupOwUuEVJ9cIkO6k6bAZI+
-         EAK5cMghxTB2HtA062hTduvJ8srX88MeO0Yn/hHT2d4/fObXvKGKc8efIy2pcsUzx2ik
-         5jvEzQ25pgnBW38iFyo4MxmrF0NAMy7RmGPdkuJm47/ou9i+/Hq6UoqrcHpXzJTR0DQe
-         8KalFO66s2FnYKcK63zymzfh/3s0CrrBSltkBMqdg04vw4cRgwWEcz1nZxZo9e83Geav
-         4ts7OtunP2P1qncyg9ThN06zGzV+vSXrXY6DlqhYnaqa51RKWUbhkhnbbKak8aSRYkQg
-         aFxw==
-X-Forwarded-Encrypted: i=1; AKwUvBy48dEKJOv06suEExL6PazHkp9d05hb4G3WDvyrCLYGRTXonDmU4wl/JobXZWBgoEAB3oynhZW2FHbkDq8=@vger.kernel.org
-X-Gm-Message-State: AFuF++m718fB637LgDYc217rQo7y28ugM4KOYkGABovNmd3APzNFcTlf
-	/pAmNcgafPZvHTW5RTwRWbAJQglTZwi5kTuKmEYNTxzKZe3rLI4AsqrImKRz/c2l
-X-Gm-Gg: AYBFou23+9IoLHL/PfvZrvwz2HB66BUehYNZmgf/hFo+uo2MlaIc/DE6PDgNxckm4Bd
-	+XrAeJpMhD7EKOfdbhZ/QKtNMtBoSxSq5ptO3Rx750L88mUJsx1Fwc7Hc3NzQqDwJiy1nyipMxY
-	Il7n4VBFa0dbz6mR1mAeecAmsRGgPQJca4FMUJ/+Vd2D6ZTwQdMaduuWB2jL/+rFANMqEzt/qQI
-	I1WyPDEGo4e4LR4y8qoCzknQ6RbqkgRaYoJA68MNMHeeqPGA3/yJhiiKmaV70kE0zrYhaAxM/Ul
-	YrZxTfMm8jlA570ay7T/01VmiP4qyXONWL+Y38/zxi/x/7GxejlVI+wdNuwVRH4bDFAe6QEsH2T
-	HEz9S7f751VQjKb41rGIeL1cOzVWiHFzor2vXWCiDy+FutKx4h/KJHeAag05X0LzoakoSRhKqGh
-	Qvn3MeJB5Ww7xpYfS7pI+j/2/PYuhe1itpNFC3gIv/80nat48KZvOt8ssGloZA5xPKGamUE1xc/
-	mrpG/xq7ppJ08IxR5WbDfl4aV+eGnt+LhkguU6KltuuAXgAtKkEmtnjy3D0EdhMT5Aljq09DESW
-	rTo=
-X-Received: by 2002:a05:600c:3e06:b0:49e:8238:6feb with SMTP id 5b1f17b1804b1-49fc56daf07mr87954555e9.14.1789839935057;
-        Sat, 19 Sep 2026 10:45:35 -0700 (PDT)
-Received: from [10.128.10.232] (195-23-151-163.net.novis.pt. [195.23.151.163])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc57547easm128776225e9.3.2026.09.19.10.45.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 19 Sep 2026 10:45:34 -0700 (PDT)
-Sender: Julian Braha <julian.braha@gmail.com>
-Message-ID: <ef365f19-afd2-4704-b900-847b24540a30@gmail.com>
-Date: Sat, 19 Sep 2026 18:45:33 +0100
+	dkim=pass (2048-bit key) header.d=techhowto.blog header.i=@techhowto.blog header.b="mgb58gvz"
+X-Virus-Status: scanned (With Secure/Atlant/virusgw16020.xserver.jp/)
+Received: from claude-vm (KD106155054014.au-net.ne.jp [106.155.54.14])
+	by sv14987.xserver.jp (Postfix) with ESMTPSA id 3642FC809E9E67;
+	Sun, 20 Sep 2026 02:42:04 +0900 (JST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=techhowto.blog;
+	s=default; t=1789839724;
+	bh=nwvPd98bS9S8e7U76fn3jb+OBJKQWrLSgPwMdOvtHzo=;
+	h=From:To:Cc:Subject:Date:From;
+	b=mgb58gvzR4OL0nd+bGQh26VJYv1beML9XW0CJ38KvpOgOvYTXl8jnoKhHaqI7y6xk
+	 oFqi/SNLxNuePf7Kk3LWnnvk0R7cH/a1b4nHrMqCANvgxYQfPm5F+xluW4utqSUPjQ
+	 5fa2N4H2YZYyeV1mxwqFlPbMrr2VeaHrt+cI72pSzinjtMMknFq0KLvyoQC9JW7xxH
+	 vJt/sO1AtBzmrQXApsRC7kaqJbm+CMLFKXPtttgU0YgRBn6W5Em0kPoIUNBjSwCMO0
+	 s35MBH9Izyy9dDeeITNIihz1CxEZsjSTKe8PEXRRVUDnV2UKZKz16KOOVPWYbzBvha
+	 mSXTCQioXo00Q==
+From: Kentaro Shiomi <k.shiomi@techhowto.blog>
+To: Hans de Goede <hansg@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] vboxsf: fix endless write loop and data corruption on short copy
+Date: Sun, 20 Sep 2026 02:41:36 +0900
+Message-ID: <20260919174136.3325-1-k.shiomi@techhowto.blog>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] kconfig: tests: Provide defconfig outfile for
- savedefconfig
-To: Nicolas Schier <n.schier@fritz.com>, Nathan Chancellor
- <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
- Pengpeng Hou <pengpeng@iscas.ac.cn>, Ulf Magnusson <ulfalizer@gmail.com>,
- Masahiro Yamada <yamada.masahiro@socionext.com>
-Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260917-kconfig-tests-minor-updates-v1-0-286e5c985244@fritz.com>
- <20260917-kconfig-tests-minor-updates-v1-2-286e5c985244@fritz.com>
-Content-Language: en-US
-From: Julian Braha <julianbraha@gmail.com>
-In-Reply-To: <20260917-kconfig-tests-minor-updates-v1-2-286e5c985244@fritz.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/17/26 14:38, Nicolas Schier wrote:
-> Let kconfig test framework's 'savedefconfig' forward the requested
-> output 'defconfig' filename to 'conf'.
-> 
-> The original implementation was calling 'conf' with '--savedefconfig'
-> but missed the mandatory filename for the defconfig output file.
-> 
-> While at it, honour the 'dot_config' argument which points to the input
-> config file.
-> 
-> Fixes: 022a4bf6b59d ("kconfig: tests: add framework for Kconfig unit testing")
-> Signed-off-by: Nicolas Schier <n.schier@fritz.com>
+vboxsf_write_end() ignores the number of bytes that the generic write
+path managed to copy into the folio: it initialises nwritten with the
+requested length, writes that many bytes to the host and returns the
+requested length even when copied == 0.
 
-Reviewed-by: Julian Braha <julianbraha@gmail.com>
+generic_perform_write() then sees status != 0, so it never calls
+fault_in_iov_iter_readable(), advances pos by the full length and loops
+again with an iterator that has not been advanced at all.  The result is
+an endless loop that keeps appending zeroed data to the file (filling up
+the host file system) while flooding the log with
 
-> ---
->  scripts/kconfig/tests/conftest.py | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/scripts/kconfig/tests/conftest.py b/scripts/kconfig/tests/conftest.py
-> index e92f0cf1421a..f2ad2ac2a661 100644
-> --- a/scripts/kconfig/tests/conftest.py
-> +++ b/scripts/kconfig/tests/conftest.py
-> @@ -240,7 +240,8 @@ class Conf:
->          dot_config: .config file for input
->          returncode: exit status of the Kconfig executable
->          """
-> -        return self._run_conf('--savedefconfig', out_file='defconfig')
-> +        return self._run_conf('--savedefconfig={}'.format(out_file),
-> +                              dot_config=dot_config, out_file='defconfig')
->  
->      def listnewconfig(self, dot_config=None):
->          """Run listnewconfig.
-> 
+  WARNING: lib/iov_iter.c:624 at iov_iter_revert+0x1fc/0x270
 
-Nice catch!
+because iov_iter_revert() is called with copied - status, i.e. a
+negative value.
 
-<nitpick> out_file here isn't actually defined until later, in patch 4.
-But it seems this won't actually break anything if applied alone since
-this savedefconfig function currently isn't called anywhere (until your
-patch 4).
+The same accounting bug can silently corrupt data: when the folio is
+already uptodate, the stale part is not zeroed, so a short copy makes
+vboxsf write the old folio contents to the host and report success.
 
-- Julian Braha
+A short copy is not an error condition - it happens whenever the source
+pages are not faulted in yet, e.g. when writing directly from an mmap of
+another file or from shared memory (virtiofsd does exactly this).
+
+Return the number of bytes that were actually copied, and reject the
+write entirely when nothing was copied so that the generic code faults
+the source pages in and retries.
+
+Signed-off-by: Kentaro Shiomi <k.shiomi@techhowto.blog>
+---
+Found while running a nested VM (QEMU/KVM) inside a VirtualBox guest: the
+virtiofsd instance exporting a directory that lives on a vboxsf mount writes
+straight from the shared guest memory, so the source pages are not faulted in
+and every write takes the short-copy path.  Creating a 6-byte text file grew
+the file to 29 KB within seconds and a small PNG reached 202 MB before the VM
+was killed; the guest ran out of disk space because ~16 GB of logs were
+written in the meantime.
+
+Reproduced without virtiofsd or nested virtualisation by writing a few bytes
+to a vboxsf file from a PROT_READ mapping (memfd or another file) that has not
+been read yet: with the mapping touched first the write succeeds, without it
+the write never returns and only dies on SIGKILL.
+
+Tested on Ubuntu 26.04.1 (6.x userspace, kernel 7.0.0-31-generic) as a guest of
+VirtualBox 7.2.16 on a Windows host.  With the patch applied, writes from
+non-faulted pages, partially copied writes and in-place rewrites all produce
+byte-identical files on the host, and the virtiofsd workload completes with no
+kernel warnings.
+
+While investigating I also hit an unrelated NULL pointer dereference in
+vboxsf_release_sf_handle() when opening a vboxsf file with O_DIRECT; that one
+will be reported separately.
+
+A DKMS package with this patch is available at
+https://github.com/kentaro-shiomi/virtualbox-vboxsf-endless-write-loop-fix
+ fs/vboxsf/file.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/fs/vboxsf/file.c b/fs/vboxsf/file.c
+index 7a7a3fbb2..1e9f61883 100644
+--- a/fs/vboxsf/file.c
++++ b/fs/vboxsf/file.c
+@@ -307,7 +307,7 @@ static int vboxsf_write_end(const struct kiocb *iocb,
+ 	struct inode *inode = mapping->host;
+ 	struct vboxsf_handle *sf_handle = iocb->ki_filp->private_data;
+ 	size_t from = offset_in_folio(folio, pos);
+-	u32 nwritten = len;
++	u32 nwritten = copied;
+ 	u8 *buf;
+ 	int err;
+ 
+@@ -315,6 +315,10 @@ static int vboxsf_write_end(const struct kiocb *iocb,
+ 	if (!folio_test_uptodate(folio) && copied < len)
+ 		folio_zero_range(folio, from + copied, len - copied);
+ 
++	/* Nothing copied: reject so generic_perform_write() faults in and retries */
++	if (!copied)
++		goto out;
++
+ 	buf = kmap(&folio->page);
+ 	err = vboxsf_write(sf_handle->root, sf_handle->handle,
+ 			   pos, &nwritten, buf + from);
+-- 
+2.53.0
+
