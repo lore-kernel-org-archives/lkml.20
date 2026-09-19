@@ -1,159 +1,123 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5613345725;
-	Sat, 19 Sep 2026 17:02:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4ED4358367;
+	Sat, 19 Sep 2026 17:02:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789837351; cv=none; b=i3kQlSwowmQ6k7OB9SoNpWC6bBIiHWoENL6l2HxaEJX6w8kSoWJT+gBFenMD1XuktmR2AN8xA0c7nRUtA6EhBITdpJIcNS3/cn2OnnDqn9Z3wdVMlu4/7VkpFgptnwBuH8ecplLlTNFJM+pd8j4Os8dOrKDHqnDkIWBOmexGzOc=
+	t=1789837351; cv=none; b=sTiuGcHBZz/Ejl/G0oLekzQAgtFceLMPbeEKfLtjxSOaPp1842n9wPJYiykZuXgDTcoaKy5bkfe34OEc1J961mA4C7RmWcSRFMvAVvp2r8AsQl6RHfCXEjTl6T6/l+dxeEBIlFtbqdBs9jUzK9D52xqBn7D+pGpAGU6cFch1vs4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789837351; c=relaxed/simple;
-	bh=6HWA56qzUjOeqCtbP5yo30HjgeAcGJiXUplwzbDJOUY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Am9FZGmEz3WZhIFcLTMOYoXgvI8yrat62gtukvV3lNdEptA+b++Rr4WNG/K0EbpsagAeWphDm5KKoOdBFif8nJd1JMIlKdgKFD7xykxM/zkbXRcKNtR1LPF/EiIKczcMhe3HB0kUYl9S1aMsp17VJrUNbijxrFWw+rMbwEES4DU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=ArO+gSTT; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	bh=3e2azH+DoBq+36Da4VBKD14uza4GZ9oThp3l566SIk0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gvuYxPgh/h3afJIpl5wi9C4uvT+sPxp+1piuBwJwY6RM+tM8Bz+Zu4qkz1zfCquKwYFBFnasUAXwH1ZmxiuQIyNZd0C/HOcY4kWpNBM+kIBaoNUAnC5fOSfPTRLI9eVF/EqO9FW0TLyTMEB2eRvY8UB5xYJQQ1WLGbO+c9WeF68=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jonasjelonek.de; spf=pass smtp.mailfrom=jonasjelonek.de; dkim=pass (2048-bit key) header.d=jonasjelonek.de header.i=jonas@jonasjelonek.de header.b=CmKkWRuW; arc=none smtp.client-ip=212.227.17.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jonasjelonek.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jonasjelonek.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="ArO+gSTT"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 83B4BC36;
-	Sat, 19 Sep 2026 19:00:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1789837230;
-	bh=6HWA56qzUjOeqCtbP5yo30HjgeAcGJiXUplwzbDJOUY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ArO+gSTTvtOeApK7oZ5ILVD9tMduC5JnxBOEFpJfmkDwjqk4TzKoY2VDaxltHnlqZ
-	 +5U5fG0iGyFQ+KZy+1u/oPsMoXzygvhIP8CGsxfA84gPjYOBvOcNPEFKIwk684ZRXt
-	 m2SM5GafyFOyaAxx+S0Hy4J75ZWbbG1+7jXgmY24=
-Date: Sat, 19 Sep 2026 20:02:12 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+74de6401dbdd377b5746@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] media: v4l2-subdev: fix NULL deref in subdev_open()
- racing with unbind
-Message-ID: <20260919170212.GE1124359@killaraus.ideasonboard.com>
-References: <20260919162709.314464-1-ngocthang2710.1999@gmail.com>
+	dkim=pass (2048-bit key) header.d=jonasjelonek.de header.i=jonas@jonasjelonek.de header.b="CmKkWRuW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jonasjelonek.de;
+	s=s1-ionos; t=1789837328; x=1790442128; i=jonas@jonasjelonek.de;
+	bh=U4SmXvV172swQGHXPqsVPSYVArKHf0OZgMVFWw/18jE=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=CmKkWRuW1/JZR8nVF/hgui5hysfrE1M30OsnUqPmbD6tT/OftNCKq6DK2XkU4SUy
+	 Txw87D4X2NWA7C3zMMytymZsp/ywTENNAGw3BKBrfZVfiENl2jHbmkBQE69IxlXo4
+	 A+nRWbe+j0KbHWIED0heYrkP7rXbuP4U5OVg15B/olofx70sNdIKgSCJiAgN4UKrs
+	 6+KaolXjbj4OrYHMTuE8zN1Z+Iu5HwfNDuP9EEKEYCjUhFnUgdG7DJoXlkRPesD+4
+	 r4seu9CGpzCyfRryOu3JxtOLdyA66WmlcVJjQQZ6wcCK408XoflRZ8PKB46U29X6U
+	 rBiBvT08id/GpltYRw==
+X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
+Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue107
+ [213.165.67.113]) with ESMTPSA (Nemesis) id 1N8GAQ-1wlp0h3dMO-00tSJl; Sat, 19
+ Sep 2026 19:02:07 +0200
+Message-ID: <027f8dea-2661-4ece-b4f0-d772e81cc6e5@jonasjelonek.de>
+Date: Sat, 19 Sep 2026 19:02:07 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260919162709.314464-1-ngocthang2710.1999@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] spi: realtek-rtl: add support for second CS
+Content-Language: en-US
+To: Mark Brown <broonie@kernel.org>
+Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260918214740.3963349-1-jonas@jonasjelonek.de>
+ <aq68SNTdUKzIm0K5@sirena.org.uk>
+From: Jonas Jelonek <jonas@jonasjelonek.de>
+In-Reply-To: <aq68SNTdUKzIm0K5@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Provags-ID: V03:K1:PrQKRlp3fAOg8/gDDk9yfjyrBEzFu9UzR0dsWCGLlORGNXuWRsN
+ +bi05vs3il+lzqVkWAcuyhH9TuzTnj1EoQgqjn6xMUhhSJ+5zNsrhuyEEi05bog59gHiOi+
+ NJe2me/CXUQQ1T+I7QmdD6tBLeDBClVYEsUNVwVQxLBKe2ZMbEeBZZydBlU5It+/Ru/qql/
+ OSB9WkczYUoLT4+YfI9yg==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:2emmWZEc5gY=;IDHloUwQijANXdJPz83pFshWlEO
+ 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
 
-On Sat, Sep 19, 2026 at 11:27:09PM +0700, Nguyen Ngoc Thang wrote:
-> subdev_open() dereferences sd->v4l2_dev->mdev and then
-> sd->entity.graph_obj.mdev->dev->driver->owner. v4l2_open() only checks
-> that the node is still registered, while
-> v4l2_device_unregister_subdev() clears sd->v4l2_dev and the entity's mdev
-> before it unregisters the node. Opening a sub-device node while the
-> driver is being unbound (e.g. vimc through sysfs) can therefore see a
-> NULL entity mdev, or a NULL dev->driver once remove() has finished, and
-> oops:
-> 
->   Oops: general protection fault, probably for non-canonical address 0xdffffc0000000000
->   KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
->   RIP: 0010:subdev_open+0x193/0x510 drivers/media/v4l2-core/v4l2-subdev.c:115
->   Call Trace:
->    v4l2_open+0x1d2/0x490 drivers/media/v4l2-core/v4l2-dev.c:433
->    chrdev_open+0x234/0x6a0 fs/char_dev.c:411
-> 
-> Read the entity's mdev once and treat NULL as "no media device". Take
-> the driver module reference under device_lock(), which is what unbind
-> holds while it clears dev->driver, and fail with -ENODEV if the driver
-> is already gone.
-> 
-> Reported-by: syzbot+74de6401dbdd377b5746@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=74de6401dbdd377b5746
-> Fixes: 218bf10e39ed ("media: v4l2-subdev: handle module refcounting here")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-> ---
-> Root cause
->   v4l2_open() checks video_is_registered() and then calls subdev_open().
->   v4l2_device_unregister_subdev() clears sd->v4l2_dev and the entity's
->   graph_obj.mdev *before* video_unregister_device() on the node, so an open
->   in that window sees a NULL mdev. After remove() returns, dev->driver is
->   also NULL. subdev_open() dereferences both unchecked (v4l2-subdev.c:115).
-> 
-> Fix
->   Snapshot entity mdev once (NULL == no media device), and take the driver
->   module reference under device_lock(dev), the lock unbind holds while it
->   clears dev->driver; return -ENODEV if the driver is gone. Errors go
->   through the existing "err" label.
-> 
-> Testing (QEMU x86_64, KASAN, vimc built in, syzbot's C reproducer:
-> 16 threads opening /dev/v4l-subdevN vs. one thread doing vimc bind/unbind,
-> vivid.n_devs=1 to avoid minor exhaustion at boot):
->   before: 32 x "RIP: subdev_open+0x193/0x510" GPF (same as syzbot report)
->   after : 0 oopses, 0 KASAN reports, reproducer runs to completion
->   (checked with 1 ms and 30 ms bind/unbind period)
-> 
-> Unrelated finding (not addressed here)
->   If the sub-device node registration in vimc_probe() fails (e.g.
->   "videodev: could not get a free minor"), the error path in
->   vimc_register_devices() frees the entities and then
->   v4l2_device_unregister() hits a slab-use-after-free. Easy to trigger
->   with the same reproducer if minors are exhausted. I'll look at it
->   separately.
-> 
->  drivers/media/v4l2-core/v4l2-subdev.c | 20 ++++++++++++++------
->  1 file changed, 14 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
-> index e9f81b9be9e2..cec63694a658 100644
-> --- a/drivers/media/v4l2-core/v4l2-subdev.c
-> +++ b/drivers/media/v4l2-core/v4l2-subdev.c
-> @@ -97,6 +97,7 @@ static int subdev_open(struct file *file)
->  	struct video_device *vdev = video_devdata(file);
->  	struct v4l2_subdev *sd = vdev_to_v4l2_subdev(vdev);
->  	struct v4l2_subdev_fh *subdev_fh;
-> +	struct media_device *mdev;
->  	int ret;
->  
->  	subdev_fh = kzalloc_obj(*subdev_fh);
-> @@ -112,15 +113,22 @@ static int subdev_open(struct file *file)
->  	v4l2_fh_init(&subdev_fh->vfh, vdev);
->  	v4l2_fh_add(&subdev_fh->vfh, file);
->  
-> -	if (sd->v4l2_dev->mdev && sd->entity.graph_obj.mdev->dev) {
-> -		struct module *owner;
-> +	/* Unregistration clears the entity's mdev without waiting for open. */
-> +	mdev = READ_ONCE(sd->entity.graph_obj.mdev);
-> +	if (mdev && mdev->dev) {
-> +		struct device *dev = mdev->dev;
->  
-> -		owner = sd->entity.graph_obj.mdev->dev->driver->owner;
-> -		if (!try_module_get(owner)) {
-> +		/* Unbind clears dev->driver under the device lock. */
-> +		device_lock(dev);
-> +		if (!dev->driver)
-> +			ret = -ENODEV;
-> +		else if (!try_module_get(dev->driver->owner))
->  			ret = -EBUSY;
-> +		else
-> +			subdev_fh->owner = dev->driver->owner;
-> +		device_unlock(dev);
-> +		if (ret)
->  			goto err;
-> -		}
-> -		subdev_fh->owner = owner;
->  	}
+Hi,
 
-This seems the kind of completely wrong fix that would be generated by
-an LLM.
+On 19.09.26 18:46, Mark Brown wrote:
+> On Fri, Sep 18, 2026 at 09:47:40PM +0000, Jonas Jelonek wrote:
+>> The initial driver assumed that the controller's second chip select was
+>> vestigial because none of the devices examined at the time used it. This
+>> does not hold for all hardware: there are devices with a peripheral
+>> connected to CS1. Since the controller only advertises one chip select
+>> and keeps CS1 permanently deasserted, those peripherals cannot be used.
+>> +	/* CSB0/CSB1 are active low: deassert both. */
+>>  	value = __raw_readl(REG(RTL_SPI_SFCSR));
+>> -	/* Permanently disable CS1, since it's never used */
+>> -	value |= RTL_SPI_SFCSR_CSB1;
+>> -	/* Select CS0 for use */
+>> -	value &= RTL_SPI_SFCSR_CS;
+>> +	value |= RTL_SPI_SFCSR_CSB0 | RTL_SPI_SFCSR_CSB1;
+>>  	__raw_writel(value, REG(RTL_SPI_SFCSR));
+> The original code would ensure that all bits in the register are
+> initialised to known values, the new code sets some bits and leaves the
+> rest with whatever value they happened to have previously.  Probably we
+> still want the initialisation of the other bits.
 
->  
->  	if (sd->internal_ops && sd->internal_ops->open) {
+Yes, you're right. Thanks for pointing that out. Indeed, bits setting the
+data length and the I/O mode sit in this register too. Zero is required to
+have one byte data length and single I/O. I'll fix this in a v2.
 
--- 
-Regards,
-
-Laurent Pinchart
+Best,
+Jonas
