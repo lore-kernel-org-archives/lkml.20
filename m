@@ -1,110 +1,91 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7707E35E1BC
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 16:43:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 034D42F3C07;
+	Sat, 19 Sep 2026 16:46:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789836210; cv=none; b=E3NEF7LqITP/Ro2qxeAqQoXjciOqZldkaAOQb/X/Gia7a4lG/ZYDLdKOz9G/ac0Zd2q+bG/Gd6azRKWGE6dEBEjGuVxtY5zxw9FKmKd9Wejwv6HMyoajDSeK3xaU3T4sAIa8sSGWstqtOLRFEQFgfihW1TGtLdhYrm4TV0jLnXE=
+	t=1789836365; cv=none; b=fxG2fddF1Li7MXvcwRyS5O/7shh76x57N0R6wfVv4lziLaAn/ki+jFbwbxYioxQ16EpZ4f2Id1hD4Qwl/81/zsWBtv487dlRLr7itOOlHSnbGe7bO8IZezXYWhUtJqIrsknf9S+GuBt/dQHC7wx1hF67jE9BAtcTvt8anBchbAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789836210; c=relaxed/simple;
-	bh=bxhwykztEEFpcvXKWtp0prTBuctKYCz9JRSH6Cz1Uuo=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=a4I/qgCo6rL6x48bPVovSSSG6JQuAEanQ+4kdWS9C6ozvKpB/asNbFLB7jwyHcm5ZxfHPZPiHfto/Hv1aad45FYov+8W17OjaMp7mvSoNHk5OkVik5a72uoCGvsON2eSomicweVhVg43vgDD0PYfwpOlQxurqJ/H/529r6Z6E/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QD9rd9fP; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789836365; c=relaxed/simple;
+	bh=3+uLc48yFgLnTRtPrEEqEnwykLb4ELIaYi6gc8zraeg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=h7c6eElTWDiWUvFeF/3Msa4uZ0sjjjr0FN8bPWWW0PTNZwlEMF9DpyiGF2GkxyvKe9zfBXZX3Qu/ILXI7Pr86C9miFDHKzEUYoRrJ9qoEdP7iJphjwJQelCSsoCQByfVzM8fTdVDONg1rdrb6JoGnrKSamlHNfhn2TAucjHFKtY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mUVuzpLV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QD9rd9fP"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485ac898fa4so1473420f8f.0
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 09:43:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789836208; x=1790441008; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=C6GhpCA04E6QTSI5LAm+dZeokUjWkWd+Hrusbi/KL2E=;
-        b=QD9rd9fP3e3dqauG/lgUsvRbKsTNDkCz6Tb3xIjS2fkQwHOKISruaXxBLUXEvbtmWQ
-         N0sSAsZHKA4Emrq8VfUj78SMt9LVGWq3DDtCyMgWp0bJtb2PfIfUAk2o+seAbr5HZm9I
-         Lp7YYBI/e/u9LAoLQWfEzwhZJcd+93a5ynutRY5DNcJx1qV7q3IKau6GZYNDLTN6QoyO
-         U+xvVpD3GP2uTV4Namgm/7yL2psPqvqB38WFPmeoVofu7czTJ/OgzvJMFMYA1LUJ8Wdq
-         zusQSUFhJRbIAq64E4zevGhm5kf45RRosd5yshs31ejr6IjxP5ALxvgqGp8urqc+Hmtz
-         tyLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789836208; x=1790441008;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=C6GhpCA04E6QTSI5LAm+dZeokUjWkWd+Hrusbi/KL2E=;
-        b=1duhUhiiw0PEWxOEluAyB4tGDRnd1mUIJZ7tzVTX1ycwK25+yFHzNR0umIfum8muEQ
-         sqwPsHT0dFlw8FBKwzcJIuCGH3KYefa1Cym7S4V+USbXdF/PzS6Prw77Vs4UxG4SKOG+
-         DaKdts8cXJgC2dmIft9W4Aki3ByqlDZh0rZpkvIVeb2bKCvqg1annp8bQyzc681TtS/i
-         xGYiqSrG+WHl3TDq28KU+RRYR+DtfYU3xC+gysgQDnle+B6UnormUoYeiSrgD87EraV5
-         86Mj2pCSVlIaknIktNCQLuGfEB2vue+V3UVTMPQ1vSx5RfrXUenhmaBl2MsIDBCq11Z4
-         kWTw==
-X-Forwarded-Encrypted: i=1; AKwUvBwC05OvG8sWS/vOUx4kVdhU0LjCCs3kmKa1r0lylNHK9koo3MAZ060OnT4bHoouH0EzI1tj7oDzO27ZQhE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nep4Zk9eLZofx7m2PlLD0isfsFdpccXIeCZ4A423EjflHD4Jc2
-	in0izH29C2rRLSXuzuAzU2mFadrrTB72A4nLURNlya2c1gXzvwlW6Elv
-X-Gm-Gg: AYBFou3axtTgHyvhSIUAjAUazhiLbvAzuE7VaKCSStH0y68Eey1S5PLXV08+8UsSVL4
-	4I1RzOP6Z6WZ3xQ6BhHgzM28izMsVk2fyRnvMPJrybLZNZU1ufPgTMyodzBWNmAkMRsWzN2KdQv
-	2PEzMHlQrcBfsGsxoSX4P8Jj/UvYcpdqoTP9QR/MtPkaBICIWCtgwvo9pFDnfR34SM0za/KPnTP
-	wl2PXLCBi6cF+9Mm5RgreOH5scGdh855v5/9gMNKT/O2mVJIchlZSRwOosUg7jjoNOf4nOaPWBX
-	JYqBgfViokEaRc5ukHgticjsO6OrRt8348ImNUw2wBz/90RWy0LkfkrOm0WQAQlvg2gCT5as1yz
-	FZpCWzjzJJHndyDCFNbgxgGJd1uLWvqJkX2O08pFjfQGhQyWSh67asLJfHfmP8YJCfwYwOOKLuL
-	0KPotj5Rr6bvOQ7nrN5EzfcSaUjreXVoAa84u6/U+1U/Q3gMDnPkDZnYY/nSEypjc6ydqZAKQcQ
-	2rJsvzPEU9fk8IBxrhdsyHisJYrDhBguSpQoh/W1ipG1mYToHnr4W5X8+v+ovWXEm4RTiWz1Inr
-	g9zW8dq/fOwTyMd5JQRBrNzy3UC6M2ziuj3qkLR26SGL0qxn1L3+pVH93QEoywkSc3HgnZpJEMj
-	Z/7NTMUhzS3wIzU4PA3qbUqoMAA==
-X-Received: by 2002:a5d:5f4c:0:b0:485:8c16:a32d with SMTP id ffacd0b85a97d-4871e2665f5mr8262903f8f.34.1789836207559;
-        Sat, 19 Sep 2026 09:43:27 -0700 (PDT)
-Received: from MacBook-Pro-von-Karl.localdomain (dynamic-2a02-3100-a017-2b01-05fe-203b-7cd2-a640.310.pool.telefonica.de. [2a02:3100:a017:2b01:5fe:203b:7cd2:a640])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48724460978sm7990040f8f.11.2026.09.19.09.43.26
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 19 Sep 2026 09:43:27 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: Mark Rutland <mark.rutland@arm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v18 02/14] arm64: ptrace: Rework audit_syscall_entry()
-Date: Sat, 19 Sep 2026 18:43:19 +0200
-Message-Id: <20260919164319.90193-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20260902095537.602517-3-ruanjinjie@huawei.com>
-References: <20260902095537.602517-1-ruanjinjie@huawei.com> <20260902095537.602517-3-ruanjinjie@huawei.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mUVuzpLV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E88781F000FF;
+	Sat, 19 Sep 2026 16:46:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789836363;
+	bh=1vU2iB7RD8dDbMfB1GvD3uTof2Znp0IqKpYBTvRssuQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mUVuzpLVkdHzF6zh8aFmUFCPliOPl+PUz/FuDn0TQLznRsWBWK8WgI3zm6lNi9dgP
+	 Yt0BIV6p7HlrrXi+63hu6Nx2pDqtEAerr4HRtNqXSjrpida0oYNztJtvd2wNrk3GMW
+	 wcsR13fcNhJuBKloEakd8DxS9aPfUITOgkOqbHX0ayE7ltQrffsK1WiBWnssuAlwuK
+	 zoIgu+i2YV+M5nNzXVr7V3vfohigbJ89BlxMdy8ZMBIA3lCptzOmGxB5smJFsLaoZA
+	 c/JqtUNBdcJbXmjiRpwXjImDVISIupaVdezaoE8IENne26ljJaQLrAhPv6DQLYt8YZ
+	 jwIO0SJL2mL2A==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+	id 7260811D14FF; Sat, 19 Sep 2026 17:46:00 +0100 (BST)
+Date: Sat, 19 Sep 2026 18:46:00 +0200
+From: Mark Brown <broonie@kernel.org>
+To: Jonas Jelonek <jonas@jonasjelonek.de>
+Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] spi: realtek-rtl: add support for second CS
+Message-ID: <aq68SNTdUKzIm0K5@sirena.org.uk>
+References: <20260918214740.3963349-1-jonas@jonasjelonek.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="C1FzGOWoV4yFJyPB"
+Content-Disposition: inline
+In-Reply-To: <20260918214740.3963349-1-jonas@jonasjelonek.de>
+X-Cookie: Orders subject to approval.
 
-> +	if (unlikely(audit_context()))
-> +		syscall_enter_audit(regs);
 
-With arm64 defconfig and CONFIG_AUDIT=n on v7.3-rc1, building
-arch/arm64/kernel/ptrace.o after this patch fails with GCC 15.2.0:
+--C1FzGOWoV4yFJyPB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-arch/arm64/kernel/ptrace.c: In function ‘syscall_trace_enter’:
-arch/arm64/kernel/ptrace.c:2491:17: error: implicit declaration of function ‘syscall_enter_audit’ [-Wimplicit-function-declaration]
- 2491 |                 syscall_enter_audit(regs);
-      |                 ^~~~~~~~~~~~~~~~~~~
+On Fri, Sep 18, 2026 at 09:47:40PM +0000, Jonas Jelonek wrote:
+> The initial driver assumed that the controller's second chip select was
+> vestigial because none of the devices examined at the time used it. This
+> does not hold for all hardware: there are devices with a peripheral
+> connected to CS1. Since the controller only advertises one chip select
+> and keeps CS1 permanently deasserted, those peripherals cannot be used.
 
-The helper is defined only under CONFIG_AUDITSYSCALL, but this call
-remains when auditing is disabled. The audit_context() check does not
-avoid the missing declaration.
+> +	/* CSB0/CSB1 are active low: deassert both. */
+>  	value = __raw_readl(REG(RTL_SPI_SFCSR));
+> -	/* Permanently disable CS1, since it's never used */
+> -	value |= RTL_SPI_SFCSR_CSB1;
+> -	/* Select CS0 for use */
+> -	value &= RTL_SPI_SFCSR_CS;
+> +	value |= RTL_SPI_SFCSR_CSB0 | RTL_SPI_SFCSR_CSB1;
+>  	__raw_writel(value, REG(RTL_SPI_SFCSR));
 
-Could the helper get an audit-disabled stub, or could this call be
-guarded as well?
+The original code would ensure that all bits in the register are
+initialised to known values, the new code sets some bits and leaves the
+rest with whatever value they happened to have previously.  Probably we
+still want the initialisation of the other bits.
 
-The same object builds after patches 1 and 13. Patch 12 still fails
-with the missing declaration. Patch 13 removes the affected code, but
-the intermediate commits should remain buildable.
+--C1FzGOWoV4yFJyPB
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Thanks,
-Karl
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmquvD4ACgkQJNaLcl1U
+h9BsUQf/a9MabdCGn4QJFJ7AEaZNHgfYUbYZlUlOZjCsiF6RJxEIW4kfc2bZBkNe
+4m5y5IDZE2Y//DOW4n5DVqhFgLT60HISx66O47oDg0/fVOvYrsGkq0Ei/+7/+FHZ
+kkmaQTP9xASR+xb8t6nnfDxgIVoAdVGs+sTyP0HJa0UZyYzfV3AZs5F/QsxmLziB
+FhOi4Da1qIk4idhRUGmuG4Jn5DL643kbKEUbfcGuckYzwXtdPHRdbQ+lno6/cLBY
+iAqNN+OZRG9x/u5FOv8d5aNtBuFJJPiFtdH2dI9SqvDSg8+2wiPqPXVrHma9qKft
+Qb+GH+6Cod9wZixnwFwG+2rdhWyVxA==
+=m/Fi
+-----END PGP SIGNATURE-----
+
+--C1FzGOWoV4yFJyPB--
