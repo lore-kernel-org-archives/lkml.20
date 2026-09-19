@@ -1,125 +1,131 @@
-Received: from mail-pz2-f27.google.com (mail-pz2-f27.google.com [74.125.228.27])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx01.bremer-it.com (mx01.bremer-it.com [85.215.132.167])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BEB6377EBC
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:37:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.27
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BB0133D6FD;
+	Sat, 19 Sep 2026 15:38:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.215.132.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789832274; cv=none; b=uV3Jn9kfS6HaRpEMujh9/HSUxxtgiOpaxoKO90NUitrBfJEp3CykMhMNRdAu5DwDKpK3qTqh2SAIgR7PvVlHaOCdFeWyY+gPFJtHnn/s7MnNyJu+W0ticNkHPaYBSkO0hs/TYkgO6Ht4UyJ/hyZbTj+2KL9rsNN1abzTJhZGBYQ=
+	t=1789832326; cv=none; b=c5KKWcabG3DDXVJsIl7b1N3PGZZFo4ZYD8RIH79ISxSZj4205m8zgo4ihbHDMQhuJr4le2e6C4X21nPQmuPfGXuHbYwFhib18+T4DBHjDuKTOH17532p6P6GM/CxuZlOvrdarlQLW29iLMDIRx+AY0iJdFrw76O/KuXDGkWDJR0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789832274; c=relaxed/simple;
-	bh=VxtObnIR9+/lrSuxuj2cUBhtAltwQ25kfN4SISLzGlk=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=cQhfIeKyUY/2/9qI/8cJtzgEr86L4OCjdIUleFqnNL3ZIIdPlhvcnfMZ9M/gFqpihA8ywrNF17RaTi3RkWTtW2XKIDTLffitjbHCuSdc35i/grb//KdeJ1/duHG/E/cCX6FS2aqu+1RCnnKWBJjKmh3ZSxB55fscpe6Q3wHDtzw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fpkr9LV9; arc=none smtp.client-ip=74.125.228.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789832326; c=relaxed/simple;
+	bh=BF8pL6nodpXg5IJe53MWqpHT0WPpO6V2L/EhWOWVsoM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=O1+FI85tcHvTnQJMZKftMO7saZZaHbzgvz7vSlElZLiAgd5TedV2+9AEL80CLF9EELCfZTEfErhZN3r82hE7KuB7NX1lTXPOLEDEvS7ElirjStLoCilt+C3KAZAEI655XNqv8D1vSp4j2lOH9bd6ePHB/bx8JuWlguv5sbe0Pwk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=barelysecure.org; spf=pass smtp.mailfrom=barelysecure.org; dkim=pass (2048-bit key) header.d=barelysecure.org header.i=@barelysecure.org header.b=XlHzrTiw; arc=none smtp.client-ip=85.215.132.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=barelysecure.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=barelysecure.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fpkr9LV9"
-Received: by mail-pz2-f27.google.com with SMTP id 41be03b00d2f7-cc1cea50dc3so1176223a12.3
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 08:37:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789832272; x=1790437072; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dHm/cbyd+HacQpj81iCFhijHKha34yDBdVzS7b1gwBY=;
-        b=fpkr9LV9YRgno56S7+nJw+mnLZ486PPGrVBjvM808iSsVPppfAw5kl2fGx8blcP3j0
-         3LVa5oYkFXt4vJLxH2c2t3wabqdncymeizuaAOAqnySCJiP1nEx3BLB8K+rv1k2eKnyC
-         28r0ITPN2B3sFLxcMhOTd9lMloxAGy3Un7SzJ7xj7jk+B1zgEo6+4DCfG0Jwp/uJzkjG
-         02NK/n/UvpebHTmVziNPXuFiuMLaVBl5WmCx0HkIpiiCc070/yuopzH2QvHYYrv90yYC
-         4hrwwH8TPAc2NaQTdEQNGES4nf3yma7bL5mntvEL5ajxT80DKVhBRvuCA0ioLLm9y41N
-         4RZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789832272; x=1790437072;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dHm/cbyd+HacQpj81iCFhijHKha34yDBdVzS7b1gwBY=;
-        b=Xkt5ccHJm6OxnOAnaYmVcf1EHoP80fxkttyEvMGBzSUp2OniCbPm8dDZIKxyPEbDgQ
-         XsOKDlcMrwM9S0zbGyiryrQMBCVg1XcanKBpPLsc+GPKioh7SLa/i72FfAaqdoGgrNAz
-         CE+JqFjob8ZgCRW7VF8XE5bakGVR7pGtP0P0VnOHDLG4dOWPfN7S7FXlAe6yLINbFMc+
-         zBreymjOPVChhQlSlGYIqvPafhq3tw/cc5t0Xtj5SgtaKIhGYMG8bVGq8qujPAzWPAzz
-         GJOQRDLHuWmuyHyqXcQbRxVPrIcVrFDHPzIWL7/FbdBfZQudKgH1ZZt9RISp4cdtkqK3
-         fPvg==
-X-Forwarded-Encrypted: i=1; AKwUvBxTb++8xr9Hmfy9XOD4OPf06UVLxVtL13557AeGLNItlxWAWxIVzGjhK1CCIqnedZabk5MSKb4i+4vKbH8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mL6Nv32OM4yb6ITU+QWrDuq/WRoH+FnFwlAHew7BFY9DBe8oAm
-	4P1cK3xcFec7V4ZalJaT/QvT1Hdk6XShlzddKNIcoUfrGZ0c3HcTWXVS
-X-Gm-Gg: AYBFou3jTpSd308KB4hTTVx960EaDGYb5ukaAKX2bXS+d6y8gLi8BpG8IwfhE8854e1
-	xTmBN32cqxi6gDmRcTmwkZZh1KWrdeiIwFx13PzMyvRJgpptKA7k0xotIGyqPtIbSp2v2PFI/cM
-	idDmrS+7CHXRnZcD7tJTLtsQJTsdmOFV7aYUo0+MVefgFCtuHDh9rqRBBvNKc2JKedUQRsVrG5T
-	nOF2xE1/318oQ3AAzhOSA+t+1CyMn3V2DzAhorFBL98+D3wV3nOJIRIDtFTIv/8Zjo3MbBMtD5C
-	uy2TxR7HVRzR5tKLVMJWotJeGBNlxvkZ3v9wfVTafCBTSUcUdhB7uXg6axuaxEf+KFUM57vnZcy
-	zCN50y1A+TSz80XSRqKymdOCNg/IKMpgEiZBowEjlLSuu+CQdnOKUCMtm6KQS3ba7WjeEn0vmep
-	FOWeaek4w+bCJUaC9qtmDUUBuAje5NGHw6a5GTBZmZOClNT4N16ASNgUkjNSDWba1rkDOnKh/FQ
-	qPrr7YK1Oze
-X-Received: by 2002:a05:6a21:7105:b0:3c4:3321:4fe9 with SMTP id adf61e73a8af0-3dd8c3d20d1mr9200557637.7.1789832272469;
-        Sat, 19 Sep 2026 08:37:52 -0700 (PDT)
-Received: from localhost.localdomain ([47.100.192.162])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc72aeda98csm1066618a12.23.2026.09.19.08.37.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 08:37:51 -0700 (PDT)
-From: Yang Wen <anmuxixixi@gmail.com>
-To: linkinjeon@kernel.org
-Cc: anmuxixixi@gmail.com,
-	chizhiling@163.com,
-	exfat@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	sj1557.seo@samsung.com,
-	yuezhang.mo@sony.com
-Subject: Re: [PATCH v4 2/3] exfat: retain the next empty directory entry hint
-Date: Sat, 19 Sep 2026 23:37:34 +0800
-Message-Id: <20260919153734.1511310-1-anmuxixixi@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <CAKYAXd9pPRi21V_t_h0FSQyU7mN6u3o8wUc8=pusU8fDSMA5JA@mail.gmail.com>
-References: <CAKYAXd9pPRi21V_t_h0FSQyU7mN6u3o8wUc8=pusU8fDSMA5JA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=barelysecure.org header.i=@barelysecure.org header.b="XlHzrTiw"
+Received: from cashel.logfs.org (c-98-33-96-243.hsd1.ca.comcast.net [98.33.96.243])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (secp384r1) server-digest SHA384)
+	(No client certificate requested)
+	by mx01.bremer-it.com (Postfix) with ESMTPSA id E311520C1B;
+	Sat, 19 Sep 2026 17:38:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=barelysecure.org;
+	s=dkim68; t=1789832318;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6aw+V5r2LHIE5oFHzmqB4KZ1PpJUZDTMqnLQbkowUUc=;
+	b=XlHzrTiwzZ9IFzbTcCAHxMd+6nyZjyXkIaxyhFGWvrAyqyugbWnoKMPmkET5mGk7/2xdp/
+	0lS3aNJGcNLFaqUbveZ7dS8gwb70QxD/U1cFStoIg/LYfpNa9ItVJfHCLoszX3k9VzZGpi
+	cgPbQvJ3DcSYjlgxGxTiS+WRZ+NtuP7MUXHQPPnuHrUZW+wlfhMg/5br3SJP7lPgNwcCS2
+	TJ7u81vimKlc2o14zthGmnlQQqHQKNp5WsKf4tfYkTqx5wcDu63bmn1VuzjcPJRBFCEW0b
+	PkGWZ875smpAbx3Jyxlwy4KER2Fn1fnIVOos5ElVbspvGaUoN5Qu62EKvULWog==
+Authentication-Results: ORIGINATING;
+	auth=pass smtp.auth=joern@lazybastard.org smtp.mailfrom=joern@barelysecure.org
+Date: Sat, 19 Sep 2026 08:38:31 -0700
+From: =?iso-8859-1?Q?J=F6rn?= Engel <joern@barelysecure.org>
+To: Chris Roy <iam@thechris.in>
+Cc: Richard Weinberger <richard@nod.at>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	syzbot <syzbot+7cab6a19619f1b8efc00@syzkaller.appspotmail.com>,
+	dakr@kernel.org, driver-core@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	rafael@kernel.org, syzkaller-bugs@googlegroups.com,
+	linux-mtd@lists.infradead.org, miquel.raynal@bootlin.com,
+	vigneshr@ti.com, Adarsh Das <adarshdas950@gmail.com>
+Subject: Re: [syzbot] [fs?] possible deadlock in ovl_create_object (2)
+Message-ID: <aq6sd2Z3nZuAYbMG@cashel.logfs.org>
+References: <CAE2Bdm3NuEHshrG6K2boKAnCQUvT5SX79cP9nPgS2s1afzY1hg@mail.gmail.com>
+ <6aab0f82.e91c2013.3bdb06.0009.GAE@google.com>
+ <CAE2Bdm2wzxj-J0TM8F+3SVnu0W3HeiROW97U4qvBeyHKdHJFmg@mail.gmail.com>
+ <2026091753-broadness-bootie-b683@gregkh>
+ <CAE2Bdm14hif17B8RTAE+PhWEps5Fzh=WPurZeSNp9C6TqCKumg@mail.gmail.com>
+ <aqwuWWMwdIcx3704@cashel.logfs.org>
+ <mu82xsi6.76ee613a-07fb-48b1-9336-99e8780e8b6e@nod.at>
+ <CAE2Bdm3FqBPAMxqKoz_h1cw+OXpm=LJHdJjsME_Jy966tqhq_A@mail.gmail.com>
+ <aq6gJTYTpTr8sYPj@cashel.logfs.org>
+ <CAE2Bdm3K+ZnrfB7xzkg=2fzMs7AmJzdF3aYCpN00h90TR6FMog@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAE2Bdm3K+ZnrfB7xzkg=2fzMs7AmJzdF3aYCpN00h90TR6FMog@mail.gmail.com>
+X-Spam-Level: **
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [2.27 / 14.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	BAYES_SPAM(0.87)[80.13%];
+	MIME_GOOD(-0.10)[text/plain];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	TAGGED_RCPT(0.00)[7cab6a19619f1b8efc00];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	ASN(0.00)[asn:7922, ipnet:98.32.0.0/11, country:US];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_ZERO(0.00)[0];
+	MISSING_XM_UA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[barelysecure.org:s=dkim68];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
+	LOCAL_OUTBOUND(0.00)[];
+	FREEMAIL_CC(0.00)[nod.at,linuxfoundation.org,syzkaller.appspotmail.com,kernel.org,lists.linux.dev,vger.kernel.org,googlegroups.com,lists.infradead.org,bootlin.com,ti.com,gmail.com];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	URIBL_BLOCKED(0.00)[c-98-33-96-243.hsd1.ca.comcast.net:rdns,barelysecure.org:from_smtp,barelysecure.org:from_mime];
+	SUBJECT_HAS_QUESTION(0.00)[]
+X-Rspamd-Server: server01
+X-Rspamd-Queue-Id: E311520C1B
+X-Spamd-Bar: ++
 
-Hi,
+On Sat, Sep 19, 2026 at 08:58:51PM +0530, Chris Roy wrote:
+> 
+> I'd rather not bolt a redesign onto this fix.
 
-Thank you for the careful review and for pointing out these issues.
+Good decision!
 
-> > @@ -1489,7 +1491,10 @@ int exfat_write_volume_label(struct super_block *sb,
-> >                         goto unlock;
-> >                 }
-> >
-> > -               ret = exfat_find_empty_entry(root_inode, &clu, 1, &es);
-> > +               ret = exfat_find_empty_entry(root_inode, &clu, 1, &es,
-> > +                                            &next_hint);
-> > +               if (!ret)
-> It should be if (ret >= 0) ?
-exfat_find_empty_entry() returns a non-negative entry index on success.
-I have changed the volume-label path to use ret >= 0.
+> > Is this check necessary? [...] Looks like the kernel is still
+> > undecided whether checks are necessary or not.
+> 
+> I will keep it. kzalloc()/kstrdup() under plain GFP_KERNEL can still
+> return NULL under real memory pressure (no __GFP_NOFAIL here), and
+> dropping it would be inconsistent with the kstrdup() check two lines
+> below.
 
-> > +                       entry_allocated = true;
-> >         }
-> >
-> > +static void exfat_set_next_empty_hint(struct inode *inode,
-> > +                                     struct exfat_chain *p_dir, int dentry,
-> > +                                     int num_entries,
-> > +                                     struct exfat_entry_set_cache *es,
-> > +                                     struct exfat_hint_femp *hint_femp)
-> > +{
-> Please check whether smaller holes can be skipped. For example, if
-> there is a 3 entry hole near the beginning and a 4 entry name is
-> appended, a subsequent 3entry name may skip the existing hole because
-> the Bloom filter miss bypasses the name scan and allocation starts
-> from the saved hint. Unless another deletion occurs, could this state
-> persist and cause the directory to grow unnecessarily?
-The smaller-hole example is also valid. A Bloom-filter miss can skip the
-name scan that would otherwise rediscover an earlier hole, while the saved
-hint points past it. In v5, the hint records the entry-set size that
-justified advancing it. If a later request needs fewer entries, allocation
-discards the hint and searches from the beginning. I have also kept the
-hint invalidation on paths that free entries.
+My foggy mind is slowly waking up.  GFP_ATOMIC can return NULL.  If
+you're trying to allocate memory from an interrupt handler or similar,
+you cannot afford to wait for memory reclaim to happen.  Those calls
+definitely need a check and a reasonable plan what to do in case of
+failure.
 
-> And please create the patches against #dev branch.
-I have rebased the series on the exFAT dev branch.
+GFP_KERNEL should be able to block and wait, so there really is no
+excuse for kmalloc to return NULL or for the callers to need a check.
 
-Thanks again.
+But your decision of not pulling too many decisions into a single patch
+is still a good decision.  Even if my logic is sound, removing checks
+from kmalloc callers should be a separate effort.
+
+Jörn
+
+--
+I don't understand it. Nobody does.
+-- Richard P. Feynman
