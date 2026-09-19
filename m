@@ -1,94 +1,116 @@
-Received: from mta1.migadu.com (out-25.mta1.migadu.com [95.215.58.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from kylie.crudebyte.com (kylie.crudebyte.com [5.189.157.229])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D3553126D6
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 13:02:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 223AF3148DD;
+	Sat, 19 Sep 2026 13:02:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.189.157.229
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789822962; cv=none; b=ln3f3SaP/mmS6BMNtyAcDQQSzBn4HxLmb5deyVjn76rty24V+fpT5Au2YViAiTuAdZGKDXS5HoRDRlNqbzp0IdVo5XdWjNH4k6o44muZ54PgOJr9ga7DwQBK28AN9dNCVec5YRiaGMJjo5dROczhKwgNPIn2t8bjj/dLu4cMmNg=
+	t=1789822963; cv=none; b=i1I53PXBaC4ElFtDVdBpDGsG20H8I8pSQrRbYWnRrztqRLHwMMJv5y/iBr+RMyjkb5JmRcBpmEeeoJr1gdSZu3iJboKXHloD+3ai0M+Ji1kZtG1+N0iSjAvBXwbIWF/qGjdC2vnX5d8CPKO7Co6CO6fgsQp/QHnKS7d0gbVFa0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789822962; c=relaxed/simple;
-	bh=DUvjoQROS8yk+VfXJeNWxO9qytK3Bfp0yYXrhXYSjQk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WZTafUsO5jIZLnEBtaULgfG9/vKG5hVAWwdTZUt5BFbYma8JIBiDSsUCA0A0s/FkGHjqFc2hbxQhhwfjGc3eODKzO3lytD6I0TNuqpdUQqNdshTwmfY873ejlXQIuBFzLNV0Ju4ILNAQeOKCAbQMzcFbpzxmJK5TCvWTsLwo0y8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=iRnKcDfT; arc=none smtp.client-ip=95.215.58.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789822963; c=relaxed/simple;
+	bh=IKVk5OIpvugDSMBiaVhBQdzChjVl2iCFVHAM1QgyDSs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=MyqwKIxJ/+gnRB7LO44dPbSOllpsCKPKREafg1cLy63oizsAo4inJZztfc4AZoE3qq/pKULUajV3xoIws1ASWiCDzzcHoGi2cWSmEUJgSzfM/PC11YaSjJvMSwBy45DJoGc4bONEGlak0eOZ9SjZsy+aWQPV3ENDetDOe0dcy7g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crudebyte.com; spf=pass smtp.mailfrom=crudebyte.com; dkim=pass (4096-bit key) header.d=crudebyte.com header.i=@crudebyte.com header.b=oWxsM/c1; arc=none smtp.client-ip=5.189.157.229
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crudebyte.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crudebyte.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="iRnKcDfT"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=DUvjoQROS8yk+VfXJeNWxO9qytK3Bfp0yYXrhXYSjQk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789822958; v=1; x=1790427758;
- b=iRnKcDfTf0v1aSNak1pUAjhodKXLzeUe961jk+nr6pxeNb2rM6+y9wZX9MsE1XJTkqwCogfL
- +NX5Y/XaUTPNylEcBdhj0ucDU+0cs3jHZIfPvfMt03FNHyzO1HSZysRen56eMWENWZj2ZpfKaw3
- fL+tjUNdcbs5FGn8yZ6BYm1g=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 498751209693f72e;
-	Sat, 19 Sep 2026 13:02:37 +0000
-X-Mizu-Trace-ID: 498751209693f72e
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <ae900f5b-7f00-4c48-8097-f2f836c09f60@linux.dev>
-Date: Sat, 19 Sep 2026 21:02:30 +0800
+	dkim=pass (4096-bit key) header.d=crudebyte.com header.i=@crudebyte.com header.b="oWxsM/c1"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=crudebyte.com; s=kylie; h=Content-Type:Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
+	Content-ID:Content-Description;
+	bh=oI9K/UH/ZbHWvfF5GUmjJfEBAfabY1ZkFekF4ks9tmg=; b=oWxsM/c1/zLCicXWFg4WC1NQq3
+	Rmo3I5zcS/BgyomEEe1XdqJpAjC9vg6J8KThJeLI2ALAZJJfVsqiGMJBN981sUT75Llw4MWD1hcDS
+	733Cw8QTzUuMn539oXr0yY0icKkVP0vTv5uI6feZ27+n4Z5e6IUvZtHzmqPwc7z+UHeIoOfHWRy8P
+	ZymHy+3q6S2amZrLUIQ/R3VZEmpZyXnpmsJZyy/p6ZdsDKBM+gQzj63GeYyChG6v0Wo2qODNM1qQF
+	LnFGeIehBmJxQAvd2O2dY4j2NtYYXvcclHRwvQrp+RxxeAPOh2b0ZEKmUiVFaTunQmW07QjXRpQ8P
+	9R8Cp9bMI9YpVlY9B4Od1dvFO7UYSULW7cPEnPU01JjuHUoG6HDvuCNHgK5wnUTy+X3WC/eZadGUJ
+	xKUEtPXJh40mi3E4yp6BJPX00A9m054syLgFYEfcimmK3TRF27hIo8zjbRl0QNTdsWkPOwPdxmTj8
+	dqK1pCi4ZhEffnUKws2k6N7VoZ9YoCifvDgRi8Mpv4v5r80QRbRAnwP2bXK34zsGadOnqw96VqpH9
+	xBfqRFSvYWkP3lsXgz1xXk2hSz9wxyXGa4/5nntzFPabYUPghiGPG0KBMhgkx663Nmc492YG+ArmI
+	13T8p0SMYpyH0y7iKyY9XHHuJY2L3K5aQ/kgqY5+0=;
+From: Christian Schoenebeck <linux_oss@crudebyte.com>
+To: Eric Van Hensbergen <ericvh@kernel.org>,
+ Latchesar Ionkov <lucho@ionkov.net>,
+ Dominique Martinet <asmadeus@codewreck.org>,
+ Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+ syzbot+de6fd6789748a8aa64a0@syzkaller.appspotmail.com
+Cc: v9fs@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] 9p: bound the xattr size used to allocate the ACL buffer
+Date: Sat, 19 Sep 2026 15:02:25 +0200
+Message-ID: <8777483.NyiUUSuA9g@weasel>
+In-Reply-To: <20260919102958.142460-1-ngocthang2710.1999@gmail.com>
+References: <20260919102958.142460-1-ngocthang2710.1999@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/10] mm/damon/api: remove NR_DAMOS_FILTER_TYPES
-To: SJ Park <sj@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, damon@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org
-References: <20260917142210.90829-1-sj@kernel.org>
- <20260917142210.90829-2-sj@kernel.org>
-Content-Language: en-US
-From: Zenghui Yu <zenghui.yu@linux.dev>
-In-Reply-To: <20260917142210.90829-2-sj@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 
-On 9/17/26 10:21 PM, SJ Park wrote:
-> Nobody uses NR_DAMOS_FILTER_TYPES.  Remove it.
+On Saturday, 19 September 2026 12:29:58 CEST Nguyen Ngoc Thang wrote:
+> v9fs_fid_get_acl() sizes its kzalloc() buffer from the xattr length
+> reported by the 9p server. A server, or a syzbot-style fake one, can
+> report an arbitrarily large value. When it exceeds what the page
+> allocator can serve, mounting with posixacl,access=client trips:
 > 
-> Signed-off-by: SJ Park <sj@kernel.org>
+>   WARNING: mm/page_alloc.c:5340 at __alloc_frozen_pages_noprof
+>    ___kmalloc_large_node
+>    v9fs_fid_get_acl
+>    v9fs_get_acl
+>    v9fs_inode_from_fid_dotl
+>    v9fs_get_tree
+> 
+> A valid POSIX ACL always fits in an xattr value, so reject sizes above
+> XATTR_SIZE_MAX. __v9fs_get_acl() already maps this error to -EIO.
+
+What it currently does is calling kzalloc() and if that fails, it remaps the 
+error to -EIO. However the Linux ACL subsystem does currently not impose its 
+own limit, and therefore ACL size > XATTR_SIZE_MAX doesn't necessarily render 
+it invalid, at least not if 9p server supports larger (9p) xattrs.
+
+> Reported-by: syzbot+de6fd6789748a8aa64a0@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=de6fd6789748a8aa64a0
+> Fixes: 85ff872d3f4a ("fs/9p: Implement POSIX ACL permission checking
+> function") Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 > ---
->  include/linux/damon.h | 2 --
->  1 file changed, 2 deletions(-)
+>  fs/9p/acl.c | 3 +++
+>  1 file changed, 3 insertions(+)
 > 
-> diff --git a/include/linux/damon.h b/include/linux/damon.h
-> index bbb190b474015..836353c4ab9aa 100644
-> --- a/include/linux/damon.h
-> +++ b/include/linux/damon.h
-> @@ -400,7 +400,6 @@ struct damos_stat {
->   * @DAMOS_FILTER_TYPE_ADDR:	Address range.
->   * @DAMOS_FILTER_TYPE_TARGET:	Data Access Monitoring target.
->   * @DAMOS_FILTER_TYPE_PROBE_HITS_WSUM:	probe_hits weighted sum range.
-> - * @NR_DAMOS_FILTER_TYPES:	Number of filter types.
->   *
->   * All types except &DAMOS_FILTER_TYPE_ADDR, &DAMOS_FILTER_TYPE_TARGET and
->   * &DAMOS_FILTER_TYPE_PROBE_HITS_WSUM are handled by the underlying &struct
-> @@ -422,7 +421,6 @@ enum damos_filter_type {
->  	DAMOS_FILTER_TYPE_ADDR,
->  	DAMOS_FILTER_TYPE_TARGET,
->  	DAMOS_FILTER_TYPE_PROBE_HITS_WSUM,
-> -	NR_DAMOS_FILTER_TYPES,
->  };
->  
->  /**
+> diff --git a/fs/9p/acl.c b/fs/9p/acl.c
+> index ae7e7cf7523a..0dd7e72bbdd3 100644
+> --- a/fs/9p/acl.c
+> +++ b/fs/9p/acl.c
+> @@ -29,6 +29,9 @@ static struct posix_acl *v9fs_fid_get_acl(struct p9_fid
+> *fid, const char *name) return ERR_PTR(size);
+>  	if (size == 0)
+>  		return ERR_PTR(-ENODATA);
+> +	/* the size is server-controlled; a valid ACL fits in an xattr */
+> +	if (size > XATTR_SIZE_MAX)
+> +		return ERR_PTR(-E2BIG);
 
-Similarly we have more definitions of NR_foo in damon.h:
+We already had related discussions about this before (without decision), i.e. 
+XATTR_SIZE_MAX vs. KMALLOC_MAX_SIZE. Note the source location was different, 
+but it is the same issue:
 
- * @NR_DAMOS_ACTIONS:	Total number of DAMOS actions
- * @NR_DAMOS_QUOTA_GOAL_METRICS:	Number of DAMOS quota goal metrics.
- * @NR_DAMOS_WMARK_METRICS:	Total number of DAMOS watermark metrics
- * @NR_DAMON_OPS:	Number of monitoring operations implementations
+https://lore.kernel.org/all/Z1n-Ue19Pa_AWVu0@codewreck.org/
 
-and only NR_DAMON_OPS is actually used (I checked mm-new).  If the
-preference is removing all unused macros, we should probably clean them up
-as well.
+XATTR_SIZE_MAX < KMALLOC_MAX_SIZE
 
-Thanks,
-Zenghui
+KMALLOC_MAX_SIZE is currently (already) the real effective upper bound, and 
+therefore catching KMALLOC_MAX_SIZE here would basically just silence syzbot 
+reports. The only actual reason to address this issue at all.
+
+Capping to XATTR_SIZE_MAX here would make sense, assuming 9p server is a Linux 
+system as well. But it may not be. So for non-Linux 9p servers (and for Linux 
+9p servers that do not map 9p xattrs to filesystem xattrs) you would 
+unnecessarily lower the size limit for ACLs, and ACLs can be huge.
+
+> 
+>  	value = kzalloc(size, GFP_NOFS);
+>  	if (!value)
+
+
