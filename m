@@ -1,80 +1,43 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.inf.ufrgs.br (smtp.inf.ufrgs.br [143.54.11.23])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35467367B7E
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 16:37:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EF5C2F690F
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 16:39:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.54.11.23
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789835853; cv=none; b=dN669HrIY7RcZ5+yNO8OZpeuyuwE3cBVOzEX9lzlJV8CDrE9yjyl3hwRO50VDUuQkzwsLosyBd58xuzhxFIwAdTslZC7LlBEmWgp2NBAJGV1GRruDTgHv393qpHAz8xWs34ZFQ6ledYgdI28kkgB/Qfb6kY34hd5Mo31QNgvVoA=
+	t=1789835980; cv=none; b=cHshEMSgHkUUijUrmTTtjQpeuldRG59ybe66a2fyes+fAY3+O5tvptdrVzXmUy1/Wcc+FG8eFuZw7vyw3hdLakm3Ei2lfdkW7A3inj5KdMAiFNa7g/8uOsjcRgTIoB6HnUoFR5o36rKjiHnU5sLhYtt/Qk/w5j3mmaYWA7f+0Sg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789835853; c=relaxed/simple;
-	bh=6vc5mwlNKdSSWUqAj4sjOR1pix0daDHthz4ig1XWDs0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=eVrMQOZ6/HNZa6Pckx7Exdwx3wUbKXxglnxkO9Tn3hU2/D/gguCeWONFJvjVBQ+s8b1LCRyw3keA+5nXSdlYfJy59O4bz90Fqa532Xb+oZ7tMlRHNBOsCh32IQ4q38ujqpbMXX/iHGA28hsw977R+dTFWiCx5FnhC3ccMqERNO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ArsxQoob; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789835980; c=relaxed/simple;
+	bh=i3G2jf5tXlyz9D0tOx9MCJGy2wiS0fi0DZnIJuhmyhg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=T/RKKmaDu94kchNgQAfFPw8qvaiHmnZonJw2YNu8zabEkhHvK6NSY5eH7VbrJo5zabKLeJQPLB9GdeYixSJy6Lpoa5pt0LASaifjV+cg0MdUn4wuAtofOf5vQrGpg/rPIqh9ntiyMO/vyBzJgHyGnA2vw6Ik2z559I1B1J4/w5U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inf.ufrgs.br; spf=pass smtp.mailfrom=inf.ufrgs.br; dkim=pass (2048-bit key) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.b=A43sFXvq; arc=none smtp.client-ip=143.54.11.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inf.ufrgs.br
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inf.ufrgs.br
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ArsxQoob"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4858bc96fabso1381835f8f.3
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 09:37:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789835850; x=1790440650; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vgqhI+7tTNR/gehAUgAlA1m56lV4Jk2GGCXFewptpVg=;
-        b=ArsxQoobVYhZPeuVZNI/p3t6rLpk3TC1g1BFH7LsFViDaUvGIhZ5ke7WEoa6wJ2YAe
-         A8KCvhJxyCd5p1Zx33F64z76Gv5Pqa2p+KsC5vswAAFKoROTpGl+Jh/D3N2LEQoEBWWE
-         n95uN4qD5Jwp5mroklTfFECqyLTCW78d22FH9A3df72/6jUEiP4WIp/PdknB0+q2x6be
-         /gGtevfISbtn4fNCOKibwdVBF2nW0ye0eJvycq1A9KHODe97Y4yqXV93rDrMQkmEHNbB
-         BVHm2X4fTC9Na1O8mGuL6ENBX949Das9u+T2EtXFm5nYoq6+A2jGxWfjuo4/zrTUloZT
-         UxOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789835850; x=1790440650;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vgqhI+7tTNR/gehAUgAlA1m56lV4Jk2GGCXFewptpVg=;
-        b=tkC+FKaMUY0t2HWueZD7iNYXcPUFELrqXN2YfJeFnaiapXfNZ3pw7tMNd4RGihv8aP
-         8S7reqymN6aHUyes8gy2xpnUW80gEpTV1KeVd9GKUCajSEt/p2GxUb80OUgFR/lCbWAB
-         PlDxSuMy8tHRjaMK9MQegaHHfE8jlNVl04IuXpEzcWlycKJNAdDGMY+UqvJthX48EJ91
-         1exa7ecIPF5jZfuCrixU19m3qiIUkmRtYfAUCUgqxWr9Sney83QjOtrWj1XdHQlMxXDY
-         xzsSVyJKDyNu+FUJwjRurxZPO2+Tqw5nBAoqjL9ggsF839y6VCY+hal8JHmyIkyi3wD6
-         xI3g==
-X-Forwarded-Encrypted: i=1; AKwUvBxz80gxpfxko2qSKkg37maC1DYrkq9WWOsTWFCjAPeNdT+nFRlvlmH8O1IKofnmJeU/jRVRgP2w+qVox14=@vger.kernel.org
-X-Gm-Message-State: AFuF++kh5sdvcFjBVMfrcvudnAMJ4+MuqRtk11SbePzgp+qhrMcgfXFx
-	kbWpPwEyB7PillO51ecHYNeoPzMvZEfJGk0n3jgCvOHyafPXacM8QhqD
-X-Gm-Gg: AYBFou00+3y0X83AFc1wHcRUHUFnfBWyQBIMclZNzOxbF8hhjU4fIANNKvxuqxcO54R
-	lbd52wKxUmlNlkPxQp/Q15K+7lLBk7obcuA2heDhKMAXEMM2w06xpJF0s4q6G7ioyf7nl5FPaXf
-	IM5KyI9/rCCi/X8nL3ixbZVmAdO0qUN639ogvzpbjj+GAV9lxtmI0VePLOT7QukfAIoo3j9a1zr
-	HH3YWzYpch7qhuL06sQVzPkwHFwBr/gnChNZfbR3pR+GuAdDbmS1Fh8L8eRVxW+2/Ck4hmwVmBk
-	pbrL3nPTAByZQyzl2P+L5GXmMeMcvyDeJPQfzlExc2BFTm6y/lxbFYlPu7t6y7mwr9E5SrlNvQV
-	9o6NDQAwkHMqlHM27S1CdhFl6Z/Q8wuxq1VJN0CHzl7ICs0Xdq0HJLGw5GYbr0h7TdDFFcQJ+2L
-	4Nl+bK0oDQRsdW2Os7eNTRUdz02tKplzse0GiOeHgZSAoLPMlYZ/L6tvs0shavfYtnJ4/ruaDAn
-	4ZclJt6UuLE7m8dL1BoV61y6neD0wynIMgGTBdTXXHX9GxwHiP10ECUJecUOQcI4Y0G1shWQCsH
-	X8Uw6xLsv4WSuAyySZUoGFD6QQNqQsiD7c8Wa4z64S54anaAHSq2kc/L4bykKDK6/zDVvtBMNLC
-	Ddjb167wWWVcA04Q=
-X-Received: by 2002:a05:6000:24c5:b0:486:f980:2361 with SMTP id ffacd0b85a97d-4871e3b20e1mr8905817f8f.45.1789835850295;
-        Sat, 19 Sep 2026 09:37:30 -0700 (PDT)
-Received: from MacBook-Pro-von-Karl.localdomain (dynamic-2a02-3100-a017-2b01-05fe-203b-7cd2-a640.310.pool.telefonica.de. [2a02:3100:a017:2b01:5fe:203b:7cd2:a640])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4872442263fsm8155986f8f.1.2026.09.19.09.37.29
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 19 Sep 2026 09:37:29 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Nishanth Menon <nm@ti.com>,
-	Santosh Shilimkar <ssantosh@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Grygorii Strashko <grygorii.strashko@ti.com>,
-	Peter Ujfalusi <peter.ujfalusi@ti.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] soc: ti: k3-ringacc: Fix DMA ring initialization kernel-doc
-Date: Sat, 19 Sep 2026 18:37:21 +0200
-Message-Id: <20260919163721.89044-2-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20260919163721.89044-1-kmehltretter@gmail.com>
-References: <20260919163721.89044-1-kmehltretter@gmail.com>
+	dkim=pass (2048-bit key) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.b="A43sFXvq"
+Received: from LAPTOP-R01LEAQM.localdomain (unknown [189.112.72.190])
+	by smtp.inf.ufrgs.br (Postfix) with ESMTPSA id 6C28C12109D;
+	Sat, 19 Sep 2026 13:39:26 -0300 (-03)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inf.ufrgs.br;
+	s=dkim2026; t=1789835967;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=nIuxeQU38bmJqFWPhFJa4/OkmhYAv8xyY+EWoichy0o=;
+	b=A43sFXvqUfYBGljego8jRmH2N4DcaRguYxWplDcux/d0u47wt61VjJ4xFVPAuiG1EFejhg
+	UZAzBSzlRXku7h0y1+QjsnRYw150bHkYOrTNN5/BEJ5WDJZjvcdmXed/5mybW1h1tbw8HR
+	kB23R1Xdb8fLhwALzoW1hdpXn5CCujR+08VetEr2j3Bx8eheHzer9NwxR0u0e82Egp6d6m
+	zNS/n4GUUE+gRhxc5aR1e8xBRx0Z8mcKOWcDV3HQzbqehDtzR2j/Lqeq/CV4BZyQWKAJrZ
+	1aJrFfpewjW/CdU6nKHm7BGlvbNB6Z/xwesgabcB89qulEdtpgAgnTnqGF1FqQ==
+From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+Subject: [PATCH] rtl8723bs: return bool from check_pending_xmitbuf
+Date: Sat, 19 Sep 2026 13:38:57 -0300
+Message-ID: <20260919163857.23772-1-matheus.aalmeida@inf.ufrgs.br>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,36 +46,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The heading for k3_ringacc_init_data repeats struct, so kernel-doc
-cannot match it to the declaration. Its three fields are also missing
-descriptions.
+check_pending_xmitbuf() returns only true or false. Use bool as its
+return type to accurately describe the function's behavior.
 
-Use the structure name and describe the firmware handle, device ID,
-and number of ring pairs used during DMA ring initialization.
-
-Fixes: d782298c6f6b ("soc: ti: k3-ringacc: add AM64 DMA rings support.")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
 ---
- include/linux/soc/ti/k3-ringacc.h | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/staging/rtl8723bs/core/rtw_xmit.c    | 4 ++--
+ drivers/staging/rtl8723bs/include/rtw_xmit.h | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/soc/ti/k3-ringacc.h b/include/linux/soc/ti/k3-ringacc.h
-index 2de6031b9424..37a333f9a10b 100644
---- a/include/linux/soc/ti/k3-ringacc.h
-+++ b/include/linux/soc/ti/k3-ringacc.h
-@@ -254,7 +254,10 @@ u32 k3_ringacc_get_tisci_dev_id(struct k3_ring *ring);
- struct ti_sci_handle;
+diff --git a/drivers/staging/rtl8723bs/core/rtw_xmit.c b/drivers/staging/rtl8723bs/core/rtw_xmit.c
+index 95350fd6a94fc..634320e53aabe 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_xmit.c
++++ b/drivers/staging/rtl8723bs/core/rtw_xmit.c
+@@ -2469,10 +2469,10 @@ struct xmit_buf *dequeue_pending_xmitbuf_under_survey(struct xmit_priv *pxmitpri
+ 	return pxmitbuf;
+ }
  
- /**
-- * struct struct k3_ringacc_init_data - Initialization data for DMA rings
-+ * struct k3_ringacc_init_data - Initialization data for DMA rings
-+ * @tisci: TI SCI firmware handle
-+ * @tisci_dev_id: TI SCI device ID of the DMA controller
-+ * @num_rings: Number of forward/completion ring pairs
-  */
- struct k3_ringacc_init_data {
- 	const struct ti_sci_handle *tisci;
+-signed int check_pending_xmitbuf(struct xmit_priv *pxmitpriv)
++bool check_pending_xmitbuf(struct xmit_priv *pxmitpriv)
+ {
+ 	struct __queue *pqueue;
+-	signed int	ret = false;
++	bool ret = false;
+ 
+ 	pqueue = &pxmitpriv->pending_xmitbuf_queue;
+ 
+diff --git a/drivers/staging/rtl8723bs/include/rtw_xmit.h b/drivers/staging/rtl8723bs/include/rtw_xmit.h
+index 873807fcd0dd0..7d429300323f9 100644
+--- a/drivers/staging/rtl8723bs/include/rtw_xmit.h
++++ b/drivers/staging/rtl8723bs/include/rtw_xmit.h
+@@ -456,7 +456,7 @@ void enqueue_pending_xmitbuf(struct xmit_priv *pxmitpriv, struct xmit_buf *pxmit
+ void enqueue_pending_xmitbuf_to_head(struct xmit_priv *pxmitpriv, struct xmit_buf *pxmitbuf);
+ struct xmit_buf *dequeue_pending_xmitbuf(struct xmit_priv *pxmitpriv);
+ struct xmit_buf *dequeue_pending_xmitbuf_under_survey(struct xmit_priv *pxmitpriv);
+-signed int	check_pending_xmitbuf(struct xmit_priv *pxmitpriv);
++bool check_pending_xmitbuf(struct xmit_priv *pxmitpriv);
+ int	rtw_xmit_thread(void *context);
+ 
+ u32 rtw_get_ff_hwaddr(struct xmit_frame	*pxmitframe);
 -- 
-2.39.5 (Apple Git-154)
+2.43.0
 
