@@ -1,183 +1,182 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE4933815E3;
-	Sat, 19 Sep 2026 19:44:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E69428B4E2;
+	Sat, 19 Sep 2026 19:52:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789847091; cv=none; b=pFF/Np0i1vKrZdkWD7ZGvdz1JHnLsTEJiTzZgfqtmMi/Dg+G/gVwNqciz6a/gpsS4B73pVPXKpsUWUZlZ57QgGF/9Srgg6x4EvcstyaohDdaXJiMiO27F8/Tsdk9q1MNndQw5IVUs3JadFEQyLWfdv4avVIncentUUA37DD15VU=
+	t=1789847528; cv=none; b=Wh7Z/DVf6NwLCvwYvig/dPGsOmpKNcHqAS5yTf2z0XqJ0IiDwd6ppMVFENIU6ZGkKMeAYwy3jq85iCPrbY/mnTinG3QkvxDWrEv51ufk/or3NUMNAY0229rZczPr2CW9okHh1D8HhGjfx2uQYwM9jQ2FPCHvPNIznxa+l4tqAMg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789847091; c=relaxed/simple;
-	bh=Ixu3UO9lZvjmGvkxIbVOSuDtQAsLTQwkWpcCBbb2pKg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RpPPvUczn5tVRR0HPeYtrtCTHLja2G3HyTDdrCWC6Yo9IUEs6yQ8FDqHDxYo+5PynDm8q48oCV7Wf2LNzYo+1EVtsyF3o9UQR4qsp5qywaCnLDOn5oeTocj585bTwFLx43vi2cjmXo3NhLNqj1Sg5bwb10QpsspST0DrQYA52Ms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=mdKST0QH; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=mMnbP0Kh; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1789847528; c=relaxed/simple;
+	bh=UdvNW9CpQT7IK6dnytR92a9xtlB2N2AO8AUh3oGnVO8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=XNY10/s+UgLie55ok6ibsr4Kk7Eg6kHip0GBvMRw4cVas8alydU7AzcpZv4koqmpLpceWLXNTGFb3lDLFkx3qFg0ch8NjjVVtdxiQFuIi5hp5Oz+r4IDEZSqw9IgitO0RcF5l9KthfbRTdUYQMbb3KmkEtePSMZWXeyFUeDH94s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ONLPz5xs; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="mdKST0QH";
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="mMnbP0Kh"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 1836621DA7;
-	Sat, 19 Sep 2026 19:44:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1789847082; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=vMnIzq0jeVhj82nzM1btMxW/JCXfgOB67xDr2BdpXgs=;
-	b=mdKST0QHR7gRFw1P6PjTLwjijesQYymAIn54kCttGfTsguA4LCghzSnhQUSOKZgCWh6Ybh
-	p11NYjNCa+aT7M7/DTq7/T3GIAkhSFaEp9AqGkXYJ6T/bEDO5v03A7JT4y3iJHjbNxZ8+1
-	XNU3QbgtW4WGoU7O47CHSw1FRG3yw8Y=
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=mMnbP0Kh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1789847078; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=vMnIzq0jeVhj82nzM1btMxW/JCXfgOB67xDr2BdpXgs=;
-	b=mMnbP0Kh+8yWRAD0GDG5PiHlCGAtIlspy74y0LgqWui4rvpUyLuWWAXeL4zCHgfpyPBY6R
-	IiC3Hf8dotx2Jg2iX6GimJOMtEt/YxP/NKLfCrz3UTM3Ae3A41CzJvp6gbN8k0wsAbmgYO
-	/LKopzvdyA9PzZ+Bq/RqRsvhyUtLv/c=
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B914D133CF;
-	Sat, 19 Sep 2026 19:44:37 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 6M/vIyXmrmpMfgAAD6G6ig
-	(envelope-from <dsterba@suse.com>); Sat, 19 Sep 2026 19:44:37 +0000
-From: David Sterba <dsterba@suse.com>
-To: torvalds@linux-foundation.org
-Cc: David Sterba <dsterba@suse.com>,
-	linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [GIT PULL] Btrfs fixes for 7.3-rc4
-Date: Sat, 19 Sep 2026 21:44:31 +0200
-Message-ID: <cover.1789845496.git.dsterba@suse.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ONLPz5xs"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 3DCE8C2BCB9;
+	Sat, 19 Sep 2026 19:52:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789847528;
+	bh=UdvNW9CpQT7IK6dnytR92a9xtlB2N2AO8AUh3oGnVO8=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=ONLPz5xsBFEAJeKb0JylrQwdjXHIQSJiK93LMmQm2MpUMjsZx9S0LmlgSkzdy5PiL
+	 AJTZ+gbq80Y6hiC/pIM2vJo3R5mKzBnstNhk9FiYbcaGc/8eLC9wnjMh2cAPCIP8VI
+	 X98XMQKdS7ApqskxIc368a+0RD4oN+QNVvc/scPq0a7DxmHunU7JWx5lkedJ+PN2Ht
+	 K+AVWxliafn11vz85OgDf5gBwpMc+pHMxKIbecB+GGdrAm2cKZSbq78P0/PMhmsIHr
+	 w+FlfmBVhsCVErpX04MBuD0MWOqAIKkfz7z2pq3x4r5SxVaFZo66120Zvao8/M6CA/
+	 ZxeiovTq+ofZQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 29003C982D8;
+	Sat, 19 Sep 2026 19:52:08 +0000 (UTC)
+From: Nicolo Giuliani via B4 Relay <devnull+nicolo.giuliani6.studio.unibo.it@kernel.org>
+Date: Sat, 19 Sep 2026 21:52:07 +0200
+Subject: [PATCH net] net: dsa: mv88e6xxx: continue without PTP if the TAI
+ period is invalid
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Score: -3.01
-X-Rspamd-Queue-Id: 1836621DA7
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_COUNT_TWO(0.00)[2];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:dkim,suse.com:mid];
-	RCVD_TLS_ALL(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	RCPT_COUNT_THREE(0.00)[4];
-	DKIM_TRACE(0.00)[suse.com:+]
-X-Spam-Flag: NO
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260919-send-net-v1-1-4355c72465ee@studio.unibo.it>
+X-B4-Tracking: v=1; b=H4sIAObnrmoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDS0NL3eLUvBTdvNQSXUvzxERTM1PjxGQTCyWg8oKi1LTMCrBR0UpABUq
+ xEMHi0qSs1OQSkCFKtbUAyPl0X3EAAAA=
+X-Change-ID: 20260919-send-net-97aa5653ac48
+To: Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Richard Cochran <richardcochran@gmail.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789847526; l=4280;
+ i=nicolo.giuliani6@studio.unibo.it; s=20260919; h=from:subject:message-id;
+ bh=haUUtbJie+EjEYk90JGwrIsIrQgUGbrvgziB9gbyIW8=;
+ b=w2vPGeC+6ZP61hNrUcRrizJlSyJkisrIAWxRnyt4sEGyBEd1yu7TE44TpkQUqvxoO0xNImE6d
+ /TqD/ni2PcgDxJKKdVPAppiC4HUJpLUGoSYZRanQwUF5LS9uHunMH1v
+X-Developer-Key: i=nicolo.giuliani6@studio.unibo.it; a=ed25519;
+ pk=D652ecdT01GkA1eoFWNFNX85xIg5ZnFwUWyjfestgQw=
+X-Endpoint-Received: by B4 Relay for
+ nicolo.giuliani6@studio.unibo.it/20260919 with auth_id=1040
+X-Original-From: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
+Reply-To: nicolo.giuliani6@studio.unibo.it
 
-Hi,
+From: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
 
-please pull the following fixes. Among the regular fixes, there are two
-that were reported recently and have user impact:
+Since commit 7e3c18097a70 ("net: dsa: mv88e6xxx: read cycle counter
+period from hardware"), mv88e6xxx_ptp_setup() reads the TAI clock period
+register and fails with -ENODEV if the value is not one of the supported
+periods. mv88e6xxx_setup() propagates the error, so the switch does not
+probe at all, although it is fully usable without PTP. Before that commit
+the register was not read and the probe did not depend on its value.
 
-- filesystem id is now stable again on the default and common case (it
-  broke openconnect key derivation, while this is not secure, it's still
-  in use), the intention was to change id for the temp_fsid use case
+The 88E6193X on the Sophos XGS 107w reads 0 in that register, so its
+probe fails with:
 
-- fix detection of /dev/root and rename it after device scan, this broke
-  booting of initramdisk-less system with grub2 as the probe needs the
-  real device
+  mv88e6xxx ...: unexpected cycle counter period of 0 ps
 
-Regular fixes:
+Treat -ENODEV from mv88e6xxx_ptp_setup() as the absence of a usable PTP
+clock: warn, skip the hardware timestamping setup and carry on without
+registering a PHC. -ENODEV can only come from mv88e6xxx_cc_coeff_get(),
+which runs before ptp_setup changes any state, so there is nothing to
+undo, and all other errors still fail the probe.
 
-- don't store compressed inline extent if the size is larger than
-  uncompressed
+Without a PHC chip->ptp_clock stays NULL, and the timestamping entry
+points dereference it (ptp_clock_index() in get_ts_info,
+ptp_schedule_worker() in the rx and tx paths). Make get_ts_info,
+port_hwtstamp_set/get and mv88e6xxx_should_tstamp() treat a missing
+clock like a chip without ptp_support. Switches that register a PHC are
+unaffected.
 
-- in zoned mode, handle activation of zones for all supported block
-  group profiles in case there are still free ones left
+Fixes: 7e3c18097a70 ("net: dsa: mv88e6xxx: read cycle counter period from hardware")
+Assisted-by: LLM
+Signed-off-by: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
+---
+ drivers/net/dsa/mv88e6xxx/chip.c     | 19 ++++++++++++++-----
+ drivers/net/dsa/mv88e6xxx/hwtstamp.c |  8 ++++----
+ 2 files changed, 18 insertions(+), 9 deletions(-)
 
-- check space for a chunk item when reading sys array from superblock
+diff --git a/drivers/net/dsa/mv88e6xxx/chip.c b/drivers/net/dsa/mv88e6xxx/chip.c
+index 7f68a0c55..2d6de43f2 100644
+--- a/drivers/net/dsa/mv88e6xxx/chip.c
++++ b/drivers/net/dsa/mv88e6xxx/chip.c
+@@ -4106,12 +4106,21 @@ static int mv88e6xxx_setup(struct dsa_switch *ds)
+ 	/* Setup PTP Hardware Clock and timestamping */
+ 	if (chip->info->ptp_support) {
+ 		err = mv88e6xxx_ptp_setup(chip);
+-		if (err)
+-			goto unlock;
+-
+-		err = mv88e6xxx_hwtstamp_setup(chip);
+-		if (err)
++		if (err == -ENODEV) {
++			/* The TAI clock period is not one that the driver
++			 * supports: run the switch without PTP rather than
++			 * failing the whole probe.
++			 */
++			dev_warn(chip->dev,
++				 "PTP clock unavailable, hardware timestamping disabled\n");
++			err = 0;
++		} else if (err) {
+ 			goto unlock;
++		} else {
++			err = mv88e6xxx_hwtstamp_setup(chip);
++			if (err)
++				goto unlock;
++		}
+ 	}
+ 
+ 	err = mv88e6xxx_stats_setup(chip);
+diff --git a/drivers/net/dsa/mv88e6xxx/hwtstamp.c b/drivers/net/dsa/mv88e6xxx/hwtstamp.c
+index 6e6472a3b..847f9dd44 100644
+--- a/drivers/net/dsa/mv88e6xxx/hwtstamp.c
++++ b/drivers/net/dsa/mv88e6xxx/hwtstamp.c
+@@ -72,7 +72,7 @@ int mv88e6xxx_get_ts_info(struct dsa_switch *ds, int port,
+ 	chip = ds->priv;
+ 	ptp_ops = chip->info->ops->ptp_ops;
+ 
+-	if (!chip->info->ptp_support)
++	if (!chip->info->ptp_support || !chip->ptp_clock)
+ 		return -EOPNOTSUPP;
+ 
+ 	info->so_timestamping =
+@@ -176,7 +176,7 @@ int mv88e6xxx_port_hwtstamp_set(struct dsa_switch *ds, int port,
+ 	struct mv88e6xxx_port_hwtstamp *ps = &chip->port_hwtstamp[port];
+ 	int err;
+ 
+-	if (!chip->info->ptp_support)
++	if (!chip->info->ptp_support || !chip->ptp_clock)
+ 		return -EOPNOTSUPP;
+ 
+ 	err = mv88e6xxx_set_hwtstamp_config(chip, port, config);
+@@ -195,7 +195,7 @@ int mv88e6xxx_port_hwtstamp_get(struct dsa_switch *ds, int port,
+ 	struct mv88e6xxx_chip *chip = ds->priv;
+ 	struct mv88e6xxx_port_hwtstamp *ps = &chip->port_hwtstamp[port];
+ 
+-	if (!chip->info->ptp_support)
++	if (!chip->info->ptp_support || !chip->ptp_clock)
+ 		return -EOPNOTSUPP;
+ 
+ 	*config = ps->tstamp_config;
+@@ -213,7 +213,7 @@ static struct ptp_header *mv88e6xxx_should_tstamp(struct mv88e6xxx_chip *chip,
+ 	struct mv88e6xxx_port_hwtstamp *ps = &chip->port_hwtstamp[port];
+ 	struct ptp_header *hdr;
+ 
+-	if (!chip->info->ptp_support)
++	if (!chip->info->ptp_support || !chip->ptp_clock)
+ 		return NULL;
+ 
+ 	hdr = ptp_parse_header(skb, type);
 
-- allow using space reserves when removing verity items fails
+---
+base-commit: 6c096bb08de97cdca051fecddad22cac6a1fd275
+change-id: 20260919-send-net-97aa5653ac48
 
-- fix error handling after free space tree rebuild fails
+Best regards,
+--  
+Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
 
-- abort transaction if reflink or hole punching fails and it's not
-  possible to update the inode
 
-- properly protect block group iteration during device replace start
-
-- error message fixups
-
-----------------------------------------------------------------
-The following changes since commit 09f1294ee2abee7fe1c2d600671498b7642e0fe0:
-
-  btrfs: tree-checker: validate name length for extref items (2026-09-07 18:36:38 +0200)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/kdave/linux.git tags/for-7.3-rc3-tag
-
-for you to fetch changes up to 72de4807ba84da485dda1a91572d66da9149e95a:
-
-  btrfs: derive f_fsid with dev_t only when temp_fsid is active (2026-09-17 19:45:12 +0200)
-
-----------------------------------------------------------------
-Anand Jain (1):
-      btrfs: derive f_fsid with dev_t only when temp_fsid is active
-
-Daniel Linjama (1):
-      btrfs: handle lack of space when cleaning up verity items
-
-Filipe Manana (5):
-      btrfs: tree-checker: print dev extent offset in error message
-      btrfs: tree-checker: fix error message regarding free space extent items
-      btrfs: fix creation of compressed inline extents that don't save space
-      btrfs: abort transaction on failure to update inode for hole punching and reflinking
-      btrfs: check if there is space for chunk item when validating sys chunk array
-
-Guanghui Yang (1):
-      btrfs: clear free space tree creation state on rebuild failure
-
-Hongling Zeng (1):
-      btrfs: take commit root semaphore when iterating in mark_block_group_to_copy()
-
-Johannes Thumshirn (1):
-      btrfs: zoned: handle RAID profiles in btrfs_can_activate_zone()
-
-Qu Wenruo (1):
-      btrfs: add "/dev/root" exception for device path update
-
- fs/btrfs/dev-replace.c     |  1 +
- fs/btrfs/disk-io.c         |  4 ++++
- fs/btrfs/file.c            |  4 +++-
- fs/btrfs/free-space-tree.c | 14 ++++++++++----
- fs/btrfs/inode.c           | 18 +++++++++++++++++-
- fs/btrfs/super.c           |  8 ++++++--
- fs/btrfs/tree-checker.c    |  4 ++--
- fs/btrfs/verity.c          | 18 ++++++++++++++++--
- fs/btrfs/volumes.c         | 33 ++++++++++++++++++++++++++++++++-
- fs/btrfs/zoned.c           |  5 +++++
- 10 files changed, 96 insertions(+), 13 deletions(-)
