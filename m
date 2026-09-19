@@ -1,87 +1,108 @@
-Received: from mail-vs2-f41.google.com (mail-vs2-f41.google.com [74.125.227.41])
+Received: from mta0.migadu.com (out-139.mta0.migadu.com [91.218.175.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24B3C23BCF7
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 03:02:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7667930F7FA
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 03:07:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789786956; cv=none; b=ZsV/cWTly0fwPy2iJcrjoko9EOMOwXBTcC4z3y9A4hzSDFslK93C3wGmIO4NG5pD2qptBezdD37YLxIz7OCE89rKcpcQXPd1E4+ybwTM4TGyrbc43Q9kjWCnvzEnwD37YDPaeBbOnVde3PApQ+8g8H5QtBk2m7VRERdvgX1iByw=
+	t=1789787237; cv=none; b=jLXpqq6K/1D12NtpD2gzOBorLEjHu3G6JZZRAh07f7Ti3/WPfF+SUQhOzg+hbEtwEPhy1UhzruoIdQ4gJ7LFgWKRGyhwyZOJJp7iAU2urcSza2MzJrlgkvIEHJgJlk6r21tsednPiS1+L895kp8S1ewHVZzS7DT8MUDdmiyGGFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789786956; c=relaxed/simple;
-	bh=CYNVK6YC3aZr1149C7YVsi5REhaaHK56J2QkT3Vltk0=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=qo2qH0vZW1HtgDN672nOq8druagst6fhSuvhT6XqLf7aYcKMawd9WAaCFO2M7yipPQDVJ9FsLrkkDda1w6BE22/1jZwN5P/Kp3AqcgouRS7ZbqsMUzqJyf2/kWUhFSsxt9kx2qsk+ZctDlf8cK9JhqPOOHPNuO4oOiZMekkmU6E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=idkmanager.com; spf=pass smtp.mailfrom=idkmanager.com; arc=none smtp.client-ip=74.125.227.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=idkmanager.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=idkmanager.com
-Received: by mail-vs2-f41.google.com with SMTP id 71dfb90a1353d-5c67e512ee5so440016e0c.2
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 20:02:34 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789786954; x=1790391754;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5fzJtigo/7t3PwS7P5np8F8Yh6nRyXPfgoaV8isKaaE=;
-        b=vlSOvN1wib0VlRHLOF5jldV44t28kd/EfmsqdqLoxvEkwRKVKUb2d8K6VMLuxiVV6Z
-         LPgxyUX8eHcJN5Q3GNaHf7iPQlamUAS9wdb2ZGHiq7u7QzrK0S5+sbXoFbYZQ9VjUySx
-         RWTlvLDZh3Wl4ZwVDMEAvKMY62BYn4v4mSduA2cXMlGBMpOMjbcrLAnsvQx2F2erxAVb
-         vjk31Giye5YWGcz5Ol7QcISXREvefvKExGhEbRbR4keVmY4ovcMVqg2TFyq8h0yK3MYl
-         keMYGZGqdpmMSS45lya70l1ONacJZmIlJC6PvjvvzSsEJFqv8WOZTvDQ8/FbdaCt8PP1
-         1Szw==
-X-Forwarded-Encrypted: i=1; AKwUvByqSRIxOPeIL+2c+BaOtD4HX8cbdIEzpJj2gK8mPRrboJM6mvp4eyb0Ie5sDQSr1mokOBDmHRM31rkpofk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lxECCmIJsJURPa8KLaTmOV6xDUEW7GNkfYliuaNKwEkA10MO3I
-	VL2+0xP3r5ckaAzVIL5DUZfcDkb0Z5lnuvSCsa1pOdX0TpLQRPpFyOQZnKAlbr2w1lDO2DJ4UOS
-	dw6SoagPyng==
-X-Gm-Gg: AYBFou00MIpPA7Yykz9oywIEKdCFqFUugVBByudr3jxLFXwsBciQCmEfH/Ql3DJmJYi
-	gEwitf0pxc6QcQfc0BAiEM4fPXZjbfBBYm4apzrkE/dyEVzXTHfsRiH/nrU5Yn56xAN79DLqh8p
-	D1b4SHPou9WnadOLytECjMObjR5cBYSnPb6RH084EOx/Knh05DnwE/N0rZWADfCBCeq6GE55VZg
-	QdWCjNSPUp6YJaUjCjptvQ2CScw7bhogk9fqPNHBXE9VmrRu5R8hXuR8OhVaFTF/NC/L9tkFKiN
-	EPpzlYcXH0st4dSc3qYOOeOMl/i0sl46ScK1gbleVtj1acNzrldCxKYk3PgFekz/grwBbwXGXam
-	qvgU2CTKqnH+1hnnZJjwIYvkSeqZC4j6vf98a9+3P7y4xiGFiSn428n5DDoeg1DvLOWXz4+jAqS
-	4epsyP2siAyapCwFoBo8/Z33sfpx0PGDrYgNdI0rl0YCDXjdw+PGH/K//kd62pqN8ON4SK4/1ie
-	xmdpj5CnIiRWIH2ebpPnWHiPi63zjft0dgyaD+LdbeKnNZoRvtooGc=
-X-Received: by 2002:a05:6102:419f:b0:7a7:198a:c2c6 with SMTP id ada2fe7eead31-7a7198ad3f4mr32603137.36.1789786954039;
-        Fri, 18 Sep 2026 20:02:34 -0700 (PDT)
-Received: from [100.96.0.25] (corp-190-12-36-222.uio.puntonet.ec. [190.12.36.222])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7a6aa41d7e6sm1385924137.1.2026.09.18.20.02.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 20:02:33 -0700 (PDT)
-From: Ing. Alfonso Kuen Arroyo <gerencia@idkmanager.com>
-To: hch@lst.de, sagi@grimberg.me, kch@nvidia.com
-Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
- mlombard@arkamax.eu
-Subject: [PATCH] nvmet-tcp: fix stale comment on NVMET_TCP_MAXH2CDATA
-Date: Fri, 18 Sep 2026 22:02:33 -0500
-Message-ID: <178978695312.43804.1554581215424967584@idkmanager.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	s=arc-20240116; t=1789787237; c=relaxed/simple;
+	bh=mEv5lyTLXjPbg50EKTMVu3qs0TVt6kgprNwgFGaHm1A=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=qqgDPlRwrri1T8Ob1Z1MA4XOz34ICnKYvTZ20dg+tjkZE8woXIAKq0JwTzuCuroRrUq7/FfhmomyA0a5Ls5TMnKNzsmQQzw/Wetw8bFlkp2J57dQeNttJ4gyMLPR3sDz/EBbTaoIzO7rmeqVAiMBnxM0Ve4Tj3+CFnIxQZAgN8g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ifvYuX75; arc=none smtp.client-ip=91.218.175.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ifvYuX75"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=mEv5lyTLXjPbg50EKTMVu3qs0TVt6kgprNwgFGaHm1A=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789787232; v=1; x=1790392032;
+ b=ifvYuX75R8iXE4R5+yLfLclZ9qZ+bvjVAIHDAeAnKmQ23BbiUsuQntm9tt7kYASOT7HVGnDG
+ BbpUX2Jgu5DHYaDau3GiQaR/Srz7I3rgl8+s9Oj1CzXMN5HLcfEFXUysvrs3ZN3RTxSvpeCRccG
+ +5cJFT+QgO9/+mX+Lh5r+mOo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 17c77f7b96f6f559;
+	Sat, 19 Sep 2026 03:07:12 +0000
+X-Mizu-Trace-ID: 17c77f7b96f6f559
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
+Subject: Re: [PATCH 3/4] memcg: manipulate memcg private ID references by ID
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20260918-bingfangguo-memcgid-rework-v1-3-5bbf3220d88f@tencent.com>
+Date: Sat, 19 Sep 2026 11:06:49 +0800
+Cc: Johannes Weiner <hannes@cmpxchg.org>,
+ Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Dave Chinner <david@fromorbit.com>,
+ Qi Zheng <qi.zheng@linux.dev>,
+ Kairui Song <kasong@tencent.com>,
+ Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>,
+ David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ Bingfang Guo <bfguo@icloud.com>,
+ cgroups@vger.kernel.org,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <90F1D900-0756-4A33-AEB9-5554D646DA57@linux.dev>
+References: <20260918-bingfangguo-memcgid-rework-v1-0-5bbf3220d88f@tencent.com>
+ <20260918-bingfangguo-memcgid-rework-v1-3-5bbf3220d88f@tencent.com>
+To: bingfangguo@tencent.com
+X-Mailer: Apple Mail (2.3864.700.51.1.1)
 
-The constant is 0x400000, 4 MiB, but the comment next to it still says
-16M. Noticed by Maurizio Lombardi while reviewing "nvmet-tcp: report a
-bounded MDTS instead of "no limit"".
 
-Signed-off-by: Alfonso Kuen <gerencia@idkmanager.com>
----
- drivers/nvme/target/tcp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/nvme/target/tcp.c b/drivers/nvme/target/tcp.c
-index e598101..726e05b 100644
---- a/drivers/nvme/target/tcp.c
-+++ b/drivers/nvme/target/tcp.c
-@@ -23,7 +23,7 @@
- #include "nvmet.h"
- 
- #define NVMET_TCP_DEF_INLINE_DATA_SIZE	(4 * PAGE_SIZE)
--#define NVMET_TCP_MAXH2CDATA		0x400000 /* 16M arbitrary limit */
-+#define NVMET_TCP_MAXH2CDATA		0x400000 /* 4M arbitrary limit */
- #define NVMET_TCP_BACKLOG 128
- 
- static int param_store_val(const char *str, int *val, int min, int max)
---
-2.53.0
+> On Sep 18, 2026, at 17:18, Bingfang Guo via B4 Relay =
+<devnull+bingfangguo.tencent.com@kernel.org> wrote:
+>=20
+> From: Bingfang Guo <bingfangguo@tencent.com>
+>=20
+> This is a preparatory work for moving memcgid from memcg to objcg.
+>=20
+> Swap entries retain a private ID rather than a memcg pointer. Once
+> private ID references are moved to objcgs, the ID can also outlive the
+> memcg to which it was originally assigned.  So it's better to make the
+> get and put functions accept the ID itself instead of the memcg.
+>=20
+> Rename mem_cgroup_private_id_get_online() to
+> mem_cgroup_private_id_get(), and make it return the ID only.  If the
+> memcg is already dying, the dying memcg will still be used for =
+charging
+> and stats accounting in v2 swap charging path. But they are =
+hierarchical
+> and will be reparented after offlining so it doesn't matter.
+>=20
+> Make mem_cgroup_private_id_put() take the ID and resolve the reference
+> holder internally. Convert swap uncharge and charge rollback to =
+release
+> the reference using that ID.  This introduces an extra xarray lookup =
+for
+> now, which will be removed in the final patch.
+>=20
+> Separate the online-state reference release into
+> mem_cgroup_private_id_kill(). The offline path already has the memcg
+> pointer and can call the underlying put helper directly.
+>=20
+> Signed-off-by: Bingfang Guo <bingfangguo@tencent.com>
+
+With Shakeel's suggestion.
+
+Acked-by: Muchun Song <muchun.song@linux.dev>
+
+
