@@ -1,95 +1,195 @@
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f10.google.com (mail-ej2-f10.google.com [74.125.228.138])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A8342F1FE4;
-	Sat, 19 Sep 2026 16:31:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789835482; cv=none; b=lmnwXbBZgSlM5XyvIZ4xSttu55bIpMkGe7PFA1Jelln7OVngpl4JKRX/Jb3CcVWbHN0v8n65C+ZgLkm0nSFTnWrLt1shJGLdIz8cHqByn0RUJICS/aOZ+UI96ta1CCBhTbLS/hP2stRzzE4NdV7A4WrUeXqy2UlJP2J7VqA8uoI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789835482; c=relaxed/simple;
-	bh=QEydRVe7szFnjbjMs68m3tM6OpM7LpIPSA3ouOsDKNc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=MGeuVSqfq5JeIkfFnKRd39IW1i5GqZxe6nw6t8y0SgJVPdXRHFW0+mTBTIdWW0Ou3+XWGu2tr65Am2OlleXhcq57rMJam1ETjQqpuB7VS0mIfYIFhwflccd7oJLEdh6WOlZ7U51PXZ1p3nG41kM5nFNN8QL1b3MiGnCiHMWQ46w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn; spf=pass smtp.mailfrom=tju.edu.cn; dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b=H6nHROhR; arc=none smtp.client-ip=45.254.49.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tju.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5207E37F006
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 16:31:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.138
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789835511; cv=pass; b=pdmQCoUEvIPIvipjjgTMQMRXwiPtVoZNg7VgwFpRlhwSsmtilkbLRnFwn/3jK1XogtaWgLvPjt5aWent+Z/EvCTdDF0GpNcu7JM7SRPGSe4yhTZe4vw1BC9PTKOaVZRyraFjQfDyqZAwLvb9U9qvfvbS8CXkUI7Exa2+NRxv/fY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789835511; c=relaxed/simple;
+	bh=FoBb+MCNrssOL4O5BLzYqYW9vzpXkaseLuESacaKWDE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cf8x0WF1hLBIbolf8lqxpVZZfA1id31mRpOEzqHFNQMy2xZMuPai4JhvClGHnYl0yYbBD0zA5Fq3xHd6gzh2/j4yZ0lhpyd2o7biqDe8VG3FRTMSnXNhR2JhHwREDRQH5CxSXeFdfhL8/x2bbfnuUbkwKDBEXAmeTdHEdjE7x0U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YU/fQkKx; arc=pass smtp.client-ip=74.125.228.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b="H6nHROhR"
-Received: from tju.edu.cn (gy-adaptive-ssl-proxy-2-entmail-virt205.gy.ntes [183.242.150.9])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4e612fa0e;
-	Sun, 20 Sep 2026 00:31:09 +0800 (GMT+08:00)
-From: Yibo Tan <lhfff@tju.edu.cn>
-To: Stephen Boyd <sboyd@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>
-Cc: Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Elaine Zhang <zhangqing@rock-chips.com>,
-	linux-clk@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v1] clk: rockchip: Unregister notifier on multi-PLL registration failure
-Date: Sun, 20 Sep 2026 00:31:06 +0800
-Message-Id: <20260919163106.1833104-1-lhfff@tju.edu.cn>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YU/fQkKx"
+Received: by mail-ej2-f10.google.com with SMTP id a640c23a62f3a-c2142244006so19964166b.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 09:31:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789835507; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dNL5zeUe2PanmaRNRKdnKvGjcKt3T4XWxecWum8iE4CBMUZE+U2RoxfXc5/vnGvUoL
+         zIMnc7RL68z9JK14IJOFax4cu1LA9h4oMNYKmV6f+g5wk8uZv2hJVGYiUWL3k3HID5U6
+         zLWFthSovGhIZZ2LtIN7DV/TSVZZfamM1b612MeEWEyt21p9IfGjpmwe25ankSn+vtCM
+         ogk2sAtXllQXt1UVebwx46gaxD63OJuDuojMqW2ifi0SUUQstRQB5S9EmxGMXVDnpNpT
+         lUAFmu29IMb8ctRHQDduLv1JvNbf0dQNRW3ke6Y3i5UoQuxoNWrNPY/DtkPM2Dn4RAql
+         sBig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=FoBb+MCNrssOL4O5BLzYqYW9vzpXkaseLuESacaKWDE=;
+        fh=hQprzNHlpRSuTmf+kXxQv82zhN3V82sY8CzhT9cuyLc=;
+        b=g1dc4zczaiHyyVq5wjX5JaWvad3T72erwIXaTyuRtE40ieArB98CJvoFZouuzWGbad
+         58v0isWxlyocR3hSyQXj47n6s6+JxqpxZfCCBNJcNNw2jA19B307U2+h5a6v0b3At69A
+         qoD6MfRUage/zHV3MeyxOCZ5dsHTIt3bN6vIOPHlsJCYsuywH3sUuH/9GOPyEU2DWuX1
+         SpI10aT7OvcMB1VeNXPzY07iry4AC3iv2bcEZ4iyr6qcpcyvXrPPn855HTp5GAm8bwL2
+         WKheb4L+haHfR/Hbst0ryZqja+qA+Co3tQw2T5CB1L1/1NJ4ilCRVR8otWKs8YiZNvm1
+         qy7w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789835507; x=1790440307; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FoBb+MCNrssOL4O5BLzYqYW9vzpXkaseLuESacaKWDE=;
+        b=YU/fQkKxZBFfeuL0PGdGq3LjQ+oGDTtEzHOZ+0rIHnMzsi3vSc+JT71del9bTYy/rz
+         LJgUNA+YIQilqfvSwJ6pMO+lgpF2PF3ATJkf94+9Tq2yPN/q+dJRpbxW/ofuRWocity3
+         8bRmBK0OTDng+YWqpxdHepX/eWrG4XA9YlfRQiuxuwJiHcGujv5pwoaORG8QKcn2Xfqm
+         BMMJwGKf1UO/pyNN+Y1iDoJj0bA0pXTKS2Z6bw4XmTKruwb6CXNMhdO5vSfZzU3ZDKSa
+         inIvUdTWW6VjOLu2LwdFeatX90srS/r6fpmUiV0LaDtpqlIIwp4W+S2ghJih+HMd44j6
+         0rCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789835507; x=1790440307;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FoBb+MCNrssOL4O5BLzYqYW9vzpXkaseLuESacaKWDE=;
+        b=HZj6kKC6OjVh641uI07v2zhOAxl2wwYOhUZJnDW7728OUoDN/eAEK2qP5cu5qbTdw+
+         8X/HCjQazzxD3MLcXx0waduhDNDtqLLOKDk/OXIAywRJSI/qVoarRkLXA43/ZK/iXfg8
+         9xJDNulvyokBVU3HH5auvUnA0o5ksqxZrkydvl3E5oONb2wm44ck7Bth+dV1SQOgownz
+         LNaa3ibSGbA3gIIURlJYEPEKC8uOi0Co19/HE9ClNYMTwd+RmDMsk0a0lzRPYhMIRfXJ
+         OMYx5FJEiWopYOf0kA1PRgwSgroYK9udOknRGraWmcmE2EZJXdsqaPiNTV7Ft0tTF8/W
+         WpzQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw0eJZohaZPm/tcBPkUSvgFJ5k+z7/Lp4JmSkFMVFSAkfZUCzrjm8nADD0LuRK4CClENcAZUsf+sfzTVgM=@vger.kernel.org
+X-Gm-Message-State: AFuF++k9bqguzhSQu82/4NV86BeDQGaoCb/epGdgeWkmwndxuy5bbiYY
+	+XjzscsfxC9tq8r2PEWs9zHdruN9W4HAGwdOGaZ6Hsmi21kswT5akeKFiO2rpie3dpxVuYDwIqf
+	/h3rNWas9j3oizwYaBjEPKYTGQy0hKag=
+X-Gm-Gg: AYBFou23jMNYBStF3BM5Oa1lQ3N/sd4xpm3xfUAHR3KbkAvAk2gKtzMvRxe2RUSSb/3
+	YIcSZT8QsG76cEtvPz3zhq3ZEN7KV2ghVve651TcqQZYXe3Tld/hmrsIzdPWqlsTwxUPck90Yq2
+	Li3UNDz0RbXQfhKp7oYZtrn+WDiOqoe6E69Py6vChC63CR38mejToj/iHeMFOhG3BfYl52FuDLn
+	VkJprK9foAEa/K809nrBDb91u9C+qFVRMafgEWgHeUxK/zzw7j8a+oB7cr60wSMUSvPiyx/I7uC
+	2qMVi9N0RO0XqHsNJvScvM75yi2KwuoOD/mt9pMMBbzTWp56MH+JY044Pw==
+X-Received: by 2002:a17:906:2099:b0:c29:c575:de84 with SMTP id
+ a640c23a62f3a-c2a164422b2mr337838566b.8.1789835507327; Sat, 19 Sep 2026
+ 09:31:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0ba81e1be03a1kunm005bdd813f1226
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDHUJIVkwYSR5DSx4ZHkMeSFYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKQ0hVSU9JVUpOS1VCWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
-	NMVUpLS1VLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=H6nHROhRofFAqw6rSvIplm54SpLReIPjjZj3lPrj21YcJeIITjbW9yxWmgHWlFTnMvPaVnVM9228CCZp8gR5vRqSYIO0dCQty1I8FwdZcEj9TX8t9ZrH2g5iE1mW/mry9q9XXdMYVkON3lMgZrRx0U0MHiTVjO3zu5F7CrRNXAc=; c=relaxed/relaxed; s=default; d=tju.edu.cn; v=1;
-	bh=JMEurOe9ZHBP9Lzs52oCdL3QD0lTBynnDeFDQ6wWGQc=;
-	h=date:mime-version:subject:message-id:from;
+References: <20260919-s32g_serdes-v3-0-9d68868c1e89@oss.nxp.com>
+ <20260919-s32g_serdes-v3-4-9d68868c1e89@oss.nxp.com> <6aabb56e-406f-4d13-9fd8-54822202039f@bootlin.com>
+In-Reply-To: <6aabb56e-406f-4d13-9fd8-54822202039f@bootlin.com>
+From: Coia Prant <coiaprant@gmail.com>
+Date: Sun, 20 Sep 2026 00:31:35 +0800
+X-Gm-Features: AcwNN1VbQyHS1-cJU3SdJ4oOQkYk_cjiBlklhRFTetXHOgzYOSwzbp6stXuvGvc
+Message-ID: <CALj3r0g2FtxRRUDnG80SZJGSbpyBekTkd0R1ek-z-1h-d830ig@mail.gmail.com>
+Subject: Re: [PATCH RFC v3 04/12] net: pcs: add NXP SerDes XPCS shared core
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: jan.petrous@oss.nxp.com, 
+	Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>, NXP S32 Linux Team <s32@nxp.com>, 
+	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Bogdan Hamciuc <bogdan.hamciuc@nxp.com>, 
+	Ionut Vicovan <ionut.vicovan@nxp.com>, Andrew Lunn <andrew@lunn.ch>, 
+	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+	Clark Wang <xiaoning.wang@nxp.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Chester Lin <chester62515@gmail.com>, Matthias Brugger <mbrugger@suse.com>, 
+	Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Richard Cochran <richardcochran@gmail.com>, 
+	linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org, 
+	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	imx@lists.linux.dev, linux-pci@vger.kernel.org, 
+	linux-stm32@st-md-mailman.stormreply.com, 
+	Vincent Guittot <vincent.guittot@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-rockchip_clk_register_cpuclk_multi_pll() registers an embedded notifier
-block before duplicating the rate table. If that allocation fails, the
-error path frees the notifier owner and unregisters the watched composite
-clock without removing the notifier.
+Maxime Chevallier <maxime.chevallier@bootlin.com> =E4=BA=8E2026=E5=B9=B49=
+=E6=9C=8819=E6=97=A5=E5=91=A8=E5=85=AD 23:31=E5=86=99=E9=81=93=EF=BC=9A
+>
+> Hi Jan,
+>
+> On 9/19/26 08:54, Jan Petrous via B4 Relay wrote:
+> > From: Clark Wang <xiaoning.wang@nxp.com>
+> >
+> > The SerDes subsystems found on NXP S32G and i.MX SoCs integrate a
+> > Synopsys DesignWare Ethernet XPCS and an Ethernet PHY (PMA) with an
+> > identical register layout. Only the register transport differs: indirec=
+t
+> > memory mapped access on S32G, Clause 45 MDIO on i.MX.
+> >
+> > Add a transport agnostic phylink PCS core which operates on regmaps
+> > provided by the platform glue. It implements the phylink PCS operations=
+,
+> > the Clause 37 SGMII / 2500BASE-X / USXGMII / 10GBASE-R configuration an=
+d
+> > link state handling, soft reset and polling helpers, and the common
+> > feature sets. The platform specific register sequences, compatibility
+> > tables and quirks are supplied through a per revision descriptor by the
+> > platform drivers selecting this core.
+> >
+> > The register sequences and the feature lists are derived from the
+> > Synopsys pcs-xpcs driver, so its copyright is retained. A separate driv=
+er
+> > is needed because struct dw_xpcs is built around an mdio_device and own=
+s
+> > the transport, the reset and the identification of a standalone PCS,
+> > while here the PMA can be shared with a PCIe controller, the bring-up i=
+s
+> > sequenced across both XPCS instances by the SerDes PHY driver, and the
+> > transport is not always MDIO.
+>
+> Is there a way to avoid code duplication by wrapping the accesses into
+> a mii_bus ?
+>
+> This is what the Rockchip submission does :
+>
+> https://lore.kernel.org/r/20260919125119.2107089-8-coiaprant@gmail.com
+>
+> Maxime
 
-The common clock framework retains both pointers in its global notifier
-state. A later rate change walks that state in __clk_notify() and reads the
-freed watched struct clk before it can compare the clock core. The notifier
-chain also retains the notifier block embedded in the freed cpuclk.
+Hi Maxime,
 
-Unregister the notifier before freeing either object. This mirrors the
-rollback already used by the adjacent rockchip_clk_register_cpuclk()
-helper for its equivalent post-registration rate-table allocation failure.
+The Rockchip approach (wrapping MMIO into a virtual mii_bus and reusing
+pcs-xpcs.c) is indeed relevant here. Alex Elder's pcs-xpcs-regmap does
+exactly that for the TC956x: it registers the XPCS through a regmap and
+creates the virtual MDIO bus internally, with both direct and indirect
+(page viewport) access modes.
 
-With controlled allocation failure injection, a later rate change produced
-two KASAN use-after-free reports in __clk_notify() in each of three runs.
-The same three runs completed without a kernel diagnostic with this change.
+https://lore.kernel.org/all/20260605010022.968612-4-elder@riscstar.com/
 
-Fixes: 826eaa8f5bac ("clk: rockchip: Implement rockchip_clk_register_armclk_multi_pll()")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Yibo Tan <lhfff@tju.edu.cn>
----
- drivers/clk/rockchip/clk-cpu.c | 1 +
- 1 file changed, 1 insertion(+)
+The indirect mode is very close to what S32G needs. For i.MX the C45
+MDIO transport is different, but the bus wrapper could still be shared.
 
-diff --git a/drivers/clk/rockchip/clk-cpu.c b/drivers/clk/rockchip/clk-cpu.c
-index eb6b8b878..2de7f2b4f 100644
---- a/drivers/clk/rockchip/clk-cpu.c
-+++ b/drivers/clk/rockchip/clk-cpu.c
-@@ -544,6 +544,7 @@ struct clk *rockchip_clk_register_cpuclk_multi_pll(const char *name,
- 					     GFP_KERNEL);
- 		if (!cpuclk->rate_table) {
- 			ret = -ENOMEM;
-+			clk_notifier_unregister(hw->clk, &cpuclk->clk_nb);
- 			goto free_cpuclk;
- 		}
- 	}
+That said, I think there is a broader gap in pcs-xpcs.c: it hardcodes
+behaviors that vary between integrations. RK3568 cannot use out-of-band
+SGMII (fixed 125 MHz MAC clock), so its in-band caps should be
+LINK_INBAND_ENABLE only. Today that means editing xpcs_inband_caps() or
+duplicating it. NXP is hitting the same kind of problem with soft reset,
+poll and EEE quirks.
 
-base-commit: 04721208427536c0f70db0efc5362c7f5a4997c9
--- 
-2.39.5
+A callback in dw_xpcs would let platform glues express those differences wi=
+thout
+copying the register sequences. That's the same pattern stmmac uses with
+plat->pcs_init/pcs_exit.
 
+Once that callback mechanism lands, I'll send a separate patch to wire
+it up in pcs-xpcs-rk.c. Since the Rockchip driver is not even merged
+yet, there is nothing to change there for now.
+
+Coia
