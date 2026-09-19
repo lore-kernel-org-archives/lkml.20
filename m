@@ -1,70 +1,72 @@
 Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B16E1E7C18
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 19:23:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DABA42EEE96
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 19:24:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789845821; cv=none; b=jaUW9PQu+DSrdLFmrxp6jGjrM/NU/wTYVSIUdmCZ4HT4kYHTMczoyTIiM0iOUR7EdMRHI4vU2R+Z4wzjP8z4DUyXF9FioTHYb51fhIJ37FWyVhmtUnToZbia8SI1aHRQdp0rs1Ua0zLCQvxN4c/p+IfIYTnosICONJMdlbCaLew=
+	t=1789845844; cv=none; b=rVlK4QAdcnmFW5+QzcuPve9kZyaB+FC7j/c3fRyr5+uKgwZB7Q3cihh4D+ZuMfGEYO5HNfzE2HPPyyvVYHXhhON/K3EJNeg6JBA7is41eN+4JAZFmfoEk3Lch3yv8B9L1JJ942TYPIqI2bW02sEC5UbemdvZKoJ8SwmMsinsW0w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789845821; c=relaxed/simple;
-	bh=IKuWsaJY5APoPhOYXNrJ6Ofun/XWfkcoHsBrnE7/6MY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D8v+o9FedIpJBjhtyAnMpsKew/BMZsSrdQOSZ7Vyn1UmlKqFluL6ppfwYbTEPEe/dk6P2gPCqP3VjgvJxF0MNVnGzY7jhu16BhxmBvugf7WDJY5QTny/Sgd/OqRBEdqdqqadQzGE7I8RnUC5etbWzUiWr/KwEuMVNbG13VyN4FE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aGJIvyyS; arc=none smtp.client-ip=74.125.225.141
+	s=arc-20240116; t=1789845844; c=relaxed/simple;
+	bh=Zy7ASpqhFt5c+INfQRNFAal3t298cDaPiH4RumhTKTA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TNlc1SKsdCL7yy5HEmBYG5TN6G3kdk7SVTvQpOk4ll7u5HEMJrPRG9UtM05xuFkmU6h2QSatq41icpvhyB9nNRLrVlkgH5sibE0vu0Pt8w7zz+N0bB1z64BgeUy1QUYrEibL4TrJxc43TgX3bkG4WyW+Ay06NHekpRtS6kz6460=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eqkx4KAS; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aGJIvyyS"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e79a408deso9913535e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 12:23:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eqkx4KAS"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cc9f581c4so6875335e9.0
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 12:24:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789845818; x=1790450618; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789845841; x=1790450641; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XuolRd2+0mj4vgNgJerFOuLLsbSMUrRswx//2/7gQLo=;
-        b=aGJIvyySCLGqesumKpez62Bc9Ffyfiqbq95DF6mxOnh9MFtaFU1RTSDccxrpfgtQjx
-         VVzUbOcf2AXGnVqpp8MBfZgPKpsTu9N7okR1Bfkl9s/mVWL95R3J3QvAuLF155TH//YJ
-         rREZYC91wszoRWxrJt3fA+S5xdEQShCG08/NVwUth0wdnAy/HxgA9j8Axw3FERMe68l7
-         WiJHbq7yjuXQ4CqhZq2F4VwJRKxtBVBwEkkTyivqOXBZCCKBZYwEz750wAFHY6pf1Wrm
-         wlcyfm3mEaAFm7fOz4fwJdhcDXAOP62Zv7NlBbrOjR/4xo8Iesp1Bsx/s8AV2ahMGYKT
-         c+YA==
+        bh=8VITylu1cym2OHkrOqz+VmhrGBWx+8zb7FdhaZzSZCQ=;
+        b=eqkx4KAScUMwDBSTbTemYTsTVLtFSLogB+L+4euztImj/ane+s7h0JVhKN06RA4IQK
+         410p34af8oKIHO5EVQy2Duze12Rm4+rtoH4CmCjzG292mqe+8Dfj9P/E98dvXz0+2Mrj
+         k9bLcLrI3Hc1LBkB1LKFhTBS1DVnKNl/f8laBPdGnHBZIazUIzHO41QEI/BbVKC8U2nx
+         I0X3vZLCIP9g1TDXuWKwWo6wwvv03QmFkBKhw+SNKtaQAFBHgXLNYk62dl0Xnz6qEanm
+         vOM4Hyk9YI4VGVQj1V+vGPtjLuSjM/rFPQ/6Smi6FvHRbNrpWi/Bu8zzo5FpPiLeiUn/
+         432Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789845818; x=1790450618;
+        d=1e100.net; s=20260707; t=1789845841; x=1790450641;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=XuolRd2+0mj4vgNgJerFOuLLsbSMUrRswx//2/7gQLo=;
-        b=n51OaaWFZLo0Prez9Dy5unLUuTInfO6QltPKqLJ2dfrsGuEvZAp15pv0PU3shcDxEG
-         8Ab+TwVW98Ka+jfz8A6U899H88PEZ1DHreE9A3by/CYZipKxbQoHMUq9TvZOZuYjgZHf
-         SnHWylas+mClLYTQTiKSZGjXiGH0Nnxt6vpEUJK7N9GuHE8ziDMsGO1rjrCrh7qByx0e
-         JtAYFEtMEpP1u3IsLKWya2bseRMc85AcVDdDKkT8XYgKJNzy2S9jvIRA5OtwzbEVzTdM
-         nye02m11mMEP5y2k4JWKMEuqdqbGN6m7hqqKqiHTR4IfRcxuNELGNrJXQIdkIXGS/Qqd
-         1naw==
-X-Forwarded-Encrypted: i=1; AKwUvBz/t1b9ssFZHc/AMNSl/RPgkWMdCkmKwsPyJG64GbFZhc2BKEJEzuQdGfEBMhQPzzF24MuliCPls/XXi1M=@vger.kernel.org
-X-Gm-Message-State: AFuF++lQNsadBou/OYxUpLMQdu5g5RKr2VIq8e6CXiNE+Os373Rrz5dB
-	KvR+ijRXIghl1PkvUZ05UMdG4XkRICRiQBwe6NFD0cJhQkh5PYIU1781
-X-Gm-Gg: AYBFou3k2vCyEka4f8D9qBtQeOyOmU066IsEDLfB9f0DZAkaUsKnvUOYfa1gXDnvX0u
-	6mC+hmqppdRBnc4903ItQcvyw+YeDhh3j35aEfXeDsElyhtwQ+WewS2BgmMw52qDedGqPaGKgzl
-	AM3Zq+F1xVImKHWBU1tleO537iky7rbrxDt857y4EVMG+Mm+SEsQW1iS5PwiDMVfY6nR+/u3gZ/
-	SS9cbdXU1S/POvIc4Z6RBo29qG0qXtNZI59jQTX1rwNo0/6z6eOSteK0zwcvSGNn+hQuMirpiGp
-	gZDn4oVWfwzN90KBlRrbKQ1HDW9MRil++Er7RzSfO5XA4IGd3dv0bOimjiAkDHnpxnxOlKNKAec
-	BdG7m9XJGj+sBPvRVbwm+cjvqrLCdI0gpSgE2EIv/c2TN3/EwR1Pa3VdsaB22/vG/f89gHjNFJ9
-	T+FX8SHD3VpVyRBQ4+IBv8aw6337egbnOzpHs7WjdZoHL7e7vMWzi/aS/fb/xl4nO5stDmhDIr+
-	47Qqn/jAnbhIC0WgZXVyk+XPJI/ArubPGPretIB+enW5ZiytH8WEssgCDzOGQ==
-X-Received: by 2002:a05:600c:4e53:b0:49e:715e:ec1f with SMTP id 5b1f17b1804b1-49fc5757378mr86320335e9.30.1789845818264;
-        Sat, 19 Sep 2026 12:23:38 -0700 (PDT)
+        bh=8VITylu1cym2OHkrOqz+VmhrGBWx+8zb7FdhaZzSZCQ=;
+        b=StvE0cW4Dp2VP8o7XVP6RA+mDFo7oEqI65wFT2btqJIwUZXPIm0vUwjZ7mvOtNLG6I
+         FdixagHPP60PXPiIyhIG3tnjecQvggvzBQ5T0VXmr1wR2gqeYTzjjsjkpHJWnHdULyWT
+         xrlyufR9BGnrqVE57Ypkwz0knSMMp2M1m1h6cthMELsBd/DjxNBC1oXdbs6Q2TEBKLXu
+         DujQSIMWmzajBPAYLEHFZa1st/t7va2hnrr/fFBbf8SPeqNKgczhPygCA5FQv3NDRocx
+         UjA/aZri7i3E6sftZFnqjjoWiTJUu2xhUuZgXHYAKA4Idhqe3rBrkbKeZ7NbOK+mrzcU
+         O1/A==
+X-Forwarded-Encrypted: i=1; AKwUvBzgYWOOiCAZYjkJz5nIK9xttwVVDSJ7apJBx3hnqg3kH3LW5wwr0l4kFWetm4GTFNHykJnLQicb06FfCr4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kWw2K1ckf4HfUhZLKNhekQI0RjOOx3C/uhLWQTU5iptw8OFFck
+	VSXaq316TWueCpLb7C37XJsjZCRCPYB7Nr/1AnXY0Dg7zfkoZTnIgr3T
+X-Gm-Gg: AYBFou0EI9H4ATmV6Nn6A85J4BUqgQ51ewrCwSHNeDZFw9DokNHt7Vxg+uiO70BcYpF
+	IX1o1YqJAzVbwQSFA68aF+kZmYKi7s29QThFajRcekWWblkdbUUwV81VI0e242OaZzgvuTSTo+M
+	fIBk+XoxTiETdvNOt0noQ8E0I2+86wL10MpTbLV7QrEonf07Pf+b3hOTMOoD7Zr58JZt2SrWCaE
+	yHVy1Ake2Tt9IF0x7X7fHQ/pcEL83d6VEwp4KS4wXHMLvuJdxKciE5R7U6qbQnujE8Zj15cWr3U
+	6m++87DaupD3GbYUeAEU5ROaL5pDiIBZQRY3ExkRIsrlYOQ/37MgimLXSGFkW8SsjAO3c5OFj4P
+	k8mYW9x3ri+4rLVpNYl0npvGdiaeRxF4ESPiBw4A/UcHryhZ4CoLN4tTiTZJMJb9gTEx76Lo/fe
+	OXMpC8s2oZz1EsDzJ2H+8qxjZtFByoKAyh7hluePF/IW4gT+H5JC4XPEUH7uL//KurfcV8KDI21
+	yaEGpovrUdgxRGnV22kl7V2r31aTPfAE5zEdAeYVSSiaiFpHDr8
+X-Received: by 2002:a05:600c:83c9:b0:49c:f13e:e4d with SMTP id 5b1f17b1804b1-49fc4ff402cmr91842905e9.10.1789845841098;
+        Sat, 19 Sep 2026 12:24:01 -0700 (PDT)
 Received: from fedora ([202.47.63.86])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4872456325esm9213088f8f.15.2026.09.19.12.23.36
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd0f7e05sm100096265e9.4.2026.09.19.12.23.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 12:23:37 -0700 (PDT)
+        Sat, 19 Sep 2026 12:24:00 -0700 (PDT)
 From: Muhammad Bilal <meatuni001@gmail.com>
-To: mchehab@kernel.org
-Cc: linux-media@vger.kernel.org,
+To: gregkh@linuxfoundation.org
+Cc: jirislaby@kernel.org,
+	fseidel@suse.de,
+	linux-serial@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Muhammad Bilal <meatuni001@gmail.com>
-Subject: [PATCH] media: dvb_ca_en50221: bail out of write loop on non-positive fraglen
-Date: Sun, 20 Sep 2026 00:23:29 +0500
-Message-ID: <20260919192329.272325-1-meatuni001@gmail.com>
+Subject: [PATCH] tty: nozomi: lock tty_icount reads against the IRQ update path
+Date: Sun, 20 Sep 2026 00:23:49 +0500
+Message-ID: <20260919192349.272409-1-meatuni001@gmail.com>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -74,36 +76,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-dvb_ca_en50221_io_write() derives fraglen from sl->link_buf_size, a
-value negotiated with the CAM in dvb_ca_en50221_link_init() and only
-ever clamped on the high end against HOST_LINK_BUF_SIZE. The loop
-guards against a negative fraglen (link_buf_size < 2) but not against
-fraglen == 0 (link_buf_size == 2 exactly): "fragpos += fraglen" at the
-bottom of the loop then adds zero, so fragpos never reaches count and
-the write() never returns while a positive count remains to be sent.
+receive_flow_control() updates port->tty_icount.{cts,dsr,rng,dcd}
+while interrupt_handler() holds dc->spin_mutex, but ntty_tiocgicount()
+and the TIOCMIWAIT snapshot/compare loop in ntty_ioctl()/
+ntty_cflags_changed() read the same multi-field struct with no lock
+at all. A concurrent update can be observed mid-copy, and KCSAN flags
+the unlocked access.
 
-Treat a non-positive fraglen the same as a negative one and stop
-fragmenting, consistent with how the existing check already handles
-link_buf_size < 2.
+Add ntty_get_icount() to snapshot port->tty_icount under
+dc->spin_mutex and use it at all three read sites, matching the lock
+already used on the update side.
 
+Fixes: 20fd1e3bea55 ("nozomi driver")
 Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
 ---
- drivers/media/dvb-core/dvb_ca_en50221.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/tty/nozomi.c | 19 ++++++++++++++++---
+ 1 file changed, 16 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/media/dvb-core/dvb_ca_en50221.c b/drivers/media/dvb-core/dvb_ca_en50221.c
-index 1b91ebb8f667..9131f62c1258 100644
---- a/drivers/media/dvb-core/dvb_ca_en50221.c
-+++ b/drivers/media/dvb-core/dvb_ca_en50221.c
-@@ -1487,7 +1487,7 @@ static ssize_t dvb_ca_en50221_io_write(struct file *file,
- 	/* fragment the packets & store in the buffer */
- 	while (fragpos < count) {
- 		fraglen = sl->link_buf_size - 2;
--		if (fraglen < 0)
-+		if (fraglen <= 0)
- 			break;
- 		if (fraglen > HOST_LINK_BUF_SIZE - 2)
- 			fraglen = HOST_LINK_BUF_SIZE - 2;
+diff --git a/drivers/tty/nozomi.c b/drivers/tty/nozomi.c
+index ed99dbc9f990..4b2e224c0aa2 100644
+--- a/drivers/tty/nozomi.c
++++ b/drivers/tty/nozomi.c
+@@ -1671,10 +1671,23 @@ static int ntty_tiocmset(struct tty_struct *tty,
+ 	return 0;
+ }
+ 
++static struct async_icount ntty_get_icount(struct port *port)
++{
++	struct nozomi *dc = port->dc;
++	struct async_icount cnow;
++	unsigned long flags;
++
++	spin_lock_irqsave(&dc->spin_mutex, flags);
++	cnow = port->tty_icount;
++	spin_unlock_irqrestore(&dc->spin_mutex, flags);
++
++	return cnow;
++}
++
+ static int ntty_cflags_changed(struct port *port, unsigned long flags,
+ 		struct async_icount *cprev)
+ {
+-	const struct async_icount cnow = port->tty_icount;
++	const struct async_icount cnow = ntty_get_icount(port);
+ 	int ret;
+ 
+ 	ret = ((flags & TIOCM_RNG) && (cnow.rng != cprev->rng))
+@@ -1691,7 +1704,7 @@ static int ntty_tiocgicount(struct tty_struct *tty,
+ 				struct serial_icounter_struct *icount)
+ {
+ 	struct port *port = tty->driver_data;
+-	const struct async_icount cnow = port->tty_icount;
++	const struct async_icount cnow = ntty_get_icount(port);
+ 
+ 	icount->cts = cnow.cts;
+ 	icount->dsr = cnow.dsr;
+@@ -1715,7 +1728,7 @@ static int ntty_ioctl(struct tty_struct *tty,
+ 
+ 	switch (cmd) {
+ 	case TIOCMIWAIT: {
+-		struct async_icount cprev = port->tty_icount;
++		struct async_icount cprev = ntty_get_icount(port);
+ 
+ 		rval = wait_event_interruptible(port->tty_wait,
+ 				ntty_cflags_changed(port, arg, &cprev));
 -- 
 2.55.0
 
