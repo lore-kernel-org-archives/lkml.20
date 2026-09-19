@@ -1,153 +1,114 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FCA4145A1F
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:44:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789829085; cv=pass; b=GJJUMRnruoURjI3BoaadFdArEGw8XOg99/X+d83YR35QVck6H57QgL+o+9hP+zzIia7Y099posm34/EfNxLNYD6tCzRss0ceaEckjF7uQ3qUGdbd6e40IaA74pPglTqMIJo62OaZK7N3CGTDO5s2buEASKaiXsjAU717WjZKvgU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789829085; c=relaxed/simple;
-	bh=SEEDrnoYh0mOnGCpCP8AW5s7jRnMWmh4+4NV544y7SY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=S+mMLz0HJZh4UfKka/w1M8vd9RF3REkqXTt2LicOzM86MSauh7QiP3jggE2vlhsPDHXWowXUTi9zFHDzypmdMFD3Hqlskl+KMIHK/L/hUDuVUbrOkFiU7o57i23ShfZ9MbPRWeEGz9AxFbiq/JfNPFIjq3Xf0xMNwalNbv//qcE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thechris.in; spf=pass smtp.mailfrom=thechris.in; dkim=pass (2048-bit key) header.d=thechris.in header.i=@thechris.in header.b=M8T8bq94; arc=pass smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thechris.in
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thechris.in
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1481F331ECE;
+	Sat, 19 Sep 2026 14:45:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789829153; cv=none; b=XMKmYtGpVhHG2Uw1KY/3jOvzjGU35i/tUiB/xmbA1MoAgn4JutlETePGOBKTyon8WSTX/5zPkzwdAbW0sZmlSFwwrXUnLWvXQPST9mI18N+JWwyy1WC0aEq8DK8TuiBBHt+KPyvR+siXp6Bv2lsiZlhh4dXZNECrD15DOPZli8c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789829153; c=relaxed/simple;
+	bh=yKFjZGVuLKL+wLssnNWu5ofZJmRwSwShekFn0cj/2PY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=U1TXadtbhPSNIiiL5eTKkONQ7bFaIlVu3czPe8xz7vmg/g85MEPmJbLg8L+zx0cc5/WuzLfdgGtEJoKfC1WrTYo7NI0esWuzR80uApsHTXaCuWhMo9rksdd1Z7OSKKaWinBbPx7+4jVEXqavMfvlxcI2LxEi07gp5fIX67oamTU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O58txMja; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=thechris.in header.i=@thechris.in header.b="M8T8bq94"
-Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e4ab19127so1789395d50.1
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 07:44:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789829083; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XcjmuR0Ym0vzEx69cV95qebbdMKv2BZjS7leTDq0/eXnvNGFzi/na1LsHUp+wpeDxc
-         NDLdnB2HLlSrUgxRf+NdAfQ0yoNTFWwNeKWtjoQ260cHyuVWLnYxlwL9PWxzp5145eXk
-         //dESCse+BzdNnPV/GsX1hwNi4kYf50BCHqNioJpe9FeIExJTJSCXxB6AqdVaErS5+ps
-         rlcd3ZTMH3tIBWsTP0c6AHPivW+/DMa2V2UhGkqxJGUkDrjN0kpMxvXGOP6u5fsKBKZK
-         QodXwWU0lvQB+xma2/1rmgZFrw+NZcfZ5jKBhjAWw4x8qZ1y+Q8a1RwRPtWSk34cpSzJ
-         EdYA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=BaTMOAzAK//5V3+VmXnptDmlkQpvBCAoWeySpIAKihg=;
-        fh=2R2KD/p5ozVpAhOprUEJ53ZEabGM89KHp5FR6HH/Fy4=;
-        b=iRYN0BlehLlWZNe4BgpkrR42kj/qIOYqeJBrazvchrNMDcv8hOsqJNEkqvtNmBVred
-         +vdcv1VnBrFM5DZm0MkUey1H85LemlbwtWBE0AVAlvnGJKEV5p4RUf4Nn2rJC7M6weU6
-         lTCOwmwNbfrg+J04r1aKS6fx8FgAu7DdESUpOkzI2lzuhMBeTWK/q35V1g6k95VpvXMR
-         2H4FHyIXaKZ/ufDz0QQ5dgkHuCflpHQqPVPM+WnyDSpYqhc0ZO1dXn2++wM+tFVbth3K
-         wj9dvrwRkR7jBad3tT6P+P8U4SGuVdUKREF2D13j0RDuXcgbX1nkSJLsJqfEw7UZR0Tl
-         53JQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thechris.in; s=google; t=1789829083; x=1790433883; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BaTMOAzAK//5V3+VmXnptDmlkQpvBCAoWeySpIAKihg=;
-        b=M8T8bq94Zy4wB+w1MJE8Lc9Dgi/vIjcvW/tPfyMErJqHNQW4v8PFhhDFH+QfoIDhvO
-         hD1W3kqYUCxZmLkMD1oDeXzj12Yel5O9YwLU3ZEhIP0UILWXnLN8VvecWg22ujd98jPB
-         2mCjFMO/W/KebI2IHmiKUgVNdPFERsDebcXrv/+vjI0v/3zkWYSJcJcy54muK6eWzNgL
-         YnJTwgVCgNM29vQwfJwKLzIzcrOlUMVRF1dsn1H5kG/8TnfTCTo7ZWC0UK53fJSO41Ix
-         MnwR5C/0LpU4tYVzIhZWU9f8s6CRaDskdZAgCel8KL2wF30z4KyzIEt78civbA0ygnOB
-         otYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789829083; x=1790433883;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BaTMOAzAK//5V3+VmXnptDmlkQpvBCAoWeySpIAKihg=;
-        b=eVSPTYU2rwswUbdG0lGlBZzbnZpp1LZEoTezbQzpHRjLGoAkQf7NvbeMCekBg1gVhC
-         jishLIni9I9H+HWpKvKvgJ02Sf/iRlCDxAwZfLR0Wlq3uXhkdJfpDaFzlpGUu6+uWU1z
-         9CTQ4jNYSDQRAKWVQjGgshIWvb31jcX7Vrh63rKBfwKyO4HV06kYnbIsymp/8iPfijoR
-         B+wYjGj4tZpUVcGzpW/W5Kz5/a3pQDkIvojdG63XHYjAWn/4ST6DohIQN5HGgeTpffIZ
-         E0zGtDAyluoU24nPLZYyaRhHOmOBJxjx9N19JAthcetI/1h8txDoCUd8ubYaJBA8FvSX
-         aUDQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzKjuaJfCuvIDv9ssnCfntyX32a6e1h785AHr0Oq/X54FPTl1pNp3w84Ct+tMqVQAn1pf540mVzW9qfr9k=@vger.kernel.org
-X-Gm-Message-State: AFuF++ku4tb2PBTitRw8w77ViojU6sL3YyocKcyc63eIV87NvW/0Zs+1
-	I4qvN/CjBS9XvHMgfMUXRlsbroowjrgtNbbt/1fihosB6BVEIZJIGiOlWlOr031oYckxLkH+1D7
-	rybLFozYXOmTjjw/IQVW2GEtsxc43czT+S3M7lFZz7zY=
-X-Gm-Gg: AYBFou29ghs/v98AWKQ9afBgkbKuGxPWw3pISAdhAvFRnZhliWdi8s51HsCpZkNy67c
-	Vv0sM/osLRFjMqsiCyn1WZoHQ6Mu07RorQNfsLWN5g2IR7YmRJvXgv1NKIdRJi651UNiMPQlUER
-	HNmyixXvHiTu/hJJ4b/OvFGqHX090MoRfhWgajCkbUWwgrm9LgYrB8uPMPQe+pFGFS/W0MWhOrU
-	6kBy26VofxSdX24aHZ1Y5/X5FxGQmwGSC2lMtRP12mTXqZoDhw1hMjMMB8MGiFbF1qzH9dxV+0l
-	aXt5jvGEcZIFavphwY20EprdEImTAu8Ti5ADPlCj8hDZsJtSLMmHDJJuP3La1DOlC/KZcDE09av
-	gH/mZRsKux12LcfU6/rOLTiCib1AGNLtmoBuM5VPTPWzVnWrw0YOcGmLMmS+YG8ZMqaasW5krZP
-	WRRItV12rH94sd6tw=
-X-Received: by 2002:a05:690c:e685:b0:89a:63da:cbe5 with SMTP id
- 00721157ae682-89a63dacd4cmr7313797b3.43.1789829083163; Sat, 19 Sep 2026
- 07:44:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O58txMja"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EB431F000FF;
+	Sat, 19 Sep 2026 14:45:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789829151;
+	bh=yKFjZGVuLKL+wLssnNWu5ofZJmRwSwShekFn0cj/2PY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=O58txMjar5lAsfa7kUjOSXJ2YRXgvUxC3UypZSJgPNilujVfOGvlYFRc6J6q0oCgz
+	 tHuDGKgXF76cMg8B4t3RVxRJxLnPIZIsNf2lMP7LYjJStrRrCryXvI3yaAug9WgDFr
+	 uSzlIXhwyLMUNfcZVh/qvDfV3HO2AQJBmksh7zqFnC4n4G9rdu3ya3wS+b0fU8o1EH
+	 HSRoaeb3d3/0DzJ4xnyocQZFMhIxN07X8dv3s5u1NAYuNgdq+GooFzeHWeROwDPSIV
+	 WnohxBmuPIlUXEfLutlDxQbDuYVvmdAV1QZ9fs+isk2iDSSuD2D7e/jXo4cPbDksqx
+	 64iZLGMq83FuA==
+Date: Sat, 19 Sep 2026 15:45:36 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Nicolas Schier <n.schier@fritz.com>, Kees Cook <kees@kernel.org>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Nick Desaulniers <ndesaulniers@google.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+	Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
+	Randy Dunlap <rdunlap@infradead.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
+	linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
+	Jens Axboe <axboe@kernel.dk>, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v3 10/20] kbuild: move the toolchain checks into
+ init/Kconfig.toolchain
+Message-ID: <aq6gB7BY9wiFEsQ3@gremlin>
+References: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
+ <20260917-build-speedup-v3-10-9ecf4163ff36@kernel.org>
+ <202609171149.6454DC6@keescook>
+ <20260918010729.GB1585590@ax162>
+ <aq1MG8I1BsUUDFkx@gremlin>
+ <20260918-athletic-agile-echidna-114f16@l-nschier-aarch64>
+ <20260918211248.GB235304@ax162>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAE2Bdm3NuEHshrG6K2boKAnCQUvT5SX79cP9nPgS2s1afzY1hg@mail.gmail.com>
- <6aab0f82.e91c2013.3bdb06.0009.GAE@google.com> <CAE2Bdm2wzxj-J0TM8F+3SVnu0W3HeiROW97U4qvBeyHKdHJFmg@mail.gmail.com>
- <2026091753-broadness-bootie-b683@gregkh> <CAE2Bdm14hif17B8RTAE+PhWEps5Fzh=WPurZeSNp9C6TqCKumg@mail.gmail.com>
- <aqwuWWMwdIcx3704@cashel.logfs.org> <mu82xsi6.76ee613a-07fb-48b1-9336-99e8780e8b6e@nod.at>
- <aq6afmdN5DYpuUa2@cashel.logfs.org> <mu8hfoxj.7ce5e90c-076c-4b73-813b-f9c60310ddab@nod.at>
-In-Reply-To: <mu8hfoxj.7ce5e90c-076c-4b73-813b-f9c60310ddab@nod.at>
-From: Chris Roy <iam@thechris.in>
-Date: Sat, 19 Sep 2026 20:14:31 +0530
-X-Gm-Features: AcwNN1VVdZq_i5--e-uskgSmXVQpAASq_eAqaNA9x5LP_XOGGCjlgNcTays_lsQ
-Message-ID: <CAE2Bdm2UA2UTkYY-w2qxLaXWjnujTkOoC2mS+WXu7McZV2MyeA@mail.gmail.com>
-Subject: Re: [syzbot] [fs?] possible deadlock in ovl_create_object (2)
-To: Richard Weinberger <richard@nod.at>
-Cc: =?UTF-8?Q?J=C3=B6rn_Engel?= <joern@barelysecure.org>, 
-	Greg KH <gregkh@linuxfoundation.org>, 
-	syzbot <syzbot+7cab6a19619f1b8efc00@syzkaller.appspotmail.com>, dakr@kernel.org, 
-	driver-core@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, rafael@kernel.org, 
-	syzkaller-bugs@googlegroups.com, linux-mtd@lists.infradead.org, 
-	miquel.raynal@bootlin.com, vigneshr@ti.com, 
-	Adarsh Das <adarshdas950@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918211248.GB235304@ax162>
 
-On Sat, Sep 19, 2026, Richard Weinberger wrote:
-> While we're here, maybe it's time to add a decent configfs interface to
-> this driver instead of configuring through module parameters.
-> That way also multiple instances are possible.
->
-> IMHO testing is the only use case. I use it regularly.
-
-I would love to look at this if you think it's worth the added
-complexity. A couple of design questions before I start
-on anything:
-
-- Does configfs coexist with the existing block2mtd=3D module param
-  (for early-boot/cmdline compatibility), or replace it outright?
-
-- For multiple instances, would a configfs group per device (backing
-  path, erase size, label) match what you had in mind?
-
-Can sketch an RFC-style doc once I have a sense of the above.
-
-Regards,
-Chris
-
-On Sat, 19 Sept 2026 at 19:58, Richard Weinberger <richard@nod.at> wrote:
->
-> Am Sat, Sep 19, 2026, 16:22 schrieb J=C3=B6rn Engel <joern@barelysecure.o=
-rg>:
-> > I added Adarsh Das, who also attempted to fix this bug.
-> >
-> > On Sat, Sep 19, 2026 at 07:42:25AM +0000, Richard Weinberger wrote:
+On Fri, Sep 18, 2026 at 02:12:48PM -0700, Nathan Chancellor wrote:
+> On Fri, Sep 18, 2026 at 09:54:27PM +0200, Nicolas Schier wrote:
+> > On Fri, Sep 18, 2026 at 03:35:57PM +0100, Lorenzo Stoakes (ARM) wrote:
+> > > On Thu, Sep 17, 2026 at 06:07:29PM -0700, Nathan Chancellor wrote:
+> > > > On Thu, Sep 17, 2026 at 11:53:13AM -0700, Kees Cook wrote:
+> > > > > Yeah, totally right to move to a separate file. I think, however, I
+> > > > > would prefer this wasn't in init/ though. Kbuild uses scripts/ as its
+> > > > > Makefile.$topic dumping ground, and Kconfig.include also lives there. To
+> > > > > me, this new file should be scripts/Kconfig.toolchain instead. And
+> > > > > arguably, this should be included by the top-level Kconfig rather than
+> > > > > init/Kconfig...
+> > > >
+> > > > I do feel like scripts/ is a better location given that these are really
+> > > > things internal to Kbuild but I also see where Lorenzo is coming from
+> > > > that scripts/ is a little weird for this to live for discoverability,
+> > > > especially if we want people to put checks here instead of in a Makefile
+> > > > directly. To be honest, it would be kind of nice to separate the Kbuild
+> > > > parts of scripts into their own directory to make it clear what Kbuild
+> > > > uses versus what users/contributors should use but that is obviously too
+> > > > big of a project to tackle as a prerequisite for this.
 > > >
-> > > While we're here, maybe it's time to add a decent configfs interface =
-to
-> > > this driver instead of configuring through module parameters.
-> > > That way also multiple instances are possible.
+> > > Yeah it just seemed really weird/surprising to me (in the sense of
+> > > 'principle of least surprise') to put that in scripts/ and it doesn't seem
+> > > that traditionally anything else like this lives there.
+> > >
+> > > But if you guys feel strongly enough I can put it there.
 > >
-> > I honestly wonder whether this driver has any production users.  It is
-> > somewhat useful for developers that want to simulate hardware they don'=
-t
-> > have.  But beyond that?
+> > yeah, then I'd also slightly favor scripts/ for now.
 >
-> IMHO testing is the only use case. I use it regularly.
+> Alright, I think scripts/Kconfig.toolchain wins then :)
+
+Ack, will switch it out for v4!
+
 >
-> Thanks,
-> //richard
+> --
+> Cheers,
+> Nathan
+
+--
+Cheers, Lorenzo
