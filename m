@@ -1,122 +1,99 @@
-Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com [74.125.231.205])
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B320342CB3
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 11:33:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.205
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789817590; cv=pass; b=hF/Djm1YpIHdHmuG6V8xFlN21fs59Z+QyxRv0WphhSQnh+efeMyCzuvpKd7qRwsMiuySpOWZwArp3YIbQmtDDrxgAONCEa0z/cYouA9e0Ujb8x1ZQFveqGrZq9RIXMPrQNiVaWEk9hQ8dDf45IzxTJLQ+Fs0lg4i8DrLDKtJiy8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789817590; c=relaxed/simple;
-	bh=sMYd/G2O5aFpZUUz2+9x2/OBCEzxbrVIwrVFRQ47Afg=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=jo3Ut+71HeMB1QZ4wf53To6qO9dncFUhl+4NaG+6SeeY7qZVf/Y4l9v8z38WkwMDyr9jH6OAhZ8Dqn0IuAR09WmRK5TqjFYC7cqriCrVjZ42+Twhi6Nv5B0zTa5jLMuQrM3uBf5fu2MrzM/DSPVyWY1hD7zBKYUmuG8Zp88NRj4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o+5NcF1K; arc=pass smtp.client-ip=74.125.231.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A8A345C6EA
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 11:35:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789817753; cv=none; b=sMcaDvd8/6aDuT7pRPVyg2c1OGFlPCeauRyEuHqhQVFUUzXWzTwELZdWRbAfMVAq1xe2uiPdyxv5iBZrp7Ark+kIxSXBRh4ncqg9l8UkCztQhjgyypgMqZ+Z+eAH3ebXDba4k+mnK7fxDH2jGd1b/feQK55S4RCS6c54q/ojb5g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789817753; c=relaxed/simple;
+	bh=db6RuuBhwMozGXCwqVkwUYnmsJM3LcJNboRTL/tXiaE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LVa58SuUuNhiA6DgVVBmKi8HC78olc5vSuk7v/P3f4gNgdnDK+7M+WQ1rLrBXDQhFkwLpsp1Zjfhge+wu02ilgU+Y+q8Hw7KpBZMHUm3GtCBM9Sg2SyZA3lOtIf86OTlLFPFwQOOWmv3L1BJR4PaoSCuKBAugv7J5O7dEfZQOGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aAmVntU2; arc=none smtp.client-ip=74.125.228.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o+5NcF1K"
-Received: by mail-oi2-f13.google.com with SMTP id 5614622812f47-4bb359e6878so680747b6e.0
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 04:33:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789817587; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lQvowWX9aj/iOTyz+iMj9RjA2wm11Oijz5kX4jrOIiY5BOFcSdUTMWcbBImTG4kPUG
-         O5a2pXUXBbDGbQxeS8mNzTle6WMXsD+dtXA7H1KvvxSysUkgeqHvE66JnHniNPfv/PqO
-         Jafchp3rExPm5H+LIKb8qLHVt7nDo2ZE3qPoPcNIiu6Zn30gZywLYvXVg526H7nQAVwS
-         4vlQfBcf8pIRF6WWTDe0OPMbFl4MdbQ22u2sU40kQU/24jHRxp7BJ3qbxWJzAMGxnE5M
-         vtWcSO/kU8wsSF3VYWJvtYGbXfT/rIL/dVB8wgElne69FsBDSF6sX5x0AnCKUifXJZTs
-         mRgA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=1mG7+xpTedkRnlzabW6qdM2HSsjBGr1uP0pHk0XFWBA=;
-        fh=Y/75kUPeaLIx5HosxTiTd/Uzgif1WxYJ29hk1KWfPT0=;
-        b=Hc6pCHbX/GQoFBp2OoHKZtuPh/3zFo6PVImm4OgTS6bAYAXPFjLQSo+Yoh/ZHO7+f6
-         NWshHjReDU9O44Z01med6GJ9398yQtDnhNPld4uBAuTSmv2zC9d2RAkrRHFHoXY0jXVh
-         FpZmjI/O4x4ahhGDDAk7UaxYQ52BlFOqxv2z7ph5BV2JHzr7GcyMyghjz6mgHTwaETrN
-         dEFGiIWX52LKP0nF/OIVKPGKzGE0rn2OiF0XSJjju7BoprIzdT6f61xGq/mxj+9X3/sv
-         HjMheuEe0h7dKJsJZ0w6R6U57SQLYdpqv3ejm/v/6P0XFmY+rr2CCtRSM7hu8fYn+W17
-         /52A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aAmVntU2"
+Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc4c08393dfso1296225a12.3
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 04:35:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789817587; x=1790422387; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1mG7+xpTedkRnlzabW6qdM2HSsjBGr1uP0pHk0XFWBA=;
-        b=o+5NcF1KDgcbL8mjOtY8tlnJLK8PthDVVwqDdxqUhrztNvowpyZu6RhW41puhx92N3
-         osIQzoUUWpSJE4RCCfSwmiCMwYxneaF0D7HKn5cymTFp1LXZg1dJrybi7mdxDbQgEl2C
-         QT0N7mpQb8ag4PG80ET0u7ID3RhNEuMAYDrubz76BSy5AGisCQ0+pu+dQndd+ntla3xm
-         Gwh9HN6zUF73E1jctKH19JVMpBlLpgQX0c7uVGvusTe067wjc6KLK276VBiLn8n46m3/
-         Ga8pIxHX/f2KC/3rtw8JjRxu9GM+bgLIHDmWZfCBa/6Tk/Aw4ihKn024DhcTikp6a9R/
-         t80A==
+        d=gmail.com; s=20251104; t=1789817751; x=1790422551; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=LB+tpTvHTK46vCvYu1SsitSoCwkJYe5UWMMUceYuMuY=;
+        b=aAmVntU27V7Jpb6qixRHxQiRGEsiv+SodGwg1szoBCVFt6t/ecYo6AWH5xGNkRZ4Iy
+         m6Gmy6G6EWn6HzihBt8Nw/liMpAkm4ldObabO0dzkNka/Qks6cVuBMQglWzt06E/ovKG
+         /lEvq/Y0ZVwuEwjGsEu5ERW1XJozljGNccr4YF41/MLhZpCqNnFb3TpfI0BOe4r3z8X7
+         6Jsjs0qniPXYmnetIqxiw6xsj/uKiHDsMy5ZkSvxFr5ahm7Jdp8NWHg1dzKBZjGZGwt1
+         ftYbNLULYxxeQto3aho2mHCOq6Nw+D3N70ieZOxqImynTxitGkM5YDTxKcklJVUAo1A4
+         QGjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789817587; x=1790422387;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=1mG7+xpTedkRnlzabW6qdM2HSsjBGr1uP0pHk0XFWBA=;
-        b=biUILqmyWnYBHm3M8Evlej1n7iNP99OhXTIq5iLB8jw9jJyEjp9DGNNyyN0btkbeqs
-         P70v21mj1VSj2Ucj4LrcMrXyWEWwaX9GQ/H/2na9bicjNiwv3nf/vU7Wd3ZOdC22PFnc
-         DmKDTAFHajEwIJFjxNzszK/AXThi9XHG2usYF1h2wQdTerx3ZCMrevWMrWeCjOLyeUSA
-         vQxZmNXYYAIZx00iF5oFT7XJ0JZrafscUcADhIyGUzyjqzr6BB71Gan4BiENto36Y1u0
-         MsiinXbz9Um6j8dC6uPXDMUbbDK2L0wmUoP1zMDR/3rQA7xEuuPEketrShzzUuYjenkh
-         t8Dg==
-X-Forwarded-Encrypted: i=1; AKwUvBzoEGUd+qdXO0mMunlXuTOnqozkMdcKsHBAHMFT75gYePKWfo17ARIDo87hKxbUjlA6xoOIpY7+gcjNTME=@vger.kernel.org
-X-Gm-Message-State: AFuF++kIzDcALSw324ZBwmBydEHNoCznlsJJFThgFMF9mwmzm5BT9Vdo
-	zkZz0A7GtrQsrLU5kAO470Y0m6iU9JSxJZsO3RZwsAaJujc65f4TCTdeWnVo+yP1iVtCAeiryY2
-	k4HTOfd6dsIdonrX1UKNwZEMHzDNNh+gDOOY2Dzqk0g==
-X-Gm-Gg: AYBFou2KtSja8NECVGH2RtOcOmTDj9Bx50FhQgBgAupUakR4wllgZlx7ZT/7miqdyMY
-	9vb8IZkWHY+xPU+Or2Q/VbkDq81jxHkOUEe3dB0qntn0yfotVV6dwSEVXu1xKHioy7y4+BDMsa5
-	kZf6TEVd4uOFVK837RlNz9If4vHgUNIWODLRBTwJT8f5EQvEpY/pl1bG23aZHixvg5g8OUxNUsh
-	3JYr0TueQy4i2UEWD1+/5274mp7Oi6H7uHwGeTSr8eF2FPyrlMwmJ0YfLdIcxXXcaQOaqAvfcCE
-	34X7yozY8S4cF0CWyciQNEuW2PrDevAtvHos3qCc9nHzGAFv70d/iJ9edMTnuYZC3d1vhL/kfsQ
-	aPRVAt7hz0zVpQdoQdnGN5uslAtQERGsfF8yVFAh4SJ6M+x4b/2+6sJ669171c67uu+GSCpsGly
-	xYn/hgGFMO90Ymm1AGO8yjAGKObBlHQV4=
-X-Received: by 2002:a05:6808:1393:b0:48f:c907:7a40 with SMTP id
- 5614622812f47-4ccf5df1125mr5367481b6e.11.1789817586988; Sat, 19 Sep 2026
- 04:33:06 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789817751; x=1790422551;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LB+tpTvHTK46vCvYu1SsitSoCwkJYe5UWMMUceYuMuY=;
+        b=hgR3AoNUsZEDan0eg+7PIBpUfleSa4qsqAQELFnBk3DCMll55Fgr+1fdBhG8r2IP+7
+         6D94ilYVXOpgS5OTM8BdTEgeTBd5gF+uStndAI70blz7ozJKWgezT8fFu51bQP5xYrof
+         RV/ORrTp80M/ajTJ5EiU5sSYxGoUQclYSkny5ws8kGx1jzsQMfbfxuusuUK8NLzJKRLp
+         n4plij1bw5MMCVaz4qD5H3TqK2kth19x6IuVLniqBDsc1NUuqOyxngC++SZ2FZ3LYswv
+         sbSfO7p9ClnFEm0hTi/Y2PB61GCxGXpOD1hjbfskxvrT8YiWzibB90RIUjv3scT1dXNa
+         Xcjg==
+X-Forwarded-Encrypted: i=1; AKwUvBy/B8rgDlDamiHaL2D11c715ZyydMl+cxHj4rnyjwp4drH9skkGO+b08pf7/lg2jmapH0VzwSbNPqvuKqo=@vger.kernel.org
+X-Gm-Message-State: AFuF++krJB2hNRl9Sp/Yxs1AVZqQusrYQy+E1AFArMjAJ1s6WLbb8CXn
+	KSJH5IN8RnFjM2M6Gq8M/hj0beWhonuAiJebk1rVdjVZvFL9lSv45ix9
+X-Gm-Gg: AYBFou3WiXUbk35iHF1cSadjtUKjUu7SwDkFCTw73OMAJ2pDLK6mVC98o19x6wPo+DC
+	xnG3O1DPzc3PSoq5sHOO5jEaeCH2vSlhuU7HylD6d8aKFIrJ7fDKju7KFOhH//Bmkpk9jiiRwtH
+	Oox5fqa4DkKpWIZL74wVCNPadx6Jcmt3Mc34JZrqIzigE7oWP3aGrzLjqyUFTYgpZjzpuF3/Tku
+	Q0vaKaDMub6zeeNNx5kov2YKJIFQWs36m1ox7ZWYH/kc+elgZcyHG8evqECIpUasr+8AUpWppUN
+	Z7tBjHwSkQ0PhT1E3z6q6FjKIvP9ZfgU9QJu38ndeHSb+C70G9FY+L1nRZ96XJBu1TjRd9MOzWG
+	5ZQUKwKabf8IWqbfGTlbHj33lFZw4tUAwvQbONiVC4J5cP2E7LE4sFHgoEQd/4I+zWzKEbf4f39
+	Tvy+b6yYrtcpyeXd+K+MXmd+FbxQn2rlM0VLkspXLORT6ST58qL1MsvplvpCh2lITw1OCeqIfpW
+	T8qggqYCDtl
+X-Received: by 2002:a05:6a20:20c3:b0:3d8:1f68:59ac with SMTP id adf61e73a8af0-3dd8c529902mr9848155637.23.1789817750774;
+        Sat, 19 Sep 2026 04:35:50 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c32f17d77sm6091435eec.3.2026.09.19.04.35.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Sep 2026 04:35:50 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Sat, 19 Sep 2026 04:35:49 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Colin Huang <u8813345@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	colin.huang2@amd.com, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v6 1/2] dt-bindings: hwmon: pmbus: Add Infineon tda38740
+ and tda38725
+Message-ID: <d815627d-b03e-4ea3-b8d3-52bc3448c798@roeck-us.net>
+References: <20260918-add-tda38740-and-tda38725-v6-0-a8b11018d850@gmail.com>
+ <20260918-add-tda38740-and-tda38725-v6-1-a8b11018d850@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Bartosz Brom <bartosz.brom06@gmail.com>
-Date: Sat, 19 Sep 2026 13:32:28 +0200
-X-Gm-Features: AcwNN1VPYDXQ81j4BgL6OwAYPwWgg07mS2mzO8MDKUrktd2IJuXmg2lF-0OXIP0
-Message-ID: <CAN3WbsTf=MYcGC7mCYtAvtgcwXpUQDSG6VRpmVZ-s-erCaP19A@mail.gmail.com>
-Subject: [PATCH v2] ALSA: hda/realtek: Add mute LED quirk for HP Pavilion 15-eh3174nw
-To: tiwai@suse.de, perex@perex.cz
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918-add-tda38740-and-tda38725-v6-1-a8b11018d850@gmail.com>
 
-The HP Pavilion 15-eh3174nw with an ALC287 codec requires the
-ALC287_FIXUP_HP_GPIO_LED fixup for its mute LED to work correctly.
+On Fri, Sep 18, 2026 at 06:23:54PM +0800, Colin Huang wrote:
+> Add devicetree bindings for the Infineon TDA38740 and TDA38725
+> single-voltage synchronous buck regulators with PMBus interface.
+> 
+> Signed-off-by: Colin Huang <u8813345@gmail.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Add subsystem ID 0x103c:0x8bc7 to the quirk table to apply the
-existing fixup.
+Applied..
 
-Tested on an HP Pavilion 15-eh3174nw; the mute LED now follows the
-speaker mute state.
-
-Signed-off-by: Bartosz Brom <bartosz.brom06@gmail.com>
----
-diff --git a/sound/hda/codecs/realtek/alc269.c
-b/sound/hda/codecs/realtek/alc269.c
-index 5127a111c..2956e666e 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -7581,6 +7581,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
-        SND_PCI_QUIRK(0x103c, 0x8bb4, "HP Slim OMEN",
-ALC287_FIXUP_CS35L41_I2C_2),
-        SND_PCI_QUIRK(0x103c, 0x8bb6, "HP Laptop 15-fd0039nt",
-ALC236_FIXUP_HP_15_FD0XXX),
-        SND_PCI_QUIRK(0x103c, 0x8bbe, "HP Victus 16-r0xxx (MB 8BBE)",
-ALC245_FIXUP_HP_MUTE_LED_COEFBIT),
-+       SND_PCI_QUIRK(0x103c, 0x8bc7, "HP Pavilion 15-eh3174nw",
-ALC287_FIXUP_HP_GPIO_LED),
-        SND_PCI_QUIRK(0x103c, 0x8bc8, "HP Victus 15-fa1xxx",
-ALC245_FIXUP_HP_MUTE_LED_COEFBIT),
-        SND_PCI_QUIRK(0x103c, 0x8bcd, "HP Omen 16-xd0xxx",
-ALC245_FIXUP_HP_MUTE_LED_V1_COEFBIT),
-        SND_PCI_QUIRK(0x103c, 0x8bd4, "HP Victus 16-s0xxx (MB 8BD4)",
-ALC245_FIXUP_HP_MUTE_LED_COEFBIT),
+Thanks,
+Guenter
