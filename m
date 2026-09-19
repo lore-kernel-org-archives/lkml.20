@@ -1,137 +1,128 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EAE23806BD
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 17:11:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A76E92D9ECA;
+	Sat, 19 Sep 2026 17:11:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789837876; cv=none; b=S50LSmVoLN/rObDoaDNZ0riyT7UPai/dtofFwQ1ZF8txmMQLFVdinEp8NF1DpTzKEWaWCBXLDm5xu+1pHhY5ivCzpLNZbeSCb1hMyk9OIYU9iPJBTES3QwDmTdXTUdt0vF0NutscbgjC9/w45pl621HEftQvmk9T5JqIKEXsFBQ=
+	t=1789837908; cv=none; b=VNsESIXN0tgYI5en5+kUZtFk3yzhkCgX96GlNt2rq34b3HX3F9F1nf4HSgNeYw4q3Hv0lxWE6Q+rcpO+lDBOPk2uHzbUOQKQd7jYkLuYhqC2/OAZ4St51LSUa+KftZ+JtGXJNQ1w4YJH4UjCYzmJaIDxj1o4K1a8ARRkxANOt3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789837876; c=relaxed/simple;
-	bh=mWJYfjoWJeRQg0RSy1KWzp8U/jgGnfAzAM3nmAcJAFc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=l8RoRmL1wEfGcS/ZlSk6R5qJwa0ThlYaPkRuRk1Mg33eKgeTdz4/gZ5EthhSPfgIUe3siwVxenYu8t4ND2nCk7RK03nLq93pqYC2yHbxw6Y/K2djsrp5hnpd1bK4kiqGlc4jULyH2XNqcDNyj1Jd6gpK0m7BO2X4xBFI5Xv+kl4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O6RXmapZ; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789837908; c=relaxed/simple;
+	bh=Oe3N+uS0QPFJ/FFJyoZURZ9yar/4u8esXnbjRjNR7NI=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ty4QSD/UpPz5gdegKEu8OIr3KW+5IcI2cylNxZ169uokDNyUEL8HHDSxQvueVrLJuw4A642n+OJuckV2MKtNjOHal/0QcL1IPnJKCxeyBFKDk47dzn8JsCWYyIy/ti+3aACyg5qUuTk1ngHGvf54uva1msSdO4ncfV2WPBUEfm0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=arcLEb2C; arc=none smtp.client-ip=96.67.55.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O6RXmapZ"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b965f447cso14295375e9.3
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 10:11:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789837870; x=1790442670; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bdFmbxbENO0f+YbfOMbLsRbUwI3Z1sE3E+vQ+A1a+Ps=;
-        b=O6RXmapZPq9Z29bZ7zP2TVftyb2g865qn3ziLdnteUrU2zCYzz93WwZP+6txu9lveu
-         HFSl3arNgzqjZ4w7DJJrtoOHBBju9x2zLWOqz7pFsdK30ncsWx/bQiDrSZn/Ibfwi+/Q
-         4JI2Es1FmlUtla8XqFATmq8Bg4BQQsBZrsDX3of0HSfMSxwshRsP8mRZo5Aj6k1SKH6A
-         YKzZPm8zWt8Pezem7jNeLiK2NDexiOZDk9ajSa/OUJgSrRhs2iuCssg+kfcOrKCct24K
-         sjn4Zg++ZgH2voszijium27ZF3ioOFmMKHnxuQVHY7f60ARnbLOyrwLQuS1gHqPkCxTG
-         6tWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789837870; x=1790442670;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bdFmbxbENO0f+YbfOMbLsRbUwI3Z1sE3E+vQ+A1a+Ps=;
-        b=a6scKItiX1pezGusESpVuWFqZVuzIsvmfyJVEws2mNuTeNY+LrvhrEqpS/K9Dh0yA7
-         WDamwW9ZWW9SMW2jOD1Q1olHsL+Oj4VLXXp3F/uzCG852Fx5ckEaaOIHuyTpqgtWVeDT
-         ZtL/6cuLJknjKjNjPxWBHhAkjJ/y/dOnKWXL3Gq2Mi5sWkHCR/IBwze6vW627w30X8iQ
-         bWGGymBn8GjOtAcnGt4jqcZT+Ssmtmgtc1t4CWieOXOcUBnMx6NgMC0IEzo04SbPNhU5
-         PMWBtDPeBhYjdB+ymetwaDZR4hGSfISvEOzBhdqEICjdixTMOr2IJYieHDBmqDPurC9S
-         Sv/g==
-X-Forwarded-Encrypted: i=1; AKwUvBy4EPeIof0hRVGj0ZDVQudFn3yKtV6JJQex95r809iYDqWafV1DBN+/DJphi3u+kXzzkptsmROGUFXryW0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kuZUqQEWrMrnXuIGFqC3TxGjuEAU5eBkcP//YvoKz12Q8jdP40
-	gRlyX9JPyl5rAOfEzrIkb5sZ5CwpGfPpKs+x7/V+a/umK4DOk+BJBeac
-X-Gm-Gg: AYBFou2cNOVwa0yd9l61MXRCzzxs8jGbY2WbK1Q6DAZtWXSu0Q9SsMDhy8Gw7QRJeSv
-	ebvG5a+oYse/NGrdQuz08201jr447nfO+gagUXL2uxDh65wrRKamEGJaROcwy+jSt46C5V87vx5
-	1jjz+Gz6TPXBGxGmJTZfno0d4BLk7wz0oW5JX7Ly9+1EviILLBwuYDmGsYvBz5Stn506EH51Y+q
-	s1My2RyS8+G5geAS03JPXMjzc1cl394onTGOrqha5b4OnVvNk6fZwVDdonQt2zNxzn/zA+vlNA0
-	Y65BWrUKzu473Tt30HDcHAVoCWbcq5B+T2z/duL+Yviv0SLZJy4lTtF2RjrJmcj38X7IBqTqMlF
-	RQXpYsMjo4A0qCP8xdv/PD6ki5Zo5wmwIJpsQ4lx2OkSjYCcY4CrzA/iaKholCrCUHJSjk+4q4D
-	2/YBQEXDMhZFxlWofq7FcrEJZlG8PTlLG6Q+rzcqr6aMgcTGCBy0a06j5d/lqNdtgJUu2x3FGRi
-	yPWsGhZ68zhJPJmjT0vhkd1fGH8079mXBptgcFMFdSsl46gNBVlFfxvxqND5K3RhpRSPGYZv/bt
-	YSvY20sRbIfc4eZKib/8w1gaT8/xFnVSOhYEEnR8/rX4cds/+2nfjypHec/ppztrUT0Jm16F8Tw
-	CAAHoZL4PHIB8/zw=
-X-Received: by 2002:a05:600c:a00f:b0:49e:645e:2616 with SMTP id 5b1f17b1804b1-49fc56692e0mr84074825e9.5.1789837869581;
-        Sat, 19 Sep 2026 10:11:09 -0700 (PDT)
-Received: from MacBook-Pro-von-Karl.localdomain (dynamic-2a02-3100-a017-2b01-05fe-203b-7cd2-a640.310.pool.telefonica.de. [2a02:3100:a017:2b01:5fe:203b:7cd2:a640])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd0f8563sm98714425e9.6.2026.09.19.10.11.08
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 19 Sep 2026 10:11:09 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Jerome Neanne <jneanne@baylibre.com>,
-	Jonathan Cormier <jcormier@criticallink.com>,
-	Andy Shevchenko <andy.shevchenko@gmail.com>,
-	Shree Ramamoorthy <s-ramamoorthy@ti.com>,
-	Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Roger Quadros <rogerq@kernel.org>,
-	Tony Lindgren <tony@atomide.com>,
-	linux-omap@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] gpio: tps65219: Fix TPS65214 GPIO direction programming
-Date: Sat, 19 Sep 2026 19:11:00 +0200
-Message-Id: <20260919171100.90430-4-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20260919171100.90430-1-kmehltretter@gmail.com>
-References: <20260919171100.90430-1-kmehltretter@gmail.com>
+	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="arcLEb2C"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
+	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID; bh=Oe3N+uS0QPFJ/FFJyoZURZ9yar/4u8esXnbjRjNR7NI=; b=arcLEb
+	2CeUUpzCxBoMZbPq+6APyrTcjBmjWSdDoMptbEDMAUYH5nO3Ps7esFPKfvynXY8q/B2PY1vs7BQFh
+	x6cWtTCbVAMhocYl9K+/oaS22wp7w4Gi3ZxhioGDvwv3mWKOdJ9kNnfBPVTu6qfnQUk4ewadO4GI2
+	XreMzsokA78ZVO32BkujrFWECY/RJLt6Ll9mtePsMqLWpmqiePaYmMSmU4r4GCSERTMEoQaLWZ5Ve
+	zpP6cNBJkB4WEacr4ebnSJFkGFAg8TUEn7NKJ+4vc2LhXMmx42HyGl8kf707O3wY5JBgX/lbmKm11
+	IH/9e0V+V7zPwfcu7/BPIMrCHwbg==;
+Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708]
+	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <riel@surriel.com>)
+	id 1x7xjJ-0000000CHJQ-2RY1;
+	Sat, 19 Sep 2026 16:15:57 +0000
+Message-ID: <7ee199ddee81bf8026688def82f78ad9db09be9e.camel@surriel.com>
+Subject: Re: Path forward for Virtualized Swap?
+From: Rik van Riel <riel@surriel.com>
+To: Chris Li <chrisl@kernel.org>, Baoquan He <baoquan.he@linux.dev>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>, Nhat Pham <nphamcs@gmail.com>, 
+ Kairui Song <kasong@tencent.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Michal Hocko <mhocko@kernel.org>,  Roman Gushchin
+ <roman.gushchin@linux.dev>, Yosry Ahmed <yosry@kernel.org>, David
+ Hildenbrand <david@kernel.org>,  Muchun Song <muchun.song@linux.dev>,
+ Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
+ YoungJun Park <youngjun.park@lge.com>, Chengming Zhou
+ <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)"	 <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)"
+ <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren
+ =?UTF-8?Q?Baghdasaryan=EF=BF=BC?=	 <surenb@google.com>, Qi Zheng
+ <qi.zheng@linux.dev>, Axel Rasmussen	 <axelrasmussen@google.com>, Yuanchu
+ Xie <yuanchu@google.com>, Wei Xu	 <weixugc@google.com>, Gregory Price
+ <gourry@gourry.net>, Wenchao Hao	 <haowenchao22@gmail.com>, Jonathan Corbet
+ <corbet@lwn.net>, Hugh Dickins	 <hughd@google.com>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, Tejun Heo	 <tj@kernel.org>, Michal
+ =?ISO-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>, Shuah Khan
+ <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, Meta kernel
+ team	 <kernel-team@meta.com>, Linux Memory Management List
+ <linux-mm@kvack.org>,  Linux Kernel Mailing List
+ <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, "open
+ list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
+ <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Kairui Song <ryncsn@gmail.com>,  Joshua Hahn <joshua.hahnjy@gmail.com>
+Date: Sat, 19 Sep 2026 12:15:57 -0400
+In-Reply-To: <CACePvbUwTxcMPVK_1GAz5gPDdh0BV9JZSnKXaUFLqDHBzBmPQg@mail.gmail.com>
+References: 
+	<CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
+	 <aqJXx2vtbKaRLt3x@fedora> <aqLZ5TVDAqEbIeMN@linux.dev>
+	 <aqP81aqNbwAbs2P0@fedora> <aqQrPLPXHXiuKup0@linux.dev>
+	 <aqjcFb6MFNiA6n4V@fedora> <aqjpYHbZ14A8xRtK@fedora>
+	 <CACePvbUwTxcMPVK_1GAz5gPDdh0BV9JZSnKXaUFLqDHBzBmPQg@mail.gmail.com>
+Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
+ keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
+ eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
+ Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
+ lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
+ dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
+ mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
+ gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
+ r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
+ WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
+ 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
+ Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
+ +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
+ g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
+ KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
+ fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
+ 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
+ G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
+ okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
+ TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
+ cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
+ omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
+ QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
+ c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-GPIO_LINE_DIRECTION_OUT and GPIO_LINE_DIRECTION_IN have the values 0
-and 1, respectively, while the TPS65214 GPIO_CONFIG field is BIT(1).
-regmap_update_bits() masks the supplied value, so passing either
-direction value clears the field and selects input mode.
+On Sat, 2026-09-19 at 01:55 -0500, Chris Li wrote:
+>=20
+> We don't have to address all issues in one series. I actually advise
+> against lump too many patches into one series.
+>=20
+There are two things here.
 
-Translate the GPIO direction to the register encoding used by
-tps65214_gpio_get_direction(), setting GPIO_CONFIG for output and
-clearing it for input.
+I totally agree that we can merge things piecemeal,
+and not aim for perfection at the start.
 
-Fixes: 1b6ab07c0c80 ("gpio: tps65219: Add support for TI TPS65214 PMIC")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-Testing:
+However, I believe we do need to take care that
+whatever design we go with is actually able to
+support the end user functionality we want.
 
-  - This register programming was exercised together with patch 2 by a
-    temporary KUnit test using a RAM-backed regmap under x86_64 QEMU
-    10.2.1.  The TPS65214 direction-output test failed on the base
-    commit and passes with this series.
-  - This has not been tested on real hardware; testing on affected
-    hardware is welcome.
+We have to make sure that the path we pick does
+allow us to very easily add the user visible
+functionality that people need.
 
- drivers/gpio/gpio-tps65219.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+We can always swap out technical details behind
+the scenes later, but user interfaces are supposed
+to be stable.
 
-diff --git a/drivers/gpio/gpio-tps65219.c b/drivers/gpio/gpio-tps65219.c
-index 479a80ef76543..6958466455d04 100644
---- a/drivers/gpio/gpio-tps65219.c
-+++ b/drivers/gpio/gpio-tps65219.c
-@@ -158,8 +158,10 @@ static int tps65214_gpio_change_direction(struct gpio_chip *gc, unsigned int off
- 	if (ret)
- 		dev_err(dev, "GPIO%d configured as VSEL, not GPIO\n", offset);
- 
-+	val = direction == GPIO_LINE_DIRECTION_OUT ?
-+		TPS65214_GPIO0_DIR_MASK : 0;
- 	ret = regmap_update_bits(gpio->tps->regmap, TPS65219_REG_GENERAL_CONFIG,
--				 TPS65214_GPIO0_DIR_MASK, direction);
-+				 TPS65214_GPIO0_DIR_MASK, val);
- 	if (ret)
- 		dev_err(dev, "Fail to change direction to %u for GPIO%d.\n", direction, offset);
- 
--- 
-2.53.0
+--=20
+All Rights Reversed.
