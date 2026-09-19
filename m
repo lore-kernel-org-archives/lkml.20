@@ -1,63 +1,61 @@
 Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D323331EBE
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 01:53:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F01492F7EE1
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 01:53:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789782816; cv=none; b=pnKYyfegm/n+VdPfQ7pkVNqFbRB8/8yCCAdb7GuKARRzn6ZqMsjJQ6qEst6ZmUnhofezqtpfTGVWDgg9T+7hrSbJvc7+Wc5HP7Ed6nI9hudJ8VVRu5N0lAg3ylHqDZEsPOhMJ91FKS3PLuI1XNyVMFNf4OnG1Rglobzgywpjgis=
+	t=1789782817; cv=none; b=qAEO9WTZTHuYdNS3lBkywLPmYvJzpF0fnJii6g3LdeblNzVbX+VzNI6cfYgcOANpGpfKSAneq1J0gJky/2wgnOVNU+HsMW/53HxKuhAvxNAND3VbtGbdBTd94x9qGHAeevaSqEM5Sk6pdV2+dyEh1Ypr+je5R4NyFYFDfKKP3Po=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789782816; c=relaxed/simple;
-	bh=giD+lcuYcvUOW0A1k5R2q4BABOWv0dD6AJLYXkD489w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qy42D4GpCwEL87lzv3Jk30tRYDojiHyY2kUrLNcfA2i5bH75VrUl7cf6tze5LIhGQz+OwJLDPFobfNgKtEE3rcT0a45QhELJmKloPIui8fduEV7w26dxfsI5dCvgDmqujuviSc0Wc/CzdLiyZ1NhYgFAUzN/TbruUUYqCm7wYS4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=D4X4YY0a; arc=none smtp.client-ip=74.125.225.141
+	s=arc-20240116; t=1789782817; c=relaxed/simple;
+	bh=sok6ZbvG2oYK/j21SYwCUAYKowsHuwpobv2udZM6K18=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Fuq9eBrnAEsJLdXne51rNP8SEAt9YHV8MhOFewuDgVUvGD+M6klLw7ujIzs97Swyym131tWnlsfDMeBLlFzGV4dqlPhOLCtUo2WmvOBBwAIGMlQji8VrHE9UOAkV0Wyfvg7MOIVRbnrn703m1IwKGNyPC02ZcH1AvEb7fnzvY7s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=GtZtctMZ; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="D4X4YY0a"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cc9f581c4so4992415e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:53:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="GtZtctMZ"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6b885ef8so7347805e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:53:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1789782813; x=1790387613; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=u74q8XrQmvKEeO+fs7iiC3X9khNmBcbrRJ1f4DsZFbg=;
-        b=D4X4YY0aE30bI6BtMiPw/R6VHYOzR9wYNSTEotHzs2GSCgsA8QJHcJKHEU9NcBn4JM
-         8ZqVNdKOaobe3zhZiGza29VZANgL07iwQixN0QG6iyXlokRRwOzqsg3wO4lLFWD0dxJu
-         9D2ecjI0ZcaDYesMhC2Yoo68GI4GPixHOzuM3goDu5vzTyoV+jAH4331yhIfdB7a3vVa
-         A9UZ9DmybSU4kwxZ7iclWZLOBU8FfH6m5rt8aHDqkmZA6CEuJ7wN9SXQTrfd6bmxn0nq
-         KNyvi/vd4IV1A55k1T4ZFgMEvTYuijH3drn55aMtvYE6nhMQwSkwIEIopypYJOLWCSUI
-         rpQw==
+        d=lex.la; s=google; t=1789782812; x=1790387612; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RpQg1/jWZmhf3sNxkzE4wIZy2eU9EXWek6LxmzsP1F4=;
+        b=GtZtctMZB+ly/I1GkrTg7Ji06x8sWjV2/65SgtJRqSaTJ5csfPw91OyIWgzPvhlN69
+         vgWZha2GRp3ZO8GNlQeQqbtVg22fK+zUy38q8JRRXhFULQQzMHzZqRi52PJwcwYLksYD
+         qCHxWRlQ8BjSBi0eSGvL3JhNi4uPHENsVG+Kmm/AeEZSM5clkRsKs29hrVipuCCFgope
+         yAowzW1cVlJ0nvy2jhXwvI9UGTmmuKUQhcbAiGa/yI3Gaao7eaenq+ECQLvs/r/fatK+
+         n/x3fEIMYN8jewc9aOJlxQI2YKUPHlbKG2TbD68ziGzV667pjajqAm+JaJupBwwNCMf3
+         ts+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789782813; x=1790387613;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=u74q8XrQmvKEeO+fs7iiC3X9khNmBcbrRJ1f4DsZFbg=;
-        b=OzV810sUA1b6zFejd9G4vf5IGCZ2lkRbfixewka2hNUfkt1UZWl1T7u3EyqK5D09YN
-         o4KotkZd8WneA+Bab0vRkHPr35zkUzhxfIUzdQKWwVBvNFgZ6zW3tgWp/vCCL50+4hTT
-         TORYFmSvoroSINQAHQ2IKg33myfMfzHzKY4hH83HWQZG46AEPqZAdSVxu/exUip513Xj
-         jGSztB4m3htYoRnzqiiIkdnXp58WZK0HSisrBOwRFa2fuKipl7q2XVd1o/BakmLeAMMJ
-         ittf/cycUvLTr1Z6cbBcKd+We7AL7xdvR4QW3vu3VQUG7DpZPIarOY5ab6tHQn+fJ8ec
-         6qdw==
-X-Forwarded-Encrypted: i=1; AKwUvByJA22lh/qgqJguE19niDMCE2fBxr8LNhZCC5fzKs6au+sYkTMww4/DGkRzQxcgIYxP5X5Hxiym2fRffk8=@vger.kernel.org
-X-Gm-Message-State: AFuF++m4jCCQHK4gFpYebBcq2bgTE2mmeczdQwU70xuqhesqaDXNgocx
-	KB9AYvmUN4z6yuY5Tap7MHF1MBFbi5JQWaV/h+SHlXTxlFHuwCs0FLPLtXBRa4kJVRQ=
-X-Gm-Gg: AYBFou1Lwyw1ODEC7PD2SZzSB1elX2xJpVuZdYdyBuG93yvlQjBu2aCk6xih9jOBDFx
-	mfsi8sHtM7xkCPrB4sNkVj8gN1B+RaCnXqj9KE+EK/1ABMnDqEreVvXIUeyd1uOKgj6rFiuaRw1
-	5aHLia2RcVUu5wYMk4t5MabFhke9gFmIao4LH54adJadAsv130Ziq02k1sXqstUcaphCAJQxjpI
-	7S5k8RpIdnIWKMDA4sqJHSJ1FfzNaf+rheQ8bHdrxse4qJIU6f+fOeiCd/I0jXO5Md4rdHH1RaO
-	K5o0ozP+PI47t7BbMO95Y9O6BoW8XdhbNzyBTWUW1lS2wG8hjkQmWLMzX/9e38d2F9XRyOF7j2J
-	StGCOKp/HnfQnX+kW3ulNNXB3feKrGqUoaxecg1syIks3l7pgGthIdH1Huo56XzdVIwxKTCBjOh
-	j/cxHdCj5JPQG+3VM6q0wtMy+QVq7AF36SZ1jWilOMM5pSkHkX4Q==
-X-Received: by 2002:a05:600c:4714:b0:49e:6581:7baf with SMTP id 5b1f17b1804b1-49fc4f72886mr64959255e9.2.1789782813417;
-        Fri, 18 Sep 2026 18:53:33 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789782812; x=1790387612;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RpQg1/jWZmhf3sNxkzE4wIZy2eU9EXWek6LxmzsP1F4=;
+        b=08r8bCm/CY6N0prJChCDer29KR3kVKe9Cs4kwowAwOI8GdEA3VPMeafQM2yRMdV4r4
+         EV9s+ra7Po+SMSwnxP9a2gvwZM2xZtwt8yZfU9odw1RolwyB+JKrXvnu4fayvDVpUONa
+         gBEpxSMtNYqPMcrKIx8kv903xILJIydD+uIQTdLy07tDojEIQYDvMCcr7YOG7QOgzHIU
+         camG1YajfGDgkh0AH8ilzY5BshpIP8SPBiF7DQj8G3I/2+ETOMmkWjGi9zfvBU4ur9tf
+         EXNFt8DoOdNcgukz4oFfxL6Yvrs/oNmIhYa+8NopAAugWiGFT2E7Pk76lAutA1wv9/cC
+         YG2g==
+X-Forwarded-Encrypted: i=1; AKwUvBx9aIpKJq2WaVTAPZPuCy/6nCt9HDuIZ8P0aAHQG2oKWCh4r/N0TGdIaLG9cAF9X8zwDRKlbbQxmPqftSo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mJMmDWzLIx/anh+Z0t4eps4h965sMi1976lZO7R4Swvo94+5Ys
+	y9tlq162nyl+fBF70W91grKU8O6Y6L+1vzzWs3taAcTBu9BGa2xvReMyT3sDoyOilYA=
+X-Gm-Gg: AYBFou3YLDYYocxfReBQsnhakhwWdRY5pf4p5zQX30zwCZVpm3GbIFqdWoC5yKbWXn6
+	4013nZUEzate9kUF2OxveS7lDuvoBIFvwobg0hI1VXrY1TaIqzNJ19e64ot5xsXUAmRmPgXT80l
+	/jTnvjuzfulvwdK9FneTtQnblpdHJ1H6z26cTiUgV6gbk3L5UBiV+uIetK1UN+BDgXErqJHtD7T
+	Xt/qqRMGz4FwG3kGn524IESG/xithe/Q7vnnmvcJZja/MIbpw0RlmT4MDMIalC0wtVJtPbh/4xQ
+	8V0Y8pTTbNI+bStw2irvaLA5GTxBHZKWZaBbrgFDdTwdJ7kEiRwNdG5hXJCOSzfgg3IXQ06WfeT
+	lDmmnJWi2xT1a26M0r/gCLrJp6kzZw43GRSmhbnJxX46S/+RXImDKcnL656W+IbJsQmsu95HY0g
+	97l4SeTmPZiaqG7nN4Zv2qcgna5rqmWuX2+nNqxg6LBtFnwxrjdM4=
+X-Received: by 2002:a05:600c:530f:b0:49d:243a:e4f9 with SMTP id 5b1f17b1804b1-49fc56cb197mr54635195e9.10.1789782811921;
+        Fri, 18 Sep 2026 18:53:31 -0700 (PDT)
 Received: from remote-01 ([84.17.55.229])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd10d174sm34946045e9.11.2026.09.18.18.53.32
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd10d174sm34946045e9.11.2026.09.18.18.53.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 18:53:33 -0700 (PDT)
+        Fri, 18 Sep 2026 18:53:31 -0700 (PDT)
 From: Aleksei Sviridkin <f@lex.la>
 To: netdev@vger.kernel.org
 Cc: andrew@lunn.ch,
@@ -76,12 +74,10 @@ Cc: andrew@lunn.ch,
 	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Aleksei Sviridkin <f@lex.la>
-Subject: [PATCH net v9 1/4] net: usb: lan78xx: register the PHY interrupt with the MDIO bus
-Date: Sat, 19 Sep 2026 04:53:23 +0300
-Message-ID: <20260919015326.499479-2-f@lex.la>
+Subject: [PATCH net v9 0/4] net: phy: keep a PHY interrupt across a generic bind cycle
+Date: Sat, 19 Sep 2026 04:53:22 +0300
+Message-ID: <20260919015326.499479-1-f@lex.la>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260919015326.499479-1-f@lex.la>
-References: <20260919015326.499479-1-f@lex.la>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,90 +86,172 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The interrupt this driver maps for its PHY is written only into
-phydev->irq, while the bus table mdiobus->irq[] keeps reading PHY_POLL
-for the same address. That table is where phylib records what the bus
-described - phy_device_create() seeds phydev->irq from it - so the
-number lives only as long as nothing else writes that one field.
+On an MT7981B board with an MT7531 switch, the Airoha EN8811H behind
+lan4 has its PHY driver as a module on the root filesystem. The switch
+brings its user ports up before that filesystem is mounted, so the PHY
+attaches to the generic driver first. phy_probe() replaces phydev->irq
+with PHY_POLL because genphy has no interrupt callbacks, nothing puts
+the number back, and the PHY polls for the rest of the uptime once its
+real driver takes over. The devicetree describes a working interrupt for
+it and the number is never used again. On this particular board the port
+does not come up at all while that happens, because phylink rejects
+2500base-x against the generic driver and DSA drops the port; it is the
+PHY that carries the lost number across the cycle.
 
-Put it in the table before the bus is registered, so that the PHY the
-scan creates is born with the number, and drop the write to phydev->irq
-that phylib then makes by itself. The address is not known that early,
-so the whole table gets it. A devicetree PHY node still overrides that.
+Patch 3 takes the number back from mdiobus->irq[] at the end of the bind
+cycle. Patch 4 covers the other end of the same cycle: a genphy bind
+that fails inside phy_attach_direct() unwinds on a label that does not
+reach phy_detach(). Patches 1 and 2 put two USB drivers' interrupt
+numbers into the bus table, so that there is something to take back for
+them as well.
 
-Found going through the drivers that keep a PHY interrupt outside the
-bus table, so that the restore on detach later in this series has a
-number to hand back here as well.
+On the board above the number reaches that table through
+fwnode_mdiobus_phy_device_register(), which writes phydev->irq and
+mdiobus->irq[addr] together when the PHY node carries an interrupt; the
+EN8811H hangs off the SoC MDIO bus, at the devicetree node
+/soc/ethernet@15100000/mdio-bus/ethernet-phy@d. A driver that owns its
+bus can fill the table itself instead, and several do - mt7530 writes
+irq_create_mapping() results into ds->user_mii_bus->irq[] before
+registering the bus, which is where the switch ports' own numbers in the
+notes to patch 3 come from, and mlxbf_gige writes an ACPI GPIO interrupt
+into its bus table the same way.
 
-Assisted-by: LLM
-Signed-off-by: Aleksei Sviridkin <f@lex.la>
----
+Andrew asked [2] for the full set of drivers that keep the interrupt
+outside the bus, "so that the bus is the source of truth" [3]. Going
+through that list against net/main, in his grouping:
 
-Notes:
-    Compile-tested only; I have no LAN78xx device.
-    
-    No Fixes: tag on this one. On its own it fixes nothing - nothing reads the
-    bus table back until patch 3 - which is also why it sorts ahead of that
-    patch rather than after it.
-    
-    lan78xx_setup_irq_domain() runs before lan78xx_mdio_init() in
-    lan78xx_bind(), so the number is already mapped where the table is filled.
-    Which address the PHY answers on is not known until of_mdiobus_register()
-    has scanned, hence the whole table; mdio-moxart.c fills its own the same
-    way.
-    
-    The fill is a default rather than an override. For a PHY node that
-    describes an interrupt, fwnode_mdiobus_phy_device_register() writes the
-    devicetree number over the table entry, and into phydev->irq, once the
-    device exists. That inverts the old order, where the driver's own number
-    was written last and won. Neither in-tree lan78xx PHY node carries an
-    interrupts property, so nothing in tree changes, but a devicetree that
-    described one would now be believed.
-    
-    Teardown order keeps the number live for as long as it is read:
-    lan78xx_disconnect() detaches the PHY through phylink_disconnect_phy(), and
-    lan78xx_unbind() calls lan78xx_remove_irq_domain() only afterwards.
+  - lan78xx and smsc95xx write a live interrupt into phydev->irq only.
+    Those are patches 1 and 2.
+  - ucc_geth never writes the field at all; its single use is a read on
+    the WoL path, so nothing to change, as he said.
+  - ixp4xx_eth, ax88796c and emac-mac force PHY_POLL into phydev->irq
+    around their connect, and each keeps doing it. ixp4xx and ax88796c
+    store it in probe just after the connect succeeds, and their only
+    detaches are their own probe error path and remove. emac-mac stores
+    it early in emac_mac_up(), on the line before the connect, and that
+    runs on every bringup. No attach in any of the three follows
+    a detach without the driver forcing PHY_POLL again, so a restore in
+    between cannot cost them anything.
+  - stmmac_mdio already writes mdiobus->irq[] next to phydev->irq, so
+    it is on the right side of this. The block is also unreachable in
+    tree: it is guarded by probed_phy_irq > 0 and nothing sets that
+    field, in stmmac or in sxgbe's copy of it.
+  - mlxbf_gige likewise writes the bus table, from ACPI.
+  - bcmasp_intf, bcmmii and tsnep set PHY_MAC_INTERRUPT, and genphy does
+    not touch it: phy_interrupt_is_valid() is false for both PHY_POLL
+    and PHY_MAC_INTERRUPT, and it guards the substitution, so the
+    generic driver never demotes a MAC-served interrupt. They also set
+    it after connect - tsnep unconditionally, bcmasp and genet for their
+    internal PHY only - so what a restore hands back is replaced again.
+    icplus sets it from ip175c_read_status() for its switch ports and is
+    safe for the same reason.
 
- drivers/net/usb/lan78xx.c | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
+The v7 commit message also named sxgbe as losing the interrupt. That
+was wrong - the same dead probed_phy_irq guard - and it is gone.
 
-diff --git a/drivers/net/usb/lan78xx.c b/drivers/net/usb/lan78xx.c
-index cb782d81d84f..d7472d894c8d 100644
---- a/drivers/net/usb/lan78xx.c
-+++ b/drivers/net/usb/lan78xx.c
-@@ -2092,6 +2092,7 @@ static int lan78xx_mdio_init(struct lan78xx_net *dev)
- {
- 	struct device_node *node;
- 	int ret;
-+	int i;
- 
- 	dev->mdiobus = mdiobus_alloc();
- 	if (!dev->mdiobus) {
-@@ -2118,6 +2119,10 @@ static int lan78xx_mdio_init(struct lan78xx_net *dev)
- 		break;
- 	}
- 
-+	if (dev->domain_data.phyirq > 0)
-+		for (i = 0; i < PHY_MAX_ADDR; i++)
-+			dev->mdiobus->irq[i] = dev->domain_data.phyirq;
-+
- 	node = of_get_child_by_name(dev->udev->dev.of_node, "mdio");
- 	ret = of_mdiobus_register(dev->mdiobus, node);
- 	of_node_put(node);
-@@ -2892,13 +2897,6 @@ static int lan78xx_phy_init(struct lan78xx_net *dev)
- 		return 0;
- 	}
- 
--	/* if phyirq is not set, use polling mode in phylib */
--	if (dev->domain_data.phyirq > 0)
--		phydev->irq = dev->domain_data.phyirq;
--	else
--		phydev->irq = PHY_POLL;
--	netdev_dbg(dev->net, "phydev->irq = %d\n", phydev->irq);
--
- 	ret = phylink_connect_phy(dev->phylink, phydev);
- 	if (ret) {
- 		netdev_err(dev->net, "can't attach PHY to %s, error %pe\n",
+The review [4] asked how this sits with Documentation/networking/phy.rst
+telling MAC drivers to set phydev->irq directly. That contract is
+per-connect: set it "before you call phy_start". The restore happens in
+phy_detach(), between connections, so the value a MAC installs after a
+connect still stands when phy_start() runs.
+
+One behaviour change worth naming. phy_request_interrupt() falls back to
+PHY_POLL when request_threaded_irq() fails, and that fallback no longer
+survives a detach. A board with a broken interrupt line still ends up
+polling, exactly as before, but it now says so once per attach instead
+of once per boot.
+
+Longer term the substitution itself is what wants removing. There are
+two of them and they are identical - phy_probe() and phy_attach_direct()
+both do "if the bound driver has no interrupt callbacks and the number
+looks valid, replace it with PHY_POLL" - so phy_interrupt_is_valid()
+could ask whether the bound driver can service the interrupt and neither
+site would need to write anything. That reaches every caller of the
+helper, so it belongs in net-next and not here.
+
+v7 1/2 ("net: phylink: unwind the PHY binding when bringup fails late")
+has nothing to do with the interrupt and is posted for net on its own
+alongside this series, which is why the patch count changed.
+
+Changes since v8 [5]:
+
+ - Patch 1 fills the lan78xx bus table before the bus is registered
+   rather than one entry after the scan, and drops the write to
+   phydev->irq that phylib now does from the table itself [6]. The
+   netdev_dbg() that printed the field goes with it -
+   phylink_bringup_phy() prints the same number, at info level, as this
+   driver connects.
+ - Patch 2 does the same for smsc95xx, and drops its phydev->irq write
+   [7].
+
+Changes since v7 [1]:
+
+ - The restore moved above device_release_driver(). After that call the
+   mdio device is bindable and the device lock is dropped, so a
+   phy_probe() on another CPU writes the same field. Holding the lock
+   across both, as the review [4] asked, is not available:
+   device_release_driver_internal() takes it itself. Ordering the store
+   ahead of the release gives the same guarantee, since the generic
+   driver is still bound there and a driver registering meanwhile is
+   turned away with -EBUSY before it reaches phy_probe().
+ - New patch 4 for the phy_attach_direct() failure path. The v7 commit
+   message claimed detach covered every substitution; it does not cover
+   that one.
+ - v7 2/2 carried no Fixes: tag at all. It does now, and patch 4 has
+   its own.
+ - New patches 1 and 2, for lan78xx and smsc95xx.
+ - The sxgbe claim dropped.
+ - The phylink patch split out, see above.
+
+Patch 3 is measured on that board. The one condition arranged for the
+run is that the PHY driver module loads after the root filesystem
+instead of from the early boot list the distribution normally uses -
+that early list is also why a shipped image does not trip over this.
+The distribution's own late-PHY handling was also removed, that being the
+one patch which could have changed the outcome; upstream has nothing like
+it. The unwind block of the phylink patch posted alongside this series is
+in the kernel too and is not reached on either path: the -EINVAL failure
+returns from phylink_bringup_phy() at its validate call, before
+pl->phydev is assigned, and the -EIO failure returns from
+phy_attach_direct() before phylink_bringup_phy() runs. The kernel is
+still a distribution one and its remaining patches to phylink and
+phy_device do run on these paths; none of them writes phydev->irq. The
+generic driver then binds at 1.87 s and the real one between 13.4 and
+13.6 s depending on the boot, and phydev->irq afterwards reads -1 without
+the patch and 15 with it, 15 being the number the devicetree gave that
+PHY.
+
+Patch 4 needs a generic probe that fails, which the board does not
+produce on its own, so it went through a debug-only module parameter
+that fails it once for one address. The connect then ends in -EIO rather
+than the -EINVAL of the validation path, and the unwind takes the label
+that patch touches; the same reading is -1 with patch 3 alone and 15
+with both.
+
+Patches 1 and 2 are compile-tested only - I have no LAN78xx or LAN95xx
+device, and a Tested-by from someone who has one would be welcome.
+
+[1] https://lore.kernel.org/r/20260909204306.2374562-1-f@lex.la/
+[2] https://lore.kernel.org/r/8f67d3ba-ce25-49bf-8378-c76d748879a9@lunn.ch/
+[3] https://lore.kernel.org/r/a2a2a8fb-97c3-498f-9bf4-e0c44be2eff6@lunn.ch/
+[4] https://lore.kernel.org/r/20260915005946.823736-1-kuba@kernel.org/
+[5] https://lore.kernel.org/r/20260918015029.2518425-1-f@lex.la/
+[6] https://lore.kernel.org/r/df5d4af1-a86a-4820-9aeb-b1449a60f37e@lunn.ch/
+[7] https://lore.kernel.org/r/6e14d6b7-2a5a-40e2-920e-fc69a6e85173@lunn.ch/
+
+Aleksei Sviridkin (4):
+  net: usb: lan78xx: register the PHY interrupt with the MDIO bus
+  net: usb: smsc95xx: register the PHY interrupt with the MDIO bus
+  net: phy: take the interrupt back from the bus on detach
+  net: phy: restore the interrupt when the generic bind cycle fails
+
+ drivers/net/phy/phy_device.c |  5 +++++
+ drivers/net/usb/lan78xx.c    | 12 +++++-------
+ drivers/net/usb/smsc95xx.c   |  6 ++++--
+ 3 files changed, 14 insertions(+), 9 deletions(-)
+
+
+base-commit: 3b95a04eb5f95bf6a016a1bb9ff37d3eee48de63
 -- 
 2.53.0
 
