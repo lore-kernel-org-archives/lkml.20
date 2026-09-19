@@ -1,111 +1,128 @@
-Received: from mail-05.mail-europe.com (mail-05.mail-europe.com [85.9.206.169])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEDB437EFE3
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 07:08:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.9.206.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6736348C4C;
+	Sat, 19 Sep 2026 07:10:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789801740; cv=none; b=uuM7S6opSY0DyLh4cPkW3BX/7fY2lKCIBdPldkm2+3oYa7ZQ55sv02TPwhkPtyhh4kFtjJBZn/YYNj1o1s35Lw/fwOXLoSINJenI2s8ehZR4TjeOe0UIVi34/Hsr36ctAhGc6XV0fXE9l+aBOOuX5zpTZ4mGBouA8B+MgiDedZE=
+	t=1789801851; cv=none; b=L14221W92nLp4iKF0HDOsdefqKyAwMKmNJxvz+EzVgu/BGIExsFlYV4umpWJKwREr8Lxa+JspMVa/K8mkQnZBi4NllCX44twEctKdvvsaKlmaYpsY2MWDvi0ZNCumWt5CL4BosFbPFTYYJ3sZTWnB+5GUu0Z89k+pYi/3vfUXOA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789801740; c=relaxed/simple;
-	bh=vwN6BG6lRlunveBc2QdFheFfI69WoVgjH+V04jr7+yU=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=AzBhheCSB8Fw/H88Moblz69zwUUY4yhBc1UUPA0JEa9cUQmruq/0+yk2Ug+YYuD+JxztXSGzn8HIos0yl1GZO0XbFjewRlk0+NUQncA7S+fDfy8kBoCyLkA4MwQj14gUm8u8zXDRgxUKHgRzqov4AWvT547+ZuO5FfwE70cdFyo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=MmUbOqt2; arc=none smtp.client-ip=85.9.206.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1789801851; c=relaxed/simple;
+	bh=twx0/aiJ+i7sWobA326//IIaMkNC/MrQxHpNphyRvxw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sv2E306zyA/jA+wPuqdcDoyzyS9cb93yAkbLguQgYJXg9NPWBwrBD86F05rqi9VZC5iboZtjxLPN3MgrZkJP8l4LiUUPmWhWaHtvDGg1I8ahZzb/JOvhiEZpkT0QHO+ZmzPNhUEQSxVCWn6BcP+6r3OsJpVYthTDo7Wy8KWvPJU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=USdRR2+p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="MmUbOqt2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1789801728; x=1790060928;
-	bh=TQAsvmWL/GXjjYYZ0OeIATjGXy70BfH/u8AoyffHR6I=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=MmUbOqt2SLDd2RBacFflQafeVgTbF7hL9Pahz4cRD33LgJLletWCIro/m0U3R9+Kn
-	 wsfMC9Huq/2iGQapNWrjYm1FoF2+OsTeCOaMAt8uIVCT02eTUVuH2hc08qRStlnJOH
-	 LKNabjAXhRadzYYLUAVlc+UibYKJeIZo8mvNVKdJl3AeaXiYyJ7l4ZQQEVGJzCdKeD
-	 m0SgqPkifY/nSxKpmbExxJ1/YD1YAFbuB9naKzCVmMRzOKRX4muElxn+Zoc/bJv8ik
-	 XoOvybIIJQcFpNjOC6uv4abPUrGrJwa03in6YsIbgGiVDDp1lL+tMsRxu8p0Cx61r8
-	 P0ZAZp/OMqVRg==
-Date: Sat, 19 Sep 2026 07:08:42 +0000
-To: linux-media@vger.kernel.org
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans de Goede <hansg@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, German Pablo Lindo <germanpapulindez@gmail.com>, Fernando Rimoli <fernandorimoli11@gmail.com>, linux-kernel@vger.kernel.org
-Subject: [PATCH v3] media: ipu-bridge: Add OV13858 sensor config
-Message-ID: <20260919070837.92720-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: cbfea0fc3050cc0ff7b65bc487e37baad52707fb
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="USdRR2+p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28F371F000FF;
+	Sat, 19 Sep 2026 07:10:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789801850;
+	bh=1Xko9VPFILsIKFRtknUu5Sx/9/JaWUqswYKCJpV+0hs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=USdRR2+pduPF0P7s+UzOkruqa3Ehe9RaSBY3nFYwauOpX7GbMUaUufRegLl2lHDj1
+	 9di/InnTURqH94I3URtt1pcA6JFQMaeZz5F0rzgyuRY3TiYHfL+zmJQjg+9D+nvqrM
+	 xH3qHg10PxqxFtZWMLMXLZaVhILZinHv3RwWmvg3tWXT1X5PClV0++Ld9dtKv6BarF
+	 jGV79JKBoCeyqJgx9SRj/FhEHT0FfIetqddVBB5vsZf8kW/iUwmvx/AsCipU/+JWv2
+	 PiUnwHrdKf3oDPdDt+jOPXJaSGGobBRFEWuYVqkNEi8cwWSrHtFTb0s8gN4GBpPboi
+	 ZV7h1l8/P3JOg==
+Message-ID: <77606157-1d09-45a9-bf1c-b8c1d921cee3@kernel.org>
+Date: Sat, 19 Sep 2026 09:10:43 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] arm64: dts: imx8mp: add Olimex i.MX8MP-SOM-EVB kit
+To: Zoltan HERPAI <wigyori@uid0.hu>, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, Frank.Li@nxp.com, s.hauer@pengutronix.de,
+ festevam@gmail.com, kernel@pengutronix.de
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260918195559.130443-1-wigyori@uid0.hu>
+ <20260918195559.130443-3-wigyori@uid0.hu>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260918195559.130443-3-wigyori@uid0.hu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The Microsoft Surface Pro 11 for Business (Intel Lunar Lake, IPU7) carries
-an OV13858 as its rear sensor, enumerated as ACPI device OVTID858. That HID
-is not in ipu_supported_sensors[], so ipu_bridge_connect_sensors() passes
-over it without logging anything and the IPU is left with an empty graph:
+On 18/09/2026 21:55, Zoltan HERPAI wrote:
+> This adds support for an i.MX8-based system-on-module + EVB board. The
 
-  intel-ipu7 0000:00:05.0: no subdev found in graph
+Please do not use "This commit/patch/change", but imperative mood. See
+longer explanation here:
+https://elixir.bootlin.com/linux/v6.16/source/Documentation/process/submitting-patches.rst#L94
 
-Add the entry, with the two link frequencies ov13858 declares. The bridge
-then connects the sensor:
-
-  intel-ipu7 0000:00:05.0: Found supported sensor OVTID858:00
-  intel_ipu7_isys: bind ov13858 1-0010 nlanes is 4 port is 0
-
-This machine needs two further fixes before the sensor streams, neither of
-them a prerequisite for this entry to be correct: "platform/x86: int3472:
-support the POWER1 GPIO type" from Jakob Berg Jespersen, and power
-sequencing the in-tree ov13858 driver does not do on this platform. With
-all three, libcamera streams SGRBG10 at 4224x3136, 29.95 fps.
-
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
-Tested-by: Fernando Rimoli <fernandorimoli11@gmail.com> # Surface Pro 9, IP=
-U6 Alder Lake-P (8086:465d)
-Tested-by: German Pablo Lindo <germanpapulindez@gmail.com>
----
-Changes in v3:
- - rebased on media/next; v2 applied only with an offset since
-   "media: ipu-bridge: Match sensor configs per IPU and add config flags"
-   landed and moved the table
- - commit message cut to the length of the neighbouring entries, and three
-   things in it corrected against the machine: a quoted log line carried a
-   parenthesised fwnode the kernel it came from does not print, the capture
-   figures were stale, and only one of the two other fixes this machine
-   needs was named
- - subject follows the convention of those entries
-   ("media: ipu-bridge: Add OV01A1B sensor config"); the diff is unchanged
- - carried Tested-by from Fernando Rimoli and German Pablo Lindo
-
-The entry sits between OV08x40 and OV13B10, where the table's existing
-grouping by part name puts OV13858.
-
-v1: https://lore.kernel.org/linux-media/20260913100932.92087-1-lsa.uz@pm.me=
-/
-v2: https://lore.kernel.org/linux-media/20260913142034.5632-1-lsa.uz@pm.me/
-
- drivers/media/pci/intel/ipu-bridge.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel=
-/ipu-bridge.c
-index 952868ad8d5..532a0bfbbbc 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -102,6 +102,8 @@ static const struct ipu_sensor_config ipu_supported_sen=
-sors[] =3D {
- =09IPU_SENSOR_CONFIG("OVTI08A1", 1, 500000000),
- =09/* Omnivision OV08x40 */
- =09IPU_SENSOR_CONFIG("OVTI08F4", 3, 400000000, 749000000, 800000000),
-+=09/* Omnivision OV13858 */
-+=09IPU_SENSOR_CONFIG("OVTID858", 2, 540000000, 270000000),
- =09/* Omnivision OV13B10 */
- =09IPU_SENSOR_CONFIG("OVTI13B1", 1, 560000000),
- =09IPU_SENSOR_CONFIG("OVTIDB10", 1, 560000000),
---=20
-2.54.0 (Apple Git-157)
+> product pages are here [1] and here [2] respectively.
+> 
+> There are two new files, one dts for the EVB and one dtsi for the SoM.
+> 
 
 
+...
+
+
+> +&ecspi2 {
+> +	#address-cells = <1>;
+> +	#size-cells = <0>;
+> +	cs-gpios = <&gpio5 13 GPIO_ACTIVE_LOW>;
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_ecspi2 &pinctrl_ecspi2_cs>;
+> +
+> +	status = "okay";
+> +
+> +	spidev1: spi@0 {
+> +		reg = <0>;
+> +		compatible = "rohm,dh2228fv";
+
+No, strong no. This does not exist. Don't invent fake devices on your board.
+
+
+Best regards,
+Krzysztof
