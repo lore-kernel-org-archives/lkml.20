@@ -1,162 +1,163 @@
-Received: from mx.ssi.bg (mx.ssi.bg [193.238.174.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B37FE4570FD;
-	Sat, 19 Sep 2026 10:08:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.238.174.39
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789812539; cv=none; b=o2jyWTd1rbVXf+uV6dBiJdJxnYx9IApbiP2YTcJm2yrhWLCUCQVKcW/3PIdIJ4BhQH39Pp1QkqfLxX/t82vZEjApFvOiV9QBP9B1ojNqNAhTIQimB3bfAOTIPjHUuICH2yYF2jHM0rx0YHvEVjGFWP3RD2yvGeZhY5m25bs8Mpk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789812539; c=relaxed/simple;
-	bh=ZNGeOz9pirAsmGnWAM9RSJw/qC/AipJAd0mOKwCHW20=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=fjE3558n0bMqwOKSUo3H4FdDdLwQnFU5PZwr5gkkvzeCNijOk0lIaDVl8yfGi2e0YsdS67pER2gCiacGqMotS8jF2Ajsbzn4Ff9c6tx69sqx6hLRS1bbZ5WfE117kXuZc/N5Dgi7NsUssQcsvTYnu9hA9F02N+I5aVby+uR4VuA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg; spf=pass smtp.mailfrom=ssi.bg; dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b=soqZO3df; arc=none smtp.client-ip=193.238.174.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ssi.bg
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8885245D932
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 10:10:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789812611; cv=pass; b=qM6cXbmQzOJj6b5DFHeKkhsZRNdHwIurR7qBrvDW3hKzQBtI+VBDvRqW6lWAadREp9ShjRCzXPFyk+IEkA5gCAxfggtHa3shHiG7q1ibDu0UFvUOFCcOI0HHpvCMIAw7eFCnVn8tXOJt3jJy96A33ZlQCfF59PLOnkWdS4SC1Is=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789812611; c=relaxed/simple;
+	bh=qEicP/EnbFKWWC+ZMFHq8A8CUaY/UPf7WAOaWR3gYSs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Mb/kgkjrrpVseaCFvC7wdQohx3M7jpj7NCsAdTceIuWCXPBbZd1G5rZ8ADUODbli+Xxry8fLFoVUEXpJKHbZtZJqp/qvrguRz5lwiwyQ8jpCxy6UHWSm7aKSybncmYFsaBVnV1Q0beEG3IAqYrAv5qwzY3usSREQf1UoSscPv6A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=sPG3wXCF; arc=pass smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b="soqZO3df"
-Received: from mx.ssi.bg (localhost [127.0.0.1])
-	by mx.ssi.bg (Potsfix) with ESMTP id 04592213A5;
-	Sat, 19 Sep 2026 13:08:48 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ssi.bg; h=cc:cc
-	:content-type:content-type:date:from:from:in-reply-to:message-id
-	:mime-version:references:reply-to:subject:subject:to:to; s=ssi;
-	 bh=O2QTtBcrc3GL+6k/leZ9pC0nG6fhn7UZg6e0bwmdEUU=; b=soqZO3dfMYzA
-	sYWuQNkyosnZ4MCLi5oT3nDqxylHU2cRRO0Ti/SVTUuYuGTGWueocYYpcuFh/aB/
-	2dJu62xq/7ZExTJ0mOfmk/tox3lA+sYeExTJTXMmLKJIXJDIUz3rBKnrwquY3BgZ
-	AJQ68SUVPr/DO8mXbmwh5NUIpMlNhVpR9/ViUFEhv2ZHM8rKKxo0MdJZ3uWWlaoP
-	mWXoSzNsi1hU2EOlBPsn1rEC2uP3yPSXmtDhpAAW2LFIiz0ERgVt5olA91BEAZ5h
-	WXjj43e2jrg+cLb0ScjkNnTnrsu3/Pp5eMeZWwg8PKmQJ8Q6jdaHnGM8ZlvryQfU
-	RZ46+3dAMPkT1pR3YL6RMMjIueYpvktto1dWnEDQTSFgsfmy2M0p5IgzzYmzHtgd
-	nav/9iClNV0V+gFY5GaDXBCZ7pgCuHc6Hm94r8/L8//iRU3S4lDU9N5M5wTiBLTV
-	T5TU5pOMYWR7zGzDOTDEDxIs6LJcGkKe8VHCEdfqHvEHAWIqTFm4wcvtwz55TDys
-	loUSmInE6qjHP+tZTPNwy4IfsaO/3r4Ej15Wy27GvSlghz6TeaqlcVWYb+NYHD5O
-	z/qXMn7eFZhuPz5oa+dBRzxyRGz0gWa4U0YGJ0BdI4pxMyIYocKKIYaSB5IOrYgH
-	3K343kILpChrbzBvT46N+0GoIo61XGE=
-Received: from box.ssi.bg (box.ssi.bg [193.238.174.46])
-	by mx.ssi.bg (Potsfix) with ESMTPS;
-	Sat, 19 Sep 2026 13:08:47 +0300 (EEST)
-Received: from ja.ssi.bg (unknown [213.16.62.126])
-	by box.ssi.bg (Potsfix) with ESMTPSA id B427F61E26;
-	Sat, 19 Sep 2026 13:08:49 +0300 (EEST)
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by ja.ssi.bg (8.18.2/8.18.2) with ESMTP id 68JA8m5t021687;
-	Sat, 19 Sep 2026 13:08:48 +0300
-Date: Sat, 19 Sep 2026 13:08:48 +0300 (EEST)
-From: Julian Anastasov <ja@ssi.bg>
-To: Zihan Xi <zihanx@nebusec.ai>
-cc: Simon Horman <horms@verge.net.au>, Pablo Neira Ayuso <pablo@netfilter.org>,
-        Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
-        lvs-devel@vger.kernel.org, netfilter-devel@vger.kernel.org,
-        coreteam@netfilter.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2 2/2] ipvs: reject FTP control ports as data
- ports
-In-Reply-To: <7b561a02-461d-2320-75e4-241dd213d9f0@ssi.bg>
-Message-ID: <a1ba4cd8-6e18-1ae9-fd96-8bb87f434f99@ssi.bg>
-References: <cover.1789435989.git.zihanx@nebusec.ai> <20260917030301.5502-2-zihanx@nebusec.ai> <7b561a02-461d-2320-75e4-241dd213d9f0@ssi.bg>
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="sPG3wXCF"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-868cfc5c244so892352b3a.3
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 03:10:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789812608; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OYl9IusA+pYD7Hz4Q8W1yLj5UsKLkryqgdEapvWYszmbdrhK/qmYn0sfUW0QRXoGua
+         xaQ1NqBojdMXnoQ8q/PI5o/itesbtdkJDKKpJtCyDmyTyHjy1+nI84onPwiQSXIUnYhv
+         yZ9PfGtWro8leP6g9Rg3iQME/gjt6LcVjaPwduy16doxh7GNPHDGdPcXHoSXYMHEFWpp
+         KccucIOahhk/Vglz+RjPtKSC0gLBBeo45e7Ljx6kNS9O2mbUuI50LiAx4hHVql95vNCE
+         dVT4qpvNvuC9wii0C7XHY5O0DrfFKz+yJv61g6eEWqzz0V5ImXs5hYnPcPT4BuXVbkbl
+         s0WA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=RYML6Quodf3/gZskF5KoxX7uYmVV34bFJSRCvUETSK8=;
+        fh=O1uaLS/P57cGFdszr2IiUQ+sKLryGpQUW3KnMIfKQo8=;
+        b=IRAoxNvvKj1xYQ789GoIrhDlYfr1uz+d/wY++VJ9twx6ccSQCxWfHiKBknu2vcYAkb
+         td/FLBqyOdI7jggQeem73ilvfKLD0dGKNaE76852O4AtoQ+UVhAJbN8+VvGYKZn4vCu3
+         ob+A59N2CL3ri9orua7IuBfBBFxggqOtcjeinKE3BzFLevm87R+mI7/f0/3DSCJVDjuj
+         5YgstBaak8HVhjtzT5pV32RzVqNkpfTKTkE1pgQxp7y7xLdM+kQvrUY9SnQvmdr4mkDp
+         QV2R6bAqlE6WgucAwlxh7tYa7+uwHadCqoGhS57nxFy0aVBGT8zhQKCVg8pe4aKleJs0
+         B/hg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mojatatu.com; s=google; t=1789812608; x=1790417408; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RYML6Quodf3/gZskF5KoxX7uYmVV34bFJSRCvUETSK8=;
+        b=sPG3wXCF/v9scsAvB66dbOuFkbhd0V/Q7BsmBwuEwlUEQUVwS4Q6ggTf6tdIw4J0Yt
+         ySEaNXznCnUO/xYvQB3WFVY6g2QhmcbB9GfFW/ehJhEUD9jsuj4v60DE7puvKJryBE0W
+         Beysy2TxHm/nFKs+MJThRSoEmB6w+6OyJTZ+s=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789812608; x=1790417408;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RYML6Quodf3/gZskF5KoxX7uYmVV34bFJSRCvUETSK8=;
+        b=eHMS32qoSty7n8m9IxwJuLtuWzkNXudMueE09BETHHoESX9yg6zJhIbVDCkWRBu7Ly
+         GW0BfVsZe5Faw9s4i9SaS0B4Mb/SKBe7XD1rX7eyJsaa6taD3hD4MzBnz8VpBpDVwW3c
+         ImcJ0C3+i4W2jIHslvzQ5YKWn7hcu1CFDgpSBWygw7aTP6bBlbvQ24dNRxITmc0j594X
+         XZpHFvwr2tNzhDctsTleUowuF6XJHm2hL/wIEur/+vzMH25cokm6JZdo6otXMrJlMW6v
+         GU+s4R8AwdBHU1fo19iw/PppClBDnMxQpgnD75Agu4M6akfN/wpHZ0yy3b7WdHqa6rEt
+         WVYA==
+X-Forwarded-Encrypted: i=1; AKwUvBzR0V3oxLUlELQk32ws1htFpQVt5zbhMljFMO7ypKNQOj1EOyWSwLKSICpg8u7zF5TiGpCZkD3gA0QSu64=@vger.kernel.org
+X-Gm-Message-State: AFuF++lNy4d8o8lF/BJ6qoe8oFMarO7RlBXxSgviSFPxP2TjFZd9GOfl
+	8nIah9Fx6BJq9nkpdaq58fQkPvkc0jSlCaNcfpVvjS5Ij1/MeuyhW/4j29B5rmkr+1h908Rrjs6
+	pReUvOqnXg3cdOBt+ugjSdmlIm4Ga8ivGeBMnqsyI
+X-Gm-Gg: AYBFou03373werfYIFFYORY1lw5rMryXDEtRaYCeyWM3iUp5HYRD3fmgL2eGCLqG5Mo
+	3eNPfHrHUfBgrdrXMPPELXx5GyV1twz5I2qjVGdZ2wlrzaHu7y4GpU7AkjuU59vNcDlTGHBzWaH
+	1Kote9PKlKEizivyRrIiIpEoSFDMNODzqwvIQCiuKaN3+3Ez89inXcrl6C448ghspuKYUKKmnI4
+	NXJJjKnqv14vSqz/7nrmTZaposzw3Jukx06cDs3Ee7Jwu6ctQHC885za8bnUI9uF/36BWkcbPmv
+	DTaDpnzZWL3Sxbjn+UwDomFMMdFZ0VQQh5oRz1uvrGjFNMQcBYcM1AjqSwMh6/++iW8UBlF9Gvj
+	pUMH3uSpf/la/JZxoLcqaJlAeeVQ+JjVr7ge0pg==
+X-Received: by 2002:a05:6a00:4b01:b0:86e:ff2c:49dc with SMTP id
+ d2e1a72fcca58-874dd9f6878mr7820183b3a.24.1789812607807; Sat, 19 Sep 2026
+ 03:10:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+References: <20260918133953.12494-1-bernard.ladenthin@gmail.com>
+In-Reply-To: <20260918133953.12494-1-bernard.ladenthin@gmail.com>
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+Date: Sat, 19 Sep 2026 06:09:56 -0400
+X-Gm-Features: AcwNN1VS-xsnAR5LyJvNlgJZwaJgnYO98rSW_4EN9wWu2tP9xWHjz-tTeYnaBag
+Message-ID: <CAM0EoMkgkfBJjVs-uEayfLvgnmop1rLgFFxkjGL4m=iexHRBxQ@mail.gmail.com>
+Subject: Re: [PATCH] net/sched: fix potential stack infoleak in em_text_dump()
+To: Bernard Ladenthin <bernard.ladenthin@gmail.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, jiri@resnulli.us, 
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
+	horms@kernel.org, alexander.potapenko@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, Sep 18, 2026 at 9:40=E2=80=AFAM Bernard Ladenthin
+<bernard.ladenthin@gmail.com> wrote:
+>
+> em_text_dump() allocates struct tcf_em_text on the stack without zeroing
+> it.  strscpy() writes the algorithm name and a NUL terminator into
+> conf.algo[], leaving the remaining bytes uninitialised.  nla_put_nohdr()
+> then copies the full struct to the netlink response.
+>
+> KMSAN on Linux 7.2-rc6 reports two kernel-infoleak splats from this path,
+> one triggered via "tc filter show" and one via a raw RTM_GETTFILTER dump:
+>
+>   BUG: KMSAN: kernel-infoleak in _copy_to_iter+0x1c9/0x2620
+>     nla_put_nohdr+0x83/0x130
+>     em_text_dump+0x291/0x550
+>   Local variable conf created at: em_text_dump+0x5d/0x550
+>   Bytes 168-179 of 199 are uninitialized
+>
+> I am not certain whether this constitutes a real security problem in
+> practice: the test was conducted in a controlled KMSAN environment and
+> the leaked stack bytes may or may not carry sensitive data on actual
+> production kernels.  I am reporting it because KMSAN flagged it as a
+> kernel-infoleak and the fix is straightforward.  I can provide a
+> userspace reproducer on request.
+>
+> The original code used strncpy() which zero-pads to the destination size.
+> Commit b04202d6065c ("net/sched: replace strncpy with strscpy") replaced
+> it with strscpy(), which does not pad, creating this condition.
+> Zero-initialising the struct closes it.
+>
+
+Two things:
+1) Don't Cc security@ in the future on trivial things like this.
+2) You MUST provide a reproducer - even for something as trivial as
+this. Since you posted the splat, you must have a reproducer.
+Share it. This one looks hard to re-create with tdc, so please provide the =
+poc.
+We only pay attention (prioritize) patches that post repros which our
+automated system can use to reproduce.
 
 
-	Hello,
-
-On Fri, 18 Sep 2026, Julian Anastasov wrote:
-
-> On Thu, 17 Sep 2026, Zihan Xi wrote:
-> 
-> > ip_vs_ftp_out() creates a wildcard data connection from the
-> > server-advertised passive port. If that port is one of the configured FTP
-> > control ports, ip_vs_conn_new() binds the FTP helper to the new connection
-> > again. A subsequent wildcard lookup can then extend a controlled-connection
-> > chain.
-> > 
-> > Reject zero and configured control ports before creating passive
-> > connections. For active mode, reject a zero client port and a data port
-> > derived from a configured control port.
-> > 
-> > Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> > Cc: stable@vger.kernel.org
-> > Reported-by: Vega <vega@nebusec.ai>
-> > Assisted-by: LLM
-> > Co-developed-by: Luxing Yin <root@tr0jan.top>
-> > Signed-off-by: Luxing Yin <root@tr0jan.top>
-> > Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
-> 
-> 	Patch looks good to me for the nf tree, thanks!
-> 
-> Signed-off-by: Julian Anastasov <ja@ssi.bg>
-
-	Patch is ok but needs to be resent with
-the other patch:
-
-pw-bot: changes-requested
-
-> > changes in v2:
-> >   - Reject the data port derived from a configured control port in
-> >     ip_vs_ftp_in() to cover the active-mode bypass.
-> >   - v1 Link:
-> >     https://lore.kernel.org/all/cover.1789110326.git.zihanx@nebusec.ai/
-> > 
-> >  net/netfilter/ipvs/ip_vs_ftp.c | 18 ++++++++++++++++++
-> >  1 file changed, 18 insertions(+)
-> > 
-> > diff --git a/net/netfilter/ipvs/ip_vs_ftp.c b/net/netfilter/ipvs/ip_vs_ftp.c
-> > index 9e3e005a82635..4822a1a75212d 100644
-> > --- a/net/netfilter/ipvs/ip_vs_ftp.c
-> > +++ b/net/netfilter/ipvs/ip_vs_ftp.c
-> > @@ -62,6 +62,17 @@ static unsigned short ports[IP_VS_APP_MAX_PORTS] = {21, 0};
-> >  module_param_array(ports, ushort, &ports_count, 0444);
-> >  MODULE_PARM_DESC(ports, "Ports to monitor for FTP control commands");
-> >  
-> > +static bool is_control_port(u16 port)
-> > +{
-> > +	unsigned int i;
-> > +
-> > +	for (i = 0; i < ports_count; i++) {
-> > +		if (ports[i] == port)
-> > +			return true;
-> > +	}
-> > +	return false;
-> > +}
-> > +
-> >  
-> >  static char *ip_vs_ftp_data_ptr(struct sk_buff *skb, struct ip_vs_iphdr *ipvsh)
-> >  {
-> > @@ -319,6 +330,10 @@ static int ip_vs_ftp_out(struct ip_vs_app *app, struct ip_vs_conn *cp,
-> >  		return 1;
-> >  	}
-> >  
-> > +	/* Do not redirect data to control ports */
-> > +	if (!port || is_control_port(ntohs(port)))
-> > +		return 0;
-> > +
-> >  	/* Now update or create a connection entry for it */
-> >  	{
-> >  		struct ip_vs_conn_param p;
-> > @@ -529,6 +544,9 @@ static int ip_vs_ftp_in(struct ip_vs_app *app, struct ip_vs_conn *cp,
-> >  		return 1;
-> >  	}
-> >  
-> > +	if (!port || is_control_port(ntohs(cp->vport) - 1))
-> > +		return 0;
-> > +
-> >  	/* Passive mode off */
-> >  	cp->app_data = (void *) IP_VS_FTP_ACTIVE;
-> >  
-> > -- 
-> > 2.43.0
-
-Regards
-
---
-Julian Anastasov <ja@ssi.bg>
-
+cheers,
+jamal
+> Fixes: b04202d6065c ("net/sched: replace strncpy with strscpy")
+> Link: https://lore.kernel.org/netdev/20250327143733.187438-1-richard12031=
+0@gmail.com/
+> Assisted-by: Claude:claude-sonnet-4-6 [KMSAN]
+> Signed-off-by: Bernard Ladenthin <bernard.ladenthin@gmail.com>
+> ---
+>  net/sched/em_text.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/net/sched/em_text.c b/net/sched/em_text.c
+> index 343f1aebeec2..4132f8c3c5fc 100644
+> --- a/net/sched/em_text.c
+> +++ b/net/sched/em_text.c
+> @@ -113,7 +113,7 @@ static void em_text_destroy(struct tcf_ematch *m)
+>  static int em_text_dump(struct sk_buff *skb, struct tcf_ematch *m)
+>  {
+>         struct text_match *tm =3D EM_TEXT_PRIV(m);
+> -       struct tcf_em_text conf;
+> +       struct tcf_em_text conf =3D {};
+>
+>         strscpy(conf.algo, tm->config->ops->name);
+>         conf.from_offset =3D tm->from_offset;
+> --
+> 2.49.0.windows.1
+>
