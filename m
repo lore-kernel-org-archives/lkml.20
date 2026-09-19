@@ -1,126 +1,123 @@
-Received: from sender5-op-o12.zoho.com (sender5-op-o12.zoho.com [165.173.182.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28A4B23D297;
-	Sat, 19 Sep 2026 06:57:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789801072; cv=pass; b=VEClowDxuWg2xOEBaBXxVZ8545/WfvvZxNLxbrs5iCBrYFkcLHJqz7UqgdYGAnZKK11AF4f4BahyMn0Xam8dsNShyZmhDoeNQdmsnHIuwV8S8nYK4+2In4H7oDWQMSIBUo52IAhG7WZV5DBZZJK/EFrCm9NN/MYP56fSbfTSHzs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789801072; c=relaxed/simple;
-	bh=IdHUg8gZsKG1eK8ddv1bf9KJVpCAWuDGitsqS71bHqY=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=iPAUNhixeE7FaRZK26V6ACHEwRvlBl6km8z6rTgxoAgA8F4bFV6BihzIo/Yym30CWAj1pXZ6rOXxrSzRsM+RhbMNJ70KJVzep+/ghzsvtWuwnsHpBrJsHcM5pQlB/I68eqLfcfoNhydIN1VOUreBdG/TJ5kxVxP0xWzCcDDdOC0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me; spf=pass smtp.mailfrom=icenowy.me; dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b=ii9TMd7W; arc=pass smtp.client-ip=165.173.182.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 737592C21FD;
+	Sat, 19 Sep 2026 06:58:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789801116; cv=none; b=HzaQER3MVH0q8ClAdaqoW5XlwuRPYfmTt7vVRLcrOX2J/4J37LQmZs+faEG+MyOx1VEfGKDIXu5XcqzSNlUHIaWupFX1oatQe03Ce6b4BNfFycXQeWnS9mPo+Y2hXgaD9QhqLGWGAuvRuBRQvCx97qcUJhezcyoIiqBgvCrlZYs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789801116; c=relaxed/simple;
+	bh=THpmH/26IM188XCXIApLqWOfX5I/Luc5E4FzoCBSzCk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=muDMrXQ9417HigVNoqVSfU5m1BtfU/71M26XBPZQcp0zrHt797zoP47kSsSzWLhDxctnVb9ZebaFSD4vz7tXtbvgKROoJbD0uY0dgiR7+9kU1V96e60+Scckl23xOhD+cK2y+7JkC0ZgOcmOqwD5VhTealYIvBL8delqCHocURI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EVVCPZju; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b="ii9TMd7W"
-ARC-Seal: i=1; a=rsa-sha256; t=1789801056; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=n0F7k2w7VW6EWRhehL503C5goS+g4WXzxQE1Q4WSeMcZ+SQl7TquN8jk00yDaVGfLMt3jcgxPkMCYT6epgtsum8G+FleBEB6sfNASLvZlI7J0xwExrn5RfPKD5Co/m+AJhu3ctQnekwVCx+wbCqWDYXIduZDDmJrGJEczDy3BaY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1789801056; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=IdHUg8gZsKG1eK8ddv1bf9KJVpCAWuDGitsqS71bHqY=; 
-	b=ThHCOdSDW8ZX5mkA+xL47/XC7XYpL4AAmOIDWiiFybZoQzXC/GpScqKEh2XcyEIMR0NLnEnzajJvO0datpLfesDwUZCjZuQLA3Xg5cTF7J8ATHEq+0CqcPOLnUOf+FUauSwN1ZTPd977GgONqIN2kLTvC5mtK0qqkpA/JP5G0no=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=icenowy.me;
-	spf=pass  smtp.mailfrom=uwu@icenowy.me;
-	dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789801056;
-	s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
-	bh=IdHUg8gZsKG1eK8ddv1bf9KJVpCAWuDGitsqS71bHqY=;
-	b=ii9TMd7W+t3husvchZhqJ+OsMxmnNSPDkkHH35pmcrXxz1jtG0VBgw04RG/CPffG
-	EtF2EUDlWt3+eSLSRsK3pfz3Lkaci+ytI9aJnRMgVa+r5CyreYK3T15dNet90fxsrMG
-	47vnjaI8QVajUlMYCIPGILNj66aJMJmxYjHTJ9UwPF5CWP8QKkvDcnbdW/vF1XFxQC2
-	x8zMxNuZl6a3gN/eFMXGhbexkCAIqx0fAYFeLlvJHEdGmzmFw5y4w1H5ZBv2G9lp5n2
-	7UNQEErodd2Q9XoQdKxbVI+i/M62M1htkrjo3VQK2FN0DRgZOz2kS4Wsrj6zNNuZPW/
-	vy0rGsNWbg==
-Received: by smtp.zohomail.com with SMTPS id 1789801054439855.651129720259;
-	Fri, 18 Sep 2026 23:57:34 -0700 (PDT)
-Message-ID: <33b33b2b79763d410bc2e5b4ef46c305aaf6f7c8.camel@icenowy.me>
-Subject: Re: [PATCH 2/3] pmdomain: spacemit: Add power domain driver
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Yixun Lan <dlan@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, Paul
- Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
- <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org
-Date: Sat, 19 Sep 2026 14:57:28 +0800
-In-Reply-To: <20260918230107-GKC297024@kernel.org>
-References: <20260918-04-k3-pm-support-v1-0-0acd2b36b96f@kernel.org>
-	 <20260918-04-k3-pm-support-v1-2-0acd2b36b96f@kernel.org>
-	 <a4359efeee2220903a05a2383a651ec8ec7284b7.camel@icenowy.me>
-	 <20260918230107-GKC297024@kernel.org>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EVVCPZju"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BA091F000FF;
+	Sat, 19 Sep 2026 06:58:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789801115;
+	bh=yWPiYTCWkxEvhuQ3ZHXnB8M1VNaYfeBzDz5XHvNlJYg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=EVVCPZjuCB8az4e6+vCt8unTBwoKthRu+JRVGPFUkahSwad2RYnAD159sH7ha2WW4
+	 PWtapF+JvJ3Gg//L30le1dmlHr9e0MD7jslwB1QTiD38G3lelx87xzgAbepTeObHJU
+	 jmKegP8rX81GhUskrnwdYIfrtS3yRX/vDm5tSyyNT+V3KjhD2ukejU75+Hdrgb2XK7
+	 LUTzapdiuB7xFZi7Fvf71iE3uBzif4I/KftiivJY/hKSJxSWhz7jw4k7cgglWs3pYN
+	 VOOfgRBmtgQfV5QnpPbgMMfJd7iE2aEXF4C2GkjS1jO3K7+0k/WAU9nvscYwLgndZ5
+	 UsMASvc++FuKA==
+Message-ID: <61fd1bd2-d089-4604-a469-980a9bb813d0@kernel.org>
+Date: Sat, 19 Sep 2026 08:58:28 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ZohoMailClient: External
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] dt-bindings: misc: convert axis-fifo binding to
+ YAML
+To: Daniel28972897 <danyboy28sep@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-staging@lists.linux.dev
+References: <20260919011417.156828-1-danyboy28sep@gmail.com>
+ <20260919025900.169703-1-danyboy28sep@gmail.com>
+ <20260919025900.169703-2-danyboy28sep@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260919025900.169703-2-danyboy28sep@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-=E5=9C=A8 2026-09-18=E4=BA=94=E7=9A=84 23:01 +0000=EF=BC=8CYixun Lan=E5=86=
-=99=E9=81=93=EF=BC=9A
-> Hi Icenowy,=20
->=20
-> On 17:00 Fri 18 Sep=C2=A0=C2=A0=C2=A0=C2=A0 , Icenowy Zheng wrote:
-> > =E5=9C=A8 2026-09-18=E4=BA=94=E7=9A=84 02:40 +0000=EF=BC=8CYixun Lan=E5=
-=86=99=E9=81=93=EF=BC=9A
-> > > =C2=A0 SpacemiT's PMU (Power Management Unit) consist of several powe=
-r
-> > > domains
-> > > which can be managed independently, depending on different
-> > > application
-> > > scenario, each domain can be powered on/off for saving power.
-> > >=20
-> > > =C2=A0 The driver is implemented based on Linux Generic PM Domain
-> > > framework.
-> > > From a hardware perspective, either of two distinct power-on
-> > > sequences
-> > > are supported, in software mode (SW mode), the driver is
-> > > responsible
-> > > for
-> > > controlling the states of bits such as sleep1, sleep2, isolation
-> > > and
-> > > pwr_state, while in hardware mode (HW mode), the PMU hardware
-> > > will
-> > > complete
-> > > the sequence automatically without requiring software
-> > > intervention.
-> >=20
-> > I think there also exists solutions for K3 that uses RPMI power
-> > domains, and let their ESOS firmware to access the hardware.
-> >=20
-> Yes, I'm aware of that
->=20
-> > What's the relationship of this implementation with the ESOS
-> > implementation? Should the ESOS part be disabled to use this
-> > implementation?
-> >=20
-> I should say, it's a mutually exclusive solution, so yes, the ESOS
-> part
-> should be disabled in order to use this version
->=20
-> The motivation of this patch is trying to support drm/display
-> driver's
-> PM requirement, while avoid going with vendor's complicated RPMI
-> solution
-> which isn't mainline ready
+On 19/09/2026 04:58, Daniel28972897 wrote:
+> Convert drivers/staging/axis-fifo/axis-fifo.txt to a YAML schema
+> under Documentation/devicetree/bindings/misc/, so it is checked by
+> dtbs_check and by checkpatch.pl's undocumented-compatible warning.
 
-Is this a long-term solution, or a temporary one?
+So you fix not because it has to be fixed, but some tool told you?
 
-If it's a temporary conflicting one, I don't think it's worth picking
-at all.
+> 
+> The FIFO depth properties are documented as being in 32-bit words,
+> matching the original text binding and the driver's own arithmetic
+> in axis_fifo_write(), not bytes as an earlier draft of this schema
+> incorrectly stated.
+> 
+> All properties from the original text binding are preserved,
+> including ones the driver itself ignores, since they are generated
+> unconditionally by the Xilinx IP integrator and may be present in
+> real-world devicetree sources.
+> 
+> Signed-off-by: Daniel28972897 <danyboy28sep@gmail.com>
 
-Thanks,
-Icenowy
+Another, third try this week? Is there some staging-checkpatch spree?
 
+Same comments as before, no. For explanations, just search:
+https://lore.kernel.org/all/
+
+Best regards,
+Krzysztof
