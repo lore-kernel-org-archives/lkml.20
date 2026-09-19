@@ -1,117 +1,139 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A76F43218BA;
-	Sat, 19 Sep 2026 23:09:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6F9B348C7B;
+	Sat, 19 Sep 2026 23:13:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789859355; cv=none; b=h/GAd4hfHc5Lq+QFctDidqVU0C0OvvJWwzJRVnPEXsnFaCCJjMOO1vM0B25s+dcbvrNJcBeUITIqXtLImlp71t3kIsFytXcCdLcoZPeFoFNFKwg/oR9rpfNmDiJNfbA8BN21rlFw/Pdb7wpH3Sxv2+X81yqFCsYrExM5DELWKX8=
+	t=1789859617; cv=none; b=k1u4LfNHM8uz9SUU6nY12iqab1o5qS53yEWfkiVXdimnDVND5lHsntLS6F1S9dOD+o+wIjq6OJqWuRM1OJGLA5YAuzOrV5auypH66fimR9HZwnOHZHx6h+BFdI0nTXxtlOUlMB/BaTTBM8ZyvGstN0hFSGOmzfT597wQH0rjrAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789859355; c=relaxed/simple;
-	bh=3iK2MKrfH1CUO9tUQ+QSinyhYVhPXccw9tzEt/xFNdE=;
+	s=arc-20240116; t=1789859617; c=relaxed/simple;
+	bh=sK2yacM6Q3NGD6pgtUu/ouaNBLyacVN5mFpthK3M0EE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=r7Sk6MCj3NtCIAuJn1JTqbShEgDTI6irPDAVTy0C1dH51kjaVT8JAfasOjyzL3U2OmLgME3JzFo87quCGWd2cCkX4Iyx9DynsRvO4NjGAMuhjPScL4IjeIXAg0ayERcypuH3VVvwrDbvuBBicZ7IVT4f4VlIdyRiNJ4F/sExWbw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jmHLF+1t; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Eo+2g1bZBJEDqv0mCtw2MokV1q1X6LQnhTiYiw0KOI1sJU8Fd6zmkDRAzj6RsIlv/n96zRKg2ITYKc2ZhjoK/V+0T/rIU2G906xXIB98mlQLzKs3/2yffeDDTT4oTEaw0kMS5jJ8j/4/1988y0ITvxStn5sAC0fL+Doies0m834=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=agsW2GL4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jmHLF+1t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 062771F000FF;
-	Sat, 19 Sep 2026 23:09:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="agsW2GL4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E960B1F000FF;
+	Sat, 19 Sep 2026 23:13:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789859354;
-	bh=iBosbdAHqee/hC/cy+hlYKBPHE3XVSHZxs2lJHZwFXo=;
+	s=k20260515; t=1789859615;
+	bh=2Sef/0wxyMwTpjYCRnlB9CgtNUDrbK2hMY8qeX5WdGA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jmHLF+1tITod8RdxGEivZdKPyzI3cgNa8pXwCyeo7HjGCNLs4TgywrN8YagpW5bTP
-	 SLZlR6tsKsvm6wCyPvckby9Frzt4f1whkKCh7ckmyZ+Wb2SFy6mNQ5ZV4HlzXqzk1/
-	 byDlXjBaF1NZpSclcHqbOksz9wDyr94ynbvoYhKv0+1GftlV9iX3AoyrT0KMpxnCAT
-	 Ly0aGqvhV6jI4SPf0dxQJdDwH64tGEwYYWriolSD5U6WJ7K6tU+GbWGJfxuKT/79Ut
-	 zR8vhSTRa9UBefbA0AWityAp7d3lwUb2lTbpD8DNtENwkSPNqdRZ4D0FXcneMZiwE2
-	 3EIhTPlxhsT4Q==
-Date: Sat, 19 Sep 2026 16:09:12 -0700
-From: Wei Liu <wei.liu@kernel.org>
-To: Sahil Chandna <sahilchandna@linux.microsoft.com>
-Cc: Naman Jain <namjain@linux.microsoft.com>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
-	Long Li <longli@microsoft.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	linux-hyperv@vger.kernel.org, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] PCI: hv: Probe vPCI buses asynchronously
-Message-ID: <20260919230912.GD1008213@liuwe-devbox-debian-v2.local>
-References: <20260907054742.235389-1-namjain@linux.microsoft.com>
- <011f1fa5-89c5-4bc5-8b2e-c5f415a57559@linux.microsoft.com>
+	b=agsW2GL4vTTRqpy7+o1jwke4n1/xbLd5GX9CLNxEpk/J+J6CA5r6gJkG1jKju+NPm
+	 wMOwUqTa8PrIQ5wkmYvByON9AH34njGzQIckoWUQPP6lfYsVH1JubRrXOdrW/fDw1f
+	 J2KFvOBBVO/gh08nduHOQAzcOQ9ftbLQRO7OVHCnjhE6vE1wWWV93XFIHgu/NnTaQy
+	 bwWdMoTMk2f5hcq3K2BvqZN+6n8vMasxFKOUFPoOB/yX3n73ayxbMRHE+cQ9UhK+Rg
+	 2as9+UFbBD1l4QEoqvsNfhlrtSmWN6j5jQbj2zLUJ0MnCtSxGzVIQUE/LcE7liMVkP
+	 JWzwOrSYgSyVg==
+Date: Sat, 19 Sep 2026 23:13:33 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Icenowy Zheng <uwu@icenowy.me>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org
+Subject: Re: [PATCH 2/3] pmdomain: spacemit: Add power domain driver
+Message-ID: <20260919231333-GKB322102@kernel.org>
+References: <20260918-04-k3-pm-support-v1-0-0acd2b36b96f@kernel.org>
+ <20260918-04-k3-pm-support-v1-2-0acd2b36b96f@kernel.org>
+ <a4359efeee2220903a05a2383a651ec8ec7284b7.camel@icenowy.me>
+ <20260918230107-GKC297024@kernel.org>
+ <33b33b2b79763d410bc2e5b4ef46c305aaf6f7c8.camel@icenowy.me>
+ <20260919095936-GKA322102@kernel.org>
+ <8301abce221e33d827053c54a64aed05f3227f7f.camel@icenowy.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <011f1fa5-89c5-4bc5-8b2e-c5f415a57559@linux.microsoft.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <8301abce221e33d827053c54a64aed05f3227f7f.camel@icenowy.me>
 
-On Thu, Sep 17, 2026 at 11:01:03AM +0530, Sahil Chandna wrote:
-> On 07-09-2026 11:17, Naman Jain wrote:
-> > On Hyper-V guests each virtual PCI bus is enumerated by its own
-> > hv_pci_probe() call. The probe performs several synchronous host
-> > request/response exchanges while negotiating the protocol, querying bus
-> > relations, entering D0, and reporting allocated resources. These waits
-> > are latency-bound rather than CPU-bound.
-> > 
-> > hv_pci registers as an ordinary VMBus driver, so driver_register() walks
-> > matching vPCI buses and probes them sequentially while the driver's
-> > initcall runs. On guests that expose several devices, each through its
-> > own vPCI bus, this serialization adds the host round-trip latencies to
-> > device initialization.
-> > 
-> > Each bus is described by its own struct hv_pcibus_device, so
-> > independent buses can be probed concurrently. Request asynchronous
-> > probing via PROBE_PREFER_ASYNCHRONOUS, causing the driver core to
-> > schedule matching buses for asynchronous probe work.
-> > 
-> > On an Azure Standard_L32s_v3 guest with five vPCI targets (four NVMe
-> > controllers and one Mellanox VF), Linux 7.2.3 was tested with one warm-up
-> > and three measured boots per variant. The median interval from the first
-> > hv_pci_probe() entry to the last return decreased from 2847.968 ms to
-> > 2786.709 ms, a 61.259 ms (2.15%) improvement.
-> > 
-> > Co-developed-by: Dexuan Cui <decui@microsoft.com>
-> > Signed-off-by: Dexuan Cui <decui@microsoft.com>
-> > Signed-off-by: Naman Jain <namjain@linux.microsoft.com>
-> > ---
-> > 
-> > Previous discussion around this change:
-> > https://lore.kernel.org/all/20230420024037.5921-7-decui@microsoft.com/
-> > 
-> > Skipping removal of pci_rescan_remove_lock, due to possible
-> > synchronization problems associated with this lock removal. Also, with
-> > my current setup, I was not able to see much improvements with this
-> > change, so keeping it for later. Asynchronous probing change is not
-> > dependent on this.
-> > 
-> > ---
-> >  drivers/pci/controller/pci-hyperv.c | 3 +++
-> >  1 file changed, 3 insertions(+)
-> > 
-> > diff --git a/drivers/pci/controller/pci-hyperv.c b/drivers/pci/controller/pci-hyperv.c
-> > index 89816a2bd7cd3..056d379b3cee4 100644
-> > --- a/drivers/pci/controller/pci-hyperv.c
-> > +++ b/drivers/pci/controller/pci-hyperv.c
-> > @@ -4155,6 +4155,9 @@ static struct hv_driver hv_pci_drv = {
-> >  	.remove		= hv_pci_remove,
-> >  	.suspend	= hv_pci_suspend,
-> >  	.resume		= hv_pci_resume,
-> > +	.driver = {
-> > +		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
-> > +	},
-> >  };
-> >  
-> >  static void __exit exit_hv_pci_drv(void)
-> LGTM.
-> Reviewed-by: Sahil Chandna <sahilchandna@linux.microsoft.com>
+Hi Icenowy,
 
-Applied. Thanks.
+On 21:56 Sat 19 Sep     , Icenowy Zheng wrote:
+> 在 2026-09-19六的 09:59 +0000，Yixun Lan写道：
+> > Hi Icenowy,
+> > 
+> > On 14:57 Sat 19 Sep     , Icenowy Zheng wrote:
+> > > 在 2026-09-18五的 23:01 +0000，Yixun Lan写道：
+> > > > Hi Icenowy, 
+> > > > 
+> > > > On 17:00 Fri 18 Sep     , Icenowy Zheng wrote:
+> > > > > 在 2026-09-18五的 02:40 +0000，Yixun Lan写道：
+> > > > > >   SpacemiT's PMU (Power Management Unit) consist of several
+> > > > > > power
+> > > > > > domains
+> > > > > > which can be managed independently, depending on different
+> > > > > > application
+> > > > > > scenario, each domain can be powered on/off for saving power.
+> > > > > > 
+> > > > > >   The driver is implemented based on Linux Generic PM Domain
+> > > > > > framework.
+> > > > > > From a hardware perspective, either of two distinct power-on
+> > > > > > sequences
+> > > > > > are supported, in software mode (SW mode), the driver is
+> > > > > > responsible
+> > > > > > for
+> > > > > > controlling the states of bits such as sleep1, sleep2,
+> > > > > > isolation
+> > > > > > and
+> > > > > > pwr_state, while in hardware mode (HW mode), the PMU hardware
+> > > > > > will
+> > > > > > complete
+> > > > > > the sequence automatically without requiring software
+> > > > > > intervention.
+> > > > > 
+> > > > > I think there also exists solutions for K3 that uses RPMI power
+> > > > > domains, and let their ESOS firmware to access the hardware.
+> > > > > 
+> > > > Yes, I'm aware of that
+> > > > 
+> > > > > What's the relationship of this implementation with the ESOS
+> > > > > implementation? Should the ESOS part be disabled to use this
+> > > > > implementation?
+> > > > > 
+> > > > I should say, it's a mutually exclusive solution, so yes, the
+> > > > ESOS
+> > > > part
+> > > > should be disabled in order to use this version
+> > > > 
+> > > > The motivation of this patch is trying to support drm/display
+> > > > driver's
+> > > > PM requirement, while avoid going with vendor's complicated RPMI
+> > > > solution
+> > > > which isn't mainline ready
+> > > 
+> > > Is this a long-term solution, or a temporary one?
+> > > 
+> > For upstream, I'd say we probably will stick to this solution for
+> > long time, won't say it 'forever', see comment below..
+> > 
+> > > If it's a temporary conflicting one, I don't think it's worth
+> > > picking
+> > > at all.
+> > > 
+> > Well, checked current Linux kernel status, there is no RPMI PM
+> > solution 
+> > implemented although there is documentation in riscv-rpmi spec[1]
+> 
+> I have seen pending patch for it with multiple revisions [1], the dt
+> binding is even already ACKed by Conor, so I think it's not a big
+> problem here.
+> 
+That's exactly what I said - it's not mature, not saying it's pending
+patch for review, but for whole solution that involve Linux driver,
+opensbi and underlying fimware (ESOS) - which not upstream-ed..
+
+To make it clear, I'm not going to pursue the RPMI solution, but if
+someone insist and willing to spend the effort, please feel free to push
+
+-- 
+Yixun Lan (dlan)
