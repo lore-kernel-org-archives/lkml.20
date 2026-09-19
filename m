@@ -1,374 +1,127 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender6-op-o15.zoho.com (sender6-op-o15.zoho.com [165.173.180.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A85A3363082
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:23:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789831408; cv=none; b=PzQXGkkStK8Y3IXr1PK50JNh3VkIbelPePbdKbJlZD1CuW0lypD1l3AY3Gl16I2v3BMhpLrYOsIv0sShmJFkThzsX3GDye1hzjniM76N0LTq0+eYMsDqIYCE++Luf1f0kAhex0WV3Ko88KzrFR3lLdBqH8ac89wpmsSmypiFzsM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789831408; c=relaxed/simple;
-	bh=Yqaq1Hk7u4nrzYHc+3CVcf4COPL1wBi/iltVI2RQc7w=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=C+3YkrKbORO6pvMfF+MwyyVD1KISpigOA/bvsvVkd9xspLsQz8FVKMxSi8BeDGpHj50mb5WvdFN5fIHDZ3YmSOT9oTYxMH4QJgPTFWQhFWBJ+AzRCbhNQCa+y0PVS4rhaOpzRNJtKNQ8sV92qr+l8SyN5H5OkDGWX4Msrjjqn2w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ECPgg0Ba; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F146E3446CA;
+	Sat, 19 Sep 2026 15:23:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789831434; cv=pass; b=QuUNwNsnDCveMg0CNkBaXaGn+1oEJkmF7/6GJtKbxj/FFPUoxBhLq7po5zOwcTGSVQFRux9GT9mdAuihI46/pIOw0nGdZiN5+P8J62sJM2Kx9PthaTP7pCkVdi/bzLfELmkE+3hSOfoJR4BHw7q+MyHyS5tg+Ef9yn5oDaubavY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789831434; c=relaxed/simple;
+	bh=CPxlyB8XGc0CFbZ01ldl0Ptu1sJZXySZonpes6Wpw2k=;
+	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
+	 Date:MIME-Version; b=BTESVdd8i8ryXYx3ZVWJE6nEln4tQlh/1STTO2ACrwqIimS306f0bNrPrf4UEhwg671q6Tg17kDJZshDUzqy5wyL7mjOfhPYt0wpcYbmCN+1NgSH655Xrhuw9yXqBY3Ua7jpLbQYDVq/XF4Evt90wTdAA9V+LD0bc5v5PvRW7dE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=kpC+Kg1f; arc=pass smtp.client-ip=165.173.180.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ECPgg0Ba"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39b5b07ec78so1191730a91.3
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 08:23:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789831406; x=1790436206; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qR79KzzQEHA1BCgom4FGsnXuKP2YSduNO1GGm9Xb7l8=;
-        b=ECPgg0BaGm42QEN4JUQ5Oe0CGZ8IkK/Pb9i+pjmPfNu+4Es4Ddwca6MYPQy5RZUn2l
-         1jHh15WVKy9Y8aPg2BC7Ej7/NyBBLbixGvgaNc1mVkBh7OYbfrMIhBBHY41w+6Ka3eew
-         sOGMh0t0F1gN9abo/BrjjExgmQ13Sb8Bj3qIAnlOyd/HhLrQZmUStD/eSZIT+FGGG4zh
-         98xh87wkcYwGprK+asgE0pHDTjHictQgzhGlWDt1BtA0wEPV4RiSEQL40FBuQ1zoXP6w
-         cTOfASSjcl5QKsr2aGyqN07PVNR+EF/X838eoqGFjwRpk+7dlsPC7CvZ3hWwZg+qwmm9
-         cvPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789831406; x=1790436206;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qR79KzzQEHA1BCgom4FGsnXuKP2YSduNO1GGm9Xb7l8=;
-        b=Fov1Ik4o9x6bMXwiOB/2UZGoUJUhTY3TvXzw6YckYVRs9+HMIWuMK2jxrl0TpHbWUI
-         SLMXLK86OXn4CzFisTG0inwmDxuGJuPKfElAwKqrLinrPg6X05Q6+/tl1ZmgKB2n1Bun
-         f5Pl2DBuwp+cF0FGU5sgP+EwTNHzDNQQ2fVP6C+9Iwxn8f+r0C/g7cfRq2tatw8xeD9c
-         fqxCn55OyIuQYbm8nyLRRsqi46zmGKgLq6t8PzLxwA9Mv3IQFPDaJZwNSYK56XlgkRFu
-         QzYwn7KHM+EjS7xmR/ysN3rWhiNuxnwbWLNUdempSucF3FS+n4CWsz8gaoEPF/DQ1ltV
-         yY2A==
-X-Forwarded-Encrypted: i=1; AKwUvBwtoIV9DmpDCkgFd5X/jawMDQCYp2kXSx8Og5uJISMnYwYM9ndDQ+OwVDatJp42s1SICH1pjUxnLxe6IKA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kkdzdR/8aS25oLznPOIrWTjiPOVgXM6x5yDxm7JincnIXU1HCg
-	lK5EYg3HcqcgFiegBa1vCd/VZLjz/R4WOgrA893tApyEOgREVxy9R5lp
-X-Gm-Gg: AYBFou2U5k8cJioK32Yo3w+fVaU6ArDm4R/m4x+btgBA4/ES4/g9+oZWRYmekbQ5aHN
-	yyBgIBNaSRrn6Yw3lfs6JFcYaD74DAvp+ds8iVxhm2zr3lP+5f/uR+FCCWR6o7xs94hwnCOpHAe
-	jAqTLwjxFLyCsnx86gGGZ3uhxof7wyBppX4gkT8DtNk7x0eX+ajiuU9hZZtPWM4zE1Crp+JaEjZ
-	e0pUUfLNq0Yi93ZSLms2r5G7arUrIGz+lUrEumDrrxdv6hLlfULT1TEq7qPTsk9aCoiMcPSo3QZ
-	vH3coOijcGTqMLRVr4DOmNy4VirUfNfz/dOJ44E1j5YTeqZ+Uw0PzS9Vn0ToRq+AguzZan8hgBL
-	07ItFT42PkhDt0/g1oaR2jwQIX7GPyChInPxhgKQWiRVvqmUbE6b6p8H4C76MTtcIE4vFW9amSb
-	2ZfzHDegP4I5wKotbH9xoYu70hIjORSPz/Y2WD62PYA2dotjHu5MwOa2UT5CjKPIIlUbMuaRwtS
-	PsIHm656aBUja4VNkHsUTI=
-X-Received: by 2002:a17:90b:548d:b0:398:c3ca:1ebc with SMTP id 98e67ed59e1d1-39e54d11d8dmr10521409a91.18.1789831405770;
-        Sat, 19 Sep 2026 08:23:25 -0700 (PDT)
-Received: from localhost.localdomain ([47.100.192.162])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0309d5760sm326230a91.4.2026.09.19.08.23.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 08:23:24 -0700 (PDT)
-From: Yang Wen <anmuxixixi@gmail.com>
-To: linkinjeon@kernel.org,
-	sj1557.seo@samsung.com,
-	chizhiling@163.com
-Cc: yuezhang.mo@sony.com,
-	exfat@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Yang Wen <anmuxixixi@gmail.com>
-Subject: [PATCH v5 3/3] exfat: reclaim name filters under memory pressure
-Date: Sat, 19 Sep 2026 23:22:40 +0800
-Message-Id: <20260919152240.1507914-4-anmuxixixi@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260919152240.1507914-1-anmuxixixi@gmail.com>
-References: <20260919152240.1507914-1-anmuxixixi@gmail.com>
+	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="kpC+Kg1f"
+ARC-Seal: i=1; a=rsa-sha256; t=1789831426; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Ec7a2656zscMZN5aAsj29v5MuNtc7cd2JwkMhcGugsKDd4cVKz+CVsMsGE+e/OKB3S+dmbigmceQA1F7YWcAb04Yz9eG3AqWeyc6MnFuI+4M8kny6l9rr79gDWztLEJBA4wJbf5gKs8Je1rgU8EJZjOdDdSOKoGWhcmfNcR64eU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1789831426; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=K1EokjPKrudBK5D/kPOhuPBVz8KJjU2RR5J+6NMR5tE=; 
+	b=EjLzn58ZdOp6n2RxKQ1s4EEUa7rvMRv/Sb4rQIcyyl2AzV2WKFkYOfwyzCMD2JgHPuCv1fdqbkj7XN0DyZjwDHZuxphwgz+IMwcHRMtMDNy//Uqvx4UMIk/84AdIKTimMSEcoT/WWmR1eHZNTX1J3wzyEUI+FOVTbzezFCXIJWI=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789831426;
+	s=zmail2048; d=rong.moe; i=i@rong.moe;
+	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Content-Type:Content-Transfer-Encoding:Date:Date:MIME-Version:Message-Id:Reply-To;
+	bh=K1EokjPKrudBK5D/kPOhuPBVz8KJjU2RR5J+6NMR5tE=;
+	b=kpC+Kg1foFHbNM9ywksLRaWIw9DJpokoPTDpSZnhE0vZxvct7PTsq5qy43XvOS48
+	pdGczQfDlUjOGxkNfTHJlLOX0kqJHOGmrWpTfcbnGwWPRieyHB+7CEnf+uWF4+YpM4A
+	IWUCYIG/+OL0l6wfFMeYHOlAnjwdTLVfs3E5UMLzU9aPUi5e38Nksg9Zlx8xu4F95Xf
+	UR+qQwX6cf0uKWnnXBEb8bq9t43pxHgWWp5OjqfhsfsTXoDWWDPpKZWU2yxqlBht8pv
+	dXQnAuFRLq6Q5umT6kaoqM+BpkeKtPN22mGVjCA4YHBLSbVKwTClRT+06SGYcOK/UCy
+	eS0Sf6e55w==
+Received: by smtp.zohomail.com with SMTPS id 1789831424143507.0140652125898;
+	Sat, 19 Sep 2026 08:23:44 -0700 (PDT)
+Message-ID: <d3ed3f2ac2e8ed960e0bc9b86d4732a75f1464e7.camel@rong.moe>
+Subject: Re: [PATCH 0/5] platform/x86/amd/pmf: Clean up undesirable
+ function outlining
+From: Rong Zhang <i@rong.moe>
+To: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, Hans de Goede
+	 <hansg@kernel.org>, Ilpo =?ISO-8859-1?Q?J=E4rvinen?=
+	 <ilpo.jarvinen@linux.intel.com>, Sanket Goswami <Sanket.Goswami@amd.com>, 
+ "Mario Limonciello (AMD)"
+	 <superm1@kernel.org>
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260901-amd-pmf-fix-outlining-v1-0-b54ff94d3d45@rong.moe>
+References: <20260901-amd-pmf-fix-outlining-v1-0-b54ff94d3d45@rong.moe>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 19 Sep 2026 23:18:37 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Evolution 3.56.2-10+b1 
+X-ZohoMailClient: External
 
-Each active large directory can hold a 64 KiB name filter. Add a
-per-superblock LRU and shrinker so filters can be reclaimed when memory is
-tight.
+Hi all,
 
-Signed-off-by: Yang Wen <anmuxixixi@gmail.com>
----
- fs/exfat/dir.c      | 145 +++++++++++++++++++++++++++++++++++++++++++-
- fs/exfat/exfat_fs.h |  10 +++
- fs/exfat/super.c    |   8 +++
- 3 files changed, 160 insertions(+), 3 deletions(-)
+On Tue, 2026-09-01 at 23:02 +0800, Rong Zhang wrote:
+> The amd-pmf driver is notably bloated due to undesirable function
+> outlining and linkage. Simple and dump helper functions as well as
+> wrappers should really be static inline functions instead of global ones
+> from the very beginning, or else they are prone to the overhead of
+> function outlining and linkage, which bloats themselves and their
+> callers.
+>=20
+> The series converts all these helper functions and wrappers into static
+> inline functions, and shrink the module (!CONFIG_AMD_PMF_DEBUG &&
+> CONFIG_AMD_PMF_UTIL_SUPPORT) size by 1472 Bytes (GCC 16 -O2):
+>=20
+>       text       data        bss      total filename	(before)
+>      26810      31672       2768      61250 amd-pmf.ko
+>=20
+>       text       data        bss      total filename	(after)
+>      26046      30964       2768      59778 amd-pmf.ko
+>=20
+> As for CONFIG_AMD_PMF_DEBUG && CONFIG_AMD_PMF_UTIL_SUPPORT builds, the
+> module size is shrunk by 1187 Bytes:
+>=20
+>       text       data        bss      total filename	(before)
+>      34593      45500       2784      82877 amd-pmf.ko
+>=20
+>       text       data        bss      total filename	(after)
+>      33988      44918       2784      81690 amd-pmf.ko
+>=20
+> This should also optimize the performance a little bit theoretically,
+> though it's probably not very important on modern hardware anyway.
+>=20
+> Signed-off-by: Rong Zhang <i@rong.moe>
 
-diff --git a/fs/exfat/dir.c b/fs/exfat/dir.c
-index 08b7a50de871..013b7e43a289 100644
---- a/fs/exfat/dir.c
-+++ b/fs/exfat/dir.c
-@@ -9,6 +9,7 @@
- #include <linux/buffer_head.h>
- #include <linux/filelock.h>
- #include <linux/hash.h>
-+#include <linux/shrinker.h>
- #include <linux/stringhash.h>
- 
- #include "exfat_raw.h"
-@@ -91,12 +92,144 @@ static void exfat_name_filter_indexes(struct super_block *sb,
- 			     EXFAT_NAME_FILTER_ORDER);
- }
- 
-+static unsigned long *
-+exfat_name_filter_detach_locked(struct exfat_sb_info *sbi,
-+				struct exfat_inode_info *ei)
-+{
-+	unsigned long *filter = ei->name_filter;
-+
-+	if (!filter)
-+		return NULL;
-+
-+	ei->name_filter = NULL;
-+	list_del_init(&ei->name_filter_lru);
-+	sbi->name_filter_count--;
-+	return filter;
-+}
-+
-+static void exfat_name_filter_touch(struct exfat_inode_info *ei)
-+{
-+	struct exfat_sb_info *sbi = EXFAT_SB(ei->vfs_inode.i_sb);
-+
-+	spin_lock(&sbi->name_filter_lock);
-+	if (ei->name_filter)
-+		list_move_tail(&ei->name_filter_lru, &sbi->name_filter_lru);
-+	spin_unlock(&sbi->name_filter_lock);
-+}
-+
- void exfat_name_filter_free(struct inode *inode)
- {
- 	struct exfat_inode_info *ei = EXFAT_I(inode);
-+	struct exfat_sb_info *sbi;
-+	unsigned long *filter;
- 
--	kvfree(ei->name_filter);
--	ei->name_filter = NULL;
-+	if (!READ_ONCE(ei->name_filter))
-+		return;
-+
-+	sbi = EXFAT_SB(inode->i_sb);
-+	spin_lock(&sbi->name_filter_lock);
-+	filter = exfat_name_filter_detach_locked(sbi, ei);
-+	spin_unlock(&sbi->name_filter_lock);
-+	kvfree(filter);
-+}
-+
-+static unsigned long
-+exfat_name_filter_count_objects(struct shrinker *shrinker,
-+				struct shrink_control *sc)
-+{
-+	struct exfat_sb_info *sbi = shrinker->private_data;
-+	unsigned long count;
-+
-+	spin_lock(&sbi->name_filter_lock);
-+	count = sbi->name_filter_count;
-+	spin_unlock(&sbi->name_filter_lock);
-+
-+	return count ? count : SHRINK_EMPTY;
-+}
-+
-+static unsigned long
-+exfat_name_filter_scan_objects(struct shrinker *shrinker,
-+			       struct shrink_control *sc)
-+{
-+	struct exfat_sb_info *sbi = shrinker->private_data;
-+	unsigned long freed = 0;
-+
-+	/* Avoid reclaim recursion from a GFP_NOFS allocation under s_lock. */
-+	if (!mutex_trylock(&sbi->s_lock)) {
-+		sc->nr_scanned = 0;
-+		return SHRINK_STOP;
-+	}
-+
-+	while (freed < sc->nr_to_scan) {
-+		struct exfat_inode_info *ei;
-+		unsigned long *filter;
-+
-+		spin_lock(&sbi->name_filter_lock);
-+		if (list_empty(&sbi->name_filter_lru)) {
-+			spin_unlock(&sbi->name_filter_lock);
-+			break;
-+		}
-+
-+		ei = list_first_entry(&sbi->name_filter_lru,
-+				      struct exfat_inode_info,
-+				      name_filter_lru);
-+		filter = exfat_name_filter_detach_locked(sbi, ei);
-+		spin_unlock(&sbi->name_filter_lock);
-+
-+		kvfree(filter);
-+		freed++;
-+		cond_resched();
-+	}
-+
-+	mutex_unlock(&sbi->s_lock);
-+	sc->nr_scanned = freed;
-+	return freed;
-+}
-+
-+void exfat_name_filter_shrinker_register(struct super_block *sb)
-+{
-+	struct exfat_sb_info *sbi = EXFAT_SB(sb);
-+	struct shrinker *shrinker;
-+
-+	shrinker = shrinker_alloc(SHRINKER_NONSLAB,
-+				  "exfat-name-filter:%s", sb->s_id);
-+	if (!shrinker) {
-+		exfat_warn(sb, "failed to allocate name filter shrinker");
-+		return;
-+	}
-+
-+	shrinker->count_objects = exfat_name_filter_count_objects;
-+	shrinker->scan_objects = exfat_name_filter_scan_objects;
-+	shrinker->private_data = sbi;
-+	shrinker_register(shrinker);
-+	sbi->name_filter_shrinker = shrinker;
-+}
-+
-+void exfat_name_filter_shrinker_unregister(struct super_block *sb)
-+{
-+	struct exfat_sb_info *sbi = EXFAT_SB(sb);
-+	struct shrinker *shrinker = sbi->name_filter_shrinker;
-+
-+	sbi->name_filter_shrinker = NULL;
-+	shrinker_free(shrinker);
-+
-+	for (;;) {
-+		struct exfat_inode_info *ei;
-+		unsigned long *filter;
-+
-+		spin_lock(&sbi->name_filter_lock);
-+		if (list_empty(&sbi->name_filter_lru)) {
-+			spin_unlock(&sbi->name_filter_lock);
-+			break;
-+		}
-+
-+		ei = list_first_entry(&sbi->name_filter_lru,
-+				      struct exfat_inode_info,
-+				      name_filter_lru);
-+		filter = exfat_name_filter_detach_locked(sbi, ei);
-+		spin_unlock(&sbi->name_filter_lock);
-+		kvfree(filter);
-+	}
- }
- 
- bool exfat_name_filter_maybe_contains(struct inode *inode,
-@@ -108,6 +241,7 @@ bool exfat_name_filter_maybe_contains(struct inode *inode,
- 	if (!ei->name_filter)
- 		return true;
- 
-+	exfat_name_filter_touch(ei);
- 	exfat_name_filter_indexes(inode->i_sb, name, indexes);
- 	return test_bit(indexes[0], ei->name_filter) &&
- 	       test_bit(indexes[1], ei->name_filter) &&
-@@ -123,6 +257,7 @@ void exfat_name_filter_add(struct inode *inode,
- 	if (!ei->name_filter)
- 		return;
- 
-+	exfat_name_filter_touch(ei);
- 	exfat_name_filter_indexes(inode->i_sb, name, indexes);
- 	__set_bit(indexes[0], ei->name_filter);
- 	__set_bit(indexes[1], ei->name_filter);
-@@ -145,7 +280,7 @@ static void exfat_build_name_filter(struct super_block *sb,
- 	struct exfat_sb_info *sbi = EXFAT_SB(sb);
- 	int i;
- 
--	if (ei->name_filter ||
-+	if (!sbi->name_filter_shrinker || ei->name_filter ||
- 	    exfat_bytes_to_dentries(i_size_read(inode)) <
- 					EXFAT_NAME_FILTER_MIN_DENTRIES)
- 		return;
-@@ -195,7 +330,11 @@ static void exfat_build_name_filter(struct super_block *sb,
- 	}
- 
- complete:
-+	spin_lock(&sbi->name_filter_lock);
- 	ei->name_filter = filter;
-+	list_add_tail(&ei->name_filter_lru, &sbi->name_filter_lru);
-+	sbi->name_filter_count++;
-+	spin_unlock(&sbi->name_filter_lock);
- 	return;
- abort:
- 	kvfree(filter);
-diff --git a/fs/exfat/exfat_fs.h b/fs/exfat/exfat_fs.h
-index 3bbfa7092c0d..b3edb6fdfca6 100644
---- a/fs/exfat/exfat_fs.h
-+++ b/fs/exfat/exfat_fs.h
-@@ -14,6 +14,8 @@
- #include <uapi/linux/exfat.h>
- #include <linux/buffer_head.h>
- 
-+struct shrinker;
-+
- #define EXFAT_ROOT_INO		1
- 
- /*
-@@ -263,6 +265,11 @@ struct exfat_sb_info {
- 
- 	spinlock_t inode_hash_lock;
- 	struct hlist_head inode_hashtable[EXFAT_HASH_SIZE];
-+	/* Protects name_filter_lru and name_filter_count. */
-+	spinlock_t name_filter_lock;
-+	struct list_head name_filter_lru;
-+	unsigned long name_filter_count;
-+	struct shrinker *name_filter_shrinker;
- 	struct rcu_head rcu;
- };
- 
-@@ -294,6 +301,7 @@ struct exfat_inode_info {
- 	struct exfat_hint_femp hint_femp;
- 	/* Complete, in-memory Bloom filter of directory names */
- 	unsigned long *name_filter;
-+	struct list_head name_filter_lru;
- 
- 	spinlock_t cache_lru_lock;
- 	struct list_head cache_lru;
-@@ -635,6 +643,8 @@ bool exfat_name_filter_maybe_contains(struct inode *inode,
- void exfat_name_filter_add(struct inode *inode,
- 			   const struct exfat_uni_name *name);
- void exfat_name_filter_free(struct inode *inode);
-+void exfat_name_filter_shrinker_register(struct super_block *sb);
-+void exfat_name_filter_shrinker_unregister(struct super_block *sb);
- 
- static inline int exfat_chain_advance(struct super_block *sb,
- 		struct exfat_chain *chain, unsigned int step)
-diff --git a/fs/exfat/super.c b/fs/exfat/super.c
-index 4924f0fad836..465e33c9ba49 100644
---- a/fs/exfat/super.c
-+++ b/fs/exfat/super.c
-@@ -46,6 +46,7 @@ static void exfat_put_super(struct super_block *sb)
- {
- 	struct exfat_sb_info *sbi = EXFAT_SB(sb);
- 
-+	exfat_name_filter_shrinker_unregister(sb);
- 	mutex_lock(&sbi->s_lock);
- 	exfat_clear_volume_dirty(sb);
- 	exfat_free_bitmap(sbi);
-@@ -210,6 +211,7 @@ static struct inode *exfat_alloc_inode(struct super_block *sb)
- 		return NULL;
- 
- 	ei->name_filter = NULL;
-+	INIT_LIST_HEAD(&ei->name_filter_lru);
- 	return &ei->vfs_inode;
- }
- 
-@@ -746,6 +748,8 @@ static int exfat_fill_super(struct super_block *sb, struct fs_context *fc)
- 		goto free_table;
- 	}
- 
-+	exfat_name_filter_shrinker_register(sb);
-+
- 	return 0;
- 
- put_inode:
-@@ -845,6 +849,10 @@ static int exfat_init_fs_context(struct fs_context *fc)
- 
- 	mutex_init(&sbi->s_lock);
- 	mutex_init(&sbi->bitmap_lock);
-+	spin_lock_init(&sbi->name_filter_lock);
-+	INIT_LIST_HEAD(&sbi->name_filter_lru);
-+	sbi->name_filter_count = 0;
-+	sbi->name_filter_shrinker = NULL;
- 	ratelimit_state_init(&sbi->ratelimit, DEFAULT_RATELIMIT_INTERVAL,
- 			DEFAULT_RATELIMIT_BURST);
- 
--- 
-2.34.1
+Gentle ping.
+
+Thanks,
+Rong
+
+> ---
+> Rong Zhang (5):
+>       platform/x86/amd/pmf: Inline !AMD_PMF_DEBUG stub
+>       platform/x86/amd/pmf: Inline simple helper functions of Core Layer
+>       platform/x86/amd/pmf: Inline simple helper function of SPS Layer
+>       platform/x86/amd/pmf: Inline simple helper function of Smart PC TA =
+interfaces
+>       platform/x86/amd/pmf: Inline wrappers of ap{mf,ts}_if_call_store_bu=
+ffer()
+>=20
+>  drivers/platform/x86/amd/pmf/acpi.c |  76 +-----------------
+>  drivers/platform/x86/amd/pmf/core.c |  22 ------
+>  drivers/platform/x86/amd/pmf/pmf.h  | 150 ++++++++++++++++++++++++++++++=
++-----
+>  drivers/platform/x86/amd/pmf/spc.c  |  15 ----
+>  drivers/platform/x86/amd/pmf/sps.c  |   5 --
+>  5 files changed, 131 insertions(+), 137 deletions(-)
+> ---
+> base-commit: 9ffed84a24d60ec506d8961fe138f0baa92fdbd0
+> change-id: 6f1861db-amd-pmf-fix-outlining-204546e884cf
+>=20
+> Thanks,
+> Rong
