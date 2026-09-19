@@ -1,186 +1,95 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AB3016F288;
-	Sat, 19 Sep 2026 05:32:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CC9D36AB61
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 05:32:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789795952; cv=none; b=HhAPsBEdAbM9y0c+Xd084rWotjcMiAmAAiORt04JluFmAj6/JIjHgUNRr2qeivSwb4jQSU+rNO0JZ5SjHryZABRn61HdK4IEC2qBYXwsxQf4rHMRdIpYD6iEFXY4xmNSK8Cfmo+mhkCd50u85DcFnY2jmeKRXmdoK7rj1WgCpWk=
+	t=1789795955; cv=none; b=X2TW/Vr12bWClBMzPz+0xKE+EUNjx30z+HFBmJZVX4SeYdZq0UfdyWq8KvwOa3j1OgqVLg4qy6fLfUQUeJiTIMABHcuTjS6egG/tkvT20PEKwp89XbGcSNqDyvgx2LqWyYJHjn0kSqbS0kD3w2x5bcFkg+zh93WgRpjF8BSXQwo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789795952; c=relaxed/simple;
-	bh=4A4g8E/94IeZz64wUX3jkkEDhfzm9SSK2/uRX4TZ6f4=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=NvVcYLGflzpo4Dsxk5r+sPdO4di88hP3PMQoVgBpsuUvuTU2quVwgdExvzO91aNSmKDeUWMWHXmnAoA8KfduoxDZX4qsFb+M4UoJ/Qz37LwaKCWAW5ihmSyB4HAUezrwJZmc08Aq43UPPNN3+FnEL9RZsx3C2vVI8z8jyk5kzcw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=FEUttQhs; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=/fC751Rd; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1789795955; c=relaxed/simple;
+	bh=Z7Vrqhz4zZTyEAjiYZc5R2ZjTYR1ZaAGalKcjp8AZGQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=JgN6KWRlsl7iMjk6fPMiCeERROMXn3zmVxozIn4KjUEmCePlS+VHriLDQ1MkzP8ZB6nttnS9jCzUHQ06UjeikTUht6+cna5k96VqCj38O3H2xCFASwD5WAcwZ01FMU5HZ7PAddb9u8vkTHVIkUuqkrcg4wDb8Jo+g5jlgNl78/w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JPeXe53u; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="FEUttQhs";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="/fC751Rd"
-Date: Sat, 19 Sep 2026 05:32:27 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1789795949;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2bh4/Pvt+6PM+GRHdHym4RUzbWHoaJ0JCApvTw4ywPM=;
-	b=FEUttQhsodwMUsmiqhLoH4053fUbHQeTqYGA6bVg8lMSVNo5w0BcMkSLAtCqrwAa1JnnEZ
-	ln7MvYxZ2eN7dKoJ5s54xgLtbIAo/kDenr4V61kklqMMBVRi3sOt7kq6d6lqjlrL//ZJOk
-	Ropnfou6LgFyLo2OO3XLYOiYsChDLuTWERclp4otIIR2bAlFfxjTKVqqIhoktIx5LYNCmT
-	loAjjNwleko60go6uMOa4F6YF2DEtn50PcSmOGcyQUGq6wkywWCBjESV0Ovj+OXrYNLCHk
-	csotkHxXe3+4YsT2tuCQSjQl17ZBepHr+ySlynVCBzvG7NMETlUffHcBrM9dGg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1789795949;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2bh4/Pvt+6PM+GRHdHym4RUzbWHoaJ0JCApvTw4ywPM=;
-	b=/fC751RdXgy2q2NVwhUahqNBvOACz3lj0f/qWihw43m1oTAMHqJnGbCj3NF8li23dTvu95
-	6hTx6/0RkApV8wAA==
-From: "tip-bot2 for Chang S. Bae" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: x86/urgent] x86/build/64: Prevent native builds from generating
- EGPR use
-Cc: Omar Avelar <omar.avelar@intel.com>,
- "Chang S. Bae" <chang.seok.bae@intel.com>,
- "Borislav Petkov (AMD)" <bp@alien8.de>, Nathan Chancellor <nathan@kernel.org>,
- Miguel Ojeda <ojeda@kernel.org>, stable@vger.kernel.org, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260916230003.1144622-1-chang.seok.bae@intel.com>
-References: <20260916230003.1144622-1-chang.seok.bae@intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JPeXe53u"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7bcb94d3so9687145e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 22:32:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789795952; x=1790400752; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Z7Vrqhz4zZTyEAjiYZc5R2ZjTYR1ZaAGalKcjp8AZGQ=;
+        b=JPeXe53uo9G+uAj2RQGc2oGkSUmoP5E4RvydCiqXTpgEZ39zTtYDeHt8LzdQpNUjPu
+         MEBX3MeIeTZk3ihePLJZdmdDsGmRRly7nIaD9QJtD98CpReLfJSqK05E4inmeNLeQpsz
+         +gZsp91vfn2ceCWoCvUlWu9ZfKcFlngGmiT1WLGlt5YD0TUlY/eHhrqKDyQSvfFQPEC8
+         whge6LPjMDvRlcBRIJ82UXcpzeN63MpSI5wf0RQjZ1SJxNkbB92a4dVXaIpwTSL1gYIy
+         pBp4Ra1RzioxpPfXJrp79hj3ScXJmsXQXbvo0kmcpeJJOOik/I9MbyuC2Jp3ADoXu71k
+         04Cw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789795952; x=1790400752;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Z7Vrqhz4zZTyEAjiYZc5R2ZjTYR1ZaAGalKcjp8AZGQ=;
+        b=vL8GKD/juNjRzAx7U7wKS2oHDIR7z7PaQzLirkdP/ss9xl7g6PA0fbQ1RyN6wq53u+
+         9/o6wb5dRzG+21dbtWICVLcjeTfjBOL+O7LWeRYCe+ct2TA8EfZUXmv4mUpq734BUyeC
+         8dGt6ZuVbk7jClne11Hte51NgkupDiorxp3joBV8FzFTtW3VPLATFiFXD9D53d5BX+N9
+         SUxrW5a+gQvTyhLDgSjagV6dXdEWceWG7jXqH32Ji+8AESx6327vIy5j+EMwNPj9tydr
+         qim96hqbExPHkrNTmY30OvvRF8PGTv4dD2pibxIE8Vjz01Er+AaiMQmFsFajDF0izTZO
+         ioCQ==
+X-Forwarded-Encrypted: i=1; AKwUvByjpDTPnF9fkHf67PCYwl4ItLjREU76LhbYj1ypNLrhsK6goV9z9e3Fwx90glEd9QpVAI7vydHw3qBNmW4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kjPS9st9uRg2dZfQwogeMrvEvXZo1X7tM4ZslEJEJHAW1lHwIn
+	Oxx4jWzj56TfxgV/ZawD8PriSszxcNMMsBqsktfrX+bRFJaQZx84xttH
+X-Gm-Gg: AYBFou2haD9kWsSuEH6fz5gf0cADCz8uh0oh1gcdXecztmjMoGu6KOJadNKH9YSdWY1
+	ArgSPRj/GNiA8L/ywpri8DKFhsY3f0FgOtO+NNcL+YgeD4rCkqVGHXvERUL+nUEYKFiAKXMHunC
+	3E6BgFUYe70kUawja3fbqHji5U+m5obJmOt9WqlqjR2czOpffBHUEkozpQVN1NFSjipZTDOUXc0
+	RCk8Ld370Lmeg7vPMljFJtGQmq6m7otrf8XTS7WRMXfksds+Jd8Kgw+luOxU9j16smh7AaL7/SR
+	qnuky25xyPSX0GvaluSzuDgrAVzEmmNWgM0Jv6PBp395gRGR9JcYbMT0IHGa06gFjM5nLmXSJeX
+	mjSy4K2O0epbJuKyuSdDo3fa8g2dd/lis8YEvgG6D7AWoUCqOhaQGAxxibPqJ0UsCt10X7jqXrT
+	n4x4LwWngKHVB9HpKjeZwYZ/GH1QKiD2PWLJVeoysR92MBcc9JzM5g5KMsjnqIeTOkWz/iUwzGh
+	wfWkBsqIk3xPDEefQmzPkBxexhMcHB6MYqddJZOd3uNX5KKnrXyHyJQH5TtLz1RPSAL6/B4oMTT
+	QHw7V6DzdEC5sSXSD0Y1/UfJXMKycp/cTVh8wfNMhCU4zcrnPFcJZNCTTYNhJlCt+y4KaWuLhEy
+	M5JODx5HYrGGRGeaZ
+X-Received: by 2002:a05:600c:310e:b0:49c:f4ff:e872 with SMTP id 5b1f17b1804b1-49fc5681249mr61632675e9.5.1789795952410;
+        Fri, 18 Sep 2026 22:32:32 -0700 (PDT)
+Received: from MacBook-Pro-von-Karl.localdomain (dynamic-2a02-3100-a017-2b01-05fe-203b-7cd2-a640.310.pool.telefonica.de. [2a02:3100:a017:2b01:5fe:203b:7cd2:a640])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd2f7ef3sm40674185e9.0.2026.09.18.22.32.31
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 18 Sep 2026 22:32:32 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Sylwester Nawrocki <s.nawrocki@samsung.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: docs: fimc: Update module build options
+Date: Sat, 19 Sep 2026 07:32:30 +0200
+Message-Id: <20260919053230.26339-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20260822090647.98016-1-kmehltretter@gmail.com>
+References: <20260822090647.98016-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178979594725.2819794.8429178653655710718.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The following commit has been merged into the x86/urgent branch of tip:
+On Sat, 22 Aug 2026 11:06:47 +0200, I wrote:
+> s5p-csis.ko has always been controlled separately by
+> VIDEO_S5P_MIPI_CSIS, so building FIMC as a module does not produce
+> both modules. Describe each module with its own option.
 
-Commit-ID:     63edf5a009ae366369a1b484cd9ae4ee7c51946c
-Gitweb:        https://git.kernel.org/tip/63edf5a009ae366369a1b484cd9ae4ee7c5=
-1946c
-Author:        Chang S. Bae <chang.seok.bae@intel.com>
-AuthorDate:    Wed, 16 Sep 2026 23:00:03=20
-Committer:     Borislav Petkov (AMD) <bp@alien8.de>
-CommitterDate: Fri, 18 Sep 2026 21:43:38 -07:00
+Friendly ping on this documentation fix. Is anything else needed
+from my side?
 
-x86/build/64: Prevent native builds from generating EGPR use
-
-Omar reports that CONFIG_X86_NATIVE_CPU=3Dy allows builds to opportunistically
-emit instructions using %r16-%r31 (EGPRs) when the build host supports APX
-since the commit:
-
-  ea1dcca1de12 ("x86/kbuild/64: Add the CONFIG_X86_NATIVE_CPU option to local=
-ly optimize the kernel with '-march=3Dnative'")
-
-But the kernel is not yet prepared to use new registers internally. For
-example, there is no context-switch support for general in-kernel use.
-
-Explicitly disable EGPR use when building with -march=3Dnative.
-
-For C, since GCC 14 and Clang 18, both compilers support suppressing EGPR
-use with -mno-apx-features=3Degpr, whose availability can be detected via
-cc-option.
-
-For Rust, pass features=3D-apxf through the generated JSON to avoid
-unstable-feature warnings, see
-
-  https://github.com/rust-lang/rust/issues/139284
-
-Note Rust only accepts the option to disable APX instructions entirely or not.
-
-Support for this gating also depends on the Rust/LLVM combination. Rust
-1.88 introduced the `apxf` feature option, but versions prior to 1.93 may
-emit an `apxf` attribute to the backend that only LLVM 23 or later can
-interpret. Restrict native Rust builds accordingly.
-
-Fixes: ea1dcca1de12 ("x86/kbuild/64: Add the CONFIG_X86_NATIVE_CPU option to =
-locally optimize the kernel with '-march=3Dnative'")
-Reported-by: Omar Avelar <omar.avelar@intel.com>
-Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Reviewed-by: Nathan Chancellor <nathan@kernel.org>
-Acked-by: Miguel Ojeda <ojeda@kernel.org>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260916230003.1144622-1-chang.seok.bae@intel.=
-com
----
- arch/x86/Kconfig.cpu            | 11 +++++++++++
- arch/x86/Makefile               |  5 +++++
- scripts/generate_rust_target.rs |  5 +++++
- 3 files changed, 21 insertions(+)
-
-diff --git a/arch/x86/Kconfig.cpu b/arch/x86/Kconfig.cpu
-index e465438..6e7a366 100644
---- a/arch/x86/Kconfig.cpu
-+++ b/arch/x86/Kconfig.cpu
-@@ -204,10 +204,21 @@ config CC_HAS_MARCH_NATIVE
- 	# usage warnings that only appear wth '-march=3Dnative'.
- 	depends on CC_IS_GCC || CLANG_VERSION >=3D 190100
-=20
-+config RUSTC_HAS_APXF
-+	# The kernel isn't ready for in-kernel APX instructions. Without
-+	# explicit frontend gating of APX, the backend may emit those
-+	# instructions in native builds.
-+	#
-+	# Rust 1.88 added the `apxf` feature option, but versions before 1.93
-+	# emit an `apxf` target attribute that only LLVM 23+ can interpret.
-+	def_bool (RUSTC_VERSION >=3D 108800 && RUSTC_LLVM_MAJOR_VERSION >=3D 23) ||=
- \
-+		 RUSTC_VERSION >=3D 109300
-+
- config X86_NATIVE_CPU
- 	bool "Build and optimize for local/native CPU"
- 	depends on X86_64
- 	depends on CC_HAS_MARCH_NATIVE
-+	depends on !RUST || RUSTC_HAS_APXF
- 	help
- 	  Optimize for the current CPU used to compile the kernel.
- 	  Use this option if you intend to build the kernel for your
-diff --git a/arch/x86/Makefile b/arch/x86/Makefile
-index 598f178..8af6b80 100644
---- a/arch/x86/Makefile
-+++ b/arch/x86/Makefile
-@@ -161,6 +161,11 @@ else
-=20
- ifdef CONFIG_X86_NATIVE_CPU
-         KBUILD_CFLAGS +=3D -march=3Dnative
-+        # Prevent the compiler from generating EGPR use. The kernel is
-+        # not yet prepared for general in-kernel use.
-+        KBUILD_CFLAGS +=3D $(call cc-option,-mno-apx-features=3Degpr)
-+
-+        # generate_rust_target.rs handles Rust APX gating.
-         KBUILD_RUSTFLAGS +=3D -Ctarget-cpu=3Dnative
- else
-         KBUILD_CFLAGS +=3D -march=3Dx86-64 -mtune=3Dgeneric
-diff --git a/scripts/generate_rust_target.rs b/scripts/generate_rust_target.rs
-index 3bf2965..7687b0d 100644
---- a/scripts/generate_rust_target.rs
-+++ b/scripts/generate_rust_target.rs
-@@ -224,6 +224,11 @@ fn main() {
-             features +=3D ",+harden-sls-ijmp";
-             features +=3D ",+harden-sls-ret";
-         }
-+        if cfg.has("X86_NATIVE_CPU") {
-+            // Prevent the backend from generating APX instructions. The ker=
-nel is not yet prepared
-+            // for general in-kernel EGPR use.
-+            features +=3D ",-apxf";
-+        }
-         ts.push("features", features);
-         ts.push("llvm-target", "x86_64-linux-gnu");
-         ts.push("supported-sanitizers", ["kcfi", "kernel-address"]);
+Thanks,
+Karl
