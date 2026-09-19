@@ -1,72 +1,71 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E58FE38DC50
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:26:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FBF4396D0D
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:26:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789856763; cv=none; b=MriIDacpOYNAxzuS46JkR+b/LNoHcYjBKakBQ28UaRnKccjirAkvvFdTZq5cR5UlyAzpWZDKDpkjwhFEpw0Xy/NDR7GsnWvDOk9q93lyuuxqzvpUu0t3ojrQVFJEvnrvjRhGM8FjN6Pl1C7hsMNOzZrZRzvSTQEkX2OULmWvcJ0=
+	t=1789856764; cv=none; b=ebc12FQku64o/2mgZ+6tC52VSHD2i/XAVyKYySeDnFUxtGPPoBJ57snX3XdLOptwGE3h7T94sKmOiLvS++V1hMwAvsGJcZXk9zOKin8uf0N+scWan6hjIgZoXSVS7XCzg0rziyIZQsICW27YlgRIyd+ipQ9u4vOy/28vFAGJ4DI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789856763; c=relaxed/simple;
-	bh=60mSr7VmLncSpBLK0V49HhhYVT+MiALOWI330LNHscA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EpjneoyosvpKfA6v698HwejAe75aHnrqqdrkXj7t655eg/Cm67vTG+Y9CCN/cU3kaJLuzB4aEmGCGf7LyuYoACmCltcKoO8U4SyjDXmTdzyZCpkPKukydCHCsTASkWCRmF9kW3M01GcMajj5vohWK1Odr8Ja42V8eAo2nGrcNWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RHPHE1yF; arc=none smtp.client-ip=74.125.228.12
+	s=arc-20240116; t=1789856764; c=relaxed/simple;
+	bh=kmvLVl6fNpTzlloPojavr2VRqjhvKz6lutasv3yqTt4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TL0yySDARGdqy8y9FhfFTT1bE0+BceCVr+cGiQ64KRcSSGnAqrzGARC2rBy/NSjqWyj0IgLCq6m0+uQNXJKkBtF9GGOwwipV6tPxrOtYqlHYFIOch8gQppVESQSW0g4n9pwLqPlRSpOc+DThRicm97VbcF+VK5Q+6pgY3mm6r3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ekZZcoRJ; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RHPHE1yF"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebcb8d7so573049a12.0
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:25:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ekZZcoRJ"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2db18fe459dso10899655ad.3
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:26:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789856759; x=1790461559; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789856761; x=1790461561; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cFtD2Fqt5nkn8b39jheUImgKcDaYIWTzHGAKFQwaEGE=;
-        b=RHPHE1yFP1wo/rAUf3rCMOtmb02CgbFjC2Do+fVDuQiTIdaCPxEZ9OG30o5Ykzr+jG
-         lar/jHUZOcoViCoVwvwkZcJX9OE+4rmcDnJlarxolXDz7GNKmv14EUJmqvrJkdXlGbAJ
-         4RaRVJ4ZMnwdkpuTSlKNGH+6PtFGxTh4SBwOjzymy4ACEfnROuFmCnm5b/AiJ6kNCJN4
-         8df5wv8255EPwRABMz+hmR5ubGjTCGD9qKpoX6S+GJaz6sfeJBbTNxinzudYO+5O3iYq
-         x/M7e5zY5XHtds6lWFd7HrmCyynbup9poupldFG+qZUB1hkZXuF6SjmOwyXRpMgBR6pv
-         BHIw==
+        bh=57LGgaZ85OdGnj6rToiVIYTXeRS90SMHsMWqvOLknbg=;
+        b=ekZZcoRJUBpVUrQ3xrPhfaa8+M6pnQKrZLFoa7DYGf3we+dtYgtJtlCJ6TI0XMCY82
+         XwQ4t5c6A3pfOzsoU7X6c2353zsUQ6mXHImX5JvyVfyA+bZg/RrJlmkqx0Bf4J3sE409
+         Qw55CTM0OYoZDF0mZCt7OoF4lFkmfO8sUmABfs+1YoCWY/LVUCJFA+s3su7nASq/i97X
+         MSZK7d6GK1dK5Djd9FDs8hFx8P8ZEU2LK6YVdnQeYOcSfFSSm9jDuQut2eybQqgtBF7i
+         sgs9tOwDQW5kgSTznbsjyYW94pHKqzkV0q6/Gbw4d8WsBJoxztT51n6tmUMOkg72hVOo
+         NbXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789856759; x=1790461559;
+        d=1e100.net; s=20260707; t=1789856761; x=1790461561;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=cFtD2Fqt5nkn8b39jheUImgKcDaYIWTzHGAKFQwaEGE=;
-        b=0XQpj+kSH+yiMKZCn56AwcTlcCJSPOBgzNlPxjkfP9xE+g8PNQ5E/OC9/3rqHnqvv+
-         bvUuA4GMjJ5IfWxd+ABBAjiJDwHSj7rJQp0euPaOnDm34dSHo/h/b5QQUz+q3JtuMKE1
-         zIUspURZMCCDE5OV97beYdKvz9+Pw51nPFuXlVICyT8Icy7YifItuOVaGdcQshmICslN
-         Quweg11ruZ580UbhpdhEdi++uz9F1M7BmYJW85VySrOn4tJpbEtbNCFTSMXET4VtONC6
-         W4oCYLekCZ2osoZoZeECtiIuL5YLfwRRq9WswBwEPWCR/hE3QQfOAyrhOsdK67IONqEM
-         PHzQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy168kAqFDd1wAP2e4UHDBeM4jsToR3EXJMb5UxIE6/azFwu8BR4Tht4QyxDnkvBr9xfosxJbrPwCqo+GY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mao4paanToN5hGYTgf+HdX7jrHCt/2ppjkBgl4mROVohli1sip
-	9ax62iEle4sdZNv1Wu0vwOzs8gcX5EiqVHzOzygPNGn6AFNJEIQDal3v
-X-Gm-Gg: AYBFou1DIgLVNQvEcB/xrqMp8sVevtlPx6vl1Moyzu8ft0cZqKP18wbjIa/hdmwq9SX
-	zhm9i4zbjubIF/P3kdFocqLfk0NGyVzEpQ6ambWtuWeNDiYXpLlQFr7MN3ympoyzuG2tc2x3z3n
-	aRLDiHa/fVzsxETxDF22uJN4MtZsB9ariD/cMp9lCqGHT1Y2gD2TSX+Fc2NKWGXm7KHgtLRLu1q
-	SXy9ERQVgzxA2uRB3iLxFD4/048uhpJFlmR19/A+GBjk6Py/4apAjGDYwag8BMB13QyjA7GtWL6
-	clVi1qSo9MT/PW1pJ7xjvg3bxM/xTM+6JnoSg0ZCpHDBponLJClV8Zo14LGv761GuKQo1x2GY+I
-	CsEXwAoOCicHhk6kJmXf3kWk9SKIpYZfZJSaRgVtj6+LVO6542RX6l6igYfU+AT+BJNx+E2Gy3Q
-	sVKPpfcuxuCCFRS+Mj+j4Tmyq3tm5RLGrjCnnkEA0BvKK44Xjb/Gry4fWlXXWmSsbwMi5eFN+L5
-	78HxkZbx/ymVDke14+BovQ7poRtZxxFJlhnsCKReVT172BHmhjSgLQHrPk6jp5/zB2kVy0IK15T
-	2vxUWsm2cw==
-X-Received: by 2002:a05:6a21:9086:b0:3dd:a196:ffd1 with SMTP id adf61e73a8af0-3dda1970073mr3971679637.33.1789856759099;
-        Sat, 19 Sep 2026 15:25:59 -0700 (PDT)
+        bh=57LGgaZ85OdGnj6rToiVIYTXeRS90SMHsMWqvOLknbg=;
+        b=Kbt0xjn9cXM7SpmwEmxu/i6NlrRB6FYR0ivB+cGQgs5Las2j7wNQjZbfCOAfP5aRFe
+         /TwVo42ei0HaNgVmWH1CQf28mNLYilweiqnhjDuFdO1bw6q4TicXROl/BWMLBR99B+Mr
+         nKTMskyjzzgQii+3IHK+RgFqkmcsz0sWH1VS3JRuo4TqmjbLW60o+3ZajNDVCspDqylO
+         kdv5XQ6ya8EImkY4VV1+xRBXJA2X0yKSLTtXRbbjQl9UKLYBmPmX7zIIMhuHjR//M7Xd
+         cTS0F1Ol0Nzz1z3pkamjixef7GCPlXhyonxNW5I0CkpXV5GYlXpkKw37GVkvgnlKdmYc
+         NFRQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxjV0EDPsFQli4g/mZfE0w8P7hHxiZeqnCoky1T+/ZHz2gKwy+ukROOVjhLbAHvhRnCsAvLWoBMPGbUGC8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mqriegYDDntg+DFBm8MzVCLGeQrqAFRTvXzp/stC66uYdT1qbr
+	mCEUAgnAzUDS5ttQ/yvrem3HJh6Fv1fQkAf5QL4u/zo40XaCdxtWJ+rH
+X-Gm-Gg: AYBFou1nZGgM9YhILJEUB9NWpBcWOlMcyix+JXid3DV+Z0WGaasyWCeN598+d9CqCTM
+	mnAbXHR0byc/vBwPhGErbE6geMXwp5OtlS+SlXw5/QkpP5bwiOGflfWN7v66ynl9x2e3NsDWEGk
+	NFeaD3+5dCrrYpQG6U/kCu1IwUAXCe78UrboLc38wYp6uu8CvowTxxAfDhRVCJ/TxhwU7BgUcQU
+	kN83E4KlwqNu+Yw12lEeGO8axZ8fzZfLFIfzXcIusfRaH5yZgN+X5Jo+iwaOV4NcrDAx1cpvCWW
+	G6+V2iX6lrUELW4dWrHdNxv1G+MHUd1bqtM3XH8Pn/eceUPvG9eeu/p/ql/Re9Rl2yZefl4+n3V
+	zj3tVHsW0GALhEXLm/zj2n+rObsN/e1b5Ud9f+uMHrVPPW7EFEV6cXCtjV005mWNUCU0VCV3CJH
+	q/6X7f/ukdmDnN7tgmdt3/CoqiarU7r2+dNvAufqvvRAbUoRg3e1w0oHtYWulZ84aIKypS1yj78
+	EzSfbdo30li0OXST2ptlD7BALB/J45ec2oKZNoIRYIn6tSjhLSJc0/K8Da8APT00/oGWlL+/uc+
+	UOtoLDvlZkI=
+X-Received: by 2002:a17:903:19e5:b0:2d6:f6ba:263d with SMTP id d9443c01a7336-2ddb1ad9adamr114334675ad.7.1789856761227;
+        Sat, 19 Sep 2026 15:26:01 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc72aefc0a6sm1360139a12.28.2026.09.19.15.25.58
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc180395fsm13049925ad.81.2026.09.19.15.26.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 15:25:58 -0700 (PDT)
+        Sat, 19 Sep 2026 15:26:00 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
-To: brauner@kernel.org,
-	jack@suse.cz,
-	kees@kernel.org
+To: jack@suse.com,
+	brauner@kernel.org
 Cc: linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] ufs: fix cylinder structures slab-OOB write, div-by-zero, and error cleanup
-Date: Sat, 19 Sep 2026 22:25:57 +0000
-Message-ID: <20260919222558.3792924-1-benquike@gmail.com>
+Subject: [PATCH] udf: validate vat20->lengthHeader and VAT inode size in udf_load_vat()
+Date: Sat, 19 Sep 2026 22:26:00 +0000
+Message-ID: <20260919222600.3793513-1-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -76,117 +75,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix three superblock validation bugs in fs/ufs/super.c:
-
-1. In ufs_read_cylinder_structures(), allocate u_space according to the
-   actual cylinder group summary size and bounds-check s_ncg and
-   s_cssize to prevent a 1024..4096-byte memcpy into a kmalloc-16
-   buffer.
-2. In ufs_fill_super(), validate uspi->s_inopf, uspi->s_ipg, and
-   uspi->s_fpg against zero to prevent hardware divide-by-zero (#DE)
-   traps.
-3. On the ufs_fill_super() failure path after d_make_root(), clear or
-   avoid leaving sb->s_root populated when sbi is freed so
-   ufs_put_super() does not dereference NULL sb->s_fs_info.
+In udf_load_vat() (fs/udf/super.c), validate that vat20->lengthHeader is
+at least sizeof(struct virtualAllocationTable20) and does not exceed the
+mapped buffer or VAT inode size so computing the VAT table pointer and
+entry count cannot underflow or read out of bounds.
 
 Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
-diff --git a/fs/ufs/super.c b/fs/ufs/super.c
-index 3569ac92b065..7d2eb3cbdcf0 100644
---- a/fs/ufs/super.c
-+++ b/fs/ufs/super.c
-@@ -455,7 +455,7 @@ static int ufs_read_cylinder_structures(struct super_block *sb)
- {
- 	struct ufs_sb_info *sbi = UFS_SB(sb);
- 	struct ufs_sb_private_info *uspi = sbi->s_uspi;
--	unsigned char * base, * space;
-+	unsigned char *base = NULL, *space;
- 	unsigned size, blks, i;
+diff --git a/fs/udf/super.c b/fs/udf/super.c
+index 2ba5973ef4dd..2f0f087bcced 100644
+--- a/fs/udf/super.c
++++ b/fs/udf/super.c
+@@ -1252,6 +1252,15 @@ static int udf_load_vat(struct super_block *sb, int p_index, int type1_index)
+ 			(sbi->s_vat_inode->i_size - 36) >> 2;
+ 	} else if (map->s_partition_type == UDF_VIRTUAL_MAP20) {
+ 		vati = UDF_I(sbi->s_vat_inode);
++		if (sbi->s_vat_inode->i_size <
++			sizeof(struct virtualAllocationTable20) ||
++		    (vati->i_alloc_type == ICBTAG_FLAG_AD_IN_ICB &&
++		     vati->i_lenAlloc <
++			sizeof(struct virtualAllocationTable20))) {
++			udf_err(sb, "Too short VAT inode size %lld\n",
++				sbi->s_vat_inode->i_size);
++			return -EFSCORRUPTED;
++		}
+ 		if (vati->i_alloc_type != ICBTAG_FLAG_AD_IN_ICB) {
+ 			int err = 0;
  
- 	UFSD("ENTER\n");
-@@ -465,17 +465,21 @@ static int ufs_read_cylinder_structures(struct super_block *sb)
- 	 * on the device. 
- 	 */
- 	size = uspi->s_cssize;
-+	if (!size || size < (size_t)uspi->s_ncg * sizeof(struct ufs_csum))
-+		goto failed;
- 	blks = (size + uspi->s_fsize - 1) >> uspi->s_fshift;
- 	base = space = kmalloc(size, GFP_NOFS);
- 	if (!base)
- 		goto failed; 
- 	sbi->s_csp = (struct ufs_csum *)space;
- 	for (i = 0; i < blks; i++) {
-+		size_t copy_len = min_t(size_t, size - (space - base),
-+					uspi->s_fsize);
- 		struct buffer_head *bh = sb_bread(sb, uspi->s_csaddr + i);
- 		if (!bh)
- 			goto failed;
--		memcpy(space, bh->b_data, uspi->s_fsize);
--		space += uspi->s_fsize;
-+		memcpy(space, bh->b_data, copy_len);
-+		space += copy_len;
- 		brelse (bh);
- 	}
+@@ -1269,8 +1278,15 @@ static int udf_load_vat(struct super_block *sb, int p_index, int type1_index)
  
-@@ -595,15 +599,19 @@ static void ufs_put_super_internal(struct super_block *sb)
- 	size = uspi->s_cssize;
- 	blks = (size + uspi->s_fsize - 1) >> uspi->s_fshift;
- 	base = space = (char*) sbi->s_csp;
--	for (i = 0; i < blks; i++, space += uspi->s_fsize) {
-+	for (i = 0; i < blks; i++) {
-+		size_t copy_len = min_t(size_t, size - (space - base),
-+					uspi->s_fsize);
- 		struct buffer_head *bh = sb_bread(sb, uspi->s_csaddr + i);
- 
- 		if (unlikely(!bh)) { // better than an oops...
- 			ufs_panic(sb, __func__,
- 				"can't write part of cylinder group summary");
-+			space += copy_len;
- 			continue;
- 		}
--		memcpy(bh->b_data, space, uspi->s_fsize);
-+		memcpy(bh->b_data, space, copy_len);
-+		space += copy_len;
- 		mark_buffer_dirty(bh);
- 		brelse(bh);
- 	}
-@@ -1179,6 +1187,11 @@ static int ufs_fill_super(struct super_block *sb, struct fs_context *fc)
- 	uspi->s_nspfshift = uspi->s_fshift - UFS_SECTOR_BITS;
- 	uspi->s_nspb = uspi->s_nspf << uspi->s_fpbshift;
- 	uspi->s_inopf = uspi->s_inopb >> uspi->s_fpbshift;
-+	if (!uspi->s_inopf || !uspi->s_ipg) {
-+		ufs_error(sb, __func__, "invalid fs_inopb (%u) or fs_ipg (%u)\n",
-+			  uspi->s_inopb, uspi->s_ipg);
-+		goto failed;
-+	}
- 	uspi->s_bpf = uspi->s_fsize << 3;
- 	uspi->s_bpfshift = uspi->s_fshift + 3;
- 	uspi->s_bpfmask = uspi->s_bpf - 1;
-@@ -1211,18 +1224,23 @@ static int ufs_fill_super(struct super_block *sb, struct fs_context *fc)
- 	inode = ufs_iget(sb, UFS_ROOTINO);
- 	if (IS_ERR(inode)) {
- 		ret = PTR_ERR(inode);
--		goto failed;
-+		goto failed_put_cyl;
- 	}
- 	sb->s_root = d_make_root(inode);
- 	if (!sb->s_root) {
- 		ret = -ENOMEM;
--		goto failed;
-+		goto failed_put_cyl;
- 	}
- 
- 	UFSD("EXIT\n");
- 	return 0;
- 
-+failed_put_cyl:
-+	if (!sb_rdonly(sb))
-+		ufs_put_super_internal(sb);
- failed:
-+	dput(sb->s_root);
-+	sb->s_root = NULL;
- 	if (ubh)
- 		ubh_brelse_uspi (uspi);
- 	kfree (uspi);
+ 		map->s_type_specific.s_virtual.s_start_offset =
+ 			le16_to_cpu(vat20->lengthHeader);
+-		if (map->s_type_specific.s_virtual.s_start_offset
+-		    > sbi->s_vat_inode->i_size) {
++		if (map->s_type_specific.s_virtual.s_start_offset <
++			sizeof(struct virtualAllocationTable20) ||
++		    map->s_type_specific.s_virtual.s_start_offset >
++			sb->s_blocksize ||
++		    map->s_type_specific.s_virtual.s_start_offset >
++			sbi->s_vat_inode->i_size ||
++		    (vati->i_alloc_type == ICBTAG_FLAG_AD_IN_ICB &&
++		     map->s_type_specific.s_virtual.s_start_offset >
++			vati->i_lenAlloc)) {
+ 			udf_err(sb, "Corrupted VAT header length %u (VAT inode size %lld)\n",
+ 				map->s_type_specific.s_virtual.s_start_offset,
+ 				sbi->s_vat_inode->i_size);
