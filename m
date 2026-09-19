@@ -1,57 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A561322A1F
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 00:50:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA33032C937;
+	Sat, 19 Sep 2026 00:51:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789779054; cv=none; b=hFGo64NAU4Kw1dmmsq6h4uuLFkpWEZOvS2teacWggKTTAJR1VirStPepD2KGvqcMksowu0DS19MwKo7YfX7yakODYhhfCr4sSjfjjLqCSQynbD+0/IFj4LwAcmF/PINSO6pXptuij0W3F8r7FiqCPJKjjLvmmGgUTNFT1qQ47H0=
+	t=1789779079; cv=none; b=jjxRTpne4aiROcxo1cvPfKCm5G9JEPWAqkquSZ+8HR5SX6LTTLKVQh/py1pqvCOpkEjgD0vKMo1VSkAZF710hn5RE6wwf6HVhDb1fWmGxhR2ktXdY/+BQ23fFaEzL6E7zuae1fZCYY6Nn86cXh5l2C4PVDwx6vhiTV4/jTjkc/g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789779054; c=relaxed/simple;
-	bh=Y4xg4EWs6TC0dejQIBsxK+mBitSOm4PAPm6bmuK4se0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Y8o/Ak+1/1bmdo1pv93I9x8OZ4ZEeTVIIf1TVWAMx3JaArGH29F1y0bTBku3SfH/nXRb71wA+AJ1KDU7cCa0fb3HnHU40NV/sqX4M+PhnooX39TNJef150WpB0KQ0RU7qttXonDUmsdqiidHBwbXcPMsgOJGAfnnNuZks4AVXTU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OWiegJOT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789779079; c=relaxed/simple;
+	bh=HilSvSQ4yLUiKHRmolkzokAMmeJPgM9mLWksF322B28=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=rrWucQDtU1sycA2NxbZAlJPMFs6JEGkKOmgiuTpMoeNuB4Yz5+MopmeyC2G4d7NXq3KT8l1ZJtEGVcSUQQ7pr64WWWzZNGq4qHDCrfKBPboPdwFwuqj4udZK32hlCx7TjL25Z+2jk0CK8X9EWLlHV5ucPwZ2RIMFu+8F295Y1e0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H7yKy1Bo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OWiegJOT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79DE61F000FF;
-	Sat, 19 Sep 2026 00:50:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H7yKy1Bo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31A8C1F00898;
+	Sat, 19 Sep 2026 00:51:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789779044;
-	bh=b1tw2IOdATgIAgeOtOU6aYsEKazCC4468v0MK6zfWn8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OWiegJOT1477KjdFWhk3YWWOb8Ji4XwOajTwo+QzhXmIeDeigdMcClxq8G7x4Z2Oc
-	 rzKQTSyW0MOe2pDyHt1AotVNoYDH9Mzy1Bex5xwq5xb+Zx0z0b/MFvQAvMdyyOYDy9
-	 D+bnKsVZxc8Ytl9ZuAUxlxHbWYPrtoVfbUY9uQI8eHCbeQN/MRJSmXhnVQQ5GgiPb2
-	 VgG9W2qD//8bh0MfSJ8dSmReZaQnCEHGfsGxKzxQSlCNfRg2n73EPplJLIpSQuCE6Z
-	 rQAEI8jNCb3zIiRgkoK1Yv4mmDwEXHxn5bfHY6hov+wysyw7XcQzM2M2V57O5PK30j
-	 C5HqY5aFpZkCA==
-From: SJ Park <sj@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: SJ Park <sj@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Byungchul Park <byungchul@sk.com>,
-	Gregory Price <gourry@gourry.net>,
-	Ying Huang <ying.huang@linux.alibaba.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	Rakie Kim <rakie.kim@sk.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>
-Subject: Re: [PATCH 2/3] MAINTAINERS: move memory tiering under MEMORY MANAGEMENT - NUMA PLACEMENT
-Date: Fri, 18 Sep 2026 17:50:36 -0700
-Message-ID: <20260919005036.87201-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260918-maintainers-mempolicy-v1-2-9a94cac6d135@kernel.org>
-References: 
+	s=k20260515; t=1789779076;
+	bh=APJRPQQ8l/sUsDmP3jOOlOOG5TW1M5rYEXlJvTnGoew=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=H7yKy1BovtIlUFapscNWLtJS1P+8pDS06rsyqHpBK+coAb2daOtF9dgqIBRGmRW2u
+	 6b6NLTizS0FuvRFl6cDsJu78H0NzC8GJS7nLGapynq2q52xBgt2PJdCsfIi4gTfosi
+	 2EN1TSvESz1kEzeBUFd6o+weP6LMOjOzyqcqFrWTl704MRhrOKqlCJk2DTbJDBh2pl
+	 6yDmSJ2U/GurQwBTpZvQL/EG3w6slt5hxPK0m+rlO6WBdJ/CZ9+ELS88YfxtZ7uWAE
+	 PN9mgP8gi1x/WWuPGMqzbRXLLyhBac8t3sXhIT2xFcDLY6QpC/wlnWp8+ontM0HgS1
+	 NmfLbWdmvsWGA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 569AA3811978;
+	Sat, 19 Sep 2026 00:50:10 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -59,23 +37,42 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] net: phy: micrel: Advance register data pointer in write
+ loop
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178977900889.1211687.16787571187832684308.git-patchwork-notify@kernel.org>
+Date: Sat, 19 Sep 2026 00:50:08 +0000
+References: <20260916231928.1336305-1-abhishek.ojha@savoirfairelinux.com>
+In-Reply-To: <20260916231928.1336305-1-abhishek.ojha@savoirfairelinux.com>
+To: Abhishek Ojha <abhishek.ojha@savoirfairelinux.com>
+Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ rmk+kernel@armlinux.org.uk, horatiu.vultur@microchip.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
-On Fri, 18 Sep 2026 18:34:25 +0200 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
+Hello:
 
-> NUMA PLACEMENT is a better place for memory tiering.
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-I agree that's a good placement :)
-
+On Wed, 16 Sep 2026 19:19:28 -0400 you wrote:
+> lanphy_write_reg_data() does not advance the data pointer while iterating
+> over the register table. As a result, it writes the first entry num times
+> and leaves the remaining errata registers unconfigured.
 > 
-> My best guess is that existing MISC reviewers are not that interested in
-> memory tiering, so don't carry any over.
+> Single-entry tables are unaffected, but tables with multiple entries
+> leave every entry after the first unapplied.
 > 
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> [...]
 
-Reviewed-byt: SJ Park <sj@kernel.org>
+Here is the summary with links:
+  - net: phy: micrel: Advance register data pointer in write loop
+    https://git.kernel.org/netdev/net/c/95c4d54ed022
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
-Thanks,
-SJ
-
-[...]
