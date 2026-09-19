@@ -1,152 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DF49393DFB;
-	Sat, 19 Sep 2026 01:04:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50235383305
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 01:04:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789779856; cv=none; b=exL36izYgVBLirniss9PUqnWpASEnNYBDfookzwAKQkdvc7lV9Vf4SlbLZjMNPBXcp2IvesOdAarpEziwJCgefQbPn7H9egYYa2HSGJF9ATwWbW5FGf3OWoTNrZf0ljfLzP/m71YJDcfu3YJGDvcIcF3571RD0e870iekS36Bg4=
+	t=1789779897; cv=none; b=izJH+rij4xS3JVh9z+fE8y2wd0b0ajBXoY+P891XcJCO4P1XL5Ywligf2TR3cGBaaLJiNIKzzobDucg554391MDBiQyA1NmgMU25+egEgIFSQfWzgxVZqgFdMRH5Nu56q2bIkRlRXdT6E0Lswj5hH0Qv2HWzUXp4P52uJMszebc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789779856; c=relaxed/simple;
-	bh=zslnNGNE5oa1grAjofOIMGeW6YrhIrAopuyB/35qdhE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=kS0xae+N1E8A4HCHhnctKPvA20t6a3DukvvrUz8IJnP2WgRr/JTFK6ng3XPan+NZSskNU/u1bxguRMs4XZ6JnrwSYgk3aP/lA+mT0hRhKVkporDz3OiUrf7/dKtezKqRPjWM0MR9ZPC8IB1VFprvI/MWKLPTucKYSERgKLGDd2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kAUqVxDV; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kAUqVxDV"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 01E85C2BCB8;
-	Sat, 19 Sep 2026 01:04:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789779854;
-	bh=zslnNGNE5oa1grAjofOIMGeW6YrhIrAopuyB/35qdhE=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=kAUqVxDV4KC57L6Qzn1/MygVZzfUlgPc+sl8BOQQ4S0tr5NB2PaZfleh8zu0xnkuT
-	 dvhW2UlKx7PZD6MrAIPSOuT/W7tCddcU8/mic25Cm0j/u6DjvPVqjo5LNgO9HdOSMi
-	 kfo+4ury7+Z566I+j10fkekNAlKJtdIzqfPH3UwLNlBdJ8bIEDu5uAAIbCR0Jd9lVC
-	 VBxkwaiq8H+zHHMbaUzUkqq0Dhp4OxNCmh30akt/6stLwJUPwbZui4VyyhceUGbeTC
-	 tS5biRGomkaR3LY2Tdab4vDSYJ+ogucspzn2rSwdjSTLR4WpcGe0Avh4fgG6A3STpk
-	 CXiInDd3ET8OQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CF5BDC982DE;
-	Sat, 19 Sep 2026 01:04:13 +0000 (UTC)
-From: Amit Sunil Dhamne via B4 Relay <devnull+amitsd.google.com@kernel.org>
-Date: Sat, 19 Sep 2026 01:04:10 +0000
-Subject: [PATCH v3] arm64: dts: exynos: gs101-pixel-common: add supply and
- regulator properties
+	s=arc-20240116; t=1789779897; c=relaxed/simple;
+	bh=ikDf+TJBNZ7uNCFwJDN73m8xKhgFm0huORbGGJ5wLPs=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=D2mulK0H6gjqPv+sBFiLPotsM0zd9RQCJOwqg1k9j9Qxyg3djQeRYtrnrfqgXAqYdupEymP9yQ17PRwTcitnHuwcds4kioJsF+OTVeSrEiKdpVy3k6zZLQSgbJbJqe6wi5Q19M398dLOAEuZY8BwUmnPTtXIBif8t7z1EM/kpLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b28dbf4197so2164956b6e.2
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:04:38 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789779877; x=1790384677;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yVSgU5+TPWUvlYb6Rq+BVY3j9T8HbLsdyAn+NYiX5k0=;
+        b=RdKZP0owiFJ4QK3oj4bsRKOgtarF9Ee6cgiUdXTpoFclyBGNWwPJUc7x6vuNDz4s9h
+         AR9bHecFLDq/I5LC4tU7yWvX6bSu83p0F/Vxcm1QqLd2Wq21Xtkzf5ZvykX21vuh+dfe
+         hx6kKoVYKnYG0ro0Xd69I5bTxlTh0d09td+lLk9O5Weqzs/gN0lMo1oBUU7oXWextxEx
+         XpR5gav/NfwFkAy8mnS6Dr1cEblOMvyLOnFHrx+V/Mws19HK6f2uAjixVMIMeqFafN+u
+         jG/gfvssbJuJyS03n6zNJB8aB8o4nOBvWSmbEGclRksZog/xZBBiU3N2dKYt7lnpMjOr
+         jNrQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzJG7jEo5EOqSAL2nCNvK3ePFu/Ml4QlagzKudc/8q9eO26zg9UoyP8bP2qQTOBSIfLDDibM9/+BL9nZMA=@vger.kernel.org
+X-Gm-Message-State: AFuF++m/T9HRx93aN3HJq13DlM0TYmHag+VrGZTmcxIxbjm5cnFPNXTc
+	OjvVRe6oJvhRF3GfGIhpS7KGlIm67Qf2duP6JDFcnJhwZw7Chy+zzgrw9RQA4n5FlFIGNCrLoTQ
+	QyJSe+tHv6hqVP6e8/iL92lzk6heTaUAUIS+0x5Ib1mXH5aL8ifRlXlOgLRg=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260919-max77759-charger-dts-v3-1-78b68fbf7d4a@google.com>
-X-B4-Tracking: v=1; b=H4sIAInfrWoC/43NwQ7CIAyA4VcxnK3ZCozhyfcwHpBVRuKGgYXML
- Ht32W6e9Pi36deFJYqeEjsfFhYp++TDWIIfD8z2ZnQEvivNsMKmQhQwmFkpJTWUdXQUoZsSIBe
- ac92SUpaV01ekh5939nor3fs0hfjev+R6m/4Acw013IXgUkhbCWMuLgT3pJMNA9vEjP8oWBTdc
- myksS01/EtZ1/UDH3S0sP8AAAA=
-X-Change-ID: 20260224-max77759-charger-dts-23493398e77c
-To: Peter Griffin <peter.griffin@linaro.org>, 
- =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
- Tudor Ambarus <tudor.ambarus@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Amit Sunil Dhamne <amitsd@google.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789779853; l=2698;
- i=amitsd@google.com; s=20241031; h=from:subject:message-id;
- bh=H3o0xNkJTaPRJts1fDtzq2bsFqrsr68JNgCV5PXC4hE=;
- b=WDzv0jaKgpSBLo/lEduuK+4j/pX+X87tGgx6bpqVRhUSPl1/NMl8e1FF7uY8ghZGnB15jdeUE
- wRo9yz4Y3bnC57nOsWQmWSHaS5w6zxRHV/l4ri4qmMYDTx/WYIwLL2f
-X-Developer-Key: i=amitsd@google.com; a=ed25519;
- pk=wD+XZSST4dmnNZf62/lqJpLm7fiyT8iv462zmQ3H6bI=
-X-Endpoint-Received: by B4 Relay for amitsd@google.com/20241031 with
- auth_id=262
-X-Original-From: Amit Sunil Dhamne <amitsd@google.com>
-Reply-To: amitsd@google.com
+X-Received: by 2002:a05:6820:2604:b0:6c9:e0d0:2064 with SMTP id
+ 006d021491bc7-6ca9b03a36dmr3936797eaf.27.1789779876917; Fri, 18 Sep 2026
+ 18:04:36 -0700 (PDT)
+Date: Fri, 18 Sep 2026 18:04:36 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aaddfa4.e548f532.1ca396.0000.GAE@google.com>
+Subject: [syzbot] net-next build error (6)
+From: syzbot <syzbot+73463506b30826d442a1@syzkaller.appspotmail.com>
+To: davem@davemloft.net, kuba@kernel.org, linux-kernel@vger.kernel.org, 
+	netdev@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: Amit Sunil Dhamne <amitsd@google.com>
+Hello,
 
-Add power supply and regulator properties to the MAX77759 pmic. The
-usb-typec device will reference the regulator provided by the pmic as
-it supplies vbus to the typec device when operating in source mode.
+syzbot found the following issue on:
 
-Additionally, describe the charging path as well. The pmic draws its
-input from the Type-C port and in turn charges the battery that the
-fuel gauge measures, which gives the full ladder:
+HEAD commit:    c0bb05f2d19e tools: ynl: Fix out-of-tree build for ynltool
+git tree:       net-next
+console output: https://syzkaller.appspot.com/x/log.txt?x=10edb905580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=ba53f227359c9d59
+dashboard link: https://syzkaller.appspot.com/bug?extid=73463506b30826d442a1
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
 
-  usb-typec@25  ->  pmic@66  ->  fuel-gauge@36
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+73463506b30826d442a1@syzkaller.appspotmail.com
 
-Signed-off-by: Amit Sunil Dhamne <amitsd@google.com>
----
-Changes in v3:
-- Additionally describe the charging path from max77759_pmic to the
-  fuel-gauge.
-- Dropped André's Reviewed-by, as the patch grew a property.
-- Link to v2: https://lore.kernel.org/r/20260224-max77759-charger-dts-v2-1-983265ac8e63@google.com
-
-Changes in v2:
-- Added a line between property and child node as per DTS coding std.
-  (Krzysztof Kozlowski)
-- Added the "power-supplies" property immediately after the prev
-  property without leaving a line space.
-- Link to v1: https://lore.kernel.org/r/20260224-max77759-charger-dts-v1-1-b443545c04aa@google.com
----
- arch/arm64/boot/dts/exynos/google/gs101-pixel-common.dtsi | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/exynos/google/gs101-pixel-common.dtsi b/arch/arm64/boot/dts/exynos/google/gs101-pixel-common.dtsi
-index a12f2b88d72d..c366df36380b 100644
---- a/arch/arm64/boot/dts/exynos/google/gs101-pixel-common.dtsi
-+++ b/arch/arm64/boot/dts/exynos/google/gs101-pixel-common.dtsi
-@@ -646,12 +646,13 @@ &hsi2c_12 {
- 	status = "okay";
- 	/* TODO: add the devices once drivers exist */
- 
--	usb-typec@25 {
-+	maxtcpci: usb-typec@25 {
- 		compatible = "maxim,max77759-tcpci", "maxim,max33359";
- 		reg = <0x25>;
- 		interrupts-extended = <&gpa8 2 IRQ_TYPE_LEVEL_LOW>;
- 		pinctrl-0 = <&typec_int>;
- 		pinctrl-names = "default";
-+		vbus-supply = <&chgin_otg_reg>;
- 
- 		connector {
- 			compatible = "usb-c-connector";
-@@ -738,9 +739,10 @@ fuel-gauge@36 {
- 		interrupts-extended = <&gpa9 3 IRQ_TYPE_LEVEL_LOW>;
- 
- 		shunt-resistor-micro-ohms = <5000>;
-+		power-supplies = <&max77759_pmic>;
- 	};
- 
--	pmic@66 {
-+	max77759_pmic: pmic@66 {
- 		compatible = "maxim,max77759";
- 		reg = <0x66>;
- 
-@@ -750,6 +752,11 @@ pmic@66 {
- 
- 		interrupt-controller;
- 		#interrupt-cells = <2>;
-+		power-supplies = <&maxtcpci>;
-+
-+		chgin_otg_reg: chgin-otg-regulator {
-+			regulator-name = "chgin-otg";
-+		};
- 
- 		gpio {
- 			compatible = "maxim,max77759-gpio";
+mv: cannot stat 'arch/x86/include/generated/asm/.tmp_cpufeaturemasks.h': No such file or directory
 
 ---
-base-commit: 587858367581b9c55c3690f4e63382ad622719d4
-change-id: 20260224-max77759-charger-dts-23493398e77c
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-Best regards,
--- 
-Amit Sunil Dhamne <amitsd@google.com>
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
