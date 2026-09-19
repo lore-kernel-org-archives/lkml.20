@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEB735464C;
-	Sat, 19 Sep 2026 00:00:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D785323392A;
+	Sat, 19 Sep 2026 00:01:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789776061; cv=none; b=EVe0UyXVHR677VnYH//FImC3DBiq5eSGSG5egaF9pv4au4jeEqxlVVr+oi6ukyziEdcUFcNpVI8ommL9E5irY6/wL/JysGk+27hI3M3pdVGlI0jUlFlsx4H1kwFwQ6UBtaIcLWysczmNhDYjJ4DzWIx+0fq1iUKyNRl80K1Xkco=
+	t=1789776062; cv=none; b=rVj+Cf6xDsevRb33rTiIx9+Q5zUR1doTZ1JtOaw6Q3Uh81Y5V4XuTTVeJs0oxHbCJwt07YHrKBHenOAw5tQrehM7Wzium9rfiBZtIhLVVIHf5HNcx8thNzb6go0VUMvmN0Y4cyTFvx7VWLjFV/hb1XQeBSWJQhH3X9vKsKbrMQ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789776061; c=relaxed/simple;
-	bh=HwtsuBlBCux5ymcpXL33cyngWC6vsOFs30puxCcDz+k=;
+	s=arc-20240116; t=1789776062; c=relaxed/simple;
+	bh=5NmpaBgZZTNdCVrDtYsCo3NWBPDoDOvVSihJo28UyCg=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Pzos3/XecxU1CJlKFSY6Ep3DaW5FpXyq5YeDX43Q+9JM+E2jfNwkTVUROAbUgKgtBbuIHcfm6EnSaXk7qJGb0Y+MIme5BJcjfSNVkRTuxhymeCpN2MqG0l/7KL5BU2JmlsE3idQW9Oialysmt0G3dkHlLGcxTVKN6BLt9YBNkbg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DoAH6+7L; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=tRjrEZE6bJIh3reHdJBMP3faRQUX42HXFJENGeQIsslUeOc+VXELL/0SBm8/I0rZq0EvVMFliV7VJx0C1eG/qXag9jbYH+94GOzBsbED5UWA5kZG3Sj8JkJ7vqHm8bgZ2XADQYOdU9W/MRDq+YHCgG6WdAlPk4m8Hc5kQxZ1UV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EQaV5A5W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DoAH6+7L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DE0E1F008A0;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EQaV5A5W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1DF91F0089D;
 	Sat, 19 Sep 2026 00:00:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789776059;
-	bh=PjRr4ujnHmXXCsFKqamYXOTjxfDUky2OWpuGXT2k7KQ=;
+	bh=9iImI7pge0zj7YnIYJa7VF9XuKWLcrJ8NdsyV1nJzqk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DoAH6+7L4O6Fmiw4FRbYl/JJ1GWpdyhnINx0qbESoC6JIk+M6t10HEWpINL9EiCFm
-	 f5kvd1Me4lD3rPAoNf2XVZQj/80j9ms6AVSdi3wb5gJU7KG9aR6PWkB75sxFoBWSwT
-	 wtbAlVKeSG1XswD4IWqTRH241Y4la2RKlFqat5QbzAZJDcr69Is/Qzz8U4iUQDRczo
-	 c5Ib6OoVWLAj1wn7nSMTHPsjFeAu06R3CXp391oZAkQ9Ae3lkeN9LvYxqimPodBHfi
-	 4C2m16QIa7Q9GfMzn5y00ShIDV/iuJ6aEH6OXsxCzc3iefXlZq0nSFY4Sq0nVqNXRk
-	 7FT+QSXrUkDig==
+	b=EQaV5A5WXM8PP7BxTaGj3bX+X88l+2plhBDCB+JrEz2R2Rlw1jMMPYe2qskFpyBzp
+	 6qXaLGRrLg0ru0jBZ3/R0DSLID351D8QtljjSWVjFjM0HXVpwULTeXmXOB92fCfx7V
+	 ToQaaVEp2iEq8OLuqW96wfHqg8D5qhMkBKVGxwOs60x8bbd8zCrRsI9tu0LXoZP6fa
+	 PXLFyq/dW95mWmdDOjBuEJ9r+I5I/HQ0WntG6eU99jhvrKN9x85oHGlVvZq+0V9pRx
+	 x1JPanmo91benNwc82/KCt/xoLk28wiTA+rOwhTTvLqyuItf0Lc3GWUEIUgNxaUWCJ
+	 jx3Q7u2rfGxJQ==
 Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 54B0FCE09F8; Fri, 18 Sep 2026 17:00:59 -0700 (PDT)
+	id 5A935CE0A73; Fri, 18 Sep 2026 17:00:59 -0700 (PDT)
 From: "Paul E. McKenney" <paulmck@kernel.org>
 To: rcu@vger.kernel.org,
 	linux-kernel@vger.kernel.org
@@ -41,9 +41,9 @@ Cc: kernel-team@meta.com,
 	Kunwu Chan <kunwu.chan@gmail.com>,
 	Bradley Morgan <brads@mainlining.org>,
 	"Paul E. McKenney" <paulmck@kernel.org>
-Subject: [PATCH 04/28] hazptrtorture: Add testing of on-stack hazptr_ctx structures
-Date: Fri, 18 Sep 2026 17:00:32 -0700
-Message-Id: <20260919000056.3132131-4-paulmck@kernel.org>
+Subject: [PATCH 06/28] hazptrtorture: Enable system-independent CPU overcommit
+Date: Fri, 18 Sep 2026 17:00:34 -0700
+Message-Id: <20260919000056.3132131-6-paulmck@kernel.org>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <e9669b34-12c2-4cf2-a887-315f581f0789@paulmck-laptop>
 References: <e9669b34-12c2-4cf2-a887-315f581f0789@paulmck-laptop>
@@ -55,8 +55,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This commit adds a test using on-stack hazptr_ctx structures, in contrast
-with the per-CPU structures used by the initial test.
+This commit interprets negative values of the nreaders module parameter
+as a number of readers per CPU, so that hazptrtorture.nreaders=-5 would
+spawn five hazard-pointer reader kthreads per CPU.  As CPUs go offline,
+a number of readers determined by the overcommit are idled, so that
+again when hazptrtorture.nreaders=-5, five readers would be idled for
+each offline CPU.
 
 Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
 Cc: Boqun Feng <boqun@kernel.org>
@@ -64,116 +68,31 @@ Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 Cc: <rcu@vger.kernel.org>
 Cc: <lkmm@lists.linux.dev>
 ---
- kernel/rcu/hazptrtorture.c                    | 48 ++++++++++++++-----
- .../rcutorture/configs/hazptr/NOPREEMPT.boot  |  1 +
- 2 files changed, 38 insertions(+), 11 deletions(-)
- create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/NOPREEMPT.boot
+ kernel/rcu/hazptrtorture.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/kernel/rcu/hazptrtorture.c b/kernel/rcu/hazptrtorture.c
-index c656ba980100..22a0610d0dbd 100644
+index 9ecb86520551..e9ba25f156ac 100644
 --- a/kernel/rcu/hazptrtorture.c
 +++ b/kernel/rcu/hazptrtorture.c
-@@ -30,7 +30,6 @@ MODULE_DESCRIPTION("Hazard-pointer module-based torture test facility");
- MODULE_LICENSE("GPL");
- MODULE_AUTHOR("Paul E. McKenney <paulmckrcu@meta.com>");
- 
--torture_param(int, irqreader, 1, "Allow hazard-pointer readers from irq handlers");
- torture_param(int, nreaders, -1, "Number of hazard-pointer reader threads");
- torture_param(int, onoff_holdoff, 0, "Time after boot before CPU hotplugs (s)");
- torture_param(int, onoff_interval, 0, "Time between CPU hotplugs (jiffies), 0=disable");
-@@ -188,7 +187,8 @@ struct hazptr_torture_ops {
- static struct hazptr_torture_ops *cur_ops;
- 
- /*
-- * Definitions for hazard-pointer torture testing.
-+ * Definitions for hazard-pointer torture testing using per-CPU hazptr_ctx
-+ * structures.
-  */
- 
- static struct hazptr_torture *hazptr_torture_read_lock(struct hazptr_ctx **hcpp)
-@@ -242,10 +242,33 @@ static struct hazptr_torture_ops hazptr_ops = {
- 	.readunlock		= hazptr_torture_read_unlock,
- 	.sync			= hazptr_synchronize,
- 	.irq_capable		= 1,
--	.onstack_ctx		= 1,
- 	.name			= "hazptr"
- };
- 
-+/*
-+ * Definitions for hazard-pointer torture testing using on-stack
-+ * hazptr_ctx structures.
-+ */
-+
-+static struct hazptr_torture *hazptr_torture_read_lock_stack(struct hazptr_ctx **hcpp)
-+{
-+	struct hazptr_torture *htp;
-+
-+	htp = (struct hazptr_torture *)hazptr_acquire(*hcpp, (void *)&hazptr_torture_current);
-+	return htp;
-+}
-+
-+static struct hazptr_torture_ops hazptr_stack_ops = {
-+	.init			= hazptr_sync_torture_init,
-+	.readlock		= hazptr_torture_read_lock_stack,
-+	.read_delay		= hazptr_read_delay,
-+	.readunlock		= hazptr_torture_read_unlock,
-+	.sync			= hazptr_synchronize,
-+	.irq_capable		= 1,
-+	.onstack_ctx		= 1,
-+	.name			= "hazptr-stack"
-+};
-+
- /*
-  * Hazard-pointer torture writer kthread.  Repeatedly substitutes a new
-  * structure for that pointed to by hazptr_torture_current, freeing the
-@@ -331,7 +354,8 @@ hazptr_torture_writer(void *arg)
-  */
- static int hazptr_torture_reader(void *arg)
- {
--	struct hazptr_ctx *hcp;
-+	struct hazptr_ctx hc;
-+	struct hazptr_ctx *hcp = &hc;
+@@ -362,7 +362,7 @@ static int hazptr_torture_reader(void *arg)
  	struct hazptr_torture *htp;
  	unsigned long lastsleep = jiffies;
  	long myid = (long)arg;
-@@ -481,13 +505,15 @@ hazptr_torture_print_module_parms(struct hazptr_torture_ops *cur_ops, const char
- {
- 	pr_alert("%s" TORTURE_FLAG
- 		 "--- %s: nreaders=%d "
--		 "stat_interval=%d verbose=%d "
--		 "shuffle_interval=%d stutter=%d irqreader=%d "
--		 "onoff_interval=%d onoff_holdoff=%d\n",
-+		 "onoff_interval=%d onoff_holdoff=%d "
-+		 "preempt_duration=%d preempt_interval=%d "
-+		 "shuffle_interval=%d shutdown_secs=%d stat_interval=%d stutter=%d "
-+		 "verbose=%d\n",
- 		 torture_type, tag, nrealreaders,
--		 stat_interval, verbose,
--		 shuffle_interval, stutter, irqreader,
--		 onoff_interval, onoff_holdoff);
-+		 onoff_interval, onoff_holdoff,
-+		 preempt_duration, preempt_interval,
-+		 shuffle_interval, shutdown_secs, stat_interval, stutter,
-+		 verbose);
- }
+-	int mynumonline = myid;
++	int mynumonline = myid % nr_cpu_ids;
+ 	int pipe_count;
+ 	DEFINE_TORTURE_RANDOM(rand);
  
- // Randomly preempt online CPUs.
-@@ -563,7 +589,7 @@ static int __init hazptr_torture_init(void)
- 	long i;
- 	int cpu;
- 	int firsterr = 0;
--	static struct hazptr_torture_ops *torture_ops[] = { &hazptr_ops, };
-+	static struct hazptr_torture_ops *torture_ops[] = { &hazptr_ops, &hazptr_stack_ops, };
- 
- 	if (!torture_init_begin(torture_type, verbose))
- 		return -EBUSY;
-diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/NOPREEMPT.boot b/tools/testing/selftests/rcutorture/configs/hazptr/NOPREEMPT.boot
-new file mode 100644
-index 000000000000..1d09a6446080
---- /dev/null
-+++ b/tools/testing/selftests/rcutorture/configs/hazptr/NOPREEMPT.boot
-@@ -0,0 +1 @@
-+hazptrtorture.torture_type=hazptr-stack
+@@ -622,7 +622,7 @@ static int __init hazptr_torture_init(void)
+ 	if (nreaders >= 0) {
+ 		nrealreaders = nreaders;
+ 	} else {
+-		nrealreaders = num_online_cpus() - 2 - nreaders;
++		nrealreaders = num_online_cpus() * -nreaders;
+ 		if (nrealreaders <= 0)
+ 			nrealreaders = 1;
+ 	}
 -- 
 2.40.1
 
