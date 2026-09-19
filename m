@@ -1,186 +1,164 @@
-Received: from out28-52.mail.aliyun.com (out28-52.mail.aliyun.com [115.124.28.52])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF17E43AB0;
-	Sat, 19 Sep 2026 15:41:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C63D2D1911
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 15:52:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789832520; cv=none; b=ME+HrFRBxUhZqTOD6Ey6RYmTs+3Yy2hrqsJXKOI2oLFmdCKXWTjgt3oOV3eHhQB9HF6Di85+FcpKuRZDaR7BExHy8riGbu2xghz8Rgq1P99WM7FxcwoxACUePyeyaKAiE3YCFqsd1+vx+RbgrhojEAbaKNPYRJSo6syVZrlyMQ4=
+	t=1789833160; cv=none; b=F0LEkGPNnUzJmfh8ZPbQMioiUHLgWHg4fRLVQ6ymup/ENlMpSZUDCpHcRitG57GEVVOLLgvQ+++vuS6fYarWb1ew+d0JiF+3CIysX/UiaiiyE2m62khAu1a+uwHWpWocS7cYMQrqu3mTBTlyn3lG5dRHXR1URZXwSZcppzOmtYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789832520; c=relaxed/simple;
-	bh=LYiZl+WOHNSO4n6Gc8EKV7X5LB2Z4F9TAU5gRUGvOKE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Men+KAWJCPOwAe6Uzd8754hiW+HunFpn4Ac9j2T+tviYYVqCs4K153XW8swhWhABou11OApZXpIaQktKQNsF0476iQ7MFoi7TMpZyRR9ZAF/97Yw+tu9tI7SDNtnDs+u7O4PPgwyOm0C46XcsdmN/2v+dsfUZh1Cfb4phPDl450=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=rVAQtq3X; arc=none smtp.client-ip=115.124.28.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	s=arc-20240116; t=1789833160; c=relaxed/simple;
+	bh=mNAegP/D+VbTl8PVgLlT0m9KFHqa+RqpmSCw9ts3HE8=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=Rq1V6CDZNgMrWGHrwZc1glgfdDTKO7gR+MMdLwA+b7YvM7kPtoM11uImw/kWe3ann9RavXhQBGYJpsPaDYD4cu7CDAV1r5G9khx6JBJVgqu5NvbtKw96NW/fXEISBhU7O25qsLkWWEgywrW2pUwOxpByfyNrYqt5M9h3jjkH9Yk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=jcKFH+Mb; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="rVAQtq3X"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1789832502; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=OJ2hAYWcDFc6IElR3pmiBTTlx6KjakHAb7QlNaS0XAQ=;
-	b=rVAQtq3XwIdilf4iEIgKzdKUY8Cs3vSLa8eL97t0Mkjzfa1UuRwHPsUR14eu7UyuCV6maRPThVGtCM45L/2UK1i/gwm3gkDTJCl5zDi5am2qKeBtca2eEOChRIexADWMN+LBrFaW3DWeJ90626aK18ORxTszcV0NcN/1UR4Ge90=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.04436259|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0547553-0.000500871-0.944744;FP=5598000967577699419|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037021217;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=10;RT=10;SR=0;TI=SMTPD_---.jHWy4NM_1789832500;
-Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.jHWy4NM_1789832500 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Sat, 19 Sep 2026 23:41:41 +0800
-From: Fang Xieyan <fangxy@xiaopeng.com>
-To: mcgrof@kernel.org,
-	petr.pavlu@suse.com,
-	da.gomez@kernel.org,
-	samitolvanen@google.com,
-	atomlin@atomlin.com
-Cc: mmaurer@google.com,
-	masahiroy@kernel.org,
-	linux-modules@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v3] module: Validate the __version_ext_names section type
-Date: Sat, 19 Sep 2026 23:41:39 +0800
-Message-ID: <20260919154139.52904-1-fangxy@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="jcKFH+Mb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:Message-ID:From:To:Subject; bh=eq6k996KSmPnH6v
+	HEoHxv0JuIxpDwDETj3wA2ByVXgs=; b=jcKFH+MbOLrFvFFEkkRoFcxnq5neUFy
+	RZD/i36XBmkTMN+ZpjesLqJumzlmEGsvEzJe1Hr9IxYxpeWjq2/VjpIbDf6sVRIv
+	/AN+WpbzU2B2BmSIrjCF4nKatfuurxSDnqvENqS2Hb50plRST4enOpcpoHZa1nFE
+	ghaSxvirUvSE=
+Received: from localhost (unknown [])
+	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wB3M8x3r65qWABXBg--.52295S2;
+	Sat, 19 Sep 2026 23:51:20 +0800 (CST)
+Date: Sun, 20 Sep 2026 00:51:19 +0900
+Message-ID: <77591907f579598e5cf293e2ac03682a.sh_def@163.com>
+From: Hui Su <sh_def@163.com>
+To: Hui Su <sh_def@163.com>
+Cc: K Prateek Nayak <kprateek.nayak@amd.com>,
+	Zhidao Su <soolaugust@gmail.com>,
+	John Stultz <jstultz@google.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 0/1] sched/proxy_exec: detect cycles without persistent walk state
+In-Reply-To: <20260914165455.2126134-1-sh_def@163.com>
+References: <20260914165455.2126134-1-sh_def@163.com>
+X-CM-TRANSID:_____wB3M8x3r65qWABXBg--.52295S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxWr13JF15Kry5uFW3CFWUtwb_yoWrtF4rpF
+	Z3KryxK3WkGF4xtryxAw4UJF4rurWkJF45JF9YkFy09rZ0qr1jkFs3K34FvFWUCr92vF1Y
+	vr1Dt3ykZFWDAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUaoGQUUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6hhQr2qur3ixygAA3l
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-elf_validity_cache_sechdrs() validates the size and offset of
-every section, unless its type is SHT_NULL or SHT_NOBITS:
+> The open design question is whether avoiding persistent task/rq state and its
+> activation lifecycle is worth accepting the temporary blocked_donor cycle
+> window in the single-pass Online Brent walk.
 
-		switch (shdr->sh_type) {
-		case SHT_NULL:
-		case SHT_NOBITS:
-			/* No contents, offset/size don't mean anything */
-			continue;
-		default:
-			err = validate_section_offset(info, shdr);
+I did some follow-up validation of the unchanged Online Brent patch on
+tip/sched/core at e81ee0630837.
 
-elf_validity_cache_index_versions() then reads the extended version
-names by their sh_offset, without checking that the section holds
-data:
+One relevant change since the base used for the original measurements is:
 
-	if (vers_ext_crc) {
-		crc_count = info->sechdrs[vers_ext_crc].sh_size / sizeof(u32);
-		name = (void *)info->hdr +
-			info->sechdrs[vers_ext_name].sh_offset;
-		remaining_len = info->sechdrs[vers_ext_name].sh_size;
-		while (crc_count--) {
-			name_size = strnlen(name, remaining_len) + 1;
+	772d9ffbfd26 ("sched: Migrate whole chain in proxy_migrate_task()")
 
-A SHT_NOBITS __version_ext_names reaches here with an sh_offset the
-validator never bounded; past the end of the module the name lookup
-reads out of bounds:
+proxy_migrate_task() now walks p->blocked_donor directly, so this seemed
+like the most important current consumer against which to test the temporary
+backlink cycle mentioned in the RFC.
 
-  BUG: KASAN: vmalloc-out-of-bounds in strnlen+0x73/0x80
-  Read of size 1 at addr ffa00000005534ff by task insmod/79
-  ...
-   strnlen+0x73/0x80
-   load_module+0xef6/0x8600
-  The buggy address belongs to a 43-page vmalloc region starting at
-  0xffa0000000529000 allocated at kernel_read_file+0x7b4/0x9f0
+I added validation-only, read-only instrumentation at
+proxy_migrate_task() entry.  It inspected the already-built backlink prefix
+but did not repair, truncate, or otherwise change the production migration
+path.
 
-This runs after module_sig_check() but before the blacklist check in
-early_mod_check(). Commit 9a5ff4568932 ("module: validate string table
-section types") closed the same class for .shstrtab and .strtab, but
-not this section.
+The validation on that tip revision included cross-CPU/multi-hop cycle cases, long
+acyclic chains, repeated reuse of the same task/mutex objects, and KCSAN
+runs.  Some representative results were:
 
-Bounding the offset is not enough: an in-bounds SHT_NOBITS section
-still passes it, and the walk reads unrelated file data as a version
-name. A real __version_ext_names is SHT_PROGBITS, already offset-bounded
-by elf_validity_cache_sechdrs(), so require that type, matching the
-string-table checks.
+  - an acyclic depth-1024 case completed 2921/2921 observed whole-chain
+    migrations, reaching a maximum backlink prefix of 1016 tasks;
 
-Fixes: 54ac1ac8edeb ("modules: Support extended MODVERSIONS info")
-Cc: stable@vger.kernel.org
-Assisted-by: Hawkeye:GLM-5.3-flash
-Assisted-by: Qoder:Qwen3.8-Max
-Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
----
+  - curr_in_chain/current-task protection was exercised 959 times in that
+    run, with no current task entering the migration prefix;
 
-Standalone resubmission of the __version_ext_names fix that was patch 2/2 of
-"[PATCH v2 0/2] module: close two ELF section-validation gaps" (Message-ID
-20260917190618.94759-1-fangxy@xiaopeng.com). The series is split: patch 1/2
-(the SHT_NULL sh_name fix) is withdrawn because Liu Chao posted a cleaner
-fail-closed fix for the same bug ("[PATCH] module: validate sh_name for
-SHT_NULL sections", 20260905110813.150411-1-liuc63@xiaopeng.com), which drops
-the SHT_NULL special case entirely instead of sanitizing sh_name to 0. This
-patch does not depend on it and stands alone.
+  - the same task/mutex objects were reused for 100 rounds while affinity
+    changes forced remote-owner placement; 226/226 observed proxy migrations
+    completed;
 
-Changes in v3:
-  - Split from the two-patch series and rebased onto mainline; sent as a
-    single patch with no cover letter.
-  - Corrected the function name in the changelog and the in-code comment:
-    elf_validity_check_sectionheaders() does not exist in the tree, the
-    validator is elf_validity_cache_sechdrs().
-  - Noted where the read sits in load_module(): after module_sig_check() and
-    before the blacklist check in early_mod_check(), matching the rationale
-    for commit 9a5ff4568932 ("module: validate string table section types"),
-    which closed the same class for .shstrtab and .strtab but not this
-    section.
-  - No change to the check itself: still reject sh_type != SHT_PROGBITS.
+  - across the observed migration entries I saw no backlink cycle, duplicate
+    task, wrong-rq task, or off-rq task;
 
-v1 bounded the offset with validate_section_offset(). Review pointed out that
-is narrower than the bug: a SHT_NOBITS section whose sh_offset is in bounds
-still passes the bound, and the walk then reads whatever file bytes sit there
-as a version name, which violates ELF semantics (SHT_NOBITS holds no file
-data). v2 requires the section to be SHT_PROGBITS instead, so both the
-out-of-bounds and the in-bounds SHT_NOBITS cases are rejected, while a real
-names section (SHT_PROGBITS, already offset-checked) is unaffected.
+  - the clean RFC kernel, without the observer, also completed the
+    representative cycle cases, and a clean KCSAN build completed a
+    tail-plus-cycle case and 100 repeated cycle/recovery rounds without a KCSAN
+    report or fatal scheduler diagnostic.
 
-Reproducer, two variants of a .ko carrying __version_ext_crcs and a
-__version_ext_names of type SHT_NOBITS:
-  - sh_offset past the end of the module image. Before: the name walk reads
-    out of bounds (KASAN vmalloc-out-of-bounds in strnlen). After: rejected.
-  - sh_offset in bounds, aimed at other file data (the harness points it at
-    the relocated .shstrtab). Before: the walk silently consumes those bytes
-    as a version name and the module is accepted; no splat fires, so a
-    crash-only check scores it clean. After: rejected.
-Both variants fail insmod with -ENOEXEC (rc=8, "invalid module format") on the
-patched kernel, which is what a module with a malformed version section should
-do.
+This does not prove every possible owner-change interleaving, but in the
+tested paths I did not observe the temporary backlink cycle caused by delayed
+Brent detection escaping into the current whole-chain blocked_donor
+consumer.
 
-Both cases ran on 704340f1cd0d (9 commits past v7.3-rc3): x86_64 defconfig plus
-CONFIG_KASAN_GENERIC and CONFIG_KASAN_VMALLOC, gcc 13.2.0, QEMU under TCG. The
-unpatched and patched kernels are built from byte-identical .config files and
-differ only by this patch.
+The control-flow argument also looks consistent with those results: before a
+remote-owner migration, find_proxy_task() has not installed the backlink for
+that owner edge, so proxy_migrate_task() sees the finite prefix already
+constructed from the current donor.  Once a local backlink cycle can close,
+those owners have already passed the same-rq validation while rq->lock is
+held.
 
-LOCALVERSION is pinned so the patched kernel's release string matches the
-payload and the loader reaches the version walk instead of stopping at the
-version magic check.
+There is also a state-lifetime property of this approach that I think is
+worth considering as PE evolves.
 
- kernel/module/main.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+The Brent state:
 
-diff --git a/kernel/module/main.c b/kernel/module/main.c
-index d0e1e0b..183e3e2 100644
---- a/kernel/module/main.c
-+++ b/kernel/module/main.c
-@@ -2287,6 +2287,22 @@ static int elf_validity_cache_index_versions(struct load_info *info, int flags)
- 	 * number of entries in every section.
- 	 */
- 	if (vers_ext_crc) {
-+		/*
-+		 * The names section is read below as hdr + sh_offset, so it
-+		 * must hold file data. A real one is SHT_PROGBITS.
-+		 * elf_validity_cache_sechdrs() exempts SHT_NULL and
-+		 * SHT_NOBITS from validate_section_offset() on the assumption
-+		 * they have no contents, so a SHT_NOBITS __version_ext_names
-+		 * would reach the walk with an offset that was never bounded.
-+		 * Require the type; a SHT_PROGBITS section is already bounded
-+		 * there, so its sh_offset is safe to dereference.
-+		 */
-+		if (info->sechdrs[vers_ext_name].sh_type != SHT_PROGBITS) {
-+			pr_err("Invalid ELF __version_ext_names type: %u\n",
-+			       info->sechdrs[vers_ext_name].sh_type);
-+			return -ENOEXEC;
-+		}
-+
- 		crc_count = info->sechdrs[vers_ext_crc].sh_size / sizeof(u32);
- 		name = (void *)info->hdr +
- 			info->sechdrs[vers_ext_name].sh_offset;
--- 
-2.50.1 (Apple Git-155)
+	checkpoint / power / span
+
+belongs entirely to one find_proxy_task() invocation.  In other words, the
+lifetime of the cycle-detection state matches the lifetime of the owner walk
+that consumes it.  Task activation, migration, or later reactivation
+therefore do not have to carry or reset detector state.
+
+I have not tested this RFC on top of the sleeping-owner, rwsem, or futex
+series; the point here is about the ownership and lifetime of the
+cycle-detection state rather than a compatibility claim for those patches.
+
+The same separation applies at the owner-resolution boundary.  As long as a
+blocking primitive exposes or resolves one dependency step to at most one
+task owner, e.g.
+
+	mutex -----------\
+	rwsem writer -----+--> task owner
+	futex ------------/
+
+the detector still only sees a task-to-task walk and does not need to know
+which primitive supplied the edge.
+
+So the useful property here is that lock-specific owner resolution,
+task/rq lifecycle, and cycle-detection state remain separate.
+
+There is also a clear limit to this abstraction: Brent assumes one successor
+per step.  If PE eventually models and traverses multiple rwsem readers as
+dependency owners, the walk becomes a branching graph and cycle detection
+would need to be reconsidered together with that traversal model.
+
+The cost remains the one described in the RFC: detection can occur later
+than the first repeated owner, and the walk can temporarily close a
+blocked_donor cycle.  The current-tip testing above was intended to exercise
+that cost against the whole-chain blocked_donor consumer now present in
+proxy_migrate_task().
+
+The RFC implementation itself did not need any changes after this
+validation, so I do not plan to respin it just for the additional test
+results.
+
+At this point, the main question I would appreciate feedback on is whether
+this trade-off -- invocation-local detector state in exchange for delayed
+detection and the transient backlink window -- is reasonable for this path.
+
+Thanks,
+Hui
 
