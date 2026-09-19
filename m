@@ -1,255 +1,380 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+Received: from mta0.migadu.com (out-137.mta0.migadu.com [91.218.175.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D48282E2DD2
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 03:29:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 404E91F5842
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 03:32:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789788578; cv=none; b=T8tpilxo/2n7RwRnpFD/j5b6kplmTOyjvvEVNxVs5JLBUyQYuTniZ8QHQoBJnSuuDECYb/8HiDmjttD2sGXrGVyXYeYkkjG7OSCSzO4iEIbLoG/Gnf8y/p9RWwAME5VlfUOE4q4PXZ51ugRpZ2buVKCizrgBfA7i1mDOPbP7sCw=
+	t=1789788779; cv=none; b=nQI2+cX9tGwPGEpLkP9ZJR9ksafbfvr2uQmt5pYwoVbOF4taVdNRKk8wp04gbQ+CY+i9ILDx6JhKw+Y1LD36gD1mBLvRc2V8OmRG2m0Cw8EkY4UnJ3CzqIEh3Bvejko45Hm6gJEGyBUsdzyAxjGAsm7lZMbnKBEmIHaJVGUJMUY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789788578; c=relaxed/simple;
-	bh=Kpjx1RIkavXK32hKs8VpAOoak/OwV60NfDZF48LiohY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=unPs2maJ1H6RtCV/RO6brO3/gV2Kzmp57ScFjaWJMcIc/mfnOZrGIPW2uGbuqBdKiGZnOXiO6daiZw2u6S9aQUeg1JokrvWWlJeJJWrYTcJd0uMgizkIV3BVff6Fq3jW2iFXgicSUx3598rcoG6gdPGQ3Pzv9iCLg4rjI6krEoI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Wz0v+fZa; arc=none smtp.client-ip=74.125.228.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789788779; c=relaxed/simple;
+	bh=9nH26dxX2irZCfJK0QDvDQYUuTFsWVgnR12/E88VIOo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kws8ltaaN1h+FjaYz+dPXX5EuJ4w1wVlcT34xMQP4xA8LqqK1LzSspdXceEvkgHn2aCXHCIVttXHoLtIIY4fvX+NCFxeriGqs7SNvk84iOpv0Grh/XcNmCEum7zuemvDksF479G0tMkcfpiP00ybUwfTOquHZ5ArOD8bc65C5OM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=kzM05ZNG; arc=none smtp.client-ip=91.218.175.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wz0v+fZa"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469b355ffso888611b3a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 20:29:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789788576; x=1790393376; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=muMIYjiiSeBsL1eUzeEwgPRRBWkaPT6ZobNvYIG+NcA=;
-        b=Wz0v+fZa12YeWq9CupoXbd4g3Heuy2vo9dBdZTECWgIqd8MCQF10K48hf5g8FZK/S0
-         daeOvREp/qm0QJt87mvmmbD5jQjoSLpr6BhjJYr2USmeaR4K1E8ZT2G2jd/eJI6Ts+9Q
-         7I/jvtO8erNqdru1r4k+MzVlazxOwctuXs6Ceczsl1RYDUs0bcWqKE5zyVEP4/qautnZ
-         rVeUiuej1QX9EIzRz4U0NTxjNnUVFlIOeIQFPVhOyLbpeQz9cdFfhTmGmXLKEWdwCEXe
-         kwwigLQg43umaGHHqnOcG7nLuxhJkFKLy0tlAOugi8ZNKXtWLEmsfq0ulnGck+OTKBJc
-         O16Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789788576; x=1790393376;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=muMIYjiiSeBsL1eUzeEwgPRRBWkaPT6ZobNvYIG+NcA=;
-        b=IqHMJ+Y9emPhCgVDNkIVHeinqrLS7IBg8sDeUgeGOLJfxO/W9iju+sSNRjGzn8m4Ci
-         buUGHssH5XsY/GyyZHgE3p7zzOMWIR7Y4fAFkS33Alklryu90q15N+0keOm5UQNw86rG
-         vSwhPOoFGJQOmWmiD6cKsSLYGrtMTMqV4LUYKpS9Tx2NpZCnxtVnwmY1mKrPDSFmDjxA
-         kg0zWf+JIrs0HXbkt3BfdX9lx1xISQcthLuzwucvrUMBWDcfoufDZJpUxNe90I0PKdTb
-         w/MNxL//0W79TgS2PPTXcB5bMqE0n2Q4zsAZz6JZ9TTwJEvxn4lXEjHJSNL7qQ9t3xof
-         snrg==
-X-Forwarded-Encrypted: i=1; AKwUvBxNXywp2OmTbpJdNc7AIZu9MrzdEGqdk75gwpyXcyjoWuML3UhuIasIke6kEJvlTdYTbowbqB4bnWnEgao=@vger.kernel.org
-X-Gm-Message-State: AFuF++nhQChN8yLNJ6vrZYVz8t7zf6PS+dVPqjQvTqcVLLlDzfRSyaU6
-	R/h4Ht/TPfLIq31OnBwYQjoQ8QONuiJKZ1hUD6ceejNRfIoVCaif7X7S
-X-Gm-Gg: AYBFou3iYZYA8cp1i6J6HV0CcQIh6zOldlPbF4JH51s7QM7sHDaCfOvPm5moZLztTYt
-	pTMn4xhXIKyY4Us4Tssm2fhVm5BRIrt3lSO3eBsMGhvpaj4I1izVZC002uBASy6g39c6fZ44FWO
-	JEjQFMJw3Pq1JPIHvRCazIUQT9S1MNqYbwMJhaO/AdoeUkUxAWCNzCDD3vjYWIEB5dFbB5v2Iva
-	R+YV2fv5eHvFQFlYpaNOiLDsTmX9rKyKgpY0LFEt7oprOs7OgHpK89pWD+vDhATzqwLqBD1hMtz
-	njVgdu9bmEc3N9RZhG6dy1ZSPderTxaxYS7Y+BeC6Fy8ToWlLc1Ol/1jmX5XpkuTpF+3q6Mkc2X
-	TuLJqipR69CzaqRe5MavPL8VljZ6hKU+zn0/CUaVOmsGn4gYbCdlreBA77CPkEiOaUCBrSu9Rzh
-	H70HGaR61Z/HFBJfOq9LR0PbnOyk5bvj533A9hA2LQ6mYUgZIk69WlgtMm9PVt6jvldmDe8m7Tt
-	ZtqteuTG+rNRc2M
-X-Received: by 2002:a05:6a00:3e22:b0:851:8394:1696 with SMTP id d2e1a72fcca58-874dbfee622mr7775440b3a.12.1789788576058;
-        Fri, 18 Sep 2026 20:29:36 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:814e:e9d3:767e:9a2a])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a6be0d58sm489281b3a.7.2026.09.18.20.29.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 20:29:35 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>
-Cc: Phil Sutter <phil@nwl.cc>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+83439cb981624bd8d068@syzkaller.appspotmail.com
-Subject: [PATCH] netfilter: nf_tables: defer object destruction on abort past commit_mutex
-Date: Sat, 19 Sep 2026 10:29:28 +0700
-Message-ID: <20260919032928.78841-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="kzM05ZNG"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=9nH26dxX2irZCfJK0QDvDQYUuTFsWVgnR12/E88VIOo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789788774; v=1; x=1790393574;
+ b=kzM05ZNGnotuUIjhWIF7G7JdI2YZfhkHDkDRcsJu+vRmX+KK7/l30oUdPBHOxup9F81gor+z
+ BIHpYJqndsnWHUdxtxrBY6SzBVDPNUFCwrNQBX6m/wNSHUiTdz/GB+S6UKVjRocO2vrMnGerZlr
+ iiIG4MdMApQX9ZMgypQqmR/0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e00fecd0390ef642;
+	Sat, 19 Sep 2026 03:32:54 +0000
+X-Mizu-Trace-ID: e00fecd0390ef642
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <e4ec1370-27cf-40db-ba4e-b46fe54fa882@linux.dev>
+Date: Sat, 19 Sep 2026 11:32:46 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/4] memcg: move memcg private ID refcount to objcg
+To: bingfangguo@tencent.com
+Cc: cgroups@vger.kernel.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Johannes Weiner <hannes@cmpxchg.org>,
+ Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, Dave Chinner
+ <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>,
+ Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Bingfang Guo <bfguo@icloud.com>
+References: <20260918-bingfangguo-memcgid-rework-v1-0-5bbf3220d88f@tencent.com>
+ <20260918-bingfangguo-memcgid-rework-v1-4-5bbf3220d88f@tencent.com>
+Content-Language: en-US
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20260918-bingfangguo-memcgid-rework-v1-4-5bbf3220d88f@tencent.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-__nf_tables_abort() calls synchronize_rcu() while holding
-nft_net->commit_mutex, on every aborted batch. The commit path had
-the same problem and was already fixed by deferring destruction to
-nft_net->destroy_work so the mutex is dropped before waiting for the
-grace period (see the comment in nf_tables_commit_release()). The
-abort path was never given the same treatment.
 
-On syzbot's images every synchronize_rcu() runs as
-synchronize_rcu_expedited(), because CONFIG_CMDLINE bakes in
-rcupdate.rcu_expedited=1. Under fuzzing-rate aborted batches this
-turns each abort into an expedited grace-period wait taken while
-commit_mutex is held, serializing every other nf_tables netlink
-request behind it. syzbot reports this as a hung task in
-nf_tables_valid_genid(), whose lockdep "locks held" dump shows the
-commit_mutex owner parked inside synchronize_rcu_expedited() rather
-than deadlocked on a lock.
 
-Reuse the existing destroy_work machinery for the abort path too:
-splice the still-mutex-protected commit_list onto destroy_list and
-schedule the work, instead of waiting for the grace period inline.
-Since abort transactions carry NEW*-type objects (versus DEL*/DESTROY*
-for commits), nf_tables_abort_release() gains the put_net() handling
-nft_commit_release() already had, and a new trans->aborted bit tells
-the shared work function which of the two release paths to use for
-each transaction.
+On 2026/9/18 17:18, Bingfang Guo via B4 Relay wrote:
+> From: Bingfang Guo <bingfangguo@tencent.com>
+>
+> The memcg private ID is used by objects that can't afford storing a
+> whole pointer and can outlive memcgs to track the memcg (notably swap
+> entries). The current design holds a refcount to the css, preventing the
+> memcg from being freed.
+>
+> This patch unbinds the lifetime of memcgid from the memcg so it can be
+> freed.  The idea is to move the refcount of memcgid to one of the
+> memcg's objcg. The objcg is stored in the global memcgid xarray instead
+> and used for retrieving the online memcg from it.  So swapped out pages
+> no longer pin the dying memcg.
+>
+> After the change, a memcgid can refer to a non present memcg. To handle
+> this situation, when trying to get the original memcg from the id,
+> compare the memcgid passed in with that of the memcg, and return NULL to
+> indicate its death if they differ. NULL checks are added for
+> list_lru_walk_node(), workingset_test_recent() and lru_gen_test_recent()
+> to skip dead memcgs.
+>
+> In the earlier patch, an extra xarray lookup was introduced in swap
+> uncharging path.  Now that we have the objcg pointer in the function,
+> the extra overhead can be removed by using it for putting directly.
+>
+> Signed-off-by: Bingfang Guo <bingfangguo@tencent.com>
+> ---
+>   include/linux/memcontrol.h |  9 +++---
+>   mm/list_lru.c              |  2 +-
+>   mm/memcontrol.c            | 81 ++++++++++++++++++++++++++++++++++------------
+>   mm/workingset.c            |  5 ++-
+>   4 files changed, 71 insertions(+), 26 deletions(-)
+>
+> diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+> index 46bf724cae7af..3fb18191cfbd1 100644
+> --- a/include/linux/memcontrol.h
+> +++ b/include/linux/memcontrol.h
+> @@ -180,6 +180,7 @@ struct obj_cgroup {
+>   	struct percpu_ref refcnt;
+>   	struct mem_cgroup *memcg;
+>   	atomic_t nr_charged_bytes;
+> +	refcount_t private_id_ref;
+>   	union {
+>   		struct list_head list; /* protected by objcg_lock */
+>   		struct rcu_head rcu;
+> @@ -225,9 +226,6 @@ struct mem_cgroup {
+>   	/* vmpressure notifications. Written on every reclaim iteration. */
+>   	struct vmpressure vmpressure;
+>   
+> -	/* Written on every swap charge and uncharge. */
+> -	refcount_t private_id_ref;
+> -
+>   #ifdef CONFIG_MEMCG_NMI_SAFETY_REQUIRES_ATOMIC
+>   	/* MEMCG_KMEM for nmi context */
+>   	atomic_t		kmem_stat;
+> @@ -324,8 +322,11 @@ struct mem_cgroup {
+>   	unsigned long zswap_max;
+>   #endif
+>   
+> +	/* The objcg holding private memcg ID. */
+> +	struct obj_cgroup *private_id_objcg;
+> +
+>   	/* Private memcg ID. Used to ID objects that outlive the cgroup */
+> -	int private_id;
+> +	unsigned short private_id;
+>   
+>   	int kmemcg_id;
+>   
+> diff --git a/mm/list_lru.c b/mm/list_lru.c
+> index 8a6dd0a489e12..7edd79113cc56 100644
+> --- a/mm/list_lru.c
+> +++ b/mm/list_lru.c
+> @@ -428,7 +428,7 @@ unsigned long list_lru_walk_node(struct list_lru *lru, int nid,
+>   		xa_for_each(&lru->xa, index, mlru) {
+>   			rcu_read_lock();
+>   			memcg = mem_cgroup_from_private_id(index);
+> -			if (!mem_cgroup_tryget(memcg)) {
+> +			if (!memcg || !mem_cgroup_tryget(memcg)) {
+>   				rcu_read_unlock();
+>   				continue;
+>   			}
+> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> index ed44b3e7ac938..22deee8312856 100644
+> --- a/mm/memcontrol.c
+> +++ b/mm/memcontrol.c
+> @@ -4074,6 +4074,18 @@ static void memcg_wb_domain_size_changed(struct mem_cgroup *memcg)
+>   #define MEM_CGROUP_ID_MAX	((1UL << MEM_CGROUP_ID_SHIFT) - 1)
+>   static DEFINE_XARRAY_ALLOC1(mem_cgroup_private_ids);
+>   
+> +/**
+> + * obj_cgroup_from_private_id - look up the objcg holding the memcg id.
+> + * @id: the memcg id to look up
+> + *
+> + * Caller must hold rcu_read_lock().
 
-nft_trans_list_del() also unlinks bindable NEWSET/NEWCHAIN
-transactions from nft_net->binding_list, a list only ever walked
-under commit_mutex. That unlink is kept synchronous, under the mutex,
-in __nf_tables_abort() itself; only the RCU-gated free is deferred to
-the workqueue.
+This comment is really redundant since you already include a lockdep
+assertion. My advice for writing good comments: when the code is
+self-explanatory, explain why rather than what.
 
-Root cause identified from syzbot's crash report (lockdep holder vs.
-waiter pair) and code inspection, cross-checked against syzkaller's
-own dashboard/config/linux/bits/base.yml for the rcu_expedited=1
-CONFIG_CMDLINE.
+> + */
+> +static inline struct obj_cgroup *obj_cgroup_from_private_id(unsigned short id)
+> +{
+> +	lockdep_assert_once(rcu_read_lock_held());
+> +	return xa_load(&mem_cgroup_private_ids, id);
+> +}
+> +
+>   static void mem_cgroup_private_id_remove(struct mem_cgroup *memcg)
+>   {
+>   	if (memcg->private_id > 0) {
+> @@ -4082,34 +4094,43 @@ static void mem_cgroup_private_id_remove(struct mem_cgroup *memcg)
+>   	}
+>   }
+>   
+> -static void __mem_cgroup_private_id_put(struct mem_cgroup *memcg, unsigned int n)
+> +static void __mem_cgroup_private_id_put(struct obj_cgroup *objcg,
+> +		unsigned short id, unsigned int n)
+>   {
+> -	if (refcount_sub_and_test(n, &memcg->private_id_ref)) {
+> -		mem_cgroup_private_id_remove(memcg);
+> +	struct obj_cgroup *objcg_free;
+>   
+> -		/* Memcg ID pins CSS */
+> -		css_put(&memcg->css);
+> +	if (refcount_sub_and_test(n, &objcg->private_id_ref)) {
+> +		objcg_free = xa_erase(&mem_cgroup_private_ids, id);
+> +		VM_WARN_ON(objcg_free != objcg);
+> +
+> +		/* Memcg ID pins the objcg */
+> +		obj_cgroup_put(objcg);
+>   	}
+>   }
+>   
+>   static inline void mem_cgroup_private_id_put(unsigned short id, unsigned int n)
+>   {
+> -	struct mem_cgroup *memcg;
+> +	struct obj_cgroup *objcg;
+>   
+>   	rcu_read_lock();
+> -	memcg = mem_cgroup_from_private_id(id);
+> -	__mem_cgroup_private_id_put(memcg, n);
+> +	objcg = obj_cgroup_from_private_id(id);
+> +	__mem_cgroup_private_id_put(objcg, id, n);
+>   	rcu_read_unlock();
+>   }
+>   
+>   static void mem_cgroup_private_id_kill(struct mem_cgroup *memcg)
+>   {
+> -	__mem_cgroup_private_id_put(memcg, 1);
+> +	__mem_cgroup_private_id_put(memcg->private_id_objcg, memcg->private_id, 1);
+>   }
+>   
+>   unsigned short mem_cgroup_private_id_get(struct mem_cgroup *memcg, unsigned int n)
+>   {
+> -	while (!refcount_add_not_zero(n, &memcg->private_id_ref)) {
+> +	struct obj_cgroup *objcg;
 
-Verified by booting both the unpatched and patched kernel in QEMU
-(2 vCPUs, rcupdate.rcu_expedited=1, CONFIG_DEFAULT_HUNG_TASK_TIMEOUT=140
-to match syzbot's environment) and driving nf_tables abort with a
-script that forces a guaranteed abort-with-content every iteration
-(a freshly-named table + chain + rule, then a delete of a nonexistent
-chain in the same nft(8) batch, so the whole batch is always rolled
-back with a brand-new, never-committed table/chain transaction still
-on commit_list). Measuring the time commit_mutex is held across this
-path, same script and iteration count on both kernels:
+Please add a blank line between the variable definition and the assertion.
 
-                  unpatched          patched
-  avg               72.8 us            20.2 us
-  max                2.2 ms             1.4 ms
-  min               18.1 us             8.1 us
+> +	lockdep_assert_once(rcu_read_lock_held());
+> +
+> +	objcg = memcg->private_id_objcg;
+> +
+> +	while (!refcount_add_not_zero(n, &objcg->private_id_ref)) {
+>   		/*
+>   		 * The root cgroup cannot be destroyed, so it's refcount must
+>   		 * always be >= 1.
+> @@ -4119,6 +4140,7 @@ unsigned short mem_cgroup_private_id_get(struct mem_cgroup *memcg, unsigned int
+>   			break;
+>   		}
+>   		memcg = parent_mem_cgroup(memcg);
+> +		objcg = memcg->private_id_objcg;
+>   	}
+>   
+>   	return mem_cgroup_private_id(memcg);
+> @@ -4129,11 +4151,24 @@ unsigned short mem_cgroup_private_id_get(struct mem_cgroup *memcg, unsigned int
+>    * @id: the memcg id to look up
+>    *
+>    * Caller must hold rcu_read_lock().
+> + *
+> + * @return: the memcg, or NULL if the memcg referred to is already dead.
+>    */
+>   struct mem_cgroup *mem_cgroup_from_private_id(unsigned short id)
+>   {
+> +	struct obj_cgroup *objcg;
+> +	struct mem_cgroup *memcg;
 
-The unpatched number is the full inline synchronize_rcu_expedited()
-wait; the patched number is what's left once that wait is off the
-mutex (splice + schedule_work() only), which is scheduling noise in a
-2-vCPU VM, not a grace-period wait -- the deferred path never calls
-synchronize_rcu() while holding commit_mutex, by construction.
+It would be better to add a blank line here as well.
 
-Reported-by: syzbot+83439cb981624bd8d068@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=83439cb981624bd8d068
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
----
- include/net/netfilter/nf_tables.h |  1 +
- net/netfilter/nf_tables_api.c     | 55 +++++++++++++++++++++++++++----
- 2 files changed, 49 insertions(+), 7 deletions(-)
+>   	WARN_ON_ONCE(!rcu_read_lock_held());
+> -	return xa_load(&mem_cgroup_private_ids, id);
+> +
+> +	objcg = obj_cgroup_from_private_id(id);
+> +	if (!objcg)
+> +		return NULL;
+> +
+> +	memcg = obj_cgroup_memcg(objcg);
+> +	if (mem_cgroup_private_id(memcg) != id)
+> +		return NULL;
+> +
+> +	return memcg;
+>   }
+>   
+>   struct mem_cgroup *mem_cgroup_get_from_id(u64 id)
+> @@ -4228,18 +4263,21 @@ static struct mem_cgroup *mem_cgroup_alloc(struct mem_cgroup *parent)
+>   	struct mem_cgroup *memcg;
+>   	int node, cpu;
+>   	int __maybe_unused i;
+> +	unsigned int private_id;
 
-diff --git a/include/net/netfilter/nf_tables.h b/include/net/netfilter/nf_tables.h
-index 9d597482363d..e77831e3494c 100644
---- a/include/net/netfilter/nf_tables.h
-+++ b/include/net/netfilter/nf_tables.h
-@@ -1672,6 +1672,7 @@ struct nft_trans {
- 	u16				flags;
- 	u8				report:1;
- 	u8				put_net:1;
-+	u8				aborted:1;
- };
- 
- /**
-diff --git a/net/netfilter/nf_tables_api.c b/net/netfilter/nf_tables_api.c
-index c0b754a2d45b..04bb3d4f16ad 100644
---- a/net/netfilter/nf_tables_api.c
-+++ b/net/netfilter/nf_tables_api.c
-@@ -146,6 +146,7 @@ static bool nft_chain_vstate_valid(const struct nft_ctx *ctx,
- }
- 
- static void nf_tables_trans_destroy_work(struct work_struct *w);
-+static void nf_tables_abort_release(struct nft_trans *trans);
- 
- static void nft_trans_gc_work(struct work_struct *work);
- static DECLARE_WORK(trans_gc_work, nft_trans_gc_work);
-@@ -10288,8 +10289,19 @@ static void nf_tables_trans_destroy_work(struct work_struct *w)
- 	synchronize_rcu();
- 
- 	list_for_each_entry_safe(trans, next, &head, list) {
--		nft_trans_list_del(trans);
--		nft_commit_release(trans);
-+		/*
-+		 * binding_list is already unlinked here: for commit-origin
-+		 * transactions it was never linked to begin with, and for
-+		 * abort-origin ones nft_trans_list_del() unlinked it under
-+		 * commit_mutex before this trans was queued (see
-+		 * __nf_tables_abort()) since that list is only ever walked
-+		 * under that mutex. Only detach from the local work list.
-+		 */
-+		list_del(&trans->list);
-+		if (trans->aborted)
-+			nf_tables_abort_release(trans);
-+		else
-+			nft_commit_release(trans);
- 	}
- }
- 
-@@ -11278,6 +11290,10 @@ static void nf_tables_abort_release(struct nft_trans *trans)
- 			nf_tables_flowtable_destroy(nft_trans_flowtable(trans));
- 		break;
- 	}
-+
-+	if (trans->put_net)
-+		put_net(trans->net);
-+
- 	kfree(trans);
- }
- 
-@@ -11482,12 +11498,37 @@ static int __nf_tables_abort(struct net *net, enum nfnl_abort_action action)
- 
- 	nft_set_abort_update(nft_net);
- 
--	synchronize_rcu();
-+	/*
-+	 * Defer destruction past an RCU grace period, same as the commit
-+	 * path (see nf_tables_commit_release()): an abort must not block
-+	 * on synchronize_rcu() while holding commit_mutex, since every
-+	 * other nf_tables netlink request queues up behind that mutex.
-+	 *
-+	 * nft_trans_list_del() also unlinks bindable NEWSET/NEWCHAIN
-+	 * transactions from nft_net->binding_list, which is only ever
-+	 * walked under commit_mutex (see nf_tables_commit()), so that
-+	 * unlink has to happen here and not from the unlocked workqueue.
-+	 */
-+	if (!list_empty(&nft_net->commit_list)) {
-+		LIST_HEAD(head);
-+
-+		list_for_each_entry_safe_reverse(trans, next,
-+						 &nft_net->commit_list, list) {
-+			trans->aborted = 1;
-+			nft_trans_list_del(trans);
-+			list_add_tail(&trans->list, &head);
-+		}
-+
-+		trans = list_last_entry(&head, struct nft_trans, list);
-+		get_net(trans->net);
-+		WARN_ON_ONCE(trans->put_net);
-+		trans->put_net = true;
-+
-+		spin_lock(&nf_tables_destroy_list_lock);
-+		list_splice_tail(&head, &nft_net->destroy_list);
-+		spin_unlock(&nf_tables_destroy_list_lock);
- 
--	list_for_each_entry_safe_reverse(trans, next,
--					 &nft_net->commit_list, list) {
--		nft_trans_list_del(trans);
--		nf_tables_abort_release(trans);
-+		schedule_work(&nft_net->destroy_work);
- 	}
- 
- 	return err;
--- 
-2.43.0
+This could be a separate cleanup patch.
+
+>   	long error;
+>   
+>   	memcg = kmem_cache_zalloc(memcg_cachep, GFP_KERNEL);
+>   	if (!memcg)
+>   		return ERR_PTR(-ENOMEM);
+>   
+> -	error = xa_alloc(&mem_cgroup_private_ids, &memcg->private_id, NULL,
+> +	error = xa_alloc(&mem_cgroup_private_ids, &private_id, NULL,
+>   			 XA_LIMIT(1, MEM_CGROUP_ID_MAX), GFP_KERNEL);
+>   	if (error)
+>   		goto fail;
+>   	error = -ENOMEM;
+>   
+> +	memcg->private_id = private_id;
+> +
+>   	memcg->vmstats = kzalloc_obj(struct memcg_vmstats, GFP_KERNEL_ACCOUNT);
+>   	if (!memcg->vmstats)
+>   		goto fail;
+> @@ -4380,9 +4418,10 @@ static int mem_cgroup_css_online(struct cgroup_subsys_state *css)
+>   				   FLUSH_TIME);
+>   	lru_gen_online_memcg(memcg);
+>   
+> -	/* Online state pins memcg ID, memcg ID pins CSS */
+> -	refcount_set(&memcg->private_id_ref, 1);
+> -	css_get(css);
+> +	/* CSS pins memcg ID, memcg ID pins obj cgroup */
+> +	memcg->private_id_objcg = objcg;
+> +	refcount_set(&memcg->private_id_objcg->private_id_ref, 1);
+> +	obj_cgroup_get(memcg->private_id_objcg);
+>   
+>   	/*
+>   	 * Ensure mem_cgroup_from_private_id() works once we're fully online.
+> @@ -4394,7 +4433,7 @@ static int mem_cgroup_css_online(struct cgroup_subsys_state *css)
+>   	 * publish it here at the end of onlining. This matches the
+>   	 * regular ID destruction during offlining.
+>   	 */
+> -	xa_store(&mem_cgroup_private_ids, memcg->private_id, memcg, GFP_KERNEL);
+> +	xa_store(&mem_cgroup_private_ids, memcg->private_id, memcg->private_id_objcg, GFP_KERNEL);
+>   
+>   	return 0;
+>   free_objcg:
+> @@ -5832,8 +5871,6 @@ static void __init memcg_struct_check(void)
+>   				      memory_events_local);
+>   	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup, memcg_write_hot,
+>   				      vmpressure);
+> -	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup, memcg_write_hot,
+> -				      private_id_ref);
+>   #ifdef CONFIG_MEMCG_NMI_SAFETY_REQUIRES_ATOMIC
+>   	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup, memcg_write_hot,
+>   				      kmem_stat);
+> @@ -5878,6 +5915,8 @@ static void __init memcg_struct_check(void)
+>   	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup, memcg_read_mostly,
+>   				      zswap_writeback);
+>   #endif
+> +	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup, memcg_read_mostly,
+> +				      private_id_objcg);
+>   	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup, memcg_read_mostly,
+>   				      private_id);
+>   	CACHELINE_ASSERT_GROUP_MEMBER(struct mem_cgroup, memcg_read_mostly,
+> @@ -6015,10 +6054,12 @@ int __mem_cgroup_try_charge_swap(struct folio *folio)
+>    */
+>   void __mem_cgroup_uncharge_swap(unsigned short id, unsigned int nr_pages)
+>   {
+> +	struct obj_cgroup *objcg;
+>   	struct mem_cgroup *memcg;
+>   
+>   	rcu_read_lock();
+> -	memcg = mem_cgroup_from_private_id(id);
+> +	objcg = obj_cgroup_from_private_id(id);
+> +	memcg = obj_cgroup_memcg(objcg);
+>   	if (memcg) {
+>   		if (!mem_cgroup_private_id_is_root(id)) {
+>   			if (do_memsw_account())
+> @@ -6027,7 +6068,7 @@ void __mem_cgroup_uncharge_swap(unsigned short id, unsigned int nr_pages)
+>   				page_counter_uncharge(&memcg->swap, nr_pages);
+>   		}
+>   		mod_memcg_state(memcg, MEMCG_SWAP, -nr_pages);
+> -		mem_cgroup_private_id_put(id, nr_pages);
+> +		__mem_cgroup_private_id_put(objcg, id, nr_pages);
+>   	}
+>   	rcu_read_unlock();
+>   }
+> diff --git a/mm/workingset.c b/mm/workingset.c
+> index 8412f4840ae35..7e4fbc5a786d6 100644
+> --- a/mm/workingset.c
+> +++ b/mm/workingset.c
+> @@ -281,6 +281,9 @@ static bool lru_gen_test_recent(void *shadow, struct lruvec **lruvec,
+>   	unpack_shadow(shadow, &memcg_id, &pgdat, token, workingset);
+>   
+>   	memcg = mem_cgroup_from_private_id(memcg_id);
+> +	if (!memcg)
+> +		return false;
+> +
+>   	*lruvec = mem_cgroup_lruvec(memcg, pgdat);
+>   
+>   	max_seq = READ_ONCE((*lruvec)->lrugen.max_seq);
+> @@ -470,7 +473,7 @@ bool workingset_test_recent(void *shadow, bool file, bool *workingset,
+>   	 * configurations instead.
+>   	 */
+>   	eviction_memcg = mem_cgroup_from_private_id(memcgid);
+> -	if (!mem_cgroup_tryget(eviction_memcg))
+> +	if (eviction_memcg && !mem_cgroup_tryget(eviction_memcg))
+>   		eviction_memcg = NULL;
+>   	rcu_read_unlock();
+>   
+>
 
