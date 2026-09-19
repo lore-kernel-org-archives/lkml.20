@@ -1,78 +1,74 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-pj2-f36.google.com (mail-pj2-f36.google.com [74.125.227.164])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F9FD3955E3
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 21:28:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B48338BF97
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 21:28:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.164
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789853341; cv=none; b=IBiQ++gXQgT2BOSffVewIB5rQMJ9YtWWEm5alWDwwMeBeevew+uLvsvEWghrp3zo9rBGF6QOpz+zmu/kwssspd+DNKPR1u9zLiGw35RDf/Mf60icEdQqnR2KbCGkMDRre9Q7lTkNX1VY+RbCoNkb19XnZ4kVMI/f61dUwXIKLEs=
+	t=1789853341; cv=none; b=fWt8MG7SsPAjCOiHRM5UltRYxz+BGNxq2LMg2ry/Nh0uWFlbVvsZeMOjY9RaGVu34Y70eswYPDK6KLvwYperNaAuThi+OBQEVIJI0sfDGgTseGWj6hiz2TZ9UX6SgQP3kAHSmqsI+gA3VhlIeWlnBu5xYQXS7bPW4Vj2azRjcNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789853341; c=relaxed/simple;
-	bh=uzB8kYqSwZvvHWdVSonXqwgcJ53XrnKH2GGFgTD34aw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dzhSN+U0M1T572LGnKuhidjlohrRxyQ4oYt0FV0WeDsVGHT0x+LoMuqBPI0MPlsJhyzb93HDfkPGZa83Is8Y47UYRg2u9H90bqwU3Bb6M+PmBYeJkJncFvgYQYVKVsla5TyIle8WA5nYb8V2GCDeJHnHwR1eg7n0AsLYcB/cNgA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HPgjUUNG; arc=none smtp.client-ip=74.125.227.140
+	bh=RnFvdIcNU0xTNABTlDpFkW1EO3VK4LUq/3k4DINISgI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=k33CGH0paEIcT4cp+WzHxJisWDKnMoeiHcRR/fqYO9fTVVMo00xakI946WGXY5CNlqMhRmYt9vXNwumLzmsk8nRyXseNhcT1ifWj7mYlvRxMCtb8EFvLPVVH46K0H0wF4NkBXQ1XMXUAfQfQXp7r9+A8egzLGimYiLIznJfMpS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SnxeGUA8; arc=none smtp.client-ip=74.125.227.164
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HPgjUUNG"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-398a1676000so1552773a91.2
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:28:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SnxeGUA8"
+Received: by mail-pj2-f36.google.com with SMTP id d9443c01a7336-2d8fdc579daso20936715ad.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:28:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789853336; x=1790458136; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789853335; x=1790458135; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2ysTxERdXo3UK3i3xCiazMgzFqeboSXwQYQC9nO77h0=;
-        b=HPgjUUNGiawKAiSzn5NHo2pAbh0y4wrQAIo4pyQRcu5yM+e94lVjkXUmgNEMyKQWVY
-         Ssyqy+iwtce2U1cw17Q6WxS5la3sM8W3ybY7YQ5R25W5UBE1iuXNLFr6v2bzNrCEwrn9
-         RDNsBRm4S875g+dzhKtmLh8DwzizlagHLJm6f47Ad6qptP6LQPmn49WXxf69rDrJCLz+
-         eg5G+8icGwvTlIHjS7FJS2MHtKF0a0TgpR/9q+LcfbKmsFsH/kZz1KJmETJQW2ehWGeT
-         J1Uqgy37TtyBdbWFbx5ms2+0/BF0PSrsXHYTJMv2DnVg/E1CztbcNY5BsooJAFrByvsb
-         E0Ww==
+        bh=dAVSMzy8JMS98U0P+IZpm0y+aXuECbX59K3ciQwemZQ=;
+        b=SnxeGUA8EfG/42WNnk+eiXMzqF1m7yVEN8s64M83pLtDDjSg/Dcy/GJv+YCuAjdz5f
+         4jkUVvSvaQzMJdBExEEi334VYrEm0nA2Wh3m0jojICg6R1Ty0/G+AVEf1e0qtADU8Kgu
+         ucE4ZBNkfHMqaVkXNyCswwLoyVA+GeRoCaCDd0FhHGQSraQfHlkxXRw9MOhfsKM3/jbH
+         gUKW1fFEnVKPJRthvZc8XAPTJmaX7Atex2N8692YNDXoTcwbckSbiMesTa0PB8a2y7lq
+         9xsChlxz/FGtpMIQt18vg52Cc7lS0aD6NfOiYo26GCIYNTur4F/Sm1uEko9oOEkJajrz
+         IAhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789853336; x=1790458136;
+        d=1e100.net; s=20260707; t=1789853335; x=1790458135;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=2ysTxERdXo3UK3i3xCiazMgzFqeboSXwQYQC9nO77h0=;
-        b=2EMX1YnKkKtOxOBAK2yY+fynk3lbp0H183URkuweanRoF6CKUQ+tRpomCitYw0323o
-         2yc5i2HUWB1AzB8vt/DCV1i+HTpMOmwp17usPn++BuO5Mzx0DCSwwRLuk0J9UYy8a9EI
-         4FyK8iE1SaBZqivyrnum4btYcKLJqh9owgs/dbOENxNJb8JdRLs/GTASEejL2cph4e4W
-         qn8fZatcgzhMAOlFjTN0XnZsV4zvFK5npdkqoj4S3l1dmhgQ6SJXqY0+bMZRexnHSjxK
-         SYhcmCZ4Rk811FeBvfzn3QpgDaWwO22V/Dnp6NdFxHJCROpTg/+0037gjIIcxbNYd+sA
-         N5rg==
-X-Forwarded-Encrypted: i=1; AKwUvBz9QzEYkmnUPQK2aL1DRMz8zOY+UvarDTUkkHf+7g2ucLYs8+JFr6CPG20Do2rYtoe9OBBVrchx8tavnbk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nka4w3U1FGSbTkbZaQs9yRjSXIjeonAsS5YHzZEc5XuaX+l0L6
-	XBSPwOVY5NYaJngFf9JlZ/whi5Da8foiJ5nlW99tJqLSP1ZYjiqBFL0h
-X-Gm-Gg: AYBFou0PZtrDKKB7mymBN/N/F275GpThJBl+Sbs4jE2YR1VLOFZwKWUHFz6SxT/DV+p
-	Kr809iUG0a/di/GHppyv4SF+uQvVUVbH3zCS4z0z6+fEksF1IsTul7u4t2qD0lYK+VUluh5TO0R
-	c7jwcpLV62Zr+QsrMpEKsWXXrYJMp/f1dXI+L/fk0MWHSh5aJcJ06ll3IDEwiLYs10Z74FElkLg
-	NXOKYx4/fZ/g19dgilFLQpTVeh+w/sxf2I82x3A2NsLTOhvcxEvoUnLWG9CEWu+vxuzZ69PtEOb
-	1DnCYQ9qCI8+9m8ZAMAdvPOE1ky5urB1rIyp3fQ1VDkKBweb8toRqnKfc7r0J4Fymz/QWbjiYKV
-	rVPdNTPDjSya5FmniMxKRUGujLGisxA11E1qyHIHdnljR9uABHz416eRQqnG+m0cgQvKA3xeRHC
-	pVaX/N/33reOrACzpyggDyAT1PKJ/B/WF277nfyuHvUDO/Jg6dTIqc7dQVqxNmsThluAM2x94aJ
-	s83DK1Tjjvdj9WQK8wkd/nQ+sq4H9kjkcSmnXBM5DK60NiNeqmKMR+f5IRu3F1qKxgGR7BxnNXm
-	AT7939uhng==
-X-Received: by 2002:a17:90a:c105:b0:39e:6a81:f350 with SMTP id 98e67ed59e1d1-39e6a81fcc4mr4626297a91.42.1789853335756;
-        Sat, 19 Sep 2026 14:28:55 -0700 (PDT)
+        bh=dAVSMzy8JMS98U0P+IZpm0y+aXuECbX59K3ciQwemZQ=;
+        b=PNjhzzEFuYM4RuVFsgFCVJ5rfhTBy6UNdGX//38GuHVlKFHKSdnLpRKrebuH5a8m2L
+         Qy7WWQA3PZEiZ6X2fHIrnWebBvaGathKcMllPvkzoFpUSyVwy23TQEKMSLZsC1cPnAnG
+         1gFuAiKu7ec9/uzr3uzWseii4RPdMJwHkdp2xxhLHi7X9U9poR2zUDt5pRmRFsMZzqTH
+         6jL7ROZ5UeDklB/YyZiEdCXlmrH2hd9R/XdjB4KSNLkVXingJnOdC1INAeGGkv7lNJK9
+         muXXuQpV9vO0tsgsR5fHJ2iMJ0OjBjNDuv7pSyOJzn4Ror+GDPC17ml4xEOkl9wS4FEL
+         ia2w==
+X-Forwarded-Encrypted: i=1; AKwUvBywujl8voCc4b2nR0iDukTvDsZmb2+lY7CChDZ1JbYPxI5sfV2uIS4wo/3yJ1HI+OqyGLTcoBoDDTPVccE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mgFztsBkYQ7CNrnT+9AcPEFikLpZTy+VH3mMCMAlJF/5YFu23V
+	a9k8V4jy3DJ6irlNCnSayoFx3H7jUcx5Zoe5LI2I/x+VFKHgYhUlW0q2
+X-Gm-Gg: AYBFou1kVzERnUN6m5+hMjtJ+DVkD9UmjZDE/stjU3uKV0omTmPaSYxbddb53GOu5iG
+	vMiDz2/HZLS3IOU1ZqmqUnl95JvUOIBHfHoeOFc/TOr08Fi+e0jAb6VC4cXzp4bvyhtCAiGMlZs
+	31HSqGRskKUbnZZ4qOGQ6wYMDYgNGPVzYG2ijiuPRy7YRlm6m3Aw9VEhNMLucy4eTUlKx6x0IuH
+	O3UCORo/hI2aF6EC3gqSf3V4QXnx9fEJ+TBR8JKF9ocwoeS3cEym9rqcBj8tQ/DWluLaMUp56K6
+	IrvsMwFuHPMkvSX9ca2Meb9WSkPC1PfQzYK4DYlxEAALrhdE9TkPJNLC5/o5+TLD3382fBzaNkS
+	nn06OiQn2T/a60UUxTqLf4vDhgPODOywkWFgLIn1P42+MR3+DD0X8XjMXFmJquNkhRGhVOtZHIt
+	cSE59+7YONMxQsJDExzvvQcEDYJoy9p+w3I1/5oT4fa+jiqLpkCQhxtYCSvmfmLu6zg0JoXZVRE
+	cO7uIPyrqLnX8oJ9hLiff2knju6JHiNsD0n49rtvsfE5O+WZBtHKS4ilma2Swk3IaGzugyBLPVR
+	ZN0/lJIsbA==
+X-Received: by 2002:a17:902:cecd:b0:2dd:ad74:ac20 with SMTP id d9443c01a7336-2ddb1bc5c0fmr109399655ad.27.1789853334901;
+        Sat, 19 Sep 2026 14:28:54 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c6dd585sm5802399a91.0.2026.09.19.14.28.55
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df36806cdbsm8202285ad.80.2026.09.19.14.28.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 14:28:55 -0700 (PDT)
+        Sat, 19 Sep 2026 14:28:54 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
-To: alex.aring@gmail.com,
-	stefan@datenfreihafen.org,
-	miquel.raynal@bootlin.com,
-	davem@davemloft.net,
+To: davem@davemloft.net,
 	edumazet@google.com,
 	kuba@kernel.org,
 	pabeni@redhat.com
 Cc: horms@kernel.org,
-	linux-wpan@vger.kernel.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] ieee802154: socket: fix shared skb BUG_ON and double header subtraction in dgram_ioctl()
-Date: Sat, 19 Sep 2026 21:28:55 +0000
-Message-ID: <20260919212855.3241205-1-benquike@gmail.com>
+Subject: [PATCH] kcm: fix socket memory accounting leak on TX completion, error, and close
+Date: Sat, 19 Sep 2026 21:28:53 +0000
+Message-ID: <20260919212853.3240951-1-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -82,47 +78,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In `dgram_ioctl()` (`SIOCINQ`), the queued skb at the head of
-`sk->sk_receive_queue` has already had its MAC header stripped by
-`ieee802154_subif_frame()` prior to `dgram_deliver()`, so `skb->len` is
-already the exact payload length that `dgram_recvmsg()` will return to
-userspace.
+In `kcm_sendmsg()`, every TX fragment is charged to both
+`sk->sk_wmem_queued` and `sk->sk_forward_alloc` (`sk_mem_charge()`) via
+`skb_copy_to_page_nocache()` or `MSG_SPLICE_PAGES`. However, the
+assembled `head` skb is queued onto `&sk->sk_write_queue` (or held in
+`kcm->seq_skb`) without `head->sk` or a destructor set.
 
-However, `dgram_ioctl()` computes `*karg = skb->len -
-ieee802154_hdr_length(skb)`. Calling `ieee802154_hdr_length(skb)`
-re-parses the payload bytes as an 802.15.4 MAC header and calls
-`pskb_may_pull(skb, ...)` while holding `sk->sk_receive_queue.lock`.
-When multiple `SOCK_DGRAM` sockets receive a cloned copy of the frame
-(`skb_shared(skb)` is true) and the payload is non-linear,
-`pskb_may_pull()` calls `pskb_expand_head()`, which triggers
-`BUG_ON(skb_shared(skb))`. Even on unshared linear skbs, subtracting
-`ieee802154_hdr_length(skb)` a second time underflows `*karg` to a
-negative value when the payload is shorter than the bogus parsed header
-length.
+Consequently:
+1. When `kcm_write_msgs()` finishes transmitting `head`, it subtracts
+   `txm->sent` from `sk->sk_wmem_queued` but never calls
+   `sk_mem_uncharge(sk, txm->sent)`.
+2. When `kcm_sendmsg()` fails under `out_error`, or when `kcm_release()`
+   frees `kcm->seq_skb` and purges `&sk->sk_write_queue`, `kfree_skb()`
+   is called without decrementing `sk->sk_wmem_queued` or calling
+   `sk_mem_uncharge()`, triggering a `WARN_ON` in `inet_sock_destruct()`
+   and `__sk_destruct()` when the KCM socket is closed.
 
-Set `*karg = skb->len` directly in `dgram_ioctl()`.
+Use `sk_wmem_queued_add(sk, -...)` and `sk_mem_uncharge(sk, ...)`
+whenever freeing TX skbs in `kcm_write_msgs()`, `kcm_sendmsg()`, and
+`kcm_release()`.
 
-Fixes: e1d001fa5b47 ("net: ioctl: Use kernel memory on protocol ioctl callbacks")
+Fixes: ab7ac4eb9832 ("kcm: Kernel Connection Multiplexor module")
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 
 ---
- net/ieee802154/socket.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/kcm/kcmsock.c | 27 ++++++++++++++++++++++-----
+ 1 file changed, 22 insertions(+), 5 deletions(-)
 
-diff --git a/net/ieee802154/socket.c b/net/ieee802154/socket.c
-index 5a36e87893f6..8d660fe87d4e 100644
---- a/net/ieee802154/socket.c
-+++ b/net/ieee802154/socket.c
-@@ -552,7 +552,7 @@ static int dgram_ioctl(struct sock *sk, int cmd, int *karg)
- 			 * of this packet since that is all
- 			 * that will be read.
- 			 */
--			*karg = skb->len - ieee802154_hdr_length(skb);
-+			*karg = skb->len;
+diff --git a/net/kcm/kcmsock.c b/net/kcm/kcmsock.c
+index 71af69d442f2..accf0d427e11 100644
+--- a/net/kcm/kcmsock.c
++++ b/net/kcm/kcmsock.c
+@@ -693,7 +693,8 @@ static int kcm_write_msgs(struct kcm_sock *kcm)
  		}
- 		spin_unlock_bh(&sk->sk_receive_queue.lock);
+ 
+ 		/* Successfully sent the whole packet, account for it. */
+-		sk->sk_wmem_queued -= txm->sent;
++		sk_wmem_queued_add(sk, -txm->sent);
++		sk_mem_uncharge(sk, txm->sent);
+ 		total_sent += txm->sent;
+ 		skb_dequeue(&sk->sk_write_queue);
+ 		kfree_skb(head);
+@@ -960,10 +961,17 @@ static int kcm_sendmsg(struct socket *sock, struct msghdr *msg, size_t len)
+ 		 */
+ 		if (copied)
+ 			goto partial_message;
+-		if (head != kcm->seq_skb)
++		if (head && head != kcm->seq_skb) {
++			sk_wmem_queued_add(sk, -head->len);
++			sk_mem_uncharge(sk, head->len);
+ 			kfree_skb(head);
++		}
+ 	} else {
+-		kfree_skb(head);
++		if (head) {
++			sk_wmem_queued_add(sk, -head->len);
++			sk_mem_uncharge(sk, head->len);
++			kfree_skb(head);
++		}
+ 		kcm->seq_skb = NULL;
+ 	}
+ 
+@@ -1686,6 +1694,7 @@ static int kcm_release(struct socket *sock)
+ 	struct kcm_sock *kcm;
+ 	struct kcm_mux *mux;
+ 	struct kcm_psock *psock;
++	struct sk_buff *skb;
+ 
+ 	if (!sk)
  		return 0;
+@@ -1695,13 +1704,21 @@ static int kcm_release(struct socket *sock)
+ 
+ 	lock_sock(sk);
+ 	sock_orphan(sk);
+-	kfree_skb(kcm->seq_skb);
++	if (kcm->seq_skb) {
++		sk_wmem_queued_add(sk, -kcm->seq_skb->len);
++		sk_mem_uncharge(sk, kcm->seq_skb->len);
++		kfree_skb(kcm->seq_skb);
++	}
+ 
+ 	/* Purge queue under lock to avoid race condition with tx_work trying
+ 	 * to act when queue is nonempty. If tx_work runs after this point
+ 	 * it will just return.
+ 	 */
+-	__skb_queue_purge(&sk->sk_write_queue);
++	while ((skb = __skb_dequeue(&sk->sk_write_queue)) != NULL) {
++		sk_wmem_queued_add(sk, -skb->len);
++		sk_mem_uncharge(sk, skb->len);
++		kfree_skb(skb);
++	}
+ 
+ 	release_sock(sk);
+ 
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
