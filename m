@@ -1,35 +1,57 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE750331EBE;
-	Sat, 19 Sep 2026 00:51:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F257331EBE
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 00:52:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789779089; cv=none; b=JyeJddXI1UeHxGlkchBQG7aIyy+fiXicbY3v18g3dJ1xVTOdnKjuLj5FTQXU2jfrlgAeFSM3r+Kqixq0DjrBlYTl2/UpCqL84LTWmIHPIj+RMwbBAlOOvODr8H+2BoDEp1AfaRchyN+i/ssppzru5zp0xPIkQ5Es7zGuGf4plD8=
+	t=1789779151; cv=none; b=uBY2rua2bZoiPyAIjJvZiIypcC2OSkOpuW9TzKVncitWw7wu8osgJC3iuN9qfh8BndE0p6WIOKnaqi/Oyeo2SvCW50M05o/J09DwgmsrNErpGhQa+XmlUKs1PYFDAfyXfafzMGGMuGltATFsdSceFSZ0PJ5NKXPZDg378U83TCI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789779089; c=relaxed/simple;
-	bh=bU3/YO4pZoVrp5vJebtHT7tn0bmo/c5C2cO3b4IQjyY=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=AmFo3FIoRy/fLALJwxAYKkGEORuZVMdQD1iEGfmupiXyfmH6OiwucJo3M+vJFR3mq5ksirIlxftuykE2sp3glxzoIZ7hL7+x/UIGMiZgS96UY2pQ25s4LcjHhHEji1xsc/c3KlZymK2gFARP33lhRI6nroinPZ2zo80sUmG7/qU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HZ3Es+2Q; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789779151; c=relaxed/simple;
+	bh=kwZ7aOi5ukJ2roaWabIhmB0sWXIH1nbtKkTE3VfmWx8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=AsGPe1XAybtZUPfY99TFZfmWmuG8CYZglHo90EZtOtqVyzj9Bd67bX8PbxyIBsREzyqNeHb6cbmX9kTX335IX5oife27pJZNBH8PlPOKewKIzYxJ1gzyMDOocktSy1n1VBkqQpTbRDhUsjJsIc7ow8XhX53SLI9W/WtudfAO/LM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jeUIT/4J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HZ3Es+2Q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6B2E1F00898;
-	Sat, 19 Sep 2026 00:51:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jeUIT/4J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 705A61F000FF;
+	Sat, 19 Sep 2026 00:52:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789779082;
-	bh=S4FW45p6sDiphXqXfQ0jW7p5Ux6nOtpllq9+lFLzF4w=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=HZ3Es+2Q2qvCsv+oMINR+jaMK9nIykd/LbdcQJMLsas3WNyY9aEYHtBhfkilZSjSL
-	 pOQW7NYxsfNQ/c2KzEy72mDnhetLuMybRAj9EspkMc2suDJw/fXDfbhrzUqlGgzPhM
-	 Df3i6GbR5TredI7XxyjosHomd1kl1QYm7+/xLhURIr44jYpfM56kVOrnzSqWSbWb9a
-	 E9KtZs4gee2EjPrYiqpj7qC5jxkKDrCpA7UMLYbJ8sMBHOg+KnRwo8oWLFLXDV0l10
-	 gMGU0WeIO6KmHJoH/CluSEjipLiZFaCqZPUEFtfMCovv70nVxnZ202MdQUhNPiLW8d
-	 HFqALdEXRUUEQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 198EA3811978;
-	Sat, 19 Sep 2026 00:50:17 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1789779150;
+	bh=yocJRt7INhO2SPE/6i4fgtj/1ihi0f5vXImYQPJs+tc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=jeUIT/4JFcSEPoeuIbj2DApYpMR02vDomhp/WtVEMSTocITkL5yMMY3aFGcjxezv7
+	 eC6th4RUAaadB/FhlAu8L9oXOgBMSNwQXQ0/7TqS1xhy22JIh1FDVP3vlVkXZNHeva
+	 ppinlv2k0VfgkdY5LZbLyNHTGvnLLNDiQBpoNrJpgZIkveI9W2KFEoL6G3U8mgb9m8
+	 s8konpYazp3rpN7UAMtyHkF19/iFvlGYw3ZVFJQMIJJ8PjEoD/CWm8dFkRjUkmmVOI
+	 PIKA4oVOB1P+NmYaZ/NfOXba/awbP8r2Vu7v1qXa7drQh0qgSpwFAaHOEqS1t1W8Fv
+	 RMzC0mSj67wDg==
+From: SJ Park <sj@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: SJ Park <sj@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>,
+	Byungchul Park <byungchul@sk.com>,
+	Gregory Price <gourry@gourry.net>,
+	Ying Huang <ying.huang@linux.alibaba.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Rakie Kim <rakie.kim@sk.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>
+Subject: Re: [PATCH 3/3] MAINTAINERS: make Gregory a co-maintainer of MEMORY MANAGEMENT - NUMA PLACEMENT
+Date: Fri, 18 Sep 2026 17:52:21 -0700
+Message-ID: <20260919005222.87342-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260918-maintainers-mempolicy-v1-3-9a94cac6d135@kernel.org>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,44 +59,22 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v2] net: phy: Fix device_set_wakeup_enable() reference
- in
- kernel-doc
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178977901564.1211687.16161357006295677908.git-patchwork-notify@kernel.org>
-Date: Sat, 19 Sep 2026 00:50:15 +0000
-References: <20260917063051.52727-1-kmehltretter@gmail.com>
-In-Reply-To: <20260917063051.52727-1-kmehltretter@gmail.com>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
- kuba@kernel.org, florian.fainelli@broadcom.com,
- maxime.chevallier@bootlin.com, rmk+kernel@armlinux.org.uk,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
 
-Hello:
+On Fri, 18 Sep 2026 18:34:26 +0200 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
 
-This patch was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+> Gregory is extremely familiar with NUMA placement handling and volunteer
+> to help co-maintain the numa placement bits. So add him as a
+> co-maintainer.
 
-On Thu, 17 Sep 2026 08:30:51 +0200 you wrote:
-> The phy_may_wakeup() documentation refers to
-> device_set_wakeup_enabled(), but the function is named
-> device_set_wakeup_enable(). Correct the reference.
+Thank you for volunteering and huge congrats, Gregory!
+
 > 
-> Fixes: b344bfacf1de ("net: phy: add phy_may_wakeup()")
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> 
-> [...]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Here is the summary with links:
-  - [net,v2] net: phy: Fix device_set_wakeup_enable() reference in kernel-doc
-    https://git.kernel.org/netdev/net-next/c/d4f90143b9ff
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Acked-by: SJ Park <sj@kernel.org>
 
 
+Thanks,
+SJ
+
+[...]
