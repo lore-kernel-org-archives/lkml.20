@@ -1,143 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8081E370D5C
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 06:11:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93BD42E040D
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 06:13:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789798286; cv=none; b=DGeIMqlQKDC+6DBf95pwa/9DOW2R3XF9amxexgezpJlM5w03nEpGa5ZnQnZxLCF7RsSc4c6kMwGHMI4vyejD4wtEDKHIVnyxoDWg/0kMr/HGGire5BfIXCUq43+rJ9QQ7kMqyjxf2ni16qV3+6I6AsHHH57BE+3nmzKPVIzn2jg=
+	t=1789798389; cv=none; b=icAQRrQ7kiRDMq6inmv2DRI+gr0+N/qOyXituBG+yV5RTT7i7Dbi1CTi8dzSz350lNnouQNrF3ft83BqYC68dJAe4zV658WU+BvJRL5NT+0PFKNAzF9kL49bl0xPzgBhHVhR01f2yPQ6Tn1Cl+eACA+flbf7wzlAUwzzuqNqfiM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789798286; c=relaxed/simple;
-	bh=v4Dsp8VziA0MtayIX2+ZsKE2QvUYp7X2142WJPUh3F0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DIoJ8Y+y29R83ts71s0N3p5GLjNK+AxjETUU4p5MuSaRuwGIACB8EqLd0tv9107E3AkRhVUO3TP+CjXxewzOm5Pdd8Py5eEugmrCzsa/JpieD8DMRiOum9YFpWH5/x+djFDcSmO3XLNQfEqKxgmSPEOhIHk7W6RpPweoEJV8aEY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BOsSGr6c; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789798389; c=relaxed/simple;
+	bh=PuRLeK0kxJFu1U0+l/zDyzGHEF3zEbInehgp5gFdOuw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=h6itJJJ0jcHBEhIDPeXPIOefGQcXtTsiquVB8ROkRhqgEEKtGnqYOlBighB5afsY/5TFVX6raQ41vWCKQ8DNlGhxxnZj07A8GJu0PgtQoE/g7muGIN+5V4B7bcs7fSQ7BQpH4noIsAJtTnbc5w6l39Fu9BYG2VEVD5hqZ7s70gM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BJqNs60C; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BOsSGr6c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2D981F000FF;
-	Sat, 19 Sep 2026 06:11:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789798284;
-	bh=06PjwJFZE3BfGNUfr/Vv4TUh7POhP7Pa28xxRAW4zdY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=BOsSGr6cefyU8A3CtFHg47ZxkeNiIwALqyzGenQgGs0pukynJlr3Y5SOoMqhZ3K4U
-	 /Q9iuR4PkWJtmZiEosyA0vItC+wbMA3HzjS5uY89JM3PoXt5eL81atgd/Au2+Dve6S
-	 ifYVkuUdKzwLH393CoTMnLKRmF2A3vH+EzQ4Ud2XTUA0twmvJQ/299/a+MrWt0aQE8
-	 RAoxG/jutGLbRNdzZtq06Ac0bJehch1djQw2EJbDuISwNj6T6eM05WtJOqDzGvBKZw
-	 KGFCq9DiAuTXfnCctenKw8BB4VnCX5tLEI86q+T9NVvyrICbvCu+Qst8YojRQq6pp+
-	 NatQn8AuAZLSQ==
-Message-ID: <fe7459ab-ddb8-41fa-a770-5bccb504dfe6@kernel.org>
-Date: Sat, 19 Sep 2026 08:11:18 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BJqNs60C"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b5b07ec78so1044829a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 23:13:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789798388; x=1790403188; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wKHdeebXXBw0isNjR8wlUSLF2hh2to2En0Awr5oG48c=;
+        b=BJqNs60CV3tfjHo4NknUwn+E9JwsuSnYQfWW0nY3fCGM3YqGjZoooyp/QlZ/Z7RQWI
+         82Sw/gKjw9HwKmJB/WFV/6kGFX3d/0KzPfXP2XbWNyysubmaHqoj9S7KEKk48vV0PDzr
+         tGyhirQJ+fsDSytAKGSIFCgBhM5MQnl6Ve5n/dPJes4wXpNVqheRs+tT6YGuwscZ5iRE
+         B3H4X/5hAV179B1VPxMHQzCGkwcDJFxzIevA+I/XtKkFtBBxHcWiAcrdgzGR/VMvEbcl
+         lxubkHCsyzFkdICnunTSLTCutG53j+rjf3TA+3eZHjtH1odP2DQiSOkz5R2gZTBu+Te/
+         lUMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789798388; x=1790403188;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wKHdeebXXBw0isNjR8wlUSLF2hh2to2En0Awr5oG48c=;
+        b=mTk5apL25ffv8+TcugBK8foWru2rKFYRc9bCto4T26mBmdKXBOyxjYgFsNeYpSTYRx
+         OLB0uDGJFV7E3kAyT/p0kMi1NVMu9c2xOFLfK3eapNikpFuDzeUaoG7xyd53nxr5A4Yo
+         Q8TpZLMJtcCYslvQ1cSm9XyfSARY8QF1NcmEi5BaD9h/fQN8PfoMH4kd9q1bd9xL16gv
+         NQGt24MWo3mNvyemKzDsqgUJ61xYHhUlNh72QLhnQxuWAzkLoFATauAO9vvCDpnzIxd4
+         niJRJjAuHDcV3OLybekUlj8G2v6JZgsbW+Xzhgl5duVEZBJDo95ZENhq5IJ/9cRVBxzY
+         D7Rg==
+X-Forwarded-Encrypted: i=1; AKwUvBzs8SgOIiljX+p2Gg9d7X8g7hROM69jBHVzqS9/8KfjXSVSMn/htDwGMf18R2lLfsIWFxb6+asLjV+Aocw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kQZxnZc5CanHOSCV5AmcDim9y5zLBxuSC8G4kudo21UKjVU7IP
+	FexjiNLtb5vpGUc7+L7OMKS977xbopnkEr4vtjslEZJsKGOxGyTxpzob
+X-Gm-Gg: AYBFou1b2kpfriXLz+fcKeEQmx4KftQX+lkgBKw1IIWjfGvW14JPTvLrUmTLvfhA1BF
+	My3Rw6uUKLSC3yXNr78Se48v7xmBzQdXQfq8+9tlQI4TjAxQfTeDFiXiOQBqb+JeyFkzh39BjJv
+	eCl5O5oO7RPZsWLN0+W2GYssbZpMK0iG1V3zV8cwKDUBbDPghf1EOwLeooL1uQiIuNtX1UAKBGW
+	3/0+cu80dpwivOE5JLWuat/ryMKIlKtbbXVo4zDZaIHil7olHQAlMPPGqk/E4DhR/zBG9c4SOns
+	wdLyzCABl5snam8yqQ9YtEcsi86Q4otqPh+u+0bpKdc0C4b1/dm0E7XWlY1j4fIC9mX55vjK/vs
+	mt+KDX1XwAv+Y49QXvoC837ka7Tzrs1ieEwlI8m0SCOaYhNWnj733PuqqQfA1P7W9Tehmo8ee6U
+	SksVxo3ifQeoaQW5bnlz2qGoYKD58xYzbrCQhd4iKxGl/vtAeo78TfZntcGOBjTBnwSMnReNpFK
+	LWhRC7q2UIK9zG4nH5DEQ9SwL3ScVLS6XdipSCXbRn/pb51yItRcDaRn2Jmzd01lv4do3rZuWg=
+X-Received: by 2002:a17:90b:2d0c:b0:39e:6c6a:208f with SMTP id 98e67ed59e1d1-39e6c6a2272mr2274654a91.48.1789798387875;
+        Fri, 18 Sep 2026 23:13:07 -0700 (PDT)
+Received: from Inspiron-14-5420.. ([2402:e280:21c6:671:d11b:773b:fa83:c49a])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144d55f299fsm5781280c88.15.2026.09.18.23.13.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 23:13:07 -0700 (PDT)
+From: "Hemendra M. Naik" <hemendranaik@gmail.com>
+To: netdev@vger.kernel.org
+Cc: jiri@resnulli.us,
+	jhs@mojatatu.com,
+	kuba@kernel.org,
+	linux-kernel@vger.kernel.org,
+	vishy0777@gmail.com,
+	tahiliani@nitk.edu.in,
+	"Hemendra M. Naik" <hemendranaik@gmail.com>
+Subject: [PATCH iproute2-next v6 0/3] tc: fq_pie: add per-flow class statistics support
+Date: Sat, 19 Sep 2026 11:42:51 +0530
+Message-Id: <20260919061254.39678-1-hemendranaik@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] powerpc/ftrace: Don't restore r13 during
- ftrace_regs_caller
-To: Shrikanth Hegde <sshegde@linux.ibm.com>, maddy@linux.ibm.com,
- linuxppc-dev@lists.ozlabs.org
-Cc: mpe@ellerman.id.au, npiggin@gmail.com, linux-kernel@vger.kernel.org,
- msuchanek@suse.de, ritesh.list@gmail.com
-References: <20260918150811.1743769-1-sshegde@linux.ibm.com>
-Content-Language: fr-FR
-From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-In-Reply-To: <20260918150811.1743769-1-sshegde@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+FQ-PIE exposes no per-flow AQM state in userspace today. This series
+adds tc support for printing per-flow statistics via
+'tc -s class show', matching the kernel fq_pie class ops series.
 
+The corresponding kernel series can be viewed here:
+https://lore.kernel.org/netdev/20260919060125.38063-1-hemendranaik@gmail.com/
 
-Le 18/09/2026 à 17:08, Shrikanth Hegde a écrit :
-> Michal reported a stack-protector failure and subsequent panic when
-> running kernel builds. This was observed with full/lazy preemption.
-> Initially it was suspected as KVM, but later turned out to be due
-> to a bcc tool running in parallel.
-> 
-> Issue was recreated using a bcc tool.
-> For example, running below in parallel leads to crash.
-> ./funccount sched* -d 100 and make -j 64
-> 
-> The same crash was observed when running kprobe for schedule() function,
-> while simpler function tracer for schedule() didn't cause the crash.
-> This helped to narrow it down to ftrace backed kprobes area.
-> 
-> The crash occurs as follows:
-> 
-> ftrace_regs_caller entry on CPU A
->      |
->      +-> save r13 = CPU A PACA into pt_regs
->      |
->      +-> call kprobe_ftrace_handler()
->              |
->              +-> ftrace_test_recursion_unlock()
->                      |
->                      +-> preempt_enable
->                      +-> task can schedule and migrate to CPU B
->                      +-> task resumes with live r13 = CPU B PACA
->      |
->      +-> REST_GPRS(2, 31)
->              |
->              +-> restore saved r13 = CPU A PACA
->      |
->      |-> The task then continues running on CPU B with r13 pointing
->      |   to CPU A's PACA.
-> 
-> The stack-protector canary is accessed through the PACA. After the task
-> migrates, CPU A may run a different task and update its PACA with that
-> task's canary. Restoring the saved r13 then causes the migrated task's
-> saved stack canary to be compared against the canary in CPU A's PACA,
-> resulting in a stack-protector failure.
-> 
-> Similarly, current is resolved through the PACA. With a stale r13,
-> preempt_count() can access the state of the task referenced by CPU A's
-> PACA instead of the task running on CPU B. This results in corrupted
-> preempt-count warnings and scheduling-while-atomic failures.
-> 
-> This path for example is called when using kprobes and parallel kernel builds
-> can cause preemptions during ftrace_test_recursion_unlock.
-> 
-> Do not restore r13 from the saved register frame. If the task did not
-> migrate, the live r13 already has the saved value. If it migrated, the
-> live r13 contains the correct PACA pointer for the CPU on which the task
-> resumed.
-> 
-> Fixes: 153086644fd1 ("powerpc/ftrace: Add support for -mprofile-kernel ftrace ABI")
-> Reported-by: Michal Suchánek <msuchanek@suse.de>
-> Closes: https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Fall%2FaqKfsVArHHaIK6M9%40kunlun.suse.cz%2F&data=05%7C02%7Cchristophe.leroy%40csgroup.eu%7C47f05d7553a44699e1eb08df1596affe%7C8b87af7d86474dc78df45f69a2011bb5%7C0%7C0%7C639253409091782376%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=yrGFyJtjVk8VFxU5%2BqT4HfxrvTTNPwrQqwn2cLxyT7o%3D&reserved=0
-> Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+Both the kernel and iproute2 patches can also be found in GitHub:
+- https://github.com/H-N41K/linux-net-next/commits/fq_pie_class_stats/
+- https://github.com/H-N41K/iproute2-next/tree/fq_pie_class_stats/
+---
+Changelog:
 
-Reviewed-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
+v6:
+- No code changes since v5.
+- Rebased over the latest iproute2-next tree and re-submitted patch.
 
-> ---
-> PS:
-> Fixes is the initial commit that introduced this restore regs almost
-> 10 years ago, all commit afterwords are code refactors changing the
-> code layout. Also backporting all the way maybe tricky.
-> Backport can easily happen till aebd1fb45c622.
+v5: https://lore.kernel.org/netdev/20260902040221.83734-1-hemendranaik@gmail.com/
+- Addressed Sashiko review comments (folded into patch 1/3):
+ - Dropped empty tc_fq_pie_xqd_stats placeholder; class_stats is now a direct
+   struct member in the UAPI header.
 
-Probably not a big issue. That commit is in 5.17. Stable branches 5.10 
-and 5.15 will be EOL by Decembre 2026.
+v4: https://lore.kernel.org/netdev/20260727165028.106817-1-hemendranaik@gmail.com/
+- Split into 3 patches: fq_pie class stats, pie avg_dq_rate
+  formatting, and tc_pie_xstats comment fixes.
 
-> 
->   arch/powerpc/kernel/trace/ftrace_entry.S | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/powerpc/kernel/trace/ftrace_entry.S b/arch/powerpc/kernel/trace/ftrace_entry.S
-> index 6599fe3c6234..54c8727b48cd 100644
-> --- a/arch/powerpc/kernel/trace/ftrace_entry.S
-> +++ b/arch/powerpc/kernel/trace/ftrace_entry.S
-> @@ -220,7 +220,9 @@
->   
->   	/* Restore gprs */
->   	.if \allregs == 1
-> -	REST_GPRS(2, 31, r1)
-> +	REST_GPRS(2, 12, r1)
-> +	/* Do not restore a stale PACA pointer if the task migrated */
-> +	REST_GPRS(14, 31, r1)
->   	.else
->   	REST_GPRS(3, 10, r1)
->   #if defined(CONFIG_LIVEPATCH_64) || defined(CONFIG_PPC_FTRACE_OUT_OF_LINE)
+v3: https://lore.kernel.org/netdev/20260630184453.171410-1-hemendranaik@gmail.com/
+- Moved print_nl() into each xstats type block to preserve output
+  formatting.
+
+v2: https://lore.kernel.org/netdev/20260614130729.10076-1-hemendranaik@gmail.com/
+- Addressed ABI backward compatibility issue.
+
+v1: https://lore.kernel.org/netdev/20260531131411.28213-1-hemendranaik@gmail.com/
+- Initial submission
+
+Hemendra M. Naik (3):
+  tc: fq_pie: add support for printing per-flow PIE statistics
+  tc: pie: print avg_dq_rate in human-readable format
+  tc: correct tc_pie_xstats field documentation
+
+ include/uapi/linux/pkt_sched.h | 21 ++++++++++--
+ man/man8/tc-fq_pie.8           | 18 +++++++++++
+ man/man8/tc-pie.8              |  2 +-
+ tc/q_fq_pie.c                  | 59 +++++++++++++++++++++++-----------
+ tc/q_pie.c                     |  4 +--
+ 5 files changed, 80 insertions(+), 24 deletions(-)
+
+-- 
+2.34.1
 
