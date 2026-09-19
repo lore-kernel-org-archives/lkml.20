@@ -1,125 +1,124 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D951F281503
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 07:24:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10F7E2E040D;
+	Sat, 19 Sep 2026 07:25:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789802694; cv=none; b=JMrqTWEkLGAVjfgfnLQEpDgkbXevSZ7J06wSPfw5mIQKF0R8CZOHxwdhyBgheqgfcXcyNlB67FxtkFIRk1anP34vFuAKxFJK2CTuYN4JGYZ3OiWbkUrgLoOLJ590ddH56SpIg5Qh4oqvZrvrrn8BjR+Y4Dyu1L2Q87wTiGzmwiU=
+	t=1789802726; cv=none; b=Meb2relDuZHq4Gjj61zNZD8BGBnFwiDaV9yqFhNRQF/Hp7qW4TT75qlSV5V+NAW7BA4D2DvgWNDxPDtOaxxJVVqi/S2+Rot1tWMzVxBfSvVrg5Y8L+PiW5BD+lL479uc2RzPiElOndEko6Ejnn1G/B3VccmBEABlXqnFI+X8+/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789802694; c=relaxed/simple;
-	bh=QfKdEkms96+QNG5ZIMZeNtPBTMWisJBPBVANMBJcQKo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Mbb8XAxKSr9nFHYTT+9mcCrpS6pVSpE+RopsVdoSL0ofB4FZuv4+2SszkpYipBLuyWDVRn+kzC004cflSyTl8FAkY+eHFy/tHyVGXap8yPmuTF3BDzFIv7Kpungxb/HOv3wpTl5mCtGwIo3WXacSgE/oJ8AcLtgGSkO6CxThQcQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=klO/KrvN; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789802726; c=relaxed/simple;
+	bh=dZUeROihmHBFdkbPDVuhMmWdYMvUMfvtMDaVHHDnscw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=gsM1Gd18Og1rNW3TtJx/PVKBAxWyDMv8SIINy2sMnJ4u6G2uv7cwYWoe0xgKzcR0NUccxryRBzucgNZPpCnRgk7e5BD4zXzp49xG4zcVO0vnkK7fpC6B6hJV3c8XwxWzKHmxqtqbzHiLaevstEHv5dEhQkexI+GVQ214TeBRKI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HoNoCvkv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="klO/KrvN"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccd4f99cso1582872a91.0
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 00:24:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789802692; x=1790407492; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MiPpyhYUHVGgWlDeIMWaxS+8sb4pPZWGuCdQapYVZwk=;
-        b=klO/KrvNxDOl7R676bnMkEDGyYZwBusp/1BPqBjUeeBgqN12V7tzzgBYOG0Ge6i9tY
-         1LHb4WWbkjQRDCQzlyTUZkVcU1oETU8t3J5Rk7ga8I+/zPy2GIjguOTCyg20em+BLQzA
-         hYFQs0xuIZSj3otsPde/NWsJUav1QFIeMvRsmSZWxrF8QJnz83vFYcWrOgjOms+VCQXp
-         dDaZ6cNDzti5ntWIhLTQttbz+XvXfzguIBcCwq9gWsza+11WT2ixL4MGv0dA7SDVV6f8
-         AZHlcIN97vfNnvvQlrvcCHlBK9qMtn0hzgUAjUocosjLjtDxCDL8SZdUUfxVbDsCWFHb
-         WTNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789802692; x=1790407492;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MiPpyhYUHVGgWlDeIMWaxS+8sb4pPZWGuCdQapYVZwk=;
-        b=1FJDC6YbIQNGXsMRW3A0ahQeTB4FSOzIFQMiAw+i4t+RoQNfcJ/kZQuDhM3Q9S175C
-         97oY5zOFUhWQVj+ylm8egQms+njSWFRVFb+u2Mds4FjKJTC7+n82nj/eU6ba4yNa/K4l
-         mwsLtEoUFgkkSRYezu/LYJpTeVIXxpwUSM44G+iV7D3qVJR5wIeYSnqc/rfUJUbeFgoo
-         5FeZpOZ/AIg/0iK+IFF//kaSyrL1vQ7ZK4EV683G6sFypHIkppcjZCyktzEEebTQXvfy
-         x4/VtCj+UI6Val9IQVxeK9IRmi0GrZgBvTLqPeYUOrjsupwobsw63RA2uYVmxaWbecr+
-         HBpg==
-X-Forwarded-Encrypted: i=1; AKwUvBwEKRbwoiEemAgGSRqMzBsDcJd/56yI7DvUoi4DNmZmR3g3NMUIfSNRmlRKV4aeih00chFvOVOnCsD5w0Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++nEqLcP6L8/35RQBNcYDNPgqGFmZ5VdKyzMsU0QETKlxpsdLFib
-	+HiB5B2n7+NGXVKQ4dhyCuI2GMFtZmaTXVhiAItlGWk85OVArGJ8L5gY
-X-Gm-Gg: AYBFou0F1qISsK26HjQL3E6egoaVZ6FfVFW4wfYUZF/HflJQhQaXQ+BdVDAORe17N7x
-	rjv5gEzWTpC+0dOHBfq9WC8Mgb86n5rdPBWEnm1L5Z60rB1miWwipL4h7bt13lqxo2bJD6DSMeS
-	JlpfQawWHMFxTp7KFRnOiXcvyIRekhgjj5V3xIYWjbf3W+SOiCV+jNHDlAwv5NEDnzBXX4FOs9+
-	9gebEZzofPkLUMAg/64UOSWjfH/DFGiHWBRnMZ1QxaB2wJuty3LPUOlTtVxBF57PTgxusuTsupK
-	wNEFlZnHNN1kHFtR2nuP8jUE5p6tpoYe5TD807amaj+xeUQZKWZcy13rQYgJXxEGDP/Gu2k4yLL
-	0yantvO9/3ygZ6DmMw4S0FbRmbX11YgPyanDNrPajMeBV2HMXsPeezu8LPtOkjUlkFV4mzDf3HG
-	YaHk5YiywMlHtFNP/s0fQqFCLobO2PnrunPCRfoFSjDW/uQU8tiq2VD8ssdsrGaYmQ1qJxVSOCH
-	Ixp369ZWeV5ehiKmhr52Mx7oawsKRzWa0d7LqRlR52gfr/bwCMQ7YbZeM55elV4WErpGiX0L18f
-	XzotOPib6NtkEGPV3jeL1Cl6XA==
-X-Received: by 2002:a17:90b:5705:b0:39e:2faa:2e83 with SMTP id 98e67ed59e1d1-39e54d1e044mr9225583a91.10.1789802691950;
-        Sat, 19 Sep 2026 00:24:51 -0700 (PDT)
-Received: from DESKTOP-TJS95SS.tail460ce2.ts.net (36-232-198-121.dynamic-ip.hinet.net. [36.232.198.121])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6cae997csm3150642a91.11.2026.09.19.00.24.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 00:24:51 -0700 (PDT)
-From: Yuan-Hao Hsu <aa9736195201@gmail.com>
-To: Barry Song <baohua@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	liam@infradead.org,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Dev Jain <dev.jain@arm.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/memory: reuse the whole exclusive large folio on a write fault
-Date: Sat, 19 Sep 2026 15:24:45 +0800
-Message-ID: <20260919072445.542-1-aa9736195201@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CAGsJ_4wTYLds56=iyra5FKmgnNACN9QKJH-XJ=q62G7fMvd9iA@mail.gmail.com>
-References: <CAGsJ_4wTYLds56=iyra5FKmgnNACN9QKJH-XJ=q62G7fMvd9iA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HoNoCvkv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE8BE1F000FF;
+	Sat, 19 Sep 2026 07:25:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789802724;
+	bh=fAD6GbG/00mvVvJ/4iMpR9akbfBBXwDJ9dBrI57N/Qg=;
+	h=Date:Subject:To:References:From:In-Reply-To;
+	b=HoNoCvkv0GrWiliCtbLtqZZGme1pfStF/olhW/47guAXcMB8XnKa3Sh07a+mqlA6m
+	 5MTEXnHesA9Aab6th5cv0EJtMAHnoI1KvzryYAREHixC5mQKvhz2RW/uV4+75H89gg
+	 trPRt5Fm45TWpqqvFlxyg/OKDnEh3gzQoKDJTBH+IOQQZsmysQuRoInJwqPnfPQ9HX
+	 V4S31Htc2fn25ZBLkLAXyIIEFjFExdfJoYDuIkmT/QZKYYTGNRYoYBDEy/70bWUf8B
+	 qUCuSXQjdzUjn7QcMMQMywN1DTQcCZ8y1gYb6Ccd1CnniXc+HmjtdS07D3s0K2SxGA
+	 +6d9/xrns//Gw==
+Message-ID: <b787a787-5011-4f14-9332-4cca098b374d@kernel.org>
+Date: Sat, 19 Sep 2026 09:25:17 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5] dt-bindings: iio: adc: Add dt binding to xlnx,xadc
+To: Omer PALA <palaomer100@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
+ David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Michal Simek <michal.simek@amd.com>,
+ "open list:IIO SUBSYSTEM AND DRIVERS" <linux-iio@vger.kernel.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>,
+ "moderated list:ARM/ZYNQ ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20260918194434.9240-1-palaomer100@gmail.com>
+ <20260918203257.6034-1-palaomer100@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260918203257.6034-1-palaomer100@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sat, 19 Sep 2026 07:48:00 +0800, Barry Song wrote:
-> I'm fine with your follow-up work, but I'd appreciate it if you could
-> mention the previous work and include the link in your changelog, along
-> with an explanation of how you address David's concerns.
+On 18/09/2026 22:32, Omer PALA wrote:
+> Add yaml devicetree binding for xlnx,zynq-xadc-1.00.a,
+> xlnx,axi-xadc-1.00.a and xlnx,system-management-wiz-1.3 from
+> xilinx-xadc.txt file.
+> 
+> Signed-off-by: Omer PALA <palaomer100@gmail.com>
+> ---
+>  Changes in v5:
+>   Fix validation bypass: xlnx,external-mux-channel could be set even
+>   when xlnx,external-mux was omitted entirely, due to "not: properties:"
+>   being vacuously true when the key is absent. Now uses required +
+>   properties with if/else.
 
-Will do in v2.
+How many versions are you going to send one day? If you only used search:
+https://lore.kernel.org/all/?q=dfn%3ADocumentation%2Fdevicetree%2Fbindings%2Fiio%2Fadc%2Fxilinx-xadc.txt
 
-> I think a major concern is that we may spend too much time scanning
-> PTEs to determine whether we can batch them. If we don't support
-> CONT-PTE, we may simply scan fewer PTEs; if we do support CONT-PTE, we
-> may end up scanning more PTEs. So we need to show that the scanning
-> cost is controlled and explain how it is bounded.
+I asked for this indirectly in your staging patch. I pointed previous
+discussion where I said work was already done and received comments.
 
-The walk stays within the folio, the VMA and the page table, so it
-touches at most the PTEs that map this folio in this page table: 16
-for a 64K folio, PTRS_PER_PTE (512 with 4K pages) at the most.  Each
-PTE is read once by folio_pte_batch_flags(), the same scan fork() and
-mprotect() already run over these PTEs.
+The lesson to take from that was to CHECK for existing work and READ
+existing comments.
 
-Measured, that is 14-20 ns per PTE.  For 512 PTEs the fault takes
-10 us, 1 us of it the scan, the rest marking the pages exclusive and
-writing the PTEs.  Those are PTEs that would otherwise each take a
-420 ns fault.  The pattern where the work is wasted, one store per
-folio, is the one the description gives the numbers for.
-
-> I also personally feel that both the changelog and the code are too
-> long to read. Could we somehow split the changes into smaller pieces
-> and describe how each of those concerns is addressed at a finer
-> granularity?
-
-Yes, and sorry for the wall of text.  v2 is two patches: 1/2 handles
-an aligned block of 16 PTEs, the contpte-sized version David was fine
-with in 2024; 2/2 lifts that to the folio.  Each has its own numbers,
-the earlier discussion is linked, and the changelogs are cut to what
-is needed to judge the change.
+Best regards,
+Krzysztof
