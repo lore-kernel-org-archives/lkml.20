@@ -1,176 +1,150 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78B9B37F8BA;
-	Sat, 19 Sep 2026 18:18:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789841913; cv=none; b=HvbPQ4LlywA9VXZ+m4j522zob5hzDkSt/uHnUpjBrWxMQ1ZTFXo/pJ9HM32C+CF0HTqeyQkyY5zmhB9Yd1WgC5jV3nDlx4LVzBIa+nKqSfsJEmcZj6v7wRDFg4ou4MU1JICvFp3nARoVePDzGIM1hPteEQ7j28fqmqHlTQy3pQ4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789841913; c=relaxed/simple;
-	bh=hJ3wA6wLwUK3w8BKiqUYmor+iYzZ9BPed8AZHsmu54M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hg1UA8iOLq3skaU2NhVTxzic37pp7oMRMgR1I8hRhp+9DZ201pprwH3yYBukXK7pNf3jU8dVryL/sLcHutVTGZCPbgwZdjm/7OQ+7bceCeDo5o2kvJe2mFPiX0F8PFHlYHip5D+BSuWD+gBliA4sPT9nWyFg0FmQPM1UwBEkBgU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C/8IJ+cP; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95091331EB4
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 18:32:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789842777; cv=pass; b=bihZQbOKpMPsQ933JMOvCizVjXvqqhvVAOIzndGq2gVB/wATy2R0OPsSiB7pteupxCpaPav7h/qCnZGpDXZ4iQKWwF1p+A/TkkIPkSZQUQ9Ceo3Z7vKWHulnakfacWM3uLoXIjTa5P6t0kkncGtLkudhP6vUJbKA42lSS7QC9fo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789842777; c=relaxed/simple;
+	bh=v97cycUBS4MKTJ2yqY/Dn1GyeLdtatYT3OAwk/a3bTw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=o0cKeZrWVjRwjckNPZ12RrNuNAHocyPZFuE71KZ6BMF4gTjqbqBM6JHj6h7bVoNqTETVf5Abb1jsJVpufFdusY/VzO2peD69tb8oLShN5Krx+qj4J2ku6QXOPdn93PvZFOuBeDbGcW2xql2OEAFQvGoiV33wIN8NpeIY3cKSep4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jG6/NxRU; arc=pass smtp.client-ip=74.125.231.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C/8IJ+cP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3508B1F000FF;
-	Sat, 19 Sep 2026 18:18:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789841909;
-	bh=pyIemgWwjEQt3L+L8axqzmGHSvJ7AdeLk598yESsBGI=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=C/8IJ+cPchuSvWh2/MxbtZPVyL1SjYKc4WXhx6R5cZ8sO849empy9OJwygnCknBX9
-	 LS0Iqqfn6V5Z1h0JG1qUVKf9ea2HYVT30qIGRHdnP1XZ8UWHJ4YpkgHmC2HkV5s0gX
-	 mx0/oSOBh7QA3iOZ0E/hOerVDWNOt+SOJUGUJsSea826IzlwZFx6EKFYhiXVOWrygb
-	 dFgoRw90kA2b19NGTt6Z1+i6jE++aYpKXWkfZJmT3MCxltSlIRdRsx4YKWYg7FmUUl
-	 v57bGYi8C3acUYW1teyDCheNQDUiXJTOBLdtqRjHN/XWQW65fUQ6bmgFxOj15iYWL/
-	 ai9pfvIYdXxCw==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id E6C70CE1579; Sat, 19 Sep 2026 11:18:28 -0700 (PDT)
-Date: Sat, 19 Sep 2026 11:18:28 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Bradley Morgan <brads@mainlining.org>, rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org, kernel-team@meta.com,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Boqun Feng <boqun@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
-	lkmm@lists.linux.dev, Zqiang <qiang.zhang@linux.dev>,
-	Wang Lian <lianux.mm@gmail.com>, Kunwu Chan <kunwu.chan@gmail.com>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Will Deacon <will@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	John Stultz <jstultz@google.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Joel Fernandes <joel@joelfernandes.org>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang1211@gmail.com>, Ingo Molnar <mingo@redhat.com>,
-	Waiman Long <longman@redhat.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Vlastimil Babka <vbabka@suse.cz>, maged.michael@gmail.com,
-	Mateusz Guzik <mjguzik@gmail.com>,
-	Jonas Oberhauser <jonas.oberhauser@huaweicloud.com>,
-	linux-mm@kvack.org
-Subject: Re: [PATCH 01/28] hazptr: Implement Hazard Pointers
-Message-ID: <c67ddf7a-6f79-4145-858a-291df86e5274@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <e9669b34-12c2-4cf2-a887-315f581f0789@paulmck-laptop>
- <20260919000056.3132131-1-paulmck@kernel.org>
- <CAHk-=wj9knmxXD01=top1DQ9_aqrN2a3kpWRS5DQv6QLwLOztg@mail.gmail.com>
- <6B1FC39D-6EB0-433A-8E49-E5EFC9379AD7@mainlining.org>
- <CAHk-=wjyniJy-CX1muCrsZp-i-sLGRYeRYEPN7sw9orRZUCwag@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jG6/NxRU"
+Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-483c65c2fa7so1191952fac.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 11:32:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789842775; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YhadV3aZ6DUXgu6XMke+8h/k1K78FRPuPN5inp3kewposZhqbIyqsvqV93PNg8yuM9
+         eE6cMty+agsK3nnYFeEelXkwRa4iT49FzYdla1gD2Ub/jzeC1YcFwsC9W1+SMLVbCFdY
+         QjYjCliyo99cBJdOqzEWmBhSvf3l9x4orEr7NPrOp3KWJ/tbaT29j4Kk50oNw+iMf+ry
+         MVJDpRr/KfAJma89erL0kKkiWqBIv9VPIsCQZ8ZgCXLHhlGN1oAvJE/NIWRTqiMH61jk
+         Xf5kQZIEOw+YfxUr+ROpXoajfD50p2wcAiT34Acd7LTsK4siOFTINVM8EJGdh6cDsaXF
+         +sgA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Lx22JAqx3HdqfLp4etPkKWCHezogZYIQRxdcXNcbJpY=;
+        fh=DjF7xIk9ce73rqtDtFRDd3w6P5cHMybd/CgtyBJBdQ0=;
+        b=UfmtSPl6+kAteypmKjukp9EBXL+1wIeoysNo13f232TaW3A+olMgp6ref4FT1Xwu8g
+         6oDbDkzgzLluxrbEIL+ihTSQxwAnNQwEqM0XiaplD5671uES86kOIUMpcrawPjWPasN4
+         k0JI31oH18WMvqKOjwIFKDS8MyHRqDGubEJG0ByyrVoWW8J3yOsnlMT5BNcjjq7BArR6
+         /ayjyYn5OYiSz+IY5lqLXZOUXNpDSaiH7cA63kMelxQ1bISifmsWQhiM1Op4uz1HD6aG
+         Isc1JsnQ/W+APCUTaAHLiXUwzEkLgJaqQnx7aC0wsvfMnK3cF4dbUf68dIXYLy7ZLHuT
+         z86A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789842775; x=1790447575; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Lx22JAqx3HdqfLp4etPkKWCHezogZYIQRxdcXNcbJpY=;
+        b=jG6/NxRUEH+HfJEzqlzXohwN6ckR/v2m/rSc9kz/dO5GsFaqphzAtFkIfEXFC5grbI
+         7JXaiMlLEP8xqbV7uMAnQlN8ahH8OZ1TQCs/5JL7hQkca7wW4ga2y9W1yzuA59JLwGas
+         ZIC7uRQg+9dt0wZUzDJ3dEBfiSjVYb9+wWSxHFkxnFWdI19II8iyorjDrDtcWfhyrEus
+         cpAtGKsaLwSLu6NrVJrF9POINbYSWO5I8VHeRZ2pQW86pdR3qXTrZ1C3rTjRxOuXZ+Ua
+         7Q3Lu2XEINXb/YbwTsjFGqAbDUsyRNb/XDj1ux33Q7fyL9RFRf4ws+604yCR8xqSlmYO
+         Lttw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789842775; x=1790447575;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Lx22JAqx3HdqfLp4etPkKWCHezogZYIQRxdcXNcbJpY=;
+        b=LbRgP8d1rdNCK7rIxqgZTiPiWmK6hDXdw0bJI71seZX/ty1LcbURNKh/l7O/nOrnbx
+         l98uQ6opxglABzz0AV5gP+ZaeVebr1AzQQF/OYgOIRyPCRnjBvEaTDhXO17QKRtfTgKj
+         IVaGkEOiGB8U2V9L6eS9H2qanfRa1SnuUs9WbApPaSJSsJun9kJA1GkmlBPhFpvQFH7B
+         vItxEPUVulj4SnOrWi4GDYYEWEOx6f4uWgiWSDeMgSOXxIpFH29erx8cAX0L7vvR2R4Z
+         IFOwWW+W+IDglym+R+rHoZSyz2rUF8dv6ELWRjJciQIWLh1BiyU4figSUyrW9/KIHHpp
+         DbOA==
+X-Forwarded-Encrypted: i=1; AKwUvBz+9kCm4CPtL1Z4KiGuarZ0o5BTlKGXuifmXzjsbXsCvXNpJtCNMO6uZjhuyG9W6IbzePTwb+mKfN6dero=@vger.kernel.org
+X-Gm-Message-State: AFuF++ntIl6A9D9AMOi2i5SMcyClyUtG5P5mVSXisLuQbNWmGhn88F9U
+	u+KUHQXLD8TK9VU5b52+MqZfW9nLfS5ZbKNm1XZUwnT8Ss4vGW15zNtCBzMh+MQgSdp7aiECJJt
+	Lb01dQdzBplfcwrI5EHkiqliOU4aC/Fo=
+X-Gm-Gg: AYBFou1GcpnKMscPpQSh3dZvyFbZ8z58FEYbpZWKz/ZszqQp7knpQRv2L2cOz4LHugx
+	TGmAkAmAHx1SsWqG7JKc8TXD9Bvt/NemxSFWncCWS6RWaa67TBgg285rOGfUG0ywBAFkkNjvnqN
+	UowFQ+Y1VF4VDqa5TqOJqeZW7P5sboD5Sr3DuSM7EnvIwAy5qoDgusXwgS/9aEZ+iL8F4Yot4iZ
+	lbxp2KMr+4UfxjWfJZUAjlHThv2SO0UljQuufoZDIQTN02pCwLp8PLw4Cck4spXYMbQ2QlpPIxf
+	63rqpms7cslxRiK3sL/tB4LjVT9/WwxNgUowrnNumQ0VOS53PaeR2K4=
+X-Received: by 2002:a05:6870:8a0f:b0:45e:d660:b87 with SMTP id
+ 586e51a60fabf-486e5134a5amr5951125fac.9.1789842775310; Sat, 19 Sep 2026
+ 11:32:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAHk-=wjyniJy-CX1muCrsZp-i-sLGRYeRYEPN7sw9orRZUCwag@mail.gmail.com>
+References: <20260714222338.2965707-1-dianders@chromium.org>
+ <20260714152138.7.I5cef580a62c86ba6c3465ad336fa509afbdf1476@changeid>
+ <CABb+yY3_xBvQVFHEs=v39u7+TLjJRaVv3sg5pGgd0YxCruZ8Tw@mail.gmail.com>
+ <CAD=FV=X-fAJp=EG_yTAg+QQgNYRCt25947oHGHZuq-FEyirK0g@mail.gmail.com>
+ <CABb+yY2CH5A1ixfX9czgtEwsP95FN-2JVzN_wmRDRNsSuZY5PQ@mail.gmail.com> <CAD=FV=XiguzS7nH1sE=BkXt+7G6-hhqyz5u3sjc4zAA9H7KqJg@mail.gmail.com>
+In-Reply-To: <CAD=FV=XiguzS7nH1sE=BkXt+7G6-hhqyz5u3sjc4zAA9H7KqJg@mail.gmail.com>
+From: Jassi Brar <jassisinghbrar@gmail.com>
+Date: Sat, 19 Sep 2026 13:32:44 -0500
+X-Gm-Features: AcwNN1UwvAj9Edbq3yWCycTjTBcB7wt1MSsw00_ytosOZYg4EL85_GmD974H8ho
+Message-ID: <CABb+yY2_AvcnaTDmpL8gP4H2_Pp3HddrtNr5gvL4GCW2DPPvOw@mail.gmail.com>
+Subject: Re: [PATCH 7/7] mailbox: goog-mba: Introduce the goog-mba mailbox driver
+To: Doug Anderson <dianders@chromium.org>
+Cc: Joonwon Kang <joonwonkang@google.com>, Subhash Jadavani <sjadavani@google.com>, 
+	Tudor Ambarus <tudor.ambarus@linaro.org>, Lucas Wei <lucaswei@google.com>, 
+	Brian Norris <briannorris@chromium.org>, Peter Griffin <peter.griffin@linaro.org>, 
+	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-samsung-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Sep 19, 2026 at 10:00:06AM -0700, Linus Torvalds wrote:
-> On Sat, 19 Sept 2026 at 09:35, Bradley Morgan <brads@mainlining.org> wrote:
-> >
-> > I think hazard pointers are good, what test do YOU suggest we do here?
-> 
-> I want to see a single real-world example of "look, this speeds this
-> real load up by 10%, and the kernel code was actually cleaned up in
-> the process because hazard pointers are great".
-> 
-> Not a microbenchmark that tests just the hazard pointers themselves,
-> but a real kernel feature that has been converted to hazard pointers,
-> and in the process actually shows improvement.
-> 
-> The ONLY reason for hazard pointers to ever be merged is if they
-> actually buy us something real.
-> 
-> So I want to see that 'real" thing.
-> 
-> I want to see how easy/hard it is to actually convert a real current
-> user, and I want to see how it actually results in measurable
-> improvements in performance.
-> 
-> Something *core*. Something that everybody uses. Because I'm not in
-> the least interested in a new subtle feature that interacts with the
-> scheduler and is only used for some random driver or (to pick the only
-> example I have ever seen) AppArmor.
+On Wed, Sep 9, 2026 at 11:57=E2=80=AFAM Doug Anderson <dianders@chromium.or=
+g> wrote:
+>
+> > I am suggesting to consider TX-Is-Done when send_data() returns, i.e
+> > tx submitted is seen as transferred. You anyway  don't catch
+> > transmission errors. That way you fill all slots without blocking on
+> > the first message and achieve this same throughput.
+> > Without knowing the clients I am not sure if that can't be done.
+>
+> We need to know the txdone and thus we can't do what you're proposing.
+> In general, queuing mailboxes are used in cases where the remote side
+> enables a resource like a clock or power domain. Different tasks in
+> the system may independently turn on/off these resources, so allowing
+> them to work "in parallel" makes sense
+>
+It will still work in parallel - you still keep writing to the h/w
+fifo without waiting for previous ones to finish as long as there is
+space. Just like you get here.
 
-Just a historical note for those who were not around at the time.
+. ...but each task needs to know
+> for sure when its resource is finished turning on. If we just imagine
+> 3 clocks we want to turn on.
+>
+> clk_enable(clk_a)
+> clk_enable(clk_b)
+> clk_enable(clk_c)
+>
+> Those 3 calls can be made in 3 different contexts from 3 different
+> drivers. We want all 3 enables happening in parallel with each other
+> (not one after another), but each call needs to know when its function
+> is done.
+>
+I don't see why not?  The three requests will be queued into h/w fifo
+in the order they arrive without any block - just as you do now.
 
-Linus had a similar healthy skepticism of RCU back in the day, and
-we (well, mostly Dipankar Sarma) did deliver the required use cases
-and performance results.  It took about two years, with the earliest
-discussions at OLS 2000.
+Btw, if you mean they need to be enabled in parallel literally, they
+should not be called from three different drivers. Instead they should
+be modelled as one "composite" clock.
 
-And I won't be sending a hazard-pointer pull request to Linus unless and
-until we have something convincing.  And if I turn out to be easier to
-convince than Linus is, I am sure that he will let me know.  ;-)
+> Does that make sense?
+>
+The usage makes sense but I still don't see why existing api can't work.
 
-> Now, obviously, the thing that would impress me is something like the
-> dcache. If *that* can be converted, and it shows real improvements on
-> some real benchmark, then I'm sold.
-
-And yes, the reason that I am pushing this is that some corner cases are
-stressing RCU a bit, and perhaps hazard pointers can do a better job of
-addressing these situations.  And maybe dcache is one of those corner
-cases, but it would not be first on my list, in part because hazard
-pointers tends to have a bit higher read-side overhead than does RCU.
-And I don't see a way that hazard pointers could eliminate dcache's use
-of seqlock.
-
-The most obvious potential hazard-pointers use case is where someone
-wanted to use per-CPU reference counts, but couldn't due to the high
-memory footprint of all those per-CPU counters.  With a key word being
-"potential" because I don't know of such a use case.
-
-But if one shows up on an emergency basis, I want at least a prototype
-of a ready solution.  After all, the Linux kernel is a *lot* less
-bug-tolerant than it was in the early RCU days.
-
-> Now, I don't really expect that kind of major test-case, but I do
-> expect *something* meaningful. Not a driver. Not a test module. Real
-> code.
-> 
-> IOW: "Show me the money".
-> 
-> Because the kernel is *not* some kind of acadmic project. Never has been.
-> 
-> I simply don't want to merge something that is touted as an
-> alterantive to RCU - which we obviously depend on very very heavily -
-> without something *major* that actually uses it and shows the
-> real-world advantages.
-> 
-> The discussion about hazard pointers in the kernel has been around for
-> a few years by now. If there isn't some real core feature that was
-> converted to show that, then I think that's already a failure
-> indication.
-
-That is of course completely fair.
-
-And there are a couple of potential hazard-pointers use cases that have a
-reasonable chance of working out.  If something compelling does show up,
-you will of course see a pull request.  If not, maybe I maintain hazard
-pointers out of tree for a few more years and then drop it.  (At which
-point, Murphy being who he is, a use case would promptly appear.)
-
-> I'm hoping that those patches and numbers already exist, and I just
-> haven't seen them.
-
-There are some, but not yet compelling.  This is still a work in progress.
-
-So why bother you with premature hazard-pointer patches?
-
-Because if a hazard-pointers-shaped problem does show up in the kernel
-somewhere outside of my admittedly narrow field of view, it would be
-good if you were aware.
-
-							Thanx, Paul
+Regards,
+Jassi
