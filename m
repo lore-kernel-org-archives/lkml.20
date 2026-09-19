@@ -1,86 +1,79 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A822D371CF4
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 08:54:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF4E33BA225
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 08:55:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789808062; cv=none; b=kcpGNohu7H7wJFbOgLblCF1CmTz3pdEr/J4Dp2Up7NZJrcch4SVJLV8FykunciE2fHHX/8gNZH2dFKzFW9itIVkz6iVe1KVK6Np44epf7Qcy0dsJaKit3NGwdufzZwrfZ2INtZRLGGEtheSN1GOXi+lovNrYkyhML47JqSHpbow=
+	t=1789808134; cv=none; b=gfbK88WCOxGViswdqen17dVZIqXhZLnVtsCTN945GC6TCPmI8oG3KToTmIE37TkUSvW4hRuNtDqwpbSBjDm0j3t/en6EexAd8OMECWNqh7nFtiqcTuM2QUCRQLY8D7nMv14FE+VFu2l1LV0T23etbYh7L7CwYDVgMHVD2u/zXSg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789808062; c=relaxed/simple;
-	bh=c34bA274rDOkL+YzQsrkmI4B6CAXTcZ3HUERhawzQJ0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SfzSXOf2YIErNlJ+xhsDlzB5zaQbBK324l/e6jNF/2tXbqaUbsTxPRfahmru2QYY2Wcr/OLvSl/N1vf5WnwBawH8bJ7X3obM2JpNluiNFG9qXhvGFjM2w87ynTXN7kflX0VV8iZiGkUd+a4hW8dPvsc++c4Y6B563OiM/wBkHQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L2UJKo3O; arc=none smtp.client-ip=74.125.228.140
+	s=arc-20240116; t=1789808134; c=relaxed/simple;
+	bh=+/9iF8Q/HzoQ9AXsjS629ikGCqE2KrlWmQsyKxS+xbc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rwm+OK0Pgp53Fva2aLeZ3TWl+XUuWtJU+XruGuSKCcE47k+xUK0A7GN9rOIkuN/qwlJ7fnexXujVysRsXQezhVwtGiXswZXEXF4kGp7yRxaVhp6NbxEB0slHcdYlVq5JlyOs04wxIUQXeLByMhaV/6NPJxKRKTXVIobVJlSqHPQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VH2MoHMe; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L2UJKo3O"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c29d50b7cf9so243560266b.2
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 01:54:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VH2MoHMe"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f62ccdb1so499639f8f.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 01:55:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789808058; x=1790412858; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789808131; x=1790412931; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OfnLSG5yNDxYZ/H/GH7hb4ofWQcWDQyvGNAStGIjNUk=;
-        b=L2UJKo3O29Tqp2YumXyJcVzLYPMS968qcO/z7RE5EonqHqLUKjOnT0vHssRS6inAye
-         wOZXNiP7K+I9b5pZe32k6SxpIwhjA+qOvYlMSqpvizmhsNVS9qpTGumCWubbyRcM4SSh
-         fmEesHCvkXWhBKsUnllF3EsW9kFwYKC69nNhu2/lKPGML7e32I3/OGKToj/xKBoA8Hl9
-         8Gc5j0IS5w+buvO8vJ64tntBGInvjz3qZPga0Y7t2mOV2S1hBIaoHnaLeC3ZlyGolfJ9
-         zed6kYhcJoYO7KZZS9seF4ickvxbzC3xgJgrwUlA+6CyaTvY4HH2499OgT+G88YNxkat
-         8rdQ==
+        bh=04kbXYpwvydfIV09e+Yw8RNCO3EBvkyuMvNNxaqIlHg=;
+        b=VH2MoHMetwiOlpqCwK2s3xJEavhj4uHlDweasxc/cSzyUrVLM3F6PvEC81vU+NDDJd
+         awA2+N0Y0HfM5sXMNWZMoPJA3zfvX/Ex2w+BX9ijehBS1+4rp0Tk+/YIpFcatCOvcSxx
+         /YTf1WtWiF1yzA8xtb3d2bHfqIPDCRFSt2WMYVBokwbnEXkhDRM1um1CIPzBZjcHL6Eq
+         UtADB22yYXGwEVvhEUIO7Nb2dHuu2xzZuxHbk3rTUEojPvM3xMsTOyLUYVYu7HIgZmd5
+         jERBtgrAOv7WjdzwTgiWNq7J2EX9oJLf+AgvA+B+IZJyr9g/MkOZkGSuYYSmaK1GDKNE
+         fKuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789808058; x=1790412858;
+        d=1e100.net; s=20260707; t=1789808131; x=1790412931;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=OfnLSG5yNDxYZ/H/GH7hb4ofWQcWDQyvGNAStGIjNUk=;
-        b=SU+o2MOQKAjuGGVc5IoV1bIKuFUGJlZFMLW/8H3wQq5ZFBsizOwoIGQ2kuivOkiAgw
-         8cVWf0F5mPH2dmdsu14awVohvcF+LPh9fP2gt/WSorNL4Hpaxh8kWJtAQoKEJS12jBQ9
-         6sosBbqH+ZctDx9bBLm9PGRblS0UVCe5qC+I/+2ZVf28bPowSRvUUNSvL5vm+QNqwm4m
-         0vsOHDXKUrESYD+ZT/icX9MK3+pK0X15TtBW5yfuzMnVomvNoJ8nBJaLZRV/mYFjeV0T
-         n+tD+c77lImlMiQH8lzEUwWmLLRal4C+zC8NkAnSW0EorhQLQ1xIKGqRvhpyuEESnn9V
-         qhKw==
-X-Forwarded-Encrypted: i=1; AKwUvBz2/VLSXYG0lvrTLObCOzxhs/H2hG8X3LH36Rlz5mIrGWRHgzRpcvBVjwBrrOlCNP2SuEep1gmjaK4ZTj8=@vger.kernel.org
-X-Gm-Message-State: AFuF++luZ2cSTi+0Z+GQiLxKBPNaVndc13UN+pJF1+wrGAnH6hfibOsf
-	udEYx95IhZUBLq4C8Og6Gh7yjce/R2G2S8ulpV46EYftjUv2bRI0Y/lX
-X-Gm-Gg: AYBFou1SRerEWQ0s/tjgKTs/JcS1JLqw67ig5xIrQ9oPqqiTYtFJZRBfa161/SeZVOT
-	Gc8S9UB1zZhx5Fm6H0csl/lXrobFzwnwSEA4I5BEk0lfirABtq9GsxSGM4fDe8GZMMaqbXfGGcm
-	D4YP+Md9t0QfyMdFph1xdHNppCdGrm+wynfusuZm8kYKilJ5JyVuVB/Jvvjl84JzeGyZ0ah5/YF
-	6mRjdXINvroKXDLosMJxpz3SaayO6TZoStr1tJkdgf4NpUWuuD4mypD0gDid5UDEbOlGpnR7imP
-	dctIxOUzvD1VfNZrFOb/ojIlpR/GVwMt7s2Nm1tWfxd5/cHo6xggYS+PyRCfA/LGfasQOF063Tv
-	JWx8ZABpebSgr6mWVA1WwcsPO9ECHcpTtSZMzHEqAn/QSObIh8JNSyLYYzdPRhUATPiePqFcRI0
-	8kfpxWSy/f3t1r5AQVdtxJCoWmFn/WXCaXfO2eaKkFi4LTF7XLK1OchkyJALBROPiHFTXrI8RdH
-	W+SjHrmRFwGfWbr3C5VMnMP06Tcls2qcFFpVVaHFVuAME9EC9vcRMNZNtHJyUoVejOTVlvVAwp6
-	yEa7cIsTZRjTdN2gCcmH
-X-Received: by 2002:a17:906:6a1c:b0:c29:6184:5e13 with SMTP id a640c23a62f3a-c2a15cd5b73mr428764966b.40.1789808057658;
-        Sat, 19 Sep 2026 01:54:17 -0700 (PDT)
-Received: from localhost.localdomain (83-233-130-25.cust.bredband2.com. [83.233.130.25])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a3572d4d5sm64731766b.33.2026.09.19.01.54.16
+        bh=04kbXYpwvydfIV09e+Yw8RNCO3EBvkyuMvNNxaqIlHg=;
+        b=vm5GqLfQN6I6chtvvzSf6GIk7lcaNuW3JowaR1Zi26TH6yC1k+c5njcyQ1U9kOwg/m
+         7KT394HtDjc6+SHXgjZPQUSCWIkApc3mvmmInvL46O3B5BJVOvzzk3qXJKfZb8WPAbss
+         D9/fKt/+fLLje7+RbbmRr3ZJREYFaHLMLvoylmwqTN5vUuns0aoG6Wi5Cd5aZU0vXSbS
+         O19nNIRLS60bYWCJdO9p6xk9e0CICL5bbab8guBegFVTZ65FKsJPtvTOb56yScltPc8A
+         zsjR6OuorU3JlJALMnSvCSp0k71U4GvezAGqDhGnRn0mTqgDtZBQ4vr1h6r4NplLgtbC
+         9/9w==
+X-Forwarded-Encrypted: i=1; AKwUvBxjBNTfijvqst2eJOuV9DI68OdXkCSN8+9K/tVIOHSptR4aPqtRyTSdK6KVzrRkRATe3AmMMrmuXeRYI0E=@vger.kernel.org
+X-Gm-Message-State: AFuF++kvEPq0Y0E8uMAEDgguwlG/mkwgI3NvsUHiFna+3XO33J0w1E0E
+	PQkF/WqlNJA3GhTaKT0D/7sIvCjJtSrFx5AlV71XJqfKMNhBddFlCDBV
+X-Gm-Gg: AYBFou0Iv3xZp6IKIxK93KqjGMSRwyZEq9wIuLpS2EYp9vQ+9BT5IuRgQSJ0C58Xid+
+	YUACgwMZHHHpV/9als/ujFqUODEfToEf1xj2I/HiZoq3Cu2nk3Es2kCRC1S0OpvAgiDv4ig1ln8
+	ciXBRVOVFKdq1MkSN40LxwuTaR8uQ9bwQzn0PJ5zS11K2vWyJMS/IJX1VgG/VRFmzjXTfflayi0
+	108cbW/6cgDgJe7/cy6cWprUKdBhWabMvPi1nO2F1Vscuv+jQN/4R2orGpV3klyObsCa+9ODfer
+	PfVKgtn2cS+5CQSHgxH3qhn1cuwE1DAMh8RavQkp3E7VTzMW0TYjEnfEP4hbXTogT4Xm9PDR3EE
+	YpQ2gi7S1drE/tPt7U8sZlYcuQhR2nx09RuY5MCbAab+3kpPlaXPSZ3e+zdZvxsthe9WJk/fNr+
+	9oc4PL+icn7YX2By+8weKd//H8uTbHG/yFKGe5e0GshsFHzxMRKdLVD92LouVZc/6EB43A0C4A/
+	C1JIGcOgbxzKBQ3YOEqS5I=
+X-Received: by 2002:a05:6000:2688:b0:487:146f:7c88 with SMTP id ffacd0b85a97d-4871d98cdcfmr7778873f8f.4.1789808131054;
+        Sat, 19 Sep 2026 01:55:31 -0700 (PDT)
+Received: from fedora ([154.182.123.247])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48724595289sm5574613f8f.29.2026.09.19.01.55.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 01:54:17 -0700 (PDT)
-From: Yongzhao Chen <yongzhao.derek@gmail.com>
-To: netdev@vger.kernel.org
-Cc: andrew@lunn.ch,
-	olteanv@gmail.com,
-	florian.fainelli@broadcom.com,
-	jonas.gorski@gmail.com,
-	woojung.huh@microchip.com,
-	UNGLinuxDriver@microchip.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	linux@armlinux.org.uk,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [RFC net-next] net: dsa: pass PHY flags when connecting shared ports
-Date: Sat, 19 Sep 2026 10:54:06 +0200
-Message-ID: <20260919085406.1395-1-yongzhao.derek@gmail.com>
-X-Mailer: git-send-email 2.45.2.windows.1
+        Sat, 19 Sep 2026 01:55:30 -0700 (PDT)
+From: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+To: jic23@kernel.org,
+	gregkh@linuxfoundation.org,
+	nuno.sa@analog.com,
+	Michael.Hennerich@analog.com
+Cc: dlechner@baylibre.com,
+	andy@kernel.org,
+	linux@analog.com,
+	linux-iio@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	joshua.crofts1@gmail.com,
+	Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+Subject: [PATCH] staging: iio: adc: ad7816: Protect sysfs attributes with mutex
+Date: Sat, 19 Sep 2026 11:55:13 +0300
+Message-ID: <20260919085513.9173-1-abdelnasserhussein11@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,156 +82,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-DSA calls get_phy_flags() when attaching user-port PHYs, but passes zero
-when connecting shared (CPU and DSA) ports. Shared ports backed by PHYs
-can also need switch-specific initialization data. The motivating case is
-qca8k PHY-to-PHY CPU-port support carried by OpenWrt, where the internal
-PHY driver needs the switch revision. That support is absent from this
-net-next baseline.
+The sysfs store functions (ad7816_store_mode and ad7816_store_channel)
+modify the device state and toggle GPIO pins. If accessed concurrently
+by userspace during an ongoing SPI transfer, this could corrupt the
+SPI transaction.
 
-Call the existing callback before connecting shared-port PHYs and document
-its expanded scope. Drivers without the callback continue to pass zero.
-Preserve the existing PHY connection error handling.
+Add the existing chip->lock guard to these functions to serialize
+access and prevent race conditions.
 
-Make bcm_sf2 and ksz88xx return zero for non-user ports. This avoids newly
-passing their PHY power-management and erratum flags to shared ports,
-while retaining their existing user-port values.
-
-Link: https://github.com/openwrt/openwrt/pull/25225
-Assisted-by: LLM
-Signed-off-by: Yongzhao Chen <yongzhao.derek@gmail.com>
+Suggested-by: Joshua Crofts <joshua.crofts1@gmail.com>
+Signed-off-by: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
 ---
-This RFC proposes using get_phy_flags() for PHY-backed shared DSA ports,
-with bcm_sf2 and ksz88xx guards to preserve their existing behavior.
-The callback already carries switch-specific initialization data to PHYs;
-the shared-port path should provide it before PHY initialization too.
+ drivers/staging/iio/adc/ad7816.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-The use case comes from qca8k PHY-to-PHY CPU-port support carried by
-OpenWrt. That support is absent from this net-next baseline. The downstream
-PHY driver needs the switch revision and a flag for a QCA8337 CPU-link
-SmartSpeed quirk. This patch covers the generic flag propagation and
-compatibility guards; the PHY-to-PHY support and quirk are outside its
-scope. The complete RA74 fix would need those changes as well.
-
-Reusing the callback keeps one interface for switch-to-PHY information.
-The guards make bcm_sf2 and ksz88xx return zero for non-user ports,
-preserving their previous contribution on those paths. They do not clear
-flags already held by the PHY. qca8k continues to supply its revision for
-internal PHYs. The pinned tree has no other callback implementations.
-
-The patch is based on net-next
-26ee8cd69d46a14b37ba5e512084fe80d730127a. Validation:
-
-- Four fresh x86_64 builds compare baseline and candidate allyesconfig
-  and allmodconfig with GCC 13.3.0, W=1 and KCFLAGS=-Wno-error. All builds
-  produce vmlinux, bzImage and every expected module: 66 for allyesconfig
-  and 11,173 for allmodconfig. Paired configurations are byte-identical;
-  source, configuration and toolchain checks remain stable throughout.
-  Complete warning/note comparisons, including repetition counts and
-  compiler targets, show no new code diagnostics. Allmodconfig matches
-  exactly. Allyesconfig differs only by four baseline make clock-skew
-  diagnostics. Their two empty module lists were checked, and full-target
-  replays reached stable dependencies with no new diagnostics. Raw logs
-  and the review are retained. The default CONFIG_WERROR=y builds had
-  stopped on warnings reproduced in the unpatched baseline: all 48 and
-  12 initial error diagnostics, respectively. The common -Wno-error
-  setting enables the complete comparison; these are not warning-free
-  builds. Earlier affected-object COMPILE_TEST/W=1 builds also passed.
-- A standalone C harness compiles actual DSA and driver function bodies
-  with stubbed PHY/phylink operations under ASan/UBSan. All 52 cases pass,
-  covering BCM/KSZ compatibility, qca8k revision propagation, all flag
-  bits, callback arguments and call count, missing callbacks, and
-  attachment errors. Removing either guard or disabling propagation
-  makes the corresponding assertion fail. Earlier compiled-function
-  checks also cover the OpenWrt 6.12 and 6.18 adaptations.
-- Runtime testing used an OpenWrt 6.18 image on Redmi AX5400 (RA74), with
-  the PHY-to-PHY support and QCA quirk. It passed sysupgrade and warm
-  reboots, a physical 20-second power cycle, WAN/LAN DHCP, wired traffic
-  and LAN VLAN isolation. These results cover the combined downstream
-  changes. This net-next patch has not been runtime-tested on hardware;
-  BCM SF2 and KSZ hardware have not been tested.
-
-Codex assisted with the implementation, test harnesses and draft text.
-The work addressed OpenWrt PR 25225 review, preserving other drivers'
-behavior and preparing the generic change for upstream discussion.
-Gemini 3.8 Flash, through agy, reviewed the design and an earlier draft.
-The paired whole-tree build experiment was completed after those reviews.
-
- Documentation/networking/dsa/dsa.rst | 2 ++
- drivers/net/dsa/bcm_sf2.c            | 4 ++++
- drivers/net/dsa/microchip/ksz8.c     | 4 ++++
- net/dsa/port.c                       | 6 +++++-
- 4 files changed, 15 insertions(+), 1 deletion(-)
-
-diff --git a/Documentation/networking/dsa/dsa.rst b/Documentation/networking/dsa/dsa.rst
-index 42a99f5df..9bb7a8f75 100644
---- a/Documentation/networking/dsa/dsa.rst
-+++ b/Documentation/networking/dsa/dsa.rst
-@@ -668,6 +668,8 @@ PHY devices and link management
-   on its own (e.g.: coming from switch memory mapped registers), this function
-   should return a 32-bit bitmask of "flags" that is private between the switch
-   driver and the Ethernet PHY driver in ``drivers/net/phy/\*``.
-+  It is called when connecting PHYs for user, CPU and DSA ports. Drivers
-+  should return zero for ports that do not need switch-specific PHY flags.
+diff --git a/drivers/staging/iio/adc/ad7816.c b/drivers/staging/iio/adc/ad7816.c
+index f76f0215119a..d8f4b1f79e2a 100644
+--- a/drivers/staging/iio/adc/ad7816.c
++++ b/drivers/staging/iio/adc/ad7816.c
+@@ -143,6 +143,7 @@ static ssize_t ad7816_store_mode(struct device *dev,
+ 	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
+ 	struct ad7816_chip_info *chip = iio_priv(indio_dev);
  
- - ``phy_read``: Function invoked by the DSA user MDIO bus when attempting to read
-   the switch port MDIO registers. If unavailable, return 0xffff for each read.
-diff --git a/drivers/net/dsa/bcm_sf2.c b/drivers/net/dsa/bcm_sf2.c
-index 9e5713015..f516fc396 100644
---- a/drivers/net/dsa/bcm_sf2.c
-+++ b/drivers/net/dsa/bcm_sf2.c
-@@ -709,6 +709,10 @@ static u32 bcm_sf2_sw_get_phy_flags(struct dsa_switch *ds, int port)
- {
- 	struct bcm_sf2_priv *priv = bcm_sf2_to_priv(ds);
++	guard(mutex)(&chip->lock);
+ 	if (strcmp(buf, "full") == 0) {
+ 		gpiod_set_value(chip->rdwr_pin, 1);
+ 		chip->mode = AD7816_FULL;
+@@ -207,6 +208,7 @@ static ssize_t ad7816_store_channel(struct device *dev,
+ 		return -EINVAL;
+ 	}
  
-+	/* Shared ports previously received no PHY flags. */
-+	if (!dsa_is_user_port(ds, port))
-+		return 0;
-+
- 	/* The BCM7xxx PHY driver expects to find the integrated PHY revision
- 	 * in bits 15:8 and the patch level in bits 7:0 which is exactly what
- 	 * the REG_PHY_REVISION register layout is.
-diff --git a/drivers/net/dsa/microchip/ksz8.c b/drivers/net/dsa/microchip/ksz8.c
-index 941ae9f66..d284c199f 100644
---- a/drivers/net/dsa/microchip/ksz8.c
-+++ b/drivers/net/dsa/microchip/ksz8.c
-@@ -2953,6 +2953,10 @@ static u32 ksz88xx_get_phy_flags(struct dsa_switch *ds, int port)
- {
- 	struct ksz_device *dev = ds->priv;
++	guard(mutex)(&chip->lock);
+ 	chip->channel_id = data;
  
-+	/* Shared ports previously received no PHY flags. */
-+	if (!dsa_is_user_port(ds, port))
-+		return 0;
-+
- 	switch (dev->chip_id) {
- 	case KSZ88X3_CHIP_ID:
- 		/* Silicon Errata Sheet (DS80000830A):
-diff --git a/net/dsa/port.c b/net/dsa/port.c
-index 1f5536c0d..4db7e6f9c 100644
---- a/net/dsa/port.c
-+++ b/net/dsa/port.c
-@@ -1666,6 +1666,7 @@ static int dsa_shared_port_phylink_register(struct dsa_port *dp)
- {
- 	struct dsa_switch *ds = dp->ds;
- 	struct device_node *port_dn = dp->dn;
-+	u32 phy_flags = 0;
- 	int err;
- 
- 	dp->pl_config.dev = ds->dev;
-@@ -1675,7 +1676,10 @@ static int dsa_shared_port_phylink_register(struct dsa_port *dp)
- 	if (err)
- 		return err;
- 
--	err = phylink_of_phy_connect(dp->pl, port_dn, 0);
-+	if (ds->ops->get_phy_flags)
-+		phy_flags = ds->ops->get_phy_flags(ds, dp->index);
-+
-+	err = phylink_of_phy_connect(dp->pl, port_dn, phy_flags);
- 	if (err && err != -ENODEV) {
- 		pr_err("could not attach to PHY: %d\n", err);
- 		goto err_phy_connect;
-
-base-commit: 26ee8cd69d46a14b37ba5e512084fe80d730127a
+ 	return len;
 -- 
-2.43.0
+2.54.0
 
