@@ -1,85 +1,90 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.4])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDE19257435
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:02:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AAA6257827;
+	Sat, 19 Sep 2026 14:04:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789826581; cv=none; b=Y6BOO48k0JjyactN5I0sh9lD+doLI943DN8g8cdb7Becu7Ot83kXJnrYErIosfQcr8NovW4KZ6CpT0ayHP2eOIr5KTPs96jGnC3REZVPAGZiU/SQBc92WsgXi2FXVqraXPns8jIAJhP/p+n1bovzuj6UK9lg6HLm/juCL4oTpeQ=
+	t=1789826695; cv=none; b=ua+BZ6fuRdoklLh99DaDLSIi8GNvAWUdyOnLPIyObrQJWsjgnkaKfPoY4N5iOfV49B5uYFRwNfV9h/xcCxFRjp8TpHh+lmuTS/sm1gXc68gYCiVVfjUix09IEyB3j2lHNiqkRnQk/bBPVlDWfktf5cRiDc5SKFJ2gK4reEaNnxA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789826581; c=relaxed/simple;
-	bh=X7qzkjdC/wbTAVcRzMGg/Yezgi/bEQODoZ4+wEbsuvY=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=FGFWJt+SSgDFfyrN1Bmm06Xi/kyU6hx3CNaEHAL88t9I/aJbSUIxqxRLj0igArMLjOXleZWDehJPYMytpOatwvxtIKRPZgCVi/smqTSX3fRiAPqY4wY9QlsniiUManf869Xf08YLK7Hhr9CrP1t8Y67xjMZnvR2Ci/p3TcELBp8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ac9nLPXm; arc=none smtp.client-ip=192.198.163.4
+	s=arc-20240116; t=1789826695; c=relaxed/simple;
+	bh=pDpewoF6uZP+FjjoVbhOjMsV0p3wE2880W00V1QzUU4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=K0U+Q7dvv4KgLuhcX3ns1wqRei/k/fYfFcPa8GIe4q944fSl4jxB8adW4DjD6iTBFyctU441UsVj6/oKs2DYju+0cu4yzyoYrkhTlwXiMJHTiPr7zcGM/TvhdiVVOTCIe4JGdpehFURmixm8eEIuxL/uKJMRLcAq6tchHJe+7yY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hXd6XPqM; arc=none smtp.client-ip=192.198.163.13
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ac9nLPXm"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hXd6XPqM"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789826580; x=1821362580;
-  h=date:from:to:cc:subject:message-id;
-  bh=X7qzkjdC/wbTAVcRzMGg/Yezgi/bEQODoZ4+wEbsuvY=;
-  b=ac9nLPXmXwjU52+/b9r9xV0ekd3FbPG7aQYtIWrVAcVLIlQ7wnp50thK
-   9StmZZMtxeIhjzoFixykHedetTYcY3wNTP0i7DMO5WHC1tj3JUVuWLlZL
-   M1mCCL2EsyXLVl2/uUECE9in40Y+ru5oLrQMENRT1RCn9/UMGyvD0LezY
-   IWxgDW9moefmb4MgZb8LVZ8YWZWPt16mHz4U0ZS+jLC4L90iTvWnInMYx
-   Utd8Jzre51jnGgQOWnY1YNAKeXdKf7l+v7R6RqJ5tYaLb4JECrRhdz0F0
-   YsFbxFEx4uZe2ZATBXR6POp0xpDwmQFinQO3wl+J/LnM8NO/KRKKwdz4H
-   A==;
-X-CSE-ConnectionGUID: Ohb0nIrBRLuPVf5YVD/t6g==
-X-CSE-MsgGUID: FBv5tii3S0u58OqyMygsqQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11910"; a="863525"
+  t=1789826694; x=1821362694;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=pDpewoF6uZP+FjjoVbhOjMsV0p3wE2880W00V1QzUU4=;
+  b=hXd6XPqM3AOKo/7o48I+P0y6jBQEMr/wyCez+YhNeFgVxcYLDjfOsteh
+   NrTq0Ykd7hViofDlVvos8rd1Y38jNKt7u6ilFkBiYW4Rmg7Ii4n61U3yA
+   +StKM3jN2SRYmSiJtit/WqDnGN47tElxXdB1AUh+jm62HizEFSINd7/x4
+   KD4JvjaKooBk4q7Gg8fFMCuRUqWGnbQFw8TgoS7WT82fRN4VIr3GqvH+O
+   7dAM/OGT+nEeB7qNO/RUR28gJMKbntaB3cLgUNDYj/iopTvdL/dl1o/iA
+   yZ0IH0T9+UU3PdyTtUn73pdP0eCgjUt+kcEEI3x9ec7FTOj7KUtfUc5pf
+   g==;
+X-CSE-ConnectionGUID: sRQmp0IzSMSc7fnnCFsnmg==
+X-CSE-MsgGUID: 3xyZHNcQRFKmQQcwL9GPpQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11910"; a="92857028"
 X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; 
-   d="scan'208";a="863525"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa114.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2026 07:03:00 -0700
-X-CSE-ConnectionGUID: SlJISo5bS3KcktJOzdvfjg==
-X-CSE-MsgGUID: XGsKXh8CTkqPfm2IVoBywg==
+   d="scan'208";a="92857028"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2026 07:04:53 -0700
+X-CSE-ConnectionGUID: 5DHOE2bwSGSXIdIWQBqnEg==
+X-CSE-MsgGUID: gh7ZuU4lT8SYJ4TxBECuOg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; 
-   d="scan'208";a="280023125"
-Received: from igk-lkp-server01.igk.intel.com (HELO fe5626a770c0) ([10.211.93.152])
-  by fmviesa005.fm.intel.com with ESMTP; 19 Sep 2026 07:02:58 -0700
-Received: from kbuild by fe5626a770c0 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x7veV-000000001T6-3CfR;
-	Sat, 19 Sep 2026 14:02:51 +0000
-Date: Sat, 19 Sep 2026 16:02:06 +0200
-From: kernel test robot <lkp@intel.com>
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Alex Deucher <alexander.deucher@amd.com>, Alex Hung <alex.hung@amd.com>
-Subject: Warning:
- drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn60/dcn60_hwseq.c:1007 Excess
- function parameter 'probe' description in 'dcn60_update_probe_status'
-Message-ID: <202609191538.mC8C4zZe-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+   d="scan'208";a="271124892"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.50])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2026 07:04:50 -0700
+Date: Sat, 19 Sep 2026 17:04:48 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: "Ivan A. Melnikov" <iv@altlinux.org>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+	Francesco Lavra <flavra@baylibre.com>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: tools: Use proper macro to detect _Float16 support
+Message-ID: <aq6WgPxpeEMrEkW_@ashevche-desk.local>
+References: <20260918161305.1161852-1-iv@altlinux.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918161305.1161852-1-iv@altlinux.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   40288c9206c17eb66a603262e06a58d300d0f279
-commit: 0d2f4cfa564355fcbbc71498fd8ec09243036109 drm/amd/display: Fix NULL dereference in dcn50/dcn60 init_hw
-date:   2 days ago
-config: x86_64-rhel-9.4 (https://download.01.org/0day-ci/archive/20260919/202609191538.mC8C4zZe-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260919/202609191538.mC8C4zZe-lkp@intel.com/reproduce)
+On Fri, Sep 18, 2026 at 08:13:02PM +0400, Ivan A. Melnikov wrote:
+> __FLT16_MAX__ is an internal compiler macro. GCC defines it if
+> _Float16 is supported by the target in general, but the support
+> may depend on the exact target options. For example, on i586
+> without -msse2 I get the following error from GCC15:
+> 
+>   iio_generic_buffer.c: In function 'print2byte':
+>   iio_generic_buffer.c:141:17: error: invalid conversion from type '_Float16' without option '-msse2'
+>     141 |                 printf("%05f ", ((float)converter.f + info->offset) * info->scale);
+>         |                 ^~~~~~
+> 
+> To fix that, use the public macro without double underscores.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 0d2f4cfa5643 ("drm/amd/display: Fix NULL dereference in dcn50/dcn60 init_hw")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609191538.mC8C4zZe-lkp@intel.com/
+What about clang?
 
-All warnings (new ones prefixed by >>):
+-- 
+With Best Regards,
+Andy Shevchenko
 
->> Warning: drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn60/dcn60_hwseq.c:1007 Excess function parameter 'probe' description in 'dcn60_update_probe_status'
->> Warning: drivers/gpu/drm/amd/amdgpu/../display/dc/hwss/dcn60/dcn60_hwseq.c:1007 Excess function parameter 'probe' description in 'dcn60_update_probe_status'
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
