@@ -1,203 +1,132 @@
-Received: from mail.lysator.liu.se (mail.lysator.liu.se [130.236.254.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAA772E040D;
-	Sat, 19 Sep 2026 06:13:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.236.254.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D36B0547042
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 06:13:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789798399; cv=none; b=I1L3ql4ZGorurz1ssHqkmOCn2FXELpwogSuunHRjeSRho3JwZcngUAbGl5H8NrMuMyvNq5QJNPuDd+4z9RyPvnAXhV0oKpDrGbUk4bzPdpBZKUQGJIScIDphst5iSFPNN5HTmyp9xV9E5wGJ95PScLyQZEF7gAwje28L5sgublw=
+	t=1789798407; cv=none; b=D5waZ0yGfyxMxuMWhgQlqCmzHm8Ov6P5qaZrSebX8NcieQ1JdAwgWye0EBAk8uSwZiAvjhZmXjO6lhRlR7k0I8c2HKEPw9gfgBEhdM6hbcPfO2FX5fvFoLv0FJX/9y2FskABA+gLG3p7O5L4+sO8cELkOslcNowpc7vjrj9+3cA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789798399; c=relaxed/simple;
-	bh=r0rIJEbTCjPraoleaNid+5e/bfwSclqT21BbxtXocGw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dKiAozHn3neVnfbyL3/tye1YaXUvfsIGfJjAXb+TI2hlKbKNitX6PBET7YhrDUKpfZHG0tluI662zwTDqa9vG3hjV7xIRQdsFtP0fFQQmfdj1M/Qyx+zuSUKN6HxOhcVZmrp5mWwia5+tyIzGAzI4dnSfBvSIjrfWKYmv2cJ4bI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lysator.liu.se; spf=pass smtp.mailfrom=lysator.liu.se; dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b=Ojlk2QbJ; dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b=BowDxEo1; arc=none smtp.client-ip=130.236.254.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lysator.liu.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lysator.liu.se
+	s=arc-20240116; t=1789798407; c=relaxed/simple;
+	bh=edSqkUf/Jp56J9Vg7c+aqfiXzucyWX6M92AvRsKUe34=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=Qw1fNKTCSeke8wo1Cqi0GSNUPIT/3asGPcZw2IMZF1kPP0z8UcWYd+ADOdbmkNjOhDEG6GsCsgAFpbMWf44+nEoqCJxCsXtA+W1WSBYF8c1lAYH+JPsn4fCOAQj2Q7fO93eW2amC2SxSQmtEQQ8EXFLqWgU5i/2zHhTUzcAZllQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e7dIayXf; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b="Ojlk2QbJ";
-	dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b="BowDxEo1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lysator.liu.se;
-	s=2026; t=1789797884;
-	bh=r0rIJEbTCjPraoleaNid+5e/bfwSclqT21BbxtXocGw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Ojlk2QbJS0JUarWklSMSJ78+j5a71qmswe8chR1dJdN+aTR5/sSk29crtQq5602SV
-	 SCv+TTGO2K1wyLOO7hQUDTI0wxnn8xbaefYYBIvi2oSq5iOFN9lS7mcpqDpmfGwkgD
-	 gAHAWS7BMDl5leryc5LAVPDkajfwlvr5Gbv7nVJMtOGO1kkXMZ3QC/e4F46vkuNmoi
-	 BSiHtT467Tm+Mmkii3sjrTQnN3sJEp5ggqGBB/OnaqaXQmOlGRkZ3kJS0im67f0lQx
-	 VTPi5trNSnLglycJuHr2BI92wP0SE0Wms11Sp0UJiVWSYTkwUpKbMwQz99iuvH7+cZ
-	 rsZZ4+ZiBLv4w==
-Received: from mail.lysator.liu.se (localhost [127.0.0.1])
-	by mail.lysator.liu.se (Postfix) with ESMTP id 05DCD1E1B4;
-	Sat, 19 Sep 2026 08:04:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lysator.liu.se;
-	s=2026; t=1789797883;
-	bh=r0rIJEbTCjPraoleaNid+5e/bfwSclqT21BbxtXocGw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=BowDxEo1IYdb6rY/WL1w01+BTaocQ0docKjrTzMsulIOGKgEg7Md2IQCVLhDuu514
-	 LD+gxsW5mJIh6HpP/gSHkspFypatATxpjJHTbKMB716oAaWtsi9sOIGZthZwLN91/O
-	 s7RVjmUyAIpLVnK7OxcE+XxOUuiOtk5HCPcMcQmt/9pG6C3UGhKCoyAm7Fr81ZlSmx
-	 Th2uxUZcEhuHCDS3bPZAfCUZsuD9XIeiEgd481tJQdz2u5NffhfI4Y8Aah4pFGYZTs
-	 b8xhVIe1Gw8Ggeexq4Y/99B66pmWhmEr5JnqPdOPKCt3Qqvcrh5M+p/xP3tKYVVtwH
-	 A1fgzZ7txQRdQ==
-Received: from gryt (81-225-28-11-no2391.tbcn.telia.com [81.225.28.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by mail.lysator.liu.se (Postfix) with ESMTPSA id 54E541E212;
-	Sat, 19 Sep 2026 08:04:43 +0200 (CEST)
-Date: Sat, 19 Sep 2026 08:04:41 +0200
-From: Peter Rosin <peda@lysator.liu.se>
-To: rahul sharma <r-sharma3@ti.com>
-Cc: Conor <mail@conchuod.ie>, Conor Dooley <conor@kernel.org>,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	vigneshr@ti.com
-Subject: Re: Re: Re: Re: [PATCH 1/2] dt-bindings: mux-controller: ti: add
- binding for event mux router
-Message-ID: <aq4l-dCW_dqvisj_@gryt>
-References: <20260828100615.1700223-1-r-sharma3@ti.com>
- <20260828100615.1700223-2-r-sharma3@ti.com>
- <20260828-goes-scrawny-a5cf40c9514d@spud>
- <bacf61ea-91b1-454c-97aa-8c6e4ca07b16@ti.com>
- <20260915-shredder-liver-219bbc18dd18@spud>
- <62194a7f-5b7e-419a-8235-9eb46f2f2e7d@ti.com>
- <8724E360-7B38-48E2-8A5D-9BBAA69EAD06@conchuod.ie>
- <1cd03e37-a9bb-4c21-b8f6-557a1fcacc5b@ti.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e7dIayXf"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4aa0f1766so1107128a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 23:13:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789798405; x=1790403205; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=81pB+7IxOj1JIFRbnFGuG+Ebf120vc1g1oVisMJhAcQ=;
+        b=e7dIayXf96ImzZiRGXgPZ7JIpx33TIts2+m4uHQjrqDBzS6byEltRiCJN87NMJtZA2
+         JwuMKBECJAayWlxQEMV2CfkEjTPtUM2ySfNfoK6Lc+PhA4sgRpN8EoX7aHvL1k7+Jl7e
+         /uSBoUYiAfPSDbcDVfLTZa4vT8lqsRdKrKtGygPkWrw1KcO14Ebfj1TXidz+XKunJdd+
+         98CeSLfG2vjvGu2pRQVTlHxuGbmsnmqOcbWA7Z91Hjk7BmSvbnbTjBUCJnCk6N/jGXx2
+         Ly1fwjVIDKXeGyAGz4FSeHoKIBjTCCaT6HUXtGXqw+glE3k2SU9/+NYvlhNz1KS2rQMa
+         lw4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789798405; x=1790403205;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=81pB+7IxOj1JIFRbnFGuG+Ebf120vc1g1oVisMJhAcQ=;
+        b=fnvtLJJOEcgZxrp0hAe2RI2ScsmWJ10PIcdg+g9J7skUrnAE1EGy0/gTnTAU09IBzT
+         ZAw5Jg0Bbkpk0U3yq30Cptbr3BOodCX+1+R1lSwFLwADW1aqIBPFZwcHVmRCJN57YblY
+         1i4PB4Og3ul+2E0PxfnHnMTGAcABocOY8/bpiCN90BOAyzNsSZRUyIgFsWcy5uUHDvV+
+         s6e0ZSHtp/1Lwlik/NVMn/jUDBnZdwMtXubUg2qmXhVzmyOL48b/0O0StdXhOaaU3zdA
+         6kqqRTKFVu6NzDhyfD02AWZC0zqf2VwZyBIPhfOERi01YWoaBvdCdStxECq6swo+OUjO
+         Vx1g==
+X-Forwarded-Encrypted: i=1; AKwUvBxJzRokwArnXCSPhOWrD0UZK4uUKaNqFPO2BIFEETEr2sPwpOsDtQkbJXXH4U500Is544ndBJEXdkov+Sg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nLY/76LBHggv3pIjQpW25YYMZpfUpti9kMQ1TkIGndMkomj+VL
+	6pj45xV7DFaFp120XP+SCTjUiDFxY9nhje2PfINMU5TLc/Z49mHnQIvH
+X-Gm-Gg: AYBFou33IBKI6Wk+tAZwUHpXTnV2d501bCTjeVC6Uu5RZjbx9HZeyGezL84976tjspV
+	1wpw9ASX96I/3QchZkaInJOJ+iLNFOKtngM/N3e3rwvxCMwZ90xJ481lpThquHpEWtHjoki1Fy4
+	id+cqhWO3ObsDcigpOj/fbDazmEz5/zj39Z+jfN9PO2Ck/w1oQts97uHtIsHNiKkHljt42CV5ag
+	JRdNwSH837Sny+RA3hF7B3hoI8jOG5tvXxNbguLKbBTRDEeW/EQmJbdcKHvXPB86vQnXiXRT+hs
+	+LesrXppXC7hzmMptPHBPWx67RxPoGP43g+dkcfLYLpJK9+CMTasE0exgmLuLZYVbeqo9WiCEiz
+	PD4ndU2bDmAgKChcshM9X1gWuxeKayBHR3KBhStBHE0B1p6A1YEP4bnJ9hhmv9S3a39lR43U/gb
+	IA1UnXGR5hr/BI2XPDePpXq19Z0jOzBZxVYPnWG+nkDlIs1XiezMmZeywtGpDQmKsaIifkalB99
+	T0LbM5oJJ7PrUqCiKZoj/07fXzE5WpdCWBa5Y6qIitPvgBW1eA0Jg7Ei3KoNJ4PNnOFs7dv+os=
+X-Received: by 2002:a17:90b:530f:b0:39e:4c80:44be with SMTP id 98e67ed59e1d1-39e54e277d5mr9452265a91.33.1789798405070;
+        Fri, 18 Sep 2026 23:13:25 -0700 (PDT)
+Received: from Inspiron-14-5420.. ([2402:e280:21c6:671:d11b:773b:fa83:c49a])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144d55f299fsm5781280c88.15.2026.09.18.23.13.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 23:13:24 -0700 (PDT)
+From: "Hemendra M. Naik" <hemendranaik@gmail.com>
+To: netdev@vger.kernel.org
+Cc: jiri@resnulli.us,
+	jhs@mojatatu.com,
+	kuba@kernel.org,
+	linux-kernel@vger.kernel.org,
+	vishy0777@gmail.com,
+	tahiliani@nitk.edu.in,
+	"Hemendra M. Naik" <hemendranaik@gmail.com>
+Subject: [PATCH iproute2-next v6 2/3] tc: pie: print avg_dq_rate in human-readable format
+Date: Sat, 19 Sep 2026 11:42:53 +0530
+Message-Id: <20260919061254.39678-3-hemendranaik@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260919061254.39678-1-hemendranaik@gmail.com>
+References: <20260919061254.39678-1-hemendranaik@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <1cd03e37-a9bb-4c21-b8f6-557a1fcacc5b@ti.com>
-X-Virus-Scanned: ClamAV using ClamSMTP
 
-Den Fri, Sep 18, 2026 at 11:35:28PM +0530, skrev rahul sharma:
-> Hi Conor,
-> 
-> On 18/09/26 03:40, Conor wrote:
-> > On 17 September 2026 17: 44: 21 GMT+02: 00, rahul sharma <r-sharma3@ ti. com>
-> > wrote: >Hi Conor, > >On 15/09/26 19: 19, Conor Dooley wrote: >> On Tue, Sep 15,
-> > 2026 at 06: 10: 45PM +0530, rahul sharma wrote: >>> Hi Conor,
-> > 
-> > 
-> > 
-> > On 17 September 2026 17:44:21 GMT+02:00, rahul sharma <r-sharma3@ti.com> wrote:
-> > > Hi Conor,
-> > > 
-> > > On 15/09/26 19:19, Conor Dooley wrote:
-> > > > On Tue, Sep 15, 2026 at 06:10:45PM +0530, rahul sharma wrote:
-> > > > > Hi Conor,
-> > > > > 
-> > > > > Thanks for reviewing.
-> > > > > Apologies for the delay in responding.
-> > > > > 
-> > > > > On 28/08/26 21:57, Conor Dooley wrote:
-> > > > > > On Fri, Aug 28, 2026 at 03:36:14PM +0530, Rahul Sharma wrote:
-> > > > > > > Add binding for the event mux router of TI's K3 based SoC AM62L.
-> > > > > > > 
-> > > > > > > The TI K3 mux routers which route the GPIO input events or Time-Sync
-> > > > > > > events b/w peripherals instead of routing to a CPU.
-> > > > > > > 
-> > > > > > > Refer Section 10.2 and 10.2.1 of
-> > > > > > > https://www.ti.com/lit/pdf/sprujb4
-> > > > > > > 
-> > > > > > > Signed-off-by: Rahul Sharma <r-sharma3@ti.com>
-> > > > > > > ---
-> > > > > > >    .../mux/ti,am62l-event-mux-router.yaml        | 79 +++++++++++++++++++
-> > > > > > >    1 file changed, 79 insertions(+)
-> > > > > > >    create mode 100644 Documentation/devicetree/bindings/mux/ti,am62l-event-mux-router.yaml
-> > > > > > > 
-> > > > > > > diff --git a/Documentation/devicetree/bindings/mux/ti,am62l-event-mux-router.yaml b/Documentation/devicetree/bindings/mux/ti,am62l-event-mux-router.yaml
-> > > > > > > new file mode 100644
-> > > > > > > index 000000000000..a5ba7f78a156
-> > > > > > > --- /dev/null
-> > > > > > > +++ b/Documentation/devicetree/bindings/mux/ti,am62l-event-mux-router.yaml
-> > > > > > > @@ -0,0 +1,79 @@
-> > > > > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > > > > > > +%YAML 1.2
-> > > > > > > +---
-> > > > > > > +$id: https://urldefense.com/v3/__http://devicetree.org/schemas/mux/ti,am62l-event-
-> > mux-router.yaml*__;Iw!!G3vK!VJUh5A8cDCko1ZAGtTQ8V-
-> > LL1vTj1BNr5NNBonzfy5GnFCQkP4Oc-0Kkq4xVdCcEA5bQcDckFu6UyA$ <https://urldefense.com/v3/__http://devicetree.org/schemas/mux/ti,am62l-event-mux-router.yaml*__;Iw!!G3vK!VJUh5A8cDCko1ZAGtTQ8V-LL1vTj1BNr5NNBonzfy5GnFCQkP4Oc-0Kkq4xVdCcEA5bQcDckFu6UyA$>
-> > > > > > > +$schema: https://urldefense.com/v3/__http://devicetree.org/meta-schemas/core.yaml*__;Iw!!
-> > G3vK!VJUh5A8cDCko1ZAGtTQ8V-LL1vTj1BNr5NNBonzfy5GnFCQkP4Oc-0Kkq4xVdCcEA5bQcDdyRJuLcg$ <https://urldefense.com/v3/__http://devicetree.org/meta-schemas/core.yaml*__;Iw!!G3vK!VJUh5A8cDCko1ZAGtTQ8V-LL1vTj1BNr5NNBonzfy5GnFCQkP4Oc-0Kkq4xVdCcEA5bQcDdyRJuLcg$>
-> > > > > > > +
-> > > > > > > +title: TI Event Multiplexer on K3 SoCs
-> > > > > > > +
-> > > > > > > +maintainers:
-> > > > > > > +  - Rahul Sharma <r-sharma3@ti.com>
-> > > > > > > +
-> > > > > > > +description:
-> > > > > > > +  The TI K3 mux routers routes the GPIO input events or Time
-> > > > > > > +  Sync events between peripherals instead of routing to a CPU.
-> > > > > > > +
-> > > > > > > +allOf:
-> > > > > > > +  - $ref: mux-controller.yaml#
-> > > > > > > +
-> > > > > > > +properties:
-> > > > > > > +  compatible:
-> > > > > > > +    const: ti,am62l-event-mux-router
-> > > > > > > +
-> > > > > > > +  reg:
-> > > > > > > +    description: Register base address and size.
-> > > > > > > +    maxItems: 1
-> > > > > > > +
-> > > > > > > +  '#mux-control-cells':
-> > > > > > > +    const: 1
-> > > > > > > +    description:
-> > > > > > > +      Number of cells in a mux control specifier. This should be 1.
-> > > > > > > +      The cell specifies which mux control to use (0-based index).
-> > > > > > > +
-> > > > > > > +  ti,reg-mask-val:
-> > > > > > > +    $ref: /schemas/types.yaml#/definitions/uint32-matrix
-> > > > > > > +    items:
-> > > > > > > +      items:
-> > > > > > > +        - description: Register offset (relative to reg base)
-> > > > > > > +        - description: Bit mask for the mux control bits
-> > > > > > > +        - description: Value to write when mux is active (state 1)
-> > > > > > > +    minItems: 1
-> > > > > > > +    description: |
-> > > > > > > +      Array of triplets specifying register offset, mask, and value for each
-> > > > > > > +      mux control. Each triplet contains:
-> > > > > > > +      - register offset (relative to reg base)
-> > > > > > > +      - bit mask for the mux control bits
-> > > > > > > +      - value to write when mux is active (state 1)
-> > > > > > 
-> > > > > > You have a device-specific compatible, why do you need this? If the
-> > > > > > active setting depends on the device or w/e, why can that not come from
-> > > > > > a mux-control-cell?
-> > > > > 
-> > > > > This is a boot-time/board-fixed routing decision, not a runtime-selectable
-> > > > > mux that any driver ever calls mux_control_select() on.
-> > > > 
-> > > > 2/3 of this property appears to describe the register layout of the
-> > > > device, that's not affected by the board or some boot time decision.
-> > > > 
-> > > 
-> > > You are right about the mask element; I will move the mask into the driver since it is constant across all entries. However, the reg-offset must remain in the DT, as it is specific to each BCDMA channel's trigger line configuration. This allows the DT to define the unique routing offsets required for the hardware.
-> > 
-> > The reason you cite here for needing reg offset is exactly what using mux-controls from a consumer node provides.
-> 
-> I will refactor this to use mux-control-cells. I will drop ti,reg-mask-val
-> from the bindings and instead source the reg-offset and value from the
-> consumer node.
+Print avg_dq_rate using tc_print_rate() instead of displaying the
+raw bytes/second value.
 
-Since you have this ti,reg-mask-val in the binding I assume you have 
-different setups needing different values. But, since it is obviously OK 
-to handle the variation in the mux-controller DT node, it should also be 
-possible to simply enumerate the different setups as different 
-compatibles. Then all needed compatibles could be handled by this driver 
-which would use the compatible to look up the needed values in a table.
+This converts the kernel-provided rate to a human-readable bits/second
+string (for example, 10742Kbit), consistent with how other tc
+schedulers display rate statistics.
 
-The relevant tqble can surely not be all that large?
+Update the tc-pie(8) example to match the new output format.
 
-I prefer that over passing values in the cells, whixh seems a bit 
-convoluted to me.
+Signed-off-by: Hemendra M. Naik <hemendranaik@gmail.com>
+Signed-off-by: Vishal Kamath <vishy0777@gmail.com>
+Signed-off-by: Mohit P. Tahiliani <tahiliani@nitk.edu.in>
+---
+ man/man8/tc-pie.8 | 2 +-
+ tc/q_pie.c        | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-Cheers,
-Peter
+diff --git a/man/man8/tc-pie.8 b/man/man8/tc-pie.8
+index 5a8c7820..ec0d4af2 100644
+--- a/man/man8/tc-pie.8
++++ b/man/man8/tc-pie.8
+@@ -115,7 +115,7 @@ is turned off.
+    qdisc pie 8036: dev eth0 root refcnt 2 limit 1000p target 15.0ms tupdate 16.0ms alpha 2 beta 20
+     Sent 63947420 bytes 42414 pkt (dropped 41, overlimits 0 requeues 0)
+     backlog 271006b 179p requeues 0
+-     prob 0.000092 delay 22200us avg_dq_rate 12145996
++     prob 0.000092 delay 22200us avg_dq_rate 10742Kbit
+      pkts_in 41 overlimit 343 dropped 0 maxq 50 ecn_mark 0
+ 
+  # tc qdisc add dev eth0 root pie limit 100 target 20ms tupdate 30ms ecn
+diff --git a/tc/q_pie.c b/tc/q_pie.c
+index 04c9aa61..97690d49 100644
+--- a/tc/q_pie.c
++++ b/tc/q_pie.c
+@@ -220,8 +220,8 @@ static int pie_print_xstats(const struct qdisc_util *qu, FILE *f,
+ 	print_string(PRINT_FP, NULL, " delay %s", sprint_time(st->delay, b1));
+ 
+ 	if (st->dq_rate_estimating)
+-		print_uint(PRINT_ANY, "avg_dq_rate", " avg_dq_rate %u",
+-			   st->avg_dq_rate);
++		tc_print_rate(PRINT_ANY, "avg_dq_rate", " avg_dq_rate %s",
++			      st->avg_dq_rate);
+ 
+ 	print_nl();
+ 	print_uint(PRINT_ANY, "pkts_in", "  pkts_in %u", st->packets_in);
+-- 
+2.34.1
+
