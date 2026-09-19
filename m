@@ -1,133 +1,63 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FB17315D58
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 00:27:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.175
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789777646; cv=pass; b=auKhUIVJxMoEWWpADhqU3MXCaI/vZGMuSDZm0dz1AGnu/7mwEeRJkVNpXm9aBMFdnjOhP+MbsMZNQad84bZ2IfAOFqfL2ejQmMfGRq7TTbW6mIDa765P+fwzMyERe4GJtyV8ikZQ4NwUeiEIIc0Xb9CpLnFczavMj25gW7rbVpI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789777646; c=relaxed/simple;
-	bh=eRYDYXq8mO0xqUTiGna2hw3VEfXp06tx+s1Wx9I3ALI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hGFpSSfwYXb8zIIvTW9Bxm0dYBIzuCLkO+vp0L8F0v2old4ToCuwIW3cn0GDhMK71mH3cWxLk0eSkOYsCAakHWJsSlvkjmJgyZNdjPRvnJVNbGxdS8LkGolURWNm07QSuuQVKIm+txg7FQLE4tlY7spLLK7gWwkcm9im7UQmFk4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=mhCYJju5; arc=pass smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFFD533A032;
+	Sat, 19 Sep 2026 00:27:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789777654; cv=none; b=d85DsfbVFW8i5IPBN8tUefPagxtsqihFV/DOPkPBFBUvw3u3XmX1sLtxBXq7OREtD/9rYwOQY3FqjwtVxf44s8B7nxjg8Zu6BZhsjo7Ty6nklibs2hRfKT9JWiEMjOBE0egJsqQn3I3oRZJ8KVOIuNvxaJ0dvPxr3qv/tAL1qdk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789777654; c=relaxed/simple;
+	bh=P7RRJyQ+m6eeOBG+041YY7eAdgcCDv5PFD6JcYAu35g=;
+	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=YdXKpiZw3lAsZym/G/258NFS6k4zWiLazbM2xqpfFdL0H0U9By9CavjcoEV+4HvqJRk+3Q6SgHpCU03N8x56IQRR9CrRvsS8hu5FGe08I9QJbHrLhcbwa38v+YbMO2bHdKhEcpavuXVNi0s/MDLCGqfMcKkki6mFlE22ag6/dGk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gMT/+sXb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="mhCYJju5"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2db33db4de9so44545ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 17:27:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789777642; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sSCWf0sfsDKJ8676TvQRxdArzTl+vAgiKDl6o2D6lkrkitxvc4g0zPY7WYtabrlxPn
-         FMF6VvtYfl5/sr/i9IdXMmv5m8vfJXSzVJRb64S6SPLwJDHZjXcyiDhGSensv3Kya4P+
-         2jIo0pzm+S7i2Twdax6m54OBk1rnWnQBZ7ilNQaIIwNk2EgK8zc1o3PjRAb/r5KNxLK1
-         fudVhDvI4hhHFwpZntUo7tk8omM2I890Mc12ATGRjUvb0Fbwt/GXTA9lYlGUB3cL0FMC
-         qqrItaTYS9BqYQqsa2MS2ed7VdF1uQwqHtRCTo6SJj7Mw+MTeEuC7vx89SPdRtQeQo1A
-         SCOw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=LmqMKPHBB/mFOUskOMGcF49EXv1ypL8clVxsz/MHGR0=;
-        fh=VwwOnw8WzKa1iXmucTVOjffpRUrMezbpYFvCtyKmI+I=;
-        b=lKOhFnpcFdMZXrDIGIJQiNWgS3O8FvQnJjCzgliBqG4y5lJXvNB7UIqJ+Gcy12kqTM
-         9q4SL1ANWvhWtx8WDeG0+Ha4AJmtTQ+EgwG3Fh5K3oBMwO8vMXjLGcS8JYFsSocJK2IF
-         5KF12jlG+MesWRnjbTXWfPgPUxnkHCY6lMfO13ldX9k5zteP667RAIrD6lRQ3kQhKwjT
-         U2t9cWM0vvZWhs0UGF/Y+tat7Hm2CYEhkjOldbzvqa7paZQt6ShWqIYn1rLW6TYsUcua
-         LLJeqk1jULzHI5lAOoB/MHQ1r0wMxBToztBy/VAcvsxpA7q7xkmgyd6R2ZWZgH7zL8Pt
-         6CLg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789777642; x=1790382442; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LmqMKPHBB/mFOUskOMGcF49EXv1ypL8clVxsz/MHGR0=;
-        b=mhCYJju5RLperT/80kwTGTcKjRNJS61m/AO4/v9fq01QvhtP1GPxdBUs1rWQZqCLMb
-         Q5J7CuPZHfhlDgsVVDTiEQAB1ZPUPVrG2e6x3rPB72wJ3EYwrvOk5HEG8n3yHK4Tp08z
-         MAJ5TqgoqwJ363BnUMgRnxMdjHcN83KWP2Uu3Usd9syZRrbK8Rz2UOLfZuTwTT3/GKO0
-         S2XOdwRAbJ1bRJFpALEVViREqGx/wSCh9pdaPpB3MHYYrouxgU/L+6KF5GrauP4QvFpI
-         GvfZPGIXXPOeN9tgDhcUlVb55min7MhHSYMpelgNS96wvKzy+lVjtejB/OGyVTyRCh1V
-         33lw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789777642; x=1790382442;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LmqMKPHBB/mFOUskOMGcF49EXv1ypL8clVxsz/MHGR0=;
-        b=tcUcuPTWvNEBCEdBZ2icMRmK4XbeReoaIi+plRgUtyygzy2ihUcVA90aaedmhJhvUw
-         tp9R9yvQ5W2FrCeiDnsR7lljEI2gJVW9vJYvEwgNT8THs8jBtVPRK4mzChrRrQbTAt6F
-         axVAj0OS/HR10hhbSuIZI4FGZiofoxXWGkG4rkETLPOLtW2sOCF3s/cxnTx0YFCzJVVV
-         BGzagIUSwy4dMgkU8/iI1gF+0l/AAl+3zA5zwzvrTLtqQJxFI4JGFBkLWluD/Sg88jXH
-         7n9TxQTwONlP6aCeyY9pMHZHlFjGGYAHCUWn0P6QfUADGli8eInHBRWZ8Mce7JsTSl21
-         UL3A==
-X-Forwarded-Encrypted: i=1; AKwUvByuUA3o4rlLd8brsmc8rnMkeEvn0+XIawRT+ugKx3Wwd104nNw/hD1cSjeAoJ7nhX2QVzHRgpGLs8w3QPY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lH/Guu92nFZO31CXne9rOP7qmWPgWtBTbwK8kKU/rYeBKB8dB/
-	zKxEOFi2oAZGWAT8WeGNNXIUec0VGbzLN3EK9Ol+nSFlO1MCbGkGQlDZNFvm5qBNKlcUeCYRm2X
-	3w+lkj2NhVXm4YcFAaytps0RlKUqrtDOwof9XSAa9
-X-Gm-Gg: AYBFou0+awRSnwtwvTZLHwl41lLHn6A3vL0LxlnO4pElIWvS9bMFYJQADY61D9UgafH
-	GxAEst8HyE+2bMi+24EAZmrn3WP1AxJzhvlPgMfbmp/DWMo3H5j/vYo1IH3eqYSIWhGGJ54NlIT
-	C9Yehwog3jSw3Yy5BEPZoJeHVO4ipRG9SsJjtAvyPBBC2hx9Pbldq8tynXl0hzCtz1Mz5ssOgVA
-	ZK2AQl9MbxsnKzdJUe3u0Wf3C8dX7mTbHR1QmthXfjXFfjJNiZiopHu+9Gdfwz0Yy+04ZqHhvUz
-	t6pjEnvH5q1IXbvjeSuw/rLiiNJYAZ1rQtDtJgpNNfqTEGbz1bzHjLTT+5WyQCMTPQDpu90DuA9
-	zUnHofPQd2w==
-X-Received: by 2002:a17:902:ffce:b0:2d5:db3d:1a44 with SMTP id
- d9443c01a7336-2dec1f19e92mr1672875ad.17.1789777641256; Fri, 18 Sep 2026
- 17:27:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gMT/+sXb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D6831F000FF;
+	Sat, 19 Sep 2026 00:27:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789777650;
+	bh=f5fsCItXOIze07jResx+Eay+ONXPYixz+iAVTaXPwcA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=gMT/+sXbWMoLL21rUT8LAb6TNLxzYllHwg1wiAcHzuyNu5SUaCYDm0pSq58RnZGS5
+	 0O0txOflYxOgiQ8HMC3i/lrKPdtdEdfaUiDtWg6DDc+vVeMwvSLC1hbr9pAiIejq3w
+	 RnXNqZy3sNkDP+WzTY1CZ7PfPlXDdV+FuB4vIRyGSj8f1ujt4r6kiph0Kv1c7grwp+
+	 o+Xe30X7tH7ny3j5j5Ji4P8e1gps7vQo1qA8ZvdLsc6tqc5JcqpBfVSAInh77LyEBK
+	 rgt6/MtkPov80haghsm/XRikgxLznmC0F9lxGBM+D5tPhIHZL+GAT0ouRzprCb32fo
+	 VF5MhA6UGIe7Q==
+Message-ID: <1c8cd97257ed5794d216432330b5c731@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Andrea Righi <arighi@nvidia.com>
+Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
+ Changwoo Min <changwoo@igalia.com>, Emil Tsalapatis <etsal@meta.com>,
+ Emil Tsalapatis <emil@etsalapatis.com>, David Dai <david.dai@linux.dev>,
+ Cheng-Yang Chou <yphbchou0911@gmail.com>, Tao Cui <cui.tao@linux.dev>,
+ sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCHSET v7 sched_ext/for-7.4] sched_ext: Add lazy preemption
+ support
+Date: Fri, 18 Sep 2026 14:00:14 -1000
+In-Reply-To: <20260918171539.214204-1-arighi@nvidia.com>
+References: <20260918171539.214204-1-arighi@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260819094903.3060020-1-xiaoyao.li@intel.com>
-In-Reply-To: <20260819094903.3060020-1-xiaoyao.li@intel.com>
-From: Vishal Annapurve <vannapurve@google.com>
-Date: Fri, 18 Sep 2026 17:27:07 -0700
-X-Gm-Features: AcwNN1VzCFV9uA1sUp0UBFirw4LC7YC87Ka8strvz1IBLR6XIOyhlpfD4-o1ujQ
-Message-ID: <CAGtprH9a3Cu80coUpg-1sHrmVF2c6ZQOSe1pOTUbEx4_xuHiEA@mail.gmail.com>
-Subject: Re: [PATCH v4 0/9] KVM: TDX: Enable VM-DoS Prevention Features for TDX
-To: Xiaoyao Li <xiaoyao.li@intel.com>
-Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Kiryl Shutsemau <kas@kernel.org>, Rick Edgecombe <rick.p.edgecombe@intel.com>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev, 
-	nik.borisov@suse.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-On Wed, Aug 19, 2026 at 2:59=E2=80=AFAM Xiaoyao Li <xiaoyao.li@intel.com> w=
-rote:
->
-> Xiaoyao Li (9):
->   KVM: TDX: Enable Notify VM exit
->   KVM: TDX: Check if there is valid exit infos based on vp_enter_ret
->   KVM: TDX: Set bits 31:16 to 0 for the synthesized Exit Reason
->   KVM: TDX: Don't assume exit_reason[31:16] is all-0 in
->     tdx_to_vmx_exit_reason()
->   KVM: TDX: Update exit_reason on wait_for_sept_zap return
->   KVM: VMX: Preserve negative return value in vmx_handle_exit() with bus
->     lock detected
->   KVM: VMX: Make handle_bus_lock_vmexit() a shared helper
->   KVM: TDX: Enable Bus Lock VM exit
->   KVM: VMX: Consolidate the exit handler for VMX and TDX
+Hello,
 
-Reviewed-By: Vishal Annapurve <vannapurve@google.com> for the complete seri=
-es.
+On Fri, Sep 18, 2026 at 07:13:26PM +0200, Andrea Righi wrote:
+> Andrea Righi (2):
+>       sched_ext: Add lazy preemption support
+>       selftests/sched_ext: Add lazy preemption tests
 
+Applied 1-2 to sched_ext/for-7.4. I refilled the code and comments.
 
->
->  arch/x86/kvm/vmx/common.h | 20 ++++++++++
->  arch/x86/kvm/vmx/main.c   | 49 ++++++++++++++++++-----
->  arch/x86/kvm/vmx/tdx.c    | 82 ++++++++++++++++++++++++++++++---------
->  arch/x86/kvm/vmx/vmx.c    | 46 ++--------------------
->  4 files changed, 126 insertions(+), 71 deletions(-)
->
->
-> base-commit: 1b731e5ded480bd1e5546aed35584238661ce72e
-> --
-> 2.43.0
->
->
+Thanks.
+
+--
+tejun
