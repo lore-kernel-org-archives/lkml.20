@@ -1,219 +1,142 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A95DF368D60
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 07:08:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0815D3624A9;
+	Sat, 19 Sep 2026 07:08:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789801689; cv=none; b=Vs8Ruvs7wgvZByz+xAMMC5x7rt8BGbCD83UWeaaMRBnaTNiQL3b6R063YVMdFum+AuAUlBqyFhX/FqJFdiI6ngoLhoek5VAvDjkXm595KlLXAjQk+WPliif5akmE7Et1nmN+wHsVrL8eiGJMCMw8ERHN0Uzb3n2bmhKOdm4NPhI=
+	t=1789801707; cv=none; b=iPhD5+iZh+JQ1UxMAYrLf76//2nDjqhUcXjiU8FAyGYzPu9sY+/RMLwcP9yyqtTZWYFMOIHDzCf4VVOJHSMQaso/i5SIsHzdfx33hnYKQ7sa3HkS4b5mfi4OfCH02teTui6X21MYpZcFNYkGZ6vDlWZFErQ1Ah9WRvraZ/roxjo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789801689; c=relaxed/simple;
-	bh=rrsp1i5LIXFwyVvVNp3h1o8lIsm5uPBaJpVC8/T6XK4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=o1qpk9687swjVNdkKa6v5l2TZTXHGOCjz0yvypiQh73pNOyQE12E1L3pN8kY0Bj+dkgamNyMs37dagJQ27tpQcRxFclMtLi9vXKoxN3ykoDoTCpQDCPV1WSK6MkocPGBR9E4FRKyehYqL52daS2R8wzlUlnysqs5SPtENv5+oIg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nZS6+QU2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789801707; c=relaxed/simple;
+	bh=5MGz3WuTKdMlxJLz4fLHKYHs7Zt62FQYjI6usArljZU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LZjZGC9/jx1bFCCAjPaIhprbj3iauy7fEXpRw6ROzh+mIOc7V37XUl1PySyl9Th3/9gFQrph6zV7O9zt/2F8uR7NI4XXwnNFbi01ZkNMNEtrBpjxAwKQ0RiMUN6NtDhLAVX4+P4h6ux5zq94063RX5zOwTF8Y0x9Ifmippcq1E8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BCh+Q1fk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nZS6+QU2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D5911F008A6
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 07:08:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BCh+Q1fk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC9F41F000FF;
+	Sat, 19 Sep 2026 07:08:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789801687;
-	bh=gE+paBGkzkQFjuoRRz7bb7MKq5Y27OcpesK3wuYSa7w=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=nZS6+QU2FaK7JEHO2/S2dt3qa+Hi3bOONBdvlpRuSaE2yM1DodwkSJ8OS5OT8dmOb
-	 Qq2TI7DCEgw52pfjYZQLhHoypYwaiMiP/Lw4E+cTiL5ZZm6MG1KGVuiUDCjht2ODYd
-	 u3ucCeh8M0UlhTjpXymQkwhHx1FZRus31fuJNfzCSfhfAG9ma9R8/siVyuqyTgPd+d
-	 Jr6w8ym0RPu+yPowWicpZTRbtTxzRgtou4+Z8sZfEQi/Bode4gqK04V6ez8uqUcV6u
-	 PrjA8fOb9FiU61dampiMRE+TcZnoTEfV8M9OY1MrmbVst7bqhTBdDV60/e6H0aBdC+
-	 rMF33t/t/NSJQ==
-Received: by mail-yx2-f39.google.com with SMTP id 956f58d0204a3-66f7a9afe43so1259554d50.1
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 00:08:07 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzJ6vmiATVIOhOQdOLHR9YdoJLIStAN2hOgGmyp7hUVDifoX9JwcgdUYXVeVPjJIvFmpJG+f/yJoZCFQXc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kdGyfyjJkNiFknxDoxwaQVL6KRWLeOAfoyKkuNZ0ffh1go9Ukn
-	WNMORq2IEx1uq7VShqnH4wMibRKBaoPTOb+Grr/4EcMMhYKlBAlWqXSEdq2ylTNyf3DKyMifoRX
-	QBxJyhMJWiIUes43qrNuNyc3Mx7EUJexDIvPx2iGOwg==
-X-Received: by 2002:a53:d5c8:0:b0:671:33ba:b4dd with SMTP id
- 956f58d0204a3-6717fe4c8a9mr1153659d50.93.1789801686606; Sat, 19 Sep 2026
- 00:08:06 -0700 (PDT)
+	s=k20260515; t=1789801705;
+	bh=uhaSLRWxWnpOZ1hMGZ3P8vEzC790v0CsHkY9724kydk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=BCh+Q1fkXZMtjVafQ5YGFV+h5db354VNq/ELCWyC4KkM9EOKXmUTlqgi+ma1wXozp
+	 DftsecIquMnGZU/bn7dlqfHB0SFowcKCtqYqFYBKKfUSA8s3K9Rsk5SMYPxnV+DeBV
+	 Y5Sj2gXory2ScdEG5Sx21lZEfxqdEdqZ9ssZyQau7j9QTMvL/H4vwGIsnSHVVKjlqr
+	 r41sO26J5aU+9ztpXEn5Q6cqRxLTKJH0TIlovq31RymcWsd+tEVLn+dCLOvNd83tjr
+	 uc83mnTCusi1VsH/mO2vViF+aXTvauBuk/3UmRhVl0wbrNfua+U/YMiqJx6DLrDv5O
+	 AiKJ0In7NVj/A==
+Message-ID: <457bb3d5-1d73-4acb-9ef0-4e40de6bdc94@kernel.org>
+Date: Sat, 19 Sep 2026 09:08:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
- <aqJXx2vtbKaRLt3x@fedora> <aqLZ5TVDAqEbIeMN@linux.dev> <aqP81aqNbwAbs2P0@fedora>
- <aqQrPLPXHXiuKup0@linux.dev> <aqjcFb6MFNiA6n4V@fedora>
-In-Reply-To: <aqjcFb6MFNiA6n4V@fedora>
-From: Chris Li <chrisl@kernel.org>
-Date: Sat, 19 Sep 2026 02:07:55 -0500
-X-Gmail-Original-Message-ID: <CACePvbWxnr27ZczLdBco4X53aKcgq16VqZouO2qXQPrSv9Koww@mail.gmail.com>
-X-Gm-Features: AcwNN1WBLwbT5ruT7e5y0cS0b9GaV16VkekND9NewldgAksHMI-xQQPGAeCaO3Q
-Message-ID: <CACePvbWxnr27ZczLdBco4X53aKcgq16VqZouO2qXQPrSv9Koww@mail.gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-To: Baoquan He <baoquan.he@linux.dev>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>, Nhat Pham <nphamcs@gmail.com>, 
-	Kairui Song <kasong@tencent.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Yosry Ahmed <yosry@kernel.org>, David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
-	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Rik van Riel <riel@surriel.com>, 
-	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Kairui Song <ryncsn@gmail.com>, Joshua Hahn <joshua.hahnjy@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: Expand flow lists to block lists
+To: Daniel Matyas <matyasdaniel006@gmail.com>, Lee Jones <lee@kernel.org>,
+ =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
+ Ulf Hansson <ulfh@kernel.org>, Liang Yang <liang.yang@amlogic.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Ray Jui <rjui@broadcom.com>,
+ Scott Branden <sbranden@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Vinod Koul <vkoul@kernel.org>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>
+Cc: Jose Abreu <joabreu@synopsys.com>, Ray Jui <ray.jui@broadcom.com>,
+ Scott Branden <scott.branden@broadcom.com>, Atish Patra
+ <atishp@rivosinc.com>, Shawn Guo <shawn.guo@linaro.org>,
+ Dmitry Osipenko <digetx@gmail.com>, Thierry Reding
+ <thierry.reding@gmail.com>, Ibrahim Tilki <Ibrahim.Tilki@analog.com>,
+ Okan Sahin <Okan.Sahin@analog.com>, devicetree@vger.kernel.org,
+ Paul Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt
+ <palmer@sifive.com>, Conor Dooley <conor@kernel.org>,
+ linux-rtc@vger.kernel.org, Ricard Wanderlof <ricardw@axis.com>,
+ patches@opensource.cirrus.com, Lukas Wunner <lukas@wunner.de>,
+ Chunfeng Yun <chunfeng.yun@mediatek.com>, Eugen Hristev
+ <ehristev@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, linux-iio@vger.kernel.org, linux@analog.com,
+ linux-input@vger.kernel.org, chrome-platform@lists.linux.dev,
+ linux-riscv@lists.infradead.org
+References: <20260917144028.459053-1-matyasdaniel006@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260917144028.459053-1-matyasdaniel006@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 15, 2026 at 12:48=E2=80=AFAM Baoquan He <baoquan.he@linux.dev> =
-wrote:
->
-> On 09/11/26 at 09:45am, Shakeel Butt wrote:
-> > On Fri, Sep 11, 2026 at 09:06:29PM +0800, Baoquan He wrote:
-> > > On 09/10/26 at 09:39am, Shakeel Butt wrote:
-> > > > On Thu, Sep 10, 2026 at 03:09:59PM +0800, Baoquan He wrote:
-> > > > > Hi Nhat,
-> > > > >
-> > > > > On 09/04/26 at 02:14pm, Nhat Pham wrote:
-> > > > > .....snip...
-> > > >
-> > > > [...]
-> > > >
-> > > > > With VM_SPARSE, xswap's cluster access is exactly the plain-array=
- line the
-> > > > > rest of swap already uses:
-> > > > >
-> > > > >     return &si->cluster_info[offset / SWAPFILE_CLUSTER];
-> > > > >
-> > > > > no branch, no RCU discipline, no tear-down state machine, and no =
-NULL
-> > > > > return. So VM_SPARSE doesn't add complexity to close a gap; it le=
-ts the
-> > > > > cluster layer stay as simple as it already is, which is precisely=
- the
-> > > > > part later work (writeback, rmap lookup, memcg charging, THP) has=
- to sit
-> > > > > on.
-> > > > >
-> > > > > I'm not going to claim xswap wins on throughput. I measured it:
-> > > > > on a 64G/64-thread swapout, xswap, vswap and plain swap+zswap are=
- all
-> > > > > within ~2-3% of each other, effectively identical.
-> > > >
-> > > > So the claim is VM_SPARSE is simpler than xarray based approach. I =
-feel like
-> > > > we are discussing implementation details before deciding the design=
- and
-> > > > architecture. So, instead of VM_SPARSE vs xarray, let's discuss and=
- decide the
-> > > > need for dynamic growth. Why we want dynamic growth upfront or can =
-it be added
-> > > > later? Once we decide that then it will be very easy to pick an imp=
-lementation
-> > > > that would take us there.
-> > >
-> > > Hi Shakeel,
-> > >
-> > > Thank you for joining the discussion and for taking the time to comme=
-nt.
-> >
-> > Hi Baoquan,
-> >
-> > I am mainly trying to facilitate the discussion but your use of LLM is =
-causing
-> > more confusion. LLM use is fine but please at least re-read before send=
-ing that
-> > the sentences flow and makes sense.
->
-> Sorry, my bad. I used LLM to find Nhat's words. But I did check it by
-> myself. I wrote most of them by myself. While at it ath the moment, my
-> logic could be unclear.
->
-> As said, how swap_cluster_info[] is built is the foundation. Whatever
-> you do, you have to make swap_cluster_info[] ready, then you can do
-> writeback, rmap lookup, thp support, etc, on top of it.
-> swap_cluster_info[] is the basement, then you continue building 2nd
-> floor, 3rd floor, till a high building is done with things added. Nobody
-> wants to claim he just need the high building, while no basement.
->
-> Now, the foundation has been built with the lazy vmalloc, it can grow on
-> demand. It keeps swap_cluster_info accessing as swap_cluster_info[],
-> a basic array semantics. And since we our target is to support a very
-> large swap device with an extendable logical space, grow on demand and
-> shrink becomes important. Now it is there.
->
-> That's my understanding, not sure if there's anything I can't get so
-> that writeback need be made first.
->
-> [I type each of above by hand.]
+On 17/09/2026 16:40, Daniel Matyas wrote:
+> Running dt_bindings_check returned:
+> [error] string value is redundantly quoted with any quotes (quoted-strings)
+> 
+> The files used quotation marks in flow lists because the strings had
+> commas and these commas were interpreted as separators. Convert flow
+> style lists to block style lists, so that there is no problems with the
+> commas.
+> 
+> Signed-off-by: Daniel Matyas <matyasdaniel006@gmail.com>
 
-LLMs are just tools, like spell checkers are tools. They all make
-mistakes. Even people make mistakes. Don't beat yourself up for it.
+Ignore this patch. Daniel sent it THREE times, so we need to respond
+three times that it is wrong.
 
-Our community should be more inclusive of non-English native speaking
-developers.
-
-Chris
-
-
-> >
-> > >
-> > > Agreed on requirement first - but this one was already decided, and n=
-ot by me. In
-> > > the July ghost swapfile thread Nhat rejected exactly the shape of "gr=
-ow only, can
-> > > be added later":
-> > >
-> > >     "Except for my virtual swap design, which does support dynamic gr=
-owth AND
-> > >      shrinking of capacity on demand ;) If it cannot grow (and furthe=
-rmore, if it
-> > >      requires userspace operation to trigger swapfile growth), why do=
- we need this
-> > >      at all? Might as well create a new swapfile with swapon?"
-> > >
-> > > To me what it converged on was "dynamic growth and shrink, no writeba=
-ck yet".
-> >
-> > I am not getting how out of context above paragraph shows the conclusio=
-n about
-> > dynamic growth/shrink and *no writeback*.
-> >
-> > > So automatic growth *and* shrink is the requirement, and the simpler =
-alternative
-> > > was already on the table.
-> > >
-> > > And I keep mentioning it in the cover-letter of each version of my po=
-sting. I
-> > > only did the foundtation via lazy vmalloc. And Nhat will do the core
-> > > part including writabck, rmap lookup, memcg accounting, zero page fil=
-l,
-> > > etc.
-> >
-> > I don't see any evidense of this decision. Actually this whole email th=
-read
-> > shows that there is no such decision.
-> >
-> > >
-> > > What is still genuinely open, and I would like us to settle, is how l=
-arge the
-> > > device's address space should be, because the metadata scales with it=
-:
-> >
-> > With dynamic growth/shrink, is this really a blocker?
-> >
-> > Anyways, I will let Nhat and others discuss the technical details (unle=
-ss I am
-> > asked for it). My main reason to join the conversation is to converge t=
-he
-> > discussion to a decision and resolution.
+Best regards,
+Krzysztof
