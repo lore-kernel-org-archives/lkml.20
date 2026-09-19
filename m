@@ -1,47 +1,57 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B0522236FA;
-	Sat, 19 Sep 2026 04:30:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68A3A2B9B7;
+	Sat, 19 Sep 2026 04:39:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789792228; cv=none; b=TGpPcDjf5VMO2iRhSbGguWqnufbdDN5fRHdyTPo1WRYW4lDUZrO+bq6BpwVwKd8qY9HVVDJ6+yEY3Hwkstyd6lXZh/uuDmaCpoPEhOaauKrQhprhp1GK3B3JTkBvLhczdDykTTUlhu/y+8YRY58S9W5uKa6CwW8CJu+0FQwNe4c=
+	t=1789792757; cv=none; b=GflFr1aRHJ+PuwZdCIQgu6y7Xtkgs1LeRnwHE1FT0k+oXlMSIYeLCb4B5QsxNGwk23C/yer95WM7B7oVE7kHs3oSMC72bi0nw/Bb9mU0quHgTi15MqGmoeRhDKT1L3jKqXSVPLYDO9CtXP8DPeTW5DoN89rYCuXWMMmGad5spUM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789792228; c=relaxed/simple;
-	bh=9nQfvskgJr6vcesVtX2tFudCYtZ/j45gIDAQHtUfW9c=;
+	s=arc-20240116; t=1789792757; c=relaxed/simple;
+	bh=OvzvCShvMMIyGA68THVgyk5YaLtsd0zcLW9UY7FgFCs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P2x26AuNm8v6Jr+v9+lKOe1Ex7PLtme2qDfAEAi3vi67NCb1UhhhyfLhVpHEuEHBThuKPNr0uaM8LsO+O2SPJdMIPWM4ElfPRCrcTIwLeJ/91RuRD0drrT0f83LpOJ3ojwAtMvtMqHYOQGhE83VwN9+7s8TqwBQKwJD/CFwg0FM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=fyQ5cxLw; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	 Content-Type:Content-Disposition:In-Reply-To; b=DKdtaW9WXVPSoPwRhuXvM/MKrlTFC9OuctM/KLgitrayKadn2qIa2MlIXySxUnA1GI9n59TWKvOdtVdqwKxcmt1G6N472yDd9bx1ih6tb8U8kqc5hkWkI8/BcZ05f0xCb0Lsk1LWUK2noc5TKZ1L5/T610zCq3OF8eNv/+nnXIs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gdc0Xb46; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="fyQ5cxLw"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=w+UeNwv3t+cYqiKhSTr5CY5tQ+ov5hsLoeiCWF/Iu9k=; 
-	b=fyQ5cxLwKL03RWgQHl0Zo2+8zxNLZBDbQrw97S5j5stDtE45dKunhhLpDnm7/N9LLJkv5w4s5UX
-	tTey9O/hQydcF6LXY2HrTrN0MFjZQytq1z2HraG0s59hBGK1FL2HAbfgnWBuoSjjJDkoPZyROts8Q
-	eARst4RyB6lQ5OcG97Fna++vS8u849OYQADx+82UDibGoZtOfwdOUSGxyFsPvKXjrj3dX5s3VShns
-	3wLSNVbiBN2ZQVLPjx0GmpKTJN0S8r4toTBRkL6j1t5iJEZRhvjKiCbut0SBmXhChlQV33K3P6uce
-	IGLwLakUxmsAV2bPICXUS5oz3BZNOZl3EH0w==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1x7miR-0000000Fdga-0xps;
-	Sat, 19 Sep 2026 12:30:20 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Sat, 19 Sep 2026 14:30:19 +1000
-Date: Sat, 19 Sep 2026 14:30:19 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Leonid Ravich <lravich@amazon.com>
-Cc: linux-crypto@vger.kernel.org, dm-devel@lists.linux.dev,
-	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
-	davem@davemloft.net, ebiggers@kernel.org, snitzer@kernel.org,
-	mpatocka@redhat.com, axboe@kernel.dk
-Subject: Re: [PATCH v5 2/5] crypto: dun - data-unit-number dispatch template
-Message-ID: <aq4P2xxmcYLjqKEu@gondor.apana.org.au>
-References: <20260630083431.2772-3-lravich@amazon.com>
- <alRMn--pY1ELYmBJ@gondor.apana.org.au>
- <20260715120102.6687-1-lravich@amazon.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gdc0Xb46"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 551AD1F000FF;
+	Sat, 19 Sep 2026 04:39:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789792756;
+	bh=Igi4RHLJYWAKmVb+cd2dtDK1WqzkkFZ7X+ZVpe9M7cs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gdc0Xb46lJVg8B0Ky3G0HTiETukThppICzF4vRLwyqtfTgn+OE2gznNkHPnuVAGJY
+	 K9Uxjjwig9JL6g81dNk6F8CBwe2qfsHjEcyYUpyHnEF0QU0XZx3mCcejc9ulWoA73t
+	 cUyf5iI7JwQ/Dne01j5S/F9qfVk6I9+TXhLkJI/IF5Ty9oDLe1rOCoL9oDKZFRr5Bz
+	 xMXVH3hljWKb0sw+4kVmogm2dnUqqwtWc5EPHrti3+K9eNozLx7YvvhQWh9a14/87S
+	 9whWSzdtS+08iIYTTQm7J1iG6vmO4t1WXjlcB5Tq/vlj8N3R1nj5PSQwgK5lPxgj89
+	 d/EgkVMuN0ntw==
+Date: Sat, 19 Sep 2026 07:39:11 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Logan Gunthorpe <logang@deltatee.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+	Matt Evans <matt@ozlabs.org>
+Subject: Re: [PATCH v6 01/18] PCI/P2PDMA: Document pdev->p2pdma lifetime rules
+Message-ID: <20260919043911.GA13683@unreal>
+References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
+ <20260914-fix-p2p-acs-v4-0-v6-1-5ef07ec9ef06@nvidia.com>
+ <6e4f0c2f-eae8-4cd5-9c10-9b9a59941d2f@deltatee.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,44 +60,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260715120102.6687-1-lravich@amazon.com>
+In-Reply-To: <6e4f0c2f-eae8-4cd5-9c10-9b9a59941d2f@deltatee.com>
 
-On Wed, Jul 15, 2026 at 12:01:02PM +0000, Leonid Ravich wrote:
+On Fri, Sep 18, 2026 at 12:25:01PM -0600, Logan Gunthorpe wrote:
 > 
-> I benchmarked the mid-API split vs the legacy per-sector loop on
-> r7i.metal (VAES-AVX512): dm-crypt shows no measurable throughput or
-> latency regression, but a microbench isolates a fixed ~50 ns per 512B
-> unit.  It's a fixed per-call cost: the split
-> copies the counter IV to a per-unit scratch and re-walks the sglist per
-> unit and is paid only by callers setting unit_size != 0.
-> That gives two directions:
 > 
->   1. SW batching layer (current v6): mid-API transparently splits when
->      the alg lacks CRYPTO_ALG_REQ_SEG and unit_size != 0.  
->      Works today on every existing skcipher at the ~50 ns/unit cost, 
->      and goes quiet as algs gain native support.
+> On 2026-09-14 05:22, Leon Romanovsky wrote:
+> > From: Leon Romanovsky <leonro@nvidia.com>
+> > 
+> > pdev->p2pdma is normally accessed through provider-owned references, but
+> > pci_p2pmem_find_many() and the p2pmem sysfs attributes may race with driver
+> > unbind.
+> > 
+> > Document initialization, teardown, and how the release grace period
+> > protects both the P2PDMA state and its optional allocation pool.
+> > 
+> > Cc: Alex Williamson <alex@shazbot.org>
+> > Cc: Matt Evans <matt@ozlabs.org>
+> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> Reads correct to me.
+> 
+> Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
 
-I think we should be able to eliminate this overhead.  Could you
-send me the patch so I can take a look?
+Thanks, Logan. Unfortunately, I'm inclined to drop this patch. AI review
+makes it nearly impossible to write the description without complaints.
 
-But going back to the dun template, I think we should still go with
-no templates for plain64.  But the other ones should use a template
-instead of using the cc->iv_gen_ops->generator.
+If I use my own words to describe the lifetime, the tools complain about
+almost every word or sentence. If I let the tools write it instead, the
+result is complete junk that merely describes basics already obvious from
+the code itself.
 
-IOW if unit-splitting is in use, dm-crypt should always pass the
-sector number in little-endian format in as the IV.  Then depending
-on which IV generator is configured (which should be done through
-templates, just like essiv), they can generate the final IV.
-
-With this scheme, there should be no overall increase in indirect
-calls in any case (and with one less for plain64).
-
-This still preserves the ability for optimised implementations to
-eliminate indirect calls for the IV generator by handling it directly
-rather than through the generic template.
-
-Thanks,
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+Thanks
