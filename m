@@ -1,120 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D8A231B828;
-	Sat, 19 Sep 2026 10:30:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7C77403E8C;
+	Sat, 19 Sep 2026 10:36:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789813849; cv=none; b=NwiC/wVLTHxe9HXwdACRR8x7QjBONIqK6LSbp9T5Y9J4YpQz97y9B0AGzSl8nFtT1TVdd2raejXan6dD84QY3z8gF1x5V5njDI125B4hqsFiw8ZL/5uXFvpaCxeJ0uR0fyiqeART5xLhhvLc67abacHivPZoNTEd8eFqc/uPNE0=
+	t=1789814201; cv=none; b=ctz0PeeHoJrQ639uLsNlzFDgQrIWSuuw7cAXMMlQyGXuQdGhTy4kz99FDUoPpeHfw8wPcBCQH8VoU3WgNFuQlBwzoyZ5AcKNvGUybBfyg0CAQHpjX6MCZi6SKs5J6XL+l1hB6y1aFBGnumw5s/fJxOvasOhqj4lhu8LUjy1gbeo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789813849; c=relaxed/simple;
-	bh=zvxAdTkA2ZWrwNIE2DeKnxDR5Yb6BuHPL60yDwDxNyM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=V6s080e2+WKLh7XMnJajMs1rDyhw87l/J3BuOoTtseQHi90kLMx5RA5SctFLjiAojuMYnc34/k+16Co/2eiaV3zZi+OojcFwh0Q63erhpKVZpaGfyIrUDyUtzEi1Dv/WWD1ykvwsXbnXxf28H8bJM5muQx9jA02QTOr/6kwdAM8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VKsMTWaN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789814201; c=relaxed/simple;
+	bh=G5ZjpCMc41koCIu50EVHnP0iTN4/vsCvxrW/ycokfzA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=onrqQnYQ4xSRX3OHmBnWyKT5dzi8E6NngmYk9lNxINcMQI4UzmEYueC3VTGRd1X8S4PBiRjJIop2/0BIu2TDy+RdXei/klrgGeFxl6RL15SO8GRaMYVWKQW/v+x6iiUTA66dlUkeJNfMVoT169dU7xE1eQj6ObPoS/EPz/pAPRU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qK6Fkrmt; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VKsMTWaN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63BBA1F000FF;
-	Sat, 19 Sep 2026 10:30:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789813848;
-	bh=9+JrqZLESg83r/L9t2zw2SfCemYznfhEdAeJlo+kcjk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VKsMTWaNDouUFQBXPJJ/zwQz2/eQW04dtYhCYWsBdocdoSPjBUjL3SvfBap8x+zOU
-	 5qJR53f59BAeel32x3bDrkqD5uAYsn7f1JwtZo57SaBFLtAJQGc22jrJ6tUpfuBydo
-	 ZLe0/tBhwoo8DUzK8hEFTrwGtKV5txmMAhyOxNUw=
-Date: Sat, 19 Sep 2026 11:28:51 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Hui Peng <benquike@gmail.com>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] usb: gadget: f_hid: fix use-after-free of
- hidg->func.config after unbind
-Message-ID: <2026091930-corporate-destiny-7b45@gregkh>
-References: <20260919090724.3256109-1-benquike@gmail.com>
- <20260919090724.3256109-2-benquike@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qK6Fkrmt"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5FEECC2BCF6;
+	Sat, 19 Sep 2026 10:36:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789814201;
+	bh=G5ZjpCMc41koCIu50EVHnP0iTN4/vsCvxrW/ycokfzA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=qK6Fkrmtnw9VIpsLO4mOJiiIORJoKMXrwiY5WmHFoYbY48H8mYB5nUy+BLzqxVNO4
+	 eosglfqnKwXcpYuRzC2arjZPv+EBEpfcVHTQLm28poF1efXPz4e4UZBt/W58MzwXzy
+	 Xv4M14vmMR/MC+3gM31DOKFyMgbalUHTXAuiFDvTKpM2E8UNwkmO+NWSgCwsZlldug
+	 Q4jYZ7+PRLrtBgfLtBM2qYVW1tXBzUAdo6DYJ8Ab3/GHiKZZBVgMS5LDhWtEfywe4e
+	 CUk2g1AibW2MkdWqwIDHorC3zK3oVNKNUzl6OtPfFT1fz7D/8oLyV+0qmIgFpoDs01
+	 0oMv88AWEQ7iw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3EFBBC982CC;
+	Sat, 19 Sep 2026 10:36:41 +0000 (UTC)
+From: Sanjay Chitroda via B4 Relay <devnull+sanjayembeddedse.gmail.com@kernel.org>
+Date: Sat, 19 Sep 2026 16:06:25 +0530
+Subject: [PATCH v6 02/14] iio: hid-sensors: introduce device managed API
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260919090724.3256109-2-benquike@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260919-28-apr-iio-redundant-argument-v5-temp-v6-2-d577b2371b3c@gmail.com>
+References: <20260919-28-apr-iio-redundant-argument-v5-temp-v6-0-d577b2371b3c@gmail.com>
+In-Reply-To: <20260919-28-apr-iio-redundant-argument-v5-temp-v6-0-d577b2371b3c@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Jiri Kosina <jikos@kernel.org>, 
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
+ Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-input@vger.kernel.org, Sanjay Chitroda <sanjayembeddedse@gmail.com>, 
+ Zhang Lixu <lixu.zhang@intel.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789814199; l=2481;
+ i=sanjayembeddedse@gmail.com; s=20260702; h=from:subject:message-id;
+ bh=XJmRzPXaqhKqM4yIeSm5h1wY7VWEZl4o+Whwft4tGS0=;
+ b=BXwiz67+9jDaGglzVLl6dzedMzSitLjFkaJLSbzCGi14P0Mq8uRfM/tYppwyWbZ+pRWDTPMyE
+ oXr1WVgC4SoBM8BC2AzoN6DRhnb1C2quXz3Tfwz1bST/7lSFkZo19mx
+X-Developer-Key: i=sanjayembeddedse@gmail.com; a=ed25519;
+ pk=PcneEFtkmY+Ldl+KmOTpB/Q/HDsqko6Fb0/Z/5cuycI=
+X-Endpoint-Received: by B4 Relay for sanjayembeddedse@gmail.com/20260702
+ with auth_id=848
+X-Original-From: Sanjay Chitroda <sanjayembeddedse@gmail.com>
+Reply-To: sanjayembeddedse@gmail.com
 
-On Sat, Sep 19, 2026 at 09:07:24AM +0000, Hui Peng wrote:
-> The /dev/hidgN character device stays open across function unbind: a
-> process can open it, then remove the configfs gadget (echo "" > UDC,
-> unlink the function from the config, rmdir the config directory), and
-> keep using the still open file descriptor.
-> 
-> hidg_unbind() does not clear hidg->func.config, so the file operations
-> continue to dereference the struct usb_configuration that configfs has
-> already freed. f_hidg_get_report() does so unconditionally on entry:
-> 
-> 	struct usb_composite_dev *cdev = hidg->func.config->cdev;
-> 
-> which gives a use-after-free read on the first ioctl() after the config
-> directory is removed:
-> 
->  ==================================================================
->  BUG: KASAN: slab-use-after-free in f_hidg_get_report.isra.0+0x401/0x4a0
->  Read of size 8 at addr ffff8881073d7950 by task init/172
-> 
->  CPU: 2 UID: 0 PID: 172 Comm: init Not tainted 7.3.0-rc3-g5dd1818b15d9 #1 PREEMPT(lazy)
->  Hardware name: QEMU Standard PC (i440FX + PIIX, 1996)
->  Call Trace:
->   <TASK>
->   dump_stack_lvl+0x70/0xa0
->   print_report+0x153/0x4c6
->   kasan_report+0xf1/0x120
->   f_hidg_get_report.isra.0+0x401/0x4a0
->   f_hidg_ioctl+0xe1/0x110
->   __x64_sys_ioctl+0x184/0x1d0
->   do_syscall_64+0xda/0x4b0
->   entry_SYSCALL_64_after_hwframe+0x77/0x7f
->   </TASK>
-> 
->  Allocated by task 1:
->   __kmalloc_cache_noprof+0x16a/0x380
->   config_desc_make+0x1e6/0x590
->   configfs_mkdir+0x4e9/0xe10
->   vfs_mkdir+0x2ed/0x790
->   __x64_sys_mkdir+0x6f/0xa0
-> 
->  Freed by task 1:
->   kfree+0x159/0x420
->   config_item_cleanup+0x148/0x1e0
->   config_item_put+0x90/0xb0
->   configfs_rmdir+0x816/0xa50
->   vfs_rmdir+0x2e6/0x810
->   __x64_sys_rmdir+0x4b/0x70
-> 
->  The buggy address belongs to the object at 0xffff8881073d7800
->   which belongs to the cache kmalloc-1k of size 1024
->  ==================================================================
-> 
-> A second splat follows from the ERROR() call in the same function.
-> 
-> Clear hidg->func.config in hidg_unbind() and check it in the paths that
-> are reachable from an open file descriptor - f_hidg_read(),
-> f_hidg_write() and f_hidg_get_report() - returning -ENODEV once the
-> function is gone. f_hidg_req_complete() only uses the pointer to emit an
-> error message, so guard that dereference as well.
-> 
-> While at it, drop the report_list entries in hidg_unbind(). They are
-> allocated by f_hidg_get_report() and were only ever freed when the
-> whole f_hidg was released, so reports queued before an unbind leaked.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
-> ---
-> No Fixes: tag: I could not identify a single commit that introduced
-> the problem with confidence, so I have left it out rather than guess.
+From: Sanjay Chitroda <sanjayembeddedse@gmail.com>
 
-Please have your llm figure that out, worst case it's when it showed up,
-right?
+hid_sensor_setup_trigger() is common API used for the HID IIO drivers,
+prepare devm API devm_hid_sensor_setup_trigger() to acquire resource
+during setup and release using device managed framework during drivers
+fail, unbind or remove path.
 
-thanks,
+Register action with devm_add_action_or_reset() to release resource with
+devres framework.
 
-greg k-h
+Signed-off-by: Sanjay Chitroda <sanjayembeddedse@gmail.com>
+Tested-by: Zhang Lixu <lixu.zhang@intel.com>
+---
+ drivers/iio/common/hid-sensors/hid-sensor-trigger.c | 18 ++++++++++++++++++
+ drivers/iio/common/hid-sensors/hid-sensor-trigger.h |  2 ++
+ 2 files changed, 20 insertions(+)
+
+diff --git a/drivers/iio/common/hid-sensors/hid-sensor-trigger.c b/drivers/iio/common/hid-sensors/hid-sensor-trigger.c
+index 6e6adc501602..df6c07d6a6b7 100644
+--- a/drivers/iio/common/hid-sensors/hid-sensor-trigger.c
++++ b/drivers/iio/common/hid-sensors/hid-sensor-trigger.c
+@@ -301,6 +301,24 @@ int hid_sensor_setup_trigger(struct iio_dev *indio_dev, const char *name,
+ }
+ EXPORT_SYMBOL_NS(hid_sensor_setup_trigger, "IIO_HID");
+ 
++static void hid_sensor_remove_trigger_action(void *attrb)
++{
++	hid_sensor_remove_trigger(attrb);
++}
++
++int devm_hid_sensor_setup_trigger(struct device *dev, struct iio_dev *indio_dev,
++				  const char *name, struct hid_sensor_common *attrb)
++{
++	int ret;
++
++	ret = hid_sensor_setup_trigger(indio_dev, name, attrb);
++	if (ret)
++		return ret;
++
++	return devm_add_action_or_reset(dev, hid_sensor_remove_trigger_action, attrb);
++}
++EXPORT_SYMBOL_NS(devm_hid_sensor_setup_trigger, "IIO_HID");
++
+ static int __maybe_unused hid_sensor_suspend(struct device *dev)
+ {
+ 	struct iio_dev *indio_dev = dev_get_drvdata(dev);
+diff --git a/drivers/iio/common/hid-sensors/hid-sensor-trigger.h b/drivers/iio/common/hid-sensors/hid-sensor-trigger.h
+index ee17d5cc2437..c4b901ca4879 100644
+--- a/drivers/iio/common/hid-sensors/hid-sensor-trigger.h
++++ b/drivers/iio/common/hid-sensors/hid-sensor-trigger.h
+@@ -17,6 +17,8 @@ extern const struct dev_pm_ops hid_sensor_pm_ops;
+ int hid_sensor_setup_trigger(struct iio_dev *indio_dev, const char *name,
+ 			     struct hid_sensor_common *attrb);
+ void hid_sensor_remove_trigger(struct hid_sensor_common *attrb);
++int devm_hid_sensor_setup_trigger(struct device *dev, struct iio_dev *indio_dev,
++				  const char *name, struct hid_sensor_common *attrb);
+ int hid_sensor_power_state(struct hid_sensor_common *st, bool state);
+ 
+ #endif
+
+-- 
+2.34.1
+
+
