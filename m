@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7C77403E8C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B721A46E01D;
 	Sat, 19 Sep 2026 10:36:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789814201; cv=none; b=ctz0PeeHoJrQ639uLsNlzFDgQrIWSuuw7cAXMMlQyGXuQdGhTy4kz99FDUoPpeHfw8wPcBCQH8VoU3WgNFuQlBwzoyZ5AcKNvGUybBfyg0CAQHpjX6MCZi6SKs5J6XL+l1hB6y1aFBGnumw5s/fJxOvasOhqj4lhu8LUjy1gbeo=
+	t=1789814201; cv=none; b=qemfYDjTotRUxQJpoC8E6nCvyIZrNPzgk2geqWwx0gWzrKbI29oyqAWAZ9m8TxPNTxWD01JJYtyGLlKyz9/d6dzrgqb90jdaRTHHWjnV+0OWNVyK1zx15YIsHogcVKkQIptLkvgIdZKdtdxXp2qItldr6J1gx/PiC07bv7rAgts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789814201; c=relaxed/simple;
-	bh=G5ZjpCMc41koCIu50EVHnP0iTN4/vsCvxrW/ycokfzA=;
+	bh=XodsOen8Wvzg78o0lwyC8zvGmdjAid2TnVU+SOWZRpc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=onrqQnYQ4xSRX3OHmBnWyKT5dzi8E6NngmYk9lNxINcMQI4UzmEYueC3VTGRd1X8S4PBiRjJIop2/0BIu2TDy+RdXei/klrgGeFxl6RL15SO8GRaMYVWKQW/v+x6iiUTA66dlUkeJNfMVoT169dU7xE1eQj6ObPoS/EPz/pAPRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qK6Fkrmt; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=ph8PL3tks+WX7Ta4ymjBqdNjc7lsXeM2CTic8yDnUQrcrWQsE7Xd1+RxSf2LDe0bWrpaep/6tmYyLqZeUWZiiswgiiLvpqPsh8o2YCzyIbjGoWH/pq+HtXN3f1stRhnfp/EhtDjFQgK7HL2tcLpjRoHI0g1ZRlsQrLk5q3fqJUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kx3OuD5v; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qK6Fkrmt"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 5FEECC2BCF6;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kx3OuD5v"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 714E5C2BCFA;
 	Sat, 19 Sep 2026 10:36:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1789814201;
-	bh=G5ZjpCMc41koCIu50EVHnP0iTN4/vsCvxrW/ycokfzA=;
+	bh=XodsOen8Wvzg78o0lwyC8zvGmdjAid2TnVU+SOWZRpc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=qK6Fkrmtnw9VIpsLO4mOJiiIORJoKMXrwiY5WmHFoYbY48H8mYB5nUy+BLzqxVNO4
-	 eosglfqnKwXcpYuRzC2arjZPv+EBEpfcVHTQLm28poF1efXPz4e4UZBt/W58MzwXzy
-	 Xv4M14vmMR/MC+3gM31DOKFyMgbalUHTXAuiFDvTKpM2E8UNwkmO+NWSgCwsZlldug
-	 Q4jYZ7+PRLrtBgfLtBM2qYVW1tXBzUAdo6DYJ8Ab3/GHiKZZBVgMS5LDhWtEfywe4e
-	 CUk2g1AibW2MkdWqwIDHorC3zK3oVNKNUzl6OtPfFT1fz7D/8oLyV+0qmIgFpoDs01
-	 0oMv88AWEQ7iw==
+	b=Kx3OuD5vRMrZwKoxv9tBU4hJ0rTG+SrzvM1Ee8R2J3Jb4xPunHfRBblDnbzLh7I32
+	 ZmVKLtCKHJz5jbt0FmPISr8yPG6FPhaRDujZ3Muw6L8clOGZlBgKbJx7VnTTZV7A1Q
+	 Dd+B2RbuI31E+2M6b4znOKarmG5ntn01Ag67Fr8qJ0CH5spFy9DM/A+AFL5keOsgBm
+	 oKs45jHs5r8wrpxsHU7+j8y3wZUY6HlJ/07U0HZCwK5IJM64sVYBnjkGCBt37ygMQU
+	 xZc7a6akUUvCEyLPp1bJRWVfIaF/ehggvEoU6on2/PnAqq943P4yjkZrs5eOBhQcNS
+	 T4dNw8JddD1Gg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3EFBBC982CC;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5C949C982E1;
 	Sat, 19 Sep 2026 10:36:41 +0000 (UTC)
 From: Sanjay Chitroda via B4 Relay <devnull+sanjayembeddedse.gmail.com@kernel.org>
-Date: Sat, 19 Sep 2026 16:06:25 +0530
-Subject: [PATCH v6 02/14] iio: hid-sensors: introduce device managed API
+Date: Sat, 19 Sep 2026 16:06:27 +0530
+Subject: [PATCH v6 04/14] iio: gyro: hid-sensor-gyro-3d: convert probe and
+ teardown to devm-managed resources
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260919-28-apr-iio-redundant-argument-v5-temp-v6-2-d577b2371b3c@gmail.com>
+Message-Id: <20260919-28-apr-iio-redundant-argument-v5-temp-v6-4-d577b2371b3c@gmail.com>
 References: <20260919-28-apr-iio-redundant-argument-v5-temp-v6-0-d577b2371b3c@gmail.com>
 In-Reply-To: <20260919-28-apr-iio-redundant-argument-v5-temp-v6-0-d577b2371b3c@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>, 
@@ -50,14 +51,13 @@ To: Jonathan Cameron <jic23@kernel.org>,
  Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
  Benjamin Tissoires <bentiss@kernel.org>
 Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-input@vger.kernel.org, Sanjay Chitroda <sanjayembeddedse@gmail.com>, 
- Zhang Lixu <lixu.zhang@intel.com>
+ linux-input@vger.kernel.org, Sanjay Chitroda <sanjayembeddedse@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789814199; l=2481;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789814199; l=3576;
  i=sanjayembeddedse@gmail.com; s=20260702; h=from:subject:message-id;
- bh=XJmRzPXaqhKqM4yIeSm5h1wY7VWEZl4o+Whwft4tGS0=;
- b=BXwiz67+9jDaGglzVLl6dzedMzSitLjFkaJLSbzCGi14P0Mq8uRfM/tYppwyWbZ+pRWDTPMyE
- oXr1WVgC4SoBM8BC2AzoN6DRhnb1C2quXz3Tfwz1bST/7lSFkZo19mx
+ bh=93lHICIbaqkhzBStetBiddfJA0a+d0oJo1BZpquDDZw=;
+ b=iqUP65IV4DsV+LnMmt4WQkl8bdKamEaGRfTjwD+fxuLAWJMJePg4PGF4UAsz7aVh0ForRfDQY
+ DaazhDlZUvsB2C5Zo+1rBSWYpDnqQdXeLklZOtxJpMw1DOYen2u0A5l
 X-Developer-Key: i=sanjayembeddedse@gmail.com; a=ed25519;
  pk=PcneEFtkmY+Ldl+KmOTpB/Q/HDsqko6Fb0/Z/5cuycI=
 X-Endpoint-Received: by B4 Relay for sanjayembeddedse@gmail.com/20260702
@@ -67,63 +67,98 @@ Reply-To: sanjayembeddedse@gmail.com
 
 From: Sanjay Chitroda <sanjayembeddedse@gmail.com>
 
-hid_sensor_setup_trigger() is common API used for the HID IIO drivers,
-prepare devm API devm_hid_sensor_setup_trigger() to acquire resource
-during setup and release using device managed framework during drivers
-fail, unbind or remove path.
+Convert HID IIO driver resource management to use devm-managed helpers,
+tying the lifetime of all resources to the device.
 
-Register action with devm_add_action_or_reset() to release resource with
-devres framework.
+HID trigger setup, IIO registration, and sensor hub callback resource
+are now managed using devm APIs. Cleanup logic previously handled
+explicitly in probe error and teardown paths.
+
+This simplifies the probe path by removing goto-based error handling,
+eliminates the remove callback entirely.
 
 Signed-off-by: Sanjay Chitroda <sanjayembeddedse@gmail.com>
-Tested-by: Zhang Lixu <lixu.zhang@intel.com>
 ---
- drivers/iio/common/hid-sensors/hid-sensor-trigger.c | 18 ++++++++++++++++++
- drivers/iio/common/hid-sensors/hid-sensor-trigger.h |  2 ++
- 2 files changed, 20 insertions(+)
+ drivers/iio/gyro/hid-sensor-gyro-3d.c | 41 ++++++++---------------------------
+ 1 file changed, 9 insertions(+), 32 deletions(-)
 
-diff --git a/drivers/iio/common/hid-sensors/hid-sensor-trigger.c b/drivers/iio/common/hid-sensors/hid-sensor-trigger.c
-index 6e6adc501602..df6c07d6a6b7 100644
---- a/drivers/iio/common/hid-sensors/hid-sensor-trigger.c
-+++ b/drivers/iio/common/hid-sensors/hid-sensor-trigger.c
-@@ -301,6 +301,24 @@ int hid_sensor_setup_trigger(struct iio_dev *indio_dev, const char *name,
- }
- EXPORT_SYMBOL_NS(hid_sensor_setup_trigger, "IIO_HID");
- 
-+static void hid_sensor_remove_trigger_action(void *attrb)
-+{
-+	hid_sensor_remove_trigger(attrb);
-+}
-+
-+int devm_hid_sensor_setup_trigger(struct device *dev, struct iio_dev *indio_dev,
-+				  const char *name, struct hid_sensor_common *attrb)
-+{
-+	int ret;
-+
-+	ret = hid_sensor_setup_trigger(indio_dev, name, attrb);
-+	if (ret)
-+		return ret;
-+
-+	return devm_add_action_or_reset(dev, hid_sensor_remove_trigger_action, attrb);
-+}
-+EXPORT_SYMBOL_NS(devm_hid_sensor_setup_trigger, "IIO_HID");
-+
- static int __maybe_unused hid_sensor_suspend(struct device *dev)
+diff --git a/drivers/iio/gyro/hid-sensor-gyro-3d.c b/drivers/iio/gyro/hid-sensor-gyro-3d.c
+index cf049700d415..66778315e86d 100644
+--- a/drivers/iio/gyro/hid-sensor-gyro-3d.c
++++ b/drivers/iio/gyro/hid-sensor-gyro-3d.c
+@@ -264,7 +264,8 @@ static int gyro_3d_parse_report(struct platform_device *pdev,
+ /* Function to initialize the processing for usage id */
+ static int hid_gyro_3d_probe(struct platform_device *pdev)
  {
- 	struct iio_dev *indio_dev = dev_get_drvdata(dev);
-diff --git a/drivers/iio/common/hid-sensors/hid-sensor-trigger.h b/drivers/iio/common/hid-sensors/hid-sensor-trigger.h
-index ee17d5cc2437..c4b901ca4879 100644
---- a/drivers/iio/common/hid-sensors/hid-sensor-trigger.h
-+++ b/drivers/iio/common/hid-sensors/hid-sensor-trigger.h
-@@ -17,6 +17,8 @@ extern const struct dev_pm_ops hid_sensor_pm_ops;
- int hid_sensor_setup_trigger(struct iio_dev *indio_dev, const char *name,
- 			     struct hid_sensor_common *attrb);
- void hid_sensor_remove_trigger(struct hid_sensor_common *attrb);
-+int devm_hid_sensor_setup_trigger(struct device *dev, struct iio_dev *indio_dev,
-+				  const char *name, struct hid_sensor_common *attrb);
- int hid_sensor_power_state(struct hid_sensor_common *st, bool state);
+-	struct hid_sensor_hub_device *hsdev = dev_get_platdata(&pdev->dev);
++	struct device *dev = &pdev->dev;
++	struct hid_sensor_hub_device *hsdev = dev_get_platdata(dev);
+ 	int ret = 0;
+ 	static const char *name = "gyro_3d";
+ 	struct iio_dev *indio_dev;
+@@ -311,8 +312,8 @@ static int hid_gyro_3d_probe(struct platform_device *pdev)
  
- #endif
+ 	atomic_set(&gyro_state->common_attributes.data_ready, 0);
+ 
+-	ret = hid_sensor_setup_trigger(indio_dev, name,
+-				       &gyro_state->common_attributes);
++	ret = devm_hid_sensor_setup_trigger(dev, indio_dev, name,
++					    &gyro_state->common_attributes);
+ 	if (ret < 0) {
+ 		dev_err(&pdev->dev, "trigger setup failed\n");
+ 		return ret;
+@@ -321,38 +322,15 @@ static int hid_gyro_3d_probe(struct platform_device *pdev)
+ 	gyro_state->callbacks.send_event = gyro_3d_proc_event;
+ 	gyro_state->callbacks.capture_sample = gyro_3d_capture_sample;
+ 	gyro_state->callbacks.pdev = pdev;
+-	ret = sensor_hub_register_callback(hsdev, HID_USAGE_SENSOR_GYRO_3D,
+-					   &gyro_state->callbacks);
++	ret = devm_sensor_hub_register_callback(dev, hsdev,
++						HID_USAGE_SENSOR_GYRO_3D,
++						&gyro_state->callbacks);
+ 	if (ret < 0) {
+ 		dev_err(&pdev->dev, "callback reg failed\n");
+-		goto error_remove_trigger;
+-	}
+-
+-	ret = iio_device_register(indio_dev);
+-	if (ret) {
+-		dev_err(&pdev->dev, "device register failed\n");
+-		goto error_remove_callback;
++		return ret;
+ 	}
+ 
+-	return ret;
+-
+-error_remove_callback:
+-	sensor_hub_remove_callback(hsdev, HID_USAGE_SENSOR_GYRO_3D);
+-error_remove_trigger:
+-	hid_sensor_remove_trigger(&gyro_state->common_attributes);
+-	return ret;
+-}
+-
+-/* Function to deinitialize the processing for usage id */
+-static void hid_gyro_3d_remove(struct platform_device *pdev)
+-{
+-	struct hid_sensor_hub_device *hsdev = dev_get_platdata(&pdev->dev);
+-	struct iio_dev *indio_dev = platform_get_drvdata(pdev);
+-	struct gyro_3d_state *gyro_state = iio_priv(indio_dev);
+-
+-	iio_device_unregister(indio_dev);
+-	sensor_hub_remove_callback(hsdev, HID_USAGE_SENSOR_GYRO_3D);
+-	hid_sensor_remove_trigger(&gyro_state->common_attributes);
++	return devm_iio_device_register(dev, indio_dev);
+ }
+ 
+ static const struct platform_device_id hid_gyro_3d_ids[] = {
+@@ -371,7 +349,6 @@ static struct platform_driver hid_gyro_3d_platform_driver = {
+ 		.pm	= &hid_sensor_pm_ops,
+ 	},
+ 	.probe		= hid_gyro_3d_probe,
+-	.remove		= hid_gyro_3d_remove,
+ };
+ module_platform_driver(hid_gyro_3d_platform_driver);
+ 
 
 -- 
 2.34.1
