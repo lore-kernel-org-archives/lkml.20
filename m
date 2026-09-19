@@ -1,211 +1,124 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013004.outbound.protection.outlook.com [40.93.201.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F30929408
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 02:23:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789784584; cv=none; b=sKw7CjvsClf7E7KNAf+M+ZcEhKmI0uzIb7mx7sxppa65+fUDjMGyu2NjgET35ISfERs9jlo8z5XzIxQC91e1K6yUXKZCi9h88jxYkL15JbVQ+SfP0FafkZ9xgaVsfwsrAW2MoEdAVjNiQ7OT9gn4W7ePplgPaPUZTMKDhG9qMk8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789784584; c=relaxed/simple;
-	bh=F5plFVXlHqejTzkFIhtUpn09XXP5HVZlaKCxC75oCf4=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=bt7zZaLmq1dTpKfMEwYlZ5krAdWqWO3cHMAzPoxBKr0WLiLi0n+yoSZfuF9CzZG9JC1DafUwUk06kGtItleAEQXukWMSG+CGekgGeK7dsUjKJCgHGVM+jMo4P0m6RPdRRIhzuaIeCACQBk/x/LRrgwZx3oXWHc5ZdT+QuGtg5oY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Uys930np; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F29041C84A0;
+	Sat, 19 Sep 2026 02:38:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.4
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789785531; cv=fail; b=k1a1gSKXMNjDuCdppmpAbmB30wbVbY61SPzNea49xmZRM7hVvYfx6F3llEjqLZTAzhQj+nRo0/whJLVOYM69/heUqbc6z1NnDzsMTCVjdGTpx7xATelXDf3XLEHHAp0ex4hZEOXHQl4NJcmcuaC+Z/omImDJpyLsHfRGq/U77qA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789785531; c=relaxed/simple;
+	bh=LTvLTR+mwjbaPpux9hKDR7LlW8qJOUcMgOdopDzux0s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=dCxBO2xZYH4Ze9jXaB3I1tYzCw2/5ied3GRFReziod/s9i7QzfsOIElo4+eZjj/ZU48JQWgrIqiBzLkD9TcGkIbuuFuIjEYeyFeVz/Xjye2QzzIUs3Zt2Spr3lEoFYOnzX+GrQkMsJhRESYS8+/L5J8EHnxQJJgFa+mEo63N0i8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=BBcNXSnz; arc=fail smtp.client-ip=40.93.201.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Uys930np"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789784582; x=1821320582;
-  h=date:from:to:cc:subject:message-id;
-  bh=F5plFVXlHqejTzkFIhtUpn09XXP5HVZlaKCxC75oCf4=;
-  b=Uys930npeKMJX9R/vWFuAEmqvluzd+czouMfKjxo15UrvYWAuR8xs4zy
-   gucQ55KFG4SQ1vGPOix8lRThLFWrzlgdm5dXnYqCoEvVJiNORpfg2bskx
-   zPV8vyhvpC3PONSQqNyVxsb0Ti38l2U1RRm7Ns3oqpTz2357i5m/e0jX0
-   kjYcOmZPStphaTHNRAvtw2dVFFSt/yJN2ZSgaOpuXB213764Jyg5cFZ5j
-   4vhIQlAjTuZOWEIuf9lWyiLxglhEtQGjdhZyT6W4NPUzxY+ycklIR0IKk
-   3q3w4S64lJM6cf88mkT2/ZJFpZJBRtsD95qhWPtEbsoz6jCXJM8PZskdE
-   Q==;
-X-CSE-ConnectionGUID: qArcEL7ZRpujUZ89FcFK8A==
-X-CSE-MsgGUID: xUYPynrTQjGJsgfjmA244Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11909"; a="100922163"
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="100922163"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 19:23:01 -0700
-X-CSE-ConnectionGUID: XSMB3to/Q1KSJEOK5FcZmQ==
-X-CSE-MsgGUID: IadGu1wIT8SX6lJnVhaNtQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="279886291"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa005.fm.intel.com with ESMTP; 18 Sep 2026 19:22:59 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x7kjB-00000000Aaj-0WDK;
-	Sat, 19 Sep 2026 02:22:57 +0000
-Date: Sat, 19 Sep 2026 10:22:24 +0800
-From: kernel test robot <lkp@intel.com>
-To: Hyunwoo Kim <imv4bel@gmail.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Thomas Gleixner <tglx@kernel.org>,
- "Peter Zijlstra (Intel)" <peterz@infradead.org>
-Subject: kernel/futex/core.c:1870:21: sparse: sparse: cast removes
- address space '__percpu' of expression
-Message-ID: <202609191020.VPOLEfEq-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="BBcNXSnz"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WdLXs77jGSLFyZC8fuYoGQrio2fIiFBjc6BRTRw1o5J6BBwV1wPF23Kjjyxmm0XBx5SeUxLPUt1h/jHc4UZPdOYOUk8LORThhJn9QJ5oTmvqnjY5yNKAGXGwnY0pfk35H0llDG3GWfRkURJAIGZ3Ju4rF5AX9/VVh+PM8RWrhucIGxeC/zU31Y3pI6i8gYz7rx8oSwC8bdaJrO6wxtjQOCYz9VBeFsdOEzKtYEbKqbECohkrjQcw/Lwkb6sGdyi8B+rxySU2pznnQpVUpvZUCSFkVpbnmiSP6iCgAWh270+m16KLV4MDn0BFGO458JWEfvViJ5WQQqAqiz+icJsH9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=S+LwRPYgtMTWiflgtN1ER7Qn9qBbkIoRiq+S7+zZqCM=;
+ b=WPpBxE1cT1zmKv+ZPZRk/alSazNM8vUry1htmvrIkOEaoDJQivZZawFNuveNrSZerBEKaAqdpB9UwG6U/zLpdLPy9MmKHWW6Zgbpijd2wQSS/NSMehlIwxDRHAVaqSYBINX7HonArH6r0a0D7r/9cKnUIabfCoLb1ZOr/4ML0v9PjAUp2MfyqhA+CEf8Qu4XHzSsCPsjiZtMMkwvOHb+zixUnKQkm1tzG4Tr5gBS19SPXFf77upELInKSdYjAMTmRFNm+PjBrm6MOziCvwSGL7cmz5WmjFSsWxYD/uPoBTfU5kaWbSte8pl1iMCkFDruhCZ46kh6Nf1ixPso0gGcjg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=S+LwRPYgtMTWiflgtN1ER7Qn9qBbkIoRiq+S7+zZqCM=;
+ b=BBcNXSnzaNHIb6EZ3lQxmr92tlS/xX7aR6gKT3F3xzqpQTwiGFh98RjfObbRi0H3HXBgM28aglA9y1tzL7nAIWa/mfa1xfsA8GF4mtDsLUha1zcG9pve6unNRQ16j3+Z9WzBRv6Tf4O5V+z2swLOf8WWZFbJRChCfsmmbtIUpWg=
+Received: from YT1PR01CA0096.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2d::35)
+ by MW4PR12MB7262.namprd12.prod.outlook.com (2603:10b6:303:228::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Sat, 19 Sep
+ 2026 02:38:46 +0000
+Received: from BN3PEPF0000B070.namprd21.prod.outlook.com
+ (2603:10b6:b01:2d:cafe::48) by YT1PR01CA0096.outlook.office365.com
+ (2603:10b6:b01:2d::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.14 via Frontend Transport; Sat,
+ 19 Sep 2026 02:38:45 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN3PEPF0000B070.mail.protection.outlook.com (10.167.243.75) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.0 via Frontend Transport; Sat, 19 Sep 2026 02:38:45 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 18 Sep
+ 2026 21:38:41 -0500
+Received: from [192.168.0.101] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Fri, 18 Sep 2026 21:38:38 -0500
+Message-ID: <d2ebea79-5f38-4bbc-98bb-9be353c4778e@amd.com>
+Date: Sat, 19 Sep 2026 08:08:36 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 12/12] perf mem record: Use the IBS swfilt filter when
+ available
+To: Arnaldo Carvalho de Melo <acme@kernel.org>
+CC: Namhyung Kim <namhyung@kernel.org>, Ingo Molnar <mingo@kernel.org>,
+	"Thomas Gleixner" <tglx@linutronix.de>, James Clark <james.clark@linaro.org>,
+	"Jiri Olsa" <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, Adrian
+ Hunter <adrian.hunter@intel.com>, Clark Williams <williams@redhat.com>,
+	<linux-kernel@vger.kernel.org>, <linux-perf-users@vger.kernel.org>, "Arnaldo
+ Carvalho de Melo" <acme@redhat.com>, Ravi Bangoria <ravi.bangoria@amd.com>
+References: <20260916114740.48230-1-acme@kernel.org>
+ <20260916114740.48230-13-acme@kernel.org> <aqsRVABj23jaaiSq@google.com>
+ <4349c387-5b8a-4e8d-932a-5175a7598e1e@amd.com> <aq1ceh61m-n2-b0z@x2>
+Content-Language: en-US
+From: Ravi Bangoria <ravi.bangoria@amd.com>
+In-Reply-To: <aq1ceh61m-n2-b0z@x2>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B070:EE_|MW4PR12MB7262:EE_
+X-MS-Office365-Filtering-Correlation-Id: 703195ec-f86b-496e-7694-08df15f7205a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|23010399003|7416014|1800799024|36860700016|376014|56012099006|10067099003|4143699003|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	ngSk4k9qmQ84NYg4ZlGycCZD2taxnBg9cBP6xdhDSVA+Yn7Np9YyGHotv6bwXIEHQJWfJWkah6LLvDHrwG7WGXOFOfgQyEVtXr0h4bcsa3pkipyRFpiOs9g86yXeDZIKfEttTveW73wFVCVSjyp4Bs7y5vfFwcBo1kzYa8XKTuvs37igyIGt0DWkfrhhm2i75r4ZZAW8U6NO39Fh9ke06SjLib4MdQhxhqcahOub/obGv7qmO8inNmT2oL6rb/IcP5tG2qTXK/J3D+nPD/9EeZ5LcGEAZvRY5yViDgHX1xR4o+RZYzhQIAirLxjheV4A1/qq2F0yM8LkxVwYqh1uJIpNKgMsg7DW/Scc/4Umis32Tb70yoFLY1COneXtZQFWDuknD+nH92Kdhwk+vICkgyYEf6OzfwFPSI4BL3rxR4J7tNZU5TzfDwXl4wdG4g3xy7TLwNi8wS7cgKTurgLNVAPen4NPLYw6g7SDEBNq6jps1wMW3t/D7pDFLJjNtDNeqdN6IrNd2H1MatFVJ9HXpmk8Ev4g1i28L15NjEHz5/A51EyKHu+Ea0UYA4wxWh3CVHnCLFExquYoF9NNq4xbBeh17ThroGgn3QFZGMVWy5zjaTgWtk5i6Y33HSoIsyY+5mHRp18IJhvgSfsLD10s1PDWm55W/cdGM+dpALQ2VC+voU+5J5AQDQdtyDkc30HPnxIfNyf2TC1avJKaAv6Xfw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(7416014)(1800799024)(36860700016)(376014)(56012099006)(10067099003)(4143699003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Mo5J4x340CxtjNWU4wxUlYUsqnt8Y+UQ62f3QBPsXOsY46m4uQqRMJeZ2EL1Ehr3xOfKLEGKAWm9bGawE8AX1sS9bm1K2bPszW52b/iTsXHJ21bm7q8D6H0flm+KEPHPxyPhwPvOpermxlH5bRl0WGAKkcUnfChdzxaY4aDKBAUXeodlNXyk9ca3FFzw5PMZbEK3Host/vF3z0L5Onl1UYUUqXlDoQinG0CiUH0GfUqDMlcKrgwErOBcRMEfGUc6yJ0iUVODgC3L7QHL8TE4lUmtCftuTaC7pl+2LGndHMI1VSE3zjGljphZwir+juk/wAoHgZprcUD/ZW64HNdOJjs4AHvt/o4tklPqroYsbiSdbrFk9JcvwhsYVpLEHQZr9IiW5yOq8AKWnmpt1D9Bm0oSCYUVylXYQ1NvGp/AASib0qE2SoS6FRMUhszFfrBz
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Sep 2026 02:38:45.3373
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 703195ec-f86b-496e-7694-08df15f7205a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF0000B070.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7262
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   f259f446f5198d98e13756d2cd531812a0ad3064
-commit: bde0238083647381d4747355c5a19115a3422b96 futex: Fix race on the initial mm->futex.phash.ref allocation
-date:   5 weeks ago
-config: riscv-randconfig-r1307-20260919 (https://download.01.org/0day-ci/archive/20260919/202609191020.VPOLEfEq-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 05d706e9a816dbf9eff31f47869f53d6fe796089)
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260919/202609191020.VPOLEfEq-lkp@intel.com/reproduce)
+>>> It's a bit unfortunate we hardcode "swfilt" here.  Probably better to
+>>> have it in the mem-events array and add it to the name format
+>>> dynamically.  But as it's only needed for IBS, I think it's ok for now.
+>>
+>> Something like this? (Untested):
+> 
+> Seems ok, I'm trying to use it now, ok?
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: bde023808364 ("futex: Fix race on the initial mm->futex.phash.ref allocation")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609191020.VPOLEfEq-lkp@intel.com/
+Sure, Thanks.
 
-sparse warnings: (new ones prefixed by >>)
-   WARNING: invalid argument to '-march': '_zacas_zabha'
-   kernel/futex/core.c:536:38: sparse: sparse: cast removes address space '__user' of expression
-   kernel/futex/core.c:536:51: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected unsigned int [noderef] [usertype] __user *naddr @@     got void * @@
-   kernel/futex/core.c:536:51: sparse:     expected unsigned int [noderef] [usertype] __user *naddr
-   kernel/futex/core.c:536:51: sparse:     got void *
-   kernel/futex/core.c:552:38: sparse: sparse: cast removes address space '__user' of expression
-   kernel/futex/core.c:552:51: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected unsigned int [noderef] [usertype] __user *naddr @@     got void * @@
-   kernel/futex/core.c:552:51: sparse:     expected unsigned int [noderef] [usertype] __user *naddr
-   kernel/futex/core.c:552:51: sparse:     got void *
->> kernel/futex/core.c:1870:21: sparse: sparse: cast removes address space '__percpu' of expression
-
-vim +/__percpu +1870 kernel/futex/core.c
-
-  1836	
-  1837	static int futex_hash_allocate(unsigned int hash_slots, unsigned int flags)
-  1838	{
-  1839		struct mm_struct *mm = current->mm;
-  1840		struct futex_private_hash *fph;
-  1841		bool custom = flags & FH_CUSTOM;
-  1842		int i;
-  1843	
-  1844		if (hash_slots && (hash_slots == 1 || !is_power_of_2(hash_slots)))
-  1845			return -EINVAL;
-  1846	
-  1847		/*
-  1848		 * Once we've disabled the global hash there is no way back.
-  1849		 */
-  1850		scoped_guard(rcu) {
-  1851			fph = rcu_dereference(mm->futex.phash.hash);
-  1852			if (fph && !fph->hash_mask) {
-  1853				if (custom)
-  1854					return -EBUSY;
-  1855				return 0;
-  1856			}
-  1857		}
-  1858	
-  1859		if (!mm->futex.phash.ref) {
-  1860			unsigned int __percpu *ref = alloc_percpu(unsigned int);
-  1861	
-  1862			if (!ref)
-  1863				return -ENOMEM;
-  1864	
-  1865			/*
-  1866			 * Tasks sharing the mm can run this concurrently, so take the
-  1867			 * initial reference before publishing the counter.
-  1868			 */
-  1869			this_cpu_inc(*ref); /* 0 -> 1 */
-> 1870			if (cmpxchg(&mm->futex.phash.ref, NULL, ref))
-  1871				free_percpu(ref);
-  1872		}
-  1873	
-  1874		fph = kvzalloc(struct_size(fph, queues, hash_slots),
-  1875			       GFP_KERNEL_ACCOUNT | __GFP_NOWARN);
-  1876		if (!fph)
-  1877			return -ENOMEM;
-  1878	
-  1879		fph->hash_mask = hash_slots ? hash_slots - 1 : 0;
-  1880		fph->custom = custom;
-  1881		fph->mm = mm;
-  1882	
-  1883		for (i = 0; i < hash_slots; i++)
-  1884			futex_hash_bucket_init(&fph->queues[i]);
-  1885	
-  1886		if (custom) {
-  1887			/*
-  1888			 * Only let prctl() wait / retry; don't unduly delay clone().
-  1889			 */
-  1890	again:
-  1891			wait_var_event(mm, futex_pivot_pending(mm));
-  1892		}
-  1893	
-  1894		scoped_guard(mutex, &mm->futex.phash.lock) {
-  1895			struct futex_private_hash *free __free(kvfree) = NULL;
-  1896			struct futex_private_hash *cur, *new;
-  1897	
-  1898			cur = rcu_dereference_protected(mm->futex.phash.hash,
-  1899							lockdep_is_held(&mm->futex.phash.lock));
-  1900			new = mm->futex.phash.hash_new;
-  1901			mm->futex.phash.hash_new = NULL;
-  1902	
-  1903			if (fph) {
-  1904				if (cur && !cur->hash_mask) {
-  1905					/*
-  1906					 * If two threads simultaneously request the global
-  1907					 * hash then the first one performs the switch,
-  1908					 * the second one returns here.
-  1909					 */
-  1910					free = fph;
-  1911					mm->futex.phash.hash_new = new;
-  1912					return -EBUSY;
-  1913				}
-  1914				if (cur && !new) {
-  1915					/*
-  1916					 * If we have an existing hash, but do not yet have
-  1917					 * allocated a replacement hash, drop the initial
-  1918					 * reference on the existing hash.
-  1919					 */
-  1920					futex_ref_drop(cur);
-  1921				}
-  1922	
-  1923				if (new) {
-  1924					/*
-  1925					 * Two updates raced; throw out the lesser one.
-  1926					 */
-  1927					if (futex_hash_less(new, fph)) {
-  1928						free = new;
-  1929						new = fph;
-  1930					} else {
-  1931						free = fph;
-  1932					}
-  1933				} else {
-  1934					new = fph;
-  1935				}
-  1936				fph = NULL;
-  1937			}
-  1938	
-  1939			if (new) {
-  1940				/*
-  1941				 * Will set mm->futex.phash.new_hash on failure;
-  1942				 * futex_private_hash_get() will try again.
-  1943				 */
-  1944				if (!__futex_pivot_hash(mm, new) && custom)
-  1945					goto again;
-  1946			}
-  1947		}
-  1948		return 0;
-  1949	}
-  1950	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Ravi
