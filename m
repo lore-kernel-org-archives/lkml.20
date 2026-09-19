@@ -1,134 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 074A43911C0;
-	Sat, 19 Sep 2026 07:11:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7917A2DB780
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 07:13:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789801915; cv=none; b=B7pCBl1/seqwjECm4X3icOYqxfP17DVgHOlva9z/0HJCY8aTim9gufXA7efQXBQtK+3z9+viaZEAHcYjyUBvbCXYZz6WUkNUK/ot7ekMLj+Hn+x+iHxdNBOhf4l8L8U7GBPwULez/07ORH1bQUUi5WmI4CGNujiErRA19ZBWRpA=
+	t=1789802012; cv=none; b=F+XDL2gDJtCqm1UyJRKcclOsqr8GUE5RjQMKQItyaXtxFF2IZgeQ+iGopHFhFVI4Opy3cl7wAEp+39oN1qBtf9Nxe/SG2DrycKDJa6n8TFO34vDS+40wslmDdLGjrMsKqXZepcKu3OMzHeC7z2L09X/rUoqFyuqccLLWm7L6+KE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789801915; c=relaxed/simple;
-	bh=1jPNvLGEey7fTgWAQdTwXGSH5thuoWwouG9TZPMNQKI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JmfWjtX5xCYMnz2huu9WP6YdEiMSfw4MD9LNaXIblp9M+VnYmObwPC6lVZvyykbl+lbRPygxjndTiVhhhTSmtWX+5fpmhrdjlD2ffjFHw11NlQ8P4cvpdbuxdJe1omjBOI5lkxNJGjzI1428EKNdTZ17PhJQSvuoBjr5pKotYTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DeKOumKj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789802012; c=relaxed/simple;
+	bh=OpyRyDHgKlqaVr/FBHAfpdJLf6Saz6hZoz1PafSpOOA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=b5JSrs69ZgYmo6bbiyst96vVvknU0YHmKcN1+rIfKjlmEXL90GBd9i4Qdbk22uoV6Uwz5L2qbg8TK0s0/Q6XMDj3tY10elrEKnsSWA7mC+mn7ZNfYHtC1Gv3CBCwzzoMluNB7pALls/WOn6RJvscILuXgAhTxm2SmyUa+te3spQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mmN7Y5k8; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DeKOumKj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D20141F000FF;
-	Sat, 19 Sep 2026 07:11:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789801913;
-	bh=5adUzaqKrOWyxyKNm2ZBcSKvXsebzcb4Tupqu4Fr0E0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=DeKOumKjzggsNSLCvpCh6cVSXAOHanCdLiaWPs+3F8b4w0OA8FCwYpMI+Bamq2gAB
-	 KMouNnRTKUPtsOuxt+7lAmzZ/hnAfIR++72Cy7hzN5dqUPb56130PJL8zN31G70afE
-	 LIZL3scrpl7T6JvT1Q3urZj3O8eb3YuGONgkzWrQi36PV7rjAqLvKMhyjrmZHMHliD
-	 H77MIyY0+aIuyilm0D0M2ThefPyG7GPvUMjJg0NeuOmWPHEJHBOYfgAqvuQ4tva7Ph
-	 ASMM2AhnNPYZU3/JcpZtIjQ12B0Z8qsmcBrxF9Er9uL7o7Gf+ByLqqICvuyddSU1mR
-	 UtlbYkuPD56Ow==
-Message-ID: <080744ba-b9fd-4d5d-a64d-b20eee045c4c@kernel.org>
-Date: Sat, 19 Sep 2026 09:11:46 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mmN7Y5k8"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4aa0f1766so1128490a12.0
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 00:13:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789802011; x=1790406811; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AwQsFaaF5KGdcLtlg+j+YQG7OiHlq2IqvQxHexSosrw=;
+        b=mmN7Y5k8VkWsMIJ811uEWwAOTxgFnq87ZhzIFHhXKx46gP0wq0fnsBnzLJL0OcIC3s
+         d6+W3xfnjn+fDn4VN/N1KjN44BtNtlkid0ryvt9hXQlwXd3adEbsw2PjNzIJd8R4owVv
+         sgJ1UNhV7yYL4EG8QnNt1dc2QoKPRMq0I9tzc//1jQzbpvfMe2vfxSCGmK0j9MiXVk0C
+         J8Kp/ozx80c7ymkpIPY9Nh1IqE57XqHaPvmN6lTrVp+iU4UXYE0EyhxiUq2jTsGEFBAH
+         NltOqNgQdmux1LIhLlJKRSjkIJ2C83YOn26PaR7BEbFE8pLEM+/kFQy/1o34IBySkLdy
+         7KyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789802011; x=1790406811;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AwQsFaaF5KGdcLtlg+j+YQG7OiHlq2IqvQxHexSosrw=;
+        b=NYcXdHVqVP57MjVgrvya5W+IXDe9OsCi41ghX2FpimjsPRXJdLJ4Hfq7S1EXKn+aXN
+         fqVDMZqM1VOD3XgSmcS7cwBzIZnD5CKr7fQug37QGnPL1tNalWZ1sSX9vqqGazCKLYAo
+         EDtQVoWlPN2LAAuLA21YLYlJaowQYFjHVVOTFIZuml9miGEND9131DtaYC+c5B40v4aa
+         pLb2qjjLWu8jBGV/Ra7xmFHHFQW+kf4chMIFQvvKtawFRU27S0Se8I+J8XYd4TKQvzxy
+         LiO65E+H5p5UdyJ1K/nOf5KGKQJfmffWbZKXUYMzONoeNK9V53KVvUGkaECy0xXM7PSS
+         pbBg==
+X-Forwarded-Encrypted: i=1; AKwUvBwxW22b3K0aXuA3kajcqSa5DWIvJRPxhWlutAike5yIofNlP/DXjydtw3ObzwsIvdrOl/4roM+J5HrdX78=@vger.kernel.org
+X-Gm-Message-State: AFuF++lEFU++VkRJQwRpzTRe2JG51LoXxnmyWZ7CrPwuzHs2VtcaeMcu
+	4bU8ZNBJmlQNJm27hBwiHVuuvcS04ryWfOjikQqwezA8jgaJVhj8CY8tekaLeGziZg==
+X-Gm-Gg: AYBFou1FvcXbC63yfSSY2TDpJIserX38o2/uwJz204vi+bVXS6G1B2KHqNAqDWI7Bg/
+	0UXknfoysjv/wHsX6SZ9OSCPmuf4ZwqZiQ07ctHUq4NDzUXBilXkFqU/vPRMjfScLPqwNQp4YGA
+	w5rmTeM/wViMPlU+77ITO3fq0LNs0B9gyY6mcDpKbhGh9ztxAqtquFQ1Js1TMb9KOOHgagyJpjC
+	1pEz1/ppIBQSLxXq2AFzc8TCiVWXXDvIRJ1hsHvWykAXrXnjhvgBKcy7rlk0TcJkQjYkJ/TcuGg
+	BVKTI6F2y3ZqkL8Lt3Ni7mNiyxZDGgZrAJ8odY+MYbDSldkeIlunpae6u5gn4R76areiBIlq8R/
+	7ijeIbAfkFI6jZ8Q9FOC09I/j92vS9T470+4NdQKlCgFiDTcUEw467v+uYSWMvyZr6BB6Noqlsk
+	oEl/3sTYJnlOOKLiKl1XsnfiD1F+kQLhKNbQm1yA+TYpzO/DTd4dEVGQmMsmXOd79wcjf1rOVAl
+	SFIBq/8ME+TCbbUfzoFNs+PUtQ=
+X-Received: by 2002:a17:90b:2b45:b0:39e:6a80:b795 with SMTP id 98e67ed59e1d1-39e6a80b8b1mr3373413a91.37.1789802010653;
+        Sat, 19 Sep 2026 00:13:30 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f00:8c85:45e5:9e39:6356:6164])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a02738654csm1050170a91.3.2026.09.19.00.13.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Sep 2026 00:13:29 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: sj@kernel.org,
+	akpm@linux-foundation.org
+Cc: damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	donggeunyoo.kernel@gmail.com
+Subject: [PATCH 0/2] mm/damon: fix the temporal goal tuner's size quota conversion
+Date: Sat, 19 Sep 2026 16:13:22 +0900
+Message-ID: <20260919071324.1583280-1-donggeunyoo.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: arm64: fsl: add Olimex i.MX8MP boards
-To: Zoltan HERPAI <wigyori@uid0.hu>, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, Frank.Li@nxp.com, s.hauer@pengutronix.de,
- festevam@gmail.com, kernel@pengutronix.de
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260918195559.130443-1-wigyori@uid0.hu>
- <20260918195559.130443-2-wigyori@uid0.hu>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260918195559.130443-2-wigyori@uid0.hu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 18/09/2026 21:55, Zoltan HERPAI wrote:
-> Document board compatible bindings for the Olimex i.MX8MP-SOM and
-> -EVB boards.
-> 
-> Signed-off-by: Zoltan HERPAI <wigyori@uid0.hu>
-> ---
->  Documentation/devicetree/bindings/arm/fsl.yaml | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
-> index 656f2596e..aef153222 100644
-> --- a/Documentation/devicetree/bindings/arm/fsl.yaml
-> +++ b/Documentation/devicetree/bindings/arm/fsl.yaml
-> @@ -1146,6 +1146,8 @@ properties:
->                - gateworks,imx8mp-gw74xx   # i.MX8MP Gateworks Board
->                - gateworks,imx8mp-gw75xx-2x # i.MX8MP Gateworks Board
->                - gateworks,imx8mp-gw82xx-2x # i.MX8MP Gateworks Board
-> +              - olimex,imx8mp-som      # Olimex i.MX8MP-SOM
-> +              - olimex,imx8mp-som-evb  # Olimex i.MX8MP-SOM-EVB
+damos_goal_tune_esz_bp_temporal() hands the size quota to
+damos_set_effective_quota() through quota->esz_bp in basis points, and the
+multiply that gets it there is unchecked.  On 32-bit it wraps from 429497
+bytes on, and wraps to exactly zero at the 1 GiB that
+Documentation/admin-guide/mm/damon/usage.rst uses as its example, since
+1 GiB * 10000 is 2500 * 2^32.  A zero effective quota makes
+damos_quota_is_full() true on the first test of every charge window, so the
+scheme applies nothing for as long as the goal is unachieved.
 
-How som can be used alone?
+Patch 1 saturates the conversion.  Patch 2 pins the boundary in the core
+kunit suite, where it fails without patch 1 on any word size.
 
->                - prt,prt8ml             # Protonic PRT8ML
->                - skov,imx8mp-skov-basic # SKOV i.MX8MP baseboard without frontplate
->                - skov,imx8mp-skov-revb-hdmi # SKOV i.MX8MP climate control without panel
-> @@ -1225,6 +1227,11 @@ properties:
->            - const: kontron,imx8mp-osm-s               # Kontron i.MX8MP OSM-S SoM
->            - const: fsl,imx8mp
->  
-> +      - description: Olimex i.MX8MP boards
-> +        items:
-> +          - const: olimex,imx8mp-som     # Olimex i.MX8MP-SOM
-> +          - const: olimex,imx8mp-som-evb # Olimex i.MX8MP-SOM-EVB
+DAMON kunit: 36 tests, all passing with both patches; 35 passing and
+damos_test_esz_goal_temporal failing with patch 2 alone.  The DAMON
+selftests do not reach the changed function: a build with a print at its
+entry stayed silent through all fifteen of them and fired as soon as a
+scheme was configured with the temporal tuner.
 
-This makes no sense. Why duplicated? And where is fallback? Why are you
-doing it completely different than everybody else?
+Donggeun Yoo (2):
+  mm/damon/core: prevent size quota overflow in the temporal goal tuner
+  mm/damon/tests/core-kunit: test the temporal tuner's size quota
+    conversion
+
+ mm/damon/core.c             |  6 +++---
+ mm/damon/tests/core-kunit.h | 35 +++++++++++++++++++++++++++++++++++
+ 2 files changed, 38 insertions(+), 3 deletions(-)
 
 
-Best regards,
-Krzysztof
+base-commit: 498ee28e5ec4727f829507c4a1bde3ab1b7704cd
+-- 
+2.53.0
+
