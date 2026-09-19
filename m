@@ -1,75 +1,76 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D58A1394492
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 21:52:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9F903947A4
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 21:52:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789854760; cv=none; b=LSIGtk75POwt4C+N9sRUxa8+x7u7ieefoY7FXJIBlc3cQVYUzYk1boBVqtqeSYMeaO+jjrfhKa7M9n4iOSneifsFTBrFhQcw1rpLYypYiSSe91yvbiy1P4x9DdMaK27P5EElbbWnw5zkjuXUJAhayRE403gSyPyK+w5OYQGF8KM=
+	t=1789854763; cv=none; b=P14yXwhm6L/+T1WqPMlTTD0ROzjF5bhn1EE/kQCyeuPO5DLQtmxfOzJvUP31OFb1MyPSXCeExOHEQ2DNb9XzDgVUYUiySwFmo61hK2rCvkxXj3fsYfjSuSkmlu0SsSoQJmBjGqov68EbGmd+nR51keoNMYwCfuA1xzDsl1vwoMU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789854760; c=relaxed/simple;
-	bh=VQ9Ha0Kv35OQUZIpcPbivRupE8x247MSqdoR4m67+Ho=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ImHVjGYdaQ8/Hi9XitHhciN7P88k2Gi/Rr0pIB0dHOLS2QgzZMNS3Qh3qov0IpMo9c2lc4L+nQjEFNqjN6PmiZwgWPFeUCXkZJewvuyfykc3Q6clmyqhttCiXlNosVJA+VGzYmtzqTaLuxWraiM05NkglnzP8+24uPRsI+GtS2o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X9A5fMSf; arc=none smtp.client-ip=74.125.227.171
+	s=arc-20240116; t=1789854763; c=relaxed/simple;
+	bh=BntXNVTAE1crzVQG4zUNy15sf1O1LyXIl22qSy/4NXE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ICYR0bMncI/jrymsvXN4GcGBRhDqjwUI3VbUbI/tK+P2SLyvA5sARgZaLeH9JPbANHtPI83pjIr7kXhru1osOv24p7bE7buWNstwdxbaz3oAtAaH+F+QBtAbQffB2ZrLpQNBhf81WJ32Uxuj1k6dHwwYZz5mLZEqEfJXBg4BKXE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OkOLYO87; arc=none smtp.client-ip=74.125.228.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X9A5fMSf"
-Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2db1ca069c8so18839635ad.3
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:52:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OkOLYO87"
+Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-86efece610cso1408912b3a.0
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:52:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789854755; x=1790459555; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789854757; x=1790459557; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9aJFCfj2LQ5guspfVFESmNOnFBxFScArLrkp4w4HDqo=;
-        b=X9A5fMSf6Ey7j1lhELdG149NMTlNwd1aYMVzCjjErg3oC//sGLBGsDNxovof9rXB0j
-         fj1PiEp4qtAYSJn1+7C/FsjFgPDEmRkj2rHt0t/PcvtWdLfpmQny7OanLzpePEK4Cy8L
-         YQzIFNL2MR0hn9ekLlOK5qAmfMF8RAFqLYQyn6YfJdCeq03S44En+3wnAxVsiOaparZr
-         D61+UX/X2UNXJIJWTKFMgeNq9D+b+RVkLjp4z2MYlw+kRMwtEaxD77Vhf92R+Vqqoba9
-         /Yd3vfwWaEMqrGw1+Mt84JM/DnCJpFa2CQoW9ugv37CVgHDkgVCjCmeUWpFZITQ+9i2L
-         8aRA==
+        bh=/h/iBMsKjYf4gXSNgib/JEQ4/EySf55r7ftrtNb0u6U=;
+        b=OkOLYO875xlu1OUviRhPkxZx7TNPu6MWrs91r9X5sCMydAsJ4gt9j8JJJtPUN1fgk4
+         BdikYCIqOfqujv18gfGTuQJQaej4BhIu0hU6at6VhmBvmgllkPG8SiwMPAC5tc+re7fH
+         auQStbuDHhHkpeh7GXFTtoB+tnhOAbj6SUvzIu3a+SMM48DEcLE15lQMMhn9aW2F69Bf
+         8H60ambonw2c0nxfvl3TgR4TUmXoDbb5jFLT1PxZXj3pzVbgUps9t+eo6ORWFELHDwb7
+         zhGHPExNpE93A9Xj9zPBN/DWQtreCNe7igIe1/1YKl34yEh+EQb8bibEkmysb2k9BZ15
+         lTCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789854755; x=1790459555;
+        d=1e100.net; s=20260707; t=1789854757; x=1790459557;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9aJFCfj2LQ5guspfVFESmNOnFBxFScArLrkp4w4HDqo=;
-        b=RZg7XM9ZkV027weYo6fI1HysVDsgEscJ3uFUeDpwhpz5i7ANq9MFZglZz/nhTepgmk
-         rW4KWznMH3A6QuaHdJeJj6aEKO6a/bVEMDClE2a0V3woJ0YhbVgnbngWqzb253wBfcUJ
-         YT1Q//+YiZksAbuUyZ/T24IHLkqYj6XzJUS9j5j/i2a3bAU1YEn8MX3aHNdl2pMSjSxO
-         F4+Yd17d8ygBeLCVQ6byoGVZqRhKQ00wwQl6jj53DAXq7P6ecmPMz/ZbPZGoOVmAo/K3
-         njMKwDdTWRTO9EbblWbEqjHVOCwav2c4hgqAmQYTVbaFGYcQ8pROoLPw6xCf7kXt2MOi
-         QAhA==
-X-Forwarded-Encrypted: i=1; AKwUvBx5CHzAwVmhmJMn5AI77q8fyigJPguJy9e+zsD0NjbwKt7FdrIaa+m767VdqlJ1IMAInKc+cIkhRM41T+Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++lNxv6InGdKtxw2EHNtVQmIOREexpoFNLEm9EJcqDDHXGiwibji
-	N6NHi3aWPjRY/goT/Y6eQFphkujJF6yJJxBCQ3T3i6gK5M7gYykRz0rULVWksYTT
-X-Gm-Gg: AYBFou2PDAF5uTUFcUQ6M0JWlVgS3KorGWZI/wTMlaPm9Xnko5oUM1OaxgAe4R3K/1/
-	Uw6qD9byTrTHpcwozktgRbYdaMALxQ/ffJ2bgPW3eboVd6T59csB3fGCQgcXIvUK2rj5EriFzIK
-	auPX0fhbXrOCsqlI0F+MAoYlmk7HDil5EiiIHlc5oVIM18UBJF2Ry2dyV0uLj6pVInQkJBu/IvA
-	XBiRTz5CVd7QOVQjKd4KUaEYPc4Vp1sR58LcafH2tlbEStRtgs5nPT7qzlZ4F6yUisGLU9mt9ua
-	z+3AtFbvgDrYtDzsSEqeKUzz5QcRi80rMQSGAE+WWPBxBJlBHxDqPKIcYJiMI2jjDSviYFQig94
-	BKtAv3dFVnMcC55f4ZaUzNOYHDcgVUzLe5Fe1gcksx3957e39pXseERBk/Bh0ZmOCHK4SSlU8Ze
-	iHxp+CD9/j5fCc9wxLnFOcSCpoplTTVCTZHp7b+JzT3WqFID91zoXL7OVdJ0hSAoMVySjsEofs3
-	4yUOy5waDI34HyTEZNu3fVpCwyKzDISodJO3xeqUmfAGizGqTASG3N58h2Muu9m5NfWjmGM/CUr
-	VtpGi8f5aA==
-X-Received: by 2002:a17:90b:5690:b0:398:bee5:61d6 with SMTP id 98e67ed59e1d1-39e54cfabf6mr11253729a91.24.1789854754661;
-        Sat, 19 Sep 2026 14:52:34 -0700 (PDT)
+        bh=/h/iBMsKjYf4gXSNgib/JEQ4/EySf55r7ftrtNb0u6U=;
+        b=Y0Q5sPB6iFVud1gqDEIT1hDT2GsJRAxgF6PUHWUW+P4Z8nOzLCnQFgyFz0JxKplDL8
+         KoSmqSZ9a83231ydzTBRZeK2n+C8fxsVLkj/rLVaQMZfoYvjLAJuOWA6GhYj/IT2138u
+         SKP+1y+opPz2ajY9DxYWWhP0YYIto+9oNQtgGvq0eE3z6q5jSnqniY5TIluVNuiBfnZ3
+         6qXPLKUR9j3galsIGY0VvieOhx/Iod4VcHY8XeevfWspYSUI2vuuALCOfkDNSiz5+Fkp
+         J1eZnI0HRwC55TmrGoo99kuhfil7InDdqJg9eb3fq5iyqqCS3zaVw4yGlZJabtvnSIoQ
+         XURQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxoS3Huv8+VVXjOkMwl6L2V9P6nyp+zABRNOJaLhRo5RVJrHmIJM2o08Pb4hTkMICmb8nQnZVsXlh+VhQQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++m4+PyKOMJ5pYKTWugNtJ5uTkfPCgUbxH+F0s0dW+jqzEUZ8xr8
+	vSysv+F99ivj3cORvqnV+IMmvB3cksTqABfftuYcSzSqK4WGW7WlDxoe
+X-Gm-Gg: AYBFou24VKFNH47An7MpBGRK906JreJZ+Vk09PIHON1e8byLgG5NRCgekNQmHhFvwSg
+	VcqPqKcAFnbRjxY2jHwM4N3fYHB6UqpbtyHkVJT5/ixP4bG07NPI0QPp0EGeBrFlCFnvVHE/AXh
+	JmW9KLgsINMk1e/RbUj7UlD3PnOJ160jFVzOd4+rgG9KbbGnep171p/rCiBalLwP6GSdb8quXrr
+	2Bd0WBqWzpw12XvIuAZm35QTssfPfho8kZylM/KcV2ff+MuQ9P9U/VBDc1bjudQx4APJnRL+PKD
+	5Sx0diE4T5ZmKBW2NFkXOd3nMd+QX2l+Y6zwqNSywGq8n+dx5efL9Z1WJ0dOogzBBvBzUJ+rMZV
+	kaPHqWwqcn3Ks6ZhCLUyraHsVySTi4amddrheU4/+MLzdNhVHfbJzTWkBxdlF8nVd1p2Yqu+YmU
+	0Fd2cdAq8wHhSd52XIQ9rGzy+lAALoWRmmif9ZyEeHUm3KxU4JmU0Zr83TTnQuwAPdt+VMw+DEF
+	JV5SA3yrLoXpQNpl+2IDgjUtdZTmGanDoOKFGQiubtWLtp6CY9pJ6TpwIZwLyapxOb2z4nNiU8H
+	/RoF6AZkHQ==
+X-Received: by 2002:a05:6a00:ae0c:b0:878:3507:8d69 with SMTP id d2e1a72fcca58-87835078ebfmr2119429b3a.48.1789854757327;
+        Sat, 19 Sep 2026 14:52:37 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0309d5760sm862843a91.4.2026.09.19.14.52.33
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a94f4ab3sm1339922b3a.23.2026.09.19.14.52.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 14:52:34 -0700 (PDT)
+        Sat, 19 Sep 2026 14:52:36 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
-To: andrew+netdev@lunn.ch,
+To: edumazet@google.com,
+	ncardwell@google.com,
+	kuniyu@google.com,
 	davem@davemloft.net,
-	edumazet@google.com,
 	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: linux-ppp@vger.kernel.org,
-	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org
+Cc: netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] ppp: fix bsd_decompress() OOB read and ppp_decompress_frame() headroom check
-Date: Sat, 19 Sep 2026 21:52:33 +0000
-Message-ID: <20260919215233.3470411-1-benquike@gmail.com>
+Subject: [PATCH] tcp: drain out_of_order_queue and update SACKs in tcp_send_rcvq()
+Date: Sat, 19 Sep 2026 21:52:36 +0000
+Message-ID: <20260919215236.3470714-1-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -79,53 +80,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In ppp_decompress_frame(), skb->data - 2 is passed to the decompressor
-assuming at least 2 bytes of headroom exist for the PPP Address/Control
-fields, and the returned decompressed length is only checked for len < 0
-before indexing ns->data[2..3] and calling skb_pull_rcsum(skb, 2).
+When TCP_REPAIR injects data into the receive queue via tcp_send_rcvq() and
+advances tp->copied_seq and tp->rcv_nxt, any segments already sitting in
+tp->out_of_order_queue that are now covered or contiguous with rcv_nxt are
+not coalesced or removed from tp->rx_opt.num_sacks. Drain
+out_of_order_queue via tcp_ofo_queue(sk) and update SACK blocks via
+tcp_sack_remove(tp) after advancing rcv_nxt in tcp_send_rcvq().
 
-Ensure 2 bytes of headroom via pskb_expand_head(skb, 2, 0, GFP_ATOMIC),
-reject decompressed frames shorter than PPP_HDRLEN (4 bytes), and check
-isize >= PPP_HDRLEN + BSD_OVHD in bsd_decompress() before reading the
-sequence number and header bytes.
-
-Fixes: 224cf5ad14c0 ("ppp: Move the PPP drivers")
+Fixes: 292e8d8c8538 ("tcp: Move rcvq sending to tcp_input.c")
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
-diff --git a/drivers/net/ppp/bsd_comp.c b/drivers/net/ppp/bsd_comp.c
-index 63a6d251c746..03ee4ff4ec1b 100644
---- a/drivers/net/ppp/bsd_comp.c
-+++ b/drivers/net/ppp/bsd_comp.c
-@@ -847,6 +847,8 @@ static int bsd_decompress (void *state, unsigned char *ibuf, int isize,
-     int extra;
+diff --git a/net/ipv4/tcp_input.c b/net/ipv4/tcp_input.c
+index 92bc60716f33..8a7c38a4b1ec 100644
+--- a/net/ipv4/tcp_input.c
++++ b/net/ipv4/tcp_input.c
+@@ -5589,6 +5589,11 @@ int tcp_send_rcvq(struct sock *sk, struct msghdr *msg, size_t size)
+ 		WARN_ON_ONCE(fragstolen); /* should not happen */
+ 		__kfree_skb(skb);
+ 	}
++	if (!RB_EMPTY_ROOT(&tcp_sk(sk)->out_of_order_queue)) {
++		tcp_ofo_queue(sk);
++		if (tcp_sk(sk)->rx_opt.num_sacks)
++			tcp_sack_remove(tcp_sk(sk));
++	}
+ 	return size;
  
-     db       = (struct bsd_db *) state;
-+	if (isize < PPP_HDRLEN + BSD_OVHD)
-+		return DECOMP_ERROR;
-     max_ent  = db->max_ent;
-     accm     = 0;
-     bitno    = 32;		/* 1st valid bit in accm */
-diff --git a/drivers/net/ppp/ppp_generic.c b/drivers/net/ppp/ppp_generic.c
-index 1a610a18893b..f7af328b7bf8 100644
---- a/drivers/net/ppp/ppp_generic.c
-+++ b/drivers/net/ppp/ppp_generic.c
-@@ -2552,7 +2552,8 @@ ppp_decompress_frame(struct ppp *ppp, struct sk_buff *skb)
- 	/* Until we fix all the decompressor's need to make sure
- 	 * data portion is linear.
- 	 */
--	if (!pskb_may_pull(skb, skb->len))
-+	if (!pskb_may_pull(skb, skb->len) ||
-+	    pskb_expand_head(skb, 2, 0, GFP_ATOMIC))
- 		goto err;
- 
- 	if (proto == PPP_COMP) {
-@@ -2576,7 +2577,7 @@ ppp_decompress_frame(struct ppp *ppp, struct sk_buff *skb)
- 		/* the decompressor still expects the A/C bytes in the hdr */
- 		len = ppp->rcomp->decompress(ppp->rc_state, skb->data - 2,
- 				skb->len + 2, ns->data, obuff_size);
--		if (len < 0) {
-+		if (len < PPP_HDRLEN) {
- 			/* Pass the compressed frame to pppd as an
- 			   error indication. */
- 			if (len == DECOMP_FATALERROR)
+ err_free:
