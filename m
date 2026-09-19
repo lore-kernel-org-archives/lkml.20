@@ -1,162 +1,85 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 289992EEE63
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 01:06:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87C9A3AAF65;
+	Sat, 19 Sep 2026 01:07:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789779986; cv=none; b=egj1NWRJGhlNOQk/rNoaAy7jX8NpS41apKEW1VaMZTpIwEfyxOGe+AQHSDH8pPfcXImO6yq0sRxBgAWB0UOgFCFeAble1YSw0Koeu1571D4tz+D6KorIqJoqezFc+IEqpIVi7ovGoBObiiKo11Z5RXzaGPBssA/HF9U9E1bFhYM=
+	t=1789780039; cv=none; b=A+rhS95dyOGQS4ZqiaYJ5Ir6RPn+DpcWV9uG36E2i8NO/daM6O2B3Au+/aMen+LOwko9PZAwcdv3hAcvXt3uQKeluWw5zZ2I7RcDU6XSXi05DEOqnTJDp5fSbm16StmpwJAFa3a0YFcqKReJ/ofF6Khd2BBiplHLlB6yPHSet6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789779986; c=relaxed/simple;
-	bh=UgK6zDG18uoS3J6tXdJQ0E5iNtWkMbqUJLbK7n7U0Yg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ORv1qDjOonnHlu7cSSvEDzY5XkRh7HmeZ1GJU3wy6TzvJZ3PZ0Pjd1wBKYfgpVYzOpYPzqZH7USQW+qnRjFp7E3JUSIR6jZyrFdjQBTCD15e8asIDH1nZHKamuFSKQIuswcE+FDqgIKzuL0EgAjBUwFSEAZBZXNXCjw3JCGC9ag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IOzO7w+z; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789780039; c=relaxed/simple;
+	bh=5oNs9PI8NLa0Dd8AKOjBrnydgdrAbQsvVrK1J57eKP4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qsxtk0Gc1UWZ3HbpKuHkfzskQtefsvXEkx8Ir9CbLcnAs9o2GSgbE02dXJIdJn2cfu7rD2jxlDEZe3OlN/Rt2WT+Be8FAbUP0oawOq/EiwDIAS2QOb5TRHgxCWxZn7HwENgscQ7QBHCnvdrcOAJaCC+Kq6GSSJocjrm8OWddm7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DqY6X/wg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IOzO7w+z"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2dd77300825so13861925ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 18:06:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789779976; x=1790384776; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6LTqB6a9B9UKh0x9TDelgFRYjmXFU1lhcgKSzwgGYlw=;
-        b=IOzO7w+zMUQPuZ6R16Syig5vMisEhJB4FDEhV3jJh+WkZ2eob5m4pOMlWeLWBZ1aDx
-         mQRSjzf/mLgOOLWtyXgMmS05xH1p99gXkESLbaupFnfGa+X7qhLNaRh5VbsbE0EzQ0ch
-         YttZHvEeEVI8YyH4KTKuFMLXhqzH3C1UDwn8tn+SW5gkO/Em3+fR58QkNC6vqTkkS8X2
-         9XL59bHcIoo8/uhzOXRDOjazj2vq+UzN+B2iCGQsMMEp+uw1+qY9Wkm3gocL7Y1D4L0C
-         aNm7fJDzW08m6bJ50KfrUUf5bgSJLTPX1w+YtUh7aO2qegr7GpOgTRLY9nB9OcUqiXUb
-         eJ+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789779976; x=1790384776;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6LTqB6a9B9UKh0x9TDelgFRYjmXFU1lhcgKSzwgGYlw=;
-        b=XgQo9bBk6n2a9ZjL0KxBuXluGIRCEhjGbF9qEKwKGGN54DjGPKApa4XXnxq4WYtppb
-         z3Fq3X33mW8ISQEmz6WoOOv3NXc30HqdowpfqHSrhYjDzvDcK7ynec62EXWO/iCjRs9l
-         ZTnwKBqZGuf/Ij2hQ3N5aF4NDJHLm0vOp85ucCXVRspeEvDpquaC5ZS2EiOoIfMfDlc2
-         3KYwqV3iZ7s6Stc0a1wGRoNSmppBi0MMxbgN8ykXfonAf1HJ6b+xTwgfbSW3PlLxPCUd
-         71n8Y7KgR75mgPTnjsjmVkgTDOEoc2NBwmP/IUvZKsunBElDh4OJvRElW60lEMfSZrCv
-         Ri9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxbgmKfqlwAPILNQzNNDL6F+f1Er3L9FtJ51qsa72wsnaWLglsJYX+L4qssAyW1i+2Kc/aZ150dmtTrdLs=@vger.kernel.org
-X-Gm-Message-State: AFuF++meoX4Q87VzulqJa4RWdMKYb0UTO/a4Jo9w7vlMUhtFuNcZfvPW
-	7ZrSsgzF9yGTuRiX8f1EMkm71zDO1QXJslU+eX+i+bcRdyt4ji4zvP1wQBR5iHPAryo=
-X-Gm-Gg: AYBFou3vIdEdGL4OTvybY1ul79UtR2/chsRwy1YHb4FODq0rhIGIk2KUm/IfSVyk+Y6
-	FIRzILSJGYH1QWTSk5XRjXq/e/6NCQBT4eCsUes9zf71jjUCdeReKes9jLN6eAJ9Sen0YMXsFIC
-	LUJz2xfREK1j9EpA9PXPvXNxvl654ke1J2Ln+DQA/q7Aepnq4Eg6GaQdKuwfXBrC7kCwSOdFY89
-	I5FQrPFLEJDI2PdgKBct1qPVfj0GcGiJGfhEOE7KNfxMWPjmag8gxEdCA6sg31efbSQluJ99P5p
-	rGTRW9HA3qmodWBqsPQMexXF7JRPt7BUuWanp4yCdxkYrxbPNyYqoIPaYEhyRg48ZQ0i1Sl6o2B
-	PFkXaa+fpXnAI8j48ZvjQEypwHm4DRvBHo3m199wViyptPri8uh92LgDEBUU/nOy5+rsO0PHl6j
-	HarIMEEd92AOSqKbRfpR8tjJ5/xkxBmC5lKt3Z3/47G0IfIii/WLVnwEIv3eTO1BAfN8IxLVfMP
-	TkOt9vPgI8wi8pm9u0kc6hQ/mqGdLfX4jXykzQUJKayBJU=
-X-Received: by 2002:a17:903:2acc:b0:2dd:c132:dc27 with SMTP id d9443c01a7336-2ddc132dc8bmr18159265ad.47.1789779975721;
-        Fri, 18 Sep 2026 18:06:15 -0700 (PDT)
-Received: from localhost.localdomain ([2605:bc80:3010:503:f816:3eff:fe99:6bb3])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df3140fd2fsm1651805ad.61.2026.09.18.18.06.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 18:06:15 -0700 (PDT)
-From: Zhouyi Zhou <zhouzhouyi@gmail.com>
-To: paulmck@kernel.org,
-	rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lance@osuosl.org
-Cc: Zhouyi Zhou <zhouzhouyi@gmail.com>
-Subject: [PATCH v3] rcutorture: kvm-again.sh: Fix re-run failure on ppc64
-Date: Sat, 19 Sep 2026 01:06:06 +0000
-Message-Id: <20260919010606.2916865-1-zhouzhouyi@gmail.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DqY6X/wg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D18E21F00898;
+	Sat, 19 Sep 2026 01:07:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789780031;
+	bh=54z5SHlzrtBebb/X3YpRpc4JfK56SguCLPAt7r3wZ0s=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=DqY6X/wgf0ZvI/qmkkkq9008FZOOCDULO9vS7BK1OVjEmpBq1O6JjpH4ziCEq0bNu
+	 Ppik+IosP5jIqP98FvLJBLVFTGMRFlzLGb+YuVUdIU+NHUQk2obZheMTB8sTgB9XQc
+	 HvZOTereYSkhF/hRriYf00wDHLTlXYaSTSBf/7bMRVxuaD+z4Z0GR7+YLQM8LePxZK
+	 g6Br32OKZ/YvToD9FbX431FwVqze0AkzkMfseiaRoqSqR98GuPJRnlrsCltIgZVYk6
+	 qRkVygyRYk4f9H/wFXZRAmHZaWL1auJsOJIUgK8hZ0gM8yF0gRfe1dygrfWn07r/y2
+	 S82iN4am91sNg==
+Date: Fri, 18 Sep 2026 18:07:09 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Daniel Golle <daniel@makrotopia.org>
+Cc: Jiri Pirko <jiri@resnulli.us>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Simon
+ Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, Andrew Lunn
+ <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>,
+ netdev@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, driver-core@lists.linux.dev
+Subject: Re: [PATCH net-next v16 0/6] net: dsa: mxl862xx: devlink flash and
+ rescue
+Message-ID: <20260918180709.2fe12c2c@kernel.org>
+In-Reply-To: <cover.1789477568.git.daniel@makrotopia.org>
+References: <cover.1789477568.git.daniel@makrotopia.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Discovered in the Open Source Lab of Oregon State University when running
-torture.sh on a ppc64le VM.  Two bugs were exposed:
+On Tue, 15 Sep 2026 14:09:03 +0100 Daniel Golle wrote:
+> This series adds "devlink dev flash" and "devlink dev info" support to
+> the MaxLinear MxL862xx DSA driver, and makes a switch stuck in its
+> MCUboot loader recoverable through the same path.
+> 
+> The switch is flashed over the loader's clause-22 SMDIO download
+> interface after the firmware API has rebooted it into MCUboot, and the
+> driver reinitialises through a deferred detach and re-probe once the
+> new image runs. A switch found in MCUboot at probe registers in a
+> reduced rescue mode with firmware version 0.0.0, so the same flash flow
+> recovers it; an interrupted download is drained in the background
+> first. The deferred re-probe comes from a new driver-core helper,
+> device_schedule_reprobe(), since a driver-owned work item cannot
+> survive a racing rmmod, nor give up its detach once the core has
+> blocked probing for a shutdown. fwupd's devlink plugin carries the
+> matching quirks [17].
+> 
+> Patch 3 is a driver-core change and patch 4 does not link without it,
+> so the series needs a driver-core ack before net-next can take it.
+> 
+> Tested on an MxL86252C switch of the BananaPi R4 Pro 8X: an upgrade
+> through fwupd; a reboot issued while a flash was running, which waits
+> for the transfer to finish; a host crash mid-transfer, whose wedged
+> download the background drain recovered; and a power cut mid-transfer,
+> after which the loader came up ready and fwupd flashed the switch from
+> 0.0.0 back to a released firmware.
 
-1. The kvm-transform.sh call hard-coded "bzImage" as the kernel image
-   name.  On ppc64, the boot image is vmlinux, not bzImage, so the
-   re-run failed to find the image.  Fix this by extracting the QEMU
-   binary from the qemu-cmd file and passing it to identify_boot_image()
-   to obtain the correct architecture-specific image name, the same way
-   kvm.sh already does.
-
-2. The rm -f invocation on re-run listed vmlinux among the files to
-   delete.  On ppc64 vmlinux is the boot image, so deleting it broke
-   the re-run on that architecture.  Drop vmlinux from the unconditional
-   list, and instead conditionally delete it only when the boot image
-   basename is not vmlinux.
-
-In addition, identify qemu_binary before the copy step so that on
-non-PowerPC systems (where vmlinux is not the boot image) the vmlinux
-file can be removed immediately after the run directory is copied,
-saving storage before any tests run.  This also eliminates the
-per-iteration re-computation of qemu_binary and boot_image inside
-the qemu-cmd transform loop.
-
-Tested on a local x86_64 machine and on a PPC VM of the Open Source Lab
-of Oregon State University.
-
-Signed-off-by: Zhouyi Zhou <zhouzhouyi@gmail.com>
----
-Changes in v3:
- - Identify qemu_binary and boot_image earlier, before the copy step,
-   so that vmlinux can be removed right after copying the run directory
-   on non-PowerPC systems, saving storage.  This also eliminates the
-   per-iteration re-computation of qemu_binary and boot_image inside
-   the qemu-cmd transform loop.
-Suggested-by: Paul E. McKenney <paulmck@kernel.org>
----
- tools/testing/selftests/rcutorture/bin/kvm-again.sh | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
-
-diff --git a/tools/testing/selftests/rcutorture/bin/kvm-again.sh b/tools/testing/selftests/rcutorture/bin/kvm-again.sh
-index b5239b52cb5d..9060b3dc8926 100755
---- a/tools/testing/selftests/rcutorture/bin/kvm-again.sh
-+++ b/tools/testing/selftests/rcutorture/bin/kvm-again.sh
-@@ -180,6 +180,9 @@ fi
- 
- echo ---- Re-run results directory: $rundir
- 
-+qemu_binary="$(find "$oldrun" -maxdepth 2 -name 'qemu-cmd' -type f 2>/dev/null | head -1 | xargs -r grep -v '^#' 2>/dev/null | awk 'NF { print $1; exit }')"
-+boot_image="`identify_boot_image "$qemu_binary"`"
-+
- if test "$oldrun" != "$rundir"
- then
- 	# Copy old run directory tree over and adjust.
-@@ -189,7 +192,7 @@ then
- 		echo "Cannot copy from $oldrun to $rundir."
- 		usage
- 	fi
--	rm -f "$rundir"/*/{console.log,console.log.diags,qemu_pid,qemu-pid,qemu-retval,Warnings,kvm-test-1-run.sh.out,kvm-test-1-run-qemu.sh.out,vmlinux} "$rundir"/log
-+	rm -f "$rundir"/*/{console.log,console.log.diags,qemu_pid,qemu-pid,qemu-retval,Warnings,kvm-test-1-run.sh.out,kvm-test-1-run-qemu.sh.out} "$rundir"/log
- 	touch "$rundir/log"
- 	echo $scriptname $args | tee -a "$rundir/log"
- 	echo $oldrun > "$rundir/re-run"
-@@ -197,6 +200,10 @@ then
- 	then
- 		$arg_link "$oldrun/../../bin" "$rundir/../.."
- 	fi
-+	if test "`basename "$boot_image"`" != vmlinux
-+	then
-+		rm -f "$rundir"/*/vmlinux
-+	fi
- else
- 	# Check for a run having already happened.
- 	find "$rundir" -name console.log -print > $T/oldrun-console.log
-@@ -217,7 +224,7 @@ do
- 	qemu_cmd_dir="`dirname "$i"`"
- 	kernel_dir="`echo $qemu_cmd_dir | sed -e 's/\.[0-9]\+$//'`"
- 	jitter_dir="`dirname "$kernel_dir"`"
--	kvm-transform.sh "$kernel_dir/bzImage" "$qemu_cmd_dir/console.log" "$jitter_dir" "$dur" "$bootargs" < $T/qemu-cmd > $i
-+	kvm-transform.sh "$kernel_dir/`basename $boot_image`" "$qemu_cmd_dir/console.log" "$jitter_dir" "$dur" "$bootargs" < $T/qemu-cmd > $i
- 	if test -n "$arg_remote"
- 	then
- 		echo "# TORTURE_KCONFIG_GDB_ARG=''" >> $i
--- 
-2.43.0
-
+Having the "rescue mode" which only allows flashing a better / working
+FW is fairly common these days. Did you consider driving the operation
+more from user space. Let the user devlink reload into flashing mode,
+and devlink reload back into normal operation mode?
