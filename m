@@ -1,103 +1,120 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ECDD23A564
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 05:38:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C4B02DCF45
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 05:44:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789796321; cv=none; b=dwVP7DpOIYAINlUGJQHQLm32t7AmdtaDVRsTnDR1cNAjdrzfP93iTvQICO8lWSmQTmAF4fnztrdoUYRYW3i6StQZPlAx1D26N9Ue8QTzzpVVEAUf1Ogt3dZ8aCYSb4Wtsmi/W4U21f+RJtmU+77G5kEzfb/o4VqbQk/K574QEQE=
+	t=1789796657; cv=none; b=uPzYhGTaMDvGBA+jdXX4yJNHcu+vx6ZnewSv/DTDeSqp31cW75drzg3phYXH8mbvDl9k7OFuVz/pJ6jX7Kd9By3h2Hv7J56z4ba32jlxoZ84UsJdaILDVa7DhizFXT9I0ajVjVzjLk47YGlN9QvQsPPjFVn0GdHZ7RndpBKCO/8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789796321; c=relaxed/simple;
-	bh=qFlN53gcyRs6QIJQMB295Rz0zEvqHZJc5Zy3Fn6Gusw=;
+	s=arc-20240116; t=1789796657; c=relaxed/simple;
+	bh=nXQcnOX6QQenr0BQhIKwzKmc5cpqd4wJ5yRBp7AjTJE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=r9qK5S7gSAAEhu/lnlzAaeavCbHvsZ7BTHlruH+zqAjOPi9iXAep1DVdRwRwcx0mz5kQ6JEfKBr80P2YXO5eS0bU+/cs5/wx0cFuz/Groc0RzhxmVbXJX2YbBeFjEb7qDC2Wb3Fn4M5yitlwr1hzmmr5rc/ev+t3wW08I59DeTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=nXMmlJt/; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	 Content-Type:Content-Disposition:In-Reply-To; b=smLpNhkano7biVZzrmn6cyPpWUb5TeFWetvTguubR7pbMp+gwBFIkb3v50b3G+HyiqNcJi/uQTFIJaVtIWF2BWZD02HsKngSMvLd0TOrbAwxJGzewh+2+iiMvr+bNIVbCrnCuhujcJrKK/5PbI4lsFRDIx5gUJ/VWsmd3S6EarQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZHxrocJ5; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="nXMmlJt/"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=ENQeUofgSvdXsG20SUWKPC4j+he5hd9gfMYMd3+pFYM=; 
-	b=nXMmlJt/yRy/p5gfjTs8ZIH6BkdvbOctDHQOIF2mQvcw2Ys6PGkjYi7s3VNUBirUgYPbdkD5AWl
-	wZVudOLbbKXzdVJoqtySzfWEBknpSRLglUK7NTAfdN7O1nHV6aYIA9d8ervnZAmQuk6lhQaGkSFOz
-	K5tw9z31f1MMl4g9un7GnHZiKwGHwsOVSjhF+6Pirk+Z4QuQ0kcGyigSoEp/w6rBuMTfvRJDZ6LgG
-	DoJyiEnvaDTCi4tQ5q5KtLusWQAgq4HrY5A7L9FVx+/91px/lcDXl0s7aK8GxoJ5L4bCrbdhwVFgR
-	NF/zyQ6/LapgD8qd+UcT+Sotn01W7yT+nlSw==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1x7nmB-0000000FeCb-3pqT;
-	Sat, 19 Sep 2026 13:38:16 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Sat, 19 Sep 2026 15:38:15 +1000
-Date: Sat, 19 Sep 2026 15:38:15 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Zenghui Yu <zenghui.yu@linux.dev>
-Cc: Yosry Ahmed <yosry@kernel.org>, Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Song Hu <husong@kylinos.cn>, linux-mm@kvack.org, hannes@cmpxchg.org,
-	nphamcs@gmail.com, chengming.zhou@linux.dev, ljs@kernel.org,
-	akpm@linux-foundation.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/zswap: flush dcache in the compressed decompression
- path
-Message-ID: <aq4fxxoaX0jjUWUM@gondor.apana.org.au>
-References: <CAO9r8zN4ig_GGP4a=NLZ9PUW+jFmSfY1yBLrkPA9azvDCrGSvQ@mail.gmail.com>
- <20260710184052.3614560-1-joshua.hahnjy@gmail.com>
- <CAO9r8zOuRFcYnLGUcRYyg9_nAk1TvCxUvV_0101msKL0Mx0P6A@mail.gmail.com>
- <133c3c19-22ae-4de5-98e0-6970b707bf37@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZHxrocJ5"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e8185e037so7840765e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 18 Sep 2026 22:44:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789796654; x=1790401454; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Eycts9u1BqM6pEzcHLiCKEjmginPPloZHsyT+3j+oFc=;
+        b=ZHxrocJ5mPwu+StNfhXod8lDs4D7+4oF6fLu3NVcZVwTeXU0REiftC/z9+vKhv0Rcs
+         QVsC+tMUfmclX6pHmKIpAJZS/Zu2ID05hytA5407MGra51gkOsMGFHqOS6RPhCj2BnK9
+         YcVnx5q7vMIsk8X1zj6uTgYR6EGBIfRSZTr9QM87RTJ+LHzUZAPh3q4VgQwi6Fooza5c
+         flhcNxyydkD25yR3HLUiHySCqRYk5uXII55/lZ7tnzjywxOlP5mFK7yOJDmq+jlgVUKM
+         UTC58HRLViR39un1qw1kzJBRwjR/uRBFqvgrlJAt9rwK2fY5CjCOUeXJi2PvbUBg7CEl
+         5ZFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789796654; x=1790401454;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Eycts9u1BqM6pEzcHLiCKEjmginPPloZHsyT+3j+oFc=;
+        b=ed5E1VumyCaP9Hq/z1C8I7qXXDVc9ckIm7AuturtUjMFNRmkkfFRC0qA1S5vFbCf5R
+         Yp5ayUuCD6ujB0RH8I9SgJD+rJ0s8ZLgP0DX/vfgTf8+4XKx3MsFohn7rCNilTZJWTRa
+         mpXgxQnLJP/bIIAIBEyPXa2eBvljerYTG41QKIvbGqWGgoPfsweXxihjpoUtZrcCHePp
+         IzCMs65QejrtXoU+u7iYwk8cZ7qWUgew6b3by14QPWe2HVpbbot0lY+5IJNbPgfcKFCj
+         c8Gm2EzvmeRM2xLPPthKKxvDo/nSXM0seuHWUdNA/o7Q1s08gvhZef/6ABO6XmjNz581
+         mHGw==
+X-Forwarded-Encrypted: i=1; AKwUvByC6h65kF5lnxqVtuNbOHAfjc133I8WKIfvYAEH8XqDszeEvzQTi1CNRKOszl5WcZfrDT38XZl3X5RLW8Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++nbsbTT3JBB+8vQolKBDbUftEzeTPwdPP0NbNrVU+UNOIK7meTs
+	YloamkW3s6bxOHHuBy26oINf0zw6cHY27GY3ohsUmEThrbTC8PENW6OS
+X-Gm-Gg: AYBFou1D9MHf0tMZTs//Fg0kiKL4uvP7T1OiJNCmseWwHwMWGOBf/4ameygAZuJmkne
+	9zpIusyRJ6ddsltPIJXoBNlndgFuezX4scNh3jR9acdtX6lyhSyb2YdRF91MpW9LTQg2NnMut5h
+	c53a4jqa3c3wotHTzIWv8lsQRlpUWZOzwyT/JskeRSdVX9AtGEdsjRBcwFR+gcR6oNj44r+l1KO
+	ErNqpS9NU+wz5TbSCV/qotaypDb46gakeLgQbhXLjHA54enx+EjMzEaT+0Hn17gn9BIUXINXRNt
+	FYYGrXq/E+DwJCkQ4gvRKRlNiJ/CkQU8U62RY5ijgVBSxea0k2D257lPXEcOTnfIVf0RqFA2kty
+	EcfPTIsPzeeauGsvZiMlc08CW+ZP9oPfVngLp6gaXCtfYl0BUg3gei+QntducukZlbdL5DAbNij
+	lP3mMHdhqHRqY9kDpjYawzwtoD0gWZoX3QTIaC5BbXHI7NFKhYIC0nCiSTuH7Lp3e2bIxQE9DX6
+	HUuHlrJeB1IWDuh6S0/JjGeOMVwbMqgF1LTK7bhuCxDdEJklFUdlRWh3+OPQt++zmojTqJfq0Eh
+	JcSNC+QdKdsb7I65GNWEL2LmZtmOQNAy0nCN7MPjJ6/shL7QmMCRDxvDv3wWbkLtKG5KzcFlCI6
+	x0PzNS6InDX3NIMU=
+X-Received: by 2002:a05:600c:5250:b0:49f:bd0d:59f5 with SMTP id 5b1f17b1804b1-49fc5746338mr64293805e9.18.1789796654317;
+        Fri, 18 Sep 2026 22:44:14 -0700 (PDT)
+Received: from MacBook-Pro-von-Karl.localdomain (dynamic-2a02-3100-a017-2b01-05fe-203b-7cd2-a640.310.pool.telefonica.de. [2a02:3100:a017:2b01:5fe:203b:7cd2:a640])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc585920fsm251972985e9.4.2026.09.18.22.44.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 22:44:13 -0700 (PDT)
+Date: Sat, 19 Sep 2026 07:44:11 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: SJ Park <sj@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Lian Wang <lianux.mm@gmail.com>, Kunwu Chan <kunwu.chan@gmail.com>, damon@lists.linux.dev, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] mm/damon/core: score an unmeasured PSI goal as not
+ achieved for the temporal tuner
+Message-ID: <aq4g5W58PgWLqJ8p@gmail.com>
+References: <aqm1ZPUHiXf9PFWq@gmail.com>
+ <20260916001311.101024-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <133c3c19-22ae-4de5-98e0-6970b707bf37@linux.dev>
+In-Reply-To: <20260916001311.101024-1-sj@kernel.org>
 
-On Sat, Jul 11, 2026 at 08:25:31AM +0800, Zenghui Yu wrote:
-> [+Cc Herbert, in case you missed that]
+On Tue, Sep 15, 2026 at 05:13:11PM +0100, SJ Park wrote:
+> So I'd still prefer to just making no effect this round.  And my commit was
+> failed at doing that, because it didn't aware of temporal tuner.  Maybe we
+> could show whether the goal was achieved or not, using esz and let the tuner
+> show same achieveness?  What about something like below?
 > 
-> On 7/11/26 2:43 AM, Yosry Ahmed wrote:
-> > On Fri, Jul 10, 2026 at 11:40 AM Joshua Hahn <joshua.hahnjy@gmail.com> wrote:
-> > >
-> > > On Fri, 10 Jul 2026 11:22:43 -0700 Yosry Ahmed <yosry@kernel.org> wrote:
-> > >
-> > > > On Fri, Jul 10, 2026 at 1:28 AM Song Hu <husong@kylinos.cn> wrote:
-> > > > >
-> > > > > Both branches of zswap_decompress() write the destination folio through a
-> > > > > kernel mapping: the incompressible branch via kmap_local_folio() and the
-> > > > > compressed branch via the crypto scatterwalk. Yet only the incompressible
-> > > > > branch calls flush_dcache_folio(); the compressed branch was missed. On
-> > > > > aliasing D-cache architectures this can leave stale cache lines visible to
-> > > > > userland after a zswap load.
-> > > >
-> > > > Adding Herbert here.
-> > > >
-> > > > Doesn't the Crypto API take care of this for the decompression path?
-> > > > Maybe in scomp_acomp_comp_decomp()?
-> > >
-> > > This is what I think too. Actually if you use something like
-> > > zstd_decompress() as well, it ends up calling:
-> > > acomp_walk_done_dst() --> scatterwalk_done_dst()
-> > >                       --> __scatterwalk_flush_dcache_pages()
-> > >                       --> flush_dcache_page()
-> > > over all the pages in the loop.
-> > >
-> > > Maybe I'm missing a path here that would require us to manually flush
-> > > from zswap? But even still, I think that should be handled by the
-> > > path that is repsonsible for doing the actual decompression, not
-> > > zswap.
-> > >
-> > > What do you think?
-> > 
-> > Yeah I am hoping Herbert will help us out here.
 
-Sorry for the late response.  But yes the Crypto API will definitely
-do a flush if the page was written to.
+Thanks for explaining the two concerns. I am still new to the DAMON
+code, so I may be missing something, but your suggestion looks good
+to me and it is simpler than what I had. I have prepared a v2 this
+way and will wait for your comments before I send it.
 
-Cheers,
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+One note on the first concern: as far as I can see last_psi_total is
+updated in every tuning round, so commits in between would not make
+the measured time longer than the reset interval. But I am fine with
+your approach either way.
+
+I would also move the last_psi_total update into the new helper, so
+that the helper is the only place that touches the field and the
+unit test can check it.
+
+While testing this with damo I found a second problem. A full
+"damo tune" still gave a zero quota for one window, on the unpatched
+kernel too. damon_new_scheme() runs damos_quota_init() on the quota
+of the caller, and since b90408ef1163 damon_commit_ctx() passes the
+quota of each running scheme to it for the test context. So every
+full commit zeroes esz, esz_bp and the charge state of the running
+schemes. Please correct me if I read this wrong. I can send a
+separate patch for that.
+
+In a quick QEMU test with your suggestion and that change, the quota
+stays at 1 MiB over "damo tune" and "damo tune --quota_goals_only".
+
+Thanks,
+Karl
