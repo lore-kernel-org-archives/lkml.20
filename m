@@ -1,123 +1,190 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+Received: from mta1.migadu.com (out-215.mta1.migadu.com [95.215.58.215])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE09368291
-	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 20:48:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FF12371895
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 20:56:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.215
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789850899; cv=none; b=q+PDgNNhhc8ENuNv6fWeM4N+OXN0JIs6w3rJwWXlNJuxNpbmhaXSslkx0/FWF0vPz4yuDBAimUx8D31HOTCINV+VY9tMfd0OQsnhGZCC2NDpuCuLiBCQTjoVUt6ifLxeKh3FquLpZ4jvG9FRgdPgS4O/1BkoCJi44CZT38oufGQ=
+	t=1789851381; cv=none; b=YggHN6gibYPIbdHf4PzkxTCbyvDsvnBEOsrq9AWkiEJ9Boi9LBYDZIgUcgmD7SeV1AtRueDLow+6Bn6Qz2+VKmmMLb90GBzW0jaa/l2MqM57evZcjMkjfkuyJggZxJxSRJQko1LmpMkv3J4xBw1XrXYRXJAddzmbLleMg3Fl4og=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789850899; c=relaxed/simple;
-	bh=YWYmnTUofHLnZhhJn+qOOD+krg//1xjBLW3geEDwmbQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lu5P7r4a5ViQSxY3BdZ1Wf/VNGeMklXFJthO7DqDaMqagE8BtUqbFS5BeOup3nCIrg3xVIFWoeJWDFYejrMXK4Cx4L3Vw3tVvhhLoxWVqzqbQpXyBP8EYV2cqVuPb4mVlHOtp5VS4zy2puP3gi3gGzgWJ517XHgid6SdC/PcS6w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Aq7xJmVh; arc=none smtp.client-ip=209.85.215.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789851381; c=relaxed/simple;
+	bh=s7RTzfD2xYB6sexrdh1AVzvq6TnKbTUcVa0J8zWjqLw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=hkpwLwARUXiQVO6VlrU99y1FxY2T/bqMsZHCfH4crGIlxWiWokt87xa0zen/k1RocxbuHJ1c1Djo6WJe7I0SZ+NuvkzBF+ovdET23UA7yeeBdWv+gjJWRPtMf3xFLpqaZl0hTxlxHZaIzaMqPqqHwqGee1FiwAX13vCFmckGET8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cressey.dev; spf=pass smtp.mailfrom=cressey.dev; dkim=pass (2048-bit key) header.d=cressey.dev header.i=@cressey.dev header.b=tO55hqLY; arc=none smtp.client-ip=95.215.58.215
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cressey.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cressey.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Aq7xJmVh"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc147d86bebso1591088a12.0
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 13:48:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789850894; x=1790455694; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=r3eIvhYC8FQ85KoT/nVPv+hrmn/g6RXreQMGPku9rwQ=;
-        b=Aq7xJmVh7cIY7djGM1VttA0/4zpdfES4WURJ99P+GxHhb0iUUquBcSSlB5eZb6VGiK
-         NiapAPQgr5EsJxGeIZSqThPj5HaOAyexIBlWpHz19suwVj7xvsGNyml1Sq6pvgRNELSc
-         TCSJg0nD0/aaPaoqslxqARCdZvve8l51B309rW758hr5kUzWCsBFwMD7pN5qEdhOerIZ
-         nzA1LjA1Pxz9cTc3qWA0+k0cOSpmipoamf1+iXmhrEV1L8k+YeyvJlMpR5cE5IbJztZg
-         O8+NmMTw4Fkx+Pb4jfOdGBiwg45VF76rnGrg+EqgWOG4kSQQl22DkR/de6ez0klnpQPu
-         CRCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789850894; x=1790455694;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=r3eIvhYC8FQ85KoT/nVPv+hrmn/g6RXreQMGPku9rwQ=;
-        b=qQuEkHmcYWRft8Wa9fn8geiB75WBatVz16gIVYMn1ZKQM7tpPHd5UWJY8ox66FreQ4
-         INJnAZlvJjUzst16wu7ZM8UvpgQn0UYtWdG1BbhGtVCYWciBkgiDEYDEx7wb5I6NNRQR
-         4BMBGEmarhzCBTTWKCvcXGKldC5i963XhzvKwPeMEFc6PNPS3ITm7CMP6+1I9Bm4RDDF
-         501EzUGZTK4Jks4w00nYAXdbZRKiGNCFFr6P7qCvBl8MnTOZovUFyLCG/KorXcoUys9V
-         tPxQ/Zjl1cafej2dVW8dx2iA0ZxgmkxMgk2d6jPKy7MNuWXBjB+CvdnHOC2bu2mdYKDW
-         +wSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzskCgGzYKy3c0H7eWl/YnAQ/A12+x9aXinTfuT+4axVO3I3AhRsxU+1xbX2G+tuRQyDUR8bdWmMJx6dXM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mcIgKe4baZ98Cs3V6bQoWJkb8ZXK3lyNG70b8pa6N2XCd5UV7f
-	2Cf0a3tBDtMfjBoBh60W3d4uE8JFCdJ9TwA/W888y++oIIbYMo+OXBSx
-X-Gm-Gg: AYBFou0GNyclmATAwJkEfLP3RX585luwLSPUSHXopkoQ16PimITziudA9cKto8ecmkQ
-	42bDfQhcNHeDGgI/FyRHrbmVJdIsYqJPskCy4xmoKSqC9/8w6CwC3iLcmtHseUkzJ1QlH3Ypt8x
-	OUOuO5dIDncX2jrpWfch4lOhGMu+Gm58aYYaEy4o6UpOBGnqPUJo1zSZCfRKW3imIcOsA2oorTH
-	M3Vud9ZlvxWJCg7Q18E5+8dBZjOGeNrqnukNbNLYC2EzbVCTUd4cCi96oLgM0mteitbWxI+ZyfE
-	oNbiw4wU93GS2k8SqZ+kKnx2LP7aolMH/bss3lX2Kj9q8XPJNm6ip4kaJLXQIvWj914wx6lg7Aj
-	6b87e8I48ewkCSBvTEya8IcmqawkwftfjjKwDWvvgYnXt+LuJzX4IQ/3OLLvZwUL2JjYMZjef21
-	MtcQDJrfSPIqh7piKnvJ5KX9uWgPtLLPOFNLXr6HUSR21xSMtd8sUYiVtBzFF7tCVuNssKnwgeQ
-	Ngly/2l+4J9UD8Sa+7nHikg61ZHw+dZCVLOG0ZZ5Y8SF14E3gGjQmD3t6/pQtkIe8P3xDX6Yhcz
-	/oKAd5cyMQ==
-X-Received: by 2002:a05:6a00:b47:b0:874:72b6:7da7 with SMTP id d2e1a72fcca58-87472b680d8mr8829464b3a.34.1789850894124;
-        Sat, 19 Sep 2026 13:48:14 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877aa305dcfsm1319734b3a.52.2026.09.19.13.48.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 13:48:13 -0700 (PDT)
-From: Hui Peng <benquike@gmail.com>
-To: Theodore Ts'o <tytso@mit.edu>,
-	Andreas Dilger <adilger.kernel@dilger.ca>
-Cc: Jan Kara <jack@suse.cz>,
-	Baokun Li <libaokun@linux.alibaba.com>,
-	linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ext4: clear EXT4_STATE_MAY_INLINE_DATA in swap_inode_boot_loader()
-Date: Sat, 19 Sep 2026 20:48:12 +0000
-Message-ID: <20260919204812.2814531-1-benquike@gmail.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+	dkim=pass (2048-bit key) header.d=cressey.dev header.i=@cressey.dev header.b="tO55hqLY"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=s7RTzfD2xYB6sexrdh1AVzvq6TnKbTUcVa0J8zWjqLw=;
+ c=simple/simple; d=cressey.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789851377; v=1; x=1790456177;
+ b=tO55hqLYIVD/TOGGKO0nnmxPvFFlrJyNkFPGihCbGUL9WkPR1SCEiFetZ7FVP3FfjqxT0Gkq
+ pskKpj1FOu8EUcdnolDOH9CJepYylzKJNGoebA8UVaSOom1zySm26wn1SG7TbnH2gGTOu1MLwNN
+ ve352cYJh/SHvcK9qY1LShQefq9NB5x5zfZa4qaiBQFkxyKKUMTjFIbu7M29L2Iz8109oVTACz0
+ SXpF3yvVR9Lut21Ub4Ebbx1ODzw2jsCFCbmtIdxhP3vOneOT7Aej77HWW3UW4IfT6zubJ/7cIh5
+ F9vNjGqN4HbX3XQa4gz7tInTQWGt4y+lX6OaISUYShzzw==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9ba522a53f9c0f58;
+	Sat, 19 Sep 2026 20:56:16 +0000
+X-Mizu-Trace-ID: 9ba522a53f9c0f58
+X-Migadu-Flow: FLOW_OUT
+From: Ben Cressey <ben@cressey.dev>
+Date: Sat, 19 Sep 2026 20:56:10 +0000
+Subject: [PATCH] PCI: Add ID@path device format for pci= parameters
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260919-pci-idpath-selector-v1-1-5881de83f248@cressey.dev>
+X-B4-Tracking: v=1; b=H4sIAOn2rmoC/22NSw7CIBCGr9LMWtKWGC1exbgYxqmgDZChPpKmd
+ xfq1uX3PxfILJ4znJoFhF8++xgK9LsGyGG4sfLXwqA7fehMb1QiX6SEs1OZJ6Y5itLD/ogDjmw
+ 0QWkm4dF/ttXz5cf5ae8lXKdqwmJmZQUDuSpNqaX4jvJgaTfrzwus6xeduGhJrgAAAA==
+X-Change-ID: 20260919-pci-idpath-selector-2847a8afe92c
+To: Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Bjorn Helgaas <bhelgaas@google.com>
+Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-pci@vger.kernel.org, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Logan Gunthorpe <logang@deltatee.com>, Alex Williamson <alex@shazbot.org>, 
+ Wei Wang <wei.w.wang@hotmail.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ "Anthony Vardaro (Anthropic)" <me@anthonyvardaro.com>, 
+ Ben Cressey <ben@cressey.dev>
+X-Mailer: b4 0.15.2
 
-swap_inode_boot_loader() (EXT4_IOC_SWAP_BOOT) checks
-!ext4_has_inline_data(inode), but neither checks
-ext4_has_inline_data(inode_bl) nor clears EXT4_STATE_MAY_INLINE_DATA on
-inode and inode_bl after swapping their inode data.
+The <pci_dev> grammar shared by pci=resource_alignment=,
+pci=disable_acs_redir= and pci=config_acs= names a device either by
+address, with an optional path, or by ID. When one command line serves
+more than one platform, neither form limits an entry to the intended
+device: an address applies to whatever occupies it on each platform, and
+an ID applies to every instance, such as all Downstream Ports of a
+switch rather than the one that needs different ACS settings.
 
-When a newly created empty file (which has EXT4_STATE_MAY_INLINE_DATA
-set in memory) is swapped with a non-empty EXT4_BOOT_LOADER_INO that
-already has extent blocks, the target inode retains
-EXT4_STATE_MAY_INLINE_DATA == 1 alongside extent blocks. A subsequent
-ftruncate() + small pwrite() + fsync() dirties folio 0 while converting
-the inode to inline data, hitting
-BUG_ON(ext4_test_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA)) in
-ext4_writepages().
+Accept pci:<vendor>:<device>[:<subvendor>:<subdevice>]@<path>, where
+<path> is the address format, and match only when both halves match. An
+entry written for one platform is then inert on another where that
+address holds a different device. For example,
 
-Reject inline data on inode_bl and clear EXT4_STATE_MAY_INLINE_DATA on
-both inodes in swap_inode_boot_loader().
+  pci=config_acs=xx111x1@pci:10b5:8749@0000:80:02.0/00.0/08.0
 
-Fixes: 67a11611e1a5 ("ext4: fix check of inode in swap_inode_boot_loader")
+configures ACS on the Downstream Port at that path only if it is a
+PEX 8749 port, and matches nothing on a system where 0000:80:02.0 leads
+to some other device.
+
+The path goes last since pci_dev_str_match_path() consumes up to the
+next ';'. The <order>@ and <flags>@ prefixes of resource_alignment and
+config_acs are stripped before pci_dev_str_match() is called, so the
+callers are unchanged.
+
+Reviewed-by: Anthony Vardaro (Anthropic) <me@anthonyvardaro.com>
+Signed-off-by: Ben Cressey <ben@cressey.dev>
 Assisted-by: LLM
-Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
-diff --git a/fs/ext4/ioctl.c b/fs/ext4/ioctl.c
---- a/fs/ext4/ioctl.c
-+++ b/fs/ext4/ioctl.c
-@@ -397,7 +397,7 @@ static long swap_inode_boot_loader(struct super_block *sb,
- 	if (inode->i_nlink != 1 || !S_ISREG(inode->i_mode) ||
- 	    IS_SWAPFILE(inode) || IS_ENCRYPTED(inode) ||
- 	    (EXT4_I(inode)->i_flags & EXT4_JOURNAL_DATA_FL) ||
--	    ext4_has_inline_data(inode)) {
-+	    ext4_has_inline_data(inode) || ext4_has_inline_data(inode_bl)) {
- 		err = -EINVAL;
- 		goto journal_err_out;
- 	}
-@@ -461,6 +461,8 @@ static long swap_inode_boot_loader(struct super_block *sb,
- 	size_bl = (qsize_t)(inode_bl->i_blocks) * (1 << 9) + inode_bl->i_bytes;
- 	diff = size - size_bl;
- 	swap_inode_data(inode, inode_bl);
-+	ext4_clear_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA);
-+	ext4_clear_inode_state(inode_bl, EXT4_STATE_MAY_INLINE_DATA);
+This touches pci_dev_str_match(), as does 3/6 of Wei Wang's "PCI: Add
+support for ACS Enhanced Capability" series, currently at v9:
+https://lore.kernel.org/r/SI2PR01MB4393F337A792CB3258C2E073DCB62@SI2PR01MB4393.apcprd01.prod.exchangelabs.com
+On current -rc this patch applies as is. If it is applied after that
+3/6, the early return for a path that does not match needs to become
+"ret = 0; goto out;" so the shared exit still checks and skips the
+delimiter. I can respin on that base if preferred.
+
+A pci:<IDs> entry with three or five fields is accepted by the existing
+sscanf() and so bypasses the @<path> check; that predates this patch and
+is rejected once that same 3/6, "PCI: Consolidate delimiter handling
+into pci_dev_str_match()", is applied.
+
+A backport of this change to a 6.18.y based tree was tested on two
+server models from different vendors, both with PCIe switches whose
+downstream ports share one vendor and device ID, and one boot of each
+machine was examined with one command line that held config_acs entries
+in the new form for both models. On each machine only the ports named
+by its own entries were configured, and the bits those entries set read
+back as requested, while the ports with the same vendor and device ID
+at a path that only the other model's entries name were not configured.
+---
+ Documentation/admin-guide/kernel-parameters.txt | 10 +++++++++-
+ drivers/pci/pci.c                               | 18 ++++++++++++++++++
+ 2 files changed, 27 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index 33cd30996e47e..3e4c618427a27 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -5042,6 +5042,7 @@ Kernel parameters
  
- 	inode_set_ctime_current(inode);
- 	inode_set_ctime_current(inode_bl);
--- 
-2.43.0
+ 				[<domain>:]<bus>:<dev>.<func>[/<dev>.<func>]*
+ 				pci:<vendor>:<device>[:<subvendor>:<subdevice>]
++				pci:<vendor>:<device>[:<subvendor>:<subdevice>]@<path>
+ 
+ 				Note: the first format specifies a PCI
+ 				bus/device/function address which may change
+@@ -5056,7 +5057,14 @@ Kernel parameters
+ 				renumbering issues).  The second format
+ 				selects devices using IDs from the
+ 				configuration space which may match multiple
+-				devices in the system.
++				devices in the system.  The third format
++				combines the first two: the device must
++				match the IDs and also be at the address
++				given by <path>, which takes the first
++				format.  This allows an entry written for a
++				device on one system to have no effect on
++				another system where the same address is
++				occupied by a different device.
+ 
+ 		earlydump	dump PCI config space before the kernel
+ 				changes anything
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index b2879a6be5f80..ebce05e604b88 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -343,6 +343,7 @@ static int pci_dev_str_match_path(struct pci_dev *dev, const char *path,
+  *
+  *   [<domain>:]<bus>:<device>.<func>[/<device>.<func>]*
+  *   pci:<vendor>:<device>[:<subvendor>:<subdevice>]
++ *   pci:<vendor>:<device>[:<subvendor>:<subdevice>]@<path>
+  *
+  * The first format specifies a PCI bus/device/function address which
+  * may change if new hardware is inserted, if motherboard firmware changes,
+@@ -359,6 +360,12 @@ static int pci_dev_str_match_path(struct pci_dev *dev, const char *path,
+  * legacy reasons and convenience so users don't have to specify
+  * FFFFFFFFs on the command line.)
+  *
++ * The third format combines the first two: the device must match the IDs
++ * and also be at the address given by <path>, which takes the first
++ * format.  This allows a parameter written for a device at a known
++ * address on one system to have no effect on another system where that
++ * address is occupied by a different device.
++ *
+  * Returns 1 if the string matches the device, 0 if it does not and
+  * a negative error code if the string cannot be parsed.
+  */
+@@ -385,6 +392,17 @@ static int pci_dev_str_match(struct pci_dev *dev, const char *p,
+ 
+ 		p += count;
+ 
++		/* Third format: the device must also be at <path> */
++		if (*p == '@') {
++			ret = pci_dev_str_match_path(dev, p + 1, &p);
++			if (ret < 0)
++				return ret;
++			if (!ret) {
++				*endptr = p;
++				return 0;
++			}
++		}
++
+ 		if ((!vendor || vendor == dev->vendor) &&
+ 		    (!device || device == dev->device) &&
+ 		    (!subsystem_vendor ||
+
+---
+base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+change-id: 20260919-pci-idpath-selector-2847a8afe92c
+
