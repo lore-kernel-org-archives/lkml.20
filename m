@@ -1,156 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 546593101C2;
-	Sat, 19 Sep 2026 14:40:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AE8F35C6B4
+	for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 14:40:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789828810; cv=none; b=N87aYBb3ifDKnMtSBQkPj8C4kCTxymw9H1WnubGdnthMrp4y78rHmhXE8tclfp3/94jtTB9slg2xmT7M7HrmyDjS6+ZR+T3+orX1GtkiY78B/B2NPgnID1IyhjlNPhIYi88mekOQ9rYYCkUIauGXEmv9CPozSME3PKM4/4UdJns=
+	t=1789828842; cv=none; b=QdPoQVyZ4q+Ocz+EykAL/Ar3aLmsLpuZMfjRH74yY4I90qauk8NTKXhPkxgtlyoAmkthmFl2rwAnPxWlVDQzib+kdLUmbFBZC5gnzDbGJ25GDgrAb8Eurb0gmpcMS8BXsxohNfF2E0MC0UAKDr3WYXcqvYBFcwpY5AzuZVMP+og=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789828810; c=relaxed/simple;
-	bh=5+wsLqNiz1ftRnY/1v6UHJknDM2g9naN/MHmlwTljBQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eZOKpz8QVv/zTgMT+O+t7jT3zAxjUrLcBhCwL20gFwlMUf7oNpXyyS43VSQB1Gt7XSIkcT9Z3X9Cz0IQ3uFyepGXqD5bdZCrikOuE21sc57SoXcd/SHWRPs1K5qs/CH38n+NY9FOr9b8KhlXfJsL/yvVO30vET2B98smRJzkSd0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bmle4uSt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789828842; c=relaxed/simple;
+	bh=mLnArDqYAL1ntffXjM4958AzFGRsCn0t9y9yelbJeFI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=fNOfcJzGYNLYMJcq7WjH/P7tOm3AeHw5Qk49AgVyXtHTRHWbogO7KlVBrFOj33Kd1Sqm0nOVHe1QSBmzexETvkNPPwCC7etWPyiswex7sxgJTB5SDjGef5pEm888HIDCoSUHZy9aqc5CKHbq0/uvEuG+HTwuiGdcdN/POq1hxiM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W4Vl35k6; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bmle4uSt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9816A1F000FF;
-	Sat, 19 Sep 2026 14:39:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789828808;
-	bh=wjlxL5aZkP+VxdLu3dOkGnCdnF8bXwL4sZrwxhwgEoI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bmle4uStbjC80tnxl/vjfpvmYYVkjjgMRY8+5/8q3PJtzA+t0bmdendomXHO0ws9H
-	 U7AkZ01hXjF9UNEcQJjw7O9/G4ZVuIuTmE9nQZ3vbmzWCvaO165TT83I/rtJG67Uk8
-	 ZFOFQWbnJPaWf/uRXVtzgN/37w3mP1J0r/35iCXOcKYjsonGbQyJWBByqZl7EDsn8A
-	 AoQzM7VokTP4qPCH98a+dd0vu239lXSc8hrSG3iX73m64ZC18rGxk7qnPGd28l/Jyx
-	 Wc2TmR6JoQ+w2Nml9DQH/pX6LYALY6ZyyxX+/DvfhQiCD1q+q2+EZx1en4Sr/c+Iwd
-	 Sv6mRmehV0F6A==
-Date: Sat, 19 Sep 2026 15:39:53 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Nicolas Schier <n.schier@fritz.com>, Kees Cook <kees@kernel.org>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Nick Desaulniers <ndesaulniers@google.com>, 
-	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
-	Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
-	Randy Dunlap <rdunlap@infradead.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
-	linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
-	Jens Axboe <axboe@kernel.dk>, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v3 01/20] kbuild: do not allocate .modinfo in vmlinux
-Message-ID: <aq6QwzcyvKp3CB0F@gremlin>
-References: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
- <20260917-build-speedup-v3-1-9ecf4163ff36@kernel.org>
- <202609170950.480F90A28@keescook>
- <20260918005142.GA1585590@ax162>
- <20260918-meek-spectral-nightingale-53d88d@l-nschier-aarch64>
- <20260918214445.GA3589065@ax162>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W4Vl35k6"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccfd61ecaso14319935e9.3
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 07:40:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789828839; x=1790433639; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PgN7nWScW5BJSzPdYvBki0LAnthq6w0fiY8IXN8fGAk=;
+        b=W4Vl35k6Y7uzGORNci/uYaOMbP8wi/KEtO0+PGENC/sCWcF3dJA8pA9Rpytdsl5kbE
+         Y2gCDY/As+1+uW0t5GvCMIWvUIdDkmuR19GePAmmUDZOGSkN73fPUdQK7lNQcnhL/7Qh
+         TG+HBXLaTlxy/VHK8zcPyTV/gtDcqvYddsp/+8gGcmmpW5oS5T9+ShCMmaDYivUlLyYq
+         mmSEjoex42DuLPjVT0OoZNHfIezhf5pnmEIx4ime93ccUoG1WG4UWfp/Z0GLcemGHJKS
+         674PE3jnOeCdgJdvG9AVv/lUrAiWWnEwnOiYi9yle+qymKrH6GwxDiTdxfPUBqO39deQ
+         Y+eg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789828839; x=1790433639;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PgN7nWScW5BJSzPdYvBki0LAnthq6w0fiY8IXN8fGAk=;
+        b=dX7h3rymC7XYY4zDZTD3hQe9yy8lgzP3a3hoFqo3BbUcwHDBro3FfsupYxW3aUMgn0
+         cWZ3QQUOeJx9+5phv5Pynd9LQEuQrvalVP6IcuATHVD14DcruWy1AED4eHD+NuVibFjZ
+         URo/XQIFuakOvRu7WbBPbKrCaL7FrwIWCb7iiORHBMnShYodVGEJZA8NQDS2TMf/mU7Y
+         bQ4mEKBWz4SKL+/wKFjMoM8OLcv0FgJETy9LS4fMSsk2vBM3fJSgs/NNdR93NfW4ygHW
+         dNuBHnVb2nz7MnYWICNB++akirymWB97PzgJf2OyhIiS6JwIxQMIC9+h/vQHPnxD1TWS
+         yEvA==
+X-Forwarded-Encrypted: i=1; AKwUvBxMvznR5HHxt1qDoAohzK0PKvFET8z5B7rNpfHrZMQlaOxUifOJb1ZA36NYRdzZz6Tj5Z6bZG3aS0ZCXLU=@vger.kernel.org
+X-Gm-Message-State: AFuF++m+Ef82rLnXIx2KxdM82xOWXA+UdE4q6ykGei+DLz9clzqYWVdy
+	yWCr+PS5TVZ3Gy06YRNJS3YBwGm8ufWCu6+iLh1KT+P84e/UrbcVdehPdM3mjfac
+X-Gm-Gg: AYBFou36KeWbOMTuyFEYy3hKYo0wXn43e3r3DbdrTayY2sKYz/6evhYzXrcGcrR9PdX
+	JOp3iCDEzEKyQL6s3Ns33J/W/zclWhfHaaJoezVQGVFpUP3Z4BCB0zmevV+g3fyY+J5QyMGxrkc
+	1md3YdryskpWpd7XVZ7SdoY3ogyjafarM5imHCumAIP8d9/XpNcjZ8hQqsQ4cnc5I2O9WVEPVfC
+	NZjj4kDfN9XzNPRP23u/n9TNDNAya2pwEAybSQtRu/fnVa34uoiomrV7rQTxPVnNYXmoQwKVJJe
+	Dci/Ts68Mw1pZs5t+nMnLWPKrS6pNAaEzkA0l5AxRJvMqz+Ec20uJ08B08RwlTtzv2WxAVbhzRl
+	SYo7ehtLPw6eURuR5dv8Q7CdJ8a8QXzqce3jtwoKS3aMrBGmkaeuGIFiL2JHzbS/882UX/VqbIt
+	nGasCWWv1e2tQTsT1SBiBsEQZZ2/rZzRp16SH4PPOD0gBN7PG7neRunIUMouwmsSTwK5vZtUesn
+	t6kTkkJ+rvhQTyAPBgYgcL9OFUyHuJFfRxpTmeVYn6WUgGIogH1EJgQde+raDSRhCXESMBuzYwL
+	7dVGRmLlTgPSVtZ1K3I5DJG5Z5ASm91g0H3lVo4etF7GE8mhSjq/O4do3xlMGondF04wbkG1cnp
+	A
+X-Received: by 2002:a05:600c:138f:b0:49f:bbab:aa10 with SMTP id 5b1f17b1804b1-49fc5741672mr73100745e9.20.1789828839005;
+        Sat, 19 Sep 2026 07:40:39 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-a017-2b01-05fe-203b-7cd2-a640.310.pool.telefonica.de. [2a02:3100:a017:2b01:5fe:203b:7cd2:a640])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd12ad97sm84083545e9.13.2026.09.19.07.40.38
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 19 Sep 2026 07:40:38 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Thomas Gleixner <tglx@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Anna-Maria Behnsen <anna-maria@linutronix.de>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Andy Lutomirski <luto@kernel.org>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] hrtimer: Use the mask to clear TIF_HRTIMER_REARM from the exit work
+Date: Sat, 19 Sep 2026 16:40:27 +0200
+Message-Id: <20260919144027.70250-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918214445.GA3589065@ax162>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 18, 2026 at 02:44:45PM -0700, Nathan Chancellor wrote:
-> On Fri, Sep 18, 2026 at 07:09:30PM +0200, Nicolas Schier wrote:
-> > Yes, thanks.  Looks good to me and I think it's a good idea to apply
-> > that patch first.
-> >
-> > for Nathans patch:  Reviewed-by: Nicolas Schier <n.schier@fritz.com>
->
-> Thanks, I have pushed this to kbuild-next-speedups as
->
->   36d4a11b56aa ("kbuild: Remove alignment on .modinfo section")
->
-> which Lorenzo can base on. I have also tentatively included the patches
+hrtimer_rearm_deferred_user_irq() removes the rearm bit from the local
+copy of the TIF work with:
 
-Ack, will rebase future revisions on this patch.
+	*tif_work &= ~TIF_HRTIMER_REARM;
 
-> that are basically ready in my eyes based on consensus and review so far
-> for initial build testing. I do see some comments on some of those
-> patches though, so I will hold off on fully applying them until the next
-> revision. If there are any other changes that we should consider taking
-> quickly on the next revision, please feel free to point them out, it is
-> a bit hard to follow these threads sometimes :)
+TIF_HRTIMER_REARM is the bit number (12), not the mask. That clears
+TIF_NOTIFY_SIGNAL (bit 2) and TIF_MEMDIE (bit 3) from the copy and
+leaves bit 12 set.
 
-Thanks :)
+So the function never returns true, and the copy handed to
+exit_to_user_mode_loop() lacks TIF_NOTIFY_SIGNAL. If that was the only
+work for the loop, the task returns to user space with the task work
+still pending. hrtimer_interrupt() sets TIF_HRTIMER_REARM every time,
+so the next tick repeats that. Task work queued with TWA_SIGNAL from a
+hrtimer callback stays pending until the task does a syscall, takes an
+interrupt without deferred rearm or has to reschedule.
 
->
-> [1]: https://git.kernel.org/kbuild/l/kbuild-next-speedups
->
-> > [ Lorenzo's patch, updated by Nathan ]
-> > [...]
-> > > diff --git a/scripts/Makefile.vmlinux b/scripts/Makefile.vmlinux
-> > > index 6833b517cacb..95b523fe4f9e 100644
-> > > --- a/scripts/Makefile.vmlinux
-> > > +++ b/scripts/Makefile.vmlinux
-> >
-> > [...]
-> > > @@ -103,10 +100,7 @@ vmlinux: vmlinux.unstripped FORCE
-> > >  # ---------------------------------------------------------------------------
-> > >
-> > >  quiet_cmd_modules_builtin_modinfo = GEN     $@
-> > > -      cmd_modules_builtin_modinfo = $(cmd_objcopy); \
-> > > -                                    chmod -x $@
-> > > -
-> > > -OBJCOPYFLAGS_modules.builtin.modinfo := -j .modinfo -O binary
-> > > +      cmd_modules_builtin_modinfo = $(OBJCOPY) -O binary -j .modinfo --dump-section .modinfo=$@ $< /dev/null
-> >
-> > By shifting from "$(cmd_objcopy)" to "$(OBJCOPY) + args",
-> > $(OBJCOPYFLAGS) is dropped.  It this by intention?
->
-> I am not sure it matters in this case since I don't think there are
-> global OBJCOPYFLAGS, I only see instances that come from specific rules
-> but I might be missing something.
+A task which polls the io_uring completion ring in user space sees a
+timeout completion after 30ms (median) instead of 70us. 2 CPU QEMU
+guest, HZ=1000.
 
-OBJCOPYFLAGS is exported from the top level Makefile:
+Use the mask.
 
-655:export KBUILD_CPPFLAGS NOSTDINC_FLAGS LINUXINCLUDE OBJCOPYFLAGS KBUILD_LDFLAGS
+Fixes: 15dd3a948855 ("hrtimer: Push reprogramming timers into the interrupt return path")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+ include/linux/hrtimer_rearm.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-And is set by various arches e.g.:
+diff --git a/include/linux/hrtimer_rearm.h b/include/linux/hrtimer_rearm.h
+index 17a81826bd9a9..12e42721c8e01 100644
+--- a/include/linux/hrtimer_rearm.h
++++ b/include/linux/hrtimer_rearm.h
+@@ -45,7 +45,7 @@ hrtimer_rearm_deferred_user_irq(unsigned long *tif_work, const unsigned long tif
+ 		clear_thread_flag(TIF_HRTIMER_REARM);
+ 		__hrtimer_rearm_deferred();
+ 		/* Don't go into the loop if HRTIMER_REARM was the only flag */
+-		*tif_work &= ~TIF_HRTIMER_REARM;
++		*tif_work &= ~_TIF_HRTIMER_REARM;
+ 		return !*tif_work;
+ 	}
+ 	return false;
 
-arch/csky/Makefile
-2:OBJCOPYFLAGS		:=-O binary
+base-commit: 40288c9206c17eb66a603262e06a58d300d0f279
+-- 
+2.53.0
 
-arch/mips/Makefile
-348:OBJCOPYFLAGS		+= --remove-section=.reginfo
-
-arch/openrisc/Makefile
-20:OBJCOPYFLAGS    := -O binary -R .note -R .comment -S
-
-arch/sh/Makefile
-79:OBJCOPYFLAGS	:= -O binary -R .note -R .note.gnu.build-id -R .comment \
-		   -R .stab -R .stabstr -S
-
-arch/s390/Makefile
-123:OBJCOPYFLAGS	:= -O binary
-
-And none of this should impact .modinfo, and if it did it'd be broken as then
-.modinfo would be different for one arch and not the others.
-
->
-> --
-> Cheers,
-> Nathan
-
---
-Cheers, Lorenzo
