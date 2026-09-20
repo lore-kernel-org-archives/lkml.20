@@ -1,67 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79FAF39A04F
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 09:37:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 128753EA962
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 09:39:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789897073; cv=none; b=kcarnY9nF420B3ZEacP6MTnidxhpedgPvla7Zdasv7xx1vYON6nbslJpSM2RRGAEwwsQwiGbSY6je7jpWm1aYJmOOnxP6zMODHjKUruFPQeHlMs+MJA6i8s2CZZM+FepJSnANcIfMR9GkY/dO+TlPYiD/4yPo9I6cy9UKZWyFnU=
+	t=1789897197; cv=none; b=CUnYNrkfQR14xmS4zjjAGPmiCmhrNmJbie3KranaWGBKePxh/J0/WvAoqRM12pUbs08AJMuOgFA1m1DoKA4b5PeqZMdJ3g3S2ynyVL6yZX1J3Hd1h29Zz1SurpGw0GZpCdnNZkqG7dM0399uGrB8Umrgu57VnHRpW6vREza6uxw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789897073; c=relaxed/simple;
-	bh=A+KbCJHKBvqSs0hz4jYbF6yEJ+7ddJMMu38vnJmJ5TY=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=hq30oW04808Z4ZWKAs0nZ/UssEhqj7xP66N9+EGozDx+i7n08NPO9ridipFpv4sLyIilJUbZzcD8VfRY90B2oZGnSCOrDHoJryA8Jc4XbArwSN6OjZBzcXC/zeDvQ/5MRJd2tdKMVyZ2Bx3pAWQ3BxekBkce+jFczseGDET8QaM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YLtCzGDS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789897197; c=relaxed/simple;
+	bh=4AMZou3BZexPhp9w/h5VtlhpWqxxliNTreCtBnAhm7U=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=RBdotfq9Gku5GpI9rUfYNldE3RgCbu92MsA/x63JcmaQKO9jNq5v5DfxpWmkwnljgQudLKEOrf0ba0TqyXpW8BPgmIEGYCl/Jf1hd/Yue1+bNuvOvTkp3CEzrHja11fDWcYxrCAKNUwEHdZ33mpu34Y//CUJNeqzigNL5+dGY0A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f8KL7atj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YLtCzGDS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE6161F000FF;
-	Sun, 20 Sep 2026 09:37:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f8KL7atj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B668A1F0089A
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 09:39:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789897072;
-	bh=ZcHW4q9b1WyVwRo7EH6fnP2mqzs5skuYqJ+2NNw6nwA=;
-	h=Date:From:To:Cc:Subject;
-	b=YLtCzGDSESbYeGFmzE38IUWbTYJUMrk9ZmELV8vo0ihq/UIu5FqgxHWsw8xsI7w6T
-	 L9cwdS4bW1tgC4mhEMfgKBGzABpDs9NDNvVKJK6xX/yh1Av2EyS82zPm8YPlvQKjfl
-	 f3LEkz+lPZqyqbPhoxiEBg0PIhp2XjrxSb5TwFBTwOaJE59Qhj3eBZwoCUdidUQ+6Y
-	 onQlN7GQiXBaEYKKyF5btsuzaGC9rV36hBrfknkh8wUXzdgl5cH0HmTnRLCWGk2ngh
-	 nfqBI/ibKWmSsXSkxG8uncu2gTgrHMjjiUeIcNgctfw6FhGbkSw23DlH6fWhF2Bp1u
-	 Zr4sujnRyHO4Q==
-Date: Sun, 20 Sep 2026 11:37:48 +0200
-From: Ingo Molnar <mingo@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, Peter Zijlstra <a.p.zijlstra@chello.nl>,
-	Josh Poimboeuf <jpoimboe@redhat.com>
-Subject: [GIT PULL] objtool fix
-Message-ID: <aq-pbOlsNz7HnVZ1@gmail.com>
+	s=k20260515; t=1789897195;
+	bh=4AMZou3BZexPhp9w/h5VtlhpWqxxliNTreCtBnAhm7U=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=f8KL7atjNwkScTIsSWnT74N9Nea2wXa3T0R6qm6PFRZGMBOYoBpx/NfQ+5+zKQRzG
+	 1hJ4/Oz0eEfGxs13wslAjjzeqPnxrWsVgzodJBY4R6+lKjnS/F6uZNuqUbjEc7kwrv
+	 AGJ7PJqIiT8Nn4xkYGPwQxsosMlZ3SgOkh12VNFr6xNJ7yan8VBS5C57ccqEzvb5sJ
+	 bTlbfF0djSJa+T+vUcxvOonapjr+c/uue5toXN2U0k/oPVreBXWZfUoxG2GCbop0hN
+	 qKhJuU7hH8CpDh9fCQi2+23blEe9ya4S1PXImMBJySUloqERntexW98lNRHDm0WU61
+	 1obNtU5/4VlxA==
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff16c0e6so14193581fa.0
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 02:39:55 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz4gkCnrk4s2bI7vOOvJW422GQi09SVy0ydvRGUAjNljjTUo3/stmBOZN8eAdtjgCTtThKlYhswDM3RxNM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mHZdZnrEnUqX+v2ykoIYiuPOwytn8odQzgQoz8KYCBXUlLu2fO
+	dR6t8oxh5XJ9o2y/kIUCU+n6S4mM7OdldHlHW3dK+hn6S4UHNE+YwCtdxElvSxjbnkI7meOZpPN
+	946ETxn5dxyv8JMP3kf2+AUQSFh+RInM=
+X-Received: by 2002:a05:651c:2127:b0:3a3:74b7:fc08 with SMTP id
+ 38308e7fff4ca-3a5fbfd4f36mr17073761fa.20.1789897194049; Sun, 20 Sep 2026
+ 02:39:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20260913145527.18148-1-iuncuim@gmail.com> <20260913145527.18148-2-iuncuim@gmail.com>
+In-Reply-To: <20260913145527.18148-2-iuncuim@gmail.com>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Sun, 20 Sep 2026 17:39:40 +0800
+X-Gmail-Original-Message-ID: <CAGb2v65v=2kC-9GrscGi=RXuARZYVNkmEkNhQZ5fFXnQsmL6BQ@mail.gmail.com>
+X-Gm-Features: AcwNN1Xk5hFqet9lFlmVe7uaLm2rV_go5OhWrqP8yaEGk0kqgWkXxxEJqM8dWAo
+Message-ID: <CAGb2v65v=2kC-9GrscGi=RXuARZYVNkmEkNhQZ5fFXnQsmL6BQ@mail.gmail.com>
+Subject: Re: [PATCH v6 1/5] dt-bindings: thermal: sun8i: Add A523 THS0/1 controllers
+To: Mikhail Kalashnikov <iuncuim@gmail.com>
+Cc: Vasily Khoruzhick <anarsoul@gmail.com>, Yangtao Li <tiny.windzz@gmail.com>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, linux-pm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	Philipp Zabel <p.zabel@pengutronix.de>, 
+	=?UTF-8?Q?Juan_Manuel_L=C3=B3pez_Carrillo?= <juanmanuellopezcarrillo@gmail.com>, 
+	Andre Przywara <andre.przywara@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Linus,
+On Sun, Sep 13, 2026 at 10:56=E2=80=AFPM Mikhail Kalashnikov <iuncuim@gmail=
+.com> wrote:
+>
+> From: Mikhail Kalashnikov <iuncuim@gmail.com>
+>
+> Add dt-bindings description of the thermal sensors in the A523 processor.
+>
+> The calibration data for both thermal controllers (THS0, THS1) is split
+> across two nvmem cells at different offsets, requiring the two cells
+> to be read and merged. To maintain backward compatibility, the name of
+> the old cell remains "calibration" and the new cell is named
+> "calibration-second-part".
+>
+> Signed-off-by: Mikhail Kalashnikov <iuncuim@gmail.com>
 
-Please pull the latest objtool/urgent Git tree from:
-
-   git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git objtool-urgent-2026-09-20
-
-for you to fetch changes up to 7e61560628d17ea6b1d8ee370f6d42694cff8758:
-
- - Fix objtool build error on systems where libopcodes is
-   present, but development headers (binutils-dev) are not
-   (Ulises Mendez Martinez)
-
- Thanks,
-
-	Ingo
-
------------------->
-Ulises Mendez Martinez (1):
-      objtool: Validate disassembler headers in libopcodes probe
-
-
- tools/objtool/Makefile | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
