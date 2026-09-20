@@ -1,185 +1,270 @@
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-2-50.ptr.blmpb.com (va-2-50.ptr.blmpb.com [209.127.231.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AA51437861
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 12:13:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04EA3438021
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 12:12:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789906395; cv=none; b=be43OMkmediYY8nUJNtqL4quwk1D1RpE3UdmUqSJE7riqrfAXnNduoMzM05l57Qc2+Gow09fBMyqv+QMO8a8+BfMMvW4+7zY7pdwBvC4QHx1H4RfjNSskqi9x2etNV8hUpf4/JUjBSZj7Xnj7P+1/WOLBYYzFGwmDZRtmJePshU=
+	t=1789906383; cv=none; b=XiEP5Mu5tgiYHcvJDbwGtNDAZqbzvn+wycfxOjOPRwU9lB0PCeNWEftoAjA1sSyML+T5kwj/aPjMYzOTbTlGqzF5410em6vgjOl88N8IBVmRP9dzyUZ92ehDRGtRwoDs9Kr1YEq6L321axwBtqs8TiyeLYTlL2VrxHEZXE7Ol6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789906395; c=relaxed/simple;
-	bh=nM2BnmHwV0mlMKcBaZhKjGPxSkgvT1mVTDTcKhYrwXs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:CC:From:
-	 In-Reply-To:Content-Type; b=u3FNssCz2TLxbpE+2USs5UbQvNLKXtkBwY6rMjPa9SLgBnpq1t6R4ipUtVgk6Y9ozhFI7vVP59tNYor5A950PZkdaHUul5AdZLnBQ940KEfFv13VGm9cfsNjxhcn6Ze36PXbIeFfrNh9RdDwoi3ZTfa6/2qVOmYWnzjXZpPD10M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=kJ3zlqZ+; arc=none smtp.client-ip=113.46.200.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1789906383; c=relaxed/simple;
+	bh=pKT+0Fbsx0pOeaciHlR4WxrGwXqJdKpan0Oeq5CTFcc=;
+	h=To:Content-Type:Subject:Mime-Version:In-Reply-To:Cc:From:Date:
+	 Message-Id:References; b=KdW2FYofRgzXsXFMFqXPX4PH0zXoN+9N8duhJoltxV3TDZro0REYMVW/NJqPdoX9qmGoG2Viz6y26UtQyl1nzHsdBHoJ+9HpFke3VSLYZPqyKLNtxwc7dbZgwCV2f6Cgc4vfZY+gSBNvfk58NsYtHZbpBOJ7UXwjkYVlEMGkTQk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=Y0Nwm6ss; arc=none smtp.client-ip=209.127.231.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="kJ3zlqZ+"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=k69LvB+0+kiSBvmUOIMo0gTPTsD6NckkAdGe25+Ma/0=;
-	b=kJ3zlqZ+H51TcrOli3BBdPFPUddKwUIotA38vp+0tgmxpOkCa1YaxmHHSqpjytalyRBM7lRjp
-	gieRm0+u7qshjvr9VDnomRN0CmA0h5BGGyO7LhSz1rsfT+JBm1E0d7AFz7+qWjGX81SOpGjEwRw
-	TNXZTgOxx4LtH6QXVp6snsc=
-Received: from mail.maildlp.com (unknown [172.19.163.104])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4hnlLp2kXpz1T4LX;
-	Sun, 20 Sep 2026 20:01:06 +0800 (CST)
-Received: from dggpemr200003.china.huawei.com (unknown [7.185.36.25])
-	by mail.maildlp.com (Postfix) with ESMTPS id B58374057F;
-	Sun, 20 Sep 2026 20:12:53 +0800 (CST)
-Received: from [10.174.185.234] (10.174.185.234) by
- dggpemr200003.china.huawei.com (7.185.36.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Sun, 20 Sep 2026 20:12:52 +0800
-Message-ID: <68de0ad8-967b-49d4-872a-a9fdff7485fb@huawei.com>
-Date: Sun, 20 Sep 2026 20:12:51 +0800
+	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="Y0Nwm6ss"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1789906354;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=kmpN+3+EemAMVuc/I4vBTUm5qj3+yAi4nNgOed5JQOQ=;
+ b=Y0Nwm6sse9Z9R63/2mm7v4hLPvLr27DJblGDnHMJL+qEifvbDB4TZGIJOR3Wwfow5pK3n8
+ wRJoixtABbXFrKyn8pdKswHXXhd1pCzVb+1m9v4h9GZZxTMOYdWJDEGL+a3pzUu4JA0qDw
+ PAMQZsCjPP9JDApGCMcQ7i9H1WNbR6K1keVVOYUi7yyleCJZlpI4oxlc1cE/BQnFqx3Eo0
+ duNuz1NsTtSgF9CITJzoLidEs7PbijzRTxy7PQ/s4ItU0c4dbipAKZiJwA+pQ/QeT2a606
+ HmJ1+j7kBFBkAE+oue6GKvObZ21HtIyizAqvnXapgoiMzaTfPLCPFY08y+l2+Q==
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>, 
+	"Alasdair Kergon" <agk@redhat.com>, "Mike Snitzer" <snitzer@kernel.org>, 
+	"Mikulas Patocka" <mpatocka@redhat.com>, 
+	"Benjamin Marzinski" <bmarzins@redhat.com>, "Song Liu" <song@kernel.org>, 
+	"Li Nan" <magiclinan@didiglobal.com>, "Xiao Ni" <xiao@kernel.org>, 
+	"yu kuai" <yukuai@fygo.io>
+X-Original-From: yu kuai <yukuai@fygo.io>
+Content-Type: text/plain; charset=UTF-8
+Received: from [192.168.1.104] ([39.182.0.142]) by smtp.larksuite.com with ESMTPS; Sun, 20 Sep 2026 12:12:33 +0000
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] md: use assign_bit() where applicable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RESEND][PATCH 0/2] Batch register access for live migration
- optimization
-To: Marc Zyngier <maz@kernel.org>
-References: <20260918081930.4014735-1-wangyize7@huawei.com>
- <861paq69te.wl-maz@kernel.org>
-CC: <kvmarm@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <oupton@kernel.org>,
-	<catalin.marinas@arm.com>, <will@kernel.org>, <fuad.tabba@linux.dev>,
-	<joey.gouly@arm.com>, <seiden@linux.ibm.com>, <suzuki.poulose@arm.com>,
-	<yuzenghui@huawei.com>, <mark.rutland@arm.com>, <zhengchuan@huawei.com>,
-	<jiangjiacheng@huawei.com>, <yize_w1110@163.com>
-From: Yize Wang <wangyize7@huawei.com>
-In-Reply-To: <861paq69te.wl-maz@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- dggpemr200003.china.huawei.com (7.185.36.25)
+Reply-To: yukuai@fygo.io
+In-Reply-To: <20260918141737.3023011-1-peng.fan@oss.nxp.com>
+X-Lms-Return-Path: <lba+26aafcdb1+edfc28+vger.kernel.org+yukuai@fygo.io>
+Cc: <linux-kernel@vger.kernel.org>, "Peng Fan" <peng.fan@nxp.com>, 
+	<dm-devel@lists.linux.dev>, <linux-raid@vger.kernel.org>
+From: "yu kuai" <yukuai@fygo.io>
+Date: Sun, 20 Sep 2026 20:12:29 +0800
+Message-Id: <d7c8403b-14fd-4c26-9b8e-b327f69e92fb@fygo.io>
+References: <20260918141737.3023011-1-peng.fan@oss.nxp.com>
 
+Hi,
 
-在 2026/9/18 20:08, Marc Zyngier 写道:
-> On Fri, 18 Sep 2026 09:18:13 +0100,
-> Yize Wang <wangyize7@huawei.com> wrote:
->> This series adds batch register access support to KVM/arm64 to reduce
->> syscall overhead during VM live migration.
->>
->> Currently, QEMU issues one ioctl per register when saving/restoring VGIC
->> state. On large VM configurations this means tens of thousands of syscalls,
->> where lock acquisition and context switch overhead dominates migration
->> downtime. Thus, we provide a batch register method to allow userspace
->> read/write multiple distributor and redistributor registers in a single call.
->> In this way, we can significantly reduce syscalls and migration downtime.
->>
->> Test the VM migration time under pressure conditions.
->> The VM specifications for migration are as follows:
->> - VM use 4-K page;
->> - the number of VCPU is 160;
->> - the total memory is 320Gigabit;
->> - use 'Redis SET-benchmark' to pressurize VM;
->>
->> Performance results (3-run average, ms):
->>      | Metric              | Without patch | With patch | Improvement |
->>      |---------------------|---------------|------------|-------------|
->>      | Migration downtime  |        536    |     321    |     40%     |
->>      | Source (total)      |        344    |     230    |     33%     |
->>      |   - VGIC put        |        158    |      40    |     75%     |
->>      |   - VGIC get        |        120    |      19    |     84%     |
->>      | Destination (total) |        192    |      91    |     53%     |
->>      |   - VGIC put        |        132    |      27    |     80%     |
->>
->> Yize Wang (2):
->>    KVM: arm64: Add batch group constant and data structure to UAPI header
->>    KVM: arm64: Add VGIC v3 batch register access implementation
-> Questions:
+=E5=9C=A8 2026/9/18 22:17, Peng Fan (OSS) =E5=86=99=E9=81=93:
+> From: Peng Fan <peng.fan@nxp.com>
 >
-> - Why only the MMIO registers?
+> Convert open-coded if/else with set_bit/clear_bit and their
+> non-atomic __set_bit/__clear_bit variants to the assign_bit/__assign_bit
+> API.
 >
-> - Why not the sysregs?
+> Done with Coccinelle semantic patch:
+>      // set_bit -> clear_bit =3D> assign_bit
 >
-> - Why only the GIC?
+>      @@
+>      expression cond, bit, addr;
+>      @@
 >
-> - Why not all of the state?
+>      -if (cond)
+>      -        set_bit(bit, addr);
+>      -else
+>      -        clear_bit(bit, addr);
+>      +assign_bit(bit, addr, cond);
 >
-> - Where is the corresponding userspace code?
+>      // clear_bit -> set_bit =3D> assign_bit
 >
-> More importantly, since this is about batching system calls:
+>      @@
+>      expression cond, bit, addr;
+>      @@
 >
-> - Why can't this be done with io_uring instead?
+>      -if (cond)
+>      -        clear_bit(bit, addr);
+>      -else
+>      -        set_bit(bit, addr);
+>      +assign_bit(bit, addr, !cond);
 >
-> 	M.
+>      // __set_bit -> __clear_bit =3D> __assign_bit
+>
+>      @@
+>      expression cond, bit, addr;
+>      @@
+>
+>      -if (cond)
+>      -        __set_bit(bit, addr);
+>      -else
+>      -        __clear_bit(bit, addr);
+>      +__assign_bit(bit, addr, cond);
+>
+>      // __clear_bit -> __set_bit =3D> __assign_bit
+>
+>      @@
+>      expression cond, bit, addr;
+>      @@
+>
+>      -if (cond)
+>      -        __clear_bit(bit, addr);
+>      -else
+>      -        __set_bit(bit, addr);
+>      +__assign_bit(bit, addr, !cond);
+>
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> ---
+>   drivers/md/dm-mpath.c                  |  5 +----
+>   drivers/md/dm-zone.c                   |  6 ++----
+>   drivers/md/md.c                        | 22 ++++++----------------
+>   drivers/md/persistent-data/dm-bitset.c |  5 +----
+>   drivers/md/raid5-cache.c               |  6 ++----
+>   drivers/md/raid5.c                     |  6 ++----
+>   6 files changed, 14 insertions(+), 36 deletions(-)
 
+please split this patch, one for mdraid and one for device mapper, they are
+different subsystem.
 
-Hi, Marc! Thank you for the review.
+>
+> diff --git a/drivers/md/dm-mpath.c b/drivers/md/dm-mpath.c
+> index 7cb7bb6233b6..ae9318f5f21b 100644
+> --- a/drivers/md/dm-mpath.c
+> +++ b/drivers/md/dm-mpath.c
+> @@ -1604,10 +1604,7 @@ static void pg_init_done(void *data, int errors)
+>   		goto out;
+>  =20
+>   	if (test_bit(MPATHF_PG_INIT_REQUIRED, &m->flags)) {
+> -		if (delay_retry)
+> -			set_bit(MPATHF_PG_INIT_DELAY_RETRY, &m->flags);
+> -		else
+> -			clear_bit(MPATHF_PG_INIT_DELAY_RETRY, &m->flags);
+> +		assign_bit(MPATHF_PG_INIT_DELAY_RETRY, &m->flags, delay_retry);
+>  =20
+>   		if (__pg_init_all_paths(m))
+>   			goto out;
+> diff --git a/drivers/md/dm-zone.c b/drivers/md/dm-zone.c
+> index f29acf64429a..35916c6e490e 100644
+> --- a/drivers/md/dm-zone.c
+> +++ b/drivers/md/dm-zone.c
+> @@ -447,10 +447,8 @@ void dm_finalize_zone_settings(struct dm_table *t, s=
+truct queue_limits *lim)
+>   	struct mapped_device *md =3D t->md;
+>  =20
+>   	if (lim->features & BLK_FEAT_ZONED) {
+> -		if (dm_table_supports_zone_append(t))
+> -			clear_bit(DMF_EMULATE_ZONE_APPEND, &md->flags);
+> -		else
+> -			set_bit(DMF_EMULATE_ZONE_APPEND, &md->flags);
+> +		assign_bit(DMF_EMULATE_ZONE_APPEND, &md->flags,
+> +			   !dm_table_supports_zone_append(t));
+>   	} else {
+>   		clear_bit(DMF_EMULATE_ZONE_APPEND, &md->flags);
+>   		md->disk->nr_zones =3D 0;
+> diff --git a/drivers/md/md.c b/drivers/md/md.c
+> index 680b34a63cb3..6b2a397f8a9c 100644
+> --- a/drivers/md/md.c
+> +++ b/drivers/md/md.c
+> @@ -3586,10 +3586,7 @@ static ssize_t recovery_start_store(struct md_rdev=
+ *rdev, const char *buf, size_
+>   		return -EBUSY;
+>  =20
+>   	rdev->recovery_offset =3D recovery_start;
+> -	if (recovery_start =3D=3D MaxSector)
+> -		set_bit(In_sync, &rdev->flags);
+> -	else
+> -		clear_bit(In_sync, &rdev->flags);
+> +	assign_bit(In_sync, &rdev->flags, recovery_start =3D=3D MaxSector);
+>   	return len;
+>   }
+>  =20
+> @@ -5915,10 +5912,7 @@ fail_last_dev_store(struct mddev *mddev, const cha=
+r *buf, size_t len)
+>   	if (ret)
+>   		return ret;
+>  =20
+> -	if (value)
+> -		set_bit(MD_FAILLAST_DEV, &mddev->flags);
+> -	else
+> -		clear_bit(MD_FAILLAST_DEV, &mddev->flags);
+> +	assign_bit(MD_FAILLAST_DEV, &mddev->flags, value);
+>  =20
+>   	return len;
+>   }
+> @@ -7574,14 +7568,10 @@ int md_add_new_disk(struct mddev *mddev, struct m=
+du_disk_info_s *info)
+>   		}
+>  =20
+>   		clear_bit(In_sync, &rdev->flags); /* just to be sure */
+> -		if (info->state & (1<<MD_DISK_WRITEMOSTLY))
+> -			set_bit(WriteMostly, &rdev->flags);
+> -		else
+> -			clear_bit(WriteMostly, &rdev->flags);
+> -		if (info->state & (1<<MD_DISK_FAILFAST))
+> -			set_bit(FailFast, &rdev->flags);
+> -		else
+> -			clear_bit(FailFast, &rdev->flags);
+> +		assign_bit(WriteMostly, &rdev->flags,
+> +			   info->state & (1 << MD_DISK_WRITEMOSTLY));
+> +		assign_bit(FailFast, &rdev->flags,
+> +			   info->state & (1 << MD_DISK_FAILFAST));
+>  =20
+>   		if (info->state & (1<<MD_DISK_JOURNAL)) {
+>   			struct md_rdev *rdev2;
+> diff --git a/drivers/md/persistent-data/dm-bitset.c b/drivers/md/persiste=
+nt-data/dm-bitset.c
+> index 00c0a3f186b7..6680f05c25ec 100644
+> --- a/drivers/md/persistent-data/dm-bitset.c
+> +++ b/drivers/md/persistent-data/dm-bitset.c
+> @@ -59,10 +59,7 @@ static int pack_bits(uint32_t index, void *value, void=
+ *context)
+>   		if (r)
+>   			return r;
+>  =20
+> -		if (bv)
+> -			set_bit(bit, (unsigned long *) &word);
+> -		else
+> -			clear_bit(bit, (unsigned long *) &word);
+> +		assign_bit(bit, (unsigned long *)&word, bv);
+>   	}
+>  =20
+>   	*((__le64 *) value) =3D cpu_to_le64(word);
+> diff --git a/drivers/md/raid5-cache.c b/drivers/md/raid5-cache.c
+> index 7b7546bfa21f..b442a4de61fb 100644
+> --- a/drivers/md/raid5-cache.c
+> +++ b/drivers/md/raid5-cache.c
+> @@ -432,10 +432,8 @@ static inline void r5c_update_log_state(struct r5l_l=
+og *log)
+>   			wake_reclaim =3D true;
+>   		clear_bit(R5C_LOG_CRITICAL, &conf->cache_state);
+>   	}
+> -	if (free_space < 3 * reclaim_space)
+> -		set_bit(R5C_LOG_TIGHT, &conf->cache_state);
+> -	else
+> -		clear_bit(R5C_LOG_TIGHT, &conf->cache_state);
+> +	assign_bit(R5C_LOG_TIGHT, &conf->cache_state,
+> +		   free_space < 3 * reclaim_space);
+>  =20
+>   	if (wake_reclaim)
+>   		r5l_wake_reclaim(log, 0);
+> diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
+> index b91545ce090d..713596ee933c 100644
+> --- a/drivers/md/raid5.c
+> +++ b/drivers/md/raid5.c
+> @@ -4748,10 +4748,8 @@ static void analyse_stripe(struct stripe_head *sh,=
+ struct stripe_head_state *s)
+>   				       RAID5_STRIPE_SECTORS(conf)))
+>   			set_bit(R5_ReadRepl, &dev->flags);
+>   		else {
+> -			if (rdev && !test_bit(Faulty, &rdev->flags))
+> -				set_bit(R5_NeedReplace, &dev->flags);
+> -			else
+> -				clear_bit(R5_NeedReplace, &dev->flags);
+> +			assign_bit(R5_NeedReplace, &dev->flags,
+> +				   rdev && !test_bit(Faulty, &rdev->flags));
+>   			rdev =3D conf->disks[i].rdev;
+>   			clear_bit(R5_ReadRepl, &dev->flags);
+>   		}
 
-
-These patches focus on optimizing GICv3 register access during live 
-migration. We found that there are a large number of locks (kvm->lock, 
-vcpus, config_lock) in the GIC, these lock operations wil cost large 
-time waste. The batches of sysreg for vcpu optimization will come in 
-follow as a separate series. And let me address these questions one by one.
-
-
-1. Why only the MMIO registers?
-
-In vgic_v3_batch_access(), we use 'entries' structure to implement batch 
-read/write of register status. The structure is 'struct 
-kvm_dev_arm_vgic_batch_entry', where the group information can be freely 
-specified by userspace. Thus, vgic_v3_batch_access() supports all VGIC 
-device attr groups, not only MMIO registers.
-
-
-2. Why not the sysregs?
-
-The newly added vgic_v3_batch_access() just forwards the groups received 
-fromQEMU in batches to 'vgic_v3_attr_regs_access()'. And this function 
-already has 'KVM_DEV_ARM_VGIC_GRP_CPU_SYSREGS' to handle sysregs. Our 
-patch does not modify the existing sysreg handling logic.
-
-
-3. Why only the GIC?
-
-During live migration, the GIC is the device with the largest number of 
-registers, and we found that there are a large number of locks in it. If 
-each register is locked and unlocked individually, it would cause large 
-time consumption. Thus, we want to optimize the GIC register time 
-consumption during live migrate. The experimental results also show that 
-batch processing significantly reduces VGIC handling time during migration.
-
-Similarly, vCPU register save/restore also costs significantly time. The 
-patch of vCPU sysreg batch access will be submitted separately in the 
-future.
-
-
-4. Why not all of the state?
-
-As different devices have different lock hierarchies and access 
-paths(e.g., GIC goes through the device fd, CPU regs go through the vcpu 
-fd), it's difficult for us to realize in a single batch handler. 
-Additionally, introducing too many changes at once would make review 
-harder. These patches focus on GIC-related optimization, and a separate 
-series for vCPU batch processing will follow.
-
-
-5. Where is the corresponding userspace code?
-
-The QEMU-side implementation has been posted to qemu-devel. The link is 
-below:
-
-https://lore.kernel.org/qemu-devel/20260918092120.370805-1-wangyize7@huawei.com/T/#t
-
-
-6. Why can't this be done with io_uring instead?
-
-The core idea of io_uring is to reduce the number of context switches 
-between user space and kernel space by utilizing two ring buffers. 
-However, each SQE is still processed independently in kernel space. For 
-the VGIC registers, each SQE still require lock -> read/write -> unlock, 
-so the per-register lock overhead remains unchanged. We hope to 
-read/write a set of register states with a single lock operation to 
-reduce the time cost. Therefore, io_uring does not meet our needs.
-
-
+--=20
+Thanks,
+Kuai
