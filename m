@@ -1,41 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECD1C443C07
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 16:58:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BCBE3CA4A9;
+	Sun, 20 Sep 2026 16:58:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789923492; cv=none; b=gi2nhrlqGb917+doy/6rSfbOhUUy5Vus07ZTf2cr0uMCje7bO+roSgI2107ArVA4M9akXPArfXBoAi4ck0G8LVh744Rd839eJR3QIstd4kYNeyyvEnO6fDhKBOJneeADoYjT1fY2S8g6RBc3CZ9b/h5rsDGrA9w2VyrsDn6kg4M=
+	t=1789923494; cv=none; b=dKLhryvQOw7IYiyF6Kgy5eFIO18p5EOccS9VfFmgNmJpar4SjeY2gtlUPhon1t0I1BmJjpzz/TLYbmaLPK/CKgiGpys1Izg6WxVBLXCTKAAb4AsusVfXXuz+P4S5NTEPZhpe2Nv1K8hKxVWqQA5cP3sPsk6vHwODgaNeyh04HWI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789923492; c=relaxed/simple;
-	bh=iECl5SvxbJovgtSSO2yAZUKHU4eds0fZvkUAh5g4HNg=;
+	s=arc-20240116; t=1789923494; c=relaxed/simple;
+	bh=LIGe/m7Az5ezNuhMjll6aLgzBr6lJvzpMkKkb9xkC/0=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=ZhWFH1dxuPhv8IaNfnNWeZJm463i8/Y6RfPZ+sXv0tvYY2yes3By+uPMsLyWsU2KTPKVBT8XBzqZ4roGy1qGG4qvuQpS3H7FxybHPNJfNWDLYMU04kWtwZIzGWgIDa2PUcRSSyD5T2MQmo1WuOpSddETocN1ji7R1KdsYLYwcyQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LYzmza1z; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=UG9Z4G8x3OqEgEq6ODc3VXHIF7hnlQ3YHuaSTn67/dMHYN2nie4xj+4ozKP6rE28wQDiYuUTImqw61KaUPXdW3Cw1oJFx+IKfF7ZJjB/j4KCk7/8JHKkByQUHZHDRj9E2k/bXO9XL9g8D6dA7dL4Hl3VCLQxF027hNV/RO+ccak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YUO3Rctk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LYzmza1z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8522C1F00893;
-	Sun, 20 Sep 2026 16:58:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YUO3Rctk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40A691F000FF;
+	Sun, 20 Sep 2026 16:58:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789923490;
-	bh=EAUbUGtJqKPg4YGTRUNg6L7gB34ii4Gt+NCOM1sAM3k=;
+	s=k20260515; t=1789923492;
+	bh=27E0vOzW1xK5tI+GEKDovtOwH7vrrrJMyJhRFmJDM5w=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=LYzmza1z5wp0j0btz6HHfi2V7cABwTP6snHgKakVvdSaagGy5JfIVPhxOOYTHKj9T
-	 OIsxRg9A1bJjwQBPD+1G1IMJdz/rFjbtcI45vk0KdncVpwiDDOY0+cnIKmsvK4gW5m
-	 2VqO4KlhFh6SUPMsT/hTGxvzlo6wxVgOvzCewMNytmRidP+E3A7aLjXyt/zG17TSgb
-	 pKN1H95OdXv+OJ/X0wYQU+an6A726h0lo+QcDYQ5qUWiUFhZQmap/NhJhMIELM24tK
-	 DgUf4HDZgJLswStWPBAEgmzbFo8y6NxX1R7GBj2RwLeyBFWzWalOndO9UWFDJ5Qt5j
-	 aAlibQFxsmX3A==
+	b=YUO3RctklJB7DhDL1wBUapr90+QbJ/h7Z/B8RegdUETmLq6GPjohw50tGr0QPedFb
+	 GGvh1e7pnOPQ1cpB5IlPgLSgawUQ6StqNs1Z3AUS5hmoq+wh+aNbQKtazgdt+/H7CB
+	 vQunL+jdQ5uWLmJyPNImdXsgdBx/fJfTIo+Wg3HofCBhXEMO3sp4042XtZFxtNJJ2u
+	 LdRFjwLK2fGw4OyWkAN9M3UbQppbhSv++wFjbr/ENg/JI2WM2w0+Ffoe0MJB3d5mM9
+	 GIkTfQnAoHkjm8J3N1SK5ZUOtOLb/SfnMkL65hB4fVnN44yT0p0bW/TM5ANy1ZF1vD
+	 7E9GVEzyXSKwg==
 From: Srinivas Kandagatla <srini@kernel.org>
-To: Michael Walle <mwalle@kernel.org>, 
- Miquel Raynal <miquel.raynal@bootlin.com>, Leo Cheng <leo-cheng@vip.qq.com>
-Cc: linux-kernel@vger.kernel.org
-In-Reply-To: <tencent_795E00A994EB63D831671DBD55A4C689310A@qq.com>
-References: <tencent_795E00A994EB63D831671DBD55A4C689310A@qq.com>
-Subject: Re: [PATCH 2/2] nvmem: layouts: onie-tlv: fix device_node
- reference leak in error path
-Message-Id: <178992348921.879561.16720430203134466231.b4-ty@kernel.org>
-Date: Sun, 20 Sep 2026 17:58:09 +0100
+To: Dmitry Baryshkov <lumag@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Janne Grunau <j@jannau.net>
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Dmitry Sinyavin <sinyavin@gmail.com>
+In-Reply-To: <20260920-nvmem-read-oob-bit-offset-v2-1-feeb7b672059@jannau.net>
+References: <20260920-nvmem-read-oob-bit-offset-v2-1-feeb7b672059@jannau.net>
+Subject: Re: [PATCH v2] nvmem: core: Fix OOB read for bit offsets of more
+ than one byte
+Message-Id: <178992349090.879561.13513828114190223028.b4-ty@kernel.org>
+Date: Sun, 20 Sep 2026 17:58:10 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,21 +49,21 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14.3
 
 
-On Tue, 11 Aug 2026 20:55:50 +0800, Leo Cheng wrote:
-> onie_tlv_add_cells() takes a reference on the child node via
-> of_get_child_by_name() for each parsed TLV and passes it to
-> nvmem_add_one_cell() as cell.np. On success the created cell entry
-> adopts that reference and releases it later via of_node_put(); on
-> failure nvmem_add_one_cell() does not consume it, so the caller still
-> owns it, but the error path only puts layout before returning, leaking
-> the child node reference.
+On Sun, 20 Sep 2026 18:46:19 +0200, Janne Grunau wrote:
+> When the bit offset is BITS_PER_BYTE or larger the read position is
+> advanced by `bytes_offset`. This is not taken into account in the
+> per-byte read loop which still reads `cell->bytes` resulting in an out of
+> bounds read of `bytes_offset` bytes. The information read OOB does not
+> leak directly as the erroneously read bits are cleared.
+> 
+> Detected by KASAN while looking for a use-after-free in simplefb.c.
 > 
 > [...]
 
 Applied, thanks!
 
-[2/2] nvmem: layouts: onie-tlv: fix device_node reference leak in error path
-      commit: aff113334732214b151c1aa0a69352ab569d8764
+[1/1] nvmem: core: Fix OOB read for bit offsets of more than one byte
+      commit: 841ea6e56cc88ec2c28826d62fbab88b234524c5
 
 Best regards,
 -- 
