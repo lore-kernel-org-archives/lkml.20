@@ -1,193 +1,161 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E221D3D8903
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 06:29:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E22DE3D952D;
+	Sun, 20 Sep 2026 06:29:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789885774; cv=none; b=G3BUGokcB91plxj0IgUZ/X6Z3ZyyNYMAmHe0Mf8uKFYcI7MZ1PXCW2KqQnS/V5rnFLVYNeoZ7Gs17X5teV9jErkeIhF0Y6bSOdbn33CTMI1mPrxIbC29NRdHg+MoH81XQs6ev8YMCF3uCgjjaainRvIDMg1kUmKeAiXr3u9gJqk=
+	t=1789885774; cv=none; b=p9yVJH2dKM98Lovw+EVzzK1JnDyPr6J9CyfjWpMh0uD3iU12HtsxTeMj4gJSFjTRltlxyTBhDcebeQRoZqMDE/nG+s4Jqr/05nV29kSvzBg5vEyH1fnN/vqmu+/v8E/h/+mEvQUKN/9gN6jIN5VBnv53nd/AMMtvRLI1iKfYdNA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789885774; c=relaxed/simple;
-	bh=4hr10EZqiVj8sdY4fkfjMxrsxAscLbbiMoyFWclCXSs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PeddICD27fAzRlwxqYtAulDWYtC4Uol8E1LVp11YxPV5Q77xrsr6+JffqSq+hk9gpNcomZOMKCj/BijG5drgEXm0R3OCYDVpkcxbzBAf8aeaoj7kxaHha09dckxYfTVE2RY33hKzMtSJ8rQoidY5IBrvwprZ/XZILxxFFeWkzec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eixCU0Wv; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=W76e+7EX3tEsBrKfO/e/LQfBiCbKnuXXgIGSkI6o12E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lI7RaSVYTJxYAZG1x4EtE42Kp7rzwUT8fccDk6N44b5uubbjtk2p9oCraFsr5FjD6wT3tTs/+2OqbsUmWjskWp7NTVq3yO27nNyLZ03Df7pU5us0pdb8RAriyQGXb3E2+IEKw1z4Ve0ROUS5JwzeWk3rXukYaa6WknYQKCTjgI0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=gQqCmPNu; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=xdbjhOiE; arc=none smtp.client-ip=202.12.124.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eixCU0Wv"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469b355ffso1207133b3a.1
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 23:29:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789885772; x=1790490572; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QHNmLChQ03Jylrey1s6uB1+cZpgIToxddQ5DX4SEzpM=;
-        b=eixCU0Wvt6Wm9PyxkutVBVwZF5/Px7IA8ObVHnPXSBPdybyWywUk93+qFLCqNOSNzq
-         N1rhgFtyIrUhvZZsrwQpAg5OPyf8LtQ+2F8t+Hzl6kAeXOgakohAWmAYpAZL/fBNkchE
-         dETe7W2R9a/BADXASYQ6Sk76UM/Q2jGEg6iUWtw766D2SKkG2ewRnQeupfC6Gvn0zTtF
-         OOAkPVWDwqfnOy8A3rX4aoB70uW8R6tY0Mc16WqMWXJ/QVYVKUOl+8sJg0WYmrx//82i
-         8Jef0M8dMNCPLS4bTd8zm7buZYW320//IF28zXJDWE8gpVn+Cmx6EVqYqR8RXnLEA+G5
-         +DcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789885772; x=1790490572;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QHNmLChQ03Jylrey1s6uB1+cZpgIToxddQ5DX4SEzpM=;
-        b=FBVaOKQyiny7axKTpyhdUeY6R43nhLDeY2s3Jc3x1KzFaALSj5PRS7IGUYVB+0aJCZ
-         H0haVy7eyo4LUui1PECpk8gCw7nDb8UOcZtpXspycoUs6jEgj6VVbU9aSF5Si30OokvD
-         +wSX6AiNAy9zSxXhhd9DoyuEponpmRm0vd3GRHooWUMzCsfzvdG80z/tRzXA8PQUsVIv
-         BGqvMQ/vMsYWEn5nBc/w9rXzH0Qr+vvcRy1rDyuggckipgP7qyJeTuiKjDJheY31QT/2
-         RuACwshft5ANsCNl2MDuz6jlsi+11PGO09SZ+qnq3hNsK1DVUdLTVBGlfBzGwtFqWiBF
-         3Z0Q==
-X-Forwarded-Encrypted: i=1; AKwUvByiiFq1uGnxOI6PfpdGvqAXjyufmXqf234yVa56rhJybh29rh7noff3WlsyDOnAgUkVroCdSNHHFDaS67A=@vger.kernel.org
-X-Gm-Message-State: AFuF++maSjNq9/0yyD3DSqq/TEQ/PgWco9NvLUX56w7qAe7XP+/dckkd
-	oY/NoalQx7fDXGg9+ymjNBhJ+2nRc/RTIkes9xqMYycK02NxYJJrpERI
-X-Gm-Gg: AYBFou2F3xQMbsnFAFsCIAcSb/4Z1bFu10ANJVf0zzEzgtB14vJt0flasfOEH3nKfyf
-	lRlGyLG9d+K+CXWmazORMO3Imzo++iBdng5MnNJh98DVx7xBbwFXh1LRIJ5Phk2FSBSrRHwysmJ
-	FRVc8udwvtEgLO1X29l6MT+5xiw07HxUNcdcn6DMyCLt7HgU8Dkv0wwDnuO296zpGfX+gm1lb9i
-	Oy5Tli/4WYAuzJ21G3nCD7+ztSBop+cY0UbbbKD7vCYh+Vvh0WXHZYkJ89abc9aP0f3R6jxfYIX
-	Zl0uhvZfxa6EOuOKQZkoymJLRTjFkXQRlw+BJxIoxa6+vf+BDN8KhpozBOnvssWWl40VeSR6+o3
-	CaF/+G9aJFcVV2OGyG+jdjm+Po8z2bnJyJ7ahydSZC/4NhK56fi819bPfPbHWjzgtXCQ3/fgXOY
-	vagE4SUML7CJw2KRoRX2ClzuxQgzogcTkEtBkdSFNmIsa+mefKV+2f8a+AdsPzXlHX
-X-Received: by 2002:a05:6a00:3697:b0:878:34d7:699f with SMTP id d2e1a72fcca58-87834d76ea1mr3232891b3a.47.1789885772036;
-        Sat, 19 Sep 2026 23:29:32 -0700 (PDT)
-Received: from bloom.localdomain ([2604:3d09:178e:e100::c570])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a95f2abesm1642361b3a.26.2026.09.19.23.29.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 23:29:31 -0700 (PDT)
-From: ivy lopez <skunkolee@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: khtsai@google.com,
-	kees@kernel.org,
-	sigmaepsilon92@gmail.com,
-	peter@korsgaard.com,
-	jkeeping@inmusicbrands.com,
-	lgs201920130244@gmail.com,
-	marco.crivellari@suse.com,
-	christophe.jaillet@wanadoo.fr,
-	ethantidmore06@gmail.com,
-	peter.chen@kernel.org,
-	mlbnkm1@gmail.com,
-	raoxu@uniontech.com,
-	jiashengjiangcool@gmail.com,
-	zzzccc427@gmail.com,
-	yun.zhou@windriver.com,
-	shuangpeng.kernel@gmail.com,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] usb: gadget: fix f_printer ep0 overflow/list race and f_hid/f_tcm/f_eem bounds
-Date: Sun, 20 Sep 2026 00:29:28 -0600
-Message-ID: <20260920062928.42260-1-skunkolee@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260919223521.3890508-1-benquike@gmail.com>
-References: <20260919223521.3890508-1-benquike@gmail.com>
+	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="gQqCmPNu";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="xdbjhOiE"
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 8C4D37A00F2;
+	Sun, 20 Sep 2026 02:29:31 -0400 (EDT)
+Received: from phl-frontend-02 ([10.202.2.161])
+  by phl-compute-01.internal (MEProxy); Sun, 20 Sep 2026 02:29:32 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1789885771;
+	 x=1789972171; bh=u/1AobQDxsOOeQ8CVIydz3iBjGREabXEcBqTvuHArY4=; b=
+	gQqCmPNuJrNTwhFhNQmK53C8gEcM71aXvC4zBDzZiLBnBlZvr+8hQ78SxGtBb6Eg
+	GJslEFS5gcPUC878UFqgjaeBFLA55s+u5Kd4K5WIog8J66GFXvIQJVR+9oFAmpMS
+	9Xu4MI599Et3NFQpLcU2C9arcrJEUcmkuK3qAzRXAtGb3fCcQpbtLbpvMNw4cjjB
+	+MgCMo4AYEVqPzyIt79W7rciIxPAj1x4i8h7zjp4bzs1Z8lwDMUmsua8plLtb+D1
+	W9oIdx+Zyh/cS2VP52ZNEB28XnQB+Lb6AWvb+x+WZwg/RyOIPay2zGKIV4Mt7CiV
+	+N+CulrkDMkKR6e8lQcBEA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789885771; x=
+	1789972171; bh=u/1AobQDxsOOeQ8CVIydz3iBjGREabXEcBqTvuHArY4=; b=x
+	dbjhOiEw2s6z0/+KgsOjlKo3ppbcWTnH3NVvJ+WX8G0tL/sBssBGYYoNHSTy2FoG
+	Oj324ElUtMf+SrfGKJUn+CVJN93ReLdz3qHfwPX+YFa7oAWPZ26IBmW9rolrnqNr
+	lHxukRyfJ6bctfFYpl52G0p0erNA2FTFEER7N8TLQM3dLbduLjhQ6sFxgYZoYtyH
+	RNRmVg75H7XKM10TbEqC5dTSPxTRuIZs6LhdFlt7AspCnS1aDlhZ/tng8tKtUpuD
+	dMX70YU0B9sIX3cwjZcV+33mh6OpbZpOMn8YCPQh1DhrdAcrbhDrRQeuBlVwnCCI
+	UJIarWu1c8z1RvB4tosQg==
+X-ME-Sender: <xms:Sn2vauQZ_5NYVxHHdpJkJqRW_i3yuHN-u9O0hmKNcQAUSAQVWNA10g>
+    <xme:Sn2vavWEIpHXoDs7wBNdxErpfU3hDe198KPymZulWf8Du_2vAObJR0Y10R3lYpkWP
+    PG-UYCXBKLvSZrtyYnPIduRLCo007dyX035PWiroOvmGEbn-3cOgwIc>
+X-ME-Received: <xmr:Sn2var1W_aREQmlQN0pnswOsD5tTYjIC77E_k4Z2W-YyKghui2BHwhEp4PicSxlMXmBIcCU07rCvVkfUgHrFklLrLpzjpTzG>
+X-ME-Proxy-Cause: dmFkZTGgIvpqL9t+gp5xDPXxzxWSHsiwzzyDnioTKnE0u8JfVZ4TR21yewFpouGj7ocC13
+    h6jUSBQ7fxSaCf1T3Ysyec8a6/HIIaGxiGd03ierST4b9yqkGOyUIpBujFlDSVAezFL6p1
+    DR51Vq0HgWrLEjl/4uFgskLyv8BIrGoGBz4duXrRI2A/6AmpavL5tyDF22tjkuoXQBt7Le
+    pTfyGsgVVgD35rlJiRbpUZQAvbE3PO8c9jg2prl2/40oTxa+JNprMaPwmV6RdWgtJxl4rM
+    PxYtYvhiiaGNn0+wzjxACP7LJ4QZJP9sbX52Pgyl6jMVBn692jbyvlGcygS0910jTpWoAP
+    V4DlZtp0GYvXbndoxtE8egveYip3u2ZTP5IxfjCY0iIwsiTdViu4lG+89Yji1V8r7ie7lD
+    UqTfr91fPQpOD3p9zIXz6nkNT+bnU65FBfU8+a/p66YA1Btlu3XTfQBCS2jr1pQ4vlKRix
+    v/uOp/bcD8JOOr9Ou0Rv+yIY6JX+5F9Cy8x5lq3xLpQizUxw3rKIGWoyz+vnAQhly3eLbK
+    UVaLwV5IdA8/ibmPPgjT9eFvrY9AirULcshhS1Ywkpz7ahLdzIZQkvuIO/eUtWbsLh965Y
+    kcaSsQ4UM8oiVg4k6j2KS4hiF8i5vniQSzXUq2dD9gppnoo6gjqMQBnpsjgQ
+X-ME-Proxy: <xmx:Sn2vau-vWLoBIAFPT1mrCokLn9MFpQQnZwL3rv-aTTjp6aizFDMr1w>
+    <xmx:Sn2vapezU9AK4Wy4g40TdQsMq7aN4Wx6ZpWXS76ZW6g3VrrSeV8zUg>
+    <xmx:Sn2vai7x03RA7YbEUL5KQB8Hg_aYSUGPElNj2bVsCpHPVtCt4JeZtw>
+    <xmx:Sn2vatNdnf9_mW-ajLdYVHbKbLzRAP98e6O9K_jSvvKDcOyR3VbP4A>
+    <xmx:S32vahGMv3_GaQbyH0Hei3NhRQK1OnBZ-he3vi6eMKe3favocg6NPakQ>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 20 Sep 2026 02:29:27 -0400 (EDT)
+Message-ID: <98538a44-63c3-455e-96f3-00124a825f9f@pobox.com>
+Date: Sat, 19 Sep 2026 23:29:26 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.12 0000/1102] 6.12.111-rc1 review
+To: Sasha Levin <sashal@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
+ Kuniyuki Iwashima <kuniyu@google.com>, Eric Dumazet <edumazet@google.com>
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260917151539.408551884@linuxfoundation.org>
+ <be8641ad-ed0c-4e6e-a915-0874076159d3@pobox.com>
+ <49dc2e4f-7a94-430c-8b02-6f3d422222f3@pobox.com>
+ <ce4ba85b47cf4c2e8f7def41@kernel.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <ce4ba85b47cf4c2e8f7def41@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 19, 2026 at 10:35 PM UTC, Hui Peng wrote:
-> Fix multiple memory corruption bugs in USB gadget function drivers:
->
-> 1. In printer_func_setup() and printer_reset_interface()
->    (drivers/usb/gadget/function/f_printer.c), bound GET_DEVICE_ID copies
->    to USB_COMP_EP0_BUFSIZ (1024 bytes) under lock, and dequeue from
->    dev->rx_reqs_active instead of dev->rx_buffers in
->    printer_reset_interface().
-> 2. In drivers/usb/gadget/function/f_hid.c, f_tcm.c, and f_eem.c,
->    validate setup wLength, command lengths, and skb bounds.
->
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
+On 9/19/26 10:07 AM, Sasha Levin wrote:
+> On Sat, Sep 19, 2026 at 03:54:25AM -0700, Barry K. Nathan wrote:
+>>> [   98.363843] RTNL: assertion failed at net/ipv6/mcast.c (1014)
+>>> [   98.363896] WARNING: CPU: 6 PID: 961 at net/ipv6/mcast.c:1014 __ipv6_dev_mc_dec+0x17b/0x190 [ipv6]
+> 
+>> I bisected it to this patch:
+>> ipv6-mcast-don-t-hold-rtnl-for-ipv6_drop_membership-.patch.
+> 
+> Your bisect is right, and thanks for chasing it all the way down --
+> the splat is real and the patch you landed on is the trigger.
+> 
+> I've dropped the ipv6 mcast RTNL conversion patches from the 6.12, 6.6
+> and 5.15 queues.
+> 
+>> If I take 6.12.110, apply the current stable-queue (as of commit
+>> 01b20bb84b994fdcda64fd07a66ba84c85d0168f), then revert the
+>> following patches:
+>>
+>> ipv6-mcast-don-t-hold-rtnl-for-ipv6_drop_membership-.patch
+>> ipv6-mcast-don-t-hold-rtnl-for-mcast_-socket-options.patch
+>> ipv6-mcast-use-copy-on-write-rcu-updates-in-ip6_mc_s.patch
+>>
+>> then the resulting kernel no longer shows these warnings at all.
+> 
+> The root cause is a prerequisite we never picked up, rather than anything wrong
+> with the patches themselves. Upstream commit e01b193e0b50a ("ipv6: mcast: Use
+> in6_dev_get() in ipv6_dev_mc_dec().") is the commit in that series which
+> deletes the now-stale ASSERT_RTNL() from __ipv6_dev_mc_dec(), and it was never
+> backported to 6.12.y, 6.6.y or 5.15.y. So we took the patches that stop holding
+> RTNL across the setsockopt paths while the assertion they were meant to retire
+> was still sitting there -- hence net/ipv6/mcast.c:1014 firing on every
+> IPV6_DROP_MEMBERSHIP. The queued patches are byte-identical cherry-picks of the
+> upstream commits; this is a series-ordering gap on our side, not a botched
+> backport.
+> 
+> 7.2 and 6.18 carry the whole series, including e01b193e0b50a, so they
+> are not affected and keep their copies.
+> 
+> One difference from your experiment: I removed four patches rather than the
+> three you reverted. The extra one is 1767bb2d47b7 ("ipv6: mcast: Don't hold
+> RTNL for IPV6_ADD_MEMBERSHIP and MCAST_JOIN_GROUP."), which is a pure refactor
+> of the join path and was only ever queued as a dependency of the others. It is
+> harmless on its own so consistent with you not needing to revert it, but with
+> the rest gone there is no reason to keep it, and dropping it keeps the series
+> intact for a clean requeue.
+> 
+> The plan is to requeue the complete ordered set, e01b193e0b50a included,
+> once this RC is out.
 
-This touches four unrelated drivers (f_printer, f_hid, f_tcm, f_eem) 
-under one Fixes tag, and 1da177e4c3f4 isn't a real Fixes tag for any
-of it, it's what you get when nobody runs git blame per hunk.
-Please split this into one patch per driver, each with its own
-actual introducing commit.
+Thanks for taking care of this!
 
-> -		while (likely(!(list_empty(&dev->rx_reqs_active)))) {
-> -			req = container_of(dev->rx_buffers.next, struct usb_request,
-> +			req = container_of(dev->rx_reqs_active.next, struct usb_request,
+I have now retested with 6.12.110 + stable-queue as of commit
+afa3d2e7536e9034a4917d4b6e228a99d5bd7aa6 on my ThinkPad T14 Gen 1. I can
+no longer reproduce this kernel warning (as expected with the patches
+being dropped for now), and it's working well, and I have not observed
+any other regressions.
 
-This is genuinely bad. After the loop above it drains rx_buffers,
-rx_buffers.next points back to rx_buffers itself, so this second loop
-computes a fake usb_request via container_of on a list_head embedded
-in printer_dev, then writes through it via list_del_init/list_add.
-It also never drains rx_reqs_active since it's dequeuing from the
-wrong list, so this spins corrupting memory each iteration.
+Tested-by: Barry K. Nathan <barryn@pobox.com>
 
-git blame puts the actual introducing commit at b185f01a9ab7a ("usb: gadget:
-Restructure printer gadget", 2015-03-03), not 1da177e4c3f4. Please
-use that as the Fixes tag when you split this out.
-
-> -			value = strlen(*dev->pnp_string);
-> -			buf[0] = (value >> 8) & 0xFF;
-> -			buf[1] = value & 0xFF;
-> +			value = min_t(size_t, strlen(*dev->pnp_string),
-> +				      USB_COMP_EP0_BUFSIZ - 2);
-> +			buf[0] = ((value + 2) >> 8) & 0xFF;
-> +			buf[1] = (value + 2) & 0xFF;
-
-Nothing bounds strlen(*dev->pnp_string) against buf's
-capacity before the memcpy below it, and pnp_string is configfs
-settable with no length cap in f_printer_opts_pnp_string_store either,
-so this is a genuine overflow path.
-
-Separately from the overflow, the length prefix per IEEE 1284.3 is supposed to
-include the two length bytes themselves, which the original strlen()
-value doesn't. Probably worth its own patch too.
-
-Separately, in f_hid.c:
-
-> +	if (!hidg->func.config || !hidg->func.config->cdev)
-> +		return -ENODEV;
->
->  	if (hidg->use_out_ep)
->  		return f_hidg_intout_read(file, buffer, count, ptr);
-
-This hunk (and the matching ones in f_hidg_write() and
-f_hidg_get_report()) doesn't close the race it's aimed at.
-hidg_unbind() does:
-
-> +	usb_free_all_descriptors(f);
-> +	hidg->func.config = NULL;
-
-with no lock shared with the checks above, so this is an
-unsynchronized check followed by an unsynchronized use, racing an
-unsynchronized write. It shrinks the window, it doesn't close it. If
-this is worth fixing, it needs whatever synchronization already
-coordinates unbind against the fops paths elsewhere in the driver, not
-a bare pointer check with no lock behind it.
-
-And:
-
-> 	if (ptr) {
-> 		/* Report already exists in list - update it */
-> -		if (copy_from_user(&ptr->report_data, buffer,
-> -				sizeof(struct usb_hidg_report))) {
-> -			spin_unlock_irqrestore(&hidg->get_report_spinlock, flags);
-> -			ERROR(cdev, "copy_from_user error\n");
-> -			kfree(entry);
-> -			return -EINVAL;
-> -		}
-> +		ptr->report_data = entry->report_data;
-
-This one looks good to me and worth keeping. The existing code does
-two copy_from_user() calls against the same user buffer for no reason
-(once into entry->report_data unconditionally at the top of the
-function, again into ptr->report_data if an entry already existed),
-and this removes the redundant, racy second read. That one's real,
-keep it.
-
-Also please skip the func.config hunk unless you're going to actually
-synchronize it against unbind.
-
-ivy
+-- 
+-Barry K. Nathan  <barryn@pobox.com>
