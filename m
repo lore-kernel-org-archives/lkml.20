@@ -1,65 +1,65 @@
-Received: from mail-yx2-f42.google.com (mail-yx2-f42.google.com [74.125.224.170])
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22B8C47206E
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 19:37:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5C7E4734D4
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 19:37:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789933042; cv=none; b=JVnmURkZECmJhlecOq4jb/DsWnOLP5ail2ElWeJwk8BPy/euxSDO4M4txtaxO7Y7ykUqhCUTbmCgkMycLARvOkIdROdKLHQAQLeqwF/BH4IDmpdcwFONIkpCmBAup/k4RKMr27efcS5e7NVbdZ5ilyyfnhnutBajXD8tfdYm+MQ=
+	t=1789933047; cv=none; b=X0Tg9bNjWYIRA+bvGsHijgejQ8YcPy/SiDalLQzZ2aaPdeecWnYSDMrjBg57jRqU5hCSnLc998MqQQmVEcoNKYK0RCPNZ0ARFVavC+R9Kxx9HJ9qwNvk9y1XZ/pQVVmC6OGqM3Fvogi5rP4WWHFe1fzcb9d3HFCbhV6ABMoq7Gw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789933042; c=relaxed/simple;
-	bh=wgzzxsy58BvqCqX/ilqt4T5Q9dkczW+R9c2r7pwHm7M=;
+	s=arc-20240116; t=1789933047; c=relaxed/simple;
+	bh=tNdsG5SbEQaMh+AeZRyqzF7Pg2wKp2d/X/KDLhjUmzI=;
 	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MZDdIkXwnWFYxv8u5NPAl/pbtQ72hZm+vWBafULRDzwOY2W8A+k5i24iTiZQ1Hb94b0F8LrxF14DZmaYJ+t+aQK7MpOx/pIxKG2qNmOKtSjy6v0xolInhTk8iRppfg9fhPHHVrvUM8wBW0mhhsZtzqU/RnFtZUXdciD58k6U0eA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com; spf=pass smtp.mailfrom=soleen.com; dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b=BLkWGEd9; arc=none smtp.client-ip=74.125.224.170
+	 MIME-Version; b=U5/ttl3Rp7qQzothaitUv1DajVsmcfJ4v50p8yAOcyojitp1yTAOfub+fUIv90LL5M6EH9yw9AWFBCm0SEeoYUxkEjhiK/E4SH1Q315b2WNO5TrNdMNXw2D5429F8aIexKYhuMqkPSGsTXc21uEP2Upv737EawUY7pHQzK1GFIY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com; spf=pass smtp.mailfrom=soleen.com; dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b=j+rHEc4A; arc=none smtp.client-ip=74.125.224.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b="BLkWGEd9"
-Received: by mail-yx2-f42.google.com with SMTP id 00721157ae682-8961cca9193so28158767b3.3
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 12:37:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=soleen.com header.i=@soleen.com header.b="j+rHEc4A"
+Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d43f9b11bso16444167b3.0
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 12:37:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1789933039; x=1790537839; darn=vger.kernel.org;
+        d=soleen.com; s=google; t=1789933045; x=1790537845; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=0WQSV2M4dYwT0nemuMW5I3vbKfQKNkPtdhJ2W+zZzFM=;
-        b=BLkWGEd9plcD8ipUKaaRYEGEuDCeuIpJhlWWBYIW/i+MQbBZXwIa9GTAmNKfiJbT+G
-         L3IZU4H280isE3pE8wxVp7iyzWeQ3Bck/FcArcWAxUYb8VpOO2eC+dm3jrd8wB9dfV9s
-         +KtlaQKJKcLhPLTzl9t24QWZn4UJd0Vr0ItkHRyTABWgiEGFLvMb8HAsxPCyitUokHKg
-         FRLtUysbbul4b53uVAVdyx874xF445BmMiqDdguriBa7lGO/sGnx8dCoB5VN4Yc5bm3S
-         NeGTyToz7HZULa2JHFqvtdskM83gNa3ckTFH6H6+TTyFIoFcEYe61Erm1OQ+pzZRM26z
-         hzPQ==
+        bh=i5nAPiFxyuCO/MgJOwL1aiw4E3m2Ng0EpjBlpOl2sok=;
+        b=j+rHEc4A845kUWAKEHXpfU0mapZtHJj5JkKQ0/8gLscv/LRIH4K2Y2VUSbGNSrdI9i
+         AhYYIFCzxS8L6NqFAN7sqE/8mE6qrz9XuesCWfVqgOm/7IQXfJx23kDVLMRb3IJ7HsOB
+         w0AwMWZiRusHDl0dZZuiKN2NTk/LqBhXgS69oa46vbatF6yIEl0cyjSV3R/yooFx1rvi
+         qhsp8DxqBmhRPEulA/w95VfFnGxDj+vtnwuD7t0Epr28s30ZwxcQaT0+i9x4bL7rc+jH
+         Ail+w9R1O72EWO/y6joYUSd1g4TlT4TaJDxOuqAZb/fMsKF58IpL2cIFtwavFsl4aQ7X
+         /9gA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789933039; x=1790537839;
+        d=1e100.net; s=20260707; t=1789933045; x=1790537845;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=0WQSV2M4dYwT0nemuMW5I3vbKfQKNkPtdhJ2W+zZzFM=;
-        b=OyZ5Sdv4uH8jo+KWi6rcOO0CpPPvKDtBsddgLGZrRenI4t1Zm/3rjSrGowluE1AOj7
-         6Okkl5QRCqTA5qr+z7TsaDbiHz0uVVhEIzOIyQ5oHqi8n9JoVPTtHkkOH1MYkpfwjSxE
-         hLPLPeJtayd2lPopQ611qJE0ZJQHShkSnztqYaizAKdN6sHq87Ub4IBR8jIhbwzkY9fI
-         DxIDPR9YLq//lFX2ZcKEraINCsFZACDciFTjg8rsvALcUNlz3uo36bC1Wwu3vZYMugoS
-         YnYKgYmW5rCQuHeoeV8GK2kXN8gtQ/ng4cxGlS5fhn+k9GyRw1izyt3nIGpGdTA8ESaK
-         WoQQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxBLW6MqJypZIObX4culEnTWA/nAYZzavkBOx96qTM6nsFwRXAraEiqxutEhHwjDVAk1CzxEK+v+gWKzFI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mpk6394RdtWFeQw52wznDKnUHyHOiEaU3Oovzfbsr+MRYRFgUR
-	NSwDhh9CrIAxI9l6QsdOgmS5EQC88aSknh97AyQjg7C9x4Mfb4wl42PSa2DaFxdfl1c=
-X-Gm-Gg: AYBFou0BsuqtLpGn9Ezmy3UlNsaXPzGJFPFuN1fCEjf+EA/FcRlIRpzWecvZxcxWe5N
-	Vehv+ZiBCTzfgdSlY4/6tHfVKLbKm4pZtcuvEtuZ4qPvPxCTun0NzOMUCi8adr2cJbnQlkPluh8
-	d2zCdiOaJGZ2VkgUBZfYvWxPM59BJ7dpUES2t3coZRLIyicQ6ddmfCpNksz3Bd3XuGmtRpSFtt7
-	pC42qiT+V65bPu4DWCtmGJChVIuoFwF/V2Guw6VAZQf7H42N2hNvRPfs6DpkIkQ/IWM/VYeGY77
-	O1tOVpytUsKdINhyuGc3tb582WHAOeaUYtUtXEitB71bP4fRR0KtDYZKswufDI2WBns2GM7UWzj
-	mJ/jglCJZ20KPhXFxVY6dT7Tdr3zeOMet0/3f7ySzoXjdxBWpoVfGmCLIKG3c/iTSlK/HT9ooLD
-	INnUt5Lkb9DpHMONN6d6H4bb16rR7E/kfWlTi//Nxj8IVuU6K29sR1LS9AQ1403Z+y55ueNc87y
-	zCvEGTEd1b24S6a9v4JuG41NhuMGgcPpA/fSc+Mpd9ZvEHbTqpB9NQylASt6DvEPYYn/QDByVgG
-	nwZtUGu37yFOjzvvgRc=
-X-Received: by 2002:a05:690c:e1ca:20b0:854:9062:73ae with SMTP id 00721157ae682-89736b3f795mr32929267b3.33.1789933039155;
-        Sun, 20 Sep 2026 12:37:19 -0700 (PDT)
+        bh=i5nAPiFxyuCO/MgJOwL1aiw4E3m2Ng0EpjBlpOl2sok=;
+        b=rH7mpyZTcpWNn9hYD2vMMmtFebJzJ8uZxAKmpshkc5FTa1vmoo8RQe2EMOXzZBNF7v
+         90TKCVJzFZV36rMDljn+9IItQ6cB4Of2HZR566CSbliDtUcnkXWLat9bsdKbV3yPL/eR
+         iaPiU5nwTu3n07uVzgkkICfnIoIQuTLpTGv5P8SYFwfAXtKOyYw8N0VoV1ePyg1VCofl
+         v7u2l0a2B7Q62yw1FcydUNj4lwGjMKUn6XMDf75AaW2L06WkxmQCKigHBSfuBLHg+QbV
+         FpwcKw3Lj6bZzXn1O4YScUyCipG4s67aKfLZZeo3sL0vydhmYC172l8aifx72sFFClbl
+         ExEA==
+X-Forwarded-Encrypted: i=1; AKwUvBynHB7kLXa9eV7Lq9Qo5FPGlk8lY6NK5Izly+PK4UGnUYaiEh5njPUZzuUAKH0/npopXkJc4vW0wrCjfCs=@vger.kernel.org
+X-Gm-Message-State: AFuF++krez/An9CniGIe20TRHDgA0cvplddilbVZdZtN3b8shf3A43N3
+	/w+soI5+19nGWvp7MX3gP8FIDcuUFAsD9MDpWo6q5XUmNr4X3pXP1DPOLtS48v2ye7g=
+X-Gm-Gg: AYBFou0LL04NhgK1aY4wJOO9xNYJtXY0IqWCgc66RP1EFsDvEARVwq8E/gk9LgVCxO8
+	6QHy8KiEPMrDbDHlzfTKCK0JF9TP7p1/3SGKqkqUWrGsh5Se4G/6Yn8uREu1ZWKm5Q/8nrwM2eh
+	A1JAa9jLlgIn9p2yClh9TpLKfw2ngNaIOKTWpdyE80r9ybAl1LoKKQhbTQHb0DcgYB/s48hojUm
+	v2cmf3/0eWISyqon00cX/9/En1+BNdDkoSoPxlIR4GKCIgBTzVH6YaU2qqkOuAnLN5iHrqqENJi
+	Ff5wHX9vLJqV4R2hEutf+fmdEtLY3ppx+5jquFw1yP1+Bp9ikL9NUWITjaeSQPCZiG5GjW/zXp3
+	ThENsp/uVMNVkJt8cTv85IaWCPypPwrUh/sILwQNktqAkoQzih1qNIv/WJ8XN62NxqTfo8NTUwb
+	mtrk3FUaOADOt1CifG/6861PVFbhebrM/I24mykFk58sAtulYkMTmOku6Hu5o06/MEogBU+Nndl
+	cGkY+ZZ3qRBMEDowt2L46OXCVZNVQeQ8wkg+qQe2TlgISbpdw8C/BYpsr4b3n4RxHiaYGEO3/ZJ
+	4uFG3E9+gQdFC7QB6u4=
+X-Received: by 2002:a05:690c:e297:20b0:870:f53:4edd with SMTP id 00721157ae682-897305168b0mr18683667b3.7.1789933044691;
+        Sun, 20 Sep 2026 12:37:24 -0700 (PDT)
 Received: from soleen.c.googlers.com.com (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-89a48d99122sm18294247b3.48.2026.09.20.12.37.16
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-89a48aab042sm18597427b3.47.2026.09.20.12.37.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 12:37:17 -0700 (PDT)
+        Sun, 20 Sep 2026 12:37:24 -0700 (PDT)
 From: Pasha Tatashin <pasha.tatashin@soleen.com>
 To: linux-kselftest@vger.kernel.org,
 	legion@kernel.org,
@@ -137,9 +137,9 @@ To: linux-kselftest@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	vladimir.murzin@arm.com,
 	kas@kernel.org
-Subject: [RFC PATCH 04/46] x86/mm/ident_map: Add force_pte to support 4K PTE identity mappings
-Date: Sun, 20 Sep 2026 15:36:08 -0400
-Message-ID: <20260920193650.3373435-5-pasha.tatashin@soleen.com>
+Subject: [RFC PATCH 05/46] arm64: mm: Add trans_pgd_map_range() support
+Date: Sun, 20 Sep 2026 15:36:09 -0400
+Message-ID: <20260920193650.3373435-6-pasha.tatashin@soleen.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 In-Reply-To: <20260920193650.3373435-1-pasha.tatashin@soleen.com>
 References: <20260920193650.3373435-1-pasha.tatashin@soleen.com>
@@ -151,154 +151,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Extend kernel_ident_mapping_init() with ident_pte_init() and a force_pte
-flag in struct x86_mapping_info so callers can request 4K PTE leaf
-mappings instead of 2M PMD or 1G PUD leaves.
+Introduce trans_pgd_map_range() to allow mapping arbitrary physical
+memory ranges into transitional page tables.
+
+This helper allocates intermediate translation levels (P4D, PUD, PMD,
+and PTE) on demand using the trans_pgd allocator, enabling precise
+virtual-to-physical address mappings in transitional contexts such as
+isolated execution environments.
+
+Add comprehensive kernel documentation detailing the isolated page
+table mappings: Caretaker text/rodata (ROX), writable data (RW),
+stacks (RW), and preserved buffers without cloning the direct map.
 
 Signed-off-by: Pasha Tatashin <pasha.tatashin@soleen.com>
 ---
- arch/x86/include/asm/init.h |  3 +-
- arch/x86/mm/ident_map.c     | 72 ++++++++++++++++++++++++++++++++-----
- 2 files changed, 65 insertions(+), 10 deletions(-)
+ arch/arm64/include/asm/trans_pgd.h |  4 ++
+ arch/arm64/mm/trans_pgd.c          | 70 ++++++++++++++++++++++++++++++
+ 2 files changed, 74 insertions(+)
 
-diff --git a/arch/x86/include/asm/init.h b/arch/x86/include/asm/init.h
-index 01ccdd168df0..d9caed494e7d 100644
---- a/arch/x86/include/asm/init.h
-+++ b/arch/x86/include/asm/init.h
-@@ -6,10 +6,11 @@ struct x86_mapping_info {
- 	void *(*alloc_pgt_page)(void *); /* allocate buf for page table */
- 	void (*free_pgt_page)(void *, void *); /* free buf for page table */
- 	void *context;			 /* context for alloc_pgt_page */
--	unsigned long page_flag;	 /* page flag for PMD or PUD entry */
-+	unsigned long page_flag;	 /* page flag for PTE, PMD or PUD entry */
- 	unsigned long offset;		 /* ident mapping offset */
- 	bool direct_gbpages;		 /* PUD level 1GB page support */
- 	unsigned long kernpg_flag;	 /* kernel pagetable flag override */
-+	bool force_pte;			 /* force 4K PTE mappings */
- };
+diff --git a/arch/arm64/include/asm/trans_pgd.h b/arch/arm64/include/asm/trans_pgd.h
+index 033d400a4ea4..1e17ae145b0c 100644
+--- a/arch/arm64/include/asm/trans_pgd.h
++++ b/arch/arm64/include/asm/trans_pgd.h
+@@ -30,6 +30,10 @@ struct trans_pgd_info {
+ int trans_pgd_create_copy(struct trans_pgd_info *info, pgd_t **trans_pgd,
+ 			  unsigned long start, unsigned long end);
  
- int kernel_ident_mapping_init(struct x86_mapping_info *info, pgd_t *pgd_page,
-diff --git a/arch/x86/mm/ident_map.c b/arch/x86/mm/ident_map.c
-index 5a15bffe6574..83013513ba94 100644
---- a/arch/x86/mm/ident_map.c
-+++ b/arch/x86/mm/ident_map.c
-@@ -77,24 +77,73 @@ void kernel_ident_mapping_free(struct x86_mapping_info *info, pgd_t *pgd)
- 	info->free_pgt_page(pgd, info->context);
++int trans_pgd_map_range(struct trans_pgd_info *info, pgd_t *trans_pgd,
++			phys_addr_t pa, unsigned long va, size_t size,
++			pgprot_t prot);
++
+ int trans_pgd_idmap_page(struct trans_pgd_info *info, phys_addr_t *trans_ttbr0,
+ 			 unsigned long *t0sz, void *page);
+ 
+diff --git a/arch/arm64/mm/trans_pgd.c b/arch/arm64/mm/trans_pgd.c
+index cca9706a875c..f0a55d4270cc 100644
+--- a/arch/arm64/mm/trans_pgd.c
++++ b/arch/arm64/mm/trans_pgd.c
+@@ -200,6 +200,76 @@ int trans_pgd_create_copy(struct trans_pgd_info *info, pgd_t **dst_pgdp,
+ 	return rc;
  }
  
--static void ident_pmd_init(struct x86_mapping_info *info, pmd_t *pmd_page,
--			   unsigned long addr, unsigned long end)
-+static int ident_pte_init(struct x86_mapping_info *info, pte_t *pte_page,
-+			  unsigned long addr, unsigned long end)
- {
--	addr &= PMD_MASK;
--	for (; addr < end; addr += PMD_SIZE) {
-+	addr &= PAGE_MASK;
-+	for (; addr < end; addr += PAGE_SIZE) {
-+		pte_t *pte = pte_page + pte_index(addr);
++/**
++ * trans_pgd_map_range - Map a physical address range into a transition page table
++ * @info: Transition page table allocation info containing the page allocator
++ * @trans_pgd: Root transition page table pointer
++ * @pa: Physical address to map
++ * @va: Virtual address to map to
++ * @size: Size of the range to map in bytes (page-aligned)
++ * @prot: Page protection attributes (e.g. PAGE_KERNEL, PAGE_KERNEL_ROX)
++ *
++ * Populates the page table hierarchy (P4D, PUD, PMD, PTE) allocating new
++ * intermediate tables using info->trans_alloc_page() as needed. Used by
++ * liveupdate Caretaker to construct isolated page tables.
++ *
++ * Return: 0 on success, -ENOMEM on allocation failure.
++ */
++int trans_pgd_map_range(struct trans_pgd_info *info, pgd_t *trans_pgd,
++			phys_addr_t pa, unsigned long va, size_t size,
++			pgprot_t prot)
++{
++	unsigned long end = va + size;
++	unsigned long addr = va;
 +
-+		if (pte_present(*pte))
-+			continue;
++	while (addr < end) {
++		pgd_t *pgdp = pgd_offset_pgd(trans_pgd, addr);
++		p4d_t *p4dp;
++		pud_t *pudp;
++		pmd_t *pmdp;
++		pte_t *ptep;
 +
-+		set_pte(pte, __pte(((addr - info->offset) | info->page_flag) & ~_PAGE_PSE));
++		if (pgd_none(READ_ONCE(*pgdp))) {
++			p4dp = trans_alloc(info);
++			if (!p4dp)
++				return -ENOMEM;
++			pgd_populate(&init_mm, pgdp, p4dp);
++		}
++		p4dp = p4d_offset(pgdp, addr);
++
++		if (p4d_none(READ_ONCE(*p4dp))) {
++			pudp = trans_alloc(info);
++			if (!pudp)
++				return -ENOMEM;
++			p4d_populate(&init_mm, p4dp, pudp);
++		}
++		pudp = pud_offset(p4dp, addr);
++
++		if (pud_none(READ_ONCE(*pudp))) {
++			pmdp = trans_alloc(info);
++			if (!pmdp)
++				return -ENOMEM;
++			pud_populate(&init_mm, pudp, pmdp);
++		}
++		pmdp = pmd_offset(pudp, addr);
++
++		if (pmd_none(READ_ONCE(*pmdp))) {
++			ptep = trans_alloc(info);
++			if (!ptep)
++				return -ENOMEM;
++			pmd_populate_kernel(&init_mm, pmdp, ptep);
++		}
++		ptep = pte_offset_kernel(pmdp, addr);
++
++		set_pte(ptep, pfn_pte(PHYS_PFN(pa), prot));
++
++		addr += PAGE_SIZE;
++		pa += PAGE_SIZE;
 +	}
 +
 +	return 0;
 +}
 +
-+static int ident_pmd_init(struct x86_mapping_info *info, pmd_t *pmd_page,
-+			  unsigned long addr, unsigned long end)
-+{
-+	unsigned long next;
-+	int result;
-+
-+	for (; addr < end; addr = next) {
- 		pmd_t *pmd = pmd_page + pmd_index(addr);
-+		pte_t *pte;
- 
--		if (pmd_present(*pmd))
-+		next = pmd_addr_end(addr, end);
-+
-+		if (!info->force_pte) {
-+			if (pmd_present(*pmd))
-+				continue;
-+
-+			set_pmd(pmd, __pmd(((addr & PMD_MASK) - info->offset) | info->page_flag));
- 			continue;
-+		}
- 
--		set_pmd(pmd, __pmd((addr - info->offset) | info->page_flag));
-+		/* if this is already a 2MB page, this portion is already mapped */
-+		if (pmd_leaf(*pmd))
-+			continue;
-+
-+		if (pmd_present(*pmd)) {
-+			pte = pte_offset_kernel(pmd, 0);
-+			result = ident_pte_init(info, pte, addr, next);
-+			if (result)
-+				return result;
-+			continue;
-+		}
-+
-+		pte = (pte_t *)info->alloc_pgt_page(info->context);
-+		if (!pte)
-+			return -ENOMEM;
-+
-+		result = ident_pte_init(info, pte, addr, next);
-+		if (result)
-+			return result;
-+
-+		set_pmd(pmd, __pmd(__pa(pte) | info->kernpg_flag));
- 	}
-+
-+	return 0;
- }
- 
- static int ident_pud_init(struct x86_mapping_info *info, pud_t *pud_page,
- 			  unsigned long addr, unsigned long end)
- {
- 	unsigned long next;
-+	int result;
- 
- 	for (; addr < end; addr = next) {
- 		pud_t *pud = pud_page + pud_index(addr);
-@@ -108,7 +157,7 @@ static int ident_pud_init(struct x86_mapping_info *info, pud_t *pud_page,
- 			continue;
- 
- 		/* Is using a gbpage allowed? */
--		use_gbpage = info->direct_gbpages;
-+		use_gbpage = info->direct_gbpages && !info->force_pte;
- 
- 		/* Don't use gbpage if it maps more than the requested region. */
- 		/* at the beginning: */
-@@ -129,13 +178,17 @@ static int ident_pud_init(struct x86_mapping_info *info, pud_t *pud_page,
- 
- 		if (pud_present(*pud)) {
- 			pmd = pmd_offset(pud, 0);
--			ident_pmd_init(info, pmd, addr, next);
-+			result = ident_pmd_init(info, pmd, addr, next);
-+			if (result)
-+				return result;
- 			continue;
- 		}
- 		pmd = (pmd_t *)info->alloc_pgt_page(info->context);
- 		if (!pmd)
- 			return -ENOMEM;
--		ident_pmd_init(info, pmd, addr, next);
-+		result = ident_pmd_init(info, pmd, addr, next);
-+		if (result)
-+			return result;
- 		set_pud(pud, __pud(__pa(pmd) | info->kernpg_flag));
- 	}
- 
-@@ -189,6 +242,7 @@ int kernel_ident_mapping_init(struct x86_mapping_info *info, pgd_t *pgd_page,
- 
- 	/* Filter out unsupported __PAGE_KERNEL_* bits: */
- 	info->kernpg_flag &= __default_kernel_pte_mask;
-+	info->page_flag &= __default_kernel_pte_mask;
- 
- 	for (; addr < end; addr = next) {
- 		pgd_t *pgd = pgd_page + pgd_index(addr);
+ /*
+  * The page we want to idmap may be outside the range covered by VA_BITS that
+  * can be built using the kernel's p?d_populate() helpers. As a one off, for a
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
