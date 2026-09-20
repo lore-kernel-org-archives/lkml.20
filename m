@@ -1,76 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-201.mta0.migadu.com [91.218.175.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE852380FF8;
-	Sun, 20 Sep 2026 02:12:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29C8134F24E
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 02:14:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789870347; cv=none; b=THIKvEB8S4COU++9NNFkYFu0sYHg9sNjB8i1W9F5FfDuEc7/097y98Fg5FmqCTFJMbR1sY7Df8C81qku2ttkV29EAU9OQvHcYdWabHmA4BKkTMMdWALE4j2LF5eiE4SvZ4InLy0wZFEXD+6ZK2X/xG6Rx6l11MuN2yhOnL1tVm0=
+	t=1789870496; cv=none; b=AbbfjT9OuU6nEKP/BrnUnG7yRfDhfzIBKdT/d36A7YvQFVa7Pb55dKpO5DYcnQpuVguxMNi1BiDukv5g17sMekhPp/F5S9uIwG/OGOn35h5kLFeefDivPKiueauYe/PIU79p9r2n/gzBvjdgQWHA4bqZOEvrhthUPkuD7gqaW50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789870347; c=relaxed/simple;
-	bh=FtG+2vcwo4AUc5FtzB9bQj6p6H93SNJZ0iYiKNMN+k0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fxBhGGvtJbfMEw4P8Fe/cOzfiTj/1ZuOtNN2Ny7qXdsn/qb+SVmiwh+ReQuw8dzu+cxLPyC4Je6RXYIJ1PB+jqfPkECF7i+3zoChYIn633uzVyLh7C7XVG1JJmPwiM823oJkQEVxBWlKEnpSNbTu/qB+aPO81vBwmuJT6Ur6o8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jw9YTS4n; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789870496; c=relaxed/simple;
+	bh=gInrxQr7RzUoPGXd0Jztrt7BAd7FDVYZId+ILlnU6Zg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=C4zMd5ZneFlN8g50l829XXb33hI4q1XFgNLDDoln0uAaF0kMB0iNruNMB16nVgDQQrwGMGH1wW4V1cayW6xMZo0jPZYD6T0ZHVQh6CUCHuKgzxBAtZFXYbED0K31qU7Ca36hAn0isbKX0xIKghGAvOILH8CAWBSw47MU+XL5C1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ZBEputKW; arc=none smtp.client-ip=91.218.175.201
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jw9YTS4n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B735A1F000FF;
-	Sun, 20 Sep 2026 02:12:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789870346;
-	bh=nJA25Z5FjQUT9Ibh+fiawYaCKLt7JSI4gadBjccJPes=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Jw9YTS4nvW88tlLIU17Sm8ijyUq9cUYg5cjY9cMl1+pPHLslVMCGrD0gq0l/hK+oC
-	 zV20vz8uT1b4v2xWRNTySNG12d6S/X3dBg3NU+kQbONKn1SZtksGSU9TC77onGghdc
-	 t8+OsHJKSQh5SGO1fd7uPMQR6KZQ69AW+lbBOiUZFtdFDqe73SjrwQYg3ub9V4biaI
-	 p6B15x9wCXqwIVMIkV1rkIQCe9YD4XU6ikaWJxYpBIJN69zkNC1EljjYBlVJfpyRyP
-	 S+PBfJdumeh1+RcdQURgQvR/1XXZgbD/11emo8VkNpgoKZ9q9inEfF1u7okIuQOtxp
-	 vBvksSdpOWIEQ==
-Date: Sun, 20 Sep 2026 03:12:20 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Jinseob Kim <kimjinseob88@gmail.com>
-Cc: linux-iio@vger.kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
- andriy.shevchenko@intel.com, linux-kernel@vger.kernel.org,
- rdunlap@infradead.org, joshua.crofts1@gmail.com,
- u.kleine-koenig@baylibre.com, julianbraha@gmail.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- corbet@lwn.net, skhan@linuxfoundation.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v10 7/8] iio: osf: add core KUnit tests
-Message-ID: <20260920031220.4aed758f@jic23-hlaptop>
-In-Reply-To: <6915383a4a73b680e357d1a75106e0cf6e413084.1789753020.git.kimjinseob88@gmail.com>
-References: <cover.1789753020.git.kimjinseob88@gmail.com>
-	<6915383a4a73b680e357d1a75106e0cf6e413084.1789753020.git.kimjinseob88@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ZBEputKW"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=gInrxQr7RzUoPGXd0Jztrt7BAd7FDVYZId+ILlnU6Zg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789870492; v=1; x=1790475292;
+ b=ZBEputKWxBuLBoHPLDULN1VolR92U68b52+ldevMdrhprmRjXugSV621AxQm8iL4VFS1W+7V
+ tOSa5XRzNz3ARrJjI8tBdU1lEaTkr7UKeeaoR6pQOeVWYHUmQB7LG2kkHTkTgGI1H04X9Ei3Rvi
+ Bgh7M8VjO2a9xmXLJc+TsQJI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id fd4c83da557be30d;
+	Sun, 20 Sep 2026 02:14:51 +0000
+X-Mizu-Trace-ID: fd4c83da557be30d
+X-Migadu-Flow: FLOW_OUT
+Date: Sun, 20 Sep 2026 10:14:44 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Adriano Cordova <adrianox@gmail.com>
+Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
+	netdev@vger.kernel.org, "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ipv6: check per-interface proxy_ndp in forwarding and NA
+ paths
+Message-ID: <aq9BlF-7wSOnYCvN@fedora>
+References: <20260918151405.716075-1-adrianox@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918151405.716075-1-adrianox@gmail.com>
 
-On Sat, 19 Sep 2026 03:24:45 +0900
-Jinseob Kim <kimjinseob88@gmail.com> wrote:
-
-> Add the existing core regression cases for frame handling, sample-cache
-> admission, supported capability discovery, repeated descriptors and
-> session faults. The tests exercise valid, ignored and rejected input
-> without changing the production receive or IIO implementation.
+On Fri, Sep 18, 2026 at 12:14:05PM -0300, Adriano Cordova wrote:
+> proxy_ndp can be enabled per interface, with net.ipv6.conf.all.proxy_ndp
+> as a global default. ndisc_recv_ns() checks both, but ip6_forward() and
+> ndisc_recv_na() check only the global value. With the per-interface proxy
+> ndp set and the global one left at 0, the router answers proxy NS but
+> does not pass NDP messages to the proxied target.
 > 
-> Introduce KUnit configuration and build wiring when the core test source
-> is present. IIO-specific tests are added separately in the next patch.
+> Check both values at these two sites, as ndisc_recv_ns() already does.
 > 
-> Assisted-by: LLM
-> Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
-https://sashiko.dev/#/patchset/cover.1789753020.git.kimjinseob88%40gmail.com
-The lock one looks right and needs to be fixed. Not sure on the others
-(I didn't really look as running out of time today!)
+> Fixes: fbea49e1e240 ("[IPV6] NDISC: Add proxy_ndp sysctl.")
+> Signed-off-by: Adriano Cordova <adrianox@gmail.com>
+> ---
+>  net/ipv6/ip6_output.c | 4 ++--
+>  net/ipv6/ndisc.c      | 4 ++--
+>  2 files changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/net/ipv6/ip6_output.c b/net/ipv6/ip6_output.c
+> index 550965058991..738fa46a892a 100644
+> --- a/net/ipv6/ip6_output.c
+> +++ b/net/ipv6/ip6_output.c
+> @@ -581,8 +581,8 @@ int ip6_forward(struct sk_buff *skb)
+>  		return -ETIMEDOUT;
+>  	}
+>  
+> -	/* XXX: idev->cnf.proxy_ndp? */
+> -	if (READ_ONCE(net->ipv6.devconf_all->proxy_ndp) &&
+> +	if ((READ_ONCE(net->ipv6.devconf_all->proxy_ndp) ||
+> +	     (idev && READ_ONCE(idev->cnf.proxy_ndp))) &&
+>  	    pneigh_lookup(&nd_tbl, net, &hdr->daddr, skb->dev)) {
+>  		int proxied = ip6_forward_proxy_check(skb);
+>  
+> diff --git a/net/ipv6/ndisc.c b/net/ipv6/ndisc.c
+> index 75515fd99383..f787082069b7 100644
+> --- a/net/ipv6/ndisc.c
+> +++ b/net/ipv6/ndisc.c
+> @@ -1097,9 +1097,9 @@ static enum skb_drop_reason ndisc_recv_na(struct sk_buff *skb)
+>  		 */
+>  		if (lladdr && !memcmp(lladdr, dev->dev_addr, dev->addr_len) &&
+>  		    READ_ONCE(net->ipv6.devconf_all->forwarding) &&
+> -		    READ_ONCE(net->ipv6.devconf_all->proxy_ndp) &&
+> +		    (READ_ONCE(net->ipv6.devconf_all->proxy_ndp) ||
+> +		     (idev && READ_ONCE(idev->cnf.proxy_ndp))) &&
+>  		    pneigh_lookup(&nd_tbl, net, &msg->target, dev)) {
+> -			/* XXX: idev->cnf.proxy_ndp */
+>  			goto out;
+>  		}
+>  
+> -- 
+> 2.51.0
+> 
 
-There is a lot here and that is likely to mean it doesn't all get detailed
-review. That isn't necessarily a problem though and they are generally good to
-have. Just something to be aware of.
+LGTM
 
-Jonathan
-
->
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
