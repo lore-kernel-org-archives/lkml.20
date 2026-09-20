@@ -1,116 +1,310 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2783D4749CD
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 21:32:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 819D03E44F9;
+	Sun, 20 Sep 2026 21:35:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789939925; cv=none; b=Puu5POxXhRhse/WrUwjUMZPKKVYISN4QvgxZgXKhNGufBf2k5fUDaQh1MxT7P34h9N4qrc3shTaHcTIRUagayZVBIqgnI80Tn+de1Zdrzo/OAjoN/+tUM2YEJSYoXx0jwBc+bFH7wd336xdiI2MiN3RDwdMUUya0v/kpXcObj1A=
+	t=1789940158; cv=none; b=rMBmVyiXNubQ5B//zayVYJD3AyVoal5zfTxjgsNdWe7Ju2G2DUmzBdcPAUkuE1Xa8MtcNsBzGp7TmEllg9/Sbza/SNIafwgrEA5J+tjGJRhLjNC9BPW73gMcCCQ2X5GVKX/WK8sT3WjFvi62j1osZOysuAreOe/88COqO/2DRyk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789939925; c=relaxed/simple;
-	bh=moBfZNuH9z0HN2cjoFGXyYMMtBKFTBoQMffVjYhg9sQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XE20D9yD9Bt92xJoZT0YJR84ZWRGvvP1oAmo2aoPAc9ZF9Y5iwOEG4DlfCGazlLhOF/zsWUUuIlI1IUj9d8trkkb+0eucGZZhbHuQRt/nyYrpfHQKv/BwpHHN1J/iu1FS4JheKc+l4g6Z3nIjAiylzPSevqiNCr/MXwznNeqE6w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V5euhC9C; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789940158; c=relaxed/simple;
+	bh=tvqGI96/y5AnMPFlYj3CtgYHw88DXLx8Mwf27ngrY3g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TK4aEBfHdDVL5UsHi46B6tmth4IxZtH9UqAuUNSR9Jplspc0SS13sIZLy4+GO5BSEJAj/k1LFtzlY2FUm4YayWXQPruuzDXfHkV8+bKL9SsyOuu0EbaidfO8CEp6qZyUgalztT83nxhNi5X7ceK4fft0ACezAbaRAmSDoJORRck=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=ZL6U2+RS; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V5euhC9C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6263B1F000FF
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 21:31:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789939918;
-	bh=bG+nFrp4upx7MCXw9OUfu9nQHcHxme4Gwg03BFoGo54=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=V5euhC9CW7UAH5UEcChL1S/qro4ntO/ijYqRgvq/7zp8Z73ZWGaGTg3DPFwwIb2z4
-	 urB2b1iMJ/qJ0/+r3z774O3Am4Uau6iLI9/7YJq9bBLUc2ZreDhzZWMiR2GqiAbUac
-	 COu3YCR3vBxw5eNWy5Q0WRL12tI1TKyRXdu0RipiislQMsE/mDgjZspQI9vcVRN4Rz
-	 pF9mUnqa/fBT2DBskiGhbjR4OrRczjfq+2vmI0yK6kOAyaMu1LgAMYB3mAlhtBwwLx
-	 FCxmHumey6FktNP89ErQIpTpfWijaIfzcIIffSiNz8N7ph09KCm6L6hW/p3DzWdaaN
-	 pYscrQjwy+W5A==
-Received: by mail-qk2-f42.google.com with SMTP id af79cd13be357-93be29bb454so252762185a.1
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 14:31:58 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByeZwuCqkw337oRnKn2ib8+98TnSdh/Zp1dqkgQorqpSfqRupV1g3RNWWHLBQQjdL9gI+hWjZId/kNyvts=@vger.kernel.org
-X-Gm-Message-State: AFuF++ngMpTXc+66dBHKLGyeezsPqFChbThKv6dGhgDH6hObSyDgvxBR
-	FYxX8DIC/eEngyTsNlTv4bSouuYpKP+N3x8+wwtj+W/HEtsiCa2KE+QtdiLWzNDFc6rglL5ri0B
-	0juu7AgLHbmD/y2RPfNAvGyyIH1mOTh4=
-X-Received: by 2002:a05:620a:2623:b0:939:6dfa:48fc with SMTP id
- af79cd13be357-93bf576d80dmr705850085a.50.1789939912852; Sun, 20 Sep 2026
- 14:31:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="ZL6U2+RS"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
+	Reply-To:Content-Type:Content-ID:Content-Description;
+	bh=HzPCG1mzDh8DdrBIPa7Nweb/5zxIoHMov0yDcro/4Mo=; b=ZL6U2+RSxLT1536poMuTWbIUBq
+	Qz4XcUqwGnvYGk7eNggz1o7E1JWeeZoMMy8abSHSxmDvHHupU8XskEosqnXUnsNLc8hmUVKPXd1zg
+	GZstG8c9idf9UxR3E/P1VK/uRZBl6nxh+ZA9ZA4HN43LzM6RJU4mMnzCTbVIo3rGhHJ//uu7RfmLM
+	3WOHxkA6KC7+47k1MTubwD7dO/ZqOWBemSa2jlom0JzhkYdWzd+5KDMaOiriaTbrkA22yyAwSQtX5
+	QdxrCIyrx9W/vVhV8rgS3Higc6NOnOBUo7x4r9Xv90uBtAPt4DCRJstTQj0qCfmevyYn5153TP/sA
+	YtAmIVww==;
+Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x8OwV-0000000BLq4-0AVs;
+	Sun, 20 Sep 2026 21:19:23 +0000
+Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.4 #2 (Red Hat Linux))
+	id 1x8OwU-00000003tdB-3PFb;
+	Sun, 20 Sep 2026 22:19:22 +0100
+From: David Woodhouse <dwmw2@infradead.org>
+To: kvm@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	rcu@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev,
+	linux-kselftest@vger.kernel.org,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Paul Durrant <paul@xen.org>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Fred Griffoul <fgriffo@amazon.co.uk>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Kunwu Chan <kunwu.chan@linux.dev>,
+	Kunwu Chan <kunwu.chan@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>,
+	Boqun Feng <boqun.feng@gmail.com>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Michal Hocko <mhocko@suse.com>,
+	Nikita Kalyazin <kalyazin@amazon.com>,
+	Keir Fraser <keirf@google.com>,
+	David Matlack <dmatlack@google.com>,
+	nh-open-source@amazon.com,
+	David Woodhouse <dwmw@amazon.co.uk>
+Subject: [PATCH 13/17] KVM: x86: Move nested GPC lock helpers to x86.h as kvm_gpc_lock_page()
+Date: Sun, 20 Sep 2026 21:49:41 +0100
+Message-ID: <20260920211920.928306-14-dwmw2@infradead.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260920211920.928306-1-dwmw2@infradead.org>
+References: <20260920211920.928306-1-dwmw2@infradead.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260920132519.3369946-1-ridong.chen@linux.dev>
-In-Reply-To: <20260920132519.3369946-1-ridong.chen@linux.dev>
-From: Barry Song <baohua@kernel.org>
-Date: Mon, 21 Sep 2026 05:31:40 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4zCADpQDqVj=BFipOztctBMBhw9Wcj+FLVcj-d8e=0bow@mail.gmail.com>
-X-Gm-Features: AcwNN1WdPK0ioQD_l4qRGaReDWr4kKpyTe5y6jiJxFOoD9G2B2z4IDYPysX9xBg
-Message-ID: <CAGsJ_4zCADpQDqVj=BFipOztctBMBhw9Wcj+FLVcj-d8e=0bow@mail.gmail.com>
-Subject: Re: [PATCH mm-new v2] mm: vmscan: put rotation-missed folios at the
- LRU tail
-To: Ridong Chen <ridong.chen@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Kairui Song <kasong@tencent.com>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Ridong Chen <chenridong@xiaomi.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Sender: David Woodhouse <dwmw2@infradead.org>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-On Sun, Sep 20, 2026 at 9:25=E2=80=AFPM Ridong Chen <ridong.chen@linux.dev>=
- wrote:
->
-[...]
->
->  mm/vmscan.c | 24 ++++++++++++++++++------
->  1 file changed, 18 insertions(+), 6 deletions(-)
->
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index e200ce3eb056..91295070ca33 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-> @@ -1971,7 +1971,7 @@ static bool too_many_isolated(struct pglist_data *p=
-gdat, int file,
->   *
->   * Note: The caller must not hold any lruvec lock.
->   */
-> -static unsigned int move_folios_to_lru(struct list_head *list)
-> +static unsigned int move_folios_to_lru(struct list_head *list, bool do_r=
-otate)
->  {
->         int nr_pages, nr_moved =3D 0;
->         struct lruvec *lruvec =3D NULL;
-> @@ -2018,7 +2018,19 @@ static unsigned int move_folios_to_lru(struct list=
-_head *list)
->                         continue;
->                 }
->
-> -               lruvec_add_folio(lruvec, folio);
-> +               /*
-> +                * Put clean, unreferenced and unpinned folios that may h=
-ave
-> +                * missed folio_rotate_reclaimable() at the tail to avoid
-> +                * cold/hot inversion.
-> +                */
-> +               if (do_rotate && !folio_test_active(folio) && !folio_mapp=
-ed(folio) &&
-> +                   !folio_test_dirty(folio) && !folio_test_writeback(fol=
-io) &&
-> +                   !folio_test_referenced(folio) &&
-> +                   folio_ref_count(folio) =3D=3D folio_expected_ref_coun=
-t(folio))
+From: David Woodhouse <dwmw@amazon.co.uk>
 
+Move the SRCU lock/activate/retry helpers for accessing a page of L1
+guest memory through a gfn_to_pfn_cache from vmx/nested.c to x86.h, so
+that nested SVM can use them too.
 
-I guess this is wrong. We hold an extra reference while isolating
-the folio, so I think this should be:
+There is nothing nesting-specific about these helpers: they lock a
+gfn_to_pfn_cache as a mapping of a given whole guest page, activating
+or re-keying it as required. Name them kvm_gpc_lock_page() and
+kvm_gpc_unlock() accordingly; they are candidates for hoisting into
+the generic GPC API in kvm_host.h when a non-x86 user appears (the
+Hyper-V VP assist and enlightened VMCS pages are likely candidates).
 
-`folio_ref_count(folio) =3D=3D folio_expected_ref_count(folio) + 1`
+No functional change.
 
-Am I missing something here?
+Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+Assisted-by: Claude:claude-mythos-5
+---
+ arch/x86/kvm/vmx/nested.c | 60 +++++++++------------------------------
+ arch/x86/kvm/x86.h        | 33 +++++++++++++++++++++
+ 2 files changed, 47 insertions(+), 46 deletions(-)
 
-Best Regards
-Barry
+diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
+index 105ff6cbfe58..b9f12313c960 100644
+--- a/arch/x86/kvm/vmx/nested.c
++++ b/arch/x86/kvm/vmx/nested.c
+@@ -320,38 +320,6 @@ static void vmx_switch_vmcs(struct kvm_vcpu *vcpu, struct loaded_vmcs *vmcs)
+ 	kvm_reset_dirty_registers(vcpu);
+ }
+ 
+-/*
+- * Map a single page of L1 guest memory at @gpa and enter an SRCU read-side
+- * critical section protecting the mapping. Returns the SRCU index (>= 0) to
+- * pass to nested_gpc_unlock(), or a negative error code. While locked, the
+- * cache's khva and pfn are guaranteed to remain valid: an invalidation
+- * cannot complete until the reader drains.
+- */
+-static int nested_gpc_lock(struct gfn_to_pfn_cache *gpc, gpa_t gpa)
+-{
+-	int idx, err;
+-
+-	if (!PAGE_ALIGNED(gpa))
+-		return -EINVAL;
+-retry:
+-	idx = srcu_read_lock_atomic(&gpc->kvm->gpc_srcu);
+-	if (!kvm_gpc_check(gpc, PAGE_SIZE) || gpc->gpa != gpa) {
+-		srcu_read_unlock_atomic(&gpc->kvm->gpc_srcu, idx);
+-		err = kvm_gpc_activate(gpc, gpa, PAGE_SIZE);
+-		if (err)
+-			return err;
+-
+-		goto retry;
+-	}
+-
+-	return idx;
+-}
+-
+-static void nested_gpc_unlock(struct gfn_to_pfn_cache *gpc, int idx)
+-{
+-	srcu_read_unlock_atomic(&gpc->kvm->gpc_srcu, idx);
+-}
+-
+ /*
+  * Map a page of L1 memory, pin it for direct use by the guest (i.e. by
+  * the CPU while running the L2 guest, via a physical address in vmcs02),
+@@ -366,24 +334,24 @@ static int nested_gpc_hpa(struct gfn_to_pfn_cache *gpc, gpa_t gpa, hpa_t *hpa)
+ 	int idx;
+ 
+ 	do {
+-		idx = nested_gpc_lock(gpc, gpa);
++		idx = kvm_gpc_lock_page(gpc, gpa);
+ 		if (idx < 0)
+ 			return idx;
+ 
+ 		/*
+ 		 * The pin can fail only if an invalidation cleared the
+-		 * valid bit after nested_gpc_lock() checked it; go back
++		 * valid bit after kvm_gpc_lock_page() checked it; go back
+ 		 * around to refresh (which will not complete until the
+ 		 * invalidation is over) and try again.
+ 		 */
+ 		if (kvm_gpc_pin_for_guest(gpc))
+ 			break;
+ 
+-		nested_gpc_unlock(gpc, idx);
++		kvm_gpc_unlock(gpc, idx);
+ 	} while (1);
+ 
+ 	*hpa = pfn_to_hpa(gpc->pfn);
+-	nested_gpc_unlock(gpc, idx);
++	kvm_gpc_unlock(gpc, idx);
+ 	return 0;
+ }
+ 
+@@ -393,7 +361,7 @@ static int nested_gpc_hpa(struct gfn_to_pfn_cache *gpc, gpa_t gpa, hpa_t *hpa)
+  * posted interrupts not configured for this L2), -EWOULDBLOCK if it is
+  * active but currently invalidated (only a sleeping refresh would make
+  * it usable). Does not pin; the mapping is stable only until
+- * nested_gpc_unlock().
++ * kvm_gpc_unlock().
+  */
+ static int nested_gpc_try_lock_if_active(struct gfn_to_pfn_cache *gpc)
+ {
+@@ -890,7 +858,7 @@ static inline bool nested_vmx_prepare_msr_bitmap(struct kvm_vcpu *vcpu,
+ 			return true;
+ 	}
+ 
+-	idx = nested_gpc_lock(&vmx->nested.msr_bitmap_cache, vmcs12->msr_bitmap);
++	idx = kvm_gpc_lock_page(&vmx->nested.msr_bitmap_cache, vmcs12->msr_bitmap);
+ 	if (idx < 0)
+ 		return false;
+ 
+@@ -974,7 +942,7 @@ static inline bool nested_vmx_prepare_msr_bitmap(struct kvm_vcpu *vcpu,
+ 
+ 	nested_vmx_merge_pmu_msr_bitmaps(vcpu, msr_bitmap_l1, msr_bitmap_l0);
+ 
+-	nested_gpc_unlock(&vmx->nested.msr_bitmap_cache, idx);
++	kvm_gpc_unlock(&vmx->nested.msr_bitmap_cache, idx);
+ 
+ 	vmx->nested.force_msr_bitmap_recalc = false;
+ 
+@@ -4286,7 +4254,7 @@ static int vmx_complete_nested_posted_interrupt(struct kvm_vcpu *vcpu)
+ 	vmx->nested.pi_pending = false;
+ 
+ 	if (!pi_test_and_clear_on(pi_desc)) {
+-		nested_gpc_unlock(&vmx->nested.pi_desc_cache, pi_idx);
++		kvm_gpc_unlock(&vmx->nested.pi_desc_cache, pi_idx);
+ 		return 0;
+ 	}
+ 
+@@ -4294,7 +4262,7 @@ static int vmx_complete_nested_posted_interrupt(struct kvm_vcpu *vcpu)
+ 	if (max_irr > 0) {
+ 		vapic_idx = nested_gpc_lock_if_active(&vmx->nested.virtual_apic_cache);
+ 		if (vapic_idx < 0) {
+-			nested_gpc_unlock(&vmx->nested.pi_desc_cache, pi_idx);
++			kvm_gpc_unlock(&vmx->nested.pi_desc_cache, pi_idx);
+ 			goto mmio_needed;
+ 		}
+ 		vapic_page = vmx->nested.virtual_apic_cache.khva;
+@@ -4302,7 +4270,7 @@ static int vmx_complete_nested_posted_interrupt(struct kvm_vcpu *vcpu)
+ 		__kvm_apic_update_irr(pi_desc->pir, vapic_page, &max_irr);
+ 
+ 		kvm_gpc_mark_dirty_in_slot(&vmx->nested.virtual_apic_cache);
+-		nested_gpc_unlock(&vmx->nested.virtual_apic_cache, vapic_idx);
++		kvm_gpc_unlock(&vmx->nested.virtual_apic_cache, vapic_idx);
+ 
+ 		status = vmcs_read16(GUEST_INTR_STATUS);
+ 		if ((u8)max_irr > ((u8)status & 0xff)) {
+@@ -4313,7 +4281,7 @@ static int vmx_complete_nested_posted_interrupt(struct kvm_vcpu *vcpu)
+ 	}
+ 
+ 	kvm_gpc_mark_dirty_in_slot(&vmx->nested.pi_desc_cache);
+-	nested_gpc_unlock(&vmx->nested.pi_desc_cache, pi_idx);
++	kvm_gpc_unlock(&vmx->nested.pi_desc_cache, pi_idx);
+ 	return 0;
+ 
+ mmio_needed:
+@@ -4472,7 +4440,7 @@ static bool vmx_has_nested_events(struct kvm_vcpu *vcpu, bool for_injection)
+ 	vapic = vmx->nested.virtual_apic_cache.khva;
+ 	vppr = *((u32 *)(vapic + APIC_PROCPRI));
+ 
+-	nested_gpc_unlock(&vmx->nested.virtual_apic_cache, idx);
++	kvm_gpc_unlock(&vmx->nested.virtual_apic_cache, idx);
+ 
+ 	max_irr = vmx_get_rvi();
+ 	if ((max_irr & 0xf0) > (vppr & 0xf0))
+@@ -4489,12 +4457,12 @@ static bool vmx_has_nested_events(struct kvm_vcpu *vcpu, bool for_injection)
+ 		if (pi_test_on(pi_desc)) {
+ 			max_irr = pi_find_highest_vector(pi_desc);
+ 			if (max_irr > 0 && (max_irr & 0xf0) > (vppr & 0xf0)) {
+-				nested_gpc_unlock(&vmx->nested.pi_desc_cache, idx);
++				kvm_gpc_unlock(&vmx->nested.pi_desc_cache, idx);
+ 				return true;
+ 			}
+ 		}
+ 
+-		nested_gpc_unlock(&vmx->nested.pi_desc_cache, idx);
++		kvm_gpc_unlock(&vmx->nested.pi_desc_cache, idx);
+ 	}
+ 
+ 	return false;
+diff --git a/arch/x86/kvm/x86.h b/arch/x86/kvm/x86.h
+index 0f5919b092e4..e3d9889a245d 100644
+--- a/arch/x86/kvm/x86.h
++++ b/arch/x86/kvm/x86.h
+@@ -14,6 +14,39 @@
+ 
+ #define KVM_MAX_MCE_BANKS 32
+ 
++/*
++ * Map a single page of L1 guest memory at @gpa into a gfn_to_pfn_cache
++ * and enter an SRCU read-side critical section protecting the mapping.
++ * Returns the SRCU index (>= 0) to pass to kvm_gpc_unlock(), or a
++ * negative error code. While locked, the cache's khva and pfn are
++ * guaranteed to remain valid: an invalidation cannot complete until the
++ * reader drains.
++ */
++static inline int kvm_gpc_lock_page(struct gfn_to_pfn_cache *gpc, gpa_t gpa)
++{
++	int idx, err;
++
++	if (!PAGE_ALIGNED(gpa))
++		return -EINVAL;
++retry:
++	idx = srcu_read_lock_atomic(&gpc->kvm->gpc_srcu);
++	if (!kvm_gpc_check(gpc, PAGE_SIZE) || gpc->gpa != gpa) {
++		srcu_read_unlock_atomic(&gpc->kvm->gpc_srcu, idx);
++		err = kvm_gpc_activate(gpc, gpa, PAGE_SIZE);
++		if (err)
++			return err;
++
++		goto retry;
++	}
++
++	return idx;
++}
++
++static inline void kvm_gpc_unlock(struct gfn_to_pfn_cache *gpc, int idx)
++{
++	srcu_read_unlock_atomic(&gpc->kvm->gpc_srcu, idx);
++}
++
+ int kvm_x86_vendor_init(struct kvm_x86_init_ops *ops);
+ void kvm_x86_vendor_exit(void);
+ 
+-- 
+2.55.0
+
