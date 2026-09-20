@@ -1,126 +1,84 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8A9135C19B
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 04:32:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89CD135C19B
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 04:33:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789878759; cv=none; b=PqF/EG2/tHkHSPix2byqpFUW8aaTWrfXA5EqEYVPczLD64AWaPT8NTCHWtF9wTJKCVyQNApsNOYMN/iMGbrAIJt2PTF6yj+1Nv7Hv9xELDtvfcW/c10CK5LQdt15xjYsQfe6BcGF8WCznLAOpkm6WFxKhoA4I8DiKIrpULvJbMg=
+	t=1789878818; cv=none; b=Tp2sym1AV48WJpPHvs+ArDI0xPVccNQZYzI9ONXHoHJ1GmXI7CoMPPhyZKDRbq6bJFuOU0QE6RjULJLDTfy6msREgYMG7IGoDXSJPWxtz+yf1sMyaZmzXMIQgiagTlGAzf86UxkAy7GTghujaLy/sShA8iqksbSisNV5SVWFIoI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789878759; c=relaxed/simple;
-	bh=71PdsR80XM5px7rYyhqP6gDRRH6XfmmjEXfGrVMG6LI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uev+inTBzLIHf+knBIJqA0dVGkY9wumcwUlTNW/PDcqXyhz1Jqcs8YqBlQwcj2+vBezIVydwotOgRz1xAS7vFx5AnNmoPI1DCPc4xOzpJ0ynhTYUUF0naADqFd2nvzZz0rDI1/XPl/H7Lur50THDTnu05/sJANMlU4VWKR7pVIY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=m6aLn9Xm; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="m6aLn9Xm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=cX
-	sM1xUTdon1URsuEdOTCMdfWhcDpQJvoeUbDfETOxE=; b=m6aLn9XmsQZXB9wCqn
-	UiZxrmSCZuJm7zk7rUOywzpEIVJPqKfME06zdnMleuXxgrXWWVJbWH+RiCfsYXKl
-	DNewCWesBfqUI2JaKMUJBDnIfGGWsFAn7/90PqSrjq4CnTiLm1/qOps+00jeto5T
-	7DXFav9kJ7j6UKvYcerLISfCw=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3hmCYYa9qzi_fBg--.59981S2;
-	Sun, 20 Sep 2026 12:31:21 +0800 (CST)
-From: albin_yang@163.com
-To: peterz@infradead.org,
-	mingo@redhat.com,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org
-Cc: dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	chen.yu@linux.dev,
-	kayracizmeci@gmail.com,
-	mintaohuang@tencent.com,
-	linux-kernel@vger.kernel.org,
-	albin_yang@163.com,
-	albinwyang@tencent.com,
-	Chen Yu <yu.c.chen@intel.com>
-Subject: [PATCH v2] sched/stats: Fix run_delay over-count for migrated sched_delayed tasks
-Date: Sun, 20 Sep 2026 12:31:16 +0800
-Message-ID: <20260920043116.1298017-1-albin_yang@163.com>
-X-Mailer: git-send-email 2.43.7
+	s=arc-20240116; t=1789878818; c=relaxed/simple;
+	bh=E0Dm+pkrORbvXJlgKcRmRrJ55F8P9yW28wfmWViwCE4=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=B6F19C6TUCLOk0s/gp0YcV8TdG0mwCm5TZglhoh6LsDKXiy1X69WiWYZG6ZztR4JdQqbiqqRdspPEaKLLpv8JLLYOJDX7H2qRPPYMbgsOu3d0JekydoF04btlG12j6b8vkjsj5dDzan21HZZler2sjVMirHCMyCkMjbTsXqtsNM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b28d7ffab1so692161b6e.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 21:33:36 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789878815; x=1790483615;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aI02NHQu24Tmhdty9bC8nfkcPgFnIYmwfXJgNNhc/Gs=;
+        b=mrn3lomFkR+G78OjGdVyeOaQT6zFc3+pSRb1AvVgAyIwHBxb/8K6QKbLzOxw/NG2MP
+         +JuYa0kaAdRavIaPajwDoOxFQU8dIedYkT/Eoz7V5h+9fIEbvW5haMFIp7jyBLJ4ETYR
+         rCgBf4R6bebpuhq3bSQ3ZduWH6lORyM1xsJxUhGtrG9zSPM+j7cz85bPoJjOXsjm7Ax4
+         JoxyK0Rq9NLXfPqZykCHNPqushVjvTM1rls0vtQfPnwpi7U7iwnpn2/3yFsU+DNMpxxY
+         Sp8PbtBBJOaO+yfz/R/YSjBXDQCKhKiotRM12URmLjhsvy0E+xSEpYHelxoopASqOhgQ
+         RSrg==
+X-Forwarded-Encrypted: i=1; AKwUvBzuMDo2O0yeqsCqUmVveeakPM95dYpfL7MbTv09Bh4ohor9UgOY2nwQfjqLJtI8f/t20sf4nz0oJkKObV4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nHEyTfue2A4D4/l2VlqyBmxenyeCZAryEEENNQK7hYtbvKmgpl
+	L12j8LeGoLeO1cM+FIwoS8A2oejViSgtTVDuWGIDiH4idXXS8jMx1sfjLRl1Y4oEitE8pAWgI76
+	Hzab9jgokxiy5BxxTS6h7VAhpYdeUk2uUAi6/q2mH2JpWcD6y867Pctgl0XU=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3hmCYYa9qzi_fBg--.59981S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXFWkZF1DtrW5GF4xXFy8AFb_yoW5AF4rp3
-	95Ww1DJa18Kr1rJrnFvr4UWr13uwnrG3y3tFn2yryrKrZ5GF1Yvw42va13XFsYyr9YyFZI
-	va4jg39IyFWqyF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0ziWE_tUUUUU=
-X-CM-SenderInfo: pdoex0xb1d0wi6rwjhhfrp/xtbC8BkFp2qvYZnhWAAA3P
+X-Received: by 2002:a05:6808:181e:b0:495:f8a5:8797 with SMTP id
+ 5614622812f47-4cb649b97f6mr8655981b6e.0.1789878815589; Sat, 19 Sep 2026
+ 21:33:35 -0700 (PDT)
+Date: Sat, 19 Sep 2026 21:33:35 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aaf621f.3179f8cd.1e36b2.0008.GAE@google.com>
+Subject: [syzbot] Monthly bridge report (Sep 2026)
+From: syzbot <syzbot+list2012d6c21a1b1a4e0b74@syzkaller.appspotmail.com>
+To: bridge@lists.linux.dev, idosch@nvidia.com, linux-kernel@vger.kernel.org, 
+	netdev@vger.kernel.org, razor@blackwall.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: Wei Yang <albinwyang@tencent.com>
+Hello bridge maintainers/developers,
 
-With DELAY_DEQUEUE, a blocked task stays on the runqueue with
-se.sched_delayed set and its sched_info.last_queued is cleared, so the sleep
-is not counted into run_delay.
+This is a 31-day syzbot report for the bridge subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/bridge
 
-When such a delayed (sleeping) task is migrated across CPUs via the plain
-migration paths (move_queued_task / move_queued_task_locked, the latter used
-by __migrate_swap_task), activate_task(dst, 0) calls enqueue_task() without
-ENQUEUE_RESTORE, re-arming last_queued to the migration timestamp while the
-task is still sleeping. The later real wakeup (ENQUEUE_DELAYED) tries to
-re-arm last_queued at wakeup time but is suppressed because last_queued is
-already non-zero, so sched_info_arrive() folds the whole sleep duration
-between migration and wakeup into run_delay.
+During the period, 1 new issues were detected and 0 were fixed.
+In total, 6 issues are still open and 45 have already been fixed.
+There is also 1 low-priority issue.
 
-Load balance is affected too: the sched_delayed check in can_migrate_task()
-bails out only when env->migration_type != migrate_load, so it does not
-block migration when the type is migrate_load - which active load balance
-always uses (its lb_env leaves migration_type at 0 == migrate_load), and
-which regular load balance can also use via calculate_imbalance(). Either
-way the re-attach goes through attach_task() -> activate_task(rq, p,
-ENQUEUE_NOCLOCK), without ENQUEUE_RESTORE.
+Some of the still happening issues:
 
-Fix by not re-arming last_queued for a sched_delayed task in
-sched_info_enqueue(). The wakeup path clears sched_delayed before reaching
-sched_info_enqueue(), so it still re-arms at the real wakeup time. Plain
-runnable tasks are unaffected.
+Ref Crashes Repro Title
+<1> 10      Yes   WARNING in nf_ct_bridge_post
+                  https://syzkaller.appspot.com/bug?extid=a8ba738fe2db6b4bb27f
+<2> 464     Yes   general protection fault in br_del_frame
+                  https://syzkaller.appspot.com/bug?extid=1df7473ef265fe8ba6e1
+<3> 182     Yes   INFO: rcu detected stall in br_handle_frame (6)
+                  https://syzkaller.appspot.com/bug?extid=f8850bc3986562f79619
 
-Fixes: 152e11f6df29 ("sched/fair: Implement delayed dequeue")
-Reported-by: MingTao Huang <mintaohuang@tencent.com>
-Signed-off-by: Wei Yang <albinwyang@tencent.com>
-Reviewed-by: Chen Yu <yu.c.chen@intel.com>
 ---
-v1 -> v2:
-  - Correct the claim that load-balance migrations are unaffected:
-    can_migrate_task() only skips a delayed task when migration_type !=
-    migrate_load, so active load balance (whose lb_env leaves
-    migration_type at 0 == migrate_load) can migrate a sched_delayed task,
-    as can regular load balance via the migrate_load branches of
-    calculate_imbalance(). The fix covers those paths too; only the
-    description was wrong. Pointed out by Kayra Cizmeci.
-  - Add Chen Yu's Reviewed-by.
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-v1: https://lore.kernel.org/all/20260909133345.1572954-1-albin_yang@163.com/
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
 
- kernel/sched/stats.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
 
-diff --git a/kernel/sched/stats.h b/kernel/sched/stats.h
-index ebe0a7765f98..dc626f99ffd9 100644
---- a/kernel/sched/stats.h
-+++ b/kernel/sched/stats.h
-@@ -290,7 +290,7 @@ static void sched_info_arrive(struct rq *rq, struct task_struct *t)
-  */
- static inline void sched_info_enqueue(struct rq *rq, struct task_struct *t)
- {
--	if (!t->sched_info.last_queued)
-+	if (!t->sched_info.last_queued && !t->se.sched_delayed)
- 		t->sched_info.last_queued = rq_clock(rq);
- }
- 
--- 
-2.43.7
-
+You may send multiple commands in a single email message.
