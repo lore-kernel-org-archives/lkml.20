@@ -1,161 +1,99 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB2073F210A
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 23:02:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEEA617993;
+	Sun, 20 Sep 2026 23:08:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789945354; cv=none; b=vELMH3uMvvUI9adQ64sLxVpcwdNBMDXRLJNJrog78o+FnBlqnWw1hhFUaq6IHPbu2y/1wnIDAJM3psqimh5PulyVI3PqiAqIfTFFw6N1Y4e4uPUZ6ZKlTp+JO/iL9T0pniE2XSJdyPHxSlWlKttvog3C/NQl7epSpeeeLO6bHkc=
+	t=1789945690; cv=none; b=BJIK2efQk/hVpC8/EjTGoZtYn8q87YYOgJlBbFAMmZHhpaeICLiXUOc3bbfwg+ddpAWdihelvtE+XQdi3AyQOYnUitxrUx9WdR2lsRly1qX5gj1yRjh522XQ4c6G+haur67EF5oSB8IJeDzWi74GzbxhxsLsFtkGzqN99xFmrkE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789945354; c=relaxed/simple;
-	bh=ihjoM7D2BcOiPrTy053asAyX+JgsRpLuEQH6m2offlA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ktjxm13x/Thj5rryQNCDk1LM6E94Q0YbTIbC4OJObizfBxSGFbAfPzF5NuPPU802iXiDuWZWhWMPwVGCn34E/8MMBizfoarJU3EnBPGnLS4+sFzE8N6TflvinRHCfXnA6kODdSekaJjnSVOyKbhaDp1Ej0PTfRCLDTo/j6tCkqk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=Mm4IiGGe; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1789945690; c=relaxed/simple;
+	bh=kI3btekdDolq9CHrtl48dAsoqhxdnD/R8oCP/h7ETIo=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=fEuUBv4y0k2yKXypWmkqCyAhVH6Qh+W8SgskIvInUod0zI/LyLEYLkBY6iDP3ZgI7RhbIT3jt8PmGBTAo20vYH6aKX8ZbgVM02vMhFlPwOgGGyxknqMVuSPHV4ReRleh810ht4zqFXVZA19BVxwYexqZwaid8wRWhJNIlENPAf4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MO0/HhXn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="Mm4IiGGe"
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 360865340699;
-	Mon, 21 Sep 2026 01:02:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1789945350;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=1b2TOb7Uz4K71IwXM8bB3TJBDyr028aAuvtvwxg4Lt4=;
-	b=Mm4IiGGe6LtAx7w+iUPjgvZPobBhhRiOiDEpGKcAxMfCGvAPZzEWyf+p9TgyA9U7Q9Cp7W
-	eO/Cekk6HxoMq9wU9RTQeo9qAquwmyVF25KbUHd+uZ0m2qAePjd58djyRoFc70C6ffPRqt
-	TCofY1uBH7/9BW0RfOFy+W5IvqamdQw=
-Message-ID: <e026f741-3c19-47b2-b731-f257361e471c@ixit.cz>
-Date: Mon, 21 Sep 2026 01:02:29 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MO0/HhXn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4B871F000FF;
+	Sun, 20 Sep 2026 23:08:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789945689;
+	bh=AAkvtlTgMtIhLKtfXdECEdpJvOyrsKzhh3qvAgjEuMQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=MO0/HhXn4w/YTEtqB0grF5h/fGM6t1Fu4oRfj0EVRpgNJM4za1uzMTvZReJDb5rin
+	 CJSAUaco9Or3z4C0yLN8r6QL59dQ7Ue7onLURIJ3A3+U8rPblLTo7SQfs8AAS/eh+C
+	 0y+aVv9RFyHA8KuCEtY+iI9mxp+FPee+sJK1SyUshWmVi3z3lh9Lz2diXjyN6ospzE
+	 wNj7PSmNsCQ1uKrK/XVPMOIFvMKCb9970vJWFnjjv7660ouZ39ky5HVMv3KHyNSsTe
+	 UzCbjC1Ojjj0neqstCdgGXQs6BawyJ+MKNslmenwf062uEilnPFLDr3iajmSp85alk
+	 2fpwwjIawD6kQ==
+Date: Mon, 21 Sep 2026 00:08:03 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Ariana Lazar <ariana.lazar@microchip.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, sashiko-bot@kernel.org, stable@vger.kernel.org,
+ Joshua Crofts <joshua.crofts1@gmail.com>
+Subject: Re: [PATCH v7 00/11] Refactor Microchip MCP47FEB02 I2C driver in
+ separate modules to add support for MCP48FEB02 SPI driver
+Message-ID: <20260921000803.1148e493@jic23-hlaptop>
+In-Reply-To: <aq0J9Vs1_rUAlcoA@ashevche-desk.local>
+References: <20260918-mcp47feb02_refactor-v7-0-82ca794eafe2@microchip.com>
+	<aq0J9Vs1_rUAlcoA@ashevche-desk.local>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] nfc: st95hf: validate device-reported response length
- before reading
-To: Tianchu Chen <tianchu.chen@linux.dev>, sameo@linux.intel.com,
- shikha.singh@st.com
-Cc: oe-linux-nfc@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <91f49a98dd42655829b7206f0d64cc31ef9c0e95@linux.dev>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <91f49a98dd42655829b7206f0d64cc31ef9c0e95@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 19/08/2026 16:55, Tianchu Chen wrote:
-> From: Tianchu Chen <flynnnchen@tencent.com>
+On Fri, 18 Sep 2026 12:52:53 +0300
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+
+> On Fri, Sep 18, 2026 at 12:06:26PM +0300, Ariana Lazar wrote:
+> > Refactor I2C driver implementation into separate modules in order to add
+> > support for SPI MCP48FxBy1/2/4/8 DAC family on top of the I2C
+> > implementation. The I2C and SPI devices have the same memory map and
+> > supported functionalities.  
 > 
-> st95hf_spi_recv_response() reads a 2-byte header from the device,
-> derives the total response length from it (up to 1025 bytes via the
-> long-frame encoding) and then blindly reads len - 2 more bytes into
-> the caller's buffer, whose size it knows nothing about.
+> Jonathan, can you pick up the fixes from the series, please?
+> It will reduce a burden a lot (yeah, I know that it might mess with
+> Sashiko, but wouldn't simple delay fix this, I mean to give Sashiko
+> a time it needs and then update the branch?).
 > 
-> Call sites can be overflowed by a device reporting a large length,
-> for example, st95hf_irq_thread_handler() passes the data area of a
-> 280-byte skb.
-> 
-> ST95HF datasheet states "In Reader mode it is possible to receive up to
-> 528 bytes of frame data from VICC and TypeB cards", so technically a bogus
-> NFC tag may trigger the OOB-write if the card-reader's firmware allows
-> large packets.
-> 
-> Add a buff_len parameter and reject a device-reported length that does
-> not fit into the caller's buffer before issuing the second SPI
-> transfer. Also modify callers to pass their real buffer sizes.
-> 
-> Discovered by Atuin - Automated Vulnerability Discovery Engine.
-> 
-> Fixes: cab47333f0f75 ("NFC: Add STMicroelectronics ST95HF driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Tianchu Chen <flynnnchen@tencent.com>
-> ---
->   drivers/nfc/st95hf/core.c | 6 ++++--
->   drivers/nfc/st95hf/spi.c  | 7 ++++++-
->   drivers/nfc/st95hf/spi.h  | 2 +-
->   3 files changed, 11 insertions(+), 4 deletions(-)
-> 
+I'm not sure sashiko ever looks beyond mainline and given recent general
+comments from Linus about only sending him late cycle fixes for stuff
+that went wrong this cycle or is a major issue (which I've been interpreting
+ as applying after rc4) I'm not thinking these fixes will go upstream before
+ the merge window.  I don't mind applying them to the togreg branch now but
+that isn't currently picked up by sashiko.
 
-Hello Tianchu,
+My biggest current issue with these bots is they make the workflow
+of nibbling away at patch sets like I traditionally did not work
+so well.  One option is to just send the whole series but edit
+the titles to say they are already applied?  Hopefully that
+lets reviewers jump over them or even maybe filter them out?
 
-please check and address the Sashiko output.
+Anyhow, let me queue some of these.  I doubt we'll see anything new
+from sashiko given the minor tweaks the rest of this series.
 
-Thank you
-David
+So with that in mind, applied patches in this order
+1 2 4 5
+held 6 back for the thing about checking if property present.
+3 7 8 with link dropped.
+
+So just 6 9 and 10 for next version please.
+
+All the above on the testing branch of iio.git.
+
+Thanks,
+
+Jonathan
+ 
 
 
-[ ... ]
- > @@ -106,6 +106,11 @@ int st95hf_spi_recv_response(struct st95hf_spi_context 
-*spicontext,
- >  	else
- >  		len += receivebuff[1];
- >
- > +	if (len > buff_len) {
- > +		mutex_unlock(&spicontext->spi_lock);
- > +		return -E2BIG;
- > +	}
- > +
-
-Does this early return path leave the spi chip select (CS) permanently
-asserted?
-
-The first spi transfer uses .cs_change = 1 to keep the chip select active.
-Skipping the second transfer would prevent the chip select from being
-deasserted, potentially deadlocking the device.
-
- >  	/* Now make a transfer to read only relevant bytes */
- >  	tx_takedata.rx_buf = &receivebuff[2];
- >  	tx_takedata.len = len - 2;
