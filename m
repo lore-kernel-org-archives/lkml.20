@@ -1,63 +1,65 @@
 Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 966043E0C5F
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 21:14:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E8443E1CE8
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 21:14:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789938841; cv=none; b=iQrkJe2tYNkms2Y3/5uQblIOy2hKlJcfEWphPKHiFmuG7CJ6gjmPakE3XDF+M2phwkvZKTu5dmafvTh46R0QY5tf9oQA+U0w0hUaqHXDnTjaSY+7fR8FAlGy0RqmMtYobXMdLgMoQC253sDqwLab0d4AgOKSKdrsQA+0rS1RvZo=
+	t=1789938844; cv=none; b=XF7DuK8mbUetn7JnJmCAXvl0q7KB1u5zZbtdPuu33FHIhlnfJbmTvTWT5GooE7cKz8BxHXoPx7zYo8kUjOTifolmTL/Bjp1yryKd6pRwGisWEQDWwqBDXV8AGQ0W7B52RssABbl8WG97RRI6wap/c6SSL9yuF/PvvLvEZG/6plA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789938841; c=relaxed/simple;
-	bh=o2jGA+oz8FAHUUGJjII1o9Dpx+I2JLINT0FHkUiHcKM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kCrMEmxiFKvS8e5fradcCH8xZRQid1X4wmdaL56vIODju+nP3rWBwh2RaEg6WbHEP5bmiqvsipPZvyfLL5pjhvWKwibGWNlVo0Ryucun8lqhBgZEVS/DS754NXQNwJp/eCW9ZW35L95hBH55G52gkbBO+v/nxEkDbjn4whUJLkw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cTFA5MuV; arc=none smtp.client-ip=74.125.227.141
+	s=arc-20240116; t=1789938844; c=relaxed/simple;
+	bh=l/UUepTpO0Qk/KuhJ2sVwmu3RIKJO4nGvtoqYcUOboE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=E61zr0NNN9g3nrHs5jwQlTC0/Gnh4B77gjo27wgGWajggtqsGjmICsrA8qmYYMLGM+sTuMw+U06HbozlSIG4rZfCgmum9cBMMp8ZuL5o5j/oXYIs2uJWPDkFwZeuxl6E9JXEtC9O18/iWmvfDC69URzUG0Hnw0bBlbsL/DL57ec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pxFlvGKN; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cTFA5MuV"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398beb616f5so1005418a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 14:14:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pxFlvGKN"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39b350c69b4so2063558a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 14:14:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789938840; x=1790543640; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5GVVx1LqA6B1jJlZmV64iP6HqsdwAzR/vY4RLJ8HlJI=;
-        b=cTFA5MuVrIwwUpiHun3AF0v7E6G2C4VNXJNI3vjaAVvOSFmFlLXloxJj6PxGGRqIYT
-         CZp4KvTeuWSInVT1j+yAvm9853t05hBoamyjW4KEfRz66TrHy97odZygbJ6pqmfghoip
-         mdnppQjZ9CHodLVZFF/MELEHV8Mtc55NP1uKYBWHvpw5nVkCEiFd8PbTFP5xgIicLqhp
-         TdbiYmSbjqK2YOg4YGrbmf+hjICwn16ozpBdZIfoUp335Wz1h1l+LSQkn5x3RUF41Q+z
-         F8WpI713bNTrTsSgvCVSc1a8CNLnTlkDAXrRvjJpAidCF8ZlQk1ckTdNh7ThXpElJDq0
-         KsGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789938840; x=1790543640;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789938843; x=1790543643; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5GVVx1LqA6B1jJlZmV64iP6HqsdwAzR/vY4RLJ8HlJI=;
-        b=n3T0mU1wePA6qcxdqsZ4S4aeLJsHgdq+ycvzilDeyy8LJ2a3rsDbbjRCXBK8mBcS+O
-         lQPcVZFE5XLOsOhVRSApBcLhx59Y1UargeKgH3DQaM01lZXFQvFEZcI0xgXIRpK9P/v4
-         M/oVQweq81qQDAiidezUeNAGXvdM7rQl7rsMKszW5XcCE8Ounky2iHAAv4lW/VudS9B+
-         y7VKzK8xtvVnXvPx2GILlZBBbr2pzeN6fJVv+fjR6Wf8TkHOpjlQ5j9Ay4Xi9cm/ogXN
-         MGZkZ9tMrk5vhI7VL5ruweLoiLDXZPwJnQZ+g/xlLnCHI+BDGHiQ485kiftoHgRzJisk
-         +FFA==
-X-Forwarded-Encrypted: i=1; AKwUvByrI8K/39f6+Nv142seOzbVMrAU+BeRNxaiX8iLdlZqaKNqYDUzMK+I4IM8PUUiQ8rHvbBektJcncASfVo=@vger.kernel.org
-X-Gm-Message-State: AFuF++l3BR66mmFR/8GJf1sVy2rE+a5VKU6Ee50j+//NzV4zMgMTLu9d
-	3pXMvaXGibRsu/olmBKe+rwBUN0UrIDPE0hdtXijJuLHZcFXR2Nsaixv
-X-Gm-Gg: AYBFou04b1mPTjDfMR7Xp4hWMnaVOiFpprwsmDUVZGXVnZ+iaKVx89tQ6ekIzj4+iFG
-	s0zsWQgnduUtMfnLYPeohEBRXkzbsh+R3cvO3B/bnjhjif+N+ROyf8b/iMmyBcMb7qhVMPjAzXr
-	NyO6h1sNrkOnShRxp3JUtUGJcIeztlPSks8AWt8Ktf+k/7gqaVYO6w+YtIhdMkFkmp/IuQ3SoBJ
-	tLZLYfnK4y6KrqcCZ0BBaRx9oHJXpRWDzNQ4GtTsBCnef9XxsrZhf6ooC0PB3Z27ib0YQHWpntP
-	bi2QKX1CIKkPzxP/6H46vfEp5vI7Rn8TFKazILjnPuh7BwWA2rcByH+07rZG14sGV/mBQg8KW45
-	takOO/Dn2HpJqk1RqKJrqRl3Zxwdeo78XQcQ495nxyrX2eug8hhZjjNhfKW/BALsOmbk4yXeMaU
-	DbFZehJoUAWq8Kcfb0ITdnAkcLHCYcEMHFgNb+UpcUyx8I/WzKY4ZE6la/CxIPuBnuHoAjTAsLz
-	PlXnnXzxy2Hrr55b0Q0+8sJ8xVrpTQYaIoBAgQFLATw6EZXU9QK4ZP03uQdjRHKTRQzhgSHdyGw
-	rblgYSQT+CwCrwLG6vffhH8uqRlViLAbqc4GKXY+WAuGqToJR9RnRKlKERY=
-X-Received: by 2002:a17:90b:3a43:b0:39e:6c68:fd91 with SMTP id 98e67ed59e1d1-39e6c68fec5mr4752048a91.38.1789938839949;
-        Sun, 20 Sep 2026 14:13:59 -0700 (PDT)
+        bh=dNN8eipdLX6K7kQkCh1wCd5ubolRJmwOq01XK22sELg=;
+        b=pxFlvGKNAut0zXGIPps6QBo76SaIvaP7LupGHFbdTwfXziQDT44b8XI6fb2l/G9k5w
+         xI8hRPfj4b4ZbtYtsKQOP5j9UfMgnQ286YfRGQ7ogNrJiYVjP8lQpK/aglktywhdZ+c2
+         Xr1CG10uhDdUVRKEUfNPWlvh8bNY7YEhZ5cXSFnwAiV0s3nvVCBf7O87ETJcM7AdJu5g
+         XmUSieJwPZNCLDFlv/4jvb+r5QKsregXenfmPdC+CdqcmYk56X8MtMEtBtIVcJHiRY2R
+         YJEjL+5/mleRaMCXA/nD0+eH9uKPdwjnJqwvrY9E0w7zlSuEqb5jE/hVE4RRgpjOVHP0
+         qPWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789938843; x=1790543643;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dNN8eipdLX6K7kQkCh1wCd5ubolRJmwOq01XK22sELg=;
+        b=jC9mdwsytrcw7yRAk0h3CkSHS+PZPPiEh6q7iWkUtxam/frIVrdGp1PQI/VemN2LaM
+         L2RNCTMPWGaxUwV4PQ5EJWjjWpobp+svhS9xZAumyLkmSOZUSr5cLV17me7vEmYD0Nzm
+         RQgrRj2sJ1L5JrPZ/MKVsGDHEISH7e/NFR9ggd7jrMvDQo9iOlK6laO8L9a7QSIXqaU+
+         IdMgT596FbNCavGKq6O2VoXlwituFTKD+IMeLVXf5u9zMNUV+RAH8L+z2nITo5WceshT
+         C37CnXUwpedp3wEH3VSw7q5tjYuL2HQRtR+kewfWuPlszeFYsLpE109aZI3UoAQ1LeAE
+         cIkw==
+X-Forwarded-Encrypted: i=1; AKwUvBxGJIBaUmaDhfY26obqaFjoqUd/qE/l3dgzOU1i6GH1nF5HUlL13YVXjLfI9aJAHNwq5VLZA9HoJdejf7A=@vger.kernel.org
+X-Gm-Message-State: AFuF++lMH6bkWsUm0TGbkwKQtM95RgDMlPYx7j+9lFwTvqHlqFm4eOhw
+	//RqoV28pkW0Z64ghxU4a0kxxDCx9jHYRzMYG0hMDgYXI+BuwPQ+yiU1
+X-Gm-Gg: AYBFou07Sn5T8wTfFcLuEUUKZ5jlZlR767G6v8HCMaMka2pP85jwAXBbUPVz1vY/ZIZ
+	4aQZ1ehnxwCfT18aki61DrpivoBZJ6JyI4QtJbTw1qPujhaA7L8VQLfv1kHqL4DpUxPU9N/9vb9
+	PBUsJD+6yZ+sJC1z6/ne4cqoEMO4Axwtt5P5WIpAaAVS7hqKy3BzEd4iaWivk4hK3k1f1z4SPPn
+	bBjX2tNp05cROoNvGZQVeLR19xt51SAlCvQRefCXN4jMw5O8ZhCu3R0DlLqWqwvmQJRuG43aFWo
+	bBDgM89hf2hLXTSqD5c0MPBeJjnrL9gX8GbH56PIvj3wj2rKlqh3MuTgMLg6XOzXXVqvvqpMm/5
+	9B3irh9nvAlT9KjTXhFPam8VOZpvcnFvl6BLekCfnZfwHP2b5qdyiG4NPifkQXhL1EKPqOkfndE
+	iEC9SYXhFQBe2FVvfh98vQTeNVmwUqesf5SLepmn1pbqG2iE4skdZMPErfL/+fK7E7qwgAlGsRu
+	m+dLYMj7MxPq5PTHoH+KpJUcrI4qz4V9dvgqpsVsOy7pohnwM1dEe/E+JobHRXVgqiDOU02uN5l
+	mRNRImohFwJZXq+94nY8VQpt8mEYcnkmxR/k5tl5+EGqk1yZ
+X-Received: by 2002:a17:90a:d40e:b0:39e:6c6a:656f with SMTP id 98e67ed59e1d1-39e6c6a6787mr7048137a91.50.1789938842656;
+        Sun, 20 Sep 2026 14:14:02 -0700 (PDT)
 Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c3145dasm10609743a91.4.2026.09.20.14.13.57
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c3145dasm10609743a91.4.2026.09.20.14.14.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 14:13:59 -0700 (PDT)
+        Sun, 20 Sep 2026 14:14:02 -0700 (PDT)
 From: Rosen Penev <rosenp@gmail.com>
 To: devicetree@vger.kernel.org
 Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
@@ -73,10 +75,12 @@ Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
 	linux-arm-kernel@lists.infradead.org (moderated list:BROADCOM BCM5301X ARM ARCHITECTURE),
 	linux-kernel@vger.kernel.org (open list),
 	linux-usb@vger.kernel.org (open list:USB SUBSYSTEM)
-Subject: [PATCH 0/2] usb: bcma: control VBUS via a regulator
-Date: Sun, 20 Sep 2026 14:13:54 -0700
-Message-ID: <20260920211356.186967-1-rosenp@gmail.com>
+Subject: [PATCH 1/2] usb: bcma: control VBUS via a regulator instead of a GPIO
+Date: Sun, 20 Sep 2026 14:13:55 -0700
+Message-ID: <20260920211356.186967-2-rosenp@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260920211356.186967-1-rosenp@gmail.com>
+References: <20260920211356.186967-1-rosenp@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -85,51 +89,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-bcma-hcd currently drives the USB power line by grabbing the
-undocumented "vcc-gpio" property from the controller node and poking
-it through gpiolib. Besides relying on a non-standard binding, this
-cannot work on boards such as the NETGEAR R7000 and R8000 where one
-chipcommon GPIO powers both the USB2 and USB3 cores: the two
-controllers each request that GPIO exclusively, so the second one
-fails with -EBUSY and its port stays dead.
+bcma-hcd drives the USB power line by grabbing the undocumented
+"vcc-gpio" from the controller node and poking it through gpiolib.
+Besides relying on a non-standard binding, this cannot work on boards
+such as the NETGEAR R7000 and R8000 where one chipcommon GPIO powers
+both the USB2 and USB3 cores: the two controllers each request that
+GPIO exclusively, so the second one fails with -EBUSY and its port
+stays dead.
 
-Instead, switch the driver to the standard regulator interface and
-express the power rails as regulator-fixed nodes bound to the
-chipcommon GPIOs. The regulator core reference-counts enable/disable
-requests, letting both controllers share one GPIO without conflicts.
+Use the standard regulator interface instead. Each core obtains its
+(shared) VBUS supply through devm_regulator_get_optional() and the
+regulator core reference-counts the enable/disable requests, allowing
+both controllers to drive one GPIO without conflicts.
 
-Rosen Penev (2):
-  usb: bcma: control VBUS via a regulator instead of a GPIO
-  ARM: dts: broadcom: model USB VBUS power with regulator-fixed
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/usb/host/bcma-hcd.c | 45 +++++++++++++++++++++++++------------
+ 1 file changed, 31 insertions(+), 14 deletions(-)
 
- .../broadcom/bcm4708-buffalo-wxr-1750dhp.dts  | 14 +++++-
- .../bcm4708-buffalo-wzr-1166dhp-common.dtsi   | 25 ++++++++++-
- .../broadcom/bcm4708-buffalo-wzr-1750dhp.dts  | 25 ++++++++++-
- .../broadcom/bcm4708-linksys-ea6300-v1.dts    | 14 +++++-
- .../broadcom/bcm4708-linksys-ea6500-v2.dts    | 14 +++++-
- .../dts/broadcom/bcm4708-netgear-r6250.dts    | 14 +++++-
- .../dts/broadcom/bcm4708-netgear-r6300-v2.dts | 14 +++++-
- .../dts/broadcom/bcm47081-luxul-xwr-1200.dts  | 14 +++++-
- .../broadcom/bcm47081-tplink-archer-c5-v2.dts | 14 +++++-
- .../dts/broadcom/bcm4709-asus-rt-ac3200.dts   | 14 +++++-
- .../broadcom/bcm4709-buffalo-wxr-1900dhp.dts  | 14 +++++-
- .../dts/broadcom/bcm4709-linksys-ea9200.dts   | 26 ++++++++++-
- .../dts/broadcom/bcm4709-netgear-r7000.dts    | 16 ++++++-
- .../dts/broadcom/bcm4709-netgear-r8000.dts    | 16 ++++++-
- .../broadcom/bcm4709-tplink-archer-c9-v1.dts  | 26 ++++++++++-
- .../dts/broadcom/bcm47094-asus-rt-ac3100.dtsi | 14 +++++-
- .../dts/broadcom/bcm47094-asus-rt-ac5300.dts  | 14 +++++-
- .../dts/broadcom/bcm47094-dlink-dir-885l.dts  | 14 +++++-
- .../dts/broadcom/bcm47094-dlink-dir-890l.dts  | 26 ++++++++++-
- .../broadcom/bcm47094-linksys-panamera.dts    | 26 ++++++++++-
- .../dts/broadcom/bcm47094-luxul-abr-4500.dts  | 14 +++++-
- .../dts/broadcom/bcm47094-luxul-xbr-4500.dts  | 14 +++++-
- .../dts/broadcom/bcm47094-luxul-xwr-3100.dts  | 14 +++++-
- .../broadcom/bcm47094-luxul-xwr-3150-v1.dts   | 14 +++++-
- .../arm/boot/dts/broadcom/bcm947189acdbmr.dts | 14 +++++-
- drivers/usb/host/bcma-hcd.c                   | 45 +++++++++++++------
- 26 files changed, 422 insertions(+), 47 deletions(-)
-
+diff --git a/drivers/usb/host/bcma-hcd.c b/drivers/usb/host/bcma-hcd.c
+index 519386255886..394ba9e5a7f7 100644
+--- a/drivers/usb/host/bcma-hcd.c
++++ b/drivers/usb/host/bcma-hcd.c
+@@ -20,12 +20,12 @@
+  */
+ #include <linux/bcma/bcma.h>
+ #include <linux/delay.h>
+-#include <linux/gpio/consumer.h>
+ #include <linux/platform_device.h>
+ #include <linux/module.h>
+ #include <linux/slab.h>
+ #include <linux/of.h>
+ #include <linux/of_platform.h>
++#include <linux/regulator/consumer.h>
+ #include <linux/usb/ehci_pdriver.h>
+ #include <linux/usb/ohci_pdriver.h>
+ 
+@@ -40,7 +40,7 @@ struct bcma_hcd_device {
+ 	struct bcma_device *core;
+ 	struct platform_device *ehci_dev;
+ 	struct platform_device *ohci_dev;
+-	struct gpio_desc *gpio_desc;
++	struct regulator *regulator;
+ };
+ 
+ /* Wait for bitmask in a register to get set or cleared.
+@@ -280,14 +280,20 @@ static int bcma_hcd_usb20_ns_init(struct bcma_hcd_device *bcma_hcd)
+ 	return 0;
+ }
+ 
+-static void bcma_hci_platform_power_gpio(struct bcma_device *dev, bool val)
++static int bcma_hci_platform_power(struct bcma_device *dev, bool on)
+ {
+ 	struct bcma_hcd_device *usb_dev = bcma_get_drvdata(dev);
++	int err;
++
++	if (!usb_dev->regulator)
++		return 0;
+ 
+-	if (!usb_dev->gpio_desc)
+-		return;
++	if (on)
++		err = regulator_enable(usb_dev->regulator);
++	else
++		err = regulator_disable(usb_dev->regulator);
+ 
+-	gpiod_set_value(usb_dev->gpio_desc, val);
++	return err;
+ }
+ 
+ static const struct usb_ehci_pdata ehci_pdata = {
+@@ -405,11 +411,14 @@ static int bcma_hcd_probe(struct bcma_device *core)
+ 		return -ENOMEM;
+ 	usb_dev->core = core;
+ 
+-	usb_dev->gpio_desc = devm_gpiod_get_optional(&core->dev, "vcc",
+-						     GPIOD_OUT_HIGH);
+-	if (IS_ERR(usb_dev->gpio_desc))
+-		return dev_err_probe(&core->dev, PTR_ERR(usb_dev->gpio_desc),
+-				     "error obtaining VCC GPIO");
++	usb_dev->regulator = devm_regulator_get_optional(&core->dev, "vbus");
++	if (IS_ERR(usb_dev->regulator)) {
++		return PTR_ERR(usb_dev->regulator);
++
++	err = regulator_enable(usb_dev->regulator);
++	if (err)
++		return dev_err_probe(&core->dev, err,
++				     "error enabling VCC regulator");
+ 
+ 	switch (core->id.id) {
+ 	case BCMA_CORE_USB20_HOST:
+@@ -452,7 +461,7 @@ static void bcma_hcd_remove(struct bcma_device *dev)
+ 
+ static void bcma_hcd_shutdown(struct bcma_device *dev)
+ {
+-	bcma_hci_platform_power_gpio(dev, false);
++	bcma_hci_platform_power(dev, false);
+ 	bcma_core_disable(dev, 0);
+ }
+ 
+@@ -460,7 +469,11 @@ static void bcma_hcd_shutdown(struct bcma_device *dev)
+ 
+ static int bcma_hcd_suspend(struct bcma_device *dev)
+ {
+-	bcma_hci_platform_power_gpio(dev, false);
++	int err;
++
++	err = bcma_hci_platform_power(dev, false);
++	if (err)
++		return err;
+ 	bcma_core_disable(dev, 0);
+ 
+ 	return 0;
+@@ -468,7 +481,11 @@ static int bcma_hcd_suspend(struct bcma_device *dev)
+ 
+ static int bcma_hcd_resume(struct bcma_device *dev)
+ {
+-	bcma_hci_platform_power_gpio(dev, true);
++	int err;
++
++	err = bcma_hci_platform_power(dev, true);
++	if (err)
++		return err;
+ 	bcma_core_enable(dev, 0);
+ 
+ 	return 0;
 -- 
 2.55.0
 
