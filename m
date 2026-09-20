@@ -1,132 +1,63 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A0AA3AF64B;
-	Sun, 20 Sep 2026 03:50:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3F933AF64B
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 03:50:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789876232; cv=none; b=Z3s6seD7ueVzfY/U4IYcj0NVvbb26dyekZLWRL/xFqCnqdPe0Li6Xsdc4VQTR8tAb8kQN8qEJHfcqv7rDc/RKYCq+9MhdMwpUB72X+i99kDxV2ntoIyI41wXmCPAqY3MrF25N9ZHOprYKD0KReCgZlRL5Z5wb/KWaQUE/9b/W74=
+	t=1789876259; cv=none; b=iATol0m2dzaWHba9wvcRaTnzDPuKF11+dSF8LKxuzDHoxuh+zdoRmQ0h6XQrJojYc4sdkihzNlDV6y8IrizKy95InTX1BrUgIuWM5DfGHanMOd64YRDApmOVqW0xDEs3ktpu2MIwaCx0VziILqP9KB7ffoxX+0ydqALJWloG34A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789876232; c=relaxed/simple;
-	bh=SJbuG8/NOHQQsI/KbLB0Aqwypahq1vey3kBwaoMyoRA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Xtpsje4j5ZMYkZIeW2X+XUY182x1i6ssU0s6ezVUh4xhNWfnmMVnckWFGr1G5Cl3JOyezdPxU+L+LGpgyid0/3E2oPHaQmnWEz31MIg4SesWw/b7miCwIczXVDg4VLq/pP5tGG+e7R7zvPWg1wh4xfO1mC9YUvRiccSYDfRE//I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Rogi/3MP; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789876259; c=relaxed/simple;
+	bh=VimQxhA3EWWFBobr9adhaDBrUGxNVsr5r7vWkZqI9JI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hVyTFFyVzFGlUXv5Hv+v2WzAbZ45WTs/hlasGgUBF81C4g9Ysoa80fs1IQzObTRRo5goGLrIDDzfI1CYaifOYWbQnlMrRByqm8bN68FA21Fsn0gGAAZtmzAxHRvvFDe3IfmDIDl6DLSAZv5ug6sP+UdwCY+cyus1DbSigxa3iGM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l/+xao43; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Rogi/3MP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=el
-	h06BPvOR+aqBWG+a9YMejfiEndb0cqDcnnH29KM38=; b=Rogi/3MPytkdsgRYNH
-	vE6a4yjT61PA14Mi1gV6dkVW6rzhPLimfOI8jsPvEYLyFGHVYFawAEjv4AUPBxuD
-	vqPav87lekW35xCb/izz1WNazgxoYbYDtvmTku3rRlfyFLtOOufdRYB/SXHJ6D0F
-	mPV54ZP7vsJVD3gXaPweDTNzs=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wCXJ4jiV69q2YnYBg--.30633S2;
-	Sun, 20 Sep 2026 11:49:55 +0800 (CST)
-From: Pengpeng Hou <hppiscas@163.com>
-To: peter.wang@mediatek.com
-Cc: chaotian.jing@mediatek.com,
-	chu.stanley@gmail.com,
-	james.bottomley@hansenpartnership.com,
-	mkp@kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	martin.petersen@oracle.com,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	linux-arm-kernel@lists.infradead.org,
-	stanleyjhu@google.com,
-	hppiscas@163.com
-Subject: [PATCH v2] scsi: ufs: mediatek: handle mPHY power-on failures
-Date: Sun, 20 Sep 2026 11:49:53 +0800
-Message-ID: <20260920034953.19535-1-hppiscas@163.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l/+xao43"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34B431F000FF;
+	Sun, 20 Sep 2026 03:50:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789876258;
+	bh=g6bmSytLuuBsemIueYJvvknOEo0NHwTWS3h67EnatE4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=l/+xao43wkbLlOq7KCMmGPwSjUGKYUweeLh/7217lntKXi1lLQKb81LgbWK46Llju
+	 oCrOtScwUj7eUm+018l4s89EQcgv/Exy1DXUFgESkAx+/7pnrIIGnSgajJ1fh8vRZR
+	 iPbemN37gNFb7kZtj2vaKf/EPHOX+Kbpjprz0svMPlJjkSASxyXfsXddy1ajctoKJ9
+	 kKigWGU1Gy6zF64o9avn3Pb7gvWIoaVh5ji8hLNcW4m7PSxsTEKKRwZwui8kQAJF/9
+	 Nj7ZZ9EaVZZhYzczqEwYpWqxLJS6JtPfyBXQ1cQsq2Eu5r3SY5v5YYCViU0+yNzNBO
+	 6RIszS6eMpQrw==
+Date: Sat, 19 Sep 2026 20:50:57 -0700
+From: Kees Cook <kees@kernel.org>
+To: Hui Peng <benquike@gmail.com>
+Cc: Andy Lutomirski <luto@amacapital.net>, Will Drewry <wad@chromium.org>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] seccomp: restore knotif->state when
+ SECCOMP_ADDFD_FLAG_SEND is interrupted
+Message-ID: <202609192050.D1E0CD96@keescook>
+References: <20260919203514.2580997-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wCXJ4jiV69q2YnYBg--.30633S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXF4xKw43JrW5tr1fJw43Wrg_yoW5GryDpa
-	93K3yqkr1kGrWIvF429FsF93WrW3yfGFy8Gr13Cw1I93W2gr9FqFyvkryfWF4SyrZ5A3yj
-	qF18ta47GanIvr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRY0PhUUUUU=
-X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbCxgOUXWqvV+O6XwAA3Y
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260919203514.2580997-1-benquike@gmail.com>
 
-The MediaTek helper enables VA09 before powering on the mPHY, but
-ignores the PHY result. A failure can leave VA09 enabled and publish
-mphy_powered_on as true, so a later power-on attempt is skipped.
+On Sat, Sep 19, 2026 at 08:35:14PM +0000, Hui Peng wrote:
+> In seccomp_notify_addfd(), when SECCOMP_ADDFD_FLAG_SEND is set,
+> knotif->state is transitioned from SECCOMP_NOTIFY_SENT to
+> SECCOMP_NOTIFY_REPLIED before dropping filter->notify_lock and waiting
+> in wait_for_completion_interruptible(&kaddfd.completion).
+> 
+> If wait_for_completion_interruptible() is interrupted by a signal before
+> the target task processes the kaddfd entry, seccomp_notify_addfd()
+> removes kaddfd.list from knotif->addfd via list_del(&kaddfd.list), but
+> leaves knotif->state set to SECCOMP_NOTIFY_REPLIED.
 
-Check phy_power_on(), attempt to unwind VA09 on failure, and leave the
-state flag unchanged. Propagate the helper result from host
-initialization as well as its existing resume caller. Keep the original
-PHY error if the supply rollback also fails, and report that rollback
-separately.
+Are you able to construct a regression test for this so we can catch
+this race if it ever gets exposed again?
 
-The issue was found by our static-analysis tool.
-
-Fixes: 561e3a8726b2 ("scsi: ufs-mediatek: Fix unbalanced clock on/off")
-Fixes: cf137b3ea49a ("scsi: ufs-mediatek: Support VA09 regulator operations")
-Assisted-by: gpt 5
-Signed-off-by: Pengpeng Hou <hppiscas@163.com>
----
-Changes since v1:
-https://lore.kernel.org/all/20260828092311.10774-1-pengpeng@iscas.ac.cn/
-Use err for the rollback result and dev_err() for operation failures, as
-Stanley requested.
-
- drivers/ufs/host/ufs-mediatek.c |   18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/ufs/host/ufs-mediatek.c b/drivers/ufs/host/ufs-mediatek.c
-index 814c1b7343b9..12a6d4138e44 100644
---- a/drivers/ufs/host/ufs-mediatek.c
-+++ b/drivers/ufs/host/ufs-mediatek.c
-@@ -509,6 +509,7 @@ static int ufs_mtk_mphy_power_on(struct ufs_hba *hba, bool on)
- 	struct ufs_mtk_host *host = ufshcd_get_variant(hba);
- 	struct phy *mphy = host->mphy;
- 	struct arm_smccc_res res;
-+	int err;
- 	int ret = 0;
- 
- 	if (!mphy || !(on ^ host->mphy_powered_on))
-@@ -523,7 +524,18 @@ static int ufs_mtk_mphy_power_on(struct ufs_hba *hba, bool on)
- 			usleep_range(200, 210);
- 			ufs_mtk_va09_pwr_ctrl(res, 1);
- 		}
--		phy_power_on(mphy);
-+		ret = phy_power_on(mphy);
-+		if (ret) {
-+			if (ufs_mtk_is_va09_supported(hba)) {
-+				ufs_mtk_va09_pwr_ctrl(res, 0);
-+				err = regulator_disable(host->reg_va09);
-+				if (err)
-+					dev_err(hba->dev,
-+						"failed to unwind va09: %d\n", err);
-+			}
-+			dev_err(hba->dev, "failed to enable mphy: %d\n", ret);
-+			return ret;
-+		}
- 	} else {
- 		phy_power_off(mphy);
- 		if (ufs_mtk_is_va09_supported(hba)) {
-@@ -1295,7 +1307,9 @@ static int ufs_mtk_init(struct ufs_hba *hba)
- 	 *
- 	 * Enable phy clocks specifically here.
- 	 */
--	ufs_mtk_mphy_power_on(hba, true);
-+	err = ufs_mtk_mphy_power_on(hba, true);
-+	if (err)
-+		goto out_variant_clear;
- 
- 	if (ufs_mtk_is_rtff_mtcmos(hba)) {
- 		/* First Restore here, to avoid backup unexpected value */
-
-base-commit: 518e5b794c06c0f0eb40df3e202274a66202c137
 -- 
-2.50.1 (Apple Git-155)
-
+Kees Cook
