@@ -1,30 +1,30 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73DB73BBFD8
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 08:32:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA39D3E7BBD
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 08:32:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789893131; cv=none; b=mw4GswBca0jybwedVpQwdIx5XUVfWsZFbo3Uw74iqCEv/QnZy9P1VBydQRMiRxLyF/mi35rb+UCVY/6SzdihsKbqrI2U/jbwLzUC0F/EIU5JwPQFZ/GektlkVmkKmhPoPk3t0qaxi7DhJqK1L9B/cjnRW3hW9U1l1dCv7bFFLfw=
+	t=1789893134; cv=none; b=WtXAUqdOfVUZXsSy9RgsYewFt+PJnV0Z3jdBz/5lurjW4KuQNeP2qE4N0mNOZ9T21LNWWYrFha2YSUCA7/cfb5Km2zS172zWK8jyAOL9+QVwOyqoBxPFiGprxn6A/G+ZVsTGnW0Zag2bf2sfjn4vjFsUXiuOMOV45UG/XyrIIcU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789893131; c=relaxed/simple;
-	bh=Ie5COk0tmhQEcp5kIuQPo/ZUSVcEEGAhl4hJioiuhIA=;
+	s=arc-20240116; t=1789893134; c=relaxed/simple;
+	bh=bQEf9vL5/VwlJlkWG8rTHjE1YUHTXkblTVwOrV3ixzM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RxjpUcj+5W2uOX+PwPV1uuo3ccPQb01LE+O2ByJJt3wDzWJ9FDKks3TmD/cKoKaYM6K5eRd2cM0XPPfPWf+wraPUSOi3AyxsG6d788U5255sGfWWJj4tHpUUgqRPQUb/2XbvgE1CpF+0F0aM4IB14sfNcfSM/pxViu2U1Pug/gM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=hgMBDczh; arc=none smtp.client-ip=117.135.210.2
+	 MIME-Version; b=MHR8n514jCPd2Re6q4FefeskUXQLEwv2oLWy88oMq6IDV8u1zojBBTLHjnwTes47sW3TsnxWvyy2tLRr95t05VFK1ndaB06u+94Yyl4oCPGetlbZRqRRoVMoHf8BDzG6w7SUFpCd+XCGRY6AY6bhW5nczmt0YO35sRku+5YUuCY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=EfMDAOnW; arc=none smtp.client-ip=220.197.31.3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="hgMBDczh"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="EfMDAOnW"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=sl
-	m6wwvgS9oQ7CXUMaxnmw9GzX+LFkkuBvWkyoC2kCg=; b=hgMBDczhlZr7K79THU
-	LX/Sur3f3BUO9giErav0VGo0ddMBknBX++H8XYBOfD/UHG36xKFENp7AmxB+eKPx
-	6KZAzmbXaqPgoEYL5tzJy90UO9DGXloLNTzfNu6rabPXI3aJaOSlRg5esY1iXe8p
-	p6ubQDa30PA1OonPxkBBEGSbM=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=TO
+	4+oQ7uYeq8iFmmQjDy915DK04djidl/nzAmYzA3oQ=; b=EfMDAOnWrS5cIZ48S5
+	HRgX8olVFeVUnyD9Vcjw3h31jLp9nkjaGb/f+hTxtnBiNYMeG2LvsEzgmYEAniX7
+	B1o+eaxx58tmTFWy5k8GSPSHlDU9KpumVKC7f6I8uvIuLjajd1cnu+jJhIpPsNDL
+	c31xjdw8LqFVK2AnaZj+Vc99w=
 Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgB3m07lma9qs7GbAQ--.54162S5;
-	Sun, 20 Sep 2026 16:31:41 +0800 (CST)
+	by gzsmtp4 (Coremail) with SMTP id PygvCgB3m07lma9qs7GbAQ--.54162S7;
+	Sun, 20 Sep 2026 16:31:45 +0800 (CST)
 From: Baolin Liu <liubaolin12138@163.com>
 To: linkinjeon@kernel.org,
 	hyc.lee@gmail.com
@@ -32,9 +32,9 @@ Cc: ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	chenxiaosong@chenxiaosong.com,
 	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v2 03/10] ntfs: propagate EA write and truncate errors
-Date: Sun, 20 Sep 2026 16:31:24 +0800
-Message-ID: <20260920083131.1880061-4-liubaolin12138@163.com>
+Subject: [PATCH v2 05/10] ntfs: distinguish empty EA values from removal
+Date: Sun, 20 Sep 2026 16:31:26 +0800
+Message-ID: <20260920083131.1880061-6-liubaolin12138@163.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260920083131.1880061-1-liubaolin12138@163.com>
 References: <20260920083131.1880061-1-liubaolin12138@163.com>
@@ -45,46 +45,95 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgB3m07lma9qs7GbAQ--.54162S5
-X-Coremail-Antispam: 1Uf129KBjvdXoW7GFyfWFW7ZF4DXF17XF17Awb_yoWkXFX_u3
-	WxZF1kKr4jqF1kGanrArnI9ryqqa18ZF1qvwn5K3Wvy34Dt34qvrZ0grs5KFsrua10kr98
-	Gwn3WFy3AF13GjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUnuVbPUUUUU==
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6Q0o8mqvme2yPAAA3B
+X-CM-TRANSID:PygvCgB3m07lma9qs7GbAQ--.54162S7
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCr4UKrW8uw47XryDCw4fuFg_yoW5Xw13pF
+	W3CrW5tF1rXFyDGr1vyw1DW3W5Zry8Kry8K3s7K3Wxurnaqw1Dt3Z5KFyagF4SyFykJ3W0
+	ganYgw4rXa17JFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07URCJQUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6hIp82qvmfJU5QAA39
 
 From: Baolin Liu <liubaolin@kylinos.cn>
 
-ntfs_write_ea() replaces negative write errors with EIO and ignores
-errors when shrinking the attribute after writing a shorter list.
-This can report success even though the final resize failed.
+The EA setter identifies removal using a zero value length together
+with XATTR_REPLACE. A replacement with a valid empty value is therefore
+mistaken for deletion.
 
-Preserve negative write errors, use EIO for short writes, and return
-truncate failures to the caller.
+Use a NULL value to identify removal and keep zero-length values valid.
+Reject removal or XATTR_REPLACE for an absent entry before creating
+metadata, including when the file has no EA attributes.
 
 Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
 ---
- fs/ntfs/ea.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/ntfs/ea.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
 diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
-index 59160e49a53f..5c6facae4ed5 100644
+index f5a112495fc9..15bfcdddc7ee 100644
 --- a/fs/ntfs/ea.c
 +++ b/fs/ntfs/ea.c
-@@ -32,12 +32,12 @@ static int ntfs_write_ea(struct ntfs_inode *ni, __le32 type, char *value, s64 ea
+@@ -244,6 +244,8 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
+ 	if (!err != !ea_err)
+ 		return -EUCLEAN;
+ 	has_ea = !err;
++	if (!has_ea && (!value || (flags & XATTR_REPLACE)))
++		return -ENODATA;
+ 	if (has_ea) {
+ 		p_ea_info = ntfs_attr_readall(ni, AT_EA_INFORMATION, NULL, 0,
+ 						&ea_info_size);
+@@ -308,7 +310,7 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
+ 			err = -EEXIST;
+ 			goto out;
+ 		}
+-		if ((flags & XATTR_REPLACE) && !val_size) {
++		if (!value) {
+ 			old_ea_info = *p_ea_info;
+ 			old_ea_buf = kvmemdup(ea_buf, all_ea_size, GFP_NOFS);
+ 			if (!old_ea_buf) {
+@@ -318,7 +320,7 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
+ 		}
  
- 	written = ntfs_inode_attr_pwrite(ea_vi, ea_off, ea_size, value, false);
- 	if (written != ea_size)
--		err = -EIO;
-+		err = written < 0 ? written : -EIO;
- 	else {
- 		struct ntfs_inode *ea_ni = NTFS_I(ea_vi);
+ 		/* Check the final $EA size before removing the old entry. */
+-		if (val_size &&
++		if (value &&
+ 		    ntfs_attr_size_bounds_check(ni->vol, AT_EA,
+ 					ea_info_qsize - ea_size + new_ea_size)) {
+ 			err = -EFBIG;
+@@ -327,7 +329,7 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
  
- 		if (need_truncate && ea_ni->data_size > ea_off + ea_size)
--			ntfs_attr_truncate(ea_ni, ea_off + ea_size);
-+			err = ntfs_attr_truncate(ea_ni, ea_off + ea_size);
- 		mark_mft_record_dirty(ni);
- 	}
+ 		p_ea = (struct ea_attr *)(ea_buf + ea_off);
  
+-		if (val_size &&
++		if (value &&
+ 		    le16_to_cpu(p_ea->ea_value_length) == val_size &&
+ 		    !memcmp(p_ea->ea_name + p_ea->ea_name_length + 1, value,
+ 			    val_size))
+@@ -342,7 +344,7 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
+ 		ea_info_qsize -= ea_size;
+ 		p_ea_info->ea_query_length = cpu_to_le32(ea_info_qsize);
+ 
+-		if ((flags & XATTR_REPLACE) && !val_size && !ea_info_qsize) {
++		if (!value && !ea_info_qsize) {
+ 			err = ntfs_attr_remove(ni, AT_EA, AT_UNNAMED, 0);
+ 			if (err)
+ 				goto out;
+@@ -357,7 +359,7 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
+ 			goto out;
+ 		}
+ 
+-		if ((flags & XATTR_REPLACE) && !val_size) {
++		if (!value) {
+ 			err = ntfs_write_ea(ni, AT_EA, ea_buf, 0, ea_info_qsize,
+ 					true);
+ 			if (err) {
+@@ -378,7 +380,7 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
+ 			goto out;
+ 		}
+ 	} else {
+-		if (flags & XATTR_REPLACE) {
++		if (!value || (flags & XATTR_REPLACE)) {
+ 			err = -ENODATA;
+ 			goto out;
+ 		}
 -- 
 2.51.0
 
