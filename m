@@ -1,170 +1,169 @@
-Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5044348EBC0
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 19:45:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57C3647277C
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 19:46:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789933552; cv=none; b=qIOwWFE5WcS7+kxqgsWm1g2b2fRpmJN/5+eB21FRC/AQTDxfMkfratwJG50KEkVDk9BKOhN/T0kKGvxtoj/GnrxdAseYWQudKqHWraenJiMxPqwsBjIyo4Vpk+kQkhKyRvVm37twc6BA94b2xJHgtm0Zayxre6SIK19Dx7m1YMM=
+	t=1789933609; cv=none; b=V6Ht2zy+BHakwwxlWfItVUKdAfApmrIrNzaqgTg3P30Q6k3DtV4s8sjLnAvjnZWJ7r1fSwtYkH51CsR2CjrA8VMYSaEQ+ZvpZWBpaxNRYXOOfkiyP6X0rEHPbqy/TJKy3WpEBZ7dncaeu6AqxVukqHOdIfT7Y9bS8RHuOLSTpkY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789933552; c=relaxed/simple;
-	bh=e9hk5Tsdquyr+5avHPEA7bcfLf2nOdnHsiLzbvu4On4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=D1AxpbyfLvLR6ZgetGOHZ8ptubasoZedaN2HhXWrqXHSWlu5JwxjRO8+u/+Nn8nkhdbuLSv+53TneMRfYC5Q+akvci1c1yZY12ge4OQf9mr4E2JrgqwCZX3/gZKV5ackw/JzWxg5i+yy7R6lrEpAaGMEh7N2GEns+4vY7f4DitE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bcKnG7Xp; arc=none smtp.client-ip=74.125.231.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789933609; c=relaxed/simple;
+	bh=NGNvEP6R6v24NUCZuXiZGmdcHRDhU/4UlKpXWm/wUe4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=L3g6tZYzyQRBGCJMlkv1n+fKm3CJv4Y2u/oZnj7cfzNJuOqhMmISRPkun6HGbmvwAGERYev8e21cinfuk1zn0sD6pY53RGahtUDEit4Nmt+9xt5FwMQn5SWYxmZiUKdwYLi+LJqsRZs36HdasiT/6uSLSsivrVQRBAJIdvJZNk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=gqxqNR8V; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bcKnG7Xp"
-Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-466cc9ab667so2834494fac.0
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 12:45:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="gqxqNR8V"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4858bc96fabso1847590f8f.3
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 12:46:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789933550; x=1790538350; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gFndLx5Yqc+lsDlrSDVoBXxkYOfQ85XX/QivbJQF5Mw=;
-        b=bcKnG7Xp8QQRLPhF9GYfR1QMAIxkw3ofYeozH9zujO9ULcoQ24yZKfn2HuFF5YTSd9
-         kP2MzqGquxqZCDR38JDRjeBDJLnTthWjjaEW1pYJieNjG66q7T9QiFU1iaT7/eA3jwH4
-         ddS7M972oJ4enoIQlJUoHxFMWjJWy0ycpdApYqiBWG9KE2PBoYtmZJcsQc5gOZ7U6LAG
-         Go0+Pm6nYecfOQeyiDb6wH5efFeTuis/h4M9B30EGCiOYAgimXHNyS5PAdZT0m7C1EhI
-         MJoR4wtUmeYl/vddJEd/eE/9ysm2oo80pj+Ire3OCGYsBhOhgvKw269Y2X0ACPWIQYff
-         yagw==
+        d=baylibre.com; s=google; t=1789933605; x=1790538405; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jNAs3l2moedeez3GaXQjJrBDG6B5wQ5RhmPGIelVwHI=;
+        b=gqxqNR8VphUGFB6SCOTjei30jep3SNAwTv/U11vbdagN7A+UUfmKKTcOXIgL23qMV2
+         tL5l6zuPdAYPrsI85YuBmOVRO4t4MfzdiflWHeMml1LkB9Ks0f5uArslV2EYxkEWkB1e
+         UBsHyCm70K4hNrS97NyIscGs+GPtZxdgNKL4xP7wv+E6Ad7gyujuMzgCxLBQJImzKciJ
+         JfFqKYHWbBee3kg1bIcKkOiL6QWDkPvi6efgfxv3GYnZlyQ7ShHNth4TB3IGS18SwdpC
+         V5+leCX7icQ/8EkAXcZxiPt+/t69a/eRb4J1yKnVEKvyX31k/vmttkfWXGiMsuVb5Sw4
+         iqdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789933550; x=1790538350;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1789933605; x=1790538405;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gFndLx5Yqc+lsDlrSDVoBXxkYOfQ85XX/QivbJQF5Mw=;
-        b=XyVAOq/Kt2NQwEmZtsRGUIafBgoZJjgOq9NV2ARqMCtbyxajvANa894gmkuOBfCYXz
-         p2spH3SyKHkdbvROmlu1entXevSjRe/mQCiztHFYGiGFx7OImqUX4arfKZi9Y6ISs4Sh
-         kAfizFtw2rjqMAoNEODFsBInj8grcu/gcAlin8RguwTZIfgEXNz0hm++P4msD4Ei6/qN
-         m/ZVcSygZA4BJ5u4tQVsC96rAH6YenAS+/8CYJ1gqaUymsUijX4sjMaPCOz0dO+anvJg
-         1HSNoy/chm7JGcrsWbbRww7n9QS2y76ZswGDXZi1ZWYdekDsoKw8r1xmCCbS5WaEJINW
-         OgDA==
-X-Forwarded-Encrypted: i=1; AKwUvBwF+JaVab3kGmRFbaL5ZR6+gocrfviovUiEKC90ViYh/hYEGWeAHOe9OWqKjfABcpRJPpzE6Wo8bMQU3xk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lsZrcyw3P4rnSVq78Syhv5aOTyb7/xTL27yeR8BDVk85HDCpdz
-	K1VJ4lpF32kcJILn5MENUWAvrE7iMRF+4c7K+1DsyT6d5TvuGd5vP8sI
-X-Gm-Gg: AYBFou0X0Ga6eq7u+bglpUTwyoLM/HJwUnwo0QourezxjXUnuJ/78JEnmTF+YINHqU2
-	fuOyio8Q4hphGIlJ24WmtWTixuJ2HJ7vxOMNUktEZ9+UYYrpkAeGs8v9nZuN6tIOefPzX5nyEDJ
-	qd46KWWuq/gT2r/72ki+HSZ11TA2w9gWz6bEMiYOzi2BVsUgo8PBfVjLm0otRdDnC4iM9h1u4yd
-	mMO6izIFk1QMpoHbanWv5hqQWmK/L75I90qD5aQ8j3QSHJfJZMQ1tqFvmJukmsVKpHqkiWgyor+
-	ytL9245P/oEWs/CWWNI++wQAP8ZBWQS15mJ/wRK/qVxiaUbnwzzYuP/EXHy32jKLbC3XoA+zuXZ
-	6tVlrUL+ifY6G7SE2SHwa13c5zb5+lKXdtsLmAxm+lK2/vKf/sQfm0755yId2wRQBNp9kn3euFT
-	QlBpLacSjWWxdiIutxGaptNq2KWfqYFX/RPVo52Mbyt9YJInFcYSd5GmKbd/KXnPZEYSgzG34rQ
-	rQtYgQZ7y4LcULYdBshx8JoSkEIrPHfdbPT8+EpqwVV0XmW53cFsi+hgGT9UfolEEFkJq5MvEpm
-	NwpKP0OY7Burkiw0kVv/nDsCK0tKnRvzf9cPmFgcZtGWiGwMNudNGbZ438/48UGcSMjZSWEQ4P3
-	jEWt48v5is/bv8Dez5X7N
-X-Received: by 2002:a05:6820:16a6:b0:6bd:af9e:a7f8 with SMTP id 006d021491bc7-6ca9a130336mr7595370eaf.10.1789933550220;
-        Sun, 20 Sep 2026 12:45:50 -0700 (PDT)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4881f4d7861sm6103834fac.1.2026.09.20.12.45.48
+        bh=jNAs3l2moedeez3GaXQjJrBDG6B5wQ5RhmPGIelVwHI=;
+        b=o1G3v7dbXd75QV5kCEFMJ4mL/KwN5vjizdkZ2lptvpUSf1jj2McpuCwLbB/yj/tYAF
+         ZPH0gTOOnvy0UjPzFeGqRm7uJABCvC/k10ICCBjG0kp1Cd4ERA2PklBLf57aEEapNlV9
+         evrXv0i8x+cRecbYY0pA9HMGx6mZLzHmBA8uxRvz+hxTJ0RU+bUU6RQgQ252+aWiobPJ
+         o7vII8zBesDJqVPiG0UCIxtLpre09H5idsaNHjmNFMdpDUlYcTKGRK6sV918nwt2Xctn
+         DWU0pA3xnzHQR4B/ZNAa3l8Ny3VO9/UlRKnX4ZG92BWJSs+OQ+B+vtknPRbFk+FWOLHj
+         cS8g==
+X-Forwarded-Encrypted: i=1; AKwUvBzSt20jj0i1bItae75pO7emEmlhq01cKUN2C9BITZNH6PDCZjujxKY1KXq+xjZgaYJHjVaGBsw6ZiWBlyA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lfoXaiubEeOwguGPx7YFpJOMGW4N2bvXKNUIyKmIUmmlllXixy
+	7RRsKB4F+QUeXEQE5PrrNARSnBXhUZfAcssglO1XpORt17gOtysoZBAleepG5m8fNNk=
+X-Gm-Gg: AYBFou2nAiMxoFYVJVZ6YWcT2S+PZmTCJ75rv5IEhJPsraFfuvylbk+9QTP60Vn+h1f
+	qIdbVgypY/LtuDQsASuHJwGgfOEOdh4gasLSfhniTEya3++reljT2d+BZtuEku5VCASRi9GUMHw
+	YW7TOCJXsigxLwlWeQShpGo/rQ6wtjqsOKNTjnX3FTdYU4uPdO/ovP49hflwf/mHtvUuF79jdNN
+	Jti4y8JPNReulv3qZc1WbMXaJd1Lk3PU6J5P6VR8MIAgB/bzxE2BVa15Q10/wG80Un5p+KSWblC
+	9fz/8d15VnBsep5g/wBWDOayVc5lzOhc/u2RUD1HYJMGYB8hEBN9w1bY0bHd7NBnCK+74H9DUEK
+	v/DpTiRycZx0fp9VsGflejV5unEYFbb8xSURHkaoLYdwpNz3KllSX8mWMDlb5DIUs1F+NTVBlaU
+	L+wOcX0DynWFs/MAiSb3PtjBQfXG+8Ck1/m+yo6GKD2CUDq0PPj5oPaldDjyVO6PV8K+IQsHHJp
+	otD
+X-Received: by 2002:a05:6000:40c9:b0:483:3695:6ea6 with SMTP id ffacd0b85a97d-4871e25c7dfmr13023830f8f.20.1789933605511;
+        Sun, 20 Sep 2026 12:46:45 -0700 (PDT)
+Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-4872446067asm17286003f8f.12.2026.09.20.12.46.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 12:45:49 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sun, 20 Sep 2026 13:45:32 -0600
-Subject: [PATCH net-next v4 6/6] net: stmmac: sun8i: add support for
- Allwinner H616 EMAC1
+        Sun, 20 Sep 2026 12:46:44 -0700 (PDT)
+Date: Sun, 20 Sep 2026 21:46:42 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Link Mauve <linkmauve@linkmauve.fr>
+Cc: linux-media@vger.kernel.org, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, Bradford Love <brad@nextdimension.cc>, 
+	Kees Cook <kees@kernel.org>, Deepanshu Kartikey <kartikey406@gmail.com>, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/3] media: ts2020: put regmap_config on the stack
+Message-ID: <arA3TaFiFOx7ubjj@monoceros>
+References: <20260804114625.2314430-1-linkmauve@linkmauve.fr>
+ <20260804114625.2314430-4-linkmauve@linkmauve.fr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260920-submit-h616-emac1-v1-v4-6-8347dfe2eb7d@gmail.com>
-References: <20260920-submit-h616-emac1-v1-v4-0-8347dfe2eb7d@gmail.com>
-In-Reply-To: <20260920-submit-h616-emac1-v1-v4-0-8347dfe2eb7d@gmail.com>
-To: Richard Genoud <richard.genoud@bootlin.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
- Jose Abreu <joabreu@synopsys.com>, 
- Maxime Chevallier <maxime.chevallier@bootlin.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Russell King <linux@armlinux.org.uk>, 
- Christian Marangi <ansuelsmth@gmail.com>, Andrew Lunn <andrew@lunn.ch>, 
- Heiner Kallweit <hkallweit1@gmail.com>, 
- Tiezhu Yang <yangtiezhu@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>
-Cc: Maxime Ripard <mripard@kernel.org>, 
- Alastair D'Silva <alastair@d-silva.org>, netdev@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
- linux-stm32@st-md-mailman.stormreply.com, 
- James Hilliard <james.hilliard1@gmail.com>, 
- Andre Przywara <andre.przywara@arm.com>
-X-Mailer: b4 0.15.2
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="dfpnyg4nzvnqoewx"
+Content-Disposition: inline
+In-Reply-To: <20260804114625.2314430-4-linkmauve@linkmauve.fr>
 
-The H616 secondary EMAC uses a separate system-control clock register
-and supports only RMII at 10/100 Mbps. It connects internally to the
-co-packaged AC200 or AC300 EPHY and has no external PHY pins.
 
-Add an EMAC1 variant using the dedicated register and enable only RMII.
-Leave PHY initialization to the PHY driver instead of using the H3
-internal-PHY controls. No RX or TX clock delays are configured for this
-RMII-only variant.
+--dfpnyg4nzvnqoewx
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 3/3] media: ts2020: put regmap_config on the stack
+MIME-Version: 1.0
 
-Co-developed-by: Richard Genoud <richard.genoud@bootlin.com>
-Signed-off-by: Richard Genoud <richard.genoud@bootlin.com>
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Reviewed-by: Andre Przywara <andre.przywara@arm.com>
-Reviewed-by: Alastair D'Silva <alastair@d-silva.org>
-Tested-by: Alastair D'Silva <alastair@d-silva.org>
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+Hello,
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-index 9598c386bb21..0ea1860cf203 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-@@ -81,6 +81,13 @@ static const struct reg_field sun8i_syscon_reg_field = {
- 	.msb = 31,
- };
- 
-+/* EMAC1 clock register @ 0x34 in the "system control" address range */
-+static const struct reg_field sun8i_syscon_reg_field_emac1 = {
-+	.reg = 0x34,
-+	.lsb = 0,
-+	.msb = 31,
-+};
-+
- /* EMAC clock register @ 0x164 in the CCU address range */
- static const struct reg_field sun8i_ccu_reg_field = {
- 	.reg = 0x164,
-@@ -143,6 +150,13 @@ static const struct emac_variant emac_variant_h6 = {
- 	.tx_delay_max = 7,
- };
- 
-+static const struct emac_variant emac_variant_h616_emac1 = {
-+	.syscon_field = &sun8i_syscon_reg_field_emac1,
-+	/* The co-packaged AC200/AC300 PHY does not use the H3 PHY controls. */
-+	.soc_has_internal_phy = false,
-+	.support_rmii = true,
-+};
-+
- #define EMAC_BASIC_CTL0 0x00
- #define EMAC_BASIC_CTL1 0x04
- #define EMAC_INT_STA    0x08
-@@ -1277,6 +1291,8 @@ static const struct of_device_id sun8i_dwmac_match[] = {
- 		.data = &emac_variant_a64 },
- 	{ .compatible = "allwinner,sun50i-h6-emac",
- 		.data = &emac_variant_h6 },
-+	{ .compatible = "allwinner,sun50i-h616-emac1",
-+		.data = &emac_variant_h616_emac1 },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, sun8i_dwmac_match);
+On Tue, Aug 04, 2026 at 01:46:23PM +0200, Link Mauve wrote:
+> diff --git a/drivers/media/dvb-frontends/ts2020.c b/drivers/media/dvb-fro=
+ntends/ts2020.c
+> index 8775083f4dd6..27f096ce522e 100644
+> --- a/drivers/media/dvb-frontends/ts2020.c
+> +++ b/drivers/media/dvb-frontends/ts2020.c
+> @@ -18,7 +18,6 @@
+>  struct ts2020_priv {
+>  	struct i2c_client *client;
+>  	struct mutex regmap_mutex;
+> -	struct regmap_config regmap_config;
+>  	struct regmap *regmap;
+>  	struct dvb_frontend *fe;
+>  	struct delayed_work stat_work;
+> @@ -559,6 +558,12 @@ static int ts2020_probe(struct i2c_client *client)
+>  	u8 u8tmp;
+>  	unsigned int utmp;
+>  	char *chip_str;
+> +	struct regmap_config regmap_config =3D {
+> +		.reg_bits =3D 8,
+> +		.val_bits =3D 8,
+> +		.lock =3D ts2020_regmap_lock,
+> +		.unlock =3D ts2020_regmap_unlock,
+> +	};
+> =20
+>  	if (!pdata) {
+>  		dev_err(&client->dev, "platform data is mandatory\n");
+> @@ -574,12 +579,8 @@ static int ts2020_probe(struct i2c_client *client)
+> =20
+>  	/* create regmap */
+>  	mutex_init(&dev->regmap_mutex);
+> -	dev->regmap_config.reg_bits =3D 8;
+> -	dev->regmap_config.val_bits =3D 8;
+> -	dev->regmap_config.lock =3D ts2020_regmap_lock;
+> -	dev->regmap_config.unlock =3D ts2020_regmap_unlock;
+> -	dev->regmap_config.lock_arg =3D dev;
+> -	dev->regmap =3D regmap_init_i2c(client, &dev->regmap_config);
+> +	regmap_config.lock_arg =3D dev;
 
--- 
-2.53.0
+If desired you can keep all the assignments here using:
 
+	regmap_config =3D (typeof(regmap_config)){
+		.reg_bits =3D 8,
+		.val_bits =3D 8,
+		.lock =3D ts2020_regmap_lock,
+		.unlock =3D ts2020_regmap_unlock,
+		.lock_arg =3D dev,
+	};
+
+> +	dev->regmap =3D regmap_init_i2c(client, &regmap_config);
+
+With or without that approach:
+
+Acked-by: Uwe Kleine-K=F6nig <u.kleine-koenig@baylibre.com>
+
+Best regards
+Uwe
+
+--dfpnyg4nzvnqoewx
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqwOCAACgkQj4D7WH0S
+/k5tYwf+NSbNp5/ZckU5Y91RbX8TTRaOOsBcTw4N1MEwf5SUk4jb8JbOev/yP0z4
+p57RfINMjHRzsNEMg2HzJHvjoFzIRMd7LitmUMKzk3ZyOgpZL+5wtXBLnBpQV19z
+JrXU9NqKLxNABi543SvBqu24DjltBlVgzh7O0I3ANVrebReaSt7yBRCSSCk8tqWP
+hKKaUR+u/aab1GNJBG39e7JpDg0koBsC+Eg3gYT5OaL4vXNaawEd9r7D8Yw/zNPH
+IvGVh986h5MHHNJXObv4MWR/Md3tRgoSgOgYmENyFz6xklO6jYMoxThFXPxI+XTG
+SP0q29DLk4dPORySDim+62yqVzBxmg==
+=5lJx
+-----END PGP SIGNATURE-----
+
+--dfpnyg4nzvnqoewx--
