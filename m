@@ -1,103 +1,75 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F8844398F5
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 12:52:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06121432E6F
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 12:53:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789908767; cv=none; b=IDzRNE46X3O3dwIvTY3EoCHZd+r4n292VPBLMBbnuUKpiqjcFYbYqvZvb3NWbNK2k4f0UIVwSiL0hLGnWEkHvtgQou3wW1G4msUVkVxOKB7ADkefs7FAPvGqhgjMqX67orT4y2kjkEbObsTzMRANWtk8cOan1gf8AMgf82kiuJ0=
+	t=1789908793; cv=none; b=C23FJ31OZcVxnA9UKxFbHAQxc7dwH5GC+ESeo8aigWGimelepAJhWTR1WCbL4O1rYTjFfcmpotAiqo7sZuW7IXdUw5x7+AXW+b0lcyzisFLQyfo4Vil7HjtXPqtcDwFLCEM6YmIyLYP3jzKkS7DZI+Ilx0UbIepLYBGNE185Wtk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789908767; c=relaxed/simple;
-	bh=PCvcqBqvSHuYFMj8WR6nfjAEVmF/XI3FJDCFUA8gQFk=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=D+5Hapb4+XG9HF3ptkosdo2sgCPMJguNExKP2+C5n85xA7sTWPj9H7yiw/D4fLEZus6tyvdmdGz0UyQHNLiK9QQe5aar2dfRSd1KjweVNz1cf1woSK17VUEurp+cQM/xp3yJKGjbNIZWSvV3vigQfwbo3VZrhAR45LNQN6f7gb0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=082P7Ctf; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="082P7Ctf"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 059CA1A0997;
-	Sun, 20 Sep 2026 12:52:29 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id CBA98604C9;
-	Sun, 20 Sep 2026 12:52:28 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EB56C1032829C;
-	Sun, 20 Sep 2026 14:52:21 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789908747; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=YmmPnaV7ildHZ+EWQKJf+Qc5RfsJpEmB2QsMAPSOZMU=;
-	b=082P7CtfODUaGcGtCNed03VvETTk/7aXKnLyVv9PCXv63fs+z0Dm3h5shizWdVsVTEikKJ
-	pYeAJeMxtaL/3ceYbu3Y3WK0+MvXOErLkZZxN9k6ehyX13KX92Da6Xxq4YHKjmLAquj1ro
-	MtY8O8+zms1KUDTy3hs5D1IsDDLk3D44tXsKgBmw4at5Q+yOxP5Ah+BwqUSvcJ4qVDyebM
-	aziDtJQGKNwDijleoqHMvcXcnmtzYBqxT0MSQ8Ho5NLvT2w+O3T30SJpY6wdIeVyqVZmxm
-	3qkJtnyHlEHGsVMpi/OWHDDQRtihQy1A7v68ni+YxShOG26W9IyAgd3KeW9ObA==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: =?utf-8?Q?J=C3=B6rn?= Engel <joern@barelysecure.org>
-Cc: Chris Roy <iam@thechris.in>,  Richard Weinberger <richard@nod.at>,  Greg
- KH <gregkh@linuxfoundation.org>,  syzbot
- <syzbot+7cab6a19619f1b8efc00@syzkaller.appspotmail.com>,  dakr@kernel.org,
-  driver-core@lists.linux.dev,  linux-fsdevel@vger.kernel.org,
-  linux-kernel@vger.kernel.org,  rafael@kernel.org,
-  syzkaller-bugs@googlegroups.com,  linux-mtd@lists.infradead.org,
-  vigneshr@ti.com,  Adarsh Das <adarshdas950@gmail.com>
-Subject: Re: [syzbot] [fs?] possible deadlock in ovl_create_object (2)
-In-Reply-To: <aq6sd2Z3nZuAYbMG@cashel.logfs.org> (=?utf-8?Q?=22J=C3=B6rn?=
- Engel"'s message of
-	"Sat, 19 Sep 2026 08:38:31 -0700")
-References: <CAE2Bdm3NuEHshrG6K2boKAnCQUvT5SX79cP9nPgS2s1afzY1hg@mail.gmail.com>
-	<6aab0f82.e91c2013.3bdb06.0009.GAE@google.com>
-	<CAE2Bdm2wzxj-J0TM8F+3SVnu0W3HeiROW97U4qvBeyHKdHJFmg@mail.gmail.com>
-	<2026091753-broadness-bootie-b683@gregkh>
-	<CAE2Bdm14hif17B8RTAE+PhWEps5Fzh=WPurZeSNp9C6TqCKumg@mail.gmail.com>
-	<aqwuWWMwdIcx3704@cashel.logfs.org>
-	<mu82xsi6.76ee613a-07fb-48b1-9336-99e8780e8b6e@nod.at>
-	<CAE2Bdm3FqBPAMxqKoz_h1cw+OXpm=LJHdJjsME_Jy966tqhq_A@mail.gmail.com>
-	<aq6gJTYTpTr8sYPj@cashel.logfs.org>
-	<CAE2Bdm3K+ZnrfB7xzkg=2fzMs7AmJzdF3aYCpN00h90TR6FMog@mail.gmail.com>
-	<aq6sd2Z3nZuAYbMG@cashel.logfs.org>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Sun, 20 Sep 2026 14:52:18 +0200
-Message-ID: <87cxu8axvh.fsf@bootlin.com>
+	s=arc-20240116; t=1789908793; c=relaxed/simple;
+	bh=b2irCKNRvwh6j5BtI0IN/7SVo/4GSS2OSXPunjhDdWA=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=mla/I9Ba8gIbDlJyFMQa0HIdCuQIbX2t+pieBZab9gZj0bjkCKbLLdf4y2DV7Gs56Zph52MyqFD9Pqkvth7XbgyGDNVaTslVw+Mrem2k/LdXAqoVV8POGDKAMpOW2om6U5iX7BzJA9YeDZH/98nlx8D4QFG/HExGW/WOufYOZjc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b2d1eb484aso3654510b6e.2
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 05:53:01 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789908778; x=1790513578;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=xKyj3ZAdfpSZafyl+P4Qk/SsajEwWuQs7gqlaeL0nlI=;
+        b=cfNEk2nc32ikveT3gbAI91w2YYNTmAxE834PmUM8rnaepvoxNxnNdcjgb8oe1l1QsZ
+         QREvpWvNJxo+9dZ691iLyNC2kPjfqM70cfvneQtPycF/8KaKuGFFdqTNQYNAARPlwBCg
+         NqWCvowMcGrIL8OQAJXiSHUFB5HHPk7cU/zY3aXFwcuRzKALjllTQw005azCszF5wM2j
+         rQcT+j8BUQMT1Y52y/04LXNDkSHDRAWW+AMn3qsYOUWB70zTJrCHgvwU06hDhYHgGTqC
+         zz4Mb6IbbbJ2pO1VA8+kYeDOBi1qMgL6Io0LLugvxm6Hsn1+BX8mi9vTsMdh6WLZURuu
+         XsOw==
+X-Gm-Message-State: AFuF++kVBRx97ztfMlAad/jPintFEqXIYfDmPOIAOR6zkEMkxnfLeiTI
+	J3lb3Yg6qmuMXORKCCp7KTTmVrlLzWN8aEkyyXJBEb8Gw8hTjZNSC+Mv/uVMvcOYvE/GRxpufoi
+	xpYg/ByYrBoaMbIdLuMUX83fvd4amtWN2EXtxFkpZK53PkWVEejvC3j9oTvg=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+X-Received: by 2002:a4a:ee12:0:b0:6cd:3ffc:e32e with SMTP id
+ 006d021491bc7-6cd3ffcea26mr4369380eaf.76.1789908777864; Sun, 20 Sep 2026
+ 05:52:57 -0700 (PDT)
+Date: Sun, 20 Sep 2026 05:52:57 -0700
+In-Reply-To: <6aab8055.71f81b7d.278072.0016.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aafd729.514bccd6.255447.0007.GAE@google.com>
+Subject: Forwarded: Re: [syzbot] [ntfs3?] WARNING in ntfs_evict_inode
+From: syzbot <syzbot+3db654d91b471c4d7a7d@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi J=C3=B6rn,
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
->> > Is this check necessary? [...] Looks like the kernel is still
->> > undecided whether checks are necessary or not.
->>=20
->> I will keep it. kzalloc()/kstrdup() under plain GFP_KERNEL can still
->> return NULL under real memory pressure (no __GFP_NOFAIL here), and
->> dropping it would be inconsistent with the kstrdup() check two lines
->> below.
->
-> My foggy mind is slowly waking up.  GFP_ATOMIC can return NULL.  If
-> you're trying to allocate memory from an interrupt handler or similar,
-> you cannot afford to wait for memory reclaim to happen.  Those calls
-> definitely need a check and a reasonable plan what to do in case of
-> failure.
->
-> GFP_KERNEL should be able to block and wait, so there really is no
-> excuse for kmalloc to return NULL or for the callers to need a check.
->
-> But your decision of not pulling too many decisions into a single patch
-> is still a good decision.  Even if my logic is sound, removing checks
-> from kmalloc callers should be a separate effort.
+***
 
-Not saying this would be a bad move, it would be highly inconsistent
-with the current code base. Every single allocation in the kernel is
-checked. Such a change, without a documented and agreed upon method,
-would lead to dozens fuzzing AIs sending patches to add the "missing"
-check.
+Subject: Re: [syzbot] [ntfs3?] WARNING in ntfs_evict_inode
+Author: adarshdas950@gmail.com
 
-Thanks,
-Miqu=C3=A8l
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 518e5b794c06
+
+diff --git a/fs/ntfs3/inode.c b/fs/ntfs3/inode.c
+index 56b4f6469a28..a9b4e288ca20 100644
+--- a/fs/ntfs3/inode.c
++++ b/fs/ntfs3/inode.c
+@@ -842,7 +842,7 @@ static int ntfs_read_folio(struct file *file, struct folio *folio)
+ 
+ 	if (ni->i_valid <= vbo) {
+ 		folio_zero_range(folio, 0, folio_size(folio));
+-		folio_mark_uptodate(folio);
++		iomap_folio_mark_uptodate(folio);
+ 		folio_unlock(folio);
+ 		return 0;
+ 	}
