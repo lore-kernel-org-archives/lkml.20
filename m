@@ -1,71 +1,71 @@
-Received: from mail-oo2-f41.google.com (mail-oo2-f41.google.com [74.125.231.169])
+Received: from mail-oi2-f12.google.com (mail-oi2-f12.google.com [74.125.231.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2528B483825
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 19:45:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB042489863
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 19:45:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789933544; cv=none; b=Y/McnmShzV+yZp0N0xNyofxKe/BBxKDr0076eTKAXKmgrB5hjC05mSjB3Om8byp2QFiP+Ulnk6t3HBZGEYKvdxFqAjFIehCM29Zl6HFRahquvgo7yunVYjVDNLIojak/zliJHzQvsblqzYQjLbMEoAdZ0sJO7IvWhy/6aPlwEfU=
+	t=1789933545; cv=none; b=eDz2DTraNdIU7UydtHqkYrkpQzn9DpjKdCGBCp0y0WdBSpe4f/gnFC0pm/91MAt1NNbF6MSyyk8McNw/nEIpvzdCn4r6p+6PeAymFGjs+IYIFeuihfllac5RmzuX1ckrE3WwJaHZHy5UC49XygWo2Juw0HXapVgwaFpyU6p3eMY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789933544; c=relaxed/simple;
-	bh=gUKFbHeEcxx83+tKppsK/7X6MwKFaPl4J3HQSaFfj00=;
+	s=arc-20240116; t=1789933545; c=relaxed/simple;
+	bh=k5FoGW0DAM2X+E/ozmN4JjC/wwwbNR5mhWy/pmNOyns=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=B38RgE2sfk+HE8TqNYNY+5PdIkzs9IOFHxsmZFX7Ogkg0x3RK24pUUeVYyTBTCo5yYZ4M95D+K/HeDZ8kyqVzF1KewRDjAroRYwhcPeHIo4yS8R9yJGUX+b3/IL2vkomAXBFBpmBsLb9XfzyVcDhgIdPDOCTqNudeGz0sdlKy1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S0GJ19fe; arc=none smtp.client-ip=74.125.231.169
+	 In-Reply-To:To:Cc; b=g2JHikqI5JYVr6tw/8FttxRwCa5e4n9DpQBJD9KBBeDDqqafTb59Mfg6xIsVX24tAHf55re89NX3+qvYzirvMOLA3Z5ofoGrSKI8f7+aetFB1oYKpS/46rBYRK5QbGAEEzuMBiMQBZsoBsvwMvvQP7fhiu1e2vp40xLYecAgwuA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KChtIWAD; arc=none smtp.client-ip=74.125.231.204
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S0GJ19fe"
-Received: by mail-oo2-f41.google.com with SMTP id 006d021491bc7-6c197ff1f53so1125518eaf.1
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 12:45:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KChtIWAD"
+Received: by mail-oi2-f12.google.com with SMTP id 46e09a7af769-7f4f0d37f9dso851943a34.1
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 12:45:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789933541; x=1790538341; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789933542; x=1790538342; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Cfe0VVZFX+0RXygGXnYE+LZWMLMgO2pSV2be59Az8jU=;
-        b=S0GJ19fehWmE2bIYKw6bwP709AZwP/zdcJbzu/AlaCBTULivjYXog6jkuFY+eY2jnt
-         8JON4Us1rW0AQMwv/rMbh0JgQUwIWwXvX4msb+2ajkm4kYSoE7c4awGwDPStZP04Bwcl
-         u0yGPF0SYw3v3PeRhI67So0rvM2cjq/eYt+pZ/iIpgnnWmezj+n/+1bF46UfeFPjj8kz
-         PKp1W8NVHy/Ziz99kD1Qc4+PBI9rUrLFcUyI58xdmgTD8BkZtAmr9+pupKtfz3amCKhE
-         8aWTtNxx66qUwfIQLxjkLL3tC5baZ1ciJpxMyBOnJQyCRVmWNHlaESFn+ePYIgRoMe4b
-         c3gg==
+        bh=z7+d1aoXBtF7Wx/9KwAupq2tjY1ApF1IdNz1vfPutVo=;
+        b=KChtIWADyQPy1o8x3Vf6QSEP9nxAhcpg4xaQ7MrHkeo1s8eq2DqjsoIqHdpqhVqkeG
+         EIlXoeKUxJ9V9NbBOqOv4lYJe22qe6HVSlmzLr/+c9bAMFDDwYSL8vaALmTxiQyooQ2b
+         XRXL7mulZZUPuXgwJAjsmAXQguVwvquRlZLTO+0mDJ7XfTLKGe9061QEyhHGGoc8shw2
+         EsvKkq/4AeXYgaW8ljOzuhmdM/KaZMER7iI3YL52kAH5GhJprD1v2aSrt18JGRUC25pU
+         8ye4/SOw5kqy7volQjHvm5lWXTHjF04zDWthI3COTHk/OqlGmj2AxdU4YIMqSDh0hF3w
+         vjwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789933541; x=1790538341;
+        d=1e100.net; s=20260707; t=1789933542; x=1790538342;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Cfe0VVZFX+0RXygGXnYE+LZWMLMgO2pSV2be59Az8jU=;
-        b=X4r/PsvqS0YfidBMMBh+zn8rBWxx/mxTcUufqU/UZJ5HKibSU/0t9uyLGWYoBWwnWN
-         wvXFGMydL9VBei6+rW1eYHco65DIium+Snbp66hfQLixNEXk0llSYYUiDYLrSX9Wil38
-         L2Tbcya3U2VXBXVW1BqjRry1B48WxKLyvMO6rfeCt1EhNzXSYBsntTSFmcRIgDogj5cI
-         vMmZp9iX8cQq+SjnDVbkeOu9qlFhAqCw1zLZFk2j/ND6ibcd0QNeApoI2hwnmUwn9Ggb
-         oLKmdLN1vVGRgP/OGzoTatrPilOdleteLoWaF06K3KSEzgPZBOH7kY6BdJGQhC37ry61
-         5FeA==
-X-Forwarded-Encrypted: i=1; AKwUvBzGmVx8AoWMu3Wb+9cxF1o7pE/MPc/+iQqtDk+EEiF/X4E/8ACYeZOJmCxai1fXZtt/EX3Hj/fNl806BGI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mqicB/WMnkTGpb0gidmYOItz2qT+MG+YwkvK6uV2itMsb9XG00
-	cXkn1Wxr8B3sG8D6YqCKJ3mZalPuJyPwM6xjlsotp2IMUB56Q9LNKAMa
-X-Gm-Gg: AYBFou1FJZAxufJQ7PWM9m9a4cK/eAYjlUHVz9WH1SoOrn75FhhZVQPxU+E/U/HZHj2
-	jAXkwuEKIKd66ARL8Azt9Z/V7mIOnzfziPj0+ZfbKOFcs1f7bTYzHowmQvYc3d3rsdJo9Z4pBIH
-	298pXVHyiXFHxlYB2xXy1YZek0/v2PxrqGfxsW8xxefqiF31KcF0e8JLRry5sM+zui/48N6t7WR
-	F/EeQFIF3apx1Ud7HA3Yz+lFZ85uZx8/lwPooBhF+NE2yMcOyvk9A6ZelA3TyKwaQOLHt9178vC
-	QwIt+BLAchlIFmPXLAAeevbYzY/2kzUIEV6fGU1wG/AQPV+pu371sBbJpBWBDfoU939ZnB68/7O
-	s1a6zj1xNN5n2WCJO5rc8W8+DLhFiDHOCPppXF2Oy5XCDCl+jK+DBq5+QwlP+eBfsQ2Lx6jsp5q
-	qru9+aKGuHXt/mQYcG6+wOFVRb0lSj5nwCHuKee5m4zIoxxeoigtZT62UvpqzKEh5ySXnS6dmVw
-	MOB7G5npPOoSDe4InUkeqDASkuwIZAPiYeHMZ8i4vEeYAmyqHonai+CuYv8h3ogtLBI3Nx4Qj1i
-	nkkpPVLM+WIqSitIzK0anWbOy7Yi6J9sDIt/mBRFYB43GFyqCfIkzIh4QTN8licjsHLadH+fCSm
-	B6vMyWmKgZkHWZe8fWXuH
-X-Received: by 2002:a05:6820:4b86:b0:6c3:2a60:63c with SMTP id 006d021491bc7-6ca9aa41ef5mr8971692eaf.22.1789933540913;
-        Sun, 20 Sep 2026 12:45:40 -0700 (PDT)
+        bh=z7+d1aoXBtF7Wx/9KwAupq2tjY1ApF1IdNz1vfPutVo=;
+        b=CYC06WMS3V4j0SkhuXbBiqFhcdWqNgfPZB5mcBnujrd0Pv8pgLmU77zm5ZEAJ0YX1t
+         aySCdP0BVqWemt5ToXyeAnG7Bv/pYdjE/fXelwEdJoAk9EhRZYNSLaLfDc7K/GFqmssa
+         nAKW6oWlNcholS4wsk9OH9RKlXh2nIEbI34hQZ1ojvokWYWsorGTnL+JUTcTHPyK8ycg
+         g1l/+ElNERiagBtC3xRNwun6hm8V3GG0StNGl6qROmIlEYkjhNVVkWXt8Ts4iFHJRvbH
+         0U+GzZmRTwClInwpQz8cEu/3vuLX9p91pXZBfOkZjW7CePgqrhTt1Np7rRo3kCVaYUNe
+         fRHA==
+X-Forwarded-Encrypted: i=1; AKwUvBw1bKpbMgYB4CQA7sFWAZhX16nSsapjs7S0zYQQtYYAqJ9wVdi7J5r2QQHUMi9LI8cuoxBHOddlccK3R3A=@vger.kernel.org
+X-Gm-Message-State: AFuF++lZFN6KKI5I8fOozYXIh66GHalgPD5jMS/52B/885lpdjdOC/TR
+	j6/O4uAdnh7cUspjsm8T/u5UIj/QcW3Mn0IRII/BqMYsc2RR2ghEy925
+X-Gm-Gg: AYBFou20+CQqt1VTQT31LLbxd7u89xZ1xCPzDr9wZHo5qy05uEjjUwPuEVUUH6gxfNk
+	79XoSSuNWV+B5oo3QnC2ozf/+lZRw9AmkLjbeintBYPhD0UEp9drVIIFks93YCabGiQ3kA7PO1e
+	jhzkrLAcFI/poQJXmhMeY9c/f0pRCGiktI9HjjqmJKU4uLkCN1YCrRE7n7cIPFzx0V7SFI+tgGB
+	jyWLd8q3TiMnRWUDGIjD+L0erOBbVABTueEX5z1jUrd8xxySyBjeFz9UUFQHuHKDhrL4uvHskOE
+	YHUZjb9CD92UIFnFVYzqdtHdXQrxGVBX7zmDsoJvdwrAY+6f/G/CFykL8US2c9ZevnXwJ8CmJMO
+	ohKT6ofNLov+OaCJqjhckjeDbnn4Ct0ZNhNXIqm0EzO5VhTtoSNhWlDxEKkYjzXdUvkCeNgJnqj
+	LjUYValf/K/yLvtB5rjhBeSNzBCO9WeQNGIImhuQz2G72EauDAJy2ZTYWTkw0JeHZIoo9tNFR7O
+	AUm5hGEy4188+DGTMHg6tZcOnhWV1Xlc8+f3pr3hHd2g5Y64DJkrcUINqGC/73GAIgDoB3amcSF
+	qaM4KCYr94pfJux+jI4CYVpWGmxfVtp9TXj0FQ1djW9Qih0ay8vjaBS2zE2tc3F3i9FM7+VQ4Mb
+	h5kTzlga/fbxaLDw7GH/g
+X-Received: by 2002:a05:6820:1c8f:b0:6cd:3ffc:acf6 with SMTP id 006d021491bc7-6cd3ffcb603mr4885791eaf.70.1789933542612;
+        Sun, 20 Sep 2026 12:45:42 -0700 (PDT)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4881f4d7861sm6103834fac.1.2026.09.20.12.45.39
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4881f4d7861sm6103834fac.1.2026.09.20.12.45.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 12:45:40 -0700 (PDT)
+        Sun, 20 Sep 2026 12:45:42 -0700 (PDT)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sun, 20 Sep 2026 13:45:27 -0600
-Subject: [PATCH net-next v4 1/6] net: phylink: allow stopping a suspended
- instance
+Date: Sun, 20 Sep 2026 13:45:28 -0600
+Subject: [PATCH net-next v4 2/6] net: stmmac: close the interface after a
+ failed MTU reopen
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,7 +74,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260920-submit-h616-emac1-v1-v4-1-8347dfe2eb7d@gmail.com>
+Message-Id: <20260920-submit-h616-emac1-v1-v4-2-8347dfe2eb7d@gmail.com>
 References: <20260920-submit-h616-emac1-v1-v4-0-8347dfe2eb7d@gmail.com>
 In-Reply-To: <20260920-submit-h616-emac1-v1-v4-0-8347dfe2eb7d@gmail.com>
 To: Richard Genoud <richard.genoud@bootlin.com>, 
@@ -102,64 +102,79 @@ Cc: Maxime Ripard <mripard@kernel.org>,
  James Hilliard <james.hilliard1@gmail.com>
 X-Mailer: b4 0.15.2
 
-A MAC which cannot restore its hardware after system sleep may need to
-close the network device instead of calling phylink_resume(). Without MAC
-Wake-on-LAN, phylink_suspend() has already stopped the PHY and PCS, so
-another phylink_stop() repeats their shutdown. With MAC Wake-on-LAN, the
-saved link-up state still needs a matching mac_link_down(), and leaving
-PHYLINK_DISABLE_MAC_WOL set prevents a subsequent start from resolving
-the link.
+An MTU change stops the data path and then reopens it using a newly
+allocated DMA configuration. If reopening fails, the new allocation is
+freed while the netdev remains up and priv->dma_conf retains copies of
+the freed pointers. A subsequent close repeats NAPI disable and IRQ and
+DMA-resource teardown. It can hang in napi_disable() or access resources
+which have already been freed.
 
-Allow phylink_stop() to finish shutdown directly from either suspended
-state. Leave an already stopped instance alone. For MAC Wake-on-LAN,
-stop resolution, drain pending resolve work, complete the deferred
-link-down and clear the WoL disable bit while retaining the stopped bit.
-This does not restart the PHY, reconfigure the MAC or bring its link up.
+Track successful opens of the data path separately from the netdev's
+administrative state. Clear that state when releasing the data path and
+skip a second release after a failed reopen. Close the netdev through the
+network core on the MTU error path, so the PHY attachment and runtime-PM
+reference are released and the interface is marked down. A subsequent
+open can then allocate fresh resources and retry normally.
 
+Keep successful MTU changes on the existing path, retaining the PHY
+attachment and runtime-PM reference. Allocation failures before stopping
+the original data path still leave the running interface unchanged.
+
+Fixes: 3470079687448 ("net: ethernet: stmicro: stmmac: permit MTU change with interface up")
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/net/phy/phylink.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h      |  2 ++
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 10 ++++++++++
+ 2 files changed, 12 insertions(+)
 
-diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-index 390d3eb3e6f7..8ecf2dec3a7d 100644
---- a/drivers/net/phy/phylink.c
-+++ b/drivers/net/phy/phylink.c
-@@ -2615,11 +2615,17 @@ EXPORT_SYMBOL_GPL(phylink_start);
-  *
-  * This will synchronously bring down the link if the link is not already
-  * down (in other words, it will trigger a mac_link_down() method call.)
-+ * It may also be called after phylink_suspend() if the MAC cannot resume
-+ * and the network device must be closed instead.
-  */
- void phylink_stop(struct phylink *pl)
- {
- 	ASSERT_RTNL();
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+index 4fc96b317d79..363872ff00d6 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+@@ -281,6 +281,8 @@ struct stmmac_priv {
+ 	struct mutex lock;
  
-+	/* phylink_suspend() already stops the link without MAC WoL. */
-+	if (test_bit(PHYLINK_DISABLE_STOPPED, &pl->phylink_disable_state))
+ 	struct stmmac_dma_conf dma_conf;
++	/* Paired __stmmac_open()/__stmmac_release(), serialized by RTNL. */
++	bool opened;
+ 
+ 	/* Generic channel for NAPI */
+ 	struct stmmac_channel channel[STMMAC_CH_MAX];
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index bf9e7e4cb1c3..89b773370894 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -4212,6 +4212,7 @@ static int __stmmac_open(struct net_device *dev,
+ 	stmmac_enable_all_queues(priv);
+ 	netif_tx_start_all_queues(priv->dev);
+ 	stmmac_enable_all_dma_irq(priv);
++	priv->opened = true;
+ 
+ 	return 0;
+ 
+@@ -4287,6 +4288,11 @@ static void __stmmac_release(struct net_device *dev)
+ 	struct stmmac_priv *priv = netdev_priv(dev);
+ 	u8 chan;
+ 
++	/* A failed MTU reopen has already released the data path. */
++	if (!priv->opened)
 +		return;
++	priv->opened = false;
 +
- 	if (pl->sfp_bus)
- 		sfp_upstream_stop(pl->sfp_bus);
- 	if (pl->phydev)
-@@ -2632,6 +2638,16 @@ void phylink_stop(struct phylink *pl)
+ 	/* Stop and disconnect the PHY */
+ 	phylink_stop(priv->phylink);
  
- 	phylink_run_resolve_and_disable(pl, PHYLINK_DISABLE_STOPPED);
- 
-+	if (test_bit(PHYLINK_DISABLE_MAC_WOL, &pl->phylink_disable_state)) {
-+		/* Finish the link-down deferred by MAC WoL, without restarting. */
-+		flush_work(&pl->resolve);
-+		mutex_lock(&pl->state_mutex);
-+		if (pl->suspend_link_up)
-+			phylink_link_down(pl);
-+		__clear_bit(PHYLINK_DISABLE_MAC_WOL, &pl->phylink_disable_state);
-+		mutex_unlock(&pl->state_mutex);
-+	}
-+
- 	pl->pcs_state = PCS_STATE_DOWN;
- 
- 	phylink_pcs_disable(pl->pcs);
+@@ -6212,6 +6218,10 @@ static int stmmac_change_mtu(struct net_device *dev, int new_mtu)
+ 		if (ret) {
+ 			free_dma_desc_resources(priv, dma_conf);
+ 			kfree(dma_conf);
++			/* Finish closing the PHY and PM state, but do not repeat
++			 * the data-path teardown after the failed reopen.
++			 */
++			netif_close(dev);
+ 			netdev_err(priv->dev, "failed reopening the interface after MTU change\n");
+ 			return ret;
+ 		}
 
 -- 
 2.53.0
