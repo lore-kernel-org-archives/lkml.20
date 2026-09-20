@@ -1,150 +1,216 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37CCF30AD05
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 02:19:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789870773; cv=pass; b=R2Kb0cDKe/APM+5DDB0rKmiHkDlbrZ98FDtgJyS64fshZgsvR2b4MyvWE/6e0ZLt9vVASvEaWwuZ2elRq2lp/n2IG+8vswFVS2AwwHt37PSmO9lGqB+gcNEn6p9h7qic3gHu9ursG1GhdYg01jGxaogo9FbaD5+0RSQ3MMX2pqM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789870773; c=relaxed/simple;
-	bh=Oj5sg9PCyDUl3TeOjKEQSeMqK8FhKnxaUFXuz/wNJ/I=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lfUlgMHQBVTVGeBNQFqLuaMqI2aqP9QOsvBS9MMFU70iGExTJh776AjYWijYYwkjju1OyZNXXS+BadMYnwSvgp5e8rXEs3IywuuQyEwOxysdnJXsQ50aVY43GTsv1yOBgbVUR/4ZTvCsXDri+TvgE+hTsKO7N+aVvpn/snVczAA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZdY/aojF; arc=pass smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC64C3B0587;
+	Sun, 20 Sep 2026 02:20:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789870860; cv=none; b=hnUTQK+gqO/g0GglUoTQz+oXpUVh17pBb7riX36VAFo7hqY6h74YpuLi/Mf2elpJATzqTHKEvcjh9+sVRGdyJoHFGl6qTA/aPNCxhLpFch0atfcERC/JzSRAWfuLhwBhIi3VI+AVFwlflLvwdTyavhHm6o2QPOoVMCaYGhzhGjg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789870860; c=relaxed/simple;
+	bh=v2tFFUZacAIDE07ELsxx+Z022t6A/gmR+6MWb1i2Yy0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=A4mieQOI/UxVwcEFxObajV/N2DeqrloVcXC0EIULt5DKYbLhGxTKXIZFiVGppVVXnCB36UoAHPnxYW4kR0a8F//eVF8An651rrd+zLYbpw3fOtgCpTubeW6jAP6CwyeRiUkQ39kl+kk354mzxhqNRBdwIuuCVidhjtFVmCsvovI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=iw1zHT3C; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZdY/aojF"
-Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910ca5aa8so190363685a.3
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 19:19:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789870770; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZBpyJ4PxkPatYWP0WN0iSuSOd9ScCW8o2ECxzurYDlmIihhfFhq0T7f1EZOY+McmBK
-         5PNnLFc6E39qg9AdOjhICK7z7Fc8PpFRPYnepRHxicOlgYN6uAYC4qkFC5OcQXuytjYQ
-         /FG7/EedG3LCzw/28PDvubA/cbQcyTcaXEMBjZ4ekLuxQnzFJ77b4q9te6uaW4ZUCo9q
-         5uw5vd2ONVDQ5qJNDLtNyilzeVXFCplxToUoVRedPovpBHuJOnAPthnlF2YtiEXxrgC2
-         HFRN055VyzkX3MOAyDUw4sB6vdcPURk1qUJVvqz531w6iIeayEDqjXQMJcNwjeVy43XL
-         8CjQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=t1jf+n9Y/HXbw9hy+wSRUxXx+QGd/8tyjA6GiwXlHUQ=;
-        fh=abcoMmjGA9edUQ2C014CtHI6e+gS+V/RQ9zhPF7FgHs=;
-        b=FzZUpKo6wgUmtMVXRowXJWBp8Ezw5xRn0kT1aU9EBJz2Gj457mVLtF6xp8wzpNmAkJ
-         bS9/VallMfpw2DnhITArLlWO/ka+mXwoqx9JeePwTIb1/BMe9RCUurVA4kOigLHwoh/N
-         LHgIYhUXcqh//oqQkBeOl58n+6cQMzhHmSNviFJuzCYkd05BeiDiZqVxocVzHDAGqT9z
-         wZoT8Bwwx0OEcN5N7rpb3T7i5Dyz7wxEKz6ra0Sv5nSrVSBJGbPOYHp1tD8iSIMIyRDZ
-         7X+F9ERpKwIPE7bam0WYSWAK793rhRsFifY00B3pYgaDVj4o31KH7XywrXKpp2QRAc0w
-         825A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789870770; x=1790475570; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=t1jf+n9Y/HXbw9hy+wSRUxXx+QGd/8tyjA6GiwXlHUQ=;
-        b=ZdY/aojFRC54Cf2Uxg5kJI2s7ovE/rCSqWRmZqYsrhcX5FrMmwETLowV9bl+QBfGAG
-         V9RTkGu0hepuCs2TIYuIo0FoCh9W7o42lN8okRXyHvq3fTJkX6+n219g/55KehYaH0Fz
-         dih1Zl7u75NLe16cg/EUIJ8cqYY32pjeZX5MGVcWaH40cnuxooGTG6UBikVes5UYSiiu
-         rMt9SFFV2v8p/XqreluP5GuSnFx/JOAyanhSvajdHH4QSM/kcsNMdrs2/n3bNwnZQ2uW
-         zdNXuKpO1WZOxwD01u+BtOFvRSKVeBHejKDE6kM+t9wieGv/Bfb0UeYMEyYi5doSxGLc
-         NBWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789870770; x=1790475570;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=t1jf+n9Y/HXbw9hy+wSRUxXx+QGd/8tyjA6GiwXlHUQ=;
-        b=bh48NrwUjoPICNfu3AfDqXcaC+DBDdeNKgW3W8qX7B+LaY/scCkU38QEKJ8WfUYG2M
-         DQiyyrnketnjVpv8i+5G6XtJqu+pErbrI0GZ0AMhI6VE0QtdguMuy2Lb/d3QYebQY5ti
-         lRg4auIV7AM80R7s/wDvFdnLDqFyuWHVgTWcFp98cxh2WIEy43vOKJp3/beg9y7zT2tN
-         zKabsX8KSqIcO1b7QsPLHusvDuVyq8uvdlptaPdvSnv6Szba7QiPChtsvtKeRB2Jbvbi
-         RxgJZn4LBMnS4G8fdmsZ1TYdNjeAxchbE5p1IynPz5YN8SUkY6OTsb5+h2ALuN/0U3+p
-         z0dg==
-X-Forwarded-Encrypted: i=1; AKwUvByIhBCiEHjV+w2pzWGr67jPBU28ipffHj3qQlw6okeUEj0BOCf97Zg0xdY/af9S0y949fvgyTZa0eWsISM=@vger.kernel.org
-X-Gm-Message-State: AFuF++maOWDttY8xnemrCF4tLkMYKZx8xmnYfbUnlMEasbHyndC6unGf
-	Wmn13i0yYZS0YPt2B8ZcxsUtQClVV6wQlK0/8zsX8psXorzPr05CKTadxT8eP5SuJHXR5zkAy9d
-	It2qxdnHHRo7loYyCW9kTcH8QHGmO5fk=
-X-Gm-Gg: AYBFou1qKaLDlILcmzt2cRK8ak+ySWhosIxCGNB7yvEH3+Ox0+2+ENIanIWTiNJ2l3J
-	zV8cvMnM7iY3ICIqIOcR8JMgIqL72jomrTtfsvowS5zLeQxutYJeCKe5ReUpshZ0QoWM2NAZ8gM
-	rz52Zf6Z9bicpw5bNgLxq2RgQatjTDlslW6UmgzEPP2V3L151rE42kWpXx3+AZ9+f8qbTY/vnvc
-	r3j1O0AAWPNA9dbPyTGYOVE8oi+WHaKZGTs4hlCADGpXxMqkHv5GDtWo1BTqQMuphem/aw4rzKx
-	S3IIq+yd2MxaYFhXQC+L6uvr/i1iy71r+0XlixunZvjtrdGsYYOlKqZn
-X-Received: by 2002:a05:620a:a0ce:10b0:93b:d58f:4fab with SMTP id
- af79cd13be357-93bf5595417mr270410785a.25.1789870770127; Sat, 19 Sep 2026
- 19:19:30 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="iw1zHT3C"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=dJ
+	olkrAP2de5xkNFpX13adY2hQYvUnJwPkyjePIpKEY=; b=iw1zHT3C38Ekt6NKz4
+	3UGBZaAchNXc/SmWOoWS2B6YskI7vrLxWZuWPLeybdJbKppNEWE1PpUXUUurLtr/
+	scNlcDX9CGBieJdDw58FF4KefnuoArED3Pyk0QluYn0dr7LQUss4PCAne9WeyxWN
+	YrNER7KGk5Lt13df1H90bU/O4=
+Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wB3U9PTQq9qg1hLBw--.56923S2;
+	Sun, 20 Sep 2026 10:20:05 +0800 (CST)
+From: Quchaosheng <quchaosheng000406@163.com>
+To: Jonathan Corbet <corbet@lwn.net>
+Cc: Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	quchaosheng000406@163.com
+Subject: [PATCH 1/2] sched/doc: add a preemption model overview
+Date: Sun, 20 Sep 2026 10:20:02 +0800
+Message-ID: <20260920022003.1202546-1-quchaosheng000406@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260919131744.131030-1-physicalmtea@gmail.com> <20260919152336-mutt-send-email-mst@kernel.org>
-In-Reply-To: <20260919152336-mutt-send-email-mst@kernel.org>
-From: Jia Jia <physicalmtea@gmail.com>
-Date: Sun, 20 Sep 2026 10:18:53 +0800
-X-Gm-Features: AcwNN1VkMN-0syiFYPeuWa4rISLvm99vUAZPB8bHXDefFB9Y34rSJVqTJuxGaqo
-Message-ID: <CAJwVaM+BmE_HoN_hSYL28nhZh1ZStqH9Od3pizAb_fyTZAS+5g@mail.gmail.com>
-Subject: Re: [PATCH] vhost: keep vring addresses stable while the backend is attached
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: Jason Wang <jasowangio@gmail.com>, =?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
-	Nicholas Bellinger <nab@linux-iscsi.org>, kvm@vger.kernel.org, virtualization@lists.linux.dev, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wB3U9PTQq9qg1hLBw--.56923S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxKrWrKF47uF1rKrWkZFyDAwb_yoW3XryDpF
+	Z0qrWfXws3J340kryxAw18XryrZ3WxAa1xGrykJry5Awn8Xa4jyr4Utr1aqryUCr18ZFWF
+	qrs5X3y2kw1jyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piaiixUUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbDABZMwWqvQtZvGwAA3+
 
->
-> On Sat, Sep 19, 2026 at 09:17:44PM +0800, Jia Jia wrote:
-> > vhost-scsi keeps the response and bounce-buffer iovecs until the backend
-> > completes the command.  If userspace changes the vring addresses while the
-> > command is in flight, the completion data is copied through the old iovecs
-> > while vhost_add_used() updates the new used ring.  The guest then no longer
-> > sees the completion.
->
-> I do not get what all this is trying to say. if you break it you get to
-> keep both pieces. when is this a real problem?
->
+The scheduler documentation describes the individual scheduling classes
+and various tuning knobs, but there is nothing that describes the
+preemption models themselves.  The only place where they are documented
+is the kernel-parameters entry for "preempt=", which explains the boot
+time parameter but not the models it selects.
 
-Before running the test, I checked the virtio spec and vhost UAPI and
-did not find an explicit rule
-prohibiting changes to vring addresses while a backend is attached.
-That is why I ran the directed test.
-I see what you mean now. I'll drop this patch.
+Add Documentation/scheduler/sched-preemption.rst, covering the four
+models, which of them can be selected at runtime, and the mechanism
+behind PREEMPT_LAZY.  The lazy model in particular is easy to
+misunderstand: a lazy reschedule does not send a cross-CPU reschedule
+IPI, so it is only committed on the return to user space or on the next
+tick.  That makes the tick an upper bound on lazy preemption latency,
+and it means the usual real-time latency tools, which wake a pinned
+task on its own CPU, do not exercise it at all.
 
-> >
-> > Reject changes to the vring addresses while a backend is attached to the
-> > queue.  Keep accepting the current addresses so userspace can update
-> > VHOST_VRING_F_LOG or log_guest_addr without stopping the backend.  Queues
-> > that have not been attached retain the existing setup behavior; userspace
-> > must detach the backend before changing their addresses.
-> >
-> > Fixes: 057cbf49a1f0 ("tcm_vhost: Initial merge for vhost level target fabric driver")
-> > Signed-off-by: Jia Jia <physicalmtea@gmail.com>
-> > ---
-> >  drivers/vhost/vhost.c | 11 +++++++++++
-> >  1 file changed, 11 insertions(+)
-> >
-> > diff --git a/drivers/vhost/vhost.c b/drivers/vhost/vhost.c
-> > index 44cac11b68d2..074590838de5 100644
-> > --- a/drivers/vhost/vhost.c
-> > +++ b/drivers/vhost/vhost.c
-> > @@ -2150,6 +2150,17 @@ static long vhost_vring_set_addr(struct vhost_dev *d,
-> >                               a.flags & (0x1 << VHOST_VRING_F_LOG),
-> >                               a.log_guest_addr))
-> >                       return -EINVAL;
-> > +
-> > +             /*
-> > +              * Commands may retain iovecs derived from the current ring
-> > +              * addresses.  Keep the addresses unchanged while the backend
-> > +              * is attached.
-> > +              */
-> > +             if ((vq->desc || vq->avail || vq->used) &&
-> > +                 (vq->desc != (void __user *)(unsigned long)a.desc_user_addr ||
-> > +                  vq->avail != (void __user *)(unsigned long)a.avail_user_addr ||
-> > +                  vq->used != (void __user *)(unsigned long)a.used_user_addr))
-> > +                     return -EBUSY;
-> >       }
-> >
-> >       vq->log_used = !!(a.flags & (0x1 << VHOST_VRING_F_LOG));
->
+Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
+---
+ Documentation/scheduler/index.rst            |   1 +
+ Documentation/scheduler/sched-preemption.rst | 120 +++++++++++++++++++
+ 2 files changed, 121 insertions(+)
+ create mode 100644 Documentation/scheduler/sched-preemption.rst
+
+diff --git a/Documentation/scheduler/index.rst b/Documentation/scheduler/index.rst
+index 17ce8d76befc..d6d75421756a 100644
+--- a/Documentation/scheduler/index.rst
++++ b/Documentation/scheduler/index.rst
+@@ -23,5 +23,6 @@ Scheduler
+     sched-stats
+     sched-ext
+     sched-debug
++    sched-preemption
+ 
+     text_files
+diff --git a/Documentation/scheduler/sched-preemption.rst b/Documentation/scheduler/sched-preemption.rst
+new file mode 100644
+index 000000000000..fc6fd89789cf
+--- /dev/null
++++ b/Documentation/scheduler/sched-preemption.rst
+@@ -0,0 +1,120 @@
++=====================
++Scheduler preemption
++=====================
++
++The kernel can be built to run kernel code either uninterruptibly, or with
++varying degrees of preemptibility.  These are the *preemption models*.
++
++When CONFIG_PREEMPT_DYNAMIC is enabled the preemption model can additionally
++be selected at boot time with the ``preempt=`` command line parameter, without
++rebuilding the kernel.  See
++Documentation/admin-guide/kernel-parameters.txt for the parameter itself.
++
++The models selectable at runtime are:
++
++	=========	====================================================
++	none		No preemption of kernel code other than at explicit
++			``cond_resched()`` / blocking points.
++	voluntary	As ``none``, plus ``might_sleep()`` sites.
++	full		Any section that is not explicitly preempt disabled
++			may be preempted at any time.  Tasks also yield
++			contended spinlocks.
++	lazy		As ``full``, except that a reschedule requested by
++			the fair scheduler does not interrupt the target
++			CPU.  It is committed at the next return to user
++			space or at the next tick, whichever comes first.
++	=========	====================================================
++
++Not every model is available on every kernel.  On a kernel that selects
++ARCH_HAS_PREEMPT_LAZY, only ``full`` and ``lazy`` are offered and ``none`` and
++``voluntary`` are rejected.  A PREEMPT_RT kernel likewise does not offer
++``none`` or ``voluntary``.
++
++The model that is actually active is reported in the boot log::
++
++	Dynamic Preempt: full
++
++PREEMPT_LAZY
++============
++
++``lazy`` is the interesting one, because its behaviour cannot be understood
++from the "can this be preempted" question alone.
++
++When a wakeup makes a running CFS task preemptible, the fair scheduler calls
++``resched_curr_lazy()``.  With the lazy model inactive that is just
++``resched_curr()``; with ``lazy`` active it sets ``TIF_NEED_RESCHED_LAZY``
++instead of ``TIF_NEED_RESCHED``.  The consequence is in ``__resched_curr()``:
++the cross-CPU reschedule IPI is only sent for ``TIF_NEED_RESCHED``.
++
++A lazy reschedule therefore does *not* interrupt the target CPU.  It is
++committed later, in one of two ways:
++
++1. On the next return to user mode.  ``__exit_to_user_mode_loop()`` treats
++   ``_TIF_NEED_RESCHED | _TIF_NEED_RESCHED_LAZY`` as a reschedule request, and
++   ``xfer_to_guest_mode_work()`` does the same for a vCPU returning to guest
++   mode.
++
++2. In ``scheduler_tick()``, which promotes a pending
++   ``TIF_NEED_RESCHED_LAZY`` to a full ``TIF_NEED_RESCHED`` once per tick.
++
++The tick is thus an upper bound on lazy preemption latency for CFS tasks: a
++runnable CFS task that has been passed over is picked up within one tick, not
++immediately.  The tick is guaranteed to run in the case that matters: while
++more than one CFS task is runnable on the CPU, ``sched_can_stop_tick()``
++refuses to stop the tick.  A lazy reschedule aimed at the idle task is promoted
++to a full one instead.
++
++That is the intended trade-off -- it avoids sending an IPI to every CPU that
++has a runnable CFS task -- and it is why ``lazy`` gives up latency in exchange
++for fewer inter-processor interrupts.
++
++The idle task is never delayed: ``__resched_curr()`` promotes a lazy
++reschedule to a full one when the target is the idle task.
++
++Only the fair scheduler issues lazy reschedules.  RT and deadline tasks are
++still preempted immediately.  ``lazy`` is therefore not a replacement for
++PREEMPT_RT; it is a way to keep most of the responsiveness of ``full`` while
++removing a large part of its IPI traffic.
++
++Debugging
++=========
++
++The scheduler debugfs directory provides ``/sys/kernel/debug/sched/preempt``,
++which lists the models that may be switched to; the active one is enclosed in
++parentheses::
++
++	# cat /sys/kernel/debug/sched/preempt
++	full (lazy)
++
++Writing a model name to the file switches to it.  A name that the kernel
++cannot select (either because the model is not built in, or because it is not
++available on this kernel) is rejected with EINVAL.  The ``preempt=``
++boot parameter rejects such a value as well, but only prints an ``unsupported
++mode`` warning and keeps the default model.
++
++Measuring
++=========
++
++Two things routinely trip people up when measuring preemption latency.
++
++First, the classic real-time latency tools do not exercise lazy preemption at
++all.  Lazy only applies to the fair class, so waking a SCHED_FIFO task takes
++``resched_curr()`` and preempts immediately, whichever model is active.  And
++when the woken task runs on the CPU the wakeup happens on, even a fair lazy
++reschedule is committed as soon as that CPU returns to user mode, which for an
++already runnable task is immediate.  For both reasons such workloads measure
++the same under ``lazy`` and ``full``.
++
++The difference only shows up when the woken task is *not* running on the CPU
++where the wakeup happens.  In that case the waker requests the reschedule, and
++under ``lazy`` that request is not turned into an IPI; the target CPU only
++notices at its next tick.  A measurement that cannot distinguish ``none`` from
++``full`` is usually not measuring the preemption model at all: in the absence
++of ``lazy``, the reschedule IPI is sent regardless of the model and provides a
++preemption point even on PREEMPT_NONE.
++
++Second, when driving cross-CPU wakeups from a periodic source, keep the wakeup
++period away from integer multiples of the tick.  A period that is phase-locked
++to the tick will hide (or invent) exactly the effect that is being measured.
++Add jitter to the wakeup period, and confirm the active model from the
++``Dynamic Preempt:`` line rather than assuming that ``preempt=`` took effect.
+-- 
+2.43.0
+
