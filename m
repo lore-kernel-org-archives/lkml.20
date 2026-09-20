@@ -1,73 +1,155 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BF29470EAC;
-	Sun, 20 Sep 2026 17:09:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25E3B46C82A;
+	Sun, 20 Sep 2026 17:09:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789924149; cv=none; b=hg19maFFs/9uo62mxM6vuPyjGhgbzbNGdU7I2TfW2DM6r60r6tBKiwoRp/ejDgo7zGSg4idWXNY70e1JqqOP6DNwWEn+e5I9v10/n1xZ4CmGicxZx92TsejfeUGWebr6rrPW2aFN6tEERvCanRSqNbgOeEe5ki9Rj13NDZBUMbc=
+	t=1789924175; cv=none; b=W2tYnCb5UwfR3iipK7DdkeBvAyWTOsqFSrgCU7YJONQAJKO87/jeEmIY0gJwFItWEWgBpB3/4O/g1tjODw902KHsu6wWxKNXTEXNfiau/FoMxPhzis6dFVbjyHnF+49xOGkw9e/IoKCGP8rlxDq8pIIMMq4tJZX7hayYm1DQZok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789924149; c=relaxed/simple;
-	bh=XxY58653qXLMCdmP/Wl/hDF6ueUf4S0awiiQp8F3b5g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mP9AzoHRJme6lndaI+QCzmmJPBOHIG+QujkniaWK3a5BiNPmJ7LjOvc+PBwLtoWGP9U8AwX+mPCVKHQ1UtBmiGg+if1X2HhaVHTahX0WEN6BatkyhUEe03UN/hbpztOD233OUxTJ+RhpGVJAwXKsMloHfSE55n5uikNHNcGeSig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=agEZLjOO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789924175; c=relaxed/simple;
+	bh=epEIftHIJ6guXFyAvgDr34Mirok2VIQrn65ZZPY0Sms=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=DOJslBPIor2OPgH64CDZYbSj6HJs0kIG2JXmY9h3mjcBWaDRFWMaYcRWKSd5fovUKS1ep7HUevUlEaAslvpqzjDbSFBFxtXRBofZlPSfiAXBEMvj+xDoNZwz5h55UIumhp8vMIvwdblyCfbzYySznwDb2SFcT8e9efJFHcul6Rc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DHaF1nrF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="agEZLjOO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A8991F000FF;
-	Sun, 20 Sep 2026 17:09:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DHaF1nrF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FF801F00893;
+	Sun, 20 Sep 2026 17:09:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789924147;
-	bh=qKpwjWPW1NdYTtKIe6euaznppBojWulsRMGtxc9W8sQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=agEZLjOO1UxxCeMJBsjbPzFxZ4qapOmj56f2KgUJ2T2l4fekSQ3XeL3viZS4Rvisd
-	 UbwRFs0x69Yz3jEXOyP9TIbCBYKcYCRSc/EL3WozZszVDOARO9c9noTqKLHHL25us4
-	 QxMgqErtnirLM1azofAcvqvuviMqUs42TNexDtqQIjiez6o8gmfokxpYF7h9Grk5f1
-	 0KbPZjK59bs6Vw4l4I2+TOy1fVHFkTVRAbhra/8ArtaWVUzohsI08tuNmXIX6SQ7y0
-	 Y+RU44/Mw+TdfpxqxW7/a3pC8qxCQ5x/VOOgResK67UFQTQPbRn+oDmu/ZGtCpROr5
-	 SsU777gEpuN3Q==
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Sam Protsenko <semen.protsenko@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alexey Klimov <alexey.klimov@linaro.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	linux-samsung-soc@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: (subset) [PATCH v4 2/2] arm64: dts: exynos850: Add acpm SRAM node
-Date: Sun, 20 Sep 2026 19:08:53 +0200
-Message-ID: <178992412364.36366.8985404551240087001.b4-ty@b4>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260914-exynos850_sram-v4-2-253871de0f61@linaro.org>
-References: <20260914-exynos850_sram-v4-2-253871de0f61@linaro.org>
+	s=k20260515; t=1789924173;
+	bh=wZeL3R3YkLJnrienhtZ9limxE9zz/cF9+FDo7Jb4mvo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=DHaF1nrFQwZGVR/Zcxmx7TUVXQTGrYYGlkl1bVIEpB6tGgJuDwUB0M9tjpuQcTR0+
+	 5eCTsDz9lTZwXWFag9Ut61vaeiBMlOCF1nr51/VBlZTNEdDrRTZpYeLMCpFIITYOZ7
+	 A8SEy0kkJaH+G7OsL/gEmzOKc9U47nxOghoqBFH4/2O+SNQVJVhIALFfEYpf6iZAFE
+	 h9uFCoqn2IAUSkpaHS8ChYiS1P34t342/yqBLwa7gVSa6WwNPIX555uRHZODUun+Xy
+	 /jaGAGzcRRiRDyieBlIE1ygv6jQK32/fcH2+GY2qBsVsG4Isf6OoPYRhtzz2Q/2zNt
+	 gNpHIRi+DGZ0w==
+Date: Sun, 20 Sep 2026 18:09:27 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Kim Jinseob <kimjinseob88@gmail.com>
+Cc: linux-iio@vger.kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
+ andriy.shevchenko@intel.com, linux-kernel@vger.kernel.org,
+ rdunlap@infradead.org, joshua.crofts1@gmail.com,
+ u.kleine-koenig@baylibre.com, julianbraha@gmail.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+ corbet@lwn.net, skhan@linuxfoundation.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v10 4/8] iio: osf: add validated stream parser
+Message-ID: <20260920180927.138da86c@jic23-hlaptop>
+In-Reply-To: <CALMSew+LJjky+3uSSL3kByzpT-tkNmJTDurykNmH-nj9+zxCJw@mail.gmail.com>
+References: <cover.1789753020.git.kimjinseob88@gmail.com>
+	<e9d1f8f8d69b76797d617965f263df97b2b586e0.1789753020.git.kimjinseob88@gmail.com>
+	<20260920023057.71ef0eb5@jic23-hlaptop>
+	<CALMSew+LJjky+3uSSL3kByzpT-tkNmJTDurykNmH-nj9+zxCJw@mail.gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Developer-Signature: v=1; a=openpgp-sha256; l=399; i=krzk@kernel.org; h=from:subject:message-id; bh=XOrM/upLRY+Wl828g0o39pfuHUwJmLy7QyJxP738Xpo=; b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqsBMlxljmafkYVOSo0jGiQHvuG8WHTF19JAyb1 SIHRSj6S/uJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCarATJQAKCRDBN2bmhouD 108QD/0YXteQAP3MUwMPRg7a7WlR91BSCRepj8sTrt+6oXgkM4+sAV5NUkjMgvWm1IZg+q+6mkI KmhZBOfuAKm3OcIexUAhKH0NN6MhNsEdq4RjWn/s5Yn7ngkbz16GO80alnwVi2hVR0qTJZu4L5F 4PmjACVfu8O85d0kJTyqcAIqQnJxG7KDGoeORP0zXt2Vt/4y/N+VtdxAuUrYzvSHso5k389fjX4 +s96ljMnS/kKsAVRfe1QiYAIah8sU9GAHtV3jnm7cqcjAvtgizh+BI6DA7jJQGZgODKHWxhkdD0 6UGN1iHcC9XUwcD/YfEP4HH7d5xgT1e5cDM4Pc20S4EqUnJIV/oAtwuViHFkPReUcPohQqpVQl3 FCEHMGPKjLmTS63RmjKtDFmfFO1+TUd5MRIdHuF+LjCjeBLQAbH74iQbe1icSlAgxPTFjR/UZF9 JeojR8X4LGUEcMbzFjE0ZQsZ/7T4K/jYn2NTvr9NzKp3QivEfofhwa3AkD16RwFblTUg4sAfUyU ia87eg914yncs62U9TuDXBHOCkn6bh+qWrf/Nm39v9TcbFOdhJHAwL/wbbBthxJcQwhR6lNI7R9 YwsDkjsH7i5t1NSkgIfAMTpptyaKNRVcs7H5MvKCLHp0HZ+NtA8m+fFsUwzZpHEhzAjSIvwlSVX 31jJu+5UmmD4x/
- g==
-X-Developer-Key: i=krzk@kernel.org; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
+On Sun, 20 Sep 2026 13:12:54 +0900
+Kim Jinseob <kimjinseob88@gmail.com> wrote:
 
-On Mon, 14 Sep 2026 17:58:45 +0100, Alexey Klimov wrote:
-> SRAM is used by the ACPM protocol to retrieve the ACPM channels
-> information and configuration data. Add the SRAM node.
+> > You could reorder these two functions and call stream_reset from
+> > stream_init. Would make it clear what getting to a 'clean' state
+> > means. =20
+>=20
+> Agreed. I'll move osf_stream_reset() before osf_stream_init() and use
+> it from the init path in the next revision.
+>=20
+A few process things.  Strong preference is always for reply inline so
+the context is there next to the reply rather than pulling part of
+that context to the top of the email.
 
-Applied, thanks!
+The other thing is that if your reply doesn't convey much information
+beyond agreeing to make suggested change, don't send the reply.
+We all get far too many emails and can check the change log of the next
+version to see if everything that was not addressed in the earlier
+thread has been dealt with!
 
-[2/2] arm64: dts: exynos850: Add acpm SRAM node
-      https://git.kernel.org/krzk/linux/c/089d44f32868e6a5fc3f817073b59b298fbc9e73
+Note I send this sort of email about once a week - so you are far from
+the first to need a little nudge towards more optimal interactions
+on the list!
 
-Best regards,
--- 
-Krzysztof Kozlowski <krzk@kernel.org>
+Thanks,
+
+Jonathan
+
+> Thanks,
+>=20
+> Jinseob
+>=20
+> 2026=EB=85=84 9=EC=9B=94 20=EC=9D=BC (=EC=9D=BC) =EC=98=A4=EC=A0=84 10:31=
+, Jonathan Cameron <jic23@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+> >
+> > On Sat, 19 Sep 2026 03:24:42 +0900
+> > Jinseob Kim <kimjinseob88@gmail.com> wrote:
+> > =20
+> > > Add a UART byte-stream parser for Open Sensor Fusion frames.
+> > >
+> > > The parser searches for the OSF0 wire magic, keeps partial frames
+> > > buffered, checks header length and payload bounds, and passes complete
+> > > candidate frames to a registered frame callback.
+> > >
+> > > Candidates rejected before validation drop only the current head
+> > > byte before resynchronizing, so a corrupted unvalidated payload length
+> > > cannot make the parser skip later valid frames. CRC-valid validated
+> > > frames are consumed in full and classified as handled, ignored, or
+> > > rejected.
+> > >
+> > > Use a direct callback member with an opaque context and keep explicit
+> > > statistics for validated outcomes and framing failures.
+> > >
+> > > Assisted-by: LLM
+> > > Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com> =20
+> > Just one trivial thing.
+> >
+> > Thanks,
+> >
+> > Jonathan
+> >
+> > =20
+> > > diff --git a/drivers/iio/opensensorfusion/osf_stream.c b/drivers/iio/=
+opensensorfusion/osf_stream.c
+> > > new file mode 100644
+> > > index 000000000000..e262415e69b7
+> > > --- /dev/null
+> > > +++ b/drivers/iio/opensensorfusion/osf_stream.c =20
+> >
+> > =20
+> > > +void osf_stream_init(struct osf_stream *stream,
+> > > +                  int (*receive_frame)(void *context, const u8 *buf,
+> > > +                                       size_t len),
+> > > +                  void *frame_context)
+> > > +{
+> > > +     if (!stream)
+> > > +             return;
+> > > +
+> > > +     stream->receive_frame =3D receive_frame;
+> > > +     stream->frame_context =3D frame_context;
+> > > +     stream->len =3D 0;
+> > > +     memset(&stream->stats, 0, sizeof(stream->stats));
+> > > +}
+> > > +
+> > > +void osf_stream_reset(struct osf_stream *stream)
+> > > +{
+> > > +     if (!stream)
+> > > +             return;
+> > > +
+> > > +     stream->len =3D 0;
+> > > +     memset(&stream->stats, 0, sizeof(stream->stats));
+> > > +} =20
+> >
+> > You could reorder these two functions and call stream_reset from
+> > stream_init.  Would make it clear what getting to a 'clean' state
+> > means.
+> >
+> >
+> > =20
+>=20
+
