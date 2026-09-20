@@ -1,103 +1,108 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A05A41A0B15;
-	Sun, 20 Sep 2026 03:48:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3F343C988B;
+	Sun, 20 Sep 2026 03:48:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789876103; cv=none; b=ahlEWJ+XunxDoh7BgyxwqsjpbrSEFiVNX71nZD/loJ14maR1u8RFbjLFTk+2bTI+uGT5Lxe/PN3pDVrW5VNizOXDwqF/V9hNuf2G6mPtfnizOZv+2BS5fksMX3NCE7G3DjzUX7C4LNzpP58ht4w9prA4jbyHguyn03RLOSraOCU=
+	t=1789876106; cv=none; b=NA/LeuJsWEIPD2wokqvLxV7hFQaQgPESwDygfcv8w3+0XIBXfZMbwsaRJtFfb/3Koum5EbX+YS1L4PBR+s7bY1BH3OvGTvn1ovHTl7r6BjHhE200XJX3PZgogJg0RqWI7BpbSDZoi+LueQNCuSRsJ+x0WqD7V/s8JxCwqy5HnNs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789876103; c=relaxed/simple;
-	bh=d2h7FXY+Z0Ko0oEFu2YEzuKqYCDUZDocdHjJCap76RI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aWoBzuJEwpQr8du9quu3n9SkaGDHloqu0FGl3G9wFOmz2iXBLJbDljtdNTk2IaVxZLiQwFgczn3E7mnp87YCk+UyivWmhBf3TOs9XoqdYGDCde2IlBJkEpISUvg7XcvvZgW+WjgUsRy8XlvP8dAc8kkqtl/dtKwcU1l2eSpQESY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ji/eJWH8; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789876106; c=relaxed/simple;
+	bh=GSrtFVQAoq72BuT4l8bSIy6B2kt0Hd5qAgqf+SK4zMM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ajp3i2J+MOgHiq4Hmw3p5FHfTHG4Z1MD8VAiCwaZr77KBEIP5rC6LU/PzuajvJCiTMDHwFxJhPz23e/xPVGoSiSBqI72HkUVFBQ60/fdE/IEDvL8iukunYpNEh/BgAqh8KkHYEgEtIRzxyTuF4xsVJNMHFvmSxPow2Z0IEO+jWs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YBC6aBoZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ji/eJWH8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=zC
-	ZCn/HTbvG7ECS8MrnseKP2fmhceo6WnzmtSb28Ils=; b=ji/eJWH8jJUx2y1NRV
-	4O0lrwzr6L2hX5zSkT1raEF6w2QDxuoWsW5rF6LJktJdWaontCENLTMHXjZmqAnF
-	xrO8PjzsijH9oXNuYysbIIQxBaNk8pQSjqNrh6hKG9dswpFriMT7xC2nq5Xjld98
-	9mv4KdxfTV6kyWSbxMZTHWWOg=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp1 (Coremail) with SMTP id PCgvCgDHlxhjV69qJnc7AQ--.62997S2;
-	Sun, 20 Sep 2026 11:47:48 +0800 (CST)
-From: Pengpeng Hou <hppiscas@163.com>
-To: andrew+netdev@lunn.ch
-Cc: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux-usb@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	enelsonmoore@gmail.com,
-	peter@korsgaard.com,
-	horms@kernel.org,
-	andrew@lunn.ch,
-	hppiscas@163.com
-Subject: [PATCH net v2] net: usb: sr9700: include receive overhead in the length check
-Date: Sun, 20 Sep 2026 11:47:45 +0800
-Message-ID: <20260920034745.18468-1-hppiscas@163.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YBC6aBoZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C45C01F000FF;
+	Sun, 20 Sep 2026 03:48:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789876104;
+	bh=ybCr0oF8quCv/avwZgHBTOG1l69Dfvx6Rf/qRs6G0NM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YBC6aBoZFH8ZoVIjcCysvgKQWPCeAZnK7xSXqRi8+dyWiyNvuz6IjqFWVKI+gEzA3
+	 oaMZt+GfiWWPwZO+L7WtXR6zTVPWm8J5aEQddxqJ9e8w9wdXf9cgyQkwYsShqX/3y3
+	 N6q33sbNYcxGvAtrsYo3EEQ1xP8Sx7eo8YiTsMCwsBDDR8h5oUZoUzzWD7hn+yryq/
+	 dmoy7MMUFxy9hhJgZ1IuBPQFuWfx1BGqdpXi0ELNTQT7jOC3pbUc6TgXZiNsFdvHgO
+	 2IPsOuX8fnt1Lpf/zBLFIb5c3OeIqw4T36I3/T9Np3Fk0ATdmUGrQeHxMxPs1dTCJs
+	 9OLkkJAmVBHTA==
+Date: Sat, 19 Sep 2026 20:48:24 -0700
+From: Kees Cook <kees@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Masahiro Yamada <masahiroy@kernel.org>,
+	Alexey Gladkov <legion@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
+	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
+	linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v3 09/20] kbuild: implement and use depcheck to check
+ dependency timestamps
+Message-ID: <202609192047.17BD9B1F@keescook>
+References: <20260917-build-speedup-v3-0-9ecf4163ff36@kernel.org>
+ <20260917-build-speedup-v3-9-9ecf4163ff36@kernel.org>
+ <202609171117.35BFDCC13@keescook>
+ <aq6-KMkAx7q_xLO4@gremlin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PCgvCgDHlxhjV69qJnc7AQ--.62997S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tryktrW8GFyDWr4UJrWrKrg_yoW8AFWrpF
-	ZxWFW7Zr4kJ3W7Jwn0kw4fWayrCas3Jr9xuF9Yq3s5uasIvw1xKa40gF1j9F1DArWrGFW0
-	yrZ8trs7Zan5AwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U59NsUUUUU=
-X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbCxQR1PmqvV2SULgAA3G
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aq6-KMkAx7q_xLO4@gremlin>
 
-The receive fixup subtracts the Ethernet CRC from the reported packet
-length, but compares that payload length against the whole remaining
-receive buffer. The following copy starts after the three-byte header,
-and the cursor advance consumes both that header and the four-byte CRC.
+On Sat, Sep 19, 2026 at 05:57:36PM +0100, Lorenzo Stoakes (ARM) wrote:
+> On Thu, Sep 17, 2026 at 11:42:50AM -0700, Kees Cook wrote:
+> > On Thu, Sep 17, 2026 at 05:06:19PM +0100, Lorenzo Stoakes (ARM) wrote:
+> > > [...]
+> > > +static bool next_line(const char **pos, const char *end, struct line *line)
+> >
+> > There is a lot of string handling in here. I know you're going for speed,
+> > but it just feels like a python script doing all this would be much more
+> > readable without wrecking speed compared to C much. Yes, C will win out,
+> > but the maintainability of this helper does not fill me with joy. :P
+> 
+> Well I had the LLM look at that and for an allmodconfig python's startup time
+> would take 40s of CPU time _alone_ and it'd kill the no op improvement. So C it
+> has to be :)
 
-Require the payload to fit after SR_RX_OVERHEAD before copying it or
-advancing to the next packet. The loop already ensures that the
-remaining buffer is larger than the overhead, so the subtraction is
-safe.
+Yikes, that's huge. C it is. ;)
 
-The issue was found by our static-analysis tool.
-
-Fixes: c9b37458e956 ("USB2NET : SR9700 : One chip USB 1.1 USB2NET SR9700Device Driver Support")
-Reviewed-by: Ethan Nelson-Moore <enelsonmoore@gmail.com>
-Tested-by: Ethan Nelson-Moore <enelsonmoore@gmail.com>
-Assisted-by: gpt 5
-Signed-off-by: Pengpeng Hou <hppiscas@163.com>
----
-Changes since v1:
-https://lore.kernel.org/all/20260705083724.24494-1-pengpeng@iscas.ac.cn/
-Clarify the subject as Andrew and Ethan requested. This is a revision of
-the previously withdrawn queue entry, not a new bug report.
-
- drivers/net/usb/sr9700.c |    3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/usb/sr9700.c b/drivers/net/usb/sr9700.c
-index 937e6fef3ac6..50981a28376a 100644
---- a/drivers/net/usb/sr9700.c
-+++ b/drivers/net/usb/sr9700.c
-@@ -355,7 +355,8 @@ static int sr9700_rx_fixup(struct usbnet *dev, struct sk_buff *skb)
- 		/* ignore the CRC length */
- 		len = (skb->data[1] | (skb->data[2] << 8)) - 4;
- 
--		if (len > ETH_FRAME_LEN || len > skb->len || len < 0)
-+		if (len > ETH_FRAME_LEN || len < 0 ||
-+		    len > skb->len - SR_RX_OVERHEAD)
- 			return 0;
- 
- 		/* the last packet of current skb */
-
-base-commit: 518e5b794c06c0f0eb40df3e202274a66202c137
 -- 
-2.50.1 (Apple Git-155)
-
+Kees Cook
