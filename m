@@ -1,63 +1,63 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E18C9296BBC
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 18:30:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EDB4472558
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 18:30:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789929046; cv=none; b=Gkgxfgc0N7euCudraFh9BAfMjgesWVZyMx50jhioCMtk+w4O5nnnAROXGZoBBj4t6GpM1+3q8d0Zlom1w2I0MJcwlYb8BIyahKtIc5k3aNyw+5dETd5i9bb0DzZ6zOBRiDuUBZ5oD4yNh5awVQXJhEcedd0p0P+kvoi129QID+c=
+	t=1789929045; cv=none; b=Fq9IlSbSXBENA+O5gqkzQX/BdAU1yzI+MusKMG3X7MtzMoq2SLQMkEId6eeT8kafMeVZeVcSUMMf6uPMNfwdJsSOQ2KOY4hqUU62xM5zVW7UYoZQNalc2QFsvdvEBS5eOPtpOVdjexdMM8SEXXsH7Jw1CS4x6fyyGnYYNcClkHI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789929046; c=relaxed/simple;
-	bh=kJlZAJC5w8Y6rxPPy96a2gpbq9yTsgzYHypSB80iKmo=;
+	s=arc-20240116; t=1789929045; c=relaxed/simple;
+	bh=brszAfCb8xPeY2++BmqbzkUD7Gs991VIWtKQ+a7lhTo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DBCzyJIV0x6lKuihRTmSHkre+vXVktbyU9lJl6gyohS1qVr2yXD2qNZi7RVIqCn1jsm1wmVY9CWUUoCiiw/0VYzgI9jD42jK7nEH3KJj7G8xLlheSOznppKREusq2VUt4rC3v2ROWROkLCnYP7R58i5rakFkbn3eoCtcphpWolA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=gUZtZG1/; arc=none smtp.client-ip=74.125.227.141
+	 MIME-Version; b=gydcSM/UptGpoJhFTi/DK/XmBZe4ncDvyBRQiXMHcqXtdPbeXNARR6Cvt0MrHgsSwmleeofBW5II7CpLWOQr/q6J329PrE7h9JyaqnV3YGPlN3iIvfHZIt0hQzweZbJpCn2yYoRzhEQvpJ7Lw80w9o+dr7otnVgroLH05Yg5NuY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=PLagUTvW; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="gUZtZG1/"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2db1ca069c8so22982315ad.3
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 11:30:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="PLagUTvW"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebad4afso1575568a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 11:30:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1789929041; x=1790533841; darn=vger.kernel.org;
+        d=purestorage.com; s=google2022; t=1789929040; x=1790533840; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=AW01tuh8hRVQtK4qarvblwO+ofGvSgZdhu/67l8Xj60=;
-        b=gUZtZG1/GHtq4Tq7n3iwEJzL4k/rzOw8m2gWXw1kUbFtRvyzVsysY38oxnooKmzZHW
-         yS2/WjYrfEdIjbK2qYrm5ok0ZdLhQTCkMSFrmQVhFflXuJ7oGq7DYwmABaoN7ORrFAPO
-         JjKRDs2y6wOOib9YFfiWtAXqE/1GgTg8t+pndqd3ZXbQHwvqaoX5B+f45u6T/ur2E6+g
-         7o8idRm1eDP6vnMdre8j2mse4xdCGRsreimRjybK05Oxj6DtRxbcDZSdTlyUCM+SACiH
-         Q/QdMgwM23NAd40AvxFcHDSeh4n/Xjjt7brSZ50pY5y0R7bEJN5Txdoat4iW3+2+fTmV
-         ssNA==
+        bh=7jjZqkSxtF056SbAAw5d/uzyUYxqOIAwzrV4C8XoM0U=;
+        b=PLagUTvWC+LHG0S+ARAOCOsPEHcajAUgYKk1Ub5FP5/8LYA7hKYNvhBFqui7oayMJK
+         3Ry6a4iFo7sfWPNmcdFSXGcATxbTTxxkUFtm53CDoiDIvfWntFI3eaf4f4ecLialfafD
+         ylY161qwO0RXUPFMswC71b+kFG+SFcJn5a9shf7HCtStujuimgbnDEoiSZSMeQOhgwtm
+         n4kLhDVUvpnuesoGIjn+SDUMFSIpJVT0R/OXRXtpVObWLwiS9N1qzDb1XJw8+YUd/ZOU
+         Az41qboXCVhAM5k+9+irUczKRfkNsFUzNSyJs2YxavPOZYC0rjCCR014NRFHqIBJVunv
+         6Yfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789929041; x=1790533841;
+        d=1e100.net; s=20260707; t=1789929040; x=1790533840;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AW01tuh8hRVQtK4qarvblwO+ofGvSgZdhu/67l8Xj60=;
-        b=GgCJ0ncIw9yc+S1C7xc8gNy5T53YOzY29L8pSt+WRfiipILLQVwcnG9S75+raehU3M
-         1N9BS0nffwXvSjVTz2aE9BMPif6fbSg6eesiPhJ5l+7qWs/3FPjHK20mPl7s29mFdp6u
-         MJ++veGRcX7w3O0FbGucQRiG9Ke7y4Oz980wYyjWHKzaiJJnebppzFPNW2oJ/jtSKkd9
-         7yOl65UmOkKtaD+HSwtIsHE2mtR2i0dilo5sVBM7/KC0F/H/J4bVH/oLqR8hyN1PeJSE
-         FdZ7P5JJ436pfh6AUB2hGLr9Fyzxf7gkvTRzbge+7SgZPRg8QUGLEodOW8nRlw/phe6V
-         9Aug==
-X-Forwarded-Encrypted: i=1; AKwUvBxtaGxx33Xy469YuRdePEQ72Mde6GdMoGP7Vz2opJKMZVHEfXyIMrOKoCqG50ha4+frjae+ZRTPxhp5FpQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kKZt3nykkeEY3qAz5VTfTKJlb0l4FWYfbP4gvLqCCgfnIsv9PR
-	bvDKFY8E4yd+dce6XbgEsvAXsF9tOAGzc8nze6Aom1Ej4KOjtX/iNNqnpoAYakulnj4=
-X-Gm-Gg: AYBFou0kbyzfNwzsMvRbG+ua1tYkmPgSNCJ0iCXtbyzkWp34W/6PBYuI+1GH6osdHGZ
-	kpPrpriMMNZbS5J7r1qNjAXzCCQQvKQ1NVcKbRth5dxjzc9uGEqjbbsaf2j8bYoRBgkqMz2pNEW
-	bNUNK+BSBQuxnEABZnvzq4yoDzyBNn3a+z8k0KNTtz2Nk3Ql8p3+deA9es+tjEQKCl7u0P1+miK
-	aFzRNRmhsCURyHFl0lHoPzAN138ijNrirIMe8dYmZOSzne/VQLvtUct6HEkCGXx6T2TLMKNmbyP
-	2XaekBi/WKmmzavqE23eBprXXlT6Hn11XiKw60aQaaQucKLKuscYagBqwW1oaaEU94d4ytkEb0J
-	k4IDiFY8IBdv47j3g2ZB3biz850QLCvtlv+B+GwmhvHTl8i9s9Gkv6ZS1vW9+/u/6YBlKEDFG+0
-	sdg0Xex58VWlXaVyUeH6UXUuj8PFEW9mYUbZZhxxf091j6swidPmkuo11w
-X-Received: by 2002:a17:90b:5281:b0:39e:4c7f:8b17 with SMTP id 98e67ed59e1d1-39e54cf8bc1mr14650246a91.28.1789929040984;
-        Sun, 20 Sep 2026 11:30:40 -0700 (PDT)
+        bh=7jjZqkSxtF056SbAAw5d/uzyUYxqOIAwzrV4C8XoM0U=;
+        b=NrdCIj5Fk9qNPEPrc7v28vjLOv16r7Uo6JNfJowjJK0Q4xes1UppXZu5zyCMGSVsS9
+         IVwlFbyX1zCcE4X6x8dNLf9VuPYXDBT3DH3Mq80jwrdzOhBZJEvVji1+0GK/xrrq6J9s
+         y6/n3+UrT6LElID4kdJF6walC7c0cB/x2Was2ABoUd+rFs/9WplTFb41Jsll2Lkls/dn
+         U2bocScedoK8A6hrVYMwSf8hUlPgn5ly3NUMUpGcPW3A2Rh3MzOGIA+r+awcjzfuyQPn
+         KNA+yG0Xvn1aHMuZvVTLOJyYeZ/0KkENgKrwFa3brtT3u5gegIc4WTXzgcZSL7UKCjMY
+         lXjg==
+X-Forwarded-Encrypted: i=1; AKwUvBxhIFGQ8x20Na14lygfAbWQWuzz+mlczYxwIy0fc/upUUSidtQewD7WLezbNNk4cYip9hasQuheFXOe0zQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nGuEhOB5u993qsxPTLgWmWH0u7B/XSQ+P3aKk7L9UFK+C1bZ41
+	wLaOrUPj2Bsf/8IHx7utdtncVXqtatVYr+U+iMZ5Z+wn0rH2vk1/XE1eTgWJuggu0Ng=
+X-Gm-Gg: AYBFou1KMlMx2iHhszC0KTdJe5zZ1350olc2ToyuO0iWqMXl6yrdKb6oCHlC7AXOXiw
+	Db2Ym5jrd6MdOdPEa1KcOgnvAix8nWKijjhWwRUaiQHUkliIVyJQW7U1OpjjpgIIwvHa+r8xhhQ
+	d03SessGdfK1auPdfU0CGN//QuGKvT8yDZ5UFbd2JsYyMQcz+1Xr3CL0cc6xo8Uf6c0DnWrM0Sx
+	LhsegMDTyajCP7MeWvt/qdn3Pi3cVgh3QUzMdmMHEgzKRjdSZ5HK6NvpVc7MToFNw8DktH9nwbt
+	l97w5Iem35t9vrzCf4hOJGyCg4wfqklXER32B9kwbrvCf/sC0eTgcLjuvNgwPIkMxD4mN8V7CZt
+	Yi4Qeye8zuWnl8KxESSCb5tf/o08EntHbWFq0j11uYJfurYHUGx7VsynV3qb06rQj+MWVwZHVbm
+	Ecp0d3V2aggzhhglAaE1ZQlYz8gCqg4u7zVOkfsH6qFvhz8Hp2R1rqcJC/
+X-Received: by 2002:a05:6a21:1f82:b0:3dd:a197:cf29 with SMTP id adf61e73a8af0-3dda197d873mr6832729637.77.1789929039375;
+        Sun, 20 Sep 2026 11:30:39 -0700 (PDT)
 Received: from ceto ([2607:fb90:9c20:5ac0::1d8c])
-        by smtp.googlemail.com with ESMTPSA id a92af1059eb24-144da432647sm20924589c88.5.2026.09.20.11.30.39
+        by smtp.googlemail.com with ESMTPSA id a92af1059eb24-144da432647sm20924589c88.5.2026.09.20.11.30.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 11:30:40 -0700 (PDT)
+        Sun, 20 Sep 2026 11:30:38 -0700 (PDT)
 From: Mohamed Khalfella <mkhalfella@purestorage.com>
 To: Keith Busch <kbusch@kernel.org>,
 	Jens Axboe <axboe@kernel.dk>,
@@ -73,9 +73,9 @@ Cc: Justin Tee <justin.tee@broadcom.com>,
 	Mohamed Khalfella <mkhalfella@purestorage.com>,
 	linux-nvme@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v6 16/18] nvmet: Add support for CQT to nvme target
-Date: Sun, 20 Sep 2026 11:28:14 -0700
-Message-ID: <20260920182936.2317916-17-mkhalfella@purestorage.com>
+Subject: [PATCH v6 15/18] nvme-fc: Hold inflight requests while in FENCING state
+Date: Sun, 20 Sep 2026 11:28:13 -0700
+Message-ID: <20260920182936.2317916-16-mkhalfella@purestorage.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260920182936.2317916-1-mkhalfella@purestorage.com>
 References: <20260920182936.2317916-1-mkhalfella@purestorage.com>
@@ -87,156 +87,284 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-TP4129 KATO Corrections and Clarifications defined CQT (Command Quiesce
-Time) which is used along with KATO (Keep Alive Timeout) to set an upper
-time limit for attempting Cross-Controller Recovery. CQT is added as a
-subsystem attribute that defaults to 0 to maintain the current behavior.
+With the association torn down at the start of nvme_fc_fencing_work(),
+canceling the held requests inside nvme_fc_delete_association() would
+complete them at fence START, letting them fail over to other paths
+before CCR/CQT guarantees the target can no longer execute the original
+commands - defeating the hold this patch introduces.
+
+Split nvme_fc_delete_association() into __nvme_fc_teardown_association()
+(LLDD-facing teardown, no request completion) and
+nvme_fc_flush_held_requests() (cancel tagsets + unquiesce queues).
+nvme_fc_fencing_work() now runs only the teardown half up front and
+flushes the held requests on the FENCING -> FENCED transition. The
+queues stay quiesced across the fence so nothing new reaches the dead
+association.
+
+Update nvme_fc_fcpio_done() to not complete aborted requests or requests
+with transport errors. Held requests cannot be forced out mid-fence by
+the block layer, nvme_fc_timeout() always returns BLK_EH_RESET_TIMER and
+nvme_fc_start_ioerr_recovery() is a no-op in FENCING state. Every held
+op is FCPOP_STATE_COMPLETE before the fence starts (aborts drained,
+synchronize_rcu() done), so the flush never touches the LLDD.
 
 Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
-Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
 ---
- drivers/nvme/target/admin-cmd.c |  1 +
- drivers/nvme/target/configfs.c  | 36 +++++++++++++++++++++++++++++++++
- drivers/nvme/target/core.c      |  3 +++
- drivers/nvme/target/nvmet.h     |  2 ++
- include/linux/nvme.h            |  5 ++++-
- 5 files changed, 46 insertions(+), 1 deletion(-)
+ drivers/nvme/host/fc.c | 116 +++++++++++++++++++++++++++++++++--------
+ 1 file changed, 94 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/nvme/target/admin-cmd.c b/drivers/nvme/target/admin-cmd.c
-index a60b2f271e98..c0cd233048eb 100644
---- a/drivers/nvme/target/admin-cmd.c
-+++ b/drivers/nvme/target/admin-cmd.c
-@@ -739,6 +739,7 @@ static void nvmet_execute_identify_ctrl(struct nvmet_req *req)
- 	id->cntlid = cpu_to_le16(ctrl->cntlid);
- 	id->ver = cpu_to_le32(ctrl->subsys->ver);
- 	if (!nvmet_is_disc_subsys(ctrl->subsys)) {
-+		id->cqt = cpu_to_le16(ctrl->cqt);
- 		id->ciu = ctrl->ciu;
- 		id->cirn = cpu_to_le64(ctrl->cirn);
- 		id->ccrl = NVMF_CCR_LIMIT;
-diff --git a/drivers/nvme/target/configfs.c b/drivers/nvme/target/configfs.c
-index 6286e38436dd..88a59ac1e93a 100644
---- a/drivers/nvme/target/configfs.c
-+++ b/drivers/nvme/target/configfs.c
-@@ -1663,6 +1663,41 @@ static ssize_t nvmet_subsys_attr_pi_enable_store(struct config_item *item,
- CONFIGFS_ATTR(nvmet_subsys_, attr_pi_enable);
- #endif
+diff --git a/drivers/nvme/host/fc.c b/drivers/nvme/host/fc.c
+index 42671cca439f..a6e0fa2dc341 100644
+--- a/drivers/nvme/host/fc.c
++++ b/drivers/nvme/host/fc.c
+@@ -172,7 +172,7 @@ struct nvme_fc_ctrl {
  
-+static ssize_t nvmet_subsys_attr_cqt_show(struct config_item *item,
-+					  char *page)
-+{
-+	return snprintf(page, PAGE_SIZE, "%u\n", to_subsys(item)->cqt);
-+}
-+
-+static ssize_t nvmet_subsys_attr_cqt_store(struct config_item *item,
-+					   const char *page, size_t cnt)
-+{
-+	struct nvmet_subsys *subsys = to_subsys(item);
-+	struct nvmet_ctrl *ctrl;
-+	u16 cqt;
-+
-+	if (nvmet_is_disc_subsys(subsys))
-+		return -EINVAL;
-+
-+	if (sscanf(page, "%hu\n", &cqt) != 1)
-+		return -EINVAL;
-+
-+	down_write(&nvmet_config_sem);
-+	mutex_lock(&subsys->lock);
-+	if (subsys->cqt == cqt)
-+		goto out;
-+
-+	subsys->cqt = cqt;
-+	/* Force reconnect */
-+	list_for_each_entry(ctrl, &subsys->ctrls, subsys_entry)
-+		ctrl->ops->delete_ctrl(ctrl);
-+out:
-+	mutex_unlock(&subsys->lock);
-+	up_write(&nvmet_config_sem);
-+	return cnt;
-+}
-+CONFIGFS_ATTR(nvmet_subsys_, attr_cqt);
-+
- static ssize_t nvmet_subsys_attr_qid_max_show(struct config_item *item,
- 					      char *page)
- {
-@@ -1703,6 +1738,7 @@ static struct configfs_attribute *nvmet_subsys_attrs[] = {
- 	&nvmet_subsys_attr_attr_vendor_id,
- 	&nvmet_subsys_attr_attr_subsys_vendor_id,
- 	&nvmet_subsys_attr_attr_model,
-+	&nvmet_subsys_attr_attr_cqt,
- 	&nvmet_subsys_attr_attr_qid_max,
- 	&nvmet_subsys_attr_attr_ieee_oui,
- 	&nvmet_subsys_attr_attr_firmware,
-diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
-index 69491e8e52ba..a93cf7e3a704 100644
---- a/drivers/nvme/target/core.c
-+++ b/drivers/nvme/target/core.c
-@@ -1753,6 +1753,7 @@ struct nvmet_ctrl *nvmet_alloc_ctrl(struct nvmet_alloc_ctrl_args *args)
- 	ctrl->cntlid = ret;
+ 	struct kref		ref;
+ 	unsigned long		flags;
+-	u32			iocnt;
++	atomic_t		iocnt;
+ 	wait_queue_head_t	ioabort_wait;
  
- 	if (!nvmet_is_disc_subsys(ctrl->subsys)) {
-+		ctrl->cqt = subsys->cqt;
- 		ctrl->ciu = get_random_u8() ? : 1;
- 		ctrl->cirn = get_random_u64();
+ 	struct nvme_fc_fcp_op	aen_ops[NVME_NR_AEN_COMMANDS];
+@@ -991,7 +991,8 @@ static void nvme_fc_ctrl_put(struct nvme_fc_ctrl *);
+ static int nvme_fc_ctrl_get(struct nvme_fc_ctrl *);
+ 
+ static void nvme_fc_error_recovery(struct nvme_fc_ctrl *ctrl);
+-static void nvme_fc_delete_association(struct nvme_fc_ctrl *ctrl);
++static void __nvme_fc_teardown_association(struct nvme_fc_ctrl *ctrl);
++static void nvme_fc_flush_held_requests(struct nvme_fc_ctrl *ctrl);
+ 
+ static void
+ __nvme_fc_finish_ls_req(struct nvmefc_ls_req_op *lsop)
+@@ -1826,7 +1827,7 @@ __nvme_fc_abort_op(struct nvme_fc_ctrl *ctrl, struct nvme_fc_fcp_op *op)
+ 		atomic_set(&op->state, opstate);
+ 	else if (test_bit(FCCTRL_TERMIO, &ctrl->flags)) {
+ 		op->flags |= FCOP_FLAGS_TERMIO;
+-		ctrl->iocnt++;
++		atomic_inc(&ctrl->iocnt);
  	}
-@@ -1980,10 +1981,12 @@ struct nvmet_subsys *nvmet_subsys_alloc(const char *subsysnqn,
+ 	spin_unlock_irqrestore(&ctrl->lock, flags);
  
- 	switch (type) {
- 	case NVME_NQN_NVME:
-+		subsys->cqt = NVMF_CQT_MS;
- 		subsys->max_qid = NVMET_NR_QUEUES;
- 		break;
- 	case NVME_NQN_DISC:
- 	case NVME_NQN_CURR:
-+		subsys->cqt = 0;
- 		subsys->max_qid = 0;
- 		break;
- 	default:
-diff --git a/drivers/nvme/target/nvmet.h b/drivers/nvme/target/nvmet.h
-index 88fa11aa0587..ddf88c772938 100644
---- a/drivers/nvme/target/nvmet.h
-+++ b/drivers/nvme/target/nvmet.h
-@@ -270,6 +270,7 @@ struct nvmet_ctrl {
- 	uuid_t			hostid;
- 	u16			cntlid;
- 	u16			max_qid;
-+	u16			cqt;
- 	u8			ciu;
- 	u32			kato;
- 	u64			cirn;
-@@ -347,6 +348,7 @@ struct nvmet_subsys {
- #ifdef CONFIG_NVME_TARGET_DEBUGFS
- 	struct dentry		*debugfs_dir;
- #endif
-+	u16			cqt;
- 	u16			max_qid;
+@@ -1856,20 +1857,29 @@ nvme_fc_abort_aen_ops(struct nvme_fc_ctrl *ctrl)
+ }
  
- 	u64			ver;
-diff --git a/include/linux/nvme.h b/include/linux/nvme.h
-index 3757d11ffea3..0b69ed53f347 100644
---- a/include/linux/nvme.h
-+++ b/include/linux/nvme.h
-@@ -21,6 +21,7 @@
- #define NVMF_TRADDR_SIZE	256
- #define NVMF_TSAS_SIZE		256
+ static inline void
++__nvme_fc_fcpop_count_one_down(struct nvme_fc_ctrl *ctrl)
++{
++	if (atomic_dec_return(&ctrl->iocnt) == 0)
++		wake_up(&ctrl->ioabort_wait);
++}
++
++static inline bool
+ __nvme_fc_fcpop_chk_teardowns(struct nvme_fc_ctrl *ctrl,
+ 		struct nvme_fc_fcp_op *op, int opstate)
+ {
+ 	unsigned long flags;
++	bool ret = false;
  
-+#define NVMF_CQT_MS		0
- #define NVMF_CCR_LIMIT		4
- #define NVMF_CCR_PER_PAGE	511
+ 	if (opstate == FCPOP_STATE_ABORTED) {
+ 		spin_lock_irqsave(&ctrl->lock, flags);
+ 		if (test_bit(FCCTRL_TERMIO, &ctrl->flags) &&
+ 		    op->flags & FCOP_FLAGS_TERMIO) {
+-			if (!--ctrl->iocnt)
+-				wake_up(&ctrl->ioabort_wait);
++			ret = true;
+ 		}
+ 		spin_unlock_irqrestore(&ctrl->lock, flags);
+ 	}
++
++	return ret;
+ }
  
-@@ -368,7 +369,9 @@ struct nvme_id_ctrl {
- 	__u8			anacap;
- 	__le32			anagrpmax;
- 	__le32			nanagrpid;
--	__u8			rsvd352[160];
-+	__u8			rsvd352[34];
-+	__le16			cqt;
-+	__u8			rsvd388[124];
- 	__u8			sqes;
- 	__u8			cqes;
- 	__le16			maxcmd;
+ static void nvme_fc_fencing_work(struct work_struct *work)
+@@ -1885,12 +1895,14 @@ static void nvme_fc_fencing_work(struct work_struct *work)
+ 	 */
+ 	nvme_stop_keep_alive(ctrl);
+ 	cancel_work_sync(&ctrl->async_event_work);
+-	nvme_fc_delete_association(fc_ctrl);
++	if (test_and_clear_bit(ASSOC_ACTIVE, &fc_ctrl->flags))
++		__nvme_fc_teardown_association(fc_ctrl);
+ 
+ 	rem = nvme_fence_ctrl(ctrl);
+ 	if (rem)
+ 		dev_info(ctrl->device, "CCR failed, starting error recovery\n");
+ 
++	nvme_fc_flush_held_requests(fc_ctrl);
+ 	nvme_change_ctrl_state(ctrl, NVME_CTRL_FENCED);
+ 	if (nvme_change_ctrl_state(ctrl, NVME_CTRL_RESETTING))
+ 		queue_work(nvme_reset_wq, &fc_ctrl->ioerr_work);
+@@ -2003,7 +2015,8 @@ nvme_fc_fcpio_done(struct nvmefc_fcp_req *req)
+ 	struct nvme_command *sqe = &op->cmd_iu.sqe;
+ 	__le16 status = cpu_to_le16(NVME_SC_SUCCESS << 1);
+ 	union nvme_result result;
+-	bool terminate_assoc = true;
++	bool op_term, terminate_assoc = true;
++	enum nvme_ctrl_state state;
+ 	int opstate;
+ 
+ 	/*
+@@ -2043,6 +2056,9 @@ nvme_fc_fcpio_done(struct nvmefc_fcp_req *req)
+ 	 * association to be terminated.
+ 	 */
+ 
++	/* Pairs with synchronize_rcu() in __nvme_fc_teardown_association() */
++	rcu_read_lock();
++
+ 	opstate = atomic_xchg(&op->state, FCPOP_STATE_COMPLETE);
+ 
+ 	fc_dma_sync_single_for_cpu(ctrl->lport->dev, op->fcp_req.rspdma,
+@@ -2136,20 +2152,44 @@ nvme_fc_fcpio_done(struct nvmefc_fcp_req *req)
+ done:
+ 	if (op->flags & FCOP_FLAGS_AEN) {
+ 		nvme_complete_async_event(&queue->ctrl->ctrl, status, &result);
+-		__nvme_fc_fcpop_chk_teardowns(ctrl, op, opstate);
++		if (__nvme_fc_fcpop_chk_teardowns(ctrl, op, opstate))
++			__nvme_fc_fcpop_count_one_down(ctrl);
+ 		atomic_set(&op->state, FCPOP_STATE_IDLE);
+ 		op->flags = FCOP_FLAGS_AEN;	/* clear other flags */
+ 		nvme_fc_ctrl_put(ctrl);
+ 		goto check_error;
+ 	}
+ 
+-	__nvme_fc_fcpop_chk_teardowns(ctrl, op, opstate);
++	/*
++	 * We can not access op after the request is completed because it can
++	 * be reused immediately. At the same time we want to wakeup the thread
++	 * waiting for ongoing IOs _after_ requests are completed. This is
++	 * necessary because that thread will start canceling inflight IOs
++	 * and we want to avoid request completion racing with cancellation.
++	 */
++	op_term = __nvme_fc_fcpop_chk_teardowns(ctrl, op, opstate);
++
++	/*
++	 * If we are going to terminate associations and the controller is
++	 * LIVE or FENCING, then do not complete this request now. Let error
++	 * recovery cancel this request when it is safe to do so.
++	 */
++	state = nvme_ctrl_state(&ctrl->ctrl);
++	if (terminate_assoc &&
++	    (state == NVME_CTRL_LIVE || state == NVME_CTRL_FENCING))
++		goto check_op_term;
++
+ 	if (!nvme_try_complete_req(rq, status, result))
+ 		nvme_fc_complete_rq(rq);
++check_op_term:
++	if (op_term)
++		__nvme_fc_fcpop_count_one_down(ctrl);
+ 
+ check_error:
+ 	if (terminate_assoc)
+ 		nvme_fc_start_ioerr_recovery(ctrl, "io error");
++
++	rcu_read_unlock();
+ }
+ 
+ static int
+@@ -2802,7 +2842,8 @@ nvme_fc_start_fcp_op(struct nvme_fc_ctrl *ctrl, struct nvme_fc_queue *queue,
+ 		 * cmd with the csn was supposed to arrive.
+ 		 */
+ 		opstate = atomic_xchg(&op->state, FCPOP_STATE_COMPLETE);
+-		__nvme_fc_fcpop_chk_teardowns(ctrl, op, opstate);
++		if (__nvme_fc_fcpop_chk_teardowns(ctrl, op, opstate))
++			__nvme_fc_fcpop_count_one_down(ctrl);
+ 
+ 		if (!(op->flags & FCOP_FLAGS_AEN)) {
+ 			nvme_fc_unmap_data(ctrl, op->rq, op);
+@@ -3260,25 +3301,25 @@ nvme_fc_create_association(struct nvme_fc_ctrl *ctrl)
+ 	return ret;
+ }
+ 
+-
+ /*
+- * This routine stops operation of the controller on the host side.
+- * On the host os stack side: Admin and IO queues are stopped,
+- *   outstanding ios on them terminated via FC ABTS.
+- * On the link side: the association is terminated.
++ * This routine tears down the association on the link side and releases
++ * all LLDD resources: outstanding ios are terminated via FC ABTS, hw
++ * queues are deleted and the controller is marked inactive on the
++ * rport. Requests that nvme_fc_fcpio_done() decided to hold are NOT
++ * completed here, the caller must follow up with
++ * nvme_fc_flush_held_requests() once it is safe to release them.
++ *
++ * The caller must own the ASSOC_ACTIVE bit (test_and_clear_bit()).
+  */
+ static void
+-nvme_fc_delete_association(struct nvme_fc_ctrl *ctrl)
++__nvme_fc_teardown_association(struct nvme_fc_ctrl *ctrl)
+ {
+ 	struct nvmefc_ls_rcv_op *disls = NULL;
+ 	unsigned long flags;
+ 
+-	if (!test_and_clear_bit(ASSOC_ACTIVE, &ctrl->flags))
+-		return;
+-
+ 	spin_lock_irqsave(&ctrl->lock, flags);
+ 	set_bit(FCCTRL_TERMIO, &ctrl->flags);
+-	ctrl->iocnt = 0;
++	atomic_set(&ctrl->iocnt, 0);
+ 	spin_unlock_irqrestore(&ctrl->lock, flags);
+ 
+ 	__nvme_fc_abort_outstanding_ios(ctrl, false);
+@@ -3287,11 +3328,18 @@ nvme_fc_delete_association(struct nvme_fc_ctrl *ctrl)
+ 	nvme_fc_abort_aen_ops(ctrl);
+ 
+ 	/* wait for all io that had to be aborted */
++	wait_event(ctrl->ioabort_wait, atomic_read(&ctrl->iocnt) == 0);
+ 	spin_lock_irq(&ctrl->lock);
+-	wait_event_lock_irq(ctrl->ioabort_wait, ctrl->iocnt == 0, ctrl->lock);
+ 	clear_bit(FCCTRL_TERMIO, &ctrl->flags);
+ 	spin_unlock_irq(&ctrl->lock);
+ 
++	/*
++	 * Wait for a started nvme_fc_fcpio_done() to complete before we
++	 * proceed with cancelling inflight requests. This guarantees a
++	 * request is completed by one of the two codepaths, not both.
++	 */
++	synchronize_rcu();
++
+ 	nvme_fc_term_aen_ops(ctrl);
+ 
+ 	/*
+@@ -3323,13 +3371,37 @@ nvme_fc_delete_association(struct nvme_fc_ctrl *ctrl)
+ 	__nvme_fc_delete_hw_queue(ctrl, &ctrl->queues[0], 0);
+ 	nvme_fc_free_queue(&ctrl->queues[0]);
+ 
++	nvme_fc_ctlr_inactive_on_rport(ctrl);
++}
++
++/* Complete the requests held in __nvme_fc_teardown_association() */
++static void
++nvme_fc_flush_held_requests(struct nvme_fc_ctrl *ctrl)
++{
++	nvme_cancel_tagset(&ctrl->ctrl);
++	nvme_cancel_admin_tagset(&ctrl->ctrl);
++
+ 	/* re-enable the admin_q so anything new can fast fail */
+ 	nvme_unquiesce_admin_queue(&ctrl->ctrl);
+ 
+ 	/* resume the io queues so that things will fast fail */
+ 	nvme_unquiesce_io_queues(&ctrl->ctrl);
++}
+ 
+-	nvme_fc_ctlr_inactive_on_rport(ctrl);
++/*
++ * This routine stops operation of the controller on the host side.
++ * On the host os stack side: Admin and IO queues are stopped,
++ *   outstanding ios on them terminated via FC ABTS.
++ * On the link side: the association is terminated.
++ */
++static void
++nvme_fc_delete_association(struct nvme_fc_ctrl *ctrl)
++{
++	if (!test_and_clear_bit(ASSOC_ACTIVE, &ctrl->flags))
++		return;
++
++	__nvme_fc_teardown_association(ctrl);
++	nvme_fc_flush_held_requests(ctrl);
+ }
+ 
+ static void
 -- 
 2.55.0
 
