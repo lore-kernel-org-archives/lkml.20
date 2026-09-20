@@ -1,120 +1,95 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39B9B35F5E7;
-	Sun, 20 Sep 2026 03:47:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3730E1CFA2;
+	Sun, 20 Sep 2026 03:47:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789876027; cv=none; b=N5fQEhuWrTA05SEJ2vyhhKIHSxwozfRiGX2rDo1XQZik9E0ibvevImHW01DD6M2ErrZYL/weuxqeqATkNNObTriTYtmNP1Mb3jy+FClrMWDMvRB/Gw/3O9nYPtB8G1abdyqQXP8BkAhO9kDqTj+01t+BVG36OxMhq8KnPEbOQKU=
+	t=1789876065; cv=none; b=MdmJL84phbMJV7YxN2gVXpnJhmWVh/W5ZP4pmGQjXopuPo9Mwsub9UuAzIPIsbsNwGaynke3j68c8HZvoLNhfQlPUwKIzKf9f2j26aQwBH+FQW6VMjiRMFlgwsNCXJ9KZAWY0h+6VgUKjisrR1MaI/JGdETCeKQSj8jbf078RCA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789876027; c=relaxed/simple;
-	bh=jt5UpzIIcFALqUTKExKkZFsYBWvAkf6805Ri0Rf4FOk=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=eipgtXX3bmbKyQdVTyBJaMczqkD1jVXFjdRmaFXf+ZyUX83k6Vi2tfkJ8TErKzSJfXLqgdbUaz6yA1Dpz07YWt3NtDYq9mpMGYXR49sGOY22JrbiliTgQtL4GbybcdM/K1PGf7C2QOArnQrdnxTtqV7YiCqJnlvaWZDcsa0wZRI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=VhdOUDQn; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1789876065; c=relaxed/simple;
+	bh=uL0o1MAS5yI9Uxm5OzrAh4kcBGy3cTjh5LAhGkuIxz0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=l8Q8CIkxazAdUnTBbLtFTNlD2Wnw44/d5Vie0Nuzepc0nJD18isfvRO9oV2b2MJmPSFMEwgLZVlM4mmo8K3QzQug8fSgaOgPrq4gHqx3Hk9Ei9sDU9qXureluxSTn8XWasvL+Zidr79kbRyGp2TEe4wh0ED4bkbDA2wr2raAoaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=gvcdU7a5; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="VhdOUDQn"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68K3ktI131407681, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1789876015; bh=jt5UpzIIcFALqUTKExKkZFsYBWvAkf6805Ri0Rf4FOk=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=VhdOUDQnf8Trm/JQiUPyBJgTyakdo3Y6kyuYumC71Gk2PziZL21Q+bq2DYGCojW+T
-	 tkZ0y5+wc91qzO0SB3kTxR4RB9p1lE/7us79qSM8t02ou4fdTIe3nUkC2Id7KslcOH
-	 Dginqcwfgvav+1iNNAmLcoV54DTOgvGVj7Al6xvTB2PgUFY3AjKQ88U3qrPKasYN1b
-	 RDiO4paaJmeY5Jbcf1KZCr+o95fnqdJWag8fofjO/Of/+Iedns2GRBWumxjNSo7u9p
-	 tEZ7XcVQ/kyOhh35tAd5p55xiiC6aFRRXQoYAidQ7H3dhgQUS93vQOtId8150z1vE7
-	 ig+TU1yMlY6Uw==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68K3ktI131407681
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Sun, 20 Sep 2026 11:46:55 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Sun, 20 Sep 2026 11:46:55 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Sun, 20 Sep 2026 11:46:55 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: "5mghybrid@khu.ac.kr" <5mghybrid@khu.ac.kr>,
-	"linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>
-CC: "kvalo@kernel.org" <kvalo@kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "Jes.Sorensen@gmail.com"
-	<Jes.Sorensen@gmail.com>
-Subject: RE: [PATCH rtw-next v3 3/3] wifi: rtl8xxxu: preserve RX requests
- across recoverable transfer errors
-Thread-Topic: [PATCH rtw-next v3 3/3] wifi: rtl8xxxu: preserve RX requests
- across recoverable transfer errors
-Thread-Index: AQHdSHefc/MCcPjZN023IjBlQWSIu7bW0LzQ
-Date: Sun, 20 Sep 2026 03:46:55 +0000
-Message-ID: <9b5c31541fc8430b9d4205dcdff9e76e@realtek.com>
-References: <20260920-codex-rtl-rx-v3-submit-v3-0-883d11351963@khu.ac.kr>
- <20260920-codex-rtl-rx-v3-submit-v3-3-883d11351963@khu.ac.kr>
-In-Reply-To: <20260920-codex-rtl-rx-v3-submit-v3-3-883d11351963@khu.ac.kr>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="gvcdU7a5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Rp
+	wXAbsraDMpwD5cGtJqrLnyJJbi4N0lKABEJwZ+UYo=; b=gvcdU7a5uuMuXvoJo3
+	Jl5hpMBP6Ik+iUoPIX4U2PnAAakAkGoT2sv+d4V5OueaDR7I1I3A2bXAazm+NveG
+	ikCA3eLStBtSCJpopVQogzyTylyQXJ26zuTKjGcnAyh7TG1fFfFo4VxwwXeD0UpS
+	xRvV+N8i/Nz0ZqfRjVAc6Txtw=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wB3UtItV69qxlxaBw--.58956S2;
+	Sun, 20 Sep 2026 11:46:54 +0800 (CST)
+From: Pengpeng Hou <hppiscas@163.com>
+To: linosanfilippo@gmx.de
+Cc: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	horms@kernel.org,
+	richardcochran@gmail.com,
+	hppiscas@163.com
+Subject: [PATCH net v2] net: alacritech: publish the PCI module aliases
+Date: Sun, 20 Sep 2026 11:46:51 +0800
+Message-ID: <20260920034651.18109-1-hppiscas@163.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wB3UtItV69qxlxaBw--.58956S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7CFW3GFW5CryfXw4kAw1kXwb_yoW8XF13pa
+	nruayxu3s2qr15J3Wjka1rXF98ua9xA34agF9rKw4Fqw1q9r1UKr1xtF45u3WDJrWkGrnF
+	yFnIvasxCa98J37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRY0PhUUUUU=
+X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbC7g5nMGqvVy60qAAA3X
 
-S2ltIFdvb3Nlb2sgdmlhIEI0IFJlbGF5IDxkZXZudWxsKzVtZ2h5YnJpZC5raHUuYWMua3JAa2Vy
-bmVsLm9yZz4gd3JvdGU6DQoNClsuLi5dDQoNCj4gQEAgLTU4NTUsOSArNTg1Niw4IEBAIHN0YXRp
-YyBpbnQgcnRsOHh4eHVfYWxsb2NfcnhfdXJicyhzdHJ1Y3QgcnRsOHh4eHVfcHJpdiAqcHJpdikN
-Cj4gIH0NCj4gDQo+ICBzdGF0aWMgdm9pZCBydGw4eHh4dV9xdWV1ZV9yeF91cmIoc3RydWN0IHJ0
-bDh4eHh1X3ByaXYgKnByaXYsDQo+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBz
-dHJ1Y3QgcnRsOHh4eHVfcnhfdXJiICpyeF91cmIpDQo+ICsgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBzdHJ1Y3QgcnRsOHh4eHVfcnhfdXJiICpyeF91cmIsIGJvb2wgcmV0cnkpDQoN
-CidyZXRyeScgLS0+ICdkZWZlcl9zY2hlZHVsZSc/DQoNCj4gIHsNCj4gLSAgICAgICBzdHJ1Y3Qg
-c2tfYnVmZiAqc2tiOw0KPiAgICAgICAgIHVuc2lnbmVkIGxvbmcgZmxhZ3M7DQo+IA0KPiAgICAg
-ICAgIHNwaW5fbG9ja19pcnFzYXZlKCZwcml2LT5yeF91cmJfbG9jaywgZmxhZ3MpOw0KPiBAQCAt
-NTg2NSwxNiArNTg2NSwxMyBAQCBzdGF0aWMgdm9pZCBydGw4eHh4dV9xdWV1ZV9yeF91cmIoc3Ry
-dWN0IHJ0bDh4eHh1X3ByaXYgKnByaXYsDQo+ICAgICAgICAgaWYgKCFwcml2LT5zaHV0ZG93bikg
-ew0KPiAgICAgICAgICAgICAgICAgbGlzdF9hZGRfdGFpbCgmcnhfdXJiLT5saXN0LCAmcHJpdi0+
-cnhfdXJiX3BlbmRpbmdfbGlzdCk7DQo+ICAgICAgICAgICAgICAgICBwcml2LT5yeF91cmJfcGVu
-ZGluZ19jb3VudCsrOw0KPiAtICAgICAgICAgICAgICAgLyoNCj4gLSAgICAgICAgICAgICAgICAq
-IEFybSB0aGUgd29ya2VyIHVuZGVyIHJ4X3VyYl9sb2NrIHNvIHRoaXMgaXMgYXRvbWljIHdpdGgg
-dGhlDQo+IC0gICAgICAgICAgICAgICAgKiBzaHV0ZG93biBjaGVjazogbW92aW5nIGl0IG91dCBv
-ZiB0aGUgbG9jayB3b3VsZCBsZXQgYQ0KPiAtICAgICAgICAgICAgICAgICogY29tcGxldGlvbiBh
-cm0gdGhlIHdvcmsgYWZ0ZXIgcnRsOHh4eHVfc3RvcCgpIGNhbmNlbGVkIGl0Lg0KPiAtICAgICAg
-ICAgICAgICAgICovDQo+IC0gICAgICAgICAgICAgICBpZiAocHJpdi0+cnhfdXJiX3BlbmRpbmdf
-Y291bnQgPiBSVEw4WFhYVV9SWF9VUkJfUEVORElOR19XQVRFUikNCj4gLSAgICAgICAgICAgICAg
-ICAgICAgICAgc2NoZWR1bGVfd29yaygmcHJpdi0+cnhfdXJiX3dxKTsNCj4gKyAgICAgICAgICAg
-ICAgIC8qIFNlcmlhbGl6ZSBzY2hlZHVsaW5nIHdpdGggdGhlIHNodXRkb3duIGNoZWNrIGFuZCBj
-YW5jZWxsYXRpb24uICovDQo+ICsgICAgICAgICAgICAgICBpZiAocmV0cnkpDQo+ICsgICAgICAg
-ICAgICAgICAgICAgICAgIHF1ZXVlX2RlbGF5ZWRfd29yayhzeXN0ZW1fd3EsICZwcml2LT5yeF91
-cmJfd3EsDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBtc2Vj
-c190b19qaWZmaWVzKFJUTDhYWFhVX1JYX1VSQl9SRVRSWV9ERUxBWV9NUykpOw0KPiArICAgICAg
-ICAgICAgICAgZWxzZSBpZiAocHJpdi0+cnhfdXJiX3BlbmRpbmdfY291bnQgPiBSVEw4WFhYVV9S
-WF9VUkJfUEVORElOR19XQVRFUikNCj4gKyAgICAgICAgICAgICAgICAgICAgICAgbW9kX2RlbGF5
-ZWRfd29yayhzeXN0ZW1fd3EsICZwcml2LT5yeF91cmJfd3EsIDApOw0KDQpOb3QgcHJlZmVyIHVz
-aW5nIGJhcmUgc3lzdGVtX3dxLg0KQ2FuIGJvdGggdXNlIHNjaGVkdWxlX2RlbGF5ZWRfd29yaygp
-PyANCg0KPiAgICAgICAgIH0gZWxzZSB7DQo+IC0gICAgICAgICAgICAgICBza2IgPSAoc3RydWN0
-IHNrX2J1ZmYgKilyeF91cmItPnVyYi5jb250ZXh0Ow0KPiAtICAgICAgICAgICAgICAgZGV2X2tm
-cmVlX3NrYl9pcnEoc2tiKTsNCj4gICAgICAgICAgICAgICAgIHVzYl9mcmVlX3VyYigmcnhfdXJi
-LT51cmIpOw0KPiAgICAgICAgIH0NCj4gDQoNClsuLi5dDQoNCj4gQEAgLTY1ODUsMTAgKzY1ODMs
-MjMgQEAgc3RhdGljIHZvaWQgcnRsOHh4eHVfcnhfY29tcGxldGUoc3RydWN0IHVyYiAqdXJiKQ0K
-PiANCj4gICAgICAgICAgICAgICAgIHNrYiA9IE5VTEw7DQo+ICAgICAgICAgICAgICAgICByeF91
-cmItPnVyYi5jb250ZXh0ID0gTlVMTDsNCj4gLSAgICAgICAgICAgICAgIHJ0bDh4eHh1X3F1ZXVl
-X3J4X3VyYihwcml2LCByeF91cmIpOw0KPiArICAgICAgICAgICAgICAgcnRsOHh4eHVfcXVldWVf
-cnhfdXJiKHByaXYsIHJ4X3VyYiwgZmFsc2UpOw0KPiAgICAgICAgIH0gZWxzZSB7DQo+ICAgICAg
-ICAgICAgICAgICBkZXZfZGJnKGRldiwgIiVzOiBzdGF0dXMgJWlcbiIsIF9fZnVuY19fLCB1cmIt
-PnN0YXR1cyk7DQoNCm5pdDogYSBibGFuayBsaW5lDQoNCj4gLSAgICAgICAgICAgICAgIGdvdG8g
-Y2xlYW51cDsNCj4gKyAgICAgICAgICAgICAgIHN3aXRjaCAodXJiLT5zdGF0dXMpIHsNCj4gKyAg
-ICAgICAgICAgICAgIGNhc2UgLUVQUk9UTzoNCj4gKyAgICAgICAgICAgICAgIGNhc2UgLUVJTFNF
-UToNCj4gKyAgICAgICAgICAgICAgIGNhc2UgLUVUSU1FOg0KPiArICAgICAgICAgICAgICAgY2Fz
-ZSAtRU9WRVJGTE9XOg0KPiArICAgICAgICAgICAgICAgY2FzZSAtRUNPTU06DQo+ICsgICAgICAg
-ICAgICAgICBjYXNlIC1FTk9TUjoNCj4gKyAgICAgICAgICAgICAgICAgICAgICAgZGV2X2tmcmVl
-X3NrYihza2IpOw0KPiArICAgICAgICAgICAgICAgICAgICAgICB1cmItPmNvbnRleHQgPSBOVUxM
-Ow0KPiArICAgICAgICAgICAgICAgICAgICAgICBydGw4eHh4dV9xdWV1ZV9yeF91cmIocHJpdiwg
-cnhfdXJiLCB0cnVlKTsNCj4gKyAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuOw0KPiArICAg
-ICAgICAgICAgICAgZGVmYXVsdDoNCj4gKyAgICAgICAgICAgICAgICAgICAgICAgZ290byBjbGVh
-bnVwOw0KPiArICAgICAgICAgICAgICAgfQ0KPiAgICAgICAgIH0NCj4gICAgICAgICByZXR1cm47
-DQo+IA0KDQpbLi4uXQ0KDQo=
+The SLIC driver has a PCI ID table connected to its pci_driver, but does
+not export it. Its module therefore lacks the PCI aliases used to
+automatically load it for the supported Alacritech adapters.
+
+Export the existing PCI table without changing device matching.
+
+The issue was found by our static-analysis tool.
+
+Fixes: 60c140df15db ("net: ethernet: slicoss: add slicoss gigabit ethernet driver")
+Reviewed-by: Simon Horman <horms@kernel.org>
+Reviewed-by: Lino Sanfilippo <LinoSanfilippo@gmx.de>
+Assisted-by: gpt 5
+Signed-off-by: Pengpeng Hou <hppiscas@163.com>
+---
+Changes since v1:
+https://lore.kernel.org/all/20260704152053.49780-1-pengpeng@iscas.ac.cn/
+Rewrite the source-analysis explanation as requested by Jakub; retain
+the one-line change reviewed by Simon and Lino.
+
+ drivers/net/ethernet/alacritech/slicoss.c |    1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/net/ethernet/alacritech/slicoss.c b/drivers/net/ethernet/alacritech/slicoss.c
+index c1949ca060ca..14b74c09233e 100644
+--- a/drivers/net/ethernet/alacritech/slicoss.c
++++ b/drivers/net/ethernet/alacritech/slicoss.c
+@@ -34,6 +34,7 @@ static const struct pci_device_id slic_id_tbl[] = {
+ 		     PCI_DEVICE_ID_ALACRITECH_OASIS) },
+ 	{ 0 }
+ };
++MODULE_DEVICE_TABLE(pci, slic_id_tbl);
+ 
+ static const char slic_stats_strings[][ETH_GSTRING_LEN] = {
+ 	"rx_packets",
+
+base-commit: 518e5b794c06c0f0eb40df3e202274a66202c137
+-- 
+2.50.1 (Apple Git-155)
+
