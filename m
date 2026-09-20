@@ -1,46 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 990A3457E6B
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 17:58:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E6B446EF92
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 17:58:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789927138; cv=none; b=CJkZXIE98TwQ+sjyARrnO8f515xtj21iWQ4S1WEdDk0INCcPmE20J/xNdh9DWo1e9gC0oKYHrCZx7dIrO6A4UCf9NFWZr1v2/0SMD+Etex8xLtN3tt/Y0qs9lyo2YQ0gSg9o1/nBsH2nphBGVvRQlPlsVtsJ7Dp1E4pMg0U98jM=
+	t=1789927140; cv=none; b=fBRJD2KqQ7XJWbEfXyO4+sTTNSy91RGv7cUXWBi4qz5irdgI7ghqDyTNecWTzvu2dgwctfI0ZmK62spbvyjb2vncy2AaAv5P5TAAwQxTAxEPPRcvmZvvJJCOAUSWDt2vhsweVirZjMbtFqiR7HYpvYrJJoFbDyKTEJWu/NtHRAU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789927138; c=relaxed/simple;
-	bh=sUt5JJtUmCh50XT3QyZilTYz2BY4WMQlibLrupwo2g4=;
-	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=c6i+6yvzu+xtxJFLQYjp53jJGmlktEuddE5k1p9e5AYxJ2XJWcKBaTxy2VEPe58AWtQNWvJt9EcCtBNnuNIzuCgLz9dxfS46f+dO65AI79gihR2Y0eo4yLmqi6jP1bcwEJT73+Ecrfub7k8QLGVWKn14uL/vx8zGxQF9bSfono0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hwMz5mPm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789927140; c=relaxed/simple;
+	bh=T3ciCxjh/v+9vadphVzrEehTeCRFu19bt9ZOV8W8wyY=;
+	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=kZBF4hRb+peL1gx1MopEXW+EY4z2vkm32Ajd8uwboAk8Ow6E9upE99dUsAjQRBtnOEZHIDxBN8pL2hm9MiMu10YZtJtVvWl1h6fnJJ/Vm1Ru/yzJB0oILUXPGIE7gFrKvPVsF6NCPVd55B49g2a/UB2xVHq0fWPE117/8CwvW6g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MxFyWL74; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hwMz5mPm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80A7B1F000FF;
-	Sun, 20 Sep 2026 17:58:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MxFyWL74"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 060241F000FF;
+	Sun, 20 Sep 2026 17:58:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789927137;
-	bh=OdP0a6bU3JY9jF032Jw3SVmsGi1afL7vaNrynwHuIKg=;
+	s=k20260515; t=1789927139;
+	bh=NaTuih6/nWfHxdqtvNLmfvELd/Hw+ZSnBJoyIvqaqiQ=;
 	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=hwMz5mPmfRMeTyRApMgu1hYE6ZH0+VMK/9SgzjthqXR2uqaLyoK7uipWXcd3VVRm8
-	 0Thuh01yBlhGjUD6G7fMw16O35QMa5Mew8qgNXpO0irSUkFUzpT77SlXcbT+ZBgzXG
-	 37cqxsRXigxN4ISj5lcHkzgEsFH3IqAJ6CXYiVKY3OcHVc+x7iRn9KvLwAYC6xY/Ig
-	 FsdL0BFFNpadPqknTZzm1kzQx/GDZ8WJn/+X7RJkGJWCXrLdqkjT1rEooEkTOJkNSE
-	 DlZX3dX7N7ul/V2lQcNGGeby/if2tqYqWPi1PSyj47+J9IKEqcHJ/mWryxT6C+qyPA
-	 rPgX/05KYYzrQ==
+	b=MxFyWL744c/udHjaNPIihYXMqI55CfUDSxOKlmVGRJSSgA91tRaBeUk1NTmQajkj4
+	 2qh6BJlFmA+h5UAPOnTid0ZEOvKzrkYOeqIUlbdc2nKxxDEKusQaXtwa/Zx/E0+L/t
+	 CZRZIUs/KrmEuPWYnOPVuJsf3FR4ULFmKfSELUC2vr81e+3dlNufj8RYAFY4Pz449/
+	 /XRg7FeS/pWoSmIUkxwtqwM5VkpaJ7n5I5XgTkXHjUvDFmbde0c/r1/PkdibsPSC/l
+	 AEQJJCcASHM9McNpJctS5fTsrtePUjesYnSgmJTZiue+9P3vGY+nqXRk1pS8qBtydp
+	 KVfiFvt9oxleQ==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D094439253DA;
-	Sun, 20 Sep 2026 17:57:50 +0000 (UTC)
-Subject: Re: [GIT PULL]: Generic phy updates for v7.3
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 56A0A39253DA;
+	Sun, 20 Sep 2026 17:57:52 +0000 (UTC)
+Subject: Re: [GIT PULL]: dmaengine fixes for v7.3
 From: pr-tracker-bot@kernel.org
-In-Reply-To: <arATyx8IcifVCpp8@parshuram>
-References: <arATyx8IcifVCpp8@parshuram>
+In-Reply-To: <arAUJaluykugcCzN@parshuram>
+References: <arAUJaluykugcCzN@parshuram>
 X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <arATyx8IcifVCpp8@parshuram>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/phy/linux-phy.git tags/phy-fixes-7.3
-X-PR-Tracked-Commit-Id: 486a70ef848264dcf9a57f0bb0452848db9537de
+X-PR-Tracked-Message-Id: <arAUJaluykugcCzN@parshuram>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/vkoul/dmaengine.git tags/dmaengine-fix-7.3
+X-PR-Tracked-Commit-Id: 075bc7b1d3dde5ed43fbaabbc1a69f09b7fc3a47
 X-PR-Merge-Tree: torvalds/linux.git
 X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 60ee24f055f87c74d3fccdedcb761df9253fd5c0
-Message-Id: <178992706948.1742959.18314578244910228068.pr-tracker-bot@kernel.org>
-Date: Sun, 20 Sep 2026 17:57:49 +0000
+X-PR-Merge-Commit-Id: a10a019dd4c7c57bef6b8dda962c8881ad220af2
+Message-Id: <178992707098.1742959.4148901598380317591.pr-tracker-bot@kernel.org>
+Date: Sun, 20 Sep 2026 17:57:50 +0000
 To: Vinod Koul <vkoul@kernel.org>
 Cc: Linus Torvalds <torvalds@linux-foundation.org>, LKML <linux-kernel@vger.kernel.org>
 Precedence: bulk
@@ -49,12 +49,12 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 
-The pull request you sent on Sun, 20 Sep 2026 22:41:39 +0530:
+The pull request you sent on Sun, 20 Sep 2026 22:43:09 +0530:
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/phy/linux-phy.git tags/phy-fixes-7.3
+> git://git.kernel.org/pub/scm/linux/kernel/git/vkoul/dmaengine.git tags/dmaengine-fix-7.3
 
 has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/60ee24f055f87c74d3fccdedcb761df9253fd5c0
+https://git.kernel.org/torvalds/c/a10a019dd4c7c57bef6b8dda962c8881ad220af2
 
 Thank you!
 
