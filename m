@@ -1,170 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-146.mta0.migadu.com [91.218.175.146])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E60CB1C84A2
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 10:05:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E0193E5EEB
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 10:06:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789898710; cv=none; b=dQYT/BTOBM7YO4GFwMsjDkT0DdUa4XzitthGfPxaA5eA0WKxWNQ0sI60pjgE5RoPk2b5mGEcjxjmuCpYkUpr4Rj4sZSvqad1XkEKfJpmZDeaOODyrE+vVZLl5lMX8YeDyb1HXpQ2KRBU7brx2HtuvUikPlFOtbYj/EVM5gRanxs=
+	t=1789898809; cv=none; b=XPK5MIDVwVOfDF2c/HXTsEvdofA3Ant0Tshl4BrWn8tK2poXdlAiGH9mUnoHu1XwcEnKXO0yp03W18bfd7cujvxzpbpEfgYStaHNdsbDB01DedsH2VaCK1xSimd9GCJcwd55lni8SU/DdQLt6nlWFy3wXcsFHL7CEnXe0Zk9Ivo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789898710; c=relaxed/simple;
-	bh=PVtQgVmSpyfIu95EBVnFKjv5QM6juuMMqQmwaZS/fQA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DPSDHtd5Tt6KG3w3Btol5QytQNYRSq99vIlYjHILKtlNyDbL762Sx+he7tq0gg/LObCOG6wQxKGBgJPSIj/xM/j74SYZJCfrFl4mrpXIndnln95Aye+lZJrPataEjK7UFZ0XLgCMXp3OX1YIx2bx/s43b+3Ce5sNxFKfiOaB2z8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oWBIbzhX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789898809; c=relaxed/simple;
+	bh=E/ukeaoDwEV8b3NZiUlipqAPcBPJ1vvofEVc16bqH1Q=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=lXwGE3kdRdlRy5G438ngsrTOa1wfAcCWHLRagbWvDku1RUKuHVBgRkjZWXOPSl8lfkSI2dhksHjYCKxKeOULLREAJTeJb1A/0HOhvZX9LYFdWFIYWcLhnWj1X87l2KVVprEW1HCEfCiOthnW9AEH9TCQF62y/bHU5kY3gPzT5Jg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Tu7XEgKd; arc=none smtp.client-ip=91.218.175.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oWBIbzhX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A66801F000FF
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 10:05:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789898708;
-	bh=M7NZhpxBrkp8Vzpt1FhZ1vqtn7lpguc1OW9Ue/8E4VI=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=oWBIbzhXtymHbRL5PwQwT5FWNGGs8IXtkiIcpk1knJHMO7/gLmI+30eOv9l6E/7qf
-	 TlqXlfjla12uhy9qrykUEChWGrzFpoRUWk8a56MaRpkbWPxEQbG1OLyXY/+RtyA+wv
-	 isL/TnU8KzIvhqoVhbzm9IhsX70HHAKZGiuP5MbYzi1sQ2O1IxoKQQ6k81DGKqmU6A
-	 GLVVelQMEGqMoPqi5rSIXo/p8xG2XdIxGxPRAiPKd0wmn76j4Ob6iSPHmROvoxrgwH
-	 0P82uuTppu5lGfbv/RnphdCmRlAsd4y0516++K96bD52FwCmLaaQuX9RFjqfnOSfl0
-	 gVfg6u7FfeDjQ==
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a58fef219fso7963751fa.1
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 03:05:08 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw9poW7tY2pcl7S9yuK+GjgVVwv5SKUPb9Q578v4dbEQV3Qhhw2pGjybgjwPmsNNIHuWXcjKo3TOylrNKw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kbS6dEq3weJwa6lotx5ZRmwWbC7BOQb+A3X5/Ro3dFsgFJcNHU
-	K1xDf2NTJ4AqAlqfQc5Tgrp1CmqwYb7afnGAV6EsolfdmdnSkcj/DjogtLxMKJ7fQdd3f/ARwU+
-	BV1ZRyfxIBeuO1x9PjZbllZ2pI2HwstU=
-X-Received: by 2002:a2e:b8c1:0:b0:3a6:d50:e26e with SMTP id
- 38308e7fff4ca-3a60d50e441mr6927511fa.2.1789898707044; Sun, 20 Sep 2026
- 03:05:07 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Tu7XEgKd"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=E/ukeaoDwEV8b3NZiUlipqAPcBPJ1vvofEVc16bqH1Q=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789898804; v=1; x=1790503604;
+ b=Tu7XEgKdvElPcZZWImayesz7vKDcmphAd3cJBfIw3MxjMYdHNe6Q1rXVWNGO37natGOJTMh1
+ 06VR1N42h+oHsELSUPmVcal3SIt8w2c43eI9su1QFoh/TxFppgarjghXiMTsBzZtg+6w8PZD2rO
+ GRYyKr5kLnPB5GeOlJZLjgL4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 285c4bb54c534fe9;
+	Sun, 20 Sep 2026 10:06:44 +0000
+X-Mizu-Trace-ID: 285c4bb54c534fe9
+X-Migadu-Flow: FLOW_OUT
+From: Hangbin Liu <hangbin.liu@linux.dev>
+Subject: [PATCH net-next v2 0/6] netlink: add lwtunnel encap sub-message
+ support to rt-route
+Date: Sun, 20 Sep 2026 18:06:35 +0800
+Message-Id: <20260920-ynl_rt_encap-v2-0-c664a3e726f6@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260910-axp318-regulator-v8-0-e906a61a7f3d@baylibre.com>
-In-Reply-To: <20260910-axp318-regulator-v8-0-e906a61a7f3d@baylibre.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Sun, 20 Sep 2026 18:04:53 +0800
-X-Gmail-Original-Message-ID: <CAGb2v64zjCan5Up=bxJ_JfCcj2y=2=jNnM8buKQN2ULEA-82cA@mail.gmail.com>
-X-Gm-Features: AcwNN1X5_0H5ONYiyVVLAE5WEX7_3CXfPb5UokMjxFhKsOHjiWGm7bWqapkRcO8
-Message-ID: <CAGb2v64zjCan5Up=bxJ_JfCcj2y=2=jNnM8buKQN2ULEA-82cA@mail.gmail.com>
-Subject: Re: [PATCH v8 0/5] regulator: Add X-Powers AXP318W PMIC support
-To: Lee Jones <lee@kernel.org>
-Cc: Jerome Brunet <jbrunet@baylibre.com>, Andre Przywara <andre.przywara@arm.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Hans de Goede <hansg@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	mfd@lists.linux.dev, linux-sunxi@lists.linux.dev, 
-	Sashiko <sashiko-bot@kernel.org>, Conor Dooley <conor.dooley@microchip.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/1WNQQqDMBBFryKzbspE22i76j2KSGLHOlRGSYIo4
+ t0b7KrLx+O/v0EgzxTgnm3gaebAoyTITxm0vZU3KX4lhhxzgzes1CpD42ND0tpJFfqCGgtXmMp
+ CmkyeOl6O3BOEohJaItTJ9Bzi6NfjZ9aH/yV1+Z+ctULVOUeGTIXXUj8+68AyhnMrUO/7/gVtP
+ PtnswAAAA==
+X-Change-ID: 20260908-ynl_rt_encap-3140103b368a
+To: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Donald Hunter <donald.hunter@gmail.com>
+Cc: Hangbin Liu <hangbin.liu@linux.dev>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+ Hangbin Liu <liuhangbin@kylinos.cn>
+X-Mailer: b4 0.14.3
 
-Hi Lee,
+This series adds YNL sub-message support for lwtunnel encap data in
+the rt-route netlink family, and describes the tunnel-specific
+attribute sets that were previously opaque binary blobs.
 
-On Thu, Sep 10, 2026 at 6:44=E2=80=AFPM Jerome Brunet <jbrunet@baylibre.com=
-> wrote:
->
-> This patch series adds support for the X-Powers AXP318W PMIC, which is
-> used recently on new boards with Allwinner SoCs (the A733).
->
-> The PMIC features 9 DCDC buck converters and 28 LDOs, plus the usual ADC,
-> interrupts, and power key components.
-> A datasheet can be found linked in this Wiki table:
-> https://linux-sunxi.org/AXP_PMICs
->
-> There was an unclosed topic regarding the handling of LDOs output
-> voltage being limited to input voltage being provided by the supply.
-> Chen-Yu noted the min_dropout_uV would be a good fit for that but
-> the actual minimal dropout value was unknown. I've arbitrarily picked
-> 1uV because it is the minimum the framework supports. Realistically a low
-> dropout regulator is bound to have some dropout. This choice does the
-> trick for now and is certain be less restrictive than what it is in
-> reality.
->
-> If anyone has problems because the dropout is actually higher
-> * it is arguably an HW design error
-> * it is a good time to let us know what the actual dropout is
->
-> Changes in v8:
-> - Fix interrupt optional in the binding (mis-understanding on my end)
->   Resent quickly to avoid wasting time on v7 over this
-> - Link to v7: https://patch.msgid.link/20260910-axp318-regulator-v7-0-de7=
-20ceb9bac@baylibre.com
->
-> Changes in v7:
-> - Rebased on v7.3-rc1.
-> - Applied Chen-Yu change requests.
->   - More complete register definition all in the MFD change.
->   - Add writeable region holes.
->   - Fix invertion between short and long press IRQ.
->   - Drop confusing comment about DVM.
->   - Use MFD_CELL_NAME() for the regulator device.
-> - Link to v6: https://patch.msgid.link/20260812-axp318-regulator-v6-0-d6b=
-84b55c000@baylibre.com
->
-> Changes in v6:
-> - Apply wording suggestions from Chen-Yu
-> - Link to v5: https://patch.msgid.link/20260720-axp318-regulator-v5-0-a1a=
-fa7ee24f9@baylibre.com
->
-> Changes in v5:
-> - Fix shutdown register offset
-> - Re-order patches to put fixes first
-> - Tighten DT regexp around swout
-> - Other points raised by Sashiko on v4 are unrelated to the addition
->   of the AXP318 support and pre-exist the series. They are not
->   addressed ATM.
-> - Link to v4: https://patch.msgid.link/20260717-axp318-regulator-v4-0-50a=
-ff97084dd@baylibre.com
->
-> Changes in v4:
-> - Capitalize patch 3 title
-> - regulator: add support for workmode and poly-phase.
-> - i2c: fix probe through i2c sysfs
-> - Link to v3: https://patch.msgid.link/20260717-axp318-regulator-v3-0-779=
-dc1b97dd4@baylibre.com
->
-> Changes in v3:
-> - Correct mess up v2 errors regarding ops and ids.
-> - Correctly propagate errors when checking axp318 threshold.
-> - Fix DT binding regex regarding dcdc max ids
-> - Add missing RTCLDO.
-> - Remove axp318 PEK MFD cell:
->   As pointed out by sashiko, the driver name did not match anything in th=
-e
->   pek driver. While the device does support some handling of the power
->   button, it does not seem to match the existing driver. Register 0x36
->   relates to DLDO3, not the power key, as expected by the misc driver.
->   Leave this out for now.
-> - Constify axp313 and axp717 mfd_cells array for consistency.
-> - Link to v2: https://patch.msgid.link/20260710-axp318-regulator-v2-0-ee5=
-f1c56b49f@baylibre.com
->
-> Changes in v2:
-> - Dropped _NUM_VOLTAGES macros
-> - Use min_dropout_uV to limit LDO voltage to supplies
-> - Add bypass mode for EDLO4/5
-> - Prevent crossing 1.54V threshold for DCDC6/7/8/9
-> - Link to v1: https://lore.kernel.org/r/20251021112013.2710903-1-andre.pr=
-zywara@arm.com
->
-> ---
-> Andre Przywara (3):
->       dt-bindings: mfd: x-powers,axp152: Document AXP318W
->       mfd: axp20x: Add support for AXP318W PMIC
->       regulator: axp20x: add support for the AXP318W
->
-> Jerome Brunet (2):
->       mfd: axp20x: Constify axp313 and axp717 cells
->       mfd: axp20x-i2c: Fix i2c instantiation
+The kernel currently emits encap_type after the encap payload nest,
+but YNL sub-message parsing needs the selector (encap_type) first to
+dispatch on the correct attribute set. Patch 1 reorders the kernel
+output, and patch 2 teaches the YNL C code generator to convert enum
+selectors to their string form for sub-message dispatch.
 
-I think this series is ready to be merged. Mark gave his reviewed-by for
-the regulator patch, which IIRC he said acks the patch to go through
-another tree.
+Patches 3-6 extend the rt-route YAML spec.
 
-So please merge the whole series through the mfd tree.
+Tested with ynl selftest and checked with following cmds
 
+ # modprobe ila
+ # modprobe xfrm_interface
+ # ip addr add 10.1.0.1/24 dev lo
+ # ip route add 10.1.0.0/24 dev lo encap mpls 100 via 10.1.0.254
+ # ip route add 10.2.0.0/24 dev lo encap ip id 1 dst 127.0.0.1 src 127.0.0.1
+ # ip route add 2001:db8:3::/64 dev lo encap ila 1:2:3:4 csum-mode no-action ident-type luid hook-type output
+ # ip route add 2001:db8:4::/64 dev lo encap ip6 id 1 dst 2001:db8::5 src 2001:db8::1 hoplimit 64
+ # ip route add 2001:db8:5::/64 dev lo encap seg6 mode inline segs 2001:db8::1
+ # ip route add 2001:db8:6::/65 dev lo encap seg6local action End
+ # ip route add 2001:db8:7::/65 dev lo encap bpf in ob /tmp/kself/net/lib/xdp_dummy.bpf.o sec xdp
+ # ip route add 2001:db8:8::/64 dev lo encap rpl segs 2001:db8::1
+ # ip route add 2001:db8:9::/64 encap ioam6 trace prealloc type 0x800000 ns 0 size 4 dev lo
+ # ip route add 2001:db8:10::/64 dev lo encap xfrm if_id 100
+ # ip route show
+ 10.1.0.0/24  encap mpls  100 via 10.1.0.254 dev lo
+ 10.2.0.0/24  encap ip id 1 src 127.0.0.1 dst 127.0.0.1 ttl 0 tos 0 dev lo scope link
+ # ip -6 route show
+ 2001:db8:3::/64  encap ila  1:2:3:4  csum-mode no-action  ident-type luid  hook-type output dev lo metric 1024 pref medium
+ 2001:db8:4::/64  encap ip6 id 1 src 2001:db8::1 dst 2001:db8::5 hoplimit 64 tc 0 dev lo metric 1024 pref medium
+ 2001:db8:5::/64  encap seg6 mode inline segs 2 [ 2001:db8::1 :: ] dev lo metric 1024 pref medium
+ 2001:db8:6::/65  encap seg6local action End dev lo metric 1024 pref medium
+ 2001:db8:7::/65  encap bpf in xdp_dummy.bpf.o:[xdp] dev lo metric 1024 pref medium
+ 2001:db8:8::/64  encap rpl segs 1 [ 2001:db8::1 ] dev lo metric 1024 pref medium
+ 2001:db8:9::/64  encap ioam6 freq 1/1 mode inline trace prealloc type 0x800000 ns 0 size 4 dev lo metric 1024 pref medium
+ 2001:db8:10::/64  encap xfrm if_id 100 dev lo metric 1024 pref medium
+ # ./tools/net/ynl/pyynl/cli.py --family rt-route --dump getroute > /tmp/route_dump.json
 
-Thanks
-ChenYu
+All the result looks good.
+
+Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
+---
+Changes in v2:
+- Patch 1: Check ops->fill_encap before setting encap_type_attr
+- Patch 2: Get string in generated sub-message parser and check it before reference
+- Patch 3-4: set byte-orders and max-len
+- Patch 5: include lwtunnel.h
+- Link to v1: https://lore.kernel.org/r/20260917-ynl_rt_encap-v1-0-fbbe6e680571@kylinos.cn
+
+---
+Hangbin Liu (6):
+      net: lwtunnel: change encap fill order
+      tools: ynl: convert enum selector to string for sub-message parsing
+      netlink: specs: rt-route: add lwtunnel encap sub-message support
+      netlink: specs: rt-route: describe lwtunnel IP options
+      netlink: specs: rt-route: describe lwt BPF program options
+      netlink: specs: rt-route: describe seg6-local actions, counters and flavors
+
+ Documentation/netlink/specs/rt-route.yaml | 413 +++++++++++++++++++++++++++++-
+ net/core/lwtunnel.c                       |  35 +--
+ tools/net/ynl/Makefile.deps               |   9 +-
+ tools/net/ynl/pyynl/ynl_gen_c.py          |  20 +-
+ 4 files changed, 454 insertions(+), 23 deletions(-)
+---
+base-commit: 8830e65ed46de41f849eefb8ba227d4852c460f6
+change-id: 20260908-ynl_rt_encap-3140103b368a
+
+Best regards,
+-- 
+Hangbin Liu <liuhangbin@kylinos.cn>
+
