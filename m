@@ -1,73 +1,80 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11023095.outbound.protection.outlook.com [52.101.72.95])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010026.outbound.protection.outlook.com [52.101.85.26])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B12733A9E8;
-	Sun, 20 Sep 2026 13:16:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04EDD42E8F8
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 13:17:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.26
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789910225; cv=fail; b=AMAdKVX4WjU5ecPvzVOnZbAAVkkMSKPCdNKj9mTvT8BJIv8+koN4/pADw2dYPJQFcOACIMQI8HZv+cxJbHcco9WNo/51r3NCPqREtXzEEE6QiN/yF9AqLC+kZNEZtn67NBh7FZs1TQBczkue705I3p+TlMJwyAgf6ozfd3b52HA=
+	t=1789910261; cv=fail; b=BbEMj6BN8rxE+omq2XFqhnJJp60O/qWmW1tRhoMXZtyb1OmTqTXyTdMks17WlO/7wwNNeo5zokqB00J1Kp7H66FJXwtz9IiXfUA8tFY/Xb6QQP4p993S+I1wNXJquUTsG7uv2hl7+QULG1U7NsMnbXXFC8hy04c0KkKBS4cxStQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789910225; c=relaxed/simple;
-	bh=3fl4yZuI3FXsLKMjELIdrUn6cVGZYq54l8GtwquiqpE=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 Content-Type:MIME-Version; b=K64voICGsQb8kOGX7aVBSW6iaFToFkHYBgeDWIqnExxYze2QBLnWe2Qh3yWkk1448kwIbKR1jB46w0l/IMUv1NNh2okbE83MoD9Q8VUd6rQHPpu3nVf6F4WIiEv2X3cZVFXfUEm4mwBWVtdZzklVAdY1QMOygS+gpwiG0k7IUis=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=polito.it; spf=pass smtp.mailfrom=polito.it; dkim=pass (1024-bit key) header.d=polito.it header.i=@polito.it header.b=MiF8xtIU; arc=fail smtp.client-ip=52.101.72.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=polito.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=polito.it
+	s=arc-20240116; t=1789910261; c=relaxed/simple;
+	bh=3VwAPUFGWemnlY3HD+n9rU4bBovLg7pPw2Gjd/2naFI=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=VuO+mrsN2pC29OyCHkqAp+AD9GJved/+JLKyntDWNFHn1A9bOZZu8i4Q5/gLxGXsFvdoXL0r6iVbsNcnMdnb8TQwgwduABRpsziLKgf15PbX4mO2+E+2zkZn292SSbbAgMvc0TX+c5mGERA8IBaFFVje78Skvg1kZV2syYGT2Dw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=U29F+IsP; arc=fail smtp.client-ip=52.101.85.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=polito.it header.i=@polito.it header.b="MiF8xtIU"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="U29F+IsP"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hpXsIw+zK1Dkmg0+5L8FXsWJRALJnRkWPrQ83S2KusdWtKuj1g8PP4Q3INqOQthxBZtgWg7cAEWLGTSnm5Nr/6LIcETteeHuT1M6n7hoh+Am9UAx90URi2hYM1jIJY+nRPwBOCE9zxEDUWnQkLgLfVpUIVmd8Q830yx3Hgf47QSYrTcO5lR2t8o2XZMJYJTbfA4Btbrdnq74B2MmqcTgrHLewQe4cqRbRmlV32tpW71eB/1p/JoEOMEubcqeKn0WJJ8I1CdQ5F2EMsXBvW/72TXwtv9YXuRxPUsSvI3AWoddxe83DDCuMAyPs/Gu5LpfXdd3D6HQq2c6KPrHifatDw==
+ b=u1pzDf5sTGxYruYsPBnbexaPaZojAzuje+cN8YBu3T8JoC+u/EOq8V9N4oUy6e+CnfCACLgpCXVEuyz46DyeL2XXDwfRO6AYQIuL+0s4rL7TuvPV9eS8B3wt2EBmWmp3r7cS5vfOmdDn1eVtldF8s++jINsh2BG9tMTVVglKwKEGU9ZSvQjWVdR2PCWSkOlMfHB/+/Nyeuxw8PfCJ1HAMuSEfadllHhThLDpe5x0WwpptgW4yYt2gOrKuZhnMTkn8Hw6Dx90+loNnaPt75vcdxsVS56d0IwjlBlYq6ZGknlyV0ZsejAYOS7RjOr0cQTHCTWT/4mj62o87Z1l+VELkg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3fl4yZuI3FXsLKMjELIdrUn6cVGZYq54l8GtwquiqpE=;
- b=AmU11FUbRKk66fFNbDjx+YVZtkgwqYTTWycQkf73CBjtEe552z+9oUebXE24DJbCkWJsBeY/bRKQdyqmeG3ptrFpQHoUWr3SlilxPzk8pGIgcG+zoYG+X8hBJiAgRWwA9pDvVNGpCucRXBF/rHPi0TIoZcDAK+JBhZzXK1bykqPqtTPJa18vOHdZ+s2JpbMfEKkCrsBs2EuOqvbZbjw+PUOKmCBdhOFDiRC74jDuORB6dR0RIwYZYXhLpri8PP3HRRH1QB6TqSS7LFI2Z8pCYdNQ7vshb3BYILWMB7c55EBGl9c7bUOI3h4yn1m+4gwb4sebmyYDWBGgHahUOvZoIw==
+ bh=gLaLPVJb6wlZ4sG9P7Mw3v4kWKyVw2KAOXAn7liO71c=;
+ b=RywrExJF9CymfFGOOYxg8VzwusZliZBMM67mKQ1tp9JWc9YS0BSmA2Nfv3XoZdS9RnFNiZNgIzCSt4IfvD3BGuhweAZLRb3p/FTWjlFJo8yG0HUk29SxOUeEUzhWQ9VcOwPAEcl3rjqQZvpLl1m9PfcC+s2WAQxH3vFzamZxYvurJ+6sNSvTuCEbVQ6B3OlmkKvBR9+X5ot6me5hIzYImXpRPytaD5S7vPV+CX3U6Uih/MmMphTs8FLrJ2+pTSD5d7O5pDKCI6q2yPo+kljjRHhaHp4iiBRYsWU4eFn7m+YQUfnCwkMRRj92c71PcnTaHRLwhOooyrkRxtOLCJtkhQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=polito.it; dmarc=pass action=none header.from=polito.it;
- dkim=pass header.d=polito.it; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=polito.it;
- s=selector1;
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3fl4yZuI3FXsLKMjELIdrUn6cVGZYq54l8GtwquiqpE=;
- b=MiF8xtIUm3Roqvlx/z0dqRKgnfu271hIRN8XwlGWfnTrgJbyjqo1wr4G6z1x8ZDx/sQ4EyDunS0Gdozr2VlHsRSCVPWLKEJB4WrhfXUqbmofA2PQrLmW74DNPbmn6bQ4VEH4p1hSVWhGjHM88FAmHo5QbX3oIMqxlXp/QfsUZG4=
+ bh=gLaLPVJb6wlZ4sG9P7Mw3v4kWKyVw2KAOXAn7liO71c=;
+ b=U29F+IsPO3A9k42MqErDn7HZPS5MnOedjrD2zcTbMP9EpFwOrqO6lpYHvT/Z7C7odRPdTAyIgRzUxINdYlTbNQX+OPBA2i2N4Ou6Ww7GGFbfhtLfdOJ6LACrCXBblDPl5xH/urq/EH+36FYQvWpdyL2WBi6LeOVhvKkfMdXcEAadWUDml/vmnrV8vOYMGalkTh7mv1cxvy/rTnzsyADIlfxw4pBhAsTqi+nLEdslX4kJcnQgt0GF5u1xZst24VJ55ATiDQQgji9e+fr1ixAPXlI38k3m3z4qj1o3eakBK8ZELslc+CFmG65uOXK2Bol6J+v42Ht3/dwSYtp5XenRrg==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=polito.it;
-Received: from AS8PR05MB7880.eurprd05.prod.outlook.com (2603:10a6:20b:253::20)
- by AMBPR05MB13003.eurprd05.prod.outlook.com (2603:10a6:20b:733::13) with
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6802.namprd12.prod.outlook.com (2603:10b6:303:20f::19)
+ by PH0PR12MB7095.namprd12.prod.outlook.com (2603:10b6:510:21d::9) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Sun, 20 Sep
- 2026 13:16:54 +0000
-Received: from AS8PR05MB7880.eurprd05.prod.outlook.com
- ([fe80::b739:4a27:cccc:cd64]) by AS8PR05MB7880.eurprd05.prod.outlook.com
- ([fe80::b739:4a27:cccc:cd64%4]) with mapi id 15.21.0428.015; Sun, 20 Sep 2026
- 13:16:54 +0000
-Date: Sun, 20 Sep 2026 15:16:52 +0200
-From: Enrico Bravi <enrico.bravi@polito.it>
-To: Frederick Lawler <fred@cloudflare.com>
-CC: "zohar@linux.ibm.com" <zohar@linux.ibm.com>,
- "roberto.sassu@huawei.com" <roberto.sassu@huawei.com>,
- "eric.snowberg@oracle.com" <eric.snowberg@oracle.com>,
- "paul@paul-moore.com" <paul@paul-moore.com>,
- "dmitry.kasatkin@gmail.com" <dmitry.kasatkin@gmail.com>,
- "serge@hallyn.com" <serge@hallyn.com>,
- "jmorris@namei.org" <jmorris@namei.org>,
- "linux-security-module@vger.kernel.org" <linux-security-module@vger.kernel.org>,
- "linux-integrity@vger.kernel.org" <linux-integrity@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "kernel-team@cloudflare.com" <kernel-team@cloudflare.com>
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v3_1/2=5D_integrity=3A_Report_erro?=
- =?US-ASCII?Q?r_code_in_integrity=5Faudit=5Fmsg=28=29_call_sites?=
-User-Agent: Thunderbird for Android
-In-Reply-To: <zu2rdshqwc6t72q22nayydud222ecic4ca5inzvte5lqtbnkfu@mcq7ta422era>
-References: <20260916-report-hash-error-v3-0-73e5d95e9efe@cloudflare.com> <20260916-report-hash-error-v3-1-73e5d95e9efe@cloudflare.com> <132d83cb5dcfb6fa7024480626a829b4e03309f9.camel@polito.it> <zu2rdshqwc6t72q22nayydud222ecic4ca5inzvte5lqtbnkfu@mcq7ta422era>
-Message-ID: <1C982323-4153-4A2D-946B-832DC3A5446F@polito.it>
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: MI1PEPF000008C9.ITAP293.PROD.OUTLOOK.COM
- (2603:10a6:298:1::438) To AS8PR05MB7880.eurprd05.prod.outlook.com
- (2603:10a6:20b:253::20)
+ 2026 13:17:31 +0000
+Received: from MW4PR12MB6802.namprd12.prod.outlook.com
+ ([fe80::51f4:a3d9:b44e:9587]) by MW4PR12MB6802.namprd12.prod.outlook.com
+ ([fe80::51f4:a3d9:b44e:9587%4]) with mapi id 15.21.0428.014; Sun, 20 Sep 2026
+ 13:17:31 +0000
+Message-ID: <1e29995c-4877-4d83-98fe-88da780b6d40@nvidia.com>
+Date: Sun, 20 Sep 2026 16:17:22 +0300
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] mm: remove min_free_kbytes adjustment for THP
+To: Johannes Weiner <hannes@cmpxchg.org>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Brendan Jackman <brendan.jackman@linux.dev>, Hugh Dickins
+ <hughd@google.com>, Nirmoy Das <nirmoyd@nvidia.com>,
+ Dragos Tatulea <dtatulea@nvidia.com>, "linux-mm@kvack.org"
+ <linux-mm@kvack.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20260901190123.3511535-1-noren@nvidia.com>
+ <20260902162323.GO3004@cmpxchg.org> <aphS2TancJAZLND7@gremlin>
+ <20260902183752.GP3004@cmpxchg.org>
+ <a1f19a59-7dd5-4fb1-b5db-3efee8d249e7@nvidia.com>
+ <20260917134949.GB1344@cmpxchg.org>
+Content-Language: en-US
+From: Nimrod Oren <noren@nvidia.com>
+In-Reply-To: <20260917134949.GB1344@cmpxchg.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0106.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:bb::10) To MW4PR12MB6802.namprd12.prod.outlook.com
+ (2603:10b6:303:20f::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,155 +82,167 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS8PR05MB7880:EE_|AMBPR05MB13003:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6ed684e7-716c-49bc-c4d0-08df171970a6
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6802:EE_|PH0PR12MB7095:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2b53e0fe-a3f5-471d-4983-08df171986ad
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|786006|376014|23010399003|366016|1800799024|22082099003|18002099003|56012099006|11063799006|4143699003|10067099003;
+	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|11063799006|56012099006|4143699003|10067099003|3023799007|6133799003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	24+2ot01VtOCyvOPXsdp+a3tEXDHH69qDt1JIeu1Eyw7tuqx7BFqmK38UC7HU1drlmLt4I7j+l6egna3WBspFHAem/GnQC/QVpaRipxE8tOJC33QBo2jO7dneXqZP3BjcYCitQFnilfgdjiqh6BO0Nr9CVJvvQBCkd3SeXvnMFyo/I5oIoZX5foJuWwPfu6QrFKXRzSPAfE8ZRiIj14Vyg0i+/vOJ2kvGmnM/Jh7lMZJCfpWc96eqU0YIXJwh3CSnC9prghS2MaNwPAbODjrQuIyGIrT0K8jPeA4mK6B94ga/Uxrp7jZbuPadoWMVaDzSrj3RD2ryI/H+gPiVeWKs/dXl69/X6FgWCT3aVA/Ynm2RUsD0xiUKFVPelVeUa5qtf3VwQVuuC1Huhrcf9fXCk2N2DmRmg23GwOjQEDykgP2yyEgByG/wKXyRb+xwJBJJ73WR0ocLXw8isxrtfulDslCx3Fu0PN8dV1Eqjp55ExOTgQWUjA6iZMtSmhZY1O3ZHpEnJunBvbqhil179mpBqcoVMlELJL1z2Jl4Qn2dLwdlm2RzrWpT33LtxwIVGh11bLsylhmyVf+pHyXnKaiAxLzDE1QpzT3WvivrfFFG7VC14faiq8u3Yd2YIFbFwT6JCDsOnqwYw/PibyXOHOC/IYfv+aBfo7QsWBhe055074=
+	7dWquMTLi27OOCaMKeFnc27aB/vbbPJR36jnUNFIx7rSJzMfX4EcIJFu+OFKnjLOmT4JfJwv+S7gh3S9AYwUXyX43aEpJARhe6WhNlG1DkqNsBjexv9080Oh/9E2iy+cs0St7SYP2NpGA9p+QE4BKAWpO/qzeLUE4+0b+hn5Xu2fVbS33s+CWdEC4Vsuqp83Adtz6A8pN8Y+VrCJH33xPwphF0V42HozH68hS4F+VlpZTTS0Wov3qeIXQFX61Q3/C7MDpvQ0YT7s4McPehOgG87/6dr4usSYo2jSfwr0AJRePNMF1r5o17Kw3nw99KepiCpbeRk3j0bsgIsFyRmFwvK0oYV3n05jbOe0Udv19DxuvfOw6EeYKeTJ/SXx6XrZTHEoxmaQzJOMs71pC7KvH3Ex6438a5OEL+vncz+VOfbb5m6qhLggzS2qIlOoYibIPlfINM4llW2m7N0dUQmVQp2ZnwnDQT8YzrgePtspomqu4EbRQUeVWHxLNnlVMozYg7AWS4XNNQ6+NwhlFl4/zvdduYHtYPAuPNzE3WsK3PyaFl+ok4R4C9HPbU+bdfmYhZ9mHKQV7KzAC0RSj2hhPe8XFeVVSSFtSbtR0lcH5Qq9vqO2w83viZnNA11LJqAOzUZWjamSGMXsvCRa028KSk3ch8Sr/10WrUR7U7bvXhg=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR05MB7880.eurprd05.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(786006)(376014)(23010399003)(366016)(1800799024)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003)(10067099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6802.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(11063799006)(56012099006)(4143699003)(10067099003)(3023799007)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RUhPaHNKRTBCNkhtRUF3NFNiYXlLOUFDaCtQamdZdUt5Rko5RjJaSmJ1NFhU?=
- =?utf-8?B?U2Mxcnd0Q05PcEp2NXptbitJOW1yeVY4VEd5bnEwZkY5REFhQ2NUaDJSNzhQ?=
- =?utf-8?B?clQzUFh5bkZEOUc2dXp2V2xXOW9DdWVUZDZ0MlpPNTlIMm1BUnB1U2NtckJ5?=
- =?utf-8?B?MzNnVzdYZjNvS2tqbUF0dVNzOHhZTEgzRnREenVNVHVqQ3Z6dUhXUEtWK0Z6?=
- =?utf-8?B?N0pFbThEb3h0WXd6RUVyR3Irc09CQjRPYU1Ob29MTjN5OEsvVElYVWNIdzdi?=
- =?utf-8?B?RW40dGJrcWR0Ukh2VDJ6WWN4Qko5UkVCMEE4Q0lMcjRFSHB1K3JDZUV2bXVU?=
- =?utf-8?B?eFJ3Yy9GZGlvMk5mVnN5d1dQZHU3U09pNmNmNmdJblVRVldEOGxqWU1BMVZC?=
- =?utf-8?B?ai9FOHZOMnQweTVSVHlLcXpiRkVqMEh6aFhpVlJDdHAzQldBeWJ4VTZ3b3BB?=
- =?utf-8?B?MCsydDdoMmJmZGlxYmVLS1YybWRRQm1nYzl6UlpoYm9qRXN0UERaYUdqWjFy?=
- =?utf-8?B?UmN6UVZweWp3Wmk3VTRXMU5ucEdIM0haSmlyY3dvdXRPK1VLT0xmMFBwMXcz?=
- =?utf-8?B?MzEwNGxscFBSRnYyMUIzR0FoWDVFRUtVKzFmMkF0ZTFvbzZvV2RTL2xwNGRC?=
- =?utf-8?B?aVhDYjBJM1JTdnJsN2lRVlpyV3NSWFZhSlpMdnA2MDRDMThhMEFYckpnWjd6?=
- =?utf-8?B?MXk3aUtqMUN2VDFFSTk5akJ3djI5aW96YmQrc25EOFVzMEQrYi82dklNL1da?=
- =?utf-8?B?c1ZBVnJUaktZV1lWZkFMenJ2L0ZrZTNpVWw4ZFAxL3hlWkxDVUxFS2lHa0x3?=
- =?utf-8?B?NDlIcmdhK3ZiVm1pUFNlT0JRVnVjeldSYzhQWndFT2J2TWlwaGZHR2Vzdkc0?=
- =?utf-8?B?cDVOZUN6YjRMdGhGVUV6WVJScDYybUxFeDl1M2l1MkVybUtXNEY1QjIxdWNN?=
- =?utf-8?B?OTlTVWk2MjB2aXdQUGp6YnhtUUVNMlN6YkFqd0NsaVRFVzFEY3pkc2hHa0oy?=
- =?utf-8?B?TTJJQVdGYUNmeHBGbUk0dFJiZ2F1TWl3V3V5bTEyRGJpSzNOckVhYUdTMUNm?=
- =?utf-8?B?bWlobGFhZGNSeW5qNFFxWll5eVprRktIM0NrK2oyeGphN0tKOUZuTm9lU2NW?=
- =?utf-8?B?bXpIOHJRbndxeWhDbkJoelhjNHNLalI3WDRieks1eDFRSUlPZXBGRlBVSzYz?=
- =?utf-8?B?c2ZiQldpK1A1NTYvN0NJNWRuSCtPbUdqSGJqYVY5V0lmbDBnWi9sdklzeTk0?=
- =?utf-8?B?ZFBBMDkxYXlRZE1tc0VkSzZEY215Z1pGWjdTMWVlR200SFUweW4vNTA2Yy9O?=
- =?utf-8?B?UC91RjNZQjQwZjBSb20yRTZ6N1hza01JTmovdVdxc1NLSU5aSUtDSDdxYXVO?=
- =?utf-8?B?ZjdiaFZiV2xGZDVPR25zV2pzdkc3NFljT1dDaGFuVUkzdFZpdjJGaitJWjNC?=
- =?utf-8?B?WGtZUE5vajVsdVJHTCt2TkdNY0FZTEZ6ejAvZ1BBdzFTWkVOVTFmcytQUy9k?=
- =?utf-8?B?ZnA4Sms1dmdpTzA0TENVazRxbS8zbkk1OWpUcGFjSGhIRk1NM3BaZXUvQ0Ni?=
- =?utf-8?B?R1hVWU14emFmbWNZTWs1UlNVYkdYblJwbWMwL0NhaGdPOVI5MkUrOVpGYlZL?=
- =?utf-8?B?T0ZQcVlSYnVkVTZOZnI5VXgvOU9aUlBBOEpMaU5wamF1VEFkVkxadEF3TkVT?=
- =?utf-8?B?VnYybWU1SnBoS3hmWGlGSk5MMmgxVVpQbFdGR2dKYTdnRnV2SUtCSWk5L2Jo?=
- =?utf-8?B?eERLejBFUHY4ZElqU01RSTNLejh6K2FqazBKS1BLNkxreTQrNVN6TXZ1R2dJ?=
- =?utf-8?B?Yk1IZFBPNUFLSjd0QVpXTFJyWTI3MStxVWVNNVM4YTFmS1N2OUovZWJqWmRL?=
- =?utf-8?B?UlRsWndVZGxPejRaSGxJSzgvbnBNbmNUbndHR2hQaTNnUnlQcjhXdDVkZ20z?=
- =?utf-8?B?YkF5cDBQUU1OSDR2VmZMdTVUdk5mWTJBQ0MwdGovYllXM21jV0RkRmplM3ZF?=
- =?utf-8?B?MlRSNkcvOWI3M3BUK3dUWVNTQ2lxSmxpajRnQ2ZKYnFBY1liOWpYZzV1ekl5?=
- =?utf-8?B?dXB0SW1TMFVmL1NZV1FCT3J1NFRNNGxuQlBTaVU4a1pPdmwwc3JxOERyQU1B?=
- =?utf-8?B?ZlFDMGhZdGpZZWdKK3EzWk9rV3VQYUZiKzBUYzNNd1FLSHJFVzg4SG9ESFVl?=
- =?utf-8?B?QVA4ZkpPMjQzOHpuaElzRi96ZTZsRG5vSVY3czZXTC9rRjh2bGJkTDF2SjhR?=
- =?utf-8?B?dkh4bWswOG1iakpyQStUbUpSVGJ4WTZKLzhwNXFBakZGMXdFT09VVlV3NzRm?=
- =?utf-8?B?dmRMK1FUUW9oTWZjS0pjQUpnbkdsRzJhcWcxOFRKcVJpSnpzRmZWZz09?=
-X-OriginatorOrg: polito.it
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6ed684e7-716c-49bc-c4d0-08df171970a6
-X-MS-Exchange-CrossTenant-AuthSource: AS8PR05MB7880.eurprd05.prod.outlook.com
+	=?utf-8?B?WkVyUERMOUFTNWNsTUxpTkxvTTF2SGowMmVnMUhHTUpRUTFCK1djMmhCbVNq?=
+ =?utf-8?B?QWdMUEtWdEVBR2V2VEJRU2h3ak5pM3JlcTlyaStDUW9vdUZ3OWJKeWRLSzZj?=
+ =?utf-8?B?d3V2Rndxa0lpMVJiSUgxdmwrMFJObnVaL2hXMGdzSHQ0TFNzTERyMFBPakZE?=
+ =?utf-8?B?S3ppMlJIMUJpRUx2cmJUcER2VGNnRUVzZ1IrTy9Hd1hUMFU1YTI4QkdPd1lY?=
+ =?utf-8?B?eW9zKy9qeG15MlVsSjVRQWJCajNKZVg4NjgreW9LMzFsSWZCRlRsRHpiYWtn?=
+ =?utf-8?B?bWJjTi9nQzVQYk53dCsyOXkvT0RqVTl0dzBlWDVpMEoyV2VvdzBubTkrQWxo?=
+ =?utf-8?B?bEVmTFdFZTJ6SHVtZTE2TTM3ZkFwU2svbXlVdUM5WjV4TVhYVTdSckIwWFRk?=
+ =?utf-8?B?enI0N2tzdzJxQTNNMlQ5akI1ZmVVdjNBMFFTWENVRjVTN2lrSHlVdzFYVzcv?=
+ =?utf-8?B?U1MvUGEzQmpEcnhlNElWRWgvUDlOTURmWG5IUVZDSUN5Ui9WdEMxSmt0Tkdo?=
+ =?utf-8?B?dEtsdWlzWVVHMlArWStaSisyTWZ0KytLcGZWc2RVUkRFenVCc0dZS3o0eVlD?=
+ =?utf-8?B?SnRDeEh3MENuaDhSd1FTT1J4NGVJNFFYN0N2R2pCaHlpc21QMWgxWWtKdFB1?=
+ =?utf-8?B?eGsrWEpLVnVmVUR1b1I2dnNUeVVwN1ZlakNvNkQ5VUVLb2ltbWxWeDV5S0Ro?=
+ =?utf-8?B?K1Z5SkdONWxKNmdsR0lmODFhWGhWVGJYRHRtcWkwZTJLYi9hMm9nWFRGSm5Q?=
+ =?utf-8?B?QTVOT0E2cTJPNlFWSG9scTluNFJud3hycTJuVnNvQzNlQnU3ZSttaGVHQjlX?=
+ =?utf-8?B?WEpUb3hBcVRNZUpsM1JUM2JucmJidWx6aXcyUnAwSll0VGRrRTFFSjhFd0Vj?=
+ =?utf-8?B?VXQyU3g0T2t4MVhoWDlmc0VEeEZFZkJmSHZJbVh1SFNGNG0xTlBrYUV5Q25u?=
+ =?utf-8?B?T2swQ2RaYWZYTG5PR1pvR0tleXUyeWsvMWpXSUlPZnFVSDZtaitmWkFjcUl4?=
+ =?utf-8?B?WmlqbUtDcGRvYXZFQUg3Ujcvd080Z2w2cXg3YnZLTGxzSThBZFdtWGsrc0Y2?=
+ =?utf-8?B?eVUzend2a2dPRTBFdHJNM0hrMmQwSDZiUUJMT2ZsaWxlejVTR05ONmlEaGl0?=
+ =?utf-8?B?RUNPK1ZRSUhrSHFxelJnTGx3M0h5bVgzNzFhZUdZNFJ1MDBWUDAwYm5HWUxw?=
+ =?utf-8?B?bDIrbEI3YW1lcUlpeXdGZlZqR2czVUJlWnlTSGtBK2Y4K3dJa2JsYXNWUEw1?=
+ =?utf-8?B?YnZLRnBEOCtuMmcwWjhBY3hnOHNFUFZlOWMwRWJEbndiaDIvbEh4cW1BdHRh?=
+ =?utf-8?B?eWNUakdtTklJNmdVQ1pXQWZMNGp5UTd6ZEVCcGJtTGNNT1NLVTMzS0ljNzNN?=
+ =?utf-8?B?aHdCMzRKbnZlOWk2bnB1L0Q3STBEYnFPcU1URzN5THphd3dVU0hwSVoydmth?=
+ =?utf-8?B?cSt3TElJZGVsaDQvTEdQVmtjbGYrS2dBclk0OEc4ejJ0UHA0QXdWWWFSQm01?=
+ =?utf-8?B?bGJlOEU0M3p6SzZyMm5ZL24zTXZ6NStOWVJrd0Y2T2Y5YWtjTnNMQjJPSm9S?=
+ =?utf-8?B?RDkzaDZPaTcrM00wYm5LQkY0bTBoSlhwOTVxWHI0dk9IT0duSit6UE55WHhD?=
+ =?utf-8?B?MnJUTmUycklBaE1iV2dxVnFSb05nVFZRS2F4ckQ4UjhDVERrZGhLRnJLajli?=
+ =?utf-8?B?czQ3eG5XNjNtM1VBWHgzSlhCcUdUbm00VE9NMllNWFJXWmJkR3VVTy9Qa3pQ?=
+ =?utf-8?B?cTM4c2RYQlhObWJiSkdZTWI2MjZEbDRWNTgrVTU2VGkzSkdoREtrT0VHMmNO?=
+ =?utf-8?B?cGluSlZGakl6eUkzTEtweHNjWmRvWkl5amtzZjZZdm9xeVFGU0tIV1dpZk5x?=
+ =?utf-8?B?RVBDQnUyOVFZZ3IzRmhvaUdXRDBFcEU5RG1WNXZwdnZHa25zV3pkN2FSbkdp?=
+ =?utf-8?B?UGc2U0t4SGJremtRQlp4OExEakhEeVp0Q3dHeUt4QUxKekVSVHg3SGtIZUV5?=
+ =?utf-8?B?Rk5Nc29sVERvWVU5clhONzdxQmNuVXNGelJTT2NkMXZUV2VWT1ZNZmhTc0F3?=
+ =?utf-8?B?dFE2emFQZUQ5a01vQzVNLzQzUnJoRy9yUml6SzdyYkNXZlNzRlBrOVc2MG4r?=
+ =?utf-8?B?cnFYTTl0UHhQMklQTGR4c1U4dEdzRXdwRkhzYS9VUDZYeUlSWTRmcFRUcnY5?=
+ =?utf-8?B?c1dkd29YSGQvM0hMNkpqTnBhZ0ZCYzgxdytnTGFwVXpTcWwyc3VjNFZrV1gv?=
+ =?utf-8?B?cHFVdmNmVmFHMFpSZzk0N05aeTdzcnBTZkE3ZlFXeVVZNmlTQmg1bTBWMGRR?=
+ =?utf-8?Q?uXB/A1m7ILCjoEUFKX?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2b53e0fe-a3f5-471d-4983-08df171986ad
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6802.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2026 13:16:54.2701
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2026 13:17:31.7385
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 2a05ac92-2049-4a26-9b34-897763efc8e2
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: E37xiH5tVPc3vunwC7DMAKmuwbWmHXbc9H90pMMH7oKH19yyNo2oqr96SfU2eD5gdV4cTfOIuODfCrNLuJM7NQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR05MB13003
+X-MS-Exchange-CrossTenant-UserPrincipalName: gBCPC8e2Z4irOeFrk1nTiNvysoI5OaYisgnPwzGmS3wNsUTpyZdDQC52jhNNoNL/evSooYfNjNJuph3agV6wUA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7095
 
-On Fri, 2026-09-18 at 16:11 -0500, Frederick Lawler wrote:
-> Hi Enrico,
->=20
-> On Thu, Sep 17, 2026 at 10:58:22PM +0000, Enrico=C2=A0 Bravi wrote:
-> > Hi Frederick,
-> >=20
-> > On Wed, 2026-09-16 at 16:36 -0500, Frederick Lawler wrote:
-> > > integrity_audit_msg() hides error codes by wrapping
-> > > integrity_audit_message() which obfuscates the underlying reason for =
-the
-> > > failure.
-> > >=20
-> > > Update integrity_audit_msg() call sites
-> >=20
-> > here it could be mentioned that also integrity_audit_msg() itself is
-> > updated.
->=20
-> Good point. I can see that I may have not been clear about that.
-> =C2=A0=C2=A0
-> > > diff --git a/security/integrity/ima/ima_fs.c
-> > > b/security/integrity/ima/ima_fs.c
-> > > index
-> > > 2a0bca5543161912abe2a0236c9fcae7055e62bc..6d2ef44b21f8d40b4981a6a441c=
-f7c3d
-> > > 69f9
-> > > 4dee 100644
-> > > --- a/security/integrity/ima/ima_fs.c
-> > > +++ b/security/integrity/ima/ima_fs.c
-> > > @@ -595,7 +595,7 @@ static ssize_t ima_write_policy(struct file *file=
-,
-> > > const
-> > > char __user *buf,
-> > > =C2=A0 pr_err("signed policy file (specified as an absolute pathname)
-> > > required\n");
-> > > =C2=A0 integrity_audit_msg(AUDIT_INTEGRITY_STATUS, NULL, NULL,
-> > > =C2=A0 =C2=A0=C2=A0=C2=A0 "policy_update", "signed policy required",
-> > > - =C2=A0=C2=A0=C2=A0 1, 0);
-> > > + =C2=A0=C2=A0=C2=A0 1, 0, -EINVAL);
-> >=20
-> > Here it could be put -EACCES as errno, being the value returned for thi=
-s
-> > case.
->=20
-> Sashiko said the same. I kept going back and forth on this one because
-> of what the message actually says. EACCES is the result, but the string
-> itself + pr_error() implies that it's an input error. Similar to
-> ima_release_policy() below, I should probably keep this zero, and
-> follow up.
+On 17/09/2026 16:49, Johannes Weiner wrote:
+> On Thu, Sep 17, 2026 at 01:19:12PM +0300, Nimrod Oren wrote:
+>> On 02/09/2026 21:37, Johannes Weiner wrote:
+>>> On Wed, Sep 02, 2026 at 06:00:55PM +0100, Lorenzo Stoakes (ARM) wrote:
+>>>> On Wed, Sep 02, 2026 at 12:23:23PM -0400, Johannes Weiner wrote:
+>>>>> I'm not against carefully evaluating and testing out today's need for
+>>>>> set_recommended_min_free_kbytes() in real world examples. But this is
+>>>>> not that.
+>>>>>
+>>>>> Nacked-by: Johannes Weiner <hannes@cmpxchg.org>
+>>>>
+>>>> Isn't every possible change to address this kind of issue subject to
+>>>> exactly the same kind of constraint?
+>>>>
+>>>> I'd like to know what not rolling that dice looks like :) or what
+>>>> constitutes 'careful evaluation'.
+>>>
+>>> Usama gave some great examples in his other email. I'm not really
+>>> arguing to keep things out of tradition. But I think it's fair to say
+>>> let's at least test the common 4k/2M THP setups under memory pressure
+>>> before and after the change.
+>>
+>> Hi,
+>>
+>> I tested this on an x86-64 (4K/2M) virtual machine with one NUMA node
+>> and 16 GiB online memory, using mmtests config-workload-thpchallenge-fio
+>> with THPCHALLENGE_MADV_HUGEPAGE=yes.
+>> min_free_kbytes was 16 MiB patched and 66 MiB unpatched.
+>>
+>> I ran each kernel 30 times, rebooting before each run. The results did
+>> not show a regression in THP fault success rate or latency:
+>>
+>> Average THP fault success (Percentage Faults Huge) increased from
+>> 13.07% unpatched to 13.34% patched, and average fault latency
+>> (Fault Latencies) decreased by 6.5%.
+>>
+>> In contrast, compaction metrics were higher on average with the patch:
+>>
+>>   Compaction stalls:          1,635 -> 1,713        (+4.7%)
+>>   Compaction failures:        1,350 -> 1,416        (+4.9%)
+>>   Compaction migrate scanned: 4,812,254 -> 5,587,587 (+16.1%)
+> 
+> A 2% increase in THP success bought with a 16.1% increase in
+> compaction work looks like a sizable efficiency regression.
+> 
+> A scan efficiency drop is in line with expectations of what happens
+> when non-frag placement reserves are taken from the allocator. A
+> comparison of trace_mm_page_alloc_extfrag rates could be instructive.
+> 
+> Why the 2% success boost isn't quite clear to me. Allocation latency
+> improving suggests the extra work is primarily picked up by background
+> compaction. Reduced reserves could be making proactive compaction more
+> aggressive. But the improvement is unlikely to hold once you run out
+> of idle CPUs and the additional compaction work actually eats into the
+> workload. It could be useful to look closer at who is doing the extra
+> work and based on what triggers.
 
-Hi Frederick,
+Thanks.
 
-AFAIU these messages justify why the policy loading has been denied. The po=
-int
-seems to be that the input policy, even if it is valid, cannot be verified =
-in
-that form, because the signature is missing. The user can write the policy
-directly on the securityfs file, but is not allowed to when a signed policy
-is required. For this reason,
--EACCES could be better, because it is referring to an action permitted by =
-the
-system, but not allowed by the current policy.
+I ran another 30 pairs with the same setup and workload, this time
+adding identical CPU load to both conditions. CPU utilization during
+the measured workload averaged approximately 99.7% in both the baseline
+and the patched runs. The aggregate mpstat %sys value averaged 2.25% in
+the baseline runs and 2.22% in the patched runs.
 
-Regards,
+THP results:
 
-Enrico
+                              baseline avg  patched avg   change
+  Percentage Faults Huge          9.92%        9.12%      -0.80 pp
+  Fault Latencies               4923 us      4856 us      -1.36%
 
-> > > =C2=A0 result =3D -EACCES;
-> > > =C2=A0 } else {
-> > > =C2=A0 ima_measure_raw_policy(data, datalen);
-> > > @@ -745,7 +745,7 @@ static int ima_release_policy(struct inode *inode=
-,
-> > > struct
-> > > file *file)
-> > > =C2=A0
-> > > =C2=A0 pr_info("policy update %s\n", cause);
-> > > =C2=A0 integrity_audit_msg(AUDIT_INTEGRITY_STATUS, NULL, NULL,
-> > > - =C2=A0=C2=A0=C2=A0 "policy_update", cause, !valid_policy, 0);
-> > > + =C2=A0=C2=A0=C2=A0 "policy_update", cause, !valid_policy, 0, 0);
-> >=20
-> > Here maybe it could be put a conditional errno, based on the validity o=
-f the
-> > policy, instead of hardcoding a zero.
->=20
-> I can see that making sense to throw a -EINVAL on it. The function
-> is designed to always succeed, but it might be worth pulling out the
-> error code from ima_check_policy() for this case.
->=20
-> Best,
-> Fred
+The average difference in Percentage Faults Huge changed from +0.26
+percentage points in the earlier runs to -0.80 points under CPU load.
+It's worth clarifying, though, that both differences were small relative
+to the observed run-to-run variability: the baseline/patched standard
+deviations were 4.52/4.59 percentage points earlier and 2.64/2.95
+points under CPU load.
+
+The same applies to Fault Latencies, whose baseline/patched SDs were
+432/368 us earlier and 181/132 us under CPU load.
+
+Compaction and reclaim results:
+
+                              baseline avg  patched avg   change
+  Compaction migrate scanned    3,983,598    4,563,788    +14.6%
+  Kcompactd migrate scanned     1,242,728    1,944,022    +56.4%
+  Compaction free scanned      17,689,565   20,461,694    +15.7%
+  Kcompactd free scanned        2,608,710    4,426,810    +69.7%
+  Compaction stalls                 1,476        1,514     +2.6%
+  Compaction failures               1,265        1,319     +4.3%
+  Direct pages scanned          1,339,044    1,344,907     +0.4%
+  Kswapd pages scanned          2,011,323    2,141,355     +6.5%
+
+End-to-end workload results:
+
+                              baseline avg  patched avg   change
+  Duration Elapsed                98.82 s      98.33 s      -0.50%
+  Aggregate fio read bandwidth  0.2142 GiB/s  0.2152 GiB/s  +0.48%
+
+Aggregate fio read bandwidth is the sum of the per-job read bandwidth
+values in the fio output.
