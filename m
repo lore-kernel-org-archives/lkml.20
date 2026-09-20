@@ -1,64 +1,64 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED06D41C2E0
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 11:40:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5187741D21F
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 11:40:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789904404; cv=none; b=AgeTYAgZNR6yArT7sdEFhZdBywBW1D8kanEPiLpOVjGwEqT1sQNpdceQsG3f+9YjCx/w9y2hv2kPfmxj7sHD2EOBemtlRRn/ButfgSXCY5fRXNXTZULB2v7693714R5IYE5gA7DLfK2YlZ1Yt6NckY2/GQZ4BiitDs7Lb2lPjQc=
+	t=1789904407; cv=none; b=tVzPvUufGYBQKAx1+gh/SSlzEKmc/369ztQQCgS0pf3pC1GbPb+SGlJ72bvKL1ZWu2N7Udg8mttB++2I1Lq+cyRdR7No9LBNsCy05YvF53RLXy5bnXyzUgP/hvlcm0EsQAu92oIiYyNB2JzHda7Fp83+vDbFj4m/G4IV7lu6sUY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789904404; c=relaxed/simple;
-	bh=LceB0LS7j+MFWha8UPy32p0rP31JuLmjDEisZMDloXY=;
+	s=arc-20240116; t=1789904407; c=relaxed/simple;
+	bh=7B2LFEnl9mbenlcEhpsibESNW5OLpwmL7Ks/s1Yxw+s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oOGhenO0k0SF9BRq19l3vtI6GZQ97Q1MD382QV2QtjEgcCNf9Kqe5p2WoP5lDpf0tsK7SBDRulIrO3VWigoauS7hZ0ZU5UQmFf8eSeuH2XADfIei0U0zkUXIQaUu3SzQN+DqKSLGxFVPJG7svGEkwq4WKHm58174zAwN7gPEAdM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n1LlJBAY; arc=none smtp.client-ip=74.125.227.140
+	 MIME-Version; b=XeVQdz9wrsWtC0uiO64f27L0630+2gu84Lkovawu9bZyFEWhPsfxK5AYwy3tL4p8FEVq0W/pfHr7zES72ifNFz7efaZ8YOCQUKJE3eJGy+4e4BIT0gfEviftm4HQUaebgnZTKZUNXc8CQD+4DiQr++TKIUXy/UVk3BZczGaVcfQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VdyTxujG; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n1LlJBAY"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747f01363so17826855ad.2
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 04:40:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VdyTxujG"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebcb8d7so672773a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 04:40:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789904399; x=1790509199; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789904402; x=1790509202; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=oX07aaXGAvN5OBrOOHOsLFreyAL+4hdmNsHY0PkuU7k=;
-        b=n1LlJBAY5cdwYXRDWeGgByiSlzUxd8YgbtW6UlW9IrW+BhpT3/8yoR5L5G5J+TG02c
-         BB8m46ymv2lLv2XyYRQhFWk5Fwe9D/S2fUWngijwvn2BIYHbWjR71El1f+R+RHdusjXL
-         Vzt9kIYhAucSD1x0H6BnhgrEbfV1++XCT2uPOXWK2MuGEsT4TCfnZY6Juw/cMXeKdSXm
-         e+bAHsYM3gA50rbrf0r+598Zt9gxpZClsvI+AQ1N2djzSr8nXzsEbhG4dyu0nEbSpByt
-         4y5v5MnpQF1Z2VQUBWaWGE10YweQSR0/NfPYxJdzQhNZ1zAkwtcRI0LEa/JK2+UmEQiu
-         /LrQ==
+        bh=VB/v9xMNCgaG9X/tex87TcBN9TifdEbvdxv9dgsPxiQ=;
+        b=VdyTxujGlA+AjI3BWVel1LrY52Xdm4SW/wdERhEN4pLcALfjVHOH5W3Ho2aCZJvRHH
+         vgTzkWQLjX4IyVVCGoVkju1G0CSgY05ZQq6nVxqPK09qCBMlii5YMvPtOENW2D0RdjtL
+         0XjeWOWUYdJqe45wCbIET58RkzCMVJpZZGzaOAgEHxxeM1JTXP5/AZf3Z+RhPlX1KMFO
+         1W52n8RcRVOSycjb9pCnVN263LDQneJOWmrYrMp3TjuoG/5ZbSFi9CEnYBU1vq9Whv3Z
+         zV+ilF/egsJUMeF2/U11D7mBrGl1Ya0MukgJVTwYiwkhnco1LmJbAJlWjvNWGRG9OOIE
+         dJwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789904399; x=1790509199;
+        d=1e100.net; s=20260707; t=1789904402; x=1790509202;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oX07aaXGAvN5OBrOOHOsLFreyAL+4hdmNsHY0PkuU7k=;
-        b=CWgIOVkV0t4bLG0+0XFG7m7zK5H42JO5/0Lmh0aAH/965dkB7C3m2bPdkGd9qvp775
-         SGPMcjg73L1C1Qdu5MAgLQiKEzeUiSgq1NP2zhw1OuGnbKvNuMXd6Hzcfi6MV8Eayw0T
-         8yzw1kZ5IWFZeR+gRFRecZlk/DlScYKeQdc8F8HE0kPt7xT8Xa+Z5Q+y7fXHHueCPvMZ
-         /0K+BU0WAVHrvNyPUcqaHL74iSLr6cFVFpVFT+J7kJfjCf8PZQhOIrppaoxMBC/MMXAp
-         t9W4sbVsrdf3bv6HoiJ2QENIxrsBzSXtnsRy8qXQ5yaSHFZhtgY2OpG3DbgZhusBnQbZ
-         EKtQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzFUxFpxTIHEIuTUL7sOt0phajOjf+9CVyR6IPglWSS4/gghDGU6oZYX2/irivR3Fv8HU6MrMrGatBs8qk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mIbx8CSV+8wx7e/ZcGrDSzsyI9pjUYdfvBVAE3/pgOesXkqiyy
-	T7ZxhBqH0GU2fpZq2BpjpFTKMSs6Hw3ijU2CSoBKxBvjo36JPSo40ZRnjzCx/Q==
-X-Gm-Gg: AYBFou3fF8g+FNusYj1Wvj62ChUxQpTS2seGl2LTtwvY+O6nkWIfDjot09qNaJ1rO8n
-	RbITrYZlknvaEdlh7TzauNFKBizo8SW2Cg10JH9Ui4k6D1E3topl24sBFVsP6VMWsA+Dq0tBvtX
-	a7vELmfx40aeW0CNQczeNkzW5SvNshA4vXbsORQnrNMaSULeNn9wFqitnzP9FnnvAYXYNA+O6zf
-	HbiEh1LpNb3vmFDybbXfybd/mRHBjtSGmu/7XTkQqiKvPf9Mk8AFgZNck+ZFkl9oSlYEimLX3+K
-	X5+WhHIqZ/nSTYykx+/qa+yJAfGQqU5B475PxEMLzzHk5HhnL3zM0mPflwiKF0sRwCXLDJLDRJ1
-	nAHYylcZWnwTRnvPlhhfNIHnUD4CwT80yra2FFNbGSh4KvHRzs1m+AbjnsJdWD91cO+8OVys76g
-	vSgVpBi8fw+KMvMYa+3sIW/3S9juvne/RXD3KqUsZu3XzXM05uS28x7Ngao3+GUE4tmIAePqv+D
-	js6fp7Pb68h7pE=
-X-Received: by 2002:a17:90b:35c9:b0:39e:6c6a:656c with SMTP id 98e67ed59e1d1-39e6c6a674bmr6138097a91.47.1789904398889;
-        Sun, 20 Sep 2026 04:39:58 -0700 (PDT)
+        bh=VB/v9xMNCgaG9X/tex87TcBN9TifdEbvdxv9dgsPxiQ=;
+        b=FY/sUc5FCScJwKxMTeMj3z+vB0G3aBj6/bu8gjXMhmUJ+yVGbrRUgulbCkRAVW6mJT
+         ymiZgBGRYetLBOFoIwEq0YGWQRaxQVqyrNW5/0oqvwp+S4y9pzXWVsuIB2mh2sjBVPza
+         0KboosIrhSYKkWrZ+EykNg+lfi6vQLg2l8hBpofHMC4rLg3ZrUGJJahwB3rcVJCbhoWJ
+         PLMg5ZOdZAX0l6+ehZ9cc6uLuvVQxR0j4h1OdfgjA02MU0RBpifXtux8Gv4Mzx6ACAqQ
+         kCBFykCaudAIsl4cApSp+uP3EWx9MrSxzJaeEmsogMMKbWluQ++attDLrzdNnsF1Wbjg
+         qAtg==
+X-Forwarded-Encrypted: i=1; AKwUvBwASaXPY61e9Fuj9OEp0+ADOPHHhHf4uG/VOBe6GKQRvSgI6N+c3chIV5AH889fbyXfbexUOfb9DhhGKVA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nTZgSh74yGUeiOu3vVSf8vwDYa/0B0oqJerWTcBovoGFJy68FP
+	VqhX5W6W8D5VSPouzNLPG+wFQVufcPD/QKWEJPAdwAkVhh0LFEeDNsMd
+X-Gm-Gg: AYBFou0vGVjVIFUtmFyGvwWU4QGfDjWpGFhlsP4FbNrkR8HwfERf9wTyYofyeEy24o+
+	0ETEN92Hd3mzqJ+airuLcJnnfTSACDKCX2Q2uZKE9+6m5EwnRmJ/kw/38rxRFvhQ6lfTkjwK1cN
+	DJ5E4Lp4l1pt6hieT/5YB2/7zs+nX8obR/52qzODx/IJdzGYL6Xe7289ngWQyxU08WzY50izSam
+	msLbZ56W4haqKMZhv4iIOPOk2d8cPhOWDH9GsROeNEA+9CRhR3p5wdo8jPny/qdT96lHKUCZ/G0
+	LgG1lFsyaO2TgpkS4HDkSoHkXt2aetp6NZCSY2N6xxyySzzP3/colA3DdBNLJJJz9JjcTGV+rpw
+	MZqVqV9GieWiRIZf8sdwoPJ7bIc7kDu1xc9YwBAVHudDWPfZFsralRK4S6WvFJ1x6ZUVhOH/J5k
+	Qb0dEnf2UmfUCHNf4FMaXcAtTqHrPr9k6ImhAhzh2uaDasqxyyT26rtX8Lc8G7blStHys2qpDvQ
+	JJDOFkIBNZkGzk=
+X-Received: by 2002:a17:90b:2b8e:b0:39e:4c7e:bc5 with SMTP id 98e67ed59e1d1-39e5572d5a2mr7798744a91.19.1789904401672;
+        Sun, 20 Sep 2026 04:40:01 -0700 (PDT)
 Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:2022:c2a9:de8:d005])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c6dd585sm8490548a91.0.2026.09.20.04.39.56
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c6dd585sm8490548a91.0.2026.09.20.04.39.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 04:39:58 -0700 (PDT)
+        Sun, 20 Sep 2026 04:40:01 -0700 (PDT)
 From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 To: dmitry.torokhov@gmail.com
 Cc: floe@butterbrot.org,
@@ -66,10 +66,11 @@ Cc: floe@butterbrot.org,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+	syzbot+eb4706daf505f9c4b547@syzkaller.appspotmail.com,
 	stable@vger.kernel.org
-Subject: [PATCH v1 1/2] Input: sur40 - don't wait for buffers nothing will complete
-Date: Sun, 20 Sep 2026 18:39:48 +0700
-Message-ID: <20260920113949.12726-2-ngocthang2710.1999@gmail.com>
+Subject: [PATCH v1 2/2] Input: sur40 - keep device state alive until the video node is released
+Date: Sun, 20 Sep 2026 18:39:49 +0700
+Message-ID: <20260920113949.12726-3-ngocthang2710.1999@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260920113949.12726-1-ngocthang2710.1999@gmail.com>
 References: <20260920113949.12726-1-ngocthang2710.1999@gmail.com>
@@ -81,54 +82,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sur40_stop_streaming() calls vb2_wait_for_all_buffers() before handing
-the queued buffers back. Those buffers are only completed from the input
-poll callback, which is gone once the device is unplugged. Closing a
-video node that is still streaming after a disconnect then sleeps
-forever in vb2_wait_for_all_buffers():
+sur40_disconnect() frees the sur40_state, which embeds the video_device,
+the v4l2_device and the vb2_queue, while a video node may still be open.
+Closing that file afterwards touches freed memory:
 
-  vb2_wait_for_all_buffers+0x20f/0x330
-  sur40_stop_streaming+0x45/0x310
-  __vb2_queue_cancel+0xc5/0xf70
-  vb2_core_streamoff+0x5d/0x180
-  __vb2_cleanup_fileio+0x6e/0x190
-  vb2_core_queue_release+0x1f/0x190
-  _vb2_fop_release+0xe8/0x280
-  v4l2_release+0x280/0x430
+  BUG: KASAN: slab-use-after-free in vb2_core_queue_release+0x12d/0x150
+  Read of size 4 at addr ffff888066fa8aa8 by task v4l_id/28733
+   vb2_core_queue_release+0x12d/0x150
+   vb2_fop_release+0x16e/0x200
+   v4l2_release+0x22c/0x350
+   __fput+0x418/0xa50
+  Freed by task 16811:
+   kfree+0x1c5/0x650
+   sur40_disconnect+0xaf/0x140
 
-It has not been noticed so far because sur40_disconnect() frees the
-device state under the open file, and the close then crashes earlier.
+Give the v4l2_device a release callback that frees the bulk buffer and
+the state, and drop the disconnect path's own reference with
+v4l2_device_put(). The last closer of the node then does the freeing.
+The probe error paths never open the node and keep freeing directly.
 
-Return the queued buffers first. A buffer that sur40_process_video()
-has already taken off the list still completes by itself, so the wait
-afterwards only covers that one.
-
-Fixes: 6a8588156657 ("[media] sur40: fix occasional oopses on device close")
+Reported-by: syzbot+eb4706daf505f9c4b547@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=eb4706daf505f9c4b547
+Fixes: e831cd251fb9 ("[media] add raw video stream support for Samsung SUR40")
 Cc: stable@vger.kernel.org
 Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 ---
- drivers/input/touchscreen/sur40.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/input/touchscreen/sur40.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/input/touchscreen/sur40.c b/drivers/input/touchscreen/sur40.c
-index 09d8c5f8d09f..7020bcf9b81a 100644
+index 7020bcf9b81a..efd4fe557cef 100644
 --- a/drivers/input/touchscreen/sur40.c
 +++ b/drivers/input/touchscreen/sur40.c
-@@ -929,11 +929,11 @@ static int sur40_start_streaming(struct vb2_queue *vq, unsigned int count)
- static void sur40_stop_streaming(struct vb2_queue *vq)
- {
- 	struct sur40_state *sur40 = vb2_get_drv_priv(vq);
--	vb2_wait_for_all_buffers(vq);
--	sur40->sequence = -1;
- 
--	/* Release all active buffers */
-+	/* Release queued buffers first: nothing completes them after unplug */
- 	return_all_buffers(sur40, VB2_BUF_STATE_ERROR);
-+	vb2_wait_for_all_buffers(vq);
-+	sur40->sequence = -1;
+@@ -648,6 +648,15 @@ static int sur40_input_setup_events(struct input_dev *input_dev)
  }
  
- /* V4L ioctl */
+ /* Check candidate USB interface. */
++/* Runs once the last video node reference is gone. */
++static void sur40_release(struct v4l2_device *v4l2)
++{
++	struct sur40_state *sur40 = container_of(v4l2, struct sur40_state, v4l2);
++
++	kfree(sur40->bulk_in_buffer);
++	kfree(sur40);
++}
++
+ static int sur40_probe(struct usb_interface *interface,
+ 		       const struct usb_device_id *id)
+ {
+@@ -733,6 +742,7 @@ static int sur40_probe(struct usb_interface *interface,
+ 			"Unable to register video master device.");
+ 		goto err_free_buffer;
+ 	}
++	sur40->v4l2.release = sur40_release;
+ 
+ 	/* initialize the lock and subdevice */
+ 	sur40->queue = sur40_queue;
+@@ -831,11 +841,10 @@ static void sur40_disconnect(struct usb_interface *interface)
+ 	video_unregister_device(&sur40->vdev);
+ 	v4l2_device_unregister(&sur40->v4l2);
+ 
+-	kfree(sur40->bulk_in_buffer);
+-	kfree(sur40);
+-
+ 	usb_set_intfdata(interface, NULL);
+ 	dev_dbg(&interface->dev, "%s is now disconnected\n", DRIVER_DESC);
++
++	v4l2_device_put(&sur40->v4l2);
+ }
+ 
+ /*
 -- 
 2.43.0
 
