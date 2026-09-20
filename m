@@ -1,115 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C2581CDFCA;
-	Sun, 20 Sep 2026 01:31:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B12521CA02
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 01:33:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789867862; cv=none; b=fOWbAgX+QjPfKxJKk1yzyOBAfCNmSBSW8vQj52FCJZQ6IPXwLlM6iW4L5vMrYqLT9Wv7NxYk5FlVyc1LEgr8JXwQX712DMXnAaJWpqZjcg5IAAaeN7TXZHD/vuiaF76+XVkkMTSkMcbsaRg0GZ6Qj9tTMLEZZXgwqAJHCcF3TRU=
+	t=1789868002; cv=none; b=iLXFyMFxpfSfit86PMPKo/zFZlCSOeKXGWD84BDI3MkchpEDJLVkifjKhMCf0RgNpxWSj3mbjPTawPXr8BfNLaYEEMvsBSyX5wJQe4TS5hoOjrW0F95IRGJze9W5SMnTxhL9/K/6MFJdjN6/EfzDBsvrJQr+MAxbBGz5NdqAJL4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789867862; c=relaxed/simple;
-	bh=2rNQ6QfXOTaTp1mYT9R7/69YVRR0JqsbtTTzo+ppa5M=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=uIoimEnSI8oRZJSbBjumpPD83pFRY78q9WJY4mDGj/bvsFnwOLCmQ+WNBVhKRNeEHNzYKJ9bKwng5VSdV0RQaRUS8A915veIx+DmKG4AeqQ7pgD/CFhRXh81cnI8Kq4L761uglYrGhC/+1jqdrBRJPCKQOlaOj/fWkFIJ7UqU6Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LydiYBEs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789868002; c=relaxed/simple;
+	bh=5zpZpGxLh4Xc825xkk+RerisAKufOfgMDCrJS5lXFnQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=V+eRoQf+wmqsUawh9hNvBOkIiFF2ch7OsermG+3KyyCNw7HBdvUPi07BVh8W31JvYsIxaP0XIXPZtq7zFFjUSZuIVRAQHt8nhzKULDMctWLlvgf3De+fkDCrGtvLtIiPCvaiGKWEZlOqpdrGwmS9c8Rt2OSN7LBuc7+CsWb+/rk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=JuBcKjza; arc=none smtp.client-ip=115.124.30.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LydiYBEs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3F781F000FF;
-	Sun, 20 Sep 2026 01:31:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789867861;
-	bh=W8RfV7O/TeI+kOj2++uUsIO0ovmhDdl751yBRzW2MzY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=LydiYBEsjIAOI3ykeQl+U1suEva88/hF0kxmU8HVKHJs2fH8UBfFSEex+jISCueNx
-	 PrfdN1Dr04zZN41kDQ4jZGKNwLdXaGBCL+WWWWLt6j8H3WDM1qCwn0kUup2Xzf2aVr
-	 JQl0BpsqrhE5utXYLo1oylcULv1hAQJwS+vdd9rduZbo6xQIJB87wnpIlK55OBONzv
-	 OIu4ytyI24GR/IWmQ/hCpnjs04ugF77zCFHwHrPGZvkQULJmsLN0yyRDLBN6+jIPCd
-	 c2cFen/v76qKowYe0nXDNjA0SHVTqdiskd1nGIclgp/i98xWdwN/ZxiiuOTz3Rtcbr
-	 6PA57hM3JjDIw==
-Date: Sun, 20 Sep 2026 02:30:57 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Jinseob Kim <kimjinseob88@gmail.com>
-Cc: linux-iio@vger.kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
- andriy.shevchenko@intel.com, linux-kernel@vger.kernel.org,
- rdunlap@infradead.org, joshua.crofts1@gmail.com,
- u.kleine-koenig@baylibre.com, julianbraha@gmail.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- corbet@lwn.net, skhan@linuxfoundation.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v10 4/8] iio: osf: add validated stream parser
-Message-ID: <20260920023057.71ef0eb5@jic23-hlaptop>
-In-Reply-To: <e9d1f8f8d69b76797d617965f263df97b2b586e0.1789753020.git.kimjinseob88@gmail.com>
-References: <cover.1789753020.git.kimjinseob88@gmail.com>
-	<e9d1f8f8d69b76797d617965f263df97b2b586e0.1789753020.git.kimjinseob88@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="JuBcKjza"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1789867991; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=WpODz2I1SYGcsUWYzvIvLHX+tQtY3cfA1JpYBgPLg5s=;
+	b=JuBcKjzah4Bw4zjmnDzKfk3pRqksXKx1JD676AoyC+G+jFPgmPlgNc752nThMAgzt5+nZoUETZFwX9Ke7auLrsS1l2apH77TAw8C/4LWz+Wl9s4G8/ov2c3XwstNdpojRuyzYyfMZKcEdMXtq4AEiJA5rA/8Vc0FHzQBtPGzI3E=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R201e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=xueshuai@linux.alibaba.com;NM=1;PH=DS;RN=17;SR=0;TI=SMTPD_---0XBEinmW_1789867989;
+Received: from 30.246.177.75(mailfrom:xueshuai@linux.alibaba.com fp:SMTPD_---0XBEinmW_1789867989 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Sun, 20 Sep 2026 09:33:10 +0800
+Message-ID: <b3da18cc-78b2-45cf-9ea8-ce867c631834@linux.alibaba.com>
+Date: Sun, 20 Sep 2026 09:33:08 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 0/7] KVM: arm64: nv: Implement nested stage-2 reverse
+ map
+To: Wei-Lin Chang <weilin.chang@arm.com>,
+ linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+ Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>,
+ Steffen Eiden <seiden@linux.ibm.com>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu
+ <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Itaru Kitayama <itaru.kitayama@fujitsu.com>,
+ Wang Han <wanghan@linux.alibaba.com>, "Lorenzo Stoakes (ARM)"
+ <ljs@kernel.org>
+References: <20260915154305.3852871-1-weilin.chang@arm.com>
+From: Shuai Xue <xueshuai@linux.alibaba.com>
+In-Reply-To: <20260915154305.3852871-1-weilin.chang@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Sat, 19 Sep 2026 03:24:42 +0900
-Jinseob Kim <kimjinseob88@gmail.com> wrote:
 
-> Add a UART byte-stream parser for Open Sensor Fusion frames.
+
+On 9/15/26 11:42 PM, Wei-Lin Chang wrote:
+> Hi,
 > 
-> The parser searches for the OSF0 wire magic, keeps partial frames
-> buffered, checks header length and payload bounds, and passes complete
-> candidate frames to a registered frame callback.
+> This is v6 of optimizing the shadow s2 mmu unmapping during MMU
+> notifiers.
 > 
-> Candidates rejected before validation drop only the current head
-> byte before resynchronizing, so a corrupted unvalidated payload length
-> cannot make the parser skip later valid frames. CRC-valid validated
-> frames are consumed in full and classified as handled, ignored, or
-> rejected.
+> This version fixes a few issues, and adds Marc's space optimization
+> for kvm_guest_s2_mapping [1]. Please see the changelog for the details.
 > 
-> Use a direct callback member with an opaque context and keep explicit
-> statistics for validated outcomes and framing failures.
+> Tested by booting L3, and running in-kernel targetted tests described
+> in [2]. v5 got some tested-by's from Itaru and Wang (thanks), I didn't
+> carry them over since some bugs fixed in v6 are non-obvious. Some
+> retest would be much appreciated!
 > 
-> Assisted-by: LLM
-> Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
-Just one trivial thing.
+> Series based on v7.3-rc3 + Marc's nested mmu lifecycle fixes [3].
+>
+
+Hi Wei-Lin,
+
+Thanks for the updated series.
+
+I tested all seven patches on top of v7.3-rc3 with Marc's two
+nested MMU lifetime fixes, using the L1 boot workload that previously
+triggered soft lockups during host NUMA migration.
+
+The setup was:
+   - ARM64 host with nested virtualization enabled
+   - Automatic NUMA balancing enabled, with numad running
+   - QEMU 10.2.3, virtualization=on
+   - Ubuntu 26.04 L1 guest, 8 vCPUs and 32 GiB RAM
+
+Each trial used a fresh overlay backed by the same read-only golden
+image. I ran 15 boot trials, observing each for at least 600 seconds.
+
+   Result                         Count
+   -----------------------------  -----
+   Trials reaching guest login    15/15
+   Trials with guest soft lockups   0/15
+   Guest RCU stalls                   0
+   Host hung-task reports             0
+   Host soft lockups                  0
+
+Tracing confirmed that host page migration and the reverse-map
+recording path were exercised. I did not reproduce the original
+soft lockup in this batch.
+
+For the series:
+
+Tested-by: Shuai Xue <xueshuai@linux.alibaba.com>
 
 Thanks,
-
-Jonathan
-
-
-> diff --git a/drivers/iio/opensensorfusion/osf_stream.c b/drivers/iio/opensensorfusion/osf_stream.c
-> new file mode 100644
-> index 000000000000..e262415e69b7
-> --- /dev/null
-> +++ b/drivers/iio/opensensorfusion/osf_stream.c
-
-
-> +void osf_stream_init(struct osf_stream *stream,
-> +		     int (*receive_frame)(void *context, const u8 *buf,
-> +					  size_t len),
-> +		     void *frame_context)
-> +{
-> +	if (!stream)
-> +		return;
-> +
-> +	stream->receive_frame = receive_frame;
-> +	stream->frame_context = frame_context;
-> +	stream->len = 0;
-> +	memset(&stream->stats, 0, sizeof(stream->stats));
-> +}
-> +
-> +void osf_stream_reset(struct osf_stream *stream)
-> +{
-> +	if (!stream)
-> +		return;
-> +
-> +	stream->len = 0;
-> +	memset(&stream->stats, 0, sizeof(stream->stats));
-> +}
-
-You could reorder these two functions and call stream_reset from
-stream_init.  Would make it clear what getting to a 'clean' state
-means.
-
-
-
+Shuai
