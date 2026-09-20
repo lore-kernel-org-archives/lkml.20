@@ -1,107 +1,114 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94F533DDB15
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 20:13:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FF9B2D781B
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 20:16:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789935205; cv=none; b=cmYyGciz2kEB7cZjleetxe/qz/McoXjCG92ucr2r3AnxSWMauu/2vTk5kMEGGPJ33YzFLYCv3hbsNqoeE9VKZw/3aDpDOp2y4a6rZF0WpGs5MdzO7UbME12FeB3GTt3A0e5D863ECuvHlIrUgkUjOOCRnNmcu9pC85MzA9KaC8o=
+	t=1789935392; cv=none; b=MiznHT97Z+q2T8yEvVizw0n7dHCVpkiXv48sTZyfBtUj657nkhUvbPRWffj6TTdrK6LJZ7+tRpwGDGngGlGYwS7gwBQtYo70z3sjT9gc+q11JrSZJIesSH+heSVNOTj8GAD6B5Cbpx89TLyL0EW0AYXtxElnONNPRH8nkdNzyQc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789935205; c=relaxed/simple;
-	bh=v3M9yuVNEHFfAOpxuRij9I+SDG3ysu5E3qudWIva/VI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=E3FVCGXqEEbmsTQyF/8WM5ASN0/Q8wiLcE97GTC5/SM/I6pBFm+o0LHrjMG5TgI/Co+rTOVx79FYgZRr/0Oomul7MuKubRoKjes5XhJKoRQSwvDMS50B32PFF1KiUxRWcuTfFkfzVW/ENc9T3ooW5jFr8PnK9QuDgvZs3brkbYY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ai5G+USS; arc=none smtp.client-ip=74.125.227.140
+	s=arc-20240116; t=1789935392; c=relaxed/simple;
+	bh=XBWrswrYkH+DRJJUnrZRTbom+YHkNeu3gnPUJsFDs9s=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ib06QcjAs2wceG93vH1lFMa0WrE+nGfJEJPQcr2M/dHtJOQEAZprMyWh+JJRgTzFp1YWH696GM8qS6XlEUmHuE6F2ochHuE4zL4pYB1fw4rdj17mepHSSdgDUaCYnSTLx7RVUU7mvbEjpMeBlgyg6Jxa+83Qya+B+zj3+iJ+m4Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R5Mwi3Du; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ai5G+USS"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d90ba1d807so28177165ad.3
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 13:13:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R5Mwi3Du"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e64ccso16680065e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 13:16:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789935204; x=1790540004; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TAKC5GCwTerAHXbLUCgzMcXJeFahaz+vZdTOklpw0Y0=;
-        b=Ai5G+USSO+ZKK909QY+OZvsAak19TqaEsabSxlI7TEEzCgEi8XugTt6ROK1EF3005G
-         X+lA/+RpNBVVQve93PEd2urMo5fdLwEsZ9NZTkdN7S+ardHDpRzRm86r1IhzBGEakksg
-         DvBFqJ8ep/KSuAkj6lemR0htxq/irNAh4bHWqOvGkRB5xCq5nSjB5ivMvJ2UBxSD1oxL
-         yWNierSpYzh5ihLs2E4bDcuZ6IGs+iueYLBY0E7Ms1BzD0TrZZDGkPqJymxs3WITnKEQ
-         jbS+pRiRXdzItinUmzJAGbF+cTGKhczgbjsIzIk4pk3GJk3jn0kRlrzwLKjQe8sCcrI9
-         AMkA==
+        d=gmail.com; s=20251104; t=1789935389; x=1790540189; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=uUvRx48jmV6bVP6KiA3+WP6/NpkH0FRdNbK2IoWyhcI=;
+        b=R5Mwi3DuAxQN4URBDvGsP6E/Gbg9FVxfyAsro4yZElVUz9sHFEE0C2FJdhL6qFuw+/
+         qSoZs091k1OsMimQw1uDau0ODH39aq5+XbJXzWt2OyPRK2ULXCLGVB+Riyz3BVKnTpCk
+         uzbi/HgjHZpVNN7xjnUwCcIKNeTxl1v4GlTN1YJ4piWyzahJBlNAsuqFFJqNJk/t2JbE
+         FRe/eKvQsTVec37UXS0oQOs0VO5WdHhwFGP9xcm3mGccTI+eZjQQoCfX8F311OimYObB
+         sXIY/fW3XRn9+HXXRiax2IgS1EMNry6CtcoPmOJeNFegkVXrNPzgNSAFa4iFleFhQYSV
+         3q0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789935204; x=1790540004;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TAKC5GCwTerAHXbLUCgzMcXJeFahaz+vZdTOklpw0Y0=;
-        b=JtUHpTQaFiScB7C8GU/C6iRuK0cx/5vCnWaOSyg9+hAThqGwtDJY+OkcmjryiLqNnh
-         NK0I8t3872M2AKIqZvnRVbdoc36q3EONFAulbZbl/sj1mYrEAXXJdmAYinlllfWNN4VQ
-         5bfEZyGi6JFMFsmdzKHZQLxV+2g9PBJVM4vcN1MT0AWIjR1MnoRwdELsxHCadQ/4GiW5
-         7R8XQj8OmgLvBTaF/kHi1s47sTSbEWuoLH8xEPR3v110g0amOkUKkW0KfBdnbEG3tCD6
-         2CCUCE2DYXKSvNu6FVX6u3KoNKWrXCxv71+L+YKcTnN+6khgmIAkSSKCWg07aFraD7u3
-         BIVg==
-X-Gm-Message-State: AFuF++nyHrhVYOVkngB0bX8wuL8d39gVJZAUETSKK1sl2sAiJVSqLCNo
-	hc3MMf/c8uIrAlVHCTU0mzOeIIZLINVcv4Mx8x336nK02pED35GD1S1Z
-X-Gm-Gg: AYBFou0AlZPv0n+sgOczTIKaY5BUuPZdbUNn/D8s76IlWV8Qu6xGBqZKCuKJg0OYDi9
-	X8POjrk3buh6tApGcsqC1Sm/oCualt7W0yM9OAxvUKqzdAJE9y1wDdOyPxPRtscv7m5gT57vDxY
-	3JjW/LIRo6VYCzLpvvSfi+GU2oq0lL6eb1sSZF8FrkYLLLrtyxEAAyBmmtc6ECl9Lw7ZVl7vJda
-	WNn2WR4G9WJGLSELhM7fQj3NpmdGZdxlrJFsr0aBzt197iqx18zOPukTQL9MKYW+tIXgGNsa+aq
-	vzPk2pXqsmFg7Ch48s/qrqoNwVZWP7D6wUhFlkZmECRVhDMUt+UuqW7Mx6ktcwxhLfrtySlzo1j
-	rO4Om2WOmF59qJq9JZYWVqkyld7gp15dHL0WhSA86vCt2AIfaKx99PrtU0946QONLpebLs32jc1
-	CYiT+dl6FV4txDsrGzhGaGK48Tp6P657jzxS1R3YZrQnoKjEvQNAIDO+LeQZyz6n834pTuWMJB5
-	Zz/eOQ7e8fmHHjRg9X01JcMJ6h7aTVyfW87Cg==
-X-Received: by 2002:a17:902:ce84:b0:2d6:e9f3:9305 with SMTP id d9443c01a7336-2ddb1ab3cb1mr143733365ad.5.1789935203814;
-        Sun, 20 Sep 2026 13:13:23 -0700 (PDT)
-Received: from localhost ([2409:40c4:136:c0b:7911:68d7:f26b:cf67])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c331b0d6esm11994571eec.27.2026.09.20.13.13.22
+        d=1e100.net; s=20260707; t=1789935389; x=1790540189;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=uUvRx48jmV6bVP6KiA3+WP6/NpkH0FRdNbK2IoWyhcI=;
+        b=YP0SG6o3B/G7K4g7wiVWn/II+IddE+vbYD3VRfkwYETEz7On6qKc1tqE1FXqdAq8XN
+         yjOQBWgCriLB0H7sLz9xZ9dkZZkpf/USWcL/4tBJxkG1inC4ITA0l/ZlRi6oicMo+kI0
+         w091YYJHM0Lb+FkwgeHB44xlroajbq1KJcAJPi6SrjJBEvwNZW5KkBxgckiBHQIFcA6h
+         B51X6T9mYm0bku1qIvgkfd6Wj+xA0gEKgc9GQG8OemQOm9LmwBMxnkDOV9skXS4zl8Ku
+         9x9sRm59qoN7JYwRveu/mjzNonvqC81A2ZsNWdJUZ7INJ+K0vAMfCi7NGKW/PoNtjI+a
+         UItw==
+X-Forwarded-Encrypted: i=1; AKwUvBy6d42UI83MBX2OhIjQwa9yWCuH91jQ+DJQsLWeI0alf9t7Po3LopC8Ld1HBfJxY6rUgDMREeOVtDI4dt0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nDH0X9eu8ld9QxsuRjWYyaIvXuKqBL+IHHYPbqFal4X9eV7UIg
+	4AvkAotfyKq8H/dxlv/CUCqr2OsLALu6upkxAv3YLbWK5wPzA/agQY2z
+X-Gm-Gg: AYBFou3uk5GeXZkxtDhsMe5kZ9B6rbGInoooTvQDtYqBnIrAFgCQhxKipKLbf88kz4d
+	a39oEWFXcP8U0GcLEFk55LqUZLWJYHgBlYGAyHntk19HhPPN0W5gbBTrwdcOQw2HiVMgrHk9bPd
+	Ww8IgwLwjHQQ8pdyRcQ3g7pkC/lrCwTtCs2E0eG2CRYhI2tL1bHSfonHpgrc7fweEjIPx//rVXW
+	jJRufJjmHl+Nuro7ww/PsEFNoK3URb4Tf2xxN923jrz5mWraEBKE9PQ0GQ3n6MutEPex3ZMxwkh
+	N3VGhfmU8NvfRT+W+7KqsKlln6Nyq4dm5QocUKQ6xV7C0lauRgaHDlVAuxI/A1Y1feqLGAwf8vk
+	YTq2P220ezNvP/HDlUXUox4RcmJUEJWwexxGA1LzOo3exBklolbOmN1I8H7MU5b+7eRdD0+zyoh
+	M6AL97QaTO2PBhyEa+IsvRhTVIlF+6HV7UI0KFAfCTyyiDBRHK3xduqVTwUmQH5rOqLOh00hTv4
+	ybA4vFITp+wRFw+BhB4CXPbKhXm
+X-Received: by 2002:a05:600c:5487:b0:49f:bd3c:bc1e with SMTP id 5b1f17b1804b1-49fc573a0damr132160355e9.25.1789935389229;
+        Sun, 20 Sep 2026 13:16:29 -0700 (PDT)
+Received: from [192.168.0.253] (5403F394.catv.pool.telekom.hu. [84.3.243.148])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-487244608a3sm16480146f8f.8.2026.09.20.13.16.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 13:13:23 -0700 (PDT)
-From: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
-To: rosencutter@gmail.com,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: linux-kernel@vger.kernel.org,
-	linux-input@vger.kernel.org,
-	Lovekesh Solanki <lovekeshsolanki00@gmail.com>
-Subject: [PATCH] Input: synaptics - Add LEN205b entry to smbus_pnp_ids for ThinkPad T490
-Date: Mon, 21 Sep 2026 01:37:30 +0530
-Message-ID: <20260920200730.1836756-1-lovekeshsolanki00@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <CAOGuaRh025eKcBf9P8UrvtXNp68vQ0HVF2EbNMp-kpdaC1HNpA@mail.gmail.com>
-References: <CAOGuaRh025eKcBf9P8UrvtXNp68vQ0HVF2EbNMp-kpdaC1HNpA@mail.gmail.com>
+        Sun, 20 Sep 2026 13:16:28 -0700 (PDT)
+From: Gabor Juhos <j4g8y7@gmail.com>
+Date: Sun, 20 Sep 2026 22:16:18 +0200
+Subject: [PATCH] mtd: nand: qpic_common: drop stray empty line from struct
+ 'bam_transaction'
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260920-qpic_common-drop-empty-line-v1-1-fd5f241e314a@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MSwqDMBAA0KvIrB0YAzXEq0iRmkzrgPk0kVIR7
+ 25w+TbvgMJZuMDQHJD5J0ViqOjaBuzyCh9GcdWgSPVkFOE3iZ1s9D4GdDkmZJ+2HVcJjDORnh3
+ rh+kU1CFlfsv/3sfneV7mFigfbQAAAA==
+X-Change-ID: 20260920-qpic_common-drop-empty-line-b007bde75912
+To: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Gabor Juhos <j4g8y7@gmail.com>
+X-Mailer: b4 0.14.3
 
-Lenovo ThinkPad T490 has a Synaptics Touchpad that supports SMBus/RMI4
-mode, but is not listed in smbus_pnp_ids table.
+Drop a superfluous empty line from the end of the 'bam_positions'
+structure group within the 'bam_transaction' structure.
 
-Add LEN205b to smbus_pnp_ids[] passlist.
+No functional changes.
 
-Reported-by: John Rosencutter <rosencutter@gmail.com>
-Closes: https://lore.kernel.org/all/CAOGuaRh025eKcBf9P8UrvtXNp68vQ0HVF2EbNMp-kpdaC1HNpA@mail.gmail.com/
-Signed-off-by: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
+Signed-off-by: Gabor Juhos <j4g8y7@gmail.com>
 ---
- drivers/input/mouse/synaptics.c | 1 +
- 1 file changed, 1 insertion(+)
+ include/linux/mtd/nand-qpic-common.h | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/input/mouse/synaptics.c b/drivers/input/mouse/synaptics.c
-index 2170bbe4c589..14484164f067 100644
---- a/drivers/input/mouse/synaptics.c
-+++ b/drivers/input/mouse/synaptics.c
-@@ -192,6 +192,7 @@ static const char * const smbus_pnp_ids[] = {
- 	"LEN2054", /* E480 */
- 	"LEN2055", /* E580 */
- 	"LEN2058", /* E490 */
-+	"LEN205b", /* T490 */
- 	"LEN2068", /* T14 Gen 1 */
- 	"SYN1221", /* TUXEDO InfinityBook Pro 14 v5 */
- 	"SYN3003", /* HP EliteBook 850 G1 */
+diff --git a/include/linux/mtd/nand-qpic-common.h b/include/linux/mtd/nand-qpic-common.h
+index 437448995187..0f40964eefe7 100644
+--- a/include/linux/mtd/nand-qpic-common.h
++++ b/include/linux/mtd/nand-qpic-common.h
+@@ -262,7 +262,6 @@ struct bam_transaction {
+ 		u32 tx_sgl_start;
+ 		u32 rx_sgl_pos;
+ 		u32 rx_sgl_start;
+-
+ 	);
+ };
+ 
+
+---
+base-commit: 7e874b1750a40f3dc9a629aeb72eba09c77f77e9
+change-id: 20260920-qpic_common-drop-empty-line-b007bde75912
+
+Best regards,
 -- 
-2.55.0
+Gabor Juhos <j4g8y7@gmail.com>
 
