@@ -1,110 +1,120 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DEDB3E63AA
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 08:50:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06F243E4107
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 08:54:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789894231; cv=none; b=qeuie3A24+uqLAna81fWXv75V8aZj/C6DdvHM1Ny+0cy6yEj/7MAoPSgk8W+sAgfjNWYt4RYQ3ra87TUWiqyMupB7nr8fhLkV7sgYUp6wEy9moOX6VCSaR/Fqo0SFRiHGytOxopFXnrZoOAXFCv6UCOfCSbVqaLqUN4zfv2SJrk=
+	t=1789894486; cv=none; b=hyqfjkL4A/O1zNc1cntu9USM1RJ9uVnP0ZFzKHc2nlo7u+E3pzfJah4O4ltXahEAAx6zZwU/WLrGZ+IFsVlTfhReYCdsrGC4k6r3vrpeTwvBKwsuQDHModS1I+0qcpVZeK7u5muuu5rARouNeF+dWh+hOHkUyHaJsRlBjqi2tuU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789894231; c=relaxed/simple;
-	bh=iCUng4f3T0nDNQc4sKdrpTiB2T2kWXa+Jf/ISOIUt7Q=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=VqrSIqFImq9YLRGb7vaVrgEYJUTBKFuczj6VgihS20n/9tv3tLrHGLQ/QjCVYWO9wlTskbptl5QMztvzFebuK6QraQkawzjrW1uBFui47HaJ/oKyDZk4sTiUWX3Kh3wq0P4G9yatplV4EgYL7E3aIsJJiz5aqBi8WIzs9+GDsHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=UiJzafmk; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1789894486; c=relaxed/simple;
+	bh=07bxeldFXNcwHkJCOY/pr4GAXZvVcdC70ibY51lQxw0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZvxoijlD5tqTRO8GWDLc1n43E05bsSDonczm2xJitDLb8hu1WBzyQRbPwS+hSVSwCNa0ouzuGSZC9XqSWqP36pBjjdO7arv48QhN7hcIWc2AZVFFw85qZqG8kEMr3or2SPQfzC7ftWTXHeoCOUUa/DJgUoPm9VUA5uFRBrQ4Xeo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lVGpseYN; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="UiJzafmk"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e8185e037so11049925e9.3
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 01:50:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lVGpseYN"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea50dc3so1363262a12.3
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 01:54:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789894227; x=1790499027; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ehp9Aplx73w0kxknx9H3QmiLQowjGYfxL4eGXjvfQCY=;
-        b=UiJzafmk79UBeyDXVbR69Dndr2vjVRP7LC1qBQN+Q5eO2SXwlVIYO/iKwUxL7qCmZS
-         LxbREqTBbgAzyM7BMWn8388hgU/UrrLsJ0erq1HoF50fBdMcKwvcQc01JdXO67ABfawV
-         0lAFyu9uj5orMqKRMP/aEOeFmU11/lNBw0ByMR1xs8DwtrPoSRsKre3tJhngT64vdL1F
-         M4Twb9acvnvGysgA0fAZ1vkVi/YbFotgUfCu1GtvZDgY363HknQ1LO8Msl70FNfKmI8M
-         KMBuTvQXdIFYJxUjiR2N5dgdOvyu1Gf2Uo3+W4dxwJVEJwBa50nRx/8bM1SSKX6Od+1L
-         I+pQ==
+        d=gmail.com; s=20251104; t=1789894484; x=1790499284; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PNzFp6ZFnRAw/B8A6FR6yybdeCPLPEZTUh6sIRvROXA=;
+        b=lVGpseYNDoHET0qhk90MrLeFeM7Ny+l6otrVF48PW82FfgVCh0cZUKRbFSQwNmDXFH
+         hskh2DQrK0/b0ge2XP2UaQVuMnzRjy1E9uC3LOzbXyOTnOH9jq5NuxVcDumDoQ8MFSsX
+         skJovq+acrDYXeVUMTq5He1wTSmmmXz9qh6vEDO2+1oPBdvaUttVYrDUhtMsm/GTTAoS
+         T67J//x9FV+7yGdCBtv4mQEFdbaxZqu9j4UX+a4pKBd42KcbDj2ogPYilqNyZI+oHPus
+         Pbsu/oYti/tfXmt8+Iy/PApNykF+lgvNnN6e2ymvtXKLqPBKHHU7E7Bw01EwFfNK/ZWg
+         47NQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789894227; x=1790499027;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ehp9Aplx73w0kxknx9H3QmiLQowjGYfxL4eGXjvfQCY=;
-        b=C0FsRN/KbC3dpuWbTtSAY/D/3UYKvRvuTQYcG9TwadeAI0zbQel0C2EjMGPr81vGRl
-         1tiIeE/2NmH9mB2lOSSF1MOHGmbt4ihQBHO6OmL2Eu94rPH9KmqhW8mn+lCddP2W+slG
-         QjLdPIBUfNMY5ZT4llQCXgtyNabqfEDG1LNwR0OAWYFv6Qbg0hMtgNkyJUEKlpEvYxIX
-         8yMnAFCYgbh7YOJNcDledraEVD1xHER6+jkg8xXOUOJX7xI+0YrBD/cf7YPJ/MG0XrnL
-         JllY7wJYTy+Tuuc7bybqSWgT+tiCVNF3nKIxhHSLfy8v+5S6NXOfXKdvKOyAXqwHQjL9
-         AcqQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz9pVRCfuyu/XD5waaIYmLkA29INi/jTDfrKbri3rL8L0rwBwXZp1JOi7BtQeO3awjeXyE82OgXbtKRP2Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++n3K9mmRafPT945XrSOiXsAp9OVyRxlF2YWKBjVTtlhbrQiiq9I
-	gvK49WtWAcVLupS261bpzuAGMLl223qvLLAln6zQA09ITp6gn1Da6fueGfK/G51RbyE=
-X-Gm-Gg: AYBFou1aQ/mrbsU8QsgRuP0SI4fQbI174fYxkLNMGxj9u8FdeOq2bQahbJIEV6aM6IK
-	hJmm3twmOM/6h3q3TNqwUDLbi7+a2h8Rs7F8lacShdgvaq38fGpn6amyjIZ5CcAji3B77S5K2De
-	wPu4+7wKwRvTKukleFhVKgS7R1TsinaXtfIN1UkDkc6zpOC/qB7fo8+ddOlew2Lkw/spx6JXJiK
-	W5GlUoUVkcmNiwGdp89PxA09vKYcasn2QsgvRZ0hoWDuO6tg6x12zNHFaI4FTnvs74mxRxQFkhf
-	a5IhYKQm6CgdVjwS6gpHFWzMrXPRLLa/g2HktnrJfu9oqLfp5xXYHJXSSJMny/La95nz49TOxM1
-	RqWxdJmMHNWYusFiQgDeI5QSRrYYlM3aEa8Q46UVxhjK0+RJTkSSE7N7x1AYTxGsH1Y8ln+lYda
-	GiIKu6rrp2PC9s3sr0W577exwlmiCBwVYHt1K3m7jiPErbqEYgGOOPUy8uj12N0BdQyPg68yWaY
-	NzUal9f1Un3wyZHUQ==
-X-Received: by 2002:a05:600c:3584:b0:49d:286:83d5 with SMTP id 5b1f17b1804b1-49fc5722755mr130966755e9.13.1789894227775;
-        Sun, 20 Sep 2026 01:50:27 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc521f5d9sm67312145e9.2.2026.09.20.01.50.25
+        d=1e100.net; s=20260707; t=1789894484; x=1790499284;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PNzFp6ZFnRAw/B8A6FR6yybdeCPLPEZTUh6sIRvROXA=;
+        b=HuUCwRwozniITnkIc/7xDtyR5pgy/JES05dEETVIr8D9egXJ3Ivzoq7CWEj5cpdTi8
+         3oyfCdNHOXh2DiUMd30aVm2OdNrshM6YTD+c/bn1ssWnLCQ5C3z2snMabbWlVTHnyz+/
+         sMBA6dHJcjNvHbclvuvNbsoq50cwF2aH7UyCdW6oAUgG3lT73VwYfaJkJsybljGi2UgX
+         saqA0jV2A/P/Q8/hhMEGmueVsB8PN6MZXemXWREMAkwau/qqA+05AfAjTKvqpXnwBy5D
+         3uhaR8NQiUiMQutAuBmx61jr+vHw3zeuZ3vAJgY0VXBxSHCjFH1D3pkIUZuYDtRWiWqm
+         tGIA==
+X-Gm-Message-State: AFuF++mbTQXlF18aiCJ0d1ciZl2CEIqz4BCXvcoD1URMj47FOOAcwb3W
+	XqgVQBwQlO4etsbiXdp5Bp0+aWwSIMXzFC5UVgZinz7BBu2NKH2gX3gv
+X-Gm-Gg: AYBFou3L0WhuG2OkEmOfg8xabt2gOmlrActc0b+9ZET9QN98DsVVZ9mx/CWGPRG9GiX
+	K1ZShLdQZlpsfqNHyc7+BrnAk01Pgte39Ao1n6Bf0Lp6/C6+vwATiIVKhvnSxK84x1pQJ9SWMGb
+	mAUGYu+WgMGtdo1FXfWyrWVck+2ilMiHNpHnw/4/9/gRbwOaohNsBG9g2/T8jb9dxGpKpOa2ZyI
+	Q7vqTiiCzrwRsuxxl2HfQDm9MQCjLVPmXtJ2kQ4+rQGvtrA8XODYjG672shtYf9H1xerVDrezxU
+	UsxaP5ssRv9ABFFhJmrGozZv24TizrctbwFseV95rZzMOXN5hErbAeSmerv3ztMU8ttuLI72u4u
+	Ajg2nZS/nZcdYnq/8kK4BEM9vPfUNY2G5eM0pwcWh0k5r1z/judKVXo7C9cS6SwLThNRdSBugC8
+	JpYY9wU2sK96XVovnoRMBuNXLNLhNWl15Gqo8aHIKX6w739tuiFPbG6ucBD5J+H5qmXzuCudd2U
+	f/b07zNO51SVnupRw==
+X-Received: by 2002:a17:90a:d884:b0:39e:6a7e:ee16 with SMTP id 98e67ed59e1d1-39e6a7eef52mr6862714a91.34.1789894484076;
+        Sun, 20 Sep 2026 01:54:44 -0700 (PDT)
+Received: from kernel.tail6741c6.ts.net ([185.220.238.35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c3145dasm8285167a91.4.2026.09.20.01.54.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 01:50:26 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Jian Hu <jian.hu@amlogic.com>
-Cc: Jian Hu via B4 Relay <devnull+jian.hu.amlogic.com@kernel.org>, Michael
- Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Xianwei Zhao <xianwei.zhao@amlogic.com>, Kevin Hilman
- <khilman@baylibre.com>, Martin Blumenstingl
- <martin.blumenstingl@googlemail.com>, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 07/10] clk: amlogic: Support POWER_OF_TWO for PLL
- pre-divider
-In-Reply-To: <f518be12-9c96-4415-b442-4afcbc5b5d36@amlogic.com>
-References: <20260511-b4-a9_clk-v1-0-41cb4071b7c9@amlogic.com>
- <20260511-b4-a9_clk-v1-7-41cb4071b7c9@amlogic.com>
- <1jy0hm6n7e.fsf@starbuckisacylon.baylibre.com>
- <8d89b669-e72e-4663-9596-999a12922d32@amlogic.com>
- <1jqzn65y9l.fsf@starbuckisacylon.baylibre.com>
- <3fda1592-f7d0-4e86-8615-602804673414@amlogic.com>
- <1ja4tm5pb3.fsf@starbuckisacylon.baylibre.com>
- <c9c4945f-cdfc-4382-b8ca-71b69d91deb4@amlogic.com>
- <f518be12-9c96-4415-b442-4afcbc5b5d36@amlogic.com>
-Date: Sun, 20 Sep 2026 10:50:12 +0200
-Message-ID: <1jo6dscnnf.fsf@starbuckisacylon.baylibre.com>
+        Sun, 20 Sep 2026 01:54:43 -0700 (PDT)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+To: anna-maria@linutronix.de,
+	frederic@kernel.org,
+	mingo@kernel.org,
+	tglx@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	paulmck@kernel.org,
+	Kunwu Chan <kunwu.chan@gmail.com>
+Subject: [PATCH] timers/nohz: Annotate lockless accesses to got_idle_tick
+Date: Sun, 20 Sep 2026 16:54:34 +0800
+Message-ID: <20260920085434.2918331-1-kunwu.chan@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-On dim. 20 sept. 2026 at 16:22, Jian Hu <jian.hu@amlogic.com> wrote:
->
-> Regarding the suggestion to remove N from the DCO and make it a separate 
-> prescaler,
->
-> I have a local draft for this change. Would you like me to send it as a 
-> follow-up patch,
+tick_sched_do_timer(), called from the tick interrupt handler, sets
+ts->got_idle_tick when a tick fires while the CPU is idle.  The idle
+path reads and clears it via tick_nohz_idle_got_tick() to detect
+whether the tick handler has run.
 
-an RFC would be great, yes
+The flag is accessed locklessly from hardirq and task context.  A
+concurrent set can be overwritten by the clear.
 
->
-> or are you planning to address it?
->
+Use READ_ONCE() and WRITE_ONCE() to annotate the lockless accesses.
 
+Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+---
+ kernel/time/tick-sched.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/kernel/time/tick-sched.c b/kernel/time/tick-sched.c
+index 6c3fea386713..c0ab32e543b3 100644
+--- a/kernel/time/tick-sched.c
++++ b/kernel/time/tick-sched.c
+@@ -269,7 +269,7 @@ static void tick_sched_do_timer(struct tick_sched *ts, ktime_t now)
+ 	}
+ 
+ 	if (tick_sched_flag_test(ts, TS_FLAG_INIDLE))
+-		ts->got_idle_tick = 1;
++		WRITE_ONCE(ts->got_idle_tick, 1);
+ }
+ 
+ static void tick_sched_handle(struct tick_sched *ts, struct pt_regs *regs)
+@@ -1248,8 +1248,8 @@ bool tick_nohz_idle_got_tick(void)
+ {
+ 	struct tick_sched *ts = this_cpu_ptr(&tick_cpu_sched);
+ 
+-	if (ts->got_idle_tick) {
+-		ts->got_idle_tick = 0;
++	if (READ_ONCE(ts->got_idle_tick)) {
++		WRITE_ONCE(ts->got_idle_tick, 0);
+ 		return true;
+ 	}
+ 	return false;
 -- 
-Jerome
+2.43.0
+
