@@ -1,312 +1,219 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f43.google.com (mail-yx2-f43.google.com [74.125.224.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C62CD3AFCFD;
-	Sun, 20 Sep 2026 02:27:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94509383C67
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 02:27:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.171
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789871249; cv=fail; b=C2FaQjI7Ln1EQaRZ0bjYTA80ETuV1led//pvHL3tRusmyBJhKJcfrHsaLwGW/1Vs5c0hEGeTdJ0Rm6T7FaRz8i7hr/rw2CDR2JavOdtZZf5/wU7tqnpliVV0DWu0Dsb1ddr5jrx+QqzTqHM+VvZB3NO1rSuEF1lhsDvKdeKYnzY=
+	t=1789871258; cv=pass; b=mp8Y34h5xPhljlidqKKlGZ2LKDsSHTYUurh5mKZNEOhT6chgdkjp5hWoPjsnCv/kVORUJMx1sPCLi+0bMZIEEaYn9QBcsiX6eHNbSXSKYJlRoThF8NQbKRjRnVNVDDmQVMvesUs428ZM/UzWEp8T+INsE5rypKuhGQcd05Nr/Sk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789871249; c=relaxed/simple;
-	bh=rL8qEFFyNaUx8q83y41HPzUQ8r8X2SwnlLG5cFrmTSk=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=WC4AqPf7DEGBfhAPVZkROztCl45hbjUnJKVzJ0M3I+uzzJXOAB/UbEApTr4bEfaK0q+M9Si2sbwQuTIAKi2wG+c0Blpgk9vDVr8TDEAIYC5JaZRLCIhfbIt2QbTX8dteDiyPEJBfSz+1wHCmpITYEg7/5EISovUJmC5S9qL1Spo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OstW+w8M; arc=fail smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789871258; c=relaxed/simple;
+	bh=JmsxqgERBIPiXTcKFmSyaxBfMOkZp3IFKvwnMLLzO10=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=RH+PttNDcBBgjpSQUwopFFT+ZntCeiWlpFQ7qz/6PvqYKfdOiwVTzIE67CqBPk6ha42zScbC8l6coC/nCNGM8SP9xZDuO6lMAIhkt+b6vAbR/gSAbECDZYoYGZwg6yluXwLCE8uJsMN4ij4l6NYeBJ1ylZXOsjt8XJBC+sy9838=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EBYQb3vV; arc=pass smtp.client-ip=74.125.224.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OstW+w8M"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789871245; x=1821407245;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=rL8qEFFyNaUx8q83y41HPzUQ8r8X2SwnlLG5cFrmTSk=;
-  b=OstW+w8M3Jb9fxfcWkr1jDF7TR29jDLlQv+ADHHVAbGCqfNR1HIb6c1b
-   XL20HMzapkHC8oE1bVmSGRzjZyNsJruO9HrDRcG7j/kBmXIdKMs4UElEc
-   j3xDOe8unLYR/Uj3Ee6CsfobygkPt46MwKuli/H3H5Y9LpbvWdom04URc
-   EYIB96HAbHkXoFjKKcPoKVQh3sXL1y/O+BPZl6dx7R65XQgHHvfFjyuGr
-   RTaK4AeeBd7D0os6rHpprxcmiGYDV5KBjpqD/EafYE2uDEIigHh9Lletz
-   JGWm/cMw7DlXomzNFKzaRjzxN9/Db0uK39woxueENtllY6+9gkJuVqgpb
-   w==;
-X-CSE-ConnectionGUID: TYhm53H8TSmIJ7QPlMJ1mA==
-X-CSE-MsgGUID: HraD/nebR9ufOr/OQQkvlg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11910"; a="100979930"
-X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; 
-   d="scan'208";a="100979930"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2026 19:27:22 -0700
-X-CSE-ConnectionGUID: pq9gSVi9QEWzaXl1CqTSGw==
-X-CSE-MsgGUID: dbAry6+/R/KfyFqm4+RowQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; 
-   d="scan'208";a="270682885"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
-  by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2026 19:27:22 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Sat, 19 Sep 2026 19:27:22 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Sat, 19 Sep 2026 19:27:22 -0700
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.68)
- by edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Sat, 19 Sep 2026 19:27:20 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IiIerMvuyGkergEzGN7soK69xkw82wRYj8BT3joboJifyVlJgn/M1bEfUnzY3oiYI/WjeiwH3pXUy19aUL9GwLfvnjy0HBhpokl0OzCrSBBeXQWzN01nC0ftxlANKK1I33EnEtddGCT27uSsqc3vQZziYkGHCb3NXfLqXB/MtzCUWkBqzuhDjxdO5rq7tu5YVMV8zECz716ADzcTIS91H8Q5WupS7r3NhCYGzpjaAvkGH35vYyaUPFK4W//qVZzrND1tBuBRl6wh0SfSrNuJ7y8Oslhqlr6Kh5MrVayPyEtEdJ2RNVgbVD/hdOm4GilF1D5wsHOzT5velgVWy8imjw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YyvotENuXOLdlL2QwrwjOqjive97JEhpF7NWGQG0Pug=;
- b=Zlbj1DLTCj2z8AXwVqkAsPia/lKLMjwOifKS4e0WdM4jlqBZFk5I8CAu73ZdaEJ9Ly4ltY9MS3r9OU4HTO491lof5AervSWe1gGPGyz3xDN0/zW7JPz1n9ANCPvYs8My01UUkFbpcULFuKRkPL+Qv9sN4wRNayz3RyFdpTBKAZdZXNdY4TqSiv9IM4DOxCliPAcV+Th0G+1g9OjC5bhhuLgiyRWpXs0CUMjHvLYSykAK1q5dK2Kb3D9UTeVGWdQN5jClFW56GrlgVJdPjWxHgFL+PnqPquQcgESXc6L99aQIN0+5jOWmU6vhcvwJ8CcK2a0GT7yiTa/C+aGHY1QnwQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from SJ0PR11MB7704.namprd11.prod.outlook.com (2603:10b6:a03:4e7::5)
- by MN6PR11MB8220.namprd11.prod.outlook.com (2603:10b6:208:478::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.15; Sun, 20 Sep
- 2026 02:27:16 +0000
-Received: from SJ0PR11MB7704.namprd11.prod.outlook.com
- ([fe80::a8b5:7722:c11b:63c5]) by SJ0PR11MB7704.namprd11.prod.outlook.com
- ([fe80::a8b5:7722:c11b:63c5%4]) with mapi id 15.21.0428.011; Sun, 20 Sep 2026
- 02:27:15 +0000
-From: "Xu, Even" <even.xu@intel.com>
-To: HyeongJun An <sammiee5311@gmail.com>, "Sun, Xinpeng"
-	<xinpeng.sun@intel.com>, Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires
-	<bentiss@kernel.org>
-CC: "linux-input@vger.kernel.org" <linux-input@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: RE: [PATCH 2/2] HID: intel-thc-hid: intel-quickspi: bound the
- response to report_buf
-Thread-Topic: [PATCH 2/2] HID: intel-thc-hid: intel-quickspi: bound the
- response to report_buf
-Thread-Index: AQHdQ+y0dI1e0evkBkqTYXG13uC5ObbWxz5w
-Date: Sun, 20 Sep 2026 02:27:15 +0000
-Message-ID: <SJ0PR11MB7704BCE6371D2BB598367BDEF4852@SJ0PR11MB7704.namprd11.prod.outlook.com>
-References: <20260820111558.475304-1-sammiee5311@gmail.com>
- <20260820111558.475304-3-sammiee5311@gmail.com>
- <SJ0PR11MB770440858F3C8A9E500DB79FF4BB2@SJ0PR11MB7704.namprd11.prod.outlook.com>
-In-Reply-To: <SJ0PR11MB770440858F3C8A9E500DB79FF4BB2@SJ0PR11MB7704.namprd11.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ0PR11MB7704:EE_|MN6PR11MB8220:EE_
-x-ms-office365-filtering-correlation-id: 1ecd3108-230c-4b6a-a378-08df16beaf78
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|5023799004|11063799006|56012099006|4143699003|38070700021|10067099003|3023799007|22082099003|18002099003;
-x-microsoft-antispam-message-info: v3q6+UmlwBWyvxp9HplZOG4KCLFgB5PCHNjoGUFQF/IBxkBJsPZxwkbxyn3lBlm1y9tOTSp5VQ8QqhHcgmJnr3WlqMssdxmYskNAvqTj5w8lPyk11jbAWuPfDConKJMSj2hy3eXXYTssCgiaV0QazGZT6JP5aAupmncG/szVY39oUS0NDHu2pvsewvHDJ1EuojZF4t8qmM5BLefQ1HMn/8mKWYn0QZTaGLYcK1nifcHtPDxqNNjiM0HaP3VOZGBbIwt/UCiccSIOP6TG9j5wha+hQpz968Cc5uDdQfPCdW6YcmWRuDlhMNg/fYigNXRPTVUeLYWcMMUkYDOLq4exKg3N003eio3T+25HxBJ//mRcdf4oaGcuWr25yIkNnIP5Yj2HqWa61JGHRkaVAF68Y2k+AypQtUgGcgf2UMAKKs2x7OaUK4ui2T8PbVFQ2+tOWs6ulc/2YSC18WqRRoEuRaNj40Sbwuc107WdxYWz26Zou+CopsRNM0BQtblV9xf4vtWFfZD8oXl5rnQ6WMqia50e+Ip1s2uDwbFZ/MPWuVtNwApcVh4t2MPj4v14RgoVQvF8Lkb/Tm8FqcNTCO4oWcp6BkCJKcdfTZGLIvpGUePmp+ezDxRl264Xa6lztogFXvzyB1NEn/hnI8tkMKEwRTHLedSjcgBM6L8lx7yMizmxNjqepTRsLHPl3IDvREA6Xd2/vuIS4onsqQM0Fmtg7Z1xBcV/TIhzpLQG7fb8fgE=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR11MB7704.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(5023799004)(11063799006)(56012099006)(4143699003)(38070700021)(10067099003)(3023799007)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?1nnCqC9F6xGWk1jAqsDRZZDG7ATbdj9B9nx8zOBNVFl7e3fsUaAtMxqcDKUl?=
- =?us-ascii?Q?jfF5fzs9X/TRt8mkFIThqdOs7kL/PtngO42HO4s3bDBCKycCcCVXoIKHOEha?=
- =?us-ascii?Q?dJoJREyqJByigG2HlQrPLWZvcf38+RofrSR8zYAxvpiQLurJVrYZPwmHf7sS?=
- =?us-ascii?Q?68CRDMH6+RNqpJvi2syy6G+x+7hNusqzEREMUurXHWs+8A7jsTc+9ZpCxjHG?=
- =?us-ascii?Q?Ytp7FN/A22n1B/GcpRMh0cWMbzUs5BAJjgrtchV6w2q+hSEZcneJMXnpeM+w?=
- =?us-ascii?Q?8FXsnwy9Po/4g5L5YQL/QQKxzEW7ifJsiBZUoXDv/5jfoseevlnnojigxSdE?=
- =?us-ascii?Q?lDTQHkVg4I7mWdYZgV+Qp99VwqPL8RwNiDvDL6Y6qDNjaIGxPvD5oQJs97xo?=
- =?us-ascii?Q?Vk40FIqQNpoIqoheeFb1wF1fvlTFKG6fa9vDn+X/EdADstaBWCi+drlFXd61?=
- =?us-ascii?Q?isO5Knv3kj3L9OwofRHUnNaNhvD079Tl8OAma0ny8wT95fsQ/bAMssZM/OUc?=
- =?us-ascii?Q?tU7LGFGLLPjks+KAWcbz8a058ubE2LQ4MF8iK1RxJzr3LFKpFGYUlIG5OjPV?=
- =?us-ascii?Q?l52tmCLWRELPW3cMEpR/X7oQRffPy7foaE1hVXVZ1f5bAt6AtEKuYKGnl38u?=
- =?us-ascii?Q?Uovid+7k/3xaokwMmDrVyVjGKOyIGBW7IRKtTKSoLyL20nskUG2b899+AUfR?=
- =?us-ascii?Q?tjApSPLy52Wh6Ogi1777MOBlsnO9+vCPYjwEdXcyJC/V9EXyIMdqnAkayVlf?=
- =?us-ascii?Q?h703EOgOSAXfOi8nq3wp//BBUx21MbAi7JC+bqCg7G81SVg8O5yGd7Js0iEN?=
- =?us-ascii?Q?se4avZmcZ0sas9boyFZTcyXkTe4VTTTdxt/MvsdfTnQ858ph4jK1q2zKLCg3?=
- =?us-ascii?Q?le9KJGVADZx5KzWnEQwus9XQ8gcbrUDmKkcBkXeUrcVn6NIxaSMYIhkOtGi9?=
- =?us-ascii?Q?VOeQVuzSUdJqKjBqsvLF3IdKkW69xO+6KBStUIVyJ71Ih0+enjXnUcRBU3uO?=
- =?us-ascii?Q?OE8oX52WEf95xmGFnx5y/PtA3WbpjtZkR6Lpi4Jj6p1rW4lkFSFbokTQVSuL?=
- =?us-ascii?Q?uAEJmqH/wN5pYJ+7WKxI1AQAthufFh6yh1WxrDC3oK1kxUEF/4Sw6L4b2zQr?=
- =?us-ascii?Q?D8stUfhWfKaNloDDhu8etsZuGADWFscKhLWfqIiWEHYmry2woh1LDMDjeUZt?=
- =?us-ascii?Q?X6kFzTn/sa492OjhQnZXzIjHcrx5xGObftDwWrAVuY7uwKyi2LGR5/wFNmn6?=
- =?us-ascii?Q?o0lu/do8KdPmbuwCpsfaMl/9HBFxxl6/w5I+5EGZpsi9alIYWglK26TzIdra?=
- =?us-ascii?Q?GR7R7m0DxF8sHlIKP/0fazdrtDmLaGjsAgzcRWbjwvDc+HSzehAShSb68RMy?=
- =?us-ascii?Q?7Hg11S0CGWi9tlOBfRgeqmpfkhhqBE4UpunM4x0SUgL2JtFm+fLp+j0V+YYG?=
- =?us-ascii?Q?u4ZmPgCjVvkztsCWUnsDkiHJQISqPqbX43zp+8Sxbh9lGrxmOEDyxXWvDmFW?=
- =?us-ascii?Q?xJS7S47troNHmlXduskX9lIVBbqbVYYMWI1mltUH7k0ZRnMKsobbPt429z7N?=
- =?us-ascii?Q?Mgv7wO/Za/+CaJiihrmjVewSykfKTaNMjD7eP6PtIq4BGWnPTc+m+/5bEzdm?=
- =?us-ascii?Q?i/50LvkAmzXLs/KoPJF4LVwK8TBzPaj7XND+d5KfNfV6lQHDK31HsTaZOfl9?=
- =?us-ascii?Q?A63BK9MUGZJbL/UQzIHd15I9Fsv7zAUvXII0Od0DfL8yKs/8?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EBYQb3vV"
+Received: by mail-yx2-f43.google.com with SMTP id 00721157ae682-85d46e4cdcdso15364097b3.2
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 19:27:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789871255; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WWJ6mazy9gVGbdDaQ2BJzcl5aI+1xm7rfwhLiXrXVAsLkYguIzlwKTGlugT25bvfJ9
+         FljFK56lyT/qkGwhnxYS3fso6NRVPDo3kZMYMPqvA7IVZeHV7evhweoaCPPj0jsEmq1q
+         +Y946k1OD8+usEkPwJw3OdE54JNkFxx/nDp/cGL3GZu3dAr7XonxCgRmyp9CgYSiWWxA
+         oKQGnMGx8vxPUgwsMM75piNsaCNjmssNSgMLTAomNHCHgNS/Q0gwQiq64OBcrTlY13GC
+         98+QzxWVrvaEDqltzbI5KsJvi6w5341VvvqpG4mQkLRQIOzRE5EGd8aND8AgfG6/wVub
+         FimA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=0Gt6NyAh55EAxMHMq6eoFxjUVSj+2cyHI/JsZGgQ8Lc=;
+        fh=JPs3vhqXdKHiROuofaYh4FQzwGDFM2C3A1qN7m8amhc=;
+        b=r5sjKVurokcdG/dMZeGzjMUcTgtkZynkZ3Ap7gGUigjoqO/+HZeucdTLhnRfdKSMbS
+         noExN4LpGjYjcXT7NkeZmJwq5C4cwwCyfyeHnhX1OeaiMAIySg5u5LgVAaLj1kkyvJq8
+         pV1oITPp5nx4hJmNEiuKNhiONzt4KhkaUpRBe3/1fQ6lLIjfNdmtarIvCyNB0OA2TXnc
+         olqyPaZF8/KkTFXnwKI4UnZKjetwe5QBmB8rk88wNkuq02qcXwtkVa+K+ESfU+WTRD/H
+         CPN/u6fPuHKvN7amaFDWvgl7gOg9w9es3xvWDvd1cpif6qwCe6PZsPZjEcdJC/JzJqKo
+         V/ZQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789871255; x=1790476055; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0Gt6NyAh55EAxMHMq6eoFxjUVSj+2cyHI/JsZGgQ8Lc=;
+        b=EBYQb3vVIzmuQeOD/l9NkipjsgDg2Gkq8baXkzjHHnACjcKZo1D6wsq6hOItWmtNqR
+         G3eGXGKEi1Wc2HXAZ1kODu8PW8I54anJpvSMHOuRktPSaXPH0WuwOF70Jby1We970f8B
+         WbdBy7r69vA8VVrqFa350CEBUSc/fkLWMBt7viKqg2pLU7kM8Z0Izh2u5yS3R++dUAaG
+         Qzv6hNV55qI3McF3DB9gLJDNttJsnOYG/NgEfEMMus15756DgVyPHGw2aL4CKmaNovr9
+         /vRRfiYDKp1CXkaDdE9eDcKLXqQV+VFyxB3Uw/YQ2TLlJB6k5c2KDkX7et0CgrduMfIE
+         Hgig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789871255; x=1790476055;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=0Gt6NyAh55EAxMHMq6eoFxjUVSj+2cyHI/JsZGgQ8Lc=;
+        b=BcrbPO+VyIsq0s5z4hmIdh+wzNCQQssMxJWpks0m654WKFAIZDrQ2n05RN41XbdXAE
+         kQRac2JsF8ANCp8k0sBhAI5mNPS9DHVWAoYgirrq3K4xEVSsWEKQnKdYKmKVjPSmNEEn
+         mqS0umZNpS6EVfsilEXwmn3HyRxs8HfNewSym6jUnfVsNxNEpBLtFkA62zwMxA1etXZs
+         pjsc6GfRIuouHkpeUxHJ/jDjZaY8malippD+cYsx4Sdr8jShzPgJTwoiO6+l79zZfC62
+         7jQkY0mUXEFHVffJXgb2uq/ucQj/SY8IMyamyJk8YakCLkfMWoSP++x6gAFNWobMu/o9
+         UkJA==
+X-Forwarded-Encrypted: i=1; AKwUvByK2qGv3AxtZ36dlknO0NKrBd27OAvutvg/CRldCQGIDDiPTXctqmEZxPIOCRwWSD5pRQ1MWilniMG7jjM=@vger.kernel.org
+X-Gm-Message-State: AFuF++knOG7YCrVokNCtG0dZajp8nDFaA2jBl1ghbpp/EN6uUXjxW+BX
+	NIRbhZ3cQoW4fJtlHpbjK9gc8yXbw+3CdS9TDhQBMYuSFsdX8waAxpVXNgINX/H2MkXZVdC7gfh
+	6biG8cbZSYPonik0GAXlOpuLj2Z4W5zA=
+X-Gm-Gg: AYBFou3bPA48AasB396INhvp7zGjDVZbe+2l0koaimnP99Gu5RkMzhaeMk1266h/EKU
+	FaiDpwrIhLefQBQby+7QezGb3dMudMrkNfNkAiPTrafmfL6BTARTA/WbEobGvqDBGxo9+r5CS+j
+	8aKNPzalXr3KW+u2e1bW2YvV8u/G051g9+ehcF9QXzreQl4acrGNKB2fwtQShURMtepMRLLT/h8
+	a+XjLnC0UwXmR9j6nViauixSdOF5u1kJGaV3WK01J+unCalpfpe3wrTn5GOV4nBM2apWy8h8QXE
+	ZOtG4pp2v78YA3iIZaYimtJdYOtKxDkR6eSRM9+dsq6aTqmjpUD4ZgjUfdTBOfKy0kd3laac1Gc
+	BcDJO/Hw=
+X-Received: by 2002:a05:690e:4399:b0:66f:7d56:cf77 with SMTP id
+ 956f58d0204a3-6717fcdc0d9mr1244517d50.26.1789871255418; Sat, 19 Sep 2026
+ 19:27:35 -0700 (PDT)
+Received: from 313336824172 named unknown by gmailapi.google.com with
+ HTTPREST; Sat, 19 Sep 2026 22:27:35 -0400
+Received: from 313336824172 named unknown by gmailapi.google.com with
+ HTTPREST; Sat, 19 Sep 2026 22:27:35 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: fHeiD/uKKAvjYBfE6HinLuz1OJIuBQiiLLl/sP19mEYFqMGD4TVr9JGEbI4cdn8Ee+k5rJnXjf43AcEnWEt2ScWCnVbCriboY1J4NAaobwm7nKi2gmGyay+AZxIJszcz6xmzez+vyoQlrKHYkYIZtDn36rmR7nnXGgmN1LS/JpNqEXKc+NWNHzOjolY2BV+Rx6i06vBcBxejUtVe7ZJuV8/JDLDmM2n7b0+J5Gn7BsbfNEczOeUUiHTe3pXXa3Q0l8ZL7h9KrK+qCGdNH2yG2xzB41ektOzRJHlP88VEGD47tMpBktlNhGttM1GDb5tgFaE59mMdQJKEnMzX1S1cHA==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR11MB7704.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1ecd3108-230c-4b6a-a378-08df16beaf78
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Sep 2026 02:27:15.2910
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: +z8oLAyYerZ+UM+cAKzQ0TRbThYRgHt/S0lRvnpHr9UqdwuOYyjw883NZ3meOwbY2xP5jmGDCqCjcq5yUyYXew==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR11MB8220
-X-OriginatorOrg: intel.com
+From: Bill Supples <william.supples@gmail.com>
+Date: Sat, 19 Sep 2026 22:27:35 -0400
+X-Gm-Features: AcwNN1WcNLmO6x7Mr3KU9rUdp-8wSNoGANUF_p4iTf9dDP4F2hQ5p6PVuv13YOg
+Message-ID: <CALstvAszkahhGkj0TxOmwBLsVvrjc_OnEoM+QY=-6YzMHAxrkg@mail.gmail.com>
+Subject: USB: HP SK-2025 (03f0:0d4a) fails to re-enumerate after S3; port
+ power-cycle does not recover
+To: linux-usb@vger.kernel.org
+Cc: mathias.nyman@linux.intel.com, stern@rowland.harvard.edu, 
+	gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+Hello USB folks,
 
+HP SK-2025 keyboard (03f0:0d4a, USB 1.1 low-speed HID) does not come
+back after ACPI S3 on an MSI PRO B650-P WIFI. The kernel disconnects
+it, attempts a port power-cycle, then logs "unable to enumerate USB
+device". A physical unplug (long VBUS drop) always recovers it.
 
-> -----Original Message-----
-> From: Xu, Even
-> Sent: Monday, September 14, 2026 10:00 AM
-> To: 'HyeongJun An' <sammiee5311@gmail.com>; Sun, Xinpeng
-> <Xinpeng.Sun@intel.com>; Jiri Kosina <jikos@kernel.org>; Benjamin Tissoir=
-es
-> <bentiss@kernel.org>
-> Cc: linux-input@vger.kernel.org; linux-kernel@vger.kernel.org;
-> stable@vger.kernel.org
-> Subject: RE: [PATCH 2/2] HID: intel-thc-hid: intel-quickspi: bound the re=
-sponse to
-> report_buf
->=20
->=20
->=20
-> > -----Original Message-----
-> > From: HyeongJun An <sammiee5311@gmail.com>
-> > Sent: Thursday, August 20, 2026 7:16 PM
-> > To: Xu, Even <even.xu@intel.com>; Sun, Xinpeng
-> > <xinpeng.sun@intel.com>; Jiri Kosina <jikos@kernel.org>; Benjamin
-> > Tissoires <bentiss@kernel.org>
-> > Cc: linux-input@vger.kernel.org; linux-kernel@vger.kernel.org;
-> > stable@vger.kernel.org; HyeongJun An <sammiee5311@gmail.com>
-> > Subject: [PATCH 2/2] HID: intel-thc-hid: intel-quickspi: bound the
-> > response to report_buf
-> >
-> > quickspi_handle_input_data() copies a GET_FEATURE or GET_INPUT_REPORT
-> > response into qsdev->report_buf using a length the controller supplied.
-> > The only check it passes is against buf_len, the number of bytes the
-> > DMA delivered, which says nothing about the destination.  report_buf
-> > holds
->=20
-> This is a special capability of the THC hardware. At the hardware level, =
-THC
-> supports the HID-over-SPI protocol, which means it understands every HIDS=
-PI
-> message it receives. When THC initiates a DMA transfer to fetch data, it =
-verifies
-> whether the received data size, including both the packet size declared i=
-n the
-> header and the actual size of the transmitted packet, complies with the M=
-AX
-> Packet Size requirement. The packet is accepted only if it does. If the s=
-ize
-> exceeds the limit, THC reports a DMA buffer overflow, and the packet is
-> discarded.
->=20
-> This capability of handling software logic in hardware can greatly simpli=
-fy the
-> driver's processing logic and maximize data-transfer performance. This is=
- also
-> why Intel created the THC IP.
->=20
-> > HIDSPI_OUTPUT_REPORT_SIZE(max(max_output_len, max_input_len)), 68
-> > bytes for a controller reporting 64 for both, while the copy is
-> > bounded only by the 4K DMA packet.
-> >
-> > The REPORT_DESCRIPTOR_RESPONSE case a few lines up validates against
-> > the size of its own destination.  Do the same here and let the waiter
-> > in
-> > quickspi_get_report() time out, as the other malformed-frame checks do.
-> >
-> > Fixes: 9d8d51735a3a ("HID: intel-thc-hid: intel-quickspi: Add HIDSPI
-> > protocol
-> > implementation")
-> > Cc: stable@vger.kernel.org
-> > Assisted-by: Claude:claude-opus-5
-> > Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
-> > ---
-> > This needs commit a59cf84441f9 ("HID: intel-thc-hid: intel-quickspi:
-> > validate report size before copy") for qsdev->report_buf_size, which
-> > is in hid.git for-next but not mainline yet.  Same Fixes: tag, so a
-> > stable backport wants the two in that order.
-> >
-> >  .../intel-thc-hid/intel-quickspi/quickspi-protocol.c | 12
-> > ++++++++++--
-> >  1 file changed, 10 insertions(+), 2 deletions(-)
-> >
-> > diff --git
-> > a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
-> > b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
-> > index 847c5ec55569..7d34cc22a11a 100644
-> > --- a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
-> > +++ b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
-> > @@ -161,6 +161,7 @@ void quickspi_handle_input_data(struct
-> > quickspi_device *qsdev, u32 buf_len)
-> >  	struct input_report_body *input_body;
-> >  	u8 *input_report;
-> >  	u32 input_len;
-> > +	u32 report_len;
-> >  	int ret =3D 0;
-> >
-> >  	input_body =3D (struct input_report_body *)qsdev->input_buf; @@
-> > -210,10
-> > +211,17 @@ void quickspi_handle_input_data(struct quickspi_device
-> > +*qsdev,
-> > u32 buf_len)
-> >
-> >  	case GET_FEATURE_RESPONSE:
-> >  	case GET_INPUT_REPORT_RESPONSE:
-> > -		qsdev->report_len =3D sizeof(body_hdr->content_id) + input_len;
-> > +		report_len =3D sizeof(body_hdr->content_id) + input_len;
-> > +		if (report_len > qsdev->report_buf_size) {
-> > +			dev_err_once(qsdev->dev, "Get report response too
-> > big: %u\n",
-> > +				     report_len);
-> > +			return;
-> > +		}
-> > +
-> > +		qsdev->report_len =3D report_len;
-> >  		input_report =3D input_body->content - sizeof(body_hdr-
-> > >content_id);
-> >
-> > -		memcpy(qsdev->report_buf, input_report, qsdev->report_len);
-> > +		memcpy(qsdev->report_buf, input_report, report_len);
->=20
-> According to above explanation, this logic checking isn't a problem, beca=
-use THC
-> hardware will check it and guarantee the safe size.
->=20
-> Thanks for your patch!
->=20
-> Best Regards,
-> Even Xu
+This is not a single bad port. The same failure happens on three xHCI
+controllers on the same board. A Dell MS116 mouse (also USB 1.1 LS)
+on the chipset controller survives the same resume.
 
-Recently, just realized a case:
-THC hardware depends on touch controller's report length to determine the c=
-orrect package length and buffer overflow.
-If there is something wrong in the touch controller side, such as: touch co=
-ntroller's behavior is wrong, or data lost in bus transferring such as bus =
-noise, THC hardware will receive wrong data.
-We need to avoid this in software driver.
-From that viewpoint, this patch is valuable.
+I am not reporting the chipset "xHC error in resume, USBSTS 0x401,
+Reinit" as the bug. That is the Promontory controller at 10:00.0
+(1022:43f7) reinitializing after a failed save/restore (see also
+bugzilla 216470). The mouse on that controller comes back. The two
+Raphael CPU xHCIs (1022:15b6 / 1022:15b7) never log 0x401 and still
+lose this keyboard.
 
-Reviewed-by: Even Xu <even.xu@intel.com>
+Hardware
+========
+Board:  MSI PRO B650-P WIFI (MS-7D78), BIOS 1.I0 (2025-03-12)
+CPU:    AMD Ryzen 7 7700X (Raphael)
+Kernel: 7.2.4-ogc3.1.fc44.x86_64 (Bazzite 44 / Fedora 44 based)
+Device: 03f0:0d4a HP SK-2025, bcdUSB 1.10, bcdDevice 2.07,
+        bmAttributes 0xa0 (bus-powered, remote-wakeup), MaxPower 100mA,
+        speed 1.5 Mbps, persist=1
 
-Hi, Jiri and Benjamin,
+USB controllers:
+  0000:10:00.0  1022:43f7  AMD 600-series / Promontory USB 3.2
+  0000:12:00.3  1022:15b6  Raphael USB 3.1 xHCI
+  0000:12:00.4  1022:15b7  Raphael USB 3.1 xHCI
+  0000:13:00.0  1022:15b8  Raphael USB 2.0 xHCI (no user ports)
 
-Could you help merge this patch?
-Thank you very much!
+Reproduced on
+=============
+1. Chipset Promontory, direct port usb 1-3
+2. Raphael 12:00.4, usb 5-2 (and usb 5-1)
+3. Raphael 12:00.3, usb 3-2  (current; rear USB 3.2 Gen2 Type-A)
 
-Best Regards,
-Even Xu
+Also failed after a cold reboot with the cable left connected (device
+still wedged until unplug). So this is not only a suspend persist
+path; the MCU needs VBUS actually removed.
 
->=20
-> >
-> >  		qsdev->get_report_cmpl =3D true;
-> >  		wake_up_interruptible(&qsdev->get_report_cmpl_wq);
-> > --
-> > 2.43.0
+S3 on Raphael 12:00.3 (usb 3-2), 2026-09-19
+===========================================
+PM: suspend entry (deep)
+ACPI: PM: Waking up from system sleep state S3
+xhci_hcd 0000:10:00.0: xHC error in resume, USBSTS 0x401, Reinit
+usb 3-2: USB disconnect, device number 13
+usb usb3-port2: attempt power cycle
+usb usb3-port2: unable to enumerate USB device
 
+(The 0x401 line is the *other* controller. usb3 is 12:00.3 and did
+not log a host error.)
+
+A userspace resume hook then wrote 1, slept 3s, wrote 0 to
+  /sys/bus/usb/devices/3-0:1.0/usb3-port2/disable
+That did not recover the device. After re-enable the kernel retried
+as the wrong speed:
+
+usb 3-2: new full-speed USB device number 18 using xhci_hcd
+usb usb3-port2: attempt power cycle
+usb usb3-port2: unable to enumerate USB device
+
+~90s later a physical unplug/replug enumerated it correctly as
+low-speed 03f0:0d4a.
+
+S3 on Raphael 12:00.4 (usb 5-2), no userspace hook
+=================================================
+PM: suspend entry (deep)
+ACPI: PM: Waking up from system sleep state S3
+usb 5-2: USB disconnect, device number 2
+usb usb5-port2: attempt power cycle
+usb usb5-port2: unable to enumerate USB device
+
+After the subsequent reboot, with the cable still connected:
+  usb usb5-port2: attempt power cycle
+  usb usb5-port2: unable to enumerate USB device
+Unplug/replug recovered it.
+
+S3 on Promontory 10:00.0 (usb 1-3)
+=================================
+xhci_hcd 0000:10:00.0: xHC error in resume, USBSTS 0x401, Reinit
+usb 1-3: USB disconnect
+usb 1-3: new full-speed USB device number 13 using xhci_hcd
+usb 1-3: device descriptor read/64, error -71
+usb usb1-port3: attempt power cycle
+usb 1-3: device not accepting address 15, error -71
+usb usb1-port3: unable to enumerate USB device
+
+~12s later physical replug:
+usb 1-3: new low-speed USB device number 17 using xhci_hcd
+usb 1-3: New USB device found, idVendor=03f0, idProduct=0d4a
+
+Note the kernel tries full-speed against a USB 1.1 LS device after
+the failed resume, then gives up.
+
+Why I do not think USB_QUIRK_RESET_RESUME is enough
+===================================================
+quirks.c already has USB_QUIRK_RESET_RESUME for other HP/Pixart HIDs
+(03f0:2b4a, several 093a:* mice) but not 03f0:0d4a.
+RESET_RESUME / DISCONNECT_SUSPEND help devices that stay logically
+attached. This keyboard remains dead after a reboot with VBUS left
+applied, and a 3s sysfs port/disable on the Raphael USB2 companion
+port also failed. That points at PP/VBUS not actually dropping on
+these AMD USB2 ports during hub_port power-cycle / port disable.
+
+Questions
+=========
+1. Does xHCI USB2 port power-cycle on AMD Promontory (1022:43f7) and
+   Raphael (1022:15b6/15b7) actually deassert VBUS?
+2. If yes: can the off-time be lengthened for this VID:PID (or for LS
+   devices that fail the first power-cycle)?
+3. If no: that is a host bug; a device quirk cannot fix it.
+
+I did not PCI-reset or unbind the xHCI function (too easy to leave a
+controller unbound on a desktop).
+
+Happy to gather more (full dmesg, lsusb -v, usbmon, dynamic debug)
+if useful.
+
+Thanks,
+Brian
