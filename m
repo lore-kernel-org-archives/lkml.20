@@ -1,51 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A80C4457E5D;
-	Sun, 20 Sep 2026 16:18:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9218459AF8;
+	Sun, 20 Sep 2026 16:18:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789921097; cv=none; b=hoH5LU4lZIACTX1dri8N8KdAYU7bDG1P3FsfFhhdov/wBLKmurFvh6sMAOYv+fM2ScGgRaHnuKX9OsxiikAqVVeqtYcEujBPBWiGfYmv4GKgd4A8/TJQO7LyawhiaCPpAyIG7XH6mdyZJkTE+s7bXUP1d1iB+IK8gkRz0f3uA2c=
+	t=1789921099; cv=none; b=PAHNmXKtGHNL2SYpAddcBlKKpx6ly0X5kaZaBXg+/63dA6rQxQe0485U5e/9MwSlGGCdpp4nZIEqYfCkqmoahT6q8V6wg1XfJ0uaZVW5JE+S3wN6+ZjnyTtqFPq5XXdo14uQHIXyB3PrplS1NfdmkE0/dEx+Bntn5OT46uI8VGU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789921097; c=relaxed/simple;
-	bh=qrd51FM5tl7oIcdtAjunnfY0zt3GulcVDaAudO8yUAY=;
+	s=arc-20240116; t=1789921099; c=relaxed/simple;
+	bh=5R07kCAS+E7jA6wYFGS+fjxH64ZH55Z+5zWXnjV4BEg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=r06hbaRHwL1d9ic/TvIi4xC4baR4SIVTuGRJgO+8pVCVDGkj5NMYQSxrBvd2xVbwUhxMMHaRQ6ovCuixAF6YnrWESYNGfOWngeo3vzsEQCmK46aNChI+CVVngtYPrrQQTpHpS/AQhsDC0Gpr2oZBHBrUfMRmdnwqCh1j3PJRQPI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BcEwv28R; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=lUQbXmAaWO8EdYqg+q4AuQZP//hT+NaLtocxo5v/25zOg5Vux/AnvzJI8qWfEMejXNnNZSoN4tR0meVlG8px5d+HCT9xj233WqlSFepQtS9jejnXv4DjxjT9ccbU80LK0+42TR0oUrBFa+YOEX7mVWBeYFWW1QxtXk5zMst9KIk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pbev7MOR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BcEwv28R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06A5F1F00893;
-	Sun, 20 Sep 2026 16:18:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pbev7MOR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A084F1F000FF;
+	Sun, 20 Sep 2026 16:18:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789921096;
-	bh=PscyQc9iTEBQHUxuu5sjpSEnhgPYQHGisQ7n/NeljC4=;
+	s=k20260515; t=1789921097;
+	bh=G8AWuZvmRLd765DhkuLqUDPxPGqCs3v+xV81aeXF2oc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BcEwv28RIGLo5l6ZHrSgMqUA2poxenD3ZMvffsAr59wZ4pt2BRf/WCjtHokgWwgWU
-	 D150uldtkSc4fr1eEKG1900kw08Vsw2KxoniTRZS50leD4e8/i9+hvlC6eR45Huzu1
-	 c/TN6mlN/vMweNNMZ3s3wJaior0mG80wBANl/1effgG4rpNYBoJW0XyO46L3WjD8HP
-	 rbHhUHsWuOVy85xbOu28JvijJqEOzR+graJkqbA+xKva/Y0IRSBCtZiaFOzfJEb6mD
-	 umROEl3tzJtfqgy3Icz+s5PbVLZ1+jWNkk0oVyJBNHv/yVB66y46Dj9OahM59XBQo0
-	 QvvgVQSmAFOOw==
+	b=Pbev7MOR3ybziap5dywW2I4Yy4Uz4cObSU/l05cjgMFXWT5OxvJ5EDdj+iahPO1ow
+	 VfmQBrUjPvgvoh4BNq6DVLijsLwk8Q9NxQER0cHe3VdGP2TntlkobIMayB/4qKDp4w
+	 LGWQObEHwIzUE+AtaJkl9VMXe+wxJhpLkuikLSzGfn0fFMC9oJRmVryRzvcsOW2jQA
+	 GE2Syj9iSMpdflk8WBcIF0dbbWQQ7pPwk5tix/rXg0K7gAKChyD/L0HkmIkrflBw2Y
+	 xaHUITcndxoD/nZfTJu2tnw+R2lXKx3Qh5eb3aAl51J5QU8WmookUssIwcMN1ptCG6
+	 UeAyllobhW2lQ==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Monish Chunara <monish.chunara@oss.qualcomm.com>
-Cc: Nitin Rawat <nitin.rawat@oss.qualcomm.com>,
-	Pradeep Pragallapati <pradeep.pragallapati@oss.qualcomm.com>,
-	Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
-	Sachin Rathore <sachin.rathore@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
+	Oleg Keri <okerixx@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: (subset) [PATCH V4 0/4] arm64: dts: qcom: Add SD card support for Glymur
-Date: Sun, 20 Sep 2026 11:18:06 -0500
-Message-ID: <178992108605.214160.15370126108143745115.b4-ty@kernel.org>
+Subject: Re: [PATCH v3] arm64: dts: qcom: glymur-lenovo-yoga-slim7x: add the camera privacy switch
+Date: Sun, 20 Sep 2026 11:18:07 -0500
+Message-ID: <178992108596.214160.17938844286754928916.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260722142342.990384-1-mchunara@oss.qualcomm.com>
-References: <20260722142342.990384-1-mchunara@oss.qualcomm.com>
+In-Reply-To: <20260914094201.14009-1-okerixx@gmail.com>
+References: <20260914094201.14009-1-okerixx@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,25 +52,24 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Wed, 22 Jul 2026 19:53:38 +0530, Monish Chunara wrote:
-> From: Monish Chunara <monish.chunara@oss.qualcomm.com>
+On Mon, 14 Sep 2026 11:42:01 +0200, Oleg Keri wrote:
+> The laptop has a camera privacy switch on the side of the top case - a
+> slider, not a mechanical cover over the lens, and it does nothing to the
+> camera itself. TLMM gpio99 follows its position: high with the switch
+> open, low with it engaged. Describe it as a gpio-keys switch so userspace
+> can act on it.
 > 
-> Respected Maintainers,
-> 
-> This is v4 of the series to add SD card support for Glymur.
-> 
-> This series adds SD card support for the Qualcomm Glymur SoC and the
-> Glymur CRD (Customer Reference Design) platform. The changes include
-> updating voltage regulators to meet SD card requirements, documenting
-> the new compatible string in device tree bindings, and enabling the SDHC
-> controller at both the SoC and board levels.
+> SW_CAMERA_LENS_COVER is the only switch code the input layer has for a
+> camera privacy state, and it is what the Lenovo WMI camera driver and
+> Dell's privacy driver report for the same kind of electronic switch on
+> x86 machines, so use it here as well despite the name.
 > 
 > [...]
 
 Applied, thanks!
 
-[2/4] dt-bindings: mmc: sdhci-msm: Document the Glymur compatible
-      commit: a501c39e16105cdbd1fb6abe29d955b378306ed8
+[1/1] arm64: dts: qcom: glymur-lenovo-yoga-slim7x: add the camera privacy switch
+      commit: fc80b73afd911f6199bd066b843caf7d7ca20cd5
 
 Best regards,
 -- 
