@@ -1,157 +1,88 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from v511.v5ed9ac7d.euw1.send.eu.mailgun.net (v511.v5ed9ac7d.euw1.send.eu.mailgun.net [141.193.32.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 335C42D7DF1
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 19:20:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789932001; cv=pass; b=MojxpOfQ3dRVmSXMD8cXCYdZvcX3d+aYe6ClEdrJhnzvoW1jtQbt9VCqOWJdmOtZCDQn3oamzMaHHfOUAUxfY4ymiXM6cf0vfSIc4NYT1e6HGhiE9id9tx2mHrx8i/lAG4GMMQ78xsZq6eteXYUXjp3mrRghhfnP5d7/SDi5d5s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789932001; c=relaxed/simple;
-	bh=6SpgTwcIIQqjPbDa4mTNcZ8/Jqu2VPFbm+vZpZ7fjkU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CohAfK6QISXi4Zw1N9MWD7tpHFflTbvAVDgk9QqkEZpDnA+bALc9dfgIvFFLDK/YziHppGN5DC2a0BQPJmulWYfzwTs3hmE61hm5yQNxVUd2IQxuQ7GwHqx52UxdmiZLQuRT0my/wos1+eiQdtXLwFae3Uu3FTIGhXRjbyuGHmM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UHzfCDNk; arc=pass smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5428A3DAABB
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 19:22:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=141.193.32.11
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789932139; cv=none; b=IuaBHDPCt8MhC9KG3TGJWSi35Kdty/QunUfoqH17UbgySYv6AhE945yPfUKlu5pnP9gGEdrbZn+tElwMKLT2PfJO48QrsWUhPqQ/hr40ZjdlrmhdtKYEd0jmnoORE5nKNHk5yTIRHe9fa8jJe5yu4E8n9+7MR8swFSZ6VNl3gEo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789932139; c=relaxed/simple;
+	bh=kC5j9r7oV30Xsi7O1+VYCu87aZzzmofDx61IuZdJkQs=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=T3UU3cNOEkU7sPKHCzXxvRAmvl/afQwglG7iZnxbTFLFYW8fTr6/8Eolr/9WkkXBsbFQIuKQffitszaX1DJmR1KAeptspPXG1KBZ2Big/g1RWRjyTiUSjkt/83jDqKcnRg7g8HeBTiZh0Os0QQPaylUhnFdB7sp/MPaesfgfDrA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=plajta.eu; spf=pass smtp.mailfrom=plajta.eu; dkim=pass (2048-bit key) header.d=plajta.eu header.i=@plajta.eu header.b=f5fEDOzz; arc=none smtp.client-ip=141.193.32.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=plajta.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=plajta.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UHzfCDNk"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39dbdfaef3cso2003797a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 12:20:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789931999; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Lpf25Pf3FnlGO23xED8N8GEessGyjY+4lDFVYHi2aRwIfuGJfsBy783F2AqTHszKB7
-         Ywvmwn43pC6kM2oXcnlTjr2+UuRbW2NCgxVSSgGmvvCwPVVTMuvf09/voTS2i79PCu+2
-         +9KY2eIOwqeqnkia9E9Bizzvk8k2U32OiKpWFgjSoLch/t+yBOqSgn51peox7sb8I0fA
-         zf+IDxBYGzGBRzN/OOU3QuRIc5PxtxW66PKMepT62cnhXnECj5wR80INO4AQ9B3UJLQf
-         xbwa3Fr0WiUrypkV5CJy5lZUotEJTNGSgeTWLsGTepRMciLWOV2VTqLkOhSGf161DYTg
-         Ybmw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=gWhRaROW89yV5OS3p3Oh/TR8um8lkux/C2SiVG/FN0U=;
-        fh=sOUP7xobxlT5CWjlmahMIspLfT1oPuBUUu7L/VHG/WQ=;
-        b=g7Hm78fwuHDGKNvDE7tirVP9Rkynsq6xrCjlrrIsZzhPCGO4b9QXdO3pjUaTzAv7wf
-         EhTU06uv1R8tnU8Dfn4TIz5eMVvqyoFyGe/0FBOxFVCH5mM89WHslLvgyEtreY0Uftd5
-         QgMsoIXTyizECE92d8HL4jqh10iyjXtBQThvuezdNTbzIuKbSQay/86pfycfjiWNKIae
-         MTZOG54/TxV5VXN/KVS0cDIq0fXnT9hHln4CteioIo1ISALve97XmXuQCN/Q353hqAH7
-         nF9jdORNH8lfwh5LtSZJvhXJOBHMLF7U8LmhWRusuBUsa4ADo8UzfVVthO2EHTdZngAI
-         aPJQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789931999; x=1790536799; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gWhRaROW89yV5OS3p3Oh/TR8um8lkux/C2SiVG/FN0U=;
-        b=UHzfCDNkUeg8JygLeU7bjSLvlWmWi6ZIEklM0UBEnKAR8ZTh9HxcLwp+heWsyVG4lR
-         71FnwslAXVzqZeZPJS8LqjIfXT1uc045WKQXbiRas3lThtJrdYQwyHmu0qwlt8R0uOX9
-         h/G3000ZuDcFlLp9YIDUeUAK0Y7+RqpIBBXbIS7SuM7aVl5PJGo8lfAm4s77wFGcvbMq
-         md14K+E6sVbL+V/uP2/IbVCt1JQlJmqOmhXqcAhsvLlkkOtyhIM2h8X9bRGeBuW+COya
-         9Xttr6ClXOCHU+e1xXigAlFDnImG2j55q5cA0bIMbtwxJdZLScZ8nDW4wV3XWbL0T1KR
-         dEBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789931999; x=1790536799;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gWhRaROW89yV5OS3p3Oh/TR8um8lkux/C2SiVG/FN0U=;
-        b=zoZhbeRTvYrohmg4k/dn7fDvRdOXwuVkBNxKzgAbxIv0Je8Y1G3tS6RqlPcZuJmeJ9
-         0zU0XuoHOwTVSApKrFouLx1jOmDgNN2rpwMfeYtp7d5clgsk6ifmtmWcNLGhaiwiN8//
-         Fr1miV8mD/ru7iYVz2B5NzlDx9FEEgFMPbuXKAVEekA0Prb1azlgp3aNSJ9irbzM2yZJ
-         QEyp+jhviFftdNUdWidka0v6aUeO67QDrt01ZdO55SOcoWY9nbb/wwRKGCpuOYNk5OjA
-         i/UHb8LentXfJ7wvhHCKvNUqkykAp5RsM3zGLf5b41SMQfK/mDFkbiKGmQVHwOifdlJp
-         kXDQ==
-X-Forwarded-Encrypted: i=1; AKwUvByIp2if46hZs0V7w58oNBgKi9FG6am2jjsUCamWMKv0lJVZclkf39zaUGgVheQIHyHdSdZlL1i5gusLKOo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kyGKiXkfo6xG0Y5Hs1ayG1BixwpW7ZtwF+AUlbzpzyNUA2oZpJ
-	0vhlAdWQa5DWqyZnZC0nDrHgoAwu/Z3ulB8qL27erl0LBB2S9R+xYXMxi84gGB48Cc6zdclwsgA
-	YiJhL7DE12IrGbU+6iSWKGzQZS+oZnOd9uBelPsDm
-X-Gm-Gg: AYBFou136CxLO5TXEwSFtKRHaq+KgqKD73UzzYnPwyrFSBLJT0MocLmoAf7ynUD5dkV
-	hhlsnowZ+x3IdW9vnZbZaJYl4JRHGUj5w8tjEOoIDI6TQBykRrk52MFIuojLOhbpmDV023SX1IY
-	WmeejKNfkDXGiZtJ9QYM2DegG6otJxASWGd7gmTc0iQbz+ECAgsRthgd14tUeuuvxJS55CulHl2
-	ZKvJhd8sx3KA89RaY+bt9Yh/NWRDajiAgF1GnF01n5W+WgISb95aU3hK6kPLExAygoXOdbV8cKH
-	R+rj7MYwvJc8rIST/6LXtp5ON6Vk9vqrV0mAokO8VEIGJfzdxP70CNlW+zRgLiaZpXI35fdN16q
-	X0yHMEkMrAsWaW4cYCWwgPbzyHMZw98G5soZ8bzW5/B9cxeRUl6dzottF8IGcSJiSzLD+uXCm5z
-	cMWl46Gqw1xUeyDIyntZ/WKWI287j43GWAOnw=
-X-Received: by 2002:a17:90b:4a01:b0:3a0:4abe:fcbd with SMTP id
- 98e67ed59e1d1-3a04abf0758mr914250a91.19.1789931998859; Sun, 20 Sep 2026
- 12:19:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=plajta.eu header.i=@plajta.eu header.b="f5fEDOzz"
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=plajta.eu; q=dns/txt; s=s1; t=1789932135; x=1789939335;
+ h=Cc: To: To: Content-Transfer-Encoding: Content-Type: MIME-Version: Message-Id: Date: Subject: Subject: From: From: Sender: Sender;
+ bh=dvTZ7hwDigE1TUR0dsMQH/2HfcjkM4rogOQWqvzHFxI=;
+ b=f5fEDOzz9CSHVY8j5j1r4uJ2YbHrJGUf6pFkMAKgi94gZNoQLjvlZTH11QvGgyuD1R4sj0Z4keT9/0cmaQ8Agr7Vx+WgKwmGvITyc0n5kGvn0CN6Bv25q1BX9NS/k88qXF/WcP2PHUmUzKHYkQfYSqEGL8c40hRkF0xDAjv5tBTbivC0aYphd/3RO6GcA/Ceapb85lU4w9B1eUsZ4LGwobPwj/hj8MPu7scKuYSs8Vjkkp7FXlaHHGhAvpMQCDojNAgToWAXWxoJRMFp99CojmtjYn71TiDaJE4OX7zlrK2/L82Von5+fXpg1otOY40UxjQxw3+bjwsSGyUMBiyoXA==
+X-Mailgun-Sid: WyI1ZWFlNCIsImxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmciLCJhOTI0YiJd
+Received: from [192.168.1.219] (ip-86-49-238-222.bb.vodafone.cz [86.49.238.222]) by
+ 62dde763711f91b09babc141eb112fb8433c3bdf14f6a1f222f9cb9a27a17a83 with SMTP id
+ 6ab032663fa6daf3e8258f17 (version=TLS1.3, cipher=TLS_AES_128_GCM_SHA256);
+ Sun, 20 Sep 2026 19:22:14 GMT
+X-Mailgun-Sending-Ip: 141.193.32.11
+Sender: andrijsalivon@plajta.eu
+From: Andrii Salivon <andrijsalivon@plajta.eu>
+Subject: [PATCH v2 0/2] Add support for Amazon Kindle 4 (Yoshi)
+Date: Sun, 20 Sep 2026 21:21:36 +0200
+Message-Id: <20260920-imx50-yoshi-v1-0-b8a46b3a972f@plajta.eu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260919215238.3471141-1-benquike@gmail.com>
-In-Reply-To: <20260919215238.3471141-1-benquike@gmail.com>
-From: Kuniyuki Iwashima <kuniyu@google.com>
-Date: Sun, 20 Sep 2026 12:19:46 -0700
-X-Gm-Features: AcwNN1XNFaIA_FuRm5dvT0DJBzJTY_mCtk-5E27wg2ToTpoFvLwk3Ok8gbD_32g
-Message-ID: <CAAVpQUDwLnRfv1PkkexsC04D8wLSeARekuUDSTOenyRctWG8MA@mail.gmail.com>
-Subject: Re: [PATCH] fou: reject FOU_ENCAP_DIRECT with protocol 0 to prevent
- sk_buff leak
-To: Hui Peng <benquike@gmail.com>
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org, 
-	pabeni@redhat.com, horms@kernel.org, willemb@google.com, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM0Q5DQBQFf0XOs02uLaL9FfGg6+JKSrNXRSP+3
+ eJxJpnZoOyFFa9og+dFVKYxQBJHcH09dmykCQxLNqenJSOfNSPzn7QXk1NSF2n6yFrHCMXXcyv
+ rdSuxWFS30997YDefG+z7AUT3IoVzAAAA
+X-Change-ID: 20260920-imx50-yoshi-601a84435fce
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ Andrii Salivon <andrijsalivon@plajta.eu>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1789932134; l=835;
+ i=andrijsalivon@plajta.eu; h=from:subject:message-id;
+ bh=kC5j9r7oV30Xsi7O1+VYCu87aZzzmofDx61IuZdJkQs=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgRPkrbhoPH7FSvHGDzrn6ac5XixtTH
+ LGWklZFOfCUTc8AAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QDt81TQDuwkiSn0sKElpmCdqSi9f7xf6XAtpU1Zn6ry7vj6C1utSyEUv0nQK1M6Moj78aO0VYs7
+ 4oz+kt4zKaAI=
+X-Developer-Key: i=andrijsalivon@plajta.eu; a=openssh;
+ fpr=SHA256:NIrmQeSA8iZxz4K2sBePBO20E3POR1tDuMtfPGdgY+k
 
-On Sat, Sep 19, 2026 at 2:52=E2=80=AFPM Hui Peng <benquike@gmail.com> wrote=
-:
->
-> In fou_udp_recv(), returning -fou->protocol to udp_queue_rcv_one_skb()
-> triggers IP protocol resubmission when fou->protocol > 0, whereas returni=
-ng
-> 0 tells the UDP tunnel layer that the skb was consumed without freeing it=
-.
-> When a FOU_ENCAP_DIRECT socket is configured with FOU_ATTR_IPPROTO =3D=3D=
- 0,
-> every received packet returns 0 from fou_udp_recv() and leaks the sk_buff=
-.
->
-> Reject FOU_ENCAP_DIRECT configurations with protocol 0 in parse_nl_config=
-()
-> and drop packets if !fou->protocol in fou_udp_recv().
->
-> Fixes: 08d323234d10 ("net: fou: rename the source for linking")
-> Assisted-by: LLM
+This series adds the device tree binding and initial board support
+for the i.MX50 based Amazon Kindle 4.
 
-Looks hallucinated ?
+Changes since v1:
+- Fixed alphabetical ordering in fsl.yaml, Makefile, and the dts
+  iomuxc pin group entries
 
-commit 7a9bc9e3f42391e4c187e099263cf7a1c4b69ff5
-Author: Kuniyuki Iwashima <kuniyu@google.com>
-Date:   Thu Jan 15 17:24:48 2026
+Signed-off-by: Andrii Salivon <andrijsalivon@plajta.eu>
+---
+Andrii Salivon (2):
+      dt-bindings: arm: fsl: add Amazon Kindle 4 (Yoshi)
+      ARM: dts: imx50: add support for Amazon Kindle 4 (Yoshi)
 
-    fou: Don't allow 0 for FOU_ATTR_IPPROTO.
+ Documentation/devicetree/bindings/arm/fsl.yaml   |  1 +
+ arch/arm/boot/dts/nxp/imx/Makefile               |  1 +
+ arch/arm/boot/dts/nxp/imx/imx50-amazon-yoshi.dts | 59 ++++++++++++++++++++++++
+ 3 files changed, 61 insertions(+)
+---
+base-commit: 40288c9206c17eb66a603262e06a58d300d0f279
+change-id: 20260920-imx50-yoshi-601a84435fce
 
+Best regards,
+--  
+Andrii Salivon <andrijsalivon@plajta.eu>
 
-> Signed-off-by: Hui Peng <benquike@gmail.com>
-> ---
-> diff --git a/net/ipv4/fou_core.c b/net/ipv4/fou_core.c
-> index 5e867f1b5c1d..3fc087c808bc 100644
-> --- a/net/ipv4/fou_core.c
-> +++ b/net/ipv4/fou_core.c
-> @@ -77,6 +77,9 @@ static int fou_udp_recv(struct sock *sk, struct sk_buff=
- *skb)
->         if (!fou)
->                 return 1;
->
-> +       if (unlikely(!fou->protocol))
-> +               goto drop;
-> +
->         if (fou_recv_pull(skb, fou, sizeof(struct udphdr)))
->                 goto drop;
->
-> @@ -696,6 +699,9 @@ static int parse_nl_config(struct genl_info *info,
->         if (info->attrs[FOU_ATTR_TYPE])
->                 cfg->type =3D nla_get_u8(info->attrs[FOU_ATTR_TYPE]);
->
-> +       if (cfg->type =3D=3D FOU_ENCAP_DIRECT && !cfg->protocol)
-> +               return -EINVAL;
-> +
->         if (info->attrs[FOU_ATTR_REMCSUM_NOPARTIAL])
->                 cfg->flags |=3D FOU_F_REMCSUM_NOPARTIAL;
->
