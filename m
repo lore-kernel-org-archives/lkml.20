@@ -1,175 +1,135 @@
-Received: from mta0.migadu.com (out-221.mta0.migadu.com [91.218.175.221])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E24F386C39
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 08:58:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.221
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2AF63DD525
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 08:58:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789894684; cv=none; b=aTWI1gLqepGmkEZkvSZ0asy8uK2lNaEeBSBnDzwH7+v4phN987G/2CgMQcEtW3fQPZvf2RZENlXM4YbwTkXWDE8se31OKtMTgnijFgq6gqnzpGLjZuQfj+e21QGbGh1RQ+1YTwMUkjuTOkqJdbjFZ7YWDEpt+NwJqUQF8lt7NEs=
+	t=1789894718; cv=none; b=HXNsHisEQxoGXGQ5ishOGqXVDB+xttxXAY9S3Xbj0NwgLJVqTOM+uKI/QmU7ndMy8e5t5S8N2b5ssMTDy0C6XQbQ7hA1jf3O+SXuNEoynw6TbbWgirVkRMLJazBhg0/JVoARHsp4cxS3bW4NHJ9Vafi5DrKx7beay+BNodj9eHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789894684; c=relaxed/simple;
-	bh=SkcOaP5BTl2GVSJvWcMEy94n61Gq82fdCYwK8Hy9T+w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MJd2UbrPwTUm6HzBIc6nLbbnvWC0UOlJ8P3GnZe+SjKNZz2sGxWAFVlfDKdCLbYeTm0dyUGN2mJNx+ML0ZHwBpunklLWdk+3bW7/xuIWUzDqyXp11j04etRCJRokX75vyojZM7SrPiqv/WplyIev7aYfmtSypnr4x1tT5jFefug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=TJQRtAzG; arc=none smtp.client-ip=91.218.175.221
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789894718; c=relaxed/simple;
+	bh=ulT7ug30BS3kQe8AssR0HTE8pww9RYiAYwua19h4QeI=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cx2HEnWpotL+ApixSS54soLGjt9UmFYr8dC/1KeLl8z23bL0SpOVSpfzMEH5iSMRFGAqodytmWUYbOHT+2blA9eHYwXx1yh7j5KSbTSHSnDYQSJ9xeQkRLVOsxhivVLAbzd3BH4XTdQ5GHSEYgsdFvXJ9g/iklmV+NtjwIO5Fqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W0XlKD78; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="TJQRtAzG"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=SkcOaP5BTl2GVSJvWcMEy94n61Gq82fdCYwK8Hy9T+w=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789894678; v=1; x=1790499478;
- b=TJQRtAzGJEu4zd1m/O08P86y6C7Hr5y3LPya4RrlhMNS+pL1nvQOa5D/hnlz1xf66myaYCat
- akydFsn6NhYLa8Ix4ab0858qhynyFqNyaIdrFWNEq+BpniXoohsbER1R84WotLMwc4tS6LF4Rfo
- EGsDxPRoZbzWGEge6PYbAEN4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a5691a9340c7a80d;
-	Sun, 20 Sep 2026 08:57:48 +0000
-X-Mizu-Trace-ID: a5691a9340c7a80d
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <aa90bb73-c2af-4d13-8f2a-0435aa528058@linux.dev>
-Date: Sun, 20 Sep 2026 16:57:39 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W0XlKD78"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485933b2522so1415466f8f.0
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 01:58:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789894715; x=1790499515; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kVcSeGrILNL/3yAIXQLY6tssLOIk6fAE7TJXvBIsnxM=;
+        b=W0XlKD78YUi8OKyOmLeXYSGLZf/wcsx7U90IFwKjFc3KYMaSacH6eWEaQtlNi20n/G
+         nZ07vtej1YaOHm//WAbW20BWuz4fvDWOcEpAhcd31X1BcQWHcEmftXtXYL9FrNy4Fcv7
+         IjiDq0KIST1GOxeaMzfcyc+h0do/RL+Y2aPDjSUuFnuTYv2mG/w4A1ZkBzswirsFUpvu
+         Xysn43OazS93mD6y2L3D5JIU0Q4wvMWlFIdlTYWTqRj3aB738/H0RAS+RJ5PaIR800dK
+         XdhLlCRLLc6MVN0/sNv5bN7IK+C9eCi1IU2AB4T/LMYCH3YijjjzqvvvCCDuwEzGvcxJ
+         KI1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789894715; x=1790499515;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kVcSeGrILNL/3yAIXQLY6tssLOIk6fAE7TJXvBIsnxM=;
+        b=oLS8UHZPM97jMIgx/NdDSkdpxLtmDwKQdqGcM2PhsSWZ3ruOeA8PKzmR3PnZmh794F
+         ynAUha45v0ZDoV9zb0s+HOaJV6rdNGFr3VAjQmMF908FpeE23ZehWSAIuNcNK8OSHHRO
+         AV7CqPGY8uHBgeKZKZy5Z31CYT73o7upIzXsW7zBkSbRBnOzv4C5Kb05ySsXvgX49e6X
+         EluIU3IsGn4iyzzfhztNGzwr/sxwDGdswRoGMGNoEJmjngFqiOoMsvMuuk7mIO5oJNfo
+         Pl27tlsxt0agvqBudjrbX0F7phQ4iFX/EJ+QtCd0A9ouHou7Hq5MDLG3HjlArO+n6WCm
+         nrtQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwEqDCeOBX7svfJ7mCcT6UwuPqxKlTzfvbqL0mm+94whAxzKwPYravcMjyrjtxLp4E4E9HY9lK/teeQLks=@vger.kernel.org
+X-Gm-Message-State: AFuF++kuqYAkbKXik1beiNg4rD39HvpRJMSSRpOeT1s7/qBKKSGYmqjk
+	p1qHnJh3XM8nYCSpwqlCzTEkf1BRa6RAZc6+scvnvFzaNJhYsGbfDKQB
+X-Gm-Gg: AYBFou3AHrbYUEuO+tChs14yd8KK4PN0t/JjswaN6zIG5ZOMrdMnycDufV7pR64PG5g
+	JnOZTpWAilmD6MGUGLnEuo4OstPiMZpg2wXVD1B4glQOwt/bf4oBsgp7nLejPbwZjA8fqMeW1vJ
+	XV1ygi3dd7kLzbLqHX9NxeCIqUBvhD+vfmrG3/W56HjLpFrvw6OOT7FKA+IsdYT/zwXdWqGjKmX
+	Xiue76WgjszrKEcNdZNBZ4Y0lDKcuco2OwNlhxXlFY1/CWhfghPLRVTuh5gKszsY59cDctvM1Xz
+	916phl7jEO/GkbheCaX3Xy0UBQWnaKn+jJAkrZ5nR2z1EIGthjafFbTg8DQVK57FDjlzfpy1ZmK
+	sN/S8nDgrBjatQlTptKuj0GSOb+/oiGeLq9Za8jX5HhgTt3EeOejUsc+0hJ4hkwuFhVpz1v8t4c
+	mKQdeah+Aq255R6UiwU8aIbu4eGVJbHqNPjTEoblSRkZorTj2Y5bWBUQlLSerfKRPJNqukWZiVR
+	NXHQGH4SRpi1vKobgg5MLClx4G7yPXxsDrl
+X-Received: by 2002:a05:6000:26c6:b0:487:fa6:d7e5 with SMTP id ffacd0b85a97d-4871e386ffdmr15519930f8f.25.1789894714784;
+        Sun, 20 Sep 2026 01:58:34 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48724460978sm12865886f8f.11.2026.09.20.01.58.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2026 01:58:34 -0700 (PDT)
+Date: Sun, 20 Sep 2026 09:58:30 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: Kees Cook <kees@kernel.org>, Bill Wendling <morbo@google.com>, Andy
+ Shevchenko <andriy.shevchenko@linux.intel.com>, "Matthew Wilcox (Oracle)"
+ <willy@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, David Gow
+ <david@davidgow.net>, Petr Mladek <pmladek@suse.com>, Shuvam Pandey
+ <shuvampandey1@gmail.com>, Steven Rostedt <rostedt@goodmis.org>,
+ nikitash.mariiaw@gmail.com, linux-kernel@vger.kernel.org,
+ linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v2 5/9] seq_buf: Add seq_buf_strlen()
+Message-ID: <20260920095830.6f56f66d@pumpkin>
+In-Reply-To: <2026092037-antsy-shrapnel-6139@gregkh>
+References: <20260919002658.stay.929-kees@kernel.org>
+	<20260919002714.4060307-5-kees@kernel.org>
+	<2026091953-cherub-empty-ef35@gregkh>
+	<202609191326.4042FC4@keescook>
+	<2026092037-antsy-shrapnel-6139@gregkh>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] cgroup/cpuset: prevent local partition activation
- over remote partition and sibling xcpus conflict
-To: Hui Peng <benquike@gmail.com>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, Waiman Long <longman@redhat.com>,
- Ridong Chen <ridong.chen@linux.dev>
-Cc: Michal Koutny <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>,
- cgroups@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <139d9231-4723-4365-9af7-8142e6581ede@linux.dev>
- <20260920082335.257680-1-benquike@gmail.com>
- <20260920082335.257680-2-benquike@gmail.com>
-Content-Language: en-US
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-In-Reply-To: <20260920082335.257680-2-benquike@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Sun, 20 Sep 2026 06:34:32 +0100
+Greg KH <gregkh@linuxfoundation.org> wrote:
 
+> On Sat, Sep 19, 2026 at 02:15:58PM -0700, Kees Cook wrote:
+> > On Sat, Sep 19, 2026 at 08:38:37AM +0100, Greg KH wrote:  
+> > > On Fri, Sep 18, 2026 at 05:27:03PM -0700, Kees Cook wrote:  
+> > > > +static inline size_t seq_buf_strlen(struct seq_buf *s)
+> > > > +{
+> > > > +	if (WARN_ON(s->size == 0))
+> > > > +		return 0;  
+> > > 
+> > > Why WARN_ON()?  Are you wanting to just mint new CVEs with this code
+> > > path, do we not give out enough already?  :)
+> > > 
+> > > I can see returning 0, if it's empty, but isn't that a valid check for
+> > > people to wish to know at times?  Why crash the box?  (remember about
+> > > panic-on-warn being enabled in a few billion Linux instances...)  
+> > 
+> > We have to figure out a line somewhere. :P Making a seq_buf with size 0
+> > is a nonsense construction, but seq_buf_init is non-allocating, so
+> > there's no feedback about setting it to size 0. We could move the WARN
+> > to the init? I was just following the existing style here.  
+> 
+> WARN on the init makes more sense, but even then it feels odd as if we
+> wanted to make a seq_buf with data from a device or userspace, we would
+> have to verify the size is non-zero _before_ creating the seq_buf or we
+> would crash.  So someone has to check the "untrusted" data somewhere,
+> right?
+> 
+> And why can't we have buffers of 0 size work just fine?  What prevents
+> that?  People have "empty" strings for lots of things.
 
-在 2026/9/20 16:23, Hui Peng 写道:
-> Commit 6da580ec656a ("cgroup/cpuset: Don't allow creation of local
-> partition over a remote one") added a check in update_prstate() to reject
-> creating a top-level local partition whose cs->exclusive_cpus intersects
-> subpartitions_cpus.
-> 
-> However, two paths still allow overlapping exclusive CPU ownership between
-> a top-level local partition and a remote partition or sibling:
-> 
-> 1. If a top-level cgroup A1 has cpuset.cpus.exclusive set, is first set to
->    "root" while cpuset.cpus is empty (becoming "root invalid"), has a
->    child A1/A2 enabled as a remote partition on those exclusive CPUs, and
->    then receives CPUs via A1/cpuset.cpus, update_cpumasks_hier() calls
->    validate_partition() without going through update_prstate(). Because
->    validate_partition() does not check trialcs->exclusive_cpus against
->    subpartitions_cpus, A1 transitions from "root invalid" to a valid local
->    partition over the existing remote partition A1/A2 and triggers:
-> 
->      WARNING: kernel/cgroup/cpuset.c:1866 at update_parent_effective_cpumask+0x54a/0x8a0
-> 
-> 2. In cpus_excl_conflict(), when a valid local partition A1 uses implicit
->    exclusive CPUs (cpuset.cpus set without cpuset.cpus.exclusive, so
->    sibling->exclusive_cpus is empty while sibling->effective_xcpus is
->    populated), a sibling cgroup B1 can still set cpuset.cpus.exclusive on
->    the same CPUs because cpus_excl_conflict() only checks
->    sibling->exclusive_cpus.
-> 
-> Fix these issues by:
-> - Checking trialcs->exclusive_cpus against subpartitions_cpus in
->   validate_partition() when !is_partition_valid(cs).
-> - Falling back to sibling->effective_xcpus in cpus_excl_conflict() when
->   sibling->exclusive_cpus is empty.
-> - Adding regression test cases for both paths to
->   tools/testing/selftests/cgroup/test_cpuset_prs.sh.
-> 
-> Tested in QEMU on Linux 7.3.0-rc3 using
-> tools/testing/selftests/cgroup/test_cpuset_prs.sh.
-> 
-> Fixes: 6da580ec656a ("cgroup/cpuset: Don't allow creation of local partition over a remote one")
+If someone passes 0 to an allocate you might be able to use a global
+char[1] buffer (that always contains 0) just to keep everything happy.
+In particular you can return a '\0' terminated string without adding
+conditionals anywhere else.
 
-I think this patch is still missing a Fixes: tag for the
-cpus_excl_conflict() change.
+David
 
-The validate_partition() change can be covered by 6da580ec656a.
-
-However, the sibling CPU ownership issue fixed in cpus_excl_conflict()
-was introduced by the following commit:
-Fixes: 2a3602030d80 ("cgroup/cpuset: Don't invalidate sibling partitions on cpuset.cpus conflict")
-
-Thanks,
-Guopeng
-
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hui Peng <benquike@gmail.com>
-> ---
-> Changes in v2:
-> - Split from the remote_partition_enable() fix into patch 2/2.
-> - Check trialcs->exclusive_cpus (rather than effective_xcpus) in
->   validate_partition() when !is_partition_valid(cs) so sibling local
->   partitions with overlapping cpuset.cpus continue to share remaining
->   available CPUs as expected by test_cpuset_prs.sh.
-> - Add regression tests to tools/testing/selftests/cgroup/test_cpuset_prs.sh.
 > 
->  kernel/cgroup/cpuset.c                        | 9 ++++++++-
->  tools/testing/selftests/cgroup/test_cpuset_prs.sh | 3 +++
->  2 files changed, 11 insertions(+), 1 deletion(-)
+> thanks,
 > 
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index 7381fa8502e7..f46a51f07938 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -713,7 +713,10 @@ static inline bool cpus_excl_conflict(struct cpuset *trial, struct cpuset *sibli
->  		return true;
->  
->  	/* Exclusive_cpus cannot intersect */
-> -	return cpumask_intersects(trial->exclusive_cpus, sibling->exclusive_cpus);
-> +	return cpumask_intersects(trial->exclusive_cpus,
-> +				  cpumask_empty(sibling->exclusive_cpus)
-> +				  ? sibling->effective_xcpus
-> +				  : sibling->exclusive_cpus);
->  }
->  
->  static inline bool mems_excl_conflict(struct cpuset *cs1, struct cpuset *cs2)
-> @@ -2415,6 +2418,10 @@ static enum prs_errcode validate_partition(struct cpuset *cs, struct cpuset *tri
->  	if (cpumask_empty(trialcs->effective_xcpus))
->  		return PERR_INVCPUS;
->  
-> +	if ((parent == &top_cpuset) && !is_partition_valid(cs) &&
-> +	    cpumask_intersects(trialcs->exclusive_cpus, subpartitions_cpus))
-> +		return PERR_REMOTE;
-> +
->  	if (prstate_housekeeping_conflict(trialcs->partition_root_state,
->  					  trialcs->effective_xcpus))
->  		return PERR_HKEEPING;
-> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> index b732078bf319..f62155cf6162 100755
-> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> @@ -321,6 +321,8 @@ TEST_MATRIX=(
->  	" C1-3:P2  X4:P2    .      .      .    X3:P2    .      .     0 A1:1-2|XA1:1-3|A2:3:XA2:3 A1:P2|A2:P2 1-3"
->  	" C0-3:P2    .      .    C4-6   C0-4     .      .      .     0 A1:0-4|B1:5-6 A1:P2|B1:P0"
->  	" C0-3:P2    .      .    C4-6 C0-4:C0-3  .      .      .     0 A1:0-3|B1:4-6 A1:P2|B1:P0 0-3"
-> +	" X1-3:P1 CX2-3:P2  .      .    C1-3     .      .      .     0 A1:1|A2:2-3|XA2:2-3 \
-> +								       A1:P-1|A2:P2 2-3"
->  
->  	# Local partition invalidation tests
->  	" C0-3:X1-3:P2 C1-3:X2-3:P2 C2-3:X3:P2 \
-> @@ -443,6 +445,7 @@ TEST_MATRIX=(
->  
->  	# Changes to cpuset.cpus.exclusive that violate exclusivity rule is rejected
->  	"   C0-3     .      .    C4-5   X0-3     .      .     X3-5   1 A1:0-3|B1:4-5"
-> +	"  C0-3:P1   .      .    C4-5     .      .      .     X3-5   1 A1:0-3|B1:4-5 A1:P1|B1:P0"
->  
->  	# cpuset.cpus.exclusive cannot be set to a superset of sibling's cpuset.cpus
->  	"   C0-3     .      .    C4-5   X3-5     .      .      .     1 A1:0-3|B1:4-5"
+> greg k-h
+> 
 
