@@ -1,87 +1,118 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-24.mta0.migadu.com [91.218.175.24])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42B793C3C0E;
-	Sun, 20 Sep 2026 02:53:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6E4D3BED2D
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 02:56:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.24
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789872853; cv=none; b=qoHDWhCq7dFB26OtQb+nvBn+NK2/t3K8Quf3ARye7Nu94MlAZAgJP9NtABSX7YqP464VC/SMhUPzeDK85DQfO8Eh3uNSXq2xiO/RRReOzLMkdd1qHu62zg30ov99ofLxOUKZ64an1i7xjkT3iu6+oBAmw+uCXe+BP2BVnDXUo/4=
+	t=1789873009; cv=none; b=FhLxkB11SA8T7C3FiOBuP2E3qY2uq+I3Dd4JHLYTxyPHkn5LxXDGNsjaXPNXN6s+pyqlUTYyy8QwxqhKc0X80zfQtEzSRMebNCtmbJX/9aVOquTFuirAEBPXiSVSNLQFB+V79DaxqL8jyW4vpZllpKQXuPOr9fVM8q800m3J2Tk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789872853; c=relaxed/simple;
-	bh=Ygd8mqBtO686mcux/rW6QmDvGLHBgqfYP/o58srjY0s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Rm3YVtzTZxMTUqpn1z6JtGdfjuQ+aAtekKvUN8USF84a5lgDtVTOCiT16nWWXTh7TldDRcwwd8KrJnN4QXjc02OxgozizZy62kp1XLGlm3q8CtUC+u9egz2wfA4XHeQU7CXkjiZNDoOIey+AWwa2GRoZTWpfC+KDRDH7uw0+3f8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=aa130zpR; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789873009; c=relaxed/simple;
+	bh=Bco5cIF9YtJ73wsQY2eBCJPnbm50a31lAwWnkS6/+s0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aCj1hYMrHbIP0SJOHBt3a1uJu5z2H3N6KZp1fcKKCrwBnAakKk8WFVhYoNrKdIeM5chBp20pR9yTzYd5etrpmTQ9bhQOI9U/a2EFWunmdXc3/yGR6P6fk+5qXSlphcee2vByWJadIlcdN+2lB9TMCyf5PIe4UgCTfYHYvemu4vU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=MHxV3E2H; arc=none smtp.client-ip=91.218.175.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="aa130zpR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=18
-	oqH9f+oHiRWywSgSOAkQ2UH8VirGYmfiB7j2Qvd3I=; b=aa130zpR1DGx81nBcQ
-	LRVELi2u5BQfiNekEjUD3lHRNVnFz4SCafqhgF31vOm+gdsiq2RARud22sIFSD6k
-	ncdyG0yRuckFiPRkJGvsHy7t5bsNQWVlOqP6CRD62czdB+lovjPRMIAeUqK5/DyJ
-	Yp01VJdMHrixj33QguPJVVadU=
-Received: from debian.lenovo.com (unknown [])
-	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD33aGZSq9qsaQrBg--.118S2;
-	Sun, 20 Sep 2026 10:53:17 +0800 (CST)
-From: Kean Ren <rh_king@163.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Mathias Nyman <mathias.nyman@intel.com>
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Alan Stern <stern@rowland.harvard.edu>,
-	Griffin Kroah-Hartman <griffin@kroah.com>,
-	Kuen-Han Tsai <khtsai@google.com>,
-	Kees Cook <kees@kernel.org>,
-	Nikhil Solanke <nikhilsolanke5@gmail.com>,
-	Thorsten Blum <blum@kernel.org>,
-	Kean Ren <rh_king@163.com>
-Subject: [PATCH 0/2] usb: fix ASM3242 reporting SuperSpeed for a Gen 2x2 link
-Date: Sun, 20 Sep 2026 10:52:41 +0800
-Message-ID: <20260920025308.2358862-1-rh_king@163.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="MHxV3E2H"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Bco5cIF9YtJ73wsQY2eBCJPnbm50a31lAwWnkS6/+s0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789873004; v=1; x=1790477804;
+ b=MHxV3E2HMAekHMLXjAFvT3Ty0ULisrSKEWgeOE7/ITdd0ZtQ92kTZhZq5CZNGcijVv80j1no
+ 2H++EKeemfgeu9+PU2K2ri5+oD1LMBkMs2GGB9R/gyi6Kt1QoE10jrjsE1QlDB+LwDr5AObUF0h
+ 3fRWie5P8uS25xAaSsXkrq8o=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id bec7489f1fff1ce1;
+	Sun, 20 Sep 2026 02:56:44 +0000
+X-Mizu-Trace-ID: bec7489f1fff1ce1
+X-Migadu-Flow: FLOW_OUT
+Date: Sun, 20 Sep 2026 10:56:33 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Sanghyun Park <sanghyun.park.cnu@gmail.com>
+Cc: netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	David Stevens <dlstevens@us.ibm.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v2] vxlan: use one headroom snapshot for neighbour
+ replies
+Message-ID: <aq9LYXO9RTt3OXW9@fedora>
+References: <20260918032842.502409-2-sanghyun.park.cnu@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD33aGZSq9qsaQrBg--.118S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7uFW7GFyDWw17AFyxCr4DJwb_yoW8Xr4rpa
-	y3JFZxGrs5KrWSqw1fua1UXa1rZF4fJFW7Ga42q348CFW5J34kJFyj9393uF9FvFWIyFy0
-	qa48J3y8Ga4kArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRGsUtUUUUU=
-X-CM-SenderInfo: 5ukbyxlqj6il2tof0z/xtbC3x1A7mqvSp1pMAAA3n
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918032842.502409-2-sanghyun.park.cnu@gmail.com>
 
-The ASMedia ASM3242 (1b21:3242) reports the SuperSpeed speed ID together
-with two active lanes for a link that is actually running at USB 3.2
-Gen 2x2 after a cold boot.  Linux therefore classifies the device as
-USB 3.0 SuperSpeed and reports 5000M/x2, although the measured
-throughput is 1.49-1.60 GB/s (11.9-12.8 Gbps), which is above the
-physical ceiling of a 10 Gbps link (~1.25 GB/s).
+Hi Sanghyun,
+On Fri, Sep 18, 2026 at 12:26:58PM +0900, Sanghyun Park wrote:
+> vxlan_na_create() samples LL_RESERVED_SPACE() to size the reply skb and then
+> samples it again to reserve headroom. A concurrent vxlan_changelink() can
+> update needed_headroom between the two reads, creating a TOCTOU race. The
+> second value can exceed the allocation and make the Ethernet header write out
+> of bounds.
+> 
+> The race is reproducible on the unpatched kernel. It occurred when
+> vxlan_na_create() generated a neighbour reply while vxlan_changelink() changed
+> the link headroom. KASAN caught a four-byte write two bytes beyond a 704-byte
+> skbuff_small_head allocation.
+> 
+> Snapshot the headroom once and use that value for both allocation and
+> reservation.
 
-  Patch 1 is a generic correctness fix: get_port_ssp_rate() currently
-  cannot recognise USB 3.2 Gen 1x2 at all, because it rejects any
-  matching sublink entry whose link protocol is not SuperSpeedPlus
-  before it looks at the number of active lanes.
+What if `vxlan_changelink()` extends the link headroom and we need a much
+larger headroom, yet we only allocate a small skb from snapshot?
 
-  Patch 2 adds a controller quirk so that this hardware reports the
-  Gen 2x2 speed ID.  The raw extended port status, the measured
-  throughput and the list of resets that do and do not restore the
-  correct report are all in the patch description.
+Thanks
+Hangbin
 
-The wrong report is 100% reproducible after every reboot and is only
-cleared by an S3 suspend/resume.  Raw data (lsusb -v, lspci -vv, sysfs
-and BOS dumps, kernel log) is available on request.
-
-Kean Ren (2):
-  usb: core: hub: recognise two-lane SuperSpeed sublinks as Gen 1x2
-  xhci: fix ASM3242 port speed report for Gen 2x2 links after cold boot
-
- drivers/usb/core/hub.c      | 30 ++++++++++++++++++++----------
- drivers/usb/host/xhci-hub.c | 17 +++++++++++++++--
- drivers/usb/host/xhci-pci.c |  4 ++++
- drivers/usb/host/xhci.h     |  1 +
- 4 files changed, 40 insertions(+), 12 deletions(-)
-
+> 
+> Fixes: 4b29dba9c085 ("vxlan: fix nonfunctional neigh_reduce()")
+> Signed-off-by: Sanghyun Park <sanghyun.park.cnu@gmail.com>
+> ---
+> v2:
+>   - Improve the v1 changelog
+> v1: https://lore.kernel.org/r/20260831054614.2069896-2-sanghyun.park.cnu@gmail.com
+> 
+>  drivers/net/vxlan/vxlan_core.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
+> index c1d54339fa2b..3390e341d1e5 100644
+> --- a/drivers/net/vxlan/vxlan_core.c
+> +++ b/drivers/net/vxlan/vxlan_core.c
+> @@ -1958,13 +1958,15 @@ static struct sk_buff *vxlan_na_create(struct sk_buff *request,
+>  	struct ipv6hdr *pip6;
+>  	u8 *daddr;
+>  	int na_olen = 8; /* opt hdr + ETH_ALEN for target */
+> +	int headroom;
+>  	int ns_olen;
+>  	int i, len;
+>  
+>  	if (dev == NULL || !pskb_may_pull(request, request->len))
+>  		return NULL;
+>  
+> -	len = LL_RESERVED_SPACE(dev) + sizeof(struct ipv6hdr) +
+> +	headroom = LL_RESERVED_SPACE(dev);
+> +	len = headroom + sizeof(struct ipv6hdr) +
+>  		sizeof(*na) + na_olen + dev->needed_tailroom;
+>  	reply = alloc_skb(len, GFP_ATOMIC);
+>  	if (reply == NULL)
+> @@ -1972,7 +1974,7 @@ static struct sk_buff *vxlan_na_create(struct sk_buff *request,
+>  
+>  	reply->protocol = htons(ETH_P_IPV6);
+>  	reply->dev = dev;
+> -	skb_reserve(reply, LL_RESERVED_SPACE(request->dev));
+> +	skb_reserve(reply, headroom);
+>  	skb_push(reply, sizeof(struct ethhdr));
+>  	skb_reset_mac_header(reply);
+>  
+> -- 
+> 2.48.1
