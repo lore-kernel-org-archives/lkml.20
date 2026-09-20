@@ -1,163 +1,159 @@
-Received: from mta0.migadu.com (out-48.mta0.migadu.com [91.218.175.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F0D82931F4
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 11:12:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F213274FDF;
+	Sun, 20 Sep 2026 11:13:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789902749; cv=none; b=rdTPmwGj4pOA/VivTVOEfhWiMEW8Bk8bDl8X23W6gdzD2XicRo6zj6r9/IoSqctPF2Vey4IznVRp5We4gLNe8nS6ag9EoeU/pUYB3tNNoUCvFfa5FXCBRdWB+BeusbFN/kvdoxzgr85V8ApdDHnbNWQUTikyo8E+BCJzeFuDmuU=
+	t=1789902820; cv=none; b=Jrq5z1ZIrGnuC8PBEPU+5BtZjiJxKgUJeAUd50VKA1Gg3OYGKlJMAfoYpsyCkqPjosdo4IM1W/CahS1NrXuU1AhQr3TUZJYBxr16XZjPiKYeA86++MTlbyptBzDxl97iNLQ9+nyaiz73/UoRNCU23Ik4nT1jgKRCGKJhHS4NlXs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789902749; c=relaxed/simple;
-	bh=CzJCrm1JG/Bdu/TaUWFhlC0tN1b8yrUeWHq+eUql9jI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cfw1TV80zwbGEOasbKXvRI9Hlrx+YRs5SV/h3ea0ryKU1lepV5c0aY+UEnqihgpMoiyC0g1UfE9Ug8xiYI9+4ivNroOyZJSFJxYO7FnJgFlsY2seXXX7b9sJ1Q6+klicmT72UD0FBq7HITOUq1sNwqW0YkW5EcV2Cgd0BCsgBBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=g0mwTo1M; arc=none smtp.client-ip=91.218.175.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789902820; c=relaxed/simple;
+	bh=gOYER6IUHXkL7jv8ZD1iRnGsJ3p9JkO/AqmkTPt1gxw=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ClxYL6B2uX30t1u5NEFL0YglEp8Di88oT0YkL4tt+O1kdnl88ZWJ3NTbkE4WZii8yv0n95ffNWPKOPRtDI7Nxw+Z3ipxkzrOs2CqSFI5KaFzETTdF799aasZRf365CgDHOA8NpysUijd+4PCXUYS0ZoyLsnJGsqfwnx1u4dQEic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VKLtuZB+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="g0mwTo1M"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=CzJCrm1JG/Bdu/TaUWFhlC0tN1b8yrUeWHq+eUql9jI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789902743; v=1; x=1790507543;
- b=g0mwTo1MVnVUuhyRklpcYFd6kE4PTzxmfxBswAgpUF7ap0Zjb+NjIqhYSxZIr87r1MWJ+y9M
- tpIgYUqd6WFTANDHSPmGgKnMdvSfv18AOZrP1/6m1xIuGN6BdcCDow9p9mPMpgvWZZtrez0iGfm
- NjBg89vQ3iYs6r90U18e2bdU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 4a53f6ddf8c44ae7;
-	Sun, 20 Sep 2026 11:12:13 +0000
-X-Mizu-Trace-ID: 4a53f6ddf8c44ae7
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <63de7ffe-8410-4e88-9e09-02f2cc386539@linux.dev>
-Date: Sun, 20 Sep 2026 19:12:08 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VKLtuZB+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C00D1F00893;
+	Sun, 20 Sep 2026 11:13:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789902819;
+	bh=hNJ2LbS/20qvrKMUhXuYqKizXYn9BXYfiVTMkSUbS3o=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=VKLtuZB+WOCGGrb/Yf/q/v9TCvGveDo6wZ7zA2ZmRk7FtYVhwtMnrTYM1Ol5vl6yV
+	 42rePEX8+XezFoiJZBi48VZ++sCmLBlMN7W6VW3fO8REm8Jf2BdSE/5LhQtdaUg2CY
+	 YbLcN3/VM0k8PQf/ZyWeMaCCoV/gWYoWTRm7NVBA8gTzkliVIfELnO+Axo9eY9WOXc
+	 1XZHUwoeyelAQeG6DQjCnJhI8w4PnvwEbwsD0OC+rBBfX7IyZRyhG3M5zEvaCkYpnO
+	 trPAlxEl4D1Ix7e9JImCMRRDNbkbST5l8KjTpeS3KPhT1Bo2dE9XWNypGPX1vIZR8H
+	 fAyKfpX5+DHGg==
+Subject: Re: [PATCH net 1/2] net: stmmac: propagate platform mac_finish errors
+From: netdev-bot+sashiko@kernel.org
+To: tom.karpiniec@outlook.com
+Cc: netdev@vger.kernel.org, maxime.chevallier@bootlin.com,
+ mohd.anwar@oss.qualcomm.com, linux@armlinux.org.uk, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ yong.liang.choong@linux.intel.com, brgl@kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Sun, 20 Sep 2026 11:13:37 +0000
+Message-ID: <178990281791.2160803.4738243247711956388@kernel.org>
+In-Reply-To: =?utf-8?q?=3CCH3PR11MB8413069BD77B03793D1A9B42E4B92=40CH3PR11MB?=
+ =?utf-8?q?8413=2Enamprd11=2Eprod=2Eoutlook=2Ecom=3E?=
+References: =?utf-8?q?=3CCH3PR11MB8413069BD77B03793D1A9B42E4B92=40CH3PR11MB8?=
+ =?utf-8?q?413=2Enamprd11=2Eprod=2Eoutlook=2Ecom=3E?=
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH mm-new] mm: vmscan: put rotation-missed folios at the LRU
- tail
-To: Barry Song <baohua@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <kasong@tencent.com>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>,
- "open list:MEMORY MANAGEMENT - MGLRU (MULTI-GEN LRU)" <linux-mm@kvack.org>,
- linux-kernel@vger.kernel.org, Ridong Chen <chenridong@xiaomi.com>
-References: <20260920043015.3126317-1-ridong.chen@linux.dev>
- <CAGsJ_4xmoGWULDVNGj0LzRFFfxM4VVGg4Bx5Pz5cUfXx9uKrtw@mail.gmail.com>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <CAGsJ_4xmoGWULDVNGj0LzRFFfxM4VVGg4Bx5Pz5cUfXx9uKrtw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
+Critical: 0 · High: 1 · Medium: 0 · Low: 1
 
-On 9/20/2026 5:21 PM, Barry Song wrote:
-> On Sun, Sep 20, 2026 at 12:30 PM Ridong Chen <ridong.chen@linux.dev> wrote:
->>
->> From: Ridong Chen <chenridong@xiaomi.com>
->>
->> The page reclaim isolates a batch of folios from the tail of an LRU list
->> and works on them one by one.  For a suitable swap-backed folio on an
->> async swap device, it queues the folio for writeback and, after finishing
->> the batch, puts the folio back to the head of the original LRU list.
->>
->> Meanwhile the page writeback flushes the queued folios in its own,
->> independent batches.  For each folio it writes back it calls
->> folio_rotate_reclaimable(), which tries to rotate the folio to the LRU
->> tail.  But folio_rotate_reclaimable() only takes effect once the folio has
->> been put back by reclaim.  If the async swap device is fast enough, the
->> writeback can complete a folio while reclaim is still working on the rest
->> of the batch that contains it.  In that case the folio stays near the head
->> and reclaim will not revisit it before wrapping around, causing a cold/hot
->> inversion: a clean, written-back folio that should be a prime reclaim
->> candidate is kept ahead of hotter folios.
->>
->> commit 359a5e1416ca ("mm: multi-gen LRU: retry folios written back while
->> isolated") addressed this for MGLRU only.  The traditional active/inactive
->> LRU has the same problem, reported at [1].  A reproducer is available at
->> [2].
->>
->> Rather than re-reclaiming those folios (which would drop the swap cache
->> that may still be useful for a future hit [4]), restore the rotation that
->> was missed: when move_folios_to_lru() puts a folio back, add it to the LRU
->> tail if it looks like it missed folio_rotate_reclaimable() (inactive, not
->> mapped, not dirty and not under writeback).  A new do_rotate parameter
->> gates this so it only applies on the reclaim put-back path
->> (shrink_inactive_list()), not on shrink_active_list() where the list order
->> is already deliberate.  This approach was suggested by Barry Song [3].
->>
->> Only the traditional LRU is handled here.  MGLRU already retries such
->> folios via its own clean-list retry pass in evict_folios(), so it is left
->> unchanged.  The same do_rotate scheme could later replace that retry pass
->> to unify both LRUs, which is left for a follow-up.
->>
->> [1] https://lore.kernel.org/linux-kernel/20241010081802.290893-1-chenridong@huaweicloud.com/
->> [2] https://lore.kernel.org/lkml/46037a37-4cf6-448e-a94b-30a4d16e8814@linux.dev/
->> [3] https://lore.kernel.org/lkml/CAGsJ_4zwP3_+EYY5Ug9EJ+yD1UdxsBSGr25u8s1K3u_i7LH3Zg@mail.gmail.com/
->> [4] https://lore.kernel.org/linux-mm/20260911121341.178028-1-alex@ghiti.fr/
->>
->> Suggested-by: Barry Song <baohua@kernel.org>
->> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
->> ---
->>   mm/vmscan.c | 21 +++++++++++++++------
->>   1 file changed, 15 insertions(+), 6 deletions(-)
->>
->> diff --git a/mm/vmscan.c b/mm/vmscan.c
->> index e200ce3eb056..026b844c681f 100644
->> --- a/mm/vmscan.c
->> +++ b/mm/vmscan.c
->> @@ -1971,7 +1971,7 @@ static bool too_many_isolated(struct pglist_data *pgdat, int file,
->>    *
->>    * Note: The caller must not hold any lruvec lock.
->>    */
->> -static unsigned int move_folios_to_lru(struct list_head *list)
->> +static unsigned int move_folios_to_lru(struct list_head *list, bool do_rotate)
->>   {
->>          int nr_pages, nr_moved = 0;
->>          struct lruvec *lruvec = NULL;
->> @@ -2018,7 +2018,16 @@ static unsigned int move_folios_to_lru(struct list_head *list)
->>                          continue;
->>                  }
->>
->> -               lruvec_add_folio(lruvec, folio);
->> +               /*
->> +                * Put folios that may have missed folio_rotate_reclaimable()
->> +                * at the tail to avoid cold/hot inversion.
->> +                */
->> +               if (do_rotate && !folio_test_active(folio) && !folio_mapped(folio) &&
->> +                   !folio_test_dirty(folio) && !folio_test_writeback(folio))
->> +                       lruvec_add_folio_tail(lruvec, folio);
-> 
-> sashiko says:
-> 
-> "Could this heuristic indiscriminately place un-reclaimable clean folios at
-> the LRU tail, ensuring they are immediately re-scanned in an infinite loop?
-> If shrink_inactive_list() isolates a clean, unmapped file folio with an
-> elevated refcount (such as from a concurrent GUP or speculative lookup),
-> it will fail __remove_mapping() and be placed on ret_folios.
-> Because this pinned folio matches the !active, !mapped, !dirty, and
-> !writeback checks, it is placed at the tail of the inactive LRU. The very
-> next isolate_lru_folios() pull from the tail will immediately isolate this
-> exact same folio again, creating an infinite loop that prevents any other
-> folios from being reclaimed and causes kswapd to spin at 100% CPU."
-> 
-> This seems to be a valid concern. For a clean and unmapped folio, we
-> may still fail in `__remove_mapping()` if it is pinned somewhere. So
-> perhaps we can add a refcount check when fixing the rotation.
-> 
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Thanks, I will update.
+- [High] The commit's stated goal — stop phylink from treating an
+  interface as successfully configured when the SerDes is not ready — is…
+- [Low] The continuation line of the newly returned call is misaligned by
+  one column.
+
+--
+
+net: stmmac: propagate platform mac_finish errors
+
+stmmac_mac_finish() previously dropped the return value of the platform
+mac_finish callback and always told phylink the interface was configured
+successfully.  The patch forwards the callback's result instead, keeping the
+zero return when no callback is installed.
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index 1fb5f804ea234..1350e92943ac1 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -1048,8 +1048,8 @@ static int stmmac_mac_finish(struct phylink_config *config, unsigned int mode,
+>  	struct stmmac_priv *priv = netdev_priv(ndev);
+>  
+>  	if (priv->plat->mac_finish)
+> -		priv->plat->mac_finish(ndev, priv->plat->bsp_priv, mode,
+> -				       interface);
+> +		return priv->plat->mac_finish(ndev, priv->plat->bsp_priv, mode,
+> +					     interface);
+
+[Severity: High]
+The changelog says phylink "can report carrier even though the SerDes is
+not ready", and that after this change phylink can "keep the link down
+until a subsequent configuration succeeds".  Does that hold for the other
+in-tree user of plat->mac_finish?
+
+intel_mac_finish() in dwmac-intel.c ends with:
+
+	ret = intel_set_reg_access(regs, max_regs);
+	if (ret < 0)
+		return ret;
+
+	priv->plat->phy_interface = interface;
+
+	intel_serdes_powerdown(ndev, intel_priv);
+	intel_serdes_powerup(ndev, intel_priv);
+
+	return ret;
+
+ret is the zero left by intel_set_reg_access(), and the result of
+intel_serdes_powerup() is never assigned, so the callback returns 0 even
+when the SerDes bring-up failed.
+
+intel_serdes_powerup() returns the -ETIMEDOUT from serdes_status_poll()
+(ten polls of SERDES_GSR0) at three points:
+
+	if (data) {
+		dev_err(priv->device, "Serdes PLL clk request timeout\n");
+		return data;
+	}
+	...
+	if (data) {
+		dev_err(priv->device, "Serdes assert lane reset timeout\n");
+		return data;
+	}
+	...
+	if (data) {
+		dev_err(priv->device, "Serdes power state P0 timeout.\n");
+		return data;
+	}
+
+In each of those cases the preceding intel_serdes_powerdown() has already
+put the lane in SERDES_PWR_ST_P3 (and gated SERDES_PHY_RX_CLK on PSE
+parts), and plat->phy_interface has already been overwritten with no
+rollback.
+
+Since the Intel callback discards the status itself, can forwarding its
+return value in stmmac_mac_finish() surface anything for the EHL/ADL-N
+SGMII configurations that install intel_mac_finish (ehl_sgmii_data,
+ehl_pse0/1_sgmii1g_data, adln_sgmii_phy0_data)?  The mac_finish contract
+in include/linux/phylink.h states "Returns zero on success, or negative
+errno on failure which will be reported to the kernel log", so should
+intel_mac_finish() also return the intel_serdes_powerup() result for the
+described behaviour to materialise on that platform?
+
+[Severity: Low]
+This isn't a bug, but the continuation line looks off by one column now.
+The statement is two tabs deep, plus "return " and
+"priv->plat->mac_finish(", which puts ndev at column 46, while the
+continuation uses five tabs plus five spaces, i.e. column 45.  checkpatch
+--strict should emit "CHECK: Alignment should match open parenthesis" for
+this.
+
+>  
+>  	return 0;
+>  }
 
 -- 
-Best regards
-Ridong
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/CH3PR11MB8413FCBA598F7FABC04ADCFEE4B92%40CH3PR11MB8413.namprd11.prod.outlook.com
