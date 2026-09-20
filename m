@@ -1,144 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f43.google.com (mail-qv2-f43.google.com [74.125.230.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23CAA324B20;
-	Sun, 20 Sep 2026 02:05:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FC6E23D7FF
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 02:07:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789869921; cv=none; b=D6U0GL1vyt+auKXsNmw8bI1OepOIMAMzlpk3fp4lRpGld7KoPjMXvkp+4zeZeTVhO3RKduRV87+eG5yabWc5Df1DDUXN9Ow4mp3Go0lf4SVllCesxFoXV2TaYRM8AKXXei9Hs3ZZ7w9qOqo6kYARaFcYsDbbacI+p+Sm+GeVwNw=
+	t=1789870039; cv=none; b=ns1IVAsYrJA2BLe0eUu0YWESjWIJ1mVO7QmXL8ozYUz57NBmEWNDG3tDknY0Z4yethhiqacwNESNTHSEbPcJF4q1bNCoESqx/0wU5bSlRj41DsiOczV91ETdTKPTxAwm3KKGIttz5K8FTQwr3aGTcUIBGzJ3BYBxaXBMa4aCSHY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789869921; c=relaxed/simple;
-	bh=YoGLxu99tj8cwlU9swRsguoBv675SzXyQMz4g2koU+E=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=iav89BhiwndafKtwKkYEJJZwXByWF++BW445iaoKTPd6xsXFIG4agakOgE/1mZIjYVHbyfXwDrzZljt7XHo0iSt5lE5lD8/oSiwEhjasdzp+Y8tTd5HHTbAIjhIjScgi1DIce6gV0OSCnZZGoXO7oq1D/2k8hWp6+zUhLApx4KU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WaqjKk4/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789870039; c=relaxed/simple;
+	bh=v3ioTneesQ4IhyYIfJxKV4qgKfus9Larac1jgDv+YKU=;
+	h=Date:Message-ID:From:To:Cc:Subject; b=eZPfMTZgaJeW5LRtLyoe0LKBK6y4EKVa6kWyimOLTm2nCKTeAhScgj1Vb5ZcIPycQygrlL4anDB3XrmkViMmKILmzOqhUVMpxbysWHdHFuP+vGQWlRGFwyzTgNmYaTkzbD1SHm2B6cTaRtVsbIkzyqOoUcNagpC7FQaUlE03xyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=f72xp97m; arc=none smtp.client-ip=74.125.230.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WaqjKk4/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 907981F000FF;
-	Sun, 20 Sep 2026 02:05:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789869919;
-	bh=FzsxO+Z5PgBv9Dc0FBb47dkgp365lg2VvwmJMdZ2vhg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=WaqjKk4/K7bo+F5lWOuGsMf52eSSZ90Hcn/8sz63LJVNtJzXGzZKlZbSraMM5ZdGZ
-	 VcRYNQCsD+kWMDih/beWULahZa3+VBVzqGsg96fy9R7R62AUlehcCYa5DvR+UXqpbh
-	 utszLfB5SIT8kwK1CrA2Q4uoV1zPn181j/PtTnPTwVO5GnMAV5aTe01gdDbU19+JLv
-	 osUpNMRnmXP+BYT3D/5PZKCefe9oWV/DM1T5Qz9XXB1Quygc2jENgxBUjUAAfyf0v4
-	 htH/FHsz2We3NzhVnuy7NThLFWyI/yUBo4Yx+qUXsNx8HC5I/rE5CBCFOkshIVN/j7
-	 0F2SVzFb04M/A==
-Date: Sun, 20 Sep 2026 03:05:12 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Jinseob Kim <kimjinseob88@gmail.com>
-Cc: linux-iio@vger.kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
- andriy.shevchenko@intel.com, linux-kernel@vger.kernel.org,
- rdunlap@infradead.org, joshua.crofts1@gmail.com,
- u.kleine-koenig@baylibre.com, julianbraha@gmail.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- corbet@lwn.net, skhan@linuxfoundation.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v10 0/8] iio: add Open Sensor Fusion UART support
-Message-ID: <20260920030512.50f4f988@jic23-hlaptop>
-In-Reply-To: <cover.1789753020.git.kimjinseob88@gmail.com>
-References: <cover.1789753020.git.kimjinseob88@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="f72xp97m"
+Received: by mail-qv2-f43.google.com with SMTP id 6a1803df08f44-910537b51a0so17856576d6.3
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 19:07:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=paul-moore.com; s=google; t=1789870037; x=1790474837; darn=vger.kernel.org;
+        h=subject:cc:to:from:message-id:date:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=G3+zGNgJRkxBaioG5ib3jA+WMEMkM7qf13aN5UYh0n8=;
+        b=f72xp97mARjRcuBps6jbRNZ7PRLKmF96Z0UzNvppBVEZEBzPSfC/be0f53Lmek/qcw
+         +oEMAzIY1u5NG+N1dDL5Q5Cx6whNdo/Sx/IQ/+REPfHT4SQAY7qUyM7UD0eISTyFgw5m
+         /Mn06FdHxgIZ7y8dpKbTS59Uc/wrC807Gpu95w6NFvKGNNFqpA3sB3WqtAVpcn3UdWYC
+         0JUiI1ndhrmFhIM5rtY+0wdJBPKIRRa20/iP0521s/pIkzV2bAp9raYshiyojNaTYbok
+         K0SmnYOBG0rSfKcd4u9xTROuaWC7wL/ZyciP+DRroV2j2/bZ0OJW0IoAU6YS0Cjblr0L
+         293Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789870037; x=1790474837;
+        h=subject:cc:to:from:message-id:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=G3+zGNgJRkxBaioG5ib3jA+WMEMkM7qf13aN5UYh0n8=;
+        b=gzLVM/xc9VGUoI2zN/KwsK6AAaMjHRjQYQdp7pxBHBX2RbVC3zWYYDH/OHODnCac4U
+         dlag+Rc9KKcKXY+VAPhSj1jCQi+nqkJuZJ4hg5S0cXzpfxlV27EWo1oF8TCSCADESjNZ
+         sh7SOA7lGf/0u0sYmjNKtDz6UdyX8gXRe7kiKhydZi8o/gc30aC9mIJM+G8zhpJvgdTj
+         /vfAxSYBuaO71ojGE9D8QHRreBkGQy1aLGwY0OnozmKUFDTNhq68TlFvTbD7JWKsYr28
+         OYvRgM7PCrpzl8+9L3TVOZGV96S6ldHHJqEHuXStu7gdZhuu/lrgemxZjV1EGqPfSUst
+         OiWQ==
+X-Forwarded-Encrypted: i=1; AKwUvByqPvfPQMKQBY1k7rCrpO7H9219GUGAbidbSecW/qEqcutaR/LdEeedRhzb+w3IA6vYSDxJmFT8TSl7Y68=@vger.kernel.org
+X-Gm-Message-State: AFuF++lrjO+059CJRjf8gAfeAe6tefqq18izA/GMXb0sZcluz/kEm75T
+	6IiqzlNuFzV/4TNYqVu50RhgVw5iX2KZZS4avxlo0uefXUpdoDhQJeBGlXjvdMAUGg==
+X-Gm-Gg: AYBFou3ISuOAeMdVgrjpGYO/EBzvzIe3nhJGCz2xQtXIPJLKXHIPLak3Y45nf/TC0Kj
+	E/eSJuZyy5RJ3eKlMBbjDa2AIO3BQ3oVLVmhNMHaTxUnnOUgxDdymaVkE7wzqXy+/JoVQa/iQOv
+	5a+q0ekrDPc4/HRcQe/CWZPAnrfG8G8M73G9oI9gi4+wUNYEprWS7GsR2eIpvMUbbj5UCRJTWFg
+	alwQEB2sXLoo/Srpwe2Ancb84HWWBl+zxuu3PE0L5/ii3/Etx+FnuVubIfSwiJuSAt/67ovNVVG
+	/zf6gTU/xKUhuFP/8HvHcYD+6KaDX62qqlMP5NrpeFnvGlbfRpDLpS7u5RXb0/CBiW2EOyYSYUH
+	BFAfEn5Yn0B64y5gHNdP4jfESoXSYrs6WoMRfBA09qTAJ3594C+vvtlPagZIk99nFCj069DA97j
+	PrfmAfQfqGif79RHqo8lnB7OyTkfK4LvqWqpGjdm1Y7KfSXt+s8vKN1FjXW2/KKNvAGEndt10mb
+	wTD19KC8z5Tnq5fFaA74cqrDRK0MHRBMBCejE1EEDOeiUb1RYnaAHIPs3W/OWDKqbAxm2l3Ek5y
+	/Q==
+X-Received: by 2002:a05:6214:ca8:b0:912:5951:179b with SMTP id 6a1803df08f44-912a8017caemr43115516d6.30.1789870037098;
+        Sat, 19 Sep 2026 19:07:17 -0700 (PDT)
+Received: from localhost (pool-71-126-255-178.bstnma.fios.verizon.net. [71.126.255.178])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91260aa1c03sm33242166d6.39.2026.09.19.19.07.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Sep 2026 19:07:15 -0700 (PDT)
+Date: Sat, 19 Sep 2026 22:07:14 -0400
+Message-ID: <932d0e418d78fa40b5d18951a34876ac@paul-moore.com>
+From: Paul Moore <paul@paul-moore.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: selinux@vger.kernel.org, linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [GIT PULL] selinux/selinux-pr-20260919
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Sat, 19 Sep 2026 03:24:38 +0900
-Jinseob Kim <kimjinseob88@gmail.com> wrote:
+Linus,
 
-> Specification status: OSF-D2H 0.0 spec-1 has completed project technical
-> stability review, has been adopted by the project owner, and is published
-> as a fixed specification.
-> 
-> Canonical specification:
-> https://github.com/opensensorfusion/opensensorfusion-protocol/blob/ca9cdea1ae550c2b4d6f29f87877adae99470744/spec/osf-d2h-0.0.md
-> 
-> Errata process:
-> https://github.com/opensensorfusion/opensensorfusion-protocol/blob/ca9cdea1ae550c2b4d6f29f87877adae99470744/errata/README.md
-> 
-> Current adoption/publication record:
-> https://github.com/opensensorfusion/opensensorfusion-protocol/blob/0cabccf63ac01d0eb82dd9882739ff58eed4a76c/reviews/publication-record-20260918.md
-> 
-> The specification was frozen before adoption/publication, so its embedded
-> status snapshot is intentionally historical. The dated publication record
-> above establishes the current adopted/public state. This is project review
-> and adoption, not an external maintainer approval.
-> 
-> This series adds the Open Sensor Fusion UART receive path and IIO devices
-> discovered from capability reports. It exposes accelerometer, gyroscope,
-> magnetometer and temperature data through RAW/SCALE and buffered scans.
-> Device Tree describes the sensor hub; its individual streams are discovered
-> at runtime.
-> 
-> The receiver validates supported descriptors and sample scales, keeps
-> discovery open after empty or unsupported initial inventories, and checks
-> repeated inventories before allowing new data to use registered metadata.
-> A supported descriptor changing meaning faults the session until an
-> explicit teardown and rebind. Existing v9 cache, scan-layout and buffer
-> lifetime fixes are retained.
-> 
-> Based on Jonathan Cameron's IIO testing branch:
-> 69fa76f0af3414cc189c3b0b807cb59e327ecc00
-> 
-> Changes since v9:
-> - Publish and reference the reviewed/adopted OSF-D2H 0.0 specification,
->   errata process and dated publication evidence.
-> - Tolerate reserved padding, validate descriptor/sample scales, keep
->   discovery open after empty/unsupported reports, and compare repeated
->   capability reports.
-> - Fail closed on changed descriptor meaning instead of publishing data
->   with stale metadata.
-> - Add focused KUnit coverage for these lifecycle and validation cases.
-> - Use managed UART/IIO/power teardown and dev_warn_probe() for the
->   controller baud-rate warning, addressing Andy's probe-path feedback.
-> - Split the former combined UART/core/IIO driver patch into transport/core,
->   IIO registration, core KUnit, and IIO KUnit patches following review.
-> - Use validated/unvalidated terminology for framing/CRC results throughout
->   the stream/core/transport code, tests and diagnostics. CRC detects
->   accidental corruption; it does not provide cryptographic authentication.
-> 
-> Prior validation on the identical source tree:
-> identical source tree evidence reused; no builds rerun for DCO packaging.
-> - All eight intermediate apply/config/relevant builds.
-> - Independent transport/core and IIO module link/MODPOST.
-> - GCC/Clang W=1 vmlinux and modules.
-> - GCC and Clang KUnit: core 16 + IIO 2, all 18 pass in each run.
-> - Core-only intermediate KUnit: all 16 pass.
-> - ARM64 Image, selected OSF module and Pi4 DTB.
-> - Targeted DT binding/style and IIO documentation.
-> 
-> The terminology-only diff was verified mechanically. Wire semantics and
-> data-path behavior are unchanged; the receive diagnostic key is validated=.
-> Hardware testing was not repeated for this terminology revision or this
-> post-DCO packaging audit; previous hardware evidence remains historical.
-> 
-> Human DCO is complete. No email has been sent.
-> 
-> Jinseob Kim (8):
->   dt-bindings: iio: add Open Sensor Fusion device
->   Documentation: iio: add Open Sensor Fusion driver overview
->   iio: osf: add protocol decoding
->   iio: osf: add validated stream parser
->   iio: osf: add UART transport and core receive path
->   iio: osf: add IIO devices from capability reports
->   iio: osf: add core KUnit tests
->   iio: osf: add IIO KUnit tests
-> 
->  .../bindings/iio/opensensorfusion,osf.yaml    |   52 +
->  .../devicetree/bindings/vendor-prefixes.yaml  |    2 +
->  Documentation/iio/index.rst                   |    1 +
->  Documentation/iio/open-sensor-fusion.rst      |   77 ++
->  MAINTAINERS                                   |    8 +
->  drivers/iio/Kconfig                           |    1 +
->  drivers/iio/Makefile                          |    1 +
->  drivers/iio/opensensorfusion/Kconfig          |   27 +
-Any reason not to push it one level deeper and put it under IMUs?
-I'm not that keen to grow the top level menu for this as all the
-other entries are about type of sensor, not one specific sensor.
+Three fixes for Linux v7.3-rcX:
 
+- Ensure that the cached SELinux access decisions are correct.
+
+- Fix the SELinux overlayfs code to properly track the top-level/user
+information on multiple stacked overlayfs filesystems.
+
+- Fix the SELinux overlayfs code to properly enforce mprotect() access
+control policy on all of the different layers in multiple stacked
+overlayfs filesystems.
+
+Paul
+
+--
+The following changes since commit df2908090cda368b01ff43709f51890076c56157:
+
+  Linux 7.3-rc2 (2026-09-06 15:07:20 -0700)
+
+are available in the Git repository at:
+
+  https://git.kernel.org/pub/scm/linux/kernel/git/pcmoore/selinux.git
+    tags/selinux-pr-20260919
+
+for you to fetch changes up to 78fc54b934bfb2c18aad8154c7302067146946f9:
+
+  selinux: recheck intermediate backing files on mprotect()
+    (2026-09-15 23:30:07 -0400)
+
+----------------------------------------------------------------
+selinux/stable-7.3 PR 20260919
+----------------------------------------------------------------
+
+Christian Göttsche (1):
+      selinux: always fill AVC decision in avc_has_perm_noaudit()
+
+Karl Mehltretter (2):
+      selinux: preserve user SID across nested backing files
+      selinux: recheck intermediate backing files on mprotect()
+
+ security/selinux/avc.c            |    5 
+ security/selinux/hooks.c          |  158 ++++++++++++++++++++++++++----
+ security/selinux/include/objsec.h |   10 +
+ 3 files changed, 150 insertions(+), 23 deletions(-)
+
+--
+paul-moore.com
