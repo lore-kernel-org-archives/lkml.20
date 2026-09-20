@@ -1,133 +1,222 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A113F3203B4;
-	Sun, 20 Sep 2026 01:26:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A3E9136351;
+	Sun, 20 Sep 2026 01:27:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789867608; cv=none; b=PKlfrode5GwJ21a1hD2rl19xAUJdx5Wh+nTmY1D+9IUAKYLA3jbhbZFoZcaciaY3mOQISwHjAg4/ACRY/wz1LnWRV3xFeCDtX5Hl+rlTLkUk+pTxFfhOTh9NGEu2tHdCqNB8czp35dNw+BsuJ34ewszbKdyAWwcWVICQb1uRF6M=
+	t=1789867663; cv=none; b=L46bYt4gIj0IkHZ8ktH7/fnDgnvAXapekf/2M5t7bpKKdmYJZ9P8Q68qycO6wPy+RZONHv+yEqtRD3NYRCXkmawHSJFssO2ZD87dFrcSwQC5zHBePNzSK/y04CTg3Fcbu0urjKrhH4eMVxsIOX1wWRa2x1+nitKj7dFh06PibEg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789867608; c=relaxed/simple;
-	bh=hQ2YQtKo+lGFX5pz4R9iNvjn2ddTKSsWKeIbp79soKE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QOQX+Fcbn6vxBCgPd2FgjnSF9dDlI311/+Ux9gwoSO/6cIXIF3Qk8OI9HAJNo6IfyvC2JgdsIVEcg1JPHdXv/q/If7WpXTu6ac+/XYiuyKQPfZqfvXiw73W+y6Y9vI9rGikcC47ZPuwNDaA/J9dr9LQBHdlZ7ENEBgSDeFq+OUM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 53c3b2a6b49211f19a56ed5b684f684d-20260920
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:663688f7-5d7c-4453-8f6e-b72763eef6d6,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:173d2fe8b43c80a999446499db76668c,BulkI
-	D:nil,BulkQuantity:0,SF:80|81|82|83|102|865|898,TC:nil,Content:0|15|50|99,
-	EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
-	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 53c3b2a6b49211f19a56ed5b684f684d-20260920
-X-User: tianyaxiong@kylinos.cn
-Received: from [10.42.13.21] [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <tianyaxiong@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
-	with ESMTP id 1775970865; Sun, 20 Sep 2026 09:26:38 +0800
-Message-ID: <ac745597-8a43-43d0-b468-07896c3ac9a9@kylinos.cn>
-Date: Sun, 20 Sep 2026 09:26:35 +0800
+	s=arc-20240116; t=1789867663; c=relaxed/simple;
+	bh=hSixfOcSOH718RKyF42SBNi+d4rYgSdKn03sbGKClVI=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qCGmeXMSSV950i2k63UPUENeqUUSxWsS7Hz0XMf3t5EAGiBpn6r0T5OmEiNyO7Xv7C8aeRGhHzXyl7E493Wnq9wR6pEgAhJH/lzFBppjiwti3SQKfl5hIca3Ew/b54S778dysBl45YrxgwE3ezFYcvHLLIJVGSq41KghhJ0WeUQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eHmIqVJD; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eHmIqVJD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0AF71F000FF;
+	Sun, 20 Sep 2026 01:27:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789867662;
+	bh=Iuz4uAh99RAU1UDPY/s09AD7260WayUVZGFc1NHzpB4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=eHmIqVJDZKzSX3NtRudB5uCdgHr5zT9q/3fWS8HoX5RlLFxMlJux2NP/nuosZvqo4
+	 rCSNg7bojlcfXgRuaO+DWhysyPTO0GvX5lhud2MhdxWnBkp74HT9TKd5Ei3adVNlBR
+	 JDS9LIVmkkWjatuB37nsmZNGTvc8rIQRxwwXF9O7d88iyvsDPfPBQHyzu7w2pJUBeY
+	 aWTlq2LVOBZo6x14F0cejiI9w58JRy218PHELW2VhMoLqVSw7oIALh2YdzjqP34dCT
+	 Tso4WGbARdmBBInD9Fd5zff8zZSpanBmJdMIwQHpt3Bg8o4PuhTMZj4oihx9Q83uwT
+	 G7g1iiZAW5UnA==
+Date: Sun, 20 Sep 2026 02:27:37 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Jinseob Kim <kimjinseob88@gmail.com>
+Cc: linux-iio@vger.kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
+ andriy.shevchenko@intel.com, linux-kernel@vger.kernel.org,
+ rdunlap@infradead.org, joshua.crofts1@gmail.com,
+ u.kleine-koenig@baylibre.com, julianbraha@gmail.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+ corbet@lwn.net, skhan@linuxfoundation.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v10 3/8] iio: osf: add protocol decoding
+Message-ID: <20260920022737.4403fc6d@jic23-hlaptop>
+In-Reply-To: <a00b004a7ac283e1d6e307421292757004f09e62.1789753020.git.kimjinseob88@gmail.com>
+References: <cover.1789753020.git.kimjinseob88@gmail.com>
+	<a00b004a7ac283e1d6e307421292757004f09e62.1789753020.git.kimjinseob88@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/6] cpuidle: speed up do_idle() by caching the
- governor latency QoS constraint
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: daniel.lezcano@kernel.org, christian.loehle@arm.com, lenb@kernel.org,
- pavel@kernel.org, shuah@kernel.org, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-kselftest@vger.kernel.org
-References: <20260729061549.13419-1-tianyaxiong@kylinos.cn>
- <1789693766158145.347.seg@mailgw.kylinos.cn>
- <b81b66cc-1761-4653-9cdb-c8a8286718bf@kylinos.cn>
- <1789866017803592.362.seg@mailgw.kylinos.cn>
-Content-Language: en-US
-From: Yaxiong Tian <tianyaxiong@kylinos.cn>
-In-Reply-To: <1789866017803592.362.seg@mailgw.kylinos.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+
+On Sat, 19 Sep 2026 03:24:41 +0900
+Jinseob Kim <kimjinseob88@gmail.com> wrote:
+
+> Add helpers for decoding Open Sensor Fusion frame headers and supported
+> message payloads.
+> 
+> Validate the fixed OSF0 envelope, payload bounds and CRC before exposing
+> decoded frame contents. Require exact known payload lengths and decode
+> capability entries structurally so the core can apply support policy.
+> Tolerate reserved padding as required by the fixed protocol contract.
+> 
+> Use explicit little-endian wire storage sizes and designated
+> initializers for decoded output structures.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
+Hi Jinseob
+
+A few things inline. Some are about what I'd kind of expect from
+how specs are often defined to leave a bit of flexibility and reduce
+the need to update drivers for new stuff being added.
+
+If you don't want to go that way I don't really mind.
+
+Otherwise main thing here is why carry reserved data to next layer
+given it is meant to be ignored. Drop it down here in the protocol decode.
+
+Thanks,
+
+Jonathan
+
+> diff --git a/drivers/iio/opensensorfusion/osf_protocol.c b/drivers/iio/opensensorfusion/osf_protocol.c
+> new file mode 100644
+> index 000000000000..e0d7c7a9ebd7
+> --- /dev/null
+> +++ b/drivers/iio/opensensorfusion/osf_protocol.c
+
+> +
+> +int osf_protocol_decode_frame(const u8 *buf, size_t len,
+> +			      struct osf_frame *frame, size_t *frame_len)
+> +{
+> +	u32 expected_crc;
+> +	u32 actual_crc;
+> +	u32 payload_len;
+> +	size_t total_len;
+> +
+> +	if (!buf || !frame || !frame_len)
+> +		return -EINVAL;
+> +
+> +	if (len < OSF_FRAME_MIN_LEN)
+> +		return -EMSGSIZE;
+> +
+> +	if (get_unaligned_le32(buf) != OSF_FRAME_MAGIC)
+> +		return -EPROTO;
+> +
+> +	if (get_unaligned_le16(buf + 6) != OSF_FRAME_HEADER_LEN)
+> +		return -EPROTO;
+> +
+> +	payload_len = get_unaligned_le32(buf + 10);
+> +	if (payload_len > len - OSF_FRAME_MIN_LEN)
+> +		return -EMSGSIZE;
+> +
+> +	total_len = OSF_FRAME_HEADER_LEN + payload_len + OSF_FRAME_CRC_LEN;
+> +	expected_crc = osf_crc32_ieee(buf, OSF_FRAME_HEADER_LEN + payload_len);
+> +	actual_crc = get_unaligned_le32(buf + OSF_FRAME_HEADER_LEN + payload_len);
+> +
+> +	if (actual_crc != expected_crc)
+> +		return -EBADMSG;
+> +
+> +	frame->protocol_major = buf[4];
+> +	frame->protocol_minor = buf[5];
+> +	frame->message_type = get_unaligned_le16(buf + 8);
+> +	frame->payload_len = payload_len;
+> +	frame->sequence = get_unaligned_le64(buf + 14);
+> +	frame->timestamp_us = get_unaligned_le64(buf + 22);
+> +	frame->flags = get_unaligned_le32(buf + 30);
+> +	frame->reserved = get_unaligned_le32(buf + 34);
+
+As below. I'm not sure what benefit of keeping reserved around is.
+
+> +	frame->payload = buf + OSF_FRAME_HEADER_LEN;
+> +	frame->crc = actual_crc;
+
+The above fully assigns frame so I'd do similar to you have elsewhere
+	*frame = (struct osf_frame) {
+		.protocol_major = ...
+...
+	};
+Both makes it more readable and makes it clear you aren't leaving
+any existing data in place.
 
 
-On 2026/9/18 20:06, Rafael J. Wysocki (Intel) wrote:
-> On Fri, Sep 18, 2026 at 4:09 AM Yaxiong Tian <tianyaxiong@kylinos.cn> wrote:
->>
->> On 2026/9/18 03:34, Rafael J. Wysocki (Intel) wrote:
->>> On Wed, Jul 29, 2026 at 8:16 AM Yaxiong Tian <tianyaxiong@kylinos.cn> wrote:
->>>> cpuidle_governor_latency_req() is evaluated on every idle-state
->>>> selection.  It aggregates the per-CPU resume latency with the global
->>>> CPU latency and wakeup latency QoS limits
->>> True.
->>>
->>>> by repeatedly calling
->>>> get_cpu_device() and pm_qos_read_value() cpu_latency_qos_limit()
->>>> cpu_wakeup_latency_qos_limit().
->>> I would say "every time" rather than "repeatedly", but fair enough.
->>>
->>> However, those functions don't do anything expensive except for
->>> defensive checks that can be omitted.  Have you tried to omit them?
->> I haven't tried that, but I found that function_graph may introduce measurement errors, especially for very short functions.
->>>> Use ftrace's function_graph, we can see:
->>>> parent:          do_idle
->>>> parent_total_ns: 36671010505
->>>> parent_count:    5994
->>>>
->>>> SYMBOL                                                      TIME_NS    %ROOT  %PARENT      COUNT
->>>> --------------------------------------------------------------------------------------------------
->>>> do_idle                                                 36671010505  100.00%  100.00%       5994
->>>>   cpuidle_idle_call                                     35566528731   96.99%   96.99%       8570
->>>>     call_cpuidle                                        35476606844   96.74%   99.75%       8561
->>>>       cpuidle_enter                                     35472932468   96.73%   99.99%       8526
->>>>     cpuidle_select                                         52097031    0.14%    0.15%       8580
->>>>       menu_select                                          49555181    0.14%   95.12%       8580
->>>>         tick_nohz_get_sleep_length                         28843887    0.08%   58.21%       8570
->>>>         cpuidle_governor_latency_req                        9567488    0.03%   19.31%       8580
->>>>         tick_nohz_tick_stopped                              2057031    0.01%    4.15%      15695
->>>>     cpuidle_reflect                                        11427201    0.03%    0.03%       8561
->>>>       menu_reflect                                          6579506    0.02%   57.58%       8526
->>>>         tick_nohz_idle_got_tick                             2231559    0.01%   33.92%       8526
->>>>       __sysvec_apic_timer_interrupt                          105520    0.00%    0.92%          3
->>>>     tick_nohz_idle_stop_tick                                8279641    0.02%    0.02%       1475
->>>>     ---- skip
->>>>
->>>> The majority of the time spent in cpuidle_enter for CPUs entering
->>>> idle state has already been charged to the idle path. Among the
->>>> remaining contributors, cpuidle_governor_latency_req() accounts
->>>> for a non-negligible portion of the overall latency.
->>>>
->>>> Under the menu governor this shows up hot: ftrace data shows,
->>>>  cpuidle_governor_latency_req() accounts for about 19.9% of
->>>> menu_select() time (~1.9 us/call).  After caching the aggregated
->>>> value per CPU and invalidating via QoS notifiers, that share drops to
->>>> about 4.2% (~0.3 us/call), roughly a 6x reduction on this path.
->>> Is there any real-world workload in which that difference is actually visible?
->> Sorry, I only tested it under no load.
->>
->>>> The ftrace data before and after the optimization is shown below:
->>>> 1) original
->>>> parent:          menu_select
->>>> parent_total_ns: 160492937
->>>> parent_count:    16718
->>>>
->>>> SYMBOL                                                      TIME_NS    %ROOT  %PARENT      COUNT
->>>> --------------------------------------------------------------------------------------------------
->>>> menu_select                                               160492937  100.00%  100.00%      16718
->>> Where did you lose menu_update()?
->> Because menu_update() was optimized away by the compiler, it can't be seen in /proc/kallsyms, so it won't be traced by ftrace either.
-> How could it be optimized away?
-Sorry, "optimized away" was a poor choice of words. Nothing was removed
-- menu_update() still runs, but the compiler inlined it into its only
-caller, so no out-of-line body is emitted. No body -> no function entry
--> no call fentry site in __mcount_loc -> no kallsyms symbol -> nothing
-for function_graph to trace. GCC can do that because menu_update() is
-static, has exactly one caller (menu.c:228) .
+> +	*frame_len = total_len;
+> +
+> +	return 0;
+> +}
+
+> +
+> +int osf_protocol_decode_capability_report(const struct osf_frame *frame,
+> +					  struct osf_capability_report *report)
+> +{
+> +	u16 capability_count;
+> +	size_t expected_len;
+> +	const u8 *payload;
+> +
+> +	if (!frame || !report || !frame->payload)
+> +		return -EINVAL;
+> +
+> +	if (frame->message_type != OSF_MSG_CAPABILITY_REPORT)
+> +		return -EPROTO;
+> +
+> +	if (frame->payload_len < OSF_CAP_REPORT_BASE_LEN)
+> +		return -EMSGSIZE;
+> +
+> +	payload = frame->payload;
+> +	capability_count = get_unaligned_le16(payload);
+> +
+> +	expected_len = OSF_CAP_REPORT_BASE_LEN +
+> +		       capability_count * OSF_CAP_SENSOR_ENTRY_LEN;
+> +	if (frame->payload_len != expected_len)
+
+I don't hugely mind as it's your code + spec to maintain but generally
+for a spec with records like this I'd expect it to be possible to extend
+the structure without it being a breaking spec change.   As such
+I'd kind of expect the check to be that the payload_len was at least
+as big as expected len. Larger would be fine but we'd ignore anything
+there.
+
+> +		return -EMSGSIZE;
+> +
+> +	*report = (struct osf_capability_report) {
+> +		.capability_count = capability_count,
+> +		.entries = payload + OSF_CAP_REPORT_BASE_LEN,
+> +	};
+> +
+> +	return 0;
+> +}
+> +
+> +int osf_protocol_decode_capability_entry(const struct osf_capability_report
+> +					 *report, u16 index,
+> +					 struct osf_capability_entry *entry)
+> +{
+> +	const u8 *payload;
+> +
+> +	if (!report || !report->entries || !entry)
+> +		return -EINVAL;
+> +
+> +	if (index >= report->capability_count)
+> +		return -ERANGE;
+> +
+> +	payload = report->entries + index * OSF_CAP_SENSOR_ENTRY_LEN;
+> +	*entry = (struct osf_capability_entry) {
+> +		.sensor_type = get_unaligned_le16(payload),
+> +		.sensor_index = get_unaligned_le16(payload + 2),
+> +		.channel_count = get_unaligned_le16(payload + 4),
+> +		.sample_format = get_unaligned_le16(payload + 6),
+> +		.scale_nano = get_unaligned_le32(payload + 8),
+> +		.flags = get_unaligned_le32(payload + 12),
+> +		.reserved = get_unaligned_le32(payload + 16),
+
+Entirely correctly I think you don't do any checks or reads of reserved values.
+As such why copy them around?  I'd just drop that field from your decoded
+structures.  Not a huge saving but why carry irrelevant data around!
+
+Jonathan
+
+> +	};
+> +
+> +	return 0;
+> +}
