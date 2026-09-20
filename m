@@ -1,217 +1,151 @@
-Received: from mail-vs2-f20.google.com (mail-vs2-f20.google.com [74.125.227.20])
+Received: from v54.v54282eed.euw1.send.eu.mailgun.net (v54.v54282eed.euw1.send.eu.mailgun.net [185.250.239.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CE4223C368
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 13:54:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E8F318859B
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 13:55:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.250.239.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789912450; cv=none; b=YpLPzCeVYFCuK9V6UDSUOk9XD+cFzSBVdsosIwuVvyD+XBTLro1zzpfWPbFA49Z2q/nv8v++SG34+QenDFR9B9mjJDDrp941lhEfRI8/LbEzAOL48VJgY6x1xffJaOaFRJZ2O485Y52pRYfZadV32drmxHnqdo9nRH3zawMox0g=
+	t=1789912507; cv=none; b=YHcN3tzEfa6acDNUen/c9kEnLKIXtY7itEvYtzxp3txKEt8mkaMXfzgFyJrZxAA2fCH3guIJ2mPftC/RiNV2pDFoWWPiPzunBSXt3NBCHO8gk4B4b2dqzWwXy6d2SSiJWABGnhoMkXp7dvtmEj9DPg4zSdeYs6JpjpT7WQqgUnw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789912450; c=relaxed/simple;
-	bh=bKwYVkrmDfOiCn0RbUwR1jM7zZCEOlXsuam3M+gE/Sw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qexTmbeedpKb45Pw4W3H79TgajDd2GgRZVOp6gWKXJ30x5Q6lMinCYYO7SdwbJGd16QkuYRG9GPYZBt6nNJho7aozH58fclB6KfTy4XAlI2apGLX76F4+IZ01roTDWTm+x3Dtk4208NzfI2Kj7tz0UjfpNg2zkEK3+gcqMJwhzI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vn3CBsFt; arc=none smtp.client-ip=74.125.227.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789912507; c=relaxed/simple;
+	bh=qtF+udijNTr8ESJQzc0uN9JGpbrGwb8PdiQ6EIJl2dE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ywm8oUEDPeujxDocfNh3ZG9eBy2mwX8wefFODopQzLKshHxx+JNXb1oVOapKjLMA3fyloB/XKcXThCnRgMnjHvzGbdO7RncusipTPLVEOGmYUi/RczD6R/Y+daGZbb8L7s4k483AHUAPc+ArVtmv9eDqLyGT9mQ9Pa/ai/AurWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=plajta.eu; spf=pass smtp.mailfrom=plajta.eu; dkim=pass (2048-bit key) header.d=plajta.eu header.i=@plajta.eu header.b=I+U4ggsM; arc=none smtp.client-ip=185.250.239.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=plajta.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=plajta.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vn3CBsFt"
-Received: by mail-vs2-f20.google.com with SMTP id 71dfb90a1353d-5c67e4fff62so735097e0c.2
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 06:54:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789912447; x=1790517247; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gQuT88WnETujv7Cx8XXl2BU6f/YuGMS2DDmfJOe+QIQ=;
-        b=Vn3CBsFtwXGndUssp0jfqEwk+SsLO/BDcIRbeIkro413cMKtuCsXlxHI01xzSOqgVw
-         hoRQKRUCuQM6Fc6FqNFxI70mVUXDchIzLhyVhRJdazfZgOhnBz3vZZgvnfh7dPyXeyw7
-         FX3SrPUB234NqGnAabcncd1sZPlq9ziTNCpCXtE9sc1JBKo6CF84WeA+ueBz638vQpck
-         xKKBoZqAODiAsIML8QCfOF7/pYxRaOFbaAh9TghoOFQAc5We0ncnLPPa9SmuvgnNuW8m
-         r0ZKUNXV45AUUEeAjCrmfZhOa8nVUwm2v99DciIElU3v8aufVPSFEf/F5M0gGv+eIl7y
-         8q8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789912447; x=1790517247;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gQuT88WnETujv7Cx8XXl2BU6f/YuGMS2DDmfJOe+QIQ=;
-        b=kI0vjNs5p0QDbhJw6eazYheXE/pri2Y6rbStVdBNb3Gu3OUrkgBju/XnDi3pca3Ggd
-         e+ez89N+kaTwwzBDhprS7exTV66ttA0n4XANAsjdKS5uzHTGF+W7FbbZyspdzfKgxofZ
-         5677qoPbToJrLTJj3HuFk39vTaWBMOOsmrNjxyAWPZyyW/L8KenEzV16oHv1LgPO9zbM
-         jxNBAnRarzMekhc7owTo97ku+5GQUTJgLJazZwbIfgLOb0bLwJ9DuqKRYLXrm58UfvPA
-         vxLp6X3yfvOiC36ElayLg6cyncmZ6Vgr+nongS/3XudW5UWetENQKdOA3dfsL9SMRsnJ
-         Q4JQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy5Si2lt+ocm4HZKFGK+ODm7Y9UeXIZZDwo2m8GdWCCIQ77Z/IzGpC8lusR26beP2StFlcEFTlo6NyCViM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kixPKBuK2uRDrudY8TLlKVlchlj8V7rmGLkzXgolcrL/cQrHF9
-	RWHnXxUPP6+aAzSNi35/LHTMn8sOHoQey5kJNzLqEcec5lxP1AHXDtus
-X-Gm-Gg: AYBFou1fwJPmfgzg12jQP1ljaM0UwKsImlBCV0Zx0nziMjEMdmzvCRtEzD9oyFZ7G/w
-	OLkdlyTgBxGlaJU7Q7WOkytA/7n8l1/HDg4fIwe7pepTNMdSRlGxEeS2Sx5zOhVM6en9GKYcZRe
-	+YPilfrtCXfS8s9AhwbZ9gRT+peq3ZMy3qiVlC7b+uBRQeXl6aNDzC6HyQCCRPUqD84SYqle/C9
-	zbKKUvZp9t+x9oXQSQhMyItFVe+CaPHk1qgxL9qf7/VKuSEE2VFVgqwozj2v/bA9RtMHWqy1zqL
-	MSVHkpDUZT2/RQndEZHUaO501MFW+VHUlK6uA/3kYDEtxOqYkEe669l8Wa1TuFQsd9AzhbPP1Ax
-	RUbcv1XlxBZGBHtsbsrfcHpaE9Uxu2sVLQF9F41ufAZoj+BMiEWW2S84/kOE0hrdMzf7Sd/nvJI
-	bl0S1c3U/gmFAP7Dg7JQJXmYSwryRNAr3swcFJSPPeMUeSjxivEx0JjSscpO/onll9ce+DRbb01
-	sbV9Q==
-X-Received: by 2002:a05:6122:3488:b0:5bd:cb34:1b70 with SMTP id 71dfb90a1353d-5c9b5885d0dmr3654103e0c.1.1789912447448;
-        Sun, 20 Sep 2026 06:54:07 -0700 (PDT)
-Received: from localhost ([2804:30c:96c:bf00:7844:c38c:894:4054])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c9c18d1314sm4604485e0c.3.2026.09.20.06.54.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 06:54:06 -0700 (PDT)
-Date: Sun, 20 Sep 2026 10:55:14 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: Kanak Shilledar <kanak.shilledar@axis.com>
-Cc: Henrik Grimler <henrik.grimler@axis.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=plajta.eu header.i=@plajta.eu header.b="I+U4ggsM"
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=plajta.eu; q=dns/txt; s=s1; t=1789912504; x=1789919704;
+ h=Content-Transfer-Encoding: MIME-Version: Message-ID: Date: Subject: Subject: Cc: To: To: From: From: Sender: Sender;
+ bh=xpA0/+bYG+V3mE24O/Gx/WTLzmmfPiXYkUXdb7BfSIw=;
+ b=I+U4ggsMRM1YN2RgrWjEjeI2SqEVSItR4axNJBasF9GpyeNZl0p1FWoqxaOnj4pG9hvbWZfx4/zrn5oX4+sRUDR5wVYQajxc7CbVPtwDzzWXvGtmyF8dLWpD2q5AtwCTukc4p7SJbtVz1Z+cSszuv3hazHCQvWiNaqeJ+CCre8kZLZx7qWoSw7WNPOSJSMgJGsFIoWcF5mLpLQlTD3HXkRheESNCGSgVYjX8dxQ5oKIQe/mq6xKcbFsH+TUiVPU/dAGf3DB7t8rDs0K3X1x0DAnwOcLGl6Q1Wt7cqRtQziTyRyUO6CszNTHKRCaPkcSS9KSVAO/U48qLjmUBwpVpFA==
+X-Mailgun-Sid: WyI1ZWFlNCIsImxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmciLCJhOTI0YiJd
+Received: from tensor.lan (ip-86-49-238-222.bb.vodafone.cz [86.49.238.222]) by
+ b18cc1c9dc75ca617e74a5400a67cf2140990ea41ca79d6592644c77ad7781b1 with SMTP id
+ 6aafe5b822c83e8341a8fc46 (version=TLS1.3, cipher=TLS_AES_128_GCM_SHA256);
+ Sun, 20 Sep 2026 13:55:04 GMT
+X-Mailgun-Sending-Ip: 185.250.239.4
+Sender: andrijsalivon@plajta.eu
+From: Andrii Salivon <andrijsalivon@plajta.eu>
+To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>,
-	Chris Morgan <macromorgan@hotmail.com>, kernel@axis.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/5] iio: imu: inv_icm42607: Simplify IIO channel
- macros
-Message-ID: <aq_lwtGT8G-BTLM2@debian-BULLSEYE-live-builder-AMD64>
-References: <20260917-b4-inv_icm42370p-v4-0-fd9373f123c9@axis.com>
- <20260917-b4-inv_icm42370p-v4-2-fd9373f123c9@axis.com>
+	Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Frank Li <Frank.Li@nxp.com>
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Andrii Salivon <andrijsalivon@plajta.eu>
+Subject: [PATCH 2/2] ARM: dts: imx50: add support for Amazon Kindle 4 (Yoshi)
+Date: Sun, 20 Sep 2026 15:54:56 +0200
+Message-ID: <20260920135456.3192247-3-andrijsalivon@plajta.eu>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917-b4-inv_icm42370p-v4-2-fd9373f123c9@axis.com>
+Content-Transfer-Encoding: 8bit
 
-On 09/17, Kanak Shilledar wrote:
-> The INV_ICM42607_ACCEL_CHAN and INV_ICM42607_GYRO_CHAN macro had a third
-> parameter of _ext_info, drop it and just point the .ext_info field to
-> the respective inv_icm42607_*_ext_infos. This reduces the repetitive
-> calling of inv_icm42607_*_ext_infos struct in the IIO channel spec
-> struct and makes the code more easy to follow.
-> 
-> Signed-off-by: Kanak Shilledar <kanak.shilledar@axis.com>
-> ---
->  drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c | 23 ++++++++++-------------
->  drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c  | 23 ++++++++++-------------
->  2 files changed, 20 insertions(+), 26 deletions(-)
-> 
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
-> index 0b3f035c2da0c..8f61bc9014526 100644
-> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
-> @@ -17,7 +17,7 @@
->  #include "inv_icm42607.h"
->  #include "inv_icm42607_temp.h"
->  
-> -#define INV_ICM42607_ACCEL_CHAN(_modifier, _index, _ext_info)			\
-> +#define INV_ICM42607_ACCEL_CHAN(_modifier, _index)				\
->  {										\
->  	.type = IIO_ACCEL,							\
->  	.modified = 1,								\
-> @@ -34,9 +34,14 @@
->  		.storagebits = 16,						\
->  		.endianness = IIO_BE,						\
->  	},									\
-> -	.ext_info = _ext_info,							\
-> +	.ext_info = inv_icm42607_accel_ext_infos,				\
->  }
->  
-> +static const struct iio_chan_spec_ext_info inv_icm42607_accel_ext_infos[] = {
-> +	IIO_MOUNT_MATRIX(IIO_SHARED_BY_ALL, inv_icm42607_get_mount_matrix),
-> +	{ }
-> +};
-> +
-Moving iio_chan_spec_ext_info declaration upwards looks like a spurious change.
-If moving the declaration upwards is really needed, the commit message could
-have a phrase or two explaining why.
+Add initial device tree for the Amazon Kindle 4 non-touch e-reader
+(codename "yoshi", mainboard marked E01100), based on the i.MX50 SoC.
 
->  enum inv_icm42607_accel_scan {
->  	INV_ICM42607_ACCEL_SCAN_X,
->  	INV_ICM42607_ACCEL_SCAN_Y,
-> @@ -44,18 +49,10 @@ enum inv_icm42607_accel_scan {
->  	INV_ICM42607_ACCEL_SCAN_TEMP,
->  };
->  
-> -static const struct iio_chan_spec_ext_info inv_icm42607_accel_ext_infos[] = {
-> -	IIO_MOUNT_MATRIX(IIO_SHARED_BY_ALL, inv_icm42607_get_mount_matrix),
-> -	{ }
-> -};
-> -
->  static const struct iio_chan_spec inv_icm42607_accel_channels[] = {
-> -	INV_ICM42607_ACCEL_CHAN(IIO_MOD_X, INV_ICM42607_ACCEL_SCAN_X,
-> -				inv_icm42607_accel_ext_infos),
-> -	INV_ICM42607_ACCEL_CHAN(IIO_MOD_Y, INV_ICM42607_ACCEL_SCAN_Y,
-> -				inv_icm42607_accel_ext_infos),
-> -	INV_ICM42607_ACCEL_CHAN(IIO_MOD_Z, INV_ICM42607_ACCEL_SCAN_Z,
-> -				inv_icm42607_accel_ext_infos),
-> +	INV_ICM42607_ACCEL_CHAN(IIO_MOD_X, INV_ICM42607_ACCEL_SCAN_X),
-> +	INV_ICM42607_ACCEL_CHAN(IIO_MOD_Y, INV_ICM42607_ACCEL_SCAN_Y),
-> +	INV_ICM42607_ACCEL_CHAN(IIO_MOD_Z, INV_ICM42607_ACCEL_SCAN_Z),
->  	INV_ICM42607_TEMP_CHAN(INV_ICM42607_ACCEL_SCAN_TEMP),
->  };
->  
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c
-> index 5b4683c2dd1e4..8e8d36461e515 100644
-> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c
-> @@ -17,7 +17,7 @@
->  #include "inv_icm42607.h"
->  #include "inv_icm42607_temp.h"
->  
-> -#define INV_ICM42607_GYRO_CHAN(_modifier, _index, _ext_info)			\
-> +#define INV_ICM42607_GYRO_CHAN(_modifier, _index)				\
->  {										\
->  	.type = IIO_ANGL_VEL,							\
->  	.modified = 1,								\
-> @@ -34,9 +34,14 @@
->  		.storagebits = 16,						\
->  		.endianness = IIO_BE,						\
->  	},									\
-> -	.ext_info = _ext_info,							\
-> +	.ext_info = inv_icm42607_gyro_ext_infos,				\
->  }
->  
-> +static const struct iio_chan_spec_ext_info inv_icm42607_gyro_ext_infos[] = {
-> +	IIO_MOUNT_MATRIX(IIO_SHARED_BY_ALL, inv_icm42607_get_mount_matrix),
-> +	{ }
-> +};
-> +
-Same here, why moving inv_icm42607_gyro_ext_infos declarations up is necessary?
+This enables the console (UART1) and internal eMMC (eSDHC3), tested
+booting to a full Arch Linux ARM userspace with systemd on real
+hardware.
 
->  enum inv_icm42607_gyro_scan {
->  	INV_ICM42607_GYRO_SCAN_X,
->  	INV_ICM42607_GYRO_SCAN_Y,
-> @@ -44,18 +49,10 @@ enum inv_icm42607_gyro_scan {
->  	INV_ICM42607_GYRO_SCAN_TEMP,
->  };
->  
-> -static const struct iio_chan_spec_ext_info inv_icm42607_gyro_ext_infos[] = {
-> -	IIO_MOUNT_MATRIX(IIO_SHARED_BY_ALL, inv_icm42607_get_mount_matrix),
-> -	{ }
-> -};
-> -
->  static const struct iio_chan_spec inv_icm42607_gyro_channels[] = {
-> -	INV_ICM42607_GYRO_CHAN(IIO_MOD_X, INV_ICM42607_GYRO_SCAN_X,
-> -			       inv_icm42607_gyro_ext_infos),
-> -	INV_ICM42607_GYRO_CHAN(IIO_MOD_Y, INV_ICM42607_GYRO_SCAN_Y,
-> -			       inv_icm42607_gyro_ext_infos),
-> -	INV_ICM42607_GYRO_CHAN(IIO_MOD_Z, INV_ICM42607_GYRO_SCAN_Z,
-> -			       inv_icm42607_gyro_ext_infos),
-> +	INV_ICM42607_GYRO_CHAN(IIO_MOD_X, INV_ICM42607_GYRO_SCAN_X),
-> +	INV_ICM42607_GYRO_CHAN(IIO_MOD_Y, INV_ICM42607_GYRO_SCAN_Y),
-> +	INV_ICM42607_GYRO_CHAN(IIO_MOD_Z, INV_ICM42607_GYRO_SCAN_Z),
->  	INV_ICM42607_TEMP_CHAN(INV_ICM42607_GYRO_SCAN_TEMP),
->  };
->  
-> 
-> -- 
-> 2.43.0
-> 
+Signed-off-by: Andrii Salivon <andrijsalivon@plajta.eu>
+---
+ arch/arm/boot/dts/nxp/imx/Makefile            |  3 +-
+ .../boot/dts/nxp/imx/imx50-amazon-yoshi.dts   | 60 +++++++++++++++++++
+ 2 files changed, 62 insertions(+), 1 deletion(-)
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx50-amazon-yoshi.dts
+
+diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/imx/Makefile
+index 1a2539fa19b4..dd508451286d 100644
+--- a/arch/arm/boot/dts/nxp/imx/Makefile
++++ b/arch/arm/boot/dts/nxp/imx/Makefile
+@@ -24,7 +24,8 @@ dtb-$(CONFIG_SOC_IMX35) += \
+ 	imx35-pdk.dtb
+ dtb-$(CONFIG_SOC_IMX50) += \
+ 	imx50-evk.dtb \
+-	imx50-kobo-aura.dtb
++	imx50-kobo-aura.dtb \
++	imx50-amazon-yoshi.dtb
+ dtb-$(CONFIG_SOC_IMX51) += \
+ 	imx51-apf51.dtb \
+ 	imx51-apf51dev.dtb \
+diff --git a/arch/arm/boot/dts/nxp/imx/imx50-amazon-yoshi.dts b/arch/arm/boot/dts/nxp/imx/imx50-amazon-yoshi.dts
+new file mode 100644
+index 000000000000..aa4cb5864a16
+--- /dev/null
++++ b/arch/arm/boot/dts/nxp/imx/imx50-amazon-yoshi.dts
+@@ -0,0 +1,60 @@
++// SPDX-License-Identifier: GPL-2.0+
++/dts-v1/;
++#include "imx50.dtsi"
++
++/ {
++	model = "Amazon Kindle 4 (Yoshi)";
++	compatible = "amazon,yoshi", "fsl,imx50";
++
++	chosen {
++		stdout-path = "serial0:115200n8";
++	};
++
++	memory@70000000 {
++		device_type = "memory";
++		reg = <0x70000000 0x10000000>;
++	};
++};
++
++&esdhc3 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_sd3>;
++	bus-width = <8>;
++	non-removable;
++	min-frequency = <400000>;
++	max-frequency = <40000000>;
++	disable-wp;
++	status = "okay";
++
++	/* Internal eMMC */
++};
++
++&iomuxc {
++	pinctrl_uart1: uart1grp {
++		fsl,pins = <
++			MX50_PAD_UART1_TXD__UART1_TXD_MUX	0x1e4
++			MX50_PAD_UART1_RXD__UART1_RXD_MUX	0x1e4
++		>;
++	};
++
++	pinctrl_sd3: sd3grp {
++		fsl,pins = <
++			MX50_PAD_SD3_CMD__ESDHC3_CMD		0x1e4
++			MX50_PAD_SD3_CLK__ESDHC3_CLK		0xd4
++			MX50_PAD_SD3_D0__ESDHC3_DAT0		0x1d4
++			MX50_PAD_SD3_D1__ESDHC3_DAT1		0x1d4
++			MX50_PAD_SD3_D2__ESDHC3_DAT2		0x1d4
++			MX50_PAD_SD3_D3__ESDHC3_DAT3		0x1d4
++			MX50_PAD_SD3_D4__ESDHC3_DAT4		0x1d4
++			MX50_PAD_SD3_D5__ESDHC3_DAT5		0x1d4
++			MX50_PAD_SD3_D6__ESDHC3_DAT6		0x1d4
++			MX50_PAD_SD3_D7__ESDHC3_DAT7		0x1d4
++		>;
++	};
++};
++
++&uart1 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_uart1>;
++	status = "okay";
++};
+-- 
+2.55.0
+
