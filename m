@@ -1,40 +1,41 @@
 Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37EEA3EF670;
-	Sun, 20 Sep 2026 10:07:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 976273E51D4;
+	Sun, 20 Sep 2026 10:07:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789898872; cv=none; b=Z2v8Mjfky6iV9OgyIlg/RZEGiuenBtZA4Sc2nxy6o6BS4GroUuswE8zRPaevN3iuZ3A8utrCyWe/C7clVg+R2xbrgUv8p5KNh0cxA6Net4tSEk+uk0i1i1QlWgXo9Mvir7wdkmADK0uvywKZIadVoWSGUYV81Q0l8vAAvMhh1ZQ=
+	t=1789898872; cv=none; b=pBm15KyRBZ/ZOw2O3lEOsITbFYi+nJiTzeUjMnjW9AZ+fs14SGRm7F1Smz3JBw2T5Z4Jc7okqxAC03ZBaukcB+K3iX0WlAZgfXsAlyJ83pN23YBj2uTBwLasGhKgejteiHDkWzaHUZkiAuY7mqxtE4ojZougr8FMUiyotBps28k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789898872; c=relaxed/simple;
-	bh=moqRVd1ISyWKp43B2L46v/RxAoVRhJPrc/Ukx5C5ujc=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=hZBbEA8xLQqCs7I3hMO3nTsmS+wiy2342ETYk08KwjA5+hzihbA8DVHQvR73DzmoF7tOdUMKKS/b/puOXYPtlmFO4aj8/JWq47SCO8GZlfJfh0CB00mRHG1BsNmWgYagp/xtQ7CnPEwkn10U7uVFI+neNiEAHIUgxk8pj3fT/2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn; spf=pass smtp.mailfrom=realsil.com.cn; dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b=JLtLJPoF; arc=none smtp.client-ip=211.75.126.72
+	bh=zN17TYRv1ZuZaXJB4uCIaOVupGWgDf8voVXMJKSRxJI=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=iG1NUIwIfBeEAyCsJycmUOFPnZW7u+W4bbDIv1c824gJtN5ZBrvmc/2xvc1h0HkJ3+ZNd6Jjovha9zoeYg7xmRo/9X2FpvIW48TVkpmLSNA8cBWNqreA99HKoqWjKCNzWn8tMUM2JqiCKfd9SxtQSrRbgMcaBCg3nUEB32pnFiM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn; spf=pass smtp.mailfrom=realsil.com.cn; dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b=OfQAsA2c; arc=none smtp.client-ip=211.75.126.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realsil.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b="JLtLJPoF"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68KA6NGb81619077, This message is accepted by code: ctloc85258
+	dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b="OfQAsA2c"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68KA6VyK41619108, This message is accepted by code: ctloc85258
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realsil.com.cn;
-	s=dkim; t=1789898783;
-	bh=083nYyWU7EF9vQoxB6Xuy+lqNgfZK71CJI9FUajjX7M=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type;
-	b=JLtLJPoFndxIwWTeoyvpaPL6/qaLgdV8aKmWG2/fzUIVYBV9n2x21g2gYjcZ0u9LI
-	 rufFHigz84oquydkr02OyTyFPsaMHK89K7Fx1uP6SDb11wjZN+1/rfv8Zyy424Uy2h
-	 ASc1E8XclIVOELxO7WsRaHkByxlOt0bq1uqdhufq9mpJTkzu+72QFUrE3uRHWIqmri
-	 1xqoHZuUkFfI78eZCnEq9vChgXeu/eo7X8nAuoXommUBDFpEaaNy0sjTw7HcerncQn
-	 FRSUseIkJMzKk0jSu75lZm+0Fp4bJChsjaSMW8wTS5kdZTvXk/HeY5idpP0AGebL/d
-	 M6YJTCOtntkrQ==
+	s=dkim; t=1789898791;
+	bh=j43nH7uEp0ZdE08gu7yRxkYUVGjqH6GF5n9zSBeS+fs=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type;
+	b=OfQAsA2cmkHgyEky9a72dDpUq7PStK7hesrL1WGcsucj0JMd0itTPVXPyiZXEZD8b
+	 PmMvmLAWpUIa0iD2+/y4blbQrHKtDckQfHIAWBFiFDqJH7wJVQ4nb/8LKGV5K2MoKf
+	 XzdZcfwy5F9wMvcgCSRcu7WMEGgij0XuDKDOmGf8yeobbRZe+6ESzmJa+oOckeYmB5
+	 6tfdoqzlwllOTaxWr/iDJeg6hJBpuQW9BEIaZwlBG9M6eCarHtEa1Tkx8JMmUtIB4l
+	 IW69eVOc1AuLVf9Wu/DpBkK5HW9Zequ6euGlpb+coNQ7B6UBrnLchCOv9wvMgOoysy
+	 ZP2FFjxRMgKVw==
 Received: from RS-EX-MBS2.realsil.com.cn ([172.29.17.102])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68KA6NGb81619077
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68KA6VyK41619108
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Sun, 20 Sep 2026 18:06:23 +0800
+	Sun, 20 Sep 2026 18:06:31 +0800
 Received: from localhost (172.29.57.213) by RS-EX-MBS2.realsil.com.cn
  (172.29.17.102) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Sun, 20 Sep
- 2026 18:06:23 +0800
+ 2026 18:06:31 +0800
 From: <zain_zhou@realsil.com.cn>
 To: Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li
 	<Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
@@ -45,10 +46,12 @@ To: Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li
 CC: <devicetree@vger.kernel.org>, <linux-i3c@lists.infradead.org>,
 	<linux-kernel@vger.kernel.org>, <mfd@lists.linux.dev>, Wei Wang
 	<wei_wang@realsil.com.cn>, Yin Zhou <zain_zhou@realsil.com.cn>
-Subject: [RFC PATCH 0/4] Add support for Realtek RTS490x I3C hub
-Date: Sun, 20 Sep 2026 18:04:57 +0800
-Message-ID: <20260920100501.4091351-1-zain_zhou@realsil.com.cn>
+Subject: [RFC PATCH 1/4] dt-bindings: i3c: Add Realtek RTS490x I3C hub support
+Date: Sun, 20 Sep 2026 18:04:58 +0800
+Message-ID: <20260920100501.4091351-2-zain_zhou@realsil.com.cn>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260920100501.4091351-1-zain_zhou@realsil.com.cn>
+References: <20260920100501.4091351-1-zain_zhou@realsil.com.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,103 +65,309 @@ X-ClientProxiedBy: RS-EX-MBS1.realsil.com.cn (172.29.17.101) To
 
 From: Yin Zhou <zain_zhou@realsil.com.cn>
 
-Hi all,
-
-This series adds support for the Realtek RTS490x family of I3C hubs.
-The devices provide four or eight downstream target ports, which can be
-configured as I3C buses or SMBus controller/target interfaces. They also
-provide four programmable LDO outputs for the controller and target-port
+Add the device tree binding for the Realtek RTS490x family of I3C
+hubs. The hubs provide four or eight downstream target ports that can
+operate as I3C buses or SMBus controller and target interfaces, along
+with programmable LDO outputs for the controller and target-port
 power domains.
 
-This RFC is based on the NXP P3H2x4x generic I3C hub framework series v17:
-
-  [PATCH v17 0/8] Add support for NXP P3H2x4x I3C hub driver
-
-The NXP dependency series is not included below and must be applied first.
-It applies on top of current Linux mainline; the base commit used to build
-and test this RFC is:
-
-  940de590b839f71d6dc846160534bf202401b8b7
-
-The dependency status and the final generic-hub API shape are an explicit
-part of this RFC. If the generic framework is revised, this series will be
-rebased accordingly. NXP's later v19 series will be evaluated for a future
-revision of this RTS490x series and is not being used as the basis for this
-RFC v1.
-
-Patch overview:
-
-  1. dt-bindings: i3c: Add Realtek RTS490x I3C hub support
-     Add the RTS490x device-tree binding and register the binding with
-     MAINTAINERS.
-
-  2. mfd: Add driver for Realtek RTS490x I3C hub
-     Add the I3C-only MFD parent, shared regmap, manufacturer matching,
-     variant detection, protected-register lock, and child devices.
-
-  3. regulator: rts490x: Add driver for on-die regulators
-     Expose the four programmable LDOs through the regulator framework.
-     Only regulator nodes explicitly present and enabled in DT are
-     registered; omitted LDOs retain their existing hardware state.
-
-  4. i3c: hub: Add Realtek RTS490x I3C hub support
-     Add downstream I3C ports through the generic I3C hub framework and
-     SMBus ports through Linux I2C adapters. SMBus controller completion
-     and target receive handling use the hub self-IBI.
-
-The first RFC intentionally has a limited scope:
-
-  - The hub must be connected to the host through I3C.
-  - GPIO and GPIO IRQ support are deferred to a follow-up series.
-  - SMBus controller and target paths use IBI; polling fallback is not
-    included.
-  - Legacy I2C device discovery behind I3C-mode ports follows the existing
-    behavior of the generic I3C master framework and has not been
-    specifically validated on this hardware in this RFC.
-
-Testing:
-
-  - checkpatch.pl --strict, 0 errors/0 warnings across the series
-  - dt_binding_check for the RTS490x binding
-  - Cross-build validated for the MFD, regulator, and hub composite objects
-  - git diff --check across the series
-  - I3C and SMBus downstream ports have been functionally verified on
-    target hardware.
-
-Regards,
-Yin Zhou
-
-Yin Zhou (4):
-  dt-bindings: i3c: Add Realtek RTS490x I3C hub support
-  mfd: Add driver for Realtek RTS490x I3C hub
-  regulator: rts490x: Add driver for on-die regulators
-  i3c: hub: Add Realtek RTS490x I3C hub support
-
- .../bindings/i3c/realtek,rts490x.yaml         | 266 ++++++
- MAINTAINERS                                   |  11 +
- drivers/i3c/hub/Kconfig                       |  11 +
- drivers/i3c/hub/Makefile                      |   3 +
- drivers/i3c/hub/rts490x-i3c-hub-core.c        | 444 +++++++++
- drivers/i3c/hub/rts490x-i3c-hub-i3c.c         | 150 ++++
- drivers/i3c/hub/rts490x-i3c-hub-smbus.c       | 839 ++++++++++++++++++
- drivers/i3c/hub/rts490x-i3c-hub.h             | 150 ++++
- drivers/mfd/Kconfig                           |  11 +
- drivers/mfd/Makefile                          |   1 +
- drivers/mfd/rts490x-core.c                    | 131 +++
- drivers/regulator/Kconfig                     |   9 +
- drivers/regulator/Makefile                    |   1 +
- drivers/regulator/rts490x-regulator.c         | 284 ++++++
- include/linux/mfd/rts490x.h                   |  53 ++
- 15 files changed, 2364 insertions(+)
+Signed-off-by: Yin Zhou <zain_zhou@realsil.com.cn>
+---
+ .../bindings/i3c/realtek,rts490x.yaml         | 266 ++++++++++++++++++
+ MAINTAINERS                                   |   7 +
+ 2 files changed, 273 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/i3c/realtek,rts490x.yaml
- create mode 100644 drivers/i3c/hub/rts490x-i3c-hub-core.c
- create mode 100644 drivers/i3c/hub/rts490x-i3c-hub-i3c.c
- create mode 100644 drivers/i3c/hub/rts490x-i3c-hub-smbus.c
- create mode 100644 drivers/i3c/hub/rts490x-i3c-hub.h
- create mode 100644 drivers/mfd/rts490x-core.c
- create mode 100644 drivers/regulator/rts490x-regulator.c
- create mode 100644 include/linux/mfd/rts490x.h
 
+diff --git a/Documentation/devicetree/bindings/i3c/realtek,rts490x.yaml b/Documentation/devicetree/bindings/i3c/realtek,rts490x.yaml
+new file mode 100644
+index 000000000000..92d5d73db435
+--- /dev/null
++++ b/Documentation/devicetree/bindings/i3c/realtek,rts490x.yaml
+@@ -0,0 +1,266 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++# Copyright 2025-2026 Realtek Semiconductor Corp.
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/i3c/realtek,rts490x.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Realtek RTS490x I3C hub
++
++maintainers:
++  - Yin Zhou <zain_zhou@realsil.com.cn>
++
++description: |
++  The Realtek RTS490x family provides four or eight downstream target ports.
++  The hub is an I3C target and is accessed through an upstream I3C controller.
++  Each target port can operate as an I3C bus or as an SMBus controller and
++  target interface. The hub also provides four programmable LDO outputs for
++  its controller and target-port power domains.
++
++properties:
++  compatible:
++    enum:
++      - realtek,rts4900
++      - realtek,rts4901
++      - realtek,rts4902
++      - realtek,rts4903
++      - realtek,rts4904
++      - realtek,rts4906
++
++  reg:
++    maxItems: 1
++
++  '#address-cells':
++    const: 1
++
++  '#size-cells':
++    const: 0
++
++  assigned-address:
++    maximum: 0x7f
++
++  realtek,tp0145-pullup-ohms:
++    description:
++      Pull-up resistance for target ports 0, 1, 4 and 5, in ohms. If omitted,
++      the driver retains the current hardware setting.
++    enum: [250, 500, 1000, 2000]
++
++  realtek,tp2367-pullup-ohms:
++    description:
++      Pull-up resistance for target ports 2, 3, 6 and 7, in ohms. If omitted,
++      the driver retains the current hardware setting.
++    enum: [250, 500, 1000, 2000]
++
++  realtek,cp0-io-strength-ohms:
++    description:
++      IO drive strength for controller port 0, in ohms. If omitted, the driver
++      retains the current hardware setting.
++    enum: [20, 30, 40, 50]
++
++  realtek,cp1-io-strength-ohms:
++    description:
++      IO drive strength for controller port 1, in ohms. If omitted, the driver
++      retains the current hardware setting.
++    enum: [20, 30, 40, 50]
++
++  realtek,tp0145-io-strength-ohms:
++    description:
++      IO drive strength for target ports 0, 1, 4 and 5, in ohms. If omitted,
++      the driver retains the current hardware setting.
++    enum: [20, 30, 40, 50]
++
++  realtek,tp2367-io-strength-ohms:
++    description:
++      IO drive strength for target ports 2, 3, 6 and 7, in ohms. If omitted,
++      the driver retains the current hardware setting.
++    enum: [20, 30, 40, 50]
++
++  vcc-cp0-supply:
++    description:
++      Optional external power supply for controller port 0. If omitted, the
++      driver does not request or enable this supply.
++
++  vcc-cp1-supply:
++    description:
++      Optional external power supply for controller port 1. If omitted, the
++      driver does not request or enable this supply.
++
++  vcc-tp0145-supply:
++    description:
++      Optional external power supply for target ports 0, 1, 4 and 5. If
++      omitted, the driver does not request or enable this supply.
++
++  vcc-tp2367-supply:
++    description:
++      Optional external power supply for target ports 2, 3, 6 and 7. If
++      omitted, the driver does not request or enable this supply.
++
++  regulators:
++    type: object
++    description:
++      Optional container for the hub's programmable LDOs. Only enabled LDO
++      child nodes are registered by the driver. An omitted or disabled LDO
++      child is not registered and its hardware state is left unchanged.
++    additionalProperties: false
++
++    properties:
++      ldo-cp0:
++        type: object
++        $ref: /schemas/regulator/regulator.yaml#
++        unevaluatedProperties: false
++
++      ldo-cp1:
++        type: object
++        $ref: /schemas/regulator/regulator.yaml#
++        unevaluatedProperties: false
++
++      ldo-tp0145:
++        type: object
++        $ref: /schemas/regulator/regulator.yaml#
++        unevaluatedProperties: false
++
++      ldo-tp2367:
++        type: object
++        $ref: /schemas/regulator/regulator.yaml#
++        unevaluatedProperties: false
++
++required:
++  - compatible
++  - reg
++  - '#address-cells'
++  - '#size-cells'
++
++patternProperties:
++  '^i3c@[0-7]$':
++    type: object
++    $ref: /schemas/i3c/i3c.yaml#
++    unevaluatedProperties: false
++
++    properties:
++      reg:
++        description: Target-port number.
++        items:
++          - minimum: 0
++            maximum: 7
++
++      realtek,pullup-enable:
++        type: boolean
++        description:
++          Enable the on-chip pull-up for this target port. If omitted, the
++          on-chip pull-up is disabled.
++
++    required:
++      - reg
++
++  '^smbus@[0-7]$':
++    type: object
++    $ref: /schemas/i2c/i2c-controller.yaml#
++    unevaluatedProperties: false
++
++    properties:
++      reg:
++        description: Target-port number.
++        items:
++          - minimum: 0
++            maximum: 7
++
++      realtek,pullup-enable:
++        type: boolean
++        description:
++          Enable the on-chip pull-up for this target port. If omitted, the
++          on-chip pull-up is disabled.
++
++      clock-frequency:
++        description:
++          SMBus controller-agent clock frequency for this target port, in Hz.
++          If omitted, the driver uses 400 kHz.
++        enum: [100000, 200000, 400000, 1000000]
++        default: 400000
++
++    required:
++      - reg
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - realtek,rts4900
++              - realtek,rts4901
++              - realtek,rts4904
++    then:
++      patternProperties:
++        '^i3c@[0-3]$':
++          properties:
++            reg:
++              items:
++                - maximum: 3
++        '^smbus@[0-3]$':
++          properties:
++            reg:
++              items:
++                - maximum: 3
++        '^i3c@[4-7]$': false
++        '^smbus@[4-7]$': false
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    i3c {
++        #address-cells = <3>;
++        #size-cells = <0>;
++
++        hub@70,4ba00000000 {
++            compatible = "realtek,rts4900";
++            reg = <0x70 0x4ba 0x00000000>;
++            assigned-address = <0x70>;
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            realtek,tp0145-pullup-ohms = <1000>;
++            realtek,cp0-io-strength-ohms = <20>;
++            realtek,cp1-io-strength-ohms = <20>;
++            realtek,tp0145-io-strength-ohms = <30>;
++
++            vcc-cp0-supply = <&ldo_cp0>;
++            vcc-cp1-supply = <&ldo_cp1>;
++            vcc-tp0145-supply = <&ldo_tp0145>;
++
++            regulators {
++                ldo_cp0: ldo-cp0 {
++                    regulator-name = "ldo-cp0";
++                    regulator-min-microvolt = <1000000>;
++                    regulator-max-microvolt = <1000000>;
++                };
++
++                ldo_cp1: ldo-cp1 {
++                    regulator-name = "ldo-cp1";
++                    regulator-min-microvolt = <1000000>;
++                    regulator-max-microvolt = <1000000>;
++                };
++
++                ldo_tp0145: ldo-tp0145 {
++                    regulator-name = "ldo-tp0145";
++                    regulator-min-microvolt = <1800000>;
++                    regulator-max-microvolt = <1800000>;
++                };
++            };
++
++            i3c@0 {
++                reg = <0>;
++                #address-cells = <3>;
++                #size-cells = <0>;
++                realtek,pullup-enable;
++            };
++
++            smbus@1 {
++                reg = <1>;
++                #address-cells = <1>;
++                #size-cells = <0>;
++                clock-frequency = <400000>;
++                realtek,pullup-enable;
++            };
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index f76359fdebbf..a2c171a28cd2 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -22992,6 +22992,13 @@ S:	Maintained
+ F:	include/sound/rt*.h
+ F:	sound/soc/codecs/rt*
+ 
++REALTEK RTS490X I3C HUB DRIVER
++M:	Yin Zhou <zain_zhou@realsil.com.cn>
++L:	linux-i3c@lists.infradead.org
++L:	linux-kernel@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/i3c/realtek,rts490x.yaml
++
+ REALTEK OTTO WATCHDOG
+ M:	Sander Vanheule <sander@svanheule.net>
+ L:	linux-watchdog@vger.kernel.org
 -- 
 2.34.1
 
