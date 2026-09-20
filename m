@@ -1,49 +1,51 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31387328B56;
-	Sun, 20 Sep 2026 16:18:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A80C4457E5D;
+	Sun, 20 Sep 2026 16:18:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789921096; cv=none; b=a2HstRTyAJA93BNKFm/4LH5bHMOszibYiJj0WD18Q9JWzjaGwK2HttfjiiGnWQ59ICn42kAPCJQA/Ydf+vsfCxFVVchuSz2WL6pd7j1TDyv+ff4I982YUi5YNMWzehFcxl1FfyQQ9tnD+2tg3e5KV/pyVYl7YDy2gIvY07zUX6Q=
+	t=1789921097; cv=none; b=hoH5LU4lZIACTX1dri8N8KdAYU7bDG1P3FsfFhhdov/wBLKmurFvh6sMAOYv+fM2ScGgRaHnuKX9OsxiikAqVVeqtYcEujBPBWiGfYmv4GKgd4A8/TJQO7LyawhiaCPpAyIG7XH6mdyZJkTE+s7bXUP1d1iB+IK8gkRz0f3uA2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789921096; c=relaxed/simple;
-	bh=8vnXDoBmo2asmLqYer5EfXfvvzv4sB0c0gKmmi1T0ZI=;
+	s=arc-20240116; t=1789921097; c=relaxed/simple;
+	bh=qrd51FM5tl7oIcdtAjunnfY0zt3GulcVDaAudO8yUAY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LwTCEae/n4qIicI0EH1+jaD0WuB4/7zxTdf9009WCj6okvBwQECG5gUrycK19nnEVWbIvJKeGbHwZULKDAySnRPwYPPbBKku5Qsb1boPaX0wlo81Rk1pLoEA9dZ5rquPAZhrBRl2VXKkKNbl1hPomgMnPO8sgHeXJ+yGoLc1MUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gg6B5UQ0; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=r06hbaRHwL1d9ic/TvIi4xC4baR4SIVTuGRJgO+8pVCVDGkj5NMYQSxrBvd2xVbwUhxMMHaRQ6ovCuixAF6YnrWESYNGfOWngeo3vzsEQCmK46aNChI+CVVngtYPrrQQTpHpS/AQhsDC0Gpr2oZBHBrUfMRmdnwqCh1j3PJRQPI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BcEwv28R; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gg6B5UQ0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3A7F1F000FF;
-	Sun, 20 Sep 2026 16:18:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BcEwv28R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06A5F1F00893;
+	Sun, 20 Sep 2026 16:18:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789921094;
-	bh=uzX9CGfVnXwQZE4WMzJRpdIk/q5j1vCGtRgQcIM8P9o=;
+	s=k20260515; t=1789921096;
+	bh=PscyQc9iTEBQHUxuu5sjpSEnhgPYQHGisQ7n/NeljC4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Gg6B5UQ0VbktP9JbrIgcXNehPH/3B+wfWy0jXnetxhnohkqlq5yRrLKpJgGiRE8E8
-	 gLMcrXkZw+ZTdoTZ6XGVa4VjhLcDO7I+CPPfx/gQ02olVV6ubxW5UIBPeC2tzDvRmy
-	 4ntxTXkVKmm/CKO9dNb1aOlf72Je9xCynHWhTZAEjdcuxd+mVL5ak4ZGBp8KvKLnUP
-	 uYYTx8qSZokAebGjQZ2NsJqoPmsKbZtbREHO4SDbWE14AlQcNtHGQ5oCUdzjuZ5rvA
-	 +GHyX7U810UMzk0oqyRavkRgb8MfGIYSLbHgH8+zDwlSDC4eOA9eY1eE5fNvp/16tg
-	 Vfn6LsGjPGT5Q==
+	b=BcEwv28RIGLo5l6ZHrSgMqUA2poxenD3ZMvffsAr59wZ4pt2BRf/WCjtHokgWwgWU
+	 D150uldtkSc4fr1eEKG1900kw08Vsw2KxoniTRZS50leD4e8/i9+hvlC6eR45Huzu1
+	 c/TN6mlN/vMweNNMZ3s3wJaior0mG80wBANl/1effgG4rpNYBoJW0XyO46L3WjD8HP
+	 rbHhUHsWuOVy85xbOu28JvijJqEOzR+graJkqbA+xKva/Y0IRSBCtZiaFOzfJEb6mD
+	 umROEl3tzJtfqgy3Icz+s5PbVLZ1+jWNkk0oVyJBNHv/yVB66y46Dj9OahM59XBQo0
+	 QvvgVQSmAFOOw==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Greg Ociepka <greg@ferrisoft.com>
-Cc: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Monish Chunara <monish.chunara@oss.qualcomm.com>
+Cc: Nitin Rawat <nitin.rawat@oss.qualcomm.com>,
+	Pradeep Pragallapati <pradeep.pragallapati@oss.qualcomm.com>,
+	Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
+	Sachin Rathore <sachin.rathore@oss.qualcomm.com>,
 	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: glymur: Mark USB controllers dma-coherent
-Date: Sun, 20 Sep 2026 11:18:05 -0500
-Message-ID: <178992108598.214160.4042658803494476498.b4-ty@kernel.org>
+Subject: Re: (subset) [PATCH V4 0/4] arm64: dts: qcom: Add SD card support for Glymur
+Date: Sun, 20 Sep 2026 11:18:06 -0500
+Message-ID: <178992108605.214160.15370126108143745115.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260812154014.123315-1-greg@ferrisoft.com>
-References: <20260812154014.123315-1-greg@ferrisoft.com>
+In-Reply-To: <20260722142342.990384-1-mchunara@oss.qualcomm.com>
+References: <20260722142342.990384-1-mchunara@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,22 +56,25 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Wed, 12 Aug 2026 17:40:14 +0200, Greg Ociepka wrote:
-> All five USB controller nodes on Glymur (usb_0, usb_1, usb_2, usb_hs,
-> usb_mp) are missing the dma-coherent property, which Hamoa carries on
-> all of its USB controllers. Krishna Kurapati confirmed the Glymur USB
-> controllers are dma-coherent [1].
+On Wed, 22 Jul 2026 19:53:38 +0530, Monish Chunara wrote:
+> From: Monish Chunara <monish.chunara@oss.qualcomm.com>
 > 
-> Without the property the kernel treats USB DMA buffers as non-coherent
-> and performs cache maintenance on every transfer, which coherent
-> hardware makes redundant.
+> Respected Maintainers,
+> 
+> This is v4 of the series to add SD card support for Glymur.
+> 
+> This series adds SD card support for the Qualcomm Glymur SoC and the
+> Glymur CRD (Customer Reference Design) platform. The changes include
+> updating voltage regulators to meet SD card requirements, documenting
+> the new compatible string in device tree bindings, and enabling the SDHC
+> controller at both the SoC and board levels.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: glymur: Mark USB controllers dma-coherent
-      commit: e62df36f34949aebe016c5c81e34baa7a9eca427
+[2/4] dt-bindings: mmc: sdhci-msm: Document the Glymur compatible
+      commit: a501c39e16105cdbd1fb6abe29d955b378306ed8
 
 Best regards,
 -- 
