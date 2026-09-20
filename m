@@ -1,159 +1,146 @@
-Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 289A3175A95;
-	Sun, 20 Sep 2026 03:53:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.222
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9573175A95
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 03:56:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789876403; cv=none; b=Z0gBXOi+LK25aYSTP4gpwXlBVApMhICtE/IGa5t9VHRPSbCSs8G8kIucN6sLhOBnZyP2mow7VRdbgrKZNf4f2F9LIwLXugqulW6BXuRdlMaWGbp5BsFnwUypBjWazosbp5dsJ0XydY6vbeQLTDIYMqBD2uGTAlVOn9D0VEl2Jes=
+	t=1789876605; cv=none; b=FHsDYwDzce1KON+9drTYYa8Od7uDYpzfD7UvBNf6GnMLBcLDl+8UZCcUvCbXl9oLh11VJvys06RPzs6wtem7kZ2O0MNeE1Ck2QP3dPKvvVRWf+NhYBH0Al/IVrvtXpfOut4hAjLJw243UAIrKmMh8VirJvIIQ6nYH+uQoNKX4Wo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789876403; c=relaxed/simple;
-	bh=k2L4g+5YFCXxxft5ZvUMFRHA8kcSLTON1PROu97WIJ0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=uo82VnhH+Nfgrugm6ptHft2PrtOIjpB0trxzraq1ehFw5alhb+OrQ1JmKnoiE2RE7h87w+oXTsP1OANK/N4fc3ODtmZrtVQb83Q+YgkIuQLXCQ4ThdOU2C+TTGZPSaVVFjffiVmp0Hsm4TTL+eiekmUHMhV2WAK9TEZOU1ureqU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=rF0Ks1OV; arc=none smtp.client-ip=113.46.200.222
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1789876605; c=relaxed/simple;
+	bh=5xtl8vECwI7N2hTr71DbOthQhLvmhRGN/CfVoklgn3k=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Qwu28JfePLtvD4XWkTKtsW1PA7Aw3wo8AEy67ViKvNnP67SDFe/pFddfDFsFVUumFOCd9fVgwBn1bPc08jEYoFM3z3IOHkNj8n2neNWS1asl32JVok9aORY8WrsFtBLLTfDQm4UYDpr5p7o93H8kAgZOTWCISwhkfsJQszAxDGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E56QnhEb; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="rF0Ks1OV"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=tlRuK8oy4p5tnkX98fUn+MG7+GepzpfRQqepp1VDdiI=;
-	b=rF0Ks1OVp5HjgPVdwO3vQJK5rTKW6B2t+TaIafWOspsRr/x2OEimEnA3Y1/krDlFP7+YZPvyG
-	wJIUAx17deeeASsWoW/3sf4A4bz6SS6FzoZgdnjTbEsn+xbijr4z/yaIvZIjme1/WUcWKbfgM22
-	Tv7akItYW11zMpSyr8HODo4=
-Received: from mail.maildlp.com (unknown [172.19.162.92])
-	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4hnXHF4MH5zLlWt;
-	Sun, 20 Sep 2026 11:42:17 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 8B33A40565;
-	Sun, 20 Sep 2026 11:53:18 +0800 (CST)
-Received: from [10.67.109.254] (10.67.109.254) by
- kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Sun, 20 Sep 2026 11:53:16 +0800
-Message-ID: <a6772b15-0229-40f3-be55-0d9ed229c0a1@huawei.com>
-Date: Sun, 20 Sep 2026 11:53:15 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E56QnhEb"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747eb79f6so12330065ad.0
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 20:56:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789876603; x=1790481403; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=F4hmql1IX0BfyhMHnyF3zu0V+uINNkKnUB2MDx+f0d0=;
+        b=E56QnhEbiTcs9Unli4lDyRv1RtmsbHVW6B1Ey3/ZOvY3bgddKSK9YY8LXKhTcyhqCZ
+         i0p5sXxWnU860dbbaY0/2oboV8HkMHlqW0MooWrqQH6hHVxoqDaJ2oIJc5LHimB2703p
+         wjH1oP1Xjz1KqBKK+DcGPr1URb7NtiIrLN0KEO1pqING4bKGjnnImIgTQ1rvswd1wFaB
+         WBL1aM+Fw03rymtmwirCtVIV4HnVUirk6Pzm3oZd+Yo9kJf9B3me/KNEOaMiMbRXfcpU
+         8hw7tP59rN3Nk9qR1gFbI5DwkZOyQNrsF8Ac7QOD+8GZGbY70wxo4p9sMsuNInMPyecx
+         vjow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789876603; x=1790481403;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=F4hmql1IX0BfyhMHnyF3zu0V+uINNkKnUB2MDx+f0d0=;
+        b=YX0zMho/8qmjAB8UUEG8U+XT3IjCc2tuP257Jupn9K9CpNM24xCcrhZDma5kBc0x4O
+         dZOu0CzBTP+rpvidqh4zF8Ru6Lx106JeQZdkMj2u4qrdspX2U/qZHG13r3wVtJhjukf+
+         c42E0BTEA1SRPycuQiewhg+0XfCz6KhvzeF9zaeWK77Vd449hfku4/B+PmBn8oDhg2I5
+         Q5IvlZ/TyV+texFFqy0B0BMvelr2uZdjGf4WZ6E7kY58zRN+aGHFR3noKh4r04/Cs3W6
+         0dN/Q/tB6ZoGndagpgsU4YS9WhuW4kA0JtExfn2xq1H0lBTbJpI4DcfBcFH78XNSyN1r
+         xuOg==
+X-Forwarded-Encrypted: i=1; AKwUvBwwuhiQn6ES46Lwgk2zPCpGmg17IjipkeT2Z9JhUI1J1x8kvCf/lxahbp/egxECaeaXn6wEUcNIkROXK5s=@vger.kernel.org
+X-Gm-Message-State: AFuF++nhIGWyijWlOnx8rfOyiXUxEdoN7v+kxam24qAdv8cn4IFVuUT1
+	oSSKVJNKgGtnO1g/eyZd1uRR0QN2iygI/d9CEpzbTCJeEx4mq+GwEbuc
+X-Gm-Gg: AYBFou1cMSzmJ7nFzc8oU9Bku9TWJigc51q4pI3HnFiT6RaAKs8gwX8HZCuYxu0WVWa
+	nOfDil5DS9ramItbS5HFfbnDB9Cc8Ztj3HfHMnFPzQO674EjOUVNGW6aAnV/iy4Zo6fy1ansUJF
+	6cgQL8xD/2PgFmfJTK9jE2EIg4w8xhvrNzpoetxkOin6mmLlUBq5YAK5MO47lCfluJqnuDOYY2A
+	TCwFV2zduFn84Fl77zSXOb7QNtZWQEVLsIhdO5rmpuJiRA8QUsx4RLLhcJTYtKvgjj5bhMoM5Ze
+	H72Y7qAbvR4G52tGiQ1DrDx7bL/7UFK/s+EcGnm26tD0UHmX2TsUAlmghWWItzqF/Jugk2T5R4X
+	msQ8LWvpERaVHsaDdrrqMEJoMgbpuAkF9rxwjzpAt6QsFcy/YMPX5UHBkeRZPq488gLUYYvbXE8
+	0ClySFxenI5oFcpOVZnkgNohmCgVriCSJ2pgFoJOYH4G3hW0TZVMSngpA+PPUBpM/aAqC7MrkO7
+	YSrxHKpEybowomwpqFHqoPUgGE=
+X-Received: by 2002:a17:903:1b03:b0:2dd:c0ff:e725 with SMTP id d9443c01a7336-2ddc0ffe981mr49870745ad.55.1789876602819;
+        Sat, 19 Sep 2026 20:56:42 -0700 (PDT)
+Received: from csl-conti-dell7859.ntu.edu.sg ([155.69.199.57])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2de217b3a97sm14689445ad.31.2026.09.19.20.56.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Sep 2026 20:56:41 -0700 (PDT)
+From: Kaixuan Li <kaixuanli0131@gmail.com>
+To: Oliver Hartkopp <socketcan@hartkopp.net>,
+	Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: Kaixuan Li <kaixuanli0131@gmail.com>,
+	linux-can@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] can: isotp: check the frame type, not just the length
+Date: Sun, 20 Sep 2026 11:56:26 +0800
+Message-Id: <20260920035626.2581040-1-kaixuanli0131@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 17/17] arm64: crash: Add crash hotplug support
-To: <sashiko-reviews@lists.linux.dev>, <tglx@kernel.org>,
-	<ritesh.list@gmail.com>, <mark.rutland@arm.com>, <chao.gao@intel.com>,
-	<kas@kernel.org>, <linuxppc-dev@lists.ozlabs.org>, <yeoreum.yun@arm.com>,
-	<x86@kernel.org>, <baoquan.he@linux.dev>, <hbathini@linux.ibm.com>,
-	<sourabhjain@linux.ibm.com>, <linux-kernel@vger.kernel.org>,
-	<loongarch@lists.linux.dev>, <jbouron@amazon.com>,
-	<dave.hansen@linux.intel.com>, <rafael@kernel.org>, <coxu@redhat.com>,
-	<akpm@linux-foundation.org>, <gshan@redhat.com>, <vishal.l.verma@intel.com>,
-	<ruirui.yang@linux.dev>, <seanjc@google.com>, <bgwin@google.com>,
-	<chenhuacai@kernel.org>, <pasha.tatashin@soleen.com>, <kees@kernel.org>,
-	<me@linux.beauty>, <npiggin@gmail.com>, <maddy@linux.ibm.com>,
-	<thuth@redhat.com>, <graf@amazon.com>, <palmer@rivosinc.com>,
-	<chleroy@kernel.org>, <guodongtai@kylinos.cn>, <zhangtianyang@loongson.cn>,
-	<eric.devolder@oracle.com>, <catalin.marinas@arm.com>, <leitao@debian.org>,
-	<driver-core@lists.linux.dev>, <piliu@redhat.com>, <kernel@xen0n.name>,
-	<dakr@kernel.org>, <pratyush@kernel.org>, <sshegde@linux.ibm.com>,
-	<tangyouling@kylinos.cn>, <adityag@linux.ibm.com>, <rppt@kernel.org>,
-	<mclapinski@google.com>, <takahiro.akashi@linaro.org>,
-	<linux-arm-kernel@lists.infradead.org>, <will@kernel.org>, <ardb@kernel.org>,
-	<gregkh@linuxfoundation.org>, <lizhengyu3@huawei.com>, <linux-mm@kvack.org>,
-	<james.morse@arm.com>, <linux-fsdevel@vger.kernel.org>, <mpe@ellerman.id.au>,
-	<mingo@redhat.com>, <bp@alien8.de>, <blum@kernel.org>, <robh@kernel.org>,
-	<hpa@zytor.com>, <liukexin@kylinos.cn>, <maqianga@uniontech.com>
-CC: <kexec@lists.infradead.org>
-References: <20260918100442.3841135-1-ruanjinjie@huawei.com>
- <20260918100442.3841135-18-ruanjinjie@huawei.com>
- <20260918103657.0CC341F000FF@smtp.kernel.org>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20260918103657.0CC341F000FF@smtp.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- kwepemk200008.china.huawei.com (7.202.194.74)
 
+isotp_rcv() separates Classic CAN from CAN FD by skb->len alone:
 
+	if (skb->len != so->ll.mtu)
+		return;
 
-在 2026/9/18 18:36, sashiko-bot@kernel.org 写道:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] kexec: arch_crash_get_elfcorehdr_size() exports undersized buffer when MEMORY_HOTPLUG is disabled
-> --
-> 
-> commit fd293f9cfd1a12554d9352f4ad58fc9f85721fa3
-> Author: Jinjie Ruan <ruanjinjie@huawei.com>
-> arm64: crash: Add crash hotplug support
-> 
-> This commit introduces kernel mechanisms to update only the elfcorehdr
-> on memory hotplug events for arm64. It adds ARCH_SUPPORTS_CRASH_HOTPLUG 
-> and implements arch-specific functions to handle memory hotplug, avoiding
-> full kdump image reloads from userspace.
-> 
-> Link: https://lore.kernel.org/all/20240529133446.28446-1-Jonathan.Cameron@huawei.com/
-> 
->> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
->> index b5a51b0ef9440..96de2660b1cbb 100644
->> --- a/arch/arm64/Kconfig
->> +++ b/arch/arm64/Kconfig
->> @@ -1720,6 +1720,9 @@ config ARCH_DEFAULT_CRASH_DUMP
->>  config ARCH_HAS_GENERIC_CRASHKERNEL_RESERVATION
->>  	def_bool CRASH_RESERVE
->>  
->> +config ARCH_SUPPORTS_CRASH_HOTPLUG
->> +	def_bool y
->> +
-> 
-> [Severity: High]
-> Does unconditionally enabling ARCH_SUPPORTS_CRASH_HOTPLUG here expose an
-> undersized buffer to userspace when CONFIG_MEMORY_HOTPLUG is disabled?
-> 
-> Since CONFIG_HOTPLUG_CPU natively selects CONFIG_CRASH_HOTPLUG on
-> architectures that support it, having this default to 'y' allows
-> CRASH_HOTPLUG to be active even without MEMORY_HOTPLUG. This leads to the
-> size calculation issue below.
-> 
-> [ ... ]
->> diff --git a/arch/arm64/kernel/crash.c b/arch/arm64/kernel/crash.c
->> new file mode 100644
->> index 0000000000000..08dc9b952498e
->> --- /dev/null
->> +++ b/arch/arm64/kernel/crash.c
-> [ ... ]
->> +unsigned int arch_crash_get_elfcorehdr_size(void)
->> +{
->> +	unsigned long phdr_cnt;
->> +
->> +	/* A program header for possible CPUs, vmcoreinfo and kernel_map */
->> +	phdr_cnt = 2 + num_possible_cpus();
->> +	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
->> +		phdr_cnt += CONFIG_CRASH_MAX_MEMORY_RANGES;
->> +
-> 
-> [Severity: High]
-> Is this calculation missing the static memory ranges when
-> CONFIG_MEMORY_HOTPLUG is disabled?
-> 
-> If compiled with CONFIG_HOTPLUG_CPU=y (which natively selects
-> CONFIG_CRASH_HOTPLUG) and CONFIG_MEMORY_HOTPLUG=n, phdr_cnt is computed as
-> exactly 2 + num_possible_cpus(). This does not account for the mandatory
-> memblock ranges from arch_get_system_nr_ranges(). 
+	cf = (struct canfd_frame *)skb->data;
 
-Will fix it in v6.
+A CAN XL frame with cxl->len 4 is CAN_MTU bytes, so it passes, and is then
+read as a canfd_frame whose len comes out of canxl_frame.flags: at least
+0x80.
 
-> 
-> Unlike x86 or powerpc which might survive this due to heavily padded
-> CONFIG_NR_CPUS_DEFAULT values, arm64's precise num_possible_cpus() leaves
-> zero headroom. As a result, the exported maximum elfcorehdr size is strictly
-> smaller than the required size to hold static memory ranges, and any attempt
-> to arm kdump (kexec -p) will fail because kexec-tools cannot load the crash
-> kernel into the undersized segment.
-> 
+Of the paths that follow, only the flow control one uses that length
+without bounding it first, so check_pad() walks to 255 over a 16-byte
+frame and the caller reports EBADMSG on an unrelated socket.
 
--- 
-Best regards,
-Jinjie
+bcm_rx_handler(), j1939_can_recv(), can_can_gw_rcv() and raw_rcv() check
+the frame type here, and can_dropped_invalid_skb() switches on
+skb->protocol on the transmit side. isotp_rcv() is the gap.
 
+Fixes: fb08cba12b52 ("can: canxl: update CAN infrastructure for CAN XL frames")
+Signed-off-by: Kaixuan Li <kaixuanli0131@gmail.com>
+Reviewed-by: Oliver Hartkopp <socketcan@hartkopp.net>
+Acked-by: Oliver Hartkopp <socketcan@hartkopp.net>
+---
+v2: shorten the comment above the new check to say what it does; the
+    reasoning stays in the description (Oliver Hartkopp). Add Oliver's
+    Reviewed-by and Acked-by. No code change.
+
+v1: https://lore.kernel.org/linux-can/20260919122852.1868961-1-kaixuanli0131@gmail.com/
+
+Reproduced on v7.2.4 over vcan, one isotp socket per case bound rx 0x123
+with RX_PADDING|CHK_PAD_DATA and rxpad_content 0xAA, a first frame in
+flight, and one frame injected from a CAN_RAW socket.
+
+	case                            stock     patched
+	A CAN XL, cxl->len 4, flags ff  EBADMSG   none
+	B Classic FC, padded 0xAA       none      none
+	C Classic FC, padded 0x00       EBADMSG   EBADMSG
+	D as A, with CHK_PAD_LEN on     EBADMSG   none
+
+C bounds the impact: a malformed Classic FC frame from any sender on the
+bus gives the same EBADMSG, so nothing becomes reachable that was not
+already. D differs only in which branch of check_pad() returns.
+
+No memory safety issue. KASAN was on for all eight runs and reported
+nothing.
+---
+ net/can/isotp.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+--- a/net/can/isotp.c
++++ b/net/can/isotp.c
+@@ -754,8 +754,16 @@ static void isotp_rcv(struct sk_buff *skb, void *data)
+ 	 */
+ 	if (skb->len != so->ll.mtu)
+ 		return;
+ 
++	/* check for correct CAN CC/FD frame content */
++	if (so->ll.mtu == CAN_MTU) {
++		if (!can_is_can_skb(skb))
++			return;
++	} else if (!can_is_canfd_skb(skb)) {
++		return;
++	}
++
+ 	cf = (struct canfd_frame *)skb->data;
+ 
+ 	/* if enabled: check reception of my configured extended address */
+ 	if (ae && cf->data[0] != so->opt.rx_ext_address)
