@@ -1,119 +1,327 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m128238.netease.com (mail-m128238.netease.com [103.209.128.238])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3302D4052C9
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 11:36:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65FE8419FA6;
+	Sun, 20 Sep 2026 11:36:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.209.128.238
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789904169; cv=none; b=BTOMzDn/Uc+EKcf6a2nE5ydhItUlxxbcR0JUaFqqOzvGdcYFFHk+pqLMmaAhsEoaHn5kHa62Iiv34Y+jAFHZBUDruCjoSts79kmdk0Zv7N2+zFVK2ci1TQGobM3LtKc86kuMNWfpUbz9KoQHOTjm4XZbZ48Lu5eeIoCvtEdkbxk=
+	t=1789904203; cv=none; b=sg7VATZMtFeSfRGP1g8qxgB3Cyp5h8gIBtjGRuU6XzhHkkhv+WlSnu7/FbfFhXJ2q/1zGG6xWSQIVnnhyjKpNklXtuGAZi28QIBlyzX9G37Tbvwb7EDq7Dg6a+9AAa1DRrh9G4c8ioaufXuE1z2J9ADT47vzZyFJZdgZQeMqy5w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789904169; c=relaxed/simple;
-	bh=af9WY+p/oH8SFjKxjvYqHQNA32Ad45vOJqGiQwpRFEA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WJX60NNCK6DV26GQskf7VQKYlYtPcS1/5mkkHTq1lg5Yx9vroZz1Z+3wG6kU4cZzEeESAmDCvGhD7t91S7D1iutoA1kd6khNz/8uvkBT+SE1zxXMwaipxeK8YVaZrN2j+RbA9jgCJ0f3LFIGHKkJirozpbdvybR/zSWpABGSbWM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rSaTQyCQ; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789904203; c=relaxed/simple;
+	bh=ziI41b7B4MvPrDxo+k+/KLU9IP4PspEkVL7npWGyaSc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=s+Z8Koz2nBfPAsumjhofIzfOjGgDsgQ5levsdIlQwXCfWxgUyk9WMgZXo3Grt22rnL2kYDkW0rQj2iBgf8W2x5uGSnik2i8JQPEsg0jh35YHqujyWG0dk588aw3U7HdilTwpKIK7duRPFXD4DzsQQEH5biorc31JCVg3vcqLTac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=QaYeJjLC; arc=none smtp.client-ip=103.209.128.238
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rSaTQyCQ"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2db22383fe8so13180245ad.2
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 04:36:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789904163; x=1790508963; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ma0Da1G7CdT08M9jKrj7qHEWDC5YDVs3rXblA4Cn+xM=;
-        b=rSaTQyCQbqN3yggfjqWnGNk+eDoNpi8mba4Z4jpOE8tH+5xITARispRWMEAM+t95Q/
-         dgxmgcaj1XioJcTbp8cUNpMdjMzO6uLpSkldqsrYp0EnyG5amaF0nxYn1yj67egKjEWy
-         tcHfopCcFQfwIUDvfCebSz5jrMDHvp31ZSyklQwIg/J2tTtZwyjwVxNCqESOsqNfdcFC
-         7+zqBzsDzT+F6BEMbD7vfnyfdJDW/tviW3yXT4SOvnLVp0wWaIW1Eey4r4VIMYbKekSG
-         PUzhMhLfQgiqMciZY0yye2PGLDs43+t4zvRX0snEVEjG3LNg3Ww86YDxT4Jtu9V0+Fvg
-         jBeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789904163; x=1790508963;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ma0Da1G7CdT08M9jKrj7qHEWDC5YDVs3rXblA4Cn+xM=;
-        b=I9Zx6TKVicT67BMNX/yhgyZgtDxPYEBGPa3lNBNCpRvBF4hYJ4r1sjeooPStOVAcuz
-         nNMcf+IOtQ9DQJ/vURIFqykC7pAb0w6YwhkQVMmOD4T2GQP+aABFKsmZAeG6jSubu/Yy
-         WhAY/22elw8lpVpKJkllxARQmBmkP4deqnrX4GUHf9YdvSgXcfn2UkzjD/9IpFGxwkYU
-         V1So3naayzbXSuWDdhR2WJ3dQEvJR2UBu5JGk/37g1K/pGLPu5zvmBphR0d96Jl601xM
-         4AtQ6fMoRGS5LP5ksKe3rjp2/rNWy+kyWnwySlm0B5TLxDTu8XAMw1AF9biGEOD9SuHO
-         EowQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy+7fcuf8S2FwEdXiFITQs9oG7kxU/HINomrzo2gFpzxsriH4TCeBj3hfNkscMjwnZHL8naSogDxEJr4/s=@vger.kernel.org
-X-Gm-Message-State: AFuF++lh/A0XlFMdKLEB40iD1MATYC/uwOp3xJSifMOP3plnEm7Wm1Hx
-	OVv7CgMJq8xN12+SxqlTVeJYNCMIvYR0UD6RSQUUh4uetpalBDVUrVgB
-X-Gm-Gg: AYBFou1VnjFmgLZXBeyX9xZLy7JEPjRfMfzLt57AHOHd2352oGC+M5R5mcDiTWknAqm
-	E3jiyDoOhPJQ80wWxs3JmMMgFuW3P4KPFgpwROaY2FbxzETlhZ9kDg72btVOMROsKvBOwA1PGEU
-	R9WTWgS+DURsOvGAgLmxRybTHdxHIFVr83SoSvnWdMAaWPivxMnSHFOdSddjz9IkEy/uWHOZDof
-	lC/wkM/seRkG0VOIu4a0y2iZnPlMELxgzSIZW5xki1Sxh2fwN7Pc4zuSso67L2QHcVscRxXQFAH
-	d4C4GFkRI8yR+C2nJ0mnLDApVprWWiG0BHTbIpkS2OZqt74FyXUJ1vYQeLdxWLIS1YeVip5xKPN
-	s3WTwyQBM/5hHi+cBBj1iLFC5hVQb8mPwM1yeaog90GDzp62lKWegqYVJIX7Pld5Jp64qyOFrEc
-	7qdmOH9Lvz5I3+1J4+BwG7Or1YT3FmYJt9U/YIV6xZjymBWIpn0klfp0Im6yjO7PrU006n9r8CM
-	Z5RVTwICYWZYH8YphSY7dwH1XlgkAu2dGF6mA==
-X-Received: by 2002:a17:903:124b:b0:2dd:ad73:c981 with SMTP id d9443c01a7336-2ddb1ba2dcdmr106961685ad.25.1789904163365;
-        Sun, 20 Sep 2026 04:36:03 -0700 (PDT)
-Received: from localhost ([2409:40c4:136:c0b:7911:68d7:f26b:cf67])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c3311a6e5sm11764312eec.7.2026.09.20.04.36.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 04:36:02 -0700 (PDT)
-From: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
-To: linux-input@vger.kernel.org
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Heiko Brey <cico0815@gmx.de>,
-	linux-kernel@vger.kernel.org,
-	Lovekesh Solanki <lovekeshsolanki00@gmail.com>
-Subject: [PATCH] Input: i8042 - add nomux quirk for Fujitsu LIFEBOOK U7410
-Date: Sun, 20 Sep 2026 17:05:41 +0530
-Message-ID: <20260920113541.1484808-1-lovekeshsolanki00@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="QaYeJjLC"
+Received: from [172.16.12.74] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4e72f2e5d;
+	Sun, 20 Sep 2026 19:36:18 +0800 (GMT+08:00)
+Message-ID: <57f57f40-87ec-47a2-a8b9-cc8b1adc3b8f@rock-chips.com>
+Date: Sun, 20 Sep 2026 19:36:16 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 00/10] Add HPD support for Rockchip Analogix DP
+To: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Andy Yan <andy.yan@rock-chips.com>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260804081717.741404-1-damon.ding@rock-chips.com>
+ <5609825.iZASKD2KPV@diego>
+ <29d483f3-2eb2-4886-a4fe-9b4b6d9d14f3@rock-chips.com>
+ <7775230.ejJDZkT8p0@diego>
+Content-Language: en-US
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <7775230.ejJDZkT8p0@diego>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0be9a4b1603a8kunma17d51969197c6
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDQhkfVkpKHR9JSUlMSRodSVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=QaYeJjLCc4XajREryUfFqAtNBIWn9Jb8ESbypl4sfBVl+JMwiqmovMf9LbFiY9YdTfh0FKfE9VKu3Xu3UhSxHC7B2kSHwtydFeVssV5BCxNEe7msZ9+wU59pyWIv/jRh/ZbafLMi7V/4nY7izMYZwmvj964QE4yoVLhH3tTwi0k=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=Zs3RsGuA4dUDbRO1KmwFvzwlH/DxEtLctC1ij8O7myE=;
+	h=date:mime-version:subject:message-id:from;
 
-On the Fujitsu LIFEBOOK U7410 the internal keyboard and touchpad die
-shortly after boot if i8042 multiplexing controller is probed and
-switched to muxed mode. These multiplexing setup commands disturb the EC
-emulated keyboard and atkbd reports "Spurious ACK" and "Unknown key
-pressed" warnings, after which both keyboard and touchpad stop
-delivering events. Both touchpad and keyboard work in BIOS and GRUB.
+Hi Heiko,
 
-Disabling multiplexer using i8042.nomux=1 makes both devices work on
-warm/cold boot.
+On 8/6/2026 7:42 AM, Heiko Stübner wrote:
+> Am Mittwoch, 5. August 2026, 06:06:48 Mitteleuropäische Sommerzeit schrieb Damon Ding:
+>> Hi Heiko,
+>>
+>> On 8/5/2026 6:39 AM, Heiko Stübner wrote:
+>>> Hi Damon,
+>>>
+>>> Am Dienstag, 4. August 2026, 10:17:07 Mitteleuropäische Sommerzeit schrieb Damon Ding:
+>>>> Display-connector mode (DP connector without HPD GPIO):
+>>>>
+>>>>     &edp_out_conn {
+>>>>         remote-endpoint = <&dp_con_in>;
+>>>>     };
+>>>>
+>>>>     dp-con {
+>>>>         compatible = "dp-connector";
+>>>>         label = "DP OUT";
+>>>>         type = "full-size";
+>>>>
+>>>>         port {
+>>>>             dp_con_in: endpoint {
+>>>>                 remote-endpoint = <&edp_out_conn>;
+>>>>             };
+>>>>         };
+>>>>     };
+>>>>
+>>>> Display-connector mode (DP connector with HPD GPIO):
+>>>>
+>>>>     dp-con {
+>>>>         compatible = "dp-connector";
+>>>>         label = "DP OUT";
+>>>>         type = "full-size";
+>>>>         pinctrl-0 = <&edp0_hpd>;
+>>>>         pinctrl-names = "default";
+>>>>         hpd-gpios = <&gpio4 RK_PC1 GPIO_ACTIVE_HIGH>;
+>>>>
+>>>>         port {
+>>>>             dp_con_in: endpoint {
+>>>>                 remote-endpoint = <&edp_out_conn>;
+>>>>             };
+>>>>         };
+>>>>     };
+>>>>
+>>>> All four configurations detect cable plug/unplug events correctly.
+>>
+>> Thanks a lot for your testing and feedback. :-)
+>>
+>> It seems my test setup gave me the false impression that those cases
+>> worked well.
+>>
+>>>
+>>> hmm, it wasn't working entirely for me though and was still running into
+>>> issues when the display was unplugged on boot.
+>>>
+>>
+>> Are you seeing this boot‑unplug issue for both scenarios: DP‑connector
+>> with HPD‑gpio paired with eDP without HPD‑gpio, and DP‑connector without
+>> HPD‑gpio paired with eDP with HPD‑gpio? I.e. it wrongly reports
+>> connected even with no display plugged in and proceeds into DRM
+>> .atomic_enable()?
+> 
+> Yep it's different. The analogix-dp gpio-hpd works correctly,  because the
+> analogix driver can do gpiod_get_value() in analogix_dp_get_plug_in_status()
+> 
+> The dp-connector does not, as with the patch you pointed to, it lost
+> that ability. So on boot a plugged in display is not detected correctly
+> because there won't be a hotplug interrupt.
+> 
+>>
+>>> I wiggled around a bit like in the diff below and am now getting correct
+>>> plug and unplug events.
+>>
+>> Oh, I see. For the GPIO HPD case, the IRQ needs to be enabled early so
+>> that plug‑in interrupts can be properly responded to. However GPIO HPD
+>> does not require a runtime PM get. I will better separate these two
+>> scenarios in the next version.
+>>
+>>>
+>>> But of course, as the dp-variant of the connector does not provide
+>>> a "detect" and just the "hpd" functionality, it's missing the initial state.
+>>>
+>>> I'm currently not sure how to find out _if_ a panel is connected on boot.
+>>>
+>>
+>> Based on Dmitry's commit cb640b2ca546 ("drm/bridge: display‑connector:
+>> don't set OP_DETECT for DisplayPorts"), HPD events from DP‑variant
+>> connector should be handled by the upstream DP controller. Hence I added
+>> analogix_dp_bridge_notify() to retrieve HPD status coming from downstream.
+>>
+>> As expected, under the bridge‑connector framework, the detect result
+>> from Analogix DP should in theory reflect the actual connection status.
+>> Let's dig into this boot‑time initial‑state issue together.
+> 
+> One idea I had was, is it possible to do a drm_dp_read_dpcd_caps()
+> read during bind/... to see if something answers?
+> 
 
-Add a DMI quirk to force nomux mode for this model.
+Sorry for the long delay to get back to this series. I was stuck on some 
+tricky local issues.
 
-Reported-by: Heiko Brey <cico0815@gmx.de>
-Link: https://lore.kernel.org/all/89f36f3f5e4c2d07b9ff72bc0b355875c336e498.camel@gmx.de/
-Signed-off-by: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
----
- drivers/input/serio/i8042-acpipnpio.h | 9 +++++++++
- 1 file changed, 9 insertions(+)
+I'll test your suggestion and try to send out v3 within next week.
 
-diff --git a/drivers/input/serio/i8042-acpipnpio.h b/drivers/input/serio/i8042-acpipnpio.h
-index 9ecb0eed48c4..edd9f2e7c65e 100644
---- a/drivers/input/serio/i8042-acpipnpio.h
-+++ b/drivers/input/serio/i8042-acpipnpio.h
-@@ -664,6 +664,15 @@ static const struct dmi_system_id i8042_dmi_quirk_table[] __initconst = {
- 		},
- 		.driver_data = (void *)(SERIO_QUIRK_NOAUX)
- 	},
-+	{
-+		/* Fujitsu LIFEBOOK U7410 */
-+		/* Mux mode also disturbs the EC keyboard, causing spurious ACKs */
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "FUJITSU CLIENT COMPUTING LIMITED"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "LIFEBOOK U7410"),
-+		},
-+		.driver_data = (void *)(SERIO_QUIRK_NOMUX)
-+	},
- 	{
- 		/* Gigabyte M912 */
- 		.matches = {
--- 
-2.55.0
+Best regards,
+Damon
+
+> 
+>>> In other review comments:
+>>> - the bridge could use devm_drm_of_get_bridge() as suggested in
+>>>     the documentation of drm_of_find_panel_or_bridge(), as that would
+>>>     remove the separate panel_bridge creation
+>>> - instead of using plat_data->next_bridge _inside_ the driver
+>>>     struct drm_bridge has a field next_bridge already.
+>>
+>> Great suggestions, I will incorporate them for the next version
+>> alongside Sashiko's comments.
+>>
+>> Best regards,
+>> Damon
+>>
+>>>
+>>>
+>>> Heiko
+>>>
+>>>
+>>> ------- 8< -------
+>>> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+>>> index 877e1b3ca7525..1388640a27de7 100644
+>>> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+>>> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+>>> @@ -43,7 +43,7 @@ static const bool verify_fast_training;
+>>>    static bool analogix_dp_require_pm_for_hpd_irq(struct analogix_dp_device *dp)
+>>>    {
+>>>    	return analogix_dp_is_rockchip(dp->plat_data->dev_type) && !dp->hpd_gpiod &&
+>>> -	       !dp->force_hpd;
+>>> +	       !dp->hpd_bridge && !dp->force_hpd;
+>>>    }
+>>>    
+>>>    static void analogix_dp_init_dp(struct analogix_dp_device *dp)
+>>> @@ -72,7 +72,7 @@ static int analogix_dp_detect_hpd(struct analogix_dp_device *dp)
+>>>    	 * Trust connection status from downstream bridge (e.g.,
+>>>    	 * display-connector with hpd-gpios).
+>>>    	 */
+>>> -	if (dp->plat_data->next_bridge && dp->connection_notified)
+>>> +	if (dp->hpd_bridge && dp->connection_notified)
+>>>    		return 0;
+>>>    
+>>>    	while (timeout_loop < DP_TIMEOUT_LOOP_COUNT) {
+>>> @@ -926,10 +926,10 @@ analogix_dp_bridge_detect(struct drm_bridge *bridge, struct drm_connector *conne
+>>>    	 */
+>>>    	if (dp->plat_data->next_bridge && dp->last_bridge_is_panel)
+>>>    		status = connector_status_connected;
+>>> -
+>>> -	if (!analogix_dp_detect_hpd(dp))
+>>> +	else if (!analogix_dp_detect_hpd(dp))
+>>>    		status = connector_status_connected;
+>>>    
+>>> +printk("---> %s status %d\n", __func__, status);
+>>>    	return status;
+>>>    }
+>>>    
+>>> @@ -1044,7 +1044,7 @@ static int analogix_dp_set_bridge(struct analogix_dp_device *dp)
+>>>    		goto out_dp_init;
+>>>    	}
+>>>    
+>>> -	if (!analogix_dp_require_pm_for_hpd_irq(dp))
+>>> +	if (!analogix_dp_require_pm_for_hpd_irq(dp) && !dp->hpd_bridge)
+>>>    		enable_irq(dp->irq);
+>>>    	return 0;
+>>>    
+>>> @@ -1187,7 +1187,7 @@ static void analogix_dp_bridge_disable(struct drm_bridge *bridge)
+>>>    	if (dp->dpms_mode != DRM_MODE_DPMS_ON)
+>>>    		return;
+>>>    
+>>> -	if (!analogix_dp_require_pm_for_hpd_irq(dp))
+>>> +	if (!analogix_dp_require_pm_for_hpd_irq(dp) && !dp->hpd_bridge)
+>>>    		disable_irq(dp->irq);
+>>>    
+>>>    	analogix_dp_set_analog_power_down(dp, POWER_ALL, 1);
+>>> @@ -1264,6 +1264,7 @@ static void analogix_dp_bridge_notify(struct drm_bridge *bridge, struct drm_conn
+>>>    	struct analogix_dp_device *dp = to_dp(bridge);
+>>>    
+>>>    	dp->connection_notified = (status == connector_status_connected);
+>>> +printk("---> %s connection_notified %d\n", __func__, dp->connection_notified);
+>>>    }
+>>>    
+>>>    static const struct drm_bridge_funcs analogix_dp_bridge_funcs = {
+>>> @@ -1641,6 +1642,13 @@ static int analogix_dp_aux_done_probing(struct drm_dp_aux *aux)
+>>>    	if (ret && ret != -ENODEV)
+>>>    		return ret;
+>>>    
+>>> +	/*
+>>> +	 * There is a next link in the chain which is not a panel, we should
+>>> +	 * expect hotplug-information coming from there.
+>>> +	 */
+>>> +	if (plat_data->next_bridge && !drm_bridge_is_panel(plat_data->next_bridge))
+>>> +		dp->hpd_bridge = true;
+>>> +
+>>>    	return component_add(dp->dev, plat_data->ops);
+>>>    }
+>>>    
+>>> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
+>>> index d0fb25e543ea0..ecca3b87b4456 100644
+>>> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
+>>> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
+>>> @@ -169,6 +169,7 @@ struct analogix_dp_device {
+>>>    	bool			fast_train_enable;
+>>>    	bool			psr_supported;
+>>>    	bool			last_bridge_is_panel;
+>>> +	bool			hpd_bridge;
+>>>    	bool			connection_notified;
+>>>    
+>>>    	u8 dpcd[DP_RECEIVER_CAP_SIZE];
+>>> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+>>> index ec5950066f838..6f0d642739ffd 100644
+>>> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+>>> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+>>> @@ -182,7 +182,7 @@ void analogix_dp_config_interrupt(struct analogix_dp_device *dp)
+>>>    	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_2);
+>>>    	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_3);
+>>>    
+>>> -	if (dp->hpd_gpiod) {
+>>> +	if (dp->hpd_gpiod || dp->hpd_bridge) {
+>>>    		analogix_dp_mute_hpd_interrupt(dp, HPD_IRQ);
+>>>    	} else {
+>>>    		/*
+>>> @@ -438,7 +438,7 @@ void analogix_dp_init_hpd(struct analogix_dp_device *dp)
+>>>    {
+>>>    	u32 reg;
+>>>    
+>>> -	if (dp->hpd_gpiod)
+>>> +	if (dp->hpd_gpiod || dp->hpd_bridge)
+>>>    		return;
+>>>    
+>>>    	analogix_dp_clear_hotplug_interrupts(dp, HPD_IRQ);
+>>> @@ -539,6 +539,9 @@ int analogix_dp_get_plug_in_status(struct analogix_dp_device *dp)
+>>>    	if (dp->hpd_gpiod) {
+>>>    		if (gpiod_get_value(dp->hpd_gpiod))
+>>>    			return 0;
+>>> +	} else if (dp->hpd_bridge) {
+>>> +		if (dp->connection_notified)
+>>> +			return 0;
+>>>    	} else {
+>>>    		reg = readl(dp->reg_base + ANALOGIX_DP_SYS_CTL_3);
+>>>    		if (reg & HPD_STATUS)
+>>>
+>>>
+>>>
+>>>
+>>>
+>>
+>>
+> 
+> 
+> 
+> 
+> 
+> 
 
