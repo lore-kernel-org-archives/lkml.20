@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62768386C39;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 654E93E557C;
 	Sun, 20 Sep 2026 10:25:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789899907; cv=none; b=Np9xKi3TEi38okM0gqIUDjmhICjNZxh7YLcBAQNHef9wC0yUbZI5gHAuVIRS5xK6iqBWph99USS0CSMYaaadI5jxje+3HR8JCxbUisrRsBqJKe9+uJHUuSKIUPzEfGuYZsbH6rMMZgRyAmCgjpXME5eVDer29Mh9qtDKAWT9/dk=
+	t=1789899907; cv=none; b=JI9r+Jx/YjoL+UWOHylRscm44WKyih9G1Y+6n3rgwIW15C2IIbhwBDqrFTLkeSKLBz+2kdhFZ1sFK6JvMUZwTwgoIqRg7gstTP9vdmwjmUXfgVeuCZF4gqP9pJaH4CyUIkJabUn3befT9xTfNDQNOKCkqRS4KqzV/eF7oIs7Nls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789899907; c=relaxed/simple;
-	bh=kEIyTYVWhIo4bZSTQ3AbETvRlpmXVWyXqEQrca8eNK4=;
+	bh=DiPGG6/1y2xmrETzC91peDuTfVXoxRXsfQ56MzCZN9c=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=fOpPS7BuhtwToGBAspl6hd4u5hBocdURFgefPqNM3smoztx/3oukpIOncCUZZYaPbe+U7zReS9IX+hoLgTIL0f/kicAizpQMaQJpCU9dD4vcGHj/y/gk2LM7qlJb6wB1qyvtGH7OodFMYiWRg67CX1ZDX45GwDb6LULXxCJOq+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LmamSxpI; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=jhALXBF4ECzSLJEM5Wi98YCCWEg2AKgWVErmO5tXSpdbKJ3AH4GlIf2gU9W/7i9OGN7AwCwbn1fSr2a90x+Qkb2S63xkPsaGvMMeTxz+aoLevcrHLFSAGSXzjksz/ghttJjWbKAAVfTB1GG/fz5AGX6/cIdsAWCRRZG3khrfmcg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JlhulgHz; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LmamSxpI"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1CA1CC2BCFB;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JlhulgHz"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2BE55C2BCFF;
 	Sun, 20 Sep 2026 10:25:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1789899907;
-	bh=kEIyTYVWhIo4bZSTQ3AbETvRlpmXVWyXqEQrca8eNK4=;
+	bh=DiPGG6/1y2xmrETzC91peDuTfVXoxRXsfQ56MzCZN9c=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=LmamSxpIi0ZOBeIlL+jFx6gBDIicnzEdkYF6+WmI+V4jInuF3/C48ntJAyJyeLLrT
-	 r4Te4PcbuyPaAnDM5VgH3LG+505KmDD4KfzTsWibn3mPAlGHGqkZs2QcyZTD+/PRj9
-	 QhPMoQ42Bkglsb+gsAGzITeI2riQPB6ITgR2v8VbfZ+GLRPuQ9sEBmhh0QiU8o+Qsm
-	 8lCU3OxrH3W7eBAUhrTszuH820Rpk9D80cYd2Z40qF9GaOJj8Ywel2Cv4k/wQzzQZe
-	 +v4xpKLeQA2VkQowWazsJgbUZek1GA7eQPLhetPwmpPhb8Vu4pA4V9s9bN9qeLcjuN
-	 CCCxsbq0XKEBg==
+	b=JlhulgHzo1Uq8xQaSeaE5yFJFwQW7NePZQkWKJkruilbtLTRcHXx/cp7o7VjfGipk
+	 z7rqIcr2TNtgBkprIB+Rb3laIxnm7PWZb+ZrwxycbY3h71sE2/D69ERUKnHizuuotH
+	 G+Y6SDbtkR8pjeOr3SMxeD6inzNYZNx9fCKiqvF3WdkmMMAAvPpk4ZpghQk1j/Tqrz
+	 YPVuymCUqpCvVno+UjLJ7NtQk4S7/8HVAp3QVGEGaAFUc8ntxO2UZjc8vvAgpm9R6m
+	 rWr32FbbkJCKtOP70xGRLig8U6POIyyQ+yfCPI71ZP0TYb4BaW4sZk/t3TqUKB7031
+	 pzr9TZGMs1S9w==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F10DFC982D0;
-	Sun, 20 Sep 2026 10:25:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0DD46C982EA;
+	Sun, 20 Sep 2026 10:25:07 +0000 (UTC)
 From: Chuan Liu via B4 Relay <devnull+chuan.liu.amlogic.com@kernel.org>
-Date: Sun, 20 Sep 2026 18:25:04 +0800
-Subject: [PATCH v2 02/12] dt-bindings: soc: amlogic: Add clk-measure
- compatible to support more SoCs
+Date: Sun, 20 Sep 2026 18:25:05 +0800
+Subject: [PATCH v2 03/12] soc: amlogic: clk-measure: Support more
+ measurement channels
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260920-more-socs-to-support-clk_measure-v2-2-224382a429e8@amlogic.com>
+Message-Id: <20260920-more-socs-to-support-clk_measure-v2-3-224382a429e8@amlogic.com>
 References: <20260920-more-socs-to-support-clk_measure-v2-0-224382a429e8@amlogic.com>
 In-Reply-To: <20260920-more-socs-to-support-clk_measure-v2-0-224382a429e8@amlogic.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -53,11 +53,11 @@ Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
  Chuan Liu <chuan.liu@amlogic.com>
 X-Mailer: b4 0.14.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789899904; l=1482;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789899904; l=1344;
  i=chuan.liu@amlogic.com; s=20240902; h=from:subject:message-id;
- bh=iFtxCfNyNxPARsbwj859QUiks8NB1PYnjftvkWk6O4w=;
- b=n+6DE+7fBlM1JfnSWqS5Se1LkQPL36RhfgtOAcoBHnGLrTW7Iubv5I5sLFdtZKHw4/BYAuJkL
- h5L30EO/EkFDy2zhjuXgKE0FEd1sPAnCwt8S/HXIhNrILGG0/EPhoZC
+ bh=e2ydz5bLAgoXoKx1id6ARA1Qq/OeV3kWw0wR36wz9Ks=;
+ b=0kYDHEMG2Lp7QnH8bZMG7IEpHfqcExl7IxtSh1NJ7/jFnZZd25yFr5rPr/Shj3vXkPwRQToqb
+ ToqAllBeLgqDOBiXdUwNPvAWnYcmFcsm3DtvKuF6qferH0spzUEEvv/
 X-Developer-Key: i=chuan.liu@amlogic.com; a=ed25519;
  pk=fnKDB+81SoWGKW2GJNFkKy/ULvsDmJZRGBE7pR5Xcpo=
 X-Endpoint-Received: by B4 Relay for chuan.liu@amlogic.com/20240902 with
@@ -67,42 +67,36 @@ Reply-To: chuan.liu@amlogic.com
 
 From: Chuan Liu <chuan.liu@amlogic.com>
 
-Add clk-measure compatible for amlogic A5, A4, S7, S7D, S6 and A9 SoCs.
+On S4 and C3, as well as later SoCs, the clk-measure IP expands the
+number of supported measurement channels from 128 to 256. Accordingly,
+the MSR_CLK_SRC field in the register is extended from 7 bits to 8 bits.
 
-Although the clk-measure IP itself has little hardware difference across
-SoCs, the clock inputs connected to the clk-measure block vary between
-SoCs. Therefore, it is difficult to fall back to the configuration used
-by previous SoCs.
+To support both the old and new implementations, the driver now
+uniformly defines the valid MSR_CLK_SRC field as bits[27:20].
+
+For SoCs where MSR_CLK_SRC is only 7 bits wide, the driver never sets
+bit27, and on those SoCs bit27 is read-only. Therefore, using
+bits[27:20] as the unified field definition does not introduce any
+behavioral change or compatibility issue for existing SoCs.
 
 Signed-off-by: Chuan Liu <chuan.liu@amlogic.com>
 ---
- .../bindings/soc/amlogic/amlogic,meson-gx-clk-measure.yaml          | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/soc/amlogic/meson-clk-measure.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/soc/amlogic/amlogic,meson-gx-clk-measure.yaml b/Documentation/devicetree/bindings/soc/amlogic/amlogic,meson-gx-clk-measure.yaml
-index ad37eca48103..16893f427532 100644
---- a/Documentation/devicetree/bindings/soc/amlogic/amlogic,meson-gx-clk-measure.yaml
-+++ b/Documentation/devicetree/bindings/soc/amlogic/amlogic,meson-gx-clk-measure.yaml
-@@ -17,6 +17,9 @@ properties:
-   compatible:
-     enum:
-       - amlogic,a1-clk-measure
-+      - amlogic,a4-clk-measure
-+      - amlogic,a5-clk-measure
-+      - amlogic,a9-clk-measure
-       - amlogic,c3-clk-measure
-       - amlogic,meson-axg-clk-measure
-       - amlogic,meson-g12a-clk-measure
-@@ -25,6 +28,9 @@ properties:
-       - amlogic,meson8-clk-measure
-       - amlogic,meson8b-clk-measure
-       - amlogic,s4-clk-measure
-+      - amlogic,s6-clk-measure
-+      - amlogic,s7-clk-measure
-+      - amlogic,s7d-clk-measure
-       - amlogic,t7-clk-measure
+diff --git a/drivers/soc/amlogic/meson-clk-measure.c b/drivers/soc/amlogic/meson-clk-measure.c
+index 8a1a9fed0e74..0d4ba2555d17 100644
+--- a/drivers/soc/amlogic/meson-clk-measure.c
++++ b/drivers/soc/amlogic/meson-clk-measure.c
+@@ -20,7 +20,7 @@ static DEFINE_MUTEX(measure_lock);
+ #define MSR_CONT		BIT(17) /* continuous measurement */
+ #define MSR_INTR		BIT(18) /* interrupts */
+ #define MSR_RUN			BIT(19)
+-#define MSR_CLK_SRC		GENMASK(26, 20)
++#define MSR_CLK_SRC		GENMASK(27, 20)
+ #define MSR_BUSY		BIT(31)
  
-   reg:
+ #define MSR_VAL_MASK		GENMASK(15, 0)
 
 -- 
 2.42.0
