@@ -1,127 +1,130 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F9093E00B5
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 22:03:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13A333D8902;
+	Sun, 20 Sep 2026 22:06:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789941793; cv=none; b=l6hrXOypszChECY0deKR8HcD+c0cDWep/MUq1qoGEAnVUZ/3q+GLErytfGTWJgGujyW5bGGeVxnHXTYw27VDOoxwA+6Ssqgjb+M+R4+yCTK+IXwx9nPVC7AMI14EP93LvdzH78IOuGwCJ2/ya5ZyDLVGUhW7Ts5dNW6Q4P02OZM=
+	t=1789941983; cv=none; b=gzP9G/f4hRQEJlwvruWzNfmKrKlYkYpq6smc8+Iq+azoOO38GWfNL9Ck0VuXyCvKaAcUiyIfYTYqvSgFvelCw0InAgp3d+/9DixFBYwd9atK0B7ZgvMIHGi9PISxWhSyMSuyWik81g+A8FLRRpYQ4GUmuP1igj1KLZJVvcKDClE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789941793; c=relaxed/simple;
-	bh=w9PyPvHqvQlU5tUctmkjZAK8hcqetTA3tQ6r+T/tHxg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SIdPfZaXcHbDN26w8gaY7Bn0oKSlLjZDUTQikAJkm1Sx6F1mxlYT15ZFA4dRO8+YOTltTSi62dbyIRF60+Vt0Qb2HdejL9R++trT3JDgyuZIKW5m4mG6+djts5k9FZhIfLx8WmKPV/qCVhVlKiG9gBNUAfghbGUO6CVxT4vKe+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Odb9mBnE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789941983; c=relaxed/simple;
+	bh=7KsZAiziTOOr/DbU04KxKAm/6Gd7N6oiNCv7Tb22eUE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Hq1hY84qtviXJzRgTddjbGcaLeZ/uf12RFesLX8uowDMQdpFJjDsETow+anupJ3g97HLZQEupA8ccJxwUOMvwrel1hw2XGEE/v47hZrn+CIUysV4jn+lPNc0/E/Q8sMnKwCBNqJJbCX+3cSZ0ALA/Ip+ssye1rrSssVGAp/+rqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UGboTFOt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Odb9mBnE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CB2E1F008BE
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 22:03:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UGboTFOt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC7D21F000FF;
+	Sun, 20 Sep 2026 22:06:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789941783;
-	bh=EazSi67AnEMmbq7ZltUkvWuYuiRsVKn0Z1eUsxsbxC4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Odb9mBnELzaw24K1UcUT8uXVAHUxcedvTAMwVYAKd8qPcru4vQ8oHv0OcEWZHmuDQ
-	 GVyie1fX5aT6tLNj+dKXe7GfGFTCwNODwRUgj6i3fK+0TsyF3SLdn9lsQOKac+xwFY
-	 6re2xKuGhSJgdCzW1ApSW9yDpqjldoqq9Mq+jTkKzBdjz0PS4PMRPb8d27C6VmGTLI
-	 Z0tABMrvg8ISfrfLCpizMmTICWJf4cW9DU4vU5lxEF/FSiunVuBEqQbDs7nYf8uwyn
-	 9zlEOsikWW6GmfvORAEcSXH/RNBtAsVspYiPB12k+AEqJgjFTcryYyt/JPkWYmtOJp
-	 yEEEJ7hVjtevA==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b7be8dbabfso2330985e87.2
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 15:03:02 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByKxBkB9fZCvbIRdwqEJtaDl592ZDwJqRC8Ry7EFErHtzbFO17Sc8xD7rPz3oH+oex8IMKH9nZAf5Nd+zk=@vger.kernel.org
-X-Gm-Message-State: AFuF++k4zuPPyOYug1ASoEER5MCCsLkXOqr27/0sHeyauElMJYI565fw
-	shWSMWr/C4lGO1SgqbqLmsGl+poYvkbv3houAYPyyln+pS1De7E9VoNcl5zsDYKgUCI8X1mp9W1
-	oLOmcdNwMVYHlWESw+MZF7gxZaWgplHw=
-X-Received: by 2002:a05:6512:12cd:b0:5b1:5fb6:5cf6 with SMTP id
- 2adb3069b0e04-5b8c17ffa65mr2546885e87.17.1789941781599; Sun, 20 Sep 2026
- 15:03:01 -0700 (PDT)
+	s=k20260515; t=1789941977;
+	bh=g/qaINeHiqA2KhUtssNRdjMI4ZVktcT4zFMvhkMkS+w=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=UGboTFOtgHX4iHMo5u+5INK3e5RDc7rGYOrjN/Lg9HM0hkugm2uS+8KKvPhmdvgp1
+	 VZSvwqyWUE0bEIxUB+HXbPksDXHMcxEeSdSYmss01De/f4X05FSPIpn9CPJ4T59PGQ
+	 nXKcQVh1K/GMllZvO7sdY810zA3N0K1RVstysgTPcNxoL5mepk2z7xeEcp5H7N+Jt2
+	 3T1nLSYJPDApEoOBMpArGeELGoxA9wYlMzWmENFFduTwgvsiCgZJruoqaVMPvnMH6Z
+	 qNFdByspTf61lE/WcrNuw83UQ/FWuRHphGUKJIvEeYpmm8Na/4tRYFshA5MjQG5V4j
+	 eWGN1GpbWIcdQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 06/17] KVM: x86: Use gfn_to_pfn_cache for steal time /
+ preempted status
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "David Woodhouse" <dwmw2@infradead.org>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev
+In-Reply-To: <20260920211920.928306-7-dwmw2@infradead.org>
+References: <20260920211920.928306-1-dwmw2@infradead.org>
+ <20260920211920.928306-7-dwmw2@infradead.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 20 Sep 2026 22:06:16 +0000
+Message-Id: <20260920220616.AC7D21F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260915-cv75-v5-v7-0-3297d3fbc9c0@ambarella.com> <20260915-cv75-v5-v7-8-3297d3fbc9c0@ambarella.com>
-In-Reply-To: <20260915-cv75-v5-v7-8-3297d3fbc9c0@ambarella.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 21 Sep 2026 00:02:48 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkHfgu_V8i_fhE1WQe+qwJ=ictQSONWPq1fPuYYb8tSRA@mail.gmail.com>
-X-Gm-Features: AcwNN1V2pdLiyksjZ1x3Z_llNdAeXu21UqDUc6FoZVDqEvbXB8LwaNWdrYSQU-A
-Message-ID: <CAD++jLkHfgu_V8i_fhE1WQe+qwJ=ictQSONWPq1fPuYYb8tSRA@mail.gmail.com>
-Subject: Re: [PATCH v7 08/15] gpiolib: regmap: add write_data_after_dir quirk
-To: longzhao@ambarella.com
-Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Jerome Brunet <jbrunet@baylibre.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>, 
-	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Long,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] build: Missing definitions for srcu_read_lock_atomic and synchroniz=
+e_srcu_atomic
+--
 
-thanks for your patch!
+commit 73f7f7addf4a338b749e65de38df63e40795698c
+Author: Carsten Stollmaier <stollmc@amazon.com>
 
-On Tue, Sep 15, 2026 at 1:15=E2=80=AFPM Long Zhao via B4 Relay
-<devnull+longzhao.ambarella.com@kernel.org> wrote:
+KVM: x86: Use gfn_to_pfn_cache for steal time / preempted status
 
+This largely reverts commit 7e2175ebd695 ("KVM: x86: Fix recording of
+guest steal time / preempted status"), which dropped the use of the
+gfn_to_pfn_cache because it was not integrated with the MMU notifiers
+at the time. That shortcoming has long since been addressed, making
+the GPC work correctly for this use case.
 
-> From: Long Zhao <longzhao@ambarella.com>
->
-> Some controllers ignore data-register writes while a line is still an
-> input. Optionally write the output value again after switching the
-> direction, matching the existing PL061 behaviour.
->
-> Signed-off-by: Long Zhao <longzhao@ambarella.com>
+> diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+> index 3db1855aba798..116932e13d595 100644
+> --- a/arch/x86/kvm/x86.c
+> +++ b/arch/x86/kvm/x86.c
+> @@ -2065,42 +2064,27 @@ static void record_steal_time(struct kvm_vcpu *vc=
+pu)
+>  	if (WARN_ON_ONCE(current->mm !=3D vcpu->kvm->mm))
+>  		return;
+> =20
+> -	slots =3D kvm_memslots(vcpu->kvm);
+> +	/* We rely on the fact that it fits in a single page. */
+> +	BUILD_BUG_ON((sizeof(*st) - 1) & KVM_STEAL_VALID_BITS);
+> =20
+> -	if (unlikely(slots->generation !=3D ghc->generation ||
+> -		     gpa !=3D ghc->gpa ||
+> -		     kvm_is_error_hva(ghc->hva) || !ghc->memslot)) {
+> -		/* We rely on the fact that it fits in a single page. */
+> -		BUILD_BUG_ON((sizeof(*st) - 1) & KVM_STEAL_VALID_BITS);
+> +	idx =3D srcu_read_lock_atomic(&vcpu->kvm->gpc_srcu);
+> +	while (!kvm_gpc_check(gpc, sizeof(*st))) {
+> +		srcu_read_unlock_atomic(&vcpu->kvm->gpc_srcu, idx);
 
-OK I see.
+[Severity: Low]
+Are the definitions for srcu_read_lock_atomic(), srcu_read_unlock_atomic(),
+and synchronize_srcu_atomic() missing from the kernel tree? Compiling this
+patch results in an implicit declaration or undefined reference linker erro=
+r.
 
-(...)
+[ ... ]
 
+> @@ -2657,20 +2632,31 @@ static void kvm_steal_time_set_preempted(struct k=
+vm_vcpu *vcpu)
+>  	if (unlikely(current->mm !=3D vcpu->kvm->mm))
+>  		return;
+> =20
+> -	slots =3D kvm_memslots(vcpu->kvm);
+> -
+> -	if (unlikely(slots->generation !=3D ghc->generation ||
+> -		     gpa !=3D ghc->gpa ||
+> -		     kvm_is_error_hva(ghc->hva) || !ghc->memslot))
+> -		return;
+> -
+> -	st =3D (struct kvm_steal_time __user *)ghc->hva;
+> -	BUILD_BUG_ON(sizeof(st->preempted) !=3D sizeof(preempted));
+> -
+> -	if (!copy_to_user_nofault(&st->preempted, &preempted, sizeof(preempted)=
+))
+> +	/*
+> +	 * This is called from the scheduler path (via kvm_sched_out), so
+> +	 * the cache cannot be refreshed here.  Setting 'preempted' is
+> +	 * best-effort anyway; the old HVA-based code used
+> +	 * copy_to_user_nofault(), which could also silently fail.  If the
+> +	 * cache is invalid, it will be refreshed from task context by
+> +	 * record_steal_time() before the vCPU next enters the guest, since
+> +	 * kvm_arch_vcpu_load() unconditionally raises KVM_REQ_STEAL_UPDATE.
+> +	 */
+> +	guard(srcu_atomic)(&vcpu->kvm->gpc_srcu);
 
-> @@ -271,9 +272,22 @@ static int gpio_regmap_direction_output(struct gpio_=
-chip *chip,
->                         return ret;
->         }
->
-> -       gpio_regmap_set(chip, offset, value);
-> +       ret =3D gpio_regmap_set(chip, offset, value);
-> +       if (ret)
-> +               return ret;
+[Severity: Low]
+Does the guard(srcu_atomic) definition in include/linux/srcu.h also referen=
+ce
+the undefined srcu_read_lock_atomic() function, which breaks the build?
 
-if (!gpio->write_data_after_dir) {
-     ret =3D gpio_regmap_set(chip, offset, value);
-     if (ret)
-             return ret;
-}
-
-There is no point in doing something you know will not
-work.
-
-> +       ret =3D gpio_regmap_set_direction(chip, offset, true);
-> +       if (ret)
-> +               return ret;
->
-> -       return gpio_regmap_set_direction(chip, offset, true);
-> +       /*
-> +        * gpio value is set again, because pl061 doesn't allow to set va=
-lue of
-> +        * a gpio pin before configuring it in OUT mode.
-> +        */
-> +       if (gpio->write_data_after_dir)
-> +               return gpio_regmap_set(chip, offset, value);
-
-Then there is Andy's comment as well.
-
-The rest looks good.
-
-Yours,
-Linus Walleij
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260920211920.9283=
+06-1-dwmw2@infradead.org?part=3D6
