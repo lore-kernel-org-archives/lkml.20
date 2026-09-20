@@ -1,334 +1,129 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8461147ECC1;
-	Sun, 20 Sep 2026 21:56:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C434483814;
+	Sun, 20 Sep 2026 21:56:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789941369; cv=none; b=dBBt331wax9X+3wGIe+9LD7+wdA3Y4yACMnv9iHClQNxiTAc0S78jQSSpiORq178crFEzhSoSA4rLb1Ba+WfvZ/HP/tAOaay2zBFup+7kh0QRaw42KDYSdC7FJk2DrBLsxOnCzWcwssLB66poraXIROFk8/lYErilE9AaJGu91s=
+	t=1789941381; cv=none; b=AfbpLcwMGjG2ZbG3kUp1+359wRTKwxkprZ9uZxMKn5x6W7SFYnZwGkMURdm7z1I8KNmkEgTGnjIkiS+nXPK/7Kl4McateZMD6J9YwATn9ytPSwbPgC1qp0cxI86g4woO5jew8PiH9OvdoV/4GhNOxTKm2N9a82oar+PGiBhdxAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789941369; c=relaxed/simple;
-	bh=CB4o+kFkHxn8PPX9FVAPbaHMh42DPXx33aMCy5heswA=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=akhdEyc9Uewo9txKXUQWVr/H6iVH/Xpn8ZfBoyDKM5i6YzxlcvppLEkgIPDz9Uff97rD7ObZnUqauM+2daFwFpcCBhHMnPBDkMx52raxCqIf1qjX0I3KGAtfRPB7PXgqwWfJ18d1Gw4zZEllC1QyoRDYdOZb0RmOIx4fYbnmUSw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ze+HcaOP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789941381; c=relaxed/simple;
+	bh=eyWZimdW/+7lax5AzPHc2aviNrwivD1Pj7215EOxZt0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=RKQdtN2bQbPsjYhQ8zMAehDs7HHcBujjDws7AzZmHOz5uCBW/xbZ6frHxu5TCthPgtRChZ2GKfl6AewJVj0P4exNfa4PkiZTMcwsufx8olGl7uC8Ko9t8hF68ieLA5WWK2rqN7YN+RNBPrzYjEwJxZoRUyMUU09bU2KgbbkyR8E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cVDhWMZK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ze+HcaOP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD6AF1F00899;
-	Sun, 20 Sep 2026 21:55:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cVDhWMZK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CC0C1F000FF;
+	Sun, 20 Sep 2026 21:56:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789941358;
-	bh=QFsAij/JXESTg11K4+nBq8vZ49HGqOt4fP682OcNRqw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Ze+HcaOPnM/S3bm1iACLYsSowx32MUJ/NPn2HY/7yYXnqM4DoZB89I/DABIm+GMIa
-	 2b+SIaij7Vu9II571fUM6i6dcz/mrAOmDTa1z2jT9ThcqdJuIAJ6wJ1niG1fI/mzd2
-	 bXhSzXRK8cEqG25CuRWxmoM/tiNZfIiTmQRqBNN+gLnJviMCnih/7IVGjq/SjGf52S
-	 mTum7Y2dt0uGNXLCfP8kcZdTdFMp3MXWWKuAXQBVRT3MmrYFllkzAYrsUPgfpbvGsH
-	 h2w2ZXbv5P23X5KhBf2wDfLfMQfIRg6+93jqVAS48O3t0BH18ygT2Wx4Kbe5CJlCeO
-	 8LzWfH8OJ89lA==
-Subject: Re: [PATCH] netlabel: cipso_v4: reject empty MLS level/cat lists and
- zero tail in cipso_v4_delopt()
-From: netdev-bot+sashiko@kernel.org
-To: benquike@gmail.com
-Cc: paul@paul-moore.com, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
- linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Sun, 20 Sep 2026 21:55:57 +0000
-Message-ID: <178994135732.2160803.15552484711039753590@kernel.org>
-In-Reply-To: <20260919215243.3472150-1-benquike@gmail.com>
-References: <20260919215243.3472150-1-benquike@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1789941373;
+	bh=OFqa6PPLT6iwGR3gh4b5Gebm2sF0nY27+oSrbzyfRzU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=cVDhWMZKThFdVfC53WomA3ETWhmPnbRVZaHRiWCAkkY1eDkyy9C58dX+vaWgNVlRl
+	 YxDdTao8urn5AeJElAm0tEpYQGbmPpEG6ebHK4/JE1+xY+uhMk5z9DrA5S3hmpDW9x
+	 hoKMAk0jGB4zDoGzXYnGDNRBK09Zj5XKi9HuF1vetVFMfHM+krKCKfnX5Nv9Ck7Lbe
+	 JgLbINGmklpH2FThfxBJddP4JXH9PEM2RU8nw7h8TOPj9lPY2gVNZQtzzoD93ohFKT
+	 ImWUgfmehKatp7bir2wg/wfIMqiZ69cjiTpt2Oeq9OLwRyVO0zh5gS0lVjNlgRzKiM
+	 GkRC7IctdIITQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 10/17] KVM: nVMX: Implement cache for L1 MSR bitmap
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "David Woodhouse" <dwmw2@infradead.org>
+Cc: linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org, kvm@vger.kernel.org
+In-Reply-To: <20260920211920.928306-11-dwmw2@infradead.org>
+References: <20260920211920.928306-1-dwmw2@infradead.org>
+ <20260920211920.928306-11-dwmw2@infradead.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 20 Sep 2026 21:56:12 +0000
+Message-Id: <20260920215613.1CC0C1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
-
-Critical: 0 · High: 2 · Medium: 2 (1) · Low: 0 (1)
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] netlbl_cipsov4_remove_cb()
-  (net/netlabel/netlabel_cipso_v4.c:695-703) now deletes the entire…
-- [High] The new ADDRSELECT cleanup in netlbl_cipsov4_remove_cb() can
-  never run for default domain mappings.
-- [Medium] The new `cat.local_size == 0 || cat.cipso_size == 0` check
-  inside the `if (info->attrs[NLBL_CIPSOV4_A_MLSCATLST])` block of…
-- [Medium] The commit squashes three logically independent changes into
-  one patch across two subsystems: (a) netlink input validation in…
-
-Pre-existing issues:
-- [Medium] Asymmetry between the two DOI-teardown walk callbacks: after
-  this patch netlbl_cipsov4_remove_cb() inspects…
-- [Low] The kernel-doc for cipso_v4_delopt() states 'Returns zero on
-  success, negative values on failure', but the implementation returns…
-
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] kvm: nVMX: __kvm_gpc_init() re-initializes mutex on every VMXON
+- [Medium] kvm: nVMX: gfn_to_pfn_cache breaks read-only L1 MSR bitmaps
 --
 
-netlabel: cipso_v4: reject empty MLS level/cat lists and zero tail in cipso_v4_delopt()
+commit 6f0690b4a89f3e0c76a94240889c416f2d71a8ec
+Author: Fred Griffoul <fgriffo@amazon.co.uk>
 
-This bundles three changes: netlbl_cipsov4_add_std() now rejects zero-sized
-MLS level and category tables before kcalloc(), netlbl_cipsov4_remove_cb()
-also inspects NETLBL_NLTYPE_ADDRSELECT entries, and cipso_v4_delopt() zeroes
-the trailing bytes after the memmove() and shortens the length passed to
-cipso_v4_get_actual_opt_len().
+KVM: nVMX: Implement cache for L1 MSR bitmap
 
-The changelog describes three independent fixes:
+This commit introduces a gfn_to_pfn_cache to optimize L1 MSR bitmap accesses
+during L2 VM-entry, replacing individual map and unmap operations. The cache
+is initialized on VMXON and deactivated when VMX operation ends.
 
->     Fix three bugs in NetLabel CIPSOv4 handling:
->     1. In netlbl_cipsov4_add_std(), ...
->     2. In netlbl_cipsov4_remove_cb(), ...
->     3. In cipso_v4_delopt(), ...
->
->     Fixes: 96cb8e3313c7 ("[NetLabel]: CIPSOv4 and Unlabeled packet integration")
->     Fixes: 389fb800ac8b ("netlabel: Label incoming TCP connections correctly in SELinux")
-
-[Severity: Medium]
-Could these be split into three patches?  The three hunks touch two
-subsystems and have unrelated triggering conditions: the contents of a
-CIPSOv4 ADD message, the contents of a CIPSOv4 REMOVE message, and the
-socket/request IP option teardown path.
-
-Both Fixes: tags are listed together with no indication of which tag covers
-which hunk, so stable tooling matching either tag pulls the netlink
-validation change and the netlbl_cipsov4_remove_cb() semantics change in
-along with the cipso_v4_delopt() change.  Can each hunk get its own patch
-with its own Fixes: tag?
-
-> diff --git a/net/ipv4/cipso_ipv4.c b/net/ipv4/cipso_ipv4.c
-> index a05aa075de1a..4ac1a4965abe 100644
-> --- a/net/ipv4/cipso_ipv4.c
-> +++ b/net/ipv4/cipso_ipv4.c
-> @@ -2025,9 +2025,11 @@ static int cipso_v4_delopt(struct ip_options_rcu __rcu **opt_ptr)
->  
->  		memmove(cipso_ptr, cipso_ptr + cipso_len,
->  			opt->opt.optlen - cipso_off - cipso_len);
-> +		memset(&opt->opt.__data[opt->opt.optlen - cipso_len],
-> +		       IPOPT_END, cipso_len);
->  
->  		optlen_new = cipso_v4_get_actual_opt_len(opt->opt.__data,
-> -							 opt->opt.optlen);
-> +							 opt->opt.optlen - cipso_len);
->  		hdr_delta = opt->opt.optlen;
->  		opt->opt.optlen = (optlen_new + 3) & ~3;
->  		hdr_delta -= opt->opt.optlen;
-
-[Severity: Low]
-This is a pre-existing mismatch and not something this patch introduces,
-but while touching this function, would it be worth correcting the
-kernel-doc above cipso_v4_delopt()?  It says:
-
- * adjustments to the IP option structure.  Returns zero on success, negative
- * values on failure.
-
-The body only has "return 0" for the no-CIPSO-option case and
-"return hdr_delta" otherwise, where hdr_delta is the number of option bytes
-removed.  There is no negative return path, and the callers
-cipso_v4_sock_delattr() and cipso_v4_req_delattr() consume the byte count.
-
-> diff --git a/net/netlabel/netlabel_cipso_v4.c b/net/netlabel/netlabel_cipso_v4.c
-> index b080e666523f..9bb28236b8fe 100644
-> --- a/net/netlabel/netlabel_cipso_v4.c
-> +++ b/net/netlabel/netlabel_cipso_v4.c
-> @@ -185,6 +185,9 @@ static int netlbl_cipsov4_add_std(struct genl_info *info,
->  					break;
->  				}
->  		}
-> +	if (doi_def->map.std->lvl.local_size == 0 ||
-> +	    doi_def->map.std->lvl.cipso_size == 0)
-> +		goto add_std_failure;
->  	doi_def->map.std->lvl.local = kcalloc(doi_def->map.std->lvl.local_size,
->  					      sizeof(u32),
->  					      GFP_KERNEL | __GFP_NOWARN);
+> diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
+> index 151873407abd3..5fe7e5d1f72d9 100644
+> --- a/arch/x86/kvm/vmx/nested.c
+> +++ b/arch/x86/kvm/vmx/nested.c
 
 [ ... ]
 
-> @@ -260,6 +263,9 @@ static int netlbl_cipsov4_add_std(struct genl_info *info,
->  						break;
->  					}
->  			}
-> +		if (doi_def->map.std->cat.local_size == 0 ||
-> +		    doi_def->map.std->cat.cipso_size == 0)
-> +			goto add_std_failure;
->  		doi_def->map.std->cat.local = kcalloc(
->  					      doi_def->map.std->cat.local_size,
->  					      sizeof(u32),
+> @@ -759,11 +793,11 @@ static inline bool nested_vmx_prepare_msr_bitmap(st=
+ruct kvm_vcpu *vcpu,
+>  			return true;
+>  	}
+> =20
+> -	CLASS(kvm_vcpu_map_local_readonly, m)(vcpu, gpa_to_gfn(vmcs12->msr_bitm=
+ap));
+> -	if (m.ret)
+> +	idx =3D nested_gpc_lock(&vmx->nested.msr_bitmap_cache, vmcs12->msr_bitm=
+ap);
+> +	if (idx < 0)
 
 [Severity: Medium]
-Does this change the accepted attribute encodings for NLBL_CIPSOV4_C_ADD?
+Does this change break support for read-only L1 MSR bitmaps?
 
-This check sits inside the "if (info->attrs[NLBL_CIPSOV4_A_MLSCATLST])"
-block, so it only fires when the category list nest is present but carries
-no NLBL_CIPSOV4_A_MLSCAT child.  nla_validate_nested_deprecated() returns 0
-for an empty nest, the first nla_for_each_nested() pass matches nothing, and
-cat.local_size / cat.cipso_size stay at 0, so ADD now returns -EINVAL.
+The previous code used kvm_vcpu_map_local_readonly(), which maps guest pages
+without requesting write access. By switching to nested_gpc_lock(), the
+underlying page lookup hardcodes FOLL_WRITE.
 
-Omitting NLBL_CIPSOV4_A_MLSCATLST entirely produces exactly the same DOI
-state (empty cat.local / cat.cipso, sizes 0) and is still accepted, so only
-one of the two encodings of "no categories" is rejected.
+If the L1 hypervisor provides a read-only MSR bitmap, GPC activation will
+fail here, causing KVM to silently fall back to software emulation for all
+L2 MSR accesses.
 
-There is also a round-trip asymmetry with the LIST side.
-netlbl_cipsov4_list() starts the nest unconditionally for
-CIPSO_V4_MAP_TRANS:
+>  		return false;
+> =20
+> -	msr_bitmap_l1 =3D (unsigned long *)m.map.hva;
+> +	msr_bitmap_l1 =3D (unsigned long *)vmx->nested.msr_bitmap_cache.khva;
+> =20
+>  	/*
+>  	 * To keep the control flow simple, pay eight 8-byte writes (sixteen
 
-	nla_a = nla_nest_start_noflag(ans_skb,
-				      NLBL_CIPSOV4_A_MLSCATLST);
+[ ... ]
 
-and only fills it while iter < cat.local_size, so a category-less DOI is
-reported back with an empty MLSCATLST that ADD would now reject.
-
-Is the zero-size state actually unsafe?  Every category access looks
-size-guarded, for example in cipso_v4_map_cat_rbm_valid():
-
-	if (cat >= cipso_cat_size ||
-	    cipso_array[cat] >= CIPSO_V4_INV_CAT)
-		return -EFAULT;
-
-and the same pattern for host_spot >= host_cat_size in _hton() and
-net_spot >= net_cat_size in _ntoh().  If the sizes already bound all
-accesses, would it be better to only guard the kcalloc() calls rather than
-reject the request?
-
-> @@ -680,10 +686,21 @@ static int netlbl_cipsov4_listall(struct sk_buff *skb,
->  static int netlbl_cipsov4_remove_cb(struct netlbl_dom_map *entry, void *arg)
->  {
->  	struct netlbl_domhsh_walk_arg *cb_arg = arg;
-> +	struct netlbl_af4list *iter4;
-> +	struct netlbl_domaddr4_map *map4;
->  
->  	if (entry->def.type == NETLBL_NLTYPE_CIPSOV4 &&
->  	    entry->def.cipso->doi == cb_arg->doi)
->  		return netlbl_domhsh_remove_entry(entry, cb_arg->audit_info);
-> +	else if (entry->def.type == NETLBL_NLTYPE_ADDRSELECT) {
-> +		netlbl_af4list_foreach_rcu(iter4, &entry->def.addrsel->list4) {
-> +			map4 = netlbl_domhsh_addr4_entry(iter4);
-> +			if (map4->def.type == NETLBL_NLTYPE_CIPSOV4 &&
-> +			    map4->def.cipso->doi == cb_arg->doi)
-> +				return netlbl_domhsh_remove_entry(entry,
-> +							cb_arg->audit_info);
-> +		}
-> +	}
->  
->  	return 0;
->  }
+> @@ -5443,6 +5479,9 @@ static int enter_vmx_operation(struct kvm_vcpu *vcp=
+u)
+> =20
+>  	vmx->nested.vpid02 =3D allocate_vpid();
+> =20
+> +	/* KVM only ever reads the L1 MSR bitmap, so never mark it dirty. */
+> +	__kvm_gpc_init(&vmx->nested.msr_bitmap_cache, vcpu->kvm, true, NULL, 0);
 
 [Severity: High]
-Can this remove mappings unrelated to the DOI being deleted?
+Does this re-initialize an active mutex on consecutive VMX transitions?
 
-One match on a single address selector passes "entry" to
-netlbl_domhsh_remove_entry(), which tears down the whole domain entry:
+enter_vmx_operation() is called when the L1 guest executes VMXON, and
+__kvm_gpc_init() calls mutex_init(&gpc->refresh_lock). When the guest
+executes VMXOFF, free_nested() deactivates the cache but does not destroy
+the mutex.
 
-net/netlabel/netlabel_domainhash.c:netlbl_domhsh_remove_entry() {
-	...
-	case NETLBL_NLTYPE_ADDRSELECT:
-		netlbl_af4list_foreach_rcu(iter4, &entry->def.addrsel->list4) {
-			map4 = netlbl_domhsh_addr4_entry(iter4);
-			cipso_v4_doi_putdef(map4->def.cipso);
-		}
-		netlbl_af6list_foreach_rcu(iter6, &entry->def.addrsel->list6) {
-			map6 = netlbl_domhsh_addr6_entry(iter6);
-			calipso_doi_putdef(map6->def.calipso);
-		}
-	...
-	call_rcu(&entry->rcu, netlbl_domhsh_free_entry);
-}
+A subsequent VMXON will re-initialize the already active mutex, which
+triggers lockdep/debugobjects warnings and can cause a host panic if
+panic_on_warn is set.
 
-It also clears netlbl_domhsh_def_ipv4 / netlbl_domhsh_def_ipv6 when the
-entry happens to be the default mapping.
+> +
+>  	/*
+>  	 * Clear last_vpid to ensure that the VPID is flushed on the first
+>  	 * nested VM-Enter. Otherwise, stale TLB entries from a previous life of
 
-A single ADDRSELECT entry can legitimately aggregate selectors with
-different types and DOIs - netlbl_domhsh_validate() accepts per-selector
-NETLBL_NLTYPE_UNLABELED and NETLBL_NLTYPE_CIPSOV4 in the same list4, and
-netlbl_domhsh_add() merges later selectors into the existing entry without
-requiring a shared DOI.  So does deleting DOI 1 on a domain that also maps
-192.168.0.0/16 to CIPSO DOI 2 and 10.0.0.0/8 to unlbl silently drop those
-other two mappings as well?
-
-Would netlbl_domhsh_remove_af4() be the right granularity here?  It removes
-a single selector and only drops the entry once the selector lists become
-empty.
-
-[Severity: High]
-Can this callback ever be invoked for a default mapping?
-
-netlbl_domhsh_add() stores entries with domain == NULL only in the standalone
-RCU pointers:
-
-net/netlabel/netlabel_domainhash.c:netlbl_domhsh_add() {
-	...
-	} else {
-		INIT_LIST_HEAD(&entry->list);
-		switch (entry->family) {
-		case AF_INET:
-			rcu_assign_pointer(netlbl_domhsh_def_ipv4,
-					   entry);
-	...
-}
-
-while netlbl_domhsh_walk() - the only iteration netlbl_cipsov4_remove() uses
-- walks the hash buckets only:
-
-net/netlabel/netlabel_domainhash.c:netlbl_domhsh_walk() {
-	...
-		iter_list = &rcu_dereference(netlbl_domhsh)->tbl[iter_bkt];
-		list_for_each_entry_rcu(iter_entry, iter_list, list)
-	...
-}
-
-For a configuration like "netlabelctl map add default address:192.168.1.0/24
-protocol:cipsov4,1", removing DOI 1 would then never reach this new code,
-map4->def.cipso keeps its reference, and cipso_v4_doi_remove() only does:
-
-net/ipv4/cipso_ipv4.c:cipso_v4_doi_remove() {
-	...
-	list_del_rcu(&doi_def->list);
-	spin_unlock(&cipso_v4_doi_list_lock);
-
-	cipso_v4_doi_putdef(doi_def);
-}
-
-so the DOI object stays allocated and invisible to LIST while the default
-mapping keeps labeling traffic with it.  Isn't that the exact case the
-changelog describes as fixed:
-
->        entries so IPv4 address-selected domain mappings referencing a removed
->        CIPSOv4 DOI are properly cleaned up.
-
-The same gap looks to apply to plain NETLBL_NLTYPE_CIPSOV4 default mappings
-created through netlbl_cfg_cipsov4_map_add(doi, NULL, NULL, NULL, ...) from
-smackfs.
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but the peer callback is now
-asymmetric.  netlbl_calipso_remove_cb() still only matches top-level
-entries:
-
-net/netlabel/netlabel_calipso.c:netlbl_calipso_remove_cb() {
-	if (entry->def.type == NETLBL_NLTYPE_CALIPSO &&
-	    entry->def.calipso->doi == cb_arg->doi)
-		return netlbl_domhsh_remove_entry(entry, cb_arg->audit_info);
-
-	return 0;
-}
-
-netlbl_domhsh_remove_entry() shows ADDRSELECT entries hold per-selector
-CALIPSO references via map6->def.calipso, so "netlabelctl map add domain:X
-address:2001:db8::/32 protocol:calipso,5" followed by "netlabelctl calipso
-del doi:5" leaves that list6 selector referencing the removed DOI - the same
-class of leftover mapping this patch closes on the CIPSOv4 side.  Should the
-CALIPSO callback get the matching list6 walk?
-
-Thanks for looking into these.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260919215243.3472150-1-benquike%40gmail.com
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260920211920.9283=
+06-1-dwmw2@infradead.org?part=3D10
