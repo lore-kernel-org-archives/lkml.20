@@ -1,75 +1,36 @@
-Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-102.mta1.migadu.com [95.215.58.102])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E22DE3D952D;
-	Sun, 20 Sep 2026 06:29:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79A3F3D9556
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 06:30:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789885774; cv=none; b=p9yVJH2dKM98Lovw+EVzzK1JnDyPr6J9CyfjWpMh0uD3iU12HtsxTeMj4gJSFjTRltlxyTBhDcebeQRoZqMDE/nG+s4Jqr/05nV29kSvzBg5vEyH1fnN/vqmu+/v8E/h/+mEvQUKN/9gN6jIN5VBnv53nd/AMMtvRLI1iKfYdNA=
+	t=1789885836; cv=none; b=UCQwtbBNeevBjieYSRsutImhAciewteoj0JEmZoos0ib1wqK80KrUNToWgAiHU7yayxYMHAuVOSB29IPbGTCJoqT1xcbT2SCDRNzHlVr2G+x9osd37FC94v93bnaVVEFY3f0fLxQ9IR5TlRZL9gILWIkntrONgJYTgdYxK5hBI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789885774; c=relaxed/simple;
-	bh=W76e+7EX3tEsBrKfO/e/LQfBiCbKnuXXgIGSkI6o12E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lI7RaSVYTJxYAZG1x4EtE42Kp7rzwUT8fccDk6N44b5uubbjtk2p9oCraFsr5FjD6wT3tTs/+2OqbsUmWjskWp7NTVq3yO27nNyLZ03Df7pU5us0pdb8RAriyQGXb3E2+IEKw1z4Ve0ROUS5JwzeWk3rXukYaa6WknYQKCTjgI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=gQqCmPNu; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=xdbjhOiE; arc=none smtp.client-ip=202.12.124.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	s=arc-20240116; t=1789885836; c=relaxed/simple;
+	bh=Pv9EV8bO6mfi0NkJtb1zwwVK+S+58D5VVIJK1Mf9buw=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=a5c94l9BPOigjyKrepvLcxDR04XCcAUZfcvWtNwOREzaf8plczh6adp5VxINt++lrK4hQUsqOppm+wUqKrSvDgdEn+atNcBbBo5L9VWX4WBOs1wLGa+nX8CzocsDcKhu1h371lJia0LCnLM77mAaYOp1Dvj68cbpbOJRX33moA4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cHIps9Oi; arc=none smtp.client-ip=95.215.58.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="gQqCmPNu";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="xdbjhOiE"
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 8C4D37A00F2;
-	Sun, 20 Sep 2026 02:29:31 -0400 (EDT)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-01.internal (MEProxy); Sun, 20 Sep 2026 02:29:32 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789885771;
-	 x=1789972171; bh=u/1AobQDxsOOeQ8CVIydz3iBjGREabXEcBqTvuHArY4=; b=
-	gQqCmPNuJrNTwhFhNQmK53C8gEcM71aXvC4zBDzZiLBnBlZvr+8hQ78SxGtBb6Eg
-	GJslEFS5gcPUC878UFqgjaeBFLA55s+u5Kd4K5WIog8J66GFXvIQJVR+9oFAmpMS
-	9Xu4MI599Et3NFQpLcU2C9arcrJEUcmkuK3qAzRXAtGb3fCcQpbtLbpvMNw4cjjB
-	+MgCMo4AYEVqPzyIt79W7rciIxPAj1x4i8h7zjp4bzs1Z8lwDMUmsua8plLtb+D1
-	W9oIdx+Zyh/cS2VP52ZNEB28XnQB+Lb6AWvb+x+WZwg/RyOIPay2zGKIV4Mt7CiV
-	+N+CulrkDMkKR6e8lQcBEA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789885771; x=
-	1789972171; bh=u/1AobQDxsOOeQ8CVIydz3iBjGREabXEcBqTvuHArY4=; b=x
-	dbjhOiEw2s6z0/+KgsOjlKo3ppbcWTnH3NVvJ+WX8G0tL/sBssBGYYoNHSTy2FoG
-	Oj324ElUtMf+SrfGKJUn+CVJN93ReLdz3qHfwPX+YFa7oAWPZ26IBmW9rolrnqNr
-	lHxukRyfJ6bctfFYpl52G0p0erNA2FTFEER7N8TLQM3dLbduLjhQ6sFxgYZoYtyH
-	RNRmVg75H7XKM10TbEqC5dTSPxTRuIZs6LhdFlt7AspCnS1aDlhZ/tng8tKtUpuD
-	dMX70YU0B9sIX3cwjZcV+33mh6OpbZpOMn8YCPQh1DhrdAcrbhDrRQeuBlVwnCCI
-	UJIarWu1c8z1RvB4tosQg==
-X-ME-Sender: <xms:Sn2vauQZ_5NYVxHHdpJkJqRW_i3yuHN-u9O0hmKNcQAUSAQVWNA10g>
-    <xme:Sn2vavWEIpHXoDs7wBNdxErpfU3hDe198KPymZulWf8Du_2vAObJR0Y10R3lYpkWP
-    PG-UYCXBKLvSZrtyYnPIduRLCo007dyX035PWiroOvmGEbn-3cOgwIc>
-X-ME-Received: <xmr:Sn2var1W_aREQmlQN0pnswOsD5tTYjIC77E_k4Z2W-YyKghui2BHwhEp4PicSxlMXmBIcCU07rCvVkfUgHrFklLrLpzjpTzG>
-X-ME-Proxy-Cause: dmFkZTGgIvpqL9t+gp5xDPXxzxWSHsiwzzyDnioTKnE0u8JfVZ4TR21yewFpouGj7ocC13
-    h6jUSBQ7fxSaCf1T3Ysyec8a6/HIIaGxiGd03ierST4b9yqkGOyUIpBujFlDSVAezFL6p1
-    DR51Vq0HgWrLEjl/4uFgskLyv8BIrGoGBz4duXrRI2A/6AmpavL5tyDF22tjkuoXQBt7Le
-    pTfyGsgVVgD35rlJiRbpUZQAvbE3PO8c9jg2prl2/40oTxa+JNprMaPwmV6RdWgtJxl4rM
-    PxYtYvhiiaGNn0+wzjxACP7LJ4QZJP9sbX52Pgyl6jMVBn692jbyvlGcygS0910jTpWoAP
-    V4DlZtp0GYvXbndoxtE8egveYip3u2ZTP5IxfjCY0iIwsiTdViu4lG+89Yji1V8r7ie7lD
-    UqTfr91fPQpOD3p9zIXz6nkNT+bnU65FBfU8+a/p66YA1Btlu3XTfQBCS2jr1pQ4vlKRix
-    v/uOp/bcD8JOOr9Ou0Rv+yIY6JX+5F9Cy8x5lq3xLpQizUxw3rKIGWoyz+vnAQhly3eLbK
-    UVaLwV5IdA8/ibmPPgjT9eFvrY9AirULcshhS1Ywkpz7ahLdzIZQkvuIO/eUtWbsLh965Y
-    kcaSsQ4UM8oiVg4k6j2KS4hiF8i5vniQSzXUq2dD9gppnoo6gjqMQBnpsjgQ
-X-ME-Proxy: <xmx:Sn2vau-vWLoBIAFPT1mrCokLn9MFpQQnZwL3rv-aTTjp6aizFDMr1w>
-    <xmx:Sn2vapezU9AK4Wy4g40TdQsMq7aN4Wx6ZpWXS76ZW6g3VrrSeV8zUg>
-    <xmx:Sn2vai7x03RA7YbEUL5KQB8Hg_aYSUGPElNj2bVsCpHPVtCt4JeZtw>
-    <xmx:Sn2vatNdnf9_mW-ajLdYVHbKbLzRAP98e6O9K_jSvvKDcOyR3VbP4A>
-    <xmx:S32vahGMv3_GaQbyH0Hei3NhRQK1OnBZ-he3vi6eMKe3favocg6NPakQ>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 20 Sep 2026 02:29:27 -0400 (EDT)
-Message-ID: <98538a44-63c3-455e-96f3-00124a825f9f@pobox.com>
-Date: Sat, 19 Sep 2026 23:29:26 -0700
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cHIps9Oi"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Pv9EV8bO6mfi0NkJtb1zwwVK+S+58D5VVIJK1Mf9buw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789885832; v=1; x=1790490632;
+ b=cHIps9OijEUJJjx5govCxqhuxUfkHezRBN6AVygy6gOQLP1cp94zajusra+38EKmGiQUdG29
+ ZrBtr49BtCBfCiAAPZXfFBT6xCFKEBplAHfQZiJ2UhsCmbVmFtF/5aGb0m0FqxBbOcd99XKPQ5P
+ 3Ehw5rFsPPB/0T/ICGgdaknM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 24ca9784efa152a4;
+	Sun, 20 Sep 2026 06:30:30 +0000
+X-Mizu-Trace-ID: 24ca9784efa152a4
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <25b72fce-5354-435b-9256-482c15ae7b06@linux.dev>
+Date: Sun, 20 Sep 2026 14:30:23 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,85 +38,135 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.12 0000/1102] 6.12.111-rc1 review
-To: Sasha Levin <sashal@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
- Kuniyuki Iwashima <kuniyu@google.com>, Eric Dumazet <edumazet@google.com>
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260917151539.408551884@linuxfoundation.org>
- <be8641ad-ed0c-4e6e-a915-0874076159d3@pobox.com>
- <49dc2e4f-7a94-430c-8b02-6f3d422222f3@pobox.com>
- <ce4ba85b47cf4c2e8f7def41@kernel.org>
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+Subject: Re: [PATCH] cgroup/cpuset: prevent overlapping local and remote
+ partition creation
+To: Hui Peng <benquike@gmail.com>, longman@redhat.com, ridong.chen@linux.dev,
+ tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com
+Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260919221727.3706964-1-benquike@gmail.com>
 Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <ce4ba85b47cf4c2e8f7def41@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+In-Reply-To: <20260919221727.3706964-1-benquike@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 9/19/26 10:07 AM, Sasha Levin wrote:
-> On Sat, Sep 19, 2026 at 03:54:25AM -0700, Barry K. Nathan wrote:
->>> [   98.363843] RTNL: assertion failed at net/ipv6/mcast.c (1014)
->>> [   98.363896] WARNING: CPU: 6 PID: 961 at net/ipv6/mcast.c:1014 __ipv6_dev_mc_dec+0x17b/0x190 [ipv6]
-> 
->> I bisected it to this patch:
->> ipv6-mcast-don-t-hold-rtnl-for-ipv6_drop_membership-.patch.
-> 
-> Your bisect is right, and thanks for chasing it all the way down --
-> the splat is real and the patch you landed on is the trigger.
-> 
-> I've dropped the ipv6 mcast RTNL conversion patches from the 6.12, 6.6
-> and 5.15 queues.
-> 
->> If I take 6.12.110, apply the current stable-queue (as of commit
->> 01b20bb84b994fdcda64fd07a66ba84c85d0168f), then revert the
->> following patches:
->>
->> ipv6-mcast-don-t-hold-rtnl-for-ipv6_drop_membership-.patch
->> ipv6-mcast-don-t-hold-rtnl-for-mcast_-socket-options.patch
->> ipv6-mcast-use-copy-on-write-rcu-updates-in-ip6_mc_s.patch
->>
->> then the resulting kernel no longer shows these warnings at all.
-> 
-> The root cause is a prerequisite we never picked up, rather than anything wrong
-> with the patches themselves. Upstream commit e01b193e0b50a ("ipv6: mcast: Use
-> in6_dev_get() in ipv6_dev_mc_dec().") is the commit in that series which
-> deletes the now-stale ASSERT_RTNL() from __ipv6_dev_mc_dec(), and it was never
-> backported to 6.12.y, 6.6.y or 5.15.y. So we took the patches that stop holding
-> RTNL across the setsockopt paths while the assertion they were meant to retire
-> was still sitting there -- hence net/ipv6/mcast.c:1014 firing on every
-> IPV6_DROP_MEMBERSHIP. The queued patches are byte-identical cherry-picks of the
-> upstream commits; this is a series-ordering gap on our side, not a botched
-> backport.
-> 
-> 7.2 and 6.18 carry the whole series, including e01b193e0b50a, so they
-> are not affected and keep their copies.
-> 
-> One difference from your experiment: I removed four patches rather than the
-> three you reverted. The extra one is 1767bb2d47b7 ("ipv6: mcast: Don't hold
-> RTNL for IPV6_ADD_MEMBERSHIP and MCAST_JOIN_GROUP."), which is a pure refactor
-> of the join path and was only ever queued as a dependency of the others. It is
-> harmless on its own so consistent with you not needing to revert it, but with
-> the rest gone there is no reason to keep it, and dropping it keeps the series
-> intact for a clean requeue.
-> 
-> The plan is to requeue the complete ordered set, e01b193e0b50a included,
-> once this RC is out.
 
-Thanks for taking care of this!
 
-I have now retested with 6.12.110 + stable-queue as of commit
-afa3d2e7536e9034a4917d4b6e228a99d5bd7aa6 on my ThinkPad T14 Gen 1. I can
-no longer reproduce this kernel warning (as expected with the patches
-being dropped for now), and it's working well, and I have not observed
-any other regressions.
+在 2026/9/20 06:17, Hui Peng 写道:
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+Hello Hui,
 
--- 
--Barry K. Nathan  <barryn@pobox.com>
+> Fix two partition validation bugs in kernel/cgroup/cpuset.c:
+> 
+> 1. In remote_partition_enable(), check whether the requested effective
+>    xcpus intersect parent->subpartitions_cpus so a remote partition
+>    cannot claim CPUs already delegated to a local child partition.
+> 2. In validate_partition(), verify that enabling a local partition does
+>    not overlap CPUs already allocated to an active remote partition.
+> 
+> Fixes: aa7d3a56a20f ("cpuset: fix warning when disabling remote partition")
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
+> ---
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 2538faac9aba..13fad096c494 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -713,7 +713,10 @@ static inline bool cpus_excl_conflict(struct cpuset *trial, struct cpuset *sibli
+>  		return true;
+>  
+>  	/* Exclusive_cpus cannot intersect */
+> -	return cpumask_intersects(trial->exclusive_cpus, sibling->exclusive_cpus);
+> +	return cpumask_intersects(trial->exclusive_cpus,
+> +				  cpumask_empty(sibling->exclusive_cpus)
+> +				  ? sibling->effective_xcpus
+> +				  : sibling->exclusive_cpus);
+>  }
+>  
+>  static inline bool mems_excl_conflict(struct cpuset *cs1, struct cpuset *cs2)
+> @@ -1591,8 +1594,8 @@ static int remote_partition_enable(struct cpuset *cs, int new_prs,
+>  	 * above it or remote partition root underneath it is not allowed.
+>  	 */
+>  	compute_excpus(cs, tmp->new_cpus);
+> -	WARN_ON_ONCE(cpumask_intersects(tmp->new_cpus, subpartitions_cpus));
+>  	if (!cpumask_intersects(tmp->new_cpus, cpu_active_mask) ||
+> +	    cpumask_intersects(tmp->new_cpus, subpartitions_cpus) ||
+>  	    cpumask_subset(top_cpuset.effective_cpus, tmp->new_cpus))
+>  		return PERR_INVCPUS;
+
+I have been going through this part of the code repeatedly recently, and I
+would like to share one thought.
+
+Should this return PERR_NOCPUS instead?
+
++	if (cpumask_intersects(tmp->new_cpus, subpartitions_cpus))
++		return PERR_NOCPUS;
+
+In the first reproducer you described in your reply to Ridong:
+
+Minimized reproducer (Scenario 1):
+#!/bin/sh
+mkdir -p /tmp/cg1
+mount -t cgroup2 none /tmp/cg1
+echo "+cpuset" > /tmp/cg1/cgroup.subtree_control
+
+mkdir /tmp/cg1/A
+echo 1 > /tmp/cg1/A/cpuset.cpus
+echo 1 > /tmp/cg1/A/cpuset.cpus.exclusive
+echo root > /tmp/cg1/A/cpuset.cpus.partition
+echo "+cpuset" > /tmp/cg1/A/cgroup.subtree_control
+
+mkdir /tmp/cg1/A/B
+echo 1 > /tmp/cg1/A/B/cpuset.cpus
+echo 1 > /tmp/cg1/A/B/cpuset.cpus.exclusive
+echo "+cpuset" > /tmp/cg1/A/B/cgroup.subtree_control
+
+mkdir /tmp/cg1/A/B/D
+echo 1 > /tmp/cg1/A/B/D/cpuset.cpus
+echo 1 > /tmp/cg1/A/B/D/cpuset.cpus.exclusive
+echo root > /tmp/cg1/A/B/D/cpuset.cpus.partition
+
+CPU 1 is active, and the requested CPU mask itself is valid. The failure
+happens because CPU 1 has already been allocated to partition A, so the
+top cpuset can no longer distribute it to the remote partition D.
+
+remote_cpus_update() uses PERR_NOCPUS for the same kind of
+subpartitions_cpus conflict:
+
+else if (cpumask_intersects(tmp->addmask, subpartitions_cpus) ||
+         cpumask_subset(top_cpuset.effective_cpus,
+                        tmp->addmask))
+        WRITE_ONCE(cs->prs_err, PERR_NOCPUS);
+
+Would using PERR_NOCPUS here be more appropriate? This would keep the
+initial remote-partition enable path consistent with the CPU update path
+for an existing remote partition, and it also seems to describe the
+failure more accurately: the CPU itself is not invalid, but has already
+been allocated to another partition, so the parent can no longer
+distribute it downstream.
+
+Thanks,
+Guopeng
+
+>  	if (((new_prs == PRS_ISOLATED) &&
+> @@ -2411,6 +2414,10 @@ static enum prs_errcode validate_partition(struct cpuset *cs, struct cpuset *tri
+>  	if (cpumask_empty(trialcs->effective_xcpus))
+>  		return PERR_INVCPUS;
+>  
+> +	if ((parent == &top_cpuset) &&
+> +	    cpumask_intersects(trialcs->effective_xcpus, subpartitions_cpus))
+> +		return PERR_REMOTE;
+> +
+>  	if (prstate_housekeeping_conflict(trialcs->partition_root_state,
+>  					  trialcs->effective_xcpus))
+>  		return PERR_HKEEPING;
+> @@ -2970,7 +2977,7 @@ static int update_prstate(struct cpuset *cs, int new_prs)
+>  		 * local or remote partition.
+>  		 */
+>  		if ((parent == &top_cpuset) &&
+> -		    cpumask_intersects(cs->exclusive_cpus, subpartitions_cpus)) {
+> +		    cpumask_intersects(user_xcpus(cs), subpartitions_cpus)) {
+>  			err = PERR_REMOTE;
+>  			goto out;
+>  		}
+
