@@ -1,186 +1,227 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012029.outbound.protection.outlook.com [40.93.195.29])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ECDC46EF92
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 18:05:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789927533; cv=none; b=jtGFsqukr3BWut1AhVeCV+dRtTW5I5uRvejlCmoQGrxrBax4e5sME/vHqdGpGOu3Mdh/4f569pc2sQNpgVT97d53kBTguFqv/xRyIgcl/NWABkGtkgmKAdXAIzJgjMlQpD7Zff1VztCd+kNkhhKPOv+BVdaF9qXZT0CHnEYFGJY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789927533; c=relaxed/simple;
-	bh=pjgBUps3bhRyY6u6ycXVMzX0Fos9VuZiAf5efJGxEsE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=bro+DDLhpk3Bv9uz23wCVAgjJ3Qv3xmzgqJ8jqyO43WMXqiSxPezbyJjny/7k8GglfcgxDo0nvf39vfh9ymHLm3fdpewymN8xmwGeVWTw7O4wHFFpH3yomKonpeszzjMR0ovOiqyZH5DFtmrWER1VdDoiyTrlfshPi6nPmOvabs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OEUEhQKZ; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47E5937BE63
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 18:12:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.29
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789927964; cv=fail; b=ZSAbSCzOXJLPKOH5vl2sIxsz1/szwEDbz1vLADoPYSQFlsLLqfgCe1ZBafA1Sbb/udxVxtvC85ZRMqHnS4a8s+MXT4BNo7O9bjPVbBkUchBKGoexN82n4sQDRHvY5jQAkATcdFV0ahHC20n1i7NOnFkFr6tFHGDYkMagh0wLQAk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789927964; c=relaxed/simple;
+	bh=qAvQRg+qgxoaC0EEc5gN7e6Rk3YfwBk5f967juFlgi8=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=VSa3lscTw0tgvivBh/BwnNER4n25SiCHPxWTUxHkPnT8dUh4BZKdyj628RFNXhEGvoZs51n7gvNSa8Kjf+as8l+iOYtatnMo48p70O6z+R0qTjl7jHDLzrc4jmwExu4oJ3/SCH8j+lFG6vWvCy1gn60c0pyMVreEiE4KH42jO7o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=TgGfj7xN; arc=fail smtp.client-ip=40.93.195.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OEUEhQKZ"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485b1d2874fso777768f8f.0
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 11:05:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789927529; x=1790532329; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/eKvqLxq/FDnVLXWqL74StVCqkT72bEtQBBRhBThWEs=;
-        b=OEUEhQKZKDkV1L/B+R+7tZsGgjYjLAZowSLRUM3FR4ktYBsQKn1WJ7yGPWDX2X1DYI
-         nuQP22ynoC8zmU4p7qGeHts5oWvQkdFZLAvhMlzxUpkR5dODrCK8GctmlzGRnE+6pH/d
-         FbP7y8tJXk4c5x1qBXW8se1pFBFfu3wn5YdJ9H2HER4kOhEQig6uGnZMKBqlxmTqhvBI
-         qa4CncvlLK4W88PgavH5qX+F68O/JlGMjYWoD1Qi2vkLtYMpB/92WQ65qoDdKehUH8Bb
-         2MUafT4oy98sQTxTud+eR78+6/SYeqKekJeXEzMt+YsnH4l/zZigxL8rOPzNFvkTBVAe
-         mrTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789927529; x=1790532329;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/eKvqLxq/FDnVLXWqL74StVCqkT72bEtQBBRhBThWEs=;
-        b=BC/OiuA6QmjNsUxNgTUZZ+/r/20wA0KBLmONYKLOMyQ7Xm0GL+lOyWA9PTXwZFJjfW
-         3UcQTbX7pLWgCQidpgjfZdId35ZCIOxgrVWDGcQ5g+Qoo/VPGSZd/SbCwUtdsNwdO3ym
-         qG8XTLjn+gb7sIpAcktPrc7fx3kkhocv29OtAAeEc466ttMKE+uCrACKzibFOBNUlzxU
-         iQmfiplwmRpMkYPCvAMwPkoaDZc8Zsz4RCVbcWljhhPgdYmwf93xp0SWciAf57VbujCB
-         p6rZ2trpTLmnHcnaMRJoF86ZrH4hOvS5NmWzuq8s67e8AAs27wYnQ50pl0w7Vy7iF9AV
-         cEEw==
-X-Forwarded-Encrypted: i=1; AKwUvBymDJp9e/6uz9in41ix9pxEUW7Ln264xz/tFXl8fKEeSH+hgr+z8AnhFeGEal46TNx/ABpoCxzfCxavG3E=@vger.kernel.org
-X-Gm-Message-State: AFuF++m6HrbaWM1zRu4/acspHLkb8/Lb0ALheoXupuG/2yD2CLUG9vWO
-	iA7EST9PQjcOsMtkv9IEOp7xnPf4GtaH5jiyebNw18sPpV4fFehSYQaP
-X-Gm-Gg: AYBFou0YlYKSMHYjTf9texk8xyDxR278/5dwVluszZX8aAINgXFd1t9iebGA1CfFekH
-	hoJfLLQk+cKU9ydT10R+F8Vc2GPkpc8m2yTskXkgPBXzZflisHXnRBDToNDdMlVHskkCDw/lxAc
-	wPbGWBPIrPRvmuGC67BLw5PBNb6Qx7jxNIZsqdBWWP7xWU3WU9v9g76C/6plQh1XRrFWk6UMTjA
-	0PNSDB8YafOiJpzGnMRSFrwSOuB9lIHTzBUmemiMoiWZFi7SxQ6gHqH13XPmbWwW6vi0j+oU45R
-	jr1YeBJAAwD8YTFjZabQdvIGT8WZRRFTRK4xVdiJ1ADthoZhuNJrc8DiQBjAujPh+oSptkSrcz/
-	UofFYnPH5izTCztO5NtGbdncj+RmD2HN344EoaA6lJBs9dshBUdfvtoE6QjnZ5IQQpYXsMXFPjR
-	M1Eo0B7pEyR043ptaLZOOv19eR+OYy/Dn3fg5buoGDwvrWkb4XwiOLOvxDaMt+BgYyaSW1yE1ii
-	3Vii1R3SSehxkTtZfyYRAixE2I/eQhu5LnuAZU9HHkyCg/cc0KxH1mOoW/cIBSIGK4fIwWUkOaz
-	fFNNc6RD7fl/0ZcgslbPKvDG/T8DcVMbsclwvb05NWnxIMHKHxX+2NC6hw4DnywkGcN2YfHur9Q
-	jxbZmXSuUv/Eh0NLjhEmuE7FKAkDXnyIqFVJVnllb2rP2FQ==
-X-Received: by 2002:a05:600c:4714:b0:49e:6581:7baf with SMTP id 5b1f17b1804b1-49fc4f72886mr130088595e9.2.1789927529563;
-        Sun, 20 Sep 2026 11:05:29 -0700 (PDT)
-Received: from [192.168.1.187] ([2a02:8308:4092:11f0::f9f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd0f7b9bsm164648055e9.5.2026.09.20.11.05.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 11:05:29 -0700 (PDT)
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-Date: Sun, 20 Sep 2026 20:05:27 +0200
-Subject: [PATCH v9 5/5] iio: magnetometer: ak8975: make use of the macros
- from bits.h
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="TgGfj7xN"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=T0iIXUGwL57kkPHKnyGI6Zm/8a5uFX9aVzSGlO3rAcGCkuIwcHNM5c1t6OFKs14vqdcA8+StfQFvKN+BNwFqwnXl3jNij3UHqJcaaGUGi5ix1AqfjWspHJ7KrVtblFVcszrXGH97occ1FDcbZ2ugGh6qWUyUi/nRCshDkJpcOrcP13vbRPbLMF12V0h5t5FsZ/offgvWOW3kylD9C2jwOJ7DwUWxvov0CrDiwpXdCtF1SDU8tlMOqT4ImztlyHP1e3avmfc0FDHsVkyo8SXS+OMIJFi8tyTqk9H9xip4/d7IWg5WjbFNjhZCNwZ9swf4utDpytwXBLhGhA8Of5aBZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OXS0/8Rb1cwtMci/iW7r+MrEnJNgzwc+TrwIOl2rSzk=;
+ b=VxMdVqrHBmc2ucB2/F735FdNcUgNTuWcWWn3q/3bMkWEeXJANS6ZTZkQAAUKNCbiP0uG2a6vGB06GEa4WHzlVnoCwS1VWWUrX6uR/i61VcPscQ1RdfAWWnf0vzLTlnnxaDVWt6KkGVAAm1Di3gD4iASutHpfN7ystkWMC1RLkGgCDbc1kyIgkTjtltDDVDiGv7XOQ/1HfAPmSk6E/rszx/fMtT/wlaQ0V8vH7EFU4GxWNDljvIUCCXeAEth9n5ej3a4Ci+qykh5/wZ2XIorJP6945Ae4MtjpGebtpqaWm1X/ZlJyD+SKcEnLHw6+3VvLB9P4p9Gp7dUaJaHe/TBo8Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OXS0/8Rb1cwtMci/iW7r+MrEnJNgzwc+TrwIOl2rSzk=;
+ b=TgGfj7xNEncBdl6ChD9cCJlpscqNsAWDPW1+G4AohaJ0Ln7nozvDBz8TPu1Wr7kJElDRLHoS6mVz3f5vj4FoIr0airyIeRKxJLHfuBfq3WPXcsB358QoXBxzkM2N6jQMjZ2S3tuZGlTpQPwaV3Dpefhi9c5OUHkOpbU8GswGXpA=
+Received: from CH0PR03CA0349.namprd03.prod.outlook.com (2603:10b6:610:11a::33)
+ by DM4PR12MB8558.namprd12.prod.outlook.com (2603:10b6:8:187::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Sun, 20 Sep
+ 2026 18:12:37 +0000
+Received: from BL02EPF0002992E.namprd02.prod.outlook.com
+ (2603:10b6:610:11a:cafe::82) by CH0PR03CA0349.outlook.office365.com
+ (2603:10b6:610:11a::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.16 via Frontend Transport; Sun,
+ 20 Sep 2026 18:12:37 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL02EPF0002992E.mail.protection.outlook.com (10.167.249.59) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Sun, 20 Sep 2026 18:12:37 +0000
+Received: from purico-9dcchost.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Sun, 20 Sep
+ 2026 13:12:36 -0500
+From: Melody Wang <huibo.wang@amd.com>
+To: <x86@kernel.org>
+CC: LKML <linux-kernel@vger.kernel.org>, Tom Lendacky
+	<thomas.lendacky@amd.com>, Melody Wang <huibo.wang@amd.com>
+Subject: [PATCH v3 0/8] Alternate Injection: Secure Interrupt Delivery for SEV-SNP Guests - Guest Support
+Date: Sun, 20 Sep 2026 18:12:09 +0000
+Message-ID: <cover.1789927246.git.huibo.wang@amd.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260920-ak8975-cleanup-v9-5-1b0f00ec19ef@gmail.com>
-References: <20260920-ak8975-cleanup-v9-0-1b0f00ec19ef@gmail.com>
-In-Reply-To: <20260920-ak8975-cleanup-v9-0-1b0f00ec19ef@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Joshua Crofts <joshua.crofts1@gmail.com>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789927524; l=3014;
- i=joshua.crofts1@gmail.com; s=20260530; h=from:subject:message-id;
- bh=6ZMjVC6e/KIqTzgrm9DqPo2hpOPArGBVsN2S5dq6DFc=;
- b=51owwuPaLGk6u9mi2rhRJdyER1xoSr7TMn5CxXZCPw9yln+SCfYQCb9OH6/h3Bz8JTL/jEM24
- RFPNwofyTeqDJWrQCF8I5sETkrcXmhra1aVT+W1+IAfiI1xbwaBKYaV
-X-Developer-Key: i=joshua.crofts1@gmail.com; a=ed25519;
- pk=RTDOoVwgeL4oFdASj9U+cxJuIjXuXk73zkjnGOJKbEo=
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0002992E:EE_|DM4PR12MB8558:EE_
+X-MS-Office365-Filtering-Correlation-Id: 08f52406-9d10-42fa-d5ac-08df1742c051
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|23010399003|36860700016|1800799024|3023799007|56012099006|6133799003|11063799006|18002099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	QqsSlnZhF+6wUUCP/m5XVEwL/QOUAEBrDU5OkQGT0nzNwlPnHlzADLpD2b/IMVzYi++ChElVgpR1cCoACxzqTUtPmEx2TWmfn550RYeitcvTHLpWbXfnsNX/ETGs48vClRXWH8hRZV7MFy3SKu5LFz9pVgg+2wKPhh+qgPy2KlhqurFgBm0HgRQGgfqF41TESVAqGTl9SCg2pw3Hg3izdjBU7TOUy7b5SH8q3wRRsUsGgEDPS+zATpwTGWlnQ8E8k4yMLtzRgL6mZIU5l6pSdP1/t+v/DMkt+O2fbusLJvX+5hBS6Y226s/3cNVatPp7Ju4XyWkEa7RFOB3xWxpW792GtU0i+qnDctjKucZ6agwSIgbbfcaS0nrLJrgLINx4twmcwyFw34wbyfE1Lg4nw3XKH9uz+iPPI3G99nuz0gelUHsLHE/hUNJjKyKi+tYvfs7u9tLBBL4Z+n4FjltBV6OOlqQ/nQp+m8Hl2hIUee/cpvltVmi/ziZk8WGeDoxIwNpamH8+VAsxZnjK6azHgVuf2TXaR++/HxL6lSVC0YPpvPfKDz28uuSA+iLdeczSPxZfgjIdhuaGuwqtlvoj6B56HxISnGdancp9EDAHR05gCRUIb2gJuqC9+ywXhcoruvOiwoOky16OFH0IjprNgiJg9ZaKZIlH/FO0BkTgdlvtftrLydn+N250zCKY6znZ+kkfPbBZtgenpbT+cuX+fg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(23010399003)(36860700016)(1800799024)(3023799007)(56012099006)(6133799003)(11063799006)(18002099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	yu1sOwlH/JBqzYHaHaXOmdSWHXV8mGriA3j+jBM7aXY+6tnPHnWAIqrH1ttS7vvOHr3xHAGYRe5o4kAK1jv8A1AagkAKKceyfEMhsiUpOhZZoejHAsw02HT89mtIcfGUEo5RRLs71wO5pLvWByYu9gjoWVmu4At1lRwmd0csKWRMMD2SRarXYv2JWP3sfM9viiIjRpDVTV7tRhIG0xpSMWTgyaTTDv5bC3sQ+LeEl4JNFFtCQIfAJRp5UglqfkxWitoGRcCSPqTO7Otf+bt4DvrmJo/+u4KpSZ8bpvA8TIBD1HXPZ3VT5t2jYI2Oba6mAjednShRoXP0kHJpe8toFDNp9r9imLGt/Okcgx0QSwKDMmdGORBdbjuZBNa3cLUVzFG5kN6PpHAJ8rc3ZdN5eJyLXX3AyrdXCXBHRlf4Bo9Dt5MHHveBIZAOyscoi8o0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2026 18:12:37.1340
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 08f52406-9d10-42fa-d5ac-08df1742c051
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL02EPF0002992E.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8558
 
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Hi all,
 
-Make use of BIT() and GENMASK() where it makes sense.
+This revision addresses all review comments from version 2.
 
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Reviewed-by: Nuno Sá <nuno.sa@analog.com>
-Co-developed-by: Joshua Crofts <joshua.crofts1@gmail.com>
-Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
----
- drivers/iio/magnetometer/ak8975.c | 26 +++++++++++---------------
- 1 file changed, 11 insertions(+), 15 deletions(-)
+The changes include:
 
-diff --git a/drivers/iio/magnetometer/ak8975.c b/drivers/iio/magnetometer/ak8975.c
-index ac556644b02d..05cdd285c5f4 100644
---- a/drivers/iio/magnetometer/ak8975.c
-+++ b/drivers/iio/magnetometer/ak8975.c
-@@ -44,8 +44,7 @@
- #define AK8975_REG_INFO			0x01
+1. Moved sev_prepare() from decompressor to EFI stub.
+
+2. Changed "Register Alternate Injection" and "configure all interrupt
+   vectors" as two APIs located in compressed/sev.c since they are
+   self-contained, avoiding exporting functions. 
+
+3. Added more comments for better understanding.
+
+Thanks,
+Melody
+
+Changelog:
+v2
+--
+
+This revision fixes all the review comments from version 1.
+
+The changes include:
+
+1. Changed a few comments for better understanding, deleted some unnecessary
+   code, corrected some typos, and some minor code fixes from the review
+   comments by Sashiko and Boris.
+
+2. Unified sev_apic_ghcb_msr_write() and sev_apic_ghcb_msr_read(). 
+
+3. Move x2apic_svsm.o after x2apic_savic.o so that the secure AVIC gets
+   preferred on machines supporting it.
+
+4. Reworked svsm_apic_probe() as Boris suggested.
+
+5. Updated tools with renamed MSR_AMD64_SNP_ALTERNATE_INJ_BIT and
+   MSR_AMD64_SNP_ALT_INJ for completeness' sake.
+
+6. Changed svsm_apic_send_IPI_self() with writing to the dedicated
+   APIC_SELF_IPI instead of writing to APIC_ICR.
+
+v1
+--
+
+The revision fixes all of the review comments from version 0.
  
- #define AK8975_REG_ST1			0x02
--#define AK8975_REG_ST1_DRDY_SHIFT	0
--#define AK8975_REG_ST1_DRDY_MASK	(1 << AK8975_REG_ST1_DRDY_SHIFT)
-+#define AK8975_REG_ST1_DRDY_MASK	BIT(0)
+The changes include:
  
- #define AK8975_REG_HXL			0x03
- #define AK8975_REG_HXH			0x04
-@@ -54,15 +53,12 @@
- #define AK8975_REG_HZL			0x07
- #define AK8975_REG_HZH			0x08
- #define AK8975_REG_ST2			0x09
--#define AK8975_REG_ST2_DERR_SHIFT	2
--#define AK8975_REG_ST2_DERR_MASK	(1 << AK8975_REG_ST2_DERR_SHIFT)
-+#define AK8975_REG_ST2_DERR_MASK	BIT(2)
+1. Changed a few commit messages, new file names, variables name and order,
+   function names and more comments for better understanding.
  
--#define AK8975_REG_ST2_HOFL_SHIFT	3
--#define AK8975_REG_ST2_HOFL_MASK	(1 << AK8975_REG_ST2_HOFL_SHIFT)
-+#define AK8975_REG_ST2_HOFL_MASK	BIT(3)
- 
- #define AK8975_REG_CNTL			0x0A
--#define AK8975_REG_CNTL_MODE_SHIFT	0
--#define AK8975_REG_CNTL_MODE_MASK	(0xF << AK8975_REG_CNTL_MODE_SHIFT)
-+#define AK8975_REG_CNTL_MODE_MASK	GENMASK(3, 0)
- #define AK8975_REG_CNTL_MODE_POWER_DOWN	0x00
- #define AK8975_REG_CNTL_MODE_ONCE	0x01
- #define AK8975_REG_CNTL_MODE_SELF_TEST	0x08
-@@ -94,8 +90,7 @@
- 
- #define AK09912_REG_ST1			0x10
- 
--#define AK09912_REG_ST1_DRDY_SHIFT	0
--#define AK09912_REG_ST1_DRDY_MASK	(1 << AK09912_REG_ST1_DRDY_SHIFT)
-+#define AK09912_REG_ST1_DRDY_MASK	BIT(0)
- 
- #define AK09912_REG_HXL			0x11
- #define AK09912_REG_HXH			0x12
-@@ -106,8 +101,7 @@
- #define AK09912_REG_TMPS		0x17
- 
- #define AK09912_REG_ST2			0x18
--#define AK09912_REG_ST2_HOFL_SHIFT	3
--#define AK09912_REG_ST2_HOFL_MASK	(1 << AK09912_REG_ST2_HOFL_SHIFT)
-+#define AK09912_REG_ST2_HOFL_MASK	BIT(3)
- 
- #define AK09912_REG_CNTL1		0x30
- 
-@@ -116,8 +110,7 @@
- #define AK09912_REG_CNTL_MODE_ONCE	0x01
- #define AK09912_REG_CNTL_MODE_SELF_TEST	0x10
- #define AK09912_REG_CNTL_MODE_FUSE_ROM	0x1F
--#define AK09912_REG_CNTL2_MODE_SHIFT	0
--#define AK09912_REG_CNTL2_MODE_MASK	(0x1F << AK09912_REG_CNTL2_MODE_SHIFT)
-+#define AK09912_REG_CNTL2_MODE_MASK	GENMASK(4, 0)
- 
- #define AK09912_REG_CNTL3		0x32
- 
-@@ -864,7 +857,10 @@ static const struct iio_chan_spec ak8975_channels[] = {
- 	IIO_CHAN_SOFT_TIMESTAMP(AK8975_CHAN_TS),
- };
- 
--static const unsigned long ak8975_scan_masks[] = { 0x7, 0 };
-+static const unsigned long ak8975_scan_masks[] = {
-+	BIT(AK8975_CHAN_X) | BIT(AK8975_CHAN_Y) | BIT(AK8975_CHAN_Z),
-+	0
-+};
- 
- static const struct iio_info ak8975_info = {
- 	.read_raw = &ak8975_read_raw,
+2. Added a pre-patch to fix the problem that in two functions in the the SVSM
+   vTPM guest implementation do not disable preemption when fetching CAA. It
+   is moving the CAA fetching operation inside svsm_perform_call_protocol().
+
+   This series relies on this fix too.
+
+
+3. Removed svsm_do_call() helper function and some intermediary layer
+   functions in SVSM APIC driver.
+
+4. Removed the Secure AVIC check in SVSM APIC driver since it will never be
+   touched. 
+
+5. Terminate boot when Alternate Injection is enabled in vmpl0.
+
+6. Added a common function for SVSM APIC read and write.
+
+7. Added a new SEV_TERM_SET_LINUX value for Alternate Injection and APIC ghcb
+   msr read/write.
+
+8. Reworked sev_prepare() to reflect the error conditions correctly. 
+
+9. Moved allowing all of interrupts right after registering the SVSM APIC
+   protocol.
+
+v0
+--
+
+Alternate Injection is a method to provide secure interrupt delivery for
+SEV-SNP guests against malicious injection attacks. By handing over the
+control of the interrupt injection to the guest itself, the security is
+applied. Alternate Injection use Secure VM Service Module (SVSM), and APIC
+emulation in the SVSM to secure interrupt delivery.
+
+This is the guest side patches. The patch set includes the following:
+1. Add support for enabling Alternate Injection.
+2. Add support for the SVSM APIC protocol which uses a subset of the
+   X2APIC MSRs.
+3. Add support to allow the guest OS to request Alternate
+   Injection.
+
+Melody Wang (8):
+  x86/sev: Make SVSM calls preemption-safe
+  x86/sev: Add support for Alternate Injection
+  x86/apic: Add an SVSM APIC driver
+  x86/sev: Route unsupported APIC register accesses to the hypervisor
+    APIC emulation
+  x86/sev: Add a function to contain all SEV-specific setup operations
+  x86/sev: Register the guest with the SVSM APIC protocol
+  x86/sev: Allow the guest to configure interrupt vectors for the
+    hypervisor
+  x86/sev: Indicate that Alternate Injection is supported in the guest
+
+ arch/x86/Kconfig                        |  14 ++
+ arch/x86/boot/compressed/sev.c          |  58 +++++-
+ arch/x86/boot/compressed/sev.h          |  13 ++
+ arch/x86/coco/core.c                    |   3 +
+ arch/x86/coco/sev/core.c                |  48 ++---
+ arch/x86/coco/sev/svsm.c                |  10 +-
+ arch/x86/include/asm/msr-index.h        |   4 +-
+ arch/x86/include/asm/sev-common.h       |   2 +
+ arch/x86/include/asm/sev.h              |  21 +-
+ arch/x86/kernel/apic/Makefile           |   1 +
+ arch/x86/kernel/apic/x2apic_savic.c     |   8 +-
+ arch/x86/kernel/apic/x2apic_svsm.c      | 243 ++++++++++++++++++++++++
+ drivers/firmware/efi/libstub/x86-stub.c |   9 +-
+ include/linux/cc_platform.h             |   8 +
+ tools/arch/x86/include/asm/msr-index.h  |   4 +-
+ 15 files changed, 398 insertions(+), 48 deletions(-)
+ create mode 100644 arch/x86/kernel/apic/x2apic_svsm.c
 
 -- 
-2.55.0
+2.43.0
 
