@@ -1,402 +1,365 @@
-Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BFF01A0B15;
-	Sun, 20 Sep 2026 02:03:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EA552139C9;
+	Sun, 20 Sep 2026 02:03:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789869783; cv=none; b=kGnPkoIuvS4BWLPAgkKO3Z+hgvDVH6KpqS7fagvAoGtLyjLRkhmDLQG6MiGaCiPqI+WIzB0ALlwzUb+08ry8lVFww5dVykfggHxGcp7bJt7Ddm8ERY+2+IVJGVyWwM2BLQEkl/UUAGBDHD/fl/qmeyEPO4LZGwefKOyow/x4WUk=
+	t=1789869840; cv=none; b=JglJo27SFZ8SJWz/OAygObpbTnCT2TLWUU7v3Qyk0PoPdZWTjMbmmBT8lniKteHzo0RMsgqTSmM8wKzt6vj28pOdD9y0tfhBqrYbaBz9nFZTMOlB/jhh7lNq4Qe0G+wOk36+t4ft+tmdkt47RtKMPyLd1vNbx0bSru001XTBZew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789869783; c=relaxed/simple;
-	bh=jQ+bZxpck6iu2Kel1tV20P/Zawhg6rdEBrNiZn3Jaco=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RvkSfm6H8LoPm4uC3KmEmjU2RqMcrlj3JalN/8gwuzAWBD0LzGtDjueDmaYZBJzBzHwri74v2RiszXxGXRehZq1cdycwiTwQ2457emd51TrXT9gU9ewETAEeql4OqZlDOx62JZtPawB6JKizA+PreTRQ9+FUsk6N63GnVqdTYC4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.198])
-	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hnV4N6nPqzYQtm5;
-	Sun, 20 Sep 2026 10:02:44 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.75])
-	by mail.maildlp.com (Postfix) with ESMTP id F2C8F40561;
-	Sun, 20 Sep 2026 10:02:55 +0800 (CST)
-Received: from [10.67.110.36] (unknown [10.67.110.36])
-	by APP2 (Coremail) with UTF8SMTPA id Syh0CgD3KhLMPq9qC4rPAw--.60674S2;
-	Sun, 20 Sep 2026 10:02:53 +0800 (CST)
-Message-ID: <846de1f4-6138-4548-ac44-c97e63b87c37@huaweicloud.com>
-Date: Sun, 20 Sep 2026 10:02:52 +0800
+	s=arc-20240116; t=1789869840; c=relaxed/simple;
+	bh=PwVVYV4JEx/0Ve75abmdYMHHwrig3Ha1HpjqxDoEcWQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=PyOlGXE2ReTtQHoFYSn6bNgqdFApGcz+0pqCWdQIQP6sXN+oJeYULLLTPdJgIfWi7pXfNq3o+BVAijS2tYg2DcnaRYwcXPI7ET8TkqazO6XOk+RkyFQLnVonf/UTsmY4p4/+WLSgvTblsbd2LjGwKB/PdSMZ5hTeQTgWfyDzCIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GAq/C/R0; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GAq/C/R0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3A551F00893;
+	Sun, 20 Sep 2026 02:03:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789869838;
+	bh=X9N4VoDKYV4KaRtg0FDgOvzdsIFsiYYCVYCWida5uF0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=GAq/C/R07e438NhKogWpebxC5aBzem2qlBeArf+KtMUu9bADSfOk5wQjOu/2R+6Bz
+	 uiB3znfHvVNqZ73kx4iEo4W7p3t82gE30SnYg6Swwqe10w5NNhX5Mak4z3RoPoENUU
+	 rOL7glhq/mjfTgRsnY4QK9mOGIOX0IzfnTMSc3ywA+4liQ9Jmx/n7SKoB0kJLHMhtF
+	 6l3sHjWZpUUNbmlUANVFE0nOVYb9Bo82sZ78JBCT+Vy6GCyVQW6Mn8+LYwGZyYETaO
+	 xScFWAW1Ajz4aL03SXKeBOPBHQpCkrZ/FY4ZLDr5PNDl3rABewsvg45Ayew8PF+tsa
+	 EYJ2rR+8iwtGA==
+Date: Sun, 20 Sep 2026 03:03:52 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Jinseob Kim <kimjinseob88@gmail.com>
+Cc: linux-iio@vger.kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
+ andriy.shevchenko@intel.com, linux-kernel@vger.kernel.org,
+ rdunlap@infradead.org, joshua.crofts1@gmail.com,
+ u.kleine-koenig@baylibre.com, julianbraha@gmail.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+ corbet@lwn.net, skhan@linuxfoundation.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v10 6/8] iio: osf: add IIO devices from capability
+ reports
+Message-ID: <20260920030352.62526119@jic23-hlaptop>
+In-Reply-To: <c88d0ced0bff5cf29e765cd2c280ce3c10c50988.1789753020.git.kimjinseob88@gmail.com>
+References: <cover.1789753020.git.kimjinseob88@gmail.com>
+	<c88d0ced0bff5cf29e765cd2c280ce3c10c50988.1789753020.git.kimjinseob88@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 00/26] perf arm64: Support data type profiling
-To: Namhyung Kim <namhyung@kernel.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>
-Cc: james.clark@linaro.org, xueshuai@linux.alibaba.com,
- Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
- Peter Zijlstra <peterz@infradead.org>, leo.yan@linux.dev,
- Li Huafei <lihuafei1@huawei.com>, Kim Phillips <kim.phillips@arm.com>,
- Mark Rutland <mark.rutland@arm.com>, Ingo Molnar <mingo@redhat.com>,
- Bill Wendling <morbo@google.com>,
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Zecheng Li <zli94@ncsu.edu>, linux-perf-users@vger.kernel.org,
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev
-References: <cover.1789521520.git.wutengda@huaweicloud.com>
- <aq41dlDILyJlw-77@z2>
-Content-Language: en-US
-From: Tengda Wu <wutengda@huaweicloud.com>
-In-Reply-To: <aq41dlDILyJlw-77@z2>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:Syh0CgD3KhLMPq9qC4rPAw--.60674S2
-X-Coremail-Antispam: 1UD129KBjvAXoW3ur17Jw4UXr45Cr1xXr4DCFg_yoW8XF1DZo
-	WSvFZxur1xJr1rJa1qyr9YyFy3Zw4kurn3Gr45Wwn8ua18Jayagw1Ikw17WayfKr4FqF4D
-	Cw18t3W7XFyUWFn3n29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UjIYCTnIWjp_UUUY47kC6x804xWl14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK
-	8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4
-	AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF
-	7I0E14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6x
-	kF7I0E14v26F4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAq
-	x4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6x
-	CaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0E
-	n4kS14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I
-	0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8
-	ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcV
-	CY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAF
-	wI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa
-	7IU0bAw3UUUUU==
-X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
 
+On Sat, 19 Sep 2026 03:24:44 +0900
+Jinseob Kim <kimjinseob88@gmail.com> wrote:
 
-
-On 2026/9/19 15:10, Namhyung Kim wrote:
-> Hello,
+> Register IIO devices from supported capability descriptors and expose
+> signed raw samples, descriptor scales and software buffers. Keep early
+> capabilities owned by the core until UART and supply setup is complete,
+> and unregister children after the receive producer has stopped.
 > 
-> On Wed, Sep 16, 2026 at 01:29:14AM +0000, Tengda Wu wrote:
->> This patch series implements data type profiling support for arm64,
->> enabling 'perf annotate --data-type' to resolve memory locations and
->> variable types on arm64 platforms.
->>
->> The main changes since v5 include:
->> v5: https://lore.kernel.org/all/cover.1788872630.git.wutengda@huaweicloud.com/
->>
->> * __get_dwarf_regnum_arm64 optimization: compute directly based on character
->>   judgment, avoiding strtol calls. (Ian Rogers)
->>
->> * extract_op_location_arm64 issue fix: support parsing instructions such as
->>   'cmp x0, x1, lsl #3'.
->>
->> * Instruction tracking part, fixing issues pointed out by Sashiko, including:
->>   - adding TSR_KIND_POINTER handling for ldr.
->>   - premature returns in add and ldr causing percpu handling to be skipped.
->>   - adding a reg != -1 check for stack type propagation, etc.
->>
->> Patch organization
->> ==================
->>
->> The series is organized as follows:
->>
->> 1. Fix disassembly mismatches (Patches 01-02)
->>    Current perf annotate supports three disassembly backends: llvm,
->>    capstone, and objdump. On arm64, inconsistencies between the output
->>    of these backends (specifically llvm/capstone vs. objdump) often
->>    prevent the tracker from correctly identifying registers and offsets.
->>    These patches resolve these mismatches, ensuring consistent instruction
->>    parsing across all supported backends.
->>
->> 2. Infrastructure for arm64 operand parsing (Patches 03-09)
->>    These patches establish the necessary infrastructure for arm64-specific
->>    operand handling. This includes implementing new callbacks and data
->>    structures to manage arm64's unique addressing modes and register sets.
->>    This foundation is essential for the subsequent type-tracking logic.
->>
->> 3. ARM SPE event handling (Patches 10-11)
->>    Patch 10 automatically deduplicates overlapping ARM SPE events (e.g.,
->>    l1d-miss, tlb-access) in 'perf annotate' by retaining only the
->>    "instructions" event when data type profiling is enabled. Patch 11
->>    defaults  the synthesized event period to 1 for ARM SPE to fix zero
->>    'Percent' values in annotate output.
+> Validate nonzero descriptor scales and sample/descriptor equality, leave
+> discovery open after empty or unsupported inventories, and compare
+> repeated descriptors independently of order. Fault a bound session if a
+> descriptor changes meaning, gating cache and buffer publication together.
 > 
-> Thanks for working on this!
+> Add initialized active-scan packing and buffer producer quiescence. The
+> production implementation is now complete; subsequent patches only add
+> the existing core and IIO KUnit suites and their build wiring.
+
+No need to talk about what other patches do and that a series is functionally
+complete in a patch. If you want to do it, under the --- so it doesn't end
+up in the git log.
+
 > 
-> I think it's ready to merge up to this point.  The instruction tracking
-> part needs more review.  I'll do that later but it'd be nice if ARM
-> folks and Shuai could review it too.
-> 
+> Assisted-by: LLM
+> Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
 
-Yes, patches 01-11 are already ready.
+A few things inline.  Biggest one is a question (I'm not sure) on
+whether you can use a claim on buffered mode (which will hold it in that
+if it succeeds until released) is sufficient to replace the extra lock you
+have to block that transition. 
 
-For the instruction tracking part (patches 12-26), apart from the issues with
-patches 21 and 25 mentioned by Sashiko, the rest is also ready for review.
+Thanks,
 
-Regarding patches 21 and 25, I've posted the fixes I plan to make under the
-respective patches. Please let me know if there are any concerns.
+Jonathan
 
-Looking forward to your review.
 
-Best regards,
-Tengda
 
-> Thanks,
-> Namhyung
-> 
->>
->> 4. Core instruction tracking (Patches 12-26)
->>    These patches implement the core logic for type tracking on arm64,
->>    covering several key types of instructions, including:
->>    * Memory Access: ldr/str variants (including stack-based access).
->>    * Arithmetic & Data Processing: mov, add, and adrp.
->>    * Special Access: System register access (mrs) and per-cpu variable
->>      tracking.
->>
->> The implementation draws inspiration from the existing x86 logic while
->> adapting it to the nuances of the AArch64 ISA [2][3]. With these changes,
->> perf annotate can successfully resolve memory locations and register types,
->> providing basic support for data type profiling on arm64 platforms.
->>
->> Example Result
->> ==============
->>
->> # perf mem record -a -K -- sleep 1
->> # perf annotate --data-type --stdio --type-stat
->> Annotate data type stats:
->> total 1138, ok 852 (74.9%), bad 286 (25.1%)
->> -----------------------------------------------------------
->>          6 : no_sym
->>         42 : no_var
->>        230 : no_typeinfo
->>          8 : bad_offset
->>        213 : insn_track
->>
->> Annotate type: 'struct page' in [kernel.kallsyms] (66948 samples):
->> ============================================================================
->>  Percent     offset       size  field
->>   100.00          0       0x40  struct page      {
->>     9.01          0        0x8      long unsigned int   flags;
->>    57.99        0x8       0x28      union        {
->>    57.99        0x8       0x28          struct   {
->>    33.00        0x8       0x10              union        {
->>    33.00        0x8       0x10                  struct list_head        lru {
->>    33.00        0x8        0x8                      struct list_head*   next;
->>     0.00       0x10        0x8                      struct list_head*   prev;
->>                                                 };
->>    33.00        0x8       0x10                  struct   {
->>    33.00        0x8        0x8                      void*       __filler;
->>     0.00       0x10        0x4                      unsigned int        mlock_count;
->>    ...
->>
->> Each patch's type profiling results are as follows:
->>
->> Patch | Feature                    | no_sym | no_var | no_typeinfo | bad_offset | insn_track | ok(%)
->> ------+----------------------------+--------+--------+-------------+------------+------------+------
->> 0011  | base (default spe period)  | 6      | 493    | -           | -          | -          | 56.2%
->> 0013  | enable insn tracking       | 6      | 42     | 437         | 2          | 12         | 57.2%
->> 0016  | support 'load' insn        | 6      | 42     | 398         | 1          | 52         | 60.7%
->> 0017  | support 'store' insn       | 6      | 42     | 398         | 1          | 52         | 60.7%
->> 0021  | support stack variable     | 6      | 42     | 391         | 1          | 59         | 61.3%
->> 0022  | support 'mov' insn         | 6      | 42     | 372         | 3          | 76         | 62.8%
->> 0023  | support 'add' insn         | 6      | 42     | 318         | 7          | 126        | 67.2%
->> 0024  | support 'adrp' insn        | 6      | 42     | 238         | 8          | 205        | 74.2%
->> 0025  | support per-cpu variable   | 6      | 42     | 233         | 8          | 210        | 74.6%
->> 0026  | support 'mrs' insn         | 6      | 42     | 230         | 8          | 213        | 74.9%
->>
->> Limitations
->> ===========
->>
->> * SIMD/FP & SVE Vector Support:
->>   Data type profiling currently focuses on General-Purpose (GP) register
->>   operations. Vector/SIMD registers (v0-v31, d0-d31, q0-q31) and Scalable
->>   Vector Extension (SVE/SME) instructions are not tracked yet.
->>
->> * Regular Instructions Only:
->>   Only regular instructions are currently supported. Instructions following
->>   special rules or non-standard patterns are not supported yet. For example,
->>   load/store tracking only matches standard variants (ldr/ldur/ldar/ldp and
->>   str/stur/stlr/stp) with straightforward semantics; exclusive loads/stores
->>   (ldxr, stxr, etc.) and acquire/exclusive combination variants are excluded.
->>
->> * Compiler Prologue/Epilogue Code:
->>   As shown by the previous test results, approximately 14% of the failed
->>   type profiling results originate from compiler-generated prologue or
->>   epilogue code (e.g., ldp  x19, x20, [sp, #16]). These instructions manage
->>   callee-saved registers across function boundaries, propagating type
->>   context through these operations requires inter-procedural (cross-function)
->>   instruction analysis, which is currently unsupported by the local backward
->>   instruction tracker.
->>
->> Testing
->> =======
->>
->> Tested on arm64 (all passed):
->>
->>   # perf test -v "perf data type profiling tests"
->>   81: perf data type profiling tests                                                                  : Ok
->>
->>   === Test Summary ===
->>   Passed main tests : 1
->>   Passed subtests   : 0
->>   Skipped tests     : 0
->>   Failed tests      : 0
->>
->> Tested on x86. The profiling results show no change before/after applying
->> this patch series:
->>
->>   before : total 880, ok 711 (80.8%), bad 169 (19.2%)
->>   after  : total 880, ok 711 (80.8%), bad 169 (19.2%)
->>
->> Changelog
->> =========
->> v5 -> v6:
->>   - v5: https://lore.kernel.org/all/cover.1788872630.git.wutengda@huaweicloud.com/
->>   - Fix a potential UAF issue with capstone sym_name.
->>   - Optimize __get_dwarf_regnum_arm64 to compute directly based on character
->>     judgment, avoiding strtol calls. (Ian Rogers)
->>   - Fix an issue in extract_op_location_arm64 when parsing instructions such as
->>     'cmp x0, x1, lsl #3'.
->>   - Fix several minor issues in instruction tracking. (Sashiko)
->> v4 -> v5:
->>   - v4: https://lore.kernel.org/all/20260808122400.2961238-1-wutengda@huaweicloud.com/
->>   - Introduce arch_get_reg_offset() to uniformly handle reg offset.
->>   - Add support for parsing extension type and shift amount in arm64 instructions.
->>   - Refine which instructions to track or skip. (Shuai Xue)
->>   - Rename dont_overlap to default_single_event_per_ip and use it in
->>     itrace_synth_opts__set_default(). (Adrian Hunter)
->>   - Introduce delete_stack_state() to clean up obsolete stack state. (Shuai Xue)
->>   - Normalize arch__dwarf_regnum() error return values. (Shuai Xue)
->>   - Drop canary support due to unresolved bugs.
->>   - Fix various minor issues, such as name memory leaks and header includes.
->> v3 -> v4:
->>   - v3: https://lore.kernel.org/all/20260701035355.752944-1-wutengda@huaweicloud.com/
->>   - Fix Capstone compilation failure.
->>   - Stop adding new pcrel_adrp_addr in LLVM; reuse pcrel_load_addr instead.
->>   - Fix parsing issue in arm64_mov__parse.
->>   - Add PC-relative load instruction parsing logic to arm64_ldst__parse,
->>     and introduce rstrip_space_and_comment to strip comments.
->>   - Remove wzr/xzr register parsing (not planning to handle this yet).
->>   - Add post-index addressing mode parsing for the '[base], reg' format.
->>   - Update built-in implementation of --itrace=i1i to deduplicate early
->>     during arm_spe_process_auxtrace_info.
->>   - Restrict the "default period to 1" behavior to ARM SPE, instead of
->>     applying it to all architectures.
->>   - Add register type tracking for function call instructions.
->>   - Add dual-register type tracking for load pair and store pair instructions.
->>   - Correct stack variable offset calculations.
->>   - Add type invalidation upon retry failure.
->>   - Reuse imm_value instead of introducing addr for 'adrp' instruction tracking.
->>   - Fix potential stale type resolution errors caused by TSR_KIND_GLOBAL_ADDR
->>     and TSR_KIND_CONST during stack passing.
->>   - Fix a strbuf memory leak during 'mrs' instruction tracking.
->>   - Fix stale dieoff issue when debug info changes.
->>   - Simplify add type propagation: only propagate offset/imm updates, leave
->>     type parsing to chk.
->> v2 -> v3:
->>   - v2: https://lore.kernel.org/all/20260403094800.1418825-1-wutengda@huaweicloud.com/
->>   - Instead of always parsing the left operand as src and the right operand as
->>     dst, set them based on the actual instruction definition. (Namhyung Kim)
->>   - Fix refcount leak in print_capstone_detail().
->>   - Remove useless '<' check when parsing 'addr <symbol>' in arm64_mov__parse().
->>   - Add example comments in arm64_ldst__parse().
->>   - Split arch__dwarf_regnum() changes into a separate commit.
->>   - Rename annotated_addr_mode enum: INSN_ADDR_* -> PERF_ADDR_MODE_*.
->>   - Set caller-saved registers in init_type_state().
->>   - For instructions with addressing mode, always goto adjust_reg_index_state()
->>     at the end to update the src register state.
->>   - Handle TSR_KIND_CONST registers for 'mov' and 'add' instructions.
->>   - Invalidate dst register for all other unsupported instructions.
->>   - Verify type DIE is task_struct pointer before caching globally.
->>   - Enable --itrace=i1i by default for ARM SPE data type profiling in 'perf annotate'
->>     to avoid overlapping event counting for the same instruction. (James Clark)
->>   - Fix global variable type resolving error in check_matching_type(). (James Clark)
->>   - Address review comments from sashiko [1]:
->>     - Fix unconditional call to arch->extract_op_location()
->>     - Handle multi_regs correctly
->>     - Fix invalid register state in error path
->>     - Other misc fixes
->> v1 -> v2:
->>   - v1: https://lore.kernel.org/all/20250314162137.528204-1-lihuafei1@huawei.com/
->>   - Fix inconsistencies in arm64 instruction output across llvm, capstone,
->>     and objdump disassembly backends.
->>   - Support arm64-specific addressing modes and operand formats. (Leo Yan)
->>   - Extend instruction tracking to support mov and add instructions,
->>     along with per-cpu and stack variables.
->>   - Include real-world examples in commit messages to demonstrate
->>     practical effects. (Namhyung Kim)
->>   - Improve type-tracking success rate (type stat) from 64.2% to 82.1%.
->>
->> Please let me know if you have any feedback.
->>
->> Thanks,
->> Tengda
->>
->> [1] https://sashiko.dev/#/patchset/20260403094800.1418825-1-wutengda%40huaweicloud.com
->> [2] https://developer.arm.com/documentation/102374/0103
->> [3] https://github.com/flynd/asmsheets/releases/tag/v8
->>
->>
->> Tengda Wu (26):
->>   perf capstone: Symbolize address operands to match objdump on arm64
->>   perf llvm: Fix arm64 adrp instruction disassembly mismatch with
->>     objdump
->>   perf annotate-arm64: Generalize arm64_mov__parse to support more
->>     instructions
->>   perf annotate-arm64: Handle load and store instructions
->>   perf annotate: Normalize arch__dwarf_regnum() error return values
->>   perf annotate: Introduce extract_op_location callback for
->>     arch-specific parsing
->>   perf dwarf-regs: Adapt get_dwarf_regnum() for arm64
->>   perf annotate: Adapt arch__dwarf_regnum() for arm64
->>   perf annotate-arm64: Implement extract_op_location() callback
->>   perf annotate: Default to --itrace=i1i for data type profiling
->>   perf arm-spe: Set default synthesized event period to 1
->>   perf annotate-data: Extract invalidate_reg_state() as a common helper
->>   perf annotate-arm64: Enable instruction tracking support
->>   perf annotate-data: Add arch_get_reg_offset helper
->>   perf annotate-arm64: Track return type after call instructions
->>   perf annotate-arm64: Support load instruction tracking
->>   perf annotate-arm64: Support store instruction tracking
->>   perf annotate-data: Expand type_state_reg imm_value to u64
->>   perf annotate-data: Track imm_value for stack variables
->>   perf annotate-x86: Delete stale stack state on store of untracked
->>     register
->>   perf annotate-arm64: Support stack variable tracking
->>   perf annotate-arm64: Support 'mov' instruction tracking
->>   perf annotate-arm64: Support 'add' instruction tracking
->>   perf annotate-arm64: Support 'adrp' instruction to track global
->>     variables
->>   perf annotate-arm64: Support per-cpu variable access tracking
->>   perf annotate-arm64: Support 'mrs' instruction to track 'current'
->>     pointer
->>
->>  tools/perf/builtin-annotate.c                 |    8 +
->>  .../perf/util/annotate-arch/annotate-arm64.c  | 1211 ++++++++++++++++-
->>  .../util/annotate-arch/annotate-powerpc.c     |    9 +
->>  tools/perf/util/annotate-arch/annotate-x86.c  |  117 +-
->>  tools/perf/util/annotate-data.c               |  205 ++-
->>  tools/perf/util/annotate-data.h               |   14 +-
->>  tools/perf/util/annotate.c                    |  108 +-
->>  tools/perf/util/annotate.h                    |   63 +
->>  tools/perf/util/arm-spe.c                     |   16 +-
->>  tools/perf/util/auxtrace.c                    |   12 +-
->>  tools/perf/util/auxtrace.h                    |    7 +-
->>  tools/perf/util/capstone.c                    |  186 ++-
->>  tools/perf/util/cs-etm.c                      |    2 +-
->>  tools/perf/util/disasm.c                      |    5 +
->>  tools/perf/util/disasm.h                      |    5 +
->>  .../util/dwarf-regs-arch/dwarf-regs-arm64.c   |   25 +
->>  tools/perf/util/dwarf-regs.c                  |    2 +-
->>  tools/perf/util/include/dwarf-regs.h          |    1 +
->>  tools/perf/util/intel-bts.c                   |    2 +-
->>  tools/perf/util/intel-pt.c                    |    3 +-
->>  tools/perf/util/llvm.c                        |   52 +-
->>  21 files changed, 1831 insertions(+), 222 deletions(-)
->>
->>
->> base-commit: e6e35979777d646fe3c7c94dca7dd32fb25d45f4
->> -- 
->> 2.34.1
->>
+> diff --git a/drivers/iio/opensensorfusion/osf_iio.c b/drivers/iio/opensensorfusion/osf_iio.c
+> new file mode 100644
+> index 000000000000..f4011b8fae14
+> --- /dev/null
+> +++ b/drivers/iio/opensensorfusion/osf_iio.c
+...
+
+> +
+> +struct osf_iio_scan_3axis {
+> +	s32 values[3];
+> +	u32 padding;
+No needed unless you explicitly write into padding for some reason.
+C rules add it anyway and then we don't need to make sure it remains
+correct if this structure changes in future.
+> +	aligned_s64 timestamp;
+> +};
+> +
+> +struct osf_iio_scan_1axis {
+> +	s32 value;
+> +	u32 padding;
+As above, unneeded.
+> +	aligned_s64 timestamp;
+> +};
+
+Given I think these are only used in one place, moving them to there would
+avoid need for named structure types.
+
+> +
+> +#define OSF_MOD_CHAN(_type, _mod, _idx)				\
+> +	{								\
+> +		.type = (_type),					\
+> +		.modified = 1,						\
+> +		.channel2 = (_mod),					\
+> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),		\
+> +		.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),	\
+> +		.scan_index = (_idx),					\
+> +		.scan_type = {						\
+> +			.sign = 's',					\
+> +			.realbits = 32,					\
+> +			.storagebits = 32,				\
+> +			.endianness = IIO_CPU,				\
+> +		},							\
+> +	}
+> +
+> +#define OSF_CHAN(_type, _idx)					\
+
+Given this is not much used, you could use the IIO_NO_MOD modifier as a gate
+on setting .modified = (_mod != IIO_NO_MOD) ? 1 : 0,
+and have just one macro.
+
+> +	{								\
+> +		.type = (_type),					\
+> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),		\
+> +		.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),	\
+> +		.scan_index = (_idx),					\
+> +		.scan_type = {						\
+> +			.sign = 's',					\
+> +			.realbits = 32,					\
+> +			.storagebits = 32,				\
+> +			.endianness = IIO_CPU,				\
+> +		},							\
+> +	}
+> +
+> +static const struct iio_chan_spec osf_accel_channels[] = {
+> +	OSF_MOD_CHAN(IIO_ACCEL, IIO_MOD_X, 0),
+> +	OSF_MOD_CHAN(IIO_ACCEL, IIO_MOD_Y, 1),
+> +	OSF_MOD_CHAN(IIO_ACCEL, IIO_MOD_Z, 2),
+> +	IIO_CHAN_SOFT_TIMESTAMP(3),
+> +};
+> +
+> +static const struct iio_chan_spec osf_gyro_channels[] = {
+> +	OSF_MOD_CHAN(IIO_ANGL_VEL, IIO_MOD_X, 0),
+> +	OSF_MOD_CHAN(IIO_ANGL_VEL, IIO_MOD_Y, 1),
+> +	OSF_MOD_CHAN(IIO_ANGL_VEL, IIO_MOD_Z, 2),
+> +	IIO_CHAN_SOFT_TIMESTAMP(3),
+> +};
+> +
+> +static const struct iio_chan_spec osf_mag_channels[] = {
+> +	OSF_MOD_CHAN(IIO_MAGN, IIO_MOD_X, 0),
+> +	OSF_MOD_CHAN(IIO_MAGN, IIO_MOD_Y, 1),
+> +	OSF_MOD_CHAN(IIO_MAGN, IIO_MOD_Z, 2),
+> +	IIO_CHAN_SOFT_TIMESTAMP(3),
+> +};
+> +
+> +static const struct iio_chan_spec osf_temp_channels[] = {
+> +	OSF_CHAN(IIO_TEMP, 0),
+> +	IIO_CHAN_SOFT_TIMESTAMP(1),
+> +};
+> +
+> +static const struct osf_iio_sensor_spec osf_iio_sensor_specs[] = {
+> +	{
+> +		.sensor_type = OSF_SENSOR_ACCELEROMETER,
+> +		.channel_count = 3,
+> +		.name = "osf-accel",
+> +		.channels = osf_accel_channels,
+> +		.num_channels = ARRAY_SIZE(osf_accel_channels),
+> +	},
+> +	{
+> +		.sensor_type = OSF_SENSOR_GYROSCOPE,
+> +		.channel_count = 3,
+> +		.name = "osf-gyro",
+> +		.channels = osf_gyro_channels,
+> +		.num_channels = ARRAY_SIZE(osf_gyro_channels),
+> +	},
+> +	{
+> +		.sensor_type = OSF_SENSOR_MAGNETOMETER,
+> +		.channel_count = 3,
+> +		.name = "osf-magn",
+> +		.channels = osf_mag_channels,
+> +		.num_channels = ARRAY_SIZE(osf_mag_channels),
+> +	},
+> +	{
+> +		.sensor_type = OSF_SENSOR_TEMPERATURE,
+> +		.channel_count = 1,
+> +		.name = "osf-temp",
+> +		.channels = osf_temp_channels,
+> +		.num_channels = ARRAY_SIZE(osf_temp_channels),
+> +	},
+> +};
+> +
+> +static const struct osf_iio_sensor_spec *
+> +osf_iio_find_sensor_spec(u16 sensor_type, u16 channel_count)
+> +{
+> +	for (unsigned int i = 0; i < ARRAY_SIZE(osf_iio_sensor_specs); i++) {
+> +		if (osf_iio_sensor_specs[i].sensor_type == sensor_type &&
+> +		    osf_iio_sensor_specs[i].channel_count == channel_count)
+> +			return &osf_iio_sensor_specs[i];
+> +	}
+> +
+> +	return NULL;
+> +}
+> +
+> +bool osf_iio_sensor_supported(u16 sensor_type, u16 channel_count)
+> +{
+> +	if (osf_iio_find_sensor_spec(sensor_type, channel_count))
+> +		return true;
+> +
+> +	return false
+
+	return osf_iio_find_sensor_spec(sensor_type, channel_count) != NULL;
+
+> +}
+
+> +
+> +static int osf_iio_buffer_postenable(struct iio_dev *indio_dev)
+> +{
+> +	struct osf_iio_state *state = iio_priv(indio_dev);
+> +
+> +	guard(mutex)(&state->buffer_lock);
+
+These transistions are already guarded by the core, so see the question later
+on whether you can just claim buffered mode in the data handler
+to avoid the need for this. That might not work but the way you did
+this got me thinking about a more general solution to the problem.
+
+> +	state->buffer_active = true;
+> +
+> +	return 0;
+> +}
+> +
+> +static int osf_iio_buffer_predisable(struct iio_dev *indio_dev)
+> +{
+> +	struct osf_iio_state *state = iio_priv(indio_dev);
+> +
+> +	/* Wait for the current push before the IIO core changes its buffers. */
+> +	guard(mutex)(&state->buffer_lock);
+> +	state->buffer_active = false;
+> +
+> +	return 0;
+> +}
+
+
+> +
+> +int osf_iio_push_sample(struct iio_dev *indio_dev, const s32 *values,
+> +			u16 channel_count)
+> +{
+> +	struct osf_iio_state *state = iio_priv(indio_dev);
+> +	s64 timestamp;
+> +
+> +	if (channel_count != state->spec->channel_count)
+> +		return -EPROTO;
+> +
+> +	guard(mutex)(&state->buffer_lock);
+
+Using an extra lock is one solution I suppose to the risk
+of this racing with the buffer tear down and the problems
+around active_scan_mask being freed. Could you use
+
+	if (iio_device_try_claim_buffer_mode(indio_dev))
+and later a release on that to achieve the same result?
+
+Only the ade9000 is doing similar at the moment so would need
+some testing to make sure no lock inversions occur in general
+but given you don't take any other locks in here it should be fine.
+
+
+> +	if (!state->buffer_active || !iio_buffer_enabled(indio_dev))
+> +		return 0;
+> +
+> +	timestamp = iio_get_time_ns(indio_dev);
+> +
+> +	switch (channel_count) {
+> +	case 1: {
+> +		struct osf_iio_scan_1axis scan = {
+> +			.value = values[0],
+> +		};
+As suggested above, this structure type is only used locally here. So
+make the definition local as well.
+		struct {
+			s32 value;
+			aligned_s64 timestamp;
+		} scan = { };
+
+> +
+> +		return iio_push_to_buffers_with_ts(indio_dev, &scan,
+> +						   sizeof(scan), timestamp);
+> +	}
+> +	case 3: {
+> +		struct osf_iio_scan_3axis scan = {
+> +			.values = { },
+
+Setting values doesn't add anything useful as = { } 
+zeros the whole structure (including any holes - they kernel is
+built with specific compiler options to ensure that last bit
+as it wasn't required in older c specs).
+
+> +		};
+> +		unsigned int channel, index = 0;
+
+Please split declarations that assign and ones that don't on to separate lines.
+Ends up a little more readable.
+		unsigned int index = 0;
+		unsigned int channel;
+
+> +
+> +		/* Pack the active channels; unused storage remains initialized. */
+> +		for_each_set_bit(channel, indio_dev->active_scan_mask, channel_count)
+> +			scan.values[index++] = values[channel];
+> +
+> +		return iio_push_to_buffers_with_ts(indio_dev, &scan,
+> +						   sizeof(scan), timestamp);
+> +	}
+> +	default:
+> +		return -EPROTO;
+> +	}
+> +}
+
+> diff --git a/drivers/iio/opensensorfusion/osf_serdev.c b/drivers/iio/opensensorfusion/osf_serdev.c
+> index 8a747c01ff9d..3d5e90d83967 100644
+> --- a/drivers/iio/opensensorfusion/osf_serdev.c
+> +++ b/drivers/iio/opensensorfusion/osf_serdev.c
+> @@ -23,7 +23,7 @@ struct osf_serdev {
+>  	bool vcc_enabled;
+>  	struct osf_device osf;
+>  	struct osf_stream stream;
+> -	/* Protects the parser and all RX counters. */
+> +	/* Protects the parser, all RX counters, and the registration gate. */
+>  	struct mutex rx_lock;
+
+Just name it 'lock' given it has scope beyond rx.  Do that in earlier patch
+though rather than changing it here.
+
+>  };
+
+>  
+> @@ -139,5 +144,5 @@ static struct serdev_device_driver osf_serdev_driver = {
+>  };
+>  module_serdev_device_driver(osf_serdev_driver);
+>  
+> -MODULE_DESCRIPTION("Open Sensor Fusion UART receiver");
+> +MODULE_DESCRIPTION("Open Sensor Fusion IIO driver");
+
+Just have that being slightly missleading in earlier patch to reduce churn here.
+
+>  MODULE_LICENSE("GPL");
 
