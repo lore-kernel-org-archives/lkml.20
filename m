@@ -1,131 +1,111 @@
-Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 560A1393DE0;
-	Sun, 20 Sep 2026 08:01:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3358F331EB4
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 08:03:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789891270; cv=none; b=nxnrXgKAJkpkWhxrthy1E0WAXO9v9+gjimxDj3IQKjQebKxXF8EPf9PBvzPaP7ktJGCvnGAHFsW/IbyhGRiPnnF4+7p2R7XyJuuygKalFx0Hft5cYL7d+y3S40kY3HWkgFehkf7SXzDhZy/Bw7LvBKSQdDVch9u6iec0e+gdQU8=
+	t=1789891387; cv=none; b=G2OelNj4pySH9ktYDPLzfDLWvcGrVuCxjXetONqsLulJRqnqhCircyblWJIM8dDtOcAZWe51IucjNhRbdaawyFYsChAt/AnKEAzOeLIMBlEAikiuweX8TjF7Nae8XkXN4dnCUHTcaoCtRzUg0rsBISrvx9eP4YQw1lytXrS6ydI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789891270; c=relaxed/simple;
-	bh=Y5tPHoLczDWNnwZ5iXFWT2WFskib+hCciE0xxvvh5Bg=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 In-Reply-To:References; b=HPgi9efsFEBlvJ8OAHHS2ifZ802G36qpjCNc5Wvk4y2qgIsRhts0lU7pyaL+Zv/wRLTZrfS80isX4ccJreiWQHqaTSUbP42OnHdP2HngJx/fvp7rR6ylFNzTfNe+DCRKFs37EuNrQeNctW+kL/o/ZYbFtDwl/ortpmz9F/aCRT4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=dC5IRRtI; arc=none smtp.client-ip=54.206.34.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1789891387; c=relaxed/simple;
+	bh=TJAUI38ifciPKKyxbLzNZ7tsLCml17RD1952LgaKqi8=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=ZYULdW7UalFAX/j53fbkeUTZvkxOoZYVGEbhuQqktndBs1E0MZtCMCHnCPpJPlBQxFRjOuOSA7N8LZJRdcjWX8b41mRyAXGXIdzZ9LyPZpgp9yidMHRecU/OyDA/vPM5VcEfJVSetQxAIM1fU98lHCksYx8DL0NxnPjiJXIS1rk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jfRQlWZX; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="dC5IRRtI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1789891218;
-	bh=etqlwVVIRZowk3f8uquWoSpq/cd+t/r2MmegfPcTx4c=;
-	h=Mime-Version:Date:Message-Id:Subject:From:To;
-	b=dC5IRRtIJ/5sHCSunLfzHAt7GvE5WmEKw6BLIpj/sfoXQkaKorUs9N7QxmsyBGF3v
-	 dH3qy6S7TmxtqJGcUvi773CWB7Ki8gzhkJBQcgo8OATZLzc4SFqGBvfemuLS3DDKDT
-	 fTLC6CNxNyAxnYaxPbowWBJ9ZmqHBJ0uFMed8ej4=
-X-QQ-mid: zesmtpsz6t1789891212tfd2b0654
-X-QQ-Originating-IP: ++rQGpFiadxZGjlXFjk0ZmTswmyw1WBX7/+cHBxjjtM=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Sun, 20 Sep 2026 16:00:10 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 12539381814827415666
-EX-QQ-RecipientCnt: 16
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jfRQlWZX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789891386; x=1821427386;
+  h=date:from:to:cc:subject:message-id;
+  bh=TJAUI38ifciPKKyxbLzNZ7tsLCml17RD1952LgaKqi8=;
+  b=jfRQlWZX+GHUWqQhZxGZwpiBYQkX5wrExus2OclAa1UKPifD0Jx9gdAC
+   jLapRtmZxheqQx/LRc+vStGlMRc1s5940o8GmwkYA5ac8HHuTWzmTW/tC
+   TI7fHyS1ovbXOKbv6YblCNuhxVjAz4ccYnUeeyijPCg8EaujfNW6NXs1B
+   OogyG7tiNJFINS/riyhfnJa0rLgsO+tMyvZib9mTlwkq9BzUSJQJCxuza
+   RSdHXb1Evzy+XPj+Ic4eV03VQbfhqsYGR+Gt0/aGR6u2STH3BjPDlreSc
+   0OXvJ50piK5YQZdzyu2Cb3vmFR0gxElUJRGauunuQNRftsgDUuut5meWr
+   Q==;
+X-CSE-ConnectionGUID: plniwS/2S/SBZIfbZzotQA==
+X-CSE-MsgGUID: TVdP+TwiRoGlxi2VoBOTAQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11910"; a="92903117"
+X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; 
+   d="scan'208";a="92903117"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Sep 2026 01:02:53 -0700
+X-CSE-ConnectionGUID: EO4GnmZkSla1pa+QH97V3g==
+X-CSE-MsgGUID: HACl/gDGTLe/Cv7svC3lZg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; 
+   d="scan'208";a="271707177"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by fmviesa007.fm.intel.com with ESMTP; 20 Sep 2026 01:02:52 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x8CVc-00000000C9T-3Wi0;
+	Sun, 20 Sep 2026 08:02:48 +0000
+Date: Sun, 20 Sep 2026 16:02:05 +0800
+From: kernel test robot <lkp@intel.com>
+To: Tanmay Shah <tanmay.shah@amd.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Mathieu Poirier <mathieu.poirier@linaro.org>
+Subject: drivers/remoteproc/xlnx_r5_remoteproc.c:837:49: sparse:
+ sparse: incorrect type in initializer (different address spaces)
+Message-ID: <202609201549.zSHml9sK-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=e109c0058aed249261fbb125f7ffb89a9c6eec3c2886db4215a836200e53;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Sun, 20 Sep 2026 16:00:07 +0800
-Message-Id: <DLJZH96MO7V1.11IN77H2734TN@linux.spacemit.com>
-Cc: "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Ulf Hansson"
- <ulfh@kernel.org>, "Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt"
- <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre
- Ghiti" <alex@ghiti.fr>, <devicetree@vger.kernel.org>,
- <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>, <linux-pm@vger.kernel.org>, "Troy Mitchell"
- <troy.mitchell@linux.spacemit.com>
-Subject: Re: [PATCH 2/3] pmdomain: spacemit: Add power domain driver
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: "Icenowy Zheng" <uwu@icenowy.me>, "Yixun Lan" <dlan@kernel.org>
-In-Reply-To: <8301abce221e33d827053c54a64aed05f3227f7f.camel@icenowy.me>
-References: <20260918-04-k3-pm-support-v1-0-0acd2b36b96f@kernel.org>
-	<20260918-04-k3-pm-support-v1-2-0acd2b36b96f@kernel.org>
-	<a4359efeee2220903a05a2383a651ec8ec7284b7.camel@icenowy.me>
-	<20260918230107-GKC297024@kernel.org>
-	<33b33b2b79763d410bc2e5b4ef46c305aaf6f7c8.camel@icenowy.me>
-	<20260919095936-GKA322102@kernel.org>
-	<8301abce221e33d827053c54a64aed05f3227f7f.camel@icenowy.me>
-Content-Transfer-Encoding: 7bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NbgegmlEc3JuESYaEd5BhmnZaMOyQ3XiW1zRP3ssJWGEMRyC1cyRmF7M
-	IFxYhhZZehcgH4QJh/37E6fEaPt3KrEOsgPWDoO+hCXKGEtsjJ8B1Oq1SKwz+CA8K2iI5dE
-	Oy2sR/YgCJ4ViEK6Gw8J1RaHXzX0rf3PIia0Fn9fTlsqcK3TCkRmSzdkXkBmwkKGE5h632c
-	fw1ZLosNSQL9w0XWifdAmQN0lL4LLNLo+GNRX1VhlN+/IY7i6/2rl80S9woWmeBW101B6Xr
-	+BHr2HJKdX278Ep8ZN8y7Di9AkSkIAnAuEssrRwakXyvjcM6OyfGRff9z9JoHo0nYzDfA0N
-	DRflOYjtXSZ2zqPoUXc+QidYNX++hkO9Mn/dnoMaGokEUgx6XlPtkUHQHoUAhuwW7Py8ege
-	FVx+thQ1mh4Rg5K02HtHKk0/ktxlbtLMOc4+VVBAaYpRCreP32kiN8m5ehDMtu658A1lMP9
-	8O+dXKdqVw7MQUc3HU/YvAx3d5f4Z+0l7WWiwn9Ns94pIGRfY7mxgNclOH6knrBdzfsa+uj
-	+2lN8DUSznh6Eej+rpWN5eYaLdY3nD8SM9HVAaFQ/7tnetmMdj0DZBQEf8e+B04dc8Q/P9/
-	2DN7HJuU92uSQ0zK/UGBrdB+k9oqbSS3wHzEzl0BCszxY8oj/ad/BSRzPlY5gGQa4EVYctc
-	7A+3vggV1hd4XLTsu8/iWivCzTJ+NONOiogDNgZxARFfZiX4UW/fEhvLHPzgpIZoHY7PrcL
-	GJdo5GF9Mjwa79u8Bmm17CsoZp8nzrnaYeo++SgJNGt+e00I+rGZewriFL9IXTFKqsDKmIC
-	1AikP1WTI0iV/fvVtJ8rSsSuJ1Ypq6R7/AAg92VgU5/5Ee0/BHaWxmfL+7R8XqUciTFKL+5
-	BZvRjU/HOhPxsWvN7Xter8lYgpOOx7IJF1Duk6aaK+pswTAtM23F/lQGEko/hUb4bfS+3Tz
-	nEKNtSkmvxcZ6oj+SRuAdxucCQyiV3Tt7DjndMRMUf7GJLd9BbD8ogENnVgr/wNK6gpXL0w
-	TmyxaCJbv7yN2XDv5p46KM943WXr2Q3WZW56TYaXqi3aYmDLzJ12BeVcnnX09NAYyQcGjPY
-	7zzUmALEMnIVgyjBzs/SkY7rBcjpcHJA5naLmyArTz3RFOd8XIS7ek=
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-X-QQ-RECHKSPAM: 0
 
---e109c0058aed249261fbb125f7ffb89a9c6eec3c2886db4215a836200e53
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   f259f446f5198d98e13756d2cd531812a0ad3064
+commit: 5ae3dc078874693a0a7fd1cf32660bd473fe544d remoteproc: xlnx: Add crash detection mechanism
+date:   3 months ago
+config: arm64-randconfig-r1301-20260920 (https://download.01.org/0day-ci/archive/20260920/202609201549.zSHml9sK-lkp@intel.com/config)
+compiler: clang version 21.1.8 (https://github.com/llvm/llvm-project 2078da43e25a4623cab2d0d60decddf709aaea28)
+sparse: v0.6.5-rc1
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260920/202609201549.zSHml9sK-lkp@intel.com/reproduce)
 
-On Sat, Sep 19, 2026 at 09:56:12PM +0800, Icenowy Zheng wrote:
-> I have seen pending patch for it with multiple revisions [1], the dt
-> binding is even already ACKed by Conor, so I think it's not a big
-> problem here.
->
-> [1] 20260903092347.620060-1-joshua.yeong@starfivetech.com
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 5ae3dc078874 ("remoteproc: xlnx: Add crash detection mechanism")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609201549.zSHml9sK-lkp@intel.com/
 
-ESOS is based on RT-Thread, and we currently have no plans to upstream
-our ESOS changes to RT-Thread. Our team's scope here is upstream
-open-source support; upstreaming ESOS itself is outside that scope.
+sparse warnings: (new ones prefixed by >>)
+   drivers/remoteproc/xlnx_r5_remoteproc.c:571:20: sparse: sparse: cast removes address space '__iomem' of expression
+   drivers/remoteproc/xlnx_r5_remoteproc.c:749:17: sparse: sparse: cast removes address space '__iomem' of expression
+   drivers/remoteproc/xlnx_r5_remoteproc.c:773:24: sparse: sparse: cast removes address space '__iomem' of expression
+   drivers/remoteproc/xlnx_r5_remoteproc.c:797:25: sparse: sparse: cast removes address space '__iomem' of expression
+>> drivers/remoteproc/xlnx_r5_remoteproc.c:837:49: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected void *rsc_offset @@     got void [noderef] __iomem * @@
+   drivers/remoteproc/xlnx_r5_remoteproc.c:837:49: sparse:     expected void *rsc_offset
+   drivers/remoteproc/xlnx_r5_remoteproc.c:837:49: sparse:     got void [noderef] __iomem *
 
-The pending Linux RPMI patches are useful progress, but making the
-complete solution work on K3 still requires substantial integration,
-validation and maintenance work across Linux, OpenSBI and ESOS. We
-cannot assume that someone in the community will take on that work.
+vim +837 drivers/remoteproc/xlnx_r5_remoteproc.c
 
-I am not opposed to RPMI, nor does this require ESOS to be merged into
-RT-Thread first. My concern is who will bring up and maintain the
-complete solution. If our team is not pursuing that work and nobody
-else takes it on, should power-domain support remain blocked
-indefinitely?
+   832	
+   833	static int zynqmp_r5_handle_rsc(struct rproc *rproc, u32 rsc_type, void *rsc,
+   834					int offset, int avail)
+   835	{
+   836		struct zynqmp_r5_core *r5_core = rproc->priv;
+ > 837		void *rsc_offset = (r5_core->rsc_tbl_va + offset);
+   838	
+   839		if (rsc_type != XLNX_RPROC_FW_CRASH_REPORT)
+   840			return RSC_IGNORED;
+   841	
+   842		r5_core->crash_report = rsc_offset;
+   843		/* reset all values */
+   844		r5_core->crash_report->crashed = false;
+   845		r5_core->crash_report->crash_reason = 0;
+   846		r5_core->crash_report->crash_reason_str[0] = '\0';
+   847	
+   848		return RSC_HANDLED;
+   849	}
+   850	
 
-Could we move forward with the direct-control driver, with its
-mutual exclusion with ESOS power-domain management clearly documented,
-and revisit RPMI when someone is ready to support that path?
-
-                                            - Troy
-
---e109c0058aed249261fbb125f7ffb89a9c6eec3c2886db4215a836200e53
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iIMEABYKACsWIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCaq+Shw0caUB0cm95LXku
-b3JnAAoJEJgJ74D5MzQvKbEBAM3JGT8zMz/qwCLlFLbDvQLCE51eHJZ+3Dft2z67
-kBvuAQDFfQQClaI2mk0/LoEmsI9nsFXig4tdzJ/NoEsP9pSPAg==
-=PdYA
------END PGP SIGNATURE-----
-
---e109c0058aed249261fbb125f7ffb89a9c6eec3c2886db4215a836200e53--
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
