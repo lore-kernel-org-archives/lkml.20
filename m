@@ -1,222 +1,177 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76182397933;
-	Sun, 20 Sep 2026 22:34:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789943687; cv=none; b=WBBNUol30/NhhD6dBqux45QqeahfFYeKSuRm8nzBJzU50addeq+AYhLxfFXXZEp5qcMR5q5VpVsdoUB2uJF8FGs9/gPr8fod2wh6aUr6pCRAKvY91L3P7eTl86dT7Cst7KLwGuUzNWBuOIiZGEuSKH0FcTfNWeIIyxtAFTYRDjw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789943687; c=relaxed/simple;
-	bh=WUTRE50fkf8Opj56sziBPC3Z3IFWM+d+KCp0wCOjgzs=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=GwL6ddotCRYSZMtxppuEQ/U92DD2CkWGrOBnyG4gb6QRlT5lcS3RVGkxbaD9pktSX7NVY5apGKq20lQxtfkimA+Gc2nxA36+I7P0Yuo+MXYrELLXeqZbZDLALqk2egZStyPExU9ior5PrBbb7bZfUj1rW+qeGSscTl96cAX5re0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B5QgXFLB; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 502923382EC
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 22:39:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789943964; cv=pass; b=inCZ2AR7bJstfbg2xcEgeTOyX1Z+c18tv8nDzO/jIq679Hlz+mKK3CLE7hnwql3icZV3n+9DMzGncf/3K8ki8uXWhmF9F7AxCDBpGPmsd1RD/lqFnhvSs1Ou7hsWN/bOh6nrp+whF4yRMap1HuXexHR3NFfF3ScYDUPjtuG+Tbc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789943964; c=relaxed/simple;
+	bh=WtJ4ZTd+8k6LQGnxavaDmIp6OwRZVXdyPN3V6KIUn6Q=;
+	h=MIME-Version:In-Reply-To:References:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=F1wGxdxvk0mYiWLLNNDr/OraQ1HddAH58lFFKMTxT0H9g2B5Cexv5taYqYqwS4r48j0wQWi53LKbt/wA5jt8ohUYbzL4+yL98YpE2pdAPCrAuDO4I2nCEIB9T8V9V3nxGqxsC8yZq8FCBhpHujFyGIpUhejOmHQbUph85J+6jlA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qo02oinT; arc=pass smtp.client-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B5QgXFLB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88B861F000FF;
-	Sun, 20 Sep 2026 22:34:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789943686;
-	bh=U87R++EK1y6Sz1Xb4HBxCZ8MA5p8L+mLjarW01EQyYg=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=B5QgXFLBT6KK20Ob1YhtIbJ+Delv2d7VX58j0dpyaTK+JWw2CrccVUD9MydRE/GbR
-	 kv9eGc97VxfoplkXsilme78IXdb7FGJhbh/ofbaGAULivLvX2mY/KNptYKK+wl2MFZ
-	 8n3xCunpOu0UJm3H+CowV8bv5N1QAEfXT9RXGA+pRyi8kwVKIZImRIWsyT9DTk1Lle
-	 uZezVdPl4HooVtlqjBpsNYN2Vmw38xY08BexOPsrz6m9NajwMTtI6LQoymbu2Lnwb1
-	 BIuhXmirh/KoqkCOQYQvVnfN/3iM83Kz2QcpWHvJEZ3rIWNtFRkqZnSULFcNmvcWik
-	 6prjF7MVTL4pw==
-Subject: Re: [PATCH] net: wan: lapbether: validate frame length and headroom
- in lapbeth_rcv() and xmit
-From: netdev-bot+sashiko@kernel.org
-To: benquike@gmail.com
-Cc: ms@dev.tdt.de, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- linux-x25@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Sun, 20 Sep 2026 22:34:45 +0000
-Message-ID: <178994368506.2160803.16241878291781749602@kernel.org>
-In-Reply-To: <20260919223433.3882618-1-benquike@gmail.com>
-References: <20260919223433.3882618-1-benquike@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qo02oinT"
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c294ad260fdso379406866b.1
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 15:39:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789943961; cv=none;
+        d=google.com; s=arc-20260327;
+        b=P/jFyl31qM8fL+pDKq3Gb74X+777BqVK6lJZ7uK0AcyZKyxWNGfWoHOYOZ6ZTFSX0K
+         V2vYwrYYCih2q2mi2xymZzsx+zenWru0ner03jfoI+CDqB7P8N/QbapTiUSZUDz6HZ8B
+         wIcDGrg8S24Ovoz+Hhweq3fkL/6mqj6k7H1hdJgwOGnNWwPTqLFdacs8dvSR7p8xEnbf
+         f5Y1e0h75NMjuOQIjZiC/0stYW/PKBCaObu14e1Sez4tmefpcVydYOCwiTK2tMYI3C3u
+         cZmF5qtV9HpXMeJVv1ec9CLTaTp79CAwQoryDMLroIvZYJXu/Eyh3V3tNbG++AJS3+3z
+         maxA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:references:in-reply-to
+         :mime-version:dkim-signature;
+        bh=KpJKV9oL0BlyVbCMHmeY3GdCnj0W6bhLkcjPYkX4BAw=;
+        fh=bs8fd0oX8FpTsm1cRGCt4z9bOiKMHH7FrxmYLwjqfD4=;
+        b=cchqsCrVH8UqLsqI9Lu46WD92drOa6SXQ+RsfRA7oipthBZv5p9qcUMylYxbAylnvG
+         MuQbMxw/PwxM2Ei/ZmF6JB3syx1b+V/i7MvRAAUAyjQKcOt3BYEtCgDYtEIerC4ayxZR
+         81NNxZutlju/c9oxbIqMZhpL+8taBqlqC0QLyNmqMqnFdYN1t/IPwqN/pU4lKyNDgCAb
+         gN70aUS0LjN8ihC2bpkv1cGGV/ONo2NcJoukh1zeXMzxkKcLSXYfpWPNZ7KD4jMFctsP
+         EcQ1ou4L+IkSAUOxAIX00Qckxux6jytbDoaoa0ulwresQEXzbIzNtLrsE7crCQxnbVKu
+         iR0Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789943961; x=1790548761; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:references
+         :in-reply-to:mime-version:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=KpJKV9oL0BlyVbCMHmeY3GdCnj0W6bhLkcjPYkX4BAw=;
+        b=Qo02oinTMvO2Fgj8T/2UkrOGO8Gluotrmqm98huofPWiTqmjv8GvxSrwPVo/31z9+E
+         pnGGPm3xvJp5EHNM/H1/oS64PX4usYU4e2btfb68sTcVyo5QZb7G/YmWDM4toqEpf+iz
+         louTriEOZE6v2yUgADiyrL6VvrjFIjTp6bECk5AfcGoIjPcurH8oRumVa2SULV+kvhGR
+         JlgXGEv0SZ7GPm+dpxxnFOl88EooQi+FQmixwTYKzrnb2zpxF1ZV2vdquKFPLsW720Ey
+         IdNnmVoHxQSCEO9n051pUbK9+cFBTuaHhWK1/C6wb4OSipk05xFQRNF8JUXK/k3ZOmDs
+         MGnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789943961; x=1790548761;
+        h=content-type:cc:to:subject:message-id:date:from:references
+         :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=KpJKV9oL0BlyVbCMHmeY3GdCnj0W6bhLkcjPYkX4BAw=;
+        b=n8GDpdcR+MnJEsfjtdZNpnsaiR2oSTYcgx7zk70gNmLPM4ZC72NEWhcVnH1hBpnH1o
+         7RS8/2eB5yVD5ZI0VF3jv83oY7hIExOCP6GMh7ENRVUKpRXG5ubes8LcIbcvws0U32T1
+         e7cOMRu77e+XuSWEGPIyvhkoO6cOgx6TSkwha2Zh1EBz90WQEDm3TUls1cRyz1th4zRS
+         DYtxkNH4x4ejxcaMS0KWPOIrLLmJcGf0n8qgD/Vy7vDmH/rLxLt1/yGK8PubS+3HNM82
+         j9SIEyZ2b9OXr6S4kXIZiMmD8Wa1+Gfuu4ItyZadlu5qwJ2o07pLpSg16Iq5r4FMNxFf
+         wKTQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzAf11HOrCeimmxzuD8QrOQOjV5a6ZxHU8YILSG3JKNSUveZZi9p/vRgNZhsG2W4GYd0urgBsHcrgH/Hgg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lgzSbi5EqO9hlVtUDKdOFj2vUw4F2Q1eBL+wZHryz9z3jOFZOf
+	8rZsp6CEPkp/Gv7wSx3yYx77iV+Cwe+82VTioxPDABlP8/kYJIFiMiq+Yz4+DkOR5g/qYR6EVdb
+	+Tyz1dHjIZYrH0P6Xcm4X0gssoUA4ioQ=
+X-Gm-Gg: AYBFou2NskSHEDvzTODV8Fcp+lFvXrngPEzkeVViN9fKzUmvGR9tLgyfKf2MwTJoGHL
+	fbWjJxMdqdRDEcaZzIBfHEaZX+bi0ggU74NcHmcMcxmzj9P+YWsIy1SeRXhdGksZlpg7RNscBRU
+	MyAkfGaXi5nOQp/cYw18k0n43HrgBRaUAS0MCd73bqb0leD9DhfCo4x3TJqGIPfYJdEpEwPs9Ep
+	DfEQJo5Yowkf3+W44vC987JXD32nKZiiTmEBakWNA0AlCSFJ+/7lYxKmyyNOELTSdo44/zXO9d/
+	rMXdoMOuu5oSCiJ9UiwTFpCeiJYSViPItNvW52hc3Z03Hkkr0078GBEP4g==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Received: by 2002:a17:907:3ea4:b0:c29:6bf0:eb73 with SMTP id
+ a640c23a62f3a-c29f5228f5fmr1121776566b.1.1789943961258; Sun, 20 Sep 2026
+ 15:39:21 -0700 (PDT)
+Received: from 292895732794 named unknown by gmailapi.google.com with
+ HTTPREST; Sun, 20 Sep 2026 15:39:20 -0700
+Received: from 292895732794 named unknown by gmailapi.google.com with
+ HTTPREST; Sun, 20 Sep 2026 15:39:20 -0700
+In-Reply-To: <<o5ihhfa252cjfspqlag65xhnmehz3a5feyclmlyy4xlrcmceck@njmhyu7oom3d>>
+References: <20260725182628.221603-1-nsd.project.dev@gmail.com>
+ <CAFLp9PEQQVuDpJPwrNvLN1-u3w3TMwZPUUrf0+rOBrvDjBBf1A@mail.gmail.com>
+ <anlByPDZmvEhWeXI@casper.infradead.org> <ffcij36vnozf3rginqd2opd2dwqyki7xhtdo4veuty734hhgba@utjav2k263o6>
+ <nsd.1787001235.35928@mail.gmail.com> <w7vte4itudtkw2yf4vbmuofiumfffmp2y52dpu2bqvqtdgjvpd@5femyiozss3e>
+ <CAFLp9PGkVYZcQT5qAx-RKFOF-urZ92m417zpAeF7ZQempbS1HQ@mail.gmail.com> <o5ihhfa252cjfspqlag65xhnmehz3a5feyclmlyy4xlrcmceck@njmhyu7oom3d>
+From: =?UTF-8?B?YXloYW4gYXlkxLFu?= <nsd.project.dev@gmail.com>
+Date: Sun, 20 Sep 2026 15:39:20 -0700
+X-Gm-Features: AcwNN1Uij5l810gjQSoNTyE4DLMXLaa4cmXOi_eWZ3R4ZbTL0QkRJm-CP3x26yU
+Message-ID: <CAFLp9PF+6KUY7ZAGQZ_X9AN4VYbkdW_aDk1QSth3ZAVVqLTqsQ@mail.gmail.com>
+Subject: Re: [RFC PATCH 0/3] Neural Storage Driver - learning page cache prefetcher
+To: Jan Kara <jack@suse.cz>
+Cc: Matthew Wilcox <willy@infradead.org>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	linux-fsdevel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Hi Honza, hi Willy,
 
-Critical: 0 · High: 2 · Medium: 0 (1) · Low: 0
+First, my Aug 20 follow-up bounced on the HTML part. My mistake, resending
+as plain text. Below is that content updated with six more weeks of
+measurement. Two self corrections first, before any numbers.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+What changed since the RFC (same out of tree module):
+Automated prefetch never exceeds ra_pages now. Overhangs get trimmed
+or dropped, all counted. The only exception is our own measured
+willneed ranges up to io_pages. That follows Ming Lei's RFC direction
+and the MADV_POPULATE precedent. It is toggleable, Mod A means strict cap.
 
-- [High] The commit message describes two changes that are not present in
-  the diff.
-- [High] In lapbeth_rcv() (drivers/net/wan/lapbether.c:135-142) the wire-
-  supplied 2-byte length `len = skb->data[0] + skb->data[1] * 256;` is…
+Fault path first, as you asked in Q3. filemap_fault hook observes, then
+prefetches with depth capped at 2 and bounded by the cap. One more
+thing on this: the fault path stands down explicitly at 1M windows and
+up. There is a straight s_bdi->ra_pages check in nsd_process(). The
+  parity we see at 256K and 512K is a different thing. Our code still
+  fires there. The kernel just catches up on its own at those sizes.
 
-Pre-existing issues:
-- [Medium] lapbeth_rcv() increments `dev->stats.rx_packets/rx_bytes`
-  (drivers/net/wan/lapbether.c:141-142), where `dev` is the *Ethernet*…
+A sleeping in atomic bug in our fast path got found through a stack
+trace and fixed. vfs_fadvise was called from fprobe context. It now
+goes through a workqueue.
 
---
+A len==0 fadvise footgun got found through our own counters. Len 0
+means to end of file, so those sends preloaded whole files. All our
+earlier big mmap and SQLite speedups traced back to it. Retracted.
+Sends with len 0 are now dropped and counted.
 
-net: wan: lapbether: validate frame length and headroom in lapbeth_rcv() and xmit
+Narrowed claims after all that. Interleaved A/B, drop_caches before
+every run, checksums verified, 500+ runs in total:
 
-This changes lapbeth_rcv() to use pskb_trim_rcsum() instead of skb_trim()
-when trimming the received frame to the length carried in the 2-byte
-prefix, drops the frame if the trim fails, and moves the rx_packets and
-rx_bytes accounting to after the trim.
+  sparse mmap scan, about 64KB stride, 512MB to 20GB files, 128K window,
+  SSD: ON ~47s vs OFF ~88s median over 30+30 reps, no overlap.
+    The threshold lines up exactly with FAULT_AROUND_ORDER=4 (65536B).
+    Below it the kernel fault around covers the fault by itself.
+    Above it, it does not.
+  same setup at 256K, 512K, 1024K windows: parity, kernel catches up.
+  dense mmap, rand 4K, seq read, SQLite, THP, and HDD sparse mmap:
+  parity everywhere. The early small HDD lean got remeasured with
+  current code and traced to the same len 0 accident, retracted too.
+  No workload regresses. dmesg tracked throughout, no new warnings.
 
-A few questions below about the commit message and about the length
-handling.
+So the scope is sparse mmap scans at default size windows on
+SSD. That is where the fault path underprovisions while the read path
+is already saturated. Dense, random, 1M tuned and HDD cases are parity
+by measurement.
+Separately, one thing that might be useful here too: p99 tail latency
+is about 4x worse at 1M than at 128K regardless of NSD state. Another
+practical reason to keep windows small.
 
-[Severity: High]
-The commit message describes two changes that do not appear in the diff:
+Open questions, updated:
+  Q1, fadvise beyond ra_pages: we stopped doing it silently. Only
+      measured willneed ranges up to io_pages, and that can be turned
+      off. Acceptable shape?
+  Q2, ra_state integration: we prototyped window steering from the
+      module. The kernel keeps our window but wall clock does not move
+      because there is just not enough volume from outside. Real
+      integration needs in kernel changes, so we drafted a minimal one:
+      2 stream slots plus stride state in file_ra_state, every window
+      bounded by ra_pages, read path only. Want me to post it separately
+      for direction feedback before any boot testing?
+  Q3: fault path first as described above, with timely versus correct
+      accounting running underneath.
 
-  "call pskb_may_pull() before reading the 2-byte length prefix in
-   lapbeth_rcv() and ensure sufficient headroom in
-   lapbeth_data_transmit()"
+For Willy: backward patterns get detected near perfectly (strides with
+negative deltas, counted separately) but they do not move the wall on
+SATA SSD, so throttled now. Fault path is covered as you asked.
+PG_readahead replacement stays an in kernel question as above.
 
-The pskb_may_pull() call is already there before this patch, in
-lapbeth_rcv():
+Full data and the retraction notes are in the tree. Happy to run any
+counter matrix you ask for.
 
-	if (!pskb_may_pull(skb, 2))
-		goto drop;
-
-git blame attributes that to 1da177e4c3f4 ("Linux-2.6.12-rc2"), and the
-diff adds no pskb_may_pull() call at all.
-
-lapbeth_data_transmit() is not touched by the diff either, and the 2 bytes
-it pushes are already accounted for in lapbeth_new_device():
-
-	/* When transmitting data:
-	 * first this driver removes a pseudo header of 1 byte,
-	 * then the lapb module prepends an LAPB header of at most 3 bytes,
-	 * then this driver prepends a length field of 2 bytes,
-	 * then the underlying Ethernet device prepends its own header.
-	 */
-	ndev->needed_headroom = -1 + 3 + 2 + dev->hard_header_len
-					   + dev->needed_headroom;
-
-Could the changelog be rewritten to describe what the patch actually does,
-namely the skb_trim() to pskb_trim_rcsum() conversion, the new drop path
-and the relocated receive counters?
-
-Relatedly, is the Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2") tag correct
-here? As written it points at an unchecked length-prefix read that the
-patch does not change, which may lead to this being picked up for stable
-as a memory-safety fix.
-
-> diff --git a/drivers/net/wan/lapbether.c b/drivers/net/wan/lapbether.c
-> index c3630a82913b..3838910ea7bd 100644
-> --- a/drivers/net/wan/lapbether.c
-> +++ b/drivers/net/wan/lapbether.c
-> @@ -133,11 +133,13 @@ static int lapbeth_rcv(struct sk_buff *skb, struct net_device *dev,
->  		goto drop_unlock;
->  
->  	len = skb->data[0] + skb->data[1] * 256;
-> -	dev->stats.rx_packets++;
-> -	dev->stats.rx_bytes += len;
->  
->  	skb_pull(skb, 2);	/* Remove the length bytes */
-> -	skb_trim(skb, len);	/* Set the length of the data */
-> +	if (pskb_trim_rcsum(skb, len))
-> +		goto drop_unlock;
-
-[Severity: High]
-Does this actually validate len against what was received?
-
-len comes straight off the wire, and pskb_trim_rcsum() returns success
-without looking at the skb whenever the requested length is not smaller
-than the current one:
-
-include/linux/skbuff.h:pskb_trim_rcsum() {
-	skb_might_realloc(skb);
-	if (likely(len >= skb->len))
-		return 0;
-	return pskb_trim_rcsum_slow(skb, len);
-}
-
-So for a frame whose prefix declares more bytes than were actually
-received, the new check returns 0, no trim happens, and the untrimmed skb
-(including any Ethernet minimum-frame padding) is handed to
-lapb_data_received(). Only the shrink path can fail, via
-pskb_trim_rcsum_slow() returning -EINVAL for CHECKSUM_PARTIAL or -ENOMEM
-from __pskb_trim.
-
-The transmit side in the same file defines the prefix as the real payload
-length:
-
-	int size = skb->len;
-
-	ptr = skb_push(skb, 2);
-
-	*ptr++ = size % 256;
-	*ptr++ = size / 256;
-
-Would an explicit check be closer to what the subject line promises?
-
-	if (len > skb->len)
-		goto drop_unlock;
-
-> +
-> +	dev->stats.rx_packets++;
-> +	dev->stats.rx_bytes += len;
-
-[Severity: High]
-Can a sender on the same Ethernet segment inflate rx_bytes here? len is
-the declared length, not the number of bytes received, and per the above
-it is never rejected when it is too large.
-
-A ~60-byte frame declaring 65535 adds 65535 to dev->stats.rx_bytes, which
-does not match the rtnl_link_stats64 definition of rx_bytes as good
-received bytes corresponding to rx_packets. Would counting skb->len after
-the trim be more accurate?
-
-[Severity: Medium]
-This isn't a bug introduced by this patch (the device selection dates back
-to ea2ebaf822ad7), but since these two lines are being moved anyway: is dev
-the intended netdev here? dev is the Ethernet device the packet_type
-handler was called on, while the transmit counterpart charges the LAPB
-device:
-
-lapbeth_data_transmit() {
-	ndev->stats.tx_packets++;
-	ndev->stats.tx_bytes += size;
-}
-
-The result is that ip -s link show lapb0 reports transmit counters but
-never any rx_packets/rx_bytes, since the receive path reaches the axdev
-only through lapb_data_received() -> lapbeth_data_indication() ->
-netif_receive_skb_core(), which does not touch dev->stats.
-
-There is also the question of who owns that counter block. dev->stats is a
-plain non-atomic struct net_device_stats belonging to the Ethernet driver,
-and this read-modify-write is serialized only by lapbeth->up_lock, which
-that driver does not take:
-
-	spin_lock_bh(&lapbeth->up_lock);
-	...
-	dev->stats.rx_packets++;
-	dev->stats.rx_bytes += len;
-
-Can this lose increments against the Ethernet driver's own dev->stats
-updates, or produce torn rx_bytes on 32-bit? Would lapbeth->axdev->stats be
-the right target?
-
->  
->  	err = lapb_data_received(lapbeth->axdev, skb);
->  	if (err != LAPB_OK) {
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260919223433.3882618-1-benquike%40gmail.com
+Thanks,
+Ayhan
