@@ -1,98 +1,76 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4A213C8732
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 09:11:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EDD73148BF
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 09:15:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789895482; cv=none; b=u+ljQwp+D4q0L8+tOKcdyDXxUvi1gFNcEdQzDyGan59YBcYMlAMK3Id/KB8rHcCd3iuvCFuFliKUt6V+cl3A21i+F/E9ZMua2WNquD9aYranChdRol8nQs2QqG8VxlwpR9fBbASnGM+4kLziqcZbz6LzB22URJA8DOXCgllRV8g=
+	t=1789895745; cv=none; b=Cn8+C/zWxlZCVSoeNs35gU1eh0ivln5n6DBGpz764DckVGUn9p+zJzCNgYSID2ovdFWSA7Pwr1zQVYfZa7BhkrvcU19GpeewgCoOy6OGlMA7Lv74MiiTF/GYe8jZ6gAMt8htFBYiguS0FVA/x5Lqjpx9gbPZJXaF1YYuNkweM2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789895482; c=relaxed/simple;
-	bh=lrTER2MqP0QPo+t54UPYxyOBJ0MmBWz+c+Zx7ruhgf8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uVVNMsU31/f3DszFX+8l1PurVNlQOUEbg2m9GP/Lel2Zf0lFeFwqLtEyI3I9ZBhZ1qg2phUhHboHW6QGm8zMbrqDeR14m2mrX3q7Q+9lAyAHjXAFJ8qB6HTOhpYHV1X7b2mrd36fQD+4NaZvyaFIfomBL5E5e+ZCr8JtwDc9g04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YMkUEoXR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fofNafuK; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789895745; c=relaxed/simple;
+	bh=o5ynmhsA1DQCi4+waIOfUB5VhWs7SgaifEiUhVbaOAs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RX73U8f5kj0ix7wHLXWIU0dqxlNk0/RtbRegUqs92yiVH/4kDTp6MUS5S4DgYphts1V2fuf9I7lAbFJEuEnRn5Rjq9vGUSK0P8RFWmFI09pTv1Fxj4ZBARhlF5/PQorWtuTYPJOQRKRepNLEORBGK5t2GUHAxGmzbAg1Q24Ei6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nef5+YVu; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YMkUEoXR";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fofNafuK"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68K8Vjse1242711
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 09:11:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=xaLXdBBWuVF
-	kmQZeXoKLSafvYIkhmxs/DUeyQwnP0oQ=; b=YMkUEoXR9tZYQ+lMUNoyvPZXd3H
-	3A+hZ78j+YU+d93M8DNEikZIvjnxeqUnV49HMkPaexdqQqPR0S5ZZqv5mrw42cp1
-	XBe814cTQEc67Rgfu1BpahBP4Z0XW1MnBy1jzYdawhHjcTddWx0h0KZU0Jlnp97S
-	Vf4yXwytcWtd7AhDb5+NJVvqej5lgK7v3aLiInFjecgbS7sc1CwluMjWBtZjMehh
-	cFN+Xd5y9Bdux04MDI06fSqbR8rI4CmUgTl8voEnLTCdaSslOM/eF8uCg3rIORcJ
-	njNyxlhX/Z0EIx4fOFdw98ZimCKNDj3R4QEKHYkT36lUZjXxnKdVFXTVRng==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gsjs82kgn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 09:11:19 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2dd8920c132so51546625ad.0
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 02:11:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nef5+YVu"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398c066106cso1632621a91.1
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 02:15:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789895478; x=1790500278; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xaLXdBBWuVFkmQZeXoKLSafvYIkhmxs/DUeyQwnP0oQ=;
-        b=fofNafuKyg95REkuNCzyZ70q7FisnqFuubcbTE89iBPnmrEUiDtgX5A/Jz6boZ81zt
-         bgdyuPb52vcQxZQaNYCca+UEake8yEXcMWLX1qCP6Jwi5Dcg7u1Fjj1WD/Q9QxcLLDB1
-         a4BPt4KMEBHzwJ+kkLB20IrVGDZJkYkhT3hG0VXPHiC99f5zaL8ycef27XtWzjoF/9/m
-         fizVEfkSrsDSR9IUMW2IPLsTV+qSjmouMkWpUqVSLUw1eGzlQnrc8kMVCPnL888gzgWh
-         akFMqPI09KPBf79btYoCTgAxwt4Hhcs2biuLo6TZp5+D2hU5e/ittrtiXStIpeMEDnBa
-         eDAA==
+        d=gmail.com; s=20251104; t=1789895744; x=1790500544; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+MDlX42BAsKVk7nwm/KS5svsEQJzQqta4toefAuww8A=;
+        b=nef5+YVumb+UVxblk6PLlskZFHMRvFl1e9Uktu8h4AEw0waJvqie5qCjwDrA0HPqJZ
+         o97n/1/Tt+9g2OVeTYahMy6K6MyQmwPAVGEHKO3akRlpmhwP9hHwyjyaCJPOTkBqazK+
+         h0HNoflTybdrwv4WqrnWVm0fD41uHMmQgK6NoBb+VfNlJusyPyy6M6I0tI+t27QVEdI1
+         LN7azJ4IhIO+5QWZ5/MFLWwjw85v/a3nJ6hdVm6jSeFpXW1o6GHDSyq9kzxQnympcutJ
+         E0AdYRQcUC43iG2/yG36ehQ9zHV0L7oxDWfYdwyWtOrEhX3Hp+0eC+fEeuhBMT2750DD
+         4iYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789895478; x=1790500278;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xaLXdBBWuVFkmQZeXoKLSafvYIkhmxs/DUeyQwnP0oQ=;
-        b=jaKiVgv8SWHjsh9ItFnBMu1GGRG9qee+ZaixYv4Tmfqb0UI1qOWo8+5jcN6ROVgU8v
-         v5LNr+Q3y+3rW267gaLtaavVQR2l3a/Oz6LWLHkimL/zgDmMSAoSPGwmqrLKcoUWbC9U
-         jyr/q4gAZdI8htnW70Nwk6Gi1DzOwtX4c8pGdsJsEbwUXvU66Dxa/xBIwOtkwHUmKAtm
-         F0wZB5OhQjCRbPSddfQ05tIzZiwNKJ2tp94gk1C1Iu5bar+Cjh+Gl8qrwtOhELVXKjkX
-         Lz+ZmzBVE2B9gBUUowl9hLB5zfAv/MA/fw8lAkDDxv+IPpGZeoRMJ3HR5m9b89mC9bTM
-         1RsQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxcQ/thI/WyIGMB8r++Q4tZIR/yPKQze8GX5tisBczJNP3WbXYjaxXT0Yg5b7dsmgJ+N+DJhvvylSmJfKc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kQ3WFrfoswl8U+apgpb8McchgNt6uVLJERldsBNa1vlf+YrIS7
-	zwBrBGA2jhz/9jZ2HYldGNqieQnCE3Dg/lAZg+vOGrv2qTaZoFsEVkztZy0i3j+z427gdoCQUho
-	BvIi1UgEdL2ISPizPfmvzRRudLcu2VLUE+I911MGJJkAI527kIUVMkSbTWEovmUwFgMEgAVqfpM
-	48VA==
-X-Gm-Gg: AYBFou1amOOgmfOE4dJHyFMSwZPdLojt1E0jEdOup2BBRmsI9Q6fwt0xA+mxXmWES8v
-	aWdrSJWPAvKDo0LKzJ7vGal1ibfV88LzKCjve4uM7/cgadDAv7XaHnzwkBQMRHjMczp3zxENFKn
-	PMEpJcrtrEVW8AdHQ6DP47a4jhrFceNRqdfJysguefQ/tLUUQOhQ+wUb6p82MAI/InMBidnTTr6
-	nH4Up1rNl3GcElV53lwBm3gTQPFdfwcro1ZliJUy9zIfgZlzhPsYalGcGGhL1f8m/ge4tUGrzVI
-	SoYe6PGIqLZfU6bMyhK+XwHnMhP9zQCUS69j4Adkfi36I63RJyzoNNrJC7RCF4YxX0WmrTeUbid
-	wpW4RTIfx49URYWGKQ23D5Ofu4Atkb9Wub9Z0/w9qKCEKIVaJVacG0Fykhlg=
-X-Received: by 2002:a17:903:19cd:b0:2da:eba4:b640 with SMTP id d9443c01a7336-2ddb1ab55a4mr131147125ad.6.1789895478567;
-        Sun, 20 Sep 2026 02:11:18 -0700 (PDT)
-X-Received: by 2002:a17:903:19cd:b0:2da:eba4:b640 with SMTP id d9443c01a7336-2ddb1ab55a4mr131146975ad.6.1789895478196;
-        Sun, 20 Sep 2026 02:11:18 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c3313d96esm10730242eec.12.2026.09.20.02.11.15
+        d=1e100.net; s=20260707; t=1789895744; x=1790500544;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+MDlX42BAsKVk7nwm/KS5svsEQJzQqta4toefAuww8A=;
+        b=SnxjRm5xSIV4mki/eX0CDd9Jau/j8B4xvhx+gRIGQIIilImoEGIsyplGyoMT7mi2cI
+         9UDpKrm3Qqiaf8SDy08ofL1t3ciJodsKbyHlRMSwuki1J0joBbPmnQSsEp8n15eUISbD
+         qt88wBmMKYvF1tOaLC/aKT2KChPvolP5IyH8S6hA6CilB7F/u8ufix2YkZ2mrZvTLHeg
+         8BC78GjPmcze3RtfXAjNUtDVw0S3A9iFz4kpbUi4fmevjbQyK5J2TnvwMbnPZYEyEhdu
+         x8S8HOZd8hwrDx9V7zAd1EH0/eZWbds1mmNFyL8htVzB+/es63ZuEPf3rAiAmX6H22P5
+         R/Ww==
+X-Forwarded-Encrypted: i=1; AKwUvBya5njwiYZUFXSU5xr6dfFCL23hAaHKiEwLskKEwcyG+gdFMH5jiNb6diI4Xp/n2PqO54SnzfTKdb1UUuA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kdqaH/4kS0ERWxFKp7upT+T3F/ex/aIut2yVhjZnGYTxZ4TVz7
+	2NY/3AV+ewKh7qS6f77LZKci5ed3JQZ2NPI3HfmX5yeDyN4G4cS3IZYs
+X-Gm-Gg: AYBFou1VRVTTgoSRMn+rYEv/LBT0PfA977tKuHa3HGYj5EC8mn9XLhJc/KZyJ9gbqVc
+	c7jXhyscInlcJtEa/WkfBwhwamrCjJm2IpVoNC4tadEE2yXLAlrl35m2kTGNqOVfy/nHmIfl7LU
+	+w9AN1U9mejJMhlIl+ncffbDKrMJMfTWLJixwIQ8EN/4Du0MdTwxTuJzOku2FHiF3il1PtKR6Ez
+	hTgj3kWDFW4cAqZwXd4G9UE39Y1I9QftOZHAa8+JLsB+CiBPls5Ah31fRVsZz30aqCOq93gnwxe
+	CYxgj64N4bL6vLnoNznQm27WGb8JHeEoqE5dKNiLBtnUxD02iWB2YhBeGzYfX0x//bRgUjnRYkI
+	5HyDd7JB2BtCRgDkrk+Jk1QrmB6znLUBcRxVFuzn+638EhGpTnCshnGw1fGzBL0Vvgs3F7ZhO3M
+	cQNCxGqYVPrJ4+vho5/InImcdFvmAGOr2d+dxCvzII+Na8KiyNaM4bFKsJCJxLIuenp+Frta1pn
+	2zzBMVHoBbq4rMWxOTykkA=
+X-Received: by 2002:a17:90b:1dc7:b0:39e:6c68:1553 with SMTP id 98e67ed59e1d1-39e6c68331amr7957189a91.27.1789895743725;
+        Sun, 20 Sep 2026 02:15:43 -0700 (PDT)
+Received: from LAPTOP-450UDG4J ([223.185.130.136])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c379c4bsm8740003a91.7.2026.09.20.02.15.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 02:11:17 -0700 (PDT)
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH 3/3] arm64: dts: qcom: nord-ride-embedded: Enable camss support
-Date: Sun, 20 Sep 2026 17:10:53 +0800
-Message-ID: <20260920091053.2214965-4-shengchao.guo@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260920091053.2214965-1-shengchao.guo@oss.qualcomm.com>
-References: <20260920091053.2214965-1-shengchao.guo@oss.qualcomm.com>
+        Sun, 20 Sep 2026 02:15:43 -0700 (PDT)
+From: Yogesh Gaur <yogeshgaur.83@gmail.com>
+To: Song Liu <song@kernel.org>,
+	Yu Kuai <yukuai@fygo.io>
+Cc: linux-raid@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Li Nan <magiclinan@didiglobal.com>,
+	Xiao Ni <xiao@kernel.org>,
+	Artur Paszkiewicz <artur.paszkiewicz@intel.com>,
+	Yogesh Gaur <yogeshgaur.83@gmail.com>,
+	syzbot+2ef75c54d0b2ac5d00ba@syzkaller.appspotmail.com
+Subject: [PATCH] md/raid5: give the io_unit slab caches per-array names
+Date: Sun, 20 Sep 2026 14:45:33 +0530
+Message-ID: <20260920091533.413-1-yogeshgaur.83@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -100,55 +78,112 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: bNN8UPp8lwVRj_7ptbqMRbmhIu67_3vN
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIwMDEzMSBTYWx0ZWRfX8+/X8639BEDr
- 8i7bW0lzB6zCmwBKPVrJQI4ZY/uQyiPcrpY60AVokPs9T0fDYOmS0ZgOS91Gr6DWiyucPStb7zo
- aaK47mdY3sxsBGEWO77dxUNw8RWibfA=
-X-Authority-Analysis: v=2.4 cv=YqWa1IYX c=1 sm=1 tr=0 ts=6aafa337 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
- a=DpGDD-vdax4iYkbPwkAA:9 a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIwMDEzMSBTYWx0ZWRfXwWuD4ZFe3P0J
- nLkao1bg96oEjAVMjs8xlnvkdGadNBsOVykyi0e2aV0FrRAlL5naPySfFnDoBYJ9XTmVYd2CvP9
- fLg4DAh+xg/I86akS41Z3hR9PN9xi5C2ox5uLEqSroHbW1ZLHpg+jVEW4w8d5R81MaFcal9rpPa
- /vwqWxrlY1PePNGOx5z8rOO6HTbu51yQS0CG2s+sHeB9mHZXiO/PTrADRHSYP51ESw/XkqBYqjO
- YjR3FFE6LMfeOhaCU3LCxFok5vqT9OM6supFfLLWukcHe+RL6hTC36NTwleDH2VXjtO1ic3EBYw
- 1jpigRKyQlAJRg83WNvGimZm7EScKrMXUF/g3tqrLaoazVeQtwKARF9Q/nqc2dRpu4YGdv0Q5I8
- 7UpNwyktCsdCZVqQYUvgjYkPn0HGihxdx05gKBfCUfJBSB7KSL/0JZUanaDP7prKfCsI8bq1VGh
- xOqHJp1aafKGwWdoSAA==
-X-Proofpoint-GUID: bNN8UPp8lwVRj_7ptbqMRbmhIu67_3vN
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-20_03,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1015 lowpriorityscore=0 spamscore=0 phishscore=0
- malwarescore=0 priorityscore=1501 bulkscore=0 impostorscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609200131
 
-Enable camss support on the Nord Ride Embedded board.
+Both raid5 log backends create their io_unit slab cache per array but
+name it after the struct:
 
-Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+	ppl_conf->io_kc = KMEM_CACHE(ppl_io_unit, 0);
+	log->io_kc      = KMEM_CACHE(r5l_io_unit, 0);
+
+KMEM_CACHE() passes the stringified type as the cache name, so every
+array that enables PPL or attaches a journal asks for a cache called
+"ppl_io_unit" or "r5l_io_unit".  With two such arrays live at the same
+time the second one trips kmem_cache_sanity_check():
+
+  kmem_cache of name 'ppl_io_unit' already exists
+  WARNING: mm/slab_common.c:112 at __kmem_cache_create_args+0xae/0x460
+   ppl_init_log+0x285/0x1310 drivers/md/raid5-ppl.c:1363
+   log_init drivers/md/raid5-log.h:138 [inline]
+   raid5_change_consistency_policy+0x255/0x740 drivers/md/raid5.c:9141
+   consistency_policy_store+0x7f/0x230 drivers/md/md.c:5883
+   md_attr_store+0x3b7/0x640 drivers/md/md.c:6158
+
+which is reachable by any user that can write "ppl" to
+md/consistency_policy on two arrays, and equally by assembling two
+journalled arrays.  The cache is created and destroyed correctly on
+every path, so this is a name collision only - duplicate names confuse
+slabtop and /proc/slabinfo, which is what the check is there to catch.
+
+Build the name from the array instead, the way grow_stripes() already
+does for the stripe_head cache in this driver, and fall back to the
+mddev pointer for dm-raid where mdname() is the constant "mdX".  The
+buffer is sized like conf->cache_name[] because mdname() can return up
+to DISK_NAME_LEN bytes.
+
+The explicit size/align arguments keep what KMEM_CACHE() expanded to,
+so object layout does not change.
+
+Fixes: 3418d036c81d ("raid5-ppl: Partial Parity Log write logging implementation")
+Fixes: f6bed0ef0a80 ("raid5: add basic stripe log")
+Reported-by: syzbot+2ef75c54d0b2ac5d00ba@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=2ef75c54d0b2ac5d00ba
+Assisted-by: LLM
+Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
 ---
- arch/arm64/boot/dts/qcom/nord-ride-embedded.dts | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/md/raid5-cache.c | 12 +++++++++++-
+ drivers/md/raid5-ppl.c   | 12 +++++++++++-
+ 2 files changed, 22 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/nord-ride-embedded.dts b/arch/arm64/boot/dts/qcom/nord-ride-embedded.dts
-index 09ee525764ef..674e2093f806 100644
---- a/arch/arm64/boot/dts/qcom/nord-ride-embedded.dts
-+++ b/arch/arm64/boot/dts/qcom/nord-ride-embedded.dts
-@@ -366,6 +366,10 @@ vreg_l3l_1p8: ldo3 {
- 	};
- };
+diff --git a/drivers/md/raid5-cache.c b/drivers/md/raid5-cache.c
+index 7b7546bfa21f..47458a474adf 100644
+--- a/drivers/md/raid5-cache.c
++++ b/drivers/md/raid5-cache.c
+@@ -3066,6 +3066,7 @@ int r5l_init_log(struct r5conf *conf, struct md_rdev *rdev)
+ {
+ 	struct r5l_log *log;
+ 	struct md_thread *thread;
++	char cache_name[48];
+ 	int ret;
  
-+&camss {
-+	status = "okay";
-+};
+ 	pr_debug("md/raid:%s: using device %pg as journal\n",
+@@ -3105,7 +3106,16 @@ int r5l_init_log(struct r5conf *conf, struct md_rdev *rdev)
+ 	INIT_LIST_HEAD(&log->flushing_ios);
+ 	INIT_LIST_HEAD(&log->finished_ios);
+ 
+-	log->io_kc = KMEM_CACHE(r5l_io_unit, 0);
++	if (mddev_is_dm(conf->mddev))
++		snprintf(cache_name, sizeof(cache_name), "r5l_io_unit-%p",
++			 conf->mddev);
++	else
++		snprintf(cache_name, sizeof(cache_name), "r5l_io_unit-%s",
++			 mdname(conf->mddev));
 +
- &qupv3_0 {
- 	firmware-name = "qcom/nord/qupv3fw.elf";
++	log->io_kc = kmem_cache_create(cache_name, sizeof(struct r5l_io_unit),
++				       __alignof__(struct r5l_io_unit),
++				       0, NULL);
+ 	if (!log->io_kc)
+ 		goto io_kc;
  
+diff --git a/drivers/md/raid5-ppl.c b/drivers/md/raid5-ppl.c
+index 7f8a9d3fd578..0530632f9d2a 100644
+--- a/drivers/md/raid5-ppl.c
++++ b/drivers/md/raid5-ppl.c
+@@ -1318,6 +1318,7 @@ int ppl_init_log(struct r5conf *conf)
+ {
+ 	struct ppl_conf *ppl_conf;
+ 	struct mddev *mddev = conf->mddev;
++	char cache_name[48];
+ 	int ret = 0;
+ 	int max_disks;
+ 	int i;
+@@ -1360,7 +1361,16 @@ int ppl_init_log(struct r5conf *conf)
+ 
+ 	ppl_conf->mddev = mddev;
+ 
+-	ppl_conf->io_kc = KMEM_CACHE(ppl_io_unit, 0);
++	if (mddev_is_dm(mddev))
++		snprintf(cache_name, sizeof(cache_name), "ppl_io_unit-%p", mddev);
++	else
++		snprintf(cache_name, sizeof(cache_name), "ppl_io_unit-%s",
++			 mdname(mddev));
++
++	ppl_conf->io_kc = kmem_cache_create(cache_name,
++					    sizeof(struct ppl_io_unit),
++					    __alignof__(struct ppl_io_unit),
++					    0, NULL);
+ 	if (!ppl_conf->io_kc) {
+ 		ret = -ENOMEM;
+ 		goto err;
 -- 
-2.43.0
+2.55.0.windows.5
 
