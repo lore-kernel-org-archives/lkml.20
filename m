@@ -1,97 +1,116 @@
-Received: from forward400a.mail.yandex.net (forward400a.mail.yandex.net [178.154.239.95])
+Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82F84352031;
-	Sun, 20 Sep 2026 09:35:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EC6D227EA4;
+	Sun, 20 Sep 2026 09:36:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.159
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789896915; cv=none; b=sefYrEyE3V67e1mECWgBnB/ewbyCQuKZL+X4MpSjMaQsjGLixAIXH11BVWWe1fUt9KJb+ERlotTfb/9aR9rq375/b1YOOI7j6S0MYm/kXDAj+EWsAzF6koaK2v4lsjd8cGbaU19TLTlMf+bgLz+Qz7pUDxlVuxgMT3hH7LHg3qs=
+	t=1789896964; cv=none; b=NUba1MYsv3++/p45ooUaifTSftaDZvGcuOXorLcAFXoVcLj2a9oQwhiXLS3OOod56VMvZzdoKngQ5i/ZilOOQWs8cQtgNH3vasFld8yR5utf0GML2Eg8IA3drK3+1IK4Y07OMxTdoqWRHiTQq303PsIM6Y6omplWp6TCDIUe/nk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789896915; c=relaxed/simple;
-	bh=woZI6uPGoA8KASrI3mT1kqL/a3UB0rXDWmryPhTwy+Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HmsiIyMTBIFXQ15Liq135K1o853rMe6fr3n65mPBx6XJ2T8RJpaWVrDKyp3C3S7f+hLvKxrv/f9cxYVbbPfwavqXAj0Vu0Zk18TA6No47DVKHIwxMjybMzvKnRSc1ib3OXN/eM1ns3HfMd+BWjxhoZNeJHJ0EectEBPE89hTa78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ya.ru; spf=pass smtp.mailfrom=ya.ru; dkim=pass (1024-bit key) header.d=ya.ru header.i=@ya.ru header.b=PRrnJOlp; arc=none smtp.client-ip=178.154.239.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ya.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ya.ru
+	s=arc-20240116; t=1789896964; c=relaxed/simple;
+	bh=biLUgl/0AclVyOqHd/FvWLds2ne/X4/8guAYviy8blU=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=lAHsXxyh8N2FfDkZg+MiNyZNEqs9zkcV9Egvm2jpyHyPfcK61/gQK5qE10hrff/d8q28umPGcT4biPiojZXjYnuTQvYkt4wEMPj3k+6wtZLrSHTu0NBRr0vC0DmE2lS7+jLyvRR5H50x6Nkk0+Rl9PcgqN2r6nYpZOFlortMwlE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=X8eEgeYW; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=nuwZMD6I; arc=none smtp.client-ip=202.12.124.159
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ya.ru header.i=@ya.ru header.b="PRrnJOlp"
-Received: from mail-nwsmtp-smtp-production-main-84.vla.yp-c.yandex.net (mail-nwsmtp-smtp-production-main-84.vla.yp-c.yandex.net [IPv6:2a02:6b8:c0f:39a:0:640:15c4:0])
-	by forward400a.mail.yandex.net (postfix) with ESMTPS id 117C4C064C;
-	Sun, 20 Sep 2026 12:28:21 +0300 (MSK)
-Received: by mail-nwsmtp-smtp-production-main-84.vla.yp-c.yandex.net (smtp) with ESMTPSA id ASVxuRVdNKo0-aVVBHvJF;
-	Sun, 20 Sep 2026 12:28:20 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ya.ru; s=mail;
-	t=1789896500; bh=Q/Y8k4bWmd1QSaHxBP9PRRfReRKW0CUt7aj4ZkfTEQU=;
-	h=Message-ID:Date:Cc:Subject:To:From;
-	b=PRrnJOlpg3eGawGLTFPuzzSNTsHI0I2+8egeAZqz3QJl6zml0NfjJaA6Kwo4WOCkI
-	 xJjuDgptbOwcro6K1UWlMLvXdWPTsUyirY+3bdMjQw9rbuz7GaCoav+uMusuVfp7/p
-	 fwnYTD+oo7+QIwsFjDyLmpYJrXoQgg2hCjfuNiic=
-Authentication-Results: mail-nwsmtp-smtp-production-main-84.vla.yp-c.yandex.net; dkim=pass header.i=@ya.ru
-From: Ilya Pavlukhin <i.pavluhin@ya.ru>
-To: Takashi Iwai <tiwai@suse.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	David Rhodes <david.rhodes@cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	linux-sound@vger.kernel.org,
-	patches@opensource.cirrus.com,
-	linux-acpi@vger.kernel.org,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/4] Add support for the bass speakers of Lenovo Yoga Slim 7 Carbon 14ACN6
-Date: Sun, 20 Sep 2026 12:28:04 +0300
-Message-ID: <20260920092808.17234-1-i.pavluhin@ya.ru>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="X8eEgeYW";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="nuwZMD6I"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 42C4B7A00E4;
+	Sun, 20 Sep 2026 05:36:01 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Sun, 20 Sep 2026 05:36:02 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1789896960;
+	 x=1789983360; bh=aXZQlewp3FOudGIFjI5+q8McIea7iBI7OR1Mj7pdUdI=; b=
+	X8eEgeYWvqI6Gz3Mppm1U4dW5q1DMr2LTy37xMxnlPR7CKhysNGQGckS4jLY/HlG
+	fXgwVqJKgRVe30UyOGeRLMLCEd9G05AGfuGopNitt5fHtw3NVtfizSbFZDH+4gVb
+	TVEagoYxMxH3LHzEo/vYzMhV7f75F7z8VwVoCSWEzAMUX20RZwBjT6cCt1YIxHdX
+	ssDWb6GMJbly1JP4eNkH4VM3mueNGcn9C8uYDmNcI8+hsvFKH0mpXEV96ofoPoNL
+	x9YinC6Hs1rBJS7TM1p9nt862ChRMFfiWcBI5bUoHfdUPkIo+DyrzQMNqUvtA5QP
+	Kt8abo8wtudVfYByClIe8A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789896960; x=
+	1789983360; bh=aXZQlewp3FOudGIFjI5+q8McIea7iBI7OR1Mj7pdUdI=; b=n
+	uwZMD6IR4D2eRcWgvCF2Ii8WpMfbKogtFU3azvB5cPBy4+7yojvGjqIll/xOlBP2
+	cX4ligbLSX6Guoegofxz/4XMS+m7U+SCzXd+M6YWMUC03wbXSCX434Qjp6aOG1H/
+	tPzwg64Bjv0TMM/kCGm0pmKlKoZtIdYN2Mu+5VXRYEe/p3nE6n2C/53Y8Jhf9Uf0
+	IYNGMkOWzmhpE2BfrNahNkB6hmUZ9IN2ew2GO8VNk+Ku8c+Usnzqu3hBadByxL+N
+	mcnX0KV3ZFIKjXwOknjAadIOfsug7s0IQQj8xZoNfY2A+xDpxE5Qn5kGd+WsZGbY
+	LJfcXtJfNu5fmNbeXd5uQ==
+X-ME-Sender: <xms:_Kivaqtq_eaxvj9KGZdD-QY7PY7CGsbV1Rm-bxlF9CB9gkDDy59lfQ>
+    <xme:_KivaqTg7oIFi5Am-BwOqDp3yFtxWl1hXhtH7Ci3SG6Zq2uxaJ2hjlz3_BypnH4Or
+    nGXZNRnfSG02BXrdnvF6ah_9wv8A9E1aBgG0C2rFFQpBoJ1Kmn2nY2v>
+X-ME-Proxy-Cause: dmFkZTGAtlQUANsN4AJ36NuNRpiQFwnrUyDrYaEaCjWHJ8dyNwtmvUDEVzz9POWYXNQ4vW
+    gJJBuj7MZoqG3ALb4GB/LQOL0pWQ91HxOqZZmF7chtv/HQpnrqFGiaAnh/kCWMBG12oDyc
+    bEe3Cm1JP4ciwNh8X/ZM9YBw28mCWSc3di1IxBfBoPi29msQVvj2Ph7mmfVumIGvwdVVMy
+    hZhafsdI/bdWFeMegt5xyB9rIwwyRiDtBcYbcCCFJYC+T4ILJ+V+srW6sOcFrHbaV2d4H6
+    CvLZJ/HA8LDCbAv29wPnBFKl/oAgazO2xpkeUnJPqnXw49q670kR9iLAicqVVxlqmWRzgv
+    /DC7wZRrgl77YQEyFyXwaCfA3SbAmqgEbHE53t3VEFgI0IOeCVcPa5OzCfGpqzWrlg7Srh
+    AYez4PHceQxw9yHGLvUt1RIPgYX4aPI6ycjQiYt703DuSWosFncZNQunayd53/9iXzxqGf
+    +yvmhkVoJ9oeZx2IPPU3tf962y7Ueh5PuYTIHt9RYLwPWkjREU5dGFo7TPF1j/5s9mgQe/
+    pHrv7N4lkzFB2rILc85tQ+7IXDOXAemJNkw3gVaM6NHb1fxWxnLHPtkImnzjBOJGLoB4rP
+    Gk2P0VOr2EbDV/M2ASgkKYXrs2hIjvQTPKlPQK0wDr7flY15zcDMaee5FSKw
+X-ME-Proxy: <xmx:_qivao0kPcpfr1cR-qsjcVeBZTUtoJGS7CjenDmRkoUuN_3i0Yu2Tw>
+    <xmx:_qivau6oDMDfMJgcaXD98ocWmxB-KTtF8M3hL6DUoo2HRS_ox90hSg>
+    <xmx:_qivasT64gwXfQwxkz3cjvIhmK1_lOTdRTc98K-5oRHd_BDhqIXceg>
+    <xmx:_qivarUaT8GUxteAT51fLiXeJPNovWas2cppYTMWvL5RCqqgsDArqQ>
+    <xmx:AKmvareo9nTawTgUSvYVsQ68HqJEacgAm8nkrAo6awF0snBgiBua9ODF>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id CB68632A0087; Sun, 20 Sep 2026 05:35:56 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ThreadId: AzgOxjlYMeWB
+Date: Sun, 20 Sep 2026 11:35:36 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Qingfang Deng" <qingfang.deng@linux.dev>
+Cc: Linux-Arch <linux-arch@vger.kernel.org>,
+ "Catalin Marinas" <catalin.marinas@arm.com>, "Will Deacon" <will@kernel.org>,
+ "Mark Rutland" <mark.rutland@arm.com>,
+ "Anshuman Khandual" <anshuman.khandual@arm.com>,
+ "Vikram Sethi" <vsethi@nvidia.com>, "Mike Rapoport" <rppt@kernel.org>,
+ "Shanker Donthineni" <sdonthineni@nvidia.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Message-Id: <114d7d69-dd0a-499a-8cd5-732baa21c74c@app.fastmail.com>
+In-Reply-To: <3250a625-7900-40a9-8f3c-612d333122dc@app.fastmail.com>
+References: <20260920014357.7069-1-qingfang.deng@linux.dev>
+ <20260920014357.7069-3-qingfang.deng@linux.dev>
+ <5847c824-8d69-4d02-af2f-896bf47f0732@app.fastmail.com>
+ <9895e60c-6a3c-40c8-b188-51891ee6b216@linux.dev>
+ <3250a625-7900-40a9-8f3c-612d333122dc@app.fastmail.com>
+Subject: Re: [PATCH v2 3/3] arm64: use generic MMIO accessors
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-The Lenovo Yoga Slim 7 Carbon 14ACN6 (82L0, Ryzen 5000) has four
-speakers. The two tweeters are driven directly by the ALC287, the two
-bass speakers by a pair of CS35L41 amplifiers on I2C. On Linux only
-the tweeters work [1].
+On Sun, Sep 20, 2026, at 11:30, Arnd Bergmann wrote:
+> On Sun, Sep 20, 2026, at 11:24, Qingfang Deng wrote:
+>>
+>> Regarding unaligned accesses, the splitting can only happen when the 
+>> address is known to be unaligned at compile-time. Do these accessors 
+>> need to support unaligned MMIO? If so, I could add 
+>> OPTIMIZER_HIDE_VAR(addr) to the generic accessors.
+>
+> I think all architectures that have had this problem just started
+> using the inline asm variant, and I'd probably try to encourage
+> that more.
 
-The amplifiers are described by ACPI HID CLSA0102, without _DSD, in a
-single node with both I2C addresses, the same way as CLSA0100/CLSA0101
-on the Legion 7. Patches 1-3 add CLSA0102 next to them. The Windows
-Cirrus driver configures CLSA0102 with an external speaker supply, so
-external boost is used.
+Also, I have only seen this problem in combination with driver bugs
+that define their MMIO registers as a __packed data structure
+instead of the usual 'void __iomem*' with constant offset or a
+normal structure without packing.
 
-Patch 4 adds the codec quirk. The ALC287 only clocks the I2S bus to the
-amplifiers while pin 0x17 is enabled, and the BIOS marks that pin as
-unconnected.
-
-Tested on a Yoga Slim 7 Carbon 14ACN6 (BIOS H5CN42WW) with all four
-speakers playing. The DSP firmware (cs35l41-dsp1-spk-prot-17aa3856*)
-is not in linux-firmware yet. For testing it was taken from the Lenovo
-Windows driver package (tuning "Lenovo-S760-17AA383D"). Without it the
-driver falls back to the default spk-prot firmware.
-
-[1] https://bugzilla.kernel.org/show_bug.cgi?id=215632
-
-Ilya Pavlukhin (4):
-  ACPI: scan: Add CLSA0102 to the serial bus ignore list
-  platform/x86: serial-multi-instantiate: Add CLSA0102
-  ALSA: hda: cs35l41: Add support for CLSA0102
-  ALSA: hda/realtek: Add quirk for Lenovo Yoga Slim 7 Carbon 14ACN6
-
- drivers/acpi/scan.c                           |  1 +
- .../platform/x86/serial-multi-instantiate.c   |  1 +
- sound/hda/codecs/realtek/alc269.c             | 28 +++++++++++++++++++
- .../hda/codecs/side-codecs/cs35l41_hda_i2c.c  |  3 ++
- .../codecs/side-codecs/cs35l41_hda_property.c | 28 +++++++++++++++++++
- 5 files changed, 61 insertions(+)
-
-
-base-commit: 4d4bc656580bcc448f8e6d6b3b3a903120eb29bb
--- 
-2.43.0
-
+     Arnd
