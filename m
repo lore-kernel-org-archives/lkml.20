@@ -1,121 +1,174 @@
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 934DF46EF8F
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 17:39:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C906A3515EB;
+	Sun, 20 Sep 2026 17:48:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789926001; cv=none; b=OyPqG/BfGRezFTVteKBwvlksXh7Foh11m+L4g3748G4QzOgPMxfsU9H3VrP940r7df3l9CyTuZsIOveFkO7AFrx6tB0AOjCEdRrgtHB5dNQ3An7XEHqGS1A5o/X7/LAOOgFsURe+zygHsE8ALtBBGAIQ35qpbVkWgOMmdlZOr7o=
+	t=1789926525; cv=none; b=cYT/VkYn6f2Lqceok79CoitSNXCOiSXXTDQLj/i7bgB2sUXQ8ucqZko1NIJKPAgLjEcseDC+ePASgDcgKAuzeHYt4zJdh4WWX09hvR0ZsmNsNeCWPPiY/t7LHa5hKegdgTu6z9RK/iyVFlIl7K7fYdO3TjRQNmRV6AMLm4egblg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789926001; c=relaxed/simple;
-	bh=PuPjUAhVCvIyLt+F8HbC8M3l3dqN94RplXe2tL04gsI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bdgZxBFelA78AR61sL+6NgSlZKUjFNP8VTO8vbBnnANEm2WU3d11v/Rhhz72iAqxc3iRueg+07YOXbeOc/XBflMDMeZIjKnxWTYfHIaDgTJ/lFCn2iZ+b+Yy5acIkFegpeWcXwVeF9hEMUjp5zoM297pcZnq4PqGVTXa+yHbW6A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bRtJe/FP; arc=none smtp.client-ip=74.125.227.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789926525; c=relaxed/simple;
+	bh=ZSp9cPhLXqk0gMNF2vxZ4/V/4ovuJA8EYMg0ikdaBH4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=GoXnS9eA7qgr00pKRlKwJONBtUUp+7YKOlsjsgI82TrxSp36ZZ5llwaEow99HmSsRmUxi3D2+ar+PtbZBk9d+3ZvIhPwfkTVNZhhAxzUc8Af1aSd4WektCtoq9ZBkSDl06TAbsJdsAomPwUEiiSPYIrH4YmWCoIcV3lMqE4BRY4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FwML+czH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bRtJe/FP"
-Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c67e53002bso1325382e0c.0
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 10:39:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789925998; x=1790530798; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BfkoR1nBKmYEzeoAan0z3MBTr6L2D2UKk4WaZHViN3Y=;
-        b=bRtJe/FPg0NQwEZ7u4CbOmh+qhfF7gws0hM/L1ByxSDxFLXmnJMwYy2PLUh2D+LchN
-         1KIVKY7TMVphCVqaCXc4urW+uIc0Nvcy1ucC6GOgOV1TtBdPwyheAcDLbUsdx903n9fx
-         yAHqXle/FWkeqPjfo3de6jLm2qcSqLvxtVs9vU2zjvLnPU3H/7nkqe2hGCcN1/lDsm99
-         y4pHPNOFBRJsXWeNKjHloR2UMvwCa1u0BX76WPJdY/S07j1LolqKtLZh1wqMS38Hr9BO
-         OC+Ap2sSmc6adV7eGCvfx67Fbgqu0+9o8KQ8ZbXShg4LnoDpS7r4+EjiQZ0vXFEblvOY
-         i4Sw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789925998; x=1790530798;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BfkoR1nBKmYEzeoAan0z3MBTr6L2D2UKk4WaZHViN3Y=;
-        b=zXHPBNxbDiOdk+/rjAi8soKcex7nNC8BAW3biYbNoprJQ7wFsjf5VYEa6ngF5HSwMr
-         5sxsD0aLE8bAGDeqtrFPQSErmd4+FFtZ8+6EkXkgkhUV2C8iT2ah138oRapvCS9e/sJE
-         qdxEHR7ChOgL0f8pE8k3J5uYuzKdTyBn5DBbeXYkpdFzh+8Px3xocW9tF2P96OJipkvo
-         gdGVLYZi7CHea1sdm2Et8kW4bFZHkGr0nJ3I3Tp5MGfTauLyG+vt8Yfh6f4mKkDW/z23
-         pWvFjw6D0EFHangq4u8LQQWc6YPVH5XYfXOLiKwuSW4aK6OBXAivYo6PZrRQSTbgTelJ
-         CgZw==
-X-Forwarded-Encrypted: i=1; AKwUvBzDLeHQvxdid3etsx1AHmVeBC0HkXeTErcC9UG2kVj2tcjYdn+vBIuuJSz8Ztz7TxguaO859eqVeEcg3O0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kjfyFnfVmJnqEXo3KaZ0cZMUEK+qe1hurTrk8G3C1rccL0HqC5
-	o6LC1DwEiovdD7nz818XQg40ipIX9TpL4GtqCPtM7X0DC5mdBy8R1/uQ
-X-Gm-Gg: AYBFou3wiWBOFnHEFGO1rye0QaXEPjyWOxDVbHuPZniN7qqhaD8NHwNESmx4bZ9OlqJ
-	AJRk1bzuKZmyEE0cB8lMz46L6jCWj86I5n4wST7m37ckzaaeQyZ1Ak6FolT8EZWPW+ihI7gBCzb
-	MfRMKtcMfkpqldZn3CEEwUj8uuDtZPvx41u6XIPFCYeRFRbUY3pBYl8/G9b+Y5S6odb91pYBKLf
-	RERYgXQYZaQ+HSJabjQT+ftueJaBpd9t/GtE1VKRKXjNArNIxtIoecLWYoqlsXzvNhfFRpaj9Oq
-	gX7MTuzEEv+fDM2z1pNC7vb2JL1KxRPXb7JzGZ3BpzfILQHXHJ+W/jz/U5KIdkn8907ofoyvc5R
-	OQE1oWkpJv5xl4GyisPC30LNuXR3jlLLg6blVv8g1JeETLK6Q9p24iRwOOQBjNGC+eqC/1GYIes
-	5edF33/+PDEz7Efgsv6675xSRbZaxv3Nix7nqPp3WYStfPxag+B1fycZ3lrATNP1ndjuWDfnJ4M
-	b8SQ4RQDw==
-X-Received: by 2002:a05:6102:441b:b0:7a7:19aa:8a87 with SMTP id ada2fe7eead31-7a719aa9106mr1590422137.34.1789925998477;
-        Sun, 20 Sep 2026 10:39:58 -0700 (PDT)
-Received: from cachyos-x8664.lan ([2803:9810:39e5:6c08:c254:b3de:1d81:c052])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7a6accecc7esm5578973137.10.2026.09.20.10.39.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 10:39:57 -0700 (PDT)
-From: Mateo Borda <mateob226@gmail.com>
-To: Mika Westerberg <westeri@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>
-Cc: linux-gpio@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mateo Borda <mateob226@gmail.com>
-Subject: [PATCH] gpiolib: acpi: Add quirk for Lenovo IdeaPad Slim 3 15ABR8
-Date: Sun, 20 Sep 2026 14:39:04 -0300
-Message-ID: <20260920173904.6221-1-mateob226@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FwML+czH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DE5E1F000FF;
+	Sun, 20 Sep 2026 17:48:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789926523;
+	bh=KwRQA3be4ONm7rVan1uRGscgGvuBIhdC4tlpxcuo80Q=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=FwML+czHKqjkthxIT7v2pmpZpoG/03VH+0JpEfbtdPnG187b8Tc3nchPnKGkT+Dvf
+	 VrBSWL2s7eiorifPRTorLoigzeXwzQbkAyiT0pP3r2I/rJyUSDJAVDqLsfUv/rAlXi
+	 wxASvK1dwrTw8yF5DkfDb6/C8RFKP3zcj618NzR1kFW52E5y8PWXj/Igt+B541P7tp
+	 p+D9VtmJfJ2dLwyCrJ+vp/JYfSO18AfWh33C4fU/ANrRpkhaJ7UG4OnFoAQZeGOVgW
+	 /1L9ClrrDHiMeclOMYhE/aOFb3Yw89I2zD1V6pSkTgsh7K/AFS4IUCvFC5iKO9xcF0
+	 9LXhoVRm1IUlA==
+Date: Sun, 20 Sep 2026 18:48:37 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Jaakko Koivisto <jmatko@utu.fi>
+Cc: Andreas Klinger <ak@it-klinger.de>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, <linux-iio@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/3] iio: chemical: sgp40: Implement
+ execute_self_test-command
+Message-ID: <20260920184837.2b2ca5dd@jic23-hlaptop>
+In-Reply-To: <20260918134019.1101308-3-jmatko@utu.fi>
+References: <20260918134019.1101308-1-jmatko@utu.fi>
+	<20260918134019.1101308-3-jmatko@utu.fi>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On the Lenovo IdeaPad Slim 3 15ABR8 (82XM), the touchscreen
-(GTCH7503:00) GPIO interrupt on pin 10 is armed as a wake source. As
-soon as the system enters s2idle suspend the interrupt fires, causing
-an immediate spurious resume, so suspend is unusable.
+On Fri, 18 Sep 2026 16:40:18 +0300
+Jaakko Koivisto <jmatko@utu.fi> wrote:
 
-Disabling wakeup for the device via sysfs or booting with
-gpiolib_acpi.ignore_wake=GTCH7503:00@10 avoids the problem, so add
-a DMI quirk that ignores wakeup on that pin.
+> -Run the chip self test routine testing heater and MOX -material.
+> -Log error if the test fails.
+> 
+> Datasheet does not clearly state if the chip is completely unusable if
+> the test fails. Because of this the driver will try to use the chip
+> normally even if the self-test has failed.
+> 
+> Signed-off-by: Jaakko Koivisto <jmatko@utu.fi>
+Hi Jaakko,
 
-Signed-off-by: Mateo Borda <mateob226@gmail.com>
----
- drivers/gpio/gpiolib-acpi-quirks.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+A few things inline,
 
-diff --git a/drivers/gpio/gpiolib-acpi-quirks.c b/drivers/gpio/gpiolib-acpi-quirks.c
-index a0116f004..22c5fb149 100644
---- a/drivers/gpio/gpiolib-acpi-quirks.c
-+++ b/drivers/gpio/gpiolib-acpi-quirks.c
-@@ -392,6 +392,19 @@ static const struct dmi_system_id gpiolib_acpi_quirks[] __initconst = {
- 			.ignore_wake = "VEN_0488:00@355",
- 		},
- 	},
-+	{
-+		/*
-+		 * Lenovo IdeaPad Slim 3 15ABR8: the touchscreen wake IRQ fires as soon
-+		 * as the system enters suspend, causing an immediate spurious resume.
-+		 */
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "82XM"),
-+		},
-+		.driver_data = &(struct acpi_gpiolib_dmi_quirk) {
-+			.ignore_wake = "GTCH7503:00@10",
-+		},
-+	},
- 	{} /* Terminating entry */
- };
- 
--- 
-2.55.0
+Thanks,
+
+Jonathan
+
+> ---
+>  drivers/iio/chemical/sgp40.c | 53 ++++++++++++++++++++++++++++++++++++
+>  1 file changed, 53 insertions(+)
+> 
+> diff --git a/drivers/iio/chemical/sgp40.c b/drivers/iio/chemical/sgp40.c
+> index c1e2a992ec2a..28d5e737d1dc 100644
+> --- a/drivers/iio/chemical/sgp40.c
+> +++ b/drivers/iio/chemical/sgp40.c
+> @@ -84,6 +84,19 @@ struct sgp40_serial_number_result {
+>  	u8	C_crc;
+>  } __packed;
+>  
+> +/*
+> + * Datasheet table 13.
+> + */
+> +#define SGP40_SELF_TEST_PASS 0xD4
+> +#define SGP40_SELF_TEST_FAIL 0x4B
+> +
+> +struct sgp40_self_test_result {
+> +	u8	data;
+> +	u8	_ignore;
+> +	u8	crc;
+> +} __packed;
+> +
+> +
+>  static const struct iio_chan_spec sgp40_channels[] = {
+>  	{
+>  		.type = IIO_CONCENTRATION,
+> @@ -210,6 +223,42 @@ static int sgp40_get_serial_number(struct sgp40_data *data)
+>  	return 0;
+>  }
+>  
+> +static int sgp40_execute_self_test(struct sgp40_data *data)
+> +{
+> +	int ret;
+> +	struct i2c_client *client = data->client;
+> +	struct sgp40_command run_test = {.command = {0x28, 0x0E}};
+> +	struct sgp40_self_test_result res;
+> +
+> +	ret = i2c_master_send(client, (char*)&run_test, sizeof(run_test.command));
+> +	if (ret != sizeof(run_test.command)) {
+> +		dev_err(data->dev, "i2c_master_send ret: %d, expected %zu", ret, sizeof(run_test.command));
+> +		return -EIO;
+Only called from problem so prefer use of
+
+		return dev_err_probe().
+
+Also don't eat the error if it returns on (rather than a short access).
+
+
+> +	}
+> +	msleep(320);
+
+Spec reference needed for any sleep times.
+
+> +
+> +	ret = i2c_master_recv(client, (char*)&res, sizeof(res));
+> +	if (ret < 0)
+> +		return ret;
+> +	if (ret != sizeof(res)) {
+> +		dev_err(data->dev, "i2c_master_recv ret: %d, expected: %zu", ret, sizeof(res));
+> +		return -EIO;
+
+return dev_err_probe() and don't eat the error return if there is one.
+
+> +	}
+> +
+> +	if (crc8(sgp40_crc8_table, (u8*)&res, 2, SGP40_CRC8_INIT) != res.crc) {
+> +		dev_warn(data->dev, "CRC error in execute_self_test");
+
+CRC fail indicates broken comms. I'd fail hard on this one.
+
+> +	}
+> +
+> +	dev_dbg(data->dev, "self test result: 0x%x", res.data);
+> +	switch (res.data) {
+> +		case SGP40_SELF_TEST_PASS:
+> +			return 0;
+> +		case SGP40_SELF_TEST_FAIL:
+> +		default:
+> +			return res.data;
+> +	}
+> +}
+> +
+>  static int sgp40_measure_resistance_raw(struct sgp40_data *data, u16 *resistance_raw)
+>  {
+>  	int ret;
+> @@ -421,6 +470,10 @@ static int sgp40_probe(struct i2c_client *client)
+>  	if (ret)
+>  		dev_warn(dev, "failed to retrieve device serial number\n");
+>  
+> +	ret = sgp40_execute_self_test(data);
+> +	if (ret)
+> +		dev_warn(dev, "device self test failed: ret 0x%x", ret);
+
+There should be a distinction between the test failed to run and failed to pass.
+For failing to run (e.g. comms error) then fail the probe.  Failing to pass
+the test is what you might choose to carry on from.
+
+> +
+>  	ret = devm_iio_device_register(dev, indio_dev);
+>  	if (ret)
+>  		dev_err(dev, "failed to register iio device\n");
 
