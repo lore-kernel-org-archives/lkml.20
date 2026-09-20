@@ -1,147 +1,176 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF4F5459AFC;
-	Sun, 20 Sep 2026 18:20:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789928426; cv=none; b=LOm4R1PyMbHDCIs1f7+q2hONfzHZR52IWSYv31+DYHbxsNsGgAiUlBXoyd6gk+YxS76aZ4tA1GWODJwt0fyqW69O7tcCGiQWPwkcrE32AcZg6JDgqVMcYL9S8pIPum8qpE60F8A6vg5xv7kgWSD9aZ7RCdgCt9YtX1QXfHuBGrc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789928426; c=relaxed/simple;
-	bh=W+vMR2OGV0sMUeYcnW5GBBEvRxR1q2dwoP28hoRQuYA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iADES1W5ov789X//9qGYrRiOvB7Pi4zRszwS0BhAWbvaY1P+5MFfRkgJCCMdbsdbgTO2RLUXJgw003ixqTTi5ReqKo0iRp3wWs+5zCMBw1X0e7bHAOvysrJO31DodVFoh2O4QBIUzpXuZKptE0wqKHkvttB6wecpIxSRU1aubco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=LarCZc8w; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81E66443C27;
+	Sun, 20 Sep 2026 18:21:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789928469; cv=pass; b=m+ec+46aFlhMlovDAs8mu08yO+Cy1mLuVpf3jQ3l14gYl2aZvHbuPD/+S36uSxgFU4JrhgJgWgXKh2izmPY1CEI5Kydiehkzty6wL+GLSHguOG0BQ/TAsKmLuBWmibR1hmy6d6H5EaipL9w9EUFlUEtPgAyOqgqjJ2KY662rPo8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789928469; c=relaxed/simple;
+	bh=JKk9nH0AZSCoNsSgcwKVlqeiDd7CGrOESdmwFRboQoI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gc6QoraWKl5fpnCdq6lBd8Z0Ll5hKPFAdB5IezD2v6WyeVsTUJvH6ZjIJg7qMTq4SJ3eycZTc49bMibTcDZan3bRrpqyn/KyjTmLkhxfjbhhCXlE9G2Wq9neoGm/y4zsS2IlinjWobXlcQ2jsxf8WDnq36hVUHSJWEAcOybT0go=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=hG2y/l2g; arc=pass smtp.client-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="LarCZc8w"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68KFaVga1879573;
-	Sun, 20 Sep 2026 18:20:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=gSQm+/rR3pASi/0SUNxB8Qq8vPENv6
-	CpvH7QrG78q0g=; b=LarCZc8wstRTyvaeeF0Rh0VILzD9xcn8lLzVEPYcumq6/i
-	V0b5uoLVESOv2NgUqkllClbCi9DrFyM1i581tho1hnhoPvU4azjnnnXFc2byI1ay
-	wdEVzxvcNP7uAp/i57Do9wFrke/FCkzCrkrzUPen2oxu905L/K4XjCbMMsAj8c6s
-	8bLjZxEynWwCp+fn0za6GdSG3Ob0dcoXZLZ6/+aeyIfj4ALkb8JD0q+igTBp8yD5
-	UW8FBUwbqW4g8fnv8AYHIA/OsJDZ+dONpb7fCJfrQbCa84ZX0UN5Yd0XAnBx3s0S
-	yvFsjk71Kvr7BarwSN1MVEDN4Tpga1GqnwchMt7Q==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskgq54t1-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Sun, 20 Sep 2026 18:20:18 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68KFHX4j4109026;
-	Sun, 20 Sep 2026 18:20:17 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gt4qq2fq8-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sun, 20 Sep 2026 18:20:17 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68KIKDtI37093870
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Sun, 20 Sep 2026 18:20:13 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C42BF20043;
-	Sun, 20 Sep 2026 18:20:13 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6130020040;
-	Sun, 20 Sep 2026 18:20:13 +0000 (GMT)
-Received: from osiris (unknown [9.87.137.215])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Sun, 20 Sep 2026 18:20:13 +0000 (GMT)
-Date: Sun, 20 Sep 2026 20:20:11 +0200
-From: Heiko Carstens <hca@linux.ibm.com>
-To: Peter Oberparleiter <oberpar@linux.ibm.com>
-Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-        Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Vineeth Vijayan <vneethv@linux.ibm.com>,
-        Vlastimil Babka <vbabka@kernel.org>, linux-s390@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH v3 00/13] s390/cio: replace page allocator calls with
- k[mz]alloc()
-Message-ID: <20260920182011.18515Dfc-hca@linux.ibm.com>
-References: <20260916-s390-cio-ready-v3-0-39e4894637d6@kernel.org>
- <20260916130613.15587F91-hca@linux.ibm.com>
- <bf57f67e-4a51-407a-b869-b9d78a9875b4@linux.ibm.com>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="hG2y/l2g"
+ARC-Seal: i=1; a=rsa-sha256; t=1789928445; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=HtnRs1y3PVC3nJ/S7EkfV3+bm6BSytV4ghO3Kpvhpi2FRK2x0qE4aMaKtAIsEk+NFQghnIYY2fRbqIqKi8P8UaLhd0yLjyl8fYwwY3WCOiTgcQbGHY7QlwphOym1KC3QyTABLWZ6OuZtCP+E+ygdMNIhsWKWJrQrTTM2OV163C8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1789928445; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=9X5uA/lhuubN5xoKegOzpl+E+IObiUHG4eckQZgitoo=; 
+	b=GiqB12mraYdY0y1DCky6RnIG0Z8wac4ZZhCnSIdn+abha8XzYVLj9TFi0jvbEEo6tnoW28S4ewEtWd4DqUPvK/ZOzMg5vet8oIxTHLV0rujy0msmbEjrp5gTV3PCTlC3EjE4pErXNUwKOozjo7WHYU5gTEjCIrMfw2yl4bdsUUo=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789928445;
+	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=9X5uA/lhuubN5xoKegOzpl+E+IObiUHG4eckQZgitoo=;
+	b=hG2y/l2gzpznDt6WdvYiuTlMQrMMohSZdxJkzLwEMzdFeK533/EY4GmseN+s5Jk4
+	skzFGUBT/S7IAi/52eEklKdM3yTy43rj6zN68UAh1nUfPQqRryvl5wFKDM1dik0fWE8
+	2t6E2wH1p10iHrRNyhKRuxmqpxNryi+/ePln8kyU=
+Received: by smtp.zohomail.com with SMTPS id 1789928444328269.1472253389609;
+	Sun, 20 Sep 2026 11:20:44 -0700 (PDT)
+Message-ID: <1454c304-7a12-48ce-a662-b1c7d2b76356@collabora.com>
+Date: Sun, 20 Sep 2026 21:20:39 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <bf57f67e-4a51-407a-b869-b9d78a9875b4@linux.ibm.com>
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=G+OJgNk5 c=1 sm=1 tr=0 ts=6ab023e2 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8
- a=iTZJ_rmbzj6-XQSVU9QA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIwMDI2NSBTYWx0ZWRfX6ARKW8NV9hd6
- BVG1Idc8lZzxNnuVj3XxjILfISXO+yn8R8T/PqpYBX3RDAEoY/VhOv2xLFGvSB6RtC8UK8ZXihW
- jI9v8zwB6DbaYjwWkRI9l4Qo7Xs6VvqGmz8MhD0tWM0/8AcxzG7osvsPao2FMjq0RNu3H0fmP3P
- qnZwEZ7KTx1skXIMbcx4xqy7sOFiMR4Rvmab5SEwlmo7wFrfrcBP8rv4LMUtmZ4qZvXMEzKbzTv
- Mhwu3C8BdA1SktJaMOusCZ9FTgHdnUistRtb82gBIGj8krMdu/U3lKhkTOuxxKujmYmJPTR5P0y
- KNEATWMsgnksIGRS5M657qGFTQNnHlZc54gL7BsgZRWA+NI8F8IOxH7UanwALSvZ/kzq4X/o4J5
- XLlTy5bccwoMLKJ3BBj0BlR0G9l7bLUApBWNYgrYZySDAFNQ7gGOK+sKsCrjmFM2plGEuXSg7Gw
- uA+sSkepdPLZw00i+Dg==
-X-Proofpoint-ORIG-GUID: A898qOlsBDd8jU1o4XP8_XhYfDoXwp73
-X-Proofpoint-GUID: A898qOlsBDd8jU1o4XP8_XhYfDoXwp73
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIwMDI2NSBTYWx0ZWRfXzn4lTBGwUaX/
- nTH6fCleWHQK3oHHVrj/QUyaeYVykEhfTJgZRTaZow3yzUC7hyXbSFPRSxJ6JAfD0gyw5DRpFah
- 7Q/ct+MvIIRil+Vi2BfaGerox59rezE=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-20_05,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0
- bulkscore=0 priorityscore=1501 clxscore=1015 spamscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609200265
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/virtio: fix NULL pointer dereference on fence
+ allocation failure
+To: Peiyang He <peiyang_he@smail.nju.edu.cn>, airlied@redhat.com,
+ kraxel@redhat.com, dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ virtualization@lists.linux.dev, gurchetansingh@chromium.org,
+ olvaffe@gmail.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de
+References: <00EFE4BA92889B14+20260909091114.2622550-1-peiyang_he@smail.nju.edu.cn>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <00EFE4BA92889B14+20260909091114.2622550-1-peiyang_he@smail.nju.edu.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-On Fri, Sep 18, 2026 at 06:23:00PM +0200, Peter Oberparleiter wrote:
-> On 16.09.2026 15:06, Heiko Carstens wrote:
-> > On Wed, Sep 16, 2026 at 03:03:07PM +0300, Mike Rapoport (Microsoft) wrote:
-> >> Mike Rapoport (Microsoft) (13):
-> >>       s390/chsc: Use kzalloc() for CUBs
-> >>       s390/chsc: Use kzalloc() for the SEI work area
-> >>       s390/chsc_sch: Use kzalloc() for CHSC requests
-> >>       s390/chsc_sch: Use __free(kfree) for synchronous CHSC requests
-> >>       s390/cio: Use kzalloc() for CHSC work areas
-> >>       s390/cmf: Use kmalloc() for the CMB area
-> >>       s390/idals: Use kmalloc() for IDAL data buffers
-> >>       s390/qdio_main: Use kzalloc() for the IRQ structure
-> >>       s390/qdio_main: Use kzalloc() for the QDR
-> >>       s390/qdio_setup: Use kzalloc() for QDIO buffers
-> >>       s390/qdio_setup: Use kmalloc() for the storage list
-> >>       s390/qdio_setup: Use kmalloc() for the SSQD request
-> >>       s390/scm: Use kmalloc() for SCM information
-> >>
-> >>  arch/s390/include/asm/idals.h   |   9 +-
-> >>  drivers/s390/cio/chsc.c         |  20 +--
-> >>  drivers/s390/cio/chsc_sch.c     | 300 ++++++++++++++--------------------------
-> >>  drivers/s390/cio/cmf.c          |  11 +-
-> >>  drivers/s390/cio/qdio.h         |   2 +-
-> >>  drivers/s390/cio/qdio_main.c    |  23 ++-
-> >>  drivers/s390/cio/qdio_setup.c   |  14 +-
-> >>  drivers/s390/cio/qdio_thinint.c |   2 +-
-> >>  drivers/s390/cio/scm.c          |   7 +-
-> >>  9 files changed, 150 insertions(+), 238 deletions(-)
-> > 
-> > As far as I am concerned:
-> > Reviewed-by: Heiko Carstens <hca@linux.ibm.com>
-> > 
-> > Waiting for IO folks before applying. Thanks!
+On 9/9/26 12:11, Peiyang He wrote:
+> virtio_gpu_fence_alloc() can fail due to memory pressure and return NULL,
+> but its caller like virtio_gpu_init_submit() never checks it. Later,
+> virtio_gpu_init_submit() passes the NULL fence to
+> virtio_gpu_fence_event_create(), which unconditionally dereferences it.
 > 
-> Looks good to me! For the full series:
+> Found when fuzzing the virtio driver with Syzkaller:
 > 
-> Reviewed-by: Peter Oberparleiter <oberpar@linux.ibm.com>
+> 	Oops: general protection fault, probably for non-canonical address 0xdffffc0000000012: 0000 [#1] SMP KASAN NOPTI
+> 	KASAN: null-ptr-deref in range [0x0000000000000090-0x0000000000000097]
+> 	CPU: 1 UID: 0 PID: 9991 Comm: syz.0.121 Not tainted 7.2.0 #4 PREEMPT(full) 
+> 	Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
+> 	RIP: 0010:virtio_gpu_fence_event_create drivers/gpu/drm/virtio/virtgpu_submit.c:295 [inline]
+> 	RIP: 0010:virtio_gpu_init_submit drivers/gpu/drm/virtio/virtgpu_submit.c:398 [inline]
+> 	RIP: 0010:virtio_gpu_execbuffer_ioctl+0xc78/0x1aa0 drivers/gpu/drm/virtio/virtgpu_submit.c:505
+> 	Code: 85 ed 0f 85 21 09 00 00 e8 05 5a c9 fb 48 8b 44 24 10 48 8d b8 90 00 00 00 48 b8 00 00 00 00 00 fc ff df 48 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 9a 0d 00 00 48 8b 44 24 10 4c 89 b0 90 00 00 00
+> 	RSP: 0018:ffffc900039dfad0 EFLAGS: 00010216
+> 	RAX: dffffc0000000000 RBX: ffffc900039dfdd8 RCX: ffffffff85f6fd3d
+> 	RDX: 0000000000000012 RSI: ffffffff85f6fd4b RDI: 0000000000000090
+> 	RBP: 0000000000000000 R0virtio_gpu_virgl_process_cmd: ctrl 0x102, error 0x1203
+> 	R10: 0000000000000000 R11: 0000000000000000 R12: ffff8880132c4000
+> 	R13: 0000000000000000 R14: ffff888073b6c700 R15: 000000000000003b
+> 	FS:  00007fab480b96c0(0000) GS:ffff8880eb6e9000(0000) knlGS:0000000000000000
+> 	CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> 	CR2: 00007effbf5e55a8 CR3: 0000000048d19000 CR4: 0000000000350ef0
+> 	Call Trace:
+> 	<TASK>
+> 	drm_ioctl_kernel+0x1f4/0x3e0 drivers/gpu/drm/drm_ioctl.c:817
+> 	drm_ioctl+0x5f4/0xc70 drivers/gpu/drm/drm_ioctl.c:914
+> 	vfs_ioctl fs/ioctl.c:51 [inline]
+> 	__do_sys_ioctl fs/ioctl.c:597 [inline]
+> 	__se_sys_ioctl fs/ioctl.c:583 [inline]
+> 	__x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
+> 	do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+> 	do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
+> 	entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 	RIP: 0033:0x7fab471a82bd
+> 	Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b0 ff ff ff f7 d8 64 89 01 48
+> 	RSP: 002b:00007fab480b9018 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+> 	RAX: ffffffffffffffda RBX: 00007fab47435fa0 RCX: 00007fab471a82bd
+> 	RDX: 00002000000000c0 RSI: 00000000c0406442 RDI: 0000000000000003
+> 	RBP: 00007fab480b9080 R08: 0000000000000000 R09: 0000000000000000
+> 	R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000001
+> 	R13: 00007fab47436038 R14: 00007fab47435fa0 R15: 00007ffe85ab0740
+> 	</TASK>
+> 	Modules linked in:
+> 	---[ end trace 0000000000000000 ]---
+> 	RIP: 0010:virtio_gpu_fence_event_create drivers/gpu/drm/virtio/virtgpu_submit.c:295 [inline]
+> 	RIP: 0010:virtio_gpu_init_submit drivers/gpu/drm/virtio/virtgpu_submit.c:398 [inline]
+> 	RIP: 0010:virtio_gpu_execbuffer_ioctl+0xc78/0x1aa0 drivers/gpu/drm/virtio/virtgpu_submit.c:505
+> 	Code: 85 ed 0f 85 21 09 00 00 e8 05 5a c9 fb 48 8b 44 24 10 48 8d b8 90 00 00 00 48 b8 00 00 00 00 00 fc ff df 48 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 9a 0d 00 00 48 8b 44 24 10 4c 89 b0 90 00 00 00
+> 	RSP: 0018:ffffc900039dfad0 EFLAGS: 00010216
+> 	RAX: dffffc0000000000 RBX: ffffc900039dfdd8 RCX: ffffffff85f6fd3d
+> 	RDX: 0000000000000012 RSI: ffffffff85f6fd4b RDI: 0000000000000090
+> 	RBP: 0000000000000000 R08: 0000000000000005 R09: 0000000000000000
+> 	R10: 0000000000000000 R11: 0000000000000000 R12: ffff8880132c4000
+> 	R13: 0000000000000000 R14: ffff888073b6c700 R15: 000000000000003b
+> 	FS:  00007fab480b96c0(0000) GS:ffff888098ae9000(0000) knlGS:0000000000000000
+> 	CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> 	CR2: 00007f24c3759000 CR3: 0000000048d19000 CR4: 0000000000350ef0
+> 	----------------
+> 	Code disassembly (best guess):
+> 	0:	85 ed                	test   %ebp,%ebp
+> 	2:	0f 85 21 09 00 00    	jne    0x929
+> 	8:	e8 05 5a c9 fb       	call   0xfbc95a12
+> 	d:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
+> 	12:	48 8d b8 90 00 00 00 	lea    0x90(%rax),%rdi
+> 	19:	48 b8 00 00 00 00 00 	movabs $0xdffffc0000000000,%rax
+> 	20:	fc ff df
+> 	23:	48 89 fa             	mov    %rdi,%rdx
+> 	26:	48 c1 ea 03          	shr    $0x3,%rdx
+> 	* 2a:	80 3c 02 00          	cmpb   $0x0,(%rdx,%rax,1) <-- trapping instruction
+> 	2e:	0f 85 9a 0d 00 00    	jne    0xdce
+> 	34:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
+> 	39:	4c 89 b0 90 00 00 00 	mov    %r14,0x90(%rax)
+> 
+> Fix by checking virtio_gpu_fence_alloc() in virtio_gpu_init_submit() and
+> returning -ENOMEM before any later code can dereference the NULL fence.
+> 
+> Fixes: 70d1ace56db6 ("drm/virtio: Conditionally allocate virtio_gpu_fence")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+> Assisted-by: Codex:gpt-5.5
+> ---
+>  drivers/gpu/drm/virtio/virtgpu_submit.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_submit.c b/drivers/gpu/drm/virtio/virtgpu_submit.c
+> index 32cb1e4aa425..857ed5c5f2a8 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_submit.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_submit.c
+> @@ -389,10 +389,13 @@ static int virtio_gpu_init_submit(struct virtio_gpu_submit *submit,
+>  	if ((exbuf->flags & VIRTGPU_EXECBUF_FENCE_FD_OUT) ||
+>  	    exbuf->num_out_syncobjs ||
+>  	    exbuf->num_bo_handles ||
+> -	    drm_fence_event)
+> +	    drm_fence_event) {
+>  		out_fence = virtio_gpu_fence_alloc(vgdev, fence_ctx, ring_idx);
+> -	else
+> +		if (!out_fence)
+> +			return -ENOMEM;
+> +	} else {
+>  		out_fence = NULL;
+> +	}
+>  
+>  	if (drm_fence_event) {
+>  		err = virtio_gpu_fence_event_create(dev, file, out_fence, ring_idx);
 
-Series applied, thanks!
+Applied to misc-fixes, thanks!
+
+-- 
+Best regards,
+Dmitry
