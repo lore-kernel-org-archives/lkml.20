@@ -1,99 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEEA617993;
-	Sun, 20 Sep 2026 23:08:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 600913101D8
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 23:11:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789945690; cv=none; b=BJIK2efQk/hVpC8/EjTGoZtYn8q87YYOgJlBbFAMmZHhpaeICLiXUOc3bbfwg+ddpAWdihelvtE+XQdi3AyQOYnUitxrUx9WdR2lsRly1qX5gj1yRjh522XQ4c6G+haur67EF5oSB8IJeDzWi74GzbxhxsLsFtkGzqN99xFmrkE=
+	t=1789945875; cv=none; b=NLI+W8tpf7ML4XsGqqjylKT71uXJBVDkZ+ffnQ5CX8shSCm5IH41MXj8ttjS/tSK9mkLMf5d2QKnb85ePxGUfpwsFgO7idMUkr3T7L6UZH33RsTG6R9RG7PFajGNWTqdtih0qzsD8g1mImRJ90KAQXHV/5uIqm8lb/8NSG8+ew8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789945690; c=relaxed/simple;
-	bh=kI3btekdDolq9CHrtl48dAsoqhxdnD/R8oCP/h7ETIo=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fEuUBv4y0k2yKXypWmkqCyAhVH6Qh+W8SgskIvInUod0zI/LyLEYLkBY6iDP3ZgI7RhbIT3jt8PmGBTAo20vYH6aKX8ZbgVM02vMhFlPwOgGGyxknqMVuSPHV4ReRleh810ht4zqFXVZA19BVxwYexqZwaid8wRWhJNIlENPAf4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MO0/HhXn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789945875; c=relaxed/simple;
+	bh=r/Q7xOGjuhSsTQZ0oQGJPDB1gz9hAO0+rIf6e+nJ67Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dUGDPhkfZgq7XCSge7Ta3NzpmuA0JpdlCIRsAMSRlvR7NBqPAwhBDYhnSR6QC43wjtTdnJinmR+ZvH7AQr/6dqvFPk/8QBD3L3G4LZsvWjWNi0zvrDeiXBgNzXLjKSGT/kgcKroMsPQmg6iMgpeIuxY+RgekL1fPosNh5YyVBx8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=CZmiS614; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MO0/HhXn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4B871F000FF;
-	Sun, 20 Sep 2026 23:08:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789945689;
-	bh=AAkvtlTgMtIhLKtfXdECEdpJvOyrsKzhh3qvAgjEuMQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=MO0/HhXn4w/YTEtqB0grF5h/fGM6t1Fu4oRfj0EVRpgNJM4za1uzMTvZReJDb5rin
-	 CJSAUaco9Or3z4C0yLN8r6QL59dQ7Ue7onLURIJ3A3+U8rPblLTo7SQfs8AAS/eh+C
-	 0y+aVv9RFyHA8KuCEtY+iI9mxp+FPee+sJK1SyUshWmVi3z3lh9Lz2diXjyN6ospzE
-	 wNj7PSmNsCQ1uKrK/XVPMOIFvMKCb9970vJWFnjjv7660ouZ39ky5HVMv3KHyNSsTe
-	 UzCbjC1Ojjj0neqstCdgGXQs6BawyJ+MKNslmenwf062uEilnPFLDr3iajmSp85alk
-	 2fpwwjIawD6kQ==
-Date: Mon, 21 Sep 2026 00:08:03 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Ariana Lazar <ariana.lazar@microchip.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, sashiko-bot@kernel.org, stable@vger.kernel.org,
- Joshua Crofts <joshua.crofts1@gmail.com>
-Subject: Re: [PATCH v7 00/11] Refactor Microchip MCP47FEB02 I2C driver in
- separate modules to add support for MCP48FEB02 SPI driver
-Message-ID: <20260921000803.1148e493@jic23-hlaptop>
-In-Reply-To: <aq0J9Vs1_rUAlcoA@ashevche-desk.local>
-References: <20260918-mcp47feb02_refactor-v7-0-82ca794eafe2@microchip.com>
-	<aq0J9Vs1_rUAlcoA@ashevche-desk.local>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="CZmiS614"
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id C657F53401EA;
+	Mon, 21 Sep 2026 01:11:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1789945869;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=gK9sdeoG0WLes1fBXkVWatZGV3xrtHkH43aqgaARslg=;
+	b=CZmiS614Xlz4b2Gdz0cMTIUxChFaH6ueSVyNEg2RnrL7u/9P+Ir76jx+EviAZn8NnS248L
+	EdWmz06O7CGHcxxKuoKCZIAPrZraLdlppmHjUptZDbiZ8HdynsEv5LQa3Ds+8695HlPQvD
+	8f3XBPoZZJYaEFbVCjLheWmzrqhD/LA=
+Message-ID: <11725791-f4c5-4b8e-b17f-bedc679adbf8@ixit.cz>
+Date: Mon, 21 Sep 2026 01:11:09 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] nfc: pn533: fix OOB read in
+ pn533_acr122_is_rx_frame_valid()
+To: Deepanshu Kartikey <kartikey406@gmail.com>, johan@kernel.org
+Cc: kuba@kernel.org, error27@gmail.com, gregkh@linuxfoundation.org,
+ sameo@linux.intel.com, michael.thalmeier@hale.at,
+ oe-linux-nfc@lists.linux.dev, linux-kernel@vger.kernel.org,
+ syzbot+1853daab1a47603d4678@syzkaller.appspotmail.com
+References: <20260912040351.15056-1-kartikey406@gmail.com>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20260912040351.15056-1-kartikey406@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Fri, 18 Sep 2026 12:52:53 +0300
-Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
-
-> On Fri, Sep 18, 2026 at 12:06:26PM +0300, Ariana Lazar wrote:
-> > Refactor I2C driver implementation into separate modules in order to add
-> > support for SPI MCP48FxBy1/2/4/8 DAC family on top of the I2C
-> > implementation. The I2C and SPI devices have the same memory map and
-> > supported functionalities.  
+On 12/09/2026 06:03, Deepanshu Kartikey wrote:
+> frame->ccid.datalen is read directly from the USB response frame
+> and used, unchecked, as an index into frame->data[]. A malicious or
+> malfunctioning device can set this field to an arbitrary value,
+> causing the driver to read far outside the received buffer.
 > 
-> Jonathan, can you pick up the fixes from the series, please?
-> It will reduce a burden a lot (yeah, I know that it might mess with
-> Sashiko, but wouldn't simple delay fix this, I mean to give Sashiko
-> a time it needs and then update the branch?).
+> Bound ccid.datalen against the maximum possible ACR122 frame size
+> before using it. This replaces the existing datalen == 0 check,
+> since datalen < 2 already covers that case and additionally
+> rejects datalen == 1, which would still underflow the
+> "datalen - 2" offset used below.
 > 
-I'm not sure sashiko ever looks beyond mainline and given recent general
-comments from Linus about only sending him late cycle fixes for stuff
-that went wrong this cycle or is a major issue (which I've been interpreting
- as applying after rc4) I'm not thinking these fixes will go upstream before
- the merge window.  I don't mind applying them to the togreg branch now but
-that isn't currently picked up by sashiko.
+> Fixes: 9815c7cf22da ("NFC: pn533: Separate physical layer from the core implementation")
+> Reported-by: syzbot+1853daab1a47603d4678@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=1853daab1a47603d4678
+> Tested-by: syzbot+1853daab1a47603d4678@syzkaller.appspotmail.com
+> Assisted-by: Claude (Anthropic)
 
-My biggest current issue with these bots is they make the workflow
-of nibbling away at patch sets like I traditionally did not work
-so well.  One option is to just send the whole series but edit
-the titles to say they are already applied?  Hopefully that
-lets reviewers jump over them or even maybe filter them out?
+Hello Deepanshu,
 
-Anyhow, let me queue some of these.  I doubt we'll see anything new
-from sashiko given the minor tweaks the rest of this series.
+thank you for the patch, could you please correct the Assisted-by tag?
 
-So with that in mind, applied patches in this order
-1 2 4 5
-held 6 back for the thing about checking if property present.
-3 7 8 with link dropped.
+See: https://docs.kernel.org/process/coding-assistants.html
 
-So just 6 9 and 10 for next version please.
+Thanks
+David
 
-All the above on the testing branch of iio.git.
-
-Thanks,
-
-Jonathan
- 
-
-
+> Link: https://lore.kernel.org/all/20260906054336.20187-1-kartikey406@gmail.com/T/ [v1]
+> Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+> 
+> ---
+> Changes in v2:
+> - Replace the existing "if (!frame->ccid.datalen)" check instead of
+>    adding the new bounds check alongside it, since the new check
+>    already subsumes it (per Johan Hovold).
+> ---
+>   drivers/nfc/pn533/usb.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
