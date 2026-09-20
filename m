@@ -1,36 +1,36 @@
-Received: from mta1.migadu.com (out-175.mta1.migadu.com [95.215.58.175])
+Received: from mta1.migadu.com (out-213.mta1.migadu.com [95.215.58.213])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAF21352031
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 01:22:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3548217B50F
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 01:24:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.213
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789867338; cv=none; b=KUh41nuyG7a9pu8fDhiNQHRz0DRlCY3csW03mn+QriM4HENr3wYC4WsOYzh+GMfQXH7d0H1KfxnAj8z0B2pCLzZIEUoMuDPYFEMDLN4Xt965Cc1P9DI/t1NERXz8KsJAXBZzzIaHt0PcKVadFj4wZLP5Zc1oIZwetThQ6nFNN1c=
+	t=1789867449; cv=none; b=kHgjUX59ce9bNf40fa5EKlsz6S4/SEO4M0tta6UhfB4cVLcgZT6KXrSq/dcsVRURteaOtbCqF4QxlLBLZNaXpn8Pasa3riImI/m8tvh4cKfQatYNisH7Et9M0EzMjET97ejWdpB6N0JOkcq70Tz/ZrpxijhggN+SxXJalrpz/IM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789867338; c=relaxed/simple;
-	bh=zNg6ggh/qrQhEZHMUwzyVw+hyvtM2edzNeoN55FgiT8=;
+	s=arc-20240116; t=1789867449; c=relaxed/simple;
+	bh=cTTrp9axlZ0to3dCBI38xL4Ohm3ey8g4pSyLYyyl0KA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bSlVMO0jAxbouD3+1lR84pS+p5n8qPxNO0Pj+bNX/vKhpGuzUQ7KTLIKJQuAH2q5uEsjKHxQ26Q9hIzvpQct0f5AP64OzJn8nn8YKv0xdUxZNgEhUSdu3X+QUdzoeopDjiAbv2SmshqRkm7idXyRiDDeN9y1qT+QV0CjthKgn8g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=pTjSBtUw; arc=none smtp.client-ip=95.215.58.175
+	 In-Reply-To:Content-Type; b=YoBVqyOb/qxVn9XFRO1le6RdK+lP+pxSFZLdbuCgT/DT4+vAXscpUYM5AjgvD3A+kIndu+KGYTWZciSuQ/yXtxWzgCPsHYRayxOqPOUMsdRueWlpWBwt6EgTSH+z0wvBZPoCchG6SbfEn6rkDHqpbSkElnRMDz5valzEfABb5Ps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ckAnbcnU; arc=none smtp.client-ip=95.215.58.213
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="pTjSBtUw"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ckAnbcnU"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=zNg6ggh/qrQhEZHMUwzyVw+hyvtM2edzNeoN55FgiT8=;
+DKIM-Signature: a=rsa-sha256; bh=cTTrp9axlZ0to3dCBI38xL4Ohm3ey8g4pSyLYyyl0KA=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789867333; v=1; x=1790472133;
- b=pTjSBtUwac/wwWZ4km+kX5hIp9UGjkCa+L0wZ8JkDZ84clqk4XcBEHF9HTMLzFQFUSf37FiA
- 653VoWa63oWjPSnsG8MF518JFq5tDRMo6vd5vjXyU7PZyaceb+M4MCRTKl5P7nS9Noz73tjPeCP
- ZAvrtdFfF+NmpUGS2Tq6Xp/Y=
+ t=1789867446; v=1; x=1790472246;
+ b=ckAnbcnUmIo2zFVOXSRoH5KAorCkTD4kNL0/+8Ki5KdKNduaFVHKt8Uy88E+YTWOUpkDQlln
+ Z+sSol+KPF1qSQPlhpztrCPd9kwVi123Z2euTt82yWH+u6iqJ0aKOAybEdrREXeIYZXPV8yQ24N
+ EkhlOR4qH7Eo2lUKzOwcKJZI=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c3d1a31c9ccba09c;
-	Sun, 20 Sep 2026 01:22:13 +0000
-X-Mizu-Trace-ID: c3d1a31c9ccba09c
+Received: by smtp.migadu.com with ESMTPS id 4d7949eb6cac6f80;
+	Sun, 20 Sep 2026 01:24:05 +0000
+X-Mizu-Trace-ID: 4d7949eb6cac6f80
 X-Migadu-Flow: FLOW_OUT
-Message-ID: <139d9231-4723-4365-9af7-8142e6581ede@linux.dev>
-Date: Sun, 20 Sep 2026 09:22:09 +0800
+Message-ID: <e2425a16-d57b-4786-86a2-d0f25537d605@linux.dev>
+Date: Sun, 20 Sep 2026 09:23:55 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,84 +38,40 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] cgroup/cpuset: prevent overlapping local and remote
- partition creation
-To: Hui Peng <benquike@gmail.com>, longman@redhat.com, tj@kernel.org,
- hannes@cmpxchg.org, mkoutny@suse.com
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260919221727.3706964-1-benquike@gmail.com>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <20260919221727.3706964-1-benquike@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH 01/10] mm/damon/api: remove NR_DAMOS_FILTER_TYPES
+To: SJ Park <sj@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, damon@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org
+References: <20260919155716.86019-1-sj@kernel.org>
+Content-Language: en-US
+From: Zenghui Yu <zenghui.yu@linux.dev>
+In-Reply-To: <20260919155716.86019-1-sj@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-
-
-On 9/20/2026 6:17 AM, Hui Peng wrote:
-> Fix two partition validation bugs in kernel/cgroup/cpuset.c:
+On 9/19/26 11:57 PM, SJ Park wrote:
+> On Sat, 19 Sep 2026 21:02:30 +0800 Zenghui Yu <zenghui.yu@linux.dev> wrote:
 > 
-> 1. In remote_partition_enable(), check whether the requested effective
->     xcpus intersect parent->subpartitions_cpus so a remote partition
->     cannot claim CPUs already delegated to a local child partition.
-> 2. In validate_partition(), verify that enabling a local partition does
->     not overlap CPUs already allocated to an active remote partition.
+> > On 9/17/26 10:21 PM, SJ Park wrote:
+> > > Nobody uses NR_DAMOS_FILTER_TYPES.  Remove it.
+> [...]
+> > Similarly we have more definitions of NR_foo in damon.h:
+> >
+> >  * @NR_DAMOS_ACTIONS:	Total number of DAMOS actions
+> >  * @NR_DAMOS_QUOTA_GOAL_METRICS:	Number of DAMOS quota goal metrics.
+> >  * @NR_DAMOS_WMARK_METRICS:	Total number of DAMOS watermark metrics
+> >  * @NR_DAMON_OPS:	Number of monitoring operations implementations
+> >
+> > and only NR_DAMON_OPS is actually used (I checked mm-new).  If the
+> > preference is removing all unused macros, we should probably clean them up
+> > as well.
 > 
-> Fixes: aa7d3a56a20f ("cpuset: fix warning when disabling remote partition")
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
+> Nice findings!  Please feel free to post a patch for cleaning those up if you
+> don't mind!
 
-Could you please first describe what the issue is and how it can be triggered?
-Or is there any reproducer?
+Sent out now.
 
-> ---
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index 2538faac9aba..13fad096c494 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -713,7 +713,10 @@ static inline bool cpus_excl_conflict(struct cpuset *trial, struct cpuset *sibli
->   		return true;
->   
->   	/* Exclusive_cpus cannot intersect */
-> -	return cpumask_intersects(trial->exclusive_cpus, sibling->exclusive_cpus);
-> +	return cpumask_intersects(trial->exclusive_cpus,
-> +				  cpumask_empty(sibling->exclusive_cpus)
-> +				  ? sibling->effective_xcpus
-> +				  : sibling->exclusive_cpus);
->   }
->   
->   static inline bool mems_excl_conflict(struct cpuset *cs1, struct cpuset *cs2)
-> @@ -1591,8 +1594,8 @@ static int remote_partition_enable(struct cpuset *cs, int new_prs,
->   	 * above it or remote partition root underneath it is not allowed.
->   	 */
->   	compute_excpus(cs, tmp->new_cpus);
-> -	WARN_ON_ONCE(cpumask_intersects(tmp->new_cpus, subpartitions_cpus));
->   	if (!cpumask_intersects(tmp->new_cpus, cpu_active_mask) ||
-> +	    cpumask_intersects(tmp->new_cpus, subpartitions_cpus) ||
->   	    cpumask_subset(top_cpuset.effective_cpus, tmp->new_cpus))
->   		return PERR_INVCPUS;
->   	if (((new_prs == PRS_ISOLATED) &&
-> @@ -2411,6 +2414,10 @@ static enum prs_errcode validate_partition(struct cpuset *cs, struct cpuset *tri
->   	if (cpumask_empty(trialcs->effective_xcpus))
->   		return PERR_INVCPUS;
->   
-> +	if ((parent == &top_cpuset) &&
-> +	    cpumask_intersects(trialcs->effective_xcpus, subpartitions_cpus))
-> +		return PERR_REMOTE;
-> +
->   	if (prstate_housekeeping_conflict(trialcs->partition_root_state,
->   					  trialcs->effective_xcpus))
->   		return PERR_HKEEPING;
-> @@ -2970,7 +2977,7 @@ static int update_prstate(struct cpuset *cs, int new_prs)
->   		 * local or remote partition.
->   		 */
->   		if ((parent == &top_cpuset) &&
-> -		    cpumask_intersects(cs->exclusive_cpus, subpartitions_cpus)) {
-> +		    cpumask_intersects(user_xcpus(cs), subpartitions_cpus)) {
->   			err = PERR_REMOTE;
->   			goto out;
->   		}
+https://lore.kernel.org/damon/20260920012028.9565-1-zenghui.yu@linux.dev
 
--- 
-Best regards
-Ridong
-
+Thanks,
+Zenghui
