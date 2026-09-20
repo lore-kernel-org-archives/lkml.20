@@ -1,134 +1,164 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011011.outbound.protection.outlook.com [40.107.208.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33106368D4B
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 05:55:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789883736; cv=none; b=UUTYeQeoXjQuoenhfkfKiT5Gvg0kEUdIAopYijunhWYVDL7yMiHp4HHCvkGRmKnbxebeddQDMaKD6F/I9x4S1Wxcpa2cEd8yYH4gKLkuX4wzNT/4vrF3C9CYTRQ/zcRBYoJEYWQM+mxdwE6SDah9QrIItwGOwG61x+13AW+TrJM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789883736; c=relaxed/simple;
-	bh=2zXVKzY1EV/eEZ1HHKfbuHYp6YveuxCN/3PVtHgb4xI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=spN2NBVvxHBojDqIVuf7+9BNej80lI85Wxf8+umbIYc/ZKf4YgklwJ7iM13WPavH7FGARjnyn+lkq5qpq1uHWlHwS6bPEVczI4gzburbD92OrkevCSPrMSl5GrpiM4PahxU+osP/ZnB33LHs6v4wVoNFq2u0/R02wnl7nwpQbTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sEQgRUO/; arc=none smtp.client-ip=74.125.228.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB19F23E334;
+	Sun, 20 Sep 2026 06:07:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789884467; cv=fail; b=XNXj6fb0oorG/hqtgE4G41ixew725Ssc+IWt62JJBj+22++E45yNoDu1QFKaAj9LnD+4GzOXQ8b6WqoLIgCSls/LpBbZUv1x7ld7SsA+fRnAk+nq/FkncmwsAhZIRNZQr4SpSwefJcrDHK1d5A7ucy9Vv0w+CeSsATG2FjW7PEY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789884467; c=relaxed/simple;
+	bh=nEF5LJW+S1FzHuqfBZuEAPLGt2rA7gRhgBQ500D7IoA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=isTMpWPTuZYTQoZbdrYCWavDZZtXFqPcwJCTkSteSxUGUdGAlffgGDoetOU/Lf561QYI4nIK1FnR5QM7/B/Wtqj5MddTXSMJhCcZ9OxPip2giEYQ0YIn+3ygTNp8V+Ay32/G79Skhhp1BKW+nTPlC6mWBDHCgQQSGq5+CKl7E6U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=pQs5iYoR; arc=fail smtp.client-ip=40.107.208.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sEQgRUO/"
-Received: by mail-pz2-f42.google.com with SMTP id d2e1a72fcca58-86e6d007703so1716735b3a.0
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:55:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789883734; x=1790488534; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gXb5vXQC6wyOIwFGpwsGYB1mvujwkacakBxQlyORKIw=;
-        b=sEQgRUO/WwEd1BHiIojv8uNxg0Ru6dS8/7h49UnZH86s9fb9WXrmSJ88UDTfKK2kVI
-         xbnUzMWzb3kxDWjHfOqCo/Fn+/G2zhEgx1TTJExj1DLOVgQme7d71ENz5TQhJPCyVaro
-         qx6AIAfwYtvzt8lMuz553sFmJUn9xI3C5MS/RGkKjAAw8iuoINpZIQbvjwDTkWIlDAor
-         qYtjT3PXxIXbcAtOosmctC1+wv1WSele3X2Rrj7jc3PTEitudfbH3YHZYAda/Vx7o7Bn
-         iYb4gICMx2t/sW71qWFo92fKeaYGSuMExPxRomoKgBVAW3e87UTxi5adv2jmz53DInVn
-         Mmcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789883734; x=1790488534;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gXb5vXQC6wyOIwFGpwsGYB1mvujwkacakBxQlyORKIw=;
-        b=kYoovRJj2du91N1025MAuTs9DyvRRr37lEuBm/uFPNZYHur98o6cyhgRjNl2xkjlk2
-         5UFk+nN8+z64CY8fMoHhX+33YEsurY9KfLl/F1BuUja8BAKwozO+n5dxAPTe8cNroZsM
-         3nKrL943dJZ9XLsa0u8IWBly/+TGPioBAQ4sBWhuVwbDIp8Ly64TeeLRfCQD834UfGbB
-         tEyoo6ERmne35PXfy8ztTJUiaOIV7Ezh2YB4F0NL1iJ8q2K55fYP1w1YgnpM6U+F9BdR
-         GYCxrED35klLDKN+6t9wTNxlZv8WJ9kUF4QPTaUHAGsb3FGzEA0qfZelVfJ8DfHvZVT1
-         +OfQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw0wTvNXLiBnv4+V7KrMOroPGPDWQ3aCtG/lddMrljp5dicJbGgn05vOxS4tjaVL0xBBl47sGBJyLsxkyw=@vger.kernel.org
-X-Gm-Message-State: AFuF++l79pzEYvQAfaQNF9uxOlFrR+jTNmVAcag7r3CSdT+H4ufaMPpZ
-	WRohtE6qslyZfdGShEMlV2fU1IzYwcClyaVJqyeCS+aF5+uG+3JDCRjD
-X-Gm-Gg: AYBFou1/fIAEn4dEZZTU5ZmPcBt1E1oIQmKzkM9YkqyFDw6UJozd2aY1JfZeBp6h5d+
-	bCjelxkWK5wsAJvjNPYEvgQLuqdusH9b6jkJLRhkaPDrU7YZd27ZX7JR+3oObDLuvR5Dl4Kd6Of
-	MfX1U9ucPJqhsQEGtPHEYZr4O+9oaJUBH2toUpBE8X9JGTXKNysZInQPtPwltrQnHanjcQXYPrr
-	WSTC31AmV2x6RbWnApshagI22UfnxqnOn231whA3FFKi+AQtWa/tJ7MZ1l10h7qveAjPCmKmIyS
-	vBDnK8dtyclispz/QZCP9vwSiiTb6wZW+PB6bsx5Qk0o1U+Q1rmNVfmH0aQrGBJNA3I9MIvK/Gh
-	Y5ebqE0q37Mb/tKLgdllM/B9HqhXYR0BGDZnE0ggE/1/y72hnok5JifrA1xSeH6FcVNAMcWKKtz
-	PS/N5ulV+bXj8ntalwkSA0yZAxc87y05c5ZSZdiRwkq/vw/2WQopKSAdId06A2d5a9
-X-Received: by 2002:a05:6a00:1788:b0:878:3811:238 with SMTP id d2e1a72fcca58-8783811099fmr3448017b3a.52.1789883734376;
-        Sat, 19 Sep 2026 22:55:34 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a9b0d564sm1622718b3a.35.2026.09.19.22.55.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 22:55:33 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Tony Luck <tony.luck@intel.com>,
-	linux-edac@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="pQs5iYoR"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GlVkvCx8Mmv0rxZpyVicy55vcXDJwqnAU6QuDRH7IXN52A7AVCkt8BdbiHYsQTg4yUKDSOOZUbTT+NLQuK0hM+w/YupicD0ZfQgRttIFcDaW3MC1nak8d77pPR3NIMosv00PpCJskHjL0EI5XRWgLXG0qpS6YnAW6forl7YfOEn55/3Z5ZzUmwnke8FeG8kl/+Mh24r61KnsoHuagcSzWppDd6jJjqW4rOQutT2JtHaW6KwG72UT3xq7Y3tQvp7SMIE2pbZ0GqiZkRF2xbKmD0GhiKi7S0tBbqtBMPE7qjSR8D27xfR1T03ycgNoI32Lb+Rs/LFpR9LPGPRs36NZCw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=thVBHdCBSZ0P47TkNTx0eWBs8bK5Njkz3aFiAoJypyg=;
+ b=LKyMbUVnZDCbAwDOOHlILl1TAfyb1xhethlcuzEIvLwKXbUoluj6ZGLeZYDwRUW1lkdLrsJVn0x98jL+2nLfXS8QBdXLFUZocvFhoUG5/TcCVfYXXmRy8cdKSZHqUQEJ03uaFKA7TkHhnk48/6F5hZ19N2ibbLndFkLHrBSi5B6CFRlwC9b5pNhuKXUOr4sQUvX98hTpEbu0HDCq+R7lBS+NO8/fGVyCmAHMrygmRAtr6XXspihhiUqoOFMMT3WNN6ZMYnSbTjBkYZ/b1KbANeY9+0sOI+jfORGu5mE+jGhGWYdNFyjFWeixXUicQvrZf0EyLQFX5hX5juLXw1D36w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=thVBHdCBSZ0P47TkNTx0eWBs8bK5Njkz3aFiAoJypyg=;
+ b=pQs5iYoRgaVT6CiQCWqzU7rjIShF+4ejaHko/Qmpc9uwsNDzazQ4yX4knXCAVZ/aKWG8l++MuLJgMNYBaRHrgPv951CTsqoV95dTshtTqh4ZirALirelgXQivkA/hfF0QqDGI/V3x20YN169T5biBV44kgzj3A9azHfAZZbstVFafwwSuLxAWRCDWPihRvLqngJWy+0Hxeyvy4AuU3PJnhL388GfCnJC2HcJ7iQNkESUKDwanzICvYh3ffPv7BR79eTwe8M4R/XOj9mWZlACNSpVNzh8SgAad5oB17tWNxtmzRoIxT4xSupUBbXv9+JY+G3koDDygWgGAgy9Cp16Fg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
+ by PH7PR12MB7794.namprd12.prod.outlook.com (2603:10b6:510:276::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Sun, 20 Sep
+ 2026 06:07:42 +0000
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c%7]) with mapi id 15.21.0428.014; Sun, 20 Sep 2026
+ 06:07:42 +0000
+Date: Sun, 20 Sep 2026 08:07:30 +0200
+From: Andrea Righi <arighi@nvidia.com>
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Cc: Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>, bpf@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] EDAC/versalnet: fix memory leak on device registration failure
-Date: Sun, 20 Sep 2026 13:55:19 +0800
-Message-ID: <20260920055519.3778269-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Subject: Re: [PATCH] bpf: arena: Flush stale TLB entries before reusing ranges
+Message-ID: <aq94IibsdiJpcvSg@gpd4>
+References: <20260919224616.3123513-1-arighi@nvidia.com>
+ <DLJOGC7M106N.33I0V3YRNYB8E@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DLJOGC7M106N.33I0V3YRNYB8E@gmail.com>
+X-ClientProxiedBy: MI0P293CA0004.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:290:44::15) To DM6PR12MB4827.namprd12.prod.outlook.com
+ (2603:10b6:5:1d6::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|PH7PR12MB7794:EE_
+X-MS-Office365-Filtering-Correlation-Id: 993c4a5c-d7be-41ce-24a6-08df16dd7af4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|18002099003|22082099003|56012099006|11063799006|4143699003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	bkd0jVJfLy+s6Qhe7xleKN6NIYw40OA2TlN0CzX7zJlbwuB1V2kE7N1poMsBmrRc75lDi8oyXWyhGQqqqF5iWxGp66ned2HNdzpwgVRiBQX84uTX4JnFkSsmXd2VbkJ/RF5859bKCvT/MdFwvT9oTvBY1sS0FAFX3uFqeVVNhWRoEgI/WnUrpDEfe74yUUhKHfbYqDGwbzQWyJAgGdqjj+ZbPwgQqraTcifRmNGv0Vch6Ya5C/JqPn76wUIivG8d7MebaDLjcMfHljeUQTGKg4BdT9l8iIsz29x5FIsS8lvV/ZL3pCUDVMTYf0d13oBseSCytRvitw9q5oPf9BsCHy4TTIw0Uhqc4paV3/qI+iif4Spamc7pw44VcTooVddFMWAZjrZVD60+Oms4fVl9o+LKf17ZXIaLxSFXLQfQxoweD1jAbFcy6tQR5yTfx2N6mpimWHk++hE4K/ye10tZp+QpNpQfW8QNh8nd2I0wMKOOYs44CtWJFwASEihkFkHTozHj4mY9loULp6CkbbPknRCknzVsdDUN5GMDAwAqfEUuexeTzQ5SYVvyL61G2DmpyfSH8lfsI/ZgGRmh5LjIVM8JaAjASZininvLJ9HcIZS5qNVMo90hbx35GsQm2m4qdhYovBfHA5ZrS5tOwJCnfa+FDcL1li+a824+0/YXFak=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?4b41NSJfxbtkVQb8InaHoQu4rA7edmssad+TAE5PR/5ddoEeEcxfnKStLk6Y?=
+ =?us-ascii?Q?CAgVIyYWw79d0jAvdOXgHnpJ1svPzI7dKeHPnNOgPkaHcVrDjbeXRySMsTHv?=
+ =?us-ascii?Q?hj4akWXW9L3xkeflSpNh6Hpf1WGDMNzzKjppoaX/KS+LROyZhN8VpWaVFjeh?=
+ =?us-ascii?Q?LCk2mSqe/fvYqzMS4YFQsI+z0DsbnTAv0wCvwn3atgh6txFpmyHXvg6kvmr0?=
+ =?us-ascii?Q?p4P3HvbcQg0EgxkfAWxZxcnNpeu0K5VNe0yjtbW7//93z5vTOP3QUtqolRKx?=
+ =?us-ascii?Q?4S7P91WR1YkOIZlzhjCCEwrp2Y0E3ErgJP5uQqAKug9snetNfP8MjaWgDqci?=
+ =?us-ascii?Q?/pP2nT8892KulQlArQPg8PyuOD67D8pA7LvOuaPDjeV7Jos6cecYP814RLxS?=
+ =?us-ascii?Q?xvi92hoAUmC99QW4m3rb0QO5Z2atvPPu3QNP4+5ysvvo5+Za1bVkRVtjU4lo?=
+ =?us-ascii?Q?4goCh+cve1fslkImoOy1c7wEZujap3YOvhqEFuxmobhzWWCnGtuAwM1DC6Qd?=
+ =?us-ascii?Q?xHEXnDtm8hqGLfmAzHhS1/pbufhGLhvI7TCL4jTNBOLxaMrtkBP47MQ57rAt?=
+ =?us-ascii?Q?SmYCqx9gSMyHiBYXgBH3EkxAHfCOXKM/HUS/JipwindDcyOEq6RSVgCCZSW8?=
+ =?us-ascii?Q?HO2BHsAwLe8TnrILSI/8GMmVjGEaWhlZSx7DtxJC1fxSccSWvTmOGNaacuRW?=
+ =?us-ascii?Q?5PIRXIsKZOKWxdHjmvdmkES/p6ERxnIaDI9umLTZdIT6V+2wOyDxsaba48rG?=
+ =?us-ascii?Q?kYXDYqWxy7YK+zUa4aWM524s1CCkWm9czlDveHUFXMz0z7AyouCOVLgdbFwl?=
+ =?us-ascii?Q?QS7baSlG3MiteF3JUIObmsaqAfK7M1evyHkPFazzscm7HMjNs7Ch0uFyY4Hd?=
+ =?us-ascii?Q?2QFi5e5BcnjeatWxz+C1WLsJh6w4Oo8uXLm/SvL4GAnvZdMoYj2NElqFzomY?=
+ =?us-ascii?Q?rJb7zReWt0IFrq5OtwYeg+xejawY4aqZRudtj/vJCaTOU6DCk5HkOy7RvLPD?=
+ =?us-ascii?Q?xPqtkTO21fh5wRepzHP9q9lqu5TAkuOI1Q0bzWx1m6xiEHx5xnN07dEzBGhl?=
+ =?us-ascii?Q?WQasYClyN79O+oY53HO5QnjE/ETmWG+ccIZifPg8UmO2ozOVj1GnVZe2dfxv?=
+ =?us-ascii?Q?25g8Y2brQS78ae9eKB9rlx3gW72ayfUXQM54GoB8vUX7F82djNkuqGMqVBbY?=
+ =?us-ascii?Q?Fevt4X9iXpdsTb5t4Glln3HPWuIosbY1LVfbIXPeoi//imrpDfKK7z1go+oz?=
+ =?us-ascii?Q?TsesAGzg2Ov6zwNnMyASoH3ws+hWX3hSs1PRVKvzPmtDltOP0k/phaAZGovE?=
+ =?us-ascii?Q?v3WpkknT1N3Vr6z4TjghT0ZoKEcv8N9pE6VgsyxkI1r83oz1splEEEhwc6BR?=
+ =?us-ascii?Q?oX8ZytJqMm5Ai57n175LB8nkEjCKpHnpNi1oJp5UNcFU8HBDljr7xHUN9fBq?=
+ =?us-ascii?Q?uLmjFMBn3bEf2DOQ+YMgl/aSfaO9WcnAcpa1C/5Hq8fw9KoUMk7ZK5LYVigr?=
+ =?us-ascii?Q?uHMliJV+QQdaSD2SUJkzm0i8ctPpHQXdinR/0VQc7J/JW94nunSeMongZU6n?=
+ =?us-ascii?Q?VBQREQAI4Zed1hPYXyeZJq4dk+8uiXifPuwGc1vEoz+mm9Z2+2bHyqHMaHIO?=
+ =?us-ascii?Q?5TV1I+YbPHiYOmZBWukZhYpkDt/YiqaGiX6vjq/+IZ0eqareA0FM3IEptRmp?=
+ =?us-ascii?Q?v878LJhzg0cJ90qdatLpRBsF8SXtGwXNacZTUL2N2YLdPHl6Tpb3CWwqlzuN?=
+ =?us-ascii?Q?IVCyxkoI6Q=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 993c4a5c-d7be-41ce-24a6-08df16dd7af4
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2026 06:07:42.0180
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FzyFTnLhEQgraVWCmEOT808PkS9YO0IynH6MQWq0eLH0ZmQaXZae9PFQ5g6fi/7aiOvYU6phJOTV6K2yKgm8nw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7794
 
-init_one_mc() allocates dev with kzalloc() and registers it with
-device_register(). If device_register() fails, the device has already
-been initialized and holds its initial device reference.
+Hi Alexei,
 
-The current error path eventually frees dev directly with kfree().
-This bypasses the device release path and can leak driver-core
-resources associated with the initialized device. The existing
-versal_edac_release() callback is responsible for freeing dev once the
-device reference reaches zero.
+On Sat, Sep 19, 2026 at 11:21:43PM +0000, Alexei Starovoitov wrote:
+> On Sun, Sep 20, 2026 at 12:46 AM Andrea Righi <arighi@nvidia.com> wrote:
+> > @@ -911,11 +910,17 @@ static void arena_free_pages(struct bpf_arena *arena, long uaddr, long page_cnt,
+> >  			zap_pages(arena, full_uaddr, 1);
+> >  		__free_page(page);
+> >  	}
+> > +
+> > +	ret = raw_res_spin_lock_irqsave(&arena->spinlock, flags);
+> > +	if (ret)
+> > +		goto defer_publish;
+> > +	range_tree_set(&arena->rt, pgoff, page_cnt);
+> > +	raw_res_spin_unlock_irqrestore(&arena->spinlock, flags);
+> 
+> Now the ptes are cleared in one locked section and the range is set in
+> another, and arena_vm_fault() can get in between. It doesn't look at
+> the range tree to decide. It does vmalloc_to_page(), sees no page,
+> range_tree_clear() of an already clear range returns 0, so it allocates
+> a page and installs it into the kernel pte. Then the code above marks
+> that range free. The next bpf_arena_alloc_pages() that picks it hits
+>   WARN_ON_ONCE(pte_page(old) != d->arena->scratch_page)
+> in apply_range_set_cb(), returns NULL, puts t
+> he range back into the
+> tree, and the next call does the same. All it takes is user space
+> touching the page while the prog frees it.
 
-Call put_device() when device_register() fails so the initialized
-device reference is dropped and versal_edac_release() performs the
-proper cleanup. Return after freeing mci to avoid falling through to
-the direct kfree() path, which remains necessary for failures that
-occur before device_register() is called.
+You're right, I missed that range_tree_clear() succeeds even when the range is
+already clear, so arena_vm_fault() populates the range during the
+teardown-to-publish window, leaving the range marked free with a valid PTE
+installed.
 
-The issue was identified by a static analysis tool I developed and
-confirmed by manual review.
+> 
+> iirc Emil has patches that address this issue differently.
 
-Fixes: d5fe2fec6c40 ("EDAC: Add a driver for the AMD Versal NET DDR controller")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/edac/versalnet_edac.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Thanks for catching this! I'll sync with Emil.
 
-diff --git a/drivers/edac/versalnet_edac.c b/drivers/edac/versalnet_edac.c
-index 3a06b41c1d84..db3bf5a1345b 100644
---- a/drivers/edac/versalnet_edac.c
-+++ b/drivers/edac/versalnet_edac.c
-@@ -829,8 +829,10 @@ static int init_one_mc(struct mc_priv *priv, struct platform_device *pdev, int i
- 	dev->release = versal_edac_release;
- 
- 	rc = device_register(dev);
--	if (rc)
-+	if (rc) {
-+		put_device(dev);
- 		goto err_mc_free;
-+	}
- 
- 	mci->pdev = dev;
- 	mc_init(mci, dev);
-@@ -852,9 +854,9 @@ static int init_one_mc(struct mc_priv *priv, struct platform_device *pdev, int i
- 	device_unregister(mci->pdev);
- err_mc_free:
- 	edac_mc_free(mci);
-+	return rc;
- err_dev_free:
- 	kfree(dev);
--
- 	return rc;
- }
- 
--- 
-2.43.0
-
+-Andrea
