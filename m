@@ -1,80 +1,76 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 665E73EA959
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 22:07:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B5223E7159
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 22:12:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789942037; cv=none; b=nhxcoWf7cZ9vxunyPPliwk+/JuIJYUwi9K7NdHlhUNp1QskhHKLhz31td0hkGnlN6stOrWvXZ6n4T9lzt6SX1rdq7E5fD3x90u2FMEkiuj+3eC+KvBkGnQGY2XjZQ0iXfA+h3cc/fHuctitiDf/8m88B2RommnEo7LydsGJtgvo=
+	t=1789942323; cv=none; b=V3VitzhTB2wxoNOb4xSs9pqnK5sKRi8LYSSyZ6zta/gSdOJYMX0tbOr426i+PlyVxFrYTb2D3Y5uH+Jru1z/qMWfx8q8SICvGWIgSQXXSRN2m5wovcm7/gcplWi4eDxkzBQj7JQ7YC4ACZvwQdI8BmpWVodSMGYir8j1q1JzT+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789942037; c=relaxed/simple;
-	bh=eM2T7KJzE7XrEgyW7SedFNWCzHyys8WpkYdSkfQ74AY=;
+	s=arc-20240116; t=1789942323; c=relaxed/simple;
+	bh=m3SexezWYsSk736W38SFqu2ziBc1JJcqhx3pO3GqO7o=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jvw2rlrZVZxMOyvW23PTQIYajS2C1KTLyfWLo0gRwRxRNYOnqZTGB9Ts0D2B01dkKIYYLHbAOrubc0EQEp7IT4uhY+lx6Wjf+lNQmuk0UtFjd1G5z+WGwc9fkxGeCh8utAcYZFugWEHHA1dIcO+zgHA67VdUnX0FCL1tnQzEdIg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BLQb+oCe; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=ex2EVwTvry8QaMlcWMb5DPF/X4LrAEdwRQrRaC4th5sztJboJqRG4Ae+ZIcjzmTPyvVVbDjCrsWmT0qwdE3ezP1E55Dnaouv12m2cia0X9LXkkIbuoFRMjC0Z0UlKTr+LScDKtJwIsyyA1De5Omh1juhFE4v4p8ZXzee5AJRx1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Va0mnB4v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BLQb+oCe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8AF71F00893
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 22:07:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Va0mnB4v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD0441F00893
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 22:12:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789942033;
-	bh=eM2T7KJzE7XrEgyW7SedFNWCzHyys8WpkYdSkfQ74AY=;
+	s=k20260515; t=1789942321;
+	bh=m3SexezWYsSk736W38SFqu2ziBc1JJcqhx3pO3GqO7o=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=BLQb+oCeqSc0G87OD4KjAXApLx3L1GEVNN2EsmlKQdN2IURsv/IRnXCwc4opbD57J
-	 eWs/Hqn03qMZefdYbbXFUFYZ6Th94GYocU3GuGtCfGRLkOx4y9kP50864eYq5Q2nP5
-	 K0SIa/i9EF5lIuDeXLhdNo5TJVSHgVK9/CWSS5MDjbSWxPY0O4/ZsOOWpV5rFVF2sV
-	 7/zvzRyKzBksWXly+xtJM/FcTl2JAwicrhuWfurXA3r8KwVgzOHO9IXCr+vu2MHgu4
-	 Vi8h8JDqwhWEsRvGf/OLcGFQI6GFQYGvnDtT77tFu9e1Axum9IsPMHbj+t4VOsB1Sk
-	 n2NS929TFKWkA==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8cbb7b9cfso449792e87.0
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 15:07:13 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxpVQ3tEzijBjWyKleYvkP1PbiFj7dMcqy0Fty0JQ3GmUAnqw9HFAiX4Lsv+bkv98O7S6kVyAc0zDjBfMk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kjhqYodhP544DH6M/Ss5Mq0a6anrgt5IkDUMR+br0fV+nghDHs
-	R2yVPP8pQ3rXDkakWc6MbD/L5sx0EKWBt5wj7epfkfbl5673vIaRuZTpHgBrK76tsIrMjQzx15K
-	VfYNqXFB2zrX4AOTKcAl1IloD5gPKKcQ=
-X-Received: by 2002:a05:6512:39d1:b0:5b4:24a3:ecf9 with SMTP id
- 2adb3069b0e04-5b8c180b6ffmr3029498e87.21.1789942032696; Sun, 20 Sep 2026
- 15:07:12 -0700 (PDT)
+	b=Va0mnB4vLEyC7LJ2ZpPkd0pwrqVfYBJ9sNmipn+W9tqa6FO+hGjy0ZC281X0iHmmi
+	 xBAUUrCicU+YmUk3C0ZLj97QAFbpogDQ72J5vuE76Fdsf56mr9BBmLba0wh8PGRLZN
+	 tfbFZeFZzAQY7MvZ6IJCC514QoqDtCUqs3khMY9/jqnarpokdxEnHY919U4Bnt6bV+
+	 2Y9as+qCvkfiOjLvdun+cZ5JAQZ/TLqzJThMWI+Zzh51oawtNtnmN+G+yJfhLq0Idv
+	 NnijKuSWnKcC+3d8gDWY5MODpDsCTBKOlyyDDNxXa3DCrOBzwqr1pEH2ve9yz1kueI
+	 agBgHuknu2AqA==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f15cfdso2251044e87.3
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 15:12:01 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzwwIu5MGChr+5Sy6dDuu+do7wvRgBfkCLZ6E1yU4jZldKdDu85iRdc2giz2Pyl38T1xXdr3M7vKGp3WVE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mwsdcqbGMvzCqQxk4Tq1z0yktwRKAQMnR53M+0//lZUr4WGuie
+	ZluJOrTX1f0gisAnB8TyLuUM0KLnWgXX8owkz+STP/qQ1QKuDJvRxpHzFlA+sOJIL70EWvxf3k+
+	uonJbgwxes6PQCqSLC0QWMxueHzdnRNA=
+X-Received: by 2002:a05:6512:15a2:b0:5b6:1a7c:59d1 with SMTP id
+ 2adb3069b0e04-5b8c183fd80mr2413485e87.43.1789942320496; Sun, 20 Sep 2026
+ 15:12:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916065132.1411576-1-pshete@nvidia.com>
-In-Reply-To: <20260916065132.1411576-1-pshete@nvidia.com>
+References: <20260912195552.76673-1-kmehltretter@gmail.com>
+In-Reply-To: <20260912195552.76673-1-kmehltretter@gmail.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 21 Sep 2026 00:07:00 +0200
-X-Gmail-Original-Message-ID: <CAD++jLn+p=fvVG6=EX3LvU9eMe68cfhCzQvoem0sEfpY43ktvw@mail.gmail.com>
-X-Gm-Features: AcwNN1VOfHJBNeasa5J7ZELwn9CSLN9B7pBShBYstEigIj754ox3CA5qiQjayJo
-Message-ID: <CAD++jLn+p=fvVG6=EX3LvU9eMe68cfhCzQvoem0sEfpY43ktvw@mail.gmail.com>
-Subject: Re: [PATCH] pinctrl: tegra238: Fix register bank for AON pin groups
-To: Prathamesh Shete <pshete@nvidia.com>
-Cc: thierry.reding@kernel.org, jonathanh@nvidia.com, 
-	linux-gpio@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, bhelgaas@google.com, 
-	u.kleine-koenig@baylibre.com, arnd@arndb.de
+Date: Mon, 21 Sep 2026 00:11:47 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=7OSrPMax9GRj3D7ehjmmG2uMyws53F8U0x7YGx+RNOQ@mail.gmail.com>
+X-Gm-Features: AcwNN1UEg-rAjFzamwNmqUNbJToIegygFu5WJqv4Wp0FbND3-H0NPmWS64QMjAA
+Message-ID: <CAD++jL=7OSrPMax9GRj3D7ehjmmG2uMyws53F8U0x7YGx+RNOQ@mail.gmail.com>
+Subject: Re: [PATCH 0/4] ARM: allocate the cacheinfo early to fix the
+ PREEMPT_RT boot warning
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Russell King <linux@armlinux.org.uk>, Dmitry Baryshkov <lumag@kernel.org>, 
+	Sudeep Holla <sudeep.holla@kernel.org>, Pierre Gondois <pierre.gondois@arm.com>, 
+	Radu Rendec <rrendec@redhat.com>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+	Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	linux-arm-kernel@lists.infradead.org, linux-rt-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 16, 2026 at 8:52=E2=80=AFAM Prathamesh Shete <pshete@nvidia.com=
-> wrote:
+On Sat, Sep 12, 2026 at 9:56=E2=80=AFPM Karl Mehltretter <kmehltretter@gmai=
+l.com> wrote:
 
-> The AON pin controller has a single register region and therefore,
-> the bank defined in the tegra238_functions[] and tegra238_aon_groups[]
-> for the AON pin groups must be 0. However, commit 25cac7292d49
-> ("pinctrl: tegra: Add Tegra238 pinmux driver") incorrectly specified the
-> bank for these pins as 1 and not 0. This means that in the
-> tegra_pinctrl_probe() function we use an invalid index when accessing
-> the pmx->regs[] array which causes an incorrect address to be used for
-> accessing the pinmux registers.
->
-> Fix this by correcting the bank for the AON pin groups.
->
-> Fixes: 25cac7292d49 ("pinctrl: tegra: Add Tegra238 pinmux driver")
-> Signed-off-by: Prathamesh Shete <pshete@nvidia.com>
+> The series applies unchanged to 7.2.6-rc1 and v6.18.
 
-Patch applied for fixes.
+OK please rebase on v7.3-rc1 because that's what we're working
+on now.
+
+After posting that I think you can put this into Russell's
+patch tracker.
+https://www.arm.linux.org.uk/developer/patches/
 
 Yours,
 Linus Walleij
