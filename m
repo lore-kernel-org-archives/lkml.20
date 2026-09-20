@@ -1,131 +1,99 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mta0.migadu.com (out-87.mta0.migadu.com [91.218.175.87])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40C5D388E58
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 07:42:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21F053DBD76
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 07:42:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.87
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789890125; cv=none; b=JnqpuLpcvYJnaaqg/wHcqo94A/vpZocnmt3H+9b6hrMwpGF9StJ8yl+DOJQtTzYA7M7cDsBLx4SrNXmEyUV0qroUcQEG0wAQvwxM9Bl9dOlJ2viAEDN8RJGr6tnVfUpXuMauRkgdvDFz75m+t+0hCsPS3mhxlopeO50eglotyDA=
+	t=1789890163; cv=none; b=tZrGGVXTdXOCFiALJNxJ3sw4F8yGeTw0jMYkd3HO/mwNod33C7KJr74zweT/ifBDMzzLLpmDZ1ppQ2xK9BicGN5NaNxBXThyHgy4IgN9DLZgqpqka6EKCBCDj3RLrA/6o0N5P9a0H/o+YUM3y5EV4X19Z9a/iC3oYRY6CiZM/3w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789890125; c=relaxed/simple;
-	bh=rR8igBMAONQFWgxQpNWCSbKEmSHIFF7JAQyn8OzbeWU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gfus+XNm+KuwSQ7utSzhQWb/eh6R3HbhBL1LiguFKMWEa5rm1nj5dm0c8mjglpR6Q3yretL7WGPtK6OUWTsjaegJAP5H7OiJ0FYzWNs2uxpVZilvRdv+pc0rDc2x+w5wjVRDXgcKIvO4Abjhz2sUGMSACpWa6lOsco4GJmtKCug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gMGEWhou; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789890163; c=relaxed/simple;
+	bh=XACIHRk7pvR3ne8CI5yYmGZaL8q2kgBI23W8AaJmnmw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AiEXYyYH1kA4UMDgMqKX9qkFC2XgUUIUsL/D+aMp74N1L8rGwcPVLaFprXvudK/PPfQdhX8lMowk6YfTennFJHBtOi1SE4kyVU1RWwmFMvpFPNw7grY9S1n3HgQdj1m+jrIyC6DWLH/ivaroo+ffhoQ5D/iYpPxI0JWftqzoONs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=hLqtI2js; arc=none smtp.client-ip=91.218.175.87
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gMGEWhou"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d391aso13386665e9.2
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 00:42:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789890122; x=1790494922; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/80n/32ltdJ41KKMohbSQctzxjiK+R/dgCUJ2IHiZLA=;
-        b=gMGEWhouKOE8UhwGLxCX1Ke5iCvNgFTz+rApskftLbzIZO4g0DZJUo5vIsI1tC9Xk+
-         aU3kT2QYexzX325H5kNb3BVNDDmBcFATw5+It3rJQAcv3KjoEYXussBCHDiEUYXE1Jhr
-         yInQPWZDBGS08YcrpIw8sAvm/Fv8ckMrVcT1SBpGUE/n7F3XKh5c++rYchrhYTh3isAL
-         LJOQ0aRrSa651o27PHCEvPVcY4Vt36lUHEt+t1kw/hf0dvkaZmYXS7NEKCIuOvsHpnMH
-         /IFS9jWadFgtD33EIpk2Boy/pmkrauqyXWJg9NIj68PiZi9LttH8B3cyQUcDSKMIqCsO
-         A0Nw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789890122; x=1790494922;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/80n/32ltdJ41KKMohbSQctzxjiK+R/dgCUJ2IHiZLA=;
-        b=f8yB7IHjB2Ys2FicSdcRHfXQ/I0zEkxLeSJQ8N8hCRXoAQs2BXVuD2Wqh7WtkhWCNI
-         kdphVPNjeOu34/tYb38RqKptcK9MlsFprgPe1BdBvY4SPqgvcyqyu2LuZw3zLUZ1opgc
-         y3zntw89/2PP29AzGJNML2R89T2eKWu2rKxcBTFajLUk9m5yXx+KNWkXt7gTj8iEqSaq
-         pYdlKeY6gVlwiUHJBQPXBcKznYSjKXS6W5NxRHOHEI0N6cKfzd+TeBYZ6+Raxwb3gH8s
-         nFZccaQa2I9oxr25CCsbdJBAVLlX83tmtmXWJWwU/y0FJiQw8i+Tg48q0aEExcmsJ1xC
-         cpEQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx1fXDccGL0Pa7z+YtzerYNkEN8cXk0K/NNXl6lzmRqDF6X0HxQD0IvkJswkKq8wH7ZycHyw6OA2dXupNk=@vger.kernel.org
-X-Gm-Message-State: AFuF++k3MVO9wgN/lBt+Adiw2CJNHexPlp2itzQFKORCCO24izFj+sec
-	L6LiCLZDFd8VtWNhiS6HSeEXQVepDPwPG58BRr733xzO/3LTtBC+Egbs
-X-Gm-Gg: AYBFou1XcBuCw4t+I+D+5Nw9s8X8XzU4QpFk7M/Oi+664NeoOTVYuv3KcLCtgkkh8fA
-	uRsE3cDxegZaE6antOVUUoVbtPDY6TzxsZ4Ljm0D/Gb49DoKcYFk4sns8ALMHQo2UMWQUMm/GQP
-	C5UFm2On19ilQxDJlhjU3eOX1qv/+pwzeTao42suWac+CCD/Em52psGBb1sa4ZPVlEtEZmCVR99
-	nZhXvQ+TXll+/gwL+LPkECi1Df2YHv/atiuig1GqxPnuAYl2GEow9m4lMjSyRP/1UlTAxkOJiRE
-	dQA1+T076yB99aJikTlAm7IRIqS5BPuHchhXv9agyIu88icsWWPBZ8ocVC7fsacgtp23sBe7hJR
-	vvf/svI60L542qHARDXSkHITspcsRdkSTy3NP2eXobYl9mYzHE+qNFg/o0dqkcx5ou7c6zRxqG9
-	IOmZxJ3MdJizkcQ0Ez+85X3szNqUEa6AX6cMVSHiATQjUgXjCSwu3p8X8TjN1ye2+t8M/8UJyUO
-	o7SoGgF59oGdphIfM8uP+W8WdBA7SJlquayvKRFqNyOxCOtTEjDgHqv
-X-Received: by 2002:a05:600c:3b29:b0:499:79b9:e220 with SMTP id 5b1f17b1804b1-49fc56aab12mr100245185e9.10.1789890122462;
-        Sun, 20 Sep 2026 00:42:02 -0700 (PDT)
-Received: from voyt-laptop-dell ([92.115.55.221])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc5748e56sm185405135e9.2.2026.09.20.00.42.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 00:42:01 -0700 (PDT)
-From: Dmitry Voytik <voytikd@gmail.com>
-To: Nicolas Schier <nsc@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>
-Cc: Rong Zhang <i@rong.moe>,
-	linux-kernel@vger.kernel.org,
-	linux-kbuild@vger.kernel.org,
-	Dmitry Voytik <voytikd@gmail.com>
-Subject: [PATCH v2] scripts/config: honor $KBUILD_OUTPUT by default
-Date: Sun, 20 Sep 2026 09:41:16 +0200
-Message-ID: <20260920074116.71926-1-voytikd@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260920064350.17999-1-voytikd@gmail.com>
-References: <20260920064350.17999-1-voytikd@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="hLqtI2js"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=XACIHRk7pvR3ne8CI5yYmGZaL8q2kgBI23W8AaJmnmw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789890160; v=1; x=1790494960;
+ b=hLqtI2jsb1Yi6iEZM0kP6YcXRZ/BParR6qhARgb/niOqQZdg4wc6QnflM31u6EHVwIXc4ayl
+ kYHk6jsaJrF5Dabu9dPkmD3+TajvGV92MApTW9Eqj0yvYZjRaevpZ8PREQIlGreSTFbdbfKWMuh
+ fidqhWWqbxiQSFU9sSHGV4kA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6ff25d7f64fa7a0b;
+	Sun, 20 Sep 2026 07:42:39 +0000
+X-Mizu-Trace-ID: 6ff25d7f64fa7a0b
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <327d0a31-7a04-4ec2-b184-c801a95750e9@linux.dev>
+Date: Sun, 20 Sep 2026 15:42:31 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] irqchip/gic-v3: Lifetime and range fixes in the GICv3
+ and ITS drivers
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+ Radu Rendec <radu@rendec.net>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Will Deacon <will@kernel.org>, Fuad Tabba <tabba@google.com>,
+ stable@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260908142632.2795308-1-fuad.tabba@linux.dev>
+Content-Language: en-US
+From: Zenghui Yu <zenghui.yu@linux.dev>
+In-Reply-To: <20260908142632.2795308-1-fuad.tabba@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-If $KBUILD_OUTPUT is set, use it by default if --file is not passed.
+Hi Fuad,
 
-Fix the issue when the script silently updates a stale .config in
-the root directory, while the user expects ${KBUILD_OUTPUT}/.config
-to be updated.
-The problem can be worked around with --file, but this is easy to miss,
-and is inconsistent with how the Makefile and other tools work
-(e.g., scripts/diffconfig).
+On 9/8/26 10:26 PM, Fuad Tabba wrote:
+> Hi folks,
+> 
+> Three fixes to the GICv3 and ITS drivers, from reviewing the GIC series
+> floating around and chasing down Sashiko's reports.
+> 
+> The first releases the partition node that gic_irq_get_fwspec_info()
+> takes from of_find_node_by_phandle() and never puts. Sashiko raised it
+> on an of/irq patch of mine, and I said a fix was forthcoming [1].
+> 
+> The second widens the per-device MSI clamp, which truncates to zero when
+> GITS_TYPER.ID_bits is at its maximum and then denies every MSI on that
+> ITS. I couldn't find an implementation that reports that maximum, so
+> this is one value at the edge rather than something anyone is hitting.
+> It carries Cc: stable because the commit it fixes was itself
+> backported, so drop the tag if you'd rather.
+> 
+> The third clears vpt_page once its_vpe_teardown() has freed it, so the
+> NULL guard holds if teardown runs again on the same vPE.
+> 
+> Based on Linux 7.3-rc2 (df2908090cda3).
+> 
+> Cheers,
+> /fuad
+> 
+> [1] https://lore.kernel.org/all/CA+EHjTx7eP_30vP47=UFk_wMAut-2uf+2DF-MZqn2SLE_k-8qg@mail.gmail.com/
+> 
+> Fuad Tabba (3):
+>   irqchip/gic-v3: Release the partition node in
+>     gic_irq_get_fwspec_info()
+>   irqchip/gic-v3-its: Don't clamp nvecs to zero when id_bits is 32
+>   irqchip/gic-v3-its: Clear vpt_page after freeing the pending table
+> 
+>  drivers/irqchip/irq-gic-v3-its.c | 3 ++-
+>  drivers/irqchip/irq-gic-v3.c     | 7 ++++---
+>  2 files changed, 6 insertions(+), 4 deletions(-)
 
-Signed-off-by: Dmitry Voytik <voytikd@gmail.com>
----
-v2:
- - Addressed comments by sashiko:
-   - https://sashiko.dev/#/patchset/20260920064350.17999-1-voytikd%40gmail.com
-   - use basename when --refresh is used
-   - remove echo which can be misleading when --file is passed
-v1:
- - https://lore.kernel.org/all/20260920064350.17999-1-voytikd@gmail.com/
----
- scripts/config | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+All look good to me.  Thanks for the fixes!
 
-diff --git a/scripts/config b/scripts/config
-index 32428ea909c2..cdee67157fe1 100755
---- a/scripts/config
-+++ b/scripts/config
-@@ -130,6 +130,10 @@ on_exit() {
- trap on_exit EXIT
- 
- FN=.config
-+if [ -n "${KBUILD_OUTPUT}" ]; then
-+	FN=${KBUILD_OUTPUT}/${FN}
-+fi
-+
- CMDS=()
- while [[ $# -gt 0 ]]; do
- 	if [ "$1" = "--file" ]; then
-@@ -229,7 +233,7 @@ while [ "$1" != "" ] ; do
- 		;;
- 
- 	--refresh)
--		yes "" | make oldconfig KCONFIG_CONFIG=$FN
-+		yes "" | make oldconfig KCONFIG_CONFIG=$(basename $FN)
- 		;;
- 
- 	*)
--- 
-2.55.0
+Reviewed-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
 
+Zenghui
