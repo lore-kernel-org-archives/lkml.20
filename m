@@ -1,63 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E6B446EF92
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 17:58:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 796C43C7696
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 18:05:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789927140; cv=none; b=fBRJD2KqQ7XJWbEfXyO4+sTTNSy91RGv7cUXWBi4qz5irdgI7ghqDyTNecWTzvu2dgwctfI0ZmK62spbvyjb2vncy2AaAv5P5TAAwQxTAxEPPRcvmZvvJJCOAUSWDt2vhsweVirZjMbtFqiR7HYpvYrJJoFbDyKTEJWu/NtHRAU=
+	t=1789927528; cv=none; b=d+PE5/cGM6FJEdju7R9H6Pl9Xede506g6LTGS6uzedYwRgUnVcbTQwUGqalCwsv1v239qs059XcLtIk84x+K0RR+wV6OwRGNogVm8tv/wCUlzFl9H7vYF424n8Ewj/qymFVcmJNLX5gsheT6ZyNRousISUimeGb3w+72uxE/FAQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789927140; c=relaxed/simple;
-	bh=T3ciCxjh/v+9vadphVzrEehTeCRFu19bt9ZOV8W8wyY=;
-	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=kZBF4hRb+peL1gx1MopEXW+EY4z2vkm32Ajd8uwboAk8Ow6E9upE99dUsAjQRBtnOEZHIDxBN8pL2hm9MiMu10YZtJtVvWl1h6fnJJ/Vm1Ru/yzJB0oILUXPGIE7gFrKvPVsF6NCPVd55B49g2a/UB2xVHq0fWPE117/8CwvW6g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MxFyWL74; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789927528; c=relaxed/simple;
+	bh=F0eZPhFsb0Nc+GldGGO+4zVnTR1/SUcvX28tu7Rq/e4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=q2oJccI0a+WS4jawKCM2P+eshEHWVv4rIH+BJaVFPJw71luQiXiJez2jtUaV1+hC38XOhY8vsP+TkKsl7gJBKU0wtdQ9+pj+C0CtRILM30BRpOY6/1XPf3xcNGqLyQk/MdxIql6MYLmgRNHLJ8B0k/cHwf4tkcJt5XkBlt868SY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VIChzqAt; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MxFyWL74"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 060241F000FF;
-	Sun, 20 Sep 2026 17:58:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789927139;
-	bh=NaTuih6/nWfHxdqtvNLmfvELd/Hw+ZSnBJoyIvqaqiQ=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=MxFyWL744c/udHjaNPIihYXMqI55CfUDSxOKlmVGRJSSgA91tRaBeUk1NTmQajkj4
-	 2qh6BJlFmA+h5UAPOnTid0ZEOvKzrkYOeqIUlbdc2nKxxDEKusQaXtwa/Zx/E0+L/t
-	 CZRZIUs/KrmEuPWYnOPVuJsf3FR4ULFmKfSELUC2vr81e+3dlNufj8RYAFY4Pz449/
-	 /XRg7FeS/pWoSmIUkxwtqwM5VkpaJ7n5I5XgTkXHjUvDFmbde0c/r1/PkdibsPSC/l
-	 AEQJJCcASHM9McNpJctS5fTsrtePUjesYnSgmJTZiue+9P3vGY+nqXRk1pS8qBtydp
-	 KVfiFvt9oxleQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 56A0A39253DA;
-	Sun, 20 Sep 2026 17:57:52 +0000 (UTC)
-Subject: Re: [GIT PULL]: dmaengine fixes for v7.3
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <arAUJaluykugcCzN@parshuram>
-References: <arAUJaluykugcCzN@parshuram>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <arAUJaluykugcCzN@parshuram>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/vkoul/dmaengine.git tags/dmaengine-fix-7.3
-X-PR-Tracked-Commit-Id: 075bc7b1d3dde5ed43fbaabbc1a69f09b7fc3a47
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: a10a019dd4c7c57bef6b8dda962c8881ad220af2
-Message-Id: <178992707098.1742959.4148901598380317591.pr-tracker-bot@kernel.org>
-Date: Sun, 20 Sep 2026 17:57:50 +0000
-To: Vinod Koul <vkoul@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, LKML <linux-kernel@vger.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VIChzqAt"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7bcb94d3so15614955e9.2
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 11:05:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789927526; x=1790532326; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=PNSeyAr9HJpJvQqo0p3VPTX7NpDtcZg+nHgfUJD+2iQ=;
+        b=VIChzqAtp+0MaO+Wokcj0jvK/S6bvdRNu1tu5vW1uvU9YSSMJl9QZgqzdosDg1nvP5
+         5mqQx8pLZZQPyqUPzokeU0DnERO0TbhtckPZEY1fEyh8H2E8Z8DAHNEbATSYt8UUNv+6
+         oz96jJQAYfu2lT10LN2pA8MVVgUcy1CoRffXM8UyDkxN8LCu7niRNiDKHpsOnJzQEI67
+         ojANsWT+lY5JKYwmxTgbXIgR3IlDU4A9lfjONt5qHUITKeUc8AYpVeOpS+7pEaEWTBSZ
+         nLA3SaH1H5YGP1oNtJ+N0WckjXfAh2isSJaxt93THbT8HQ/O3jPobrP1w6u64wzdEoeO
+         tUCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789927526; x=1790532326;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=PNSeyAr9HJpJvQqo0p3VPTX7NpDtcZg+nHgfUJD+2iQ=;
+        b=qfesKfFev2J+4WzfSXFsXns6YZHnKftpVn26BwaQszs7aGzs85sq1rMuPd56az3rtE
+         oc4SJ6ncEyZ9aq+yJziPc6/Ib/9urEjyPOWIvyboxczKO4e3P42IDLJ0aVvuAN0gRMub
+         RTzQwuYxABcemSrnNEN7nLga4thdH8NEw/l9mDHCnFXc5va4yMrVqykWhbWYPTqfB7Vk
+         lyDx0crQgcYEBlk9F0zS7OBaqtlb3EOmrz8RKFsRs/oilSmxrVJ6kOnOc+OcswjLvUXl
+         UMPeomIJGLayxaFUcxXcKpF8+6kHYmJvvdNZnVFJoHIG2xE0F2xubO2m0kYJ0354UkmD
+         pJqA==
+X-Forwarded-Encrypted: i=1; AKwUvByJszCJBO+JsqaHoCVgtsr3ncYLVDrDwFI0V0w1jNuD4PQsUicJhzw1zAm8Jy3/VEaRDFezOVQadp9LC6w=@vger.kernel.org
+X-Gm-Message-State: AFuF++liC2ahTGvGKPO8ERVgLhzpCzHIs3rB5kkCbHgz+HvZTsJhZrxY
+	CLZ8icwdR1LWGR6WgHw9Mnssuzr1rUh2GYdDL+fdIN9lHYjshE7rU1c3
+X-Gm-Gg: AYBFou2jz3AVcjMZGOqzPXxN8qEF7wsdZGKUjHJP0BEEmUMMOZt946yM2eKt+GYNScx
+	45I8zBFRNufAHlaHcPLzLuWxkyB2tCZE0LPMN7DPfnbjhnpsMJqHuCyTGV4odeAt6GgI/vQtVf/
+	dK3ERgBINHLXuRJPrAWBgcwOP7yc8JX0hqL6d17gMvoroHkb57RBCgw0KBiTy333lCCvKAE9BZ/
+	HcoXde/+p48SlDKX7rdCqNThC53z+y2vZE6x1VUsKdPBQXXwoT0/OaG4yZOrWSGTSsTtj+F7Eu+
+	i9biXKMqa2w39JEKLrPjiQm9FPfEYyi3QJNXMZIx2DZFCcijrUEF+Mn9y2ZuJS5Ee2ps2MIImoR
+	KL7UNm3iFpr+p5Wh3d0PCIACpWxsdW77DRnwM8ye3BAH5zbJdK1d3cNLTzLQtVzZITJXc+ihhCv
+	CBw7TM0N/YQIw+Jv5mRnRwAQOoCHss9hiYezd+aaEdbdjNp4kzGqdarHlwPDYOMOahbvR8ImuC5
+	34RR8OfCbV15D8NxBhJv2RPhVj4yflTrZi1ECCg8glj/hBndqjEscGj80kDgaci0LHGEMX6tHvp
+	M5TPIXrLUCRIhxnF2JP66rSrwgiVkOnopV53UKxN9X6FM8gYVx/411SL8nqGWn9j8SpeQJkdfE+
+	2Tszz03L0xA71+9spt8Tz0p4dfsgr4k7RIKL/8ManbeCnsw==
+X-Received: by 2002:a05:600c:4ed4:b0:49f:c432:2e50 with SMTP id 5b1f17b1804b1-49fc5743189mr104226915e9.25.1789927525439;
+        Sun, 20 Sep 2026 11:05:25 -0700 (PDT)
+Received: from [192.168.1.187] ([2a02:8308:4092:11f0::f9f])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd0f7b9bsm164648055e9.5.2026.09.20.11.05.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2026 11:05:24 -0700 (PDT)
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+Subject: [PATCH v9 0/5] iio: magnetometer: ak8975: driver cleanup
+Date: Sun, 20 Sep 2026 20:05:22 +0200
+Message-Id: <20260920-ak8975-cleanup-v9-0-1b0f00ec19ef@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyLHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDS0NL3cRsC0tzU93knNTEvNICXSMDs1RjA+PENAsDEyWgpoKi1LTMCrC
+ B0bG1tQBWb6A4YAAAAA==
+X-Change-ID: 20260919-ak8975-cleanup-206e303af804
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Joshua Crofts <joshua.crofts1@gmail.com>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789927524; l=1676;
+ i=joshua.crofts1@gmail.com; s=20260530; h=from:subject:message-id;
+ bh=F0eZPhFsb0Nc+GldGGO+4zVnTR1/SUcvX28tu7Rq/e4=;
+ b=egoJo673W7NFvxUGauYmSf1CN4G3g/pOQ8OK2u1xcg46m2hMzw3LgTzvn23rrSEzr6kNzAnRV
+ vLrOFK+uMgaD8UURmBzRad8lo+YxtCR9CzaS9aNfpwyi+s+ZxsdoaGf
+X-Developer-Key: i=joshua.crofts1@gmail.com; a=ed25519;
+ pk=RTDOoVwgeL4oFdASj9U+cxJuIjXuXk73zkjnGOJKbEo=
 
-The pull request you sent on Sun, 20 Sep 2026 22:43:09 +0530:
+This is a 4-month old series that I had in my working tree and
+completely forgot about. It's a continuation of the ak8975 driver
+cleanup that Andy and I worked on, all that was missing was to
+implement Jonathan's powered_on bool idea. The rest of the patches
+have Reviewed-by tags.
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/vkoul/dmaengine.git tags/dmaengine-fix-7.3
+Very sorry for the long delay :(
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/a10a019dd4c7c57bef6b8dda962c8881ad220af2
+Original cover letter contents:
 
-Thank you!
+This series is a continuation of the previous ak8975 driver cleanup
+effort, as most of the patches were picked.
 
+Changes include:
+- using BIT() and GENMASK() macros
+- moving to devm_* resource management
+- adding a scan index enum
+- moving from using wait loops to iopoll functions
+- various code style changes
+
+Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
+---
+Changes in v9:
+- Add powered_on bool per Jonathan's review
+- Move forgotten dev_err() call to use a local dev variable
+- Link to v8: https://lore.kernel.org/all/20260518-magnetometer-fixes-post-pickup-v8-0-088d610108a0@gmail.com/
+
+---
+Andy Shevchenko (4):
+      iio: magnetometer: ak8975: switch to using managed resources
+      iio: magnetometer: ak8975: unify messages with help of dev_err_probe()
+      iio: magnetometer: ak8975: use temporary variable for struct device
+      iio: magnetometer: ak8975: make use of the macros from bits.h
+
+Joshua Crofts (1):
+      iio: magnetometer: ak8975: add scan mask index enum
+
+ drivers/iio/magnetometer/ak8975.c | 213 +++++++++++++++++++-------------------
+ 1 file changed, 107 insertions(+), 106 deletions(-)
+---
+base-commit: 40288c9206c17eb66a603262e06a58d300d0f279
+change-id: 20260919-ak8975-cleanup-206e303af804
+
+Best regards,
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+Kind regards,
+Joshua Crofts
+
