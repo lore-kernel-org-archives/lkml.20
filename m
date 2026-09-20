@@ -1,120 +1,98 @@
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FE75353A77
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 10:02:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECF5A381EB0
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 10:03:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789898524; cv=none; b=d368cg3sblce1mg+yVoR45oachJUvdgkBXxdQFOkFItBjaiV9A3Qxa7qb+enzcnWOhlLMziHkNVXyjClTtQLem72/5/NCemo7s6Xfe+zFidinejqzscoi9u6CNcMs5UsX1ia/SUdYYzvXl8DG0803TnLIJZ/KDf8tnQZifBWc+4=
+	t=1789898584; cv=none; b=Pt8wJ3Exb7GG/Ty6UQYuDNhUdXUzQRcyQ2mWqcdB4gnvfLGS2v6mRCi5IghloOzpyAHJbuZfDkrknG+/Dq8fdXjfymADqTNhyRozitTGvKwSlVcip0HLKK4e6vDomY/gMAytnMzq0R75Wo7p2/9PyKKZUFv9MpJOCjG6O+Jj2cg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789898524; c=relaxed/simple;
-	bh=sD1tvy9i/kQf1pCntM5zhGI1Kwe+vvUR6kAtDA+R0hs=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=uBp3cJJWU5ICjscJyqWbPBwylGhXgCInVvj8yclKLgwQmg5hkDqIj99qR/Ld6KzNygI9HV4+OGQAVb5RZMglBAMv7S0Ol4OoQgJzlq786e7nmywBLvx3KDc135RjI4Hd3NZy8XuHvxXAPLALmhfAQMT7YTxnRSgnvOmL7fdpAk8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-806004ec379so1737786a34.1
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 03:02:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789898522; x=1790503322;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=orFe4c3ZEes/v9h1tkFcgZKIV+bzphp3crAMqXYbhRU=;
-        b=xA9IKreLck+viJMWxnx1wqJieNWoA2mtq0ep3LafZvYhMBxMUZQIZdwq0waAr6Si0Q
-         N0lPG3uplrsHrPIm21wvhmbkh0zv0DE0rvUlHGG7LfFkuQprKl+B6JiT2llqrXG1xlB0
-         omEYbMEJF2feXX0Us/WbWbuF4HU93TAVoO+8qoXSKPDxnOIn0Jlt9NEGuN9BrBDXay0T
-         4sxkMRXGHGd1LzzyX5kiTm/Od3GfJL3nTWsw02DyoXiE4sYetQu+jBKeK58Br8byRV3S
-         hUB4br+ehAVyBdyoCQXlNhhDtcWGrAnF4lAtjc2lG0RSApsY9BiIBDtWFVVonMcYijkC
-         NvMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxkqz8dzR9RbbRcEUEci0RJHzS5e2q8udtKg2NOLzlUDXj2D5KDTGfjKkUgfP6cFj/isv4TBxW7sJ17mhc=@vger.kernel.org
-X-Gm-Message-State: AFuF++l019d6k82NX4fvB5e9ERGP1WN+6op2EU2XBKaL3SXBiYr2U/Fd
-	gxKZmmlwx6xkxz48dncB+FpcifGnxVfkB46c3nAl3REy2HsDVSX1qUgx1Pq+idWHGiBsv6BgpVC
-	9+5ce2BG0yUdJ9w96lQXDkaGSqOIH6+GrMFwd9QqFkgeWBThSBB6hfW7/Bbs=
+	s=arc-20240116; t=1789898584; c=relaxed/simple;
+	bh=6Z2B9efW6oQ12wEhyEUlN9Sfd4HI65DR1Bu8uFgI2HY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=XSRXlygOAAMKQYASRJNceynCjWTEYAnqjFipc9cpmf4ob83khyi2ciMJz/2vnnJmIjMxHZeURhASraNLFZRVcUAC87lK09Qrf7T28Rqe98x0nx7x81QfWlBFvDIQJxsVX1AE4SmJF4WqWW+7rSIWixolGBbyt4h4RN1ezkQ64WM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tco057qg; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tco057qg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FB891F00893
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 10:03:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789898581;
+	bh=A5oO+cMTbQ47NycpUxUJcMEhXz8+yRynclZhYTmvhis=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=Tco057qgWvgMuPuc4/91xhT2/7OKkAszD83wQzIYe3mDkMMJxIBWH4LbtRvfobKUQ
+	 yAhKphrUMBpepjuzK5gt+voyHNIhtbk1Qa4gtqAR5NrZ52Fukpcpc9QKE1Si744HIW
+	 3M1wAMKAnSNIb8pbkJcltguiMRTchvMg/2OUShSix9qONcds0jja/ROfDQVtNqEEAX
+	 XP51rAlP9Kf1UOGcpl/6AeG7aWjQYJH6oAilT6SEEfZN5JeF5ACfrxtXmLdhK3aF3D
+	 creBqK1Tsbt9p3vxcj1K0VKo88iBq2tpSkIeFO4SN7/qwr62XWYK4tdL1P8ffIY7dd
+	 sjugVvnfX9l7w==
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a5919af2eeso18343151fa.3
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 03:03:01 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzBPiFwgMUcKmYGQhm496zekBwtxgQKK0L/amcXfqrGzhb48/8zLhh82bmx+qWhBU9fnVlWG/JLMP7718g=@vger.kernel.org
+X-Gm-Message-State: AFuF++k4ne0PzqY2PAJxWQGKnfss6AJf9g4J19lF36qxuMqhYzPte2k4
+	M58cSfH9MZYkGGiuGTEoWFUhtvWjfiPJSf+uflhWFp+bbYBOaSZ+jlOh8Gams1Jh+XvVw475hoY
+	q2IHB9hlgBzCyxhxuQumJxGxthjSZv+E=
+X-Received: by 2002:a05:651c:31c5:b0:3a3:7681:6d60 with SMTP id
+ 38308e7fff4ca-3a5fc0aa3afmr16089621fa.24.1789898579440; Sun, 20 Sep 2026
+ 03:02:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:4cc7:b0:6c7:af50:b2e4 with SMTP id
- 006d021491bc7-6ca9a132ec7mr6414078eaf.13.1789898522240; Sun, 20 Sep 2026
- 03:02:02 -0700 (PDT)
-Date: Sun, 20 Sep 2026 03:02:02 -0700
-In-Reply-To: <20260920092811.61884-1-adarshdas950@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aafaf1a.3179f8cd.1e36b2.000a.GAE@google.com>
-Subject: Re: [syzbot] [ntfs3?] WARNING in ntfs_evict_inode
-From: syzbot <syzbot+3db654d91b471c4d7a7d@syzkaller.appspotmail.com>
-To: adarshdas950@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
+References: <20260913145527.18148-1-iuncuim@gmail.com> <20260913145527.18148-5-iuncuim@gmail.com>
+In-Reply-To: <20260913145527.18148-5-iuncuim@gmail.com>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Sun, 20 Sep 2026 18:02:45 +0800
+X-Gmail-Original-Message-ID: <CAGb2v64SfV4wdXwn2Si8w87r6E+PidAAKJJfUJDWqz3kHn9chg@mail.gmail.com>
+X-Gm-Features: AcwNN1WNiiqZx-dirR42ASsi4bsV2jdbUXD9xI8djW0wkB4hBsUX1s8oMylt76o
+Message-ID: <CAGb2v64SfV4wdXwn2Si8w87r6E+PidAAKJJfUJDWqz3kHn9chg@mail.gmail.com>
+Subject: Re: [PATCH v6 4/5] thermal/drivers/sun8i: Add support for A523 THS0/1 controllers
+To: Mikhail Kalashnikov <iuncuim@gmail.com>
+Cc: Vasily Khoruzhick <anarsoul@gmail.com>, Yangtao Li <tiny.windzz@gmail.com>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, linux-pm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	Philipp Zabel <p.zabel@pengutronix.de>, 
+	=?UTF-8?Q?Juan_Manuel_L=C3=B3pez_Carrillo?= <juanmanuellopezcarrillo@gmail.com>, 
+	Andre Przywara <andre.przywara@arm.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+On Sun, Sep 13, 2026 at 10:56=E2=80=AFPM Mikhail Kalashnikov <iuncuim@gmail=
+.com> wrote:
+>
+> From: Mikhail Kalashnikov <iuncuim@gmail.com>
+>
+> The A523 processor has two temperature controllers, THS0 and THS1.
+> THS0 has only one temperature sensor, which is located in the DRAM
+> controller. THS1 does have 4 sensors:
+> ths1_0 - "big" cores
+> ths1_1 - "little" cores
+> ths1_2 - gpu
+> ths1_3 - npu
+>
+> The user manual for the T527 processor describes 4 sensors, whereas
+> the one for the A523 describes only 3. As additional information, the BSP
+> driver was used, in which the value SUN55IW3_CAL_COM(5000) is used as
+> the calibration value in the formula; in the mainline driver it is
+> treated as the ft_deviation value. Also, in the BSP driver the NPU sensor
+> is used for both the GPU and the NPU =E2=80=94 its actual purpose is uncl=
+ear;
+> both sensors are functional and show temperature changes depending on
+> load.
+>
+> Signed-off-by: Mikhail Kalashnikov <iuncuim@gmail.com>
 
-syzbot has tested the proposed patch but the reproducer is still triggering an issue:
-WARNING in ntfs_evict_inode
+Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
 
-------------[ cut here ]------------
-ifs_is_fully_uptodate(folio, ifs) != folio_test_uptodate(folio)
-WARNING: fs/iomap/buffered-io.c:295 at ifs_free+0x34a/0x410 fs/iomap/buffered-io.c:294, CPU#0: syz-executor/6336
-Modules linked in:
-CPU: 0 UID: 0 PID: 6336 Comm: syz-executor Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-RIP: 0010:ifs_free+0x34a/0x410 fs/iomap/buffered-io.c:294
-Code: 41 5f 5d e9 b8 66 c1 ff e8 83 47 61 ff 90 0f 0b 90 e9 d5 fe ff ff e8 75 47 61 ff 90 0f 0b 90 e9 12 ff ff ff e8 67 47 61 ff 90 <0f> 0b 90 eb c7 44 89 e1 80 e1 07 80 c1 03 38 c1 0f 8c 08 fe ff ff
-RSP: 0018:ffffc90004fbf698 EFLAGS: 00010293
-RAX: ffffffff826553f9 RBX: 0000000000000008 RCX: ffff88802da69f40
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: 000000008265d201 R08: 0000000000000000 R09: 0000000000000000
-R10: dffffc0000000000 R11: fffff940003014e9 R12: ffff88803c80be84
-R13: ffff88803c80be00 R14: ffffea000180a740 R15: 0000000000000000
-FS:  000055555e6ba500(0000) GS:ffff888125bc8000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fe150dcd000 CR3: 00000000433cc000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- folio_invalidate mm/truncate.c:140 [inline]
- truncate_cleanup_folio+0xcb/0x190 mm/truncate.c:160
- truncate_inode_pages_range+0x2c4/0xd80 mm/truncate.c:404
- ntfs_evict_inode+0x19/0x40 fs/ntfs3/inode.c:2012
- evict+0x624/0xb50 fs/inode.c:822
- dispose_list fs/inode.c:864 [inline]
- evict_inodes+0x7e3/0x870 fs/inode.c:918
- generic_shutdown_super+0xaa/0x2d0 fs/super.c:741
- kill_block_super+0x44/0xa0 fs/super.c:1904
- ntfs3_kill_sb+0x44/0x1c0 fs/ntfs3/super.c:1940
- deactivate_locked_super+0xbc/0x110 fs/super.c:589
- cleanup_mnt+0x3d3/0x460 fs/namespace.c:1317
- task_work_run+0x1d9/0x270 kernel/task_work.c:233
- resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
- __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
- exit_to_user_mode_loop+0x204/0x770 kernel/entry/common.c:101
- __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
- syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
- syscall_exit_to_user_mode include/linux/entry-common.h:343 [inline]
- do_syscall_64+0x328/0x520 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f3fd9b1f397
-Code: a2 c7 05 5c 43 25 00 00 00 00 00 eb 96 e8 e1 12 00 00 90 31 f6 e9 09 00 00 00 66 0f 1f 84 00 00 00 00 00 b8 a6 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 01 c3 48 c7 c2 e8 ff ff ff f7 d8 64 89 02 b8
-RSP: 002b:00007ffce2e41e08 EFLAGS: 00000246 ORIG_RAX: 00000000000000a6
-RAX: 0000000000000000 RBX: 00007f3fd9bb44bb RCX: 00007f3fd9b1f397
-RDX: 0000000000000000 RSI: 0000000000000009 RDI: 00007ffce2e41ec0
-RBP: 00007ffce2e41ec0 R08: 00007ffce2e42ec0 R09: 00000000ffffffff
-R10: 0000000000000000 R11: 0000000000000246 R12: 00007ffce2e42f50
-R13: 00007f3fd9bb44bb R14: 000000000003663f R15: 00007ffce2e42f90
- </TASK>
+I think we can ignore Sashiko's concerns for this patch.
 
-
-Tested on:
-
-commit:         518e5b79 Merge tag 'for-7.3-rc3-tag' of git://git.kern..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=17474005580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=a5341e268a22b76d
-dashboard link: https://syzkaller.appspot.com/bug?extid=3db654d91b471c4d7a7d
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=16357ff9580000
-
+1. calibration likely happens at room temperature
+2. it is not the drivers responsibility to guard against incorrect
+   device trees
