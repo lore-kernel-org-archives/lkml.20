@@ -1,74 +1,45 @@
-Received: from mail-wr2-f40.google.com (mail-wr2-f40.google.com [74.125.225.104])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D64FF3603E0
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 10:37:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.104
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4BA61FC0;
+	Sun, 20 Sep 2026 10:37:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789900631; cv=none; b=FOtNZ3MYGVFmljeuAt3rCnc2aePqk/UIeDya17JSy8gYuJYIo2vQ2CUItCQNRXt98imyXcowZv7uiEBxlj6idN8LqYygcHKsz5Bhpw7/z+Vp4PxK47rXobTnTjGBlpt8XjbiqQZaInArMDpJQwrutcwx7R4PNR2kAS2TdJR/tGw=
+	t=1789900639; cv=none; b=KhEqfDn4iAroD+egH+UzxURD+jn/aARyWDDvNV0jGy3qMMgo/gw8VuPZPEN4uF25uXeheztas/TE7GkftZXa67rNMCcMbvLb56jmFGPOxPChZMOKGDrPONtI+q+oOOyz5r2EXj/lh4jOgCaZ3PVane8kB+YuvF3jwIQ2Rtrreug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789900631; c=relaxed/simple;
-	bh=Xr7L/LVpjL3GQFGR8E9vjXeRDSdu2y58YHZHJfhpoVI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dT0T0gA1jIpQc/tsnDN149VtL2mcWC4FE//9IYMBPY8cySy9QZo4WCLAwh17kYNLn1O1DDvTBwFeO21jvo+Y3UjY0S6w40c5VLGbc5YQuhTttSu4JzBtWp0DDp7BrHjIqceCSZvUar5w8gFLjfUM0dILTtS9GddokKd6qzE9DWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b=UEr2JLQJ; arc=none smtp.client-ip=74.125.225.104
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
+	s=arc-20240116; t=1789900639; c=relaxed/simple;
+	bh=Dg9bdF4qJKjR5cTAgdH3xOrHtt1rkIZPxHXJEDEeEgc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Ss6Grrm99hGwf5spSQMi4rJge7/DcNAvDR/Q+jHIxfweP776tVLxNpkSSUh1+Jpl2N/fqhFLC1bsECexOrEov7GEXLUuJgkO2hTshSVL9FTEHR20vxn1QlgIK+zkSlHMg7Jggv02vIIGRSNxAHrhVHPeJ7aP2hgUTPDqiJu5ev8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m+DdoqQX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b="UEr2JLQJ"
-Received: by mail-wr2-f40.google.com with SMTP id ffacd0b85a97d-48704fc0141so177578f8f.2
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 03:37:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ionos.com; s=google; t=1789900627; x=1790505427; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kmMG7+knsRKVkSdz7OMe2deg70Qp3sxmdG8NVLuTxqk=;
-        b=UEr2JLQJ4SCWS1JcDc9SdjX38mJxDYydJF8bfCMsh/XlUfLjfwYd7S8YAi6Yem9hxI
-         5ER7SxbA3FEuhFRezPSl+VlDyh4YYjrn3yzzQPTskdq37P6IRh3VWdPpkrFLaD7huyOw
-         L5/C0OZeFVlMtPS84n5wD9ynI4Bu9oOzNQM6zFwLMjQ/Hm1UXBNcMVeCrJoTINrAutYb
-         al0aHztRWkS+SpWWITw+LQ3oydnqGJmO5JnIF9C52QEJjcT3Z+sJYXdFlZfje6b9spW5
-         y1uyudaDZ4NyWrPQfbaUmyNqif8xeQrmpfXzI8DhxfhvDpgrpONeFeK0PImhhpX3KHL6
-         dwQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789900627; x=1790505427;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kmMG7+knsRKVkSdz7OMe2deg70Qp3sxmdG8NVLuTxqk=;
-        b=vcqvsSXXJQGQ2p0Yu0+g8gghayy5zn+15sGcb1Pfs5XnS9M0BbpB2+lTTycKOdXAmE
-         NfvO3IwmmBpJa7vMpJ2EZN4sjsEYekCjlQTvnIaT1gjY7dRPP05xIu39MnEtqr7FAtll
-         MMr2t9mIqfmP/3dBDUUpB6I3h/NkF2IS28eoMSZILdr+n+Y8S+GF1XWQGQkAus9MRbWs
-         u5SsTBGis3W+/BQE0zQOW8kpT2e+R2LDN0aF6XnW/+XyQqMrROvmFL6eghW0c7HD1pQ/
-         SubX6uklxlXxi/dIGdeMAaXPDmmBweLl9aJX3TPj3rnpYb58Nk2MjG9JcK2EQqXGwEuY
-         fQEg==
-X-Forwarded-Encrypted: i=1; AKwUvBzv8WM3mtx8aQMm9lD4LSdYme5Hs66HJvi+B7xk8LkmUEM7+b0h5bUmVaxo2deSKu9StYsOxI8JkXiVn6k=@vger.kernel.org
-X-Gm-Message-State: AFuF++k15rnD8mHRFPgFau9F+qST13JE3M7X5IuUwN0pOzTiiOZbH1Av
-	caAPcEbfPIniCZJYyC9dzSDDnSMfX9DblznHY2L5ESy/fgH7KD8QQLXQ8BELJzYr0Qo=
-X-Gm-Gg: AYBFou2eLh4o2KLeRxOXXNSM1jE8isjv1aSeL2C4u+T2frlBuORiPai3QRbfCJ+Yy4d
-	NORmlXsF52YffjS9GsaFIQsJk7jkxVEQm20lXUzPUWmoHZazUMRVzFh6oAGV3PmZFlzYfHThZcO
-	Jg2TMhIs4CglUdsqUwgXM+Cqe0mhlt3FR9WqfWXIrAzfkhzQOiXFKq+uwwXR2qSCJHbRG70FLuf
-	c7hjQ0B/kO6hXmE3zAJDNP3FpF9yJ++89umc6mGIIYMiAHMXsDbDcrur8bzeTnlFELwRk2aECJ/
-	/JcPplSb3LHkgo9dK8x1pvKpKOXLikpXhKUb1CrYxdonyF3hQFu3ezd3vqG4Vx4SbjooRD0E1+m
-	bx7kezRC9J3UIo52vHqgaHrpiVseYbpV3KjX7NVI9y3vhnRlfPpOS56h2/9uV9GRTracmpUCq0u
-	VWjtAKDJfqvnXwTok0wtosAwHNNFQNbq2MCOFCpb6wvJoySDLrDnOVcdDA2MK+P7r5qULcSAKhQ
-	mF+0EEGj2hsZTtXP3D+764trKYV+BQ=
-X-Received: by 2002:a05:600c:609b:b0:49c:f9b8:bae0 with SMTP id 5b1f17b1804b1-49fc7f2bdc8mr115621765e9.2.1789900627044;
-        Sun, 20 Sep 2026 03:37:07 -0700 (PDT)
-Received: from jwang-ThinkPad-T14-Gen-6.fritz.box ([2001:9e8:144b:bd00:675a:38f6:9365:abd6])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd103325sm164915215e9.9.2026.09.20.03.37.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 03:37:06 -0700 (PDT)
-From: Jack Wang <jinpu.wang@ionos.com>
-To: Song Liu <song@kernel.org>,
-	Yu Kuai <yukuai@fygo.io>
-Cc: Li Nan <magiclinan@didiglobal.com>,
-	Xiao Ni <xiao@kernel.org>,
-	linux-raid@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m+DdoqQX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4677A1F000FF;
+	Sun, 20 Sep 2026 10:37:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789900637;
+	bh=zAz5WKlIIeHF85M4yCOIdRqGXhQBHryX3PT3331YGnQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=m+DdoqQXb+RkHW7uVK3ucMN/7hM+BKrQVKVxnstWLQ2HXJePnbBGEs+EAjzCWTdxU
+	 q9z+ewWNXHNPWVA1KtM2R08TQUYpgla0EClPvikTlRTHEUUgqSWABQ0wLW8ACFgQvO
+	 PkU9U71ZrbELjogVXAPjLtqZuFBwn1lWlJot00UU/MlRQL7/pyWv2Z1XeW5QSF2Owf
+	 7Q4Dkt/9f+nsFJ6OAG1XlfMkRLDNcP2gvmTR8Lyp9uEOElvmCoxOfYMhzj2xnBeoVa
+	 o6D9XHXgvu3dRDMLoOthG9Rh+0neM+GnTzZf64+5tA1Zbfj7zNKh/Mqpfq2x6oyk74
+	 UVbKB5igqIU/A==
+From: SJ Park <sj@kernel.org>
+To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	Jack Wang <jinpu.wang@cloud.ionos.com>
-Subject: [PATCH] md: fix mddev_unlock() called without holding lock in lbs_store()
-Date: Sun, 20 Sep 2026 12:37:05 +0200
-Message-ID: <20260920103705.23191-1-jinpu.wang@ionos.com>
-X-Mailer: git-send-email 2.43.0
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] mm/damon/core: prevent size quota overflow in the temporal goal tuner
+Date: Sun, 20 Sep 2026 03:37:13 -0700
+Message-ID: <20260920103714.47722-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260920023111.2466265-2-donggeunyoo.kernel@gmail.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,35 +48,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jack Wang <jinpu.wang@cloud.ionos.com>
+On Sun, 20 Sep 2026 11:31:09 +0900 Donggeun Yoo <donggeunyoo.kernel@gmail.com> wrote:
 
-lbs_store() jumped to the unlock label on mddev_lock() failure,
-calling mddev_unlock() on a mutex that was never acquired. Return
-directly instead.
+> damos_goal_tune_esz_bp_temporal() converts the scheme's size quota into
+> basis points with "quota->esz_bp = quota->sz * 10000", both unsigned long,
 
-Fixes: 62ed1b582246 ("md: allow configuring logical block size")
-Signed-off-by: Jack Wang <jinpu.wang@cloud.ionos.com>
----
- drivers/md/md.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+Let's break commit message lines with 72 columns limit.
 
-diff --git a/drivers/md/md.c b/drivers/md/md.c
-index 680b34a63cb3..41fbe5d9961a 100644
---- a/drivers/md/md.c
-+++ b/drivers/md/md.c
-@@ -6048,11 +6048,10 @@ lbs_store(struct mddev *mddev, const char *buf, size_t len)
- 
- 	err = mddev_lock(mddev);
- 	if (err)
--		goto unlock;
-+		return err;
- 
- 	err = mddev_set_logical_block_size(mddev, lbs);
- 
--unlock:
- 	mddev_unlock(mddev);
- 	return err ?: len;
- }
--- 
-2.43.0
+> and damos_set_effective_quota() divides the result back by 10000.
+> quotas/bytes is unbounded; bytes_store() hands it to kstrtoul() as is.
+> 
+> On 32-bit the product wraps for any size quota above ULONG_MAX / 10000,
+> that is 429496 bytes.  Documentation/admin-guide/mm/damon/usage.rst
+> instructs "echo $((1024*1024*1024)) > quotas/bytes", and 1 GiB * 10000 is
+> 2500 * 2^32, so that documented value wraps to exactly zero; 256 MiB and
+> every multiple of it do the same.
 
+Why 256 MiB, not 429,496 bytes?
+
+> quota->esz then becomes zero while the
+> goal is not achieved, the trailing "if (quota->sz && quota->sz < esz)" can
+> only lower esz further, and damos_quota_is_full() is true on the first test
+> of every charge window, so the scheme applies nothing and the goal is never
+> approached.
+
+So, the way to work around is updating the size quota to smaller value,
+correct?
+
+> Other sizes are wrong without being zero: 500000 yields 70503.
+> 
+> While the addr_unit parameter effectively mitigates the overflow risk by
+> scaling down the values written to quotas/bytes, it does not fundamentally
+> solve the issue.  Theoretically, an overflow can still occur if the scaled
+> value is exceptionally large.  Furthermore, because addr_unit is exclusive
+> to the paddr operations set, vaddr and fvaddr contexts remain fully
+> exposed to this overflow since they take unscaled raw byte values.
+> 
+> The 64-bit boundary is reachable without any scaling: bytes_store() takes
+> whatever kstrtoul() parses, so a quotas/bytes above 1844674407370955 wraps
+> the multiply there too.
+
+But why a sane user would set such huge number?
+
+Because this patch Cc stable@, let's make super clear about the user impact so
+that people don't unnecessarily be scared.  Please mention when the issue can
+happen.  It can happen only in certain user setups that probably untested.
+Since the consequence is easy to detect (scheme makes no progress always), the
+setup is likely untested.  Please also mention it does not cause critical
+problems like crashes or leaks, and can be easily worked around by updating the
+size quota.
+
+> 
+> Bound the conversion, so a size quota it cannot represent falls to the
+> ULONG_MAX the function already writes for a scheme with no size quota.
+
+I don't understand the above sentence.  Is the grammar correct?
+
+> Widening esz_bp instead would reach the consist tuner, which runs the same
+> field through damon_feed_loop_next_input(), unsigned long in and out.  On
+> 32-bit a large size quota then behaves like no size quota rather than like
+> a dead scheme.
+
+I don't quite understand above.  could you please elaborate?
+
+> 
+> Fixes: af738a6a00c1 ("mm/damon/core: introduce DAMOS_QUOTA_GOAL_TUNER_TEMPORAL")
+> Cc: <stable@vger.kernel.org> # 7.1.x
+> Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+> ---
+> Measured on i386 under QEMU: one paddr context with a stat scheme, the
+> temporal goal tuner, and one unachieved user_input goal.  Each size is
+> written to quotas/bytes, the kdamond is started, and
+> quotas/effective_bytes is read back after
+> update_schemes_effective_quotas.
+> 
+>   quotas/bytes    effective_bytes    effective_bytes
+>                   before             after
+>   4096            4096               4096
+>   429496          429496             429496
+>   429497          0                  429496
+>   268435456       0                  429496
+>   1073741824      0                  429496
+>   500000          70503              429496
+>   4294967295      429495             429496
+>   0               429496             429496
+> 
+> Everything the conversion can hold is unchanged, and 429496 is what the
+> no-size-quota row already produced before the patch.
+> 
+> Patch 2 pins the same boundary at ULONG_MAX / 10000 and so runs on any
+> word size.  Without this patch it fails on x86_64:
+> 
+>   # damos_test_esz_goal_temporal: EXPECTATION FAILED at mm/damon/tests/core-kunit.h:1970
+>   Expected s->quota.esz == (~0UL) / 10000, but
+>       s->quota.esz == 0 (0x0)
+>   # damos_test_esz_goal_temporal: EXPECTATION FAILED at mm/damon/tests/core-kunit.h:1974
+>   Expected s->quota.esz == (~0UL) / 10000, but
+>       s->quota.esz == 1844674407370954 (0x68db8bac710ca)
+> 
+>  mm/damon/core.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/mm/damon/core.c b/mm/damon/core.c
+> index 2258b72da7a78..16d4145379a2b 100644
+> --- a/mm/damon/core.c
+> +++ b/mm/damon/core.c
+> @@ -3274,7 +3274,7 @@ static void damos_goal_tune_esz_bp_temporal(struct damon_ctx *c,
+>  
+>  	if (score >= 10000)
+>  		quota->esz_bp = 0;
+> -	else if (quota->sz)
+> +	else if (quota->sz && quota->sz <= ULONG_MAX / 10000)
+>  		quota->esz_bp = quota->sz * 10000;
+>  	else
+>  		quota->esz_bp = ULONG_MAX;
+
+Code change looks good to me.
+
+
+Thanks,
+SJ
+
+[...]
