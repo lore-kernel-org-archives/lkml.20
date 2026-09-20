@@ -1,293 +1,167 @@
-Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
+Received: from mail-pj2-f16.google.com (mail-pj2-f16.google.com [74.125.227.144])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A48403CF21A
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 03:59:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.76
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789876749; cv=none; b=FvPECw9AT3aVwOlrzgyP+LyySqT5Mzh/0MRweG9inuW2fu1AmYQOdobGNICG0HFY4IAA+jsnPs6PvNrVN8z5zRq7roRWoe1TuNhctUAk7IXUuy6b2Hk2VYhbkpJoUP336kIKkQCvYTQSqwwSAO4sr/Yyq3d1CUFtSaJR/nzykoY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789876749; c=relaxed/simple;
-	bh=LumYwkTWkCz84GQ68MaksoLHoAbrKV8RYga/OmBRWWs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=YXCWk4+SJN714tV6lE+3ztODddVpgOVDKzSNRegQSg1hq4j4R4XYV5WPMXmQ2AlY7h9Ka/uecZ/sFUa7Zd3A/1c66kgEQtTJpi2J6MEpvIkx9cwRk9OrrCTGQSiwneMUVa5goJ1RVXoaTmskDOJdHx3JqZG8aa0tB/FkcolsfYw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Wffv17K4; arc=none smtp.client-ip=74.125.231.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55F3E1799F
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 04:01:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.144
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789876898; cv=pass; b=pEQ4KzZkn9pc2dnP0Zl7tJVJxSXwbER3AVnZ9J3ClAh2x2nSTizTernBEG+/1ML5eBIO/9ZHN654w+QbYlr0FS5s2uybJnoZPrJqwcHp2N7UlQaHFBZdD+y1+i8y/hd1PncXtuWPmKP7f2EUFo6UxpWtvuSaYprORPVMAlVnYC0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789876898; c=relaxed/simple;
+	bh=8MRsJ4ym5BfLS+pI4d5slk5a3DzlZM37ogJ96KDiTjA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dGeFJXc2t87H8vXREZ1MckuajpvWlZQpKMtlPsHY7w/Naj7weEGSsEabgjFyfoMjqPZpruRtOgO8ad2rn0ap3fkhvPzSG6b8zgCidYumucJM6/2DJeAtzFPy0j4C7eSe318f8OEkCJHitvugBalHhn3gWWgxeP4yf113PTxuJ/w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oukYNOiT; arc=pass smtp.client-ip=74.125.227.144
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wffv17K4"
-Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-466ccdd76a9so1724661fac.0
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 20:59:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oukYNOiT"
+Received: by mail-pj2-f16.google.com with SMTP id 98e67ed59e1d1-396ccd78e6eso773484a91.0
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 21:01:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789876897; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aE71C3oYapBAWTPNfLVTfbt0VSG3L/Wk5BZ8dxtwDr7CWsrYTD6BLBdCzyWdWohkkF
+         XWNYxPaTYBPczVP7+bwovQOtriARnOiE3DPPVke72CSs3QJ9agnVpMEJ8vYUKGPZ8Skl
+         dovyRgAwZq1UFIQjO6/vKMJflFft5kF6hGgN18nAj+wHgm92FEg3aLhvInzK+MZDMcGZ
+         g+eq3CGgs/3z31eGJyTCUjIKIus+N3UWaXOX7kPJ98GFaPl7jf/tMnsPLw6bdxXFn8Zr
+         1dNoWRE/sKMkt3qwxcA3fsqZk5Mf2KpdxGyjUEYutUR8MeMat35mOyGfo9RlucNaAs1T
+         y6sg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=DzSJZtQqS8qgid4iKiRla6YWv3q35ndUXzYa83ma450=;
+        fh=nG9eqnb4kTXFOiIUdAqm8buofoSQSlvu6RNuxmLoU+s=;
+        b=FNv/WmQh//pVV05cmgzTCpVRXFrH4MRiaJ+TCLtFYcNjEBhGAqsLokF+rISH3jJJ62
+         FNIWKyjk3dDygUQIO3cWDM1qjc+Jk2lWUn4ZgTgnEDhTlQS7BS6+50dGmNU1ByxDzRXM
+         drAJmt9ObPx/hd5BAMWnGi+zoewrGHxaeVhg704Y/EaaLhgKoeRKzaOGiyvRme32AUgk
+         4yP7ajHeqNa4O6z68cVfzW6QFHL4ynyLCN8uACwPuKa5FReEn8ngsiuIKTihn9nMnEXP
+         9tJ2EbE+HxYfJ8IPlYBC+AGwaKSyityDKvHp+sxtXKnOlHXkRIbcFJggYFMrr+o3h70e
+         xfHg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789876746; x=1790481546; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SpHEPLob7KaPi++v6k6BcQW51q0CtS8LphwQtLRxilE=;
-        b=Wffv17K4gh6S7m20WqfeJcK5j9YLtH873wwPf9IdQ8kxflCt/hQFfBXEM8Qa5DzNT9
-         7DZy4njZFVsTh6ABwBhYmdxh4qLPKVGJFhEWvHHOicO/559z63STggAXcj3PE6xr3yu5
-         2+SbmI8DJx+1AhQ1JFB0g5XbtwEz6OWoMgiuWHFcSm+cbb+ITmx9L2720gf2IN6y3G3/
-         AVYELfmWZj8okdMbqEcFxv7bgnfx2je8Y+enzBvX1n7wfvukEFJkqbjEn2dZaxziissW
-         CwtefMluFof67/40pOtcQWB/QhjTBapuTr78qHGX2iAPCQs9TJEN/E+7akSwZMxx3Ng/
-         QNnA==
+        d=gmail.com; s=20251104; t=1789876897; x=1790481697; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DzSJZtQqS8qgid4iKiRla6YWv3q35ndUXzYa83ma450=;
+        b=oukYNOiT2lGJIwhN98PhBCjlGi2afFMHWaR4BmV7cRi0jlz+YuFpYfnqkwH2fzParu
+         8kraYOC+3pkCMMjZ2hZ3HyXQqsVI0B3Rymz0m+Op0vYHqVRZebBe04lr3utC7n5Dwo6Y
+         /wvp0uhmDaocXYqVnIdqa6PYkQNCoj/PsEGB7pMci1dr+b5Gb9m9ppwyS0Hs/dFwLsu5
+         ZD2HHlr2z/RYModYKS/j08ZW//6cpnTjJKnkB1eEaQFkYCJur86yTnyJ3pTsA0xQZDbC
+         6IEGE3AcUFwRzG4hQrf5RvfzvkLChDRoXpKc7qyX4GfaG9uArK8X3DoZt3OgQAf8kLJz
+         Cxzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789876746; x=1790481546;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1789876897; x=1790481697;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=SpHEPLob7KaPi++v6k6BcQW51q0CtS8LphwQtLRxilE=;
-        b=pw4qiDCTRdPPx654X4Wt8LZyJ39vLe9tEfU3f+MCe0BZ6KA34RRZunVkpTqI1Dru1a
-         NhdaDNiGEYDidULihE8fc+4L40DxpWvRQ+XWC50iTliCuKb+gyTU2sFz1ejIBl6KM562
-         Ea/UciG4LFCv+/Sc9J1I0G0oRnx02SKhIE7cM5OCtSloGrjf+DL8H02Gnt5pmGT/qch7
-         B7Y5b+alzAxyYhUuMJ+9Z4JEaOPBmIcfeH42JlY425YNNBphhs8O7SUajP/70e5Tcdb4
-         3pjt2bnb9URarw4g2wlrlxVhNndS5FwO2HCyFOBB/sRjPw/uJ9j1VO/j4SYuEkq2f8Np
-         Bxug==
-X-Forwarded-Encrypted: i=1; AKwUvBydC3S+kwS9mm+jvPLb4Do86KOQfS1N9RJWvmEbyVYgxPcgraAlM3CzExYST0K1OV4ZOC5DFaDTHPIxFec=@vger.kernel.org
-X-Gm-Message-State: AFuF++n/16yslKKp+t8YvaaRfqzaoT0xrawPuULjCnm6QweuLx6/qy3B
-	vo6W5fP0lquLeAXeKn51XAjKBj2uVm7ykBPGW7FQuqYRQfbhNVg0BaT3
-X-Gm-Gg: AYBFou1/MHyAcE44/E++omrJekf0UWW1rabJfeNkQ32Ko/eANgIvld/WAQaDt4bgB4w
-	u88AOmSyTc5/UKrKacKCKauMXxuJLFDfda360+x3GSSOZFB6kIZpR5SJIhC0y+ENfYpmICVpylL
-	9fzFJm0PTTm42jvho2MWylLVcG7n9ACsslz7eMQxo6RY8Iazzrr1NXYjmtJp6dsT8r+3wUdn4+c
-	YATxjsfjccvo1UtvPTKnup2H3TzKzWw690DyQY+Eu43sbJ8F6MSGMi6N8ox9pBiQBXSjkPODwc5
-	LEF0B1s/0DB6UZl/MuZQ+48P3fktjwiWQ+hvMBvH0QkdTv2FFbH8xzFbeDcTSPjks8rQaKPCL69
-	VzolvlP9wtmmdFfRsX/ifW3ixxPOZIhbrPymElwHYHSXdJwMzWkfNteF9OOa2A2WCVBVXwyPVNi
-	yGUPmi+8CovmBakHxwQfDTt8QPGEi0qJiQZC4eOSmdYlNkQEzERSNHAn0zcLMYsblFS1FY9RhgU
-	GpX1XyGzDXhTkyytsmfQ/PNPOCNStDGRNwOgeEf64IOePG7BaKiD3yvM0tNVskWqhDmrANxBzQz
-	8fdk4Xa8tlpkLQlfuvqW
-X-Received: by 2002:a05:6820:4b18:b0:6cd:3fdc:a935 with SMTP id 006d021491bc7-6cd3fecc3c1mr3196386eaf.82.1789876746486;
-        Sat, 19 Sep 2026 20:59:06 -0700 (PDT)
-Received: from [192.168.0.197] (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
-        by smtp.googlemail.com with ESMTPSA id 586e51a60fabf-4881f4d7861sm4146915fac.1.2026.09.19.20.59.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 20:59:05 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-Date: Sat, 19 Sep 2026 21:58:57 -0600
-Subject: [PATCH 3/3] kallsyms: Match compressed tokens on the fly during
- binary search
+        bh=DzSJZtQqS8qgid4iKiRla6YWv3q35ndUXzYa83ma450=;
+        b=FHMWjm+QGueT05oDwslB8fgd1rOjgHxwINMttpB13rWqkU4JCtVHLA0ehVxoYtLP/w
+         MdK5+BtM25054XjjZD8kxLAG0624dAGV0gQTpNVv/CqEYMUymD9vTimuR9bRcwwWTJfk
+         dI4FVebYpMF2+/4Bhnn/LwDFRI7c+r4OScVEmIyWytos4CkTBRGPJghkNdcZV79lib2b
+         9r/GlDthUJfGS4vEH1u1xrLWzSN3az3ikfBP7TIETVBAK1iFvpT277CO+TFEg0fPmb/j
+         CIZIta5Jjkg87X7WskKp+SGwXrqbP+2eGRWGOYf0crihJ08SqucwvA53YGxVyao7XZNO
+         didQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxLGUtKU5XmmQRg0vapFr9xu9HAcUOhfbmffedrruaiPwFvlFOChe1+PexXFP2uVoDJBsH/lzK9+oLpJAQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++m4ejywm5Q32+jhBB2Maz7XsYdlY9Vy3azpSwiAc/Yka83qD5Mk
+	/sDRg825c+760GmqbMUJ8fa2Cbk27CimqTLaKfOrwMcZWU1O2d4T/mnsCX+f7DD+57JdSSm3ViD
+	OM1uBhX1plJyfVSzfP9RTopUi5LORUWQ=
+X-Gm-Gg: AYBFou2cqigTT4sqdiE5yLi3/H6vvCSVaTRn6VucXlO2MLw3rrH5o1cqMjtqtCc9+Fa
+	yYahDhdPZG/BqmBssGNUx+Fps6sNgeLs8E0gTq/CMxCnBgW1F0Zde2jSc2ZgEPhgMMxFUVrXTME
+	tyGOO0luJgSBqNOD7D+kfPSFvaHHiQtHT51eh28yExc921wrVkFE7gwA+w2Q3wPGEH1jRgjnjFk
+	s95qFoD3s3Xe9ffjQNVsF8rinZYhLJKKfjrxIHUs818eq+2uqr6Bap8JkKcSHxwDT0YOCa3eeu5
+	WGhSKdQxffnomN9+etFWchYYJBO0AhWoTvPSGP8d0xXtjsiiJX4SqqNPO1lj3S9DiVaRI9gUO1G
+	axXx01Wwl3PJEOGR91/cNcc+8vdEcEn6yCfpkOAS4
+X-Received: by 2002:a17:90b:4a11:b0:39e:6c68:fd93 with SMTP id
+ 98e67ed59e1d1-39e6c68fef4mr3902020a91.40.1789876896633; Sat, 19 Sep 2026
+ 21:01:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260919-ksyms-tune-v1-3-d85c97da1a32@gmail.com>
-References: <20260919-ksyms-tune-v1-0-d85c97da1a32@gmail.com>
-In-Reply-To: <20260919-ksyms-tune-v1-0-d85c97da1a32@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, Kees Cook <kees@kernel.org>, 
- Masahiro Yamada <masahiroy@kernel.org>, linux-kernel@vger.kernel.org, 
- linux-kbuild@vger.kernel.org, bpf@vger.kernel.org, 
- Jim Cromie <jim.cromie@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789876740; l=6186;
- i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=LumYwkTWkCz84GQ68MaksoLHoAbrKV8RYga/OmBRWWs=;
- b=oS3hBEoeOTkeYDkz1jG8Ny3J/8fwD+3PwYvYnH6Ac/Mpbw5Lm1Ne4swRspc9e85QONQzuKzMD
- VLchWBUNSXtDQZUCborGNhn92k+CKydkQQ3Pfws1HSTfIh43VLgd4Ds
-X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
- pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
+References: <cover.1789753020.git.kimjinseob88@gmail.com> <499ecb38dc0b58b979ca1f38d2d30b4ef56cf825.1789753020.git.kimjinseob88@gmail.com>
+ <20260920021420.5a13622f@jic23-hlaptop>
+In-Reply-To: <20260920021420.5a13622f@jic23-hlaptop>
+From: Kim Jinseob <kimjinseob88@gmail.com>
+Date: Sun, 20 Sep 2026 13:01:28 +0900
+X-Gm-Features: AcwNN1U3rQwmlJbg_g4DdTUrrpMfiV8bKNCMI7xb5i2BgcHIced7B7DCzX82g08
+Message-ID: <CALMSewKJ0ejyGi3KFb-uz3Lp1E7=8RbrYpOzP9z8-9yk8bnBUw@mail.gmail.com>
+Subject: Re: [PATCH v10 1/8] dt-bindings: iio: add Open Sensor Fusion device
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: linux-iio@vger.kernel.org, dlechner@baylibre.com, nuno.sa@analog.com, 
+	andriy.shevchenko@intel.com, linux-kernel@vger.kernel.org, 
+	rdunlap@infradead.org, joshua.crofts1@gmail.com, u.kleine-koenig@baylibre.com, 
+	julianbraha@gmail.com, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, devicetree@vger.kernel.org, corbet@lwn.net, 
+	skhan@linuxfoundation.org, linux-doc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-kallsyms_lookup_names() runs a binary search across kallsyms_names[],
-a packed array of ~130k encoded kernel symbols.  For each of the ~17
-comparisons in the search, it currently decompresses the candidate
-symbol into a temporary buffer on the stack before calling strcmp().
+> Sashiko raises a reasonable question about what you'd do if it turned
+> out your current OSF GREEN doesn't quite comply with the specification
+> or needs some additional quirks.  Does it make sense to have a more
+> specific compatible with a fallback to the generic one?
 
-Comparing raw tokens directly in compressed space is impossible.  The
-BPE token table assigns values by frequency, not alphabetical order
-(e.g. token 0x05 might expand to "zebra" while 0x42 expands to "apple"),
-so comparing raw token values scrambles lexicographical order.
+Hi Jonathan
 
-However, full string expansion is equally wasteful: roughly 16 of the
-17 binary search steps fail within the first two characters.
+With that in mind, I agree that a specific compatible with the generic
+OSF interface as a fallback is the better model.
 
-Introduce kallsyms_strcmp_symbol() to compare ASCII queries against
-compressed tokens on the fly.  It walks kallsyms_token_index and
-kallsyms_token_table incrementally, matching characters directly and
-bailing out on the first character mismatch without expanding subsequent
-tokens.
+OSF GREEN is one hardware variant in a family of boards with different
+hardware capabilities and configurations. For example, GREEN does not
+include RTK-GPS hardware, while another variant does. The firmware
+still exposes the common OSF host interface and runtime capability
+discovery, but the underlying boards are distinct hardware
+implementations.
 
-This optimization:
+For the next revision I'll describe the current board as:
 
-0. Avoids decompressing non-matching tokens, short-circuiting ~94% of
-   binary search character expansions without adding any tables in
-   .rodata.
+compatible =3D "opensensorfusion,osf-green",
+             "opensensorfusion,osf";
 
-1. Drops the 512-byte namebuf buffer from the kernel stack in
-   kallsyms_lookup_names().
+The first string identifies the specific hardware, while the second
+remains the common host-interface fallback. Future hardware variants
+can get their own specific compatibles as they are supported, without
+encoding their sensor inventory or protocol version into Device Tree.
 
-2. Leaves sequential address ordering and kallsyms_expand_symbol()
-   streaming invariants intact for /proc/kallsyms and table walks.
+OSF0 and the protocol major/minor will remain runtime wire-protocol details=
+.
 
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- kernel/kallsyms.c | 97 ++++++++++++++++++++++++++++++++++---------------------
- 1 file changed, 61 insertions(+), 36 deletions(-)
+thanks,
 
-diff --git a/kernel/kallsyms.c b/kernel/kallsyms.c
-index 21adc5b74ec5..3be2b4e74057 100644
---- a/kernel/kallsyms.c
-+++ b/kernel/kallsyms.c
-@@ -34,6 +34,21 @@
- 
- #include "kallsyms_internal.h"
- 
-+/*
-+ * Get the compressed symbol length and data pointer.
-+ */
-+static inline const u8 *get_symbol_data(unsigned int off, unsigned int *len)
-+{
-+	const u8 *p = &kallsyms_names[off];
-+	unsigned int l = *p++;
-+
-+	if (unlikely(l & 0x80))
-+		l = (l & 0x7F) | (*p++ << 7);
-+	*len = l;
-+
-+	return p;
-+}
-+
- /*
-  * Expand a compressed symbol data into the resulting uncompressed string,
-  * if uncompressed string is too long (>= maxlen), it will be truncated,
-@@ -42,28 +57,12 @@
- static unsigned int kallsyms_expand_symbol(unsigned int off,
- 					   char *result, size_t maxlen)
- {
--	int len, skipped_first = 0;
-+	int skipped_first = 0;
- 	const char *tptr;
--	const u8 *data;
-+	unsigned int len;
-+	const u8 *data = get_symbol_data(off, &len);
- 
--	/* Get the compressed symbol length from the first symbol byte. */
--	data = &kallsyms_names[off];
--	len = *data;
--	data++;
--	off++;
--
--	/* If MSB is 1, it is a "big" symbol, so needs an additional byte. */
--	if ((len & 0x80) != 0) {
--		len = (len & 0x7F) | (*data << 7);
--		data++;
--		off++;
--	}
--
--	/*
--	 * Update the offset to return the offset for the next symbol on
--	 * the compressed stream.
--	 */
--	off += len;
-+	off = (data - kallsyms_names) + len;
- 
- 	/*
- 	 * For every byte on the compressed symbol data, copy the table
-@@ -91,7 +90,7 @@ static unsigned int kallsyms_expand_symbol(unsigned int off,
- 	if (maxlen)
- 		*result = '\0';
- 
--	/* Return to offset to the next symbol. */
-+	/* Return offset to the next symbol. */
- 	return off;
- }
- 
-@@ -101,16 +100,46 @@ static unsigned int kallsyms_expand_symbol(unsigned int off,
-  */
- static char kallsyms_get_symbol_type(unsigned int off)
- {
--	/*
--	 * Get just the first code, look it up in the token table,
--	 * and return the first char from this token. If MSB of length
--	 * is 1, it is a "big" symbol, so needs an additional byte.
--	 */
--	if (kallsyms_names[off] & 0x80)
--		off++;
--	return kallsyms_token_table[kallsyms_token_index[kallsyms_names[off + 1]]];
-+	unsigned int len;
-+	const u8 *data = get_symbol_data(off, &len);
-+
-+	return kallsyms_token_table[kallsyms_token_index[*data]];
- }
- 
-+/*
-+ * Compare an uncompressed ASCII string against a compressed symbol table entry.
-+ * Returns negative if name < sym, positive if name > sym, 0 if equal.
-+ * Exits immediately on the first mismatched character without decompressing
-+ * the rest of the symbol name.
-+ */
-+static int kallsyms_strcmp_symbol(unsigned int off, const char *name)
-+{
-+	int skipped_first = 0;
-+	const char *tptr;
-+	unsigned int len;
-+	const u8 *data = get_symbol_data(off, &len);
-+
-+	while (len) {
-+		tptr = &kallsyms_token_table[kallsyms_token_index[*data]];
-+		data++;
-+		len--;
-+
-+		while (*tptr) {
-+			if (skipped_first) {
-+				int diff = (unsigned char)*name - (unsigned char)*tptr;
-+
-+				if (diff != 0)
-+					return diff;
-+				name++;
-+			} else {
-+				skipped_first = 1;
-+			}
-+			tptr++;
-+		}
-+	}
-+
-+	return (unsigned char)*name - '\0';
-+}
- 
- /*
-  * Find the offset on the compressed table given an index in the
-@@ -145,7 +174,6 @@ static int kallsyms_lookup_names(const char *name,
- 	int ret;
- 	int low, mid, high;
- 	unsigned int seq, off;
--	char namebuf[KSYM_NAME_LEN];
- 
- 	low = 0;
- 	high = kallsyms_num_syms - 1;
-@@ -154,8 +182,7 @@ static int kallsyms_lookup_names(const char *name,
- 		mid = low + (high - low) / 2;
- 		seq = get_symbol_seq(mid);
- 		off = get_symbol_offset(seq);
--		kallsyms_expand_symbol(off, namebuf, ARRAY_SIZE(namebuf));
--		ret = strcmp(name, namebuf);
-+		ret = kallsyms_strcmp_symbol(off, name);
- 		if (ret > 0)
- 			low = mid + 1;
- 		else if (ret < 0)
-@@ -171,8 +198,7 @@ static int kallsyms_lookup_names(const char *name,
- 	while (low) {
- 		seq = get_symbol_seq(low - 1);
- 		off = get_symbol_offset(seq);
--		kallsyms_expand_symbol(off, namebuf, ARRAY_SIZE(namebuf));
--		if (strcmp(name, namebuf))
-+		if (kallsyms_strcmp_symbol(off, name) != 0)
- 			break;
- 		low--;
- 	}
-@@ -183,8 +209,7 @@ static int kallsyms_lookup_names(const char *name,
- 		while (high < kallsyms_num_syms - 1) {
- 			seq = get_symbol_seq(high + 1);
- 			off = get_symbol_offset(seq);
--			kallsyms_expand_symbol(off, namebuf, ARRAY_SIZE(namebuf));
--			if (strcmp(name, namebuf))
-+			if (kallsyms_strcmp_symbol(off, name) != 0)
- 				break;
- 			high++;
- 		}
+Jinseob
 
--- 
-2.55.0
-
+2026=EB=85=84 9=EC=9B=94 20=EC=9D=BC (=EC=9D=BC) =EC=98=A4=EC=A0=84 10:14, =
+Jonathan Cameron <jic23@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+>
+> On Sat, 19 Sep 2026 03:24:39 +0900
+> Jinseob Kim <kimjinseob88@gmail.com> wrote:
+>
+> > Add a binding for the generic Open Sensor Fusion host interface.
+> >
+> > Open Sensor Fusion devices report capabilities and samples over an OSF
+> > protocol stream. Sensor channels are discovered at runtime from
+> > capability reports instead of being described individually in Device
+> > Tree.
+> >
+> > The protocol version is discovered at runtime from the OSF frame header=
+.
+> > OSF GREEN is a product identity, and OSF0 is a wire-format magic value,
+> > so neither is used as the Linux compatible string.
+> Sashiko raises a reasonable question about what you'd do if it turned
+> out your current OSF GREEN doesn't quite comply with the specification
+> or needs some additional quirks.  Does it make sense to have a more
+> specific compatible with a fallback to the generic one?
+>
+> Or given this is mostly about device firmware maybe this is fine.
+>
+> Either way - would be good to add a note on why that doesn't make
+> sense in this patch description.
+>
+> Thanks,
+>
+> Jonathan
