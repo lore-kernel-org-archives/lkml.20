@@ -1,52 +1,37 @@
-Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D932F330652;
-	Sun, 20 Sep 2026 07:25:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.219
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 91FEC34B662;
+	Sun, 20 Sep 2026 07:29:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789889141; cv=none; b=X2bnNOJ8PB6WDM0BrYDdeJlO9+ELcreuBOr8SV/4PfPLcg47ndK4IpNJVyDW+A2C2djv3ZtUa1T50+AtawjPjaHgXp2BDI5QzGFmNGl7Ra6SqlQp4/0HsmjfUvBtqGni8KsPTPHQEQKEjXwAEZ4+tWufhfTUhgseQUKxfUzCpF0=
+	t=1789889375; cv=none; b=J6QuUZgvBc8MCR7fhzSHGfEf+wwtqxZur3NNw+iqdcx2w3gHi1W9Xe5nWE73BrzkGRiCTTTuow6Cla+AX4i4KmZhy1y8E6rKymj1FAbHTdIgmwK73q99tzE7s/9sXGkONhT4fQBfrpcPgldhDNVuTaBCL354707nKbYkmBM5Whk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789889141; c=relaxed/simple;
-	bh=oLo+HZBH+y8fgGsX0KHNJ/CcM+Iqmt6s70E0LtQhWPo=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Fc7zI1xt0gR2VdSHps/ZO1NoRQRImOZFWh3lC4d2T2WoUEwF2MJP6j+2kYxMu2n494eR9Q7a2+qgqydJ9O9bGppCRvxpB4Fs70ZLPLpsfkz95C/AHvMc/WT/INE9C0ZjL5LxGJ4KuqWF6UKVHrGFX+hOxlJ2rFZk+kA1zSBYeWM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=SleBAUVa; arc=none smtp.client-ip=113.46.200.219
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="SleBAUVa"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=B3frz5Uk8hPeGgyQBEQ2E6aoVcLT+GBE4dIyOQ7xhdA=;
-	b=SleBAUVaUE1qahl9nApRe8fvzLI4NbjJHykstG0+klATTkqO8xYOM3nAU8kdorWP3rikLOOsw
-	HL9TWp9CE5PsCY1x3OfrB3Bxm1M+vvtQmlcEde7Eq36hgXFuZkx2JiValCY2hAXPr4kSmT6nXqd
-	tCj1cishpnjVJ2DMXONNSt0=
-Received: from mail.maildlp.com (unknown [172.19.162.223])
-	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4hnd07035Fz1prN6;
-	Sun, 20 Sep 2026 15:14:31 +0800 (CST)
-Received: from whupemk200005.china.huawei.com (unknown [7.152.185.164])
-	by mail.maildlp.com (Postfix) with ESMTPS id 5F4FC40561;
-	Sun, 20 Sep 2026 15:25:33 +0800 (CST)
-Received: from huawei.com (10.67.174.193) by whupemk200005.china.huawei.com
- (7.152.185.164) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sun, 20 Sep
- 2026 15:25:31 +0800
-From: Luo Gengkun <luogengkun2@huawei.com>
-To: <peterz@infradead.org>
-CC: <acme@kernel.org>, <adrian.hunter@intel.com>,
-	<alexander.shishkin@linux.intel.com>, <dvyukov@google.com>,
-	<elver@google.com>, <irogers@google.com>, <james.clark@linaro.org>,
-	<jolsa@kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-perf-users@vger.kernel.org>, <luogengkun2@huawei.com>,
-	<mark.rutland@arm.com>, <mingo@redhat.com>, <namhyung@kernel.org>
-Subject: [PATCH v2] perf/core: Fix race between perf_event_exit_task() and perf_pending_task()
-Date: Sun, 20 Sep 2026 07:50:26 +0000
-Message-ID: <20260920075026.990582-1-luogengkun2@huawei.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260918095049.GL1837346@noisy.programming.kicks-ass.net>
-References: <20260918095049.GL1837346@noisy.programming.kicks-ass.net>
+	s=arc-20240116; t=1789889375; c=relaxed/simple;
+	bh=pBgQ849jDAg8Q305lUVoSgp3uVqS6DnG20M+a5PjCEY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oLmnWgeMItHjITooVwvmPp4nvtvXVr6Ztzc1UrUazPTwSRcLAA/CjkGTgMttIRJsLyAR5IGnAgoJub4zvP2HhPEn+oTF9k1pZxxJBFMMVnNnBZDuWqQUA4H65QNUi4FBtw3PNJ113x3qAIwCBziBB1sf54hjeEysBTgD1Fk57sY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.180.135.190])
+	by gateway (Coremail) with SMTP id _____8Bx79JZi69qW94NAA--.40882S3;
+	Sun, 20 Sep 2026 15:29:29 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.180.135.190])
+	by front1 (Coremail) with SMTP id qMiowJAxmM1Xi69qJOsiAA--.7935S2;
+	Sun, 20 Sep 2026 15:29:28 +0800 (CST)
+From: Ming Wang <wangming01@loongson.cn>
+To: netdev@vger.kernel.org
+Cc: linux-usb@vger.kernel.org,
+	Ming Wang <wangming01@loongson.cn>,
+	Oliver Neukum <oliver@neukum.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] net: usb: cdc_mbim: add MeiG Smart SRM821 to ZLP whitelist
+Date: Sun, 20 Sep 2026 15:29:26 +0800
+Message-ID: <20260920072927.825279-1-wangming01@loongson.cn>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,50 +39,61 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- whupemk200005.china.huawei.com (7.152.185.164)
+X-CM-TRANSID:qMiowJAxmM1Xi69qJOsiAA--.7935S2
+X-CM-SenderInfo: 5zdqwzxlqjiio6or00hjvr0hdfq/1tbiAQEQEmqvPvQFMAAAs4
+X-Coremail-Antispam: 1Uk129KBj93XoW7WF17ZFyrtw1kKw45XF17XFc_yoW8WrWxpF
+	4rCFyay39xJry5Gw1rA3WfWFy5Zwn3Cay5KFWI93W5Z3Z0ya4aqFyxJFyUKrykAF45AFnF
+	yasxJ3y7Wa1DGwcCm3ZEXasCq-sJn29KB7ZKAUJUUUUf529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUPIb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6r4UJVWxJr1ln4kS14v26r126r1DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07
+	x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xf
+	McIj6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7
+	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vI
+	r41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_JF0_Jw1lx2IqxVAqx4xG67
+	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIY
+	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14
+	v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8
+	JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07jY0PfUUU
+	UU=
 
-A race condition exists between perf_event_exit_task() and
-perf_pending_task() during begin_new_exec().
+The MeiG Smart SRM821 5G module (0x2dee:0x4d53) crashes and drops off
+the USB bus when it receives a Zero Length Packet (ZLP) after sending
+or receiving an NTB of exactly 16384 bytes (tx_max).
 
-During begin_new_exec(), perf_event_exit_task() may be called, and the
-PF_EXITING flag is not set on task. So perf_sigtrap() continues to execute
-and triggers WARN_ON_ONCE(event->ctx->task != current).
+According to the MBIM specification, devices do not require a ZLP
+if the NTB size is exactly dwNtbOutMaxSize. However, the cdc_mbim
+driver defaults to sending ZLPs for devices not explicitly whitelisted
+to accommodate non-conformant hardware. This default behavior breaks
+the strictly conformant MeiG SRM821 module.
 
-Since both task exit and exec paths can call perf_event_exit_task() which
-sets ctx->task to TASK_TOMBSTONE, fix this by explicitly checking if
-event->ctx->task equals TASK_TOMBSTONE and dropping the redundant
-PF_EXITING check.
+Add this device to the ZLP conformance whitelist (cdc_mbim_info) so
+the driver will pad the NTB to avoid sending ZLPs, preventing the
+device firmware from crashing.
 
-Fixes: 97ba62b27867 ("perf: Add support for SIGTRAP on perf events")
-Signed-off-by: Luo Gengkun <luogengkun2@huawei.com>
+Signed-off-by: Ming Wang <wangming01@loongson.cn>
 ---
-v1 -> v2:
-- Drop the redundant PF_EXITING check and only check for TASK_TOMBSTONE.
-- Update the code comment to reflect this unified exec/exit race protection.
----
- kernel/events/core.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/net/usb/cdc_mbim.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index fe33fe15689d..8f4b61a135e8 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -7616,9 +7616,11 @@ static void perf_sigtrap(struct perf_event *event)
- {
- 	/*
- 	 * Both perf_pending_task() and perf_pending_irq() can race with the
--	 * task exiting.
-+	 * task exiting or exec-ing. We can determine if such a race has
-+	 * occurred by checking if perf_event_exit_task(), which will set
-+	 * ctx->task to TASK_TOMBSTONE, has already been called.
- 	 */
--	if (current->flags & PF_EXITING)
-+	if (event->ctx->task == TASK_TOMBSTONE)
- 		return;
- 
- 	/*
+diff --git a/drivers/net/usb/cdc_mbim.c b/drivers/net/usb/cdc_mbim.c
+index 877fb0ed7d3d..bf3e6af7d7c9 100644
+--- a/drivers/net/usb/cdc_mbim.c
++++ b/drivers/net/usb/cdc_mbim.c
+@@ -631,6 +631,10 @@ static const struct usb_device_id mbim_devs[] = {
+ 	  .driver_info = (unsigned long)&cdc_mbim_info,
+ 	},
+ 	/* ZLP conformance whitelist: All Ericsson MBIM devices */
++	/* MeiG Smart SRM821 ZLP conformance */
++	{ USB_DEVICE_AND_INTERFACE_INFO(0x2dee, 0x4d53, USB_CLASS_COMM, USB_CDC_SUBCLASS_MBIM, USB_CDC_PROTO_NONE),
++	  .driver_info = (unsigned long)&cdc_mbim_info,
++	},
+ 	{ USB_VENDOR_AND_INTERFACE_INFO(0x0bdb, USB_CLASS_COMM, USB_CDC_SUBCLASS_MBIM, USB_CDC_PROTO_NONE),
+ 	  .driver_info = (unsigned long)&cdc_mbim_info,
+ 	},
 -- 
-2.34.1
+2.43.7
 
