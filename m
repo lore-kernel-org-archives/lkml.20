@@ -1,94 +1,81 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from mailout3.hostsharing.net (mailout3.hostsharing.net [144.76.133.104])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAFC13D6473
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 06:12:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 806C41A6806;
+	Sun, 20 Sep 2026 06:17:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=144.76.133.104
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789884753; cv=none; b=eNi7KlEvMKO2lrx4cIuG+ePpWnLBWnsbhRisUlL3GWS72Vu2F1/1tzU9ak24NdKDm+5M5J+IzdoY52MBoh223Qx5RgphULkrdChM+NmgukPkg/rHydiDzt0FId+7a9hASlYBxRPmjCg/g9ZU6yZlVh8JrfCE7W39AmzRB8sbMPo=
+	t=1789885053; cv=none; b=BFen8gbBA40UBH80VLKZJaCBhWa6bJUgaK1QuMiOFasdmbqyR21p5TpKMMhGrv70keWeQ1YaglhaYACLJVDhVctqbvnoUO8TSMc2D19n/78ggxSVwM0b+VYQ06db6S/2Uoq/9i1Wczj8AULi33b/Wqh6lVB6w0ZES+R04KFDCFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789884753; c=relaxed/simple;
-	bh=rJ7JV7fe/imem88MeBzmgQzVzxxJuNxRZ6eOp/+uA4g=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=CAO/7fT8Tl7vtDq3JbvLKCCyyDQVF79KWen7TRaFEPryzMN9ww2J9uDW9dTO78c+xo2MDRzHclx24Zi8ZmTdU/7R7DyFSEMnZzPkaSo3epHBVS7EXIQCAbbQXejpcBugG+BSXN6EHNas4P+pag07TLSWKLxL7Yw48Ru9dHHBBE8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=I9khwo+n; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="I9khwo+n"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789884752; x=1821420752;
-  h=date:from:to:cc:subject:message-id;
-  bh=rJ7JV7fe/imem88MeBzmgQzVzxxJuNxRZ6eOp/+uA4g=;
-  b=I9khwo+nZZZctuVhUcZ/dPLXJpo/LeCvLf3TFSEWtlnlW1OC72inbhDl
-   VLOQFPpBhKmuIwFo/WjU/JY1cB2lF8tRQ/qTcInN5BghIej6+1R3AEn2B
-   MIN5mqRjeTKtNe5PaQHSDziS31SjGh2OxjWmoVT/qIL35qS0BgDnhCTQI
-   Tb10NGmxTlQR6+01ClzUlSODR15u9Z9ZtZluLDfg9ea8i+xeJpM1Q3W8x
-   kjVjlQnwK2RTcPRWxLWHPaAIhpLs4I1tUcheqvnmk0rrlP1NI0rdfI6PA
-   hXy8wvO3Mk3/8p5AChw6zf1xQNyoJzGc9v8U9TQTOb7XEyVMRaEeKQGpw
-   A==;
-X-CSE-ConnectionGUID: dqw922SgQjGXrtbiOLX4Rw==
-X-CSE-MsgGUID: 4LdnFkX+Tiit4eLIp2X+3g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11910"; a="107900302"
-X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; 
-   d="scan'208";a="107900302"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2026 23:12:31 -0700
-X-CSE-ConnectionGUID: qM8UP+fHQOSZavZ2q/vx3g==
-X-CSE-MsgGUID: XhT5knpvTUeb9ut/zPWdWw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; 
-   d="scan'208";a="271673003"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa007.fm.intel.com with ESMTP; 19 Sep 2026 23:12:30 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x8Amp-00000000C0x-1GF2;
-	Sun, 20 Sep 2026 06:12:27 +0000
-Date: Sun, 20 Sep 2026 14:11:39 +0800
-From: kernel test robot <lkp@intel.com>
-To: Eduard Zingerman <eddyz87@gmail.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Alexei Starovoitov <ast@kernel.org>
-Subject: {standard input}:6011: Error: register save offset not a
- multiple of 4
-Message-ID: <202609201441.HMtNMLer-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	s=arc-20240116; t=1789885053; c=relaxed/simple;
+	bh=wsDZb9FaCBL6EPTf17FjcijI1ZHiidhK1dy76kOY0WU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MOdn5el7UiNDUZWEGw707TH0XeuIkcd9otJ6kRrdPSDj3/oAb01Y/O87EPkbq0gGEjHNcOpDXsAmPRD2tdsyvitS4RdfAvzV3uAIuRcg1Asq1/Etypm3lGDf/4wu+8eh61sU8V94B5OF65bRZTpEwg76VKMjkVeZHk0Y8OgeS/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de; spf=pass smtp.mailfrom=wunner.de; arc=none smtp.client-ip=144.76.133.104
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wunner.de
+Received: from h08.hostsharing.net (h08.hostsharing.net [83.223.95.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature ECDSA (secp384r1) server-digest SHA384
+	 client-signature ECDSA (secp384r1) client-digest SHA384)
+	(Client CN "*.hostsharing.net", Issuer "GlobalSign GCC R6 AlphaSSL CA 2025" (verified OK))
+	by mailout3.hostsharing.net (Postfix) with ESMTPS id A80E34938;
+	Sun, 20 Sep 2026 08:17:21 +0200 (CEST)
+Received: by h08.hostsharing.net (Postfix, from userid 100393)
+	id 7697E61ACEA6; Sun, 20 Sep 2026 08:17:21 +0200 (CEST)
+Date: Sun, 20 Sep 2026 08:17:21 +0200
+From: Lukas Wunner <lukas@wunner.de>
+To: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
+	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Rafael J Wysocki <rafael@kernel.org>,
+	Guixin Liu <kanie@linux.alibaba.com>,
+	Olof Johansson <olof@lixom.net>
+Subject: Re: [PATCH v13 2/5] PCI: Assume control of portdrv-related features
+ only when portdrv enabled
+Message-ID: <aq96cULSmdeBzd3D@wunner.de>
+References: <20260919162655.3499010-1-sathyanarayanan.kuppuswamy@linux.intel.com>
+ <20260919162655.3499010-3-sathyanarayanan.kuppuswamy@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260919162655.3499010-3-sathyanarayanan.kuppuswamy@linux.intel.com>
 
-Hi Eduard,
+On Sat, Sep 19, 2026 at 09:26:52AM -0700, Kuppuswamy Sathyanarayanan wrote:
+> +++ b/drivers/pci/probe.c
+> @@ -668,12 +668,14 @@ static void pci_init_host_bridge(struct pci_host_bridge *bridge)
+>  	 * may implement its own AER handling and use _OSC to prevent the
+>  	 * OS from interfering.
+>  	 */
+> +#ifdef CONFIG_PCIEPORTBUS
+>  	bridge->native_aer = 1;
+>  	bridge->native_pcie_hotplug = 1;
+> -	bridge->native_shpc_hotplug = 1;
+>  	bridge->native_pme = 1;
+> -	bridge->native_ltr = 1;
+>  	bridge->native_dpc = 1;
+> +#endif
+> +	bridge->native_ltr = 1;
+> +	bridge->native_shpc_hotplug = 1;
+>  	bridge->domain_nr = PCI_DOMAIN_NR_NOT_SET;
 
-FYI, the error/warning still remains.
+How about (e.g.)
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   f259f446f5198d98e13756d2cd531812a0ad3064
-commit: bf0c571f7feb6fa05a512e2a5e50702501849d61 bpf: introduce forward arg-tracking dataflow analysis
-date:   5 months ago
-config: m68k-randconfig-r1306-20260920 (https://download.01.org/0day-ci/archive/20260920/202609201441.HMtNMLer-lkp@intel.com/config)
-compiler: m68k-linux-gcc (GCC) 14.3.0
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260920/202609201441.HMtNMLer-lkp@intel.com/reproduce)
+ 	bridge->native_pcie_hotplug = IS_ENABLED(CONFIG_PCIEPORTBUS);
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: bf0c571f7feb ("bpf: introduce forward arg-tracking dataflow analysis")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609201441.HMtNMLer-lkp@intel.com/
+instead of using #ifdef?  That's the preferred style according to
+section 21 of Documentation/process/coding-style.rst
 
-All errors (new ones prefixed by >>):
+>  	bridge->native_cxl_error = 1;
 
-   {standard input}: Assembler messages:
->> {standard input}:6011: Error: register save offset not a multiple of 4
-   {standard input}:6012: Error: register save offset not a multiple of 4
-   {standard input}:6013: Error: register save offset not a multiple of 4
-   {standard input}:6014: Error: register save offset not a multiple of 4
-   {standard input}:6015: Error: register save offset not a multiple of 4
-   {standard input}:6016: Error: register save offset not a multiple of 4
+Hm, this one depends on CONFIG_PCIEAER I believe.
+(But Terry Bowman is the expert.)
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Thanks,
+
+Lukas
