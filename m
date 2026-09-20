@@ -1,420 +1,287 @@
-Received: from www3579.sakura.ne.jp (www3579.sakura.ne.jp [49.212.243.89])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ECBA403B18;
-	Sun, 20 Sep 2026 11:22:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=49.212.243.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 023193DDAFD;
+	Sun, 20 Sep 2026 11:25:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789903347; cv=none; b=q4drIvlXGbGq4XLzUjttGfDb7EFbc3yzkVspsfi8Kd+LA66vCWCC8n1Li0416mMOo8Pd31bBKO97WKXu4/JL3XGrq3/Dvy1xahvUSr4FwpCNqEwgGbKeKtVqZmlHNi77mZugC7N1mzd1S02yGTrukj8FOU4XQ+e6o4RGXfBePk8=
+	t=1789903560; cv=none; b=ckUJ0uEnuMlNP3zF/0rPBIWBEX9ZE9CtpepftWKOqLoKqKw26ROvYWKvbYQQcy1EdN1j/uQu59YGrcLXPe+Xthlu/Fue3fz61+dEEExgAd6Grof7EMuFzYYvDCRuskGo56OX8H/vJFKp7qDGTXOGWcuCzpt39E/eFDm5dFHJJAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789903347; c=relaxed/simple;
-	bh=z4iUiM9bC55rfw6jduOct1366YhypIYol3KPCgIE8E8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JoH0jnLRFYwXWc2GVT3/Fa/CyKPi13PTe+gD/Mjk/F313qWljFvprIR63B/wmttN8iApuWIxMBkt9on/qjruOGOUtRgVCI4nM+DZ25jWN4u/R4QcsVVBKeSoaIeef340r4BECzYzGUvKa+s/cVQCOmWI/ybJGoD6hESQkO+98dI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rsg.ci.i.u-tokyo.ac.jp; spf=pass smtp.mailfrom=rsg.ci.i.u-tokyo.ac.jp; dkim=pass (2048-bit key) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b=knbWzXqg; arc=none smtp.client-ip=49.212.243.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rsg.ci.i.u-tokyo.ac.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rsg.ci.i.u-tokyo.ac.jp
+	s=arc-20240116; t=1789903560; c=relaxed/simple;
+	bh=jmhPB1P9jGwQfWomRnGhe0RB+DrGmw+jS55nZI7L4fY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=R/WsDoW4225VcmWyrMEfMKUYNwdracWq8DafVz8nGe9PfRfbHske9TDH8p1RVZqQVNiICZ2K6Deh1qRB2zavUOHHNSh15Mu3tJfwv25i/WCZfHjmb46q1Z3jphM+vmMEq1hXOEsMA+Z3pzTRjc9LhlHg7pZnv3IS6C4ThHDAXIo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=SqSmlg4r; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b="knbWzXqg"
-Received: from [192.168.10.153] (p865013-ipoe.ipoe.ocn.ne.jp [153.242.222.12])
-	(authenticated bits=0)
-	by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 68KBG36i088236
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
-	Sun, 20 Sep 2026 20:16:18 +0900 (JST)
-	(envelope-from odaki@rsg.ci.i.u-tokyo.ac.jp)
-DKIM-Signature: a=rsa-sha256; bh=TtZpVD+c3rEb0z9kPtnuF7Xmt0s3q4Ts6qjSmqh3PZU=;
-        c=relaxed/relaxed; d=rsg.ci.i.u-tokyo.ac.jp;
-        h=From:Message-Id:To:Subject:Date;
-        s=rs20250326; t=1789902978; v=1;
-        b=knbWzXqg8NGeKxxhNW04XuYdUmIIlyxOVRVcxJSJvJ9rPqczPdFOHatE3ABD5YFh
-         cosIOiiP3gvshNhdlb4jY5Qm6kEbit1xoU616ejx8GZrR4RlQPPcaCqvJazYdFUx
-         tlabv8FYQZhC2JcUYnaJzy+Tfq+HY2yLaPgnFhKSEUEhO5OOL8g+gd4sDnqFCoos
-         mJzlwIX3BgiLB3lSthVIVbEWs73/92JGukf7Q38yBHldW2BQ7wsU1jhTsxHPRyAV
-         OQ0uY9VoHuFufi0fl/x6gxYwe9lgugbAznnJ3ZIlfeyBzxuEkWLqiahdM2zw/7vt
-         O/hy7puc/Ge+CirW1Z694g==
-From: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-Date: Sun, 20 Sep 2026 20:16:02 +0900
-Subject: [PATCH v11 21/21] KVM: arm64: selftests: Test
- PMU_V3_FIXED_COUNTERS_ONLY
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="SqSmlg4r"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=AM+FarV7xB7Zz+QiLT9L6i+YPz8fUNu/gX+M5rzQES4=;
+	b=SqSmlg4rYqRU6fBU7461E5izVzhx12E1NLQpaEAQRBY3MxLO0wOKm5gIYgaHF3
+	Mn8ylT4HtMUwpGV/oWO78CjqGw/i3cIjH9rEZOQC0NlnIiA7I/nbFdhGT1GyPs6M
+	pc8qNT8Ed0efLtpjkxj+CPtHpH3bHK+Bmz6A77q1PpZSU=
+Received: from [IPV6:2409:8900:1ee3:222c:6d18:42cb:3228:5708] (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wCHlnuswq9qwud7Bw--.60149S2;
+	Sun, 20 Sep 2026 19:25:34 +0800 (CST)
+Message-ID: <04255390-4133-4e8e-81ad-4d2402498431@163.com>
+Date: Sun, 20 Sep 2026 19:25:32 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260920-hybrid-v11-21-03618771b0e1@rsg.ci.i.u-tokyo.ac.jp>
-References: <20260920-hybrid-v11-0-03618771b0e1@rsg.ci.i.u-tokyo.ac.jp>
-In-Reply-To: <20260920-hybrid-v11-0-03618771b0e1@rsg.ci.i.u-tokyo.ac.jp>
-To: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
-        Joey Gouly <joey.gouly@arm.com>,
-        Suzuki K Poulose <suzuki.poulose@arm.com>,
-        Zenghui Yu <yuzenghui@huawei.com>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Will Deacon <will@kernel.org>, Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        Paolo Bonzini <pbonzini@redhat.com>, Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <shuah@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>,
-        Yury Norov <yury.norov@gmail.com>,
-        Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-        Steffen Eiden <seiden@linux.ibm.com>,
-        Andrew Jones <andrew.jones@oss.qualcomm.com>,
-        Fuad Tabba <fuad.tabba@linux.dev>, Mark Rutland <mark.rutland@arm.com>,
-        Sean Christopherson <seanjc@google.com>,
-        Shannon Zhao <shannon.zhao@linaro.org>,
-        Randy Dunlap <rdunlap@infradead.org>,
-        Fuad Tabba <fuad.tabba@linux.dev>
-Cc: linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-        linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
-        devel@daynix.com, kvm@vger.kernel.org, linux-doc@vger.kernel.org,
-        linux-kselftest@vger.kernel.org,
-        Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=11665;
- i=odaki@rsg.ci.i.u-tokyo.ac.jp; h=from:subject:message-id;
- bh=z4iUiM9bC55rfw6jduOct1366YhypIYol3KPCgIE8E8=;
- b=owGbwMvMwCWmMbc20y1CyJDxtFoSQ9b6A8VvJ3Qf+/Dv8eKyjJOhy///YDpYOX+l8BO51bM2P
- /vzPn6+XkcpC4MYF4OsmCJLStFubo3o2k+FCfEtMHNYmUCGMHBxCsBEZm1iZPijnHTtUdfBDQFp
- D6qd0zlfRjZNS6pJYIvXXHw2eFJa+yaG/1HvK5isJxUJVDypvCfvP8k+02lJoVLr7QkcIqJG02T
- O8QMA
-X-Developer-Key: i=odaki@rsg.ci.i.u-tokyo.ac.jp; a=openpgp;
- fpr=AEDC03C9AF734F2EC26A7BFFA4BAEAA73536753C
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5] ntfs: mount hibernated volumes read-only regardless of
+ errors=
+To: Hongling Zeng <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
+ hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
+ zhongling0719@126.com, stable@vger.kernel.org
+References: <20260920025955.31209-1-zenghongling@kylinos.cn>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <20260920025955.31209-1-zenghongling@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wCHlnuswq9qwud7Bw--.60149S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxtw13tF1xuw1xtF1DKr4rKrg_yoWfKr4Dpr
+	Z7Kwnxtr4ktr1a9rn2yayxG3WF9rZ2yF4jgr18Aw4xZrn8Jr13tryxKw4Y9a4Skr98tw48
+	XF4j9343WF4DZFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UfOz3UUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6g5iLWqvwq4eDwAA3T
 
-Assert the following:
-- FIXED_COUNTERS_ONLY is unset at initialization.
-- FIXED_COUNTERS_ONLY can be set.
-- Setting an event filter when FIXED_COUNTERS_ONLY has already been set
-  results in EBUSY.
-- Setting FIXED_COUNTERS_ONLY when an event filter has already been set
-  results in EBUSY.
-- Setting FIXED_COUNTERS_ONLY when a VCPU has already run results in
-  EBUSY.
 
-Also verify that strict PMUv3 initialization requires a PMU selection
-and succeeds after selecting fixed-counters-only mode.
 
-Run the existing PMU and MDCR_EL2 tests in fixed-only mode. Verify that
-enabling the mode preserves the userspace MDCR_EL2 value until a
-subsequent KVM_ARM_VCPU_INIT resets HPMN to zero.
+在 2026/9/20 10:59, Hongling Zeng 写道:
+> The hibernation check in load_system_files() only converts the
+> superblock to read-only under errors=remount-ro.  With the default
+> errors=continue (and with errors=panic), a hibernated volume is
+> mounted read-write and the mount-time $LogFile emptying writes to it,
+> although a hibernated volume must not be written to at all.
+> 
+> Drop the on_errors term so that a hibernated volume, or a volume whose
+> hibernation state cannot be determined, always mounts read-only.
+> NVolErrors() is still recorded, so ntfs_reconfigure() keeps refusing
+> remounts to read-write, and the $LogFile emptying is skipped by its
+> !sb_rdonly() check.
+> 
+> The check itself must not apply the errors= policy either: it runs
+> before SB_RDONLY is set, and ntfs_lookup_inode_by_name() and
+> ntfs_iget() call ntfs_error() internally on corruption or I/O errors,
+> which under errors=panic would panic the machine before the read-only
+> fallback has made its decision.  Run the check with the super block
+> temporarily marked read-only, which makes ntfs_handle_error() ignore
+> any ntfs_error() issued on this path; the super block is not
+> published yet at this point, so the temporary flag is not visible
+> elsewhere.
+> 
+> Restore read-write access only if the check succeeded and no errors
+> were recorded earlier during the mount, e.g. when loading the LogFile,
+> so that a volume with recorded errors stays read-only, matching what
+> ntfs_reconfigure() enforces for remounts, and a message is logged for
+> that case.
+> 
+> Fixes: 6251f0b0de7d ("ntfs: update super block operations")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+> ---
+> Change in v5:
+>   -Rework the errors=panic handling per review feedback.
+> ---
+>   fs/ntfs/super.c | 36 +++++++++++++++++++++++++++++++-----
+>   1 file changed, 31 insertions(+), 5 deletions(-)
+> 
+> diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
+> index f4a73e45773d..ab91cd1a8515 100644
+> --- a/fs/ntfs/super.c
+> +++ b/fs/ntfs/super.c
+> @@ -1398,6 +1398,7 @@ static bool load_system_files(struct ntfs_volume *vol)
+>   	struct ntfs_attr_search_ctx *ctx;
+>   	struct restart_page_header *rp;
+>   	int err;
+> +	bool temporary_ro = false;
+>   
+>   	ntfs_debug("Entering.");
+>   	/* Get mft mirror inode compare the contents of $MFT and $MFTMirr. */
+> @@ -1572,8 +1573,20 @@ static bool load_system_files(struct ntfs_volume *vol)
+>   	 * NVolErrors() without setting the dirty volume flag and mount
+>   	 * read-only.  This will prevent read-write remounting and it will also
+>   	 * prevent all writes.
+> +	 *
+> +	 * The check runs with the super block temporarily marked read-only, so
+> +	 * that ntfs_error() calls issued internally by ntfs_lookup_inode_by_name()
+> +	 * and ntfs_iget() cannot trigger errors=panic before the read-only
+> +	 * fallback has run.  The super block is not published yet, so the flag
+> +	 * is not visible elsewhere.
+>   	 */
+> +	if (!sb_rdonly(sb)) {
+> +		sb->s_flags |= SB_RDONLY;
+> +		temporary_ro = true;
+> +	}
+>   	err = check_windows_hibernation_status(vol);
+> +	if (temporary_ro && !err && !NVolErrors(vol))
+> +		sb->s_flags &= ~SB_RDONLY;
 
-Assisted-by: Codex:gpt-5.5
-Signed-off-by: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
----
- .../selftests/kvm/arm64/vpmu_counter_access.c      | 202 ++++++++++++++++++---
- 1 file changed, 173 insertions(+), 29 deletions(-)
+Hi Hongling,
+   Thanks for sending the updated patch. I'm sorry, but while reviewing 
+this version more closely, I found a problem with the temporary 
+read-only approach I suggested during the v3 discussion.
 
-diff --git a/tools/testing/selftests/kvm/arm64/vpmu_counter_access.c b/tools/testing/selftests/kvm/arm64/vpmu_counter_access.c
-index 73b4f1870d3d..637653f7a25b 100644
---- a/tools/testing/selftests/kvm/arm64/vpmu_counter_access.c
-+++ b/tools/testing/selftests/kvm/arm64/vpmu_counter_access.c
-@@ -411,12 +411,7 @@ static void create_vpmu_vm(void *guest_code)
- {
- 	struct kvm_vcpu_init init;
- 	u8 pmuver, ec;
--	u64 dfr0, irq = 23;
--	struct kvm_device_attr irq_attr = {
--		.group = KVM_ARM_VCPU_PMU_V3_CTRL,
--		.attr = KVM_ARM_VCPU_PMU_V3_IRQ,
--		.addr = (u64)&irq,
--	};
-+	u64 dfr0;
- 
- 	/* The test creates the vpmu_vm multiple times. Ensure a clean state */
- 	memset(&vpmu_vm, 0, sizeof(vpmu_vm));
-@@ -442,8 +437,6 @@ static void create_vpmu_vm(void *guest_code)
- 	TEST_ASSERT(pmuver != ID_AA64DFR0_EL1_PMUVer_IMP_DEF &&
- 		    pmuver >= ID_AA64DFR0_EL1_PMUVer_IMP,
- 		    "Unexpected PMUVER (0x%x) on the vCPU with PMUv3", pmuver);
--
--	vcpu_ioctl(vpmu_vm.vcpu, KVM_SET_DEVICE_ATTR, &irq_attr);
- }
- 
- static void destroy_vpmu_vm(void)
-@@ -493,13 +486,22 @@ static void set_nr_counters(struct kvm_vcpu *vcpu,
- }
- 
- static void test_create_vpmu_vm_with_nr_counters(unsigned int nr_counters,
-+						 bool fixed_counters_only,
- 						 bool expect_fail)
- {
- 	struct kvm_vcpu *vcpu;
-+	u64 irq = 23;
- 
- 	create_vpmu_vm(guest_code);
- 	vcpu = vpmu_vm.vcpu;
- 
-+	if (fixed_counters_only)
-+		vcpu_device_attr_set(vcpu, KVM_ARM_VCPU_PMU_V3_CTRL,
-+				     KVM_ARM_VCPU_PMU_V3_FIXED_COUNTERS_ONLY, NULL);
-+
-+	vcpu_device_attr_set(vcpu, KVM_ARM_VCPU_PMU_V3_CTRL,
-+			     KVM_ARM_VCPU_PMU_V3_IRQ, &irq);
-+
- 	set_nr_counters(vcpu, nr_counters, expect_fail);
- 
- 	vcpu_device_attr_set(vcpu, KVM_ARM_VCPU_PMU_V3_CTRL, KVM_ARM_VCPU_PMU_V3_INIT, NULL);
-@@ -509,15 +511,15 @@ static void test_create_vpmu_vm_with_nr_counters(unsigned int nr_counters,
-  * Create a guest with one vCPU, set the PMCR_EL0.N for the vCPU to @pmcr_n,
-  * and run the test.
-  */
--static void run_access_test(u64 pmcr_n)
-+static void run_access_test(u64 pmcr_n, bool fixed_counters_only)
- {
- 	u64 sp;
- 	struct kvm_vcpu *vcpu;
- 	struct kvm_vcpu_init init;
- 
--	pr_debug("Test with pmcr_n %lu\n", pmcr_n);
-+	pr_debug("Test with pmcr_n %lu, fixed_counters_only %d\n", pmcr_n, fixed_counters_only);
- 
--	test_create_vpmu_vm_with_nr_counters(pmcr_n, false);
-+	test_create_vpmu_vm_with_nr_counters(pmcr_n, fixed_counters_only, false);
- 	vcpu = vpmu_vm.vcpu;
- 
- 	/* Save the initial sp to restore them later to run the guest again */
-@@ -553,14 +555,14 @@ static struct pmreg_sets validity_check_reg_sets[] = {
-  * Create a VM, and check if KVM handles the userspace accesses of
-  * the PMU register sets in @validity_check_reg_sets[] correctly.
-  */
--static void run_pmregs_validity_test(u64 pmcr_n)
-+static void run_pmregs_validity_test(u64 pmcr_n, bool fixed_counters_only)
- {
- 	int i;
- 	struct kvm_vcpu *vcpu;
- 	u64 set_reg_id, clr_reg_id, reg_val;
- 	u64 valid_counters_mask, max_counters_mask;
- 
--	test_create_vpmu_vm_with_nr_counters(pmcr_n, false);
-+	test_create_vpmu_vm_with_nr_counters(pmcr_n, fixed_counters_only, false);
- 	vcpu = vpmu_vm.vcpu;
- 
- 	valid_counters_mask = get_counters_mask(pmcr_n);
-@@ -605,13 +607,15 @@ static void run_pmregs_validity_test(u64 pmcr_n)
- 	destroy_vpmu_vm();
- }
- 
--static void run_mdcr_el2_validity_test(u64 pmcr_n)
-+static void run_mdcr_el2_validity_test(u64 pmcr_n, bool fixed_counters_only)
- {
- 	struct kvm_vcpu_init init;
- 	struct kvm_vcpu *vcpu;
- 	u64 expected_mdcr, mdcr;
-+	u64 irq = 23;
- 
--	pr_debug("MDCR_EL2 test with pmcr_n %lu\n", pmcr_n);
-+	pr_debug("MDCR_EL2 test with pmcr_n %lu, fixed_counters_only %d\n",
-+		 pmcr_n, fixed_counters_only);
- 
- 	create_vpmu_vm(guest_code);
- 	if (!vm_supports_el2(vpmu_vm.vm)) {
-@@ -632,6 +636,16 @@ static void run_mdcr_el2_validity_test(u64 pmcr_n)
- 		    "MDCR_EL2 was not properly updated after HPMN write (expected 0x%lx, got 0x%lx)",
- 		    expected_mdcr, mdcr);
- 
-+	if (fixed_counters_only) {
-+		vcpu_device_attr_set(vcpu, KVM_ARM_VCPU_PMU_V3_CTRL,
-+				     KVM_ARM_VCPU_PMU_V3_FIXED_COUNTERS_ONLY, NULL);
-+
-+		mdcr = vcpu_get_reg(vcpu, KVM_ARM64_SYS_REG(SYS_MDCR_EL2));
-+		TEST_ASSERT(mdcr == expected_mdcr,
-+			    "MDCR_EL2 changed after PMU_V3_FIXED_COUNTERS_ONLY (expected 0x%lx, got 0x%lx)",
-+			    expected_mdcr, mdcr);
-+	}
-+
- 	set_nr_counters(vcpu, pmcr_n, false);
- 
- 	mdcr = vcpu_get_reg(vcpu, KVM_ARM64_SYS_REG(SYS_MDCR_EL2));
-@@ -639,6 +653,9 @@ static void run_mdcr_el2_validity_test(u64 pmcr_n)
- 		    "MDCR_EL2 changed after PMU_V3_SET_NR_COUNTERS (expected 0x%lx, got 0x%lx)",
- 		    expected_mdcr, mdcr);
- 
-+	vcpu_device_attr_set(vcpu, KVM_ARM_VCPU_PMU_V3_CTRL,
-+			     KVM_ARM_VCPU_PMU_V3_IRQ, &irq);
-+
- 	vcpu_device_attr_set(vcpu, KVM_ARM_VCPU_PMU_V3_CTRL,
- 			     KVM_ARM_VCPU_PMU_V3_INIT, NULL);
- 
-@@ -673,11 +690,11 @@ static void run_mdcr_el2_validity_test(u64 pmcr_n)
-  * the vCPU to @pmcr_n, which is larger than the host value.
-  * The attempt should fail as @pmcr_n is too big to set for the vCPU.
-  */
--static void run_error_test(u64 pmcr_n)
-+static void run_error_test(u64 pmcr_n, bool fixed_counters_only)
- {
- 	pr_debug("Error test with pmcr_n %lu (larger than the host)\n", pmcr_n);
- 
--	test_create_vpmu_vm_with_nr_counters(pmcr_n, true);
-+	test_create_vpmu_vm_with_nr_counters(pmcr_n, fixed_counters_only, true);
- 	destroy_vpmu_vm();
- }
- 
-@@ -738,25 +755,152 @@ static void test_set_nr_counters_after_vcpu_run(void)
- 	kvm_vm_free(vm);
- }
- 
--int main(void)
-+static void test_config(u64 pmcr_n, bool fixed_counters_only)
-+{
-+	u64 i;
-+
-+	for (i = 0; i <= pmcr_n; i++) {
-+		run_access_test(i, fixed_counters_only);
-+		run_pmregs_validity_test(i, fixed_counters_only);
-+		run_mdcr_el2_validity_test(i, fixed_counters_only);
-+	}
-+
-+	for (i = pmcr_n + 1; i < ARMV8_PMU_MAX_COUNTERS; i++)
-+		run_error_test(i, fixed_counters_only);
-+}
-+
-+static void test_fixed_counters_only_strict(void)
-+{
-+	struct kvm_vcpu_init init;
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_vm *vm;
-+	u64 irq = 23;
-+	int ret;
-+
-+	if (!kvm_has_cap(KVM_CAP_ARM_PMU_V3_STRICT))
-+		return;
-+
-+	vm = vm_create(1);
-+	kvm_get_default_vcpu_target(vm, &init);
-+	init.features[0] |= BIT(KVM_ARM_VCPU_PMU_V3) |
-+			    BIT(KVM_ARM_VCPU_PMU_V3_STRICT);
-+	vcpu = aarch64_vcpu_add(vm, 0, &init, guest_code_done);
-+	kvm_arch_vm_finalize_vcpus(vm);
-+	vcpu_device_attr_set(vcpu, KVM_ARM_VCPU_PMU_V3_CTRL,
-+			     KVM_ARM_VCPU_PMU_V3_IRQ, &irq);
-+
-+	/* STRICT still requires a PMU selection before initialization. */
-+	ret = __vcpu_device_attr_set(vcpu, KVM_ARM_VCPU_PMU_V3_CTRL,
-+				     KVM_ARM_VCPU_PMU_V3_INIT, NULL);
-+	TEST_ASSERT(ret == -1 && errno == ENXIO,
-+		    KVM_IOCTL_ERROR(KVM_SET_DEVICE_ATTR, ret));
-+
-+	vcpu_device_attr_set(vcpu, KVM_ARM_VCPU_PMU_V3_CTRL,
-+			     KVM_ARM_VCPU_PMU_V3_FIXED_COUNTERS_ONLY, NULL);
-+	vcpu_device_attr_set(vcpu, KVM_ARM_VCPU_PMU_V3_CTRL,
-+			     KVM_ARM_VCPU_PMU_V3_INIT, NULL);
-+
-+	kvm_vm_free(vm);
-+}
-+
-+static void test_fixed_counters_only(void)
- {
--	u64 i, pmcr_n;
-+	struct kvm_pmu_event_filter filter = { .nevents = 0 };
-+	struct kvm_vm *vm;
-+	struct kvm_vcpu *running_vcpu;
-+	struct kvm_vcpu *stopped_vcpu;
-+	struct kvm_vcpu_init init;
-+	int ret;
-+	u64 irq = 23;
-+
-+	create_vpmu_vm(guest_code);
-+	ret = __vcpu_has_device_attr(vpmu_vm.vcpu, KVM_ARM_VCPU_PMU_V3_CTRL,
-+				     KVM_ARM_VCPU_PMU_V3_FIXED_COUNTERS_ONLY);
-+	if (ret) {
-+		TEST_ASSERT(ret == -1 && errno == ENXIO,
-+			    KVM_IOCTL_ERROR(KVM_HAS_DEVICE_ATTR, ret));
-+		destroy_vpmu_vm();
-+		return;
-+	}
-+
-+	/* Assert that FIXED_COUNTERS_ONLY is unset at initialization. */
-+	ret = __vcpu_device_attr_get(vpmu_vm.vcpu, KVM_ARM_VCPU_PMU_V3_CTRL,
-+				     KVM_ARM_VCPU_PMU_V3_FIXED_COUNTERS_ONLY, NULL);
-+	TEST_ASSERT(ret == -1 && errno == ENXIO,
-+		    KVM_IOCTL_ERROR(KVM_GET_DEVICE_ATTR, ret));
-+
-+	/* Assert that setting FIXED_COUNTERS_ONLY succeeds. */
-+	vcpu_device_attr_set(vpmu_vm.vcpu, KVM_ARM_VCPU_PMU_V3_CTRL,
-+			     KVM_ARM_VCPU_PMU_V3_FIXED_COUNTERS_ONLY, NULL);
-+
-+	/* Assert that FIXED_COUNTERS_ONLY is set. */
-+	vcpu_device_attr_get(vpmu_vm.vcpu, KVM_ARM_VCPU_PMU_V3_CTRL,
-+			     KVM_ARM_VCPU_PMU_V3_FIXED_COUNTERS_ONLY, NULL);
-+
-+	/*
-+	 * Setting an event filter when FIXED_COUNTERS_ONLY has already been set
-+	 * results in EBUSY.
-+	 */
-+	ret = __vcpu_device_attr_set(vpmu_vm.vcpu, KVM_ARM_VCPU_PMU_V3_CTRL,
-+				     KVM_ARM_VCPU_PMU_V3_FILTER, &filter);
-+	TEST_ASSERT(ret == -1 && errno == EBUSY,
-+		    KVM_IOCTL_ERROR(KVM_SET_DEVICE_ATTR, ret));
-+
-+	destroy_vpmu_vm();
-+
-+	create_vpmu_vm(guest_code);
-+
-+	/*
-+	 * Assert that setting FIXED_COUNTERS_ONLY when an event filter has
-+	 * already been set results in EBUSY.
-+	 */
-+	vcpu_device_attr_set(vpmu_vm.vcpu, KVM_ARM_VCPU_PMU_V3_CTRL,
-+			     KVM_ARM_VCPU_PMU_V3_FILTER, &filter);
-+
-+	ret = __vcpu_device_attr_set(vpmu_vm.vcpu, KVM_ARM_VCPU_PMU_V3_CTRL,
-+				     KVM_ARM_VCPU_PMU_V3_FIXED_COUNTERS_ONLY, NULL);
-+	TEST_ASSERT(ret == -1 && errno == EBUSY,
-+		    KVM_IOCTL_ERROR(KVM_SET_DEVICE_ATTR, ret));
-+
-+	destroy_vpmu_vm();
-+
-+	/*
-+	 * Assert that setting FIXED_COUNTERS_ONLY when a VCPU has already run
-+	 * results in EBUSY.
-+	 */
-+	vm = vm_create(2);
-+	vm_ioctl(vm, KVM_ARM_PREFERRED_TARGET, &init);
-+	init.features[0] |= (1 << KVM_ARM_VCPU_PMU_V3);
-+	running_vcpu = aarch64_vcpu_add(vm, 0, &init, guest_code_done);
-+	stopped_vcpu = aarch64_vcpu_add(vm, 1, &init, guest_code_done);
-+	kvm_arch_vm_finalize_vcpus(vm);
-+	vcpu_device_attr_set(running_vcpu, KVM_ARM_VCPU_PMU_V3_CTRL,
-+			     KVM_ARM_VCPU_PMU_V3_IRQ, &irq);
-+	vcpu_device_attr_set(running_vcpu, KVM_ARM_VCPU_PMU_V3_CTRL,
-+			     KVM_ARM_VCPU_PMU_V3_INIT, NULL);
-+	run_vcpu(running_vcpu);
-+
-+	ret = __vcpu_device_attr_set(stopped_vcpu, KVM_ARM_VCPU_PMU_V3_CTRL,
-+				     KVM_ARM_VCPU_PMU_V3_FIXED_COUNTERS_ONLY, NULL);
-+	TEST_ASSERT(ret == -1 && errno == EBUSY,
-+		    KVM_IOCTL_ERROR(KVM_SET_DEVICE_ATTR, ret));
-+
-+	kvm_vm_free(vm);
-+
-+	test_fixed_counters_only_strict();
- 
-+	test_config(0, true);
-+}
-+
-+int main(void)
-+{
- 	TEST_REQUIRE(kvm_has_cap(KVM_CAP_ARM_PMU_V3));
- 	TEST_REQUIRE(kvm_supports_vgic_v3());
- 	TEST_REQUIRE(kvm_supports_nr_counters_attr());
- 
- 	test_set_nr_counters_after_vcpu_run();
--
--	pmcr_n = get_pmcr_n_limit();
--	for (i = 0; i <= pmcr_n; i++) {
--		run_access_test(i);
--		run_pmregs_validity_test(i);
--		run_mdcr_el2_validity_test(i);
--	}
--
--	for (i = pmcr_n + 1; i < ARMV8_PMU_MAX_COUNTERS; i++)
--		run_error_test(i);
-+	test_config(get_pmcr_n_limit(), false);
-+	test_fixed_counters_only();
- 
- 	return 0;
- }
+   The condition above does not reliably establish whether read-write 
+access can be restored. An ntfs_error() call does not necessarily set 
+NVolErrors(), and some errors reported by nested helpers are not 
+propagated back to the hibernation check.
 
--- 
-2.55.0
+   For example, ntfs_attr_readall() can report "Invalid attribute data 
+size" and return -EIO without setting NVolErrors(). If this happens 
+while reading the optional WSL extended attributes through 
+ntfs_ea_get_wsl_inode(), the error can be ignored and inode loading can 
+still succeed. If the hibernation header is otherwise valid and 
+zero-filled, the check can then return zero.
+
+   With errors=remount-ro, the original code would retain the read-only 
+state set by that ntfs_error() call. With v5, ntfs_handle_error() 
+returns immediately because SB_RDONLY is already set, and the condition 
+above can subsequently restore read-write access because neither err nor 
+NVolErrors() reflects that error.
+
+   This makes it difficult to define a reliable restoration condition 
+using only the check's return value and NVolErrors().
+
+   I now think a better approach is to temporarily replace 
+ON_ERRORS_PANIC with ON_ERRORS_REMOUNT_RO around 
+check_windows_hibernation_status(), then restore the original policy
+  immediately afterwards. This covers both direct and nested 
+ntfs_error() calls while preserving any read-only transition they 
+trigger. The temporary substitution leaves the existing errors=continue 
+and errors=remount-ro policies unchanged.
+
+   This deliberately falls back to read-only for any ntfs_error() that 
+would otherwise trigger panic during the check, including recoverable 
+errors. I think that is a reasonable conservative fallback: it avoids 
+panic without treating every such error as a persistent volume error by 
+automatically setting NVolErrors().
+
+   If the check reports hibernation or fails, we would still 
+unconditionally set SB_RDONLY and NVolErrors(). We would also retain 
+your protection for volumes with errors recorded during the check or 
+earlier in the mount.
+
+
+   The following is a replacement patch against the same base as your v5:
+
+   @@ -1398,6 +1398,7 @@ static bool load_system_files(struct 
+ntfs_volume *vol)
+    	struct ntfs_attr_search_ctx *ctx;
+    	struct restart_page_header *rp;
+    	int err;
+   +	u8 saved_on_errors;
+
+    	ntfs_debug("Entering.");
+    	/* Get mft mirror inode compare the contents of $MFT and $MFTMirr. */
+   @@ -1572,8 +1573,18 @@ static bool load_system_files(struct 
+ntfs_volume *vol)
+    	 * NVolErrors() without setting the dirty volume flag and mount
+    	 * read-only.  This will prevent read-write remounting and it will also
+    	 * prevent all writes.
+   +	 *
+   +	 * Nested lookup and inode-loading errors must not panic before the
+   +	 * read-only fallback.  Temporarily use errors=remount-ro instead of
+   +	 * errors=panic, preserving any read-only transition even if an error
+   +	 * is not propagated or recorded in NVolErrors().  This is safe during
+   +	 * initial mount, before the super block is published.
+    	 */
+   +	saved_on_errors = vol->on_errors;
+   +	if (saved_on_errors == ON_ERRORS_PANIC)
+   +		vol->on_errors = ON_ERRORS_REMOUNT_RO;
+    	err = check_windows_hibernation_status(vol);
+   +	vol->on_errors = saved_on_errors;
+    	if (unlikely(err)) {
+    		static const char *es1a = "Failed to determine if Windows is 
+hibernated";
+    		static const char *es1b = "Windows is hibernated";
+   @@ -1581,12 +1592,15 @@ static bool load_system_files(struct 
+ntfs_volume *vol)
+    		const char *es1;
+
+    		es1 = err < 0 ? es1a : es1b;
+   -		/* If a read-write mount, convert it to a read-only mount. */
+   -		if (!sb_rdonly(sb) && vol->on_errors == ON_ERRORS_REMOUNT_RO) {
+   -			sb->s_flags |= SB_RDONLY;
+   -			ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
+   -		}
+   +		/* Hibernation safety takes precedence over the errors= policy. */
+   +		sb->s_flags |= SB_RDONLY;
+    		NVolSetErrors(vol);
+   +		ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
+   +	} else if (!sb_rdonly(sb) && NVolErrors(vol)) {
+   +		/* Match the read-write remount restriction for recorded errors. */
+   +		sb->s_flags |= SB_RDONLY;
+   +		ntfs_error(sb,
+   +			   "Errors were recorded during mount.  Mounting read-only.  Run 
+chkdsk.");
+    	}
+
+    	/* If (still) a read-write mount, empty the logfile. */
+
+
+   Sorry again for overlooking this issue in my earlier suggestion. I 
+believe this approach is more robust because it never clears SB_RDONLY, 
+so it does not need to reconstruct whether a nested error should have 
+made the volume read-only. The policy change is limited to the 
+hibernation check during initial mount, before the superblock is published.
+
+   If you agree with this approach, could you please incorporate it and 
+send another revision? I'd appreciate feedback from you, Namjae, and 
+Hyunchul.
+
+feel free to add:
+Suggested-by: Baolin Liu <liubaolin@kylinos.cn>
+
+Thanks,
+Baolin.
+
+
+
+
+
+
+
+>   	if (unlikely(err)) {
+>   		static const char *es1a = "Failed to determine if Windows is hibernated";
+>   		static const char *es1b = "Windows is hibernated";
+> @@ -1581,12 +1594,25 @@ static bool load_system_files(struct ntfs_volume *vol)
+>   		const char *es1;
+>   
+>   		es1 = err < 0 ? es1a : es1b;
+> -		/* If a read-write mount, convert it to a read-only mount. */
+> -		if (!sb_rdonly(sb) && vol->on_errors == ON_ERRORS_REMOUNT_RO) {
+> -			sb->s_flags |= SB_RDONLY;
+> -			ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
+> -		}
+> +		/*
+> +		 * A Windows hibernation image is not a filesystem error, so
+> +		 * this is a safety interlock rather than something the
+> +		 * errors= policy may downgrade.  The super block is already
+> +		 * read-only here: the temporary flag taken for the check
+> +		 * above is not restored when the check failed.
+> +		 */
+> +		ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
+>   		NVolSetErrors(vol);
+> +	} else if (unlikely(temporary_ro && sb_rdonly(sb))) {
+> +		static const char *es1 = "Errors were recorded during mount";
+> +		static const char *es2 = ".  Run chkdsk.";
+> +
+> +		/*
+> +		 * Errors were recorded during the check or earlier, e.g. when
+> +		 * loading the LogFile.  Stay read-only, like ntfs_reconfigure()
+> +		 * does for volumes with recorded errors.
+> +		 */
+> +		ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
+>   	}
+>   
+>   	/* If (still) a read-write mount, empty the logfile. */
 
