@@ -1,171 +1,249 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1DB747ACF7;
-	Sun, 20 Sep 2026 21:37:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8372936EA8B
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 21:40:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789940273; cv=none; b=i65oyvFUu2lPTNRDlUT1qFtHJShCk6SXQ9+Y2x8fQdbffwFvjIVxpNT9E9t/PL8D18rC1tEYY1z531cNTnSk1pVe7BRsphhkgv0ZzNQM4956hMtqf2Zqt51+wcFG3xe1Arh2+cgq8hV56qiEZFMEreD2aPpStuPvt9+fctsBGrA=
+	t=1789940409; cv=none; b=Tw5+3KQ2LhkQ8GYz5FlqWFt39u+GXgw8C2UrHdDRR096fueHPl0b1fOmwKxapMOVz1Ij7bPTbu8NfDRmJi2cCB76cAb9WQClgdNVFyPqBGRf77okpSqbzjvPSOZ+yHm5/8HFr/MeYYnDz3l4hKhrKYKC0s1zz2fVTUwvuL51CaI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789940273; c=relaxed/simple;
-	bh=9KfDxHG2yl46u03Z+FxS3cEpcqm8xfTlnu89nLZcEMU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AV71nsFGaMlepa3Y1ou0pLAE12HVQ2CB6yMPoRgQduCc/o7x1mJd/2mhWEOzKCwMM+FGaqn29eI1filvQJhohdHW9Rd2SUnfWG7oAbTdvIU3RVDtw3zP6OFJQUBMizo0MveMLhb96QT9o+rWS78H4Iu1bmOubRWQY5jDiBCK0dA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=VU31gNJA; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
+	s=arc-20240116; t=1789940409; c=relaxed/simple;
+	bh=+LmYPmWKlLU3Nx7bE5RMlXCJrar6BMVIiMrMMVP9sGE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rgT9vpIs3Wwl1sgKVaYTBI0VHlV11mQ5V7LSzcNTG8aidndXTke/dqD4rvL0W4NQHhhhfPk4xgLBlMcNzL0swILSxj+b7jN90MOorpjV2H9jH6Nqv4ia80h/t4xGiKEnFfLJSi65WqHWAhk6HqIGhJrWelFyUv1qnyva8SpCEuc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=UK6ZEZP6; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="VU31gNJA"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:
-	To:From:Reply-To:Content-ID:Content-Description;
-	bh=TR0E1ViaC+vgzkzq3tRVZr9hLoobpJbHc35aSaZZvgE=; b=VU31gNJAldPY8k6TMFswaPMVEz
-	LYdqEuJA1mMBPeaV4wHVJksSiG93FjVOfh5l3InzcIonDtkgEVHrNJB199n2mV+IF9XpxseRI9kZd
-	KXv5ErrMwb8xTROcFxVC8+do+YH+ExmFV8JkzQQH0ksvyPRyTVK9qITRF2CfbnEpeMtdKCktf9dcK
-	AaYT8wh2E7pA7iB9LKVsCBaHk5AP3LCxgw8ClbqGg/qewHNT1EUTnHP8NvKDfKtuIGyHUp78nvTqf
-	sMKlMm11zOP5YCQIVy2MBpL4QhyyRnBN2V4abREOx7lHTTOa6IusM9Enhg+tFAwIqXtO2Mvm/gS68
-	gzfUXB8A==;
-Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x8OwU-0000000BLpu-2c86;
-	Sun, 20 Sep 2026 21:19:22 +0000
-Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.4 #2 (Red Hat Linux))
-	id 1x8OwU-00000003tcf-1Zyf;
-	Sun, 20 Sep 2026 22:19:22 +0100
-From: David Woodhouse <dwmw2@infradead.org>
-To: kvm@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	rcu@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev,
-	linux-kselftest@vger.kernel.org,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Paul Durrant <paul@xen.org>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Fred Griffoul <fgriffo@amazon.co.uk>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Kunwu Chan <kunwu.chan@linux.dev>,
-	Kunwu Chan <kunwu.chan@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>,
-	Boqun Feng <boqun.feng@gmail.com>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Michal Hocko <mhocko@suse.com>,
-	Nikita Kalyazin <kalyazin@amazon.com>,
-	Keir Fraser <keirf@google.com>,
-	David Matlack <dmatlack@google.com>,
-	nh-open-source@amazon.com,
-	David Woodhouse <dwmw@amazon.co.uk>,
-	Sashiko AI review <sashiko-bot@kernel.org>
-Subject: [PATCH 05/17] KVM: x86: Request the guest TLB flush from record_steal_time()
-Date: Sun, 20 Sep 2026 21:49:33 +0100
-Message-ID: <20260920211920.928306-6-dwmw2@infradead.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260920211920.928306-1-dwmw2@infradead.org>
-References: <20260920211920.928306-1-dwmw2@infradead.org>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="UK6ZEZP6"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254fa663c1so273250166b.0
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 14:40:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1789940397; x=1790545197; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+LmYPmWKlLU3Nx7bE5RMlXCJrar6BMVIiMrMMVP9sGE=;
+        b=UK6ZEZP6u/DrbBd7+9oGnUmyciBcaRkx1CDYk6/HZankbpcLdRAceUPauuJlXnhqlK
+         btas0MZ13LnqTMbuyU4cBMcr55lmj144t5wXLkibA65Ps++Uk3hq/G2dqRo8NYmZ1jYw
+         Ryw/TqtRoVqAJYF35pw2fWyGhjLdY0b9ytTwU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789940397; x=1790545197;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+LmYPmWKlLU3Nx7bE5RMlXCJrar6BMVIiMrMMVP9sGE=;
+        b=n4O58iX4rAusrpI0hv7UQ0mqoSHL9EV451yJyRMr0cBdu6OeoWH75M8Zqv6xwlMMfo
+         FR1b8KiEttpY2g1JoizTnME9F9EosZDYj9FQMtB/EkN7cVixohPru9Spx7TgBKXwunsQ
+         z6pi60O4VlvS2K6yi/weXkkdkhM/Y2Rvtvyi+Xi2B4avcwllPKWWblwZM/ZUdJbWNH9s
+         j95NO0+BYpfQK2QrjfYm1A3Y9pdRmys87vsS6oxaZeL+GXpVSNivnyFcDzTKOSTlKuCx
+         oeqX3k3DLvowHaWrYuI4OcY38SV1pQ7hGwe4IMat8UO74820ymWCeeK7peeCV8l+qmec
+         enQw==
+X-Forwarded-Encrypted: i=1; AKwUvBzq7XcHatzUgahM6qJCJUBSKQKPWguHBzQ23vgSLqRHc4K3o20LrIs3oxOo38f9s56QMltSikD0pys6rY0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kmV/aNMSDwxFlFR52gpu/DuKp5Y3iM9ewRQNWlAWL8+j6I4gjH
+	riE3WGUZa4P0YpumsAangWLk793F8hHcKQgvo9vyQOicmr6+vmBAoyoMsNxSbxq5/9PdvOoHyn3
+	Z1wY=
+X-Gm-Gg: AYBFou3omiYEuP3vVyr95KYpQ0BdqhSFaTHobN0Xn/ODIHANrDGLCYJduZUb7GwEPih
+	ZyumOdOi0bxPFPZSpaCZB6AIGqulLwXdHTgdH+Lsqw8Q02iO36kDqU2MiuDXQnOJC0Sj6lDQZyF
+	T1Uz877ZoBF9WCP44M+LwB6C0UKSFRUZeOMUy3h+HJoX6kPo5UxQTbqRxRKsw1+aVy4RqpUBeVc
+	/G972SawqNrrep8J/ZwmmM7vnM8xf//Y05E60+hgQKkowDy+7WS17DtGbi/vTtd9BfQvholgbHR
+	KvLtnZ92A8PAJr1ZXA7dcl2igm1gvm+84U8imyTzqtqZMOYPHfMaFUCModQxYqjPZcovo2qLEoq
+	dzAXpvZ94UIeNVI0whIrzyduXtB8vDEUN6DN2XS6NL8AbvCYrAMC/ETTCjku8f3M0Nrbaob+e3b
+	m2LCJtGOAbkeChCqQDuBjWTcwBKtTCoD7JbUahHdk7cH3ienEzBP+9uKbvslnQE0Lqy0BQaAhSX
+	4ihQ6uB2LKo151C8m1esZ/pzWWIf3NsA2GMUK0=
+X-Received: by 2002:a17:906:c154:b0:c25:2d27:5652 with SMTP id a640c23a62f3a-c2a156d900emr761797766b.11.1789940396715;
+        Sun, 20 Sep 2026 14:39:56 -0700 (PDT)
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com. [74.125.225.141])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a355ea970sm217306166b.20.2026.09.20.14.39.55
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 20 Sep 2026 14:39:55 -0700 (PDT)
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso16841005e9.3
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 14:39:55 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw1q+Piec3IWOF7vAi70LG02PglOCDN4L8asbLEZrwHP0f1oJhkoXuAk/J/ddDbE3WQdJseUosF3Q8tHsg=@vger.kernel.org
+X-Received: by 2002:a05:600c:190d:b0:49f:bd3c:bc26 with SMTP id
+ 5b1f17b1804b1-49fc574f069mr123082215e9.33.1789940394146; Sun, 20 Sep 2026
+ 14:39:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Sender: David Woodhouse <dwmw2@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+References: <20260714222338.2965707-1-dianders@chromium.org>
+ <20260714152138.7.I5cef580a62c86ba6c3465ad336fa509afbdf1476@changeid>
+ <CABb+yY3_xBvQVFHEs=v39u7+TLjJRaVv3sg5pGgd0YxCruZ8Tw@mail.gmail.com>
+ <CAD=FV=X-fAJp=EG_yTAg+QQgNYRCt25947oHGHZuq-FEyirK0g@mail.gmail.com>
+ <CABb+yY2CH5A1ixfX9czgtEwsP95FN-2JVzN_wmRDRNsSuZY5PQ@mail.gmail.com>
+ <CAD=FV=XiguzS7nH1sE=BkXt+7G6-hhqyz5u3sjc4zAA9H7KqJg@mail.gmail.com>
+ <CABb+yY2_AvcnaTDmpL8gP4H2_Pp3HddrtNr5gvL4GCW2DPPvOw@mail.gmail.com>
+ <CAD=FV=VzJCb1nz+q5EZ33G5U6KZM_tXi8snL=KbUM3C5yymG4g@mail.gmail.com> <CABb+yY2omp+g13UgZfiKWLux9J1P+=ed0U3F8AhS0iQK=kpN8w@mail.gmail.com>
+In-Reply-To: <CABb+yY2omp+g13UgZfiKWLux9J1P+=ed0U3F8AhS0iQK=kpN8w@mail.gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Sun, 20 Sep 2026 14:39:42 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=WA2wFbk0=qFE0aZs9E5jg-EXzcrkPCk6VOMhbDroOQCw@mail.gmail.com>
+X-Gm-Features: AcwNN1UH8b97yz1z04sXG3ndNvqg6dtJI_UWqOQpPbCqwLWaK8N7A5wagZvhlbg
+Message-ID: <CAD=FV=WA2wFbk0=qFE0aZs9E5jg-EXzcrkPCk6VOMhbDroOQCw@mail.gmail.com>
+Subject: Re: [PATCH 7/7] mailbox: goog-mba: Introduce the goog-mba mailbox driver
+To: Jassi Brar <jassisinghbrar@gmail.com>
+Cc: Joonwon Kang <joonwonkang@google.com>, Subhash Jadavani <sjadavani@google.com>, 
+	Tudor Ambarus <tudor.ambarus@linaro.org>, Lucas Wei <lucaswei@google.com>, 
+	Brian Norris <briannorris@chromium.org>, Peter Griffin <peter.griffin@linaro.org>, 
+	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-samsung-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: David Woodhouse <dwmw@amazon.co.uk>
+Hi,
 
-record_steal_time() performs a TLB flush on the guest's behalf when the
-guest sets KVM_VCPU_FLUSH_TLB. With shadow paging, kvm_vcpu_flush_tlb_guest()
-ends up in mmu_sync_children(), which can reschedule via
-cond_resched_rwlock_write(). That is why the flush currently sits between
-a user_access_end() and a fresh user_access_begin(): it cannot be done
-while the guest page is mapped for access.
+On Sun, Sep 20, 2026 at 1:30=E2=80=AFPM Jassi Brar <jassisinghbrar@gmail.co=
+m> wrote:
+>
+> On Sat, Sep 19, 2026 at 3:40=E2=80=AFPM Doug Anderson <dianders@chromium.=
+org> wrote:
+>
+> >
+> > Imagine we have three clocks: They are: "clk_i2c1", "clk_i2c2", and
+> > "clk_spi". The "clk_i2c1" needs to be turned on when we're going to
+> > start an I2C transfer on I2C bus 1. "clk_i2c2" is the same but for the
+> > I2C bus 2. "clk_spi" needs to be turned on when we want to start a a
+> > SPI transfer.
+> >
+> clk_prepare() is allowed to sleep, so any path, that includes the
+> call, can not be expected to have low or even deterministic latency.
 
-Raise KVM_REQ_TLB_FLUSH_GUEST instead of flushing inline, and move the
-processing of KVM_REQ_STEAL_UPDATE ahead of where the TLB flush requests
-are serviced in vcpu_enter_guest() so that the flush still happens before
-the vCPU enters the guest. There is no requirement for it to complete any
-earlier than that.
+Sure. Essentially anything using a mailbox as a transport mechanism
+needs to be able to sleep, at least if it cares about "txdone". Even
+without a guaranteed latency, though, that doesn't mean we shouldn't
+try to reduce the latency.
 
-kvm_make_request() on the vCPU which is running is nothing more than a
-barrier and a set_bit(), so unlike the flush itself it can be done from
-any context — which lets the surrounding access be simplified later.
 
-Note that the xchg() must stay where it is: it atomically consumes any
-KVM_VCPU_FLUSH_TLB which the guest has set, as required by commit
-b043138246a4 ("x86/KVM: Make sure KVM_VCPU_FLUSH_TLB flag is not missed").
+> > In the i2c/spi drivers, we've got "clk_prepare(clk)" calls to turn on
+> > the clocks. The three clocks are operated independently by their
+> > respective users. An I2C or SPI transfer may take place at any time.
+> > The I2C and SPI drivers need to know for sure when the clock has
+> > finished enabling because as soon as the clk_prepare() calls return
+> > they will start transferring.
+> >
+> > All three clocks are backed by a single clock driver. We'll call it
+> > the "clk_mailbox" driver. The "clk_mailbox" driver takes the request
+> > to turn on the clock and encodes it as a mailbox message to a remote
+> > processor. Let's imagine that the mailbox message looks like a 2-word
+> > transfer. The first word contains a 0 or a 1 for enable/disable and
+> > the second word contains the ID of the clock: 0 for "clk_i2c1", 1 for
+> > "clk_i2c2", and 2 for "clk_i3c3".
+> >
+> > Now, imagine that we want to turn on all three clocks simultaneously.
+>
+> Why? (not that it can't be done) I2C and SPI clients run independent
+> of each other.
 
-Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260530061932.7849D1F00893@smtp.kernel.org
-Suggested-by: Sean Christopherson <seanjc@google.com>
-Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-Assisted-by: Claude:claude-mythos-5
----
- arch/x86/kvm/x86.c | 26 +++++++++++++++++++++++---
- 1 file changed, 23 insertions(+), 3 deletions(-)
+Right, the whole "independent" aspect is what I'm talking about. I'm
+not saying that we're _trying_ to do all three transfers at once, but
+just in the natural state of things there will be lots of clock calls
+going on at the system all independently of each other. That means
+it's likely there will be times when several clocks are enabled
+simultaneously.
 
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index ccca707d768f..3db1855aba79 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -2106,8 +2106,22 @@ static void record_steal_time(struct kvm_vcpu *vcpu)
- 
- 		trace_kvm_pv_tlb_flush(vcpu->vcpu_id,
- 				       st_preempted & KVM_VCPU_FLUSH_TLB);
-+		/*
-+		 * Request the flush instead of performing it inline. With
-+		 * shadow paging kvm_vcpu_flush_tlb_guest() can reschedule (via
-+		 * mmu_sync_children()), which is why the user access above has
-+		 * to be closed before it. Requesting the flush is just a bit
-+		 * set on the running vCPU, and the request is serviced before
-+		 * the vCPU enters the guest; nothing requires the flush to
-+		 * have completed any earlier than that.
-+		 *
-+		 * Note the xchg above must remain as-is: it atomically
-+		 * consumes any KVM_VCPU_FLUSH_TLB the guest set, as required
-+		 * by commit b043138246a4 ("x86/KVM: Make sure
-+		 * KVM_VCPU_FLUSH_TLB flag is not missed").
-+		 */
- 		if (st_preempted & KVM_VCPU_FLUSH_TLB)
--			kvm_vcpu_flush_tlb_guest(vcpu);
-+			kvm_make_request(KVM_REQ_TLB_FLUSH_GUEST, vcpu);
- 
- 		if (!user_access_begin(st, sizeof(*st)))
- 			goto dirty;
-@@ -8089,6 +8103,14 @@ static int vcpu_enter_guest(struct kvm_vcpu *vcpu)
- 			if (unlikely(r))
- 				goto out;
- 		}
-+		/*
-+		 * Process the steal time update before the TLB flush requests
-+		 * are serviced below; a subsequent change will have it request
-+		 * KVM_REQ_TLB_FLUSH_GUEST on the guest's behalf rather than
-+		 * performing the flush itself.
-+		 */
-+		if (kvm_check_request(KVM_REQ_STEAL_UPDATE, vcpu))
-+			record_steal_time(vcpu);
- 		if (kvm_check_request(KVM_REQ_MMU_SYNC, vcpu))
- 			kvm_mmu_sync_roots(vcpu);
- 		if (kvm_check_request(KVM_REQ_LOAD_MMU_PGD, vcpu))
-@@ -8138,8 +8160,6 @@ static int vcpu_enter_guest(struct kvm_vcpu *vcpu)
- 			r = 1;
- 			goto out;
- 		}
--		if (kvm_check_request(KVM_REQ_STEAL_UPDATE, vcpu))
--			record_steal_time(vcpu);
- 		if (kvm_check_request(KVM_REQ_PMU, vcpu))
- 			kvm_pmu_handle_event(vcpu);
- 		if (kvm_check_request(KVM_REQ_PMI, vcpu))
--- 
-2.55.0
 
+> > The "clk_mailbox" driver will see 3 calls to turn on the clocks and it
+> > needs to convert those to messages to send the remote processor. It
+> > will then call mbox_send_message() to queue those messages with the
+> > mailbox controller. In other words, we'll see these three calls happen
+> > nearly simultaneously:
+> >
+> > mbox_send_message(chan, &{0x1, 0x0});
+> > mbox_send_message(chan, &{0x1, 0x1});
+> > mbox_send_message(chan, &{0x1, 0x2});
+> >
+> > The LGA mailbox controller knows "txdone". That is, when the remote
+> > processor "acks" a message, the LGA mailbox controller can tell (and
+> > get an interrupt). This "ack" signals that the clock has finished
+> > enabling. This means that the "clk_mailbox" cannot run the state
+> > machine and it can't call "txdone" itself.
+> >
+> > Without my patches, when the above 3 mbox_send_message() calls are
+> > made, the first one will go straight to the LGA mailbox controller and
+> > the second two will be queued up. Once the "txdone" for the first
+> > message arrives, we'll queue the second message. Once the "txdone" for
+> > the second message arrives, we'll queue the third message. This means
+> > that the messages are not being processed simultaneously. The third
+> > clk_prepare() call will be processed much more slowly since it has to
+> > wait in line. If we had 10 clocks enabling at the same time, the 10th
+> > clock could have a pretty significant wait.
+> >
+> > With my patches, the LGA mailbox controller is given the second and
+> > third message even though the first message isn't done yet. The LGA
+> > mailbox controller can queue the second and third messages even though
+> > the txdone for the first message hasn't arrived yet. If things are
+> > fast enough, all three messages can be queued up before the remote
+> > processor has even started processing the first one. The remote
+> > processor can process all three messages concurrently and acknowledge
+> > all three at once. The LGA mailbox controller can get a single
+> > interrupt representing all three "txdone" ACKs and call "txdone" for
+> > all three messages simultaneously.
+> >
+> If your remote (host) can actually act on multiple requests parallely,
+> you need a way to map ACKs back onto the requests. Currently you
+> don't.
+> Looking at the goog_mba_handle_tx_interrupt() implementation, consider
+> the situation when 5 requests are submitted in the h/w fifo and 3 are
+> reported ACKed by the interrupt after some time.
+> You assume the three done are the first three -- which implies that
+> the remote handles requests in the order they arrive i.e, serially.
+> Otherwise, say, request-1 may be wrongly completed if the ACKs were
+> for requests 2, 3 & 4.
+> So it seems mostly an illusion of parallelism - remote is acting on
+> requests (or atleast sending ACKs) serially.
+
+It's more than an illusion because all of the slow paths are
+parallelized. For the remote processor, I believe that turning on a
+clock is trivially easy: just set a bit. The slow parts are the
+interrupt arriving on the remote processor and the interrupt arriving
+on the Linux processor. Those _are_ parallelized. During a single
+interrupt, we can see and process multiple mailbox messges (or
+multiple mailbox ACKs). I can paste the example I gave earlier. Just
+as you say, interrupts are processed and acted on serially. ...but
+because we can parallelize the interrupt handling we still get the win
+because interrupt latency is much worse than any of the actual work
+that needs to be done.
+
+0.000000: Client sends msg #1 and mbox controller initiates the xfer
+0.000010: Client sends msg #2 and mbox controller initiates the xfer
+0.000020: Client sends msg #3 and mbox controller initiates the xfer
+0.000050: Remote gets IRQ, sees 3 messages, and ACKs them all.
+0.000150: ACK IRQ arrives; mbox controller sends 3 txdone
+
+...so all 3 messages are sent / ACKed in 150us.
+
+Without letting the mailbox controller queue, we'd end up more like this:
+
+0.000000: Client sends msg #1 and mbox controller initiates the xfer
+0.000050: Remote gets IRQ, sees msg #1, ACKs it.
+0.000150: ACK IRQ arrives; mbox controller sends txdone
+0.000150: mbox core notes txdone and sends msg #2
+0.000200: Remote gets IRQ, sees msg #2, ACKs it.
+0.000300: ACK IRQ arrives; mbox controller sends txdone
+0.000300: mbox core notes txdone and sends msg #3
+0.000350: Remote gets IRQ, sees msg #3, ACKs it.
+0.000450: ACK IRQ arrives; mbox controller sends txdone
+
+The numbers here for interrupt latency are made up for my example and
+I haven't personally measured them, but I think it's not completely
+absurd to say that interrupt latency (on both the Linux and remote
+sides) dominates the communication path.
+
+> We can keep the core
+> unchanged and the driver much simpler if we simply use the buffering
+> in the core.
+
+FWIW, the driver will need to contain the queuing complexity
+regardless. This is because the remote processor expects queuing. Even
+if we don't queue at the Linux level, the driver still needs to know
+if the remote side uses a "queuing protocol." This is because the
+remote side expects the shared memory to be partitioned into chunks
+and that we must move onto the next chunk between messages.
+
+-Doug
