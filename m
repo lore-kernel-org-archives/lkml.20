@@ -1,114 +1,100 @@
-Received: from mta1.migadu.com (out-73.mta1.migadu.com [95.215.58.73])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94EDD3515F8
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 03:33:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.73
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC5EF13D886;
+	Sun, 20 Sep 2026 03:34:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789875237; cv=none; b=AHx5+F2GAq3eXwRyT5fCqttRS++aRBY7hXTFwjMD8ZT4Y9lwWHIq7yabwuy6mcoUbHRhZEjNQaUfw/zwkTfDCdtWYGw8x2a2KMaWrvoADItIiMFEw//FA0novq2QuiVeKgjHXM0NYyBgE9F+wCBhTBog7KFWKW8g3Z5Xm9p2uio=
+	t=1789875276; cv=none; b=L6i8XV0je4+BDBle9WRQP8gC4Rs9ybsnsdmq0Wc6TUnM1960SlMO3ZYzqa8wQgQ1gke8sBi1Kwy5hona/2RLhtHSA4ABlkuNEO7KsDhf59ct+wYorTPMVYeiC2B1MtBLS9WTCt4JKo7Y6BIiXQN9UIhNMTMXUGGmBXIE7S8Rexo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789875237; c=relaxed/simple;
-	bh=hXLqE47HqcLGyqOng+gJY4MA1aiOWDH2fotgfictL0g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=odqgmazcvp+9TlkKtr26ipGszCVSpJ53HHZZ81iKR7FR63JdH7lhNS4fkVzXohRh6jLNIqsZGKU52sXFOsc1OWJcTMQh9TT0grO43dhwlJmfPLrPJGSlUh0aLswh37uVuRrhqPVakDaz6pr6JnLP6qbylQtwHxTP6AhQmCNC1u8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=MjFuIBdx; arc=none smtp.client-ip=95.215.58.73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789875276; c=relaxed/simple;
+	bh=3Jn1SlgFJNigozgAaPL+v3ErLDdCg0vARhjuQ6GfbUM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qBNBHPYe/+wSCL5GFhf5/ihT3Bfi6dcdLjQGZjjFK0amb8ZaF3LZf/Acjtkje2qnVHY3oblMpf1Of+cUW3AsFDGBfY8Wmb6IOKGQB+MEG/I/xNoDVk1CCsuDU9BcCZgN7lz3Bn2+l/Fm+h4e/pWtVh6lAMKtCiUkvbYlHeNHklQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Is48XaVp; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="MjFuIBdx"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=hXLqE47HqcLGyqOng+gJY4MA1aiOWDH2fotgfictL0g=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789875232; v=1; x=1790480032;
- b=MjFuIBdxri6mnPIUOZ/bHRkOn9QfFFAQ/Q0tabD86fdfsLaHgHc5pFS1MJG6bPQIFl3Gca6t
- kDUwPfcgXw4TbXfFtT1ksq+r5VLNgYmTTo+y/m6Qe1Fm5WLBb1VtWBJjhIKxd4GXgMgK888pnSb
- W4ddmcOquFJ+NHn4dj3C3t4o=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 15499ad898b25d57;
-	Sun, 20 Sep 2026 03:33:52 +0000
-X-Mizu-Trace-ID: 15499ad898b25d57
-X-Migadu-Flow: FLOW_OUT
-Date: Sun, 20 Sep 2026 11:33:45 +0800
-From: Baoquan He <baoquan.he@linux.dev>
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Wandun Chen <chenwandun1@gmail.com>, catalin.marinas@arm.com,
-	will@kernel.org, chenhuacai@kernel.org, pjw@kernel.org,
-	palmer@dabbelt.com, aou@eecs.berkeley.edu, tglx@kernel.org,
-	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
-	x86@kernel.org, robh@kernel.org, saravanak@kernel.org,
-	akpm@linux-foundation.org, pasha.tatashin@soleen.com,
-	pratyush@kernel.org, m.szyprowski@samsung.com, mark.rutland@arm.com,
-	kernel@xen0n.name, alex@ghiti.fr, hpa@zytor.com,
-	ruirui.yang@linux.dev, robin.murphy@arm.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org, kexec@lists.infradead.org,
-	linux-mm@kvack.org, iommu@lists.linux.dev
-Subject: Re: [PATCH v6 06/10] memblock: introduce MEMBLOCK_NODUMP flag
-Message-ID: <aq9UGXeqmCfuPHdD@fedora>
-References: <20260902073116.802752-1-chenwandun1@gmail.com>
- <20260902073116.802752-7-chenwandun1@gmail.com>
- <aqzxavL91icLw-Xv@fedora>
- <aq41nFRPtRWTQ7cK@kernel.org>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Is48XaVp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=JQ
+	CuQMfS+XLP6psli6HHgNqnqjpOHGAJrR2ky5r9S20=; b=Is48XaVpi6I0tEwYRs
+	XfVA8QXvObbHQ4mbJ/3HgL8plsEYvhvcDYwzuhYPB4HwTFgTCAPcEH9xXv62NLD7
+	38bn4wi92d5aeOm7umvMHHr+xbe/N+tDiCuAGDVr807eILN3nJqvQAQWQT1/6lWx
+	Qq2E8teU0NJhxjTWlsDfClMN8=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp1 (Coremail) with SMTP id PCgvCgD3xxgnVK9qGKc5AQ--.62090S2;
+	Sun, 20 Sep 2026 11:34:00 +0800 (CST)
+From: Pengpeng Hou <hppiscas@163.com>
+To: petre.rodan@subdimension.ro
+Cc: jic23@kernel.org,
+	dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	tiberiu.a.breana@intel.com,
+	andriy.shevchenko@intel.com,
+	hppiscas@163.com
+Subject: [PATCH v2] iio: accel: bma220: publish the SPI driver ACPI alias
+Date: Sun, 20 Sep 2026 11:33:58 +0800
+Message-ID: <20260920033358.12345-1-hppiscas@163.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aq41nFRPtRWTQ7cK@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PCgvCgD3xxgnVK9qGKc5AQ--.62090S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ZF45Ar4DKr18ZFWrWFy7Awb_yoW8Xw1fpa
+	1DWa4jkr93WF4Utayjvw1Uua4rGwsxJ347Cw4Uua4Uuanxur1UKF42yFykAr9xKFy3AFZr
+	JFnxZr9xuF48A3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0ziEfOrUUUUU=
+X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbC7QilbmqvVCh5SQAA3n
 
-On 09/19/26 at 10:11am, Mike Rapoport wrote:
-> On Fri, Sep 18, 2026 at 04:08:10PM +0800, Baoquan He wrote:
-> > On 09/02/26 at 03:31pm, Wandun Chen wrote:
-...snip... 
-> > > +/**
-> > > + * memblock_mark_nodump - Mark a memory region with flag MEMBLOCK_NODUMP.
-> > > + * @base: the base phys addr of the region
-> > > + * @size: the size of the region
-> > > + *
-> > > + * Mark the region as not to be included in crash dumps.
-> > > + *
-> > > + * Return: 0 on success, -errno on failure.
-> > > + */
-> > > +int __init_memblock memblock_mark_nodump(phys_addr_t base, phys_addr_t size)
-> >       ~~~~~~~~~~~~~~^
-> > Is it impossible to use at runtime even thought it claims to be generic?
-> 
-> This should only happen at boot.
-> 
-> Allowing modifications of memblock properties in runtime is a can of worms
-> I don't want to open.
+The SPI driver advertises an ACPI match for BMA0220 but does not export
+that table. A modular build therefore lacks the ACPI alias used to load
+the driver when the device is enumerated through ACPI.
 
-Thank you. This is why I said this can't be claimed as a generic way to
-mark memory region as no dump. The generic way I'd like to see is
-at any time of system we can mark any unwanted memory region as no dump.
-And it won't impact the behaviour of the current system.
+Export the ACPI table. Move the existing SPI export next to its SPI ID
+table so each export is adjacent to the table it describes.
 
->  
-> > > +{
-> > > +	return memblock_setclr_flag(&memblock.memory, base, size, 1,
-> > > +				    MEMBLOCK_NODUMP);
-> > > +}
-> > > +
-> > >  static bool should_skip_region(struct memblock_type *type,
-> > >  			       struct memblock_region *m,
-> > >  			       int nid, int flags)
-> > > @@ -2887,6 +2902,7 @@ static const char * const flagname[] = {
-> > >  	[ilog2(MEMBLOCK_RSRV_KERN)] = "RSV_KERN",
-> > >  	[ilog2(MEMBLOCK_KHO_SCRATCH)] = "KHO_SCRATCH",
-> > >  	[ilog2(MEMBLOCK_RSRV_HUGETLB)] = "RSV_HUGETLB",
-> > > +	[ilog2(MEMBLOCK_NODUMP)] = "NODUMP",
-> > >  };
-> > >  
-> > >  static int memblock_debug_show(struct seq_file *m, void *private)
-> > > -- 
-> > > 2.43.0
-> > > 
-> 
-> -- 
-> Sincerely yours,
-> Mike.
+The issue was found by our static-analysis tool.
+
+Fixes: bf2a5600a3eb ("iio: accel: Add support for Bosch BMA220")
+Assisted-by: gpt 5
+Signed-off-by: Pengpeng Hou <hppiscas@163.com>
+---
+Changes since v1:
+https://lore.kernel.org/all/20260905133901.66016-1-hppiscas@163.com/
+Place the SPI export immediately after the SPI table as Jonathan and
+Andy requested; use the full author name.
+
+ drivers/iio/accel/bma220_spi.c |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/iio/accel/bma220_spi.c b/drivers/iio/accel/bma220_spi.c
+index d6c1087cc3c0..d7a95289df48 100644
+--- a/drivers/iio/accel/bma220_spi.c
++++ b/drivers/iio/accel/bma220_spi.c
+@@ -28,12 +28,13 @@ static const struct spi_device_id bma220_spi_id[] = {
+ 	{ .name = "bma220" },
+ 	{ }
+ };
++MODULE_DEVICE_TABLE(spi, bma220_spi_id);
+ 
+ static const struct acpi_device_id bma220_acpi_id[] = {
+ 	{ "BMA0220", 0 },
+ 	{ }
+ };
+-MODULE_DEVICE_TABLE(spi, bma220_spi_id);
++MODULE_DEVICE_TABLE(acpi, bma220_acpi_id);
+ 
+ static const struct of_device_id bma220_of_spi_match[] = {
+ 	{ .compatible = "bosch,bma220" },
+
+base-commit: 518e5b794c06c0f0eb40df3e202274a66202c137
+-- 
+2.50.1 (Apple Git-155)
+
