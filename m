@@ -1,270 +1,296 @@
-Received: from va-2-50.ptr.blmpb.com (va-2-50.ptr.blmpb.com [209.127.231.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-106120.protonmail.ch (mail-106120.protonmail.ch [79.135.106.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04EA3438021
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 12:12:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 764343E5EF8;
+	Sun, 20 Sep 2026 12:14:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.120
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789906383; cv=none; b=XiEP5Mu5tgiYHcvJDbwGtNDAZqbzvn+wycfxOjOPRwU9lB0PCeNWEftoAjA1sSyML+T5kwj/aPjMYzOTbTlGqzF5410em6vgjOl88N8IBVmRP9dzyUZ92ehDRGtRwoDs9Kr1YEq6L321axwBtqs8TiyeLYTlL2VrxHEZXE7Ol6U=
+	t=1789906463; cv=none; b=d9YPsydOIkhTfDZNfRAFfNCq635oMz8pLqh/1yR90Emlkj+WOqvUI95AVzYhzGIDf7w5+PVIuxJqhR3UN+gN0O9esdzsPv//go72rEtY/7LloF9cVt5gndV3tqjkgBaDHfPU8YdB1QeR67ZcEYFfxwtDjk3k9j8936DRene2Mw4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789906383; c=relaxed/simple;
-	bh=pKT+0Fbsx0pOeaciHlR4WxrGwXqJdKpan0Oeq5CTFcc=;
-	h=To:Content-Type:Subject:Mime-Version:In-Reply-To:Cc:From:Date:
-	 Message-Id:References; b=KdW2FYofRgzXsXFMFqXPX4PH0zXoN+9N8duhJoltxV3TDZro0REYMVW/NJqPdoX9qmGoG2Viz6y26UtQyl1nzHsdBHoJ+9HpFke3VSLYZPqyKLNtxwc7dbZgwCV2f6Cgc4vfZY+gSBNvfk58NsYtHZbpBOJ7UXwjkYVlEMGkTQk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=Y0Nwm6ss; arc=none smtp.client-ip=209.127.231.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+	s=arc-20240116; t=1789906463; c=relaxed/simple;
+	bh=cLuRYECRXfEosEYKeVS6j3vfjY4Vdfw6I4sDd2yC5Qk=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=J3Nb3P0u/jFMHB1dRLpVM4YEm1ph5kUnXDP6BH8a1M9sIZyxmWKEAG0UAc2/KuHSgWMJPIlsg2M7g2693Etbzj6oeQKy+06CqcfudX1QRKp8Nh6KfXFBDeGsI7yPHiJ1rDF64rKmwyokLLPFgxsATgn3A+NVBkRkeVyjvfXF3qU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=SMe+7ytG; arc=none smtp.client-ip=79.135.106.120
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="Y0Nwm6ss"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1789906354;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=kmpN+3+EemAMVuc/I4vBTUm5qj3+yAi4nNgOed5JQOQ=;
- b=Y0Nwm6sse9Z9R63/2mm7v4hLPvLr27DJblGDnHMJL+qEifvbDB4TZGIJOR3Wwfow5pK3n8
- wRJoixtABbXFrKyn8pdKswHXXhd1pCzVb+1m9v4h9GZZxTMOYdWJDEGL+a3pzUu4JA0qDw
- PAMQZsCjPP9JDApGCMcQ7i9H1WNbR6K1keVVOYUi7yyleCJZlpI4oxlc1cE/BQnFqx3Eo0
- duNuz1NsTtSgF9CITJzoLidEs7PbijzRTxy7PQ/s4ItU0c4dbipAKZiJwA+pQ/QeT2a606
- HmJ1+j7kBFBkAE+oue6GKvObZ21HtIyizAqvnXapgoiMzaTfPLCPFY08y+l2+Q==
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>, 
-	"Alasdair Kergon" <agk@redhat.com>, "Mike Snitzer" <snitzer@kernel.org>, 
-	"Mikulas Patocka" <mpatocka@redhat.com>, 
-	"Benjamin Marzinski" <bmarzins@redhat.com>, "Song Liu" <song@kernel.org>, 
-	"Li Nan" <magiclinan@didiglobal.com>, "Xiao Ni" <xiao@kernel.org>, 
-	"yu kuai" <yukuai@fygo.io>
-X-Original-From: yu kuai <yukuai@fygo.io>
-Content-Type: text/plain; charset=UTF-8
-Received: from [192.168.1.104] ([39.182.0.142]) by smtp.larksuite.com with ESMTPS; Sun, 20 Sep 2026 12:12:33 +0000
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] md: use assign_bit() where applicable
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="SMe+7ytG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1789906444; x=1790165644;
+	bh=FFArF+zmZlijNiWL8WyOKfrxWTrndzncvzJ7v/qcJwI=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=SMe+7ytGWvydVYCAZeKvNwpwzyds4DPk0j3PPMS2QBIqohMtmslgHAFAfHtxZLSMR
+	 woliGKxjkfKnLfB0RfzloVUCeJFAVRiEnN6iciKNxxb8fmLeYBNWBJbC74qk1maI4+
+	 4QUAHTKNc5yHKCZVo2J41fzJ6DK5nMekuQ8pU6+qfcRZ7xlaZHwGtQPG2WQ/Q2B9GY
+	 pT/9TCqk45HPmkCWV3/SD6/RlXo6SYfdxaFn6erX/wEBN1ZnXhQ1haz4MD0ZlmuQA9
+	 dNgTZ/i7GcwAD9XWaONfRC57FEK/YwhA2MCVNkRgw9OqFiR1cMUe4W/HsceAMiCLKi
+	 DiLOas7uIuF/g==
+Date: Sun, 20 Sep 2026 12:13:57 +0000
+To: Daniel Almeida <daniel.almeida@collabora.com>, Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Alexandre Courbot <acourbot@nvidia.com>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, Abdiel Janulgue <abdiel.janulgue@gmail.com>, Robin Murphy <robin.murphy@arm.com>
+From: Lorenzo Delgado <lnsdev@proton.me>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org
+Subject: [PATCH v3] rust: io: convert ResourceSize into a transparent newtype
+Message-ID: <20260920-resource-size-newtype-v3-1-9451444e83bb@proton.me>
+Feedback-ID: 53083996:user:proton
+X-Pm-Message-ID: ecc26dd13504dadec62f9f489bc7a969f187b114
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: yukuai@fygo.io
-In-Reply-To: <20260918141737.3023011-1-peng.fan@oss.nxp.com>
-X-Lms-Return-Path: <lba+26aafcdb1+edfc28+vger.kernel.org+yukuai@fygo.io>
-Cc: <linux-kernel@vger.kernel.org>, "Peng Fan" <peng.fan@nxp.com>, 
-	<dm-devel@lists.linux.dev>, <linux-raid@vger.kernel.org>
-From: "yu kuai" <yukuai@fygo.io>
-Date: Sun, 20 Sep 2026 20:12:29 +0800
-Message-Id: <d7c8403b-14fd-4c26-9b8e-b327f69e92fb@fygo.io>
-References: <20260918141737.3023011-1-peng.fan@oss.nxp.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+`ResourceSize` is a bare type alias for `resource_size_t`, so it
+inherits every integer operation and `as` cast. That allows operations
+that make no sense for the size of a hardware resource, such as mixing
+it with unrelated integers or truncating it with a cast.
 
-=E5=9C=A8 2026/9/18 22:17, Peng Fan (OSS) =E5=86=99=E9=81=93:
-> From: Peng Fan <peng.fan@nxp.com>
->
-> Convert open-coded if/else with set_bit/clear_bit and their
-> non-atomic __set_bit/__clear_bit variants to the assign_bit/__assign_bit
-> API.
->
-> Done with Coccinelle semantic patch:
->      // set_bit -> clear_bit =3D> assign_bit
->
->      @@
->      expression cond, bit, addr;
->      @@
->
->      -if (cond)
->      -        set_bit(bit, addr);
->      -else
->      -        clear_bit(bit, addr);
->      +assign_bit(bit, addr, cond);
->
->      // clear_bit -> set_bit =3D> assign_bit
->
->      @@
->      expression cond, bit, addr;
->      @@
->
->      -if (cond)
->      -        clear_bit(bit, addr);
->      -else
->      -        set_bit(bit, addr);
->      +assign_bit(bit, addr, !cond);
->
->      // __set_bit -> __clear_bit =3D> __assign_bit
->
->      @@
->      expression cond, bit, addr;
->      @@
->
->      -if (cond)
->      -        __set_bit(bit, addr);
->      -else
->      -        __clear_bit(bit, addr);
->      +__assign_bit(bit, addr, cond);
->
->      // __clear_bit -> __set_bit =3D> __assign_bit
->
->      @@
->      expression cond, bit, addr;
->      @@
->
->      -if (cond)
->      -        __clear_bit(bit, addr);
->      -else
->      -        __set_bit(bit, addr);
->      +__assign_bit(bit, addr, !cond);
->
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> ---
->   drivers/md/dm-mpath.c                  |  5 +----
->   drivers/md/dm-zone.c                   |  6 ++----
->   drivers/md/md.c                        | 22 ++++++----------------
->   drivers/md/persistent-data/dm-bitset.c |  5 +----
->   drivers/md/raid5-cache.c               |  6 ++----
->   drivers/md/raid5.c                     |  6 ++----
->   6 files changed, 14 insertions(+), 36 deletions(-)
+Wrap it in a `#[repr(transparent)]` newtype so each conversion at a
+boundary is explicit. The representation is unchanged, so this is
+ABI-identical; only the spelling at the FFI boundary changes. Provide
+`from_raw`/`into_raw`, `From` in both directions, and a fallible
+`TryFrom<ResourceSize> for usize`. On 64-bit, where `resource_size_t`
+is a `u64`, also implement `FromSafeCastArch<ResourceSize> for usize`,
+so code that is specific to 64-bit can keep the conversion infallible.
 
-please split this patch, one for mdraid and one for device mapper, they are
-different subsystem.
+Update the producers, `Resource::size` and `SGEntry::dma_len`, and the
+`Region` and `request_region` consumers. nova-core only builds on
+64-bit, so its page count in gsp.rs uses `from_safe_cast_arch()`. tyr
+widens `dma_len()` to `u64`; go through `into_raw()` so that still
+builds on 32-bit ARM, where `resource_size_t` is a `u32`.
 
->
-> diff --git a/drivers/md/dm-mpath.c b/drivers/md/dm-mpath.c
-> index 7cb7bb6233b6..ae9318f5f21b 100644
-> --- a/drivers/md/dm-mpath.c
-> +++ b/drivers/md/dm-mpath.c
-> @@ -1604,10 +1604,7 @@ static void pg_init_done(void *data, int errors)
->   		goto out;
->  =20
->   	if (test_bit(MPATHF_PG_INIT_REQUIRED, &m->flags)) {
-> -		if (delay_retry)
-> -			set_bit(MPATHF_PG_INIT_DELAY_RETRY, &m->flags);
-> -		else
-> -			clear_bit(MPATHF_PG_INIT_DELAY_RETRY, &m->flags);
-> +		assign_bit(MPATHF_PG_INIT_DELAY_RETRY, &m->flags, delay_retry);
->  =20
->   		if (__pg_init_all_paths(m))
->   			goto out;
-> diff --git a/drivers/md/dm-zone.c b/drivers/md/dm-zone.c
-> index f29acf64429a..35916c6e490e 100644
-> --- a/drivers/md/dm-zone.c
-> +++ b/drivers/md/dm-zone.c
-> @@ -447,10 +447,8 @@ void dm_finalize_zone_settings(struct dm_table *t, s=
-truct queue_limits *lim)
->   	struct mapped_device *md =3D t->md;
->  =20
->   	if (lim->features & BLK_FEAT_ZONED) {
-> -		if (dm_table_supports_zone_append(t))
-> -			clear_bit(DMF_EMULATE_ZONE_APPEND, &md->flags);
-> -		else
-> -			set_bit(DMF_EMULATE_ZONE_APPEND, &md->flags);
-> +		assign_bit(DMF_EMULATE_ZONE_APPEND, &md->flags,
-> +			   !dm_table_supports_zone_append(t));
->   	} else {
->   		clear_bit(DMF_EMULATE_ZONE_APPEND, &md->flags);
->   		md->disk->nr_zones =3D 0;
-> diff --git a/drivers/md/md.c b/drivers/md/md.c
-> index 680b34a63cb3..6b2a397f8a9c 100644
-> --- a/drivers/md/md.c
-> +++ b/drivers/md/md.c
-> @@ -3586,10 +3586,7 @@ static ssize_t recovery_start_store(struct md_rdev=
- *rdev, const char *buf, size_
->   		return -EBUSY;
->  =20
->   	rdev->recovery_offset =3D recovery_start;
-> -	if (recovery_start =3D=3D MaxSector)
-> -		set_bit(In_sync, &rdev->flags);
-> -	else
-> -		clear_bit(In_sync, &rdev->flags);
-> +	assign_bit(In_sync, &rdev->flags, recovery_start =3D=3D MaxSector);
->   	return len;
->   }
->  =20
-> @@ -5915,10 +5912,7 @@ fail_last_dev_store(struct mddev *mddev, const cha=
-r *buf, size_t len)
->   	if (ret)
->   		return ret;
->  =20
-> -	if (value)
-> -		set_bit(MD_FAILLAST_DEV, &mddev->flags);
-> -	else
-> -		clear_bit(MD_FAILLAST_DEV, &mddev->flags);
-> +	assign_bit(MD_FAILLAST_DEV, &mddev->flags, value);
->  =20
->   	return len;
->   }
-> @@ -7574,14 +7568,10 @@ int md_add_new_disk(struct mddev *mddev, struct m=
-du_disk_info_s *info)
->   		}
->  =20
->   		clear_bit(In_sync, &rdev->flags); /* just to be sure */
-> -		if (info->state & (1<<MD_DISK_WRITEMOSTLY))
-> -			set_bit(WriteMostly, &rdev->flags);
-> -		else
-> -			clear_bit(WriteMostly, &rdev->flags);
-> -		if (info->state & (1<<MD_DISK_FAILFAST))
-> -			set_bit(FailFast, &rdev->flags);
-> -		else
-> -			clear_bit(FailFast, &rdev->flags);
-> +		assign_bit(WriteMostly, &rdev->flags,
-> +			   info->state & (1 << MD_DISK_WRITEMOSTLY));
-> +		assign_bit(FailFast, &rdev->flags,
-> +			   info->state & (1 << MD_DISK_FAILFAST));
->  =20
->   		if (info->state & (1<<MD_DISK_JOURNAL)) {
->   			struct md_rdev *rdev2;
-> diff --git a/drivers/md/persistent-data/dm-bitset.c b/drivers/md/persiste=
-nt-data/dm-bitset.c
-> index 00c0a3f186b7..6680f05c25ec 100644
-> --- a/drivers/md/persistent-data/dm-bitset.c
-> +++ b/drivers/md/persistent-data/dm-bitset.c
-> @@ -59,10 +59,7 @@ static int pack_bits(uint32_t index, void *value, void=
- *context)
->   		if (r)
->   			return r;
->  =20
-> -		if (bv)
-> -			set_bit(bit, (unsigned long *) &word);
-> -		else
-> -			clear_bit(bit, (unsigned long *) &word);
-> +		assign_bit(bit, (unsigned long *)&word, bv);
->   	}
->  =20
->   	*((__le64 *) value) =3D cpu_to_le64(word);
-> diff --git a/drivers/md/raid5-cache.c b/drivers/md/raid5-cache.c
-> index 7b7546bfa21f..b442a4de61fb 100644
-> --- a/drivers/md/raid5-cache.c
-> +++ b/drivers/md/raid5-cache.c
-> @@ -432,10 +432,8 @@ static inline void r5c_update_log_state(struct r5l_l=
-og *log)
->   			wake_reclaim =3D true;
->   		clear_bit(R5C_LOG_CRITICAL, &conf->cache_state);
->   	}
-> -	if (free_space < 3 * reclaim_space)
-> -		set_bit(R5C_LOG_TIGHT, &conf->cache_state);
-> -	else
-> -		clear_bit(R5C_LOG_TIGHT, &conf->cache_state);
-> +	assign_bit(R5C_LOG_TIGHT, &conf->cache_state,
-> +		   free_space < 3 * reclaim_space);
->  =20
->   	if (wake_reclaim)
->   		r5l_wake_reclaim(log, 0);
-> diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
-> index b91545ce090d..713596ee933c 100644
-> --- a/drivers/md/raid5.c
-> +++ b/drivers/md/raid5.c
-> @@ -4748,10 +4748,8 @@ static void analyse_stripe(struct stripe_head *sh,=
- struct stripe_head_state *s)
->   				       RAID5_STRIPE_SECTORS(conf)))
->   			set_bit(R5_ReadRepl, &dev->flags);
->   		else {
-> -			if (rdev && !test_bit(Faulty, &rdev->flags))
-> -				set_bit(R5_NeedReplace, &dev->flags);
-> -			else
-> -				clear_bit(R5_NeedReplace, &dev->flags);
-> +			assign_bit(R5_NeedReplace, &dev->flags,
-> +				   rdev && !test_bit(Faulty, &rdev->flags));
->   			rdev =3D conf->disks[i].rdev;
->   			clear_bit(R5_ReadRepl, &dev->flags);
->   		}
+Suggested-by: Miguel Ojeda <ojeda@kernel.org>
+Link: https://github.com/Rust-for-Linux/linux/issues/1203
+Signed-off-by: Lorenzo Delgado <lnsdev@proton.me>
+---
+Changes in v3:
+- Rebase on rust-next (v7.3-rc4).
+- Implement FromSafeCastArch<ResourceSize> for usize in the kernel
+  crate, next to the type, now that the lossless casts live in
+  kernel::num::casts. Drop the impl from nova-core's num.rs, and switch
+  gsp.rs to usize::from_safe_cast_arch(), the same line the nova-core
+  conversion to kernel::num uses.
+- Convert the dma_len() user in tyr, added since v2. Without it, tyr
+  fails to build on 32-bit ARM without LPAE.
+- Link to v2: https://lore.kernel.org/r/20260719200945.687904-1-lnsdev@prot=
+on.me
+- Link to v1: https://lore.kernel.org/r/20260712113602.389060-1-lnsdev@prot=
+on.me
+---
+ drivers/gpu/drm/tyr/vm.rs             |  2 +-
+ drivers/gpu/nova-core/firmware/gsp.rs |  3 +-
+ rust/kernel/io.rs                     | 83 +++++++++++++++++++++++++++++++=
++---
+ rust/kernel/io/resource.rs            |  6 +--
+ rust/kernel/scatterlist.rs            |  2 +-
+ 5 files changed, 85 insertions(+), 11 deletions(-)
 
---=20
-Thanks,
-Kuai
+diff --git a/drivers/gpu/drm/tyr/vm.rs b/drivers/gpu/drm/tyr/vm.rs
+index c5e307b1e241..c32d0259af5b 100644
+--- a/drivers/gpu/drm/tyr/vm.rs
++++ b/drivers/gpu/drm/tyr/vm.rs
+@@ -645,7 +645,7 @@ fn sm_step_map<'op>(
+             #[allow(clippy::useless_conversion)]
+             let mut paddr =3D u64::from(sgt_entry.dma_address());
+             #[allow(clippy::useless_conversion)]
+-            let mut sgt_entry_length =3D u64::from(sgt_entry.dma_len());
++            let mut sgt_entry_length =3D u64::from(sgt_entry.dma_len().int=
+o_raw());
+=20
+             if bytes_left_to_map =3D=3D 0 {
+                 break;
+diff --git a/drivers/gpu/nova-core/firmware/gsp.rs b/drivers/gpu/nova-core/=
+firmware/gsp.rs
+index e8f9491e84cc..956f76611cb0 100644
+--- a/drivers/gpu/nova-core/firmware/gsp.rs
++++ b/drivers/gpu/nova-core/firmware/gsp.rs
+@@ -9,6 +9,7 @@
+         DmaAddress, //
+     },
+     firmware,
++    num::casts::arch::FromSafeCastArch,
+     prelude::*,
+     scatterlist::{
+         Owned,
+@@ -154,7 +155,7 @@ pub(crate) fn radix3_dma_address(&self) -> DmaAddress {
+ fn map_into_lvl(sg_table: &SGTable<Owned<VVec<u8>>>, mut dst: VVec<u8>) ->=
+ Result<VVec<u8>> {
+     for sg_entry in sg_table.iter() {
+         // Number of pages we need to map.
+-        let num_pages =3D usize::from_safe_cast(sg_entry.dma_len()).div_ce=
+il(GSP_PAGE_SIZE);
++        let num_pages =3D usize::from_safe_cast_arch(sg_entry.dma_len()).d=
+iv_ceil(GSP_PAGE_SIZE);
+=20
+         for i in 0..num_pages {
+             let entry =3D sg_entry.dma_address()
+diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
+index 5ce9fd129068..3cc64983be82 100644
+--- a/rust/kernel/io.rs
++++ b/rust/kernel/io.rs
+@@ -6,11 +6,13 @@
+=20
+ use core::{
+     marker::PhantomData,
+-    mem::MaybeUninit, //
++    mem::MaybeUninit,
++    num::TryFromIntError, //
+ };
+=20
+ use crate::{
+     bindings,
++    fmt,
+     prelude::*,
+     ptr::{
+         Alignment,
+@@ -35,11 +37,82 @@
+ /// `CONFIG_PHYS_ADDR_T_64BIT`, and it can be a u64 even on 32-bit archite=
+ctures.
+ pub type PhysAddr =3D bindings::phys_addr_t;
+=20
+-/// Resource Size type.
++/// Resource size type.
+ ///
+-/// This is a type alias to either `u32` or `u64` depending on the config =
+option
+-/// `CONFIG_PHYS_ADDR_T_64BIT`, and it can be a u64 even on 32-bit archite=
+ctures.
+-pub type ResourceSize =3D bindings::resource_size_t;
++/// This wraps either `u32` or `u64` depending on the config option
++/// `CONFIG_PHYS_ADDR_T_64BIT`, and it can be a `u64` even on 32-bit archi=
+tectures.
++///
++/// # Examples
++///
++/// ```
++/// use kernel::io::ResourceSize;
++///
++/// let size =3D ResourceSize::from_raw(0x1000);
++/// assert_eq!(size.into_raw(), 0x1000);
++///
++/// // Round-trips through the raw C type.
++/// let raw: kernel::bindings::resource_size_t =3D size.into();
++/// assert_eq!(ResourceSize::from(raw), size);
++///
++/// // Fallible conversion to `usize` (can truncate on 32-bit).
++/// assert_eq!(usize::try_from(size)?, 0x1000);
++/// # Ok::<(), core::num::TryFromIntError>(())
++/// ```
++#[repr(transparent)]
++#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
++pub struct ResourceSize(bindings::resource_size_t);
++
++impl ResourceSize {
++    /// Creates a resource size from the raw C type.
++    #[inline]
++    pub const fn from_raw(value: bindings::resource_size_t) -> Self {
++        Self(value)
++    }
++
++    /// Turns this resource size into the raw C type.
++    #[inline]
++    pub const fn into_raw(self) -> bindings::resource_size_t {
++        self.0
++    }
++}
++
++impl fmt::Debug for ResourceSize {
++    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
++        write!(f, "{:#x}", self.0)
++    }
++}
++
++impl From<bindings::resource_size_t> for ResourceSize {
++    #[inline]
++    fn from(value: bindings::resource_size_t) -> Self {
++        Self::from_raw(value)
++    }
++}
++
++impl From<ResourceSize> for bindings::resource_size_t {
++    #[inline]
++    fn from(value: ResourceSize) -> Self {
++        value.into_raw()
++    }
++}
++
++impl TryFrom<ResourceSize> for usize {
++    type Error =3D TryFromIntError;
++
++    #[inline]
++    fn try_from(value: ResourceSize) -> Result<Self, Self::Error> {
++        Self::try_from(value.into_raw())
++    }
++}
++
++// A `resource_size_t` is a `u64` on 64-bit platforms, so it fits into a `=
+usize` there.
++#[cfg(CONFIG_64BIT)]
++impl crate::num::casts::arch::FromSafeCastArch<ResourceSize> for usize {
++    #[inline]
++    fn from_safe_cast_arch(value: ResourceSize) -> Self {
++        crate::num::casts::arch::u64_as_usize(value.into_raw())
++    }
++}
+=20
+ /// Untyped I/O region.
+ ///
+diff --git a/rust/kernel/io/resource.rs b/rust/kernel/io/resource.rs
+index 17b0c174cfc5..a33a416b289a 100644
+--- a/rust/kernel/io/resource.rs
++++ b/rust/kernel/io/resource.rs
+@@ -58,7 +58,7 @@ fn drop(&mut self) {
+         };
+=20
+         // SAFETY: Safe as per the invariant of `Region`.
+-        unsafe { release_fn(start, size) };
++        unsafe { release_fn(start, size.into_raw()) };
+     }
+ }
+=20
+@@ -114,7 +114,7 @@ pub fn request_region(
+             bindings::__request_region(
+                 self.0.get(),
+                 start,
+-                size,
++                size.into_raw(),
+                 name.as_char_ptr(),
+                 flags.0 as c_int,
+             )
+@@ -130,7 +130,7 @@ pub fn request_region(
+     pub fn size(&self) -> ResourceSize {
+         let inner =3D self.0.get();
+         // SAFETY: Safe as per the invariants of `Resource`.
+-        unsafe { bindings::resource_size(inner) }
++        ResourceSize::from_raw(unsafe { bindings::resource_size(inner) })
+     }
+=20
+     /// Returns the start address of the resource.
+diff --git a/rust/kernel/scatterlist.rs b/rust/kernel/scatterlist.rs
+index b83c468b5c63..5d67242befd8 100644
+--- a/rust/kernel/scatterlist.rs
++++ b/rust/kernel/scatterlist.rs
+@@ -93,7 +93,7 @@ pub fn dma_address(&self) -> dma::DmaAddress {
+     pub fn dma_len(&self) -> ResourceSize {
+         #[allow(clippy::useless_conversion)]
+         // SAFETY: `self.as_raw()` is a valid pointer to a `struct scatter=
+list`.
+-        unsafe { bindings::sg_dma_len(self.as_raw()) }.into()
++        ResourceSize::from_raw(unsafe { bindings::sg_dma_len(self.as_raw()=
+) }.into())
+     }
+ }
+=20
+
+---
+base-commit: 40288c9206c17eb66a603262e06a58d300d0f279
+change-id: 20260920-resource-size-newtype-63a82d4f2cdb
+
+Best regards,
+-- =20
+Lorenzo Delgado <lnsdev@proton.me>
+
+
