@@ -1,259 +1,98 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from cu-ua11p00im-quki07171502.ua.silu.net (cu-ua11p00im-quki07171502.ua.silu.net [123.126.78.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 899213F9F2D;
-	Sun, 20 Sep 2026 10:07:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 609602E0B5C;
+	Sun, 20 Sep 2026 10:08:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=123.126.78.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789898880; cv=none; b=pcdb+KyRIRjTxlhzitIWlsgTP2YTxWk6JSKQa1LYN1L2Kx9MzeWjW3WgxphAQygMi+Mda2WhX2DJcCmpPzPp1J79W42CcZRhdkBi3wDW7kIzVSajRtdw/O0awC859coIZaVWgtuBLSzmB+VyPgBHD5eiZYSHqyoIZ9BSZ6Dgu7s=
+	t=1789898883; cv=none; b=PjQKEfDq8jVlMUEuKxw8WuzfEwa7nZCfcuPsEm4DJmMmB2V1gLHNvlKYF6Od3ikeHztOiRdcoFgu3J5QMPkW5Ad2ITtGypa0nuvULVj5AzpW+T4/6/z3sNG35qVE5VmMQa5Hl3uIvNHkQEQ7ilpI6jN7rkLPg+oZpL6M/KxT0z8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789898880; c=relaxed/simple;
-	bh=z0c3qyOWJVydlY9zxPEIAyZ/BoTsXZ18/+n7/YXCCRg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=FQJAkG1g44ljOoIZZnynBmyaA96nTTq5ROwByFW0YsAZ92GLtk4mTr2UybmbsedwXL3GmnZGluzr6r+G4AZiZbvV/lWvfaJXbp3e7eyqMI0sXeJcO5k3IvEUyOrCKjJXpokPFv1zs+AEAW7epXN+lN6P+FWF7tUnDtJvCnw3nIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=nCK2fWkE; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789898883; c=relaxed/simple;
+	bh=zaHY5NBLEZnljNLVXvcA7+FjEJqwQ/nEJy/cBU5A/ac=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=ZBU614qNEZhe9LnvC1rL3zjlAzMBsjdhmfZoFn0rl2S2pYyBOAntGscW23a7FU14xS6KoJVn5Ds+Eo6v5KuxonQeZSIcqckWdLxIzFyMECR2S9x4SnCSjsSiW16tgt7nuMPhIlAZ73t8KW7xlOo0YPmYECQN24BMdZnl+mhCU6E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=JHkA0eRm; arc=none smtp.client-ip=123.126.78.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="nCK2fWkE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
-	Content-Type; bh=Lz4jFwZI0w5gGsbjB6Aaftvipp9sXD3BQGI63Khravc=;
-	b=nCK2fWkEIN53gY5eJojyHr3DFNbFQX7++Nbms6vHVBuS1qwZdZ9fjqt7YYPyE+
-	gJ++gpfgYryaSVjxsHvX/Wjg+adNQSG6CimuskgMVRTvobYaK0JenFrOo2Yz1bEK
-	6D4N1zn3vihKtAIHDaOpGulRHnBpm3QGvJVr45r5IE6TU=
-Received: from LAPTOP-EGO65D59.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wDnrzlVsK9qzshABw--.64142S2;
-	Sun, 20 Sep 2026 18:07:21 +0800 (CST)
-From: =?UTF-8?q?=E6=9E=97=E6=BF=AC=E5=93=B2?= <m18667909625@163.com>
-To: linux-kernel@vger.kernel.org
-Cc: x86@kernel.org,
-	linux-api@vger.kernel.org,
-	luto@kernel.org,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	hpa@zytor.com,
-	m18667909625@163.com
-Subject: [PATCH] kernel: add system_energy_efficiency syscall (nr 337)
-Date: Sun, 20 Sep 2026 18:07:13 +0800
-Message-ID: <20260920100714.46206-1-m18667909625@163.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="JHkA0eRm"
+Received: from smtpclient.apple (ua11p00im-asmtpcmvip.ua.silu.net [112.19.242.76])
+	by ua11p00im-quki07171502.ua.silu.net (Postfix) with ESMTPSA id 4818B28C00AA;
+	Sun, 20 Sep 2026 10:07:56 +0000 (UTC)
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1789898878; x=1792490878; bh=E55+tu5KL9AnKSPgSq7nNcHqWE11x7RdNO/VLX6SJ48=; h=Content-Type:Mime-Version:Subject:From:Date:Message-Id:To:x-icloud-hme; b=JHkA0eRmHTEAbrTiOqLc/wgflI1kMXfD5f+z+E6+WiJmG473XO1KKygYZrUGRblQd37Qu0tx1tKGb3sxAxyPROuQL58z82D51Do3UJGPlZSler5+WnuBZ9UdfMeuaiuB4LeFAHp3X701YcatUh/YS5se0zSG5jrB+emKZ69D/4/aEa4BnUVBGIheejrWKgTz7aYKv9330qfE2frmPL9xxT86OCTP2KoqhTTYM65N1NiWnfSZG6U6G+X02HUfAJqB+uV8Ebxw4NPR6zLzkbfWIUCM5IQ8PV7yxJ0w7BW84pCEgufS+q475HoogLVdd1VQKg2PaX4tQSJ4SXyTdwtUaw==
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDnrzlVsK9qzshABw--.64142S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3GryfuFWDAw4Utw45ZF43ZFb_yoW7CFyxpF
-	WkGFy5t395AryxXFyxKF1UCFyFgr1DXFy7GrWI9r13A3s8t3sIgw4vga90vryfArW7WFW3
-	tFWqqFWqkF4UXa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRE1vsUUUUU=
-X-CM-SenderInfo: bpryllixzqmlisv6il2tof0z/xtbC-RnIzmqvsFkvbQAA3M
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.300.41.1.7\))
+Subject: Re: [PATCH 3/4] memcg: manipulate memcg private ID references by ID
+From: Bingfang Guo <bfguo@icloud.com>
+In-Reply-To: <aq2dkhBuFktQYvTB@linux.dev>
+Date: Sun, 20 Sep 2026 18:07:45 +0800
+Cc: bingfangguo@tencent.com,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Muchun Song <muchun.song@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Dave Chinner <david@fromorbit.com>,
+ Qi Zheng <qi.zheng@linux.dev>,
+ Kairui Song <kasong@tencent.com>,
+ Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>,
+ David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ cgroups@vger.kernel.org,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <CA3A67DE-DF83-4B0E-81A2-AEDE93FF5F78@icloud.com>
+References: <20260918-bingfangguo-memcgid-rework-v1-0-5bbf3220d88f@tencent.com>
+ <20260918-bingfangguo-memcgid-rework-v1-3-5bbf3220d88f@tencent.com>
+ <aq1_Qhid7-62pHcW@linux.dev> <aq2BfYdMr_8JeY_Q@BINGFANGGUO-MC0>
+ <aq2dkhBuFktQYvTB@linux.dev>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+X-Mailer: Apple Mail (2.3864.300.41.1.7)
+X-Proofpoint-GUID: 0QbLG567OwrrvR_Np6s0bqe9fIGmmYD0
+X-Proofpoint-ORIG-GUID: 0QbLG567OwrrvR_Np6s0bqe9fIGmmYD0
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE5MDM1MCBTYWx0ZWRfX+m7HBmfAwO1j
+ AtWl7t9WlxmlYW9eNvvo6Q1otP//97j1N414CgEtjWHPsyhBgZwytYaIEY7oQI06dhkSBiG7W1H
+ 4tCQgrsbQ/VQ8ECVV5qvLdSCOdPSAH15KYezyMtrUjOeiwcgDSCwydqy0cSBySIbziJxyVhZ/6s
+ 4X41epvGF5KKjnuBD+78goInNK+0qdx38bJQXLaNYr6TNl3m1LdD+GkFZFqf2nNxsVAvthnW6fR
+ ziH3+zFFAK9EKTMqo+tnA2RC0StgxQI0JyIZzsQ6hBSRgFRjSDj0Fl0ZI9hetjMngjbRxXccUv2
+ iUHRkLCl6UfAzWeuAfLDAKPme4UukO02ECorql/xw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-19_07,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=900
+ lowpriorityscore=0 bulkscore=0 spamscore=0 malwarescore=0
+ clxscore=-2147483648 suspectscore=0 mlxscore=0 adultscore=0 phishscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.22.0-2601150000
+ definitions=main-2609190350
 
-Add a new syscall that reports GPU presence and system-wide
-energy information:
+On Fri, Sep 18, 2026 at 01:24:01PM -0700, Shakeel Butt wrote:
+> On Sat, Sep 19, 2026 at 02:46:52AM +0800, Bingfang Guo wrote:
+>> Thanks for pointing out this.
+>>=20
+>> Agreed.  Both two callers are already holding the rcu lock so
+>> taking the lock here is unnecessary. So I will drop the
+>> rcu_read_lock() and use that in the next version!
+>>=20
+>> My concern is that: mem_cgroup_private_id_put() looks like a
+>> universal put function, requiring rcu held (which is true today)
+>> is not that obvious to the users.  So I think adding a short kdoc
+>> comment to make it clear later might be a good idea.
+>=20
+> This function is internal to memcg code, so whoever is going to call =
+it better
+> know to call it with rcu held because of lockdep assert. No need to =
+have a
+> comment.
 
-- mode 0: returns the number of display devices found on the PCI bus
-- mode 1: returns an energy efficiency metric; prefers the real GPU
-  power reported through hwmon, falls back to runtime PM status
-  weights, plus the online CPU count
-- mode 2: returns the real-time GPU power in milliwatts read from
-  the hwmon power1_input channel exposed by GPU drivers
-  (amdgpu/nouveau/radeon/nvidia); returns 0 if not reported
-
-Signed-off-by: 林濬哲 <m18667909625@163.com>
-Assisted-by: AI coding assistant (disclosed per kernel AI guidelines)
----
- arch/x86/entry/syscalls/syscall_64.tbl |   1 +
- include/linux/syscalls.h               |   2 +
- kernel/sys.c                           | 138 +++++++++++++++++++++++++
- 3 files changed, 141 insertions(+)
-
-diff --git a/arch/x86/entry/syscalls/syscall_64.tbl b/arch/x86/entry/syscalls/syscall_64.tbl
-index d5b6045b0090..f99649dfaa38 100644
---- a/arch/x86/entry/syscalls/syscall_64.tbl
-+++ b/arch/x86/entry/syscalls/syscall_64.tbl
-@@ -346,6 +346,7 @@
- 334	common	rseq			sys_rseq
- 335	common	uretprobe		sys_uretprobe
- 336	common	uprobe			sys_uprobe
-+337	common	system_energy_efficiency	sys_system_energy_efficiency
- # don't use numbers 387 through 423, add new calls after the last
- # 'common' entry
- 424	common	pidfd_send_signal	sys_pidfd_send_signal
-diff --git a/include/linux/syscalls.h b/include/linux/syscalls.h
-index 8413b624ad47..dfa9d31c20cd 100644
---- a/include/linux/syscalls.h
-+++ b/include/linux/syscalls.h
-@@ -1017,6 +1017,8 @@ asmlinkage long sys_uretprobe(void);
- 
- asmlinkage long sys_uprobe(void);
- 
-+asmlinkage long sys_system_energy_efficiency(int __user *mode, int __user *value);
-+
- /* pciconfig: alpha, arm, arm64, ia64, sparc */
- asmlinkage long sys_pciconfig_read(unsigned long bus, unsigned long dfn,
- 				unsigned long off, unsigned long len,
-diff --git a/kernel/sys.c b/kernel/sys.c
-index 35b538ba843c..bb1106085d7e 100644
---- a/kernel/sys.c
-+++ b/kernel/sys.c
-@@ -22,6 +22,7 @@
- #include <linux/workqueue.h>
- #include <linux/capability.h>
- #include <linux/device.h>
-+#include <linux/pci.h>
- #include <linux/key.h>
- #include <linux/times.h>
- #include <linux/posix-timers.h>
-@@ -181,6 +182,143 @@ int fs_overflowgid = DEFAULT_FS_OVERFLOWGID;
- EXPORT_SYMBOL(fs_overflowuid);
- EXPORT_SYMBOL(fs_overflowgid);
- 
-+
-+/*
-+ * Read the real power consumption reported by GPU drivers via hwmon,
-+ * in milliwatts. The hwmon ABI exposes power1_input in microwatts;
-+ * amdgpu/nouveau/radeon/nvidia provide this channel on supported
-+ * hardware. Returns 0 if no driver reports a power reading.
-+ */
-+static long gpu_hwmon_power_mw(void)
-+{
-+	static const char * const gpu_drivers[] = {
-+		"amdgpu", "nouveau", "radeon", "nvidia",
-+	};
-+	char buf[32];
-+	char path[64];
-+	loff_t pos;
-+	long total_uw = 0;
-+	long val;
-+	int i, j, ret;
-+
-+	for (i = 0; i < 32; i++) {
-+		bool is_gpu = false;
-+		struct file *fp;
-+
-+		snprintf(path, sizeof(path), "/sys/class/hwmon/hwmon%d/name", i);
-+		fp = filp_open(path, O_RDONLY, 0);
-+		if (IS_ERR(fp))
-+			continue;
-+
-+		pos = 0;
-+		ret = kernel_read(fp, buf, sizeof(buf) - 1, &pos);
-+		filp_close(fp, NULL);
-+		if (ret <= 0)
-+			continue;
-+		buf[ret] = '\0';
-+
-+		for (j = 0; j < ARRAY_SIZE(gpu_drivers); j++) {
-+			if (!strncmp(buf, gpu_drivers[j], strlen(gpu_drivers[j]))) {
-+				is_gpu = true;
-+				break;
-+			}
-+		}
-+		if (!is_gpu)
-+			continue;
-+
-+		snprintf(path, sizeof(path), "/sys/class/hwmon/hwmon%d/power1_input", i);
-+		fp = filp_open(path, O_RDONLY, 0);
-+		if (IS_ERR(fp))
-+			continue;
-+
-+		pos = 0;
-+		ret = kernel_read(fp, buf, sizeof(buf) - 1, &pos);
-+		filp_close(fp, NULL);
-+		if (ret <= 0)
-+			continue;
-+		buf[ret] = '\0';
-+
-+		if (kstrtol(buf, 10, &val))
-+			continue;
-+
-+		total_uw += val;
-+	}
-+
-+	return total_uw / 1000;	/* microwatts -> milliwatts */
-+}
-+
-+static int gpu_energy_estimate(int *gpus)
-+{
-+	static const int class_list[] = {
-+		0x030000,	/* VGA compatible controller */
-+		0x030200,	/* 3D controller (modern NVIDIA/AMD GPUs) */
-+		0x030100,	/* XGA */
-+		0x030080,	/* other display controller */
-+	};
-+	struct pci_dev *pdev;
-+	int i, count = 0, energy = 0;
-+
-+	for (i = 0; i < ARRAY_SIZE(class_list); i++) {
-+		pdev = NULL;
-+		while ((pdev = pci_get_class(class_list[i], pdev)) != NULL) {
-+			count++;
-+			if (pdev->dev.power.runtime_status == RPM_ACTIVE)
-+				energy += 100;
-+			else
-+				energy += 5;
-+		}
-+	}
-+
-+	if (gpus)
-+		*gpus = count;
-+
-+	return energy;
-+}
-+
-+SYSCALL_DEFINE2(system_energy_efficiency, int __user *, mode, int __user *, value)
-+{
-+	int mode_v, ret;
-+	int gpu_num, gpu_energy;
-+	long gpu_power_mw;
-+
-+	if (get_user(mode_v, mode))
-+		return -EFAULT;
-+
-+	if (mode_v < 0 || mode_v > 2)
-+		return -EINVAL;
-+
-+	gpu_energy = gpu_energy_estimate(&gpu_num);
-+	gpu_power_mw = gpu_hwmon_power_mw();
-+
-+	switch (mode_v) {
-+	case 0:
-+		/* number of GPUs, 0 if the system has none */
-+		ret = gpu_num;
-+		break;
-+	case 1:
-+		/*
-+		 * Energy efficiency metric: prefer the real GPU power
-+		 * (mW) reported by the driver, fall back to runtime PM
-+		 * status weights if no power channel exists, then add
-+		 * the CPU part (online CPUs x 10)
-+		 */
-+		ret = (int)(gpu_power_mw ? gpu_power_mw : gpu_energy) +
-+		      num_online_cpus() * 10;
-+		break;
-+	case 2:
-+		/* real-time GPU power in mW, 0 if not reported */
-+		ret = (int)gpu_power_mw;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	if (put_user(ret, value))
-+		return -EFAULT;
-+
-+	return 0;
-+}
-+
- static const struct ctl_table overflow_sysctl_table[] = {
- 	{
- 		.procname	= "overflowuid",
--- 
-2.54.0.windows.1
+Okay, I'll keep that in mind!
 
