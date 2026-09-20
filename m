@@ -1,154 +1,265 @@
-Received: from mail-ej2-f36.google.com (mail-ej2-f36.google.com [74.125.228.164])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89FE71A6824
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 00:52:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.164
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789865543; cv=pass; b=WX87a7e1maKX8IBytPN5dbp1JiVXYBU97My1cJ0+RUNxGOXg/4RDgFRiMsYnIGPnsylEsd8xu9AYgY7cZgSvySnMVPMaHS+yiA7+JyehHFTqQ9SUBwrXESz6oXL5cXt9Lz3ymsDZtx7QZju1GZO1D78YPMXTrpPrSlqxjcPG6OU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789865543; c=relaxed/simple;
-	bh=3BUK8JAns4D4O94aFHeEQJQLFqjJlmEF8jJnUCFvuW0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=d8rXr8+xBB6rACw31L//0rQV+I63Nvey6Bef8P4MskLLOwkZ8YjV2jfiJPmJcSj50zWATO6uuFTo2j/jZnox4wQgHSWCljA84Lr9h44f9ACcoCaDPBsO70kG6NliujvPcnnkW/Y3Le/7ErB4QuRPWIj4vDvnJIzMwy+3RS0FSS8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CJ4o9Jp1; arc=pass smtp.client-ip=74.125.228.164
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF3502D3225;
+	Sun, 20 Sep 2026 00:53:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789865596; cv=none; b=ClrfGZE5bSZKYl3sEwPc9a+O2okuIeie99rAyfoyuwQMgD+vISt8N+l8N0buqXADeZq4gk+eWhdm1oph4MCUml4/za3LEVda31T6pNGEcveWdXkxVrTOTiEEP0BuyqCbm7uEsr7RywJSE89g+EFOD6DHuOC0YKiz7XIcgd43GAQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789865596; c=relaxed/simple;
+	bh=baL5FdezyJpw0WdG3hFVDydrZTj66S9G9b+cQUt4DJE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=OwAoH7+75G5hTRGYfUNkBiXOY3t/5IWmDe8pZlEBXEuMS3dci98Iawg2TW63UV3DMwll1dLiAiPKgg0RSk4ygDUH8Vn0DaA2IpwSexwwCG9N/X8c+cCYctLu7SSQiWRvm2/9jmR3DfhqlVWzgv4zCmsBHpy66Xojs9LyjMRn7gc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eO/w/Kp7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CJ4o9Jp1"
-Received: by mail-ej2-f36.google.com with SMTP id a640c23a62f3a-c254f9f0b1eso309522366b.1
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 17:52:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789865540; cv=none;
-        d=google.com; s=arc-20260327;
-        b=s+GM1saWCVUXrYIkH9a5H2z8vdAE97m2RNbVcvpKM7zKB0pvIgNK147rJQBcHx0Aya
-         PKIulThuQhS8Dl7jtD/marzBHfjRz7ZEwsTUwjK3PO21p2w7k81ya9Dow8uP7whTymGk
-         hc7hRz/cCmazfx96TnhSLWsFJhr5aDbWohHgTG+dcbBKtaytQ8XIPfjKCa8DKdluAv7u
-         tQCUrJqST8kJw5RBEMSv0gA5gWSuH3l1C8Luw0eX6tWYUWq26bGEqfHD1uV6h5w13pZ3
-         LfdvSMyvOXHlo85lm1716S9ZfUr0GCnhAA55nE0trgjpqG1BEJ1/T0BjcdKZMMqqPV1H
-         ZJog==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=c3C3doPNU+BbPfNOlvgAp/S4D1VtR06ufBbUBrF8R8M=;
-        fh=sZtHE/QsKwlkMnQiwoCfKEczg2zuNDfXn53gtNmsACQ=;
-        b=m/2JPJUuKVcg0qwpzVLpxXJKoVBAFEoLKDaPvC84xa2aEvDqfxFlzaq+h8/Z4PYTqZ
-         cAgKJSTLsv0pamLHDdWUow34VhxBs76dgmrtL1LuagbNi9PCZqI2YJFtDrFsDCTOHjor
-         nmZUxIoJbg8R03JJkslLaADYJxZECKGBtQW9CQXXRbcLvExCTSEzXk0HRiM6rIzMB/eU
-         Uv0sJtKrYrJkqXri+aLia+xmn38uGprnsZ63/mm+Kp93Xg1bA/j3UzCtodlo+ZMCKjJN
-         idNyBeKDj0D/aqfio6tjIybL07+Lgdg2ftakAXmlssH345UnSs7JeyEyWnvRoL1iiHFl
-         K7rg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789865540; x=1790470340; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=c3C3doPNU+BbPfNOlvgAp/S4D1VtR06ufBbUBrF8R8M=;
-        b=CJ4o9Jp1K88SD9Hp5lpA/U0hecpMozet6Bz3RQEQZGn2TgvaQH2TdK9hll5L6xBGxC
-         AcEb2oYCQQNq8tLfDagMzeMBWmbXg3AfRQMmPk/iscxnzDpww7E/JZeXs1McUB63M6bd
-         WrcE/hn/18DX7ikZ1nrIAiybif4t5RnVh7Xyd57e881oCr6pGn/UFRiwIBo+6KYrchy9
-         rNgrs9qEXVD6xOwjA2/JS++/+KpWAbg9nShRSGEJtOW5h6TppL5QbY6mAzjMgbPj1S++
-         x7NM5BhA9aSTqR+xA+lAGJsPOeWgptb3nluoMnDdOfftlQXyZzR1Ty5ykstqzzuC1p+r
-         Fi9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789865540; x=1790470340;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=c3C3doPNU+BbPfNOlvgAp/S4D1VtR06ufBbUBrF8R8M=;
-        b=m/GO7WcrDc90/dA3UAHc7TT+ud/GIQdskQtB3mvid2MOmt632qnHoA/2LBVZkkZTj1
-         N+rIYwNmHBwB/4U0ySPjvT/k+a+3mhQY0MPirtTiA0Mq4EvFvnRAOplU0OoLJR09DB1P
-         5PlYA8DDYu+SQ/VtJ4o6sbw6hVtPnZMmyXRYfFc1zI0uhWjXe8/ITatUTDT2MDAIRJky
-         rjjkWmux9Z6t7D4e+mh8EsRNM6CUO7x2GU3DIpfpKNMVi7V8cKHt1Z5buiOS+f3xVKaP
-         pgPGhjvMCuoEWOqGtwRPnqtJM03AzWFCQEu3cA3Ut8S1USAFx0JE+6K5SUGFHMiq0FNR
-         rOlA==
-X-Forwarded-Encrypted: i=1; AKwUvBw9L46wo7KDu/ifPyg888Xv8T93wZYfFj2WjYo3kiFKZmDau3epoo9J/Rkjol7f70SudkAqWOzdLqv5bWc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nUKdt1Uj9DUFWovOltYZFtcT8CAaf3aB/nlnuk+yrkYPV9J9nc
-	0jhgRPSMH7LPCokz67Jc6VtpbL3ebBKHYHDyKgiHYTg2O7fuNv7fRAddAgl1rqOJiYHA30Kbly7
-	84DM3FUMMe3SfWPYZ/2BejeELoTwLUA==
-X-Gm-Gg: AYBFou2UiG1+hxSZzXS54xoFwAZhYre9iM7kpIVOvzXnCJO5KSQf6WI8+H1nkXNJ4zf
-	2RIVaYHitTVrJWyde/PcfmOZNF6oG/Emxvcbqlktt0yB7hv7RaGT86jDfwIlcE8t830Vy6qe2Kh
-	WFpuX62dQm8K8B6V1WsxclOo33PPAQ19rs4VLETobM5W8biAENabCbm7dVf9GbOu4pRjjD/5+/U
-	3kSgwGE1N34w1HjIgyOmJZYva/gkserzGmjrdV0gFJIdlTcMH1/HClXGZyeKGLnGwzFKnxDSt9O
-	FV2W+j49fCApLiciyVfwhIqTsCsRq/SIdao22Rh9QKHD+QytNirvyfyfE64lcifKe1za6I5o3r8
-	QDf7RpH92jEQLZ4hvCV3eCMH0sAh1uLaKZJGasKK5iq5MpPFEjgF1yIHLw7UxGHA86UbA
-X-Received: by 2002:a17:907:97cd:b0:c25:58e:83ff with SMTP id
- a640c23a62f3a-c2a156a3794mr545290166b.10.1789865539670; Sat, 19 Sep 2026
- 17:52:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eO/w/Kp7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A80D21F000FF;
+	Sun, 20 Sep 2026 00:53:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789865594;
+	bh=9hJp49Gq8lhC7HaZtvb3HUU8DHCTVPncgTmT5nXugTo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=eO/w/Kp78hwcvvIePw7MpZ7/XoScURSWS7fatJ9msVlOjz0/m2Tc6BcDc46i9QATb
+	 hwC1VfEMkGc7+OwLQRrbdAbC3jkhop12WSAegq3fsis5bZUklOfm9HIqGkqWvwDUTB
+	 KitxLZG3nrymnKy8adWnZ6uZW3Grc2uQjwwDzwnfT7LC719PJafASpWLTHUk6MjQEr
+	 volfSp0+VtPu5XapQC+JbYkbhhi7PF+LqWrsPekNrrEKL5VLbryLfa8rnP9OkCa9sU
+	 eW6j6p6UvbXgkEne0pjX4txtrvy21UOziKwo2vJipxgNR5dpYXePgq+RJklUk9BVYI
+	 a0fTc6AW2ToZA==
+Date: Sun, 20 Sep 2026 01:53:10 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Muhammad Abu Bakar <m.abubakar365@yahoo.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, dlechner@baylibre.com,
+ nuno.sa@analog.com, andy@kernel.org, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] iio: pressure: add Sensirion SDP31 driver
+Message-ID: <20260920015310.0c13425c@jic23-hlaptop>
+In-Reply-To: <20260919223854.13437-3-m.abubakar365@yahoo.com>
+References: <20260919223854.13437-1-m.abubakar365@yahoo.com>
+	<20260919223854.13437-3-m.abubakar365@yahoo.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260917192835.58126-1-mhun512@gmail.com> <e544a2bc-79ed-4067-9be8-59453d25acb3@lunn.ch>
-In-Reply-To: <e544a2bc-79ed-4067-9be8-59453d25acb3@lunn.ch>
-From: Myeonghun Pak <mhun512@gmail.com>
-Date: Sat, 19 Sep 2026 20:52:07 -0400
-X-Gm-Features: AcwNN1VWtFS9czLfcxGxhwerswgSwdEW0tGUGqcJxmZSe1Yapk0ciGjwin5ZEjw
-Message-ID: <CAGEsz8EJyv-Ea04gFYysz=6hXD8ehHHtyzvLENpMffKnN85TrQ@mail.gmail.com>
-Subject: Re: [PATCH] net: gemini: Free the shared queue after removing the ports
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Linus Walleij <linusw@kernel.org>, Hans Ulli Kroll <ulli.kroll@googlemail.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thanks for the review. You are right on both points. I will keep
-devm_of_platform_populate() and let the parent's devres release the free
-queue instead, and drop the teardown from gemini_ethernet_remove(). I
-will send a v2 with that.
+On Sun, 20 Sep 2026 03:38:54 +0500
+Muhammad Abu Bakar <m.abubakar365@yahoo.com> wrote:
+
+> Add an IIO driver for the Sensirion SDP31 differential pressure sensor.
+> The device is accessed over I2C and reports differential pressure and
+> temperature. Each measurement is validated using the sensor's CRC-8
+> checksum.
+> 
+> Tested on an SDP31 connected to a Raspberry Pi 4 I2C bus.
+> 
+> Signed-off-by: Muhammad Abu Bakar <m.abubakar365@yahoo.com>
+
+Welcome to IIO.
+
+Sashiko has some feedback on this one. Please take a look.
+
+https://sashiko.dev/#/patchset/20260919223854.13437-1-m.abubakar365%40yahoo.com
+the DO_ONCE is a sensible suggestion and cleaner than what we
+used to do with the crc setup in init().  Note there may well
+be other drivers doing this wrong today - I haven't checked!
+
+Generally a nice little driver. Some stuff in here looks quite
+like how we did things a while back.  I'm guessing you perhaps
+modelled it on an older driver?  Anyhow, nothing major - just changing
+conventions.
+
+Thanks,
+
+Jonathan
 
 
-2026=EB=85=84 9=EC=9B=94 17=EC=9D=BC (=EB=AA=A9) =EC=98=A4=ED=9B=84 10:25, =
-Andrew Lunn <andrew@lunn.ch>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+> ---
+>  MAINTAINERS                   |   6 ++
+>  drivers/iio/pressure/Kconfig  |  11 ++
+>  drivers/iio/pressure/Makefile |   1 +
+>  drivers/iio/pressure/sdp31.c  | 194 ++++++++++++++++++++++++++++++++++
+>  4 files changed, 212 insertions(+)
+>  create mode 100644 drivers/iio/pressure/sdp31.c
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 214aeee76..a053a530e 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -24855,6 +24855,12 @@ S:	Maintained
+>  F:	Documentation/devicetree/bindings/iio/chemical/sensirion,scd4x.yaml
+>  F:	drivers/iio/chemical/scd4x.c
+>  
+> +SENSIRION SDP31 DIFFERENTIAL PRESSURE SENSOR DRIVER
+> +M:	Muhammad Abu Bakar <m.abubakar365@yahoo.com>
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/iio/pressure/sensirion,sdp31.yaml
+> +F:	drivers/iio/pressure/sdp31.c
 >
-> > Fixes: 4d5ae32f5e1e ("net: ethernet: Add a driver for Gemini gigabit et=
-hernet")
-> > Assisted-by: LLM
-> > Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> > Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> > Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-> > ---
-> >  drivers/net/ethernet/cortina/gemini.c |    6 ++++--
-> >  1 file changed, 4 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/net/ethernet/cortina/gemini.c b/drivers/net/ethern=
-et/cortina/gemini.c
-> > index 4c762229ce42..e493d495f2ef 100644
-> > --- a/drivers/net/ethernet/cortina/gemini.c
-> > +++ b/drivers/net/ethernet/cortina/gemini.c
-> > @@ -2364,7 +2364,6 @@ static void gemini_port_remove(struct gemini_ethe=
-rnet_port *port)
-> >               unregister_netdev(port->netdev);
-> >       }
-> >       clk_disable_unprepare(port->pclk);
-> > -     geth_cleanup_freeq(port->geth);
-> >  }
-> >
-> >  static void gemini_ethernet_init(struct gemini_ethernet *geth)
-> > @@ -2656,7 +2655,10 @@ static void gemini_ethernet_remove(struct platfo=
-rm_device *pdev)
-> >  {
-> >       struct gemini_ethernet *geth =3D platform_get_drvdata(pdev);
-> >
-> > -     geth_cleanup_freeq(geth);
-> > +     devm_of_platform_depopulate(&pdev->dev);
->
-> This seems wrong. If you have to call devm_of_platform_depopulate()
-> why are you using devm?
->
-> > +     writel(0, geth->base + GLOBAL_INTERRUPT_ENABLE_4_REG);
-> > +     if (geth->freeq_ring)
-> > +             geth_cleanup_freeq(geth);
->
-> gemini_ethernet_remove() is supposed to do the opposite of
-> gemini_ethernet_probe(). What is the opposite of geth_cleanup_freeq()?
-> Where is it called in gemini_ethernet_probe()?
->
->         Andrew
+
+Add the initial Maintainers entry in the dt-binding patch, then add
+just the new file here.
+
+> diff --git a/drivers/iio/pressure/sdp31.c b/drivers/iio/pressure/sdp31.c
+> new file mode 100644
+> index 000000000..934a3afcd
+> --- /dev/null
+> +++ b/drivers/iio/pressure/sdp31.c
+
+> +
+> +static int sdp31_send_cmd(struct i2c_client *client, u16 cmd)
+> +{
+> +	u8 buf[2] = { cmd >> 8, cmd & 0xff };
+
+Given it seems to be handled as a be16, I'd just use one for it
+complete with a cpu_to_be16() to put the data in the right order.
+
+> +	int ret = i2c_master_send(client, buf, sizeof(buf));
+> +
+> +	if (ret < 0)
+> +		return ret;
+> +	return (ret == sizeof(buf)) ? 0 : -EIO;
+> +}
+> +
+> +static int sdp31_check_crc(const u8 *word)
+> +{
+> +	if (crc8(sdp31_crc8_table, word, 2, SDP31_CRC8_INIT) != word[2])
+> +		return -EIO;
+> +	return 0;
+> +}
+> +
+> +static int sdp31_measure(struct i2c_client *client, struct sdp31_reading *out)
+For below, pass in your spd31_data structure instead of client.
+> +{
+> +	u8 rx[9];
+> +	int ret;
+
+The thing being serialized by the lock is the contents of this. As such
+I'd lock in here rather than at caller with
+
+	guard(mutex)(&data->lock);
+
+That to me makes the lock scope more obvious.
+> +
+> +	ret = sdp31_send_cmd(client, SDP31_CMD_TRIG_DP);
+> +	if (ret)
+> +		return ret;
+> +
+> +	msleep(SDP31_MEAS_DELAY_MS);
+> +
+> +	ret = i2c_master_recv(client, rx, sizeof(rx));
+> +	if (ret < 0)
+> +		return ret;
+> +	if (ret != sizeof(rx))
+> +		return -EIO;
+> +
+> +	if (sdp31_check_crc(&rx[0]) ||
+> +	    sdp31_check_crc(&rx[3]) ||
+> +	    sdp31_check_crc(&rx[6]))
+> +		return -EIO;
+> +
+> +	out->pressure = (s16)((rx[0] << 8) | rx[1]);
+> +	out->temp     = (s16)((rx[3] << 8) | rx[4]);
+> +	out->scale    =       (rx[6] << 8) | rx[7];
+
+get_unaligned_be16() for each of these + appropriate include
+for that.
+
+
+> +	return 0;
+> +}
+
+
+
+> +
+> +static int sdp31_probe(struct i2c_client *client)
+> +{
+Quite useful to have a local device pointer given how often it is used
+	struct device *dev = &client->dev;
+
+> +	struct iio_dev *indio_dev;
+> +	struct sdp31_data *data;
+> +	struct sdp31_reading r;
+> +	int ret;
+> +
+> +	indio_dev = devm_iio_device_alloc(&client->dev, sizeof(*data));
+> +	if (!indio_dev)
+> +		return -ENOMEM;
+> +
+> +	data = iio_priv(indio_dev);
+> +	data->client = client;
+> +	mutex_init(&data->lock);
+
+For new code
+	ret = devm_mutex_init(dev, &data->lock);
+	if (ret)
+		return ret;
+It adds some lock debugging related stuff.  Whilst it tends not
+to be that useful for how we use these locks in an IIO driver, it
+is near free to turn on so we prefer that we do that.
+
+> +
+> +	crc8_populate_msb(sdp31_crc8_table, SDP31_CRC8_POLY);
+
+Sashiko got the race here if multiple instances of this devices are
+connected and probing in parallel. The DO_ONCE() magic should deal
+with that for you.
+
+> +
+> +	/* Confirm the sensor is present and learn its scale factor. */
+> +	ret = sdp31_measure(client, &r);
+> +	if (ret)
+> +		return dev_err_probe(&client->dev, ret,
+> +				     "failed to read from sensor\n");
+Once you have dev as a local variable these sort of prints that only
+go a little over 80 chars are fine on one line. 
+
+> +	if (!r.scale)
+> +		return dev_err_probe(&client->dev, -EINVAL,
+> +				     "invalid scale factor\n");
+> +	data->dp_scale = r.scale;
+> +
+> +	indio_dev->name = "sdp31";
+> +	indio_dev->info = &sdp31_info;
+> +	indio_dev->modes = INDIO_DIRECT_MODE;
+> +	indio_dev->channels = sdp31_channels;
+> +	indio_dev->num_channels = ARRAY_SIZE(sdp31_channels);
+> +
+> +	return devm_iio_device_register(&client->dev, indio_dev);
+> +}
+> +
+> +static const struct i2c_device_id sdp31_id[] = {
+> +	{ "sdp31" },
+
+As sashiko calls out. Standard now is named initializers
+for all the ID tables.
+
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(i2c, sdp31_id);
+> +
+> +static const struct of_device_id sdp31_of_match[] = {
+> +	{ .compatible = "sensirion,sdp31" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, sdp31_of_match);
+> +
+> +static struct i2c_driver sdp31_driver = {
+> +	.driver = {
+> +		.name = "sdp31",
+> +		.of_match_table = sdp31_of_match,
+> +	},
+> +	.probe = sdp31_probe,
+> +	.id_table = sdp31_id,
+> +};
+> +module_i2c_driver(sdp31_driver);
+> +
+> +MODULE_AUTHOR("Muhammad Abu Bakar");
+> +MODULE_DESCRIPTION("Sensirion SDP31 differential pressure sensor");
+> +MODULE_LICENSE("GPL");
+
