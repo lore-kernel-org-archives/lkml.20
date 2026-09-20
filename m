@@ -1,169 +1,130 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-ej2-f19.google.com (mail-ej2-f19.google.com [74.125.228.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57C3647277C
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 19:46:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A83E029B228
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 19:47:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789933609; cv=none; b=V6Ht2zy+BHakwwxlWfItVUKdAfApmrIrNzaqgTg3P30Q6k3DtV4s8sjLnAvjnZWJ7r1fSwtYkH51CsR2CjrA8VMYSaEQ+ZvpZWBpaxNRYXOOfkiyP6X0rEHPbqy/TJKy3WpEBZ7dncaeu6AqxVukqHOdIfT7Y9bS8RHuOLSTpkY=
+	t=1789933638; cv=none; b=p9ikM3j9UBnRXimSsgbRG3bqJldREjd6SuHUawTTk4hGipt/hpd4QiJUveQOxit2uVS+1fAbm7Do5dIBDmDJKgXmfRsc1Kf8b6xKYPJniIHcyWdjOUAYQz+prUr8BOwKMJTbWhj8aOU4it8cZ59CVIPEFkvdFPG7w8WFontfKnQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789933609; c=relaxed/simple;
-	bh=NGNvEP6R6v24NUCZuXiZGmdcHRDhU/4UlKpXWm/wUe4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=L3g6tZYzyQRBGCJMlkv1n+fKm3CJv4Y2u/oZnj7cfzNJuOqhMmISRPkun6HGbmvwAGERYev8e21cinfuk1zn0sD6pY53RGahtUDEit4Nmt+9xt5FwMQn5SWYxmZiUKdwYLi+LJqsRZs36HdasiT/6uSLSsivrVQRBAJIdvJZNk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=gqxqNR8V; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1789933638; c=relaxed/simple;
+	bh=k//2B9OVyNb3LfKfZMQ5Ujz7TjjuUTfaf0JY99BJpE0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uE0fArnkw5kPmc/2bmpXCgktW5fUIYVeJlf5xu3KsKDKWFuAVOrRw7Do2ngDxkcdvGHN977fINbC8YT9FW1B3Zek0tqbFXSNwa8sfGKIQJSFcre/IPq9qzLIPSbI1CdHfMz+XNVnlkJgoMo/zmlQRUO3zX5jGQJrSP+Tq7J+wlQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mPqRH5NN; arc=none smtp.client-ip=74.125.228.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="gqxqNR8V"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4858bc96fabso1847590f8f.3
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 12:46:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mPqRH5NN"
+Received: by mail-ej2-f19.google.com with SMTP id a640c23a62f3a-c2940ff2313so139670866b.1
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 12:47:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789933605; x=1790538405; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jNAs3l2moedeez3GaXQjJrBDG6B5wQ5RhmPGIelVwHI=;
-        b=gqxqNR8VphUGFB6SCOTjei30jep3SNAwTv/U11vbdagN7A+UUfmKKTcOXIgL23qMV2
-         tL5l6zuPdAYPrsI85YuBmOVRO4t4MfzdiflWHeMml1LkB9Ks0f5uArslV2EYxkEWkB1e
-         UBsHyCm70K4hNrS97NyIscGs+GPtZxdgNKL4xP7wv+E6Ad7gyujuMzgCxLBQJImzKciJ
-         JfFqKYHWbBee3kg1bIcKkOiL6QWDkPvi6efgfxv3GYnZlyQ7ShHNth4TB3IGS18SwdpC
-         V5+leCX7icQ/8EkAXcZxiPt+/t69a/eRb4J1yKnVEKvyX31k/vmttkfWXGiMsuVb5Sw4
-         iqdg==
+        d=gmail.com; s=20251104; t=1789933634; x=1790538434; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6GiF+RaRfkQVR72zMKUjo/mKJQNiAbemXLgy1Bp7FnY=;
+        b=mPqRH5NN4DqGY+QxwZwOpDwH3nJ55zoBkYnZs+uYw5jPRw1ztZEE7Xhk/oCbTUv7HA
+         KPSGGzHKvThRWO/PA0zKt14MXcAUoS1bH2wEjhN02f6QtbO2QjLpK9nvBSD6gnqJPJqT
+         Z9Q+pyb5zu8Z/f/3lxxLdcmt2Mo0EvdducdwEJLlRRYSbjsgV1peuWAsl1aTIVLKSnsi
+         njqzCxUr7f2IlvBwY1NXO4SiztC/KXXPgHOmUD0vCEUJjpeYzbTwlmOL8nF/mOqrjgTN
+         Pbp4BNpraUyf6V1BGtVJGVG4ViiKRE6l7XxHFGQb/vjaHoC4arUkG9Aur4BVGK4mwsEz
+         9oVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789933605; x=1790538405;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jNAs3l2moedeez3GaXQjJrBDG6B5wQ5RhmPGIelVwHI=;
-        b=o1G3v7dbXd75QV5kCEFMJ4mL/KwN5vjizdkZ2lptvpUSf1jj2McpuCwLbB/yj/tYAF
-         ZPH0gTOOnvy0UjPzFeGqRm7uJABCvC/k10ICCBjG0kp1Cd4ERA2PklBLf57aEEapNlV9
-         evrXv0i8x+cRecbYY0pA9HMGx6mZLzHmBA8uxRvz+hxTJ0RU+bUU6RQgQ252+aWiobPJ
-         o7vII8zBesDJqVPiG0UCIxtLpre09H5idsaNHjmNFMdpDUlYcTKGRK6sV918nwt2Xctn
-         DWU0pA3xnzHQR4B/ZNAa3l8Ny3VO9/UlRKnX4ZG92BWJSs+OQ+B+vtknPRbFk+FWOLHj
-         cS8g==
-X-Forwarded-Encrypted: i=1; AKwUvBzSt20jj0i1bItae75pO7emEmlhq01cKUN2C9BITZNH6PDCZjujxKY1KXq+xjZgaYJHjVaGBsw6ZiWBlyA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lfoXaiubEeOwguGPx7YFpJOMGW4N2bvXKNUIyKmIUmmlllXixy
-	7RRsKB4F+QUeXEQE5PrrNARSnBXhUZfAcssglO1XpORt17gOtysoZBAleepG5m8fNNk=
-X-Gm-Gg: AYBFou2nAiMxoFYVJVZ6YWcT2S+PZmTCJ75rv5IEhJPsraFfuvylbk+9QTP60Vn+h1f
-	qIdbVgypY/LtuDQsASuHJwGgfOEOdh4gasLSfhniTEya3++reljT2d+BZtuEku5VCASRi9GUMHw
-	YW7TOCJXsigxLwlWeQShpGo/rQ6wtjqsOKNTjnX3FTdYU4uPdO/ovP49hflwf/mHtvUuF79jdNN
-	Jti4y8JPNReulv3qZc1WbMXaJd1Lk3PU6J5P6VR8MIAgB/bzxE2BVa15Q10/wG80Un5p+KSWblC
-	9fz/8d15VnBsep5g/wBWDOayVc5lzOhc/u2RUD1HYJMGYB8hEBN9w1bY0bHd7NBnCK+74H9DUEK
-	v/DpTiRycZx0fp9VsGflejV5unEYFbb8xSURHkaoLYdwpNz3KllSX8mWMDlb5DIUs1F+NTVBlaU
-	L+wOcX0DynWFs/MAiSb3PtjBQfXG+8Ck1/m+yo6GKD2CUDq0PPj5oPaldDjyVO6PV8K+IQsHHJp
-	otD
-X-Received: by 2002:a05:6000:40c9:b0:483:3695:6ea6 with SMTP id ffacd0b85a97d-4871e25c7dfmr13023830f8f.20.1789933605511;
-        Sun, 20 Sep 2026 12:46:45 -0700 (PDT)
-Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-4872446067asm17286003f8f.12.2026.09.20.12.46.44
+        d=1e100.net; s=20260707; t=1789933634; x=1790538434;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6GiF+RaRfkQVR72zMKUjo/mKJQNiAbemXLgy1Bp7FnY=;
+        b=2lP8+nYpeXWcZJR9NuOn8bf4c1mG+sxsmFcCrXI1X2uTUHNOSNPLII9wlRb0tCrFqA
+         s8tasSMRTRur/WJ2XctuamdY+FUc4W7ago11y1iVbhKYXEysLAm6yMEZ8XwRivzeu8l6
+         sFGGWUWMVyFoxxlwfANO+QBRJkmbKSj0yi8j66StwV7Sa+rKo7u/E5+Gg2BuMukooLQ+
+         hsye+cNvc7f/qH6rwlGAbxzP8zjgU24LHKFb3AaPH5+5d72UWfASXQi8kl+KtkUbph2k
+         humyT38i1/xqGFV8lsEqb+rw3R+VL/IHtVC6LoIN6vkp2cgd76D32+gxYuBOMnrwPmW9
+         OViA==
+X-Forwarded-Encrypted: i=1; AKwUvBxz9Uun5SrtHenwHVy0P+OfTgRYAeVnOMsb6EXICU6gV/eOpVfz6JQfa2RmiZKaKO7wszLiHV1Xsk4oZCQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nWWnSKO9dbGEw+grG6mfqVBZIGVLpgi4laubMT+btlgL670RAB
+	YhBhLs6QpAlGKgiiFbzBzTKHFAHsYLgFcj4L5EOS6CPzypjDA5tmrpKUWBwPBw==
+X-Gm-Gg: AYBFou1z5TOPIAJM3z0ODNcEB9l+eeU9UKGHFAxbcMmqvp28Po6geYePS3I0ZUJILgO
+	fa0TnE4xg6HlB/ZoYMrUcD+TzIYMHRongH0NeHv2pg9WMv0Lw0JyfR1orVHKkxHGNkpLp9BygP3
+	DHYF0LHVXK8paKBh+SfwtUcN30JrU+YF1cglqN2duDXWjE7Hbwe7iVsteEqCBfGM9ofKgBDKtGj
+	fsW41xnq/rIGi9KIre/wI+GHWCA1uwkvJbE7DNNAR6CPPS2zlR4iSWP1sXrsS/Rn9mubqS3FT/v
+	NPeOdMUcb6kEcZONDnltECUqwio8ZMYGCMuiwwHf9zaGRVdsn/qIYeJGt4QVN1Ww0Qp1fgOFkzV
+	A5+i2Uews3Wq+DAnLu/wdsUX74NTgyDy/MNm9C6oYXSzKTN9U9iIIrBOWNaDDwJOKruKaRjN9vb
+	E0xUVa3yyBLflCvYcSdaWYfrXSDv0gPmc9LIaMiswn5/kIYrt696c2RYPlRfygpr4xfvTce1en7
+	8igxBrZEVDQpI+LHBsB/EmwW1ysrBUqzCMO08/ddfObEp5CmrjYAPbQr3w=
+X-Received: by 2002:a17:907:9616:b0:c29:d1b8:6c4b with SMTP id a640c23a62f3a-c2a16401446mr770255366b.4.1789933633593;
+        Sun, 20 Sep 2026 12:47:13 -0700 (PDT)
+Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a358ff8edsm211768466b.61.2026.09.20.12.47.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 12:46:44 -0700 (PDT)
-Date: Sun, 20 Sep 2026 21:46:42 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Link Mauve <linkmauve@linkmauve.fr>
-Cc: linux-media@vger.kernel.org, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, Bradford Love <brad@nextdimension.cc>, 
-	Kees Cook <kees@kernel.org>, Deepanshu Kartikey <kartikey406@gmail.com>, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] media: ts2020: put regmap_config on the stack
-Message-ID: <arA3TaFiFOx7ubjj@monoceros>
-References: <20260804114625.2314430-1-linkmauve@linkmauve.fr>
- <20260804114625.2314430-4-linkmauve@linkmauve.fr>
+        Sun, 20 Sep 2026 12:47:13 -0700 (PDT)
+From: David Carlier <devnexen@gmail.com>
+To: netdev@vger.kernel.org
+Cc: sgarzare@redhat.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	David Carlier <devnexen@gmail.com>
+Subject: [PATCH net-next 0/2] vsock: receive queue hint for io_uring
+Date: Sun, 20 Sep 2026 20:47:08 +0100
+Message-ID: <20260920194710.1114748-1-devnexen@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="dfpnyg4nzvnqoewx"
-Content-Disposition: inline
-In-Reply-To: <20260804114625.2314430-4-linkmauve@linkmauve.fr>
+Content-Transfer-Encoding: 8bit
+
+AF_VSOCK stream receives never fill msghdr.msg_inq. io_uring initialises the
+hint to -1 and treats that as "unknown", so it cannot set
+IORING_CQE_F_SOCK_NONEMPTY, and it speculatively retries a multishot receive
+after every completion, including when the queue is already empty.
+
+Patch 1 fills the hint at the common exit of __vsock_connectible_recvmsg(),
+reusing vsock_stream_has_data(), the transport callback that SIOCINQ already
+uses. Following tcp_inq_hint(), it reports a terminal hint of 1 once the
+connection is finished, so the caller still performs the receive that
+observes EOF. Patch 2 adds selftest coverage.
+
+Numbers come from a ping-pong over vsock loopback using io_uring multishot
+receive, 4 KiB messages, the queue drained between messages, with kernel
+receives counted by a kprobe. The baseline is the same tree with patch 1
+reverted:
+
+  entries per delivered message   1.97 -> 1.00       (5000 messages)
+  receiver CPU time, median       1.640s -> 1.587s   (-3.2%)
+  receiver wall time, median      3.260s -> 3.183s   (-2.4%)
+
+Timing is 25 runs of 50000 messages per kernel; CPU gives Mann-Whitney
+p=0.006, wall time does not separate from noise (p=0.12), as expected for a
+latency-bound workload.
+
+The hint is gated to SOCK_STREAM; seqpacket is untouched. SO_INQ and SCM_INQ
+are deliberately left out: they need their own per-socket state and
+ancillary-message semantics, and a byte-count contract would have to account
+for transports reporting less than the whole queue. That can follow.
+
+Testing: built and run under virtme-ng on loopback, where the new cases pass
+and vsock_test still passes 41 of 41 with a clean dmesg. Other transports
+were reviewed but not tested. Hyper-V reports the current packet rather than
+the whole queue and can return -EIO; an undercount only understates what is
+readable, and a negative result leaves the caller's hint untouched.
+
+David Carlier (2):
+  vsock: report pending receive data to io_uring
+  vsock/test: cover receive queue hints
+
+ net/vmw_vsock/af_vsock.c               |  39 +++
+ tools/testing/vsock/vsock_uring_test.c | 367 +++++++++++++++++++++++++
+ 2 files changed, 406 insertions(+)
 
 
---dfpnyg4nzvnqoewx
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 3/3] media: ts2020: put regmap_config on the stack
-MIME-Version: 1.0
+base-commit: cea851523034d83dc61d882b1a6a3ad273480f7b
+-- 
+2.55.0
 
-Hello,
-
-On Tue, Aug 04, 2026 at 01:46:23PM +0200, Link Mauve wrote:
-> diff --git a/drivers/media/dvb-frontends/ts2020.c b/drivers/media/dvb-fro=
-ntends/ts2020.c
-> index 8775083f4dd6..27f096ce522e 100644
-> --- a/drivers/media/dvb-frontends/ts2020.c
-> +++ b/drivers/media/dvb-frontends/ts2020.c
-> @@ -18,7 +18,6 @@
->  struct ts2020_priv {
->  	struct i2c_client *client;
->  	struct mutex regmap_mutex;
-> -	struct regmap_config regmap_config;
->  	struct regmap *regmap;
->  	struct dvb_frontend *fe;
->  	struct delayed_work stat_work;
-> @@ -559,6 +558,12 @@ static int ts2020_probe(struct i2c_client *client)
->  	u8 u8tmp;
->  	unsigned int utmp;
->  	char *chip_str;
-> +	struct regmap_config regmap_config =3D {
-> +		.reg_bits =3D 8,
-> +		.val_bits =3D 8,
-> +		.lock =3D ts2020_regmap_lock,
-> +		.unlock =3D ts2020_regmap_unlock,
-> +	};
-> =20
->  	if (!pdata) {
->  		dev_err(&client->dev, "platform data is mandatory\n");
-> @@ -574,12 +579,8 @@ static int ts2020_probe(struct i2c_client *client)
-> =20
->  	/* create regmap */
->  	mutex_init(&dev->regmap_mutex);
-> -	dev->regmap_config.reg_bits =3D 8;
-> -	dev->regmap_config.val_bits =3D 8;
-> -	dev->regmap_config.lock =3D ts2020_regmap_lock;
-> -	dev->regmap_config.unlock =3D ts2020_regmap_unlock;
-> -	dev->regmap_config.lock_arg =3D dev;
-> -	dev->regmap =3D regmap_init_i2c(client, &dev->regmap_config);
-> +	regmap_config.lock_arg =3D dev;
-
-If desired you can keep all the assignments here using:
-
-	regmap_config =3D (typeof(regmap_config)){
-		.reg_bits =3D 8,
-		.val_bits =3D 8,
-		.lock =3D ts2020_regmap_lock,
-		.unlock =3D ts2020_regmap_unlock,
-		.lock_arg =3D dev,
-	};
-
-> +	dev->regmap =3D regmap_init_i2c(client, &regmap_config);
-
-With or without that approach:
-
-Acked-by: Uwe Kleine-K=F6nig <u.kleine-koenig@baylibre.com>
-
-Best regards
-Uwe
-
---dfpnyg4nzvnqoewx
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqwOCAACgkQj4D7WH0S
-/k5tYwf+NSbNp5/ZckU5Y91RbX8TTRaOOsBcTw4N1MEwf5SUk4jb8JbOev/yP0z4
-p57RfINMjHRzsNEMg2HzJHvjoFzIRMd7LitmUMKzk3ZyOgpZL+5wtXBLnBpQV19z
-JrXU9NqKLxNABi543SvBqu24DjltBlVgzh7O0I3ANVrebReaSt7yBRCSSCk8tqWP
-hKKaUR+u/aab1GNJBG39e7JpDg0koBsC+Eg3gYT5OaL4vXNaawEd9r7D8Yw/zNPH
-IvGVh986h5MHHNJXObv4MWR/Md3tRgoSgOgYmENyFz6xklO6jYMoxThFXPxI+XTG
-SP0q29DLk4dPORySDim+62yqVzBxmg==
-=5lJx
------END PGP SIGNATURE-----
-
---dfpnyg4nzvnqoewx--
