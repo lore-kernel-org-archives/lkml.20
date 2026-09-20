@@ -1,141 +1,190 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C0DB3E0C77;
-	Sun, 20 Sep 2026 07:36:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3228C3DFC86;
+	Sun, 20 Sep 2026 07:36:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789889778; cv=none; b=sPRXZWjBdTXlVLvv/I2NhIIIP1ITE+yvrvA7U55EtFu5GvJQ05cv8u3uE7wCmTtn77pw9QxN5quxRZkoOqSy7JKSyOlCpHqD6q7mQDqY84W8bXyA5gXE0kZZitmMaaVcCnteWM8FRyByQc2ew2yavFSNaba7MKCW+f1uwj+V7To=
+	t=1789889824; cv=none; b=iWp1AIlPlZaxi9JRFHygnBi6+xHx3iyjhvFWmXyxtjlctLsOH/7RWfjfTp6FV3Q0calwvjozo48H2wIvxoD8Uuo1nMbqNYyxoj1uTILdI6lO6RVA9XYeOUhEpQtLMeZVOvtxI0fZ3pf7I/Lx8PHWmFNhHNUBt0J3OIU88vtgvAo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789889778; c=relaxed/simple;
-	bh=xX1LSEoZ3dwDjDnKmuIHZWYp43YUm/oJAA45zvpoARg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qqBUPMXA3kmF2sQLrPmZEOCZr9LhBisAYvp61Bx+FSkeouBhWw5sa7fW7i3yDNE1vo3o5xXLTi2w76s0WOF6ZfwKlkAV4DCY1CjZTqtFAF8vcURcT9gJnkM7V/uhQcrvTGYtj3FqtonksL6bMT13HMk14ffYWVNyV3FjXu8gTfE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X068IliF; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X068IliF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DCF71F000FF;
-	Sun, 20 Sep 2026 07:36:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789889775;
-	bh=4Qqpemvz6WSIKkr9IPGGKele4il1P3GXbI51Zv8b8OE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=X068IliFC9A6G7ylGRiKhN/uzpjpy82ovm6g6ki3vlZ4vNIcz7JtkA/61v2y14xaK
-	 64ZkVVQm1I1j6kpePue9XzmixDWRRtJaGhjEl+eLvmVPvJY+l8P3h8yUoSl6/Wd+Ww
-	 MFwA371JMy7qspAYz+BSIYNKUmypSDcAtOWRYqjamORQIwU3qFamQEiM5Xp8qJtj6+
-	 HoUjhsgjJHxyafszzcdWt0bCl36nUejf7n86PUckpY1C+yTIoFuMfEaTY/0t3l8BP3
-	 JZ1TsJXlNy8v0CT8Lhez6aZybJRUG+ekWwpHNffJdsvpEC639Wlgq+FiAwA6QsN6R6
-	 4SKfKicgoQUKA==
-Date: Sun, 20 Sep 2026 08:36:10 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-Cc: Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Cristian Marussi <cristian.marussi@arm.com>,
-	Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
-	Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
-	Frank.Li@kernel.org, arm-scmi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-	imx@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 1/2] module: add SCMI device table alias support
-Message-ID: <20260920-hippo-of-immense-assurance-50a5fd@sudeepholla>
-References: <20260918092951.5656-1-johannes.goede@oss.qualcomm.com>
- <20260918092951.5656-2-johannes.goede@oss.qualcomm.com>
- <20260918-impetuous-daring-barnacle-1ea4d0@sudeepholla>
- <dca62a09-2af7-463e-9ba0-1be935a95502@oss.qualcomm.com>
- <aq2g9otvja7xQqJ_@monoceros>
+	s=arc-20240116; t=1789889824; c=relaxed/simple;
+	bh=GmCWKYdsAu1pOrg3q0i0TXq3UX1NjofE99nERVmE+bU=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=gk5CBWmHUd3vyNE8IvODDKEyNM0F4aB9g3bHIzPzFnGAkl44VCMS1MHGLeV5MCkhtaDCgWf2OlaMaG2SfjttY+CfUYMg1jJTB6zJZTnDBa7awZ93KH2+3q98b1YZiN3bwwifbUKgomyNiLA23s0p05S9qsTLD/Zk2H505oJ4lN4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.103.44])
+	by APP-01 (Coremail) with SMTP id qwCowACXbfHejK9q8PFxCA--.24571S2;
+	Sun, 20 Sep 2026 15:36:00 +0800 (CST)
+Message-ID: <cdb63b93c4a8857ac61b17902369086e9a278dd3.camel@iscas.ac.cn>
+Subject: Re: [PATCH v4 00/20] drm: starfive: jh7110: Enable display subsystem
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Byron Stanoszek <gandalf@winds.org>, Michal Wilczynski
+	 <m.wilczynski@samsung.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>,  Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart	 <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+ <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
+ Yan <andy.yan@rock-chips.com>, Philipp Zabel	 <p.zabel@pengutronix.de>,
+ Emil Renner Berthing <kernel@esmil.dk>, Hal Feng	
+ <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul
+ Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+ <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,  Dominique
+ Belhachemi	 <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
+ Brunet	 <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
+ linux-clk@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, 	linux-riscv@lists.infradead.org, Marek
+ Szyprowski <m.szyprowski@samsung.com>,  Maud Spierings
+ <maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Chaoyi
+ Chen	 <chaoyi.chen@rock-chips.com>, Joshua Peisach <jpeisach@ubuntu.com>,
+ Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?=	 <u.kleine-koenig@baylibre.com>
+Date: Sun, 20 Sep 2026 15:35:58 +0800
+In-Reply-To: <b8b046ee-c574-3e16-6079-2fc415633dae@winds.org>
+References: 
+	<CGME20260915153213eucas1p148f013af239a334fc78cdc249c0f8a61@eucas1p1.samsung.com>
+	 <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
+	 <b8b046ee-c574-3e16-6079-2fc415633dae@winds.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aq2g9otvja7xQqJ_@monoceros>
+X-CM-TRANSID:qwCowACXbfHejK9q8PFxCA--.24571S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3WF1Dtry3JrWxuw1fWFyDKFg_yoWxGr1fpr
+	18Jr1UGrW8Jr1kJw18Ar1UJry5Zr4UJw1UJr15GFyUA34UJw1jqr1UWr1YgFnrAr4kJr1U
+	Xr1UGrnxZF1DJw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPKb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
+	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
+	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4xvF2IEb7IF0Fy264kE64k0F24l
+	FcxC0VAYjxAxZF0Ex2IqxwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWrXV
+	W3AwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v2
+	6r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Wrv_Gr1UMIIYrx
+	kI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v2
+	6r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8Jw
+	CI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJwCE64xvF2IEb7IF0Fy7YxBIdaVFxhVjvjDU
+	0xZFpf9x07bTTmDUUUUU=
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-On Fri, Sep 18, 2026 at 10:39:46PM +0200, Uwe Kleine-König wrote:
-> On Fri, Sep 18, 2026 at 04:09:36PM +0200, Hans de Goede wrote:
-> > Hi Sudeep,
-> > 
-> > On 18-Sep-26 15:32, Sudeep Holla wrote:
-> > 
-> > [...]
-> > 
-> > >> diff --git a/include/linux/device-id/scmi.h b/include/linux/device-id/scmi.h
-> > >> new file mode 100644
-> > >> index 000000000000..1b4ccfa9dcc5
-> > >> --- /dev/null
-> > >> +++ b/include/linux/device-id/scmi.h
-> > >> @@ -0,0 +1,17 @@
-> > >> +/* SPDX-License-Identifier: GPL-2.0-only */
-> > >> +#ifndef LINUX_DEVICE_ID_SCMI_H
-> > >> +#define LINUX_DEVICE_ID_SCMI_H
-> > >> +
-> > >> +#ifdef __KERNEL__
-> > >> +#include <linux/types.h>
-> > >> +#endif
-> > >> +
-> > >> +#define SCMI_NAME_SIZE		32
-> > >> +#define SCMI_MODULE_PREFIX	"scmi:"
-> > >> +
-> > >> +struct scmi_device_id {
-> > >> +	__u8 protocol_id;
-> > >> +	char name[SCMI_NAME_SIZE];
-> > >> +};
-> > >> +
-> > >> +#endif /* ifndef LINUX_DEVICE_ID_SCMI_H */
-> > > 
-> > > You need to include this above file in include/linux/mod_devicetable.h
-> > > to avoid duplication of its inclusion elsewhere. That's the pattern followed
-> > > I see.
-> > 
-> > That is what I did for v3, but Uwe, who is leading the splitting
-> > of mod_devicetable.h from one large monster include to smaller
-> > per subsystem/bus includes explicitly requested me to follow this
-> > pattern, see:
-> > 
-> > https://lore.kernel.org/arm-scmi/aow2GFAfy84k-N2B@monoceros/
-> > 
-> > [...]
-> > 
-> > >> diff --git a/scripts/mod/devicetable-offsets.c b/scripts/mod/devicetable-offsets.c
-> > >> index b4178c42d08f..91ec3704ee2b 100644
-> > >> --- a/scripts/mod/devicetable-offsets.c
-> > >> +++ b/scripts/mod/devicetable-offsets.c
-> > >> @@ -1,5 +1,6 @@
-> > >>  // SPDX-License-Identifier: GPL-2.0
-> > >>  #define COMPILE_OFFSETS
-> > >> +#include <linux/device-id/scmi.h>
-> > > 
-> > > Drop this for above mentioned reason.
-> > 
-> > This was explictly added at request of Uwe because the goal is to
-> > get rid of mod_devicetable.h including all the device-id headers
-> > in a big single catch-all include. This is done because currently
-> > many files include mod_devicetable.h and then if any of the device-id
-> > headers changes everything needs to be rebuild, making incremental
-> > kernel builds much slower.
-> > 
-> > (and the same for the second include you point out)
-> 
-> FTR: That all sounds right.
-> 
-> Let's not add the the dependency mess that is mod_devicetable.h.
-> 
+5ZyoIDIwMjYtMDktMjDml6XnmoQgMDI6MDkgLTA0MDDvvIxCeXJvbiBTdGFub3N6ZWvlhpnpgZPv
+vJoKPiBPbiBUdWUsIDE1IFNlcCAyMDI2LCBNaWNoYWwgV2lsY3p5bnNraSB3cm90ZToKPiAKPiA+
+IFRoaXMgc2VyaWVzIGVuYWJsZXMgdGhlIGRpc3BsYXkgc3Vic3lzdGVtIG9uIHRoZSBTdGFyRml2
+ZSBKSDcxMTAuCj4gCj4gSGkgTWljaGFsLAo+IAo+IEkgdGVzdGVkIHlvdXIgdjQgcGF0Y2ggc2Vy
+aWVzIG9uIG15IFZpc2lvbkZpdmUyIDEuM0Igd2l0aCBrZXJuZWwgNy4zLQo+IHJjMyB0b2RheQo+
+IGFuZCBpdCB3b3JrcyB2ZXJ5IHdlbGwsIGV4Y2VwdCBmb3IgMiBpc3N1ZXMuIE5vdGUsIHRvIG1h
+a2UgdGhlIHNjcmVlbgo+IHJlZnJlc2gKPiBwcm9wZXJseSwgSSBhbSB1c2luZyB0aGUgbm9uY29o
+ZXJlbnQgY2FjaGUgZml4ZXMgZnJvbQo+IGh0dHBzOi8vZ2l0aHViLmNvbS9nYW5ib2luZy1qaDcx
+MTAvbGludXgvY29tbWl0cy9nYW5ib2luZy1qaDcxMTAtY2FjaGUtZml4LXYxLwo+IChzcGVjaWZp
+Y2FsbHkgY29tbWl0cyAzNjgzZDk3LCBlZjkzZTJjLCAyNzdkYjBiLCBhbmQgMjZjZTNlNikgaW4K
+PiBhZGRpdGlvbiB0bwo+IHlvdXIgcGF0Y2guCj4gCj4gSXNzdWUgMTogSSBoYXZlIGEgRGVsbCBV
+MjcxMSBtb25pdG9yIHdoaWNoIGhhcyBsaW1pdGVkIEhETUkgMS4zCj4gY2FwYWJpbGl0eSwgc28K
+PiBJIGludmVudGVkIG15IG93biBYb3JnIG1vZGUgdG8gZ2V0IGEgZ29vZCBmcmFtZSByYXRlOgo+
+IAo+ICIyNTYweDE0NDBfNDAuMjIiwqAgMTYyLjAwwqAgMjU2MCAyNjA4IDI2NDAgMjcyMMKgIDE0
+NDAgMTQ0MyAxNDQ4IDE0ODEKPiAraHN5bmMgLXZzeW5jCj4gCj4gV2l0aCB0aGlzIG1vZGUgYW5k
+IHlvdXIgbmV3IGRyaXZlciwgSSBzdGFydGVkIGdldHRpbmcgcm93cyBvZiBibGFjawo+IHBpeGVs
+cwo+IGZsaWNrZXJpbmcgaW4gdGhlIHVwcGVyLWxlZnQgY29ybmVyIG9mIG15IExDRCBzY3JlZW4u
+IFRoZXNlIHdlcmVuJ3QKPiB0aGVyZSBiYWNrCj4gd2hlbiBJIHdhcyBydW5uaW5nIHRoZSBzYW1l
+IG1vZGUgdW5kZXIgdGhlIEtlaXRoIFpoYW8gZHJpdmVyIGZyb20KPiBTdGFyRml2ZQo+IChkcm0v
+dmVyaXNpbGljb24gdjUgcGx1cyBhIGJ1bmNoIG9mIHBhdGNoZXMgZm9yIGRtYSBjYWNoZSBjb2hl
+cmVuY3kpCj4gKAo+IGh0dHBzOi8vcGF0Y2h3b3JrLmtlcm5lbC5vcmcvcHJvamVjdC9kcmktZGV2
+ZWwvY292ZXIvMjAyNDExMjAwNjE4NDguMTk2NzU0LTEta2VpdGguemhhb0BzdGFyZml2ZXRlY2gu
+Y29tCj4gLykuCj4gCj4gVGhlIGdsaXRjaGVzIEkgc2F3IHN1Z2dlc3RlZCB0aGUgc3luYyBwb2xh
+cml0eSB3YXMgYmVpbmcgc2V0Cj4gaW5jb3JyZWN0bHk7IHRoZQo+IG51bWJlciBvZiBnbGl0Y2hl
+ZCByb3dzIHdhcyBleGFjdGx5IHRoZSB2c3luYyBwdWxzZSB3aWR0aCBwbHVzIDEKPiAoaS5lLgo+
+ICIxNDQwIDE0NDMgMTQ0OCAxNDgxIiBwcm9kdWNlZCA2IGJhZCByb3dzLCAiMTQ0MCAxNDQzIDE0
+NTYgMTQ4MSIKPiBwcm9kdWNlZCAxNCwKPiAiMTQ0MCAxNDQxIDE0NDIgMTQ4MSIgcHJvZHVjZWQg
+MiwgYW5kIHNvIGZvcnRoKS4KPiAKPiBJIGRpZCBhIHJlZ2lzdGVyIGR1bXAgYmV0d2VlbiB0aGUg
+dHdvIGRyaXZlcnMgYW5kIGZvdW5kIHRoYXQsCj4gYWx0aG91Z2ggdGhlCj4gREM4MjAwIEhTWU5D
+IGFuZCBWU1lOQyByZWdpc3RlcnMgd2VyZSBpZGVudGljYWwgYmV0d2VlbiB0aGUgdHdvCj4gdmVy
+c2lvbnMsIHRoZQo+IGhzeW5jIGFuZCB2c3luYyBiaXRzIG9uIHRoZSBpbm5vIGhkbWkgdHggd2Vy
+ZSBzd2FwcGVkIGJldHdlZW4gdGhlCj4gdHdvLiBXaGVuIEkKPiBtYW51YWxseSBzZXQgdGhlIFZJ
+REVPX1RJTUlOR19DVEwgcmVnaXN0ZXIgZnJvbSAweDA5IHRvIDB4MDUKPiAobWF0Y2hpbmcgdGhl
+Cj4gb3V0cHV0IG9mIEtlaXRoJ3MgZHJpdmVyKSwgdGhlIGdsaXRjaGVzIHdlbnQgYXdheS4KPiAK
+PiBLZWl0aCBaaGFvIGRyaXZlcjoKPiAKPiA9PT0gREM4MjAwIGRpc3BsYXkgMCA9PT0KPiBEQ8Kg
+wqAgUEFORUxfQ09ORklHwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAweDE0MTggPSAweDAw
+MDAxMTExCj4gREPCoMKgIEhTSVpFwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgIDB4MTQzMCA9IDB4MEFBMDBBMDAKPiBEQ8KgwqAgSFNZTkPCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgMHgxNDM4ID0gMHg0NTI4MEEzMAo+IERDwqDCoCBW
+U0laRcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAweDE0NDAgPSAw
+eDA1QzkwNUEwCj4gREPCoMKgIFZTWU5DwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIDB4MTQ0OCA9IDB4QzJENDA1QTMKPiBEQ8KgwqAgRFBJX0NPTkZJR8KgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDB4MTRCOCA9IDB4MDAwMDAwMDUKPiBEQ8KgwqAgRkJf
+Q09ORklHwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAweDE1MTggPSAweDE0MDAw
+MDAwCj4gREPCoMKgIEZCX0FERFJFU1PCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAw
+eDE0MDAgPSAweDcxMjAwMDAwCj4gREPCoMKgIEZCX1NUUklERcKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqAgMHgxNDA4ID0gMHgwMDAwMjgwMAo+IERDwqDCoCBGQl9TSVpFwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgMHgxODEwID0gMHgwMkQwMEEwMAo+IERD
+wqDCoCBGQl9DT05GSUdfRVjCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDB4MUNDMCA9IDB4
+MDAwMDIwMDAKPiBEQ8KgwqAgUEFORUxfU1RBUlTCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgMHgxQ0NDID0gMHgwMDAwMDAwMQo+IERDwqDCoCBEUF9DT05GSUfCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIDB4MUNEMCA9IDB4MDAwMDAwMEEKPiBEQ8KgwqAgRkJfV0FURVJf
+TUFSS8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDB4MUNFOCA9IDB4MDAwMDAwMDAKPiBEQ8Kg
+wqAgUEFORUxfQ09ORklHX0VYwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAweDI1MTggPSAweDAwMDAw
+MDAwCj4gCj4gPT09IElOTk8gSERNSSBUWCB2aWRlbyB0aW1pbmcgPT09Cj4gSERNSSBWSURFT19U
+SU1JTkdfQ1RMwqDCoMKgwqDCoMKgwqDCoMKgwqAgMHgwOMKgwqAgPSAweDA1Cj4gSERNSSBFWFRf
+SFRPVEFMX0zCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDB4MDnCoMKgID0gMHhBMAo+IEhE
+TUkgRVhUX0hUT1RBTF9IwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAweDBBwqDCoCA9IDB4
+MEEKPiBIRE1JIEVYVF9IQkxBTktfTMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgMHgwQsKg
+wqAgPSAweEEwCj4gSERNSSBFWFRfSEJMQU5LX0jCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+IDB4MEPCoMKgID0gMHgwMAo+IEhETUkgRVhUX0hERUxBWV9MwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCAweDBEwqDCoCA9IDB4NzAKPiBIRE1JIEVYVF9IREVMQVlfSMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqAgMHgwRcKgwqAgPSAweDAwCj4gSERNSSBFWFRfSERVUkFUSU9OX0zCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIDB4MEbCoMKgID0gMHgyMAo+IEhETUkgRVhUX0hEVVJBVElPTl9I
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAweDEwwqDCoCA9IDB4MDAKPiBIRE1JIEVYVF9WVE9UQUxf
+TMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgMHgxMcKgwqAgPSAweEM5Cj4gSERNSSBFWFRf
+VlRPVEFMX0jCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDB4MTLCoMKgID0gMHgwNQo+IEhE
+TUkgRVhUX1ZCTEFOS8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDB4MTPCoMKgID0g
+MHgyOQo+IEhETUkgRVhUX1ZERUxBWcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDB4
+MTTCoMKgID0gMHgyNgo+IEhETUkgRVhUX1ZEVVJBVElPTsKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgIDB4MTXCoMKgID0gMHgwNQo+IAo+IFlvdXIgZHJpdmVyIChzaG93aW5nIG9ubHkgdGhlIGNo
+YW5nZWQgdmFsdWVzKToKPiAKPiBEQ8KgwqAgRFBfQ09ORklHwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCAweDFDRDAgPSAweDAwMDAwMDAwCj4gREPCoMKgIFBBTkVMX0NPTkZJR19F
+WMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgMHgyNTE4ID0gMHgwMDAwMDAwMQo+IEhETUkgVklERU9f
+VElNSU5HX0NUTMKgwqDCoMKgwqDCoMKgwqDCoMKgIDB4MDjCoMKgID0gMHgwOQo+IAo+IFNwZWNp
+ZmljYWxseSB0aGUgYml0I3MgYXJlIGRpZmZlcmVudCBiZXR3ZWVuIHRoZSB0d28gZHJpdmVyczoK
+PiAKPiBpbm5vX2hkbWktc3RhcmZpdmUuaCAoS2VpdGggWmhhbyk6wqDCoMKgwqAgaW5uby1oZG1p
+LmMgKGdlbmVyaWMpOgo+IMKgwqAgdl9IU1lOQ19QT0xBUklUWV9TRihuKcKgICgobikgPDwgMinC
+oMKgwqDCoCB2X0hTWU5DX1BPTEFSSVRZwqAgYml0IDMKPiDCoMKgIHZfVlNZTkNfUE9MQVJJVFlf
+U0YobinCoCAoKG4pIDw8IDMpwqDCoMKgwqAgdl9WU1lOQ19QT0xBUklUWcKgIGJpdCAyCj4gCj4g
+Il9TRiIgc3VnZ2VzdHMgdGhpcyBjaGFuZ2UgaXMgc3BlY2lmaWMgdG8gU3RhckZpdmUuIFRoZSBj
+b3JyZWN0Cj4gcG9zaXRpb25zIGFyZQo+IEhTWU5DPWJpdCAyIGFuZCBWU1lOQz1iaXQgMyBmb3Ig
+dGhlIEpINzExMC4KCkluIGZhY3QgaXQncyBub3QgU0Ygc3BlY2lmaWMsIFsxXSBwZy4xMyAoZnVs
+bCBtYW51YWwgcGFnZSA5NzkpIGFsc28Kc2hvd3MgdGhlIHNhbWUgZm9yIFJLLgoKSXQgY291bGQg
+YmUgYW4gZXJyb3IgZnJvbSBSb2NrY2hpcCBkZXZlbG9wZXJzIHNpbmNlIHRoZSBiZWdpbm5pbmcu
+CgpbMV0KaHR0cHM6Ly9naXRodWIuY29tL0RlY2lIRC9yb2NrY2hpcF9kb2NzL2Jsb2IvbWFpbi9y
+azMxMjgvVFJNLWNoYXB0ZXItMjQtaGRtaS10eC5wZGYKClRoYW5rcywKSWNlbm93eQoKPiAKPiBJ
+J20gZ3Vlc3NpbmcgdGhhdCB5b3VyIDQyLW1vZGUgdGVzdCBwYXNzZWQgYmVjYXVzZSBtb3N0IENF
+QSBtb2RlcyBhcmUKPiAraHN5bmMKPiArdnN5bmMsIGFuZCB0aGlzIHdvdWxkbid0IHNob3cgYW55
+IGRpZmZlcmVuY2UgaWYgdGhlIHR3byBiaXRzIHdlcmUKPiB0cmFuc3Bvc2VkLgo+IAo+IE9uY2Ug
+dGhlIHN5bmMgcG9sYXJpdHkgaXMgc29ydGVkLCBJJ2QgYmUgaGFwcHkgdG8gZ2l2ZSBhIFRlc3Rl
+ZC1ieToKPiBvbiB0aGUKPiBzZXJpZXMuCj4gCj4gwqAgLS0KPiAKPiBJc3N1ZSAyOiBUaGlzIGlz
+IG1vcmUgYSBmZWF0dXJlIHJlcXVlc3QgdGhhbiBhbiBpc3N1ZS4gT3JpZ2luYWxseSwgSQo+IHRy
+aWVkCj4gcnVubmluZyB0aGlzIFhvcmcgbW9kZWxpbmUsIHdoaWNoIHdvcmtlZCB3ZWxsIHVuZGVy
+IEtlaXRoJ3MgZHJpdmVyOgo+IAo+ICIyNTYweDE0NDBfNDkuOTAiwqAgMjAxLjAwwqAgMjU2MCAy
+NjA4IDI2NDAgMjcyMMKgIDE0NDAgMTQ0MyAxNDQ4IDE0ODEKPiAraHN5bmMgLXZzeW5jCj4gCj4g
+SG93ZXZlciwgeW91ciBkcml2ZXIgd291bGQgbm90IGFjY2VwdCB0aGlzIHBpeGVsIGNsb2NrLiBJ
+IHRoZW4KPiBub3RpY2VkIHlvdSBoYXZlCj4gYSBwcmUtUExMIHRhYmxlIG9mIGZpeGVkIGNsb2Nr
+cy4gSXMgdGhlcmUgYW55IGNoYW5jZSB5b3UgY2FuIGNoYW5nZQo+IHRoZSBjb2RlIHRvCj4gY29t
+cHV0ZSB0aGUgcHJlLVBMTCBvbiB0aGUgZmx5IGxpa2UgaG93IEtlaXRoIGRvZXMgaXQsIHJhdGhl
+ciB0aGFuCj4gdXNlIGEgdGFibGU/Cj4gCj4gVGhhbmtzIGZvciBhbGwgeW91ciBncmVhdCB3b3Jr
+IQo+IAo+IEJlc3QgcmVnYXJkcywKPiDCoCAtQnlyb24KPiAKPiAKPiBfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGxpbnV4LXJpc2N2IG1haWxpbmcgbGlz
+dAo+IGxpbnV4LXJpc2N2QGxpc3RzLmluZnJhZGVhZC5vcmcKPiBodHRwOi8vbGlzdHMuaW5mcmFk
+ZWFkLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXJpc2N2Cg==
 
-I am confused. I am asking to align with what's done in
-Commit ad428f5811bd ("mod_devicetable.h: Split into per subsystem headers")
-and you are disagreeing with that ?
-
-I am not comfortable taking this patch unless there are other similar
-examples that are agreed upon to break the pattern followed in the above
-mentioned commit.
-
-Uwe, please suggest.
-
--- 
-Regards,
-Sudeep
