@@ -1,143 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f40.google.com (mail-wr2-f40.google.com [74.125.225.104])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 143A07081A;
-	Sun, 20 Sep 2026 10:36:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D64FF3603E0
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 10:37:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.104
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789900618; cv=none; b=ZFql7Z0fK58xZ6aw2ugQU9byD6ZpLU3Rj4bseF7XA5clnxeohKpJr9xX9iw7nMfxy/cse/1zGRGgKZlwbJaRWhac8YWLI9vcuMpJnXQ6IOe+ISvDQImD901MOyVfBi0s7I3e2EvzEaed0CMzhDc+EMMr0IB2QvSt3JjW2McDfUo=
+	t=1789900631; cv=none; b=FOtNZ3MYGVFmljeuAt3rCnc2aePqk/UIeDya17JSy8gYuJYIo2vQ2CUItCQNRXt98imyXcowZv7uiEBxlj6idN8LqYygcHKsz5Bhpw7/z+Vp4PxK47rXobTnTjGBlpt8XjbiqQZaInArMDpJQwrutcwx7R4PNR2kAS2TdJR/tGw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789900618; c=relaxed/simple;
-	bh=Mu2Xq2oc+nZYhHCtht+DDI2OtS8nOnLUb3Wl/cJ49Eo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ApEEWG8KQF1MYSl6OHaG0T6hthONu7JbkfqvQPbUT+nQReMqf1bDUEa9fo7vvh+A4U1pRLMFxq789MCdyVnyYZWaiV4jQAricwjgo/htl6BdPiL5awl1g3yoc9PN/tFWEijL1PUpHmhWZTwydMTuZhd0onVk2SKuqNZHHDvGzLQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XVB3QWAW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789900631; c=relaxed/simple;
+	bh=Xr7L/LVpjL3GQFGR8E9vjXeRDSdu2y58YHZHJfhpoVI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dT0T0gA1jIpQc/tsnDN149VtL2mcWC4FE//9IYMBPY8cySy9QZo4WCLAwh17kYNLn1O1DDvTBwFeO21jvo+Y3UjY0S6w40c5VLGbc5YQuhTttSu4JzBtWp0DDp7BrHjIqceCSZvUar5w8gFLjfUM0dILTtS9GddokKd6qzE9DWw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b=UEr2JLQJ; arc=none smtp.client-ip=74.125.225.104
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XVB3QWAW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63DC01F000FF;
-	Sun, 20 Sep 2026 10:36:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789900616;
-	bh=+JvvR+833DTwKxMI0yGo5Km7b+q6jrbPieOQJjm9WdM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XVB3QWAWeHSWty9N9NfnGztEK11smGpvr51GRR6IQDo+wuYchxklJFuRWNtK9uK2z
-	 KdDWJkz9JiGbOR5BARDDeTAXkzAI23ZT3JElyZzgRon0a7YuyWa8Uj+Cg4cnqDgogF
-	 H4vQlKe6MHJFJM5JPZ8JPXiNSFJowMenUk4MHIJ3lBS3SsIg/UVYQ2eFO1YPhXFCit
-	 2o/RkmW17bObb9Ld5l0c3GgZjlUrs3huQKDRMYMNa7/QXukEltNHiVPbY7zOq9LNk8
-	 or6jMwuiYLWg3gyRtq2Unxuy0YIB2EuDsVcBDM3dDsgUMUmGsQNtnsYhRyPYbyhWwN
-	 Ey5letHfGw2qQ==
-Date: Sun, 20 Sep 2026 12:36:50 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-Cc: Stephan Gerhold <stephan@gerhold.net>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Loic Poulain <loic.poulain@oss.qualcomm.com>, Sergey Ryazanov <ryazanov.s.a@gmail.com>, 
-	Johannes Berg <johannes@sipsolutions.net>, linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-Subject: Re: [PATCH net-next v2 1/2] dt-bindings: net: qcom,bam-dmux: Add
- memory-region and qcom,vmid properties
-Message-ID: <20260920-humongous-raven-of-charisma-bb99ed@quoll>
-References: <20260920-qcom-bam-dmux-vmid-ext-v2-0-ef5ca2178378@oss.qualcomm.com>
- <20260920-qcom-bam-dmux-vmid-ext-v2-1-ef5ca2178378@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b="UEr2JLQJ"
+Received: by mail-wr2-f40.google.com with SMTP id ffacd0b85a97d-48704fc0141so177578f8f.2
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 03:37:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ionos.com; s=google; t=1789900627; x=1790505427; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kmMG7+knsRKVkSdz7OMe2deg70Qp3sxmdG8NVLuTxqk=;
+        b=UEr2JLQJ4SCWS1JcDc9SdjX38mJxDYydJF8bfCMsh/XlUfLjfwYd7S8YAi6Yem9hxI
+         5ER7SxbA3FEuhFRezPSl+VlDyh4YYjrn3yzzQPTskdq37P6IRh3VWdPpkrFLaD7huyOw
+         L5/C0OZeFVlMtPS84n5wD9ynI4Bu9oOzNQM6zFwLMjQ/Hm1UXBNcMVeCrJoTINrAutYb
+         al0aHztRWkS+SpWWITw+LQ3oydnqGJmO5JnIF9C52QEJjcT3Z+sJYXdFlZfje6b9spW5
+         y1uyudaDZ4NyWrPQfbaUmyNqif8xeQrmpfXzI8DhxfhvDpgrpONeFeK0PImhhpX3KHL6
+         dwQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789900627; x=1790505427;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kmMG7+knsRKVkSdz7OMe2deg70Qp3sxmdG8NVLuTxqk=;
+        b=vcqvsSXXJQGQ2p0Yu0+g8gghayy5zn+15sGcb1Pfs5XnS9M0BbpB2+lTTycKOdXAmE
+         NfvO3IwmmBpJa7vMpJ2EZN4sjsEYekCjlQTvnIaT1gjY7dRPP05xIu39MnEtqr7FAtll
+         MMr2t9mIqfmP/3dBDUUpB6I3h/NkF2IS28eoMSZILdr+n+Y8S+GF1XWQGQkAus9MRbWs
+         u5SsTBGis3W+/BQE0zQOW8kpT2e+R2LDN0aF6XnW/+XyQqMrROvmFL6eghW0c7HD1pQ/
+         SubX6uklxlXxi/dIGdeMAaXPDmmBweLl9aJX3TPj3rnpYb58Nk2MjG9JcK2EQqXGwEuY
+         fQEg==
+X-Forwarded-Encrypted: i=1; AKwUvBzv8WM3mtx8aQMm9lD4LSdYme5Hs66HJvi+B7xk8LkmUEM7+b0h5bUmVaxo2deSKu9StYsOxI8JkXiVn6k=@vger.kernel.org
+X-Gm-Message-State: AFuF++k15rnD8mHRFPgFau9F+qST13JE3M7X5IuUwN0pOzTiiOZbH1Av
+	caAPcEbfPIniCZJYyC9dzSDDnSMfX9DblznHY2L5ESy/fgH7KD8QQLXQ8BELJzYr0Qo=
+X-Gm-Gg: AYBFou2eLh4o2KLeRxOXXNSM1jE8isjv1aSeL2C4u+T2frlBuORiPai3QRbfCJ+Yy4d
+	NORmlXsF52YffjS9GsaFIQsJk7jkxVEQm20lXUzPUWmoHZazUMRVzFh6oAGV3PmZFlzYfHThZcO
+	Jg2TMhIs4CglUdsqUwgXM+Cqe0mhlt3FR9WqfWXIrAzfkhzQOiXFKq+uwwXR2qSCJHbRG70FLuf
+	c7hjQ0B/kO6hXmE3zAJDNP3FpF9yJ++89umc6mGIIYMiAHMXsDbDcrur8bzeTnlFELwRk2aECJ/
+	/JcPplSb3LHkgo9dK8x1pvKpKOXLikpXhKUb1CrYxdonyF3hQFu3ezd3vqG4Vx4SbjooRD0E1+m
+	bx7kezRC9J3UIo52vHqgaHrpiVseYbpV3KjX7NVI9y3vhnRlfPpOS56h2/9uV9GRTracmpUCq0u
+	VWjtAKDJfqvnXwTok0wtosAwHNNFQNbq2MCOFCpb6wvJoySDLrDnOVcdDA2MK+P7r5qULcSAKhQ
+	mF+0EEGj2hsZTtXP3D+764trKYV+BQ=
+X-Received: by 2002:a05:600c:609b:b0:49c:f9b8:bae0 with SMTP id 5b1f17b1804b1-49fc7f2bdc8mr115621765e9.2.1789900627044;
+        Sun, 20 Sep 2026 03:37:07 -0700 (PDT)
+Received: from jwang-ThinkPad-T14-Gen-6.fritz.box ([2001:9e8:144b:bd00:675a:38f6:9365:abd6])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd103325sm164915215e9.9.2026.09.20.03.37.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2026 03:37:06 -0700 (PDT)
+From: Jack Wang <jinpu.wang@ionos.com>
+To: Song Liu <song@kernel.org>,
+	Yu Kuai <yukuai@fygo.io>
+Cc: Li Nan <magiclinan@didiglobal.com>,
+	Xiao Ni <xiao@kernel.org>,
+	linux-raid@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jack Wang <jinpu.wang@cloud.ionos.com>
+Subject: [PATCH] md: fix mddev_unlock() called without holding lock in lbs_store()
+Date: Sun, 20 Sep 2026 12:37:05 +0200
+Message-ID: <20260920103705.23191-1-jinpu.wang@ionos.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260920-qcom-bam-dmux-vmid-ext-v2-1-ef5ca2178378@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 20, 2026 at 08:32:29AM +0530, Vishnu Santhosh wrote:
-> Some Qualcomm SoCs, such as Shikra, run the modem in a separate security
-> domain with restricted access to system memory. BAM-DMUX DMA mappings
+From: Jack Wang <jinpu.wang@cloud.ionos.com>
 
-Then this is specific to Shikra and should come with its compatible plus
-constraints per variant.
+lbs_store() jumped to the unlock label on mddev_lock() failure,
+calling mddev_unlock() on a mutex that was never acquired. Return
+directly instead.
 
-> must therefore be constrained to a designated region that can be shared
-> with the modem.
-> 
-> Add an optional memory-region property to reference a restricted DMA
-> pool used for BAM-DMUX mappings, and a qcom,vmid property to identify the
-> remote execution environment that is granted access to the pool through
-> SCM.
-> 
-> Require memory-region whenever qcom,vmid is specified.
-> 
-> Co-developed-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-> Signed-off-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-> Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-> ---
->  .../devicetree/bindings/net/qcom,bam-dmux.yaml     | 38 ++++++++++++++++++++++
->  1 file changed, 38 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/net/qcom,bam-dmux.yaml b/Documentation/devicetree/bindings/net/qcom,bam-dmux.yaml
-> index 33746c238513d72366bc52359fb10f275475b331..5351269b0ab72ede808ae47b55d57580af209038 100644
-> --- a/Documentation/devicetree/bindings/net/qcom,bam-dmux.yaml
-> +++ b/Documentation/devicetree/bindings/net/qcom,bam-dmux.yaml
-> @@ -72,6 +72,24 @@ properties:
->        - const: tx
->        - const: rx
->  
-> +  memory-region:
-> +    maxItems: 1
-> +    description:
-> +      Phandle to a reserved-memory node compatible with restricted-dma-pool.
-> +      The BAM-DMUX device uses the pool for DMA mappings.
-> +
-> +  qcom,vmid:
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> +    minItems: 1
+Fixes: 62ed1b582246 ("md: allow configuring logical block size")
+Signed-off-by: Jack Wang <jinpu.wang@cloud.ionos.com>
+---
+ drivers/md/md.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-Drop
-
-> +    maxItems: 1
-> +    items:
-> +      minimum: 1
-> +      maximum: 63
-> +    description:
-> +      VMID of the remote execution environment that is granted access to the
-> +      restricted DMA pool through SCM. The local execution environment is
-> +      retained automatically and must not be specified.
-> +
->  required:
->    - compatible
->    - interrupts
-> @@ -81,12 +99,29 @@ required:
->    - dmas
->    - dma-names
->  
-> +dependencies:
-> +  qcom,vmid: [ memory-region ]
-> +
->  additionalProperties: false
->  
->  examples:
->    - |
-> +    #include <dt-bindings/firmware/qcom,scm.h>
->      #include <dt-bindings/interrupt-controller/irq.h>
->  
-> +    reserved-memory {
-> +        #address-cells = <1>;
-> +        #size-cells = <1>;
-> +        ranges;
-> +
-> +        bam_dmux_pool: restricted-dma-pool {
-> +            compatible = "restricted-dma-pool";
-> +            size = <0x40000>;
-> +            alignment = <0x40000>;
-> +            alloc-ranges = <0x80000000 0x80000000>;
-> +        };
-> +    };
-
-This wasn't here before. Drop.
-
-Best regards,
-Krzysztof
+diff --git a/drivers/md/md.c b/drivers/md/md.c
+index 680b34a63cb3..41fbe5d9961a 100644
+--- a/drivers/md/md.c
++++ b/drivers/md/md.c
+@@ -6048,11 +6048,10 @@ lbs_store(struct mddev *mddev, const char *buf, size_t len)
+ 
+ 	err = mddev_lock(mddev);
+ 	if (err)
+-		goto unlock;
++		return err;
+ 
+ 	err = mddev_set_logical_block_size(mddev, lbs);
+ 
+-unlock:
+ 	mddev_unlock(mddev);
+ 	return err ?: len;
+ }
+-- 
+2.43.0
 
