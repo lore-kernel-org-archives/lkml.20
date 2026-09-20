@@ -1,52 +1,43 @@
-Received: from mta1.migadu.com (out-11.mta1.migadu.com [95.215.58.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BDA31799F
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 03:29:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24D5C19D065;
+	Sun, 20 Sep 2026 03:33:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789874979; cv=none; b=hJHANnjC3oTYyp+KIjtVlZU2my7dYhqRsplOaAIihrTD6s25wfq5uFEc8iHTMQd1DgaK4U6asUTYuP5qOQBiUS8IJshQdXtNpMFzc28kHtVe2zOj6WERuY1ALzgnQ4zurgvDVRtElX46G3vPlwfrWOsSoAAxpNlSXLe4zQDm8tI=
+	t=1789875214; cv=none; b=VXjiNFj9S6p5KhusdKhuyng7svpGz5x2KKpiTqt0q+a/QQ4oVuBDkzGVBhUGd9GpaBRtYk2I4L7JcKhKTPUxw8OrH83e5CSB87BdMaDpx4ZmXUPsYtkBo5WkqeKyzFj3H70sKrcbdQv61GeGas1cEi3Y3pINAR+zaWyQZvMFFDY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789874979; c=relaxed/simple;
-	bh=V4Vz6gidKP+9XlJ5npYvmEGbYAGJM9YPmsRmNHIjUZU=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version; b=Op7xKDr9tDgvoFmgmeQf6AnlSfOCMf+hGsLQ2Tloojx1SAStqQ/5f5dKO5Yc3l7DhcwraE/LYUfXE76BbZj4ypyg1xuqW5edL3XtDLe727LZGUgvC3dfZgjifE57nKlzfIcfZKzrIePdKtsyyM/RH1+x5w4HrOHEmkJJ8by/eJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=s4+s26is; arc=none smtp.client-ip=95.215.58.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789875214; c=relaxed/simple;
+	bh=yTcOxy54RfrT5BmhhvJpQ+22VWA7MNMCgrbs6wMFRZ8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aMUAjZYC+dmzfU7EkuDY1n34AriQWb+Ih1XyGh265Jo+T6YYpmZknoYnvSC86r+ckX0pYDgmZ43Am6M3tkehV7Xiyv/toSnTUpa/dKlt8apNJxotK9E1R5sTdz0iWEe18zX5R88EkV/rU2kTcMruqXatI/tzFoez+RW+m3H3C0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=LLcdnBdF; arc=none smtp.client-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="s4+s26is"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=V4Vz6gidKP+9XlJ5npYvmEGbYAGJM9YPmsRmNHIjUZU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789874975; v=1; x=1790479775;
- b=s4+s26iskR4xXj+2JCWRYfYHQ6DBP+/JkIYWvDm3QM+oiw9NNm2DNS2kFAu65OgkTfsi/WMI
- azBq+vRlo8i+FUJukbE6Yk9VPijHiw+2x0yUXGVYg/0zHZisuOo8Rj0wqJPOT0JTNbcW8yW1bMr
- 51T/L0o/2N49FPH8CK7MOvjw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1de7dad217777a35;
-	Sun, 20 Sep 2026 03:29:35 +0000
-X-Mizu-Trace-ID: 1de7dad217777a35
-X-Migadu-Flow: FLOW_OUT
-From: Qingfang Deng <qingfang.deng@linux.dev>
-To: Russell King <linux@armlinux.org.uk>,
-	Linus Walleij <linusw@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Thomas Weissschuh <thomas.weissschuh@linutronix.de>,
-	Thomas Gleixner <tglx@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Qingfang Deng <qingfang.deng@linux.dev>,
-	Will Deacon <will@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ARM: errata: document Cortex-A9 r4 as affected by erratum 754322
-Date: Sun, 20 Sep 2026 11:29:23 +0800
-Message-ID: <20260920032926.452884-1-qingfang.deng@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="LLcdnBdF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Gy
+	KQdaB9T27anvxUSlIVIK7edWszZ6M3M7OiCI+M7go=; b=LLcdnBdFKS6ywCIPio
+	zuqH8Te+qLt97gYy7mQxPMV75WwePaEes4MlhAo5u8zkqiMAXptM5+t+qwGfxG7k
+	LWAclePVvrGTVmiFzMk/aS9wiv0qzMSVXctCaQonplYu7wVtwplHjIXDsHmtUEgK
+	ahgy9IJPG0QUyx5+htiU4uKAs=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wCXxwXwU69qNLgNBw--.53728S2;
+	Sun, 20 Sep 2026 11:33:05 +0800 (CST)
+From: Pengpeng Hou <hppiscas@163.com>
+To: nuno.sa@analog.com
+Cc: michael.hennerich@analog.com,
+	jic23@kernel.org,
+	dlechner@baylibre.com,
+	andy@kernel.org,
+	linux@analog.com,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	hppiscas@163.com
+Subject: [PATCH v2] iio: cdc: ad7150: fix OF matching and publish module aliases
+Date: Sun, 20 Sep 2026 11:33:03 +0800
+Message-ID: <20260920033303.11879-1-hppiscas@163.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,43 +45,58 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wCXxwXwU69qNLgNBw--.53728S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7AFWkWrWxXFWUuw4rGF4fGrg_yoW8WFW7pF
+	srZFyrKry3KayakFWjv3WfuF98Wwn3A34DKFW5Kw43u390gFyUuFWvka1ftr98XF4xGana
+	qw4jyw4Uuw4kZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U8l19UUUUU=
+X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbCxhSYYWqvU-Rq+AAA3b
 
-The Cortex-A9 r4 Software Developers Errata Notice (ARM UAN 0009D),
-section 2.3.3, lists erratum 754322 as affecting all r2, r3 and r4
-revisions. The Kconfig help text currently mentions only r2 and r3.
+The OF match entries use positional initializers, which initialize the
+name field rather than compatible. Consequently the advertised AD7150,
+AD7151 and AD7156 compatible strings do not describe OF compatible
+matches. The table is also not exported for module alias generation.
 
-Add r4p* to the affected revisions so that users configuring Cortex-A9
-r4 systems know that the workaround also applies to them.
+Use designated compatible initializers and publish the OF table. Keep
+the existing I2C ID table and its device-variant selection unchanged.
 
-Link: https://documentation-service.arm.com/static/608118675e70d934bc69f143
-Fixes: fcbdc5fe6ebe ("ARM: 6772/1: errata: possible fault MMU translations following an ASID switch")
-Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
+The issue was found by our static-analysis tool.
+
+Fixes: 89f2d5b080bc ("staging:iio:cdc:ad7150: Add of_match_table")
+Assisted-by: gpt 5
+Signed-off-by: Pengpeng Hou <hppiscas@163.com>
 ---
- arch/arm/Kconfig | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+Changes since v1:
+https://lore.kernel.org/all/20260905133939.66210-1-hppiscas@163.com/
+Use the submitter's full name and rebase on current mainline; retain the
+reviewed code change.
 
-diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
-index 0cc289a7184a..c7d631d5242b 100644
---- a/arch/arm/Kconfig
-+++ b/arch/arm/Kconfig
-@@ -708,11 +708,12 @@ config ARM_ERRATA_754322
- 	depends on CPU_V7
- 	help
- 	  This option enables the workaround for the 754322 Cortex-A9 (r2p*,
--	  r3p*) erratum. A speculative memory access may cause a page table walk
--	  which starts prior to an ASID switch but completes afterwards. This
--	  can populate the micro-TLB with a stale entry which may be hit with
--	  the new ASID. This workaround places two dsb instructions in the mm
--	  switching code so that no page table walks can cross the ASID switch.
-+	  r3p*,r4p*) erratum. A speculative memory access may cause a page table
-+	  walk which starts prior to an ASID switch but completes afterwards.
-+	  This can populate the micro-TLB with a stale entry which may be hit
-+	  with the new ASID. This workaround places two dsb instructions in the
-+	  mm switching code so that no page table walks can cross the ASID
-+	  switch.
+ drivers/iio/cdc/ad7150.c |    8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/iio/cdc/ad7150.c b/drivers/iio/cdc/ad7150.c
+index 2f35c6d2f9ce..b36ac4e2dae8 100644
+--- a/drivers/iio/cdc/ad7150.c
++++ b/drivers/iio/cdc/ad7150.c
+@@ -636,11 +636,13 @@ static const struct i2c_device_id ad7150_id[] = {
+ MODULE_DEVICE_TABLE(i2c, ad7150_id);
  
- config ARM_ERRATA_754327
- 	bool "ARM errata: no automatic Store Buffer drain"
+ static const struct of_device_id ad7150_of_match[] = {
+-	{ "adi,ad7150" },
+-	{ "adi,ad7151" },
+-	{ "adi,ad7156" },
++	{ .compatible = "adi,ad7150" },
++	{ .compatible = "adi,ad7151" },
++	{ .compatible = "adi,ad7156" },
+ 	{ }
+ };
++MODULE_DEVICE_TABLE(of, ad7150_of_match);
++
+ static struct i2c_driver ad7150_driver = {
+ 	.driver = {
+ 		.name = "ad7150",
+
+base-commit: 518e5b794c06c0f0eb40df3e202274a66202c137
 -- 
-2.43.0
+2.50.1 (Apple Git-155)
 
