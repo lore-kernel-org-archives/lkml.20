@@ -1,100 +1,94 @@
-Received: from mailout1.hostsharing.net (mailout1.hostsharing.net [83.223.95.204])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B6EE1E7C18;
-	Sun, 20 Sep 2026 06:12:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.223.95.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAFC13D6473
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 06:12:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789884728; cv=none; b=Nugkcx6bHVLrpPSX97GGGy8Q36d81mRWCn1q2QcOLiZrNx0zdDMWLasSuPh5bhhHMf05xd7H1Yzuvj65dYMkt+jKQuN6bhYiFnVBLvyTYATWmoMBYM3t5DVoG1C/fBcKBMd/L1d3Cs9JQoEVaP/dqHmEXcPQ/Yoh81rKRB3v7hk=
+	t=1789884753; cv=none; b=eNi7KlEvMKO2lrx4cIuG+ePpWnLBWnsbhRisUlL3GWS72Vu2F1/1tzU9ak24NdKDm+5M5J+IzdoY52MBoh223Qx5RgphULkrdChM+NmgukPkg/rHydiDzt0FId+7a9hASlYBxRPmjCg/g9ZU6yZlVh8JrfCE7W39AmzRB8sbMPo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789884728; c=relaxed/simple;
-	bh=uGj/cjs1juN48xRJfjqqvRQgae7uiKkxG3gI1nWfePE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hPbsKx54m9+wSN1PVGAvo8yLEB0RckQse9FOv0zLzXLeE4M/hghVig5D82L2M/OFAv8ZZ9+z8ovWDjc6cDwLDf5+nEuuyWgzxZLKyHYR4wm3M9Y2mbAOcoJDUU/7zKfYANucUhOC5etqgdx38oGT8Iz0U4T4dUnCKIZlm8IrzAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de; spf=pass smtp.mailfrom=wunner.de; arc=none smtp.client-ip=83.223.95.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wunner.de
-Received: from h08.hostsharing.net (h08.hostsharing.net [IPv6:2a01:37:1000::53df:5f1c:0])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature ECDSA (secp384r1) server-digest SHA384
-	 client-signature ECDSA (secp384r1) client-digest SHA384)
-	(Client CN "*.hostsharing.net", Issuer "GlobalSign GCC R6 AlphaSSL CA 2025" (verified OK))
-	by mailout1.hostsharing.net (Postfix) with ESMTPS id 47E094A19;
-	Sun, 20 Sep 2026 08:11:56 +0200 (CEST)
-Received: by h08.hostsharing.net (Postfix, from userid 100393)
-	id 1A2FA61ACEA5; Sun, 20 Sep 2026 08:11:56 +0200 (CEST)
-Date: Sun, 20 Sep 2026 08:11:56 +0200
-From: Lukas Wunner <lukas@wunner.de>
-To: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
-	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Rafael J Wysocki <rafael@kernel.org>,
-	Guixin Liu <kanie@linux.alibaba.com>,
-	Olof Johansson <olof@lixom.net>
-Subject: Re: [PATCH v13 1/5] PCI/DPC: Ignore devices with no AER Capability
-Message-ID: <aq95LGUHL-pnmTlr@wunner.de>
-References: <20260919162655.3499010-1-sathyanarayanan.kuppuswamy@linux.intel.com>
- <20260919162655.3499010-2-sathyanarayanan.kuppuswamy@linux.intel.com>
+	s=arc-20240116; t=1789884753; c=relaxed/simple;
+	bh=rJ7JV7fe/imem88MeBzmgQzVzxxJuNxRZ6eOp/+uA4g=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=CAO/7fT8Tl7vtDq3JbvLKCCyyDQVF79KWen7TRaFEPryzMN9ww2J9uDW9dTO78c+xo2MDRzHclx24Zi8ZmTdU/7R7DyFSEMnZzPkaSo3epHBVS7EXIQCAbbQXejpcBugG+BSXN6EHNas4P+pag07TLSWKLxL7Yw48Ru9dHHBBE8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=I9khwo+n; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="I9khwo+n"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789884752; x=1821420752;
+  h=date:from:to:cc:subject:message-id;
+  bh=rJ7JV7fe/imem88MeBzmgQzVzxxJuNxRZ6eOp/+uA4g=;
+  b=I9khwo+nZZZctuVhUcZ/dPLXJpo/LeCvLf3TFSEWtlnlW1OC72inbhDl
+   VLOQFPpBhKmuIwFo/WjU/JY1cB2lF8tRQ/qTcInN5BghIej6+1R3AEn2B
+   MIN5mqRjeTKtNe5PaQHSDziS31SjGh2OxjWmoVT/qIL35qS0BgDnhCTQI
+   Tb10NGmxTlQR6+01ClzUlSODR15u9Z9ZtZluLDfg9ea8i+xeJpM1Q3W8x
+   kjVjlQnwK2RTcPRWxLWHPaAIhpLs4I1tUcheqvnmk0rrlP1NI0rdfI6PA
+   hXy8wvO3Mk3/8p5AChw6zf1xQNyoJzGc9v8U9TQTOb7XEyVMRaEeKQGpw
+   A==;
+X-CSE-ConnectionGUID: dqw922SgQjGXrtbiOLX4Rw==
+X-CSE-MsgGUID: 4LdnFkX+Tiit4eLIp2X+3g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11910"; a="107900302"
+X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; 
+   d="scan'208";a="107900302"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2026 23:12:31 -0700
+X-CSE-ConnectionGUID: qM8UP+fHQOSZavZ2q/vx3g==
+X-CSE-MsgGUID: XhT5knpvTUeb9ut/zPWdWw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; 
+   d="scan'208";a="271673003"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by fmviesa007.fm.intel.com with ESMTP; 19 Sep 2026 23:12:30 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x8Amp-00000000C0x-1GF2;
+	Sun, 20 Sep 2026 06:12:27 +0000
+Date: Sun, 20 Sep 2026 14:11:39 +0800
+From: kernel test robot <lkp@intel.com>
+To: Eduard Zingerman <eddyz87@gmail.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Alexei Starovoitov <ast@kernel.org>
+Subject: {standard input}:6011: Error: register save offset not a
+ multiple of 4
+Message-ID: <202609201441.HMtNMLer-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260919162655.3499010-2-sathyanarayanan.kuppuswamy@linux.intel.com>
 
-On Sat, Sep 19, 2026 at 09:26:51AM -0700, Kuppuswamy Sathyanarayanan wrote:
-> Downstream Ports may support DPC regardless of whether they support AER
-> (see PCIe r7.0, sec 6.2.11.2).  Previously, if the user booted with
-> "pcie_ports=dpc-native", it was possible for dpc_probe() to succeed even if
-> the device had no AER Capability, but dpc_get_aer_uncorrect_severity()
-> depends on the AER Capability.
-[...]
-> +++ b/drivers/pci/pcie/dpc.c
-> @@ -477,6 +477,9 @@ static int dpc_probe(struct pcie_device *dev)
->  	int status;
->  	u16 cap;
->  
-> +	if (!pdev->aer_cap)
-> +		return -ENOTSUPP;
-> +
->  	if (!pcie_aer_is_native(pdev) && !pcie_ports_dpc_native)
->  		return -ENOTSUPP;
+Hi Eduard,
 
-I've got patches which make DPC work (again) on AER-unsupporting ports:
+FYI, the error/warning still remains.
 
-  https://github.com/l1k/linux/commits/aer_baseline_v1/
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   f259f446f5198d98e13756d2cd531812a0ad3064
+commit: bf0c571f7feb6fa05a512e2a5e50702501849d61 bpf: introduce forward arg-tracking dataflow analysis
+date:   5 months ago
+config: m68k-randconfig-r1306-20260920 (https://download.01.org/0day-ci/archive/20260920/202609201441.HMtNMLer-lkp@intel.com/config)
+compiler: m68k-linux-gcc (GCC) 14.3.0
+sparse: v0.6.5-rc1
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260920/202609201441.HMtNMLer-lkp@intel.com/reproduce)
 
-In particular:
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: bf0c571f7feb ("bpf: introduce forward arg-tracking dataflow analysis")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609201441.HMtNMLer-lkp@intel.com/
 
-  PCI/DPC: Avoid access to non-existent AER capability
-  https://github.com/l1k/linux/commit/85f209fd4732
+All errors (new ones prefixed by >>):
 
-  PCI/DPC: Reinstate support for AER-incapable ports
-  https://github.com/l1k/linux/commit/2de89b762d79
+   {standard input}: Assembler messages:
+>> {standard input}:6011: Error: register save offset not a multiple of 4
+   {standard input}:6012: Error: register save offset not a multiple of 4
+   {standard input}:6013: Error: register save offset not a multiple of 4
+   {standard input}:6014: Error: register save offset not a multiple of 4
+   {standard input}:6015: Error: register save offset not a multiple of 4
+   {standard input}:6016: Error: register save offset not a multiple of 4
 
-I'm almost done with that series and hope to submit it this cycle.
-Your patch [1/5] will cause a conflict with my patches.
-Would you mind holding off on patch [1/5] for now?
-
-There's another reason:  I know of one product in particular,
-Intel "Ponte Vecchio" data center GPUs, which support DPC but
-lack an AER capability.  DPC was tested and made to work on
-those cards (see 53b54ad074de).
-
-I didn't realize back then but know now that validation engineers
-specifically used pcie_ports=dpc-native to be able to use DPC on
-that product.  And I believe this was also communicated to customers
-as "best known method" for DPC on Ponte Vecchio.  In other words,
-using pcie_ports=dpc-native to make DPC work on non-AER-capable products
-has become a feature.  Your patch breaks those use cases.
-
-That's why I chose to make DPC work (again) on non-AER-capable products
-with the above-linked patches, instead of closing this loophole to
-force-enable it.
-
-Thanks,
-
-Lukas
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
