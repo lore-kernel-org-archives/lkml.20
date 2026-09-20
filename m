@@ -1,57 +1,57 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6E033EC805
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 15:13:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 299B23B05A2
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 15:13:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789917198; cv=none; b=lJM5ty2dwD5DUWkK0Sl0obDvK6KAb74kwclt6w08Y0LeyQOTfa9XLSWoZ5eQ9UDsX+hQgx1lMh7vr/R3hfpmGEacsntWB2CsZ3Fre7Xr/likMBn8ILfqJRZWqxHLlzE8bCMoYAAhRtQV+C+IFgDIwr5C0ucwV3LIaLhljeHEyes=
+	t=1789917202; cv=none; b=YRQCKL3korHn2UTvYT+4H3nRbGHqvdeODoFyf85emyzX/kn4NCsPZnG8aNVfCa8amrmFel19c1oiBIQZXQDyGey8FWzls9V8tsElV201jRAjjQJ25CKxQrdjrZgZmJWxyF048lKQ8B1Hzb3Ym4vI8wWZ5cRUyb8gFKNkiLidKLs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789917198; c=relaxed/simple;
-	bh=tsbhW08RnMhR983N7W+oT0nzxoyR6/vrAI0hdff9dBo=;
+	s=arc-20240116; t=1789917202; c=relaxed/simple;
+	bh=xWAxiJsB2S9cTR761zPnD4UjD8OmMtzIcBR5k2bwwc8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=r+j7Q/EXMxyip0ioNH2QqgVarpNG/s180LEojACN4JTGRk9h3/IJXijdmPucAI9oMrauvl3QzBifcUPYoFVNIzmWW8F8gEe9m+FVvNCRA9PSIObo8taq87X/GUef83wH3W6eMAqiVLeB8AR9HJkcpTb0lIK9tuXtOq9c7NMXV7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=n5JbIyky; arc=none smtp.client-ip=192.198.163.18
+	 MIME-Version; b=SC034BO+GwhUI047tqR7EJ2pD0wkvdk97XRHuWSuS3Mw9aJxFLMm+lgGgGYqxCC/+WYBTmcWnmYjDAc7Gis97oS//OM0XV/q0bxthX7rAUFq/gSW9vTXxvGhtuiIO7X9FBpFuH5XjdotSOntHYFXgGsdVzZqHG8sEL1R5vvS8jI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZNTrsGtO; arc=none smtp.client-ip=192.198.163.18
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="n5JbIyky"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZNTrsGtO"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789917196; x=1821453196;
+  t=1789917200; x=1821453200;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=tsbhW08RnMhR983N7W+oT0nzxoyR6/vrAI0hdff9dBo=;
-  b=n5JbIyky1ipYgxC19njbmy2EI/BOvU1dmfPhZAbPVDnO1hM8TZ/78pGO
-   TF3IHIYALLm4ngdbcuEscDLYUp2z7RpAYpLxIF0Ek0D+ZLbTJUH05pTIW
-   ugGvm55WK3sK8P3/xhUnXfxN6IdllJd0bsR5lkYUgvRZeG6uPVMNgspmK
-   0HUVwQ9Z2iQD2LvDohgayn+1+N9rI5TqqlrDPhHSCwKyIzm6mAeekgCNu
-   lARBY/RtAJLqInu3+kFmU3X8bQLaL0A+TCHVVWBqGwaRD+X2H7y0wjBLx
-   elk+9dk7BzeE7SxVq55GJwpLJIDBD9vYhqzfHLgV573z8Hz8oUz6j7sin
+  bh=xWAxiJsB2S9cTR761zPnD4UjD8OmMtzIcBR5k2bwwc8=;
+  b=ZNTrsGtOgp291/7CYWYnUUtBgBpz2aiqD76JdTNNwqUmB4P3755bmO7b
+   Lq5xrBMdeFgFqhh6xqAF4Nrj5G8Y7MHWkIn0gHjf1aQuSnZaUqUAUM0bb
+   7NJqBOXLnidxoXTlYiBJlh2uilpduefBUgXajcjLlL78xh7Tya6qNKTFs
+   YEHVyuS5Gb76glF9dot6Ie3uEGvDMFwRJr5pFw9Jfc85Ye6E5A00PHTZk
+   ZKHdktsuwWDP5X0SboggnrENYBGy/GszC9n1W6QsdmwjS90Fw3teYFDgq
+   qNBHtAhKdTOCrPgAsOAF5zDLPsY3m0HMlhM1t4p41bjBsoHPDlJWcC9OI
    w==;
-X-CSE-ConnectionGUID: qvVTbkmbSfiG5PjeUOlU7Q==
-X-CSE-MsgGUID: lV5NjoQKR4yKORnEzrRXNQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11911"; a="89548444"
+X-CSE-ConnectionGUID: uBCvehNEQcuao5nds2yjlg==
+X-CSE-MsgGUID: PENHQmLXT16LwF/wFjOPxw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11911"; a="89548458"
 X-IronPort-AV: E=Sophos;i="6.27,112,1787036400"; 
-   d="scan'208";a="89548444"
+   d="scan'208";a="89548458"
 Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Sep 2026 08:13:16 -0700
-X-CSE-ConnectionGUID: 93HTLn2EToKSfCUKP5q4LQ==
-X-CSE-MsgGUID: cj77OfaFTtKEd7ZQmoGKqw==
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Sep 2026 08:13:20 -0700
+X-CSE-ConnectionGUID: dSGlgXnuSxGkTTJMgPtn1g==
+X-CSE-MsgGUID: Io3skMBtQzCX7P2V1R5xiQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,112,1787036400"; 
-   d="scan'208";a="3352416"
+   d="scan'208";a="3352425"
 Received: from hrotuna-mobl2.ger.corp.intel.com (HELO ahunter6-desk) ([10.245.244.82])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Sep 2026 08:13:15 -0700
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Sep 2026 08:13:19 -0700
 From: Adrian Hunter <adrian.hunter@intel.com>
 To: alexandre.belloni@bootlin.com
 Cc: Frank.Li@nxp.com,
 	billy_tsai@aspeedtech.com,
 	linux-i3c@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH V3 08/17] i3c: mipi-i3c-hci: Fix runtime PM violation in i3c_hci_free_ibi()
-Date: Sun, 20 Sep 2026 18:12:38 +0300
-Message-ID: <20260920151248.46936-9-adrian.hunter@intel.com>
+Subject: [PATCH V3 10/17] i3c: mipi-i3c-hci: Move DMA suspend/resume callbacks
+Date: Sun, 20 Sep 2026 18:12:40 +0300
+Message-ID: <20260920151248.46936-11-adrian.hunter@intel.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260920151248.46936-1-adrian.hunter@intel.com>
 References: <20260920151248.46936-1-adrian.hunter@intel.com>
@@ -64,30 +64,11 @@ MIME-Version: 1.0
 Organization: Intel Finland Oy, Registered Address: c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo, Business Identity Code: 0357606 - 4, Domiciled in Helsinki
 Content-Transfer-Encoding: 8bit
 
-i3c_hci_free_ibi() calls __i3c_hci_disable_ibi(), but the latter
-requires runtime PM to be resumed.  The ->free_ibi() callback does not
-guarantee that condition.
+Relocate hci_dma_suspend() and hci_dma_resume() closer to the DMA IO
+operations table in preparation for upcoming changes.
 
-The cases where ->free_ibi() may be called without a preceding
-->disable_ibi() do not require re-enabling runtime PM handling:
+No functional change.
 
-- runtime resume failed in i3c_dev_free_ibi_locked(), so it skips the
-  IBI disable but still proceeds to call ->free_ibi()
-- the device has been re-enumerated under a new dynamic address in
-  __i3c_master_add_i3c_dev_locked(), which tears down the old device
-  descriptor and deliberately clears olddev->ibi->enabled (to avoid
-  sending a DISEC to the stale old address) before calling
-  i3c_dev_free_ibi_locked().  As a result ->free_ibi() is reached with
-  neither a hardware IBI disable nor runtime PM resumed.
-
-In both cases the important requirement is to prevent further IBI
-processing for the device.  That can be done without accessing hardware
-by removing the device from the ibi_devs[] table.
-
-Replace the call to __i3c_hci_disable_ibi() with clearing the
-corresponding ibi_devs[] entry under the controller lock.
-
-Fixes: 650716f23eac4 ("i3c: mipi-i3c-hci: Fix race in i3c_hci_addr_to_dev()")
 Signed-off-by: Adrian Hunter <adrian.hunter@intel.com>
 Reviewed-by: Frank Li <Frank.Li@nxp.com>
 ---
@@ -95,36 +76,80 @@ Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
 Changes in V3:
 
-	Added Frank Li's Reviewed-by tag.
+	None
 
 Changes in V2:
 
-	None
+	Added Frank Li's Reviewed-by tag.
 
 
- drivers/i3c/master/mipi-i3c-hci/core.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/i3c/master/mipi-i3c-hci/dma.c | 46 +++++++++++++--------------
+ 1 file changed, 23 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/i3c/master/mipi-i3c-hci/core.c b/drivers/i3c/master/mipi-i3c-hci/core.c
-index f6a34ce7a295..b9b20797d045 100644
---- a/drivers/i3c/master/mipi-i3c-hci/core.c
-+++ b/drivers/i3c/master/mipi-i3c-hci/core.c
-@@ -675,11 +675,13 @@ static void __i3c_hci_disable_ibi(struct i3c_hci *hci, struct i3c_dev_desc *dev)
- 
- static void i3c_hci_free_ibi(struct i3c_dev_desc *dev)
- {
-+	struct i3c_hci_dev_data *dev_data = i3c_dev_get_master_data(dev);
- 	struct i3c_master_controller *m = i3c_dev_get_master(dev);
- 	struct i3c_hci *hci = to_i3c_hci(m);
- 
--	/* Must ensure the IBI has been disabled */
--	__i3c_hci_disable_ibi(hci, dev);
-+	/* Must ensure IBIs for this device will no longer be processed */
-+	scoped_guard(spinlock_irqsave, &hci->lock)
-+		hci->ibi_devs[dev_data->dat_idx] = NULL;
- 	hci->io->free_ibi(hci, dev);
+diff --git a/drivers/i3c/master/mipi-i3c-hci/dma.c b/drivers/i3c/master/mipi-i3c-hci/dma.c
+index a798b0648922..ec4b469abd33 100644
+--- a/drivers/i3c/master/mipi-i3c-hci/dma.c
++++ b/drivers/i3c/master/mipi-i3c-hci/dma.c
+@@ -273,29 +273,6 @@ static void hci_dma_init_rings(struct i3c_hci *hci)
+ 		hci_dma_init_rh(hci, &rings->headers[i], i);
  }
  
+-static void hci_dma_suspend(struct i3c_hci *hci)
+-{
+-	struct hci_rings_data *rings = hci->io_data;
+-	int n = rings ? rings->total : 0;
+-
+-	for (int i = 0; i < n; i++) {
+-		struct hci_rh_data *rh = &rings->headers[i];
+-
+-		rh_reg_write(INTR_SIGNAL_ENABLE, 0);
+-		rh_reg_write(RING_CONTROL, 0);
+-	}
+-
+-	i3c_hci_sync_irq_inactive(hci);
+-}
+-
+-static void hci_dma_resume(struct i3c_hci *hci)
+-{
+-	struct hci_rings_data *rings = hci->io_data;
+-
+-	if (rings)
+-		hci_dma_init_rings(hci);
+-}
+-
+ static int hci_dma_init(struct i3c_hci *hci)
+ {
+ 	struct hci_rings_data *rings;
+@@ -1075,6 +1052,29 @@ static bool hci_dma_irq_handler(struct i3c_hci *hci)
+ 	return handled;
+ }
+ 
++static void hci_dma_suspend(struct i3c_hci *hci)
++{
++	struct hci_rings_data *rings = hci->io_data;
++	int n = rings ? rings->total : 0;
++
++	for (int i = 0; i < n; i++) {
++		struct hci_rh_data *rh = &rings->headers[i];
++
++		rh_reg_write(INTR_SIGNAL_ENABLE, 0);
++		rh_reg_write(RING_CONTROL, 0);
++	}
++
++	i3c_hci_sync_irq_inactive(hci);
++}
++
++static void hci_dma_resume(struct i3c_hci *hci)
++{
++	struct hci_rings_data *rings = hci->io_data;
++
++	if (rings)
++		hci_dma_init_rings(hci);
++}
++
+ const struct hci_io_ops mipi_i3c_hci_dma = {
+ 	.init			= hci_dma_init,
+ 	.cleanup		= hci_dma_cleanup,
 -- 
 2.53.0
 
