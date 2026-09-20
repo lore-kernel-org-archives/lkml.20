@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 511193C3F42;
-	Sun, 20 Sep 2026 05:19:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFB7F31D39A;
+	Sun, 20 Sep 2026 05:20:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789881560; cv=none; b=jXeWs4V/+GrdwYujO1rm4hvJNlNkqrzeqD81mzGgcRyvMeJWcTbgDWBKMIMTjTnN80+6tZKbZDbvbhlvIr3mawSNAHICEbOMjC/BV8cfrXEDavQluywEnn5iYSIk9vHJrRrxJAGteSUDY6hJieSMaxDKfm3WvRiv67c4Ur0i8sQ=
+	t=1789881650; cv=none; b=hcqTMpYOH2Xvf59RBLaSjs6oOWNASGnqTmMAir+mnGlTrVETHkFiOd2ee+I/JndK8cb4RIpQtsMb6qRZeqJH8euuQk1axIodk5kgHGroTdGl+R8ZQwl+LiAW1EcpWKnsWuEU/IHy475vCoVtXV+eIOBkX+zQVWvUlhuYq1qzhMs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789881560; c=relaxed/simple;
-	bh=2FcVlwXazTCbICvrpW2LKqxgOmQjMOl11YWMhdBk8/s=;
+	s=arc-20240116; t=1789881650; c=relaxed/simple;
+	bh=96lakhEdc7AtXHwvXLdmRu323OF9ZtO3PeKLNyHpPmU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bRlpiGRzAtCvULSV3a7bFI+SXaduAA9kq0Mmf7tooPb1y4YoUrCpm4scOX3tBezUL3aHmSKCwi+iYEPdxo3PARpHqsEVo+CxWZjV5fS0qjSldu6jHLUyYkb52i+yHSz2w6J9KheAeITLIYmFAV6/PEonxotJkTkW8vgIzhuP2FU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ubS0BxV6; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Gdw67m01RnM0YvL6lc96TJ9uonQSRQWnPe4lrhf83GvP7GVnSWC3ub3MfGtopxJt5mKsZqU+sJwfbB43+lkkMXGnjjw+8Oq5q3qC2TIl6ynjAeiNmOojHfMhoFVdttB7nKNHN58Nw0Uccr1hQsUONQmGbZ9nO6hTt0SXWk/F9JU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=IzxrvECA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ubS0BxV6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BB541F000FF;
-	Sun, 20 Sep 2026 05:19:18 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="IzxrvECA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C227B1F000FF;
+	Sun, 20 Sep 2026 05:20:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789881558;
-	bh=ZpuKN4BpPOj101hlet9y/R7+p5hs6ksIDBZ7aInNq3o=;
+	s=korg; t=1789881649;
+	bh=ixSrPjNTu0ij6JXNjNfwvR83oCrjs+i49zeMfAE8la8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ubS0BxV6UfNr965j70Kd2m4bDaTmO0/K4gahxU1VzzvhYBDj9jc1+hVoM1N2gy+yw
-	 gQwLpLrxIe1SFn6n6YL81xOW46yIvz02BuWVMPj3usa0/j0n4dimdwh9zLht/l3aJy
-	 OrNjSV6m2vbsgMwIyrEImI3fYRdjRXncx6IxdkaA=
-Date: Sun, 20 Sep 2026 06:17:21 +0100
+	b=IzxrvECAMIYSxK09oy2aCC9o007pgo9Q+40fz9zgpEpidvM5fzSzLAGkSElTkF5Or
+	 SsTQemDDzS40bfn/J3Rjm5zhj8vlzjExbiqLixhhk4xveiwKR8yxJh52/bL3mMH05w
+	 xDJpHUIy01GngTDCeqUKEhzh5MBhWcmld86+wWlM=
+Date: Sun, 20 Sep 2026 06:18:51 +0100
 From: Greg KH <gregkh@linuxfoundation.org>
 To: Hui Peng <benquike@gmail.com>
-Cc: jirislaby@kernel.org, john.ogness@linutronix.de,
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] serial: fix 8250 hash_mutex race and
- uart_get_baud_rate() divide-by-zero
-Message-ID: <2026092001-judicial-coherence-46a5@gregkh>
-References: <20260919222627.3797854-1-benquike@gmail.com>
+Cc: valentina.manea.m@gmail.com, shuah@kernel.org,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] usbip: validate ISO packet descriptors and URB lengths
+ in vhci, vudc, and usbip_common
+Message-ID: <2026092058-obtain-angles-cb4c@gregkh>
+References: <20260919223519.3890269-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,26 +40,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260919222627.3797854-1-benquike@gmail.com>
+In-Reply-To: <20260919223519.3890269-1-benquike@gmail.com>
 
-On Sat, Sep 19, 2026 at 10:26:27PM +0000, Hui Peng wrote:
-> Fix two bugs in the serial subsystem:
-> 
-> 1. In serial8250_Label / serial_link_irq_chain() and
->    serial_unlink_irq_chain() (drivers/tty/serial/8250/8250_core.c), hold
->    hash_mutex across the entire IRQ list manipulation and
->    request_irq()/free_irq() sequence to prevent racing IRQ chain
->    insertions/removals.
-> 2. In uart_get_baud_rate() and uart_set_info()
->    (drivers/tty/serial/serial_core.c), avoid unsigned overflow in
->    port->uartclk = new_info->baud_base * 16 and ensure the fallback
->    retry in uart_get_baud_rate() terminates cleanly when no baud rate
->    lies in [min, max].
+On Sat, Sep 19, 2026 at 10:35:19PM +0000, Hui Peng wrote:
+> In drivers/usb/usbip/ (usbip_common.c, vhci_rx.c, vudc_dev.c), validate
+> actual_length, number_of_packets, and isochronous packet descriptor
+> offsets against the transfer buffer capacity before copying payload
+> data.
 
-Then this should be 2 different patches, right?
+Why?
 
-Please slow down.
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Assisted-by: LLM
 
-thanks,
+I think your LLM didn't read the email archives well for this driver...
+
+> Signed-off-by: Hui Peng <benquike@gmail.com>
+> ---
+> diff --git a/drivers/usb/usbip/usbip_common.c b/drivers/usb/usbip/usbip_common.c
+> index 100f8920624b..8bd9af7ebfc8 100644
+> --- a/drivers/usb/usbip/usbip_common.c
+> +++ b/drivers/usb/usbip/usbip_common.c
+> @@ -482,7 +482,6 @@ static void usbip_pack_ret_submit(struct usbip_header *pdu, struct urb *urb,
+>  		if (rpdu->number_of_packets < 0 ||
+>  		    rpdu->number_of_packets > urb->number_of_packets)
+>  			rpdu->number_of_packets = 0;
+> -		urb->number_of_packets = rpdu->number_of_packets;
+
+You are removing this, why?
+
+How was this tested?
 
 greg k-h
