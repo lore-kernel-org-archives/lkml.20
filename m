@@ -1,306 +1,86 @@
-Received: from mail-pj2-f25.google.com (mail-pj2-f25.google.com [74.125.227.153])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 342CB3ED13F
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 09:31:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.153
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D8473EC6A9
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 09:31:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789896714; cv=none; b=YcCNoyokYffKzP7iOAko583VPCyAJ5OENrogCZSC3j3l+Al/M98TlyAfx6eD8IaIlhbtiMNODTYfKLsBflY3+Su2aOjjZlAd5+KRo23awujiCqBCKZKSVwPgP0mVy6E8aWiVMBE/NuYTammOsdPHpYd/pxqEnhCsN+Mo9RztLA8=
+	t=1789896721; cv=none; b=M1S9T1+Q49aRdNMrcJkkS/JUpSvH2mkY4G2FS4m1ZI0WCg7xxbE5aNx6hFR1W+/rCqjJUdzTtcclIHm/ByrN3oesHl0tunCCN5NZLknwoyG+zpYZq7PofE1amewWnpzCTHYSiVI5FS7uwMa5PtGzholaKGPSJBP7okTprBcm1ts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789896714; c=relaxed/simple;
-	bh=HHMylUUoV2ErCt+GQxiWiYuY3/hIn1WlIHK1Vv/s7aE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nLzI7/PDPUCPtJeOTqBXLWyD9MdT0saQoZ9gQaBtnCOUPU6NiatI1FFnWUQ+DeqWkeahFGYBGqVq6P0fgAmmfWuCHxggh90q+mHhgDu0FVV945lvFOef1gd1ZzW26FixgA1P4mrBHAkFxweTnMpKk1bTmWFe8faOImYbMpZxHUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=iokKdjdC; arc=none smtp.client-ip=74.125.227.153
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	s=arc-20240116; t=1789896721; c=relaxed/simple;
+	bh=hJxIE61o9r69iir9p7Gx3Mhs6lf3OFFz6/ZhaC+9i3A=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=C+2QGsAi2LT92fuWEd4frak8mwGNopYV8SrBEJtc3zv4a5WZ0ttJpIsyV6Ut82z7blkgolY3RE1OZWKovNCvm1sNeLexwIDMDBDKovaAGFl4nHVHfYvEb2ucKbcGuIwQttd/2yjnTda9reTAI0+j1R+rlwSs05TXtGFaydc1tC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l1br2nGO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="iokKdjdC"
-Received: by mail-pj2-f25.google.com with SMTP id d9443c01a7336-2dd4b43b20bso13842915ad.1
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 02:31:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1789896703; x=1790501503; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6xnQtR49M9eGkH01aGrwefUnADH+0zwfkGfqg1+mMB8=;
-        b=iokKdjdC0damnqdLIIDZov8xOw6uDdYi1cA8jVB8stIXO9MVGUIj2iOKAPr3GeSFUq
-         nkRVPwJduqwGGekprLOexfQvmw99pr22GIxp7vmmioyKPkSZoB+sIPSbhDi0IQK8ZIP4
-         20BNSiHy9CRE+0zrS/NinUPcenQDA0rRmEP+L3KJiJyY3wLg3BHpLjowdhCXBznBvvLQ
-         T4PW6sXjLOOTeYCFbjDp930O+6ubrYH9sY/d+vCE7O6+IjaL4hQS0BqiLN+eehwoycEZ
-         RN6nE53OE5C/y81STZdFJESnjOznqQbGp3LtwVyKkSWN5RFhYycPFr5VF7WuD3bAdTT6
-         xp9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789896703; x=1790501503;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6xnQtR49M9eGkH01aGrwefUnADH+0zwfkGfqg1+mMB8=;
-        b=i9n677cYmX/IOifNcJaRVJGzJMHI9n/shx8moInWEo8sHJGf1o7jOCBl/LG/THT+aA
-         AZQgqMmGpfvCeznnEfSj2oqKonUDPX3PZtFhvSsG0kVUMYTdW7cpDmL/opk/9sFjPZe3
-         XMBZirtMJp5ZhSl2yimxfHNYF+3c7tZMPAo4eXLhBO5aRRAAXONmt6uObpsElgSy8XIZ
-         UwMJVb11I4Q/sRFNI7RC7IxseM8kKRdCaXIIv9iAbGxmlfeVhTnqyCelA/QfbEqKgTsK
-         alxeoVr3FtjIhhW0jlOKNUrXn3FoUCKK94njbGoAYG6ry4HpavmtGntBlgVvuX68Fvkf
-         XB7Q==
-X-Forwarded-Encrypted: i=1; AKwUvBy5XNmIu6TrYD3rfrw227h4PKW0iE4EGMvFVer5unJWOYD0NX/84i0fKIitfHTgPKNIosKT7KeKv+2Eyp8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kuJ67h2hiUKydQU5EkNS02Y6ZcTMJwpf+rGuHUvRvoNAb+C/W+
-	0XrzarCPPvjBCz6c0SCbYWSHCYkR7WMjp8vLILqWzSVw1BI4UKBQdT7ZrMfCQCYkRNMu
-X-Gm-Gg: AYBFou3tAWgCL7bDtEO5WUs6bbr1D3DjFk4zN6Vn6ScLBUujy23EOm465gOEkDrRP57
-	HCTg7J4meaHCxhb+FUtkE7T5dudG4enBLKv8n6WHHjE983d5LYiZyhsVK/Is9esVtu5er2PvMj9
-	G3XH92uvl3cvWwRY2J16VrqXmSym3ETHeWpRbxSOvD6AQMnFgkoeyvPXiLRgEdPIEblWjGVQeih
-	1jdz280i3xu0ZJpuOvwypjk6cvf2EERn6wE0JNSMA+SKkXnJ9QnYFNMCBKVgP0Qjp4kkXqVx95M
-	Vazvx/bkBurjVpgbHEjJ2nJKvTu+0Vl9gp2rnyv1UKBhc3u0wTcd9GKR+4zF7jXcr3XPoISiWH0
-	TbLdDeo6OBGfN3+9QExUCvG7S1hHY5n4HUcXw/ZQRjKQl5VDSiG3+KBLbeqMpQ/PBTC8aOfpJMF
-	sMrfNgSLSiaRMFiUmcKPWidemxvNvw3DBeYJ2ts88DyyWH32/b0+I3/2bU5tyisuLOyaSvQAoi2
-	mfHW0pr9aJug35O0bjJhtUScc8jmhs=
-X-Received: by 2002:a17:903:1446:b0:2da:eb8f:b4e4 with SMTP id d9443c01a7336-2ddb1add397mr121862955ad.7.1789896703153;
-        Sun, 20 Sep 2026 02:31:43 -0700 (PDT)
-Received: from b6ad5085b32f.. ([122.51.212.64])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17e17e0sm18435235ad.70.2026.09.20.02.31.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 02:31:41 -0700 (PDT)
-From: Zihan Xi <zihanx@nebusec.ai>
-To: Simon Horman <horms@verge.net.au>,
-	Julian Anastasov <ja@ssi.bg>
-Cc: Zihan Xi <zihanx@nebusec.ai>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	netdev@vger.kernel.org,
-	lvs-devel@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH nf v3 1/2] ipvs: avoid stack overflow from recursive connection expiration
-Date: Sun, 20 Sep 2026 09:31:19 +0000
-Message-ID: <650f5ad9c4eea0cf1d31b04b1d12d4a600e90337.1789877273.git.zihanx@nebusec.ai>
-In-Reply-To: <cover.1789877273.git.zihanx@nebusec.ai>
-References: <cover.1789877273.git.zihanx@nebusec.ai>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l1br2nGO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63FB61F000FF;
+	Sun, 20 Sep 2026 09:31:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789896715;
+	bh=/Sx8Ye2hw8cXd6B2gPwZ8VtMHSJw3UYfr8DhJcjPCr0=;
+	h=Date:From:To:Cc:Subject;
+	b=l1br2nGOHTJ1w2ARYrSG2Fhd+BRanz4c3u5FlADucD2FD7sugUsLNCnkRHmAZLnN3
+	 URVASyMi1oVBO6ddLTuiktvAlkXsIHb7G5NxbBHBnwKonXx8bPIduIc6b86o9i31jD
+	 mgAKAS+vadWFtZXyHLjTKulnlQ4mQaBIUONAKC1VbSOQIqrIx0X1HVr8azAoiLSXoc
+	 GZXjxAXTsL4Xg3IwByjTqZuZHO4fOBJJh68qqmFRf4ATZmoYhtxZWTO5ERaVmETFxm
+	 oKzDPeS5MypIvYEsALJRtOqGDkZeR8abx7m2TIsnUYFPxz1MD6YKC25HIYx+hPXAJh
+	 6BiT1pb3eodyQ==
+Date: Sun, 20 Sep 2026 11:31:50 +0200
+From: Ingo Molnar <mingo@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@linutronix.de>, Will Deacon <will@kernel.org>,
+	Waiman Long <longman@redhat.com>, Boqun Feng <boqun.feng@gmail.com>
+Subject: [GIT PULL] futex fix
+Message-ID: <aq-oBuMuZKbqIPtq@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-When a controlled IPVS connection expires, its controller may be expired
-synchronously if it has no remaining controlled connections. A chain of
-controlled connections can then recurse through ip_vs_conn_expire() and
-exhaust the kernel stack during namespace cleanup.
 
-Use an iterative cleanup path so the controller chain is expired with one
-stack frame. Keep the reference obtained for the controller until its
-expiration step, and drop it while checking the hash table. This prevents a
-concurrent lookup from rearming the timer after the connection has lost its
-last reference.
+Linus,
 
-Distinguish a connection already unlinked by a concurrent timer callback and
-avoid rearming its timer. Run the expiration path under RCU so a callback
-cannot outlive an RCU-delayed connection free.
+Please pull the latest locking/urgent Git tree from:
 
-Fixes: f9200a52eedf ("ipvs: avoid expiring many connections from timer")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Co-developed-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
----
-changes in v3:
-  - Handle a concurrent timer callback while keeping controller cleanup
-    iterative and synchronous.
-  - Keep expiration under RCU and avoid rearming an already unlinked
-    connection.
-  - v2 Link:
-    https://lore.kernel.org/all/cover.1789435989.git.zihanx@nebusec.ai/
-changes in v2:
-  - Replace recursive controller expiration with an iterative repeat path.
-  - v1 Link:
-    https://lore.kernel.org/all/cover.1789110326.git.zihanx@nebusec.ai/
+   git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git locking-urgent-2026-09-20
 
- net/netfilter/ipvs/ip_vs_conn.c | 78 +++++++++++++++++++++++++--------
- 1 file changed, 59 insertions(+), 19 deletions(-)
+for you to fetch changes up to b61b6f95d6722ddbbbd09e689fa41b55fd36f9a5:
 
-diff --git a/net/netfilter/ipvs/ip_vs_conn.c b/net/netfilter/ipvs/ip_vs_conn.c
-index 6fa3e1dc534c..d111010469f8 100644
---- a/net/netfilter/ipvs/ip_vs_conn.c
-+++ b/net/netfilter/ipvs/ip_vs_conn.c
-@@ -311,19 +311,30 @@ static inline int ip_vs_conn_hash(struct ip_vs_conn *cp)
- }
- 
- /* Try to unlink ip_vs_conn from conn_tab.
-- * returns bool success.
-+ * returns the unlink state.
-  */
--static inline bool ip_vs_conn_unlink(struct ip_vs_conn *cp)
-+enum ip_vs_conn_unlink_state {
-+	IP_VS_CONN_UNLINK_BUSY,
-+	IP_VS_CONN_UNLINKED,
-+	IP_VS_CONN_UNLINK_GONE,
-+};
-+
-+static inline enum ip_vs_conn_unlink_state
-+ip_vs_conn_unlink(struct ip_vs_conn *cp, bool has_ref)
+ - Also allocate a default private futex hash on vfork()
+   as well, to avoid races with (private) futex waiters
+   (Peter Zijlstra)
+
+ Thanks,
+
+	Ingo
+
+------------------>
+Peter Zijlstra (1):
+      futex: Also allocate private hash on vfork()
+
+
+ kernel/fork.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/fork.c b/kernel/fork.c
+index a5934a317634..5ef413368912 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -1996,9 +1996,9 @@ static bool need_futex_hash_allocate_default(u64 clone_flags)
  {
- 	struct netns_ipvs *ipvs = cp->ipvs;
- 	struct hlist_bl_head *head, *head2;
- 	u32 hash_key, hash_key2;
- 	struct ip_vs_rht *t;
--	bool ret = false;
-+	enum ip_vs_conn_unlink_state state;
- 	bool use2;
- 
--	if (cp->flags & IP_VS_CONN_F_ONE_PACKET)
--		return refcount_dec_if_one(&cp->refcnt);
-+	if (cp->flags & IP_VS_CONN_F_ONE_PACKET) {
-+		if (has_ref)
-+			__ip_vs_conn_put(cp);
-+		return refcount_dec_if_one(&cp->refcnt) ?
-+			IP_VS_CONN_UNLINKED : IP_VS_CONN_UNLINK_BUSY;
-+	}
- 
- 	rcu_read_lock();
- 	local_bh_disable();
-@@ -337,6 +348,9 @@ static inline bool ip_vs_conn_unlink(struct ip_vs_conn *cp)
- 		      false /* new_hash2 */, &head, &head2);
- 
- 	if (cp->flags & IP_VS_CONN_F_HASHED) {
-+		if (has_ref)
-+			__ip_vs_conn_put(cp);
-+
- 		/* Decrease refcnt and unlink conn only if we are last user */
- 		if (use2 == ip_vs_conn_use_hash2(cp) &&
- 		    refcount_dec_if_one(&cp->refcnt)) {
-@@ -344,8 +358,14 @@ static inline bool ip_vs_conn_unlink(struct ip_vs_conn *cp)
- 			if (use2)
- 				hlist_bl_del_rcu(&cp->hn1.node);
- 			cp->flags &= ~IP_VS_CONN_F_HASHED;
--			ret = true;
-+			state = IP_VS_CONN_UNLINKED;
-+		} else {
-+			state = IP_VS_CONN_UNLINK_BUSY;
- 		}
-+	} else {
-+		if (has_ref)
-+			__ip_vs_conn_put(cp);
-+		state = IP_VS_CONN_UNLINK_GONE;
- 	}
- 
- 	conn_tab_unlock(head, head2);
-@@ -353,7 +373,7 @@ static inline bool ip_vs_conn_unlink(struct ip_vs_conn *cp)
- 	local_bh_enable();
- 	rcu_read_unlock();
- 
--	return ret;
-+	return state;
- }
- 
- 
-@@ -1331,24 +1351,29 @@ static void ip_vs_conn_del(struct ip_vs_conn *cp)
- }
- 
- /* Try to delete connection while holding reference */
--static void ip_vs_conn_del_put(struct ip_vs_conn *cp)
-+static bool ip_vs_conn_del_put(struct ip_vs_conn *cp)
- {
- 	if (timer_delete(&cp->timer)) {
- 		/* Drop cp->control chain too */
- 		if (cp->control)
- 			cp->timeout = 0;
--		__ip_vs_conn_put(cp);
--		ip_vs_conn_expire(&cp->timer);
--	} else {
--		__ip_vs_conn_put(cp);
-+		return true;
- 	}
-+
-+	__ip_vs_conn_put(cp);
-+	return false;
- }
- 
- static void ip_vs_conn_expire(struct timer_list *t)
- {
- 	struct ip_vs_conn *cp = timer_container_of(cp, t, timer);
- 	struct netns_ipvs *ipvs = cp->ipvs;
-+	enum ip_vs_conn_unlink_state unlink_state;
-+	bool has_ref = false;
- 
-+	rcu_read_lock();
-+
-+repeat:
  	/*
- 	 *	do I control anybody?
+ 	 * Allocate a default futex hash for any sibling that will
+-	 * share the parent's mm, except vfork.
++	 * share the parent's mm.
  	 */
-@@ -1356,24 +1381,27 @@ static void ip_vs_conn_expire(struct timer_list *t)
- 		goto expire_later;
- 
- 	/* Unlink conn if not referenced anymore */
--	if (likely(ip_vs_conn_unlink(cp))) {
-+	unlink_state = ip_vs_conn_unlink(cp, has_ref);
-+	has_ref = false;
-+	if (unlink_state == IP_VS_CONN_UNLINKED) {
- 		struct ip_vs_conn *ct = cp->control;
-+		bool next = false;
- 
- 		/* delete the timer if it is activated by other users */
- 		timer_delete(&cp->timer);
- 
- 		/* does anybody control me? */
- 		if (ct) {
--			bool has_ref = !cp->timeout && __ip_vs_conn_get(ct);
-+			bool ct_ref = !cp->timeout && __ip_vs_conn_get(ct);
- 
- 			ip_vs_control_del(cp);
- 			/* Drop CTL or non-assured TPL if not used anymore */
--			if (has_ref && !atomic_read(&ct->n_control) &&
-+			if (ct_ref && !atomic_read(&ct->n_control) &&
- 			    (!(ct->flags & IP_VS_CONN_F_TEMPLATE) ||
- 			     !(ct->state & IP_VS_CTPL_S_ASSURED))) {
- 				IP_VS_DBG(4, "drop controlling connection\n");
--				ip_vs_conn_del_put(ct);
--			} else if (has_ref) {
-+				next = ip_vs_conn_del_put(ct);
-+			} else if (ct_ref) {
- 				__ip_vs_conn_put(ct);
- 			}
- 		}
-@@ -1402,21 +1430,33 @@ static void ip_vs_conn_expire(struct timer_list *t)
- 		else
- 			call_rcu(&cp->rcu_head, ip_vs_conn_rcu_free);
- 		atomic_dec(&ipvs->conn_count);
--		return;
-+		if (next) {
-+			cp = ct;
-+			has_ref = true;
-+			goto repeat;
-+		}
-+		goto out;
- 	}
- 
-+	if (unlink_state == IP_VS_CONN_UNLINK_GONE)
-+		goto out;
-+
-   expire_later:
- 	IP_VS_DBG(7, "delayed: conn->refcnt=%d conn->n_control=%d\n",
- 		  refcount_read(&cp->refcnt),
- 		  atomic_read(&cp->n_control));
- 
--	refcount_inc(&cp->refcnt);
-+	if (!has_ref && !__ip_vs_conn_get(cp))
-+		goto out;
- 	cp->timeout = 60*HZ;
- 
- 	if (ipvs->sync_state & IP_VS_STATE_MASTER)
- 		ip_vs_sync_conn(ipvs, cp, sysctl_sync_threshold(ipvs));
- 
- 	__ip_vs_conn_put_timer(cp);
-+
-+out:
-+	rcu_read_unlock();
+-	return (clone_flags & (CLONE_VM | CLONE_VFORK)) == CLONE_VM;
++	return clone_flags & CLONE_VM;
  }
  
- /* Modify timer, so that it expires as soon as possible.
--- 
-2.43.0
-
+ /*
