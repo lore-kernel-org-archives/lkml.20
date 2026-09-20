@@ -1,220 +1,367 @@
-Received: from mta0.migadu.com (out-184.mta0.migadu.com [91.218.175.184])
+Received: from mta1.migadu.com (out-169.mta1.migadu.com [95.215.58.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 415FA42848B
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 13:28:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99433422E34
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 13:31:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789910926; cv=none; b=VYYofsDeGgUgy3MLvKyFSDnUm/6ypmGe8RVYe7pPSd8RE3W+4GdaivxjKo7mvzY2fOqHyKVX8g48e+nQPVBxUO7mA8ctM2N8tawQJVXjOE3I30mzQ1PLwEnUp6SACiQBpkczyVCMtpMUS//koMFkNr75+RsCbFAk09pWx/3A0qg=
+	t=1789911080; cv=none; b=cZGCAH3ejOpYFDhIieKDoVaWTyuGRq5jqHhVG28nYiPUytBMQbWo1jYt35LHa4JXV9uZxDamfzRfNEhZrmRbuNFPNeNeoluuzp/mNz3lDETgCg9cZEWc3Qxij+idCDJuvZaYcKh/EXnYSsHkvqU2XFDEwA1QC3VbMar6s7QnlhY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789910926; c=relaxed/simple;
-	bh=TrOfoz90+kswxzJXergF/HK3rvuEH9Lz3DiPPvC1nkg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kt1TwtvocZBUyX8rk5RfBoE13xqLNuT93atQ1/UrUWl0wCLm7aC5bfYm3eKEkz0c1HhFlEOdUxkfT44zkcOw6oaEa+YXAWtfIkKaajAwBQTQfvk3QNfwKF07tfW4urZUZeah0rNAjo5exxhLKR5WCaEQc3d9cGjIBdNrLtmqlFA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=GZw2XZ7s; arc=none smtp.client-ip=91.218.175.184
+	s=arc-20240116; t=1789911080; c=relaxed/simple;
+	bh=uDtyRmpDb+WDFPmmFIx7Blzf3eFlsCSDFT8s63WbMEw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ijjNuMdK2+jcIf39w0Y6Ah7fScKFwjmGdkvXNFcjUmucfZ+zqzBIzqwq4DjHfSi4LEDSj8hZiiQGZtjvmqeojYbCSKKazBAuDTdn9u+gGXyOVVJMkGi5d3O0Ye89DDVn0166O0ocN41aY4k7uFpWf3EwJYpi9LczYhf1ouQAyG4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ls6v4er8; arc=none smtp.client-ip=95.215.58.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="GZw2XZ7s"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ls6v4er8"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=TrOfoz90+kswxzJXergF/HK3rvuEH9Lz3DiPPvC1nkg=;
+DKIM-Signature: a=rsa-sha256; bh=uDtyRmpDb+WDFPmmFIx7Blzf3eFlsCSDFT8s63WbMEw=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789910919; v=1; x=1790515719;
- b=GZw2XZ7sk16XX8TYiMc+pdwkxixx7LJQb5LFOlwX0B6Wf7dmnzZECT/e4h/zP+QzuUetHCqE
- +0WDJ3oEkCAJW0ua6YpQPz6As3G/PObvb6fugYRhcjOsgDne/UOlpVKCVcb+UVfGV+LXKdV4AeJ
- 8hi3JFSrqTtLZbWt/htqbF6U=
+ t=1789911072; v=1; x=1790515872;
+ b=ls6v4er8iU8U2eNMIvfCmOlzl2Jb5t1aipvwHMXCT/G6vpPJolbJafUA/XnWFqhzksp1Fi9L
+ 3lg6kE9PCLfnZ8NPX9qUVGd1ya5hDUm+7poCDCDH5HT+VZaZhMsEPqaVL/KD40wGlMtjdtBGq7Q
+ GFDWTh5HPNPwvCsE1Xwjq1q8=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d4bbc0b7fbaa0cb1;
-	Sun, 20 Sep 2026 13:28:39 +0000
-X-Mizu-Trace-ID: d4bbc0b7fbaa0cb1
+Received: by smtp.migadu.com with ESMTPS id a63260104eddab42;
+	Sun, 20 Sep 2026 13:31:12 +0000
+X-Mizu-Trace-ID: a63260104eddab42
 X-Migadu-Flow: FLOW_OUT
-Message-ID: <1d61ee17-edbb-4491-a5e2-32aa2779d839@linux.dev>
-Date: Sun, 20 Sep 2026 21:28:31 +0800
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: netdev@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v1] bpf: cpumap: fix use-after-free of dev_rx on netdev unregister
+Date: Sun, 20 Sep 2026 21:30:15 +0800
+Message-ID: <20260920133017.248620-1-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm: vmscan: put rotation-missed folios at the LRU tail
-To: Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>
-Cc: David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Baoquan He <baoquan.he@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Ridong Chen <chenridong@xiaomi.com>
-References: <20260920132030.3368138-1-ridong.chen@linux.dev>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <20260920132030.3368138-1-ridong.chen@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+1. The ring holds the ingress device with no reference.
 
+Native XDP stores it in the frame:
 
-On 9/20/2026 9:20 PM, Ridong Chen wrote:
-> From: Ridong Chen <chenridong@xiaomi.com>
-> 
-> The page reclaim isolates a batch of folios from the tail of an LRU list
-> and works on them one by one.  For a suitable swap-backed folio on an
-> async swap device, it queues the folio for writeback and, after finishing
-> the batch, puts the folio back to the head of the original LRU list.
-> 
-> Meanwhile the page writeback flushes the queued folios in its own,
-> independent batches.  For each folio it writes back it calls
-> folio_rotate_reclaimable(), which tries to rotate the folio to the LRU
-> tail.  But folio_rotate_reclaimable() only takes effect once the folio has
-> been put back by reclaim.  If the async swap device is fast enough, the
-> writeback can complete a folio while reclaim is still working on the rest
-> of the batch that contains it.  In that case the folio stays near the head
-> and reclaim will not revisit it before wrapping around, causing a cold/hot
-> inversion: a clean, written-back folio that should be a prime reclaim
-> candidate is kept ahead of hotter folios.
-> 
-> commit 359a5e1416ca ("mm: multi-gen LRU: retry folios written back while
-> isolated") addressed this for MGLRU only.  The traditional active/inactive
-> LRU has the same problem, reported at [1].  A reproducer is available at
-> [2].
-> 
-> Rather than re-reclaiming those folios (which would drop the swap cache
-> that may still be useful for a future hit [4]), restore the rotation that
-> was missed: when move_folios_to_lru() puts a folio back, add it to the LRU
-> tail if it looks like it missed folio_rotate_reclaimable() (inactive, not
-> mapped, not dirty and not under writeback).  A referenced folio is left at
-> the head so it still gets a second chance, and a folio with an unexpected
-> reference (e.g. a GUP or speculative pin) is left at the head because it
-> cannot be reclaimed yet anyway.  A new do_rotate parameter gates this so
-> it only applies on the reclaim put-back path (shrink_inactive_list()), not
-> on shrink_active_list() where the list order is already deliberate.  This
-> approach was suggested by Barry Song [3].
-> 
-> Only the traditional LRU is handled here.  MGLRU already retries such
-> folios via its own clean-list retry pass in evict_folios(), so it is left
-> unchanged.  The same do_rotate scheme could later replace that retry pass
-> to unify both LRUs, which is left for a follow-up.
-> 
-> Test result with [2]:
-> 
->    Without patch:
->      cat memory.usage_in_bytes
->      1073700864
->      cat memory.memsw.usage_in_bytes
->      1413124096
-> 
->      free -h
->                    total        used        free
->      Mem:           1.6Gi       1.2Gi       299Mi
->      Swap:          1.0Gi       678Mi       346Mi
-> 
->    With patch:
->      cat memory.usage_in_bytes
->      1071140864
->      cat memory.memsw.usage_in_bytes
->      1413423104
-> 
->      free -h
->                    total        used        free
->      Mem:           1.6Gi       1.2Gi       322Mi
->      Swap:          1.0Gi       328Mi       695Mi
-> 
-> After applying the patch, the difference between
-> memory.memsw.usage_in_bytes and memory.usage_in_bytes is close to the swap
-> "used" value reported by 'free -h'.
-> 
-> [1] https://lore.kernel.org/linux-kernel/20241010081802.290893-1-chenridong@huaweicloud.com/
-> [2] https://lore.kernel.org/lkml/46037a37-4cf6-448e-a94b-30a4d16e8814@linux.dev/
-> [3] https://lore.kernel.org/lkml/CAGsJ_4zwP3_+EYY5Ug9EJ+yD1UdxsBSGr25u8s1K3u_i7LH3Zg@mail.gmail.com/
-> [4] https://lore.kernel.org/linux-mm/20260911121341.178028-1-alex@ghiti.fr/
-> 
-> Suggested-by: Barry Song <baohua@kernel.org>
-> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
-> ---
-> 
-> v1 -> v2:
->   - skip referenced folios (FOLIOREF_KEEP) and unexpectedly pinned folios
->     when rotating to the LRU tail.
->   - add test result to the commit message.
-> 
->   mm/vmscan.c | 24 ++++++++++++++++++------
->   1 file changed, 18 insertions(+), 6 deletions(-)
-> 
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index e200ce3eb056..91295070ca33 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-> @@ -1971,7 +1971,7 @@ static bool too_many_isolated(struct pglist_data *pgdat, int file,
->    *
->    * Note: The caller must not hold any lruvec lock.
->    */
-> -static unsigned int move_folios_to_lru(struct list_head *list)
-> +static unsigned int move_folios_to_lru(struct list_head *list, bool do_rotate)
->   {
->   	int nr_pages, nr_moved = 0;
->   	struct lruvec *lruvec = NULL;
-> @@ -2018,7 +2018,19 @@ static unsigned int move_folios_to_lru(struct list_head *list)
->   			continue;
->   		}
->   
-> -		lruvec_add_folio(lruvec, folio);
-> +		/*
-> +		 * Put clean, unreferenced and unpinned folios that may have
-> +		 * missed folio_rotate_reclaimable() at the tail to avoid
-> +		 * cold/hot inversion.
-> +		 */
-> +		if (do_rotate && !folio_test_active(folio) && !folio_mapped(folio) &&
-> +		    !folio_test_dirty(folio) && !folio_test_writeback(folio) &&
-> +		    !folio_test_referenced(folio) &&
-> +		    folio_ref_count(folio) == folio_expected_ref_count(folio))
-> +			lruvec_add_folio_tail(lruvec, folio);
-> +		else
-> +			lruvec_add_folio(lruvec, folio);
-> +
->   		nr_pages = folio_nr_pages(folio);
->   		nr_moved += nr_pages;
->   		if (folio_test_active(folio))
-> @@ -2135,7 +2147,7 @@ static unsigned long shrink_inactive_list(unsigned long nr_to_scan,
->   	nr_reclaimed = shrink_folio_list(&folio_list, pgdat, sc, &stat, false,
->   					 lruvec_memcg(lruvec));
->   
-> -	move_folios_to_lru(&folio_list);
-> +	move_folios_to_lru(&folio_list, true);
->   
->   	mod_lruvec_state(lruvec, PGDEMOTE_KSWAPD + reclaimer_offset(sc),
->   					stat.nr_demoted);
-> @@ -2246,8 +2258,8 @@ static void shrink_active_list(unsigned long nr_to_scan,
->   	/*
->   	 * Move folios back to the lru list.
->   	 */
-> -	nr_activate = move_folios_to_lru(&l_active);
-> -	nr_deactivate = move_folios_to_lru(&l_inactive);
-> +	nr_activate = move_folios_to_lru(&l_active, false);
-> +	nr_deactivate = move_folios_to_lru(&l_inactive, false);
->   
->   	count_vm_events(PGDEACTIVATE, nr_deactivate);
->   	count_memcg_events(lruvec_memcg(lruvec), PGDEACTIVATE, nr_deactivate);
-> @@ -5115,7 +5127,7 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
->   			folio_set_active(folio);
->   	}
->   
-> -	move_folios_to_lru(&list);
-> +	move_folios_to_lru(&list, false);
->   
->   	walk = current->reclaim_state->mm_walk;
->   	if (walk && walk->batched) {
+	cpu_map_enqueue()
+		xdpf->dev_rx = dev_rx;
+		bq_enqueue()
 
-Sorry for sending this patch without a version tag. I've resent a new one; 
-please ignore this patch.
+Generic XDP queues the skb as is, skb->dev is the ingress device:
 
-https://lore.kernel.org/lkml/20260920132519.3369946-1-ridong.chen@linux.dev/
+	cpu_map_generic_redirect()
+		ptr_ring_produce(rcpu->queue, skb);
 
-Thanks.
+Both sit in rcpu->queue until the kthread runs.
 
+2. The kthread builds the skb from that pointer and hands it to the
+stack, skb->dev has no reference either:
+
+	cpu_map_kthread_run()
+		__xdp_build_skb_from_frame()
+			eth_type_trans()	/* sets skb->dev */
+		gro_receive_skb()
+
+The cpumap XDP prog uses it too, as rxq.dev and in xdp_do_redirect().
+
+3. If the device is torn down while the frames wait in the ring, the
+pointer is stale. Nothing in unregister knows about the ring:
+flush_all_backlogs() only walks the softnet backlog, synchronize_net()
+does not wait for a kthread, and no reference stops free_netdev().
+Seen with a veth in a netns, XDP redirect to a cpumap entry, and
+"ip link del" while the kthread was not scheduled:
+
+  BUG: KASAN: slab-use-after-free in eth_type_trans+0x4d9/0x590
+  Read of size 8 at addr ffff888100634500 by task cpumap/1/map:2/623
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x91/0xf0
+   print_report+0xd1/0x630
+   kasan_report+0xf3/0x130
+   __asan_report_load8_noabort+0x14/0x30
+   eth_type_trans+0x4d9/0x590
+   __xdp_build_skb_from_frame+0x311/0x860
+   cpu_map_kthread_run+0x852/0x1ca0
+   kthread+0x3a2/0x4d0
+   ret_from_fork+0x619/0x8e0
+   ret_from_fork_asm+0x1a/0x30
+   </TASK>
+
+  Allocated by task 609:
+   __kvmalloc_node_noprof+0x382/0xae0
+   alloc_netdev_mqs+0x8a/0x12c0
+   rtnl_create_link+0xad5/0xf10
+   veth_newlink+0x214/0xb50
+   rtnl_newlink+0xd60/0x2640
+   rtnetlink_rcv_msg+0x74a/0xc30
+   netlink_rcv_skb+0x147/0x400
+
+  Freed by task 631:
+   kfree+0x282/0x660
+   kvfree+0x31/0x40
+   netdev_release+0x6d/0x90
+   device_release+0xce/0x250
+   kobject_put+0x18d/0x4f0
+   netdev_run_todo+0x7fb/0x10f0
+   rtnl_dellink+0x392/0xc10
+   rtnetlink_rcv_msg+0x74a/0xc30
+   netlink_rcv_skb+0x147/0x400
+
+The easy fix is a reference per frame:
+
+	cpu_map_enqueue()
+		xdpf->dev_rx = dev_rx;
+		dev_hold()
+	cpu_map_kthread_run()
+		gro_receive_skb()
+		dev_put()
+
+GRO is the problem. The skb may stay in rcpu->gro after
+gro_receive_skb(), and even after cpu_map_gro_flush() some skbs stay,
+flush_old only pushes the old ones. So we can't tell which skbs really
+left, and so can't tell when to dev_put(). Doing it right needs a hook
+in the GRO core path. Not worth it.
+
+So do what the softnet backlog does and use the netdev notifier:
+
+1. On NETDEV_UNREGISTER, take the ring size and ask the kthread to
+   consume that many frames, or until the ring is empty. After that,
+   every frame that was in the ring has been handled by the stack or
+   dropped. The device is closed, so no new frames for it can show up.
+2. The kthread wakes the notifier once it got there. The device is
+   still alive until then, so the frames are handled as usual.
+3. On the last round of the drain, flush GRO fully, flush_old is 0.
+   Every other round keeps the flush logic as is.
+
+One hole is left: the cpumap prog may redirect the frame to another
+cpumap entry, and that ring may have reported done already. So while
+the device is unregistering, drop on XDP_REDIRECT instead. That check
+only runs when the prog picks XDP_REDIRECT.
+
+The notifier has to ask every entry, a cpumap entry is not tied to a
+netns and any device can feed it. So an unregister anywhere drains
+every ring in the system. The work is bounded by the ring size, and
+the frames had to be consumed anyway. Nothing changes on the hot path,
+the kthread reads one field per batch.
+
+Fixes: 9c270af37bb6 ("bpf: XDP_REDIRECT enable use of cpumap")
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+---
+Local review flagged that a full GRO flush can hand a PTP packet to
+skb_defer_rx_timestamp(), which keeps skb->dev in the PHY driver's
+queue. That needs dev->phydev, which phy_disconnect() clears on
+dev_close(), before reg_state changes. Anything queued before that is
+owned by the PHY driver, same as on the normal NAPI path. Not a cpumap
+issue, so not handled here.
+---
+ kernel/bpf/cpumap.c | 102 ++++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 98 insertions(+), 4 deletions(-)
+
+diff --git a/kernel/bpf/cpumap.c b/kernel/bpf/cpumap.c
+index 5e59ab896f058..bc2186adcd9a4 100644
+--- a/kernel/bpf/cpumap.c
++++ b/kernel/bpf/cpumap.c
+@@ -74,8 +74,18 @@ struct bpf_cpu_map_entry {
+ 
+ 	struct completion kthread_running;
+ 	struct rcu_work free_work;
++
++	/* NETDEV_UNREGISTER handshake, see cpu_map_netdev_event(). Non-zero
++	 * is a pending request: frames the kthread still has to consume.
++	 */
++	struct list_head list;
++	wait_queue_head_t drain_wq;
++	u32 drain_left;
+ };
+ 
++static LIST_HEAD(cpu_map_list);
++static DEFINE_MUTEX(cpu_map_mutex);
++
+ struct bpf_cpu_map {
+ 	struct bpf_map map;
+ 	/* Below members specific for map type */
+@@ -136,6 +146,14 @@ static void __cpu_map_ring_cleanup(struct ptr_ring *ring)
+ 	}
+ }
+ 
++/* cpumap to cpumap redirect: don't pass on a frame whose device is going
++ * away, the target ring may already be done draining for it.
++ */
++static bool cpu_map_dev_unregistering(const struct net_device *dev)
++{
++	return unlikely(READ_ONCE(dev->reg_state) != NETREG_REGISTERED);
++}
++
+ static u32 cpu_map_bpf_prog_run_skb(struct bpf_cpu_map_entry *rcpu,
+ 				    void **skbs, u32 skb_n,
+ 				    struct xdp_cpumap_stats *stats)
+@@ -153,6 +171,11 @@ static u32 cpu_map_bpf_prog_run_skb(struct bpf_cpu_map_entry *rcpu,
+ 			skbs[pass++] = skb;
+ 			break;
+ 		case XDP_REDIRECT:
++			if (cpu_map_dev_unregistering(skb->dev)) {
++				kfree_skb(skb);
++				stats->drop++;
++				break;
++			}
+ 			err = xdp_do_generic_redirect(skb->dev, skb, &xdp,
+ 						      rcpu->prog);
+ 			if (unlikely(err)) {
+@@ -213,6 +236,11 @@ static int cpu_map_bpf_prog_run_xdp(struct bpf_cpu_map_entry *rcpu,
+ 			}
+ 			break;
+ 		case XDP_REDIRECT:
++			if (cpu_map_dev_unregistering(xdpf->dev_rx)) {
++				xdp_return_frame(xdpf);
++				stats->drop++;
++				break;
++			}
+ 			err = xdp_do_redirect(xdpf->dev_rx, &xdp,
+ 					      rcpu->prog);
+ 			if (unlikely(err)) {
+@@ -310,14 +338,16 @@ static int cpu_map_kthread_run(void *data)
+ 		struct cpu_map_ret ret = { };
+ 		void *frames[CPUMAP_BATCH];
+ 		void *skbs[CPUMAP_BATCH];
+-		u32 i, n, m;
++		bool drained = false;
++		u32 i, n, m, left;
+ 		bool empty;
+ 
+ 		/* Release CPU reschedule checks */
+ 		if (__ptr_ring_empty(rcpu->queue)) {
+ 			set_current_state(TASK_INTERRUPTIBLE);
+ 			/* Recheck to avoid lost wake-up */
+-			if (__ptr_ring_empty(rcpu->queue)) {
++			if (__ptr_ring_empty(rcpu->queue) &&
++			    !READ_ONCE(rcpu->drain_left)) {
+ 				schedule();
+ 				sched = 1;
+ 				last_qs = jiffies;
+@@ -398,10 +428,23 @@ static int cpu_map_kthread_run(void *data)
+ 		/* Flush either every 64 packets or in case of empty ring */
+ 		packets += n;
+ 		empty = __ptr_ring_empty(rcpu->queue);
+-		if (packets >= NAPI_POLL_WEIGHT || empty) {
+-			cpu_map_gro_flush(rcpu, empty);
++		left = READ_ONCE(rcpu->drain_left);
++		if (unlikely(left)) {
++			/* We are draining, drained is true on the last round */
++			left -= min(n, left);
++			drained = empty || !left;
++			if (!drained)
++				WRITE_ONCE(rcpu->drain_left, left);
++		}
++		if (packets >= NAPI_POLL_WEIGHT || empty || drained) {
++			cpu_map_gro_flush(rcpu, empty || drained);
+ 			packets = 0;
+ 		}
++		/* Only report back once GRO is flushed too */
++		if (unlikely(drained)) {
++			WRITE_ONCE(rcpu->drain_left, 0);
++			wake_up(&rcpu->drain_wq);
++		}
+ 
+ 		local_bh_enable(); /* resched point, may call do_softirq() */
+ 	}
+@@ -473,6 +516,7 @@ __cpu_map_entry_alloc(struct bpf_map *map, struct bpf_cpumap_val *value,
+ 	rcpu->map_id = map->id;
+ 	rcpu->value.qsize  = value->qsize;
+ 	gro_init(&rcpu->gro);
++	init_waitqueue_head(&rcpu->drain_wq);
+ 
+ 	if (fd > 0) {
+ 		err = __cpu_map_load_bpf_program(rcpu, map, fd);
+@@ -500,6 +544,10 @@ __cpu_map_entry_alloc(struct bpf_map *map, struct bpf_cpumap_val *value,
+ 	 */
+ 	wait_for_completion(&rcpu->kthread_running);
+ 
++	mutex_lock(&cpu_map_mutex);
++	list_add_tail(&rcpu->list, &cpu_map_list);
++	mutex_unlock(&cpu_map_mutex);
++
+ 	return rcpu;
+ 
+ free_prog:
+@@ -528,6 +576,11 @@ static void __cpu_map_entry_free(struct work_struct *work)
+ 	 */
+ 	rcpu = container_of(to_rcu_work(work), struct bpf_cpu_map_entry, free_work);
+ 
++	/* Unlink first, so the notifier can't wait on a kthread we stop */
++	mutex_lock(&cpu_map_mutex);
++	list_del(&rcpu->list);
++	mutex_unlock(&cpu_map_mutex);
++
+ 	/* kthread_stop will wake_up_process and wait for it to complete.
+ 	 * cpu_map_kthread_run() makes sure the pointer ring is empty
+ 	 * before exiting.
+@@ -832,3 +885,44 @@ void __cpu_map_flush(struct list_head *flush_list)
+ 		wake_up_process(bq->obj->kthread);
+ 	}
+ }
++
++/* Frames carry a raw dev_rx pointer and can sit in the ring, or as skbs in
++ * GRO, for as long as the kthread is not scheduled. Nothing holds the netdev
++ * for them, so before it is freed make every kthread consume what was queued
++ * at this point and do a full GRO flush. The device is closed, so no new
++ * frames for it can show up while we wait.
++ */
++static int cpu_map_netdev_event(struct notifier_block *nb,
++				unsigned long event, void *ptr)
++{
++	struct bpf_cpu_map_entry *rcpu;
++
++	if (event != NETDEV_UNREGISTER)
++		return NOTIFY_OK;
++
++	mutex_lock(&cpu_map_mutex);
++	list_for_each_entry(rcpu, &cpu_map_list, list) {
++		/* Worst case the whole ring is for this device, plus a batch
++		 * the kthread may have pulled out before seeing the request.
++		 */
++		WRITE_ONCE(rcpu->drain_left, rcpu->queue->size + CPUMAP_BATCH);
++		wake_up_process(rcpu->kthread);
++	}
++	list_for_each_entry(rcpu, &cpu_map_list, list)
++		wait_event(rcpu->drain_wq, !READ_ONCE(rcpu->drain_left));
++	mutex_unlock(&cpu_map_mutex);
++
++	return NOTIFY_OK;
++}
++
++static struct notifier_block cpu_map_notifier = {
++	.notifier_call = cpu_map_netdev_event,
++};
++
++static int __init cpu_map_init(void)
++{
++	register_netdevice_notifier(&cpu_map_notifier);
++
++	return 0;
++}
++subsys_initcall(cpu_map_init);
 -- 
-Best regards
-Ridong
+2.43.0
 
