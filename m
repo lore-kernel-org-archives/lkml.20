@@ -1,120 +1,157 @@
-Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f5.google.com (mail-oo2-f5.google.com [74.125.231.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F73C78F3A;
-	Sun, 20 Sep 2026 01:07:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39BD61C8604
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 01:10:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789866470; cv=none; b=NBP6yLp1eDtxpWUuSe2lmYflBRkhJcd/NRsQPKz3IZHHBfzOhou0Ge5TasRt1TC2BntZyMYZYbuPmquxPM+GAl/XfFAsOp39k/m0Lt7JRaJoP4qPm2C1ILk0U6VOySHRvWFzBV8tdzH3ZC5AVK0HZ2N6KIHfLS6E05wGBFB936Q=
+	t=1789866632; cv=none; b=Vhy4HHS8fWH081m0qFXRYkjh+ZZzq488hgT82fwDSSw3aIVC6ZFonkPMVywjrLv5neeRGrgnOd8paWk8w95yqdQS7JaBHP7unIqOF9H0UQ8o6/rbZx+vUqUrWkMmKggQBBQZ3Sz9C4aJfNC4J5VtVinzJN4er6Zb5a1Q7H33H6Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789866470; c=relaxed/simple;
-	bh=b2GOIQfJ4bDeLmMopprtcZG7Nh8TrMUvDf5T9aGfuhg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=iMZ+L5Ld7HdD34HKelzusy9rRdxW9Ms4wqFNN5xUiAqslpbWDl1D8A6LH0apHqH5HZ4AmUmDHcS0MhnGyxY450og6ENY0q9JXx3qwD8/PRfwvVSqOw5siW7l33niJv9IPEHqJklBFgxZorbGG2HWxcDGfMF94jsbCjwtB2kNvgs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=Pdc6DabR; arc=none smtp.client-ip=96.67.55.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="Pdc6DabR"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
-	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID; bh=b2GOIQfJ4bDeLmMopprtcZG7Nh8TrMUvDf5T9aGfuhg=; b=Pdc6Da
-	bRI5hQv74SAhUyEsQ7m6MJ6naENkUfD9RL4OJRa8leXWbar+hCtKi4zI+xiqCN99VDdDtf4Y8Hujp
-	v5gBRlB/Se4g+ESvOWvaFrjb6wun/7fSGO4EnYXRkeIrEW2heUy2uKTZ+dgT5BIWoeXrRxZ9MdmqD
-	adUenGybBOdlNOACzDIOnbgsN6xup/QBRqu7gg45bU16A6jc/JJkUL70s0P1nHKelJLSA3cnGulHO
-	6CcdEEZBFDpdEQhxDEwmVtZt5cmvsux5xecBA3c4zKQUWdnpLNZd8kSa9D9amrPmtRfqoj70f1WnD
-	bp0QhSLiU5zFSArPI8vsuEKZngdg==;
-Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708]
-	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <riel@surriel.com>)
-	id 1x8613-0000000CQGs-3lB1;
-	Sun, 20 Sep 2026 01:06:49 +0000
-Message-ID: <e42d8bb0bb13067609e8ff8c858a26ca056368bd.camel@surriel.com>
-Subject: Re: Path forward for Virtualized Swap?
-From: Rik van Riel <riel@surriel.com>
-To: Chris Li <chrisl@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>
-Cc: Kairui Song <ryncsn@gmail.com>, Nhat Pham <nphamcs@gmail.com>, Michal
- Hocko	 <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt	 <shakeel.butt@linux.dev>, Yosry Ahmed <yosry@kernel.org>,
- David Hildenbrand	 <david@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Kemeng Shi	 <shikemeng@huaweicloud.com>, Baoquan He <baoquan.he@linux.dev>,
- Barry Song	 <baohua@kernel.org>, YoungJun Park <youngjun.park@lge.com>,
- Chengming Zhou	 <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)"
- <ljs@kernel.org>,  "Liam R. Howlett"	 <liam@infradead.org>, "Vlastimil
- Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren
- =?UTF-8?Q?Baghdasaryan=EF=BF=BC?= <surenb@google.com>, Qi Zheng	
- <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, Yuanchu
- Xie	 <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Gregory Price	
- <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, Jonathan Corbet	
- <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, Baolin Wang	
- <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, Michal
- =?ISO-8859-1?Q?Koutn=FD?=	 <mkoutny@suse.com>, Shuah Khan
- <skhan@linuxfoundation.org>, Kunwu Chan	 <kunwu.chan@linux.dev>, Meta
- kernel team <kernel-team@meta.com>, Linux Memory Management List	
- <linux-mm@kvack.org>, Linux Kernel Mailing List
- <linux-kernel@vger.kernel.org>, 	linux-doc@vger.kernel.org, "open
- list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
- <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Joshua Hahn	 <joshua.hahnjy@gmail.com>
-Date: Sat, 19 Sep 2026 21:06:48 -0400
-In-Reply-To: <CACePvbWLHAT5DjC=HidzN10XF5_cnkpxXXDR_yfEJjTY_uDvDQ@mail.gmail.com>
-References: 
-	<CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
-	 <CAMgjq7AHRzBsbmGOx0s=TQFBwcn=DEU1naR443sO6x+pJd6hAg@mail.gmail.com>
-	 <aqBT_35E-eSoN_zj@cmpxchg.org>
-	 <CAKEwX=N4aaq_oD2agTUNrUNXhaYGeQ9vxu+dywFvEFgWFi4uQg@mail.gmail.com>
-	 <CAMgjq7AfNBUpMamcv29JFzpX=7ApNYVLtPjWT4Sm8cXjSLYL9g@mail.gmail.com>
-	 <aqU81l1oqGItb-0C@cmpxchg.org>
-	 <CACePvbWLHAT5DjC=HidzN10XF5_cnkpxXXDR_yfEJjTY_uDvDQ@mail.gmail.com>
-Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
- keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
- eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
- Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
- lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
- dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
- mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
- gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
- r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
- WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
- 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
- Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
- +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
- g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
- KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
- fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
- 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
- G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
- okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
- TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
- cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
- omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
- QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
- c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	s=arc-20240116; t=1789866632; c=relaxed/simple;
+	bh=J4fGPYdbU1vyqMW4j4VL0zWFiRawM4Pn+sjLC1OmvfY=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=K/5Z3cutmom5PSxyTspuI67DZdrWhxECVvBm7WuitUEr4KFirvtA6icwwjGhBh0UJUil+ffT3ZeemKqe73ijkrqKIxpOZowb4R5A2kHCrAH5HTU1EZgONqeMj0aizCrqcY+ZxToXa1enL9WorrFj10DgTdLvB88E7ElZwsHsxEI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo2-f5.google.com with SMTP id 006d021491bc7-6c17d3bdc70so709523eaf.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 18:10:30 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789866628; x=1790471428;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PF45CuBTojQyukx9jI6xau1zxJKpu3tO8/fDW5FRIMM=;
+        b=2ZsC537/wC2VbAHQlypeLhXbWavkDOKSFB15u+6Qrtw3P7TwxDKyRZg7870t1C1CPy
+         5IY1/ot1cqvrSiv8D4Ik6gvlt3T/Ih9XCKCJjMc0XE8i5WfwIsi+UG6wJKTxwkfL9fOB
+         GJ1T/BZgOvSOuXhuGqJ0p9PXXe0Xu5aaQ2BZpf2zwMit1dosbUH7xmvtEZ5C1ys+Ezp5
+         PIuQJ+BIjamBi1xTPVp2RlR/tsSpePyY0c5Hj88q+AB9bWLEVq70NmZRaLUk2YjKqvv6
+         xfSwOQSDc+XwvqzeM0OuFfwmjjSWi8mWguRgZgP4jNwyCREMHQS6x9eVFpOeDFHDNhoQ
+         TEcA==
+X-Gm-Message-State: AFuF++lTCUxAITPPWXG3SB5Sel5lYB/JIDuH9/KRaW/iPZDNyRQ6UgnL
+	Xcd1SE8WIssOla7uXfzqNuse92dKX6z7zOaFpBJeLWgiFH6DUjSvkAz9YVz8YnGvbcBuk1q94jZ
+	6q/orsvPGhzgqbT32nEC+XVV893BmOSyoczmYouLl4aUdq5KgJLvCQfcGoNn6Cg==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Received: by 2002:a05:6820:7093:10b0:6cd:3ffc:ad08 with SMTP id
+ 006d021491bc7-6cd3ffcb687mr2390033eaf.88.1789866628349; Sat, 19 Sep 2026
+ 18:10:28 -0700 (PDT)
+Date: Sat, 19 Sep 2026 18:10:28 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aaf3284.514bccd6.255447.0003.GAE@google.com>
+Subject: [syzbot] [raid?] WARNING: kobject bug in bind_rdev_to_array
+From: syzbot <syzbot+95eeb4ada2349a2170ea@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org, 
+	magiclinan@didiglobal.com, song@kernel.org, syzkaller-bugs@googlegroups.com, 
+	xiao@kernel.org, yukuai@fnnas.com, yukuai@fygo.io
+Content-Type: text/plain; charset="UTF-8"
 
->=20
-> For our deployment, we only compress about 7-10% of the system memory
-> before performance starts to suffer. The feedback loop will scale it
-> back. I am very curious do you have actual work load to swap out 100%
-> of the RAM.
+Hello,
 
-One common workload is a web browser with idle tabs.
+syzbot found the following issue on:
 
-Those often compress pretty well, a ratio of 4:1 is
-not unheard of, which makes it easy to fill up
-1/3 of memory with 133% of memory's worth of compressed
-memory.
+HEAD commit:    518e5b794c06 Merge tag 'for-7.3-rc3-tag' of git://git.kern..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=12345ff9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=c3bddd52b22c2498
+dashboard link: https://syzkaller.appspot.com/bug?extid=95eeb4ada2349a2170ea
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
 
---=20
-All Rights Reversed.
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-518e5b79.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/5307a29f916b/vmlinux-518e5b79.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/7d4c698a99b1/bzImage-518e5b79.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+95eeb4ada2349a2170ea@syzkaller.appspotmail.com
+
+------------[ cut here ]------------
+kobject: '(null)' (ffff8880120640f0): is not initialized, yet kobject_get() is being called.
+WARNING: lib/kobject.c:642 at kobject_get lib/kobject.c:640 [inline], CPU#0: syz.0.0/5330
+WARNING: lib/kobject.c:642 at kobject_add_internal+0xea/0xcd0 lib/kobject.c:225, CPU#0: syz.0.0/5330
+Modules linked in:
+CPU: 0 UID: 0 PID: 5330 Comm: syz.0.0 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:kobject_get lib/kobject.c:640 [inline]
+RIP: 0010:kobject_add_internal+0x113/0xcd0 lib/kobject.c:225
+Code: 04 4c 89 e0 48 c1 e8 03 48 b9 00 00 00 00 00 fc ff df 80 3c 08 00 74 08 4c 89 e7 e8 57 11 5b f6 49 8b 34 24 4c 89 f7 4c 89 e2 <67> 48 0f b9 3a e9 e4 00 00 00 e8 fe 6a e9 f5 b8 fe ff ff ff e9 fb
+RSP: 0018:ffffc9000f1f78a8 EFLAGS: 00010246
+RAX: 1ffff1100240c81e RBX: ffff888052836080 RCX: dffffc0000000000
+RDX: ffff8880120640f0 RSI: 0000000000000000 RDI: ffffffff908d7cc0
+RBP: 0000000000000000 R08: ffff888000b14b00 R09: 0000000000000008
+R10: 0000000000000007 R11: 0000000000000002 R12: ffff8880120640f0
+R13: dffffc0000000000 R14: ffffffff908d7cc0 R15: dffffc0000000000
+FS:  00007ffbef2886c0(0000) GS:ffff88808c2c2000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f208abad1bc CR3: 000000000e910000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ kobject_add_varg lib/kobject.c:374 [inline]
+ kobject_add+0x163/0x240 lib/kobject.c:426
+ bind_rdev_to_array+0x80c/0xdd0 drivers/md/md.c:2621
+ md_add_new_disk+0xe3b/0x1850 drivers/md/md.c:7684
+ md_ioctl+0x200a/0x2610 drivers/md/md.c:8499
+ blkdev_ioctl+0x5e3/0x740 block/ioctl.c:798
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7ffbee39e159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffbef287fe8 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 00007ffbee626090 RCX: 00007ffbee39e159
+RDX: 0000200000000420 RSI: 0000000040140921 RDI: 0000000000000004
+RBP: 00007ffbee43506b R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007ffbee626128 R14: 00007ffbee626090 R15: 00007ffe703ff368
+ </TASK>
+----------------
+Code disassembly (best guess):
+   0:	04 4c                	add    $0x4c,%al
+   2:	89 e0                	mov    %esp,%eax
+   4:	48 c1 e8 03          	shr    $0x3,%rax
+   8:	48 b9 00 00 00 00 00 	movabs $0xdffffc0000000000,%rcx
+   f:	fc ff df
+  12:	80 3c 08 00          	cmpb   $0x0,(%rax,%rcx,1)
+  16:	74 08                	je     0x20
+  18:	4c 89 e7             	mov    %r12,%rdi
+  1b:	e8 57 11 5b f6       	call   0xf65b1177
+  20:	49 8b 34 24          	mov    (%r12),%rsi
+  24:	4c 89 f7             	mov    %r14,%rdi
+  27:	4c 89 e2             	mov    %r12,%rdx
+* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
+  2f:	e9 e4 00 00 00       	jmp    0x118
+  34:	e8 fe 6a e9 f5       	call   0xf5e96b37
+  39:	b8 fe ff ff ff       	mov    $0xfffffffe,%eax
+  3e:	e9                   	.byte 0xe9
+  3f:	fb                   	sti
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
