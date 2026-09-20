@@ -1,118 +1,119 @@
-Received: from mail-pj2-f5.google.com (mail-pj2-f5.google.com [74.125.227.133])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3EF4429014
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 11:51:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 871D63FF8B6
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 11:53:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789905075; cv=none; b=gLPW7cWhdB25fJuT9rDll/HtJX6qvymobPcDLTGVVSD49naIDDksyF/OvbyTXQVJ1pK0h1+jWSrsoZ6IruL1mo/4Kh3ZsJRtHXPP5wfTU7mur9ZLR8mypaiJdrwZVb/sMBVAaaSna2QB8AXsI8wghf/pZ+LXEdhHNyzFbsICMb4=
+	t=1789905210; cv=none; b=UQ/ShuGDGnMPogpvmYGjkt8SdqHA4w/Mi07c0IX18Ji37DpMH/nQd8WBaMpOwQqWK+TYFgrfwzcYmTViUrqHc9rMoRv0Do/OnnM0xLKCLQDL2N0V+nAKQPOaNOWRrOJRZLtKA9CFe6SFD65LVXV3HlAeC3fAYnQ2/S9rBwNfDIQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789905075; c=relaxed/simple;
-	bh=pMbfx0NjIRyRskdHuH6lM861rKcUzwuGwYYxkIB5WEo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HqZpPOQQCZ9fDaidaunwO7B7AM9sAwg55QOSyaPSdestWI9zJwqos15pLrnpAWW+J1oEBAl0LmnoqRWUozlZUWcZiieClzU7BrzeD1Z7BlCxsbe1uw8rD0rQK5soFGN4ja+Yg0aGkc77fH6phLDisfw2GVBgpf2ajCTpm2q00GI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=smartx.com; spf=none smtp.mailfrom=smartx.com; dkim=pass (2048-bit key) header.d=smartx-com.20251104.gappssmtp.com header.i=@smartx-com.20251104.gappssmtp.com header.b=02CKOPTe; arc=none smtp.client-ip=74.125.227.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=smartx.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=smartx.com
+	s=arc-20240116; t=1789905210; c=relaxed/simple;
+	bh=t5IfYxWQE+lOigxGvBYPwLvDK8q2BggQOWEImshy4wE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FWRIuWMgW7siNgDra0k0bnengOtzir2lgmFZRn+XEOeCrfENA4+otfss/5oOcGaHoQ5MkMwCi0Sby6vJaX92iBBck49n1/0C3BuYPGVXamdGuQOLCmBG4fkstROmQA2t4XW5E/hSYyqjt9POsUnHtit7FbyilLMfCuXA1cQc3Bs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r09MP271; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=smartx-com.20251104.gappssmtp.com header.i=@smartx-com.20251104.gappssmtp.com header.b="02CKOPTe"
-Received: by mail-pj2-f5.google.com with SMTP id 98e67ed59e1d1-3965683e9e9so1659249a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 04:51:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r09MP271"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccfd61ecaso17763035e9.3
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 04:53:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=smartx-com.20251104.gappssmtp.com; s=20251104; t=1789905069; x=1790509869; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mVn1m5BbAcLTrd543GgGtPm08/ACaaeHnQhjr+DsHvs=;
-        b=02CKOPTes+Ch1feJ1RYD3fC7qLguOEqagMo2m7KU2vAFOYhPq/2keCkhF8panELeuP
-         3amgJb5qeZ8w2MicYf1/6S2X2dxoV3CgbY999quQf9bExh5e/eYynB0l0rmBq0bfCxao
-         Xz6s+/EJU0I/JsxM5wOMgmpuwQv0tstxUe87ZKCg3/70otj1Tzao5TwEon4QLsBwS5CG
-         bRmer7haHbAC2uW7F/WVfdKkxaHzHbLd08MOptAgY1PTMtUSb6Qs9xTrbICxZwmdxQoB
-         d/jd3Sn+xsMm+KLhOGPMfPkOAtyQSrDgf9ma8m4t//F/qESLaLKzelIFWv0ITbbHxGif
-         4WbA==
+        d=gmail.com; s=20251104; t=1789905204; x=1790510004; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=XF6M9PU3tXoXpfmNDf1afoDG2Svbnyp8JQoGluRlA/8=;
+        b=r09MP271dSn2CJ+KFsn/w6Cqs/isF8/xrfGoP89dUqjtSF5oJOREwcMO3C7uvKQZZz
+         Po2Sq3MC311cp6PK+fmXeJbPzZv9YvRlj8x88oJg7VarnnvPv3QrYrbLk+egFoZkMIzW
+         h77GLltJ90XBxBxi2k6/eWN/cTy8fz1+BfnHWhej1rHiEN9cf8NyCCj1qBOlfteClx8D
+         pNsTBBSW6Kp1sAOFyn3CvhaZJmwX1sm5T4YMyC8ikzhNB1SfaVSiBOGqU8xbqvOswJbc
+         qAac+NJQsIclrgQ8Dz3ZnmS5yp9CgbFDYCsioUWGZODdLlc9wbI11/kJgUHi+YwpY8xf
+         VdUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789905069; x=1790509869;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mVn1m5BbAcLTrd543GgGtPm08/ACaaeHnQhjr+DsHvs=;
-        b=c/96w7/E4Ff+zFGosa6+VNEoWL+gwB7o4TzXWZZjNL+LqwgMBh1aC0LForoVrU2O6r
-         u4rFpA5W62FbgoQazxwu90/PBF/uiwG3emZvUgfxjCk7SlOZccvsD3wszkpSOKB6Rzlt
-         /SG4U342cCQEOHqDQ5NNFG+wKbD8atH8BfHJRZwjT4wd/ZaONVVtioIDOHKLstjO9w8q
-         3FQCUmx+uVWp3MIDRLJKaNk99LCMrvE1OEAylCcgzkSv8edqUMYGLB7Ag19APeeNcGza
-         gBcl6pbUngxWqjxYfjZKL2Ym+CL+D6hfVHzqnKffayO4kxLz253oMz1GLpZr2y2e5pDW
-         ikUA==
-X-Forwarded-Encrypted: i=1; AKwUvBzP/Xb8u6/q9VZOp1P/RGuxmxe17Dt/tGgOGkWRD7yCN8grtvMn2611uE5eLyKVpW4ABh909N3V1FGgVZQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nHeXSZkSONX20L8KoFv3EhADMkVuXBZsQctl4Mxnv4oTa29rgZ
-	r/NVb7j0AyyVBNiwmuHxBeiOVdWDn5h1uvNByoU7vq9hBI43olRRJbo5NmgPURjhQw1MrJ+oRPr
-	2zob+kjZbgmnI4//pFZlnfm7I9/vFBxymm6FLj78a1iuZw0xwpqYv8uDd/ec=
-X-Gm-Gg: AYBFou1hRu4MkS5O6EpLSEk4zV22ISvwjIhhs3gvwDSq6gw5qshBYQ6aJIb6xiSSJkl
-	3FobMWXwjq0ZQuEkNAvPqMROZ6SZ1xsUzcwcZggmYWYg+uuvbyCmx8IWonUU0tJ7vHqinJOoKoP
-	UWjl2RHpSgUhEul0lxsrOg8fHFH46Jc21FHFuHTU42pJN60SRMpzLZgojwkKbRSGJSXsyfJnT2e
-	3BmlK+sFxLSfS7YtxEUa40Evfm8p4Lwf4J0gSWTaAA/Dx4YIrpnBA1E/NTpQl2LeOQ+/ZQSHbHa
-	R1eP50Hscv2j9kzchaS4yxIM5hxlFFScMUw/PxuKaP4rDIwzx9iGylbB11iOdbm4zegQlzS5/Q9
-	kk5mzxflZnhqqX/cEU81Cqr9B5ETvizJfA0jfZYPjxdCRrEasFhljr+kco2QA5QTo3St362HTuE
-	tgdv14ATtGsO1/rGWXc2BBv53IgeK1I+OK5L4s3fqly50K0ZkoqBhdroQjW1ETNyErrg4/KAh0J
-	CxF3pX64b4=
-X-Received: by 2002:a17:90b:380a:b0:39e:6a7f:1dc7 with SMTP id 98e67ed59e1d1-39e6a7f224bmr6783683a91.35.1789905068691;
-        Sun, 20 Sep 2026 04:51:08 -0700 (PDT)
-Received: from localhost.localdomain ([23.148.204.241])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c331d55cfsm14633990eec.30.2026.09.20.04.51.05
+        d=1e100.net; s=20260707; t=1789905204; x=1790510004;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XF6M9PU3tXoXpfmNDf1afoDG2Svbnyp8JQoGluRlA/8=;
+        b=tO6RLSSm39qTEvMAB06vXWRBB8GKwdB3CW99VrMJBFFeO6zVfXohNDHx5fDzHSddd5
+         YgHSc2UvXkeijR5gniIXn3vxNraITw7oHBoEUMo8QYawpcaVof3N86I6yZ51NGKId3eS
+         lDYjHC+ovSVIIQyNp6/NDvX+oO1K+8HOZrMq/LVfJHkcVSIeQbTIUguz/5u6TlJgLh8s
+         q9aJPsuVsy7OZKxHuWtLv39mtKTIQL9Eklk6LnDfNeBcB+wdem/Vm05ajib1yRcYmC/u
+         YQ67QKLnqFrLdIonmvLC76nuXKL94EmpmP7+0wyUVXJ7NdtQlF9BpUcPrgVyLeCFt6Rq
+         h8PA==
+X-Forwarded-Encrypted: i=1; AKwUvBzVHsBaF75oNVs5wMtIGTGvEYT8W5z12XMZKV1bWh8tCvpQSYK3O3rlCeOm/Fa8EZWXyb4nM9beRi6Qd8s=@vger.kernel.org
+X-Gm-Message-State: AFuF++ngK/oPs+YKR4EuAsgGaE+NiOKAwDnZHisfCdoXDkeNptxDnGcG
+	xFwgSzt1Jp2VF/PLWCI3+lBFXrnLFP2uGABjk0VpfN1BOOf7sG28EuYpmDO/KLXy
+X-Gm-Gg: AYBFou00yFKAX/uUb29tQavT0GADCiWd24bTp8h+z2V4/m1gMnECKMGOil+TZu66Y5S
+	kW45OMY9Qsa8LvfKzWuPbIHd0w1jgRp4bAuChycUZyLesGhbNX4XT5B/BVUi7QOsP19B/JmbPVO
+	kmnFO/sh17rYpXTIeP2pqIcZnA/EeeKlxliQZL5zg77wsuGpaazNGMzY+KjGB5Hkgpuf57oDHLW
+	NijfPZggPBTh1R3rmklkohZCVm/oMNOamnGR31d43GMXAjOwXrOS4WduMxJwoK+6A+1K2BuGPEs
+	K2kA1dVZn5xQr/I3P00P+qxIrXipRMjcD3ET8Ngi+lIS7+yh8L9/cQZq/F+emBhong+N7Bo/XBq
+	T+S/7oFjgANR3agpGD4oVySnElDQ6X6xi4Vtj7P3ndLo7cO82CtAGYr4fePH02jjW+aJWKqRPF0
+	26f0sU/YSVM5eoMisk2geTw49CWmfGa91+1A6z9Ebwvg31IkzN742Dkdy6IGN8M/TH7Xi68u0Q
+X-Received: by 2002:a05:600d:1a:b0:49e:6778:c2bd with SMTP id 5b1f17b1804b1-49fc5a10c99mr92167765e9.6.1789905203734;
+        Sun, 20 Sep 2026 04:53:23 -0700 (PDT)
+Received: from gmail.com ([51.154.249.41])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd03fe55sm175056685e9.2.2026.09.20.04.53.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 04:51:08 -0700 (PDT)
-From: Wang Zhan <wang.zhan@smartx.com>
-To: netdev@vger.kernel.org,
-	steffen.klassert@secunet.com
-Cc: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	keyong.sun@smartx.com,
-	herbert@gondor.apana.org.au,
+        Sun, 20 Sep 2026 04:53:23 -0700 (PDT)
+Date: Sun, 20 Sep 2026 11:53:21 +0000
+From: Vaibhav Gupta <vaibhavgupta40@gmail.com>
+To: Hemanth Selam <hemanth.selam@gmail.com>
+Cc: Jens Taprogge <jens.taprogge@taprogge.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	linux-kernel@vger.kernel.org,
-	leon@kernel.org,
-	huyn@nvidia.com,
-	raeds@nvidia.com,
-	Wang Zhan <wang.zhan@smartx.com>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH net] xfrm: free the whole skb list on the packet offload drop
-Date: Sun, 20 Sep 2026 19:50:48 +0800
-Message-ID: <20260920115048.3549614-1-wang.zhan@smartx.com>
-X-Mailer: git-send-email 2.47.3
+	industrypack-devel@lists.sourceforge.net
+Subject: Re: [PATCH] ipack: fix typo "informations" in comment
+Message-ID: <aq_JMTLGtANCLkk8@gmail.com>
+References: <20260904120954.21119-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260904120954.21119-1-hemanth.selam@gmail.com>
 
-validate_xmit_skb() hands the segmentation result of one GSO packet down
-to validate_xmit_xfrm() as a list.  The drop for a packet whose packet
-offload state no longer matches the device frees the first skb only, so
-the rest of the list and its payload are leaked.
+On Fri, Sep 04, 2026 at 05:39:53PM +0530, Hemanth Selam wrote:
+> Correct "informations" to "information", reported by scripts/checkpatch.pl
+> using the misspelling list in scripts/spelling.txt.  Only touches comments,
+> no code changes.
+> 
+> Assisted-by: Cursor:claude-opus-5
+> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+> ---
+>  drivers/ipack/carriers/tpci200.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/ipack/carriers/tpci200.h b/drivers/ipack/carriers/tpci200.h
+> index a2bf3125794b..d0c13b8b7f8e 100644
+> --- a/drivers/ipack/carriers/tpci200.h
+> +++ b/drivers/ipack/carriers/tpci200.h
+> @@ -136,7 +136,7 @@ struct tpci200_slot {
+>  };
+>  
+>  /**
+> - * struct tpci200_infos - informations specific of the TPCI200 tpci200.
+> + * struct tpci200_infos - information specific of the TPCI200 tpci200.
+>   * @pci_dev		PCI device
+>   * @interface_regs	Pointer to IP interface space (Bar 2)
+>   * @ioidint_space	Pointer to IP ID, IO and INT space (Bar 3)
+> -- 
+> 2.48.1
+> 
 
-Fixes: f8a70afafc175 ("xfrm: add TX datapath support for IPsec packet offload mode")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260918084651.3022878-1-wang.zhan%40smartx.com?part=3
-Assisted-by: LLM
-Signed-off-by: Wang Zhan <wang.zhan@smartx.com>
----
- net/xfrm/xfrm_device.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Hello Hemanth,
 
-diff --git a/net/xfrm/xfrm_device.c b/net/xfrm/xfrm_device.c
-index f153bf695b9dd..0fdd10d29fd1a 100644
---- a/net/xfrm/xfrm_device.c
-+++ b/net/xfrm/xfrm_device.c
-@@ -140,7 +140,7 @@ struct sk_buff *validate_xmit_xfrm(struct sk_buff *skb, netdev_features_t featur
- 	 * XFRM stack.
- 	 */
- 	if (x->xso.type == XFRM_DEV_OFFLOAD_PACKET && x->xso.dev != dev) {
--		kfree_skb(skb);
-+		kfree_skb_list(skb);
- 		dev_core_stats_tx_dropped_inc(dev);
- 		return NULL;
- 	}
--- 
-2.47.3
+Thanks for your patch!
 
+Acked-by: Vaibhav Gupta <vaibhavgupta40@gmail.com>
+
+Hey Greg, could you please add this patch to your misc tree?
+
+Thanks,
+Vaibhav Gupta
