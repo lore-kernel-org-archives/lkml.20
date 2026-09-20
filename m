@@ -1,176 +1,196 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f5.google.com (mail-oi2-f5.google.com [74.125.231.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4EBE33937F
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 14:16:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E5393537E0
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 14:21:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789913810; cv=none; b=b8W8uW8rBz0re6IVqOZgK66ZedMNshIy1S6BjQlu+B6tZqSn37kai/0MHcLwY+O9BPwutwjOH/62SodYEvSuKM9sZRsEJ75nLAj+XvTmYllqLWYpp6IwYyJQiyhbN/cydoFle5Nqqw4J/yl3Wp3bh3kvUtkuI0trMzo2dCgyRMQ=
+	t=1789914094; cv=none; b=G9fxB6BZAQeXHoIiSf5y1nCfrW5LiQBrZF5tvF2vQJsx5mtc292gcDTBJTAjROBTa+rfdEgX8UrScJLdHPTLDkIX4uLsodwBODwDh0sYLj93iVqoOOgnqh21aqgt3EnA0rR9syk8cL2R1LOPEhIpzwNoyt84IGe+71q6KOEX1/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789913810; c=relaxed/simple;
-	bh=5DeYmzlnwT2z51UpzgNPb7SeYRTZgxP3p7dZf7uEy/g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XGtg/GeF5nwPNFlHTghC0oyoDkUujHn8NTgSLUckcHcjl5LJE1fDkbhd0DvZuZjykf9PyWbO9w123cps4WM5ZBdM8WdHo1sEd3mrev1mLhNqfimQZ8Vj8YwvikAybZBbflmKy8Rz+pQOX4BwHSQ0G2RnaBUBDICDZgwpvjXq9r4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=UZiKBcMv; arc=none smtp.client-ip=188.68.63.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="UZiKBcMv"
-Received: from mors-relay8203.netcup.net (localhost [127.0.0.1])
-	by mors-relay8203.netcup.net (Postfix) with ESMTPS id 4hnpLh1PKqz8d26;
-	Sun, 20 Sep 2026 14:16:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1789913772;
-	bh=5DeYmzlnwT2z51UpzgNPb7SeYRTZgxP3p7dZf7uEy/g=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=UZiKBcMvn2LyFdcpTn4xdID8QoAMN/hERh90Ct/VurIIIhEuz7C9fTw228RUPguLC
-	 /E+BzaUMOQpKza033lc3n5NFBXQQyT1jeXLP8dbu++u14cQu5mUbBu4YCjLwQjymIH
-	 9N+hNNJMDQvCqolhcitUf3RhJYWyIt4hvgJQIO2r7+EqcHoK4reAyGImkJ0Stgxx3r
-	 mkoLDisurcbnhxFidTe24vqS3QOftEDXv/cHPm3TytGMjRzlk25619XlnCR9Yl7fuR
-	 3q10kEyddXk1b7+R+oCLlHI7MejYte3gWl/ZWT9JuJtjfns9PP1/QIojRweAlsWHtC
-	 3VCCwCG4CguEg==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay8203.netcup.net (Postfix) with ESMTPS id 4hnpLg4LH2z8hFF;
-	Sun, 20 Sep 2026 14:16:11 +0000 (UTC)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hnpLg0xpVz8svY;
-	Sun, 20 Sep 2026 16:16:10 +0200 (CEST)
-Received: from luggage.fritz.box (unknown [IPv6:2a02:8108:8984:1d00:a8ad:ebd4:6fc6:160])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 7D0355F99A;
-	Sun, 20 Sep 2026 16:16:10 +0200 (CEST)
-Authentication-Results: mxe9fb;
-	spf=pass (sender IP is 2a02:8108:8984:1d00:a8ad:ebd4:6fc6:160) smtp.mailfrom=linux@leemhuis.info smtp.helo=luggage.fritz.box
-Received-SPF: pass (mxe9fb: connection is authenticated)
-From: Thorsten Leemhuis <linux@leemhuis.info>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Linux kernel regressions list <regressions@lists.linux.dev>,
-	LKML <linux-kernel@vger.kernel.org>
-Subject: [PATCH] net: qrtr: resend HELLO on MHI resume
-Date: Sun, 20 Sep 2026 16:16:08 +0200
-Message-ID: <20260920141608.2977460-1-linux@leemhuis.info>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <1f3e8e4b-2060-4edc-aa58-d2b7a68280ca@leemhuis.info>
-References: <1f3e8e4b-2060-4edc-aa58-d2b7a68280ca@leemhuis.info>
+	s=arc-20240116; t=1789914094; c=relaxed/simple;
+	bh=Qs/AXDOMNVTVn/TaIRq5aMfQWNud2BuOIl1r8c5ZrJk=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=GBDrUDviecv1SQ55YBKkxDQ0c5wDSmDtO1cJzZM1PQBoLycqI4lN5YtF+1equNmNsu3yzbiRaq2/fwce/kMcVmBe7YZ+xRzLPmYPV1oNshhg06l9a+atSSRuXGS8MUIc0f3hxD9hUP2WwcmQic/UTGCe0+iTXtoXZGRwnTUYueg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi2-f5.google.com with SMTP id 46e09a7af769-7f4e2118db8so1007393a34.1
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 07:21:32 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789914092; x=1790518892;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SDF2KQTDPjG+jnet065vgzr3F9yXwCMJD8HQVg75NCQ=;
+        b=npRG1AUhnw2+XPenbNIX1AWDzcjH+Fb3Cn/0rsAjxK3VZSv1ylALxQAUywposz25bU
+         gm/8/hUAC3VR9B9s330zcsiY22vfBjLvKyT2+TYXBwgau7Bz+Jv5JCWoOI6ONKd2QMoq
+         uilbYFK4/2LdhdwcMP0Zr9MeLmycqRaPFPDP6s23+wKAGTxwuctYBcZCUxDgvJut5obF
+         18nBFswAKGCLJpdNfBonZwb0riT9th3U0de7W8i4O2h68YsBuSSLCM+SflNwDW0EDp6d
+         y1gzbY188jMjOPuHxe6Ru3c0FOSdtrRPKJaQLq57YWebYNW2lKEGR9Bfmx90AAIAn6lo
+         sIZw==
+X-Gm-Message-State: AFuF++lvw0cdOAiBryeyT6NVnekv/d3LjiTH+A/ap2B+nw62mahw1Akr
+	6xZJsR7XwUCWLmHhKNoBIGYFu6G/9XqaTKW4gUDZ047nIsTKgjNko4T0FHToPKzs49/BEGC5BMX
+	cl3psoJv6Qz50mwFhDR8it6f+ffDehE1DQ3CD9p/V9SP+Asc46V4qoHeovU6IXA==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: 
- <178991377074.1607990.16289536906234889544@mxe9fb.netcup.net>
-X-NC-CID: V/XsRjUAGwpe9ESqAqbysvjMrAcUgMg/ioQsFIXFiO/pkwFwkAA=
+X-Received: by 2002:a05:6820:1f03:b0:6b1:ba66:6998 with SMTP id
+ 006d021491bc7-6ca9a1343a0mr7442248eaf.14.1789914092082; Sun, 20 Sep 2026
+ 07:21:32 -0700 (PDT)
+Date: Sun, 20 Sep 2026 07:21:32 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aafebec.a6af0033.177e91.000d.GAE@google.com>
+Subject: [syzbot] [trace?] WARNING in check_buffer
+From: syzbot <syzbot+eb74dca0d1eb3ec227a7@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	mathieu.desnoyers@efficios.com, mhiramat@kernel.org, rostedt@goodmis.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: Daniel J Blueman <daniel@quora.org>
+Hello,
 
-Since the MHI HELLO exchange was relocated, it is sent only at device
-registration. During a suspend-resume cycle, the firmware in WiFi
-cards such as WCN7850 indefinitely waits for another HELLO,
-triggering:
+syzbot found the following issue on:
 
-  ath12k_wifi7_pci 0004:01:00.0: timeout while waiting for restart complete
-  ath12k_wifi7_pci 0004:01:00.0: failed to resume core: -110
+HEAD commit:    40288c9206c1 Merge tag 'drm-fixes-2026-09-19' of https://g..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=12daa525580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=84649d3ff8d550cb
+dashboard link: https://syzkaller.appspot.com/bug?extid=eb74dca0d1eb3ec227a7
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
 
-Fix this by triggering the handshake from resume_early in the MHI
-transport.
+Unfortunately, I don't have any reproducer for this issue yet.
 
-Validated on Qualcomm X1E-801800 on Lenovo Slim 7x across 10
-suspend-resume cycles.
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/96e6db480769/disk-40288c92.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/d8cb5ded77e9/vmlinux-40288c92.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/c127cac2df37/bzImage-40288c92.xz
 
-Fixes: 544d85de4dc2 ("net: qrtr: Send HELLO message on endpoint register")
-Signed-off-by: Daniel J Blueman <daniel@quora.org>
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Reported-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-Link: https://lore.kernel.org/all/6257c447-788d-4362-851e-0d552bcf7c56@oss.qualcomm.com/
-Tested-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-Reported-by: Vlastimil Babka (SUSE) <vbabka@suse.com>
-Link: https://lore.kernel.org/all/ab1491bb-cca5-4145-ac7d-31c966abf7b4@suse.com/
-Tested-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Reported-by: Takashi Iwai <tiwai@suse.de>
-Link: https://lore.kernel.org/all/87a4plsg4w.wl-tiwai@suse.de/
-Tested-by: Takashi Iwai <tiwai@suse.de>
-Signed-off-by: Thorsten Leemhuis <linux@leemhuis.info>
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+eb74dca0d1eb3ec227a7@syzkaller.appspotmail.com
+
+ 0xe74:  [135187] delta:1 PADDING
+ 0xe98:  [135188] delta:1 hd
+expected end:0xea8 last event actually ended at:0xea8
+------------[ cut here ]------------
+system_state != SYSTEM_BOOTING
+WARNING: kernel/trace/ring_buffer.c:4783 at check_buffer.cold+0x1a2/0x1ef kernel/trace/ring_buffer.c:4783, CPU#0: syz.6.3124/18331
+Modules linked in:
+CPU: 0 UID: 0 PID: 18331 Comm: syz.6.3124 Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
+RIP: 0010:check_buffer.cold+0x1a2/0x1ef kernel/trace/ring_buffer.c:4783
+Code: 03 0f b6 14 11 38 d0 7c 04 84 d2 75 5c 8b 2d 1c ce 21 10 31 ff 89 ee e8 af f2 e8 00 85 ed 0f 84 c8 8d eb 00 e8 32 f8 e8 00 90 <0f> 0b 90 e9 73 8b eb 00 49 c7 c7 c0 5e f6 8b e9 51 fe ff ff e8 88
+RSP: 0018:ffffc900000078d0 EFLAGS: 00010046
+RAX: 8000000001000003 RBX: 1ffff92000000f20 RCX: 0000000001000003
+RDX: ffff88802d9c4b00 RSI: ffffffff8123277e RDI: ffff88802d9c4b00
+RBP: 0000000000000003 R08: 0000000000000005 R09: 0000000000000000
+R10: 0000000000000003 R11: 0000000000000001 R12: 0000000000021015
+R13: ffff88801c095000 R14: ffff88805713c000 R15: ffffffff8bf65a60
+FS:  00007ff5dabbc6c0(0000) GS:ffff888123b56000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b32508ff8 CR3: 0000000084816000 CR4: 00000000003526f0
+Call Trace:
+ <IRQ>
+ __rb_reserve_next.constprop.0+0x486/0x1640 kernel/trace/ring_buffer.c:4873
+ rb_reserve_next_event kernel/trace/ring_buffer.c:5010 [inline]
+ ring_buffer_lock_reserve+0x49a/0x1220 kernel/trace/ring_buffer.c:5069
+ __trace_buffer_lock_reserve kernel/trace/trace.h:1677 [inline]
+ trace_event_buffer_lock_reserve+0x123/0x6f0 kernel/trace/trace.c:1924
+ trace_event_buffer_reserve+0x1f9/0x350 kernel/trace/trace_events.c:715
+ __eprobe_trace_func kernel/trace/trace_eprobe.c:443 [inline]
+ eprobe_trigger_func+0x558/0x1450 kernel/trace/trace_eprobe.c:487
+ data_ops_trigger kernel/trace/trace_events_trigger.c:154 [inline]
+ event_triggers_call+0x29e/0x4d0 kernel/trace/trace_events_trigger.c:209
+ __event_trigger_test_discard kernel/trace/trace.h:1738 [inline]
+ trace_event_buffer_commit+0x66b/0xa80 kernel/trace/trace.c:2014
+ do_trace_event_raw_event_msr_trace_class arch/x86/include/asm/msr-trace.h:21 [inline]
+ trace_event_raw_event_msr_trace_class+0x17d/0x270 arch/x86/include/asm/msr-trace.h:21
+ __do_trace_read_msr arch/x86/include/asm/msr-trace.h:40 [inline]
+ trace_read_msr+0x160/0x1f0 arch/x86/include/asm/msr-trace.h:40
+ native_read_msr_safe arch/x86/include/asm/msr.h:127 [inline]
+ rdmsrq_safe arch/x86/include/asm/msr.h:220 [inline]
+ __rdmsr_safe_on_cpu+0xc8/0xf0 arch/x86/lib/msr-smp.c:124
+ csd_do_func kernel/smp.c:143 [inline]
+ __flush_smp_call_function_queue+0x43a/0x8c0 kernel/smp.c:632
+ __sysvec_call_function_single+0x81/0x420 arch/x86/kernel/smp.c:272
+ instr_sysvec_call_function_single arch/x86/kernel/smp.c:267 [inline]
+ sysvec_call_function_single+0x9e/0xc0 arch/x86/kernel/smp.c:267
+ </IRQ>
+ <TASK>
+ asm_sysvec_call_function_single+0x1a/0x20 arch/x86/include/asm/idtentry.h:681
+RIP: 0010:__vmcs_writel arch/x86/kvm/vmx/vmx_ops.h:224 [inline]
+RIP: 0010:vmcs_write32 arch/x86/kvm/vmx/vmx_ops.h:242 [inline]
+RIP: 0010:vmx_set_constant_host_state+0x1d4/0x740 arch/x86/kvm/vmx/vmx.c:4498
+Code: e8 71 ed 6b 00 b9 74 01 00 00 0f 32 48 c1 e2 20 48 89 d3 48 09 c3 e9 ba 01 00 00 e8 56 ed 6b 00 89 db b8 00 4c 00 00 0f 79 c3 <0f> 86 f5 01 00 00 e8 41 ed 6b 00 b9 76 01 00 00 0f 32 48 c1 e2 20
+RSP: 0018:ffffc90003d97828 EFLAGS: 00000202
+RAX: 0000000000004c00 RBX: 0000000000000010 RCX: ffffc9000ebc9000
+RDX: 0000000000080000 RSI: ffffffff81a0325a RDI: ffff88802d9c4b00
+RBP: 00000000003526f0 R08: 0000000000000001 R09: 0000000000000000
+R10: 0000000000000001 R11: 0000000000000000 R12: ffff88807e391f78
+R13: ffff88807e391ed8 R14: ffff888051ff8000 R15: ffff88807e391f78
+ init_vmcs arch/x86/kvm/vmx/vmx.c:4946 [inline]
+ __vmx_vcpu_reset arch/x86/kvm/vmx/vmx.c:5014 [inline]
+ vmx_vcpu_reset+0x117b/0x3160 arch/x86/kvm/vmx/vmx.c:5047
+ kvm_vcpu_reset+0x9d1/0x1ae0 arch/x86/kvm/x86.c:9615
+ kvm_arch_vcpu_create+0x70c/0xab0 arch/x86/kvm/x86.c:9415
+ kvm_vm_ioctl_create_vcpu virt/kvm/kvm_main.c:4213 [inline]
+ kvm_vm_ioctl+0x7e3/0x42d0 virt/kvm/kvm_main.c:5178
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl fs/ioctl.c:583 [inline]
+ __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7ff5d9d9e159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ff5dabbc028 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 00007ff5da026090 RCX: 00007ff5d9d9e159
+RDX: 0000000000000000 RSI: 000000000000ae41 RDI: 0000000000000005
+RBP: 00007ff5d9e3506b R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007ff5da026128 R14: 00007ff5da026090 R15: 00007fff730b6718
+ </TASK>
+----------------
+Code disassembly (best guess):
+   0:	e8 71 ed 6b 00       	call   0x6bed76
+   5:	b9 74 01 00 00       	mov    $0x174,%ecx
+   a:	0f 32                	rdmsr
+   c:	48 c1 e2 20          	shl    $0x20,%rdx
+  10:	48 89 d3             	mov    %rdx,%rbx
+  13:	48 09 c3             	or     %rax,%rbx
+  16:	e9 ba 01 00 00       	jmp    0x1d5
+  1b:	e8 56 ed 6b 00       	call   0x6bed76
+  20:	89 db                	mov    %ebx,%ebx
+  22:	b8 00 4c 00 00       	mov    $0x4c00,%eax
+  27:	0f 79 c3             	vmwrite %rbx,%rax
+* 2a:	0f 86 f5 01 00 00    	jbe    0x225 <-- trapping instruction
+  30:	e8 41 ed 6b 00       	call   0x6bed76
+  35:	b9 76 01 00 00       	mov    $0x176,%ecx
+  3a:	0f 32                	rdmsr
+  3c:	48 c1 e2 20          	shl    $0x20,%rdx
+
+
 ---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-Hi Linus, as mentioned earlier in this thread, would be great if you
-could merge this directly to fix an annoying regression. Ciao, THorsteh
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
----
- net/qrtr/af_qrtr.c | 13 +++++++++++++
- net/qrtr/mhi.c     |  9 ++++++++-
- net/qrtr/qrtr.h    |  2 ++
- 3 files changed, 23 insertions(+), 1 deletion(-)
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-diff --git net/qrtr/af_qrtr.c net/qrtr/af_qrtr.c
-index 78347c937af76b..e7b3647424b8f1 100644
---- net/qrtr/af_qrtr.c
-+++ net/qrtr/af_qrtr.c
-@@ -623,6 +623,19 @@ static void qrtr_hello_work(struct work_struct *work)
- 	qrtr_port_put(ctrl);
- }
- 
-+/* Trigger the HELLO handshake after the remote has been reset, eg on resume */
-+void qrtr_endpoint_hello(struct qrtr_endpoint *ep)
-+{
-+	struct qrtr_node *node = ep->node;
-+
-+	mutex_lock(&node->ep_lock);
-+	node->hello_sent = false;
-+	mutex_unlock(&node->ep_lock);
-+
-+	schedule_delayed_work(&node->say_hello, 0);
-+}
-+EXPORT_SYMBOL_GPL(qrtr_endpoint_hello);
-+
- /**
-  * qrtr_endpoint_register() - register a new endpoint
-  * @ep: endpoint to register
-diff --git net/qrtr/mhi.c net/qrtr/mhi.c
-index 3990da1a65dc4f..e9a4bb92ce76ff 100644
---- net/qrtr/mhi.c
-+++ net/qrtr/mhi.c
-@@ -183,6 +183,7 @@ static int __maybe_unused qcom_mhi_qrtr_pm_suspend_late(struct device *dev)
- static int __maybe_unused qcom_mhi_qrtr_pm_resume_early(struct device *dev)
- {
- 	struct mhi_device *mhi_dev = container_of(dev, struct mhi_device, dev);
-+	struct qrtr_mhi_dev *qdev = dev_get_drvdata(dev);
- 	enum mhi_state state;
- 	int rc;
- 
-@@ -201,7 +202,13 @@ static int __maybe_unused qcom_mhi_qrtr_pm_resume_early(struct device *dev)
- 		return rc;
- 	}
- 
--	return qcom_mhi_qrtr_queue_dl_buffers(mhi_dev);
-+	rc = qcom_mhi_qrtr_queue_dl_buffers(mhi_dev);
-+	if (rc)
-+		return rc;
-+
-+	qrtr_endpoint_hello(&qdev->ep);
-+
-+	return 0;
- }
- 
- static const struct dev_pm_ops qcom_mhi_qrtr_pm_ops = {
-diff --git net/qrtr/qrtr.h net/qrtr/qrtr.h
-index 3f2d28696062a5..de2de69a619936 100644
---- net/qrtr/qrtr.h
-+++ net/qrtr/qrtr.h
-@@ -27,6 +27,8 @@ int qrtr_endpoint_register(struct qrtr_endpoint *ep, unsigned int nid);
- 
- void qrtr_endpoint_unregister(struct qrtr_endpoint *ep);
- 
-+void qrtr_endpoint_hello(struct qrtr_endpoint *ep);
-+
- int qrtr_endpoint_post(struct qrtr_endpoint *ep, const void *data, size_t len);
- 
- int qrtr_ns_init(void);
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
-base-commit: 5dd1818b15d98d4a20806cd00b1b40320b06004f
--- 
-2.55.0
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
 
+If you want to undo deduplication, reply with:
+#syz undup
