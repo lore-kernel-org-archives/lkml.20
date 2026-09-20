@@ -1,175 +1,1668 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA0C73F8246
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 09:21:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2EFB03D9667;
+	Sun, 20 Sep 2026 09:21:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789896114; cv=none; b=aoq3ygf5ocvTYch8Yse+RmXXEoaj+K6qj3a/z71CTITJJ1vYeQqdBtgo/8YvP5Lek1mveMa20E1VNM0vHE5Zf5Bz8uTLMRPFBY0vWnORf+bEqREQWBbuiVNJLnqLZEWbRJW/YWb155LjPuv33pWX8lL8Lj308CEA/rpjZPllDKI=
+	t=1789896117; cv=none; b=l8LU7aImkkZh+2S84n3jIXew84z5IjGREU0qDzEBbNw5Kq0cWVBKFzhOzZTakfovwQP7vhh96vxZPRl/fj3qwb2lnTdYkwgFAKNui2sZPw4b2aBDIrhY0oEzP0H8VjACjl/jo7FqueNgWMWc/gFFHuf7hTx9NgigLyVMKFYn2VI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789896114; c=relaxed/simple;
-	bh=+SaZJHQL2G9LoUBeVibG0ZkfGUAgIYNrG7/zs7Nh0/o=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Aiv/wfGZo4rxNiRP/8sFbCOEo0YgaxSVORq6T39Da4Kubh6cnq2rDrfHyS423ljcfabf/EcS2RFVbK5vyvq6RWm0J7tOEIGaU/CNu7E0+G8tsqjopd94mYpOU3HtTjG1E3GsyVVCphxGkWddtOQ1ZY5EFRpca8y0G6hgyzpnK4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O6ypJEi3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789896117; c=relaxed/simple;
+	bh=csZvucxJvITzVLIEwDVRp09+kYUC6RclnZJSbwOwSqs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=P7SZO3UC9XAm6vCB6O3VcsdSGZj2KSeftIQTYiLljBHsvZ4XCwjdUhHukjf2OzUe1s3Rvblt5VQObA5XcNE4ghVOyhs0WedtGRf6JY3hGxdTElYGPOb71X7jGI/cVgky3uVvRT11EBlRSGI43pZkY+dAeSIcm73WvZKKOfLQShc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=FIAIZKAo; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O6ypJEi3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 607E21F000FF
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 09:21:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789896112;
-	bh=+D7/BT1IHpcDxVkUKhWYFCe5JmCtgbgwd+dQYTaICxM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=O6ypJEi3XmekbbWJhkr8fU5bGBhJpZweRrAPld86N9f+lKoQacQFpI6vCntJYqtUH
-	 5WYVN219o7kSTBzJMetqeguRA5BWrydKqxe+JH3IhoLh4nsv97nwyFAUpCNzOKlaCF
-	 O6I1YRYD+ydrxK6LoJq3xG9DTg/U4wDF6l0VWKcIwkgrSqofIfx8iuHqjWOAlx65YX
-	 7F+/Ic/jPzyFsJ9hATZMIqljoOONJvpOf3QD66oamNWbY0cQ3TxHp6XBSjuoCjATnX
-	 TbuyjTtyDl4i8eEjSSF9UfPbLe8NdTpFwmCVNS67/EoDnvjKwoSsZMV4aRrKPYyVKl
-	 o7zrC/krE3tkg==
-Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910c9ff1fso242338985a.2
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 02:21:52 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxpvKxWFsdNKNPVPaj416byLJok9Aj6oDiFHq4BqYA1oHe3NhwYUupLG5V7iXWPO3kNmiv0r26ieviWAmw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nuZqxe6i3FujsWL9fROcwl80KZ1TI1Nc8zfnI+9N3jlMwKuZWY
-	SBYntFZxI1h+WvAfgIwSM3/2/qnF6q0xxIBa/W9EtsPYNXACLdmNMW7voxBCbYn87auk7vh22fW
-	hhbJVuCC1vtuhkio4HIS3ubo7zNQTsEY=
-X-Received: by 2002:a05:620a:8809:b0:93b:d7a3:45de with SMTP id
- af79cd13be357-93bf57e5603mr459482685a.71.1789896111765; Sun, 20 Sep 2026
- 02:21:51 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="FIAIZKAo"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2A7481C0A;
+	Sun, 20 Sep 2026 02:21:50 -0700 (PDT)
+Received: from pluto.fritz.box (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B94723F59E;
+	Sun, 20 Sep 2026 02:21:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789896113; bh=csZvucxJvITzVLIEwDVRp09+kYUC6RclnZJSbwOwSqs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=FIAIZKAo2P+WfY0KsPLPvamKlSt8GbeUHWVyktii415ifZje4HJsiUcuiXYC690Vg
+	 WTKrdK6G9QawsLSfDotoqq0xm9yWxxM11RTHlkxZTtlr4sMMfYhsHjwMTD+SBlXSGO
+	 IdO0qVBHMMWD9/gTt8r0G9OoHCBYKd9pTOn7W6vw=
+From: Cristian Marussi <cristian.marussi@arm.com>
+To: linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	arm-scmi@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Cc: sudeep.holla@kernel.org,
+	james.quinlan@broadcom.com,
+	f.fainelli@gmail.com,
+	vincent.guittot@linaro.org,
+	etienne.carriere@st.com,
+	peng.fan@oss.nxp.com,
+	michal.simek@amd.com,
+	d-gole@ti.com,
+	jic23@kernel.org,
+	elif.topuz@arm.com,
+	lukasz.luba@arm.com,
+	philip.radford@arm.com,
+	david@kernel.org,
+	souvik.chakravarty@arm.com,
+	leitao@kernel.org,
+	kas@kernel.org,
+	puranjay@kernel.org,
+	usama.arif@linux.dev,
+	kernel-team@meta.com,
+	Cristian Marussi <cristian.marussi@arm.com>
+Subject: [PATCH v12 24/25] [RFC] tools/scmi: Add SCMI Telemetry testing tool
+Date: Sun, 20 Sep 2026 10:19:27 +0100
+Message-ID: <20260920091928.2014972-25-cristian.marussi@arm.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260920091928.2014972-1-cristian.marussi@arm.com>
+References: <20260920091928.2014972-1-cristian.marussi@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260920043015.3126317-1-ridong.chen@linux.dev>
-In-Reply-To: <20260920043015.3126317-1-ridong.chen@linux.dev>
-From: Barry Song <baohua@kernel.org>
-Date: Sun, 20 Sep 2026 17:21:40 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4xmoGWULDVNGj0LzRFFfxM4VVGg4Bx5Pz5cUfXx9uKrtw@mail.gmail.com>
-X-Gm-Features: AcwNN1UQcUC92XzoRFaVg0eXTQk2xu-g1I5nlJQhu3nsQjCKfTWTt3DeOV-UAFk
-Message-ID: <CAGsJ_4xmoGWULDVNGj0LzRFFfxM4VVGg4Bx5Pz5cUfXx9uKrtw@mail.gmail.com>
-Subject: Re: [PATCH mm-new] mm: vmscan: put rotation-missed folios at the LRU tail
-To: Ridong Chen <ridong.chen@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"open list:MEMORY MANAGEMENT - MGLRU (MULTI-GEN LRU)" <linux-mm@kvack.org>, linux-kernel@vger.kernel.org, 
-	Ridong Chen <chenridong@xiaomi.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 20, 2026 at 12:30=E2=80=AFPM Ridong Chen <ridong.chen@linux.dev=
-> wrote:
->
-> From: Ridong Chen <chenridong@xiaomi.com>
->
-> The page reclaim isolates a batch of folios from the tail of an LRU list
-> and works on them one by one.  For a suitable swap-backed folio on an
-> async swap device, it queues the folio for writeback and, after finishing
-> the batch, puts the folio back to the head of the original LRU list.
->
-> Meanwhile the page writeback flushes the queued folios in its own,
-> independent batches.  For each folio it writes back it calls
-> folio_rotate_reclaimable(), which tries to rotate the folio to the LRU
-> tail.  But folio_rotate_reclaimable() only takes effect once the folio ha=
-s
-> been put back by reclaim.  If the async swap device is fast enough, the
-> writeback can complete a folio while reclaim is still working on the rest
-> of the batch that contains it.  In that case the folio stays near the hea=
-d
-> and reclaim will not revisit it before wrapping around, causing a cold/ho=
-t
-> inversion: a clean, written-back folio that should be a prime reclaim
-> candidate is kept ahead of hotter folios.
->
-> commit 359a5e1416ca ("mm: multi-gen LRU: retry folios written back while
-> isolated") addressed this for MGLRU only.  The traditional active/inactiv=
-e
-> LRU has the same problem, reported at [1].  A reproducer is available at
-> [2].
->
-> Rather than re-reclaiming those folios (which would drop the swap cache
-> that may still be useful for a future hit [4]), restore the rotation that
-> was missed: when move_folios_to_lru() puts a folio back, add it to the LR=
-U
-> tail if it looks like it missed folio_rotate_reclaimable() (inactive, not
-> mapped, not dirty and not under writeback).  A new do_rotate parameter
-> gates this so it only applies on the reclaim put-back path
-> (shrink_inactive_list()), not on shrink_active_list() where the list orde=
-r
-> is already deliberate.  This approach was suggested by Barry Song [3].
->
-> Only the traditional LRU is handled here.  MGLRU already retries such
-> folios via its own clean-list retry pass in evict_folios(), so it is left
-> unchanged.  The same do_rotate scheme could later replace that retry pass
-> to unify both LRUs, which is left for a follow-up.
->
-> [1] https://lore.kernel.org/linux-kernel/20241010081802.290893-1-chenrido=
-ng@huaweicloud.com/
-> [2] https://lore.kernel.org/lkml/46037a37-4cf6-448e-a94b-30a4d16e8814@lin=
-ux.dev/
-> [3] https://lore.kernel.org/lkml/CAGsJ_4zwP3_+EYY5Ug9EJ+yD1UdxsBSGr25u8s1=
-K3u_i7LH3Zg@mail.gmail.com/
-> [4] https://lore.kernel.org/linux-mm/20260911121341.178028-1-alex@ghiti.f=
-r/
->
-> Suggested-by: Barry Song <baohua@kernel.org>
-> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
-> ---
->  mm/vmscan.c | 21 +++++++++++++++------
->  1 file changed, 15 insertions(+), 6 deletions(-)
->
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index e200ce3eb056..026b844c681f 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-> @@ -1971,7 +1971,7 @@ static bool too_many_isolated(struct pglist_data *p=
-gdat, int file,
->   *
->   * Note: The caller must not hold any lruvec lock.
->   */
-> -static unsigned int move_folios_to_lru(struct list_head *list)
-> +static unsigned int move_folios_to_lru(struct list_head *list, bool do_r=
-otate)
->  {
->         int nr_pages, nr_moved =3D 0;
->         struct lruvec *lruvec =3D NULL;
-> @@ -2018,7 +2018,16 @@ static unsigned int move_folios_to_lru(struct list=
-_head *list)
->                         continue;
->                 }
->
-> -               lruvec_add_folio(lruvec, folio);
-> +               /*
-> +                * Put folios that may have missed folio_rotate_reclaimab=
-le()
-> +                * at the tail to avoid cold/hot inversion.
-> +                */
-> +               if (do_rotate && !folio_test_active(folio) && !folio_mapp=
-ed(folio) &&
-> +                   !folio_test_dirty(folio) && !folio_test_writeback(fol=
-io))
-> +                       lruvec_add_folio_tail(lruvec, folio);
+Add a testing tool that exercises the SCMI ioctls UAPI interface: as of
+now the tool simply queries the initial state of the SCMI Telemetry
+subsystem, tries to enable all the existent Data Events and dumps all
+the Telemetry data.
 
-sashiko says:
+Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
+---
+v11 --> v12
+ - renamed command helpers
+ - reviewed all internal/external error codes handling
+ - fixed dump_shmti read loop
+ - fixed shmti_check end address calculation
+ - fixed batch read boundary checks
+ - fixed group indexing
+v10 --> v11
+ - add query for ALL new 0-sized commands: GET_INTRVS/BULK/SINGLE
+v8 --> v9
+ - move to new _LIST IOCTLs support based on scmi_tlm_batch container
+ - add a "query" command to issue 0-items IOCTLs requests
+v7 -> v8
+ - add monitor detached option
+v6 --> v7
+ - added monitor command for events
+ - using and exposing DE's UUID/SID/OFFSET
+ - use BATCH READ with status
+ - use BATCH DE CONFIG GET/SET
+ - use new ABI/SCMI feats flags
+v5 --> v6
+ - carry-on on error if feats NOT supported
+ - build BATCH_READ with enumerated values
+ - new UAPI naming
+ - reworked UUID print
+ - added info/shmti interactive cmds
+ - added cfg/single/bulk/batch interactive cmds
+ - added reset
+ - added tlm enable
+ - using new GET_ABI_INFO
+ - moved DE_READ per-de sampling away from get_state
+v4 --> v5
+ - changes to adapt to new chardev/IOCTLs ABI
+ - change IOCTLs param to avoid flexible arrays
+ - added SHMTIs mmap dump
+v3 --> v4
+ - added generation file support
+---
+ tools/testing/scmi/Makefile |   25 +
+ tools/testing/scmi/stlm.c   | 1510 +++++++++++++++++++++++++++++++++++
+ 2 files changed, 1535 insertions(+)
+ create mode 100644 tools/testing/scmi/Makefile
+ create mode 100644 tools/testing/scmi/stlm.c
 
-"Could this heuristic indiscriminately place un-reclaimable clean folios at
-the LRU tail, ensuring they are immediately re-scanned in an infinite loop?
-If shrink_inactive_list() isolates a clean, unmapped file folio with an
-elevated refcount (such as from a concurrent GUP or speculative lookup),
-it will fail __remove_mapping() and be placed on ret_folios.
-Because this pinned folio matches the !active, !mapped, !dirty, and
-!writeback checks, it is placed at the tail of the inactive LRU. The very
-next isolate_lru_folios() pull from the tail will immediately isolate this
-exact same folio again, creating an infinite loop that prevents any other
-folios from being reclaimed and causes kswapd to spin at 100% CPU."
+diff --git a/tools/testing/scmi/Makefile b/tools/testing/scmi/Makefile
+new file mode 100644
+index 000000000000..a6a101f8398b
+--- /dev/null
++++ b/tools/testing/scmi/Makefile
+@@ -0,0 +1,25 @@
++# SPDX-License-Identifier: GPL-2.0-or-later
++
++CC?=$(CROSS_COMPILE)gcc
++OBJS = stlm.o
++
++CFLAGS=-Wall -static -std=gnu11 -I ../../../include/uapi/
++ifneq ($(DEBUG), )
++	CFLAGS+=-O0 -g -ggdb
++else
++	CFLAGS+=-static
++endif
++
++all: stlm
++
++stlm: $(OBJS)
++	$(CC) $(CFLAGS) $^ -o $@
++
++%.o: %.c
++	$(CC) $(CFLAGS) -c $<
++
++clean:
++	rm -f *.o
++	rm -f stlm
++
++.PHONY: clean
+diff --git a/tools/testing/scmi/stlm.c b/tools/testing/scmi/stlm.c
+new file mode 100644
+index 000000000000..76735651310f
+--- /dev/null
++++ b/tools/testing/scmi/stlm.c
+@@ -0,0 +1,1510 @@
++// SPDX-License-Identifier: GPL-2.0-only
++
++#include <errno.h>
++#include <fcntl.h>
++#include <limits.h>
++#include <poll.h>
++#include <signal.h>
++#include <stdbool.h>
++#include <stddef.h>
++#include <stdint.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <sys/eventfd.h>
++#include <sys/ioctl.h>
++#include <sys/mman.h>
++#include <sys/signalfd.h>
++
++#include <unistd.h>
++
++#include <linux/scmi.h>
++
++#define SLEEP_MS	3000
++
++#define IOCTL_ERR_STR(_ioctl)	"IOCTL:" #_ioctl
++
++#define USAGE_STRING \
++	"\t[OPTIONS]\n" \
++	"\t -i <instance_path>\t\tUse this device instance path. Default: /dev/scmi/tlm_0\n" \
++	"\t[COMMANDS]\n" \
++	"\t info [full] - Display summarized (or full) configuration and information data\n" \
++	"\t query - Query ALL possible IOCTLs for resources (item=0)\n" \
++	"\t uuids - UUIDs dump\n" \
++	"\t monitor [detach] - Monitor Generation counter\n" \
++	"\t shmti [check][dump <sid>] - SHMTI operations\n" \
++	"\t\t check - Sanity check of all SHMTis\n" \
++	"\t\t dump [<sid>] - Binary dump of <sid> or all SHMTI areas\n" \
++	"\t des - Display detailed DEs info and config data\n" \
++	"\t groups - Display detailed GROUPS info and config data\n" \
++	"\t cfg [SUB-COMMANDS] - Configure Telemetry\n" \
++	"\t\t tlm on|off - Enable or disable Telemetry as a whole\n" \
++	"\t\t update <msecs> - Set global update interval\n" \
++	"\t\t all_des [[on|off]:[on|off]] - Enable or disable ALL DEs with or wout TS\n" \
++	"\t\t de [<de_id> [[on|off]:[on|off]]] - Get/Set configuration of one or ALL de\n" \
++	"\t\t group [<grp_id>] [[on|off]:[on|off]:[<update_msecs>]] - Get/Set GROUP configuration\n" \
++	"\t single - Perform a single sample read\n" \
++	"\t bulk - Perform a bulk read\n" \
++	"\t batch <de_id> [de_id [de_id]... ] - Perform a batch read of the DE IDs listed in input\n" \
++	"\t reset - Perform a Telemetry subsytem reset platform-side\n"
++
++struct tlm_de {
++	struct scmi_tlm_de_info *info;
++	struct scmi_tlm_de_config cfg;
++	struct scmi_tlm_de_sample sample;
++};
++
++struct tlm_group {
++	int fd;
++	struct scmi_tlm_grp_info *info;
++	struct scmi_tlm_grp_desc *desc;
++	struct scmi_tlm_intervals *ivs;
++};
++
++struct tlm_state {
++	int fd;
++	const char *path;
++	struct scmi_tlm_abi_info info;
++	struct scmi_tlm_config cfg;
++	struct scmi_tlm_intervals *ivs;
++	struct scmi_tlm_batch *shmtis;
++	unsigned int num_des;
++	struct tlm_de *des;
++	unsigned int num_groups;
++	struct tlm_group *grps;
++};
++
++struct parsed_args {
++	const char *instance;
++	const char *cmd;
++	unsigned int cnt;
++	char **opts;
++};
++
++static inline void cmd_dump_des(struct tlm_state *st)
++{
++	fprintf(stdout, "\n+ Found #%d DEs:\n", st->num_des);
++	for (int i = 0; i < st->num_des; i++) {
++		fprintf(stdout, "\t[0x%08X][%s]\n",
++			st->des[i].info->id, st->des[i].info->name);
++		fprintf(stdout, "\t\tGRP_ID:0x%08X  SZ:%u  TYPE:%u  UNIT:%u  UNIT_EXP:%d  TS_RATE:%d\n",
++			st->des[i].info->grp_id, st->des[i].info->data_sz,
++			st->des[i].info->type, st->des[i].info->unit,
++			st->des[i].info->unit_exp, st->des[i].info->ts_rate);
++		fprintf(stdout, "\t\tINST_ID:%u  COMPO_ID:%u  COMPO_TYPE:%u  PERSIST:%u\n\n",
++			st->des[i].info->instance_id, st->des[i].info->compo_instance_id,
++			st->des[i].info->compo_type, st->des[i].info->persistent);
++	}
++	fprintf(stdout, "\n");
++
++	for (int i = 0; i < st->num_des; i++) {
++		struct tlm_de *de = &st->des[i];
++
++		/* Collect fresh sample */
++		if (de->cfg.enable) {
++			int ret;
++
++			de->sample.id = de->info->id;
++			ret = ioctl(st->fd, SCMI_TLM_DE_READ, &de->sample);
++			if (ret)
++				perror(IOCTL_ERR_STR(SCMI_TLM_DE_READ));
++		}
++
++		fprintf(stdout, "\t[0x%08X][%s]\t\t%s %s\n\t\t-->> TS:%16llu %016llX\n",
++			de->info->id, de->info->name,
++			de->cfg.enable ? "ON" : "OFF",
++			de->cfg.t_enable ? "/TS_ON " : "/TS_OFF",
++			de->sample.tstamp, de->sample.val);
++	}
++	fprintf(stdout, "\n");
++}
++
++static inline void cmd_dump_groups(struct tlm_state *st)
++{
++	fprintf(stdout, "\n+ Found %d GRPs: ", st->num_groups);
++	for (int i = 0; i < st->num_groups; i++) {
++		struct scmi_tlm_update_interval *grp_intrvs;
++		struct tlm_group *grp = &st->grps[i];
++		uint32_t *composing_des;
++
++		fprintf(stdout, "\n\tGRP_ID:%d  DES#:%d  INTRVS#:%d %s\n",
++			grp->info->grp_id, grp->info->num_des,
++			grp->info->num_intervals,
++			(grp->ivs->flags & SCMI_TLM_INTERV_DISCRETE) ? "(DISCRETE)" : "");
++
++		fprintf(stdout, "\tGRP Intervals:\n");
++		grp_intrvs = (struct scmi_tlm_update_interval *)grp->ivs->intervals;
++		for (int j = 0; j < grp->ivs->num_intervals; j++)
++			fprintf(stdout, "\t[%d]::%u,%d\n", j,
++				grp_intrvs[j].secs, grp_intrvs[j].exp);
++
++		composing_des = (uint32_t *)grp->desc->composing_des;
++		fprintf(stdout, "\tCOMPOSING_DES:");
++		for (int j = 0; j < grp->desc->num_des; j++)
++			fprintf(stdout, "0x%08X ", composing_des[j]);
++		fprintf(stdout, "\n");
++	}
++}
++
++static void print_uuid(const char *prefix, void *arg)
++{
++	unsigned char *uuid = arg;
++
++	fprintf(stdout, "%s", prefix);
++	for (int i = 0; i < SCMI_TLM_DE_IMPL_UUID_SZ; i++) {
++		fprintf(stdout, "%02X", uuid[i]);
++		switch (i) {
++		case 3:
++		case 5:
++		case 7:
++		case 9:
++			fprintf(stdout, "%c", '-');
++			break;
++		case 15:
++			fprintf(stdout, "%c", '\n');
++			break;
++		}
++	}
++}
++
++static inline void cmd_dump_state(struct tlm_state *st, struct parsed_args *args)
++{
++	struct scmi_tlm_update_interval *intervals;
++	struct scmi_tlm_shmti_info *shinfo;
++
++	fprintf(stdout, "- SYSTEM TELEMETRY @instance: %s\n\n", st->path);
++	fprintf(stdout, "+ ABI Version: %u\n", st->info.abi_version);
++	fprintf(stdout, "+ ABI Features: 0x%04X\n", st->info.abi_features);
++	fprintf(stdout, "\t (RESET:%u",
++		!!(st->info.abi_features & SCMI_TLM_ABI_FEAT_RESET));
++	fprintf(stdout, " EVENT:%u",
++		!!(st->info.abi_features & SCMI_TLM_ABI_FEAT_EVENT));
++	fprintf(stdout, " UUID_LIST:%u",
++		!!(st->info.abi_features & SCMI_TLM_ABI_FEAT_UUID_LIST));
++	fprintf(stdout, " BATCH_STATE:%u",
++		!!(st->info.abi_features & SCMI_TLM_ABI_FEAT_BATCH_STATE));
++	fprintf(stdout, " BATCHED_CFG:%u",
++		!!(st->info.abi_features & SCMI_TLM_ABI_FEAT_BATCHED_CFG));
++	fprintf(stdout, " DE_TRACKING:%u)\n",
++		!!(st->info.abi_features & SCMI_TLM_ABI_FEAT_DE_TRACKING));
++	fprintf(stdout, "+ SCMI Features: 0x%04X\n", st->info.features);
++	fprintf(stdout, "\t (RESET:%u",
++		!!(st->info.features & SCMI_TLM_SCMI_SUPPORT_RESET));
++	fprintf(stdout, " SINGLE_SAMPLE:%u",
++		!!(st->info.features & SCMI_TLM_SCMI_SUPPORT_SINGLE_SAMPLE));
++	fprintf(stdout, " GROUP_CONFIG:%u",
++		!!(st->info.features & SCMI_TLM_SCMI_SUPPORT_GROUP_CONFIG));
++	fprintf(stdout, " UPDATE_NOTIFICATIONS:%u)\n",
++		!!(st->info.features & SCMI_TLM_SCMI_SUPPORT_UPDATE_NOTIFICATION));
++	fprintf(stdout, "+ DEs#: %d\n", st->info.num_des);
++	fprintf(stdout, "+ GRPS#: %d\n", st->info.num_groups);
++	fprintf(stdout, "+ INTRV#: %d %s\n", st->info.num_intervals,
++		(st->ivs->flags & SCMI_TLM_INTERV_DISCRETE) ? "(DISCRETE)" : "");
++	fprintf(stdout, "+ SHMTIS#: %d\n", st->info.num_shmtis);
++
++	print_uuid("+ Primary UUID: ", &st->info.primary_de_impl_version[0]);
++	fprintf(stdout, "\n+ TLM_ENABLED: %d\n", st->cfg.enable);
++	fprintf(stdout, "+ CURRENT_UPDATE_INTERVAL: %u,%d\n",
++		st->cfg.active.secs, st->cfg.active.exp);
++
++	fprintf(stdout, "\n+ Found #%u Global Update Intervals\n",
++		st->ivs->num_intervals);
++	intervals = (struct scmi_tlm_update_interval *)st->ivs->intervals;
++	for (int i = 0; i < st->ivs->num_intervals; i++)
++		fprintf(stdout, "\t[%d]::%u,%d\n", i,
++			intervals[i].secs, intervals[i].exp);
++
++	fprintf(stdout, "\n+ Found #%u SHMTI areas\n", st->shmtis->num_items);
++	shinfo = (struct scmi_tlm_shmti_info *)st->shmtis->items;
++	for (int i = 0; i < st->shmtis->num_items; i++)
++		fprintf(stdout, "\t[%d]:: FD:%u  LEN:%u\n",
++			shinfo[i].sid, shinfo[i].fd, shinfo[i].len);
++
++	if (st->info.num_des != st->num_des) {
++		fprintf(stdout, "\n++++++ DES NOT FULLY_ENUMERATED ++++++\n");
++		fprintf(stdout, "+++ DECLARED:%u  ENUMERATED:%u +++\n",
++			st->info.num_des, st->num_des);
++	}
++
++	if (args && args->cnt && args->opts &&
++	    !strncmp(args->opts[0], "full", strlen(args->opts[0]))) {
++		cmd_dump_des(st);
++		cmd_dump_groups(st);
++	}
++}
++
++static int discover_base_info(int fd, struct scmi_tlm_abi_info *info)
++{
++	int ret;
++
++	info->size = sizeof(*info);
++	ret = ioctl(fd, SCMI_TLM_GET_ABI_INFO, info);
++	if (ret < 0) {
++		perror(IOCTL_ERR_STR(SCMI_TLM_GET_ABI_INFO));
++		return -errno;
++	}
++
++	return 0;
++}
++
++static int
++query_items(int fd, unsigned long ioctl_op, size_t item_sz, const char *tag)
++{
++	struct scmi_tlm_batch query = {};
++	int ret;
++
++	query.item_sz = item_sz;
++	ret = ioctl(fd, ioctl_op, &query);
++	if (ret < 0) {
++		perror(tag);
++		return -errno;
++	}
++
++	fprintf(stdout, "--- [QUERY]:[%s] -> NUM_ITEMS:%u\n",
++		tag, query.num_items);
++
++	return 0;
++}
++
++static inline struct scmi_tlm_batch *
++batch_buffer_alloc(int num_items, size_t item_sz, bool need_status)
++{
++	struct scmi_tlm_batch *batch;
++	size_t batch_sz, all_items_sz;
++	void *items;
++
++	batch_sz = sizeof(*batch);
++	batch = malloc(batch_sz);
++	if (!batch)
++		return NULL;
++
++	bzero(batch, batch_sz);
++	batch->num_items = num_items;
++
++	batch->item_sz = item_sz;
++	all_items_sz = batch->num_items * batch->item_sz;
++	items = malloc(all_items_sz);
++	if (!items) {
++		free(batch);
++		return NULL;
++	}
++
++	bzero(items, all_items_sz);
++	batch->items = (uint64_t)items;
++
++	if (need_status) {
++		int *states;
++		size_t states_sz = sizeof(*states) * batch->num_items;
++
++		states = malloc(states_sz);
++		if (!states)
++			return NULL;
++
++		bzero(states, states_sz);
++		batch->states = (uint64_t)states;
++	}
++
++	return batch;
++}
++
++static struct scmi_tlm_batch *scmi_get_des_list(int fd, int num_des)
++{
++	struct scmi_tlm_de_info *dei;
++	struct scmi_tlm_batch *batch;
++	int ret;
++
++	batch = batch_buffer_alloc(num_des, sizeof(*dei), false);
++	if (!batch)
++		return NULL;
++
++	ret = ioctl(fd, SCMI_TLM_GET_DE_LIST, batch);
++	if (ret) {
++		perror(IOCTL_ERR_STR(SCMI_TLM_GET_DE_LIST));
++		return NULL;
++	}
++
++	return batch;
++}
++
++static struct tlm_de *enumerate_des(struct tlm_state *st)
++{
++	struct scmi_tlm_batch *des_batch;
++	struct tlm_de *des;
++	int num_items;
++
++	des_batch = scmi_get_des_list(st->fd, st->info.num_des);
++	if (!des_batch)
++		return NULL;
++
++	num_items = des_batch->num_items;
++	des = malloc(sizeof(*des) * num_items);
++	if (!des)
++		return NULL;
++
++	bzero(des, sizeof(*des) * num_items);
++
++	for (int i = 0; i < num_items; i++) {
++		struct tlm_de *de = &des[i];
++		struct scmi_tlm_batch batch = {};
++		int ret;
++
++		de->info = &(((struct scmi_tlm_de_info *)des_batch->items)[i]);
++		de->cfg.id = de->info->id;
++
++		batch.num_items = 1;
++		batch.item_sz = sizeof(de->cfg);
++		batch.items = (uint64_t)&de->cfg;
++
++		ret = ioctl(st->fd, SCMI_TLM_GET_DE_CFG, &batch);
++		if (ret) {
++			perror(IOCTL_ERR_STR(SCMI_TLM_GET_DE_CFG));
++			return NULL;
++		}
++	}
++
++	/* On failure st->num_des remains zero */
++	st->num_des = num_items;
++
++	return des;
++}
++
++static int get_current_config(int fd, struct scmi_tlm_config *cfg)
++{
++	int ret;
++
++	ret = ioctl(fd, SCMI_TLM_GET_CFG, cfg);
++	if (ret < 0) {
++		perror(IOCTL_ERR_STR(SCMI_TLM_GET_CFG));
++		return -errno;
++	}
++
++	return 0;
++}
++
++static struct scmi_tlm_batch *scmi_get_grps_list(int fd, int num_groups)
++{
++	struct scmi_tlm_batch *batch;
++	int ret;
++
++	batch = batch_buffer_alloc(num_groups, sizeof(struct scmi_tlm_grp_info),
++				   false);
++	if (!batch)
++		return NULL;
++
++	ret = ioctl(fd, SCMI_TLM_GET_GRP_LIST, batch);
++	if (ret) {
++		perror(IOCTL_ERR_STR(SCMI_TLM_GET_GRP_LIST));
++		free(batch);
++		return NULL;
++	}
++
++	return batch;
++}
++
++static struct scmi_tlm_intervals *
++enumerate_intervals(int fd, int num_intervals, unsigned int *grp_id)
++{
++	struct scmi_tlm_update_interval *intervs;
++	struct scmi_tlm_intervals *ivs;
++	size_t sz, i_sz;
++	int ret;
++
++	sz = sizeof(*ivs);
++	ivs = malloc(sz);
++	if (!ivs)
++		return NULL;
++
++	bzero(ivs, sz);
++
++	i_sz = sizeof(*intervs) * num_intervals;
++	intervs = malloc(i_sz);
++	if (!intervs) {
++		free(ivs);
++		return NULL;
++	}
++
++	bzero(intervs, i_sz);
++
++	ivs->num_intervals = num_intervals;
++	ivs->intervals = (uint64_t)intervs;
++	if (grp_id) {
++		ivs->grp_id = *grp_id;
++		ivs->flags = SCMI_TLM_INTERV_GROUP;
++	}
++
++	ret = ioctl(fd, SCMI_TLM_GET_INTRVS, ivs);
++	if (ret < 0) {
++		perror(IOCTL_ERR_STR(SCMI_TLM_GET_INTRVS));
++		free(ivs);
++		free(intervs);
++		return NULL;
++	}
++
++	return ivs;
++}
++
++static struct scmi_tlm_batch *enumerate_shmtis(struct tlm_state *st)
++{
++	struct scmi_tlm_batch *batch;
++	int ret;
++
++	batch = batch_buffer_alloc(st->info.num_shmtis,
++				   sizeof(struct scmi_tlm_shmti_info), false);
++	if (!batch)
++		return NULL;
++
++	ret = ioctl(st->fd, SCMI_TLM_GET_SHMTI_LIST, batch);
++	if (ret < 0) {
++		perror(IOCTL_ERR_STR(SCMI_TLM_GET_SHMTI_LIST));
++		free(batch);
++		return NULL;
++	}
++
++	return batch;
++}
++
++static struct tlm_group *enumerate_groups(struct tlm_state *st)
++{
++	struct scmi_tlm_batch *grps_batch;
++	struct tlm_group *grps;
++	int num_items;
++
++	grps_batch = scmi_get_grps_list(st->fd, st->info.num_groups);
++	if (!grps_batch)
++		return NULL;
++
++	num_items = grps_batch->num_items;
++	grps = malloc(sizeof(*grps) * num_items);
++	if (!grps)
++		return NULL;
++
++	bzero(grps, sizeof(*grps) * num_items);
++	for (int i = 0; i < num_items; i++) {
++		struct tlm_group *grp = &grps[i];
++		size_t size, composing_sz;
++		uint32_t *composing_des;
++		int ret;
++
++		grp->info = &(((struct scmi_tlm_grp_info *)grps_batch->items)[i]);
++		size = sizeof(*grp->desc);
++		grp->desc = malloc(size);
++		if (!grp->desc)
++			return NULL;
++
++		bzero(grp->desc, size);
++		composing_sz = sizeof(uint32_t) * grp->info->num_des;
++		composing_des = malloc(composing_sz);
++		if (!composing_des)
++			return NULL;
++
++		grp->desc->grp_id = grp->info->grp_id;
++		grp->desc->num_des = grp->info->num_des;
++		grp->desc->composing_des = (uint64_t)composing_des;
++		ret = ioctl(st->fd, SCMI_TLM_GET_GRP_DESC, grp->desc);
++		if (ret < 0) {
++			perror(IOCTL_ERR_STR(SCMI_TLM_GET_GRP_DESC));
++			return NULL;
++		}
++
++		grp->ivs = enumerate_intervals(st->fd, grp->info->num_intervals,
++					       &grp->info->grp_id);
++	}
++
++	/* On failure st->num_groups remains zero */
++	st->num_groups = num_items;
++
++	return grps;
++}
++
++static int gather_tlm_state(struct tlm_state *st)
++{
++	int ret;
++
++	ret = discover_base_info(st->fd, &st->info);
++	if (ret)
++		return ret;
++
++	st->ivs = enumerate_intervals(st->fd, st->info.num_intervals, NULL);
++	if (!st->ivs)
++		return -1;
++
++	ret = get_current_config(st->fd, &st->cfg);
++	if (ret)
++		return ret;
++
++	if (st->info.num_des) {
++		st->des = enumerate_des(st);
++		if (!st->des)
++			fprintf(stderr, "Failed to enumerate DES\n");
++	}
++
++	if (st->info.num_groups) {
++		st->grps = enumerate_groups(st);
++		if (!st->grps)
++			fprintf(stderr, "Failed to enumerate GROUPS\n");
++	}
++
++	if (st->info.num_shmtis) {
++		st->shmtis = enumerate_shmtis(st);
++		if (!st->shmtis) {
++			fprintf(stderr, "Failed to enumerate SHMTIS\n");
++			st->info.num_shmtis = 0;
++		}
++	}
++
++	return 0;
++}
++
++static struct tlm_state *open_session(const char *path)
++{
++	struct tlm_state *st;
++
++	st = malloc(sizeof(*st));
++	if (!st)
++		return NULL;
++
++	bzero(st, sizeof(*st));
++	st->fd = open(path, O_RDWR);
++	if (st->fd < 0) {
++		perror("open");
++		free(st);
++		return NULL;
++	}
++
++	st->path = path;
++
++	return st;
++}
++
++static int dump_shmti(struct scmi_tlm_shmti_info *shmti)
++{
++	ssize_t read_bytes = 0;
++	void *tdcf;
++	int len;
++
++	tdcf = mmap(NULL, shmti->len, PROT_READ, MAP_SHARED, shmti->fd, 0);
++	if (tdcf == MAP_FAILED) {
++		fprintf(stderr, "%s\n", strerror(errno));
++		return -1;
++	}
++
++	tdcf += shmti->offset;
++	len = shmti->len - shmti->offset;
++	do {
++		ssize_t bytes;
++
++		bytes = write(1, tdcf + read_bytes, len - read_bytes);
++		if (bytes < 0)
++			return -1;
++		read_bytes += bytes;
++	} while (read_bytes < len);
++
++	return read_bytes;
++}
++
++static int shmti_dump(struct tlm_state *st, struct parsed_args *args)
++{
++	struct scmi_tlm_shmti_info *shmti;
++	unsigned long first, last;
++
++	if (!st->shmtis->num_items)
++		return 0;
++
++	if (args->cnt > 1) {
++		first = last = strtoul(args->opts[1], NULL, 0);
++		if (first == ULONG_MAX || errno == EINVAL ||
++		    first >= st->shmtis->num_items)
++			return -1;
++	} else {
++		first = 0;
++		last = st->shmtis->num_items - 1;
++	}
++
++	for (int sid = first; sid <= last; sid++) {
++		int ret;
++
++		shmti = &(((struct scmi_tlm_shmti_info *)(st->shmtis->items))[sid]);
++		fprintf(stderr, "Binary DUMP of SHMTI[%u] LEN:%u\n",
++			shmti->sid, shmti->len);
++
++		ret = dump_shmti(shmti);
++		if (!ret)
++			fprintf(stderr, "...FAILED DUMP of SHMTI[%u] !!!\n", sid);
++	}
++
++	return 0;
++}
++
++static int shmti_check(struct tlm_state *st, struct parsed_args *args)
++{
++	struct scmi_tlm_shmti_info *shmtis;
++
++	shmtis = (struct scmi_tlm_shmti_info *)st->shmtis->items;
++
++	fprintf(stdout, "\n- SHMTI mmap SANITY CHECK -\n-------------------\n");
++
++	for (int i = 0; i < st->shmtis->num_items; i++) {
++		unsigned long *start, *end;
++		void *tdcf;
++		char *buf;
++
++		fprintf(stdout, "Mapping SHMTI[%u] - SID:%u  LEN:%u  FD:%u  OFFS:%u\n",
++			i, shmtis[i].sid, shmtis[i].len, shmtis[i].fd, shmtis[i].offset);
++
++		tdcf = mmap(NULL, shmtis[i].len, PROT_READ, MAP_SHARED,
++			    shmtis[i].fd, 0);
++		if (tdcf == MAP_FAILED) {
++			fprintf(stderr, "%s\n", strerror(errno));
++			return -1;
++		}
++
++		start = tdcf + shmtis[i].offset;
++		end = tdcf + shmtis[i].len;
++
++		fprintf(stdout, "-----------------------------------------------------\n");
++		fprintf(stdout, "Mapped SHMTI - SID:%u  %u@%p\n",
++			shmtis[i].sid, shmtis[i].offset, tdcf);
++
++		buf = (char *)start;
++		for (int j = 0; j < 4; j++)
++			fprintf(stdout, "%c ", buf[j]);
++
++		fprintf(stdout, " ===> ");
++
++		buf = ((char *)end) - 4;
++		for (int j = 0 ; j < 4; j++)
++			fprintf(stdout, "%c ", buf[j]);
++		fprintf(stdout, "\n-----------------------------------------------------\n");
++	}
++
++	return 0;
++}
++
++static int cmd_shmti_ops(struct tlm_state *st, struct parsed_args *args)
++{
++	if (!args->cnt || !args->opts)
++		return -1;
++
++	if (!strncmp(args->opts[0], "dump", strlen(args->opts[0])))
++		return shmti_dump(st, args);
++	if (!strncmp(args->opts[0], "check", strlen(args->opts[0])))
++		return shmti_check(st, args);
++
++	return -1;
++}
++
++static int parse_options(int argc, char **argv, struct parsed_args *args)
++{
++	int opt = 0;
++
++	/* Set defaults */
++	args->instance = "/dev/scmi/tlm_0";
++	while ((opt = getopt(argc, argv, "i:h")) != -1) {
++		switch (opt) {
++		case 'i':
++			args->instance = optarg;
++			break;
++		case 'h':
++		default:
++			return -EINVAL;
++		}
++	}
++
++	if (optind <= argc) {
++		if (optind < argc - 1) {
++			args->cnt = argc - 1 - optind;
++			args->opts = malloc(sizeof(*args->opts) * args->cnt);
++			if (!args->opts)
++				return -1;
++		}
++
++		args->cmd = argv[optind];
++		for (int i = 0, j = optind + 1; j < argc; i++, j++)
++			args->opts[i] = argv[j];
++	}
++
++	return 0;
++}
++
++static inline void usage(char *program_name)
++{
++	printf("Usage: %s [OPTIONS] [CMD [CMD_OPTS]...]\n", program_name);
++	printf("%s", USAGE_STRING);
++}
++
++static inline struct scmi_tlm_data_read *bulk_buffer_alloc(struct tlm_state *st)
++{
++	struct scmi_tlm_de_sample *samples;
++	struct scmi_tlm_data_read *bulk;
++	size_t bulk_sz, samples_sz;
++
++	bulk_sz = sizeof(*bulk);
++	bulk = malloc(bulk_sz);
++	if (!bulk)
++		return NULL;
++
++	bzero(bulk, bulk_sz);
++	samples_sz = st->info.num_des * sizeof(*samples);
++	samples = malloc(samples_sz);
++	if (!samples) {
++		free(bulk);
++		return NULL;
++	}
++
++	bzero(samples, samples_sz);
++	bulk->samples = (uint64_t)samples;
++	bulk->num_samples = st->info.num_des;
++
++	return bulk;
++}
++
++static int cmd_single_read(struct tlm_state *st)
++{
++	struct scmi_tlm_de_sample *samples;
++	struct scmi_tlm_data_read *bulk;
++	int ret;
++
++	bulk = bulk_buffer_alloc(st);
++	if (!bulk)
++		return -1;
++
++	ret = ioctl(st->fd, SCMI_TLM_SINGLE_READ, bulk);
++	if (ret < 0) {
++		perror(IOCTL_ERR_STR(SCMI_TLM_SINGLE_READ));
++		return -errno;
++	}
++
++	fprintf(stdout, "\n- Single ASYNC read -\n-------------------\n");
++	samples = (struct scmi_tlm_de_sample *)bulk->samples;
++	for (int i = 0; i < bulk->num_samples; i++)
++		fprintf(stdout, "0x%08X %016llu %016llX\n",
++			samples[i].id, samples[i].tstamp, samples[i].val);
++
++	return 0;
++}
++
++static int cmd_bulk_read(struct tlm_state *st)
++{
++	struct scmi_tlm_de_sample *samples;
++	struct scmi_tlm_data_read *bulk;
++	int ret;
++
++	bulk = bulk_buffer_alloc(st);
++	if (!bulk)
++		return -1;
++
++	ret = ioctl(st->fd, SCMI_TLM_BULK_READ, bulk);
++	if (ret < 0) {
++		perror(IOCTL_ERR_STR(SCMI_TLM_BULK_READ));
++		return -errno;
++	}
++
++	fprintf(stdout, "\n- BULK read -\n-------------------\n");
++	samples = (struct scmi_tlm_de_sample *)bulk->samples;
++	for (int i = 0; i < bulk->num_samples; i++)
++		fprintf(stdout, "0x%08X %016llu %016llX\n",
++			samples[i].id, samples[i].tstamp, samples[i].val);
++
++	return 0;
++}
++
++static int cmd_tlm_reset(struct tlm_state *st)
++{
++	int ret;
++
++	ret = ioctl(st->fd, SCMI_TLM_RESET);
++	if (ret < 0) {
++		perror(IOCTL_ERR_STR(SCMI_TLM_RESET));
++		return -errno;
++	}
++
++	fprintf(stdout, "\n--- TLM RESET ISSUED\n");
++
++	return 0;
++}
++
++static int cmd_batch_read(struct tlm_state *st, struct parsed_args *args)
++{
++	struct scmi_tlm_de_sample *samples;
++	struct scmi_tlm_batch *batch;
++	int ret;
++
++	if (!args->opts || !args->cnt)
++		return -EINVAL;
++
++	if (args->cnt > st->info.num_des)
++		return -ENOSPC;
++
++	/* Allocate for full size with status */
++	batch = batch_buffer_alloc(st->info.num_des, sizeof(*samples), true);
++	if (!batch)
++		return -1;
++
++	samples = (struct scmi_tlm_de_sample *)batch->items;
++	batch->num_items = args->cnt;
++	for (int i = 0; i < batch->num_items; i++) {
++		unsigned long val;
++
++		val = strtoul(args->opts[i], NULL, 0);
++		if (val == ULONG_MAX || errno == EINVAL)
++			continue;
++
++		samples[i].id = (unsigned int)val;
++	}
++
++	ret = ioctl(st->fd, SCMI_TLM_BATCH_READ, batch);
++	if (ret < 0) {
++		perror(IOCTL_ERR_STR(SCMI_TLM_BATCH_READ));
++		return -errno;
++	}
++
++	fprintf(stdout, "\n- BATCH read -\n-------------------\n");
++	for (int i = 0; i < batch->num_items; i++)
++		fprintf(stdout, "STATUS[%d] => 0x%08X %016llu %016llX\n",
++			((uint32_t *)batch->states)[i],
++			samples[i].id, samples[i].tstamp, samples[i].val);
++
++	return 0;
++}
++
++/*
++ * <ena>:<t_ena>[:<update_msecs>]
++ */
++static void
++parse_item_cfg(char *str, bool *ena, bool *t_ena, unsigned int *update)
++{
++	char *tok;
++
++	if (!ena)
++		return;
++
++	tok = strtok(str, ":");
++	if (tok)
++		*ena = strncmp(tok, "on", strlen(tok)) == 0;
++
++	if (!t_ena)
++		return;
++
++	tok = strtok(NULL, ":");
++	if (tok)
++		*t_ena = strncmp(tok, "on", strlen(tok)) == 0;
++
++	if (!update)
++		return;
++
++	tok = strtok(NULL, ":");
++	if (tok) {
++		unsigned long val;
++
++		val = strtoul(tok, NULL, 0);
++		if (val == ULONG_MAX || errno == EINVAL)
++			return;
++
++		*update = (unsigned int)val;
++	}
++}
++
++static int configure_all_des(struct tlm_state *st, struct parsed_args *args)
++{
++	struct scmi_tlm_de_config de_cfg = {};
++	bool ena, t_ena;
++	int ret;
++
++	if (!args->opts)
++		return -1;
++
++	ret = ioctl(st->fd, SCMI_TLM_GET_ALL_CFG, &de_cfg);
++	if (ret < 0) {
++		perror(IOCTL_ERR_STR(SCMI_TLM_GET_ALL_CFG));
++		return -errno;
++	}
++
++	fprintf(stdout, "--- [GET] ALL DEs ON:%d  T_ON:%d\n",
++		de_cfg.enable, de_cfg.t_enable);
++
++	if (args->cnt < 2)
++		return 0;
++
++	parse_item_cfg(args->opts[1], &ena, &t_ena, NULL);
++	de_cfg.enable = !!ena;
++	de_cfg.t_enable = !!t_ena;
++
++	fprintf(stdout, "--- [SET] ALL DEs ON:%d  T_ON:%d\n",
++		de_cfg.enable, de_cfg.t_enable);
++
++	ret = ioctl(st->fd, SCMI_TLM_SET_ALL_CFG, &de_cfg);
++	if (ret < 0) {
++		perror(IOCTL_ERR_STR(SCMI_TLM_SET_ALL_CFG));
++		return -errno;
++	}
++
++	return 0;
++}
++
++static int de_config_batch_get(struct tlm_state *st, struct scmi_tlm_batch *batch)
++{
++	int ret;
++
++	/* Get current config */
++	ret = ioctl(st->fd, SCMI_TLM_GET_DE_CFG, batch);
++	if (ret < 0) {
++		perror(IOCTL_ERR_STR(SCMI_TLM_GET_DE_CFG));
++		return -errno;
++	}
++
++	return 0;
++}
++
++static int configure_de(struct tlm_state *st, struct parsed_args *args)
++{
++	struct scmi_tlm_de_config *de_cfg;
++	struct scmi_tlm_batch *batch;
++	bool ena, t_ena;
++	unsigned long val;
++	int ret, *states;
++
++	if (!args->opts)
++		return -1;
++
++	if (args->cnt < 2) {
++		batch = batch_buffer_alloc(st->num_des, sizeof(*de_cfg), true);
++		if (!batch)
++			return -1;
++
++		/* Dump all DE configs */
++		de_cfg = (struct scmi_tlm_de_config *)batch->items;
++		for (int i = 0; i < st->num_des; i++)
++			de_cfg[i].id = st->des[i].info->id;
++
++		ret = de_config_batch_get(st, batch);
++		if (ret)
++			return ret;
++
++		states = (int *)batch->states;
++		for (int i = 0; i < batch->num_items; i++) {
++			fprintf(stdout,
++				"--- [GET] STATUS[%d] -> DE:0x%08X  ON:%d  T_ON:%d  SID:%u  OFFS:%u",
++				states[i], de_cfg[i].id, de_cfg[i].enable,
++				de_cfg[i].t_enable, de_cfg[i].sid, de_cfg[i].offset);
++				print_uuid("  UUID: ", &de_cfg[i].uuid[0]);
++				fprintf(stdout, "\n");
++		}
++
++		return 0;
++	}
++
++	/*Dump one DE config */
++	batch = batch_buffer_alloc(1, sizeof(*de_cfg), true);
++	if (!batch)
++		return -1;
++
++	states = (int *)batch->states;
++	de_cfg = (struct scmi_tlm_de_config *)batch->items;
++	val = strtoul(args->opts[1], NULL, 0);
++	if (val == ULONG_MAX || errno == EINVAL)
++		return -1;
++
++	de_cfg[0].id = (unsigned int)val;
++	ret = de_config_batch_get(st, batch);
++	if (ret)
++		return ret;
++
++	fprintf(stdout, "--- [GET] STATUS[%d] -> DE:0x%08X  ON:%d  T_ON:%d  SID:%u  OFFS:%u",
++		states[0], de_cfg[0].id, de_cfg[0].enable,
++		de_cfg[0].t_enable, de_cfg[0].sid, de_cfg[0].offset);
++	print_uuid("  UUID: ", &de_cfg[0].uuid[0]);
++	fprintf(stdout, "\n");
++
++	if (args->cnt < 3)
++		return 0;
++
++	/* Configure one DE */
++	parse_item_cfg(args->opts[2], &ena, &t_ena, NULL);
++	de_cfg[0].enable = !!ena;
++	de_cfg[0].t_enable = !!t_ena;
++
++	ret = ioctl(st->fd, SCMI_TLM_SET_DE_CFG, batch);
++	if (ret < 0) {
++		perror(IOCTL_ERR_STR(SCMI_TLM_SET_DE_CFG));
++		return -errno;
++	}
++
++	fprintf(stdout, "--- [SET] STATUS[%d] -> DE:0x%08X  ON:%d  T_ON:%d  SID:%u  OFFS:%u",
++		states[0], de_cfg[0].id, de_cfg[0].enable,
++		de_cfg[0].t_enable, de_cfg[0].sid, de_cfg[0].offset);
++	print_uuid("  UUID: ", &de_cfg[0].uuid[0]);
++	fprintf(stdout, "\n");
++
++	return 0;
++}
++
++static int grp_config_get(struct tlm_state *st, struct scmi_tlm_config *cfg)
++{
++	int ret;
++
++	/* Get current config */
++	ret = ioctl(st->fd, SCMI_TLM_GET_CFG, cfg);
++	if (ret < 0) {
++		perror(IOCTL_ERR_STR(SCMI_TLM_GET_CFG));
++		return -errno;
++	}
++
++	return 0;
++}
++
++static int configure_group(struct tlm_state *st, struct parsed_args *args)
++{
++	struct scmi_tlm_config cfg = {};
++	bool ena, t_ena;
++	unsigned long val;
++	int ret;
++
++	if (!args->opts)
++		return -1;
++
++	if (args->cnt < 2) {
++		/* Dump all GRPS configs */
++		for (int i = 0; i < st->num_groups; i++) {
++			cfg.grp_id = st->grps[i].info->grp_id;
++			cfg.active.exp = -3;
++			cfg.flags = SCMI_TLM_CONFIG_GROUP;
++			ret = grp_config_get(st, &cfg);
++			if (!ret)
++				fprintf(stdout,
++					"--- [GET] -> GROUP:0x%08X  ON:%d  T_ON:%d  INTRV:%u,%d\n",
++					cfg.grp_id, cfg.enable, cfg.t_enable,
++					cfg.active.secs, cfg.active.exp);
++		}
++
++		return 0;
++	}
++
++	/*Dump one GROUP config */
++	val = strtoul(args->opts[1], NULL, 0);
++	if (val == ULONG_MAX || errno == EINVAL)
++		return -1;
++
++	cfg.grp_id = (unsigned int)val;
++	cfg.flags = SCMI_TLM_CONFIG_GROUP;
++	cfg.active.exp = -3;
++	ret = grp_config_get(st, &cfg);
++	if (ret)
++		return ret;
++
++	fprintf(stdout, "--- [GET] -> GROUP:0x%08X  ON:%d  T_ON:%d  INTRV:%u,%d\n",
++		cfg.grp_id, cfg.enable, cfg.t_enable, cfg.active.secs, cfg.active.exp);
++
++	if (args->cnt < 3)
++		return 0;
++
++	/* Configure one GROUP */
++	parse_item_cfg(args->opts[2], &ena, &t_ena, &cfg.active.secs);
++	cfg.enable = !!ena;
++	cfg.t_enable = !!t_ena;
++
++	fprintf(stdout, "--- [SET] -> GROUP:0x%08X  ON:%d  T_ON:%d  INTRV:%u,%d\n",
++		cfg.grp_id, cfg.enable, cfg.t_enable,
++		cfg.active.secs, cfg.active.exp);
++
++	ret = ioctl(st->fd, SCMI_TLM_SET_CFG, &cfg);
++	if (ret < 0) {
++		perror(IOCTL_ERR_STR(SCMI_TLM_SET_CFG));
++		return -errno;
++	}
++
++	return 0;
++}
++
++static int configure_telemetry(struct tlm_state *st, struct parsed_args *args)
++{
++	struct scmi_tlm_config cfg = st->cfg;
++	bool val;
++	int ret;
++
++	if (args->cnt < 2 || !args->opts)
++		return -1;
++
++	val = strncmp(args->opts[1], "on", strlen(args->opts[1])) == 0;
++
++	cfg.enable = !!val;
++	cfg.flags = 0;
++
++	fprintf(stdout, "\n---%sabling Telemetry\n", val ? "En" : "Dis");
++	ret = ioctl(st->fd, SCMI_TLM_SET_CFG, &cfg);
++	if (ret < 0) {
++		perror(IOCTL_ERR_STR(SCMI_TLM_SET_CFG));
++		return -errno;
++	}
++
++	return 0;
++}
++
++static int configure_update(struct tlm_state *st, struct parsed_args *args)
++{
++	struct scmi_tlm_config cfg = st->cfg;
++	unsigned long val;
++	int ret;
++
++	if (args->cnt < 2 || !args->opts)
++		return -1;
++
++	val = strtoul(args->opts[1], NULL, 0);
++	if (val == ULONG_MAX || errno == EINVAL)
++		return -1;
++
++	cfg.flags = 0;
++	if (!val) {
++		cfg.enable = val;
++		fprintf(stdout, "\n---Disabling Telemetry\n");
++	} else {
++		cfg.enable = !!val;
++		cfg.active.secs = val;
++		cfg.active.exp = -3;
++		fprintf(stdout, "\n--- Setting update interval to %lu\n", val);
++	}
++
++	ret = ioctl(st->fd, SCMI_TLM_SET_CFG, &cfg);
++	if (ret < 0) {
++		perror(IOCTL_ERR_STR(SCMI_TLM_SET_CFG));
++		return -errno;
++	}
++
++	return 0;
++}
++
++static int cmd_configure(struct tlm_state *st, struct parsed_args *args)
++{
++	if (!args->cnt || !args->opts)
++		return -1;
++
++	if (!strncmp(args->opts[0], "all_des", strlen(args->opts[0])))
++		return configure_all_des(st, args);
++	if (!strncmp(args->opts[0], "tlm", strlen(args->opts[0])))
++		return configure_telemetry(st, args);
++	if (!strncmp(args->opts[0], "update", strlen(args->opts[0])))
++		return configure_update(st, args);
++	if (!strncmp(args->opts[0], "de", strlen(args->opts[0])))
++		return configure_de(st, args);
++	if (!strncmp(args->opts[0], "group", strlen(args->opts[0])))
++		return configure_group(st, args);
++
++	return -1;
++}
++
++static inline void cmd_full_scan_and_dump(struct tlm_state *st)
++{
++	cmd_dump_state(st, NULL);
++	cmd_dump_des(st);
++	cmd_dump_groups(st);
++}
++
++static int cmd_uuids(struct tlm_state *st, struct parsed_args *args)
++{
++	struct scmi_tlm_batch batch = {};
++	struct scmi_tlm_uuid *uuids;
++	size_t u_sz;
++	int ret;
++
++	batch.item_sz = sizeof(*uuids);
++	/* Get size at first */
++	ret = ioctl(st->fd, SCMI_TLM_GET_UUID_LIST, &batch);
++	if (ret < 0) {
++		perror(IOCTL_ERR_STR(SCMI_TLM_GET_UUID_LIST));
++		return -errno;
++	}
++
++	u_sz = sizeof(*uuids) * batch.num_items;
++	uuids = malloc(u_sz);
++	if (!uuids)
++		return -ENOMEM;
++
++	bzero(uuids, u_sz);
++	batch.items = (uint64_t)uuids;
++	ret = ioctl(st->fd, SCMI_TLM_GET_UUID_LIST, &batch);
++	if (ret < 0) {
++		perror(IOCTL_ERR_STR(SCMI_TLM_GET_UUID_LIST));
++		return -errno;
++	}
++
++	fprintf(stdout, "--- [GET] -> NUM_UUIDS: %u\n", batch.num_items);
++	for (int i = 0; i < batch.num_items; i++) {
++		print_uuid("  UUID: ",
++			   &(((struct scmi_tlm_uuid *)(batch.items))[i]));
++		fprintf(stdout, "\n");
++	}
++
++	return 0;
++}
++
++static int cmd_monitor(struct tlm_state *st, struct parsed_args *args)
++{
++	struct scmi_tlm_event evt = {};
++	struct pollfd fds[2];
++	sigset_t mask;
++	int ret, efd, sfd;
++
++	efd = eventfd(0, EFD_CLOEXEC);
++	if (efd < 0)
++		return -errno;
++
++	sigemptyset(&mask);
++	sigaddset(&mask, SIGINT);
++	sigaddset(&mask, SIGQUIT);
++	ret = sigprocmask(SIG_BLOCK, &mask, NULL);
++	if (ret < 0) {
++		close(efd);
++		return -errno;
++	}
++
++	sfd = signalfd(-1, &mask, 0);
++	if (sfd < 0) {
++		close(efd);
++		return -errno;
++	}
++
++	fds[0].fd = sfd;
++	fds[0].events = POLLIN;
++
++	evt.type = SCMI_TLM_EVT_GENERATION;
++	evt.efd = efd;
++	fprintf(stdout, "==>> Registering for events of type %u\n", evt.type);
++	ret = ioctl(st->fd, SCMI_TLM_EVENT_SUBSCRIBE, &evt);
++	if (ret < 0) {
++		perror(IOCTL_ERR_STR(SCMI_TLM_EVENT_SUBSCRIBE));
++		return -errno;
++	}
++
++	fds[1].fd = evt.efd;
++	fds[1].events = POLLIN;
++
++	if (args->cnt) {
++		fprintf(stdout, "==>> Closing FD on TLM device...kills eventfd\n");
++		close(st->fd);
++	}
++
++	fprintf(stdout, "==>> Waiting for events of type %u on cookie:%u\n",
++		evt.type, evt.cookie);
++	while (1) {
++		ret = poll(fds, 2, -1);
++		if (ret < 0)
++			return ret;
++
++		/* Break on SIGINT */
++		if (fds[0].revents & POLLIN) {
++			struct signalfd_siginfo  fdsi;
++
++			read(fds[0].fd, &fdsi, sizeof(fdsi));
++			if (fdsi.ssi_signo == SIGINT)
++				fprintf(stderr, "Got SIGINT\n");
++			else
++				fprintf(stderr, "Got signal\n");
++			break;
++		}
++
++		if (fds[1].revents & POLLIN) {
++			uint64_t val = 0;
++
++			read(fds[1].fd, &val, sizeof(val));
++			fprintf(stdout, "==>> EVENT READ on EFD:%d - VAL:%lu!\n",
++				evt.efd, val);
++		}
++	}
++
++	if (!args->cnt) {
++		fprintf(stdout, "==>> DE-Registering for events of type %u on cookie:%u\n",
++			evt.type, evt.cookie);
++		ret = ioctl(st->fd, SCMI_TLM_EVENT_SUBSCRIBE, &evt);
++		if (ret < 0) {
++			perror(IOCTL_ERR_STR(SCMI_TLM_EVENT_SUBSCRIBE));
++			return -errno;
++		}
++	}
++
++	close(sfd);
++	close(efd);
++
++	return 0;
++}
++
++static int query_intervals(struct tlm_state *st)
++{
++	struct scmi_tlm_intervals tlm_ivs = {};
++	int ret;
++
++	/* Global interval */
++	ret = ioctl(st->fd, SCMI_TLM_GET_INTRVS, &tlm_ivs);
++	if (ret < 0) {
++		perror("SCMI_TLM_GET_INTRVS");
++		return -errno;
++	}
++
++	fprintf(stdout, "--- [QUERY]:[SCMI_TLM_GET_INTRVS] -> NUM_ITEMS:%u\n",
++		tlm_ivs.num_intervals);
++
++	for (int i = 0; i < st->num_groups; i++) {
++		struct scmi_tlm_intervals tlm_ivs = {};
++
++		tlm_ivs.grp_id = st->grps[i].info->grp_id;
++		tlm_ivs.flags = SCMI_TLM_INTERV_GROUP;
++		ret = ioctl(st->fd, SCMI_TLM_GET_INTRVS, &tlm_ivs);
++		if (ret < 0) {
++			perror("SCMI_TLM_GET_INTRVS");
++			return -errno;
++		}
++
++		fprintf(stdout,
++			"--- [QUERY][GRP%u]:[SCMI_TLM_GET_INTRVS] -> NUM_ITEMS:%u\n",
++			tlm_ivs.grp_id, tlm_ivs.num_intervals);
++	}
++
++	return 0;
++}
++
++static int query_samples(struct tlm_state *st, unsigned long ioctl_op,
++			 const char *tag)
++{
++	struct scmi_tlm_data_read data = {};
++	int ret;
++
++	/* Global interval */
++	ret = ioctl(st->fd, ioctl_op, &data);
++	if (ret < 0) {
++		perror(tag);
++		return -errno;
++	}
++
++	fprintf(stdout, "--- [QUERY]:[%s] -> NUM_ITEMS:%u\n",
++		tag, data.num_samples);
++
++	for (int i = 0; i < st->num_groups; i++) {
++		struct scmi_tlm_data_read data = {};
++
++		data.grp_id = st->grps[i].info->grp_id;
++		data.flags = SCMI_TLM_READ_GROUP;
++		ret = ioctl(st->fd, ioctl_op, &data);
++		if (ret < 0) {
++			perror(tag);
++			return -errno;
++		}
++
++		fprintf(stdout,
++			"--- [QUERY][GRP%u]:[%s] -> NUM_ITEMS:%u\n",
++			data.grp_id, tag, data.num_samples);
++	}
++
++	return 0;
++}
++
++static void cmd_query_ioctls(struct tlm_state *st)
++{
++	int ret;
++
++	ret = query_items(st->fd, SCMI_TLM_GET_DE_LIST,
++			  sizeof(struct scmi_tlm_de_info),
++			  "SCMI_TLM_GET_DE_LIST");
++	if (ret)
++		return;
++
++	ret = query_items(st->fd, SCMI_TLM_GET_GRP_LIST,
++			  sizeof(struct scmi_tlm_grp_info),
++			  "SCMI_TLM_GET_GRP_LIST");
++	if (ret)
++		return;
++
++	ret = query_items(st->fd, SCMI_TLM_GET_SHMTI_LIST,
++			  sizeof(struct scmi_tlm_shmti_info),
++			  "SCMI_TLM_GET_SHMTI_LIST");
++	if (ret)
++		return;
++
++	ret = query_items(st->fd, SCMI_TLM_GET_UUID_LIST,
++			  sizeof(struct scmi_tlm_uuid),
++			  "SCMI_TLM_GET_UUID_LIST");
++	if (ret)
++		return;
++
++	ret = query_items(st->fd, SCMI_TLM_GET_DE_CFG,
++			  sizeof(struct scmi_tlm_de_config),
++			  "SCMI_TLM_GET_DE_CFG");
++	if (ret)
++		return;
++
++	ret = query_items(st->fd, SCMI_TLM_SET_DE_CFG,
++			  sizeof(struct scmi_tlm_de_config),
++			  "SCMI_TLM_SET_DE_CFG");
++	if (ret)
++		return;
++
++	ret = query_items(st->fd, SCMI_TLM_BATCH_READ,
++			  sizeof(struct scmi_tlm_de_sample),
++			  "SCMI_TLM_BATCH_READ");
++	if (ret)
++		return;
++
++	ret = query_intervals(st);
++	if (ret)
++		return;
++
++	ret = query_samples(st, SCMI_TLM_BULK_READ, "SCMI_TLM_BULK_READ");
++	if (ret)
++		return;
++
++	ret = query_samples(st, SCMI_TLM_SINGLE_READ, "SCMI_TLM_SINGLE_READ");
++	if (ret)
++		return;
++}
++
++int main(int argc, char **argv)
++{
++	struct parsed_args args = {};
++	struct tlm_state *st;
++	int ret;
++
++	ret = parse_options(argc, argv, &args);
++	if (ret < 0) {
++		usage(argv[0]);
++		return EXIT_FAILURE;
++	}
++
++	st = open_session(args.instance);
++	if (!st)
++		return EXIT_FAILURE;
++
++	ret = gather_tlm_state(st);
++	if (ret)
++		return EXIT_FAILURE;
++
++	if (!args.cmd) {
++		cmd_full_scan_and_dump(st);
++	} else if (!strncmp(args.cmd, "info", strlen(args.cmd))) {
++		cmd_dump_state(st, &args);
++	} else if (!strncmp(args.cmd, "uuids", strlen(args.cmd))) {
++		cmd_uuids(st, &args);
++	} else if (!strncmp(args.cmd, "monitor", strlen(args.cmd))) {
++		cmd_monitor(st, &args);
++	} else if (!strncmp(args.cmd, "shmti", strlen(args.cmd))) {
++		cmd_shmti_ops(st, &args);
++	} else if (!strncmp(args.cmd, "des", strlen(args.cmd))) {
++		cmd_dump_des(st);
++	} else if (!strncmp(args.cmd, "groups", strlen(args.cmd))) {
++		cmd_dump_groups(st);
++	} else if (!strncmp(args.cmd, "cfg", strlen(args.cmd))) {
++		cmd_configure(st, &args);
++	} else if (!strncmp(args.cmd, "single", strlen(args.cmd))) {
++		cmd_single_read(st);
++	} else if (!strncmp(args.cmd, "bulk", strlen(args.cmd))) {
++		cmd_bulk_read(st);
++	} else if (!strncmp(args.cmd, "batch", strlen(args.cmd))) {
++		cmd_batch_read(st, &args);
++	} else if (!strncmp(args.cmd, "reset", strlen(args.cmd))) {
++		cmd_tlm_reset(st);
++	} else if (!strncmp(args.cmd, "query", strlen(args.cmd))) {
++		cmd_query_ioctls(st);
++	} else {
++		fprintf(stderr, "Unknown command '%s'\n", args.cmd);
++		usage(argv[0]);
++		return EXIT_FAILURE;
++	}
++
++	return EXIT_SUCCESS;
++}
+-- 
+2.54.0
 
-This seems to be a valid concern. For a clean and unmapped folio, we
-may still fail in `__remove_mapping()` if it is pinned somewhere. So
-perhaps we can add a refcount check when fixing the rotation.
-
-Best Regards
-Barry
