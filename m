@@ -1,538 +1,216 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11021101.outbound.protection.outlook.com [40.107.130.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34B2A3E5A22
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 08:46:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789893994; cv=none; b=h0NL4AuMYPu1tq0o3+47QubB5XIkQM5QPiKXkeHiUtGA0uGoPvzEfKT+YeO7N4NX5t0tJzI4+ephT/joztd3k6bDvdFZmkPWBW8G3hKAd8P5KBb4fDxFzvRUdxghPzsLWWgNl0h8RdhcHL8pQwUA0TH3uKiv2mrIsvD4rz75WY0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789893994; c=relaxed/simple;
-	bh=f3x/Ese9VYIaFM2XVVXabhwWQmBp/gNY9OSxap4oflQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GpS2bdIpwtkKbj0wQK4nO3GVdjpFCHQYg2KdGAejhqZuHE3G7aO5h9Ht0jL82cNP7lHrPBI9JwT4SNJnrg0tkCiQ4SesiZqk/sKjzbaUzjwNpqcigJ82ZygClKDzXDe2fcPdRmrdFJKIGsFAFn6nuqVTigAnVC5ealZD++x82V0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CQSWyzD0; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10BCF24676D;
+	Sun, 20 Sep 2026 08:48:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.101
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789894109; cv=fail; b=iTsVbghzESv3bIBUnsXDGCKu5JdXMiHRt6ujcoZ9y7gB3JgglFJqKToRzL15rrAyHup9DQNpp/He+PSeD70aky0GWukdsct9KiDCszEzf8qNt7tslxQKcnvuDqoJdl/jD1ltIO4eF/Ug+4J1txxn/0OAbzqRkQJ6TF3SA3U16PI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789894109; c=relaxed/simple;
+	bh=KycW+S0je6ztNN4DIuKhDISuBjalvrhoO56pusErCj0=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=iHDhj9fNfl80b9CCiIz17XdNF5aH1QumMIiU28KPjtc9hf8PFdw5RMkcxu8r+pwC/eAluyJI8fT+lSlKb8jorkfCUAF0ZuPliJvUOnLHJlKueSqE6BPtp2unDKHmHWigxy9fqdbzMAFke5NMfnG7Ht1+tOIoRKByHbPGSQUxpaE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=studio.unibo.it; spf=pass smtp.mailfrom=studio.unibo.it; dkim=pass (2048-bit key) header.d=studio.unibo.it header.i=@studio.unibo.it header.b=f7X2Pgtr; arc=fail smtp.client-ip=40.107.130.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=studio.unibo.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=studio.unibo.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CQSWyzD0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789893992; x=1821429992;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=f3x/Ese9VYIaFM2XVVXabhwWQmBp/gNY9OSxap4oflQ=;
-  b=CQSWyzD088CeCAIeVAuk7yWQb3MwBfcfIL9g7pCxlt1gVnqnAoar/tRt
-   y0RqmO2bW3hA1iEQv3pniY4hrOTvBIUiuAqNAvmXHssN8TzpmeCLRmYKo
-   RyCsIRLvHcmnjJVCt4ZOcnXzGUdbRmsMNBpLAbeHxIZIrfK/A3hJKs943
-   ftoH0YCD9aJqCB853+guGnhqzQTqaW976CkktofCHrnferTnlAwokHA/p
-   CF8sjtPR+9/MZVJ4GJhLcfvEmLSN1ZQOzEyEoeyg4FeuV4Jqu63Ei6Qox
-   SnobF0D8nUBLJmtrHAcZGNErD5ELxykrCF8WXbKafLiOudCKlQq5BIHbe
-   g==;
-X-CSE-ConnectionGUID: lFM8HWK/S36H8TMG/pYzzw==
-X-CSE-MsgGUID: FkPE0TPnSN+N6d7tPWjwpg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11910"; a="77968092"
-X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; 
-   d="scan'208";a="77968092"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Sep 2026 01:46:32 -0700
-X-CSE-ConnectionGUID: gZjTGoO3SSWrg/j+n7pSow==
-X-CSE-MsgGUID: s5QAJXmuSmSLjlv/MWw/Tg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; 
-   d="scan'208";a="3543423"
-Received: from spr10.sh.intel.com (HELO localhost) ([10.239.23.75])
-  by fmviesa013.fm.intel.com with ESMTP; 20 Sep 2026 01:46:29 -0700
-From: Yuan Liu <yuan1.liu@intel.com>
-To: David Hildenbrand <david@kernel.org>,
-	Oscar Salvador <osalvador@suse.de>,
-	Mike Rapoport <rppt@kernel.org>,
-	Wei Yang <richard.weiyang@gmail.com>
-Cc: linux-mm@kvack.org,
-	Nanhai Zou <nanhai.zou@intel.com>,
-	Chen Zhang <zhangchen.kidd@jd.com>,
-	Yuan Liu <yuan1.liu@intel.com>,
-	Jason Zeng <jason.zeng@intel.com>,
-	Chen Yu <yu.c.chen@intel.com>,
-	Pan Deng <pan.deng@intel.com>,
-	Tianyou Li <tianyou.li@intel.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v10 2/2] mm/memory_hotplug: optimize zone contiguous check when changing pfn range
-Date: Sun, 20 Sep 2026 04:49:46 -0400
-Message-ID: <20260920084946.3266279-3-yuan1.liu@intel.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260920084946.3266279-1-yuan1.liu@intel.com>
-References: <20260920084946.3266279-1-yuan1.liu@intel.com>
+	dkim=pass (2048-bit key) header.d=studio.unibo.it header.i=@studio.unibo.it header.b="f7X2Pgtr"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=U1R78s1q3F6vFjpyc2YMGo9XPW5mbAeuiSpR934SbWHuj7a9gUAI+0IEZuUK4HSbVoDkiBgkycjn4x9ZWY+d/B14/mMnCFqyD2o1TIVPcoVJm5TgUDumYG5GdNWMVPH06jcrDzwzWY60b3RihQBOapD0+g58WeVppdTSXznVp9Oy+f3L6xxkctUfy9ziarzZyefUHwtPt2h4R/9whlCmbPnznPdFTfn9bg0QbUXtrPSsNIZ9dC+nlN2b4aMAMW+4H87q5vrjVwF0zgHgfkHK4zqFLRYAMbnm+S6kmvSkOkegB4MEEqY4UEnrkPorfAxbu7HF6AWeNV9Lu4hiiYskRw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Gy3DF58Vm2mdgoMOT66kYOhfj8/zD2R2O2PPzgK1V7g=;
+ b=FjMe6cRVSNkWqkSDULT1TKJQthecMq4cBdoh4t4neh8YUFyTPb+YBnSbXf2u5sj3/VCWd2TSY+OxQQwFNer4qXzQ8mYj0ZBe2NbotHg4hs+u0O3YhzFVWKn2ONcUs/GhIsHrwOkvcDXhvXVcDMjJfGHDx+ki+FMSB/2kkyFuZi/++GXyTdrk4okwKM0zrVtq8v1TGgv9W4VQXouV9lWDSvPQEvkeJi0HcgStPltF7BsiMpk1SC14VH/7NsIQYcRGT3MoSbpcazrQlTwOQFLa1OELaN2q5HWjp4KP4tVox/7kVAsk+qUCiv3g2Qt2XvsmHL2lqPKSQpXBGWqS1v0mMA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=studio.unibo.it; dmarc=pass action=none
+ header.from=studio.unibo.it; dkim=pass header.d=studio.unibo.it; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=studio.unibo.it;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Gy3DF58Vm2mdgoMOT66kYOhfj8/zD2R2O2PPzgK1V7g=;
+ b=f7X2PgtrXKl6Tt2OL1qWPk35L17rBzyF+uPhOpxByWAaEhOHZbL4vM/6BQwsOOV28wMXQ3swKKT9h7S35eYsHemkVi1qdu9+bl5F1sZXZ7ZBW6TEXIkzNkUcK8FinByCtWcfvVl4n/86Ra7FSd/0wL5c0+VJzup4yZn9nkv0mBZa+2REnfm/AeZzC3DH1Kr9h+LhhxW3lWtZOzpFQ5+6U2WAhQQliC2dBQL5nSm5aCQvm7uKvRkJtVkzYgomAYCTFjchY1ZvhxM5FmcDYoxdeYQID7AO/NHMjF0HybM6mFbkBvw2drr1RJ/H9Loku0yN58SSjXAHkc0u0EwWUvTMpA==
+Received: from DU4PR01MB12163.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:620::18) by AMBPR01MB12153.eurprd01.prod.exchangelabs.com
+ (2603:10a6:20b:6ef::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Sun, 20 Sep
+ 2026 08:48:21 +0000
+Received: from DU4PR01MB12163.eurprd01.prod.exchangelabs.com
+ ([fe80::bffd:753f:fbcc:c402]) by
+ DU4PR01MB12163.eurprd01.prod.exchangelabs.com ([fe80::bffd:753f:fbcc:c402%6])
+ with mapi id 15.21.0428.015; Sun, 20 Sep 2026 08:48:20 +0000
+From: =?iso-8859-1?Q?Nicol=F2_Giuliani_-_nicolo=2Egiuliani6=40studio=2Eunibo=2E?=
+ =?iso-8859-1?Q?it?= <nicolo.giuliani6@studio.unibo.it>
+To: Andrew Lunn <andrew@lunn.ch>
+CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Gregory Clement
+	<gregory.clement@bootlin.com>, Sebastian Hesselbarth
+	<sebastian.hesselbarth@gmail.com>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>
+Subject: R: [PATCH 3/3] arm64: dts: marvell: Add Sophos XGS 107w NPU board
+Thread-Topic: [PATCH 3/3] arm64: dts: marvell: Add Sophos XGS 107w NPU board
+Thread-Index: AQHdSG9FPSJli8/cuky5AOQ9f1roMbbWeggAgACufWQ=
+Date: Sun, 20 Sep 2026 08:48:20 +0000
+Message-ID:
+ <DU4PR01MB12163AE447B65B21A7D585A0D80852@DU4PR01MB12163.eurprd01.prod.exchangelabs.com>
+References: <20260919-send-dt-v1-0-365615a74ef3@studio.unibo.it>
+ <20260919-send-dt-v1-3-365615a74ef3@studio.unibo.it>
+ <6b935e31-169a-4cd1-b385-62dc659c1256@lunn.ch>
+In-Reply-To: <6b935e31-169a-4cd1-b385-62dc659c1256@lunn.ch>
+Accept-Language: it-IT, en-US
+Content-Language: it-IT
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=studio.unibo.it;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DU4PR01MB12163:EE_|AMBPR01MB12153:EE_
+x-ms-office365-filtering-correlation-id: 2b3a6371-9988-4c86-b3e1-08df16f3ec1b
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|786006|23010399003|366016|1800799024|6133799003|22082099003|18002099003|38070700021|56012099006|5023799004|11063799006|4143699003|10067099003;
+x-microsoft-antispam-message-info:
+ 4eVt1WOHi0M3jJExvKZLvA+Em100e4aOaSjc55A6pI53txLHJeBH5GjBuxXqRRTTBna723NOADelHQcGEu8xeDkZ+ohqHNervsiigAy3V29zz5jp9k0nCPxb80oMTkqH39vyi+H9d0/EsMfjNKVngiO8uK6qe+WsnU7ME9p1z/A/OAi31LjKsn9NVv32Q/gjJHPgk4noVnVq92o1g95j4H2oDjKOuSTrmAAo5R2+Ryz2LRY8plhyFZOojpkh2ProMtywYrVedyDCNk/ulGg8/wFcBY/CrlAb/ITXIN6DWTI/HH9GQqHsOJAazMyKD8Vjm8MHgjrF+djg8Ilm/3OnAlWSOtZ5E7jPouOLYig6jQZjvy4v7YB0g9GQZoaUy4pijz4WkRQYx0iOIGSYEaPwAcEJl9xWvgctD/+G2Z9auZSv1G8EWcf3STT7pMUTpeDNlKn8XWFdypf8AEJ+SGscH0CsqPXyOahdD7Hlzk+H/uLAl5qZaHrbpB1itmDslQzD3wgYl0QmyXcv9ctzVlV5e+th4jKTbjZjG86HRqgcKnXESkrYW+phQ+dQWb3FR6JRBVySRlPv+UsiUJ13+eqHWswPdul/ZRLlKeqYClGVU2m+LNdhPmcktrY/iZvl8pJeQ3Amn7OcB9RCh10qgOFjem5PJ6jMuWwW1hte3y42WpkIKS+TVR5NSNW9KqKAr8yP2Ro2hdWRG/1Zdr1kKIG7EC4sPKT3XXoVWjS5Wr4Ichw=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU4PR01MB12163.eurprd01.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(786006)(23010399003)(366016)(1800799024)(6133799003)(22082099003)(18002099003)(38070700021)(56012099006)(5023799004)(11063799006)(4143699003)(10067099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?KuavYImgQnaOpypktvTvIy24BoWVYg/iN2l7o8YCzseCyHFrl57aKuRJen?=
+ =?iso-8859-1?Q?AqYhPgw5LXMBSvvKRFvztFJLPQcWbyus2rkcRv33huR5Q8mEqlO8GiaItN?=
+ =?iso-8859-1?Q?HB0T2uy+3uKOs9RbUY2dDmBF0HcJXnvlsEMf6u1TpxJkpjFEj4FORnVwPz?=
+ =?iso-8859-1?Q?YKXNczf5wjW5JQLtvVs4zj55RzgTI0m2ajTjFg30sJXj+v+x4WMfOVHCbI?=
+ =?iso-8859-1?Q?NaealeZwzqvNfy0ZNl4laZ/fljtrzRifbSIAJAKJ680cBo0Ayv4FIIbtkd?=
+ =?iso-8859-1?Q?Rpw4WHv6WfV7spi4h1ROZRk2pfmFXEvgcPj+b1vZaTEUYpPWjmOIm9uZE1?=
+ =?iso-8859-1?Q?bbVBQmVo5q+XP2GN7saxZg+MA9ocege0YjeG+KSJ8XuOFmpEMTTARUINXw?=
+ =?iso-8859-1?Q?Mq6xt6NLTDVyGI/W4+UN3y3+YYZG/hK/19dXKVy0NUQY0NyGEmXD5abaQH?=
+ =?iso-8859-1?Q?f2unLLmaPieFlLu/k1SVnqHcSERvIiQd1AN6JFyv8UROqkoaLxnJOoVOGU?=
+ =?iso-8859-1?Q?tPXFSoRPgJJSZU3E2mS0aS0jKqxcSfohCIhnJviZeKynIw8s9LC+tlO84I?=
+ =?iso-8859-1?Q?PqZiitgJ2Xmlu+7k/fufnbZMNlfmoZEr2e6veJ9uIrja2o7F9CEi9t4TwH?=
+ =?iso-8859-1?Q?42hAZ4yvv3rt1Kn1xyQNwbSrqWsSc/ORrE2qp0jvFdhoAxYVD/ay/4xiYC?=
+ =?iso-8859-1?Q?UnpaRIMQgoe+Nwgbk9eEETedpdo0hH4x+hqrHJEOOZ3qA6VS1Monj6Ir6B?=
+ =?iso-8859-1?Q?Tg/3dzauS852b8v/Xzyc24SzrDx0fRu7s1ihgffSmGVo0u78vorMUsvCyO?=
+ =?iso-8859-1?Q?iLthlbIk4Tdtx7ip03mvd6G8bEZszB7+w3wikLft9OwgPDFmqLAbLR+Hfd?=
+ =?iso-8859-1?Q?sIFReRYkvliOUHxbIYoRVUMFfoOiRMVboKB4RZxbGVEBTqGDF6D64kOqAK?=
+ =?iso-8859-1?Q?ruwxwzbPmm5g49HsQPvLrim92XK6SIsdlfloNTV6ZJDSNQGh9rcpZ2lZ/Z?=
+ =?iso-8859-1?Q?311Hwv8+RyoDucM7ChZQGmRoNDx2yT3IYphiDlIxXV2Yy5XVYA6G4B5+cj?=
+ =?iso-8859-1?Q?fjiAehbKOpc7ohqrLKJVGBPLFQTvXlxDD4xkyh9qitOn0Pj+Plq3SNzTTP?=
+ =?iso-8859-1?Q?VdOVVjrbl6eeG4fJpNhbVvcv8vRAfMzH/QbMYRa0qTbrXgmsllWD9GRP7z?=
+ =?iso-8859-1?Q?mTja4GdOHl+4a9oVPJIrb1j8iwvoTu0cldAsW9xaXGwXz5yhF32PDTFiBW?=
+ =?iso-8859-1?Q?eEoI8LHxMM1IAEvZG4ubdFHuv/xuq8jbSFJkYDoU/MQt3DqLz7VnMmiZs0?=
+ =?iso-8859-1?Q?iW+pW6swNjqg26hXQ1saNdgdTDBJ6cM3Opcs2oi68hnP6eZn+dy4mRr6HG?=
+ =?iso-8859-1?Q?ef/OeQB5wkZaFQPjByT9xgXV1z+/WjjWOnIMkjK6Lkpj/7z5HUow6WPJqH?=
+ =?iso-8859-1?Q?dvr1dke0LRj87j83skXTtwC4fDDJf9IucqbZBvN8K4XbrrseMIbO2KrBVE?=
+ =?iso-8859-1?Q?1LIAjRk+exxfyAZs1wBGDz7/F6kTDUJsLr1MqcQ46uAEVyT3B25+/Ik/Cr?=
+ =?iso-8859-1?Q?jEuThHuxZEODxX7vdEHUf7SMlrrJJoyWa64pGQyoNyTwJP9b1Sk0ActCi2?=
+ =?iso-8859-1?Q?6FdhP374vRy8le9OFb1wOpZ/eADbjtddb9F30J0xZ+VUm8uoUEt0Gc1aie?=
+ =?iso-8859-1?Q?YAaxgrvtjxO6gK9FiDyK4s94QS6nceqYdRQfdQvRXtpleYsujJBtFkDH8T?=
+ =?iso-8859-1?Q?Hxe43khWfuwqizJ8T37dOqMPdBLOqexh09P+x+WgwfGyhyuyruEDvYg/CR?=
+ =?iso-8859-1?Q?E6FoJnQLEoqdenqBDVNcbFwTOApDLkc=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: studio.unibo.it
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DU4PR01MB12163.eurprd01.prod.exchangelabs.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2b3a6371-9988-4c86-b3e1-08df16f3ec1b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Sep 2026 08:48:20.3311
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: e99647dc-1b08-454a-bf8c-699181b389ab
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: UJokIN7qkjO3wHtwBdvSOz2Tcgc6crdwuSVuQILRKL2Cj553OzpMmnFnlc7gCnZoTzI6M1r4YImGpbEPJA6Sqbi9gfSnp3JxLRvW65xnEi3JcZgERUxUFus7Du5M8HiO
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR01MB12153
 
-When move_pfn_range_to_zone() or remove_pfn_range_from_zone() updates a
-zone, set_zone_contiguous() rescans the entire zone pageblock-by-pageblock
-to rebuild zone->contiguous. For large zones this is a significant cost
-during memory hotplug and hot-unplug.
+Hi Andrew,
 
-Add a new zone member, pages_with_online_memmap, that tracks the
-number of pages within the zone span that have an online memory map,
-including present pages and memory holes whose memory map has been
-initialized and for which pfn_to_online_page() succeeds.
+Thanks for the review.
 
-For early boot memory, pages_with_online_memmap is calculated in
-memmap_init_zone_range(). PFNs initialized by memmap_init_range() are
-included in pages_with_online_memmap, and hole PFNs for which
-pfn_to_online_page() succeeds are also counted in
-init_unavailable_range(). For hotplugged memory,
-pages_with_online_memmap is updated through adjust_present_page_count(),
-which is called during memory online and offline operations. When
-spanned_pages == pages_with_online_memmap, every PFN in the zone span
-has a valid memmap entry, so pfn_to_page() can be called for any PFN
-within the zone span without an additional pfn_valid() check.
+> The reset line of the switch (CP GPIO2 pin 17) is deliberately not given
+> to the mv88e6xxx driver as reset-gpios. The 88E6193X needs about two
+> seconds after a reset before it can be used, much longer than the driver
+> waits, so the probe would time out.
+>
+> The obvious question is, why is your 88E6193X special?
 
-Note: this counter may temporarily undercount when pages with an
-online memory map exist outside the current zone span. Such pages
-are only created during boot, when initializing the memory map of
-pages that do not fall into any zone span. The undercount itself
-can only happen after boot, during memory hotplug, when growing
-the zone to cover such pages and later shrinking it back, which
-may result in a "too small" value. This is safe: it merely
-prevents detecting a contiguous zone.
+I don't think it is. I saw the probe time out when I started the kernel wit=
+h kexec from the vendor Linux, so nothing had reset the switch before the d=
+river did. When the boot loader resets the switch first, which is how the b=
+oard normally boots, probing with reset-gpios works on this board (Linux 6.=
+18). I have not been able to test a driver-only reset yet, because the boot=
+ loader always resets the switch first, so I cannot say what made the diffe=
+rence. I have not checked whether an EEPROM is attached. v2 describes reset=
+-gpios and drops the comment.
 
-Here is an example (page numbers are just for illustration purposes):
-  after boot:
-      [  zone span  ]
-      [   zone pages   ]
-      spanned=10, initialized=15, online=10
-      online == spanned  ->  contiguous
+> +&cp0_i2c0 {
+> [...]
+> +     gpio@20 {
+>
+> Which port?
 
-  growing after hotplug (hotplug 5):
-      [  zone span                          ]
-      [   zone pages   ]   [   zone pages   ]
-      spanned=30, initialized=20, online=15
-      online != spanned  ->  not contiguous
+It is the LED expander of the eight RJ45 ports (two pins per port). Nothing=
+ uses it yet, so I dropped the node from v2. It can come back together with=
+ the LED nodes.
 
-  shrinking after hotunplug (hotunplug 5 again):
-      [  zone span     ]
-      [   zone pages   ]
-      spanned=15, initialized=15, online=10
-      online != spanned  ->  not contiguous although contiguous
+> +&cp0_i2c1 {
+> +     /* SFP EEPROM (0x50/0x51) */
+>
+> The addresses are not that simple. When a copper module is inserted,
+> other addresses are used. The SFP driver assumes it has access to all
+> addresses on the bus.
 
-The contiguity check using pages_with_online_memmap is stricter than
-the old pageblock-by-pageblock scan. The old set_zone_contiguous()
-iterated at pageblock granularity via pageblock_pfn_to_page(), so a
-zone could be marked contiguous even if a subsection-sized hole
-existed within a pageblock. The new check requires
-spanned_pages == pages_with_online_memmap, meaning every PFN in the
-zone span must satisfy pfn_to_online_page().
+Thanks, I had not considered copper modules. I removed the comment; the nod=
+e now only enables the I2C bus of the SFP cage.
 
-The following test cases of memory hotplug for a VM [1], tested in the
-environment [2], show that this optimization can significantly reduce the
-memory hotplug time [3].
+I will send v2 as a new thread after more feedback.
 
-+----------------+------+---------------+--------------+----------------+
-|                | Size | Time (before) | Time (after) | Time Reduction |
-|                +------+---------------+--------------+----------------+
-| Plug Memory    | 256G |      10s      |      3s      |       70%      |
-|                +------+---------------+--------------+----------------+
-|                | 512G |      36s      |      7s      |       81%      |
-+----------------+------+---------------+--------------+----------------+
+Thanks,
+Nicolo Giuliani
 
-+----------------+------+---------------+--------------+----------------+
-|                | Size | Time (before) | Time (after) | Time Reduction |
-|                +------+---------------+--------------+----------------+
-| Unplug Memory  | 256G |      11s      |      4s      |       64%      |
-|                +------+---------------+--------------+----------------+
-|                | 512G |      36s      |      9s      |       75%      |
-+----------------+------+---------------+--------------+----------------+
+________________________________________
+Da: Andrew Lunn <andrew@lunn.ch>
+Inviato: domenica 20 settembre 2026 00:23
+A: Nicol=F2 Giuliani - nicolo.giuliani6@studio.unibo.it
+Cc: Rob Herring; Krzysztof Kozlowski; Conor Dooley; Gregory Clement; Sebast=
+ian Hesselbarth; devicetree@vger.kernel.org; linux-kernel@vger.kernel.org; =
+linux-arm-kernel@lists.infradead.org
+Oggetto: Re: [PATCH 3/3] arm64: dts: marvell: Add Sophos XGS 107w NPU board
 
-[1] Qemu commands to hotplug 256G/512G memory for a VM:
-    object_add memory-backend-ram,id=hotmem0,size=256G/512G,share=on
-    device_add virtio-mem-pci,id=vmem1,memdev=hotmem0,bus=port1
-    qom-set vmem1 requested-size 256G/512G (Plug Memory)
-    qom-set vmem1 requested-size 0G (Unplug Memory)
+> The reset line of the switch (CP GPIO2 pin 17) is deliberately not given
+> to the mv88e6xxx driver as reset-gpios. The 88E6193X needs about two
+> seconds after a reset before it can be used, much longer than the driver
+> waits, so the probe would time out.
 
-[2] Hardware     : Intel Icelake server
-    Guest Kernel : v7.3-rc3
-    Qemu         : v9.0.0
+The obvious question is, why is your 88E6193X special?
 
-    Launch VM    :
-    qemu-system-x86_64 -accel kvm -cpu host \
-    -drive file=./Centos10_cloud.qcow2,format=qcow2,if=virtio \
-    -drive file=./seed.img,format=raw,if=virtio \
-    -smp 3,cores=3,threads=1,sockets=1,maxcpus=3 \
-    -m 2G,slots=10,maxmem=2052472M \
-    -device pcie-root-port,id=port1,bus=pcie.0,slot=1,multifunction=on \
-    -device pcie-root-port,id=port2,bus=pcie.0,slot=2 \
-    -nographic -machine q35 \
-    -nic user,hostfwd=tcp::3000-:22
+I've seen issues when there is an EEPROM attached and it has a lot of
+content to setup the switch. But that goes against using DSA, where
+you want Linux to control the switch, not a fixed configuration.
 
-    Guest kernel auto-onlines newly added memory blocks:
-    echo online > /sys/devices/system/memory/auto_online_blocks
+> +&cp0_i2c0 {
+> +     clock-frequency =3D <100000>;
+> +     status =3D "okay";
+> +
+> +     /* Drives the port speed LEDs, which are not described yet */
+> +     gpio@20 {
 
-[3] The time from typing the QEMU commands in [1] to when the output of
-    'grep MemTotal /proc/meminfo' on Guest reflects that all hotplugged
-    memory is recognized.
+Which port?
 
-Reported-by: Nanhai Zou <nanhai.zou@intel.com>
-Reported-by: Chen Zhang <zhangchen.kidd@jd.com>
-Tested-by: Yuan Liu <yuan1.liu@intel.com>
-Reviewed-by: Jason Zeng <jason.zeng@intel.com>
-Reviewed-by: Chen Yu <yu.c.chen@intel.com>
-Reviewed-by: Pan Deng <pan.deng@intel.com>
-Co-developed-by: Tianyou Li <tianyou.li@intel.com>
-Signed-off-by: Tianyou Li <tianyou.li@intel.com>
-Signed-off-by: Yuan Liu <yuan1.liu@intel.com>
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
----
- Documentation/mm/physical_memory.rst |  6 +++
- drivers/base/memory.c                |  7 ++-
- include/linux/mmzone.h               | 69 ++++++++++++++++++++++++++++
- mm/memory_hotplug.c                  | 12 +----
- mm/mm_init.c                         | 64 +++++++++++++++-----------
- mm/mm_init.h                         |  6 ---
- mm/page_alloc.h                      |  2 +-
- 7 files changed, 120 insertions(+), 46 deletions(-)
+> +&cp0_i2c1 {
+> +     /* SFP EEPROM (0x50/0x51) */
 
-diff --git a/Documentation/mm/physical_memory.rst b/Documentation/mm/physical_memory.rst
-index a09407d72973..2e67e8b23a99 100644
---- a/Documentation/mm/physical_memory.rst
-+++ b/Documentation/mm/physical_memory.rst
-@@ -480,6 +480,12 @@ General
-   ``present_pages`` should use ``get_online_mems()`` to get a stable value. It
-   is initialized by ``calculate_node_totalpages()``.
- 
-+``pages_with_online_memmap``
-+  Pages within the zone that have an online memory map: present pages and
-+  memory holes whose memory map has been initialized and
-+  ``pfn_to_online_page()`` succeeds. See the comment for
-+  ``pages_with_online_memmap`` in ``include/linux/mmzone.h`` for more details.
-+
- ``present_early_pages``
-   The present pages existing within the zone located on memory available since
-   early boot, excluding hotplugged memory. Defined only when
-diff --git a/drivers/base/memory.c b/drivers/base/memory.c
-index 5eead3346f1e..28f9503f6a71 100644
---- a/drivers/base/memory.c
-+++ b/drivers/base/memory.c
-@@ -255,6 +255,7 @@ static int memory_block_online(struct memory_block *mem)
- 		nr_vmemmap_pages = mem->altmap->free;
- 
- 	mem_hotplug_begin();
-+	clear_zone_contiguous(zone);
- 	if (nr_vmemmap_pages) {
- 		ret = mhp_init_memmap_on_memory(start_pfn, nr_vmemmap_pages, zone);
- 		if (ret)
-@@ -279,6 +280,7 @@ static int memory_block_online(struct memory_block *mem)
- 
- 	mem->zone = zone;
- out:
-+	set_zone_contiguous(zone);
- 	mem_hotplug_done();
- 	return ret;
- }
-@@ -304,6 +306,7 @@ static int memory_block_offline(struct memory_block *mem)
- 		nr_vmemmap_pages = mem->altmap->free;
- 
- 	mem_hotplug_begin();
-+	clear_zone_contiguous(mem->zone);
- 	if (nr_vmemmap_pages)
- 		adjust_present_page_count(pfn_to_page(start_pfn), mem->group,
- 					  -nr_vmemmap_pages);
-@@ -321,8 +324,10 @@ static int memory_block_offline(struct memory_block *mem)
- 	if (nr_vmemmap_pages)
- 		mhp_deinit_memmap_on_memory(start_pfn, nr_vmemmap_pages);
- 
--	mem->zone = NULL;
- out:
-+	set_zone_contiguous(mem->zone);
-+	if (!ret)
-+		mem->zone = NULL;
- 	mem_hotplug_done();
- 	return ret;
- }
-diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
-index 94f9c3ff5416..7befe50223d1 100644
---- a/include/linux/mmzone.h
-+++ b/include/linux/mmzone.h
-@@ -1043,6 +1043,42 @@ struct zone {
- 	 * cma pages is present pages that are assigned for CMA use
- 	 * (MIGRATE_CMA).
- 	 *
-+	 * pages_with_online_memmap tracks pages within the zone that have
-+	 * an online memory map: present pages and memory holes whose
-+	 * memory map has been initialized and pfn_to_online_page()
-+	 * succeeds. When spanned_pages == pages_with_online_memmap,
-+	 * pfn_to_page() can be performed without further checks on any
-+	 * PFN within the zone span.
-+	 *
-+	 * Note: this counter may temporarily undercount when pages with an
-+	 * online memory map exist outside the current zone span. Such pages
-+	 * are only created during boot, when initializing the memory map of
-+	 * pages that do not fall into any zone span. The undercount itself
-+	 * can only happen after boot, during memory hotplug, when growing
-+	 * the zone to cover such pages and later shrinking it back, which
-+	 * may result in a "too small" value. This is safe: it merely
-+	 * prevents detecting a contiguous zone.
-+	 *
-+	 * Here is an example (page numbers are just for illustration
-+	 * purposes):
-+	 *   after boot:
-+	 *       [  zone span  ]
-+	 *       [   zone pages   ]
-+	 *       spanned=10, initialized=15, online=10
-+	 *       online == spanned  ->  contiguous
-+	 *
-+	 *   growing after hotplug (hotplug 5):
-+	 *       [  zone span                          ]
-+	 *       [   zone pages   ]   [   zone pages   ]
-+	 *       spanned=30, initialized=20, online=15
-+	 *       online != spanned  ->  not contiguous
-+	 *
-+	 *   shrinking after hotunplug (hotunplug 5 again):
-+	 *       [  zone span     ]
-+	 *       [   zone pages   ]
-+	 *       spanned=15, initialized=15, online=10
-+	 *       online != spanned  ->  not contiguous although contiguous
-+	 *
- 	 * So present_pages may be used by memory hotplug or memory power
- 	 * management logic to figure out unmanaged pages by checking
- 	 * (present_pages - managed_pages). And managed_pages should be used
-@@ -1067,6 +1103,7 @@ struct zone {
- 	atomic_long_t		managed_pages;
- 	unsigned long		spanned_pages;
- 	unsigned long		present_pages;
-+	unsigned long		pages_with_online_memmap;
- #if defined(CONFIG_MEMORY_HOTPLUG)
- 	unsigned long		present_early_pages;
- #endif
-@@ -1694,6 +1731,38 @@ static inline bool zone_is_zone_device(const struct zone *zone)
- }
- #endif
- 
-+/**
-+ * zone_is_contiguous - test whether a zone is contiguous
-+ * @zone: the zone to test.
-+ *
-+ * In a contiguous zone, it is valid to call pfn_to_page() on any PFN in the
-+ * spanned zone without requiring pfn_valid() or pfn_to_online_page() checks.
-+ *
-+ * Note that missing synchronization with memory offlining makes any PFN
-+ * traversal prone to races.
-+ *
-+ * ZONE_DEVICE zones are always marked non-contiguous.
-+ *
-+ * Return: true if contiguous, otherwise false.
-+ */
-+static inline bool zone_is_contiguous(const struct zone *zone)
-+{
-+	return READ_ONCE(zone->contiguous);
-+}
-+
-+static inline void set_zone_contiguous(struct zone *zone)
-+{
-+	if (zone_is_zone_device(zone))
-+		return;
-+	if (zone->spanned_pages == zone->pages_with_online_memmap)
-+		WRITE_ONCE(zone->contiguous, true);
-+}
-+
-+static inline void clear_zone_contiguous(struct zone *zone)
-+{
-+	WRITE_ONCE(zone->contiguous, false);
-+}
-+
- /*
-  * Returns true if a zone has pages managed by the buddy allocator.
-  * All the reclaim decisions have to use this function rather than
-diff --git a/mm/memory_hotplug.c b/mm/memory_hotplug.c
-index 9f19876ec3ec..100941d1b828 100644
---- a/mm/memory_hotplug.c
-+++ b/mm/memory_hotplug.c
-@@ -549,18 +549,13 @@ void remove_pfn_range_from_zone(struct zone *zone,
- 
- 	/*
- 	 * Zone shrinking code cannot properly deal with ZONE_DEVICE. So
--	 * we will not try to shrink the zones - which is okay as
--	 * set_zone_contiguous() cannot deal with ZONE_DEVICE either way.
-+	 * we will not try to shrink it.
- 	 */
- 	if (zone_is_zone_device(zone))
- 		return;
- 
--	clear_zone_contiguous(zone);
--
- 	shrink_zone_span(zone, start_pfn, start_pfn + nr_pages);
- 	update_pgdat_span(pgdat);
--
--	set_zone_contiguous(zone);
- }
- 
- /**
-@@ -738,8 +733,6 @@ void move_pfn_range_to_zone(struct zone *zone, unsigned long start_pfn,
- 	struct pglist_data *pgdat = zone->zone_pgdat;
- 	int nid = pgdat->node_id;
- 
--	clear_zone_contiguous(zone);
--
- 	if (zone_is_empty(zone))
- 		init_currently_empty_zone(zone, start_pfn, nr_pages);
- 	resize_zone_range(zone, start_pfn, nr_pages);
-@@ -767,8 +760,6 @@ void move_pfn_range_to_zone(struct zone *zone, unsigned long start_pfn,
- 	memmap_init_range(nr_pages, nid, zone_idx(zone), start_pfn, 0,
- 			 MEMINIT_HOTPLUG, altmap, migratetype,
- 			 isolate_pageblock);
--
--	set_zone_contiguous(zone);
- }
- 
- struct auto_movable_stats {
-@@ -1064,6 +1055,7 @@ void adjust_present_page_count(struct page *page, struct memory_group *group,
- 	if (early_section(__pfn_to_section(page_to_pfn(page))))
- 		zone->present_early_pages += nr_pages;
- 	zone->present_pages += nr_pages;
-+	zone->pages_with_online_memmap += nr_pages;
- 	zone->zone_pgdat->node_present_pages += nr_pages;
- 
- 	if (group && movable)
-diff --git a/mm/mm_init.c b/mm/mm_init.c
-index 1533aebafb68..259aab9ac941 100644
---- a/mm/mm_init.c
-+++ b/mm/mm_init.c
-@@ -816,23 +816,41 @@ void __meminit init_deferred_page(unsigned long pfn, int nid)
-  *   the zone boundary; the pages in such holes will be prepended to the
-  *   zone/node above the hole except for the trailing pages in the last
-  *   section that will be appended to the zone/node below.
-+ *
-+ * The function counts pages that should be added to
-+ * zone->pages_with_online_memmap. With CONFIG_SPARSEMEM_VMEMMAP there could
-+ * be offline subsections even though the entire memory map is valid and all
-+ * the early sections are online. Count only pages in online subsections
-+ * (see pfn_to_online_page()).
-  */
--static void __init init_unavailable_range(unsigned long spfn,
--					  unsigned long epfn,
--					  int zone, int node)
-+static unsigned long __init init_unavailable_range(unsigned long spfn,
-+						   unsigned long epfn,
-+						   int zone, int node)
- {
-+	unsigned long next_chunk_pfn __maybe_unused = spfn;
- 	unsigned long pfn;
--	u64 pgcnt = 0;
-+	u64 online_pgcnt = 0, pgcnt = 0;
-+	bool is_online = true;
- 
- 	for_each_valid_pfn(pfn, spfn, epfn) {
- 		__init_single_page(pfn_to_page(pfn), pfn, zone, node);
- 		__SetPageReserved(pfn_to_page(pfn));
- 		pgcnt++;
-+
-+#ifdef CONFIG_SPARSEMEM_VMEMMAP
-+		if (pfn >= next_chunk_pfn) {
-+			is_online = pfn_section_valid(__pfn_to_section(pfn), pfn);
-+			next_chunk_pfn = min(SUBSECTION_ALIGN_UP(pfn + 1), epfn);
-+		}
-+#endif
-+		if (is_online)
-+			online_pgcnt++;
- 	}
- 
- 	if (pgcnt)
- 		pr_info("On node %d, zone %s: %lld pages in unavailable ranges\n",
- 			node, zone_names[zone], pgcnt);
-+	return online_pgcnt;
- }
- 
- /*
-@@ -930,9 +948,21 @@ static void __init memmap_init_zone_range(struct zone *zone,
- 	memmap_init_range(end_pfn - start_pfn, nid, zone_id, start_pfn,
- 			  zone_end_pfn, MEMINIT_EARLY, NULL, MIGRATE_MOVABLE,
- 			  false);
-+	zone->pages_with_online_memmap += end_pfn - start_pfn;
- 
--	if (*hole_pfn < start_pfn)
--		init_unavailable_range(*hole_pfn, start_pfn, zone_id, nid);
-+	if (*hole_pfn < start_pfn) {
-+		unsigned long hole_start_pfn = *hole_pfn;
-+		unsigned long pgcnt;
-+
-+		if (hole_start_pfn < zone_start_pfn) {
-+			init_unavailable_range(hole_start_pfn, zone_start_pfn,
-+					       zone_id, nid);
-+			hole_start_pfn = zone_start_pfn;
-+		}
-+		pgcnt = init_unavailable_range(hole_start_pfn, start_pfn,
-+					       zone_id, nid);
-+		zone->pages_with_online_memmap += pgcnt;
-+	}
- 
- 	*hole_pfn = end_pfn;
- }
-@@ -2188,28 +2218,6 @@ void __init init_cma_pageblock(struct page *page)
- }
- #endif
- 
--void set_zone_contiguous(struct zone *zone)
--{
--	unsigned long block_start_pfn = zone->zone_start_pfn;
--	unsigned long block_end_pfn;
--
--	block_end_pfn = pageblock_end_pfn(block_start_pfn);
--	for (; block_start_pfn < zone_end_pfn(zone);
--			block_start_pfn = block_end_pfn,
--			 block_end_pfn += pageblock_nr_pages) {
--
--		block_end_pfn = min(block_end_pfn, zone_end_pfn(zone));
--
--		if (!__pageblock_pfn_to_page(block_start_pfn,
--					     block_end_pfn, zone))
--			return;
--		cond_resched();
--	}
--
--	/* We confirm that there is no hole */
--	zone->contiguous = true;
--}
--
- /*
-  * Check if a PFN range intersects multiple zones on one or more
-  * NUMA nodes. Specify the @nid argument if it is known that this
-diff --git a/mm/mm_init.h b/mm/mm_init.h
-index 39f75df9be1c..520d53ecc68d 100644
---- a/mm/mm_init.h
-+++ b/mm/mm_init.h
-@@ -20,15 +20,9 @@ struct vmem_altmap;
- /* perform sanity checks on struct pages being allocated or freed */
- DECLARE_STATIC_KEY_MAYBE(CONFIG_DEBUG_VM, check_pages_enabled);
- 
--void set_zone_contiguous(struct zone *zone);
- bool pfn_range_intersects_zones(int nid, unsigned long start_pfn,
- 			   unsigned long nr_pages);
- 
--static inline void clear_zone_contiguous(struct zone *zone)
--{
--	zone->contiguous = false;
--}
--
- void memblock_free_pages(unsigned long pfn, unsigned int order);
- 
- void *memmap_alloc(phys_addr_t size, phys_addr_t align, phys_addr_t min_addr,
-diff --git a/mm/page_alloc.h b/mm/page_alloc.h
-index b9259deddb59..d4182f7cb7dd 100644
---- a/mm/page_alloc.h
-+++ b/mm/page_alloc.h
-@@ -214,7 +214,7 @@ extern struct page *__pageblock_pfn_to_page(unsigned long start_pfn,
- static inline struct page *pageblock_pfn_to_page(unsigned long start_pfn,
- 				unsigned long end_pfn, struct zone *zone)
- {
--	if (zone->contiguous)
-+	if (zone_is_contiguous(zone))
- 		return pfn_to_page(start_pfn);
- 
- 	return __pageblock_pfn_to_page(start_pfn, end_pfn, zone);
--- 
-2.47.3
+The addresses are not that simple. When a copper module is inserted,
+other addresses are used. The SFP driver assumes it has access to all
+addresses on the bus.
 
+
+  Andrew
