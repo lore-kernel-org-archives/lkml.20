@@ -1,133 +1,357 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-oa2-f9.google.com (mail-oa2-f9.google.com [74.125.231.73])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C388145A1F
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 02:46:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA65C3515CC
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 02:48:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.73
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789872364; cv=none; b=f3H6axDA1a/RHDYAIThPEX8HxcPTDxFdtdzm49G0pgpP9567moz/q41AK29I9CzIQD4kEqQJ0aaiR0ZD58f1eX908g/whJtzPde2LLLe/yGFewKMfQZLCq8gsQDsCpsoIG32/Zansu7Lkb7brp+IvwOiIPCnf+6XHmS14IoWDpc=
+	t=1789872514; cv=none; b=mISXYah4coiDKqztBkDE8Cz79LU1Jcg6lmPDFVSQiLkJ6LHiISZaOYsvMv9S9VkYVvY1z5nU7l4tf0yBTecuvJkl2cGIPjm01r3ftTSEwsiahTQcj3B+OnTp9yW4j7XqkQGchiXUaj9CN6PGTbyOJ6jAwTPKopQn7vwmNLsZhvE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789872364; c=relaxed/simple;
-	bh=PKik7t6gtAUJu9fPdS9cTxYBU5Q1vGuSqoz4IgWVPIg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VPybH+okJBhsdlXKTtC4JLWJMSQYAUfIKzWEia44H/3IzAGnOW3DPr0Ul18T1HUcTCnuxaGZ9RssBRTvG+KRHi624HbVSZ28BlS+Sw7N90lo9YfvLB/Fw94kZN8vUXXvQcuctpZrOySv2/yI5AvF4M5uCfw7gTdV7xFrkxrBMSw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cd+rsCNX; arc=none smtp.client-ip=74.125.228.12
+	s=arc-20240116; t=1789872514; c=relaxed/simple;
+	bh=5zJQUcTfeHOupAFBO5SzKmha1B+IVgnGLyfPlMQyMi4=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=QM1tDS7a2ioW7tbu9O2qoInf3YepYV9iWxtwK6FwyGqI/1Vv7rFZz9b7fFU7Ht0SPPn1kzyFNxw7N0DBQ2ISDifmDSL9Ln0xuoBmFzis3GTszhibnZePBQuMd8eMa3ZaGDIv5Iw9Z8GzOEWzybtFP6wRS69gkzbCx5aHzYLe4W0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=edrJU3Ob; arc=none smtp.client-ip=74.125.231.73
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cd+rsCNX"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4c08393b0so1628207a12.0
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 19:46:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="edrJU3Ob"
+Received: by mail-oa2-f9.google.com with SMTP id 586e51a60fabf-47bd4bcc3e2so905077fac.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 19:48:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789872362; x=1790477162; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=X5tzKgBqsXWjkHl6zAcCKVutWz11bLsFdoRDD5JKFIg=;
-        b=cd+rsCNX6Ih4deuZ1BNyMIDplMwsKMARw7PfSRFixqRJOnXAFIC619J3NTIOcjO4oG
-         2syDSrE7PUQFqnmT+2n2ApXlVbwc3mAoPEwKaV5G/HFN/0b2+LpmXvX5O+G9blgCY/A5
-         Qnt2Lv5nUadLLeWhXmeD9RZne4uBHKixOrroqZrmOLzDZ4sROzaMTHFBQwYlz3+TkWbz
-         0cTQI3ITmDYzfHT6yYYXNqhug5k5qIY+mtQxB/01jTOhvAh29OwYlTXWhwW7hJHhgqsC
-         bvbvzGLVvWYEhWHgohxUpggt5H8KH96mMeDDPd9K4JWyYz8eJIZ6vQbdY+wdiLmKkfjL
-         zvdw==
+        d=gmail.com; s=20251104; t=1789872510; x=1790477310; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TjvmYyCc6sVH2RWH/PPf9bwAMgPY9Arl3SG7xhOPHXY=;
+        b=edrJU3ObiRBfUezczsp3hF4E0jIdgu62Oi+NduiwJbDFH3fBJQc3Lfv/5vpcrRd8MD
+         vOUi+fmqHaqLwGPGoBFs3Tj8W2QKEugh19joQ+4hGp16nYQQWIWJB3fFQayFdxUt5eS7
+         4lN4ZA4z2khMeq+Po5Q5pRULgUyCZtNMMYemp3QKdHH6+o/EKyxaCRCeV2tV34jfalSs
+         N0oga6ITNllKo3u9vWa0bdb8sFjlrdnY/AWxYtTFAZUB3RiwY8LDYhPwYjDOfNIC5A/W
+         d5SWTMg4lW8sN/gGk9D/+36o7i6Bh3uisti8nfWX7TFmMhiGK6z7b8vEpZOIZRf4lgbr
+         rlIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789872362; x=1790477162;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1789872510; x=1790477310;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=X5tzKgBqsXWjkHl6zAcCKVutWz11bLsFdoRDD5JKFIg=;
-        b=TwOD1AFtnDrXSvsHxFdg3rUJ4gAn8m7vaC0qVPjJCIv6Z0nJWzVLxDkyuMDNz/fRXq
-         1zzYx+zRkhYo3ISJ2mlaJFdJg97pj6X0Sc0zxd3yDAd7ekU4QUDWBgWC3f63MRTwfm77
-         To9AJVlig4rxfAWcY55ojIGDUdCsu6MvueQ78tSthBVqOp/UY+PTt2rauZIRKa3OTOcc
-         qlCkVMi42+L+9Qju0GznenV4Yaow1fcxAoFzTTSN8ktDhH/KEOzsbIvsZim6bnMLJyyT
-         xhpgRMi2crgCG06+p4BQ3o2nLgwSuUNFZaMCKNtZ2osWaNBqek0ahDgGcLusffc/q/Wo
-         wAjg==
-X-Gm-Message-State: AFuF++kbTSsdf1CWj+Gnu4zUruHp4HZKclsdnaCBcQRQ9VMgChEQqb/p
-	95SZw1lYQpN3iizhZ87ANsKbpwscZZuYvvhy3HeTeMM7U/uQ0ChdsLs2
-X-Gm-Gg: AYBFou1GZ3n4IdHAjT+3/wur9gyILsLvG5ue5WGNnzYYhTngoJTA9Iof0wW0y9MNBfZ
-	sSps98ZtHHKc11hcT8sKjlvu124fHeqHXeSfq5QY2u/sIt1nOQiq1UIAkK2HiElUrNrf/6605Ty
-	0JLKhgVOkTJokWfKDxNNHX2KfIrszuH5QFVNmXRiEvZfnE+9H1+EWLgabfuCE4oRQ3xVWF21fog
-	l/FwF0o7C1mG+KPB98TfvO8A7H+RtMaSUvXv9xDrfBFKUugmRBz5Cjeon9RliVm99B/7mPTvuXP
-	8RNDj1/TwO+RMATBP1FyoZdobwqzsUKp6/5qUwzdAXjSttlnswZaFEt5k1H6cd9vkOQjTjDcKxw
-	PyOyvaqAQxpoSh4HBtyyHSDlgq9/09/V7+VqYUf8lGABSIVXntS96jn07u7nV/Ve1RbidoRa4Ot
-	o0oKOC0ebAVVRlIwemaPc7fTcvHb5douZyT3ACCejTggDQSRZNfftJK+G3xE2hZQGrec+NOQZJS
-	8I4ze7Fvzv7i12Wxw==
-X-Received: by 2002:a05:6a21:e8b:b0:3d3:ae40:51e3 with SMTP id adf61e73a8af0-3dd8c53b507mr10728091637.23.1789872362274;
-        Sat, 19 Sep 2026 19:46:02 -0700 (PDT)
-Received: from kernel.tail6741c6.ts.net ([185.220.238.35])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc72ae71fe3sm1485971a12.8.2026.09.19.19.46.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 19:46:01 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-To: tj@kernel.org,
-	jiangshanlai@gmail.com
-Cc: linux-kernel@vger.kernel.org,
-	Kunwu Chan <kunwu.chan@gmail.com>
-Subject: [PATCH] workqueue: Drop redundant rcu_read_lock() from dump functions
-Date: Sun, 20 Sep 2026 10:45:50 +0800
-Message-ID: <20260920024550.2278408-1-kunwu.chan@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        bh=TjvmYyCc6sVH2RWH/PPf9bwAMgPY9Arl3SG7xhOPHXY=;
+        b=wFHcpdLh/cviCL9arOofQxtO3/P+d+9bQ9+yl+66AuwQMIuhTiryvVF/+jwAPxGvIm
+         vJEhbaT5moP/7U3nxRVBFXCtv7jusv7FnwcXQIndl1SyWwsaSQyNcQNR+knQtw7Ztug0
+         801NYJ2xihRJsYFtkJwcZf1KodcU17QDTyAQph3SrG+CGJd6/sZ8BaT5l/nrvnVYPH8t
+         pkYcagU5nOyf3H/hGYrFdGEoRkwddbsqnzXO4t2fa/ILMKbMjrk5udj+Cb+gQIe5SEV4
+         6rlbOFnZP82Kc9O7R4fw+rD+I6K5bSRbguQRqy7zDUKf2uCgscvyLsIN5iSmXtvb6AMK
+         Ltcg==
+X-Forwarded-Encrypted: i=1; AKwUvBxUgDnFm32mZO72AQagVrZWCoBH9CjxUrkpMFlrexHNIo8ZUgjoK5v1S+zMZiP0fnNRHOLppLyW280EasA=@vger.kernel.org
+X-Gm-Message-State: AFuF++k+Rv/A40d/2p3vYiH3T6fDykl14cDc99OuRv0JCXVekBDCE+/V
+	OzSbTkBDqOzzEhR7DFS2jo9iKojMsJbgZFyZP6s9DSCgc5t9pY2FHzaF
+X-Gm-Gg: AYBFou0VYLUC9XBCScOYBUZCAriczmJrxVhLFviS8DZFkHdi0+NtpxgQIm0n3CceVs4
+	AL6xmXAHDKANT50+aFWup57WYlKQHOMCWFQrAIgfsS8DtwwG8ylrQsc5CRrdHysS0gnJSKzPS2e
+	HOA/KyQHt5pA6oD/ZC9UALnkwBzsjufAIbjA/vfuw5YgRISEuVhzEFSX+lKRdHwt368OcYgPfKW
+	7uNsk8ojfe37DxwCZk4bJUu6W8nWZA7f+O/pXdBKzR5pp/Ac86ljPyU9wGuUcVnry6RF0JfXFVc
+	z98Xve1WVjGlhd6MUW34QyCgEwuOUviABjbjeJfeeni5o734atpDlDrHflLh3mCPYYdQjsSHcZW
+	v8ENvbC5Zg4zr0a4AsVG7Z0JwSaU9p8XsZix7aBnjXyob4gYCZCtLW+e1r6fBzrW8YWV8aNcIhN
+	0g7DJZbwtAK2+K6jZr2bhrbV28hOQOiu0txz1GeUPME2MbIfwiBaW3cHL70Esw2z3eF4TLnCB+N
+	SjvfgxA+8sBA3YyWGeAeBjN7Q==
+X-Received: by 2002:a05:6870:d24c:b0:43b:bb18:affd with SMTP id 586e51a60fabf-486e554a334mr7101333fac.8.1789872509696;
+        Sat, 19 Sep 2026 19:48:29 -0700 (PDT)
+Received: from ?IPV6:2600:8804:5716:d800::2620? ([2600:8804:5716:d800::2620])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4881f4d519fsm4188565fac.2.2026.09.19.19.48.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 19 Sep 2026 19:48:28 -0700 (PDT)
+Message-ID: <7f1ab011-c90f-42fc-bc4c-836a1ef9febc@gmail.com>
+Date: Sat, 19 Sep 2026 21:48:25 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+Subject: Re: [PATCH v2 2/3] iio: adc: mt6397-auxadc: add mt6397 PMIC AUXADC
+ driver
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Lee Jones <lee@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ mfd@lists.linux.dev, Roman Vivchar <rva333@protonmail.com>,
+ Luca Leonardo Scorcia <l.scorcia@gmail.com>
+References: <20260917-rbrue-suez-upstreaming-mt6397-auxadc-v2-0-db35882a6080@gmail.com>
+ <20260917-rbrue-suez-upstreaming-mt6397-auxadc-v2-2-db35882a6080@gmail.com>
+ <aqzo2vqeGEGCLFIP@ashevche-desk.local>
+Content-Language: en-US
+In-Reply-To: <aqzo2vqeGEGCLFIP@ashevche-desk.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-show_all_workqueues() and show_cpu_pools_busy_workers() are called
-from contexts that already provide RCU read-side protection.
+On 9/18/26 2:31 AM, Andy Shevchenko wrote:
+> The below should be part of the comment block, no commit message needs to
+> be polluted with this.
+>
+>> A new driver was created here, instead of modifying an existing driver
+>> such as mt6323-auxadc or mt6359-auxadc, for the following reasons:
+>>
+>>   - Both mt6323-auxadc and mt6359-auxadc select channels through a request
+>>     register (1 bit per channel), while mt6397 uses a 4-bit numeric field
+>>     CHSEL in CON1 (10:7), and then pulses a START bit (CON1 bit 0).
+>>
+>>   - For mt6323-auxadc, which is the closest I could find to the mt6397
+>>     (CON0..CON27), it has 13 more registers than the mt6397 (CON0..CON14).
+>>     It uses CON22 for its request register, and reads the result value
+>>     from the same register as the ready bit. We don't do that - the mt6397
+>>     has a factory calibrated value for each channel at 0x16 higher than the
+>>     raw value. mt6323 also has a 1800 mV / 15 bit scale / resolution while
+>>     we have 1200 mV / 10 bits. We also have some per-channel preparation
+>>     that we have to do before the burst, that the mt6323 doesn't have to
+>>     do.
+>>
+>>   - For mt6359-auxadc, it has a more generic framework for describing the
+>>     AUXADC, but it assumes requests are channel-per-bit, and so we would
+>>     have to basically ignore req_idx, req_mask, rdy_idx, and rdy_mask.
+>>
+>>   - We also have our own software sampling, which the vendor does too
+>>     (Amazon Fire OS based on Linux 3.18). We'd have to have our own
+>>     sampling callback to do it.
+>>
+>> Assisted-by: LLM
+>> Signed-off-by: Ryan Brue<ryanbrue.dev@gmail.com>
+>> ---
+> ...here is the comment block...
+Done in v3.
+>> +static int mt6397_auxadc_read_once(struct mt6397_auxadc *adc,
+>> +				   const struct iio_chan_spec *chan, int *val)
+>> +{
+>> +	struct regmap *map = adc->regmap;
+>> +	unsigned int reg;
+>> +	int ret;
+>> +
+>> +	ret = regmap_update_bits(map, MT6397_AUXADC_CON1,
+>> +				 MT6397_AUXADC_CON1_CHSEL,
+>> +				 FIELD_PREP(MT6397_AUXADC_CON1_CHSEL,
+>> +					    chan->address));
+> Make it two a bit long lines rather than four.
+Done in v3.
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	/* START is edge triggered: it has to be lowered before being raised. */
+>> +	ret = regmap_clear_bits(map, MT6397_AUXADC_CON1, MT6397_AUXADC_CON1_START);
+>> +	if (ret)
+>> +		return ret;
+> Does it need any settling timeout (in case it was set before)?
+I don't think so. The ready bit gets cleared when START gets raised, not 
+when it gets lowered, so a missed edge wouldn't surface as an error. The 
+poll would match the previous conversion's ready bit and a stale value 
+would be averaged into the burst, so I forced one by suppressing the 
+clear on START.
 
-show_all_workqueues() is called from wq_watchdog_timer_fn(), which
-runs in softirq context, and from sysrq_handle_showstate() through
-__handle_sysrq(), which holds rcu_read_lock().
+With the clear suppressed the set finds START already high, so regmap 
+doesn't issue a write at all and no edge happens. All 40 reads still 
+succeeded, but each one returns sixteen identical conversions instead of 
+the usual spread, and nothing shows up in dmesg.
 
-show_cpu_pools_busy_workers() is called from wq_watchdog_timer_fn()
-as well.
+It also let me calibrate the probe, which I wanted before trusting a 
+zero out of it. Probing the result register just after the rise, it 
+counts the injected stale bits exactly: 93.75% with the clear 
+suppressed, which is 15 of 16 because in the first conversion of a burst 
+START is already low and still makes an edge, and 43.79% against 43.75% 
+predicted when seven of sixteen are made stale. In normal operation 
+everything it sees is conversions that have already finished, and once I 
+subtract those out, what's left at 30 us -- which is where the poll 
+first looks -- is -5.1e-3 +/- 2.9e-3 over 96000 conversions.
 
-Drop the redundant RCU read-side locking from both functions.
+The two writes are never back to back anyway, since each one is its own 
+transaction on an uncached regmap over the PMIC wrapper and the set 
+alone takes at least 7.3 us. I also tried inserting a gap of 30 and 300 
+us, and it moves the reading by under 0.06 LSB, with no poll timing out 
+across about a million conversions.
 
-Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
----
- kernel/workqueue.c | 8 --------
- 1 file changed, 8 deletions(-)
+Even though the vendor isn't necessarily what we care about, it also 
+writes START 0 then 1 with nothing in between.
 
-diff --git a/kernel/workqueue.c b/kernel/workqueue.c
-index 3c034cbc5bb3..266c3549df0f 100644
---- a/kernel/workqueue.c
-+++ b/kernel/workqueue.c
-@@ -6711,8 +6711,6 @@ void show_all_workqueues(void)
- 	struct worker_pool *pool;
- 	int pi;
- 
--	rcu_read_lock();
--
- 	pr_info("Showing busy workqueues and worker pools:\n");
- 
- 	list_for_each_entry_rcu(wq, &workqueues, list)
-@@ -6720,8 +6718,6 @@ void show_all_workqueues(void)
- 
- 	for_each_pool(pool, pi)
- 		show_one_worker_pool(pool);
--
--	rcu_read_unlock();
- }
- 
- /**
-@@ -7883,15 +7879,11 @@ static void show_cpu_pools_busy_workers(void)
- 
- 	pr_info("Showing backtraces of busy workers in stalled worker pools:\n");
- 
--	rcu_read_lock();
--
- 	for_each_pool(pool, pi) {
- 		if (pool->cpu_stall)
- 			show_cpu_pool_busy_workers(pool);
- 
- 	}
--
--	rcu_read_unlock();
- }
- 
- /*
--- 
-2.43.0
+I don't have a datasheet figure for a minimum low time, this is all 
+measured, so if you end up wanting a wait there let me know, v3 has a 
+bit more context in the comment.
 
+>> +static int mt6397_auxadc_battemp_bias(struct mt6397_auxadc *adc, bool on)
+> There is nothing common between on==false and on==true cases. Make it two
+> distinct functions and drop bool parameter. It's actually a recommended
+> pattern.
+Done in v3.
+>> +{
+>> +	struct regmap *map = adc->regmap;
+>> +	int ret, err;
+>> +
+>> +	if (on) {
+>> +		ret = regmap_set_bits(map, MT6397_AUXADC_CON0,
+>> +				      MT6397_AUXADC_CON0_BUF_PWD_ON);
+>> +		if (ret)
+>> +			return ret;
+>> +
+>> +		ret = regmap_set_bits(map, MT6397_AUXADC_CON0,
+>> +				      MT6397_AUXADC_CON0_BUF_PWD_B);
+>> +		if (ret)
+>> +			return ret;
+>> +
+>> +		ret = regmap_set_bits(map, MT6397_CHR_CON7,
+>> +				      MT6397_CHR_CON7_BATON_TDET_EN);
+>> +	} else {
+>> +		/*
+>> +		 * Every step of the teardown is attempted even if an earlier
+>> +		 * one failed, so that one failing write cannot leave the bias
+>> +		 * or the input buffer powered. The first error is reported.
+>> +		 */
+>> +		ret = regmap_clear_bits(map, MT6397_CHR_CON7,
+>> +					MT6397_CHR_CON7_BATON_TDET_EN);
+>> +
+>> +		err = regmap_clear_bits(map, MT6397_AUXADC_CON0,
+>> +					MT6397_AUXADC_CON0_BUF_PWD_B);
+>> +		if (!ret)
+>> +			ret = err;
+>> +
+>> +		err = regmap_clear_bits(map, MT6397_AUXADC_CON0,
+>> +					MT6397_AUXADC_CON0_BUF_PWD_ON);
+>> +		if (!ret)
+>> +			ret = err;
+> These 'if (!ret)' bug me. What can we do if the ret == 0 and err != 0
+> on the caller's level? In other words, what can caller do in such a case?
+Nothing, and in v2 it didn't do anything -- read_channel() discarded the 
+teardown's return anyways, so the value wasn't even used. v3 hands it to 
+dev_err() instead, as mt6323-auxadc.c does on its own release path, and 
+the accumulators are gone.
+
+The 'if (!ret)' left in read_channel() are sequencing the next step 
+rather than merging an error into it, and the teardown below it is 
+unconditional, but if you don't want 'if (!ret)' at all, let me know.
+>> +	if (!ret)
+>> +		ret = err;
+>> +
+>> +	return ret;
+> This can be written as
+>
+> 	if (ret)
+> 		return ret;
+>
+> 	return err;
+>
+>
+> But the same Q as per above remains.
+I took it a step further and made both teardowns return on the first 
+failure rather than attempting the rest. mt6323_auxadc_release() does 
+the same, and so do twelve others in drivers/iio that I could find. One 
+does continue after a failed write -- ltr390_powerdown(), but it's a 
+void devm cleanup callback that logs each error as it comes, so it has 
+nothing to return.
+
+With this change, a failed write can leave the later bits set. The read 
+still returns its value with the failure logged, and the teardown runs 
+at the end of every read, so the next read of that channel clears them.
+>> +	/* Held across the whole burst: the channel select is shared state. */
+> Unneeded comment. It's obvious that guard()() takes the whole scope.
+Done in v3.
+>> +	guard(mutex)(&adc->lock);
+>> +
+>> +	/*
+>> +	 * Once any part of the per-channel setup has been written, the
+>> +	 * teardown has to run, so every exit below goes through it.
+>> +	 */
+>> +	if (isense) {
+>> +		ret = mt6397_auxadc_isense_enable(adc);
+>> +		if (ret)
+>> +			goto out_teardown;
+> Have you compiled this?
+Yes, with clang on arm64 and gcc on x86_64 allmodconfig, W=1 clean at 
+every patch in the series, and the codegen was correct: one mutex_lock, 
+one mutex_unlock and a single ret in read_raw() with read_channel() 
+inlined into it, and no path that takes the lock reaches that ret 
+without passing the unlock. The only two branches ahead of the lock are 
+the SCALE and default cases, and neither takes it. Still, I missed that 
+cleanup.h wants goto and cleanup helpers to not mix, and I shouldn't 
+have mixed them. v3 puts the sample loop into its own function, so 
+read_channel() becomes setup, then a conditional burst and an 
+unconditional teardown, with no label.
+>> +		fsleep(MT6397_AUXADC_ISENSE_SETTLE_US);
+>> +	} else {
+>> +		ret = mt6397_auxadc_battemp_bias(adc, true);
+>> +		if (ret)
+>> +			goto out_teardown;
+>> +		fsleep(MT6397_AUXADC_BATTEMP_SETTLE_US);
+>> +	}
+>> +
+>> +	for (unsigned int i = 0; i < MT6397_AUXADC_SAMPLES; i++) {
+>> +		ret = mt6397_auxadc_read_once(adc, chan, &sample);
+>> +		if (ret)
+>> +			goto out_teardown;
+>> +
+>> +		sum += sample;
+>> +	}
+>> +
+>> +	*val = DIV_ROUND_CLOSEST(sum, MT6397_AUXADC_SAMPLES);
+>> +
+>> +out_teardown:
+>> +	/* Lower START so the converter is not left armed between reads. */
+>> +	regmap_clear_bits(adc->regmap, MT6397_AUXADC_CON1,
+>> +			  MT6397_AUXADC_CON1_START);
+>> +
+>> +	if (isense)
+>> +		mt6397_auxadc_isense_disable(adc);
+>> +	else
+>> +		mt6397_auxadc_battemp_bias(adc, false);
+>> +
+>> +	return ret;
+>> +}
+> So, this function has to refactored. And please, compile and test the code
+> *each* time you update it.
+Ack. Admittedly I hadn't tested the 'goto out_teardown' path prior to 
+sending out the v2, so I apologize. I have now tested it by injecting a 
+failure into each of the helpers read_channel() calls. All five paths 
+return the helper's errno, the teardown runs, and leaves every bit the 
+partial setup wrote clear again, and guard() releases the mutex.
+
+I also stubbed out the teardown as a negative control, and the same 
+faults do leave the bits set in that situation, so the check can fail. 
+The restructure is in v3.
+> ...
+>
+>> +static int mt6397_auxadc_read_raw(struct iio_dev *indio_dev,
+>> +				  const struct iio_chan_spec *chan,
+>> +				  int *val, int *val2, long mask)
+>> +{
+>> +	struct mt6397_auxadc *adc = iio_priv(indio_dev);
+>> +	int ret;
+>> +
+>> +	switch (mask) {
+>> +	case IIO_CHAN_INFO_RAW:
+>> +		ret = mt6397_auxadc_read_channel(adc, chan, val);
+>> +		if (ret)
+>> +			return ret;
+>> +
+>> +		return IIO_VAL_INT;
+>> +
+>> +	case IIO_CHAN_INFO_SCALE:
+>> +		/* 1200 mV full range with 10-bit resolution. */
+>> +		*val = 1200;
+>> +		if (chan->channel == MT6397_AUXADC_ISENSE)
+>> +			*val *= MT6397_AUXADC_ISENSE_DIVIDER;
+> Make it if-else.
+Done in v3.
+>> +		*val2 = 10;
+>> +
+>> +		return IIO_VAL_FRACTIONAL_LOG2;
+>> +
+>> +	default:
+>> +		return -EINVAL;
+>> +	}
+>> +}
+Thanks Andy!
+
+Best regards,
+Ryan
