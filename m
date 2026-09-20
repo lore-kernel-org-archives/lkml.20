@@ -1,56 +1,56 @@
 Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D36673D45C3
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 05:23:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D37193D79FB
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 05:23:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789881788; cv=none; b=dNHOwWCM9dtUmkC7QLOPM3b2NizIa9eEJ7e2Wbt7eqo7TS5HoY92iQJsW3lyEjjuazlhtXK7HL+2YST/kgLxmBeuRunNhHYnMwy0NwilWlUSUgJ18LXhharzMFZqQh3ghdalYOQLqfCL/720j9v21Z1WFjeIB+PEex0/9madUcQ=
+	t=1789881791; cv=none; b=m4CcXAR9h/JgOefuap8tbIeRJ9wbyzuQ3cyI2XKmcfaU5f49RCI8iQDruhkji3ayKJiQ0u8+SiX1Mc4LYfov9MlRoJ36zGA6JeQjP0iwGN+reZ26FGzg//K92+ou49IwPuImqtk5DuOOBft/mepNQk1Ns5HY0w5iv8XweOjyOTw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789881788; c=relaxed/simple;
-	bh=zDyCgKElJnJf2Xw0CW6H3IhwBe3zvdoC6phXFcQxMUc=;
+	s=arc-20240116; t=1789881791; c=relaxed/simple;
+	bh=IbC2/Uv+OwgNdsUSxVe0dDSD6YkupNM+8CS/sKKIkn4=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=fPFEJEyNGcw6aLGmPQgmD1W49cZ+qKl7G+DysZrFcyU8p14NY+nY5hm2ZLh0XDJYmmu9hi5x9gV2XStb0BYiqqlOF/wqlmrGeaXfd9vhtV1vL4kjDyC8THxtry8HMMn0C9JYiwk2uoDo+BIguCpJ3/bexIqBOGMLEp4RJ9lfqcM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ZYCaje2S; arc=none smtp.client-ip=209.85.216.71
+	 To:Cc:Content-Type; b=dtNOl27k46pcGLUm8ByC/c3PRyuCrBqEMgjdIyngfoWGF1ovfQv1TBg9Y89uSLv+BQTq6iRbaVctl1AnVZie7jsUnDPQL2cU84wpEgfSrihdroMUTNwIAO0uGdEtC5DZn0UeYW57yWu63gOj5kuVo3MGjp7emUvKsj567Go1AQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=hfdJ1Sjn; arc=none smtp.client-ip=209.85.216.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ZYCaje2S"
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-39e3f521346so2491190a91.0
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:23:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="hfdJ1Sjn"
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3965ba1ba3eso2435840a91.2
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:23:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789881780; x=1790486580; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789881788; x=1790486588; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=5UJvx6m7Q3V8RaoRGo2HpSBYRSVuVzAgTOi+hsx2xco=;
-        b=ZYCaje2SnaL/IW3BGfTWuli6sN+Mr6inT0R2HyhW4ed/x+fGh5Ot3W4uIuiaLRNkKV
-         XyScdNJYaa+BAyxrekePYcQSqbD0r3YW2aOTtOzMz179HhVl1RXyOuouNGocY90j81vq
-         YcryaAfMMCXPba+7obqkEVdJ93Ptb02xWTHSFauV6ukbNSBJ1+9F0YnkPHAFQXtCLf65
-         wtbvqU0updnEU/WG1uJHUggkOiNhiLF9UhJfcebx3dPICM1SPNPsj5pZNdu3g/0Khxdd
-         cqz0+dbbXEQLPXFzrdLNnfXmwesZApIQ98Ofil7TBVymRvVhAsr/z++NZluek0n2wxo9
-         RYkw==
+        bh=5RImjqQxLqE917MV39LXvpY8Ea24gVcGwCxa1lmYyuM=;
+        b=hfdJ1SjnxyGZHnnBr/gP0zyU3igI8g0oyr/LEwpmbtakDCEZJlM3+UVy8zx/kIA7as
+         DAYp40JPVSzUFVDBMSlRF6MY2LPkuuudGSLqUO2MGsiPDQREjkxrPiY4Tl4sQmwtzaNn
+         brYKgB6Oj+7fV544WRwvn2Vjm4PSWM19Owmu8HuzoBJshed04nmkR0H1UTapEm+fQZw3
+         uYDnlIMmAzxCbpOyic45nnua2A1mA2IXZAgmqGRaYQG5YyAaofWpfzT4owwJGqQ+gGj5
+         IRf6OsXVXfR0WWPcm+6RZQW79vnprybgamnyYS+4avGKhWsg9Fju4xb3EJrvYQJU3i+c
+         Wgbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789881780; x=1790486580;
+        d=1e100.net; s=20260707; t=1789881788; x=1790486588;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5UJvx6m7Q3V8RaoRGo2HpSBYRSVuVzAgTOi+hsx2xco=;
-        b=ZwY/BDIVEJuKtmM/szUsgrbNnQycCtaiPW4i0/riAk+JTP5TzxIz0vtwMfzG4/t6jA
-         Q7GNM+2Ei/JX/B7a0ZMVysc4L02BMPAywwJ+JnAwUG6ouMYbTzY+BIR8NazPMSYQIwu+
-         A26so9cbVAxa+ZTyXfQy40f3DAyb1Iina3xk9+3YgyAxCXaEWqOLnNrD9WmwaFnD7CiX
-         dd40kyQJIkKR1okR10ve6zoxJIOdmg4noLVrimf9O8J13eqmOAMm3T3txXkBkwD5bE4E
-         VctBM+RVX09e9eDkBpv3eSx49kOQLzsUHX5VJHqk3dwXV8X+EMtSQwHx/78x4yicyZk2
-         5ITA==
-X-Forwarded-Encrypted: i=1; AKwUvBw4+EyaHf/dOftL5phJXyYQNweSAuAd0t3Fx2IqEpdxvxEEz0OTorhC7eVUsY91PdmQxdI2pqu55McR75Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++n9L4WycaKPmlNayL2N6DBe8kQ5ICeHAEc9xD9aQt/DX/NXQvFh
-	QAM928gGwuPrFH7zZZlQnEcW8LXxvCXZNGA5xxKX8dnvnSdT3vxNQ1pek+5dPH8HI4sXr4oUbqm
-	L0VSpPwFBgQ==
-X-Received: from dyaz17-n2.prod.google.com ([2002:a05:693c:6391:20b0:33c:a5ec:92cd])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:35d0:b0:39e:4c81:6c65
- with SMTP id 98e67ed59e1d1-39e54dc0ce3mr12334658a91.32.1789881779681; Sat, 19
- Sep 2026 22:22:59 -0700 (PDT)
-Date: Sat, 19 Sep 2026 22:21:04 -0700
+        bh=5RImjqQxLqE917MV39LXvpY8Ea24gVcGwCxa1lmYyuM=;
+        b=K/sjkS3HJcWNGE9s5nYrsalOxgdioR/d/ZfcP+otlhZ3V3wWCEJW4zMfKfEqHJzd9X
+         TDSIJHGakc2rh5yplB3ULRCn2bQEeekS1dhZ8gQHx2QiSsiuMWcvfFUdWRajtRypnYzi
+         ggowbBX8/iKGEOGHGn5XGTOUYIrlJKzlGxyZwLutwWzEyr6QKyLx6Os3coiuGSEEuhXs
+         YKc1lYZfN1Nn6+KM4mfNaJy+NnthNtf9WtjhW0LqqGROkluwzo2e2S6L0gIDQW/QPWOY
+         2MT98bBSG2GBXIerEnE9//iPC3t6+LeodkP4jLjSkgO+nc0BVXQCNNFMRIxHM/ag9Dqc
+         VhwQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwFGtlTiDpJVY9WtQUgStvo0rWM63UIoDFFpa9xansrSVw69NSl1rAOonKkP8MlCzWAsMottRNzjf/pi8Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++khnUjQfHzu+WXef4JMPDnfEz+X8fuhbAAPyo5s3WdHpbAB6aND
+	mQA4BfTDOPCyqwN5HP7pjU8uZqLQ2E1S3J1wyfhp8TOZsh5k3axN7rRN7vNSPilsjM0K5h+cD2t
+	kYSyGnwDO7Q==
+X-Received: from dlec3-n2.prod.google.com ([2002:a05:701b:4283:20b0:144:dcec:b12a])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2d47:b0:39d:eac2:7bb1
+ with SMTP id 98e67ed59e1d1-39e54ce1695mr18577371a91.4.1789881788036; Sat, 19
+ Sep 2026 22:23:08 -0700 (PDT)
+Date: Sat, 19 Sep 2026 22:21:09 -0700
 In-Reply-To: <cover.1789880842.git.irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,9 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <cover.1789880842.git.irogers@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <5d059447398953037600359260868821d7cb250c.1789880842.git.irogers@google.com>
-Subject: [PATCH v1 12/49] perf test: Clean up mypy and pylint issues in shell
- test libraries
+Message-ID: <48bc7067e83cf9b5f3d619e0ee0ff636fa8d151d.1789880842.git.irogers@google.com>
+Subject: [PATCH v1 17/49] perf python: Port mem-phys-addr to perf module
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, adrian.hunter@intel.com, 
 	alice.mei.rogers@gmail.com, james.clark@linaro.org, 
@@ -72,531 +71,283 @@ Cc: dapeng1.mi@linux.intel.com, leo.yan@linux.dev,
 	tmricht@linux.ibm.com
 Content-Type: text/plain; charset="UTF-8"
 
-Clean up mypy type errors and pylint errors/warnings in
-tools/perf/tests/shell/lib/ (attr.py, perf_json_output_lint.py, and
-perf_metric_validation.py):
-- Fix E0606 (possibly-used-before-assignment) in perf_metric_validation.py
-  by importing sys at module level.
-- Add type annotations for stack, second_results, collectlist,
-  get_bounds(),
-  and main() in perf_metric_validation.py.
-- Avoid assigning -1 to list[int] expected_items in
-  perf_json_output_lint.py,
-  rename shadowing variables, and remove redundant lambdas.
-- Remove unnecessary semicolons, use lazy logging arguments, specify
-  exception types and file encodings, and initialize module-level logger
-  in attr.py.
+Port mem-phys-addr.py to a standalone script in tools/perf/python/
+using the perf.session API to read perf.data files and profile physical
+memory access types against /proc/iomem.
+
+Improvements compared to the legacy script:
+- Parse the full indentation hierarchy of /proc/iomem into a parent-child
+  tree of frozen IomemEntry dataclasses (instead of only top-level
+  indent-0 ranges), resolving physical addresses to the most specific
+  sub-range (such as Kernel code/data/bss inside System RAM) and rolling
+  child counts up into parent totals.
+- Support profiling multiple memory events in a single perf.data session
+  (keyed by evsel name) instead of assuming a single global event.
+- Add argparse CLI options (-i/--input and --iomem to allow supplying an
+  offline /proc/iomem snapshot from a target system).
+
+Add a shell test (test_mem_phys_addr_python.sh) to verify the standalone
+script.
 
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/tests/shell/lib/attr.py            | 86 ++++++++++---------
- .../tests/shell/lib/perf_json_output_lint.py  | 36 ++++----
- .../tests/shell/lib/perf_metric_validation.py | 47 +++++-----
- 3 files changed, 85 insertions(+), 84 deletions(-)
+ tools/perf/python/mem-phys-addr.py            | 137 ++++++++++++++++++
+ .../tests/shell/test_mem_phys_addr_python.sh  | 101 +++++++++++++
+ 2 files changed, 238 insertions(+)
+ create mode 100755 tools/perf/python/mem-phys-addr.py
+ create mode 100755 tools/perf/tests/shell/test_mem_phys_addr_python.sh
 
-diff --git a/tools/perf/tests/shell/lib/attr.py b/tools/perf/tests/shell/lib/attr.py
-index bfccc727d9b2..7f3d5b64b00d 100644
---- a/tools/perf/tests/shell/lib/attr.py
-+++ b/tools/perf/tests/shell/lib/attr.py
-@@ -12,6 +12,8 @@ import re
- import shutil
- import subprocess
- 
-+log = logging.getLogger('test')
+diff --git a/tools/perf/python/mem-phys-addr.py b/tools/perf/python/mem-phys-addr.py
+new file mode 100755
+index 000000000000..5064e673c6a2
+--- /dev/null
++++ b/tools/perf/python/mem-phys-addr.py
+@@ -0,0 +1,137 @@
++#!/usr/bin/env python3
++# SPDX-License-Identifier: GPL-2.0
++"""mem-phys-addr.py: Resolve physical address samples"""
++from __future__ import annotations
++import argparse
++import bisect
++import collections
++from dataclasses import dataclass
++import re
++from typing import (Dict, List, Optional)
 +
- def data_equal(a, b):
-     # Allow multiple values in assignment separated by '|'
-     a_list = a.split('|')
-@@ -89,19 +91,19 @@ class Event(dict):
- 
-     def add(self, data):
-         for key, val in data:
--            log.debug("      %s = %s" % (key, val))
-+            log.debug("      %s = %s", key, val)
-             self[key] = val
- 
-     def __init__(self, name, data, base):
--        log.debug("    Event %s" % name);
--        self.name  = name;
-+        log.debug("    Event %s", name)
-+        self.name  = name
-         self.group = ''
-         self.add(base)
-         self.add(data)
- 
-     def equal(self, other):
-         for t in Event.terms:
--            log.debug("      [%s] %s %s" % (t, self[t], other[t]));
-+            log.debug("      [%s] %s %s", t, self[t], other[t])
-             if t not in self or t not in other:
-                 return False
-             if not data_equal(self[t], other[t]):
-@@ -118,7 +120,7 @@ class Event(dict):
-             if t not in self or t not in other:
-                 continue
-             if not data_equal(self[t], other[t]):
--                log.warning("expected %s=%s, got %s" % (t, self[t], other[t]))
-+                log.warning("expected %s=%s, got %s", t, self[t], other[t])
- 
- def parse_version(version):
-     if not version:
-@@ -149,7 +151,7 @@ class Test(object):
-         parser = configparser.ConfigParser()
-         parser.read(path)
- 
--        log.warning("running '%s'" % path)
-+        log.warning("running '%s'", path)
- 
-         self.path     = path
-         self.test_dir = options.test_dir
-@@ -159,15 +161,15 @@ class Test(object):
- 
-         try:
-             self.ret  = parser.get('config', 'ret')
--        except:
-+        except Exception:
-             self.ret  = 0
- 
-         self.test_ret = parser.getboolean('config', 'test_ret', fallback=False)
- 
-         try:
-             self.arch  = parser.get('config', 'arch')
--            log.warning("test limitation '%s'" % self.arch)
--        except:
-+            log.warning("test limitation '%s'", self.arch)
-+        except Exception:
-             self.arch  = ''
- 
-         self.auxv = parser.get('config', 'auxv', fallback=None)
-@@ -175,7 +177,7 @@ class Test(object):
-         self.kernel_until = parse_version(parser.get('config', 'kernel_until', fallback=None))
-         self.expect   = {}
-         self.result   = {}
--        log.debug("  loading expected events");
-+        log.debug("  loading expected events")
-         self.load_events(path, self.expect)
- 
-     def is_event(self, name):
-@@ -203,7 +205,7 @@ class Test(object):
-             else:
-                 try:
-                     value = int(items[-1], 0)
--                except:
-+                except ValueError:
-                     value = items[-1]
-             return (items[0], value)
- 
-@@ -227,7 +229,7 @@ class Test(object):
-         # Handle negated list such as !s390x,ppc
-         if arch_list[0][0] == '!':
-             arch_list[0] = arch_list[0][1:]
--            log.warning("excluded architecture list %s" % arch_list)
-+            log.warning("excluded architecture list %s", arch_list)
-             for arch_item in arch_list:
-                 # log.warning("test for %s arch is %s" % (arch_item, myarch))
-                 if arch_item == myarch:
-@@ -243,19 +245,19 @@ class Test(object):
-     def restore_sample_rate(self, value=10000):
-         try:
-             # Check value of sample_rate
--            with open("/proc/sys/kernel/perf_event_max_sample_rate", "r") as fIn:
-+            with open("/proc/sys/kernel/perf_event_max_sample_rate", "r", encoding="utf-8") as fIn:
-                 curr_value = fIn.readline()
-             # If too low restore to reasonable value
-             if not curr_value or int(curr_value) < int(value):
--                with open("/proc/sys/kernel/perf_event_max_sample_rate", "w") as fOut:
-+                with open("/proc/sys/kernel/perf_event_max_sample_rate", "w", encoding="utf-8") as fOut:
-                     fOut.write(str(value))
- 
-         except IOError as e:
--            log.warning("couldn't restore sample_rate value: I/O error %s" % e)
-+            log.warning("couldn't restore sample_rate value: I/O error %s", e)
-         except ValueError as e:
--            log.warning("couldn't restore sample_rate value: Value error %s" % e)
-+            log.warning("couldn't restore sample_rate value: Value error %s", e)
-         except TypeError as e:
--            log.warning("couldn't restore sample_rate value: Type error %s" % e)
-+            log.warning("couldn't restore sample_rate value: Type error %s", e)
- 
-     def load_events(self, path, events):
-         parser_event = configparser.ConfigParser()
-@@ -266,7 +268,7 @@ class Test(object):
-         # event' first as a base
-         for section in filter(self.is_event, parser_event.sections()):
- 
--            parser_items = parser_event.items(section);
-+            parser_items = parser_event.items(section)
-             base_items   = {}
- 
-             # Read parent event if there's any
-@@ -280,7 +282,7 @@ class Test(object):
-             events[section] = e
- 
-     def run_cmd(self, tempdir):
--        junk1, junk2, junk3, junk4, myarch = (os.uname())
-+        _junk1, _junk2, _junk3, _junk4, myarch = (os.uname())
- 
-         if self.skip_test_arch(myarch):
-             raise Notest(self, myarch)
-@@ -299,7 +301,7 @@ class Test(object):
-               self.perf, self.command, tempdir, self.args)
-         ret = os.WEXITSTATUS(os.system(cmd))
- 
--        log.info("  '%s' ret '%s', expected '%s'" % (cmd, str(ret), str(self.ret)))
-+        log.info("  '%s' ret '%s', expected '%s'", cmd, str(ret), str(self.ret))
- 
-         if not data_equal(str(ret), str(self.ret)):
-             if self.test_ret:
-@@ -310,34 +312,34 @@ class Test(object):
-     def compare(self, expect, result):
-         match = {}
- 
--        log.debug("  compare");
-+        log.debug("  compare")
- 
-         # For each expected event find all matching
-         # events in result. Fail if there's not any.
-         for exp_name, exp_event in expect.items():
-             exp_list = []
-             res_event = {}
--            log.debug("    matching [%s]" % exp_name)
-+            log.debug("    matching [%s]", exp_name)
-             for res_name, res_event in result.items():
--                log.debug("      to [%s]" % res_name)
-+                log.debug("      to [%s]", res_name)
-                 if (exp_event.equal(res_event)):
-                     exp_list.append(res_name)
-                     log.debug("    ->OK")
-                 else:
--                    log.debug("    ->FAIL");
-+                    log.debug("    ->FAIL")
- 
--            log.debug("    match: [%s] matches %s" % (exp_name, str(exp_list)))
-+            log.debug("    match: [%s] matches %s", exp_name, str(exp_list))
- 
-             # we did not any matching event - fail
-             if not exp_list:
-                 if exp_event.optional():
--                    log.debug("    %s does not match, but is optional" % exp_name)
-+                    log.debug("    %s does not match, but is optional", exp_name)
-                 else:
-                     if not res_event:
--                        log.debug("    res_event is empty");
-+                        log.debug("    res_event is empty")
-                     else:
-                         exp_event.diff(res_event)
--                    raise Fail(self, 'match failure');
-+                    raise Fail(self, 'match failure')
- 
-             match[exp_name] = exp_list
- 
-@@ -354,38 +356,38 @@ class Test(object):
-                 if res_group not in match[group]:
-                     raise Fail(self, 'group failure')
- 
--                log.debug("    group: [%s] matches group leader %s" %
--                         (exp_name, str(match[group])))
-+                log.debug("    group: [%s] matches group leader %s",
-+                          exp_name, str(match[group]))
- 
-         log.debug("  matched")
- 
-     def resolve_groups(self, events):
-         for name, event in events.items():
--            group_fd = event['group_fd'];
-+            group_fd = event['group_fd']
-             if group_fd == '-1':
--                continue;
++import perf
++
++@dataclass(frozen=True)
++class IomemEntry:
++    """Read from a line in /proc/iomem"""
++    begin: int
++    end: int
++    indent: int
++    label: str
++
++    def __lt__(self, other) -> bool:
++        if isinstance(other, int):
++            return self.begin < other
++        return self.begin < other.begin
++
++    def __gt__(self, other) -> bool:
++        if isinstance(other, int):
++            return self.begin > other
++        return self.begin > other.begin
++
++# Physical memory layout from /proc/iomem. Key is the indent and then
++# a list of ranges.
++iomem: Dict[int, List[IomemEntry]] = collections.defaultdict(list)
++# Child nodes from the iomem parent.
++children: Dict[IomemEntry, List[IomemEntry]] = collections.defaultdict(list)
++# Maximum indent seen before an entry in the iomem file.
++_STATE: Dict[str, int] = {"max_indent": 0}
++# Per-event counts for each range of memory.
++event_counts: Dict[str, collections.Counter] = collections.defaultdict(collections.Counter)
++
++def parse_iomem(iomem_path: str):
++    """Populate iomem from iomem file"""
++    with open(iomem_path, 'r', encoding='ascii') as f:
++        for line in f:
++            line = line.rstrip('\n')
++            if not line or line.isspace():
 +                continue
- 
-             for iname, ievent in events.items():
-                 if (ievent['fd'] == group_fd):
-                     event.group = iname
--                    log.debug('[%s] has group leader [%s]' % (name, iname))
--                    break;
-+                    log.debug('[%s] has group leader [%s]', name, iname)
-+                    break
- 
-     def run(self):
--        tempdir = tempfile.mkdtemp();
-+        tempdir = tempfile.mkdtemp()
- 
-         try:
-             # run the test script
--            self.run_cmd(tempdir);
-+            self.run_cmd(tempdir)
- 
-             # load events expectation for the test
--            log.debug("  loading result events");
-+            log.debug("  loading result events")
-             for f in glob.glob(tempdir + '/event*'):
--                self.load_events(f, self.result);
-+                self.load_events(f, self.result)
- 
-             # resolve group_fd to event names
--            self.resolve_groups(self.expect);
--            self.resolve_groups(self.result);
-+            self.resolve_groups(self.expect)
-+            self.resolve_groups(self.result)
- 
-             # do the expectation - results matching - both ways
-             self.compare(self.expect, self.result)
-@@ -401,9 +403,9 @@ def run_tests(options):
-         try:
-             Test(f, options).run()
-         except Unsup as obj:
--            log.warning("unsupp  %s" % obj.getMsg())
-+            log.warning("unsupp  %s", obj.getMsg())
-         except Notest as obj:
--            log.warning("skipped %s" % obj.getMsg())
-+            log.warning("skipped %s", obj.getMsg())
- 
- def setup_log(verbose):
-     global log
-diff --git a/tools/perf/tests/shell/lib/perf_json_output_lint.py b/tools/perf/tests/shell/lib/perf_json_output_lint.py
-index dafbde56cc76..8cde22ac9d97 100644
---- a/tools/perf/tests/shell/lib/perf_json_output_lint.py
-+++ b/tools/perf/tests/shell/lib/perf_json_output_lint.py
-@@ -46,46 +46,46 @@ def is_counter_value(num):
- def is_metric_value(num):
-   return isfloat(num) or num == 'none'
- 
--def check_json_output(expected_items):
-+def check_json_output(expected_count):
-   checks = {
--      'counters': lambda x: isfloat(x),
-+      'counters': isfloat,
-       'core': lambda x: True,
--      'counter-value': lambda x: is_counter_value(x),
-+      'counter-value': is_counter_value,
-       'cgroup': lambda x: True,
--      'cpu': lambda x: isint(x),
-+      'cpu': isint,
-       'cache': lambda x: True,
-       'cluster': lambda x: True,
-       'die': lambda x: True,
-       'event': lambda x: True,
--      'event-runtime': lambda x: isfloat(x),
--      'interval': lambda x: isfloat(x),
-+      'event-runtime': isfloat,
-+      'interval': isfloat,
-       'metric-unit': lambda x: True,
--      'metric-value': lambda x: is_metric_value(x),
-+      'metric-value': is_metric_value,
-       'metric-threshold': lambda x: x in ['unknown', 'good', 'less good', 'nearly bad', 'bad'],
-       'metricgroup': lambda x: True,
-       'node': lambda x: True,
--      'pcnt-running': lambda x: isfloat(x),
-+      'pcnt-running': isfloat,
-       'socket': lambda x: True,
-       'thread': lambda x: True,
-       'unit': lambda x: True,
-   }
--  input = '[\n' + ','.join(Lines) + '\n]'
--  for item in json.loads(input):
--    if expected_items != -1:
-+  json_input = '[\n' + ','.join(Lines) + '\n]'
-+  for item in json.loads(json_input):
-+    if expected_count:
-       count = len(item)
--      if count not in expected_items and count >= 1 and count <= 7 and 'metric-value' in item:
-+      if count not in expected_count and count >= 1 and count <= 7 and 'metric-value' in item:
-         # Events that generate >1 metric may have isolated metric
-         # values and possibly other prefixes like interval, core,
-         # counters, or event-runtime/pcnt-running from multiplexing.
-         pass
--      elif count not in expected_items and count >= 1 and count <= 5 and 'metricgroup' in item:
-+      elif count not in expected_count and count >= 1 and count <= 5 and 'metricgroup' in item:
-         pass
--      elif count - 1 in expected_items and 'metric-threshold' in item:
-+      elif count - 1 in expected_count and 'metric-threshold' in item:
-           pass
--      elif count in expected_items and 'insn per cycle' in item:
-+      elif count in expected_count and 'insn per cycle' in item:
-           pass
--      elif count not in expected_items:
--        raise RuntimeError(f'wrong number of fields. counted {count} expected {expected_items}'
-+      elif count not in expected_count:
-+        raise RuntimeError(f'wrong number of fields. counted {count} expected {expected_count}'
-                            f' in \'{item}\'')
-     for key, value in item.items():
-       if key not in checks:
-@@ -107,7 +107,7 @@ try:
-     expected_items = [1, 2]
-   else:
-     # If no option is specified, don't check the number of items.
--    expected_items = -1
-+    expected_items = []
-   check_json_output(expected_items)
- except:
-   print('Test failed for input:\n' + '\n'.join(Lines))
-diff --git a/tools/perf/tests/shell/lib/perf_metric_validation.py b/tools/perf/tests/shell/lib/perf_metric_validation.py
-index 3d52f94f22b9..0508c98d84fd 100644
---- a/tools/perf/tests/shell/lib/perf_metric_validation.py
-+++ b/tools/perf/tests/shell/lib/perf_metric_validation.py
-@@ -1,10 +1,10 @@
- # SPDX-License-Identifier: GPL-2.0
--import re
--import csv
--import json
- import argparse
-+import json
- from pathlib import Path
- import subprocess
-+import sys
-+from typing import Any
- 
- 
- class TestError:
-@@ -77,11 +77,11 @@ class Validator:
- 
-     def read_json(self, filename: str) -> dict:
-         try:
--            with open(Path(filename).resolve(), "r") as f:
-+            with open(Path(filename).resolve(), "r", encoding="utf-8") as f:
-                 data = json.loads(f.read())
-         except OSError as e:
-             print(f"Error when reading file {e}")
--            sys.exit()
-+            sys.exit(1)
- 
-         return data
- 
-@@ -90,16 +90,16 @@ class Validator:
-         if not parent.exists():
-             parent.mkdir(parents=True)
- 
--        with open(output_file, "w+") as output_file:
-+        with open(output_file, "w+", encoding="utf-8") as out_f:
-             json.dump(data,
--                      output_file,
-+                      out_f,
-                       ensure_ascii=True,
-                       indent=4)
- 
-     def get_results(self, idx: int = 0):
-         return self.results.get(idx)
- 
--    def get_bounds(self, lb, ub, error, alias={}, ridx: int = 0) -> list:
-+    def get_bounds(self, lb, ub, error, alias=None, ridx: int = 0) -> tuple:
-         """
-         Get bounds and tolerance from lb, ub, and error.
-         If missing lb, use 0.0; missing ub, use float('inf); missing error, use self.tolerance.
-@@ -111,6 +111,9 @@ class Validator:
-                   upper bound, return -1 if the upper bound is a metric value and is not collected
-                   tolerance, denormalized base on upper bound value
-         """
-+        if alias is None:
-+            alias = {}
++            indent = 0
++            while indent < len(line) and line[indent] == ' ':
++                indent += 1
++            _STATE["max_indent"] = max(_STATE["max_indent"], indent)
++            m = re.split('-|:', line, maxsplit=2)
++            if len(m) < 3:
++                continue
++            begin = int(m[0].strip(), 16)
++            end = int(m[1].strip(), 16)
++            label = m[2].strip()
++            entry = IomemEntry(begin, end, indent, label)
++            # Before adding entry, search for a parent node using its begin.
++            if indent > 0:
++                parent = find_memory_type(begin)
++                assert parent, f"Given indent expected a parent for {label}"
++                children[parent].append(entry)
++            iomem[indent].append(entry)
 +
-         # init ubv and lbv to invalid values
-         def get_bound_value(bound, initval, ridx):
-             val = initval
-@@ -213,7 +216,7 @@ class Validator:
-         @param alias: the dict has alias to metric name mapping
-         @returns: value of the formula is success; -1 if the one or more metric value not provided
-         """
--        stack = []
-+        stack: list[Any] = []
-         b = 0
-         errs = []
-         sign = "+"
-@@ -263,7 +266,7 @@ class Validator:
-             alias[m['Alias']] = m['Name']
-         lbv, ubv, t = self.get_bounds(
-             rule['RangeLower'], rule['RangeUpper'], rule['ErrorThreshold'], alias, ridx=rule['RuleIndex'])
--        val, f = self.evaluate_formula(
-+        val, _ = self.evaluate_formula(
-             rule['Formula'], alias, ridx=rule['RuleIndex'])
- 
-         lb = rule['RangeLower']
-@@ -316,7 +319,7 @@ class Validator:
-                 rerun.append(m['Name'])
- 
-         if len(rerun) > 0 and len(rerun) < 20:
--            second_results = dict()
-+            second_results: dict[Any, Any] = dict()
-             self.second_test(rerun, second_results)
-             for name, val in second_results.items():
-                 if name not in failures:
-@@ -373,7 +376,7 @@ class Validator:
-                     name = result["metric-unit"].split("  ")[1] if len(result["metric-unit"].split("  ")) > 1 \
-                         else result["metric-unit"]
-                     metricvalues[name.lower()] = float(result["metric-value"])
--            except ValueError as error:
-+            except ValueError:
-                 continue
-         return
- 
-@@ -383,7 +386,7 @@ class Validator:
-         wl = workload.split()
-         command.extend(wl)
-         print(" ".join(command))
--        cmd = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf-8')
-+        cmd = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf-8', check=False)
-         lines = cmd.stderr.splitlines() + cmd.stdout.splitlines()
-         data = []
-         for line in lines:
-@@ -397,9 +400,9 @@ class Validator:
-         Collect metric data with "perf stat -M" on given workload with -a and -j.
-         """
-         self.results = dict()
--        print(f"Starting perf collection")
-+        print("Starting perf collection")
-         print(f"Long workload: {workload}")
--        collectlist = dict()
-+        collectlist: dict[int, Any] = dict()
-         if self.collectlist != "":
-             collectlist[0] = {x for x in self.collectlist.split(",")}
-         else:
-@@ -441,7 +444,7 @@ class Validator:
-         """
-         command = ['perf', 'list', '-j', '--details', 'metrics']
-         cmd = subprocess.run(command, stdout=subprocess.PIPE,
--                             stderr=subprocess.PIPE, encoding='utf-8')
-+                             stderr=subprocess.PIPE, encoding='utf-8', check=False)
-         try:
-             data = json.loads(cmd.stdout)
-             for m in data:
-@@ -454,9 +457,9 @@ class Validator:
-                 self.metrics.add(name)
-                 if 'ScaleUnit' in m and (m['ScaleUnit'] == '1%' or m['ScaleUnit'] == '100%'):
-                     self.pctgmetrics.add(name.lower())
--        except ValueError as error:
--            print(f"Error when parsing metric data")
--            sys.exit()
-+        except ValueError:
-+            print("Error when parsing metric data")
-+            sys.exit(1)
- 
-         return
- 
-@@ -519,9 +522,6 @@ class Validator:
- 
-     # Initialize data structures before data validation of each workload
-     def _init_data(self):
--
--        testtypes = ['PositiveValueTest',
--                     'RelationshipTest', 'SingleMetricTest']
-         self.results = dict()
-         self.ignoremetrics = set()
-         self.errlist = list()
-@@ -572,7 +572,7 @@ class Validator:
- # End of Class Validator
- 
- 
--def main() -> None:
-+def main() -> int:
-     parser = argparse.ArgumentParser(
-         description="Launch metric value validation")
- 
-@@ -602,5 +602,4 @@ def main() -> None:
- 
- 
- if __name__ == "__main__":
--    import sys
-     sys.exit(main())
++def find_memory_type(phys_addr) -> Optional[IomemEntry]:
++    """Search iomem for the range containing phys_addr with the maximum indent"""
++    for i in range(_STATE["max_indent"], -1, -1):
++        if i not in iomem:
++            continue
++        position = bisect.bisect_right(iomem[i], phys_addr)
++        if position == 0:
++            continue
++        iomem_entry = iomem[i][position-1]
++        if  iomem_entry.begin <= phys_addr <= iomem_entry.end:
++            return iomem_entry
++    return None
++
++def _print_entries(entries, load_mem_type_cnt, total):
++    """Print counts from parents down to their children"""
++    for entry in sorted(entries,
++                        key=lambda e: (load_mem_type_cnt[e], e.begin),
++                        reverse=True):
++        count = load_mem_type_cnt[entry]
++        if count > 0:
++            mem_type = ' ' * entry.indent + f"{entry.begin:x}-{entry.end:x} : {entry.label}"
++            percent = 100 * count / total
++            print(f"{mem_type:<40}  {count:>10}  {percent:>10.1f}")
++            _print_entries(children[entry], load_mem_type_cnt, total)
++
++def print_memory_type():
++    """Print the resolved memory types and their counts."""
++    if not event_counts:
++        print("No valid physical address samples found in perf data.")
++        return
++
++    for event_name, load_mem_type_cnt in event_counts.items():
++        print(f"Event: {event_name}")
++        print(f"{'Memory type':<40}  {'count':>10}  {'percentage':>10}")
++        print(f"{'-' * 40:<40}  {'-' * 10:>10}  {'-' * 10:>10}")
++        total = sum(load_mem_type_cnt.values())
++        if total == 0:
++            continue
++
++        # Add count from children into the parent.
++        for i in range(_STATE["max_indent"], -1, -1):
++            if i not in iomem:
++                continue
++            for entry in iomem[i]:
++                for child in children[entry]:
++                    if load_mem_type_cnt[child] > 0:
++                        load_mem_type_cnt[entry] += load_mem_type_cnt[child]
++
++        _print_entries(iomem[0], load_mem_type_cnt, total)
++        print()
++if __name__ == "__main__":
++    ap = argparse.ArgumentParser(description="Resolve physical address samples")
++    ap.add_argument("-i", "--input", default="perf.data", help="Input file name")
++    ap.add_argument("--iomem", default="/proc/iomem", help="Path to iomem file")
++    args = ap.parse_args()
++
++    def process_event(sample):
++        """Process a single sample event."""
++        phys_addr = sample.sample_phys_addr or 0
++        if not phys_addr:
++            return
++        entry = find_memory_type(phys_addr)
++        if entry:
++            event_name = str(sample.evsel)
++            if event_name.startswith("evsel(") and event_name.endswith(")"):
++                event_name = event_name[6:-1]
++            event_counts[event_name][entry] += 1
++
++    parse_iomem(args.iomem)
++    perf.session(perf.data(args.input), sample=process_event).process_events()
++    print_memory_type()
+diff --git a/tools/perf/tests/shell/test_mem_phys_addr_python.sh b/tools/perf/tests/shell/test_mem_phys_addr_python.sh
+new file mode 100755
+index 000000000000..ae2f2fba0d20
+--- /dev/null
++++ b/tools/perf/tests/shell/test_mem_phys_addr_python.sh
+@@ -0,0 +1,101 @@
++#!/bin/bash
++# SPDX-License-Identifier: GPL-2.0
++# mem-phys-addr python test
++
++set -e
++
++shelldir=$(dirname "$0")
++# shellcheck source=lib/setup_python.sh
++. "${shelldir}"/lib/setup_python.sh
++
++# If we don't have the perf python module, we can't test
++if ! "$PYTHON" -c 'import perf' > /dev/null 2>&1; then
++	echo "Skipping test, perf python module not found"
++	exit 2
++fi
++
++script_dir="$(dirname "$0")/../../python"
++script_path="${script_dir}/mem-phys-addr.py"
++
++if [ ! -f "$script_path" ]; then
++	echo "Skipping test, mem-phys-addr.py not found at $script_path"
++	exit 2
++fi
++
++err=0
++temp_data=""
++temp_iomem=""
++temp_out=""
++
++cleanup() {
++	rm -f "${temp_data}" "${temp_iomem}" "${temp_out}"
++}
++
++trap 'cleanup' EXIT TERM INT
++
++temp_data=$(mktemp /tmp/perf.data.XXXXXX)
++temp_iomem=$(mktemp /tmp/perf.iomem.XXXXXX)
++temp_out=$(mktemp /tmp/perf.out.XXXXXX)
++
++cat << 'EOF' > "${temp_iomem}"
++00000000-ffffffffffffffff : System RAM
++  00000000-7fffffffffffffff : Low RAM
++    00001000-00ffffff : Kernel code
++  8000000000000000-ffffffffffffffff : High RAM
++EOF
++
++test_iomem_hierarchy() {
++	echo "Testing mem-phys-addr.py hierarchical iomem resolution..."
++	"$PYTHON" - "$script_path" "${temp_iomem}" << 'PYEOF' > "${temp_out}"
++import importlib.util
++import sys
++
++spec = importlib.util.spec_from_file_location("mem_phys_addr", sys.argv[1])
++mod = importlib.util.module_from_spec(spec)
++sys.modules[spec.name] = mod
++spec.loader.exec_module(mod)
++
++mod.parse_iomem(sys.argv[2])
++entry_kernel = mod.find_memory_type(0x100000)
++entry_high = mod.find_memory_type(0x9000000000000000)
++assert entry_kernel is not None and entry_kernel.label == "Kernel code"
++assert entry_high is not None and entry_high.label == "High RAM"
++mod.event_counts["cpu/mem-loads/"][entry_kernel] += 3
++mod.event_counts["cpu/mem-loads/"][entry_high] += 1
++mod.print_memory_type()
++PYEOF
++	if ! grep -q "System RAM" "${temp_out}" || \
++	   ! grep -q "Kernel code" "${temp_out}" || \
++	   ! grep -q "High RAM" "${temp_out}"; then
++		echo "Hierarchical iomem resolution test failed."
++		err=1
++	else
++		echo "Hierarchical iomem resolution test passed."
++	fi
++}
++
++test_file_mode() {
++	echo "Testing mem-phys-addr.py file mode..."
++
++	# Generate memory access events (try unprivileged user-space first, then system-wide)
++	if ! perf record --phys-data -d -o "${temp_data}" \
++	     -- perf test -w datasym >/dev/null 2>&1 && \
++	   ! perf record -d -o "${temp_data}" -- perf test -w datasym >/dev/null 2>&1 && \
++	   ! perf record -d -a -o "${temp_data}" -- sleep 0.2 >/dev/null 2>&1; then
++		echo "Skipping file mode record test, perf record -d not supported"
++		return 0
++	fi
++
++	# Run the script with custom --iomem
++	if ! "$PYTHON" "$script_path" -i "${temp_data}" --iomem "${temp_iomem}" >/dev/null; then
++		echo "File mode test failed."
++		err=1
++	else
++		echo "File mode test passed."
++	fi
++}
++
++test_iomem_hierarchy
++test_file_mode
++
++exit $err
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
