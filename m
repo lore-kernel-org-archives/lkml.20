@@ -1,33 +1,33 @@
-Received: from mta0.migadu.com (out-224.mta0.migadu.com [91.218.175.224])
+Received: from mta1.migadu.com (out-97.mta1.migadu.com [95.215.58.97])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E87EE446859
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 12:25:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.224
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B42933E0C4A
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 12:26:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789907157; cv=none; b=DoCFQ4WoF7d8PpDY2nmEuBRGswecfqFFlNjpiLHORbkNVfJSMchRBdMR6yzB11vl5P1xNtYPLDHPn5XdcZjYD3O4/Ns2UlNnErIQp6qfBwgBrvcQKirHhFA5ibKuRuI3sioVbcDN4bu9GoXxG9qGq0f2odc4HemhTl/HmOGEQig=
+	t=1789907241; cv=none; b=rZ0E/8jn8reoWUeQ+6DJWMiX7eUfjap02iN8EHtwPTyn+Hrww5CAdIAs3E4AO3/ADSdTQ/d6RfAc3GMBvE8TbfPxs7f4k5tyIkiXkb9bfeIYQRukyW1Ten7sK50x54KSlcYaS0twbuADIjw/q2chk/RjrzHNZToInwBINE9uvRw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789907157; c=relaxed/simple;
-	bh=W42kzDiSpz8PxcqIdsrRncQnFltKx9M42mKJrJhvMWg=;
+	s=arc-20240116; t=1789907241; c=relaxed/simple;
+	bh=3SHrYiXrqoDN9FrxmtWulJL32fKDNnhM5OnISyolSxE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ggVGxGricsTRPEMOE/XtpdyLiEHNX5eh50Lxh/XrpzbNH8mkwQEZe6pxB8u/vyp4rWKTq3tV4fodpPS7sDUA7IU1HvuF88aGZIAw3pSfla5/GvOuFeHXbDM5PcdeyAIP/Fxy1qtqtvyKfskSk3lDEf7bQnX1k5IkUK6kMLa5By4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=TceMJkOy; arc=none smtp.client-ip=91.218.175.224
+	 MIME-Version:Content-Type; b=atuYh/bBiZ9SiNTCEKOTaOQQDWcGy8EvmZJCLMdeLTFnFeliR4JgXtcXLnVdhyFZEsXGAqH95z81QNBmAX4r9O3/bXvz10UXEkUGHwjn5EvIAenY3LMBvlD01fD8nx/QVJ6NkncmPteBo+lZbz3z0YYfyHLdfh9700ySKEoGys4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=JOOvlXwC; arc=none smtp.client-ip=95.215.58.97
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="TceMJkOy"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="JOOvlXwC"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=W42kzDiSpz8PxcqIdsrRncQnFltKx9M42mKJrJhvMWg=;
+DKIM-Signature: a=rsa-sha256; bh=3SHrYiXrqoDN9FrxmtWulJL32fKDNnhM5OnISyolSxE=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789907135; v=1; x=1790511935;
- b=TceMJkOyZvjrSs6BJ6e3dUW+JsHj+O6lHyf3xh226lssIfEecUlG6lfGQ18AAJS9WRRed0gf
- f7WUmPQwkt4lSqsFzE7lJmHWnQiJ59gnfPqHzMaNe8Tu2yxhPfNCcedonuL2zmcMzPAWtsG0Int
- zMhG/pDRDG4m17uHHu49585k=
+ t=1789907213; v=1; x=1790512013;
+ b=JOOvlXwCgXh/KNhdk0mhTJMTNMnQGsjkZyQNKdllcagszAknoOc+vSttQTsDIApCJ1plq0CV
+ hBiRAseTFGoPylyPk0qnJBelUWq19A33wh3U8UJvBAqau17FikuKepNI/3CyIpOD8toVnWj4giD
+ kcPkHUuexPOEw4o1XePlyGFQ=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id bea8566f21ed8081;
-	Sun, 20 Sep 2026 12:25:33 +0000
-X-Mizu-Trace-ID: bea8566f21ed8081
+Received: by smtp.migadu.com with ESMTPS id 31352f99dc44c0b4;
+	Sun, 20 Sep 2026 12:26:52 +0000
+X-Mizu-Trace-ID: 31352f99dc44c0b4
 X-Migadu-Flow: FLOW_OUT
 From: Lance Yang <lance.yang@linux.dev>
 To: ljs@kernel.org
@@ -71,14 +71,13 @@ Cc: akpm@linux-foundation.org,
 	ying.huang@linux.alibaba.com,
 	apopple@nvidia.com,
 	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	trintaeoitogc@gmail.com
-Subject: Re: [PATCH v3 2/3] mm: implement and use vma_has_anon_rmap(), silence KCSAN
-Date: Sun, 20 Sep 2026 20:25:28 +0800
-Message-ID: <20260920122528.8344-1-lance.yang@linux.dev>
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 3/3] mm: update comments to refer to anon rmap rather than anon_vma
+Date: Sun, 20 Sep 2026 20:26:42 +0800
+Message-ID: <20260920122642.8387-1-lance.yang@linux.dev>
 X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20260917-vma-is-faulted-v3-2-5c22314a72e7@kernel.org>
-References: <20260917-vma-is-faulted-v3-2-5c22314a72e7@kernel.org>
+In-Reply-To: <20260917-vma-is-faulted-v3-3-5c22314a72e7@kernel.org>
+References: <20260917-vma-is-faulted-v3-3-5c22314a72e7@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,56 +88,21 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, Sep 17, 2026 at 08:47:42PM +0100, Lorenzo Stoakes (ARM) wrote:
->Provide a function to abstract the common task of checking whether
->a VMA has an anonymous reverse mapping associated with it.
+On Thu, Sep 17, 2026 at 08:47:43PM +0100, Lorenzo Stoakes (ARM) wrote:
+>Now that vma_has_anon_rmap() abstracts whether a VMA has an anonymous
+>reverse mapping, remove references to anon_vma and instead reference the
+>anon rmap.
 >
->If the VMA is attached, a VMA or mmap lock must be held when calling this
->function.
+>The anon_vma is an implementation detail and should be treated as such.
 >
->For an attached, anonymous, VMA:
+>Do not update mm/rmap.c which implements the anon_vma mechanism as it is
+>reasonable to directly reference it there.
 >
->          Transition          |              VMA/mmap Lock state
-> -----------------------------|-------------------------------------------
->   No anon rmap to anon rmap  | Write lock/read lock + mm->page_table_lock
->   Anon rmap to no anon rmap  | Write lock
+>No functional change intended.
 >
->vma_has_anon_rmap() never provides a false positive (the lock precludes
->it), but if only a read lock is held, a negative result must be re-checked
->with mm->page_table_lock held.
->
->A VMA obtains an anonymous reverse mapping when first faulted or forked
->and it is removed when it is freed.
->
->Detached VMAs cannot be concurrently manipulated as they are removed from
->the maple tree so require no guarantees.
->
->Use data_race() to silence KCSAN about non-existent data races between
->concurrent vma->anon_vma read/write on optimistic fault tests.
->
->Update the core VMA merge/split, rmap, mremap, KSM, fork,
->khugepaged and fault preparation callers which test vma->anon_vma directly
->to use vma_has_anon_rmap() instead.
->
->Finally, update comments that reference anon_vma to reference the anon rmap
->instead.
->
->Since the lockless read in reusable_anon_vma() is doing more than checking
->whether the VMA has anon rmap - it is returning the anon_vma to be used on
->fault - do not alter it.
->
->There is one odd one out - file_backed_vma_is_retractable() - which holds
->neither a VMA nor mmap lock and is stabilised by the file rmap lock only,
->so simply add a comment to explain why it's necessary.
->
->Reported-by: Guilherme Giacomo Simoes <trintaeoitogc@gmail.com>
->Closes: https://lore.kernel.org/all/20260829100034.423064-1-trintaeoitogc@gmail.com/
->Closes: https://lore.kernel.org/all/20260909115723.528501-1-trintaeoitogc@gmail.com/
->Reviewed-by: Pedro Falcato <pfalcato@suse.de>
->Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 >Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 >---
 
-Nothing jumped out at me,
+Nice work!
 
 Reviewed-by: Lance Yang <lance.yang@linux.dev>
