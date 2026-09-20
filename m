@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BAE13AA51F;
-	Sun, 20 Sep 2026 15:26:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA3473AFCF0;
+	Sun, 20 Sep 2026 15:27:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789917997; cv=none; b=tL1QauMfjhPCdG4p7+X5q/MNPNSDvfpRTrEiXznyFjTsL4BiIzqDglNZGwWxSqkI2Dgsm/orTUG/kF4lqwUJXuPsVqw0ZSFep5CEO3oYmB7I38JqYH39Pqq97gqI0O7vAt0YCfcs5uo7uvGkcKIJz/+dCNqW+qkJNNFy/X4Eddk=
+	t=1789918039; cv=none; b=bfCFYlJyHqhcpC+No7ADYnhjpHsYXlrWN5xjRgBkI8K+IHv1VTP+x3hE4JSlMgzNkEESKPcmnX4D+SRPrOeA1mUjOi9xJ/9s8EbOKOOqPQ7Nx07JYCwpAt7C5Mg4aCLMRrUWVOQJYZ7LYWEq+4LOiRTV3RY3rcpbVz493o63Fs4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789917997; c=relaxed/simple;
-	bh=Kd3DEycZCT9xrEKR2OyomQn9mkQPQi6S0yNMBwviiQU=;
+	s=arc-20240116; t=1789918039; c=relaxed/simple;
+	bh=Yc1mEMd6Y/dxiBOwXtPkv3nui/OqwXBC4dXpH9c2oQg=;
 	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=nmbkL8BVisXYydHyUzyMPuibh90dyieQY+nc6YXcB6jX7WCztbVWjIg/GZKXvxWuL5ZnO1pktUCB0Y5bdxyoID/s/xGgcNmQKxOGI3TZQNdDcy7KD2FknGwwm+eWyqRvH74PxjGK+sYcbS68KhVmx5AEOTX0dBsxITLfiFX84Xo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dfv7TiYj; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=jOPG/3S6OWpQf9NYwcWYP5Fw+IhkFHTOdAk4CML/ZEORKZAotmn18NknVnqsmSF80VVcoj0S/dJ3p8JlWmcdMDJBlF6M/EQOqLGXg7W6+ST2X2MIBAJ3AiB9R9iDAcgjdINk4hj+bjreIO8wERN9s/jWOT65Q3W48Z5DEGHH4n8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VAMoS9a6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dfv7TiYj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ECAF1F000FF;
-	Sun, 20 Sep 2026 15:26:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VAMoS9a6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C55341F00893;
+	Sun, 20 Sep 2026 15:27:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789917996;
-	bh=U4xyNahx++UeRE+3duparWGVDTSmJTCo/Jj3/jlmSRs=;
+	s=k20260515; t=1789918038;
+	bh=Ut//lMwTriMAYf9w4xmPFAJA6+5kyvCrTmMDCjDn4ko=;
 	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=Dfv7TiYjmnoWMGWqCZXmyp5LK7WO8c0cvUn8efVlQZ++xIZC7JhOOtTUQW8BpvuaB
-	 zjaXYWtnpFJcyjYd8pvRc08g6LQTZCTad1geVmlTiam1TpqHm4r4s+dLIc+0uJcCTg
-	 4KUXMzlG/Zsa1q0JL/EIM0DAu0Bvc5eDmnqBj/HxntTFauJMaAD+FUsUcQVQCsLJJX
-	 zB9BTqc97sf9x+dwuI6g8DlynmDOLp5L8L3uU+MGXIeXR12OibMQKCCW2hTkuC9gtD
-	 elECGKU1JIAV6tVJE7j8MGyBMmsKqUwfZkbFuuiDPpb2gUGa8nDiNpShZuxZh9FnE+
-	 9YihPYJQY5djg==
-Message-ID: <0e8b5e26-aeba-4a19-9453-206d51661d71@kernel.org>
-Date: Sun, 20 Sep 2026 17:26:31 +0200
+	b=VAMoS9a6VTHRnQ/NqAgkdvZPK/DdI1UW9jJGXBAfmeWQM1PF9FX2dInLX+WZQYYIs
+	 EeKWi/b8n2P7ABsQRdqdIfC/FeegoooCcmwdLz94OmY1PA2Z/I4oQJYAnLNFrHsyat
+	 FkUi3OJub4OdH3a0U454I1fod2Kds0nJCaq9h5fyqIVQvXJV+/mP8bGhfDghxcouuB
+	 ouKUSgA/IU6uOIunQlrHmbmDHTWIRSPdZu7/Jw7m04d7O0ABuPHDAQvvfkr4/EclKI
+	 JarX3czhysPsHenKyJqmvSh0Ddo2Dj3+mkGPrJMCr6YDx88hgCTymnIS/ammh7XCxM
+	 Zegp02R6pOnIg==
+Message-ID: <8437f878-7ee4-4e5c-9982-1b7d41a014fb@kernel.org>
+Date: Sun, 20 Sep 2026 17:27:14 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -36,8 +36,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Krzysztof Kozlowski <krzk@kernel.org>
-Subject: Re: [PATCH 2/2] ARM: dts: imx50: add support for Amazon Kindle 4
- (Yoshi)
+Subject: Re: [PATCH 1/2] dt-bindings: arm: fsl: add Amazon Kindle 4 (Yoshi)
 To: Andrii Salivon <andrijsalivon@plajta.eu>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
  <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
@@ -46,7 +45,8 @@ Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
  Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
  imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org
-References: <20260920135456.3192247-3-andrijsalivon@plajta.eu>
+References: <20260920135314.3191171-1-andrijsalivon@plajta.eu>
+ <20260920135314.3191171-2-andrijsalivon@plajta.eu>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -91,42 +91,30 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260920135456.3192247-3-andrijsalivon@plajta.eu>
+In-Reply-To: <20260920135314.3191171-2-andrijsalivon@plajta.eu>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 20/09/2026 15:54, Andrii Salivon wrote:
-> Add initial device tree for the Amazon Kindle 4 non-touch e-reader
-> (codename "yoshi", mainboard marked E01100), based on the i.MX50 SoC.
-> 
-> This enables the console (UART1) and internal eMMC (eSDHC3), tested
-> booting to a full Arch Linux ARM userspace with systemd on real
-> hardware.
+On 20/09/2026 15:53, Andrii Salivon wrote:
+> Add the amazon,yoshi compatible string for the Amazon Kindle 4
+> non-touch e-reader to the i.MX50 board list.
 > 
 > Signed-off-by: Andrii Salivon <andrijsalivon@plajta.eu>
-
-Your patches goes unthreaded. Just use b4 to submit your work.
-
 > ---
->  arch/arm/boot/dts/nxp/imx/Makefile            |  3 +-
->  .../boot/dts/nxp/imx/imx50-amazon-yoshi.dts   | 60 +++++++++++++++++++
->  2 files changed, 62 insertions(+), 1 deletion(-)
->  create mode 100644 arch/arm/boot/dts/nxp/imx/imx50-amazon-yoshi.dts
+>  Documentation/devicetree/bindings/arm/fsl.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-> diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/imx/Makefile
-> index 1a2539fa19b4..dd508451286d 100644
-> --- a/arch/arm/boot/dts/nxp/imx/Makefile
-> +++ b/arch/arm/boot/dts/nxp/imx/Makefile
-> @@ -24,7 +24,8 @@ dtb-$(CONFIG_SOC_IMX35) += \
->  	imx35-pdk.dtb
->  dtb-$(CONFIG_SOC_IMX50) += \
->  	imx50-evk.dtb \
-> -	imx50-kobo-aura.dtb
-> +	imx50-kobo-aura.dtb \
-> +	imx50-amazon-yoshi.dtb
+> diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
+> index 656f2596e1d5..ec61f45c351c 100644
+> --- a/Documentation/devicetree/bindings/arm/fsl.yaml
+> +++ b/Documentation/devicetree/bindings/arm/fsl.yaml
+> @@ -188,6 +188,7 @@ properties:
+>            - enum:
+>                - fsl,imx50-evk
+>                - kobo,aura
+> +              - amazon,yoshi
 
-Also here, why adding at the end. It only increases chances of conflicts.
-
+Don't break the order.
 
 Best regards,
 Krzysztof
