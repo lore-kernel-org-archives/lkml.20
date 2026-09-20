@@ -1,90 +1,132 @@
-Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4149F43E9C6;
-	Sun, 20 Sep 2026 12:57:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2863234040B;
+	Sun, 20 Sep 2026 13:00:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789909092; cv=none; b=AA2Kd3Yubvoul93th7WDDk2NVxZVUqOzBwmjxi0qYo6uDxb1xwAwIU8K9UQ0aXGVlPvjinugJSk6/Qo3LHzMQXkjNe53ETVkGXdCyiO+7iasBo4AWW00TEBpLavxr1s0viN2XCyZrmQ0z1b3tPiFEKQO/gWKNFnhHw39RNK2Uyk=
+	t=1789909225; cv=none; b=eR7OYBKJzFFoMpeja0+1+ze8TptaxTKoO1QFHumbPJIp2EE5w/4TluHyPVHe+HEGjhy/glmlp75yO4o8yKtoGQP+9zqFDRWxgw7jtp+BQeZ1Q/obeUW0kAgEWVbMZikzBV7RbyKaDY8ec5AISjtozU1L1lkjJi6+SsoAGjmM6rM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789909092; c=relaxed/simple;
-	bh=zRGuhwaLxr07uMLeGbtCH5fzlwb0yOlWC3n/NJw1RXg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=geAyBXM/FtkzeNeLFMUjezRgTUm/OXFVdKTG/PMXhiG6irVDZwazMb6q1rgECoNBWjQk/FaFAS5BN96UQzkvcpoxLNDanBwshWKgCaffKbXPVn6XV6jzpKS3sil6xrSjJv2yffpI7n3NE1oRfTwbG9BRAZDnLcmxT5aYmSDpDKQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=L/eajstT; arc=none smtp.client-ip=130.133.4.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
+	s=arc-20240116; t=1789909225; c=relaxed/simple;
+	bh=lasNI0XF6JQD/sxcfxiUiaLUADu8T8rlWTae9vYrcGU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=pR4VJkGkacZvA/2o6cIspgYHWwI64pBljlFlQbl7LwZV/cCDI6FBwWpzC+k2j2/0Wcp3OMpl3GdELPl431+Zm/fGxoZw/5l11zLXWsGKxPJiQRLbr1+C8l3ZlnHP8YLXX3iqZ7+9nHlZhu1lbD0x2WN0fWjAWZRMt6twIhrSFhs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=PK+DIE8T; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="L/eajstT"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
-	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
-	References; bh=fCv/ozP2Ag2A+cPYDDGej/LdxuVPvk4yVrJwO9TVk6M=; t=1789909082;
-	x=1790513882; b=L/eajstTWBYE+0gmITeQfVryvcOh2NzCK7BN12kY0OuvPBIVzStF26OMjB0XW
-	zUHZR26IVbjYvjcgLqHS40nSFjedNguiV9budWN0ZObAdvvPAPA4iY4ohBJO0qJNvaMEhu9MXOpVK
-	q7jrvHO1m5PIZrPvpU7qPgx0waYGrTdmCl9BU8J2X0t9yWa0qT0k4KcB4CQFlkT7RvUElYzefheHK
-	/uKIc6rA/2YrBdn6BMNCbPemyHRlTovifZAUd5zr/n7SzraZ2DKaM37LBHFjuJp3vl93rsRf4y+Pg
-	ptQeJpSYT+G4rlXKnLnQGxQzQtqteAhxKRRfD8N8LRSiUw0OsQ==;
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
-          by outpost.zedat.fu-berlin.de (Exim 4.100)
-          with esmtps (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@zedat.fu-berlin.de>)
-          id 1x8H75-00000002tCg-0DaN; Sun, 20 Sep 2026 14:57:47 +0200
-Received: from dynamic-093-128-159-008.93.128.pool.telefonica.de ([93.128.159.8] helo=suse-laptop.fritz.box)
-          by inpost2.zedat.fu-berlin.de (Exim 4.100)
-          with esmtpsa (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@physik.fu-berlin.de>)
-          id 1x8H74-000000020FX-3K31; Sun, 20 Sep 2026 14:57:46 +0200
-Message-ID: <2ccce813ce4d615af2ca880da19501deaa562c22.camel@physik.fu-berlin.de>
-Subject: Re: [PATCH] sh: Use generic OHCI platform provider symbol
-From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-To: Pengpeng Hou <hppiscas@163.com>, geert@linux-m68k.org
-Cc: ysato@users.sourceforge.jp, dalias@libc.org, linux-sh@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Date: Sun, 20 Sep 2026 14:57:46 +0200
-In-Reply-To: <20260920031112.98903-1-hppiscas@163.com>
-References: 
-	<CAMuHMdVkL629ps2mmD3XRXM-BYWXZ-6GQGM7tKf6vEvhK--LBg@mail.gmail.com>
-	 <20260920031112.98903-1-hppiscas@163.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="PK+DIE8T"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id E33B81A0997;
+	Sun, 20 Sep 2026 13:00:06 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id AA750604C9;
+	Sun, 20 Sep 2026 13:00:06 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C281A1032829C;
+	Sun, 20 Sep 2026 15:00:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789909205; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=9TKSJfQc5b6cSU+h80ax1oyCCZdgJqDQrglH9SNhSOE=;
+	b=PK+DIE8TDuao7ZdekR6HnYYzlR+lGtEsb3LlztY4jCesWUcCEBsWDtqkVpTAQMBoOZVcWY
+	tGannpgCgMuLeCJFibWR/VmUQtbwiso36aFKj7miWTkv/TY53wES6J048K4+J4vgkKCQMz
+	LVr4Ek57U7vUVpz3y3LKHRkaBoxH6uY54a4CadteofVsX1aLNnFtx1Pt5RdBVuHqtyYovL
+	cVlSv+8miZZo0EIAeM4N1lfw5yeT5ZFNyXibrsIQLvyH8KoO7hVGcgeqoNdV2n0ELLagv4
+	N9X7KeMK9FumLVVOtyAZCkvchQaHk7de4GhtpVHdBeo9f5AwB7olAvz+iPbCPg==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Hui Peng <benquike@gmail.com>
+Cc: alex.aring@gmail.com,  stefan@datenfreihafen.org,  davem@davemloft.net,
+  edumazet@google.com,  kuba@kernel.org,  pabeni@redhat.com,
+  linux-wpan@vger.kernel.org,  netdev@vger.kernel.org,
+  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ieee802154: ca8210: fix SPI RX length validation and
+ FIFO out-of-bounds read
+In-Reply-To: <20260919223435.3883048-1-benquike@gmail.com> (Hui Peng's message
+	of "Sat, 19 Sep 2026 22:34:35 +0000")
+References: <20260919223435.3883048-1-benquike@gmail.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Sun, 20 Sep 2026 15:00:01 +0200
+Message-ID: <871paoaxim.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Original-Sender: glaubitz@physik.fu-berlin.de
-X-ZEDAT-Hint: PO
+Content-Type: text/plain
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Pengpeng,
+Hi Hui,
 
-On Sun, 2026-09-20 at 11:11 +0800, Pengpeng Hou wrote:
-> Hi Geert,
->=20
-> I checked the removal of USB_OHCI_SH. Please include the tag you supplied=
-:
->=20
-> Fixes: 4f6dfc2136fb ("usb: remove the dead USB_OHCI_SH option")
->=20
-> The current SH subtype selections and sh7757lcr_defconfig still name the
-> removed symbol. The patch switches those users to USB_OHCI_HCD_PLATFORM;
-> there is no additional code change for this metadata update.
+>  	u8                    *data_ind
+>  )
+>  {
+> -	struct ieee802154_hdr hdr;
+> +	struct ieee802154_hdr hdr = { };
+>  	int msdulen;
+>  	int hlen;
+> -	u8 mpdulinkquality = data_ind[23];
+> +	u8 mpdulinkquality;
+>  	struct sk_buff *skb;
+>  	struct ca8210_priv *priv = hw->priv;
+>  
+> +	if (len < 30)
+> +		return -EINVAL;
+> +	mpdulinkquality = data_ind[23];
+> +
+>  	/* Allocate mtu size buffer for every rx packet */
+>  	skb = dev_alloc_skb(IEEE802154_MTU + sizeof(hdr));
+>  	if (!skb)
+> @@ -1770,7 +1778,7 @@ static int ca8210_skb_rx(
+>  	skb_reserve(skb, sizeof(hdr));
+>  
+>  	msdulen = data_ind[22]; /* msdu_length */
+> -	if (msdulen > IEEE802154_MTU) {
+> +	if (msdulen > IEEE802154_MTU || len < 30 + msdulen) {
+>  		dev_err(
+>  			&priv->spi->dev,
+>  			"received erroneously large msdu length!\n"
+> @@ -1787,6 +1795,10 @@ static int ca8210_skb_rx(
+>  	hdr.sec.level = data_ind[29 + msdulen];
+>  	dev_dbg(&priv->spi->dev, "security level: %#03x\n", hdr.sec.level);
+>  	if (hdr.sec.level > 0) {
+> +		if (len < 40 + msdulen) {
 
-Shall I use the v2 by Karl or are you going to send another one?
+Can we have only one place where we make all the checks?
 
-I am currently collecting patches which I am going to send to Linus
-for v7.4.
+> +			kfree_skb(skb);
+> +			return -EINVAL;
+> +		}
+>  		hdr.sec.key_id_mode = data_ind[30 + msdulen];
+>  		memcpy(&hdr.sec.extended_src, &data_ind[31 + msdulen], 8);
+>  		hdr.sec.key_id = data_ind[39 + msdulen];
+> @@ -1801,6 +1813,7 @@ static int ca8210_skb_rx(
+>  	hdr.dest.pan_id = cpu_to_le16(get_unaligned_le16(&data_ind[12]));
+>  	dev_dbg(&priv->spi->dev, "dstPanId: %#06x\n", hdr.dest.pan_id);
+>  	memcpy(&hdr.dest.extended_addr, &data_ind[14], 8);
+> +	hdr.seq = data_ind[24];
 
-Adrian
+Where does this come from?
 
---=20
- .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
+>  	/* Fill in FC implicitly */
+>  	hdr.fc.type = 1; /* Data frame */
+> @@ -2028,11 +2041,14 @@ static int ca8210_xmit_async(struct ieee802154_hw *hw, struct sk_buff *skb)
+>  static int ca8210_get_ed(struct ieee802154_hw *hw, u8 *level)
+>  {
+>  	u8 lenvar;
+> +	u8 buf[sizeof(((struct hwme_get_confirm_pset *)0)->hw_attribute_value)] = { 0 };
+
+I'm not a fan of this. It is totally unreadable.
+
+> +	u8 status;
+>  	struct ca8210_priv *priv = hw->priv;
+>  
+> -	return link_to_linux_err(
+> -		hwme_get_request_sync(HWME_EDVALUE, &lenvar, level, priv->spi)
+> -	);
+> +	status = hwme_get_request_sync(HWME_EDVALUE, &lenvar, buf, priv->spi);
+> +	if (status == IEEE802154_SUCCESS)
+> +		*level = buf[0];
+> +	return link_to_linux_err(status);
+>  }
+>  
+>  /**
