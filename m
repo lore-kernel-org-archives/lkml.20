@@ -1,75 +1,65 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012039.outbound.protection.outlook.com [52.101.66.39])
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013002.outbound.protection.outlook.com [52.101.72.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EDA5395AF1;
-	Sun, 20 Sep 2026 02:28:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C08DB3AE18A;
+	Sun, 20 Sep 2026 02:28:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.2
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789871326; cv=fail; b=oheW+vBIrJ82mhJ3lw6NPUi8QqN6DcP5DyxbTuIGgVwdju9t6qCuHUUnH6mTX0lMPTy6lw2ctO9jLIi/aPkJjJ4ikj4jfjQ9zjsghiX9aS+kcOfJnMxNdEsAqtrmh9g0MiA+O10RE+brW7/s3e4oaMyDs/R1c1KQ2Pu9BARAosQ=
+	t=1789871335; cv=fail; b=X/PMaP9H2nN1o5yXsqY/AmBDRfOYWFmIYbr6bDjfiY3oStkPep58wYXjb1eZtT7jrnT2TyS+EwJqCwjVOUGKdOxVF1AJ6cDNjRpjmXHxW8N2wlxEa9iPGLCfx70IJCn40mH2MxPJx0/Fw8oOT/lzchgK39c9wLPFl3XOFd/E8n8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789871326; c=relaxed/simple;
-	bh=g20Uo0BSXmtSNuMJt9bvOuZ9MtwmQljemZypTOqB/80=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=sboEcPsAt4Qf8ZP1sONYcW6wvJdAYjaA6BGKTcwdfOYbPpQGtsSh5UKS4BL7L5JsDOEQqqVvZwcudlCICXA+5Cb3cUYlONpqaAUf7E1MxncZXyuTqUsCZN9MYmklqO1vE0OYdilchvpDvIcWmiJzzOqykuoZ27QunwAaDM5SYoU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=srXOjNY3; arc=fail smtp.client-ip=52.101.66.39
+	s=arc-20240116; t=1789871335; c=relaxed/simple;
+	bh=QhyBaVRTTWwf5K00dgZ8YiFnpwSM7vxDVITBrBIMnh4=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=EqImnIlgLMhuKfGemBiCiNVhSapLbWJ3x69UIjufRroVnGPRdFuhPZI4Hna/5bp8PrV0DzkzOMqX8+iJHQHRx3UAzSk49/xhbW4cMqMu5X/Xfw9d/E236vOjhYglHX9J7hmXbK7GR8/GoefNkcYR5r8UWRXjAlfmF12z1AVA7b4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=WTLp91QF; arc=fail smtp.client-ip=52.101.72.2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="srXOjNY3"
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="WTLp91QF"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vJbDMEWrU8Mbm4T6IGuO4MOG3ZvkG7wPzjqS0ji2WbAvUbn7LVVYi+EhF8/jfkL8U+V87FnSGOjVidtXz08AaMtMkA+5jdZ/JKbRKBuFWqzJXoWXliHT+d67N1S/DwVjVMohGqHsmPMbZHLEqsa1K7P/hoz4cok4/wMmqxa5rxSlJDAi0mhmCDreAFE3UHJcVqBaPKeuh/FPQ7gbvn/ueVm/sbfIbkStsQzHpc1VBHmpmpl0SktFBENXvEsCU0//JmR8w2O2iAZ7UUgv1Fe/4jaVCbiHp3W5HyeR3JlbPcT8UJeFTvC786VJpbBnKHlq3r3GVC4Bq+4fdaAIoZypLQ==
+ b=nnv7ZyfpF1tYv9hDICJmeAdY01lfLGx+QIb/NSRNFvOsqqPgVbKeKKnRix8G6CquMtUE6GzAL9nxAjNJSkDcqwhja35XHt5D71n6z08sU6tYE6G/C0oTJ3LKYyW1qiY0rGb6Yy4uTS9UebTPx5eIjDGt70vvPyihqil3u+iZpSXKsbwACk4g5Pgy+YbZfE4kkzONf/4bZ3IwRrtFqr53PN94/VQe3+YtyNwEi6GEw3NaWQsm+zEnlj1fvdzqV4CSS0hhAUyV3XID/0YnsvKVem5uf69IB2N+L/6r63JPix1x2HYJMUBVbsa3FciUfrDlBkokG12QisyQPJ9ZsTtibw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OoZffnz1ix42KbUfhuG9CGdwBYbRCeJ92zL9XigA9cc=;
- b=mnpjHc6FMAnjZFoKaFzpKlY4DEcUQlihbKXfbkyH3LVUzc1tc575h38T4jNat4iebrUjVOxSbMRziSc3919GHeKeExKnvoww7Zdvwt3VAEKrG3gZ0iz1vYklJahnJqDKOBzOaRDqr1Kq0Ws3TkBsww18WP6H46Vv6NNMlII+CDHzBde9gHl+6nJUiIX0dOYDOChHAHTreJ4NHjYW8PZ8mTGLwyQU7oDYOvxX4E4crORNyFJ13Ihz0hEeYD8909pUE9x0cSsIM8tY2Vv5lIEw8BvnThlU5SbYU0e2BO8CrNqKTWIJN/u/F8F1XIpJUmFZtouqCNVhHp4xTZqdIDPpyw==
+ bh=cnisPdoVhZsxKLwg0yqAtYkm/XdJZgGFGUYT8RLQDUA=;
+ b=l5QggW+ACvDnYZ0oIQYCkBc0rQLxsaamtoD/OJaPx7pwh95c2DbY1LsJIMKVGa4EgQfNQKMaDx0GR50dRo2/F9nm4bI0tlRro+SIz2voYmFzCa8KsaXkxpAstRIaeZK8qGZrJExtv2OkMEpSmLkzJtJuWpJ6XZaEBWh/SQd23toZcoaPG34WTFuZNGwN7KQP/Q843w+Jf5TxhNLobg6+gkwT+xcx7v6R6x2SBhTYzC1gJgla7if3UWm9kY5pU5HG0tkS5Sc/21DggCbXjZ94hA/OMZMeR2hAFW0s4H2Pb/PgmTcXz0z1XUNFlBP9xYrJffTXd/RZSpQznTzaapJkAA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
  s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OoZffnz1ix42KbUfhuG9CGdwBYbRCeJ92zL9XigA9cc=;
- b=srXOjNY3HyXBdIFSPVpJQHnVy/CBw2DGq5uVRZJFlpI9ZAtbGT/2t2QGpsYQlDXCsR0RPbLyPUzr8QsGKDA7WRrPm1WuFZ4/LX60UIqhVhxIgVF7axWJ6HnIyqqw1rC0Z+7Wo5W2/3tTzu4YSTpuinl7oXyhLiliDdWIirpLWyaSSAhD+IseLR2Z+I9pN0RakA/Nef10zC9L3XuhTfSRg2VU469g3VIp8tuBE0BBKqvwS7zqD5vuo1qUO2VTLtJQK1MzRwvarqqECevHqg9VpAC8c2W7R8Lk+vA6v6muHujZJTN2UkA6WUYa/C7ZLqs9MuJblr4nr7slnW+4OYHVZQ==
+ bh=cnisPdoVhZsxKLwg0yqAtYkm/XdJZgGFGUYT8RLQDUA=;
+ b=WTLp91QFRVn9B9Jfzi6QA53hv8cj6ghp/JHIuTmco6MnmzucZ+vgWf5fm/6Q5Jjl2e0I+qsPx66hD3hBeyAUXlORpddEQU35Li1m857T2tDhJNXjMaws2x3XKNPtTK6cw4R4B23VgIWgG8KHmiMDkcDnoK8kGz4DJfOnnh8wTsCc4/cVKdAzlSpA/E4iAWo4QuDgYMoq63U0VZSUdPwhQqwmMY4bU6kMNiwIplcK57la1NK6nIupy+VsSXwG44EvBTdTOkfCRUMEpXNf7SLrJeTcmMQ0xOt0hYKbCE0+RcQtUqUEkkYWU2YE+G5rCN0p11SHe+fRlnamByDvGwtuYw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oss.nxp.com;
 Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
  by PAXPR04MB9596.eurprd04.prod.outlook.com (2603:10a6:102:23e::16) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Sun, 20 Sep
- 2026 02:28:41 +0000
+ 2026 02:28:48 +0000
 Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
  ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
  ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0428.014; Sun, 20 Sep 2026
- 02:28:41 +0000
+ 02:28:48 +0000
 From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Kees Cook <kees@kernel.org>,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	=?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Hyunwoo Kim <imv4bel@gmail.com>,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	SeungJu Cheon <suunj1331@gmail.com>,
-	Tim Bird <tim.bird@sony.com>,
-	Peng Fan <peng.fan@nxp.com>,
-	Breno Leitao <leitao@debian.org>,
-	Juan Perdomo <jcperdomo100@gmail.com>,
-	=?UTF-8?q?Safa=20Karaku=C5=9F?= <safa.karakus@secunnix.com>,
-	Zhang Cen <rollkingzzc@gmail.com>
+To: Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>
 Cc: linux-kernel@vger.kernel.org,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
-	Siwei Zhang <oss@fourdim.xyz>,
-	Pauli Virtanen <pav@iki.fi>,
-	linux-bluetooth@vger.kernel.org
-Subject: [PATCH] Bluetooth: use assign_bit() where applicable
-Date: Sun, 20 Sep 2026 10:26:02 +0800
-Message-ID: <20260920022610.3145618-1-peng.fan@oss.nxp.com>
+	Peng Fan <peng.fan@nxp.com>,
+	linuxppc-dev@lists.ozlabs.org,
+	kvm@vger.kernel.org
+Subject: [PATCH] KVM: PPC: use assign_bit() where applicable
+Date: Sun, 20 Sep 2026 10:26:17 +0800
+Message-ID: <20260920022618.3145649-1-peng.fan@oss.nxp.com>
 X-Mailer: git-send-email 2.51.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: SI1PR02CA0040.apcprd02.prod.outlook.com
- (2603:1096:4:1f6::7) To AM8PR04MB7874.eurprd04.prod.outlook.com
+X-ClientProxiedBy: SI2PR01CA0027.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:192::7) To AM8PR04MB7874.eurprd04.prod.outlook.com
  (2603:10a6:20b:24d::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -79,316 +69,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|PAXPR04MB9596:EE_
-X-MS-Office365-Filtering-Correlation-Id: b623d78e-8638-4dc6-7e19-08df16bee28c
+X-MS-Office365-Filtering-Correlation-Id: 07395eaf-aa91-4370-7458-08df16bee700
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|19092799006|366016|921020|18002099003|56012099006|11063799006|10067099003;
+	BCL:0;ARA:13230040|376014|1800799024|23010399003|19092799006|366016|18002099003|56012099006|11063799006|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	9HytBYh9mIOeerSOIGh6/ZwLjqKUOkiJxsIKFsVP0leJsiUgSqNK8FByabmc28Xe3SLhizQIEXjMdM0NZ0rODBx0tAiR/b8qj+0mifqoofQ9d9lWG8okwfjrEto5vKLrMjgD352d4kQA0A+Lcx0kFR2VO5l4FxINP+Zw5PvR2LJVloin43GEfDqbc9V9clqDy5fDwUgrbC6s0NAZI3psRGD6SmsdX4lsBJPtA7gDdBhYvgYh2aG95hUGAwT/3IwArIUZyhFDC5TEdjSrj/opVHfaj8aVslEYosi/mvX9/UoS2sFlugXzNzWS408bHQ/fLZmEFiXGKUArTr7uvnkSOfl8yHKvojTJ2MOWmWuhOXBgICUMrJ/qmcISrhxAgCINwmopLQAvF+TGIh/6tnuh8Ag4st2A3pxqFFF3PjYaTsntopdodCph5sgvJrnplF6Ysz7RYq9I2EN/MoeGlVr4s2UfuVl6C7vEFN5CLSoQUsFtNAeWqDpijNlKqC1P7tnl8dY4sl5vZvfTarO1Jg7Og6jhF6mM6uPunZRP8eyCfWUoVChMIYbCHmfjKTr7CZ2N2uAvResmw8A5FzKEw+gSCkEE4WP0kN/nkITC/jHF3ovNHkJ1g/7b/FLevlYQVuTYzHzAsmYq3RLYIOzFPfpk06DR3aDZUjPu1PHy3cEgL2lbTHlS6Di7cQkeat8bxgpAKhxXST0I/7mKdkAZ/XnuPw==
+	edjO5PQeb86jsraB2e+othd0sm0G3L2KrClQx9nR1Mzk1mzorxGXU/FVHMa++FfE2sgpEfjEGK1jrwwcYMYpxVJN+EQBUJRC+kJPlxMNuSdbQT34cBvtXmQQb4Rv6PCf3Fxsin4MlQ4YBsFkaE/Iga4CzONTu9vONpOQfvujoRl601qrpW+WivhPu0a96AEyef2MFqunGqf7lgkacUZCzMxP0d8FrCPBryPyFP6AEL1Uz3oB2LWtTlP4w/Pr3/RJr3hafqXZi4mMO+2likJYz72LaBy1+nxDbKS9ExVc+7x0/wA0nTS1DePK03HgbkXHvLWxVfIjqSd3h6QCFbwjFj15yqe7EjMpPJiPld8XVX02xQUfN1fKnV8rLov3InrjmRXk/+Pa5K68xMRL51Bed0l+3OUsgFZmBKqUJ7J4woYUC3pSQg8oCtSbc0iIHTjKKl81UQdGhr8uepvR0x/J/NQV3qJqxRDSqna3KU5fP8O2cV5eY7RVnFDhZA8PLvZ04nhi5r0AfkBeQW1W1A4WIiT+sULCmuSQmYczyBFWjF3jxCwCh1GRijt1bAZtKxzZFhfkSAu4Eo2d/58zQf64wDBWTVP8/gED2T3/AfFfDRbNaZf6JhA4Ba6GPW+yyzGfJEPW0Hl23OosmIE8HJUxWE7npkEEeP8KGn8ypA3Lsbs=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(19092799006)(366016)(921020)(18002099003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(19092799006)(366016)(18002099003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?3Osxap8Jkd6GsvevNnChku5Yw2hg57yOWoiKuDV5wkpvlE2qcciAYZ98KmG2?=
- =?us-ascii?Q?K1WIIo9ow1n6iN9LqFjDmDA8Ct3ccvC2gyTVXlzqicjiG3ItGaMyRiThNidl?=
- =?us-ascii?Q?uISDzOoVkaz78kTYRSXf+4qFl+ITZYV+QbF8DoU8hLdNypK8zOKS2zfgH+Nj?=
- =?us-ascii?Q?eSigiO1PYlk0VaFVHyZsidKsySa8zJ7o7XadtNih3mf8q+67P2u7uXgMPGjp?=
- =?us-ascii?Q?ntZ72DrZdv8NjtPJqSCk7KuTfsLtXD8A8mQHuYeWBd46lsC1bYOKpPVZHAWd?=
- =?us-ascii?Q?vx3rvh2RRm7ZSKXRQb/l4fOdG9NL1OHy0JQQHmo5lCvJrxh9tUonivRXVo4p?=
- =?us-ascii?Q?WXSpUJxhBY0MWDI0G3+qoeUVRPbLRcjqbBx81OWpAhFvn5ssLCeSDN5BbyTE?=
- =?us-ascii?Q?8n1uIRTmx5BtARauA2fyHK/iC7usYcVprTogq3IMExCL0NKJZT2r9T01yb66?=
- =?us-ascii?Q?89I8VX+WvS6uPEEQP0I2ql7G2knPY++B6gul385Euw7lGZ08ccPxqNyp/6s/?=
- =?us-ascii?Q?uVKojT6bu0hBBAcG9HOMS59q544FFNEcVU8cyyqMpqXXkkY8i/GC7y1EW1fv?=
- =?us-ascii?Q?n20IHRARm6eVajX8jHRvMUNoUsQFnLeMwGCRahqJ/u/so/uLjppVeG8XOvFt?=
- =?us-ascii?Q?QhbR5GEf8PeUB+RPx68avDkO1Sl/TcywqiHu7Es4S6IAjBg+zunqcDIH6VmG?=
- =?us-ascii?Q?ElEaT6/ZOYTgII1Wx2dMB+A+LZn35UJgs9TSphTGrMEJ8h2cdrrQHQrH+mG2?=
- =?us-ascii?Q?SmJZ+SJblRveRicF0bpklJDBSPydB566CFZjbgzvTB2ZDggknvbG8I5BeIke?=
- =?us-ascii?Q?kiVW4oNY4MfPra+4XazDHvd3Ooefj0YG7m9IlgVMuoHMlqBFCZ2D1op11l3C?=
- =?us-ascii?Q?l3+2waHRi30hw6RbveO6w1rXHK7XLLNtizLAm5uolZBFvf0RyaCscuJzDeZP?=
- =?us-ascii?Q?90DJ0MwX/VYOqi1cn1s8ExjGfdSTZ/066sNpjjkepnCH/OMT7qcVIgCNTSpJ?=
- =?us-ascii?Q?i+cvx3DLJ/ahzWqQ5VLluwzT7YfPQrJCvPdKs/cvl+k89b5h8NhDPL8/5DWr?=
- =?us-ascii?Q?3KmztE9lsKkV5W/wKfvHmQzIrjwoAsgfy59eqg319h5ZmxIMuxcf7Daax0ks?=
- =?us-ascii?Q?4+Jk54KxOn8gu/DgHYLhRK3xI2xZ88kKzyHCYSueJLn3yUtexloSmJTBBhng?=
- =?us-ascii?Q?SZJ+8ZNYJDw8flkCwdXmYkVAmB7kSHb0swAO7+ZpLt2n/ftkaJtHh8WHnEdT?=
- =?us-ascii?Q?xr8UvJJbQpQuMdhcCasYI2io2Vx94Q7WXv1a/29FS2+NAuP3fLgIg54QotL4?=
- =?us-ascii?Q?OjakzvWLhEULQC0Cz+ai5fUl8PSy8yAKKAq02fjmt9ihRxzktqPJB7XtXhPR?=
- =?us-ascii?Q?ZHvU2mjcjfoGRxwERNt6GpfiWK0Kikis2xoP5MH7cXpRjSyoNUvV0/H3bOej?=
- =?us-ascii?Q?2vyOxfDcvkSTQRtwN9sJbSoThi4nC+9TEfjCgF+W++aNai8M6u/o48pu8pQA?=
- =?us-ascii?Q?FHoRBu762ryk9sIbukmpSLy0Ji52rSubTFvKPb/jRpkl3bvJKd53jmv94p2P?=
- =?us-ascii?Q?VdXPL1cqTkCf9bb3ajJQVAaF5+7/TInsGOuADwogs52ftknrzZiW6ztUZMTc?=
- =?us-ascii?Q?aMz9R3uD8dPyJwCLGZ4uF4zcNAVGQOlkHAOLZBwyrvSFEzjJP5T2F18kQe40?=
- =?us-ascii?Q?gemquZ96llPc8nch0YA76UnsKdabKUCmLYWFVT0clfv4r/bHgfcNp2L1+HKJ?=
- =?us-ascii?Q?/ZBLAgzdL/cOwpOLh/IfNPTqJ5lbqYw8FWaSde/W8TAJrEbCzr1e?=
+	=?us-ascii?Q?oMSJN+y6N2aoFoy4p66wjBIIU0tPrju7QV8XHIloQRaS9lfaXySSZGNLEBhw?=
+ =?us-ascii?Q?cra/HE1Pdur52XWZ2kCaYHcrWXTUstMtsSMW345UY1LkZzEpJWxK2aHs1s7k?=
+ =?us-ascii?Q?sfgzgN+KRqrK7cEX0b8xLyJfMSd06MoBhIxLZxniE34CKQKmpbgrfnNbVda+?=
+ =?us-ascii?Q?p9AFjTg+1ORFd+dI5XMMs4UGtrk57KLzTiDVEDC7lnguZ6O+q9Fn19hXcd6u?=
+ =?us-ascii?Q?aWxuq1yhC/aTgdogseOL7MF2ZRaaC/jOAk0IqVGB+FasQ/wbw0YC/IAvl7xN?=
+ =?us-ascii?Q?JogjEYq/hhAxNU0MSc3CUBpf5y7wzP9SY+AkIQpfr9hzqORcx2zJXUF4dZzX?=
+ =?us-ascii?Q?M4JBdX5qt9KFr6/9q6r5ewGLyJT9OZkM2b1ZXQAETBSYkUln3DTMNqBHX5eJ?=
+ =?us-ascii?Q?PYyBQ6JTOGXXCLQagIl0u8wD6ju9Xt7T1BHor4onSdlpnboeDOMGEv3PD312?=
+ =?us-ascii?Q?IMuXH4iMTFuj4OrcHNlb3bHZupKEgN3Sot1G9FO2RqvfmdpkwlYmoTfxKnA6?=
+ =?us-ascii?Q?hLVS+MYvvapo3zZUwNunVDcHO6sst8lDedN2RS7K72/16tlpDOWqvX+JMPUe?=
+ =?us-ascii?Q?MjE5WlJF9RAjl8Iz7aBYANoVE4L7TPuB+pXdxhvpcObQhUMlZl6TpeU+/a4n?=
+ =?us-ascii?Q?Qst77ye5S4pL36K5gebi2FDYewtQZSteo35d7vYpfDAhE0JTBwrCLaeb+0Q3?=
+ =?us-ascii?Q?Qc4i5Yj6BDokg74Swm6tysd6MT4E2L1EmBDLGuIVtopj0EsnM4wJFF57U5rZ?=
+ =?us-ascii?Q?RQIjtW9zP/j47vQMxBZeGCs6BHxT/8OA7VpcLGEtlWOT4WNwlS/o8bVBVNXs?=
+ =?us-ascii?Q?fYuXTW/x+aHTA52gfeE/Qw7soV7ErTabXPenfBV16FqMO5aR/v/ww/CbUg35?=
+ =?us-ascii?Q?00TvQdTeU07+3CtYN9fCFJ8894mCERjNN3KkVnMr9J+DXa1PXQgWuHxfh1sB?=
+ =?us-ascii?Q?8Isc9L5r2U74R7sPuKxARDkiEtHeQFffFwRXRHX7gi+4JJKPJeI9lTr6GqPr?=
+ =?us-ascii?Q?yn6jRXz9GJPzlxd2MyGc693LT0iERlTdXjlGV0FQR1TL2rsJ34HUtigSZ2uJ?=
+ =?us-ascii?Q?aVAXbRMipSz2eySAWYwIgTmjr7emp5gk0De1nD9GYiVkFxggsx88naD2ETGR?=
+ =?us-ascii?Q?U+C2HfX/p1wAs1Q9CX4k1mW5W9v3qIcPxHQrhCOK8K7MpLZ4UusBP5t/jB42?=
+ =?us-ascii?Q?fPzFqcj3+Q5WR9QOzz5z5eJ6vziAIzyiEP9Ag7ad5vBYevHpHiP9K1K6llRD?=
+ =?us-ascii?Q?zXxSmmlpEPFLtJqud7EeWMAtoIkH3WbZKtU28yC9bXX9+w7z3y/ufVUgVeOu?=
+ =?us-ascii?Q?UJgWJscOQ4jTV9FSoTMYprIQmTz6PZHfB9iHdcCnGTxPzSs13k8N98CgjuJh?=
+ =?us-ascii?Q?vTbRulGP5eLD5oqluonbHWGqYsjtmlyu2YaNM2qJ2kMZYWkHf7BU35j7WhEw?=
+ =?us-ascii?Q?mq6zpL/d6E7jipn0zt6HbWEjV+gSbGOJwG3xMxysf1FXNbkkpMP+Fs01atAB?=
+ =?us-ascii?Q?9U7/CWfFY6/T5eSbZThsKmtJg9R3O+y9RykqPjPd1KUPATqQxAoB2c54oTLf?=
+ =?us-ascii?Q?gRGpP1oBDZC5YdtU2bFeuKNz6o2ZGkkITBbaGu7bMr5VSNKyhVUbqf7R/jNs?=
+ =?us-ascii?Q?Bx+7+chtVb4Wvh943eQmz7ILMyCsQZ5GLxdzcswvOxYpo4uY1G/HJbBXB46C?=
+ =?us-ascii?Q?agoPLPzMvE+1R7E2xyunT4AE9iozCjCiCtZTTlsU//t9TlXE710SCoXZuqby?=
+ =?us-ascii?Q?wdTREA+ct/SI2i+m77ZqMNKC08sA4nuLXVUQdYfOTX1+j4pAozcw?=
 X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b623d78e-8638-4dc6-7e19-08df16bee28c
+X-MS-Exchange-CrossTenant-Network-Message-Id: 07395eaf-aa91-4370-7458-08df16bee700
 X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2026 02:28:41.2967
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2026 02:28:48.6309
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yM+9ePJ+o7JpQ6OmPQCzv8eWope7hd807KSuj3jjYl6D06yZ2BpPebSNWdsnTPdMCMDi5kvbZuafoFaNUXcsa/r4EzVrrMsVTwSUnUtl7s7CT2c2qY0iPatqiLMZxT07
+X-MS-Exchange-CrossTenant-UserPrincipalName: rFlME0p0M+w/g/DL8oJGlopUnbFzaBw7NZ4AXap2vGlpb904UjXRdEAUO1cTQMdqyYpbLmgEQUk+iCAXpEZzpiUIUu/jrUBwtjmpfBIzqLwNHLrNiYFf5SlEyWuaisLm
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9596
 
 From: Peng Fan <peng.fan@nxp.com>
 
-Convert open-coded if/else with set_bit/clear_bit the assign_bit API.
-
-Done with Coccinelle semantic patch:
-    // set_bit -> clear_bit => assign_bit
-
-    @@
-    expression cond, bit, addr;
-    @@
-
-    -if (cond)
-    -        set_bit(bit, addr);
-    -else
-    -        clear_bit(bit, addr);
-    +assign_bit(bit, addr, cond);
-
-    @@
-    expression cond, bit, addr;
-    @@
-
-    -if (cond)
-    -        clear_bit(bit, addr);
-    -else
-    -        set_bit(bit, addr);
-    +assign_bit(bit, addr, !cond);
+Convert open-coded if/else with set_bit/clear_bit to the assign_bit API.
 
 Signed-off-by: Peng Fan <peng.fan@nxp.com>
 ---
- net/bluetooth/hci_event.c   | 31 +++++++------------------------
- net/bluetooth/iso.c         | 15 +++------------
- net/bluetooth/l2cap_sock.c  | 22 ++++++----------------
- net/bluetooth/rfcomm/core.c |  6 ++----
- net/bluetooth/rfcomm/sock.c |  5 +----
- net/bluetooth/sco.c         | 10 ++--------
- 6 files changed, 21 insertions(+), 68 deletions(-)
+ arch/powerpc/kvm/powerpc.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/net/bluetooth/hci_event.c b/net/bluetooth/hci_event.c
-index 25ddba2f603b..5ac2357e92c9 100644
---- a/net/bluetooth/hci_event.c
-+++ b/net/bluetooth/hci_event.c
-@@ -404,10 +404,7 @@ static u8 hci_cc_write_auth_enable(struct hci_dev *hdev, void *data,
- 	if (!rp->status) {
- 		__u8 param = *((__u8 *) sent);
- 
--		if (param == AUTH_ENABLED)
--			set_bit(HCI_AUTH, &hdev->flags);
+diff --git a/arch/powerpc/kvm/powerpc.c b/arch/powerpc/kvm/powerpc.c
+index 9194cf492d1c..a567b63a5f1f 100644
+--- a/arch/powerpc/kvm/powerpc.c
++++ b/arch/powerpc/kvm/powerpc.c
+@@ -2210,10 +2210,7 @@ int kvm_vm_ioctl_enable_cap(struct kvm *kvm,
+ 			break;
+ 		if (!kvmppc_book3s_hcall_implemented(kvm, hcall))
+ 			break;
+-		if (cap->args[1])
+-			set_bit(hcall / 4, kvm->arch.enabled_hcalls);
 -		else
--			clear_bit(HCI_AUTH, &hdev->flags);
-+		assign_bit(HCI_AUTH, &hdev->flags, param == AUTH_ENABLED);
+-			clear_bit(hcall / 4, kvm->arch.enabled_hcalls);
++		assign_bit(hcall / 4, kvm->arch.enabled_hcalls, cap->args[1]);
+ 		r = 0;
+ 		break;
  	}
- 
- 	if (hci_dev_test_flag(hdev, HCI_MGMT))
-@@ -436,10 +433,7 @@ static u8 hci_cc_write_encrypt_mode(struct hci_dev *hdev, void *data,
- 
- 	param = *((__u8 *) sent);
- 
--	if (param)
--		set_bit(HCI_ENCRYPT, &hdev->flags);
--	else
--		clear_bit(HCI_ENCRYPT, &hdev->flags);
-+	assign_bit(HCI_ENCRYPT, &hdev->flags, param);
- 
- 	return rp->status;
- }
-@@ -466,15 +460,9 @@ static u8 hci_cc_write_scan_enable(struct hci_dev *hdev, void *data,
- 		goto done;
- 	}
- 
--	if (param & SCAN_INQUIRY)
--		set_bit(HCI_ISCAN, &hdev->flags);
--	else
--		clear_bit(HCI_ISCAN, &hdev->flags);
-+	assign_bit(HCI_ISCAN, &hdev->flags, param & SCAN_INQUIRY);
- 
--	if (param & SCAN_PAGE)
--		set_bit(HCI_PSCAN, &hdev->flags);
--	else
--		clear_bit(HCI_PSCAN, &hdev->flags);
-+	assign_bit(HCI_PSCAN, &hdev->flags, param & SCAN_PAGE);
- 
- done:
- 	hci_dev_unlock(hdev);
-@@ -4614,10 +4602,8 @@ static void hci_mode_change_evt(struct hci_dev *hdev, void *data,
- 
- 		if (!test_and_clear_bit(HCI_CONN_MODE_CHANGE_PEND,
- 					&conn->flags)) {
--			if (conn->mode == HCI_CM_ACTIVE)
--				set_bit(HCI_CONN_POWER_SAVE, &conn->flags);
--			else
--				clear_bit(HCI_CONN_POWER_SAVE, &conn->flags);
-+			assign_bit(HCI_CONN_POWER_SAVE, &conn->flags,
-+				   conn->mode == HCI_CM_ACTIVE);
- 		}
- 
- 		if (test_and_clear_bit(HCI_CONN_SCO_SETUP_PEND, &conn->flags))
-@@ -4817,10 +4803,7 @@ static void hci_link_key_notify_evt(struct hci_dev *hdev, void *data,
- 		goto unlock;
- 	}
- 
--	if (persistent)
--		clear_bit(HCI_CONN_FLUSH_KEY, &conn->flags);
--	else
--		set_bit(HCI_CONN_FLUSH_KEY, &conn->flags);
-+	assign_bit(HCI_CONN_FLUSH_KEY, &conn->flags, !persistent);
- 
- unlock:
- 	hci_dev_unlock(hdev);
-diff --git a/net/bluetooth/iso.c b/net/bluetooth/iso.c
-index eb99653f33f9..cd4e9e3968e6 100644
---- a/net/bluetooth/iso.c
-+++ b/net/bluetooth/iso.c
-@@ -1935,10 +1935,7 @@ static int iso_sock_setsockopt(struct socket *sock, int level, int optname,
- 		if (err)
- 			break;
- 
--		if (opt)
--			set_bit(BT_SK_DEFER_SETUP, &bt_sk(sk)->flags);
--		else
--			clear_bit(BT_SK_DEFER_SETUP, &bt_sk(sk)->flags);
-+		assign_bit(BT_SK_DEFER_SETUP, &bt_sk(sk)->flags, opt);
- 		break;
- 
- 	case BT_PKT_STATUS:
-@@ -1946,10 +1943,7 @@ static int iso_sock_setsockopt(struct socket *sock, int level, int optname,
- 		if (err)
- 			break;
- 
--		if (opt)
--			set_bit(BT_SK_PKT_STATUS, &bt_sk(sk)->flags);
--		else
--			clear_bit(BT_SK_PKT_STATUS, &bt_sk(sk)->flags);
-+		assign_bit(BT_SK_PKT_STATUS, &bt_sk(sk)->flags, opt);
- 		break;
- 
- 	case BT_PKT_SEQNUM:
-@@ -1957,10 +1951,7 @@ static int iso_sock_setsockopt(struct socket *sock, int level, int optname,
- 		if (err)
- 			break;
- 
--		if (opt)
--			set_bit(BT_SK_PKT_SEQNUM, &bt_sk(sk)->flags);
--		else
--			clear_bit(BT_SK_PKT_SEQNUM, &bt_sk(sk)->flags);
-+		assign_bit(BT_SK_PKT_SEQNUM, &bt_sk(sk)->flags, opt);
- 		break;
- 
- 	case BT_ISO_QOS:
-diff --git a/net/bluetooth/l2cap_sock.c b/net/bluetooth/l2cap_sock.c
-index ddd47f42db46..e2f90e92af3a 100644
---- a/net/bluetooth/l2cap_sock.c
-+++ b/net/bluetooth/l2cap_sock.c
-@@ -867,15 +867,11 @@ static int l2cap_sock_setsockopt_old(struct socket *sock, int optname,
- 		if (opt & L2CAP_LM_SECURE)
- 			chan->sec_level = BT_SECURITY_HIGH;
- 
--		if (opt & L2CAP_LM_MASTER)
--			set_bit(FLAG_ROLE_SWITCH, &chan->flags);
--		else
--			clear_bit(FLAG_ROLE_SWITCH, &chan->flags);
-+		assign_bit(FLAG_ROLE_SWITCH, &chan->flags,
-+			   opt & L2CAP_LM_MASTER);
- 
--		if (opt & L2CAP_LM_RELIABLE)
--			set_bit(FLAG_FORCE_RELIABLE, &chan->flags);
--		else
--			clear_bit(FLAG_FORCE_RELIABLE, &chan->flags);
-+		assign_bit(FLAG_FORCE_RELIABLE, &chan->flags,
-+			   opt & L2CAP_LM_RELIABLE);
- 		break;
- 
- 	default:
-@@ -1042,10 +1038,7 @@ static int l2cap_sock_setsockopt(struct socket *sock, int level, int optname,
- 			}
- 		}
- 
--		if (opt)
--			set_bit(FLAG_FLUSHABLE, &chan->flags);
--		else
--			clear_bit(FLAG_FLUSHABLE, &chan->flags);
-+		assign_bit(FLAG_FLUSHABLE, &chan->flags, opt);
- 		break;
- 
- 	case BT_POWER:
-@@ -1061,10 +1054,7 @@ static int l2cap_sock_setsockopt(struct socket *sock, int level, int optname,
- 		if (err)
- 			break;
- 
--		if (pwr.force_active)
--			set_bit(FLAG_FORCE_ACTIVE, &chan->flags);
--		else
--			clear_bit(FLAG_FORCE_ACTIVE, &chan->flags);
-+		assign_bit(FLAG_FORCE_ACTIVE, &chan->flags, pwr.force_active);
- 		break;
- 
- 	case BT_CHANNEL_POLICY:
-diff --git a/net/bluetooth/rfcomm/core.c b/net/bluetooth/rfcomm/core.c
-index f7463f092283..54b70d1186ee 100644
---- a/net/bluetooth/rfcomm/core.c
-+++ b/net/bluetooth/rfcomm/core.c
-@@ -1684,10 +1684,8 @@ static int rfcomm_recv_msc(struct rfcomm_session *s, int cr, struct sk_buff *skb
- 		return 0;
- 
- 	if (cr) {
--		if (msc->v24_sig & RFCOMM_V24_FC && !d->cfc)
--			set_bit(RFCOMM_TX_THROTTLED, &d->flags);
--		else
--			clear_bit(RFCOMM_TX_THROTTLED, &d->flags);
-+		assign_bit(RFCOMM_TX_THROTTLED, &d->flags,
-+			   msc->v24_sig & RFCOMM_V24_FC && !d->cfc);
- 
- 		rfcomm_dlc_lock(d);
- 
-diff --git a/net/bluetooth/rfcomm/sock.c b/net/bluetooth/rfcomm/sock.c
-index e2486bc11cbc..2167ba6f478b 100644
---- a/net/bluetooth/rfcomm/sock.c
-+++ b/net/bluetooth/rfcomm/sock.c
-@@ -721,10 +721,7 @@ static int rfcomm_sock_setsockopt(struct socket *sock, int level, int optname,
- 		if (err)
- 			break;
- 
--		if (opt)
--			set_bit(BT_SK_DEFER_SETUP, &bt_sk(sk)->flags);
--		else
--			clear_bit(BT_SK_DEFER_SETUP, &bt_sk(sk)->flags);
-+		assign_bit(BT_SK_DEFER_SETUP, &bt_sk(sk)->flags, opt);
- 
- 		break;
- 
-diff --git a/net/bluetooth/sco.c b/net/bluetooth/sco.c
-index 3d4362a09df4..e19079b9c432 100644
---- a/net/bluetooth/sco.c
-+++ b/net/bluetooth/sco.c
-@@ -992,10 +992,7 @@ static int sco_sock_setsockopt(struct socket *sock, int level, int optname,
- 		if (err)
- 			break;
- 
--		if (opt)
--			set_bit(BT_SK_DEFER_SETUP, &bt_sk(sk)->flags);
--		else
--			clear_bit(BT_SK_DEFER_SETUP, &bt_sk(sk)->flags);
-+		assign_bit(BT_SK_DEFER_SETUP, &bt_sk(sk)->flags, opt);
- 		break;
- 
- 	case BT_VOICE:
-@@ -1035,10 +1032,7 @@ static int sco_sock_setsockopt(struct socket *sock, int level, int optname,
- 		if (err)
- 			break;
- 
--		if (opt)
--			set_bit(BT_SK_PKT_STATUS, &bt_sk(sk)->flags);
--		else
--			clear_bit(BT_SK_PKT_STATUS, &bt_sk(sk)->flags);
-+		assign_bit(BT_SK_PKT_STATUS, &bt_sk(sk)->flags, opt);
- 		break;
- 
- 	case BT_CODEC:
 -- 
 2.51.0
 
