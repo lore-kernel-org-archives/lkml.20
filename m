@@ -1,174 +1,281 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6F6A48820B;
-	Sun, 20 Sep 2026 22:52:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4862486624;
+	Sun, 20 Sep 2026 22:54:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789944771; cv=none; b=mq+nP4VwOKAJO6SV3RWRnqWRfiHL7cHZHjcK2wRi/SYHqhlJDub4sVXC9GuQIUhkeW0BmzrONYBIB71RxxXnO1sZnno57TQUVpYfFIf09ov/32MD1hTnVIPz3jSucrMLDkQMFHX7fs7WZgKc8/oEchqwTBKyAMo7U8LDA1nuPlc=
+	t=1789944852; cv=none; b=q/BsNcjI+3e0aLXjcem+sICMFIIlzTFsyBF0LKSqLjYKAZhNcAaJCpAi1llAMXxDSaetUb20RIHWQJImjXTIY7JAcf9eg72uzReCDIzZIg4kfVKwztTQr3Wfe9m4at5A8jG0qkl7htVNoIK6oN8TqY65Y0DA1SRkvlIQ9cb/iPM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789944771; c=relaxed/simple;
-	bh=CK7YR4aMgsSLwgdiVFdcBBNbYFn55i7WY6nqRUkmbRY=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=ho9z3pxXf+XCw3gxmPYBi3QSgzcEfs64n/pmCzBgJgrvRty/lfhlCCWBryMNZaBiJ3f5kMpqLfeRwtMOcTLpV2u/CbBshdad2e5iedP5nQ02R8xDA8GV48L8wikLUEsibY0qlpNJqL3AQFYyRg1VwmqCP1Nc3wV5uj2W4/21Uq4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fcivqyxd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789944852; c=relaxed/simple;
+	bh=nrsHFgrIKSrSUGQt3EIoKQIHaOhskGx7vx61kKq2kOs=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=tq50JJrDINv3a6YDnK6jqlZjDGWQgOKhdiw1iNtybDNz0ri45tTaVnAzx15H9gh9XEeKtUpQa+V4jhkaJoOSAZAPTe6AGQ3YHlXQqC27/TBBT1Q6k3+tEAxc8WwIDgtNEX0BP19+hnlGZUgcgBeYo6xTLpCNVjWOJ6hfHqLltwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D7AEwFA8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fcivqyxd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 667E81F0089D;
-	Sun, 20 Sep 2026 22:52:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D7AEwFA8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11A461F000FF;
+	Sun, 20 Sep 2026 22:54:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789944769;
-	bh=If4SjmggGq429oG9m/7fSBP1RQJepPyPtI5thQxxvqY=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=Fcivqyxd0II+tGENUnI5IzWljEhzfCKBBmH4Oh/bmeFY/SbyDXMZ0SbTwuIzEv1lJ
-	 qbRrgdP3q8KWRkIDrVVJiTElBSLdEU0AOnM72roMYwvcM1XL1X0JRuRdsuKHgt9AtK
-	 gFPZ1WZ5CmwSxmn9IQa0vXS+Dq4Dst7IvNpgQoAaDbVyE0GzIHq2y3yJ8SPjzs7Z63
-	 ivVLZYZRcAqClIZ8Z42aFld/m8CCZaiEp1Q+wMPFLyMdQtL/LpdupbrWjxhH1BjMky
-	 F+SDytN/codDN2r2WWx3fvA1KADTvxp3OFc63r6tq5iefmcjA9hEuPlBbUSDCMFk8Q
-	 wFGeeim0rP9vQ==
+	s=k20260515; t=1789944850;
+	bh=68YQSzjk8ZjMFKcw6CYEHXRF7f/z34V5ymqXk5N17Ok=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=D7AEwFA8+ig15oTnrttxE3gz6Fh4LeVnP3gGQR/u6u7ebmr8zKduTzvGtPx2gUb2k
+	 zJa31NpCH6BQPkSgn+gO2xyseIRPKHYu9DS92ww3Kg67hEokHFdfl/0kZDSYqkQ3ZU
+	 PEBdoNRZD5/O68cakQ28z6z3MqDMq7G7Gn54VIJyul9YCQVHgYtQapZOIDgOiYs4zd
+	 IWLh3y/zD1zD930KO++mEAtITLncxjYUDP0SI7aUvEYhGMKBGzuC9utOxo5x+5N+eg
+	 QSKwQ59BN+mf289GrDH7rjZMKIgvqgU/j4WTIR+1/kOfpUgZT/hF3SVFGpip3dLl8r
+	 Iw68nvW07bGYQ==
+Subject: Re: [PATCH] ppp: fix bsd_decompress() OOB read and
+ ppp_decompress_frame() headroom check
+From: netdev-bot+sashiko@kernel.org
+To: benquike@gmail.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, linux-ppp@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Sun, 20 Sep 2026 22:54:09 +0000
+Message-ID: <178994484954.2160803.7340548461955780287@kernel.org>
+In-Reply-To: <20260919215233.3470411-1-benquike@gmail.com>
+References: <20260919215233.3470411-1-benquike@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v7 09/11] iio: dac: mcp47feb02: refactor MCP47FEB02 I2C
- driver into two modules
-From: Jonathan Cameron <jic23@kernel.org>
-To: Ariana Lazar <ariana.lazar@microchip.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260918-mcp47feb02_refactor-v7-9-82ca794eafe2@microchip.com>
-References: <20260918-mcp47feb02_refactor-v7-0-82ca794eafe2@microchip.com>
- <20260918-mcp47feb02_refactor-v7-9-82ca794eafe2@microchip.com>
-Date: Sun, 20 Sep 2026 23:52:29 +0100
-Message-Id: <178994474989.706584.9211319682095053097.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3932;
- i=jonathan.cameron@oss.qualcomm.com; h=from:subject:message-id;
- bh=CK7YR4aMgsSLwgdiVFdcBBNbYFn55i7WY6nqRUkmbRY=;
- b=owEBfwKA/ZANAwAKAVSFNJnE9BaIAcsmYgBqsGO9k4oDftq2ZoLNtVITBWwmM4pVyDMDs/5EO
- tsBp78dpuWJAkUEAAEKAC8WIQRuKWazh4QGUpEmgbFUhTSZxPQWiAUCarBjvREcamljMjNAa2Vy
- bmVsLm9yZwAKCRBUhTSZxPQWiHalD/9qR8mtEPEc+CahwUS5FTwI4tZHitMm3W3uJlxA+mn4kuB
- du2rogSvQnW8XLUDAPySl9za6ilCqpjB1FupsGdZSwaRZr2ms6XetuIAJrj8XvuO2UL9xeQzfKt
- mpzCaizmMk2F+QgSL8ZHINp6Gxf7/cwZfkatpkBASRL3TyIvbpvKvslsys4rmrBtQtOY+xFFUqf
- +P8WVWmMum03+oOlMpf261MHz3RkqsmWsuU8aLSOux7It5P/b9vTSVuWp36kNzlZdXMJjW7OQ7u
- 01JP1TFW4Xtf1ranZrFFjVMUoVGSOO46YneK4zu6ODtUvrA/E++qA72LUbrtZvvFGhA9VyygLsY
- SIH+UUn0WbowPzbf1WXPNvuDAGWHMSPlIh0U9/YdrrSM3KtGzzLeWV3/BM+BJRDSik2kvvpMjWV
- l/YYPPndvQgcUYjZue+Ik6pofKyUH6Pyln0rur8a5LZM6fvrDEyq/s6hVzyjUQCJcnBFQsVtnbg
- 8WQX+7aoRsVo3rubHVe5+6/7OTd0GNNjuNKFreGDQl3sqo2fpEZ6GAURPP06vtJl9ERWLw1pTw9
- CZAkubpecTBMOQTEEEnm1e81SGOC/JDM+v0DYDSWt1JOVCejmDx+ZIJ+96+gkwuE9kQEaMQ/1WQ
- w4QMeSjM0bBU4SKTr1oLx0lEe53ZJnxPc+TDfxQ==
-X-Developer-Key: i=jonathan.cameron@oss.qualcomm.com; a=openpgp;
- fpr=6E2966B387840652912681B154853499C4F41688
 
-> Prepare the driver for the bus-specific code by refactoring into separate
-> files. The renamed file will contain the common DAC functionality shared by
-> the MCP47FxBy1/2/4/8 I2C and MCP48FxBy1/2/4/8 SPI drivers. The MCP47FEB02
-> driver was refactored into two modules: mcp47feb02-core.c and
-> mcp47feb02-i2c.c in order to prepare the support for SPI MCP48FxBy1/2/4/8
-> DAC family on top of the current implementation.
-> 
-> Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider.
 
-Sashiko makes a point about change of Kconfig symbol and make
-oldconfig etc. Not ideal but we've done this before and I don't
-think it has proved a signficant problem in practice.  We could
-carry an extra symbol to avoid the problem but it is going to
-be a long term bit of mess so I think what you have here is the
-way to go.
+Critical: 0 · High: 1 · Medium: 3 · Low: 0
 
-Otherwise a few small things inline.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
+- [High] ppp_decompress_frame() (drivers/net/ppp/ppp_generic.c:2555-2557)
+  now calls pskb_expand_head(skb, 2, 0, GFP_ATOMIC) unconditionally on…
+- [Medium] The commit message states that the decompressed length 'is
+  only checked for len < 0 before indexing ns->data[2..3] and calling…
+- [Medium] The patch hardens only one of the three in-tree implementers
+  of `struct compressor::decompress`.
+- [Medium] The new pskb_expand_head(skb, 2, 0, GFP_ATOMIC) in
+  ppp_decompress_frame() (drivers/net/ppp/ppp_generic.c:2556) creates…
 
-> diff --git a/drivers/iio/dac/mcp47feb02.c b/drivers/iio/dac/mcp47feb02-core.c
-> similarity index 73%
-> rename from drivers/iio/dac/mcp47feb02.c
-> rename to drivers/iio/dac/mcp47feb02-core.c
-> index 7312c2c96141..91fad42df216 100644
-> --- a/drivers/iio/dac/mcp47feb02.c
-> +++ b/drivers/iio/dac/mcp47feb02-core.c
+--
 
->  				      unsigned int val)
-> @@ -440,8 +235,6 @@ static int mcp47feb02_write_to_eeprom(struct mcp47feb02_data *data, unsigned int
->  	 * Wait until the currently occurring EEPROM Write Cycle is completed.
->  	 * Only serial commands to the volatile memory are allowed.
+ppp: fix bsd_decompress() OOB read and ppp_decompress_frame() headroom check
+
+This adds an isize floor check to bsd_decompress(), makes
+ppp_decompress_frame() call pskb_expand_head(skb, 2, 0, GFP_ATOMIC) to
+guarantee two bytes of headroom, and tightens the decompressed length
+check from len < 0 to len < PPP_HDRLEN.
+
+No Link: tags were present in the commit header.
+
+A few questions below.
+
+> ppp: fix bsd_decompress() OOB read and ppp_decompress_frame() headroom check
+>
+> In ppp_decompress_frame(), skb->data - 2 is passed to the decompressor
+> assuming at least 2 bytes of headroom exist for the PPP Address/Control
+> fields, and the returned decompressed length is only checked for len < 0
+> before indexing ns->data[2..3] and calling skb_pull_rcsum(skb, 2).
+
+[Severity: Medium]
+Does this describe the code being patched?  Neither an ns->data[2..3]
+access nor a skb_pull_rcsum(skb, 2) exists in ppp_decompress_frame().
+The post-decompress sequence there is:
+
+	consume_skb(skb);
+	skb = ns;
+	skb_put(skb, len);
+	skb_pull(skb, 2);	/* pull off the A/C bytes */
+
+	/* Don't call __ppp_decompress_proto() here, but instead rely on
+	 * corresponding algo (mppe/bsd/deflate) to decompress it.
+	 */
+
+The only skb_pull_rcsum(skb, 2) in the file lives in the caller,
+ppp_receive_nonmp_frame().  The read that the new len < PPP_HDRLEN check
+actually protects looks like the two-byte
+
+	proto = PPP_PROTO(skb);
+
+in ppp_receive_nonmp_frame() after skb->len has been reduced to 1 by
+skb_put(3) + skb_pull(2), which the message does not mention.  Could the
+message be updated to match the tree being patched, so that stable
+backport decisions can be checked against it?
+
+> diff --git a/drivers/net/ppp/bsd_comp.c b/drivers/net/ppp/bsd_comp.c
+> index 63a6d251c746..03ee4ff4ec1b 100644
+> --- a/drivers/net/ppp/bsd_comp.c
+> +++ b/drivers/net/ppp/bsd_comp.c
+> @@ -847,6 +847,8 @@ static int bsd_decompress (void *state, unsigned char *ibuf, int isize,
+>      int extra;
+>  
+>      db       = (struct bsd_db *) state;
+> +	if (isize < PPP_HDRLEN + BSD_OVHD)
+> +		return DECOMP_ERROR;
+>      max_ent  = db->max_ent;
+
+[Severity: Medium]
+Should this check instead live in the shared caller?  There are three
+in-tree implementers of struct compressor::decompress, and they are all
+reached from the single dispatch point in ppp_decompress_frame():
+
+	len = ppp->rcomp->decompress(ppp->rc_state, skb->data - 2,
+			skb->len + 2, ns->data, obuff_size);
+
+z_decompress() already validates isize before touching ibuf, and this
+patch adds the same for bsd_decompress(), but mppe_decompress() still
+reads ibuf[4] in a variable initializer that runs before its own length
+guard:
+
+drivers/net/ppp/ppp_mppe.c:mppe_decompress() {
+	int flushed = MPPE_BITS(ibuf) & MPPE_BIT_FLUSHED;
+
+	if (isize <= PPP_HDRLEN + MPPE_OVHD) {
+		...
+		return DECOMP_ERROR;
+	}
+
+with
+
+#define MPPE_BITS(p) ((p)[4] & 0xf0)
+
+The receive path only guarantees skb->len >= 2 (ppp_decompress_proto()
+does pskb_may_pull(skb, 2)), so a peer that has negotiated MPPE and sends
+a 2-byte PPP_COMP frame gives isize == 4 and makes ibuf[4] read one byte
+past the frame data.  Does a single minimum-isize test at the dispatch
+point cover all three callbacks rather than leaving MPPE inconsistent?
+
+Also, the indentation of the added lines uses tabs while the surrounding
+function uses the file's older 4-space style.
+
+> diff --git a/drivers/net/ppp/ppp_generic.c b/drivers/net/ppp/ppp_generic.c
+> index 1a610a18893b..f7af328b7bf8 100644
+> --- a/drivers/net/ppp/ppp_generic.c
+> +++ b/drivers/net/ppp/ppp_generic.c
+> @@ -2552,7 +2552,8 @@ ppp_decompress_frame(struct ppp *ppp, struct sk_buff *skb)
+>  	/* Until we fix all the decompressor's need to make sure
+>  	 * data portion is linear.
 >  	 */
-> -	guard(mutex)(&data->lock);
-> -
+> -	if (!pskb_may_pull(skb, skb->len))
+> +	if (!pskb_may_pull(skb, skb->len) ||
+> +	    pskb_expand_head(skb, 2, 0, GFP_ATOMIC))
+>  		goto err;
 
-What is this change doing in this patch?  Looking at the code I think
-is indeed a good thing to do, just shouldn't be hidden down in here.
+[Severity: High]
+Is the expansion meant to be unconditional?  pskb_expand_head() has no
+"headroom is already sufficient" fast path:
 
-Break this out as a separate precursor patch.
+net/core/skbuff.c:pskb_expand_head() {
+	data = kmalloc_reserve(&size, gfp_mask, NUMA_NO_NODE, NULL);
+	...
+	memcpy(data + nhead, skb->head, skb_tail_pointer(skb) - skb->head);
+	...
+		skb_free_head(skb);
+	...
+	skb->truesize += size - osize;
+}
 
->  	ret = regmap_read_poll_timeout(data->regmap, MCP47FEB02_GAIN_CTRL_STATUS_REG_ADDR,
->  				       eewa_val,
->  				       !(eewa_val & MCP47FEB02_GAIN_BIT_STATUS_EEWA_MASK),
-> @@ -467,6 +260,8 @@ static ssize_t store_eeprom_store(struct device *dev, struct device_attribute *a
->  	if (!state)
->  		return len;
->  
-> +	guard(mutex)(&data->lock);
-> +
->  	/*
->  	 * Verify DAC Wiper and DAC Configuration are unlocked. If both are disabled,
->  	 * writing to EEPROM is available.
-> @@ -575,12 +370,10 @@ static int mcp47feb02_resume(struct device *dev)
->  	guard(mutex)(&data->lock);
->  
->  	for_each_set_bit(ch, &data->active_channels_mask, data->phys_channels) {
-> -		u8 pd_mode;
->  		u32 mask;
->  		int ret;
->  
->  		data->chdata[ch].powerdown = false;
-> -		pd_mode = data->chdata[ch].powerdown_mode + 1;
->  
->  		ret = regmap_write(data->regmap, REG_ADDR(ch), data->chdata[ch].dac_data);
->  		if (ret)
-> @@ -588,7 +381,7 @@ static int mcp47feb02_resume(struct device *dev)
->  
->  		mask =  MCP47FEB02_VREF_PD_MASK(ch);
->  		ret = regmap_update_bits(data->regmap, MCP47FEB02_VREF_REG_ADDR,
-> -					 mask, field_prep(mask, pd_mode));
-> +					 mask, field_prep(mask, data->chdata[ch].ref_mode));
->  		if (ret)
->  			return ret;
->  
-> @@ -668,7 +461,7 @@ static ssize_t mcp47feb02_write_powerdown(struct iio_dev *indio_dev, uintptr_t p
->  	return len;
->  }
->  
-> -static DEFINE_SIMPLE_DEV_PM_OPS(mcp47feb02_pm_ops, mcp47feb02_suspend, mcp47feb02_resume);
-> +EXPORT_SIMPLE_DEV_PM_OPS(mcp47feb02_pm_ops, mcp47feb02_suspend, mcp47feb02_resume);
+nhead is additional headroom, so every received frame now takes a
+kmalloc + memcpy + free even though in-tree channels already reserve
+headroom, for example:
 
-Sashiko:
-[Severity: Low]
-Does this macro export the PM ops symbol without the intended IIO_MCP47FEB02
-namespace?
+drivers/net/ppp/ppp_async.c:ppp_async_input() {
+			if (buf[0] != PPP_ALLSTATIONS)
+				skb_reserve(skb, 2 + (buf[0] & 1));
 
-The driver establishes a dedicated namespace IIO_MCP47FEB02 for its core
-exported symbols, but mcp47feb02_pm_ops is exported using
-EXPORT_SIMPLE_DEV_PM_OPS, which places it into the global namespace.
+That skb_reserve() also arranges 4-byte payload alignment, which the
+unconditional reallocation discards.  The call also sits before the
+proto == PPP_COMP test, so it runs for frames that never dereference
+skb->data - 2 at all (the else branch only calls ->incomp() when
+ppp->rcomp->incomp is non-NULL).
 
-Should this use EXPORT_NS_SIMPLE_DEV_PM_OPS(mcp47feb02_pm_ops,
-mcp47feb02_suspend, mcp47feb02_resume, IIO_MCP47FEB02) instead to
-maintain namespace encapsulation?
--
-That is a good spot.  Yes, this should use the NS variant.
+Separately, does a transient GFP_ATOMIC failure here have larger
+consequences than dropping one frame?  The failure funnels into:
 
+ err:
+	ppp->rstate |= SC_DC_ERROR;
+	ppp_receive_error(ppp);
 
-Thanks,
+and the caller only enters the decompressor while that bit is clear:
 
-Jonathan
+drivers/net/ppp/ppp_generic.c:ppp_receive_nonmp_frame() {
+	if (ppp->rc_state && (ppp->rstate & SC_DECOMP_RUN) &&
+	    (ppp->rstate & (SC_DC_FERROR | SC_DC_ERROR)) == 0)
+		skb = ppp_decompress_frame(ppp, skb);
+
+SC_DC_ERROR is only cleared from ppp_ccp_peek() via
+
+				ppp->rstate &= ~SC_DC_ERROR;
+
+so one momentary atomic allocation failure appears to disable receive
+decompression for the whole link until a CCP Reset round trip.  Would
+skb_cow_head(skb, 2), or an explicit
+
+	if (skb_headroom(skb) < 2 && pskb_expand_head(skb, 2, 0, GFP_ATOMIC))
+
+placed inside the branch that actually uses skb->data - 2, avoid both the
+per-packet copy and the new sticky failure mode?
+
+[Severity: Medium]
+Are the two new headroom bytes ever initialised?  pskb_expand_head()
+allocates with kmalloc_reserve() (no __GFP_ZERO) and copies the old head
+to data + nhead, so data[0] and data[1] are never written.  Afterwards
+skb->data == data + 2 + old_headroom, so when the incoming skb had less
+than 2 bytes of headroom, skb->data - 2 points into that uninitialised
+prefix, and that is exactly the case this change exists to handle.
+
+Those bytes are then handed to the decompressor as the PPP
+Address/Control octets:
+
+		/* the decompressor still expects the A/C bytes in the hdr */
+		len = ppp->rcomp->decompress(ppp->rc_state, skb->data - 2,
+				skb->len + 2, ns->data, obuff_size);
+
+and in the uncompressed branch to:
+
+		if (ppp->rcomp->incomp)
+			ppp->rcomp->incomp(ppp->rc_state, skb->data - 2,
+					   skb->len + 2);
+
+bsd_decompress() consumes them and copies them into the output header:
+
+    adrs  = PPP_ADDRESS (ibuf);
+    ctrl  = PPP_CONTROL (ibuf);
+
+z_decompress() and mppe_decompress() do the same.  Headroom below 2 is
+reachable on the tty path: ppp_async_input() skips skb_reserve() when the
+frame starts with PPP_ALLSTATIONS, process_input_packet() pulls the two
+A/C bytes leaving headroom 2, and then a PFC-compressed protocol field
+consumes one more byte in __ppp_decompress_proto():
+
+	if (ppp_skb_is_compressed_proto(skb))
+		*(u8 *)skb_push(skb, 1) = 0x00;
+
+Should the two bytes be filled with PPP_ALLSTATIONS/PPP_UI after the
+expansion, so the decompressors read the header the comment says they
+expect?
+
+> @@ -2576,7 +2577,7 @@ ppp_decompress_frame(struct ppp *ppp, struct sk_buff *skb)
+>  		/* the decompressor still expects the A/C bytes in the hdr */
+>  		len = ppp->rcomp->decompress(ppp->rc_state, skb->data - 2,
+>  				skb->len + 2, ns->data, obuff_size);
+> -		if (len < 0) {
+> +		if (len < PPP_HDRLEN) {
+>  			/* Pass the compressed frame to pppd as an
+>  			   error indication. */
+>  			if (len == DECOMP_FATALERROR)
+
+[ ... ]
 
 -- 
-Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260919215233.3470411-1-benquike%40gmail.com
