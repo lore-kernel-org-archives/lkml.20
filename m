@@ -1,611 +1,186 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56BAF44838E;
-	Sun, 20 Sep 2026 14:09:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 934DE436BC8
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 14:10:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789913393; cv=none; b=MrvVRhPq0O8rTo6jrEw3iyPRxN6PO/UwjbBoauSaC66R1RzHL92LxQn585+jfFQEedzhC+2r1gjXvZf2nQscPjsz6kfdTcNIEhatFV70GOOLRycgA+1UzGb0Xswg18/OEQYRWqWk1zowDeOKgSmVCx58W6cqikVAeX+Ho5HfeOY=
+	t=1789913415; cv=none; b=SMr6SOjjx5fptMspfhWgQFecH8LKk6wT6m2oOxqDOUm5n9n64eX8MaMFXSIK5yjTZyNm4yZABKqIznEIXMPow9gJ0O34hzmTSBrm2wTXYzE1sbnUAs0gfKEtLn9c2VRw9zWQ0xyOo8PdTM7QpAR5qAZ0QSV2IWrvptCcCR8nTWg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789913393; c=relaxed/simple;
-	bh=ONNB8ad90qkW/loGYI5oknoo/rPFcENKswPOuyFSXWQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=pFNlqfOGbwRTNU+uX2bcqhq5HehjtG7RjB3XNK7ggJfJXjdmdTXiyCpYY0bxKQuauqFwY1Gn/x5YvCbNao9pPSA45yuMap/baDYfz8+IvksLUajNgrYj/SsrTPFYv7DyFljTElIHX9naFCDZD4LBzsR4Ntx/4Vb03CiBCi52bok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=lJWOQCli; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="lJWOQCli"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=AG
-	E9c1/porG2izzS8SPc2PiwypiPAK95cO8USS9ZWFY=; b=lJWOQCliLQezrg10LY
-	tOjRAdPOCYSBiT/i/7K0JOiXHZby1NnEtU3UnwySxSHBMnUr9R+kghymBI9v22os
-	dpY3cAKNbfY/MSQmNxe2d63FW7QCi2YzLUoIRubMWIpnOwuXVXaJuk5Szg+gnODM
-	VHrzOo+CDpnkf1vjt/dHEF1Vg=
-Received: from 1.localdomain (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgCXDz7g6K9q0orGAQ--.60300S2;
-	Sun, 20 Sep 2026 22:08:38 +0800 (CST)
-From: Can Qi <qican5708@163.com>
-To: Anup Patel <anup@brainfault.org>
-Cc: Atish Patra <atish.patra@linux.dev>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	kvm@vger.kernel.org,
-	kvm-riscv@lists.infradead.org,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Can Qi <qican5708@163.com>,
-	Quan Zhou <zhouquan@iscas.ac.cn>
-Subject: [PATCH v2] KVM: riscv: Free detached G-stage page tables outside mmu_lock
-Date: Sun, 20 Sep 2026 22:08:31 +0800
-Message-Id: <20260920140831.75097-1-qican5708@163.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260920123117.49830-1-qican5708@163.com>
-References: <20260920123117.49830-1-qican5708@163.com>
+	s=arc-20240116; t=1789913415; c=relaxed/simple;
+	bh=xE5Th+T+q47uR+eRw2tXrCbhqFfG/KHZf9xKJXKqHYs=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=Ys57g/gkVyXKmdTyIKpxJxmTWA3kuJuYsFxlWRytyCWeO7TEpqrPEV9r0MRXX/8R6j3h4xfgyxJl5HxvUf4AXsAFsnf1lC+nOzFGjpNKedPByDbVgpQ+rMnHMSZ6QFMyoDAHApa+gVvEPehUfF/85SaM0eAwSEdDKdoyZnP+V1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6bc3374cb0cso1240078eaf.1
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 07:10:01 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789913395; x=1790518195;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=0sBbJ9/b2DWURdT9rlkpvRosWzvqTutodmGOna80EJ4=;
+        b=qC5V6Ug295BAPfFYkshnC5igLL5UKLOOdWuvohMWc4vAYmv8D//SNvukiXaF3rs+eE
+         yuvgDmx9coaAzrh8iZgskFd9d1XleZ78t3fmJq5o1rkDiMqwYM+Dxo/E0gsovec5mtvW
+         izCXtfNavPZqutT0Iujsz4YQ6Lf+IZv+JF7dyQh5hWZ+PSDcAcZ8Gz3dOd86NOKTovGN
+         5AfqBKcCs5MoL1TwgrZldRH1MOQ/AL6BYUmgkWTkGo1624k0puDQhkuvD+rcm7AuS/Up
+         FEOHekd+obXqJgVATjSxqT+lE0H7DXab+F9MTq6WlT++mFcsnb3Q7ysDNGXNOEDriPja
+         VpRw==
+X-Gm-Message-State: AFuF++kjaaL9EwYxfohOCPu4oB3vFq4AS/aJXU7w0oDCjWXpxMfo6SJh
+	s9s7DiOIjg8nxhz8O4QRudPdEV0+8X2SPTFZ/fiMgFK8H+pPCE1LbjwPh2RpkMGxi06cf+f8pPy
+	BSNW5bL9iUNAQVj5TC7Uql+HvRsVnoLwbbT6ZRZ7kspOxv09k/m2wf53hQsQ=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgCXDz7g6K9q0orGAQ--.60300S2
-X-Coremail-Antispam: 1Uf129KBjvAXoW3KF1kWF4UKr47Cw1Utw18Krg_yoW8Zr13to
-	W0ya1rWF48u340yFWjyw1UtFyjq3yvkrZruF15XFWYqFyUZ348uryUKrZ8Ja4agr1UWFyf
-	ZFyfXry7XF18G3Zrn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjTRq_M3UUUUU
-X-CM-SenderInfo: ptlft0avxqmqqrwthudrp/xtbCzQb5t2qv6OaI4wAA3l
+X-Received: by 2002:a05:6820:160a:b0:6b7:8396:f3c4 with SMTP id
+ 006d021491bc7-6ca9c24a3damr7099766eaf.38.1789913395511; Sun, 20 Sep 2026
+ 07:09:55 -0700 (PDT)
+Date: Sun, 20 Sep 2026 07:09:55 -0700
+In-Reply-To: <6aaf3eb5.3179f8cd.1e36b2.0006.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aafe933.e548f532.1ca396.000b.GAE@google.com>
+Subject: Forwarded: [PATCH] nvmet-fc: fix use-after-free of nvmet_fc_ls_req_op
+From: syzbot <syzbot+77955102efac681ec73b@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-kvm_riscv_mmu_free_pgd() currently walks the entire G-stage address
-space and recursively frees lower-level page-table pages while holding
-mmu_lock for write. Teardown of a large VM can therefore hold mmu_lock
-for a long time.
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-Detach the active G-stage root under mmu_lock and free the detached tree
-after dropping the lock. Make live G-stage users acquire the active root
-under mmu_lock, and make walkers that drop and reacquire the lock verify
-that the root is still active before continuing.
+***
 
-Before freeing the detached tree, quiesce guest and host HLV/HLVX
-hardware users using KVM_REQ_OUTSIDE_GUEST_MODE and the
-READING_SHADOW_PAGE_TABLES protocol. Prevent a detached root from being
-reinstalled in HGATP or used for guest entry, and request invalidation
-of stale G-stage translations for the old VMID.
+Subject: [PATCH] nvmet-fc: fix use-after-free of nvmet_fc_ls_req_op
+Author: kartikey406@gmail.com
 
-Free only page-table pages from the detached tree and periodically call
-cond_resched() while walking it.
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
 
-Also replace the KVM-wide split page cache with a per-operation cache.
-The huge-page split path can drop mmu_lock while topping up its cache or
-rescheduling, so keeping the cache local avoids sharing its lifetime
-with G-stage teardown.
 
-Assisted-by: LLM
-Co-developed-by: Quan Zhou <zhouquan@iscas.ac.cn>
-Signed-off-by: Quan Zhou <zhouquan@iscas.ac.cn>
-Signed-off-by: Can Qi <qican5708@163.com>
+nvmet_fc_free_pending_reqs() unconditionally frees each queued
+nvmet_fc_ls_req_op (lsop) when a targetport is unregistered, but an
+LLDD (e.g. fcloop) may still hold a pointer to that request queued on
+its own async work, with no way for the target core to know.
+
+If the targetport is torn down while such a request is still in
+flight, the LLDD later dereferences the freed lsop when its completion
+work runs, causing a slab-use-after-free.
+
+Fix this by refcounting nvmet_fc_ls_req_op: one reference for the
+core's ls_req_list, and one for the in-flight request handed to the
+LLDD via ->ls_req(). The object is only freed once both the normal
+completion path (__nvmet_fc_finish_ls_req) and teardown
+(nvmet_fc_free_pending_reqs) have dropped their reference, whichever
+runs last.
+
+Reported-by: syzbot+77955102efac681ec73b@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=77955102efac681ec73b
+Signed-off-by: Deepanshu kartikey <kartikey406@gmail.com>
 ---
-Changes in v2:
+ drivers/nvme/target/fc.c | 38 ++++++++++++++++++++++++--------------
+ 1 file changed, 24 insertions(+), 14 deletions(-)
 
-- Keep mmu_lock held across the complete HLV/HLVX access.
-- Restore local IRQs before read_unlock() to avoid a PREEMPT_RT warning.
-
- arch/riscv/include/asm/kvm_gstage.h |   9 +-
- arch/riscv/include/asm/kvm_host.h   |   1 -
- arch/riscv/kvm/gstage.c             |  37 ++++++++
- arch/riscv/kvm/mmu.c                | 138 ++++++++++++++--------------
- arch/riscv/kvm/vcpu.c               |  10 +-
- arch/riscv/kvm/vcpu_exit.c          |  16 ++++
- 6 files changed, 139 insertions(+), 72 deletions(-)
-
-diff --git a/arch/riscv/include/asm/kvm_gstage.h b/arch/riscv/include/asm/kvm_gstage.h
-index aaf080ba1b77..b5a9563754d0 100644
---- a/arch/riscv/include/asm/kvm_gstage.h
-+++ b/arch/riscv/include/asm/kvm_gstage.h
-@@ -87,6 +87,8 @@ bool kvm_riscv_gstage_wp_pt_masked(struct kvm_gstage *gstage, gfn_t base_gfn,
+diff --git a/drivers/nvme/target/fc.c b/drivers/nvme/target/fc.c
+index 1b557775e033..a25f7579049d 100644
+--- a/drivers/nvme/target/fc.c
++++ b/drivers/nvme/target/fc.c
+@@ -56,6 +56,7 @@ struct nvmet_fc_ls_req_op {		/* for an LS RQST XMT */
+ 	bool				req_queued;
  
- void kvm_riscv_gstage_mode_detect(void);
+ 	struct work_struct		put_work;
++	struct kref                     ref;
+ };
  
-+void kvm_riscv_gstage_free(struct kvm_gstage *gstage);
-+
- static inline unsigned long kvm_riscv_gstage_mode(unsigned long pgd_levels)
- {
- 	switch (pgd_levels) {
-@@ -104,13 +106,18 @@ static inline unsigned long kvm_riscv_gstage_mode(unsigned long pgd_levels)
- 	}
+ 
+@@ -339,6 +340,22 @@ fc_dma_unmap_sg(struct device *dev, struct scatterlist *sg, int nents,
+ 		dma_unmap_sg(dev, sg, nents, dir);
  }
  
--static inline void kvm_riscv_gstage_init(struct kvm_gstage *gstage, struct kvm *kvm)
-+static inline bool kvm_riscv_gstage_init(struct kvm_gstage *gstage, struct kvm *kvm)
- {
-+	lockdep_assert_held(&kvm->mmu_lock);
-+	if (!kvm->arch.pgd)
-+		return false;
-+
- 	gstage->kvm = kvm;
- 	gstage->flags = 0;
- 	gstage->vmid = READ_ONCE(kvm->arch.vmid.vmid);
- 	gstage->pgd = kvm->arch.pgd;
- 	gstage->pgd_levels = kvm->arch.pgd_levels;
-+	return true;
- }
- 
- #endif
-diff --git a/arch/riscv/include/asm/kvm_host.h b/arch/riscv/include/asm/kvm_host.h
-index a30600579231..2ab999f75151 100644
---- a/arch/riscv/include/asm/kvm_host.h
-+++ b/arch/riscv/include/asm/kvm_host.h
-@@ -86,7 +86,6 @@ struct kvm_arch {
- 	pgd_t *pgd;
- 	phys_addr_t pgd_phys;
- 	unsigned long pgd_levels;
--	struct kvm_mmu_memory_cache pgd_split_page_cache;
- 
- 	/* Guest Timer */
- 	struct kvm_guest_timer timer;
-diff --git a/arch/riscv/kvm/gstage.c b/arch/riscv/kvm/gstage.c
-index e5002cb9cbef..5ab3c4ba5a6a 100644
---- a/arch/riscv/kvm/gstage.c
-+++ b/arch/riscv/kvm/gstage.c
-@@ -414,6 +414,37 @@ bool kvm_riscv_gstage_op_pte(struct kvm_gstage *gstage, gpa_t addr,
- 	return flush;
- }
- 
-+/* The caller has detached this tree and quiesced its hardware users. */
-+static void gstage_free_level(pte_t *ptep, u32 level, unsigned long nr_entries,
-+			      unsigned int *processed)
++static void
++nvmet_fc_ls_req_op_release(struct kref *ref)
 +{
-+	pte_t pte, *child;
-+	unsigned long i;
++    struct nvmet_fc_ls_req_op *lsop =
++        container_of(ref, struct nvmet_fc_ls_req_op, ref);
++    struct nvmet_fc_tgtport *tgtport = lsop->tgtport;
++    struct nvmefc_ls_req *lsreq = &lsop->ls_req;
 +
-+	for (i = 0; i < nr_entries; i++) {
-+		pte = ptep_get(&ptep[i]);
-+		if (level && pte_val(pte) && !gstage_pte_leaf(&pte)) {
-+			child = (pte_t *)gstage_pte_page_vaddr(pte);
-+			gstage_free_level(child, level - 1, PTRS_PER_PTE, processed);
-+			put_page(virt_to_page(child));
-+		}
-+		/* Leaf PFNs belong to the guest backing memory, not this tree. */
-+		if (++*processed == PTRS_PER_PTE) {
-+			*processed = 0;
-+			cond_resched();
-+		}
++    if (lsop->req_queued)
++        fc_dma_unmap_single(tgtport->dev, lsreq->rqstdma,
++                    (lsreq->rqstlen + lsreq->rsplen),
++                    DMA_BIDIRECTIONAL);
++    queue_work(nvmet_wq, &lsop->put_work);
++}
++
++
+ 
+ /* ********************** FC-NVME LS XMT Handling ************************* */
+ 
+@@ -347,7 +364,6 @@ static void
+ __nvmet_fc_finish_ls_req(struct nvmet_fc_ls_req_op *lsop)
+ {
+ 	struct nvmet_fc_tgtport *tgtport = lsop->tgtport;
+-	struct nvmefc_ls_req *lsreq = &lsop->ls_req;
+ 	unsigned long flags;
+ 
+ 	spin_lock_irqsave(&tgtport->lock, flags);
+@@ -363,12 +379,8 @@ __nvmet_fc_finish_ls_req(struct nvmet_fc_ls_req_op *lsop)
+ 
+ 	spin_unlock_irqrestore(&tgtport->lock, flags);
+ 
+-	fc_dma_unmap_single(tgtport->dev, lsreq->rqstdma,
+-				  (lsreq->rqstlen + lsreq->rsplen),
+-				  DMA_BIDIRECTIONAL);
+-
+ out_putwork:
+-	queue_work(nvmet_wq, &lsop->put_work);
++	kref_put(&lsop->ref, nvmet_fc_ls_req_op_release);
+ }
+ 
+ static int
+@@ -406,12 +418,16 @@ __nvmet_fc_send_ls_req(struct nvmet_fc_tgtport *tgtport,
+ 
+ 	lsop->req_queued = true;
+ 
++	kref_init(&lsop->ref);
++	kref_get(&lsop->ref);
+ 	spin_unlock_irqrestore(&tgtport->lock, flags);
+ 
+ 	ret = tgtport->ops->ls_req(&tgtport->fc_target_port, lsop->hosthandle,
+ 				   lsreq);
+-	if (ret)
++	if (ret) {
++		kref_put(&lsop->ref, nvmet_fc_ls_req_op_release);
+ 		goto out_unlink;
 +	}
-+}
-+
-+void kvm_riscv_gstage_free(struct kvm_gstage *gstage)
-+{
-+	unsigned int processed = 0;
-+
-+	gstage_free_level((pte_t *)gstage->pgd, gstage->pgd_levels - 1,
-+			  PTRS_PER_PTE << kvm_riscv_gstage_pgd_xbits, &processed);
-+	free_pages((unsigned long)gstage->pgd, get_order(kvm_riscv_gstage_pgd_size));
-+}
-+
- bool kvm_riscv_gstage_unmap_range(struct kvm_gstage *gstage,
- 				  gpa_t start, gpa_t size, bool may_block)
- {
-@@ -426,6 +457,12 @@ bool kvm_riscv_gstage_unmap_range(struct kvm_gstage *gstage,
- 	bool flush = false;
- 
- 	while (addr < end) {
-+		/* cond_resched_rwlock_write() may have let teardown detach us. */
-+		if (!(gstage->flags & KVM_GSTAGE_FLAGS_LOCAL) &&
-+		    (!gstage->kvm->arch.pgd ||
-+		     gstage->pgd != gstage->kvm->arch.pgd))
-+			break;
-+
- 		found_leaf = kvm_riscv_gstage_get_leaf(gstage, addr, &ptep, &ptep_level);
- 		ret = gstage_level_to_page_size(gstage, ptep_level, &page_size);
- 		if (ret)
-diff --git a/arch/riscv/kvm/mmu.c b/arch/riscv/kvm/mmu.c
-index 6035b5ec9503..2d7ad70ff765 100644
---- a/arch/riscv/kvm/mmu.c
-+++ b/arch/riscv/kvm/mmu.c
-@@ -26,12 +26,11 @@ static void mmu_wp_memory_region(struct kvm *kvm, int slot)
- 	phys_addr_t start = memslot->base_gfn << PAGE_SHIFT;
- 	phys_addr_t end = (memslot->base_gfn + memslot->npages) << PAGE_SHIFT;
- 	struct kvm_gstage gstage;
--	bool flush;
--
--	kvm_riscv_gstage_init(&gstage, kvm);
-+	bool flush = false;
- 
- 	write_lock(&kvm->mmu_lock);
--	flush = kvm_riscv_gstage_wp_range(&gstage, start, end);
-+	if (kvm_riscv_gstage_init(&gstage, kvm))
-+		flush = kvm_riscv_gstage_wp_range(&gstage, start, end);
- 	write_unlock(&kvm->mmu_lock);
- 	if (flush)
- 		kvm_flush_remote_tlbs_memslot(kvm, memslot);
-@@ -44,7 +43,7 @@ int kvm_riscv_mmu_ioremap(struct kvm *kvm, gpa_t gpa, phys_addr_t hpa,
- 	pgprot_t prot;
- 	unsigned long pfn;
- 	phys_addr_t addr, end;
--	unsigned long pgd_levels = kvm->arch.pgd_levels;
-+	unsigned long pgd_levels = kvm_riscv_gstage_max_pgd_levels;
- 	struct kvm_mmu_memory_cache pcache = {
- 		.gfp_custom = (in_atomic) ? GFP_ATOMIC | __GFP_ACCOUNT : 0,
- 		.gfp_zero = __GFP_ZERO,
-@@ -52,8 +51,6 @@ int kvm_riscv_mmu_ioremap(struct kvm *kvm, gpa_t gpa, phys_addr_t hpa,
- 	struct kvm_gstage_mapping map;
- 	struct kvm_gstage gstage;
- 
--	kvm_riscv_gstage_init(&gstage, kvm);
--
- 	end = (gpa + size + PAGE_SIZE - 1) & PAGE_MASK;
- 	pfn = __phys_to_pfn(hpa);
- 	prot = pgprot_noncached(PAGE_WRITE);
-@@ -72,7 +69,10 @@ int kvm_riscv_mmu_ioremap(struct kvm *kvm, gpa_t gpa, phys_addr_t hpa,
- 			goto out;
- 
- 		write_lock(&kvm->mmu_lock);
--		ret = kvm_riscv_gstage_set_pte(&gstage, &pcache, &map);
-+		if (kvm_riscv_gstage_init(&gstage, kvm))
-+			ret = kvm_riscv_gstage_set_pte(&gstage, &pcache, &map);
-+		else
-+			ret = -EFAULT;
- 		write_unlock(&kvm->mmu_lock);
- 		if (ret)
- 			goto out;
-@@ -88,12 +88,11 @@ int kvm_riscv_mmu_ioremap(struct kvm *kvm, gpa_t gpa, phys_addr_t hpa,
- void kvm_riscv_mmu_iounmap(struct kvm *kvm, gpa_t gpa, unsigned long size)
- {
- 	struct kvm_gstage gstage;
--	bool flush;
--
--	kvm_riscv_gstage_init(&gstage, kvm);
-+	bool flush = false;
- 
- 	write_lock(&kvm->mmu_lock);
--	flush = kvm_riscv_gstage_unmap_range(&gstage, gpa, size, false);
-+	if (kvm_riscv_gstage_init(&gstage, kvm))
-+		flush = kvm_riscv_gstage_unmap_range(&gstage, gpa, size, false);
- 	write_unlock(&kvm->mmu_lock);
- 
- 	if (flush)
-@@ -101,14 +100,12 @@ void kvm_riscv_mmu_iounmap(struct kvm *kvm, gpa_t gpa, unsigned long size)
- 					    size >> PAGE_SHIFT);
- }
- 
--static bool need_topup_split_caches_or_resched(struct kvm *kvm, int count)
-+static bool need_topup_split_cache(struct kvm *kvm,
-+				   struct kvm_mmu_memory_cache *cache, int count)
- {
--	struct kvm_mmu_memory_cache *cache;
--
- 	if (need_resched() || rwlock_needbreak(&kvm->mmu_lock))
- 		return true;
- 
--	cache = &kvm->arch.pgd_split_page_cache;
- 	return kvm_mmu_memory_cache_nr_free_objects(cache) < count;
- }
- 
-@@ -116,7 +113,8 @@ static bool mmu_split_huge_pages(struct kvm_gstage *gstage,
- 				 phys_addr_t start, phys_addr_t end)
- {
- 	struct kvm *kvm = gstage->kvm;
--	struct kvm_mmu_memory_cache *pcache = &kvm->arch.pgd_split_page_cache;
-+	struct kvm_mmu_memory_cache cache = { .gfp_zero = __GFP_ZERO };
-+	struct kvm_mmu_memory_cache *pcache = &cache;
- 	phys_addr_t addr = ALIGN_DOWN(start, PMD_SIZE);
- 	phys_addr_t last_flush_gfn = addr >> PAGE_SHIFT;
- 	int count = gstage->pgd_levels;
-@@ -126,7 +124,7 @@ static bool mmu_split_huge_pages(struct kvm_gstage *gstage,
- 	lockdep_assert_held_write(&kvm->mmu_lock);
- 
- 	while (addr < end) {
--		if (need_topup_split_caches_or_resched(kvm, count)) {
-+		if (need_topup_split_cache(kvm, pcache, count)) {
- 			if (flush) {
- 				kvm_flush_remote_tlbs_range(kvm, last_flush_gfn,
- 					  (addr >> PAGE_SHIFT) - last_flush_gfn);
-@@ -141,19 +139,22 @@ static bool mmu_split_huge_pages(struct kvm_gstage *gstage,
- 			if (ret) {
- 				kvm_err("Failed to toup split page cache\n");
- 				write_lock(&kvm->mmu_lock);
--				return flush;
-+				break;
- 			}
- 			write_lock(&kvm->mmu_lock);
- 		}
- 
--		if (!kvm->arch.pgd)
--			return flush;
-+		if (!kvm->arch.pgd || gstage->pgd != kvm->arch.pgd)
-+			break;
- 
- 		flush |= kvm_riscv_gstage_split_huge(gstage, pcache, addr, 0, false);
- 
- 		addr += PMD_SIZE;
- 	}
- 
-+	write_unlock(&kvm->mmu_lock);
-+	kvm_mmu_free_memory_cache(pcache);
-+	write_lock(&kvm->mmu_lock);
- 	return flush;
- }
- 
-@@ -167,7 +168,8 @@ void kvm_arch_mmu_enable_log_dirty_pt_masked(struct kvm *kvm,
- 	phys_addr_t end = (base_gfn + __fls(mask) + 1) << PAGE_SHIFT;
- 	struct kvm_gstage gstage;
- 
--	kvm_riscv_gstage_init(&gstage, kvm);
-+	if (!kvm_riscv_gstage_init(&gstage, kvm))
-+		return;
- 
- 	kvm_riscv_gstage_wp_pt_masked(&gstage, base_gfn, mask);
- 
-@@ -205,12 +207,11 @@ void kvm_arch_flush_shadow_memslot(struct kvm *kvm,
- 	gpa_t gpa = slot->base_gfn << PAGE_SHIFT;
- 	phys_addr_t size = slot->npages << PAGE_SHIFT;
- 	struct kvm_gstage gstage;
--	bool flush;
--
--	kvm_riscv_gstage_init(&gstage, kvm);
-+	bool flush = false;
- 
- 	write_lock(&kvm->mmu_lock);
--	flush = kvm_riscv_gstage_unmap_range(&gstage, gpa, size, false);
-+	if (kvm_riscv_gstage_init(&gstage, kvm))
-+		flush = kvm_riscv_gstage_unmap_range(&gstage, gpa, size, false);
- 	write_unlock(&kvm->mmu_lock);
- 	if (flush)
- 		kvm_flush_remote_tlbs_range(kvm, gpa >> PAGE_SHIFT,
-@@ -224,12 +225,11 @@ static void mmu_split_memory_region(struct kvm *kvm, int slot)
- 	phys_addr_t start = memslot->base_gfn << PAGE_SHIFT;
- 	phys_addr_t end = (memslot->base_gfn + memslot->npages) << PAGE_SHIFT;
- 	struct kvm_gstage gstage;
--	bool flush;
--
--	kvm_riscv_gstage_init(&gstage, kvm);
-+	bool flush = false;
- 
- 	write_lock(&kvm->mmu_lock);
--	flush = mmu_split_huge_pages(&gstage, start, end);
-+	if (kvm_riscv_gstage_init(&gstage, kvm))
-+		flush = mmu_split_huge_pages(&gstage, start, end);
- 	write_unlock(&kvm->mmu_lock);
- 
- 	if (flush)
-@@ -334,12 +334,10 @@ bool kvm_unmap_gfn_range(struct kvm *kvm, struct kvm_gfn_range *range)
- 	struct kvm_gstage gstage;
- 	bool flush;
- 
--	if (!kvm->arch.pgd)
--		return false;
--
- 	lockdep_assert_held_write(&kvm->mmu_lock);
- 
--	kvm_riscv_gstage_init(&gstage, kvm);
-+	if (!kvm_riscv_gstage_init(&gstage, kvm))
-+		return false;
- 	flush = kvm_riscv_gstage_unmap_range(&gstage, range->start << PAGE_SHIFT,
- 					     (range->end - range->start) << PAGE_SHIFT,
- 					     range->may_block);
-@@ -356,12 +354,10 @@ bool kvm_age_gfn(struct kvm *kvm, struct kvm_gfn_range *range)
- 	u64 size = (range->end - range->start) << PAGE_SHIFT;
- 	struct kvm_gstage gstage;
- 
--	if (!kvm->arch.pgd)
--		return false;
--
- 	WARN_ON(size != PAGE_SIZE && size != PMD_SIZE && size != PUD_SIZE);
- 
--	kvm_riscv_gstage_init(&gstage, kvm);
-+	if (!kvm_riscv_gstage_init(&gstage, kvm))
-+		return false;
- 	if (!kvm_riscv_gstage_get_leaf(&gstage, range->start << PAGE_SHIFT,
- 				       &ptep, &ptep_level))
- 		return false;
-@@ -376,12 +372,10 @@ bool kvm_test_age_gfn(struct kvm *kvm, struct kvm_gfn_range *range)
- 	u64 size = (range->end - range->start) << PAGE_SHIFT;
- 	struct kvm_gstage gstage;
- 
--	if (!kvm->arch.pgd)
--		return false;
--
- 	WARN_ON(size != PAGE_SIZE && size != PMD_SIZE && size != PUD_SIZE);
- 
--	kvm_riscv_gstage_init(&gstage, kvm);
-+	if (!kvm_riscv_gstage_init(&gstage, kvm))
-+		return false;
- 	if (!kvm_riscv_gstage_get_leaf(&gstage, range->start << PAGE_SHIFT,
- 				       &ptep, &ptep_level))
- 		return false;
-@@ -563,12 +557,12 @@ static bool kvm_riscv_mmu_dirty_log_write_fault_fast(struct kvm *kvm,
- 	bool dirty_marked = false;
- 	bool ret;
- 
--	kvm_riscv_gstage_init(&gstage, kvm);
- 	mmu_seq = kvm->mmu_invalidate_seq;
- 
- 	read_lock(&kvm->mmu_lock);
- 
--	if (mmu_invalidate_retry_gfn(kvm, mmu_seq, gfn)) {
-+	if (!kvm_riscv_gstage_init(&gstage, kvm) ||
-+	    mmu_invalidate_retry_gfn(kvm, mmu_seq, gfn)) {
- 		ret = false;
- 		goto out_unlock;
- 	}
-@@ -639,8 +633,6 @@ int kvm_riscv_mmu_map(struct kvm_vcpu *vcpu, struct kvm_memory_slot *memslot,
- 	struct kvm_gstage gstage;
- 	struct page *page;
- 
--	kvm_riscv_gstage_init(&gstage, kvm);
--
- 	/* Setup initial state of output mapping */
- 	memset(out_map, 0, sizeof(*out_map));
- 
-@@ -649,7 +641,7 @@ int kvm_riscv_mmu_map(struct kvm_vcpu *vcpu, struct kvm_memory_slot *memslot,
- 		return 0;
- 
- 	/* We need minimum second+third level pages */
--	ret = kvm_mmu_topup_memory_cache(pcache, kvm->arch.pgd_levels);
-+	ret = kvm_mmu_topup_memory_cache(pcache, kvm_riscv_gstage_max_pgd_levels);
- 	if (ret) {
- 		kvm_err("Failed to topup G-stage cache\n");
- 		return ret;
-@@ -719,6 +711,11 @@ int kvm_riscv_mmu_map(struct kvm_vcpu *vcpu, struct kvm_memory_slot *memslot,
- 
- 	write_lock(&kvm->mmu_lock);
- 
-+	ret = -EFAULT;
-+	if (!kvm_riscv_gstage_init(&gstage, kvm))
-+		goto out_unlock;
-+
-+	ret = 0;
- 	if (mmu_invalidate_retry(kvm, mmu_seq))
- 		goto out_unlock;
- 
-@@ -764,7 +761,6 @@ int kvm_riscv_mmu_alloc_pgd(struct kvm *kvm)
- 	kvm->arch.pgd = page_to_virt(pgd_page);
- 	kvm->arch.pgd_phys = page_to_phys(pgd_page);
- 	kvm->arch.pgd_levels = kvm_riscv_gstage_max_pgd_levels;
--	kvm->arch.pgd_split_page_cache.gfp_zero = __GFP_ZERO;
  
  	return 0;
- }
-@@ -772,41 +768,45 @@ int kvm_riscv_mmu_alloc_pgd(struct kvm *kvm)
- void kvm_riscv_mmu_free_pgd(struct kvm *kvm)
- {
- 	struct kvm_gstage gstage;
--	void *pgd = NULL;
--	bool flush = false;
  
- 	write_lock(&kvm->mmu_lock);
--	if (kvm->arch.pgd) {
--		kvm_riscv_gstage_init(&gstage, kvm);
--		flush = kvm_riscv_gstage_unmap_range(&gstage, 0UL,
--			kvm_riscv_gstage_gpa_size(kvm->arch.pgd_levels), false);
--		pgd = READ_ONCE(kvm->arch.pgd);
--		kvm->arch.pgd = NULL;
--		kvm->arch.pgd_phys = 0;
--		kvm->arch.pgd_levels = 0;
-+	if (!kvm_riscv_gstage_init(&gstage, kvm)) {
-+		write_unlock(&kvm->mmu_lock);
-+		return;
+@@ -1591,7 +1607,6 @@ static void
+ nvmet_fc_free_pending_reqs(struct nvmet_fc_tgtport *tgtport)
+ {
+ 	struct nvmet_fc_ls_req_op *lsop;
+-	struct nvmefc_ls_req *lsreq;
+ 	struct nvmet_fc_ls_iod *iod;
+ 	int i;
+ 
+@@ -1611,12 +1626,7 @@ nvmet_fc_free_pending_reqs(struct nvmet_fc_tgtport *tgtport)
+ 		if (!lsop->req_queued)
+ 			continue;
+ 
+-		lsreq = &lsop->ls_req;
+-		fc_dma_unmap_single(tgtport->dev, lsreq->rqstdma,
+-				    (lsreq->rqstlen + lsreq->rsplen),
+-				    DMA_BIDIRECTIONAL);
+-		nvmet_fc_tgtport_put(tgtport);
+-		kfree(lsop);
++		kref_put(&lsop->ref, nvmet_fc_ls_req_op_release);
  	}
-+	/* Live walkers must acquire mmu_lock and check the active root. */
-+	WRITE_ONCE(kvm->arch.pgd, NULL);
-+	kvm->arch.pgd_phys = 0;
-+	kvm->arch.pgd_levels = 0;
- 	write_unlock(&kvm->mmu_lock);
- 
--	if (flush)
--		kvm_flush_remote_tlbs(kvm);
--
--	if (pgd)
--		free_pages((unsigned long)pgd, get_order(kvm_riscv_gstage_pgd_size));
-+	/* Quiesce hardware users before freeing the detached page tables. */
-+	kvm_make_all_cpus_request(kvm, KVM_REQ_OUTSIDE_GUEST_MODE);
- 
--	kvm_mmu_free_memory_cache(&kvm->arch.pgd_split_page_cache);
-+	/*
-+	 * Request an old-VMID HFENCE. Queue-full fallback can flush the current
-+	 * VMID, so the hardware quiescing above protects the tree lifetime.
-+	 */
-+	kvm_riscv_hfence_gvma_vmid_all(kvm, -1UL, 0, gstage.vmid);
-+	kvm_riscv_gstage_free(&gstage);
  }
  
- void kvm_riscv_mmu_update_hgatp(struct kvm_vcpu *vcpu)
- {
- 	struct kvm_arch *ka = &vcpu->kvm->arch;
--	unsigned long hgatp = kvm_riscv_gstage_mode(ka->pgd_levels)
--			      << HGATP_MODE_SHIFT;
--
--	hgatp |= (READ_ONCE(ka->vmid.vmid) << HGATP_VMID_SHIFT) & HGATP_VMID;
--	hgatp |= (ka->pgd_phys >> PAGE_SHIFT) & HGATP_PPN;
-+	unsigned long hgatp = 0;
-+
-+	/* Serialize the root snapshot and HGATP install against root detach. */
-+	read_lock(&vcpu->kvm->mmu_lock);
-+	if (ka->pgd) {
-+		hgatp = kvm_riscv_gstage_mode(ka->pgd_levels) << HGATP_MODE_SHIFT;
-+		hgatp |= (READ_ONCE(ka->vmid.vmid) << HGATP_VMID_SHIFT) & HGATP_VMID;
-+		hgatp |= (ka->pgd_phys >> PAGE_SHIFT) & HGATP_PPN;
-+	}
- 
- 	ncsr_write(CSR_HGATP, hgatp);
- 
- 	if (!kvm_riscv_gstage_vmid_bits())
- 		kvm_riscv_local_hfence_gvma_all();
-+	read_unlock(&vcpu->kvm->mmu_lock);
- }
-diff --git a/arch/riscv/kvm/vcpu.c b/arch/riscv/kvm/vcpu.c
-index e062ca19f9d8..35bf948bd451 100644
---- a/arch/riscv/kvm/vcpu.c
-+++ b/arch/riscv/kvm/vcpu.c
-@@ -708,6 +708,7 @@ void kvm_arch_vcpu_put(struct kvm_vcpu *vcpu)
-  *
-  * Return: 1 if we should enter the guest
-  *	    0 if we should exit to userspace
-+ *	    negative error code if guest entry is no longer possible
-  */
- static int kvm_riscv_check_vcpu_requests(struct kvm_vcpu *vcpu)
- {
-@@ -755,6 +756,12 @@ static int kvm_riscv_check_vcpu_requests(struct kvm_vcpu *vcpu)
- 			return 0;
- 	}
- 
-+	/* A detached G-stage must not be reused after processing its HFENCE. */
-+	if (!READ_ONCE(vcpu->kvm->arch.pgd)) {
-+		kvm_riscv_mmu_update_hgatp(vcpu);
-+		return -EIO;
-+	}
-+
- 	return 1;
- }
- 
-@@ -980,7 +987,8 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
- 		/* Update HVIP CSR for current CPU */
- 		kvm_riscv_update_hvip(vcpu);
- 
--		if (kvm_riscv_gstage_vmid_ver_changed(&vcpu->kvm->arch.vmid) ||
-+		if (!READ_ONCE(vcpu->kvm->arch.pgd) ||
-+		    kvm_riscv_gstage_vmid_ver_changed(&vcpu->kvm->arch.vmid) ||
- 		    kvm_request_pending(vcpu) ||
- 		    xfer_to_guest_mode_work_pending()) {
- 			vcpu->mode = OUTSIDE_GUEST_MODE;
-diff --git a/arch/riscv/kvm/vcpu_exit.c b/arch/riscv/kvm/vcpu_exit.c
-index 88e0c369b354..144b9f71f0a1 100644
---- a/arch/riscv/kvm/vcpu_exit.c
-+++ b/arch/riscv/kvm/vcpu_exit.c
-@@ -90,7 +90,20 @@ unsigned long kvm_riscv_vcpu_unpriv_read(struct kvm_vcpu *vcpu,
- 	register unsigned long ttmp asm("a1");
- 	unsigned long flags, val, tmp, old_stvec, old_hstatus;
- 
-+	/*
-+	 * Prevent G-stage teardown while HLV/HLVX can walk the page tables.
-+	 * The active-root check prevents a new walk from starting after detach.
-+	 */
-+	read_lock(&vcpu->kvm->mmu_lock);
-+	if (!vcpu->kvm->arch.pgd) {
-+		read_unlock(&vcpu->kvm->mmu_lock);
-+		trap->scause = EXC_LOAD_GUEST_PAGE_FAULT;
-+		trap->stval = guest_addr;
-+		return 0;
-+	}
- 	local_irq_save(flags);
-+	/* Publish the hardware walk before accessing guest memory. */
-+	smp_store_mb(vcpu->mode, READING_SHADOW_PAGE_TABLES);
- 
- 	old_hstatus = csr_swap(CSR_HSTATUS, vcpu->arch.guest_context.hstatus);
- 	old_stvec = csr_swap(CSR_STVEC, (ulong)&__kvm_riscv_unpriv_trap);
-@@ -146,7 +159,10 @@ unsigned long kvm_riscv_vcpu_unpriv_read(struct kvm_vcpu *vcpu,
- 	csr_write(CSR_STVEC, old_stvec);
- 	csr_write(CSR_HSTATUS, old_hstatus);
- 
-+	/* Complete all HLV/HLVX accesses before publishing OUTSIDE. */
-+	smp_store_release(&vcpu->mode, OUTSIDE_GUEST_MODE);
- 	local_irq_restore(flags);
-+	read_unlock(&vcpu->kvm->mmu_lock);
- 
- 	return val;
- }
 -- 
-2.34.1
+2.43.0
 
