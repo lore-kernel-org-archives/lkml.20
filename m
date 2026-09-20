@@ -1,249 +1,167 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8372936EA8B
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 21:40:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DF1E3815DC
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 21:49:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789940409; cv=none; b=Tw5+3KQ2LhkQ8GYz5FlqWFt39u+GXgw8C2UrHdDRR096fueHPl0b1fOmwKxapMOVz1Ij7bPTbu8NfDRmJi2cCB76cAb9WQClgdNVFyPqBGRf77okpSqbzjvPSOZ+yHm5/8HFr/MeYYnDz3l4hKhrKYKC0s1zz2fVTUwvuL51CaI=
+	t=1789940991; cv=none; b=ZXaI+zWpVidY6LAnZ+WsflHBzT2lLMF6N9n3xpHjGFJuCvruFyA417Rg4wQZz8BUNvQLbthBt1wIJg6/Z/EDR/bbqsCAOO3xAXZHQ6iP8l+r/9/t+sa2cU8lcdyaBZoGrWPkfHh1iXyiWb8uOrSYFkYqTYDjPc/b2NTu96LXCWU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789940409; c=relaxed/simple;
-	bh=+LmYPmWKlLU3Nx7bE5RMlXCJrar6BMVIiMrMMVP9sGE=;
+	s=arc-20240116; t=1789940991; c=relaxed/simple;
+	bh=S+Ou2RTLvJNYb5WQLWEVMEdO6IV4Sd01SdgtWKbPy0Q=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rgT9vpIs3Wwl1sgKVaYTBI0VHlV11mQ5V7LSzcNTG8aidndXTke/dqD4rvL0W4NQHhhhfPk4xgLBlMcNzL0swILSxj+b7jN90MOorpjV2H9jH6Nqv4ia80h/t4xGiKEnFfLJSi65WqHWAhk6HqIGhJrWelFyUv1qnyva8SpCEuc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=UK6ZEZP6; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	 To:Cc:Content-Type; b=G/V8Qeb2L36LYX4IvGSkR9GMU8E+O8CCMwjetW4FTT4zthBV5SGRwNmbWF/2Bynd8Mcd14HnEneUkN5A7qfSvat2OC6ndFqXjCuV/vfu7f+R5ZcaqmqxCJb+bLWmYwKVmR0HTNZzdugJkY+4jdnrU9u/K+XaeD0bnNhhB652rGc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BvFGheVa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="UK6ZEZP6"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254fa663c1so273250166b.0
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 14:40:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1789940397; x=1790545197; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+LmYPmWKlLU3Nx7bE5RMlXCJrar6BMVIiMrMMVP9sGE=;
-        b=UK6ZEZP6u/DrbBd7+9oGnUmyciBcaRkx1CDYk6/HZankbpcLdRAceUPauuJlXnhqlK
-         btas0MZ13LnqTMbuyU4cBMcr55lmj144t5wXLkibA65Ps++Uk3hq/G2dqRo8NYmZ1jYw
-         Ryw/TqtRoVqAJYF35pw2fWyGhjLdY0b9ytTwU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789940397; x=1790545197;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+LmYPmWKlLU3Nx7bE5RMlXCJrar6BMVIiMrMMVP9sGE=;
-        b=n4O58iX4rAusrpI0hv7UQ0mqoSHL9EV451yJyRMr0cBdu6OeoWH75M8Zqv6xwlMMfo
-         FR1b8KiEttpY2g1JoizTnME9F9EosZDYj9FQMtB/EkN7cVixohPru9Spx7TgBKXwunsQ
-         z6pi60O4VlvS2K6yi/weXkkdkhM/Y2Rvtvyi+Xi2B4avcwllPKWWblwZM/ZUdJbWNH9s
-         j95NO0+BYpfQK2QrjfYm1A3Y9pdRmys87vsS6oxaZeL+GXpVSNivnyFcDzTKOSTlKuCx
-         oeqX3k3DLvowHaWrYuI4OcY38SV1pQ7hGwe4IMat8UO74820ymWCeeK7peeCV8l+qmec
-         enQw==
-X-Forwarded-Encrypted: i=1; AKwUvBzq7XcHatzUgahM6qJCJUBSKQKPWguHBzQ23vgSLqRHc4K3o20LrIs3oxOo38f9s56QMltSikD0pys6rY0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kmV/aNMSDwxFlFR52gpu/DuKp5Y3iM9ewRQNWlAWL8+j6I4gjH
-	riE3WGUZa4P0YpumsAangWLk793F8hHcKQgvo9vyQOicmr6+vmBAoyoMsNxSbxq5/9PdvOoHyn3
-	Z1wY=
-X-Gm-Gg: AYBFou3omiYEuP3vVyr95KYpQ0BdqhSFaTHobN0Xn/ODIHANrDGLCYJduZUb7GwEPih
-	ZyumOdOi0bxPFPZSpaCZB6AIGqulLwXdHTgdH+Lsqw8Q02iO36kDqU2MiuDXQnOJC0Sj6lDQZyF
-	T1Uz877ZoBF9WCP44M+LwB6C0UKSFRUZeOMUy3h+HJoX6kPo5UxQTbqRxRKsw1+aVy4RqpUBeVc
-	/G972SawqNrrep8J/ZwmmM7vnM8xf//Y05E60+hgQKkowDy+7WS17DtGbi/vTtd9BfQvholgbHR
-	KvLtnZ92A8PAJr1ZXA7dcl2igm1gvm+84U8imyTzqtqZMOYPHfMaFUCModQxYqjPZcovo2qLEoq
-	dzAXpvZ94UIeNVI0whIrzyduXtB8vDEUN6DN2XS6NL8AbvCYrAMC/ETTCjku8f3M0Nrbaob+e3b
-	m2LCJtGOAbkeChCqQDuBjWTcwBKtTCoD7JbUahHdk7cH3ienEzBP+9uKbvslnQE0Lqy0BQaAhSX
-	4ihQ6uB2LKo151C8m1esZ/pzWWIf3NsA2GMUK0=
-X-Received: by 2002:a17:906:c154:b0:c25:2d27:5652 with SMTP id a640c23a62f3a-c2a156d900emr761797766b.11.1789940396715;
-        Sun, 20 Sep 2026 14:39:56 -0700 (PDT)
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com. [74.125.225.141])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a355ea970sm217306166b.20.2026.09.20.14.39.55
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 20 Sep 2026 14:39:55 -0700 (PDT)
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso16841005e9.3
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 14:39:55 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw1q+Piec3IWOF7vAi70LG02PglOCDN4L8asbLEZrwHP0f1oJhkoXuAk/J/ddDbE3WQdJseUosF3Q8tHsg=@vger.kernel.org
-X-Received: by 2002:a05:600c:190d:b0:49f:bd3c:bc26 with SMTP id
- 5b1f17b1804b1-49fc574f069mr123082215e9.33.1789940394146; Sun, 20 Sep 2026
- 14:39:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BvFGheVa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D81CA1F00893
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 21:49:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789940983;
+	bh=6NBZKYQ5+644W7iKg6cKXd/Toi8ijTijHQiwjqEQzlA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=BvFGheValM+LdW9CE4n0ucdO7Xmq/Kzen73R6jTieE4npSIIKj/9LcuTJCc6RNpFx
+	 Nw+8X2Ztqj7pouxLbg+WAldwnBl/7BoKiu9Vwr2M1LvYzrMPF/M/yMMEE9rVtwaCi/
+	 UlfA6Zs0JlhdJInf+M1DMUqUrGEk8MGPbSFKnXC/z0AjpQVaSPu6KMvKJtsODlfa/o
+	 I1FotYC8kIhXNYvglA9iKxPst0qsVoBSL0Y9Ovb43eflDmYNipm5ZouEmMlNWtvJII
+	 NXefU3r3lTJaTJke6YkzRrNYagbl+teUE8aaX1IPm9nL+PdXTteCHc6WkKue59XiqH
+	 4nwXOnhqnjWIw==
+Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-93910a0cefaso218909385a.2
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 14:49:43 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzOeL6974peUGCq0YqZdt8BZCccY0ysRFJxtL9nupICHWgwq5PuZMMMrM1mw0pl1PseS9HjKYjFmk1Odio=@vger.kernel.org
+X-Gm-Message-State: AFuF++kcy6jSid0ZE0465zL4VafGrlHRwvwSt8HEGTOdQH2eE6U/w+r0
+	f30VdP0ZTxs1281elGFLij0HIwL1FVo5osqT8GUyV3uMQLHe9LHzBTzUDU9UgtyBhobv4rPOyZU
+	f+yd40BgOlvINuXXDjzP3NgguucSMlN0=
+X-Received: by 2002:a05:620a:880d:b0:939:8ecf:6025 with SMTP id
+ af79cd13be357-93bf552d221mr744743585a.20.1789940983277; Sun, 20 Sep 2026
+ 14:49:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260714222338.2965707-1-dianders@chromium.org>
- <20260714152138.7.I5cef580a62c86ba6c3465ad336fa509afbdf1476@changeid>
- <CABb+yY3_xBvQVFHEs=v39u7+TLjJRaVv3sg5pGgd0YxCruZ8Tw@mail.gmail.com>
- <CAD=FV=X-fAJp=EG_yTAg+QQgNYRCt25947oHGHZuq-FEyirK0g@mail.gmail.com>
- <CABb+yY2CH5A1ixfX9czgtEwsP95FN-2JVzN_wmRDRNsSuZY5PQ@mail.gmail.com>
- <CAD=FV=XiguzS7nH1sE=BkXt+7G6-hhqyz5u3sjc4zAA9H7KqJg@mail.gmail.com>
- <CABb+yY2_AvcnaTDmpL8gP4H2_Pp3HddrtNr5gvL4GCW2DPPvOw@mail.gmail.com>
- <CAD=FV=VzJCb1nz+q5EZ33G5U6KZM_tXi8snL=KbUM3C5yymG4g@mail.gmail.com> <CABb+yY2omp+g13UgZfiKWLux9J1P+=ed0U3F8AhS0iQK=kpN8w@mail.gmail.com>
-In-Reply-To: <CABb+yY2omp+g13UgZfiKWLux9J1P+=ed0U3F8AhS0iQK=kpN8w@mail.gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Sun, 20 Sep 2026 14:39:42 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=WA2wFbk0=qFE0aZs9E5jg-EXzcrkPCk6VOMhbDroOQCw@mail.gmail.com>
-X-Gm-Features: AcwNN1UH8b97yz1z04sXG3ndNvqg6dtJI_UWqOQpPbCqwLWaK8N7A5wagZvhlbg
-Message-ID: <CAD=FV=WA2wFbk0=qFE0aZs9E5jg-EXzcrkPCk6VOMhbDroOQCw@mail.gmail.com>
-Subject: Re: [PATCH 7/7] mailbox: goog-mba: Introduce the goog-mba mailbox driver
-To: Jassi Brar <jassisinghbrar@gmail.com>
-Cc: Joonwon Kang <joonwonkang@google.com>, Subhash Jadavani <sjadavani@google.com>, 
-	Tudor Ambarus <tudor.ambarus@linaro.org>, Lucas Wei <lucaswei@google.com>, 
-	Brian Norris <briannorris@chromium.org>, Peter Griffin <peter.griffin@linaro.org>, 
-	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-samsung-soc@vger.kernel.org
+References: <20260720-batch-tlb-flush-v5-0-db943a0d0d6b@icloud.com>
+ <20260720-batch-tlb-flush-v5-1-db943a0d0d6b@icloud.com> <CAGsJ_4x7W3Tgr_VNY+RLK_pXnFdehGGbjaVH29JsYipXGf7Z9g@mail.gmail.com>
+ <20260920143816.39827-1-zippermonkey@icloud.com>
+In-Reply-To: <20260920143816.39827-1-zippermonkey@icloud.com>
+From: Barry Song <baohua@kernel.org>
+Date: Mon, 21 Sep 2026 05:49:31 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4yhHw=AAaBTeaj4dk7Hbmprs_30VZ+cSodB4Z1vDZJGZw@mail.gmail.com>
+X-Gm-Features: AcwNN1WP_FveN4o5OYDbzdKXOMdJEkJ1ZIgn4EAzu0QuygPwT-XH39cssd_fBB8
+Message-ID: <CAGsJ_4yhHw=AAaBTeaj4dk7Hbmprs_30VZ+cSodB4Z1vDZJGZw@mail.gmail.com>
+Subject: Re: [PATCH v5 1/5] mm/vmscan: introduce folio_activate_locked() helper
+To: Zhang Peng <zippermonkey@icloud.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Michal Hocko <mhocko@kernel.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Qi Zheng <qi.zheng@linux.dev>, 
+	"Liam R. Howlett" <liam@infradead.org>, Kairui Song <kasong@tencent.com>, 
+	Zhang Peng <bruzzhang@tencent.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
-
-On Sun, Sep 20, 2026 at 1:30=E2=80=AFPM Jassi Brar <jassisinghbrar@gmail.co=
+On Sun, Sep 20, 2026 at 10:38=E2=80=AFPM Zhang Peng <zippermonkey@icloud.co=
 m> wrote:
 >
-> On Sat, Sep 19, 2026 at 3:40=E2=80=AFPM Doug Anderson <dianders@chromium.=
-org> wrote:
+> On Mon, Aug 10, 2026 at 4:36 PM Barry Song <baohua@kernel.org> wrote:
+> >
+> > Reviewed-by: Barry Song <baohua@kernel.org>
 >
-> >
-> > Imagine we have three clocks: They are: "clk_i2c1", "clk_i2c2", and
-> > "clk_spi". The "clk_i2c1" needs to be turned on when we're going to
-> > start an I2C transfer on I2C bus 1. "clk_i2c2" is the same but for the
-> > I2C bus 2. "clk_spi" needs to be turned on when we want to start a a
-> > SPI transfer.
-> >
-> clk_prepare() is allowed to sleep, so any path, that includes the
-> call, can not be expected to have low or even deterministic latency.
-
-Sure. Essentially anything using a mailbox as a transport mechanism
-needs to be able to sleep, at least if it cares about "txdone". Even
-without a guaranteed latency, though, that doesn't mean we shouldn't
-try to reduce the latency.
-
-
-> > In the i2c/spi drivers, we've got "clk_prepare(clk)" calls to turn on
-> > the clocks. The three clocks are operated independently by their
-> > respective users. An I2C or SPI transfer may take place at any time.
-> > The I2C and SPI drivers need to know for sure when the clock has
-> > finished enabling because as soon as the clk_prepare() calls return
-> > they will start transferring.
-> >
-> > All three clocks are backed by a single clock driver. We'll call it
-> > the "clk_mailbox" driver. The "clk_mailbox" driver takes the request
-> > to turn on the clock and encodes it as a mailbox message to a remote
-> > processor. Let's imagine that the mailbox message looks like a 2-word
-> > transfer. The first word contains a 0 or a 1 for enable/disable and
-> > the second word contains the ID of the clock: 0 for "clk_i2c1", 1 for
-> > "clk_i2c2", and 2 for "clk_i3c3".
-> >
-> > Now, imagine that we want to turn on all three clocks simultaneously.
+> Thanks for the review!
 >
-> Why? (not that it can't be done) I2C and SPI clients run independent
-> of each other.
-
-Right, the whole "independent" aspect is what I'm talking about. I'm
-not saying that we're _trying_ to do all three transfers at once, but
-just in the natural state of things there will be lots of clock calls
-going on at the system all independently of each other. That means
-it's likely there will be times when several clocks are enabled
-simultaneously.
-
-
-> > The "clk_mailbox" driver will see 3 calls to turn on the clocks and it
-> > needs to convert those to messages to send the remote processor. It
-> > will then call mbox_send_message() to queue those messages with the
-> > mailbox controller. In other words, we'll see these three calls happen
-> > nearly simultaneously:
+> > > + * Prepare a locked folio to be kept active rather than reclaimed.
+> > > + * Reclaims its swap slot if it will not be swapped, then marks it
 > >
-> > mbox_send_message(chan, &{0x1, 0x0});
-> > mbox_send_message(chan, &{0x1, 0x1});
-> > mbox_send_message(chan, &{0x1, 0x2});
+> > I'm not quite sure whether this should be "if". Because, it seems
+> > to always be true up to this point. BTW, if we really want to use
+> > "if", shouldn't we use it to check whether swap is full?
+>
+> You're right, the wording was misleading: the condition that actually
+> guards folio_free_swap() is the swapcache/swap-full/mlocked test right
+> below it, not anything about whether the folio "will be swapped".
+>
+> Rather than try to restate that in prose, I dropped the paragraph and
+> left a single line, since the code below is already explicit:
+>
+>         /* Activate an isolated, locked folio and account the activation.=
+ */
+>         static void folio_activate_locked(struct folio *folio,
+>                         struct reclaim_stat *stat)
+>
+> One thing I should flag, since it is not just a comment change: the
+> VM_BUG_ON_FOLIO(folio_test_active(folio)) that used to sit at the
+> activate_locked label is now a VM_WARN_ON_ONCE_FOLIO(), so a caller
+> that gets this wrong is reported rather than taking the machine down.
+> Both are CONFIG_DEBUG_VM-only, and no non-debug behaviour changes, but
+> it is a deliberate change rather than a pure move, and the changelog
+> now says so.
+>
+> I kept your Reviewed-by on that basis - please let me know if you'd
+> rather I dropped it, or if you'd prefer the BUG_ON left alone.
+>
+> This patch is now part of a smaller cleanup-only series, see my reply
+> on 5/5.
+>
+> Thanks
+> Zhang Peng
+>
+> From nobody Sun Sep 20 00:00:00 2026
+> From: Zhang Peng <zippermonkey@icloud.com>
+> To: Barry Song <baohua@kernel.org>
+> Cc: Andrew Morton <akpm@linux-foundation.org>,
+>         David Hildenbrand <david@kernel.org>,
+>         Lorenzo Stoakes <ljs@kernel.org>,
+>         Vlastimil Babka <vbabka@kernel.org>,
+>         Mike Rapoport <rppt@kernel.org>,
+>         Suren Baghdasaryan <surenb@google.com>,
+>         Michal Hocko <mhocko@suse.com>,
+>         Michal Hocko <mhocko@kernel.org>,
+>         Johannes Weiner <hannes@cmpxchg.org>,
+>         Shakeel Butt <shakeel.butt@linux.dev>,
+>         Axel Rasmussen <axelrasmussen@google.com>,
+>         Yuanchu Xie <yuanchu@google.com>,
+>         Wei Xu <weixugc@google.com>,
+>         Qi Zheng <qi.zheng@linux.dev>,
+>         "Liam R. Howlett" <liam@infradead.org>,
+>         Kairui Song <kasong@tencent.com>,
+>         Zhang Peng <bruzzhang@tencent.com>,
+>         linux-mm@kvack.org,
+>         linux-kernel@vger.kernel.org
+> Subject: Re: [PATCH v5 2/5] mm/vmscan: extract folio_free() from shrink_f=
+olio_list()
+> Date: Sun, 20 Sep 2026 14:14:37 +0800
+> References: <20260720-batch-tlb-flush-v5-0-db943a0d0d6b@icloud.com>
+>  <20260720-batch-tlb-flush-v5-2-db943a0d0d6b@icloud.com>
+>  <CAGsJ_4ykbJKVqEv6uGNKZaQhtV1UxxV-MWt7D1jx6SpdMN+cqA@mail.gmail.com>
+> In-Reply-To: <CAGsJ_4ykbJKVqEv6uGNKZaQhtV1UxxV-MWt7D1jx6SpdMN+cqA@mail.gm=
+ail.com>
+> MIME-Version: 1.0
+> Content-Type: text/plain; charset=3DUTF-8
+> Content-Transfer-Encoding: 8bit
+>
+> On Fri, Aug 14, 2026 at 5:40 AM Barry Song <baohua@kernel.org> wrote:
 > >
-> > The LGA mailbox controller knows "txdone". That is, when the remote
-> > processor "acks" a message, the LGA mailbox controller can tell (and
-> > get an interrupt). This "ack" signals that the clock has finished
-> > enabling. This means that the "clk_mailbox" cannot run the state
-> > machine and it can't call "txdone" itself.
+> > Could we avoid hiding the activate semantics inside
+> > folio_try_reclaim_free()? It makes the logic harder to read and
+> > can be confusing.
 > >
-> > Without my patches, when the above 3 mbox_send_message() calls are
-> > made, the first one will go straight to the LGA mailbox controller and
-> > the second two will be queued up. Once the "txdone" for the first
-> > message arrives, we'll queue the second message. Once the "txdone" for
-> > the second message arrives, we'll queue the third message. This means
-> > that the messages are not being processed simultaneously. The third
-> > clk_prepare() call will be processed much more slowly since it has to
-> > wait in line. If we had 10 clocks enabling at the same time, the 10th
-> > clock could have a pretty significant wait.
+> > Could we pull this out so that the three possible outcomes are
+> > explicit?
 > >
-> > With my patches, the LGA mailbox controller is given the second and
-> > third message even though the first message isn't done yet. The LGA
-> > mailbox controller can queue the second and third messages even though
-> > the txdone for the first message hasn't arrived yet. If things are
-> > fast enough, all three messages can be queued up before the remote
-> > processor has even started processing the first one. The remote
-> > processor can process all three messages concurrently and acknowledge
-> > all three at once. The LGA mailbox controller can get a single
-> > interrupt representing all three "txdone" ACKs and call "txdone" for
-> > all three messages simultaneously.
-> >
-> If your remote (host) can actually act on multiple requests parallely,
-> you need a way to map ACKs back onto the requests. Currently you
-> don't.
-> Looking at the goog_mba_handle_tx_interrupt() implementation, consider
-> the situation when 5 requests are submitted in the h/w fifo and 3 are
-> reported ACKed by the interrupt after some time.
-> You assume the three done are the first three -- which implies that
-> the remote handles requests in the order they arrive i.e, serially.
-> Otherwise, say, request-1 may be wrongly completed if the ACKs were
-> for requests 2, 3 & 4.
-> So it seems mostly an illusion of parallelism - remote is acting on
-> requests (or atleast sending ACKs) serially.
+> > 1. activate
+> > 2. keep
+> > 3. free
+> [...]
 
-It's more than an illusion because all of the slow paths are
-parallelized. For the remote processor, I believe that turning on a
-clock is trivially easy: just set a bit. The slow parts are the
-interrupt arriving on the remote processor and the interrupt arriving
-on the Linux processor. Those _are_ parallelized. During a single
-interrupt, we can see and process multiple mailbox messges (or
-multiple mailbox ACKs). I can paste the example I gave earlier. Just
-as you say, interrupts are processed and acted on serially. ...but
-because we can parallelize the interrupt handling we still get the win
-because interrupt latency is much worse than any of the actual work
-that needs to be done.
+Also, Peng, I'm struggling to follow what you're saying. Could you
+please reply directly to the comments where I asked the questions?
 
-0.000000: Client sends msg #1 and mbox controller initiates the xfer
-0.000010: Client sends msg #2 and mbox controller initiates the xfer
-0.000020: Client sends msg #3 and mbox controller initiates the xfer
-0.000050: Remote gets IRQ, sees 3 messages, and ACKs them all.
-0.000150: ACK IRQ arrives; mbox controller sends 3 txdone
+Please don't collect comments from so many different patches in one
+place and reply to them all together. This makes it very difficult to
+keep the context and causes a lot of unnecessary back-and-forth.
 
-...so all 3 messages are sent / ACKed in 150us.
-
-Without letting the mailbox controller queue, we'd end up more like this:
-
-0.000000: Client sends msg #1 and mbox controller initiates the xfer
-0.000050: Remote gets IRQ, sees msg #1, ACKs it.
-0.000150: ACK IRQ arrives; mbox controller sends txdone
-0.000150: mbox core notes txdone and sends msg #2
-0.000200: Remote gets IRQ, sees msg #2, ACKs it.
-0.000300: ACK IRQ arrives; mbox controller sends txdone
-0.000300: mbox core notes txdone and sends msg #3
-0.000350: Remote gets IRQ, sees msg #3, ACKs it.
-0.000450: ACK IRQ arrives; mbox controller sends txdone
-
-The numbers here for interrupt latency are made up for my example and
-I haven't personally measured them, but I think it's not completely
-absurd to say that interrupt latency (on both the Linux and remote
-sides) dominates the communication path.
-
-> We can keep the core
-> unchanged and the driver much simpler if we simply use the buffering
-> in the core.
-
-FWIW, the driver will need to contain the queuing complexity
-regardless. This is because the remote processor expects queuing. Even
-if we don't queue at the Linux level, the driver still needs to know
-if the remote side uses a "queuing protocol." This is because the
-remote side expects the shared memory to be partitioned into chunks
-and that we must move onto the next chunk between messages.
-
--Doug
+Best Regards
+Barry
