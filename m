@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 519A13515FD;
-	Sun, 20 Sep 2026 21:01:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8844528C009;
+	Sun, 20 Sep 2026 21:01:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789938081; cv=none; b=rhZ3pwam0Ll9kA/7wjGKEsEKvWvR7MgKv4zCekS5WdQW2hLAKTPCi9PRMgJoWfrrzCC171eDFV/FUi9j6uPQSufp9i+xx59gg1b2dTPUjoWOlMhOuSVzNgKmTorp3x3SPRPkjj7ctDEQN6SMT5UWq1XezeYgRCXPoK4P+E5SrAw=
+	t=1789938080; cv=none; b=JvH/EDw/f71WiJovbmMrarNvsm0eMUpj4tR6i1puqtaBpqIpeqyRx8vgRCiYrDbFVhaxs6JV7LZcK26dDKdlhbpylO0I3b/bZrY91wYFfI9iswGfStvf8uIEp4ODZNU18UZbJZmT8LwaInPwVu12gM0JV+02pjoE4oBd7xFGqbc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789938081; c=relaxed/simple;
-	bh=g6cPWX7j/9o5MxNW1pkqfk/LmUuv8uZGyZ3e4yRRcC0=;
+	s=arc-20240116; t=1789938080; c=relaxed/simple;
+	bh=dzrFmzREZdA/NlqgWry4425SORTpLjv8soalDKbQv8s=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=qs6bh/Nksr+onPa460F/sA7AMmi5k64xZqkvOCN5+J0Lrst3Jy78Fsaia8NK5GY8Y4h0fTDmf8IzroNc108WbDQ04xNLN/lzqExCc9rGR2FntYKTUjoOfu/bx7Ajz03N3OC2E4vWtoZCVI4sS233ZWoJ9Rx4J1Mfx7LLN990Lpo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LukJCmoc; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=kuoVKKi6OiOZ4REfcd4vnGGS4Sexsk+U4sj2PVisYpmfNbPBEtW6tkzQGmLUBk0MYNR8DX+zm+uikaLFwzp2qKdctywUzOU0GOc3EgAGT1Ne7O/Ins7JJdDtIHWVfQ8gPjZlxm2y0jgXKOCZJSnglMkcdx/Vwq5E+/g8g099y2c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LssfaTuH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LukJCmoc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F6281F00898;
-	Sun, 20 Sep 2026 21:01:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LssfaTuH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 740E91F00893;
+	Sun, 20 Sep 2026 21:01:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789938080;
-	bh=5I+T/Z99HkjtvA11SNCZ2Ec833d07YGNRal7u+qd1EU=;
+	s=k20260515; t=1789938079;
+	bh=q9/HCBOpVKb1/6WnFqrB+rxgaVuA/u2dNkE48QiqQ1E=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=LukJCmocX9F09FNymFVQjbxZI0ckTVaehneWkJcf/WAfmSMn78B2K700BiHR9pBtK
-	 a/ijpprovcmoOuRcrqXwdCQP7/Vwbtm8ekIeyx/0SSXLEtQphte/bskDrA200SwQ/B
-	 cK0wzDS5Kj6Zj5Ab+oiujCp9H9bLz6Lm0CQn501TRAbmnywPF6LWMIxB+OTHCSYLLj
-	 G400hiwK4j/g7rdroTwaMC3x1jgghL8aW4i3SgDJDaZLoXokiwtcMhBFRilp5DBiSC
-	 SrsvGq0WJH0JUmPzHRY5U94Y4kKHNucBZKz9pIiI7xarb6m+zZDZmSlQqkMh7GwscD
-	 A0RwmbgrxWfdw==
+	b=LssfaTuH6g9xcjavH5OeN/FnDn78KG28cRuGb1FjIZDcQwChrA3nYU/tOZA9sK9CX
+	 tWMI2WnspgPDkLDFOxAsz4XJcyl2Ttf2Bg6jCMBtGqR1tjcEbwbnwNLVG4PQXvXbfk
+	 vyI0+n7rCFm9x184pbaTh73OialRI4OWe37Xo+mFlIftK91JcDG8RIDrkQPfezaGH3
+	 iPiCTrmGZvpJql30RyDYtdV0LlytUcfPPYFkHdBZlHXutR9PcXZCI6RwmaLkVATQ5a
+	 qgL6WLmFhpnGEe5sODt6hmGnF4Ca07AWbO/5Mk/QwoLJOYS7nZ00OE4gn0014bXZUj
+	 BIWcKi1Xk3y1Q==
 Subject:
- Re: [PATCH net-next v3 2/3] net: devmem: embed net_iov_area in binding
+ Re: [PATCH net-next v3 1/3] net: devmem: replace gen_pool with freelist
 From: netdev-bot+sashiko@kernel.org
 To: sdf.kernel@gmail.com
 Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
  kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, sdf@fomichev.me,
  bobbyeshleman@meta.com, almasrymina@google.com, linux-kernel@vger.kernel.org
-Date: Sun, 20 Sep 2026 21:01:19 +0000
-Message-ID: <178993807923.2160803.4802601925465816308@kernel.org>
-In-Reply-To: <20260917181116.3319017-3-sdf@fomichev.me>
-References: <20260917181116.3319017-3-sdf@fomichev.me>
+Date: Sun, 20 Sep 2026 21:01:17 +0000
+Message-ID: <178993807798.2160803.6987249829072277558@kernel.org>
+In-Reply-To: <20260917181116.3319017-2-sdf@fomichev.me>
+References: <20260917181116.3319017-2-sdf@fomichev.me>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -47,10 +47,10 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
+Thank you for your contribution! Sashiko AI review found 2 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Critical: 0 · High: 0 · Medium: 1 · Low: 1 (1)
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -58,144 +58,272 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] net_devmem_bind_dmabuf() (net/core/devmem.c) sizes all three
-  per-binding arrays from dmabuf->size (`binding->area.num_niovs =…
+- [Medium] net_devmem_bind_dmabuf() (net/core/devmem.c) sizes all per-
+  binding arrays from the declared DMA-BUF size (total_niovs =…
+- [Low] net_devmem_free_dmabuf() replaces
+  gen_pool_free()/gen_pool_has_addr() with a bare LIFO push guarded only…
+
+Pre-existing issues:
+- [Low] net_devmem_bind_dmabuf() ignores the return value of
+  page_pool_set_dma_addr_netmem() when recording each net_iov's DMA…
 
 --
 
-net: devmem: embed net_iov_area in binding
+net: devmem: replace gen_pool with freelist
 
-The chunk owner object is dropped and the single net_iov_area is stored
-directly in struct net_devmem_dmabuf_binding.  net_devmem_iov_binding()
-now derives the binding with container_of() on net_iov_owner(), and the
-dmabuf_genpool_chunk_owner wrapper plus its alloc/free path are removed.
+This replaces the per-binding gen_pool with a binding-level LIFO freelist of
+net_iov pointers protected by spin_lock_bh(), using a single net_iov_area
+owner per binding and filling each net_iov DMA address while walking the SG
+table. It also validates the DMA-BUF size against the net_iov size up front,
+derives the RX and TX entry counts from that size, and drops the NET_DEVMEM
+select of GENERIC_ALLOCATOR.
+
+A few questions below.
 
 > diff --git a/net/core/devmem.c b/net/core/devmem.c
-> index 2ac9d74010a9f..7cac0dab8ea87 100644
+> index f4d60654ce7fd..2ac9d74010a9f 100644
 > --- a/net/core/devmem.c
 > +++ b/net/core/devmem.c
 
 [ ... ]
 
-> @@ -52,12 +43,11 @@ void __net_devmem_dmabuf_binding_free(struct work_struct *wq)
+> @@ -62,24 +51,20 @@ void __net_devmem_dmabuf_binding_free(struct work_struct *wq)
+>  {
 >  	struct net_devmem_dmabuf_binding *binding = container_of(wq, typeof(*binding), unbind_w);
 >  
->  	if (binding->freelist)
-> -		WARN(binding->free_count != binding->chunk_owner->area.num_niovs,
-> +		WARN(binding->free_count != binding->area.num_niovs,
->  		     "destroying dmabuf binding with outstanding net_iovs: total=%zu, free=%zu",
-> -		     binding->chunk_owner->area.num_niovs,
-> -		     binding->free_count);
-> +		     binding->area.num_niovs, binding->free_count);
+> -	size_t size, avail;
+> -
+> -	gen_pool_for_each_chunk(binding->chunk_pool,
+> -				net_devmem_dmabuf_free_chunk_owner, NULL);
+> -
+> -	size = gen_pool_size(binding->chunk_pool);
+> -	avail = gen_pool_avail(binding->chunk_pool);
+> -
+> -	if (!WARN(size != avail, "can't destroy genpool. size=%zu, avail=%zu",
+> -		  size, avail))
+> -		gen_pool_destroy(binding->chunk_pool);
+> +	if (binding->freelist)
+> +		WARN(binding->free_count != binding->chunk_owner->area.num_niovs,
+> +		     "destroying dmabuf binding with outstanding net_iovs: total=%zu, free=%zu",
+> +		     binding->chunk_owner->area.num_niovs,
+> +		     binding->free_count);
 
 [ ... ]
 
-> @@ -241,16 +228,18 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
->  		goto err_unmap;
+> @@ -113,14 +92,16 @@ net_devmem_alloc_dmabuf(struct net_devmem_dmabuf_binding *binding)
+>  void net_devmem_free_dmabuf(struct net_iov *niov)
+>  {
+>  	struct net_devmem_dmabuf_binding *binding = net_devmem_iov_binding(niov);
+> -	unsigned long dma_addr = net_devmem_get_dma_addr(niov);
+> -	size_t niov_size = 1UL << binding->niov_shift;
+>  
+> -	if (WARN_ON(!gen_pool_has_addr(binding->chunk_pool, dma_addr,
+> -				       niov_size)))
+> +	spin_lock_bh(&binding->freelist_lock);
+> +	if (WARN_ON_ONCE(binding->free_count >=
+> +			 binding->chunk_owner->area.num_niovs)) {
+> +		spin_unlock_bh(&binding->freelist_lock);
+>  		return;
+> +	}
+>  
+> -	gen_pool_free(binding->chunk_pool, dma_addr, niov_size);
+> +	binding->freelist[binding->free_count++] = niov;
+> +	spin_unlock_bh(&binding->freelist_lock);
+>  }
+
+[Severity: Low]
+This isn't a bug in the new code as such, but the check in
+net_devmem_free_dmabuf() is now only an aggregate capacity test, while the
+gen_pool path it replaces also caught a repeated release of the same
+net_iov:
+
+gen_pool_free() -> gen_pool_free_owner() -> bitmap_clear_ll()
+	BUG_ON(remain);
+
+The freelist keeps no per-niov state, so pushing the same net_iov twice
+while other net_iovs are still outstanding passes the
+free_count >= area.num_niovs test and is accepted silently. After that,
+net_devmem_alloc_dmabuf() and net_devmem_alloc_dmabuf_bulk() can hand the
+same net_iov, and hence the same DMA region, to two independent consumers,
+and the duplicate can also let free_count reach area.num_niovs at teardown
+while an object is still in flight, so the new WARN in
+__net_devmem_dmabuf_binding_free() stays quiet.
+
+Reaching this requires a separate page_pool refcount bug, since
+mp_dmabuf_devmem_release_page() rejects refcount != 1, so this is only a
+loss of a fail-stop diagnostic. Is dropping that check intentional to match
+io_uring zcrx, which uses the same unguarded LIFO?
+
+[ ... ]
+
+> @@ -249,33 +233,55 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
+>  		goto err_detach;
 >  	}
 >  
-> -	total_niovs = dmabuf->size >> niov_shift;
-> +	binding->area.base_virtual = 0;
-> +	binding->area.num_niovs = dmabuf->size >> niov_shift;
+> +	if (!IS_ALIGNED(dmabuf->size, niov_size)) {
+> +		err = -EINVAL;
+> +		NL_SET_ERR_MSG_FMT(extack,
+> +				   "dmabuf size %zu not aligned to niov size %zu",
+> +				   dmabuf->size, niov_size);
+> +		goto err_unmap;
+> +	}
+> +
+> +	total_niovs = dmabuf->size >> niov_shift;
 >  	if (direction == DMA_TO_DEVICE) {
-> -		binding->tx_vec = kvmalloc_objs(struct net_iov *, total_niovs);
-> +		binding->tx_vec = kvmalloc_objs(struct net_iov *,
-> +						binding->area.num_niovs);
->  		if (!binding->tx_vec) {
+> -		if (!IS_ALIGNED(dmabuf->size, PAGE_SIZE)) {
+> -			err = -EINVAL;
+> -			NL_SET_ERR_MSG(extack, "TX dma-buf size must be a multiple of PAGE_SIZE");
+> +		binding->tx_vec = kvmalloc_objs(struct net_iov *, total_niovs);
+> +		if (!binding->tx_vec) {
+> +			err = -ENOMEM;
+>  			goto err_unmap;
+>  		}
+> -		binding->tx_vec = kvmalloc_objs(struct net_iov *,
+> -						dmabuf->size / PAGE_SIZE);
+> -		if (!binding->tx_vec) {
+> +	} else {
+> +		spin_lock_init(&binding->freelist_lock);
+> +		binding->freelist = kvmalloc_array(total_niovs,
+> +						   sizeof(binding->freelist[0]),
+> +						   GFP_KERNEL);
+> +		if (!binding->freelist) {
 >  			err = -ENOMEM;
 >  			goto err_unmap;
 >  		}
->  	} else {
->  		spin_lock_init(&binding->freelist_lock);
-> -		binding->freelist = kvmalloc_array(total_niovs,
-> +		binding->freelist = kvmalloc_array(binding->area.num_niovs,
->  						   sizeof(binding->freelist[0]),
->  						   GFP_KERNEL);
->  		if (!binding->freelist) {
+>  	}
 
 [ ... ]
 
-> @@ -289,13 +267,13 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
->  		nr_niovs = len >> niov_shift;
->  		for (i = 0; i < nr_niovs; i++, niov_idx++) {
-> -			niov = &owner->area.niovs[niov_idx];
-> -			net_iov_init(niov, &owner->area, NET_IOV_DMABUF);
-> +			niov = &binding->area.niovs[niov_idx];
-> +			net_iov_init(niov, &binding->area, NET_IOV_DMABUF);
+> +	owner->area.base_virtual = 0;
+> +	owner->area.num_niovs = total_niovs;
+> +	owner->binding = binding;
+> +	owner->area.niovs = kvmalloc_objs(*owner->area.niovs,
+> +					  owner->area.num_niovs);
+> +	if (!owner->area.niovs) {
+>  		err = -ENOMEM;
+> -		goto err_tx_vec;
+> +		goto err_free_owner;
+>  	}
+> +	binding->chunk_owner = owner;
+>  
+> -	virtual = 0;
+> +	niov_idx = 0;
+>  	for_each_sgtable_dma_sg(binding->sgt, sg, sg_idx) {
+
+[ ... ]
+
+> @@ -283,64 +289,40 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
+> -		for (i = 0; i < owner->area.num_niovs; i++) {
+> -			niov = &owner->area.niovs[i];
+> +		nr_niovs = len >> niov_shift;
+> +		for (i = 0; i < nr_niovs; i++, niov_idx++) {
+> +			niov = &owner->area.niovs[niov_idx];
+>  			net_iov_init(niov, &owner->area, NET_IOV_DMABUF);
 >  			page_pool_set_dma_addr_netmem(net_iov_to_netmem(niov),
->  						      dma_addr);
+> -						      net_devmem_get_dma_addr(niov));
+> +						      dma_addr);
+
+[Severity: Low]
+This is a pre-existing issue and not introduced here, since the baseline
+call site discarded the same value, but while this line is being rewritten:
+the return value of page_pool_set_dma_addr_netmem() is dropped.
+
+On PAGE_POOL_32BIT_ARCH_WITH_64BIT_DMA the helper reports a lossy store:
+
+net/core/page_pool_priv.h:page_pool_set_dma_addr_netmem() {
+	if (PAGE_POOL_32BIT_ARCH_WITH_64BIT_DMA) {
+		netmem_set_dma_addr(netmem, addr >> PAGE_SHIFT);
+		return addr != (dma_addr_t)netmem_get_dma_addr(netmem)
+				       << PAGE_SHIFT;
+	}
+	...
+}
+
+page_pool_dma_map() treats that as fatal with WARN_ONCE plus unmap, and
+io_uring zcrx checks the equivalent net_mp_niov_set_dma_addr() return.
+Would it be worth failing the bind here as well?
+
+The two failure modes look unreachable today: non-page-aligned addresses are
+excluded by niov_shift >= PAGE_SHIFT plus the IS_ALIGNED(dma_addr,
+niov_size) check above, and the truncation case needs a DMA address beyond
+16 TB on a 32-bit-with-64-bit-DMA system.
+
 >  			if (direction == DMA_TO_DEVICE)
+> -				binding->tx_vec[owner->area.base_virtual / PAGE_SIZE + i] = niov;
+> +				binding->tx_vec[niov_idx] = niov;
+> +			else
+> +				binding->freelist[binding->free_count++] = niov;
+> +			dma_addr += niov_size;
+>  		}
+> -
+> -		virtual += len;
+>  	}
 
 [Severity: Medium]
-Can this loop in net_devmem_bind_dmabuf() write past
-binding->area.niovs[], binding->freelist[] and binding->tx_vec[]?
+Can this walk overrun owner->area.niovs[], binding->freelist[] and
+binding->tx_vec[]?
 
-All three arrays are now sized from the dmabuf size:
+All three arrays are sized from the declared DMA-BUF size:
 
-	binding->area.num_niovs = dmabuf->size >> niov_shift;
+	total_niovs = dmabuf->size >> niov_shift;
 
-but the fill loop advances niov_idx (and binding->free_count) purely from
-the mapped scatter-gather lengths, with no comparison against
-binding->area.num_niovs:
+but they are filled from the exporter's DMA-mapped SG table, with niov_idx
+and free_count advancing once per sg entry chunk:
 
-	nr_niovs = len >> niov_shift;
-	for (i = 0; i < nr_niovs; i++, niov_idx++) {
-		niov = &binding->area.niovs[niov_idx];
-		...
-		if (direction == DMA_TO_DEVICE)
-			binding->tx_vec[niov_idx] = niov;
-		else
-			binding->freelist[binding->free_count++] = niov;
+		nr_niovs = len >> niov_shift;
+		for (i = 0; i < nr_niovs; i++, niov_idx++) {
 
-The only per-entry check before this is
-IS_ALIGNED(dma_addr, niov_size) / IS_ALIGNED(len, niov_size), which
-constrains neither the total nor the index, and nothing sums
-sg_dma_len() over binding->sgt to confirm it equals dmabuf->size.  If an
-exporter's mapped sgt describes more bytes than dmabuf->size, does this
-store net_iov contents, DMA addresses and net_iov pointers beyond the end
-of the three allocations?
+There is no niov_idx + nr_niovs > total_niovs guard inside the loop and no
+niov_idx == total_niovs check after it. The only new validation is
+IS_ALIGNED(dmabuf->size, niov_size) plus the per-sg-entry address and length
+alignment, and none of those relate the SG table's total coverage to
+dmabuf->size.
 
-In the other direction, if the sgt describes fewer bytes than
-dmabuf->size, the tail of tx_vec[] stays uninitialized (kvmalloc, not
-zeroed), while net_devmem_get_niov_at() bounds the user-supplied offset
-only against the dmabuf size:
+If sum(sg_dma_len) exceeds dmabuf->size, net_iov_init() writes past the end
+of the kvmalloc'd area.niovs[] and the pointer stores run past the end of
+freelist[] or tx_vec[].
+
+If it is shorter, the tail of area.niovs[] and tx_vec[] stays uninitialized,
+since kvmalloc_objs() does not zero, and then:
+
+  - RX free_count can never equal area.num_niovs, so the new WARN in
+    __net_devmem_dmabuf_binding_free() fires on every unbind even with no
+    outstanding net_iovs;
+
+  - net_devmem_get_niov_at() validates the user offset only against
+    binding->dmabuf->size:
 
 	if (virt_addr >= binding->dmabuf->size)
 		return NULL;
 	...
 	return binding->tx_vec[virt_addr / PAGE_SIZE];
 
-Can that return a garbage pointer that is then used as a struct net_iov?
-For the RX case the same shortfall would leave free_count below
-area.num_niovs, so the teardown WARN in
-__net_devmem_dmabuf_binding_free() quoted above would fire on every
-unbind.
+    so an unpopulated tx_vec slot is handed to the TX path as a garbage
+    net_iov pointer.
 
-Before this series the RX niovs were sized per scatter-gather entry
-(owner->area.num_niovs = len >> niov_shift), so an sgt/size mismatch
-could not overrun them; the count is now derived from dmabuf->size with
-no bound check added.
+Before this patch the RX side sized each owner->area.niovs from that sg
+entry's own len >> niov_shift, so an SG/size disagreement could not overrun
+the net_iov metadata; that structural guarantee goes away here without a
+replacement check.
 
-The io_uring zcrx code this series says it mirrors performs both checks -
-io_import_dmabuf() sums sg_dma_len() and rejects a mismatch:
+For what it is worth, the io_uring model the commit message says this
+mirrors does check both directions: io_import_dmabuf() sums sg_dma_len() and
+rejects total_size != len, and io_zcrx_map_area_dmabuf() bounds its walk and
+post-checks niov_idx != num_niovs.
 
-	for_each_sgtable_dma_sg(mem->sgt, sg, i)
-		total_size += sg_dma_len(sg);
+The in-tree exporters I looked at (udmabuf, dma-heaps, drm_prime) do build
+SG tables totalling dmabuf->size, and the iommu-dma path preserves total
+segment length, so I could not demonstrate an in-tree trigger. But
+dma_buf_export() only records exp_info->size and never validates the
+sg_table returned later by map_dma_buf, so nothing in the dma-buf core
+enforces the invariant this code now depends on. Would adding the sum check
+or the post-loop equality check be worthwhile?
 
-	if (total_size != len) {
-		ret = -EINVAL;
-		goto err;
-	}
+>  	err = xa_alloc_cyclic(&net_devmem_dmabuf_bindings, &binding->id,
+>  			      binding, xa_limit_32b, &id_alloc_next,
+>  			      GFP_KERNEL);
 
-and io_populate_area_dma() bounds its fill loop with
-while (sg_len && niov_idx < area->nia.num_niovs).  Would it make sense to
-do the same here, either by validating the sg total against dmabuf->size
-or by capping niov_idx at binding->area.num_niovs?
-
-I could not identify an in-tree exporter that provably returns an sgt
-whose total differs from dmabuf->size, so this may not be reachable
-today; the gap does still appear to be present at the end of the series
-(0942efb741d9 does not touch net_devmem_bind_dmabuf()).
+[ ... ]
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917181116.3319017-1-sdf%40fomichev.me
