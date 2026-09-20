@@ -1,120 +1,175 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mta0.migadu.com (out-221.mta0.migadu.com [91.218.175.221])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06F243E4107
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 08:54:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E24F386C39
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 08:58:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.221
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789894486; cv=none; b=hyqfjkL4A/O1zNc1cntu9USM1RJ9uVnP0ZFzKHc2nlo7u+E3pzfJah4O4ltXahEAAx6zZwU/WLrGZ+IFsVlTfhReYCdsrGC4k6r3vrpeTwvBKwsuQDHModS1I+0qcpVZeK7u5muuu5rARouNeF+dWh+hOHkUyHaJsRlBjqi2tuU=
+	t=1789894684; cv=none; b=aTWI1gLqepGmkEZkvSZ0asy8uK2lNaEeBSBnDzwH7+v4phN987G/2CgMQcEtW3fQPZvf2RZENlXM4YbwTkXWDE8se31OKtMTgnijFgq6gqnzpGLjZuQfj+e21QGbGh1RQ+1YTwMUkjuTOkqJdbjFZ7YWDEpt+NwJqUQF8lt7NEs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789894486; c=relaxed/simple;
-	bh=07bxeldFXNcwHkJCOY/pr4GAXZvVcdC70ibY51lQxw0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZvxoijlD5tqTRO8GWDLc1n43E05bsSDonczm2xJitDLb8hu1WBzyQRbPwS+hSVSwCNa0ouzuGSZC9XqSWqP36pBjjdO7arv48QhN7hcIWc2AZVFFw85qZqG8kEMr3or2SPQfzC7ftWTXHeoCOUUa/DJgUoPm9VUA5uFRBrQ4Xeo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lVGpseYN; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789894684; c=relaxed/simple;
+	bh=SkcOaP5BTl2GVSJvWcMEy94n61Gq82fdCYwK8Hy9T+w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MJd2UbrPwTUm6HzBIc6nLbbnvWC0UOlJ8P3GnZe+SjKNZz2sGxWAFVlfDKdCLbYeTm0dyUGN2mJNx+ML0ZHwBpunklLWdk+3bW7/xuIWUzDqyXp11j04etRCJRokX75vyojZM7SrPiqv/WplyIev7aYfmtSypnr4x1tT5jFefug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=TJQRtAzG; arc=none smtp.client-ip=91.218.175.221
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lVGpseYN"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea50dc3so1363262a12.3
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 01:54:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789894484; x=1790499284; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PNzFp6ZFnRAw/B8A6FR6yybdeCPLPEZTUh6sIRvROXA=;
-        b=lVGpseYNDoHET0qhk90MrLeFeM7Ny+l6otrVF48PW82FfgVCh0cZUKRbFSQwNmDXFH
-         hskh2DQrK0/b0ge2XP2UaQVuMnzRjy1E9uC3LOzbXyOTnOH9jq5NuxVcDumDoQ8MFSsX
-         skJovq+acrDYXeVUMTq5He1wTSmmmXz9qh6vEDO2+1oPBdvaUttVYrDUhtMsm/GTTAoS
-         T67J//x9FV+7yGdCBtv4mQEFdbaxZqu9j4UX+a4pKBd42KcbDj2ogPYilqNyZI+oHPus
-         Pbsu/oYti/tfXmt8+Iy/PApNykF+lgvNnN6e2ymvtXKLqPBKHHU7E7Bw01EwFfNK/ZWg
-         47NQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789894484; x=1790499284;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PNzFp6ZFnRAw/B8A6FR6yybdeCPLPEZTUh6sIRvROXA=;
-        b=HuUCwRwozniITnkIc/7xDtyR5pgy/JES05dEETVIr8D9egXJ3Ivzoq7CWEj5cpdTi8
-         3oyfCdNHOXh2DiUMd30aVm2OdNrshM6YTD+c/bn1ssWnLCQ5C3z2snMabbWlVTHnyz+/
-         sMBA6dHJcjNvHbclvuvNbsoq50cwF2aH7UyCdW6oAUgG3lT73VwYfaJkJsybljGi2UgX
-         saqA0jV2A/P/Q8/hhMEGmueVsB8PN6MZXemXWREMAkwau/qqA+05AfAjTKvqpXnwBy5D
-         3uhaR8NQiUiMQutAuBmx61jr+vHw3zeuZ3vAJgY0VXBxSHCjFH1D3pkIUZuYDtRWiWqm
-         tGIA==
-X-Gm-Message-State: AFuF++mbTQXlF18aiCJ0d1ciZl2CEIqz4BCXvcoD1URMj47FOOAcwb3W
-	XqgVQBwQlO4etsbiXdp5Bp0+aWwSIMXzFC5UVgZinz7BBu2NKH2gX3gv
-X-Gm-Gg: AYBFou3L0WhuG2OkEmOfg8xabt2gOmlrActc0b+9ZET9QN98DsVVZ9mx/CWGPRG9GiX
-	K1ZShLdQZlpsfqNHyc7+BrnAk01Pgte39Ao1n6Bf0Lp6/C6+vwATiIVKhvnSxK84x1pQJ9SWMGb
-	mAUGYu+WgMGtdo1FXfWyrWVck+2ilMiHNpHnw/4/9/gRbwOaohNsBG9g2/T8jb9dxGpKpOa2ZyI
-	Q7vqTiiCzrwRsuxxl2HfQDm9MQCjLVPmXtJ2kQ4+rQGvtrA8XODYjG672shtYf9H1xerVDrezxU
-	UsxaP5ssRv9ABFFhJmrGozZv24TizrctbwFseV95rZzMOXN5hErbAeSmerv3ztMU8ttuLI72u4u
-	Ajg2nZS/nZcdYnq/8kK4BEM9vPfUNY2G5eM0pwcWh0k5r1z/judKVXo7C9cS6SwLThNRdSBugC8
-	JpYY9wU2sK96XVovnoRMBuNXLNLhNWl15Gqo8aHIKX6w739tuiFPbG6ucBD5J+H5qmXzuCudd2U
-	f/b07zNO51SVnupRw==
-X-Received: by 2002:a17:90a:d884:b0:39e:6a7e:ee16 with SMTP id 98e67ed59e1d1-39e6a7eef52mr6862714a91.34.1789894484076;
-        Sun, 20 Sep 2026 01:54:44 -0700 (PDT)
-Received: from kernel.tail6741c6.ts.net ([185.220.238.35])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c3145dasm8285167a91.4.2026.09.20.01.54.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 01:54:43 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-To: anna-maria@linutronix.de,
-	frederic@kernel.org,
-	mingo@kernel.org,
-	tglx@kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	paulmck@kernel.org,
-	Kunwu Chan <kunwu.chan@gmail.com>
-Subject: [PATCH] timers/nohz: Annotate lockless accesses to got_idle_tick
-Date: Sun, 20 Sep 2026 16:54:34 +0800
-Message-ID: <20260920085434.2918331-1-kunwu.chan@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="TJQRtAzG"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=SkcOaP5BTl2GVSJvWcMEy94n61Gq82fdCYwK8Hy9T+w=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789894678; v=1; x=1790499478;
+ b=TJQRtAzGJEu4zd1m/O08P86y6C7Hr5y3LPya4RrlhMNS+pL1nvQOa5D/hnlz1xf66myaYCat
+ akydFsn6NhYLa8Ix4ab0858qhynyFqNyaIdrFWNEq+BpniXoohsbER1R84WotLMwc4tS6LF4Rfo
+ EGsDxPRoZbzWGEge6PYbAEN4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a5691a9340c7a80d;
+	Sun, 20 Sep 2026 08:57:48 +0000
+X-Mizu-Trace-ID: a5691a9340c7a80d
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <aa90bb73-c2af-4d13-8f2a-0435aa528058@linux.dev>
+Date: Sun, 20 Sep 2026 16:57:39 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] cgroup/cpuset: prevent local partition activation
+ over remote partition and sibling xcpus conflict
+To: Hui Peng <benquike@gmail.com>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, Waiman Long <longman@redhat.com>,
+ Ridong Chen <ridong.chen@linux.dev>
+Cc: Michal Koutny <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>,
+ cgroups@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <139d9231-4723-4365-9af7-8142e6581ede@linux.dev>
+ <20260920082335.257680-1-benquike@gmail.com>
+ <20260920082335.257680-2-benquike@gmail.com>
+Content-Language: en-US
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+In-Reply-To: <20260920082335.257680-2-benquike@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-tick_sched_do_timer(), called from the tick interrupt handler, sets
-ts->got_idle_tick when a tick fires while the CPU is idle.  The idle
-path reads and clears it via tick_nohz_idle_got_tick() to detect
-whether the tick handler has run.
 
-The flag is accessed locklessly from hardirq and task context.  A
-concurrent set can be overwritten by the clear.
 
-Use READ_ONCE() and WRITE_ONCE() to annotate the lockless accesses.
+在 2026/9/20 16:23, Hui Peng 写道:
+> Commit 6da580ec656a ("cgroup/cpuset: Don't allow creation of local
+> partition over a remote one") added a check in update_prstate() to reject
+> creating a top-level local partition whose cs->exclusive_cpus intersects
+> subpartitions_cpus.
+> 
+> However, two paths still allow overlapping exclusive CPU ownership between
+> a top-level local partition and a remote partition or sibling:
+> 
+> 1. If a top-level cgroup A1 has cpuset.cpus.exclusive set, is first set to
+>    "root" while cpuset.cpus is empty (becoming "root invalid"), has a
+>    child A1/A2 enabled as a remote partition on those exclusive CPUs, and
+>    then receives CPUs via A1/cpuset.cpus, update_cpumasks_hier() calls
+>    validate_partition() without going through update_prstate(). Because
+>    validate_partition() does not check trialcs->exclusive_cpus against
+>    subpartitions_cpus, A1 transitions from "root invalid" to a valid local
+>    partition over the existing remote partition A1/A2 and triggers:
+> 
+>      WARNING: kernel/cgroup/cpuset.c:1866 at update_parent_effective_cpumask+0x54a/0x8a0
+> 
+> 2. In cpus_excl_conflict(), when a valid local partition A1 uses implicit
+>    exclusive CPUs (cpuset.cpus set without cpuset.cpus.exclusive, so
+>    sibling->exclusive_cpus is empty while sibling->effective_xcpus is
+>    populated), a sibling cgroup B1 can still set cpuset.cpus.exclusive on
+>    the same CPUs because cpus_excl_conflict() only checks
+>    sibling->exclusive_cpus.
+> 
+> Fix these issues by:
+> - Checking trialcs->exclusive_cpus against subpartitions_cpus in
+>   validate_partition() when !is_partition_valid(cs).
+> - Falling back to sibling->effective_xcpus in cpus_excl_conflict() when
+>   sibling->exclusive_cpus is empty.
+> - Adding regression test cases for both paths to
+>   tools/testing/selftests/cgroup/test_cpuset_prs.sh.
+> 
+> Tested in QEMU on Linux 7.3.0-rc3 using
+> tools/testing/selftests/cgroup/test_cpuset_prs.sh.
+> 
+> Fixes: 6da580ec656a ("cgroup/cpuset: Don't allow creation of local partition over a remote one")
 
-Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
----
- kernel/time/tick-sched.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+I think this patch is still missing a Fixes: tag for the
+cpus_excl_conflict() change.
 
-diff --git a/kernel/time/tick-sched.c b/kernel/time/tick-sched.c
-index 6c3fea386713..c0ab32e543b3 100644
---- a/kernel/time/tick-sched.c
-+++ b/kernel/time/tick-sched.c
-@@ -269,7 +269,7 @@ static void tick_sched_do_timer(struct tick_sched *ts, ktime_t now)
- 	}
- 
- 	if (tick_sched_flag_test(ts, TS_FLAG_INIDLE))
--		ts->got_idle_tick = 1;
-+		WRITE_ONCE(ts->got_idle_tick, 1);
- }
- 
- static void tick_sched_handle(struct tick_sched *ts, struct pt_regs *regs)
-@@ -1248,8 +1248,8 @@ bool tick_nohz_idle_got_tick(void)
- {
- 	struct tick_sched *ts = this_cpu_ptr(&tick_cpu_sched);
- 
--	if (ts->got_idle_tick) {
--		ts->got_idle_tick = 0;
-+	if (READ_ONCE(ts->got_idle_tick)) {
-+		WRITE_ONCE(ts->got_idle_tick, 0);
- 		return true;
- 	}
- 	return false;
--- 
-2.43.0
+The validate_partition() change can be covered by 6da580ec656a.
+
+However, the sibling CPU ownership issue fixed in cpus_excl_conflict()
+was introduced by the following commit:
+Fixes: 2a3602030d80 ("cgroup/cpuset: Don't invalidate sibling partitions on cpuset.cpus conflict")
+
+Thanks,
+Guopeng
+
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hui Peng <benquike@gmail.com>
+> ---
+> Changes in v2:
+> - Split from the remote_partition_enable() fix into patch 2/2.
+> - Check trialcs->exclusive_cpus (rather than effective_xcpus) in
+>   validate_partition() when !is_partition_valid(cs) so sibling local
+>   partitions with overlapping cpuset.cpus continue to share remaining
+>   available CPUs as expected by test_cpuset_prs.sh.
+> - Add regression tests to tools/testing/selftests/cgroup/test_cpuset_prs.sh.
+> 
+>  kernel/cgroup/cpuset.c                        | 9 ++++++++-
+>  tools/testing/selftests/cgroup/test_cpuset_prs.sh | 3 +++
+>  2 files changed, 11 insertions(+), 1 deletion(-)
+> 
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 7381fa8502e7..f46a51f07938 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -713,7 +713,10 @@ static inline bool cpus_excl_conflict(struct cpuset *trial, struct cpuset *sibli
+>  		return true;
+>  
+>  	/* Exclusive_cpus cannot intersect */
+> -	return cpumask_intersects(trial->exclusive_cpus, sibling->exclusive_cpus);
+> +	return cpumask_intersects(trial->exclusive_cpus,
+> +				  cpumask_empty(sibling->exclusive_cpus)
+> +				  ? sibling->effective_xcpus
+> +				  : sibling->exclusive_cpus);
+>  }
+>  
+>  static inline bool mems_excl_conflict(struct cpuset *cs1, struct cpuset *cs2)
+> @@ -2415,6 +2418,10 @@ static enum prs_errcode validate_partition(struct cpuset *cs, struct cpuset *tri
+>  	if (cpumask_empty(trialcs->effective_xcpus))
+>  		return PERR_INVCPUS;
+>  
+> +	if ((parent == &top_cpuset) && !is_partition_valid(cs) &&
+> +	    cpumask_intersects(trialcs->exclusive_cpus, subpartitions_cpus))
+> +		return PERR_REMOTE;
+> +
+>  	if (prstate_housekeeping_conflict(trialcs->partition_root_state,
+>  					  trialcs->effective_xcpus))
+>  		return PERR_HKEEPING;
+> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> index b732078bf319..f62155cf6162 100755
+> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> @@ -321,6 +321,8 @@ TEST_MATRIX=(
+>  	" C1-3:P2  X4:P2    .      .      .    X3:P2    .      .     0 A1:1-2|XA1:1-3|A2:3:XA2:3 A1:P2|A2:P2 1-3"
+>  	" C0-3:P2    .      .    C4-6   C0-4     .      .      .     0 A1:0-4|B1:5-6 A1:P2|B1:P0"
+>  	" C0-3:P2    .      .    C4-6 C0-4:C0-3  .      .      .     0 A1:0-3|B1:4-6 A1:P2|B1:P0 0-3"
+> +	" X1-3:P1 CX2-3:P2  .      .    C1-3     .      .      .     0 A1:1|A2:2-3|XA2:2-3 \
+> +								       A1:P-1|A2:P2 2-3"
+>  
+>  	# Local partition invalidation tests
+>  	" C0-3:X1-3:P2 C1-3:X2-3:P2 C2-3:X3:P2 \
+> @@ -443,6 +445,7 @@ TEST_MATRIX=(
+>  
+>  	# Changes to cpuset.cpus.exclusive that violate exclusivity rule is rejected
+>  	"   C0-3     .      .    C4-5   X0-3     .      .     X3-5   1 A1:0-3|B1:4-5"
+> +	"  C0-3:P1   .      .    C4-5     .      .      .     X3-5   1 A1:0-3|B1:4-5 A1:P1|B1:P0"
+>  
+>  	# cpuset.cpus.exclusive cannot be set to a superset of sibling's cpuset.cpus
+>  	"   C0-3     .      .    C4-5   X3-5     .      .      .     1 A1:0-3|B1:4-5"
 
