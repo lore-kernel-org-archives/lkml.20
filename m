@@ -1,110 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4F393290BA;
-	Sun, 20 Sep 2026 03:40:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBA363ACF04;
+	Sun, 20 Sep 2026 03:40:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789875615; cv=none; b=odfVkvuCrDR+679XczkPvRp7YD8HOFLto2M7tgDXNo+Cm6FDKs3W3rT2nCikAskdPX383I7ZBX2rbRiLpabR4iiRWvONG+lS4yiu2n5AHadHDvx3rtjiIpKEqVyM7QXRO8+gd6luF9s9blXKIN5CO98UNZ/aiJFPGKQTpkuATzE=
+	t=1789875624; cv=none; b=I2SWpNrYNag+KDKkaskibfzttNRygXCwR9mlNrnrO+UBHlt9eK7QuElX5WkluqNVD0djQGeYwsCPJNSeKyIM8M15GehRQmLpIfATPe8KaRn2WEDZy5QCpJzTFc1885uo/RchO54uNUwjAOZyHqu5hgYiSwaLYZhhIQTvid+3ZwA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789875615; c=relaxed/simple;
-	bh=qwQk9vtqP0VEut62xsZiVVfIbhewJRdN+j4R/s+JLp8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tu/7TKlzQZLu1YOSIRQ46yizlkhJK0l+Z4baqzrbAbXwqVhVP9YfoERzKJ87laX3xUVedjJJCNuxDJmDxdG6Lvi2d7yse9XcbS3wX2kAlYHLmbaWpR8IZaNecRmGPStRkwGTVapLQrlNPBHiWm5zOHoF+ui2Fd08YfH5/yYflrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S4RRHl9S; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789875624; c=relaxed/simple;
+	bh=sJ8GO7iO32v65BhxKHidpqg4vsjwUSBGRmnVHvyBBoI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=E6Rp/3w0MHChQeGiAb5v1ddUATD+WiOzUBXfj5uDMOF78523VUCScaaIY0oA+ef29f9t6Bg+csmQzMn9JJ0kjbNtP8E5a00vuM5+nlAdzdRe8aIyrCVdMKR9gIurHclJg1bQvAPpzWNq+9c0RRCDX67Dc2fh8CG8NriXj8oxj+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=mAHq7ihv; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S4RRHl9S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3878C1F000FF;
-	Sun, 20 Sep 2026 03:40:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789875614;
-	bh=L8A0Eu4Tzsml4qtZgCltb1eRTxyA/6ITE9mC3679vTM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=S4RRHl9SI1RgcnsjFgXzDPcD60W0VLRt9fnQ9fDZR0Ui2b89B8Ua9GHXwHXrE3B6p
-	 0ugCHbRUE3XTObO9Tpt2rqq5qsI9wBk6kDYOaQYgY0tdhyKrBwdODse33bfKiQPr4T
-	 yAi34aOOdhIgNNFVYFYf5uuj7VmR8q7XtgBF8tCVkHJ1ae4DfwMSivOsNGb96n+HgD
-	 jiryUoHQ1Zz8cC9PJ1g44z9aYgqMD+sM74XcKX58WC4uEq6hh2kn7hafyiCcHACLs6
-	 W7+7zaG22aofq7p8ngm9+xGv1NkGq6u2fGXeXRfSoiKJ+RjFfGKpg5o/fb0324AaE0
-	 ieE7TUCmaBJJg==
-Date: Sat, 19 Sep 2026 20:40:13 -0700
-From: Kees Cook <kees@kernel.org>
-To: Julian Braha <julianbraha@gmail.com>
-Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Masahiro Yamada <masahiroy@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>, Nicolas Pitre <nico@fluxnic.net>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Andrew Jones <andrew.jones@linux.dev>, linux-kbuild@vger.kernel.org,
-	linux-doc@vger.kernel.org, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Vegard Nossum <vegard.nossum@oracle.com>,
-	Nauman Sabir <officialnaumansabir@gmail.com>,
-	Tejun Heo <tj@kernel.org>,
-	Thomas =?iso-8859-1?Q?Wei=DFschuh?= <thomas.weissschuh@linutronix.de>,
-	Matthew Maurer <mmaurer@google.com>,
-	Graham Roff <grahamr@qti.qualcomm.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	"Borislav Petkov (AMD)" <bp@alien8.de>, Gary Guo <gary@garyguo.net>,
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
-	conor.dooley@microchip.com
-Subject: Re: [PATCH 1/3] kconfig: Add "def_string", "def_int" and "def_hex"
-Message-ID: <202609191431.C3BCBCD@keescook>
-References: <20260919005923.i.879-kees@kernel.org>
- <20260919005929.4077729-1-kees@kernel.org>
- <cdebaad4-00c2-4b80-b688-0f5a723d6009@gmail.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="mAHq7ihv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=eS
+	jqrhAxmhRkD+fLHj9BVqvfyKRvI/XQ1Qo/8Er9tsk=; b=mAHq7ihv7+ATfWGJSd
+	6xCVgDk+gVEU5FIbxIB862RtH0cLoMdu4GbO3ClxSWLs9gegpwWET1uFuwEFbYaG
+	+CJwqBpw0hJBKqHym1niIkgPHKBz9WANbGMZS7RvtSEyX6m4jdlHT50NLpR1Yx6k
+	cwmI9mEMdgSU3N7Z1EFL6TnqM=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wD3X+qcVa9qN0J0Bg--.1052S2;
+	Sun, 20 Sep 2026 11:40:12 +0800 (CST)
+From: Pengpeng Hou <hppiscas@163.com>
+To: hverkuil@kernel.org
+Cc: mchehab@kernel.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	hverkuil+cisco@kernel.org,
+	hppiscas@163.com
+Subject: [PATCH v2] media: cec: extron: clear response tail before dispatch
+Date: Sun, 20 Sep 2026 11:40:10 +0800
+Message-ID: <20260920034010.15060-1-hppiscas@163.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cdebaad4-00c2-4b80-b688-0f5a723d6009@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3X+qcVa9qN0J0Bg--.1052S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Aw1UXr4fWw1xKFWrury8Zrb_yoW8uryfpF
+	Z5W34DK348Crn2k3ykKan5X3W5Xws7XFWUWry3Ga1kur45X3WxuF9akryjga1YyFZ5JFnx
+	Jw1UtFy3uFs5GFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U5739UUUUU=
+X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbC7hwDy2qvVZyVTgAA3t
 
-On Sat, Sep 19, 2026 at 04:34:54PM +0100, Julian Braha wrote:
-> On 9/19/26 01:59, Kees Cook wrote:
-> [...]
-> the X condition here only applies to the value of y, but not to the type
-> declaration of bool. Besides hurting readability, I can imagine a user
-> making a mistake by attempting something like this:
-> 
->   def_bool 'y' if X
->   def_tristate 'y' if !X
-> 
-> thinking that they're making the type conditional. Of course, the
-> interpreter warns if this is attempted, so you won't actually find any
-> of these in the tree.
+The serial receive buffer is reused between responses. Terminating a
+short response with one NUL leaves bytes from the previous response
+behind it, while the dispatcher also checks fixed offsets beyond some
+prefixes. Those checks can consume stale tail bytes.
 
-Yeah, _this_ case is warned on, so no real issue there.
+Clear up to ten bytes at the end of each completed response, limited by
+the remaining array capacity. This includes the terminator and covers
+the dispatcher's fixed-offset tests without adding a separate length
+condition to every prefix branch.
 
-> The second problem, is that since the order of defaults matters and
-> conditions can shadow each other, def_<type> makes it harder for users
-> to get defaults right. In the past, I've seen several config options
-> with bugged defaults due to 'default' + 'def_<type>' [2][3][4].
+The issue was found by our static-analysis tool.
 
-This is the one I, too, got worried about. From your example:
+Fixes: 056f2821b631 ("media: cec: extron-da-hd-4k-plus: add the Extron DA HD 4K Plus CEC driver")
+Assisted-by: gpt 5
+Signed-off-by: Pengpeng Hou <hppiscas@163.com>
+---
+Changes since v1:
+https://lore.kernel.org/all/20260830130356.159-1-pengpeng@iscas.ac.cn/
+Use the bounded tail clearing suggested by Hans instead of per-prefix
+guards; preserve the existing nonempty-line and receive-buffer limits.
 
- config GUEST_STATE_BUFFER_TEST
--	def_tristate n
-+	def_tristate KUNIT_ALL_TESTS
- 	prompt "Enable Guest State Buffer unit tests"
- 	depends on KUNIT
- 	depends on KVM_BOOK3S_HV_POSSIBLE
--	default KUNIT_ALL_TESTS
- 	help
+ .../extron-da-hd-4k-plus/extron-da-hd-4k-plus.c    |    4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Is there a way to detect this state? (I assume as a follow-up; it's a
-general problem.)
+diff --git a/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c b/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
+index 3c6ce6f3d93e..1f8ed7ff31e5 100644
+--- a/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
++++ b/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
+@@ -847,7 +847,9 @@ static irqreturn_t extron_interrupt(struct serio *serio, unsigned char data,
+ 			return IRQ_HANDLED;
+ 		memcpy(extron->data, extron->buf, extron->idx);
+ 		extron->len = extron->idx;
+-		extron->data[extron->len] = 0;
++		/* Keep fixed-offset response tests from using stale tail bytes. */
++		memset(extron->data + extron->len, 0,
++		       min_t(size_t, 10, sizeof(extron->data) - extron->len));
+ 		if (debug)
+ 			dev_info(extron->dev, "received %s\n", extron->data);
+ 		extron->idx = 0;
 
-> > Signed-off-by: Kees Cook <kees@kernel.org>
-> 
-> Tested-by: Julian Braha <julianbraha@gmail.com>
-> Reviewed-by: Julian Braha <julianbraha@gmail.com>
-
-Thanks!
-
+base-commit: 518e5b794c06c0f0eb40df3e202274a66202c137
 -- 
-Kees Cook
+2.50.1 (Apple Git-155)
+
