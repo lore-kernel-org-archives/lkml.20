@@ -1,116 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA683C660C;
-	Sun, 20 Sep 2026 15:14:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B684737DAC0;
+	Sun, 20 Sep 2026 15:14:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789917251; cv=none; b=kIsG8yGoXHY39xOm3Y9yA50ZXaYYGj9kw7Y6YK+M9SHrhp6a4z02OoyA5kSUXZp3Tkf5/su1nxowsOo4YFVi17pBLO7nBXsw0QfHU7kNYFrJ8n5rr+/IrnLoj7V+/WOeXXnS6WmRVeNd6N/553iVI3Z0A5p0hza5BOjGHtoR7LM=
+	t=1789917299; cv=none; b=AEbQmWhdVpsbk5VpvqmpD2MiVJbaPnab0kdHMf0gqRgOgJmTV66jRKwXt4LcbNq9gioouRXwzlqFa/F7vqm0V5X3qGHnK1EIo/rbeSOxRRSR9LvcZZn/06gQVTo4f/hTi3En+2JYBYHV+0OtPb69NtZs2W2k1MbIjKalKcd6FGI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789917251; c=relaxed/simple;
-	bh=9JFC61fLcqOJsrY9G9LCQS/YXmaR2eiPpTUSKkDZjG4=;
+	s=arc-20240116; t=1789917299; c=relaxed/simple;
+	bh=qU60AEnWDnM5Ty1D7IKvGpgIdNdwLnPlDDHQTpHucXA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O19PgID5DMvFRO92Cz9PtFlCXplytP+CdJK0d7bfUfTtIXm9Sr/zaLYAiADqFYBei8ZAdYQy9qolfQbxNxtGLik/gNEgjeHULnsvJt6QdOTwgvbbTegW/xWvSNi6SIwPDhW2IKzj2PZJPPU2097axPT7jD7nxqaK0XlZ9m/sk7E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M//vKF8d; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=a82Mb7I1O5iyuThXJtEk9uMp4AFiwd1jtDLN8WJr2xiVLDQBgsC18ewWwz4aXbu3/4Eg8Jt8PhGo1cvfmQ1GsVp0JhCtLHJrlFfDCFbVPNJ+wSrbbufbxiB1z5oHBTOY/FwN/y5Zf8P+hVKAxpAqvEru+gR5IM28faflxZYjHK8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=qlppejBn; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M//vKF8d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB2791F000FF;
-	Sun, 20 Sep 2026 15:14:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789917250;
-	bh=kZaPaPWcaqh/4FwcKd+l66xVOigjD2gi6FGr27tzrt8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=M//vKF8dSfjDgMT/VoBVgl4UO5heb4Pq4T88rUJfJyuwOLtYq1GahYbR4WvBctN1m
-	 X2k/TuQqPpR6RiBNvxQoQ3Gx++y/gtpBPuD5NwoIqTJ1X/VjlNVtzXZ2zIq58lqHTL
-	 y3zgJLdMPFelWQ4dgvMohYVLJuW3S9a0wDIKQ3C8rVjZi2OPxwpfSLw53ibQKZlfcI
-	 5RyrEjYUTNYwGVfGNFL9WlKBOkO59BMNLHkWYO9qJnX8HNAuVPY+++6h8Nyfmbm0zU
-	 rCIJebLyddsPk/hQekX73m+kNmVF0WFC6cEXUlHZR9tIIKlnwfJOyIdlKJZej4vxEz
-	 Njsh1BEFXWIJg==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
-	id 6BF7011D5575; Sun, 20 Sep 2026 16:14:06 +0100 (BST)
-Date: Sun, 20 Sep 2026 17:14:06 +0200
-From: Mark Brown <broonie@kernel.org>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Cc: linux-spi@vger.kernel.org, linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
-Subject: Re: [PATCH] spi: cs42l43: Workaround for wrong speaker ID on Dell
- XPS 13 DX13260
-Message-ID: <aq_4PuwVngaLZ3_F@sirena.org.uk>
-References: <20260919134730.895381-1-rf@opensource.cirrus.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="qlppejBn"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+	In-Reply-To:References; bh=SvRcN97+jbxD6uQgpvhSo80k6y8QmG3eSAaiOeHxkVA=; b=ql
+	ppejBnN0PZNUqLKTHWkJM+HmHsYVsli3gyQekHvcOEfLfLGMguGBHbBszTS+Vu7Yazf+jxA4OgLsr
+	oG/1Q7/Gf/S4+7daMuDriuVEcZ258h6VrpCW4/UYBhPRWoV1Vad/rKZQaaW83DLJ1zHy5tdmu2gyF
+	5tl4p1EI6bOVmuU=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x8JFk-006Ady-8f; Sun, 20 Sep 2026 17:14:52 +0200
+Date: Sun, 20 Sep 2026 17:14:52 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: =?iso-8859-1?Q?Nicol=F2_Giuliani_-_nicolo=2Egiuliani6=40studio=2Eunibo?=
+	=?iso-8859-1?B?Lml0?= <nicolo.giuliani6@studio.unibo.it>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Gregory Clement <gregory.clement@bootlin.com>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: R: [PATCH 3/3] arm64: dts: marvell: Add Sophos XGS 107w NPU board
+Message-ID: <feea5596-f4ef-42af-b9f7-6bf170620532@lunn.ch>
+References: <20260919-send-dt-v1-0-365615a74ef3@studio.unibo.it>
+ <20260919-send-dt-v1-3-365615a74ef3@studio.unibo.it>
+ <6b935e31-169a-4cd1-b385-62dc659c1256@lunn.ch>
+ <DU4PR01MB12163AE447B65B21A7D585A0D80852@DU4PR01MB12163.eurprd01.prod.exchangelabs.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="8efyI6YdWTD1N54N"
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20260919134730.895381-1-rf@opensource.cirrus.com>
-X-Cookie: Orders subject to approval.
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <DU4PR01MB12163AE447B65B21A7D585A0D80852@DU4PR01MB12163.eurprd01.prod.exchangelabs.com>
+
+On Sun, Sep 20, 2026 at 08:48:20AM +0000, Nicolò Giuliani - nicolo.giuliani6@studio.unibo.it wrote:
+> Hi Andrew,
+> 
+> Thanks for the review.
+> 
+> > The reset line of the switch (CP GPIO2 pin 17) is deliberately not given
+> > to the mv88e6xxx driver as reset-gpios. The 88E6193X needs about two
+> > seconds after a reset before it can be used, much longer than the driver
+> > waits, so the probe would time out.
+> >
+> > The obvious question is, why is your 88E6193X special?
+> 
+> I don't think it is.
+
+So please fix the driver to accept that the 88E6193X is much slower
+than any other Marvell device.
 
 
---8efyI6YdWTD1N54N
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+I saw the probe time out when I started the kernel with kexec from the vendor Linux, so nothing had reset the switch before the driver did. When the boot loader resets the switch first, which is how the board normally boots, probing with reset-gpios works on this board (Linux 6.18). I have not been able to test a driver-only reset yet, because the boot loader always resets the switch first, so I cannot say what made the difference. I have not checked whether an EEPROM is attached. v2 describes reset-gpios and drops the comment.
+> 
+> > +&cp0_i2c0 {
+> > [...]
+> > +     gpio@20 {
+> >
+> > Which port?
+> 
+> It is the LED expander of the eight RJ45 ports (two pins per port). Nothing uses it yet, so I dropped the node from v2. It can come back together with the LED nodes.
 
-On Sat, Sep 19, 2026 at 02:47:30PM +0100, Richard Fitzgerald wrote:
-> Create an acpi_gpio_mapping so that speaker ID GPIOs can be read directly
-> from the ACPI GpioIo() instead of relying on the spk-id-gpios property to
-> have the correct number of pins. Change the reading loop to read each pin
-> one at a time until it reaches a pin index that doesn't exist.
+Doesn't the 88E6193X have LED controllers of its own? Why do you need
+additional LEDs?
 
-...
-
-> Instead of quirking this specific system, the code can be rewritten so
-> that it will always use the direct GpioIo() mapping. This works on all
-> ACPI systems, so avoids having to keep adding quirks for other systems
-> that have the same ACPI error.
-
-Is there an overlap with cs35l56_try_get_broken_sdca_spkid_gpio() here?
-Didn't check thoroughly, and if they are doing the same thing it's
-probably reasonable to factor out incrementally.
-
-> +       struct cs42l43_spk_id_gpio_mapping *mapping __free(kfree) = kzalloc_obj(*mapping,
-
-kzalloc_obj() needs slab.h (which will be implicitly included anyway but
-still).
-
-> +static int cs42l43_get_speaker_id_gpios(struct cs42l43_spi *priv, int *result)
-> +{
-> +	struct fwnode_handle *gpio_fwnode = dev_fwnode(priv->dev);
-> +	struct cs42l43_spk_id_gpio_mapping *mapping = NULL;
-> +	struct gpio_desc *desc;
-> +	u32 spkid = 0;
-> +	int i, ret = 0;
-> +
-> +	if (is_acpi_node(gpio_fwnode)) {
-> +		mapping = cs42l43_add_speaker_id_gpio_mapping(priv);
-> +		if (IS_ERR(mapping)) {
-> +			ret = PTR_ERR(mapping);
-> +			if (ret == -ENOENT)
-> +				return 0;
-> +
-> +			return ret;
-> +		}
-
-Could we see an -EBUSY if there's something else using another GPIO from
-the same provider?  I'm a bit fuzzy on the ACPI mappings so possibly
-that can't happen.
-
---8efyI6YdWTD1N54N
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqv+D0ACgkQJNaLcl1U
-h9C33Qf/ddWofx892QH4FfM9tTxo6KjLtZvjyew8bzgUUdbzqGc7jbNmsMKcOt7K
-OONzUN8If/RNQRBG61cHQTUe0/skcjBvvhk1wWMoviitL7oAOWCN7WWqoZ04cI21
-oVrjByKwtv50wlye6YgCXRCsi3mcS5QFjNIahv+HLulVJh37RFQt9FvkuduAnAge
-Qpv/KuIChuUher/LMBviHFGuRW8IqzhnkGror/i5AU/M+6W6nQOpllhprrPAx5LH
-2R0V7WHn7O7M4y+/Adul9QVpMGvenYPLkitQ352+OiCprBRJ4G6MKDNgB/fJMYh9
-s9+zuNOsqsPZ+fj77cljOYx8ZwL3Qw==
-=my0V
------END PGP SIGNATURE-----
-
---8efyI6YdWTD1N54N--
+	Andrew
