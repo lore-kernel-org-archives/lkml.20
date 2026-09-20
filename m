@@ -1,255 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from www3579.sakura.ne.jp (www3579.sakura.ne.jp [49.212.243.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B64B640A943;
-	Sun, 20 Sep 2026 11:20:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26C953FCB10;
+	Sun, 20 Sep 2026 11:22:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=49.212.243.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789903204; cv=none; b=II4jsJ/6T/ffkqZOjHImKwUSLM7AAxclP1AFkMY92YCq59+qjqXBOJJK2Z1bXi97pYL/41tHIpSIcufZ4WCyKmaSzilraxh5ixwcyKSCOphccaXkbut5FcyARxGiOAEzwZQH95MGKjoAPyOEhxoGOmZBYE/lQZGmasN/0Jd6WvE=
+	t=1789903346; cv=none; b=oq1dJRcQAiwinGvN99s+x37QvRCFhS+5roenxb9/92Z5cFMC6TpTCrwvhZWOHdvLVK20uV7FI33rMJ8QEeEyI42np6rLrzJh9cNimjzZgP/HirhFcfEvMcB4HK9KNmndfIVXnx+3GAsSwW8DL/vSz6PptaOL8UNxmO8AHASGbzk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789903204; c=relaxed/simple;
-	bh=2kNRTMTZjzqqaedaTQ8ZXK3RHDxTl/7kk6UyVRgiXfY=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Om+11rvbNs13WFcYiYKUTW2XKYIGZjqJL+HUVIoqdK9zyANa+BAaOFGfYl3EDyxlDJKHlpw7M6E7MjcRkVSqnbnQLeTEsCY1Og6sbRYQ3JaE8CrMaqSKtYjqw6yDe+E4bytClrRX3d840DwvSsZbOvdZyBaeL4n+hJr3hyPQs+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ku/399fb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789903346; c=relaxed/simple;
+	bh=3wHsuhm1EOsX6FnaaZCz7S9AObKXD0J2nrSu7LVseb8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=WgaXsPtGT389DS+HkabdQb8x/fwRe0FV7kjXBrstGv8+JMFAAckQb5dzXg0b6V1UKwUeA5ivpNUnsCQdg0Iak5UVEdcbCeeswA8951+LPLBkUhJw/WZV6GQrHFFsykYhj7zHDSYzCIxAGtbVcC37w74tblU2H2L1nDf5dMSu+Fg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rsg.ci.i.u-tokyo.ac.jp; spf=pass smtp.mailfrom=rsg.ci.i.u-tokyo.ac.jp; dkim=pass (2048-bit key) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b=mInm2XTu; arc=none smtp.client-ip=49.212.243.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rsg.ci.i.u-tokyo.ac.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rsg.ci.i.u-tokyo.ac.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ku/399fb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DEFE1F000FF;
-	Sun, 20 Sep 2026 11:19:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789903200;
-	bh=n+KDeu+aRvPI/QZxB9b6W1OjH++mIy6OycJGEnqk3yc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ku/399fbrtzWONy8cI2n9VJacakphIebnJTs9cfVDrq13zqM9FQbivDd4jJgvCAsW
-	 BgBQ9xq3GuMo9Qu5OCSYudlKuHUVUdN6ONzolyoxEtN6SlGneF7e2JhI2p6Vf7bYaq
-	 bU1eoK2iG0Pd/GvsOAa2RkhPwHmGh7LFkC1WKg4DjIg9jljvS2ucHwJ4/XnR6N8Llq
-	 zPKIwprQl33fscSp+B1OSUJbNZH5MGAiGyoOLMGJBOxludesPt93+UXK1sz62pLxIj
-	 9/BJFKrh4gZUjJN1lNq7eb0iiL2uo6KbmPg6kW6WUgre1siJzVLOpX9YutfcMgfZPs
-	 UtsjLTT7Jv6fA==
-Subject: Re: [PATCH net v2] llc: stop connection timers before dropping sap
- ref on release
-From: netdev-bot+sashiko@kernel.org
-To: miguelgarciaroman8@gmail.com
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- linux-kernel@vger.kernel.org,
- syzbot+44efda9647c52be29d9c@syzkaller.appspotmail.com
-Date: Sun, 20 Sep 2026 11:19:59 +0000
-Message-ID: <178990319901.2160803.11700779813478787502@kernel.org>
-In-Reply-To: <20260916104735.3565609-1-miguelgarciaroman8@gmail.com>
-References: <20260916104735.3565609-1-miguelgarciaroman8@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=rsg.ci.i.u-tokyo.ac.jp header.i=@rsg.ci.i.u-tokyo.ac.jp header.b="mInm2XTu"
+Received: from [192.168.10.153] (p865013-ipoe.ipoe.ocn.ne.jp [153.242.222.12])
+	(authenticated bits=0)
+	by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 68KBG36b088236
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+	Sun, 20 Sep 2026 20:16:14 +0900 (JST)
+	(envelope-from odaki@rsg.ci.i.u-tokyo.ac.jp)
+DKIM-Signature: a=rsa-sha256; bh=xY3f7CW2k+sxURpCWyIEkta47r/Ail7h0q2vhhuON5Y=;
+        c=relaxed/relaxed; d=rsg.ci.i.u-tokyo.ac.jp;
+        h=From:Message-Id:To:Subject:Date;
+        s=rs20250326; t=1789902975; v=1;
+        b=mInm2XTuQIO9C+YXeqfebcOFmmo0frr1Zm8g8p5z6Jq7UKBcwKjgVAAMFAfVJiUd
+         xBenMftkF3iNMlA9lfJY3+/fWwDb25KsqHMCkpJxfIgzhWjYEBbHTAvPC4LvdadC
+         HvvXchwGjR19oAIws8ZLHbg0Oi6lIWRSVuFi7nXBPkFJ3LuA9Ug+B8Rup7Sia7o+
+         D0wcK8iqvjULQE2aTFv9oRsuQT/wCajOsPxekCfr6Hz6kwxXBQIM1SXQNu/1Abt3
+         Mty7ERJ9aLaBleu2qmxKWuIyf/Lc0dLr8W57cIzhjjc5Eq71ClnHRD4nzz5BCieM
+         xBbespM5NLD2jRJLBXhs9g==
+From: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
+Date: Sun, 20 Sep 2026 20:15:55 +0900
+Subject: [PATCH v11 14/21] arm64: errata: Require Apple IMPDEF PMUv3 traps
+ on all CPUs
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260920-hybrid-v11-14-03618771b0e1@rsg.ci.i.u-tokyo.ac.jp>
+References: <20260920-hybrid-v11-0-03618771b0e1@rsg.ci.i.u-tokyo.ac.jp>
+In-Reply-To: <20260920-hybrid-v11-0-03618771b0e1@rsg.ci.i.u-tokyo.ac.jp>
+To: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+        Joey Gouly <joey.gouly@arm.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Zenghui Yu <yuzenghui@huawei.com>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Will Deacon <will@kernel.org>, Kees Cook <kees@kernel.org>,
+        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+        Paolo Bonzini <pbonzini@redhat.com>, Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <shuah@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>,
+        Yury Norov <yury.norov@gmail.com>,
+        Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+        Steffen Eiden <seiden@linux.ibm.com>,
+        Andrew Jones <andrew.jones@oss.qualcomm.com>,
+        Fuad Tabba <fuad.tabba@linux.dev>, Mark Rutland <mark.rutland@arm.com>,
+        Sean Christopherson <seanjc@google.com>,
+        Shannon Zhao <shannon.zhao@linaro.org>,
+        Randy Dunlap <rdunlap@infradead.org>,
+        Fuad Tabba <fuad.tabba@linux.dev>
+Cc: linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+        linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
+        devel@daynix.com, kvm@vger.kernel.org, linux-doc@vger.kernel.org,
+        linux-kselftest@vger.kernel.org,
+        Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2262;
+ i=odaki@rsg.ci.i.u-tokyo.ac.jp; h=from:subject:message-id;
+ bh=3wHsuhm1EOsX6FnaaZCz7S9AObKXD0J2nrSu7LVseb8=;
+ b=owGbwMvMwCWmMbc20y1CyJDxtFoSQ9b6A7lnUxVOBxxlDNxw5oBdoJXrzRyT78vT9ioa8B0NP
+ PU2+VpCRykLgxgXg6yYIktK0W5ujejaT4UJ8S0wc1iZQIYwcHEKwEQ+xDP896rZWnpzyrw5Iu9n
+ 6q4y753/ZV/N7VDRi8oTLF7G1P8xfMXwT50rRNB9npSOKMParUeWf9G515Jh7jF7GafQ9MRvXSd
+ 3cAAA
+X-Developer-Key: i=odaki@rsg.ci.i.u-tokyo.ac.jp; a=openpgp;
+ fpr=AEDC03C9AF734F2EC26A7BFFA4BAEAA73536753C
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+KVM relies on ARM64_WORKAROUND_PMUV3_IMPDEF_TRAPS as a system-wide
+precondition for PMUv3 emulation on affected Apple CPUs. A local CPU
+erratum is too weak for that: once the workaround is enabled, a late CPU
+that misses it may still be onlined.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 2
+Make the workaround an all-early-CPU capability instead. The matcher is
+still local because it depends on MIDR_EL1, but the capability is only
+advertised if all early CPUs match. A late CPU that misses an advertised
+capability is therefore rejected.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Although kept in the errata capability table, this capability describes
+optional trap support, not a workaround required for safe CPU operation.
+Therefore, a late CPU can safely match the capability even when the
+system does not advertise it.
 
-- [High] Incomplete fix: the new `llc_sk_stop_all_timers(sk, true)` in
-  `llc_ui_release()` (net/llc/af_llc.c:225) does not establish the…
-- [Low] The new comment in `llc_ui_release()` (net/llc/af_llc.c:218-224)
-  and the commit message both state that `timer_delete_sync()` "must not…
-- [Low] `llc_sk_stop_all_timers()` ends with the plain stores
-  `llc->ack_must_be_send = 0; llc->ack_pf = 0;`…
+On these CPUs, ID_AA64DFR0_EL1.PMUVer == 0xf means the
+Arm-architected PMUv3 is not implemented. Without the system
+capability, KVM does not advertise PMUv3, and direct accesses to
+architected PMUv3 registers remain UNDEFINED. HACR_EL2[56] only makes
+those accesses trap to EL2 so KVM can emulate PMUv3; leaving it clear
+does not make them access Apple's native PMU.
 
---
+The native Apple PMU uses separate implementation-defined system
+register encodings, which KVM independently traps with
+HCR_EL2.TIDCP. Allowing a late CPU with extra HACR_EL2 trap support
+therefore does not expose host PMU state to a guest.
 
-llc: stop connection timers before dropping sap ref on release
+Fixes: bed9b8ec8c71 ("KVM: arm64: Advertise PMUv3 if IMPDEF traps are present")
+Assisted-by: Codex:gpt-5.5
+Signed-off-by: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+---
+ arch/arm64/kernel/cpu_errata.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-This adds a synchronous cancellation of the four llc_sock connection timers
-in llc_ui_release(), placed after release_sock() and before the extra sap
-reference is dropped, so that the timer callbacks cannot dereference an
-already RCU-freed llc_sap.  A few questions about the new window and the
-new comment below.
-
-Closes: https://syzkaller.appspot.com/bug?extid=44efda9647c52be29d9c
-
-> diff --git a/net/llc/af_llc.c b/net/llc/af_llc.c
-> index b0447c33dbf09..4fc397fad4d2e 100644
-> --- a/net/llc/af_llc.c
-> +++ b/net/llc/af_llc.c
-> @@ -215,6 +215,14 @@ static int llc_ui_release(struct socket *sock)
->  		llc_sap_hold(sap);
->  		llc_sap_remove_socket(llc->sap, sk);
->  		release_sock(sk);
-> +		/*
-> +		 * Timers dereference llc->sap.  Cancel them while the sap is
-> +		 * still held; llc_sk_free() runs after the final sap put and
-> +		 * would otherwise race with kfree_rcu(sap).  Must run after
-> +		 * release_sock() to avoid deadlock with bh_lock_sock() in the
-> +		 * timer callbacks.
-> +		 */
-
-[Severity: Low]
-Is the deadlock rationale in this comment accurate?
-
-llc_conn_tmr_common_cb() in net/llc/llc_c_ac.c takes only bh_lock_sock():
-
-	bh_lock_sock(sk);
-	if (skb) {
-		...
-		llc_process_tmr_ev(sk, skb);
-	}
-	bh_unlock_sock(sk);
-
-and bh_lock_sock() is spin_lock(&sk->sk_lock.slock), while
-lock_sock_nested() releases slock before it returns and leaves only
-sk->sk_lock.owned set:
-
-	spin_lock_bh(&sk->sk_lock.slock);
-	if (unlikely(sock_owned_by_user_nocheck(sk)))
-		__lock_sock(sk);
-	sk->sk_lock.owned = 1;
-	spin_unlock_bh(&sk->sk_lock.slock);
-
-Since a process-context owner of the socket does not hold slock, wouldn't a
-timer_delete_sync() called under lock_sock() let the callback acquire slock,
-run to completion and return?
-
-What does change across release_sock() is sock_owned_by_user(): under
-lock_sock() llc_process_tmr_ev() queues the event via __sk_add_backlog()
-instead of running llc_conn_state_process() inline.
-
-Could this comment and the matching commit message sentence,
-"timer_delete_sync() must not run under lock_sock() (timer callbacks take
-bh_lock_sock()), so stopping after release_sock() is required", be reworded
-to describe that difference instead?  As written they suggest that stopping
-timers or marking state while still holding the socket lock is forbidden.
-
-> +		llc_sk_stop_all_timers(sk, true);
->  		llc_sap_put(sap);
-
-[Severity: High]
-Does this establish the invariant that the following llc_sap_put() needs,
-namely that no timer can be pending any more?
-
-llc_sk_stop_all_timers() makes a single fixed-order pass:
-
-net/llc/llc_conn.c:llc_sk_stop_all_timers() {
-	if (sync) {
-		timer_delete_sync(&llc->pf_cycle_timer.timer);
-		timer_delete_sync(&llc->ack_timer.timer);
-		timer_delete_sync(&llc->rej_sent_timer.timer);
-		timer_delete_sync(&llc->busy_state_timer.timer);
-	...
-}
-
-timer_delete_sync() waits only for that one timer's callback and has no
-shutdown semantics.  Can a later-deleted timer's callback re-arm an
-earlier-deleted one?
-
-llc_conn_rej_tmr_cb() -> llc_conn_tmr_common_cb() -> llc_process_tmr_ev()
--> llc_conn_state_process()
-
-and llc_common_actions_11c / llc_common_actions_11d in net/llc/llc_c_st.c
-contain:
-
-	[1] = llc_conn_ac_start_ack_timer,
-
-which is an unconditional re-arm in net/llc/llc_c_ac.c:
-
-	mod_timer(&llc->ack_timer.timer, jiffies + llc->ack_timer.expire);
-
-The same holds for llc_normal_actions_20a / llc_normal_actions_20b, whose
-
-	[3] = llc_conn_ac_start_p_timer,
-
-re-arms pf_cycle_timer, the timer deleted first in the pass.
-
-There is a second way into the same window.  llc_conn_handler() takes the sk
-reference under RCU, and its only re-validation is:
-
-	if (llc_sk(rc)->sap != sap)
-		...
-
-llc->sap is never cleared during release, so a softirq whose lookup predates
-llc_sap_remove_socket() still passes that check.  release_sock() has already
-run, so sock_owned_by_user(sk) is false and the frame goes straight into
-llc_conn_rcv() -> llc_conn_state_process(), whose actions mod_timer() as
-well.  Can that land after the last timer_delete_sync() returns and before
-llc_sap_put()?
-
-Is anything suppressing the state machine in this window?
-llc_process_tmr_ev() only discards events when the connection is already out
-of service:
-
-net/llc/llc_c_ac.c:llc_process_tmr_ev() {
-	if (llc_sk(sk)->state == LLC_CONN_OUT_OF_SVC) {
-		...
-		kfree_skb(skb);
-	} else {
-		if (!sock_owned_by_user(sk))
-			llc_conn_state_process(sk, skb);
-	...
-}
-
-and that state is set only later, after llc_sap_put() has run:
-
-net/llc/llc_conn.c:llc_sk_free() {
-	llc->state = LLC_CONN_OUT_OF_SVC;
-	/* Stop all (possibly) running timers */
-	llc_sk_stop_all_timers(sk, true);
-	...
-}
-
-If llc_sap_put() here drops the last reference, llc_sap_close() does
-list_del_rcu() + kfree_rcu(sap, rcu).  A pending timer holds no RCU
-read-side protection, so if the releasing task is delayed between
-llc_sap_put() and llc_sk_free(), can the re-armed timer still dereference
-the freed sap (sap->laddr.lsap in llc_conn_ac_send_sabme_cmd_p_set_x()),
-which is the reported signature?
-
-Reaching release with an armed state machine also looks easy:
-llc_send_disc() in net/llc/llc_if.c returns without any state transition
-when the atomic allocation fails:
-
-	skb = alloc_skb(0, GFP_ATOMIC);
-	if (!skb)
-		goto out;
-
-Would using timer_shutdown_sync() for all four timers on this teardown path,
-setting llc->state = LLC_CONN_OUT_OF_SVC while the socket lock is still
-held, and/or keeping the extra sap reference until after llc_sk_free(sk)
-close the window instead of narrowing it?
-
-[Severity: Low]
-Can this call race on llc->ack_must_be_send and llc->ack_pf?
-llc_sk_stop_all_timers() ends with two plain stores:
-
-	llc->ack_must_be_send = 0;
-	llc->ack_pf = 0;
-
-The existing callers are serialized: llc_sk_reset() runs from state-machine
-actions with the socket owned or BH-locked, and llc_sk_free() runs after
-sock_orphan() and sock->sk = NULL, when nothing can be dispatched to the
-socket.  This new call site holds neither lock_sock() nor bh_lock_sock().
-
-Meanwhile a softirq that took the sk reference in llc_conn_handler() before
-the unhash can run llc_conn_state_process() under bh_lock_sock() and
-read/write the same two fields, for example through
-llc_conn_ac_rst_sendack_flag() and llc_conn_ac_send_ack_if_needed().
-
-Would KCSAN flag this pair of accesses, and can the concurrent state machine
-set the flags again right after they are cleared here?
-
->  	} else {
->  		release_sock(sk);
-
-[ ... ]
+diff --git a/arch/arm64/kernel/cpu_errata.c b/arch/arm64/kernel/cpu_errata.c
+index b33dccfafaf8..3dc598a9fdd2 100644
+--- a/arch/arm64/kernel/cpu_errata.c
++++ b/arch/arm64/kernel/cpu_errata.c
+@@ -1020,7 +1020,7 @@ const struct arm64_cpu_capabilities arm64_errata[] = {
+ 	{
+ 		.desc = "Apple IMPDEF PMUv3 Traps",
+ 		.capability = ARM64_WORKAROUND_PMUV3_IMPDEF_TRAPS,
+-		.type = ARM64_CPUCAP_LOCAL_CPU_ERRATUM,
++		.type = ARM64_CPUCAP_EARLY_LOCAL_CPU_FEATURE,
+ 		.matches = has_impdef_pmuv3,
+ 		.cpu_enable = cpu_enable_impdef_pmuv3_traps,
+ 	},
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260916104735.3565609-1-miguelgarciaroman8%40gmail.com
+2.55.0
+
