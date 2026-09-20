@@ -1,64 +1,64 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7B033DBD65
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 07:25:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E48433DFC7F
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 07:25:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789889106; cv=none; b=VuQaCzZDz3ABH3FsC1nMs/s8gpzwvVyuIkU33VvkjeIraU/iATPc/vKUNpyOdTnTEs7lAlnkFV9nklOhLXL/T1cgZeZtOrn5FMfDQ0QXlsOem0h8H3FuhIxxpKfUTej/MzW1EDm5lDbQW4lmp1lHrqAA9OeBKC3VQyze6OCq/d8=
+	t=1789889108; cv=none; b=JtlljRVYLj9TBc6lU92E2cQaGSebo3JYGjkaCkJNu+kCUrWK8kPCZXHHpO0XlELY3nAzFq/r1BxQ8C0xsKLn9azzOhpaAxPfpvpN3N2qGvmxMepObZtSUPcigIXJnxFlj6M8+fJ2A0VPJ7etq0t805ZjHN2cCQIIE1P5DuOV2i4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789889106; c=relaxed/simple;
-	bh=jhMAMe5deumSATt2YZjZO9CnIAV20Mdp5mKgVCJ6KiY=;
+	s=arc-20240116; t=1789889108; c=relaxed/simple;
+	bh=IUta/M2tNKvfaLoq2NlbsB84SShrqK6/UdO94LXNBYQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ohwm9HO3LSt7RBeo2mba1vjFT3ejzh7ehWGo+mCs18nq9juKrtSOwdNCfNbaiy8CLJE/GOX6x0AFkQrh7QTpTshn0Hsc1UKGm2u3TDsaTCBG+Eq3j4wD6PjUP4Y50Xqfi4Kt9YmSz0PoyPEBisfGYFMdEpYMYqr4tpRoIlcDiFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XXGhYLDN; arc=none smtp.client-ip=74.125.225.140
+	 MIME-Version; b=l0YczZhaRo9Lsab0fzVl3F0+/rDZlrSa1yPiYZfGKOyHAkT6u8kkUxSxpxa2JL2e4Gb6+S80z09Z3bz0PBlQO5XQHnl+XNYMnDCrNGx1pOI9JANrBwUjjEofIlgYbEYo13f/s2qEkq/v7hjwhwjrX/d00iq5ZWkkv9MPxfxfqTk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y6uNyAkm; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XXGhYLDN"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd4ba9f68so27584695e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 00:25:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y6uNyAkm"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843c3ee4cfso1051313f8f.2
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 00:25:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789889103; x=1790493903; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789889104; x=1790493904; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=P7VibR2ejrZmc9O6OW8RI4q4uqsysauF7NG6R5Tz7yU=;
-        b=XXGhYLDNbYdr27vF0Lzb1EUSU/2xMbxkUGRE6fD5CLrAaSRdn4pPkOrUSevo8sXo1y
-         mjG/xOqfuCbNh2lEZdo1NSEJRa9RkXkiSRxLRp9EEKWgLB7Yjc8tu07nT/creiQ4/E6q
-         CAY+wJ+uinkBIDUCnPHPGBJ9AoKKXhDxjoTG+cjpmEBl5+oos87v4wVByM1Wxf+6TL3m
-         EpMjy+YaxAcGM450zYNhaFH+fwPnbg6CginsIGWyDY8XvLmTzvea4jkBJbMeB7GOZh6m
-         nl60WR1bsTUk6g/QbOg1OqG5wtzfiimshTgPjeP+1+ErWZZJ1NnXZJMNed8nfPEjCZkK
-         5kww==
+        bh=+vC7mWH/mIfDgj2VP2g28i21vIin0AtG0fS/fptEVoY=;
+        b=Y6uNyAkm5l2Rq2e/PZy0RG3K5WKKD+rP1RA/qBdJrN3VmEy0RXXkvQvOSHCOXrZB+3
+         pEkP+nuipxO94jFFM80MKUQ413HStE4PZoiQY6/Ho6l7tfr6Ko3DA42JMkPc5KA2GLL+
+         yl2d8JSXV2+dbuv7emfD5pu1DP1yn/aKs/FMZoYv/ZewU9nKJKUKhq8s+ek18oBzu/S0
+         d5rJqRogiOlC/QE26FsC+LH5G9b9ux6iX7Gl2XJqDi9Vi5weokivNAPnxpzWTYdhD02F
+         3e7hj8HFSF3ZfXO7hERRVMqQNNQTAyJ8ObJx/zjt/jOGMgf9EZpR2BxGfZiKc2oqWzgX
+         WSHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789889103; x=1790493903;
+        d=1e100.net; s=20260707; t=1789889104; x=1790493904;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=P7VibR2ejrZmc9O6OW8RI4q4uqsysauF7NG6R5Tz7yU=;
-        b=O3oDBOLD1RM/FAWxhOQu54lEbvVF89Fgb4ikQ+HEPoe/TQwceA79dOpB6VsGERN9wd
-         f+0YyP6q0HCwEFZaQsF3hD5HEhtkrYcV/N85DbAk14BmjKeIs4f4WWYNF9SVKHIaD7RE
-         Htdl5T7zOSjIQGBAQGO9gjEnarAE1gZRSilrSzdadFYi/zShcHXXUxvFwfKqltzUmZoV
-         d6B7N6hLQRgNwBKPb5OyAjaveDNsY2dzKw1acRgKGq++rKocJs0SZkpjWZdbowKJEi3x
-         064JaWFf1VNyIAWiZhPOSNVFVjOD4GH0RFHmjNpkKipSdFSp+vhdt7h2F46uvu8WovGQ
-         FN8g==
-X-Forwarded-Encrypted: i=1; AKwUvByyeu/Yx14RJi657uFNBuUW8LYEKJHyglpfkQIbLQNuQkQ16bI2tn5YklRo1derKNKrsdltciy1YKe0GGc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lM/3ukHpktXGXKufNFS9v+E9H/mmFVSlpsjyMihUmvJeHNIvMa
-	FhkQmKoJjJMbY31A3z9XkRfakl6sAvNtuOK/0KPB4DdJpGM97NNq7QAW
-X-Gm-Gg: AYBFou2ngFQZxkvh624ocXB+eWbSK9xqd+Y2bO9EuYJk89nEsRw3g8719PyGJndeBm5
-	tJc5L66MKunJDn/HfLMP+2bLMxjuupnmnVaOMA4R89PpP6BCgiYnzWJ+YeVUPNAAuDT5+4tqJLJ
-	4vcFTw7sPYka3x70DX34S4NwnijxkDfqVySnioLqcxUO8s51xbQkURIRasfO00lizUox9hHtdtn
-	mo6Y6nTMs1JUKIVBm9TVFnHnFThqTuiWB3sxdgtE+Ajvj5ufopo+acBqIAHU0sHp5jDpKHTRvM8
-	kENhUJ9+C9WCf+1qEZnQd1Z4X40TRp+yIyuBXPs970DePNQ2oyrCmuPETAM4KsrZDI4QLbxAHM4
-	Hz0VmrO0CwlN5wCphTUHL5lwhxiX6yOu7qqZgefPr4gOLWoID/mcFXPaF4qZIpJmrIhJfgRFd51
-	C+poapnAWvcG7I2/2Abv1JJJArOyXM5WoCLKf3gcGA1TDoO3ZfdI30LrICXgBFi/+nUXpm+5bOR
-	e8QfA==
-X-Received: by 2002:a05:600c:6296:b0:49e:6fd2:a45 with SMTP id 5b1f17b1804b1-49fc5737c43mr100407105e9.16.1789889102652;
-        Sun, 20 Sep 2026 00:25:02 -0700 (PDT)
+        bh=+vC7mWH/mIfDgj2VP2g28i21vIin0AtG0fS/fptEVoY=;
+        b=bfCZloAKulLgP7LkXO2PyFp2OkbDALXlgrQbv8/JujZeIC/0QW0D7TlH0kAHw8e6DO
+         +UutITpAesEGfMv+Osnf5QNTITEozZJUReCRjrJbSR75eg4gsz8lbLC37lYacol0pbwS
+         OBhxVwRT4mFcI9V+V9hUdlY0Sj3zWMHZxmTmnDg/zj0RC3lnyHABF3fSTRLNcVPlnMse
+         KIXvMwBWk4nS0Y/oeZXxkhaqP+Tft0giPDnwW/rqyy3BsZO/zCSWMs4qCrxdB/WG0ngL
+         VnLF7fbwrHKYYbvikK725XzzYEOWVtJeHET3OTKpaXYuiOBnDG2+k2QQhmAB6ePz4BDA
+         b9PQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy0/yZPgBiV+S4m97e8/uIZzv8f3wlJJklQZoPQUY+K9cRq1GXzrmIxWOkG9P1SEf5hfs1VPsWTO0Qi+4Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++mk+VBdCPijGKdHQ5xtvvoUkSWKBsYR9MJMtQ3p4BivcQYWNCH3
+	Yig5tgzDIjqvKG/sYb3Re6Pcqjxr9zhRxn4oZatHR2R6mun/8zAUI+lo
+X-Gm-Gg: AYBFou2UVIM/WJZ+Bdsp58O6Y48TGz3e9VZt+S7LNCVRUR+ZvPWroGMWIVHY28CNIcQ
+	XXwoklltFQlfXmncnVv1Y/06PPcVPQwgysRqDlqDmIz6bjzo5F0kaJDBAycsEEZjFQc/Y1Ex20x
+	6BOCkdB7SKSn2YUkxAm+iH2Sv9isQN4ekCA49knETOHJXuTO666tR4ougfPSvfOyYJuRZp+CjXh
+	/rPj+/IGn4c75DUrwSrWqLaGN8W/hd36LC+4nV9mb1JhzeLvb18TGZWqo0PWD/ieYt19goCzk3U
+	bSKoVk0qscDtcIOEtf8+RU/bL4cvLrM0sejZtQJPSIgOT3IJMCv7/Q2GWDTDHpjFMW0gbD8IgmE
+	oNLy77c0B7DYCeCfH9UAmG5X8MoJxDHjpz98Ny+X3B6XnGrO9WhprROcIAIy/H1PkgjBax4s4GY
+	uIcZKbvrAn9xBvYKLX3L1kH5Dfy1wuccxH7+oYVEpDXTMJ/OUwm5m7ulPUhrDt7g9rr8kqK/eC5
+	dUy
+X-Received: by 2002:a05:600c:3496:b0:49b:2796:be30 with SMTP id 5b1f17b1804b1-49fc57226d8mr106507795e9.11.1789889103983;
+        Sun, 20 Sep 2026 00:25:03 -0700 (PDT)
 Received: from build-server.. ([62.96.37.222])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd07bba7sm125191575e9.9.2026.09.20.00.25.01
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd07bba7sm125191575e9.9.2026.09.20.00.25.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 00:25:02 -0700 (PDT)
+        Sun, 20 Sep 2026 00:25:03 -0700 (PDT)
 From: mike.malyshev@gmail.com
 To: seanjc@google.com,
 	pbonzini@redhat.com,
@@ -75,9 +75,9 @@ Cc: amoorthy@google.com,
 	yu.c.zhang@linux.intel.com,
 	linux-kernel@vger.kernel.org,
 	Mikhail Malyshev <mike.malyshev@gmail.com>
-Subject: [PATCH v2 1/2] KVM: x86/mmu: Report a memory fault exit when the fault handler EFAULTs
-Date: Sun, 20 Sep 2026 07:24:58 +0000
-Message-ID: <20260920072459.3485710-2-mike.malyshev@gmail.com>
+Subject: [PATCH v2 2/2] KVM: x86/mmu: Convert can't-happen fault path EFAULTs to KVM_BUG_ON() + -EIO
+Date: Sun, 20 Sep 2026 07:24:59 +0000
+Message-ID: <20260920072459.3485710-3-mike.malyshev@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260920072459.3485710-1-mike.malyshev@gmail.com>
 References: <20260920072459.3485710-1-mike.malyshev@gmail.com>
@@ -89,62 +89,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Anish Moorthy <amoorthy@google.com>
+From: Mikhail Malyshev <mike.malyshev@gmail.com>
 
-KVM_CAP_MEMORY_FAULT_INFO documents that KVM_RUN will fill
-kvm_run.memory_fault when KVM cannot resolve a guest page fault VM-Exit,
-"e.g. if there is a valid memslot but no backing VMA for the
-corresponding host virtual address".  kvm_handle_error_pfn() does not
-honor that guarantee.  It returns a bare -EFAULT, leaving userspace with
-no indication of which guest physical address faulted, or even that the
-exit was a memory fault at all.  Userspace cannot distinguish a
-transient, resolvable condition from a fatal one, so in practice the VMM
-terminates the guest.
+Four -EFAULT returns in x86's page fault path are guarded by
+WARN_ON_ONCE() because they describe KVM bugs, not conditions the guest
+or userspace can reach:
 
-Fill kvm_run.memory_fault before returning -EFAULT.
+ - direct_map() and FNAME(fetch)() completing the walk at a level other
+   than the goal level, i.e. KVM's shadow page table walk disagreeing
+   with the mapping level KVM itself just computed.
 
-A concrete user is an Intel integrated GPU assigned to a guest via
-vfio-pci.  The guest driver clears PCI_COMMAND.MEM on one vCPU while
-another vCPU is mid-MMIO to a BAR of the same device.  Clearing
-PCI_COMMAND.MEM makes vfio-pci zap the BAR's mmap, so the second vCPU's
-fault finds a valid memslot whose VMA can no longer supply a PFN, and
-KVM_RUN fails with a bare -EFAULT.  The VM dies, even though the guest
-did nothing architecturally invalid and the condition clears as soon as
-the driver re-enables memory decoding.
+ - a CR2 with bits 63:32 set on 32-bit KVM, which the hardware cannot
+   produce.
 
-Reproduce by pairing a vCPU that spins on accesses to the assigned
-device's BAR0 with a vCPU that toggles PCI_COMMAND.MEM; the race is hit
-within minutes.  The same crash has been observed in the field on
-production edge hardware.
+ - PFERR_PRIVATE_ACCESS set on a reserved-bit fault.  KVM sets that
+   synthetic bit itself, and only when PFERR_RSVD_MASK is clear.
 
-Reporting the fault does not by itself define the access semantics.
-Userspace still has to decide what a read or write to a BAR with memory
-decoding disabled returns.  But it is the information userspace needs in
-order to make that decision instead of killing the guest.
+Returning -EFAULT for a KVM bug conflicts with KVM_CAP_MEMORY_FAULT_INFO,
+which promises that an -EFAULT out of KVM_RUN on a guest page fault
+VM-Exit is accompanied by kvm_run.memory_fault.  Describing a broken
+KVM invariant as a memory fault would be actively misleading, as there
+is no guest access for userspace to resolve and retry.
+
+Convert the four sites to KVM_BUG_ON() + -EIO, the established way to
+report that KVM is hosed, so that -EFAULT out of the fault path always
+means "guest memory access KVM could not resolve".
 
 Suggested-by: Sean Christopherson <seanjc@google.com>
-Fixes: 16f95f3b95ca ("KVM: Add KVM_EXIT_MEMORY_FAULT exit to report faults to userspace")
-Link: https://lore.kernel.org/all/20240809205158.1340255-1-amoorthy@google.com/
 Link: https://lore.kernel.org/all/Zr-8M9rYplgN6IS3@google.com/
-Signed-off-by: Anish Moorthy <amoorthy@google.com>
-Co-developed-by: Mikhail Malyshev <mike.malyshev@gmail.com>
 Signed-off-by: Mikhail Malyshev <mike.malyshev@gmail.com>
 ---
- arch/x86/kvm/mmu/mmu.c | 1 +
- 1 file changed, 1 insertion(+)
+ arch/x86/kvm/mmu/mmu.c         | 12 ++++++------
+ arch/x86/kvm/mmu/paging_tmpl.h |  4 ++--
+ 2 files changed, 8 insertions(+), 8 deletions(-)
 
 diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index 9788ff1803740..244575f576071 100644
+index 244575f576071..6529ff9e98358 100644
 --- a/arch/x86/kvm/mmu/mmu.c
 +++ b/arch/x86/kvm/mmu/mmu.c
-@@ -3616,6 +3616,7 @@ static int kvm_handle_error_pfn(struct kvm_vcpu *vcpu, struct kvm_page_fault *fa
- 		return RET_PF_RETRY;
+@@ -3577,8 +3577,8 @@ static int direct_map(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault)
+ 					     fault->req_level >= it.level);
  	}
  
-+	kvm_mmu_prepare_memory_fault_exit(vcpu, fault);
- 	return -EFAULT;
- }
+-	if (WARN_ON_ONCE(it.level != fault->goal_level))
+-		return -EFAULT;
++	if (KVM_BUG_ON(it.level != fault->goal_level, vcpu->kvm))
++		return -EIO;
  
+ 	ret = mmu_set_spte(vcpu, fault->slot, it.sptep, access,
+ 			   base_gfn, fault->pfn, fault);
+@@ -4942,8 +4942,8 @@ int kvm_handle_page_fault(struct kvm_vcpu *vcpu, u64 error_code,
+ 
+ #ifndef CONFIG_X86_64
+ 	/* A 64-bit CR2 should be impossible on 32-bit KVM. */
+-	if (WARN_ON_ONCE(fault_address >> 32))
+-		return -EFAULT;
++	if (KVM_BUG_ON(fault_address >> 32, vcpu->kvm))
++		return -EIO;
+ #endif
+ 	/*
+ 	 * Legacy #PF exception only have a 32-bit error code.  Simply drop the
+@@ -6658,8 +6658,8 @@ int noinline kvm_mmu_page_fault(struct kvm_vcpu *vcpu, gpa_t cr2_or_gpa, u64 err
+ 
+ 	r = RET_PF_INVALID;
+ 	if (unlikely(error_code & PFERR_RSVD_MASK)) {
+-		if (WARN_ON_ONCE(error_code & PFERR_PRIVATE_ACCESS))
+-			return -EFAULT;
++		if (KVM_BUG_ON(error_code & PFERR_PRIVATE_ACCESS, vcpu->kvm))
++			return -EIO;
+ 
+ 		r = handle_mmio_page_fault(vcpu, cr2_or_gpa, direct);
+ 		if (r == RET_PF_EMULATE)
+diff --git a/arch/x86/kvm/mmu/paging_tmpl.h b/arch/x86/kvm/mmu/paging_tmpl.h
+index c8ec47b09264b..8e350095508c5 100644
+--- a/arch/x86/kvm/mmu/paging_tmpl.h
++++ b/arch/x86/kvm/mmu/paging_tmpl.h
+@@ -778,8 +778,8 @@ static int FNAME(fetch)(struct kvm_vcpu *vcpu, struct kvm_page_fault *fault,
+ 					     fault->req_level >= it.level);
+ 	}
+ 
+-	if (WARN_ON_ONCE(it.level != fault->goal_level))
+-		return -EFAULT;
++	if (KVM_BUG_ON(it.level != fault->goal_level, vcpu->kvm))
++		return -EIO;
+ 
+ 	ret = mmu_set_spte(vcpu, fault->slot, it.sptep, gw->pte_access,
+ 			   base_gfn, fault->pfn, fault);
 -- 
 2.43.0
 
