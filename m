@@ -1,111 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8364C3612DB
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 17:09:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54CEA470EAF
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 17:10:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789924190; cv=none; b=SvVPbk4L9b+GFsFwL4F92orRxAb1zBi3K3ozPo79P7rzid20sGEmglxPL48dSiCknIyLi54HQzUR2NbM0ZN21+OMIvsv54y+fZIvO6Gq0QC6Ji1bK3kipJ0JVXEW07AB3uk3SVAB+C0l2z7qFcSPN62sLWjA+2wriygeqpEb/ec=
+	t=1789924244; cv=none; b=OaGhnXxWCLbD9xsA/Pyf3KpCtH0hrVSPBXrmlA5BiBOxkZF6kkeReJjtXmZgydqI1jYiLO6VJsmCvERaAET+wzbIdOCOF+kVy4Z8w4xbCxtl2uXAElf8hk9IIa6UFcGK2LPVLWsDm4V3DWQZ5GQZf9VoHWt4ysLr/O8skQ0txD4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789924190; c=relaxed/simple;
-	bh=ZdRWLrR4A1gbWGq8ZAtbfeXtpJu0FTk/M6U48Lz4M4E=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=U3E+eBlOPMAxh9CEiSIelDLAET20WI4RcTc9ddPwQHppZnB22ox17+hed9CpKCnCRA6cBLclnE18LS1gvovodqeS+oDi5V9SDrtbY5EXkioz5EYB+ZsfdXcXxNip3m+0YuymYQC8gDB6Fx1AEa8KmrGbytE0rWqeYLOfV8+boZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NHg/qK13; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789924244; c=relaxed/simple;
+	bh=m/K1OkPa5NYvWpIHpoqecii+PsO5ZMdWLsbXqX3ixEQ=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=VvQVrFrAFlSpC1bFBUaLV5XybH6U47YjrjYj9X2w7SFaURn/OQKynWsCPG5JqlgJIF3JBSzcDM/iqSVpt3dqj4gGWPHHu2rj0/h2D9QudfY5mPLU6foqnVqPQiP08ZoVWmeNrBCk5mXRyLDPHiU6U0bIP+ZYwRyO0YZB3ioUaZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Fs927xIh; arc=none smtp.client-ip=209.85.214.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NHg/qK13"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D8ED1F000FF;
-	Sun, 20 Sep 2026 17:09:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789924189;
-	bh=P+BBJ8yrUQwA+W2Gb5++J4RtQ7JEyuDaSZDBZOdlhlo=;
-	h=Date:From:To:Cc:Subject;
-	b=NHg/qK13oaa317T4IPKegy/NKIqWMwMHJyUNVbMznwv5FS6n8Q7md6yF225GKdalR
-	 rTH+cIFFlozByDflcDeAVMV4VC+PrlmNLh8qWg483slf8sfQiNQpZm12JGao2mpB45
-	 fn8HhEENnv+M5+98wOybuYBwop5pIch/SQs37m4hT/u6VizIaSXGs33rWIoscNccbx
-	 /jlT+bOqHzb9fn7UiDth79HU5g9B8rzMe0JwL376HLeIjroQsZhJqY7HtmOFZCqySx
-	 tIqkhXPn7tigLD4WJJaiCCQUoKu/Iu/pebiGtWGRd9juJOIOVEk0G5/CjWMB5jKyn1
-	 bHYBZf+ndoctQ==
-Date: Sun, 20 Sep 2026 22:39:44 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: LKML <linux-kernel@vger.kernel.org>
-Subject: [GIT PULL]: soundwire fixes for 7.3
-Message-ID: <arATWGT1OwkvzZ1i@parshuram>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Fs927xIh"
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2dc92350888so41271715ad.3
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 10:10:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789924242; x=1790529042; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=m/K1OkPa5NYvWpIHpoqecii+PsO5ZMdWLsbXqX3ixEQ=;
+        b=Fs927xIh17QospCUPJcbnL8Z6UqO6gmgq9M8qaSNDCKlLZrFivkHaw+bp8c/vjbNgk
+         0MAQlV/RNu1icuSaUJhNw3xk9B0c3vQO1XKj1VCzGyafkzDS0mfbO3HG8D+BAOqb/V2Q
+         ngMb+Mi5DpWFeISToyhxYXxUlCSE7wtWxWEoGKWOSXm8qtnbTvkf2SxyKy8Cog/uk55q
+         EpWL5SO6ynEJ76ye+OwQWjTxLYrvk5hewbjU5FFUYm96mrdWKnD6B3HpeS5xDNOrg1Sd
+         mz24TVQyCOPUMwtzs8M24NkkIFCozUJ0b0aTbdfVQAmz1eZSZQuow9Kc+t347uko1ouU
+         Dnqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789924242; x=1790529042;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=m/K1OkPa5NYvWpIHpoqecii+PsO5ZMdWLsbXqX3ixEQ=;
+        b=PbOkx/PABVN3tRmvhDIbb5xmokddERF6fsAUXLQ2dX+giYSUxbNDpYV466zJv2pJEV
+         qF0fehtqeNmRHR1txYf/8W/6ETF9ftZLzAQ7yhdx6+lUXBJUpDU6y+DcofBGENaMPDFg
+         EI+16wi3Hk7eY0O9bFhndV7OL4z+SwNE1ipuXTetgNNo9ij6D0X4XTFQW+A7NW4LZnbA
+         UrNdwRRvvIOyJ+1d9CpWNUlvnpG3YoysmRvEWf80QlQxy1WodhqzkvK5F7kAiATrMxHg
+         BmNzjKI7jE9P45vq9E1N9DDQW30zbS8T7sBVurb3KSEh/f/ne+NOk4XfxpeEulNCBhVQ
+         EezQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxxNcE0Mm0d+ztRwbvpK0bgtRlOn2IjkV1MTG5kkdxlu2JcFz26XzeHP49xNBVz2mZSfj4xEkptr/ZRVhQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nJvFWL1ltsfHkzU5WOEWaYH3R2hzhWhxa3MuxxxFns5fDzIDvG
+	hapnUeQOaSDVqHkBmFXig+SJdgTYlHyhal/JzJZCs2MqL6BM62CFFpERjUuBg1oIhz0GVvnaPbn
+	K20L79Cw/GpOOQA6k9gemgA==
+X-Received: from plar12.prod.google.com ([2002:a17:902:c7cc:b0:2dd:5ae:3a51])
+ (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:903:2f4c:b0:2dd:c170:2d4d with SMTP id d9443c01a7336-2ddc17034demr76642115ad.24.1789924242402;
+ Sun, 20 Sep 2026 10:10:42 -0700 (PDT)
+Date: Mon, 21 Sep 2026 01:10:40 +0800
+In-Reply-To: <20260911024319.1346706-1-stanleyjhu@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="a/oxL1JCG0jLfdHq"
-Content-Disposition: inline
+Mime-Version: 1.0
+References: <20260911024319.1346706-1-stanleyjhu@google.com>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+Message-ID: <20260920171040.4052486-1-stanleyjhu@google.com>
+Subject: Re: [PATCH 0/2] scsi: ufs: core: Handle devices declining optional
+ Query IDNs
+From: Stanley Jhu <stanleyjhu@google.com>
+To: "Martin K . Petersen" <mkp@kernel.org>, 
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: Stanley Jhu <stanleyjhu@google.com>, Xilin Wu <sophon@radxa.com>, 
+	Bart Van Assche <bvanassche@acm.org>, Avri Altman <avri.altman@sandisk.com>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, linux-scsi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+On Fri, 11 Sep 2026 10:18:47 +0800, Stanley Jhu wrote:
+> Compile tested on arm64 (defconfig + SCSI_UFSHCD).
 
---a/oxL1JCG0jLfdHq
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Quick update for the thread: Xilin Wu tested this series on hardware
+with a Kioxia THGJFJT2T85BAT0A UFS 4.0 part (with the device quirk
+dropped) and confirmed in [1] that it resolves the 0xFD Query response
+errors on boot and resume.
 
-Hey Linus,
-
-Please pull to receive couple of fixes for soundwire subsystem for v7.3
-
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
-
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/vkoul/soundwire.git tags/so=
-undwire-7.3-fixes
-
-for you to fetch changes up to aba7b41faeecb7692458095ce6fafc341fe0b80e:
-
-  soundwire: cadence_master: wait and cancel cdns->work before clock stop (=
-2026-09-08 19:19:42 +0530)
-
-----------------------------------------------------------------
-soundwire fixes for 7.3
-
- - Cadence ensure work completion before clock stop
- - Disable ghost Realtek on Asus GX651AX
-
-----------------------------------------------------------------
-Bard Liao (1):
-      soundwire: cadence_master: wait and cancel cdns->work before clock st=
-op
-
-Ian Luites (1):
-      soundwire: dmi-quirks: Disable ghost Realtek on Asus GX651AX
-
- drivers/soundwire/cadence_master.c | 7 +++++++
- drivers/soundwire/dmi-quirks.c     | 7 +++++++
- 2 files changed, 14 insertions(+)
-
-Thanks
---=20
-~Vinod
-
---a/oxL1JCG0jLfdHq
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE+vs47OPLdNbVcHzyfBQHDyUjg0cFAmqwE1gACgkQfBQHDyUj
-g0fpZhAAuSLvoI4adE4+vpHTmZlN6Rd77bh9Ng8ZOlPPevLVgSjn+PuLkm+bmhyH
-qQRm5V2X574dBYOBu/EepbjnkcfiqeHJnBQkvn6SOjPZcjDKtj578NMDbfo/aMNK
-IVdBC/itV5ofFR4yIQMKhSzqVVMNG90DGMNYDsITWypFMz2+Grv0GqE74WlGCfQ5
-JF76ZiUdHi70yjUb0mouIS5/BW1fWOUL3WAtS9yUK8K+egfb++koZoV7LH0oe/mC
-Hy14llcsfl+P2AS5HKR78LcVw7sPLzuy4BUjAsl4JxK1Gv5MKsUllfGH28e/o2k7
-hC8nf5ct/eT8FmOIUTkeXL3kpU/XC31ilNBbzzHIR49+9T4ts9W40Mh7viXFY+UM
-qsQ/xMJ9KrLu/hYNAcSTsOzd8MlHLykNlyV1DYDzzXJmFzQNy2CMJrZ9UJI0oiXR
-ANuqfQYUk30/FmVPl0ACn9KNV+LdecACEnKwB3YJFDrvEU2zddKDq5/n3W7iU2jv
-m0IflvurH7AfJYr02Ki2Ia5I/D8TKUR2buCCTSTvjnsy00oJFPLzTL32z9oAqPHz
-uOrMeaumJiziy5JIwNnbKzTDnN4aV9Ubb0RTZCwvALfI9BUBsDrl+mzpD8POvdtE
-NBnQB370JMbMB3FHwODdWE0skiXP2/pftDS6MVsgnICkXQhF1GI=
-=vsKy
------END PGP SIGNATURE-----
-
---a/oxL1JCG0jLfdHq--
+[1] https://lore.kernel.org/linux-scsi/B6ED6CADE807138B+422dda6a-301a-4bd1-befd-b932ea9f46e0@radxa.com/
