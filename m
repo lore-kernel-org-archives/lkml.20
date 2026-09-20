@@ -1,130 +1,80 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13A333D8902;
-	Sun, 20 Sep 2026 22:06:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 665E73EA959
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 22:07:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789941983; cv=none; b=gzP9G/f4hRQEJlwvruWzNfmKrKlYkYpq6smc8+Iq+azoOO38GWfNL9Ck0VuXyCvKaAcUiyIfYTYqvSgFvelCw0InAgp3d+/9DixFBYwd9atK0B7ZgvMIHGi9PISxWhSyMSuyWik81g+A8FLRRpYQ4GUmuP1igj1KLZJVvcKDClE=
+	t=1789942037; cv=none; b=nhxcoWf7cZ9vxunyPPliwk+/JuIJYUwi9K7NdHlhUNp1QskhHKLhz31td0hkGnlN6stOrWvXZ6n4T9lzt6SX1rdq7E5fD3x90u2FMEkiuj+3eC+KvBkGnQGY2XjZQ0iXfA+h3cc/fHuctitiDf/8m88B2RommnEo7LydsGJtgvo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789941983; c=relaxed/simple;
-	bh=7KsZAiziTOOr/DbU04KxKAm/6Gd7N6oiNCv7Tb22eUE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Hq1hY84qtviXJzRgTddjbGcaLeZ/uf12RFesLX8uowDMQdpFJjDsETow+anupJ3g97HLZQEupA8ccJxwUOMvwrel1hw2XGEE/v47hZrn+CIUysV4jn+lPNc0/E/Q8sMnKwCBNqJJbCX+3cSZ0ALA/Ip+ssye1rrSssVGAp/+rqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UGboTFOt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789942037; c=relaxed/simple;
+	bh=eM2T7KJzE7XrEgyW7SedFNWCzHyys8WpkYdSkfQ74AY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jvw2rlrZVZxMOyvW23PTQIYajS2C1KTLyfWLo0gRwRxRNYOnqZTGB9Ts0D2B01dkKIYYLHbAOrubc0EQEp7IT4uhY+lx6Wjf+lNQmuk0UtFjd1G5z+WGwc9fkxGeCh8utAcYZFugWEHHA1dIcO+zgHA67VdUnX0FCL1tnQzEdIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BLQb+oCe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UGboTFOt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC7D21F000FF;
-	Sun, 20 Sep 2026 22:06:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BLQb+oCe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8AF71F00893
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 22:07:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789941977;
-	bh=g/qaINeHiqA2KhUtssNRdjMI4ZVktcT4zFMvhkMkS+w=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UGboTFOtgHX4iHMo5u+5INK3e5RDc7rGYOrjN/Lg9HM0hkugm2uS+8KKvPhmdvgp1
-	 VZSvwqyWUE0bEIxUB+HXbPksDXHMcxEeSdSYmss01De/f4X05FSPIpn9CPJ4T59PGQ
-	 nXKcQVh1K/GMllZvO7sdY810zA3N0K1RVstysgTPcNxoL5mepk2z7xeEcp5H7N+Jt2
-	 3T1nLSYJPDApEoOBMpArGeELGoxA9wYlMzWmENFFduTwgvsiCgZJruoqaVMPvnMH6Z
-	 qNFdByspTf61lE/WcrNuw83UQ/FWuRHphGUKJIvEeYpmm8Na/4tRYFshA5MjQG5V4j
-	 eWGN1GpbWIcdQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 06/17] KVM: x86: Use gfn_to_pfn_cache for steal time /
- preempted status
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "David Woodhouse" <dwmw2@infradead.org>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev
-In-Reply-To: <20260920211920.928306-7-dwmw2@infradead.org>
-References: <20260920211920.928306-1-dwmw2@infradead.org>
- <20260920211920.928306-7-dwmw2@infradead.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 20 Sep 2026 22:06:16 +0000
-Message-Id: <20260920220616.AC7D21F000FF@smtp.kernel.org>
+	s=k20260515; t=1789942033;
+	bh=eM2T7KJzE7XrEgyW7SedFNWCzHyys8WpkYdSkfQ74AY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=BLQb+oCeqSc0G87OD4KjAXApLx3L1GEVNN2EsmlKQdN2IURsv/IRnXCwc4opbD57J
+	 eWs/Hqn03qMZefdYbbXFUFYZ6Th94GYocU3GuGtCfGRLkOx4y9kP50864eYq5Q2nP5
+	 K0SIa/i9EF5lIuDeXLhdNo5TJVSHgVK9/CWSS5MDjbSWxPY0O4/ZsOOWpV5rFVF2sV
+	 7/zvzRyKzBksWXly+xtJM/FcTl2JAwicrhuWfurXA3r8KwVgzOHO9IXCr+vu2MHgu4
+	 Vi8h8JDqwhWEsRvGf/OLcGFQI6GFQYGvnDtT77tFu9e1Axum9IsPMHbj+t4VOsB1Sk
+	 n2NS929TFKWkA==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8cbb7b9cfso449792e87.0
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 15:07:13 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxpVQ3tEzijBjWyKleYvkP1PbiFj7dMcqy0Fty0JQ3GmUAnqw9HFAiX4Lsv+bkv98O7S6kVyAc0zDjBfMk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kjhqYodhP544DH6M/Ss5Mq0a6anrgt5IkDUMR+br0fV+nghDHs
+	R2yVPP8pQ3rXDkakWc6MbD/L5sx0EKWBt5wj7epfkfbl5673vIaRuZTpHgBrK76tsIrMjQzx15K
+	VfYNqXFB2zrX4AOTKcAl1IloD5gPKKcQ=
+X-Received: by 2002:a05:6512:39d1:b0:5b4:24a3:ecf9 with SMTP id
+ 2adb3069b0e04-5b8c180b6ffmr3029498e87.21.1789942032696; Sun, 20 Sep 2026
+ 15:07:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260916065132.1411576-1-pshete@nvidia.com>
+In-Reply-To: <20260916065132.1411576-1-pshete@nvidia.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 21 Sep 2026 00:07:00 +0200
+X-Gmail-Original-Message-ID: <CAD++jLn+p=fvVG6=EX3LvU9eMe68cfhCzQvoem0sEfpY43ktvw@mail.gmail.com>
+X-Gm-Features: AcwNN1VOfHJBNeasa5J7ZELwn9CSLN9B7pBShBYstEigIj754ox3CA5qiQjayJo
+Message-ID: <CAD++jLn+p=fvVG6=EX3LvU9eMe68cfhCzQvoem0sEfpY43ktvw@mail.gmail.com>
+Subject: Re: [PATCH] pinctrl: tegra238: Fix register bank for AON pin groups
+To: Prathamesh Shete <pshete@nvidia.com>
+Cc: thierry.reding@kernel.org, jonathanh@nvidia.com, 
+	linux-gpio@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, bhelgaas@google.com, 
+	u.kleine-koenig@baylibre.com, arnd@arndb.de
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] build: Missing definitions for srcu_read_lock_atomic and synchroniz=
-e_srcu_atomic
---
+On Wed, Sep 16, 2026 at 8:52=E2=80=AFAM Prathamesh Shete <pshete@nvidia.com=
+> wrote:
 
-commit 73f7f7addf4a338b749e65de38df63e40795698c
-Author: Carsten Stollmaier <stollmc@amazon.com>
+> The AON pin controller has a single register region and therefore,
+> the bank defined in the tegra238_functions[] and tegra238_aon_groups[]
+> for the AON pin groups must be 0. However, commit 25cac7292d49
+> ("pinctrl: tegra: Add Tegra238 pinmux driver") incorrectly specified the
+> bank for these pins as 1 and not 0. This means that in the
+> tegra_pinctrl_probe() function we use an invalid index when accessing
+> the pmx->regs[] array which causes an incorrect address to be used for
+> accessing the pinmux registers.
+>
+> Fix this by correcting the bank for the AON pin groups.
+>
+> Fixes: 25cac7292d49 ("pinctrl: tegra: Add Tegra238 pinmux driver")
+> Signed-off-by: Prathamesh Shete <pshete@nvidia.com>
 
-KVM: x86: Use gfn_to_pfn_cache for steal time / preempted status
+Patch applied for fixes.
 
-This largely reverts commit 7e2175ebd695 ("KVM: x86: Fix recording of
-guest steal time / preempted status"), which dropped the use of the
-gfn_to_pfn_cache because it was not integrated with the MMU notifiers
-at the time. That shortcoming has long since been addressed, making
-the GPC work correctly for this use case.
-
-> diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-> index 3db1855aba798..116932e13d595 100644
-> --- a/arch/x86/kvm/x86.c
-> +++ b/arch/x86/kvm/x86.c
-> @@ -2065,42 +2064,27 @@ static void record_steal_time(struct kvm_vcpu *vc=
-pu)
->  	if (WARN_ON_ONCE(current->mm !=3D vcpu->kvm->mm))
->  		return;
-> =20
-> -	slots =3D kvm_memslots(vcpu->kvm);
-> +	/* We rely on the fact that it fits in a single page. */
-> +	BUILD_BUG_ON((sizeof(*st) - 1) & KVM_STEAL_VALID_BITS);
-> =20
-> -	if (unlikely(slots->generation !=3D ghc->generation ||
-> -		     gpa !=3D ghc->gpa ||
-> -		     kvm_is_error_hva(ghc->hva) || !ghc->memslot)) {
-> -		/* We rely on the fact that it fits in a single page. */
-> -		BUILD_BUG_ON((sizeof(*st) - 1) & KVM_STEAL_VALID_BITS);
-> +	idx =3D srcu_read_lock_atomic(&vcpu->kvm->gpc_srcu);
-> +	while (!kvm_gpc_check(gpc, sizeof(*st))) {
-> +		srcu_read_unlock_atomic(&vcpu->kvm->gpc_srcu, idx);
-
-[Severity: Low]
-Are the definitions for srcu_read_lock_atomic(), srcu_read_unlock_atomic(),
-and synchronize_srcu_atomic() missing from the kernel tree? Compiling this
-patch results in an implicit declaration or undefined reference linker erro=
-r.
-
-[ ... ]
-
-> @@ -2657,20 +2632,31 @@ static void kvm_steal_time_set_preempted(struct k=
-vm_vcpu *vcpu)
->  	if (unlikely(current->mm !=3D vcpu->kvm->mm))
->  		return;
-> =20
-> -	slots =3D kvm_memslots(vcpu->kvm);
-> -
-> -	if (unlikely(slots->generation !=3D ghc->generation ||
-> -		     gpa !=3D ghc->gpa ||
-> -		     kvm_is_error_hva(ghc->hva) || !ghc->memslot))
-> -		return;
-> -
-> -	st =3D (struct kvm_steal_time __user *)ghc->hva;
-> -	BUILD_BUG_ON(sizeof(st->preempted) !=3D sizeof(preempted));
-> -
-> -	if (!copy_to_user_nofault(&st->preempted, &preempted, sizeof(preempted)=
-))
-> +	/*
-> +	 * This is called from the scheduler path (via kvm_sched_out), so
-> +	 * the cache cannot be refreshed here.  Setting 'preempted' is
-> +	 * best-effort anyway; the old HVA-based code used
-> +	 * copy_to_user_nofault(), which could also silently fail.  If the
-> +	 * cache is invalid, it will be refreshed from task context by
-> +	 * record_steal_time() before the vCPU next enters the guest, since
-> +	 * kvm_arch_vcpu_load() unconditionally raises KVM_REQ_STEAL_UPDATE.
-> +	 */
-> +	guard(srcu_atomic)(&vcpu->kvm->gpc_srcu);
-
-[Severity: Low]
-Does the guard(srcu_atomic) definition in include/linux/srcu.h also referen=
-ce
-the undefined srcu_read_lock_atomic() function, which breaks the build?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260920211920.9283=
-06-1-dwmw2@infradead.org?part=3D6
+Yours,
+Linus Walleij
