@@ -1,172 +1,109 @@
-Received: from mta1.migadu.com (out-9.mta1.migadu.com [95.215.58.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F54F2931C1
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 04:30:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D74972D838E;
+	Sun, 20 Sep 2026 04:32:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789878639; cv=none; b=k/nd5391caD1wx11AlVPTw42vYBZA3tWUvhYoVwoj7cF85stTU0eM/oxJhj+7uh1jvYjGeuriQHNJscd33HWwuCWWUVzEnVg/pMNSNp4Qp2hJOaGIwQZ/cJLqYnYt9fhOKymvqzTVegdt+Hd3WGThm/amPN/EkcJD03j+qfX3+U=
+	t=1789878738; cv=none; b=Jl9pYICopV9mmIO3R5Ukfn2dqZT9mtvftEli/dQGUezzDY0SF9Zv1RQ+ESTMx4wF21Cf4KDksZ5q2FxRodZa/urOTpt/9/OhhPAY/hucZHOfmxJ/GR0f5FJSfoqcJSLLXHUy5raMTTQr7i4ljJU621uLfkZsiBDsxKAYecc8kWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789878639; c=relaxed/simple;
-	bh=TgrUaoIcfeyXCzjO0gIV1NEvHecdV5MhC5ykQWIT36o=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=IxfXsvkz6ZdEB0xMr4DFHPlPEOwJ49QeJYrs/DICGGOy9uJcbrW6Ej9kJC6VURRcOneJU35okUkHpJ4ylagqX/IfUHJbkngH45x8h9qfhEIlVeC8VD912I8wdbUsD3JFRMNaV8fJGPC1ofKcGLTvf0LsrGAeh35YQkQ+Sv71PzU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=e4VmGXpK; arc=none smtp.client-ip=95.215.58.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789878738; c=relaxed/simple;
+	bh=E1RASm9w8tOLrkqRRr7nXEskxGSCGoS68WOCE1NzR7s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OaBzyTcu6lYmDSUL7Ibh0ZeWzx9OyGG4fzBVMA74S+HFbQbee+Fd8tXGv15cDCjHKkKhpm2IjlrJB2ZtpeaWyI7Kt5UkajA1B4SziMbEzo28UUpfLenlbbiWX9Fylo41FJe2PT/pBE4GzjxVDiyReRcc+FUhahs0sgYubBA+mzM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UhXLUwDW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="e4VmGXpK"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=TgrUaoIcfeyXCzjO0gIV1NEvHecdV5MhC5ykQWIT36o=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789878635; v=1; x=1790483435;
- b=e4VmGXpKHlhLHeZexgq2+8IOwttKu+oAwkaVFcf8oA/3+8bCewKHXNZ8U71kDeZmOfi/J5DF
- sHAVKV63MmYJ4yVO2YNrRyqNGHXubWX2zTxWCowrRK/W2sQMxDjaUKIgmFFLCBfpJuOwJPOrXAc
- 7QeC1c7DmQ/r8pWF7IGnzDPA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id dacf3ab7917213a9;
-	Sun, 20 Sep 2026 04:30:35 +0000
-X-Mizu-Trace-ID: dacf3ab7917213a9
-X-Migadu-Flow: FLOW_OUT
-From: Ridong Chen <ridong.chen@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Johannes Weiner <hannes@cmpxchg.org>
-Cc: Kairui Song <kasong@tencent.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	David Hildenbrand <david@kernel.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	linux-mm@kvack.org (open list:MEMORY MANAGEMENT - MGLRU (MULTI-GEN LRU)),
-	linux-kernel@vger.kernel.org,
-	Ridong Chen <ridong.chen@linux.dev>,
-	Ridong Chen <chenridong@xiaomi.com>
-Subject: [PATCH mm-new] mm: vmscan: put rotation-missed folios at the LRU tail
-Date: Sun, 20 Sep 2026 12:30:15 +0800
-Message-Id: <20260920043015.3126317-1-ridong.chen@linux.dev>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UhXLUwDW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1417A1F000FF;
+	Sun, 20 Sep 2026 04:32:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789878736;
+	bh=o2KCJrYmRm3NADoQED7XZPrawKQRuNurhTE+oIENGbc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=UhXLUwDWs6EZmNNBgTHgPr/Dxn301TOmHI9PQqJYDsVtqb0mkhI21Gbk/2vCuCh+U
+	 EJSdQ7X++O3ems2eaPa4Dqn/Sr9+1RA/PeRQftgxk6cv/Rmis1uYLdIgZsGSsT81nu
+	 VZ5tKNMSSagPsXIggT3eZrM2csLbZ8dYNtvTx1voogrS46xNjLEbo6otFv2NDj5hja
+	 TMrvwT0a8K2DT0eqdUsEn/GBlikHeTzbD6lWqIKZEVgorDR+HgSH8R6vUYfuK6FfTb
+	 VSqETcsHCjU5QUhGgdh9DB10u1T+2W83AFV3hMDxxK0mEz6nIveew55gkCosGd0AO5
+	 ICRXyI7vwULmQ==
+Message-ID: <11314f1d-ee6a-45d1-a7aa-3bc1cca0c82f@kernel.org>
+Date: Sun, 20 Sep 2026 13:32:13 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ata: libata-scsi: reject multi-sector taskfile commands
+ when dev->multi_count is 0
+To: Hui Peng <benquike@gmail.com>, cassel@kernel.org
+Cc: linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260919222625.3797581-1-benquike@gmail.com>
+Content-Language: en-US
+From: Damien Le Moal <dlemoal@kernel.org>
+Organization: Western Digital Research
+In-Reply-To: <20260919222625.3797581-1-benquike@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Ridong Chen <chenridong@xiaomi.com>
+On 9/20/26 07:26, Hui Peng wrote:
+> In ata_scsi_pass_thru() (drivers/ata/libata-scsi.c), issuing
+> ATA_CMD_READ_MULTI / ATA_CMD_WRITE_MULTI / ATA_CMD_READ_MULTI_EXT /
+> ATA_CMD_WRITE_MULTI_EXT / ATA_CMD_WRITE_MULTI_FUA_EXT via SG_IO when
+> dev->multi_count == 0 sets qc->sect_size = 0 and triggers a divide-by-
 
-The page reclaim isolates a batch of folios from the tail of an LRU list
-and works on them one by one.  For a suitable swap-backed folio on an
-async swap device, it queues the folio for writeback and, after finishing
-the batch, puts the folio back to the head of the original LRU list.
+Where do you see that?
 
-Meanwhile the page writeback flushes the queued folios in its own,
-independent batches.  For each folio it writes back it calls
-folio_rotate_reclaimable(), which tries to rotate the folio to the LRU
-tail.  But folio_rotate_reclaimable() only takes effect once the folio has
-been put back by reclaim.  If the async swap device is fast enough, the
-writeback can complete a folio while reclaim is still working on the rest
-of the batch that contains it.  In that case the folio stays near the head
-and reclaim will not revisit it before wrapping around, causing a cold/hot
-inversion: a clean, written-back folio that should be a prime reclaim
-candidate is kept ahead of hotter folios.
+> zero or WARN_ON in the ATA PIO/taskfile path. Reject ATA_PROT_PIO multi-
+> sector commands with -EINVAL when dev->multi_count == 0.
 
-commit 359a5e1416ca ("mm: multi-gen LRU: retry folios written back while
-isolated") addressed this for MGLRU only.  The traditional active/inactive
-LRU has the same problem, reported at [1].  A reproducer is available at
-[2].
+That is not what your patch is doing.
 
-Rather than re-reclaiming those folios (which would drop the swap cache
-that may still be useful for a future hit [4]), restore the rotation that
-was missed: when move_folios_to_lru() puts a folio back, add it to the LRU
-tail if it looks like it missed folio_rotate_reclaimable() (inactive, not
-mapped, not dirty and not under writeback).  A new do_rotate parameter
-gates this so it only applies on the reclaim put-back path
-(shrink_inactive_list()), not on shrink_active_list() where the list order
-is already deliberate.  This approach was suggested by Barry Song [3].
+> 
+> Fixes: c6fd280766a0 ("Move libata to drivers/ata.")
+> Assisted-by: LLM
 
-Only the traditional LRU is handled here.  MGLRU already retries such
-folios via its own clean-list retry pass in evict_folios(), so it is left
-unchanged.  The same do_rotate scheme could later replace that retry pass
-to unify both LRUs, which is left for a follow-up.
+See below, but you should tell your AI to read the ACS and SAT specs first. Or
+better: check the specs *yourself* and analyze what is said before sending
+patches that are not correct.
 
-[1] https://lore.kernel.org/linux-kernel/20241010081802.290893-1-chenridong@huaweicloud.com/
-[2] https://lore.kernel.org/lkml/46037a37-4cf6-448e-a94b-30a4d16e8814@linux.dev/
-[3] https://lore.kernel.org/lkml/CAGsJ_4zwP3_+EYY5Ug9EJ+yD1UdxsBSGr25u8s1K3u_i7LH3Zg@mail.gmail.com/
-[4] https://lore.kernel.org/linux-mm/20260911121341.178028-1-alex@ghiti.fr/
+> Signed-off-by: Hui Peng <benquike@gmail.com>
+> ---
+> diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
+> index b3666519b648..c99f2845d09b 100644
+> --- a/drivers/ata/libata-scsi.c
+> +++ b/drivers/ata/libata-scsi.c
+> @@ -3507,6 +3507,11 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
+>  	if (is_multi_taskfile(tf)) {
+>  		unsigned int multi_count = 1 << (cdb[1] >> 5);
+>  
+> +		if (!dev->multi_count) {
+> +			fp = (cdb[0] == ATA_16) ? 14 : 9;
 
-Suggested-by: Barry Song <baohua@kernel.org>
-Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
----
- mm/vmscan.c | 21 +++++++++++++++------
- 1 file changed, 15 insertions(+), 6 deletions(-)
+ACS-3, which is the last ACS specification version without an obsolete
+definition of multi-sector PIO read/wrtite states that:
 
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index e200ce3eb056..026b844c681f 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -1971,7 +1971,7 @@ static bool too_many_isolated(struct pglist_data *pgdat, int file,
-  *
-  * Note: The caller must not hold any lruvec lock.
-  */
--static unsigned int move_folios_to_lru(struct list_head *list)
-+static unsigned int move_folios_to_lru(struct list_head *list, bool do_rotate)
- {
- 	int nr_pages, nr_moved = 0;
- 	struct lruvec *lruvec = NULL;
-@@ -2018,7 +2018,16 @@ static unsigned int move_folios_to_lru(struct list_head *list)
- 			continue;
- 		}
- 
--		lruvec_add_folio(lruvec, folio);
-+		/*
-+		 * Put folios that may have missed folio_rotate_reclaimable()
-+		 * at the tail to avoid cold/hot inversion.
-+		 */
-+		if (do_rotate && !folio_test_active(folio) && !folio_mapped(folio) &&
-+		    !folio_test_dirty(folio) && !folio_test_writeback(folio))
-+			lruvec_add_folio_tail(lruvec, folio);
-+		else
-+			lruvec_add_folio(lruvec, folio);
-+
- 		nr_pages = folio_nr_pages(folio);
- 		nr_moved += nr_pages;
- 		if (folio_test_active(folio))
-@@ -2135,7 +2144,7 @@ static unsigned long shrink_inactive_list(unsigned long nr_to_scan,
- 	nr_reclaimed = shrink_folio_list(&folio_list, pgdat, sc, &stat, false,
- 					 lruvec_memcg(lruvec));
- 
--	move_folios_to_lru(&folio_list);
-+	move_folios_to_lru(&folio_list, true);
- 
- 	mod_lruvec_state(lruvec, PGDEMOTE_KSWAPD + reclaimer_offset(sc),
- 					stat.nr_demoted);
-@@ -2246,8 +2255,8 @@ static void shrink_active_list(unsigned long nr_to_scan,
- 	/*
- 	 * Move folios back to the lru list.
- 	 */
--	nr_activate = move_folios_to_lru(&l_active);
--	nr_deactivate = move_folios_to_lru(&l_inactive);
-+	nr_activate = move_folios_to_lru(&l_active, false);
-+	nr_deactivate = move_folios_to_lru(&l_inactive, false);
- 
- 	count_vm_events(PGDEACTIVATE, nr_deactivate);
- 	count_memcg_events(lruvec_memcg(lruvec), PGDEACTIVATE, nr_deactivate);
-@@ -5115,7 +5124,7 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
- 			folio_set_active(folio);
- 	}
- 
--	move_folios_to_lru(&list);
-+	move_folios_to_lru(&list, false);
- 
- 	walk = current->reclaim_state->mm_walk;
- 	if (walk && walk->batched) {
+If IDENTIFY DEVICE data word 59 bit 8 (see 7.12.7.21) is cleared to zero, and a
+READ MULTIPLE EXT command is received by the device, and the device has not
+returned command completion without an error for a SET MULTIPLE MODE command,
+the device shall return command aborted.
+
+The same statement is also present for WRITE MULTIPLE command.
+
+Now referring to the SAT specifications, you can see that an ABRT (aborted
+command) error should be reported as failed with the ABORTED COMMAND sense key
+and NO ADDITIONAL SENSE INFORMATION additional sense code.
+So here, the correct error to return is not invalid field.
+
+> +			goto invalid_fld;
+> +		}
+> +
+>  		/* compare the passed through multi_count
+>  		 * with the cached multi_count of libata
+>  		 */
+
+
 -- 
-2.34.1
-
+Damien Le Moal
+Western Digital Research
