@@ -1,136 +1,259 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A545B3F39CD;
-	Sun, 20 Sep 2026 10:07:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 899213F9F2D;
+	Sun, 20 Sep 2026 10:07:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789898876; cv=none; b=Wwps9xx7pz9DKTlcFE7ABTQ1bgA93yk+awVHhJLq9s2F06BoNRHK39UwTtpyIqDqWzPyj6Hj/7AIeW7uRuw8ovW3Xs8Zlmt7kHmW6K9YBTI20OQyiP91KsBWqJ+49GkBU2K71SmMk0GolTsPk5/blpAX5pImZyjv2PrxUOuPEaw=
+	t=1789898880; cv=none; b=pcdb+KyRIRjTxlhzitIWlsgTP2YTxWk6JSKQa1LYN1L2Kx9MzeWjW3WgxphAQygMi+Mda2WhX2DJcCmpPzPp1J79W42CcZRhdkBi3wDW7kIzVSajRtdw/O0awC859coIZaVWgtuBLSzmB+VyPgBHD5eiZYSHqyoIZ9BSZ6Dgu7s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789898876; c=relaxed/simple;
-	bh=kogMl2LB9tOucjEbj/P8Xo0Y8LXG8OEMm7lkiRSJGlQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=uxSHwo0xIy0oaAen5OXdCtpfu6jVdoxzfeEgiMAzKPolVjhi7lPFe3++36zoULm6smRzTDMYxRfy0GJhaPgAprI9ZFXodexAOtLPbWH6paHwj1VExeHArjyBBL4z5sim8opHxXD9pmh1SWeOEYMyKcTZpIX6ZHjdgZmxh0yy0P0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Sgb+YIAH; arc=none smtp.client-ip=220.197.31.5
+	s=arc-20240116; t=1789898880; c=relaxed/simple;
+	bh=z0c3qyOWJVydlY9zxPEIAyZ/BoTsXZ18/+n7/YXCCRg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=FQJAkG1g44ljOoIZZnynBmyaA96nTTq5ROwByFW0YsAZ92GLtk4mTr2UybmbsedwXL3GmnZGluzr6r+G4AZiZbvV/lWvfaJXbp3e7eyqMI0sXeJcO5k3IvEUyOrCKjJXpokPFv1zs+AEAW7epXN+lN6P+FWF7tUnDtJvCnw3nIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=nCK2fWkE; arc=none smtp.client-ip=220.197.31.3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Sgb+YIAH"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="nCK2fWkE"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=9r
-	sOPT1wOa+6z0OrUmIuv4tJ2LOSlalPvAyxDlwft9Q=; b=Sgb+YIAHTVF0Um01yQ
-	9YJIfAN7xvXd7RBU8XjtMciKD3RkK6hRoFFWqp/0uWvwYPHtkt2htpKr1AfBS7ax
-	9ZqSQuw8hJkk9r9+YPC5vrRaZ+3NhyUs5yH5YzNm3Xv2z+dyOJ1XV41ZyEkpYD0s
-	jQBADQE/qSUC9MjzmtwpOhnB0=
-Received: from lx2.. (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wAH7vZGsK9q2jHQBw--.10069S2;
-	Sun, 20 Sep 2026 18:07:02 +0800 (CST)
-From: Zijin Tao <taozj888@163.com>
-To: maintainer@kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	theo.lebrun@bootlin.com,
-	conor.dooley@microchip.com,
-	andrew+netdev@lunn.ch,
-	netdev@vger.kernel.org,
-	Zijin Tao <taozj888@163.com>
-Subject: [PATCH] net: macb: rate limit netdev error info print in the data path
-Date: Sun, 20 Sep 2026 18:06:58 +0800
-Message-Id: <20260920100658.65087-1-taozj888@163.com>
-X-Mailer: git-send-email 2.34.1
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
+	Content-Type; bh=Lz4jFwZI0w5gGsbjB6Aaftvipp9sXD3BQGI63Khravc=;
+	b=nCK2fWkEIN53gY5eJojyHr3DFNbFQX7++Nbms6vHVBuS1qwZdZ9fjqt7YYPyE+
+	gJ++gpfgYryaSVjxsHvX/Wjg+adNQSG6CimuskgMVRTvobYaK0JenFrOo2Yz1bEK
+	6D4N1zn3vihKtAIHDaOpGulRHnBpm3QGvJVr45r5IE6TU=
+Received: from LAPTOP-EGO65D59.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wDnrzlVsK9qzshABw--.64142S2;
+	Sun, 20 Sep 2026 18:07:21 +0800 (CST)
+From: =?UTF-8?q?=E6=9E=97=E6=BF=AC=E5=93=B2?= <m18667909625@163.com>
+To: linux-kernel@vger.kernel.org
+Cc: x86@kernel.org,
+	linux-api@vger.kernel.org,
+	luto@kernel.org,
+	tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	hpa@zytor.com,
+	m18667909625@163.com
+Subject: [PATCH] kernel: add system_energy_efficiency syscall (nr 337)
+Date: Sun, 20 Sep 2026 18:07:13 +0800
+Message-ID: <20260920100714.46206-1-m18667909625@163.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wAH7vZGsK9q2jHQBw--.10069S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXFWrAry3tw18ZF1rGr1xXwb_yoW5CrW3pa
-	yUCa95Ww4kGr47Cas7trWkAr1rAr95KryrW3ykGw13Xw15Ar98WFyIkryYkFW8GFZxAw1S
-	kw1UZayDCa1kArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zEWEE7UUUUU=
-X-CM-SenderInfo: hwdr6yqyyyqiywtou0bp/xtbC3gfDi2qvsEd58AAA3q
+X-CM-TRANSID:_____wDnrzlVsK9qzshABw--.64142S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3GryfuFWDAw4Utw45ZF43ZFb_yoW7CFyxpF
+	WkGFy5t395AryxXFyxKF1UCFyFgr1DXFy7GrWI9r13A3s8t3sIgw4vga90vryfArW7WFW3
+	tFWqqFWqkF4UXa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRE1vsUUUUU=
+X-CM-SenderInfo: bpryllixzqmlisv6il2tof0z/xtbC-RnIzmqvsFkvbQAA3M
 
-Now the MACB ethernet driver print the netdev error information
-directly by netdev_err(), which would lead to a large number of
-error information print if there was a significant number of
-error or just jumbo packets exceeding the MTU received when booting.
-For example, it would print a large number of:
+Add a new syscall that reports GPU presence and system-wide
+energy information:
 
-macb PHYT0036:00 eth0: not whole frame pointed by descriptor
-macb PHYT0036:00 eth0: not whole frame pointed by descriptor
-...
+- mode 0: returns the number of display devices found on the PCI bus
+- mode 1: returns an energy efficiency metric; prefers the real GPU
+  power reported through hwmon, falls back to runtime PM status
+  weights, plus the online CPU count
+- mode 2: returns the real-time GPU power in milliwatts read from
+  the hwmon power1_input channel exposed by GPU drivers
+  (amdgpu/nouveau/radeon/nvidia); returns 0 if not reported
 
-in gem_rx() by received a large number of packets without
-RX_SOF or RX_EOF flag set, espcially with unknown packet
-type.
-
-The unlimited print here would greatly bother and delay
-the system booting process unless the source stop sending
-packets.
-
-So rate limit the netdev error information print in the receive
-and transmit data path.
-
-Signed-off-by: Zijin Tao <taozj888@163.com>
+Signed-off-by: 林濬哲 <m18667909625@163.com>
+Assisted-by: AI coding assistant (disclosed per kernel AI guidelines)
 ---
- drivers/net/ethernet/cadence/macb_main.c | 17 ++++++++++-------
- 1 file changed, 10 insertions(+), 7 deletions(-)
+ arch/x86/entry/syscalls/syscall_64.tbl |   1 +
+ include/linux/syscalls.h               |   2 +
+ kernel/sys.c                           | 138 +++++++++++++++++++++++++
+ 3 files changed, 141 insertions(+)
 
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index b8234ac4b602..c32d48d03008 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -1617,16 +1617,16 @@ static int gem_rx(struct macb_queue *queue, struct napi_struct *napi,
- 		count++;
+diff --git a/arch/x86/entry/syscalls/syscall_64.tbl b/arch/x86/entry/syscalls/syscall_64.tbl
+index d5b6045b0090..f99649dfaa38 100644
+--- a/arch/x86/entry/syscalls/syscall_64.tbl
++++ b/arch/x86/entry/syscalls/syscall_64.tbl
+@@ -346,6 +346,7 @@
+ 334	common	rseq			sys_rseq
+ 335	common	uretprobe		sys_uretprobe
+ 336	common	uprobe			sys_uprobe
++337	common	system_energy_efficiency	sys_system_energy_efficiency
+ # don't use numbers 387 through 423, add new calls after the last
+ # 'common' entry
+ 424	common	pidfd_send_signal	sys_pidfd_send_signal
+diff --git a/include/linux/syscalls.h b/include/linux/syscalls.h
+index 8413b624ad47..dfa9d31c20cd 100644
+--- a/include/linux/syscalls.h
++++ b/include/linux/syscalls.h
+@@ -1017,6 +1017,8 @@ asmlinkage long sys_uretprobe(void);
  
- 		if (!(ctrl & MACB_BIT(RX_SOF) && ctrl & MACB_BIT(RX_EOF))) {
--			netdev_err(bp->netdev,
--				   "not whole frame pointed by descriptor\n");
-+			if (net_ratelimit())
-+				netdev_err(bp->netdev, "not whole frame pointed by descriptor\n");
- 			bp->netdev->stats.rx_dropped++;
- 			queue->stats.rx_dropped++;
- 			break;
- 		}
- 		skb = queue->rx_skbuff[entry];
- 		if (unlikely(!skb)) {
--			netdev_err(bp->netdev,
--				   "inconsistent Rx descriptor chain\n");
-+			if (net_ratelimit())
-+				netdev_err(bp->netdev, "inconsistent Rx descriptor chain\n");
- 			bp->netdev->stats.rx_dropped++;
- 			queue->stats.rx_dropped++;
- 			break;
-@@ -1829,7 +1829,8 @@ static int macb_rx(struct macb_queue *queue, struct napi_struct *napi,
- 		unsigned long flags;
- 		u32 ctrl;
+ asmlinkage long sys_uprobe(void);
  
--		netdev_err(bp->netdev, "RX queue corruption: reset it\n");
-+		if (net_ratelimit())
-+			netdev_err(bp->netdev, "RX queue corruption: reset it\n");
++asmlinkage long sys_system_energy_efficiency(int __user *mode, int __user *value);
++
+ /* pciconfig: alpha, arm, arm64, ia64, sparc */
+ asmlinkage long sys_pciconfig_read(unsigned long bus, unsigned long dfn,
+ 				unsigned long off, unsigned long len,
+diff --git a/kernel/sys.c b/kernel/sys.c
+index 35b538ba843c..bb1106085d7e 100644
+--- a/kernel/sys.c
++++ b/kernel/sys.c
+@@ -22,6 +22,7 @@
+ #include <linux/workqueue.h>
+ #include <linux/capability.h>
+ #include <linux/device.h>
++#include <linux/pci.h>
+ #include <linux/key.h>
+ #include <linux/times.h>
+ #include <linux/posix-timers.h>
+@@ -181,6 +182,143 @@ int fs_overflowgid = DEFAULT_FS_OVERFLOWGID;
+ EXPORT_SYMBOL(fs_overflowuid);
+ EXPORT_SYMBOL(fs_overflowgid);
  
- 		spin_lock_irqsave(&bp->lock, flags);
- 
-@@ -2102,7 +2103,8 @@ static int macb_interrupt_misc(struct macb_queue *queue, u32 status)
- 
- 	if (status & MACB_BIT(HRESP)) {
- 		queue_work(system_bh_wq, &bp->hresp_err_bh_work);
--		netdev_err(netdev, "DMA bus error: HRESP not OK\n");
-+		if (net_ratelimit())
-+			netdev_err(netdev, "DMA bus error: HRESP not OK\n");
- 		macb_queue_isr_clear(bp, queue, MACB_BIT(HRESP));
- 	}
- 
-@@ -2511,7 +2513,8 @@ static netdev_tx_t macb_start_xmit(struct sk_buff *skb,
- 		else
- 			hdrlen = skb_tcp_all_headers(skb);
- 		if (skb_headlen(skb) < hdrlen) {
--			netdev_err(bp->netdev, "Error - LSO headers fragmented!!!\n");
-+			if (net_ratelimit())
-+				netdev_err(bp->netdev, "Error - LSO headers fragmented!!!\n");
- 			/* if this is required, would need to copy to single buffer */
- 			return NETDEV_TX_BUSY;
- 		}
++
++/*
++ * Read the real power consumption reported by GPU drivers via hwmon,
++ * in milliwatts. The hwmon ABI exposes power1_input in microwatts;
++ * amdgpu/nouveau/radeon/nvidia provide this channel on supported
++ * hardware. Returns 0 if no driver reports a power reading.
++ */
++static long gpu_hwmon_power_mw(void)
++{
++	static const char * const gpu_drivers[] = {
++		"amdgpu", "nouveau", "radeon", "nvidia",
++	};
++	char buf[32];
++	char path[64];
++	loff_t pos;
++	long total_uw = 0;
++	long val;
++	int i, j, ret;
++
++	for (i = 0; i < 32; i++) {
++		bool is_gpu = false;
++		struct file *fp;
++
++		snprintf(path, sizeof(path), "/sys/class/hwmon/hwmon%d/name", i);
++		fp = filp_open(path, O_RDONLY, 0);
++		if (IS_ERR(fp))
++			continue;
++
++		pos = 0;
++		ret = kernel_read(fp, buf, sizeof(buf) - 1, &pos);
++		filp_close(fp, NULL);
++		if (ret <= 0)
++			continue;
++		buf[ret] = '\0';
++
++		for (j = 0; j < ARRAY_SIZE(gpu_drivers); j++) {
++			if (!strncmp(buf, gpu_drivers[j], strlen(gpu_drivers[j]))) {
++				is_gpu = true;
++				break;
++			}
++		}
++		if (!is_gpu)
++			continue;
++
++		snprintf(path, sizeof(path), "/sys/class/hwmon/hwmon%d/power1_input", i);
++		fp = filp_open(path, O_RDONLY, 0);
++		if (IS_ERR(fp))
++			continue;
++
++		pos = 0;
++		ret = kernel_read(fp, buf, sizeof(buf) - 1, &pos);
++		filp_close(fp, NULL);
++		if (ret <= 0)
++			continue;
++		buf[ret] = '\0';
++
++		if (kstrtol(buf, 10, &val))
++			continue;
++
++		total_uw += val;
++	}
++
++	return total_uw / 1000;	/* microwatts -> milliwatts */
++}
++
++static int gpu_energy_estimate(int *gpus)
++{
++	static const int class_list[] = {
++		0x030000,	/* VGA compatible controller */
++		0x030200,	/* 3D controller (modern NVIDIA/AMD GPUs) */
++		0x030100,	/* XGA */
++		0x030080,	/* other display controller */
++	};
++	struct pci_dev *pdev;
++	int i, count = 0, energy = 0;
++
++	for (i = 0; i < ARRAY_SIZE(class_list); i++) {
++		pdev = NULL;
++		while ((pdev = pci_get_class(class_list[i], pdev)) != NULL) {
++			count++;
++			if (pdev->dev.power.runtime_status == RPM_ACTIVE)
++				energy += 100;
++			else
++				energy += 5;
++		}
++	}
++
++	if (gpus)
++		*gpus = count;
++
++	return energy;
++}
++
++SYSCALL_DEFINE2(system_energy_efficiency, int __user *, mode, int __user *, value)
++{
++	int mode_v, ret;
++	int gpu_num, gpu_energy;
++	long gpu_power_mw;
++
++	if (get_user(mode_v, mode))
++		return -EFAULT;
++
++	if (mode_v < 0 || mode_v > 2)
++		return -EINVAL;
++
++	gpu_energy = gpu_energy_estimate(&gpu_num);
++	gpu_power_mw = gpu_hwmon_power_mw();
++
++	switch (mode_v) {
++	case 0:
++		/* number of GPUs, 0 if the system has none */
++		ret = gpu_num;
++		break;
++	case 1:
++		/*
++		 * Energy efficiency metric: prefer the real GPU power
++		 * (mW) reported by the driver, fall back to runtime PM
++		 * status weights if no power channel exists, then add
++		 * the CPU part (online CPUs x 10)
++		 */
++		ret = (int)(gpu_power_mw ? gpu_power_mw : gpu_energy) +
++		      num_online_cpus() * 10;
++		break;
++	case 2:
++		/* real-time GPU power in mW, 0 if not reported */
++		ret = (int)gpu_power_mw;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	if (put_user(ret, value))
++		return -EFAULT;
++
++	return 0;
++}
++
+ static const struct ctl_table overflow_sysctl_table[] = {
+ 	{
+ 		.procname	= "overflowuid",
 -- 
-2.34.1
+2.54.0.windows.1
 
