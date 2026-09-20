@@ -1,119 +1,124 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 871D63FF8B6
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 11:53:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF73E429014
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 11:53:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789905210; cv=none; b=UQ/ShuGDGnMPogpvmYGjkt8SdqHA4w/Mi07c0IX18Ji37DpMH/nQd8WBaMpOwQqWK+TYFgrfwzcYmTViUrqHc9rMoRv0Do/OnnM0xLKCLQDL2N0V+nAKQPOaNOWRrOJRZLtKA9CFe6SFD65LVXV3HlAeC3fAYnQ2/S9rBwNfDIQ=
+	t=1789905225; cv=none; b=GSN2HuzivP2NXkHocg594aTuy81orVkKFEu/F8R0uhqzRdigOBRsBGvjO0b976AbHI5B36h81HBa3yhz+LY4vUO7ZAO+mMg+yKekCA8w33vY/ZQncU6sPCs31IC9hdje98xaIGzJI6Psgfl7g1CQr2zAo2Z2cOgC3GtZ7VythoI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789905210; c=relaxed/simple;
-	bh=t5IfYxWQE+lOigxGvBYPwLvDK8q2BggQOWEImshy4wE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FWRIuWMgW7siNgDra0k0bnengOtzir2lgmFZRn+XEOeCrfENA4+otfss/5oOcGaHoQ5MkMwCi0Sby6vJaX92iBBck49n1/0C3BuYPGVXamdGuQOLCmBG4fkstROmQA2t4XW5E/hSYyqjt9POsUnHtit7FbyilLMfCuXA1cQc3Bs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r09MP271; arc=none smtp.client-ip=74.125.225.140
+	s=arc-20240116; t=1789905225; c=relaxed/simple;
+	bh=EdvgcP4aHZc8haPwmoIl6H1B9OiogdwgeO18M9WYPaA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ieTqwwudyMDq8dsdu9cgS5Dqc/LMAvumB73xcr/2ktgUxjq1rEUOWtWe4DGQj520GCGk2Wc4oLEgq4ebPMigrYWJjlOX8Y0YRyAoKp3wSjrwyPK5F+jxtgNbBhpAM7mQHD5UDNyI3IAy9K5yS65XXhj7cdqDczQLAoXELunthUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BJ/lIkJ3; arc=none smtp.client-ip=74.125.227.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r09MP271"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccfd61ecaso17763035e9.3
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 04:53:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BJ/lIkJ3"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-398c066106cso1684215a91.1
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 04:53:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789905204; x=1790510004; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XF6M9PU3tXoXpfmNDf1afoDG2Svbnyp8JQoGluRlA/8=;
-        b=r09MP271dSn2CJ+KFsn/w6Cqs/isF8/xrfGoP89dUqjtSF5oJOREwcMO3C7uvKQZZz
-         Po2Sq3MC311cp6PK+fmXeJbPzZv9YvRlj8x88oJg7VarnnvPv3QrYrbLk+egFoZkMIzW
-         h77GLltJ90XBxBxi2k6/eWN/cTy8fz1+BfnHWhej1rHiEN9cf8NyCCj1qBOlfteClx8D
-         pNsTBBSW6Kp1sAOFyn3CvhaZJmwX1sm5T4YMyC8ikzhNB1SfaVSiBOGqU8xbqvOswJbc
-         qAac+NJQsIclrgQ8Dz3ZnmS5yp9CgbFDYCsioUWGZODdLlc9wbI11/kJgUHi+YwpY8xf
-         VdUg==
+        d=gmail.com; s=20251104; t=1789905221; x=1790510021; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oWY25NeFXFYHw+xb7xVpN+y7ofPMo41LdHxDaElxJf8=;
+        b=BJ/lIkJ3AYOwFIZD7yeT+bs3Mif8lQbppMOXA1fSTQtouoCuVDD6llZ8XDZqb9shVq
+         9jgdD1k2ENb97iLrlnUtKiwkGcmPLg5eT3JpqbGBptGo/qOH5xQKgtHA9gLCuMyEx4u2
+         YhyL0/kN+cTMLks8b/aFt8wtyVVqTng3EbaeutiMN9B4/o43Q1ub4u4JDHWc/A4dbUdH
+         pkYlkZ4JJdXB/6wtbtEbBbjhAmVthKu+cNaR8pEsOUC/wYkW/89Se76+z3K1JAFceGla
+         YWrYpIEM9qXDtvSISl4j2ppL738NAPQOgvzm2jc3D2nfVxEv1X0qsizLRFhMlNE4URte
+         /fAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789905204; x=1790510004;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XF6M9PU3tXoXpfmNDf1afoDG2Svbnyp8JQoGluRlA/8=;
-        b=tO6RLSSm39qTEvMAB06vXWRBB8GKwdB3CW99VrMJBFFeO6zVfXohNDHx5fDzHSddd5
-         YgHSc2UvXkeijR5gniIXn3vxNraITw7oHBoEUMo8QYawpcaVof3N86I6yZ51NGKId3eS
-         lDYjHC+ovSVIIQyNp6/NDvX+oO1K+8HOZrMq/LVfJHkcVSIeQbTIUguz/5u6TlJgLh8s
-         q9aJPsuVsy7OZKxHuWtLv39mtKTIQL9Eklk6LnDfNeBcB+wdem/Vm05ajib1yRcYmC/u
-         YQ67QKLnqFrLdIonmvLC76nuXKL94EmpmP7+0wyUVXJ7NdtQlF9BpUcPrgVyLeCFt6Rq
-         h8PA==
-X-Forwarded-Encrypted: i=1; AKwUvBzVHsBaF75oNVs5wMtIGTGvEYT8W5z12XMZKV1bWh8tCvpQSYK3O3rlCeOm/Fa8EZWXyb4nM9beRi6Qd8s=@vger.kernel.org
-X-Gm-Message-State: AFuF++ngK/oPs+YKR4EuAsgGaE+NiOKAwDnZHisfCdoXDkeNptxDnGcG
-	xFwgSzt1Jp2VF/PLWCI3+lBFXrnLFP2uGABjk0VpfN1BOOf7sG28EuYpmDO/KLXy
-X-Gm-Gg: AYBFou00yFKAX/uUb29tQavT0GADCiWd24bTp8h+z2V4/m1gMnECKMGOil+TZu66Y5S
-	kW45OMY9Qsa8LvfKzWuPbIHd0w1jgRp4bAuChycUZyLesGhbNX4XT5B/BVUi7QOsP19B/JmbPVO
-	kmnFO/sh17rYpXTIeP2pqIcZnA/EeeKlxliQZL5zg77wsuGpaazNGMzY+KjGB5Hkgpuf57oDHLW
-	NijfPZggPBTh1R3rmklkohZCVm/oMNOamnGR31d43GMXAjOwXrOS4WduMxJwoK+6A+1K2BuGPEs
-	K2kA1dVZn5xQr/I3P00P+qxIrXipRMjcD3ET8Ngi+lIS7+yh8L9/cQZq/F+emBhong+N7Bo/XBq
-	T+S/7oFjgANR3agpGD4oVySnElDQ6X6xi4Vtj7P3ndLo7cO82CtAGYr4fePH02jjW+aJWKqRPF0
-	26f0sU/YSVM5eoMisk2geTw49CWmfGa91+1A6z9Ebwvg31IkzN742Dkdy6IGN8M/TH7Xi68u0Q
-X-Received: by 2002:a05:600d:1a:b0:49e:6778:c2bd with SMTP id 5b1f17b1804b1-49fc5a10c99mr92167765e9.6.1789905203734;
-        Sun, 20 Sep 2026 04:53:23 -0700 (PDT)
-Received: from gmail.com ([51.154.249.41])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd03fe55sm175056685e9.2.2026.09.20.04.53.22
+        d=1e100.net; s=20260707; t=1789905221; x=1790510021;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oWY25NeFXFYHw+xb7xVpN+y7ofPMo41LdHxDaElxJf8=;
+        b=qAjnXZgYOCHqY5D7cIsOLda+8lS3t39D+lWhGOnpPS+ddpdzhoI0CRAtGkyjAS05YV
+         VHk7MOu7uwg4QpPa0/6eJ1NAG1L4mFGaXllDxUCFTXKoljCzedagMrSiVR96EMeXpO7Y
+         ml4CoxtCkvIcIx+3q1s4WqRy0Ysd0InFeBdhI5dW9swoWP3KZkUgcC0jjoweHg004doP
+         4hBUzP6jfRfe/EAyUG2paGx1PSQvPaobreuBRKN7zxUfXr9xhjm78bhUsuT9vRmyH+/s
+         eZ0uMu8fhteTg9aULPVcDlcP5QFuzRO45N07F2YtyA4s5uDP/CQQzYfgli2EApSNMSdh
+         f05Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxa0tzfL0S+jwC4qP3sl1pEXLk6pmuFWgA7GtI1T95PPAGSz+39KYFAg22BFmfiMNItm8R2rm+uxidfm5A=@vger.kernel.org
+X-Gm-Message-State: AFuF++nRjcstdFD08iUqru8vVp4myNUBSmKdwnTA1PQm3QM3Gcty5acI
+	1jshTEdA6JwWUNgFZcE/UipS3Nblbe14u4n/jLotluFNUhY+8Ua3A543
+X-Gm-Gg: AYBFou25gmDK/CrE5Xh7M73u/oAaJbaxrh6/s4HjNv/g/k3LkFNjynbCzKBVShUUnmb
+	DZ/+fkjrsGz5wle3Sg5NBKfcPu3PRalQnDmHXbURQlXdQ161i/idv5aR0f5ka6QnZERBNWAu9AS
+	NHY4OGqlOBJRMIecKrNkmVxzIu0Zkvf+5GIuDClNoTGeibZNL1Yqxu0aS2tt+xRXhOWrrf/IsHm
+	jcVFONR7R6DfcPf2fsasnmQx8znOJ7eaaSRDNmskv4wE1coH8lek490U2X5E+str6vBx/P0iUaG
+	oichDyp4O+Hxq6ts91Xj+xRE3xvd1u3wYLi9siGx06i/Ltx8LOWGGtlW2ZCoHeOkPPHFXipRq1X
+	WxslYXlXB+XCRHiB5cgoHI9tRwS3oYYCkxmAT+5hdokvGaLuGd5PuLdytxMn8L4M/JqB5EIykrT
+	Ch6qMq7sNLoAAEBn97x+oSO5hOxpbsju7zO6fIXdBtAiCGOOpe1mFPhh7Y8e1VhM/K4KNU0NV5G
+	9qn9/8hzF/HzkY=
+X-Received: by 2002:a17:90b:4fcf:b0:39e:6c68:1550 with SMTP id 98e67ed59e1d1-39e6c6832d7mr8193562a91.24.1789905221398;
+        Sun, 20 Sep 2026 04:53:41 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:2022:c2a9:de8:d005])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c6dd585sm8537927a91.0.2026.09.20.04.53.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 04:53:23 -0700 (PDT)
-Date: Sun, 20 Sep 2026 11:53:21 +0000
-From: Vaibhav Gupta <vaibhavgupta40@gmail.com>
-To: Hemanth Selam <hemanth.selam@gmail.com>
-Cc: Jens Taprogge <jens.taprogge@taprogge.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Sun, 20 Sep 2026 04:53:40 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Ilya Dryomov <idryomov@gmail.com>,
+	Alex Markuze <amarkuze@redhat.com>,
+	Viacheslav Dubeyko <slava@dubeyko.com>
+Cc: ceph-devel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	industrypack-devel@lists.sourceforge.net
-Subject: Re: [PATCH] ipack: fix typo "informations" in comment
-Message-ID: <aq_JMTLGtANCLkk8@gmail.com>
-References: <20260904120954.21119-1-hemanth.selam@gmail.com>
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+	syzbot+21f8628595b2061c438d@syzkaller.appspotmail.com
+Subject: [PATCH] libceph: reject bad connect_seq in msgr1 READY reply
+Date: Sun, 20 Sep 2026 18:53:34 +0700
+Message-ID: <20260920115334.16219-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260904120954.21119-1-hemanth.selam@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 04, 2026 at 05:39:53PM +0530, Hemanth Selam wrote:
-> Correct "informations" to "information", reported by scripts/checkpatch.pl
-> using the misspelling list in scripts/spelling.txt.  Only touches comments,
-> no code changes.
-> 
-> Assisted-by: Cursor:claude-opus-5
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
-> ---
->  drivers/ipack/carriers/tpci200.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/ipack/carriers/tpci200.h b/drivers/ipack/carriers/tpci200.h
-> index a2bf3125794b..d0c13b8b7f8e 100644
-> --- a/drivers/ipack/carriers/tpci200.h
-> +++ b/drivers/ipack/carriers/tpci200.h
-> @@ -136,7 +136,7 @@ struct tpci200_slot {
->  };
->  
->  /**
-> - * struct tpci200_infos - informations specific of the TPCI200 tpci200.
-> + * struct tpci200_infos - information specific of the TPCI200 tpci200.
->   * @pci_dev		PCI device
->   * @interface_regs	Pointer to IP interface space (Bar 2)
->   * @ioidint_space	Pointer to IP ID, IO and INT space (Bar 3)
-> -- 
-> 2.48.1
-> 
+process_connect() WARN_ON()s when the peer's READY/SEQ reply carries a
+connect_seq other than ours + 1. That value comes off the wire, so a
+misbehaving or malicious server can trigger the warning at will (and
+panic machines running with panic_on_warn).
 
-Hello Hemanth,
+Check it before touching connection state and fail the connection with
+a protocol error instead, like the other bad-reply cases here.
 
-Thanks for your patch!
+Reported-by: syzbot+21f8628595b2061c438d@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=21f8628595b2061c438d
+Fixes: 31b8006e10a4 ("ceph: messenger library")
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+---
+ net/ceph/messenger_v1.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-Acked-by: Vaibhav Gupta <vaibhavgupta40@gmail.com>
+diff --git a/net/ceph/messenger_v1.c b/net/ceph/messenger_v1.c
+index c9e002d96319..b3ff3274344e 100644
+--- a/net/ceph/messenger_v1.c
++++ b/net/ceph/messenger_v1.c
+@@ -887,6 +887,12 @@ static int process_connect(struct ceph_connection *con)
+ 			return -1;
+ 		}
+ 
++		if (le32_to_cpu(con->v1.in_reply.connect_seq) !=
++		    con->v1.connect_seq + 1) {
++			con->error_msg = "protocol error, bad connect_seq";
++			return -1;
++		}
++
+ 		WARN_ON(con->state != CEPH_CON_S_V1_CONNECT_MSG);
+ 		con->state = CEPH_CON_S_OPEN;
+ 		con->v1.auth_retry = 0;    /* we authenticated; clear flag */
+@@ -898,8 +904,6 @@ static int process_connect(struct ceph_connection *con)
+ 		     con->v1.peer_global_seq,
+ 		     le32_to_cpu(con->v1.in_reply.connect_seq),
+ 		     con->v1.connect_seq);
+-		WARN_ON(con->v1.connect_seq !=
+-			le32_to_cpu(con->v1.in_reply.connect_seq));
+ 
+ 		if (con->v1.in_reply.flags & CEPH_MSG_CONNECT_LOSSY)
+ 			ceph_con_flag_set(con, CEPH_CON_F_LOSSYTX);
+-- 
+2.43.0
 
-Hey Greg, could you please add this patch to your misc tree?
-
-Thanks,
-Vaibhav Gupta
