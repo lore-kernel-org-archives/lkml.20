@@ -1,95 +1,214 @@
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B0D23C456B
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 17:05:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68CC0390999;
+	Sun, 20 Sep 2026 17:05:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789923930; cv=none; b=lwjAJaams44m6V/2ZO3WuKpVMemBl9TtKGr92ExzNMEK3G2JoA/jgKIPmpL/TQHUPtUm14xpP0a7vISVJfcY2kuPcyVVnkUpvaj5Q2fype7MKzTY2EKbwc4Ytyt2nlhQuaQ2umca02xw+RZq97ygmUe+Oq0O+pvGgHfv8mnkpHI=
+	t=1789923936; cv=none; b=o1obNkbyx7NWy4HPrRmD5ZfMZcn5t/jyJL9bnT9s/iOpN8jSmiQOLa6cmDCn35uSYWdaYvzGH5B2AIpy7OhylMNWD9S1FrKFBNmiJW0nrxwuFrrXRV85aHcauhj+tg8TOhLLkNpu057mdy6ykYlBR2VWPbjeVb7TF/FWYbRYfR8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789923930; c=relaxed/simple;
-	bh=UB7DMGZ+FxW0l1Fy8c9IR09ZvHOP2nrs1Rzs5/zvHbM=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=HgI8uPhYBfM+i/RSDEaYbUjLOt61y0c2wzDvWhdyNl10JMefUEIKdt5t1xOMdZ8DNn4QxuAXIV70Dbl/VIYABEiCqMU6yntrl5NeJ5h7j6Bx2RsL31jYeT/FYXhADZkkeNWgQ2f3grPOcbzT0pa6NrG2HkCS40wbM2i2EIA7RgE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=q1G8OZed; arc=none smtp.client-ip=209.85.214.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
+	s=arc-20240116; t=1789923936; c=relaxed/simple;
+	bh=9P7MYbhwh6wUyemh89f7DQ1SvlHWQbSD47gloWfxPVI=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cAhjrkA0nEyDd3UQrgnojTcmS4Z+bKdIMVsKEZ9f4L7YqaVnfzFuZcvIr0+JWCqBTzPOwXATsN+RRUVD2aZKjQa/Tp93nwF2IIUEBkAg7CHXZwLJY4oRmo8zim4LuJ3BXhuHVqv6mslbgmTkkCrmN53eGpX3xqx/SacKetIpoWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mMmt9SpK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="q1G8OZed"
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2dd753a52bbso43570615ad.0
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 10:05:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789923928; x=1790528728; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vC56C3EjHy57yP07NvUm+ZJd8lFbjzDpbgEVI6VNNtY=;
-        b=q1G8OZedTUdvxYWwPF0IiNk2HTpESpBqxQsTTwA0rFEP+3qCI5Ayvjrwj55Zf+92bE
-         GM1Sw4Gr+jZOrEx8Nj6+XZwIYjQjcqDosG+L+N5WJsvIp+0NyOAvMELIbS8xXgXMhWz3
-         LBk2apB4zv3beYytxuo4eJp3l0RPeZccQM4g5lus+kj6VOjGr1wDA80O0EpUR3I6wSWM
-         /vA9wsXptYREdhDdWAZ9bFY3I2aF0Jn4i6jgHGKYxNxKUGKiZTfMEqZ3KMtu9Cv9zs6u
-         eAYRCMmh3Jm/P4JfcUgGvWIAnafXTZnllJE3nWZRXaax7O8XMr9vi0nUKqrFsoOSWizs
-         3DOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789923928; x=1790528728;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vC56C3EjHy57yP07NvUm+ZJd8lFbjzDpbgEVI6VNNtY=;
-        b=dToyXvVxz39k9WkdBXgjfMawctAOvKLPO2e2Xw3a+jluGvpjmX6plEMFDqMODChM3e
-         vQG4sQsGxeLG00K2dKBKPNL0lClkvt/pJ3sQJYaIPlzZfcvebOAcVLblkMRLcTnHnvhU
-         Rl0QGDdzBQ16AjF4xuNOB9UaedVFVlQ27hKZL3OmtUHCzDqxxVmTpPYoaJEndLdRmKqI
-         GV+JlkigvnK5bYe5wbdt9Z/afj69mDG5pUTTu2D3XJMsajIz2dedsIN1fxMNsAmK5aV9
-         InzorZuypBGfHAYOy6iaqXeAXflz1s0bdEXeSzxiRYg+xKhAvYKb/PEUUS38W3Dg5m+2
-         ouwg==
-X-Forwarded-Encrypted: i=1; AKwUvBymzY+IiatQXTxAY+RLA48N2egM8T2JQc5hE0PCxCHP42s1Qml5lGQ8Wr6zgYB3TklTQQlKamMEkmfsDF4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mEUK5a0I6pR9Q38Q/pmkntBPpMvu/syMmPU9leTBTi9mnn2zIK
-	tKwLHuWGJQbE8DGoxqa0INzyli8MOrylMOtJDb2a2ajR1zHi12u7RYQ74a0Vb0+XOoCP9sRwrmu
-	VLgQ4oDWEa04B58K12hBAfw==
-X-Received: from plao21.prod.google.com ([2002:a17:903:3015:b0:2dd:4fa9:1919])
- (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:903:2447:b0:2db:5c0a:f184 with SMTP id d9443c01a7336-2ddb1b78d26mr124832455ad.17.1789923928078;
- Sun, 20 Sep 2026 10:05:28 -0700 (PDT)
-Date: Mon, 21 Sep 2026 01:05:26 +0800
-In-Reply-To: <20260920-fix-ufs-rpmb-v1-1-560b842c589d@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mMmt9SpK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1CCE1F000FF;
+	Sun, 20 Sep 2026 17:05:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789923935;
+	bh=haIzO1pAdV2cZZ2DvzEIWMRl+VDNhX2rc5xrz7+7Cg4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=mMmt9SpKBo0taBktUC2s2PqtSXvK/gOW9pcdPe8nyJj4HNJKjnWISm8RYURorlEPP
+	 LBYjSujAJNGfKYl9bG0lwgwqbck7M1t6Y++4NWnpaXKPB037bl0LJASrAP87PoubnN
+	 8SjmYrIFU8BOsMRQsPff9IYRlUWKX9lZSkwVreHeE44IR82PhmB3Ef5hKEBeGpGS+n
+	 0+rkVODgdWQ+8RrTspBlPLy4bAQslVyin0DK7J7jLekd8j02rScouGi8/LWGgCuh3f
+	 NT/5OWzTdE4WJVpv6Wa5/kmC4CPXgXQv/IklkQuWoko4pOz/ukXTqGAmTV/0yaqVPg
+	 tdT9IFZRnS3bQ==
+Date: Sun, 20 Sep 2026 18:05:24 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Kim Jinseob <kimjinseob88@gmail.com>
+Cc: linux-iio@vger.kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
+ andriy.shevchenko@intel.com, linux-kernel@vger.kernel.org,
+ rdunlap@infradead.org, joshua.crofts1@gmail.com,
+ u.kleine-koenig@baylibre.com, julianbraha@gmail.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+ corbet@lwn.net, skhan@linuxfoundation.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v10 0/8] iio: add Open Sensor Fusion UART support
+Message-ID: <20260920180524.6b18d644@jic23-hlaptop>
+In-Reply-To: <CALMSewJ4ATy9eZ_GrHs-+Q+9yosiwhu3rtQUfxAbzOmR4R9cNQ@mail.gmail.com>
+References: <cover.1789753020.git.kimjinseob88@gmail.com>
+	<20260920030512.50f4f988@jic23-hlaptop>
+	<CALMSewJ4ATy9eZ_GrHs-+Q+9yosiwhu3rtQUfxAbzOmR4R9cNQ@mail.gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260920-fix-ufs-rpmb-v1-1-560b842c589d@oss.qualcomm.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260920170526.4039553-1-stanleyjhu@google.com>
-Subject: Re: [PATCH] scsi: ufs: rpmb: register and unregister the ufs_rpmb bus
-From: Stanley Jhu <stanleyjhu@google.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Stanley Jhu <stanleyjhu@google.com>, Alim Akhtar <alim.akhtar@samsung.com>, 
-	Avri Altman <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>, 
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
-	"Martin K. Petersen" <mkp@kernel.org>, Can Guo <can.guo@oss.qualcomm.com>, Bean Huo <beanhuo@micron.com>, 
-	Jens Wiklander <jens.wiklander@linaro.org>, linux-scsi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, 20 Sep 2026 17:50:18 +0300, Dmitry Baryshkov wrote:
-> The ufs_rpmb bus isn't registered in the device framework, so any
-> attempt to register RPMB devices on UFS will fail with:
->
->  bus_add_device: cannot add device 'ufs_rpmb0' to unregistered bus 'ufs_rpmb'
->  ufshcd-qcom 1d84000.ufshc: Failed to register UFS RPMB device 0
->
-> Add module_init() / exit() functions to handle bus registration and
-> unregistration.
+On Sun, 20 Sep 2026 13:22:58 +0900
+Kim Jinseob <kimjinseob88@gmail.com> wrote:
 
-We have an existing patch on the list addressing this from the opposite
-direction (`[PATCH v5 3/3]`, Reviewed-by Bean Huo) [1]:
+> > Any reason not to push it one level deeper and put it under IMUs?
+> > I'm not that keen to grow the top level menu for this as all the
+> > other entries are about type of sensor, not one specific sensor. =20
+>=20
+> Yes, I agree that adding an Open Sensor Fusion entry at the IIO top
+> level is not ideal.
+>=20
+> My hesitation with putting it under imu/ is that Open Sensor Fusion is
+> not intended to be an IMU. The current Linux profile exposes
+> accelerometer, gyroscope, magnetometer and temperature data, but the
+> hardware/firmware architecture is a general sensor hub and fusion
+> device. Other OSF hardware variants can aggregate sources such as
+> pressure sensors, GNSS/RTK-GNSS, motor encoders and LiDAR in addition
+> to inertial sensors.
+>=20
+> Would drivers/iio/common/opensensorfusion/ be a better fit?
+>=20
+> There are already sensor-hub/common implementations such as the
+> ChromeOS EC sensors and Samsung SSP sensor hub under
+> drivers/iio/common/.
+>=20
+> That would avoid growing the IIO top-level menu without classifying
+> the device itself as an IMU.
 
-Since ufs_rpmb_bus_type declares no .match and no .probe and consumers
-access RPMB devices via /sys/class/rpmb/, patch 3/3 drops
-ufs_rpmb_bus_type (leaving ufs_rpmb->dev.bus NULL) rather than
-registering an empty bus.
+Lets just start a new directory (maybe move some others later) for
+sensorhubs.  Common is meant for library type modules rather than
+this purpose.  Often those are parts of sensorhubs.
 
-Could you take a look at [1] and let us know which approach you prefer?
+So how about
+driver/iio/sensorhubs/osf/
+?
+>=20
+> Thanks,
+> Jinseob
+>=20
+> 2026=EB=85=84 9=EC=9B=94 20=EC=9D=BC (=EC=9D=BC) =EC=98=A4=EC=A0=84 11:05=
+, Jonathan Cameron <jic23@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+> >
+> > On Sat, 19 Sep 2026 03:24:38 +0900
+> > Jinseob Kim <kimjinseob88@gmail.com> wrote:
+> > =20
+> > > Specification status: OSF-D2H 0.0 spec-1 has completed project techni=
+cal
+> > > stability review, has been adopted by the project owner, and is publi=
+shed
+> > > as a fixed specification.
+> > >
+> > > Canonical specification:
+> > > https://github.com/opensensorfusion/opensensorfusion-protocol/blob/ca=
+9cdea1ae550c2b4d6f29f87877adae99470744/spec/osf-d2h-0.0.md
+> > >
+> > > Errata process:
+> > > https://github.com/opensensorfusion/opensensorfusion-protocol/blob/ca=
+9cdea1ae550c2b4d6f29f87877adae99470744/errata/README.md
+> > >
+> > > Current adoption/publication record:
+> > > https://github.com/opensensorfusion/opensensorfusion-protocol/blob/0c=
+abccf63ac01d0eb82dd9882739ff58eed4a76c/reviews/publication-record-20260918.=
+md
+> > >
+> > > The specification was frozen before adoption/publication, so its embe=
+dded
+> > > status snapshot is intentionally historical. The dated publication re=
+cord
+> > > above establishes the current adopted/public state. This is project r=
+eview
+> > > and adoption, not an external maintainer approval.
+> > >
+> > > This series adds the Open Sensor Fusion UART receive path and IIO dev=
+ices
+> > > discovered from capability reports. It exposes accelerometer, gyrosco=
+pe,
+> > > magnetometer and temperature data through RAW/SCALE and buffered scan=
+s.
+> > > Device Tree describes the sensor hub; its individual streams are disc=
+overed
+> > > at runtime.
+> > >
+> > > The receiver validates supported descriptors and sample scales, keeps
+> > > discovery open after empty or unsupported initial inventories, and ch=
+ecks
+> > > repeated inventories before allowing new data to use registered metad=
+ata.
+> > > A supported descriptor changing meaning faults the session until an
+> > > explicit teardown and rebind. Existing v9 cache, scan-layout and buff=
+er
+> > > lifetime fixes are retained.
+> > >
+> > > Based on Jonathan Cameron's IIO testing branch:
+> > > 69fa76f0af3414cc189c3b0b807cb59e327ecc00
+> > >
+> > > Changes since v9:
+> > > - Publish and reference the reviewed/adopted OSF-D2H 0.0 specificatio=
+n,
+> > >   errata process and dated publication evidence.
+> > > - Tolerate reserved padding, validate descriptor/sample scales, keep
+> > >   discovery open after empty/unsupported reports, and compare repeated
+> > >   capability reports.
+> > > - Fail closed on changed descriptor meaning instead of publishing data
+> > >   with stale metadata.
+> > > - Add focused KUnit coverage for these lifecycle and validation cases.
+> > > - Use managed UART/IIO/power teardown and dev_warn_probe() for the
+> > >   controller baud-rate warning, addressing Andy's probe-path feedback.
+> > > - Split the former combined UART/core/IIO driver patch into transport=
+/core,
+> > >   IIO registration, core KUnit, and IIO KUnit patches following revie=
+w.
+> > > - Use validated/unvalidated terminology for framing/CRC results throu=
+ghout
+> > >   the stream/core/transport code, tests and diagnostics. CRC detects
+> > >   accidental corruption; it does not provide cryptographic authentica=
+tion.
+> > >
+> > > Prior validation on the identical source tree:
+> > > identical source tree evidence reused; no builds rerun for DCO packag=
+ing.
+> > > - All eight intermediate apply/config/relevant builds.
+> > > - Independent transport/core and IIO module link/MODPOST.
+> > > - GCC/Clang W=3D1 vmlinux and modules.
+> > > - GCC and Clang KUnit: core 16 + IIO 2, all 18 pass in each run.
+> > > - Core-only intermediate KUnit: all 16 pass.
+> > > - ARM64 Image, selected OSF module and Pi4 DTB.
+> > > - Targeted DT binding/style and IIO documentation.
+> > >
+> > > The terminology-only diff was verified mechanically. Wire semantics a=
+nd
+> > > data-path behavior are unchanged; the receive diagnostic key is valid=
+ated=3D.
+> > > Hardware testing was not repeated for this terminology revision or th=
+is
+> > > post-DCO packaging audit; previous hardware evidence remains historic=
+al.
+> > >
+> > > Human DCO is complete. No email has been sent.
+> > >
+> > > Jinseob Kim (8):
+> > >   dt-bindings: iio: add Open Sensor Fusion device
+> > >   Documentation: iio: add Open Sensor Fusion driver overview
+> > >   iio: osf: add protocol decoding
+> > >   iio: osf: add validated stream parser
+> > >   iio: osf: add UART transport and core receive path
+> > >   iio: osf: add IIO devices from capability reports
+> > >   iio: osf: add core KUnit tests
+> > >   iio: osf: add IIO KUnit tests
+> > >
+> > >  .../bindings/iio/opensensorfusion,osf.yaml    |   52 +
+> > >  .../devicetree/bindings/vendor-prefixes.yaml  |    2 +
+> > >  Documentation/iio/index.rst                   |    1 +
+> > >  Documentation/iio/open-sensor-fusion.rst      |   77 ++
+> > >  MAINTAINERS                                   |    8 +
+> > >  drivers/iio/Kconfig                           |    1 +
+> > >  drivers/iio/Makefile                          |    1 +
+> > >  drivers/iio/opensensorfusion/Kconfig          |   27 + =20
+> > Any reason not to push it one level deeper and put it under IMUs?
+> > I'm not that keen to grow the top level menu for this as all the
+> > other entries are about type of sensor, not one specific sensor.
+> > =20
 
-[1] https://lore.kernel.org/linux-scsi/20260914144943.2571104-1-stanleyjhu@google.com/
