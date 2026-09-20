@@ -1,113 +1,90 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A64E431D39A
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 19:34:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC1C831D39A;
+	Sun, 20 Sep 2026 19:34:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789932852; cv=none; b=YohiPqnV0son4G9JedY0b2pvn5MhXzRuTO8QcejjHDOtLrWG4hF8gAiVDeYKrmUTSc7JOp9tHYeYVG0uCuIMktojia7oa7RAMFq+jFxDBh/aXcJzSmoCjxYCFGfPTuZ+2eBKrocCfa0SutyGvo+wkwdOU7N8dJKUaerDkf6cyE8=
+	t=1789932856; cv=none; b=RNHyW74v1vqNeeMhNZPjOE0nO6H0crqiLV6lQiDaIvn0UZXf/kueG9y9iS6/Z+7M30geBBKiOcBhVdM25dOdSoAdx6WSDkGnOAKR2YZCcn1yutgJ40HGVjBDZ02mSfFMg3kiqPwDT6eqxBY1Y7Fd+BKkeNlhR7VxEf4ZQ0fWYRE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789932852; c=relaxed/simple;
-	bh=X3rqSikcBZJJ2f84P/B10FJEqed1uxkrii+ko1G+OFo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MImimA7bt3+kxFc2BhvEiQNOlI8SfSrnCXGYcO8n+1wnXSQSPnTAPqnBh0RQG8B0KvgyLs6hVPf63edYe3YrO1NSQfzT9hiP7dm47zxQOHt+o1ehhCPjrIm9+nKU8XEETuYj3uuEbt+pqBmzEjyIcD5MxzxPoxJWy8cvkBeODVg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org; spf=none smtp.mailfrom=thinkoid.org; dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b=uiodp19m; arc=none smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=thinkoid.org
+	s=arc-20240116; t=1789932856; c=relaxed/simple;
+	bh=hlsd3m3XaxlMnkyj2kXHq1KaQ2IZivGdNU9KPFfZs9g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=s9qERXXIDb4kNOCM8TEqe8tzaiWFyaswK97rqTc5etNESFvJpa1Pc4Nz9kPO4Zgs7nyF1AswQ5XzaZNyul6l13OxG8JrEveBc4oV5bO/nN+jvgq9rNIa2z1Mnu5pPGDmDK/1v++Fo5jS/nJBUa0777fcDYGYBKAjzsUHu3r175U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XkuWG9Vt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b="uiodp19m"
-Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910ad20d4so281200685a.3
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 12:34:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thinkoid-org.20251104.gappssmtp.com; s=20251104; t=1789932848; x=1790537648; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oV+u2mUvdtVEqdjAmArbK2l37Qrm6P7TusAdIx4BPHU=;
-        b=uiodp19myxAbDPa3KB+4ZfLcyS/yHTIbc/S8fot91iX+Uc/VV0kg/VohrwtslYbrvE
-         fdJqV8qmgC9ut0sK5BVC/AKRLVOhH7wEbbqkrgV8iY3ayK0sv4rdT6ZQD/gzRvsXDIri
-         e2e+DMVHYjMf/d9tRcLwZtKYo5q2Wk/2lF4IMzBBzAPe2YxN+GPG8fX7s4xqcm2OYhQ0
-         Bj1/MrWDHtoIA9xmlW8jTPsw56aE56/DaPIVBK+KFe3iqWhGQqUWdL1+UEC4lG9dn32N
-         DVSU5bSWullVlJJ+DxFRoN8K2j/h0HS1NmA45ZGKl6DfmXtcHI5j4WiWX3YgaqKSsIwv
-         eoog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789932848; x=1790537648;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oV+u2mUvdtVEqdjAmArbK2l37Qrm6P7TusAdIx4BPHU=;
-        b=A4ZcGwXpAoq3qNCpsLfIioIiLsqXmDdbHp1X++chTMDEXxDlyY3cQtoondsIGwsR0Q
-         RQgZ2JrGaFWpQj4+AYzChCWiKf1PRsdcL3LK9i6JhygOYDLGfRvrKGgrJz5GLP760AVq
-         EbZjBsltTbI8EAuz7TzB8eKsGyrfRm9gZrOGHSFpH9jY7dPZfQ0BPs8vBLrg60ocs0Pg
-         QfU46pm7ZClhZZ8Vzoog+JsJXTgvqqNSPLSJDlRWtuGx8AUFvvx1gOV9jDuNq+4E4OMW
-         lGjKY9uCa5R08AxJVGSw1cB5Kxg2GzZhOq2YHdxUTGTPu7dA/AcfvTWLQb3uIM2vZTPX
-         qCHw==
-X-Forwarded-Encrypted: i=1; AKwUvBwoSc2CsFMF3kT0E0oRA0YLWC6AJaVzdhp4K1r2dxfBDgWny0zvtcZuhFF7vNm5tR2P9dbHeJ9iPKImMVo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kMbimgwTQKZPH2p/KfdqF9Roar9jMI8enz89T5F8v4GVoZPrpH
-	AbaaBT9A5FR7HBMrrX0cXYbsybHqe3X/ojonm4zRw3z0MEuEOqF251MAV9xLDECRAlU=
-X-Gm-Gg: AYBFou22SSI6cxcxyssvUoxgXbqVXMtMjFSbYTsP0G3uzMHqN8Hiek+Su7RcA6wZXsM
-	44uSyBSgj9+vG/MA4w27TD2hce3wKjtdqX03RuYb/5qubXGTD7Gnte0jgzFRBZLIPHbUZRHLq6L
-	kQc93IxpncY0eJn+BnkMLEvE9FfSFZuLQc295Mgz7tiYqVrskBmaPIznFUnZIq1mL/CyDd16xly
-	sa6PnBmdu27vtjGiOPNLcIGwoG6zlyXLspB/pjpqj9VZo/GaBN79I68BlcYDeseEhnntd/BdLQQ
-	utmhxyqjc0Rfagy0Jwal82MUHPrK/pERmUJbeZ9hFI2zyuSXQdoF86wh0Gb//WISlhS5Qef5zsQ
-	bM6SsvjVb0Y4VmwZbHt+1YmpkkPyudjlLK1IGmraKWEkIscjlxrFHRwJ9Qk8BnHzEh+kj4sKuQW
-	8olWlnnDJSSQMRRByTeh7m7Pigne3I+7+BKgY7HxD0olAR1uAAevmzhM39wruY2QL7lLWI0KZub
-	gs5RI8=
-X-Received: by 2002:a05:620a:4623:b0:939:6de8:43de with SMTP id af79cd13be357-93bf573f833mr703804685a.50.1789932848310;
-        Sun, 20 Sep 2026 12:34:08 -0700 (PDT)
-Received: from localhost.localdomain ([2605:a601:a61d:7a00::2])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93bedb05a2esm464413685a.33.2026.09.20.12.34.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 12:34:08 -0700 (PDT)
-From: Liviu Nicoara <lnicoara@thinkoid.org>
-To: Sebastian Reichel <sre@kernel.org>
-Cc: linux-pm@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Liviu Nicoara <lnicoara@thinkoid.org>
-Subject: [PATCH] power: supply: qcom_battmgr: Report capacity on X1E80100
-Date: Sun, 20 Sep 2026 15:34:02 -0400
-Message-ID: <20260920193402.2402-1-lnicoara@thinkoid.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XkuWG9Vt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC0131F000FF;
+	Sun, 20 Sep 2026 19:34:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789932855;
+	bh=Qrfc8pidtDCiYkdw3c4V5IP4Da46wHe+8fro0S4zdfA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XkuWG9VthLnFV0MIWprMZRholWN+0GG2fzyguMxtkUZLQDMPkvCY5cIdgXgC4mG1V
+	 hasqMI8cwMkCGwsB/iJ9bAGXOp91KJBC8u6oSUmOQea3PxRtWyODTFJWpUCzRSQzi2
+	 bOz7VTnk1TrJjNCeipOvL296Ooll1U5LS2HDYJH4=
+Date: Sun, 20 Sep 2026 21:34:11 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Jiale Yao <yaojiale02@163.com>
+Cc: Johan Hovold <johan@kernel.org>,
+	Hao-Qun Huang <alvinhuang0603@gmail.com>,
+	Kees Cook <kees@kernel.org>, Martyn Welch <martyn@welchs.me.uk>,
+	linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev
+Subject: Re: [PATCH] staging: vme_user: kill fake VIRQ tasklet on exit
+Message-ID: <2026092012-deuce-untitled-2254@gregkh>
+References: <20260920170223.2068463-1-yaojiale02@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260920170223.2068463-1-yaojiale02@163.com>
 
-Commit 3f87baacea4d ("power: supply: qcom_battmgr: Report battery
-capacity") added POWER_SUPPLY_PROP_CAPACITY to the SC8280XP battery
-properties, computed from the firmware's charge and last-full values.
-When commit cc3e883a0625 ("power: supply: qcom_battmgr: Add charge
-control support") later gave X1E80100 a property table of its own, the
-table was copied without the capacity property, so X1E80100 machines
-expose energy_now and energy_full but no capacity.
+On Mon, Sep 21, 2026 at 01:02:21AM +0800, Jiale Yao wrote:
+> fake_irq_generate() schedules int_tasklet, which is embedded in struct
+> fake_driver and receives fake_bridge as its data argument. fake_exit()
+> frees both objects without waiting for a pending tasklet to complete.
+> 
+> This was reproduced on v6.18.52 under QEMU with the following sequence:
 
-The percentage is already computed for this variant in the shared
-SC8280XP callback; only the property list is missing it. Add it, in the
-same place it sits in the SC8280XP table.
+6.18 is NOT the latest kernel release to be doing testing or development
+for.
 
-Tested on a Dell XPS 13 9345: capacity reads 94 with energy_now
-52640000 and energy_full 55540000.
+>   1. Load vme_fake and vme_user to create /dev/bus/vme/ctl.
+>   2. Issue VME_IRQ_GEN ioctls so fake_irq_generate() queues int_tasklet.
+>   3. Concurrently unload vme_fake before ksoftirqd runs the tasklet.
+>   4. fake_exit() frees the embedded tasklet and fake_bridge, after which
+>      tasklet_action_common() accesses the freed tasklet.
+> 
+> KASAN reported:
+> 
+>   BUG: KASAN: slab-use-after-free in tasklet_action_common+0xee/0x6f0
+>   Read of size 8 by task ksoftirqd/3/36
+> 
+>   Call Trace:
+>    <TASK>
+>    dump_stack_lvl+0x48/0x120
+>    print_report+0x191/0x580
+>    kasan_report+0x139/0x170
+>    tasklet_action_common+0xee/0x6f0
+>    handle_softirqs+0x159/0x4c0
+>    run_ksoftirqd+0x1c/0x30
+>    smpboot_thread_fn+0x385/0x700
+>    kthread+0x5c6/0x730
+>    ret_from_fork+0x15a/0x380
+>    ret_from_fork_asm+0x1a/0x30
+>    </TASK>
+> 
+> Unregister the bridge to remove the userspace entry point, then kill the
+> tasklet before tearing down the bridge resources. This ensures any pending
+> callback has completed before its storage and data argument are freed.
 
-Fixes: cc3e883a0625 ("power: supply: qcom_battmgr: Add charge control support")
-Signed-off-by: Liviu Nicoara <lnicoara@thinkoid.org>
----
- drivers/power/supply/qcom_battmgr.c | 1 +
- 1 file changed, 1 insertion(+)
+What about on the real hardware?  As per our previous statements, that's
+the only way we can take LLM-found patches for staging drivers.
 
-diff --git a/drivers/power/supply/qcom_battmgr.c b/drivers/power/supply/qcom_battmgr.c
-index 7716eb9e1..a7237ba09 100644
---- a/drivers/power/supply/qcom_battmgr.c
-+++ b/drivers/power/supply/qcom_battmgr.c
-@@ -830,6 +830,7 @@ static const enum power_supply_property x1e80100_bat_props[] = {
- 	POWER_SUPPLY_PROP_STATUS,
- 	POWER_SUPPLY_PROP_PRESENT,
- 	POWER_SUPPLY_PROP_TECHNOLOGY,
-+	POWER_SUPPLY_PROP_CAPACITY,
- 	POWER_SUPPLY_PROP_CYCLE_COUNT,
- 	POWER_SUPPLY_PROP_VOLTAGE_MAX_DESIGN,
- 	POWER_SUPPLY_PROP_VOLTAGE_NOW,
--- 
-2.55.0
+thanks,
 
+greg k-h
