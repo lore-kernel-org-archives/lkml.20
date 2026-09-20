@@ -1,42 +1,75 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B53D23F3294;
-	Sun, 20 Sep 2026 17:35:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 934DF46EF8F
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 17:39:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789925713; cv=none; b=eiipn8Rk4MonPYHyc05qdO/yUeqWFlnJoLb8PL/uuaL3MCSerVAJQp6zK2POaxKSRmGVDC7yBps7NraQWPRS3dUhGSUvPGFa/fU/w9NEt9GE52XaRETk17iEnJKuQt5FZ+r8UPy1SA1i9WeP9CDZBy7KcPynYhWbrASiOKGwCYQ=
+	t=1789926001; cv=none; b=OyPqG/BfGRezFTVteKBwvlksXh7Foh11m+L4g3748G4QzOgPMxfsU9H3VrP940r7df3l9CyTuZsIOveFkO7AFrx6tB0AOjCEdRrgtHB5dNQ3An7XEHqGS1A5o/X7/LAOOgFsURe+zygHsE8ALtBBGAIQ35qpbVkWgOMmdlZOr7o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789925713; c=relaxed/simple;
-	bh=wt+p7+WQEsrvlkB/TpcfB2WkiZ92vYltSUJNr8v53PI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=HN9BCPdXKt42JJSjX2z2NTptlKUzpGPXXygKOQhWtH6XCuMwNzykMCl/1ixvt6ZLAlOqdjHjez5ZWOUpyRXbuMMl6YaqB/rpXNLQS2kwIJPjfMEXi9xBMfAH55gEMDQbYy3rvi8fGSEHoet4OoHAmhOC0z2Izy9xiI9zLhB2Myw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=BAjf7WeU; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789926001; c=relaxed/simple;
+	bh=PuPjUAhVCvIyLt+F8HbC8M3l3dqN94RplXe2tL04gsI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bdgZxBFelA78AR61sL+6NgSlZKUjFNP8VTO8vbBnnANEm2WU3d11v/Rhhz72iAqxc3iRueg+07YOXbeOc/XBflMDMeZIjKnxWTYfHIaDgTJ/lFCn2iZ+b+Yy5acIkFegpeWcXwVeF9hEMUjp5zoM297pcZnq4PqGVTXa+yHbW6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bRtJe/FP; arc=none smtp.client-ip=74.125.227.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="BAjf7WeU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=VY
-	vFOMxp088J7Z5nKkTATrjH/03iFcG1KN3su6kNDBI=; b=BAjf7WeUzlvVRaHdMF
-	UujxKKSjV3bnciFpTDw7yMIJvu3qy0B059K90ffYm3keBFeGamYRcIdYn6eMc0Rc
-	XR/2hQ3/Mz9GHP+XUVaTGSDZgJKhzq3p4bVfESD+v2UMwY2afvaXVSjGcAhrcEbs
-	0jh7yUtqdhpKNrdccP4wX8Lck=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3n1saGbBqhwquBw--.7793S2;
-	Mon, 21 Sep 2026 01:34:19 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Tom Lendacky <thomas.lendacky@amd.com>,
-	John Allen <john.allen@amd.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	Gary R Hook <gary.hook@amd.com>,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>
-Subject: [PATCH] crypto: ccp: kill v5 IRQ tasklet during teardown
-Date: Mon, 21 Sep 2026 01:34:17 +0800
-Message-Id: <20260920173417.2126346-1-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bRtJe/FP"
+Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c67e53002bso1325382e0c.0
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 10:39:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789925998; x=1790530798; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BfkoR1nBKmYEzeoAan0z3MBTr6L2D2UKk4WaZHViN3Y=;
+        b=bRtJe/FPg0NQwEZ7u4CbOmh+qhfF7gws0hM/L1ByxSDxFLXmnJMwYy2PLUh2D+LchN
+         1KIVKY7TMVphCVqaCXc4urW+uIc0Nvcy1ucC6GOgOV1TtBdPwyheAcDLbUsdx903n9fx
+         yAHqXle/FWkeqPjfo3de6jLm2qcSqLvxtVs9vU2zjvLnPU3H/7nkqe2hGCcN1/lDsm99
+         y4pHPNOFBRJsXWeNKjHloR2UMvwCa1u0BX76WPJdY/S07j1LolqKtLZh1wqMS38Hr9BO
+         OC+Ap2sSmc6adV7eGCvfx67Fbgqu0+9o8KQ8ZbXShg4LnoDpS7r4+EjiQZ0vXFEblvOY
+         i4Sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789925998; x=1790530798;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BfkoR1nBKmYEzeoAan0z3MBTr6L2D2UKk4WaZHViN3Y=;
+        b=zXHPBNxbDiOdk+/rjAi8soKcex7nNC8BAW3biYbNoprJQ7wFsjf5VYEa6ngF5HSwMr
+         5sxsD0aLE8bAGDeqtrFPQSErmd4+FFtZ8+6EkXkgkhUV2C8iT2ah138oRapvCS9e/sJE
+         qdxEHR7ChOgL0f8pE8k3J5uYuzKdTyBn5DBbeXYkpdFzh+8Px3xocW9tF2P96OJipkvo
+         gdGVLYZi7CHea1sdm2Et8kW4bFZHkGr0nJ3I3Tp5MGfTauLyG+vt8Yfh6f4mKkDW/z23
+         pWvFjw6D0EFHangq4u8LQQWc6YPVH5XYfXOLiKwuSW4aK6OBXAivYo6PZrRQSTbgTelJ
+         CgZw==
+X-Forwarded-Encrypted: i=1; AKwUvBzDLeHQvxdid3etsx1AHmVeBC0HkXeTErcC9UG2kVj2tcjYdn+vBIuuJSz8Ztz7TxguaO859eqVeEcg3O0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kjfyFnfVmJnqEXo3KaZ0cZMUEK+qe1hurTrk8G3C1rccL0HqC5
+	o6LC1DwEiovdD7nz818XQg40ipIX9TpL4GtqCPtM7X0DC5mdBy8R1/uQ
+X-Gm-Gg: AYBFou3wiWBOFnHEFGO1rye0QaXEPjyWOxDVbHuPZniN7qqhaD8NHwNESmx4bZ9OlqJ
+	AJRk1bzuKZmyEE0cB8lMz46L6jCWj86I5n4wST7m37ckzaaeQyZ1Ak6FolT8EZWPW+ihI7gBCzb
+	MfRMKtcMfkpqldZn3CEEwUj8uuDtZPvx41u6XIPFCYeRFRbUY3pBYl8/G9b+Y5S6odb91pYBKLf
+	RERYgXQYZaQ+HSJabjQT+ftueJaBpd9t/GtE1VKRKXjNArNIxtIoecLWYoqlsXzvNhfFRpaj9Oq
+	gX7MTuzEEv+fDM2z1pNC7vb2JL1KxRPXb7JzGZ3BpzfILQHXHJ+W/jz/U5KIdkn8907ofoyvc5R
+	OQE1oWkpJv5xl4GyisPC30LNuXR3jlLLg6blVv8g1JeETLK6Q9p24iRwOOQBjNGC+eqC/1GYIes
+	5edF33/+PDEz7Efgsv6675xSRbZaxv3Nix7nqPp3WYStfPxag+B1fycZ3lrATNP1ndjuWDfnJ4M
+	b8SQ4RQDw==
+X-Received: by 2002:a05:6102:441b:b0:7a7:19aa:8a87 with SMTP id ada2fe7eead31-7a719aa9106mr1590422137.34.1789925998477;
+        Sun, 20 Sep 2026 10:39:58 -0700 (PDT)
+Received: from cachyos-x8664.lan ([2803:9810:39e5:6c08:c254:b3de:1d81:c052])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7a6accecc7esm5578973137.10.2026.09.20.10.39.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2026 10:39:57 -0700 (PDT)
+From: Mateo Borda <mateob226@gmail.com>
+To: Mika Westerberg <westeri@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-gpio@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mateo Borda <mateob226@gmail.com>
+Subject: [PATCH] gpiolib: acpi: Add quirk for Lenovo IdeaPad Slim 3 15ABR8
+Date: Sun, 20 Sep 2026 14:39:04 -0300
+Message-ID: <20260920173904.6221-1-mateob226@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,50 +77,45 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3n1saGbBqhwquBw--.7793S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tF13Xw1ktFWxXF1rAFWkJFb_yoW8JFWUpa
-	9rJayUur95Jr4DGay8Z3WUWryrXFnak345KrWjqw1Svwn8ZFWFgry7Cr42k3WUtFykZFy2
-	qFWj9F4rCw1kJ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRkpnkUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzhsTTWqwGRv1YAAA3G
 
-On PCI devices using MSI-X, ccp5_irq_handler() schedules irq_tasklet.
-The teardown paths release the IRQ but do not drain a tasklet that was
-already queued, so it can access ccp after the device-managed allocation
-has been released.
+On the Lenovo IdeaPad Slim 3 15ABR8 (82XM), the touchscreen
+(GTCH7503:00) GPIO interrupt on pin 10 is armed as a wake source. As
+soon as the system enters s2idle suspend the interrupt fires, causing
+an immediate spurious resume, so suspend is unusable.
 
-Kill the tasklet after releasing the IRQ in both the initialization
-error path and ccp5_destroy().
+Disabling wakeup for the device via sysfs or booting with
+gpiolib_acpi.ignore_wake=GTCH7503:00@10 avoids the problem, so add
+a DMI quirk that ignores wakeup on that pin.
 
-Fixes: 6263b51eb319 ("crypto: ccp - Change ISR handler method for a v5 CCP")
-
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
+Signed-off-by: Mateo Borda <mateob226@gmail.com>
 ---
- drivers/crypto/ccp/ccp-dev-v5.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpio/gpiolib-acpi-quirks.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/drivers/crypto/ccp/ccp-dev-v5.c b/drivers/crypto/ccp/ccp-dev-v5.c
-index 7b73332d6aa1..4235be5df546 100644
---- a/drivers/crypto/ccp/ccp-dev-v5.c
-+++ b/drivers/crypto/ccp/ccp-dev-v5.c
-@@ -995,6 +995,8 @@ static int ccp5_init(struct ccp_device *ccp)
+diff --git a/drivers/gpio/gpiolib-acpi-quirks.c b/drivers/gpio/gpiolib-acpi-quirks.c
+index a0116f004..22c5fb149 100644
+--- a/drivers/gpio/gpiolib-acpi-quirks.c
++++ b/drivers/gpio/gpiolib-acpi-quirks.c
+@@ -392,6 +392,19 @@ static const struct dmi_system_id gpiolib_acpi_quirks[] __initconst = {
+ 			.ignore_wake = "VEN_0488:00@355",
+ 		},
+ 	},
++	{
++		/*
++		 * Lenovo IdeaPad Slim 3 15ABR8: the touchscreen wake IRQ fires as soon
++		 * as the system enters suspend, causing an immediate spurious resume.
++		 */
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "82XM"),
++		},
++		.driver_data = &(struct acpi_gpiolib_dmi_quirk) {
++			.ignore_wake = "GTCH7503:00@10",
++		},
++	},
+ 	{} /* Terminating entry */
+ };
  
- e_irq:
- 	sp_free_ccp_irq(ccp->sp, ccp);
-+	if (ccp->use_tasklet)
-+		tasklet_kill(&ccp->irq_tasklet);
- 
- e_pool:
- 	for (i = 0; i < ccp->cmd_q_count; i++)
-@@ -1046,6 +1048,8 @@ static void ccp5_destroy(struct ccp_device *ccp)
- 			kthread_stop(ccp->cmd_q[i].kthread);
- 
- 	sp_free_ccp_irq(ccp->sp, ccp);
-+	if (ccp->use_tasklet)
-+		tasklet_kill(&ccp->irq_tasklet);
- 
- 	/* Flush the cmd and backlog queue */
- 	while (!list_empty(&ccp->cmd)) {
 -- 
-2.34.1
+2.55.0
 
