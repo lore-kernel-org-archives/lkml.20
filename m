@@ -1,94 +1,137 @@
-Received: from mxout023.mail.hostpoint.ch (mxout023.mail.hostpoint.ch [217.26.49.197])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA630471D16;
-	Sun, 20 Sep 2026 19:00:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.26.49.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6478129ACFD
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 19:03:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789930847; cv=none; b=p7KtvZijslknutw1MYX7OrWSQReVX1UIgHkCwGlEU9u5IS8anqoxgw71U+T3Aq7fu7wO6qT5SEITlRpMQsMRz+KEpbke3lTZZkLTPdXyGQ1l+nYr80GUYP4lK0QZe17JjrjzTny0reAX0sfZsNvz0jc5ounMlinXe65QuuMfY60=
+	t=1789931030; cv=none; b=t+UNt4KILrO9tiMajV+2+qGohOjBe8sWQosvQ7USU+ezD4/zglYsRNOphl5J4Mx/qqUD78b1ZVJWI6TKCXbaIpAvklwQDtqu+oesxMkbRhyc8BMIFdWVRIdDlRFhwGnH/MpMg7c+4/0FvbjBZ5Uy/SnH27euqVOw4GvPMbKvF2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789930847; c=relaxed/simple;
-	bh=8Stw3Y0zlGIEn2TMydnWTmjMB7Ei6HOaSjbgjRO56WI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FbCl7KHHWmrmy5ngaDwZq2TlnzR2in6sj0ioeqoxlFnb9uvEbtXPy92EmBpRc4HLjYVdz2denFgKeR4MsjMIFdFM7NtAzeTbrVBFRg3elxgvPlFGwC5auUC8FzApqF5HKRRscBIJXqTraxAAc2W+SYsGoOrwffcu2sPz2l5uaaU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sebastianvonarx.ch; spf=pass smtp.mailfrom=sebastianvonarx.ch; arc=none smtp.client-ip=217.26.49.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sebastianvonarx.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sebastianvonarx.ch
-Received: from asmtp012.mail.hostpoint.internal ([10.4.1.185] helo=asmtp012.mail.hostpoint.ch)
-	by mxout014.mail.hostpoint.ch with esmtps  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5 (FreeBSD))
-	(envelope-from <linux@sebastianvonarx.ch>)
-	id 1x8MX9-0000000054R-39rE;
-	Sun, 20 Sep 2026 20:45:03 +0200
-Received: from [2a02:aa13:e47f:2280:d4b0:56c5:656d:f4f1] (helo=omarchy)
-	by asmtp012.mail.hostpoint.ch with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5 (FreeBSD))
-	(envelope-from <linux@sebastianvonarx.ch>)
-	id 1x8MX9-00000000NQ9-2FZ3;
-	Sun, 20 Sep 2026 20:45:03 +0200
-X-Authenticated-Sender-Id: linux@sebastianvonarx.ch
-From: Sebastian von Arx <linux@sebastianvonarx.ch>
-To: David Airlie <airlied@redhat.com>,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	Dmitry Osipenko <dmitry.osipenko@collabora.com>
-Cc: Gurchetan Singh <gurchetansingh@chromium.org>,
-	Chia-I Wu <olvaffe@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Sebastian von Arx <linux@sebastianvonarx.ch>
-Subject: [PATCH 1/2] drm/virtio: Open-code drm_simple_encoder_init()
-Date: Sun, 20 Sep 2026 20:42:43 +0200
-Message-ID: <20260920184244.464343-2-linux@sebastianvonarx.ch>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260920184244.464343-1-linux@sebastianvonarx.ch>
-References: <20260920184244.464343-1-linux@sebastianvonarx.ch>
+	s=arc-20240116; t=1789931030; c=relaxed/simple;
+	bh=vfbtDo24wCZuiAXww/y71uSm3rOaGAK52lhHnOJf4hs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=LhANwRK/SrzygmJdk3n6yt7hv71Z5Cokk7WCE2jhux7WQ0lNyHUu0Tv35B0rWmpBfJvUjyHYr5gQDXMyGJpS7lpEdzEVuwYjEOaU+/h4gRGMh33fiXTpICHEd/ASAYzxb/07cUS35UrV5j7nHk17pEQpNJxNrdNbNPr39JsBC7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ETvVvOkY; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ETvVvOkY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4D3B1F000FF;
+	Sun, 20 Sep 2026 19:03:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789931029;
+	bh=uctREekJWe2tktIr51UN2v2iX/QbiRDqbdXt9T790Mo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ETvVvOkYral8ovAAwmT4vAbJd6JYEYV6Z9HLDw/lKsOINOvQChdECow0Cu3ESNnbM
+	 nkV8Rz5CCTlKXopFOPP54olYlEPqd9N0+IWJooL3nd0UpgebvaiRrU8HEgFQ6+fqUg
+	 XqYbm5UvSE9ee3tAPShA7P6C9PtTJcOj4qIM0xM1qdmEVKggARmL9FMO/19YeesCK5
+	 Vyheyv+/NDqPwNd7KxzkK0R1J763t0UwR5hMYjb1zJy1X7UpV7E4hmuidgN8KGIpD9
+	 tNyK7hUkAiHLqo7hqcEkRNWhOBt402eqVf1MPYz9DsRk/WZSHmTSAsTTIHFFZ9PMD+
+	 kbcXDqY90+/8Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4] mtd: block2mtd: defer device open out of param/sysfs
+ write
+Reply-To: sashiko-reviews@lists.linux.dev
+To: miquel.raynal@bootlin.com, richard@nod.at, "Chris Roy" <iam@thechris.in>, vigneshr@ti.com
+Cc: syzkaller-bugs@googlegroups.com, linux-mtd@lists.infradead.org, joern@barelysecure.org, linux-kernel@vger.kernel.org, gregkh@linuxfoundation.org, syzbot+7cab6a19619f1b8efc00@syzkaller.appspotmail.com
+In-Reply-To: <20260920185132.1266699-1-iam@thechris.in>
+References: <6aa178fc.f2639fcc.29487d.0008.GAE@google.com>
+ <20260920185132.1266699-1-iam@thechris.in>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 20 Sep 2026 19:03:48 +0000
+Message-Id: <20260920190348.B4D3B1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-drm_simple_encoder_init() only wraps drm_encoder_init() with a
-cleanup callback. Open-code the helper in preparation for removing
-drm_simple_encoder_init().
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] mtd: block2mtd: use-after-free and resource leak on init failure
+- [High] mtd: block2mtd: sysfs lock inversion bypasses workqueue deferral
+--
 
-Assisted-by: LLM
-Signed-off-by: Sebastian von Arx <linux@sebastianvonarx.ch>
----
- drivers/gpu/drm/virtio/virtgpu_display.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+commit c3f3ebd86ecc63dd07e6a22d8527eadaeb761633
+Author: Chris Roy <iam@thechris.in>
 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_display.c b/drivers/gpu/drm/virtio/virtgpu_display.c
-index a1a875a0c..b01178027 100644
---- a/drivers/gpu/drm/virtio/virtgpu_display.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_display.c
-@@ -271,6 +271,10 @@ static const struct drm_connector_funcs virtio_gpu_connector_funcs = {
- 	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
- };
- 
-+static const struct drm_encoder_funcs virtio_gpu_encoder_funcs = {
-+	.destroy = drm_encoder_cleanup,
-+};
-+
- static int vgdev_output_init(struct virtio_gpu_device *vgdev, int index)
- {
- 	struct drm_device *dev = vgdev->ddev;
-@@ -306,7 +310,7 @@ static int vgdev_output_init(struct virtio_gpu_device *vgdev, int index)
- 	if (vgdev->has_edid)
- 		drm_connector_attach_edid_property(connector);
- 
--	drm_simple_encoder_init(dev, encoder, DRM_MODE_ENCODER_VIRTUAL);
-+	drm_encoder_init(dev, encoder, &virtio_gpu_encoder_funcs, DRM_MODE_ENCODER_VIRTUAL, NULL);
- 	drm_encoder_helper_add(encoder, &virtio_gpu_enc_helper_funcs);
- 	encoder->possible_crtcs = 1 << index;
- 
--- 
-2.55.0
+mtd: block2mtd: defer device open out of param/sysfs write
 
+This patch defers block2mtd_setup() device opening to a dedicated ordered
+workqueue to prevent lockdep-detected lock inversion between VFS and
+kernfs/overlayfs during sysfs writes. The setup work is executed via a
+dynamically allocated work item, preserving synchronous behavior with
+wait_for_completion().
+
+Closes: https://syzkaller.appspot.com/bug?extid=3D7cab6a19619f1b8efc00
+
+> diff --git a/drivers/mtd/devices/block2mtd.c b/drivers/mtd/devices/block2=
+mtd.c
+> index 349fa07be314c..30ac9325bdd2b 100644
+> --- a/drivers/mtd/devices/block2mtd.c
+> +++ b/drivers/mtd/devices/block2mtd.c
+[ ... ]
+> @@ -461,31 +466,85 @@ static int block2mtd_setup2(const char *val)
+[ ... ]
+>  static int block2mtd_setup(const char *val, const struct kernel_param *k=
+p)
+>  {
+[ ... ]
+> +	if (setup_wq) {
+> +		ret =3D block2mtd_setup_defer(val);
+> +	} else {
+> +		/* Not yet deferred to setup_wq; safe to call setup2 directly */
+> +		mutex_lock(&list_mutex);
+> +		ret =3D block2mtd_setup2(val);
+> +		mutex_unlock(&list_mutex);
+> +	}
+
+[Severity: High]
+Does evaluating setup_wq here bypass the workqueue deferral and re-introduce
+the sysfs lock inversion?
+
+Since mod_sysfs_setup() exposes module parameters to sysfs before
+do_init_module() calls block2mtd_init(), setup_wq can be NULL during a
+concurrent sysfs write.
+
+This would cause the sysfs writer to execute block2mtd_setup2() inline under
+the sysfs kernfs lock.
+
+Additionally, since setup_wq is assigned in block2mtd_init() without memory
+barriers (such as smp_store_release() and smp_load_acquire()), concurrent
+sysfs writers might observe a stale NULL pointer even after initialization
+completes.
+
+> +
+> +	kernel_param_lock(kp->mod);
+> +	module_put(kp->mod);
+> +	return ret;
+>  }
+> =20
+> =20
+> @@ -496,10 +555,17 @@ static int __init block2mtd_init(void)
+>  {
+>  	int ret =3D 0;
+> =20
+> +	setup_wq =3D alloc_ordered_workqueue("block2mtd", 0);
+> +	if (!setup_wq)
+> +		return -ENOMEM;
+
+[Severity: High]
+Can returning -ENOMEM here lead to a use-after-free and resource leak?
+
+If parameters are provided during module load
+(e.g., insmod block2mtd.ko block2mtd=3D...), block2mtd_setup() is executed
+before block2mtd_init(). Because setup_wq is NULL at that time, it
+synchronously registers the MTD device in the block2mtd_setup() else branch
+shown above.
+
+If alloc_ordered_workqueue() subsequently fails here, it returns -ENOMEM and
+aborts the module load.
+
+The kernel frees the module memory without calling block2mtd_exit(), leaving
+the registered MTD device holding dangling function pointers to the unloaded
+module text.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260920185132.1266=
+699-1-iam@thechris.in?part=3D1
