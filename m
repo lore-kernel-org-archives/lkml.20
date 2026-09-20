@@ -1,346 +1,158 @@
-Received: from outbound.qs.icloud.com (qs-2002f-snip4-8.eps.apple.com [57.103.87.189])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54F8B3A7F7E
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 14:38:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.87.189
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F12AA39CD0B
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 14:38:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789915134; cv=none; b=sPb4l4QyeRDV9LC0Z/g6WP3g6FYxcToSHpSE+Nyma4kWQy/pObS5VvyztMOBv430eT8yaZFUApfQ4HScqc+vZKVz+nbXMVSsutyf1FX91+iJpdCGpC1MeOYWY1KbwR6uXDXRNLA4wKo0x9VjJ+zEdNtr7wsgUzEwNoGU906zZj0=
+	t=1789915142; cv=none; b=mhCXYCoQL2LlnZ7MOBlAzz8ty1Ee1BPCxuuwSsiB1N+OtDXkNw5UyfUpOEWtG7pTuUDM75gRfdpamRrBl5W1d279w05/+q1EUa3JV8f1v0vGchn4JlTitPlOzyuChuyfvQHE62ckL/Q3YoxVgE0BTNmIlX7PA8GoP8Wrw/hY124=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789915134; c=relaxed/simple;
-	bh=+Fid17GjFx6IqwAsq/Pg5izAm0kq/fAT7trdZmM9MeE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GMi5b7qpPU7680iI8ntCVDiWlitHYxLH+AKpUoZA89TNtpGIeYC/LMAqhwPYH0l1F3nb6eGyiiut8WLQkygjOR0pU5GxRYxMvhTQ+zVFSFmdS4KInmzlf+BI0LiJ1ZMHGZQ5SHnShZpkMeeYMl0TCWt9W97GAH0dvHq6EGouCHA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=U7lcF8oj; arc=none smtp.client-ip=57.103.87.189
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
+	s=arc-20240116; t=1789915142; c=relaxed/simple;
+	bh=zC5Qz8CvNSnwUCO1Efe7t6JsNB0ur9ADcf2Fjx1Cvrk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gnoxu4W3vnzHhwj9iHA4tyi90hfxXS7FdLIhg9ARLiT4YK7HMNVABkF885SOEkgckLbku00ftFNc9QGbwsFHAwp52dB+jQ1ETvHjGIhCB5Xr/U+72Be51c/wye+jCZG2FaQoC8W2HeM79Jb3635Ie9abR+aDZti9weyQBg2e9k8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=alexmoch.com; spf=pass smtp.mailfrom=alexmoch.com; dkim=pass (2048-bit key) header.d=alexmoch.com header.i=@alexmoch.com header.b=x3QzD1DN; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=alexmoch.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alexmoch.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="U7lcF8oj"
-Received: from outbound.qs.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-east-2d-100-percent-7 (Postfix) with ESMTPS id CBA951801661;
-	Sun, 20 Sep 2026 14:38:45 +0000 (UTC)
-X-ICL-RepId: 01a0bf41-57c8-7523-aa73-7c26d5ba53af
-X-ICL-Out-Info: HUtFAUMEWwJACUgATUQeDx5WFlZNRAJCTQhKB0MGWQReCEsEQwFbEhVdRUkERxtXAlQXXQZSEnIZWhRcGFNFUR9UWFUJCgJRHFYNV0NUBF9QSxsOXwZLWhVVFw4CQh9QH0wWV0NGGBwZWhRcGFNFUR9UWEMZRVZpQQtPHV0ZWxxCZFhXCQoCURxWDVdDVARfUFQRV1ALWQJCD0gKXwdaBkMBSQVDBFIKQg5VAkBNAkIAXApeAlkAVwl5EVABWB5WXloXXlMXH0sAXEVaDlsERxQ=
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1789915131; x=1792507131; bh=raqOTO9AIqyOAzGm1P0sVDeq4KzwqUFbcRya30XSdns=; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type:x-icloud-hme; b=U7lcF8ojfNvZkmMm++JxYz2+hV3ZUmQUbV1CZ9XvjWIsv/nw6yyUmR1yeL/TZg5SzJ4/0cGKR7JV17FvDDCBC1LgJQ5T8mGzWb9dk7lk5T+xtBRboGwPTAxo/ERr0y+TG9isAKs2uESw1cHtZNhpXDjT4ReNsDr/dsg0iEgxlydcI7vs6lVRXJOC+xHuZxO6bB7seMTEZWk5W8CPHDDf6xD2ptdWy4bdmDGochtmkvolooAHPCVA08g6i85I5XB3m8ImgF5bXIGHOvVoDtao4gkXAB6mu5USeJz5e9zrNXfVCbsimmIhYudIwD5Iyo1jmFyD5NrNQNGRdxLMJ9v3LA==
-Received: from BRUZZHANG-MC1.tencent.com (unknown [17.57.155.37])
-	by p00-icloudmta-asmtp-us-east-2d-100-percent-7 (Postfix) with ESMTPSA id 4548B1801665;
-	Sun, 20 Sep 2026 14:38:34 +0000 (UTC)
-From: Zhang Peng <zippermonkey@icloud.com>
-To: Barry Song <baohua@kernel.org>
-Cc: Zhang Peng <zippermonkey@icloud.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Michal Hocko <mhocko@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Kairui Song <kasong@tencent.com>,
-	Zhang Peng <bruzzhang@tencent.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 1/5] mm/vmscan: introduce folio_activate_locked() helper
-Date: Sun, 20 Sep 2026 22:38:15 +0800
-Message-ID: <20260920143816.39827-1-zippermonkey@icloud.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <CAGsJ_4x7W3Tgr_VNY+RLK_pXnFdehGGbjaVH29JsYipXGf7Z9g@mail.gmail.com>
-References: <20260720-batch-tlb-flush-v5-0-db943a0d0d6b@icloud.com> <20260720-batch-tlb-flush-v5-1-db943a0d0d6b@icloud.com> <CAGsJ_4x7W3Tgr_VNY+RLK_pXnFdehGGbjaVH29JsYipXGf7Z9g@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=alexmoch.com header.i=@alexmoch.com header.b="x3QzD1DN"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hnprp0833zMlC7;
+	Sun, 20 Sep 2026 16:38:50 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alexmoch.com;
+	s=MBO0001; t=1789915130;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=AuFxO4aFhssuuoGbvU5Cu3XtAgw4VLGqXufWipZ+9QY=;
+	b=x3QzD1DNtk510eTIza+No0dT2lqKYLgrx1j0WgsDyPt24jYpEVXbbX6sLkPHN1NnITs9o8
+	219UDSX0miiM865NZdMB+dUZfHeTn5AUCVyQtdky1bgMhHgqxFTPQ7W8bEiKLwdZR80AjM
+	jZhQheaLzeUkfrChG38aYeej1tgTFFBO5m5y60/ArzHI7saYFrLP1t+iAERSAEdYPhIl12
+	WFQZ/hVG2GaooEEyMJxNjczGbiJ35fv4aEA7pZMbVcg+MC+99XMeOqDyn1hf0bOjLsz3Qr
+	OBc0Co2eNynrIcjM2ABsvZO17kw9kMsDrQoihBQXsueIzTLwCEONA54pN5sBRQ==
+From: Alexander Moch <mail@alexmoch.com>
+To: Josh Poimboeuf <jpoimboe@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>
+Cc: Ingo Molnar <mingo@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Alexander Moch <mail@alexmoch.com>
+Subject: [PATCH] objtool: Use AT_MINSIGSTKSZ to size the sigaltstack
+Date: Sun, 20 Sep 2026 16:38:15 +0200
+Message-ID: <20260920143815.32426-1-mail@alexmoch.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: L66WQfMMSDzz0EPgFzcAF2TcZ7jB_kNU
-X-Authority-Info-Out: v=2.4 cv=Ve/6/Vp9 c=1 sm=1 tr=0 ts=6aafeff8
- cx=c_apl:c_pps:t_out a=bsP7O+dXZ5uKcj+dsLqiMw==:117
- a=bsP7O+dXZ5uKcj+dsLqiMw==:17 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=x7bEGLp0ZPQA:10 a=YE32fvk_ji8A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=VwQbUJbxAAAA:8 a=GvQkQWPkAAAA:8 a=v3ZZPjhaAAAA:8 a=Z4Rwk6OoAAAA:8
- a=1XWaLZrsAAAA:8 a=iox4zFpeAAAA:8 a=ufHFDILaAAAA:8 a=JfrnYn6hAAAA:8
- a=37rDS-QxAAAA:8 a=pGLkceISAAAA:8 a=3THdtwnjks2O2M9xHaAA:9 a=QEXdDO2ut3YA:10
- a=HkZW87K1Qel5hWWM3VKY:22 a=WzC6qhA0u3u7Ye7llzcV:22 a=ZmIg1sZ3JBWsdXgziEIF:22
- a=1CNFftbPRP8L7MoqJWF3:22 a=k1Nq6YrhK2t884LQW06G:22 a=J82S1U87d15UFHHUFZS8:22
- a=kKg27zqgtulLWh45kPDF:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIwMDIxMyBTYWx0ZWRfX6MKzHBPz7M7w
- 9HAYdkOpIc6od+lKkGgItSCO0BIEftsaA5Ex56jsIqCJVvCf1IptW+YB9ejjGevtOAwGu3ccvJ5
- zlGCHpfWOwRTkf+jUkqXe8Aq3kgGtPmcPgxjlnhswE/U/E0CF2op0kzuHRZiDRebhbg4GfPzcvJ
- LGewZ43xYkTFIDCp4VCECuiyyCmPF+tW9lJfjH9lGSKUx9qtlrm3bVrZgs97/pWibnlqYyOclx8
- MFTD8UHSMtHUX2uYiIcHrCf2OrlseuV2sdh2i/fGSAn1V1iYkmjTWOmAxjVlePi99AAhV//Ilzd
- Gm9GmnuQsRYbEPJoUJknqec80af3pNAh1hefhfAHfAsn7awRAV1ycgl7MjOs1k=
-X-Proofpoint-GUID: L66WQfMMSDzz0EPgFzcAF2TcZ7jB_kNU
-X-JNJ: AAAAAAABNK4/+tL72JzeBEVIE6yCotX61SAVQQHQGF/oRsTT7+hDj9fFNeueoAvgGq1nTaOHcwx/ogZU1KSkJ1FMjYEiifmDt/nzXPH1FjwWrDLZu3TJ4eUoGtW7yI7dHEYV3jjHSyDyao4MJPSq9uQ4nOXFgjuc5zTHDTKZJ+iUW1uHgZx42wbgSTX1SjDYPoWG/J6w/uxO2pNstFwNIMQdTjI7zdhvTuJKBMLc+Uqn4gNdmeniaVtFihHdmI5cMPV5eO1nnfwYanxa7RPITGcWOZja2v67/GBgxpQMbcwlvgDq26exMht9MmkIEEb4bknq2WJaNQ3R0kX85IRiaA7Y5BdtWbxpigY50V9XB40KD4FJO5vFqZnESAD7IXq8rzzZE7sb37tbIHoT7VsLri4R+1ne8Yo509ljSes7mZvYJXokwF7OW1Z7IUcONBhUy9ZfHww2USbklOY8hqnJLMbErgbXptFHoHhMnE4jdaXTi9e0ZmIv28Pymfwm2PAOkBPXMJOXA1PddztFB9bQEdCnCejZFwbLFFX17iUdP0+E4HJ5VJv1HYij9tqBEq4Hfo6lDMGUaboHRc9KTUEd0/km7xItWH54Q8EhX1qNkWeC8/ksKH7Jsv9Rvc3rosUBJp5/+7jxP0LcELkk6kkUnBrM4sdG9fJcXCMLO4vmDGuMeGLJnMSxEGdi8nnLtdseS5aNo/KKkDMVtssKNZuPyBVWsfjANuinNOjlBqFbRUmguBK0gcb+Hxvc1dnS+195zjbKyPQpihPGhP5/tD/yCwwUvEDRR9q/GWTIKz9pJMTaBXW5Oo2Q4Sp4ReFRJ9We78Fc4XcnW6zyu6DNmXFZbH3jLG+QTktpQMN7CgqgGIAIFt0OESWYPDDrtG9YDlzG7NE8XtO04Bx4H4A90ZLLIsXKp+CzrO6Oc6THoqurM+vMwrPSDCEkAiSQAD5scpAMYno0cu8p+3mO1+Hyy5l1TG0m94IwKzw
- k6P86ww8RiH16KtRLY8QaYfo2Db+SxBYCZZDxFNnH7ZhAplgS3fyU6owLisx0mxxk7JPU9+A0cw2G8tCzqubHYIZvqWhm1OUT3lkKnKqwV7PWmRZikvQggaP6wFHxXrVlR0iNML5zsS1IkGPHsV0cu8WDMH8VFSAOwO8B3kk9/uL5Hay+9N1eH+b5rTvzGtJjQGyES02t2vTtMx6HnKRU/fqYwjfMC7LO0urLv+mizquRD2wO/6mebBypYyNLBTMs/yhbKURBV0dZ/OH4014/xK74OQDAeKIwpyMkVu/ahJlFV3cg1aYGzizhkkqDOnn6qXlyji0x2cbZJUxKq1YRtK3uKty8YYZ9DShI9UO1sb809xg6q2jAMxtDQ4y76/mX/4M0T0yoV/cL4vTHOB67MXBEbgcTx796nWX1zeXHZdwn9m6Zrj/oETj3RJ5xbXyQxTk8O8XgwXe8hFQ5gzPeLurDOs82XSXq3PD/uHABgFpnh+JDZzzFevoP8SFFETBOjV9ku5DC1hYDCVXv6Idx2MHwdBkfMsOuIJM=
-
-On Mon, Aug 10, 2026 at 4:36 PM Barry Song <baohua@kernel.org> wrote:
->
-> Reviewed-by: Barry Song <baohua@kernel.org>
-
-Thanks for the review!
-
-> > + * Prepare a locked folio to be kept active rather than reclaimed.
-> > + * Reclaims its swap slot if it will not be swapped, then marks it
->
-> I'm not quite sure whether this should be "if". Because, it seems
-> to always be true up to this point. BTW, if we really want to use
-> "if", shouldn't we use it to check whether swap is full?
-
-You're right, the wording was misleading: the condition that actually
-guards folio_free_swap() is the swapcache/swap-full/mlocked test right
-below it, not anything about whether the folio "will be swapped".
-
-Rather than try to restate that in prose, I dropped the paragraph and
-left a single line, since the code below is already explicit:
-
-	/* Activate an isolated, locked folio and account the activation. */
-	static void folio_activate_locked(struct folio *folio,
-			struct reclaim_stat *stat)
-
-One thing I should flag, since it is not just a comment change: the
-VM_BUG_ON_FOLIO(folio_test_active(folio)) that used to sit at the
-activate_locked label is now a VM_WARN_ON_ONCE_FOLIO(), so a caller
-that gets this wrong is reported rather than taking the machine down.
-Both are CONFIG_DEBUG_VM-only, and no non-debug behaviour changes, but
-it is a deliberate change rather than a pure move, and the changelog
-now says so.
-
-I kept your Reviewed-by on that basis - please let me know if you'd
-rather I dropped it, or if you'd prefer the BUG_ON left alone.
-
-This patch is now part of a smaller cleanup-only series, see my reply
-on 5/5.
-
-Thanks
-Zhang Peng
-
-From nobody Sun Sep 20 00:00:00 2026
-From: Zhang Peng <zippermonkey@icloud.com>
-To: Barry Song <baohua@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Michal Hocko <mhocko@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Kairui Song <kasong@tencent.com>,
-	Zhang Peng <bruzzhang@tencent.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 2/5] mm/vmscan: extract folio_free() from shrink_folio_list()
-Date: Sun, 20 Sep 2026 14:14:37 +0800
-References: <20260720-batch-tlb-flush-v5-0-db943a0d0d6b@icloud.com>
- <20260720-batch-tlb-flush-v5-2-db943a0d0d6b@icloud.com>
- <CAGsJ_4ykbJKVqEv6uGNKZaQhtV1UxxV-MWt7D1jx6SpdMN+cqA@mail.gmail.com>
-In-Reply-To: <CAGsJ_4ykbJKVqEv6uGNKZaQhtV1UxxV-MWt7D1jx6SpdMN+cqA@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 14, 2026 at 5:40 AM Barry Song <baohua@kernel.org> wrote:
->
-> Could we avoid hiding the activate semantics inside
-> folio_try_reclaim_free()? It makes the logic harder to read and
-> can be confusing.
->
-> Could we pull this out so that the three possible outcomes are
-> explicit?
->
-> 1. activate
-> 2. keep
-> 3. free
-[...]
-> I mean, this is confusing because an activated folio ends up in the
-> "keep" path. Can we make the activation semantics explicit at the
-> outer level?
+init_signal_handler() allocates its alternate signal stack with SIGSTKSZ.
+Built against musl on x86-64 that is a compile-time 8192, whatever the CPU
+it ends up running on turns out to need.
 
-Agreed, and thanks - the bool return was the root of it. The helper
-now returns exactly the three outcomes you listed, and the caller,
-not the helper, decides what to do with each:
+The C library refuses a stack below its own minimum, and that minimum
+follows the kernel: musl's sigaltstack() rejects anything smaller than
+sysconf(_SC_MINSIGSTKSZ), which it derives from AT_MINSIGSTKSZ, and the
+kernel grows that figure with the xsave area.  On a machine with AMX it is
+11952, so the 8192 objtool asks for is refused and objtool exits before
+doing any work:
 
-	enum folio_reclaim_result {
-		FOLIO_RECLAIM_KEEP,
-		FOLIO_RECLAIM_ACTIVATE,
-		FOLIO_RECLAIM_SUCCESS,
-	};
+  error: objtool [signal.c:118]: init_signal_handler: sigaltstack failed: Out of memory
 
-	switch (folio_try_reclaim_free(folio, &free_folios, sc,
-				       &nr_reclaimed)) {
-	case FOLIO_RECLAIM_ACTIVATE:
-		goto activate_locked;
-	case FOLIO_RECLAIM_KEEP:
-		goto keep_locked;
-	case FOLIO_RECLAIM_SUCCESS:
-		continue;
-	}
+Ask the kernel instead of assuming.  It publishes the size a signal frame
+needs as AT_MINSIGSTKSZ, and the handler still has to run in what is left
+above that, so add SIGSTKSZ on top, which is what
+tools/testing/selftests/x86/sigaltstack.c already does.  Where the auxv
+entry is absent, before v5.14, getauxval() returns 0 and the result is
+SIGSTKSZ, as today.
 
-So there is no longer a folio_activate_locked() call inside the
-helper at all, and an activated folio no longer disappears into the
-"keep" path.
+Fixes: 799647ddb4c0 ("objtool: Add more robust signal error handling, detect and warn about stack overflows")
+Signed-off-by: Alexander Moch <mail@alexmoch.com>
+---
+Found on an Alpine Linux (musl) runner in the OpenZFS CI on GitHub Actions,
+where configure reported CONFIG_MODULES as unset on a kernel that has it
+set to y.
 
-The patch has been respun on that basis and posted in a cleanup-only
-series, see my reply on 5/5.
+I have no AMX hardware, so to confirm the fix I ran a separate experiment
+on GitHub Actions, one that builds no OpenZFS at all: forty runners each
+fetched this tree, built objtool twice -- once unmodified, once with this
+patch -- and ran both.  Four of them reported an AT_MINSIGSTKSZ of 11952,
+on three Intel Xeon 6973P-C and one Platinum 8573C under Linux 6.18.35.  On
+every one of those four the unmodified binary failed where the patched one
+started:
 
-Thanks
-Zhang Peng
+Unpatched:
+  error: objtool [signal.c:118]: init_signal_handler: sigaltstack failed: Out of memory
 
-From nobody Sun Sep 20 00:00:00 2026
-From: Zhang Peng <zippermonkey@icloud.com>
-To: Barry Song <baohua@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Michal Hocko <mhocko@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Kairui Song <kasong@tencent.com>,
-	Zhang Peng <bruzzhang@tencent.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 3/5] mm/vmscan: extract pageout_one() from shrink_folio_list()
-Date: Sun, 20 Sep 2026 14:16:52 +0800
-References: <20260720-batch-tlb-flush-v5-0-db943a0d0d6b@icloud.com>
- <20260720-batch-tlb-flush-v5-3-db943a0d0d6b@icloud.com>
- <CAGsJ_4zOfR3Rn5tk_RcOWUDmREO1JyRwXA15Vr3aeUs=+ybMMA@mail.gmail.com>
-In-Reply-To: <CAGsJ_4zOfR3Rn5tk_RcOWUDmREO1JyRwXA15Vr3aeUs=+ybMMA@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Patched:
+   Usage: objtool <actions> [<options>] file.o
 
-On Fri, Aug 14, 2026 at 5:49 AM Barry Song <baohua@kernel.org> wrote:
->
-> Also, this patch looks basically good, just like the previous one.
-> Could we also avoid hiding the activation semantics in the inner
-> function? It would be clearer to make the activation semantics
-> explicit at the outer level, so readers don't have to dig into a
-> deep internal function to realize that a folio may take the
-> activation path.
->
-> In LRU, we have two distinct possibilities: activate a folio or just
-> keep it. This is an important semantic distinction in the LRU logic.
-> Hiding the activation decision so deep in an inner function makes
-> that semantic much less obvious.
+There the patch asks for 11952 + 8192 = 20144 bytes, and that is accepted.
+The other thirty-six runners reported an AT_MINSIGSTKSZ of 1776, 3376 or
+3632, each below the 8192 objtool asks for unpatched, so both binaries ran
+on those.  The model name does not decide which you get: three further
+Platinum 8573C runners in the same batch reported 3632, so an affected
+fleet can fail a build and pass the retry.  Built with objtool's own
+-Werror -Wall -Wextra.
 
-Done, same treatment as 2/5 - the helper reports the decision and the
-caller acts on it:
+ tools/objtool/signal.c | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
 
-	enum folio_pageout_result {
-		FOLIO_PAGEOUT_KEEP_LOCKED,
-		FOLIO_PAGEOUT_KEEP_UNLOCKED,
-		FOLIO_PAGEOUT_ACTIVATE,
-		FOLIO_PAGEOUT_FREE,	/* folio is locked, hand it to
-					   folio_try_reclaim_free() */
-	};
+diff --git a/tools/objtool/signal.c b/tools/objtool/signal.c
+index af5c65c0fb2d..8f86c79adbfb 100644
+--- a/tools/objtool/signal.c
++++ b/tools/objtool/signal.c
+@@ -9,11 +9,16 @@
+ #include <signal.h>
+ #include <unistd.h>
+ #include <sys/resource.h>
++#include <sys/auxv.h>
+ #include <string.h>
+ 
+ #include <objtool/objtool.h>
+ #include <objtool/warn.h>
+ 
++#ifndef AT_MINSIGSTKSZ
++#define AT_MINSIGSTKSZ	51
++#endif
++
+ static unsigned long stack_limit;
+ 
+ static bool is_stack_overflow(void *fault_addr)
+@@ -101,17 +106,26 @@ int init_signal_handler(void)
+ {
+ 	int signals[] = {SIGSEGV, SIGBUS, SIGILL, SIGABRT};
+ 	struct sigaction sa;
++	long stack_size;
+ 	stack_t ss;
+ 
+ 	if (read_stack_limit())
+ 		return -1;
+ 
+-	ss.ss_sp = malloc(SIGSTKSZ);
++	/*
++	 * SIGSTKSZ is a compile-time constant here and can be smaller
++	 * than the signal frame on the running CPU.  Ask the kernel how
++	 * big that frame is, and leave SIGSTKSZ on top of it for the
++	 * handler.  Before v5.14 getauxval() returns 0, leaving SIGSTKSZ.
++	 */
++	stack_size = getauxval(AT_MINSIGSTKSZ) + SIGSTKSZ;
++
++	ss.ss_sp = malloc(stack_size);
+ 	if (!ss.ss_sp) {
+ 		ERROR_GLIBC("malloc");
+ 		return -1;
+ 	}
+-	ss.ss_size = SIGSTKSZ;
++	ss.ss_size = stack_size;
+ 	ss.ss_flags = 0;
+ 
+ 	if (sigaltstack(&ss, NULL) == -1) {
 
-	switch (folio_try_pageout(folio, sc, &ctx, folio_list)) {
-	case FOLIO_PAGEOUT_ACTIVATE:
-		goto activate_locked;
-	case FOLIO_PAGEOUT_KEEP_LOCKED:
-		goto keep_locked;
-	case FOLIO_PAGEOUT_KEEP_UNLOCKED:
-		goto keep;
-	case FOLIO_PAGEOUT_FREE:
-		break;	/* folio is locked; try to free it below */
-	}
-
-Two things beyond what you asked for, both because pageout() has more
-outcomes than the freeing path does:
-
- - "keep" is split into KEEP_LOCKED and KEEP_UNLOCKED. pageout() can
-   return with the folio either still locked or already unlocked, and
-   previously the caller had to know which internal branch it came
-   from to pick between the keep_locked and keep labels. Now the
-   result says so.
-
- - FOLIO_PAGEOUT_FREE keeps the "and now try to free it" step at the
-   outer level too, instead of chaining into folio_try_reclaim_free()
-   from inside folio_try_pageout().
-
-This patch is in the cleanup-only series, see my reply on 5/5.
-
-Thanks
-Zhang Peng
-
-From nobody Sun Sep 20 00:00:00 2026
-From: Zhang Peng <zippermonkey@icloud.com>
-To: Barry Song <baohua@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Michal Hocko <mhocko@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Kairui Song <kasong@tencent.com>,
-	Zhang Peng <bruzzhang@tencent.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 5/5] mm/vmscan: flush TLB for every 31 folios evictions
-Date: Sun, 20 Sep 2026 14:19:08 +0800
-References: <20260720-batch-tlb-flush-v5-0-db943a0d0d6b@icloud.com>
- <20260720-batch-tlb-flush-v5-5-db943a0d0d6b@icloud.com>
- <CAGsJ_4wrQRGjqavMzWgi2+PrRr1ztf4QRZEb6HKm02OF8nEBUQ@mail.gmail.com>
-In-Reply-To: <CAGsJ_4wrQRGjqavMzWgi2+PrRr1ztf4QRZEb6HKm02OF8nEBUQ@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-On Fri, Aug 14, 2026 at 5:58 AM Barry Song <baohua@kernel.org> wrote:
->
-> Yes, I think batching the dirty flush is a great idea. I can clearly
-> see that IPIs for dirty flushes (smp_call) on x86 take up a
-> significant part of the flame graph when building the kernel in a
-> memcg, so I think this is something we should pursue. Could we
-> revisit this patch after we clean up the previous ones?
-
-Sounds good, and thanks for confirming the workload - useful to know
-the dirty-flush IPIs show up that clearly in a memcg kernel build.
-
-I've split the series accordingly. The four cleanup patches, with the
-explicit-outcome rework you asked for in 2/5 and 3/5, are posted on
-their own as:
-
-  [PATCH 0/4] mm/vmscan: refactor shrink_folio_list()
-  https://lore.kernel.org/all/20260920-vmscan-refactor-v1-0-ec04d71cb761@tencent.com/
-
-No functional change intended there. I'll repost the TLB batching on
-top once that has settled.
-
-Thanks
-Zhang Peng
+base-commit: 73ae59e975966d24e32926247ddb45a537ebe184
+-- 
+2.55.0
 
