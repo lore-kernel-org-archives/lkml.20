@@ -1,176 +1,164 @@
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81E66443C27;
-	Sun, 20 Sep 2026 18:21:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789928469; cv=pass; b=m+ec+46aFlhMlovDAs8mu08yO+Cy1mLuVpf3jQ3l14gYl2aZvHbuPD/+S36uSxgFU4JrhgJgWgXKh2izmPY1CEI5Kydiehkzty6wL+GLSHguOG0BQ/TAsKmLuBWmibR1hmy6d6H5EaipL9w9EUFlUEtPgAyOqgqjJ2KY662rPo8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789928469; c=relaxed/simple;
-	bh=JKk9nH0AZSCoNsSgcwKVlqeiDd7CGrOESdmwFRboQoI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gc6QoraWKl5fpnCdq6lBd8Z0Ll5hKPFAdB5IezD2v6WyeVsTUJvH6ZjIJg7qMTq4SJ3eycZTc49bMibTcDZan3bRrpqyn/KyjTmLkhxfjbhhCXlE9G2Wq9neoGm/y4zsS2IlinjWobXlcQ2jsxf8WDnq36hVUHSJWEAcOybT0go=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=hG2y/l2g; arc=pass smtp.client-ip=165.173.182.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FE0333A014;
+	Sun, 20 Sep 2026 18:21:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789928496; cv=none; b=orkWNfUSfpmOpqhPJ/q9WR5e89ams5gdQNgmhxCKoQG6GGPozRKwyNVL7VQT7XpX6BvUIoHil/RMQKIEt1wN+iie4jJWeaiIr786nr7eLnOcV/szYxpMv0FIITGk5jGu1ihSRLUbQwFwFZRcofAlanl0ATYgzwzac2ExPC98ltY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789928496; c=relaxed/simple;
+	bh=oqLqZEXOp993eRGRX5QrOw+njfG+kUjvHBFxyQ8khMc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y9xuK9sT1pcLOJeVniRC+ZkyNfQFb599KhkVJ97WGPl9dU1tgO+Z8Xrj/izMXEXWzonjMp/fYEyDqr8jIOWA5ijSszr9AbM3dkS6AI1pY2i78qlu0FZrK9ytO5QI+/C269PJI/M3ZO1jxge3T4fp4/IjOJEFoUMW7ycDxbJJpi0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HwHXWUL8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="hG2y/l2g"
-ARC-Seal: i=1; a=rsa-sha256; t=1789928445; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=HtnRs1y3PVC3nJ/S7EkfV3+bm6BSytV4ghO3Kpvhpi2FRK2x0qE4aMaKtAIsEk+NFQghnIYY2fRbqIqKi8P8UaLhd0yLjyl8fYwwY3WCOiTgcQbGHY7QlwphOym1KC3QyTABLWZ6OuZtCP+E+ygdMNIhsWKWJrQrTTM2OV163C8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1789928445; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=9X5uA/lhuubN5xoKegOzpl+E+IObiUHG4eckQZgitoo=; 
-	b=GiqB12mraYdY0y1DCky6RnIG0Z8wac4ZZhCnSIdn+abha8XzYVLj9TFi0jvbEEo6tnoW28S4ewEtWd4DqUPvK/ZOzMg5vet8oIxTHLV0rujy0msmbEjrp5gTV3PCTlC3EjE4pErXNUwKOozjo7WHYU5gTEjCIrMfw2yl4bdsUUo=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
-	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789928445;
-	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=9X5uA/lhuubN5xoKegOzpl+E+IObiUHG4eckQZgitoo=;
-	b=hG2y/l2gzpznDt6WdvYiuTlMQrMMohSZdxJkzLwEMzdFeK533/EY4GmseN+s5Jk4
-	skzFGUBT/S7IAi/52eEklKdM3yTy43rj6zN68UAh1nUfPQqRryvl5wFKDM1dik0fWE8
-	2t6E2wH1p10iHrRNyhKRuxmqpxNryi+/ePln8kyU=
-Received: by smtp.zohomail.com with SMTPS id 1789928444328269.1472253389609;
-	Sun, 20 Sep 2026 11:20:44 -0700 (PDT)
-Message-ID: <1454c304-7a12-48ce-a662-b1c7d2b76356@collabora.com>
-Date: Sun, 20 Sep 2026 21:20:39 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HwHXWUL8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 428B71F000FF;
+	Sun, 20 Sep 2026 18:21:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789928494;
+	bh=5g79bEpYNdEBFfwM1CZ+5KAYmu+AdIKJVtVBe1RyNzE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HwHXWUL8/gey82ZrxlUXzmOEpJJtkTQenE3+tef1ubFteKm08N3xq4/3bhAIcB/jl
+	 EabB6ROOh8md63hOGfosDbzpjHZSTtExx+VPGA384V2PCUAungwfRrc0p73z6bbdN8
+	 hNzxRi+KfooguYEqHkVFtMz/R7TKbU9vwPlYzihQS1KyKMry6zLQi2Marez7YZk/SA
+	 GLcVlugUWXSQ4G/YYomYHeicI5Cvsoo68tCrJNQc6Pw+0yl615MQuVAGyPhaELkSjh
+	 U2Ieg4gdWqkp1YuEBM4itrjmwYRbHKXQIUCGo6E8i8xzjnuF0lUi25G6rZJfRiDdoV
+	 HUCbZVjLNkKpg==
+Date: Sun, 20 Sep 2026 20:21:32 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Alex Elder <elder@riscstar.com>
+Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, lee@kernel.org, 
+	andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org, kees@kernel.org, 
+	gustavoars@kernel.org, p.zabel@pengutronix.de, daniel@riscstar.com, 
+	mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, mfd@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/4] dt-bindings: clock: introduce
+ toshiba,tc9564-clock.yaml
+Message-ID: <20260920-messy-successful-caracara-fcdbcd@quoll>
+References: <20260918165234.687224-1-elder@riscstar.com>
+ <20260918165234.687224-3-elder@riscstar.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/virtio: fix NULL pointer dereference on fence
- allocation failure
-To: Peiyang He <peiyang_he@smail.nju.edu.cn>, airlied@redhat.com,
- kraxel@redhat.com, dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- virtualization@lists.linux.dev, gurchetansingh@chromium.org,
- olvaffe@gmail.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de
-References: <00EFE4BA92889B14+20260909091114.2622550-1-peiyang_he@smail.nju.edu.cn>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <00EFE4BA92889B14+20260909091114.2622550-1-peiyang_he@smail.nju.edu.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260918165234.687224-3-elder@riscstar.com>
 
-On 9/9/26 12:11, Peiyang He wrote:
-> virtio_gpu_fence_alloc() can fail due to memory pressure and return NULL,
-> but its caller like virtio_gpu_init_submit() never checks it. Later,
-> virtio_gpu_init_submit() passes the NULL fence to
-> virtio_gpu_fence_event_create(), which unconditionally dereferences it.
-> 
-> Found when fuzzing the virtio driver with Syzkaller:
-> 
-> 	Oops: general protection fault, probably for non-canonical address 0xdffffc0000000012: 0000 [#1] SMP KASAN NOPTI
-> 	KASAN: null-ptr-deref in range [0x0000000000000090-0x0000000000000097]
-> 	CPU: 1 UID: 0 PID: 9991 Comm: syz.0.121 Not tainted 7.2.0 #4 PREEMPT(full) 
-> 	Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
-> 	RIP: 0010:virtio_gpu_fence_event_create drivers/gpu/drm/virtio/virtgpu_submit.c:295 [inline]
-> 	RIP: 0010:virtio_gpu_init_submit drivers/gpu/drm/virtio/virtgpu_submit.c:398 [inline]
-> 	RIP: 0010:virtio_gpu_execbuffer_ioctl+0xc78/0x1aa0 drivers/gpu/drm/virtio/virtgpu_submit.c:505
-> 	Code: 85 ed 0f 85 21 09 00 00 e8 05 5a c9 fb 48 8b 44 24 10 48 8d b8 90 00 00 00 48 b8 00 00 00 00 00 fc ff df 48 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 9a 0d 00 00 48 8b 44 24 10 4c 89 b0 90 00 00 00
-> 	RSP: 0018:ffffc900039dfad0 EFLAGS: 00010216
-> 	RAX: dffffc0000000000 RBX: ffffc900039dfdd8 RCX: ffffffff85f6fd3d
-> 	RDX: 0000000000000012 RSI: ffffffff85f6fd4b RDI: 0000000000000090
-> 	RBP: 0000000000000000 R0virtio_gpu_virgl_process_cmd: ctrl 0x102, error 0x1203
-> 	R10: 0000000000000000 R11: 0000000000000000 R12: ffff8880132c4000
-> 	R13: 0000000000000000 R14: ffff888073b6c700 R15: 000000000000003b
-> 	FS:  00007fab480b96c0(0000) GS:ffff8880eb6e9000(0000) knlGS:0000000000000000
-> 	CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> 	CR2: 00007effbf5e55a8 CR3: 0000000048d19000 CR4: 0000000000350ef0
-> 	Call Trace:
-> 	<TASK>
-> 	drm_ioctl_kernel+0x1f4/0x3e0 drivers/gpu/drm/drm_ioctl.c:817
-> 	drm_ioctl+0x5f4/0xc70 drivers/gpu/drm/drm_ioctl.c:914
-> 	vfs_ioctl fs/ioctl.c:51 [inline]
-> 	__do_sys_ioctl fs/ioctl.c:597 [inline]
-> 	__se_sys_ioctl fs/ioctl.c:583 [inline]
-> 	__x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
-> 	do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
-> 	do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
-> 	entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> 	RIP: 0033:0x7fab471a82bd
-> 	Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b0 ff ff ff f7 d8 64 89 01 48
-> 	RSP: 002b:00007fab480b9018 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-> 	RAX: ffffffffffffffda RBX: 00007fab47435fa0 RCX: 00007fab471a82bd
-> 	RDX: 00002000000000c0 RSI: 00000000c0406442 RDI: 0000000000000003
-> 	RBP: 00007fab480b9080 R08: 0000000000000000 R09: 0000000000000000
-> 	R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000001
-> 	R13: 00007fab47436038 R14: 00007fab47435fa0 R15: 00007ffe85ab0740
-> 	</TASK>
-> 	Modules linked in:
-> 	---[ end trace 0000000000000000 ]---
-> 	RIP: 0010:virtio_gpu_fence_event_create drivers/gpu/drm/virtio/virtgpu_submit.c:295 [inline]
-> 	RIP: 0010:virtio_gpu_init_submit drivers/gpu/drm/virtio/virtgpu_submit.c:398 [inline]
-> 	RIP: 0010:virtio_gpu_execbuffer_ioctl+0xc78/0x1aa0 drivers/gpu/drm/virtio/virtgpu_submit.c:505
-> 	Code: 85 ed 0f 85 21 09 00 00 e8 05 5a c9 fb 48 8b 44 24 10 48 8d b8 90 00 00 00 48 b8 00 00 00 00 00 fc ff df 48 89 fa 48 c1 ea 03 <80> 3c 02 00 0f 85 9a 0d 00 00 48 8b 44 24 10 4c 89 b0 90 00 00 00
-> 	RSP: 0018:ffffc900039dfad0 EFLAGS: 00010216
-> 	RAX: dffffc0000000000 RBX: ffffc900039dfdd8 RCX: ffffffff85f6fd3d
-> 	RDX: 0000000000000012 RSI: ffffffff85f6fd4b RDI: 0000000000000090
-> 	RBP: 0000000000000000 R08: 0000000000000005 R09: 0000000000000000
-> 	R10: 0000000000000000 R11: 0000000000000000 R12: ffff8880132c4000
-> 	R13: 0000000000000000 R14: ffff888073b6c700 R15: 000000000000003b
-> 	FS:  00007fab480b96c0(0000) GS:ffff888098ae9000(0000) knlGS:0000000000000000
-> 	CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> 	CR2: 00007f24c3759000 CR3: 0000000048d19000 CR4: 0000000000350ef0
-> 	----------------
-> 	Code disassembly (best guess):
-> 	0:	85 ed                	test   %ebp,%ebp
-> 	2:	0f 85 21 09 00 00    	jne    0x929
-> 	8:	e8 05 5a c9 fb       	call   0xfbc95a12
-> 	d:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
-> 	12:	48 8d b8 90 00 00 00 	lea    0x90(%rax),%rdi
-> 	19:	48 b8 00 00 00 00 00 	movabs $0xdffffc0000000000,%rax
-> 	20:	fc ff df
-> 	23:	48 89 fa             	mov    %rdi,%rdx
-> 	26:	48 c1 ea 03          	shr    $0x3,%rdx
-> 	* 2a:	80 3c 02 00          	cmpb   $0x0,(%rdx,%rax,1) <-- trapping instruction
-> 	2e:	0f 85 9a 0d 00 00    	jne    0xdce
-> 	34:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
-> 	39:	4c 89 b0 90 00 00 00 	mov    %r14,0x90(%rax)
-> 
-> Fix by checking virtio_gpu_fence_alloc() in virtio_gpu_init_submit() and
-> returning -ENOMEM before any later code can dereference the NULL fence.
-> 
-> Fixes: 70d1ace56db6 ("drm/virtio: Conditionally allocate virtio_gpu_fence")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
-> Assisted-by: Codex:gpt-5.5
-> ---
->  drivers/gpu/drm/virtio/virtgpu_submit.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_submit.c b/drivers/gpu/drm/virtio/virtgpu_submit.c
-> index 32cb1e4aa425..857ed5c5f2a8 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_submit.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_submit.c
-> @@ -389,10 +389,13 @@ static int virtio_gpu_init_submit(struct virtio_gpu_submit *submit,
->  	if ((exbuf->flags & VIRTGPU_EXECBUF_FENCE_FD_OUT) ||
->  	    exbuf->num_out_syncobjs ||
->  	    exbuf->num_bo_handles ||
-> -	    drm_fence_event)
-> +	    drm_fence_event) {
->  		out_fence = virtio_gpu_fence_alloc(vgdev, fence_ctx, ring_idx);
-> -	else
-> +		if (!out_fence)
-> +			return -ENOMEM;
-> +	} else {
->  		out_fence = NULL;
-> +	}
+On Fri, Sep 18, 2026 at 11:52:31AM -0500, Alex Elder wrote:
+> +description: |
+> +  The Toshiba TC9564 is an SoC accessed by a host system through the
+> +  upstream PCIe port on the PCIe switch it implements.  The switch
+> +  includes an embedded PCIe endpoint that provides access to various
+> +  SoC peripherals (including a clock/reset controller) via its BARs.
+> +
+> +  The SoC is represented using a devicetree PCI endpoint bus, so the
+> +  clock controller is bound to its driver using a platform driver
+
+Do not mention drivers here. Just say that host can access clocks etc
+via PCI.
+
+But then more questions. This is PCI, yes? So how are the clocks from
+PCI routed BACK to the main soc, which would justify having this in DTS
+in the first place?
+
+
+> +  compatible string.  All of the clocks are simple gate clocks.
+> +
+> +  A total of 21 clocks are implemented, though two of these are not
+> +  controllable.  Access to the clock controller relies on PCIe being
+> +  functional, so the PCIe clock is assumed to be always on.  Similarly,
+> +  the PCIe controller relies on I2C, so the I2C clock is also assumed
+> +  to be always on.
+> +
+> +  In addition, 13 resets are implemented.  Similar to clocks, the PCIe
+> +  and I2C resets are assumed to be deasserted and cannot be controlled.
+> +
+> +  Clock and reset ids are defined in <dt-bindings/clock/toshiba,tc9564.h>.
+> +
+> +properties:
+> +  compatible:
+> +    const: toshiba,tc9564-clock
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  "#clock-cells":
+> +    const: 1
+> +
+> +  "#reset-cells":
+> +    const: 1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - "#clock-cells"
+> +  - "#reset-cells"
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/toshiba,tc9564.h>
+> +
+> +    clock@1004 {
+> +        compatible = "toshiba,tc9564-clock";
+> +        reg = <0x1004 0x20>;
+> +        #clock-cells = <1>;
+> +        #reset-cells = <1>;
+
+No resources except small address space, so does not look like a
+separate device and should be folded into the parent node.
+
+> +    };
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index b2d3257b8f892..66d0e7e65adcb 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -27670,6 +27670,13 @@ F:	Documentation/devicetree/bindings/media/i2c/toshiba,tc358743.txt
+>  F:	drivers/media/i2c/tc358743*
+>  F:	include/media/i2c/tc358743.h
 >  
->  	if (drm_fence_event) {
->  		err = virtio_gpu_fence_event_create(dev, file, out_fence, ring_idx);
+> +TOSHIBA TC9564 CLOCK DRIVER
+> +M:	Alex Elder <elder@kernel.org>
+> +M:	Daniel Thompson <danielt@kernel.org>
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/clock/toshiba,tc9564-clock.yaml
+> +F:	include/dt-bindings/clock/toshiba,tc9564.h
+> +
+>  TOSHIBA TC9564 PCI DRIVER
+>  M:	Alex Elder <elder@kernel.org>
+>  M:	Daniel Thompson <danielt@kernel.org>
+> diff --git a/include/dt-bindings/clock/toshiba,tc9564.h b/include/dt-bindings/clock/toshiba,tc9564.h
+> new file mode 100644
+> index 0000000000000..75732fddd3025
+> --- /dev/null
+> +++ b/include/dt-bindings/clock/toshiba,tc9564.h
+> @@ -0,0 +1,54 @@
+> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+> +
+> +/*
+> + * Copyright (C) 2026 by RISCstar Solutions Corporation.  All rights reserved.
+> + */
+> +
+> +#ifndef __ClOCK_TOSHIBA_TC9564_H__
+> +#define __ClOCK_TOSHIBA_TC9564_H__
+> +
+> +/* Clock IDs */
+> +
+> +#define CLOCK_MCU		0
+> +#define CLOCK_INTC		1
+> +/* #define CLOCK_PCIE		2 */
+> +/* #define CLOCK_I2C		3 */
 
-Applied to misc-fixes, thanks!
+Drop both, and SRAM is number 2. Or enable and implement them.
 
--- 
 Best regards,
-Dmitry
+Krzysztof
+
