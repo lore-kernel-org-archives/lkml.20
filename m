@@ -1,602 +1,195 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0444F26656D;
-	Sun, 20 Sep 2026 12:33:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23B0030C164;
+	Sun, 20 Sep 2026 12:34:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789907627; cv=none; b=dH+3uG2cky5A9kiIBzfljlp5hUjiEyrNNukrdeNNXB7c8JPGexQwaVi7+EbnuagyUzrG/sg6ZAWbK85M+f/zcHhJxOlBJ5IJhQJs1aR9n1KzfTR1eXdyGnYCLiqEqcpsqB+aAulQPgrY9d95BbkGEuwZsXcp2a1n3+MQZveuAt4=
+	t=1789907684; cv=none; b=MINKd6bLTdHIFb+0gYHaODJVyHiawmIs9qsREv5A2srdY9oWDg2/RTQXscEeFR/LZmJIJBujcjIpcfRRl4+599+QYD0VH1Hhat2uad4oIi4AQn1HVhbjTlDbSPZRN/ZsEvSuyiooqI6/OXHsn0lsSWEwhZmkbsMzPrnkGjDZWTI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789907627; c=relaxed/simple;
-	bh=iQYixM/ZzwdshY0THqhgtery1aMLVbMOaWOfH0E0CNY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=fLBhdIzPcJI6gkMVyT3iXNqimEzxw9NJvY75xlEUh0japoncOv5SLxJzrWPxnkH7+W/NwbCnr22cK9HA/lt4ta7Pnbu4IwfmiEtdDbAUVILpI6p46vsO9GbU4vVg8159/6vqWndp4kNOar1/q6YE7rXxKj3zoxrMSyIA882pzF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=kzO2RQT8; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789907684; c=relaxed/simple;
+	bh=z6bJIP/GZjkspFEKSwP6DtgWTRiTpP003Cjx6jUcff0=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=dp7SX28wXdqoG8A3vrNtlThP8Z74gkTpU+hDFC69g5Nmy5rM5vYkSFDBFdFS84iCzUJFIdBDDnIKteytpI/Wo3sea6zGmmOik4a1QZ6Ar/CWBa7EsW0TtIsv0UIT5Q8hJPWXePXTPqO5imrt9c88qp+7xJjP+Ezr18nnGMEeiEk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=wizT+3S3; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="kzO2RQT8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Cx
-	MGd0WTbVLDgOPJnESCby703Me2LvakzaHmXu61E0c=; b=kzO2RQT8yDnpDPcIZ1
-	xQWTHSoO2IsHX9t8aG6LeaNgZzzQdiZzmBQYnfJwL73qWmqb06nn7eBD4p0Bhtos
-	HBvrSchxj+G3+urfuUubXEHvAnInVCFzXRuqnyJo9mYWQokXBy+d3QwpPKYp07uF
-	6jTwFnxscWwtBKgMqRWKTyqeM=
-Received: from 1.localdomain (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgDnz94W0q9qtTi9AQ--.38818S2;
-	Sun, 20 Sep 2026 20:31:34 +0800 (CST)
-From: Can Qi <qican5708@163.com>
-To: Anup Patel <anup@brainfault.org>
-Cc: Atish Patra <atish.patra@linux.dev>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	kvm@vger.kernel.org,
-	kvm-riscv@lists.infradead.org,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Can Qi <qican5708@163.com>,
-	Quan Zhou <zhouquan@iscas.ac.cn>
-Subject: [PATCH] KVM: riscv: Free detached G-stage page tables outside mmu_lock
-Date: Sun, 20 Sep 2026 20:31:17 +0800
-Message-Id: <20260920123117.49830-1-qican5708@163.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="wizT+3S3"
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 06C9B5340831;
+	Sun, 20 Sep 2026 14:34:19 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1789907659;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=tNwFaUCVbxc5+iuTaZgaMk6iXmkv32xubCeformm7Pg=;
+	b=wizT+3S3gWBylHN2uqpdi8Hnl7YG6LORBYPBTorxdUjwYoPYtVONkxAj2hC0Yg/U/DLEFJ
+	UbWu5KvFIWSpw5k+TDhqPCHN7waggrshNo//2ywKUSLIjQ+SuK4zK2Gxq0udSkbWLLONLP
+	Z85qy3UxMAswg8+Ehtbcl0DjAvOi5hs=
+Message-ID: <c89f5128-5657-426a-87c7-55d12e9ea610@ixit.cz>
+Date: Sun, 20 Sep 2026 14:34:18 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] drm/panel: lg-sw43408: do not assert reset across
+ unprepare
+From: David Heidelberg <david@ixit.cz>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+ Casey Connolly <casey.connolly@linaro.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Vinod Koul <vkoul@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ phone-devel@vger.kernel.org
+References: <20260810-fix-blueline-panel-v2-0-9344dfdbc3f9@ixit.cz>
+ <20260810-fix-blueline-panel-v2-1-9344dfdbc3f9@ixit.cz>
+ <cd90572c-e1f3-47a0-829e-9b3d8097a62f@ixit.cz>
+Content-Language: en-US, cs-CZ
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <cd90572c-e1f3-47a0-829e-9b3d8097a62f@ixit.cz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgDnz94W0q9qtTi9AQ--.38818S2
-X-Coremail-Antispam: 1Uf129KBjvAXoW3KF1kWF4UKr47Cw1Utw18Krg_yoW8Cw4xJo
-	WIya1rWF48u340yFWjyw1UtFyjq3yvkrZruF15XFWYqF1UZw18uryUKrZ8Ja4agr1UWFyf
-	ZFyfXry7XF18G3Zrn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjTR7fHUUUUUU
-X-CM-SenderInfo: ptlft0avxqmqqrwthudrp/xtbCzgZEAmqv0iZlpwAA39
 
-kvm_riscv_mmu_free_pgd() currently walks the entire G-stage address
-space and recursively frees lower-level page-table pages while holding
-mmu_lock for write. Teardown of a large VM can therefore hold mmu_lock
-for a long time.
+On 14/09/2026 23:04, David Heidelberg wrote:
+> On 10/08/2026 11:55, David Heidelberg via B4 Relay wrote:
+>> From: David Heidelberg <david@ixit.cz>
+>>
+>> Asserting the reset GPIO in unprepare() and leaving it asserted puts
+>> the DDIC into a state it never recovers from: after the following
+>> prepare() the panel answers all DCS commands, reports display-on with
+>> clean self-diagnostics, and its configuration registers read back
+>> identical to a working panel, but it never lights up again.
+>>
+>> On the Pixel 3, vddi is shared with the touchscreen controller and
+>> remains powered while the panel is off, so with this driver the DDIC
+>> sits in reset with its logic rail up for the whole blank period - a
+>> state the vendor stack never creates: the vendor firmware only toggles
+>> reset as part of a full power-on sequence, and the vendor OS never
+>> power-cycles the panel at all (LP mode is used instead).
+>>
+>> Leave reset alone in unprepare(); prepare() performs the regular reset
+>> sequence anyway.
+>>
+>> Without this, the Pixel 3 display never comes back after the first
+>> blank/unblank cycle.
+>>
+>> Since there isn't any other panel or device using this DDIC, this
+>> approach seems resoanble to address the issue.
+>>
+>> Fixes: 069a6c0e94f9 ("drm: panel: Add LG sw43408 panel driver")
+>> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+>> Signed-off-by: David Heidelberg <david@ixit.cz>
+>> ---
+>>   drivers/gpu/drm/panel/panel-lg-sw43408.c | 10 ++++++++--
+>>   1 file changed, 8 insertions(+), 2 deletions(-)
+>>
+> 
+> Good news is, that this patch really doesn't make panel power-off fatal for the 
+> phone, but recent testing got me into state where I observed:
+> 
+> 10 hours, display on, phone operating normally.
+> 
+> display on (various time), display off, display on OK, but sometimes
+> 
+> display on, display off (for longer time), after pressing power button (to wake 
+> up) the phone reboot into bootloader.
+> 
+> Nothing printed into dmesg (I'll try enable drm-debug, but not having high hopes.
+> 
+> So far, this is still heavy improvement comparing to instant crash, but not the 
+> perfect solution either.
 
-Detach the active G-stage root under mmu_lock and free the detached tree
-after dropping the lock. Make live G-stage users acquire the active root
-under mmu_lock, and make walkers that drop and reacquire the lock verify
-that the root is still active before continuing.
+Please ignore this email, I debugged the issue and the phone never returned from 
+the suspend due to serial geni bugs. This fixes are good to go.
 
-Before freeing the detached tree, quiesce guest and host HLV/HLVX
-hardware users using KVM_REQ_OUTSIDE_GUEST_MODE and the
-READING_SHADOW_PAGE_TABLES protocol. Prevent a detached root from being
-reinstalled in HGATP or used for guest entry, and request invalidation
-of stale G-stage translations for the old VMID.
+David
 
-Free only page-table pages from the detached tree and periodically call
-cond_resched() while walking it.
-
-Also replace the KVM-wide split page cache with a per-operation cache.
-The huge-page split path can drop mmu_lock while topping up its cache or
-rescheduling, so keeping the cache local avoids sharing its lifetime
-with G-stage teardown.
-
-Assisted-by: LLM
-Co-developed-by: Quan Zhou <zhouquan@iscas.ac.cn>
-Signed-off-by: Quan Zhou <zhouquan@iscas.ac.cn>
-Signed-off-by: Can Qi <qican5708@163.com>
----
- arch/riscv/include/asm/kvm_gstage.h |   9 +-
- arch/riscv/include/asm/kvm_host.h   |   1 -
- arch/riscv/kvm/gstage.c             |  37 ++++++++
- arch/riscv/kvm/mmu.c                | 138 ++++++++++++++--------------
- arch/riscv/kvm/vcpu.c               |  10 +-
- arch/riscv/kvm/vcpu_exit.c          |  16 ++++
- 6 files changed, 139 insertions(+), 72 deletions(-)
-
-diff --git a/arch/riscv/include/asm/kvm_gstage.h b/arch/riscv/include/asm/kvm_gstage.h
-index aaf080ba1b77..b5a9563754d0 100644
---- a/arch/riscv/include/asm/kvm_gstage.h
-+++ b/arch/riscv/include/asm/kvm_gstage.h
-@@ -87,6 +87,8 @@ bool kvm_riscv_gstage_wp_pt_masked(struct kvm_gstage *gstage, gfn_t base_gfn,
- 
- void kvm_riscv_gstage_mode_detect(void);
- 
-+void kvm_riscv_gstage_free(struct kvm_gstage *gstage);
-+
- static inline unsigned long kvm_riscv_gstage_mode(unsigned long pgd_levels)
- {
- 	switch (pgd_levels) {
-@@ -104,13 +106,18 @@ static inline unsigned long kvm_riscv_gstage_mode(unsigned long pgd_levels)
- 	}
- }
- 
--static inline void kvm_riscv_gstage_init(struct kvm_gstage *gstage, struct kvm *kvm)
-+static inline bool kvm_riscv_gstage_init(struct kvm_gstage *gstage, struct kvm *kvm)
- {
-+	lockdep_assert_held(&kvm->mmu_lock);
-+	if (!kvm->arch.pgd)
-+		return false;
-+
- 	gstage->kvm = kvm;
- 	gstage->flags = 0;
- 	gstage->vmid = READ_ONCE(kvm->arch.vmid.vmid);
- 	gstage->pgd = kvm->arch.pgd;
- 	gstage->pgd_levels = kvm->arch.pgd_levels;
-+	return true;
- }
- 
- #endif
-diff --git a/arch/riscv/include/asm/kvm_host.h b/arch/riscv/include/asm/kvm_host.h
-index a30600579231..2ab999f75151 100644
---- a/arch/riscv/include/asm/kvm_host.h
-+++ b/arch/riscv/include/asm/kvm_host.h
-@@ -86,7 +86,6 @@ struct kvm_arch {
- 	pgd_t *pgd;
- 	phys_addr_t pgd_phys;
- 	unsigned long pgd_levels;
--	struct kvm_mmu_memory_cache pgd_split_page_cache;
- 
- 	/* Guest Timer */
- 	struct kvm_guest_timer timer;
-diff --git a/arch/riscv/kvm/gstage.c b/arch/riscv/kvm/gstage.c
-index e5002cb9cbef..5ab3c4ba5a6a 100644
---- a/arch/riscv/kvm/gstage.c
-+++ b/arch/riscv/kvm/gstage.c
-@@ -414,6 +414,37 @@ bool kvm_riscv_gstage_op_pte(struct kvm_gstage *gstage, gpa_t addr,
- 	return flush;
- }
- 
-+/* The caller has detached this tree and quiesced its hardware users. */
-+static void gstage_free_level(pte_t *ptep, u32 level, unsigned long nr_entries,
-+			      unsigned int *processed)
-+{
-+	pte_t pte, *child;
-+	unsigned long i;
-+
-+	for (i = 0; i < nr_entries; i++) {
-+		pte = ptep_get(&ptep[i]);
-+		if (level && pte_val(pte) && !gstage_pte_leaf(&pte)) {
-+			child = (pte_t *)gstage_pte_page_vaddr(pte);
-+			gstage_free_level(child, level - 1, PTRS_PER_PTE, processed);
-+			put_page(virt_to_page(child));
-+		}
-+		/* Leaf PFNs belong to the guest backing memory, not this tree. */
-+		if (++*processed == PTRS_PER_PTE) {
-+			*processed = 0;
-+			cond_resched();
-+		}
-+	}
-+}
-+
-+void kvm_riscv_gstage_free(struct kvm_gstage *gstage)
-+{
-+	unsigned int processed = 0;
-+
-+	gstage_free_level((pte_t *)gstage->pgd, gstage->pgd_levels - 1,
-+			  PTRS_PER_PTE << kvm_riscv_gstage_pgd_xbits, &processed);
-+	free_pages((unsigned long)gstage->pgd, get_order(kvm_riscv_gstage_pgd_size));
-+}
-+
- bool kvm_riscv_gstage_unmap_range(struct kvm_gstage *gstage,
- 				  gpa_t start, gpa_t size, bool may_block)
- {
-@@ -426,6 +457,12 @@ bool kvm_riscv_gstage_unmap_range(struct kvm_gstage *gstage,
- 	bool flush = false;
- 
- 	while (addr < end) {
-+		/* cond_resched_rwlock_write() may have let teardown detach us. */
-+		if (!(gstage->flags & KVM_GSTAGE_FLAGS_LOCAL) &&
-+		    (!gstage->kvm->arch.pgd ||
-+		     gstage->pgd != gstage->kvm->arch.pgd))
-+			break;
-+
- 		found_leaf = kvm_riscv_gstage_get_leaf(gstage, addr, &ptep, &ptep_level);
- 		ret = gstage_level_to_page_size(gstage, ptep_level, &page_size);
- 		if (ret)
-diff --git a/arch/riscv/kvm/mmu.c b/arch/riscv/kvm/mmu.c
-index 6035b5ec9503..2d7ad70ff765 100644
---- a/arch/riscv/kvm/mmu.c
-+++ b/arch/riscv/kvm/mmu.c
-@@ -26,12 +26,11 @@ static void mmu_wp_memory_region(struct kvm *kvm, int slot)
- 	phys_addr_t start = memslot->base_gfn << PAGE_SHIFT;
- 	phys_addr_t end = (memslot->base_gfn + memslot->npages) << PAGE_SHIFT;
- 	struct kvm_gstage gstage;
--	bool flush;
--
--	kvm_riscv_gstage_init(&gstage, kvm);
-+	bool flush = false;
- 
- 	write_lock(&kvm->mmu_lock);
--	flush = kvm_riscv_gstage_wp_range(&gstage, start, end);
-+	if (kvm_riscv_gstage_init(&gstage, kvm))
-+		flush = kvm_riscv_gstage_wp_range(&gstage, start, end);
- 	write_unlock(&kvm->mmu_lock);
- 	if (flush)
- 		kvm_flush_remote_tlbs_memslot(kvm, memslot);
-@@ -44,7 +43,7 @@ int kvm_riscv_mmu_ioremap(struct kvm *kvm, gpa_t gpa, phys_addr_t hpa,
- 	pgprot_t prot;
- 	unsigned long pfn;
- 	phys_addr_t addr, end;
--	unsigned long pgd_levels = kvm->arch.pgd_levels;
-+	unsigned long pgd_levels = kvm_riscv_gstage_max_pgd_levels;
- 	struct kvm_mmu_memory_cache pcache = {
- 		.gfp_custom = (in_atomic) ? GFP_ATOMIC | __GFP_ACCOUNT : 0,
- 		.gfp_zero = __GFP_ZERO,
-@@ -52,8 +51,6 @@ int kvm_riscv_mmu_ioremap(struct kvm *kvm, gpa_t gpa, phys_addr_t hpa,
- 	struct kvm_gstage_mapping map;
- 	struct kvm_gstage gstage;
- 
--	kvm_riscv_gstage_init(&gstage, kvm);
--
- 	end = (gpa + size + PAGE_SIZE - 1) & PAGE_MASK;
- 	pfn = __phys_to_pfn(hpa);
- 	prot = pgprot_noncached(PAGE_WRITE);
-@@ -72,7 +69,10 @@ int kvm_riscv_mmu_ioremap(struct kvm *kvm, gpa_t gpa, phys_addr_t hpa,
- 			goto out;
- 
- 		write_lock(&kvm->mmu_lock);
--		ret = kvm_riscv_gstage_set_pte(&gstage, &pcache, &map);
-+		if (kvm_riscv_gstage_init(&gstage, kvm))
-+			ret = kvm_riscv_gstage_set_pte(&gstage, &pcache, &map);
-+		else
-+			ret = -EFAULT;
- 		write_unlock(&kvm->mmu_lock);
- 		if (ret)
- 			goto out;
-@@ -88,12 +88,11 @@ int kvm_riscv_mmu_ioremap(struct kvm *kvm, gpa_t gpa, phys_addr_t hpa,
- void kvm_riscv_mmu_iounmap(struct kvm *kvm, gpa_t gpa, unsigned long size)
- {
- 	struct kvm_gstage gstage;
--	bool flush;
--
--	kvm_riscv_gstage_init(&gstage, kvm);
-+	bool flush = false;
- 
- 	write_lock(&kvm->mmu_lock);
--	flush = kvm_riscv_gstage_unmap_range(&gstage, gpa, size, false);
-+	if (kvm_riscv_gstage_init(&gstage, kvm))
-+		flush = kvm_riscv_gstage_unmap_range(&gstage, gpa, size, false);
- 	write_unlock(&kvm->mmu_lock);
- 
- 	if (flush)
-@@ -101,14 +100,12 @@ void kvm_riscv_mmu_iounmap(struct kvm *kvm, gpa_t gpa, unsigned long size)
- 					    size >> PAGE_SHIFT);
- }
- 
--static bool need_topup_split_caches_or_resched(struct kvm *kvm, int count)
-+static bool need_topup_split_cache(struct kvm *kvm,
-+				   struct kvm_mmu_memory_cache *cache, int count)
- {
--	struct kvm_mmu_memory_cache *cache;
--
- 	if (need_resched() || rwlock_needbreak(&kvm->mmu_lock))
- 		return true;
- 
--	cache = &kvm->arch.pgd_split_page_cache;
- 	return kvm_mmu_memory_cache_nr_free_objects(cache) < count;
- }
- 
-@@ -116,7 +113,8 @@ static bool mmu_split_huge_pages(struct kvm_gstage *gstage,
- 				 phys_addr_t start, phys_addr_t end)
- {
- 	struct kvm *kvm = gstage->kvm;
--	struct kvm_mmu_memory_cache *pcache = &kvm->arch.pgd_split_page_cache;
-+	struct kvm_mmu_memory_cache cache = { .gfp_zero = __GFP_ZERO };
-+	struct kvm_mmu_memory_cache *pcache = &cache;
- 	phys_addr_t addr = ALIGN_DOWN(start, PMD_SIZE);
- 	phys_addr_t last_flush_gfn = addr >> PAGE_SHIFT;
- 	int count = gstage->pgd_levels;
-@@ -126,7 +124,7 @@ static bool mmu_split_huge_pages(struct kvm_gstage *gstage,
- 	lockdep_assert_held_write(&kvm->mmu_lock);
- 
- 	while (addr < end) {
--		if (need_topup_split_caches_or_resched(kvm, count)) {
-+		if (need_topup_split_cache(kvm, pcache, count)) {
- 			if (flush) {
- 				kvm_flush_remote_tlbs_range(kvm, last_flush_gfn,
- 					  (addr >> PAGE_SHIFT) - last_flush_gfn);
-@@ -141,19 +139,22 @@ static bool mmu_split_huge_pages(struct kvm_gstage *gstage,
- 			if (ret) {
- 				kvm_err("Failed to toup split page cache\n");
- 				write_lock(&kvm->mmu_lock);
--				return flush;
-+				break;
- 			}
- 			write_lock(&kvm->mmu_lock);
- 		}
- 
--		if (!kvm->arch.pgd)
--			return flush;
-+		if (!kvm->arch.pgd || gstage->pgd != kvm->arch.pgd)
-+			break;
- 
- 		flush |= kvm_riscv_gstage_split_huge(gstage, pcache, addr, 0, false);
- 
- 		addr += PMD_SIZE;
- 	}
- 
-+	write_unlock(&kvm->mmu_lock);
-+	kvm_mmu_free_memory_cache(pcache);
-+	write_lock(&kvm->mmu_lock);
- 	return flush;
- }
- 
-@@ -167,7 +168,8 @@ void kvm_arch_mmu_enable_log_dirty_pt_masked(struct kvm *kvm,
- 	phys_addr_t end = (base_gfn + __fls(mask) + 1) << PAGE_SHIFT;
- 	struct kvm_gstage gstage;
- 
--	kvm_riscv_gstage_init(&gstage, kvm);
-+	if (!kvm_riscv_gstage_init(&gstage, kvm))
-+		return;
- 
- 	kvm_riscv_gstage_wp_pt_masked(&gstage, base_gfn, mask);
- 
-@@ -205,12 +207,11 @@ void kvm_arch_flush_shadow_memslot(struct kvm *kvm,
- 	gpa_t gpa = slot->base_gfn << PAGE_SHIFT;
- 	phys_addr_t size = slot->npages << PAGE_SHIFT;
- 	struct kvm_gstage gstage;
--	bool flush;
--
--	kvm_riscv_gstage_init(&gstage, kvm);
-+	bool flush = false;
- 
- 	write_lock(&kvm->mmu_lock);
--	flush = kvm_riscv_gstage_unmap_range(&gstage, gpa, size, false);
-+	if (kvm_riscv_gstage_init(&gstage, kvm))
-+		flush = kvm_riscv_gstage_unmap_range(&gstage, gpa, size, false);
- 	write_unlock(&kvm->mmu_lock);
- 	if (flush)
- 		kvm_flush_remote_tlbs_range(kvm, gpa >> PAGE_SHIFT,
-@@ -224,12 +225,11 @@ static void mmu_split_memory_region(struct kvm *kvm, int slot)
- 	phys_addr_t start = memslot->base_gfn << PAGE_SHIFT;
- 	phys_addr_t end = (memslot->base_gfn + memslot->npages) << PAGE_SHIFT;
- 	struct kvm_gstage gstage;
--	bool flush;
--
--	kvm_riscv_gstage_init(&gstage, kvm);
-+	bool flush = false;
- 
- 	write_lock(&kvm->mmu_lock);
--	flush = mmu_split_huge_pages(&gstage, start, end);
-+	if (kvm_riscv_gstage_init(&gstage, kvm))
-+		flush = mmu_split_huge_pages(&gstage, start, end);
- 	write_unlock(&kvm->mmu_lock);
- 
- 	if (flush)
-@@ -334,12 +334,10 @@ bool kvm_unmap_gfn_range(struct kvm *kvm, struct kvm_gfn_range *range)
- 	struct kvm_gstage gstage;
- 	bool flush;
- 
--	if (!kvm->arch.pgd)
--		return false;
--
- 	lockdep_assert_held_write(&kvm->mmu_lock);
- 
--	kvm_riscv_gstage_init(&gstage, kvm);
-+	if (!kvm_riscv_gstage_init(&gstage, kvm))
-+		return false;
- 	flush = kvm_riscv_gstage_unmap_range(&gstage, range->start << PAGE_SHIFT,
- 					     (range->end - range->start) << PAGE_SHIFT,
- 					     range->may_block);
-@@ -356,12 +354,10 @@ bool kvm_age_gfn(struct kvm *kvm, struct kvm_gfn_range *range)
- 	u64 size = (range->end - range->start) << PAGE_SHIFT;
- 	struct kvm_gstage gstage;
- 
--	if (!kvm->arch.pgd)
--		return false;
--
- 	WARN_ON(size != PAGE_SIZE && size != PMD_SIZE && size != PUD_SIZE);
- 
--	kvm_riscv_gstage_init(&gstage, kvm);
-+	if (!kvm_riscv_gstage_init(&gstage, kvm))
-+		return false;
- 	if (!kvm_riscv_gstage_get_leaf(&gstage, range->start << PAGE_SHIFT,
- 				       &ptep, &ptep_level))
- 		return false;
-@@ -376,12 +372,10 @@ bool kvm_test_age_gfn(struct kvm *kvm, struct kvm_gfn_range *range)
- 	u64 size = (range->end - range->start) << PAGE_SHIFT;
- 	struct kvm_gstage gstage;
- 
--	if (!kvm->arch.pgd)
--		return false;
--
- 	WARN_ON(size != PAGE_SIZE && size != PMD_SIZE && size != PUD_SIZE);
- 
--	kvm_riscv_gstage_init(&gstage, kvm);
-+	if (!kvm_riscv_gstage_init(&gstage, kvm))
-+		return false;
- 	if (!kvm_riscv_gstage_get_leaf(&gstage, range->start << PAGE_SHIFT,
- 				       &ptep, &ptep_level))
- 		return false;
-@@ -563,12 +557,12 @@ static bool kvm_riscv_mmu_dirty_log_write_fault_fast(struct kvm *kvm,
- 	bool dirty_marked = false;
- 	bool ret;
- 
--	kvm_riscv_gstage_init(&gstage, kvm);
- 	mmu_seq = kvm->mmu_invalidate_seq;
- 
- 	read_lock(&kvm->mmu_lock);
- 
--	if (mmu_invalidate_retry_gfn(kvm, mmu_seq, gfn)) {
-+	if (!kvm_riscv_gstage_init(&gstage, kvm) ||
-+	    mmu_invalidate_retry_gfn(kvm, mmu_seq, gfn)) {
- 		ret = false;
- 		goto out_unlock;
- 	}
-@@ -639,8 +633,6 @@ int kvm_riscv_mmu_map(struct kvm_vcpu *vcpu, struct kvm_memory_slot *memslot,
- 	struct kvm_gstage gstage;
- 	struct page *page;
- 
--	kvm_riscv_gstage_init(&gstage, kvm);
--
- 	/* Setup initial state of output mapping */
- 	memset(out_map, 0, sizeof(*out_map));
- 
-@@ -649,7 +641,7 @@ int kvm_riscv_mmu_map(struct kvm_vcpu *vcpu, struct kvm_memory_slot *memslot,
- 		return 0;
- 
- 	/* We need minimum second+third level pages */
--	ret = kvm_mmu_topup_memory_cache(pcache, kvm->arch.pgd_levels);
-+	ret = kvm_mmu_topup_memory_cache(pcache, kvm_riscv_gstage_max_pgd_levels);
- 	if (ret) {
- 		kvm_err("Failed to topup G-stage cache\n");
- 		return ret;
-@@ -719,6 +711,11 @@ int kvm_riscv_mmu_map(struct kvm_vcpu *vcpu, struct kvm_memory_slot *memslot,
- 
- 	write_lock(&kvm->mmu_lock);
- 
-+	ret = -EFAULT;
-+	if (!kvm_riscv_gstage_init(&gstage, kvm))
-+		goto out_unlock;
-+
-+	ret = 0;
- 	if (mmu_invalidate_retry(kvm, mmu_seq))
- 		goto out_unlock;
- 
-@@ -764,7 +761,6 @@ int kvm_riscv_mmu_alloc_pgd(struct kvm *kvm)
- 	kvm->arch.pgd = page_to_virt(pgd_page);
- 	kvm->arch.pgd_phys = page_to_phys(pgd_page);
- 	kvm->arch.pgd_levels = kvm_riscv_gstage_max_pgd_levels;
--	kvm->arch.pgd_split_page_cache.gfp_zero = __GFP_ZERO;
- 
- 	return 0;
- }
-@@ -772,41 +768,45 @@ int kvm_riscv_mmu_alloc_pgd(struct kvm *kvm)
- void kvm_riscv_mmu_free_pgd(struct kvm *kvm)
- {
- 	struct kvm_gstage gstage;
--	void *pgd = NULL;
--	bool flush = false;
- 
- 	write_lock(&kvm->mmu_lock);
--	if (kvm->arch.pgd) {
--		kvm_riscv_gstage_init(&gstage, kvm);
--		flush = kvm_riscv_gstage_unmap_range(&gstage, 0UL,
--			kvm_riscv_gstage_gpa_size(kvm->arch.pgd_levels), false);
--		pgd = READ_ONCE(kvm->arch.pgd);
--		kvm->arch.pgd = NULL;
--		kvm->arch.pgd_phys = 0;
--		kvm->arch.pgd_levels = 0;
-+	if (!kvm_riscv_gstage_init(&gstage, kvm)) {
-+		write_unlock(&kvm->mmu_lock);
-+		return;
- 	}
-+	/* Live walkers must acquire mmu_lock and check the active root. */
-+	WRITE_ONCE(kvm->arch.pgd, NULL);
-+	kvm->arch.pgd_phys = 0;
-+	kvm->arch.pgd_levels = 0;
- 	write_unlock(&kvm->mmu_lock);
- 
--	if (flush)
--		kvm_flush_remote_tlbs(kvm);
--
--	if (pgd)
--		free_pages((unsigned long)pgd, get_order(kvm_riscv_gstage_pgd_size));
-+	/* Quiesce hardware users before freeing the detached page tables. */
-+	kvm_make_all_cpus_request(kvm, KVM_REQ_OUTSIDE_GUEST_MODE);
- 
--	kvm_mmu_free_memory_cache(&kvm->arch.pgd_split_page_cache);
-+	/*
-+	 * Request an old-VMID HFENCE. Queue-full fallback can flush the current
-+	 * VMID, so the hardware quiescing above protects the tree lifetime.
-+	 */
-+	kvm_riscv_hfence_gvma_vmid_all(kvm, -1UL, 0, gstage.vmid);
-+	kvm_riscv_gstage_free(&gstage);
- }
- 
- void kvm_riscv_mmu_update_hgatp(struct kvm_vcpu *vcpu)
- {
- 	struct kvm_arch *ka = &vcpu->kvm->arch;
--	unsigned long hgatp = kvm_riscv_gstage_mode(ka->pgd_levels)
--			      << HGATP_MODE_SHIFT;
--
--	hgatp |= (READ_ONCE(ka->vmid.vmid) << HGATP_VMID_SHIFT) & HGATP_VMID;
--	hgatp |= (ka->pgd_phys >> PAGE_SHIFT) & HGATP_PPN;
-+	unsigned long hgatp = 0;
-+
-+	/* Serialize the root snapshot and HGATP install against root detach. */
-+	read_lock(&vcpu->kvm->mmu_lock);
-+	if (ka->pgd) {
-+		hgatp = kvm_riscv_gstage_mode(ka->pgd_levels) << HGATP_MODE_SHIFT;
-+		hgatp |= (READ_ONCE(ka->vmid.vmid) << HGATP_VMID_SHIFT) & HGATP_VMID;
-+		hgatp |= (ka->pgd_phys >> PAGE_SHIFT) & HGATP_PPN;
-+	}
- 
- 	ncsr_write(CSR_HGATP, hgatp);
- 
- 	if (!kvm_riscv_gstage_vmid_bits())
- 		kvm_riscv_local_hfence_gvma_all();
-+	read_unlock(&vcpu->kvm->mmu_lock);
- }
-diff --git a/arch/riscv/kvm/vcpu.c b/arch/riscv/kvm/vcpu.c
-index e062ca19f9d8..35bf948bd451 100644
---- a/arch/riscv/kvm/vcpu.c
-+++ b/arch/riscv/kvm/vcpu.c
-@@ -708,6 +708,7 @@ void kvm_arch_vcpu_put(struct kvm_vcpu *vcpu)
-  *
-  * Return: 1 if we should enter the guest
-  *	    0 if we should exit to userspace
-+ *	    negative error code if guest entry is no longer possible
-  */
- static int kvm_riscv_check_vcpu_requests(struct kvm_vcpu *vcpu)
- {
-@@ -755,6 +756,12 @@ static int kvm_riscv_check_vcpu_requests(struct kvm_vcpu *vcpu)
- 			return 0;
- 	}
- 
-+	/* A detached G-stage must not be reused after processing its HFENCE. */
-+	if (!READ_ONCE(vcpu->kvm->arch.pgd)) {
-+		kvm_riscv_mmu_update_hgatp(vcpu);
-+		return -EIO;
-+	}
-+
- 	return 1;
- }
- 
-@@ -980,7 +987,8 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
- 		/* Update HVIP CSR for current CPU */
- 		kvm_riscv_update_hvip(vcpu);
- 
--		if (kvm_riscv_gstage_vmid_ver_changed(&vcpu->kvm->arch.vmid) ||
-+		if (!READ_ONCE(vcpu->kvm->arch.pgd) ||
-+		    kvm_riscv_gstage_vmid_ver_changed(&vcpu->kvm->arch.vmid) ||
- 		    kvm_request_pending(vcpu) ||
- 		    xfer_to_guest_mode_work_pending()) {
- 			vcpu->mode = OUTSIDE_GUEST_MODE;
-diff --git a/arch/riscv/kvm/vcpu_exit.c b/arch/riscv/kvm/vcpu_exit.c
-index 88e0c369b354..da3308a3d020 100644
---- a/arch/riscv/kvm/vcpu_exit.c
-+++ b/arch/riscv/kvm/vcpu_exit.c
-@@ -90,7 +90,21 @@ unsigned long kvm_riscv_vcpu_unpriv_read(struct kvm_vcpu *vcpu,
- 	register unsigned long ttmp asm("a1");
- 	unsigned long flags, val, tmp, old_stvec, old_hstatus;
- 
-+	/*
-+	 * Prevent G-stage teardown while HLV/HLVX can walk the page tables.
-+	 * The active-root check prevents a new walk from starting after detach.
-+	 */
-+	read_lock(&vcpu->kvm->mmu_lock);
-+	if (!vcpu->kvm->arch.pgd) {
-+		read_unlock(&vcpu->kvm->mmu_lock);
-+		trap->scause = EXC_LOAD_GUEST_PAGE_FAULT;
-+		trap->stval = guest_addr;
-+		return 0;
-+	}
- 	local_irq_save(flags);
-+	/* Publish the hardware walk before dropping the root lifetime lock. */
-+	smp_store_mb(vcpu->mode, READING_SHADOW_PAGE_TABLES);
-+	read_unlock(&vcpu->kvm->mmu_lock);
- 
- 	old_hstatus = csr_swap(CSR_HSTATUS, vcpu->arch.guest_context.hstatus);
- 	old_stvec = csr_swap(CSR_STVEC, (ulong)&__kvm_riscv_unpriv_trap);
-@@ -146,6 +160,8 @@ unsigned long kvm_riscv_vcpu_unpriv_read(struct kvm_vcpu *vcpu,
- 	csr_write(CSR_STVEC, old_stvec);
- 	csr_write(CSR_HSTATUS, old_hstatus);
- 
-+	/* Complete all HLV/HLVX accesses before publishing OUTSIDE. */
-+	smp_store_release(&vcpu->mode, OUTSIDE_GUEST_MODE);
- 	local_irq_restore(flags);
- 
- 	return val;
--- 
-2.34.1
+> 
+> David
+> 
+>> diff --git a/drivers/gpu/drm/panel/panel-lg-sw43408.c b/drivers/gpu/drm/panel/ 
+>> panel-lg-sw43408.c
+>> index 293826c5006b9..0bf8e08f10b9c 100644
+>> --- a/drivers/gpu/drm/panel/panel-lg-sw43408.c
+>> +++ b/drivers/gpu/drm/panel/panel-lg-sw43408.c
+>> @@ -50,18 +50,24 @@ static int sw43408_unprepare(struct drm_panel *panel)
+>>       int ret;
+>>       mipi_dsi_dcs_set_display_off_multi(&ctx);
+>>       mipi_dsi_dcs_enter_sleep_mode_multi(&ctx);
+>>       mipi_dsi_msleep(&ctx, 100);
+>> -    gpiod_set_value(sw43408->reset_gpio, 1);
+>> -
+>> +    /*
+>> +     * Keep reset deasserted: vddi may stay powered (it is shared with
+>> +     * the touchscreen on Pixel 3) and holding the DDIC in reset while
+>> +     * its logic rail is up puts it into a state that no init sequence
+>> +     * recovers from - the panel keeps answering DCS commands and
+>> +     * reports display-on, but never lights up again. The vendor stack
+>> +     * only ever toggles reset as part of a powered-up init sequence.
+>> +     */
+>>       ret = regulator_bulk_disable(ARRAY_SIZE(sw43408_supplies), sw43408- 
+>> >supplies);
+>>       return ret ? : ctx.accum_err;
+>>   }
+>>   static int sw43408_program(struct drm_panel *panel)
+>>   {
+>>       struct sw43408_panel *sw43408 = to_panel_info(panel);
+>>
+> 
 
