@@ -1,34 +1,43 @@
-Received: from fraori-sdnproxy-3.icoremail.net (fraori-sdnproxy-3.icoremail.net [132.226.202.154])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C0D7B3E2AD7
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 08:31:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=132.226.202.154
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 899613D9027
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 08:32:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789893104; cv=none; b=NMZO77CZXm0FUEvQ5gmWa4e9SZLK5ri3UYdci6zDP6dMtdd2d57Qswz5C+p1/SCyU3eaZ4yWVeItYf74u7GIQaFzkg4Tveiutn6KSc0WXgVrqZCuv2THA+7eFM3lnvp2F/L64LENge78/Gj1bLgTFNQ47YcfvftXISfpX8iVBEs=
+	t=1789893131; cv=none; b=UazVOZocuvZM+Genks6y6SW0WL1fW/6ScRFJwgf9yDHDqoZz+wAbR+hTS/hwiuKz9vqT0G+lrhfhFd1GHp48BZMIpd3oY6u6ICHLSLLzlvLplgvFDTCtUJNpeUlpCq1fsYzUByelFv/wgNAc12Moe14lsz2uOE0v/jRDPhNeW5k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789893104; c=relaxed/simple;
-	bh=sJYcwxctMXiLIvjjZSZKMGlbOPXMpp1oWismY7OL1zM=;
+	s=arc-20240116; t=1789893131; c=relaxed/simple;
+	bh=6VmmV/JuhqxQc7xBKPMLln2fs1lFZm9Xd7P0G/mSW1E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fxIcSZCA0xYZluOEGhicV1uC2r+cfp1NNcRHCm9Pk4WpJrUjZuH1HOQ1TobAPZPvZei7sfyiP1PUJ6URYWGlNL8bEv0cd9jD5zOfMeDGfNI4sHd3iXfaLKkU6TPJFcUOCuC1LJHLBaNSXRo+xje+nnvyEnEwPhPMoqBhrbDbwdQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=132.226.202.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [117.147.104.32])
-	by mtasvr (Coremail) with SMTP id _____wCXkD_pma9qztImAQ--.24559S3;
-	Sun, 20 Sep 2026 16:31:37 +0800 (CST)
-Received: from localhost.localdomain (unknown [117.147.104.32])
-	by mail-app3 (Coremail) with SMTP id zS_KCgAHQXTSma9qV+dHBQ--.54809S6;
-	Sun, 20 Sep 2026 16:31:34 +0800 (CST)
-From: Jiacheng Xu <stitch@zju.edu.cn>
-To: Andreas Gruenbacher <agruenba@redhat.com>
-Cc: Jiacheng Xu <stitch@zju.edu.cn>,
-	gfs2@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 4/4] gfs2: protect demote requests during superblock teardown
-Date: Sun, 20 Sep 2026 16:31:05 +0800
-Message-ID: <20260920083109.30798-5-stitch@zju.edu.cn>
+	 MIME-Version; b=I4ECZZa+daSnwlK6RC0Mx3azT/8MjSGyxsKGSKquxAK8iGUnG8vswdJkaKjI9ZwsGzt+oOPXG/BpIvnGuj9JiYmfE4P7i2c6DKAeS4XeydlZ5UL4NaEtN09CAfDmOcqoFrxYEpeb7kH3yLevtKQaFLKj+UDDHY71KXMO2CdWNM8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=l59vCU3p; arc=none smtp.client-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="l59vCU3p"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=5O
+	ANPeAoJ3qwbO5lpNbD5qpk2dFx16dUqLcV09Tdn5A=; b=l59vCU3p04ceG1uPEh
+	L3plUXmaqP/es9PyTJ6dl5nP5PE9ly58GZbLyHRiWOYydFqj4deBAh35hZ3L/SSs
+	tFTHWZwcr+MgYX3P5DVqQkM2OAdg34adJztLfnoK8ZvM/ypZ2/fRqL31BueL0cFb
+	jcN5jUHBRvVtQJEBPuBW/WxQY=
+Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
+	by gzsmtp4 (Coremail) with SMTP id PygvCgB3m07lma9qs7GbAQ--.54162S3;
+	Sun, 20 Sep 2026 16:31:38 +0800 (CST)
+From: Baolin Liu <liubaolin12138@163.com>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	chenxiaosong@chenxiaosong.com,
+	Baolin Liu <liubaolin@kylinos.cn>
+Subject: [PATCH v2 01/10] ntfs: keep the EA presence flag after creating the first entry
+Date: Sun, 20 Sep 2026 16:31:22 +0800
+Message-ID: <20260920083131.1880061-2-liubaolin12138@163.com>
 X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260920083109.30798-1-stitch@zju.edu.cn>
-References: <20260920083109.30798-1-stitch@zju.edu.cn>
+In-Reply-To: <20260920083131.1880061-1-liubaolin12138@163.com>
+References: <20260920083131.1880061-1-liubaolin12138@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -36,79 +45,39 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zS_KCgAHQXTSma9qV+dHBQ--.54809S6
-X-CM-SenderInfo: qtrxiiaqttimo62m3hxhgxhubq/
-X-CM-DELIVERINFO: =?B?Gn/BywXKKxbFmtjJiESix3B1w3tMoM3snk/k5SVzZVydjEqe1eefKHnLf95EnB4iem
-	egWzO/wNhIP+pglnkLd0BnOseKeJr8bipqX23HM2eq1rHBHv56cT8BWJRDUtThYGkWp+Pf
-	LkD8QZ23s48MrbYdbPLtWmujtIG9rr2oMH3HiwlP
-X-Coremail-Antispam: 1Uk129KBj93XoW7uF1rWF4Dur1rGw4kCFWDZFc_yoW8WrW7pr
-	4UC345ZF4kCrn8Xa1Ikr4rWw1rKayfJF12y397WwsrJF15XwnIg34fKFW8tFyrA3yxXryq
-	gFyYv39xCrWUGFcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUvmb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYIkI8VC2zVCFFI0UMc
-	02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAF
-	wI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0Y48IcxkI7V
-	AKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I
-	3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxV
-	WUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8I
-	cVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aV
-	AFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZE
-	Xa7IU8x9N3UUUUU==
+X-CM-TRANSID:PygvCgB3m07lma9qs7GbAQ--.54162S3
+X-Coremail-Antispam: 1Uf129KBjvdXoW7GrWrXr15WF15CF4xAFyrZwb_yoWfAFb_Wa
+	yxZr4kKw1Utrn3C3Z7GryY9r4SqF4qkr1qqr95tFs7XayDtws0krWkuws5uF4DC3yUtrZ8
+	uryvg34UJrs5WjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU8iZ23UUUUU==
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwQon8WqvmeoLXwAA3-
 
-The demote_rq sysfs callback can obtain a glock while unmount is
-tearing down the glock hash and destroying sd_glock_wq. The callback
-may then queue work through the destroyed workqueue.
+From: Baolin Liu <liubaolin@kylinos.cn>
 
-Serialize the complete demote operation with s_umount and reject
-requests while the superblock is not active. trylock semantics avoid
-deadlocking with mount failure and unmount paths that remove sysfs.
+The successful EA update path tests ea_info_qsize when updating
+NInoHasEA, but this size excludes the appended entry. Creating the first
+EA, or replacing the only entry, can therefore clear the cached presence
+flag despite a successful update. Reads then return ENODATA until reload.
 
-Signed-off-by: Jiacheng Xu <stitch@zju.edu.cn>
+Include the appended entry in the size used for the presence test.
+
+Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
 ---
- fs/gfs2/sys.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+ fs/ntfs/ea.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/fs/gfs2/sys.c b/fs/gfs2/sys.c
-index c5868354073a..c5c540fcce92 100644
---- a/fs/gfs2/sys.c
-+++ b/fs/gfs2/sys.c
-@@ -334,6 +334,7 @@ static ssize_t quota_refresh_group_store(struct gfs2_sbd *sdp, const char *buf,
+diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
+index b4fcfbe2da4c..bb97df3045a0 100644
+--- a/fs/ntfs/ea.c
++++ b/fs/ntfs/ea.c
+@@ -402,6 +402,7 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
  
- static ssize_t demote_rq_store(struct gfs2_sbd *sdp, const char *buf, size_t len)
- {
-+	struct super_block *sb = sdp->sd_vfs;
- 	struct gfs2_glock *gl;
- 	const struct gfs2_glock_operations *glops;
- 	unsigned int glmode;
-@@ -367,14 +368,22 @@ static ssize_t demote_rq_store(struct gfs2_sbd *sdp, const char *buf, size_t len
- 		glops = gfs2_glops_list[gltype];
- 	if (glops == NULL)
- 		return -EINVAL;
-+
-+	if (!super_trylock_shared_active(sb))
-+		return -EAGAIN;
-+
- 	if (!test_and_set_bit(SDF_DEMOTE, &sdp->sd_flags))
- 		fs_info(sdp, "demote interface used\n");
- 	rv = gfs2_glock_get(sdp, glnum, glops, NO_CREATE, &gl);
- 	if (rv)
--		return rv;
-+		goto out_unlock;
- 	gfs2_glock_cb(gl, glmode);
- 	gfs2_glock_put(gl);
--	return len;
-+	rv = 0;
-+
-+out_unlock:
-+	super_unlock_active(sb);
-+	return rv ? rv : len;
- }
- 
- 
+ 	if (packed_ea_size)
+ 		*packed_ea_size = p_ea_info->ea_length;
++	ea_info_qsize += new_ea_size;
+ 	mark_mft_record_dirty(ni);
+ out:
+ 	if (!err) {
 -- 
 2.51.0
 
