@@ -1,157 +1,209 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5187741D21F
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 11:40:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1921A33DEE6;
+	Sun, 20 Sep 2026 11:41:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789904407; cv=none; b=tVzPvUufGYBQKAx1+gh/SSlzEKmc/369ztQQCgS0pf3pC1GbPb+SGlJ72bvKL1ZWu2N7Udg8mttB++2I1Lq+cyRdR7No9LBNsCy05YvF53RLXy5bnXyzUgP/hvlcm0EsQAu92oIiYyNB2JzHda7Fp83+vDbFj4m/G4IV7lu6sUY=
+	t=1789904506; cv=none; b=DrKOHi/82PnOqCAfUk57GRPdbQfJc84uCmugQab1YNWNaa6U457PV50bubKvASK5yvbv6ZDmaQN/oSiMKpFwL13LLGT3PPEuDnVfOf1OBpkrtrU787pJ9Jj8qmhp9dP3ebym30ZBKzZoZq/q4GXdb2pF/RcVeZTKQFcBIAAGZwg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789904407; c=relaxed/simple;
-	bh=7B2LFEnl9mbenlcEhpsibESNW5OLpwmL7Ks/s1Yxw+s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XeVQdz9wrsWtC0uiO64f27L0630+2gu84Lkovawu9bZyFEWhPsfxK5AYwy3tL4p8FEVq0W/pfHr7zES72ifNFz7efaZ8YOCQUKJE3eJGy+4e4BIT0gfEviftm4HQUaebgnZTKZUNXc8CQD+4DiQr++TKIUXy/UVk3BZczGaVcfQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VdyTxujG; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789904506; c=relaxed/simple;
+	bh=Yvdr+7gZn7fJruCtUeZMok6Sv0JTPuYuwqfbuzbDxM0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=PJzSqLZou5aHPWE2HbF/HpAT836OjPJ2B4H7UqQUqylpi9CuYd6mnWS6qydGcI1oCc8sMv8FtN3nGAOEzn1rwPop4EhT/5dTf98JSICByLswKbXs++v5N0Syz2tefGbDPeoO9k2tFuVqh/8SaU8YQtvSohUUjRkIP1x9ki6iQN0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bm4/yRXM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VdyTxujG"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebcb8d7so672773a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 04:40:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789904402; x=1790509202; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VB/v9xMNCgaG9X/tex87TcBN9TifdEbvdxv9dgsPxiQ=;
-        b=VdyTxujGlA+AjI3BWVel1LrY52Xdm4SW/wdERhEN4pLcALfjVHOH5W3Ho2aCZJvRHH
-         vgTzkWQLjX4IyVVCGoVkju1G0CSgY05ZQq6nVxqPK09qCBMlii5YMvPtOENW2D0RdjtL
-         0XjeWOWUYdJqe45wCbIET58RkzCMVJpZZGzaOAgEHxxeM1JTXP5/AZf3Z+RhPlX1KMFO
-         1W52n8RcRVOSycjb9pCnVN263LDQneJOWmrYrMp3TjuoG/5ZbSFi9CEnYBU1vq9Whv3Z
-         zV+ilF/egsJUMeF2/U11D7mBrGl1Ya0MukgJVTwYiwkhnco1LmJbAJlWjvNWGRG9OOIE
-         dJwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789904402; x=1790509202;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VB/v9xMNCgaG9X/tex87TcBN9TifdEbvdxv9dgsPxiQ=;
-        b=FY/sUc5FCScJwKxMTeMj3z+vB0G3aBj6/bu8gjXMhmUJ+yVGbrRUgulbCkRAVW6mJT
-         ymiZgBGRYetLBOFoIwEq0YGWQRaxQVqyrNW5/0oqvwp+S4y9pzXWVsuIB2mh2sjBVPza
-         0KboosIrhSYKkWrZ+EykNg+lfi6vQLg2l8hBpofHMC4rLg3ZrUGJJahwB3rcVJCbhoWJ
-         PLMg5ZOdZAX0l6+ehZ9cc6uLuvVQxR0j4h1OdfgjA02MU0RBpifXtux8Gv4Mzx6ACAqQ
-         kCBFykCaudAIsl4cApSp+uP3EWx9MrSxzJaeEmsogMMKbWluQ++attDLrzdNnsF1Wbjg
-         qAtg==
-X-Forwarded-Encrypted: i=1; AKwUvBwASaXPY61e9Fuj9OEp0+ADOPHHhHf4uG/VOBe6GKQRvSgI6N+c3chIV5AH889fbyXfbexUOfb9DhhGKVA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nTZgSh74yGUeiOu3vVSf8vwDYa/0B0oqJerWTcBovoGFJy68FP
-	VqhX5W6W8D5VSPouzNLPG+wFQVufcPD/QKWEJPAdwAkVhh0LFEeDNsMd
-X-Gm-Gg: AYBFou0vGVjVIFUtmFyGvwWU4QGfDjWpGFhlsP4FbNrkR8HwfERf9wTyYofyeEy24o+
-	0ETEN92Hd3mzqJ+airuLcJnnfTSACDKCX2Q2uZKE9+6m5EwnRmJ/kw/38rxRFvhQ6lfTkjwK1cN
-	DJ5E4Lp4l1pt6hieT/5YB2/7zs+nX8obR/52qzODx/IJdzGYL6Xe7289ngWQyxU08WzY50izSam
-	msLbZ56W4haqKMZhv4iIOPOk2d8cPhOWDH9GsROeNEA+9CRhR3p5wdo8jPny/qdT96lHKUCZ/G0
-	LgG1lFsyaO2TgpkS4HDkSoHkXt2aetp6NZCSY2N6xxyySzzP3/colA3DdBNLJJJz9JjcTGV+rpw
-	MZqVqV9GieWiRIZf8sdwoPJ7bIc7kDu1xc9YwBAVHudDWPfZFsralRK4S6WvFJ1x6ZUVhOH/J5k
-	Qb0dEnf2UmfUCHNf4FMaXcAtTqHrPr9k6ImhAhzh2uaDasqxyyT26rtX8Lc8G7blStHys2qpDvQ
-	JJDOFkIBNZkGzk=
-X-Received: by 2002:a17:90b:2b8e:b0:39e:4c7e:bc5 with SMTP id 98e67ed59e1d1-39e5572d5a2mr7798744a91.19.1789904401672;
-        Sun, 20 Sep 2026 04:40:01 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:2022:c2a9:de8:d005])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c6dd585sm8490548a91.0.2026.09.20.04.39.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 04:40:01 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: dmitry.torokhov@gmail.com
-Cc: floe@butterbrot.org,
-	linux-input@vger.kernel.org,
-	linux-media@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bm4/yRXM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26D8E1F000FF;
+	Sun, 20 Sep 2026 11:41:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789904504;
+	bh=/TdmiqQ46y/8NRpgZ+g2iqUwv/O08JBQFMW3EdhAmmo=;
+	h=From:To:Cc:Subject:Date;
+	b=bm4/yRXMH4g6lpVOxlDOx0X2NSIMkVJ4fupGj8MIj8CpBqptmBCk4daJRozjM9HNU
+	 1Bmeb5JIbThT7JXJx2O9R5BpraNIXLGs322zyokWAl5PSoqgLUH6enkyH4VA+8PZ/a
+	 j6naba/2EWnfFqEy0mJU4S/2aG6DqjQg7VYPHUGLfwGdruyYplBGDIjAjwRfGw6an/
+	 lfe37Cf57G0ngc4GGxsnuI3hkzrAE2sEi0/YmGSn7jxLHn9RzIXycHna8isAMeHQko
+	 4tQPALi9EGWcouBuluZud1d21xqHtVTUwk8r/FcXNdIBXULBFB6ERCK61xv8489pnz
+	 LR/XF8nShYGiQ==
+From: Leon Romanovsky <leon@kernel.org>
+To: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Alex Williamson <alex@shazbot.org>,
+	Leon Romanovsky <leon@kernel.org>,
+	Ankit Agrawal <ankita@nvidia.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: linux-pci@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	syzbot+eb4706daf505f9c4b547@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH v1 2/2] Input: sur40 - keep device state alive until the video node is released
-Date: Sun, 20 Sep 2026 18:39:49 +0700
-Message-ID: <20260920113949.12726-3-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260920113949.12726-1-ngocthang2710.1999@gmail.com>
-References: <20260920113949.12726-1-ngocthang2710.1999@gmail.com>
+	linux-doc@vger.kernel.org,
+	iommu@lists.linux.dev,
+	Tushar Dave <tdave@nvidia.com>,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org,
+	kvm@vger.kernel.org
+Subject: [PATCH v7 00/19] PCI/P2PDMA: Route peer-to-peer DMA by TLP class
+Date: Sun, 20 Sep 2026 14:41:12 +0300
+Message-ID: <20260920-fix-p2p-acs-v4-0-v7-0-ca0828ab697c@nvidia.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Change-ID: 20260821-fix-p2p-acs-v4-0-e72455e3a261
+X-Mailer: b4 0.15-dev-18f8f
 Content-Transfer-Encoding: 8bit
 
-sur40_disconnect() frees the sur40_state, which embeds the video_device,
-the v4l2_device and the vb2_queue, while a video node may still be open.
-Closing that file afterwards touches freed memory:
+PCI P2PDMA applies Request and Completion Redirect throughout both paths.
+This misclassifies asymmetric and nested switches, and reports one answer
+for every kind of TLP.
 
-  BUG: KASAN: slab-use-after-free in vb2_core_queue_release+0x12d/0x150
-  Read of size 4 at addr ffff888066fa8aa8 by task v4l_id/28733
-   vb2_core_queue_release+0x12d/0x150
-   vb2_fop_release+0x16e/0x200
-   v4l2_release+0x22c/0x350
-   __fput+0x418/0xa50
-  Freed by task 16811:
-   kfree+0x1c5/0x650
-   sur40_disconnect+0xaf/0x140
+Three ACS controls act on TLP attributes the client chooses rather than
+on the topology: Translation Blocking and Direct Translated P2P act on
+a Request's Address Type, and Completion Redirect skips Completions carrying
+Relaxed Ordering.
 
-Give the v4l2_device a release callback that frees the bulk buffer and
-the state, and drop the disconnect path's own reference with
-v4l2_device_put(). The last closer of the node then does the freeing.
-The probe error paths never open the node and keep freeing directly.
+Evaluate each direction at the path divergence, decide every class from the
+one walk, expose the provider to dma-buf importers, and let mlx5 ask rather
+than assume.
 
-Reported-by: syzbot+eb4706daf505f9c4b547@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=eb4706daf505f9c4b547
-Fixes: e831cd251fb9 ("[media] add raw video stream support for Samsung SUR40")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 ---
- drivers/input/touchscreen/sur40.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+Changes in v7:
+- Removed "Document pdev->p2pdma lifetime rules" patch, it gives nothing
+  after p2pmem fix.
+- Split dmabuf patch.
+- Tushar retested the series, so added his Tested-by.
+- Added Logan's ROB tags and fixed minor documentation issues pointed
+  by him.
+- Link to v6: https://lore.kernel.org/all/20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com/
 
-diff --git a/drivers/input/touchscreen/sur40.c b/drivers/input/touchscreen/sur40.c
-index 7020bcf9b81a..efd4fe557cef 100644
---- a/drivers/input/touchscreen/sur40.c
-+++ b/drivers/input/touchscreen/sur40.c
-@@ -648,6 +648,15 @@ static int sur40_input_setup_events(struct input_dev *input_dev)
- }
- 
- /* Check candidate USB interface. */
-+/* Runs once the last video node reference is gone. */
-+static void sur40_release(struct v4l2_device *v4l2)
-+{
-+	struct sur40_state *sur40 = container_of(v4l2, struct sur40_state, v4l2);
-+
-+	kfree(sur40->bulk_in_buffer);
-+	kfree(sur40);
-+}
-+
- static int sur40_probe(struct usb_interface *interface,
- 		       const struct usb_device_id *id)
- {
-@@ -733,6 +742,7 @@ static int sur40_probe(struct usb_interface *interface,
- 			"Unable to register video master device.");
- 		goto err_free_buffer;
- 	}
-+	sur40->v4l2.release = sur40_release;
- 
- 	/* initialize the lock and subdevice */
- 	sur40->queue = sur40_queue;
-@@ -831,11 +841,10 @@ static void sur40_disconnect(struct usb_interface *interface)
- 	video_unregister_device(&sur40->vdev);
- 	v4l2_device_unregister(&sur40->v4l2);
- 
--	kfree(sur40->bulk_in_buffer);
--	kfree(sur40);
--
- 	usb_set_intfdata(interface, NULL);
- 	dev_dbg(&interface->dev, "%s is now disconnected\n", DRIVER_DESC);
-+
-+	v4l2_device_put(&sur40->v4l2);
- }
- 
- /*
--- 
-2.43.0
+Changes in v6:
+- Changed DMABUF to use callbacks and not directly stored pointer.
+- Link to v5: https://patch.msgid.link/20260910-fix-p2p-acs-v4-0-v5-0-856087f63c0d@nvidia.com
+
+Changes in v5:
+- Rebase on the posted fixes.
+- Dropped tags from changed patches.
+- Remove Egress Control Vector interpretation and coverage.
+- Keep enabled Egress Control conservative as a Request redirect.
+- Use pci_dbg()/dev_dbg() for diagnostics and drop the "debug" prefix.
+- Removed code comments from "Document the pdev->p2pdma lifetime and RCU
+  rules" patch and reduced description to actual lifetime explanation.
+- Added note that Linux assumes that TLPs are in strict-ordering and
+  untranslated.
+- Added code to calculate p2p paths per-TLP type.
+- Converted mlx5 to use that new proposed API.
+- Link to https://patch.msgid.link/20260821-fix-p2p-acs-v4-0-v4-0-94426b96de73@nvidia.com
+
+Changes in v4:
+- Reject ACS Violations and unreadable routing state instead of treating
+  them as host-bridge redirects
+- Added Tested-by tags from Tushar Dave
+- Added support to asymmetric ACS routing
+- Limited redirect checks to the two ports at the path divergence
+- Added standalone ACS routing diagnostics for hardware retesting
+- Dropped " PCI: Account for Direct Translated P2P in ACS isolation checks" patch
+- Link to v3: https://patch.msgid.link/20260811-fix-p2p-acs-v3-0-efc488ee7c03@nvidia.com
+
+Changes in v3:
+- Fixed pci_p2pdma_add_resource() error unwinding
+- Made pdev->p2pdma teardown wait unconditionally for RCU readers
+- Restricted pci_p2pmem_find_many() to pool-backed providers
+- Documented the pdev->p2pdma lifetime and RCU rules
+- Fixed calc_map_type_and_dist() handling of the verbose argument
+- Required the ACS port and target to share a bus before indexing the
+  Egress Control Vector
+- Gave pci_acs_enabled() and pci_acs_path_enabled() a scope, so the ACS
+  Direct Translated P2P rule no longer stops pci_enable_pasid() from
+  enabling PASID
+- Dropped "Report ACS ports when the paths share no upstream bridge":
+  the mapping type cannot change without a shared upstream bridge, so
+  the pci=disable_acs_redir= hint was not actionable there and the ACS
+  walk only cost config space reads
+- Folded the Request Redirect rule into pci_acs_rr_ineffective(), so
+  pci_acs_flags_enabled() and the Intel SPT PCH quirk share one copy
+- Renamed pci_acs_egress_ctrl_set() to pci_acs_egress_ctrl_is_set(), it
+  reads the bit rather than setting it
+- Reworded the blocked-path warning: ACS may also leave the direct route
+  indeterminate rather than blocked
+- Added KUnit coverage for the shared-bus guard, a device with no ACS
+  capability and an unreadable ACS Control register
+- Added the missing Fixes: tags, a second one on the
+  pci_p2pdma_add_resource() unwinding fix (the dangling devres action
+  dates to f58ef9d1d135) and one on the Egress Control isolation change
+- Link to v2: https://patch.msgid.link/20260806-fix-p2p-acs-v2-0-0cec14812965@nvidia.com
+
+Changes in v2:
+- Added Logan's ROB tags
+- Added commas in Documentation patch
+- Link to v1: https://patch.msgid.link/20260802-fix-p2p-acs-v1-0-a7c5eb64fff6@nvidia.com
+
+---
+Leon Romanovsky (19):
+      PCI/P2PDMA: Document the TLP attribute assumptions
+      PCI/P2PDMA: Derive routing from directional ACS controls
+      PCI: Reject unreadable ACS controls in isolation checks
+      PCI/P2PDMA: Evaluate ACS controls at the path divergence
+      PCI/P2PDMA: Document directional ACS routing
+      PCI/P2PDMA: Collect the path's ACS controls before deciding
+      PCI/P2PDMA: Answer routing per TLP class
+      PCI/P2PDMA: Route Relaxed Ordering Completions directly
+      PCI/P2PDMA: Reject Translated Requests blocked by Translation Blocking
+      PCI/P2PDMA: Route Translated Requests under Direct Translated P2P
+      PCI/P2PDMA: Log detailed ACS routing diagnostics
+      PCI/P2PDMA: Add KUnit tests for the ACS routing decisions
+      PCI/P2PDMA: Test the ACS P2P routing walk
+      PCI: Add KUnit coverage for ACS isolation checks
+      PCI/P2PDMA: Document TLP-class routing
+      dma-buf: Let importers ask how peer-to-peer traffic is routed
+      vfio/pci: Hand out the P2PDMA provider behind a dma-buf
+      RDMA/uverbs: Hand out the P2PDMA provider behind a dma-buf
+      RDMA/mlx5: Ask P2PDMA whether ATS takes a direct peer-to-peer route
+
+ Documentation/admin-guide/kernel-parameters.txt   |  15 +-
+ Documentation/driver-api/pci/p2pdma.rst           |  71 +++
+ drivers/dma-buf/dma-buf-mapping.c                 |  39 ++
+ drivers/infiniband/core/uverbs_std_types_dmabuf.c |  12 +
+ drivers/infiniband/hw/mlx5/mlx5_ib.h              |  36 +-
+ drivers/infiniband/hw/mlx5/mr.c                   |  47 ++
+ drivers/pci/Kconfig                               |  15 +
+ drivers/pci/Makefile                              |   1 +
+ drivers/pci/p2pdma.c                              | 630 +++++++++++++++---
+ drivers/pci/pci.c                                 |   7 +-
+ drivers/pci/pci.h                                 |  26 +
+ drivers/pci/pci_acs_test.c                        | 737 ++++++++++++++++++++++
+ drivers/pci/quirks.c                              |   6 +-
+ drivers/vfio/pci/vfio_pci_dmabuf.c                |  12 +
+ include/linux/dma-buf-mapping.h                   |   3 +
+ include/linux/dma-buf.h                           |  19 +
+ include/linux/pci-p2pdma.h                        |  57 +-
+ 17 files changed, 1611 insertions(+), 122 deletions(-)
+---
+base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
+change-id: 20260821-fix-p2p-acs-v4-0-e72455e3a261
+prerequisite-message-id: <20260830-batch-p2p-fixes-v1-0-5044e8dfbe2e@nvidia.com>
+prerequisite-patch-id: 6b25c7fcf164cdfc14e9fac5b908d97fcf6509d7
+prerequisite-patch-id: 0d083c281001365aae4b35544cf28891a6ab9a96
+prerequisite-patch-id: bfd9dabf271f3cc9a3a61f46387d20c20311363d
+prerequisite-patch-id: fad0275efc722830fc591509506c0a5e4f581073
+prerequisite-patch-id: 0c83bee688fec1f6d1564654df7c630fa6a4a978
+
+Best regards,
+--  
+Leon Romanovsky <leonro@nvidia.com>
 
