@@ -1,90 +1,67 @@
-Received: from mta1.migadu.com (out-174.mta1.migadu.com [95.215.58.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD6893CB56F
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 09:25:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C4F03932D5;
+	Sun, 20 Sep 2026 09:25:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789896311; cv=none; b=G3ynuII4d2N0e0GMddj4PjIole3cHJoM7jsdb69gsGH7PcHs0Gxs+zNvdwey1mf8x9sIk3zz3KXY5WvC0enAf5oDqVylkQVLLCjLA2Fq2hFmAd2IyfeF+GSGwM1ygT/qOE31PuTHrdrHJvRarc8SckDIwIJDXYkgSURGJJkd0zI=
+	t=1789896318; cv=none; b=N4UoKGOzcqVaCDZgMq9GEKZZ6qamOzXkc511z+4AngljhAy5dervnslUTfc+O+dtPXc8QrtvzphRsk7ItUGYtpeI3gnF66LT5CNw0XBGZrk4iZAiGPXLe9lhPzRDhNzjQjIzEl/8nzT8GrLb+GZH7YL8mVv5JpKigRqElp7wCUI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789896311; c=relaxed/simple;
-	bh=lz0EA6hiUS0KAC3VMk3a5ISVPj1hxirPpP5jDVlLUfc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SPY19uCZslE2PTGxf3LLFIzU1+wRoEIRIzikNPIjSd5UpMHaACgSDK5E1gFz1IRc59v1qJnsu0rpkL3Zw5TauhK4y9v42pfY7Ke69+D/98/pJyf4pLaVLXOQg9cqfefAZApn8qmQKZptz4PyyhvEYe+goycMgQFEv+kdVo5y56I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Sw7M0/6M; arc=none smtp.client-ip=95.215.58.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789896318; c=relaxed/simple;
+	bh=jj39UGmFAP1ATY1sjzFqXoZoMqUaZdi5Tqpaf1UuAX8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=L9RPAFsw6usCQctpBZ/SktSAOKTRLw8GFStdyRgLiMyFXqnmjcOTl+p7a4iek8Vgxd9bwU4nmEkfK7mVfMjdaQW8xnB0lr0zO3/rCUVx1QTOg/h9CYiPVWY1V0Kg3ZthO7/c1aAGV/Zok4orvug9kXKUPpk7j+SrnuHylBTQiF0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uk8bFvoy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Sw7M0/6M"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=lz0EA6hiUS0KAC3VMk3a5ISVPj1hxirPpP5jDVlLUfc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789896307; v=1; x=1790501107;
- b=Sw7M0/6MkSKUbYnLIgji/kGC3H/+/99YpDkhjSv9EGtkXNjTCwCfphbbVuwfESM9hbWDjkp0
- IMticiHt+r0AB4PqF6hVOzVD8exjoj0y9cdwWLjQupLPsUqNAGvwsiQgvQVt5nn2msdqj2Wz2cb
- EC9lcXtF8K2Kyqc6kYspy3fw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b3f5433f35c01e28;
-	Sun, 20 Sep 2026 09:25:05 +0000
-X-Mizu-Trace-ID: b3f5433f35c01e28
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <9895e60c-6a3c-40c8-b188-51891ee6b216@linux.dev>
-Date: Sun, 20 Sep 2026 17:24:58 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uk8bFvoy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D9531F000FF;
+	Sun, 20 Sep 2026 09:25:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789896317;
+	bh=GUbaYNCOK/O2eUbWGPCXeD5NpWqv2DKIKRLqPhJXrTI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Uk8bFvoyKicjnKjJHGS2jiEwQtSpIkKs5qZl3DygCvAiP/sit6gB4xCbjKvow+O8u
+	 nsYQcsdvpdlakNDV5xW1Tt9EFGxuESJgz3y4K1kSOmZNTkfrWjooZkAHsy/6Ks9ar1
+	 FwtQobr1wul4EZUVYaSzWom+NpofgAkwFNXHlbpspHnmu73ltiLtIfa8wmLoRidZjt
+	 m0HqadHn/5bWOxRZjPLo0Lw5wvsu/btC56FnBirRbodDEVEgvJBnqtA1cjBbX48HtM
+	 wSJJjP4kQPaoJBoXdfn5e2ql7WRuwprpSoTbFQBGhy8j1X1x6ZlwOhQc/ZqMoeLG7B
+	 z1g7UKGjnSzxQ==
+Date: Sun, 20 Sep 2026 10:25:12 +0100
+From: Simon Horman <horms@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, linux-kernel@vger.kernel.org, mchan@broadcom.com,
+	netdev@vger.kernel.org, pabeni@redhat.com,
+	pavan.chebbi@broadcom.com, stable@vger.kernel.org
+Subject: Re: [PATCH] tg3: Fix peer device double put in tg3_find_peer()
+Message-ID: <20260920092512.GA13925@horms.kernel.org>
+References: <20260917105104.2147646-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] arm64: use generic MMIO accessors
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Linux-Arch <linux-arch@vger.kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Anshuman Khandual <anshuman.khandual@arm.com>,
- Vikram Sethi <vsethi@nvidia.com>, Mike Rapoport <rppt@kernel.org>,
- Shanker Donthineni <sdonthineni@nvidia.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260920014357.7069-1-qingfang.deng@linux.dev>
- <20260920014357.7069-3-qingfang.deng@linux.dev>
- <5847c824-8d69-4d02-af2f-896bf47f0732@app.fastmail.com>
-From: Qingfang Deng <qingfang.deng@linux.dev>
-In-Reply-To: <5847c824-8d69-4d02-af2f-896bf47f0732@app.fastmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917105104.2147646-1-vulab@iscas.ac.cn>
+
+On Thu, Sep 17, 2026 at 10:51:04AM +0000, Wentao Liang wrote:
+> pci_get_slot() returns a device with its reference count incremented.
+> When the loop ends on tp->pdev (which happens when the adapter sits at
+> PCI function 7 and no other function is present) that reference has
+> already been dropped inside the loop, but the trailing pci_dev_put()
+> drops it a second time, underflowing the refcount of tp->pdev.
+> 
+> Treat a loop end on tp->pdev as single-port mode, just like the
+> existing !peer case.
+> 
+> Fixes: 16fe9d74f14e ("[TG3]: Fix 5704 single-port mode")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
 Hi,
 
-On 2026/9/20 16:08, Arnd Bergmann wrote:
-> On Sun, Sep 20, 2026, at 03:43, Qingfang Deng wrote:
->> Use the generic raw write accessors in place of the inline assembly
->> stores. Include asm-generic/mmio.h after the arm64 ordering hooks so
->> these accessors are also available to the write-combining helpers
->> before asm-generic/io.h is included.
->>
->> Retain the raw read overrides when either the Cortex-A57 erratum 832075
->> or NVIDIA Olympus erratum 1027 workaround is configured. This preserves
->> the alternative-patched load-acquire instructions and pre-load barriers.
->> Use generic raw reads when neither workaround is enabled.
->>
->> Assisted-by: Codex:gpt-6-astra
->> Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
-> Sorry, this is no good, we need the compiler to issue the exact
-> instructions from the inline asm here, both in order to guarantee
-> these can be virtualized, and to prevent it from splitting up
-> larger register accesses into byte load/store on unaligned pointers.
-
-You're right about virtualization: an AArch64 compiler can generate 
-writeback addressing loads/stores, which KVM's MMIO handler does not 
-support.
-
-Regarding unaligned accesses, the splitting can only happen when the 
-address is known to be unaligned at compile-time. Do these accessors 
-need to support unaligned MMIO? If so, I could add 
-OPTIMIZER_HIDE_VAR(addr) to the generic accessors.
-
-Best regards,
-Qingfang
-
+I agree with your analysis of the logic.
+But I wonder if it can occur in practice:
+can such a device actually be presented to the Kernel?
