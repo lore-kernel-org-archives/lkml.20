@@ -1,48 +1,39 @@
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.7])
+Received: from out28-1.mail.aliyun.com (out28-1.mail.aliyun.com [115.124.28.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A006136351;
-	Sun, 20 Sep 2026 01:58:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 904A12BE034;
+	Sun, 20 Sep 2026 01:59:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789869491; cv=none; b=cNqzL55TXEP4IVmb5XFMBVu0ebs9nx4qLQYSYYtUHk7jNJopRF2zXXb3BLXiynFwuyULIv5JDc43WxYSedtUQYmpNQ2G5X1pR7W/qiFetRZqRmseSAZNz2J8NnpuljD9aGICtxLdtxYsXnbFPwZwRdHnJCJr0+T2L01ClpoVLCQ=
+	t=1789869576; cv=none; b=rh16uRXPrepYfzr+KWLGA21xfXxxCCbizadzkoiohvTtDOCY4RnT/nitmhWtzBsH3Qpvlrph8tj6mRmaCS0WDczuwODoM+91fE9n4TEpex/y87t4qrIB29zV1zDHLML6XTgz5O0OMk6F97Wta+SGbCUpEHAKrXdDndadjn2QgAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789869491; c=relaxed/simple;
-	bh=RynWf+ycvz/614Z6i1qDdDyF+cF+xX0O8F9MXIoYKfg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JbasvG7Xdw2gbnp0yLrGdCoiru/BW9+nb57LLDpCPWnW6T2N+t+zNXbsCE03xtDJ4jiOJdEo9L4DwmQacyYHQJyWft//sa++KTxJbZrth0KIt5b5Y2xqhNh3PTvtTNS981pUJ3akucrARgkvseQjRDcVoV2kh+Jyhv4YqFn5++Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=nftXmSBU; arc=none smtp.client-ip=220.197.31.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	s=arc-20240116; t=1789869576; c=relaxed/simple;
+	bh=NicB8UjZ7AhDGYBH43QmJsxIWbyfXeYVZKDgG/p1crQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bDiB0RMtLcvfxtJG8R1CcJ1TK7IU43QkaA8dmMHPQOD5ghzJWt8lqH+lqqOsCMwkfu/xzY2QNywCggRy21vgoS6VfnyCYeDeDzsKxjDS5Eg5AM2Zx8lVp6AETf8ziflBvcC4CJRf/N2cjTBQ7dL2X4bWtu+5o7xH/EXJeSrDOPI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=lpuZDrPj; arc=none smtp.client-ip=115.124.28.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="nftXmSBU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=+v
-	6Ogc6DkBmfW9b1qTeS9HFa7GSrGEaaQ+ja18fLYqY=; b=nftXmSBUbsQJP8qUu0
-	oq37b/Dpis8u4uo2xudKpK4XhffAim0/Kk3uY9a1xP1wpKsuoX1a/tAdoTzO1tdm
-	zP9R31lLUdT5VifsnozTqp8dX1RZvejJlFkvawQQ4CW+opB5SS9KRfh6UT+f2cIy
-	kNO3TNNMJfv5SIy9wVz4GpZuI=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCkvCgD3P_5hPa9qPX6OAA--.56399S2;
-	Sun, 20 Sep 2026 09:56:50 +0800 (CST)
-From: Linkui Xiao <xiaolinkui@126.com>
-To: maxime.chevallier@bootlin.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com
-Cc: netdev@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="lpuZDrPj"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1789869565; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=vpMbT8vuLVxppBLB/RyFsClpUUZNW5nPrPiRCsBnCvc=;
+	b=lpuZDrPjIUimmNJglBhIyZj4oemUbJj/uuisoQ8Tq+J/8Ivb0hbGqp6LVvh7JVw8mqxxeNI+oTh3tHcBex7jvhKGe6ZaMplL4TGBFyo8BpqTtx9oUrB7ivE08owfMzArxVwW6AiSd4B9Aa4cusI7O4jW/r47Qv0Hw4A/ZnJIuN4=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436846|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0311594-0.000396556-0.968444;FP=16490625187164439698|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037022039;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.jHmgDtb_1789869564;
+Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jHmgDtb_1789869564 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Sun, 20 Sep 2026 09:59:24 +0800
+From: Guo Zihao <guozh23@xiaopeng.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Linkui Xiao <xiaolinkui@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] net: stmmac: ethtool: validate TX coalesce before reprogramming RX
-Date: Sun, 20 Sep 2026 09:56:47 +0800
-Message-Id: <20260920015647.1783574-1-xiaolinkui@126.com>
-X-Mailer: git-send-email 2.25.1
+	Liu Chao <liuc63@xiaopeng.com>
+Subject: [PATCH v2] media: cobalt: bound the dv timings to the descriptor buffers
+Date: Sun, 20 Sep 2026 09:59:23 +0800
+Message-ID: <20260920015924.750499-1-guozh23@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,79 +41,94 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCkvCgD3P_5hPa9qPX6OAA--.56399S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGF4xXrW7XFW8uF1rtrWrZrb_yoW5GF4Dp3
-	yrGFZavryDtr43Jw1kJw48WFy5t397tFZxXw18Jasa9F4rGFWYqr1aqryrWFnFkrWxZrW3
-	Kr4qv39rua98A3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UYzuZUUUUU=
-X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlALtxGqvPWKglAAA3R
 
-From: Linkui Xiao <xiaolinkui@kylinos.cn>
+The DMA descriptor buffers are sized from the maximum frame the driver
+supports:
 
-__stmmac_set_coalesce() applies the RX part of the request first and
-only afterwards checks the TX parameters. The RX path already calls
-stmmac_rx_watchdog() and stores rx_riwt[] and rx_coal_frames[], so when
-the TX check rejects the request the driver returns -EINVAL after having
-silently changed the hardware. A following ethtool -c then reports the
-new RX values even though the command failed.
+        const size_t max_pages_per_line =
+                (COBALT_MAX_WIDTH * COBALT_MAX_BPP) / PAGE_SIZE + 2;
+        const size_t bytes =
+                COBALT_MAX_HEIGHT * max_pages_per_line * 0x20;
 
-This became easy to hit once the per-queue interface was added.
-__stmmac_get_coalesce() reports tx-usecs and tx-frames as 0 for a queue
-index that is RX-only, and ethtool applies per-queue coalesce by reading
-the current values first and sending them straight back. The next set is
-therefore guaranteed to trip the test for both TX fields being zero,
-right after the RX watchdog has been reprogrammed.
+With COBALT_MAX_WIDTH 1920, COBALT_MAX_HEIGHT 1200 and COBALT_MAX_BPP 3
+that is 115200 bytes, or 3600 descriptors of 0x20 bytes each.
 
-Move both TX checks in front of the RX block so a request is either
-applied completely or rejected without touching the device.
+cobalt_s_dv_timings() however records whatever the subdevice accepts
+without checking it against those maxima:
 
-Fixes: db2f2842e6f5 ("net: stmmac: add per-queue TX & RX coalesce ethtool support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
+        err = v4l2_subdev_call(s->sd, pad, s_dv_timings, 0, timings);
+        if (!err) {
+                s->timings = *timings;
+                s->width = timings->bt.width;
+                s->height = timings->bt.height;
+                s->stride = timings->bt.width * s->bpp;
+        }
+
+descriptor_list_create() in cobalt-omnitek.c then walks the whole frame
+and writes one descriptor per scatterlist segment, with no upper bound of
+its own. An HDMI source at 4096x2160 with bpp 3 gives stride 12288 and
+size 26542080, which needs far more than the 3600 descriptors the buffer
+holds, so d[] walks off the end of the coherent allocation.
+
+cobalt_try_fmt_vid_cap() and cobalt_try_fmt_vid_out() already cap width
+and height at 1920x1080, and this patch adds the same bound for the
+timings path plus a stride limit on the pixelformat path.
+
+No Fixes tag. The descriptor sizing and s_dv_timings() both come from the
+initial driver, 85756a069c55 ("[media] cobalt: add new driver").
+
+Reviewed-by: Liu Chao <liuc63@xiaopeng.com>
+Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
 ---
-v2:
-- Trim the comment in front of the TX checks to one line; the reasoning
-  belongs in the changelog. (Andrew Lunn)
+v2: declare the local struct cobalt pointer in cobalt_s_dv_timings().
+    The cobalt_info() macro expands to v4l2_info(&cobalt->v4l2_dev, ...),
+    so the function needs a variable of that name, which the previous
+    version was missing. Found by the kernel test robot.
 
- .../ethernet/stmicro/stmmac/stmmac_ethtool.c   | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
+ drivers/media/pci/cobalt/cobalt-v4l2.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-index 154cc0c7623d..e06d05c3b4c7 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-@@ -850,6 +850,16 @@ static int __stmmac_set_coalesce(struct net_device *dev,
- 	else if (queue >= max_cnt)
- 		return -EINVAL;
+diff --git a/drivers/media/pci/cobalt/cobalt-v4l2.c b/drivers/media/pci/cobalt/cobalt-v4l2.c
+index 51fd9576c..8ffee8ed6 100644
+--- a/drivers/media/pci/cobalt/cobalt-v4l2.c
++++ b/drivers/media/pci/cobalt/cobalt-v4l2.c
+@@ -617,6 +617,7 @@ static int cobalt_s_dv_timings(struct file *file, void *priv,
+ 				    struct v4l2_dv_timings *timings)
+ {
+ 	struct cobalt_stream *s = video_drvdata(file);
++	struct cobalt *cobalt = s->cobalt;
+ 	int err;
  
-+	/* Check TX parameters before applying any RX setting */
-+
-+	if (ec->tx_coalesce_usecs == 0 &&
-+	    ec->tx_max_coalesced_frames == 0)
-+		return -EINVAL;
-+
-+	if (ec->tx_coalesce_usecs > STMMAC_MAX_COAL_TX_TICK ||
-+	    ec->tx_max_coalesced_frames > STMMAC_TX_MAX_FRAMES)
-+		return -EINVAL;
-+
- 	if (priv->use_riwt) {
- 		rx_riwt = stmmac_usec2riwt(ec->rx_coalesce_usecs, priv);
+ 	if (s->input == 1) {
+@@ -630,6 +631,13 @@ static int cobalt_s_dv_timings(struct file *file, void *priv,
+ 	if (vb2_is_busy(&s->q))
+ 		return -EBUSY;
  
-@@ -875,14 +885,6 @@ static int __stmmac_set_coalesce(struct net_device *dev,
- 		}
++	if (timings->bt.width > COBALT_MAX_WIDTH ||
++	    timings->bt.height > COBALT_MAX_HEIGHT) {
++		cobalt_info("timings %ux%u out of range\n",
++			    timings->bt.width, timings->bt.height);
++		return -EINVAL;
++	}
++
+ 	err = v4l2_subdev_call(s->sd,
+ 			pad, s_dv_timings, 0, timings);
+ 	if (!err) {
+@@ -781,6 +789,14 @@ static int cobalt_try_fmt_vid_cap(struct file *file, void *priv,
+ 		break;
  	}
  
--	if ((ec->tx_coalesce_usecs == 0) &&
--	    (ec->tx_max_coalesced_frames == 0))
--		return -EINVAL;
--
--	if ((ec->tx_coalesce_usecs > STMMAC_MAX_COAL_TX_TICK) ||
--	    (ec->tx_max_coalesced_frames > STMMAC_TX_MAX_FRAMES))
--		return -EINVAL;
--
- 	if (all_queues) {
- 		int i;
++	/*
++	 * The DMA descriptor buffers are sized for at most
++	 * COBALT_MAX_WIDTH x COBALT_MAX_HEIGHT, so limit the line stride
++	 * accordingly.
++	 */
++	if (pix->bytesperline > COBALT_MAX_WIDTH * COBALT_MAX_BPP)
++		pix->bytesperline = COBALT_MAX_WIDTH * COBALT_MAX_BPP;
++
+ 	pix->sizeimage = pix->bytesperline * pix->height;
+ 	pix->field = V4L2_FIELD_NONE;
  
 -- 
-2.25.1
+2.50.1
 
