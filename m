@@ -1,446 +1,146 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA3BF472531
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 18:30:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789929022; cv=none; b=BdtEMBj5eznCxsMsVW+GwL8I5BbXwD3Le4u800rOi0mozcg3sif62GdXY/zSEhbUpV/gpxTKY9LPMkjRfZDSm6vNmBRUTSrvNXpJBGzA2lNFCklQrNQEgfUKGLI1oQnMiQyYVZmg/V1y/pRjl+01dWNDvQ4tJ0cB+2hPPe/+KJs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789929022; c=relaxed/simple;
-	bh=A6iYgIlcaX5RIGEv5Q40/b2/HIHglvq8j8qJxL7H+l0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nh5rDkuhx4I9ee7WVKJexbWhEFzIfwffwkz569dXGkLA2HmRxmHwyIiaTUu8FwkF9QvprXk/A2CId/8IK1eiq/aejJXckGtCTypB62cfB3OuPQ9P1vh6o7vGk5s6TQT+ZQEkC8e7Vr1Wr+wNAWVoQa52D48E0T1Jd1wtCjhViFs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=U7KKEXwL; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6977147209C
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 18:30:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.205
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789929029; cv=pass; b=lClZx55hlE+K3tbKU+XM1pLP9Ut8YFQzLHSZba2Hl+jKBZEIcft+vzqBsMN0JgEhNqrFFspoHvtajqUmr8/ukeCw4CnoZDq/cCbL7UZJNjP6/rH+IzW8pHHLweeaz6Ze0UEZvhJUZALk5ufBlUXoGHQH4HOX2CEMossMr2BCjZs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789929029; c=relaxed/simple;
+	bh=FKCEyfg1kyoQKkvyPDSZQB8QNOiucdD/LjiJ9D/YVh0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=uGEGZa6BC5bJtHMsLKpJxA96QMmHSkBg9G/Xj0knIOE8fXqJlaX2guoBo3Trm/OS8W8g+dpk64BhXPOiAIOOkZWp/1NmbBIyn1sDGBzDVJ6wmumqF9OnwiXB8GfxFeTU0iJ+4XLn0TABrs836XvvOKjIu9ldWKXedqqRuuWw2h8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YaG3cl7N; arc=pass smtp.client-ip=74.125.230.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="U7KKEXwL"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398beb616f5so978449a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 11:30:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YaG3cl7N"
+Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-52fb766bfd3so18546691cf.0
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 11:30:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789929025; cv=none;
+        d=google.com; s=arc-20260327;
+        b=U7Bn1MyOBOXV7gPai9mU2YagcaLK5bLTAcFoHcFwt0PxC2rIOdmnZr3uf62smEDns/
+         gUjylOHAed1ub+6ABR/cb0gat4gySyMXqxKW6OQ1thH7Ja+8e/NrsX44pk8VaH687Nf4
+         hIGLVXboaBL1g86DJTYLQKHBHuxC5UVVVxu29ftcbPWLMpXS2bm58fHiqIZZfCEmzK1w
+         77YbpNOChcDePGKKLe4FJ4CQ3Bg39QHqcDt3toFPRApa1/iZ/UF41EJdMFjmHTUX3PRz
+         LjheGvPgddr/wTQTxCcTXzLL+XB/JFB3et+V+IpGUXlplUF00W0CHyb1Mvx77rZiEsDW
+         CsgQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=FKCEyfg1kyoQKkvyPDSZQB8QNOiucdD/LjiJ9D/YVh0=;
+        fh=tidz5qvisWQpY4mYa2MEhE+S9eKBJZxqtdpM5tobHSM=;
+        b=b5ZdkFD/ps0idMCgWPsKkTwkjE81gYixC+L4d8nlTt7yowox4OANbVyUhBMIQ+kcLK
+         YNs2JhUfuwd64UU+vxsy+6rtmw4Q9w5t/HqvWHEc04rMbqQ2Bw39rinPlWrVZrYIjxyk
+         GL1jd+BINzHM34hJqdDcLk5eol5fRsnkIOlFb3/J+u9g0UreE0fvWPcHtuK4c1Vd8Rzy
+         qS3jz084g14u5Dlb5q5csTaVkZZgJsGQsS7cA5N/tdrVnMpArkPqBgyX/SLJorGWT5n8
+         eWP6OWh4MZ+/8b1n4Q+J0p9f6t/HrAhdyatwXadPy2gBtr80XWwDlen4lYlXjjguD36b
+         i86w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1789929020; x=1790533820; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ax76daz0K/pDtfH+NZe4NT0sGw0WCKRLANYGH5AA2/Q=;
-        b=U7KKEXwLvhYyxaD0TELbdJxDdlvxKab7Vkh9dodYAX9+Jk6iYv+Zq3/36sF5qU2W23
-         IkprgWxNK8IrxbkUECt/N2lHFQ13G+wGifwu26eDFb06QhelxSjgyOOUX8VMIYqrWdbb
-         l3UMHvq5X4q2/fY7C/VL5nOKYr09ybjSu+WSNzE0cRTkUEMbnWifq9v1zdDVJh5/WTLF
-         l9CepNr9XchaORxEhzZdpVDZrTEh94GnPBh7L52inZdggaRtE7ZIUVCNUmajmezBrmyD
-         JdpWJwAu5LfnlcAkRzwVZz0yNVMBtaHSsrlY+xyyf5Av9ibzfjBH6fWyMeJUvymAAjbV
-         Bo9A==
+        d=gmail.com; s=20251104; t=1789929025; x=1790533825; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FKCEyfg1kyoQKkvyPDSZQB8QNOiucdD/LjiJ9D/YVh0=;
+        b=YaG3cl7NQlOX5sEaIeBdGcdl7kRSlNCc7iLPPzx9giKTTzeDDzAHyLiFHveLy3ILw4
+         DCfxuXs+e2OPW5eYcqV+3Z9dbmmaM8r4EvbyGkdyzdFQuHdruHl9mUZO1a0OhMxfGaZW
+         Hcfq1FDpV2GS4Ada57FVhhwVBL2BXrS5hYGhRTlzzdtFlZ03OCtBKJhimZKx9vMgKaKE
+         KUO+JtNxvIxcqvvGtUBrdAH39GxjqSxwUjWzEbqYe7TYhSpTD2UNuLFx+VvTkj0lG4jt
+         eu30SjOi/ojUee7DWonlvdPfz3IXixkMZkZh5aF9vyXmLJ8vacPdUp3Qv/B5cJy7AW7y
+         4c4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789929020; x=1790533820;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ax76daz0K/pDtfH+NZe4NT0sGw0WCKRLANYGH5AA2/Q=;
-        b=GgiuqdLS0jsqcYPPW/pgWzqei+im9VLdU7M/D0/7Ek0n5CJhKcQ0gZr4PlRo00fhiz
-         uoyyjYg9cCn41FWoYnfizlseVzeV8Djt7DbJyWEGFkXBJ64Rs2HvK/e5OBHtfwgGKaS4
-         pigLDfD8Ihy+dh+BK2DJlEvBrBbBMPuGKZDdSFGL4hiWAohbFdNUD/qGNw9JewC3rnm6
-         q8z/u5HGyqvP3Kzr5qTjcFSnPvAwJDMrAIZlqCNm6PPW4VGeUmhFqcGy2ATWzfdVKle2
-         /bbanIRVlfBD9UPTKgQvQKOAu9KGoYIfSUmi0rr56BaLciZVSk1TLmifTgIwuJmzCdsd
-         v2iQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwGTEnj8SG44v4BrrYpAs6ZS00AahJX/7dsKOQ+vHQER+ngzycf057v068+dF1w2rfRk6FAg19es80Pv/I=@vger.kernel.org
-X-Gm-Message-State: AFuF++nfIA00xOJS2XDxIFa5F7lX4zA2XeJhtwMeLMbgVQHXa+So3rpz
-	UPIFEa9n0yrEA4Ew1Ci89/VPoih8IaSGGkPe9Bv13+t5RJVfU84R2Wuzfw+oDb8qEOE=
-X-Gm-Gg: AYBFou0nOWT2Jz8ko3BTszupUR6f6dmpUhfr9BsAoENJHG4aMFK8SnrmzF7zYYA9LqB
-	DrR2Wqq6S1hGcQyL4Ecs6o+jZBwbjkideJNIqsn/as97/I2QwtLe1UXuXbVEW1KZwj1gIPPG0cx
-	ODWeoFqQjwJaRgE9Mf5f/IhsaWOSU91KufXjT+ptA6xEtKvMBNEGMR0WlMM8pNP4GueaZiaOTEX
-	loKkfDArRmeEbdoRd/8nw9tfn0bf5q19NLlG1mxaO0GsgrIaGbCTaMYsBeEPZ7eQShBQmtI5k1f
-	F2CXY/uzn+d5EX9xSpqvuYvVj6Y0oouvFGtVKU39KJ7v7mHc69fYqsGDUlpBlH3yZL6LQkU/W6K
-	aM4W5N3n61rfqFWPvqFI7kXms2IF9+zQRwAmHWbAvE49v9PWjKZXPpDnaiD+2Ff2zbVkgEGjfjA
-	K6a9DjagkIdd8VDWZX7I7j+cY2X2z4/7ACQ6p9IDMXE9bFItzkbXhuxPoX
-X-Received: by 2002:a17:90b:51c1:b0:39e:6c68:fd92 with SMTP id 98e67ed59e1d1-39e6c68fee8mr4979263a91.39.1789929019742;
-        Sun, 20 Sep 2026 11:30:19 -0700 (PDT)
-Received: from ceto ([2607:fb90:9c20:5ac0::1d8c])
-        by smtp.googlemail.com with ESMTPSA id a92af1059eb24-144da432647sm20924589c88.5.2026.09.20.11.30.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 11:30:19 -0700 (PDT)
-From: Mohamed Khalfella <mkhalfella@purestorage.com>
-To: Keith Busch <kbusch@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>
-Cc: Justin Tee <justin.tee@broadcom.com>,
-	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
-	Paul Ely <paul.ely@broadcom.com>,
-	Hannes Reinecke <hare@kernel.org>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	James Smart <jsmart833426@gmail.com>,
-	Randy Jennings <randyj@purestorage.com>,
-	Mohamed Khalfella <mkhalfella@purestorage.com>,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Hannes Reinecke <hare@suse.de>
-Subject: [PATCH v6 03/18] nvmet: Implement CCR nvme command
-Date: Sun, 20 Sep 2026 11:28:01 -0700
-Message-ID: <20260920182936.2317916-4-mkhalfella@purestorage.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260920182936.2317916-1-mkhalfella@purestorage.com>
-References: <20260920182936.2317916-1-mkhalfella@purestorage.com>
+        d=1e100.net; s=20260707; t=1789929025; x=1790533825;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=FKCEyfg1kyoQKkvyPDSZQB8QNOiucdD/LjiJ9D/YVh0=;
+        b=ZBIWlZug2vvUi3RiuZMC0fhn0Y1ub3YHsFupN9rNriMTmJhjXkwkmXb5u2AxRTSbgG
+         ZD6ZHEVEGGP2BG035s+BU4L0OZxATQx1O2uE2nv0b69Hy32Yo6EJaCX6XYIx1DwmqYBH
+         s5jxY9X8Ph0xl1qXrbqp5BiJB7V3jbtgC3oQRj31jCETfVeuEw29Fay3AwyxawAjmZjX
+         mmwoUFXfhSZA0nl7S1AAAALYhtFBZskzfl1uvdVvv//tfphHcbMrdyh4DqA0mRN/IJl9
+         nDUM1dO533e2LAhhKzBfJHnAguZgVYXcS8fUu1PHlLHcnf1pgAlUyCvpUtqn8obNIQJH
+         0psw==
+X-Forwarded-Encrypted: i=1; AKwUvByyrVtM9BRv2BONHh05py9UQN+q64iiYrBcdyT+DP+Up0NW4qsVfUu7I028Axtxf8n1Q4lRD3DUQ5QvCCY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mOMcSl6jWVerq1mdLCOLLs6EXrvgXVtAFzw24PqMjEN82aiO+Y
+	qDAzHv95Kpr4eCevTQVx2eCIuKwbHH8bO9EtNE+XcvTCpgaLYBooiw4LloM222RIYJFSyvKiy/8
+	HmmjexzxMnbbo1eTmPWlmfWeHH8FLPKw=
+X-Gm-Gg: AYBFou2uMBWYeyYSsI6yTdASyjZZHatsqhT3wRWs3/CIvom52clbhKMuvwgvGijTy55
+	v5KqFpwIV6qa3zXYB4vcke99AXanEBU/fdK8ihlhhcQXMARutTr7wjLjvk1qRploqSuQ6CoJnSc
+	dv/z+o1xUQLzNTXFE1389JGnwqINFAKumkzQwoBkyYwZCjJnplrFXFLF7wLnlWaGJwF8+5lAYlC
+	ZPE6CneXOMJM/JqMg/EspSI0USIIN2SE9j4kkehSCUKapg35W9836AkRrXvYNLO1Pi7MPUXICrQ
+	wbSnbkJP+3JlW5Au0bO9cMrh8H6emA507kamYcckzdgGdPkcTRgGnOBJMvZORStMihpCF0646aR
+	9Yhb0I+wGPIx8
+X-Received: by 2002:a05:622a:5a1a:b0:532:acb9:5953 with SMTP id
+ d75a77b69052e-532b7343d9dmr67177321cf.31.1789929025258; Sun, 20 Sep 2026
+ 11:30:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260920094058.9664-1-palaomer100@gmail.com> <2026092039-greedily-jailer-80e5@gregkh>
+ <DLK2TDB5QIUL.1X53SKJTROLDK@gmail.com> <ea6cf31e-0acd-4248-9359-5864bf8f6f94@kernel.org>
+ <b33efa2e-75e3-4163-ba1f-712227b438f8@kernel.org>
+In-Reply-To: <b33efa2e-75e3-4163-ba1f-712227b438f8@kernel.org>
+From: =?UTF-8?Q?=C3=96mer_PALA?= <palaomer100@gmail.com>
+Date: Sun, 20 Sep 2026 21:29:50 +0300
+X-Gm-Features: AcwNN1VyBiPlzPcXjoGv8BVs7qS-DsxYSqZXrQgC6ZmVEyZokGmq-0S-p4wn5dU
+Message-ID: <CAKhZXnrnMvZTUiUwtconm+rr3OBy4fpvDcvgxhToVkNED6QH2w@mail.gmail.com>
+Subject: Re: [PATCH] staging: greybus: change mutexes to guard macros
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Vaibhav Hiremath <hvaibhav.linux@gmail.com>, 
+	Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, 
+	Vaibhav Agarwal <vaibhav.sr@gmail.com>, Mark Greer <mgreer@animalcreek.com>, 
+	Viresh Kumar <vireshk@kernel.org>, Rui Miguel Silva <rmfrfs@gmail.com>, 
+	"Bryan O'Donoghue" <pure.logic@nexus-software.ie>, David Lin <dtwlin@gmail.com>, 
+	"moderated list:GREYBUS SUBSYSTEM" <greybus-dev@lists.linaro.org>, 
+	"open list:STAGING SUBSYSTEM" <linux-staging@lists.linux.dev>, open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Defined by TP8028 Rapid Path Failure Recovery, CCR (Cross-Controller
-Reset) command is an nvme command issued to source controller by
-initiator to reset impacted controller. Implement CCR command for linux
-nvme target.
+Krzysztof Kozlowski <krzk@kernel.org> wrote:
+> ... and if you even asked your AI like I did now:
+> "how linux kernel developers look at LLM contributions from beginners?"
+> I got:
+>
+> "Linux kernel developers view unverified AI-generated code from
+> beginners with heavy skepticism and frustration due to a massive influx
+> of low-quality submissions that overwhelm maintainers."
+>
+>
+> "Rejection of AI "slop": "
+>
+> "Staging area bans: Certain high-traffic areas prone to beginner
+> contributions, such as the kernel's staging drivers (drivers/staging/),
+> have implemented strict policies forbidding LLM-generated patches ...."
+>
+> Yet you did exactly what should not be done - were using LLM.
+>
+> Best regards,
+> Krzysztof
 
-Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
-Reviewed-by: Hannes Reinecke <hare@suse.de>
-Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
----
- drivers/nvme/target/admin-cmd.c | 76 ++++++++++++++++++++++++++++++++
- drivers/nvme/target/core.c      | 78 +++++++++++++++++++++++++++++++++
- drivers/nvme/target/nvmet.h     | 13 ++++++
- include/linux/nvme.h            | 23 ++++++++++
- 4 files changed, 190 insertions(+)
+Hi Greg and Krzystof
 
-diff --git a/drivers/nvme/target/admin-cmd.c b/drivers/nvme/target/admin-cmd.c
-index bf7c5f5927e3..21538e7c83be 100644
---- a/drivers/nvme/target/admin-cmd.c
-+++ b/drivers/nvme/target/admin-cmd.c
-@@ -378,6 +378,7 @@ static void nvmet_get_cmd_effects_admin(struct nvmet_ctrl *ctrl,
- 	log->acs[nvme_admin_get_features] =
- 	log->acs[nvme_admin_async_event] =
- 	log->acs[nvme_admin_keep_alive] =
-+	log->acs[nvme_admin_cross_ctrl_reset] =
- 		cpu_to_le32(NVME_CMD_EFFECTS_CSUPP);
- }
- 
-@@ -1613,6 +1614,78 @@ void nvmet_execute_keep_alive(struct nvmet_req *req)
- 	nvmet_req_complete(req, status);
- }
- 
-+void nvmet_execute_cross_ctrl_reset(struct nvmet_req *req)
-+{
-+	struct nvmet_ctrl *ictrl, *sctrl = req->sq->ctrl;
-+	struct nvme_command *cmd = req->cmd;
-+	struct nvmet_ccr *ccr, *new_ccr;
-+	int ccr_active, ccr_total;
-+	u16 cntlid, status = NVME_SC_SUCCESS;
-+
-+	if (!nvmet_check_transfer_len(req, 0))
-+		return;
-+
-+	cntlid = le16_to_cpu(cmd->ccr.icid);
-+	if (sctrl->cntlid == cntlid) {
-+		req->error_loc =
-+			offsetof(struct nvme_cross_ctrl_reset_cmd, icid);
-+		status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
-+		goto out;
-+	}
-+
-+	/* Find and get impacted controller */
-+	ictrl = nvmet_ctrl_find_get_ccr(sctrl->subsys, sctrl->hostnqn,
-+					cmd->ccr.ciu, cntlid,
-+					le64_to_cpu(cmd->ccr.cirn));
-+	if (!ictrl) {
-+		/* Immediate Reset Successful */
-+		nvmet_set_result(req, 1);
-+		status = NVME_SC_SUCCESS;
-+		goto out;
-+	}
-+
-+	ccr_total = ccr_active = 0;
-+	mutex_lock(&sctrl->lock);
-+	list_for_each_entry(ccr, &sctrl->ccr_list, entry) {
-+		if (ccr->ctrl == ictrl) {
-+			status = NVME_SC_CCR_IN_PROGRESS | NVME_STATUS_DNR;
-+			goto out_unlock;
-+		}
-+
-+		ccr_total++;
-+		if (ccr->ctrl)
-+			ccr_active++;
-+	}
-+
-+	if (ccr_active >= NVMF_CCR_LIMIT) {
-+		status = NVME_SC_CCR_LIMIT_EXCEEDED;
-+		goto out_unlock;
-+	}
-+	if (ccr_total >= NVMF_CCR_PER_PAGE) {
-+		status = NVME_SC_CCR_LOGPAGE_FULL;
-+		goto out_unlock;
-+	}
-+
-+	new_ccr = kmalloc_obj(*new_ccr, GFP_KERNEL);
-+	if (!new_ccr) {
-+		status = NVME_SC_INTERNAL;
-+		goto out_unlock;
-+	}
-+
-+	new_ccr->ciu = cmd->ccr.ciu;
-+	new_ccr->icid = cntlid;
-+	new_ccr->ctrl = ictrl;
-+	list_add_tail(&new_ccr->entry, &sctrl->ccr_list);
-+
-+out_unlock:
-+	mutex_unlock(&sctrl->lock);
-+	if (status == NVME_SC_SUCCESS)
-+		nvmet_ctrl_fatal_error(ictrl);
-+	nvmet_ctrl_put(ictrl);
-+out:
-+	nvmet_req_complete(req, status);
-+}
-+
- u32 nvmet_admin_cmd_data_len(struct nvmet_req *req)
- {
- 	struct nvme_command *cmd = req->cmd;
-@@ -1690,6 +1763,9 @@ u16 nvmet_parse_admin_cmd(struct nvmet_req *req)
- 	case nvme_admin_keep_alive:
- 		req->execute = nvmet_execute_keep_alive;
- 		return 0;
-+	case nvme_admin_cross_ctrl_reset:
-+		req->execute = nvmet_execute_cross_ctrl_reset;
-+		return 0;
- 	default:
- 		return nvmet_report_invalid_opcode(req);
- 	}
-diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
-index 4c8f30c5ff7e..f5d7cb9c943a 100644
---- a/drivers/nvme/target/core.c
-+++ b/drivers/nvme/target/core.c
-@@ -117,6 +117,20 @@ u16 nvmet_zero_sgl(struct nvmet_req *req, off_t off, size_t len)
- 	return 0;
- }
- 
-+void nvmet_ctrl_cleanup_ccrs(struct nvmet_ctrl *ctrl, bool all)
-+{
-+	struct nvmet_ccr *ccr, *tmp;
-+
-+	lockdep_assert_held(&ctrl->lock);
-+
-+	list_for_each_entry_safe(ccr, tmp, &ctrl->ccr_list, entry) {
-+		if (all || ccr->ctrl == NULL) {
-+			list_del(&ccr->entry);
-+			kfree(ccr);
-+		}
-+	}
-+}
-+
- static u32 nvmet_max_nsid(struct nvmet_subsys *subsys)
- {
- 	struct nvmet_ns *cur;
-@@ -1415,6 +1429,7 @@ static void nvmet_start_ctrl(struct nvmet_ctrl *ctrl)
- 	if (!nvmet_is_disc_subsys(ctrl->subsys)) {
- 		ctrl->ciu = ((u8)(ctrl->ciu + 1)) ? : 1;
- 		ctrl->cirn = get_random_u64();
-+		nvmet_ctrl_cleanup_ccrs(ctrl, false);
- 	}
- 	ctrl->csts = NVME_CSTS_RDY;
- 
-@@ -1520,6 +1535,37 @@ struct nvmet_ctrl *nvmet_ctrl_find_get(const char *subsysnqn,
- 	return ctrl;
- }
- 
-+struct nvmet_ctrl *nvmet_ctrl_find_get_ccr(struct nvmet_subsys *subsys,
-+					   const char *hostnqn, u8 ciu,
-+					   u16 cntlid, u64 cirn)
-+{
-+	struct nvmet_ctrl *ctrl, *ictrl = NULL;
-+	bool found = false;
-+
-+	mutex_lock(&subsys->lock);
-+	list_for_each_entry(ctrl, &subsys->ctrls, subsys_entry) {
-+		if (ctrl->cntlid != cntlid)
-+			continue;
-+		if (strncmp(ctrl->hostnqn, hostnqn, NVMF_NQN_SIZE))
-+			continue;
-+
-+		/* Avoid racing with a controller that is becoming ready */
-+		mutex_lock(&ctrl->lock);
-+		if (ctrl->ciu == ciu && ctrl->cirn == cirn)
-+			found = true;
-+		mutex_unlock(&ctrl->lock);
-+
-+		if (found) {
-+			if (kref_get_unless_zero(&ctrl->ref))
-+				ictrl = ctrl;
-+			break;
-+		}
-+	}
-+	mutex_unlock(&subsys->lock);
-+
-+	return ictrl;
-+}
-+
- u16 nvmet_check_ctrl_status(struct nvmet_req *req)
- {
- 	if (unlikely(!(req->sq->ctrl->cc & NVME_CC_ENABLE))) {
-@@ -1645,6 +1691,7 @@ struct nvmet_ctrl *nvmet_alloc_ctrl(struct nvmet_alloc_ctrl_args *args)
- 		subsys->clear_ids = 1;
- #endif
- 
-+	INIT_LIST_HEAD(&ctrl->ccr_list);
- 	INIT_WORK(&ctrl->async_event_work, nvmet_async_event_work);
- 	INIT_LIST_HEAD(&ctrl->async_events);
- 	INIT_RADIX_TREE(&ctrl->p2p_ns_map, GFP_KERNEL);
-@@ -1760,12 +1807,43 @@ struct nvmet_ctrl *nvmet_alloc_ctrl(struct nvmet_alloc_ctrl_args *args)
- }
- EXPORT_SYMBOL_GPL(nvmet_alloc_ctrl);
- 
-+static void nvmet_ctrl_complete_pending_ccr(struct nvmet_ctrl *ctrl)
-+{
-+	struct nvmet_subsys *subsys = ctrl->subsys;
-+	struct nvmet_ctrl *sctrl;
-+	struct nvmet_ccr *ccr;
-+
-+	lockdep_assert_held(&subsys->lock);
-+
-+	/* Cleanup all CCRs issued by ctrl as source controller */
-+	mutex_lock(&ctrl->lock);
-+	nvmet_ctrl_cleanup_ccrs(ctrl, true);
-+	mutex_unlock(&ctrl->lock);
-+
-+	/*
-+	 * Find all CCRs targeting ctrl as impacted controller and
-+	 * set ccr->ctrl to NULL. This tells the source controller
-+	 * that CCR completed successfully.
-+	 */
-+	list_for_each_entry(sctrl, &subsys->ctrls, subsys_entry) {
-+		mutex_lock(&sctrl->lock);
-+		list_for_each_entry(ccr, &sctrl->ccr_list, entry) {
-+			if (ccr->ctrl == ctrl) {
-+				ccr->ctrl = NULL;
-+				break;
-+			}
-+		}
-+		mutex_unlock(&sctrl->lock);
-+	}
-+}
-+
- static void nvmet_ctrl_free(struct kref *ref)
- {
- 	struct nvmet_ctrl *ctrl = container_of(ref, struct nvmet_ctrl, ref);
- 	struct nvmet_subsys *subsys = ctrl->subsys;
- 
- 	mutex_lock(&subsys->lock);
-+	nvmet_ctrl_complete_pending_ccr(ctrl);
- 	nvmet_ctrl_destroy_pr(ctrl);
- 	nvmet_release_p2p_ns_map(ctrl);
- 	list_del(&ctrl->subsys_entry);
-diff --git a/drivers/nvme/target/nvmet.h b/drivers/nvme/target/nvmet.h
-index e3e414ef68d3..3c70ef13c9b4 100644
---- a/drivers/nvme/target/nvmet.h
-+++ b/drivers/nvme/target/nvmet.h
-@@ -273,6 +273,7 @@ struct nvmet_ctrl {
- 	u32			kato;
- 	u64			cirn;
- 
-+	struct list_head	ccr_list;
- 	struct nvmet_port	*port;
- 
- 	u32			aen_enabled;
-@@ -319,6 +320,13 @@ struct nvmet_ctrl {
- 	struct nvmet_pr_log_mgr pr_log_mgr;
- };
- 
-+struct nvmet_ccr {
-+	struct nvmet_ctrl	*ctrl;
-+	struct list_head	entry;
-+	u16			icid;
-+	u8			ciu;
-+};
-+
- struct nvmet_subsys {
- 	enum nvme_subsys_type	type;
- 
-@@ -584,6 +592,7 @@ void nvmet_req_free_sgls(struct nvmet_req *req);
- void nvmet_execute_set_features(struct nvmet_req *req);
- void nvmet_execute_get_features(struct nvmet_req *req);
- void nvmet_execute_keep_alive(struct nvmet_req *req);
-+void nvmet_execute_cross_ctrl_reset(struct nvmet_req *req);
- 
- u16 nvmet_check_cqid(struct nvmet_ctrl *ctrl, u16 cqid, bool create);
- u16 nvmet_check_io_cqid(struct nvmet_ctrl *ctrl, u16 cqid, bool create);
-@@ -626,6 +635,10 @@ struct nvmet_ctrl *nvmet_alloc_ctrl(struct nvmet_alloc_ctrl_args *args);
- struct nvmet_ctrl *nvmet_ctrl_find_get(const char *subsysnqn,
- 				       const char *hostnqn, u16 cntlid,
- 				       struct nvmet_req *req);
-+struct nvmet_ctrl *nvmet_ctrl_find_get_ccr(struct nvmet_subsys *subsys,
-+					   const char *hostnqn, u8 ciu,
-+					   u16 cntlid, u64 cirn);
-+void nvmet_ctrl_cleanup_ccrs(struct nvmet_ctrl *ctrl, bool all);
- void nvmet_ctrl_put(struct nvmet_ctrl *ctrl);
- u16 nvmet_check_ctrl_status(struct nvmet_req *req);
- ssize_t nvmet_ctrl_host_traddr(struct nvmet_ctrl *ctrl,
-diff --git a/include/linux/nvme.h b/include/linux/nvme.h
-index cbaf02b0cf07..7e6150d9494a 100644
---- a/include/linux/nvme.h
-+++ b/include/linux/nvme.h
-@@ -22,6 +22,7 @@
- #define NVMF_TSAS_SIZE		256
- 
- #define NVMF_CCR_LIMIT		4
-+#define NVMF_CCR_PER_PAGE	511
- 
- #define NVME_DISC_SUBSYS_NAME	"nqn.2014-08.org.nvmexpress.discovery"
- 
-@@ -1233,6 +1234,22 @@ struct nvme_zone_mgmt_recv_cmd {
- 	__le32			cdw14[2];
- };
- 
-+struct nvme_cross_ctrl_reset_cmd {
-+	__u8			opcode;
-+	__u8			flags;
-+	__u16			command_id;
-+	__le32			nsid;
-+	__le64			rsvd2[2];
-+	union nvme_data_ptr	dptr;
-+	__le16			icid;
-+	__u8			ciu;
-+	__u8			rsvd10;
-+	__le32			cdw11;
-+	__le64			cirn;
-+	__le32			cdw14;
-+	__le32			cdw15;
-+};
-+
- struct nvme_io_mgmt_recv_cmd {
- 	__u8			opcode;
- 	__u8			flags;
-@@ -1331,6 +1348,7 @@ enum nvme_admin_opcode {
- 	nvme_admin_virtual_mgmt		= 0x1c,
- 	nvme_admin_nvme_mi_send		= 0x1d,
- 	nvme_admin_nvme_mi_recv		= 0x1e,
-+	nvme_admin_cross_ctrl_reset	= 0x38,
- 	nvme_admin_dbbuf		= 0x7C,
- 	nvme_admin_format_nvm		= 0x80,
- 	nvme_admin_security_send	= 0x81,
-@@ -1364,6 +1382,7 @@ enum nvme_admin_opcode {
- 		nvme_admin_opcode_name(nvme_admin_virtual_mgmt),	\
- 		nvme_admin_opcode_name(nvme_admin_nvme_mi_send),	\
- 		nvme_admin_opcode_name(nvme_admin_nvme_mi_recv),	\
-+		nvme_admin_opcode_name(nvme_admin_cross_ctrl_reset),	\
- 		nvme_admin_opcode_name(nvme_admin_dbbuf),		\
- 		nvme_admin_opcode_name(nvme_admin_format_nvm),		\
- 		nvme_admin_opcode_name(nvme_admin_security_send),	\
-@@ -2022,6 +2041,7 @@ struct nvme_command {
- 		struct nvme_dbbuf dbbuf;
- 		struct nvme_directive_cmd directive;
- 		struct nvme_io_mgmt_recv_cmd imr;
-+		struct nvme_cross_ctrl_reset_cmd ccr;
- 	};
- };
- 
-@@ -2186,6 +2206,9 @@ enum {
- 	NVME_SC_PMR_SAN_PROHIBITED	= 0x123,
- 	NVME_SC_ANA_GROUP_ID_INVALID	= 0x124,
- 	NVME_SC_ANA_ATTACH_FAILED	= 0x125,
-+	NVME_SC_CCR_IN_PROGRESS		= 0x13f,
-+	NVME_SC_CCR_LOGPAGE_FULL	= 0x140,
-+	NVME_SC_CCR_LIMIT_EXCEEDED	= 0x141,
- 
- 	/*
- 	 * I/O Command Set Specific - NVM commands:
--- 
-2.55.0
+I didn't use AI to generate this code. It took 5-6 hours.
 
+I don't know why you said I used LLM to generate this such code.
+
+Krzystof wrote:
+> So you received feedback from Greg, but tried on different part, hoping
+> this time it will get accepted?
+>
+> This looks similar to you previous approaches, e.g. for DT bindings,
+> where you received comments and repeated the same thing immediately.
+> Three or four time.
+
+I generally write 2 or 3 patches and send them parallelly.
+I won't do this again.
+
+I thought fixing some spaghetti code and changing mutex_lock/mutex_unlock to
+guard macros is fine.
+
+Best Regards,
+Omer PALA
