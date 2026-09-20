@@ -1,217 +1,111 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B1C293C3F4E;
-	Sun, 20 Sep 2026 02:37:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60ABE3AFD03
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 02:37:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789871824; cv=none; b=rzS1mTvXQ1RTRPB9uIzKV5PrR1jJ8vT63EQJR3XauC/02zbDd66nFPmPA1xWm3SlcDhU+g602zgaFaoyf9U9QVPCkjXpBE1z+ZPJ9KgNWzViOhfZRGua7NkTUyfS9PS17Wu96WU0QdUn9gNpOH3xXmxXmrUVi0a4NygVKpkqcMM=
+	t=1789871859; cv=none; b=ASFANF8maXqO92hGE9jE2UEeXyvBNAZgfQQsrYVGc0m/m3aeYo8/edIz51Gr+QQ7XoM6qoEXZZ1QVey5n0OxFGYGw2YoslGfZ7D8yqxXiS5AK5SjTwnFkMHjsz9QexsCoisn08288dLLxIf6P8xvBeCgXsbtpG8CHoENp5mz6Zg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789871824; c=relaxed/simple;
-	bh=Qxv/HYT2EJ1TtRwAjZglOghCSoM6WpzDjceU6hGwD9I=;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=XfgFxmeQEmy1xMWJFsibGsMyFfi6biI+g5I8s+WvaLX+WLCT2cb2CHw1OULWhTjafsiwwnc87ojRxVZ4vTXN8yCey2n9B6pOht1wfEldEHsFqoMLIUecn8RWeBlQbAqpDarPT+CwgZ63zMktSw7cSLjQSctRf386N6KYqWfYkmc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.62])
-	by gateway (Coremail) with SMTP id _____8AxS_DKRq9qDdINAA--.40657S3;
-	Sun, 20 Sep 2026 10:36:58 +0800 (CST)
-Received: from [10.20.42.62] (unknown [10.20.42.62])
-	by front1 (Coremail) with SMTP id qMiowJAxmM3JRq9qWdUiAA--.7735S2;
-	Sun, 20 Sep 2026 10:36:58 +0800 (CST)
-Subject: Re: [PATCH 1/2] LoongArch: KVM: Remove parameter line when inject MSI
-To: Huacai Chen <chenhuacai@kernel.org>
-Cc: WANG Xuerui <kernel@xen0n.name>, kvm@vger.kernel.org,
- loongarch@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20260909083259.1910290-1-maobibo@loongson.cn>
- <20260909083259.1910290-2-maobibo@loongson.cn>
- <CAAhV-H59b2PJjJ3rGGQj1hhyK0-ustqNSzk=iaFd28-xtM8FDw@mail.gmail.com>
-From: Bibo Mao <maobibo@loongson.cn>
-Message-ID: <36713a35-2e9c-3d34-41e9-c77111849f60@loongson.cn>
-Date: Sun, 20 Sep 2026 10:36:34 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	s=arc-20240116; t=1789871859; c=relaxed/simple;
+	bh=G6MJJlrNk7Yn2tf9+AziitycZl/J9WfVYQtX5uMidQY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fDD83jSGo+HEM2UAOt3FTHgG9FREpUmAYoGRrIR10pRc/HXls+/CQRNqsQnys/ckg88qzuxsfGptrDoarLEPRBpG/SzgVP2/T+iw3G+O4UmlNf9MMoEe5ROoWXNXyHBRWUVaKLum4OB080/8uMajcBvOPqAiZXK1+xhPdqDKbA4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ii+T/T2M; arc=none smtp.client-ip=74.125.228.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ii+T/T2M"
+Received: by mail-pz2-f40.google.com with SMTP id 41be03b00d2f7-cc5256c2a4bso1261175a12.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 19:37:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789871858; x=1790476658; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=a661l6/McfJBsW6ih7SIBpxNulf6pfTW6jSdeP75Wo8=;
+        b=Ii+T/T2MwKaO7skORU1boqRpOaVrEcp3e8oqndIwu2ERt0KDnpmW9h8xWO5cY8eFQP
+         E/m72jwqtJhKeiMvLitw4U9ovFAP02nOVnG+82kobDsT924RLOsbrL8l0lL2Fl7NI0lb
+         Dz6HS9Kviu4vd5YZA5sVs5R+EwpGkbLMDhEQRTuZx/vxzAvj1w6ZmPhaaM0sy40utcDG
+         PjmUyfIW3FIdpFaMCxSaxa2af95cI3knjNttxq3RjvGsWgOnfhbU3YKNyoKoCxefJjiB
+         mYQtWskSUw7L0xSLzxU5L2BGb7n7VQQ41BSMG9mNrOI4ALVgDqplldyEVI1BjI8tKR7l
+         7Y0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789871858; x=1790476658;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=a661l6/McfJBsW6ih7SIBpxNulf6pfTW6jSdeP75Wo8=;
+        b=L7Bxf7ljjp3mMomA7EmdgIl1g1VxnYYf4L2hBOOVEVEbbTST6EdzeadVi/P1dAUinF
+         XctnpgRG5W4L33L0uVfGaNKcRzXX/XvIfCRYkd0c+IIYwslDpgvqTmmRKbs1YjTB2HWZ
+         Z9xEbQWNkbQoEqifMsy3Meqq0INDmlGW7M8MmEocxT4m9LjMSwALQsh3qY2UtTbWGvaK
+         /j5YVMmIDJmnZRMbkVt61DeyfQuNyoxCn6/GXbZ+AhEycV0hHhcVRg1zDh9kJ1NnDAR9
+         WziZfuJd1ZoSoBZlySxJwFBb2UdWpbLpZaEN3jLWqWWfSGnG0luOFix4f7HxO8Mf+QKV
+         U/QA==
+X-Forwarded-Encrypted: i=1; AKwUvBx3rohDYLzOCLebr+Sfbq2HeyJBsBQ32LyVMBgESgYr8JvMo01fJ5va2YufSckggijmmPUd9GJ1TwfVeMM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lbCnFi3WfnnjuW2W+xaPP3OKPYSa6ARnLbhMtkiK0h5EuCdi/f
+	E7ArnhaeuCtIfD5NUjsqz7uMSKDVUgVIADR781uE0f8kLgIdwEJKjmkRMTa1DEzoSQ==
+X-Gm-Gg: AYBFou35m5FLi5OLfhltwVooSH1e0JnW/apDwvLoz8qrPfyfT553fLUSjv9g5M+Cy0V
+	dwgEQm46uc50jn5Pgw52yHwl6RuTSfjYn3NBtAsslAudP07EImyQZsAj8Uhyjvjde8dTd24GjP1
+	pHqiVyGYcxGfthUZFtSNWLwLPFiBU3E0N17dvmGNIpFRKHaBKAKbU+FMSRbaOl+yGYX1YDfPsbp
+	9HuQKDkHlrHqY2biuIsZNu2schPn+MVjS2nIgU5RocRm2ADvdibnPcwiTOMjusBIVxxTRmOQyHE
+	JM6u+pru61UEpBUHlTMhpRLHd0cXrbLTrDsbOAYKlxdaOMM1YYzfZ8Wzjq9Ap9+RwiFOZQ1pAyz
+	9dTqnnTTBPiNF0zJRY4IUTtr3Euz/AYg94JLYOWd2FKFec+FRDXFoZLOkK7xpNMrsZqcQN1FuIs
+	W2vrF3uC3hs97mmU0n3cPQXFPX4Z+V1q5k7Bv4qnJIstJNkRmQbZtb/taLRRzShZH8TM/fYQowj
+	bptIuc0utR6+MEJc5JrFWhRJA==
+X-Received: by 2002:a17:90b:5287:b0:38e:7168:281 with SMTP id 98e67ed59e1d1-39e54ce361emr12233813a91.10.1789871857656;
+        Sat, 19 Sep 2026 19:37:37 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f00:8c85:36d8:54a:e0bc:3e5e])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c37c8e7sm6799764a91.9.2026.09.19.19.37.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Sep 2026 19:37:35 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: SJ Park <sj@kernel.org>
+Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
+	akpm@linux-foundation.org,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v1 1/2] mm/damon/core: prevent size quota overflow in the temporal goal tuner
+Date: Sun, 20 Sep 2026 11:37:28 +0900
+Message-ID: <20260920023730.2468388-1-donggeunyoo.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260919165509.86678-1-sj@kernel.org>
+References: <20260919071324.1583280-2-donggeunyoo.kernel@gmail.com> <20260919165509.86678-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <CAAhV-H59b2PJjJ3rGGQj1hhyK0-ustqNSzk=iaFd28-xtM8FDw@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJAxmM3JRq9qWdUiAA--.7735S2
-X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
-X-Coremail-Antispam: 1Uk129KBj93XoW3WrWrXFyrXF47Ar13Xw4rCrX_yoWxGF1rpF
-	Z8Ars8uFWrJr1UXrZ2gw4Duryavrsagr1S9a429asxCrnFvr1UJF1kAr9rZFy5GayUGr4I
-	qFsxG3Wava1Ut3cCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUvYb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
-	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AK
-	xVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0VAS07AlzV
-	AYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E
-	14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIx
-	kGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAF
-	wI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F
-	4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jOb18U
-	UUUU=
 
+Hi SJ,
 
+Thank you for the review, and for pointing me at addr_unit -- I did not
+know about it.
 
-On 2026/9/19 下午10:16, Huacai Chen wrote:
-> Hi, Bibo,
-> 
-> On Wed, Sep 9, 2026 at 4:40 PM Bibo Mao <maobibo@loongson.cn> wrote:
->>
->> With MSI interrupt, there is intterupt set injection, no interrupt
->> clear action. DMSI interrupt controller is specially for MSI irqchip.
->> And there is checking with parameter level in most upper function
->> kvm_set_msi() and kvm_arch_set_irq_inatomic() already, here remove
->> duplicated line parameter checking in MSI injection leaf functions.
->>
->> Signed-off-by: Bibo Mao <maobibo@loongson.cn>
->> ---
->>   arch/loongarch/include/asm/kvm_dmsintc.h | 3 +--
->>   arch/loongarch/include/asm/kvm_pch_pic.h | 2 +-
->>   arch/loongarch/kvm/intc/dmsintc.c        | 9 +++------
->>   arch/loongarch/kvm/intc/pch_pic.c        | 6 +++---
->>   arch/loongarch/kvm/irqfd.c               | 6 +++---
->>   5 files changed, 11 insertions(+), 15 deletions(-)
->>
->> diff --git a/arch/loongarch/include/asm/kvm_dmsintc.h b/arch/loongarch/include/asm/kvm_dmsintc.h
->> index 7c0158764d84..e19b3f5b3c52 100644
->> --- a/arch/loongarch/include/asm/kvm_dmsintc.h
->> +++ b/arch/loongarch/include/asm/kvm_dmsintc.h
->> @@ -22,7 +22,6 @@ struct dmsintc_state {
->>   int kvm_loongarch_register_dmsintc_device(void);
->>   void kvm_loongarch_unregister_dmsintc_device(void);
->>   void dmsintc_inject_irq(struct kvm_vcpu *vcpu);
->> -int dmsintc_set_irq(struct kvm *kvm, u64 addr, int data, int level);
->> -int dmsintc_deliver_msi_to_vcpu(struct kvm *kvm, struct kvm_vcpu *vcpu, u32 vector, int level);
->> +int dmsintc_set_irq(struct kvm *kvm, u64 addr, int data);
->>
->>   #endif
->> diff --git a/arch/loongarch/include/asm/kvm_pch_pic.h b/arch/loongarch/include/asm/kvm_pch_pic.h
->> index 887b0431fd20..19ed1494c114 100644
->> --- a/arch/loongarch/include/asm/kvm_pch_pic.h
->> +++ b/arch/loongarch/include/asm/kvm_pch_pic.h
->> @@ -72,6 +72,6 @@ struct kvm_kernel_irq_routing_entry;
->>   int kvm_loongarch_register_pch_pic_device(void);
->>   void kvm_loongarch_unregister_pch_pic_device(void);
->>   void pch_pic_set_irq(struct loongarch_pch_pic *s, int irq, int level);
->> -int pch_msi_set_irq(struct kvm *kvm, struct kvm_kernel_irq_routing_entry *e, int level);
->> +int pch_msi_set_irq(struct kvm *kvm, struct kvm_kernel_irq_routing_entry *e);
->>
->>   #endif /* __ASM_KVM_PCH_PIC_H */
->> diff --git a/arch/loongarch/kvm/intc/dmsintc.c b/arch/loongarch/kvm/intc/dmsintc.c
->> index 89f980d867be..79e56e330aeb 100644
->> --- a/arch/loongarch/kvm/intc/dmsintc.c
->> +++ b/arch/loongarch/kvm/intc/dmsintc.c
->> @@ -43,13 +43,10 @@ void dmsintc_inject_irq(struct kvm_vcpu *vcpu)
->>          }
->>   }
->>
->> -int dmsintc_deliver_msi_to_vcpu(struct kvm *kvm,
->> -                               struct kvm_vcpu *vcpu, u32 vector, int level)
->> +static int dmsintc_deliver_msi_to_vcpu(struct kvm_vcpu *vcpu, u32 vector)
->>   {
->>          struct dmsintc_state *ds = &vcpu->arch.dmsintc_state;
->>
->> -       if (!level)
->> -               return 0;
->>          if (!vcpu || vector >= 256)
->>                  return -EINVAL;
->>          if (!ds)
->> @@ -65,7 +62,7 @@ int dmsintc_deliver_msi_to_vcpu(struct kvm *kvm,
->>          return 0;
->>   }
->>
->> -int dmsintc_set_irq(struct kvm *kvm, u64 addr, int data, int level)
->> +int dmsintc_set_irq(struct kvm *kvm, u64 addr, int data)
->>   {
->>          unsigned int irq, cpu;
->>          struct kvm_vcpu *vcpu;
->> @@ -78,7 +75,7 @@ int dmsintc_set_irq(struct kvm *kvm, u64 addr, int data, int level)
->>          if (!vcpu)
->>                  return -EINVAL;
->>
->> -       return dmsintc_deliver_msi_to_vcpu(kvm, vcpu, irq, level);
->> +       return dmsintc_deliver_msi_to_vcpu(vcpu, irq);
->>   }
->>
->>   static int kvm_dmsintc_ctrl_access(struct kvm_device *dev,
->> diff --git a/arch/loongarch/kvm/intc/pch_pic.c b/arch/loongarch/kvm/intc/pch_pic.c
->> index 2b63b0c2c7ce..220fc23ffe8c 100644
->> --- a/arch/loongarch/kvm/intc/pch_pic.c
->> +++ b/arch/loongarch/kvm/intc/pch_pic.c
->> @@ -68,20 +68,20 @@ void pch_pic_set_irq(struct loongarch_pch_pic *s, int irq, int level)
->>   }
->>
->>   /* msi irq handler */
->> -int pch_msi_set_irq(struct kvm *kvm, struct kvm_kernel_irq_routing_entry *e, int level)
->> +int pch_msi_set_irq(struct kvm *kvm, struct kvm_kernel_irq_routing_entry *e)
->>   {
->>          u64 msg_addr = (((u64)e->msi.address_hi) << 32) | e->msi.address_lo;
->>
->>          if (cpu_has_msgint && kvm->arch.dmsintc &&
->>                  msg_addr >= kvm->arch.dmsintc->msg_addr_base &&
->>                  msg_addr < (kvm->arch.dmsintc->msg_addr_base + kvm->arch.dmsintc->msg_addr_size)) {
->> -               return dmsintc_set_irq(kvm, msg_addr, e->msi.data, level);
->> +               return dmsintc_set_irq(kvm, msg_addr, e->msi.data);
->>          }
->>
->>          if (e->msi.data >= EIOINTC_IRQS)
->>                  return -EINVAL;
->>
->> -       eiointc_set_irq(kvm->arch.eiointc, e->msi.data, level);
->> +       eiointc_set_irq(kvm->arch.eiointc, e->msi.data, 1);
->>
->>          return 0;
->>   }
->> diff --git a/arch/loongarch/kvm/irqfd.c b/arch/loongarch/kvm/irqfd.c
->> index 40ed1081c4b6..686097ca5906 100644
->> --- a/arch/loongarch/kvm/irqfd.c
->> +++ b/arch/loongarch/kvm/irqfd.c
->> @@ -27,9 +27,9 @@ int kvm_set_msi(struct kvm_kernel_irq_routing_entry *e,
->>                  struct kvm *kvm, int irq_source_id, int level, bool line_status)
->>   {
->>          if (!level)
->> -               return -1;
->> +               return -EINVAL;
->>
->> -       return pch_msi_set_irq(kvm, e, level);
->> +       return pch_msi_set_irq(kvm, e);
->>   }
->>
->>   /*
->> @@ -78,7 +78,7 @@ int kvm_arch_set_irq_inatomic(struct kvm_kernel_irq_routing_entry *e,
->>                  pch_pic_set_irq(kvm->arch.pch_pic, e->irqchip.pin, level);
->>                  return 0;
->>          case KVM_IRQ_ROUTING_MSI:
->> -               return pch_msi_set_irq(kvm, e, level);
->> +               return pch_msi_set_irq(kvm, e);
-> Please also consider the KVM_IRQ_ROUTING_IRQCHIP case. If
-> pch_pic_set_irq() also doesn't need level, please remove it; if
-> pch_pic_set_irq() needs level, please move the checking from head to
-There is level == 0 requirement with pch_pic_set_irq() since it is 
-called by kvm_set_pic_irq() also, however with function 
-kvm_arch_set_irq_inatomic(), I think that there is no such requirement.
+On Sat, 19 Sep 2026 09:55:08 -0700 SJ Park <sj@kernel.org> wrote:
+> For 32-bit machines, we have addr_unit parameter.  I believe use of it could
+> effectively solve this kind of issues.  Correct me if I'm wrong.
 
-Regards
-Bibo Mao
-> the KVM_IRQ_ROUTING_MSI case.
-> 
-> 
-> Huacai
-> 
->>          default:
->>                  return -EWOULDBLOCK;
->>          }
->> --
->> 2.39.3
->>
+You are right that it helps, and quite a lot: with a larger unit the same
+amount of memory is written to quotas/bytes as a smaller number, so the
+boundary is much harder to reach in practice.  It does not move the
+boundary itself, though, since the multiply is on the value written
+whatever the unit means.  And as you say, only paddr implements addr_unit,
+so vaddr and fvaddr get nothing from it.
 
+The 64-bit case turned out to be a little more than theoretical too.
+bytes_store() takes whatever kstrtoul() parses, so a quotas/bytes above
+1844674407370955 wraps there with no scaling involved.
+
+v2 says both in the changelog, and your suggestion about the user
+documents became a third patch.  I also took your form of the guard; it is
+a one-line diff and it reads better.
+
+  https://lore.kernel.org/damon/20260920023111.2466265-1-donggeunyoo.kernel@gmail.com/
+
+Thanks,
+Donggeun
