@@ -1,60 +1,60 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2089646EF9E
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 17:22:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E6534718C7
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 17:22:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789924972; cv=none; b=cRIGvG5c/N9AEr8YAeZJYjMAX+m2SpHg/psNSYeAC6PNdMe6XsqS7MTHTV9+g9xKoEJ4ZJzP7UM4dV4dLIuSdnwOCnyr8xZdMTosolQdIuqgXr80IHn2rCj79uYEk6F5txzVKCPRFyXHzTfAcYjUa74lQ2oC5GAfdA2okBB/ZSs=
+	t=1789924973; cv=none; b=fu5A7J3hCt+1b+KHDBcSJJevosOREW8QQC9EmrB8plWdWRN1db5C9iXoGnk2XaqwVZNQX3dGKpC5hKVubxKz0cT0JZLHprH4xdrPcPA/brViyT0OeGCSeIGrQ0Cuye8m5klaMUh9dhurgbnvUwZClg57gfud2k1hq9ogERIVKQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789924972; c=relaxed/simple;
-	bh=ZwzI4tTfp//gIMmYMoV7d55f9iAIXU/rI1LjDGCJ8pM=;
-	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=k9303qgmKbryUooccM80PTNvaYtMMVrE6IXGIHNbPX/2RKu2TWPDOKjZ2nv9GEqeiL6Zjxbm83/CRZ8S078erc/I5GfBWxS8gMeK+kVDUgwD4WCdNkX+PAk3zZB712F2sm41hLVvY1QG1kMykBQu8qMJxEOOl/AMUQBrlNSZ04I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iP2t55Sb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789924973; c=relaxed/simple;
+	bh=bYJCjTV1UdIO6US0OSCvjKQx/7dB3yjIJjyH/wXI16g=;
+	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=FID91YwrW+qDpBQEHqu7M/TDdmGa+QNLendflDa4n3wRTch+kAFcqVg2ILii+KKv5sdsT6uUUOpE3xUw9SJRg6AQMn1vR8ANpFon4OXEuxWjOsq8belMmJz6uHuwZijCf2Tx4FcBRj19+3fBDH/lFJ5EpZYr3HtajhOQSlN2JLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TXoE956J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iP2t55Sb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 970991F000FF;
-	Sun, 20 Sep 2026 17:22:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TXoE956J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00FE51F00893;
+	Sun, 20 Sep 2026 17:22:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789924970;
-	bh=NHxyN3eKP0f1XjM2TKTQGbUhjfN/v3OsUPS87SZxrJw=;
+	s=k20260515; t=1789924972;
+	bh=s0CTcPHEd5WCQb7JQmIuyVAyxkrb/fHW7CQplHYw5iU=;
 	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=iP2t55SbotC8CLqFkvL7qwweYAbP7132U9AJRB5kd9ShNf1MkF9H4lHKMBq4/Z31O
-	 3q+HDiK+12zmHai9LbP8zgbO19Iw5epZQ2xFzRUxKo31wngaI7ZRk2N05+zBC07vgG
-	 yL7RTGtk63C9YXeXcHvmu/OiEaBDwY76Iq7KNYwKqSxHyFdD94T9EFAYvYyI0iJwHU
-	 SXlh/4DHdrXWjm1UHiaaZcvD08rjUPNdRH5Th1rwHtPu/tS3LQELHvw0WhwBHYhz7b
-	 RiIyl5MIljGrElr9saBTne3SYf0kb2bi3HccpRR0XgBbLy0EHnZnAv17as195HMSd+
-	 VQjB/YPbLo7EQ==
+	b=TXoE956JOTMJdIexiTAhqCDE+x4yYic2KrEneZs4dWgr9JY/WEvcEoNgX5+EoaJp5
+	 6aH9ProUJi+QVqmJ322GiEQIdixLCx15kvsSLtSoNcYW0pPfDmS6Tebyj0swNuUOPE
+	 2zvwoEIVTutPsl/owy0dAKDFpUDl39OhpSl4KEK/LfaBMoIcu8fhapIqP+hWJ646d5
+	 68mom5JmwbyVVtGyRXUvzwhNchn1bwM9zQuiMOTcvwhin4Act8us5h3pPos53m5cZC
+	 71R58ksrXNs4EuUKDdx/iBnt5qscLBAorGKQRUBqpTKzYjktlLEBYZlU69+4UxVg/Q
+	 glXcm3OJXAYPw==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id ED3D339253D8;
-	Sun, 20 Sep 2026 17:21:43 +0000 (UTC)
-Subject: Re: [GIT PULL] objtool fix
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 568F839253D8;
+	Sun, 20 Sep 2026 17:21:45 +0000 (UTC)
+Subject: Re: [GIT PULL] perf events fixes
 From: pr-tracker-bot@kernel.org
-In-Reply-To: <aq-pbOlsNz7HnVZ1@gmail.com>
-References: <aq-pbOlsNz7HnVZ1@gmail.com>
+In-Reply-To: <aq-qe4JS7tAt7Swi@gmail.com>
+References: <aq-qe4JS7tAt7Swi@gmail.com>
 X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <aq-pbOlsNz7HnVZ1@gmail.com>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git objtool-urgent-2026-09-20
-X-PR-Tracked-Commit-Id: 7e61560628d17ea6b1d8ee370f6d42694cff8758
+X-PR-Tracked-Message-Id: <aq-qe4JS7tAt7Swi@gmail.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git perf-urgent-2026-09-20
+X-PR-Tracked-Commit-Id: 88aed0422f39b22406f35f1e758cea25e7bbcfb5
 X-PR-Merge-Tree: torvalds/linux.git
 X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 2f7ff5f5479b020df69feb7493d4012685a8fc96
-Message-Id: <178992490273.1735599.16259264489132319876.pr-tracker-bot@kernel.org>
-Date: Sun, 20 Sep 2026 17:21:42 +0000
+X-PR-Merge-Commit-Id: abb91eed948fcdabc7360d57cc3d3a7fba75db67
+Message-Id: <178992490409.1735599.18324718771092619458.pr-tracker-bot@kernel.org>
+Date: Sun, 20 Sep 2026 17:21:44 +0000
 To: Ingo Molnar <mingo@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-kernel@vger.kernel.org, Peter Zijlstra <a.p.zijlstra@chello.nl>, Josh Poimboeuf <jpoimboe@redhat.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>, Arnaldo Carvalho de Melo <acme@kernel.org>, Jiri Olsa <jolsa@kernel.org>, Alexander Shishkin <alexander.shishkin@linux.intel.com>, Mark Rutland <mark.rutland@arm.com>, Namhyung Kim <namhyung@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 
-The pull request you sent on Sun, 20 Sep 2026 11:37:48 +0200:
+The pull request you sent on Sun, 20 Sep 2026 11:42:19 +0200:
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git objtool-urgent-2026-09-20
+> git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git perf-urgent-2026-09-20
 
 has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/2f7ff5f5479b020df69feb7493d4012685a8fc96
+https://git.kernel.org/torvalds/c/abb91eed948fcdabc7360d57cc3d3a7fba75db67
 
 Thank you!
 
