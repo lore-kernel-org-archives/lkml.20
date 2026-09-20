@@ -1,68 +1,66 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E4CE479864
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 22:20:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E3633E7159
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 22:20:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789942843; cv=none; b=fOZ64X8/RdJKLVpX+5KXmjg3iYlDuFrU5sBODp5Khv+gE9Ei0VuWHTFeOyqy0f01jWEtJIDjwL+4oLuTZoXI88hOvpWfsxcHDBldV0ejL59bBak/r/gE5WGJh3fNPnd/D0ht71IBm0f0Q7mtTd8rt700Tqyl1PweGjp9FwaJMOI=
+	t=1789942849; cv=none; b=UiMFU08VL7dUpXNg3ppkE86GyOE+FN3TeGhjLjQJbVlWJVruqUVdcMTwS/EM2/giBU0UCqFCH1dS/5r+CfgCpS5U95zeeyhYlKFryRJWrHipX0qtqqiL9/I4KihDxAb/oEJ8KAH9TYWVrVKxk0JIW8b1bMJBI7fnunH1xubDFto=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789942843; c=relaxed/simple;
-	bh=+54H0ZSrJDrdA0kUPxIm1BbK00gcD0a+FHvu4EWHcug=;
+	s=arc-20240116; t=1789942849; c=relaxed/simple;
+	bh=jJ3QwRlnW9Vwxdw/1S6Y7JDhcY1bvzYCsw4DmV5r+oA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=m8Y9tlaz+XhGgRbR94jDrl3m0k6Ml10KqOkMC7g3TIgZVCPkTbomRrLzqQcmbDU0IWfqc+tEL01Hj6pBj2qGm3X210HTxfNzVTgM2vBOn6WnfLpVIyMdMnsti1XG9hXPyadfcqMCd6XZv9KM0Y+S56XgTaZToQUVdY/A7cJjNbw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=k0EUoy2R; arc=none smtp.client-ip=209.85.221.49
+	 MIME-Version; b=oRqem970kkBHPpCDC65FKV99H0LhjfH/GUteP3ZmYxgKHIXYcJs3D/2PVo2Zr0cpyytwKXV30JRkCzrd3dP9YbE3lMPolj7pu3w+JvMRcWg70h4B+Rm5UOFK3Ihx/hnnOy9fyRNRHVsufEohqEglcoYrZrnhKhW0QPothqareN0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=eON9T0uw; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="k0EUoy2R"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48586861639so916620f8f.0
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 15:20:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="eON9T0uw"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1ca5b0d6so17436665e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 15:20:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1789942839; x=1790547639; darn=vger.kernel.org;
+        d=lex.la; s=google; t=1789942846; x=1790547646; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=YH80rpgSpJiT4oe8RoFHzKfIvgPsLUkVWLUg9beuJXU=;
-        b=k0EUoy2Ru63XvED/bppIwMAaY4DGiY4E6xl4HdZAxPZBY6Zt7jwv5lJEYOe5Ua0mvR
-         nI+hH9VS6QBgRs52c/c2xSNOasDmN5zwPMnJyc1MP7f/KX58X5UvC/5CBPUTzPfM8NNq
-         TMVnk1lTAuDEnr9pT/UG8Y1aM0DTEn13XLvg+EFpWWTNVzvxHw56Nqt4lrCspogG7Im7
-         HPAy1QmjEp7uuaMntJLoATUzzDvXZ7Wllc4TX0+xxxbbRHisB34NDTOtWFV/ooOB+d+v
-         FDEvfZsWJiHPuQ/PFE7brGnIC/JSdwhqSLHisF6AxWZNf7w8/O7oDrILLlxIqqo11P8q
-         j3Hg==
+        bh=rGgXUYgvHQ8Fg6J9+hUTqNq3sfh9W+ZtLaGrZCtz8oM=;
+        b=eON9T0uw58DwSzmxG8iYTVsCs5oP2u0/q/xiJN9o5v6B7YBGjHPMVkpD9CHJH6Bxkr
+         gItjSqG/CgYzouWv8jJYHSZ07x4M6Lq2q7y0ANRvQbRlHewrHmXTQR14EYa+6TLZhhy9
+         WxBHkEz2R5n7/SihMwqmG83bW/t9luT92kaByzicKUxmHWbNK5bqzRKlnuOlOn7wHnZw
+         g+DJZJjdoY+vxB62KNcx1+McwlPUmjGb7KvoGNO2Uju7yUkDKygKRBoa0gH7wrUTRfsw
+         sC6Zg4ViB1lLzgCXYruZ9RXTzebBKyXGYiXuwmM/wENtki8giFFT4FtfUlO1dIFyddfn
+         UeCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789942839; x=1790547639;
+        d=1e100.net; s=20260707; t=1789942846; x=1790547646;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YH80rpgSpJiT4oe8RoFHzKfIvgPsLUkVWLUg9beuJXU=;
-        b=VShuusLWHh2pdF1ntz0/OMa7jXjGL/9Y7pcUxZYgb32oSXGRBc8s00fPjxhm9hq2Ho
-         k7okEQ77+RaF5JPKU+FWVntsdwe5SdJfTTu9ILZpOwboLOe+stUPXREAtqD9H2DQtOwN
-         RWsqWO5BXHHPwJsPSR+sPQ8+jtbPTI1Up19M0uS3sNT9WelWSqnLWMH7v2+uayrrGs+w
-         hsXenKBCW+XuUYW43qUIzavjS0MiInERsKXHAk6g/JdzMQBN9rrfkJNTNBF1AoAEepMR
-         BG/3HPvYYNBD9nuLqCa/jqQQX/r8lOLr1droG/uKDW+bDYggZ9H1rQ1iHQF99FFuBUCW
-         ymlQ==
-X-Forwarded-Encrypted: i=1; AKwUvByap99VZu/TESW3q/q5qThTjzreweLbL4KETCpMR5yBiBTHZ5sjpNzyWbopTgfg/W1CrT8pnJAoU4Kn28E=@vger.kernel.org
-X-Gm-Message-State: AFuF++mZZL0IXyLDYCzGPPr53JLqJwbSGA8tXsfojn7QLV9cFIWch+rF
-	XF2pY9hxyY7Q71JCyAWzdizvB5st0GicA7iL965yAByttsM5+3jUpv7tKIfGbq9e/GzdTWMP49C
-	YH0RDSWexUg==
-X-Gm-Gg: AYBFou3mB3OKGe3dCbBsoB/Xqn0n3Do9sSP4c7rjyHFcmKT7EehRZco4+t6eHiLVaDW
-	gAzo18NHvHaw1z0n3f92gQyWXjnMRvtZtPY2XRHO75oZbCqrrqJRCkkUGW0eSE/rk7uERafLSOM
-	KLvZDN7QTET+mtYw27xtTncGJjBa9tbg14Yx0g6WLrUbsNb8e+B0J/kGQNNGFJm8EKp2spz6AMH
-	wkNAmdNLdT8I9WkJ3sLD/Ar92hBe/e0FO5y+6q9kExqcEluh2tKy9YVe3NfBn4Gj5UwuogpDpTg
-	tnqy56o2nxTFAcPORTjPyPNLUnbyhzuztxR+74qGrx4SwbhxBWVMaviFW0p3gx0/cukLizvuNjm
-	Ii+5XJzd1s2bBVDNWckGuXkT6gaD8uz5fOoMHZ6NG6G0knm+vc/wnd5NLXt/W6eBelcpgMYx4MG
-	0owHQQwS5LNP0tXbDUr7pK/VI79MRHnj2NE50ibAOue4xnlKao4g==
-X-Received: by 2002:a05:6000:2612:b0:487:5:9cae with SMTP id ffacd0b85a97d-48713c47421mr20753759f8f.16.1789942839054;
-        Sun, 20 Sep 2026 15:20:39 -0700 (PDT)
+        bh=rGgXUYgvHQ8Fg6J9+hUTqNq3sfh9W+ZtLaGrZCtz8oM=;
+        b=dZAymoF99FbS8OiZf4+2x7VsupJQ5h237kKlQZEHVODvpDJqp8x24rfJGJYQI3mA0W
+         v/X+UDGW9LUHUxQYq9nEsTq2P5kw/P4/QwO70Zz8ir+YvwmqmmRfZvciE3suJwJyIQT/
+         LJvrgMw9LqPpcnT3HcfP6m7RPZK+EBCM+3d35ap6YiFx2n3sErWE86EVlLALg8a/DQXF
+         NBm045UwI2+zFbl0CZLSP63ylfNmbo3nPYnPcQFviKY5mTmtIaZ6TMjmGmAYA4XqJpJF
+         ypJnGBaPVt47rBBj47LwEUdYYFqTWTyke2VETSjpp0c1ZBI1tWoBnpr6zXa+QHsIYenC
+         TJjQ==
+X-Forwarded-Encrypted: i=1; AKwUvBziw60/ev9gtb5YyDAEE+aHOga/CaXC4YTHXyhfRz+T77QwVfA83dd2YU71fVrgb834FK96edb5Cl2l8SA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kXkrEiyAiCVF4DptbEDrPzLtDkkrPgkqE5QQvEF8duVj6Whv67
+	kRE83t78tBj79+EKbgi2Ix6Zu9gB++zsTEdwMv23k9L3bEpDFylQY/Iy0Ho59RhmbT4=
+X-Gm-Gg: AYBFou1ZPxmr1EbU6dqRoUCbs7izdZnnMehrQlcoWwUjqlMbB48vStx3jY3gBX+yeJU
+	ZdSqOWbjbRaSnoU9iOqJJWbdSaIKelXxQhYpe6Lh3geWaOPM7pByD8kos41BxzOCyOzEfFWJGux
+	jsp1cNTpTc5oDVx1KNqqimdoAxsPQpn4I36DAGwLR24GCRMQeoHiAl3j9rbQt9lBP641QL5cosl
+	1quOmt9uh1aRU9Gt+2XN8ZPunfFiRsgkN9eVHGEhdBMw7AQzZa4zQlYdcKPV97tIReK/w3GpQ1/
+	dYtqWhlIvCvldJqbD986G6zb0QS63bAVpl5u8BmbM5Z+McE5fo2TZsoSr9KkS4o2FNmkdI4JtEg
+	wlmZ1LnN2/XNJViiQMYwz7OajX1HWXgsJ5FEJR4bwnd9qoHN8xkZchA98BqqnBBKBTK/S4f3BhM
+	u0wtIZwBsWm7XpCUK2f0PWnjNLVXJTqDRbMC9TQ02QXfO6JOYMKQ==
+X-Received: by 2002:a05:600c:19d1:b0:49c:fed6:cd3f with SMTP id 5b1f17b1804b1-49fc5743bc4mr129978595e9.23.1789942846247;
+        Sun, 20 Sep 2026 15:20:46 -0700 (PDT)
 Received: from remote-01 ([84.17.55.230])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48724589c02sm17230966f8f.24.2026.09.20.15.20.37
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd07411fsm188321175e9.7.2026.09.20.15.20.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 15:20:38 -0700 (PDT)
+        Sun, 20 Sep 2026 15:20:45 -0700 (PDT)
 From: Aleksei Sviridkin <f@lex.la>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Aleksei Sviridkin <f@lex.la>,
-	netdev@vger.kernel.org,
+To: netdev@vger.kernel.org
+Cc: andrew@lunn.ch,
 	linux@armlinux.org.uk,
 	andrew+netdev@lunn.ch,
 	hkallweit1@gmail.com,
@@ -71,13 +69,14 @@ Cc: Aleksei Sviridkin <f@lex.la>,
 	kuba@kernel.org,
 	pabeni@redhat.com,
 	horms@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2] net: phylink: unwind the PHY binding when bringup fails late
-Date: Mon, 21 Sep 2026 01:20:33 +0300
-Message-ID: <20260920222033.1751618-1-f@lex.la>
+	linux-kernel@vger.kernel.org,
+	Aleksei Sviridkin <f@lex.la>
+Subject: [PATCH net v3] net: phylink: record the PHY only once bringup cannot fail
+Date: Mon, 21 Sep 2026 01:20:44 +0300
+Message-ID: <20260920222044.1752860-1-f@lex.la>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <4eedad70-0b77-432b-838f-eb11ca47af4e@lunn.ch>
-References: <20260919015338.499611-1-f@lex.la> <4eedad70-0b77-432b-838f-eb11ca47af4e@lunn.ch>
+In-Reply-To: <20260919015338.499611-1-f@lex.la>
+References: <20260919015338.499611-1-f@lex.la>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,32 +85,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Yes, and v3 does it that way.
+phylink_bringup_phy() stores the PHY in pl->phydev before its last
+fallible step: on a MAC whose phylink ops implement LPI,
+phy_eee_rx_clock_stop() can fail with a real MDIO error. The callers
+unwind with phy_detach(), which knows nothing about pl->phydev, so a
+pointer to a PHY that is no longer attached outlives the failed
+connect.
 
-Nothing between the assignment and phy_eee_rx_clock_stop() reads
-pl->phydev, and a NULL pl->phydev already means "no PHY" to the
-readers. phy_request_interrupt() comes after it and cannot fail, it
-falls back to polling itself. So the unwind is gone.
+What that costs depends on how the caller got here.
+phylink_connect_phy() goes through phylink_attach_phy(), which refuses
+to attach while pl->phydev is set, turning a transient MDIO error into
+a permanent -EBUSY. The SFP path is worse than that: sfp_sm_probe_phy()
+answers the failure with phy_device_remove() and phy_device_free(), and
+it assigns sfp->mod_phy only past that error return, so nothing clears
+pl->phydev and it is left pointing at a freed phy_device that
+phylink_resolve() and the ethtool helpers go on reading.
+phylink_fwnode_phy_connect() has no such check, so a later connect
+overwrites the stale pointer and hides the problem. A disconnect does
+not: phylink_disconnect_phy() hands that pointer to phy_disconnect(),
+and the second phy_detach() on the same PHY drops references the first
+one already released.
 
-The fallible call itself stays where it is. phy_support_eee() can
-reach drv->disable_autonomous_eee, which writes PHY registers, so
-lifting phy_eee_rx_clock_stop() above the EEE block would reorder
-MDIO. Only the assignment moves.
+Found while making a DSA port survive a PHY whose driver arrives after
+the switch probes: keeping the port across a failed connect and
+retrying is what makes this window reachable.
 
-Tested on an MT7981 board whose MAC implements the LPI ops, so that
-call sits on the bringup path of every port. With an MDIO error
-injected there the late attach fails with -EIO and the retry brings
-the port up. Without the change the box dies instead:
+Publish the pointer after the last call that can fail instead of
+unwinding it afterwards. Nothing between the two points reads
+pl->phydev, and the registration that follows cannot fail:
+phy_request_interrupt() falls back to polling on its own. The PHY-side
+state keeps the order it had, so no MDIO operation moves relative to
+another.
 
-  Unable to handle kernel execute from non-executable memory at virtual address 0000000000000000
-  Workqueue: events_power_efficient phy_state_machine
-  pc : 0x0
-  lr : phy_check_link_status+0xc4/0xf0
-  Call trace:
-   0x0
-   _phy_start_aneg+0x4c/0xa0
-   _phy_state_machine+0x16c/0x300
-   phy_state_machine+0x28/0x80
+Fixes: 03abf2a7c654 ("net: phylink: add EEE management")
+Assisted-by: LLM
+Signed-off-by: Aleksei Sviridkin <f@lex.la>
+---
+Changes since v2:
+- Record the PHY after the last call that can fail, as Andrew suggested,
+  which removes the unwind and the helper it shared with
+  phylink_disconnect_phy(). The fallible call keeps its place so no MDIO
+  operation moves.
+- Hardware evidence for the failure this prevents is in the reply to v2.
+---
+ drivers/net/phy/phylink.c | 20 +++++++++++++++++---
+ 1 file changed, 17 insertions(+), 3 deletions(-)
 
-The caller detached the PHY after the failure, so phydev->drv is NULL,
-but phylink still had the pointer and started it again.
+diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+index a1458da8111b..1bbcf46c8356 100644
+--- a/drivers/net/phy/phylink.c
++++ b/drivers/net/phy/phylink.c
+@@ -2129,7 +2129,6 @@ static int phylink_bringup_phy(struct phylink *pl, struct phy_device *phy,
+ 	mutex_lock(&pl->phydev_mutex);
+ 	mutex_lock(&phy->lock);
+ 	mutex_lock(&pl->state_mutex);
+-	pl->phydev = phy;
+ 	pl->phy_state.interface = interface;
+ 	pl->phy_state.pause = MLO_PAUSE_NONE;
+ 	pl->phy_state.speed = SPEED_UNKNOWN;
+@@ -2196,10 +2195,25 @@ static int phylink_bringup_phy(struct phylink *pl, struct phy_device *phy,
+ 			ret = 0;
+ 	}
+ 
+-	if (ret == 0 && phy_interrupt_is_valid(phy))
++	if (ret)
++		return ret;
++
++	/* Nothing below can fail, so the PHY can be recorded now. Doing it
++	 * here rather than above keeps a failed bringup from leaving
++	 * pl->phydev pointing at a PHY the caller is about to detach.
++	 */
++	mutex_lock(&pl->phydev_mutex);
++	mutex_lock(&phy->lock);
++	mutex_lock(&pl->state_mutex);
++	pl->phydev = phy;
++	mutex_unlock(&pl->state_mutex);
++	mutex_unlock(&phy->lock);
++	mutex_unlock(&pl->phydev_mutex);
++
++	if (phy_interrupt_is_valid(phy))
+ 		phy_request_interrupt(phy);
+ 
+-	return ret;
++	return 0;
+ }
+ 
+ static int phylink_attach_phy(struct phylink *pl, struct phy_device *phy,
+-- 
+2.53.0
+
