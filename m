@@ -1,151 +1,229 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ECE62CCC5
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 01:53:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD2BC342510
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 01:55:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789869195; cv=none; b=Rx40hUGnGqYofkRRCj/BLUOD8NxI1LX4X5AK4KKeaCqhrDeOu/GG6Rhxa7gQJOG0gC8qu6RiRrg7hxlkmUghnz+Vc+c2JTflCg6SoGsQ/1VgsUw2K+J/GHmkakJSPc7eXz8H1cd3JzdsQMVALSWw07bvo6jPQRIJsKS5tiMjYX8=
+	t=1789869322; cv=none; b=YEerwq6OrRPRC8/qaWojcQC9XDbvfAzooy/53XaPbyd4oq1pV60D47/RVsEVBn7wGNsSn5or5Wg9futMYqFCW7s1qVIyolYUiWj2WiZtDM2qSUppxsSU/Wesm61fJ1g0PA2ufkNYPfkW9aYBZsBEagev/HbwS4gDGSrLU5PiuBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789869195; c=relaxed/simple;
-	bh=CNs2E+qGO/+zrUl6drj1OWrYKFws96jmgTMzhakpZVQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cXgR6sUmFDi2of+BmvOB9M8nXK7ucanZlbe43+LydHXK9LdfUW1Fx8tXc3OMmTDT4hPI7yWBPADKDAy0bmFu/lVx/jx9+Qt4jXzGZUuH3W/kU0XGnSPbWKFQByisqZJj3USCuGpX3Wurtb40u4fScplzbAscq+ZYqXygOMUfITk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=t+brCQIh; arc=none smtp.client-ip=74.125.230.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1789869322; c=relaxed/simple;
+	bh=poh4F5PXaukyjnPCZwS2DZS1b7KW7Q1Rye+o7VN3FUg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=i9uljAas82A+auE0bqV5Vw8DtR1nxky2wo0SLzt9IA+fQ4Q8kFVtxqqKt/3i5R1QvKVq57ARnW9J2+Q6yXThUd6mimQ5vcDB9p3FnUNLkzWWb0aN2S5QISN1LOW20a7qqypv8hCQlXaSj1PFceViscrxo1LQunLI3/iWB9kA2cA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AVtHZmix; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="t+brCQIh"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-910531ea7feso19659496d6.0
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 18:53:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1789869193; x=1790473993; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3IyWi76YFd5k6sT6Wel/JshxFvWpuBbjBUhku/DcG8Y=;
-        b=t+brCQIhIf9oq2CfCLZb1EBKwtMgyN5Bq8cx90tuIXlNI4bBv7WMP1zwHQLMo+S5pm
-         1aVFrqPYQXnRchsLGBrw6B3vsQqQN1ynKuEu7MBuxw8fqk9bGJiOFZznWZE6BC0ms+XT
-         oedfr7MaAOJFWXOlmrPTqXFVXbgFhXXzgDA4nYhJseR8NvPB5qKWaX3DrgbpLGD/5XLO
-         GUyLJsb1pZ4xfFn7zsl/qln9eaD+d1x9hCD8+2iwA1X4LMx0dVQZoAsM4MywaRfWvCBj
-         sUfdnxS0dpe8LiegjaNF/Amr1bJMEyjK5KP0ANEPtO0AyZc8bBEr2RMuNcD91gs4tqY7
-         ATWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789869193; x=1790473993;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=3IyWi76YFd5k6sT6Wel/JshxFvWpuBbjBUhku/DcG8Y=;
-        b=Vo0dmKX9dbI+hefwouCBNjDQan4U6GnI3APifDn6RmMupMBgnYc2nmJCGwmeVvL1gn
-         4vMdTtQb87v96OGhysDDWxgpcLNQb/AGlW8HYQDJ5a2/VryA2WQ0ogLFNQQ44hfa1/NG
-         mqDjMgBX4HCq1IuaA0T/JIYtlx/SLLagw+J3v8DbgYwxZ1AWYkJo9/+ftWrCyDz/EECq
-         xe5nEaUqWzDn+ho3Qmdr9bYzooPhNlpKWOeBOHFR0zPmw/Km5DaM00nZtaDx3zOocy61
-         KjUugpuV9u7hgHl283TLHUThbZt7z6BqI73gyIT7VH/Jo9gAVs5LDuN8fYIc+9SVg5ux
-         g79Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxVQUP1GUS5b8atr/Gf9OVNSSbDm7JABKQbZML9OE082MuEym9dXe4hvlLcXdZDguyP1pFnYHm9n5YGqtE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kNQ0DTELa5x1qOuNLuCWAFNyneEeXxgEKxN4Vgzm/zM24yFaBF
-	jJNFiWGfMlphjoWADkkaPPSqm6ppUYl+pOuHlvjeSgoMMPmV6OBUUJeGEsvB2cSIWds=
-X-Gm-Gg: AYBFou1Cwv3PQS7xZp9a7SL046qGdWTUV9Z/CiswZxWhnT1K4BQ1KZJAhFVsKTIssVg
-	rRsNUwd44aaYy+bC/Wz6X75n9jC6UQ3QP3A3Bj88s0DXWvxCVdukBPHRFwxyTGIxymvzJl0/K1U
-	UPUPeAJLdmDjXce5f0mLiH8uPOKhfVM3DRiWJR2UeYhHfMMjLrzOsEPc5M3WNchNgNLux7r6FZ0
-	POJFA2lzI2iVyqHrvnXioh7L9nmCIxPQXMkDCTX/0uz2fxLRoSEHcIHn12lyKdblDgj9zfxBRkC
-	fNuya5KURgtSvMnXmhwAApAlBYsKXQXtyQeoo5pTNHqRJDvZPBqYKdCSEW+ba9F3cEMFmfrre9X
-	NgqOhrr9UN4q4WlLwb3lzqRkytZoYy9WLptCmklBOyc0UH9TTny0wznOWr9coVfNtX/W/9/29S0
-	C14qOJNm+YAlw4CISWblDw/JTxPxclIvJ1tpJx0c5sZD2J7LUl7zHyqyY1NgYkt9q8E9pdsLX8a
-	JSjJ9bQXU+JGzn4ZlPeCEEROIZFa5bcFHGprnae9U8iz0a87KRF2DE=
-X-Received: by 2002:ad4:5948:0:b0:910:4da6:8354 with SMTP id 6a1803df08f44-9129c780d08mr44342896d6.17.1789869193050;
-        Sat, 19 Sep 2026 18:53:13 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91260a9a305sm32833856d6.37.2026.09.19.18.53.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 18:53:12 -0700 (PDT)
-Date: Sat, 19 Sep 2026 21:53:10 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Chris Li <chrisl@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, 
-	Baoquan He <baoquan.he@linux.dev>, Nhat Pham <nphamcs@gmail.com>, Kairui Song <kasong@tencent.com>, 
-	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
-	David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
-	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>, Qi Zheng <qi.zheng@linux.dev>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Rik van Riel <riel@surriel.com>, Wenchao Hao <haowenchao22@gmail.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
-	Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Kunwu Chan <kunwu.chan@linux.dev>, Meta kernel team <kernel-team@meta.com>, 
-	Linux Memory Management List <linux-mm@kvack.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
-	linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Kairui Song <ryncsn@gmail.com>, Joshua Hahn <joshua.hahnjy@gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-Message-ID: <aq8dja2-timYBwyB@gourry-fedora-PF4VCD3F>
-References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
- <aqJXx2vtbKaRLt3x@fedora>
- <aqLi6cIjD2wJwk0B@cmpxchg.org>
- <CACePvbUG1ApMzMdEzf-63rpjgGVNsRk21pT72OQGJpM=OtRUew@mail.gmail.com>
- <aq6cVXPLUUwJA7-2@gourry-fedora-PF4VCD3F>
- <CACePvbVaPDnva8X-Xmz84r7j5HjTuih-w5phpw7cerK2uPnK6w@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AVtHZmix"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58C481F00893
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 01:55:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789869319;
+	bh=ZNm9/wfZV2nkjLVmx1aDomWnEvwBzNkqe3H+bh4IP4E=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=AVtHZmix3W7A8DtuyBAfrawZn6OAce7ZJCk6VeBFfr3AqPMCDsyRHWL2V/q9wlXOe
+	 Y8pNzwSUiHVZJA1Eo1uS9BFHjshKjgfEr4h+W+egrwHnst4GU5jr1bZ6rOoNvPe2D6
+	 pudAr9uvyjKbuRWk/6Q7+BI9Wd8Qjfwh7N2wUnV5+mCYIOYT5OAiqfYwN0WAZrQPN8
+	 mYwiCYUtAYd6ApsNypnR213uAqlLISzRRse/WL/85nEmwpYQ+41QDTqD3VpZD4/blm
+	 md/9JEYU1FRtBEmX0nlaK4BGaCG6khAEAyaGxI53A09mzPysi6tWn+WtbzSgz0w4r+
+	 wpHImRriDEaOQ==
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a60591ae52so3067075a12.0
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 18:55:19 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxE+HQAim1btxQC4wr1iIAspa2N4rWa7A+zyVQ3Bom1kzFHZfAzMXu/FACap/MY62XYI0W7R/1FmpsrmlA=@vger.kernel.org
+X-Gm-Message-State: AFuF++ll1XxivPAm1nUt2KGX5bD8Ial5hSmHI4iD5Xqn89W0398b3MzW
+	S5K6RwOWS60yq94QPLLTxduGumYjspqHb0BEQXGwzaPEJc+NKs3puih0sqj/nxkL6yXIWJ4zZS9
+	2h0dolaso3TXcd21N2jEdx2rXsp/4W3w=
+X-Received: by 2002:a05:6402:46cb:b0:6aa:734a:a082 with SMTP id
+ 4fb4d7f45d1cf-6aa734aa228mr1588205a12.25.1789869317961; Sat, 19 Sep 2026
+ 18:55:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CACePvbVaPDnva8X-Xmz84r7j5HjTuih-w5phpw7cerK2uPnK6w@mail.gmail.com>
+References: <20260915032627.2796747-1-maobibo@loongson.cn> <20260915032627.2796747-4-maobibo@loongson.cn>
+ <CAAhV-H71irZnQ2hYmsewC6_fZEjnwBm6VJVcKqTsjJGW2xZDBA@mail.gmail.com> <f83f4c74-07c4-237e-de4f-337c39380377@loongson.cn>
+In-Reply-To: <f83f4c74-07c4-237e-de4f-337c39380377@loongson.cn>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Sun, 20 Sep 2026 09:55:06 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H4wY6OTmyUCbqfA=swfkj_oHANtMAO0Khh93-87y7CRTg@mail.gmail.com>
+X-Gm-Features: AcwNN1UgsVNhvhRTfCGWJunJf5O4e4WVTYZlG_uj9JyEjbekPvqve9xTg_UDqzM
+Message-ID: <CAAhV-H4wY6OTmyUCbqfA=swfkj_oHANtMAO0Khh93-87y7CRTg@mail.gmail.com>
+Subject: Re: [PATCH v3 3/4] ACPI: scan: Add support for LoongArch in acpi_iommu_configure_id()
+To: Bibo Mao <maobibo@loongson.cn>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>, 
+	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>, 
+	Pawel Chmielewski <pawel.chmielewski@intel.com>, Len Brown <lenb@kernel.org>, 
+	linux-kernel@vger.kernel.org, loongarch@lists.linux.dev, 
+	linux-acpi@vger.kernel.org, acpica-devel@lists.linux.dev, 
+	lixianglai@loongson.cn
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Sep 19, 2026 at 09:02:28AM -1000, Chris Li wrote:
-> On Sat, Sep 19, 2026 at 6:08 AM Gregory Price <gourry@gourry.net> wrote:
+On Sun, Sep 20, 2026 at 9:24=E2=80=AFAM Bibo Mao <maobibo@loongson.cn> wrot=
+e:
+>
+>
+>
+> On 2026/9/19 =E4=B8=8B=E5=8D=8810:18, Huacai Chen wrote:
+> > Hi, Bibo,
 > >
-> >                         Memory Post-Compression
-> >  |[CD][CD][CD][CD][CD][CD][CD][CD]-------- free space ------------|
-> >    ^----------------------------^
-> >          Compression Space
-> 
-> Thanks for the explanation. So the compression space is just the
-> actual data store backing the zswap/xswap/zram.
+> > On Tue, Sep 15, 2026 at 11:34=E2=80=AFAM Bibo Mao <maobibo@loongson.cn>=
+ wrote:
+> >>
+> >> acpi_iommu_configure_id() currently supports only IORT and VIOT. Add
+> >> support for IOVT as well.
+> >>
+> >> Signed-off-by: Bibo Mao <maobibo@loongson.cn>
+> >> Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
+> >> ---
+> >>   drivers/acpi/loongarch/iovt.c | 61 +++++++++++++++++++++++++++++++++=
+++
+> >>   drivers/acpi/scan.c           |  3 ++
+> >>   include/linux/acpi_iovt.h     | 13 ++++++++
+> >>   3 files changed, 77 insertions(+)
+> >>   create mode 100644 include/linux/acpi_iovt.h
+> >>
+> >> diff --git a/drivers/acpi/loongarch/iovt.c b/drivers/acpi/loongarch/io=
+vt.c
+> >> index 302ca6a75905..df14ce48eac6 100644
+> >> --- a/drivers/acpi/loongarch/iovt.c
+> >> +++ b/drivers/acpi/loongarch/iovt.c
+> >> @@ -1,6 +1,7 @@
+> >>   // SPDX-License-Identifier: GPL-2.0-only
+> >>
+> >>   #include <linux/acpi.h>
+> >> +#include <linux/acpi_iovt.h>
+> >>   #include <linux/pci.h>
+> >>   #include "init.h"
+> >>
+> >> @@ -217,3 +218,63 @@ void __init acpi_iovt_late_init(void)
+> >>          iovt_init_devices(hdr);
+> >>          acpi_put_table(hdr);
+> >>   }
+> >> +
+> >> +static int iovt_pci_dev_iommu_init(struct pci_dev *pdev, u16 dev_id, =
+void *data)
+> >> +{
+> >> +       u32 sbdf;
+> >> +       struct iovt_fwnode *np;
+> >> +       struct device *aliased_dev =3D data;
+> >> +       u32 domain =3D pci_domain_nr(pdev->bus);
+> >> +       struct iovt_device_entry *entry;
+> >> +       bool found =3D false;
+> >> +
+> >> +       list_for_each_entry(np, &iovt_fwnode_list, list) {
+> >> +               if (domain !=3D np->segment)
+> >> +                       continue;
+> >> +
+> >> +               /* We're not translating ourself */
+> >> +               if (dev_id =3D=3D np->devid)
+> >> +                       return -EINVAL;
+> >> +
+> >> +               if (np->flag & ACPI_IOVT_IOMMU_MAGAGE_BY_SEGMENT) {
+> >> +                       found =3D true;
+> >> +                       break;
+> >> +               }
+> >> +
+> >> +               list_for_each_entry(entry, &np->ep_list, list) {
+> >> +                       if (dev_id < entry->start_devid)
+> >> +                               continue;
+> >> +
+> >> +                       if (dev_id > entry->end_devid)
+> >> +                               continue;
+> >> +
+> >> +                       found =3D true;
+> >> +                       break;
+> >> +               }
+> >> +
+> >> +               if (found)
+> >> +                       break;
+> >> +       }
+> >> +
+> >> +       if (!found)
+> >> +               return -ENODEV;
+> >> +
+> >> +       sbdf =3D (domain << 16) + dev_id;
+> >> +       return acpi_iommu_fwspec_init(aliased_dev, sbdf, np->fwnode);
+> >> +}
+> >> +
+> >> +/*
+> >> + * iovt_iommu_configure_id - Set-up IOMMU configuration for a device.
+> >> + *
+> >> + * @dev: device to configure
+> >> + * @id_in: optional input id const value pointer
+> >> + *
+> >> + * Returns: 0 on success, <0 on failure
+> >> + */
+> >> +int iovt_iommu_configure_id(struct device *dev, const u32 *id_in)
+> >> +{
+> >> +       if (!dev_is_pci(dev))
+> >> +               return -ENODEV;
+> >> +
+> >> +       return pci_for_each_dma_alias(to_pci_dev(dev), iovt_pci_dev_io=
+mmu_init, dev);
+> >> +}
+> >> diff --git a/drivers/acpi/scan.c b/drivers/acpi/scan.c
+> >> index 163a3cccf197..f2f155a65ea9 100644
+> >> --- a/drivers/acpi/scan.c
+> >> +++ b/drivers/acpi/scan.c
+> >> @@ -13,6 +13,7 @@
+> >>   #include <linux/kernel.h>
+> >>   #include <linux/acpi.h>
+> >>   #include <linux/acpi_iort.h>
+> >> +#include <linux/acpi_iovt.h>
+> >>   #include <linux/acpi_rimt.h>
+> >>   #include <linux/acpi_viot.h>
+> >>   #include <linux/iommu.h>
+> >> @@ -1628,6 +1629,8 @@ static int acpi_iommu_configure_id(struct device=
+ *dev, const u32 *id_in)
+> >>                  err =3D rimt_iommu_configure_id(dev, id_in);
+> >>          if (err && err !=3D -EPROBE_DEFER)
+> >>                  err =3D viot_iommu_configure(dev);
+> >> +       if (err && err !=3D -EPROBE_DEFER)
+> >> +               err =3D iovt_iommu_configure_id(dev, id_in);
+> > We call our acpi_arch_late_init() before acpi_viot_init(), so I think
+> > it is better to also call iovt_iommu_configure_id() before
+> > viot_iommu_configure().
+> Yes, it should be the same order, good catch.
+>
+> It is both OK for me to put acpi_arch_late_init() after
+> acpi_viot_init(), or put iovt_iommu_configure_id() before
+> viot_iommu_configure().
+I think it is better to put iovt_iommu_configure_id() before
+viot_iommu_configure().
 
-No.  That is not what I said.
-
-I said 
-
-   It's the *amount* of memory consumed by compressed data,
-         including the metadata associated with it.
-
-I do not know how to be clearer than this. It is an amount of memory.
-
-It is not the memory itself or an abstraction to describe how much
-memory, it is literally the active amount of consumption - a number.
-
-> Maybe we need a separate counter to track actual memory usage,
-> regardless of compression status.
-
-the separate counter is... the existing memory and zswap counters.
-
-> I want to add support for your usage case as well. Please clearly
-> specify what user usage you want, what the expected outcome
-> is, and why you want that.
-> 
-
-I want:
-
-  1) zswap on machines with no swapfile
-
-  2) without being asked "how big?" - there is no number I can give
-     that stays correct, and
-
-  3) the bound should be the memory limit that already exists,
-     not a number guessed at boot that hotplug invalidates or
-     guessed at swapon time that different workloads invalidate.
-
-This requires decoupling swap *file* accounting from zswap accounting.
-
-~Gregory
+Huacai
+>
+> Regards
+> Bibo Mao
+> >
+> >
+> > Huacai
+> >>
+> >>          mutex_unlock(&iommu_probe_device_lock);
+> >>
+> >> diff --git a/include/linux/acpi_iovt.h b/include/linux/acpi_iovt.h
+> >> new file mode 100644
+> >> index 000000000000..25a846b96260
+> >> --- /dev/null
+> >> +++ b/include/linux/acpi_iovt.h
+> >> @@ -0,0 +1,13 @@
+> >> +/* SPDX-License-Identifier: GPL-2.0-only */
+> >> +
+> >> +#ifndef __ACPI_IOVT_H__
+> >> +#define __ACPI_IOVT_H__
+> >> +
+> >> +#if defined(CONFIG_IOMMU_API) && defined(CONFIG_ACPI_IOVT)
+> >> +int iovt_iommu_configure_id(struct device *dev, const u32 *id_in);
+> >> +#else
+> >> +static inline int iovt_iommu_configure_id(struct device *dev, const u=
+32 *id_in)
+> >> +{ return -ENODEV; }
+> >> +#endif
+> >> +
+> >> +#endif
+> >> --
+> >> 2.39.3
+> >>
+>
