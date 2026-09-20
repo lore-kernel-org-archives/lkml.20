@@ -1,51 +1,46 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-170.mta1.migadu.com [95.215.58.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB04C3BD62F
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 02:53:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC9E33CA4A1
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 02:53:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789872796; cv=none; b=IA2+UKaCSqq16UWoR/8eSMDRRYSf85sWaruFIUy9t8er32CU403d4NVBHQ5SJRnm+nQ7m0EMGUmhfhvfSji6gNMPIysI2137u4skh413WaU9LROP/Vm1AU9QTAXr5i/Q5x3KF0F8xhcEx/hYMZKc0TWNKzLy3i0QxkwFCNVjU/U=
+	t=1789872801; cv=none; b=iFcurEotQRqKcm2TjsqjdjpmYEsK5hNXJ6IfK6GxLRdAYb1QG9zXxdzAW453QhFLslZOGlkG3UoE5mAyiE6OHj/d8TuccxuHB22kxsVXcMGqkfPKZxpf+ZOpqYM4y1Ww1BiM6qGmoMfFMmBK4Tafla69x7j72mZEWVu96VoKIg0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789872796; c=relaxed/simple;
-	bh=V1z7LYxVZYm2d5SCLa7VIfLzltAwNUlzIyRa/cyq158=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UyU8YkvqggdESPmn2ZXy1i46xqPP5pQNehHF2jB1I0yq/V5DnBkbYKu4OL286dgsk4htfgI+yBmVItKkRMKvIIfhqpYrzZURJRPcq8e4zkkyFF6/Cg5WLz2xHpxc3zCDpgnTAGwxg2PWivhe4Gno7ykJpeM/eyfFuhOeEgrq/Rc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=nZbivMti; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789872801; c=relaxed/simple;
+	bh=MPN4ky136xVTlkaLlZT/h13xm3W+q3aKj+KQIr2znTg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=W0tcgHZizrST/HaNCTsGfcY1g3GVc0Wis7Poy4435hDYSptOwj3Kq9Mpa73THbiZLlnfSGguzJLnP9zHiqC6SffLXYyUzz2KuMUkRWClLa1C9yM2U82/t4oiNrSzA1NLRSZ6ZRxym1Zs/kgDRhVf+O0aoah7kFPWTs+s4dRnea0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Wcuman5I; arc=none smtp.client-ip=95.215.58.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="nZbivMti"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=fR
-	cmh/W69BmqI1WSDrwh+faRi5phtDzOv/xupfFwuiw=; b=nZbivMtiPM65I1VSz4
-	s5Kv+ygooQ8ekAMO0yFD2gBSvsKXcD6RCqXeykZ+DMz5lkadHlWGnvwHgsjAvph7
-	bAtr50nGp9xgYlPNme8NvNiKosTQ3THpfdPuE1u+ayhaRsgJ3nLq6h1ECjAKmHQb
-	8XqNpDefgy0rwsQHFNYEaohp4=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgDHltVWSq9qY0lsAQ--.21956S2;
-	Sun, 20 Sep 2026 10:52:08 +0800 (CST)
-From: albin_yang@163.com
-To: kayracizmeci@gmail.com
-Cc: albin_yang@163.com,
-	albinwyang@tencent.com,
-	bsegall@google.com,
-	dietmar.eggemann@arm.com,
-	juri.lelli@redhat.com,
-	kprateek.nayak@amd.com,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Wcuman5I"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=MPN4ky136xVTlkaLlZT/h13xm3W+q3aKj+KQIr2znTg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789872796; v=1; x=1790477596;
+ b=Wcuman5IabvD+PSfZLJa+ajErilhhbCV+6AOCrAgpJ0osWBZpzG6d6zW4R5HrH+moFFUkQaq
+ 5rFon2HT8sSuIuxu5JIgRmj/2Z4oNpGbbrDiWHHgYyMY8Kj3o/7agZKqayTK4rDzLY0WAMiQhkT
+ u8+2aPzeb+fmt9Dnf+f+tU0c=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c0db634aa732d9af;
+	Sun, 20 Sep 2026 02:53:16 +0000
+X-Mizu-Trace-ID: c0db634aa732d9af
+X-Migadu-Flow: FLOW_OUT
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+To: Waiman Long <longman@redhat.com>,
+	Ridong Chen <ridong.chen@linux.dev>
+Cc: Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	cgroups@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	mgorman@suse.de,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	rostedt@goodmis.org,
-	vincent.guittot@linaro.org,
-	vschneid@redhat.com
-Subject: Re: [PATCH] sched/stats: Fix run_delay over-count for migrated sched_delayed tasks
-Date: Sun, 20 Sep 2026 10:52:06 +0800
-Message-ID: <20260920025206.1237461-1-albin_yang@163.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20260919102420.108000-1-kayracizmeci@gmail.com>
-References: <20260919102420.108000-1-kayracizmeci@gmail.com>
+	Guopeng Zhang <zhangguopeng@kylinos.cn>
+Subject: [PATCH v2] cgroup/cpuset: Remove redundant sched domain rebuild from update_prstate()
+Date: Sun, 20 Sep 2026 10:52:56 +0800
+Message-ID: <20260920025256.24991-1-guopeng.zhang@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,47 +48,40 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgDHltVWSq9qY0lsAQ--.21956S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7uF1fZFWkuF45Kr15JrWkJFb_yoW8Gw43pr
-	W8KwnrJF48tryxJr45Aw4xWr1rZrnrJry3tr1SvrWFkrs8Wr1avw17Za1aqrZ5JFnFqFyf
-	Z3Wjq3WUCa4qyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUoBT8UUUUU=
-X-CM-SenderInfo: pdoex0xb1d0wi6rwjhhfrp/xtbC7xgv0WqvSljuyQAA35
 
-Hi Kayra,
+From: Guopeng Zhang <zhangguopeng@kylinos.cn>
 
-On Sat, Sep 19, 2026 at 01:24:20PM +0300, Kayra Cizmeci wrote:
-> No? can_migrate_task() skips delayed tasks unless they are both delayed and
-> migration_type not equals migrate_load.
->
-> And can_migrate_task() is called from detach_one_task() which
-> gets called from active_load_balance_cpu_stop(), with a custom
-> env where the migration type is not set. That means, the migration
-> type is migrate_load, and can_migrate_task() can return 1 for delayed
-> tasks on this path.
+Both callers of update_prstate(), cpuset_partition_write() and
+cpuset_css_killed(), call cpuset_update_sd_hk_unlock() immediately
+afterwards. That helper rebuilds sched domains when force_sd_rebuild is
+set before releasing the cpuset locks, so the check in update_prstate()
+is redundant.
 
-You are right, thanks for catching this.
+Commit 3bfe47967191 ("cgroup/cpuset: Move
+housekeeping_update()/rebuild_sched_domains() together") removed the
+same check from cpuset_write_resmask(). Remove the remaining one from
+update_prstate().
 
-migrate_load is 0, and active_load_balance_cpu_stop()'s lb_env does not
-set .migration_type, so it stays 0 == migrate_load. Hence in
-can_migrate_task():
+Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+---
+Changes in v2:
+- Rename the patch to avoid the misleading "defer" wording.
 
-	if ((p->se.sched_delayed) && (env->migration_type != migrate_load))
-		return 0;
+ kernel/cgroup/cpuset.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-the condition is false on that path, and a sched_delayed task can indeed
-be migrated.
-
-It is also a bit broader than the active balance case: load_balance() ->
-calculate_imbalance() sets env->migration_type = migrate_load for some
-group types, so regular load balance can hit it too. Either way those
-paths re-attach via attach_task() -> activate_task(rq, p, ENQUEUE_NOCLOCK),
-again without ENQUEUE_RESTORE, so they hit the same bug.
-
-So the "load-balance migrations are unaffected" part of my commit message
-is wrong. The fix itself is unchanged and covers those paths as well; only
-the description was wrong. I'll correct it in v2.
-
-Thanks,
-Wei Yang
-
+diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+index 8f24171b6055..d58ecf56f384 100644
+--- a/kernel/cgroup/cpuset.c
++++ b/kernel/cgroup/cpuset.c
+@@ -3039,8 +3039,6 @@ out:
+ 	update_partition_sd_lb(cs, old_prs);
+ 
+ 	notify_partition_change(cs, old_prs);
+-	if (force_sd_rebuild)
+-		rebuild_sched_domains_locked();
+ 	free_tmpmasks(&tmpmask);
+ 	return 0;
+ }
+-- 
+2.43.0
