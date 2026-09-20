@@ -1,122 +1,147 @@
-Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 761C046EF9B
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 16:33:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B93D33DEC2
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 16:38:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789922040; cv=none; b=OKNZtuJl1GlkiL4V6b68Z142UupF9wxyba/HyofAaVGhrC2UWUXiwYM0FA27M+tyLPQ7LAbokOVqrJ9Wcbn+lIo71kkBKhKuq5ySP4P4MpjI6CP6dGDhgrGgGSk2Be/Ig/tso9lokKIs3ptprQSFlYvNisO/n9VUGJi8vjvMtfk=
+	t=1789922293; cv=none; b=ousKw7wL1ab5R0WIAlU+gZd54v84WG/y2mm/2Yh3aejVENHs/3GYsFm0zl7dia278fjayTIbGf2PJRoxXcC4nKGHnxiiqn4iPcLcvJgGomjusiU9Y/Yr/RoaiKAFsbdwfMW+6KXaN9vxjek/7aMhHrLf8UT7v0BeVTU71tz9c+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789922040; c=relaxed/simple;
-	bh=oVZz4FSt4/6OQv5bdG+VXPCRb+ckEU/zQ7lo/eBqj3c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XXTYSpLewiMLU4YFHjTAtRuJKCsTyT0/ly5PwNVE+GOfJDyqEOkJ/gkNNfL5w8+0T4aCpFbMM2JWdoM6cJu66PJZAwL2jOxBb/Pix+NbQexNEgjXyWC4eDZSSA7SBMUIQs5lSO1xDsWDosa81me0mhm/OfjXooWHndgcm4RP3X0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net; spf=pass smtp.mailfrom=jannau.net; dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b=BPWDp+Mr; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=W6ya0fVC; arc=none smtp.client-ip=103.168.172.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
+	s=arc-20240116; t=1789922293; c=relaxed/simple;
+	bh=rDv/W22ePbYyKp22YgESjKCd5Rrxe0kYDef+tOGzx64=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IoQ2bkeSuxzaFq3vM8/stRl8TBNMaudO4N74AkrE4HnpoYlyJj+MfhEcY9Gr7jPF160hOScabKOdJfcnkyTdcEAYRJVmSGPGmXYzkTS35QMF3J9VrB/EZUY/DDMmZGli9yzKGVGDpI4unwTcGuGZfGgqKQN3W7UMhT7Mgm5lwt0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LiREKi7X; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b="BPWDp+Mr";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="W6ya0fVC"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.phl.internal (Postfix) with ESMTP id CEBC7EC0244;
-	Sun, 20 Sep 2026 12:33:53 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Sun, 20 Sep 2026 12:33:53 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm3; t=1789922033; x=1790008433; bh=/xTESrJV9j
-	0F1oUnsavALKCtQFY4jYukCVnF4p9dGJk=; b=BPWDp+MrGSeLyrBiPdKFEfQqm4
-	t1trazD5YHo8eQ6etInZnNIoKj1XF0TyK8R5uBKHS27kOwkaeFxvvImOjxNVWnnZ
-	ciJX4BOb1RG5VM0E+GbFjBGp7H1fQcfJneO5Ax8KFxnW8qW0C5WCa0jLW8BJO0IA
-	QUqQWbY5s5g8XJvx2V+CSe0Rgp97KaJYC7zzpwtWr0nPJAgvxkEjuqxdult9MChY
-	ZrIPFd72YPzQrlRWcHoiHwp+D3CLUSJz6MWRxW5i/FHbcBQC8vIYHKP/s7erJ9/Z
-	un6WwJMa2zlMYm2hewsLJoq/QN7X3yiV1/MaiiLr8blQd8ltUXp6qBhAUSgw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1789922033; x=1790008433; bh=/xTESrJV9j0F1oUnsavALKCtQFY4jYukCVn
-	F4p9dGJk=; b=W6ya0fVCch07OJi17ZGVfA0O8qBhaWgCsRi6fUdp/tir7BF8x0D
-	1aa8MjbyeLEXbjZo5QMhPItZ/ugAf/HEW/rlx1Jo3vMtfgF9WchDMPW5FisCf539
-	efXlOUUovWYFhXfyl2QaZ1cFD6DcAXM04mDagg1dKcd/FnhkgDrU4ki7LRef4zew
-	A0m0KnDEMGiPVfUVyWQQ8dHmVF7jweaG6mMnCi8B/5vK24+k05dE1/k5nGqYG6X+
-	WaVds/Oi/e6h28SJWDIRfKfxy9k8p7AZxKFz69ErBasQ6a+1gw6316hvc5OuRQWu
-	+awLVRuJFYZxbLIt5pPDjxCVtmypUaDK16A==
-X-ME-Sender: <xms:8Qqwai80sTh9jJErGLwZLioS-w-GpOypYbHXx3qFhJ6bGkMuxGdJfg>
-    <xme:8QqwaplY1lDm-0E2lRiNfDXfG9y7anS1q2-iMqRWgVgm9okaqwTpodcf3Vk-Rj-EQ
-    j9rSnclP7xMrYWk7ylZ7T4-Jq5JF78XUZxTz-YuUNtnJ6J_R1RaPeo>
-X-ME-Received: <xmr:8QqwagXC-_xdgaXvikftqX23uSRHPH83cLMzitg1wrSyRut_UShFg33MqZWP8bdXGRnn0AUUTlUq55EOSS2G5EqKA5ZLE5ubSGU-u1SQXfNJLZaaBRUphqr3hg>
-X-ME-Proxy-Cause: dmFkZTFe6oyCdfFP30tKwymB6A0/48I088tI3lf6QSLlxQnh3MMWW4O+K4ZTDgWMxtMiYe
-    ZOpGrFpc6pFrR3shuAGmIU+L1Q13Jv+aJqIqdgkq27g8ErVysUOmd8jzlu/P6JIzWYXwlk
-    CBrdcGmgAsulAhxu5uYxzWtLpD5UqG0h6vOyn7tZIQuKalYUbSOmZJNJINfqiDPiuab90p
-    oddxZRBYn0+oz0ryM1A2OLQJiCOJuLOg8RfZrjwDrgyRBk3hEWTowbYJtra1ya06+MYhSv
-    ZxkJeNxeBbA+6NpFhjWcBFvGvape5rzt7lOsYWCzzP6rk3kQEUKosGgcnWjjSXrpZDsxJf
-    OATcs0R2qsU4lBoEyHS4rjx3a9JOExsJ+6Ckp6MaW6C3DcGw0MAEK8XwiesrNak6jI1MEY
-    JmYynKWaJn9vTHBgTHjkvXxw6E+/tsYsCkN9vAktutuvl1v77YpNt0A5HbzhRUoQqtkgLf
-    UAxkHzjvkoxzMflzWMT3JfnwPfCI35iDvoOAje2J2ZhWvALqVDjm9KlT2hvb9+PX1jMzna
-    GgMAVsXrbQwTI361WhGIUdDpneniSCeZAW9jkNtpmKfqkZN+9ElYRszkD9gLlt9N/sGvhF
-    qD8Q5wbSBmbjl1rFfyXGgWN+Q+uze7YujFwXZm2MMqA7l8UOohgQ+Cv/o6+Q
-X-ME-Proxy: <xmx:8QqwamFEv58LY6fGPXWRiEldi0SI_sZo3vMjDWbP-LVGUN7xp9hh_A>
-    <xmx:8QqwakcAYTih-VmS1msiIN2kD8uIi5tLck6NTjpkZD7lsMyrs_Yc9w>
-    <xmx:8QqwavJB_f5kw8pmFHFX-lXVuurjmCHbo2xUZubZowf7V3zNF7PIaA>
-    <xmx:8QqwahHIZRj1vI3tiiVqCEuzDG2mx7bQwntM_fxqARbpSuX8K2zNRw>
-    <xmx:8QqwashBgTXoVS4ni69OFouFzWIokzXXAM4TcA164XHV8l0LHAeqLmwz>
-Feedback-ID: i47b949f6:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 20 Sep 2026 12:33:52 -0400 (EDT)
-Date: Sun, 20 Sep 2026 18:33:49 +0200
-From: Janne Grunau <j@jannau.net>
-To: Dmitry Sinyavin <sinyavin@gmail.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Dmitry Baryshkov <lumag@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] nvmem: core: Fix OOB read for bit offsets of more than
- one byte
-Message-ID: <20260920163349.GA378504@robin.jannau.net>
-References: <20250901-nvmem-read-oob-bit-offset-v1-1-b610e18cdd3c@jannau.net>
- <20260919185636.3054303-1-sinyavin@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LiREKi7X"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b910bdf2eso1486857a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 09:38:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789922292; x=1790527092; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ocH8X1s2HOFa2KmE9/zFLWAAzVth74Tekaym0qewjiE=;
+        b=LiREKi7X7ZIkNEOb6gccfR6rE+EaTXqoU3qxbNU6HuWjJZqVVrJsYrUxFbBL6bNJy7
+         H7Lu3c0VEaw0j7eH7Hrgd1etKSjtVL6y6c1YVUWUUAqJJ3K1iNYf37DqCn8DQCP0ZOF1
+         sC6ZlU2xkIGDm3WPzBxkD+HK8etyWOJSWabyL8DfYCdYF7kQoCc3wp1biOl6NKTJ2xCW
+         epKSwS+MCF+zAk3IQ5D4YbXMBZ4kgHwCEme5+QSlBQgzXBNg0VzFwUhOx7dFr6cZ+3iW
+         +k5ljkoY9dFAiC90BTxzJ4MBPU4a//MMzr0sorNRlkdHOxJVceU94/OyHSPyjwhwOnfd
+         DKJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789922292; x=1790527092;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ocH8X1s2HOFa2KmE9/zFLWAAzVth74Tekaym0qewjiE=;
+        b=jP+AtTpZxo1g+TDdx8Jv/hhS39cYuMIznfpIysi3gVkcHdh1yC+bGhcl+Clx/VPuq/
+         BAPdkexoUyhiZsJ415/ixrIBqOQF7xKeXYrNd+r87rFaMJPKjqU8aA3N+T5IvCMuzQaM
+         0pnxLH9BcpBYL3nDT1Nw4jZLbFqvU+tgx2r4fq7kPAIkfHUukJ31aNBZA7lBolsaH1hm
+         kl6b/O2IX32BafKj7njACo0wXCilXVZshGhMyFL/HydYCGyABnePCzD2ikhbtUqSh7QJ
+         SkrbdinDFiSy6oZzfyHzSLhnb+jQIw4KVo5bIJZScu14+/F4o1oCEb8aAdJmXNsP7IJq
+         uPIg==
+X-Forwarded-Encrypted: i=1; AKwUvBy2pmEs96UCNcc8k7LPwdWoe+Fz05oFKqEPKliwG0gM6Up2VGmpN09InwVIsBpb1kSewWQqhIx5AnlbBbU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kjFujxCJuT4mvDTnQiTDrpxIbO+zPPIwGWXyUFUtOhgX9AOGDi
+	Tq9X7EumpFVJFPG/Q0LIYhDGnchlYo+qlZ8csIiDGgft9rc+mPzzYe9T
+X-Gm-Gg: AYBFou11SmNevCdIcSBnZMxg2sgrb1plnuiyJMf5BpdJBSueDUqx03mYXW/CtFEMlZ0
+	Xl6yeFTKlDM34eBLyl7LH/uZKQ0TS9ipA9aPIRkl5Les6xMjlo5i1WTH7cfBQ87BKGLVvuZtNTS
+	dSd4Z/QP0YOEiafC+k3/VMT8zJkniIHEx0MvatqwKUC46ND67JuRlLOlT2tLRJivwNaPK5uLnI3
+	I7226UV7CHB9NMNLVLkbU7B26i+s5Db+3qZ/6glEV7ZuGY00m2dYY9YjFR73UYJme+3DZbUNHTw
+	LEIdc4wbxJOAgiHoc+lKL1/Bd/Mvl48EM5JgDOievRArz6YTxk7k4cg6P4JD5xEsPoJcBb5YrmG
+	aFv6e/FiNX4PmR3ZY0VvVEQc0C2rTIGmRiUID7ylBcosURZ5AqGqgYDzDqbicFp3rQab5os2fZ1
+	VtxiTmtL8+qJxVTbdM8r8KmE5Y3K5a/Q0niBoWuL+t09ThNDK0dEVqTE8VCWwlZy2mL7IwYAB0q
+	591QWnyQoyfjAc=
+X-Received: by 2002:a17:90b:17cc:b0:39e:135e:130e with SMTP id 98e67ed59e1d1-39e54af6a0emr13628763a91.3.1789922291762;
+        Sun, 20 Sep 2026 09:38:11 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:2022:c2a9:de8:d005])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e5647c151sm5267536a91.4.2026.09.20.09.38.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2026 09:38:10 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Justin Tee <justin.tee@broadcom.com>,
+	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
+	Paul Ely <paul.ely@broadcom.com>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Chaitanya Kulkarni <kch@nvidia.com>
+Cc: Daniel Wagner <wagi@kernel.org>,
+	Hannes Reinecke <hare@suse.de>,
+	linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+77955102efac681ec73b@syzkaller.appspotmail.com
+Subject: [PATCH] nvmet-fcloop: fail LS request synchronously when remote port is gone
+Date: Sun, 20 Sep 2026 23:38:04 +0700
+Message-ID: <20260920163804.67858-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260919185636.3054303-1-sinyavin@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 19, 2026 at 08:56:36PM +0200, Dmitry Sinyavin wrote:
-> Hi Janne,
-> 
-> Thanks for the patch. I independently ran into this bug while testing
-> Qualcomm MDM9607 TSENS calibration. I tested the exact change against the
-> current NVMEM for-fixes branch at cee9395acd80.
-> 
-> Without the patch, a focused KUnit case with a 26-bit offset returned the
-> expected value but produced three KASAN out-of-bounds reports. On the
-> MF283V, the unmodified kernel produced exactly seven reports from four
-> TSENS calibration cells, matching the accesses predicted from their bit
-> offsets.
-> 
-> With the patch, the focused test and a 16,384-case extraction matrix pass
-> under KASAN. A hardware A/B test using otherwise identical Linux 6.18.44
-> kernels produced no KASAN report with the fix, and all five TSENS zones
-> reported plausible temperatures between 36 and 38 degrees Celsius.
-> 
-> Tested-by: Dmitry Sinyavin <sinyavin@gmail.com>
-> 
-> I could not find the patch in the current NVMEM for-fixes or for-next
-> branches. Are you planning to send a v2 with the stable Cc requested in
-> the earlier reply? I can send the KUnit coverage separately if useful.
+fcloop_t2h_ls_req() handles a missing remoteport by queueing the request
+on tport->ls_list and completing it with -ECONNREFUSED from a work item.
 
-The change is no longer relevant on the systems I discovered the issue
-so it got lost and I never sent a v2.
+nvmet_fc_delete_assoc_work() sends the Disconnect Association LS this
+way. When it runs during nvmet_fc_unregister_targetport(), the work is
+queued after flush_workqueue() has started, so it is not waited for.
+nvmet_fc_free_pending_reqs() then frees the still-pending lsop and the
+late work item calls lsreq->done() on freed memory:
 
-I'll do that shortly with both issues (missing Cc: and long partial
-SHA1) fixed and your Tested-by:.
+  BUG: KASAN: slab-use-after-free in fcloop_rport_lsrqst_work+0x242/0x2e0
+  Workqueue: nvmet-wq fcloop_tport_lsrqst_work
+  Allocated by nvmet_fc_xmt_disconnect_assoc
+  Freed by nvmet_fc_free_pending_reqs
+           nvmet_fc_unregister_targetport
+           fcloop_delete_target_port
 
-Thanks,
+Return -ECONNREFUSED directly instead. __nvmet_fc_send_ls_req() unwinds
+and nvmet_fc_xmt_disconnect_assoc() frees the lsop, so no completion is
+left outstanding.
 
-Janne
+Reported-by: syzbot+77955102efac681ec73b@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=77955102efac681ec73b
+Fixes: bbccbf791e6f ("nvmet-fc: free pending reqs on tgtport unregister")
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+---
+ drivers/nvme/target/fcloop.c | 17 +++++++----------
+ 1 file changed, 7 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/nvme/target/fcloop.c b/drivers/nvme/target/fcloop.c
+index b63af3b643a6..9f9fb40f8a97 100644
+--- a/drivers/nvme/target/fcloop.c
++++ b/drivers/nvme/target/fcloop.c
+@@ -456,21 +456,18 @@ fcloop_t2h_ls_req(struct nvmet_fc_target_port *targetport, void *hosthandle,
+ 	 * 1:1 tgtport vs remoteport
+ 	 */
+ 
++	/*
++	 * Fail synchronously: an async completion can run after
++	 * nvmet_fc_unregister_targetport() has freed the pending lsreq.
++	 */
++	if (!tport->remoteport)
++		return -ECONNREFUSED;
++
+ 	tls_req = kmem_cache_alloc(lsreq_cache, GFP_KERNEL);
+ 	if (!tls_req)
+ 		return -ENOMEM;
+ 	tls_req->lsreq = lsreq;
+ 	INIT_LIST_HEAD(&tls_req->ls_list);
+-
+-	if (!tport->remoteport) {
+-		tls_req->status = -ECONNREFUSED;
+-		spin_lock(&tport->lock);
+-		list_add_tail(&tls_req->ls_list, &tport->ls_list);
+-		spin_unlock(&tport->lock);
+-		queue_work(nvmet_wq, &tport->ls_work);
+-		return ret;
+-	}
+-
+ 	tls_req->status = 0;
+ 	ret = nvme_fc_rcv_ls_req(tport->remoteport, &tls_req->ls_rsp,
+ 				 lsreq->rqstaddr, lsreq->rqstlen);
+-- 
+2.43.0
+
