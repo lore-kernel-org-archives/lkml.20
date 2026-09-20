@@ -1,63 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3F933AF64B
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 03:50:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11DB754704D;
+	Sun, 20 Sep 2026 03:51:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789876259; cv=none; b=iATol0m2dzaWHba9wvcRaTnzDPuKF11+dSF8LKxuzDHoxuh+zdoRmQ0h6XQrJojYc4sdkihzNlDV6y8IrizKy95InTX1BrUgIuWM5DfGHanMOd64YRDApmOVqW0xDEs3ktpu2MIwaCx0VziILqP9KB7ffoxX+0ydqALJWloG34A=
+	t=1789876291; cv=none; b=mLPAoWfIrD6YuTCpa+Nyjh+PZcVoAMVoe12o6xxORnIsAV+oDMnqZkhy+b/PFK9laOmMNNAJkA5XA/CFbYzBtGNfhBVxvFwiOyN3nr5AEmn61GLSQyAX6JEjELhxzl5eANaTQuKKdm38c+y3MRbF+fRHzP3sQGOx+E3A2oqv/m0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789876259; c=relaxed/simple;
-	bh=VimQxhA3EWWFBobr9adhaDBrUGxNVsr5r7vWkZqI9JI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hVyTFFyVzFGlUXv5Hv+v2WzAbZ45WTs/hlasGgUBF81C4g9Ysoa80fs1IQzObTRRo5goGLrIDDzfI1CYaifOYWbQnlMrRByqm8bN68FA21Fsn0gGAAZtmzAxHRvvFDe3IfmDIDl6DLSAZv5ug6sP+UdwCY+cyus1DbSigxa3iGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l/+xao43; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789876291; c=relaxed/simple;
+	bh=ZzqYH3jaQS125xlS0mr0YhJ2PVTSrKAPIPMoKyD2t3w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fJp33yn4VpCCwqGxiJDEP/A5brEsHkxiM+jsz6f7V0gEn0GGz0TFJSwbX7RrIJt+s5Q8KNVT44T08hUZmq468WqTV9htWIa+zFHCTqjh0a7Qjd/7kv4o4Bt9bjtQSmeL8KmSpxjtKIvdl5xmNhmPHE6U4pEaHceBvtLNQQXswAQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=W73k+0Qn; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l/+xao43"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34B431F000FF;
-	Sun, 20 Sep 2026 03:50:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789876258;
-	bh=g6bmSytLuuBsemIueYJvvknOEo0NHwTWS3h67EnatE4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=l/+xao43wkbLlOq7KCMmGPwSjUGKYUweeLh/7217lntKXi1lLQKb81LgbWK46Llju
-	 oCrOtScwUj7eUm+018l4s89EQcgv/Exy1DXUFgESkAx+/7pnrIIGnSgajJ1fh8vRZR
-	 iPbemN37gNFb7kZtj2vaKf/EPHOX+Kbpjprz0svMPlJjkSASxyXfsXddy1ajctoKJ9
-	 kKigWGU1Gy6zF64o9avn3Pb7gvWIoaVh5ji8hLNcW4m7PSxsTEKKRwZwui8kQAJF/9
-	 Nj7ZZ9EaVZZhYzczqEwYpWqxLJS6JtPfyBXQ1cQsq2Eu5r3SY5v5YYCViU0+yNzNBO
-	 6RIszS6eMpQrw==
-Date: Sat, 19 Sep 2026 20:50:57 -0700
-From: Kees Cook <kees@kernel.org>
-To: Hui Peng <benquike@gmail.com>
-Cc: Andy Lutomirski <luto@amacapital.net>, Will Drewry <wad@chromium.org>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] seccomp: restore knotif->state when
- SECCOMP_ADDFD_FLAG_SEND is interrupted
-Message-ID: <202609192050.D1E0CD96@keescook>
-References: <20260919203514.2580997-1-benquike@gmail.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="W73k+0Qn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=WI
+	5CArvdWHJdA7UsMzI+ZNW29yfu0T7+qo+4NRVfDqk=; b=W73k+0QnRpxYER3CxP
+	szl2ArucQiK8S6bRVjocuCzHdzWa0JizIEZPqQzTpxrccNyProIoj1L8o9yViRHl
+	dEXCcELxL3JD5hOBEmiQ+uvZfS6auXr0U0ymcNvpWnw1wRnM0TGT7WC3JKQXZrVl
+	RYiAtzDe8ZLFnRZGjYFHbtYF8=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wCnAW4tWK9q44szBg--.526S2;
+	Sun, 20 Sep 2026 11:51:11 +0800 (CST)
+From: Pengpeng Hou <hppiscas@163.com>
+To: mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	corbet@lwn.net,
+	hppiscas@163.com
+Subject: [PATCH v2] media: dvb-frontends: ds3000: validate firmware size
+Date: Sun, 20 Sep 2026 11:51:07 +0800
+Message-ID: <20260920035108.20086-1-hppiscas@163.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260919203514.2580997-1-benquike@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wCnAW4tWK9q44szBg--.526S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Kry7uw45Aw13Cw1DKFW8Crg_yoW8Gw4fpF
+	ZIqa429FWUW34xtFyUAa47Cry5t3s3XFy5Kr9rXa48Zr1S9Fy7Wr18Ka4aqw15Gr97JrW0
+	qrnrJwn7A3yfZaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRT89_UUUUU=
+X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbC7Q+ncGqvWC-JTQAA3D
 
-On Sat, Sep 19, 2026 at 08:35:14PM +0000, Hui Peng wrote:
-> In seccomp_notify_addfd(), when SECCOMP_ADDFD_FLAG_SEND is set,
-> knotif->state is transitioned from SECCOMP_NOTIFY_SENT to
-> SECCOMP_NOTIFY_REPLIED before dropping filter->notify_lock and waiting
-> in wait_for_completion_interruptible(&kaddfd.completion).
-> 
-> If wait_for_completion_interruptible() is interrupted by a signal before
-> the target task processes the kaddfd entry, seccomp_notify_addfd()
-> removes kaddfd.list from knotif->addfd via list_del(&kaddfd.list), but
-> leaves knotif->state set to SECCOMP_NOTIFY_REPLIED.
+The firmware diagnostic accesses the first two and last two bytes
+without proving that the image contains two bytes. An undersized image
+can therefore be read outside its bounds when the diagnostic is enabled.
 
-Are you able to construct a regression test for this so we can catch
-this race if it ever gets exposed again?
+Reject images smaller than two bytes before the diagnostic or upload
+path consumes them.
 
+The issue was found by our static-analysis tool.
+
+Fixes: 09ea33e5c696 ("V4L/DVB (13493): TeVii S470 and TBS 6920 fixes")
+Assisted-by: gpt 5
+Signed-off-by: Pengpeng Hou <hppiscas@163.com>
+---
+Changes since v1:
+https://lore.kernel.org/all/20260830124034.95459-1-pengpeng@iscas.ac.cn/
+Include the tool-discovery and coding-assistance provenance requested by
+Jonathan Corbet; retain the two-byte minimum check.
+
+ drivers/media/dvb-frontends/ds3000.c |    3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/media/dvb-frontends/ds3000.c b/drivers/media/dvb-frontends/ds3000.c
+index ce7ae424b27c..9cc97ca7bbcc 100644
+--- a/drivers/media/dvb-frontends/ds3000.c
++++ b/drivers/media/dvb-frontends/ds3000.c
+@@ -373,6 +373,9 @@ static int ds3000_load_firmware(struct dvb_frontend *fe,
+ 	struct ds3000_state *state = fe->demodulator_priv;
+ 	int ret = 0;
+ 
++	if (fw->size < 2)
++		return -EINVAL;
++
+ 	dprintk("%s\n", __func__);
+ 	dprintk("Firmware is %zu bytes (%02x %02x .. %02x %02x)\n",
+ 			fw->size,
+
+base-commit: 518e5b794c06c0f0eb40df3e202274a66202c137
 -- 
-Kees Cook
+2.50.1 (Apple Git-155)
+
