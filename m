@@ -1,77 +1,94 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ACB04399DB
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 12:24:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E1CE43847E
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 12:25:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789907102; cv=none; b=pYERZjPa+2IZrhu8mVrqzBl2xejJGFebTnswxpohPk3lNhs+2qkuDQ1c/QRvQDv0s7joXpISnl/O9TYXWR86bvhu/GxodcRACeTlzaLnGepKyrfhGoy9Ew78LZbBrFD+XNo9+tKYT0eHDC0dtfhFx9908IFmAUCtaFDUVKAu64E=
+	t=1789907108; cv=none; b=dXtuYFZWMJ8yjImmf+jmg7GQqXYVZhcbVHHVm9kACdLs4g3RVjSJ1I/CiECo6C0s8KYhu/+VpaLINLscBrnvbfPupycwgAuPrxji8Sg18IU23BtE9W8767vA6avswW38f/ZGl2cPTLgpp4K/nbZSRFPOGELwO7pIRx4r8AK3iRc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789907102; c=relaxed/simple;
-	bh=m55ogdFoo0Jzv0GB82m+XB58M8rKI8owtLrio9jl438=;
+	s=arc-20240116; t=1789907108; c=relaxed/simple;
+	bh=/U5AIbq6dpv9hYmCEtYWD/LG4LRF7AuC0v8lt9FBAFg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XM+lGoSx9Fp4mRxOyMzgN+zxT4rY8c8ELJDsJgZmWQlIN3Oc0P6dtjz4733uw4ilancf6rm9i1y8r0uMiHycl/xQDug4D9azu8sfxtPQ4+Y61vtCb9Fq8fJhh1EE95jtcB4YXjKsEHJjil0skhRydveUHt4/mh602uk+F3RoCFg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eC/GCsGU; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=DLWoc7hEoDWTkDITtAGkfBB0Hy5B3WDCvEv6bM0fq7f+QWFMpHDesl7+/4HzTlVB5Krn6tIA5r8AmgkGg4A80JamEAH7mnmDx7legJ9VQA9XqJWtPVbCFW1BJ3qiUidyf5LimKPK9JZMFXVMMIZnGWPIPfjfXRttzTz8T7MMtoQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=acCQDNFs; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YTUTMkE/; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eC/GCsGU"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccb65437so1628360a91.3
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 05:24:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="acCQDNFs";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YTUTMkE/"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68KBnqBY1572111
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 12:24:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=JXnBYwBrV/5
+	ZgHaXuhnSHXfV+y8bvDojjxpiwpZmEhE=; b=acCQDNFsvm9WSUfqgYZADNthi8m
+	/uge79uOz95wTYj6x4RfHJFcc2ECmMqbSWI0WvO0EwjCBSkFgkcBTYkvaBRwgQN0
+	9c/zEJTxBX+YQYi7aQAs0ScM6uEYF7btICn7WfzWL6bjohRe5bAIsFr4CsxvX6vo
+	vN2HJt4JZbkuhks9di6XQpym8r9/txW9Jv1I+3kEYI/B0AMS4ZRUyDSsxrrJuF2N
+	UJiM2VlpynlOHmqblPL5B8H4Ov99Vfmn6sXgLDq74DNZocXRwcS2JrMtoJSQxhJo
+	COg7eemr03viYursGy6Cx5M+DlFZw+GFa/ULn9/aliBlrBnSskLd7qf2UBg==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gskp9tt08-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 12:24:58 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2d55d8cd938so39045355ad.1
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 05:24:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789907080; x=1790511880; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1789907098; x=1790511898; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=InRkxGfoq1s0w/ybf166NOP+zAmO71hub0jrhGTfC6U=;
-        b=eC/GCsGUrKsgqF4Ry+A8TQJzUjwRyw179B8P1cDqcWEYFeAe74et5KHHoR8uvKIncl
-         P9s03uy30oreNEtDZn2E2Uydfx9bVYKm9NJ+lqkPICOx6DpLVDmrYm8Do+fTCy2YlqV9
-         mRauJgXP3aF/7g0ER+Wp4T38gkUzDuxLebr7kI0GUC0x8xPSTc+zE3J1FY5iGwBcsNy9
-         nEwxp4+Gx+a9DK4q5ptPw1dM3/rg85bO31qMPU5CTWJkf7bx9rz/tlUKG6KP3WOc5S6I
-         AvLkGpvtgluw4UiKZVY4Q5/po0AhHJS2NNLf/lnTVufgZOgCPzk9kMo3NjKqfloOTICx
-         Uvpg==
+        bh=JXnBYwBrV/5ZgHaXuhnSHXfV+y8bvDojjxpiwpZmEhE=;
+        b=YTUTMkE/M28WxGOhiZ3LUxzR/insg6Ma5W9OVbZxRdZEN/N1T/TLwTBX2t9ZzNxIDy
+         YoFQt+zz4NAt+I4BUxW0mR8cW2x+UwIk0gnue6uUQDJvlUyzco0EqQDGgoo+vpJvmrQQ
+         rxg+WdKnxz5woHGvYtUgenwFd/w2vlHH1WF0Ac4MTF9kQrzgWzoFvzDTJBJo4Nq+oM2z
+         Uk7jRphL6f1oiqPgrg8p13HyKgwlKjjz4z2F9EH43PFXRkt+Z+XBf0BNq2qu/FAzJ040
+         6izmMNt+U/2qT5TCcrpMVFTZLzMrgd3y+2IWxkFSvN6F/w4Indhv+MPauAt7aX9fnapQ
+         pXWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789907080; x=1790511880;
+        d=1e100.net; s=20260707; t=1789907098; x=1790511898;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=InRkxGfoq1s0w/ybf166NOP+zAmO71hub0jrhGTfC6U=;
-        b=n/piwdN1CPiAscIeZHI9GBPWAIhE2n3tV4M2SN8jxQU7aOlArYCUixI8AoMw5Xv6KX
-         DNbLGBXPb0NQdl5oPjAuFTWxuA9fr1fYh0dpWhKHybIDbxiKrzNqiYDQeLnwa+I66Wb6
-         xgICuuYDgnGk8CceM+r7/CBcuwTzxyl9yD0LFQ/k0g3uz1R0Xjr0x5C3zg+5+xiqy+Wm
-         6XPClnq9TOc1J7heyXeFiJDfAmQTHnFPHY7B0ve6c3+8PhmMrmcB+BG0xJDs8zXLwfLl
-         /gJGlDVyl5M3VU+k0bALva0HimQb2X+ZkDnV8NjirP/NeXJvkrpVJ0g/q0FoNwv8HrkH
-         HS7Q==
-X-Forwarded-Encrypted: i=1; AKwUvByc7LSWEl14VcYKB5OgXUikrnZuM+ObfjCZyvmXmY4WPmVXLYXuGuBuu3rNdOEHcxlZNVynyn4/CWuXe5g=@vger.kernel.org
-X-Gm-Message-State: AFuF++nFoBKfv0DMpX2V5M+HQkePG3tqR2vqk0jvG0paT6vEOmPAN/+4
-	YTydbBXxB+TObYnLzR8iolrxQUz62uihfxVUm5oRe+0GELbIZuYUpZk=
-X-Gm-Gg: AYBFou2KalHsrGO4AgSW0MzHVUT1F6mkwtBP5uwBt8LH2xDTFuiOJkcGjvffmQoGLsB
-	ihEFDalQuV14UNXddwxErYJe3tDoTy0Vou8lslYU2oPePhJ6j2ub4QMAFzCKrx60aAJZ2psmLE2
-	fEJqzdi75UIWP2wVf1EQdWIMgfGJYqp9Ws0Vp7pKPLBSaQFozQlX5XHsYPkOIiWXNtfNtImwrp7
-	HTwgMCsm+usMWGR2B8q7R1A8Pg1j9EGkC3dD2K/8eGXT7NCVsRJB8MRMwRRDrXfeCbM7Y4wCqth
-	9D3bCgboTHHsDGwin7wVOkB2obc+U9Frj11zkGvPYDWCzR9Vao5/lTGIZu8x5WamMkacrNSXuK1
-	p1iRFcBUr6d01DVfJVsxrlivTBJTht10fYeanwjiNu+qYG0RhSk++TSrfI1V+BPn9OjfoGi/lAq
-	Uc+jKU48pFj+HayCqOK+Ci4h0COwJFxTZ5yzv3FOZIT+WpgqlgRb/fVPC/CI8913QYUqG9ejPTr
-	7nTZbFfS1Ut1OwdccTmi8EDLkQq
-X-Received: by 2002:a17:90b:1e42:b0:3a0:345a:3620 with SMTP id 98e67ed59e1d1-3a0345a48a4mr2499091a91.45.1789907080513;
-        Sun, 20 Sep 2026 05:24:40 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f00:8c85:e0d6:4b87:c472:c9ae])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e5647c151sm4972754a91.4.2026.09.20.05.24.38
+        bh=JXnBYwBrV/5ZgHaXuhnSHXfV+y8bvDojjxpiwpZmEhE=;
+        b=oF1CMvZbgEFqi1zElCVPJwDGyg7nwnegkbQ8hEEHBFDmsGfVFDH05Pj82sQ/fo0tXo
+         mnlLgObznALKw7ru0/vzbTPQ27QBJvaSNCJuan5latv+aoAXeJwgJInMCqF9MEKKC05n
+         3ZJ8vO2MYnnOEfD+gIKYgn5nkckpBt/ln9co8KNh3MzrBJhgdrsmopMVRVZHrsIyKFkK
+         sfY++IEdW2FR0zrqHMy/IOAB2lCaKmbBV5bWjj1c3N6EX+sM7muFvRMFOM/pJBLsNIPz
+         yLz5IiD3Tn/4AjxzIxogKfcjH8jjDZvsfQPxwz+2rqEQvLhriBFiikR4jOkMUhFhQjkL
+         u+gw==
+X-Forwarded-Encrypted: i=1; AKwUvByjhDrMunuHX+oHsGzVU8453v5Cp6F14NOmgJq+iE3qUOK3lUVved3fhYmb0aItpLEFsfBwdP6vgKwzTwc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nbflzcSeqV6Joda1d46MgvEjsG4mOMBbCN7S1UshPnCpyROaEI
+	qgweGAScxmLy1QtoqcN2vY/HfwvKzZoA2dgk3ViJfQaVXt9IezQmztWVohHWvjBSrUPhs4NzZrE
+	wF45Lo+sX3ysE74XE3AQAWSdu8wNKgBLDE8biqfrNM2uG1vYj+CC4Z/XzgsKdakiE5vA=
+X-Gm-Gg: AYBFou1McLZPcrqzc2VpbFHoSanTMuHSycpMGRwNYQWR6W7O9vFoxx4FZByJ/z8AmMP
+	bBhbiJ4A1rCU/inqyXFTpLhZw8wb07nzrPOG8Hg2ktVsOFmDghOPSUmVK0q3zja/NZWiBavONmu
+	1PWI1oYg3f3OGFnNDR76Axh8RWD4dWvSVZueXY76ZrYB7edLMbWgvphE51XVe0vcpxvZKZo5/OK
+	BFnYuhdR7HRjmj27YolgWhzyDE59bu2huSFzjAzsUYxsK80omtKjSzaX/h5+a9RdFM42T2FvBtw
+	xvvWy1z21hiaOonkU2iyXs2oaU66Kpl3PLFuYyod33m/tO+5leKQw7cVFIPJ3XgmiNAH5bukswU
+	kzfjs4G2y3w3KSGhazU8kue6k5PdrHBDxfK1p7F2pyH1W+638TwDkEIisSg==
+X-Received: by 2002:a17:903:3c70:b0:2d0:cc92:f7c2 with SMTP id d9443c01a7336-2ddb1aca947mr136164285ad.1.1789907097850;
+        Sun, 20 Sep 2026 05:24:57 -0700 (PDT)
+X-Received: by 2002:a17:903:3c70:b0:2d0:cc92:f7c2 with SMTP id d9443c01a7336-2ddb1aca947mr136164035ad.1.1789907097339;
+        Sun, 20 Sep 2026 05:24:57 -0700 (PDT)
+Received: from u24-san1p10108.qualcomm.com (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c331aef9bsm12007386eec.25.2026.09.20.05.24.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 05:24:40 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: sj@kernel.org,
-	akpm@linux-foundation.org
-Cc: damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	donggeunyoo.kernel@gmail.com
-Subject: Re: [PATCH v2 2/3] mm/damon/tests/core-kunit: test the temporal tuner's size quota conversion
-Date: Sun, 20 Sep 2026 21:24:36 +0900
-Message-ID: <20260920122436.610279-1-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260920104054.47877-1-sj@kernel.org>
-References: <20260920023111.2466265-1-donggeunyoo.kernel@gmail.com> <20260920023111.2466265-3-donggeunyoo.kernel@gmail.com> <20260920104054.47877-1-sj@kernel.org>
+        Sun, 20 Sep 2026 05:24:57 -0700 (PDT)
+From: Linlin Zhang <linlin.zhang@oss.qualcomm.com>
+To: mst@redhat.com, jasowangio@gmail.com, axboe@kernel.dk, ebiggers@kernel.org,
+        stefanha@redhat.com
+Cc: pbonzini@redhat.com, eperezma@redhat.com, xuanzhuo@linux.alibaba.com,
+        virtualization@lists.linux.dev, linux-block@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: [PATCH v3 1/2] virtio_blk: Add control virtqueue support
+Date: Sun, 20 Sep 2026 05:24:31 -0700
+Message-ID: <20260920122444.2549493-2-linlin.zhang@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260920122444.2549493-1-linlin.zhang@oss.qualcomm.com>
+References: <20260920122444.2549493-1-linlin.zhang@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,19 +96,447 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: uVYrphYdYzEkCrvDwuQs5skBSCohL_7W
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIwMDE4MCBTYWx0ZWRfX4hrjleT8SXmp
+ EL5GkKsnZA0g2ppvdIC8won6l0JdyAzBI06+4ofea1C940EpWDfEddzOJFqE0vlEpy/JU5PmOtt
+ K4mrZhrQSsNflJ4kVfQc7b9S/UvaPrNjWr40yo9qWGOCKB8c4/zbbxwmRPqPd/02+SrLBPnvbGU
+ 3b1IveZbWLuCiqZMJZcnCitMUFsiIvh0MkK9oYwAJNbuaIPtSTH7jtdJkioUpMXgvswaYa0ra41
+ EXH38kTb8BDBRLu+r2n0YcPZ/G4gd3lAnmsidbQJwfvVdBWBhOYsu5+67s8zq+nyN89/l45Eq7d
+ RMTPXfgLbWW0KsGIDMAne/9pqkhqBhB8EDSo4bkRvA6cnTWwNu3o7JtWCB9v66kAT8QMCUgfi+L
+ chAu+RGRI7ATP3mruXDgg9ziJSEkilPzdzc0G0UqsNPPPhfr3iZPByhuZkOA5Qf5lVOotHwjHvx
+ TCgBc56miDLWDeE8+9Q==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIwMDE4MCBTYWx0ZWRfX1L09C0uVbdpA
+ anpe32KTXH5NVgOCMiJDQfv2TOhN1o55n87hMQl/4JoRXHK5WDO94jOOXrHr2GiM1B54RKQEn7N
+ 2p1ypHLsrYQil0bJ8PI2xYs6nF4MpJw=
+X-Authority-Analysis: v=2.4 cv=BKAmP1QG c=1 sm=1 tr=0 ts=6aafd09a cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
+ a=mWMrKjBDJ3x8XhIyD1MA:9 a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-GUID: uVYrphYdYzEkCrvDwuQs5skBSCohL_7W
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-20_04,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 suspectscore=0 impostorscore=0 spamscore=0
+ malwarescore=0 bulkscore=0 adultscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609200180
 
-Thank you for the review.
+From: linlzhan <linlin.zhang@oss.qualcomm.com>
 
-On Sun, 20 Sep 2026 03:40:53 -0700 SJ Park <sj@kernel.org> wrote:
-> Please wrap commit message lines with 72 columns limit.
+Add support for the optional virtio-blk control virtqueue.
 
-Done in v3.
+If control queue feature bit is negociated, this allows the driver
+to manage control-queue requests independently from the data path
+and to safely handle outstanding requests during device removal
+and suspend.
 
-> Other than the above column limit,
->
-> Reviewed-by: SJ Park <sj@kernel.org>
+No control command is submitted by this change. The control virtqueue
+will be used by a subsequent inline encryption implementation.
 
-Thanks, added.  The code is unchanged in v3.
+Signed-off-by: linlzhan <linlin.zhang@oss.qualcomm.com>
+---
+ drivers/block/virtio_blk.c      | 241 +++++++++++++++++++++++++++++++-
+ include/uapi/linux/virtio_blk.h |   1 +
+ 2 files changed, 238 insertions(+), 4 deletions(-)
 
-Thanks,
-Donggeun
+diff --git a/drivers/block/virtio_blk.c b/drivers/block/virtio_blk.c
+index 32bf3ba07a9d..2fad86e8f7a9 100644
+--- a/drivers/block/virtio_blk.c
++++ b/drivers/block/virtio_blk.c
+@@ -6,6 +6,7 @@
+ #include <linux/hdreg.h>
+ #include <linux/module.h>
+ #include <linux/mutex.h>
++#include <linux/completion.h>
+ #include <linux/interrupt.h>
+ #include <linux/virtio.h>
+ #include <linux/virtio_blk.h>
+@@ -52,6 +53,15 @@ struct virtio_blk_vq {
+ 	char name[VQ_NAME_LEN];
+ } ____cacheline_aligned_in_smp;
+ 
++struct virtio_blk_ctrl_vq {
++	struct virtqueue *vq;
++	struct mutex mutex;
++	spinlock_t lock;
++	unsigned int inflight;
++	bool dead;
++	struct completion drained;
++};
++
+ struct virtio_blk {
+ 	/*
+ 	 * This mutex must be held by anything that may run after
+@@ -83,6 +93,9 @@ struct virtio_blk {
+ 
+ 	/* For zoned device */
+ 	unsigned int zone_sectors;
++
++	/* Control virtqueue state. */
++	struct virtio_blk_ctrl_vq ctrl_vq;
+ };
+ 
+ struct virtblk_req {
+@@ -110,6 +123,20 @@ struct virtblk_req {
+ 	struct scatterlist sg[];
+ };
+ 
++struct virtblk_ctrl_request {
++	__virtio32 type;
++	u8 status;
++
++	struct completion *compl;
++	/*
++	 * Set when virtblk_ctrl_vq_request()'s waiter timed out and moved on
++	 * without freeing this request. Whichever of virtblk_ctrlq_callback()
++	 * or virtblk_ctrl_vq_drain() later retrieves the buffer must free
++	 * @compl and this struct instead of calling complete() on them.
++	 */
++	bool abandoned;
++};
++
+ static inline blk_status_t virtblk_result(u8 status)
+ {
+ 	switch (status) {
+@@ -863,11 +890,184 @@ static int virtblk_getgeo(struct gendisk *disk, struct hd_geometry *geo)
+ 	return ret;
+ }
+ 
++#define VIRTBLK_CTRL_VQ_TIMEOUT (10 * HZ)
++
++/* Prevent new submissions and wait for in-flight requests to complete. */
++static void virtblk_ctrl_vq_quiesce(struct virtio_blk *vblk)
++{
++	unsigned long flags;
++	bool need_wait;
++
++	if (!vblk->ctrl_vq.vq)
++		return;
++
++	init_completion(&vblk->ctrl_vq.drained);
++
++	spin_lock_irqsave(&vblk->ctrl_vq.lock, flags);
++	vblk->ctrl_vq.dead = true;
++	need_wait = vblk->ctrl_vq.inflight != 0;
++	spin_unlock_irqrestore(&vblk->ctrl_vq.lock, flags);
++
++	if (need_wait &&
++	    !wait_for_completion_timeout(&vblk->ctrl_vq.drained,
++					  VIRTBLK_CTRL_VQ_TIMEOUT))
++		dev_warn(&vblk->vdev->dev,
++			 "timed out waiting for control queue requests to complete\n");
++}
++
++/* Fail requests left in the control queue after reset. */
++static void virtblk_ctrl_vq_drain(struct virtio_blk *vblk)
++{
++	struct virtblk_ctrl_request *creq;
++	unsigned long flags;
++
++	if (!vblk->ctrl_vq.vq)
++		return;
++
++	spin_lock_irqsave(&vblk->ctrl_vq.lock, flags);
++	while ((creq = virtqueue_detach_unused_buf(vblk->ctrl_vq.vq)) != NULL) {
++		bool abandoned = creq->abandoned;
++
++		if (WARN_ON_ONCE(!vblk->ctrl_vq.inflight))
++			;
++		else
++			vblk->ctrl_vq.inflight--;
++		if (!abandoned)
++			creq->status = VIRTIO_BLK_S_IOERR;
++		spin_unlock_irqrestore(&vblk->ctrl_vq.lock, flags);
++		if (abandoned) {
++			kfree(creq->compl);
++			kfree(creq);
++		} else {
++			complete(creq->compl);
++		}
++		spin_lock_irqsave(&vblk->ctrl_vq.lock, flags);
++	}
++	spin_unlock_irqrestore(&vblk->ctrl_vq.lock, flags);
++}
++
++static void virtblk_ctrlq_callback(struct virtqueue *vq)
++{
++	struct virtio_blk *vblk = vq->vdev->priv;
++	struct virtblk_ctrl_request *creq;
++	unsigned long flags;
++	unsigned int len;
++
++	spin_lock_irqsave(&vblk->ctrl_vq.lock, flags);
++	do {
++		virtqueue_disable_cb(vq);
++		while ((creq = virtqueue_get_buf(vq, &len)) != NULL) {
++			bool drained = false;
++			bool abandoned = creq->abandoned;
++
++			if (WARN_ON_ONCE(!vblk->ctrl_vq.inflight)) {
++				/*
++				 * Still resolve the request.  Never leave a
++				 * synchronous caller blocked because the accounting
++				 * state was already inconsistent.
++				 */
++				spin_unlock_irqrestore(&vblk->ctrl_vq.lock, flags);
++				if (abandoned) {
++					kfree(creq->compl);
++					kfree(creq);
++				} else {
++					complete(creq->compl);
++				}
++				spin_lock_irqsave(&vblk->ctrl_vq.lock, flags);
++				continue;
++			}
++
++			if (--vblk->ctrl_vq.inflight == 0 && vblk->ctrl_vq.dead)
++				drained = true;
++			spin_unlock_irqrestore(&vblk->ctrl_vq.lock, flags);
++			if (drained)
++				complete(&vblk->ctrl_vq.drained);
++			if (abandoned) {
++				kfree(creq->compl);
++				kfree(creq);
++			} else {
++				complete(creq->compl);
++			}
++			spin_lock_irqsave(&vblk->ctrl_vq.lock, flags);
++		}
++	} while (!virtqueue_enable_cb(vq));
++	spin_unlock_irqrestore(&vblk->ctrl_vq.lock, flags);
++}
++
++/* Submit a control-queue request and wait for completion. */
++static int virtblk_ctrl_vq_request(struct virtio_blk *vblk,
++				    struct virtblk_ctrl_request *creq,
++				    struct scatterlist *sgs[],
++				    unsigned int out_sgs, unsigned int in_sgs)
++{
++	struct completion *comp;
++	unsigned long flags;
++	int err;
++
++	/*
++	 * GFP_NOIO: this may be reached on the bio-submission path
++	 * (memory reclaim writing back dirty pages to this same device),
++	 * so GFP_KERNEL could self-deadlock.
++	 */
++	comp = kmalloc_obj(*comp, GFP_NOIO);
++	if (!comp)
++		return -ENOMEM;
++	init_completion(comp);
++
++	mutex_lock(&vblk->ctrl_vq.mutex);
++	creq->compl = comp;
++	creq->abandoned = false;
++
++	spin_lock_irqsave(&vblk->ctrl_vq.lock, flags);
++	if (vblk->ctrl_vq.dead) {
++		spin_unlock_irqrestore(&vblk->ctrl_vq.lock, flags);
++		mutex_unlock(&vblk->ctrl_vq.mutex);
++		kfree(comp);
++		return -ENODEV;
++	}
++	err = virtqueue_add_sgs(vblk->ctrl_vq.vq, sgs, out_sgs, in_sgs, creq, GFP_ATOMIC);
++	if (!err) {
++		vblk->ctrl_vq.inflight++;
++		virtqueue_kick(vblk->ctrl_vq.vq);
++	}
++	spin_unlock_irqrestore(&vblk->ctrl_vq.lock, flags);
++	if (err) {
++		mutex_unlock(&vblk->ctrl_vq.mutex);
++		kfree(comp);
++		return err;
++	}
++
++	if (wait_for_completion_timeout(comp, VIRTBLK_CTRL_VQ_TIMEOUT)) {
++		mutex_unlock(&vblk->ctrl_vq.mutex);
++		kfree(comp);
++		return 0;
++	}
++
++	/*
++	 * The host hasn't responded within the timeout. @creq is still
++	 * owned by the device, so don't touch its DMA-target fields or
++	 * free it here. Mark it abandoned and hand ownership of both @creq
++	 * and @comp to whichever of virtblk_ctrlq_callback() or
++	 * virtblk_ctrl_vq_drain() retrieves the buffer later; unlock the
++	 * mutex so subsequent requests aren't serialized behind an
++	 * unresponsive host.
++	 */
++	spin_lock_irqsave(&vblk->ctrl_vq.lock, flags);
++	creq->abandoned = true;
++	spin_unlock_irqrestore(&vblk->ctrl_vq.lock, flags);
++	mutex_unlock(&vblk->ctrl_vq.mutex);
++
++	dev_warn(&vblk->vdev->dev,
++		 "control queue request timed out, abandoning\n");
++	return -ETIMEDOUT;
++}
++
+ static void virtblk_free_disk(struct gendisk *disk)
+ {
+ 	struct virtio_blk *vblk = disk->private_data;
+ 
+ 	ida_free(&vd_index_ida, vblk->index);
++	mutex_destroy(&vblk->ctrl_vq.mutex);
+ 	mutex_destroy(&vblk->vdev_mutex);
+ 	kfree(vblk);
+ }
+@@ -965,6 +1165,8 @@ static int init_vq(struct virtio_blk *vblk)
+ 	struct virtqueue **vqs;
+ 	unsigned short num_vqs;
+ 	unsigned short num_poll_vqs;
++	unsigned short total_vqs;
++	bool has_ctrl_vq;
+ 	struct virtio_device *vdev = vblk->vdev;
+ 	struct irq_affinity desc = { 0, };
+ 
+@@ -993,12 +1195,19 @@ static int init_vq(struct virtio_blk *vblk)
+ 				vblk->io_queues[HCTX_TYPE_READ],
+ 				vblk->io_queues[HCTX_TYPE_POLL]);
+ 
++	/*
++	 * The control vq is appended after the data vqs whenever
++	 * F_CTRL_VQ is negotiated.
++	 */
++	has_ctrl_vq = virtio_has_feature(vdev, VIRTIO_BLK_F_CTRL_VQ);
++	total_vqs = num_vqs + (has_ctrl_vq ? 1 : 0);
++
+ 	vblk->vqs = kmalloc_objs(*vblk->vqs, num_vqs);
+ 	if (!vblk->vqs)
+ 		return -ENOMEM;
+ 
+-	vqs_info = kzalloc_objs(*vqs_info, num_vqs);
+-	vqs = kmalloc_objs(*vqs, num_vqs);
++	vqs_info = kzalloc_objs(*vqs_info, total_vqs);
++	vqs = kmalloc_objs(*vqs, total_vqs);
+ 	if (!vqs_info || !vqs) {
+ 		err = -ENOMEM;
+ 		goto out;
+@@ -1015,8 +1224,13 @@ static int init_vq(struct virtio_blk *vblk)
+ 		vqs_info[i].name = vblk->vqs[i].name;
+ 	}
+ 
++	if (has_ctrl_vq) {
++		vqs_info[num_vqs].callback = virtblk_ctrlq_callback;
++		vqs_info[num_vqs].name = "control";
++	}
++
+ 	/* Discover virtqueues and write information to configuration.  */
+-	err = virtio_find_vqs(vdev, num_vqs, vqs, vqs_info, &desc);
++	err = virtio_find_vqs(vdev, total_vqs, vqs, vqs_info, &desc);
+ 	if (err)
+ 		goto out;
+ 
+@@ -1025,6 +1239,9 @@ static int init_vq(struct virtio_blk *vblk)
+ 		vblk->vqs[i].vq = vqs[i];
+ 	}
+ 	vblk->num_vqs = num_vqs;
++	vblk->ctrl_vq.vq = has_ctrl_vq ? vqs[num_vqs] : NULL;
++	vblk->ctrl_vq.dead = false;
++	vblk->ctrl_vq.inflight = 0;
+ 
+ out:
+ 	kfree(vqs);
+@@ -1464,14 +1681,18 @@ static int virtblk_probe(struct virtio_device *vdev)
+ 	}
+ 
+ 	mutex_init(&vblk->vdev_mutex);
++	mutex_init(&vblk->ctrl_vq.mutex);
++	spin_lock_init(&vblk->ctrl_vq.lock);
+ 
+ 	vblk->vdev = vdev;
+ 
+ 	INIT_WORK(&vblk->config_work, virtblk_config_changed_work);
+ 
+ 	err = init_vq(vblk);
+-	if (err)
++	if (err) {
++		dev_err(&vdev->dev, "init virt queue failed: err = %d\n", err);
+ 		goto out_free_vblk;
++	}
+ 
+ 	/* Default queue sizing is to fill the ring. */
+ 	if (!virtblk_queue_depth) {
+@@ -1553,6 +1774,7 @@ static int virtblk_probe(struct virtio_device *vdev)
+ out_free_vq:
+ 	vdev->config->del_vqs(vdev);
+ 	kfree(vblk->vqs);
++	vblk->ctrl_vq.vq = NULL;
+ out_free_vblk:
+ 	kfree(vblk);
+ out_free_index:
+@@ -1571,16 +1793,21 @@ static void virtblk_remove(struct virtio_device *vdev)
+ 	del_gendisk(vblk->disk);
+ 	blk_mq_free_tag_set(&vblk->tag_set);
+ 
++	virtblk_ctrl_vq_quiesce(vblk);
++
+ 	mutex_lock(&vblk->vdev_mutex);
+ 
+ 	/* Stop all the virtqueues. */
+ 	virtio_reset_device(vdev);
++	virtblk_ctrl_vq_drain(vblk);
+ 
+ 	/* Virtqueues are stopped, nothing can use vblk->vdev anymore. */
+ 	vblk->vdev = NULL;
+ 
+ 	vdev->config->del_vqs(vdev);
+ 	kfree(vblk->vqs);
++	vblk->vqs = NULL;
++	vblk->ctrl_vq.vq = NULL;
+ 
+ 	mutex_unlock(&vblk->vdev_mutex);
+ 
+@@ -1593,13 +1820,17 @@ static int virtblk_freeze_priv(struct virtio_device *vdev)
+ 	struct request_queue *q = vblk->disk->queue;
+ 	unsigned int memflags;
+ 
++
+ 	/* Ensure no requests in virtqueues before deleting vqs. */
+ 	memflags = blk_mq_freeze_queue(q);
+ 	blk_mq_quiesce_queue_nowait(q);
+ 	blk_mq_unfreeze_queue(q, memflags);
+ 
++	virtblk_ctrl_vq_quiesce(vblk);
++
+ 	/* Ensure we don't receive any more interrupts */
+ 	virtio_reset_device(vdev);
++	virtblk_ctrl_vq_drain(vblk);
+ 
+ 	/* Make sure no work handler is accessing the device. */
+ 	flush_work(&vblk->config_work);
+@@ -1612,6 +1843,7 @@ static int virtblk_freeze_priv(struct virtio_device *vdev)
+ 	 * pointers safely.
+ 	 */
+ 	vblk->vqs = NULL;
++	vblk->ctrl_vq.vq = NULL;
+ 
+ 	return 0;
+ }
+@@ -1672,6 +1904,7 @@ static unsigned int features[] = {
+ 	VIRTIO_BLK_F_FLUSH, VIRTIO_BLK_F_TOPOLOGY, VIRTIO_BLK_F_CONFIG_WCE,
+ 	VIRTIO_BLK_F_MQ, VIRTIO_BLK_F_DISCARD, VIRTIO_BLK_F_WRITE_ZEROES,
+ 	VIRTIO_BLK_F_SECURE_ERASE, VIRTIO_BLK_F_ZONED,
++	VIRTIO_BLK_F_CTRL_VQ,
+ };
+ 
+ static struct virtio_driver virtio_blk = {
+diff --git a/include/uapi/linux/virtio_blk.h b/include/uapi/linux/virtio_blk.h
+index 3744e4da1b2a..0a16972a1535 100644
+--- a/include/uapi/linux/virtio_blk.h
++++ b/include/uapi/linux/virtio_blk.h
+@@ -42,6 +42,7 @@
+ #define VIRTIO_BLK_F_WRITE_ZEROES	14	/* WRITE ZEROES is supported */
+ #define VIRTIO_BLK_F_SECURE_ERASE	16 /* Secure Erase is supported */
+ #define VIRTIO_BLK_F_ZONED		17	/* Zoned block device */
++#define VIRTIO_BLK_F_CTRL_VQ			22	/* Control queue */
+ 
+ /* Legacy feature bits */
+ #ifndef VIRTIO_BLK_NO_LEGACY
+-- 
+2.34.1
+
