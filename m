@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9618341D23B;
-	Sun, 20 Sep 2026 11:42:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 585D7422E34;
+	Sun, 20 Sep 2026 11:42:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789904529; cv=none; b=fwu+n8Ec3MUTfPBMTdZr19lIfzW0kuu0xyIgEp12SbCLUv2ed+AL2Vw1WtCu3Yl+7Q0+9nxIGWYJ7JsnCEZjarlVwmzgLP4M7R6cU6tY5GrcCgF5Lh7dIv4VYPLVlyCTu0rKgC7L/LcgEOXm+xWGERUuFCDFK7UNQItofXlxMk0=
+	t=1789904533; cv=none; b=PN+4UtA02P41G1eAh0WnQv4MLnfGlXzw1pPNM+rbdvJAq5zLd7RZafuTtP5nG22L6xLZYpcxLTt78FIY5jA9x0bZKdRKJ9rSowdYx27vLewW2+RPWLsTCeydEkpKbf89vqGC5yfUrh48mI2anMarWz3FdiX8bl6oWv2lLKf90ko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789904529; c=relaxed/simple;
-	bh=m/9dXXzylK1SrjgTUrcVbikEY6Zbzst47ERZoPzgAQg=;
+	s=arc-20240116; t=1789904533; c=relaxed/simple;
+	bh=3CbO+X138z9WBErboej9RFc9J/ikiZ8eNlVagy2nQbI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GptEXX/UBQWOn/h47RryF3GhiAmqpR86Q0iGOf7fDxHis27s9Wp397qu0Ekom8vRnUnV/qJs/xoGXxdceXBd8cLcNGDN/gXDPQfhAUmQrlW1u2aCvbRsuHj+20DVzFaEJkbWBZQjkLLCNJNxt5WHI0HwRLsxlOKlKLREHfR0/mE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n+ps1Ngb; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=vFHVPE92qSubywmULTv4X+gW6+PlmnVuHdyhvV1FqrHjQbodZkpPPyvckUcara0FPkjbHOj8u4kTq4KsxdBKWnxnbAN0WCJT11AsyFkOSm1VEbMwO8CcIv9MaFpHYJ1JtQl1fw03CMWG2WBK7TjgK3y2ECVrix/gftDapY+YrDc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AIckF1HI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n+ps1Ngb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 466911F000FF;
-	Sun, 20 Sep 2026 11:42:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AIckF1HI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B37371F000FF;
+	Sun, 20 Sep 2026 11:42:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789904524;
-	bh=Z95hbdfgOpnr57c2fIo3qviMBbxUl2sFsECI1kVRitw=;
+	s=k20260515; t=1789904531;
+	bh=SuncNYeOTYCFrmur6x8EWT3Z+JU509LogGMtfMK+Q7Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=n+ps1Ngbv+noXq51uHbeyD6nyeAKcl5uxrYLJ8ncnRya2pq2lwsWpCSrkNnpRULRq
-	 F7g60j2HdXwnXQ7XnPcxosx0tq9X44gdHunSb9D6dylA2HToSRNH2lbxVfS08lP0UX
-	 ZzCbS5pT96rXJzhkDeLR4vkQiodugeJSTvII9aJiV/1GcXhfXhGYWqxI4aVZ01ss43
-	 B+8vDoX0Q8v2lJxgSdutjjn0uSfr6lylPcnIracXjgfpeTtQNmprvA0zNHkk85yggN
-	 BPWfJUWnJIFqtXltILnvgAYdirSLPjUHj28I1MhfOILRNE0y7Q4M2F4qAa/1abGtUZ
-	 nC+LJn28sJklg==
+	b=AIckF1HIQkb6qFGr7RTuYXXmhMjF9JAufH0GFDLcnYLngeqx9h+a3F2NIAkVi/wAq
+	 f14siGd3D40SaMdtNW75kStQnzDQIvUIgPWBTz+1RTOzyXmaxZuTSY1Vz0/gAnSCeR
+	 xD51JrVmCr64UySw47WcK4yY9BtfxHzmqcPcaO5ETi9oa3tuJopz5A6EI1ySrBcKml
+	 ABcGbSqNNiU5HfT3/HS3+KlVu88PQgAEs9AwGSOE7ogIdx3QMUjTD4MxxClw2N9tYB
+	 1cZUEoD7Ur8ai0hrXCwhTVTO0/wmHrh77Ksjcm2T+vWN+EETB6DIcIaCM8a+ngkdl9
+	 fHTHSF2JrpKbg==
 From: Leon Romanovsky <leon@kernel.org>
 To: Bjorn Helgaas <bhelgaas@google.com>,
 	Logan Gunthorpe <logang@deltatee.com>,
@@ -54,9 +54,9 @@ Cc: linux-pci@vger.kernel.org,
 	linaro-mm-sig@lists.linaro.org,
 	linux-rdma@vger.kernel.org,
 	kvm@vger.kernel.org
-Subject: [PATCH v7 06/19] PCI/P2PDMA: Collect the path's ACS controls before deciding
-Date: Sun, 20 Sep 2026 14:41:18 +0300
-Message-ID: <20260920-fix-p2p-acs-v4-0-v7-6-ca0828ab697c@nvidia.com>
+Subject: [PATCH v7 08/19] PCI/P2PDMA: Route Relaxed Ordering Completions directly
+Date: Sun, 20 Sep 2026 14:41:20 +0300
+Message-ID: <20260920-fix-p2p-acs-v4-0-v7-8-ca0828ab697c@nvidia.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260920-fix-p2p-acs-v4-0-v7-0-ca0828ab697c@nvidia.com>
 References: <20260920-fix-p2p-acs-v4-0-v7-0-ca0828ab697c@nvidia.com>
@@ -72,235 +72,44 @@ Content-Transfer-Encoding: 8bit
 
 From: Leon Romanovsky <leonro@nvidia.com>
 
-calc_map_type_and_dist() reads each divergence port's ACS Control register
-and folds the result into running counters as it goes. Any routing property
-that depends on the kind of TLP being routed would have to be threaded
-through that code, so there is nowhere to put one without reading the
-registers again for each kind.
+ACS P2P Completion Redirect leaves Completions carrying the Relaxed
+Ordering attribute alone. PCIe r7.0 sec 6.12.1.1 redirects only those "that
+do not have the Relaxed Ordering Attribute bit set", and sec 7.7.12.5
+describes the enable bit as "applicable only to Completions whose Relaxed
+Ordering Attribute is clear". P2PDMA reports one answer for every kind of
+TLP, so a client whose provider returns such Completions is sent through
+the host bridge for a redirect that never happens to it.
 
-Collect the two ports' ACS Control values into struct pci_p2pdma_acs_path
-first, then decide from it. pci_p2pdma_route() applies the same rule as
-before: a path routes directly only when both directions do.
+Add enum pci_p2pdma_tlp_flags and let a caller state that property.
 
 Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
 Tested-by: Tushar Dave <tdave@nvidia.com>
 Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 ---
- drivers/pci/p2pdma.c | 148 +++++++++++++++++++++++++++++++++------------------
- 1 file changed, 96 insertions(+), 52 deletions(-)
+ drivers/pci/p2pdma.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-index 550e6c7346ef..841c86be31bb 100644
+index 7e067e1331fa..3e5262a5265a 100644
 --- a/drivers/pci/p2pdma.c
 +++ b/drivers/pci/p2pdma.c
-@@ -553,6 +553,80 @@ static void seq_buf_print_bus_devfn(struct seq_buf *buf, struct pci_dev *pdev)
- 	seq_buf_printf(buf, "%s;", pci_name(pdev));
+@@ -517,11 +517,15 @@ pci_acs_p2pdma_request(u16 ctrl, unsigned int tlp_flags)
+ /*
+  * Decide how a peer-to-peer Completion at an ACS-capable ingress port routes.
+  * PCIe r7.0 sec 6.12.1.1: no ACS control other than P2P Completion Redirect
+- * affects a Completion.
++ * affects a Completion, and that one leaves Completions carrying the Relaxed
++ * Ordering attribute alone.
+  */
+ static enum pci_acs_p2pdma_state
+ pci_acs_p2pdma_completion(u16 ctrl, unsigned int tlp_flags)
+ {
++	if (tlp_flags & PCI_P2PDMA_TLP_RELAXED_CPL)
++		return PCI_ACS_P2PDMA_DIRECT;
++
+ 	return ctrl & PCI_ACS_CR ? PCI_ACS_P2PDMA_REDIRECT :
+ 				   PCI_ACS_P2PDMA_DIRECT;
  }
- 
-+/*
-+ * What the topology walk found out about one provider/client path. Producing
-+ * this costs a walk and one config read per divergence port, none of which
-+ * depends on the TLP being routed.
-+ *
-+ * @req_ctrl:	ACS Control of the client-side divergence port. That is the
-+ *		first port at which a Request can route toward the peer rather
-+ *		than upstream, so it is where the Request controls apply.
-+ * @cpl_ctrl:	ACS Control of the provider-side divergence port, likewise for
-+ *		the Completions travelling back.
-+ * @unreadable:	First port whose ACS Control could not be read, if any.
-+ */
-+struct pci_p2pdma_acs_path {
-+	u16 req_ctrl;
-+	u16 cpl_ctrl;
-+	struct pci_dev *unreadable;
-+};
-+
-+/*
-+ * Combine both directions into a mapping type. Only a path that routes the
-+ * Request and the Completions it generates directly can be programmed with
-+ * the peer's bus addresses.
-+ */
-+static enum pci_p2pdma_map_type
-+pci_p2pdma_route(const struct pci_p2pdma_acs_path *path)
-+{
-+	if (path->unreadable)
-+		return PCI_P2PDMA_MAP_NOT_SUPPORTED;
-+
-+	if (pci_acs_p2pdma_request(path->req_ctrl) == PCI_ACS_P2PDMA_DIRECT &&
-+	    pci_acs_p2pdma_completion(path->cpl_ctrl) == PCI_ACS_P2PDMA_DIRECT)
-+		return PCI_P2PDMA_MAP_BUS_ADDR;
-+
-+	return PCI_P2PDMA_MAP_THRU_HOST_BRIDGE;
-+}
-+
-+/*
-+ * Name the ports that keep this path off a direct route, so that the admin
-+ * can hand them to pci=disable_acs_redir=.
-+ */
-+static void pci_p2pdma_warn_path(struct pci_dev *client,
-+				 struct pci_dev *provider,
-+				 const struct pci_p2pdma_acs_path *path,
-+				 struct pci_dev *a_child,
-+				 struct pci_dev *b_child)
-+{
-+	struct seq_buf acs_list;
-+	char buf[128];
-+
-+	if (path->unreadable) {
-+		pci_warn(client,
-+			 "ACS Control is unreadable for provider %s at %s\n",
-+			 pci_name(provider), pci_name(path->unreadable));
-+		return;
-+	}
-+
-+	seq_buf_init(&acs_list, buf, sizeof(buf));
-+	if (pci_acs_p2pdma_completion(path->cpl_ctrl) != PCI_ACS_P2PDMA_DIRECT)
-+		seq_buf_print_bus_devfn(&acs_list, a_child);
-+	if (pci_acs_p2pdma_request(path->req_ctrl) != PCI_ACS_P2PDMA_DIRECT)
-+		seq_buf_print_bus_devfn(&acs_list, b_child);
-+
-+	/* Drop the final semicolon; the list is not empty here. */
-+	if (!seq_buf_has_overflowed(&acs_list))
-+		acs_list.buffer[acs_list.len - 1] = '\0';
-+
-+	pci_warn(client,
-+		 "ACS redirect is set between the client and provider (%s)\n",
-+		 pci_name(provider));
-+	pci_warn(client,
-+		 "to disable ACS controls for this path, add the kernel parameter: pci=disable_acs_redir=%s\n",
-+		 seq_buf_str(&acs_list));
-+}
-+
- static bool cpu_supports_p2pdma(void)
- {
- #ifdef CONFIG_X86
-@@ -751,19 +825,13 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
- 		int *dist, bool verbose)
- {
- 	enum pci_p2pdma_map_type map_type = PCI_P2PDMA_MAP_THRU_HOST_BRIDGE;
--	enum pci_acs_p2pdma_state state = PCI_ACS_P2PDMA_NOT_SUPPORTED;
- 	struct pci_dev *a = provider, *b = client, *bb;
- 	struct pci_dev *a_child = NULL, *b_child = NULL;
--	struct pci_dev *acs_unreadable = NULL;
-+	struct pci_p2pdma_acs_path path = {};
- 	struct pci_p2pdma *p2pdma;
--	struct seq_buf acs_list;
--	int acs_redirect_cnt = 0;
-+	bool cpu_p2pdma, host_whitelisted = false;
- 	int dist_a = 0;
- 	int dist_b = 0;
--	char buf[128];
--	u16 ctrl;
--
--	seq_buf_init(&acs_list, buf, sizeof(buf));
- 
- 	/*
- 	 * Note, we don't need to take references to devices returned by
-@@ -806,61 +874,35 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
- 	 * branch is upstream, so redirect controls do not affect the path.
- 	 */
- 	if (a_child && b_child) {
--		if (pci_acs_p2pdma_ctrl(a_child, &ctrl))
--			state = pci_acs_p2pdma_completion(ctrl);
--		if (state != PCI_ACS_P2PDMA_DIRECT) {
--			seq_buf_print_bus_devfn(&acs_list, a_child);
--			if (state == PCI_ACS_P2PDMA_REDIRECT)
--				acs_redirect_cnt++;
--			else if (!acs_unreadable)
--				acs_unreadable = a_child;
--		}
--
--		state = PCI_ACS_P2PDMA_NOT_SUPPORTED;
--		if (pci_acs_p2pdma_ctrl(b_child, &ctrl))
--			state = pci_acs_p2pdma_request(ctrl);
--		if (state != PCI_ACS_P2PDMA_DIRECT) {
--			seq_buf_print_bus_devfn(&acs_list, b_child);
--			if (state == PCI_ACS_P2PDMA_REDIRECT)
--				acs_redirect_cnt++;
--			else if (!acs_unreadable)
--				acs_unreadable = b_child;
--		}
-+		if (!pci_acs_p2pdma_ctrl(a_child, &path.cpl_ctrl))
-+			path.unreadable = a_child;
-+		if (!pci_acs_p2pdma_ctrl(b_child, &path.req_ctrl) &&
-+		    !path.unreadable)
-+			path.unreadable = b_child;
- 	}
- 
- 	/*
- 	 * Below a shared upstream bridge, a path whose divergence ports do not
- 	 * redirect routes the request directly.
- 	 */
--	if (!acs_unreadable && !acs_redirect_cnt) {
--		map_type = PCI_P2PDMA_MAP_BUS_ADDR;
-+	map_type = pci_p2pdma_route(&path);
-+	if (map_type == PCI_P2PDMA_MAP_BUS_ADDR)
- 		goto done;
--	}
- 
--	if (verbose) {
--		/* Drop the final semicolon; the list is not empty here. */
--		if (!seq_buf_has_overflowed(&acs_list))
--			acs_list.buffer[acs_list.len - 1] = '\0';
--		if (acs_unreadable)
--			pci_warn(client, "ACS Control is unreadable for provider %s at %s\n",
--				 pci_name(provider), pci_name(acs_unreadable));
--		else {
--			pci_warn(client, "ACS redirect is set between the client and provider (%s)\n",
--				 pci_name(provider));
--			pci_warn(client, "to disable ACS controls for this path, add the kernel parameter: pci=disable_acs_redir=%s\n",
--				 seq_buf_str(&acs_list));
--		}
--	}
-+	if (verbose)
-+		pci_p2pdma_warn_path(client, provider, &path, a_child, b_child);
- 
- 	/* An unreadable control does not establish an upstream redirect. */
--	if (acs_unreadable) {
--		map_type = PCI_P2PDMA_MAP_NOT_SUPPORTED;
-+	if (path.unreadable)
- 		goto done;
--	}
- 
- map_through_host_bridge:
--	if (!cpu_supports_p2pdma() &&
--	    !host_bridge_whitelist(provider, client, verbose)) {
-+	cpu_p2pdma = cpu_supports_p2pdma();
-+	if (!cpu_p2pdma)
-+		host_whitelisted = host_bridge_whitelist(provider, client,
-+							  verbose);
-+
-+	if (!cpu_p2pdma && !host_whitelisted) {
- 		if (verbose)
- 			pci_warn(client, "cannot be used for peer-to-peer DMA as the client and provider (%s) do not share an upstream bridge or whitelisted host bridge\n",
- 				 pci_name(provider));
-@@ -1193,8 +1235,9 @@ enum pci_p2pdma_map_type pci_p2pdma_map_type(struct p2pdma_provider *provider,
- {
- 	enum pci_p2pdma_map_type type = PCI_P2PDMA_MAP_NOT_SUPPORTED;
- 	struct pci_dev *pdev = to_pci_dev(provider->owner);
--	struct pci_dev *client;
- 	struct pci_p2pdma *p2pdma;
-+	unsigned long cache_index;
-+	struct pci_dev *client;
- 	int dist;
- 
- 	if (!pdev->p2pdma)
-@@ -1204,13 +1247,14 @@ enum pci_p2pdma_map_type pci_p2pdma_map_type(struct p2pdma_provider *provider,
- 		return PCI_P2PDMA_MAP_NOT_SUPPORTED;
- 
- 	client = to_pci_dev(dev);
-+	cache_index = map_types_idx(client);
- 
- 	rcu_read_lock();
- 	p2pdma = rcu_dereference(pdev->p2pdma);
- 
- 	if (p2pdma)
- 		type = xa_to_value(xa_load(&p2pdma->map_types,
--					   map_types_idx(client)));
-+					   cache_index));
- 	rcu_read_unlock();
- 
- 	if (type == PCI_P2PDMA_MAP_UNKNOWN)
 
 -- 
 2.55.0
