@@ -1,168 +1,95 @@
-Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de [81.169.146.219])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC4E6432E6F;
-	Sun, 20 Sep 2026 18:43:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.219
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789929839; cv=pass; b=ukBFFvPcCL8XLKlCBlHPSIDcxBFsFMUw0AwD6UJJb/Fgb1OsDxz/pBNvF7qkrcA3hdeuZ2cNwoz9FFaerCceI4rKxAtQy7qLcgwPSOy7PKeM11FM6b90YCbtBvnuIQHLFPm0GyL66SyvaJSw3WD/H0cG56oD8LMiFcLqYFmm65E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789929839; c=relaxed/simple;
-	bh=BT3g3rtGJgWRF2h/MVXMezZ61pm7KorUXaKbHMqFGBQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nbSvxPvQasgI//6KpSx+OG4lolJmLn7KXgv23bqQZ945Z2k/oXC8ripm6ojvMBVc8KOoVcsxPFUqAoe6wKdQdylRdEs8Pdp72zJDnAV/B0uq20fuyROjh/eLYth3k/lb6Px6R7nd4rOGfTsKZ1kC41oVzoFlEYQ2PmyJgFUJxtE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=XfODKBwq; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=nZiNGh+/; arc=pass smtp.client-ip=81.169.146.219
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 130BB2D97A6;
+	Sun, 20 Sep 2026 18:44:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789929898; cv=none; b=Or63IIe+vuquHMkhBIFn2sD+LIl3amlLyAEnkyd7oSYbhZYaCQr0Zjdb63ZozQtWV1h8SOsIyyYNgToijXjvrbBliDk646OCRnZcLNqlhLbSX8cC6kXVOwrZJ9PpTcdgJ9xCjmr1wbH7ce/s50l3rmLvbbZL3ivmpwlAyGYcIXs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789929898; c=relaxed/simple;
+	bh=QJsWC1gMcYVMlfiKVitvzXhfgKd6RInLe4w+N7jhQUk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=g03dKdx8OB2MLbUHzlvGLXLKjBd7MUpof+6n/6iq3PTiYSMq0InJzGpQl/iS/3rvDLOj7+J5xseIjFfXqceUqZGrEmrm3XB46gfVaCU7u0D7fLZpuWsy4StmCCTyLK0F5T0QV2oY+GOXIKgb1yI9ScU+TTCnrYJDy0TzsQaA57o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ldRB+0w2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="XfODKBwq";
-	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="nZiNGh+/"
-ARC-Seal: i=1; a=rsa-sha256; t=1789928039; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=YN9JcQYR/R69tZXOVy1cRSIPoJrc20Hcq+aNFhVJeOCo1dv6jHOiIwqlDdXuc8tIQ9
-    Jt/AZs08UruVp2DQtwBlFKpqsjhr6ZkHI3qYm8kScb/OeDBGV/s7teF1KeazZnGJUuXR
-    hZzQC76DA9koeJwGccNspxudF9czTwUQgfQ0HlZJWDTFaz0qeE0AbT5fdvewavftXHYN
-    qlexsoUni3F6HT8bBCj4/3BSk/PkArkFLBuQWQUDCdigteyBqxBRI06LS8u70ZfwIh86
-    SOtDToFwUdH2ZsbQ5P/gB5yaB/7Y7qzbsz0FICoFFBnve6FW3bx3boa54HE8hXznXq6A
-    eP/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1789928039;
-    s=strato-dkim-0002; d=strato.com;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=lFF2t81/wUDIp+wv0zI2fQrWfIvzl86LKDwYEojYLGk=;
-    b=dEqhtZjEPlKP0HWMjCWvPFOUb0gbPWvU0OIJiqYn6GpPWctmbxT8WgxnnDwSBrEovd
-    4KNiGUt7L6My0zj+TEP7jyK+maKTwYYvHy+9b0yjx4mTUNaYVAXmoK9bZigpSAqMSUQT
-    4EfrrKlDV6gI4Lsv4oAxqt5RmBt7aQMJIGYrabHX9xJr3YWt9KpFe8WQWWNm1TUKMjH7
-    7rStMTA6JklLliXh4/eDFfSJ85FcLjigmnoTDWYbWH8IwFZgf89GOsoKzptP27T3uShz
-    qb0Y3DFBBAoHrHm+7gDtX7NtRwfFtZhTBxvkLWUPQh2wgHrHFeSxDnkzYkgNV4xCtVS9
-    Ef5g==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo00
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1789928039;
-    s=strato-dkim-0002; d=hartkopp.net;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=lFF2t81/wUDIp+wv0zI2fQrWfIvzl86LKDwYEojYLGk=;
-    b=XfODKBwqvZ6qUeYaDsatBptNSfCFV5Z3VLdd1Rb6Sm9bSukWDovmp9cCIZxjCE6FQ3
-    c4jEOL7p1/ru4meHg43VyBlrh4OY9YQBKl9ioYWcny/7x9obo0i2kUhg0CWSc0PDKwc2
-    ILYcaBl6Na5GDfTv5Gr56TRwkPqd4aaecXfifohAO7oSBrgjKit5pTT9s4wmIty3iNIm
-    ZoJy2UAvS2nV7BHGuz+mqv8D7eX3vpBvWVQA1za2i8+fbIV2gu+xsqBnWTbrfYBbdwZR
-    a3Sp6eIot8gbthUvoniQbFpVarN6jrt54buxw8VMu2tehRe60egv7FUDbGXKHeugJWV1
-    dkfg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1789928039;
-    s=strato-dkim-0003; d=hartkopp.net;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=lFF2t81/wUDIp+wv0zI2fQrWfIvzl86LKDwYEojYLGk=;
-    b=nZiNGh+/7/HRaoquQZgP8gt5cc3KDXcpsL/aOgwT90lH2uW/tJFlcCRF+YpHcP4gU7
-    QJz2nyFvbNy74pW1L4Bw==
-X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tTnapWH91DJdQmULZkNQx"
-Received: from [10.91.122.125]
-    by smtp.strato.de (RZmta 55.6.2 AUTH)
-    with ESMTPSA id K171b728KIDwt9H
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Sun, 20 Sep 2026 20:13:58 +0200 (CEST)
-Message-ID: <d63c650a-5c78-440d-939d-e131ec5c2260@hartkopp.net>
-Date: Sun, 20 Sep 2026 20:13:24 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ldRB+0w2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BE8B1F000FF;
+	Sun, 20 Sep 2026 18:44:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789929896;
+	bh=ShJuUyGu37YLcWmRpCjUv5c3tepo2YY+TNWNbuzT9es=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ldRB+0w2x0AdgNKHhKz5TqehKAcjNVeIcSkwTnjYthzEUouNivwECwGTEH1/DfjDe
+	 hKis8fGjBvJr0A3cDG7aw79QJ6CNA4jiWiFb84b4EDL8JxV0nYx5Eve2DHYsFAivMH
+	 xxQkbIVw2re/n+t1IDgeSyfp4+HMxesnofPyx38y1dTKR+EQ1yWuHWnXT1wRyGch9Z
+	 f7ioi83RxP7WPwsKzbq/EHINOboUQcWbJBmhVJRj0ap6TTb7fSydBQxN6qB5OvYIpi
+	 5t7gkpDrCg0M75DG5DyzvQGBIvFVkWRHJCOrxoJEAWGgW1OAVBLmu/H5l3ehIuSWQ4
+	 z7ODk74O5Y3gQ==
+Date: Sun, 20 Sep 2026 19:44:54 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Ariana Lazar <ariana.lazar@microchip.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>
+Subject: Re: [PATCH v7 03/11] iio: dac: mcp47feb02: use field_get() instead
+ of custom dynamic macros
+Message-ID: <20260920194454.7fffbf97@jic23-hlaptop>
+In-Reply-To: <20260918-mcp47feb02_refactor-v7-3-82ca794eafe2@microchip.com>
+References: <20260918-mcp47feb02_refactor-v7-0-82ca794eafe2@microchip.com>
+	<20260918-mcp47feb02_refactor-v7-3-82ca794eafe2@microchip.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] can: isotp: check the frame type, not just the length
-To: Kaixuan Li <kaixuanli0131@gmail.com>,
- Marc Kleine-Budde <mkl@pengutronix.de>
-Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260920035626.2581040-1-kaixuanli0131@gmail.com>
-Content-Language: en-US
-From: Oliver Hartkopp <socketcan@hartkopp.net>
-In-Reply-To: <20260920035626.2581040-1-kaixuanli0131@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
+On Fri, 18 Sep 2026 12:06:29 +0300
+Ariana Lazar <ariana.lazar@microchip.com> wrote:
 
+> Replace manual bit operations which select channel corresponding bits
+> from a control register in mcp47feb02_init_ctrl_regs() with field_get()
+> macro used with masks already defined for regmap operations within the
+> driver.
+> 
+> Suggested-by: Jonathan Cameron <jic23@kernel.org>
+> Link: https://lore.kernel.org/all/20260913224339.490d89ba@jic23-hlaptop/
+> Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
+The Eagle eyed sashiko points out that MCP47FEB02_DAC_CTRL_MASK seems to be
+no longer used after this patch.  Please drop that as well.
 
-On 20.09.26 05:56, Kaixuan Li wrote:
-> isotp_rcv() separates Classic CAN from CAN FD by skb->len alone:
-> 
-> 	if (skb->len != so->ll.mtu)
-> 		return;
-> 
-> 	cf = (struct canfd_frame *)skb->data;
-> 
-> A CAN XL frame with cxl->len 4 is CAN_MTU bytes, so it passes, and is then
-> read as a canfd_frame whose len comes out of canxl_frame.flags: at least
-> 0x80.
-> 
-> Of the paths that follow, only the flow control one uses that length
-> without bounding it first, so check_pad() walks to 255 over a 16-byte
-> frame and the caller reports EBADMSG on an unrelated socket.
-> 
-> bcm_rx_handler(), j1939_can_recv(), can_can_gw_rcv() and raw_rcv() check
-> the frame type here, and can_dropped_invalid_skb() switches on
-> skb->protocol on the transmit side. isotp_rcv() is the gap.
-> 
-> Fixes: fb08cba12b52 ("can: canxl: update CAN infrastructure for CAN XL frames")
-> Signed-off-by: Kaixuan Li <kaixuanli0131@gmail.com>
-> Reviewed-by: Oliver Hartkopp <socketcan@hartkopp.net>
-> Acked-by: Oliver Hartkopp <socketcan@hartkopp.net>
+Jonathan
 > ---
-> v2: shorten the comment above the new check to say what it does; the
->      reasoning stays in the description (Oliver Hartkopp). Add Oliver's
->      Reviewed-by and Acked-by. No code change.
+>  drivers/iio/dac/mcp47feb02.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-
-Thanks for the fast update!
-
-Awaiting upstream.
-
-Best regards,
-Oliver
-
-> v1: https://lore.kernel.org/linux-can/20260919122852.1868961-1-kaixuanli0131@gmail.com/
+> diff --git a/drivers/iio/dac/mcp47feb02.c b/drivers/iio/dac/mcp47feb02.c
+> index 1b1a4972f77196399297b3912abe69efcbf17d75..d910a6cf9718d6c6ad68eb1bb1ff5f3b15b33e84 100644
+> --- a/drivers/iio/dac/mcp47feb02.c
+> +++ b/drivers/iio/dac/mcp47feb02.c
+> @@ -1024,7 +1024,7 @@ static int mcp47feb02_init_ctrl_regs(struct mcp47feb02_data *data)
+>  			return ret;
+>  		data->chdata[i].dac_data = dac_val;
+>  
+> -		data->chdata[i].ref_mode = (vref_ch >> (2 * i)) & MCP47FEB02_DAC_CTRL_MASK;
+> +		data->chdata[i].ref_mode = field_get(DAC_CTRL_MASK(i), vref_ch);
+>  		data->chdata[i].use_2x_gain = field_get(DAC_GAIN_MASK(i), gain_ch);
+>  
+>  		/*
+> @@ -1068,7 +1068,7 @@ static int mcp47feb02_init_ctrl_regs(struct mcp47feb02_data *data)
+>  			break;
+>  		}
+>  
+> -		pd_tmp = (pd_ch >> (2 * i)) & MCP47FEB02_DAC_CTRL_MASK;
+> +		pd_tmp = field_get(DAC_CTRL_MASK(i), pd_ch);
+>  		data->chdata[i].powerdown_mode = pd_tmp ? (pd_tmp - 1) : pd_tmp;
+>  		data->chdata[i].powerdown = !!(data->chdata[i].powerdown_mode);
+>  	}
 > 
-> Reproduced on v7.2.4 over vcan, one isotp socket per case bound rx 0x123
-> with RX_PADDING|CHK_PAD_DATA and rxpad_content 0xAA, a first frame in
-> flight, and one frame injected from a CAN_RAW socket.
-> 
-> 	case                            stock     patched
-> 	A CAN XL, cxl->len 4, flags ff  EBADMSG   none
-> 	B Classic FC, padded 0xAA       none      none
-> 	C Classic FC, padded 0x00       EBADMSG   EBADMSG
-> 	D as A, with CHK_PAD_LEN on     EBADMSG   none
-> 
-> C bounds the impact: a malformed Classic FC frame from any sender on the
-> bus gives the same EBADMSG, so nothing becomes reachable that was not
-> already. D differs only in which branch of check_pad() returns.
-> 
-> No memory safety issue. KASAN was on for all eight runs and reported
-> nothing.
-> ---
->   net/can/isotp.c | 8 ++++++++
->   1 file changed, 8 insertions(+)
-> 
-> --- a/net/can/isotp.c
-> +++ b/net/can/isotp.c
-> @@ -754,8 +754,16 @@ static void isotp_rcv(struct sk_buff *skb, void *data)
->   	 */
->   	if (skb->len != so->ll.mtu)
->   		return;
->   
-> +	/* check for correct CAN CC/FD frame content */
-> +	if (so->ll.mtu == CAN_MTU) {
-> +		if (!can_is_can_skb(skb))
-> +			return;
-> +	} else if (!can_is_canfd_skb(skb)) {
-> +		return;
-> +	}
-> +
->   	cf = (struct canfd_frame *)skb->data;
->   
->   	/* if enabled: check reception of my configured extended address */
->   	if (ae && cf->data[0] != so->opt.rx_ext_address)
 
