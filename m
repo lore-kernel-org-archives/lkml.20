@@ -1,79 +1,79 @@
 Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7EF33EA95F
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 08:37:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5683C3EB11E
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 08:37:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789893431; cv=none; b=qjjq/VAuV2LOzoYHidziVbRw5sd1NxDW00X9YmeUm4mtEL3oqbwd8tJCOD3UVtLl6NL+8o90vXmKPdKXEmpvbvsCum874Y6PZg5RXKiW9985iRk2/zRP3gkKcOyoDZg6jB2WJhuEsgBCMtWgijGJ2WK9vuqsiGnnaLXiyJpmwdw=
+	t=1789893432; cv=none; b=mcc200bOJPWidqsA7HxseZGZFkIFMpzwxANnkGfBu7zieb5dSyyq2oOwzhdfbc1vrdw2F/C8YtMnH7ei6G7Ij3SGMD1AfExpJ/oFAZg6vxcSiJlKqil5lYgWiT+R0UEzQp/+JmF91t74He863DWUnKHy7GvVaFVn/hOF4Nrc46Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789893431; c=relaxed/simple;
-	bh=8CeiRuUE3FtydE+zSX9+E/c+kLjyfN4rvhsEAqt6c/0=;
+	s=arc-20240116; t=1789893432; c=relaxed/simple;
+	bh=fmQ6ysc7Xbj1vliQBlI58xrobsoFTbCujENj+aYq+34=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jEd3WvR1YLErBxyVwZxS0WFOMGo43v6MJLkB6PMiPyXRbFveTkzo+Y7+4d+WwKSjs5p+ZNZD1XLw1ZVZydkniwwnfXXHvTe5+aXwtn4Si8tZ0B/jpLylqGd9tMy5Zz+AuBc8l05XaVlc9MvK9sOGznlgkoHnwx2osHlMGDInYLI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=68r23A5z; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=mSbFu5Ax; arc=none smtp.client-ip=202.12.124.158
+	 MIME-Version; b=JU//t+FMpYpC+q+tikMoW5wG9JoFYJwNCERPHMeBvzuVPUOKzuEFfecdLJDx8Jm/YiIY50MO3NLqTa5wd46OKX8M2W10NEj/Je2jhywcfwif0CMq2Eevs1KMXcU1+3NYTqF6B36E10gkSefPsmUV36T7wNTsdWf7HJPCXlVA7Vo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=zIg9uiMe; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=K7TMDB4E; arc=none smtp.client-ip=202.12.124.158
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="68r23A5z";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="mSbFu5Ax"
-Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 39C007A00E5;
-	Sun, 20 Sep 2026 04:37:09 -0400 (EDT)
+	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="zIg9uiMe";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="K7TMDB4E"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 9DFCA7A00DB;
+	Sun, 20 Sep 2026 04:37:10 -0400 (EDT)
 Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-08.internal (MEProxy); Sun, 20 Sep 2026 04:37:09 -0400
+  by phl-compute-04.internal (MEProxy); Sun, 20 Sep 2026 04:37:10 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
 	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
 	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1789893429; x=
-	1789979829; bh=6V8530ncLv8BVsoW9DHISr7rI7cVxvWwAxCY4nqRh8E=; b=6
-	8r23A5zpu3hDiuv4ENl8w+MMVlsSGGWw5iZz4Gp2Bqh3BxQCC/CKdhuPqAZnOtCY
-	p6qRebZ6NDmzboRAm7SwGKHpG5l4szKulCVkFj1AVV+Cc+pou/aRm0CJHSHPy9un
-	OmxHJQZUOt2iiHQrdCvhVsXYJxqtO4DH2V3hRWfJlpCl9FMtH6Vp0bPQ2xoGHD8W
-	pp58bsv7nMkj5AJYbRP5M5TG1cnqdKOUTu0IwyNHz/Hc6CrbfFstPbJHcvT7YwGX
-	bKCL7OVILYQt39Kcze9WE894kxR+JSMDGiw4P+OokydcKg9PDCuLo7g8SA5IahHm
-	zNmqS8L0Vze4zXVQjnGCA==
+	:reply-to:subject:subject:to:to; s=fm1; t=1789893430; x=
+	1789979830; bh=aXQn+TbFQYfY2jiDrw3I5nfsLGzeJpOmHRGGQvTsGyw=; b=z
+	Ig9uiMeCagDmlW+9D+Ws7C+ed1VTfTaH4tf7M1TLqHqic6enCxydchnIo5wU8ABO
+	8Yo7f2vfZC+qKkuvkTZwc0vE1vmAwpa2WLD1t6/XxJMiTjvf4oaK/t0OSkMNogg9
+	/oI7kjK9OrBV9MpPhto2vIAR8r1xlqbaBPZrLfzOog8OZ1uv/CrOBWzfkOYf9xLp
+	frNDbvqEcDo1L5kK99wfs8hjsAZDtBADpjGKDzfu8VPUaubTuWstBqMFyKAB94xe
+	qDY6C0nj30HFPROwHDSPUyWfHTvm3b3o5ixcrJPf9r/mM915mqh3ZJngv3baln9d
+	vvPeUSAOCdhj8oaj0+oCQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
 	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm1; t=1789893429; x=1789979829; bh=6
-	V8530ncLv8BVsoW9DHISr7rI7cVxvWwAxCY4nqRh8E=; b=mSbFu5AxRGsAzAKcy
-	2hJYyPsqMrhk2jmAo2e71Hz797UvJcvBOblNUBLEqH5QxWv1Myx+tRMTuhosFlme
-	XpmoVNXGpiyMrC9vC31HNg926PM4+SITHnQmWKJpV611gwg3OUii2sJrj3UoMJ+6
-	21m1V8UwuEdvl+/PBnHE5Qc5ybqtErBSQJAevGxlTMAtaqa2gkP3Pi+y0/fbNfg5
-	DoHb1pYvDbZOc52THba+KYTXhlGEmJ8+NT8NOTQX4A0MLnSW54rxZA8xRtrTyMQC
-	mpSJa1qPYQn2AVaOs/TXvMuNmgw3uCIq3tBJ26n3uh0ok66Iqlg0RT2qI5IAdCmk
-	PmUDw==
-X-ME-Sender: <xms:NZuvap3B0IMNiWvWeW4e5C0g81-XHKgTJlIRu9znnD1R5QWQBEzpTw>
-    <xme:NZuvauDGa3jvMdvrOCsv8CawPDXAkCf-SLQRBNZ9hnFuwtGQFoSEepJOc-Yztv_Ft
-    S7Y8PUmTuwNFtb0_8khonFQDMXNnqoBrLTBMacYZFirKqxKI0z7QRGH>
-X-ME-Received: <xmr:NZuvahdr15pZXbRw24JQBz5B1qcGIjL9Mk2IqAMaC5LQlK8qDRR9qLCc1Y2iTAXbqIKUBhSJb8T3FPH3agQ0LKxL_hjeQb5rNfyN3B7WLdYE_g>
+	:x-me-sender:x-sasl-enc; s=fm1; t=1789893430; x=1789979830; bh=a
+	XQn+TbFQYfY2jiDrw3I5nfsLGzeJpOmHRGGQvTsGyw=; b=K7TMDB4ESIPV+2fMF
+	fvbMwTkvumfocREfeMn7iH1u/6/3pl+lzaKRyK6vxcxOd1lCqGf/Gj85ltCEJstX
+	J+hQih3oAJefQfzFMIrIjvpWUpCaZpqLmeuNELO2jwh3cWp/+DY0BogiMx+9LJTb
+	mpdVQr2OSLzN4vlccl8fsKJaj9HBKJT/LMw1cUerhyUsdNYZhiyNoE9B++r/Mswy
+	IxFycMECWACOqIYeLd0Z3cQhEFVTnVYq6PJVskIGK2WYHzAWhj0T6vSbKduga04f
+	a2pr+wx8wyjc7qeEAjIYNGS03MIdkxPkBRKEvQatA17Ej1m2qIG/+OFNdzgjMMpa
+	u9jDw==
+X-ME-Sender: <xms:NpuvatlrvxYJpfCWl4Afqxsz8VqbLae1t4wkaTXoEVsq6T7aAcEWBg>
+    <xme:NpuvamwqTGyEZ06UOuaQqATBIFRsAZxgVRsrp0V9x_PjPcEzTl3Omseg0AzW7MIcA
+    tFtc0yIh5-CEHWtQN7IXN4wu6f--akjKP4KHEFN0WbPV_2yimFBZkI>
+X-ME-Received: <xmr:NpuvarOV4TcPa8Or5PV6F1L-nLQHno3B0lxheVyJ0NSN29CjuJyBRHbl6aAQ5hRx_8Zcora5cJVNLZ_HLDkTu4Pk-uGwiRLLHkxOGi-c58KDvA>
 X-ME-Proxy-Cause: dmFkZTGDk/LFpyNUjatZXtdF1Ol4AzGXx/XJJ00P2lEzdhwaC2OHMWKjSTTwzDV54eA+X9
     hZWqO2Pt/aL/IC2w3tQSr/WTF4eOkuQx9cqr/0YQjP0U9qRxKTeqqjpjHmtjKI87XBl9+k
     lkd5l3xFN7T6QNoFdRqVZKYZ1HWzIwBUYfdAsZeZatUOA0ZPe1QtaXNtpb/kZMyNG2cCW0
     AkYYFkNOpR9jWdo4iKO92TpJWkC9Ldvc/R2dYRYBWP9D0fI6R6CxUwbd23p5Y6XPLXkugf
-    TZapV8K2F20wWYZVer0gd5Qw3eZniou/ncwHg8BB5HxRPprNSXyj1Vu1JJpcJt8AGbY0Di
-    7HWCwVZ3h7On5h8k0dkOsJMVZI5GK2NEbNGV05/H047GkHaYsEFyWRZDj3JhpVaoYKJlhT
-    Z0RWrL12ztlmjNNjcppFi/tmPDoe63hD1VUOYrHbC24D9F/h8q4DlWQ7dZ/ruN+kZvwoB0
-    CHTFw0v5tgxwBxoRsYu8XKA/y7l+4yWMeqY+pzL6pL4GMkbeuf9g+8lqNwEG6ZRUEJZkDh
-    f9Tz8oyEf9xL98zga6fvzd7gmyubnOMMzg/erk+5IMtmyOPJWv17ceYftm97YoAngnTR0Y
-    HeoCuQ3OB57ORU2Xk6adHbD2anEuuxA1UN7NF67cgnVzJ8T/dRcCAlizhKqA
-X-ME-Proxy: <xmx:NZuvajguu8Cx991e5q2PZjbaeYC1PPV7AkQV5xPs04SZ4rTwPVFJTw>
-    <xmx:NZuvapqwbUKlWslOTOgRRp7VVN1lcA3oLUHk9DvuTS8EGuFMieNj1g>
-    <xmx:NZuvajGFKOEOgqsIZYDSkVFe7kinlzymTHiVD8rgBz3eAYPNmLOgMQ>
-    <xmx:NZuvajnElMFFxUBUXgtKujxGqKKu1qwFjasctJKZGB_6f43mXvm6tw>
-    <xmx:NZuvauJ2di7Dkip1sqyDLt1R3ptAp7DM3pFf8-rZZl65DjuJYlitbCKz>
+    TZapV8K2F20wWYZVer0gd5Qw3eZniou/ncwHg8BB5HxRPprNSXyj1Vu1JJpcJt8AGbY0BB
+    iu5xx4ODEyqppim5bOlYBvPB3rpWJNtZITwW5Qq2HfwD6Lq01Fw4YNK2uI+9XtA19DldpT
+    pHSsmyJ3fJ1DmLBf5V2NZk/Yh7DoEq6evD/CEWv8pZhaVuHWOLSRwMFW0HSC6BY9S4Oka4
+    nuE5Ykf8GXp4NQ4dANfhOrWeI7rfIiXvZDjJwscHKLJihvi7y//OOEDwSrKcqXm3jcLZyI
+    x5LdeCQUcDx3FfmapE3mctNCo/hf+XUwMaLjpXw2c1LerxEb+DFpv1BXcJvm5nu0l8Card
+    itezceOd52tj9QhPbb0wThdEvGp7U8rgLKRuUWKDs6avyurvuq254SbL2Xcw
+X-ME-Proxy: <xmx:NpuvaqR6J1ABKkzqvLQNFfejsBN-OzC4N8p65YxI28CoUwQxw7QJHw>
+    <xmx:NpuvapZCw7uCE1m6Bsup-0JHBNYZ9JHkCA1cIXV_GHN6sKXysvSf3A>
+    <xmx:Npuvan0VEIjnoV1Mu2D7u_FPKRtsiKjmnAFJCMugrpLB8e09uBvdyA>
+    <xmx:NpuvapV84csWu4H-ldrROjqdysDef5R83zOKR3Mi3ftn75BFix9HEQ>
+    <xmx:Npuvav6X1TezGO58myCT5Jc17mvVQZVDig-dU9HGzIrln_GWVP3wcA-I>
 Feedback-ID: ie8e14432:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 20 Sep 2026 04:37:08 -0400 (EDT)
+ 20 Sep 2026 04:37:09 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: linux1394-devel@lists.sourceforge.net
 Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH 4/5] firewire: cdev: refactor add_client_resource() to drop GFP flags argument
-Date: Sun, 20 Sep 2026 17:36:58 +0900
-Message-ID: <20260920083659.191855-5-o-takashi@sakamocchi.jp>
+Subject: [PATCH 5/5] firewire: cdev: refactor add_client_resource() to have release callback function
+Date: Sun, 20 Sep 2026 17:36:59 +0900
+Message-ID: <20260920083659.191855-6-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260920083659.191855-1-o-takashi@sakamocchi.jp>
 References: <20260920083659.191855-1-o-takashi@sakamocchi.jp>
@@ -85,88 +85,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The add_client_resource() function has an argument for GFP flags. The
-argument was originally used to distinguish atomic calls. However, all
-callers now use GFP_KERNEL.
+The implementation of the client_resource structure now requires a release
+callback.
 
-Drop the unused argument and always allocate with GFP_KERNEL.
+Add an argument to add_client_resource() for the release callback.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- drivers/firewire/core-cdev.c | 21 +++++++--------------
- 1 file changed, 7 insertions(+), 14 deletions(-)
+ drivers/firewire/core-cdev.c | 19 ++++++++-----------
+ 1 file changed, 8 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/firewire/core-cdev.c b/drivers/firewire/core-cdev.c
-index 625792b6ab71..96f3619237f3 100644
+index 96f3619237f3..9a471307aa5d 100644
 --- a/drivers/firewire/core-cdev.c
 +++ b/drivers/firewire/core-cdev.c
-@@ -539,8 +539,7 @@ static int ioctl_get_info(struct client *client, union ioctl_arg *arg)
+@@ -539,7 +539,8 @@ static int ioctl_get_info(struct client *client, union ioctl_arg *arg)
  	return 0;
  }
  
--static int add_client_resource(struct client *client, struct client_resource *resource,
--			       gfp_t gfp_mask)
-+static int add_client_resource(struct client *client, struct client_resource *resource)
+-static int add_client_resource(struct client *client, struct client_resource *resource)
++static int add_client_resource(struct client *client, struct client_resource *resource,
++			       client_resource_release_fn_t release)
  {
  	scoped_guard(spinlock_irqsave, &client->lock) {
  		u32 index;
-@@ -549,13 +548,7 @@ static int add_client_resource(struct client *client, struct client_resource *re
- 		if (client->in_shutdown)
- 			return  -ECANCELED;
- 
--		if (gfpflags_allow_blocking(gfp_mask)) {
--			ret = xa_alloc(&client->resource_xa, &index, resource, xa_limit_32b,
--				       GFP_NOWAIT);
--		} else {
--			ret = xa_alloc_bh(&client->resource_xa, &index, resource,
--					  xa_limit_32b, GFP_NOWAIT);
--		}
-+		ret = xa_alloc(&client->resource_xa, &index, resource, xa_limit_32b, GFP_KERNEL);
- 		if (ret < 0)
+@@ -553,6 +554,7 @@ static int add_client_resource(struct client *client, struct client_resource *re
  			return ret;
  
-@@ -705,7 +698,7 @@ static int init_request(struct client *client,
+ 		resource->handle = index;
++		resource->release = release;
+ 		client_get(client);
  	}
  
- 	e->r.resource.release = release_transaction;
--	ret = add_client_resource(client, &e->r.resource, GFP_KERNEL);
-+	ret = add_client_resource(client, &e->r.resource);
+@@ -697,8 +699,7 @@ static int init_request(struct client *client,
+ 		goto failed;
+ 	}
+ 
+-	e->r.resource.release = release_transaction;
+-	ret = add_client_resource(client, &e->r.resource);
++	ret = add_client_resource(client, &e->r.resource, release_transaction);
  	if (ret < 0)
  		goto failed;
  
-@@ -789,7 +782,7 @@ static void handle_request(struct fw_card *card, struct fw_request *request,
+@@ -781,8 +782,7 @@ static void handle_request(struct fw_card *card, struct fw_request *request,
+ 	r->data    = payload;
  	r->length  = length;
  
- 	r->resource.release = release_request;
--	ret = add_client_resource(handler->client, &r->resource, GFP_KERNEL);
-+	ret = add_client_resource(handler->client, &r->resource);
+-	r->resource.release = release_request;
+-	ret = add_client_resource(handler->client, &r->resource);
++	ret = add_client_resource(handler->client, &r->resource, release_request);
  	if (ret < 0)
  		goto failed;
  
-@@ -893,7 +886,7 @@ static int ioctl_allocate(struct client *client, union ioctl_arg *arg)
+@@ -885,8 +885,7 @@ static int ioctl_allocate(struct client *client, union ioctl_arg *arg)
+ 	}
  	a->offset = r->handler.offset;
  
- 	r->resource.release = release_address_handler;
--	ret = add_client_resource(client, &r->resource, GFP_KERNEL);
-+	ret = add_client_resource(client, &r->resource);
+-	r->resource.release = release_address_handler;
+-	ret = add_client_resource(client, &r->resource);
++	ret = add_client_resource(client, &r->resource, release_address_handler);
  	if (ret < 0) {
  		release_address_handler(client, &r->resource);
  		return ret;
-@@ -993,7 +986,7 @@ static int ioctl_add_descriptor(struct client *client, union ioctl_arg *arg)
+@@ -985,8 +984,7 @@ static int ioctl_add_descriptor(struct client *client, union ioctl_arg *arg)
+ 	if (ret < 0)
  		goto failed;
  
- 	r->resource.release = release_descriptor;
--	ret = add_client_resource(client, &r->resource, GFP_KERNEL);
-+	ret = add_client_resource(client, &r->resource);
+-	r->resource.release = release_descriptor;
+-	ret = add_client_resource(client, &r->resource);
++	ret = add_client_resource(client, &r->resource, release_descriptor);
  	if (ret < 0) {
  		fw_core_remove_descriptor(&r->descriptor);
  		goto failed;
-@@ -1479,7 +1472,7 @@ static int ioctl_allocate_iso_resource(struct client *client, union ioctl_arg *a
+@@ -1471,8 +1469,7 @@ static int ioctl_allocate_iso_resource(struct client *client, union ioctl_arg *a
+ 	e2->iso_resource.closure = request->closure;
  	e2->iso_resource.type = FW_CDEV_EVENT_ISO_RESOURCE_DEALLOCATED;
  
- 	r->resource.release = release_iso_resource_auto;
--	err = add_client_resource(client, &r->resource, GFP_KERNEL);
-+	err = add_client_resource(client, &r->resource);
+-	r->resource.release = release_iso_resource_auto;
+-	err = add_client_resource(client, &r->resource);
++	err = add_client_resource(client, &r->resource, release_iso_resource_auto);
  	if (err < 0)
  		return err;
  	request->handle = r->resource.handle;
