@@ -1,139 +1,204 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.hostedemail.com (smtprelay0014.hostedemail.com [216.40.44.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16DD23DDAFD;
-	Sun, 20 Sep 2026 11:29:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 901DC3F4DC7;
+	Sun, 20 Sep 2026 11:29:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789903760; cv=none; b=bt6swPyV2peo7a7dF0dBDE8m1Go0DI3BKPfDLQbi2moBLoKD7Ea5nsfPsCFj5fF08MJls1ZbT0bGmbQJvgql5Fb4XIRAiYHZ3CuByktdq/cnGORY6oH3qOgw8eGqpVMBmtD4Um7pEXucxeX3boZ83fAPSP8IG3PQuRjHE4TuEuA=
+	t=1789903783; cv=none; b=MAgd3RRdcJUxc8bzIS5wGzJ1JUIykd4yAxUk8ZRe9q1jywyozpn1T1HdkQ3kFnBlXy80Wc5Ag0ktNsQi4e0k6MQRe92RSK7DiIksHkP5nTC+bLchbKCDRUyFSVZJUamrAw5dAhclSh5ki51Y0307yX6BIAjLn1jCe7p8wBl2BDU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789903760; c=relaxed/simple;
-	bh=7Hcp0/OzwntqibpBRHCSzfnUhIke5Wok4uwkEkvWi8Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DexXRR6/PBX4ARk4vJEbCSuaOYqR5aTMVoO84nnlHFxb1YRAkhd2fVMlVb1LvCjKEbfCtms9Jg10JuKjllc/TU99xedQFD4ymAPJortVftIF7TQBJZCHEvqZ9CZDey5pm6ybXMXNVZFmm+vesLLm0AYuKMeQkB06l9TL0m9AzRI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QnDqEQbR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789903783; c=relaxed/simple;
+	bh=2gjJudq4izhq9IkfVOID0c4xvDN+P7P8O8ylW+AveUE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Z6aXi4Fw3FYaHPXR6Puuta0y014yBRS/Z/X38qP8jkTyKpd3Z8XbBFWa5M2EI5z+uBD1HpSPOtZD5htU6ivEjXN4cY17CAe8bOeH3WIR3JbBUIlm5b7msNds/vzw26+0pqQ7vPnIW0ZA8lhptS3nmXNYO+8QxofJoeV7jn/rRd0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=v/epQyRj; arc=none smtp.client-ip=216.40.44.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QnDqEQbR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCBE01F000FF;
-	Sun, 20 Sep 2026 11:29:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789903758;
-	bh=3U6uTfmVLXx9LAthbhE05WIU/IQj/WEaffO5SLaljzw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=QnDqEQbRnCaiNWOiuPvJf4HSsi0883smMjIkM4GhbTLtrvyF/wXRGi45gjiLetOlD
-	 30wA82bSRIBi6c8S95TeOLEevXHSoxzFiR0auGxKan+3XqNlG7QOI+IKek35cesHmq
-	 Z0T6VMCFIYapdI1XY7V6Nm2PTho8+zRlyqEUYtIp5mj65POjftVqGDcbNNnUQi81AL
-	 1eNeUDwJ2SmdHKF+5BwV0QpXsn8PNR/yhcQ59+c0uG/aTVL8X5VgZITNx2s/S+ePc/
-	 M5BYNM34sH6Gasn3CYNb9V1jggZy6v9m4C9DS5INRP8GcCK2wm9lsgtsI7I7rliSf9
-	 3g8dvFIU7E7WQ==
-Message-ID: <d64eabce-ebfb-45a6-9ef3-74280dc2c5a3@kernel.org>
-Date: Sun, 20 Sep 2026 13:29:15 +0200
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="v/epQyRj"
+Received: from omf08.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay08.hostedemail.com (Postfix) with ESMTP id 49A141403EA;
+	Sun, 20 Sep 2026 11:22:42 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf08.hostedemail.com (Postfix) with ESMTPA id 5F80320026;
+	Sun, 20 Sep 2026 11:22:35 +0000 (UTC)
+Date: Sun, 20 Sep 2026 07:21:51 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, linux-kernel@vger.kernel.org, Peng Fan
+ <peng.fan@nxp.com>, linux-trace-kernel@vger.kernel.org
+Subject: Re: [PATCH] tracing: use assign_bit() where applicable
+Message-ID: <20260920072151.40637efd@fedora>
+In-Reply-To: <20260920022810.3145921-1-peng.fan@oss.nxp.com>
+References: <20260920022810.3145921-1-peng.fan@oss.nxp.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] vboxsf: fix endless write loop and data corruption on
- short copy
-To: Kentaro Shiomi <k.shiomi@techhowto.blog>,
- Jori Koolstra <jkoolstra@xs4all.nl>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260919174136.3325-1-k.shiomi@techhowto.blog>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <20260919174136.3325-1-k.shiomi@techhowto.blog>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
+X-Stat-Signature: g196ure1i8i8sf9jfgon3xcsie8w81r3
+X-Rspamd-Server: rspamout04
+X-Rspamd-Queue-Id: 5F80320026
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX19Ql80igF4NtJw0bd/efvVbzTp3DyX0Ris=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=JzLWghkgJwXUDT/eJcnpKGJ9j5om+rM0RNHOLD6uo0Q=; b=v/epQyRj8Hs9jOMCrwTAB9TlRqRuYaKonMqgoCigDkGndvKE774xpv8UOYLSVmAZyCjJwJyF6B9VOcQ7v/2E3NPyc1CDbgE1393Lufg2HS8oFC+dhSCVysNb+vNMNjwI2JeZBcqXLGes8Mz+xCbftYeOTOHkmMeszXPrbvMu66A=
+X-HE-Tag: 1789903355-503385
+X-HE-Meta: U2FsdGVkX18v2tQzrM9VkrDA1quBgUiLCF3bUSfJ6L6ENbBPzSaGs1hJOUtNfN583oaWg5cGBjsfXOfQ0swIzMSMZG8ou7RImSICFprA1Nl3p327IZtw7IaYH+i4ZDWy1b8hm0h9Og1XfJ89ula12MZnhVWN1l0EgbjglINYToHjMFlSw9ap9kMUl7qs8h+4veXamVW9Gfj1rljLDU6JCdH74MEKPx2waqi9qCdT4yzak/xQQ/yJF13F+bM0ebQsRx4GyIU1Ghe/79dXM/qhf7xESRgun8LgVn/0GWrejxgj60lAdgPO5RUj4RCvPKTHpb5zkt0h2LUrzkLHBewQAdeWffbacwuPT6rGIrdj4NJRc4iYoAFkm0MmpOK6KCAeNXsDOz4r3kI26RFzPSfy/et2VEGqV2BR
 
-+To: Jori Koolstra, who maintains vboxsf now.
+On Sun, 20 Sep 2026 10:28:10 +0800
+"Peng Fan (OSS)" <peng.fan@oss.nxp.com> wrote:
 
-Regards,
-
-Hans
-
-On 19-Sep-26 19:41, Kentaro Shiomi wrote:
-> vboxsf_write_end() ignores the number of bytes that the generic write
-> path managed to copy into the folio: it initialises nwritten with the
-> requested length, writes that many bytes to the host and returns the
-> requested length even when copied == 0.
+> From: Peng Fan <peng.fan@nxp.com>
 > 
-> generic_perform_write() then sees status != 0, so it never calls
-> fault_in_iov_iter_readable(), advances pos by the full length and loops
-> again with an iterator that has not been advanced at all.  The result is
-> an endless loop that keeps appending zeroed data to the file (filling up
-> the host file system) while flooding the log with
+> Convert open-coded if/else with set_bit/clear_bit the assign_bit API.
 > 
->   WARNING: lib/iov_iter.c:624 at iov_iter_revert+0x1fc/0x270
+> Done with Coccinelle semantic patch:
+>     // set_bit -> clear_bit => assign_bit
 > 
-> because iov_iter_revert() is called with copied - status, i.e. a
-> negative value.
+>     @@
+>     expression cond, bit, addr;
+>     @@
 > 
-> The same accounting bug can silently corrupt data: when the folio is
-> already uptodate, the stale part is not zeroed, so a short copy makes
-> vboxsf write the old folio contents to the host and report success.
+>     -if (cond)
+>     -        set_bit(bit, addr);
+>     -else
+>     -        clear_bit(bit, addr);
+>     +assign_bit(bit, addr, cond);
 > 
-> A short copy is not an error condition - it happens whenever the source
-> pages are not faulted in yet, e.g. when writing directly from an mmap of
-> another file or from shared memory (virtiofsd does exactly this).
+>     // clear_bit -> set_bit => assign_bit
 > 
-> Return the number of bytes that were actually copied, and reject the
-> write entirely when nothing was copied so that the generic code faults
-> the source pages in and retries.
+>     @@
+>     expression cond, bit, addr;
+>     @@
 > 
-> Signed-off-by: Kentaro Shiomi <k.shiomi@techhowto.blog>
+>     -if (cond)
+>     -        clear_bit(bit, addr);
+>     -else
+>     -        set_bit(bit, addr);
+>     +assign_bit(bit, addr, !cond);
+> 
+>     // __set_bit -> __clear_bit => __assign_bit
+> 
+>     @@
+>     expression cond, bit, addr;
+>     @@
+> 
+>     -if (cond)
+>     -        __set_bit(bit, addr);
+>     -else
+>     -        __clear_bit(bit, addr);
+>     +__assign_bit(bit, addr, cond);
+> 
+>     // __clear_bit -> __set_bit => __assign_bit
+> 
+>     @@
+>     expression cond, bit, addr;
+>     @@
+> 
+>     -if (cond)
+>     -        __clear_bit(bit, addr);
+>     -else
+>     -        __set_bit(bit, addr);
+>     +__assign_bit(bit, addr, !cond);
+> 
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
 > ---
-> Found while running a nested VM (QEMU/KVM) inside a VirtualBox guest: the
-> virtiofsd instance exporting a directory that lives on a vboxsf mount writes
-> straight from the shared guest memory, so the source pages are not faulted in
-> and every write takes the short-copy path.  Creating a 6-byte text file grew
-> the file to 29 KB within seconds and a small PNG reached 202 MB before the VM
-> was killed; the guest ran out of disk space because ~16 GB of logs were
-> written in the meantime.
+>  kernel/trace/trace_events.c         | 12 ++++--------
+>  kernel/trace/trace_events_trigger.c | 11 +++--------
+>  kernel/trace/trace_events_user.c    |  5 +----
+>  3 files changed, 8 insertions(+), 20 deletions(-)
 > 
-> Reproduced without virtiofsd or nested virtualisation by writing a few bytes
-> to a vboxsf file from a PROT_READ mapping (memfd or another file) that has not
-> been read yet: with the mapping touched first the write succeeds, without it
-> the write never returns and only dies on SIGKILL.
-> 
-> Tested on Ubuntu 26.04.1 (6.x userspace, kernel 7.0.0-31-generic) as a guest of
-> VirtualBox 7.2.16 on a Windows host.  With the patch applied, writes from
-> non-faulted pages, partially copied writes and in-place rewrites all produce
-> byte-identical files on the host, and the virtiofsd workload completes with no
-> kernel warnings.
-> 
-> While investigating I also hit an unrelated NULL pointer dereference in
-> vboxsf_release_sf_handle() when opening a vboxsf file with O_DIRECT; that one
-> will be reported separately.
-> 
-> A DKMS package with this patch is available at
-> https://github.com/kentaro-shiomi/virtualbox-vboxsf-endless-write-loop-fix
->  fs/vboxsf/file.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/fs/vboxsf/file.c b/fs/vboxsf/file.c
-> index 7a7a3fbb2..1e9f61883 100644
-> --- a/fs/vboxsf/file.c
-> +++ b/fs/vboxsf/file.c
-> @@ -307,7 +307,7 @@ static int vboxsf_write_end(const struct kiocb *iocb,
->  	struct inode *inode = mapping->host;
->  	struct vboxsf_handle *sf_handle = iocb->ki_filp->private_data;
->  	size_t from = offset_in_folio(folio, pos);
-> -	u32 nwritten = len;
-> +	u32 nwritten = copied;
->  	u8 *buf;
->  	int err;
+> diff --git a/kernel/trace/trace_events.c b/kernel/trace/trace_events.c
+> index 30c0ddf90887..72a210da67d6 100644
+> --- a/kernel/trace/trace_events.c
+> +++ b/kernel/trace/trace_events.c
+> @@ -859,10 +859,8 @@ static int __ftrace_event_enable_disable(struct trace_event_file *file,
+>  			WARN_ON_ONCE(ret);
+>  		}
+>  		/* If in soft mode, just set the SOFT_DISABLE_BIT, else clear it */
+> -		if (soft_mode)
+> -			set_bit(EVENT_FILE_FL_SOFT_DISABLED_BIT, &file->flags);
+> -		else
+> -			clear_bit(EVENT_FILE_FL_SOFT_DISABLED_BIT, &file->flags);
+> +		assign_bit(EVENT_FILE_FL_SOFT_DISABLED_BIT, &file->flags,
+> +			   soft_mode);
+
+Please make it a single line. tracing is not strict about the 80 line
+limit if it makes it look worse.
+
+>  		break;
+>  	case 1:
+>  		/*
+> @@ -4273,10 +4271,8 @@ struct event_probe_data {
 >  
-> @@ -315,6 +315,10 @@ static int vboxsf_write_end(const struct kiocb *iocb,
->  	if (!folio_test_uptodate(folio) && copied < len)
->  		folio_zero_range(folio, from + copied, len - copied);
+>  static void update_event_probe(struct event_probe_data *data)
+>  {
+> -	if (data->enable)
+> -		clear_bit(EVENT_FILE_FL_SOFT_DISABLED_BIT, &data->file->flags);
+> -	else
+> -		set_bit(EVENT_FILE_FL_SOFT_DISABLED_BIT, &data->file->flags);
+> +	assign_bit(EVENT_FILE_FL_SOFT_DISABLED_BIT, &data->file->flags,
+> +		   !data->enable);
+
+Ditto.
+
+>  }
 >  
-> +	/* Nothing copied: reject so generic_perform_write() faults in and retries */
-> +	if (!copied)
-> +		goto out;
-> +
->  	buf = kmap(&folio->page);
->  	err = vboxsf_write(sf_handle->root, sf_handle->handle,
->  			   pos, &nwritten, buf + from);
+>  static void
+> diff --git a/kernel/trace/trace_events_trigger.c b/kernel/trace/trace_events_trigger.c
+> index 4d2fde996c0f..3b5e14fd0dd9 100644
+> --- a/kernel/trace/trace_events_trigger.c
+> +++ b/kernel/trace/trace_events_trigger.c
+> @@ -674,10 +674,7 @@ void update_cond_flag(struct trace_event_file *file)
+>  		}
+>  	}
+>  
+> -	if (set_cond)
+> -		set_bit(EVENT_FILE_FL_TRIGGER_COND_BIT, &file->flags);
+> -	else
+> -		clear_bit(EVENT_FILE_FL_TRIGGER_COND_BIT, &file->flags);
+> +	assign_bit(EVENT_FILE_FL_TRIGGER_COND_BIT, &file->flags, set_cond);
+>  }
+>  
+>  /**
+> @@ -1673,10 +1670,8 @@ event_enable_trigger(struct event_trigger_data *data,
+>  {
+>  	struct enable_trigger_data *enable_data = data->private_data;
+>  
+> -	if (enable_data->enable)
+> -		clear_bit(EVENT_FILE_FL_SOFT_DISABLED_BIT, &enable_data->file->flags);
+> -	else
+> -		set_bit(EVENT_FILE_FL_SOFT_DISABLED_BIT, &enable_data->file->flags);
+> +	assign_bit(EVENT_FILE_FL_SOFT_DISABLED_BIT, &enable_data->file->flags,
+> +		   !enable_data->enable);
+
+Ditto.
+
+Thanks,
+
+-- Steve
+ 
+>  }
+>  
+>  static bool
+> diff --git a/kernel/trace/trace_events_user.c b/kernel/trace/trace_events_user.c
+> index f658c3a77aa7..055894cb999c 100644
+> --- a/kernel/trace/trace_events_user.c
+> +++ b/kernel/trace/trace_events_user.c
+> @@ -590,10 +590,7 @@ static int user_event_enabler_write(struct user_event_mm *mm,
+>  	ptr = kaddr + (uaddr & ~PAGE_MASK);
+>  
+>  	/* Update bit atomically, user tracers must be atomic as well */
+> -	if (enabler->event && enabler->event->status)
+> -		set_bit(bit, ptr);
+> -	else
+> -		clear_bit(bit, ptr);
+> +	assign_bit(bit, ptr, enabler->event && enabler->event->status);
+>  
+>  	kunmap_local(kaddr);
+>  	unpin_user_pages_dirty_lock(&page, 1, true);
 
