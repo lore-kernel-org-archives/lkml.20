@@ -1,579 +1,122 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 404A146C843
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 16:33:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 761C046EF9B
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 16:33:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789922009; cv=none; b=JjaXQ9OFpVt+SiqqMaVOMb4FX5MST4bxjPAq/ejetlYjFq5gqZ31lwle6iItih9s7J1/dqYn3cWegm94fSz0xpmt/ezIHzOB5V8uyMsKGkbVNmHPNWLwJ+ZiQbqUPJtukyWZWkNy3zsObJt0t98kMlO3v68Pm6cvgsYUPIAWhro=
+	t=1789922040; cv=none; b=OKNZtuJl1GlkiL4V6b68Z142UupF9wxyba/HyofAaVGhrC2UWUXiwYM0FA27M+tyLPQ7LAbokOVqrJ9Wcbn+lIo71kkBKhKuq5ySP4P4MpjI6CP6dGDhgrGgGSk2Be/Ig/tso9lokKIs3ptprQSFlYvNisO/n9VUGJi8vjvMtfk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789922009; c=relaxed/simple;
-	bh=M6eq7518NcqGSls1Q2O5LYBYseZpRAZf6EGOdd7HnfY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NCpaUJv5078Ccl2r+FVbV1DYF4u827tBbLc/HnrLZQPzv+b0whotlDIODLJytNbLPrdqiYPOYU5l9U4ysm3KD+F06siSSdEiUQINB3o3Aqj56UFg9+hkej3Jca+Q4+muBU2BJXXEerpVYpgzbv6BW5ZpBWuGYk6NYax2bGJae40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A4VK5fpl; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789922040; c=relaxed/simple;
+	bh=oVZz4FSt4/6OQv5bdG+VXPCRb+ckEU/zQ7lo/eBqj3c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XXTYSpLewiMLU4YFHjTAtRuJKCsTyT0/ly5PwNVE+GOfJDyqEOkJ/gkNNfL5w8+0T4aCpFbMM2JWdoM6cJu66PJZAwL2jOxBb/Pix+NbQexNEgjXyWC4eDZSSA7SBMUIQs5lSO1xDsWDosa81me0mhm/OfjXooWHndgcm4RP3X0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net; spf=pass smtp.mailfrom=jannau.net; dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b=BPWDp+Mr; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=W6ya0fVC; arc=none smtp.client-ip=103.168.172.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A4VK5fpl"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d91ede8035so26744085ad.3
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 09:33:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789922003; x=1790526803; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5MGj7x4NYijNiXI1Yu7fch5YTGUoaVlAca3kPtJVJv4=;
-        b=A4VK5fpljIkREq65ZNv6coL7o7F3QgolNvH7tGDFQ7Ty4ghfuOAJl97+Q3emj1LI5+
-         iC39b/AbKF0bJOvIwOPvu6kOgtLtR8aluIbYBRRJFddhGPzCa1fw2fUDIyQst9pntn4k
-         F+Nyq626xgJMSa2jFarI7SNBBawAQBS6GAq1jPBS6RHsxucA90e5qgGVncw+a6xFXqKJ
-         L5MVKSKzJxzDkzAQM0tVLtX22vV3HZjRI8POq/t5K+NL3eHhx4bDBefKhR0Tde0CYRPC
-         Fb5mrI4fHyBlVqSqj9KgRgTGA19e9+Qf1bCJjOW4fUC4FofBzF+tVMe5dq9nL6z4pvHh
-         m/0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789922003; x=1790526803;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5MGj7x4NYijNiXI1Yu7fch5YTGUoaVlAca3kPtJVJv4=;
-        b=REjCmkOQjLoQ2kdPRZeViApP9XlnptYyGSMQ0x20gCxxz25Wl8YX0iRT8JxtjUlVC0
-         9KD2DRMgKgUyg/0VzjSbvwLDb+P/07qHJZ3l+yvJjrGA7ulGCwMSHvN/LQPiUvA0Bp0z
-         nthR3FvB9svfrW6ixMAje2dzPm9xrYn7MGGDpfQlMMpv3TgIuZbbX+CRKeuDXJ/nKBh/
-         gOrbgTmkh0BvZFHagAl9g8tolq9b/0SuZdIvwn7z3vHfFKtsqxhdPCy28HtrHhN/2My5
-         vanfGc2G95Xq4Wvy0d8F8YD3beoVAOvst0bnNNR1j+eW/Yk+AWjDSedS9LfjTi/iYc1A
-         ysyA==
-X-Gm-Message-State: AFuF++m49SI4sCO4DqDn4APJo2GdrqV9MJ3HHEKzVuKHdlDWOET+ig2W
-	wBbmJ/h/OBanRIpGTqNho8MLq+R9txc1bbRMoadlJYzIjiKOfsoOVqWE
-X-Gm-Gg: AYBFou1JQTyhR3J9JHiWr2tNCy1W96b/NNTHzCYk2iv0u2WAkYjuvAuMh7Z8ALI2R8J
-	Uh8DfITUJJKICqEfzVBBBCcSgNf2CY9EOw8D9qLd5OGjeL7lcAGCoRK3HsHvyBype9QaWO1mMVd
-	qmKwoo76X/uFnSQE30nlP6PWV0Blt9+FMIiVi+VEPRTPiAFBQY1gRJePUFjyiU8eIrDZZVfNwob
-	vIb4Zcnh1vI+gGCKdfNVOzWeA4zhzB9O4Op+GU3S+sEFd4jvy90Ekapvxlc/aI8wlgFYRlhvAiC
-	35w9xPkV7zXl7TyB5A/P3B6xxWhkjaNM5LXyWw4Zr0JlgGe3pAq3S9FD2Pe/2OkvNa03iYwjb27
-	Lj2oSgdJRFu/+FD1KTYQUbh0CQ0dYqpOqDv3+6J+jBpgLOIFWqgzJHhzE3FuYTe+wG6nbPfv9Jl
-	ACUDTW4sQ2im96yrdZm/dyCrgpqPjGCxQDt4bkdXsDUVerl+xSEPLBHcR+AEVLhyyfVxgY8oEEk
-	nN0eHZh8I7MaMHKd/4DZpDrikCl+Mpfg2qZgkCGYnA=
-X-Received: by 2002:a17:903:2312:b0:2cc:6018:f030 with SMTP id d9443c01a7336-2ddb1b899famr139374895ad.14.1789922002512;
-        Sun, 20 Sep 2026 09:33:22 -0700 (PDT)
-Received: from 192.168.50.3 ([198.176.50.208])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17e17e0sm21784355ad.70.2026.09.20.09.33.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 09:33:21 -0700 (PDT)
-From: Weiming Shi <bestswngs@gmail.com>
-To: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Shuah Khan <shuah@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	=?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@redhat.com>,
-	Peter Oskolkov <posk@google.com>,
-	Xiang Mei <xmei5@asu.edu>
-Subject: [PATCH v3 3/3] selftests/bpf: cover stale CB after LWT IP encapsulation
-Date: Mon, 21 Sep 2026 00:32:11 +0800
-Message-ID: <20260920163211.795547-4-bestswngs@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260920163211.795547-1-bestswngs@gmail.com>
-References: <20260920163211.795547-1-bestswngs@gmail.com>
+	dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b="BPWDp+Mr";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="W6ya0fVC"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.phl.internal (Postfix) with ESMTP id CEBC7EC0244;
+	Sun, 20 Sep 2026 12:33:53 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Sun, 20 Sep 2026 12:33:53 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm3; t=1789922033; x=1790008433; bh=/xTESrJV9j
+	0F1oUnsavALKCtQFY4jYukCVnF4p9dGJk=; b=BPWDp+MrGSeLyrBiPdKFEfQqm4
+	t1trazD5YHo8eQ6etInZnNIoKj1XF0TyK8R5uBKHS27kOwkaeFxvvImOjxNVWnnZ
+	ciJX4BOb1RG5VM0E+GbFjBGp7H1fQcfJneO5Ax8KFxnW8qW0C5WCa0jLW8BJO0IA
+	QUqQWbY5s5g8XJvx2V+CSe0Rgp97KaJYC7zzpwtWr0nPJAgvxkEjuqxdult9MChY
+	ZrIPFd72YPzQrlRWcHoiHwp+D3CLUSJz6MWRxW5i/FHbcBQC8vIYHKP/s7erJ9/Z
+	un6WwJMa2zlMYm2hewsLJoq/QN7X3yiV1/MaiiLr8blQd8ltUXp6qBhAUSgw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1789922033; x=1790008433; bh=/xTESrJV9j0F1oUnsavALKCtQFY4jYukCVn
+	F4p9dGJk=; b=W6ya0fVCch07OJi17ZGVfA0O8qBhaWgCsRi6fUdp/tir7BF8x0D
+	1aa8MjbyeLEXbjZo5QMhPItZ/ugAf/HEW/rlx1Jo3vMtfgF9WchDMPW5FisCf539
+	efXlOUUovWYFhXfyl2QaZ1cFD6DcAXM04mDagg1dKcd/FnhkgDrU4ki7LRef4zew
+	A0m0KnDEMGiPVfUVyWQQ8dHmVF7jweaG6mMnCi8B/5vK24+k05dE1/k5nGqYG6X+
+	WaVds/Oi/e6h28SJWDIRfKfxy9k8p7AZxKFz69ErBasQ6a+1gw6316hvc5OuRQWu
+	+awLVRuJFYZxbLIt5pPDjxCVtmypUaDK16A==
+X-ME-Sender: <xms:8Qqwai80sTh9jJErGLwZLioS-w-GpOypYbHXx3qFhJ6bGkMuxGdJfg>
+    <xme:8QqwaplY1lDm-0E2lRiNfDXfG9y7anS1q2-iMqRWgVgm9okaqwTpodcf3Vk-Rj-EQ
+    j9rSnclP7xMrYWk7ylZ7T4-Jq5JF78XUZxTz-YuUNtnJ6J_R1RaPeo>
+X-ME-Received: <xmr:8QqwagXC-_xdgaXvikftqX23uSRHPH83cLMzitg1wrSyRut_UShFg33MqZWP8bdXGRnn0AUUTlUq55EOSS2G5EqKA5ZLE5ubSGU-u1SQXfNJLZaaBRUphqr3hg>
+X-ME-Proxy-Cause: dmFkZTFe6oyCdfFP30tKwymB6A0/48I088tI3lf6QSLlxQnh3MMWW4O+K4ZTDgWMxtMiYe
+    ZOpGrFpc6pFrR3shuAGmIU+L1Q13Jv+aJqIqdgkq27g8ErVysUOmd8jzlu/P6JIzWYXwlk
+    CBrdcGmgAsulAhxu5uYxzWtLpD5UqG0h6vOyn7tZIQuKalYUbSOmZJNJINfqiDPiuab90p
+    oddxZRBYn0+oz0ryM1A2OLQJiCOJuLOg8RfZrjwDrgyRBk3hEWTowbYJtra1ya06+MYhSv
+    ZxkJeNxeBbA+6NpFhjWcBFvGvape5rzt7lOsYWCzzP6rk3kQEUKosGgcnWjjSXrpZDsxJf
+    OATcs0R2qsU4lBoEyHS4rjx3a9JOExsJ+6Ckp6MaW6C3DcGw0MAEK8XwiesrNak6jI1MEY
+    JmYynKWaJn9vTHBgTHjkvXxw6E+/tsYsCkN9vAktutuvl1v77YpNt0A5HbzhRUoQqtkgLf
+    UAxkHzjvkoxzMflzWMT3JfnwPfCI35iDvoOAje2J2ZhWvALqVDjm9KlT2hvb9+PX1jMzna
+    GgMAVsXrbQwTI361WhGIUdDpneniSCeZAW9jkNtpmKfqkZN+9ElYRszkD9gLlt9N/sGvhF
+    qD8Q5wbSBmbjl1rFfyXGgWN+Q+uze7YujFwXZm2MMqA7l8UOohgQ+Cv/o6+Q
+X-ME-Proxy: <xmx:8QqwamFEv58LY6fGPXWRiEldi0SI_sZo3vMjDWbP-LVGUN7xp9hh_A>
+    <xmx:8QqwakcAYTih-VmS1msiIN2kD8uIi5tLck6NTjpkZD7lsMyrs_Yc9w>
+    <xmx:8QqwavJB_f5kw8pmFHFX-lXVuurjmCHbo2xUZubZowf7V3zNF7PIaA>
+    <xmx:8QqwahHIZRj1vI3tiiVqCEuzDG2mx7bQwntM_fxqARbpSuX8K2zNRw>
+    <xmx:8QqwashBgTXoVS4ni69OFouFzWIokzXXAM4TcA164XHV8l0LHAeqLmwz>
+Feedback-ID: i47b949f6:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 20 Sep 2026 12:33:52 -0400 (EDT)
+Date: Sun, 20 Sep 2026 18:33:49 +0200
+From: Janne Grunau <j@jannau.net>
+To: Dmitry Sinyavin <sinyavin@gmail.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Dmitry Baryshkov <lumag@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] nvmem: core: Fix OOB read for bit offsets of more than
+ one byte
+Message-ID: <20260920163349.GA378504@robin.jannau.net>
+References: <20250901-nvmem-read-oob-bit-offset-v1-1-b610e18cdd3c@jannau.net>
+ <20260919185636.3054303-1-sinyavin@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260919185636.3054303-1-sinyavin@gmail.com>
 
-Add regression coverage for stale protocol control-block contents after
-bpf_lwt_push_ip_encap(). Inject an IPv4 packet carrying a Record Route
-option through an ingress LWT program and verify that the resulting ICMP
-Time Exceeded packet has no options copied from the inner header.
+On Sat, Sep 19, 2026 at 08:56:36PM +0200, Dmitry Sinyavin wrote:
+> Hi Janne,
+> 
+> Thanks for the patch. I independently ran into this bug while testing
+> Qualcomm MDM9607 TSENS calibration. I tested the exact change against the
+> current NVMEM for-fixes branch at cee9395acd80.
+> 
+> Without the patch, a focused KUnit case with a 26-bit offset returned the
+> expected value but produced three KASAN out-of-bounds reports. On the
+> MF283V, the unmodified kernel produced exactly seven reports from four
+> TSENS calibration cells, matching the accesses predicted from their bit
+> offsets.
+> 
+> With the patch, the focused test and a 16,384-case extraction matrix pass
+> under KASAN. A hardware A/B test using otherwise identical Linux 6.18.44
+> kernels produced no KASAN report with the fix, and all five TSENS zones
+> reported plausible temperatures between 36 and 38 degrees Celsius.
+> 
+> Tested-by: Dmitry Sinyavin <sinyavin@gmail.com>
+> 
+> I could not find the patch in the current NVMEM for-fixes or for-next
+> branches. Are you planning to send a v2 with the stable Cc requested in
+> the earlier reply? I can send the KUnit coverage separately if useful.
 
-Exercise both direct ctx->cb[] access and access introduced by a freplace
-program. The latter also verifies that cb_access is propagated to the
-target so the replacement observes cleared BPF scratch space.
+The change is no longer relevant on the systems I discovered the issue
+so it got lost and I never sent a v2.
 
-Run both variants on VRF ingress as well, checking that ICMP source
-selection still uses the original ingress slave rather than the VRF
-master after the protocol control block is reset.
+I'll do that shortly with both issues (missing Cc: and long partial
+SHA1) fixed and your Tested-by:.
 
-Add an ingress TC pre-encapsulation case which enters LWT with
-skb->encapsulation already set and a compiled outer Record Route option.
-This covers the true-to-true transition that an encapsulation-bit edge
-check misses.
+Thanks,
 
-Signed-off-by: Weiming Shi <bestswngs@gmail.com>
----
- .../selftests/bpf/prog_tests/lwt_ip_encap.c   | 288 ++++++++++++++++++
- .../bpf/progs/lwt_ip_encap_stale_cb.c         | 100 ++++++
- .../progs/lwt_ip_encap_stale_cb_freplace.c    |  32 ++
- 3 files changed, 420 insertions(+)
- create mode 100644 tools/testing/selftests/bpf/progs/lwt_ip_encap_stale_cb.c
- create mode 100644 tools/testing/selftests/bpf/progs/lwt_ip_encap_stale_cb_freplace.c
-
-diff --git a/tools/testing/selftests/bpf/prog_tests/lwt_ip_encap.c b/tools/testing/selftests/bpf/prog_tests/lwt_ip_encap.c
-index 39e8a3b8b6afb..0cc36b4d75b83 100644
---- a/tools/testing/selftests/bpf/prog_tests/lwt_ip_encap.c
-+++ b/tools/testing/selftests/bpf/prog_tests/lwt_ip_encap.c
-@@ -1,8 +1,17 @@
- // SPDX-License-Identifier: GPL-2.0-only
-+#include <arpa/inet.h>
-+#include <net/if.h>
-+#include <linux/icmp.h>
-+#include <linux/if_ether.h>
-+#include <linux/if_packet.h>
- #include <netinet/in.h>
-+#include <sys/ioctl.h>
-+#include <sys/socket.h>
- 
- #include "network_helpers.h"
- #include "test_progs.h"
-+#include "lwt_ip_encap_stale_cb.skel.h"
-+#include "lwt_ip_encap_stale_cb_freplace.skel.h"
- #include "test_lwt_ip_encap.skel.h"
- 
- #define BPF_FILE "test_lwt_ip_encap.bpf.o"
-@@ -686,3 +695,282 @@ void test_lwt_ip_encap_vxlan_ipv6(void)
- {
- 	lwt_ip_encap_vxlan(IPV6_ENCAP);
- }
-+
-+#define STALE_CB_NETNS "lwt-ip-encap-stale-cb"
-+#define STALE_CB_DST "10.9.9.0/24"
-+#define STALE_CB_PIN_FMT "/sys/fs/bpf/lwt_ip_encap_stale_cb_%d"
-+#define STALE_CB_PKT_LEN 64
-+
-+static __u16 stale_cb_csum(const void *data, size_t len)
-+{
-+	const __u16 *word = data;
-+	__u32 sum = 0;
-+
-+	while (len > 1) {
-+		sum += *word++;
-+		len -= sizeof(*word);
-+	}
-+	if (len)
-+		sum += *(const __u8 *)word;
-+	while (sum >> 16)
-+		sum = (sum & 0xffff) + (sum >> 16);
-+
-+	return ~sum;
-+}
-+
-+static int stale_cb_get_mac(const char *ifname, __u8 mac[ETH_ALEN])
-+{
-+	struct ifreq ifr = {};
-+	int fd;
-+
-+	fd = socket(AF_INET, SOCK_DGRAM, 0);
-+	if (fd < 0)
-+		return -errno;
-+	strncpy(ifr.ifr_name, ifname, sizeof(ifr.ifr_name) - 1);
-+	if (ioctl(fd, SIOCGIFHWADDR, &ifr)) {
-+		int err = -errno;
-+
-+		close(fd);
-+		return err;
-+	}
-+	memcpy(mac, ifr.ifr_hwaddr.sa_data, ETH_ALEN);
-+	close(fd);
-+	return 0;
-+}
-+
-+static int stale_cb_open_packet_socket(int ifindex)
-+{
-+	struct sockaddr_ll addr = {
-+		.sll_family = AF_PACKET,
-+		.sll_protocol = htons(ETH_P_ALL),
-+		.sll_ifindex = ifindex,
-+	};
-+	struct timeval timeout = { .tv_sec = 2 };
-+	int fd;
-+
-+	fd = socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
-+	if (fd < 0)
-+		return -errno;
-+	if (bind(fd, (struct sockaddr *)&addr, sizeof(addr)) ||
-+	    setsockopt(fd, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout))) {
-+		int err = -errno;
-+
-+		close(fd);
-+		return err;
-+	}
-+
-+	return fd;
-+}
-+
-+static int stale_cb_send_packet(int fd, const __u8 src_mac[ETH_ALEN],
-+				const __u8 dst_mac[ETH_ALEN])
-+{
-+	__u8 frame[ETH_HLEN + STALE_CB_PKT_LEN] = {};
-+	struct ethhdr *eth = (struct ethhdr *)frame;
-+	struct iphdr *iph = (struct iphdr *)(frame + ETH_HLEN);
-+	__u8 *opt = (__u8 *)(iph + 1);
-+
-+	memcpy(eth->h_source, src_mac, ETH_ALEN);
-+	memcpy(eth->h_dest, dst_mac, ETH_ALEN);
-+	eth->h_proto = htons(ETH_P_IP);
-+
-+	iph->version = 4;
-+	iph->ihl = 7;
-+	iph->tos = 8;
-+	iph->tot_len = htons(STALE_CB_PKT_LEN);
-+	iph->id = htons(0x1234);
-+	iph->ttl = 64;
-+	iph->protocol = IPPROTO_UDP;
-+	iph->saddr = inet_addr("10.0.0.2");
-+	iph->daddr = inet_addr("10.9.9.9");
-+	opt[0] = IPOPT_RR;
-+	opt[1] = 8;
-+	opt[2] = 4;
-+	iph->check = stale_cb_csum(iph, iph->ihl * 4);
-+
-+	memset(frame + ETH_HLEN + iph->ihl * 4, 0x41,
-+	       STALE_CB_PKT_LEN - iph->ihl * 4);
-+	if (send(fd, frame, sizeof(frame), 0) != sizeof(frame))
-+		return -errno;
-+
-+	return 0;
-+}
-+
-+static int stale_cb_icmp_ihl(int fd, __u32 *saddr)
-+{
-+	__u8 packet[512];
-+	ssize_t len;
-+
-+	while ((len = recv(fd, packet, sizeof(packet), 0)) >= 0) {
-+		const struct ethhdr *eth = (const struct ethhdr *)packet;
-+		const struct iphdr *iph;
-+		const struct icmphdr *icmph;
-+		size_t ip_len;
-+
-+		if (len < ETH_HLEN + sizeof(*iph) ||
-+		    eth->h_proto != htons(ETH_P_IP))
-+			continue;
-+		iph = (const struct iphdr *)(packet + ETH_HLEN);
-+		ip_len = iph->ihl * 4;
-+		if (iph->ihl < 5 || len < ETH_HLEN + ip_len + sizeof(*icmph) ||
-+		    iph->protocol != IPPROTO_ICMP)
-+			continue;
-+		icmph = (const struct icmphdr *)((const __u8 *)iph + ip_len);
-+		if (icmph->type == ICMP_TIME_EXCEEDED) {
-+			*saddr = iph->saddr;
-+			return iph->ihl;
-+		}
-+	}
-+
-+	return -errno;
-+}
-+
-+static void lwt_ip_encap_stale_cb(bool use_freplace, bool use_vrf,
-+				  bool pre_encap)
-+{
-+	LIBBPF_OPTS(bpf_tc_hook, tc_hook,
-+		    .attach_point = BPF_TC_INGRESS,
-+		   );
-+	LIBBPF_OPTS(bpf_tc_opts, tc_opts,
-+		    .handle = 1,
-+		    .priority = 1,
-+		   );
-+	struct lwt_ip_encap_stale_cb_freplace *freplace_skel = NULL;
-+	struct lwt_ip_encap_stale_cb *skel = NULL;
-+	struct bpf_program *target, *replacement;
-+	struct bpf_link *freplace_link = NULL;
-+	struct netns_obj *netns = NULL;
-+	char pin_path[128];
-+	__u8 mac0[ETH_ALEN], mac1[ETH_ALEN];
-+	__u32 saddr = 0;
-+	bool tc_hook_created = false;
-+	int ifindex, packet_fd = -1, prog_fd, err, ihl;
-+
-+	skel = lwt_ip_encap_stale_cb__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "open_and_load target"))
-+		goto out;
-+	target = use_freplace ? skel->progs.lwt_in_freplace_target :
-+				  skel->progs.lwt_in_direct;
-+	prog_fd = bpf_program__fd(target);
-+
-+	if (use_freplace) {
-+		freplace_skel = lwt_ip_encap_stale_cb_freplace__open();
-+		if (!ASSERT_OK_PTR(freplace_skel, "open freplace"))
-+			goto out;
-+		replacement = freplace_skel->progs.replace_add_ip_encap;
-+		err = bpf_program__set_attach_target(replacement, prog_fd,
-+						     "add_ip_encap");
-+		if (!ASSERT_OK(err, "set freplace target"))
-+			goto out;
-+		err = lwt_ip_encap_stale_cb_freplace__load(freplace_skel);
-+		if (!ASSERT_OK(err, "load freplace"))
-+			goto out;
-+		freplace_link = bpf_program__attach_freplace(replacement, prog_fd,
-+							     "add_ip_encap");
-+		if (!ASSERT_OK_PTR(freplace_link, "attach freplace"))
-+			goto out;
-+	}
-+
-+	snprintf(pin_path, sizeof(pin_path), STALE_CB_PIN_FMT, getpid());
-+	unlink(pin_path);
-+	err = bpf_program__pin(target, pin_path);
-+	if (!ASSERT_OK(err, "pin target"))
-+		goto out;
-+
-+	netns = netns_new(STALE_CB_NETNS, true);
-+	if (!ASSERT_OK_PTR(netns, "create netns"))
-+		goto out_unpin;
-+
-+	SYS(out_netns, "ip link add vh0 type veth peer name vh1");
-+	if (use_vrf) {
-+		SYS(out_netns, "ip link add vrf0 type vrf table 1001");
-+		SYS(out_netns, "ip link set vrf0 up");
-+		SYS(out_netns, "ip link set vh1 master vrf0");
-+		SYS(out_netns, "ip addr add 10.1.0.1/32 dev vrf0");
-+		SYS(out_netns, "sysctl -wq net.ipv4.conf.vrf0.rp_filter=0");
-+		SYS(out_netns, "sysctl -wq net.ipv4.icmp_errors_use_inbound_ifaddr=1");
-+	}
-+	SYS(out_netns, "ip link set vh0 up");
-+	SYS(out_netns, "ip link set vh1 up");
-+	SYS(out_netns, "ip addr add 10.0.0.1/24 dev vh1");
-+	SYS(out_netns, "sysctl -wq net.ipv4.ip_forward=1");
-+	SYS(out_netns, "sysctl -wq net.ipv4.conf.all.rp_filter=0");
-+	SYS(out_netns, "sysctl -wq net.ipv4.conf.vh1.rp_filter=0");
-+	SYS(out_netns, "sysctl -wq net.ipv4.conf.all.accept_local=1");
-+
-+	if (pre_encap) {
-+		tc_hook.ifindex = if_nametoindex("vh1");
-+		if (!ASSERT_GT(tc_hook.ifindex, 0, "vh1 ifindex"))
-+			goto out_netns;
-+		err = bpf_tc_hook_create(&tc_hook);
-+		if (!ASSERT_OK(err, "create vh1 ingress hook"))
-+			goto out_netns;
-+		tc_hook_created = true;
-+		tc_opts.prog_fd = bpf_program__fd(skel->progs.tc_pre_encap);
-+		err = bpf_tc_attach(&tc_hook, &tc_opts);
-+		if (!ASSERT_OK(err, "attach pre-encapsulation program"))
-+			goto out_netns;
-+	}
-+
-+	if (!ASSERT_OK(stale_cb_get_mac("vh0", mac0), "get vh0 mac") ||
-+	    !ASSERT_OK(stale_cb_get_mac("vh1", mac1), "get vh1 mac"))
-+		goto out_netns;
-+	SYS(out_netns,
-+	    "ip neigh replace 10.0.0.2 lladdr %02x:%02x:%02x:%02x:%02x:%02x nud permanent dev vh1",
-+	    mac0[0], mac0[1], mac0[2], mac0[3], mac0[4], mac0[5]);
-+	SYS(out_netns,
-+	    "ip route add %s encap bpf in pinned %s via 10.0.0.2 dev vh1 %s",
-+	    STALE_CB_DST, pin_path, use_vrf ? "vrf vrf0" : "");
-+
-+	ifindex = if_nametoindex("vh0");
-+	if (!ASSERT_GT(ifindex, 0, "vh0 ifindex"))
-+		goto out_netns;
-+	packet_fd = stale_cb_open_packet_socket(ifindex);
-+	if (!ASSERT_OK_FD(packet_fd, "open packet socket"))
-+		goto out_netns;
-+	if (!ASSERT_OK(stale_cb_send_packet(packet_fd, mac0, mac1),
-+		       "send crafted packet"))
-+		goto out_netns;
-+
-+	ihl = stale_cb_icmp_ihl(packet_fd, &saddr);
-+	if (!ASSERT_EQ(ihl, 5, "ICMP IPv4 header length"))
-+		goto out_netns;
-+	if (use_vrf && !ASSERT_EQ(saddr, inet_addr("10.0.0.1"),
-+				  "ICMP source is ingress slave address"))
-+		goto out_netns;
-+	if (use_freplace) {
-+		ASSERT_TRUE(freplace_skel->bss->freplace_ran, "freplace ran");
-+		ASSERT_TRUE(freplace_skel->bss->freplace_cb_zero,
-+			    "freplace cb was cleared");
-+	} else {
-+		ASSERT_TRUE(skel->bss->direct_ran, "direct program ran");
-+		ASSERT_TRUE(skel->bss->direct_cb_zero, "direct cb was cleared");
-+	}
-+
-+out_netns:
-+	if (packet_fd >= 0)
-+		close(packet_fd);
-+	if (tc_hook_created)
-+		bpf_tc_hook_destroy(&tc_hook);
-+	netns_free(netns);
-+out_unpin:
-+	unlink(pin_path);
-+out:
-+	bpf_link__destroy(freplace_link);
-+	lwt_ip_encap_stale_cb_freplace__destroy(freplace_skel);
-+	lwt_ip_encap_stale_cb__destroy(skel);
-+}
-+
-+void test_lwt_ip_encap_stale_cb(void)
-+{
-+	if (test__start_subtest("direct-cb-access"))
-+		lwt_ip_encap_stale_cb(false, false, false);
-+	if (test__start_subtest("freplace-cb-access"))
-+		lwt_ip_encap_stale_cb(true, false, false);
-+	if (test__start_subtest("vrf-direct-cb-access"))
-+		lwt_ip_encap_stale_cb(false, true, false);
-+	if (test__start_subtest("vrf-freplace-cb-access"))
-+		lwt_ip_encap_stale_cb(true, true, false);
-+	if (test__start_subtest("already-encapsulated"))
-+		lwt_ip_encap_stale_cb(false, false, true);
-+}
-diff --git a/tools/testing/selftests/bpf/progs/lwt_ip_encap_stale_cb.c b/tools/testing/selftests/bpf/progs/lwt_ip_encap_stale_cb.c
-new file mode 100644
-index 0000000000000..7638db379118e
---- /dev/null
-+++ b/tools/testing/selftests/bpf/progs/lwt_ip_encap_stale_cb.c
-@@ -0,0 +1,100 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include "vmlinux.h"
-+#include <bpf/bpf_endian.h>
-+#include <bpf/bpf_helpers.h>
-+#include "bpf_tracing_net.h"
-+
-+#define IPOPT_RR 7
-+#define IPOPT_MINOFF 4
-+
-+bool direct_cb_zero;
-+bool direct_ran;
-+
-+struct tc_outer_ipv4 {
-+	struct iphdr iph;
-+	__u8 options[8];
-+};
-+
-+static __always_inline __u16 fold_csum(__u64 csum)
-+{
-+	csum = (csum & 0xffffffff) + (csum >> 32);
-+	csum = (csum & 0xffff) + (csum >> 16);
-+	csum = (csum & 0xffff) + (csum >> 16);
-+
-+	return ~csum;
-+}
-+
-+SEC("tc")
-+int tc_pre_encap(struct __sk_buff *skb)
-+{
-+	struct tc_outer_ipv4 outer = {};
-+	struct iphdr inner;
-+	__s64 csum;
-+
-+	if (skb->protocol != bpf_htons(ETH_P_IP))
-+		return TC_ACT_OK;
-+	if (bpf_skb_load_bytes(skb, ETH_HLEN, &inner, sizeof(inner)))
-+		return TC_ACT_SHOT;
-+
-+	outer.iph.version = 4;
-+	outer.iph.ihl = sizeof(outer) / 4;
-+	outer.iph.tos = 8;
-+	outer.iph.tot_len = bpf_htons(bpf_ntohs(inner.tot_len) + sizeof(outer));
-+	outer.iph.id = bpf_htons(0x2345);
-+	outer.iph.ttl = 64;
-+	outer.iph.protocol = IPPROTO_IPIP;
-+	outer.iph.saddr = bpf_htonl(0x0a000002); /* 10.0.0.2 */
-+	outer.iph.daddr = bpf_htonl(0x0a090909); /* 10.9.9.9 */
-+	outer.options[0] = IPOPT_RR;
-+	outer.options[1] = sizeof(outer.options);
-+	outer.options[2] = IPOPT_MINOFF;
-+	csum = bpf_csum_diff(NULL, 0, (__be32 *)&outer, sizeof(outer), 0);
-+	if (csum < 0)
-+		return TC_ACT_SHOT;
-+	outer.iph.check = fold_csum(csum);
-+
-+	if (bpf_skb_adjust_room(skb, sizeof(outer), BPF_ADJ_ROOM_MAC,
-+				BPF_F_ADJ_ROOM_FIXED_GSO |
-+				BPF_F_ADJ_ROOM_ENCAP_L3_IPV4))
-+		return TC_ACT_SHOT;
-+	if (bpf_skb_store_bytes(skb, ETH_HLEN, &outer, sizeof(outer),
-+				BPF_F_INVALIDATE_HASH))
-+		return TC_ACT_SHOT;
-+
-+	return TC_ACT_OK;
-+}
-+
-+__noinline int add_ip_encap(struct __sk_buff *skb)
-+{
-+	struct iphdr iph = {};
-+
-+	iph.version = 4;
-+	iph.ihl = 5;
-+	iph.ttl = 1;
-+	iph.protocol = 4; /* IPPROTO_IPIP */
-+	iph.tot_len = bpf_htons(skb->len + sizeof(iph));
-+	iph.saddr = bpf_htonl(0x0a000002); /* 10.0.0.2 */
-+	iph.daddr = bpf_htonl(0x0a090909); /* 10.9.9.9 */
-+
-+	if (bpf_lwt_push_encap(skb, BPF_LWT_ENCAP_IP, &iph, sizeof(iph)))
-+		return BPF_DROP;
-+
-+	return BPF_OK;
-+}
-+
-+SEC("lwt_in")
-+int lwt_in_direct(struct __sk_buff *skb)
-+{
-+	direct_cb_zero = !(skb->cb[0] | skb->cb[1] | skb->cb[2] |
-+			   skb->cb[3] | skb->cb[4]);
-+	direct_ran = true;
-+	return add_ip_encap(skb);
-+}
-+
-+SEC("lwt_in")
-+int lwt_in_freplace_target(struct __sk_buff *skb)
-+{
-+	return add_ip_encap(skb);
-+}
-+
-+char _license[] SEC("license") = "GPL";
-diff --git a/tools/testing/selftests/bpf/progs/lwt_ip_encap_stale_cb_freplace.c b/tools/testing/selftests/bpf/progs/lwt_ip_encap_stale_cb_freplace.c
-new file mode 100644
-index 0000000000000..6358f76e47c8b
---- /dev/null
-+++ b/tools/testing/selftests/bpf/progs/lwt_ip_encap_stale_cb_freplace.c
-@@ -0,0 +1,32 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include "vmlinux.h"
-+#include <bpf/bpf_endian.h>
-+#include <bpf/bpf_helpers.h>
-+
-+bool freplace_cb_zero;
-+bool freplace_ran;
-+
-+SEC("freplace/add_ip_encap")
-+int replace_add_ip_encap(struct __sk_buff *skb)
-+{
-+	struct iphdr iph = {};
-+
-+	freplace_cb_zero = !(skb->cb[0] | skb->cb[1] | skb->cb[2] |
-+			     skb->cb[3] | skb->cb[4]);
-+	freplace_ran = true;
-+
-+	iph.version = 4;
-+	iph.ihl = 5;
-+	iph.ttl = 1;
-+	iph.protocol = 4; /* IPPROTO_IPIP */
-+	iph.tot_len = bpf_htons(skb->len + sizeof(iph));
-+	iph.saddr = bpf_htonl(0x0a000002); /* 10.0.0.2 */
-+	iph.daddr = bpf_htonl(0x0a090909); /* 10.9.9.9 */
-+
-+	if (bpf_lwt_push_encap(skb, BPF_LWT_ENCAP_IP, &iph, sizeof(iph)))
-+		return BPF_DROP;
-+
-+	return BPF_OK;
-+}
-+
-+char _license[] SEC("license") = "GPL";
--- 
-2.55.0
-
+Janne
