@@ -1,259 +1,263 @@
-Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
+Received: from mail-oa2-f11.google.com (mail-oa2-f11.google.com [74.125.231.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98FD83D4133
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 05:28:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52F333CF20A
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 05:32:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.75
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789882083; cv=none; b=ck48mcVgiGQgFgCyP2PVQcXDHZrSxGvgsOFBTJrYPzOvIJQse3A9yuXb2As0ZBK95YABfzkiSBBhk0ZNSXptTyOL7UcIO0rY6McfntYXtxJL+sUWuINivcwLs9bX2tu0p6+BajH/FVoJEjF2KtttRMeSzIOYRONZw187aUfz58E=
+	t=1789882322; cv=none; b=nH3NuXZwK0frVWz4lDDEoVTTUoSYa1cyK8NOPbD7QUAn7dW2IBjKJvqsDckinNOz5KSJps3WwiSy3+BwTtohBZrB0XyIPhYlr6Hrk81MK4SqYTJNlTwOD6S7u3SIxNKrKOshHLAx6dZaAl6wn8cmx3ZS6EUMWMEprOZtkgKOcTs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789882083; c=relaxed/simple;
-	bh=VPmM384DuEsHewt/yV7T9T7OzMmPlKdECyWKJQTC8Ys=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=D55pGp+JIDOyHdEINjuJxgxiVIe6YspnmKuyhwEHtOuKotlZ1s7OiOGA4OIZVkLZRe9Apn7MoOz042sHkpxbV/r/eA4tHc81oMlCXUMW1D4oOyVYgs96htqh1VDPC85PzZSDjaUg3gQN/H3HEqCLsTwtEJnhnjpdZr6eIG7htcs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B0wUtv9l; arc=none smtp.client-ip=74.125.227.136
+	s=arc-20240116; t=1789882322; c=relaxed/simple;
+	bh=KcebPSpfLW12OVgw6miyBuP4+TbSElNGuNpvgSBwi/s=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=a08Vjq5jDC1v3v50kdzCCEfMQk7X28Gwlp/zafQO7AU393a+sUTmzGuBkk53TMo7470RxB0DM9ebzOIyqo+4RZNjNVzlw5E/8KJ3Qv/+ALXXmwEOLh7DNHk0WA9NaeTXjF0HNSoqHYvzDVveoiWpPHY0uGnC0gIkuwP1ogSjg1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QN02RHy/; arc=none smtp.client-ip=74.125.231.75
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B0wUtv9l"
-Received: by mail-pj2-f8.google.com with SMTP id 98e67ed59e1d1-398b9f722abso1091498a91.0
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:28:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QN02RHy/"
+Received: by mail-oa2-f11.google.com with SMTP id 586e51a60fabf-457e289483bso309352fac.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:32:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789882081; x=1790486881; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=kRdyhVbDbtwWbg31SSUY067XkC3mS81pEbCoqok50kg=;
-        b=B0wUtv9lkirqiOdEA1lSbxwx6a8vnLziw611ra1qnvbyfeegh+nOlUs0HgPBUj8RSG
-         SrXb0RBt4McsmXi3m9LCI87G28YHVFK8skZ3LhpEjEgOImvwBNjHHK8no+KR2Pk6ck0C
-         S0xLsQ+SIJeIb/JpJg51/3rLDa5q4+e0jHXrgC/LmG9dZaoX7jzSEvOSXcioMK2b0T4O
-         5e5giS8GNh7DP0qumxRuDVkmodWvSxsAHGF0y6P1e0VmZJUun+4Vf9ppFLn33zXYLFpa
-         ZKRoK+pFxpouMn/TOzQbmoUlJsK9dyKcuw8wxy/EmVG3IwROl2eO/Vbag572eHJssV7U
-         A76g==
+        d=gmail.com; s=20251104; t=1789882319; x=1790487119; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=BV1ncNGpepRKDUJjNM9gEkNkv6658iCzq2zl3roqQvs=;
+        b=QN02RHy/01ZODtB0CWZqx0hAP2jMJRbagnXbyTev6B91WyMcNA1VTISffpWV6QkJkm
+         W4QyTYGDGZU8y6BKytdfs+c4E8JpcpG7ayFp1Da9wkV4bXYpxjSA8Dz0WZ/G/apgjrQP
+         40NfSZ9W7P+7krEFYPfW2oOKsU8n1V7b8QoH28kFVTubJUZfoYVmam4QxCpL9mroKjHQ
+         D93vG6Tr7Ql0zkVpFvRX37jpn2FxqOPbf0UwFObGiaVXCCKZ0bvhM29VzZoWu/EsTNH/
+         t44QtIS038eGQ3iVB6cO0Ozj3pn/fp1A6OqtgqChqubldxVCM0COecT+rUUW/sANLRBe
+         0F0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789882081; x=1790486881;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kRdyhVbDbtwWbg31SSUY067XkC3mS81pEbCoqok50kg=;
-        b=ns1dz5L4Y/rkDoqlOytJ7sY+Cjtmkd863egKdY2TYU0Fy7zvuesDUpcDDbZD32Fqtq
-         hBlmPlPCa3DGeACfan/qtp973VjBabI9eCaUAYaO1TaSswKTbvMDa8Vzlunbc+HUxPmJ
-         Ij8UM7CODRk0RN+8HdTgFrqN9hRWEhIb2tOb5IkE2yYOJYuUnnDjd1AAgOXsUqvn7iVR
-         7bkdk9jQv4LilF4hFaTmW8Xay/zudUnYuJe4pT+oDO+ohxwUUmCa7sBxyqQRUnbaoXvI
-         Af/1iWArbmhwr0gKINlg3/5siHRohWIF2BN6JYyzSIeZj7F2/oW3cp+iPoxoinpDSFjf
-         VNgQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzEJo1SZbyBDpKjqBDvSWym1oBDHkj9hVHJjsTPWowTAFDacaE7ldPkC8O3ZuXDfQHZXcuMI1zQVDr3HdM=@vger.kernel.org
-X-Gm-Message-State: AFuF++ny75uc9uZUwn3RwRUk+GXX7SrLX47DXDPa7+ov5txrBIL8P0fC
-	D0FF5qFQU3pmq9J7aenc735W1oRJxp8rGF91CmRsOgcB9QoOM7bfD0d3
-X-Gm-Gg: AYBFou2U7nX5PR5s02cMjeb6zg6HMfOlFCtcYhdm9Br4Hi+uR5K0TaujJUNhUF3Wy7f
-	jgEYlaY8f0zit4Wk/+i0FdlSXdWOt6Bffk/4n1yernYoYnX565D5fCIiB0GCNfMhGt6TzDo4Ltb
-	/bZ1MG+/E2Yz7pikyZAGiJGMEvWvzG2AtvK1Oz9ZeRGiYatSE1TPOIv/AqdHPH/dJDb5g1zBMQK
-	gOV1qCZHXGiXACjE41Asmf17uQrTeSEwtG22QmL+x2ZOKsYMB7CZVfN3iz+3yb7OTylro2nMTQA
-	CEWSKWoV0tCE0Cgnpgqd5xV0UkzGU/nIJ6zPH4LN321m+WycWSakoRnmCC1sAs6t2sN02dgQ86z
-	hMKhueAjd13YrMLoWebXePc5NVt1oonXvZTt2E7DOlJzitU+Q0w7Mc1X+jrO6ZsDC0bqrcPuvME
-	o9RgK15CDSg5IuFwNgeDQygklRDqO+NKmYoC2LTopVuTnWOtlJOn2gNWcgAp/EADvaz4j1mIEO+
-	Ge2H7auLQrK1bpe
-X-Received: by 2002:a17:90b:2b8e:b0:39d:f024:c7ee with SMTP id 98e67ed59e1d1-39e5500a842mr11856295a91.25.1789882080607;
-        Sat, 19 Sep 2026 22:28:00 -0700 (PDT)
-Received: from [192.168.50.174] ([124.64.19.40])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6cabafbasm7603098a91.10.2026.09.19.22.27.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 19 Sep 2026 22:28:00 -0700 (PDT)
-Message-ID: <229a6c7c-f320-40a5-b9c6-06b31a5de28a@gmail.com>
-Date: Sun, 20 Sep 2026 13:27:48 +0800
+        d=1e100.net; s=20260707; t=1789882319; x=1790487119;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=BV1ncNGpepRKDUJjNM9gEkNkv6658iCzq2zl3roqQvs=;
+        b=TWkjnJ62arW69TNAk7gyOfEXMhTvz0ghjjYbW0BoX24kIw695iB8Lz/4tNa1e88K8g
+         TVdauh6Cl+f6TtepqBaOHyV/vEO1IyhCkRffybk+g3J7f71eoACbyrKfsd7m5FXq45rQ
+         nKKBvLB/+pKmNtVZeKDecvEjjyyH2ld4WItnAhN/bb1oBJHIQRS6yVh5+vrQDtA4cMSS
+         pTp7SS3OYQvgujvTkNSgJtlFYRfV/r4Ztb7MpzsytDpV8RSkETzz6FFzqFBnD8N+nAKf
+         GaBdrWpXNsFI19+PV51h/7dMD/KknLBEvbIcu7+BOA90ztIlXDNz+QrNK2+iqh0CToqB
+         3r6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBw16Za7vf/g8ILTI/sDXXkqtOggUa65Y0vnIs4jLHOU9tVZs66Ffuhz+6aZ0JVlR8To0+IBkyojJEesy4U=@vger.kernel.org
+X-Gm-Message-State: AFuF++lktmktodLsQf7GCftHkJ9Nd0PloXEtiW1zBBlDV2C+qrVXRhXf
+	6MAxxD69R4ICTWvDvsYDQhRL3dV36ftQPGPDsTnAZWNlLBZq9crRZKPv/QGdU0xMEWQ=
+X-Gm-Gg: AYBFou0OcanoAIiFNM6GE3XtPAXKTUOcg05qAalC3x4uV0DSyXXtUcHbM+zHQ3SmyuM
+	QAEBbgryrxJyEvV+8HY5jPdrBX+aDKbmyC+hfRwh/N317L0xrOs2bgOPK3dSrpngGS4y3uJ/kXL
+	mZDP8fJg2I2wRipxEVYpK3Kpx7Qu1a0vle5ZjD0XO3A7IH8FGck2Vtig+oJ4SIelBNLFkjT46gX
+	wJQu8qqLUfgjIZYYQRzgcBBKCSlR6rqj1EaZw9Lpg9gUno2ssfoRXVCNOZX9bq4SC0GrZUh8R/G
+	dwdltQDmwhqGV3Q/rQs0HPoAD56gKH6xr+wNsM6N2zBQrI1gAUUTh46RbZILiY0Lf/jncWpcknW
+	UCkm8tGXm3Gm8mFWJR1d9AwiATkOg7mvqCH5zoLvbpiDW5F8yhfUeCorUKNsnN/7NAKiyuuryX/
+	TIc8M4wPwBiSokgNMqI2E7ONFOygQKTDwcM7BTccPy8AOvQ2Lx2qGno3ai7HNGL/uVpw==
+X-Received: by 2002:a05:6820:200a:b0:6b1:a02b:2bab with SMTP id 006d021491bc7-6ca929cb27cmr5267513eaf.17.1789882319019;
+        Sat, 19 Sep 2026 22:31:59 -0700 (PDT)
+Received: from [192.168.18.164] ([2600:8804:5716:d800::2620])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6cd3541f07fsm5007319eaf.10.2026.09.19.22.31.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Sep 2026 22:31:57 -0700 (PDT)
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+Subject: [PATCH v3 0/3] iio: adc: add mt6397 PMIC AUXADC support
+Date: Sun, 20 Sep 2026 00:31:50 -0500
+Message-Id: <20260920-rbrue-suez-upstreaming-mt6397-auxadc-v3-0-c00edacbee64@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v4 04/10] iommu/riscv: use data structure instead of
- individual values
-To: fangyu.yu@linux.alibaba.com
-Cc: alex@ghiti.fr, andrew.jones@oss.qualcomm.com, anup@brainfault.org,
- aou@eecs.berkeley.edu, atish.patra@linux.dev, baolu.lu@linux.intel.com,
- gong.shuai@sanechips.com.cn, guoren@kernel.org, iommu@lists.linux.dev,
- jgg@nvidia.com, jgg@ziepe.ca, joerg.roedel@amd.com, joro@8bytes.org,
- jroedel@suse.de, kevin.tian@intel.com, kvm-riscv@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- palmer@dabbelt.com, pjw@kernel.org, robin.murphy@arm.com,
- skhawaja@google.com, tomasz.jeznach@linux.dev, vasant.hegde@amd.com,
- will@kernel.org, zong.li@sifive.com
-References: <6d1bfb10-fd04-4e4e-895d-55c16fcea13f@gmail.com>
- <20260920030846.20403-1-fangyu.yu@linux.alibaba.com>
-From: Gong Shuai <gsh517025@gmail.com>
-In-Reply-To: <20260920030846.20403-1-fangyu.yu@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43NSw6CMBSF4a2Qjr2m3FoejtyHcVDaCzSRR1pKU
+ MLeBRITnTE8Z/B/M/PkLHl2jWbmaLTedu06xCliulZtRWDNuhlyTHgeX8AVLhD4QG8IvR8cqca
+ 2FTRDIvIUVJiU0SApRsw4Si05W1O9o9JOO3N/rLu2fujca1fHeHu/gDwGjDFwMEIaVFqYpOS3q
+ lH2edZdwzZgxN9oejCKW7QQMstQJTz7iy7L8gH+bI+4LQEAAA==
+X-Change-ID: 20260914-rbrue-suez-upstreaming-mt6397-auxadc-5e1228025c50
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Lee Jones <lee@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, mfd@lists.linux.dev, 
+ Roman Vivchar <rva333@protonmail.com>, 
+ Luca Leonardo Scorcia <l.scorcia@gmail.com>, 
+ Andy Shevchenko <andriy.shevchenko@intel.com>, 
+ Ryan Brue <ryanbrue.dev@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789882316; l=8747;
+ i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
+ bh=KcebPSpfLW12OVgw6miyBuP4+TbSElNGuNpvgSBwi/s=;
+ b=kfx8znA/wiewbfHGjuf/RlvR7OFd8j+C1bVHOLYDKK/W07+LPDPj+gTp59uzgyX40177TJkJT
+ /3CIw6QW/AeAejOZsywWApxWFxJtipoa0i2m1kX1PmWOMjdYlaqaIQO
+X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
+ pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-Hi Fangyu,
+The MediaTek mt6397 PMIC has a 10-bit AUXADC that nothing in-tree can
+reach. On boards built around it that ADC is the only path to the battery:
+the SoC's AUXADC is wired to board thermistors, and the charger ICs these
+boards use have no ADC at all, so without it there is no pack voltage and
+no state of charge.
 
-On 9/20/2026 11:08 AM, fangyu.yu@linux.alibaba.com wrote:
->>Hi Fangyu,
->>
->>On 9/15/2026 11:28 AM, fangyu.yu@linux.alibaba.com wrote:
->>> From: Zong Li <zong.li@sifive.com>
->>>
->>> The parameter will be increased when we need to set up more
->>> bit fields in the device context. Use a data structure to
->>> wrap them up.
->>>
->>> Signed-off-by: Zong Li <zong.li@sifive.com>
->>> Signed-off-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
->>> ---
->>>   drivers/iommu/riscv/iommu.c | 27 +++++++++++++++++----------
->>>   1 file changed, 17 insertions(+), 10 deletions(-)
->>>
->>> diff --git a/drivers/iommu/riscv/iommu.c b/drivers/iommu/riscv/iommu.c
->>> index a6c8307e82ea..c5b6214ee672 100644
->>> --- a/drivers/iommu/riscv/iommu.c
->>> +++ b/drivers/iommu/riscv/iommu.c
->>> @@ -1165,7 +1165,7 @@ static void riscv_iommu_iodir_iotinval(struct riscv_iommu_device *iommu,
->>>    * interim translation faults.
->>>    */
->>>   static void riscv_iommu_iodir_update(struct riscv_iommu_device *iommu,
->>> -				     struct device *dev, u64 fsc, u64 ta)
->>> +				     struct device *dev, struct riscv_iommu_dc *new_dc)
->>>   {
->>>   	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
->>>   	struct riscv_iommu_dc *dc;
->>> @@ -1204,10 +1204,10 @@ static void riscv_iommu_iodir_update(struct riscv_iommu_device *iommu,
->>>   	for (i = 0; i < fwspec->num_ids; i++) {
->>>   		dc = riscv_iommu_get_dc(iommu, fwspec->ids[i]);
->>>   		tc = READ_ONCE(dc->tc);
->>> -		tc |= ta & RISCV_IOMMU_DC_TC_V;
->>> +		tc |= new_dc->ta & RISCV_IOMMU_DC_TC_V;
->>
->>According to SPEC 3.1.3.3, the "V bit" does not exist in DC.ta.
->>This should be a convention from when the iodir_update() function
->>did not yet use `struct riscv_iommu_dc` as a parameter, using bit 0
->>of DC.ta to indicate that the DC is valid. Now that iodir_update()
->>receives the complete dc, it can directly access DC.tc.V, so this
->>convention should no longer be necessary and will cause confusion.
->>
-> 
-> Hi Shuai:
-> 
-> Thanks for the clarification.
-> 
-> My understanding is that `ta` here is used as a
-> combined concept, not only for `DC.ta`, but also
-> for `PC.ta` in this flow.
-> 
-> The `V` bit is only initialized when `ta` is first
-> set up, so the current usage still follows the
-> original design, without changing most of the
-> existing logic.
-> 
-> The original code also has comments describing
-> this behavior.
+Patch 1 adds the compatible to the existing MediaTek PMIC AUXADC schema and
+the header naming the channels, patch 2 the driver, patch 3 the MFD cell
+that instantiates it. The cell comes last so that no commit in between
+registers a child no driver can claim.
 
-I got your point.
+The mt6397 is not given mediatek,mt6359-auxadc as a fallback because the
+two are not register compatible; patch 1 has the detail.
 
-When fsc and ta were passed as separate raw parameters, treating
-them as a combined concept was arguably reasonable, since the same
-bit layout is shared between DC and PC in this path. But now that
-iodir_update() takes a struct riscv_iommu_dc, I think it would be
-better to keep the semantics explicit.
+Only the two channels a board needs for its pack are described, so patch 1
+ships a header naming them: a channel ID is an index into the driver's
+array and not the PMIC's channel number, as in mt6323-auxadc. The register
+sequences are the ones the vendor kernel's pmic_auxadc.c programs.
 
-If PDT/PC support is added later, we can introduce a separate
-struct riscv_iommu_pc parameter for the PC context, instead of
-trying to make one ta/fsc cover both cases.
+One note on patch 3: it adds a cell to mt6397_devs[], which Luca Leonardo
+Scorcia's MT6392 series converts to the MFD_CELL_* macros in its patch
+4/9 [1]. Whichever of the two lands second needs a respin. Mine would
+become a single MFD_CELL_OF(), and I can do a respin if that patch arrives
+first.
 
+Tested on an Amazon Fire HD 10 (2017), an mt8173 with an mt6397. Both
+channels are exercised: the battery channel by a fuel gauge, which reads
+817 counts, 3830 mV with the pack at rest, and the thermistor channel by an
+ntc-thermistor consuming it. The error paths are driven by injecting a
+regmap failure into each helper in turn, with the teardown stubbed out as a
+negative control.
 
-> Thanks,
-> Fangyu
-> 
->>>
->>> -		WRITE_ONCE(dc->fsc, fsc);
->>> -		WRITE_ONCE(dc->ta, ta & RISCV_IOMMU_PC_TA_PSCID);
->>> +		WRITE_ONCE(dc->fsc, new_dc->fsc);
->>> +		WRITE_ONCE(dc->ta, new_dc->ta & RISCV_IOMMU_PC_TA_PSCID);
->>
->>`RISCV_IOMMU_PC_*` should be replaced with `RISCV_IOMMU_DC_*` for
->>readability. There are several other similar places in this file
->>that are unrelated to Process Context or PASID but use the *PC* macros.
->>
-> 
-> My understanding is similar to the `ta` case: `fsc`
-> likely refers to both `dc.fsc` and `pc.fsc` in this
-> path, since some of their fields share the same bit
-> layout.
-Yeah, exactly, they share the same layout, so logically it's fine.
+A new driver was created here, instead of modifying an existing driver such
+as mt6323-auxadc or mt6359-auxadc, for the following reasons:
 
-> 
-> If we want to rename these for readability, I think
-> that should be done in a separate patch set, rather
-> than as part of this one.
+ - Both mt6323-auxadc and mt6359-auxadc select channels through a request
+   register (1 bit per channel), while mt6397 uses a 4-bit numeric field
+   CHSEL in CON1 (10:7), and then pulses a START bit (CON1 bit 0).
 
-Agree that it should be done in a separate patch.
+ - For mt6323-auxadc, which is the closest I could find to the mt6397
+   (CON0..CON27), it has 13 more registers than the mt6397 (CON0..CON14).
+   It uses CON22 for its request register, and reads the result value
+   from the same register as the ready bit. We don't do that - the mt6397
+   has a factory-calibrated value for each channel at 0x16 higher than the
+   raw value. mt6323 also has a 1800 mV / 15 bit scale / resolution while
+   we have 1200 mV / 10 bits. We also have some per-channel preparation
+   that we have to do before the burst, that the mt6323 doesn't have to
+   do.
 
-Thanks,
-Shuai
+ - For mt6359-auxadc, it has a more generic framework for describing the
+   AUXADC, but it assumes requests are channel-per-bit, and so we would
+   have to basically ignore req_idx, req_mask, rdy_idx, and rdy_mask.
 
-> 
->>
->>Thanks,
->>Shuai
->>
->>>   		/* Update device context, write TC.V as the last step. */
->>>   		dma_wmb();
->>>   		WRITE_ONCE(dc->tc, tc);
->>> @@ -1288,22 +1288,22 @@ static int riscv_iommu_attach_paging_domain(struct iommu_domain *iommu_domain,
->>>   	struct riscv_iommu_device *iommu = dev_to_iommu(dev);
->>>   	struct riscv_iommu_info *info = dev_iommu_priv_get(dev);
->>>   	struct pt_iommu_riscv_64_hw_info pt_info;
->>> -	u64 fsc, ta;
->>> +	struct riscv_iommu_dc dc = {0};
->>>
->>>   	pt_iommu_riscv_64_hw_info(&domain->riscvpt, &pt_info);
->>>
->>>   	if (!riscv_iommu_pt_supported(iommu, pt_info.fsc_iosatp_mode))
->>>   		return -ENODEV;
->>>
->>> -	fsc = FIELD_PREP(RISCV_IOMMU_PC_FSC_MODE, pt_info.fsc_iosatp_mode) |
->>> +	dc.fsc = FIELD_PREP(RISCV_IOMMU_PC_FSC_MODE, pt_info.fsc_iosatp_mode) |
->>>   	      FIELD_PREP(RISCV_IOMMU_PC_FSC_PPN, pt_info.ppn);
->>> -	ta = FIELD_PREP(RISCV_IOMMU_PC_TA_PSCID, domain->pscid) |
->>> +	dc.ta = FIELD_PREP(RISCV_IOMMU_PC_TA_PSCID, domain->pscid) |
->>>   	     RISCV_IOMMU_PC_TA_V;
->>>
->>>   	if (riscv_iommu_bond_link(domain, dev))
->>>   		return -ENOMEM;
->>>
->>> -	riscv_iommu_iodir_update(iommu, dev, fsc, ta);
->>> +	riscv_iommu_iodir_update(iommu, dev, &dc);
->>>   	riscv_iommu_bond_unlink(info->domain, dev);
->>>   	info->domain = domain;
->>>
->>> @@ -1378,9 +1378,12 @@ static int riscv_iommu_attach_blocking_domain(struct iommu_domain *iommu_domain,
->>>   {
->>>   	struct riscv_iommu_device *iommu = dev_to_iommu(dev);
->>>   	struct riscv_iommu_info *info = dev_iommu_priv_get(dev);
->>> +	struct riscv_iommu_dc dc = {0};
->>> +
->>> +	dc.fsc = RISCV_IOMMU_FSC_BARE;
->>>
->>>   	/* Make device context invalid, translation requests will fault w/ #258 */
->>> -	riscv_iommu_iodir_update(iommu, dev, RISCV_IOMMU_FSC_BARE, 0);
->>> +	riscv_iommu_iodir_update(iommu, dev, &dc);
->>>   	riscv_iommu_bond_unlink(info->domain, dev);
->>>   	info->domain = NULL;
->>>
->>> @@ -1400,8 +1403,12 @@ static int riscv_iommu_attach_identity_domain(struct iommu_domain *iommu_domain,
->>>   {
->>>   	struct riscv_iommu_device *iommu = dev_to_iommu(dev);
->>>   	struct riscv_iommu_info *info = dev_iommu_priv_get(dev);
->>> +	struct riscv_iommu_dc dc = {0};
->>> +
->>> +	dc.fsc = RISCV_IOMMU_FSC_BARE;
->>> +	dc.ta = RISCV_IOMMU_PC_TA_V;
->>>
->>> -	riscv_iommu_iodir_update(iommu, dev, RISCV_IOMMU_FSC_BARE, RISCV_IOMMU_PC_TA_V);
->>> +	riscv_iommu_iodir_update(iommu, dev, &dc);
->>>   	riscv_iommu_bond_unlink(info->domain, dev);
->>>   	info->domain = NULL;
->>>
+ - We also have our own software sampling, which the vendor does too
+   (Amazon Fire OS based on Linux 3.18). We'd have to have our own
+   sampling callback to do it.
+
+I have two things in the driver different from the vendor (Amazon
+Fire OS based on a 3.18 kernel). Verified with over 150 interleaved reads
+per setting:
+
+ - Leaving the ISENSE input enabled between reads, as the vendor does,
+   makes no difference to the value, so the driver switches it off again.
+   Both ADC input enables are clear when idle, unless a teardown write
+   itself fails: that is logged, and the next read of the channel clears
+   whatever was left set.
+
+ - The chip's sample accumulator makes no difference at 4, 8, 16 or 31
+   samples and costs no measurable time, so it is left at one. Software
+   averaging helps, but only by about a quarter: in one interleaved run,
+   0.92 LSB standard deviation for one conversion against 0.67 for sixteen,
+   where independent samples would have given 0.23. Conversions in a burst
+   are correlated.
+
+The reading was checked against the charger, which regulates the pack to
+a programmed voltage in constant-voltage mode. Over twelve such voltages
+from 3904 to 4080 mV, and charge currents from 111 to 778 mA, the driver's
+reading is a mean of 0.9 mV from the regulated value, well inside
+the charger's regulation tolerance. That also settles reading the chip's
+trimmed result register rather than the raw one - the raw register is
+20.7 mV low at every one of the twelve points.
+
+[1] https://lore.kernel.org/all/20260902193351.185771-5-l.scorcia@gmail.com/
+
+Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+---
+Changes in v3:
+- Move the sample loop into its own function, so read_channel() is setup,
+  then a conditional burst, then an unconditional teardown, with no goto
+  mixed with guard(). (Andy, sashiko-bot)
+- battemp_bias_off() and isense_disable() now return on the first failed
+  write, as mt6323_auxadc_release() does, and twelve other teardowns in
+  drivers/iio that I could find. A failed write can leave the later bits
+  set; the teardown runs at the end of every read, so the next read of that
+  channel clears them. (Andy)
+- Drop the "if (!ret) ret = err;" accumulators with it. A teardown failure
+  now goes to dev_err() rather than being returned, since the caller cannot
+  act on it, and read_channel() takes the iio_dev so no struct device * is
+  stored. (Andy)
+- Split battemp_bias(adc, bool on) into battemp_bias_on() and
+  battemp_bias_off(), and drop the bool. (Andy)
+- Make the SCALE case an if-else. (Andy)
+- Move the "why a new driver" rationale below the --- marker in patch 2,
+  out of the commit message. (Andy)
+- Reduce the CHSEL regmap_update_bits() call from four lines to two. (Andy)
+- Drop the comment above guard(mutex). (Andy)
+- Say in a comment why lowering START needs no settling delay. The ready
+  bit survives the fall and is cleared by the rise before the next
+  transaction on the PMIC wrapper can observe it. I measured this, and the
+  details are in the reply on 2/3. (Andy)
+- Cc Luca Leonardo Scorcia with a trailer rather than in prose. (Andy)
+- Link to v2: https://patch.msgid.link/20260917-rbrue-suez-upstreaming-mt6397-auxadc-v2-0-db35882a6080@gmail.com
+
+Changes in v2:
+- Add justification for this being a new driver rather than folded into
+  mt6323-auxadc.c or mt6359-auxadc.c, in the cover letter and patch 2.
+- Drop the "ret = ret ?: ..." chains, and let teardown fall through on
+  errors, allowing the chance for all bits to be properly torn down. The
+  errors are now held rather than discarded. (Andy and sashiko-bot)
+- Run teardown even when per-channel setup fails part-way through, so we
+  don't leave bits enabled that would have been cleared. (sashiko-bot)
+- Set ISENSE settle time to (1 * USEC_PER_MSEC). (Andy)
+- Write the two channel descriptors out instead of using a macro. Also
+  gets rid of the padded column. (Andy, Jonathan)
+- Move the MAINTAINERS entry for the dt-bindings header into patch 1, as
+  the mt6323 series does.
+- Declare the sample loop counter in the loop, instead of with sum, and
+  split the declaration of sample and ret. (Andy)
+- Keep the two CHR_CON16 ADCIN bits as BIT()s rather than turning them
+  into values of a GENMASK field. Fix OR operator on the bits, treat them
+  as mutually exclusive. (Jonathan)
+- The rest of Jonathan's v1 review: two-space indent separating a register's
+  fields from the register, a blank line before the settle times, a lock
+  comment that says why the lock is held, the two CON1 START writes on one
+  line each, the single-call init helper inlined into probe, and { } for the
+  of_device_id sentinel.
+- Add the additional three CHR_CON16 ADCIN defines that make up the 5
+  single-bit enables. These are currently unused.
+- Link to v1: https://patch.msgid.link/20260915-rbrue-suez-upstreaming-mt6397-auxadc-v1-0-d35d2ac3d6f0@gmail.com
+
+---
+Ryan Brue (3):
+      dt-bindings: iio: adc: mediatek,mt6359-auxadc: add mt6397 PMIC AUXADC
+      iio: adc: mt6397-auxadc: add mt6397 PMIC AUXADC driver
+      mfd: mt6397-core: Add mt6397 AUXADC support
+
+ .../bindings/iio/adc/mediatek,mt6359-auxadc.yaml   |   1 +
+ MAINTAINERS                                        |   7 +
+ drivers/iio/adc/Kconfig                            |  11 +
+ drivers/iio/adc/Makefile                           |   1 +
+ drivers/iio/adc/mt6397-auxadc.c                    | 391 +++++++++++++++++++++
+ drivers/mfd/mt6397-core.c                          |   3 +
+ .../dt-bindings/iio/adc/mediatek,mt6397-auxadc.h   |   9 +
+ 7 files changed, 423 insertions(+)
+---
+base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+change-id: 20260914-rbrue-suez-upstreaming-mt6397-auxadc-5e1228025c50
+
+Best regards,
+--  
+Ryan Brue <ryanbrue.dev@gmail.com>
 
