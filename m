@@ -1,102 +1,114 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-73.mta1.migadu.com [95.215.58.73])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24D5C19D065;
-	Sun, 20 Sep 2026 03:33:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94EDD3515F8
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 03:33:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.73
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789875214; cv=none; b=VXjiNFj9S6p5KhusdKhuyng7svpGz5x2KKpiTqt0q+a/QQ4oVuBDkzGVBhUGd9GpaBRtYk2I4L7JcKhKTPUxw8OrH83e5CSB87BdMaDpx4ZmXUPsYtkBo5WkqeKyzFj3H70sKrcbdQv61GeGas1cEi3Y3pINAR+zaWyQZvMFFDY=
+	t=1789875237; cv=none; b=AHx5+F2GAq3eXwRyT5fCqttRS++aRBY7hXTFwjMD8ZT4Y9lwWHIq7yabwuy6mcoUbHRhZEjNQaUfw/zwkTfDCdtWYGw8x2a2KMaWrvoADItIiMFEw//FA0novq2QuiVeKgjHXM0NYyBgE9F+wCBhTBog7KFWKW8g3Z5Xm9p2uio=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789875214; c=relaxed/simple;
-	bh=yTcOxy54RfrT5BmhhvJpQ+22VWA7MNMCgrbs6wMFRZ8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aMUAjZYC+dmzfU7EkuDY1n34AriQWb+Ih1XyGh265Jo+T6YYpmZknoYnvSC86r+ckX0pYDgmZ43Am6M3tkehV7Xiyv/toSnTUpa/dKlt8apNJxotK9E1R5sTdz0iWEe18zX5R88EkV/rU2kTcMruqXatI/tzFoez+RW+m3H3C0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=LLcdnBdF; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789875237; c=relaxed/simple;
+	bh=hXLqE47HqcLGyqOng+gJY4MA1aiOWDH2fotgfictL0g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=odqgmazcvp+9TlkKtr26ipGszCVSpJ53HHZZ81iKR7FR63JdH7lhNS4fkVzXohRh6jLNIqsZGKU52sXFOsc1OWJcTMQh9TT0grO43dhwlJmfPLrPJGSlUh0aLswh37uVuRrhqPVakDaz6pr6JnLP6qbylQtwHxTP6AhQmCNC1u8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=MjFuIBdx; arc=none smtp.client-ip=95.215.58.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="LLcdnBdF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Gy
-	KQdaB9T27anvxUSlIVIK7edWszZ6M3M7OiCI+M7go=; b=LLcdnBdFKS6ywCIPio
-	zuqH8Te+qLt97gYy7mQxPMV75WwePaEes4MlhAo5u8zkqiMAXptM5+t+qwGfxG7k
-	LWAclePVvrGTVmiFzMk/aS9wiv0qzMSVXctCaQonplYu7wVtwplHjIXDsHmtUEgK
-	ahgy9IJPG0QUyx5+htiU4uKAs=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wCXxwXwU69qNLgNBw--.53728S2;
-	Sun, 20 Sep 2026 11:33:05 +0800 (CST)
-From: Pengpeng Hou <hppiscas@163.com>
-To: nuno.sa@analog.com
-Cc: michael.hennerich@analog.com,
-	jic23@kernel.org,
-	dlechner@baylibre.com,
-	andy@kernel.org,
-	linux@analog.com,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	hppiscas@163.com
-Subject: [PATCH v2] iio: cdc: ad7150: fix OF matching and publish module aliases
-Date: Sun, 20 Sep 2026 11:33:03 +0800
-Message-ID: <20260920033303.11879-1-hppiscas@163.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="MjFuIBdx"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=hXLqE47HqcLGyqOng+gJY4MA1aiOWDH2fotgfictL0g=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789875232; v=1; x=1790480032;
+ b=MjFuIBdxri6mnPIUOZ/bHRkOn9QfFFAQ/Q0tabD86fdfsLaHgHc5pFS1MJG6bPQIFl3Gca6t
+ kDUwPfcgXw4TbXfFtT1ksq+r5VLNgYmTTo+y/m6Qe1Fm5WLBb1VtWBJjhIKxd4GXgMgK888pnSb
+ W4ddmcOquFJ+NHn4dj3C3t4o=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 15499ad898b25d57;
+	Sun, 20 Sep 2026 03:33:52 +0000
+X-Mizu-Trace-ID: 15499ad898b25d57
+X-Migadu-Flow: FLOW_OUT
+Date: Sun, 20 Sep 2026 11:33:45 +0800
+From: Baoquan He <baoquan.he@linux.dev>
+To: Mike Rapoport <rppt@kernel.org>
+Cc: Wandun Chen <chenwandun1@gmail.com>, catalin.marinas@arm.com,
+	will@kernel.org, chenhuacai@kernel.org, pjw@kernel.org,
+	palmer@dabbelt.com, aou@eecs.berkeley.edu, tglx@kernel.org,
+	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
+	x86@kernel.org, robh@kernel.org, saravanak@kernel.org,
+	akpm@linux-foundation.org, pasha.tatashin@soleen.com,
+	pratyush@kernel.org, m.szyprowski@samsung.com, mark.rutland@arm.com,
+	kernel@xen0n.name, alex@ghiti.fr, hpa@zytor.com,
+	ruirui.yang@linux.dev, robin.murphy@arm.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org, kexec@lists.infradead.org,
+	linux-mm@kvack.org, iommu@lists.linux.dev
+Subject: Re: [PATCH v6 06/10] memblock: introduce MEMBLOCK_NODUMP flag
+Message-ID: <aq9UGXeqmCfuPHdD@fedora>
+References: <20260902073116.802752-1-chenwandun1@gmail.com>
+ <20260902073116.802752-7-chenwandun1@gmail.com>
+ <aqzxavL91icLw-Xv@fedora>
+ <aq41nFRPtRWTQ7cK@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wCXxwXwU69qNLgNBw--.53728S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7AFWkWrWxXFWUuw4rGF4fGrg_yoW8WFW7pF
-	srZFyrKry3KayakFWjv3WfuF98Wwn3A34DKFW5Kw43u390gFyUuFWvka1ftr98XF4xGana
-	qw4jyw4Uuw4kZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U8l19UUUUU=
-X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbCxhSYYWqvU-Rq+AAA3b
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aq41nFRPtRWTQ7cK@kernel.org>
 
-The OF match entries use positional initializers, which initialize the
-name field rather than compatible. Consequently the advertised AD7150,
-AD7151 and AD7156 compatible strings do not describe OF compatible
-matches. The table is also not exported for module alias generation.
+On 09/19/26 at 10:11am, Mike Rapoport wrote:
+> On Fri, Sep 18, 2026 at 04:08:10PM +0800, Baoquan He wrote:
+> > On 09/02/26 at 03:31pm, Wandun Chen wrote:
+...snip... 
+> > > +/**
+> > > + * memblock_mark_nodump - Mark a memory region with flag MEMBLOCK_NODUMP.
+> > > + * @base: the base phys addr of the region
+> > > + * @size: the size of the region
+> > > + *
+> > > + * Mark the region as not to be included in crash dumps.
+> > > + *
+> > > + * Return: 0 on success, -errno on failure.
+> > > + */
+> > > +int __init_memblock memblock_mark_nodump(phys_addr_t base, phys_addr_t size)
+> >       ~~~~~~~~~~~~~~^
+> > Is it impossible to use at runtime even thought it claims to be generic?
+> 
+> This should only happen at boot.
+> 
+> Allowing modifications of memblock properties in runtime is a can of worms
+> I don't want to open.
 
-Use designated compatible initializers and publish the OF table. Keep
-the existing I2C ID table and its device-variant selection unchanged.
+Thank you. This is why I said this can't be claimed as a generic way to
+mark memory region as no dump. The generic way I'd like to see is
+at any time of system we can mark any unwanted memory region as no dump.
+And it won't impact the behaviour of the current system.
 
-The issue was found by our static-analysis tool.
-
-Fixes: 89f2d5b080bc ("staging:iio:cdc:ad7150: Add of_match_table")
-Assisted-by: gpt 5
-Signed-off-by: Pengpeng Hou <hppiscas@163.com>
----
-Changes since v1:
-https://lore.kernel.org/all/20260905133939.66210-1-hppiscas@163.com/
-Use the submitter's full name and rebase on current mainline; retain the
-reviewed code change.
-
- drivers/iio/cdc/ad7150.c |    8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/iio/cdc/ad7150.c b/drivers/iio/cdc/ad7150.c
-index 2f35c6d2f9ce..b36ac4e2dae8 100644
---- a/drivers/iio/cdc/ad7150.c
-+++ b/drivers/iio/cdc/ad7150.c
-@@ -636,11 +636,13 @@ static const struct i2c_device_id ad7150_id[] = {
- MODULE_DEVICE_TABLE(i2c, ad7150_id);
- 
- static const struct of_device_id ad7150_of_match[] = {
--	{ "adi,ad7150" },
--	{ "adi,ad7151" },
--	{ "adi,ad7156" },
-+	{ .compatible = "adi,ad7150" },
-+	{ .compatible = "adi,ad7151" },
-+	{ .compatible = "adi,ad7156" },
- 	{ }
- };
-+MODULE_DEVICE_TABLE(of, ad7150_of_match);
-+
- static struct i2c_driver ad7150_driver = {
- 	.driver = {
- 		.name = "ad7150",
-
-base-commit: 518e5b794c06c0f0eb40df3e202274a66202c137
--- 
-2.50.1 (Apple Git-155)
-
+>  
+> > > +{
+> > > +	return memblock_setclr_flag(&memblock.memory, base, size, 1,
+> > > +				    MEMBLOCK_NODUMP);
+> > > +}
+> > > +
+> > >  static bool should_skip_region(struct memblock_type *type,
+> > >  			       struct memblock_region *m,
+> > >  			       int nid, int flags)
+> > > @@ -2887,6 +2902,7 @@ static const char * const flagname[] = {
+> > >  	[ilog2(MEMBLOCK_RSRV_KERN)] = "RSV_KERN",
+> > >  	[ilog2(MEMBLOCK_KHO_SCRATCH)] = "KHO_SCRATCH",
+> > >  	[ilog2(MEMBLOCK_RSRV_HUGETLB)] = "RSV_HUGETLB",
+> > > +	[ilog2(MEMBLOCK_NODUMP)] = "NODUMP",
+> > >  };
+> > >  
+> > >  static int memblock_debug_show(struct seq_file *m, void *private)
+> > > -- 
+> > > 2.43.0
+> > > 
+> 
+> -- 
+> Sincerely yours,
+> Mike.
