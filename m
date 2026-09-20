@@ -1,116 +1,120 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 351764398F5
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 14:12:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7471B1DF980;
+	Sun, 20 Sep 2026 14:13:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789913534; cv=none; b=JdPI/5VcpdLB4ZNofCveb2fhYrISEI+BHBFAU9EfWAriDlQQzSIGo14iGeFX60wBHf2L4ssFy3P+hgikTm5GQ+3+H/bTTiBd7meIcS0PkpJYG4dt+HV9pimD5Cd8TFcsITxxAnL6agLFMqFmcas0W26Nj67A6qtNdqPs3orlq5A=
+	t=1789913614; cv=none; b=HeIRqSk4SQpOU6tH0CORYW2q51co112n3gV4pDCJaMz9GzB8DbkiLw4rYwbnJSzsphIm1o153bPAS4RlStghDLsZrNjFZTmhQ3vbvTXeF2CLjeD04k0IzMhOVxdtnoha+MRmgfjgyP22iUoR+7pYRu5RcarTtOD6KYm/z/GKNgE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789913534; c=relaxed/simple;
-	bh=AOFlzTmXsOMyMQB7yTW6ae66O+8yNVHZJ42DpqWAE3E=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CFRXkPfW38vU7QnPBoV+0bGAQjqJhj8juBV8vk784RSxAQy5Fd1tcMHrUhaPVu9Ux2HuzITZPNKdExNsL+whaUgdgEfdf1/rdKxPg9ks9SI0MjRCwjzDsm/oZJHSAqGZjwT2LPi8jFE+/Lk7Kod76x7YkVIkcgJjSIXze49T+hw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zmpz8DrX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789913614; c=relaxed/simple;
+	bh=+YcSOEfVDCNh71cR2TvPJ/PfisjjjYVWPIECl69VL7E=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=BZxCFKAtsDpQR72yZ0jeDChOzpvKuy2YMZnzypj3FUzjbHBH5J4mh5SW1A509pdcK3kLy/LmXTe/q5wcbGr01v1z3S5ngPnepPF15gj1+UYWZvGnOhExzooAHa5tr9u8+N8MquQlu/oq8oXKlajte8Kh9akW/4diVUKGzeWapPA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AngTpMas; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zmpz8DrX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B32B51F000FF;
-	Sun, 20 Sep 2026 14:12:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AngTpMas"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BECF1F000FF;
+	Sun, 20 Sep 2026 14:13:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789913531;
-	bh=ooPm1z4Hk459Nv++8dOZ7VzieNwEt094pfRrZ3nLsn4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Zmpz8DrX2qKFr5Sj0eBCeNPfAqJmTrepgGk4KkUmHit7nqVavyRoy+b3lpQaxbBt/
-	 s3hq6M634ooQLmBiowHKXu9dtXDVYpibSxVGvT3F64E/FHfPn5C6dR7UGrPjVJ8xq1
-	 yRaJD5ox2/Jknc47KXhbCKNXIVIsgR5p5Yd1o95PDYBkV65mUNdi7r+P7jkZUgRjBB
-	 BUNYztkSy+RRL3lM/rYZ7n5EFEGKuIGGB342/w4qNDtkoHoj0i8EX1McPyebBOywY7
-	 KsPGajwSSSt+IqGST8UY0RNoOFmqUj+DAZFxz+W3FiH3xgJnsr37Nd3xY66O4FpLZ5
-	 0mlJPsMe+hVqg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 17/25] mtd: spi-nor: winbond: Add support for
- W25Q33PW-Q/N
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Pratyush Yadav" <pratyush@kernel.org>, "Miquel Raynal" <miquel.raynal@bootlin.com>, "Takahiro
- Kuwano" <takahiro.kuwano@infineon.com>, "Michael Walle" <mwalle@kernel.org>, "Vignesh
- Raghavendra" <vigneshr@ti.com>, "Richard Weinberger" <richard@nod.at>
-Cc: "Steam Lin" <STLin2@winbond.com>, linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, "Thomas
- Petazzoni" <thomas.petazzoni@bootlin.com>
-In-Reply-To: <20260920-winbond-master-spi-nor-jw-cleanup-pw-addition-v2-17-ab9c9688d071@bootlin.com>
-References: <20260920-winbond-master-spi-nor-jw-cleanup-pw-addition-v2-0-ab9c9688d071@bootlin.com>
- <20260920-winbond-master-spi-nor-jw-cleanup-pw-addition-v2-17-ab9c9688d071@bootlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 20 Sep 2026 14:12:10 +0000
-Message-Id: <20260920141210.B32B51F000FF@smtp.kernel.org>
+	s=k20260515; t=1789913613;
+	bh=A5dVatuJb8nLIceYIpRqrGfNVuiP4W5dL3y+DyE7U2Q=;
+	h=From:Subject:Date:To:Cc;
+	b=AngTpMasXlSp6bp26zJSCHmpf2pJfGNPOQSHmrAamM2Fnn3S7iq94uM3opNjpcTqj
+	 YXrm/Pv3IrE9iWImSYOFv+rekOfHwmChKJvD3uVuOgkCT9BfIhiegOyS+sAqLdMlTj
+	 9JUTW/WhduGPicSKAPloP7z2iqRWwZtiMkPSpj+b7lCoK1JDqB33tpgpAfEtHJVJB5
+	 Y9Y9lsrUpV50t1ix7PgLAPmt+6W78uuVVMnJ2hh5z/HRDUG2BBg0IBTPWbbPyphYjf
+	 WQyrhfXhUp+qzbM1bZlYCes4kRAa2cIGAx3FN2yP3iPcwd10MZGqPC/IkQLokoExv1
+	 fSWaxha0cV8yw==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: [PATCH 0/2] mm/mremap: fix two issues with MREMAP_DONTUNMAP
+Date: Sun, 20 Sep 2026 15:13:09 +0100
+Message-Id: <20260920-fix-dontunmap-partial-self-merge-v1-0-6ffb556f8f8b@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2NQQqDQAxFryJZNzAOatWrFBepE9uAjkNGpSDe3
+ dDlg//+OyGzCmfoixOUD8myRoPyUcD4pfhhlGAM3vnGdd7hJD8Ma9z2uFDCRLoJzZh5nnBhtf2
+ zoq59l6Gmpga7Scrm/BOv4bpuBXda73IAAAA=
+X-Change-ID: 20260920-fix-dontunmap-partial-self-merge-74a98b1d5a65
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ Brian Geffon <bgeffon@google.com>, Minchan Kim <minchan@kernel.org>, 
+ Kiryl Shutsemau <kas@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2334; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=+YcSOEfVDCNh71cR2TvPJ/PfisjjjYVWPIECl69VL7E=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLWv+Lkyo2M23mq3/meP/sjkZSvzXw3HcxvfAu4wXwrl
+ MH4w46IjlIWBjEuBlkxRZbnX8T3B4mEzeu84O8GM4eVCWQIAxenAExkdiojw8TMoBS5ik0Hp78S
+ upi/pGF99p3cnk8qOzL73RWvNlu8MGL4799TIJzNcNjxA+viTzkpHy8d2OMg//XiBo59Els/XnJ
+ XZAMA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] spi-nor: winbond: commit message claims ECC support for W25Q33PW=
--Q/N but code excludes it
---
+The MREMAP_DONTUNMAP feature is highly unusual in that it permits mremap()
+operations that keep the original VMA in place.
 
-commit a0e0dc16aaef35a04a300d228b7e07949d22b31b
-Author: Miquel Raynal <miquel.raynal@bootlin.com>
+Historically this has led to a lot of bugs where non-obvious interactions
+occur between existing mremap() operations and the original VMA.
 
-mtd: spi-nor: winbond: Add support for W25Q33PW-Q/N
-   =20
-There is an ID collision with chips of same density from the JW family
-(which it self conflicted with yet another family). Chips are very
-similar in practice, it is mostly a matter of electrical differences
-(mostly power consumption being lower) as well as the addition of inline
-ECC capability.
+Commit 397432cab17b ("mm/mremap: account mm->locked_vm correctly for
+MREMAP_DONTUNMAP") fixed an accidentally introduced bug around
+mm->locked_vm accounting, but this wasn't the only issue.
 
->     There is an ID collision with chips of same density from the JW family
->     (which it self conflicted with yet another family). Chips are very
->     similar in practice, it is mostly a matter of electrical differences
->     (mostly power consumption being lower) as well as the addition of inl=
-ine
->     ECC capability.
->    =20
->     16 bytes chunks are protected against single errors. In case a
->     non-aligned write happens, ECC is locally disabled until the next era=
-se.
+And thus history repeats itself, as it turns out that mm->locked_vm
+accounting is broken by MREMAP_DONTUNMAP yet again by two further cases,
+and has been broken ever since the feature was introduced.
 
-[Severity: Medium]
-Does the W25Q33PW-Q/N actually have ECC support?
+Both relate to the fact that VMA_LOCKED_BIT is cleared on the source
+VMA (it has to be as all page tables are moved):
 
-The commit message claims it does, but this patch maps the W25Q33PW-Q/N to
-ID 0xef 0x60 0x16. There is existing logic that explicitly excludes this
-density from ECC configuration:
+1. If an unfaulted VMA_LOCKONFAULT_BIT anonymous VMA self-merges it
+   clears the VMA_LOCKED_BIT flag and permanently leaks mm->locked_vm
+   pages.
 
-drivers/mtd/spi-nor/winbond.c:winbond_pw_with_ecc_match() {
-	...
-	/* W25QxxPW densities <=3D 32 Mbit (id[2] <=3D 0x16) do not have built-in =
-ECC support */
-	return id->len =3D=3D 3 && id->bytes[2] >=3D 0x17;
-}
+2. If a partial mremap() is performed on a locked VMA there is a leak equal
+   to the number of pages not copied.
 
-Because id->bytes[2] is 0x16, this function will return false and ECC won't
-be enabled.
+(Both for MREMAP_DONTUNMAP operations only)
 
-Could the commit message be inaccurate, or does the ECC exclusion logic need
-to be updated to support the W25Q33PW-Q/N?
+Both issues can be fixed by treating the source range as distinct from the
+destination range, which is the definition of what MREMAP_DONTUNMAP does so
+is appropriate.
 
-> diff --git a/drivers/mtd/spi-nor/winbond.c b/drivers/mtd/spi-nor/winbond.c
-> index a2dea77dfc2ce..6934f3e10ec3f 100644
-> --- a/drivers/mtd/spi-nor/winbond.c
-> +++ b/drivers/mtd/spi-nor/winbond.c
-> @@ -373,7 +373,7 @@ static const struct flash_info winbond_nor_parts[] =
-=3D {
->  		.flags =3D SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB,
->  		.no_sfdp_flags =3D SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ,
->  	}, {
-> -		/* W25Q32DW-P/G, W25Q32FW-G/Q, W25Q32JW-Q/N */
-> +		/* W25Q32DW-P/G, W25Q32FW-G/Q, W25Q32JW-Q/N, W25Q33PW-Q/N */
->  		.id =3D SNOR_ID(0xef, 0x60, 0x16),
->  		.name =3D "w25q32dw",
->  		.size =3D SZ_4M,
+In case 1, simply disallow the self-merge, keeping adjacent source and
+destination VMAs distinct.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260920-winbond-ma=
-ster-spi-nor-jw-cleanup-pw-addition-v2-0-ab9c9688d071@bootlin.com?part=3D17
+In case 2, split the source range ahead of time, so accounting is always
+correct.
+
+Both changes were tested locally and confirmed to fix the issues.
+
+For the purposes of a backport, the fixes are kept distinct, a follow-up
+series can add self-tests.
+
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+Lorenzo Stoakes (ARM) (2):
+      mm/mremap: fix locked_vm leak from MREMAP_DONTUNMAP self-merge
+      mm/mremap: fix locked_vm leak by splitting VMA for MREMAP_DONTUNMAP
+
+ mm/mremap.c                   | 87 +++++++++++++++++++++++++++----------------
+ mm/vma.c                      | 19 +++++++++-
+ mm/vma.h                      |  7 +++-
+ tools/testing/vma/tests/vma.c | 10 ++---
+ 4 files changed, 83 insertions(+), 40 deletions(-)
+---
+base-commit: a3d0117e02bfa1c3bb6c50e7afe42bbecdbb3459
+change-id: 20260920-fix-dontunmap-partial-self-merge-74a98b1d5a65
+
+Best regards,
+-- 
+Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
