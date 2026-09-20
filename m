@@ -1,56 +1,56 @@
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 311913E0C70
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 05:23:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78AF23E2740
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 05:23:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789881815; cv=none; b=OQlYvMB8xFjWfl9oNS91N+RJOVRc6ZoeJP1EC5jE50oUXXij81vZV/mZkEnF5hFzTRuDyOLx/Zf51BhUoegxsawCvD0dEYX7uUcTqqmCHnmww/HPoZn5TBtb27ztim1KwhLHKA7oIwST9NJ/WAxT+cGHOjoK7xix2sqjP/oXGi8=
+	t=1789881820; cv=none; b=GcIn+uUIYkdxFbypTA/967YA6ysS2hQ6nnclkMYyOxtk/XV6WH2eNC9/XiIaCIBBYQJ82htX5uUL7kAjtp1p57vyta6fdjq6yzuPeGaZtTXO/mjBpFn7WiVT+Hc8ZuoVSdMpuyFGcF5+vKNSWgNhLyBuYtzJUM1dvE3BdoWtdDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789881815; c=relaxed/simple;
-	bh=8Bk1bWXRTEwDqS7ftQKTbckk62xuO8EolOOidt6VleQ=;
+	s=arc-20240116; t=1789881820; c=relaxed/simple;
+	bh=1pF+F8/rrhK1sgaK/62IrgWTApjoUONlVIFq1RlD9VY=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=jBTozz/3AGpEel2I6LvPj2PycBUVUwfTxniZFo6HbBc+6A8dpXOTAdihT+JLVEKSsmI4U26tpgGLXQnRaFqQJ/8bxMoas6XLE9Ntz6THBJIW0BtfuWnyguD5LmAyfRhGEiYFseV4+RNhiicRgtujxd4FYN2KCB26KRxQYqKKQzM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=pTHhqTQK; arc=none smtp.client-ip=209.85.214.199
+	 To:Cc:Content-Type; b=T2UsBMa6WRAQ4L7A190nX6BBWXoaEUtzUwOfUgajQ5kkkpJB7EHFzAnSYaNYyNI0G5UIQmMUmGgkOMbDcX1XpTbDH8jj/6Y5jxpJJiDMVIdr4gp9adOI+EM7/j147zHzaePkuFUW3HkPnRPrSSzW0oaqxvyVBmBJsD9hmeH2mq8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Z/aMCbbs; arc=none smtp.client-ip=209.85.216.70
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="pTHhqTQK"
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2cfc52ddc55so28505795ad.3
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:23:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Z/aMCbbs"
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38e8fee6af3so2811978a91.1
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:23:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789881812; x=1790486612; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789881818; x=1790486618; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=aJp30NLDE6VMNo04VO3UNO5Lbt1RIBaIrW7mzsnW58Q=;
-        b=pTHhqTQKckfcxD7IcX4OJnmYx/pGfOva8WVArqHkd1VtHSN2liNivg8oO7twrFy5bM
-         uUnKgGwXk4wukkThTKVwJLrbOVjE1J/JTfI25KJJDqt2zS9ppgTgJ8wmiPS+z9eULU9w
-         SNsQpJZ9lu5lRcDjOeih/UPH7naJMd0kEwwCBLGsPxYcuVxUi+qwKyNW70044F44Z4MD
-         nZt7DIi1bIeN+alHS2z85Yk2bnyAfHOE7WKIjNfifJVcInbLauk9DafUYGCoyGzwrSko
-         ZuIh59FDwSqMIywTH5SPihTVPTmQQ3QX+x55UQ00Lv2zSgYBRJzC2vmkpQHT7/Ap8uHI
-         5kIw==
+        bh=jA4fMUG+Tfjs2RJ6tMERLNU0m4vElSViwb9YOy8pOoM=;
+        b=Z/aMCbbsQv+MnDRXUpskdTaqOlp1m8D4ZR9i1IzyI1sMhxFxqm2jzRm83ScFSO6cd2
+         nzSrcLtMcIQnBCw+zlLkdIHLAgIu4ZMd1/lApRYykJQQE8GkA5uGdhZp7PBoOWJTunZs
+         X7rCdx44NokmdRyT1bE/7JaIh5YiLLuFtOFVhC9r3SHslkvG2l22dYGLTd6e3+OKZDs+
+         sBBPAEmP3cqFySxVzkcgGszQu7/NU4sDrnEtefL+/ISrbWXJj8QfvAbCRJc7hdRYWkpJ
+         Q9R6+C6tYT5NLitYuW1J9YLX2UZ04NAaKJSK1SqLR5LyQcbQv+iu8gVm2hSUN/SdxQ0c
+         +49w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789881812; x=1790486612;
+        d=1e100.net; s=20260707; t=1789881818; x=1790486618;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=aJp30NLDE6VMNo04VO3UNO5Lbt1RIBaIrW7mzsnW58Q=;
-        b=yOf8O+uJnpLEx8x4Bee+LxnnwlKdIjsK1aaIupRHaq1/gE9k2uoYe8kx0rnSL4er9Y
-         i9J4Xntz0V20BBIhIwVk9g4Wbs+L4g/pwZKD1sQJM/tY3LSS856LoCtwId0nHvo7HsWN
-         zhkaAgp98hW/7VSCkOPoymxGa4RSQKbxxejmfYhfim/4AvUsFO2UC5A2FjgtiynN03fC
-         K9O+zNKqYm/b+331VVg1ShSlsI8CL4Gvzhl6bC2VRU2zrU45IQvxiFNSAK7XGCu4nbnX
-         0dR/JtThWb2rPHOyjCSErgf98YIjsBDRKlzBwuO3rGLHLUkODohVynfSvI6xlrRI1nMB
-         HMzg==
-X-Forwarded-Encrypted: i=1; AKwUvBxVVWExNjLCCV/7Xpht4FObTt3tozQFL+rWPTFqarfDkebkt9hjlU49b41m5OX0rB6+KLLg30en3aRqvow=@vger.kernel.org
-X-Gm-Message-State: AFuF++k4r4qJDe5I2lXtjrkzwvQq/YbxAmlSSMaAKB28rkr/HniMFtK8
-	Y4QpJOqQTdtENXafeTUOzO4apo2fgldd3ycoYLLiB+iSfH+uoJjmS/KW+hvJYC8z7MtAdqgI3jC
-	mm8umO3+RDQ==
-X-Received: from dyrt38.prod.google.com ([2002:a05:7300:4f26:b0:339:6b44:abf5])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:ce92:b0:2d9:1dee:43e3
- with SMTP id d9443c01a7336-2ddb1b796demr128361985ad.18.1789881812422; Sat, 19
- Sep 2026 22:23:32 -0700 (PDT)
-Date: Sat, 19 Sep 2026 22:21:22 -0700
+        bh=jA4fMUG+Tfjs2RJ6tMERLNU0m4vElSViwb9YOy8pOoM=;
+        b=vn3f0aeDUyIul2ldbK+7gbo/D5pq4tri0ETDiVFc29za47GJJoFEv3+sfRZIlM46F+
+         +zZxBW8XFk1vxQBKzPFRg8Yl2vvmyYVjrySQnv/JrFdXY6lAASsnDEpqvK757VQqhYYt
+         2B86jey/YR6VgOJ4hlylCBvczzLRhM8h624StNx9S/KE3o7Yb9YCd531EhVmLY5DwDnb
+         yWy3GciDeWV+rghcNjekAUHgUh6X3mphU4R5x3NsCOSTXE+JpGlTRLlVgTz4s7qZnzVi
+         LoAGTcUb8/6ER9mHI4A2mwIKc3oAlJRUibjNlLjfYz2v8dwabF/rCLsTUHTlPXVFH13G
+         QGWA==
+X-Forwarded-Encrypted: i=1; AKwUvBzsrd5wStRdVuzdXI1kvm24zxAiBT6HP30McfIQL1C/eBB5AF9Ibgtr3e02K4HEhESGqH2yHGOPoKhFs9I=@vger.kernel.org
+X-Gm-Message-State: AFuF++kXg0mV6sYASS/7DJHqnkvH94jWHVCFl5ZS9Xo+7eUoNoa+1inp
+	k2ll9LlNlcFsdc6EWm6SjGUFfPeCUauBvOJUtSCMcAbP+4R97lP9qmyukFFSKpUv2no2BVqduVE
+	sMZHmHahwtA==
+X-Received: from dlbek20.prod.google.com ([2002:a05:7022:c94:b0:143:7b2d:7e10])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4c02:b0:39e:2036:8243
+ with SMTP id 98e67ed59e1d1-39e54eb71f7mr11377763a91.25.1789881817536; Sat, 19
+ Sep 2026 22:23:37 -0700 (PDT)
+Date: Sat, 19 Sep 2026 22:21:25 -0700
 In-Reply-To: <cover.1789880842.git.irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <cover.1789880842.git.irogers@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <b15cf471e3d41c77f5697301e3e425053e1fb89c.1789880842.git.irogers@google.com>
-Subject: [PATCH v1 30/49] perf python: Port futex-contention to perf module
+Message-ID: <82f565299e985e7af24e9031d3d9c62a513897c0.1789880842.git.irogers@google.com>
+Subject: [PATCH v1 33/49] perf python: Port wakeup-latency from Perl to perf module
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, adrian.hunter@intel.com, 
 	alice.mei.rogers@gmail.com, james.clark@linaro.org, 
@@ -71,155 +71,138 @@ Cc: dapeng1.mi@linux.intel.com, leo.yan@linux.dev,
 	tmricht@linux.ibm.com
 Content-Type: text/plain; charset="UTF-8"
 
-Port tools/perf/scripts/python/futex-contention.py to a standalone
-script in tools/perf/python/ using the perf module. Avoiding the
-embedded interpreter overhead improves execution speed by ~3.2x:
+Replace the legacy Perl script wakeup-latency.pl with a standalone
+Python script in tools/perf/python/wakeup-latency.py using the perf
+Python module.
 
-```
-$ perf record -e syscalls:sys_*_futex -a sleep 1
-...
-$ time perf script tools/perf/scripts/python/futex-contention.py
-...
-real    0m1.007s
-user    0m0.935s
-sys     0m0.072s
-$ time python3 tools/perf/python/futex-contention.py
-...
-real    0m0.314s
-user    0m0.259s
-sys     0m0.056s
-```
+Improvements compared to the legacy Perl script:
+- Remove the dependency on libperl and Perf::Trace::Util.
+- Guard print_totals() when total_wakeups == 0 (printing 'N/A' instead
+  of dividing by zero when a trace contains no matched wakeup/switch
+  pairs).
+- Add argparse CLI options (-i/--input) and full type annotations.
 
-Additional improvements compared to the legacy script:
-- Consolidate per-(tid, uaddr) contention count, total_time, min_time,
-  and max_time into a single LockStats class instead of maintaining
-  three separate dictionaries.
-- Validate that uaddr and op tracepoint attributes are present on
-  syscalls:sys_enter_futex samples rather than silently attributing
-  missing fields to uaddr=0, op=0 (FUTEX_WAIT).
-- Add -i/--input CLI option support via argparse and full type
-  annotations.
-
-Add a shell test (test_futex_contention_python.sh) to verify the
-standalone script.
+Add a shell test
+(test_wakeup_latency_python.sh) to verify the standalone script.
 
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/python/futex-contention.py         | 93 +++++++++++++++++++
- .../shell/test_futex_contention_python.sh     | 67 +++++++++++++
- 2 files changed, 160 insertions(+)
- create mode 100755 tools/perf/python/futex-contention.py
- create mode 100755 tools/perf/tests/shell/test_futex_contention_python.sh
+ tools/perf/python/wakeup-latency.py           | 94 +++++++++++++++++++
+ .../tests/shell/test_wakeup_latency_python.sh | 83 ++++++++++++++++
+ 2 files changed, 177 insertions(+)
+ create mode 100755 tools/perf/python/wakeup-latency.py
+ create mode 100755 tools/perf/tests/shell/test_wakeup_latency_python.sh
 
-diff --git a/tools/perf/python/futex-contention.py b/tools/perf/python/futex-contention.py
+diff --git a/tools/perf/python/wakeup-latency.py b/tools/perf/python/wakeup-latency.py
 new file mode 100755
-index 000000000000..d5bb8ca19699
+index 000000000000..6113fa92b501
 --- /dev/null
-+++ b/tools/perf/python/futex-contention.py
-@@ -0,0 +1,93 @@
++++ b/tools/perf/python/wakeup-latency.py
+@@ -0,0 +1,94 @@
 +#!/usr/bin/env python3
-+# SPDX-License-Identifier: GPL-2.0
-+"""Measures futex contention."""
++# SPDX-License-Identifier: GPL-2.0-only
++"""Display avg/min/max wakeup latency."""
 +from __future__ import annotations
 +
 +import argparse
 +from collections import defaultdict
-+from typing import Dict, Tuple
++import sys
++from typing import Optional, Dict
 +import perf
 +
-+class LockStats:
-+    """Aggregate lock contention information."""
++class WakeupLatency:
++    """Tracks and displays wakeup latency statistics."""
 +    def __init__(self) -> None:
-+        self.count = 0
-+        self.total_time = 0
-+        self.min_time = 0
-+        self.max_time = 0
++        self.last_wakeup: Dict[int, int] = defaultdict(int)
++        self.max_wakeup_latency: int = 0
++        self.min_wakeup_latency: Optional[int] = None
++        self.total_wakeup_latency = 0
++        self.total_wakeups = 0
++        self.unhandled: Dict[str, int] = defaultdict(int)
++        self.session: Optional[perf.session] = None
 +
-+    def add(self, duration: int) -> None:
-+        """Add a new duration measurement."""
-+        self.count += 1
-+        self.total_time += duration
-+        if self.count == 1:
-+            self.min_time = duration
-+            self.max_time = duration
++    def process_event(self, sample: perf.sample_event) -> None:
++        """Process events."""
++        event_name = str(sample.evsel)
++        sample_time = sample.sample_time
++
++        if "sched:sched_wakeup" in event_name:
++            try:
++                pid = sample.pid
++                self.last_wakeup[pid] = sample_time
++            except AttributeError:
++                self.unhandled[event_name] += 1
++        elif "sched:sched_switch" in event_name:
++            try:
++                next_pid = sample.next_pid
++                wakeup_ts = self.last_wakeup.get(next_pid, 0)
++                if wakeup_ts:
++                    latency = sample_time - wakeup_ts
++                    self.max_wakeup_latency = max(self.max_wakeup_latency, latency)
++                    if self.min_wakeup_latency is None:
++                        self.min_wakeup_latency = latency
++                    else:
++                        self.min_wakeup_latency = min(self.min_wakeup_latency, latency)
++                    self.total_wakeup_latency += latency
++                    self.total_wakeups += 1
++                    del self.last_wakeup[next_pid]
++            except AttributeError:
++                self.unhandled[event_name] += 1
 +        else:
-+            self.min_time = min(self.min_time, duration)
-+            self.max_time = max(self.max_time, duration)
++            self.unhandled[event_name] += 1
 +
-+    def avg(self) -> float:
-+        """Return average duration."""
-+        return self.total_time / self.count if self.count > 0 else 0.0
++    def print_totals(self) -> None:
++        """Print summary statistics."""
++        print("wakeup_latency stats:\n")
++        print(f"total_wakeups: {self.total_wakeups}")
++        if self.total_wakeups:
++            avg = self.total_wakeup_latency // self.total_wakeups
++            print(f"avg_wakeup_latency (ns): {avg}")
++            print(f"min_wakeup_latency (ns): {self.min_wakeup_latency}")
++            print(f"max_wakeup_latency (ns): {self.max_wakeup_latency}")
++        else:
++            print("avg_wakeup_latency (ns): N/A")
++            print("min_wakeup_latency (ns): N/A")
++            print("max_wakeup_latency (ns): N/A")
 +
-+process_names: Dict[int, str] = {}
-+start_times: Dict[int, Tuple[int, int]] = {}
-+session = None
-+durations: Dict[Tuple[int, int], LockStats] = defaultdict(LockStats)
++        if self.unhandled:
++            print("\nunhandled events:\n")
++            print(f"{'event':<40s}  {'count':>10s}")
++            print(f"{'-'*40}  {'-'*10}")
++            for event_name, count in self.unhandled.items():
++                print(f"{event_name:<40s}  {count:10d}")
 +
-+FUTEX_WAIT = 0
-+FUTEX_PRIVATE_FLAG = 128
-+FUTEX_CLOCK_REALTIME = 256
-+FUTEX_CMD_MASK = ~(FUTEX_PRIVATE_FLAG | FUTEX_CLOCK_REALTIME)
++    def run(self, input_file: str) -> None:
++        """Run the session."""
++        self.session = perf.session(perf.data(input_file), sample=self.process_event)
++        self.session.process_events()
++        self.print_totals()
 +
++def main() -> None:
++    """Main function."""
++    parser = argparse.ArgumentParser(description="Trace wakeup latency")
++    parser.add_argument("-i", "--input", default="perf.data", help="Input file")
++    args = parser.parse_args()
 +
-+def handle_start(tid: int, uaddr: int, op: int, start_time: int) -> None:
-+    """Handle a futex sys_enter event."""
-+    if (op & FUTEX_CMD_MASK) != FUTEX_WAIT:
-+        return
++    analyzer = WakeupLatency()
 +    try:
-+        if session:
-+            process = session.find_thread(tid)
-+            if process:
-+                process_names[tid] = process.comm() or "unknown"
-+    except (TypeError, AttributeError):
-+        pass
-+    if tid not in process_names:
-+        process_names[tid] = "unknown"
-+
-+    start_times[tid] = (uaddr, start_time)
-+
-+def handle_end(tid: int, end_time: int) -> None:
-+    """Handle a futex sys_exit event."""
-+    if tid not in start_times:
-+        return
-+    (uaddr, start_time) = start_times[tid]
-+    del start_times[tid]
-+    durations[(tid, uaddr)].add(end_time - start_time)
-+
-+def process_event(sample: perf.sample_event) -> None:
-+    """Process a single sample event."""
-+    event_name = str(sample.evsel)
-+    if event_name.startswith("evsel(syscalls:sys_enter_futex)"):
-+        uaddr = getattr(sample, "uaddr", None)
-+        op = getattr(sample, "op", None)
-+        if uaddr is None or op is None:
-+            return  # Tracepoint fields missing, skip silent attribution to 0
-+        handle_start(sample.sample_tid, uaddr, op, sample.sample_time)
-+    elif event_name.startswith("evsel(syscalls:sys_exit_futex)"):
-+        handle_end(sample.sample_tid, sample.sample_time)
-+
++        analyzer.run(args.input)
++    except IOError as e:
++        print(e, file=sys.stderr)
++        sys.exit(1)
 +
 +if __name__ == "__main__":
-+    ap = argparse.ArgumentParser(description="Measure futex contention")
-+    ap.add_argument("-i", "--input", default="perf.data", help="Input file name")
-+    args = ap.parse_args()
-+
-+    session = perf.session(perf.data(args.input), sample=process_event)
-+    session.process_events()
-+
-+    for ((t, u), stats) in sorted(durations.items()):
-+        avg_ns = stats.avg()
-+        print(f"{process_names.get(t, 'unknown')}[{t}] lock {u:x} contended {stats.count} times, "
-+              f"{avg_ns:.0f} avg ns [max: {stats.max_time} ns, min {stats.min_time} ns]")
-diff --git a/tools/perf/tests/shell/test_futex_contention_python.sh b/tools/perf/tests/shell/test_futex_contention_python.sh
++    main()
+diff --git a/tools/perf/tests/shell/test_wakeup_latency_python.sh b/tools/perf/tests/shell/test_wakeup_latency_python.sh
 new file mode 100755
-index 000000000000..b7d6976e4f57
+index 000000000000..d68c9b31d6ed
 --- /dev/null
-+++ b/tools/perf/tests/shell/test_futex_contention_python.sh
-@@ -0,0 +1,67 @@
++++ b/tools/perf/tests/shell/test_wakeup_latency_python.sh
+@@ -0,0 +1,83 @@
 +#!/bin/bash
 +# SPDX-License-Identifier: GPL-2.0
-+# futex-contention python test
++# wakeup-latency python test
 +
 +set -e
 +
@@ -227,61 +210,77 @@ index 000000000000..b7d6976e4f57
 +# shellcheck source=lib/setup_python.sh
 +. "${shelldir}"/lib/setup_python.sh
 +
-+# If we don't have the perf python module, we can't test
 +if ! "$PYTHON" -c 'import perf' > /dev/null 2>&1; then
 +	echo "Skipping test, perf python module not found"
 +	exit 2
 +fi
 +
-+script_dir="$(dirname "$0")/../../python"
-+script_path="${script_dir}/futex-contention.py"
-+
-+if ! perf check feature -q libtraceevent > /dev/null 2>&1; then
++if ! perf check feature -q libtraceevent; then
 +	echo "Skipping test, libtraceevent is disabled"
 +	exit 2
 +fi
 +
++script_dir="$(dirname "$0")/../../python"
++script_path="${script_dir}/wakeup-latency.py"
 +
 +if [ ! -f "$script_path" ]; then
-+	echo "Skipping test, futex-contention.py not found at $script_path"
++	echo "Skipping test, wakeup-latency.py not found at $script_path"
 +	exit 2
 +fi
 +
 +err=0
 +temp_data=""
++temp_out=""
 +
 +cleanup() {
-+	rm -f "${temp_data}"
++	rm -f "${temp_data}" "${temp_out}"
 +}
-+
 +trap 'cleanup' EXIT TERM INT
 +
 +temp_data=$(mktemp /tmp/perf.data.XXXXXX)
++temp_out=$(mktemp /tmp/perf.out.XXXXXX)
 +
-+test_file_mode() {
-+	echo "Testing futex-contention.py..."
-+	# Some systems might not have syscalls:sys_enter_futex
-+	if ! perf list | grep -q syscalls:sys_enter_futex; then
-+		echo "Skipping test, syscalls:sys_enter_futex not found"
-+		exit 2
-+	fi
++echo "Testing wakeup-latency.py..."
 +
-+	# Generate some futex events
-+	if ! perf record -e syscalls:sys_enter_futex,syscalls:sys_exit_futex -a -o "${temp_data}" \
-+		-- sleep 0.5 2>/dev/null; then
-+		echo "Skipping (record failed)"
-+		exit 2
-+	fi
++# Create a perf.data file. Try to get tracepoint data.
++if perf list | grep -q "sched:sched_wakeup"; then
++	ev="sched:sched_wakeup,sched:sched_wakeup_new,sched:sched_switch"
++	perf record -e "$ev" -a -o "${temp_data}" \
++		-- sleep 0.1 >/dev/null 2>&1 || \
++		{ echo "Skipping test, perf record failed"; exit 2; }
++else
++	echo "Skipping test, no sched:sched_wakeup event"
++	exit 2
++fi
 +
-+	if ! "$PYTHON" "$script_path" -i "${temp_data}" >/dev/null; then
-+		echo "File mode test failed."
++
++if [ ! -s "${temp_data}" ]; then
++	echo "Skipping test, perf record failed to create data"
++	exit 2
++fi
++
++# Check that the script executes
++if ! "$PYTHON" "$script_path" -i "${temp_data}" > "${temp_out}"; then
++	echo "wakeup-latency.py test failed"
++	err=1
++else
++	if ! grep -E -q "avg_wakeup_latency.*[0-9]+" "${temp_out}"; then
++		echo "Failed to find metric data rows"
 +		err=1
 +	else
-+		echo "File mode test passed."
++		echo "wakeup-latency test passed."
 +	fi
-+}
++fi
 +
-+test_file_mode
++# Also test zero-wakeups / unhandled events path to verify division-by-zero protection
++if perf record -e cycles -o "${temp_data}" -- perf test -w noploop >/dev/null 2>&1; then
++	if ! "$PYTHON" "$script_path" -i "${temp_data}" > "${temp_out}" || \
++	   ! grep -q "avg_wakeup_latency (ns): N/A" "${temp_out}"; then
++		echo "wakeup-latency zero-wakeups guard test failed"
++		err=1
++	fi
++fi
++rm -f "${temp_out}"
 +
 +exit $err
 -- 
