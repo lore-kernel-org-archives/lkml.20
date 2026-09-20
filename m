@@ -1,132 +1,112 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2863234040B;
-	Sun, 20 Sep 2026 13:00:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3A5D3290AA
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 13:01:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789909225; cv=none; b=eR7OYBKJzFFoMpeja0+1+ze8TptaxTKoO1QFHumbPJIp2EE5w/4TluHyPVHe+HEGjhy/glmlp75yO4o8yKtoGQP+9zqFDRWxgw7jtp+BQeZ1Q/obeUW0kAgEWVbMZikzBV7RbyKaDY8ec5AISjtozU1L1lkjJi6+SsoAGjmM6rM=
+	t=1789909302; cv=none; b=uiRBSnLjSla1z9/sn5qMKZcl9uNg1EbV6HGrlM3NbblLTsSnV1HHUKWkUCICYgnncvmn1fWlN7O2RCl4nHskQJ3Pq3f2BVhnKHZ+oqDb0WB/hj0pPpkANIsL798j0dK70ZlDrDsvA2W0QM7olEztutM29C5pf6wvE1OU1rHbIcM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789909225; c=relaxed/simple;
-	bh=lasNI0XF6JQD/sxcfxiUiaLUADu8T8rlWTae9vYrcGU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=pR4VJkGkacZvA/2o6cIspgYHWwI64pBljlFlQbl7LwZV/cCDI6FBwWpzC+k2j2/0Wcp3OMpl3GdELPl431+Zm/fGxoZw/5l11zLXWsGKxPJiQRLbr1+C8l3ZlnHP8YLXX3iqZ7+9nHlZhu1lbD0x2WN0fWjAWZRMt6twIhrSFhs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=PK+DIE8T; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789909302; c=relaxed/simple;
+	bh=FpeGCn8wn6epu8E+hJn2KBmwOq78pEiHoL69LLBBXmg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PklukjqmC2BLu8a59G2IVUb4hW9i1Yb2/MMdN9jXOO/2Grm/adpDmuhzKJVx814lQ9jBwFzAXhrEh90NNqsmoXpMEQyaREPzvSL6tnAMn5klmc/ByZ5pNQrPkZoJFCUVKpajIDP3qHUG9tT8K/Cf5N99oZTy/Nx0ZDOXX9tjlUY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SW+BCLK8; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="PK+DIE8T"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id E33B81A0997;
-	Sun, 20 Sep 2026 13:00:06 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id AA750604C9;
-	Sun, 20 Sep 2026 13:00:06 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C281A1032829C;
-	Sun, 20 Sep 2026 15:00:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789909205; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=9TKSJfQc5b6cSU+h80ax1oyCCZdgJqDQrglH9SNhSOE=;
-	b=PK+DIE8TDuao7ZdekR6HnYYzlR+lGtEsb3LlztY4jCesWUcCEBsWDtqkVpTAQMBoOZVcWY
-	tGannpgCgMuLeCJFibWR/VmUQtbwiso36aFKj7miWTkv/TY53wES6J048K4+J4vgkKCQMz
-	LVr4Ek57U7vUVpz3y3LKHRkaBoxH6uY54a4CadteofVsX1aLNnFtx1Pt5RdBVuHqtyYovL
-	cVlSv+8miZZo0EIAeM4N1lfw5yeT5ZFNyXibrsIQLvyH8KoO7hVGcgeqoNdV2n0ELLagv4
-	N9X7KeMK9FumLVVOtyAZCkvchQaHk7de4GhtpVHdBeo9f5AwB7olAvz+iPbCPg==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SW+BCLK8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789909279;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=U9euLxwPPTyf0gCJNQ1A/ZDoA+dz+x4Zy/vtrCG7HsI=;
+	b=SW+BCLK8yqo73D1UwmGhIDmSfHsz8x7p01IcaUexNxNEqwBJ6mpw7JrQ9E2f50dxf/sFHp
+	KNctNi7qoUv/MCGfy7wNJTUOF6xmF/Lio28QQyWK6tX+9+zQvc0rloeNIltJuOI+1yp3ce
+	K3isqZ4QLdU+8Kc6ybomfd+na0T3g+w=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-660-DYe9EOXZNJGjON6sijFtUg-1; Sun,
+ 20 Sep 2026 09:01:15 -0400
+X-MC-Unique: DYe9EOXZNJGjON6sijFtUg-1
+X-Mimecast-MFC-AGG-ID: DYe9EOXZNJGjON6sijFtUg_1789909274
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E9EE7180A9D7;
+	Sun, 20 Sep 2026 13:01:13 +0000 (UTC)
+Received: from fedora (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 15EA01800370;
+	Sun, 20 Sep 2026 13:01:11 +0000 (UTC)
+Received: by fedora (nbSMTP-1.00) for uid 1000
+	oleg@redhat.com; Sun, 20 Sep 2026 15:01:13 +0200 (CEST)
+Date: Sun, 20 Sep 2026 15:01:10 +0200
+From: Oleg Nesterov <oleg@redhat.com>
 To: Hui Peng <benquike@gmail.com>
-Cc: alex.aring@gmail.com,  stefan@datenfreihafen.org,  davem@davemloft.net,
-  edumazet@google.com,  kuba@kernel.org,  pabeni@redhat.com,
-  linux-wpan@vger.kernel.org,  netdev@vger.kernel.org,
-  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ieee802154: ca8210: fix SPI RX length validation and
- FIFO out-of-bounds read
-In-Reply-To: <20260919223435.3883048-1-benquike@gmail.com> (Hui Peng's message
-	of "Sat, 19 Sep 2026 22:34:35 +0000")
-References: <20260919223435.3883048-1-benquike@gmail.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Sun, 20 Sep 2026 15:00:01 +0200
-Message-ID: <871paoaxim.fsf@bootlin.com>
+Cc: akpm@linux-foundation.org, brauner@kernel.org, tglx@kernel.org,
+	elver@google.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] signal: re-arm ignored periodic POSIX timers when
+ handler is installed in do_sigaction()
+Message-ID: <aq_ZFsHg50ZlqgnO@redhat.com>
+References: <20260919221731.3707506-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260919221731.3707506-1-benquike@gmail.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-Hi Hui,
+On 09/19, Hui Peng wrote:
+>
+> When a periodic POSIX timer fires while its target signal is ignored
+> (e.g. default SIGCONT/SIGCHLD/SIGURG/SIGWINCH or SIG_IGN), the signal is
+> dropped without advancing or queueing the timer's sigqueue, leaving the
+> periodic timer stalled even after userspace installs a signal handler
+> via sigaction(). Check and re-arm any pending ignored POSIX timers on
+> the thread group when do_sigaction() transitions a signal out of the
+> ignored state.
+>
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 
->  	u8                    *data_ind
->  )
->  {
-> -	struct ieee802154_hdr hdr;
-> +	struct ieee802154_hdr hdr = { };
->  	int msdulen;
->  	int hlen;
-> -	u8 mpdulinkquality = data_ind[23];
-> +	u8 mpdulinkquality;
->  	struct sk_buff *skb;
->  	struct ca8210_priv *priv = hw->priv;
+Well, It was supposed to have been fixed by caf77435dd8a ("signal: Handle
+ignored signals in do_sigaction(action != SIG_IGN)") and other commits in
+that series...
+
+Do you have a test-case?
+
+Oleg.
+
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
+> ---
+> diff --git a/kernel/signal.c b/kernel/signal.c
+> index ec30550951ec..49ba188296c4 100644
+> --- a/kernel/signal.c
+> +++ b/kernel/signal.c
+> @@ -4351,7 +4351,7 @@ int do_sigaction(int sig, struct k_sigaction *act, struct k_sigaction *oact)
+>  	sigaction_compat_abi(act, oact);
 >  
-> +	if (len < 30)
-> +		return -EINVAL;
-> +	mpdulinkquality = data_ind[23];
-> +
->  	/* Allocate mtu size buffer for every rx packet */
->  	skb = dev_alloc_skb(IEEE802154_MTU + sizeof(hdr));
->  	if (!skb)
-> @@ -1770,7 +1778,7 @@ static int ca8210_skb_rx(
->  	skb_reserve(skb, sizeof(hdr));
+>  	if (act) {
+> -		bool was_ignored = k->sa.sa_handler == SIG_IGN;
+> +		bool was_ignored = sig_task_ignored(p, sig, false);
 >  
->  	msdulen = data_ind[22]; /* msdu_length */
-> -	if (msdulen > IEEE802154_MTU) {
-> +	if (msdulen > IEEE802154_MTU || len < 30 + msdulen) {
->  		dev_err(
->  			&priv->spi->dev,
->  			"received erroneously large msdu length!\n"
-> @@ -1787,6 +1795,10 @@ static int ca8210_skb_rx(
->  	hdr.sec.level = data_ind[29 + msdulen];
->  	dev_dbg(&priv->spi->dev, "security level: %#03x\n", hdr.sec.level);
->  	if (hdr.sec.level > 0) {
-> +		if (len < 40 + msdulen) {
+>  		sigdelsetmask(&act->sa.sa_mask,
+>  			      sigmask(SIGKILL) | sigmask(SIGSTOP));
+> @@ -4367,7 +4367,7 @@ int do_sigaction(int sig, struct k_sigaction *act, struct k_sigaction *oact)
+>  		 *   (for example, SIGCHLD), shall cause the pending signal to
+>  		 *   be discarded, whether or not it is blocked"
+>  		 */
+> -		if (sig_handler_ignored(sig_handler(p, sig), sig)) {
+> +		if (sig_task_ignored(p, sig, false)) {
+>  			sigemptyset(&mask);
+>  			sigaddset(&mask, sig);
+>  			flush_sigqueue_mask(p, &mask, &p->signal->shared_pending);
+> 
 
-Can we have only one place where we make all the checks?
-
-> +			kfree_skb(skb);
-> +			return -EINVAL;
-> +		}
->  		hdr.sec.key_id_mode = data_ind[30 + msdulen];
->  		memcpy(&hdr.sec.extended_src, &data_ind[31 + msdulen], 8);
->  		hdr.sec.key_id = data_ind[39 + msdulen];
-> @@ -1801,6 +1813,7 @@ static int ca8210_skb_rx(
->  	hdr.dest.pan_id = cpu_to_le16(get_unaligned_le16(&data_ind[12]));
->  	dev_dbg(&priv->spi->dev, "dstPanId: %#06x\n", hdr.dest.pan_id);
->  	memcpy(&hdr.dest.extended_addr, &data_ind[14], 8);
-> +	hdr.seq = data_ind[24];
-
-Where does this come from?
-
->  	/* Fill in FC implicitly */
->  	hdr.fc.type = 1; /* Data frame */
-> @@ -2028,11 +2041,14 @@ static int ca8210_xmit_async(struct ieee802154_hw *hw, struct sk_buff *skb)
->  static int ca8210_get_ed(struct ieee802154_hw *hw, u8 *level)
->  {
->  	u8 lenvar;
-> +	u8 buf[sizeof(((struct hwme_get_confirm_pset *)0)->hw_attribute_value)] = { 0 };
-
-I'm not a fan of this. It is totally unreadable.
-
-> +	u8 status;
->  	struct ca8210_priv *priv = hw->priv;
->  
-> -	return link_to_linux_err(
-> -		hwme_get_request_sync(HWME_EDVALUE, &lenvar, level, priv->spi)
-> -	);
-> +	status = hwme_get_request_sync(HWME_EDVALUE, &lenvar, buf, priv->spi);
-> +	if (status == IEEE802154_SUCCESS)
-> +		*level = buf[0];
-> +	return link_to_linux_err(status);
->  }
->  
->  /**
