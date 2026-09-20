@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA3473AFCF0;
-	Sun, 20 Sep 2026 15:27:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3AECA59;
+	Sun, 20 Sep 2026 15:27:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789918039; cv=none; b=bfCFYlJyHqhcpC+No7ADYnhjpHsYXlrWN5xjRgBkI8K+IHv1VTP+x3hE4JSlMgzNkEESKPcmnX4D+SRPrOeA1mUjOi9xJ/9s8EbOKOOqPQ7Nx07JYCwpAt7C5Mg4aCLMRrUWVOQJYZ7LYWEq+4LOiRTV3RY3rcpbVz493o63Fs4=
+	t=1789918061; cv=none; b=YdXCh2TXeByJ4bbIRS8iaX+pkWCo5y/1TvDguYxsOGMRsoqQa2abcxEAr6oUgyFhObBCCqCweIwQrS8aphSr/5ErUfMlhieploYhTd3XopT80FSr/7xuj18oXPxBNrxQ+NtcRbI4OJ28z9ows7Jeps0hwSktYM3zR8vju/dZCKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789918039; c=relaxed/simple;
-	bh=Yc1mEMd6Y/dxiBOwXtPkv3nui/OqwXBC4dXpH9c2oQg=;
+	s=arc-20240116; t=1789918061; c=relaxed/simple;
+	bh=q9azbD/TblH+i/sQlsK+m8TFg2Y3aUKvbYKAdOWMc+M=;
 	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=jOPG/3S6OWpQf9NYwcWYP5Fw+IhkFHTOdAk4CML/ZEORKZAotmn18NknVnqsmSF80VVcoj0S/dJ3p8JlWmcdMDJBlF6M/EQOqLGXg7W6+ST2X2MIBAJ3AiB9R9iDAcgjdINk4hj+bjreIO8wERN9s/jWOT65Q3W48Z5DEGHH4n8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VAMoS9a6; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=JW4E8Jo0CYfKl/+D0QgkV6SNqlD3Le+ICWaoH0bu/Nu0CwHvF5M4dHAAA0m6FnGeW1iDWfk77hzQfvinePmAE0QmK7ZCsFVtpDjuXSpW8fMlJrPPkxcPjVEJJsYWedUD2k+c7QURSIutaSvc7Kq8pHK1JatmRfvaznSaijUCJB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=apo6sN0q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VAMoS9a6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C55341F00893;
-	Sun, 20 Sep 2026 15:27:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="apo6sN0q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A66C1F000FF;
+	Sun, 20 Sep 2026 15:27:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789918038;
-	bh=Ut//lMwTriMAYf9w4xmPFAJA6+5kyvCrTmMDCjDn4ko=;
+	s=k20260515; t=1789918060;
+	bh=dEzUbzYhFZ16k/3T4a6uNhyjHOzj89g3KV+ZRoM6m70=;
 	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=VAMoS9a6VTHRnQ/NqAgkdvZPK/DdI1UW9jJGXBAfmeWQM1PF9FX2dInLX+WZQYYIs
-	 EeKWi/b8n2P7ABsQRdqdIfC/FeegoooCcmwdLz94OmY1PA2Z/I4oQJYAnLNFrHsyat
-	 FkUi3OJub4OdH3a0U454I1fod2Kds0nJCaq9h5fyqIVQvXJV+/mP8bGhfDghxcouuB
-	 ouKUSgA/IU6uOIunQlrHmbmDHTWIRSPdZu7/Jw7m04d7O0ABuPHDAQvvfkr4/EclKI
-	 JarX3czhysPsHenKyJqmvSh0Ddo2Dj3+mkGPrJMCr6YDx88hgCTymnIS/ammh7XCxM
-	 Zegp02R6pOnIg==
-Message-ID: <8437f878-7ee4-4e5c-9982-1b7d41a014fb@kernel.org>
-Date: Sun, 20 Sep 2026 17:27:14 +0200
+	b=apo6sN0qlenoqyFpGJ5YFqU/n57TpSiXvwPfIoEUVkf0szQ72VasAvgbpaGaVBfme
+	 WJn00m0k/Dsqa834P39Z3/A1I/1lrF6JLlTlpoKUvTx5ahoeL2iFNhRF0uFi0oXwBe
+	 0bNgpss9xagOG51V4Mtmik6WRH9w4tTaAugaAKRMy8HbPB65z921KSRrZugiNPGpR6
+	 /xX4ynvb6zQNOMJFqBjmbwMLLSpKlO+CSJVCFmMplKGj7h1AtaQf4x52CtPm9rkLrJ
+	 i9rZRSxvdg+ApK8LxjBzUxWoYcU5zrko0hLhR6s6ZArLVeLwI6VLMREsxnuPT6+atk
+	 jNtVzZvcD6llA==
+Message-ID: <987486e3-9aed-4415-a372-0a8a05bba70f@kernel.org>
+Date: Sun, 20 Sep 2026 17:27:33 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -36,17 +36,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Krzysztof Kozlowski <krzk@kernel.org>
-Subject: Re: [PATCH 1/2] dt-bindings: arm: fsl: add Amazon Kindle 4 (Yoshi)
-To: Andrii Salivon <andrijsalivon@plajta.eu>, Rob Herring <robh@kernel.org>,
+Subject: Re: [PATCH v4 4/4] arm64: defconfig: enable Tensor G5 SoC family
+To: Peter Griffin <peter.griffin@linaro.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, Frank Li <Frank.Li@nxp.com>
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260920135314.3191171-1-andrijsalivon@plajta.eu>
- <20260920135314.3191171-2-andrijsalivon@plajta.eu>
+ <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?=
+ <andre.draszik@linaro.org>, Tudor Ambarus <tudor.ambarus@linaro.org>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Arnd Bergmann <arnd@arndb.de>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Linus Walleij <linusw@kernel.org>, Drew Fustini <fustini@kernel.org>,
+ Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>,
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+ soc@lists.linux.dev, Douglas Anderson <dianders@chromium.org>,
+ Juan Yescas <jyescas@google.com>, RD Babiera <rdbabiera@google.com>,
+ Brian Norris <briannorris@google.com>,
+ William McVicker <willmcvicker@google.com>, kernel-team@android.com,
+ linux-serial@vger.kernel.org, Brian Norris <briannorris@chromium.org>
+References: <20260918-contrib-pg-pixel10-initial-dts-v4-0-745eaca28b1a@linaro.org>
+ <20260918-contrib-pg-pixel10-initial-dts-v4-4-745eaca28b1a@linaro.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -91,30 +102,23 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260920135314.3191171-2-andrijsalivon@plajta.eu>
+In-Reply-To: <20260918-contrib-pg-pixel10-initial-dts-v4-4-745eaca28b1a@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 20/09/2026 15:53, Andrii Salivon wrote:
-> Add the amazon,yoshi compatible string for the Amazon Kindle 4
-> non-touch e-reader to the i.MX50 board list.
+On 18/09/2026 21:05, Peter Griffin wrote:
+> Enable the Google Tensor G5 (Laguna) SoC family in the arm64
+> defconfig. This SoC family is found in Pixel 10 and later phones.
 > 
-> Signed-off-by: Andrii Salivon <andrijsalivon@plajta.eu>
+> Reviewed-by: Douglas Anderson <dianders@chromium.org>
+> Reviewed-by: Brian Norris <briannorris@chromium.org>
+> Signed-off-by: Peter Griffin <peter.griffin@linaro.org>
 > ---
->  Documentation/devicetree/bindings/arm/fsl.yaml | 1 +
+>  arch/arm64/configs/defconfig | 1 +
 >  1 file changed, 1 insertion(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
-> index 656f2596e1d5..ec61f45c351c 100644
-> --- a/Documentation/devicetree/bindings/arm/fsl.yaml
-> +++ b/Documentation/devicetree/bindings/arm/fsl.yaml
-> @@ -188,6 +188,7 @@ properties:
->            - enum:
->                - fsl,imx50-evk
->                - kobo,aura
-> +              - amazon,yoshi
 
-Don't break the order.
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
