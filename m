@@ -1,77 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8C052F8E8F;
-	Sun, 20 Sep 2026 08:30:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 85838386C39
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 08:31:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789893024; cv=none; b=qoNbFZdOTDL+HIoUCYRN9mtZQZD8hX6kt1MYBYchoTLVXfR/PBtBP2R/dQu8mCB/lGK7TYZyOviJxajLisifckAy6wOiFJ4LhxChH3GgYX7hnlB79/y+0qdYtpVDvo3SI7DuV8cHmmzpuPqhpoZkaXi9zZ4VJfjmJ1OxrmfszV0=
+	t=1789893098; cv=none; b=j6443ie5Nw7aki2G/HuXzhkVfkg34EI8kgP3CIY7TD+HJ/i0f1e3TpP+ISDM+nCMAb4MplwoK3zQdihOAX162i6RknhBoJy+hLrUI6HiQThOIe5T1TypRAX5NZHjXbqDBVCCVxaAvidBrWy6+plrw7C2XFYHM0tODPRhxBFh5V4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789893024; c=relaxed/simple;
-	bh=5Ufzj55crcPSVtJnyqaSePwW0LwWwqKoAHn08k8HfyA=;
-	h=From:To:Cc:Subject:Date:Message-Id; b=TFFXg3Qj42D5cnvsbhpbnKCuPdba83zN7b/a3+Bbe2ropcyR6PKViXAOXN42JlVKcuW8WKCnXBjLHdBR8nga1VEF/Dpid1FObY7iANaHpkWazf2A22H573N1GESn64t39oazw7tF8laNDQQFMCH6zsxzdlPzJdw4hCldCDnGAlk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fybt8gdK; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fybt8gdK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D8FC1F000FF;
-	Sun, 20 Sep 2026 08:30:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789893023;
-	bh=+sep99UlUe6/aWG7LHBMEMhFdHwW8S8H/i2ubu/s5HE=;
-	h=From:To:Cc:Subject:Date;
-	b=Fybt8gdK1061pxWF8bdhW1bh8gRAqSMByWBV8XjgJsvY5X64C/IxBzOrO5W8UX2Os
-	 KoIKifERb8IpYonsLR7TubyOvVh0uVk3w9mkQbOgEzV9gkLRARBxcI4BvpJt1xvFsa
-	 UQWMw7o09+GSNnrdYcP1OyukujKR8Qo8magJy9+Ksin7UPLew6C7Nl5Lrj6jPA3IJZ
-	 CtpEGjRV0OSkq/L25C3uSpPnyye29Le2A9RxE6mi2zymd9AN7NpHo3Z8JgFhwa0iOr
-	 SBCrdgAW+/AK0xl+7GA9xj4OkaLoye4aRHh0xpDK+Sa5O+R0fqkRGdJW3K2UI4wvPj
-	 5JHgY100PpSHw==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
-	id A96F811D3CAE; Sun, 20 Sep 2026 09:30:18 +0100 (BST)
-From: Mark Brown <broonie@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>
-Subject: [GIT PULL] SPI fixes for v7.3-rc3
-Date: Sun, 20 Sep 2026 10:29:59 +0200
-Message-Id: <20260920083018.A96F811D3CAE@traversing.sirena.org.uk>
+	s=arc-20240116; t=1789893098; c=relaxed/simple;
+	bh=CHhlOoPa7lx28znIBmmKknG7qrENE5LL/JiYPgofib8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qXwQUwZe1zgW+FMDjgVd3A1wZ0DCJDSuZymzI+lJqR/2vETE95PGuDBDR/zOFxhaUCui5r9XVx9L/DvJTedC5bOOn/NAZS1UrJ9k7eD61N2ZP6UpwbpV3+YY8GyEVuRcUdPuvlDJfOE67n0XsvGJbRHCb/LQXGtx6slUx03F1gc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [117.147.104.32])
+	by mtasvr (Coremail) with SMTP id _____wAn0zzgma9quNImAQ--.24630S3;
+	Sun, 20 Sep 2026 16:31:28 +0800 (CST)
+Received: from localhost.localdomain (unknown [117.147.104.32])
+	by mail-app3 (Coremail) with SMTP id zS_KCgAHQXTSma9qV+dHBQ--.54809S3;
+	Sun, 20 Sep 2026 16:31:27 +0800 (CST)
+From: Jiacheng Xu <stitch@zju.edu.cn>
+To: Andreas Gruenbacher <agruenba@redhat.com>
+Cc: Jiacheng Xu <stitch@zju.edu.cn>,
+	gfs2@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 1/4] gfs2: protect quota refresh from superblock teardown
+Date: Sun, 20 Sep 2026 16:31:02 +0800
+Message-ID: <20260920083109.30798-2-stitch@zju.edu.cn>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260920083109.30798-1-stitch@zju.edu.cn>
+References: <20260920083109.30798-1-stitch@zju.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zS_KCgAHQXTSma9qV+dHBQ--.54809S3
+X-CM-SenderInfo: qtrxiiaqttimo62m3hxhgxhubq/
+X-CM-DELIVERINFO: =?B?ZqNvyQXKKxbFmtjJiESix3B1w3tMoM3snk/k5SVzZVydjEqe1eefKHnLf95EnB4iem
+	egWzO/wNhIP+pglnkLd0BnOseRu3vBlUcX6QlLMsS925UAZSEknj3LGDy6z/wpMoOg8cy1
+	tPbWVAvh7xu1Ium4Jp1zGNLdsMyhd8Xna2fzX/b1
+X-Coremail-Antispam: 1Uk129KBj93XoWxZFykJFWUAw1xXrW3Kr13Jrc_yoW5Wr47pF
+	4jv3yfJr4kCrnrXF4SkF4rW34rG393ZFy7trZ7W3Z3Aw42ywnxKFyfJFy0vFyrG348Jrnr
+	XF1jvFZxCrWUGrcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUvmb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYIkI8VC2zVCFFI0UMc
+	02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAF
+	wI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0Y48IcxkI7V
+	AKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I
+	3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxV
+	WUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8I
+	cVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aV
+	AFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZE
+	Xa7IU88hL5UUUUU==
 
-The following changes since commit fd73f4a6659897191fa0d40695fe370925dd3780:
+The quota_refresh sysfs attributes become visible before fill_super()
+has completed, so the quota inode can still be uninitialized when a
+userspace write reaches gfs2_quota_refresh(). The same callback can
+also race with superblock teardown.
 
-  Linux 7.3-rc3 (2026-09-13 14:38:02 -0700)
+Serialize the callback with the superblock lifetime using a read-side
+s_umount lock. Use down_read_trylock() so the mount failure path can
+remove the sysfs files while holding the write side of the lock without
+deadlocking, and reject accesses before SB_ACTIVE is set.
 
-are available in the Git repository at:
+Keep the locking in the user and group sysfs callbacks and introduce
+shared helpers for the other sysfs operations.
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git tags/spi-fix-v7.3-rc3
+Return -EAGAIN when the filesystem is not available for the callback.
 
-for you to fetch changes up to 3d743adf090cd4c9a2120c1e02b0482e88aa0d2d:
+Signed-off-by: Jiacheng Xu <stitch@zju.edu.cn>
+---
+ fs/gfs2/sys.c | 31 +++++++++++++++++++++++++++++++
+ 1 file changed, 31 insertions(+)
 
-  spi: fsl-qspi: Reprogram the clock rate when the operation frequency changes (2026-09-17 19:46:29 +0100)
+diff --git a/fs/gfs2/sys.c b/fs/gfs2/sys.c
+index ea2c7b9e4a77..0d247299625c 100644
+--- a/fs/gfs2/sys.c
++++ b/fs/gfs2/sys.c
+@@ -63,6 +63,25 @@ static ssize_t id_show(struct gfs2_sbd *sdp, char *buf)
+ 			MAJOR(sdp->sd_vfs->s_dev), MINOR(sdp->sd_vfs->s_dev));
+ }
+ 
++/*
++ * Sysfs callbacks must not block on s_umount: mount failure and unmount
++ * remove the sysfs files while holding it for writing.
++ */
++static bool super_trylock_shared_active(struct super_block *sb)
++{
++	if (!down_read_trylock(&sb->s_umount))
++		return false;
++	if (sb->s_flags & SB_ACTIVE)
++		return true;
++	up_read(&sb->s_umount);
++	return false;
++}
++
++static void super_unlock_active(struct super_block *sb)
++{
++	up_read(&sb->s_umount);
++}
++
+ static ssize_t status_show(struct gfs2_sbd *sdp, char *buf)
+ {
+ 	unsigned long f = sdp->sd_flags;
+@@ -248,6 +267,7 @@ static ssize_t quota_sync_store(struct gfs2_sbd *sdp, const char *buf,
+ static ssize_t quota_refresh_user_store(struct gfs2_sbd *sdp, const char *buf,
+ 					size_t len)
+ {
++	struct super_block *sb = sdp->sd_vfs;
+ 	struct kqid qid;
+ 	int error;
+ 	u32 id;
+@@ -263,13 +283,19 @@ static ssize_t quota_refresh_user_store(struct gfs2_sbd *sdp, const char *buf,
+ 	if (!qid_valid(qid))
+ 		return -EINVAL;
+ 
++	if (!super_trylock_shared_active(sb))
++		return -EAGAIN;
++
+ 	error = gfs2_quota_refresh(sdp, qid);
++
++	super_unlock_active(sb);
+ 	return error ? error : len;
+ }
+ 
+ static ssize_t quota_refresh_group_store(struct gfs2_sbd *sdp, const char *buf,
+ 					 size_t len)
+ {
++	struct super_block *sb = sdp->sd_vfs;
+ 	struct kqid qid;
+ 	int error;
+ 	u32 id;
+@@ -285,7 +311,12 @@ static ssize_t quota_refresh_group_store(struct gfs2_sbd *sdp, const char *buf,
+ 	if (!qid_valid(qid))
+ 		return -EINVAL;
+ 
++	if (!super_trylock_shared_active(sb))
++		return -EAGAIN;
++
+ 	error = gfs2_quota_refresh(sdp, qid);
++
++	super_unlock_active(sb);
+ 	return error ? error : len;
+ }
+ 
+-- 
+2.51.0
 
-----------------------------------------------------------------
-spi: Fixes for v7.3
-
-A few driver specific fixes, none of them particularly severe or
-unusual.
-
-----------------------------------------------------------------
-Frieder Schrempf (1):
-      spi: fsl-qspi: Reprogram the clock rate when the operation frequency changes
-
-Gabor Juhos (1):
-      spi: spi-qpic-snand: avoid writing QPIC_EBI2_ECC_BUF_CFG register
-
-Hao-Qun Huang (1):
-      spi: virtio: Use the per-transfer bits per word
-
-Itai Handler (1):
-      spi: spi-zynqmp-gqspi: stop the controller on shutdown
-
- drivers/spi/spi-fsl-qspi.c     |  5 ++++-
- drivers/spi/spi-qpic-snand.c   |  4 ----
- drivers/spi/spi-virtio.c       |  2 +-
- drivers/spi/spi-zynqmp-gqspi.c | 34 ++++++++++++++++++++++++++++++++++
- 4 files changed, 39 insertions(+), 6 deletions(-)
