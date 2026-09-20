@@ -1,78 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-127.mta0.migadu.com [91.218.175.127])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 701FA2C21DF;
-	Sun, 20 Sep 2026 01:14:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2EBD30AD05
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 01:14:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.127
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789866869; cv=none; b=fVBIwd68C66bt4Ox/82is6LscJ/JIfdhu7w5P1zbuW4QdO81qpuTf93WK9xUYh046F9RpopOL6XadXUYJ+OoPV4V7742yuqavXbwqgsOkOiXmF9MZMS76xfwOatyRm/s5S4/5VBZW9qEWpXPjOgkUiJuU4gyRES2m9ZbK7NBduU=
+	t=1789866899; cv=none; b=pENLOxNgGYP7EgA1ZOmxEp41NSU4QLIb4TzDfRezcNv4wpOJS6IKDQAuTyPsMu7A4LJwZTmlVnP88lEejXIzgCHesBwLtOA4YayYEcbC87UZn+gpmr98P/nC+oivCK+fKYGp0+/sOYuIrZCceeKwQv2U9AovefLAXiwc85pZM54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789866869; c=relaxed/simple;
-	bh=JjP1DnidvpScnAcxKX2haood5NSHHVloUggOgS7Gpks=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=maq5idv/1bdY/O1sRCmmKj93TdR/myLP5j19x+6KExuLJXcqvIvsB/BHN4YBGK2WB40ZKcgr5NQHxC9on+BBfXkb+5etO24E45U5Qj6tIsRiaJSb4LZFUdrn+onrntwmtXv/oI6DeQfuK1C9YOpQJNBhvIkeZWKzt5tFwBoc6oA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=enF0ISP9; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="enF0ISP9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D0B01F000FF;
-	Sun, 20 Sep 2026 01:14:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789866868;
-	bh=GJcRKwtjuE4ZtgyLwbUJ3vtkOSGAuJloihPgH2Jyn20=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=enF0ISP9TMMsX8gsOWEo6XiAmv0JWbZfqJarOQ9zX2Z370N0qzLv+gXYbF/ESkL8z
-	 fU2Ka5Y0HDHq48Bm6+KVAQqo4uqlO7sT+NiO3AehLCca/7ZeDp+4J5AIokbF45jByv
-	 4bN6/aYOLe/1zDYVqtMPPTgblYgBL8M4d7f98B6LpUEvhiRxQi4inlvRzw2AkhINw2
-	 cLgS+JhkTBH435tjEJVUBuoSsp1CD88QrEybczelKTlVYbKtHr+onLXCvqEXZPiFeV
-	 s5OqNi8GYBMY/7T4dPia5SeLYKdzwzu9lZXpD3K/0BKMohMQ0st849sNxE+WlTtX7/
-	 wu+/Jx7dj/vlQ==
-Date: Sun, 20 Sep 2026 02:14:20 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Jinseob Kim <kimjinseob88@gmail.com>
-Cc: linux-iio@vger.kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
- andriy.shevchenko@intel.com, linux-kernel@vger.kernel.org,
- rdunlap@infradead.org, joshua.crofts1@gmail.com,
- u.kleine-koenig@baylibre.com, julianbraha@gmail.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- corbet@lwn.net, skhan@linuxfoundation.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v10 1/8] dt-bindings: iio: add Open Sensor Fusion device
-Message-ID: <20260920021420.5a13622f@jic23-hlaptop>
-In-Reply-To: <499ecb38dc0b58b979ca1f38d2d30b4ef56cf825.1789753020.git.kimjinseob88@gmail.com>
-References: <cover.1789753020.git.kimjinseob88@gmail.com>
-	<499ecb38dc0b58b979ca1f38d2d30b4ef56cf825.1789753020.git.kimjinseob88@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1789866899; c=relaxed/simple;
+	bh=n8OOl8LnKzoRnOqP3z8cqH/YxfvjQ9J8yGpITcBA72E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=I1+dySaHK53mXMdi8ekBwhKhsDGTMAgCP4PQ4/yl5pYLb6WRfewH4VtUqzHJyCNsY10uq0jqSw1gaiDChmkrENXIzk/j/ig0tjlJWjYeOameyF+GPphP5bV/eyBa4lIB1Ptoo/ZoySxl+jOChNzjB70QCCCsE9JRXhQlfGGZdZw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=permerror (bad message/signature format); arc=none smtp.client-ip=91.218.175.127
+Authentication-Results:smtp.subspace.kernel.org; dkim=permerror (bad message/signature format)
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=n8OOl8LnKzoRnOqP3z8cqH/YxfvjQ9J8yGpITcBA72E=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789866895; v=1; x=1790471695;
+ b=jwUlI8OE1T1owF+Jkj/wMXtP/NzC6h5ZHM4x/KAJTqN6W+9llQJ0wi1Ph3gCiqa2O1UsjudT
+ wZuE7KH15Ekzwy9nTY4uTDSQeIzrIitzIINr5abnsqAngVuRody5u1qwqMD0xvN4JHOXLApZMpP
+ MPVQ/FTweNmDRNDmTRd1tAyE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2aae6ed2e79647d9;
+	Sun, 20 Sep 2026 01:14:45 +0000
+X-Mizu-Trace-ID: 2aae6ed2e79647d9
+X-Migadu-Flow: FLOW_OUT
+From: sunliming
+To: miriam.rachel.korenblit@intel.com,
+	johannes.berg@intel.com,
+	emmanuel.grumbach@intel.com,
+	daniel.gabay@intel.com
+Cc: kees@kernel.org,
+	elver@google.com,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	sunliming <sunliming@kylinos.cn>,
+	kernel test robot <lkp@intel.com>,
+	Dan Carpenter <error27@gmail.com>
+Subject: [PATCH RESEND] wifi: iwlwifi: pcie: add NULL check for trans->dbg.dest_tlv in dump_monitor
+Date: Sun, 20 Sep 2026 09:14:20 +0800
+Message-ID: <20260920011420.99715-1-sunliming>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Sat, 19 Sep 2026 03:24:39 +0900
-Jinseob Kim <kimjinseob88@gmail.com> wrote:
+From: sunliming <sunliming@kylinos.cn>
 
-> Add a binding for the generic Open Sensor Fusion host interface.
-> 
-> Open Sensor Fusion devices report capabilities and samples over an OSF
-> protocol stream. Sensor channels are discovered at runtime from
-> capability reports instead of being described individually in Device
-> Tree.
-> 
-> The protocol version is discovered at runtime from the OSF frame header.
-> OSF GREEN is a product identity, and OSF0 is a wire-format magic value,
-> so neither is used as the Linux compatible string.
-Sashiko raises a reasonable question about what you'd do if it turned
-out your current OSF GREEN doesn't quite comply with the specification
-or needs some additional quirks.  Does it make sense to have a more
-specific compatible with a fallback to the generic one?
+Fix below smatch warnings:
+drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c:3527 iwl_trans_pcie_dump_monitor()
+error: we previously assumed 'trans->dbg.dest_tlv' could be null
 
-Or given this is mostly about device firmware maybe this is fine.
+Fixes: c8a00a6e89ff ("wifi: iwlwifi: pcie: move generation specific
+files to a folder")
+Reported-by: kernel test robot <lkp@intel.com>
+Reported-by: Dan Carpenter <error27@gmail.com>
+Signed-off-by: sunliming <sunliming@kylinos.cn>
+---
+ drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Either way - would be good to add a note on why that doesn't make
-sense in this patch description.
+diff --git a/drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c b/drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c
+index 28b276c65952..9cea0fe9e578 100644
+--- a/drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c
++++ b/drivers/net/wireless/intel/iwlwifi/pcie/gen1_2/trans.c
+@@ -3516,7 +3516,8 @@ iwl_trans_pcie_dump_monitor(struct iwl_trans *trans,
+ 
+ 			iwl_trans_pcie_read_mem(trans, base, fw_mon_data->data,
+ 						monitor_len / sizeof(u32));
+-		} else if (trans->dbg.dest_tlv->monitor_mode == MARBH_MODE) {
++		} else if (trans->dbg.dest_tlv &&
++				(trans->dbg.dest_tlv->monitor_mode == MARBH_MODE)) {
+ 			monitor_len =
+ 				iwl_trans_pci_dump_marbh_monitor(trans,
+ 								 fw_mon_data,
+-- 
+2.43.0
 
-Thanks,
-
-Jonathan
