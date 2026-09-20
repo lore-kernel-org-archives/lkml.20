@@ -1,79 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75A5D2147F9;
-	Sun, 20 Sep 2026 00:21:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1A3941A8F;
+	Sun, 20 Sep 2026 00:26:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789863692; cv=none; b=RQjNyFDYKJRXjo15uaM4Kr9gSM9SMoWL9GjU7oQ4VSwathYfo/DjEojCyQ6+dFPZ0G7q2owhYi6aTPoXimqd0CVM2fiWlr1lIjJYOSeJ1eofP+HIKWgV3yWLzfsJcbiUSlNoUQCpMDFqNWqhzf9vo8AwSuvq2glkom93PdWbhoc=
+	t=1789863990; cv=none; b=RRJ8TkknCOx2wuVldqGvSosoofK/sAwO3kg1P/EdCJrWlzpzZ35W4Iq5D2DMKSlKue9jeAIdwAY1lO0hTLbq62sdj6r+tqqcvbSl9vPzrF/wiImSsFtfecz3jSML+CpC39fuPe25XyrHFEeoVkQKg1VzrleU8h7l8g+vcgajEpw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789863692; c=relaxed/simple;
-	bh=V6CX5es9Zd0geLEwfFY9PRFZ+Q6wSzYGDmxp8HG5chc=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=lYdEYzTAtS3S4M05wo/ZgabKW/ScSNOYW6EpCPJugqe0UrlanjfvSQ/hDey1//rs8//zfUpSK7LCR3L4Kr2q/c7wcySH/wBEF058OzIkvb96ORo8DnUGH8qHyJypORaBG7zZ3qQfC5eHpTF+efTTEMr2Mx/mtej2f3dGvu5BmG4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yow/aX4X; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789863990; c=relaxed/simple;
+	bh=h4pbiX06FgkE5ryjHXJwIBu4aut2LCAVM1nbaqNqirY=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=h6IbDVxJ333mlfppEizqjOc3KlU1rcwzRnev0mqsnHeFftg3vofm5t2V/+X5dOUrfNjJe5MsAsMS9/IAM52aWT9J3Biw1/f3cs9F739pWOVl2Bn0tqwrDpe/xDGJGmygfYgd/jbbUjrTvGw8Rm0Yz61TdvqLRGSt0HiPVI/BPks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V2TwUNIe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yow/aX4X"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C6C31F00893;
-	Sun, 20 Sep 2026 00:21:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V2TwUNIe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B8D11F000FF;
+	Sun, 20 Sep 2026 00:26:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789863691;
-	bh=JAkLsduyfbgZchH/UPSdqV85PTuiHc74v0gBkPOM+Ik=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=Yow/aX4X/EiPrUDRr4BzJouUUt/joN61aiRzYCwbFMUGuY+ro0Mx/D1wCmoINHWta
-	 6P/ObO3Rb32xlYfoRomHbnRGekQSBx20yO7vQA1IryLfryajx4GB634TOz9vZ5ZI2Z
-	 BhDI3thxTnmsEAdxadRXcEsnniV3EMxDlYtjyzipgaBNnk7RWZEsKXAY7kxIHtGL+H
-	 5A+ORChKLV5DmyiibiNrLgVDHZNgOImq1EoOGPvNJYR5jsf2kwFOfD6UfBHdQnc/fP
-	 FN9wcjTFDse+s095wqF4AK8GIgR4DtPobTRzDCKN8FP3Xj+wXJVmyeDvqblVL8szJ+
-	 R3KFoao41GtNw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D09DE3924A47;
-	Sun, 20 Sep 2026 00:20:24 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1789863989;
+	bh=1hHhXXuxsHCRvPLheKiLLcZjE2LWaxZVj1xaUI5h/c4=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=V2TwUNIeZwyc+1M2C4Vdn2L0xRsKlRt5ELNW6pD2+M5tgQ9FmE3DNnAH8jGGgfNQ3
+	 DKKqKRW2prziKT5rl4wKKfCNF9SOInZLVyBA0dgiVwAF9/G222nUkL/64+eY5y23Ur
+	 ggkruUDmWyWWcA7m4BCvoVt39zuAdmPlFwl2XtXtw+6mgYN4YuvGf6fkJ6Ab+W3xOq
+	 L9LeWz/n6L1P/DViWFw+CPUizLIFM0neDE2y5FPfualdjKXq+0J09DJu0twBWc+jS5
+	 n8fmR9Qqm9YyDGlzEoTd/S30aW0/rpFfUfF1pMhgRbSG49lnXnZCrZk+vCT2GJQdYV
+	 7Nv5m6h0lkUDA==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v1] r8169: set eee_enable_default base on LPI cap
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178986362339.1500872.9609601668967871273.git-patchwork-notify@kernel.org>
-Date: Sun, 20 Sep 2026 00:20:23 +0000
-References: <20260916081306.184-1-javen_xu@realsil.com.cn>
-In-Reply-To: <20260916081306.184-1-javen_xu@realsil.com.cn>
-To: javen <javen_xu@realsil.com.cn>
-Cc: hkallweit1@gmail.com, nic_swsd@realtek.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- maxime.chevallier@bootlin.com, horms@kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, daniel@makrotopia.org, linux@armlinux.org.uk,
- enelsonmoore@gmail.com, daniel@thingy.jp
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v5 1/2] dt-bindings: iio: light: add as7343
+From: Jonathan Cameron <jic23@kernel.org>
+To: Chang Yu <marcus.yu.56@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Shi Hao <i.shihao.999@gmail.com>, 
+ Joshua Crofts <joshua.crofts1@gmail.com>, 
+ "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, linux-iio@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260919235145.48273-2-marcus.yu.56@gmail.com>
+References: <20260919235145.48273-1-marcus.yu.56@gmail.com>
+ <20260919235145.48273-2-marcus.yu.56@gmail.com>
+Date: Sun, 20 Sep 2026 01:26:11 +0100
+Message-Id: <178986397173.706584.714197937565481606.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=960;
+ i=jonathan.cameron@oss.qualcomm.com; h=from:subject:message-id;
+ bh=h4pbiX06FgkE5ryjHXJwIBu4aut2LCAVM1nbaqNqirY=;
+ b=owEBfwKA/ZANAwAKAVSFNJnE9BaIAcsmYgBqrygm7YnNJLQ7qcQC58ww9dCI7vKIP+EkbE0PK
+ HiX/ievXZeJAkUEAAEKAC8WIQRuKWazh4QGUpEmgbFUhTSZxPQWiAUCaq8oJhEcamljMjNAa2Vy
+ bmVsLm9yZwAKCRBUhTSZxPQWiFWAD/9gvWoKvxFpsWhkaqiG6hak7hYeu5SpY2iAVH6lW5iXlDb
+ W2QrxeTsZYYTWM7xMg1uD7Al0rvkdU7wUYxq17b4HWb/JznFNLKRfupqcgFL0kRbgkQHmkn2HEM
+ k1e+6yBIjjOGa5ccQm15UKlPSodwGmiuTgq4mQ1leZT9I3SGlnxhtBhEkciqzA5LmyyWOqrz38g
+ xHLnalLyRqLXfA+b9/Bm83d8poCuZkyfGcXcHYn6tZl7Fq8Qvd5fjfZwZW/cxke8GmGV58tPq6C
+ s4wUIr2y/ZDeaYyU+3taxjgZcJPX2sITmU1AGuYZhy1HdUf8LGDmE65gI69dQB8jV4dEMo73/Y8
+ rsoskyYAKEvDRfP9jMKitAexErM0ekp0G8KxUxBIbrJF1/lK9Djf51ePFq01OzvTxXVyg1NVvlE
+ wTf4JPCR+Gx/2+z26cUcFRglFQioEkbkkHAjchvs97CQdhcDU1UmpOiEc5st+tdVWptps/0QMJk
+ HgFWpOgfZZW8SrJQqbl+YVXt1RgdZpOvd1iIk/BqsPpWdMc0FMH1Sd6T1mn0j4RMpv0Mo1R+75g
+ jxMv2AsgGY2jMPX7WyEZbMwfJMRJ4uWyAZXfw9NT4L78+bDfyyJdZjrD43PfSiyIPU9JOCbxF9K
+ uT/wH//MkybjMacLEk27iloSDdS3Trfq5sT+2zQ==
+X-Developer-Key: i=jonathan.cameron@oss.qualcomm.com; a=openpgp;
+ fpr=6E2966B387840652912681B154853499C4F41688
 
-Hello:
-
-This patch was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Wed, 16 Sep 2026 16:13:06 +0800 you wrote:
-> From: Javen Xu <javen_xu@realsil.com.cn>
+> Add binding for AMS AS7343 which is a 14-channel multi-spectral sensor
+> with i2c address of 0x39.
 > 
-> When initializing phylink configuration, if LPI capabilities is
-> non-zero, it indicates the hardware supports EEE, thus we enable it by
-> default.
+> The GPIO pin is not described because the datasheet does not document
+> how to use it for hardware synchronization at all. The GPIO register
+> also has no mode-select bit to isolate the pin from the chip's
+> internal control logic. Exposing it as a generic GPIO could result
+> in kernel writes being overwritten by internal logic.
 > 
-> Signed-off-by: Javen Xu <javen_xu@realsil.com.cn>
-> 
-> [...]
+> Datasheet: https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
+> Signed-off-by: Chang Yu <marcus.yu.56@gmail.com>
 
-Here is the summary with links:
-  - [net-next,v1] r8169: set eee_enable_default base on LPI cap
-    https://git.kernel.org/netdev/net-next/c/5f22f5fb9051
+I've just replied to the earlier discussion about led-max-microamp and
+$ref.  We need that thread to come to a conclusion before we can
+move forward.
 
-You are awesome, thank you!
+For future referenc it would have been good to capture that
+discussion as ongoing as part of the change log and cover letter.
+
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
