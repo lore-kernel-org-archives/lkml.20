@@ -1,115 +1,240 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32E4046C844
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 21:24:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id ECED43B7B7F;
+	Sun, 20 Sep 2026 21:29:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789939457; cv=none; b=QR7s9iHm/lXueTHWeE6Osd8VJpIpTHOotgAhLFcU07SXHVg/eAIasyggBqZSjOSyUUCdX9k7PmlL5jII2oEhWXK+UVoeK4GWifHFcnRYn4+VWnJUAK2HJxWoQjg2jq3tRi3fIcvlRqiRmtSSYeJIZlh913lFjERcnitPTXK3pwo=
+	t=1789939749; cv=none; b=lpMN2ylMZQZSm1ERLTw3kkMRiddkzjc9+et6lVAHoF2J4dBh538/zDyE0jmmk7phllMqThWof10W1u5Yltb14gAf2SwLpRddpYH75C33pFA2ph6j0Id0BxMDkste2osv+hUbJxmHB8hqiKXPCFMGWi7wdT2f8AK88wCXHtqBbw0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789939457; c=relaxed/simple;
-	bh=HAe9drQ2Ce/111VV1trP80s5SonnyEnE61XjrLoR3uc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nmuee6PhVeLbnaRRHLYXwfQj49CGUBNLOvrI9Tmyt4EQoX0c2RK9Njoftvjc6aesekCSFa4HFpg3kV3qc8VlhKUZEc0aZHcevaCB6HWdWNNH1ryU5ba7QP3zpkMf0TIIzq5SIna7Iw35AVApl/TPwC204XTupCUfX6XHNv4/F5M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nUKtGDAT; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789939749; c=relaxed/simple;
+	bh=YOxM7mYuAqSXik0KdEeyH6ok23wJVcNKpc/A4Ommq9Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=oYDyBRcAfV7YmyATkSDgn0HulnKaw5gMYks1edyNSxOobuCgYPVd6l+G1o7IAmohstCYlF08NaK5luKsSZ5jGHdQy0JYcP+wQP3fw4WjO1fjlL7CJdr0XV/XGH0/ah2XAMOwz9YEELm+/no/hGty3W4NOnffFDllGY7WGzY4n/0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Q1cQdxHq; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nUKtGDAT"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254fa663bfso354334666b.1
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 14:24:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789939454; x=1790544254; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IPZKEOuc6OoXrjfYUnhc3ULWdAsyQzK6Afr3Z+Jdqrg=;
-        b=nUKtGDAT8f5U9JJObFbWM2DeBIroGKhiACb2Kzu0KV2ctY0c+Mcu3ImH9atjE22uL+
-         kH0M9AcgL0XO+65sHr77ezMo6+AEhvxaGTwBJRBC9EcJBqquFJd1am1oNwvFj3O1SzGD
-         8+4gOLoG3TE+YvUEMoI4/9AJ9JONf5MEhK3OfwXBpbvFQXDG2MR/tlNRu/P7YEyM9Btw
-         ZT5eZ3iNpEEtF2/Af45zzVdau02iBrjZuJiyc/56gsfr2S3meGXvYjFo+/5rPO/zmNaH
-         1ihdWPXGlx+aiA5rXxkcywPLDsPyz5q2GrOt5MlUq21euNDD+BcmHmjb7nEX0U7ndoTi
-         GLuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789939454; x=1790544254;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IPZKEOuc6OoXrjfYUnhc3ULWdAsyQzK6Afr3Z+Jdqrg=;
-        b=OUO1zp5gdFvsu3MArxaWPxvqUwU/3QFW9/iy/U1qe/+3tMqIezDvW31wWLtto3hctD
-         gkuf4HF/hf1G55Uj8/Vfc3QdLJK5li5YFHIpuEh7DveMqofwkriumA3Qlfx6QZobwA4/
-         ht4wzATo3cAILi3GY8uacQEmQyA5Pm/0MCEkC/CmNjN2ZhPr6FtCy6fzWtlYQ7ltwNgl
-         c14pySUkZPM0maYqYYVJmMrKgBncnportH2mwGQJ/+rjmNCLKiL1As2Qu6FwR6ntuRmd
-         FHB5dz24N/ddXr+j3aUDWLcCfJidasoOAZxvMYosiSkgo5nesbJ4586NF1ckkN5jQmVw
-         1k0Q==
-X-Forwarded-Encrypted: i=1; AKwUvByNP9/q6ns07464eYxAPTFQPhy2u/q0aIMFBcmfmPznjXFg7ps2rdKL/qfaSanPOBskooYD04gIrmS/USg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nikjbLolgN3rxnv8FiW/ZtG1BdJl4gJbozztapCAJZiI8M3KFC
-	YFqeGN+hMh5hIIrT3a9dM5s2C+05/+0UtX0kKNOHOJivINg2T2BjLN4q
-X-Gm-Gg: AYBFou3JdG0cS74hIWfi4fXc0WeTqDVXV/p0FDwx6d1HyhFjcu9Ghitcyqp327UpSQ5
-	rLwCbHxOSCnfExGv8hJR6a/V8w2E9mkYPDL19+ljPKxfmcEoUfAYWn/rt6Au/xVwg6T6NlttKts
-	RtcRhmBvlqsVir2ES/4ViQDg6rMXkRq0mGeFXUOXXz4arevrZ4is6cLRScKIzZoWap088whICwz
-	mKOglOh9GCdQT+eJ9V3h0cZ4v++ZrHOOVtKDim9p9mbdHwxniL0Dqr0SEeAselmNdf/nNNK1in8
-	3r/U06N0Kg1OQPrlPyJxg3kK6N2LqKH5fEK8jmvZGaMhMCvoaq/tVznb/QUe11GFLiTOFE/zmLk
-	WWMgCCXaK3XPjME0WE+rwvT5wzhtjyzFfqerEdQEE58y8+3fSe4npuUzXK9HfZQWDo+SBC8W5J7
-	u9HfBhMH08vocQVHL51ca4mpOIwnA/RI7PAkeAUlD2VIfBEKFXu5H02cd1nHwqermbCTU/y6RFY
-	zW57u4IvO/6y29R+H1RV1O6wI27GolpFKmvXsg3mZk=
-X-Received: by 2002:a17:907:a88e:b0:c29:f5d5:5aa2 with SMTP id a640c23a62f3a-c2a159a99e5mr731499966b.44.1789939454246;
-        Sun, 20 Sep 2026 14:24:14 -0700 (PDT)
-Received: from [192.168.86.89] (81-224-151-184-no600.tbcn.telia.com. [81.224.151.184])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a3590afccsm219473766b.62.2026.09.20.14.24.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 20 Sep 2026 14:24:12 -0700 (PDT)
-Message-ID: <9318fed0-31c0-4991-9f57-a1cabeeebcd9@gmail.com>
-Date: Sun, 20 Sep 2026 23:24:10 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Q1cQdxHq"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AAF081596;
+	Sun, 20 Sep 2026 14:28:58 -0700 (PDT)
+Received: from ewhatever.cambridge.arm.com (ewhatever.cambridge.arm.com [10.2.197.99])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 70D953F632;
+	Sun, 20 Sep 2026 14:28:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789939742; bh=YOxM7mYuAqSXik0KdEeyH6ok23wJVcNKpc/A4Ommq9Y=;
+	h=From:To:Cc:Subject:Date:From;
+	b=Q1cQdxHqsioG2kuZAGaSW/qCTI3nPP0zSKR7tiBSBR/MZmxOIPpYVEIVo46N1Jvtp
+	 XZ0+OsPc4FxsRfOfytkEBVEpkO9mNFUblsk1dD2aJmQ/jHUfbuX4AszGLz4jJw2JI+
+	 BsLvNjMLnPcPDcE86OdiAEE/u7oe29Qtl0KtiQVk=
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+To: kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev
+Cc: maz@kernel.org,
+	will@kernel.org,
+	catalin.marinas@arm.com,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	steven.price@arm.com,
+	aneesh.kumar@kernel.org,
+	oupton@kernel.org,
+	gshan@redhat.com,
+	joey.gouly@arm.com,
+	tabba@google.com,
+	yuzenghui@huawei.com,
+	linux-coco@lists.linux.dev,
+	gankulkarni@os.amperecomputing.com,
+	sdonthineni@nvidia.com,
+	alpergun@google.com,
+	fj0570is@fujitsu.com,
+	WeiLin.Chang@arm.com,
+	lpieralisi@kernel.org,
+	enju.kohei@fujitsu.com,
+	Suzuki K Poulose <suzuki.poulose@arm.com>
+Subject: [PATCH v19 00/20] KVM: arm64: CCA: Add basic plumbing for Realms
+Date: Sun, 20 Sep 2026 22:28:25 +0100
+Message-ID: <20260920212845.707-1-suzuki.poulose@arm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION 7.3-rc1] HID: logitech-hidpp: hi-res scroll mode
- forcibly re-enabled on every reconnect for Bolt devices, overriding userspace
-To: Roman Stingler <roman.stingler@gmail.com>,
- Lovekesh Solanki <lovekeshsolanki00@gmail.com>
-Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
- Filipe Lains <lains@riseup.net>, Bastien Nocera <hadess@hadess.net>,
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- regressions@lists.linux.dev
-References: <20260920094508.39682-1-roman.stingler@gmail.com>
- <arAe2iRkYh9p98Rf@eggarch> <20260920205058.11958-1-roman.stingler@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Erik_H=C3=A5kansson?= <erikhakan@gmail.com>
-In-Reply-To: <20260920205058.11958-1-roman.stingler@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi!
+This series is a trimmed down version of the Arm CCA KVM support, previously
+posted here [0]. Like in the v17, we have tried to split the entire series
+into the following chunks.
 
-> Possibly related
-> ================
-> 
-> On this same Bolt topology the wheel also scrolls far too far per detent,
-> apparently because hid-logitech-dj does not forward the hi-res wheel reports
-> to hid-logitech-hidpp, so the multiplier-15 steps reach userspace unscaled.
-> There is an out-of-tree DKMS workaround for exactly this WPID:
-> 
->   https://github.com/Magnetar-OS/logitech-bolt-hidpp-dkms
-> 
-> I am reporting only the mode-reset problem here, but the two look like
-> neighbouring consequences of the same commit and may be worth considering
-> together.
+ 1) Base RMM RMI support under drivers/firmware/arm_rmm -> [1]
+ 2) Linux Host support for handling GPFs - [2]
+ 3) NEW: Enlighten KVM arm64 about the different VM types and use call
+    backs for the VM type, rather than spilling the is_this_type_of_vm()
+    everywhere. Adds VCPU and Stage2 MMU related callbacks with support
+    for the existing VM types. There are other places where we may be
+    able to abstract, but those need careful performance evaluations
+    to make sure they are fit (e.g., vcpu_run)
 
-There are two different patches that aim to solve this, but it looks like the
-dkms fix is a bit more robust.
-https://lore.kernel.org/linux-input/20260901-bolt-scroll-fix-v1-1-58bca7ae487f@protonmail.com/
-https://lore.kernel.org/linux-input/20260904034843.1340846-1-rafael@rcpassos.me/
+   With that in place we generalise the predicate "kvm_vm_is_protected()"
+   to cover all  "Confidential" VMs (which includes Protected VM and Realms),
+   allowing us to handle common themes without having to do things like :
 
-I think the best approach would probably be to apply Rafael's patch and see
-if there's anything from the dkms patches that's worth including too.
+     if (kvm_vm_is_protected() || kvm_vm_is_realm())
 
-Regards,
-Erik
+   Also replaces the code with precise check for a given VM type to
+   avoiding combination of if (). e.g,, kvm_vm_is_unprotected_pkvm(kvm).
+   The checks under arch/arm64/kvm/{nvhe,pkvm} still retain the vm_is_protected()
+   check as pVMs are the only possible protected VMs there.
+   
+ 4) Bare minimal Realm VM support without the actual functionality to
+    run a Realm. This would help the maintainers to review the series in
+    smaller chunks. This doesn't depend on [1] and can be independently
+    merged, without being "functional".
+    This series includes vcpu operations and the s2 vm operations, which
+    do need the RMI driver backend to be meaningful. But the KVM handler
+    is in the right shape. The remaining changes would be added once the
+    RMI firmware library lands. Also covers the SET_ONE_REG/GET_ONE_REG
+
+ 5) Core implementation of the RMI driver for KVM and actual enablement of the
+    Realm support. This depends on (1), (2) and the guest-memfd-in-place
+    conversion series v12 from Ackerley. This is available here at the integration
+    branch [3]
+
+This series is comprised of (3) and (4) above.
+
+The integration branch has been tested with the following components:
+
+  tf-RMM:   main branch (commit 5e6e2acd) compliant to RMM-v2.0-beta3 [4]
+  kvmtool: git@git.gitlab.arm.com:linux-arm/kvmtool-cca.git cca/kvm-v18
+
+[0] Arm CCA KVM Support v16 : https://lore.kernel.org/all/20260803134403.80630-1-steven.price@arm.com
+[1] Linux firmware RMI https://lore.kernel.org/all/20260912083611.2513845-1-suzuki.poulose@arm.com
+[2] Linux GPF Host https://lore.kernel.org/all/20260913070459.2547407-1-suzuki.poulose@arm.com
+[3] https://git.gitlab.arm.com/linux-arm/linux-cca/ cca/cca-host/kvm-v19/integration
+[4] https://support.arm.com/documentation/den0137/2-0bet3/
+
+Changes since v18:
+  https://lore.kernel.org/all/20260915160141.3543048-1-suzuki.poulose@arm.com
+
+ - Patch count down by 3, after merging different patches together, see more below
+ - Retain NULL vm_offset for pVMs and move the counter offset flag initialisation
+   to kvm_timer_init_vm() - Marc
+ - Merge widening the scope of kvm_vm_is_protected() to the patch where the
+   flavors are introduced(Marc) and also dropped Fuad's reviewed-by, as the
+   patch is now bigger.
+ - Merge "Use kvm_vm_is_unprotected_pkvm" for !kvm_vm_is_protected to patch
+   where flavor is introuced.
+ - Merge "vgic-v3" mandate and preventing vgic-v2 mappings to a single patch,
+   where kvm_vm_hyp_is_distrusting() introduced - Fuad
+ - Drop kvm_vm_hyp_is_pkvm(), reverting to is_protected_kvm_enabled()
+ - Use is_protected_kvm_enabeld() for pKVM guest flavor checks.
+ - s/PKVM/pKVM for commit descriptions too
+ - Make sure the vm_mem_abort callback is !NULL at init time.
+ - Bail out early for !pKVM && !Realm VMs in kvm_vm_ioctl_allowed(). Use
+   kvm_vm_hyp_is_distrusting()
+ - WARN_ON_ONCE(!kvm) for kvm_vm_ioctl_allowed() as it must be only called with
+   a valid kvm instance and only from kvm_arch_vm_ioctl()
+ - Rename kvm_arch_vm_{ext,ioctl}_allowed => kvm_vm_{ext,ioctl}_allowed - Fuad
+ - Move kvm_realm_ext_allowed() to asm/kvm_rmi.h - Fuad
+ - Don't expose PMCR_EL0 to the userspace until we support PMU
+
+
+Changes since v17:
+https://lore.kernel.org/all/20260908162223.1683432-1-suzuki.poulose@arm.com 
+
+ - Add a patch to fix pKVM handling of SYS_CNTVCT/CNTPCT to override the counter
+   offset (Patch1)
+ - Restrict Realms to VGIC v3 only - New patch
+ - Add kvm_vm_is_unprotected() to replace is_protected_kvm_enabled() &&
+   !kvm_vm_is_protected() - New patch
+ - Use macro to initialize the per-flavor vcpu, s2_vm ops
+ - Add a wrapper to initialise vcpu and s2_vm ops with a BUILD_BUG_ON()
+   for the array size checks against VM flavour types
+ - Drop forward decalaration of the vcpu, s2_vm operations that spoiled the
+   fun ;-)
+ - Remove irrelevant comment about the order of timer loading for !VHE
+ - Use the explicti kvm_call_hyp_nvhe for pKVM specific ops
+ - Don't call nvhe_vcpu_put from pkvm_vcpu_put, open code them
+ - Drop cpu argument for vcpu_load() callback. We set the cpu
+   before the callbacks are invoked
+ - Drop kvm_vm_is_confidential(), instead widen the scope of kvm_vm_is_protected()
+   to cover pVMs and Realms. Add an explicit helper kvm_vm_is_protected_pkvm()
+   for the cases where we need to check for a "pVM on pKVM"
+ - Add kvm_vm_hyp_is_pkvm() for checking if the VM is running on pKVM.
+   covers both unprotected and pvms. But really uses is_protected_kvm_enabled()
+   under the hood
+ - Add kvm_vm_hyp_is_distrusting() to cover pKVM guests (both protected and
+   unprotected) and Realms. Use this for preventing the vgic v2 mapping into
+   Stage2 for a guest
+ - Drop superfluous !kvm check from kvm_vm_ioctl_enable_cap() - Sashiko
+ - Drop KVM_CAP_CREATE_IRQCHIP, as we don't support VGIC_V2 for Realms
+ - Filter out the vm_ioctls that are based on blocked cap.
+ - Repurpose the pkvm plumbing for filtering the caps and ioctl to generic
+   and plumb the Realm support in
+ - s/PKVM/pKVM for the comments
+ - Drop type argument for pkvm_init_host_vm and also drop protected variable,
+   now that we have the vm_flavor to check.
+ - Use kvm_vm_hyp_is_pkvm() to replace is_protected_kvm_enabled() with valid
+   kvm instance
+ - CCA: Merge the GET/SET REG handling patches into a single patch
+ - CCA: Reword the commit description for SVE VL access handling
+ - Reordered the patches to group the Realm realted to changes to the rear end
+
+Jean-Philippe Brucker (2):
+  KVM: arm64: CCA: Expose SVE VL register before VCPU finalization
+  KVM: arm64: CCA: Control user register access for Realms
+
+Steven Price (4):
+  KVM: arm64: Avoid including linux/kvm_host.h in kvm_pgtable.h
+  KVM: arm64: CCA: Introduce Realms
+  KVM: arm64: CCA: WARN on injected undef exceptions
+  KVM: arm64: CCA: Support timers in realm RECs
+
+Suzuki K Poulose (14):
+  KVM: arm64: protected VM: Handle user writes to CNTVCT_EL0/CNTPCT_EL0
+  KVM: arm64: Disable Steal time accounting for protected guests
+  KVM: arm64: Include kvm_emulate.h in kvm/arm_psci.h
+  KVM: arm64: Track the type of VM in kvm_arch
+  KVM: arm64: Refactor the vcpu_load to allow for VM specific callbacks
+  KVM: arm64: Add vcpu load/put call backs for flavors
+  KVM: arm64: Reuse kvm_stage2_unmap_range in kvm_unmap_gfn_range
+  KVM: arm64: Add VM specific callback for S2 MMU operations
+  KVM: arm64: Abstract out memory abort handling
+  KVM: arm64: Mandate VGIC v3 for for VMs running on hyp that don't
+    trust the host
+  KVM: arm64: CCA: Add a new mode for supporting Realm guests
+  KVM: arm64: CCA: Add VCPU load/put for Realms
+  KVM: arm64: CCA: Add bare minimal S2 operations for Realm
+  KVM: arm64: CCA: Don't expose unsupported capabilities for realm
+    guests
+
+ .../admin-guide/kernel-parameters.txt         |   3 +
+ arch/arm64/include/asm/kvm_emulate.h          |  16 +
+ arch/arm64/include/asm/kvm_host.h             |  69 +++-
+ arch/arm64/include/asm/kvm_pgtable.h          |   6 +-
+ arch/arm64/include/asm/kvm_pkvm.h             |  25 +-
+ arch/arm64/include/asm/kvm_rmi.h              |  84 +++++
+ arch/arm64/include/asm/virt.h                 |   1 +
+ arch/arm64/kvm/Makefile                       |   2 +-
+ arch/arm64/kvm/arch_timer.c                   |  34 +-
+ arch/arm64/kvm/arm.c                          | 300 +++++++++++++++---
+ arch/arm64/kvm/guest.c                        |  73 ++++-
+ arch/arm64/kvm/handle_exit.c                  |   2 +-
+ arch/arm64/kvm/hyp/nvhe/pkvm.c                |   6 +-
+ arch/arm64/kvm/hyp/pgtable.c                  |   1 +
+ arch/arm64/kvm/hypercalls.c                   |   4 +-
+ arch/arm64/kvm/inject_fault.c                 |   1 +
+ arch/arm64/kvm/mmu.c                          | 210 +++++++++---
+ arch/arm64/kvm/pkvm.c                         |   6 +-
+ arch/arm64/kvm/pvtime.c                       |  14 +-
+ arch/arm64/kvm/rmi.c                          |  18 ++
+ arch/arm64/kvm/sys_regs.c                     |  28 +-
+ arch/arm64/kvm/vgic/vgic-init.c               |   2 +
+ include/kvm/arm_psci.h                        |   2 +
+ 23 files changed, 752 insertions(+), 155 deletions(-)
+ create mode 100644 arch/arm64/include/asm/kvm_rmi.h
+ create mode 100644 arch/arm64/kvm/rmi.c
+
+-- 
+2.43.0
 
