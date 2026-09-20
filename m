@@ -1,93 +1,87 @@
-Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from forward500a.mail.yandex.net (forward500a.mail.yandex.net [178.154.239.80])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9652F1C8604
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 09:28:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18E2D2FD69D;
+	Sun, 20 Sep 2026 09:28:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789896505; cv=none; b=oQtsmkQQ9mv5C7Va05UnqFZKQnL4xL3zzjoaTSgo2fH+viK03d6KtFzypcq/14fVjBMvmcTOuDNhVXYTI2XdMek108XcNfnf9eR1l+/xAmrzy4tA65zinPNtgNYYspDGx8NGf31tZwuzwRSYEP0uzutpJt4q+u0/juFIhiNY5FQ=
+	t=1789896529; cv=none; b=AaUCs3Nc4/SXtDzqFpeHaGCckjG7nrCByTs6G58Gyjv+OuiCqqFc5dJ8k0LunaheCk7c15xk2BDlCAeIoD6bt8RmbNCoRby5yQ551cppvlQJe0ktAJUTWLJ/lEH2BgHUkyGewv6h1hsvxbzzGjIBC9PPKbR64asWn6NXAG/TMYA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789896505; c=relaxed/simple;
-	bh=6uIS438IgCmKJpuw+BfOiRPv/TfQv4mUb8H6jmXbYyA=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=riSmkumP8PkL2YLOHUhEhcWoPtjBrY60kPPz1d9ol57xgquMB00vMWRqh1uURP3NzQcxZWdrne6pk4z6fGEM1JTscSU1SiZ4paOR+4jGqF7M7AA6Qkjfhwla50u0fs2qR/dRp85I1drRuGFyMy2q0IRq9oWra3vouReDeIjk7tM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6a313ec13ceso3740337eaf.2
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 02:28:23 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789896502; x=1790501302;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=3LEirGodP23m3O7ITRgEdygwybna6EsxfMt0ijJiELk=;
-        b=z8f4mM6y/3Q9ghu184vx6iTB8vsjlTaqmXWZ7V5vBAg+id308RoBKwbi7ha8VJ06Wv
-         phmEe2fgIRq7esLjeYCFPZnGDWqhRsmnDCuh/Vo1CuCK9eEIBiHcSqYeWOGLtcbkCmVp
-         s+OxmJbJSOcaPQS9AJDxY42B7Bu8YAj3xGIn1Wl8YhzA5TyWe4nBfvlHQo2+JSVC5/W5
-         /pbPLMNY2bC1FeUdXvLBwHjH0SjQTis7BRTT4heoYSzaP7EKnScW11LN1rRDWZ+HgCXm
-         bvDYIgezwTLPOTB3SPbFsEbVGXehDw1p47RtNrAEnX7FD+S91gHMhfsO5vonpScqUExb
-         9CZw==
-X-Gm-Message-State: AFuF++kc57wSZQqb14zaMkjwFoO5vZW9wmCxFocYxwSeuCe5Ko9KHYC6
-	ZzZ5/MdDpeb01zA40Zw/FqrqlX+++wZOuQ3lhGSxniiXe6eP1X8bV0+iKngdscPdwdNOw4rlzFD
-	dLadLe2uTKrxtSe74751cRfVkzDrg7p7EUziHpESJCDdfYi4a0rDKST7L13s=
+	s=arc-20240116; t=1789896529; c=relaxed/simple;
+	bh=oNyKHqjyScwXJJQ7Ewot/NDNXH3zuT7+mWkU2535y+Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gqdiTf4xfdFAziIM8E7uxoUkluEFa7yyQt3WyaSDR4jp1RDhYxmrBfpjkojpwYc0HNCkRACGm7FNKymSJVdL2Sdhzok+0LlkdP1clRdqpdV+xvczQkr8k2PnvHQylQbfgrh4hUl450USnB5bVj7IpHucQeeAQaFytQrvevPnL1Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ya.ru; spf=pass smtp.mailfrom=ya.ru; dkim=pass (1024-bit key) header.d=ya.ru header.i=@ya.ru header.b=Y0FK9qEj; arc=none smtp.client-ip=178.154.239.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ya.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ya.ru
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=ya.ru header.i=@ya.ru header.b="Y0FK9qEj"
+Received: from mail-nwsmtp-smtp-production-main-84.vla.yp-c.yandex.net (mail-nwsmtp-smtp-production-main-84.vla.yp-c.yandex.net [IPv6:2a02:6b8:c0f:39a:0:640:15c4:0])
+	by forward500a.mail.yandex.net (postfix) with ESMTPS id 1E8B3C147B;
+	Sun, 20 Sep 2026 12:28:37 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-84.vla.yp-c.yandex.net (smtp) with ESMTPSA id ASVxuRVdNKo0-nUWTg5CF;
+	Sun, 20 Sep 2026 12:28:36 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ya.ru; s=mail;
+	t=1789896516; bh=36ZUbDZxVroSbV9v3Xm3HcYk31AN564Ob58ZdtT80Dg=;
+	h=Message-ID:Date:In-Reply-To:Cc:Subject:References:To:From;
+	b=Y0FK9qEj4/ykuzWvXAyCQIoCAZy9sgXc+uS5RoPnztCfaUqcqFKcRgfKuMdoN9XRC
+	 nzqskoIH55JjuD9YPEeD1q/BuBlb9YeExgBcVIBC5UWVYD9U9/DakrsWmcY0w5zwUb
+	 q5fwtCr4h7IloV9QdJCA0nDF3lkVlUcBtOyJYndc=
+Authentication-Results: mail-nwsmtp-smtp-production-main-84.vla.yp-c.yandex.net; dkim=pass header.i=@ya.ru
+From: Ilya Pavlukhin <i.pavluhin@ya.ru>
+To: Takashi Iwai <tiwai@suse.com>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	David Rhodes <david.rhodes@cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	linux-sound@vger.kernel.org,
+	patches@opensource.cirrus.com,
+	linux-acpi@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/4] ACPI: scan: Add CLSA0102 to the serial bus ignore list
+Date: Sun, 20 Sep 2026 12:28:05 +0300
+Message-ID: <20260920092808.17234-2-i.pavluhin@ya.ru>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260920092808.17234-1-i.pavluhin@ya.ru>
+References: <20260920092808.17234-1-i.pavluhin@ya.ru>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:1c82:b0:6c3:68bb:ec5d with SMTP id
- 006d021491bc7-6ca9bf49e90mr5847044eaf.33.1789896502398; Sun, 20 Sep 2026
- 02:28:22 -0700 (PDT)
-Date: Sun, 20 Sep 2026 02:28:22 -0700
-In-Reply-To: <6aab8055.71f81b7d.278072.0016.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aafa736.a6af0033.177e91.000b.GAE@google.com>
-Subject: Forwarded: Re: [syzbot] [ntfs3?] WARNING in ntfs_evict_inode
-From: syzbot <syzbot+3db654d91b471c4d7a7d@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+The Lenovo Yoga Slim 7 Carbon 14ACN6 (82L0) describes the two CS35L41
+amplifiers of its bass speakers as a single ACPI node, HID CLSA0102,
+with two I2cSerialBusV2 resources (0x40 and 0x41), like CLSA0100 and
+CLSA0101 on the Legion 7. Skip the default I2C enumeration so that
+serial-multi-instantiate can create a client for each amplifier.
 
-***
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=215632
+Assisted-by: Claude Opus 5
+Signed-off-by: Ilya Pavlukhin <i.pavluhin@ya.ru>
+---
+ drivers/acpi/scan.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Subject: Re: [syzbot] [ntfs3?] WARNING in ntfs_evict_inode
-Author: adarshdas950@gmail.com
+diff --git a/drivers/acpi/scan.c b/drivers/acpi/scan.c
+index f48715ed8..1d9698df9 100644
+--- a/drivers/acpi/scan.c
++++ b/drivers/acpi/scan.c
+@@ -1768,6 +1768,7 @@ static bool acpi_device_enumeration_by_parent(struct acpi_device *device)
+ 		/* Non-conforming _HID for Cirrus Logic already released */
+ 		{"CLSA0100", },
+ 		{"CLSA0101", },
++		{"CLSA0102", },
+ 	/*
+ 	 * Some ACPI devs contain SerialBus resources even though they are not
+ 	 * attached to a serial bus at all.
+-- 
+2.43.0
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-
-diff --git a/fs/ntfs3/frecord.c b/fs/ntfs3/frecord.c
-index bead01a953f3..5f833a75a829 100644
---- a/fs/ntfs3/frecord.c
-+++ b/fs/ntfs3/frecord.c
-@@ -7,6 +7,7 @@
- 
- #include <linux/fiemap.h>
- #include <linux/fs.h>
-+#include <linux/iomap.h>
- #include <linux/minmax.h>
- #include <linux/vmalloc.h>
- 
-@@ -1943,7 +1944,7 @@ int ni_read_folio_cmpr(struct ntfs_inode *ni, struct folio *folio)
- 
- 	if (vbo >= i_size_read(&ni->vfs_inode)) {
- 		folio_zero_range(folio, 0, folio_size(folio));
--		folio_mark_uptodate(folio);
-+		iomap_folio_mark_uptodate(folio);
- 		err = 0;
- 		goto out;
- 	}
-@@ -2521,7 +2522,8 @@ int ni_read_frame(struct ntfs_inode *ni, u64 frame_vbo, struct page **pages,
- out:
- 	for (i = 0; i < pages_per_frame; i++) {
- 		pg = pages[i];
--		SetPageUptodate(pg);
-+		if (pg)
-+			iomap_folio_mark_uptodate(page_folio(pg));
- 	}
- 
- 	return err;
