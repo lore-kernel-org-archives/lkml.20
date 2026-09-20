@@ -1,83 +1,114 @@
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54CEA470EAF
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 17:10:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1618D3803DC
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 17:11:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789924244; cv=none; b=OaGhnXxWCLbD9xsA/Pyf3KpCtH0hrVSPBXrmlA5BiBOxkZF6kkeReJjtXmZgydqI1jYiLO6VJsmCvERaAET+wzbIdOCOF+kVy4Z8w4xbCxtl2uXAElf8hk9IIa6UFcGK2LPVLWsDm4V3DWQZ5GQZf9VoHWt4ysLr/O8skQ0txD4=
+	t=1789924305; cv=none; b=ZTKkNdXswMBYoDyJKPqzyw37XYJpM/g/V6cVMtT/jG+5nCAA9NeoAdoztvSyAK3GYO/ihjpYc7eoPLz5tU2huqVJZhoWU3OYFx5DE534Paj/HhFzyehEkLkubP+DJoFRIJ0rjNU8IedxcOgTUAuO0yRPJDcb8wAN/QW7vdzgDYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789924244; c=relaxed/simple;
-	bh=m/K1OkPa5NYvWpIHpoqecii+PsO5ZMdWLsbXqX3ixEQ=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=VvQVrFrAFlSpC1bFBUaLV5XybH6U47YjrjYj9X2w7SFaURn/OQKynWsCPG5JqlgJIF3JBSzcDM/iqSVpt3dqj4gGWPHHu2rj0/h2D9QudfY5mPLU6foqnVqPQiP08ZoVWmeNrBCk5mXRyLDPHiU6U0bIP+ZYwRyO0YZB3ioUaZ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Fs927xIh; arc=none smtp.client-ip=209.85.214.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
+	s=arc-20240116; t=1789924305; c=relaxed/simple;
+	bh=JIViuTTa36vnm4LKlDozoMNmblMxizZrvdorz5RucFk=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=XzQiZeS/v0dWyxlQp/QPf5rmkx9XVspbzWJekF7saPHORFgOdefNtbF4fjcJ+d6FG09Dpnkobo7RO8sx0BwlKWEFZJ8pUFl7/4X1ITWRH89BgWh1sJg36/nFEpH6fQRymeSr3pJcm96qEgkGnYhvY6DHwG2Pc39YIqnSylHulws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=obzSfb20; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Fs927xIh"
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2dc92350888so41271715ad.3
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 10:10:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789924242; x=1790529042; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=m/K1OkPa5NYvWpIHpoqecii+PsO5ZMdWLsbXqX3ixEQ=;
-        b=Fs927xIh17QospCUPJcbnL8Z6UqO6gmgq9M8qaSNDCKlLZrFivkHaw+bp8c/vjbNgk
-         0MAQlV/RNu1icuSaUJhNw3xk9B0c3vQO1XKj1VCzGyafkzDS0mfbO3HG8D+BAOqb/V2Q
-         ngMb+Mi5DpWFeISToyhxYXxUlCSE7wtWxWEoGKWOSXm8qtnbTvkf2SxyKy8Cog/uk55q
-         EpWL5SO6ynEJ76ye+OwQWjTxLYrvk5hewbjU5FFUYm96mrdWKnD6B3HpeS5xDNOrg1Sd
-         mz24TVQyCOPUMwtzs8M24NkkIFCozUJ0b0aTbdfVQAmz1eZSZQuow9Kc+t347uko1ouU
-         Dnqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789924242; x=1790529042;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=m/K1OkPa5NYvWpIHpoqecii+PsO5ZMdWLsbXqX3ixEQ=;
-        b=PbOkx/PABVN3tRmvhDIbb5xmokddERF6fsAUXLQ2dX+giYSUxbNDpYV466zJv2pJEV
-         qF0fehtqeNmRHR1txYf/8W/6ETF9ftZLzAQ7yhdx6+lUXBJUpDU6y+DcofBGENaMPDFg
-         EI+16wi3Hk7eY0O9bFhndV7OL4z+SwNE1ipuXTetgNNo9ij6D0X4XTFQW+A7NW4LZnbA
-         UrNdwRRvvIOyJ+1d9CpWNUlvnpG3YoysmRvEWf80QlQxy1WodhqzkvK5F7kAiATrMxHg
-         BmNzjKI7jE9P45vq9E1N9DDQW30zbS8T7sBVurb3KSEh/f/ne+NOk4XfxpeEulNCBhVQ
-         EezQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxxNcE0Mm0d+ztRwbvpK0bgtRlOn2IjkV1MTG5kkdxlu2JcFz26XzeHP49xNBVz2mZSfj4xEkptr/ZRVhQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nJvFWL1ltsfHkzU5WOEWaYH3R2hzhWhxa3MuxxxFns5fDzIDvG
-	hapnUeQOaSDVqHkBmFXig+SJdgTYlHyhal/JzJZCs2MqL6BM62CFFpERjUuBg1oIhz0GVvnaPbn
-	K20L79Cw/GpOOQA6k9gemgA==
-X-Received: from plar12.prod.google.com ([2002:a17:902:c7cc:b0:2dd:5ae:3a51])
- (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:903:2f4c:b0:2dd:c170:2d4d with SMTP id d9443c01a7336-2ddc17034demr76642115ad.24.1789924242402;
- Sun, 20 Sep 2026 10:10:42 -0700 (PDT)
-Date: Mon, 21 Sep 2026 01:10:40 +0800
-In-Reply-To: <20260911024319.1346706-1-stanleyjhu@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="obzSfb20"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3B0A1F000FF;
+	Sun, 20 Sep 2026 17:11:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789924303;
+	bh=YUp2D27cXCNMEfO9EkW5EKw+NqkIliLntU5xcCUr0W4=;
+	h=Date:From:To:Cc:Subject;
+	b=obzSfb20veuYhMmI4VjcQGh+gCsiY+Xf45fWHTAwHa5vABbaYqkkyM9m4L1hD22Ot
+	 rl1/A4+kNHXZtGuQSszJIJdUMSNcNYXeV6K7je6QDRnVPjp1mtYvC14KkrlGpycXlN
+	 2e/OaNnczLw9DLXCOOyr4X+aznNAVa6Ct5G93SPeepsjyQ03yu7xlauabE/m12xMsy
+	 GlEZ61gBa16nXp1CuoeOaTW5n8drLlCU1YR07+ioTdW6Sy6ZU0/lyP8R5VFwD8GLxd
+	 l9isquvf0F/WYeHjJgVNFrah/cqTVUgfUn5oSD7hiknC6upMC/pg0rvigpqEKiDHg3
+	 HiXYSPdRYbbSQ==
+Date: Sun, 20 Sep 2026 22:41:39 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: LKML <linux-kernel@vger.kernel.org>
+Subject: [GIT PULL]: Generic phy updates for v7.3
+Message-ID: <arATyx8IcifVCpp8@parshuram>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260911024319.1346706-1-stanleyjhu@google.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260920171040.4052486-1-stanleyjhu@google.com>
-Subject: Re: [PATCH 0/2] scsi: ufs: core: Handle devices declining optional
- Query IDNs
-From: Stanley Jhu <stanleyjhu@google.com>
-To: "Martin K . Petersen" <mkp@kernel.org>, 
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: Stanley Jhu <stanleyjhu@google.com>, Xilin Wu <sophon@radxa.com>, 
-	Bart Van Assche <bvanassche@acm.org>, Avri Altman <avri.altman@sandisk.com>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, linux-scsi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="d+gREyX0Hg9nRDqN"
+Content-Disposition: inline
 
-On Fri, 11 Sep 2026 10:18:47 +0800, Stanley Jhu wrote:
-> Compile tested on arm64 (defconfig + SCSI_UFSHCD).
 
-Quick update for the thread: Xilin Wu tested this series on hardware
-with a Kioxia THGJFJT2T85BAT0A UFS 4.0 part (with the device quirk
-dropped) and confirmed in [1] that it resolves the 0xFD Query response
-errors on boot and resume.
+--d+gREyX0Hg9nRDqN
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-[1] https://lore.kernel.org/linux-scsi/B6ED6CADE807138B+422dda6a-301a-4bd1-befd-b932ea9f46e0@radxa.com/
+Hey Linus
+
+Please pull to receive the fixes for Generic phy subsystem. This
+contains couple of driver fixes
+
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/phy/linux-phy.git tags/phy-=
+fixes-7.3
+
+for you to fetch changes up to 486a70ef848264dcf9a57f0bb0452848db9537de:
+
+  phy: mediatek: phy-mtk-hdmi-mt8195: Fix TMDS clk bit ratio setting (2026-=
+09-13 16:05:23 +0530)
+
+----------------------------------------------------------------
+phy fixes for 7.3
+
+Couple of driver fixes
+ - Atomic context delay in renesas driver
+ - TMDS and PLL rate calculation fixes for mediatek driver
+
+----------------------------------------------------------------
+AngeloGioacchino Del Regno (2):
+      phy: mediatek: phy-mtk-hdmi-mt8195: Fix PLL calc divisor overflow
+      phy: mediatek: phy-mtk-hdmi-mt8195: Fix TMDS clk bit ratio setting
+
+Claudiu Beznea (1):
+      phy: renesas: rcar-gen3-usb2: Avoid long delay in atomic context
+
+ drivers/phy/mediatek/phy-mtk-hdmi-mt8195.c |   4 +-
+ drivers/phy/mediatek/phy-mtk-hdmi-mt8195.h |   3 +
+ drivers/phy/renesas/phy-rcar-gen3-usb2.c   | 310 ++++++++++++++++++++++++-=
+----
+ 3 files changed, 270 insertions(+), 47 deletions(-)
+
+--=20
+~Vinod
+
+--d+gREyX0Hg9nRDqN
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE+vs47OPLdNbVcHzyfBQHDyUjg0cFAmqwE8sACgkQfBQHDyUj
+g0er0RAAgkcE6ycPdAkDcHYCngc6HdT5+kE4WGhEteOyEd0BRJRbADJN9+0FRpFd
+PvUCz1QG8iRGlIZkYpDXInBRK6rrY5xp04jSQLzz+ZFTPXMtH+frYDqw3rKtQ+OD
+CzZ3BkDIowI4vmaTkAgCFyh4y2XJutfU+VpqkroEgmVPpynKJO7fkUiqrE7XSCXK
+Pstr40lo67UIY3rmkYzUWX5CV2YfZzPJR4TajKHSujtIjSDxgELMoS94Fn21f9mm
+STZTzdRbbJhrI59zpDHyZC89CGpvqspUCGYNfs6/LZ2foC3VzaLjh6b59bEx3elt
+bqXa/XsJJzMIuX2f6L1w2YpVUfww5SKezf9LH0sx91bWxYuK2LfqK4pimwUoED7a
+kuVBv7agN/0MBFfndEpx+QosJy8nngy1jhZdToHGLdLuX6o56UOmV+hd8XEFdRWS
+tRj85ssZnl8LcI4Ql73gQomnUhCdi4POMuPT4Ucz9uaAhnc2lTgUBMLO5SOhodyk
+yIh0b9cBiuI4KKAGcnWdwZcbkvrbtki0J/O/1lvkS5Eowb4mh3hL3QzOHOkIg4hQ
+5QAKaP/i5VKplO/B1Ksz1fg3ps/ASQMAiGW51/K+kBFa/jIFGCuSWM8bEqSnrQ/B
+2fs4LRyyV5JRRz/Jt4KhUh/9DMpTAgWJT4EQcZ1CURRKIea45Js=
+=9Heb
+-----END PGP SIGNATURE-----
+
+--d+gREyX0Hg9nRDqN--
