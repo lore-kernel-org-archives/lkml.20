@@ -1,128 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3CB23002DD;
-	Sun, 20 Sep 2026 07:30:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D17C385D8A
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 07:31:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789889451; cv=none; b=edvkCPfeF1SazAEvp2fwIU/q6IQGpOQ+dXZYJ8/zOT4kLBcX3ocIwsHddevs9kzTJ22ZzipRcInbhjly70FT0TeS8DeuSbtnKmvCrVXIVSUtAlKY3vy51AulSI4c62m6Ta8MQrYO6Tl/cs3U4g4MWmPidFbY2enmCh7HGfaOHsY=
+	t=1789889512; cv=none; b=goqcMLv5oTGvE13FoL1cg4blck1Mp/fGWR8yUow82HTcYowELDE5x0eimMRBq5SQfYf46blWmyTe1JPYg/TGgEdgVyZwOJ25YCj11+ceAEtA4o+RNJH5o9Wcz7Kk7Sny2FCvg6guf+mjldp1oCDNsHwGQTImteSM/m0kPjsQUB0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789889451; c=relaxed/simple;
-	bh=hmw7PL6rA600kATIzt8ky7c+Ug3B0QKSJP/gM/Lp/sQ=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=KakmugWpWB4G4qjVuP6zv9udPUwhuB+ta4n0dPQfO0LXT3lsRy4b5cXwpx0CSkkup/fU+Xr5SoL0z3nE/QF8YJnqbjtyylV7uJp+eD3y5S+9uHHHg9Nid38usVua1r7I3w4g/bxZmBwsEY9R0OlAjgS7tL5MRojnqDuKNjRAGig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EuD+4cwI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789889512; c=relaxed/simple;
+	bh=jfISFHccu2UqRsiLdsx03nCmH78bx7oi1EBN6gkgJ0E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=BgevCyypa1oN55UZ+0d5AIqQTwbL3VT1XHHvUbnKzZp7peOrX8aeZFkcnBxIB5NZc6vbXRRYDlD7POA9M/EHEqZJL1VTT4xlHFh4U0MRqwZzyv1JgGvlJB6+cKgHzFZD97eFquMaQ5iB9+XtWyEzGkvnxpYowpnHvEytdEcgp7s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=evalinux.com; spf=pass smtp.mailfrom=evalinux.com; dkim=pass (2048-bit key) header.d=evalinux.com header.i=@evalinux.com header.b=JUNS+4zw; arc=none smtp.client-ip=74.125.231.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=evalinux.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=evalinux.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EuD+4cwI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 751E41F000FF;
-	Sun, 20 Sep 2026 07:30:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789889450;
-	bh=NlcQPH+hnV8k+jkyyiuMykhGBZ8m+4m85Q2Yy0P4LsI=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=EuD+4cwI1om3+k6trMDbGR6lIg817UZgwYUOnfM8yDv81K9zWwxeJbpxsmu1jYmGU
-	 0ulrGgk8F9dAAxpHHlLBET0+gh0QZQcHDW+NbacBiQ+c2tUOHa1f+0mZ6kqT4jXNM3
-	 KbzM3XlPoS4m8kHdy+0Kivl3nL06N/41gDi4KXqsb82sdWuTsf3k8hXOhlhEbZ5xKf
-	 TClEBYzPuhBHCrl1HXDKleAgiqGsh7dtFSNWQGvUk2E0L+JMsUZNkkZtRX9l3G4lr/
-	 coJG6B8W/j0BEM2R3qSlBJLITnuNPOzDlNmIink8/iZ6GlJJcMk0IkoXZlNndymkMm
-	 g5DB3VXB9cVfg==
-Content-Type: multipart/mixed; boundary="===============8035067619570924591=="
+	dkim=pass (2048-bit key) header.d=evalinux.com header.i=@evalinux.com header.b="JUNS+4zw"
+Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-46accbdfc20so1643352fac.0
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 00:31:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=evalinux.com; s=google; t=1789889510; x=1790494310; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bEa97+NVpDACV0kWi4lR/v50EIFrpNArQgZwPyPPEf0=;
+        b=JUNS+4zw99jHMC2A6QD+OpsyIkCfq68OBh3Z7Xr9VevQ2h75+9kiQwDroR0CXLoPro
+         BL8QwY868jsxGUlxtaJ7hJmQnP2viqMeIxPeiwmvBxfP60+0+F0UovkqHZxa/TLz/u9n
+         tpf6VXTZ6ABCm6dC+dAuKmrY00dCqbRCvjbjYdkTSHyicLo+DTG0j7Q5dmRklmgk3qq0
+         Hd8T7C5nGAnwp88bFY1lqLFN7FU9VLkJ4DxRhiK4cBFqRzJNzxfZkIz984N8Yhc0krun
+         ZYDCL2MO0r/r42zKfL7dY93Yy5i63uYJZP7LFet5WSJ2tlLHidxcEoP59nDuEr9BcXgm
+         ef7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789889510; x=1790494310;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bEa97+NVpDACV0kWi4lR/v50EIFrpNArQgZwPyPPEf0=;
+        b=vpaBY96dKO5io48jWWrQef/DOMLTrqqmCTpq+5na5Sz6A6+w8PKn+jRM80ttT0UyR2
+         uCsrvimeQuPDA8DE4H4jOoEsoTkr6EWS064M7pHocC2Ax8i8iMBbcpZCTNOjRN6eKAoD
+         ZCHObwKDC8diRiovf8SP8/nma4LG1KY3XWegyDPt72cIjFlf4746stt+cidcr31bDpdZ
+         At6+JEVemKLmGUV5WKqqhjYn70ox6GbN7cxx/Ngn170rb3jJKu7Bf+uiIP3aKcdOEdK9
+         3yFu+f3hnvu0cBBGl2Od/ErRlgKL1I/iBz63aGRPoo6x2+Mwi0zYeG5A2VCZaUShIHNr
+         iPGA==
+X-Forwarded-Encrypted: i=1; AKwUvBwFOmb3tQqorSwlqPPe8eMLeHIUQhkImQIS5lB03ceWJww08aYvL97hrhqyFT41LhZWhC7j64/PNkSTldk=@vger.kernel.org
+X-Gm-Message-State: AFuF++m6DAQXKKrXQZOy0bUlLBk82IT8WUf+0eqVF5bnEXOusPBG26L+
+	CoyjnRCgwpLyJPU0M8bxoLTWdKbtZM4UtOOSZ8vZ3236/0rRgb+N/WQhdp5VfuFteJ4=
+X-Gm-Gg: AYBFou0jPgM4gfG/XNPIG+p99pWs6hMGhBGHXQ2V6pcAeBnbmID5w7QtebFGUlEH9ey
+	YJoxSR0H/eYAC/qZ4ibTQ02yOGGvLBeLucduXiFo8jwdSwGeLLTordw0iMA6Fe9zeEcYXjTsfal
+	lOSN2ijjRaTYCith8ndgnE3ouHwrpsDCrN5Mqz0tD9LFyb/95t1EGMuuZyshQJStA5BCrmIiS6k
+	iOx0Kx4QhZY7H6HvudwH/XGheZCyqCcND91TqFrzqZKmcobgL5NfnDmnrsWu1uph61+YQzuH7xc
+	6pfj/PGQUKIWu1lHDVq9RsRQpY+eq6yBe57UW2YsHxOcKo2gOW0+1nZgfcntFItVgtTq1xw5KU6
+	zWGXCulTzzFRVxFMFCRAGvnFl58uNiQtcZQL6FDnurGv5QA6lkHgmoD9lmY1dE5NSJ/Dm8wNNqi
+	sy6gS5Ht0k0/94g+1YT7lfQl5f90IwK2xKgnf7SIbVrTBVQ5RM12DR04BcHK3uiPopTlE2YwvMK
+	1qAmPLNLUI+2mrLNwBbhD1f9U6Nug==
+X-Received: by 2002:a05:6820:4c08:b0:6bd:e592:2c64 with SMTP id 006d021491bc7-6ca9a847c43mr6021838eaf.23.1789889509901;
+        Sun, 20 Sep 2026 00:31:49 -0700 (PDT)
+Received: from desktop.lan ([2001:470:1f0f:2e4:14ce:9fa2:a97a:cd20])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6cd35f15a1asm5083680eaf.14.2026.09.20.00.31.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2026 00:31:48 -0700 (PDT)
+From: =?UTF-8?q?R=C3=A9nich=20Bon=20=C4=86iri=C4=87?= <renich@evalinux.com>
+To: Alex Shi <alexs@kernel.org>,
+	Yanteng Si <si.yanteng@linux.dev>,
+	Jonathan Corbet <corbet@lwn.net>
+Cc: Dongliang Mu <dzm91@hust.edu.cn>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Bagas Sanjaya <bagasdotme@gmail.com>,
+	Steffen Klassert <steffen.klassert@secunet.com>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?R=C3=A9nich=20Bon=20=C4=86iri=C4=87?= <renich@evalinux.com>
+Subject: [PATCH] docs/zh_CN: fix stale :Original: reference in xfrm_proc.rst
+Date: Sun, 20 Sep 2026 01:31:44 -0600
+Message-ID: <20260920073144.546566-1-renich@evalinux.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <4a411cdeff7f7ac68d0c938b22e0acf2c8beb96db88ba1ee7961c981efb3394c@mail.kernel.org>
-In-Reply-To: <20260920063442.499577-1-yangfeng59949@163.com>
-References: <20260920063442.499577-1-yangfeng59949@163.com>
-Subject: Re: [PATCH bpf-next 1/2] bpf: Reject bpf_skb_output() from return-side tracing
-From: bot+bpf-ci@kernel.org
-To: yangfeng59949@163.com,kpsingh@kernel.org,matt@bobrowski.net,song@kernel.org,jolsa@kernel.org,ihor.solodrai@linux.dev,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,yonghong.song@linux.dev,emil@etsalapatis.com,rostedt@goodmis.org,mhiramat@kernel.org,mathieu.desnoyers@efficios.com
-Cc: bpf@vger.kernel.org,linux-kernel@vger.kernel.org,linux-trace-kernel@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Sun, 20 Sep 2026 07:30:47 +0000 (UTC)
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
---===============8035067619570924591==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Commit 03e23b18c720 ("net: Move XFRM documentation into its own
+subdirectory") relocated Documentation/networking/xfrm_proc.rst to
+Documentation/networking/xfrm/xfrm_proc.rst.
 
-> diff --git a/kernel/trace/bpf_trace.c b/kernel/trace/bpf_trace.c
-> index 29260951aa871..cdede3926e5d6 100644
-> --- a/kernel/trace/bpf_trace.c
-> +++ b/kernel/trace/bpf_trace.c
-> @@ -1339,6 +1339,20 @@ static inline bool is_trace_fsession(const struct bpf_prog *prog)
->  		prog->expected_attach_type == BPF_TRACE_FSESSION_MULTI);
->  }
->
-> +static bool tracing_prog_may_run_after_target(const struct bpf_prog *prog)
-> +{
-> +	/* The target may consume pointer arguments before these programs run. */
-> +	switch (prog->expected_attach_type) {
-> +	case BPF_TRACE_FEXIT:
-> +	case BPF_TRACE_FEXIT_MULTI:
-> +	case BPF_TRACE_FSESSION:
-> +	case BPF_TRACE_FSESSION_MULTI:
-> +		return true;
-> +	default:
-> +		return false;
-> +	}
-> +}
-> +
+The Simplified Chinese translation was not updated accordingly,
+leaving its :Original: tag pointing to a nonexistent file and causing
+tools/docs/documentation-file-ref-check to report an invalid reference.
 
-Does this new helper need to be static inline? The function is defined
-unconditionally here but only referenced inside the CONFIG_NET block of
-tracing_prog_func_proto():
+Update the :Original: path to point to the new location.
 
-kernel/trace/bpf_trace.c:tracing_prog_func_proto() {
-    ...
-    switch (func_id) {
-#ifdef CONFIG_NET
-    case BPF_FUNC_skb_output:
-        if (tracing_prog_may_run_after_target(prog))
-            return NULL;
-        return &bpf_skb_output_proto;
-    ...
-#endif
-    ...
-}
-
-bpf_trace.c is built from CONFIG_BPF_EVENTS (kernel/trace/Makefile) which
-depends on BPF_SYSCALL and (KPROBE_EVENTS || UPROBE_EVENTS) and PERF_EVENTS
-(kernel/trace/Kconfig) -- none of which imply CONFIG_NET.
-
-CONFIG_BPF_EVENTS=y with CONFIG_NET=n is valid, and in that configuration
-tracing_prog_may_run_after_target() becomes a defined-but-unreferenced
-non-inline static:
-
-  kernel/trace/bpf_trace.c:1342:13: warning: 'tracing_prog_may_run_after_target' defined but not used [-Wunused-function]
-
-With CONFIG_WERROR=y (init/Kconfig) this becomes a build failure.
-
-The pre-existing predicates immediately above (is_kprobe_session(),
-is_uprobe_multi(), is_uprobe_session(), is_trace_fsession()) are all
-written as static inline, which is why they don't trigger this warning.
-
-Would declaring tracing_prog_may_run_after_target() as static inline fix
-this?
-
->  static const struct bpf_func_proto *
->  kprobe_prog_func_proto(enum bpf_func_id func_id, const struct bpf_prog *prog)
->  {
-> @@ -1730,6 +1744,8 @@ tracing_prog_func_proto(enum bpf_func_id func_id, const struct bpf_prog *prog)
->  	switch (func_id) {
->  #ifdef CONFIG_NET
->  	case BPF_FUNC_skb_output:
-> +		if (tracing_prog_may_run_after_target(prog))
-> +			return NULL;
->  		return &bpf_skb_output_proto;
->  	case BPF_FUNC_xdp_output:
->  		return &bpf_xdp_output_proto;
-
-
+Fixes: 03e23b18c720 ("net: Move XFRM documentation into its own subdirectory")
+Signed-off-by: Rénich Bon Ćirić <renich@evalinux.com>
 ---
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+ Documentation/translations/zh_CN/networking/xfrm_proc.rst | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/35495259029
---===============8035067619570924591==--
+diff --git a/Documentation/translations/zh_CN/networking/xfrm_proc.rst b/Documentation/translations/zh_CN/networking/xfrm_proc.rst
+index a2ae86c44707..6990f8e2fdb4 100644
+--- a/Documentation/translations/zh_CN/networking/xfrm_proc.rst
++++ b/Documentation/translations/zh_CN/networking/xfrm_proc.rst
+@@ -2,7 +2,7 @@
+ 
+ .. include:: ../disclaimer-zh_CN.rst
+ 
+-:Original: Documentation/networking/xfrm_proc.rst
++:Original: Documentation/networking/xfrm/xfrm_proc.rst
+ 
+ :翻译:
+ 
+-- 
+2.55.0
+
