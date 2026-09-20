@@ -1,95 +1,96 @@
-Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22066391E76
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 07:23:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ABD53C8C71;
+	Sun, 20 Sep 2026 07:24:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789889030; cv=none; b=SxssV+9AnJu9zNqIxNUigtHxMGooXkp8qGXnlVaTskYNqI2lSlA/XZPp87PlqTSyyos82WAhcOYuKKAMbmUAxWsUwpv8QKLRlvMMHkMyLwcKVQR7ugdgybaT8kqlhHUrQ7nbov2UdoxAl7fH9Uyivxa+ggiP/1FXvIovCQ8QUbE=
+	t=1789889089; cv=none; b=m7CHEST2hQHyMzvq6K2R12IBuku5ipiyAbCLzd5xMo5M/ttiFNk7r5PfpSmQFNwtlcS/pfEMvaaOSDLAj5HF01cRYpJ5HKUt263Bj/JyRCS15UbGSpCVInSjYwunxcAHtzl7aFBkXusloBmonzc4u4oUCDH2FS+GNd4YIVKIc7g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789889030; c=relaxed/simple;
-	bh=AeWelz4k6J1dGXylFFs/k7Dk9LRIhfrxmpYuVJoufpU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ycbl8Jp09zifOuuIo9ds/yZML9VTIMS6w321oo3je9jkDpU+5KJARdnsGIIIUOxxbITKKE+Ao06w1c2SCtkgdaPOSWUX+5sAIK+TiVcUX/3Mm0BaYgWRiGknSD0oiVnITghP8XIUZOOLu96jIT6S2pMNdCEe6M4fZqPgZN05Hio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=XIMEAXaX; arc=none smtp.client-ip=74.125.228.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
+	s=arc-20240116; t=1789889089; c=relaxed/simple;
+	bh=FPVGdonagIacHcL/d/dZ+5gGqIpfFwUk3LIT+aCs9BI=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=JIrMf8Nfl8QqEhdHKJ+pNZotD0a+VElaHhX0fpf9VkAt2qqCzxTIPi/Kn2npjSBCyPJt01PjlWCYRPsQIGwgaskATdDk959V6pzdDiP60nnQbMdPVkJbKE5CXfj7uwFESDpFLodpl/pqyb0SfW3NaVydpvUIV4MsASsScAhvlGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H7lGpA8o; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="XIMEAXaX"
-Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6a985fba28bso2337580a12.3
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 00:23:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=konsulko.com; s=google; t=1789889027; x=1790493827; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vdzTW+oAwMVEMniCDRRZb+1jeXG9GB5BYAHNipWBAgo=;
-        b=XIMEAXaX6LGPDLGp/+ydMMOD1DSOvs8MZbkwJfzdcDXNhdUhJ8j9zUht0RqF9Ohd9q
-         Zei/riCWNqepIeo/UgGPBRELiy4AxizPcsybjDyjXjTbV23uSAg/rxQB/JNA98cXUB2P
-         N6ymT+y7xEVZzhNzfr5IzUj1p67O3W1fh0n1I=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789889027; x=1790493827;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vdzTW+oAwMVEMniCDRRZb+1jeXG9GB5BYAHNipWBAgo=;
-        b=dSUqVs+kNKsevzM4r/r0ryVfueWLGXW6/R1pg8hgPn8okrpDDX/WRA+GKs10cjWUkb
-         HGdWfInrhV8W2QI+jz82gWg32LDQuENwiX5zhXK1xbnf50/WN0LmIX3wVCJMdKkD3JQz
-         Jyk63EmA5VK6z1OfOvvPjqKEfL16DLrECVeLp2t05AXD5Qs1HuQR1FyN5QW1e9lzUsmg
-         96X/XgwrAyChlzsty03JoNqrjRf4qhOnD3h+dyBg/gSv+QMQsuZmT+bAWxQ/TpLc0K6m
-         ybSo+pwnhrsgiD8PEbVkWSwjym+emku8pECM8gD3ZlMpsCdP/RVs3srn0ZXpirBC9v8C
-         Gnsg==
-X-Gm-Message-State: AFuF++mg6M//YjSd/wsG9l6/6sJQvruuGP2XScLzXTlxPvTADeqT1+pb
-	0g5J/zWrhuaWsguLTr/PnfCQycrjrcwgHtCupWlirx2Cl5XzHvWuC16Cfh6KrW67f1OV//IFNpp
-	mst63ZLk=
-X-Gm-Gg: AYBFou033IZyX5zynz4EballHBDMQPaEQfcy2/9wyz0E7V/yP09srEnqpexXQcSCNIE
-	C9QAhQ3cnhhzQgYP5BRnyXNiE6crSC0O8pgVe/6nLavCEiCwOiW/h5rZSCry1vCLj2O86wAvUBE
-	cprbVDLe914sE1Wa6QBal3m1SeiiitpyhL640rg8/YLyHVeo2Wz39bz//d8Yvyij2rUYSBrRqVD
-	W1HS2L1VShcHxo0IlTnGDWIqbr82y0xWVjcjCcvczR/ZVk4SWkWIM3akqhrAux152fy7kp3ZgIC
-	Geciec2Hw8/vphB4INsPj52a/lOkHP80X19Mb3dyVE0hS7GGrrjEzyT9GgjoTbrEJ+PHCvFBQvc
-	1nNzdjPr50zgHkgfjtndqQl+g60SEfp1cAi1aQ1bFVA1vTsdPQXRpP4p+uDkpa+vDHpkD9/kAve
-	Ku+2qtr3vtTdPklhOPljbeoGPGikfoC75eWkIKtAnA+oynle4WlXNWfvcOA8Doa/U2X4MFXvS20
-	V1UBL1bBaX7MQnE
-X-Received: by 2002:a05:6402:a0d5:b0:6a7:ee54:f897 with SMTP id 4fb4d7f45d1cf-6aa5319e9a4mr5445508a12.27.1789889026803;
-        Sun, 20 Sep 2026 00:23:46 -0700 (PDT)
-Received: from cabron.k.g ([5.203.112.129])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa67e3051esm2287839a12.29.2026.09.20.00.23.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 00:23:45 -0700 (PDT)
-Date: Sun, 20 Sep 2026 10:23:43 +0300
-From: Petko Manolov <petko.manolov@konsulko.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	dinguyen@kernel.org, arnemaximilian.richter@draeger.com,
-	martynas.grybauskas@draeger.com
-Subject: Re: [PATCH v6 2/3] dt-bindings: arm: altera: add Draeger M48 Module
-Message-ID: <20260920072343.GB7878@cabron.k.g>
-References: <20260917163157.1380860-1-petko.manolov@konsulko.com>
- <20260917163157.1380860-3-petko.manolov@konsulko.com>
- <20260918-robust-spotted-orangutan-4b669c@quoll>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H7lGpA8o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 395D11F000FF;
+	Sun, 20 Sep 2026 07:24:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789889087;
+	bh=JykXcVLQ+SODnQl6eDwSo0pjarUst5H1xKMW2Gg1dG0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=H7lGpA8oxCwUoMdVQLZKlRanbrT2e3x3tiI2Lv/9D2mNfO7SsqLrfSgi9mj5cwr4l
+	 p/4S240ofW0LQ/NXHEvBfaWJi8OayARjZWNnird0Y+O2aaUwfXpcQWE5mO42NMEVTe
+	 yo6Y+i71T0oRF/zB7055vZvPJ3YFrVP1wXaCHGKiREh3L3Q9S80Jn8MvJplBWtkvWt
+	 pEWj19lkvepnBXtCbeLK6jiB5c9mMO2VJaFTTc18K22kHyz5VVz+S2uP0IbcxE5lUd
+	 gK6IbamepYGVCW0X/R6kr1+rM/esDudpV4pxveg4hCltq1t23VXK3R+K0+ibmPWLTz
+	 XeoqLo1F/STZg==
+X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
+From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+	Marc Zyngier <maz@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Will Deacon <will@kernel.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	"T.J. Mercier" <tjmercier@google.com>
+Subject: Re: [PATCH v6 7/9] dma-buf: system_heap: Enforce shared-granule
+ alignment for cc-shared buffers
+In-Reply-To: <20260919213531.GI11599@ziepe.ca>
+References: <aq1V3oeDdvXobt8J@arm.com>
+ <97c30fce-9bda-4c61-b1b9-10297b89c8d9@amd.com>
+ <20260918153642.GD11599@ziepe.ca> <yq5atsnl47c6.fsf@kernel.org>
+ <20260919213531.GI11599@ziepe.ca>
+Date: Sun, 20 Sep 2026 12:54:38 +0530
+Message-ID: <yq5a8q4ws7ux.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918-robust-spotted-orangutan-4b669c@quoll>
+Content-Type: text/plain
 
-On 26-09-18 13:55:58, Krzysztof Kozlowski wrote:
-> On Thu, Sep 17, 2026 at 07:31:55PM +0300, Petko Manolov wrote:
-> > Add DT compatible string for Draeger's M48 CPU Module that is also based on
-> > Altera SoCFPGA.
-> 
-> CPU modules almost never can be alone, thus this is incomplete. You need the
-> final board compatible. SoM could be a fallback. See NXP bindings how it is
-> doing for example.
+Jason Gunthorpe <jgg@ziepe.ca> writes:
 
-Module is perhaps not the best of choice for this board, but to avoid duplicity
-please read my next reply.
+> On Sat, Sep 19, 2026 at 08:27:29PM +0530, Aneesh Kumar K.V wrote:
+>  
+>> +static struct page *system_heap_alloc_order(unsigned int order, gfp_t flags,
+>> +					    bool cc_shared)
+>> +{
+>> +	struct cc_shared_pages mem;
+>> +
+>> +	if (!cc_shared)
+>> +		return alloc_pages(flags, order);
+>> +
+>> +	/* The shared granule can raise the actual allocation order. */
+>> +	flags |= __GFP_COMP;
+>> +	if (alloc_cc_shared_pages(flags, PAGE_SIZE << order, &mem))
+>> +		return NULL;
+>
+> Oh yeah that's surprisingly easy because of how this loop works with
+> order
+>
+> Makes sense to me
+>
+>> int alloc_cc_shared_pages_node(int nid, gfp_t gfp, size_t requested,
+>> 			       struct cc_shared_pages *mem)
+>
+> This argument order is a little weird from mm norms?
+>
 
+That is similar to
 
-		Petko
+static inline struct page *alloc_pages_node_noprof(int nid, gfp_t gfp_mask,
+						   unsigned int order)
+
+-aneesh
