@@ -1,102 +1,81 @@
-Received: from mta1.migadu.com (out-204.mta1.migadu.com [95.215.58.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A5F0330652
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 09:59:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F0AA343D75;
+	Sun, 20 Sep 2026 10:00:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789898392; cv=none; b=Tj8F5RGo8VAaUgnhg0+3G5gF1cXAS9By50AiNtmEewUec/zsGFcgqSFVlOG9xEt8iGrmc8r1c/q/SW6X8+R6j07oNkrIaAawQa56nhAoxdtu7b6mnfE5LZTtSu8Kq61g0/IXB4SHTcYwXF054+C+vva+dcRVj1jn62q1Nj1YsLk=
+	t=1789898434; cv=none; b=MjowhUyoUahsRnyMiaJam0g56Cpglwty5BuBR6ajJisPTToF90w8UxQ+BNvvFL/2zKOlytkDCqQ/b5QrJglaMBxr0EJitKWotyFibJYz/HlQWt2IkXfupY3xQCcv2NQu0itmp+vhwDsmp7B1v1vUADlZs9rmX1hfdYS5YALd67o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789898392; c=relaxed/simple;
-	bh=i1HleDRhgKWtFLvlkCLckONA588VkME6KNONTyekZJA=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=qEQZIq2msJIstzlGgtDOYv8/1+2xArcIxDOnUMswLd6kkC+n6y96O94iCMIMFF9z5HQ8HZ7qgl32PoiT93DJZwd923qCu+rCKcCdFJqLPwyYu4vhsIC8OGFO3+XGCBWT+C4bKkXisb6h54nwjqRJAkxr7bsPHsx5MPuSgho7unQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gKe5u8bc; arc=none smtp.client-ip=95.215.58.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789898434; c=relaxed/simple;
+	bh=i/f+ltDwE+0pDEfrDUwL+taMO+IjvxPZcpSA4mM/NlY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=K3dUa4E7kXhktJQ23VlqJzEp7ajwoo68vZp5/Fn3S1EDbBBB5/dzl0ZK43/RJ3Ikp9kdsyJ51uPSWABeY1jzoyNZQaYJYD0PUHv6FgCyRmsbz9+TUQ6jE0cMpI+J1aHYqv0ToqFAlCA1JSh/knVvckaoi1pEdM2weqLirHVSEzA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TwfVX3I9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gKe5u8bc"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=i1HleDRhgKWtFLvlkCLckONA588VkME6KNONTyekZJA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789898387; v=1; x=1790503187;
- b=gKe5u8bcA5blqDZ2W/6YxWa/Q1UaPWfwDTqtz6C66wlLepDdwbLquAIHCYjjeTjX2xVPLdOu
- Xlv6SC60cIIqJBx6gDXISFvmpjiu66GL5jOtFPom8Z4sG+oHS5tuPhLH4VKPNDDLNWxrTsZnkzY
- WFIYeQX2ahDN6yKuWjJuY28Q=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 78e13bd88616e780;
-	Sun, 20 Sep 2026 09:59:46 +0000
-X-Mizu-Trace-ID: 78e13bd88616e780
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TwfVX3I9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A67AB1F000FF;
+	Sun, 20 Sep 2026 10:00:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789898432;
+	bh=eNOkuOvBgpaeImx4XytamWlsHw1NNr1OL5vpKYxF3rg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=TwfVX3I9FP2+Cj8IDi6JXuS9zcovsK5gEevP9S2LkyW/wd5gFw4QKgVFahXizcQjY
+	 qH4BLljpWsAnohK8aOSwE+js0ywxcy+ai1wUDHEvJMlt+oNdr3FqYp+0ZMw5TPjYbi
+	 AAJsz6+hfTCUiW6DHcDxu2kYQ417eL+TfLrfTTQxp9lOLpFfXomF82B0VIAANbMJNA
+	 P4oOsP03EK2aVn4CpUXsw33vXDjncp1USqz9FrbGWz+39T/IdK508cpC+b+qnF8wJO
+	 FbJfhNBUejmQPS95Z2oRaye0VqUvWyKk+RDojqKBipgw+BuanvfgbiBz4w9rWEryAJ
+	 00B04w9Wg3DQg==
+From: SJ Park <sj@kernel.org>
+To: Zenghui Yu <zenghui.yu@linux.dev>
+Cc: SJ Park <sj@kernel.org>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	akpm@linux-foundation.org
+Subject: Re: [PATCH] mm/damon/api: remove unused NR_DAMOS_* enumerators
+Date: Sun, 20 Sep 2026 03:00:28 -0700
+Message-ID: <20260920100029.46849-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260920012028.9565-1-zenghui.yu@linux.dev>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
-Subject: Re: [PATCH] mm: Add CONFIG_SPARSEMEM_CLASSIC
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20260920070406.95354-1-kaitao.cheng@linux.dev>
-Date: Sun, 20 Sep 2026 17:59:22 +0800
-Cc: Andy Lutomirski <luto@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org,
- "H . Peter Anvin" <hpa@zytor.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R . Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>,
- Kairui Song <kasong@tencent.com>,
- Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>,
- linux-kernel@vger.kernel.org,
- linux-mm@kvack.org,
- Kaitao Cheng <chengkaitao@kylinos.cn>
-Content-Transfer-Encoding: 7bit
-Message-Id: <85F48B20-68C5-45D7-A8E7-27E601283743@linux.dev>
-References: <20260920070406.95354-1-kaitao.cheng@linux.dev>
-To: Kaitao Cheng <kaitao.cheng@linux.dev>
-X-Mailer: Apple Mail (2.3864.700.51.1.1)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+On Sun, 20 Sep 2026 09:20:28 +0800 Zenghui Yu <zenghui.yu@linux.dev> wrote:
 
-
-> On Sep 20, 2026, at 15:04, Kaitao Cheng <kaitao.cheng@linux.dev> wrote:
+> From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
 > 
-> From: Kaitao Cheng <chengkaitao@kylinos.cn>
-> 
-> Several MM paths identify classic sparse memory by testing
-> CONFIG_SPARSEMEM while also testing that CONFIG_SPARSEMEM_VMEMMAP is
-> disabled. Repeating the compound condition obscures the memory model being
-> selected and requires the local SECTION_IN_PAGE_FLAGS alias for the same
-> state.
-> 
-> Add CONFIG_SPARSEMEM_CLASSIC as a hidden derived option and use it at the
-> conditional sites. Remove SECTION_IN_PAGE_FLAGS and test the new option
-> directly.
-> 
-> The x86 32-bit vDSO build starts with the x86_64 configuration and then
-> undefines CONFIG_SPARSEMEM_VMEMMAP to emulate a 32-bit configuration.
-> Kconfig-derived symbols are not recomputed by the C preprocessor, so define
-> CONFIG_SPARSEMEM_CLASSIC there when CONFIG_SPARSEMEM is enabled. This
-> preserves the existing behavior.
-> 
-> Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
+> NR_DAMOS_ACTIONS, NR_DAMOS_QUOTA_GOAL_METRICS, and NR_DAMOS_WMARK_METRICS
 
-Acked-by: Muchun Song <muchun.song@linux.dev>
+More than 72 columns.
 
-Thanks.
+> are not referenced by any code.  Remove them.
+> 
+> They can be reintroduced if a real user comes up.
+> 
+> Signed-off-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
 
+Other than the above too trivial thing,
+
+Reviewed-by: SJ Park <sj@kernel.org>
+
+This patch is applied to damon/next [1] tree with the fix of the trivial commit
+message length issue.  If this patch is not added to mm.git in short term
+(~1 week?) with the fix, I will ask mm.git maintainer (Andrew Morton) to pick
+this.  So, no action from your side is needed for now.  If it seems I also
+forgot doing that or you cannot wait for my action, please feel free to ping me
+or Andrew.
+
+[1] https://origin.kernel.org/doc/html/latest/mm/damon/maintainer-profile.html#scm-trees
+
+
+Thanks,
+SJ
+
+[...]
