@@ -1,327 +1,123 @@
-Received: from mail-m128238.netease.com (mail-m128238.netease.com [103.209.128.238])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65FE8419FA6;
-	Sun, 20 Sep 2026 11:36:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.209.128.238
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53B4E33DEE6
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 11:39:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789904203; cv=none; b=sg7VATZMtFeSfRGP1g8qxgB3Cyp5h8gIBtjGRuU6XzhHkkhv+WlSnu7/FbfFhXJ2q/1zGG6xWSQIVnnhyjKpNklXtuGAZi28QIBlyzX9G37Tbvwb7EDq7Dg6a+9AAa1DRrh9G4c8ioaufXuE1z2J9ADT47vzZyFJZdgZQeMqy5w=
+	t=1789904400; cv=none; b=Z/a1e+mhDVj0HeRcX9gBw2DS8C4ymmUPctKJZ+fv/saIRMQUVWy8JmkwLe2YMG2GKp6Z+66Gsm1cof4d60Ry2BRgErIoyAR5Hplb+Bwyxm8Vq5DYrwkd0usUoDpmgAXreAu3zk6mqu5qHd6irBpcHo2UJq+FZZ5SQm6O3oxfXwk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789904203; c=relaxed/simple;
-	bh=ziI41b7B4MvPrDxo+k+/KLU9IP4PspEkVL7npWGyaSc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=s+Z8Koz2nBfPAsumjhofIzfOjGgDsgQ5levsdIlQwXCfWxgUyk9WMgZXo3Grt22rnL2kYDkW0rQj2iBgf8W2x5uGSnik2i8JQPEsg0jh35YHqujyWG0dk588aw3U7HdilTwpKIK7duRPFXD4DzsQQEH5biorc31JCVg3vcqLTac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=QaYeJjLC; arc=none smtp.client-ip=103.209.128.238
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1789904400; c=relaxed/simple;
+	bh=yz3jCQ+G9ritM+0QYRVsGG5LlnZv6QqLJOt/G6kBde0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=X8EDoaHz89LZZmUmV/CKo7/zTt+kg+lHjGvILC+XU+LvpAcjYikMcgd1yEClqxyqjPmNbmhGtrdAiRgcqAuNcNE5lV2NXH0cU8jI0ybxWYRKpnJ3EIcB5hQf1PUCoippGmGC9BVEbIuVBYL9Sd8/JR0gnZc6wXlBw/tArLzFKgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nFhgy91O; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="QaYeJjLC"
-Received: from [172.16.12.74] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4e72f2e5d;
-	Sun, 20 Sep 2026 19:36:18 +0800 (GMT+08:00)
-Message-ID: <57f57f40-87ec-47a2-a8b9-cc8b1adc3b8f@rock-chips.com>
-Date: Sun, 20 Sep 2026 19:36:16 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nFhgy91O"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccb1a98fso1934035a91.1
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 04:39:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789904396; x=1790509196; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Hh2u1s7hlbDfnebkD4E7jjtOwra5qng6se9Ex4k64Kc=;
+        b=nFhgy91OnP9/SJWHGI95BZZ6ednf3ejCWLLciwbtgHCXLLixk40RdR4fPicahDfz5J
+         9ommOuc04liErkGdgWuYFo7csQc6UXvaJNEk7lFeubnYfaBe2Cc/fW+DKhdDj5QweVDp
+         Pp1raelc6fNPPT2Hgwwg98mxnRkQO2jQ38DxUvLlE8vQRDG5JhQFjNHdyvTmyHrAU2FD
+         UUgMzvTQPmj0r9vUS+ZnID+3PmblMxFgMQRah0LSLTJwqXhVMKkXaflBwvzN0aIFcklg
+         siS9Q4fux8GNeeA+TiefeZkPiGJLx7GEo9p7ZUuvSDprwxYnXn/X3EFsU1wmwXaWT6j2
+         zsVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789904396; x=1790509196;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Hh2u1s7hlbDfnebkD4E7jjtOwra5qng6se9Ex4k64Kc=;
+        b=WvDaBIkUPtQrbTxP6x2nn8vGNIf6qb8R2xw1DjpnZ1omGMxTDVVH5nbKzEJXSl2yPP
+         SC7y5F8G4q5iHFhM71WyT8vxWfdH7qy+UMG098bhj/Wr3DGt69sx7q+ESRlckEs4R2S8
+         ofs7iePUWzdOv2DPz8QGr6woMIp3ars3TSrr65vi+zHoNuKy5E8RAaADyONCnT24FrZ/
+         nWKBzrsuq0MNTy8noLjj5+n1iqYjLioSXQPSRVxs6ve4qmJwYDOoDUVmhKDZW49DH8h5
+         Vi1HaPkABceh2/vSV6AWI28C8J3RFiYXaTotQwSxgrN9xHXcPQROKVhtusEnO/3Eqsd7
+         SOtQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxTYEVppJQr6YAsdALaAX2/wVNT1xrOLhbV1nFCUJp9i8hughreljjPMVyRch5kCKb4RVrfoAPp+rsgEmg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mdFQkCt+WSkCjmcLV4eVXXB5lmUJMHFYxDcdEZNYXhZJrUCCye
+	dzAfxlytteoUpbgt/Qfgql0lfZnkEFEOxyKYaaSA91ms4/5icyebr662
+X-Gm-Gg: AYBFou2WJjTYkItyL8bGkJS/yH17wA2QzEBpeley5hi5GJV+BuHByRvh8pow3SLrOal
+	JHe7Kdmnn0ZjbgBKYTnIv3WEo3rkEYJKILIDDuMpplR8TzqnKUotdwiVCR7EzEBRC9ZmLJ7M1Xd
+	uSrxNwLXXGO+eBzoIYCnQVeUCPTNjPsG24IHExCM85g+Ec84UvGpFNYw3D3BLyy744CtMhgwn36
+	wZWB2X1N2q2GkQDAQuInpOzYFoZZshl5ydkuC3OxA/T+gnGi1Gacd9RZwHSZ9A4PFrt9OyCe3Mq
+	+mrl9yv1rDcAfJoWj4NEx4N8j2bUjBqyBMTCuzqiNQbOVnnA5t1ypIxGf9MZvOsZkLOFvhd57QU
+	ifPszVTkbod7ymKEaesnkeAAE+D3ThcQIJZVDp1yfTomJMniUGRtR15NhpV3mWox7YGxNnloOiO
+	ShXOmPSK9T04jp2ymCkDfEAugqeSO+6yiHl2cvIpfSY4aGRhV+QhUY1xCh7Glri0COV7o2FXufX
+	D0kG+6Fi8zHdBpdsp3BOsLZdA==
+X-Received: by 2002:a17:90b:390e:b0:39e:2e7c:d43c with SMTP id 98e67ed59e1d1-39e54b66b6cmr11973998a91.7.1789904396266;
+        Sun, 20 Sep 2026 04:39:56 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:2022:c2a9:de8:d005])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c6dd585sm8490548a91.0.2026.09.20.04.39.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2026 04:39:55 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: dmitry.torokhov@gmail.com
+Cc: floe@butterbrot.org,
+	linux-input@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Subject: [PATCH v1 0/2] Input: sur40 - fix UAF/hang on closing the video node after unplug
+Date: Sun, 20 Sep 2026 18:39:47 +0700
+Message-ID: <20260920113949.12726-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 00/10] Add HPD support for Rockchip Analogix DP
-To: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Andy Yan <andy.yan@rock-chips.com>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org
-References: <20260804081717.741404-1-damon.ding@rock-chips.com>
- <5609825.iZASKD2KPV@diego>
- <29d483f3-2eb2-4886-a4fe-9b4b6d9d14f3@rock-chips.com>
- <7775230.ejJDZkT8p0@diego>
-Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <7775230.ejJDZkT8p0@diego>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0be9a4b1603a8kunma17d51969197c6
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDQhkfVkpKHR9JSUlMSRodSVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=QaYeJjLCc4XajREryUfFqAtNBIWn9Jb8ESbypl4sfBVl+JMwiqmovMf9LbFiY9YdTfh0FKfE9VKu3Xu3UhSxHC7B2kSHwtydFeVssV5BCxNEe7msZ9+wU59pyWIv/jRh/ZbafLMi7V/4nY7izMYZwmvj964QE4yoVLhH3tTwi0k=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=Zs3RsGuA4dUDbRO1KmwFvzwlH/DxEtLctC1ij8O7myE=;
-	h=date:mime-version:subject:message-id:from;
 
-Hi Heiko,
+Hi,
 
-On 8/6/2026 7:42 AM, Heiko Stübner wrote:
-> Am Mittwoch, 5. August 2026, 06:06:48 Mitteleuropäische Sommerzeit schrieb Damon Ding:
->> Hi Heiko,
->>
->> On 8/5/2026 6:39 AM, Heiko Stübner wrote:
->>> Hi Damon,
->>>
->>> Am Dienstag, 4. August 2026, 10:17:07 Mitteleuropäische Sommerzeit schrieb Damon Ding:
->>>> Display-connector mode (DP connector without HPD GPIO):
->>>>
->>>>     &edp_out_conn {
->>>>         remote-endpoint = <&dp_con_in>;
->>>>     };
->>>>
->>>>     dp-con {
->>>>         compatible = "dp-connector";
->>>>         label = "DP OUT";
->>>>         type = "full-size";
->>>>
->>>>         port {
->>>>             dp_con_in: endpoint {
->>>>                 remote-endpoint = <&edp_out_conn>;
->>>>             };
->>>>         };
->>>>     };
->>>>
->>>> Display-connector mode (DP connector with HPD GPIO):
->>>>
->>>>     dp-con {
->>>>         compatible = "dp-connector";
->>>>         label = "DP OUT";
->>>>         type = "full-size";
->>>>         pinctrl-0 = <&edp0_hpd>;
->>>>         pinctrl-names = "default";
->>>>         hpd-gpios = <&gpio4 RK_PC1 GPIO_ACTIVE_HIGH>;
->>>>
->>>>         port {
->>>>             dp_con_in: endpoint {
->>>>                 remote-endpoint = <&edp_out_conn>;
->>>>             };
->>>>         };
->>>>     };
->>>>
->>>> All four configurations detect cable plug/unplug events correctly.
->>
->> Thanks a lot for your testing and feedback. :-)
->>
->> It seems my test setup gave me the false impression that those cases
->> worked well.
->>
->>>
->>> hmm, it wasn't working entirely for me though and was still running into
->>> issues when the display was unplugged on boot.
->>>
->>
->> Are you seeing this boot‑unplug issue for both scenarios: DP‑connector
->> with HPD‑gpio paired with eDP without HPD‑gpio, and DP‑connector without
->> HPD‑gpio paired with eDP with HPD‑gpio? I.e. it wrongly reports
->> connected even with no display plugged in and proceeds into DRM
->> .atomic_enable()?
-> 
-> Yep it's different. The analogix-dp gpio-hpd works correctly,  because the
-> analogix driver can do gpiod_get_value() in analogix_dp_get_plug_in_status()
-> 
-> The dp-connector does not, as with the patch you pointed to, it lost
-> that ability. So on boot a plugged in display is not detected correctly
-> because there won't be a hotplug interrupt.
-> 
->>
->>> I wiggled around a bit like in the diff below and am now getting correct
->>> plug and unplug events.
->>
->> Oh, I see. For the GPIO HPD case, the IRQ needs to be enabled early so
->> that plug‑in interrupts can be properly responded to. However GPIO HPD
->> does not require a runtime PM get. I will better separate these two
->> scenarios in the next version.
->>
->>>
->>> But of course, as the dp-variant of the connector does not provide
->>> a "detect" and just the "hpd" functionality, it's missing the initial state.
->>>
->>> I'm currently not sure how to find out _if_ a panel is connected on boot.
->>>
->>
->> Based on Dmitry's commit cb640b2ca546 ("drm/bridge: display‑connector:
->> don't set OP_DETECT for DisplayPorts"), HPD events from DP‑variant
->> connector should be handled by the upstream DP controller. Hence I added
->> analogix_dp_bridge_notify() to retrieve HPD status coming from downstream.
->>
->> As expected, under the bridge‑connector framework, the detect result
->> from Analogix DP should in theory reflect the actual connection status.
->> Let's dig into this boot‑time initial‑state issue together.
-> 
-> One idea I had was, is it possible to do a drm_dp_read_dpcd_caps()
-> read during bind/... to see if something answers?
-> 
+syzbot reported a slab-use-after-free in vb2_core_queue_release() [1]:
+closing /dev/v4l-touch* after the SUR40 was unplugged reads freed memory.
 
-Sorry for the long delay to get back to this series. I was stuck on some 
-tricky local issues.
+Cause: sur40_disconnect() kfree()s struct sur40_state, which embeds the
+video_device, v4l2_device and vb2_queue, even though a video node can
+still be open. v4l2_release() and vb2_fop_release() then dereference
+freed memory. Patch 2 fixes this by giving the v4l2_device a release()
+callback that frees the state, and dropping the disconnect path's
+reference with v4l2_device_put(), so the last close does the freeing.
+The probe error paths never expose the node and still free directly.
 
-I'll test your suggestion and try to send out v3 within next week.
+Patch 1 is needed first: once the state outlives disconnect, closing a
+node that is still streaming hangs forever, because
+sur40_stop_streaming() waits (vb2_wait_for_all_buffers) for buffers
+that only the input poll callback completes, and that is gone after
+unplug. Returning the queued buffers before the wait fixes it. This was
+masked by the UAF above.
 
-Best regards,
-Damon
+Testing: no hardware, so I emulated a SUR40 (045e:0775) with raw-gadget
+on dummy_hcd in QEMU with KASAN. The reproducer enumerates the device,
+starts a non-blocking read() on the video node (making the fd the queue
+owner), disconnects the gadget, then close()s the fd.
+  - before: KASAN: slab-use-after-free in v4l2_release(), allocated in
+    sur40_probe(), freed in sur40_disconnect() (same alloc/free stacks
+    as the syzbot report)
+  - patch 1 only: no KASAN, but close() blocks in
+    vb2_wait_for_all_buffers()  [only meaningful with patch 2 applied]
+  - both patches: 5 consecutive enumerate/disconnect/close cycles, no
+    KASAN, no hang.
+(The dma_map_sg WARNING during read() in the log comes from dummy_hcd
+having no DMA mask; it is unrelated.)
 
-> 
->>> In other review comments:
->>> - the bridge could use devm_drm_of_get_bridge() as suggested in
->>>     the documentation of drm_of_find_panel_or_bridge(), as that would
->>>     remove the separate panel_bridge creation
->>> - instead of using plat_data->next_bridge _inside_ the driver
->>>     struct drm_bridge has a field next_bridge already.
->>
->> Great suggestions, I will incorporate them for the next version
->> alongside Sashiko's comments.
->>
->> Best regards,
->> Damon
->>
->>>
->>>
->>> Heiko
->>>
->>>
->>> ------- 8< -------
->>> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
->>> index 877e1b3ca7525..1388640a27de7 100644
->>> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
->>> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
->>> @@ -43,7 +43,7 @@ static const bool verify_fast_training;
->>>    static bool analogix_dp_require_pm_for_hpd_irq(struct analogix_dp_device *dp)
->>>    {
->>>    	return analogix_dp_is_rockchip(dp->plat_data->dev_type) && !dp->hpd_gpiod &&
->>> -	       !dp->force_hpd;
->>> +	       !dp->hpd_bridge && !dp->force_hpd;
->>>    }
->>>    
->>>    static void analogix_dp_init_dp(struct analogix_dp_device *dp)
->>> @@ -72,7 +72,7 @@ static int analogix_dp_detect_hpd(struct analogix_dp_device *dp)
->>>    	 * Trust connection status from downstream bridge (e.g.,
->>>    	 * display-connector with hpd-gpios).
->>>    	 */
->>> -	if (dp->plat_data->next_bridge && dp->connection_notified)
->>> +	if (dp->hpd_bridge && dp->connection_notified)
->>>    		return 0;
->>>    
->>>    	while (timeout_loop < DP_TIMEOUT_LOOP_COUNT) {
->>> @@ -926,10 +926,10 @@ analogix_dp_bridge_detect(struct drm_bridge *bridge, struct drm_connector *conne
->>>    	 */
->>>    	if (dp->plat_data->next_bridge && dp->last_bridge_is_panel)
->>>    		status = connector_status_connected;
->>> -
->>> -	if (!analogix_dp_detect_hpd(dp))
->>> +	else if (!analogix_dp_detect_hpd(dp))
->>>    		status = connector_status_connected;
->>>    
->>> +printk("---> %s status %d\n", __func__, status);
->>>    	return status;
->>>    }
->>>    
->>> @@ -1044,7 +1044,7 @@ static int analogix_dp_set_bridge(struct analogix_dp_device *dp)
->>>    		goto out_dp_init;
->>>    	}
->>>    
->>> -	if (!analogix_dp_require_pm_for_hpd_irq(dp))
->>> +	if (!analogix_dp_require_pm_for_hpd_irq(dp) && !dp->hpd_bridge)
->>>    		enable_irq(dp->irq);
->>>    	return 0;
->>>    
->>> @@ -1187,7 +1187,7 @@ static void analogix_dp_bridge_disable(struct drm_bridge *bridge)
->>>    	if (dp->dpms_mode != DRM_MODE_DPMS_ON)
->>>    		return;
->>>    
->>> -	if (!analogix_dp_require_pm_for_hpd_irq(dp))
->>> +	if (!analogix_dp_require_pm_for_hpd_irq(dp) && !dp->hpd_bridge)
->>>    		disable_irq(dp->irq);
->>>    
->>>    	analogix_dp_set_analog_power_down(dp, POWER_ALL, 1);
->>> @@ -1264,6 +1264,7 @@ static void analogix_dp_bridge_notify(struct drm_bridge *bridge, struct drm_conn
->>>    	struct analogix_dp_device *dp = to_dp(bridge);
->>>    
->>>    	dp->connection_notified = (status == connector_status_connected);
->>> +printk("---> %s connection_notified %d\n", __func__, dp->connection_notified);
->>>    }
->>>    
->>>    static const struct drm_bridge_funcs analogix_dp_bridge_funcs = {
->>> @@ -1641,6 +1642,13 @@ static int analogix_dp_aux_done_probing(struct drm_dp_aux *aux)
->>>    	if (ret && ret != -ENODEV)
->>>    		return ret;
->>>    
->>> +	/*
->>> +	 * There is a next link in the chain which is not a panel, we should
->>> +	 * expect hotplug-information coming from there.
->>> +	 */
->>> +	if (plat_data->next_bridge && !drm_bridge_is_panel(plat_data->next_bridge))
->>> +		dp->hpd_bridge = true;
->>> +
->>>    	return component_add(dp->dev, plat_data->ops);
->>>    }
->>>    
->>> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
->>> index d0fb25e543ea0..ecca3b87b4456 100644
->>> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
->>> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
->>> @@ -169,6 +169,7 @@ struct analogix_dp_device {
->>>    	bool			fast_train_enable;
->>>    	bool			psr_supported;
->>>    	bool			last_bridge_is_panel;
->>> +	bool			hpd_bridge;
->>>    	bool			connection_notified;
->>>    
->>>    	u8 dpcd[DP_RECEIVER_CAP_SIZE];
->>> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
->>> index ec5950066f838..6f0d642739ffd 100644
->>> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
->>> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
->>> @@ -182,7 +182,7 @@ void analogix_dp_config_interrupt(struct analogix_dp_device *dp)
->>>    	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_2);
->>>    	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_3);
->>>    
->>> -	if (dp->hpd_gpiod) {
->>> +	if (dp->hpd_gpiod || dp->hpd_bridge) {
->>>    		analogix_dp_mute_hpd_interrupt(dp, HPD_IRQ);
->>>    	} else {
->>>    		/*
->>> @@ -438,7 +438,7 @@ void analogix_dp_init_hpd(struct analogix_dp_device *dp)
->>>    {
->>>    	u32 reg;
->>>    
->>> -	if (dp->hpd_gpiod)
->>> +	if (dp->hpd_gpiod || dp->hpd_bridge)
->>>    		return;
->>>    
->>>    	analogix_dp_clear_hotplug_interrupts(dp, HPD_IRQ);
->>> @@ -539,6 +539,9 @@ int analogix_dp_get_plug_in_status(struct analogix_dp_device *dp)
->>>    	if (dp->hpd_gpiod) {
->>>    		if (gpiod_get_value(dp->hpd_gpiod))
->>>    			return 0;
->>> +	} else if (dp->hpd_bridge) {
->>> +		if (dp->connection_notified)
->>> +			return 0;
->>>    	} else {
->>>    		reg = readl(dp->reg_base + ANALOGIX_DP_SYS_CTL_3);
->>>    		if (reg & HPD_STATUS)
->>>
->>>
->>>
->>>
->>>
->>
->>
-> 
-> 
-> 
-> 
-> 
-> 
+Nguyen Ngoc Thang (2):
+  Input: sur40 - don't wait for buffers nothing will complete
+  Input: sur40 - keep device state alive until the video node is
+    released
+
+ drivers/input/touchscreen/sur40.c | 21 +++++++++++++++------
+ 1 file changed, 15 insertions(+), 6 deletions(-)
+
+-- 
+2.43.0
 
