@@ -1,159 +1,78 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F213274FDF;
-	Sun, 20 Sep 2026 11:13:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 167163DDB03
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 11:14:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789902820; cv=none; b=Jrq5z1ZIrGnuC8PBEPU+5BtZjiJxKgUJeAUd50VKA1Gg3OYGKlJMAfoYpsyCkqPjosdo4IM1W/CahS1NrXuU1AhQr3TUZJYBxr16XZjPiKYeA86++MTlbyptBzDxl97iNLQ9+nyaiz73/UoRNCU23Ik4nT1jgKRCGKJhHS4NlXs=
+	t=1789902845; cv=none; b=GMlI8APa2Ja5Xmw7oSGoLRA5BDxYuBZvpftlj8unBUsG1f7BFRDmt0u60fSI2r2Q6laDuWBVL9ur+wuEXUb57304pFaHBvqflBFD+DrFrqrlHvEpoTW+v1CbWyLDkynZ/hiPlg+bEwYaWoVf5D+pEEKeKSFW1s+puLBNX+KYwqQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789902820; c=relaxed/simple;
-	bh=gOYER6IUHXkL7jv8ZD1iRnGsJ3p9JkO/AqmkTPt1gxw=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ClxYL6B2uX30t1u5NEFL0YglEp8Di88oT0YkL4tt+O1kdnl88ZWJ3NTbkE4WZii8yv0n95ffNWPKOPRtDI7Nxw+Z3ipxkzrOs2CqSFI5KaFzETTdF799aasZRf365CgDHOA8NpysUijd+4PCXUYS0ZoyLsnJGsqfwnx1u4dQEic=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VKLtuZB+; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VKLtuZB+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C00D1F00893;
-	Sun, 20 Sep 2026 11:13:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789902819;
-	bh=hNJ2LbS/20qvrKMUhXuYqKizXYn9BXYfiVTMkSUbS3o=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=VKLtuZB+WOCGGrb/Yf/q/v9TCvGveDo6wZ7zA2ZmRk7FtYVhwtMnrTYM1Ol5vl6yV
-	 42rePEX8+XezFoiJZBi48VZ++sCmLBlMN7W6VW3fO8REm8Jf2BdSE/5LhQtdaUg2CY
-	 YbLcN3/VM0k8PQf/ZyWeMaCCoV/gWYoWTRm7NVBA8gTzkliVIfELnO+Axo9eY9WOXc
-	 1XZHUwoeyelAQeG6DQjCnJhI8w4PnvwEbwsD0OC+rBBfX7IyZRyhG3M5zEvaCkYpnO
-	 trPAlxEl4D1Ix7e9JImCMRRDNbkbST5l8KjTpeS3KPhT1Bo2dE9XWNypGPX1vIZR8H
-	 fAyKfpX5+DHGg==
-Subject: Re: [PATCH net 1/2] net: stmmac: propagate platform mac_finish errors
-From: netdev-bot+sashiko@kernel.org
-To: tom.karpiniec@outlook.com
-Cc: netdev@vger.kernel.org, maxime.chevallier@bootlin.com,
- mohd.anwar@oss.qualcomm.com, linux@armlinux.org.uk, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- yong.liang.choong@linux.intel.com, brgl@kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Sun, 20 Sep 2026 11:13:37 +0000
-Message-ID: <178990281791.2160803.4738243247711956388@kernel.org>
-In-Reply-To: =?utf-8?q?=3CCH3PR11MB8413069BD77B03793D1A9B42E4B92=40CH3PR11MB?=
- =?utf-8?q?8413=2Enamprd11=2Eprod=2Eoutlook=2Ecom=3E?=
-References: =?utf-8?q?=3CCH3PR11MB8413069BD77B03793D1A9B42E4B92=40CH3PR11MB8?=
- =?utf-8?q?413=2Enamprd11=2Eprod=2Eoutlook=2Ecom=3E?=
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=arc-20240116; t=1789902845; c=relaxed/simple;
+	bh=182GDO4SIgkpjfoJ/LC8VuVHEyaZE9516QzYKCvW5ok=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=D7op/Dm91ryIY9g2Qtw73L3UfWNGArWtPXeMpSAatZRfdWP1qP9Bhaa8ycF+HurIVz7Ytq9r/6i88bvSUwug3Q9Ri7JNjfQ4+Xmf8dvgw34lEGMc+iW8m3H3B21yfj0PX56W9WUOjSUSMcfYmgOgJUYWQ2ZHKdtj+x0gVQc0/Zw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-7f8931a803cso2132849a34.0
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 04:14:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789902843; x=1790507643;
+        h=content-transfer-encoding:content-type:to:from:subject:message-id
+         :in-reply-to:date:mime-version:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ADsLxJ+h+7JwDVM+3D0grmFjJtx70BD6bsvBXmIkXsg=;
+        b=A/Old/Lfj0iU033z9522UyHjxnp3e/Y2TIF5DylyT32j11wI4zUtq+CZEaDyghvAuh
+         +bKRQYnc/nd/q7f3CglKwk8/nOL/bRV5cbaJOftspz/G63hiSOb59rfle7LKyor3zO+V
+         4ZteTTx+wU1T92/ILtgvsBjZvYfSkGrbLGuk/9P05XheOoIbvwbZeZVCZE+JUHdpYrB4
+         NL3xLBQr8L7VES+QyONG3H680O1JLmzIiLIOVBVfx97sk6nkoM68Q5lTKuF9Ah3L+x2L
+         1e+MZl+QzL+s/mgb9KH3ladjJCDj4xUiK0N8/gcVbMwG7zrZ/WWE/txj9gQx8/LiOmAp
+         zGQA==
+X-Forwarded-Encrypted: i=1; AKwUvBz2FjZWDQVvLg6+WflyfgVtIJbi7NhBFfiWvQCIK2fKm23hjqUjQkqGoAfnrq6YIPt6wh3gMwpgcpMm0zE=@vger.kernel.org
+X-Gm-Message-State: AFuF++n1lu8MYvySW3KsfcdW/cTeFu0MG6ZIHzMJ9DP+G/gR4Uv25eiR
+	Zn3CNWN9NltfEGBGBMdCCczbJAzW+aD67FItyoxFSTYMIWogai00B3DtIiUzzHOwpTqrVWC6rG1
+	dHTfOenHXRJt2e1UHfZGjDfPZr6k+sYlEaVHw7PHpbPC/BNAC6EFLBqpSGvk=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Received: by 2002:a05:6820:1891:b0:6cd:3fdc:a934 with SMTP id
+ 006d021491bc7-6cd3fecc3fbmr4221959eaf.81.1789902842996; Sun, 20 Sep 2026
+ 04:14:02 -0700 (PDT)
+Date: Sun, 20 Sep 2026 04:14:02 -0700
+In-Reply-To: <20260920110110.75714-1-adarshdas950@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aafbffa.71f81b7d.15fa6d.0017.GAE@google.com>
+Subject: Re: [syzbot] [ntfs3?] WARNING in ntfs_evict_inode
+From: syzbot <syzbot+3db654d91b471c4d7a7d@syzkaller.appspotmail.com>
+To: adarshdas950@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Hello,
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 1
+syzbot tried to test the proposed patch but the build/boot failed:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+failed to checkout kernel repo git://git.kernel.org/pub/scm/linux/kernel/gi=
+t/torvalds/linux.git on commit 518e5b794c06: failed to run ["git" "-c" "cor=
+e.hooksPath=3D/dev/null" "fetch" "--force" "--tags" "f569e972c8e9057ee9c286=
+220c83a480ebf30cc5"]: exit status 128
 
-- [High] The commit's stated goal — stop phylink from treating an
-  interface as successfully configured when the SerDes is not ready — is…
-- [Low] The continuation line of the newly returned call is misaligned by
-  one column.
 
---
+Tested on:
 
-net: stmmac: propagate platform mac_finish errors
+commit:         [unknown=20
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linu=
+x.git 518e5b794c06
+kernel config:  https://syzkaller.appspot.com/x/.config?x=3Db454dc6b1b7acd3=
+0
+dashboard link: https://syzkaller.appspot.com/bug?extid=3D3db654d91b471c4d7=
+a7d
+compiler:      =20
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=3D107e39155800=
+00
 
-stmmac_mac_finish() previously dropped the return value of the platform
-mac_finish callback and always told phylink the interface was configured
-successfully.  The patch forwards the callback's result instead, keeping the
-zero return when no callback is installed.
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 1fb5f804ea234..1350e92943ac1 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -1048,8 +1048,8 @@ static int stmmac_mac_finish(struct phylink_config *config, unsigned int mode,
->  	struct stmmac_priv *priv = netdev_priv(ndev);
->  
->  	if (priv->plat->mac_finish)
-> -		priv->plat->mac_finish(ndev, priv->plat->bsp_priv, mode,
-> -				       interface);
-> +		return priv->plat->mac_finish(ndev, priv->plat->bsp_priv, mode,
-> +					     interface);
-
-[Severity: High]
-The changelog says phylink "can report carrier even though the SerDes is
-not ready", and that after this change phylink can "keep the link down
-until a subsequent configuration succeeds".  Does that hold for the other
-in-tree user of plat->mac_finish?
-
-intel_mac_finish() in dwmac-intel.c ends with:
-
-	ret = intel_set_reg_access(regs, max_regs);
-	if (ret < 0)
-		return ret;
-
-	priv->plat->phy_interface = interface;
-
-	intel_serdes_powerdown(ndev, intel_priv);
-	intel_serdes_powerup(ndev, intel_priv);
-
-	return ret;
-
-ret is the zero left by intel_set_reg_access(), and the result of
-intel_serdes_powerup() is never assigned, so the callback returns 0 even
-when the SerDes bring-up failed.
-
-intel_serdes_powerup() returns the -ETIMEDOUT from serdes_status_poll()
-(ten polls of SERDES_GSR0) at three points:
-
-	if (data) {
-		dev_err(priv->device, "Serdes PLL clk request timeout\n");
-		return data;
-	}
-	...
-	if (data) {
-		dev_err(priv->device, "Serdes assert lane reset timeout\n");
-		return data;
-	}
-	...
-	if (data) {
-		dev_err(priv->device, "Serdes power state P0 timeout.\n");
-		return data;
-	}
-
-In each of those cases the preceding intel_serdes_powerdown() has already
-put the lane in SERDES_PWR_ST_P3 (and gated SERDES_PHY_RX_CLK on PSE
-parts), and plat->phy_interface has already been overwritten with no
-rollback.
-
-Since the Intel callback discards the status itself, can forwarding its
-return value in stmmac_mac_finish() surface anything for the EHL/ADL-N
-SGMII configurations that install intel_mac_finish (ehl_sgmii_data,
-ehl_pse0/1_sgmii1g_data, adln_sgmii_phy0_data)?  The mac_finish contract
-in include/linux/phylink.h states "Returns zero on success, or negative
-errno on failure which will be reported to the kernel log", so should
-intel_mac_finish() also return the intel_serdes_powerup() result for the
-described behaviour to materialise on that platform?
-
-[Severity: Low]
-This isn't a bug, but the continuation line looks off by one column now.
-The statement is two tabs deep, plus "return " and
-"priv->plat->mac_finish(", which puts ndev at column 46, while the
-continuation uses five tabs plus five spaces, i.e. column 45.  checkpatch
---strict should emit "CHECK: Alignment should match open parenthesis" for
-this.
-
->  
->  	return 0;
->  }
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/CH3PR11MB8413FCBA598F7FABC04ADCFEE4B92%40CH3PR11MB8413.namprd11.prod.outlook.com
