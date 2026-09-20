@@ -1,78 +1,118 @@
-Received: from mail-106101.protonmail.ch (mail-106101.protonmail.ch [79.135.106.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BB813CC7DC
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 06:53:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 504993DCDA4
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 06:55:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789887240; cv=none; b=RUxwqE2wCr+ZoXQ2cKBRhvLuMr1N/GxdrzpfL3ekrFNhimjSxOd7N6g+dcCaUod4UDwbYYcnKVuSZyQCyb8OC/xAVGsVBn2kdPfN55jlMRbzjoRNkGgp0y56BwOSoTa8CNqdiP2C0rqmsYpYLWXdwtUhm27yKbcRycr3JJVTof0=
+	t=1789887337; cv=none; b=o+PTWIaO8tm5HW0DMvxpdsVqV69CFe8G+ymh15uKn1gJCSsXJMAFojZCgxf9pV/F+L7LROb0x8jZHB77ER6rfwvUL0hkLBepA3zU0SSg8p47xSsxrxOPeTzuUUWBN9NEngUyLiIieFy7Z/fm76XHtzShke0Ao7LIZD3yp8gmcE0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789887240; c=relaxed/simple;
-	bh=IbJAK7aXa5pz972jBcMi7T/vqSkdrkXCC86Z5Qp3eWA=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qYzURJZkEnUTJVwlk6euL2jOHNYTXHTLhoZ2jPffkhbJWqlspyfY+M/D+F2rwLcB6Z+Wks9HVUicSA9b3Jg7k7R5MNNVZErDKNbGwM6FzlOxKljH9D09SLovc/sbE4OoutzV7olJcB3rnvtpFfQMOwE2asfxE3wdot1Yp1t1W2w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=frdOYZX7; arc=none smtp.client-ip=79.135.106.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1789887337; c=relaxed/simple;
+	bh=0VIJh85HxygJnoDoON5bocAyZefHxJluvcfKFtk1vg4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=c/FaTZEYe9akcPyGIBmQAKTtW2me/Plql2Y7PWaDZJOreqztHEXHkURHoixmpQajzihS2O7yIQi/QAQPqkR2MfjPt7xy8wDIqmSQl/j3X1uhxlILteGrYOSVx89Sq25dGPK6dro5t2whzVscA5AbIh8V+yoIHte0ULNBkt5aXns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B09u9cwR; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="frdOYZX7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1789887226; x=1790146426;
-	bh=IbJAK7aXa5pz972jBcMi7T/vqSkdrkXCC86Z5Qp3eWA=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=frdOYZX7FZJb91z6hvpOE5kpgk1q9s61Ad7aVmQ4uEJktsWxeb3O8iXMhYKFYCplc
-	 AQEr/xyofjiCZdfjZ1p7lJIK6PIaJH+SyO5XEkcLuIyuR+C8bWcq9Gu2/C79jofA9U
-	 R5HZTCWYeyr8JVFQjRt07BKju70K9EV0/hJfw5KcJAK2iA6w4DlToxp+crJ4R/4P88
-	 oZ0PGwkaqNprudYxz4Rqd/kZZFMderx2YDEE9H80hCu3zSGeGPU8D1fdtgT3eAZbs7
-	 hYko7HerXKILyDYgUihgLtj/YWV8mB2ctxZUXGT8yBYUzMJsm+iVR/Cp9tBQKZyRdo
-	 EdpIyHhLCdH2A==
-Date: Sun, 20 Sep 2026 06:53:42 +0000
-To: Andre Przywara <andre.przywara@arm.com>
-From: =?utf-8?Q?Juan_Carlos_Guti=C3=A9rrez?= <jcarlosgl96@proton.me>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] arm64: dts: allwinner: Add SPC Glee 10.1 A64
-Message-ID: <nW8RRZw7ua8aoc8OVyDPwkugyF_ondGUfEyOAIeuIjstEOvZUVgQGJ5ZPREZV0uFfsj_tcfUAENVI6ojy6ESKziH-HxaYLDWZl-OomGx2cc=@proton.me>
-In-Reply-To: <63a19617-9349-4dd4-b9cb-dc677edc387f@arm.com>
-References: <20260911-b4-spc-glee-a64-v1-v2-0-ed0b7ff02e0b@proton.me> <20260911-b4-spc-glee-a64-v1-v2-2-ed0b7ff02e0b@proton.me> <63a19617-9349-4dd4-b9cb-dc677edc387f@arm.com>
-Feedback-ID: 47397442:user:proton
-X-Pm-Message-ID: 8b81d433734c5098b45b8dd05d52a33c041e4bfd
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B09u9cwR"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485933b24c3so995747f8f.0
+        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 23:55:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789887334; x=1790492134; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=M78s0H8Rd8+nOr7J2QsqNabn6ZGw1eXwc/smiKNA8Bg=;
+        b=B09u9cwRashfpaH1wwuBNhfGQdJNRZPlW89UDYAQlUoSqkHyb/9Om4yVFleYED7fpX
+         QCyRVUF0O4aSb8x4trX9hTchftJX5lv3TBFHn5qhuQ26QtHsJexPbIx1b/1/sQJNVkzo
+         nYKyDMbMne8r+ElRmsxyvwIDu8Bu1YOh2peIQ5GC5YfDxOvskvNOlaG8m2446r8Veviq
+         tRPeJLi52bptQxrcZZOHRiqMYwI3KP4wlv5D6MsK+FHeas4GhdY6b/cpmR1YRjF2EFY8
+         BExSfLUWGmD/2KQIcPqfXUe7EwlWcBkLFKqz7wmM9fn6ABn9xOrX1donlWQfzikhxoAL
+         4aeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789887334; x=1790492134;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=M78s0H8Rd8+nOr7J2QsqNabn6ZGw1eXwc/smiKNA8Bg=;
+        b=vD7yZca8cYwlHv2ByNmdn+injxKpu2ElDfMppVlUZSZus+VZLbyrb4V4cko0hGDhnH
+         wbMdTn1YoMl1OpfATKpqky1ODXQtdn+660j/lpeMEp91ZmpxqMRld4yzIFMCt+ouegti
+         g6ilEzKSJfDtxgfXFtNUuFOvTTvT2miK6nb5Qer9xbsMYwmZXxpjnnsNMuFcVY1iSREa
+         poWddV53mGXZWMw7plxOzmNg8o4p/MijdsXv3ps342zwIDWRbmUXV4748LjzWgl6S29m
+         f1ezsqxPqQ51jXClIcBnSiemugX1OrX8pj0+9778/uoaNURiq0B4zSrYlyhyPnhGrP7h
+         JP4g==
+X-Forwarded-Encrypted: i=1; AKwUvBy7aLFbW2kkdByCYzZmymcpKBDfSTuOI2nUKXUF8goz4Dp1Q7VvyJEKv8peLYrl15BWplXe6tPsQtYO4KI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mqkbxhG3KvcBYTdiT6LSiHm92RFE2X0waJtcbFkIgMnIJivtQu
+	WhbLgike0iQvWfcPhTNMPhw2ym+HmLK+ufw0AtaJN3Gat+cllDOf7j5I
+X-Gm-Gg: AYBFou2GxAtRR5W0K0Pj9PeOCT6tkEJACjvmMvghZXYqCnMoSfF+svet854YsIQ3kXP
+	koqnl/QcEHiht3XSM1TD6B5rW92uPBtoIbhNT8ZPS4ZVP/4lyAbsNgOkusf7jUnIzL+EzQHKHsO
+	YB8H9italbdIHx2MIWrvMbcwZdRBNDhpTTzUko0r6grEHlPM5LAQNLDD/U9CXHwWSrdy1N7EgjF
+	xSRiOrecTCUJHBywQB4w+EkK3UozT694INUhHbpwLlaSnB/A9JufI2xNOE+JdYdR4ohUQhwfmji
+	/Ad04RdDUd6xeF33urJjEqj0JmoJaP58xPqF/8ybmWwc/V9J+JRs6uQvNVXDl+MCraBJstSLA/T
+	CsqFUNbeLmBODEwQRXbTBTmJveszrgM4h/wr6nb33NVXhMVttbY6DA6687+sxsqdlupQHLwCxhf
+	q4uDXxEB+DniYt9zsG3STom4tBQiWviPGc5W8rkAUITJKMpAA2YfbhB0zytJuNCGr78y7ws9Py/
+	s8Ve8PzAiGPzVuHshU1Lew=
+X-Received: by 2002:a05:6000:2405:b0:487:bef:31a8 with SMTP id ffacd0b85a97d-4871dfac13emr11120143f8f.0.1789887334516;
+        Sat, 19 Sep 2026 23:55:34 -0700 (PDT)
+Received: from fedora.jkuat.ac.ke ([41.204.187.5])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48724596604sm12443626f8f.30.2026.09.19.23.55.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Sep 2026 23:55:34 -0700 (PDT)
+From: Bramwel Barack <bramwelbarack89@gmail.com>
+To: peterz@infradead.org,
+	mingo@redhat.com
+Cc: acme@kernel.org,
+	namhyung@kernel.org,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Bramwel Barack <bramwelbarack89@gmail.com>
+Subject: [PATCH] perf/x86: Fix missing error code in init_hw_perf_events()
+Date: Sun, 20 Sep 2026 09:55:10 +0300
+Message-ID: <20260920065510.15362-1-bramwelbarack89@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Andre,
+In init_hw_perf_events(), a fallback block intentionally clears the
+'err' variable to 0 when a vendor PMU driver is missing, allowing the
+kernel to fall back to software events safely.
 
-Thanks for the detailed review.
+However, further down the initialization path, a second hardware safety
+validation check is performed via check_hw_exists(). If this hardware check
+fails, the execution control paths jump straight to the 'out_bad_pmu'
+cleanup label. Because 'err' was cleared or initialized to 0 earlier, the
+function erroneously returns 0 (Success) to the initialization manager,
+despite wiping out the PMU configuration structures via memset.
 
-I have looked at the PineTab DTS and the other A64 reference boards. They a=
-re useful guides for the remaining peripherals, and I will use them when pr=
-eparing the next revision.
+Fix this by explicitly assigning -ENODEV to 'err' before jumping to the
+cleanup sequence when check_hw_exists() fails.
 
-You are right about the memory node. I will remove it and leave memory disc=
-overy to U-Boot.
+Signed-off-by: Bramwel Barack  <bramwelbarack89@gmail.com>
+---
+ arch/x86/events/core.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-The eMMC was left disabled because I had not yet verified its supply voltag=
-e and operating mode from a BSP boot. I will inspect the BSP MMC configurat=
-ion and runtime state, then enable it once the voltage and timing are confi=
-rmed.
+diff --git a/arch/x86/events/core.c b/arch/x86/events/core.c
+index d1af33d96d0a..81873eda5b17 100644
+--- a/arch/x86/events/core.c
++++ b/arch/x86/events/core.c
+@@ -2164,9 +2164,10 @@ static int __init init_hw_perf_events(void)
+ 	pmu_check_apic();
+ 
+ 	/* sanity check that the hardware exists or is emulated */
+-	if (!check_hw_exists(&pmu, x86_pmu.cntr_mask, x86_pmu.fixed_cntr_mask))
++	if (!check_hw_exists(&pmu, x86_pmu.cntr_mask, x86_pmu.fixed_cntr_mask)) {
++		err = -ENODEV;
+ 		goto out_bad_pmu;
+-
++	}
+ 	pr_cont("%s PMU driver.\n", x86_pmu.name);
+ 
+ 	/* enable userspace RDPMC usage by default */
+-- 
+2.55.0
 
-The 25 MHz SD limit was conservative while high-speed operation was still u=
-nverified. I will test the 3.3 V high-speed configuration and remove the li=
-mit if the board is stable at 50 MHz.
-
-USB has only been validated in peripheral mode so far. I will check the BSP=
- GPIO/debug information for an ID-detect pin. If the hardware is wired for =
-OTG, I will add the corresponding usb0_id_det-gpios configuration; otherwis=
-e I will keep peripheral mode and document the limitation.
-
-I will incorporate these changes in the next revision.
-
-Best regards,
-Juan Carlos
