@@ -1,203 +1,115 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A35D33F23B1
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 09:32:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4230A3EDAAE;
+	Sun, 20 Sep 2026 09:32:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789896737; cv=none; b=oYwI78reE/WDcKq0I+B10PgAgxOdpfQ9+EWDdh+dCUnJcR0rlvM/nDs8lil/yeVEELidIJ3o4A9ZRmuVrRY36BexAhZpPs59mrQWcsY2TJiVAZultEXDCLokQTzftY9Y51a6L3b34uJJG2jtMHDUQtlPpRqNUXZUdV6rdTxDZts=
+	t=1789896751; cv=none; b=tI8dRO8d1r8L/7SCv6fQ3KKUNi49qVPdUYY6Kl+QGPaOPDOqp71CDOoXRgv4+Ve01R7i4gGzk+WhlYzMAecatoB+/MzDkgSCSoJWKVawjc4SderlBjetQFW/c1uvXTeM8l2mro4a+cPUUUv/e5rXkc8LIxpy25C5Pj2EnADHx/k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789896737; c=relaxed/simple;
-	bh=PfQzAlFTJmP5nOozLR51GBXWUn9nRQSC5bCLYL7vjKI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aHNdyKNNvl6RcLQSY8UfxLp2k5NMAFBKnxdDI6NnPN4J2F7WpdSshiwmcqJqtE698qAfssT13PBiPV1XZcDlLGOxYd5ImH/mSZ51Wgc9cdGDT+47+YCOtR6JvemUsPqqmxm+0xhWjQv/LQt9KSY1YE6MRVG1ezjGoq6svT26Jls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s5WKTDUC; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789896751; c=relaxed/simple;
+	bh=fmwVf9a917sr5U9ONxBdoO4IvhN694a41HxbT8IES5c=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=SSnIDQo8Y71oKYafgQw04cfmQnGXQmrKDQJtIhzINPVtFOckGHTsrizho9DZG8bLxlKd/yrf+l5ms9R8nFon445zQGTBYKXR7VQUxqFd68RgTmfGqSuDlEVoAVkDq7I/bBHPJ8yhNvwh4/C29rwVLRi/G60eMO6N3mcZENZXMbc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=W0D53KwZ; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=rYxQRbi1; arc=none smtp.client-ip=202.12.124.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s5WKTDUC"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccd4f99cso2258200a91.0
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 02:32:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789896726; x=1790501526; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=I8CYADlMulmBrbeU/nI2e7mucfs6KlRtSnU3QkA587M=;
-        b=s5WKTDUCFleeJgXTo+MAu7z7U2iNrDEvOnbqAWTqEZtBGGienHUi5wmdwxumR7dfiG
-         +JQNnm5NXBgtdDUpQkG60wv0LsFeHlEYkA6gXnU8i2uncb474M2yiNVD/53pkrbc3GbY
-         mxy6x050RTTETzUCwRhTiPuuKmHazIEWnmib6MtzhuCEOB0TLZfUO5JZNN7jYWJ72ADa
-         ODYirkNWamwtjk90kqRzx0YmoylKX/NOfNU7bFTdtOBuJ4c3qrY/eIqMTq/xLi/7qg+Y
-         A1IWot8fX/tqj04iSiTPeTYgYpgmWyFAoHp6q54QP3oUgwLVTJYnewii0gouu9Li+WMH
-         d8Lw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789896726; x=1790501526;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=I8CYADlMulmBrbeU/nI2e7mucfs6KlRtSnU3QkA587M=;
-        b=aSy3hMlNQy/vPtimkNHs5xQmK+FpJVEQDSilSU6G6Gpw3xbzU38sgNJ6bgExi6rSjd
-         B+28kK/6CxaVb7+82PgW4xbwE7EW+Ndkn0loiZWTKuyN6ZHVHUbA5ufHvU5lFt49axIb
-         OztL/YQFWW7Pe9WGFQ7Z55Y+TpVLxG9JLM3oCGZUqv3ZEVFl5ocC8AOM7crsBbffcBCF
-         rVW4MFJNBOeR8kdpRVwnXitvSrkpblvahGW8WJDXbKUwk9BSLluTh+a1ebSRYtdvB+iE
-         EpqQcSlcLGJUyvidqI3TnsZ7iHEU4ZpusJ+acwmIJDMNGQme67oPKFzQKtLBs934u75q
-         ru6w==
-X-Forwarded-Encrypted: i=1; AKwUvBz6vERQ2/3/4nDCrUb6jb3JSOB4ST3+uaofQeJ+UISwrwCIPLh4nWfUlCAFRZQByyCqY5chA76JQBlC8iY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kg7AYVqqboUkVs+yDr07J+yMZhYrSPEx6U8Ug0kj65dp2noJ7v
-	MPnufG2/pVWsmMSGHQU7HLputYZkbYsB5APk+BUA7xCBLw0j4oDkbA8=
-X-Gm-Gg: AYBFou2iYgOjsRf8g9HPIandXNQaVmhAntKRT8d25mjPSuO6j75X2ilTl140KhiPC7B
-	cy5d+appNHtHACIblSYKL4DyOSnxRowuYXnO7hGfLSpKWD8O3hY6sdiDfdD+kMoHfsaGhHvUwR3
-	+l8YjVrexRqTXhmxmD2nJW0loFWqLQbjjvUXjGmzdnOTExSDBH7Duy3SYCIRgA5uOkZBHeC9ust
-	7II8BuHK0YCbxFugKAEAjFPVaP88Z3sJJPoBmY9a+GiJHXDqxMmgFmkv15NL7/KukC6Lg90khk0
-	k9G+p35zgOpBRhZOV7hfoH05k0VfNlQfzc1D8PYu75bwHTEMuLtwmGftJjXmLDz5sdk9pQRhZXd
-	qBLi/tI6nUdWvQwY3cq4UowobncjlQT7qquruy8Yk1Y1LpTNxajLCNZ31BwblBkVtU7UDSj8rGl
-	rZA+8mKVcD4QqoJlVKTsA+uqDJJF4IXCed39BtDJGouIaPSaSi2B6/6Xxu5R/2IwflrfZ8a2PTr
-	8C4G4zZxaPz8BzdFxbFu6RGmd8yO2VqIndlTVg=
-X-Received: by 2002:a17:90a:104f:b0:39e:574d:3d2f with SMTP id 98e67ed59e1d1-39e574d3f4fmr8126566a91.7.1789896726217;
-        Sun, 20 Sep 2026 02:32:06 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f00:8c85:e0d6:4b87:c472:c9ae])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6fb75539sm8093503a91.3.2026.09.20.02.32.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 02:32:05 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: bpf@vger.kernel.org
-Cc: ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	donggeunyoo.kernel@gmail.com
-Subject: [PATCH bpf 2/2] selftests/bpf: Test per-cpu initialization of a BPF_F_CPU created element
-Date: Sun, 20 Sep 2026 18:31:53 +0900
-Message-ID: <20260920093153.439743-3-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260920093153.439743-1-donggeunyoo.kernel@gmail.com>
-References: <20260920093153.439743-1-donggeunyoo.kernel@gmail.com>
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="W0D53KwZ";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="rYxQRbi1"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.stl.internal (Postfix) with ESMTP id E02521D000B8;
+	Sun, 20 Sep 2026 05:32:26 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Sun, 20 Sep 2026 05:32:28 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1789896746;
+	 x=1789983146; bh=Ho3i2ZEne3XWeE0sZzsIJ9CaxZDAGSyO5hDwEJ0am2M=; b=
+	W0D53KwZ9zARRHvFEMKWf1d7HAYdfdoHw3qpZvwsYsSaMmF1lzmFwD1WCt7e68EB
+	kXBp0SDj3qMwKFCf0dWDijJTLrlTgcbx8lljQsQDOajBiuKJJ7671cNKQYvJMG6a
+	c8Moy2BFFAi9/m2E8BA0l4Uc2UPQzBDDxGIgp/6r2HtoyE5Kek7rTNBztI2hPm7m
+	og03655buJg9GlFuip5HopC87SSZBZlhxAmRoerGDCP2OaSMht4P/vQgMrnV/VIm
+	V4AxZ0AOenduZ0KPfc3EI3nbV/0EFM+SgAnL9H8IOufLgDZwa2nN0CHg8CvR1VbK
+	KZtzA65yXtNQyjnWJkUlhA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789896746; x=
+	1789983146; bh=Ho3i2ZEne3XWeE0sZzsIJ9CaxZDAGSyO5hDwEJ0am2M=; b=r
+	YxQRbi139+6siV9qRXDW3NMfleFDAnAYgDDi+SB0GKrzjKxsXv/39WEooXpyjY8r
+	kybEHRrGGf7WWo9EmkcuWDzLzfRaAvXcEey/Pzz02xd/d9JTOFEBOhYDZppH92+T
+	xLZG5i2p6hcx3BBhABk7P68AWoYag62ub9kamymzyMPNVIP49Z6DJGr22oQM4EhP
+	U1dcJD5WvtBtNQgSt7lt7sZOQq8vLRcE6CW0qPA/fioWWJ+MLFo3fn3HCKn2zpRi
+	jK0zztNP3M/O/B6LPofRTKP8zHiBsMbHql4i6XqyZsyKyKV/CMqedZLDde6yW0cZ
+	On2ygYt8pL/5Nu4VVR5yA==
+X-ME-Sender: <xms:JqivaiMSjhSG2el-vlZXeFvCN_Dc9vs7XlsbVy4M8Uk3imScOlSlew>
+    <xme:Jqivarz-m1KGJ0vH7-jeXAEMFTGXPuqNDwVlAP4qwidxo7Rctz8bIPKs-QS3D5eUK
+    -hOYrQR_f7SOUORHgtFw-1GbQHq_z_tN_X9hTn3QnzlYV_lGUgQbLBS>
+X-ME-Proxy-Cause: dmFkZTFDpxq9iaqfbx8D3WimXx4MB7M1g9g4zfB2+5uGFNXZ3AFJ8stXvDfhV1FH+PHZ+E
+    70MyuhtqrHrHhZ3QZM/LzCLzeROFzqwf+/QChzQjs4tJUzIAY7adhEro5EkjLolniLj9el
+    EgHzDiwDWXuinVt+ilVgF167crSLL+PIRk1w3kwf2DAK6fJ+AeYiPJ4+lbl0TscyMR6J1r
+    HYFCjyAQVFqegv1FmiR1/kZKl5fcUBvQDMen2ikVSHQnGQYyL0FUrcl58fBPregIZTDDSz
+    6n1x+XBtiCrXxHF17+cxZWTsdcC3hqfBaOX5h7fIVng7n0vQAF4ruBnI3WnBx16KjNyKCp
+    uWLIGGhB++czTT+BauSjxGDI5JoZ4dBka5ywsbs4hlapg4mOuGvmmG/WzFKcJvwnYmg88s
+    zIZE3UXrp1/JcAGga2ZTyeJNT7QSubCaWnwRlFVjDTpx4x0df+ScJNEsmZLf2yyuR6ZCRT
+    pMMhslJucNB7mwQyMECZfsOOqdPylJUh1iGYRG8gHPjkYrW4TIwToVcfl/jbyA2k1Y/wbi
+    78/pLUCFem/mLRrZXqXblvSkqmf/Nk3utSQ+qeZTACOojmuk+OhZLtuHODejlbNObtth1t
+    aLTlGZ5xLE81DJRhA7is5aK2GZpt3qavUTSpy77q3t9rg31Te+6VFf4C4T8A
+X-ME-Proxy: <xmx:J6ivasVL0T3M6Z19788okk3oMUUZNCnjPJ7YYDZ1C3XJwdM0cK3S4A>
+    <xmx:J6ivasar_cjXg88wp5zzLPyPC1TcaKO4ujUMg_nTby_EjB51mukc4g>
+    <xmx:J6ivarxAL1M65LVDpToqTBu1wpl6s64Kw8xaZvX2zxreR7cNVCFB_g>
+    <xmx:J6ivak21RceGHH2d2CSFtOz6YVKYQyKnz0eOPc7ZTAkPz4_8Lt5Tsw>
+    <xmx:Kqivai_TDlhLY7OXRBHdss6zS0AfoxD_i2sc33ugElktGooAmJ9HGHnT>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id EC6D732A0087; Sun, 20 Sep 2026 05:32:21 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ThreadId: AzgOxjlYMeWB
+Date: Sun, 20 Sep 2026 11:30:34 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Qingfang Deng" <qingfang.deng@linux.dev>
+Cc: Linux-Arch <linux-arch@vger.kernel.org>,
+ "Catalin Marinas" <catalin.marinas@arm.com>, "Will Deacon" <will@kernel.org>,
+ "Mark Rutland" <mark.rutland@arm.com>,
+ "Anshuman Khandual" <anshuman.khandual@arm.com>,
+ "Vikram Sethi" <vsethi@nvidia.com>, "Mike Rapoport" <rppt@kernel.org>,
+ "Shanker Donthineni" <sdonthineni@nvidia.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Message-Id: <3250a625-7900-40a9-8f3c-612d333122dc@app.fastmail.com>
+In-Reply-To: <9895e60c-6a3c-40c8-b188-51891ee6b216@linux.dev>
+References: <20260920014357.7069-1-qingfang.deng@linux.dev>
+ <20260920014357.7069-3-qingfang.deng@linux.dev>
+ <5847c824-8d69-4d02-af2f-896bf47f0732@app.fastmail.com>
+ <9895e60c-6a3c-40c8-b188-51891ee6b216@linux.dev>
+Subject: Re: [PATCH v2 3/3] arm64: use generic MMIO accessors
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-The existing cpu_flag subtests always prime a key with BPF_F_ALL_CPUS
-before any BPF_F_CPU write, so the element always exists by the time the
-flag is used and the create path is never covered.
+On Sun, Sep 20, 2026, at 11:24, Qingfang Deng wrote:
+>
+> Regarding unaligned accesses, the splitting can only happen when the 
+> address is known to be unaligned at compile-time. Do these accessors 
+> need to support unaligned MMIO? If so, I could add 
+> OPTIMIZER_HIDE_VAR(addr) to the generic accessors.
 
-Add a subtest that creates the element with BPF_F_CPU on a map whose
-max_entries is 1, so the key can only reuse the element the previous key
-released, and check that the CPUs the update did not name read back zero
-rather than the previous key's value.  Run it for PERCPU_HASH both
-preallocated and BPF_F_NO_PREALLOC, whose per-cpu areas are recycled by
-different allocators, and for LRU_PERCPU_HASH, which is always
-preallocated.
+I think all architectures that have had this problem just started
+using the inline asm variant, and I'd probably try to encourage
+that more.
 
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
----
- .../selftests/bpf/prog_tests/percpu_alloc.c   | 74 +++++++++++++++++++
- 1 file changed, 74 insertions(+)
+What might be helpful here would be to split out the __raw_* helpers
+into a separate header that is explicitly included on architectures
+without their own definitions, and an updated comment that explains
+that architectures are encouraged to implement these as inline asm
+instead of using the volatile load/store.
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/percpu_alloc.c b/tools/testing/selftests/bpf/prog_tests/percpu_alloc.c
-index a72ae0b29f6e9..d0084a2405bed 100644
---- a/tools/testing/selftests/bpf/prog_tests/percpu_alloc.c
-+++ b/tools/testing/selftests/bpf/prog_tests/percpu_alloc.c
-@@ -350,6 +350,74 @@ static void test_lru_percpu_hash_cpu_flag(void)
- 	test_percpu_map_cpu_flag(BPF_MAP_TYPE_LRU_PERCPU_HASH);
- }
- 
-+/* A BPF_F_CPU update that creates an element must zero the value on the other
-+ * cpus, rather than leave them holding whatever the recycled element last
-+ * contained.  max_entries is 1 so the second key can only reuse the element
-+ * the first one released.
-+ */
-+static void test_percpu_map_cpu_flag_create(enum bpf_map_type map_type, __u32 map_flags)
-+{
-+	LIBBPF_OPTS(bpf_map_create_opts, opts, .map_flags = map_flags);
-+	const u32 stale = 0xDEADC0DE, fresh = 0xC0FFEE;
-+	int nr_cpus, cpu, map_fd, err, key;
-+	u32 value;
-+	u64 flags;
-+
-+	nr_cpus = libbpf_num_possible_cpus();
-+	if (!ASSERT_GT(nr_cpus, 1, "libbpf_num_possible_cpus"))
-+		return;
-+
-+	map_fd = bpf_map_create(map_type, "cpu_flag_create", sizeof(key), sizeof(value), 1, &opts);
-+	if (!ASSERT_GE(map_fd, 0, "bpf_map_create"))
-+		return;
-+
-+	key = 1;
-+	value = stale;
-+	err = bpf_map_update_elem(map_fd, &key, &value, BPF_F_ALL_CPUS);
-+	if (!ASSERT_OK(err, "bpf_map_update_elem all_cpus"))
-+		goto out;
-+
-+	err = bpf_map_delete_elem(map_fd, &key);
-+	if (!ASSERT_OK(err, "bpf_map_delete_elem"))
-+		goto out;
-+
-+	key = 2;
-+	value = fresh;
-+	flags = BPF_F_CPU;
-+	err = bpf_map_update_elem(map_fd, &key, &value, flags);
-+	if (!ASSERT_OK(err, "bpf_map_update_elem specified cpu"))
-+		goto out;
-+
-+	for (cpu = 0; cpu < nr_cpus; cpu++) {
-+		value = 0;
-+		flags = (u64)cpu << 32 | BPF_F_CPU;
-+		err = bpf_map_lookup_elem_flags(map_fd, &key, &value, flags);
-+		if (!ASSERT_OK(err, "bpf_map_lookup_elem_flags specified cpu"))
-+			goto out;
-+		if (!ASSERT_EQ(value, cpu ? 0 : fresh, "value on specified cpu"))
-+			goto out;
-+	}
-+
-+out:
-+	close(map_fd);
-+}
-+
-+static void test_percpu_hash_cpu_flag_create(void)
-+{
-+	test_percpu_map_cpu_flag_create(BPF_MAP_TYPE_PERCPU_HASH, 0);
-+}
-+
-+static void test_percpu_hash_cpu_flag_create_malloc(void)
-+{
-+	test_percpu_map_cpu_flag_create(BPF_MAP_TYPE_PERCPU_HASH, BPF_F_NO_PREALLOC);
-+}
-+
-+static void test_lru_percpu_hash_cpu_flag_create(void)
-+{
-+	/* lru without prealloc is -ENOTSUPP, so there is no malloc variant. */
-+	test_percpu_map_cpu_flag_create(BPF_MAP_TYPE_LRU_PERCPU_HASH, 0);
-+}
-+
- static void test_percpu_cgroup_storage_cpu_flag(void)
- {
- 	struct percpu_alloc_array *skel = NULL;
-@@ -454,6 +522,12 @@ void test_percpu_alloc(void)
- 		test_percpu_hash_cpu_flag();
- 	if (test__start_subtest("cpu_flag_lru_percpu_hash"))
- 		test_lru_percpu_hash_cpu_flag();
-+	if (test__start_subtest("cpu_flag_create_percpu_hash"))
-+		test_percpu_hash_cpu_flag_create();
-+	if (test__start_subtest("cpu_flag_create_percpu_hash_malloc"))
-+		test_percpu_hash_cpu_flag_create_malloc();
-+	if (test__start_subtest("cpu_flag_create_lru_percpu_hash"))
-+		test_lru_percpu_hash_cpu_flag_create();
- 	if (test__start_subtest("cpu_flag_percpu_cgroup_storage"))
- 		test_percpu_cgroup_storage_cpu_flag();
- 	if (test__start_subtest("cpu_flag_array"))
--- 
-2.53.0
-
+     Arnd
