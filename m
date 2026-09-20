@@ -1,97 +1,96 @@
-Received: from mta0.migadu.com (out-209.mta0.migadu.com [91.218.175.209])
+Received: from mta1.migadu.com (out-11.mta1.migadu.com [95.215.58.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D44C22DB789
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 03:29:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.209
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BDA31799F
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 03:29:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789874965; cv=none; b=mdiIZX6/xU0i1tqzw/xzUfqgBkTWZAbdQFzEjC9gfHIU3QY4JvPYzG4tjSKpJQEepxnNTO7TZhsRgImrncQgdu5hqhl9ZwCtZWQF2pZnWB4KIgM8OQfLb/1Ucho008mEyBk3WZltLBDvyAlbLWQ8GstklxZaig+ehTclqXjS7xE=
+	t=1789874979; cv=none; b=hJHANnjC3oTYyp+KIjtVlZU2my7dYhqRsplOaAIihrTD6s25wfq5uFEc8iHTMQd1DgaK4U6asUTYuP5qOQBiUS8IJshQdXtNpMFzc28kHtVe2zOj6WERuY1ALzgnQ4zurgvDVRtElX46G3vPlwfrWOsSoAAxpNlSXLe4zQDm8tI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789874965; c=relaxed/simple;
-	bh=7t9pgJ258Rrl5dDQjj8X+z+ssND9xQQoxEd4N7iBmDA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=az+EBp+jrokN/UmxiKRLd0DtHlmqEad+flD6jzkgmhs1KahwgkW9gfICmECR0r/FjKcV3ZjgLZBH0t5NZp7yKexijaAh4/PV3A9VOMk33YRDe9DqRmP8Kjt/V/zjh45e1wPSYc1jc/FSN69b4C4JHCbFnTNUY1KO180k3l37Ing=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=a/dbhuOv; arc=none smtp.client-ip=91.218.175.209
+	s=arc-20240116; t=1789874979; c=relaxed/simple;
+	bh=V4Vz6gidKP+9XlJ5npYvmEGbYAGJM9YPmsRmNHIjUZU=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=Op7xKDr9tDgvoFmgmeQf6AnlSfOCMf+hGsLQ2Tloojx1SAStqQ/5f5dKO5Yc3l7DhcwraE/LYUfXE76BbZj4ypyg1xuqW5edL3XtDLe727LZGUgvC3dfZgjifE57nKlzfIcfZKzrIePdKtsyyM/RH1+x5w4HrOHEmkJJ8by/eJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=s4+s26is; arc=none smtp.client-ip=95.215.58.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="a/dbhuOv"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="s4+s26is"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=7t9pgJ258Rrl5dDQjj8X+z+ssND9xQQoxEd4N7iBmDA=;
+DKIM-Signature: a=rsa-sha256; bh=V4Vz6gidKP+9XlJ5npYvmEGbYAGJM9YPmsRmNHIjUZU=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789874961; v=1; x=1790479761;
- b=a/dbhuOvBedqB60bdEBAj4jNrIQA4Kq75IjusovlAOLhiMw/eRAkcCgvcM/T3HbMQMqgxLjK
- ZRDP3RdEr9KtrZACnGHRuLnVxyIjuRJEWP+i7C8UACUPJam1GJnXxkFBlc6ljpwZ46R3kIqtXcc
- RJWi3/M+xPvJjrOLTJkXHPYc=
+ t=1789874975; v=1; x=1790479775;
+ b=s4+s26iskR4xXj+2JCWRYfYHQ6DBP+/JkIYWvDm3QM+oiw9NNm2DNS2kFAu65OgkTfsi/WMI
+ azBq+vRlo8i+FUJukbE6Yk9VPijHiw+2x0yUXGVYg/0zHZisuOo8Rj0wqJPOT0JTNbcW8yW1bMr
+ 51T/L0o/2N49FPH8CK7MOvjw=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 43907a8009874808;
-	Sun, 20 Sep 2026 03:29:21 +0000
-X-Mizu-Trace-ID: 43907a8009874808
+Received: by smtp.migadu.com with ESMTPS id 1de7dad217777a35;
+	Sun, 20 Sep 2026 03:29:35 +0000
+X-Mizu-Trace-ID: 1de7dad217777a35
 X-Migadu-Flow: FLOW_OUT
-Message-ID: <a932b397-de99-42ba-91e7-cea923fa6f9f@linux.dev>
-Date: Sun, 20 Sep 2026 11:29:16 +0800
+From: Qingfang Deng <qingfang.deng@linux.dev>
+To: Russell King <linux@armlinux.org.uk>,
+	Linus Walleij <linusw@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Thomas Weissschuh <thomas.weissschuh@linutronix.de>,
+	Thomas Gleixner <tglx@kernel.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Qingfang Deng <qingfang.deng@linux.dev>,
+	Will Deacon <will@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ARM: errata: document Cortex-A9 r4 as affected by erratum 754322
+Date: Sun, 20 Sep 2026 11:29:23 +0800
+Message-ID: <20260920032926.452884-1-qingfang.deng@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] cgroup/cpuset: Remove redundant sched domain rebuild
- from update_prstate()
-To: Guopeng Zhang <guopeng.zhang@linux.dev>, Waiman Long <longman@redhat.com>
-Cc: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, cgroups@vger.kernel.org,
- linux-kernel@vger.kernel.org, Guopeng Zhang <zhangguopeng@kylinos.cn>
-References: <20260920025256.24991-1-guopeng.zhang@linux.dev>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <20260920025256.24991-1-guopeng.zhang@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+The Cortex-A9 r4 Software Developers Errata Notice (ARM UAN 0009D),
+section 2.3.3, lists erratum 754322 as affecting all r2, r3 and r4
+revisions. The Kconfig help text currently mentions only r2 and r3.
 
+Add r4p* to the affected revisions so that users configuring Cortex-A9
+r4 systems know that the workaround also applies to them.
 
-On 9/20/2026 10:52 AM, Guopeng Zhang wrote:
-> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
-> 
-> Both callers of update_prstate(), cpuset_partition_write() and
-> cpuset_css_killed(), call cpuset_update_sd_hk_unlock() immediately
-> afterwards. That helper rebuilds sched domains when force_sd_rebuild is
-> set before releasing the cpuset locks, so the check in update_prstate()
-> is redundant.
-> 
-> Commit 3bfe47967191 ("cgroup/cpuset: Move
-> housekeeping_update()/rebuild_sched_domains() together") removed the
-> same check from cpuset_write_resmask(). Remove the remaining one from
-> update_prstate().
-> 
-> Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
-> ---
-> Changes in v2:
-> - Rename the patch to avoid the misleading "defer" wording.
-> 
->   kernel/cgroup/cpuset.c | 2 --
->   1 file changed, 2 deletions(-)
-> 
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index 8f24171b6055..d58ecf56f384 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -3039,8 +3039,6 @@ out:
->   	update_partition_sd_lb(cs, old_prs);
->   
->   	notify_partition_change(cs, old_prs);
-> -	if (force_sd_rebuild)
-> -		rebuild_sched_domains_locked();
->   	free_tmpmasks(&tmpmask);
->   	return 0;
->   }
+Link: https://documentation-service.arm.com/static/608118675e70d934bc69f143
+Fixes: fcbdc5fe6ebe ("ARM: 6772/1: errata: possible fault MMU translations following an ASID switch")
+Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
+---
+ arch/arm/Kconfig | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
-Thanks.
-
+diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
+index 0cc289a7184a..c7d631d5242b 100644
+--- a/arch/arm/Kconfig
++++ b/arch/arm/Kconfig
+@@ -708,11 +708,12 @@ config ARM_ERRATA_754322
+ 	depends on CPU_V7
+ 	help
+ 	  This option enables the workaround for the 754322 Cortex-A9 (r2p*,
+-	  r3p*) erratum. A speculative memory access may cause a page table walk
+-	  which starts prior to an ASID switch but completes afterwards. This
+-	  can populate the micro-TLB with a stale entry which may be hit with
+-	  the new ASID. This workaround places two dsb instructions in the mm
+-	  switching code so that no page table walks can cross the ASID switch.
++	  r3p*,r4p*) erratum. A speculative memory access may cause a page table
++	  walk which starts prior to an ASID switch but completes afterwards.
++	  This can populate the micro-TLB with a stale entry which may be hit
++	  with the new ASID. This workaround places two dsb instructions in the
++	  mm switching code so that no page table walks can cross the ASID
++	  switch.
+ 
+ config ARM_ERRATA_754327
+ 	bool "ARM errata: no automatic Store Buffer drain"
 -- 
-Best regards
-Ridong
+2.43.0
 
