@@ -1,32 +1,33 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 023193DDAFD;
-	Sun, 20 Sep 2026 11:25:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16DD23DDAFD;
+	Sun, 20 Sep 2026 11:29:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789903560; cv=none; b=ckUJ0uEnuMlNP3zF/0rPBIWBEX9ZE9CtpepftWKOqLoKqKw26ROvYWKvbYQQcy1EdN1j/uQu59YGrcLXPe+Xthlu/Fue3fz61+dEEExgAd6Grof7EMuFzYYvDCRuskGo56OX8H/vJFKp7qDGTXOGWcuCzpt39E/eFDm5dFHJJAA=
+	t=1789903760; cv=none; b=bt6swPyV2peo7a7dF0dBDE8m1Go0DI3BKPfDLQbi2moBLoKD7Ea5nsfPsCFj5fF08MJls1ZbT0bGmbQJvgql5Fb4XIRAiYHZ3CuByktdq/cnGORY6oH3qOgw8eGqpVMBmtD4Um7pEXucxeX3boZ83fAPSP8IG3PQuRjHE4TuEuA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789903560; c=relaxed/simple;
-	bh=jmhPB1P9jGwQfWomRnGhe0RB+DrGmw+jS55nZI7L4fY=;
+	s=arc-20240116; t=1789903760; c=relaxed/simple;
+	bh=7Hcp0/OzwntqibpBRHCSzfnUhIke5Wok4uwkEkvWi8Y=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=R/WsDoW4225VcmWyrMEfMKUYNwdracWq8DafVz8nGe9PfRfbHske9TDH8p1RVZqQVNiICZ2K6Deh1qRB2zavUOHHNSh15Mu3tJfwv25i/WCZfHjmb46q1Z3jphM+vmMEq1hXOEsMA+Z3pzTRjc9LhlHg7pZnv3IS6C4ThHDAXIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=SqSmlg4r; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	 In-Reply-To:Content-Type; b=DexXRR6/PBX4ARk4vJEbCSuaOYqR5aTMVoO84nnlHFxb1YRAkhd2fVMlVb1LvCjKEbfCtms9Jg10JuKjllc/TU99xedQFD4ymAPJortVftIF7TQBJZCHEvqZ9CZDey5pm6ybXMXNVZFmm+vesLLm0AYuKMeQkB06l9TL0m9AzRI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QnDqEQbR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="SqSmlg4r"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=AM+FarV7xB7Zz+QiLT9L6i+YPz8fUNu/gX+M5rzQES4=;
-	b=SqSmlg4rYqRU6fBU7461E5izVzhx12E1NLQpaEAQRBY3MxLO0wOKm5gIYgaHF3
-	Mn8ylT4HtMUwpGV/oWO78CjqGw/i3cIjH9rEZOQC0NlnIiA7I/nbFdhGT1GyPs6M
-	pc8qNT8Ed0efLtpjkxj+CPtHpH3bHK+Bmz6A77q1PpZSU=
-Received: from [IPV6:2409:8900:1ee3:222c:6d18:42cb:3228:5708] (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wCHlnuswq9qwud7Bw--.60149S2;
-	Sun, 20 Sep 2026 19:25:34 +0800 (CST)
-Message-ID: <04255390-4133-4e8e-81ad-4d2402498431@163.com>
-Date: Sun, 20 Sep 2026 19:25:32 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QnDqEQbR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCBE01F000FF;
+	Sun, 20 Sep 2026 11:29:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789903758;
+	bh=3U6uTfmVLXx9LAthbhE05WIU/IQj/WEaffO5SLaljzw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=QnDqEQbRnCaiNWOiuPvJf4HSsi0883smMjIkM4GhbTLtrvyF/wXRGi45gjiLetOlD
+	 30wA82bSRIBi6c8S95TeOLEevXHSoxzFiR0auGxKan+3XqNlG7QOI+IKek35cesHmq
+	 Z0T6VMCFIYapdI1XY7V6Nm2PTho8+zRlyqEUYtIp5mj65POjftVqGDcbNNnUQi81AL
+	 1eNeUDwJ2SmdHKF+5BwV0QpXsn8PNR/yhcQ59+c0uG/aTVL8X5VgZITNx2s/S+ePc/
+	 M5BYNM34sH6Gasn3CYNb9V1jggZy6v9m4C9DS5INRP8GcCK2wm9lsgtsI7I7rliSf9
+	 3g8dvFIU7E7WQ==
+Message-ID: <d64eabce-ebfb-45a6-9ef3-74280dc2c5a3@kernel.org>
+Date: Sun, 20 Sep 2026 13:29:15 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -34,254 +35,105 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5] ntfs: mount hibernated volumes read-only regardless of
- errors=
-To: Hongling Zeng <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
- hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
- zhongling0719@126.com, stable@vger.kernel.org
-References: <20260920025955.31209-1-zenghongling@kylinos.cn>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <20260920025955.31209-1-zenghongling@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wCHlnuswq9qwud7Bw--.60149S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxtw13tF1xuw1xtF1DKr4rKrg_yoWfKr4Dpr
-	Z7Kwnxtr4ktr1a9rn2yayxG3WF9rZ2yF4jgr18Aw4xZrn8Jr13tryxKw4Y9a4Skr98tw48
-	XF4j9343WF4DZFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UfOz3UUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6g5iLWqvwq4eDwAA3T
+Subject: Re: [PATCH] vboxsf: fix endless write loop and data corruption on
+ short copy
+To: Kentaro Shiomi <k.shiomi@techhowto.blog>,
+ Jori Koolstra <jkoolstra@xs4all.nl>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260919174136.3325-1-k.shiomi@techhowto.blog>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <20260919174136.3325-1-k.shiomi@techhowto.blog>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
++To: Jori Koolstra, who maintains vboxsf now.
 
+Regards,
 
-在 2026/9/20 10:59, Hongling Zeng 写道:
-> The hibernation check in load_system_files() only converts the
-> superblock to read-only under errors=remount-ro.  With the default
-> errors=continue (and with errors=panic), a hibernated volume is
-> mounted read-write and the mount-time $LogFile emptying writes to it,
-> although a hibernated volume must not be written to at all.
+Hans
+
+On 19-Sep-26 19:41, Kentaro Shiomi wrote:
+> vboxsf_write_end() ignores the number of bytes that the generic write
+> path managed to copy into the folio: it initialises nwritten with the
+> requested length, writes that many bytes to the host and returns the
+> requested length even when copied == 0.
 > 
-> Drop the on_errors term so that a hibernated volume, or a volume whose
-> hibernation state cannot be determined, always mounts read-only.
-> NVolErrors() is still recorded, so ntfs_reconfigure() keeps refusing
-> remounts to read-write, and the $LogFile emptying is skipped by its
-> !sb_rdonly() check.
+> generic_perform_write() then sees status != 0, so it never calls
+> fault_in_iov_iter_readable(), advances pos by the full length and loops
+> again with an iterator that has not been advanced at all.  The result is
+> an endless loop that keeps appending zeroed data to the file (filling up
+> the host file system) while flooding the log with
 > 
-> The check itself must not apply the errors= policy either: it runs
-> before SB_RDONLY is set, and ntfs_lookup_inode_by_name() and
-> ntfs_iget() call ntfs_error() internally on corruption or I/O errors,
-> which under errors=panic would panic the machine before the read-only
-> fallback has made its decision.  Run the check with the super block
-> temporarily marked read-only, which makes ntfs_handle_error() ignore
-> any ntfs_error() issued on this path; the super block is not
-> published yet at this point, so the temporary flag is not visible
-> elsewhere.
+>   WARNING: lib/iov_iter.c:624 at iov_iter_revert+0x1fc/0x270
 > 
-> Restore read-write access only if the check succeeded and no errors
-> were recorded earlier during the mount, e.g. when loading the LogFile,
-> so that a volume with recorded errors stays read-only, matching what
-> ntfs_reconfigure() enforces for remounts, and a message is logged for
-> that case.
+> because iov_iter_revert() is called with copied - status, i.e. a
+> negative value.
 > 
-> Fixes: 6251f0b0de7d ("ntfs: update super block operations")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+> The same accounting bug can silently corrupt data: when the folio is
+> already uptodate, the stale part is not zeroed, so a short copy makes
+> vboxsf write the old folio contents to the host and report success.
+> 
+> A short copy is not an error condition - it happens whenever the source
+> pages are not faulted in yet, e.g. when writing directly from an mmap of
+> another file or from shared memory (virtiofsd does exactly this).
+> 
+> Return the number of bytes that were actually copied, and reject the
+> write entirely when nothing was copied so that the generic code faults
+> the source pages in and retries.
+> 
+> Signed-off-by: Kentaro Shiomi <k.shiomi@techhowto.blog>
 > ---
-> Change in v5:
->   -Rework the errors=panic handling per review feedback.
-> ---
->   fs/ntfs/super.c | 36 +++++++++++++++++++++++++++++++-----
->   1 file changed, 31 insertions(+), 5 deletions(-)
+> Found while running a nested VM (QEMU/KVM) inside a VirtualBox guest: the
+> virtiofsd instance exporting a directory that lives on a vboxsf mount writes
+> straight from the shared guest memory, so the source pages are not faulted in
+> and every write takes the short-copy path.  Creating a 6-byte text file grew
+> the file to 29 KB within seconds and a small PNG reached 202 MB before the VM
+> was killed; the guest ran out of disk space because ~16 GB of logs were
+> written in the meantime.
 > 
-> diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-> index f4a73e45773d..ab91cd1a8515 100644
-> --- a/fs/ntfs/super.c
-> +++ b/fs/ntfs/super.c
-> @@ -1398,6 +1398,7 @@ static bool load_system_files(struct ntfs_volume *vol)
->   	struct ntfs_attr_search_ctx *ctx;
->   	struct restart_page_header *rp;
->   	int err;
-> +	bool temporary_ro = false;
->   
->   	ntfs_debug("Entering.");
->   	/* Get mft mirror inode compare the contents of $MFT and $MFTMirr. */
-> @@ -1572,8 +1573,20 @@ static bool load_system_files(struct ntfs_volume *vol)
->   	 * NVolErrors() without setting the dirty volume flag and mount
->   	 * read-only.  This will prevent read-write remounting and it will also
->   	 * prevent all writes.
-> +	 *
-> +	 * The check runs with the super block temporarily marked read-only, so
-> +	 * that ntfs_error() calls issued internally by ntfs_lookup_inode_by_name()
-> +	 * and ntfs_iget() cannot trigger errors=panic before the read-only
-> +	 * fallback has run.  The super block is not published yet, so the flag
-> +	 * is not visible elsewhere.
->   	 */
-> +	if (!sb_rdonly(sb)) {
-> +		sb->s_flags |= SB_RDONLY;
-> +		temporary_ro = true;
-> +	}
->   	err = check_windows_hibernation_status(vol);
-> +	if (temporary_ro && !err && !NVolErrors(vol))
-> +		sb->s_flags &= ~SB_RDONLY;
-
-Hi Hongling,
-   Thanks for sending the updated patch. I'm sorry, but while reviewing 
-this version more closely, I found a problem with the temporary 
-read-only approach I suggested during the v3 discussion.
-
-   The condition above does not reliably establish whether read-write 
-access can be restored. An ntfs_error() call does not necessarily set 
-NVolErrors(), and some errors reported by nested helpers are not 
-propagated back to the hibernation check.
-
-   For example, ntfs_attr_readall() can report "Invalid attribute data 
-size" and return -EIO without setting NVolErrors(). If this happens 
-while reading the optional WSL extended attributes through 
-ntfs_ea_get_wsl_inode(), the error can be ignored and inode loading can 
-still succeed. If the hibernation header is otherwise valid and 
-zero-filled, the check can then return zero.
-
-   With errors=remount-ro, the original code would retain the read-only 
-state set by that ntfs_error() call. With v5, ntfs_handle_error() 
-returns immediately because SB_RDONLY is already set, and the condition 
-above can subsequently restore read-write access because neither err nor 
-NVolErrors() reflects that error.
-
-   This makes it difficult to define a reliable restoration condition 
-using only the check's return value and NVolErrors().
-
-   I now think a better approach is to temporarily replace 
-ON_ERRORS_PANIC with ON_ERRORS_REMOUNT_RO around 
-check_windows_hibernation_status(), then restore the original policy
-  immediately afterwards. This covers both direct and nested 
-ntfs_error() calls while preserving any read-only transition they 
-trigger. The temporary substitution leaves the existing errors=continue 
-and errors=remount-ro policies unchanged.
-
-   This deliberately falls back to read-only for any ntfs_error() that 
-would otherwise trigger panic during the check, including recoverable 
-errors. I think that is a reasonable conservative fallback: it avoids 
-panic without treating every such error as a persistent volume error by 
-automatically setting NVolErrors().
-
-   If the check reports hibernation or fails, we would still 
-unconditionally set SB_RDONLY and NVolErrors(). We would also retain 
-your protection for volumes with errors recorded during the check or 
-earlier in the mount.
-
-
-   The following is a replacement patch against the same base as your v5:
-
-   @@ -1398,6 +1398,7 @@ static bool load_system_files(struct 
-ntfs_volume *vol)
-    	struct ntfs_attr_search_ctx *ctx;
-    	struct restart_page_header *rp;
-    	int err;
-   +	u8 saved_on_errors;
-
-    	ntfs_debug("Entering.");
-    	/* Get mft mirror inode compare the contents of $MFT and $MFTMirr. */
-   @@ -1572,8 +1573,18 @@ static bool load_system_files(struct 
-ntfs_volume *vol)
-    	 * NVolErrors() without setting the dirty volume flag and mount
-    	 * read-only.  This will prevent read-write remounting and it will also
-    	 * prevent all writes.
-   +	 *
-   +	 * Nested lookup and inode-loading errors must not panic before the
-   +	 * read-only fallback.  Temporarily use errors=remount-ro instead of
-   +	 * errors=panic, preserving any read-only transition even if an error
-   +	 * is not propagated or recorded in NVolErrors().  This is safe during
-   +	 * initial mount, before the super block is published.
-    	 */
-   +	saved_on_errors = vol->on_errors;
-   +	if (saved_on_errors == ON_ERRORS_PANIC)
-   +		vol->on_errors = ON_ERRORS_REMOUNT_RO;
-    	err = check_windows_hibernation_status(vol);
-   +	vol->on_errors = saved_on_errors;
-    	if (unlikely(err)) {
-    		static const char *es1a = "Failed to determine if Windows is 
-hibernated";
-    		static const char *es1b = "Windows is hibernated";
-   @@ -1581,12 +1592,15 @@ static bool load_system_files(struct 
-ntfs_volume *vol)
-    		const char *es1;
-
-    		es1 = err < 0 ? es1a : es1b;
-   -		/* If a read-write mount, convert it to a read-only mount. */
-   -		if (!sb_rdonly(sb) && vol->on_errors == ON_ERRORS_REMOUNT_RO) {
-   -			sb->s_flags |= SB_RDONLY;
-   -			ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
-   -		}
-   +		/* Hibernation safety takes precedence over the errors= policy. */
-   +		sb->s_flags |= SB_RDONLY;
-    		NVolSetErrors(vol);
-   +		ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
-   +	} else if (!sb_rdonly(sb) && NVolErrors(vol)) {
-   +		/* Match the read-write remount restriction for recorded errors. */
-   +		sb->s_flags |= SB_RDONLY;
-   +		ntfs_error(sb,
-   +			   "Errors were recorded during mount.  Mounting read-only.  Run 
-chkdsk.");
-    	}
-
-    	/* If (still) a read-write mount, empty the logfile. */
-
-
-   Sorry again for overlooking this issue in my earlier suggestion. I 
-believe this approach is more robust because it never clears SB_RDONLY, 
-so it does not need to reconstruct whether a nested error should have 
-made the volume read-only. The policy change is limited to the 
-hibernation check during initial mount, before the superblock is published.
-
-   If you agree with this approach, could you please incorporate it and 
-send another revision? I'd appreciate feedback from you, Namjae, and 
-Hyunchul.
-
-feel free to add:
-Suggested-by: Baolin Liu <liubaolin@kylinos.cn>
-
-Thanks,
-Baolin.
-
-
-
-
-
-
-
->   	if (unlikely(err)) {
->   		static const char *es1a = "Failed to determine if Windows is hibernated";
->   		static const char *es1b = "Windows is hibernated";
-> @@ -1581,12 +1594,25 @@ static bool load_system_files(struct ntfs_volume *vol)
->   		const char *es1;
->   
->   		es1 = err < 0 ? es1a : es1b;
-> -		/* If a read-write mount, convert it to a read-only mount. */
-> -		if (!sb_rdonly(sb) && vol->on_errors == ON_ERRORS_REMOUNT_RO) {
-> -			sb->s_flags |= SB_RDONLY;
-> -			ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
-> -		}
-> +		/*
-> +		 * A Windows hibernation image is not a filesystem error, so
-> +		 * this is a safety interlock rather than something the
-> +		 * errors= policy may downgrade.  The super block is already
-> +		 * read-only here: the temporary flag taken for the check
-> +		 * above is not restored when the check failed.
-> +		 */
-> +		ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
->   		NVolSetErrors(vol);
-> +	} else if (unlikely(temporary_ro && sb_rdonly(sb))) {
-> +		static const char *es1 = "Errors were recorded during mount";
-> +		static const char *es2 = ".  Run chkdsk.";
+> Reproduced without virtiofsd or nested virtualisation by writing a few bytes
+> to a vboxsf file from a PROT_READ mapping (memfd or another file) that has not
+> been read yet: with the mapping touched first the write succeeds, without it
+> the write never returns and only dies on SIGKILL.
+> 
+> Tested on Ubuntu 26.04.1 (6.x userspace, kernel 7.0.0-31-generic) as a guest of
+> VirtualBox 7.2.16 on a Windows host.  With the patch applied, writes from
+> non-faulted pages, partially copied writes and in-place rewrites all produce
+> byte-identical files on the host, and the virtiofsd workload completes with no
+> kernel warnings.
+> 
+> While investigating I also hit an unrelated NULL pointer dereference in
+> vboxsf_release_sf_handle() when opening a vboxsf file with O_DIRECT; that one
+> will be reported separately.
+> 
+> A DKMS package with this patch is available at
+> https://github.com/kentaro-shiomi/virtualbox-vboxsf-endless-write-loop-fix
+>  fs/vboxsf/file.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/vboxsf/file.c b/fs/vboxsf/file.c
+> index 7a7a3fbb2..1e9f61883 100644
+> --- a/fs/vboxsf/file.c
+> +++ b/fs/vboxsf/file.c
+> @@ -307,7 +307,7 @@ static int vboxsf_write_end(const struct kiocb *iocb,
+>  	struct inode *inode = mapping->host;
+>  	struct vboxsf_handle *sf_handle = iocb->ki_filp->private_data;
+>  	size_t from = offset_in_folio(folio, pos);
+> -	u32 nwritten = len;
+> +	u32 nwritten = copied;
+>  	u8 *buf;
+>  	int err;
+>  
+> @@ -315,6 +315,10 @@ static int vboxsf_write_end(const struct kiocb *iocb,
+>  	if (!folio_test_uptodate(folio) && copied < len)
+>  		folio_zero_range(folio, from + copied, len - copied);
+>  
+> +	/* Nothing copied: reject so generic_perform_write() faults in and retries */
+> +	if (!copied)
+> +		goto out;
 > +
-> +		/*
-> +		 * Errors were recorded during the check or earlier, e.g. when
-> +		 * loading the LogFile.  Stay read-only, like ntfs_reconfigure()
-> +		 * does for volumes with recorded errors.
-> +		 */
-> +		ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
->   	}
->   
->   	/* If (still) a read-write mount, empty the logfile. */
+>  	buf = kmap(&folio->page);
+>  	err = vboxsf_write(sf_handle->root, sf_handle->handle,
+>  			   pos, &nwritten, buf + from);
 
