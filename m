@@ -1,79 +1,53 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 083713DA7C8
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 06:35:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CD053DAAB7;
+	Sun, 20 Sep 2026 06:35:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789886106; cv=none; b=ZWnCuB31shO1njkoWnxQJkNHFdC/SEaoGzYixJlYiIZn4AOPy5JaC4ctxLMYfxnBkbhVevAZq/Ww6PtWc0YGNoLOTL4nOGWmAyUAHLTIUfGG4X5nz1GRFK9fK8u29Zm951kBmuCp72ndcA17z3/58r3vTsQOj9++L8MyTAxHEJw=
+	t=1789886148; cv=none; b=BobAHPmNxzf5DHrBSxJG+NCBrsH2ZNU+sOpOgTaKBf6P8kfZt9Q4jaQxtQI+mHER4ny/d1fCTDjYKapoiNmJQqQyeCh2LwWNOmSZnDMDt634LTtLHE5tPpiJ1P/OEhOZmiCMOB/LgrevZ5I+DZLwRxuWU6vTz5LIDQ6pgJxanzs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789886106; c=relaxed/simple;
-	bh=BkjCl9PTzmvibgyTAzSEgHagAdnS6n+z9kSRa9z/IJM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=n24S7yox6PpgjYnlcLd+Vap9cOC6ilz8GTGkHqcAHo2YdBYD1m6cBbDL4135MhACxRoRJBjn14tDUG2fNEGpShrR3lMC++CHuiJxkR1CzRQk4NUoTGm4aw8nXqDxniWw+e5elFhUGkwcFAXb9V5BHEAPrIU2lFwK/Pfh4yVvLRs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y4HWaiaH; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789886148; c=relaxed/simple;
+	bh=zSF55hS3q/SJNC7yFH6HrIYbq31cI9ptu08+ta1ExNg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=D28g+wlp9TtYXEESinquc+26jL/A3A1VM1b7pEjtMNm7eOKZOvBGLiucD61t/wTOasJFEXuw1ezsFTpzBtUMNgw2MNdWayb6H1UK3gcqxX71TSiTqCehrnrF63dpR3MlEmiM52rpal0UsXCdX0BskPMKx1B0Ah9s9lr4d7Igba8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=nQqRutNC; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y4HWaiaH"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebcb8d7so627631a12.0
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 23:35:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789886104; x=1790490904; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1mSNs6gpwDbZo1OHe4Pclodm2onA21KdKi2Jq9VQVaA=;
-        b=Y4HWaiaHdhc8jyGzDCHbftM0vp1Eq2jjWDXJWgw6Gj2c0E2BA9S88ygsYF14DrZIy4
-         ACZ8jlQjKDp2VFR0dR7Jy9jAIYwS7qEZk4YZbiWHi5Za+EJt110hZWt7R7Ucc0Pg/CV5
-         VISeGOJmJ4qzVDjLVDPhZNQdhF5YkVH2CPoO+xTg6URDlOhlaaHc/aAO2SKHFQ9JWAV/
-         163TEahcNmQeF76vlgxZ/XvJb1MzJueJqMjQ7FjIfqBFJs0pwmrmPggGImWLrj3UOEEY
-         l3SdQoIMthJVVwY8iLho0EZ2JJ/OwgF8pNUY5u5zfjrNGIuP95GxoFq/Esok1qON6zPa
-         b9Ow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789886104; x=1790490904;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1mSNs6gpwDbZo1OHe4Pclodm2onA21KdKi2Jq9VQVaA=;
-        b=O/VXm0GTmoBTb2ulAdKWLPtPV6/QKrTe7K6cA28936oXeiZVcUzmiEVPHkr25S69GN
-         swrWSxvtgY+SvRJStOzLkmzFXcODduhu6+Ndm5uQ6QfWpMPpeEfc7Afy3/kPHTNlGEUg
-         2+eTDeX0bxmsUUJpvGNk1p5cP8p5qWa3jK2Be2bvNzzE/bXc5Un5TrlH57sxx9VYGVgX
-         cmmlxaZL8noytyWFFrdrEFrmhb/Rxb4fJpmHAcd+jwUCiyTUg9DwvskfZGhDMbOSfGd0
-         IupSN2SIOiCotxEbmP+VXCw1JLCrTuVq088WMFjJAYWiD5czdkEjb6a+n9CnmfWOhsNB
-         rBqQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzZu7jt/5QJ2zWQBzELKF3vehPpLAGvPdKfzxgwqKscVOGRC4SW11cCNFxhr5GqE8EfyDdeEMgaAciyVp8=@vger.kernel.org
-X-Gm-Message-State: AFuF++n9NIPS24jPK+ZtbgxCuxyL++Uvm3mw3HQkcqmLf2u5yZ23oRB6
-	fVkFTzGexbMPsMtwxg14IMgeXYsGNMnPgPMwBtnv3RkDSC8v5LcSZw+J
-X-Gm-Gg: AYBFou0DeNKDZ0ufDHFC2gW1+3bzIv1gKxugYbErafxRrAZM9FNmJWzybsc9/6TFYth
-	Ch0wJKb8PJ6vT0wFL/qPq3nAcSKo0319f3nr1R4CIXjwtSNmbUHW9cqcS4DTsWcq+2mWZm3Q7ds
-	kAzI/9wORiBH69VqIuJIbRv6yuL13BwPVefaPB/5Qgf1hUtPiOoLow427RmDeaO/rP4TU5J7Wzr
-	Z8sWAvrX+wQRD+yo3rLv34tpn/+YVyNQAg9R77cdhE4QbGBuP0EYxei1Rwlr7P8kcBnxmn2xT7Z
-	Yu5yImIRE/VdLT/zY94tW9k89i3Wuiv4YRn7MPlh5Wf38q08L0UdBbedAFcuW3HBRwG7UnKK/RS
-	6AoEU1qqHSHzXyBO4AEiy4FZNPwzpCnoP++/P1OGfUES1dp4Zj8cCTEU8zS+AN/8f0KoAV44svN
-	sUDQ3D+qxSG7QqVbfJVLItdKsfZVLOkSPkWDAjFhRHQXJFmzOibIAGVY+Zk07QgFHxO3J/ZqDn9
-	DfuY5ABZ9PkzX+9aLHdL9cRlj8j+v75/Ac=
-X-Received: by 2002:a05:6a00:3a0d:b0:878:3704:e0ee with SMTP id d2e1a72fcca58-8783704f6efmr2520416b3a.20.1789886104157;
-        Sat, 19 Sep 2026 23:35:04 -0700 (PDT)
-Received: from localhost.localdomain ([43.224.245.233])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a8dfe20dsm1711604b3a.19.2026.09.19.23.35.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 23:35:03 -0700 (PDT)
-From: Dongliang Qin <cccccccccccc777777@gmail.com>
-To: netdev@vger.kernel.org
-Cc: achender@kernel.org,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-rdma@vger.kernel.org,
-	rds-devel@oss.oracle.com,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="nQqRutNC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=kx
+	GFilB66s9lUEG9qn0jnmGK1L8xbq/9GQy8z7tSmII=; b=nQqRutNCeLeZpqr8Iy
+	iZ6Uq3NwaMpoFDaNuzE/wr65RJob9o6jLFv53sMuNwrIaT8HojFAKswpUQ+kY6ik
+	hcfZ8KTG+USGhXPRcM1jxbEPrloQ7ePSPlZaOu9tZS/92wKxZ0vx/WxUb9tuCTQs
+	XOWxj+O0IY3ezfVLhd64H5JqM=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3F8OCfq9qG42sBw--.49698S2;
+	Sun, 20 Sep 2026 14:34:43 +0800 (CST)
+From: Feng Yang <yangfeng59949@163.com>
+To: kpsingh@kernel.org,
+	matt@bobrowski.net,
+	song@kernel.org,
+	jolsa@kernel.org,
+	ihor.solodrai@linux.dev,
+	ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	martin.lau@linux.dev,
+	yonghong.song@linux.dev,
+	emil@etsalapatis.com,
+	rostedt@goodmis.org,
+	mhiramat@kernel.org,
+	mathieu.desnoyers@efficios.com
+Cc: bpf@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Dongliang Qin <cccccccccccc777777@gmail.com>
-Subject: [PATCH net] rds: ib: Clear the sg list when mapping an MR fails
-Date: Sun, 20 Sep 2026 14:34:49 +0800
-Message-ID: <20260920063449.1594203-1-cccccccccccc777777@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	linux-trace-kernel@vger.kernel.org
+Subject: [PATCH bpf-next 1/2] bpf: Reject bpf_skb_output() from return-side tracing
+Date: Sun, 20 Sep 2026 14:34:41 +0800
+Message-Id: <20260920063442.499577-1-yangfeng59949@163.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,70 +55,77 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3F8OCfq9qG42sBw--.49698S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxWr48KF1UJw4xJw1UJr4xWFg_yoW5GFWrpF
+	4DCrZ8Cr1kJrW2yr4xZa1rZryYywn5A3yYkFWDtw1FvwsxZrWrtr1UKanIv3W5uFyUG3sF
+	qF40vayqyr4UZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jerWrUUUUU=
+X-CM-SenderInfo: p1dqww5hqjkmqzuzqiywtou0bp/xtbC8gRHv2qvfoSOQgAA39
 
-rds_ib_map_frmr() stores the caller's scatterlist in the MR before DMA
-mapping and registration can fail. On failure, __rds_rdma_map() unpins
-the pages and frees the scatterlist, but rds_ib_free_frmr() can still
-return the MR to the pool with the stale pointer set.
+From: Feng Yang <yangfeng@kylinos.cn>
 
-This leaves the pool with a dangling scatterlist and can lead to local
-privilege escalation. KASAN detects the resulting use-after-free when the
-MR is later torn down:
+BPF fexit programs run after the traced function returns, while their
+context still contains the original function argument values. A traced
+function is free to consume an skb argument before returning, so the
+pointer seen by fexit can already be stale.
 
-BUG: KASAN: slab-use-after-free in __rds_ib_teardown_mr
-Read of size 8
+The verifier checks that the first argument to bpf_skb_output() has the
+BTF type of struct sk_buff, but that does not establish its lifetime.
+bpf_skb_event_output() then dereferences skb->len and can trigger a
+use-after-free.
 
-Call Trace:
- __rds_ib_teardown_mr
- rds_ib_unreg_frmr
- rds_ib_flush_mr_pool
- rds_ib_flush_mrs
- rds_free_mr
- rds_setsockopt
+Do not expose bpf_skb_output() to tracing programs which can run after
+the target: fexit, fexit.multi, fsession and fsession.multi. Keep it
+available to fentry and other tracing attach types where it is already
+supported. fsession must be rejected because the same program runs on
+both entry and return and the verifier cannot prove that a helper call
+is entry-only.
 
-Clear the scatterlist fields before returning an error so the caller
-retains sole ownership of the scatterlist and its pinned pages. Route a
-zero-length DMA mapping through the same cleanup path, and skip unmap
-when no mapping was created.
-
-Fixes: 1659185fb4d0 ("RDS: IB: Support Fastreg MR (FRMR) memory registration mode")
-Cc: stable@vger.kernel.org
-Signed-off-by: Dongliang Qin <cccccccccccc777777@gmail.com>
+Fixes: fec56f5890d9 ("bpf: Introduce BPF trampoline")
+Reported-by: Quan Sun <2022090917019@std.uestc.edu.cn>
+Reported-by: Yinhao Hu <dddddd@hust.edu.cn>
+Reported-by: Kaiyan Mei <M202472210@hust.edu.cn>
+Closes: https://lore.kernel.org/all/9d61b891-2d52-42b9-bc1a-ad963ccb675d@std.uestc.edu.cn/
+Signed-off-by: Yun Lu <luyun_611@163.com>
+Signed-off-by: Feng Yang <yangfeng@kylinos.cn>
 ---
- net/rds/ib_frmr.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ kernel/trace/bpf_trace.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/net/rds/ib_frmr.c b/net/rds/ib_frmr.c
-index bd8611911..fea387952 100644
---- a/net/rds/ib_frmr.c
-+++ b/net/rds/ib_frmr.c
-@@ -213,7 +213,8 @@ static int rds_ib_map_frmr(struct rds_ib_device *rds_ibdev,
- 					 DMA_BIDIRECTIONAL);
- 	if (unlikely(!ibmr->sg_dma_len)) {
- 		pr_warn("RDS/IB: %s failed!\n", __func__);
--		return -EBUSY;
-+		ret = -EBUSY;
-+		goto out_unmap;
- 	}
- 
- 	frmr->sg_byte_len = 0;
-@@ -261,9 +262,13 @@ static int rds_ib_map_frmr(struct rds_ib_device *rds_ibdev,
- 	return ret;
- 
- out_unmap:
--	ib_dma_unmap_sg(rds_ibdev->dev, ibmr->sg, ibmr->sg_len,
--			DMA_BIDIRECTIONAL);
--	ibmr->sg_dma_len = 0;
-+	if (ibmr->sg_dma_len) {
-+		ib_dma_unmap_sg(rds_ibdev->dev, ibmr->sg, ibmr->sg_len,
-+				DMA_BIDIRECTIONAL);
-+		ibmr->sg_dma_len = 0;
-+	}
-+	ibmr->sg = NULL;
-+	ibmr->sg_len = 0;
- 	return ret;
+diff --git a/kernel/trace/bpf_trace.c b/kernel/trace/bpf_trace.c
+index 29260951aa87..cdede3926e5d 100644
+--- a/kernel/trace/bpf_trace.c
++++ b/kernel/trace/bpf_trace.c
+@@ -1339,6 +1339,20 @@ static inline bool is_trace_fsession(const struct bpf_prog *prog)
+ 		prog->expected_attach_type == BPF_TRACE_FSESSION_MULTI);
  }
  
++static bool tracing_prog_may_run_after_target(const struct bpf_prog *prog)
++{
++	/* The target may consume pointer arguments before these programs run. */
++	switch (prog->expected_attach_type) {
++	case BPF_TRACE_FEXIT:
++	case BPF_TRACE_FEXIT_MULTI:
++	case BPF_TRACE_FSESSION:
++	case BPF_TRACE_FSESSION_MULTI:
++		return true;
++	default:
++		return false;
++	}
++}
++
+ static const struct bpf_func_proto *
+ kprobe_prog_func_proto(enum bpf_func_id func_id, const struct bpf_prog *prog)
+ {
+@@ -1730,6 +1744,8 @@ tracing_prog_func_proto(enum bpf_func_id func_id, const struct bpf_prog *prog)
+ 	switch (func_id) {
+ #ifdef CONFIG_NET
+ 	case BPF_FUNC_skb_output:
++		if (tracing_prog_may_run_after_target(prog))
++			return NULL;
+ 		return &bpf_skb_output_proto;
+ 	case BPF_FUNC_xdp_output:
+ 		return &bpf_xdp_output_proto;
 -- 
 2.43.0
 
