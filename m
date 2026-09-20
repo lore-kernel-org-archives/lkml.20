@@ -1,102 +1,92 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4446F41DE01;
-	Sun, 20 Sep 2026 13:12:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E24343B6DA;
+	Sun, 20 Sep 2026 13:12:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789909928; cv=none; b=mcWsfcZT2zm/zWk3OmfksB8F25EckTAxrh30v2GVgsN2eehEr+MBj8vWGHTqc+5azyYHwFXAt5ThkbI0SgNo31ACp6TWLqWtbYoJUmXgBGq0Zw7OxR99IVeoqh+hk/3WhYJm8ovnqYdy0Dv6bD4fcOlbqacHIke6BtsNNFh8HEM=
+	t=1789909951; cv=none; b=FZwc5TmJHpvcyBMEPyj5Yu4+NJsVHo0GDi31Gnr56xrSWyL3l6Jlh+zAgLcrwnvGeUoV1RmfgQY3dZNuGoqzcX1TfAIYoYzdrfYU8mKmOM7LbQGu+C5BfKFm9mtP05nQhMeYk1dPtVVPTUG5dsZyUDUa86CswkOUIAVjz3wLksc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789909928; c=relaxed/simple;
-	bh=CvelwzH7SVtv5hSxexSzLI2O7jBkoaAFZA67zELhfO8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BNIzRMJ+SnJnE4ar7nFQrESpTRZ3V5mI/UycTnZv+79Z15YUdXvBWx3s/41olpP6oP09tSHOFWSJOsR8z+I/VszKzD2F8O+31ra7okZuRfP8TBTZc/Elfo2lrdAYTWksDotppwMkY7aD8FoSCWDAcFosdue/IMiBqgC4J1nU4+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=jKf1EJuE; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789909951; c=relaxed/simple;
+	bh=J1jw2xj97EU2/YfhaeKfvRgI0vfJwWsViCQrEwWIzSk=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=UdiHIGdOu68Ai4hR/RINd9NhrXirjfrEBn2G2nUZkGMDYDNu4L9qerYrAhhqwDDcuiaXEDjwyg8Eg/rsKb/2VVtXG8phCNmkrEzesbzlBx5761aCb4EJ3NEP9TzvrTTVYrEXLDgXpH2nSNYWe9I9rybtRnZdxPnDw/RBP2q8W3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=x/yxPlXR; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="jKf1EJuE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=fx
-	xetwQM1IVZM6P54FHuhflyKkC0LojiwyGoiT/nK4Q=; b=jKf1EJuE+KZKaKmcXE
-	poYBlGoD53ld9BzWypVlatyygE7j/FUZGXQja3WXLa9jacTBtwZ2eiXuGhx9H1gc
-	hQod2ArXlYBJpmGg+a0hfoxuadP2l0jDKZvT04ZpIcS7nFtVaDher80QEs7qVSuj
-	vpWQAyrstZpkkT0ncESG+/+BM=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgD3v1cl269qj9S_AQ--.59232S2;
-	Sun, 20 Sep 2026 21:09:58 +0800 (CST)
-From: Pengpeng Hou <hppiscas@163.com>
-To: anup@brainfault.org
-Cc: Pengpeng Hou <hppiscas@163.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Andrew Jones <andrew.jones@oss.qualcomm.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Atish Patra <atish.patra@linux.dev>,
-	Fangyu Yu <fangyu.yu@linux.alibaba.com>,
-	Guo Ren <guoren@kernel.org>,
-	kvm-riscv@lists.infradead.org,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Nutty Liu <nutty.liu@hotmail.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Paul Walmsley <pjw@kernel.org>
-Subject: [PATCH v2 2/2] RISC-V: KVM: Disallow GPA-width changes after AIA init
-Date: Sun, 20 Sep 2026 21:09:55 +0800
-Message-ID: <fbe7337f6989994ad4dbc4dc03a67e8ebfa61f8d.1789872556.git.hppiscas@163.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <cover.1789872556.git.hppiscas@163.com>
-References: <cover.1789872556.git.hppiscas@163.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="x/yxPlXR"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 30DCD4E408FB;
+	Sun, 20 Sep 2026 13:12:24 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 00542604C9;
+	Sun, 20 Sep 2026 13:12:24 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DA3D9103286A4;
+	Sun, 20 Sep 2026 15:12:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789909943; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=J1jw2xj97EU2/YfhaeKfvRgI0vfJwWsViCQrEwWIzSk=;
+	b=x/yxPlXRzTFzJLjWbfXDGWbD6xEbxDtgIOqpcFZmcC0oxJES6lW2jUbN3f2pb9d3rZZm70
+	ajPboLS78YXeHNfFqChFg+TRYEPVGPeoiDyS+mVQ22YW4mTEfkfqYfH4dQiW+OJx730ezf
+	MmHMPDVpHc59DPB/i4BZDotUA/B7Jh23dRWIgGZ05r0R8DBCKrADq8fNwr3ne3414t2Iif
+	LuOA1i96BtbNwqetE39Au65z91HXafejJsab+fUBqD4/2dNIMRQnh8vftcLM6PWAehC1TZ
+	+6CVWYmI366rmk6/iLU9gaZ57WLJBNS0Ja8Zx0Zx/oYwLuGWumgil1iuF/8vlw==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Hui Peng <benquike@gmail.com>
+Cc: alex.aring@gmail.com,  stefan@datenfreihafen.org,  davem@davemloft.net,
+  edumazet@google.com,  kuba@kernel.org,  pabeni@redhat.com,
+  horms@kernel.org,  linux-wpan@vger.kernel.org,  netdev@vger.kernel.org,
+  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ieee802154: socket: fix shared skb BUG_ON and double
+ header subtraction in dgram_ioctl()
+In-Reply-To: <20260919212855.3241205-1-benquike@gmail.com> (Hui Peng's message
+	of "Sat, 19 Sep 2026 21:28:55 +0000")
+References: <20260919212855.3241205-1-benquike@gmail.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Sun, 20 Sep 2026 15:12:19 +0200
+Message-ID: <87jyog9ido.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgD3v1cl269qj9S_AQ--.59232S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Cr17try7WF45CrWUAF1fWFg_yoW8WrW3p3
-	9rGa95Zr95Wr17CrW0yws7Zr10vws5Gr1ayFyYvF43WFs0vFy0vanYyr47Jr1DAan29FWI
-	vF1Yy34Fvrs5CaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zil4i5UUUUU=
-X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbC7QaGT2qv2yYXHwAA3S
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-KVM_ENABLE_CAP(KVM_CAP_VM_GPA_BITS) allows userspace to reduce the
-stage-2 GPA width while a VM has no vCPUs or memory slots.
+On 19/09/2026 at 21:28:55 GMT, Hui Peng <benquike@gmail.com> wrote:
 
-AIA initialization can complete with an APLIC and no vCPUs or memory
-slots. The APLIC MMIO device has then been registered, but the existing
-checks still allow userspace to shrink the GPA width below its address.
+> In `dgram_ioctl()` (`SIOCINQ`), the queued skb at the head of
+> `sk->sk_receive_queue` has already had its MAC header stripped by
+> `ieee802154_subif_frame()` prior to `dgram_deliver()`, so `skb->len` is
+> already the exact payload length that `dgram_recvmsg()` will return to
+> userspace.
+>
+> However, `dgram_ioctl()` computes `*karg =3D skb->len -
+> ieee802154_hdr_length(skb)`. Calling `ieee802154_hdr_length(skb)`
+> re-parses the payload bytes as an 802.15.4 MAC header and calls
+> `pskb_may_pull(skb, ...)` while holding `sk->sk_receive_queue.lock`.
+> When multiple `SOCK_DGRAM` sockets receive a cloned copy of the frame
+> (`skb_shared(skb)` is true) and the payload is non-linear,
+> `pskb_may_pull()` calls `pskb_expand_head()`, which triggers
+> `BUG_ON(skb_shared(skb))`. Even on unshared linear skbs, subtracting
+> `ieee802154_hdr_length(skb)` a second time underflows `*karg` to a
+> negative value when the payload is shorter than the bogus parsed header
+> length.
+>
+> Set `*karg =3D skb->len` directly in `dgram_ioctl()`.
+>
+> Fixes: e1d001fa5b47 ("net: ioctl: Use kernel memory on protocol ioctl cal=
+lbacks")
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
 
-Reject GPA-width changes after AIA initialization. Both paths hold
-kvm->lock, serializing the width change with AIA initialization.
+Looks legitimate.
 
-The issue was found by our static-analysis tool.
+Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
 
-Fixes: 7263b4fdb0b2 ("RISC-V: KVM: Reuse KVM_CAP_VM_GPA_BITS to select HGATP.MODE")
-Reviewed-by: Anup Patel <anup@brainfault.org>
-Assisted-by: gpt 5
-Signed-off-by: Pengpeng Hou <hppiscas@163.com>
----
-Changes since v1: https://lore.kernel.org/r/4852f3b8985c353811fa065e4701d76dc9a7f086.1786512671.git.pengpeng@iscas.ac.cn/
-- No change to the code; retain Anup's Reviewed-by.
-- Rebase and clarify the locking description.
-
- arch/riscv/kvm/vm.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/arch/riscv/kvm/vm.c b/arch/riscv/kvm/vm.c
-index a9f083f..66edfaa 100644
---- a/arch/riscv/kvm/vm.c
-+++ b/arch/riscv/kvm/vm.c
-@@ -250,7 +250,8 @@ int kvm_vm_ioctl_enable_cap(struct kvm *kvm, struct kvm_enable_cap *cap)
- 		mutex_lock(&kvm->lock);
- 		mutex_lock(&kvm->slots_lock);
- 
--		if (kvm->created_vcpus || !kvm_are_all_memslots_empty(kvm))
-+		if (kvm->created_vcpus || !kvm_are_all_memslots_empty(kvm) ||
-+		    kvm_riscv_aia_initialized(kvm))
- 			r = -EBUSY;
- 		else
- 			kvm->arch.pgd_levels = new_levels;
-
+Thanks,
+Miqu=C3=A8l
