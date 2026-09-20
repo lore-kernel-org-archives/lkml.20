@@ -1,108 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05CC526656D
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 14:15:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4EBE33937F
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 14:16:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789913721; cv=none; b=p5qy4X0rmiUwQ2kBEefUskw8Uk3GjkFOAw1IGiAw8rY/mtTW+No8EQ3ItCbqKdlJXkYUFhcUYfEUBmAYZ/AoyLJvEh808I7E5b3hKM09ipQ2+Ktr7hoQrkReKU/veeRd5mtMTNZjOuaBFsuVpolZOfxxARx+AG9DYHzTD9Z4UFY=
+	t=1789913810; cv=none; b=b8W8uW8rBz0re6IVqOZgK66ZedMNshIy1S6BjQlu+B6tZqSn37kai/0MHcLwY+O9BPwutwjOH/62SodYEvSuKM9sZRsEJ75nLAj+XvTmYllqLWYpp6IwYyJQiyhbN/cydoFle5Nqqw4J/yl3Wp3bh3kvUtkuI0trMzo2dCgyRMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789913721; c=relaxed/simple;
-	bh=w6oVNXUWp5wNL2g61flzeVZH3nIHeF0IGkmsF6z87OU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=L0/ljKkM4A24+Bk4VUNiGzLo7KrEqqqDZsENkp3gVtfWLu81Ugzb9/pElGTf2zgPiHmfNiep/jQzKid5vDcnXlUjuSAZhB3G5KCvt6x8+6gXbLyWWCNR9slcDcqomFbzsKYffTqx9ukPt63cavRPTYOt+tlRaC+tdvj8zjrl1cA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=exHKC9Cv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789913810; c=relaxed/simple;
+	bh=5DeYmzlnwT2z51UpzgNPb7SeYRTZgxP3p7dZf7uEy/g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XGtg/GeF5nwPNFlHTghC0oyoDkUujHn8NTgSLUckcHcjl5LJE1fDkbhd0DvZuZjykf9PyWbO9w123cps4WM5ZBdM8WdHo1sEd3mrev1mLhNqfimQZ8Vj8YwvikAybZBbflmKy8Rz+pQOX4BwHSQ0G2RnaBUBDICDZgwpvjXq9r4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=UZiKBcMv; arc=none smtp.client-ip=188.68.63.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="exHKC9Cv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A0AD1F00893;
-	Sun, 20 Sep 2026 14:15:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789913717;
-	bh=ReGGZzAYsZltabeSMuN4ZGudrxIWtzp842ALLhTAZPw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=exHKC9CvcY0ze0A9bjUCK5R3j1ln4DTMDPHz7+yIzuj+VADq9iw0MMjF0bDdXCJcW
-	 dQa19jmiUQFGT+lxfcGqbI7KoaEYydqOcFQZyzVK+Nr9yFY+LY5yiHtaoBIeEmokkg
-	 eRJ/Xt8enpORxbynJmIgj06NC/o+wMUgZ17s8mZscUrNUAy5aFfakWfz9ihYsb37yG
-	 AKwklQWa3gZFsyVPd2iBZiasX9PkFCxnhz8n1tvqOsy+IuknZJieMTzvaE3oh/VvgR
-	 yl3QlZEkx2Mo+zSULuZQmEDZuLxJO3ZNmiex9m71vxZpDLCbaivJ0zS6Y7GkQpPmxg
-	 QqtcrHwrcI5jQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 22/25] mtd: spi-nor: winbond: Add support for
- W25Q33PW-M
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Pratyush Yadav" <pratyush@kernel.org>, "Michael Walle" <mwalle@kernel.org>, "Miquel
- Raynal" <miquel.raynal@bootlin.com>, "Vignesh Raghavendra" <vigneshr@ti.com>, "Richard
- Weinberger" <richard@nod.at>, "Takahiro Kuwano" <takahiro.kuwano@infineon.com>
-Cc: "Steam Lin" <STLin2@winbond.com>, "Thomas Petazzoni" <thomas.petazzoni@bootlin.com>, linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260920-winbond-master-spi-nor-jw-cleanup-pw-addition-v2-22-ab9c9688d071@bootlin.com>
-References: <20260920-winbond-master-spi-nor-jw-cleanup-pw-addition-v2-0-ab9c9688d071@bootlin.com>
- <20260920-winbond-master-spi-nor-jw-cleanup-pw-addition-v2-22-ab9c9688d071@bootlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 20 Sep 2026 14:15:16 +0000
-Message-Id: <20260920141517.2A0AD1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="UZiKBcMv"
+Received: from mors-relay8203.netcup.net (localhost [127.0.0.1])
+	by mors-relay8203.netcup.net (Postfix) with ESMTPS id 4hnpLh1PKqz8d26;
+	Sun, 20 Sep 2026 14:16:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1789913772;
+	bh=5DeYmzlnwT2z51UpzgNPb7SeYRTZgxP3p7dZf7uEy/g=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=UZiKBcMvn2LyFdcpTn4xdID8QoAMN/hERh90Ct/VurIIIhEuz7C9fTw228RUPguLC
+	 /E+BzaUMOQpKza033lc3n5NFBXQQyT1jeXLP8dbu++u14cQu5mUbBu4YCjLwQjymIH
+	 9N+hNNJMDQvCqolhcitUf3RhJYWyIt4hvgJQIO2r7+EqcHoK4reAyGImkJ0Stgxx3r
+	 mkoLDisurcbnhxFidTe24vqS3QOftEDXv/cHPm3TytGMjRzlk25619XlnCR9Yl7fuR
+	 3q10kEyddXk1b7+R+oCLlHI7MejYte3gWl/ZWT9JuJtjfns9PP1/QIojRweAlsWHtC
+	 3VCCwCG4CguEg==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay8203.netcup.net (Postfix) with ESMTPS id 4hnpLg4LH2z8hFF;
+	Sun, 20 Sep 2026 14:16:11 +0000 (UTC)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hnpLg0xpVz8svY;
+	Sun, 20 Sep 2026 16:16:10 +0200 (CEST)
+Received: from luggage.fritz.box (unknown [IPv6:2a02:8108:8984:1d00:a8ad:ebd4:6fc6:160])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 7D0355F99A;
+	Sun, 20 Sep 2026 16:16:10 +0200 (CEST)
+Authentication-Results: mxe9fb;
+	spf=pass (sender IP is 2a02:8108:8984:1d00:a8ad:ebd4:6fc6:160) smtp.mailfrom=linux@leemhuis.info smtp.helo=luggage.fritz.box
+Received-SPF: pass (mxe9fb: connection is authenticated)
+From: Thorsten Leemhuis <linux@leemhuis.info>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Linux kernel regressions list <regressions@lists.linux.dev>,
+	LKML <linux-kernel@vger.kernel.org>
+Subject: [PATCH] net: qrtr: resend HELLO on MHI resume
+Date: Sun, 20 Sep 2026 16:16:08 +0200
+Message-ID: <20260920141608.2977460-1-linux@leemhuis.info>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <1f3e8e4b-2060-4edc-aa58-d2b7a68280ca@leemhuis.info>
+References: <1f3e8e4b-2060-4edc-aa58-d2b7a68280ca@leemhuis.info>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-PPP-Message-ID: 
+ <178991377074.1607990.16289536906234889544@mxe9fb.netcup.net>
+X-NC-CID: V/XsRjUAGwpe9ESqAqbysvjMrAcUgMg/ioQsFIXFiO/pkwFwkAA=
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] mtd: spi-nor: winbond: W25Q33PW-M inline ECC incorrectly disabled =
-by density check
---
+From: Daniel J Blueman <daniel@quora.org>
 
-commit a82dcd60aac8f24c79cf246f21c0a7afd4ac0ae0
-Author: Miquel Raynal <miquel.raynal@bootlin.com>
+Since the MHI HELLO exchange was relocated, it is sent only at device
+registration. During a suspend-resume cycle, the firmware in WiFi
+cards such as WCN7850 indefinitely waits for another HELLO,
+triggering:
 
-mtd: spi-nor: winbond: Add support for W25Q33PW-M
+  ath12k_wifi7_pci 0004:01:00.0: timeout while waiting for restart complete
+  ath12k_wifi7_pci 0004:01:00.0: failed to resume core: -110
 
-There is an ID collision with chips of same density from the JW family
-(which it self conflicted with yet another family). Chips are very
-similar in practice, it is mostly a matter of electrical differences
-(mostly power consumption being lower) as well as the addition of inline
-ECC capability.
+Fix this by triggering the handshake from resume_early in the MHI
+transport.
 
-> diff --git a/drivers/mtd/spi-nor/winbond.c b/drivers/mtd/spi-nor/winbond.c
-> index c1792b12db630..c56bb01c197b2 100644
-> --- a/drivers/mtd/spi-nor/winbond.c
-> +++ b/drivers/mtd/spi-nor/winbond.c
-> @@ -467,7 +467,7 @@ static const struct flash_info winbond_nor_parts[] =
-=3D {
->  		.size =3D SZ_64M,
->  		.no_sfdp_flags =3D SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ,
->  	}, {
-> -		/* W25Q32JW-M */
-> +		/* W25Q32JW-M, W25Q33PW-M */
->  		.id =3D SNOR_ID(0xef, 0x80, 0x16),
->  		.name =3D "w25q32jwm",
+Validated on Qualcomm X1E-801800 on Lenovo Slim 7x across 10
+suspend-resume cycles.
 
-[Severity: High]
-The commit message states that the W25Q33PW-M chip supports inline ECC, but
-does this newly added chip actually get its ECC configuration applied?
+Fixes: 544d85de4dc2 ("net: qrtr: Send HELLO message on endpoint register")
+Signed-off-by: Daniel J Blueman <daniel@quora.org>
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Reported-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Link: https://lore.kernel.org/all/6257c447-788d-4362-851e-0d552bcf7c56@oss.qualcomm.com/
+Tested-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Reported-by: Vlastimil Babka (SUSE) <vbabka@suse.com>
+Link: https://lore.kernel.org/all/ab1491bb-cca5-4145-ac7d-31c966abf7b4@suse.com/
+Tested-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Reported-by: Takashi Iwai <tiwai@suse.de>
+Link: https://lore.kernel.org/all/87a4plsg4w.wl-tiwai@suse.de/
+Tested-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Thorsten Leemhuis <linux@leemhuis.info>
+---
 
-Looking at winbond_pw_with_ecc_match() in drivers/mtd/spi-nor/winbond.c:
+Hi Linus, as mentioned earlier in this thread, would be great if you
+could merge this directly to fix an annoying regression. Ciao, THorsteh
 
-static bool winbond_pw_with_ecc_match(const struct spi_nor *nor)
-{
-	...
-	/* W25QxxPW densities <=3D 32 Mbit (id[2] <=3D 0x16) do not have built-in =
-ECC support */
-	return id->len =3D=3D 3 && id->bytes[2] >=3D 0x17;
-}
+---
+ net/qrtr/af_qrtr.c | 13 +++++++++++++
+ net/qrtr/mhi.c     |  9 ++++++++-
+ net/qrtr/qrtr.h    |  2 ++
+ 3 files changed, 23 insertions(+), 1 deletion(-)
 
-Since the W25Q33PW-M has an ID of 0xef, 0x80, 0x16, the density byte is 0x1=
-6.
-This causes winbond_pw_with_ecc_match() to unconditionally evaluate to fals=
-e,
-preventing the winbond_nor_ecc_configuration_post_sfdp_fixups from being
-applied.
+diff --git net/qrtr/af_qrtr.c net/qrtr/af_qrtr.c
+index 78347c937af76b..e7b3647424b8f1 100644
+--- net/qrtr/af_qrtr.c
++++ net/qrtr/af_qrtr.c
+@@ -623,6 +623,19 @@ static void qrtr_hello_work(struct work_struct *work)
+ 	qrtr_port_put(ctrl);
+ }
+ 
++/* Trigger the HELLO handshake after the remote has been reset, eg on resume */
++void qrtr_endpoint_hello(struct qrtr_endpoint *ep)
++{
++	struct qrtr_node *node = ep->node;
++
++	mutex_lock(&node->ep_lock);
++	node->hello_sent = false;
++	mutex_unlock(&node->ep_lock);
++
++	schedule_delayed_work(&node->say_hello, 0);
++}
++EXPORT_SYMBOL_GPL(qrtr_endpoint_hello);
++
+ /**
+  * qrtr_endpoint_register() - register a new endpoint
+  * @ep: endpoint to register
+diff --git net/qrtr/mhi.c net/qrtr/mhi.c
+index 3990da1a65dc4f..e9a4bb92ce76ff 100644
+--- net/qrtr/mhi.c
++++ net/qrtr/mhi.c
+@@ -183,6 +183,7 @@ static int __maybe_unused qcom_mhi_qrtr_pm_suspend_late(struct device *dev)
+ static int __maybe_unused qcom_mhi_qrtr_pm_resume_early(struct device *dev)
+ {
+ 	struct mhi_device *mhi_dev = container_of(dev, struct mhi_device, dev);
++	struct qrtr_mhi_dev *qdev = dev_get_drvdata(dev);
+ 	enum mhi_state state;
+ 	int rc;
+ 
+@@ -201,7 +202,13 @@ static int __maybe_unused qcom_mhi_qrtr_pm_resume_early(struct device *dev)
+ 		return rc;
+ 	}
+ 
+-	return qcom_mhi_qrtr_queue_dl_buffers(mhi_dev);
++	rc = qcom_mhi_qrtr_queue_dl_buffers(mhi_dev);
++	if (rc)
++		return rc;
++
++	qrtr_endpoint_hello(&qdev->ep);
++
++	return 0;
+ }
+ 
+ static const struct dev_pm_ops qcom_mhi_qrtr_pm_ops = {
+diff --git net/qrtr/qrtr.h net/qrtr/qrtr.h
+index 3f2d28696062a5..de2de69a619936 100644
+--- net/qrtr/qrtr.h
++++ net/qrtr/qrtr.h
+@@ -27,6 +27,8 @@ int qrtr_endpoint_register(struct qrtr_endpoint *ep, unsigned int nid);
+ 
+ void qrtr_endpoint_unregister(struct qrtr_endpoint *ep);
+ 
++void qrtr_endpoint_hello(struct qrtr_endpoint *ep);
++
+ int qrtr_endpoint_post(struct qrtr_endpoint *ep, const void *data, size_t len);
+ 
+ int qrtr_ns_init(void);
 
-As a result, SNOR_F_ECC is never set and writesize remains 1 instead of 16.
-Will this cause writes to be unaligned to the chip's 16-byte chunks, which
-according to the commit message disables ECC locally until the next erase?
+base-commit: 5dd1818b15d98d4a20806cd00b1b40320b06004f
+-- 
+2.55.0
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260920-winbond-ma=
-ster-spi-nor-jw-cleanup-pw-addition-v2-0-ab9c9688d071@bootlin.com?part=3D22
