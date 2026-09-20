@@ -1,117 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 788A633937F;
-	Sun, 20 Sep 2026 18:41:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789929671; cv=none; b=sfIlNYzXUE5JulNQ60dmu2DD6UcNqvOq6nEcsdAYJaaAGTYboGzMjdmqIGDmKOk/Gdw0sNCGZEmRU1wTd72oUtulVpW5XuUCppz9ulg/bv1TOiupV3NWOKdWlL9ZQl10fhbauzO4v3/2n9E2LNsVc2YLeEVBZOBNBsAQANeEw3A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789929671; c=relaxed/simple;
-	bh=llEUnHrKs9cjv+MPPjnNkF5WjNjcSKzl7eS2euLRkpM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PAR8t9Sp7nqAIN9FnLnuXpKot2DTeF8ChO/i8WpIFiQgmcyTBgt0ECR7AFBLMCkrE3DhDUVbveum6nDerww/KNGHdkRPjlUA4d3GdCcyDYPkKttJbxAzjaRYrXCZQJ6vNAZDDqc7+2xsHDDxlkS+NFoh6GF2W4DG7vtDcbxJOwg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JvGEpDQs; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FDA4471CFB
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 18:41:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789929698; cv=pass; b=Gsdjvu5au+tOIdssUJoLpEg6c94ojIIynTfi5x6SbHvzwXzDcBdMmEKHsucRc8jBX5kgQkftQWd9PCen0LItMVtE+OK5c/V91JEjuuUv6gX8+gb95n+rZZrW7kqDrypyjwzcu1z/LdnCopwoSyKInbKvlb5p6JEwkUQwBGL3wwQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789929698; c=relaxed/simple;
+	bh=06jo8iCPoivl7B4GfLJDpduKbNXr5BiAAmnhVPuiPNM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=oti6MiWyZtYXImGOc/OUeWGt7Xxn45A3sAb7+uam/OXvPyzHG7WlvZXVE89JWM/SC0oMqKAoaamzpcJ9dm8yxYuMbN6pobIM1miwnyU7EcTfLBM+uN8IYszNhwIoR4jPJXGwwTl+uuoNwd5bRHSW0BbzLSqhdpnJc82wvSKTve0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=DLE+rv5w; arc=pass smtp.client-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JvGEpDQs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 525271F000FF;
-	Sun, 20 Sep 2026 18:41:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789929670;
-	bh=JtAYMMeReGVfPY8o1Ov5RtC3owFWBfDJ+FT3y9mAGk0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=JvGEpDQsYQJqqO/wOSz9KmEjw5aoVgvZ2tIYBpw9YErvyLYykXtS+l7NoIQ+oD0Dz
-	 8pGKZH4MwDv/BxgoFaomf00GHeT/VWy5LrJNUkf0ZT3exG6vCXVODeGqPkklZXlQEz
-	 nsBXtixqRdtJtDPEMIB9e8ejKfxIJaatnGbBHBNnCrFJqe+LZkIfjMJWwuYkNiev50
-	 TbdFSbwEdh1soDTNjkY0XhjZzkPwzBIc5X7hPauQ6tpwwv4l/Y4D4mM77emItKvXT6
-	 6RJbYRHcgO1pixpuVpQXvOflUMYntSQw+o7kMGfoOzgyHaFw01Hi2OdWV11/FSqJ8K
-	 4+fY3opppoTvw==
-Date: Sun, 20 Sep 2026 19:41:07 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Nuno =?UTF-8?B?U8Oh?= <noname.nuno@gmail.com>
-Cc: Arka Mondal <arka@arkamondal.net>, Nuno =?UTF-8?B?U8Oh?= 
- <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
- David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux@analog.com,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, arkamondalofficial@gmail.com
-Subject: Re: [PATCH 0/5] iio: dac: ad5758: fix DMA alignment, raw range,
- offset and 4-20 mA
-Message-ID: <20260920194107.12173789@jic23-hlaptop>
-In-Reply-To: <5cd6b31da1f8cbd5b004888cb0df22061fe86a2b.camel@gmail.com>
-References: <20260918122032.134947-1-arka@arkamondal.net>
-	<5cd6b31da1f8cbd5b004888cb0df22061fe86a2b.camel@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="DLE+rv5w"
+ARC-Seal: i=1; a=rsa-sha256; t=1789929674; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=UBv0cN6RpWya8pAxrTp28ncAIaopa1TrvxEnE91GykOwc9HjP3ZIgohTF3D40J2ruSDU2MfHBeJKuuZLm5eMAUXmcxzvam2OM20u86tC/pJ2lu1ChpAGHBDupUaA71COiCZ3Qr18+H4bp1XNIpo/J+qY8BuhFHNx4Ak8x4deSMU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1789929674; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=6cJEo9tKI/esWhR3WngLiNKa/CZW5i3OXVrCTZNe76Q=; 
+	b=h7gAPXEzBhzEt39eWqHCpLZLoueIT35AsRVaJxuCIkLLrL0FiUgfN5koycw1ni9qLnHHqhpHuuVP4XxH+gROlwr3fD5MhbThVEO175hgrmDfzJQDQJjG+ARUH1T74m2rqAPRVOsBgWWqAsFkC8sT8BmIEcstBOFVCNiXsEeQII8=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789929674;
+	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=6cJEo9tKI/esWhR3WngLiNKa/CZW5i3OXVrCTZNe76Q=;
+	b=DLE+rv5wQs0jX7DmnjRD/EnzI3LFMnqqdlIydFFw5+KimlFDTov8zaWGVkz3ZoHg
+	VgzKKYULooLH94MygBkaov9xaoyt3aapKbOwNkynn8LKTdxX75YX5iCmvfyxH1pAP5A
+	AhNGaMLHEhgBgbR5CPhTA2Ff+DAyxJls93Xtw68I=
+Received: by smtp.zohomail.com with SMTPS id 1789929672840636.3156490213071;
+	Sun, 20 Sep 2026 11:41:12 -0700 (PDT)
+Message-ID: <658fa074-5b9b-4123-a7d1-4c257b702854@collabora.com>
+Date: Sun, 20 Sep 2026 21:41:09 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] drm/virtio: Damage clip fixes
+To: Lyude Paul <lyude@redhat.com>, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux.dev, linux-kernel@lists.freedesktop.org
+Cc: David Airlie <airlied@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ linux-kernel@vger.kernel.org, Simona Vetter <simona@ffwll.ch>,
+ Gerd Hoffmann <kraxel@redhat.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>,
+ Christian Hergert <christian@sourceandstack.com>
+References: <20260903211914.1109100-1-lyude@redhat.com>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <20260903211914.1109100-1-lyude@redhat.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-On Fri, 18 Sep 2026 16:22:27 +0100
-Nuno S=C3=A1 <noname.nuno@gmail.com> wrote:
+On 9/4/26 00:15, Lyude Paul wrote:
+> A previous associate of mine asked if someone would be able to help with
+> upstreaming some work that they had done recently for virtio, and I was
+> more then happy to help. These fixes help maintain FB damage clips
+> between framebuffer changes, which were previously discarded even when
+> userspace provided accumulated per-buffer damage.
+> 
+> Patches apply on top of drm-misc/drm-misc-next.
+> 
+> Christian Hergert (2):
+>   drm/virtio: preserve damage clips for rendered resources
+>   drm/virtio: Recalculate ignore_damage_clips on every update
+> 
+>  drivers/gpu/drm/virtio/virtgpu_plane.c | 10 +++++++---
+>  1 file changed, 7 insertions(+), 3 deletions(-)
+> 
+> 
+> base-commit: f9c2f70ee41544717b3c209083073db1e21f919b
 
-> On Fri, 2026-09-18 at 21:20 +0900, Arka Mondal wrote:
-> > The first attempt to send this series on 2026-09-18 was rejected by
-> > the kernel.org mail servers, so it did not reach the lists. The patches
-> > are unchanged.
-> >=20
-> > This series fixes four bugs in the AD5758 driver, all present since
-> > commit 28d1a7ac2a0d ("iio: dac: Add AD5758 support"). The last bug
-> > takes two patches, one for the binding and one for the driver.
-> >=20
-> > Patch 1 marks the SPI receive buffer __aligned(IIO_DMA_MINALIGN), so
-> > it no longer shares a cacheline with other driver state. The 2022
-> > conversion of IIO drivers to IIO_DMA_MINALIGN only changed existing
-> > ____cacheline_aligned markings, and this driver had none.
-> >=20
-> > Patch 2 rejects raw values outside 0 to U16_MAX. Writing -1 currently
-> > gives full-scale output.
-> >=20
-> > Patch 3 fixes the offset for every range that does not start at 0.
-> > The +-20 mA range reports -32 instead of -32768.
-> >=20
-> > Patches 4 and 5 fix the 4 mA to 20 mA range. The binding and the
-> > driver give it as <4 24000>, which is 4 uA to 24 mA. The data sheet
-> > (Rev. B, Table 32) and the original text binding say range code 1010
-> > is 4 mA to 20 mA. The old value is still accepted: the binding marks
-> > it deprecated and the driver maps it to the corrected range, so
-> > existing device trees keep working.
-> >=20
-> > Compile tested only; no relevant hardware available. The binding was
-> > checked with make dt_binding_check and with test device trees:
-> > <4000 20000> and <4 24000> are accepted; <4 20000> is rejected.
-> >=20
-> > Arka Mondal (5):
-> > =C2=A0 iio: dac: ad5758: Fix alignment for DMA safety
-> > =C2=A0 iio: dac: ad5758: Reject out-of-range raw values
-> > =C2=A0 iio: dac: ad5758: Fix the offset calculation
-> > =C2=A0 dt-bindings: iio: dac: adi,ad5758: Fix the 4 mA to 20 mA current=
- range
-> > =C2=A0 iio: dac: ad5758: Fix the 4 mA to 20 mA current range
-> >=20
-> > =C2=A0.../bindings/iio/dac/adi,ad5758.yaml=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 4 ++++
-> > =C2=A0drivers/iio/dac/ad5758.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 | 18 ++++++++++++++----
-> > =C2=A02 files changed, 18 insertions(+), 4 deletions(-)
-> >=20
-> >=20
-> > base-commit: 08df884136f1c1197bab2a27814404fd329d9aac =20
->=20
-> LGTM,
->=20
-> Reviewed-by: Nuno S=C3=A1 <nuno.sa@analog.com>
-Other than the one thing on the dt-binding that is more policy than anything
-else these all look good to me.  I'll wait for that to resolve though before
-picking these up.
+Applied to misc-next, thanks!
 
-Thanks,
-
-Jonathan
-
+-- 
+Best regards,
+Dmitry
