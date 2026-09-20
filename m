@@ -1,152 +1,111 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m1973182.qiye.163.com (mail-m1973182.qiye.163.com [220.197.31.82])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32E003AE706;
-	Sun, 20 Sep 2026 03:26:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B64AF3C2BB0;
+	Sun, 20 Sep 2026 03:27:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.82
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789874803; cv=none; b=pP0ifsx34z/4vNANWyii7uumpxUo5RhTXlHFGKKYyNJ3POc/ChwFUkASkpQzdt+71aNSsIreKjC7iDxZAkRIOBqOLDio2IGOwrJwRCAB5iQc6V6YGE5gw85ygzyCD5KA18GqW2kksNa2ubeax47kn0reQUE00UhESFZyk1BAsPk=
+	t=1789874825; cv=none; b=F3ZzAIyG7QBceQIVqvTA+ijuNIF5hu0VQRfszl5Idd8AObbX7dKONzZz2QH+iH9rwGv0v+L9VkfAH8uqmRDKPJtkZVOUmd6EHcsfQ5nYK0Bv0IH9P1kZBfofvOd/PXF4EHpTOSWtUGoA4iu0ZfI/WHH1TziXYP5HjRMpbPt5hNg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789874803; c=relaxed/simple;
-	bh=tfcwfIayr0ovZ7Mt0yew9doOGz48/5QHZH0iF8NxPIM=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=ukQr4cLUFl++1Y3uj76IL5TPjRKJoUsf3HgApv6jL5KVcxEf1VqP8LdAEqLEdpsTrRh7aPtFFIKchfOJZ1sOtgnao9KieCJIIFRjdgJwE1mJWRQuKAJZf7UdvqkSNHEaqwWSeQwgG+wuwiZPSh6jkvZVT+rlutGqPkCGvYfwn2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=koYkr8/0; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="koYkr8/0"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68K3QVPP01401323, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1789874791; bh=tfcwfIayr0ovZ7Mt0yew9doOGz48/5QHZH0iF8NxPIM=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=koYkr8/00Y0PU3ddDO3d2VkYyqUb/G3KyVOm1O7R2LGlW0Cu7skvMXD0MC/8cKZic
-	 cX4fltt/EqympjGznXPCA3Ck6eVNG6fBeqBrsxaZXtAmeuFulYyDrndE8FaHsCcZ+B
-	 FcJqQU0PCvs2S5wwHbIRA9bfF9qGoWOIc7di+P3laEngOuoYRQ9kLxJjnn+Cb2nC3h
-	 bsB4VA9JUZRvKwG4lrW98esOvSEMGrOZgarAXkopuy2nrRDPPoCEl+ftz5xJ8M54YU
-	 y1hINJiJvAR+wBxxMlrbP8G4MJGa1PV482vb2YMV3AjTj+O4HLt/NkQA0NwfhwnVij
-	 Bz1NjAH2SRbdg==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68K3QVPP01401323
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Sun, 20 Sep 2026 11:26:31 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Sun, 20 Sep 2026 11:26:31 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Sun, 20 Sep 2026 11:26:31 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: "5mghybrid@khu.ac.kr" <5mghybrid@khu.ac.kr>,
-	"linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>
-CC: "kvalo@kernel.org" <kvalo@kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "Jes.Sorensen@gmail.com"
-	<Jes.Sorensen@gmail.com>
-Subject: RE: [PATCH rtw-next v3 2/3] wifi: rtl8xxxu: unwind incomplete receive
- startup
-Thread-Topic: [PATCH rtw-next v3 2/3] wifi: rtl8xxxu: unwind incomplete
- receive startup
-Thread-Index: AQHdSHehvShQrWjleEGGjtWYqtNg3LbWyJ5w
-Date: Sun, 20 Sep 2026 03:26:31 +0000
-Message-ID: <5a81fb985ac2481288d1be7f53c630c0@realtek.com>
-References: <20260920-codex-rtl-rx-v3-submit-v3-0-883d11351963@khu.ac.kr>
- <20260920-codex-rtl-rx-v3-submit-v3-2-883d11351963@khu.ac.kr>
-In-Reply-To: <20260920-codex-rtl-rx-v3-submit-v3-2-883d11351963@khu.ac.kr>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	s=arc-20240116; t=1789874825; c=relaxed/simple;
+	bh=4vFYmCzdRJ6CGiU+FHTthwBZRfUP1kzd6SL1k4iiUTs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ubEw4GgupR8VM5okO90SU/W3BXySQ6zZO5n0ccVMYecWbXTyIEAnG2vdSvWya2WmpKpwm8QiO7w+lRm1kDw26mt4G23SAKIrQf+i4fTNcOBkFlFQdU0d7TxwBZKm6JrL4ON4jHIUEHLax3ag65Y+eU7c/45DyJbUpFEVGWvpUAk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn; spf=pass smtp.mailfrom=easystack.cn; arc=none smtp.client-ip=220.197.31.82
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=easystack.cn
+Received: from [192.168.0.59] (unknown [218.94.118.90])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 1f4881c20;
+	Sun, 20 Sep 2026 10:11:10 +0800 (GMT+08:00)
+Message-ID: <99a94068-ab37-47c0-878c-7c1ada5204b2@easystack.cn>
+Date: Sun, 20 Sep 2026 10:11:10 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/8] mm/page_owner: Add PID/TGID/COMM and cgroup
+ filtering
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>, Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka
+ <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Brendan Jackman <brendan.jackman@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, linux-mm@kvack.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260907082620.2083838-1-zhen.ni@easystack.cn>
+ <79548641-25f3-4ec3-a549-782fad168962@kernel.org>
+ <6e8bfb0d-d595-4e6b-9536-0323ada57e25@easystack.cn>
+ <b8e23456-00af-4097-a769-210a087d2b90@kernel.org>
+ <22D1EC4B-FBCB-421E-B8DA-345B5F3505FB@nvidia.com>
+ <d8d34e16-57fa-48b7-93a9-afbf4b950ce6@easystack.cn>
+ <98ca914b-4722-448d-b5a4-7f095d0ca433@kernel.org> <aqPmlw8WYW9HSzIV@gremlin>
+From: "zhen.ni" <zhen.ni@easystack.cn>
+In-Reply-To: <aqPmlw8WYW9HSzIV@gremlin>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0bc94e7a60229kunm9a1984bc79d8c
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZQ09IVklJQ0JPSR8dSB9JQ1YVFA
+	kWGhdVGRETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVQk9VSkpDVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
+	lPT09IVUpLS1VKQktLWQY+
 
-S2ltIFdvb3Nlb2sgdmlhIEI0IFJlbGF5IDxkZXZudWxsKzVtZ2h5YnJpZC5raHUuYWMua3JAa2Vy
-bmVsLm9yZz4gd3JvdGU6DQo+IEZyb206IEtpbSBXb29zZW9rIDw1bWdoeWJyaWRAa2h1LmFjLmty
-Pg0KPiANCj4gcnRsOHh4eHVfc3RhcnQoKSBhbGxvY2F0ZXMgYW5kIHN1Ym1pdHMgUlggVVJCcyBv
-bmUgYXQgYSB0aW1lLiBJZiBhIGxhdGVyDQo+IGFsbG9jYXRpb24gZmFpbHMsIHRoZSBlcnJvciBw
-YXRoIGZyZWVzIHRoZSBUWCBwb29sIGJ1dCBsZWF2ZXMgZWFybGllciBSWA0KPiByZXF1ZXN0cyBh
-Y3RpdmUuIEEgcGFydGlhbCBUWCBvciBSWCBhbGxvY2F0aW9uIGZhaWx1cmUgY2FuIGFsc28gbGVh
-dmUNCj4gcmV0IGF0IHplcm8sIHNvIHN0YXJ0IHJlcG9ydHMgc3VjY2VzcyBkZXNwaXRlIHRoZSBp
-bmNvbXBsZXRlIHNldHVwLg0KPiANCj4gQWxsb2NhdGUgdGhlIFJYIHBvb2wgYmVmb3JlIHN1Ym1p
-dHRpbmcgYW55IG9mIGl0LCBhbmQgcmV0dXJuIEVOT01FTQ0KPiB3aGVuZXZlciBhIHBvb2wgYWxs
-b2NhdGlvbiBmYWlscy4gUGFzcyBzdGFydCBlcnJvcnMgdGhyb3VnaA0KPiBydGw4eHh4dV9zdG9w
-KCksIGluY2x1ZGluZyBpbnRlcnJ1cHQgVVJCIHN1Ym1pc3Npb24gZmFpbHVyZXMsIHNvIHRoZQ0K
-PiBleGlzdGluZyBzdG9wIHBhdGggY2FuY2VscyB3b3JrIGFuZCByZWxlYXNlcyBib3RoIGFjdGl2
-ZSByZXF1ZXN0cyBhbmQNCj4gcGFydGlhbGx5IGFsbG9jYXRlZCBwb29scy4NCj4gDQo+IFNoYXJl
-IHRoZSBzdWJtaXNzaW9uIGxvb3Agd2l0aCB0aGUgUlggd29ya2VyLiBCb3RoIGNhbGxlcnMga2Vl
-cCByZXF1ZXN0cw0KPiB0aGF0IGZhaWwgd2l0aCBFTk9NRU0vRUFHQUlOLiBGb3IgYSBmYXRhbCBl
-cnJvciBkdXJpbmcgc3RhcnR1cCwgZnJlZSB0aGUNCj4gcmVzdCBvZiB0aGUgdW5zdWJtaXR0ZWQg
-YmF0Y2ggYW5kIHJldHVybiB0aGUgZXJyb3Igc28gc3RhcnQgY2FuIHVud2luZC4NCj4gSW4gdGhl
-IHdvcmtlciwgZnJlZSBvbmx5IHRoZSBmYWlsZWQgcmVxdWVzdCBhbmQgY29udGludWUgd2l0aCB0
-aGUgcmVzdA0KPiBvZiB0aGUgYmF0Y2guDQo+IA0KPiBLZWVwIHRoZSBhbGxvY2F0aW9uIGxvb3Ag
-aW4gYSBzbWFsbCBoZWxwZXIgc28gdGhlIHNldHVwIGFuZCBlcnJvciBwYXRocw0KPiBpbiBzdGFy
-dCByZW1haW4gZWFzeSB0byBmb2xsb3cuDQo+IA0KPiBGaXhlczogMjZmMWZhZDI5YWQ5ICgiTmV3
-IGRyaXZlcjogcnRsOHh4eHUgKG1hYzgwMjExKSIpDQo+IEFzc2lzdGVkLWJ5OiBHUFQtNiBBc3Ry
-YQ0KPiBTaWduZWQtb2ZmLWJ5OiBLaW0gV29vc2VvayA8NW1naHlicmlkQGtodS5hYy5rcj4NCg0K
-UGxlYXNlIGZpeCBzb21lIG1pbm9yIGNvbW1lbnRzLCBhbmQgdGFrZSBteSByZXZpZXdlZC1ieSB0
-byBuZXh0IHZlcnNpb24uDQoNClJldmlld2VkLWJ5OiBQaW5nLUtlIFNoaWggPHBrc2hpaEByZWFs
-dGVrLmNvbT4NCg0KPiAtLS0NCj4gIGRyaXZlcnMvbmV0L3dpcmVsZXNzL3JlYWx0ZWsvcnRsOHh4
-eHUvY29yZS5jIHwgOTYNCj4gKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-DQo+ICAxIGZpbGUgY2hhbmdlZCwgNTQgaW5zZXJ0aW9ucygrKSwgNDIgZGVsZXRpb25zKC0pDQo+
-IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvd2lyZWxlc3MvcmVhbHRlay9ydGw4eHh4dS9j
-b3JlLmMNCj4gYi9kcml2ZXJzL25ldC93aXJlbGVzcy9yZWFsdGVrL3J0bDh4eHh1L2NvcmUuYw0K
-PiBpbmRleCA3OTVhNWVjMmY4Y2Q0Li41YWUzZGJmNTAzNGFjIDEwMDY0NA0KPiAtLS0gYS9kcml2
-ZXJzL25ldC93aXJlbGVzcy9yZWFsdGVrL3J0bDh4eHh1L2NvcmUuYw0KPiArKysgYi9kcml2ZXJz
-L25ldC93aXJlbGVzcy9yZWFsdGVrL3J0bDh4eHh1L2NvcmUuYw0KPiBAQCAtNTgsNiArNTgsNyBA
-QCBNT0RVTEVfUEFSTV9ERVNDKGRtYV9hZ2dfcGFnZXMsICJTZXQgRE1BIGFnZ3JlZ2F0aW9uIHBh
-Z2VzIChyYW5nZSAxLTEyNywgMCB0byBkaQ0KPiAgI2RlZmluZSBSVEw4WFhYVV9UWF9VUkJfTE9X
-X1dBVEVSICAgICAgMjUNCj4gICNkZWZpbmUgUlRMOFhYWFVfVFhfVVJCX0hJR0hfV0FURVIgICAg
-IDMyDQo+IA0KPiArc3RhdGljIHZvaWQgcnRsOHh4eHVfc3RvcChzdHJ1Y3QgaWVlZTgwMjExX2h3
-ICpodywgYm9vbCBzdXNwZW5kKTsNCj4gIHN0YXRpYyBpbnQgcnRsOHh4eHVfc3VibWl0X3J4X3Vy
-YihzdHJ1Y3QgcnRsOHh4eHVfcHJpdiAqcHJpdiwNCj4gICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIHN0cnVjdCBydGw4eHh4dV9yeF91cmIgKnJ4X3VyYik7DQo+IA0KPiBAQCAtNTgz
-Miw2ICs1ODMzLDI3IEBAIHN0YXRpYyB2b2lkIHJ0bDh4eHh1X2ZyZWVfcnhfcmVzb3VyY2VzKHN0
-cnVjdCBydGw4eHh4dV9wcml2ICpwcml2KQ0KPiAgICAgICAgIHNwaW5fdW5sb2NrX2lycXJlc3Rv
-cmUoJnByaXYtPnJ4X3VyYl9sb2NrLCBmbGFncyk7DQo+ICB9DQo+IA0KPiArc3RhdGljIGludCBy
-dGw4eHh4dV9hbGxvY19yeF91cmJzKHN0cnVjdCBydGw4eHh4dV9wcml2ICpwcml2KQ0KPiArew0K
-PiArICAgICAgIHN0cnVjdCBydGw4eHh4dV9yeF91cmIgKnJ4X3VyYjsNCj4gKyAgICAgICBpbnQg
-aTsNCj4gKw0KPiArICAgICAgIC8qIE5vIFJYIHdvcmsgaXMgYWN0aXZlIHVudGlsIHRoZSBjb21w
-bGV0ZSBwb29sIGhhcyBiZWVuIGFsbG9jYXRlZC4gKi8NCj4gKyAgICAgICBmb3IgKGkgPSAwOyBp
-IDwgUlRMOFhYWFVfUlhfVVJCUzsgaSsrKSB7DQo+ICsgICAgICAgICAgICAgICByeF91cmIgPSBr
-bWFsbG9jX29iaihzdHJ1Y3QgcnRsOHh4eHVfcnhfdXJiKTsNCj4gKyAgICAgICAgICAgICAgIGlm
-ICghcnhfdXJiKQ0KPiArICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gLUVOT01FTTsNCj4g
-Kw0KPiArICAgICAgICAgICAgICAgdXNiX2luaXRfdXJiKCZyeF91cmItPnVyYik7DQo+ICsgICAg
-ICAgICAgICAgICBJTklUX0xJU1RfSEVBRCgmcnhfdXJiLT5saXN0KTsNCj4gKyAgICAgICAgICAg
-ICAgIHJ4X3VyYi0+aHcgPSBwcml2LT5odzsNCg0Kbml0OiBhZGQgYSBibGFuayBsaW5lDQoNCj4g
-KyAgICAgICAgICAgICAgIGxpc3RfYWRkX3RhaWwoJnJ4X3VyYi0+bGlzdCwgJnByaXYtPnJ4X3Vy
-Yl9wZW5kaW5nX2xpc3QpOw0KPiArICAgICAgICAgICAgICAgcHJpdi0+cnhfdXJiX3BlbmRpbmdf
-Y291bnQrKzsNCj4gKyAgICAgICB9DQo+ICsNCj4gKyAgICAgICByZXR1cm4gMDsNCj4gK30NCj4g
-Kw0KPiAgc3RhdGljIHZvaWQgcnRsOHh4eHVfcXVldWVfcnhfdXJiKHN0cnVjdCBydGw4eHh4dV9w
-cml2ICpwcml2LA0KPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IHJ0
-bDh4eHh1X3J4X3VyYiAqcnhfdXJiKQ0KPiAgew0KDQpbLi4uXQ0KDQo+ICsNCj4gK3N0YXRpYyB2
-b2lkIHJ0bDh4eHh1X3J4X3VyYl93b3JrKHN0cnVjdCB3b3JrX3N0cnVjdCAqd29yaykNCj4gK3sN
-Cj4gKyAgICAgICBzdHJ1Y3QgcnRsOHh4eHVfcHJpdiAqcHJpdjsNCj4gKw0KPiArICAgICAgIHBy
-aXYgPSBjb250YWluZXJfb2Yod29yaywgc3RydWN0IHJ0bDh4eHh1X3ByaXYsIHJ4X3VyYl93cSk7
-DQoNCkp1c3QgYXNzaWduIHRoaXMgYXQgZGVjbGFyYXRpb24uIA0KDQo+ICsgICAgICAgcnRsOHh4
-eHVfc3VibWl0X3J4X3VyYnMocHJpdiwgZmFsc2UpOw0KPiAgfQ0KPiANCj4gIC8qDQo+IEBAIC03
-NDA4LDcgKzc0MzgsNiBAQCBzdGF0aWMgdm9pZCBydGw4eHh4dV93YXRjaGRvZ19jYWxsYmFjayhz
-dHJ1Y3Qgd29ya19zdHJ1Y3QgKndvcmspDQo+ICBzdGF0aWMgaW50IHJ0bDh4eHh1X3N0YXJ0KHN0
-cnVjdCBpZWVlODAyMTFfaHcgKmh3KQ0KPiAgew0KPiAgICAgICAgIHN0cnVjdCBydGw4eHh4dV9w
-cml2ICpwcml2ID0gaHctPnByaXY7DQo+IC0gICAgICAgc3RydWN0IHJ0bDh4eHh1X3J4X3VyYiAq
-cnhfdXJiOw0KPiAgICAgICAgIHN0cnVjdCBydGw4eHh4dV90eF91cmIgKnR4X3VyYjsNCj4gICAg
-ICAgICB1bnNpZ25lZCBsb25nIGZsYWdzOw0KPiAgICAgICAgIGludCByZXQsIGk7DQo+IEBAIC03
-NDIzLDE0ICs3NDUyLDEzIEBAIHN0YXRpYyBpbnQgcnRsOHh4eHVfc3RhcnQoc3RydWN0IGllZWU4
-MDIxMV9odyAqaHcpDQo+ICAgICAgICAgaWYgKHByaXYtPnVzYl9pbnRlcnJ1cHRzKSB7DQo+ICAg
-ICAgICAgICAgICAgICByZXQgPSBydGw4eHh4dV9zdWJtaXRfaW50X3VyYihodyk7DQo+ICAgICAg
-ICAgICAgICAgICBpZiAocmV0KQ0KPiAtICAgICAgICAgICAgICAgICAgICAgICBnb3RvIGV4aXQ7
-DQo+ICsgICAgICAgICAgICAgICAgICAgICAgIGdvdG8gZXJyb3Jfb3V0Ow0KDQpJIGhhdmUgYSBy
-ZXF1ZXN0IGluIHYyIHRoYXQgcGxlYXNlIG1ha2Ugc3VyZSBhbGwgZXJyb3IgcGF0aCBjYW4NCnBy
-b3Blcmx5IGhhbmRsZWQgYnkgcnRsOHh4eHVfc3RvcCgpLiBDYW4geW91IGNvbmZpcm0gYW5kIGFj
-ayBtZT8NCk9yIEkgbWlzc2VkPw0KDQo+ICAgICAgICAgfQ0KPiANCj4gICAgICAgICBmb3IgKGkg
-PSAwOyBpIDwgUlRMOFhYWFVfVFhfVVJCUzsgaSsrKSB7DQo+ICAgICAgICAgICAgICAgICB0eF91
-cmIgPSBrbWFsbG9jX29iaihzdHJ1Y3QgcnRsOHh4eHVfdHhfdXJiKTsNCj4gICAgICAgICAgICAg
-ICAgIGlmICghdHhfdXJiKSB7DQo+IC0gICAgICAgICAgICAgICAgICAgICAgIGlmICghaSkNCj4g
-LSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXQgPSAtRU5PTUVNOw0KPiArICAgICAg
-ICAgICAgICAgICAgICAgICByZXQgPSAtRU5PTUVNOw0KPiANCj4gICAgICAgICAgICAgICAgICAg
-ICAgICAgZ290byBlcnJvcl9vdXQ7DQo+ICAgICAgICAgICAgICAgICB9DQoNCg0K
+
+
+在 2026/9/11 19:32, Lorenzo Stoakes (ARM) 写道:
+> On Fri, Sep 11, 2026 at 01:06:46PM +0200, David Hildenbrand (Arm) wrote:
+>> On 9/11/26 09:58, zhen.ni wrote:
+>>>
+>>>
+>>> 在 2026/9/9 23:54, Zi Yan 写道:
+>>>> On 9 Sep 2026, at 6:28, David Hildenbrand (Arm) wrote:
+>>>>
+>>>>>
+>>>>> Because it results in less kernel code  :)
+>>>>>
+>>>>> And less kernel code is good. Unless unavoidable.
+>>>>
+>>>> An alternative is to add BPF hooks like bpf_iter to do the filtering
+>>>> and by default, when no BPF program is attached, everything is printed.
+>>>>
+>>>>
+>>>
+>>> I’ve also thought about a similar approach—perhaps a new bpf_iter type
+>>> that could iterate over all pages by PFN. The advantage would be that
+>>> you can fully customize what you want to print and what you want to
+>>> filter. However, doing so would require refactoring the entire
+>>> page_owner, and I’m not sure whether it’s worth pursuing in this
+>>> direction.I’d also like to hear everyone’s thoughts on this.
+>>
+>> Certainly better than having more and more manual filters added to the code base.
+> 
+> Agreed.
+> 
+> bpf seems the ideal fit here I think?
+> 
+> Means that those who want this information can get it and those who don't are
+> unaffected.
+> 
+
+I have prototyped page_owner bpf_iter and confirmed it is a viable and
+valuable direction:
+
+1.Most parameter parsing is offloaded to the existing BPF verifier,
+keeping the page_owner kernel-side logic simple.
+
+2.Filtering and printing are delegated to the BPF program, providing
+greater flexibility and enabling more complex composite filtering.
+
+I plan to further refine this patch series, but it will likely be
+submitted as a separate series, as it represents a different direction.
+
+
+Thanks,
+Zhen
