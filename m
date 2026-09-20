@@ -1,263 +1,127 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4098C3FE652;
-	Sun, 20 Sep 2026 23:51:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB877377010;
+	Sun, 20 Sep 2026 23:51:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789948276; cv=none; b=qDMWQcTs6FTb4nkoBXUGvSh4b36b64oSHegI+ZVhKcEv8eIKfkZg62/d6r70lBa3G1wxnF7FKYDALP08NFh7uJ2Rw47jeOPFevdLOvn0rk4BxGLvSqY10vew58yp09HwLZASkkCetTaSpsaq7kOhzWF19+vP1dFuxaWyVuq7tgo=
+	t=1789948312; cv=none; b=XY3fJWRP+V+k6fH5LosmcBranYBhz4wWCbvtRjr96aSkZ8+OplWLMtncJ4hwjJcfFLUrjLnCIf6d6WzKGJanXlDYbWOQmXQQ6ZZWyCigJNYfx6Yzh7uYP10wnu3V8VuuTEeEYbtlxTqij3rifIy2rM6IQsJLiHVRlSiUF31Iovw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789948276; c=relaxed/simple;
-	bh=5wyEokmJOZob3H/bvewpsSmfaS9CFMgigKaBU4XF8iQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=T/JAz1Tqw7Gr4nmxGWOXujq/5qBOetwSXf6emzekTdmK2h9urfF7x3tDflqbM2W3zQHPi+7/tKpwuNPV73B7Q/Jmef6ev7JPUMfrLbbwaK2veI7/iNJT8ihI7CWi0y3eJYhZ1g/9r/Va9lizV3XDeH8bMo3LXvmm2MF2ODmTRxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GJARvgMF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789948312; c=relaxed/simple;
+	bh=U5m7WADaRLL8j4XyHtWlFJb/IzUnoMGq7dmQW6a6KpQ=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Ew9Mhg+f7BPOFAlH4gxFkOGaD9oW8n3Pk7Yl+qFZEOfgl87j/KiBSTFSM/ahx4WjK2PQPZqarANGasgrylw1jjWFAepBpHeJtEwbFOHurpMS6RcvaqfQGnqp2COehGDaFaeQXxpYiz1mEwYC0RzlVC7H3c3u5BeYA8+KKZU6K2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oH4PGHC7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GJARvgMF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CD9C1F000FF;
-	Sun, 20 Sep 2026 23:51:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oH4PGHC7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50B1A1F000FF;
+	Sun, 20 Sep 2026 23:51:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789948273;
-	bh=DUn3vhHN71JeeVcxPYwrVdGZ1UKD3XNnIBUR0wuoigQ=;
+	s=k20260515; t=1789948311;
+	bh=n69+NQuL0MBxH8A3qlY0/AgvLV3+f1D8QUKm2WY4ZWI=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=GJARvgMFIwURKFRj2u6sSv636AGbLXmeDGy4Tl0ohXTTVfLvWeYJSaKLvRNBK9CiG
-	 FTPwVlxSzIns0JHYtE16O+y7X/S5XGA0vJI5ndL8ZUqkr/UKCAjp1jmDoCyTr8TEag
-	 O5KlpAL1Qv2Jiefu/yz+8grqBBrMb4g/Jn4fKPhE8WScZjvzk4QkOc3OIzdLeYN21V
-	 jY9QLJu5XcrdwYuU2W9cqTBNQUHO2hJSSFhKR9YrQ7iQuu7yReT/vKCAaGX2EkyQaV
-	 Z30uBs8Koyu7N59RMXtO3OTMWLxKFhWt6B2HAlOebFjKK2kUeY1G1JPwIPRBs6Tf1P
-	 9+7rtVfGQBIEA==
-Date: Mon, 21 Sep 2026 00:51:05 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Kanak Shilledar <kanak.shilledar@axis.com>
-Cc: Henrik Grimler <henrik.grimler@axis.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- "Jean-Baptiste Maneyrol" <jean-baptiste.maneyrol@tdk.com>, Joshua Crofts
- <joshua.crofts1@gmail.com>, Marcelo Schmitt <marcelo.schmitt1@gmail.com>,
- Chris Morgan <macromorgan@hotmail.com>, <kernel@axis.com>,
- <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v4 4/5] iio: imu: inv_icm42607: Implement MREGx register
- access
-Message-ID: <20260921005105.1b992fc8@jic23-hlaptop>
-In-Reply-To: <20260917-b4-inv_icm42370p-v4-4-fd9373f123c9@axis.com>
-References: <20260917-b4-inv_icm42370p-v4-0-fd9373f123c9@axis.com>
-	<20260917-b4-inv_icm42370p-v4-4-fd9373f123c9@axis.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	b=oH4PGHC7Axy/Amkc3VJw6ozl7LfldOKz0UpByM3IxPHU7qL8yngrsdYxQzs9eGLTW
+	 C4sn78GXQp/fyHcdD+bDrxfPf7T2K+QDKtaaWH2cSzndRSH3VxWVgPBuSydUJrLB7R
+	 EGhSuoyKjzlwGWooX1oU3HhsTUGEQBbq9hu2gFOmUIfZlKCAYPYlQCGpaV7wqEVUF1
+	 yMOzXd1c/KQHw8gGicCACzqNmsZhS9/QJirj18ScOL9NFYan29trdzttHAj5Gzkjw3
+	 bpGAoTvlRa6fAITu/GAsuUlv1D53qUFZCSLR5UQNj9JNMY2XPSxoTTWtPuqmTM9bJ+
+	 RM1Yx1mPiZ5Mw==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x8RK0-0000000BJ26-4AzT;
+	Sun, 20 Sep 2026 23:51:49 +0000
+Date: Mon, 21 Sep 2026 00:54:52 +0100
+Message-ID: <87a4pb4gxf.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Oliver Upton <oupton@kernel.org>
+Cc: Fuad Tabba <fuad.tabba@linux.dev>,
+	Yuchao Zhang <ndaugoing@gmail.com>,
+	Oliver Upton <oliver.upton@linux.dev>,
+	James Morse <james.morse@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] KVM: arm64: vgic: Do not remove in-flight LPIs from AP list on disable
+In-Reply-To: <aq2N7HYbQw7zbpCq@kernel.org>
+References: <20260918040214.85580-1-ndaugoing@gmail.com>
+	<20260918040214.85580-2-ndaugoing@gmail.com>
+	<CA+EHjTx8zzvgqj99TKWfRD58X-M8v+hs9358_r_1zZonFNEsgw@mail.gmail.com>
+	<CAC2BP3K-fvW2s2j2ys+kPMuxrzeMw9yc6MrAk7U7CqCpb2WePQ@mail.gmail.com>
+	<CA+EHjTx9bTDuTnGgkrCcaAG+1S1Lx6+1BZnuhJcWNTJxWXkAHw@mail.gmail.com>
+	<aq2N7HYbQw7zbpCq@kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: oupton@kernel.org, fuad.tabba@linux.dev, ndaugoing@gmail.com, oliver.upton@linux.dev, james.morse@arm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Thu, 17 Sep 2026 15:38:19 +0200
-Kanak Shilledar <kanak.shilledar@axis.com> wrote:
-
-> The device supports indirect register access to different banks. A
-> specific routine needs to be followed when accessing the registers in
-> another bank as documented in the datasheet (section 13). This is
-> required for accessing registers configured via the user and
-> implementing buffer support. The implementation is inspired from the
-> icm45600 driver. The banks are defined based on their initial bank
-> access code which are written to the BLK_SEL_* regs. However, there is a
-> variation for MREG1 as User Bank 0 and MREG1 both share the same 0x00,
-> so User Bank 1 has 0x00 and MREG1 has 0x01. When MREG1 register is
-> accessed, then BLK_SEL_* is written with 0x00 instead of 0x01.
-
-I was kind of expecting to see use of the regmap_ranges stuff
-which is there for banked registers.  Looks like you need
-more complex handling.
-
+On Fri, 18 Sep 2026 20:15:56 +0100,
+Oliver Upton <oupton@kernel.org> wrote:
 > 
-> Datasheet: https://www.invensense.tdk.com/en-us/products/3-axis/icm-42370-p
-> Datasheet: https://www.lcsc.com/product-detail/C5129967.html
-> Assisted-by: LLM
-> Signed-off-by: Kanak Shilledar <kanak.shilledar@axis.com>
-A few things inline.
-
-Jonathan
-
-> ---
-> LLM was used to implement the mreg back switching support.
-> ---
->  drivers/iio/imu/inv_icm42607/inv_icm42607.h      | 167 ++++++++++-------
->  drivers/iio/imu/inv_icm42607/inv_icm42607_core.c | 218 ++++++++++++++++++++---
->  drivers/iio/imu/inv_icm42607/inv_icm42607_i2c.c  |   5 +
->  drivers/iio/imu/inv_icm42607/inv_icm42607_spi.c  |   5 +
->  4 files changed, 312 insertions(+), 83 deletions(-)
+> On Fri, Sep 18, 2026 at 12:58:17PM +0100, Fuad Tabba wrote:
+> > Hi Yuchao,
+> > 
+> > On Fri, 18 Sept 2026 at 12:51, Yuchao Zhang <ndaugoing@gmail.com> wrote:
+> > >
+> > > Hi Fuad,
+> > >
+> > > Thanks a lot for pointing me to that thread! I was not aware of
+> > > Hyunwoo's earlier report and the discussion with Oliver and Marc.
+> > >
+> > > I'll read through the thread and their rationale on the ap_list_lock
+> > > approach. I'm happy to defer to Hyunwoo's effort to avoid duplicate
+> > > work.
+> > 
+> > I'm not sure you should defer to their effort. It doesn't seem like
+> > Hyunwoo has done any work on this for a while. I just wanted to point
+> > you to the existing discussion.
 > 
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607.h b/drivers/iio/imu/inv_icm42607/inv_icm42607.h
-> index ca5f59eb436c0..1db005623740f 100644
-> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607.h
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607.h
-> @@ -167,31 +167,59 @@ struct inv_icm42607_sensor_state {
->  	int filter;
->  };
->  
-> -/* Virtual register addresses: @bank on MSB (4 upper bits), @address on LSB */
-> +/*
-> + * Virtual register addresses: bank id in the upper byte, register address in
-> + * the lower byte. Bank 0 is directly addressable on the bus. MREG banks are
-> + * reached through the BLK_SEL/MADDR/M indirect access window, one byte per
-> + * transaction (datasheet section 13, no burst support).
-> + *
-> + * MREG1 programs BLK_SEL = 0x00, which collides with the direct bank, so it
-> + * gets the distinct virtual id 0x01. MREG2 and MREG3 virtual ids match their
-> + * BLK_SEL values.
-> + */
-> +#define INV_ICM42607_REG_BANK_MASK			GENMASK(15, 8)
-> +#define INV_ICM42607_REG_ADDR_MASK			GENMASK(7, 0)
-> +
-> +#define INV_ICM42607_BANK0				0x0000
+> Yuchao if you have cycles I would definitely appreciate it if you can
+> pursue a fix. My view hasn't changed since before: let's make that
+> traversal of the ap_list is done under the ap_list_lock, as this is not
+> intended to be walked lock-free.
+> 
+> Taking a step back, the whole cross-vCPU LPI disabling always leaves me
+> feeling ill... Really when RWP=0 becomes visible from another vCPU we
+> need to guarantee that the LPIs have been actually retired, meaning we
+> can't have one sitting in an LR. Even with the locking fix I think we
+> miss this.
+> 
+> Given how unlikely it is for well-behaved software to disable LPIs
+> remotely in the first place, I wonder if we should just halt the VM
+> similar to how we handle accesses to the active state. That's a really
+> big hammer but we've had a lot of bugs in this department and I'm
+> somewhat biased towards an obviously correct solution.
 
-You are using upper bits as a field and defining a mask to access them.
-As such I'd define these as values in that filed. Eg. 0x00, 0x01, 0x28, and 0x50
+Irrespective of the whole ap_list_lock issue, I think this is the only
+valid option. Messing with the ap_list of another vcpu while it is
+running can never result in something that actually works. There's a
+hack doing that in my tree.
 
-> +#define INV_ICM42607_MREG1				0x0100
-> +#define INV_ICM42607_MREG2				0x2800
+> We wouldn't need to do this for a vCPU disabling LPIs on its own
+> redistributor since we've already exited the guest.
 
+In general, we could stop the target vcpu only. But this is making
+things more complex, and I quite like the idea of a large
+hammer... ;-)
 
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-> index 114e7afcda391..9d572b3ffb15b 100644
-> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-> @@ -23,58 +23,223 @@
->  
->  #include "inv_icm42607.h"
->  
-> -static bool inv_icm42607_is_readable_reg(struct device *dev, unsigned int reg)
+	M.
 
-Why is this patch dropping the is_readable  / is_writeable checks?
-Those are relevant to the debug interfaces etc.
-
-> +static int inv_icm42607_mclk_get(struct regmap *map, bool *idle_set)
->  {
-> -	switch (reg) {
-> -	case INV_ICM42607_REG_MCLK_RDY ... INV_ICM42607_REG_INT_CONFIG:
-> -	case INV_ICM42607_REG_TEMP_DATA1 ... INV_ICM42607_REG_TMST_FSYNCL:
-> -	case INV_ICM42607_REG_APEX_DATA4 ... INV_ICM42607_REG_INTF_CONFIG1:
-> -	case INV_ICM42607_REG_INT_STATUS_DRDY ... INV_ICM42607_REG_FIFO_DATA:
-> -	case INV_ICM42607_REG_WHOAMI:
-> -		return true;
-> +	unsigned int val;
-> +	int ret;
-> +
-> +	*idle_set = false;
-> +
-> +	ret = regmap_read(map, INV_ICM42607_REG_MCLK_RDY, &val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (val & INV_ICM42607_MCLK_RDY_BIT)
-> +		return 0;
-> +
-> +	/*
-> +	 * Clock isn't running: we're either in Sleep mode or in Accel LP mode
-> +	 * running on WUOSC. Force the RC oscillator on via IDLE and wait for
-> +	 * MCLK_RDY. Datasheet gives 10us (accel startup) to 200us (accel
-> +	 * transition from OFF) for this to complete.
-> +	 */
-> +	ret = regmap_set_bits(map, INV_ICM42607_REG_PWR_MGMT0,
-> +			      INV_ICM42607_PWR_MGMT0_IDLE);
-> +	if (ret)
-> +		return ret;
-> +
-> +	*idle_set = true;
-> +
-> +	ret = regmap_read_poll_timeout(map, INV_ICM42607_REG_MCLK_RDY, val,
-> +				       val & INV_ICM42607_MCLK_RDY_BIT, 10, 200);
-> +	if (ret) {
-> +		regmap_clear_bits(map, INV_ICM42607_REG_PWR_MGMT0,
-> +				  INV_ICM42607_PWR_MGMT0_IDLE);
-> +		*idle_set = false;
->  	}
->  
-> -	return false;
-> +	return ret;
->  }
-
-
->  
-> +static int inv_icm42607_mreg_write(struct regmap *map, unsigned int reg,
-> +				   const u8 *data, size_t count)
-> +{
-> +	bool idle_set;
-> +	u8 blk_sel;
-> +	int ret;
-> +
-> +	/* MREG access is one byte per transaction, no burst support. */
-> +	if (count != 1)
-> +		return -EINVAL;
-> +
-> +	ret = inv_icm42607_blk_sel(reg, &blk_sel);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = inv_icm42607_mclk_get(map, &idle_set);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_write(map, INV_ICM42607_REG_BLK_SEL_W, blk_sel);
-> +	if (ret)
-> +		goto out;
-> +
-> +	ret = regmap_write(map, INV_ICM42607_REG_MADDR_W,
-> +			   FIELD_GET(INV_ICM42607_REG_ADDR_MASK, reg));
-> +	if (ret)
-> +		goto out;
-> +
-> +	ret = regmap_write(map, INV_ICM42607_REG_M_W, *data);
-> +	if (ret)
-> +		goto out;
-> +
-> +	fsleep(INV_ICM42607_MREG_ACCESS_DELAY_US);
-> +
-> +	/* Restore direct access. */
-> +	ret = regmap_write(map, INV_ICM42607_REG_BLK_SEL_W, 0);
-> +out:
-> +	inv_icm42607_mclk_put(map, idle_set);
-> +
-> +	return ret;
-> +}
-> +
-> +static int inv_icm42607_read(void *context, const void *reg_buf, size_t reg_size,
-> +			     void *val_buf, size_t val_size)
-> +{
-> +	unsigned int reg = be16_to_cpup(reg_buf);
-> +	struct regmap *map = context;
-> +
-> +	if ((reg & INV_ICM42607_REG_BANK_MASK) != INV_ICM42607_BANK0)
-
-Use FIELD_GET() to extract the field.  Means we don't have to figure out
-where the bits are - that does require the values to be defined as
-values of that field though.  Ideally you also then use FIELD_PREP()
-for that part of the register addresses defines. 
-
-> +		return inv_icm42607_mreg_read(map, reg, val_buf, val_size);
-> +
-> +	return regmap_bulk_read(map, FIELD_GET(INV_ICM42607_REG_ADDR_MASK, reg),
-> +				val_buf, val_size);
-> +}
-> +
-> +static int inv_icm42607_write(void *context, const void *data, size_t count)
-> +{
-> +	unsigned int reg = be16_to_cpup(data);
-
-u16 perhaps?  What is guaranteeing alginment of data?  Maybe get_unaligned_be16()
-is more appropriate.
-
-> +	struct regmap *map = context;
-> +	const u8 *d = data;
-> +
-> +	if ((reg & INV_ICM42607_REG_BANK_MASK) != INV_ICM42607_BANK0)
-As above.
-> +		return inv_icm42607_mreg_write(map, reg, d + 2, count - 2);
-> +
-> +	return regmap_bulk_write(map, FIELD_GET(INV_ICM42607_REG_ADDR_MASK, reg),
-> +				 d + 2, count - 2);
-> +}
-
+-- 
+Jazz isn't dead. It just smells funny.
