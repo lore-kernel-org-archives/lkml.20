@@ -1,119 +1,164 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE3123CC7EA
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 04:02:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BD873403EE;
+	Sun, 20 Sep 2026 04:02:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789876931; cv=none; b=TGlGCrIlpvLuDjArR9hjswz/rZehgb6LvVIuW930r/HRYzLWYTuoiqZYN6broaR+IssJufoNSDp2sbh4aNGdGCT5QSctK5dffFZPLmej2eFEAdhmwSLAHjFNnN4NE8nBSHXN1hRg1+WZZM4VdVG2B9eaJFUcNNoKCcAHmxwvDm8=
+	t=1789876969; cv=none; b=JkpSuwxfLc4AVGblIpFacc4H6EjPq+AosG46CXFVvmHAvK5WOmg4A5kNJfDKiaKxWyU1/eFmHVkm2UK6eUiZ1ErUm9zxr0UjyKDxHYOiYf0OTSKrAi60ps8uJD/tlvv2fxC45+5HvFdgjKqYPL7hp9SYtitBH4dzUigq4YpTQUM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789876931; c=relaxed/simple;
-	bh=ja62orH3qdNuVp1tYwk+qTD0ossolEOh5lI5xEbsuoY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TInpxqND+IR0mpxSi64QaNZvzWc+EqCyECjFIrPvnVoEY3Ql7PErZGssO97iwmeBRaUjo7aWOhhkWmvvHGaSFJhCf/uPo36Ui0YYb1q+9Zt1bZuxXAKNzoA7jTqJ24PENUlO616Ao8igWM2L4BdDFPguQhtnLUbABMvieRnJkG8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zrk+SCGg; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789876969; c=relaxed/simple;
+	bh=62W5ZuCh/4sQIRC782XN1XPCGdVbOLk4wECiWwkOaEI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VwTRvLk7eDqkyu2rTBZUqAkcz1pHFy/RCFT7uC06K4KoVss/DkHDczWvFPC/L5FVS76Epk5sTEJgyC+P6wAHcuuaC+qedvUAJhJG49n/fMXvV3RP+v1GFg1518xkgg0qURSuoZBO3tfHIjkelcXaJ0oZNJMPxVsU3DZS6TO27CY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eftTij0f; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zrk+SCGg"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-398a147688bso2056267a91.1
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 21:02:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789876929; x=1790481729; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+5QJaKEYYa0kSl1fGgyUvaM13oMrnXDQtarpxehh6V0=;
-        b=Zrk+SCGgCGFgcMzbjqY6qnVzwygZRCi10K/rH+xgqiRWb5lxmvdsL8ku5dZkkd8zsx
-         DQcMUoS2pXmhToQeWXrzlnBnnlS1i/d2bb53cZEZ4iQoaXTl75YdE/7sSq/XN2VMxh46
-         9S+Yz7g4SNeXbMbZ5MpEb0fSZH9v6Ebi+R4NHCCcawbFFKgxXr7FEy+Fu8RqfcZ5BuM/
-         X3bxRv5NsfpslIwrcGpOUXpolXSz38CyShy2lI7+hVVFCPfxbhybh6ALM0+0iM2pGYKG
-         Q7DYS42bFDWnUtcoQapJd/b5lbWigtWB2jpJXpy4FWaoOlRKZ7yS8aYUMNFQEW/qCKQh
-         PWzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789876929; x=1790481729;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+5QJaKEYYa0kSl1fGgyUvaM13oMrnXDQtarpxehh6V0=;
-        b=QtRAUAmPIT5J6YRmtdb5LsrXpoLLRPZJ4e1rcGLZQUMseH5SOAaEtFzNsOxPB0cFFG
-         w9EQBdDK/Tq3lb82XZkISwSOPwJe4cp6mIgFNp4ne2Dlm6m9G8GpjLJKn2rooUIkWhP4
-         HXGj9FgKDHIbQ/XThUWy1j54JzEp32RDnSDN32DWQUYUq7kvu/13KL3MH0JiUuDV5C+G
-         yFei20n1CWvniSeTyqWhWfUTNWJYc4XC1F8Zj4Xx5MyaodidfcnG/mpx9VHPfDuNqayr
-         mEsxXyvXeGWVqF0KNxR+Gbyq1ATTrEE/AgaYpU+quAMxsKqvFCi6ocklRwyG6RFs+8/1
-         Cdtw==
-X-Forwarded-Encrypted: i=1; AKwUvBwZrNkxpsSXzVYsc4C60qzvyShB4hEgmRxUgtQd3+p9As2nqsWszOGb5Z9IjjHpU9ZfK3tPWGWA/sBitDk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lWYpP8Ov1uWIqB5TxYcXBmduUMVv2M/L9QXudpuXtBu2a0iEen
-	d9chPpTkKds8BRjJzzwJGnfQFbiscrRscf9bH4W2oaVJZyB3oNUgXv5lOFDjqBPZ
-X-Gm-Gg: AYBFou1GnuZl+IWtOCRyZ4lC/0VtZ84OZl1HvJd0S/ppWsolMtqHDNdHncN+92qX39W
-	6xtdMEyM1KtZ/QqTl3L585GPYtnCcakhtmm1uABOAo+Wgiprh1NtqVUjvg378Bf4D4dlRU/J8Oc
-	6mw7RAbNWNCq+DVSuywBrExGnD3y9oCLRYXNcZz7XhRt2NHDixBpslI2pMsXP2YPvToINZWL7Yl
-	toqJPOYyQmI2Z20/B9Vd/zNL5yuSd0jkmZzvwbBxfHeH0eagMqX8BYa/9tceikk8OwpBrGJ32mW
-	JdKQk/zDWPujLTbefMESIldz4zn/pNtzTR4UbJhMC5Actg3WJqEab5XMuYZ96NmW01Ki3OElQoU
-	rA0EaqDVK9VaLh6RZH8BWoXvBlOwy5GppT55VnoDXDlspfJqSOgTu13zvtlQG2XH27WVs4kXI7X
-	LrzxcGCGNfrADT712MuKklPKibkaQ36zCbmj3+0PlwWN9kdJuDwE88GvGRIUH3yN7opB/rL0N/0
-	gd5V72UXpHM7fOgzRs/8RtZ+C9nRuFlz5oOmodc
-X-Received: by 2002:a17:90b:2882:b0:39e:4c81:6c95 with SMTP id 98e67ed59e1d1-39e54f3d98fmr11714645a91.27.1789876929055;
-        Sat, 19 Sep 2026 21:02:09 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:7836:19f2:c781:88b2])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c3318c49dsm9418565eec.22.2026.09.19.21.02.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 21:02:08 -0700 (PDT)
-Date: Sat, 19 Sep 2026 21:02:04 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Muhammad Bilal <meatuni001@gmail.com>
-Cc: jayakumar.lkml@gmail.com, linux-input@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] Input: wacom_w8001 - validate index before storing data
- byte
-Message-ID: <aq9aQzLGtt0MNWjJ@google.com>
-References: <20260919192152.271808-2-meatuni001@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eftTij0f"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54D691F000FF;
+	Sun, 20 Sep 2026 04:02:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789876967;
+	bh=wLKvOVUl3mXTCwAVDSdJDie0+ZuJUX8NTiy+w2yN39c=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=eftTij0fP06uNK6xpKKnfNI1SvHZxswJHuX8CWLAiUoI/sTKJMM5l5qLZ7I2IG5Yf
+	 5IpuBWDks2SlJpy5E4LK3EWECy0NnFNQ0Sy64uoKIYjJBlWa1g76ngeUMpzH5puA8G
+	 4TnjxJQPUiN8Spdiy8yCHcXsjniMeMIlyoAsd03sA62AxijvC/hgdDb/1nskskgdKx
+	 MMF+bjoaSFWUO9kKYgJX/TxZNxNzh/E8mBKWK7Qze4hY7AbdYtJuhjY/8VdH8K6jH1
+	 64/pypRQwDw9NRRxz1fGyvsa7bQvmyBl5mbtSBst4ABtVrp6zWrVjJ+or9DUD620li
+	 n2IPTFiZKoegQ==
+Message-ID: <f68323da-e90f-46a4-b3ce-70d26de115e6@kernel.org>
+Date: Sun, 20 Sep 2026 13:02:44 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260919192152.271808-2-meatuni001@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] qnx6: validate di_filelevels in qnx6_iget() and fix mount
+ error handling
+To: Hui Peng <benquike@gmail.com>, brauner@kernel.org, jack@suse.cz,
+ jlayton@kernel.org
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260919222556.3792829-1-benquike@gmail.com>
+Content-Language: en-US
+From: Damien Le Moal <dlemoal@kernel.org>
+Organization: Western Digital Research
+In-Reply-To: <20260919222556.3792829-1-benquike@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Muhammad,
+On 9/20/26 07:25, Hui Peng wrote:
+> Fix two issues in fs/qnx6/:
+> 
+> 1. In qnx6_iget(), reject raw_inode->di_filelevels > QNX6_PTR_MAX_LEVELS
+>    so computing the maximum block count does not trigger shift-out-of-
+>    bounds undefined behavior or out-of-bounds block pointer array walks.
+> 2. In qnx6_fill_super() and qnx6_mmi_fill_super(), prevent MS_SILENT
+>    from bypassing superblock magic validation and ensure sbi->sb_buf is
+>    released exactly once on failure.
 
-On Sun, Sep 20, 2026 at 12:21:53AM +0500, Muhammad Bilal wrote:
-> w8001_interrupt() stores every incoming byte at w8001->data[w8001->idx]
-> before the following switch on w8001->idx++ has a chance to detect an
-> invalid packet and reset idx. The switch only resets idx for the
-> specific packet lengths it recognizes; once idx has advanced past all
-> of those (W8001_PKTLEN_TOUCH2FG - 1 at most), any further byte falls
-> into default, where idx is only reset for pen-only devices without a
-> touch_dev (the ThinkPad X60 workaround). A touch-capable device fed a
-> malformed or overlong packet therefore has nothing to stop idx from
-> growing without bound, and w8001->data[w8001->idx] = data runs past
-> the end of the W8001_MAX_LENGTH-sized array.
+Please split this into 2 patches, one patch for each problem you fix.
 
-This analysis does not match the code.
+> 
+> Fixes: 5d026c724220 ("fs: initial qnx6fs addition")
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
+> ---
+> diff --git a/fs/qnx6/inode.c b/fs/qnx6/inode.c
+> index 6de49333acad..04214b829e10 100644
+> --- a/fs/qnx6/inode.c
+> +++ b/fs/qnx6/inode.c
+> @@ -144,8 +144,10 @@ static unsigned qnx6_block_map(struct inode *inode, unsigned no)
+>  		levelptr = (no >> bitdelta) & mask;
+>  		ptr = ((__fs32 *)bh->b_data)[levelptr];
+>  
+> -		if (!qnx6_check_blockptr(ptr))
+> +		if (!qnx6_check_blockptr(ptr)) {
+> +			brelse(bh);
+>  			return 0;
+> +		}
+>  
+>  		block = qnx6_get_devblock(s, ptr);
+>  		brelse(bh);
+> @@ -397,12 +399,14 @@ static int qnx6_fill_super(struct super_block *s, struct fs_context *fc)
+>  		sbi->sb_buf = bh1;
+>  		sbi->sb = (struct qnx6_super_block *)bh1->b_data;
+>  		brelse(bh2);
+> +		bh2 = NULL;
+>  		pr_info("superblock #1 active\n");
+>  	} else {
+>  		/* superblock #2 active */
+>  		sbi->sb_buf = bh2;
+>  		sbi->sb = (struct qnx6_super_block *)bh2->b_data;
+>  		brelse(bh1);
+> +		bh1 = NULL;
+>  		pr_info("superblock #2 active\n");
+>  	}
+>  mmi_success:
+> @@ -463,6 +467,8 @@ static int qnx6_fill_super(struct super_block *s, struct fs_context *fc)
+>  out1:
+>  	iput(sbi->inodes);
+>  out:
+> +	if (sbi->sb_buf && sbi->sb_buf != bh1 && sbi->sb_buf != bh2)
+> +		brelse(sbi->sb_buf);
+>  	brelse(bh1);
+>  	brelse(bh2);
+>  outnobh:
+> @@ -560,6 +566,13 @@ struct inode *qnx6_iget(struct super_block *sb, unsigned ino)
+>  	memcpy(&ei->di_block_ptr, &raw_inode->di_block_ptr,
+>  				sizeof(raw_inode->di_block_ptr));
+>  	ei->di_filelevels = raw_inode->di_filelevels;
+> +	if (ei->di_filelevels > QNX6_PTR_MAX_LEVELS) {
+> +		pr_err("invalid filelevels (%u) in inode %u\n",
+> +		       ei->di_filelevels, ino);
+> +		folio_release_kmap(folio, raw_inode);
+> +		iget_failed(inode);
+> +		return ERR_PTR(-EIO);
+> +	}
+>  
+>  	if (S_ISREG(inode->i_mode)) {
+>  		inode->i_fop = &generic_ro_fops;
+> diff --git a/fs/qnx6/super_mmi.c b/fs/qnx6/super_mmi.c
+> index b8afb6f388b2..28cb9322278e 100644
+> --- a/fs/qnx6/super_mmi.c
+> +++ b/fs/qnx6/super_mmi.c
+> @@ -51,10 +51,9 @@ struct qnx6_super_block *qnx6_mmi_fill_super(struct super_block *s, int silent)
+>  	sb1 = (struct qnx6_mmi_super_block *)bh1->b_data;
+>  	sbi = QNX6_SB(s);
+>  	if (fs32_to_cpu(sbi, sb1->sb_magic) != QNX6_SUPER_MAGIC) {
+> -		if (!silent) {
+> +		if (!silent)
+>  			pr_err("wrong signature (magic) in superblock #1.\n");
+> -			goto out;
+> -		}
+> +		goto out;
+>  	}
+>  
+>  	/* checksum check - start at byte 8 and end at byte 512 */
+> @@ -64,15 +63,16 @@ struct qnx6_super_block *qnx6_mmi_fill_super(struct super_block *s, int silent)
+>  		goto out;
+>  	}
+>  
+> -	/* calculate second superblock blocknumber */
+> -	offset = fs32_to_cpu(sbi, sb1->sb_num_blocks) + QNX6_SUPERBLOCK_AREA /
+> -					fs32_to_cpu(sbi, sb1->sb_blocksize);
+> -
+>  	/* set new blocksize */
+>  	if (!sb_set_blocksize(s, fs32_to_cpu(sbi, sb1->sb_blocksize))) {
+>  		pr_err("unable to set blocksize\n");
+>  		goto out;
+>  	}
+> +
+> +	/* calculate second superblock blocknumber */
+> +	offset = fs32_to_cpu(sbi, sb1->sb_num_blocks) + QNX6_SUPERBLOCK_AREA /
+> +					fs32_to_cpu(sbi, sb1->sb_blocksize);
+> +
+>  	/* blocksize invalidates bh - pull it back in */
+>  	brelse(bh1);
+>  	bh1 = sb_bread(s, 0);
 
-w8001->idx starts at 0 and is incremented by 1 on each invocation via
-switch (w8001->idx++). To advance past W8001_PKTLEN_TOUCH2FG - 1 (12),
-w8001->idx would first have to pass through 12, which matches:
-
-	/* 2 finger touch packet */
-	case W8001_PKTLEN_TOUCH2FG - 1:
-		w8001->idx = 0;
-		parse_multi_touch(w8001);
-		break;
-
-Unlike the shorter packet length cases, this case has no conditional
-break and unconditionally resets w8001->idx to 0. Since W8001_MAX_LENGTH
-is 13 (matching W8001_PKTLEN_TOUCH2FG), w8001->idx is always in the
-[0, 12] range when entering w8001_interrupt().
-
-As a result, w8001->idx >= W8001_MAX_LENGTH is unreachable and the array
-store cannot go out of bounds.
-
-Thanks.
 
 -- 
-Dmitry
+Damien Le Moal
+Western Digital Research
