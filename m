@@ -1,260 +1,114 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 412CA3C9EFC
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 20:53:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789937587; cv=none; b=NeY7/3eCmk2k3/1oF+3pWGioEDxsdREyyHZn0B5XtABI+Jiw+jJHVRSeJNOUbavwRTZHo9gUaJrn3k0KZ8T56YWxq92pg3jKdF91V4U62pOIVkIfCHGMb3J9hSdy9P1n0WaEi2MDt/IGu7cCVBsUFOB9ZZQAbXTA/rjfABXkeeY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789937587; c=relaxed/simple;
-	bh=/3QoRAqFj62JENv7kB97NSOUDVLhI2ghJtYPN2Ifqkw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=auB+x82Gajgl1D18G0rn7Yfu1rMz/8ryHhU7er+7r0p/Krdrn4+XrAKicjRFAKBbAw6yYHnSRFA3DlqWMD/dbBTdgjUx6S2vO3lqmi69N9nAS+wO/queTbFHpqahKrOAUqPVoGC37aXxBCoEX6lwvp7yfYkgTsxh2RNvxo5N7uI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P4n+szIk; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3F383B7B7F
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 20:55:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.170
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789937710; cv=pass; b=BvjGQrQ7gjwYKMK2UVAXR3i8HNI2nFiT7vdrC5vaavCgKPK+jjKzlTa3wemBIVsapkFfkZNOZK3NnEyGN4dENIm036NprbFtgkOhPMTHaCC56IToDZpL+eKlbF8/6JS2XQISKCcGtxzgRVXMSZG57PGeJG45gpKqQqqKy5i2Gf8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789937710; c=relaxed/simple;
+	bh=2QAlJCHFO+aQprduHJPjOcvOedppk4oBX0krsjqwCpU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bK2zDwqaKlFt41cZTYOkssMOzv89dsLy29CdTM8qxFOEAzc/ZbkqoOGrkbrb8p4ejiqa9migxUK5aT68j0r9vnKekt9c5ap6fUjF/O6luJojF0I59dpvxzS4QcFM1aQSGMaQc+GPgN4ggy+Yq0yZHvFAdmvk4+lfwspIA//7paQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KkJLWtiz; arc=pass smtp.client-ip=74.125.227.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P4n+szIk"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ccead2aecso10814845e9.0
-        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 13:53:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KkJLWtiz"
+Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-39e57ee1cb0so219943a91.0
+        for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 13:55:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789937709; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DVAExFYnhv2qOTCFYfice2CI69gBwV6yzyrl7p9lD48W4I2CntRmjw+5tEpfWMW13G
+         hJMdi2Yi4lmlDOtz7UWwkke1+vxr+10mx+aEu1s68lCRH/tdUh0fxekndrJ5q30uPzvc
+         wWUAFDQ+RPySE6qOVrSEwXa/cIDZMKP7VHQ+yMVz5ut5yTDlls4WfArB/I8/J4cf0ID6
+         LGrAW6lx4xbZVgrYxUK3quh+5cFNh/2OP2ouw3BiuX/jwEYvKKi6w+ErdTkBR0jvnJOk
+         XJfhRyC2+5zS0pOhP1h37tFl9RY2+6BeyjHECYuQcw1gNA9MF1KfWRdsxbloP3VikY7d
+         iIYg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=2QAlJCHFO+aQprduHJPjOcvOedppk4oBX0krsjqwCpU=;
+        fh=GzR2Elr1XyOlak0ird3csK4cX9/nJd4b34zls1X2CiY=;
+        b=nITevenT4zWAFd8QVM3AwgPg63fkoEZuPrjpfbBEOsc1cN6gcZ3uIAs/3dC7FwSVfu
+         2KVQz1WqYR3TwflGpZXcI3eXk5Ja54/FlEpTRzpv9A+yD5KGu9gWGe7sKVRRHQXg5Wdg
+         24wMFwq/r8Xe2xg9U6JG2WDcSrrPFiT7hFJ53IHWIf6VDzRC3RAWq2ahFbZSvuHrTpSY
+         I6zMBZmoww2buL6oAu7C94b225zCqkVpCCoGALgLJyMgIsNlJ0e4l1RpaHNuR1D5BfnK
+         jWCrhBD1tlhmgifGWUfV9j7xhZ8oow/gTQH8CR+koLA8xfYQsXC2dM/Gd+hlCY5+SpEy
+         NcLA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789937583; x=1790542383; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EsJjBw/Oa5Zb6NlNapTRqTqtkEMm7b5t0BbF/9DxwDk=;
-        b=P4n+szIkIV81SzUCnQmUYaOn+QMlQTHK7oklUZ1D6XvgBqmSUtVXZxmWyVc6PmUsGe
-         hMqNHfvsbZP3H9ng8tAA1eu1FhWZbhFCm+dTwljxHx+y5t953T2bNexsH9jxZh1kRNns
-         XeVq3ZU5WFLBAkRb3oaEYETvBk/M006aAnia+029zcQ4QYkQvceX3gFn6OfH0SN3Cnng
-         lP8FdQFVdC/YQiiaypkUwxjW5ufZNTEPp7ceCo3neIy97Za0CgTs0BMjlkyQbdhniDz5
-         jOXaErdLTyqj7W664T6mquPf0pDncOn7LB6DdxEpnr+cWQDPxmSSxN4lyuAsgzRko75I
-         V1RQ==
+        d=gmail.com; s=20251104; t=1789937709; x=1790542509; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2QAlJCHFO+aQprduHJPjOcvOedppk4oBX0krsjqwCpU=;
+        b=KkJLWtiz6iymvuJ08v7i77GsglqkO8yC5Vd352W9us5ioHRdzLD4+L8ueVgHJy9myU
+         aYi6LtQs+/hcEehTyxUylma2POVuvKkx/HsIz2ku/UaxC3WM12IdCZOq4Hu/2eqg4mF5
+         HBzMhi9ixmbVAK4Jdywkj8KulMSBn72LJttbFxUZMEfCpSZHxqyfiXObNjT702VtZZYa
+         pu5lyDjYhBz2ukIwlsLZmsdBElzNJZ0lkwVww6jyEMZR4T7XdDY2Q13wC+v4XDFenrmZ
+         Iz1nPEcRKVlFHm7BOS7yceZ8dOtaRE0L5vDwmOHappEtJTZ7iBDYDjiLjxMTS2hWg+2R
+         SXNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789937583; x=1790542383;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EsJjBw/Oa5Zb6NlNapTRqTqtkEMm7b5t0BbF/9DxwDk=;
-        b=l3+WkVf4SwLkz2L6ISw6VN7iNRJvBsXpBvRPVI6GQ9PU7wvBX1neUaMYKXrVNtd2h0
-         mWmLd67MV1iLCyHIfFLfcZtCIiJe68vGlqcXyOEuuW8pYXqJzcnOeBw5PBlKYPtP21/R
-         /p+n4usYStELK33cuEuBbeTZeGwEDBFDUpp0DZ6dVLu1lX5mKJY+8h68AiSVaczWNbBj
-         ye6H4dmFfE9wGUntm9UBvQ2m4fQAuwdNQUaJYhzQgisTWhp1B5pLNNMlbew9mW1r6gdn
-         84L5bbrKUYt82FyQbY47f7qwsAGEFidue3OCRQrfOpagi1rqIi85K2pcmERhm8vUW+sb
-         2ODg==
-X-Forwarded-Encrypted: i=1; AKwUvBxMem8Uxnv3FH2iUJITXBp4HLhd8F9vT8t2DWwqNL8J3lBd9Ge68pXWAuTqb3FwaE/sMpfq1I6Pq1r9QQM=@vger.kernel.org
-X-Gm-Message-State: AFuF++n//h6oePcHCK8E7FT/g6Y6x/SCAGUfqytCceSO1utSBXt8clua
-	qwEDlhHGcvRLmH7T2WJeXW9cnf1KpONYwrG5dJ30zgBAw01iQEvt5ZGB
-X-Gm-Gg: AYBFou2BFuKjjwW8flhh7vOYAlltppkeN9aHy1trFdNRKqPrJzRwGeoRQ1X5Eu893nH
-	wl7Q0SejeT2YY+MxL36fay+RbqA1OI1qRUvbH/qsF8scLN/klBN6KAUNBdXtrxjgnVuy5/2bkFW
-	ucZaE2WHcG1lIbVxnoy9DtiOczdg4asJl5pt2Cuq+PEzCES+cuq0/weAjIpCff65+ZoNLob+nIW
-	1p5llb7cqAZlqwcKuX0iF2o1bv9uFWqopMf0XOyhiWzKHDN7mFWlQEaj+O839EffSaDJ7sOSYfR
-	UVFeTTtzxrQZrrvB2Yva5awPYtg8dRQ/0wHtQoR2Se9RvOZm7cpv568PAWtrbVBd5ush+PLOKRh
-	jFRzT5lVL6xB2tF5Gmt5tVodq5mP6GqofhfHSveE4TF9onGj1ZZ8PBqTipgY87GSzIjfQXt22+t
-	oRRdulF19CN08DioAWBWzPhiI0VRbr/fH3FOuNcZeiHi55g2ecD334QwG9uGD+ajbwX0VXMQQ7x
-	qIZf2TMZL+lslp47zz8hQEDn653ExlQvZjtyiVTPh0D
-X-Received: by 2002:a05:600c:4ecb:b0:49c:fc6c:be03 with SMTP id 5b1f17b1804b1-49fc5754e06mr120485355e9.26.1789937583225;
-        Sun, 20 Sep 2026 13:53:03 -0700 (PDT)
-Received: from cachyos-x8664 (213-225-11-125.nat.highway.a1.net. [213.225.11.125])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fd1f0a061sm86765405e9.12.2026.09.20.13.53.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 13:53:02 -0700 (PDT)
-From: Roman Stingler <roman.stingler@gmail.com>
-To: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
-Cc: Roman Stingler <roman.stingler@gmail.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	Erik Hakansson <erikhakan@gmail.com>,
-	Filipe Lains <lains@riseup.net>,
-	Bastien Nocera <hadess@hadess.net>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev
-Subject: Re: [REGRESSION 7.3-rc1] HID: logitech-hidpp: hi-res scroll mode forcibly re-enabled on every reconnect for Bolt devices, overriding userspace
-Date: Sun, 20 Sep 2026 22:50:53 +0200
-Message-ID: <20260920205058.11958-1-roman.stingler@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <arAe2iRkYh9p98Rf@eggarch>
-References: <20260920094508.39682-1-roman.stingler@gmail.com> <arAe2iRkYh9p98Rf@eggarch>
+        d=1e100.net; s=20260707; t=1789937709; x=1790542509;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2QAlJCHFO+aQprduHJPjOcvOedppk4oBX0krsjqwCpU=;
+        b=YIh5f/VjWJ9pxMwXKJbgTa64OkGkHISvKlvLNLBybOOsNaN/sOtKZqBnpIyyfOpMZF
+         tqPzXMnbo6Xs9SwGkijQFguNQwqprJWbxwTufhQhnHNyubNW3BMCj/gtPlTGW/ZBQOrl
+         2me0rVK6kniiHuEiqX4cttj6JAP9LFKZSuYt1Dx774Muz548aYoE3EG/3aQCoUoEUMc/
+         8m3Rgd6VAz7W4yq0O+oZAnz33zQfyuBqLyDANFYlE2Y744LVx8iQ7CDckehzlE1cl3DU
+         i6lEEmv4xHycdlwOIk+X+4ErUdJyby9snqvo5OfvJ629pYDYAtYeZvl92vR7fTq13eSA
+         EZow==
+X-Forwarded-Encrypted: i=1; AKwUvBwbGTmPQiV/A2kwNvOQfWzgCWY6WZUjTXXupGQN8umCVIwJZ9mAQdH1JGkl//pCSmJRLvDGvGYsxi8LR/4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lXhXVxH5G+z2JBN/+MwoPeG/sAKjytHQCuZC7jcP8ROqmRvIYA
+	LSlOAPZRL4wBUrcZRTlDwiYwcBnDFSWHwvrIeJitrF4Uze8nQ3ETlW6LLKJjGcmYH5wMNAs0544
+	APutkflk4CwL2HiLe9/1y7HeX1RFJPVs=
+X-Gm-Gg: AYBFou2l2umw0LH2Lr6FC1+rSaNGNfnfufqjLaLvB0cKCNMKKQAt86ylHBI+jzjvfwr
+	95IyNtDbUmaFZIbC5jmIzjdm/ld0U60nY+6jC9N72Tl7oiYAXxkVkGVAy8lYR1H8xQ5C0tDrOkG
+	MK4zJEpWe9A3EbFlhqwjU+fV1XQhCQIlZdUD+O15nNiBbrbJZz6MSbrmDQbVHX9Vr0BQ4LKX4Rx
+	tTWNoc7hNlS84vY0tnOuLbq05NsY4hEHg9oBtiBbjN8+FhGcLLHj6tYNFMTl98xNNTI++w0YthC
+	mJETv34a9oa4XAVrlX7FPIOH573XP//McaF4/pC7R7T+DUGszFpCGt/8fARRoQBaozekzQfTbE1
+	p3tX4eKTcY4imHZsA1Z4C2VHTdgd/+s4UvCtSOeArQBacw4EXnguujE+bJ595QoQnJLiKSLFQgN
+	E0jP78HZE+KqMSCTGbd2N4DMdlQbHgnvpoeCW9EjMz69qElsjVewM=
+X-Received: by 2002:a17:90b:58f0:b0:39e:261:4e13 with SMTP id
+ 98e67ed59e1d1-39e54f42eefmr18446151a91.3.1789937709019; Sun, 20 Sep 2026
+ 13:55:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260113192949.689834-1-lorenzo.stoakes@oracle.com> <20260917041453.1029362-1-springbreeze@stu.pku.edu.cn>
+In-Reply-To: <20260917041453.1029362-1-springbreeze@stu.pku.edu.cn>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Sun, 20 Sep 2026 21:54:52 +0100
+X-Gm-Features: AcwNN1WwUg6oLlLYr5RfTxBEgK72uNFH4WeptZmKGXejtsxmU-NlN2AjQDSh7lE
+Message-ID: <CANiq72ko6sGmmUhN4bSfmmmnDjo966_D6ro8y=EGhAw11ZVCzQ@mail.gmail.com>
+Subject: Re: [PATCH] rust: fix typo in bindings
+To: Chunfeng Song <springbreeze@stu.pku.edu.cn>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, Miguel Ojeda <ojeda@kernel.org>, 
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, Alice Ryhl <aliceryhl@google.com>, 
+	wang lian <lianux.mm@gmail.com>, Chris Mason <clm@meta.com>, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 21, 2026 at 12:01:03AM +0530, Lovekesh Solanki wrote:
-> We could store this info in hidpp_device struct and use in hi_res_scroll_enable().
-> I'm pasting a patch below, could you give it a go?
+On Thu, Sep 17, 2026 at 6:15=E2=80=AFAM Chunfeng Song
+<springbreeze@stu.pku.edu.cn> wrote:
+>
+> Since the fix already has three Reviewed-by tags, I assume it just fell
+> through the cracks. Would a resend help? I am happy to send one -- I just=
+ did
+> not want to post a duplicate of your patch without checking with you firs=
+t.
 
-Thanks. Your patch does fix the case I reported:
+I am happy to pick it up as well.
 
-  Tested-by: Roman Stingler <roman.stingler@gmail.com>
-
-MX Master 4 (WPID B042) on a Bolt receiver, 7.3.0-rc3, patched driver
-installed via DKMS so it is the module actually loaded at boot. Set the wheel
-to low resolution, suspend (s2idle), resume: still low resolution. Before the
-patch that always came back hi-res. It also fixes more than suspend -- on the
-unpatched kernel even "solaar config <serial> hires-smooth-resolution false"
-read back True within a second, because Solaar's own HID++ ping provokes a
-connect event.
-
-(The patch as posted also adds #include "linux/stddef.h" above the pr_fmt
-definition, which looks like an editor artifact. I dropped it; the rest I
-applied verbatim.)
-
-But while testing I found something that I think makes this the wrong layer
-to fix it at.
-
-
-The wheel mode is persistent state in the device
-================================================
-
-I unloaded hid-logitech-hidpp completely, with an install override so udev
-could not bring it back, set the wheel to low resolution from userspace,
-switched the mouse off at the power switch for ten seconds, and switched it
-back on. It came back in low resolution mode.
-
-So 0x2121 wheel mode is not volatile on this hardware. The mouse holds it by
-itself, with no driver and no daemon in the picture. That is precisely why
-this worked on 7.2: nothing in the kernel ever wrote the setting, so a user
-could configure the mouse once and keep that configuration across reboots --
-even with the configuration tool uninstalled afterwards.
-
-What 7.3 changed is that the kernel now overwrites that persistent device
-state on every probe.
-
-
-Remembering the mode in hidpp_device cannot close the gap
-=========================================================
-
-struct hidpp_device is allocated at probe and freed at unbind, so
-hires_wheel_mode_seen is false again on every probe. I hit that three ways
-with your patch installed:
-
-- cold boot
-- unplugging and replugging the Bolt receiver
-- a plain module reload
-
-In each case the driver forces hi-res before userspace has said anything, and
-the persistent setting is gone. Gating on connected_once instead -- which I
-had considered suggesting -- has the same flaw, since "first connect" also
-resets per probe. The problem is not which connect the driver writes on. It
-is that it writes at all.
-
-Userspace does not reliably repair it either. Solaar skips its apply here:
-for devices exposing WIRELESS_DEVICE_STATUS it goes through a ConfigChange
-cookie check, the cookie still matches what it stored (the driver's
-SetWheelMode does not bump it), so it concludes nothing needs applying. I
-will report that to Solaar separately. But it should not have to be
-load-bearing -- the device already holds the setting.
-
-
-Proposal: read the mode instead of writing it
-=============================================
-
-0x2121 exposes getWheelMode (function 1) next to setWheelMode; the driver
-currently uses only getWheelCapability and setWheelMode. If
-hi_res_scroll_enable() reads the current mode and scales the wheel multiplier
-to match, the driver gets what it needs for REL_WHEEL_HI_RES without touching
-state it does not own -- and there is no mode to remember across probes.
-
-diff --git a/drivers/hid/hid-logitech-hidpp.c b/drivers/hid/hid-logitech-hidpp.c
-index 1504de32b1c8..ffc7cef49b59 100644
---- a/drivers/hid/hid-logitech-hidpp.c
-+++ b/drivers/hid/hid-logitech-hidpp.c
-@@ -2044,6 +2044,7 @@ static int hidpp_hrs_set_highres_scrolling_mode(struct hidpp_device *hidpp,
- #define HIDPP_PAGE_HIRES_WHEEL		0x2121
- 
- #define CMD_HIRES_WHEEL_GET_WHEEL_CAPABILITY	0x00
-+#define CMD_HIRES_WHEEL_GET_WHEEL_MODE		0x10
- #define CMD_HIRES_WHEEL_SET_WHEEL_MODE		0x20
- 
- static int hidpp_hrw_get_wheel_capability(struct hidpp_device *hidpp,
-@@ -2072,12 +2073,10 @@ static int hidpp_hrw_get_wheel_capability(struct hidpp_device *hidpp,
- 	return ret;
- }
- 
--static int hidpp_hrw_set_wheel_mode(struct hidpp_device *hidpp, bool invert,
--	bool high_resolution, bool use_hidpp)
-+static int hidpp_hrw_get_wheel_mode(struct hidpp_device *hidpp, u8 *mode)
- {
- 	u8 feature_index;
- 	int ret;
--	u8 params[1];
- 	struct hidpp_report response;
- 
- 	ret = hidpp_root_get_feature(hidpp, HIDPP_PAGE_HIRES_WHEEL,
-@@ -2085,13 +2084,14 @@ static int hidpp_hrw_set_wheel_mode(struct hidpp_device *hidpp, bool invert,
- 	if (ret)
- 		return ret;
- 
--	params[0] = (invert          ? BIT(2) : 0) |
--		    (high_resolution ? BIT(1) : 0) |
--		    (use_hidpp       ? BIT(0) : 0);
-+	ret = hidpp_send_fap_command_sync(hidpp, feature_index,
-+					  CMD_HIRES_WHEEL_GET_WHEEL_MODE,
-+					  NULL, 0, &response);
-+	if (ret)
-+		return ret;
- 
--	return hidpp_send_fap_command_sync(hidpp, feature_index,
--					   CMD_HIRES_WHEEL_SET_WHEEL_MODE,
--					   params, sizeof(params), &response);
-+	*mode = response.fap.params[0];
-+	return 0;
- }
- 
- /* -------------------------------------------------------------------------- */
-@@ -3910,8 +3910,16 @@ static int hi_res_scroll_enable(struct hidpp_device *hidpp)
- 	u8 multiplier = 1;
- 
- 	if (hidpp->capabilities & HIDPP_CAPABILITY_HIDPP20_HI_RES_WHEEL) {
--		ret = hidpp_hrw_set_wheel_mode(hidpp, false, true, false);
--		if (ret == 0)
-+		u8 mode;
-+
-+		/*
-+		 * The wheel mode is persistent state in the device, so read it
-+		 * rather than overwriting it, and scale to match. A device
-+		 * left in hi-res still gets the multiplier it needs; one the
-+		 * user configured for low resolution is left alone.
-+		 */
-+		ret = hidpp_hrw_get_wheel_mode(hidpp, &mode);
-+		if (ret == 0 && (mode & BIT(1)))
- 			ret = hidpp_hrw_get_wheel_capability(hidpp, &multiplier);
- 	} else if (hidpp->capabilities & HIDPP_CAPABILITY_HIDPP20_HI_RES_SCROLL) {
- 		ret = hidpp_hrs_set_highres_scrolling_mode(hidpp, true,
-
-Tested on top of 7.3-rc3, installed via DKMS so it is the module loaded at
-boot. Results against the same device:
-
-                            stock   your patch   this
-  suspend/resume                no        yes       yes
-  solaar write sticks           no        yes       yes
-  module reload                 no        no        yes
-  cold boot                     no        no        yes
-
-The hi-res direction still works: with the mouse left in hi-res, a full
-module reload leaves it in hi-res and the driver fetches the multiplier
-through the same getWheelCapability call as before. I checked the mode is
-honoured; I did not instrument events-per-detent, though that path is
-unchanged from the current code.
-
-The deliberate behaviour change is that a device sitting at its factory
-default in low resolution will no longer be switched into hi-res by the
-kernel. If that is unacceptable, an opt-out, or writing hi-res only on the
-very first enumeration of a device the driver has never seen, would both keep
-today's default while leaving a configured device alone. I did not want to
-guess which of those you would prefer, so the diff above is the simple form.
-
-For the immediate regression I still think your patch should go in -- it is a
-clear improvement and it fixes the reported case. I just think the setting
-ultimately belongs to the device and the user, not to the driver.
-
-Happy to respin the above as a proper patch with a commit message if it looks
-like the right direction, and happy to test anything else.
-
-Thanks,
-Roman
+Cheers,
+Miguel
