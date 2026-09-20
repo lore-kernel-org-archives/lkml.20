@@ -1,186 +1,103 @@
-Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF1553E2AD6
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 07:42:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.101
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E88833E40E4;
+	Sun, 20 Sep 2026 07:45:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789890165; cv=none; b=qewSe7faCnDMJdT+O6qRFH8+yj+tWZSKcQr0Y8w1AdIII9CzEJIr2LcIlQOmwDCaYpTCJDX9MAGc5TnwHCIZy+hS0IlMRJV8sR2oZeNtQ48On7j5Zy/BmxVogSg+qKi+gYtClM78eDH2qJ/8mcdopQsyOhtcpsyCDNkj/gQuacU=
+	t=1789890308; cv=none; b=qxc6QdE0GjeYcIz6Oxykpuhu3chqWr++eFK5o2zfieP66mJSrMvVA1bumZkeDqmh59mWvZddATJ+hV1GqV2OHv9OJWix5CMREA72TbF9Rc26LN2De2Gyd1mpt1xkO3T941M36ON/P8OK45rKOs/OyoBXQ3JQOl/0fOeTVe0wChQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789890165; c=relaxed/simple;
-	bh=sw0TWHNrZXMyx4yDOPYhfhj7BcPtnzBntl0bi224D4Q=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=aig+aWaj+s5WbE9vIUOdrAY14Rg+xBC8dZ/9jMqCnaq7OqOIj8AjmW4fuKN06nniIfW2K56v+EmwGgoS7/GksIzhBeo13GkUFkbccLIn7cGxBlWIXy2seMIjiA1MQUIKXsdSrKcLPy+9YuLuZ9w8Bi6YvajKxB5LD1H8aTZZPlU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=gxYfQPoj; arc=none smtp.client-ip=115.124.30.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="gxYfQPoj"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1789890160; h=From:To:Subject:Date:Message-Id:MIME-Version:Content-Type;
-	bh=nnCjHaq5u459BP4esI2iP1Ogb+B55p2baz8QQLyndy0=;
-	b=gxYfQPojOznp1vPqKCg5V6KN/IFOt8skLdw2pxvAEeSwhIBH1i6Pi0FAEst4D7Do0M8arjXymnNNpSM2L+YKFMaxssK426iBrINtR/hsWFbdHAXIVJdrF8tUmsqQ4C8epM/U3FXXFL3PeM/3ZF8xZFQeMuvqmyCRILIxGKFtSUU=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R361e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=28;SR=0;TI=SMTPD_---0XBFJGoU_1789890155;
-Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XBFJGoU_1789890155 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Sun, 20 Sep 2026 15:42:37 +0800
-From: fangyu.yu@linux.alibaba.com
-To: gsh517025@gmail.com
-Cc: alex@ghiti.fr,
-	andrew.jones@oss.qualcomm.com,
-	anup@brainfault.org,
-	aou@eecs.berkeley.edu,
-	atish.patra@linux.dev,
-	baolu.lu@linux.intel.com,
-	fangyu.yu@linux.alibaba.com,
-	gong.shuai@sanechips.com.cn,
-	guoren@kernel.org,
-	iommu@lists.linux.dev,
-	jgg@nvidia.com,
-	jgg@ziepe.ca,
-	joerg.roedel@amd.com,
-	joro@8bytes.org,
-	jroedel@suse.de,
-	kevin.tian@intel.com,
-	kvm-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	palmer@dabbelt.com,
-	pjw@kernel.org,
-	robin.murphy@arm.com,
-	skhawaja@google.com,
-	tomasz.jeznach@linux.dev,
-	vasant.hegde@amd.com,
-	will@kernel.org,
-	zong.li@sifive.com
-Subject: Re: [RFC PATCH v4 08/10] iommu/riscv: Pre-enable GADE for second-stage domains 
-Date: Sun, 20 Sep 2026 15:42:34 +0800
-Message-Id: <20260920074234.45479-1-fangyu.yu@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <8572d404-8a33-4cd3-a14f-ebff7c2ac487@gmail.com>
-References: <8572d404-8a33-4cd3-a14f-ebff7c2ac487@gmail.com>
+	s=arc-20240116; t=1789890308; c=relaxed/simple;
+	bh=10fE2iWtbvNRkibWkIM5wVpvO5z6pmhPHedJTmBlDIk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=K9d4VgpF3AJLHZxmE6kQim8wGkl2079y/Zg7ysMR5nV4GFzwexMBT0xnMQkU9zvaVLiG/CAwRTFl3w7MhD7czYdHC5t05w3M6HETZxBdZq1Lb/dNw6cFCWxCrraXWPtXYqMBTR/fQdse0YV9RSSNWowqSVzHr1v751yGxYYyYuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.180.135.190])
+	by gateway (Coremail) with SMTP id _____8BxbdL_jq9q6t4NAA--.41250S3;
+	Sun, 20 Sep 2026 15:45:03 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.180.135.190])
+	by front1 (Coremail) with SMTP id qMiowJCxPs_9jq9qUOwiAA--.8682S2;
+	Sun, 20 Sep 2026 15:45:02 +0800 (CST)
+From: Ming Wang <wangming01@loongson.cn>
+To: netdev@vger.kernel.org
+Cc: linux-usb@vger.kernel.org,
+	stable@vger.kernel.org,
+	Ming Wang <wangming01@loongson.cn>,
+	Oliver Neukum <oliver@neukum.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] net: usb: cdc_mbim: add MeiG Smart SRM821 to ZLP whitelist
+Date: Sun, 20 Sep 2026 15:44:59 +0800
+Message-ID: <20260920074500.826121-1-wangming01@loongson.cn>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJCxPs_9jq9qUOwiAA--.8682S2
+X-CM-SenderInfo: 5zdqwzxlqjiio6or00hjvr0hdfq/1tbiAQEQEmqvPvQFYgABsr
+X-Coremail-Antispam: 1Uk129KBj93XoW7WF17ZFyrtw1kKw45XF17XFc_yoW8WFW3pF
+	4rCFyYv39xJFW5Kw1rAw48WFyrZwn3Cay5KFWI93WY93Z0ya4aqFyxGFy5K34kGF45AF12
+	yF93t34xWa1DAwcCm3ZEXasCq-sJn29KB7ZKAUJUUUUx529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUPSb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+	xVW8Jr0_Cr1UM2kKe7AKxVWUAVWUtwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52
+	x082IY62kv0487Mc804VCY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80
+	ewAv7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4
+	AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAK
+	I48JMxC20s026xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14v26r126r1DMI8I3I0E5I8CrV
+	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCI
+	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267
+	AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_
+	Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8N_-P
+	UUUUU==
 
->Hi Fangyu,
->
->On 9/20/2026 11:12 AM, fangyu.yu@linux.alibaba.com wrote:
->>>Hi Fangyu,
->>>
->>>On 9/15/2026 11:28 AM, fangyu.yu@linux.alibaba.com wrote:
->>>> From: Fangyu Yu <fangyu.yu@linux.alibaba.com>
->>>>
->>>> Pre-enable RISCV_IOMMU_DC_TC_GADE in the device context when
->>>> attaching a second-stage domain, if the IOMMU supports AMO_HWAD.
->>>>
->>>> Software pre-populates second-stage page tables with D set, so
->>>> enabling GADE by default does not change normal behavior. When
->>>> dirty tracking is enabled, iommufd clears the pre-set D bits and
->>>> GADE becomes necessary for hardware to update the dirty bit on
->>>> write access.
->>>>
->>>> This avoids toggling GADE dynamically and keeps device context
->>>> setup consistent with second-stage domain attachment.
->>>>
->>>> Signed-off-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
->>>> ---
->>>>   drivers/iommu/riscv/iommu.c | 2 ++
->>>>   1 file changed, 2 insertions(+)
->>>>
->>>> diff --git a/drivers/iommu/riscv/iommu.c b/drivers/iommu/riscv/iommu.c
->>>> index 16779877351b..f01fd4e2f840 100644
->>>> --- a/drivers/iommu/riscv/iommu.c
->>>> +++ b/drivers/iommu/riscv/iommu.c
->>>> @@ -1330,6 +1330,8 @@ static int riscv_iommu_attach_paging_domain(struct iommu_domain *iommu_domain,
->>>>   			FIELD_PREP(RISCV_IOMMU_DC_IOHGATP_MODE, pt_info.iohgatp_mode) |
->>>>   			FIELD_PREP(RISCV_IOMMU_DC_IOHGATP_GSCID, domain->gscid) |
->>>>   			FIELD_PREP(RISCV_IOMMU_DC_IOHGATP_PPN, pt_info.ppn);
->>>> +		if (iommu->caps & RISCV_IOMMU_CAPABILITIES_AMO_HWAD)
->>>> +			dc.tc |= RISCV_IOMMU_DC_TC_GADE;
->>
->> Hi Shuai:
->>
->>>
->>>I might be missing something, but I don't see how the GADE bit set
->>>here reaches the hardware IOMMU DC. In riscv_iommu_iodir_update()
->>>(in patch 04/10), it looks like only the V bit is taken:
->>>
->>>	tc = READ_ONCE(dc->tc);
->>>	tc |= new_dc->ta & RISCV_IOMMU_DC_TC_V;
->>>	...
->>>	WRITE_ONCE(dc->tc, tc);
->>>
->>
->> You’re right — this is a real issue.
->>
->> GADE was being set in the software-side dc, but it was not
->> propagated into the hardware DC in riscv_iommu_iodir_update().
->>
->> I have already fixed this in my local tree, and I’ll include the
->> change in the next version of the patchset:
->>      tc &= ~RISCV_IOMMU_DC_TC_GADE;
->>      tc |= new_dc->tc & RISCV_IOMMU_DC_TC_GADE;
->>      tc |= new_dc->ta & RISCV_IOMMU_DC_TC_V;
->>
->
->One thought here, instead of updating individual TC bits one by one
->in riscv_iommu_iodir_update(), could we transfer all software-configurable
->bits from the incoming DC to the hardware DC in one go?
->
->Something like:
->	...
->	tc = (READ_ONCE(dc->tc) & ~GENMASK_ULL(11, 0)) |
->		 (new_dc->tc & GENMASK_ULL(11, 0));
->	...
->	WRITE_ONCE(dc->tc, tc);
->
->I’m not sure whether this could have negative side effects.
->
+The MeiG Smart SRM821 5G module (0x2dee:0x4d53) crashes and drops off
+the USB bus when it receives a Zero Length Packet (ZLP) after sending
+or receiving an NTB of exactly 16384 bytes (tx_max).
 
-Hi Shuai:
+According to the MBIM specification, devices do not require a ZLP
+if the NTB size is exactly dwNtbOutMaxSize. However, the cdc_mbim
+driver defaults to sending ZLPs for devices not explicitly whitelisted
+to accommodate non-conformant hardware. This default behavior breaks
+the strictly conformant MeiG SRM821 module.
 
-That is a reasonable idea in principle.
+Add this device to the ZLP conformance whitelist (cdc_mbim_info) so
+the driver will pad the NTB to avoid sending ZLPs, preventing the
+device firmware from crashing.
 
-However, TC bits may have different lifetimes and
-update rules, and several features such as ATS and
-PRI are still not implemented yet.
+Cc: stable@vger.kernel.org
+Signed-off-by: Ming Wang <wangming01@loongson.cn>
+---
+v2: moved MeiG entry below Ericsson for better grouping; added Cc stable
+ drivers/net/usb/cdc_mbim.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-For now, I would prefer to keep the change minimal
-and only handle GADE here.
+diff --git a/drivers/net/usb/cdc_mbim.c b/drivers/net/usb/cdc_mbim.c
+index 877fb0ed7d3d..a7010a0664c7 100644
+--- a/drivers/net/usb/cdc_mbim.c
++++ b/drivers/net/usb/cdc_mbim.c
+@@ -635,6 +635,11 @@ static const struct usb_device_id mbim_devs[] = {
+ 	  .driver_info = (unsigned long)&cdc_mbim_info,
+ 	},
+ 
++	/* MeiG Smart SRM821 ZLP conformance */
++	{ USB_DEVICE_AND_INTERFACE_INFO(0x2dee, 0x4d53, USB_CLASS_COMM, USB_CDC_SUBCLASS_MBIM, USB_CDC_PROTO_NONE),
++	  .driver_info = (unsigned long)&cdc_mbim_info,
++	},
++
+ 	/* Some Huawei devices, ME906s-158 (12d1:15c1) and E3372
+ 	 * (12d1:157d), are known to fail unless the NDP is placed
+ 	 * after the IP packets.  Applying the quirk to all Huawei
+-- 
+2.43.7
 
-Once the remaining features are in place, we can
-consider a broader cleanup and unify the handling
-of these bits.
-
-Thanks,
-Fangyu
-
->>>I saw that you mentioned you tested it on QEMU. As far as I know,
->>>mainline QEMU has not yet declared the AMO_HWAD capability. Could
->>>you clarify whether you used a modified QEMU for this test?
->>>
->>
->> I used mainline QEMU, not a modified one.
->>
->> In QEMU, I only tested the second-stage path with a
->> VM using device passthrough.
->>
->> I did not test the dirty-log related part there,
->> so that path cannot be covered there.
->>
->> That is why I noted in the TODO that I will build a
->> dedicated test case for dirty log handling later.
->
->Sorry, I missed that TODO.
->
->
->Thanks,
->Shuai
->
