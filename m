@@ -1,145 +1,161 @@
-Received: from rcdn-iport-8.cisco.com (rcdn-iport-8.cisco.com [173.37.86.79])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EB45547066;
-	Sun, 20 Sep 2026 23:00:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=173.37.86.79
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB2073F210A
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 23:02:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789945237; cv=none; b=nBFEweoENFgdol++KsT0iU2tEIwtH5sLq8/LNUX7XwMDSNDZ7vC13x9yVZ83xszQZL+ci8b2hYngPFpXaRHSF44yCWpnTc075haFeZVqnqggyFwnL2u35TDdKy0XMku30uiVD/epRx9EPzqmmKkicLHJ31NltzCEarevALBZNFQ=
+	t=1789945354; cv=none; b=vELMH3uMvvUI9adQ64sLxVpcwdNBMDXRLJNJrog78o+FnBlqnWw1hhFUaq6IHPbu2y/1wnIDAJM3psqimh5PulyVI3PqiAqIfTFFw6N1Y4e4uPUZ6ZKlTp+JO/iL9T0pniE2XSJdyPHxSlWlKttvog3C/NQl7epSpeeeLO6bHkc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789945237; c=relaxed/simple;
-	bh=OmenY/1+FfqbXgYaxclj6yxlJKwIotAL6Ortn1Osm0I=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=NVlNNV1/U32ezYIdbIw3KBBPD91fxomIGseAa8rRP9eNfaHRQ5mm0nncIaSoBEeY+ITNZhJvv6L3kur+vm3uiOauWR90FInp5OA8S4+k/uhtWcMsZRRFSvy1Tp/EZJ/p1XGFc7WciJyuSWuR+msYKz3UGz7IQflimB0v8Svmv9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cisco.com; spf=pass smtp.mailfrom=cisco.com; dkim=pass (2048-bit key) header.d=cisco.com header.i=@cisco.com header.b=RZRg2UyU; arc=none smtp.client-ip=173.37.86.79
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cisco.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cisco.com
+	s=arc-20240116; t=1789945354; c=relaxed/simple;
+	bh=ihjoM7D2BcOiPrTy053asAyX+JgsRpLuEQH6m2offlA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ktjxm13x/Thj5rryQNCDk1LM6E94Q0YbTIbC4OJObizfBxSGFbAfPzF5NuPPU802iXiDuWZWhWMPwVGCn34E/8MMBizfoarJU3EnBPGnLS4+sFzE8N6TflvinRHCfXnA6kODdSekaJjnSVOyKbhaDp1Ej0PTfRCLDTo/j6tCkqk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=Mm4IiGGe; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cisco.com header.i=@cisco.com header.b="RZRg2UyU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=cisco.com; i=@cisco.com; l=1543; q=dns/txt;
-  s=iport01; t=1789945235; x=1791154835;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=PeCJ/I1PdEw1RjxBJnX7Wbykw70ob0SuJBXockTrBMU=;
-  b=RZRg2UyUaDSqidcNDG3B8Pc2uYEGe7ktffPImmnJkhxPQoF2ER7A5Vfr
-   l3oekr1j5xVAIVd1QCRt+EMeu19I5kFwonO/7ZSJh2LGNIbUl4J46VT16
-   Hg1T+m1feK+WJIzyY8E1+eZgslhdWIJS6rhsXIRr7z199QFl8MGi0Wkij
-   wUcu9d+Xl+1vU+NashfwwvzSKcGMOFSCUmhVUgr29MVHRsayMiRp+gnvP
-   wjwrmArLVQh8mYEsRFjt12Mql8Ve59k2mcIs/iNkw+QA8rF06zZYjLhR7
-   cdwAVstlFtvMvBSlR3zvUm7GRLpjDpSWBsT7bTpEGBkuf19BiTr/vG/H4
-   g==;
-X-CSE-ConnectionGUID: rRjhFsH3RC2KHa3h04LoeQ==
-X-CSE-MsgGUID: 2hz6x2SsTkOn6SByqFAQ2g==
-X-IPAS-Result: =?us-ascii?q?A0A/AgAWZLBq/5H/Ja1aHgEBCxIMggULgleBVkJJtGiBf?=
- =?us-ascii?q?gwDAQEBD1EEAQGFBY4JAiY0CQ4BAgQDAgMBAQEBAQEBAQEBAQEKAQEFAQEBA?=
- =?us-ascii?q?gEHBYEOE4ZckBU2AUaBDDISgwKCOwM3AgHEBQJNgiyBAd5IgWgBCxQBL4EJj?=
- =?us-ascii?q?WF2hHwnFQaBSUSBFYJ6b4EFgRqCcYV4BIMulEVIgR4DWSwBVRMNCgsHBYFmA?=
- =?us-ascii?q?yoLEhIYFTI8Mh2BIz4XgQcbBgWBHYEnghojGTZ6gQlegSspYAEQF4EHgggCg?=
- =?us-ascii?q?lSCAQIBSUMOB0VTCSdBChJHKSIIEgkBExowC34YDUgRLDcVGQQ+bgePSh+CO?=
- =?us-ascii?q?yCBDgGCaKVloQ+EKKFcGjOqbAGZCCOkN4RpgWg8gVlwFYMiUxkPjjnQJCQ1O?=
- =?us-ascii?q?QUBBwIHDwKBc5F+AQE?=
-IronPort-Data: A9a23:OifekKymAg/NOQEBVaJ6t+crxyrEfRIJ4+MujC+fZmUNrF6WrkVTx
- 2sdXT+POf2JZDH2c913YYy0pBwDvcDSmtQ3HQNv+1hgHilAwSbn6Xt1DatR0we6dJCroJdPt
- p1GAjX4BJlqCCKa/lHyYuCJQUBUjcmgXqD7BPPPJhd/TAplTDZJoR94kobVuKYw6TSCK13L4
- 4yaT/H3Ygf/hWYlaDpMscpvlTs21BjMkGJA1rABTagjUG/2zxE9EJ8ZLKetGHr0KqE8NvK6X
- evK0Iai9Wrf+Ro3Yvv9+losWhRXKlJ6FVHmZkt+A8BOsDAbzsAB+vpT2M4nVKtio27hc+adZ
- zl6ncfYpQ8BZsUgkQmGOvVSO3kW0aZuoNcrLZUj2CCe5xWuTpfi/xlhJFsMP4024cYsO0oU1
- twRczBVMjSEitvjldpXSsE07igiBNPgMIVavjRryivUSK52B5vCWK7No9Rf2V/chOgXQq2YP
- JVfM2cyKk2cPnWjOX9PYH46tPyzjXn2fjZbgFmUvqEwpWPUyWSd1ZCwaYWJJYHSHJ89ckCw/
- GLUoXSjOQomN/uZlwGv42uCr9aVknauMG4VPPjinhJwu3WZ3kQaDBwbUwv9rfTRolW1W9tSI
- FcS0iUrve40+VDDZsX6WQz+pGOPvTYdXcZdF6sx7wTl4q7V5RuJQ2UIRzVpdtMrrok1SCYs2
- 1vPmMnmbRRrsbuIWTee+62SoDeaJycYNykBaDUCQA9D5MPsyLzflTrVRdplVarwhdrvFHSok
- 3aBrTM1gPMYistjO7iHwG0rSgmE/vDhJjPZLC2ONo55xmuVvLKYWrE=
-IronPort-HdrOrdr: A9a23:mGZlO6EK3P397ZMBpLqE3seALOsnbusQ8zAXPo5KJiC9Ffbo8v
- xG88576faZslsssRIb6LK90de7IU80nKQdieJ6AV7IZmfbUQWTQL2KlbGSoAHIKmnZ6vNX07
- tmfuxVDd39CkU/sOPBiTPId+rJBLK8gcaVbSC09QYLcT1X
-X-Talos-CUID: =?us-ascii?q?9a23=3ACwSSpGvRpdX9tKfIC1yZqJ2b6Is/SH/d4mzweHW?=
- =?us-ascii?q?TU0VJQeaVEQO0/65dxp8=3D?=
-X-Talos-MUID: 9a23:ete/AQrcBEuU7p2Tju4ez2tiJpl4uZ+1NEMql8s9kdidGwVJYTjI2Q==
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-AV: E=Sophos;i="6.27,112,1787011200"; 
-   d="scan'208";a="517475012"
-Received: from rcdn-l-core-08.cisco.com ([173.37.255.145])
-  by rcdn-iport-8.cisco.com with ESMTP/TLS/TLS_AES_256_GCM_SHA384; 20 Sep 2026 22:59:26 +0000
-Received: from sjc-ads-3426.cisco.com (sjc-ads-3426.cisco.com [171.68.249.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256
-	 client-signature RSA-PSS (4096 bits) client-digest SHA256)
-	(Client CN "ciscoit-managed-infra-smtp-auth.cisco.com", Issuer "Internal Private TLS SubCA" (verified OK))
-	by rcdn-l-core-08.cisco.com (Postfix) with ESMTPS id 05F7218000455;
-	Sun, 20 Sep 2026 22:59:26 +0000 (GMT)
-Received: by sjc-ads-3426.cisco.com (Postfix, from userid 292853)
-	id 9F1BACC1282; Sun, 20 Sep 2026 15:59:25 -0700 (PDT)
-From: Stefan M Schaeckeler <sschaeck@cisco.com>
-To: bp@alien8.de,
-	tony.luck@intel.com
-Cc: linux-edac@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	schaecsn@gmx.net,
-	Stefan M Schaeckeler <sschaeck@cisco.com>
-Subject: [PATCH] MAINTAINERS: Step down as Aspeed AST2500 EDAC driver maintainer
-Date: Sun, 20 Sep 2026 15:58:46 -0700
-Message-Id: <20260920225846.4039017-1-sschaeck@cisco.com>
-X-Mailer: git-send-email 2.35.6
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="Mm4IiGGe"
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 360865340699;
+	Mon, 21 Sep 2026 01:02:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1789945350;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=1b2TOb7Uz4K71IwXM8bB3TJBDyr028aAuvtvwxg4Lt4=;
+	b=Mm4IiGGe6LtAx7w+iUPjgvZPobBhhRiOiDEpGKcAxMfCGvAPZzEWyf+p9TgyA9U7Q9Cp7W
+	eO/Cekk6HxoMq9wU9RTQeo9qAquwmyVF25KbUHd+uZ0m2qAePjd58djyRoFc70C6ffPRqt
+	TCofY1uBH7/9BW0RfOFy+W5IvqamdQw=
+Message-ID: <e026f741-3c19-47b2-b731-f257361e471c@ixit.cz>
+Date: Mon, 21 Sep 2026 01:02:29 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Outbound-Client-TLS: VERIFIED;sjc-ads-3426.cisco.com [171.68.249.124];TLSv1.3;TLS_AES_256_GCM_SHA384;256;ciscoit-managed-infra-smtp-auth.cisco.com
-X-Outbound-SMTP-Client: 171.68.249.124, sjc-ads-3426.cisco.com
-X-Outbound-Node: rcdn-l-core-08.cisco.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] nfc: st95hf: validate device-reported response length
+ before reading
+To: Tianchu Chen <tianchu.chen@linux.dev>, sameo@linux.intel.com,
+ shikha.singh@st.com
+Cc: oe-linux-nfc@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <91f49a98dd42655829b7206f0d64cc31ef9c0e95@linux.dev>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <91f49a98dd42655829b7206f0d64cc31ef9c0e95@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-I am stepping down as a maintainer for drivers/edac/aspeed_edac.c and
-Documentation/devicetree/bindings/edac/aspeed,ast2400-sdram-edac.yaml
+On 19/08/2026 16:55, Tianchu Chen wrote:
+> From: Tianchu Chen <flynnnchen@tencent.com>
+> 
+> st95hf_spi_recv_response() reads a 2-byte header from the device,
+> derives the total response length from it (up to 1025 bytes via the
+> long-frame encoding) and then blindly reads len - 2 more bytes into
+> the caller's buffer, whose size it knows nothing about.
+> 
+> Call sites can be overflowed by a device reporting a large length,
+> for example, st95hf_irq_thread_handler() passes the data area of a
+> 280-byte skb.
+> 
+> ST95HF datasheet states "In Reader mode it is possible to receive up to
+> 528 bytes of frame data from VICC and TypeB cards", so technically a bogus
+> NFC tag may trigger the OOB-write if the card-reader's firmware allows
+> large packets.
+> 
+> Add a buff_len parameter and reject a device-reported length that does
+> not fit into the caller's buffer before issuing the second SPI
+> transfer. Also modify callers to pass their real buffer sizes.
+> 
+> Discovered by Atuin - Automated Vulnerability Discovery Engine.
+> 
+> Fixes: cab47333f0f75 ("NFC: Add STMicroelectronics ST95HF driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Tianchu Chen <flynnnchen@tencent.com>
+> ---
+>   drivers/nfc/st95hf/core.c | 6 ++++--
+>   drivers/nfc/st95hf/spi.c  | 7 ++++++-
+>   drivers/nfc/st95hf/spi.h  | 2 +-
+>   3 files changed, 11 insertions(+), 4 deletions(-)
+> 
 
-Move my entry from the MAINTAINERS file to CREDITS to reflect my past
-contributions.
+Hello Tianchu,
 
-Signed-off-by: Stefan M Schaeckeler <sschaeck@cisco.com>
----
- CREDITS     | 8 ++++++++
- MAINTAINERS | 6 ------
- 2 files changed, 8 insertions(+), 6 deletions(-)
+please check and address the Sashiko output.
 
-diff --git a/CREDITS b/CREDITS
-index a0bd941ca5dd..f45a7477902b 100644
---- a/CREDITS
-+++ b/CREDITS
-@@ -3686,6 +3686,14 @@ D: I2O kernel layer (config, block, core, pci, net). I2O disk support for LILO
- D: XScale (IOP, IXP) porting and other random ARM bits
- S: Portland, OR
- 
-+N: Stefan Schaeckeler
-+E: sschaeck@cisco.com
-+E: schaecsn@gmx.net
-+D: Author and initial maintainer of the Aspeed AST2500 EDAC driver
-+S: 2253 Anna Dr.
-+S: Santa Clara, CA 95050
-+S: USA
-+
- N: Eric Schenk
- E: Eric.Schenk@dna.lth.se
- D: Random kernel debugging.
-diff --git a/MAINTAINERS b/MAINTAINERS
-index c77d63d9dfb8..75bbccb99793 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -9360,12 +9360,6 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/memory-controllers/marvell,mvebu-sdram-controller.yaml
- F:	drivers/edac/armada_xp_*
- 
--EDAC-AST2500
--M:	Stefan Schaeckeler <sschaeck@cisco.com>
--S:	Supported
--F:	Documentation/devicetree/bindings/edac/aspeed,ast2400-sdram-edac.yaml
--F:	drivers/edac/aspeed_edac.c
--
- EDAC-BLUEFIELD
- M:	Shravan Kumar Ramani <shravankr@nvidia.com>
- M:	David Thompson <davthompson@nvidia.com>
--- 
-2.35.6
+Thank you
+David
 
+
+[ ... ]
+ > @@ -106,6 +106,11 @@ int st95hf_spi_recv_response(struct st95hf_spi_context 
+*spicontext,
+ >  	else
+ >  		len += receivebuff[1];
+ >
+ > +	if (len > buff_len) {
+ > +		mutex_unlock(&spicontext->spi_lock);
+ > +		return -E2BIG;
+ > +	}
+ > +
+
+Does this early return path leave the spi chip select (CS) permanently
+asserted?
+
+The first spi transfer uses .cs_change = 1 to keep the chip select active.
+Skipping the second transfer would prevent the chip select from being
+deasserted, potentially deadlocking the device.
+
+ >  	/* Now make a transfer to read only relevant bytes */
+ >  	tx_takedata.rx_buf = &receivebuff[2];
+ >  	tx_takedata.len = len - 2;
