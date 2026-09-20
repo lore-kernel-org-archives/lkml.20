@@ -1,99 +1,186 @@
-Received: from mta0.migadu.com (out-87.mta0.migadu.com [91.218.175.87])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21F053DBD76
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 07:42:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.87
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF1553E2AD6
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 07:42:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789890163; cv=none; b=tZrGGVXTdXOCFiALJNxJ3sw4F8yGeTw0jMYkd3HO/mwNod33C7KJr74zweT/ifBDMzzLLpmDZ1ppQ2xK9BicGN5NaNxBXThyHgy4IgN9DLZgqpqka6EKCBCDj3RLrA/6o0N5P9a0H/o+YUM3y5EV4X19Z9a/iC3oYRY6CiZM/3w=
+	t=1789890165; cv=none; b=qewSe7faCnDMJdT+O6qRFH8+yj+tWZSKcQr0Y8w1AdIII9CzEJIr2LcIlQOmwDCaYpTCJDX9MAGc5TnwHCIZy+hS0IlMRJV8sR2oZeNtQ48On7j5Zy/BmxVogSg+qKi+gYtClM78eDH2qJ/8mcdopQsyOhtcpsyCDNkj/gQuacU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789890163; c=relaxed/simple;
-	bh=XACIHRk7pvR3ne8CI5yYmGZaL8q2kgBI23W8AaJmnmw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AiEXYyYH1kA4UMDgMqKX9qkFC2XgUUIUsL/D+aMp74N1L8rGwcPVLaFprXvudK/PPfQdhX8lMowk6YfTennFJHBtOi1SE4kyVU1RWwmFMvpFPNw7grY9S1n3HgQdj1m+jrIyC6DWLH/ivaroo+ffhoQ5D/iYpPxI0JWftqzoONs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=hLqtI2js; arc=none smtp.client-ip=91.218.175.87
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789890165; c=relaxed/simple;
+	bh=sw0TWHNrZXMyx4yDOPYhfhj7BcPtnzBntl0bi224D4Q=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=aig+aWaj+s5WbE9vIUOdrAY14Rg+xBC8dZ/9jMqCnaq7OqOIj8AjmW4fuKN06nniIfW2K56v+EmwGgoS7/GksIzhBeo13GkUFkbccLIn7cGxBlWIXy2seMIjiA1MQUIKXsdSrKcLPy+9YuLuZ9w8Bi6YvajKxB5LD1H8aTZZPlU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=gxYfQPoj; arc=none smtp.client-ip=115.124.30.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="hLqtI2js"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=XACIHRk7pvR3ne8CI5yYmGZaL8q2kgBI23W8AaJmnmw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789890160; v=1; x=1790494960;
- b=hLqtI2jsb1Yi6iEZM0kP6YcXRZ/BParR6qhARgb/niOqQZdg4wc6QnflM31u6EHVwIXc4ayl
- kYHk6jsaJrF5Dabu9dPkmD3+TajvGV92MApTW9Eqj0yvYZjRaevpZ8PREQIlGreSTFbdbfKWMuh
- fidqhWWqbxiQSFU9sSHGV4kA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6ff25d7f64fa7a0b;
-	Sun, 20 Sep 2026 07:42:39 +0000
-X-Mizu-Trace-ID: 6ff25d7f64fa7a0b
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <327d0a31-7a04-4ec2-b184-c801a95750e9@linux.dev>
-Date: Sun, 20 Sep 2026 15:42:31 +0800
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="gxYfQPoj"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1789890160; h=From:To:Subject:Date:Message-Id:MIME-Version:Content-Type;
+	bh=nnCjHaq5u459BP4esI2iP1Ogb+B55p2baz8QQLyndy0=;
+	b=gxYfQPojOznp1vPqKCg5V6KN/IFOt8skLdw2pxvAEeSwhIBH1i6Pi0FAEst4D7Do0M8arjXymnNNpSM2L+YKFMaxssK426iBrINtR/hsWFbdHAXIVJdrF8tUmsqQ4C8epM/U3FXXFL3PeM/3ZF8xZFQeMuvqmyCRILIxGKFtSUU=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R361e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=28;SR=0;TI=SMTPD_---0XBFJGoU_1789890155;
+Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XBFJGoU_1789890155 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Sun, 20 Sep 2026 15:42:37 +0800
+From: fangyu.yu@linux.alibaba.com
+To: gsh517025@gmail.com
+Cc: alex@ghiti.fr,
+	andrew.jones@oss.qualcomm.com,
+	anup@brainfault.org,
+	aou@eecs.berkeley.edu,
+	atish.patra@linux.dev,
+	baolu.lu@linux.intel.com,
+	fangyu.yu@linux.alibaba.com,
+	gong.shuai@sanechips.com.cn,
+	guoren@kernel.org,
+	iommu@lists.linux.dev,
+	jgg@nvidia.com,
+	jgg@ziepe.ca,
+	joerg.roedel@amd.com,
+	joro@8bytes.org,
+	jroedel@suse.de,
+	kevin.tian@intel.com,
+	kvm-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	palmer@dabbelt.com,
+	pjw@kernel.org,
+	robin.murphy@arm.com,
+	skhawaja@google.com,
+	tomasz.jeznach@linux.dev,
+	vasant.hegde@amd.com,
+	will@kernel.org,
+	zong.li@sifive.com
+Subject: Re: [RFC PATCH v4 08/10] iommu/riscv: Pre-enable GADE for second-stage domains 
+Date: Sun, 20 Sep 2026 15:42:34 +0800
+Message-Id: <20260920074234.45479-1-fangyu.yu@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+In-Reply-To: <8572d404-8a33-4cd3-a14f-ebff7c2ac487@gmail.com>
+References: <8572d404-8a33-4cd3-a14f-ebff7c2ac487@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] irqchip/gic-v3: Lifetime and range fixes in the GICv3
- and ITS drivers
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
- Radu Rendec <radu@rendec.net>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Will Deacon <will@kernel.org>, Fuad Tabba <tabba@google.com>,
- stable@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260908142632.2795308-1-fuad.tabba@linux.dev>
-Content-Language: en-US
-From: Zenghui Yu <zenghui.yu@linux.dev>
-In-Reply-To: <20260908142632.2795308-1-fuad.tabba@linux.dev>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Fuad,
+>Hi Fangyu,
+>
+>On 9/20/2026 11:12 AM, fangyu.yu@linux.alibaba.com wrote:
+>>>Hi Fangyu,
+>>>
+>>>On 9/15/2026 11:28 AM, fangyu.yu@linux.alibaba.com wrote:
+>>>> From: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+>>>>
+>>>> Pre-enable RISCV_IOMMU_DC_TC_GADE in the device context when
+>>>> attaching a second-stage domain, if the IOMMU supports AMO_HWAD.
+>>>>
+>>>> Software pre-populates second-stage page tables with D set, so
+>>>> enabling GADE by default does not change normal behavior. When
+>>>> dirty tracking is enabled, iommufd clears the pre-set D bits and
+>>>> GADE becomes necessary for hardware to update the dirty bit on
+>>>> write access.
+>>>>
+>>>> This avoids toggling GADE dynamically and keeps device context
+>>>> setup consistent with second-stage domain attachment.
+>>>>
+>>>> Signed-off-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+>>>> ---
+>>>>   drivers/iommu/riscv/iommu.c | 2 ++
+>>>>   1 file changed, 2 insertions(+)
+>>>>
+>>>> diff --git a/drivers/iommu/riscv/iommu.c b/drivers/iommu/riscv/iommu.c
+>>>> index 16779877351b..f01fd4e2f840 100644
+>>>> --- a/drivers/iommu/riscv/iommu.c
+>>>> +++ b/drivers/iommu/riscv/iommu.c
+>>>> @@ -1330,6 +1330,8 @@ static int riscv_iommu_attach_paging_domain(struct iommu_domain *iommu_domain,
+>>>>   			FIELD_PREP(RISCV_IOMMU_DC_IOHGATP_MODE, pt_info.iohgatp_mode) |
+>>>>   			FIELD_PREP(RISCV_IOMMU_DC_IOHGATP_GSCID, domain->gscid) |
+>>>>   			FIELD_PREP(RISCV_IOMMU_DC_IOHGATP_PPN, pt_info.ppn);
+>>>> +		if (iommu->caps & RISCV_IOMMU_CAPABILITIES_AMO_HWAD)
+>>>> +			dc.tc |= RISCV_IOMMU_DC_TC_GADE;
+>>
+>> Hi Shuai:
+>>
+>>>
+>>>I might be missing something, but I don't see how the GADE bit set
+>>>here reaches the hardware IOMMU DC. In riscv_iommu_iodir_update()
+>>>(in patch 04/10), it looks like only the V bit is taken:
+>>>
+>>>	tc = READ_ONCE(dc->tc);
+>>>	tc |= new_dc->ta & RISCV_IOMMU_DC_TC_V;
+>>>	...
+>>>	WRITE_ONCE(dc->tc, tc);
+>>>
+>>
+>> You’re right — this is a real issue.
+>>
+>> GADE was being set in the software-side dc, but it was not
+>> propagated into the hardware DC in riscv_iommu_iodir_update().
+>>
+>> I have already fixed this in my local tree, and I’ll include the
+>> change in the next version of the patchset:
+>>      tc &= ~RISCV_IOMMU_DC_TC_GADE;
+>>      tc |= new_dc->tc & RISCV_IOMMU_DC_TC_GADE;
+>>      tc |= new_dc->ta & RISCV_IOMMU_DC_TC_V;
+>>
+>
+>One thought here, instead of updating individual TC bits one by one
+>in riscv_iommu_iodir_update(), could we transfer all software-configurable
+>bits from the incoming DC to the hardware DC in one go?
+>
+>Something like:
+>	...
+>	tc = (READ_ONCE(dc->tc) & ~GENMASK_ULL(11, 0)) |
+>		 (new_dc->tc & GENMASK_ULL(11, 0));
+>	...
+>	WRITE_ONCE(dc->tc, tc);
+>
+>I’m not sure whether this could have negative side effects.
+>
 
-On 9/8/26 10:26 PM, Fuad Tabba wrote:
-> Hi folks,
-> 
-> Three fixes to the GICv3 and ITS drivers, from reviewing the GIC series
-> floating around and chasing down Sashiko's reports.
-> 
-> The first releases the partition node that gic_irq_get_fwspec_info()
-> takes from of_find_node_by_phandle() and never puts. Sashiko raised it
-> on an of/irq patch of mine, and I said a fix was forthcoming [1].
-> 
-> The second widens the per-device MSI clamp, which truncates to zero when
-> GITS_TYPER.ID_bits is at its maximum and then denies every MSI on that
-> ITS. I couldn't find an implementation that reports that maximum, so
-> this is one value at the edge rather than something anyone is hitting.
-> It carries Cc: stable because the commit it fixes was itself
-> backported, so drop the tag if you'd rather.
-> 
-> The third clears vpt_page once its_vpe_teardown() has freed it, so the
-> NULL guard holds if teardown runs again on the same vPE.
-> 
-> Based on Linux 7.3-rc2 (df2908090cda3).
-> 
-> Cheers,
-> /fuad
-> 
-> [1] https://lore.kernel.org/all/CA+EHjTx7eP_30vP47=UFk_wMAut-2uf+2DF-MZqn2SLE_k-8qg@mail.gmail.com/
-> 
-> Fuad Tabba (3):
->   irqchip/gic-v3: Release the partition node in
->     gic_irq_get_fwspec_info()
->   irqchip/gic-v3-its: Don't clamp nvecs to zero when id_bits is 32
->   irqchip/gic-v3-its: Clear vpt_page after freeing the pending table
-> 
->  drivers/irqchip/irq-gic-v3-its.c | 3 ++-
->  drivers/irqchip/irq-gic-v3.c     | 7 ++++---
->  2 files changed, 6 insertions(+), 4 deletions(-)
+Hi Shuai:
 
-All look good to me.  Thanks for the fixes!
+That is a reasonable idea in principle.
 
-Reviewed-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
+However, TC bits may have different lifetimes and
+update rules, and several features such as ATS and
+PRI are still not implemented yet.
 
-Zenghui
+For now, I would prefer to keep the change minimal
+and only handle GADE here.
+
+Once the remaining features are in place, we can
+consider a broader cleanup and unify the handling
+of these bits.
+
+Thanks,
+Fangyu
+
+>>>I saw that you mentioned you tested it on QEMU. As far as I know,
+>>>mainline QEMU has not yet declared the AMO_HWAD capability. Could
+>>>you clarify whether you used a modified QEMU for this test?
+>>>
+>>
+>> I used mainline QEMU, not a modified one.
+>>
+>> In QEMU, I only tested the second-stage path with a
+>> VM using device passthrough.
+>>
+>> I did not test the dirty-log related part there,
+>> so that path cannot be covered there.
+>>
+>> That is why I noted in the TODO that I will build a
+>> dedicated test case for dirty log handling later.
+>
+>Sorry, I missed that TODO.
+>
+>
+>Thanks,
+>Shuai
+>
