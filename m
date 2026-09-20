@@ -1,139 +1,141 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013053.outbound.protection.outlook.com [40.107.201.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8538D23E334;
-	Sun, 20 Sep 2026 18:18:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEA8B38736F
+	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 18:18:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.53
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789928292; cv=pass; b=Sydw81HjT7Cfj8jo+w1bRwHE0wWShbM91aGMBc8CXIM6hdPov4dxPf4TDQQIS0535kmp3LmDZrOg1Mf7iBl8vIAkY+hRFbe96rBsFD3mJpx4D9MLTQmX8Gq2DHAPv9LvHaar1jFLfraKh7QYbjTxmC8jTLoPDHv4JNbZz4ZiXnA=
+	t=1789928297; cv=fail; b=ey90Rlu/DKkKNI/7GKcM5x+xPjg9Vmjb/ZMoQNghcOtkJA802JK4plocndK94anUVbE+4EA/Bk9aN9c8dIVgIbvujiNA8I9xTGugLIB+9uKGNVP29bhDAsYOUBdSu/C/wxd0+Cy9Y2wb44teNefoPnmLaaz1jWPM0JZU8UXo1y0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789928292; c=relaxed/simple;
-	bh=S+LOcEE1DbE35+dSTVsPbu8xY6UuKl8h6wobiBS0di4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=D7fNOhu8xs2+VumgMqSNuisKKLAhAwJzI6nEATiJ5NaBbm3b63iTudQqiMdyx2n039CHUGf8Yy8mHBs61niKGNsKrFZS/NgUomG0iUJapvTW6wTqpr6u8D7eytA81TrcJcPnTrnDxxwgvJsV6w5ozjPj/uIVBFqfY5Ngd5ZgkxY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=KH/V+zG7; arc=pass smtp.client-ip=136.143.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1789928297; c=relaxed/simple;
+	bh=JpZQr4rQ5aBBWX6vatPmpDx2eAHfo5G729GfeexYazk=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=W5SYf6Iw17OyR4IqPQQ5zPdVCo4ZcQT2vENj5bEcQqZCdVSH6VWbdidRIIxgFZ2kacXUH7B1udX8Jg6WSKZOfcIgJzqI+6ui82CvZ8FDqukdbT0gWxaug4Q4N9L0M784VqvW376z9CMOiqllQIKdsFVaPMFPU2AvE4+PQB6PhME=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=tpIGLFd+; arc=fail smtp.client-ip=40.107.201.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="KH/V+zG7"
-ARC-Seal: i=1; a=rsa-sha256; t=1789928282; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=SAEnyvZpKItdGgtrwdgNDa7dT/EjfXwLBb/WpFBZkReEP/2OIJEJBF5vJea3AdaqUVBqz5dlqjEefHJ3qHjMb0KHNhzhIKiAu9CVmOmxqMTmrPA6oKQrXuPVmbESNam/XZoaCIs+PjiMBv7C5Lmeemtqk/p19rnC4OheZf74zoc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1789928282; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=GFNHSv1bkiLsdkm43V7QlYc8Y5ZyVjeQhgBrgRct49w=; 
-	b=HRv+n9CP4ZLkPXKGGWXaXxxNx5rcWeszrsx022R2COaWcXFWAyAqMJrIHp1fzi/QBc+TbfZqRo86UHikxBK529yvemScuE2zo0dhtoy/ZTWlEJ1EJcUh5+j55XpMTTeOFuuiV2yQoj5TdrIHr0j/RMQhEg2hjs+QFLCsMVA31e8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
-	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789928282;
-	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=GFNHSv1bkiLsdkm43V7QlYc8Y5ZyVjeQhgBrgRct49w=;
-	b=KH/V+zG7bQ2krktLE8jd7CGhj2NhGFaNts1+cllKcOQMKu2sv5cbFJ5nOWJoIeaa
-	wCOdFpd4k8HX18/wS9MKix/AlUrvg5fE8JnChgUvX+6FEywf+WVPcoIKVMWg+WX5jsB
-	2QVPcpgyBFuDwmlFV4zwT8tNBwYv/ObPUWkInSiA=
-Received: by smtp.zohomail.com with SMTPS id 1789928281835764.7553887960684;
-	Sun, 20 Sep 2026 11:18:01 -0700 (PDT)
-Message-ID: <7452e614-91ff-48b8-b2ee-b01285985bf4@collabora.com>
-Date: Sun, 20 Sep 2026 21:17:57 +0300
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="tpIGLFd+"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mQU2tIhFZkiq6D4qimPYdKb5YcM6HuGckZ0tvQyBjDD8Sy1DGZRR5/H0w6Y5SyMlfas8meOEEVpnYIPO4YRwnp6YtBI154KfEU1Vnz3dXQxak3Kr/P9Ce64E9Bqfl9qOgTof7IQ8wmlAf4KptTsB4RL/E1JAU1n7xOmL3Be6CbZwPbtPDhapo0k/IOxS4s8I7iqbX3GIPJimx2Jgg1sAc5MOmDItD/Ablolz2bBzL1z1fTNt4zQ3UqHa1L7t5TTEPxE0Ff5ZAKx/4KKZrsujkAqlxVaFhzvBET/yg2XCfF6iRJFXatP/Wucgf3FSCtU+V6Gm/HU+HfQW44WnM0IYVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tOLgYwGo2mHOTT6dlmLIvEYxYMN5F9UA2Wsy6fk55Dg=;
+ b=nWu/YO3jRVTYRm+1IpeDSYW2cbnJdAtPyqi3Hw2VtU2ppitWhnURW5XOACY6RtTK/wLFthsY4SQUvfBczEK08n8Z5AC/R4tlUVwE9XIhsbsrGwGqnp63LwQCTogL7h9YZgUgcQSYFNJJctyac8nx5dRoWRIFUMTzt0NMLjhrSXVzUDyZQxVfhaqW5s9Hhgz7AqNMo2SJeC1mffDlcpL5Bj0fb6qNxpDSlCN1Xg2Ky2lM8IS4JHghmcf7k1m6auIePiwPD3zYZxyQEnSJXd9qmXiZPb5KfkrGnsxxLhoFblYZxXWtROslpXTpdDWnU1NKWyPmMJOnHTYCaMLue6p6Mw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tOLgYwGo2mHOTT6dlmLIvEYxYMN5F9UA2Wsy6fk55Dg=;
+ b=tpIGLFd+ImwGJhvQObCp/ICzccq7IPQuOmQ2qNYQ+Els30bpfA1PZx84NZfwa9PL1U4zUMqLwSsAyO0RpZwEaLeUisPJMMKEi/K6pvw4Z56cMdmmx2+03Amon3HWx6/ISq0E7GV/FiQjLFA6aPRK1CR8EHVihU2zJD8NQh6fqOo=
+Received: from BN0PR03CA0009.namprd03.prod.outlook.com (2603:10b6:408:e6::14)
+ by SJ0PR12MB6783.namprd12.prod.outlook.com (2603:10b6:a03:44e::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Sun, 20 Sep
+ 2026 18:18:11 +0000
+Received: from BN7PEPF0000009F.namprd04.prod.outlook.com
+ (2603:10b6:408:e6:cafe::a6) by BN0PR03CA0009.outlook.office365.com
+ (2603:10b6:408:e6::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.16 via Frontend Transport; Sun,
+ 20 Sep 2026 18:18:09 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN7PEPF0000009F.mail.protection.outlook.com (10.167.248.151) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Sun, 20 Sep 2026 18:18:09 +0000
+Received: from purico-9dcchost.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Sun, 20 Sep
+ 2026 13:18:09 -0500
+From: Melody Wang <huibo.wang@amd.com>
+To: <x86@kernel.org>
+CC: LKML <linux-kernel@vger.kernel.org>, Tom Lendacky
+	<thomas.lendacky@amd.com>, <ardb@kernel.org>, Melody Wang
+	<huibo.wang@amd.com>
+Subject: [PATCH v3 5/8] x86/sev: Add a function to contain all SEV-specific setup operations
+Date: Sun, 20 Sep 2026 18:16:57 +0000
+Message-ID: <8d0e7aaeb41a09bf30cabd1d6e36f43fdd0edc9c.1789927246.git.huibo.wang@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1789927246.git.huibo.wang@amd.com>
+References: <cover.1789927246.git.huibo.wang@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/virtio: fix memory leak of fence event on execbuffer
- failure
-To: Peiyang He <peiyang_he@smail.nju.edu.cn>, airlied@redhat.com,
- kraxel@redhat.com, dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- virtualization@lists.linux.dev, gurchetansingh@chromium.org
-References: <D320EAB5680C1411+20260908121323.2405044-1-peiyang_he@smail.nju.edu.cn>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <D320EAB5680C1411+20260908121323.2405044-1-peiyang_he@smail.nju.edu.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN7PEPF0000009F:EE_|SJ0PR12MB6783:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7715969e-3ddd-4da3-bb14-08df174386a6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|23010399003|1800799024|36860700016|22082099003|18002099003|56012099006|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	DzQNXtb7i77Lph9MHH6zL41Y47mBomGjxBdpgE2LFKLCQ268kp3DT92Avc3z8Jf8RfdhFBpRyGcQw9p7xuoWqPivhUuwfCfIXVjN9ruNTPn8GJj3SWp4QsA0X+y5XkOhy7e/25NWkwoYfL4Gw9tUTyHQo+eowyvNxTbEkobphO20XSOR/exORGfggpWwMD3UXKaegW7C/qpGShxbdALnaWKDniaJcVTZRDROwlIkffElUJ4HugCdZ58+a9LoHi0gLYIL4ve3U5W2vlbQOSXYd0abibGFhPuMj2flBOc5VoFmEwZazMYNaONtlNHXr9K4RjGiAgIImB/Yb2Qy4T+4xgxNqEHpTF1Tgi5MmAKisHA/WbXKSxSBFUXIoKiWSI8Jdf6BxmOSOBq0q0KwYsX5Ai//LP0grAqXJb0jBVh95oqNV/bak+26l1oT4XGY8u2h5ZlD7j3uacKKSI7KoO88wysXfAoo+EKeCwW8GZs6YoSee8CzehIWDkSfmEC0RqbqltcYcANvDyHM+ZyQhXJOaGhBxIv5qP6Eo3oM0a9vl2LJ2CjumO++zGE/wM8oADg3fWGVgsK0QL5hbFjNEKqLmKQz/rjuuTGOXYtT533s/v0mKGNAGzrxCp7MCMy+nmMzt88bW1oNqh4m+sOnVLM6j8zVTNBggQPqEdjYGePzAVmADqvcJfXAy7wqtqR7Obbx8rBbiGkGid/kQC7hcOxv5Q==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(23010399003)(1800799024)(36860700016)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	RUQNLMzX9iuUHaoOiG0ziNfPB48632TL+WTAkF9VheJeWsbjPjCTXD6I4Yi9yZc3/3zoY15p9jxOVqqcABAwvPG7c3rY5MLslRmCeyY0rdGsyl2Y8vslPK6cQar6uHKW0+qn1UtuN12tfOJm12xr9KD1a1TiXmiDcs6b8ofJc5FAcVYxN8AjGy8534YbbS/nkllMEdUVYPoFCZcGAU5vXXtXJXcxUbuXmV2Ev9i0lxY6USGtTp3c9zQGleJapvY+NbSneMTTIvIKkjfl+SbgjMnSJ3WjetR2LeDUHKpa+stnYrCht06QUZjMbthd633jjDlFKyYPP2qotXn+WVxe24Wc0qppI6V2Nvz91r5WPwNr2dGYa2DURnizGHkNrUkGAeO+w+V48JkjZTvjwPKxxonGI2F3Cx3crVh1pr1LUd/TnA0Vr71wrhRAZ58oomNs
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2026 18:18:09.8798
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7715969e-3ddd-4da3-bb14-08df174386a6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN7PEPF0000009F.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6783
 
-On 9/8/26 15:13, Peiyang He wrote:
-> virtio_gpu_execbuffer_ioctl() reserves a DRM event with
-> drm_event_reserve_init() when VIRTGPU_EXECBUF_RING_IDX selects a ring that
-> userspace has enabled polling for. virtio_gpu_init_submit() does this
-> before the BO handles, the command buffer, the syncobj arrays and the
-> in-fence are processed, so every later error path runs with the event
-> already pending, including plain argument validation failures such as an
-> invalid bo_handle or an in-syncobj that carries no fence.
-> 
-> On those paths, virtio_gpu_cleanup_submit() drops the out-fence without
-> cancelling the event. The fence is freed without ever having been emitted,
-> taking the only driver-side pointer to the event with it. Closing the DRM
-> file does not help. drm_events_release() unlinks pending events but
-> deliberately leaves the freeing to the driver's later drm_send_event(),
-> which never runs for an orphaned event, so the allocation is leaked
-> permanently.
-> 
-> Found when fuzzing the virtio driver with Syzkaller:
-> 
-> 	BUG: memory leak
-> 	unreferenced object 0xffff88802c176e80 (size 96):
-> 	comm "syz.1.367", pid 10561, jiffies 4294960122
-> 	hex dump (first 32 bytes):
-> 		00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-> 		c8 6e 17 2c 80 88 ff ff 00 00 00 00 00 00 00 00  .n.,............
-> 	backtrace (crc e1973c6b):
-> 		kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-> 		slab_post_alloc_hook mm/slub.c:4597 [inline]
-> 		slab_alloc_node mm/slub.c:4917 [inline]
-> 		__kmalloc_cache_noprof+0x49d/0x6f0 mm/slub.c:5485
-> 		_kmalloc_noprof include/linux/slab.h:988 [inline]
-> 		_kzalloc_noprof include/linux/slab.h:1309 [inline]
-> 		virtio_gpu_fence_event_create drivers/gpu/drm/virtio/virtgpu_submit.c:282 [inline]
-> 		virtio_gpu_init_submit drivers/gpu/drm/virtio/virtgpu_submit.c:398 [inline]
-> 		virtio_gpu_execbuffer_ioctl+0xbbf/0x1aa0 drivers/gpu/drm/virtio/virtgpu_submit.c:505
-> 		drm_ioctl_kernel+0x1f4/0x3e0 drivers/gpu/drm/drm_ioctl.c:817
-> 		drm_ioctl+0x5f4/0xc70 drivers/gpu/drm/drm_ioctl.c:914
-> 		vfs_ioctl fs/ioctl.c:51 [inline]
-> 		__do_sys_ioctl fs/ioctl.c:597 [inline]
-> 		__se_sys_ioctl fs/ioctl.c:583 [inline]
-> 		__x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
-> 		do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
-> 		do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
-> 		entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> 
-> Fix by cancelling and freeing the DRM event on the execbuffer error path
-> before dropping the fence. Clear the fence's event pointer after
-> cancellation so it does not retain a dangling pointer.
-> 
-> Fixes: cd7f5ca33585 ("drm/virtio: implement context init: add virtio_gpu_fence_event")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
-> Assisted-by: Codex:gpt-5.6-luna
-> ---
->  drivers/gpu/drm/virtio/virtgpu_submit.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_submit.c b/drivers/gpu/drm/virtio/virtgpu_submit.c
-> index 32cb1e4aa425..734b1e976a75 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_submit.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_submit.c
-> @@ -538,6 +538,10 @@ int virtio_gpu_execbuffer_ioctl(struct drm_device *dev, void *data,
->  	virtio_gpu_process_post_deps(&submit);
->  	virtio_gpu_complete_submit(&submit);
->  cleanup:
-> +	if (ret && submit.out_fence && submit.out_fence->e) {
-> +		drm_event_cancel_free(dev, &submit.out_fence->e->base);
-> +		submit.out_fence->e = NULL;
-> +	}
->  	virtio_gpu_cleanup_submit(&submit);
->  
->  	return ret;
+To make the code clean in the boot phase, add a sev_prepare() wrapper
+which contains early SEV-specific checks in order to have all that code
+in a single place.
 
-Applied to misc-fixes, thanks!
+No functional changes.
 
+Signed-off-by: Melody Wang <huibo.wang@amd.com>
+---
+ drivers/firmware/efi/libstub/x86-stub.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/firmware/efi/libstub/x86-stub.c b/drivers/firmware/efi/libstub/x86-stub.c
+index cef32e2c82d8..49388524a61f 100644
+--- a/drivers/firmware/efi/libstub/x86-stub.c
++++ b/drivers/firmware/efi/libstub/x86-stub.c
+@@ -783,7 +783,7 @@ static efi_status_t exit_boot(struct boot_params *boot_params, void *handle)
+ 	return EFI_SUCCESS;
+ }
+ 
+-static bool have_unsupported_snp_features(void)
++static bool sev_prepare(void)
+ {
+ 	u64 unsupported;
+ 
+@@ -933,7 +933,7 @@ void __noreturn efi_stub_entry(efi_handle_t handle,
+ 
+ 	hdr = &boot_params->hdr;
+ 
+-	if (have_unsupported_snp_features())
++	if (sev_prepare())
+ 		efi_exit(handle, EFI_UNSUPPORTED);
+ 
+ 	if (IS_ENABLED(CONFIG_EFI_DXE_MEM_ATTRIBUTES)) {
 -- 
-Best regards,
-Dmitry
+2.43.0
+
