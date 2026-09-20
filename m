@@ -1,43 +1,33 @@
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68E9629AAEA
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 18:46:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789929965; cv=pass; b=uxc0h1jJaORq7WLu+CIjc2998su3ly0TVg1f7boTVf5+B0wRqyChZQOO1rH7V31bfhHqYz6iOClHlNBd9sP5jTpD6GiJAfo3tTTiptMd0rpk29pj86pnOtr511yPriBGZf35382tNJoeQjxB3jUAW4H9gyrtiYKqPlIrBcOF59E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789929965; c=relaxed/simple;
-	bh=F6Y+MLDM+JXL8rqq6czB9z3rR0ghazSWPr88YnvLbZY=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B8E03559D6;
+	Sun, 20 Sep 2026 18:46:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789929967; cv=none; b=PKYQx5opBeo4lDHqx9EEQsHtxlJqsFktRm3+QX/E6kT1ItauFgncaxjD9Y0MhOjLw6F/8rZi9Im2Fht9Eog71qfOHx6awVtySHMep3Mwoi3y8PL7uvLFh5rgT/iNyyd9qtXA7wcQAZncN5AvMZDP7beSaMAuA21B8Q2nVm8p+R0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789929967; c=relaxed/simple;
+	bh=Q3uMs1G6z74jTt5qeS31A+mvx2NgAtq7cA44lxi9nrI=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NOBiOdteMX7viF4vzqPksP6lmjPKbLgOgp5GLcy5/SUvzd3UUIPi5VwHKLFEKW7r+UPNV3tzVS3TVsjXZ+N8Yjrcg2St+YTSG0uzxBurYyng1j0OSNPgVzFqUU4M3doUF6/LK2tfg3k8s37xamKt8uCyGdnNa5vchIsluR7gpQM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=CleB2wtH; arc=pass smtp.client-ip=165.173.180.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	 In-Reply-To:Content-Type; b=CJDSO/HEy9MQAh4nn5QTQuN84BKmr+hxdTDr42YVOR5BfF36iK2LAF5C7+/mzoGbRZ1zgcO7GORdF/ByndQcvJPwfqEuwSQUn90/jeh6DwyI/dsraRoJAEGScy02s5NHugKocJjtr/PlxJQ5zj5E6CtCdED7k0XVCZb91NPMtfw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IECg6RA8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="CleB2wtH"
-ARC-Seal: i=1; a=rsa-sha256; t=1789929947; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=NRs2clTLgJnqv+/Ul8ZlDdkM2YQwTKjanW2Z6g+UY3Nmegewgmbwhle+m7yOaDO/h3z1LuhfYj+4GE/ggx4O5X7dXOkDXmo7qPgOOnKORz1Ode4W/1aOy0GTRcSbP6hImDE/R2lLbccAEfQr85kzcVPukT8vD1//K5Fzpo8GkVc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1789929947; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=zWAkdkaXr2A8v4MHHNCbpflBVmDpPextgR9D9yVTBlA=; 
-	b=lo+uGESDs0YOWH+CtTG9gGDtS2Elz5zstTgD+Ji4VQWc6fL3RnM5QWsPE2znZj0IJthqyrmHIwvmhfFPInkdRYuy4TxYHaIyBcKtRYvOoBCCYauVYu5g/yhKeTPxl5KbGoKMC8DqMwpQeA7KkGv+KI8w2ZzTGZJxjPt3MUOoPfY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
-	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789929947;
-	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=zWAkdkaXr2A8v4MHHNCbpflBVmDpPextgR9D9yVTBlA=;
-	b=CleB2wtHYGBVkkhtyX1yMBOcy9SuQdaervBmSOSujVZluJ6RzxSYIldJJwStOpHP
-	MHhRR4IiXROJ3GomeabF/YvLO+ETFE7QvUS9BNaza1CIWXXigT/5oDPYtkLApJNZpR8
-	Lwmx6in06nKSy1HW6lRZYkvO6+IytdzI1cm4IIpc=
-Received: by smtp.zohomail.com with SMTPS id 1789929945502743.9803323265289;
-	Sun, 20 Sep 2026 11:45:45 -0700 (PDT)
-Message-ID: <aff09e71-e105-44c4-845b-90f33bfe26b6@collabora.com>
-Date: Sun, 20 Sep 2026 21:45:42 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IECg6RA8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 431801F000FF;
+	Sun, 20 Sep 2026 18:45:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789929965;
+	bh=7ynaufQVtyfTr5NQ4iLsrxfZxiHcy95lGY5BmduC6Mo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=IECg6RA8t5Y5NM/O2OoL6T2FKPBTNxPWYMFFG5dVV6UPBJlyurapze0Oxk9g14wsT
+	 BA6iMjkH6lhbW6ktnVI8U+D2PwRwruPh8xo/e42R0FJIibymnZmCTZuWT44yysLemY
+	 RAV6b0ezBUx5FQlFEP58xX2ToCAgJSSGvhQvIAZ0CA8UWcNDfbl1Du3koLWv1dhDeL
+	 LJdq+MapRumNtkV/j7xWJ/XxzbvxLeLN4D6Ua+9gV+rinWDUswdKlTUj6LYnxWqsO+
+	 HRiVrUM/J9T3Bdm3VK425koantZzNKVn4Z+NLlRu3tsM9cXf0OSGU+U639KHGcTVs+
+	 NWzZzI53CAtew==
+Message-ID: <7074efa0-17f3-45f9-9cde-301f81c68005@kernel.org>
+Date: Sun, 20 Sep 2026 20:45:54 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,47 +35,96 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/virtio: fix 0-byte blob ZERO_SIZE_PTR, GEM leak, and
- context_init rollback
-To: Hui Peng <benquike@gmail.com>, airlied@redhat.com, kraxel@redhat.com,
- gurchetansingh@chromium.org, olvaffe@gmail.com, tzimmermann@suse.de
-Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260919215232.3470178-1-benquike@gmail.com>
+Subject: Re: [PATCH 01/28] dt-bindings: sound: Add Apple Macs sound
+ peripherals
+To: James Calligeros <jcalligeros99@gmail.com>,
+ =?UTF-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Janne Grunau <j@jannau.net>,
+ Neal Gompa <neal@gompa.dev>, David Rhodes <david.rhodes@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Ulf Hansson <ulfh@kernel.org>, Amit Kucheria <amit.kucheria@linaro.org>,
+ "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+ Lars-Peter Clausen <lars@metafoo.de>, Vinod Koul <vkoul@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+ Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
+ James Schulman <james.schulman@cirrus.com>
+Cc: asahi@lists.linux.dev, linux-sound@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, patches@opensource.cirrus.com,
+ Takashi Iwai <tiwai@suse.de>, linux-mediatek@lists.infradead.org
+References: <20260920-macaudio-v1-0-741cc20a74e5@gmail.com>
+ <20260920-macaudio-v1-1-741cc20a74e5@gmail.com>
 Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <20260919215232.3470178-1-benquike@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+From: Sven Peter <sven@kernel.org>
+In-Reply-To: <20260920-macaudio-v1-1-741cc20a74e5@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 9/20/26 00:52, Hui Peng wrote:
-> Fix multiple issues in virtio-gpu VRAM mapping, blob creation, and context
-> initialization:
+Hi,
+
+On 20.09.26 06:53, James Calligeros wrote:
+> From: Martin Povišer <povik+lin@cutebit.org>
 > 
-> 1. In virtio_gpu_vram_mmap(), set vram->map_state = STATE_ERR if deferred
->    virtio_gpu_vram_map() fails so callers do not treat an unmapped VRAM
->    node as valid.
-> 2. In verify_blob(), reject rc_blob->size == 0 or size values that wrap
->    PAGE_ALIGN() to prevent kvmalloc_array(0, ...) from returning
->    ZERO_SIZE_PTR.
-> 3. In virtio_gpu_gem_create(), virtio_gpu_resource_create_ioctl(), and
->    virtio_gpu_resource_create_blob_ioctl(), use drm_gem_object_put()
->    instead of drm_gem_object_release() on error so the BO's free callback
->    is properly invoked.
-> 4. In virtio_gpu_context_init_ioctl(), stage context parameters into local
->    variables and only commit them to vfpriv after all parameters and
->    ring_idx_mask have been validated.
+> Add binding for Apple Silicon Macs machine-level integration of sound
+> peripherals.
 > 
-> Fixes: 16845c5d5409 ("drm/virtio: implement blob resources: implement vram object")
-> Fixes: 85c83ea915ed ("drm/virtio: implement context init: allocate an array of fence contexts")
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
+> Signed-off-by: Martin Povišer <povik+lin@cutebit.org>
+> Co-developed-by: James Calligeros <jcalligeros99@gmail.com>
+> Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
 > ---
+>   .../bindings/sound/apple,macaudio.yaml   | 235 +++++++++++++++++++++++++
+>   1 file changed, 235 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/apple,macaudio.yaml b/Documentation/devicetree/bindings/sound/apple,macaudio.yaml
+> new file mode 100644
+> index 000000000000..bd844c9928c9
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/apple,macaudio.yaml
+> @@ -0,0 +1,235 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/apple,macaudio.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Sound peripheral integration for Apple Silicon Macs
+> +
+> +description:
+> +  This binding represents the overall machine-level integration of sound
+> +  peripherals on Apple Silicon Macs, starting with the M1 series.
+> +
+> +maintainers:
+> +  - James Calligeros <jcalligeros99@gmail.com>
+> +
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - description: First-of-their-kind machines
+> +        items:
+> +          - enum:
+> +              - apple,j180-macaudio
+> +              - apple,j274-macaudio
+> +              - apple,j293-macaudio
+> +              - apple,j313-macaudio
+> +              - apple,j314-macaudio
+> +              - apple,j316-macaudio
+> +              - apple,j375-macaudio
+> +              - apple,j413-macaudio
+> +              - apple,j415-macaudio
+> +              - apple,j473-macaudio
+> +              - apple,j456-macaudio
+> +              - apple,j457-macaudio
+> +          - const: apple,macaudio
 
-Please split this patch to have one fix per one patch and make a v2. The
-same for your other patch.
+We've had some not-so-great experiences with these generic compatibles 
+in the past. I'd just drop it.
 
--- 
-Best regards,
-Dmitry
+
+
+Sven
+
