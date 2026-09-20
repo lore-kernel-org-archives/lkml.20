@@ -1,62 +1,55 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6993339394;
-	Sun, 20 Sep 2026 17:50:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFC2D47207E;
+	Sun, 20 Sep 2026 17:50:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789926657; cv=none; b=KxNc8ncvjpFc/7ByCfUCZgQkrSyWYzGJT4sUGcKskRrIMQsSmRUxQVQi4Bi4wRP5uMhDzNIjOdelM0/OHg6IFt/K+0JX3b08yCh0zeX36zzmeyVVTCLA60pWpiqbt2bToD43S5PMK8klo3yw1FO+tqNbysuY0hXjffyCpkGHpTo=
+	t=1789926660; cv=none; b=d8MTgHo+dmOOKswD8Y5TjFTD6WqsbTsVXRNQ84nD8N5CU83Fu1AZeBqd68sB11B4x7c5abuHAXZlaD45wj1q5NFsdGP+IpuU1nuToDDxebDnovnFw+LizkFdd49b9lcHLTx/mb0/pztN+Qhf33DgfsBE+v9s4OMePtcB4xFN3+k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789926657; c=relaxed/simple;
-	bh=iluovNO9tbvFJPUuqsbE4neWvGMroohmhwwcYTm9J3M=;
+	s=arc-20240116; t=1789926660; c=relaxed/simple;
+	bh=YIF66qllk6GtYeJ+gCXlEew+S2dXgsn/uJ/jKw126qg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GJspnbLKJ0fkDfFRIbbXpx8QS5+zrR2Fwv2JBWC8tu4GA7G/bgRrpT248Vde4tidofb+5YPdY/kYI9/cMECdzO9XhN/JGpJQ168VnSPrUd1y1qnaSpQTkHwWOmHKhMTan8aKqDebl6XZHr9vgb3mHzMmTHUl8PVkJLeX/RQI788=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LtvFjb2M; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=lA+kEaVZ/4ABZHO6zjlQjLIpIA0KhJpQdoySIrdJKDNpUZ7R26uqBphINvTU2cNn7ujDrBd2vgWnT2r1s2e+lc7P87huwK8cyRL5cbum8cz/JezJt0tN9pvfqqhQ4/tZ0/6eVeVlZMI+IjWUpbLcn85oNkOdVrZDfL32oCrQBh4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PuT6B4IH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LtvFjb2M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E7CA1F000FF;
-	Sun, 20 Sep 2026 17:50:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PuT6B4IH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E43741F00893;
+	Sun, 20 Sep 2026 17:50:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789926656;
-	bh=sh6PD9neCYVc9sJyYUFzkZ0D4zgOkh6toUXpB1T0aB8=;
+	s=k20260515; t=1789926659;
+	bh=WEiHJJqTfb53NKSiO3STRwLVThzo4igrI6pvysvlz2k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LtvFjb2M6FPDou6/QcYuYhhzbj8rXKQcJdAWwbMZn7FyJAtRPZsFKTPrZschuDLam
-	 NV/Bxxbb1BhQkcHe2pawe5dzwf7DURtCr0eLRUjc7zMogAohbp6T8L4WFZ7FZxPosj
-	 3ckpovqHFhVu3hoUMNBuBwfbvmzrg4T7iTPLrNhACGw/Uje1t0tUnIuHnpk/wWFpSO
-	 /XyBMIVlxrVSRdApLhh7GDsutz3oBhP3ZLntjzlA8eORNpNdZFFkNQNNjklBgVLQBM
-	 5zcW7NVtMicTEFGhGHA1ygs+X6zruGEk/NimdlkKyBOfaDNidQEolOGVodWvfkZ6fM
-	 5h9/agtOLFPzg==
+	b=PuT6B4IHXVNDvr43Ky7hmATBjGxsVpCN+yNdTcJ78QdbbIRxQLEwt0PZyAsRZiBKd
+	 nCQabesgz4L0RuXtBBXhRyEChPu/FafWfDrLNXoCnLuphDvW8CL3e5buE4FWHMgfeM
+	 +Nl7awnyaH9I/Re2o2awgM6N/fg79qJaicx4Xsp+blTjfodFK0/wIWT21DeRTt9TOz
+	 pbjuwg1/QLLLNCGuRv48nTusMTe10eyNo3HjFejtFO9Yb690aRRz/opzYv48HmWXUG
+	 Th/0JYHPUIaTpWKc3/nIjS6V6HBlqim9q4nYiTT6iqpsQ4d4WIb7WSf2dqSqJ0RLqx
+	 Qz7mc3XU+LJFw==
 From: Sasha Levin <sashal@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	stable@vger.kernel.org,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Eric Dumazet <edumazet@google.com>
+To: stable@vger.kernel.org,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Jozsef Kadlecsik <kadlec@netfilter.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	David Ahern <dsahern@kernel.org>,
+	Florian Westphal <fw@strlen.de>
 Cc: Sasha Levin <sashal@kernel.org>,
-	patches@lists.linux.dev,
+	Benjamin Robin <benjamin.robin@bootlin.com>,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	torvalds@linux-foundation.org,
-	akpm@linux-foundation.org,
-	linux@roeck-us.net,
-	shuah@kernel.org,
-	patches@kernelci.org,
-	lkft-triage@lists.linaro.org,
-	pavel@nabladev.com,
-	jonathanh@nvidia.com,
-	f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com,
-	rwarsow@gmx.de,
-	conor@kernel.org,
-	hargar@microsoft.com,
-	broonie@kernel.org,
-	achill@achill.org,
-	sr@sladewatkins.com,
-	"Barry K. Nathan" <barryn@pobox.com>
-Subject: Re: [PATCH 6.12 0000/1102] 6.12.111-rc1 review
-Date: Sun, 20 Sep 2026 13:50:38 -0400
-Message-ID: <2026-09-20-daily-reply-0006-re-ipv6-mcast-rtnl-requeue@kernel.org>
+	"Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+Subject: Re: [PATCH 6.12.y 0/3] netfilter: nf_conntrack_expect: use conntrack GC to reap expectations
+Date: Sun, 20 Sep 2026 13:50:40 -0400
+Message-ID: <2026-09-20-daily-reply-0008-re-nf-conntrack-expect-gc@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <98538a44-63c3-455e-96f3-00124a825f9f@pobox.com>
-References: <98538a44-63c3-455e-96f3-00124a825f9f@pobox.com>
+In-Reply-To: <20260918-cve-2026-80668-v2-v1-0-fcefceb49144@bootlin.com>
+References: <20260918-cve-2026-80668-v2-v1-0-fcefceb49144@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -65,24 +58,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> I have now retested with 6.12.110 + stable-queue as of commit
-> afa3d2e7536e9034a4917d4b6e228a99d5bd7aa6 on my ThinkPad T14 Gen 1. I can
-> no longer reproduce this kernel warning (as expected with the patches
-> being dropped for now), and it's working well, and I have not observed
-> any other regressions.
->
-> Tested-by: Barry K. Nathan <barryn@pobox.com>
+> Backported two other patches in order for the fix to apply cleanly.
 
-Thanks for retesting so quickly.
+Thanks for splitting this per tree, but could you respin? This applies to the
+6.6.y and 6.1.y postings too.
 
-The complete ordered set is back in the 6.12 queue, with the missing
-prerequisite in front this time, so the assertion is retired before the
-patches that stop taking RTNL land.
+6.18.y carries the bug and has no series, so all three are blocked behind it.
+Your 6.12 patches 1/3 and 2/3 apply to 6.18 unchanged, and 3/3 fails only three
+hunks, all because 6.18 spells timer_delete() and timer_container_of() where
+6.12 has del_timer() and from_timer(), on
+deleted lines only.
 
-6.6 and 5.15 are held for now. The conversion needs the two TI cpsw
-follow-ups that fix the ndo_set_rx_mode path, and those need
-disable_work_sync(), which neither tree has, so they need adapted
-backports first. I have asked Kevin Hao for them.
+Patch 3/3 has no "[ Upstream commit b8b09dc2bf35a00d4e0556b5d6308c7b917ebda2 ]"
+line, so the CVE fix would land with no upstream reference.
+
+Patches 2/3 and 3/3 carry no Signed-off-by from you.
+
+In 2/3 the new "return false" in nf_ct_gre_keymap_add() is wrong here:
+the function returns int on these trees, where 0 is success, so the
+error path reports success. It needs a negative errno.
+
+The series is missing 4aa63842fc92 ("netfilter: nf_conntrack_expect: add
+and use nf_ct_expect_related_pair()"), Fixes: b8b09dc2bf35, already in
+7.1.y and 7.2. Without it the SIP and H.323 helpers re-insert
+expectations they have just unexpected.
+
+The Stable-dep-of: 979c13114c0b trailer on 1/3 and 2/3 names a commit
+the series never applies.
 
 -- 
 Thanks,
