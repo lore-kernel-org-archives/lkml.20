@@ -1,39 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 085B433A032;
-	Sun, 20 Sep 2026 05:33:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EBE53D6664;
+	Sun, 20 Sep 2026 05:36:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789882396; cv=none; b=Lp9SwW3uzdeU9BYDuGEzBv3DWnKkCPz/1XEOyshvD/eoPwhA5u50u8VG5M9INmBbVQST2O11+ITVSBx66MEXBJRajhUUhIrfUc4Znr0tOlw0Rr34fB3smuNtAoy78EEgigVDx8yvXGz153B0fB4mg9uiL4OLqJVVgWnWsESSdoo=
+	t=1789882591; cv=none; b=guXykLYlrokEZ5WdH7Q3sYkgQW8uidE0SWf2CKW0qFeHlQRuf5EQBNEUko6IjQLdPqgugba/95+sy4jCI3JatSlvOqmmphLC3WK6sgsRbjm3kGDz5b2iNIiGK39rFdbTxxc3Sy/XHbaFzPv9gODg6oGmFU0ALK5uxsq8vzf3wKw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789882396; c=relaxed/simple;
-	bh=XoI4edhgGdJwKp1braSraZxTUwY/6MF2IB/Zf9rijRY=;
+	s=arc-20240116; t=1789882591; c=relaxed/simple;
+	bh=J+1Jh9o2qiwvJqeTp9hdZcVFdwLvu3larl5CMX2B+XQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VxSTCijKYxK5ENrFhdBVgHYgaoQ1hCJL4/QiHL6IRvW+IfN7+k0FnMfJUqvNE4Xd3Tt1gsZqQdxNOuV9WnfB4vLIgTvoD8gtUX8YJDaDHxFQhTZRfrBHU6iDhPFFenAPcaCnQ3ooe8KRvPim3osMiRzR571O3saiuTm8hzvRVQQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XaWpLJLy; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=AUGmS9TsVA3GTq8uOdyw5AXLgAlb6//NHdLAktGe3L1hZ59p71F9exzM8GjXOECjLeR1fHlrDGr9VBqALca3VFagbEAdechUo0OYc3qHnPMu6FIzMPn1oBOlKpbEN/e4gJJmdYEZNQR5KiUbWS0zcGH/N9o9b67n+Ame6hKA8jo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=T/p/9p5t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XaWpLJLy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28AEC1F000FF;
-	Sun, 20 Sep 2026 05:33:13 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="T/p/9p5t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 247921F000FF;
+	Sun, 20 Sep 2026 05:36:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789882394;
-	bh=Y/i6a0OEEE7rLVyx44EXUL7JzU2Uku6WGdpxRD85biI=;
+	s=korg; t=1789882589;
+	bh=fWrBhysyw42qClS8B0lj8HQDSpNC/Rg4f42Pu01QRGs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XaWpLJLy0a/h3ad/wcbTxJ+mFlLR6vlaleygTdzy6uPTyi9QdTrxyT7iOltfFvCU6
-	 ht1wbFbo0wfVrgRlAAvb3I4AOUDqaHxgSXlAKJdClnyGWdn0NooHTmkzP4vpKcdvhZ
-	 CfU64p36eh15Ae99LBEtk0aY56Gpcx4DAj8WQwg4=
-Date: Sun, 20 Sep 2026 06:31:17 +0100
+	b=T/p/9p5tBuONOoT6lEvlMdvfLEGSyib15uOjmzJCmkkLfRH0cc25qDKzFs+OPRFXZ
+	 ROO+aooJUNP+TK03UirR1qFfHzHBB+LEucngpM7OoPMH+a20MbR4LTpxidC85eOumT
+	 KYCXdJc/qMayspfjlY2zHdN+IA9U/oR7YUNWfQHM=
+Date: Sun, 20 Sep 2026 06:34:32 +0100
 From: Greg KH <gregkh@linuxfoundation.org>
-To: Hui Peng <benquike@gmail.com>
-Cc: Jiri Slaby <jirislaby@kernel.org>, john.ogness@linutronix.de,
-	linux-serial@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] serial: fix 8250 hash_mutex race and
- uart_get_baud_rate() divide-by-zero
-Message-ID: <2026092054-dish-ship-2841@gregkh>
-References: <20260919222627.3797854-1-benquike@gmail.com>
- <2026092001-judicial-coherence-46a5@gregkh>
- <CAKpmkkV+Gk11x0wCbT1dK8FDraaCb0q=ALS+Tnj0wM+EcMt-SA@mail.gmail.com>
+To: Kees Cook <kees@kernel.org>
+Cc: Bill Wendling <morbo@google.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Gow <david@davidgow.net>, Petr Mladek <pmladek@suse.com>,
+	Shuvam Pandey <shuvampandey1@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>, nikitash.mariiaw@gmail.com,
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v2 5/9] seq_buf: Add seq_buf_strlen()
+Message-ID: <2026092037-antsy-shrapnel-6139@gregkh>
+References: <20260919002658.stay.929-kees@kernel.org>
+ <20260919002714.4060307-5-kees@kernel.org>
+ <2026091953-cherub-empty-ef35@gregkh>
+ <202609191326.4042FC4@keescook>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,14 +48,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAKpmkkV+Gk11x0wCbT1dK8FDraaCb0q=ALS+Tnj0wM+EcMt-SA@mail.gmail.com>
+In-Reply-To: <202609191326.4042FC4@keescook>
 
-On Sat, Sep 19, 2026 at 10:20:48PM -0700, Hui Peng wrote:
-> You are right, I apologize for that.  I have stopped submitting new ones,
-> working on the submitted ones.
+On Sat, Sep 19, 2026 at 02:15:58PM -0700, Kees Cook wrote:
+> On Sat, Sep 19, 2026 at 08:38:37AM +0100, Greg KH wrote:
+> > On Fri, Sep 18, 2026 at 05:27:03PM -0700, Kees Cook wrote:
+> > > +static inline size_t seq_buf_strlen(struct seq_buf *s)
+> > > +{
+> > > +	if (WARN_ON(s->size == 0))
+> > > +		return 0;
+> > 
+> > Why WARN_ON()?  Are you wanting to just mint new CVEs with this code
+> > path, do we not give out enough already?  :)
+> > 
+> > I can see returning 0, if it's empty, but isn't that a valid check for
+> > people to wish to know at times?  Why crash the box?  (remember about
+> > panic-on-warn being enabled in a few billion Linux instances...)
+> 
+> We have to figure out a line somewhere. :P Making a seq_buf with size 0
+> is a nonsense construction, but seq_buf_init is non-allocating, so
+> there's no feedback about setting it to size 0. We could move the WARN
+> to the init? I was just following the existing style here.
 
-Please fix your email client to not top-post or send html email, as that
-is rejected from the mailing lists :(
+WARN on the init makes more sense, but even then it feels odd as if we
+wanted to make a seq_buf with data from a device or userspace, we would
+have to verify the size is non-zero _before_ creating the seq_buf or we
+would crash.  So someone has to check the "untrusted" data somewhere,
+right?
+
+And why can't we have buffers of 0 size work just fine?  What prevents
+that?  People have "empty" strings for lots of things.
 
 thanks,
 
