@@ -1,103 +1,182 @@
-Received: from mail-oo2-f8.google.com (mail-oo2-f8.google.com [74.125.231.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ED643CBE6D
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 05:18:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B6653C4557;
+	Sun, 20 Sep 2026 05:18:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789881488; cv=none; b=u3eQERBKXNAZOEDbY1UoelnWa0ZAjJTeGFtWcNcfj/Oj7R9POLGNs2LFzy/sRiUYelXix90erBrtyxsW6kZnqQeDNrOSYHITQcWfSzvFhzeap35PS74FnTy3p78B6rZTsbtBxmzjq7njzrRhHS0xvecwELLmr5CIi4xO7O9/rx0=
+	t=1789881498; cv=none; b=jSSF3CKlbEF6il3zmkK3G8nW/PutNboKxI0FGJ3aK3b+1/pCqyQJnBOx+z5UxpebHyP0+7ndskgl+DJPWdd+KtX+N7OaH4PU0x2jk45JnlrdAb0tE2F5w5Jva/dL467LFG8s/ujekR3lK1JHZulEj+OsOtyjirexTuP8yZ/5vHc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789881488; c=relaxed/simple;
-	bh=qio30BBoJgNtCXMiZsiYGpqURN/Ug560k5Han0gxn+E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JPIMg3vCDpi/skyae2jMPcohXOINfVOpyGgPQ8SUFNEAS+DUsKiCZFepyRZKWdkQyFuewAJ6JWNnmOV103hbpBJCrSlTXnRy38NZH/7TQTUgTkktjxyHXYfKAkJcedXAuxBeoNO09Z3xrPZKu17RITyjSwQ4Qpq9HxkoVvvD+7A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QTUBTSnh; arc=none smtp.client-ip=74.125.231.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QTUBTSnh"
-Received: by mail-oo2-f8.google.com with SMTP id 006d021491bc7-6b1ca037684so66856eaf.0
-        for <linux-kernel@vger.kernel.org>; Sat, 19 Sep 2026 22:18:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789881484; x=1790486284; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qio30BBoJgNtCXMiZsiYGpqURN/Ug560k5Han0gxn+E=;
-        b=QTUBTSnhmc2cI4Qhs11uPePlJt3zwaGvPe/l0T8YX1qJktU+Jo/2CdoY/XLPAEEYCo
-         jkXItKiYhfdoLRy2tXryA7OkvWokLkYt7Sokos3egUFK+Nb4gu2Z+9UVW3q6SPZwrfpk
-         Q287tq8uj9b4dgeu+/7abMZKqjPNL3mvTIKYRYAspcdGYX0PUgnXPk10OowZcj9LRcHU
-         A0Ofa4o2UnkVDeej5p2jUUUCHmLTwZ1KzIp0IOFTKnFYZz3rVVD1G2uWMhki9zhK2Vq1
-         Yw152lMEv2Q3UpPGL/mpKDBamVplAlOo7Qm8F+11K0iEM+6hDkhMzuJd6OEo2hjWb1Y6
-         9Fzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789881484; x=1790486284;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qio30BBoJgNtCXMiZsiYGpqURN/Ug560k5Han0gxn+E=;
-        b=kOMtJLg+2bCzD5EgWIyTOLAIWGwKImCMFH0sGh5mqG+SmvxG/BiyQLP9kN2EmOT7re
-         Wxnuk1y9+0qe+dhH+gDrXvnmisceRcnCaLDz5V9iGKQFsQES1k2RSRnoUzcbvK/bKWtc
-         add3/Kafj8eMRR3bBxeXj7v8r+MZ4x7oQc4y7oW3tUsyX7aGcs34DHmFQC4yTJcWXfHX
-         IJcP+O5R3MxxIPYUVgHTnoU3iJPs1BHmAR7jRk0vnu9iF0EtIJURmn/kUQqPnWfZIHGI
-         5cje2fCQp0OK/k+HxablBAiZTio+E/kcukRCSeytZnjiiQBMoDL4n9vzexhji28zZKrR
-         88Wg==
-X-Forwarded-Encrypted: i=1; AKwUvBytAK5U+b7zU1NlqQRaAiibgTpQJ3SUGNqJmlfprga/aBsw0LUiBlKJRoj5oP0ZRwYKGNTgggmfzT1nS0k=@vger.kernel.org
-X-Gm-Message-State: AFuF++nbIDWfy7K8wISopPx7TdWmRJm2RUHjMeo1s/wFgy5ejgGSx5eb
-	dWyoQ8O9AtrXio3u/ZF5w1JXQD5Do5LamI4hAeP+jlfWTctGLSXsLsFZ
-X-Gm-Gg: AYBFou1DGmXdtJzfJpAG5DqcEm3hG3qSwTA1Fld5poTqoZVWYEqIh/ep+8AdK1PK2O+
-	JLOXxskD6fdxCFgF+J0WONBoZwj9GtjpsfinKHVnH6g5DkmGg2YyxylB+5QjyFN/JaeIzw8orAq
-	M8W6s7PkQR29DVswfmeNaoZtpo9W9lvrEOiOXHg+qGjjea6Vsbf39yxFa6Pel+AAICWBQ8XCI77
-	7mA9Lg9azJspaVRuocGfmJvW71jDEXL2z60QMGhnv3PAOwpmw1pIQYp4VTd/5iuAwQUHw877oar
-	pJznF1c88o2xvpLwm1eZZcW7lERjT70T1NzF1PJYgLpfUVjRYgGRTQbxZFVerEiESqZuCJm3DHO
-	ucOwnhHHrrZEK2vDLtCy/bBAdVGTrwhYUwfV9+Lc7ecDfhAskdbDooUzvXb3od131Gyz6TSLu/y
-	1C0qCS0ZNcLgn5CNyT6nMFYx/2Hg5fx1NM6QWK8aDCrmNsowivnrDuNNyXFAiLoM0tY3asTr18s
-	ObVk6WkXlUpeP8=
-X-Received: by 2002:a05:6820:2219:b0:6b1:2843:1312 with SMTP id 006d021491bc7-6ca972e90f2mr6018628eaf.0.1789881484271;
-        Sat, 19 Sep 2026 22:18:04 -0700 (PDT)
-Received: from ?IPV6:2600:8804:5716:d800::2620? ([2600:8804:5716:d800::2620])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6cd320d5c30sm5494232eaf.2.2026.09.19.22.18.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 19 Sep 2026 22:18:02 -0700 (PDT)
-Message-ID: <1c1b2958-dbcc-4a8f-8d7f-d2eaaebc941b@gmail.com>
-Date: Sun, 20 Sep 2026 00:18:00 -0500
+	s=arc-20240116; t=1789881498; c=relaxed/simple;
+	bh=1AdTZrjEG5rVm64Wy23q6UY0iEhLPLMZtuoUctrq8do=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Arjy8NRMXM3VplukQ7lcpV7HBl+6fQ/A5YuYHFrEjdVDyLxM6nN1H1BS4zE7nvNgUsfIhCldXRa3lUj5MA7THU5h3h2BGlefh4e/f3ZhsHsHplbA8HPuc/Rh2MxVlNZftNAS4SEpua8Tjx8/9zpBDqOztoOqODJ87/uSlEWwiik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.103.44])
+	by APP-03 (Coremail) with SMTP id rQCowADX4D6HbK9qQxUuCA--.44669S2;
+	Sun, 20 Sep 2026 13:17:59 +0800 (CST)
+Message-ID: <58c888729f24169a9f487bf8c4240a6d45ee6fe5.camel@iscas.ac.cn>
+Subject: Re: [PATCH 2/3] pmdomain: spacemit: Add power domain driver
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Yixun Lan <dlan@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, Paul
+ Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+ <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-pm@vger.kernel.org
+Date: Sun, 20 Sep 2026 13:17:58 +0800
+In-Reply-To: <20260919231333-GKB322102@kernel.org>
+References: <20260918-04-k3-pm-support-v1-0-0acd2b36b96f@kernel.org>
+	 <20260918-04-k3-pm-support-v1-2-0acd2b36b96f@kernel.org>
+	 <a4359efeee2220903a05a2383a651ec8ec7284b7.camel@icenowy.me>
+	 <20260918230107-GKC297024@kernel.org>
+	 <33b33b2b79763d410bc2e5b4ef46c305aaf6f7c8.camel@icenowy.me>
+	 <20260919095936-GKA322102@kernel.org>
+	 <8301abce221e33d827053c54a64aed05f3227f7f.camel@icenowy.me>
+	 <20260919231333-GKB322102@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/3] iio: adc: add mt6397 PMIC AUXADC support
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Lee Jones <lee@kernel.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- mfd@lists.linux.dev, Roman Vivchar <rva333@protonmail.com>,
- Luca Leonardo Scorcia <l.scorcia@gmail.com>
-References: <20260917-rbrue-suez-upstreaming-mt6397-auxadc-v2-0-db35882a6080@gmail.com>
- <aqzl29C_R4zwAnDK@ashevche-desk.local>
-Content-Language: en-US
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-In-Reply-To: <aqzl29C_R4zwAnDK@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:rQCowADX4D6HbK9qQxUuCA--.44669S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxXrWDKFWfAF13ZF18tw48tFb_yoW5tF4kpF
+	WUGa1UKa1kJr1ayr1Ut3WUXa4UK3y8Jr4UWrn8J348XrZ0vr1rKr1xtr98uF97Xr18Gw12
+	qr1DtryfW3W8A3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvqb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
+	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
+	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
+	1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
+	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
+	wI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
+	v20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
+	jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0x
+	ZFpf9x07betCcUUUUU=
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-On 9/18/26 2:18 AM, Andy Shevchenko wrote:
->> Cc'd Luca.
-> Instead of this, just put the real Cc: email tag here
-> Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Done in v3.
+=E5=9C=A8 2026-09-19=E5=85=AD=E7=9A=84 23:13 +0000=EF=BC=8CYixun Lan=E5=86=
+=99=E9=81=93=EF=BC=9A
+> Hi Icenowy,
+>=20
+> On 21:56 Sat 19 Sep=C2=A0=C2=A0=C2=A0=C2=A0 , Icenowy Zheng wrote:
+> > =E5=9C=A8 2026-09-19=E5=85=AD=E7=9A=84 09:59 +0000=EF=BC=8CYixun Lan=E5=
+=86=99=E9=81=93=EF=BC=9A
+> > > Hi Icenowy,
+> > >=20
+> > > On 14:57 Sat 19 Sep=C2=A0=C2=A0=C2=A0=C2=A0 , Icenowy Zheng wrote:
+> > > > =E5=9C=A8 2026-09-18=E4=BA=94=E7=9A=84 23:01 +0000=EF=BC=8CYixun La=
+n=E5=86=99=E9=81=93=EF=BC=9A
+> > > > > Hi Icenowy,=20
+> > > > >=20
+> > > > > On 17:00 Fri 18 Sep=C2=A0=C2=A0=C2=A0=C2=A0 , Icenowy Zheng wrote=
+:
+> > > > > > =E5=9C=A8 2026-09-18=E4=BA=94=E7=9A=84 02:40 +0000=EF=BC=8CYixu=
+n Lan=E5=86=99=E9=81=93=EF=BC=9A
+> > > > > > > =C2=A0 SpacemiT's PMU (Power Management Unit) consist of
+> > > > > > > several
+> > > > > > > power
+> > > > > > > domains
+> > > > > > > which can be managed independently, depending on
+> > > > > > > different
+> > > > > > > application
+> > > > > > > scenario, each domain can be powered on/off for saving
+> > > > > > > power.
+> > > > > > >=20
+> > > > > > > =C2=A0 The driver is implemented based on Linux Generic PM
+> > > > > > > Domain
+> > > > > > > framework.
+> > > > > > > From a hardware perspective, either of two distinct
+> > > > > > > power-on
+> > > > > > > sequences
+> > > > > > > are supported, in software mode (SW mode), the driver is
+> > > > > > > responsible
+> > > > > > > for
+> > > > > > > controlling the states of bits such as sleep1, sleep2,
+> > > > > > > isolation
+> > > > > > > and
+> > > > > > > pwr_state, while in hardware mode (HW mode), the PMU
+> > > > > > > hardware
+> > > > > > > will
+> > > > > > > complete
+> > > > > > > the sequence automatically without requiring software
+> > > > > > > intervention.
+> > > > > >=20
+> > > > > > I think there also exists solutions for K3 that uses RPMI
+> > > > > > power
+> > > > > > domains, and let their ESOS firmware to access the
+> > > > > > hardware.
+> > > > > >=20
+> > > > > Yes, I'm aware of that
+> > > > >=20
+> > > > > > What's the relationship of this implementation with the
+> > > > > > ESOS
+> > > > > > implementation? Should the ESOS part be disabled to use
+> > > > > > this
+> > > > > > implementation?
+> > > > > >=20
+> > > > > I should say, it's a mutually exclusive solution, so yes, the
+> > > > > ESOS
+> > > > > part
+> > > > > should be disabled in order to use this version
+> > > > >=20
+> > > > > The motivation of this patch is trying to support drm/display
+> > > > > driver's
+> > > > > PM requirement, while avoid going with vendor's complicated
+> > > > > RPMI
+> > > > > solution
+> > > > > which isn't mainline ready
+> > > >=20
+> > > > Is this a long-term solution, or a temporary one?
+> > > >=20
+> > > For upstream, I'd say we probably will stick to this solution for
+> > > long time, won't say it 'forever', see comment below..
+> > >=20
+> > > > If it's a temporary conflicting one, I don't think it's worth
+> > > > picking
+> > > > at all.
+> > > >=20
+> > > Well, checked current Linux kernel status, there is no RPMI PM
+> > > solution=20
+> > > implemented although there is documentation in riscv-rpmi spec[1]
+> >=20
+> > I have seen pending patch for it with multiple revisions [1], the
+> > dt
+> > binding is even already ACKed by Conor, so I think it's not a big
+> > problem here.
+> >=20
+> That's exactly what I said - it's not mature, not saying it's pending
+> patch for review, but for whole solution that involve Linux driver,
+> opensbi and underlying fimware (ESOS) - which not upstream-ed..
 
-Thank you!
+Except for the MPXY part (which seems to be already mainlined), OpenSBI
+is only a RPMI consumer.
 
-Best regards,
-Ryan Brue
+ESOS is vendor-specific thing and its version from the vendor already
+contains the RPMI implementation.
+
+The Linux driver also appears earlier and received more review than
+this driver.
+
+For not reinventing the wheel, it would be better to work on the RPMI
+PM driver.
+
+Thanks,
+Icenowy
+
+>=20
+> To make it clear, I'm not going to pursue the RPMI solution, but if
+> someone insist and willing to spend the effort, please feel free to
+> push
+
