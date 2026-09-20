@@ -1,138 +1,133 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 600913101D8
-	for <linux-kernel@vger.kernel.org>; Sun, 20 Sep 2026 23:11:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 351FF3101D8;
+	Sun, 20 Sep 2026 23:12:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789945875; cv=none; b=NLI+W8tpf7ML4XsGqqjylKT71uXJBVDkZ+ffnQ5CX8shSCm5IH41MXj8ttjS/tSK9mkLMf5d2QKnb85ePxGUfpwsFgO7idMUkr3T7L6UZH33RsTG6R9RG7PFajGNWTqdtih0qzsD8g1mImRJ90KAQXHV/5uIqm8lb/8NSG8+ew8=
+	t=1789945975; cv=none; b=FQM2y0W20p0u1lMICvM0BK3UVNQt20HX2zoa3j3rYmaf22Au51fSYzpm2v7bXCjdSaTRzSZ4Ev9z9rQef61tI8e11VOjirvwKwA4lsY8+i6Z6U08KJG0meRTPezIihULIBCKzhm00ZHnHEpTqyE6tQblHs2I5655FbPfd3/ffWE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789945875; c=relaxed/simple;
-	bh=r/Q7xOGjuhSsTQZ0oQGJPDB1gz9hAO0+rIf6e+nJ67Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dUGDPhkfZgq7XCSge7Ta3NzpmuA0JpdlCIRsAMSRlvR7NBqPAwhBDYhnSR6QC43wjtTdnJinmR+ZvH7AQr/6dqvFPk/8QBD3L3G4LZsvWjWNi0zvrDeiXBgNzXLjKSGT/kgcKroMsPQmg6iMgpeIuxY+RgekL1fPosNh5YyVBx8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=CZmiS614; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1789945975; c=relaxed/simple;
+	bh=LCRUysfsapger5qII5haQW2fZlnZpz54C2CWKa90IYw=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=PIH6/YirO9czbS4DhtRAh0VaJ8Y1TytbOsGwi678i9T6eeNv6FQwu0lIa8H/KE/2XvYoAc2aw517Asp2VSKAHLLz/Y729H2zyphFMi7dLdvYe01nqigvBNL9+SlA0izB2sFO8LHCs8IVwW4xl+TrBz62kMxJPO5yoaGAMAoVOS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PvX7J3pp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="CZmiS614"
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id C657F53401EA;
-	Mon, 21 Sep 2026 01:11:09 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1789945869;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=gK9sdeoG0WLes1fBXkVWatZGV3xrtHkH43aqgaARslg=;
-	b=CZmiS614Xlz4b2Gdz0cMTIUxChFaH6ueSVyNEg2RnrL7u/9P+Ir76jx+EviAZn8NnS248L
-	EdWmz06O7CGHcxxKuoKCZIAPrZraLdlppmHjUptZDbiZ8HdynsEv5LQa3Ds+8695HlPQvD
-	8f3XBPoZZJYaEFbVCjLheWmzrqhD/LA=
-Message-ID: <11725791-f4c5-4b8e-b17f-bedc679adbf8@ixit.cz>
-Date: Mon, 21 Sep 2026 01:11:09 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PvX7J3pp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85F141F000FF;
+	Sun, 20 Sep 2026 23:12:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789945973;
+	bh=REvsamT6nFuEZGzPZG/booSz80KigYCuietwm5lGnLo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=PvX7J3ppy2kztjYCWp6K3twn1JRcqUHHgUID9p590ct/osRnbjYWPJws02dOJnxxY
+	 NKlf7jJMOrDvqUfLbsOvCRU/3rQsnxQs4/rC3gDLArLajtUer9FYbf5S2XcOuQZXN0
+	 vQ1miDJRmYnBAS4QkhQTt1CjbM6F++GyJd8H4ZThX0axOk8zoti+kPgeJXW++WRhNj
+	 7QzkypwX1yX+LYUG0tCL1o1X7IDgcLzufZ0lxmoBB8WAC0s/nANkyeIlxwgGeqRM3d
+	 6YYQMyVBh+Ckrxth0xhrUzLxr1rF8NoQtt8Hw3VI4jChBcwE5FMkMdq0Ez44DhsJUm
+	 9KeJ+dXi9cCbg==
+Date: Mon, 21 Sep 2026 00:12:46 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Nuno =?UTF-8?B?U8Oh?= <noname.nuno@gmail.com>
+Cc: Antoniu Miclaus <antoniu.miclaus@analog.com>, Nuno =?UTF-8?B?U8Oh?= 
+ <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
+ David Lechner <dlechner@baylibre.com>, Rob Herring	 <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley	
+ <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan	
+ <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, Marcelo
+ Schmitt <marcelo.schmitt@analog.com>, Joshua Crofts
+ <joshua.crofts1@gmail.com>, Radu Sabau	 <radu.sabau@analog.com>, Salih Erim
+ <salih.erim@amd.com>, Jishnu Prakash	 <jishnu.prakash@oss.qualcomm.com>,
+ Jakub Szczudlo <jakubszczudlo40@gmail.com>, linux-iio@vger.kernel.org,
+ linux@analog.com, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org
+Subject: Re: [PATCH v2 0/6] iio: adc: ade9000: add ADE9430 support
+Message-ID: <20260921001246.72cf14ab@jic23-hlaptop>
+In-Reply-To: <9fc012985151b1b79b5d6e3f16738397ac9f837f.camel@gmail.com>
+References: <20260918073537.1572-1-antoniu.miclaus@analog.com>
+	<9fc012985151b1b79b5d6e3f16738397ac9f837f.camel@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] nfc: pn533: fix OOB read in
- pn533_acr122_is_rx_frame_valid()
-To: Deepanshu Kartikey <kartikey406@gmail.com>, johan@kernel.org
-Cc: kuba@kernel.org, error27@gmail.com, gregkh@linuxfoundation.org,
- sameo@linux.intel.com, michael.thalmeier@hale.at,
- oe-linux-nfc@lists.linux.dev, linux-kernel@vger.kernel.org,
- syzbot+1853daab1a47603d4678@syzkaller.appspotmail.com
-References: <20260912040351.15056-1-kartikey406@gmail.com>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20260912040351.15056-1-kartikey406@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On 12/09/2026 06:03, Deepanshu Kartikey wrote:
-> frame->ccid.datalen is read directly from the USB response frame
-> and used, unchecked, as an index into frame->data[]. A malicious or
-> malfunctioning device can set this field to an arbitrary value,
-> causing the driver to read far outside the received buffer.
-> 
-> Bound ccid.datalen against the maximum possible ACR122 frame size
-> before using it. This replaces the existing datalen == 0 check,
-> since datalen < 2 already covers that case and additionally
-> rejects datalen == 1, which would still underflow the
-> "datalen - 2" offset used below.
-> 
-> Fixes: 9815c7cf22da ("NFC: pn533: Separate physical layer from the core implementation")
-> Reported-by: syzbot+1853daab1a47603d4678@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=1853daab1a47603d4678
-> Tested-by: syzbot+1853daab1a47603d4678@syzkaller.appspotmail.com
-> Assisted-by: Claude (Anthropic)
+On Fri, 18 Sep 2026 16:27:30 +0100
+Nuno S=C3=A1 <noname.nuno@gmail.com> wrote:
 
-Hello Deepanshu,
+> On Fri, 2026-09-18 at 10:35 +0300, Antoniu Miclaus wrote:
+> > The ADE9430 is a polyphase energy metering device from the same family =
+as
+> > the ADE9000. It is register-compatible with the ADE9000 but omits the
+> > on-chip dip/swell detection and has no on-chip digital integrator; it
+> > relies on an external analog integrator for Rogowski coil current senso=
+rs.
+> >=20
+> > This series adds ADE9430 support to the existing ade9000 driver, reusing
+> > the dip/swell-less channel table introduced for the ADE9078 and adding a
+> > matching chip_info for the ADE9430 full-scale codes. A precursor patch
+> > gates the DICOEFF register write behind a has_digital_integrator chip_i=
+nfo
+> > flag so it is skipped on parts without an on-chip digital integrator.
+> >=20
+> > Patches 1 and 2 are standalone fixes carried with this series. Patch 1
+> > corrects the ADE9000 full-scale RMS/PCF codes to the same family-A valu=
+es
+> > the ADE9430 uses. Patch 2 fixes the DIPC event never being handled or
+> > cleared, found by the sashiko review of v1. Both carry Fixes: tags and =
+can
+> > be applied independently of the rest of the series.
+> >=20
+> > Changes in v2:
+> > - new patch: fix the DIPC event never being handled or cleared, found by
+> > =C2=A0 the sashiko review of v1 (patch 2).
+> > - new precursor patch: gate the DICOEFF write behind a has_digital_inte=
+grator
+> > =C2=A0 chip_info flag, split out of the ADE9430 support patch.
+> > - reuse ade9078_channels for the ADE9430 instead of adding a duplicate
+> > =C2=A0 channel table.
+> > - reword the documentation intro to "The supported parts are..." so it =
+does
+> > =C2=A0 not need updating for each new part.
+> >=20
+> > v1:
+> > https://lore.kernel.org/linux-iio/20260907101623.8730-1-antoniu.miclaus=
+@analog.com/
+> >=20
+> > Antoniu Miclaus (6):
+> > =C2=A0 iio: adc: ade9000: fix ADE9000 full-scale RMS and PCF codes
+> > =C2=A0 iio: adc: ade9000: fix DIPC event never being handled or cleared
+> > =C2=A0 dt-bindings: iio: adc: adi,ade9000: add adi,ade9430 compatible
+> > =C2=A0 iio: adc: ade9000: gate the DICOEFF write behind a chip_info flag
+> > =C2=A0 iio: adc: ade9000: add support for ADE9430
+> > =C2=A0 docs: iio: ade9000: document ADE9430 support
+> >=20
+> > =C2=A0.../bindings/iio/adc/adi,ade9000.yaml=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 | 22 ++++++-----
+> > =C2=A0Documentation/iio/ade9000.rst=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 36 +++++++++=
+--------
+> > =C2=A0drivers/iio/adc/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 |=C2=A0 1 +
+> > =C2=A0drivers/iio/adc/ade9000.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 | 39 ++++++++++++++++---
+> > =C2=A04 files changed, 67 insertions(+), 31 deletions(-)
+> >=20
+> >=20
+> > base-commit: edb91bc566576f6664a3efbad6bd4205aa1d5259 =20
+>=20
+> LGTM
+>=20
+> Reviewed-by: Nuno S=C3=A1 <nuno.sa@analog.com>
+LGTM2.  Just need to give some time for dt-binding reviewers to
+take a look.
 
-thank you for the patch, could you please correct the Assisted-by tag?
+Thanks,
 
-See: https://docs.kernel.org/process/coding-assistants.html
-
-Thanks
-David
-
-> Link: https://lore.kernel.org/all/20260906054336.20187-1-kartikey406@gmail.com/T/ [v1]
-> Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
-> 
-> ---
-> Changes in v2:
-> - Replace the existing "if (!frame->ccid.datalen)" check instead of
->    adding the new bounds check alongside it, since the new check
->    already subsumes it (per Johan Hovold).
-> ---
->   drivers/nfc/pn533/usb.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
+J
